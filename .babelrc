@@ -1,0 +1,11 @@
+{
+  "presets": ["env", "react"],
+  "plugins": [
+    "inline-react-svg",
+    ["react-css-modules", {
+      "filetypes": {
+        ".scss": "postcss-scss"
+      }
+    }]
+  ]
+}

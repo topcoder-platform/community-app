@@ -1,0 +1,9 @@
+{
+  "rules": {
+    // In this folder we have just Webpack configuration files, thus dev
+    // dependencies are permitted.
+    "import/no-extraneous-dependencies": [
+      "error", { "devDependencies": true }
+    ]
+  }
+}
