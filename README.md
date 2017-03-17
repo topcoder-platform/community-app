@@ -13,6 +13,7 @@ This App already contains:
 - Babel with latest JS support both client- and server-side;
 - ESLint (AirBnB style);
 - Express server;
+- Hot reload of JS code and SCSS styles in dev environment;
 - Loading of .svg assets as ReactJS components with babel-plugin-inline-react-svg
 - React;
 - React CSS Modules (via Babel plugin);

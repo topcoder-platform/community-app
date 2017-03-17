@@ -7,8 +7,8 @@ import './style.scss';
 export default function App() {
   return (
     <div className="App">
-      <h1>Hello World!</h1>
-      <p>Topcoder is the best!</p>
+      <h1>Hello World!132</h1>
+      <p>Topcoder is the best!rferfr</p>
       <Icon width={150} height={150} stroke="green" />
       <Mod1 />
       <Mod2 />

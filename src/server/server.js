@@ -8,6 +8,8 @@ import path from 'path';
 
 import html from './App';
 
+const IS_DEV = process.env.NODE_ENV === 'development';
+
 const app = express();
 
 /* Uncomment once favicon is included into the project. */
@@ -16,6 +18,27 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
+
+/* Setup of Webpack Hot Reloading for development environment. */
+/* eslint-disable global-require */
+/* eslint-disable import/no-extraneous-dependencies */
+if (IS_DEV) {
+  const webpack = require('webpack');
+  const webpackConfig = require('../../config/webpack/development');
+  const webpackDevMiddleware = require('webpack-dev-middleware');
+  const webpackHotMiddleware = require('webpack-hot-middleware');
+  const compiler = webpack(webpackConfig);
+  app.use(webpackDevMiddleware(compiler, {
+    name: 'bundle.js',
+    noInfo: true,
+    publicPath: webpackConfig.output.publicPath,
+    serverSideRender: true,
+  }));
+  app.use(webpackHotMiddleware(compiler));
+}
+/* eslint-enable global-require */
+/* eslint-enable import/no-extraneous-dependencies */
+
 app.use(express.static(path.resolve(__dirname, '../../build')));
 
 app.use('/', (req, res) => res.send(html));

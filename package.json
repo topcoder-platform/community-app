@@ -4,13 +4,14 @@
   "description": "Topcoder community website",
   "main": "index.js",
   "scripts": {
-    "build:dev": "webpack --env=dev --progress --profile --colors",
-    "build": "webpack --env=prod --progress --profile --colors",
+    "build": "webpack --env=production --progress --profile --colors",
+    "build:dev": "webpack --env=development --progress --profile --colors",
+    "dev": "NODE_ENV=development node ./bin/www",
     "lint": "npm run lint:js; npm run lint:scss",
     "lint:js": "eslint --ext .js,.jsx .",
     "lint:scss": "stylelint \"src/**/*.scss\"",
-    "__start": "webpack-dev-server --env=dev --content-base build/",
-    "start": "node ./bin/www",
+    "postinstall": "npm run build",
+    "start": "NODE_ENV=production node ./bin/www",
     "test": "npm run lint"
   },
   "repository": {
@@ -34,6 +35,7 @@
     "babel-preset-react": "^6.23.0",
     "babel-register": "^6.24.0",
     "body-parser": "^1.17.1",
+    "config": "^1.25.1",
     "cookie-parser": "^1.4.3",
     "debug": "^2.6.3",
     "express": "^4.15.2",
@@ -61,7 +63,8 @@
     "stylelint": "^7.9.0",
     "stylelint-config-standard": "^16.0.0",
     "webpack": "^2.2.1",
-    "webpack-dev-server": "^2.4.2",
+    "webpack-dev-middleware": "^1.10.1",
+    "webpack-hot-middleware": "^2.17.1",
     "webpack-merge": "^4.0.0"
   }
 }

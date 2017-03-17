@@ -3,11 +3,8 @@
  */
 
 import _ from 'lodash';
-import debugFactory from 'debug';
 import http from 'http';
 import app from './server';
-
-const debug = debugFactory('test:server');
 
 /**
  * Normalizes a port into a number, string, or false.
@@ -57,7 +54,7 @@ function onError(error) {
 function onListening() {
   const addr = server.address();
   const bind = _.isString(addr) ? `pipe ${addr}` : `port ${addr.port}`;
-  debug(`Listening on ${bind}`);
+  console.log(`Server listening on ${bind} in ${process.env.NODE_ENV} mode`);
 }
 
 /* Listens on provided port, on all network interfaces. */
