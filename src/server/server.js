@@ -6,7 +6,10 @@ import logger from 'morgan';
 import path from 'path';
 // import favicon from 'serve-favicon';
 
-import appMiddleware from './appMiddleware';
+// Temporarily here to test our API service.
+// import '../shared/services/api';
+
+import renderer from './renderer';
 
 const IS_DEV = process.env.NODE_ENV === 'development';
 
@@ -41,7 +44,7 @@ if (IS_DEV) {
 
 app.use(express.static(path.resolve(__dirname, '../../build')));
 
-app.use(appMiddleware);
+app.use(renderer);
 
 /* Catches 404 and forwards it to error handler. */
 app.use((req, res, next) => {

@@ -2,11 +2,18 @@
  * Client-side rendering of the App.
  */
 
-import { BrowserRouter } from 'react-router-dom';
+import { BrowserRouter, browserHistory } from 'react-router-dom';
 import React from 'react';
-import ReactDOM from 'react-dom';
-import Routes from '../shared/routes';
+import { render } from 'react-dom';
+import { Provider } from 'react-redux';
 
-ReactDOM.render(
-  <BrowserRouter><Routes /></BrowserRouter>,
+import App from '../shared';
+import store from '../shared/store';
+
+render(
+  <Provider store={store}>
+    <BrowserRouter history={browserHistory}>
+      <App />
+    </BrowserRouter>
+  </Provider>,
   document.getElementById('react-view'));

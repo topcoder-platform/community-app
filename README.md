@@ -15,26 +15,25 @@ This App already contains:
 - Express server;
 - Hot reload of JS code and SCSS styles in dev environment;
 - Loading of .svg assets as ReactJS components with babel-plugin-inline-react-svg
+- Node-Config;
 - React;
 - React CSS Modules (via Babel plugin);
+- React Router;
+- Redux with Flux Standard Actions and DevTools for dev environment;
 - SCSS support;
 - Stylelint for scss (standard Stylelint style);
 - Webpack;
 
 Pending high-priority staff (these block further development of Submission Management page):
-- Development environment is not ready yet;
 - Font loading;
 - Isomorphic fetch and Topcoder API Auth;
-- React Router;
-- Redux;
+- Redux Promise Middleware;
+- Redux support during server-side rendering;
 
 Pending low-priority staff (these are important, but can be added along the way):
 - Autoprefixer;
 - CircleCI deploys;
 - react-css-themr (https://github.com/javivelasco/react-css-themr);
-- redux-devtools;
-- redux-devtools-log-monitor;
-- redux-devtools-dock-monitor;
 - StyleFMT;
 - Unit testing;
 - Webpack Dashboard (https://github.com/FormidableLabs/webpack-dashboard);

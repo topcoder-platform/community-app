@@ -6,7 +6,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom/server';
 import { StaticRouter } from 'react-router-dom';
-import Routes from '../shared/routes';
+
+import App from '../shared';
 
 export default (req, res) => {
   const appHtml = ReactDOM.renderToString((
@@ -14,7 +15,7 @@ export default (req, res) => {
       context={{}}
       location={req.url}
     >
-      <Routes />
+      <App />
     </StaticRouter>
   ));
   res.send((

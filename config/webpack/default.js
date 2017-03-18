@@ -8,7 +8,7 @@ module.exports = {
   module: {
     rules: [{
       test: /\.jsx?$/,
-      exclude: /(bower_components|node_modules)/,
+      exclude: /node_modules\/(?!appirio-tech.*|topcoder|tc-)/,
       loader: 'babel-loader',
       /* Babel-loader is configured by .babelrc in the project's root folder. */
     }, {

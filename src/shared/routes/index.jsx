@@ -2,6 +2,7 @@
  * The top-level routing of the App.
  */
 
+import 'isomorphic-fetch';
 import React from 'react';
 import {
   Switch,

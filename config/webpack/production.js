@@ -29,6 +29,11 @@ module.exports = webpackMerge(defaultConfig, {
     }],
   },
   plugins: [
+    new webpack.DefinePlugin({
+      'process.env': {
+        NODE_ENV: JSON.stringify('production'),
+      },
+    }),
     new ExtractTextPlugin('style.css'),
     new OptimizeCssAssetsPlugin(),
     new webpack.optimize.UglifyJsPlugin(),
