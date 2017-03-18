@@ -17,7 +17,7 @@ This App already contains:
 - Loading of .svg assets as ReactJS components with babel-plugin-inline-react-svg
 - React;
 - React CSS Modules (via Babel plugin);
-- SASS support;
+- SCSS support;
 - Stylelint for scss (standard Stylelint style);
 - Webpack;
 

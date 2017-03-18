@@ -2,8 +2,11 @@
  * Client-side rendering of the App.
  */
 
+import { BrowserRouter } from 'react-router-dom';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from '../shared/App';
+import Routes from '../shared/routes';
 
-ReactDOM.render(<App />, document.getElementById('react-view'));
+ReactDOM.render(
+  <BrowserRouter><Routes /></BrowserRouter>,
+  document.getElementById('react-view'));

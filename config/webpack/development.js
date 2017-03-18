@@ -17,7 +17,7 @@ module.exports = webpackMerge(defaultConfig, {
       use: ['style-loader', {
         loader: 'css-loader',
         options: {
-          importLoaders: 1,
+          importLoaders: 2,
           localIdentName: '[path]___[name]__[local]___[hash:base64:5]',
           modules: true,
         },
@@ -26,7 +26,7 @@ module.exports = webpackMerge(defaultConfig, {
         options: {
           plugins: [],
         },
-      }],
+      }, 'sass-loader'],
     }],
   },
   plugins: [
