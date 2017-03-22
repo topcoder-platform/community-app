@@ -1,4 +1,5 @@
 import _ from 'lodash';
+import atob from 'atob';
 import bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser';
 import express from 'express';
@@ -14,6 +15,12 @@ import renderer from './renderer';
 const IS_DEV = process.env.NODE_ENV === 'development';
 
 const app = express();
+
+/* tc-accounts App was designed for browser environment, and its decodeToken()
+ * function (which we would like to use server-side as well) depends on global
+ * atob() method, which is present in browser, but not in NodeJS. This is the
+ * fix. */
+global.atob = atob;
 
 /* Uncomment once favicon is included into the project. */
 // app.use(favicon(path.resolve(__dirname, '../../build/assets/favicon.ico')));

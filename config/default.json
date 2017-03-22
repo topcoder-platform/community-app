@@ -1,0 +1,15 @@
+/* All availalbe configuration options should be documented in the default
+ * config file, even when they are overriden in every custom configuration. */
+{
+  /* Connector URL of the TC accounts App. */
+  "ACCOUNTS_APP_CONNECTOR_URL": "https://accounts.topcoder-dev.com/connector.html",
+
+  "COOKIES": {
+    /* Expiration time [days] for browser cookies set by the App. */
+    "MAXAGE": 7,
+
+    /* If true the cookies set by this App will only be transmitted over secure
+     * protocols like https. */
+    "SECURE": false
+  }
+}

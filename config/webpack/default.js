@@ -1,10 +1,11 @@
 const path = require('path');
+const webpack = require('webpack');
 
 const context = path.resolve(__dirname, '../..');
 
 module.exports = {
   context,
-  entry: './src/client/App',
+  entry: './src/client',
   module: {
     rules: [{
       test: /\.jsx?$/,
@@ -22,6 +23,15 @@ module.exports = {
     path: path.resolve(__dirname, '../../build'),
     publicPath: '/',
   },
+  plugins: [
+    new webpack.DefinePlugin({
+      'process.env': {
+        /* Some isomorphic code relies on this variable to determine, whether
+         * it is executed client- or server-side. */
+        FRONT_END: true,
+      },
+    }),
+  ],
   resolve: {
     extensions: ['.js', '.json', '.jsx'],
   },
