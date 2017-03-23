@@ -5,6 +5,7 @@
  */
 
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 import './style.scss';
 
@@ -33,12 +34,24 @@ export default function Content() {
           React CSS Modules (with
           <code>babel-plugin-react-css-modules</code>);
         </li>
+        <li>
+          Redux with Flex Standard Actions, redux-promise middleware,
+          and a custom pattern of server-side data fetching;
+        </li>
         <li>SCSS styles;</li>
         <li>
           Stylelint for SCSS (standard Stylelint style, run with
           <code>$ npm run lint:scss</code>;
         </li>
         <li>Webpack;</li>
+      </ul>
+      <h3>Examples</h3>
+      <ul>
+        <li>
+          <Link to="/examples/data-fetch">Data Fetch</Link> - Demonstrates how data fetching should be implemented in
+          isomorphic way, using Redux with Flux Standard Actions and
+          promise;
+        </li>
       </ul>
     </div>
   );

@@ -12,10 +12,15 @@ import {
 import Content from '../components/examples/Content';
 import Error404 from '../components/Error404';
 
+/* TODO: As we move towards production deploy, we should add a guard which
+ * will prevent addition of /examples routes into production build. */
+import Examples from './examples';
+
 export default function Routes() {
   return (
     <Switch>
       <Route exact path="/" component={Content} />
+      <Route path="/examples" component={Examples} />
       <Route component={Error404} />
     </Switch>
   );

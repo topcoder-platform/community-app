@@ -17,15 +17,15 @@
 import { combineReducers } from 'redux';
 
 import { factory as authFactory } from './auth';
-import example from './example';
+import { factory as examplesFactory } from './examples';
 import { resolveReducers } from '../utils/redux';
 
 export function factory(req) {
   return resolveReducers({
     auth: authFactory(req),
+    examples: examplesFactory(req),
   }).then(reducers => combineReducers({
     ...reducers,
-    example,
   }));
 }
 

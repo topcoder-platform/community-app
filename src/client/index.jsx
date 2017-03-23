@@ -17,6 +17,10 @@ import config from '../shared/config';
 import App from '../shared';
 import storeFactory from '../shared/store-factory';
 
+/* TODO: The iframe injected into the page by this call turns out to be visible
+ * as a tiny nob (~3x3 px). It has html ID `tc-accounts-iframe` (as specified in
+ * this call). We should hide it by adding the proper side in our stylesheet,
+ * or to figure out, why it is not hidden by default.  */
 configureConnector({
   connectorUrl: config.ACCOUNTS_APP_CONNECTOR_URL,
   frameId: 'tc-accounts-iframe',
