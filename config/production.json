@@ -1,3 +1,7 @@
 {
-  "ACCOUNTS_APP_CONNECTOR_URL": "https://accounts.topcoder.com/connector.html"
+  "ACCOUNTS_APP_CONNECTOR_URL": "https://accounts.topcoder.com/connector.html",
+  "API": {
+    "V2": "https://api.topcoder.com/v2",
+    "V3": "https://api.topcoder.com/v3"
+  }
 }

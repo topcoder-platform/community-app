@@ -2,6 +2,7 @@
  * Reducer for state.auth.
  */
 
+import _ from 'lodash';
 import { handleActions } from 'redux-actions';
 import { decodeToken } from 'tc-accounts';
 
@@ -14,13 +15,15 @@ import actions from '../actions/auth';
  */
 function create(initialState) {
   return handleActions({
-    [actions.auth.setTcToken](state, action) {
-      return {
-        ...state,
-        token: action.payload,
-        user: decodeToken(action.payload),
-      };
-    },
+    [actions.auth.setTcTokenV2]: (state, action) => ({
+      ...state,
+      tokenV2: action.payload,
+    }),
+    [actions.auth.setTcTokenV3]: (state, { payload }) => ({
+      ...state,
+      tokenV3: payload,
+      user: payload ? decodeToken(payload) : null,
+    }),
   }, initialState || {});
 }
 
@@ -32,9 +35,14 @@ function create(initialState) {
  * @return Promise which resolves to the new reducer.
  */
 export function factory(req) {
-  const token = req && req.cookies ? req.cookies.tct : null;
-  const user = token ? decodeToken(token) : null;
-  return Promise.resolve(create({ token, user }));
+  const cookies = (req && req.cookies) || {};
+  const tokenV3 = cookies.tctV3 || null;
+  const state = {
+    tokenV2: cookies.tcjwt || null,
+    tokenV3,
+    user: tokenV3 ? decodeToken(tokenV3) : null,
+  };
+  return Promise.resolve(create(state));
 }
 
 /* Default reducer with empty initial state. */
