@@ -16,9 +16,8 @@ const devTools = IS_DEV
   ? require('./containers/DevTools').default.instrument()
   : undefined;
 
-const enhancer = compose(
-  applyMiddleware(promiseMiddleware),
-  devTools);
+let enhancer = applyMiddleware(promiseMiddleware);
+if (IS_DEV) enhancer = compose(enhancer, devTools);
 
 /**
  * Creates Redux store.
