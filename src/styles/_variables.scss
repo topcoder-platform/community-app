@@ -1,0 +1,121 @@
+// Variables
+
+// Table of Contents
+//
+// Base
+// Colors
+// Typography
+
+// 
+// Base unit and corner radius are to be used instead of direct pixel dimensions.
+// 
+// Make sure to use them with with multiples to create a harmonic ratios and even 
+// spacing at your components layout (paddng, margins) and typography (line height)
+$base-unit                      : 5px;
+$corner-radius                  : 2px;
+
+// Colors
+// 
+// Primary Brand
+$tc-light-blue                  : #26ADE9;
+$tc-dark-blue                   : #0B71E6;
+$tc-green                       : #60C700;
+$tc-orange                      : #FB7D22;
+$tc-yellow                      : #FFF100;
+
+$tc-black                       : #262628;
+$tc-gray-90                     : #37373C;
+$tc-gray-80                     : #47474F;
+$tc-gray-70                     : #5D5D66;
+$tc-gray-60                     : #747480;
+$tc-gray-50                     : #888894;
+$tc-gray-40                     : #A3A3AD;
+$tc-gray-30                     : #C3C3C8;
+$tc-gray-20                     : #DCDCE0;
+$tc-gray-10                     : #EDEDF2;
+$tc-gray-neutral-dark           : #EBEBEB;
+$tc-gray-neutral-light          : #FAFAFB;
+$tc-white                       : #FFFFFF;
+
+// Accents & Shades
+$tc-dark-blue                   : $tc-dark-blue;
+$tc-dark-blue-90                : #1A85FF;
+$tc-dark-blue-70                : #59A7FF;
+$tc-dark-blue-30                : #CFE6FF;
+$tc-dark-blue-10                : #F4F9FF;
+
+// Light Blue
+$tc-light-blue                  : $tc-light-blue;
+$tc-light-blue-70               : #67C5EF;
+$tc-light-blue-30               : #BDE6F8;
+$tc-light-blue-10               : #E9F6FC;
+
+// Warm Orange
+$tc-orange   					: $tc-orange;
+$tc-orange-70	                : #FDA464;
+$tc-orange-30                   : #FEE3D0;
+$tc-orange-10                   : #FFF0EB;
+
+$tc-red                         : #F22F24;
+$tc-red-70                      : #FF5B52;
+$tc-red-30                      : #FFD4D1;
+$tc-red-10                      : #FFF4F4;
+
+$tc-gold                        : #FCE217;
+$tc-gold-70                     : #FAED8E;
+$tc-gold-30                     : #FFF7CC;
+$tc-gold-10                     : #FFFDE6;
+
+$tc-green                       : $tc-green;
+$tc-green-70                    : #96D957;
+$tc-green-30                    : #CFEFB2;
+$tc-green-10                    : #EFFAE5;
+
+$tc-purple                      : #9050A3;
+$tc-purple-70                   : #B47DD6;
+$tc-purple-30                   : #E2C7F2;
+$tc-purple-10                   : #F8F2FB;
+
+// Badges
+$tc-gold                        : $tc-gold;
+$tc-silver                      : #A9BCD4;
+$tc-bronze                      : #BD731E;
+
+// Levels
+$tc-level-1                     : $tc-gray-40;
+$tc-level-2                     : #25C089;
+$tc-level-3                     : #666EFF;
+$tc-level-4                     : #FCB816;
+$tc-level-5                     : #E6175C;
+
+// Typography
+//
+// Label, body, and heading font sizes The typographyc scale of the TC System
+// is                           : 11, 12, 13, 15, 20, 28, 42, 64, 72 using the variables below we provide a
+// systematic approach to your creative typography; also opens the possiblitiy
+// for fine adjustment and more typefaces used as the system evlovles.
+
+// Labels
+$tc-label-lg                    : 15px;
+$tc-label-md                    : 13px;
+$tc-label-sm                    : 12px;
+$tc-label-xs                    : 11px;
+
+// Body
+$tc-body-lg                     : 20px;
+$tc-body-md                     : $tc-label-lg; // 15
+$tc-body-sm                     : $tc-label-md; // 13
+$tc-body-xs                     : $tc-label-xs; // 11
+
+// Headings
+$tc-heading-xl                  : 42px;
+$tc-heading-lg                  : 28px;
+$tc-heading-md                  : $tc-body-lg;
+$tc-heading-sm                  : $tc-body-md;
+$tc-heading-xs                  : $tc-body-sm;
+
+// breakpoints
+$screen-lg                      : 1376px;
+$screen-md                      : 768px;
+$screen-sm                      : 640px;
+$screen-xs                      : 320px;

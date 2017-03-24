@@ -1,0 +1,43 @@
+// Mixins
+// Common
+@mixin tc-track-colors {
+  &.develop { color: $tc-green; }
+  &.design  { color: $tc-light-blue; }
+  &.data    { color: $tc-orange; }
+}
+
+@mixin tc-track-background-colors {
+  &.develop { background-color: $tc-green; }
+  &.design  { background-color: $tc-light-blue; }
+  &.data    { background-color: $tc-orange; }
+}
+
+@mixin tc-member-level-background-colors {
+  &.level-1 { background-color: $tc-level-1; }
+  &.level-2 { background-color: $tc-level-2; }
+  &.level-3 { background-color: $tc-level-3; }
+  &.level-4 { background-color: $tc-level-4; }
+  &.level-5 { background-color: $tc-level-5; }
+}
+
+@mixin ellipsis {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+
+// Replace the bourbon background with simple linear gradient - we only use this for the buttons;
+@mixin background-gradient($start, $stop) {
+  background: $start;
+  background: linear-gradient(top, $start 0%, $stop 100%);
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='$start', endColorstr='$stop',GradientType=0 ); /* IE6-9 */
+}
+
+// Placeholder 
+@mixin placeholder {
+  &::-webkit-input-placeholder {@content;}
+  &:-moz-placeholder           {@content;}
+  &::-moz-placeholder          {@content;}
+  &:-ms-input-placeholder      {@content;}
+}

@@ -1,0 +1,111 @@
+// Mixins
+
+// Table of Contents
+//
+// Font families
+// Labels
+// Body
+// Headings
+// Common
+
+// Font families and weights
+@mixin roboto-light {
+  font-family: 'Roboto', Helvetica, Arial, sans-serif;
+  font-weight: 300;
+}
+
+@mixin roboto {
+  font-family: 'Roboto', Helvetica, Arial, sans-serif;
+  font-weight: 400;
+}
+
+@mixin roboto-medium {
+  font-family: 'Roboto', Helvetica, Arial, sans-serif;
+  font-weight: 500;
+}
+
+@mixin roboto-bold {
+  font-family: 'Roboto', Helvetica, Arial, sans-serif;
+  font-weight: 600;
+}
+
+// Labels
+@mixin tc-label-lg {
+  @include roboto;
+  font-size: $tc-label-lg;
+  line-height: $base-unit * 4;
+}
+
+@mixin tc-label-md {
+  @include roboto;
+  font-size: $tc-label-md;
+  line-height: $base-unit * 4;
+}
+
+@mixin tc-label-sm {
+  @include roboto;
+  font-size: $tc-label-sm;
+  line-height: $base-unit * 3;
+}
+
+@mixin tc-label-xs {
+  @include roboto;
+  font-size: $tc-label-xs;
+  line-height: $base-unit * 3;
+}
+
+// Body
+@mixin tc-body-large {
+  @include roboto;
+  font-size: $tc-body-lg;
+  line-height: $base-unit * 5;
+}
+
+@mixin tc-body {
+  @include roboto;
+  font-size: $tc-body-md;
+  line-height: $base-unit * 5;
+}
+
+@mixin tc-body-small {
+  @include roboto;
+  font-size: $tc-body-sm;
+  line-height: $base-unit * 5;
+}
+
+@mixin tc-body-extra-small {
+  @include roboto;
+  font-size: $tc-body-xs;
+  line-height: $base-unit * 4;
+}
+
+// Headings
+@mixin tc-heading-extra-large {
+  @include roboto;
+  font-size: $tc-heading-xl;
+  line-height: $base-unit * 10;
+}
+
+@mixin tc-heading-large {
+  @include roboto;
+  font-size: $tc-heading-lg;
+  line-height: $base-unit * 7;
+}
+
+@mixin tc-heading {
+  @include roboto;
+  font-size: $tc-heading-md;
+  line-height: $base-unit * 6;
+}
+
+@mixin tc-heading-small {
+  @include roboto;
+  font-size: $tc-heading-sm;
+  line-height: $base-unit * 5;
+}
+
+@mixin tc-heading-extra-small {
+  @include roboto;
+  font-size: $tc-heading-xs;
+  line-height: $base-unit * 5;
+}

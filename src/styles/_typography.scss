@@ -1,0 +1,22 @@
+@import 'tc-includes';
+
+// Headings
+h1 {
+  @include tc-heading-extra-large;
+}
+
+h2 {
+  @include tc-heading-large;
+}
+
+h3 {
+  @include tc-heading;
+}
+
+h4 {
+  @include tc-heading-small;
+}
+
+h5 {
+  @include tc-heading-extra-small;
+}

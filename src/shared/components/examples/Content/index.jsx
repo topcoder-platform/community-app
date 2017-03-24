@@ -21,6 +21,7 @@ export default function Content() {
         </li>
         <li>ESlint (AirBnB style, run with <code>$ npm run lint:js</code>);</li>
         <li>ExpressJS server;</li>
+        <li>General Topcoder styles (check <code>/src/styles</code>);</li>
         <li>
           Hot reload of JS code and SCSS styles in dev environment (start it
           with <code>$ npm run dev</code>);
@@ -39,6 +40,7 @@ export default function Content() {
           and a custom pattern of server-side data fetching;
         </li>
         <li>SCSS styles;</li>
+        <li>Topcoder API v2 and v3 service (see <code>/src/shared/services/api.js</code>), with support of TC authentication (look for auth tokens either in <code>store.auth</code> of Redux store, or in <code>tctV3</code> and <code>tcjwt</code> cookies of the front-end requests to the server);</li>
         <li>
           Stylelint for SCSS (standard Stylelint style, run with
           <code>$ npm run lint:scss</code>;
@@ -48,9 +50,15 @@ export default function Content() {
       <h3>Examples</h3>
       <ul>
         <li>
+          <Link to="/examples/css-modules">CSS Modules</Link> - Demo/test of CSS modules in action;
+        </li>
+        <li>
           <Link to="/examples/data-fetch">Data Fetch</Link> - Demonstrates how data fetching should be implemented in
           isomorphic way, using Redux with Flux Standard Actions and
           promise;
+        </li>
+        <li>
+          <Link to="/examples/svg-loading">SVG Loading</Link> - Shows how to load <code>.svg</code> assets with use of <code>babel-plugin-inline-react-svg</code>.
         </li>
       </ul>
     </div>

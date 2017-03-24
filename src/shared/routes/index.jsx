@@ -20,6 +20,7 @@ export default function Routes() {
   return (
     <Switch>
       <Route exact path="/" component={Content} />
+      <Route exact path="/examples" component={Content} />
       <Route path="/examples" component={Examples} />
       <Route component={Error404} />
     </Switch>
