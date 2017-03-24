@@ -2,7 +2,6 @@
  * Reducer for state.auth.
  */
 
-import _ from 'lodash';
 import { handleActions } from 'redux-actions';
 import { decodeToken } from 'tc-accounts';
 

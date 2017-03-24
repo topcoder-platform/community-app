@@ -8,7 +8,6 @@ button {
   cursor: pointer;
 }
 
-
 // Links
 a.tc-link,
 .tc-link,
@@ -27,9 +26,10 @@ a.tc-link:hover,
 
 .tc-btn {
   @include roboto;
+
   border-radius: $corner-radius;
   cursor: pointer;
-  user-select:none;
+  user-select: none;
 
   &:focus {
     outline: none;
@@ -40,7 +40,7 @@ a.tc-link:hover,
 
 a.tc-btn-pressed,
 .tc-btn-pressed {
-  box-shadow: 0px 1px 3px 0px $tc-gray-80;
+  box-shadow: 0 1px 3px 0 $tc-gray-80;
 }
 
 // Button Sizes
@@ -49,6 +49,7 @@ a.tc-btn-lg,
 .tc-btn-lg {
   height: 50px;
   padding: 10px 30px;
+
   @include tc-heading;
 }
 
@@ -56,6 +57,7 @@ a.tc-btn-md,
 .tc-btn-md {
   height: 40px;
   padding: 10px 25px;
+
   @include tc-label-lg;
 }
 
@@ -63,6 +65,7 @@ a.tc-btn-sm,
 .tc-btn-sm {
   height: 30px;
   padding: 5px 15px;
+
   @include tc-label-md;
 }
 
@@ -70,6 +73,7 @@ a.tc-btn-xs,
 .tc-btn-xs {
   height: 20px;
   padding: 3px 10px;
+
   @include tc-label-sm;
 }
 
@@ -81,36 +85,43 @@ a.tc-btn-xs,
 
 .tc-btn-primary {
   background-color: $tc-dark-blue-90;
+
   @include background-gradient($tc-dark-blue-90, $tc-dark-blue-90);
+
   color: $tc-gray-neutral-light;
   border: 1px solid $tc-dark-blue;
+
   @include button-transition;
 
   &:hover {
     color: $tc-gray-neutral-light;
+
     @include background-gradient($tc-dark-blue-90, $tc-dark-blue);
   }
 
   &:active {
     color: $tc-gray-neutral-light;
+
     @include background-gradient($tc-dark-blue, $tc-dark-blue-90);
   }
 }
-
 
 .tc-btn-secondary {
   background-color: $tc-gray-40;
   color: $tc-gray-neutral-light;
   border: 1px solid $tc-gray-50;
+
   @include button-transition;
 
   &:hover {
     color: $tc-gray-neutral-light;
+
     @include background-gradient($tc-gray-40, $tc-gray-50);
   }
 
   &:active {
     color: $tc-gray-neutral-light;
+
     @include background-gradient($tc-gray-50, $tc-gray-40);
   }
 }

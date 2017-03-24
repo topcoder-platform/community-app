@@ -27,23 +27,30 @@ export default function Content() {
           with <code>$ npm run dev</code>);
         </li>
         <li>
-          Loading of .svg assets as ReactJS components with
-          <code>babel-plugin-inline-react-svg</code>;
+          Loading of .svg assets as ReactJS components
+          with <code>babel-plugin-inline-react-svg</code>;
         </li>
         <li>ReactJS;</li>
         <li>
-          React CSS Modules (with
-          <code>babel-plugin-react-css-modules</code>);
+          React CSS Modules
+          (with <code>babel-plugin-react-css-modules</code>);
         </li>
         <li>
           Redux with Flex Standard Actions, redux-promise middleware,
           and a custom pattern of server-side data fetching;
         </li>
         <li>SCSS styles;</li>
-        <li>Topcoder API v2 and v3 service (see <code>/src/shared/services/api.js</code>), with support of TC authentication (look for auth tokens either in <code>store.auth</code> of Redux store, or in <code>tctV3</code> and <code>tcjwt</code> cookies of the front-end requests to the server);</li>
+        <li>Topcoder API v2 and v3 service
+          (see <code>/src/shared/services/api.js</code>), with support of TC
+          authentication (look for auth tokens either
+          in <code>store.auth</code> of Redux store, or
+          in <code>tctV3</code> and <code>tcjwt</code> cookies of the front-end
+          requests to the server);
+        </li>
+        <li>Stylefmt;</li>
         <li>
-          Stylelint for SCSS (standard Stylelint style, run with
-          <code>$ npm run lint:scss</code>;
+          Stylelint for SCSS (standard Stylelint style, run
+          with <code>$ npm run lint:scss</code>;
         </li>
         <li>Webpack;</li>
       </ul>
@@ -53,12 +60,15 @@ export default function Content() {
           <Link to="/examples/css-modules">CSS Modules</Link> - Demo/test of CSS modules in action;
         </li>
         <li>
-          <Link to="/examples/data-fetch">Data Fetch</Link> - Demonstrates how data fetching should be implemented in
+          <Link to="/examples/data-fetch">Data Fetch</Link> - Demonstrates how
+          data fetching should be implemented in
           isomorphic way, using Redux with Flux Standard Actions and
           promise;
         </li>
         <li>
-          <Link to="/examples/svg-loading">SVG Loading</Link> - Shows how to load <code>.svg</code> assets with use of <code>babel-plugin-inline-react-svg</code>.
+          <Link to="/examples/svg-loading">SVG Loading</Link> - Shows how to
+          load <code>.svg</code> assets with use
+          of <code>babel-plugin-inline-react-svg</code>.
         </li>
       </ul>
     </div>

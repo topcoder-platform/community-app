@@ -14,15 +14,15 @@ input[type=checkbox] {
 // TODO: Refactor to use parameters as the slider;
 // TODO: Create mixin for the 4 sizes - lg, md, sm, xs
 // 
-
-$checkbox-size                    : $base-unit * 4;
-$checkbox-bg-empty                : $tc-gray-neutral-light;
-$checkbox-bg-selected             : $tc-dark-blue-90;
-
+$checkbox-size: $base-unit * 4;
+$checkbox-bg-empty: $tc-gray-neutral-light;
+$checkbox-bg-selected: $tc-dark-blue-90;
 
 .tc-checkbox-label {
   display: inline-block;
+
   @include tc-label-lg;
+
   line-height: $checkbox-size;
   vertical-align: middle;
   margin-left: $base-unit * 2;
@@ -42,7 +42,7 @@ $checkbox-bg-selected             : $tc-dark-blue-90;
   input[type=checkbox] {
     display: none;
   }
-  
+
   label {
     cursor: pointer;
     position: absolute;
@@ -55,9 +55,9 @@ $checkbox-bg-selected             : $tc-dark-blue-90;
     box-shadow: none;
     border: 1px solid $tc-gray-50;
     background: $tc-gray-neutral-light;
-    transition: all .150s ease-in-out;
-    
-    &:after {
+    transition: all 0.15s ease-in-out;
+
+    &::after {
       opacity: 0;
       content: '';
       position: absolute;
@@ -70,7 +70,7 @@ $checkbox-bg-selected             : $tc-dark-blue-90;
       border-top: none;
       border-right: none;
       transform: rotate(-45deg);
-      transition: all .150s ease-in-out;
+      transition: all 0.15s ease-in-out;
     }
 
     &:hover::after {
@@ -83,31 +83,31 @@ $checkbox-bg-selected             : $tc-dark-blue-90;
     border-color: $checkbox-bg-selected;
   }
 
-  input[type=checkbox]:checked + label:after {
+  input[type=checkbox]:checked + label::after {
     opacity: 1;
     border-color: $tc-white;
   }
 }
-
 
 // Checkboxes
 // SLIDER
 // ----------------------------------------------------------------------
 // 
 // TODO: Create mixin and render the 4 sizes - lg, md, sm, xs
-
-$slider-height                 : $base-unit * 5;
-$slider-handle-offset          : 3px;
-$slider-width                  : $slider-height * 2 - ($slider-handle-offset * 2); 
-$slider-handle-size            : $slider-height - (2 * $slider-handle-offset);
-$slider-speed                  : 150ms;
-$slider-off-bg                 : $tc-gray-40;
-$slider-on-bg                  : $tc-dark-blue-90;
-$slider-handle-color           : $tc-white;
+$slider-height: $base-unit * 5;
+$slider-handle-offset: 3px;
+$slider-width: $slider-height * 2 - ($slider-handle-offset * 2);
+$slider-handle-size: $slider-height - (2 * $slider-handle-offset);
+$slider-speed: 150ms;
+$slider-off-bg: $tc-gray-40;
+$slider-on-bg: $tc-dark-blue-90;
+$slider-handle-color: $tc-white;
 
 .tc-slider-label {
   display: inline-block;
+
   @include tc-label-lg;
+
   line-height: $slider-height;
   vertical-align: bottom;
   margin-right: $base-unit * 2;
@@ -122,22 +122,21 @@ $slider-handle-color           : $tc-white;
   display: inline-block;
 
   input[type=checkbox]:focus ~ label {
-    box-shadow: inset 1px 1px 2px rgba(0, 0, 0, 0.40),
-                      1px 1px 1px rgba(255, 255, 255, 0.60);
+    box-shadow: inset 1px 1px 2px rgba(0, 0, 0, 0.4), 1px 1px 1px rgba(255, 255, 255, 0.6);
     background: $slider-off-bg;
   }
 
   input[type=checkbox]:checked ~ label {
     background: $slider-on-bg;
 
-    &:after {
+    &::after {
       left: ($slider-width - $slider-handle-size) - $slider-handle-offset * 2;
     }
   }
 
   label {
     border-radius: $slider-height / 2;
-    box-shadow: inset 0px 1px 2px 0px rgba(38,38,40,0.30);
+    box-shadow: inset 0 1px 2px 0 rgba(38, 38, 40, 0.3);
     height: $slider-height;
     width: $slider-width;
     position: absolute;
@@ -151,7 +150,7 @@ $slider-handle-color           : $tc-white;
       cursor: pointer;
     }
 
-    &:after {
+    &::after {
       border-radius: $slider-height / 2;
       // box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.42);
       content: "";
@@ -170,8 +169,6 @@ $slider-handle-color           : $tc-white;
   }
 }
 
-
-
 // 
 // RADIO
 // ----------------------------------------------------------------------
@@ -179,6 +176,7 @@ $slider-handle-color           : $tc-white;
 // TODO: Refactor to use parameters like the Slider
 .radio {
   margin: 0;
+
   input[type="radio"] {
     opacity: 0;
     display: none;
@@ -189,11 +187,14 @@ $slider-handle-color           : $tc-white;
     line-height: 19px;
     padding-left: 26px;
     position: relative;
+
     @include tc-label-md;
-    font-size:14px;
+
+    font-size: 14px;
     color: $tc-black;
     margin-right: 30px;
-    &:before {
+
+    &::before {
       border: 1px solid $tc-gray-20;
       border-radius: 50%;
       background-color: #fff;
@@ -207,7 +208,7 @@ $slider-handle-color           : $tc-white;
     }
   }
 
-  input[type="radio"]:checked + label:after {
+  input[type="radio"]:checked + label::after {
     background: $tc-dark-blue-90;
     border-radius: 50%;
     content: "";

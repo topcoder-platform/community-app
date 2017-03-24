@@ -7,6 +7,10 @@ New version of Topcoder Community website.
 
 In all cases, you need NodeJS 6.10.0 (other recent version should also work fine), and you should install dependencies by executing `$ npm install` in the root of this repo.
 
+To control code quality we have set up ESLint for .js/.jsx (AirBnB style), and Stylelint for .scss (standard style, you are not supposed to use .css in this repo). To run the linting use `$ npm run lint:js` in the former case, `$npm run lint:scss` in the latter, or `$npm run lint` to run both. Note that the `/src/styles` folder contains a bunch of general Topcoder stylesheets with various variables and mixins, which you should use whenever you can.
+
+StyleFmt is installed as dev dependency of the project. This tool can automatically fix many lint errors in `.scss` files, to fit them into our Stylelint rules. It can help when you move styling from other projects into this repo. Run the tool with `$ npm run fix:styles`.
+
 To run development build of the App against development Topcoder backend do `$ npm run dev` and access website as `local.topcoder-dev.com:3000`. Prior doing this you should add into your `/etc/hosts` the line `127.0.0.1 local.topcoder-dev.com:3000`. In this case you'll have all development bells and whistles enabled, like Redux DevTools, hot module reloading, etc. To access pages which need Topcoder authentication use `accounts.topcoder-dev.com/members` to login, and just wipe out your cookies for the page to log out.
 
 To run production build of the App against production Topcoder backend do `$ npm run build` to build the bundle, then `$ npm start` to run the server. In this case you should access the site as `local.topcoder.com`. Prior doing this you should add into your `/etc/hosts` the line `127.0.0.1 local.topcoder.com`. You should also allow the App to listen on the port 80. The easiest way to do it on Ubuntu 16.04 is (no guarantees, how safe is it):

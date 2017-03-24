@@ -18,6 +18,8 @@ import App from '../shared';
 import logger from '../shared/utils/logger';
 import storeFactory from '../shared/store-factory';
 
+import './styles.scss';
+
 const config = window.CONFIG;
 
 /**

@@ -1,0 +1,7 @@
+:global {
+  /* This global style is necessary to completely hide the iframe injected into
+   * the page by Topcoder accounts-app. */
+  #tc-accounts-iframe {
+    border: none;
+  }
+}
