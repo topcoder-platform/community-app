@@ -15,16 +15,21 @@ module.exports = webpackMerge(defaultConfig, {
         use: [{
           loader: 'css-loader',
           options: {
-            importLoaders: 2,
+            importLoaders: 3,
             localIdentName: '[path]___[name]__[local]___[hash:base64:5]',
             modules: true,
           },
-        }, {
+        }, 'resolve-url-loader', {
           loader: 'postcss-loader',
           options: {
             plugins: [],
           },
-        }, 'sass-loader'],
+        }, {
+          loader: 'sass-loader',
+          options: {
+            sourceMap: true,
+          },
+        }],
       }),
     }],
   },

@@ -1,0 +1,41 @@
+// FONT STACK
+// --------------------------------------------------------------------------------------------
+// Use the mixin to include fonts.
+
+@mixin font-family($font-name, $font-weight, $font-style, $font-url, $font-file) {
+  @font-face {
+    font-family: '#{$font-name}';
+    src: url('#{$font-url}#{$font-file}.eot');
+    src: url('#{$font-url}#{$font-file}.eot?#iefix') format('embedded-opentype'), url('#{$font-url}#{$font-file}.woff') format('woff'), url('#{$font-url}#{$font-file}.ttf') format('truetype'), url('#{$font-url}#{$font-file}.svg##{$font-name}') format('svg');
+    font-weight: $font-weight;
+    font-style: $font-style;
+  }
+}
+
+// FONT WEIGHTS
+// --------------------------------------------------------------------------------------------
+// Use the numerical value instead of the weight name.
+
+//  100   Thin (Hairline)
+//  200   Extra Light (Ultra Light)
+//  300   Light
+//  400   Normal
+//  500   Medium
+//  600   Semi Bold (Demi Bold)
+//  700   Bold
+//  800   Extra Bold (Ultra Bold)
+//  900   Black (Heavy)
+
+// Roboto
+@include font-family('Roboto', 900, normal, '../assets/fonts/roboto/', 'roboto-black');
+@include font-family('Roboto', 900, italic, '../assets/fonts/roboto/', 'roboto-blackitalic');
+@include font-family('Roboto', 700, normal, '../assets/fonts/roboto/', 'roboto-bold');
+@include font-family('Roboto', 700, italic, '../assets/fonts/roboto/', 'roboto-bolditalic');
+@include font-family('Roboto', 500, normal, '../assets/fonts/roboto/', 'roboto-medium');
+@include font-family('Roboto', 500, italic, '../assets/fonts/roboto/', 'roboto-mediumitalic');
+@include font-family('Roboto', 400, normal, '../assets/fonts/roboto/', 'roboto-regular');
+@include font-family('Roboto', 400, italic, '../assets/fonts/roboto/', 'roboto-italic');
+@include font-family('Roboto', 300, normal, '../assets/fonts/roboto/', 'roboto-light');
+@include font-family('Roboto', 300, italic, '../assets/fonts/roboto/', 'roboto-lightitalic');
+@include font-family('Roboto', 100, normal, '../assets/fonts/roboto/', 'roboto-thin');
+@include font-family('Roboto', 100, italic, '../assets/fonts/roboto/', 'roboto-thinitalic');

@@ -2,13 +2,29 @@
  * The Error404 component renders a message about 404 HTTP error.
  */
 
-import React from 'react';
+import _ from 'lodash';
+import React, { PropTypes as PT } from 'react';
+import { Route } from 'react-router-dom';
 
-export default function Page404() {
+export default function Page404(props) {
   return (
     <div>
+      <Route
+        render={({ staticContext }) => {
+          if (staticContext) _.assign(staticContext, { status: 404 });
+          return null;
+        }}
+      />
       <h1>404 HTTP error</h1>
       <p>The resource you are looking for does not exist in Topcoder community App :(</p>
     </div>
   );
 }
+
+Page404.defaultProps = {
+  children: null,
+};
+
+Page404.propTypes = {
+  children: PT.node,
+};

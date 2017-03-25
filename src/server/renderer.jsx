@@ -18,16 +18,18 @@ import storeFactory from '../shared/store-factory';
 
 export default (req, res) => {
   storeFactory(req).then((store) => {
+    const context = {};
     const appHtml = ReactDOM.renderToString((
       <Provider store={store}>
         <StaticRouter
-          context={{}}
+          context={context}
           location={req.url}
         >
           <App />
         </StaticRouter>
       </Provider>
     ));
+    if (context.status) res.status(context.status);
     res.send((
       `<!DOCTYPE html>
       <html>

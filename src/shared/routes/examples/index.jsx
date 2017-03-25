@@ -11,6 +11,7 @@ import {
 
 import CssModules from '../../components/examples/CssModules';
 import DataFetch from './DataFetch';
+import FontsTest from '../../components/examples/FontsTest';
 import SvgLoading from '../../components/examples/SvgLoading';
 
 export default function Examples() {
@@ -18,6 +19,7 @@ export default function Examples() {
     <Switch>
       <Route path="*/css-modules" component={CssModules} />
       <Route path="*/data-fetch" component={DataFetch} />
+      <Route path="*/fonts-test" component={FontsTest} />
       <Route path="*/svg-loading" component={SvgLoading} />
     </Switch>
   );

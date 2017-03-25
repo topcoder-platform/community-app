@@ -8,12 +8,19 @@ module.exports = {
   entry: './src/client',
   module: {
     rules: [{
-      test: /\.jsx?$/,
-      exclude: /node_modules\/(?!appirio-tech.*|topcoder|tc-)/,
-      loader: 'babel-loader',
-      /* Babel-loader is configured by .babelrc in the project's root folder. */
+      test: /\.(eot|woff|svg|ttf)$/,
+      include: /src\/assets\/fonts/,
+      loader: 'file-loader',
+      options: {
+        outputPath: '/fonts/',
+        publicPath: '/fonts/',
+      },
     }, {
-      test: /\.svg$/,
+      test: /\.(jsx?|svg)$/,
+      exclude: [
+        /node_modules\/(?!appirio-tech.*|topcoder|tc-)/,
+        /src\/assets\/fonts/,
+      ],
       loader: 'babel-loader',
       /* Babel-loader is configured by .babelrc in the project's root folder. */
     }],

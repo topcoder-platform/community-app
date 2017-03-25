@@ -267,11 +267,10 @@ textarea,
 // Style the placeholders
 input {
   @include placeholder {
-    color: $tc-gray-80;
-    font-size: 12px;
-
     @include roboto;
 
+    color: $tc-gray-80;
+    font-size: 12px;
     text-transform: uppercase;
     transition: opacity 0.15s;
     opacity: 1;
