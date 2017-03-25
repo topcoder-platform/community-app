@@ -5,10 +5,9 @@
 /* Conditional requires are absolutely necessary in this module. */
 /* eslint-disable global-require */
 
+import { factory as reducerFactory } from 'reducers';
 import promiseMiddleware from 'redux-promise';
 import { applyMiddleware, compose, createStore } from 'redux';
-
-import { factory as reducerFactory } from './reducers';
 
 const IS_DEV = process.env.NODE_ENV === 'development';
 

@@ -37,9 +37,11 @@ This App already contains:
 - A high-level draft of isomorphic App structure;
 - A dummy client App;
 - A set of general Topcoder stylesheets in `/src/styles`;
+- Autoprefixer;
 - Babel with latest JS support both client- and server-side;
 - ESLint (AirBnB style);
 - Express server;
+- Font loading (Roboto fonts are included into the repo);
 - Hot reload of JS code and SCSS styles in dev environment;
 - Isomorphic fetch and Topcoder API Auth;
 - Loading of .svg assets as ReactJS components with babel-plugin-inline-react-svg
@@ -49,17 +51,13 @@ This App already contains:
 - React Router;
 - Redux with Flux Standard Actions, redux-promise middleware, support of server-side rendering, and DevTools for dev environment;
 - SCSS support;
+- StyleFMT;
 - Stylelint for scss (standard Stylelint style);
 - Various examples;
 - Webpack;
 
-Pending high-priority staff (these block further development of Submission Management page):
-- Font loading;
-
 Pending low-priority staff (these are important, but can be added along the way):
-- Autoprefixer;
 - CircleCI deploys;
 - react-css-themr (https://github.com/javivelasco/react-css-themr);
-- StyleFMT;
 - Unit testing;
 - Webpack Dashboard (https://github.com/FormidableLabs/webpack-dashboard);

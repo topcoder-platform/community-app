@@ -16,11 +16,13 @@ export default function Content() {
       <p>Isomorphic ReactJS App for new version of Topcoder community website.
         Technological stack includes:</p>
       <ul>
+        <li>Autoprefixer;</li>
         <li>
           Babel with latest JS standard support both client- and server-side;
         </li>
         <li>ESlint (AirBnB style, run with <code>$ npm run lint:js</code>);</li>
         <li>ExpressJS server;</li>
+        <li>Font loading (Roboto fonts are included into the repo);</li>
         <li>General Topcoder styles (check <code>/src/styles</code>);</li>
         <li>
           Hot reload of JS code and SCSS styles in dev environment (start it

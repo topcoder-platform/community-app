@@ -4,10 +4,9 @@
  * client- and server-side rendering.
  */
 
+import DevTools from 'containers/DevTools';
 import React from 'react';
-
-import DevTools from './containers/DevTools';
-import Routes from './routes';
+import Routes from 'routes';
 
 const IS_DEV = process.env.NODE_ENV === 'development';
 

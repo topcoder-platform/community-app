@@ -6,7 +6,7 @@ import _ from 'lodash';
 import React, { PropTypes as PT } from 'react';
 import { Route } from 'react-router-dom';
 
-export default function Page404(props) {
+export default function Page404() {
   return (
     <div>
       <Route

@@ -2,6 +2,7 @@
  * Client-side rendering of the App.
  */
 
+import actions from 'actions/auth';
 import cookies from 'browser-cookies';
 import { BrowserRouter, browserHistory } from 'react-router-dom';
 import React from 'react';
@@ -12,12 +13,10 @@ import {
   decodeToken,
   getFreshToken,
 } from 'tc-accounts';
+import logger from 'utils/logger';
 
-import actions from '../shared/actions/auth';
 import App from '../shared';
-import logger from '../shared/utils/logger';
 import storeFactory from '../shared/store-factory';
-
 import './styles.scss';
 
 const config = window.CONFIG;

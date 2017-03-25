@@ -2,10 +2,9 @@
  * Reducer for state.example.dataFetch
  */
 
+import actions from 'actions/examples/data-fetch';
 import { handleActions } from 'redux-actions';
-
-import actions from '../../actions/examples/data-fetch';
-import { toFSA } from '../../utils/redux';
+import { toFSA } from 'utils/redux';
 
 function onDone(state, action) {
   return {

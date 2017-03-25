@@ -2,15 +2,14 @@
  * The top-level routing of the App.
  */
 
+import Content from 'components/examples/Content';
+import Error404 from 'components/Error404';
 import 'isomorphic-fetch';
 import React from 'react';
 import {
   Switch,
   Route,
 } from 'react-router-dom';
-
-import Content from '../components/examples/Content';
-import Error404 from '../components/Error404';
 
 /* TODO: As we move towards production deploy, we should add a guard which
  * will prevent addition of /examples routes into production build. */

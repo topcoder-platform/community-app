@@ -2,14 +2,13 @@
  * Routes for Data Fetch example.
  */
 
+import DataFetchIntro from 'components/examples/DataFetch';
+import DataFetchContainer from 'containers/examples/DataFetch';
 import React from 'react';
 import {
   Switch,
   Route,
 } from 'react-router-dom';
-
-import DataFetchIntro from '../../components/examples/DataFetch';
-import DataFetchContainer from '../../containers/examples/DataFetch';
 
 export default function DataFetchRoute() {
   return (

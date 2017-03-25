@@ -2,10 +2,9 @@
  * Reducer for state.auth.
  */
 
+import actions from 'actions/auth';
 import { handleActions } from 'redux-actions';
 import { decodeToken } from 'tc-accounts';
-
-import actions from '../actions/auth';
 
 /**
  * Creates a new Auth reducer with the specified initial state.

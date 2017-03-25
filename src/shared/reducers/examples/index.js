@@ -5,9 +5,9 @@
  */
 
 import { combineReducers } from 'redux';
+import { resolveReducers } from 'utils/redux';
 
 import { factory as dataFetchFactory } from './data-fetch';
-import { resolveReducers } from '../../utils/redux';
 
 export function factory(req) {
   return resolveReducers({

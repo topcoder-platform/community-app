@@ -4,8 +4,7 @@
 
 import _ from 'lodash';
 import 'isomorphic-fetch'; /* global fetch */
-
-import config from '../utils/config';
+import config from 'utils/config';
 
 /**
  * API service object. It is reused for both Topcoder API v2 and v3,

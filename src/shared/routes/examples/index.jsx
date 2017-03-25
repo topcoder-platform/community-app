@@ -3,16 +3,16 @@
  * available in this App code.
  */
 
+import CssModules from 'components/examples/CssModules';
+import FontsTest from 'components/examples/FontsTest';
 import React from 'react';
 import {
   Switch,
   Route,
 } from 'react-router-dom';
+import SvgLoading from 'components/examples/SvgLoading';
 
-import CssModules from '../../components/examples/CssModules';
 import DataFetch from './DataFetch';
-import FontsTest from '../../components/examples/FontsTest';
-import SvgLoading from '../../components/examples/SvgLoading';
 
 export default function Examples() {
   return (

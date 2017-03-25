@@ -2,6 +2,21 @@
   "presets": ["env", "react", "stage-2"],
   "plugins": [
     "inline-react-svg",
+    ["module-resolver", {
+      "alias": {
+        "actions": "./actions",
+        "components": "./components",
+        "containers": "./containers",
+        "reducers": "./reducers",
+        "routes": "./routes",
+        "services": "./services",
+        "utils": "./utils"
+      },
+      "extensions": [".js", ".jsx"],
+      "root": [
+        "./src/shared"
+      ]
+    }],
     ["react-css-modules", {
       "filetypes": {
         ".scss": "postcss-scss"
