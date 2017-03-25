@@ -4,7 +4,7 @@
  */
 
 import React from 'react';
-import SampleAsset from '../../../assets/examples/sample-asset.svg';
+import SampleAsset from './sample-asset.svg';
 
 export default function SvgLoading() {
   return (

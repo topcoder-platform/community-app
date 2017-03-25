@@ -1,0 +1,29 @@
+@import '~styles/tc-styles';
+
+$button-space-32: $base-unit * 6 + 2;
+
+.bg-overlay {
+  background: $tc-gray-neutral-dark;
+  border: none;
+  height: 100%;
+  left: 0;
+  opacity: 0.8;
+  outline: none;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 99;
+}
+
+.modal-container {
+  background: #fff;
+  box-shadow: 0 0 14px 1px rgba(38, 38, 40, 0.15);
+  border-radius: 4px;
+  padding: 40px;
+  width: 465px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 999;
+}

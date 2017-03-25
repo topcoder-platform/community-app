@@ -1,0 +1,66 @@
+{
+  "challenge": {
+    "allowSubmit": true,
+    "name": "GET - Rapid UX - Positive Train Control Design Concepts Challenge",
+    "phase": "Round 2",
+    "phaseEnd": "1489679594883",
+    "type": "design"
+  },
+  "submissions": [{
+    "id": "0253653",
+    "preview": "http://placehold.it/90/ff0000",
+    "screening": {
+      "status": "pending"
+    },
+    "submitted": "1488470630291",
+    "type": "Final"
+  }, {
+    "id": "0253614",
+    "preview": "http://placehold.it/90/f0ff0f",
+    "screening": {
+      "status": "passed",
+      "warnings": [{
+        "brief": "Incomplete Source Files",
+        "details": "The provided source files don't match the JPEGs from the submission .zip archive. Sources for files 14..25 are missing."
+      }, {
+        "brief": "Stock Art is Not Allowed",
+        "details": "This challenge doesn't allow you to use any istockphoto, others than the files provided by client. The submitter violated this rule and used 3 images from istockphoto.com. Please check challenge's specifications carefully."
+      }]
+    },
+    "submitted": "1488480630291",
+    "type": "Checkpoint"
+  }, {
+    "id": "0253145",
+    "preview": "http://placehold.it/90/0660ff",
+    "screening": {
+      "status": "passed"
+    },
+    "submitted": "1488570630291",
+    "type": "Checkpoint"
+  }, {
+    "id": "0253144",
+    "preview": "http://placehold.it/90/ff0ff0",
+    "screening": {
+      "status": "failed",
+      "warnings": [{
+        "brief": "You Have Made a Fatal Mistake",
+        "details": "Sorry, you have totally lost this challenge. Don't be too upset though, those who never fail, never rise up singing either."
+      }]
+    },
+    "submitted": "1488670630291",
+    "type": "Checkpoint"
+  }, {
+    "id": "0253188",
+    "preview": "http://placehold.it/90/0f00f0",
+    "screening": {
+      "status": "failed"
+    },
+    "submitted": "1488670630291",
+    "type": "Checkpoint"
+  }, {
+    "id": "0253199",
+    "preview": "http://placehold.it/90/00ff00",
+    "submitted": "1488670630291",
+    "type": "Checkpoint"
+  }]
+}

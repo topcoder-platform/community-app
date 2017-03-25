@@ -1,3 +1,4 @@
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 const path = require('path');
 const webpack = require('webpack');
 
@@ -8,7 +9,7 @@ module.exports = {
   entry: './src/client',
   module: {
     rules: [{
-      test: /\.(eot|woff|svg|ttf)$/,
+      test: /\.(eot|svg|ttf|woff)$/,
       include: /src\/assets\/fonts/,
       loader: 'file-loader',
       options: {
@@ -31,6 +32,10 @@ module.exports = {
     publicPath: '/',
   },
   plugins: [
+    new CopyWebpackPlugin([{
+      from: path.resolve(__dirname, '../../src/assets/mock-data'),
+      to: path.resolve(__dirname, '../../build/mock-data'),
+    }]),
     new webpack.DefinePlugin({
       'process.env': {
         /* Some isomorphic code relies on this variable to determine, whether
@@ -40,6 +45,11 @@ module.exports = {
     }),
   ],
   resolve: {
-    extensions: ['.js', '.json', '.jsx'],
+    alias: {
+      /* NOTE: Aliases related to .jsx and .jsx files are defined in Babel
+       * config. */
+      styles: path.resolve(__dirname, '../../src/styles'),
+    },
+    extensions: ['.js', '.json', '.jsx', '.scss'],
   },
 };

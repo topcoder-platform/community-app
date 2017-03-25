@@ -4,6 +4,8 @@
     "inline-react-svg",
     ["module-resolver", {
       "alias": {
+        // NOTE: Some aliases related to assets and styles are defined in
+        // webpack config.
         "actions": "./actions",
         "components": "./components",
         "containers": "./containers",

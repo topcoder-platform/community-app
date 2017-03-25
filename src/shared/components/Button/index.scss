@@ -1,0 +1,24 @@
+@import '~styles/tc-styles';
+
+/* Button style */
+
+$button-space-32: $base-unit * 6 + 2;
+$button-space-15: $base-unit * 3;
+$btn-red-color: #f63c32;
+
+button {
+  &.tc-bg-btn {
+    line-height: $button-space-32;
+  }
+
+  &.tc-red-btn,
+  &.tc-blue-btn,
+  &.tc-outline-btn {
+    font-size: 13px;
+    padding: $base-unit - 1 $button-space-15;
+  }
+
+  &.red {
+    background: $btn-red-color;
+  }
+}

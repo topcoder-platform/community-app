@@ -56,7 +56,14 @@ export default function Content() {
         </li>
         <li>Webpack;</li>
       </ul>
-      <h3>Examples</h3>
+      <h3>New Topcoder Pages</h3>
+      <ul>
+        <li>
+          <Link to="/submission-management">Submission Management</Link> - New
+          submissions management page;
+        </li>
+      </ul>
+      <h3>Misc Examples</h3>
       <ul>
         <li>
           <Link to="/examples/css-modules">CSS Modules</Link> - Demo/test of CSS modules in action;
