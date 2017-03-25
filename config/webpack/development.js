@@ -1,5 +1,6 @@
+const autoprefixer = require('autoprefixer');
 const webpack = require('webpack');
-const webpackMerge = require('webpack-merge'); // eslint-disable-line import/no-extraneous-dependencies
+const webpackMerge = require('webpack-merge');
 
 const defaultConfig = require('./default');
 
@@ -17,14 +18,16 @@ module.exports = webpackMerge(defaultConfig, {
       use: ['style-loader', {
         loader: 'css-loader',
         options: {
-          importLoaders: 2,
+          importLoaders: 3,
           localIdentName: '[path]___[name]__[local]___[hash:base64:5]',
           modules: true,
         },
       }, 'resolve-url-loader', {
         loader: 'postcss-loader',
         options: {
-          plugins: [],
+          plugins: [
+            autoprefixer,
+          ],
         },
       }, {
         loader: 'sass-loader',

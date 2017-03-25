@@ -1,3 +1,4 @@
+const autoprefixer = require('autoprefixer');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const webpack = require('webpack');
@@ -22,7 +23,9 @@ module.exports = webpackMerge(defaultConfig, {
         }, 'resolve-url-loader', {
           loader: 'postcss-loader',
           options: {
-            plugins: [],
+            plugins: [
+              autoprefixer,
+            ],
           },
         }, {
           loader: 'sass-loader',
