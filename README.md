@@ -1,7 +1,7 @@
 # Topcoder Community App
 New version of Topcoder Community website.
 
-# Deployment amd Execution
+# Deployment and Execution
 
 *Disclaimer:* Current instructions are biased towards Ubuntu 16.04. Hovewer, similar recipies should work for other OS. Should you encounter and overcome any tricky issues on other OS, you are welcome to add notes/hints into this file.
 
@@ -26,6 +26,10 @@ $ npm run build:dev
 $ npm start
 ```
 In this case you still should follow all notes for the production build/run, stated just above.
+
+# Development Notes
+
+-   [Why Reducer Factories and How to Use Them?](docs/why-reducer-factories-and-how-to-use-them.md)
 
 # Current Status
 

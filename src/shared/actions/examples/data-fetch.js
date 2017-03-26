@@ -19,7 +19,7 @@ function fetchDataDone() {
 export default createActions({
   EXAMPLES: {
     DATA_FETCH: {
-      FETCH_DATA_INIT: _.identity,
+      FETCH_DATA_INIT: _.noop,
       FETCH_DATA_DONE: fetchDataDone,
     },
   },

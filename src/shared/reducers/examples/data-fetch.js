@@ -6,6 +6,11 @@ import actions from 'actions/examples/data-fetch';
 import { handleActions } from 'redux-actions';
 import { toFSA } from 'utils/redux';
 
+/**
+ * Handles examples.dataFetch.fetchDataDone action.
+ * @param {Object} state Previous state.
+ * @param {Object} action Action.
+ */
 function onDone(state, action) {
   return {
     ...state,
