@@ -38,12 +38,13 @@ class Api {
    */
   fetch(endpoint, options) {
     const p = this.private;
-    return fetch(`${p.base}${endpoint}`, _.merge(options || {}, {
+    const ops = _.merge(_.cloneDeep(options) || {}, {
       headers: {
-        Authorization: `Bearer ${p.token}`,
+        Authorization: p.token ? `Bearer ${p.token}` : undefined,
         'Content-Type': 'application/json',
       },
-    }));
+    });
+    return fetch(`${p.base}${endpoint}`, ops);
   }
 
   /**

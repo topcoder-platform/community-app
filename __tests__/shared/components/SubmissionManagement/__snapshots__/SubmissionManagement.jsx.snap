@@ -1,0 +1,933 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`matches snapshots for design submissions 1`] = `
+<div
+  className="src-shared-components-SubmissionManagement-SubmissionManagement-___styles__submission-management___3JDUS"
+>
+  <div
+    className="src-shared-components-SubmissionManagement-SubmissionManagement-___styles__submission-management-header___3NQqC"
+  >
+    <div
+      className="src-shared-components-SubmissionManagement-SubmissionManagement-___styles__left-col___2Z7o4"
+    >
+      <h4
+        className="src-shared-components-SubmissionManagement-SubmissionManagement-___styles__name___3U4Rx"
+      >
+        GET - Rapid UX - Positive Train Control Design Concepts Challenge
+      </h4>
+      <button
+        className="src-shared-components-SubmissionManagement-SubmissionManagement-___styles__back-btn___1nKEx"
+        onClick={[Function]}
+      >
+        &lt; Back
+      </button>
+    </div>
+    <div
+      className="src-shared-components-SubmissionManagement-SubmissionManagement-___styles__right-col___3vkUr"
+    >
+      <p
+        className="src-shared-components-SubmissionManagement-SubmissionManagement-___styles__round___3QPI9"
+      >
+        Round 2
+      </p>
+      <p
+        className="src-shared-components-SubmissionManagement-SubmissionManagement-___styles__time-left___1Tye2"
+      >
+        2H 10M
+      </p>
+      <p
+        className="src-shared-components-SubmissionManagement-SubmissionManagement-___styles__left-label___1eGT9"
+      >
+        left to submit
+      </p>
+    </div>
+  </div>
+  <div
+    className="src-shared-components-SubmissionManagement-SubmissionManagement-___styles__submission-management-content___1iGPg"
+  >
+    <div
+      className="src-shared-components-SubmissionManagement-SubmissionManagement-___styles__content-head___3KW7D"
+    >
+      <p
+        className="src-shared-components-SubmissionManagement-SubmissionManagement-___styles__title___Hdx_v"
+      >
+        Manage your submissions
+      </p>
+      <p
+        className="src-shared-components-SubmissionManagement-SubmissionManagement-___styles__round-ends___39A0J"
+      >
+        <span
+          className="src-shared-components-SubmissionManagement-SubmissionManagement-___styles__ends-label___3gCTv"
+        >
+          Round 2 Ends:
+        </span>
+         Friday 08/24/16 10:00 AM EDT
+      </p>
+    </div>
+    <p
+      className="src-shared-components-SubmissionManagement-SubmissionManagement-___styles__recommend-info___n3jfo"
+    >
+      We always recommend to download your submission to check you uploaded the correct zip files and also verify the photos and fonts declarations. If you don’t want to see a submission, simply delete. If you have a new submission, use the Upload Submission button to add one at the top of the list.
+    </p>
+    <div
+      className="src-shared-components-SubmissionManagement-SubmissionsTable-___styles__submissions-table___1J9eA"
+    >
+      <table>
+        <thead>
+          <tr>
+            <th>
+              Preview
+            </th>
+            <th>
+              ID
+            </th>
+            <th>
+              Type
+            </th>
+            <th>
+              Submission Date
+            </th>
+            <th
+              className="src-shared-components-SubmissionManagement-SubmissionsTable-___styles__status___1X1-o"
+            >
+              Screening Status
+            </th>
+            <th
+              className="src-shared-components-SubmissionManagement-SubmissionsTable-___styles__actions___16pRz"
+            >
+              Actions
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr
+            className="src-shared-components-SubmissionManagement-Submission-___styles__submission-row___2yQOc"
+          >
+            <td
+              className="src-shared-components-SubmissionManagement-Submission-___styles__preview-col___1pWYq"
+            >
+              <img
+                alt="preview"
+                className="src-shared-components-SubmissionManagement-Submission-___styles__design-img___1klwr"
+                src="http://placehold.it/90/ff0000"
+              />
+            </td>
+            <td
+              className="src-shared-components-SubmissionManagement-Submission-___styles__id-col___zC6Hi"
+            >
+              0253653
+            </td>
+            <td>
+              Final
+            </td>
+            <td
+              className="src-shared-components-SubmissionManagement-Submission-___styles__date-col___3XOxK"
+            >
+              Mar 02, 2017 05:03 PM
+            </td>
+            <td
+              className="src-shared-components-SubmissionManagement-Submission-___styles__status-col___1Byk3"
+            >
+              <button
+                onClick={[Function]}
+              >
+                <div
+                  className="src-shared-components-SubmissionManagement-ScreeningStatus-___styles__screening-status___JV4BF src-shared-components-SubmissionManagement-ScreeningStatus-___styles__pending___2TqCq"
+                >
+                  <span>
+                    Not yet performed
+                  </span>
+                </div>
+              </button>
+            </td>
+            <td>
+              <div
+                className="src-shared-components-SubmissionManagement-Submission-___styles__action-col___2M1RY"
+              >
+                <button
+                  onClick={[Function]}
+                >
+                  <svg
+                    height="16"
+                    viewBox="0 0 16 16"
+                    width="16"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <g
+                      fill="#262628"
+                    >
+                      <path
+                        d="M8 12c.3 0 .5-.1.7-.3L14.4 6 13 4.6l-4 4V0H7v8.6l-4-4L1.6 6l5.7 5.7c.2.2.4.3.7.3z"
+                      />
+                      <path
+                        d="M14 14H2v-3H0v4c0 .6.4 1 1 1h14c.6 0 1-.4 1-1v-4h-2v3z"
+                      />
+                    </g>
+                  </svg>
+                </button>
+                <button
+                  className="src-shared-components-SubmissionManagement-Submission-___styles__delete-icon___2M67z"
+                  onClick={[Function]}
+                >
+                  <svg
+                    height="16"
+                    viewBox="0 0 16 16"
+                    width="16"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M5 7h2v6H5zM9 7h2v6H9z"
+                    />
+                    <path
+                      d="M12 1a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1v2H0v2h1v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V5h1V3h-4V1zM6 2h4v1H6V2zm7 3v9H3V5h10z"
+                    />
+                  </svg>
+                </button>
+                <button
+                  className="src-shared-components-SubmissionManagement-Submission-___styles__expand-icon___TDY6Y"
+                  onClick={[Function]}
+                >
+                  <svg
+                    height="16"
+                    viewBox="0 0 16 16"
+                    width="16"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M15.707 4.854l-1.414-1.415L8 9.732 1.707 3.439.293 4.854 8 12.561z"
+                    />
+                  </svg>
+                </button>
+              </div>
+            </td>
+          </tr>
+          <tr
+            className="src-shared-components-SubmissionManagement-SubmissionsTable-___styles__submission-row___1uclT"
+          />
+          <tr
+            className="src-shared-components-SubmissionManagement-Submission-___styles__submission-row___2yQOc"
+          >
+            <td
+              className="src-shared-components-SubmissionManagement-Submission-___styles__preview-col___1pWYq"
+            >
+              <img
+                alt="preview"
+                className="src-shared-components-SubmissionManagement-Submission-___styles__design-img___1klwr"
+                src="http://placehold.it/90/f0ff0f"
+              />
+            </td>
+            <td
+              className="src-shared-components-SubmissionManagement-Submission-___styles__id-col___zC6Hi"
+            >
+              0253614
+            </td>
+            <td>
+              Checkpoint
+            </td>
+            <td
+              className="src-shared-components-SubmissionManagement-Submission-___styles__date-col___3XOxK"
+            >
+              Mar 02, 2017 07:50 PM
+            </td>
+            <td
+              className="src-shared-components-SubmissionManagement-Submission-___styles__status-col___1Byk3"
+            >
+              <button
+                onClick={[Function]}
+              >
+                <div
+                  className="src-shared-components-SubmissionManagement-ScreeningStatus-___styles__screening-status___JV4BF src-shared-components-SubmissionManagement-ScreeningStatus-___styles__has-warn___8jqPg"
+                >
+                  <span
+                    className="src-shared-components-SubmissionManagement-ScreeningStatus-___styles__status___1CCjJ src-shared-components-SubmissionManagement-ScreeningStatus-___styles__passed___1R8KE"
+                  >
+                    pass
+                  </span>
+                  <span
+                    className="src-shared-components-SubmissionManagement-ScreeningStatus-___styles__warning___6tSHD"
+                  >
+                    2 
+                     warnings
+                  </span>
+                </div>
+              </button>
+            </td>
+            <td>
+              <div
+                className="src-shared-components-SubmissionManagement-Submission-___styles__action-col___2M1RY"
+              >
+                <button
+                  onClick={[Function]}
+                >
+                  <svg
+                    height="16"
+                    viewBox="0 0 16 16"
+                    width="16"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <g
+                      fill="#262628"
+                    >
+                      <path
+                        d="M8 12c.3 0 .5-.1.7-.3L14.4 6 13 4.6l-4 4V0H7v8.6l-4-4L1.6 6l5.7 5.7c.2.2.4.3.7.3z"
+                      />
+                      <path
+                        d="M14 14H2v-3H0v4c0 .6.4 1 1 1h14c.6 0 1-.4 1-1v-4h-2v3z"
+                      />
+                    </g>
+                  </svg>
+                </button>
+                <button
+                  className="src-shared-components-SubmissionManagement-Submission-___styles__delete-icon___2M67z"
+                  onClick={[Function]}
+                >
+                  <svg
+                    height="16"
+                    viewBox="0 0 16 16"
+                    width="16"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M5 7h2v6H5zM9 7h2v6H9z"
+                    />
+                    <path
+                      d="M12 1a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1v2H0v2h1v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V5h1V3h-4V1zM6 2h4v1H6V2zm7 3v9H3V5h10z"
+                    />
+                  </svg>
+                </button>
+                <button
+                  className="src-shared-components-SubmissionManagement-Submission-___styles__expand-icon___TDY6Y"
+                  onClick={[Function]}
+                >
+                  <svg
+                    height="16"
+                    viewBox="0 0 16 16"
+                    width="16"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M15.707 4.854l-1.414-1.415L8 9.732 1.707 3.439.293 4.854 8 12.561z"
+                    />
+                  </svg>
+                </button>
+              </div>
+            </td>
+          </tr>
+          <tr
+            className="src-shared-components-SubmissionManagement-SubmissionsTable-___styles__submission-row___1uclT"
+          />
+          <tr
+            className="src-shared-components-SubmissionManagement-Submission-___styles__submission-row___2yQOc"
+          >
+            <td
+              className="src-shared-components-SubmissionManagement-Submission-___styles__preview-col___1pWYq"
+            >
+              <img
+                alt="preview"
+                className="src-shared-components-SubmissionManagement-Submission-___styles__design-img___1klwr"
+                src="http://placehold.it/90/0660ff"
+              />
+            </td>
+            <td
+              className="src-shared-components-SubmissionManagement-Submission-___styles__id-col___zC6Hi"
+            >
+              0253145
+            </td>
+            <td>
+              Checkpoint
+            </td>
+            <td
+              className="src-shared-components-SubmissionManagement-Submission-___styles__date-col___3XOxK"
+            >
+              Mar 03, 2017 08:50 PM
+            </td>
+            <td
+              className="src-shared-components-SubmissionManagement-Submission-___styles__status-col___1Byk3"
+            >
+              <button
+                onClick={[Function]}
+              >
+                <div
+                  className="src-shared-components-SubmissionManagement-ScreeningStatus-___styles__screening-status___JV4BF src-shared-components-SubmissionManagement-ScreeningStatus-___styles__pass-with-no-warn___2Lbv4"
+                >
+                  <span
+                    className="src-shared-components-SubmissionManagement-ScreeningStatus-___styles__status___1CCjJ"
+                  >
+                    pass
+                  </span>
+                </div>
+              </button>
+            </td>
+            <td>
+              <div
+                className="src-shared-components-SubmissionManagement-Submission-___styles__action-col___2M1RY"
+              >
+                <button
+                  onClick={[Function]}
+                >
+                  <svg
+                    height="16"
+                    viewBox="0 0 16 16"
+                    width="16"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <g
+                      fill="#262628"
+                    >
+                      <path
+                        d="M8 12c.3 0 .5-.1.7-.3L14.4 6 13 4.6l-4 4V0H7v8.6l-4-4L1.6 6l5.7 5.7c.2.2.4.3.7.3z"
+                      />
+                      <path
+                        d="M14 14H2v-3H0v4c0 .6.4 1 1 1h14c.6 0 1-.4 1-1v-4h-2v3z"
+                      />
+                    </g>
+                  </svg>
+                </button>
+                <button
+                  className="src-shared-components-SubmissionManagement-Submission-___styles__delete-icon___2M67z"
+                  onClick={[Function]}
+                >
+                  <svg
+                    height="16"
+                    viewBox="0 0 16 16"
+                    width="16"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M5 7h2v6H5zM9 7h2v6H9z"
+                    />
+                    <path
+                      d="M12 1a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1v2H0v2h1v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V5h1V3h-4V1zM6 2h4v1H6V2zm7 3v9H3V5h10z"
+                    />
+                  </svg>
+                </button>
+                <button
+                  className="src-shared-components-SubmissionManagement-Submission-___styles__expand-icon___TDY6Y"
+                  onClick={[Function]}
+                >
+                  <svg
+                    height="16"
+                    viewBox="0 0 16 16"
+                    width="16"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M15.707 4.854l-1.414-1.415L8 9.732 1.707 3.439.293 4.854 8 12.561z"
+                    />
+                  </svg>
+                </button>
+              </div>
+            </td>
+          </tr>
+          <tr
+            className="src-shared-components-SubmissionManagement-SubmissionsTable-___styles__submission-row___1uclT"
+          />
+          <tr
+            className="src-shared-components-SubmissionManagement-Submission-___styles__submission-row___2yQOc"
+          >
+            <td
+              className="src-shared-components-SubmissionManagement-Submission-___styles__preview-col___1pWYq"
+            >
+              <img
+                alt="preview"
+                className="src-shared-components-SubmissionManagement-Submission-___styles__design-img___1klwr"
+                src="http://placehold.it/90/ff0ff0"
+              />
+            </td>
+            <td
+              className="src-shared-components-SubmissionManagement-Submission-___styles__id-col___zC6Hi"
+            >
+              0253144
+            </td>
+            <td>
+              Checkpoint
+            </td>
+            <td
+              className="src-shared-components-SubmissionManagement-Submission-___styles__date-col___3XOxK"
+            >
+              Mar 05, 2017 12:37 AM
+            </td>
+            <td
+              className="src-shared-components-SubmissionManagement-Submission-___styles__status-col___1Byk3"
+            >
+              <button
+                onClick={[Function]}
+              >
+                <div
+                  className="src-shared-components-SubmissionManagement-ScreeningStatus-___styles__screening-status___JV4BF src-shared-components-SubmissionManagement-ScreeningStatus-___styles__has-warn___8jqPg"
+                >
+                  <span
+                    className="src-shared-components-SubmissionManagement-ScreeningStatus-___styles__status___1CCjJ src-shared-components-SubmissionManagement-ScreeningStatus-___styles__failed___2N6ch"
+                  >
+                    fail
+                  </span>
+                  <span
+                    className="src-shared-components-SubmissionManagement-ScreeningStatus-___styles__warning___6tSHD"
+                  >
+                    1 
+                    warning
+                  </span>
+                </div>
+              </button>
+            </td>
+            <td>
+              <div
+                className="src-shared-components-SubmissionManagement-Submission-___styles__action-col___2M1RY"
+              >
+                <button
+                  onClick={[Function]}
+                >
+                  <svg
+                    height="16"
+                    viewBox="0 0 16 16"
+                    width="16"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <g
+                      fill="#262628"
+                    >
+                      <path
+                        d="M8 12c.3 0 .5-.1.7-.3L14.4 6 13 4.6l-4 4V0H7v8.6l-4-4L1.6 6l5.7 5.7c.2.2.4.3.7.3z"
+                      />
+                      <path
+                        d="M14 14H2v-3H0v4c0 .6.4 1 1 1h14c.6 0 1-.4 1-1v-4h-2v3z"
+                      />
+                    </g>
+                  </svg>
+                </button>
+                <button
+                  className="src-shared-components-SubmissionManagement-Submission-___styles__delete-icon___2M67z"
+                  onClick={[Function]}
+                >
+                  <svg
+                    height="16"
+                    viewBox="0 0 16 16"
+                    width="16"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M5 7h2v6H5zM9 7h2v6H9z"
+                    />
+                    <path
+                      d="M12 1a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1v2H0v2h1v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V5h1V3h-4V1zM6 2h4v1H6V2zm7 3v9H3V5h10z"
+                    />
+                  </svg>
+                </button>
+                <button
+                  className="src-shared-components-SubmissionManagement-Submission-___styles__expand-icon___TDY6Y"
+                  onClick={[Function]}
+                >
+                  <svg
+                    height="16"
+                    viewBox="0 0 16 16"
+                    width="16"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M15.707 4.854l-1.414-1.415L8 9.732 1.707 3.439.293 4.854 8 12.561z"
+                    />
+                  </svg>
+                </button>
+              </div>
+            </td>
+          </tr>
+          <tr
+            className="src-shared-components-SubmissionManagement-SubmissionsTable-___styles__submission-row___1uclT"
+          />
+          <tr
+            className="src-shared-components-SubmissionManagement-Submission-___styles__submission-row___2yQOc"
+          >
+            <td
+              className="src-shared-components-SubmissionManagement-Submission-___styles__preview-col___1pWYq"
+            >
+              <img
+                alt="preview"
+                className="src-shared-components-SubmissionManagement-Submission-___styles__design-img___1klwr"
+                src="http://placehold.it/90/0f00f0"
+              />
+            </td>
+            <td
+              className="src-shared-components-SubmissionManagement-Submission-___styles__id-col___zC6Hi"
+            >
+              0253188
+            </td>
+            <td>
+              Checkpoint
+            </td>
+            <td
+              className="src-shared-components-SubmissionManagement-Submission-___styles__date-col___3XOxK"
+            >
+              Mar 05, 2017 12:37 AM
+            </td>
+            <td
+              className="src-shared-components-SubmissionManagement-Submission-___styles__status-col___1Byk3"
+            >
+              <button
+                onClick={[Function]}
+              >
+                <div
+                  className="src-shared-components-SubmissionManagement-ScreeningStatus-___styles__screening-status___JV4BF src-shared-components-SubmissionManagement-ScreeningStatus-___styles__fail-with-no-warn___3zepk"
+                >
+                  <span
+                    className="src-shared-components-SubmissionManagement-ScreeningStatus-___styles__status___1CCjJ"
+                  >
+                    fail
+                  </span>
+                </div>
+              </button>
+            </td>
+            <td>
+              <div
+                className="src-shared-components-SubmissionManagement-Submission-___styles__action-col___2M1RY"
+              >
+                <button
+                  onClick={[Function]}
+                >
+                  <svg
+                    height="16"
+                    viewBox="0 0 16 16"
+                    width="16"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <g
+                      fill="#262628"
+                    >
+                      <path
+                        d="M8 12c.3 0 .5-.1.7-.3L14.4 6 13 4.6l-4 4V0H7v8.6l-4-4L1.6 6l5.7 5.7c.2.2.4.3.7.3z"
+                      />
+                      <path
+                        d="M14 14H2v-3H0v4c0 .6.4 1 1 1h14c.6 0 1-.4 1-1v-4h-2v3z"
+                      />
+                    </g>
+                  </svg>
+                </button>
+                <button
+                  className="src-shared-components-SubmissionManagement-Submission-___styles__delete-icon___2M67z"
+                  onClick={[Function]}
+                >
+                  <svg
+                    height="16"
+                    viewBox="0 0 16 16"
+                    width="16"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M5 7h2v6H5zM9 7h2v6H9z"
+                    />
+                    <path
+                      d="M12 1a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1v2H0v2h1v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V5h1V3h-4V1zM6 2h4v1H6V2zm7 3v9H3V5h10z"
+                    />
+                  </svg>
+                </button>
+                <button
+                  className="src-shared-components-SubmissionManagement-Submission-___styles__expand-icon___TDY6Y"
+                  onClick={[Function]}
+                >
+                  <svg
+                    height="16"
+                    viewBox="0 0 16 16"
+                    width="16"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M15.707 4.854l-1.414-1.415L8 9.732 1.707 3.439.293 4.854 8 12.561z"
+                    />
+                  </svg>
+                </button>
+              </div>
+            </td>
+          </tr>
+          <tr
+            className="src-shared-components-SubmissionManagement-SubmissionsTable-___styles__submission-row___1uclT"
+          />
+          <tr
+            className="src-shared-components-SubmissionManagement-Submission-___styles__submission-row___2yQOc"
+          >
+            <td
+              className="src-shared-components-SubmissionManagement-Submission-___styles__preview-col___1pWYq"
+            >
+              <img
+                alt="preview"
+                className="src-shared-components-SubmissionManagement-Submission-___styles__design-img___1klwr"
+                src="http://placehold.it/90/00ff00"
+              />
+            </td>
+            <td
+              className="src-shared-components-SubmissionManagement-Submission-___styles__id-col___zC6Hi"
+            >
+              0253199
+            </td>
+            <td>
+              Checkpoint
+            </td>
+            <td
+              className="src-shared-components-SubmissionManagement-Submission-___styles__date-col___3XOxK"
+            >
+              Mar 05, 2017 12:37 AM
+            </td>
+            <td
+              className="src-shared-components-SubmissionManagement-Submission-___styles__status-col___1Byk3"
+            />
+            <td>
+              <div
+                className="src-shared-components-SubmissionManagement-Submission-___styles__action-col___2M1RY"
+              >
+                <button
+                  onClick={[Function]}
+                >
+                  <svg
+                    height="16"
+                    viewBox="0 0 16 16"
+                    width="16"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <g
+                      fill="#262628"
+                    >
+                      <path
+                        d="M8 12c.3 0 .5-.1.7-.3L14.4 6 13 4.6l-4 4V0H7v8.6l-4-4L1.6 6l5.7 5.7c.2.2.4.3.7.3z"
+                      />
+                      <path
+                        d="M14 14H2v-3H0v4c0 .6.4 1 1 1h14c.6 0 1-.4 1-1v-4h-2v3z"
+                      />
+                    </g>
+                  </svg>
+                </button>
+                <button
+                  className="src-shared-components-SubmissionManagement-Submission-___styles__delete-icon___2M67z"
+                  onClick={[Function]}
+                >
+                  <svg
+                    height="16"
+                    viewBox="0 0 16 16"
+                    width="16"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M5 7h2v6H5zM9 7h2v6H9z"
+                    />
+                    <path
+                      d="M12 1a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1v2H0v2h1v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V5h1V3h-4V1zM6 2h4v1H6V2zm7 3v9H3V5h10z"
+                    />
+                  </svg>
+                </button>
+                <button
+                  className="src-shared-components-SubmissionManagement-Submission-___styles__expand-icon___TDY6Y"
+                  onClick={[Function]}
+                >
+                  <svg
+                    height="16"
+                    viewBox="0 0 16 16"
+                    width="16"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M15.707 4.854l-1.414-1.415L8 9.732 1.707 3.439.293 4.854 8 12.561z"
+                    />
+                  </svg>
+                </button>
+              </div>
+            </td>
+          </tr>
+          <tr
+            className="src-shared-components-SubmissionManagement-SubmissionsTable-___styles__submission-row___1uclT"
+          />
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <button
+    className="tc-btn tc-btn-primary tc-btn-md src-shared-components-SubmissionManagement-SubmissionManagement-___styles__add-sub-btn___1ZToV"
+    onClick={[Function]}
+  >
+    Add Submission
+  </button>
+</div>
+`;
+
+exports[`matches snapshots for development submissions 1`] = `
+<div
+  className="src-shared-components-SubmissionManagement-SubmissionManagement-___styles__submission-management___3JDUS"
+>
+  <div
+    className="src-shared-components-SubmissionManagement-SubmissionManagement-___styles__submission-management-header___3NQqC"
+  >
+    <div
+      className="src-shared-components-SubmissionManagement-SubmissionManagement-___styles__left-col___2Z7o4"
+    >
+      <h4
+        className="src-shared-components-SubmissionManagement-SubmissionManagement-___styles__name___3U4Rx"
+      >
+        John Hancock - Project Coesus Database Upgrade
+      </h4>
+      <button
+        className="src-shared-components-SubmissionManagement-SubmissionManagement-___styles__back-btn___1nKEx"
+        onClick={[Function]}
+      >
+        &lt; Back
+      </button>
+    </div>
+    <div
+      className="src-shared-components-SubmissionManagement-SubmissionManagement-___styles__right-col___3vkUr"
+    >
+      <p
+        className="src-shared-components-SubmissionManagement-SubmissionManagement-___styles__round___3QPI9"
+      >
+        Submission
+      </p>
+      <p
+        className="src-shared-components-SubmissionManagement-SubmissionManagement-___styles__time-left___1Tye2"
+      >
+        2H 10M
+      </p>
+      <p
+        className="src-shared-components-SubmissionManagement-SubmissionManagement-___styles__left-label___1eGT9"
+      >
+        left to submit
+      </p>
+    </div>
+  </div>
+  <div
+    className="src-shared-components-SubmissionManagement-SubmissionManagement-___styles__submission-management-content___1iGPg"
+  >
+    <div
+      className="src-shared-components-SubmissionManagement-SubmissionManagement-___styles__content-head___3KW7D"
+    >
+      <p
+        className="src-shared-components-SubmissionManagement-SubmissionManagement-___styles__title___Hdx_v"
+      >
+        Manage your submissions
+      </p>
+    </div>
+    <p
+      className="src-shared-components-SubmissionManagement-SubmissionManagement-___styles__recommend-info___n3jfo"
+    >
+      We always recommend to download your submission to check you uploaded the correct zip file. If you don’t want to see the submission, simply delete. If you have a new submission, use the Upload Submission button to overwrite the current one.
+    </p>
+    <div
+      className="src-shared-components-SubmissionManagement-SubmissionsTable-___styles__submissions-table___1J9eA"
+    >
+      <table>
+        <thead>
+          <tr>
+            <th>
+              Preview
+            </th>
+            <th>
+              ID
+            </th>
+            <th>
+              Type
+            </th>
+            <th>
+              Submission Date
+            </th>
+            <th
+              className="src-shared-components-SubmissionManagement-SubmissionsTable-___styles__actions___16pRz"
+            >
+              Actions
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr
+            className="src-shared-components-SubmissionManagement-Submission-___styles__submission-row___2yQOc"
+          >
+            <td
+              className="src-shared-components-SubmissionManagement-Submission-___styles__preview-col___1pWYq"
+            >
+              <img
+                alt="preview"
+                className="src-shared-components-SubmissionManagement-Submission-___styles__dev-img___rbFEF"
+                src="http://placehold.it/40/ff0ff0"
+              />
+            </td>
+            <td
+              className="src-shared-components-SubmissionManagement-Submission-___styles__id-col___zC6Hi"
+            >
+              0253653
+            </td>
+            <td>
+              Final
+            </td>
+            <td
+              className="src-shared-components-SubmissionManagement-Submission-___styles__date-col___3XOxK"
+            >
+              Mar 02, 2017 05:03 PM
+            </td>
+            <td>
+              <div
+                className="src-shared-components-SubmissionManagement-Submission-___styles__action-col___2M1RY"
+              >
+                <button
+                  onClick={[Function]}
+                >
+                  <svg
+                    height="16"
+                    viewBox="0 0 16 16"
+                    width="16"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <g
+                      fill="#262628"
+                    >
+                      <path
+                        d="M8 12c.3 0 .5-.1.7-.3L14.4 6 13 4.6l-4 4V0H7v8.6l-4-4L1.6 6l5.7 5.7c.2.2.4.3.7.3z"
+                      />
+                      <path
+                        d="M14 14H2v-3H0v4c0 .6.4 1 1 1h14c.6 0 1-.4 1-1v-4h-2v3z"
+                      />
+                    </g>
+                  </svg>
+                </button>
+                <button
+                  className="src-shared-components-SubmissionManagement-Submission-___styles__delete-icon___2M67z"
+                  onClick={[Function]}
+                >
+                  <svg
+                    height="16"
+                    viewBox="0 0 16 16"
+                    width="16"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M5 7h2v6H5zM9 7h2v6H9z"
+                    />
+                    <path
+                      d="M12 1a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1v2H0v2h1v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V5h1V3h-4V1zM6 2h4v1H6V2zm7 3v9H3V5h10z"
+                    />
+                  </svg>
+                </button>
+                <button
+                  className="src-shared-components-SubmissionManagement-Submission-___styles__expand-icon___TDY6Y"
+                  onClick={[Function]}
+                >
+                  <svg
+                    height="16"
+                    viewBox="0 0 16 16"
+                    width="16"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M15.707 4.854l-1.414-1.415L8 9.732 1.707 3.439.293 4.854 8 12.561z"
+                    />
+                  </svg>
+                </button>
+              </div>
+            </td>
+          </tr>
+          <tr
+            className="src-shared-components-SubmissionManagement-SubmissionsTable-___styles__submission-row___1uclT"
+          />
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <button
+    className="tc-btn tc-btn-primary tc-btn-md src-shared-components-SubmissionManagement-SubmissionManagement-___styles__add-sub-btn___1ZToV"
+    onClick={[Function]}
+  >
+    Update Submission
+  </button>
+</div>
+`;

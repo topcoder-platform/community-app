@@ -10,7 +10,7 @@
  * @return True if the code is running client-side.
  */
 export function isClientSide() {
-  return process.env.FRONT_END;
+  return Boolean(process.env.FRONT_END);
 }
 
 /**

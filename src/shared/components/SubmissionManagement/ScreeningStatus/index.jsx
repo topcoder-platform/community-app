@@ -65,9 +65,7 @@ export default function ScreeningStatus(props) {
 }
 
 ScreeningStatus.defaultProps = {
-  screeningObject: _.noop,
   onShowDetails: _.noop,
-  submissionId: _.noop,
 };
 
 ScreeningStatus.propTypes = {
@@ -76,7 +74,7 @@ ScreeningStatus.propTypes = {
       status: PT.string,
       warnings: PT.array,
     },
-  ),
+  ).isRequired,
   onShowDetails: PT.func,
-  submissionId: PT.string,
+  submissionId: PT.string.isRequired,
 };

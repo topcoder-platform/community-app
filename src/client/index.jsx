@@ -19,6 +19,13 @@ import App from '../shared';
 import storeFactory from '../shared/store-factory';
 import './styles.scss';
 
+/* Isomorphic code may rely on this environment variable to check whether it is
+ * executed client- or server-side. */
+if (!process.env.FRONT_END) {
+  throw new Error(
+    'process.env.FRONT_END must evaluate to true at the client side');
+}
+
 const config = window.CONFIG;
 
 /**

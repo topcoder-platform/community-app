@@ -1,0 +1,25 @@
+{
+  "collectCoverage": true,
+  "collectCoverageFrom": [
+    "src/**/*.{js,jsx}"
+  ],
+  "coverageDirectory": "__coverage__",
+  "coverageThreshold": {
+    "global": {
+      "branches": 60.50,
+      "functions": 64.50,
+      "lines": 63.25,
+      "statements": 59.25
+    }
+  },
+  "moduleNameMapper": {
+    "\\.scss$": "identity-obj-proxy"
+  },
+  "testPathIgnorePatterns": [
+    "__mocks__",
+    "/node_modules/"
+  ],
+  "transformIgnorePatterns": [
+    "/node_modules/(?!appirio-tech.*|topcoder|tc-)"
+  ]
+}

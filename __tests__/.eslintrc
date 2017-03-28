@@ -1,0 +1,11 @@
+{
+  "env": {
+    "jest/globals": true
+  },
+  "plugins": [
+    "jest"
+  ],
+  "rules": {
+    "global-require": 0
+  }
+}

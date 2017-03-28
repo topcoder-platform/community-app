@@ -1,0 +1,72 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<div
+  className="src-shared-components-SubmissionManagement-ScreeningDetails-___styles__screening-details___2ycEB"
+>
+  <div
+    className="src-shared-components-SubmissionManagement-ScreeningDetails-___styles__screening-details-head___2rqCn"
+  >
+    <p
+      className="src-shared-components-SubmissionManagement-ScreeningDetails-___styles__status-title___3HTbG"
+    >
+      
+    </p>
+    <button
+      className="src-shared-components-SubmissionManagement-ScreeningDetails-___styles__online-review-link___14IJN"
+      onClick={[Function]}
+    >
+      Online Review
+    </button>
+  </div>
+  <p>
+    Your submission has been received, and will be evaluated during Review phase.
+  </p>
+  <div
+    className="src-shared-components-SubmissionManagement-ScreeningDetails-___styles__screening-warning___1IMq5"
+  >
+    <div
+      className="src-shared-components-SubmissionManagement-ScreeningDetails-___styles__screening-warning___1IMq5"
+    >
+      <div
+        className="src-shared-components-SubmissionManagement-ScreeningDetails-___styles__warning-bold___20osd"
+      >
+        <span>
+          Warning
+        </span>
+         
+        1 : Dummy Brief #1
+      </div>
+      <p>
+        Dummy Details #1
+      </p>
+    </div>
+    <div
+      className="src-shared-components-SubmissionManagement-ScreeningDetails-___styles__screening-warning___1IMq5"
+    >
+      <div
+        className="src-shared-components-SubmissionManagement-ScreeningDetails-___styles__warning-bold___20osd"
+      >
+        <span>
+          Warning
+        </span>
+         
+        2 : Dummy Brief #2
+      </div>
+      <p>
+        Dummy Details #2
+      </p>
+    </div>
+    <div
+      className="src-shared-components-SubmissionManagement-ScreeningDetails-___styles__help-btn___222Uf"
+    >
+      <button
+        className="tc-btn tc-btn-default"
+        onClick={[Function]}
+      >
+        Help
+      </button>
+    </div>
+  </div>
+</div>
+`;

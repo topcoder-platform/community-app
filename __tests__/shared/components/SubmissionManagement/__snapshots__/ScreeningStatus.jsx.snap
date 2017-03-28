@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<button
+  onClick={[Function]}
+>
+  <div
+    className="src-shared-components-SubmissionManagement-ScreeningStatus-___styles__screening-status___JV4BF src-shared-components-SubmissionManagement-ScreeningStatus-___styles__has-warn___8jqPg"
+  >
+    <span
+      className="src-shared-components-SubmissionManagement-ScreeningStatus-___styles__status___1CCjJ"
+    >
+      
+    </span>
+    <span
+      className="src-shared-components-SubmissionManagement-ScreeningStatus-___styles__warning___6tSHD"
+    >
+      2 
+       warnings
+    </span>
+  </div>
+</button>
+`;

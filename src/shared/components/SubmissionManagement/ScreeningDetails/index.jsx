@@ -107,17 +107,17 @@ ScreeningDetails.defaultProps = {
   screeningObject: {},
   onHelp: _.noop,
   onOpenOnlineReview: _.noop,
-  submissionId: _.noop,
 };
 
 ScreeningDetails.propTypes = {
-  screeningObject: PT.shape(
-    {
-      status: PT.string,
-      warnings: PT.array,
-    },
-  ),
+  screeningObject: PT.shape({
+    status: PT.string,
+    warnings: PT.arrayOf(PT.shape({
+      brief: PT.string.isRequired,
+      details: PT.string.isRequired,
+    })),
+  }),
   onHelp: PT.func,
   onOpenOnlineReview: PT.func,
-  submissionId: PT.string,
+  submissionId: PT.string.isRequired,
 };

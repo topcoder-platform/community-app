@@ -12,6 +12,13 @@ import path from 'path';
 
 import renderer from './renderer';
 
+/* Isomorphic code may rely on this environment variable to check whether it is
+ * executed client- or server-side. */
+if (process.env.FRONT_END) {
+  throw new Error(
+    'process.env.FRONT_END must evaluate to false at the server side');
+}
+
 const IS_DEV = process.env.NODE_ENV === 'development';
 
 const app = express();

@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`matches snapshots 1`] = `
+<div
+  className="src-shared-containers-SubmissionManagement-___styles__outer-container___u-zaP"
+>
+  <div
+    className="src-shared-containers-SubmissionManagement-___styles__submission-management-container___dQIrV"
+  />
+</div>
+`;

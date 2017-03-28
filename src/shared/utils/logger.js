@@ -9,13 +9,9 @@ import { isDev } from './isomorphy';
 
 const devLogger = console;
 
-const prodLogger = {
-  clear: _.noop,
-  debug: _.noop,
-  error: _.noop,
-  info: _.noop,
-  log: _.noop,
-  warn: _.noop,
-};
+const prodLogger = {};
+_.functions(console).forEach((func) => {
+  prodLogger[func] = _.noop;
+});
 
 export default isDev() ? devLogger : prodLogger;
