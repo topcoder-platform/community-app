@@ -1,3 +1,6 @@
+// NOTE: Babel config for development version of the frontend code is located
+// inside Webpack config file, because to enabel Hot Module Replacement it uses
+// some special settings, incompatible with NodeJS.
 {
   "presets": ["env", "react", "stage-2"],
   "plugins": [

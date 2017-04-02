@@ -23,7 +23,9 @@ module.exports = {
         /src\/assets\/fonts/,
       ],
       loader: 'babel-loader',
-      /* Babel-loader is configured by .babelrc in the project's root folder. */
+      /* NOTE: Babel configuration is taken from .babelrc, in general case.
+       * For development Webpack build, however, Babel is configured directly
+       * inside Webpack's development.js config. */
     }],
   },
   output: {

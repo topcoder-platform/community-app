@@ -6,8 +6,9 @@ const defaultConfig = require('./default');
 
 module.exports = webpackMerge(defaultConfig, {
   entry: [
-    defaultConfig.entry,
+    'react-hot-loader/patch',
     'webpack-hot-middleware/client?reload=true',
+    defaultConfig.entry,
   ],
   module: {
     rules: [{
@@ -35,6 +36,45 @@ module.exports = webpackMerge(defaultConfig, {
           sourceMap: true,
         },
       }],
+    }, {
+      test: /\.(jsx?|svg)$/,
+      exclude: [
+        /node_modules\/(?!appirio-tech.*|topcoder|tc-)/,
+        /src\/assets\/fonts/,
+      ],
+      loader: 'babel-loader',
+      options: {
+        babelrc: false,
+        presets: [['env', { modules: false }], 'react', 'stage-2'],
+        plugins: [
+          'inline-react-svg',
+          ['module-resolver', {
+            alias: {
+              // NOTE: Some aliases related to assets and styles are defined in
+              // webpack config.
+              actions: './actions',
+              components: './components',
+              containers: './containers',
+              reducers: './reducers',
+              routes: './routes',
+              server: './server',
+              services: './services',
+              utils: './utils',
+            },
+            extensions: ['.js', '.jsx'],
+            root: [
+              './src/shared',
+              './src',
+            ],
+          }],
+          'react-hot-loader/babel',
+          ['react-css-modules', {
+            filetypes: {
+              '.scss': 'postcss-scss',
+            },
+          }],
+        ],
+      },
     }],
   },
   plugins: [
@@ -45,5 +85,6 @@ module.exports = webpackMerge(defaultConfig, {
     }),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoEmitOnErrorsPlugin(),
+    new webpack.NamedModulesPlugin(),
   ],
 });

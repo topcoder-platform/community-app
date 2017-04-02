@@ -6,7 +6,7 @@ import actions from 'actions/auth';
 import cookies from 'browser-cookies';
 import { BrowserRouter, browserHistory } from 'react-router-dom';
 import React from 'react';
-import { render } from 'react-dom';
+import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import {
   configureConnector,
@@ -15,7 +15,6 @@ import {
 } from 'tc-accounts';
 import logger from 'utils/logger';
 
-import App from '../shared';
 import storeFactory from '../shared/store-factory';
 import './styles.scss';
 
@@ -72,12 +71,20 @@ function authenticate(store) {
 
 storeFactory(undefined, window.ISTATE).then((store) => {
   authenticate(store);
-  render(
-    <Provider store={store}>
-      <BrowserRouter history={browserHistory}>
-        <App />
-      </BrowserRouter>
-    </Provider>,
-    document.getElementById('react-view'),
-  );
+
+  function render() {
+    const App = require('../shared').default; // eslint-disable-line global-require
+    ReactDOM.render(
+      <Provider store={store}>
+        <BrowserRouter history={browserHistory}>
+          <App />
+        </BrowserRouter>
+      </Provider>,
+      document.getElementById('react-view'),
+    );
+  }
+
+  render();
+
+  if (module.hot) module.hot.accept('../shared', render);
 });
