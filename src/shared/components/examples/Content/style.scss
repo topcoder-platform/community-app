@@ -1,6 +1,21 @@
 .Content {
-  li a {
-    color: blue;
+  padding: 24px;
+
+  h1 {
+    margin: 0 0 18px;
+  }
+
+  h3 {
+    margin: 24px 0 6px;
+  }
+
+  li {
+    list-style-type: disc;
+    margin-left: 24px;
+
+    a {
+      color: blue;
+    }
   }
 
   code {

@@ -1,7 +1,7 @@
 # Topcoder Community App
 New version of Topcoder Community website.
 
-# Deployment and Execution
+### Deployment and Execution
 
 *Disclaimer:* Current instructions are biased towards Ubuntu 16.04. Hovewer, similar recipies should work for other OS. Should you encounter and overcome any tricky issues on other OS, you are welcome to add notes/hints into this file.
 
@@ -29,11 +29,11 @@ $ npm start
 ```
 In this case you still should follow all notes for the production build/run, stated just above.
 
-# Development Notes
+### Development Notes
 
 -   [Why Reducer Factories and How to Use Them?](docs/why-reducer-factories-and-how-to-use-them.md)
 
-# Current Status
+### Current Status
 
 *Note:* Server-side rendering is supported. It means, if you go to `/src/server/App.jsx` and remove the line `<_script type="application/javascript" src="/bundle.js"></script>`, which loads JS bundle in the page, when you start the App and load any page, you'll still see a properly rendered page (without any interactivity). It means that loading of JS bundle and initialization of ReactJS do not block the proper rendering of the page.
 
@@ -48,7 +48,7 @@ This App already contains:
 - ESLint (AirBnB style);
 - Express server;
 - Font loading (Roboto fonts are included into the repo);
-- Hot reload of JS code and SCSS styles in dev environment;
+- Hot Module Replacement for JS code and SCSS styles in dev environment;
 - Isomorphic fetch and Topcoder API Auth;
 - Loading of .svg assets as ReactJS components with babel-plugin-inline-react-svg
 - Node-Config;
@@ -59,11 +59,11 @@ This App already contains:
 - SCSS support;
 - StyleFMT;
 - Stylelint for scss (standard Stylelint style);
+- Unit testing with Jest;
 - Various examples;
 - Webpack;
 
 Pending low-priority staff (these are important, but can be added along the way):
 - CircleCI deploys;
 - react-css-themr (https://github.com/javivelasco/react-css-themr);
-- Unit testing;
 - Webpack Dashboard (https://github.com/FormidableLabs/webpack-dashboard);

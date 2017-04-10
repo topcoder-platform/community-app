@@ -59,8 +59,10 @@ export default function Content() {
       <h3>New Topcoder Pages</h3>
       <ul>
         <li>
-          <Link to="/submission-management">Submission Management</Link> - New
-          submissions management page;
+          <a href="/challenge/30050696/my-submissions">Submission Management
+          Page</a> &ndash; New submission management page, is available at
+          the endpoint <code>/challenge/:challengeId/my-submissions</code>.
+          The link here leads to the test challenge.
         </li>
       </ul>
       <h3>Misc Examples</h3>
