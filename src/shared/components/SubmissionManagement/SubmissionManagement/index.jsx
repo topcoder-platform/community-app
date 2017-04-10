@@ -15,53 +15,72 @@
 
 import _ from 'lodash';
 import Button from 'components/Button';
+import LoadingIndicator from 'components/LoadingIndicator';
 import React, { PropTypes as PT } from 'react';
+import moment from 'moment';
 import SubmissionsTable from '../SubmissionsTable';
 import './styles.scss';
 
 export default function SubmissionManagement(props) {
   const {
-    mockObject,
+    challenge,
+    submissions,
+    loadingSubmissions,
     showDetails,
     onDelete,
-    onOpenOnlineReview,
-    onHelp,
+    helpPageUrl,
     onDownload,
     onShowDetails,
-    onBack,
-    onSubmit,
+    challengeUrl,
+    addSumissionUrl,
+    onlineReviewUrl,
   } = props;
 
-  const isDesign = mockObject.challenge.type === 'design';
-  const isDevelop = mockObject.challenge.type === 'develop';
+  const challengeType = challenge.track.toLowerCase();
+
+  const isDesign = challengeType === 'design';
+  const isDevelop = challengeType === 'develop';
+  const currentPhase = _.last(challenge.currentPhases || []) || {};
+
+  let now = moment(), end = moment(currentPhase.scheduledEndTime),
+    diff = end.diff(now),
+    timeLeft = moment.duration(diff),
+
+    [days, hours, minutes] = [
+      timeLeft.get('days'),
+      timeLeft.get('hours'),
+      timeLeft.get('minutes'),
+    ];
 
   const config = {
+    helpPageUrl,
     onDelete,
-    onHelp,
-    onDownload,
-    onOpenOnlineReview,
+    onDownload: onDownload.bind(0, challengeType),
+    onlineReviewUrl,
     onShowDetails,
   };
   return (
     <div styleName="submission-management">
       <div styleName="submission-management-header">
         <div styleName="left-col">
-          <h4 styleName="name">{mockObject.challenge.name}</h4>
-          <button styleName="back-btn" onClick={() => onBack()}>
+          <h4 styleName="name">{challenge.name}</h4>
+          <a href={challengeUrl} styleName="back-btn">
             &lt; Back
-          </button>
+          </a>
         </div>
         <div styleName="right-col">
-          <p styleName="round">{mockObject.challenge.phase}</p>
-          <p styleName="time-left">2H 10M</p>
-          <p styleName="left-label">left to submit</p>
+          <p styleName="round">{currentPhase.phaseType}</p>
+          <p styleName="time-left">
+            {days>0&&(days+'D')} {hours}H {minutes}M
+          </p>
+          <p styleName="left-label">left</p>
         </div>
       </div>
       <div styleName="submission-management-content">
         <div styleName="content-head">
           <p styleName="title">Manage your submissions</p>
           {isDesign && <p styleName="round-ends">
-            <span styleName="ends-label">Round 2 Ends:</span> Friday 08/24/16 10:00 AM EDT</p>}
+            <span styleName="ends-label">{currentPhase.phaseType} Ends:</span> {end.format('dddd MM/DD/YY hh:mm A')} EDT</p>}
         </div>
         {isDesign && <p styleName="recommend-info">
           We always recommend to download your submission to check you uploaded the correct
@@ -74,30 +93,24 @@ export default function SubmissionManagement(props) {
            If you don’t want to see the submission, simply delete.
            If you have a new submission, use the Upload Submission button to
             overwrite the current one.</p>}
-        <SubmissionsTable
-          submissionObjects={mockObject.submissions}
-          showDetails={showDetails}
-          type={mockObject.challenge.type}
-          {...config}
-        />
+        {loadingSubmissions && <LoadingIndicator />}
+        {!loadingSubmissions &&
+          <SubmissionsTable
+            submissionObjects={submissions}
+            showDetails={showDetails}
+            type={challenge.type}
+            {...config}
+          />
+        }
       </div>
-      {/* TODO: These two button elements should be merged in one, which will
-        * work both for design and dev submission pages. */
-        isDevelop &&
-        <Button
-          className="tc-btn-primary tc-btn-md"
-          onClick={onSubmit}
-          styleName="add-sub-btn"
-        >
-          {(!mockObject.submissions || mockObject.submissions.length === 0)
+      <div styleName="btn-wrap">
+        <a href={addSumissionUrl}
+            className="tc-btn tc-btn-primary tc-btn-md"
+            styleName="add-sub-btn">
+          {(!isDevelop || !submissions || submissions.length === 0)
             ? 'Add Submission' : 'Update Submission'}
-        </Button>}
-      {isDesign &&
-        <Button
-          className="tc-btn-primary tc-btn-md"
-          onClick={onSubmit}
-          styleName="add-sub-btn"
-        >Add Submission</Button>}
+        </a>
+      </div>
     </div>
   );
 }
@@ -107,11 +120,7 @@ SubmissionManagement.defaultProps = {
   onDelete: _.noop,
   onShowDetails: _.noop,
   showDetails: new Set(),
-  onOpenOnlineReview: _.noop,
-  onHelp: _.noop,
   onDownload: _.noop,
-  onBack: _.noop,
-  onSubmit: _.noop,
 };
 
 SubmissionManagement.propTypes = {
@@ -121,10 +130,8 @@ SubmissionManagement.propTypes = {
   }),
   showDetails: PT.instanceOf(Set),
   onDelete: PT.func,
-  onOpenOnlineReview: PT.func,
-  onHelp: PT.func,
+  onlineReviewUrl: PT.string,
+  helpPageUrl: PT.string,
   onDownload: PT.func,
   onShowDetails: PT.func,
-  onBack: PT.func,
-  onSubmit: PT.func,
 };

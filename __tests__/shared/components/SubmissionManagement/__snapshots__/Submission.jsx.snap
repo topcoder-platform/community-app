@@ -10,7 +10,7 @@ exports[`matches snapshots 1`] = `
     <img
       alt="preview"
       className="src-shared-components-SubmissionManagement-Submission-___styles__design-img___1klwr"
-      src={undefined}
+      src="http://placehold.it/90/a01230"
     />
   </td>
   <td

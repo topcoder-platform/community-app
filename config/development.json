@@ -1,3 +1,6 @@
 {
+  "TC_BASE_URL": "https://www.topcoder-dev.com",
+  "OR_BASE_URL": "https://software.topcoder-dev.com",
+  "HELP_URL": "https://help.topcoder-dev.com"
 
 }

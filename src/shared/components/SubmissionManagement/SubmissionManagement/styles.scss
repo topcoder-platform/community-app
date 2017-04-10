@@ -10,10 +10,16 @@ $submang-space-20: $base-unit * 4;
 $gray-color: $tc-gray-40;
 $light-gray-color: $tc-gray-neutral-light;
 
+.btn-wrap {
+  text-align: center;
+  color: white;
+}
+
 .add-sub-btn {
   margin: 10px auto;
   display: block;
   text-transform: capitalize;
+  display: inline-block;
 }
 
 .submission-management {

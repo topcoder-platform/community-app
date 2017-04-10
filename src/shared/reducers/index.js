@@ -18,11 +18,13 @@ import { combineReducers } from 'redux';
 import { resolveReducers } from 'utils/redux';
 
 import { factory as authFactory } from './auth';
+import { factory as challengeFactory } from './challenge';
 import { factory as examplesFactory } from './examples';
 
 export function factory(req) {
   return resolveReducers({
     auth: authFactory(req),
+    challenge: challengeFactory(req),
     examples: examplesFactory(req),
   }).then(reducers => combineReducers({
     ...reducers,

@@ -12,12 +12,12 @@ exports[`renders correctly 1`] = `
     >
       
     </p>
-    <button
+    <a
       className="src-shared-components-SubmissionManagement-ScreeningDetails-___styles__online-review-link___14IJN"
-      onClick={[Function]}
+      href={undefined}
     >
       Online Review
-    </button>
+    </a>
   </div>
   <p>
     Your submission has been received, and will be evaluated during Review phase.
@@ -60,12 +60,12 @@ exports[`renders correctly 1`] = `
     <div
       className="src-shared-components-SubmissionManagement-ScreeningDetails-___styles__help-btn___222Uf"
     >
-      <button
-        className="tc-btn tc-btn-default"
-        onClick={[Function]}
+      <a
+        className="tc-btn-default src-shared-components-SubmissionManagement-ScreeningDetails-___styles__help-link___41Oxm"
+        href={undefined}
       >
         Help
-      </button>
+      </a>
     </div>
   </div>
 </div>

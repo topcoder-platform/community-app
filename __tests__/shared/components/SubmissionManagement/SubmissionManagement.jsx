@@ -10,7 +10,8 @@ import mockDevSubmissionsObject from
 test('matches snapshots for design submissions', () => {
   const html = renderer.create((
     <SubmissionManagement
-      mockObject={mockDesignSubmissionsObject}
+      challenge={mockDesignSubmissionsObject.challenge}
+      submissions={mockDesignSubmissionsObject.submissions}
     />
   )).toJSON();
   expect(html).toMatchSnapshot();
@@ -19,7 +20,8 @@ test('matches snapshots for design submissions', () => {
 test('matches snapshots for development submissions', () => {
   const html = renderer.create((
     <SubmissionManagement
-      mockObject={mockDevSubmissionsObject}
+      challenge={mockDesignSubmissionsObject.challenge}
+      submissions={mockDesignSubmissionsObject.submissions}
     />
   )).toJSON();
   expect(html).toMatchSnapshot();

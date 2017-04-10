@@ -14,8 +14,8 @@ import './styles.scss';
 export default function ScreeningDetails(props) {
   const {
     screeningObject,
-    onHelp,
-    onOpenOnlineReview,
+    helpPageUrl,
+    onlineReviewUrl,
     submissionId,
   } = props;
 
@@ -84,10 +84,9 @@ export default function ScreeningDetails(props) {
     <div styleName="screening-details" >
       <div styleName="screening-details-head">
         <p styleName={`status-title ${setStatusInfo().classname}`}>{setStatusInfo().title}</p>
-        <button
-          styleName="online-review-link"
-          onClick={() => onOpenOnlineReview(submissionId)}
-        >Online Review</button>
+        <a href={onlineReviewUrl} styleName="online-review-link">
+          Online Review
+        </a>
       </div>
       <p>{setStatusInfo().message}</p>
       <div styleName="screening-warning">
@@ -96,7 +95,7 @@ export default function ScreeningDetails(props) {
           <p styleName="more-info">Need more info on how to pass screening?
              Go to help to read Rules & Policies.</p>}
         <div styleName="help-btn">
-          <Button className="tc-btn-default" onClick={() => onHelp(submissionId)}>Help</Button>
+          <a href={helpPageUrl} styleName="help-link" className="tc-btn-default">Help</a>
         </div>
       </div>
     </div>
@@ -105,8 +104,6 @@ export default function ScreeningDetails(props) {
 
 ScreeningDetails.defaultProps = {
   screeningObject: {},
-  onHelp: _.noop,
-  onOpenOnlineReview: _.noop,
 };
 
 ScreeningDetails.propTypes = {
@@ -117,7 +114,7 @@ ScreeningDetails.propTypes = {
       details: PT.string.isRequired,
     })),
   }),
-  onHelp: PT.func,
-  onOpenOnlineReview: PT.func,
-  submissionId: PT.string.isRequired,
+  helpPageUrl: PT.string,
+  onlineReviewUrl: PT.string,
+  submissionId: PT.number.isRequired,
 };

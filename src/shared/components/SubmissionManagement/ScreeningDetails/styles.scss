@@ -43,7 +43,7 @@ $red-color: $tc-red;
       }
     }
 
-    button {
+    .online-review-link {
       display: block;
       margin-left: auto;
       line-height: $status-space-20;
@@ -81,5 +81,9 @@ $red-color: $tc-red;
 
   .help-btn {
     text-align: right;
+  }
+
+  .help-link {
+    padding: 1px 6px;
   }
 }

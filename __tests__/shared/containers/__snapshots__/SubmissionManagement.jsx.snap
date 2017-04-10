@@ -6,6 +6,134 @@ exports[`matches snapshots 1`] = `
 >
   <div
     className="src-shared-containers-SubmissionManagement-___styles__submission-management-container___dQIrV"
-  />
+  >
+    <div
+      className="src-shared-components-SubmissionManagement-SubmissionManagement-___styles__submission-management___3JDUS"
+    >
+      <div
+        className="src-shared-components-SubmissionManagement-SubmissionManagement-___styles__submission-management-header___3NQqC"
+      >
+        <div
+          className="src-shared-components-SubmissionManagement-SubmissionManagement-___styles__left-col___2Z7o4"
+        >
+          <h4
+            className="src-shared-components-SubmissionManagement-SubmissionManagement-___styles__name___3U4Rx"
+          >
+            Test Design Challenge for Submission Management Page
+          </h4>
+          <a
+            className="src-shared-components-SubmissionManagement-SubmissionManagement-___styles__back-btn___1nKEx"
+            href="undefined/challenge-details/30050696/?type=design"
+          >
+            &lt; Back
+          </a>
+        </div>
+        <div
+          className="src-shared-components-SubmissionManagement-SubmissionManagement-___styles__right-col___3vkUr"
+        >
+          <p
+            className="src-shared-components-SubmissionManagement-SubmissionManagement-___styles__round___3QPI9"
+          >
+            Submission
+          </p>
+          <p
+            className="src-shared-components-SubmissionManagement-SubmissionManagement-___styles__time-left___1Tye2"
+          >
+            27D
+
+            8
+            H
+            7
+            M
+          </p>
+          <p
+            className="src-shared-components-SubmissionManagement-SubmissionManagement-___styles__left-label___1eGT9"
+          >
+            left
+          </p>
+        </div>
+      </div>
+      <div
+        className="src-shared-components-SubmissionManagement-SubmissionManagement-___styles__submission-management-content___1iGPg"
+      >
+        <div
+          className="src-shared-components-SubmissionManagement-SubmissionManagement-___styles__content-head___3KW7D"
+        >
+          <p
+            className="src-shared-components-SubmissionManagement-SubmissionManagement-___styles__title___Hdx_v"
+          >
+            Manage your submissions
+          </p>
+          <p
+            className="src-shared-components-SubmissionManagement-SubmissionManagement-___styles__round-ends___39A0J"
+          >
+            <span
+              className="src-shared-components-SubmissionManagement-SubmissionManagement-___styles__ends-label___3gCTv"
+            >
+              Submission
+               Ends:
+            </span>
+
+            Sunday 07/02/17 11:00 PM
+             EDT
+          </p>
+        </div>
+        <p
+          className="src-shared-components-SubmissionManagement-SubmissionManagement-___styles__recommend-info___n3jfo"
+        >
+          We always recommend to download your submission to check you uploaded the correct zip files and also verify the photos and fonts declarations. If you don’t want to see a submission, simply delete. If you have a new submission, use the Upload Submission button to add one at the top of the list.
+        </p>
+        <div
+          className="src-shared-components-SubmissionManagement-SubmissionsTable-___styles__submissions-table___1J9eA"
+        >
+          <table>
+            <thead>
+              <tr>
+                <th>
+                  Preview
+                </th>
+                <th>
+                  ID
+                </th>
+                <th>
+                  Type
+                </th>
+                <th>
+                  Submission Date
+                </th>
+                <th
+                  className="src-shared-components-SubmissionManagement-SubmissionsTable-___styles__actions___16pRz"
+                >
+                  Actions
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr
+                className="src-shared-components-SubmissionManagement-SubmissionsTable-___styles__submission-row___1uclT"
+              >
+                <td
+                  className="src-shared-components-SubmissionManagement-SubmissionsTable-___styles__no-submission___1jFHS"
+                  colSpan="6"
+                >
+                  You have no submission uploaded so far.
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div
+        className="src-shared-components-SubmissionManagement-SubmissionManagement-___styles__btn-wrap___2G2IK"
+      >
+        <a
+          className="tc-btn tc-btn-primary tc-btn-md src-shared-components-SubmissionManagement-SubmissionManagement-___styles__add-sub-btn___1ZToV"
+          href="undefined/challenges/30050696/submit/file/"
+        >
+          Add Submission
+        </a>
+      </div>
+    </div>
+  </div>
 </div>
 `;

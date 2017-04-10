@@ -19,7 +19,7 @@ export default function Routes() {
       <Route exact path="/" component={Content} />
       <Route exact path="/examples" component={Content} />
       <Route path="/examples" component={Examples} />
-      <Route path="/submission-management" component={SubmissionManagement} />
+      <Route path="/challenge/:challengeId/my-submissions" component={SubmissionManagement} />
       <Route component={Error404} />
     </Switch>
   );

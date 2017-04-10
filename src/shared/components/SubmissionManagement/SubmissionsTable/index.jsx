@@ -27,8 +27,8 @@ export default function SubmissionsTable(props) {
     showDetails,
     type,
     onDelete,
-    onOpenOnlineReview,
-    onHelp,
+    onlineReviewUrl,
+    helpPageUrl,
     onDownload,
     onShowDetails,
   } = props;
@@ -47,7 +47,7 @@ export default function SubmissionsTable(props) {
       const submission = (
         <Submission
           submissionObject={subObject}
-          showScreeningDetails={showDetails.has(subObject.id)}
+          showScreeningDetails={showDetails.has(subObject.submissionId)}
           type={type}
           onShowDetails={onShowDetails}
           onDelete={onDelete}
@@ -58,14 +58,14 @@ export default function SubmissionsTable(props) {
       submissionsWithDetails.push(submission);
 
       const submissionDetail = (
-        <tr key={subObject.id} styleName="submission-row">
-          {showDetails.has(subObject.id) &&
+        <tr key={subObject.submissionId} styleName="submission-row">
+          {showDetails.has(subObject.submissionId) &&
             <td colSpan="6" styleName="dev-details">
               <ScreeningDetails
                 screeningObject={subObject.screening}
-                onHelp={onHelp}
-                onOpenOnlineReview={onOpenOnlineReview}
-                submissionId={subObject.id}
+                helpPageUrl={helpPageUrl}
+                onlineReviewUrl={onlineReviewUrl}
+                submissionId={subObject.submissionId}
               />
             </td>}
         </tr>
@@ -110,8 +110,6 @@ SubmissionsTable.defaultProps = {
   showDetails: new Set(),
   type: '',
   onDelete: _.noop,
-  onOpenOnlineReview: _.noop,
-  onHelp: _.noop,
   onDownload: _.noop,
   onShowDetails: _.noop,
 };
@@ -121,8 +119,8 @@ SubmissionsTable.propTypes = {
   showDetails: PT.instanceOf(Set),
   type: PT.string,
   onDelete: PT.func,
-  onOpenOnlineReview: PT.func,
-  onHelp: PT.func,
+  onlineReviewUrl: PT.string,
+  helpPageUrl: PT.string,
   onDownload: PT.func,
   onShowDetails: PT.func,
 };

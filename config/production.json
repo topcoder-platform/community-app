@@ -3,5 +3,9 @@
   "API": {
     "V2": "https://api.topcoder.com/v2",
     "V3": "https://api.topcoder.com/v3"
-  }
+  },
+
+  "TC_BASE_URL": "https://www.topcoder.com",
+  "OR_BASE_URL": "https://software.topcoder.com",
+  "HELP_URL": "https://help.topcoder.com"
 }

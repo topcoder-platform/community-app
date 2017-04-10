@@ -50,10 +50,11 @@ class Api {
   /**
    * Sends DELETE request to the specified endpoint.
    * @param {String} endpoint
+   * @param {Blob|BufferSource|FormData|String} body
    * @return {Promise}
    */
-  delete(endpoint) {
-    return this.fetch(endpoint, { method: 'DELETE' });
+  delete(endpoint, body) {
+    return this.fetch(endpoint, { body, method: 'DELETE' });
   }
 
   /**

@@ -31,39 +31,40 @@ export default function Submission(props) {
     onDownload,
     onShowDetails,
   } = props;
-  const date = moment(parseInt(submissionObject.submitted, 10)).format('MMM DD, YYYY hh:mm A');
+  const formatDate = (date) => moment(+new Date(date)).format('MMM DD, YYYY hh:mm A');
+
   return (
     <tr styleName="submission-row">
       <td styleName="preview-col">
         <img
           alt="preview"
           styleName={type === 'design' ? 'design-img' : 'dev-img'}
-          src={submissionObject.preview}
+          src={submissionObject.preview||'http://placehold.it/90/a01230'}
         />
       </td>
-      <td styleName="id-col">{submissionObject.id}</td>
-      <td>{submissionObject.type}</td>
-      <td styleName="date-col">{date}</td>
+      <td styleName="id-col">{submissionObject.submissionId}</td>
+      <td>{submissionObject.submissionType}</td>
+      <td styleName="date-col">{formatDate(submissionObject.submissionDate)}</td>
       {type === 'design' && <td styleName="status-col">
         {submissionObject.screening &&
           <ScreeningStatus
             screeningObject={submissionObject.screening}
             onShowDetails={onShowDetails}
-            submissionId={submissionObject.id}
+            submissionId={submissionObject.submissionId}
           />}
       </td>}
       <td>
         <div styleName="action-col">
           <button
-            onClick={() => onDownload(submissionObject.id)}
+            onClick={() => onDownload(submissionObject.submissionId)}
           ><DownloadIcon /></button>
           <button
             styleName="delete-icon"
-            onClick={() => onDelete(submissionObject.id)}
+            onClick={() => onDelete(submissionObject.submissionId)}
           ><DeleteIcon /></button>
           <button
             styleName={`expand-icon ${(showScreeningDetails ? 'expanded' : '')}`}
-            onClick={() => onShowDetails(submissionObject.id)}
+            onClick={() => onShowDetails(submissionObject.submissionId)}
           ><ExpandIcon /></button>
         </div>
       </td>
