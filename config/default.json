@@ -17,5 +17,12 @@
     /* If true the cookies set by this App will only be transmitted over secure
      * protocols like https. */
     "SECURE": false
-  }
+  },
+
+  /* Base URL of various parts of TC backend. */
+  /* TODO: Should we move these properties under the API section of config? */
+  "HELP_URL": "https://help.topcoder-dev.com",
+  "OR_BASE_URL": "https://software.topcoder-dev.com",
+  "STUDIO_URL": "https://studio.topcoder-dev.com",
+  "TC_BASE_URL": "https://www.topcoder-dev.com"
 }

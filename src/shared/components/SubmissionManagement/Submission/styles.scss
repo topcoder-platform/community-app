@@ -74,6 +74,9 @@ $submission-space-50: $base-unit * 10;
 
   .action-col {
     text-align: center;
+    path {
+      fill: $tc-gray-80;
+    }
 
     .delete-icon {
       margin: 0 $submission-space-25;
