@@ -9,6 +9,14 @@ const defaultConfig = require('./default');
 module.exports = webpackMerge(defaultConfig, {
   module: {
     rules: [{
+      test: /\.(eot|svg|ttf|woff)$/,
+      include: /src\/assets\/fonts/,
+      loader: 'file-loader',
+      options: {
+        outputPath: '/fonts/',
+        publicPath: '/fonts/',
+      },
+    }, {
       test: /\.scss$/,
       exclude: /(bower_components|node_modules)/,
       use: ExtractTextPlugin.extract({

@@ -12,6 +12,18 @@ module.exports = webpackMerge(defaultConfig, {
   ],
   module: {
     rules: [{
+      /* Using file-loader to load fonts in development environment breaks
+       * Webpack Hot Module Reloading (when you update styling of a page
+       * using the fonts loaded with file-loader, all text using those
+       * fonts dissapears). Url-loader solves this problem. */
+      test: /\.(eot|svg|ttf|woff)$/,
+      include: /src\/assets\/fonts/,
+      loader: 'url-loader',
+      options: {
+        outputPath: '/fonts/',
+        publicPath: '/fonts/',
+      },
+    }, {
       /* Using ExtractTextPlugin in dev environment would prevent hot reloading
        * of styles. */
       test: /\.scss$/,

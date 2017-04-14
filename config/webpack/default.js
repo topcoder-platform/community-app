@@ -9,14 +9,6 @@ module.exports = {
   entry: './src/client',
   module: {
     rules: [{
-      test: /\.(eot|svg|ttf|woff)$/,
-      include: /src\/assets\/fonts/,
-      loader: 'file-loader',
-      options: {
-        outputPath: '/fonts/',
-        publicPath: '/fonts/',
-      },
-    }, {
       test: /\.(jsx?|svg)$/,
       exclude: [
         /node_modules\/(?!appirio-tech.*|topcoder|tc-)/,
