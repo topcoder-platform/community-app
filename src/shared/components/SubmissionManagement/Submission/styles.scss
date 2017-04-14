@@ -97,6 +97,7 @@ $submission-space-50: $base-unit * 10;
 
     .expand-icon {
       transition: all 1.5s;
+      margin-left: 12px;
 
       &.expanded {
         transform: rotate(180deg);

@@ -84,9 +84,14 @@ export default function ScreeningDetails(props) {
     <div styleName="screening-details" >
       <div styleName="screening-details-head">
         <p styleName={`status-title ${setStatusInfo().classname}`}>{setStatusInfo().title}</p>
+        {/*
+          NOTE: TonyJ asked to remove the OR links from the page to keep
+          users within the new Topcoder site as much as we can. Not wiping
+          out the code just in case we decide to bring it back later.
         <a href={onlineReviewUrl} styleName="online-review-link">
           Online Review
         </a>
+        */}
       </div>
       <p>{setStatusInfo().message}</p>
       <div styleName="screening-warning">

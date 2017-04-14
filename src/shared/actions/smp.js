@@ -2,13 +2,12 @@
  * My submissions management page specific actions.
  */
 
-/* global fetch */
-
 import _ from 'lodash';
 import 'isomorphic-fetch';
 import { createActions } from 'redux-actions';
 import { getApiV2, getApiV3 } from 'services/api';
 import config from 'utils/config';
+import { isClientSide } from 'utils/isomorphy';
 import logger from 'utils/logger';
 
 const apiV2 = (auth) => getApiV2(auth.tokenV2);
@@ -21,24 +20,14 @@ function deleteSubmission(challengeId, submissionId) {
   return Promise.resolve(submissionId);
 }
 
+/*  TODO: At this moment we don't need any special JS code to download
+    submissions: we get them from legacy Topcoder Studio API, which is
+    authenticated by cookies, and can be done with a simple <a> link in
+    the component. Soon we'll migrate to use the new TC API instead, and
+    then we'll decide, whether we need operate downloads in JS, or can we
+    just remove this action. */
 function downloadSubmission(tokens, type, submissionId) {
-  /*
-    TODO: This will work with legacy API once we pass the tcsso cookie
-    along with the request.
-  const url = `${config.STUDIO_URL}?module=DownloadSubmission&sbmid=${submissionId}&sbt=original`;
-  fetch(url, {
-    mode: 'no-cors',
-  });
-  */
-  const endpoint = `/${type}/download/${submissionId}?submissionType=original`;
-  return apiV2(tokens).get(endpoint).then(res =>
-    new Promise(resolve =>
-      res.json().then((json) => {
-        if (res.status !== 200) logger.error(json);
-        resolve(json);
-      }),
-    ),
-  );
+  _.noop(tokens, type, submissionId);
 }
 
 export default createActions({
@@ -48,5 +37,5 @@ export default createActions({
     CONFIRM_DELETE: _.identity,
     DELETE_SUBMISSION_DONE: deleteSubmission,
     DOWNLOAD_SUBMISSION: downloadSubmission,
-  }
+  },
 });

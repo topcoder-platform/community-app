@@ -12,6 +12,7 @@
  */
 
 import _ from 'lodash';
+import config from 'utils/config';
 import moment from 'moment';
 import React, { PropTypes as PT } from 'react';
 
@@ -39,7 +40,10 @@ export default function Submission(props) {
         <img
           alt="preview"
           styleName={type === 'design' ? 'design-img' : 'dev-img'}
-          src={submissionObject.preview||'http://placehold.it/90/a01230'}
+          src={
+            submissionObject.preview||
+            `${config.STUDIO_URL}?module=DownloadSubmission&sbmid=${submissionObject.submissionId}&sbt=tiny`
+          }
         />
       </td>
       <td styleName="id-col">{submissionObject.submissionId}</td>
@@ -55,13 +59,25 @@ export default function Submission(props) {
       </td>}
       <td>
         <div styleName="action-col">
+          <a href={`${config.STUDIO_URL}?module=DownloadSubmission&sbmid=${submissionObject.submissionId}&sbt=original`}>
+            <DownloadIcon />
+          </a>
+          { /*
+            TODO: At the moment we just fetch downloads from the legacy
+              Topcoder Studio API, and we don't need any JS code to this.
+              It may change soon, as we move to the new TC API for
+              downloads. Then we'll use this commented out code or
+              remove it for good.
           <button
             onClick={() => onDownload(submissionObject.submissionId)}
           ><DownloadIcon /></button>
+          */ }
+          {/* TODO: At the moment APIs don't support removal of
+            submissions, thus the icon is temporarly removed.
           <button
             styleName="delete-icon"
             onClick={() => onDelete(submissionObject.submissionId)}
-          ><DeleteIcon /></button>
+          ><DeleteIcon /></button> */}
           <button
             styleName={`expand-icon ${(showScreeningDetails ? 'expanded' : '')}`}
             onClick={() => onShowDetails(submissionObject.submissionId)}
