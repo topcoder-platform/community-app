@@ -2,13 +2,40 @@
  * Reducer for state.challenge
  */
 
-import { combine } from '../utils/redux';
+import { combine, toFSA } from 'utils/redux';
 import { handleActions, combineActions } from 'redux-actions';
 
 import challengeActions from 'actions/challenge';
 import smpActions from 'actions/smp';
 import mySubmissionsManagement, {factory as mySMFactory} from './my-submissions-management';
 
+/**
+ * Handles challengeActions.fetchChallengeDone action.
+ * @param {Object} state Previous state.
+ * @param {Object} action Action.
+ */
+function onFetchChallengeDone(state, action) {
+  return {
+    ...state,
+    details: action.error ? null : action.payload,
+    fetchChallengeFailure: action.error || false,
+    loadingDetails: false,
+  };
+}
+
+/**
+ * Handles challengeActions.fetchSubmissionsDone action.
+ * @param {Object} state Previous state.
+ * @param {Object} action Action.
+ */
+function onFetchSubmissionsDone(state, action) {
+  return {
+    ...state,
+    fetchMySubmissionsFailure: action.error || false,
+    loadingMySubmissions: false,
+    mySubmissions: { v2: action.error ? [] : action.payload },
+  };
+}
 
 /**
  * Creates a new Auth reducer with the specified initial state.
@@ -20,14 +47,11 @@ function create(initialState) {
     [challengeActions.fetchChallengeInit]: (state, action) => ({
       ...state,
       loadingDetails: true,
+      fetchChallengeFailure: false,
       details: null,
     }),
 
-    [challengeActions.fetchChallengeDone]: (state, {payload}) => ({
-      ...state,
-      details: payload,
-      loadingDetails: false,
-    }),
+    [challengeActions.fetchChallengeDone]: onFetchChallengeDone,
 
     [challengeActions.fetchSubmissionsInit]: (state, action) => ({
       ...state,
@@ -35,11 +59,7 @@ function create(initialState) {
       mySubmissions: {v2: null},
     }),
 
-    [challengeActions.fetchSubmissionsDone]: (state, {payload}) => ({
-      ...state,
-      loadingMySubmissions: false,
-      mySubmissions: {v2: payload},
-    }),
+    [challengeActions.fetchSubmissionsDone]: onFetchSubmissionsDone,
 
     // TODO: remove this reducer once the deleteSubmission action
     // in 'shared/actions/challenge' was fixed
@@ -60,18 +80,23 @@ function create(initialState) {
  * @return Promise which resolves to the new reducer.
  */
 export function factory(req) {
-  return mySMFactory(req).then(mySubmissionsManagement => {
-    const state = {
-      details: null,
-      mySubmissions: {v2: null},
-      loadingDetails: false,
-      loadingMySubmissions: false,
-      // get initial state for `mySubmissionsManagement`
-      mySubmissionsManagement: mySubmissionsManagement(undefined, {}),
+  /* Server-side rendering of Submission Management Page. */
+  if (req && req.url.match(/^\/challenge\/\d+\/my-submissions/)) {
+    const tokens = {
+      tokenV2: req.cookies.tcjwt,
+      tokenV3: req.cookies.tctV3,
     };
-
-    return Promise.resolve(combine(create(state), {mySubmissionsManagement}));
-  })
+    const challengeId = req.url.match(/\d+/)[0];
+    return Promise.all([
+      toFSA(challengeActions.fetchChallengeDone(tokens, challengeId)),
+      toFSA(challengeActions.fetchSubmissionsDone(tokens, challengeId)),
+    ]).then(([challenge, submissions]) => {
+      const state = onFetchChallengeDone({}, challenge);
+      return onFetchSubmissionsDone(state, submissions);
+    }).then(state => combine(create(state), { mySubmissionsManagement }));
+  }
+  /* Otherwise this part of Redux state is initialized empty. */
+  return Promise.resolve(combine(create(), { mySubmissionsManagement }));
 }
 
 /* Default reducer with empty initial state. */

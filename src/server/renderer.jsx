@@ -9,7 +9,6 @@ import ReactDOM from 'react-dom/server';
 import { StaticRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import serializeJs from 'serialize-javascript';
-import { isDev } from 'utils/isomorphy';
 
 import App from '../shared';
 
@@ -36,13 +35,7 @@ export default (req, res) => {
       <html>
         <head>
           <title>Topcoder</title>
-          ${
-            /* In dev environment styles are embed into JS bundle,
-              and we should not include this link into the page, otherwise
-              the page will initially load production /style.css and it may
-              result in some wierd behavior while loading. */
-            isDev() ? '' : '<link rel="stylesheet" href="/style.css" />'
-          }
+          <link rel="stylesheet" href="/style.css" />
         </head>
         <body>
           <div id="react-view">${appHtml}</div>
