@@ -1,0 +1,46 @@
+@import '~styles/tc-includes';
+
+.copyright-notice {
+	text-align: center;
+  font-size: 16px;
+  color: $tc-white;
+}
+
+.footer {
+  background-color: $tc-gray-90;
+  font-family: "Sofia Pro", Helvetica, Arial, sans-serif;
+  font-weight: 500;
+  height: auto;
+  padding: 36px;
+  text-align: center;
+}
+
+.link {
+  display: inline-block;
+  color: $tc-white;
+  cursor: pointer;
+  line-height: 24px;
+  margin: 0 24px;
+  text-align: center;
+  &:hover {
+    color: $tc-dark-blue-90;
+  }
+}
+
+.social-links {
+  text-align: center;
+  font-weight: normal;
+  margin: 36px 0 24px;
+  color: $tc-white;
+
+	a {
+		display: inline-block;
+		margin: 12px;
+	}
+}
+
+@media only screen and (max-width: 1024px) {
+  .link {
+    display: block;
+  }
+}

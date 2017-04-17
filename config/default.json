@@ -21,8 +21,18 @@
 
   /* Base URL of various parts of TC backend. */
   /* TODO: Should we move these properties under the API section of config? */
+  "ARENA_URL": "https://arena.topcoder-dev.com/",
+  "AUTH_URL": "https://accounts.topcoder-dev.com/member",
+  "COMMUNITY_URL": "https://community.topcoder-dev.com",
+
+  /* TODO: This is basically repeats TC_BASE_URL declared below! Get rid
+   of DOMAIN field! */
+  "DOMAIN": "topcoder-dev.com",
+
+  "FORUMS_APP_URL": "https://apps.topcoder-dev.com/forums",
   "HELP_URL": "https://help.topcoder-dev.com",
   "OR_BASE_URL": "https://software.topcoder-dev.com",
   "STUDIO_URL": "https://studio.topcoder-dev.com",
-  "TC_BASE_URL": "https://www.topcoder-dev.com"
+  "TC_BASE_URL": "https://www.topcoder-dev.com",
+  "TCO_HOME_URL": "https://www.topcoder.com/tco"
 }

@@ -5,6 +5,11 @@
     "V3": "https://api.topcoder.com/v3"
   },
 
+  "ARENA_URL": "https://arena.topcoder.com/",
+  "AUTH_URL": "https://accounts.topcoder.com/member",
+  "COMMUNITY_URL": "https://community.topcoder.com",
+  "DOMAIN": "topcoder.com",
+  "FORUMS_APP_URL": "https://apps.topcoder.com/forums",
   "HELP_URL": "https://help.topcoder.com",
   "OR_BASE_URL": "https://software.topcoder.com",
   "STUDIO_URL": "https://studio.topcoder.com",

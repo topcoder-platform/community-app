@@ -13,6 +13,10 @@ import { decodeToken } from 'tc-accounts';
  */
 function create(initialState) {
   return handleActions({
+    [actions.auth.loadProfile]: (state, action) => ({
+      ...state,
+      profile: action.payload,
+    }),
     [actions.auth.setTcTokenV2]: (state, action) => ({
       ...state,
       tokenV2: action.payload,

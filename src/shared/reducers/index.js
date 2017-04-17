@@ -20,6 +20,7 @@ import { resolveReducers } from 'utils/redux';
 import { factory as authFactory } from './auth';
 import { factory as challengeFactory } from './challenge';
 import { factory as examplesFactory } from './examples';
+import topcoderHeader from './topcoder_header';
 
 export function factory(req) {
   return resolveReducers({
@@ -28,6 +29,7 @@ export function factory(req) {
     examples: examplesFactory(req),
   }).then(reducers => combineReducers({
     ...reducers,
+    topcoderHeader,
   }));
 }
 

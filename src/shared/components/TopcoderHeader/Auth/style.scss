@@ -1,0 +1,38 @@
+@import '~styles/tc-includes';
+
+.auth {
+  display: inline-block;
+
+  a {
+    border-radius: 2 * $corner-radius;
+    margin: 0 6px;
+    text-transform: uppercase;
+    top: 0;
+  }
+
+  &:global.column {
+    display: block;
+
+    a {
+      display: block;
+      margin: 12px;
+      text-align: center;
+    }
+  }
+
+  :global {
+    .tc-btn-primary {
+      color: $tc-white;
+    }
+
+    .tc-btn-default {
+      border: 1px solid $tc-dark-blue-90;
+      color: $tc-dark-blue-90;
+
+      &:hover {
+        background: $tc-dark-blue-90;
+        color: $tc-white;
+      }
+    }
+  }
+}

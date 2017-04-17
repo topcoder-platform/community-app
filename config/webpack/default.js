@@ -18,6 +18,14 @@ module.exports = {
       /* NOTE: Babel configuration is taken from .babelrc, in general case.
        * For development Webpack build, however, Babel is configured directly
        * inside Webpack's development.js config. */
+    }, {
+      test: /\.(jpeg|jpg|png)$/,
+      include: /src\/assets\/images/,
+      loader: 'file-loader',
+      options: {
+        outputPath: '/images/',
+        publicPath: '/images/',
+      },
     }],
   },
   output: {

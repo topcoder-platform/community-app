@@ -39,3 +39,17 @@
 @include font-family('Roboto', 300, italic, '../assets/fonts/roboto/', 'roboto-lightitalic');
 @include font-family('Roboto', 100, normal, '../assets/fonts/roboto/', 'roboto-thin');
 @include font-family('Roboto', 100, italic, '../assets/fonts/roboto/', 'roboto-thinitalic');
+
+/* Sofia Pro font is currently used in the Topcoder footer
+  and header. */
+
+@include font-family('Sofia Pro', 300, normal, '../assets/fonts/sofiapro/', 'sofiapro-light-webfont');
+@include font-family('Sofia Pro', 300, italic, '../assets/fonts/sofiapro/', 'sofiapro-light-italic-webfont');
+@include font-family('Sofia Pro', 400, normal, '../assets/fonts/sofiapro/', 'sofiapro-regular-webfont');
+@include font-family('Sofia Pro', 400, italic, '../assets/fonts/sofiapro/', 'sofiapro-regular-italic-webfont');
+@include font-family('Sofia Pro', 500, normal, '../assets/fonts/sofiapro/', 'sofiapro-medium-webfont');
+@include font-family('Sofia Pro', 500, italic, '../assets/fonts/sofiapro/', 'sofiapro-medium-italic-webfont');
+@include font-family('Sofia Pro', 600, normal, '../assets/fonts/sofiapro/', 'sofiapro-semibold-webfont');
+@include font-family('Sofia Pro', 600, italic, '../assets/fonts/sofiapro/', 'sofiapro-semibold-italic-webfont');
+@include font-family('Sofia Pro', 700, normal, '../assets/fonts/sofiapro/', 'sofiapro-bold-webfont');
+@include font-family('Sofia Pro', 700, italic, '../assets/fonts/sofiapro/', 'sofiapro-bold-italic-webfont');
