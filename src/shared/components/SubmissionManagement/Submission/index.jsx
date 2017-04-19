@@ -12,7 +12,7 @@
  */
 
 import _ from 'lodash';
-import moment from 'moment-timezone';
+import moment from 'moment';
 import React from 'react';
 import PT from 'prop-types';
 
@@ -32,7 +32,7 @@ export default function Submission(props) {
     onDownload,
     onShowDetails,
   } = props;
-  const formatDate = date => moment(+new Date(date)).tz('America/Indiana/Indianapolis').format('MMM DD, YYYY hh:mm A');
+  const formatDate = date => moment(+new Date(date)).format('MMM DD, YYYY hh:mm A');
 
   return (
     <tr styleName="submission-row">

@@ -23,7 +23,7 @@ class DataFetch extends React.Component {
 }
 
 export default connect(
-  () => ({}),
+  state => state.examples.dataFetch,
   dispatch => ({
     loadData: () => {
       dispatch(actions.examples.dataFetch.fetchDataInit());

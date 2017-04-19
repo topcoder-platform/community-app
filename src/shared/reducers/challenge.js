@@ -10,7 +10,6 @@ import { combine } from '../utils/redux';
 
 import mySubmissionsManagement, { factory as mySMFactory } from './my-submissions-management';
 
-
 /**
  * Creates a new Auth reducer with the specified initial state.
  * @param {Object} initialState Initial state.
@@ -61,22 +60,18 @@ function create(initialState) {
  * @return Promise which resolves to the new reducer.
  */
 export function factory(req) {
-  let state = {};
-  if (req) {
-    state = {
+  return mySMFactory(req).then((mySmReducer) => {
+    const state = {
       details: null,
+      mySubmissions: { v2: null },
       loadingDetails: false,
       loadingMySubmissions: false,
-      mySubmissions: {
-        v2: null,
-      },
+      // get initial state for `mySubmissionsManagement`
+      mySubmissionsManagement: mySmReducer(undefined, {}),
     };
-  }
 
-  return mySMFactory(req)
-    .then(res => Promise.resolve(
-        combine(create(state), { mySubmissionsManagement: res }),
-      ));
+    return Promise.resolve(combine(create(state), { mySmReducer }));
+  });
 }
 
 /* Default reducer with empty initial state. */

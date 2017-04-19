@@ -20,7 +20,7 @@ import challengeActions from '../../actions/challenge';
 import smpActions from '../../actions/smp';
 
 // The container component
-export class SubmissionManagementPageContainer extends React.Component {
+class SubmissionManagementPageContainer extends React.Component {
 
   componentDidMount() {
     if (!(this.props.challenge || this.props.isLoadingChallenge)) {
@@ -32,10 +32,6 @@ export class SubmissionManagementPageContainer extends React.Component {
     }
   }
 
-  onDownload(...args) {
-    this.props.onDownloadSubmission.bind(0, this.props.authTokens).call(args);
-  }
-
   render() {
     const isEmpty = _.isEmpty(this.props.challenge);
     const challengeType = ((this.props.challenge || {}).track || '').toLowerCase();
@@ -43,8 +39,7 @@ export class SubmissionManagementPageContainer extends React.Component {
     const smConfig = {
       onShowDetails: this.props.onShowDetails,
       onDelete: this.props.onSubmissionDelete,
-      onDownload: this.onDownload,
-
+      onDownload: () => this.props.onDownloadSubmission(0, this.props.authTokens),
       onlineReviewUrl: `${config.OR_BASE_URL}/review/actions/ViewProjectDetails?pid=${this.props.challengeId}`,
       challengeUrl: `${config.TC_BASE_URL}/challenge-details/${this.props.challengeId}/?type=${challengeType}`,
       addSumissionUrl: `${config.TC_BASE_URL}/challenges/${this.props.challengeId}/submit/file/`,
@@ -74,7 +69,6 @@ export class SubmissionManagementPageContainer extends React.Component {
                 You’ll have to upload all the files again in order to restore it.</p>
               <div styleName="action-btns">
                 <Button
-                  id="btn-cancel-submission"
                   className="tc-btn-sm tc-btn-default"
                   onClick={() => this.props.onCancelSubmissionDelete()}
                 >Cancel</Button>

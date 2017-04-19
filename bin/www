@@ -12,3 +12,14 @@ require('ignore-styles');
 
 /* Runs the ExpressJS startup script. */
 require('../src/server');
+
+/*
+ * TODO:
+ * The following packages has been added to the project in a code-cleaning /
+ * unit testing F2F challenge, and there is a good chance, that those test
+ * using them can be optimized to avoid unnecessary dependencies:
+ * - moment-timezone (this one is fine to include)
+ * - enzyme (this one is fine to include)
+ * - require-uncached
+ * - supertest
+ */

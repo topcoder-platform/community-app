@@ -48,6 +48,7 @@ export function resolveReducers(promises) {
  * @params {function|Object} the reducers to be combined
  * @return function the unified reducer
  */
+/* TODO: Can we simplify this function? */
 export function combine(...reducers) {
   return (state, action) => {
     const nextState = {};
@@ -61,8 +62,7 @@ export function combine(...reducers) {
       Object.keys(reducer).forEach((slice) => {
         mergeState({ [slice]: reducer[slice]((state || {})[slice], action) });
       });
-
-      return null; // TODO: i don't know what it is. it just here to make eslint happy.
+      return undefined;
     });
 
     return nextState;
