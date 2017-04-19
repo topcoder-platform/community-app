@@ -15,7 +15,6 @@ export default function ScreeningDetails(props) {
   const {
     screeningObject,
     helpPageUrl,
-    onlineReviewUrl,
   } = props;
 
   const checkScreeningObject = () => {
@@ -109,7 +108,6 @@ export default function ScreeningDetails(props) {
 ScreeningDetails.defaultProps = {
   screeningObject: {},
   helpPageUrl: '',
-  onlineReviewUrl: '',
 };
 
 ScreeningDetails.propTypes = {
@@ -121,5 +119,4 @@ ScreeningDetails.propTypes = {
     })),
   }),
   helpPageUrl: PT.string,
-  onlineReviewUrl: PT.string,
 };

@@ -32,7 +32,6 @@ export default function SubmissionManagement(props) {
     onDownload,
     onShowDetails,
     challengeUrl,
-    addSubmissionUrl,
     onlineReviewUrl,
   } = props;
 
@@ -106,7 +105,7 @@ export default function SubmissionManagement(props) {
       </div>
       <div styleName="btn-wrap">
         <a
-          href={addSubmissionUrl}
+          href={`/challenges/${challenge.id}/submit/file`}
           className="tc-btn tc-btn-primary tc-btn-md"
           styleName="add-sub-btn"
         >
@@ -127,7 +126,6 @@ SubmissionManagement.defaultProps = {
   helpPageUrl: '',
   loadingSubmissions: false,
   challengeUrl: '',
-  addSubmissionUrl: '',
 };
 
 SubmissionManagement.propTypes = {
@@ -141,5 +139,4 @@ SubmissionManagement.propTypes = {
   submissions: PT.arrayOf(PT.shape()).isRequired,
   loadingSubmissions: PT.bool,
   challengeUrl: PT.string,
-  addSubmissionUrl: PT.string,
 };

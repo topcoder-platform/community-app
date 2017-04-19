@@ -22,13 +22,20 @@ export default function SubMenu({
   );
 }
 
+export const SUB_MENU_SHAPE = PT.shape({
+  title: PT.string.isRequired,
+  items: PT.arrayOf(PT.shape({
+    icon: PT.node.isRequired,
+    link: PT.string.isRequired,
+    title: PT.string.isRequired,
+  })).isRequired,
+});
+
 SubMenu.defaultProps = {
   hideTitle: false,
 };
 
 SubMenu.propTypes = {
   hideTitle: PT.bool,
-  subMenu: PT.shape({
-
-  }).isRequired,
+  subMenu: SUB_MENU_SHAPE.isRequired,
 };

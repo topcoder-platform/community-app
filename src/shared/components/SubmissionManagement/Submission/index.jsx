@@ -18,7 +18,6 @@ import React from 'react';
 import PT from 'prop-types';
 
 import DownloadIcon from '../Icons/IconSquareDownload.svg';
-import DeleteIcon from '../Icons/IconTrashSimple.svg';
 import ExpandIcon from '../Icons/IconMinimalDown.svg';
 import ScreeningStatus from '../ScreeningStatus';
 
@@ -29,8 +28,6 @@ export default function Submission(props) {
     submissionObject,
     showScreeningDetails,
     type,
-    onDelete,
-    onDownload,
     onShowDetails,
   } = props;
   const formatDate = date => moment(+new Date(date)).format('MMM DD, YYYY hh:mm A');
@@ -42,7 +39,7 @@ export default function Submission(props) {
           alt="preview"
           styleName={type === 'design' ? 'design-img' : 'dev-img'}
           src={
-            submissionObject.preview||
+            submissionObject.preview ||
             `${config.STUDIO_URL}?module=DownloadSubmission&sbmid=${submissionObject.submissionId}&sbt=tiny`
           }
         />
@@ -93,8 +90,6 @@ Submission.defaultProps = {
   submissionObject: {},
   showScreeningDetails: false,
   type: 'design',
-  onDelete: _.noop,
-  onDownload: _.noop,
   onShowDetails: _.noop,
 };
 
@@ -112,7 +107,5 @@ Submission.propTypes = {
   ),
   showScreeningDetails: PT.bool,
   type: PT.string,
-  onDelete: PT.func,
-  onDownload: PT.func,
   onShowDetails: PT.func,
 };

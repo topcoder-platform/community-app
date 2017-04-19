@@ -1,7 +1,7 @@
 @import '~styles/tc-includes';
 
 .copyright-notice {
-	text-align: center;
+  text-align: center;
   font-size: 16px;
   color: $tc-white;
 }
@@ -22,6 +22,7 @@
   line-height: 24px;
   margin: 0 24px;
   text-align: center;
+
   &:hover {
     color: $tc-dark-blue-90;
   }
@@ -33,10 +34,10 @@
   margin: 36px 0 24px;
   color: $tc-white;
 
-	a {
-		display: inline-block;
-		margin: 12px;
-	}
+  a {
+    display: inline-block;
+    margin: 12px;
+  }
 }
 
 @media only screen and (max-width: 1024px) {

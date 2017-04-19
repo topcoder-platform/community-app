@@ -3,10 +3,11 @@
  */
 
 import config from 'utils/config';
+import PT from 'prop-types';
 import React from 'react';
 import './style.scss';
 
-export default function Auth({column}) {
+export default function Auth({ column }) {
   return (
     /* TODO: These registration and login links should be appended with
       ?next=... specifying the url encoded URL, where the user should be
@@ -31,3 +32,11 @@ export default function Auth({column}) {
     </div>
   );
 }
+
+Auth.defaultProps = {
+  column: false,
+};
+
+Auth.propTypes = {
+  column: PT.bool,
+};

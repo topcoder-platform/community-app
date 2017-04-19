@@ -1,11 +1,12 @@
-import Avatar from 'components/Avatar';
 import _ from 'lodash';
+import Avatar from 'components/Avatar';
+import PT from 'prop-types';
 import React from 'react';
 import { getRatingColor } from 'utils/tc';
-import SubMenu from '../SubMenu';
+import SubMenu, { SUB_MENU_SHAPE } from '../SubMenu';
 import './style.scss';
 
-export default function UserMenu({menu, profile}) {
+export default function UserMenu({ menu, profile }) {
   return (
     <div>
       <div styleName="title">
@@ -23,3 +24,13 @@ export default function UserMenu({menu, profile}) {
     </div>
   );
 }
+
+UserMenu.defaultProps = {
+  menu: null,
+  profile: null,
+};
+
+UserMenu.propTypes = {
+  menu: SUB_MENU_SHAPE,
+  profile: PT.shape({}),
+};

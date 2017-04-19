@@ -3,10 +3,10 @@
  */
 
 import { combine, toFSA } from 'utils/redux';
-import { handleActions, combineActions } from 'redux-actions';
+import { handleActions } from 'redux-actions';
 import challengeActions from 'actions/challenge';
 import smpActions from 'actions/smp';
-import mySubmissionsManagement, { factory as mySMFactory } from './my-submissions-management';
+import mySubmissionsManagement from './my-submissions-management';
 
 /**
  * Handles challengeActions.fetchChallengeDone action.

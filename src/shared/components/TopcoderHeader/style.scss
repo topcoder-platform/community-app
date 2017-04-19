@@ -71,7 +71,7 @@
       width: 0;
       height: 0;
       border-style: solid;
-      border-width: 6px 5px 0 5px;
+      border-width: 6px 5px 0;
       border-color: $tc-dark-blue-90 transparent transparent transparent;
       position: absolute;
       bottom: 5px;
@@ -81,7 +81,6 @@
     }
   }
 }
-
 
 .right-menu {
   height: 100%;
@@ -109,7 +108,10 @@
     transition: all 0.25s ease-in-out;
   }
 
-  input, input:active, input:focus, input:hover {
+  input,
+  input:active,
+  input:focus,
+  input:hover {
     background: none;
     border: none;
     border-bottom: 1px solid $tc-white;
@@ -118,6 +120,7 @@
     font-size: 22px;
     outline: none;
     padding-bottom: 12px;
+
     &::placeholder {
       color: $tc-gray-20;
     }
@@ -143,7 +146,7 @@
   /* TODO: This code for downward blue arrow is used also
     * in another place of this stylesheet. Should be implemented
     * as a mixin! */
-  &:global.opened{
+  &:global.opened {
     path {
       fill: $tc-dark-blue-90;
     }
@@ -154,7 +157,7 @@
       width: 0;
       height: 0;
       border-style: solid;
-      border-width: 6px 5px 0 5px;
+      border-width: 6px 5px 0;
       border-color: $tc-dark-blue-90 transparent transparent transparent;
       position: absolute;
       bottom: 5px;
@@ -210,37 +213,6 @@
   }
 }
 
-.sub-menu-mobile {
-  background: $tc-gray-90;
-  // height: 58px;
-  margin-top: -55px;
-  padding: 12px 0;
-  position: relative;
-  width: 100%;
-  top: 0;
-  z-index: 30;
-
-  :global {
-    .logo {
-      position: absolute;
-      left: 12px;
-    }
-    .title {
-      color: $tc-gray-20;
-      margin: auto;
-      text-align: center;
-    }
-    .x-cross {
-      cursor: pointer;
-      font-size: 48px;
-      font-weight: 100;
-      position: absolute;
-      right: 12px;
-      top: -9px;
-    }
-  }
-}
-
 .user-menu {
   cursor: pointer;
   display: inline-block;
@@ -257,16 +229,12 @@
   vertical-align: bottom;
 }
 
-@media only screen and (max-width : 1024px) {
+@media only screen and (max-width: 1024px) {
   .auth-buttons {
     top: 16px;
   }
 
   .main-desktop-header {
     display: none;
-  }
-
-  .main-mobile-header {
-    display: block;
   }
 }

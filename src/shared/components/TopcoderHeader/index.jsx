@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import config from 'utils/config';
 import { getRatingColor } from 'utils/tc';
-
+import PT from 'prop-types';
 import React from 'react';
 
 import IconDefaultAvatar from '../../../assets/images/ico-user-default.svg';
@@ -29,12 +29,12 @@ import IconNavProfile from '../../../assets/images/nav/profile.svg';
 import IconNavSettings from '../../../assets/images/nav/settings.svg';
 import IconNavWallet from '../../../assets/images/nav/wallet.svg';
 
-import LogoTopcoder from '../../../assets/images/logo_topcoder.svg';
 import LogoTopcoderWithName from '../../../assets/images/logo_topcoder_with_name.svg';
 
 import MagnifyingGlass from '../../../assets/images/magnifying_glass.svg';
 
 import MobileHeader from './mobile/Header';
+import { SUB_MENU_SHAPE } from './mobile/SubMenu';
 
 import './style.scss';
 
@@ -130,11 +130,10 @@ export default function TopcoderHeader({
   openedMenu,
   openMenu,
   openMobileMenu,
-  searchOpened,
   openSearch,
   profile,
+  searchOpened,
 }) {
-
   const mainMenu = MENU.map(item => (
     <li
       className={openedMenu && openedMenu.title === item.title ? 'opened' : ''}
@@ -323,3 +322,32 @@ export default function TopcoderHeader({
     </div>
   );
 }
+
+TopcoderHeader.defaultProps = {
+  activeTrigger: null,
+  mobileMenuOpened: false,
+  openedMenu: null,
+  profile: null,
+  searchOpened: false,
+};
+
+TopcoderHeader.propTypes = {
+  activeTrigger: PT.shape({
+    bottom: PT.number.isRequired,
+    left: PT.number.isRequired,
+    right: PT.number.isRequired,
+    top: PT.number.isRequired,
+  }),
+  closeMenu: PT.func.isRequired,
+  closeMobileMenu: PT.func.isRequired,
+  closeSearch: PT.func.isRequired,
+  mobileMenuOpened: PT.bool,
+  openedMenu: SUB_MENU_SHAPE,
+  openMenu: PT.func.isRequired,
+  openMobileMenu: PT.func.isRequired,
+  openSearch: PT.func.isRequired,
+  profile: PT.shape({
+    photoURL: PT.string,
+  }),
+  searchOpened: PT.bool,
+};

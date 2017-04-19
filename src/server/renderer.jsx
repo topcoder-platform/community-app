@@ -9,7 +9,6 @@ import ReactDOM from 'react-dom/server'; // This may cause warning of PropTypes
 import { StaticRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import serializeJs from 'serialize-javascript';
-import { isDev } from 'utils/isomorphy';
 
 import App from '../shared';
 
@@ -46,7 +45,7 @@ export default (req, res) => {
              * time in dev? This discussion may have the solution:
              * https://github.com/webpack-contrib/extract-text-webpack-plugin/issues/30
             */
-            false && isDev() ? '' : '<link rel="stylesheet" href="/style.css" />'
+            '<link rel="stylesheet" href="/style.css" />'
           }
         </head>
         <body>

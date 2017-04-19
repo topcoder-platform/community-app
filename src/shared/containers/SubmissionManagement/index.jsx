@@ -103,7 +103,7 @@ SubmissionManagementPageContainer.propTypes = {
   isLoadingChallenge: PT.bool,
   loadChallengeDetails: PT.func.isRequired,
   authTokens: PT.shape().isRequired,
-  challengeId: PT.number.isRequired,
+  challengeId: PT.string.isRequired,
   mySubmissions: PT.arrayOf(PT.shape()),
   isLoadingSubmissions: PT.bool,
   loadMySubmissions: PT.func.isRequired,
