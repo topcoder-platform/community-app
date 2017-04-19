@@ -1,14 +1,24 @@
 import actions from 'actions/examples/data-fetch';
 
-global.fetch = jest.fn(() =>
-  new Promise(resolve =>
-    setTimeout(() => resolve({
-      json: () => ({ data: 'DUMMY DATA' }),
-    }), 1),
-  ),
-);
+let originalFetch;
+
+beforeAll(() => {
+  originalFetch = global.fetch;
+});
+
+afterAll(() => {
+  global.fetch = originalFetch;
+});
 
 describe('examples.dataFetch.fetchDataDone', () => {
+  global.fetch = jest.fn(() =>
+    new Promise(resolve =>
+      setTimeout(() => resolve({
+        json: () => ({ data: 'DUMMY DATA' }),
+      }), 1),
+    ),
+  );
+
   const a = actions.examples.dataFetch.fetchDataDone();
 
   test('has expected type', () => {

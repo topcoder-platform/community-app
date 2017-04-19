@@ -11,7 +11,8 @@
  * To create big btn pass 'tc-bg-btn' className along with one of the above two btn type
  */
 
-import React, { PropTypes as PT } from 'react';
+import React from 'react';
+import PT from 'prop-types';
 import _ from 'lodash';
 import './styles.scss';
 

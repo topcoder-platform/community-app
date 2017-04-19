@@ -48,18 +48,21 @@ export function resolveReducers(promises) {
  * @params {function|Object} the reducers to be combined
  * @return function the unified reducer
  */
+/* TODO: Can we simplify this function? */
 export function combine(...reducers) {
   return (state, action) => {
-    const nextState = {}, mergeState = Object.assign.bind(Object, nextState);
+    const nextState = {};
+    const mergeState = Object.assign.bind(Object, nextState);
 
     reducers.forEach((reducer) => {
-      if(typeof reducer === 'function') {
+      if (typeof reducer === 'function') {
         return mergeState(reducer(state, action));
       }
 
-      Object.keys(reducer).forEach(slice => {
-        mergeState({[slice]: reducer[slice]((state||{})[slice], action)});
-      })
+      Object.keys(reducer).forEach((slice) => {
+        mergeState({ [slice]: reducer[slice]((state || {})[slice], action) });
+      });
+      return undefined;
     });
 
     return nextState;

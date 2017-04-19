@@ -4,10 +4,9 @@
 
 import { combine, toFSA } from 'utils/redux';
 import { handleActions, combineActions } from 'redux-actions';
-
 import challengeActions from 'actions/challenge';
 import smpActions from 'actions/smp';
-import mySubmissionsManagement, {factory as mySMFactory} from './my-submissions-management';
+import mySubmissionsManagement, { factory as mySMFactory } from './my-submissions-management';
 
 /**
  * Handles challengeActions.fetchChallengeDone action.
@@ -44,30 +43,27 @@ function onFetchSubmissionsDone(state, action) {
  */
 function create(initialState) {
   return handleActions({
-    [challengeActions.fetchChallengeInit]: (state, action) => ({
+    [challengeActions.fetchChallengeInit]: state => ({
       ...state,
       loadingDetails: true,
       fetchChallengeFailure: false,
       details: null,
     }),
-
     [challengeActions.fetchChallengeDone]: onFetchChallengeDone,
-
-    [challengeActions.fetchSubmissionsInit]: (state, action) => ({
+    [challengeActions.fetchSubmissionsInit]: state => ({
       ...state,
       loadingMySubmissions: true,
-      mySubmissions: {v2: null},
+      mySubmissions: { v2: null },
     }),
-
     [challengeActions.fetchSubmissionsDone]: onFetchSubmissionsDone,
 
     // TODO: remove this reducer once the deleteSubmission action
     // in 'shared/actions/challenge' was fixed
-    [smpActions.smp.deleteSubmissionDone]: (state, {payload}) => ({
-        ...state,
-        mySubmissions: {v2: state.mySubmissions.v2.filter(subm => (
+    [smpActions.smp.deleteSubmissionDone]: (state, { payload }) => ({
+      ...state,
+      mySubmissions: { v2: state.mySubmissions.v2.filter(subm => (
           subm.submissionId !== payload
-        ))},
+        )) },
     }),
   }, initialState || {});
 }
@@ -100,4 +96,4 @@ export function factory(req) {
 }
 
 /* Default reducer with empty initial state. */
-export default combine(create(), {mySubmissionsManagement})
+export default combine(create(), { mySubmissionsManagement });

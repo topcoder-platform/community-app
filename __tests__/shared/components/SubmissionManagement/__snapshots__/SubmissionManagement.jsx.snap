@@ -17,7 +17,7 @@ exports[`matches snapshots for design submissions 1`] = `
       </h4>
       <a
         className="src-shared-components-SubmissionManagement-SubmissionManagement-___styles__back-btn___1nKEx"
-        href={undefined}
+        href=""
       >
         &lt; Back
       </a>
@@ -33,11 +33,11 @@ exports[`matches snapshots for design submissions 1`] = `
       <p
         className="src-shared-components-SubmissionManagement-SubmissionManagement-___styles__time-left___1Tye2"
       >
-        27D
+        17D
 
-        8
+        14
         H
-        7
+        8
         M
       </p>
       <p
@@ -68,7 +68,7 @@ exports[`matches snapshots for design submissions 1`] = `
            Ends:
         </span>
 
-        Sunday 07/02/17 11:00 PM
+        Sunday 07/02/17 04:00 PM
          EDT
       </p>
     </div>
@@ -126,7 +126,7 @@ exports[`matches snapshots for design submissions 1`] = `
             <td
               className="src-shared-components-SubmissionManagement-Submission-___styles__date-col___3XOxK"
             >
-              Mar 30, 2017 03:17 PM
+              Mar 30, 2017 08:17 AM
             </td>
             <td>
               <div
@@ -215,7 +215,7 @@ exports[`matches snapshots for design submissions 1`] = `
             <td
               className="src-shared-components-SubmissionManagement-Submission-___styles__date-col___3XOxK"
             >
-              Mar 30, 2017 03:18 PM
+              Mar 30, 2017 08:18 AM
             </td>
             <td>
               <div
@@ -304,7 +304,7 @@ exports[`matches snapshots for design submissions 1`] = `
             <td
               className="src-shared-components-SubmissionManagement-Submission-___styles__date-col___3XOxK"
             >
-              Mar 30, 2017 03:19 PM
+              Mar 30, 2017 08:19 AM
             </td>
             <td>
               <div
@@ -393,7 +393,7 @@ exports[`matches snapshots for design submissions 1`] = `
             <td
               className="src-shared-components-SubmissionManagement-Submission-___styles__date-col___3XOxK"
             >
-              Mar 30, 2017 03:19 PM
+              Mar 30, 2017 08:19 AM
             </td>
             <td>
               <div
@@ -482,7 +482,7 @@ exports[`matches snapshots for design submissions 1`] = `
             <td
               className="src-shared-components-SubmissionManagement-Submission-___styles__date-col___3XOxK"
             >
-              Mar 30, 2017 03:20 PM
+              Mar 30, 2017 08:20 AM
             </td>
             <td>
               <div
@@ -557,7 +557,7 @@ exports[`matches snapshots for design submissions 1`] = `
   >
     <a
       className="tc-btn tc-btn-primary tc-btn-md src-shared-components-SubmissionManagement-SubmissionManagement-___styles__add-sub-btn___1ZToV"
-      href={undefined}
+      href=""
     >
       Add Submission
     </a>
@@ -582,7 +582,7 @@ exports[`matches snapshots for development submissions 1`] = `
       </h4>
       <a
         className="src-shared-components-SubmissionManagement-SubmissionManagement-___styles__back-btn___1nKEx"
-        href={undefined}
+        href=""
       >
         &lt; Back
       </a>
@@ -598,11 +598,11 @@ exports[`matches snapshots for development submissions 1`] = `
       <p
         className="src-shared-components-SubmissionManagement-SubmissionManagement-___styles__time-left___1Tye2"
       >
-        27D
+        17D
 
-        8
+        14
         H
-        7
+        8
         M
       </p>
       <p
@@ -633,7 +633,7 @@ exports[`matches snapshots for development submissions 1`] = `
            Ends:
         </span>
 
-        Sunday 07/02/17 11:00 PM
+        Sunday 07/02/17 04:00 PM
          EDT
       </p>
     </div>
@@ -691,7 +691,7 @@ exports[`matches snapshots for development submissions 1`] = `
             <td
               className="src-shared-components-SubmissionManagement-Submission-___styles__date-col___3XOxK"
             >
-              Mar 30, 2017 03:17 PM
+              Mar 30, 2017 08:17 AM
             </td>
             <td>
               <div
@@ -780,7 +780,7 @@ exports[`matches snapshots for development submissions 1`] = `
             <td
               className="src-shared-components-SubmissionManagement-Submission-___styles__date-col___3XOxK"
             >
-              Mar 30, 2017 03:18 PM
+              Mar 30, 2017 08:18 AM
             </td>
             <td>
               <div
@@ -869,7 +869,7 @@ exports[`matches snapshots for development submissions 1`] = `
             <td
               className="src-shared-components-SubmissionManagement-Submission-___styles__date-col___3XOxK"
             >
-              Mar 30, 2017 03:19 PM
+              Mar 30, 2017 08:19 AM
             </td>
             <td>
               <div
@@ -958,7 +958,7 @@ exports[`matches snapshots for development submissions 1`] = `
             <td
               className="src-shared-components-SubmissionManagement-Submission-___styles__date-col___3XOxK"
             >
-              Mar 30, 2017 03:19 PM
+              Mar 30, 2017 08:19 AM
             </td>
             <td>
               <div
@@ -1047,7 +1047,7 @@ exports[`matches snapshots for development submissions 1`] = `
             <td
               className="src-shared-components-SubmissionManagement-Submission-___styles__date-col___3XOxK"
             >
-              Mar 30, 2017 03:20 PM
+              Mar 30, 2017 08:20 AM
             </td>
             <td>
               <div
@@ -1122,7 +1122,7 @@ exports[`matches snapshots for development submissions 1`] = `
   >
     <a
       className="tc-btn tc-btn-primary tc-btn-md src-shared-components-SubmissionManagement-SubmissionManagement-___styles__add-sub-btn___1ZToV"
-      href={undefined}
+      href=""
     >
       Add Submission
     </a>

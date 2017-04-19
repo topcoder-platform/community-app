@@ -4,29 +4,31 @@ import actions from 'actions/smp';
 
 function create(initialState) {
   return handleActions({
-    [actions.smp.showDetails]: (state, {payload}) => {
-      let showDetails = new Set(state.showDetails);
+    [actions.smp.showDetails]: (state, { payload }) => {
+      const showDetails = new Set(state.showDetails);
 
-      showDetails.has(payload)
-        ? showDetails.delete(payload)
-        : showDetails.add(payload);
+      if (showDetails.has(payload)) {
+        showDetails.delete(payload);
+      } else {
+        showDetails.add(payload);
+      }
 
       return { ...state, showDetails };
     },
 
-    [actions.smp.confirmDelete]: (state, {payload}) => ({
+    [actions.smp.confirmDelete]: (state, { payload }) => ({
       ...state,
       showModal: true,
       toBeDeletedId: payload,
     }),
 
-    [actions.smp.cancelDelete]: (state, action) => ({
+    [actions.smp.cancelDelete]: state => ({
       ...state,
       showModal: false,
       toBeDeletedId: 0,
     }),
 
-    [actions.smp.deleteSubmissionDone]: (state, action) => ({
+    [actions.smp.deleteSubmissionDone]: state => ({
       ...state,
       showModal: false,
       toBeDeletedId: 0,
@@ -42,7 +44,7 @@ function create(initialState) {
  * @param {Object} req Optional. ExpressJS HTTP request.
  * @return Promise which resolves to the new reducer.
  */
-export function factory(req) {
+export function factory() {
   const state = {
     showDetails: [],
     showModal: false,

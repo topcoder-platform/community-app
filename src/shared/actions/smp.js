@@ -5,13 +5,6 @@
 import _ from 'lodash';
 import 'isomorphic-fetch';
 import { createActions } from 'redux-actions';
-import { getApiV2, getApiV3 } from 'services/api';
-import config from 'utils/config';
-import { isClientSide } from 'utils/isomorphy';
-import logger from 'utils/logger';
-
-const apiV2 = (auth) => getApiV2(auth.tokenV2);
-const apiV3 = (auth) => getApiV3(auth.tokenV3);
 
 function deleteSubmission(challengeId, submissionId) {
   // TODO: replace Promise.resolve with the actual api call to delete the submission

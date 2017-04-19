@@ -5,7 +5,7 @@
 
 import config from 'config';
 import React from 'react';
-import ReactDOM from 'react-dom/server';
+import ReactDOM from 'react-dom/server'; // This may cause warning of PropTypes
 import { StaticRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import serializeJs from 'serialize-javascript';

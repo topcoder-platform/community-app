@@ -5,10 +5,10 @@
  *
  */
 
-import _ from 'lodash';
-import Button from 'components/Button';
-import React, { PropTypes as PT } from 'react';
+import React from 'react';
+import PT from 'prop-types';
 import shortid from 'shortid';
+
 import './styles.scss';
 
 export default function ScreeningDetails(props) {
@@ -16,7 +16,6 @@ export default function ScreeningDetails(props) {
     screeningObject,
     helpPageUrl,
     onlineReviewUrl,
-    submissionId,
   } = props;
 
   const checkScreeningObject = () => {
@@ -109,6 +108,8 @@ export default function ScreeningDetails(props) {
 
 ScreeningDetails.defaultProps = {
   screeningObject: {},
+  helpPageUrl: '',
+  onlineReviewUrl: '',
 };
 
 ScreeningDetails.propTypes = {
@@ -121,5 +122,4 @@ ScreeningDetails.propTypes = {
   }),
   helpPageUrl: PT.string,
   onlineReviewUrl: PT.string,
-  submissionId: PT.number.isRequired,
 };

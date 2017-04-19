@@ -13,7 +13,8 @@
  */
 
 import _ from 'lodash';
-import React, { PropTypes as PT } from 'react';
+import React from 'react';
+import PT from 'prop-types';
 import './styles.scss';
 
 export default function ScreeningStatus(props) {

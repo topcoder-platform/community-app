@@ -2,12 +2,12 @@ import React from 'react';
 import renderer from 'react-test-renderer';
 import { StaticRouter } from 'react-router-dom';
 
-import Content from 'components/examples/Content';
+import Examples from 'routes/examples';
 
 test('matches snapshots', () => {
   const cmp = renderer.create(
     <StaticRouter context={{}}>
-      <Content />
+      <Examples />
     </StaticRouter>,
   );
   expect(cmp.toJSON()).toMatchSnapshot();
