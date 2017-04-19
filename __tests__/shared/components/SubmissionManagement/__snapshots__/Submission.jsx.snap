@@ -87,3 +87,91 @@ exports[`matches snapshots 1`] = `
   </td>
 </tr>
 `;
+
+exports[`renders screening status 1`] = `
+<tr
+  className="src-shared-components-SubmissionManagement-Submission-___styles__submission-row___2yQOc"
+>
+  <td
+    className="src-shared-components-SubmissionManagement-Submission-___styles__preview-col___1pWYq"
+  >
+    <img
+      alt="preview"
+      className="src-shared-components-SubmissionManagement-Submission-___styles__design-img___1klwr"
+      src="http://placehold.it/90/a01230"
+    />
+  </td>
+  <td
+    className="src-shared-components-SubmissionManagement-Submission-___styles__id-col___zC6Hi"
+  />
+  <td />
+  <td
+    className="src-shared-components-SubmissionManagement-Submission-___styles__date-col___3XOxK"
+  >
+    Invalid date
+  </td>
+  <td
+    className="src-shared-components-SubmissionManagement-Submission-___styles__status-col___1Byk3"
+  />
+  <td>
+    <div
+      className="src-shared-components-SubmissionManagement-Submission-___styles__action-col___2M1RY"
+    >
+      <button
+        onClick={[Function]}
+      >
+        <svg
+          height="16"
+          viewBox="0 0 16 16"
+          width="16"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <g
+            fill="#262628"
+          >
+            <path
+              d="M8 12c.3 0 .5-.1.7-.3L14.4 6 13 4.6l-4 4V0H7v8.6l-4-4L1.6 6l5.7 5.7c.2.2.4.3.7.3z"
+            />
+            <path
+              d="M14 14H2v-3H0v4c0 .6.4 1 1 1h14c.6 0 1-.4 1-1v-4h-2v3z"
+            />
+          </g>
+        </svg>
+      </button>
+      <button
+        className="src-shared-components-SubmissionManagement-Submission-___styles__delete-icon___2M67z"
+        onClick={[Function]}
+      >
+        <svg
+          height="16"
+          viewBox="0 0 16 16"
+          width="16"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M5 7h2v6H5zM9 7h2v6H9z"
+          />
+          <path
+            d="M12 1a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1v2H0v2h1v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V5h1V3h-4V1zM6 2h4v1H6V2zm7 3v9H3V5h10z"
+          />
+        </svg>
+      </button>
+      <button
+        className="src-shared-components-SubmissionManagement-Submission-___styles__expand-icon___TDY6Y"
+        onClick={[Function]}
+      >
+        <svg
+          height="16"
+          viewBox="0 0 16 16"
+          width="16"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M15.707 4.854l-1.414-1.415L8 9.732 1.707 3.439.293 4.854 8 12.561z"
+          />
+        </svg>
+      </button>
+    </div>
+  </td>
+</tr>
+`;

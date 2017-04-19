@@ -1,13 +1,13 @@
 import React from 'react';
-import renderer from 'react-test-renderer';
 import { StaticRouter } from 'react-router-dom';
+import renderer from 'react-test-renderer';
 
-import Content from 'components/examples/Content';
+import RoutesTopLevelExamples from 'routes';
 
 test('matches snapshots', () => {
   const cmp = renderer.create(
     <StaticRouter context={{}}>
-      <Content />
+      <RoutesTopLevelExamples />
     </StaticRouter>,
   );
   expect(cmp.toJSON()).toMatchSnapshot();

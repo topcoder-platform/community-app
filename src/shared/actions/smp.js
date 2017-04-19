@@ -7,12 +7,10 @@
 import _ from 'lodash';
 import 'isomorphic-fetch';
 import { createActions } from 'redux-actions';
-import { getApiV2, getApiV3 } from 'services/api';
-import config from 'utils/config';
+import { getApiV2 } from 'services/api';
 import logger from 'utils/logger';
 
-const apiV2 = (auth) => getApiV2(auth.tokenV2);
-const apiV3 = (auth) => getApiV3(auth.tokenV3);
+const apiV2 = auth => getApiV2(auth.tokenV2);
 
 function deleteSubmission(challengeId, submissionId) {
   // TODO: replace Promise.resolve with the actual api call to delete the submission
@@ -48,5 +46,5 @@ export default createActions({
     CONFIRM_DELETE: _.identity,
     DELETE_SUBMISSION_DONE: deleteSubmission,
     DOWNLOAD_SUBMISSION: downloadSubmission,
-  }
+  },
 });

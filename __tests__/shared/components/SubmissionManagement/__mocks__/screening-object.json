@@ -1,10 +1,41 @@
 {
-  "status": "Dummy Status",
-  "warnings": [{
-    "brief": "Dummy Brief #1",
-    "details": "Dummy Details #1"
-  }, {
-    "brief": "Dummy Brief #2",
-    "details": "Dummy Details #2"
-  }]
+  "dummy": {
+    "status": "Dummy Status",
+    "warnings": [{
+      "brief": "Dummy Brief #1",
+      "details": "Dummy Details #1"
+    }, {
+      "brief": "Dummy Brief #2",
+      "details": "Dummy Details #2"
+    }]
+  },
+  "pending": {
+    "status": "pending"
+  },
+  "passedWithoutWarning": {
+    "status": "passed"
+  },
+  "failedWithoutWarning": {
+    "status": "failed"
+  },
+  "passedWithWarning": {
+    "status": "passed",
+    "warnings": [{
+      "brief": "Dummy Brief #1",
+      "details": "Dummy Details #1"
+    }, {
+      "brief": "Dummy Brief #2",
+      "details": "Dummy Details #2"
+    }]
+  },
+  "failedWithWarning": {
+    "status": "failed",
+    "warnings": [{
+      "brief": "Dummy Brief #1",
+      "details": "Dummy Details #1"
+    }, {
+      "brief": "Dummy Brief #2",
+      "details": "Dummy Details #2"
+    }]
+  }
 }

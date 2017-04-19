@@ -15,7 +15,8 @@
  */
 
 import _ from 'lodash';
-import React, { PropTypes as PT } from 'react';
+import React from 'react';
+import PT from 'prop-types';
 import shortid from 'shortid';
 import Submission from '../Submission';
 import ScreeningDetails from '../ScreeningDetails';
@@ -112,6 +113,8 @@ SubmissionsTable.defaultProps = {
   onDelete: _.noop,
   onDownload: _.noop,
   onShowDetails: _.noop,
+  onlineReviewUrl: '',
+  helpPageUrl: '',
 };
 
 SubmissionsTable.propTypes = {

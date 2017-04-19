@@ -50,16 +50,19 @@ export function resolveReducers(promises) {
  */
 export function combine(...reducers) {
   return (state, action) => {
-    const nextState = {}, mergeState = Object.assign.bind(Object, nextState);
+    const nextState = {};
+    const mergeState = Object.assign.bind(Object, nextState);
 
     reducers.forEach((reducer) => {
-      if(typeof reducer === 'function') {
+      if (typeof reducer === 'function') {
         return mergeState(reducer(state, action));
       }
 
-      Object.keys(reducer).forEach(slice => {
-        mergeState({[slice]: reducer[slice]((state||{})[slice], action)});
-      })
+      Object.keys(reducer).forEach((slice) => {
+        mergeState({ [slice]: reducer[slice]((state || {})[slice], action) });
+      });
+
+      return null; // TODO: i don't know what it is. it just here to make eslint happy.
     });
 
     return nextState;

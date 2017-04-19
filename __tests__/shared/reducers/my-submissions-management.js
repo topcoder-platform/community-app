@@ -1,14 +1,11 @@
 import actions from 'actions/smp';
 import defaultReducer, { factory } from 'reducers/my-submissions-management';
-import { toFSA } from 'utils/redux';
 
 let reducer = defaultReducer;
 
-const fetchFailureMock = jest.fn(() =>
-  Promise.reject(new Error('ERROR')));
-
-const mockFetch = (resolvesTo) => global.fetch = jest.fn(() =>
-  Promise.resolve({json: () => resolvesTo}));
+const mockFetch = (resolvesTo) => {
+  global.fetch = jest.fn(() => Promise.resolve({ json: () => resolvesTo }));
+};
 
 function testReducer(expectedInitialState) {
   let state;
@@ -58,11 +55,11 @@ describe('default reducer', () => {
 
 describe('factory without http request', () => {
   mockFetch({});
-  beforeAll(() => factory().then(res => reducer = res));
+  beforeAll(() => factory().then((res) => { reducer = res; }));
 
   testReducer({
-    "showDetails": [],
-    "showModal": false,
-    "toBeDeletedId": 0
+    showDetails: [],
+    showModal: false,
+    toBeDeletedId: 0,
   });
 });

@@ -3,7 +3,8 @@
  */
 
 import _ from 'lodash';
-import React, { PropTypes as PT } from 'react';
+import React from 'react';
+import PT from 'prop-types';
 import actions from 'actions/examples/data-fetch';
 import { connect } from 'react-redux';
 
@@ -22,7 +23,7 @@ class DataFetch extends React.Component {
 }
 
 export default connect(
-  state => state.examples.dataFetch,
+  () => ({}),
   dispatch => ({
     loadData: () => {
       dispatch(actions.examples.dataFetch.fetchDataInit());

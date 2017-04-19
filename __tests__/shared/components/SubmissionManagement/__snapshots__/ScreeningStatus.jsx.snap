@@ -21,3 +21,93 @@ exports[`renders correctly 1`] = `
   </div>
 </button>
 `;
+
+exports[`renders failed with warning 1`] = `
+<button
+  onClick={[Function]}
+>
+  <div
+    className="src-shared-components-SubmissionManagement-ScreeningStatus-___styles__screening-status___JV4BF src-shared-components-SubmissionManagement-ScreeningStatus-___styles__has-warn___8jqPg"
+  >
+    <span
+      className="src-shared-components-SubmissionManagement-ScreeningStatus-___styles__status___1CCjJ src-shared-components-SubmissionManagement-ScreeningStatus-___styles__failed___2N6ch"
+    >
+      fail
+    </span>
+    <span
+      className="src-shared-components-SubmissionManagement-ScreeningStatus-___styles__warning___6tSHD"
+    >
+      2
+       warnings
+    </span>
+  </div>
+</button>
+`;
+
+exports[`renders failed without warning 1`] = `
+<button
+  onClick={[Function]}
+>
+  <div
+    className="src-shared-components-SubmissionManagement-ScreeningStatus-___styles__screening-status___JV4BF src-shared-components-SubmissionManagement-ScreeningStatus-___styles__fail-with-no-warn___3zepk"
+  >
+    <span
+      className="src-shared-components-SubmissionManagement-ScreeningStatus-___styles__status___1CCjJ"
+    >
+      fail
+    </span>
+  </div>
+</button>
+`;
+
+exports[`renders passed with warning 1`] = `
+<button
+  onClick={[Function]}
+>
+  <div
+    className="src-shared-components-SubmissionManagement-ScreeningStatus-___styles__screening-status___JV4BF src-shared-components-SubmissionManagement-ScreeningStatus-___styles__has-warn___8jqPg"
+  >
+    <span
+      className="src-shared-components-SubmissionManagement-ScreeningStatus-___styles__status___1CCjJ src-shared-components-SubmissionManagement-ScreeningStatus-___styles__passed___1R8KE"
+    >
+      pass
+    </span>
+    <span
+      className="src-shared-components-SubmissionManagement-ScreeningStatus-___styles__warning___6tSHD"
+    >
+      2
+       warnings
+    </span>
+  </div>
+</button>
+`;
+
+exports[`renders passed without warning 1`] = `
+<button
+  onClick={[Function]}
+>
+  <div
+    className="src-shared-components-SubmissionManagement-ScreeningStatus-___styles__screening-status___JV4BF src-shared-components-SubmissionManagement-ScreeningStatus-___styles__pass-with-no-warn___2Lbv4"
+  >
+    <span
+      className="src-shared-components-SubmissionManagement-ScreeningStatus-___styles__status___1CCjJ"
+    >
+      pass
+    </span>
+  </div>
+</button>
+`;
+
+exports[`renders pending 1`] = `
+<button
+  onClick={[Function]}
+>
+  <div
+    className="src-shared-components-SubmissionManagement-ScreeningStatus-___styles__screening-status___JV4BF src-shared-components-SubmissionManagement-ScreeningStatus-___styles__pending___2TqCq"
+  >
+    <span>
+      Not yet performed
+    </span>
+  </div>
+</button>
+`;

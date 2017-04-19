@@ -1,5 +1,22 @@
 import actions from 'actions/smp';
 
+jest.mock('utils/config', () => ({
+  API: {
+    V2: 'https://api.topcoder-dev.com/v2',
+    V3: 'API-URL-V3',
+  },
+}));
+
+let originalFetch;
+
+beforeAll(() => {
+  originalFetch = global.fetch;
+});
+
+afterAll(() => {
+  global.fetch = originalFetch;
+});
+
 describe('smp.showDetails', () => {
   const a = actions.smp.showDetails('PAYLOAD');
 
@@ -45,7 +62,9 @@ describe('smp.deleteSubmissionDone', () => {
 });
 
 describe('smp.downloadSubmission', () => {
-  global.fetch = jest.fn((resolvesTo) => Promise.resolve(resolvesTo));
+  global.fetch = resolvesTo => Promise.resolve({
+    json: () => Promise.resolve(resolvesTo),
+  });
 
   const a = actions.smp.downloadSubmission({}, 'design', 'submissionId');
 

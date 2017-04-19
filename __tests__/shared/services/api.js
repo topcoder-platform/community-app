@@ -5,7 +5,7 @@ global.fetch = (url, ops) => Promise.resolve({ url, ops });
 const ENDPOINT = '/ENDPOINT';
 const MOCK_OPS = { OPTIONS: 'OPTIONS' };
 
-jest.mock('config', () => ({
+jest.mock('utils/config', () => ({
   API: {
     V2: 'API-URL-V2',
     V3: 'API-URL-V3',

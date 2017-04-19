@@ -12,8 +12,9 @@
  */
 
 import _ from 'lodash';
-import moment from 'moment';
-import React, { PropTypes as PT } from 'react';
+import moment from 'moment-timezone';
+import React from 'react';
+import PT from 'prop-types';
 
 import DownloadIcon from '../Icons/IconSquareDownload.svg';
 import DeleteIcon from '../Icons/IconTrashSimple.svg';
@@ -31,7 +32,7 @@ export default function Submission(props) {
     onDownload,
     onShowDetails,
   } = props;
-  const formatDate = (date) => moment(+new Date(date)).format('MMM DD, YYYY hh:mm A');
+  const formatDate = date => moment(+new Date(date)).tz('America/Indiana/Indianapolis').format('MMM DD, YYYY hh:mm A');
 
   return (
     <tr styleName="submission-row">
@@ -39,7 +40,7 @@ export default function Submission(props) {
         <img
           alt="preview"
           styleName={type === 'design' ? 'design-img' : 'dev-img'}
-          src={submissionObject.preview||'http://placehold.it/90/a01230'}
+          src={submissionObject.preview || 'http://placehold.it/90/a01230'}
         />
       </td>
       <td styleName="id-col">{submissionObject.submissionId}</td>

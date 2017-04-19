@@ -88,3 +88,5 @@ storeFactory(undefined, window.ISTATE).then((store) => {
 
   if (module.hot) module.hot.accept('../shared', render);
 });
+
+export default null;

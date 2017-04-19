@@ -11,37 +11,43 @@ import Button from 'components/Button';
 import LoadingIndicator from 'components/LoadingIndicator';
 import SubmissionManagement from 'components/SubmissionManagement/SubmissionManagement';
 import React from 'react';
-
-import logger from 'utils/logger';
+import PT from 'prop-types';
+import { connect } from 'react-redux';
 import config from 'utils/config';
 
 import './styles.scss';
+import challengeActions from '../../actions/challenge';
+import smpActions from '../../actions/smp';
 
 // The container component
-class SubmissionManagementPageContainer extends React.Component {
+export class SubmissionManagementPageContainer extends React.Component {
 
   componentDidMount() {
-    if(!(this.props.challenge || this.props.isLoadingChallenge)) {
+    if (!(this.props.challenge || this.props.isLoadingChallenge)) {
       this.props.loadChallengeDetails(this.props.authTokens, this.props.challengeId);
     }
 
-    if(!(this.props.mySubmissions || this.props.isLoadingSubmissions)) {
+    if (!(this.props.mySubmissions || this.props.isLoadingSubmissions)) {
       this.props.loadMySubmissions(this.props.authTokens, this.props.challengeId);
     }
   }
 
+  onDownload(...args) {
+    this.props.onDownloadSubmission.bind(0, this.props.authTokens).call(args);
+  }
+
   render() {
     const isEmpty = _.isEmpty(this.props.challenge);
-    const challengeType = ((this.props.challenge||{}).track||'').toLowerCase();
+    const challengeType = ((this.props.challenge || {}).track || '').toLowerCase();
 
     const smConfig = {
       onShowDetails: this.props.onShowDetails,
       onDelete: this.props.onSubmissionDelete,
-      onDownload: this.props.onDownloadSubmission.bind(0, this.props.authTokens),
+      onDownload: this.onDownload,
 
-      onlineReviewUrl: config.OR_BASE_URL+`/review/actions/ViewProjectDetails?pid=${this.props.challengeId}`,
-      challengeUrl: config.TC_BASE_URL+`/challenge-details/${this.props.challengeId}/?type=${challengeType}`,
-      addSumissionUrl: config.TC_BASE_URL+`/challenges/${this.props.challengeId}/submit/file/`,
+      onlineReviewUrl: `${config.OR_BASE_URL}/review/actions/ViewProjectDetails?pid=${this.props.challengeId}`,
+      challengeUrl: `${config.TC_BASE_URL}/challenge-details/${this.props.challengeId}/?type=${challengeType}`,
+      addSumissionUrl: `${config.TC_BASE_URL}/challenges/${this.props.challengeId}/submit/file/`,
       helpPageUrl: config.HELP_URL,
     };
 
@@ -68,12 +74,17 @@ class SubmissionManagementPageContainer extends React.Component {
                 You’ll have to upload all the files again in order to restore it.</p>
               <div styleName="action-btns">
                 <Button
+                  id="btn-cancel-submission"
                   className="tc-btn-sm tc-btn-default"
                   onClick={() => this.props.onCancelSubmissionDelete()}
                 >Cancel</Button>
                 <Button
                   className="tc-btn-sm tc-btn-warning"
-                  onClick={() => this.props.onSubmissionDeleteConfirmed(this.props.challengeId, this.props.toBeDeletedId)}
+                  onClick={
+                    () => this.props.onSubmissionDeleteConfirmed(
+                      this.props.challengeId,
+                      this.props.toBeDeletedId)
+                    }
                 >Delete Submission</Button>
               </div>
             </div>
@@ -84,16 +95,41 @@ class SubmissionManagementPageContainer extends React.Component {
   }
 }
 
-import { connect } from 'react-redux';
-import challengeActions from '../../actions/challenge';
-import smpActions from '../../actions/smp';
+SubmissionManagementPageContainer.defaultProps = {
+  isLoadingChallenge: false,
+  mySubmissions: [],
+  isLoadingSubmissions: false,
+  showModal: false,
+  toBeDeletedId: 0,
+  challenge: null,
+};
+
+SubmissionManagementPageContainer.propTypes = {
+  challenge: PT.shape(),
+  isLoadingChallenge: PT.bool,
+  loadChallengeDetails: PT.func.isRequired,
+  authTokens: PT.shape().isRequired,
+  challengeId: PT.number.isRequired,
+  mySubmissions: PT.arrayOf(PT.shape()),
+  isLoadingSubmissions: PT.bool,
+  loadMySubmissions: PT.func.isRequired,
+  onShowDetails: PT.func.isRequired,
+  onSubmissionDelete: PT.func.isRequired,
+  onDownloadSubmission: PT.func.isRequired,
+  showDetails: PT.shape().isRequired,
+  showModal: PT.bool,
+  onCancelSubmissionDelete: PT.func.isRequired,
+  toBeDeletedId: PT.number,
+  onSubmissionDeleteConfirmed: PT.func.isRequired,
+};
+
 
 const mapStateToProps = (state, props) => ({
   challengeId: props.match.params.challengeId,
   challenge: state.challenge.details,
   isLoadingChallenge: state.challenge.loadingDetails,
 
-  mySubmissions: (state.challenge.mySubmissions||{}).v2,
+  mySubmissions: (state.challenge.mySubmissions || {}).v2,
   isLoadingSubmissions: state.challenge.loadingMySubmissions,
   showDetails: new Set(state.challenge.mySubmissionsManagement.showDetails),
 
@@ -103,7 +139,7 @@ const mapStateToProps = (state, props) => ({
   authTokens: state.auth,
 });
 
-const mapDispatchToProps = (dispatch, props) => ({
+const mapDispatchToProps = dispatch => ({
   onShowDetails: (submissionId) => {
     dispatch(smpActions.smp.showDetails(submissionId));
   },
@@ -137,7 +173,7 @@ const mapDispatchToProps = (dispatch, props) => ({
 
 const SubmissionManagementContainer = connect(
   mapStateToProps,
-  mapDispatchToProps
-)(SubmissionManagementPageContainer)
+  mapDispatchToProps,
+)(SubmissionManagementPageContainer);
 
-export default SubmissionManagementContainer
+export default SubmissionManagementContainer;

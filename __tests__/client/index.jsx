@@ -23,12 +23,23 @@ jest.setMock('tc-accounts', {
   getFreshToken: () => Promise.resolve('Dummy token'),
 });
 
+let FRONT_END;
+
+beforeAll(() => {
+  FRONT_END = process.env.FRONT_END;
+  delete process.env.FRONT_END;
+});
+
 test('should not start without process.env.FRONT_END evaluating true', () => {
-  expect(() => require(MODULE)).toThrow();
+  expect(() => require(MODULE).default).toThrow();
 });
 
 test('should start whit process.env.FRONT_END evaluating true', () => {
   jest.resetModules();
   process.env.FRONT_END = true;
-  require(MODULE);
+  expect(require(MODULE).default).toBeNull();
+});
+
+afterAll(() => {
+  process.env.FRONT_END = FRONT_END;
 });

@@ -14,10 +14,10 @@
  */
 
 import _ from 'lodash';
-import Button from 'components/Button';
 import LoadingIndicator from 'components/LoadingIndicator';
-import React, { PropTypes as PT } from 'react';
-import moment from 'moment';
+import React from 'react';
+import PT from 'prop-types';
+import moment from 'moment-timezone';
 import SubmissionsTable from '../SubmissionsTable';
 import './styles.scss';
 
@@ -32,7 +32,7 @@ export default function SubmissionManagement(props) {
     onDownload,
     onShowDetails,
     challengeUrl,
-    addSumissionUrl,
+    addSubmissionUrl,
     onlineReviewUrl,
   } = props;
 
@@ -42,15 +42,16 @@ export default function SubmissionManagement(props) {
   const isDevelop = challengeType === 'develop';
   const currentPhase = _.last(challenge.currentPhases || []) || {};
 
-  let now = moment(), end = moment(currentPhase.scheduledEndTime),
-    diff = end.diff(now),
-    timeLeft = moment.duration(diff),
+  const now = moment();
+  const end = moment(currentPhase.scheduledEndTime);
+  const diff = end.diff(now);
+  const timeLeft = moment.duration(diff);
 
-    [days, hours, minutes] = [
-      timeLeft.get('days'),
-      timeLeft.get('hours'),
-      timeLeft.get('minutes'),
-    ];
+  const [days, hours, minutes] = [
+    timeLeft.get('days'),
+    timeLeft.get('hours'),
+    timeLeft.get('minutes'),
+  ];
 
   const config = {
     helpPageUrl,
@@ -71,7 +72,7 @@ export default function SubmissionManagement(props) {
         <div styleName="right-col">
           <p styleName="round">{currentPhase.phaseType}</p>
           <p styleName="time-left">
-            {days>0&&(days+'D')} {hours}H {minutes}M
+            {days > 0 && (`${days}D`)} {hours}H {minutes}M
           </p>
           <p styleName="left-label">left</p>
         </div>
@@ -80,7 +81,7 @@ export default function SubmissionManagement(props) {
         <div styleName="content-head">
           <p styleName="title">Manage your submissions</p>
           {isDesign && <p styleName="round-ends">
-            <span styleName="ends-label">{currentPhase.phaseType} Ends:</span> {end.format('dddd MM/DD/YY hh:mm A')} EDT</p>}
+            <span styleName="ends-label">{currentPhase.phaseType} Ends:</span> {end.tz('America/Indiana/Indianapolis').format('dddd MM/DD/YY hh:mm A')} EDT</p>}
         </div>
         {isDesign && <p styleName="recommend-info">
           We always recommend to download your submission to check you uploaded the correct
@@ -104,9 +105,11 @@ export default function SubmissionManagement(props) {
         }
       </div>
       <div styleName="btn-wrap">
-        <a href={addSumissionUrl}
-            className="tc-btn tc-btn-primary tc-btn-md"
-            styleName="add-sub-btn">
+        <a
+          href={addSubmissionUrl}
+          className="tc-btn tc-btn-primary tc-btn-md"
+          styleName="add-sub-btn"
+        >
           {(!isDevelop || !submissions || submissions.length === 0)
             ? 'Add Submission' : 'Update Submission'}
         </a>
@@ -116,22 +119,27 @@ export default function SubmissionManagement(props) {
 }
 
 SubmissionManagement.defaultProps = {
-  mockObject: {},
   onDelete: _.noop,
   onShowDetails: _.noop,
   showDetails: new Set(),
   onDownload: _.noop,
+  onlineReviewUrl: '',
+  helpPageUrl: '',
+  loadingSubmissions: false,
+  challengeUrl: '',
+  addSubmissionUrl: '',
 };
 
 SubmissionManagement.propTypes = {
-  mockObject: PT.shape({
-    challenge: PT.object,
-    submissions: PT.array,
-  }),
   showDetails: PT.instanceOf(Set),
   onDelete: PT.func,
   onlineReviewUrl: PT.string,
   helpPageUrl: PT.string,
   onDownload: PT.func,
   onShowDetails: PT.func,
+  challenge: PT.shape().isRequired,
+  submissions: PT.arrayOf(PT.shape()).isRequired,
+  loadingSubmissions: PT.bool,
+  challengeUrl: PT.string,
+  addSubmissionUrl: PT.string,
 };

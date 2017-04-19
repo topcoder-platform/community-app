@@ -2,12 +2,13 @@
  * Reducer for state.challenge
  */
 
-import { combine } from '../utils/redux';
-import { handleActions, combineActions } from 'redux-actions';
-
+import { handleActions } from 'redux-actions';
 import challengeActions from 'actions/challenge';
 import smpActions from 'actions/smp';
-import mySubmissionsManagement, {factory as mySMFactory} from './my-submissions-management';
+
+import { combine } from '../utils/redux';
+
+import mySubmissionsManagement, { factory as mySMFactory } from './my-submissions-management';
 
 
 /**
@@ -17,37 +18,37 @@ import mySubmissionsManagement, {factory as mySMFactory} from './my-submissions-
  */
 function create(initialState) {
   return handleActions({
-    [challengeActions.fetchChallengeInit]: (state, action) => ({
+    [challengeActions.fetchChallengeInit]: state => ({
       ...state,
       loadingDetails: true,
       details: null,
     }),
 
-    [challengeActions.fetchChallengeDone]: (state, {payload}) => ({
+    [challengeActions.fetchChallengeDone]: (state, { payload }) => ({
       ...state,
       details: payload,
       loadingDetails: false,
     }),
 
-    [challengeActions.fetchSubmissionsInit]: (state, action) => ({
+    [challengeActions.fetchSubmissionsInit]: state => ({
       ...state,
       loadingMySubmissions: true,
-      mySubmissions: {v2: null},
+      mySubmissions: { v2: null },
     }),
 
-    [challengeActions.fetchSubmissionsDone]: (state, {payload}) => ({
+    [challengeActions.fetchSubmissionsDone]: (state, { payload }) => ({
       ...state,
       loadingMySubmissions: false,
-      mySubmissions: {v2: payload},
+      mySubmissions: { v2: payload },
     }),
 
     // TODO: remove this reducer once the deleteSubmission action
     // in 'shared/actions/challenge' was fixed
-    [smpActions.smp.deleteSubmissionDone]: (state, {payload}) => ({
-        ...state,
-        mySubmissions: {v2: state.mySubmissions.v2.filter(subm => (
+    [smpActions.smp.deleteSubmissionDone]: (state, { payload }) => ({
+      ...state,
+      mySubmissions: { v2: state.mySubmissions.v2.filter(subm => (
           subm.submissionId !== payload
-        ))},
+        )) },
     }),
   }, initialState || {});
 }
@@ -60,19 +61,23 @@ function create(initialState) {
  * @return Promise which resolves to the new reducer.
  */
 export function factory(req) {
-  return mySMFactory(req).then(mySubmissionsManagement => {
-    const state = {
+  let state = {};
+  if (req) {
+    state = {
       details: null,
-      mySubmissions: {v2: null},
       loadingDetails: false,
       loadingMySubmissions: false,
-      // get initial state for `mySubmissionsManagement`
-      mySubmissionsManagement: mySubmissionsManagement(undefined, {}),
+      mySubmissions: {
+        v2: null,
+      },
     };
+  }
 
-    return Promise.resolve(combine(create(state), {mySubmissionsManagement}));
-  })
+  return mySMFactory(req)
+    .then(res => Promise.resolve(
+        combine(create(state), { mySubmissionsManagement: res }),
+      ));
 }
 
 /* Default reducer with empty initial state. */
-export default combine(create(), {mySubmissionsManagement})
+export default combine(create(), { mySubmissionsManagement });

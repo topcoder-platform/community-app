@@ -1,7 +1,7 @@
 {
   "challenge": {
-    "updatedAt": "2017-03-31T13:48Z",
-    "createdAt": "2017-03-26T14:25Z",
+    "updatedAt": "2017-03-31T13:48:00.000Z",
+    "createdAt": "2017-03-26T14:25:00.000Z",
     "createdBy": "40153446",
     "updatedBy": "8547899",
     "technologies": "",
@@ -27,11 +27,11 @@
       "id": 742151,
       "phaseType": "Screening",
       "phaseStatus": "Scheduled",
-      "scheduledStartTime": "2017-04-02T20:00Z",
-      "scheduledEndTime": "2017-04-03T00:00Z",
+      "scheduledStartTime": "2017-04-02T20:00:00.000Z",
+      "scheduledEndTime": "2017-04-03T00:00:00.000Z",
       "duration": 14400000,
-      "updatedAt": "2017-03-31T09:50Z",
-      "createdAt": "2017-03-26T10:25Z",
+      "updatedAt": "2017-03-31T09:50:00.000Z",
+      "createdAt": "2017-03-26T10:25:00.000Z",
       "createdBy": "40153446",
       "updatedBy": "22841596"
     },
@@ -42,13 +42,13 @@
         "id": 742146,
         "phaseType": "Registration",
         "phaseStatus": "Open",
-        "scheduledStartTime": "2017-03-27T20:38Z",
-        "scheduledEndTime": "2017-04-02T19:59Z",
-        "actualStartTime": "2017-03-27T20:38Z",
-        "fixedStartTime": "2017-03-27T20:38Z",
+        "scheduledStartTime": "2017-03-27T20:38:00.000Z",
+        "scheduledEndTime": "2017-04-02T19:59:00.000Z",
+        "actualStartTime": "2017-03-27T20:38:00.000Z",
+        "fixedStartTime": "2017-03-27T20:38:00.000Z",
         "duration": 516068000,
-        "updatedAt": "2017-03-31T09:50Z",
-        "createdAt": "2017-03-26T10:25Z",
+        "updatedAt": "2017-03-31T09:50:00.000Z",
+        "createdAt": "2017-03-26T10:25:00.000Z",
         "createdBy": "40153446",
         "updatedBy": "22841596"
       },
@@ -57,12 +57,12 @@
         "id": 742148,
         "phaseType": "Submission",
         "phaseStatus": "Open",
-        "scheduledStartTime": "2017-03-27T20:39Z",
-        "scheduledEndTime": "2017-07-02T20:00Z",
-        "actualStartTime": "2017-03-27T20:39Z",
+        "scheduledStartTime": "2017-03-27T20:39:00.000Z",
+        "scheduledEndTime": "2017-07-02T20:00:00.000Z",
+        "actualStartTime": "2017-03-27T20:39:00.000Z",
         "duration": 516068000,
-        "updatedAt": "2017-03-31T09:50Z",
-        "createdAt": "2017-03-26T10:25Z",
+        "updatedAt": "2017-03-31T09:50:00.000Z",
+        "createdAt": "2017-03-26T10:25:00.000Z",
         "createdBy": "40153446",
         "updatedBy": "22841596"
       }
@@ -72,35 +72,35 @@
   "submissions": [
     {
       "submissionId": 204683,
-      "submissionDate": "2017-03-30T08:17:00.000-04:00",
+      "submissionDate": "2017-03-30T08:17:00.000Z",
       "submissionType": "checkpoint",
       "ranking": 5,
       "download": "https://api.topcoder.com/v2/design/download/204683?submissionType=original"
     },
     {
       "submissionId": 204684,
-      "submissionDate": "2017-03-30T08:18:00.000-04:00",
+      "submissionDate": "2017-03-30T08:18:00.000Z",
       "submissionType": "checkpoint",
       "ranking": 4,
       "download": "https://api.topcoder.com/v2/design/download/204684?submissionType=original"
     },
     {
       "submissionId": 204685,
-      "submissionDate": "2017-03-30T08:19:00.000-04:00",
+      "submissionDate": "2017-03-30T08:19:00.000Z",
       "submissionType": "checkpoint",
       "ranking": 3,
       "download": "https://api.topcoder.com/v2/design/download/204685?submissionType=original"
     },
     {
       "submissionId": 204686,
-      "submissionDate": "2017-03-30T08:19:00.000-04:00",
+      "submissionDate": "2017-03-30T08:19:00.000Z",
       "submissionType": "checkpoint",
       "ranking": 2,
       "download": "https://api.topcoder.com/v2/design/download/204686?submissionType=original"
     },
     {
       "submissionId": 204687,
-      "submissionDate": "2017-03-30T08:20:00.000-04:00",
+      "submissionDate": "2017-03-30T08:20:00.000Z",
       "submissionType": "checkpoint",
       "ranking": 1,
       "download": "https://api.topcoder.com/v2/design/download/204687?submissionType=original"
