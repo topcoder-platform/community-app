@@ -1,0 +1,42 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Snapshot match 1`] = `
+<div>
+  <div
+    className="src-shared-components-TopcoderHeader-mobile-UserMenu-___style__title___36eEX"
+  >
+    <a
+      href="/members/username"
+    >
+      <Avatar
+        url={null}
+      />
+      <span
+        className="src-shared-components-TopcoderHeader-mobile-UserMenu-___style__handle___CL0Tq"
+        style={
+          Object {
+            "color": "#9D9FA0",
+          }
+        }
+      >
+        username
+      </span>
+    </a>
+  </div>
+  <SubMenu
+    hideTitle={true}
+    subMenu={
+      Object {
+        "items": Array [
+          Object {
+            "icon": <div />,
+            "link": "/link",
+            "title": "Item title",
+          },
+        ],
+        "title": "Title",
+      }
+    }
+  />
+</div>
+`;

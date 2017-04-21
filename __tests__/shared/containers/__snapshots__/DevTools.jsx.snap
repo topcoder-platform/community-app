@@ -1,0 +1,30 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Snapshot match 1`] = `
+<Connect(DockMonitor)
+  changePositionKey="ctrl-p"
+  defaultIsVisible={true}
+  defaultPosition="right"
+  defaultSize={0.3}
+  fluid={true}
+  store={
+    Object {
+      "dispatch": [Function],
+      "getState": [Function],
+      "replaceReducer": [Function],
+      "subscribe": [Function],
+      Symbol(Symbol.observable): [Function],
+    }
+  }
+  toggleVisibilityKey="ctrl-m"
+>
+  <LogMonitor
+    expandActionRoot={true}
+    expandStateRoot={true}
+    markStateDiff={false}
+    preserveScrollTop={true}
+    select={[Function]}
+    theme="tomorrow"
+  />
+</Connect(DockMonitor)>
+`;

@@ -3,10 +3,8 @@
 import _ from 'lodash';
 import React from 'react';
 import R from 'react-test-renderer/shallow';
+import TopcoderHeader from 'components/TopcoderHeader';
 import TU from 'react-dom/test-utils';
-
-delete process.env.FRONT_END;
-const TopcoderHeader = require('components/TopcoderHeader').default;
 
 /* It is not possible to use functional components as arguments of
  * TU.renderIntoDocument(..), hence this class-wrapper. */

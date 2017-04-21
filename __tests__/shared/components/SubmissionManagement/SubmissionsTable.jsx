@@ -4,6 +4,13 @@ import SubmissionsTable from 'components/SubmissionManagement/SubmissionsTable';
 
 test('Matches shallow shapshot', () => {
   const renderer = new Renderer();
-  renderer.render(<SubmissionsTable />);
+  renderer.render((
+    <SubmissionsTable
+      showDetails={new Set([12345])}
+      submissionObjects={[{
+        submissionId: 12345,
+      }]}
+    />
+  ));
   expect(renderer.getRenderOutput()).toMatchSnapshot();
 });

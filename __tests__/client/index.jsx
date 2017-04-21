@@ -115,7 +115,7 @@ jest.setMock(`${SRC}/shared`, {
 
 test('Fails to start with process.env.FRONT_END evaluating false', () => {
   jest.resetModules();
-  delete process.env.FRONT_END;
+  expect(process.env.FRONT_END).toBeUndefined();
   expect(() => require(MODULE)).toThrow();
 });
 
@@ -123,6 +123,8 @@ describe('Properly starts with process.env.FRONT_ENV evaluating true', () => {
   /* NOTE: Before each test a promise is stored into this variable, which will
    * resolve once the page is rendered. */
   let rendered;
+
+  afterAll(() => delete process.env.FRONT_END);
 
   beforeEach(() => {
     jest.resetModules();

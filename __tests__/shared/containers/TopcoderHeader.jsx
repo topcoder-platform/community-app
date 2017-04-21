@@ -1,9 +1,7 @@
 import _ from 'lodash';
+import Container from 'containers/TopcoderHeader';
 import React from 'react';
 import R from 'react-test-renderer/shallow';
-
-delete process.env.FRONT_END;
-const Container = require('containers/TopcoderHeader').default;
 
 const mockState = {
   auth: {
