@@ -63,7 +63,6 @@ This App already contains:
 - Various examples;
 - Webpack;
 
-Pending low-priority staff (these are important, but can be added along the way):
-- CircleCI deploys;
+Pending low-priority stuff (these are important, but can be added along the way):
 - react-css-themr (https://github.com/javivelasco/react-css-themr);
 - Webpack Dashboard (https://github.com/FormidableLabs/webpack-dashboard);

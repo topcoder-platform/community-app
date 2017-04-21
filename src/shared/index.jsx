@@ -4,17 +4,21 @@
  * client- and server-side rendering.
  */
 
-import DevTools from 'containers/DevTools';
+
 import React from 'react';
 import Routes from 'routes';
 
+let DevTools;
 const IS_DEV = process.env.NODE_ENV === 'development';
+if (IS_DEV) {
+  DevTools = require('containers/DevTools').default; // eslint-disable-line
+}
 
 export default function App() {
   return (
     <div>
       <Routes />
-      { IS_DEV ? <DevTools /> : undefined }
+      <DevTools />
     </div>
   );
 }

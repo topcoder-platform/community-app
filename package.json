@@ -13,7 +13,7 @@
     "lint:js": "eslint --ext .js,.jsx .",
     "lint:scss": "stylelint **/*.scss",
     "postinstall": "npm run build",
-    "start": "NODE_ENV=production node ./bin/www",
+    "start": "node ./bin/www",
     "test": "npm run lint; npm run jest"
   },
   "repository": {
