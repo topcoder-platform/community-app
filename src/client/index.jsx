@@ -8,6 +8,7 @@ import { BrowserRouter, browserHistory } from 'react-router-dom';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
+import shortId from 'shortid';
 import {
   configureConnector,
   decodeToken,
@@ -92,5 +93,18 @@ storeFactory(undefined, window.ISTATE).then((store) => {
 
   render();
 
-  if (module.hot) module.hot.accept('../shared', render);
+  if (module.hot) {
+    module.hot.accept('../shared', render);
+
+    /* This block of code forces reloading of style.css file each time
+     * webpack hot middleware reports about update of the code. */
+    /* eslint-disable no-underscore-dangle */
+    const hotReporter = window.__webpack_hot_middleware_reporter__;
+    const hotSuccess = hotReporter.success;
+    hotReporter.success = () => {
+      const link = document.querySelectorAll('link[rel=stylesheet]')[0];
+      link.href = `/style.css?v=${shortId.generate()}`;
+      hotSuccess();
+    };
+  }
 });

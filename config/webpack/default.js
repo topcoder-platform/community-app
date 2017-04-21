@@ -1,3 +1,5 @@
+const autoprefixer = require('autoprefixer');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const path = require('path');
 const webpack = require('webpack');
@@ -26,6 +28,32 @@ module.exports = {
         outputPath: '/images/',
         publicPath: '/images/',
       },
+    }, {
+      test: /\.scss$/,
+      exclude: /(bower_components|node_modules)/,
+      use: ExtractTextPlugin.extract({
+        fallback: 'style-loader',
+        use: [{
+          loader: 'css-loader',
+          options: {
+            importLoaders: 3,
+            localIdentName: '[path]___[name]__[local]___[hash:base64:5]',
+            modules: true,
+          },
+        }, 'resolve-url-loader', {
+          loader: 'postcss-loader',
+          options: {
+            plugins: [
+              autoprefixer,
+            ],
+          },
+        }, {
+          loader: 'sass-loader',
+          options: {
+            sourceMap: true,
+          },
+        }],
+      }),
     }],
   },
   output: {
@@ -38,6 +66,7 @@ module.exports = {
       from: path.resolve(__dirname, '../../src/assets/mock-data'),
       to: path.resolve(__dirname, '../../build/mock-data'),
     }]),
+    new ExtractTextPlugin('style.css'),
     new webpack.DefinePlugin({
       'process.env': {
         /* Some isomorphic code relies on this variable to determine, whether

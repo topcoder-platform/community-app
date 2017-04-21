@@ -1,4 +1,3 @@
-const autoprefixer = require('autoprefixer');
 const webpack = require('webpack');
 const webpackMerge = require('webpack-merge');
 
@@ -23,31 +22,6 @@ module.exports = webpackMerge(defaultConfig, {
         outputPath: '/fonts/',
         publicPath: '/fonts/',
       },
-    }, {
-      /* Using ExtractTextPlugin in dev environment would prevent hot reloading
-       * of styles. */
-      test: /\.scss$/,
-      exclude: /(bower_components|node_modules)/,
-      use: ['style-loader', {
-        loader: 'css-loader',
-        options: {
-          importLoaders: 3,
-          localIdentName: '[path]___[name]__[local]___[hash:base64:5]',
-          modules: true,
-        },
-      }, 'resolve-url-loader', {
-        loader: 'postcss-loader',
-        options: {
-          plugins: [
-            autoprefixer,
-          ],
-        },
-      }, {
-        loader: 'sass-loader',
-        options: {
-          sourceMap: true,
-        },
-      }],
     }, {
       test: /\.(jsx?|svg)$/,
       exclude: [

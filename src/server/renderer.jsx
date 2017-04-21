@@ -35,18 +35,7 @@ export default (req, res) => {
       <html>
         <head>
           <title>Topcoder</title>
-          ${
-            /* In dev environment we should not load style.css, instead we rely
-             * on styles embed into JS bundle. This slows down page loading in
-             * dev, but helps to avoid styling inconsitencies due to HMR use,
-             * and differences between pre-compiled stylesheet and the styles
-             * bundled into JS. */
-            /* TODO: Can we do it in a better way, to improve page rendering
-             * time in dev? This discussion may have the solution:
-             * https://github.com/webpack-contrib/extract-text-webpack-plugin/issues/30
-            */
-            '<link rel="stylesheet" href="/style.css" />'
-          }
+          <link rel="stylesheet" href="/style.css" />
         </head>
         <body>
           <div id="react-view">${appHtml}</div>
