@@ -1,14 +1,9 @@
 import React from 'react';
-import { StaticRouter } from 'react-router-dom';
-import renderer from 'react-test-renderer';
+import Renderer from 'react-test-renderer/shallow';
+import Routes from 'routes';
 
-import RoutesTopLevelExamples from 'routes';
-
-test('matches snapshots', () => {
-  const cmp = renderer.create(
-    <StaticRouter context={{}}>
-      <RoutesTopLevelExamples />
-    </StaticRouter>,
-  );
-  expect(cmp.toJSON()).toMatchSnapshot();
+test('Matches shallow shapshot', () => {
+  const renderer = new Renderer();
+  renderer.render(<Routes />);
+  expect(renderer.getRenderOutput()).toMatchSnapshot();
 });

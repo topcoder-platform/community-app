@@ -1,10 +1,10 @@
 import _ from 'lodash';
+import Avatar from 'components/Avatar';
 import config from 'utils/config';
 import { getRatingColor } from 'utils/tc';
 import PT from 'prop-types';
 import React from 'react';
 
-import IconDefaultAvatar from '../../../assets/images/ico-user-default.svg';
 import IconNavBlog from '../../../assets/images/nav/blog.svg';
 import IconNavBookCP from '../../../assets/images/nav/book-cp.svg';
 import IconNavBookData from '../../../assets/images/nav/book-data.svg';
@@ -169,17 +169,11 @@ export default function TopcoderHeader({
   let userSubMenu;
 
   if (profile) {
-    if (profile.photoURL) {
-      userAvatar = (
-        <img
-          alt="User Avatar"
-          src={profile.photoURL}
-          styleName="avatar"
-        />
-      );
-    } else {
-      userAvatar = <IconDefaultAvatar styleName="avatar" />;
-    }
+    userAvatar = (
+      <div styleName="avatar">
+        <Avatar url={profile.photoURL} />
+      </div>
+    );
 
     userSubMenu = {
       title: 'User',

@@ -1,227 +1,116 @@
 import _ from 'lodash';
 import React from 'react';
-import { Provider } from 'react-redux';
 import renderer from 'react-test-renderer';
-import { createStore } from 'redux';
-import moment from 'moment';
-// import { mount } from 'enzyme';
+import TU from 'react-dom/test-utils';
 
-import mockChallenge from './__mocks__/challenge.json';
+const mockChallengeActions = {
+  fetchChallengeInit: jest.fn(),
+  fetchChallengeDone: jest.fn(),
+  fetchSubmissionsInit: jest.fn(),
+  fetchSubmissionsDone: jest.fn(),
+};
+jest.setMock(require.resolve('actions/challenge'), mockChallengeActions);
 
-/* function setup(store) {
-  const props = {
-    onDownloadSubmission: jest.fn(),
-    showModal: true,
-  };
+const mockSmpActions = {
+  smp: {
+    cancelDelete: jest.fn(),
+    confirmDelete: jest.fn(),
+    deleteSubmissionDone: jest.fn(),
+    downloadSubmission: jest.fn(),
+    showDetails: jest.fn(),
+  },
+};
+jest.setMock(require.resolve('actions/smp'), mockSmpActions);
 
-  const SubmissionManagementPageContainer = require('containers/SubmissionManagement').default;
-
-  const enzymeWrapper = mount((
-    <Provider store={store}>
-      <SubmissionManagementPageContainer
-        match={{ params: { challengeId: mockChallenge.challenge.id } }}
-        {...props}
-      />
-    </Provider>
-  ));
-
-  return {
-    props,
-    enzymeWrapper,
-  };
-}*/
-
-global.fetch = jest.fn(() =>
-  Promise.resolve({ json: () => [] }));
-
-const reducer = _.identity;
-const initialState = {
+const mockState = {
   auth: {},
   challenge: {
-    details: mockChallenge.challenge,
+    details: {
+      track: 'Track',
+    },
+    loadingDetails: true,
     mySubmissionsManagement: {
       showDetails: new Set(),
+      showModal: true,
     },
   },
 };
 
-const dispatch = jest.fn();// just a mock
+const SubmissionManagement = require('containers/SubmissionManagement').default;
 
-const store = {
-  ...createStore(reducer, initialState),
-  dispatch,
-};
+beforeEach(() => jest.clearAllMocks());
 
-let originalDateNow;
-
-const mockedDateNow =
-  moment('2017-06-05T09:53:00.000Z')
-    .valueOf();
-
-let originalRequire;
-
-beforeEach(() => {
-  originalDateNow = Date.now;
-  global.Date.now = () => mockedDateNow;
-
-  originalRequire = require;
-  global.require = require('require-uncached').default;
-
-  jest.mock('utils/config', () => ({
-    API: {
-      V2: 'https://api.topcoder-dev.com/v2',
-      V3: 'https://api.topcoder-dev.com/v3',
-    },
-    OR_BASE_URL: 'https://software.topcoder-dev.com',
-    HELP_URL: 'https://help.topcoder-dev.com',
-    TC_BASE_URL: 'https://www.topcoder-dev.com',
-  }));
+test('Matches shapshot', () => {
+  const render = renderer.create((
+    <SubmissionManagement
+      match={{
+        params: {
+          challengeId: '12345',
+        },
+      }}
+      store={{
+        dispatch: () => _.noop,
+        getState: () => mockState,
+        subscribe: _.noop,
+      }}
+    />
+  ));
+  expect(render.toJSON()).toMatchSnapshot();
 });
 
-afterEach(() => {
-  global.Date.now = originalDateNow;
+const obj = TU.renderIntoDocument((
+  <SubmissionManagement
+    match={{
+      params: {
+        challengeId: '12345',
+      },
+    }}
+    store={{
+      dispatch: () => _.noop,
+      getState: () => mockState,
+      subscribe: _.noop,
+    }}
+  />
+));
+const props = obj.selector.props;
 
-  global.require = originalRequire;
-
-  jest.unmock('utils/config');
+test('onShowDetails dispatches', () => {
+  props.onShowDetails('12345');
+  expect(mockSmpActions.smp.showDetails).toHaveBeenCalledWith('12345');
 });
 
-test('matches snapshots', () => {
-  const SubmissionManagementPageContainer =
-    require('containers/SubmissionManagement', { bustCache: true }).default;
-  const cmp = renderer.create(
-    <Provider store={store}>
-      <SubmissionManagementPageContainer
-        match={{ params: { challengeId: mockChallenge.challenge.id } }}
-      />
-    </Provider>,
-  );
-  expect(cmp.toJSON()).toMatchSnapshot();
+test('onSubmissionDelete dispatches', () => {
+  props.onSubmissionDelete('12345');
+  expect(mockSmpActions.smp.confirmDelete).toHaveBeenCalledWith('12345');
 });
 
-test('matches snapshots - is loading challenge', () => {
-  const { SubmissionManagementPageContainer } =
-    require('containers/SubmissionManagement', { bustCache: true });
-  const cmp = renderer.create(
-    <Provider store={store}>
-      <SubmissionManagementPageContainer
-        match={{ params: { challengeId: mockChallenge.challenge.id } }}
-        loadChallengeDetails={_.noop}
-        isLoadingChallenge
-        challenge={{}}
-        authTokens={{}}
-        challengeId={0}
-        loadMySubmissions={_.noop}
-        onShowDetails={_.noop}
-        onSubmissionDelete={_.noop}
-        onDownloadSubmission={_.noop}
-        showDetails={{}}
-        onCancelSubmissionDelete={_.noop}
-        onSubmissionDeleteConfirmed={_.noop}
-      />
-    </Provider>,
-  );
-  expect(cmp.toJSON()).toMatchSnapshot();
+test('onCancelSubmissionDelete dispatches', () => {
+  props.onCancelSubmissionDelete();
+  expect(mockSmpActions.smp.cancelDelete).toHaveBeenCalledWith();
 });
 
-test('matches snapshots - no challenge and not loading challenges', () => {
-  const { SubmissionManagementPageContainer } = require('containers/SubmissionManagement');
-  const cmp = renderer.create(
-    <Provider store={store}>
-      <SubmissionManagementPageContainer
-        match={{ params: { challengeId: mockChallenge.challenge.id } }}
-        loadChallengeDetails={_.noop}
-        isLoadingChallenge={false}
-        challenge={null}
-        authTokens={{}}
-        challengeId={0}
-        loadMySubmissions={_.noop}
-        onShowDetails={_.noop}
-        onSubmissionDelete={_.noop}
-        onDownloadSubmission={_.noop}
-        showDetails={{}}
-        onCancelSubmissionDelete={_.noop}
-        onSubmissionDeleteConfirmed={_.noop}
-      />
-    </Provider>,
-  );
-  expect(cmp.toJSON()).toMatchSnapshot();
+test('onSubmissionDeleteConfirmed dispatches', () => {
+  props.onSubmissionDeleteConfirmed('12345', '54321');
+  expect(mockSmpActions.smp.deleteSubmissionDone)
+    .toHaveBeenCalledWith('12345', '54321');
 });
 
-test('matches snapshots - no submission and not loading submissions', () => {
-  const { SubmissionManagementPageContainer } = require('containers/SubmissionManagement');
-  const cmp = renderer.create(
-    <Provider store={store}>
-      <SubmissionManagementPageContainer
-        match={{ params: { challengeId: mockChallenge.challenge.id } }}
-        loadChallengeDetails={_.noop}
-        isLoadingChallenge={false}
-        challenge={null}
-        authTokens={{}}
-        challengeId={0}
-        loadMySubmissions={_.noop}
-        onShowDetails={_.noop}
-        onSubmissionDelete={_.noop}
-        onDownloadSubmission={_.noop}
-        showDetails={{}}
-        onCancelSubmissionDelete={_.noop}
-        onSubmissionDeleteConfirmed={_.noop}
-        mySubmissions={null}
-        isLoadingSubmissions={false}
-      />
-    </Provider>,
-  );
-  expect(cmp.toJSON()).toMatchSnapshot();
+test('onDownloadSubmission dispatches', () => {
+  props.onDownloadSubmission('12345', '54321');
+  expect(mockSmpActions.smp.downloadSubmission)
+    .toHaveBeenCalledWith('12345', '54321');
 });
 
-test('matches snapshots - show modal', () => {
-  const { SubmissionManagementPageContainer } = require('containers/SubmissionManagement');
-  const cmp = renderer.create(
-    <Provider store={store}>
-      <SubmissionManagementPageContainer
-        match={{ params: { challengeId: mockChallenge.challenge.id } }}
-        loadChallengeDetails={_.noop}
-        isLoadingChallenge
-        challenge={{}}
-        authTokens={{}}
-        challengeId={0}
-        loadMySubmissions={_.noop}
-        onShowDetails={_.noop}
-        onSubmissionDelete={_.noop}
-        onDownloadSubmission={_.noop}
-        showDetails={{}}
-        onCancelSubmissionDelete={_.noop}
-        onSubmissionDeleteConfirmed={_.noop}
-        showModal
-      />
-    </Provider>,
-  );
-  expect(cmp.toJSON()).toMatchSnapshot();
+test('loadChallengeDetails dispatches', () => {
+  props.loadChallengeDetails('12345', '54321');
+  expect(mockChallengeActions.fetchChallengeInit).toHaveBeenCalled();
+  expect(mockChallengeActions.fetchChallengeDone)
+    .toHaveBeenCalledWith('12345', '54321');
 });
 
-// test('onDownloadSubmission handler is called', () => {
-//   const { enzymeWrapper, props } = setup(store);
-//
-// });
-
-test('onCancelSubmissionDelete handler is called', () => {
-  // const state = {
-  //   auth: {},
-  //   challenge: {
-  //     details: mockChallenge.challenge,
-  //     mySubmissionsManagement: {
-  //       showDetails: new Set(),
-  //       showModal: true,
-  //     },
-  //   },
-  // };
-
-  // const mockStore = {
-  //   ...createStore(_.identity, state),
-  //   dispatch,
-  // };
-
-  // const { enzymeWrapper, props } = setup(mockStore);
-
-  // console.log(enzymeWrapper.prop('showModal'));
+test('loadMySubmissions dispatches', () => {
+  props.loadMySubmissions('12345', '54321');
+  expect(mockChallengeActions.fetchSubmissionsInit).toHaveBeenCalled();
+  expect(mockChallengeActions.fetchSubmissionsDone)
+    .toHaveBeenCalledWith('12345', '54321');
 });

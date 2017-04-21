@@ -1,7 +1,14 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`matches snapshots 1`] = `
-<div>
-  Initial State: no data, and not loading yet.
-</div>
+exports[`Matches snapshot 1`] = `
+<Switch>
+  <Route
+    component={[Function]}
+    exact={true}
+    path="*/data-fetch"
+  />
+  <Route
+    component={[Function]}
+  />
+</Switch>
 `;

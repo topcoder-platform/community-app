@@ -1,60 +1,33 @@
+import _ from 'lodash';
 import React from 'react';
 import renderer from 'react-test-renderer';
-import _ from 'lodash';
-import { createStore } from 'redux';
-import { Provider } from 'react-redux';
 
-import DataFetchContainer from 'containers/examples/DataFetch';
-
-let originalFetch;
-
-beforeAll(() => {
-  originalFetch = global.fetch;
-  global.fetch = jest.fn(() =>
-  Promise.resolve({ json: () => [] }));
+jest.setMock(require.resolve('actions/examples/data-fetch'), {
+  examples: {
+    dataFetch: {
+      fetchDataInit: _.noop,
+      fetchDataDone: _.noop,
+    },
+  },
 });
 
-afterAll(() => {
-  global.fetch = originalFetch;
-});
+const DataFetch = require('containers/examples/DataFetch').default;
 
-const reducer = _.identity;
-const initialState = {};
-
-const dispatch = jest.fn();// just a mock
-
-const store = {
-  ...createStore(reducer, initialState),
-  dispatch,
+const mockState = {
+  examples: {
+    dataFetch: {},
+  },
 };
 
-test('renders correctly - no data, and not loading', () => {
-  const cmp = renderer.create((
-    <Provider store={store}>
-      <DataFetchContainer />
-    </Provider>
-  )).toJSON();
-  expect(cmp).toMatchSnapshot();
-});
-
-test('renders correctly - with data', () => {
-  const data = [{
-    dummy: 'This is dummy data',
-  }];
-
-  const cmp = renderer.create((
-    <Provider store={store}>
-      <DataFetchContainer data={data} />
-    </Provider>
-  )).toJSON();
-  expect(cmp).toMatchSnapshot();
-});
-
-test('renders correctly - loading', () => {
-  const cmp = renderer.create((
-    <Provider store={store}>
-      <DataFetchContainer loading />
-    </Provider>
-  )).toJSON();
-  expect(cmp).toMatchSnapshot();
+test('Matches shallow shapshot', () => {
+  const container = renderer.create((
+    <DataFetch
+      store={{
+        dispatch: () => _.noop,
+        getState: () => mockState,
+        subscribe: _.noop,
+      }}
+    />
+  ));
+  expect(container.toJSON()).toMatchSnapshot();
 });

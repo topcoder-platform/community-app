@@ -3,9 +3,9 @@ import Renderer from 'react-test-renderer/shallow';
 
 test('Matches shallow shapshot', () => {
   delete process.env.FRONT_END;
-  const Submission =
-    require('components/SubmissionManagement/Submission').default;
+  process.env.NODE_ENV = 'development';
+  const TopcoderFooter = require('components/TopcoderFooter').default;
   const renderer = new Renderer();
-  renderer.render(<Submission />);
+  renderer.render(<TopcoderFooter />);
   expect(renderer.getRenderOutput()).toMatchSnapshot();
 });

@@ -62,16 +62,8 @@ describe('smp.deleteSubmissionDone', () => {
 });
 
 describe('smp.downloadSubmission', () => {
-  global.fetch = resolvesTo => Promise.resolve({
-    json: () => Promise.resolve(resolvesTo),
+  test('does not throw', () => {
+    expect(() =>
+      actions.smp.downloadSubmission({}, 'design', '12345')).not.toThrow();
   });
-
-  const a = actions.smp.downloadSubmission({}, 'design', 'submissionId');
-
-  test('has expected type', () => {
-    expect(a.type).toBe('SMP/DOWNLOAD_SUBMISSION');
-  });
-
-  test('payload be submissionId', () =>
-    a.payload.then(res => expect(res).toEqual('https://api.topcoder-dev.com/v2/design/download/submissionId?submissionType=original')));
 });

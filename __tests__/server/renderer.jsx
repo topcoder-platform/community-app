@@ -1,23 +1,15 @@
-
-
-beforeAll(() => {
-  jest.mock('react-dom/server', () => ({
-    renderToString: () => 'RENDER',
-  }));
+jest.setMock('react-dom/server', {
+  renderToString: () => 'RENDER',
 });
 
-afterAll(() => {
-  jest.unmock('react-dom/server');
-});
+const renderer = require('server/renderer').default;
 
 test('should not throw errors', () => {
-  const renderer = require('server/renderer').default;
+  const req = {
+    url: '/',
+  };
   const res = {
     send: () => {},
   };
-  expect(() => renderer(undefined, res)).not.toThrow();
-});
-
-test('should enable DevTools on development mode', () => {
-
+  expect(() => renderer(req, res)).not.toThrow();
 });

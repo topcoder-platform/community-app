@@ -1,44 +1,72 @@
-let FRONT_END;
-let server;
-let originalRequire;
+import _ from 'lodash';
 
-beforeAll(() => {
-  originalRequire = require;
-  global.require = require('require-uncached');
-  FRONT_END = process.env.FRONT_END;
-  delete process.env.FRONT_END;
+const SRC = '../../src';
+
+/* Mock http */
+
+const mockServer = {
+  listen: jest.fn(),
+  on: jest.fn(),
+};
+
+jest.setMock('http', {
+  createServer: jest.fn(() => mockServer),
 });
 
-test('it should listen on specified PORT', (done) => {
-  const PORT = 3000;
-  process.env.PORT = PORT;
-  server = require('server').default;
-  const port = server.address().port;
-  expect(port).toBe(PORT);
-  server.close(done);
+jest.setMock(`${SRC}/server/server`, {
+  set: jest.fn(),
 });
 
-test('it should throw error on same PORT', (done) => {
-  const PORT = 3000;
-  process.env.PORT = PORT;
-  const firstServer = require('server', { bustCache: true }).default;
-  firstServer.on('listening', () => {
-    expect(require('server', { bustCache: true }).default).toThrow();
+test('Should not throw', () => {
+  expect(() => require('server')).not.toThrow();
+});
+
+describe('Successfully created server', () => {
+  beforeAll(() => {
+    jest.resetModules();
+    jest.clearAllMocks();
+    require('server');
   });
-  setTimeout(() => firstServer.close(done), 1000);
-});
 
-// test('it should support named pipe', (done) => {
-//   const pipeName = 'named-pipe';
-//   process.env.PORT = pipeName;
-//   const namedPipeServer = require('server', { bustCache: true }).default;
+  let onError;
+  test('A single error handler is created', () => {
+    onError = mockServer.on.mock.calls.filter(call => call[0] === 'error');
+    expect(onError.length).toBe(1);
+    onError = onError[0][1];
+    expect(_.isFunction(onError)).toBe(true);
+  });
 
-//   expect(namedPipeServer.address()).toBe(pipeName);
+  test('onError throws for any syscall except of listen', () => {
+    const err = new Error();
+    err.syscall = 'syscall';
+    expect(() => onError(err)).toThrow(err);
+  });
 
-//   namedPipeServer.close(done);
-// });
+  test('onError throws for unknown errors', () => {
+    const err = new Error();
+    err.syscall = 'listen';
+    expect(() => onError(err)).toThrow(err);
+  });
 
-afterAll(() => {
-  process.env.FRONT_END = FRONT_END;
-  global.require = originalRequire;
+  test('onError handles EACCESS error as expected', () => {
+    const err = new Error();
+    err.syscall = 'listen';
+    err.code = 'EACCES';
+    console.error = jest.fn();
+    process.exit = jest.fn();
+    onError(err);
+    expect(console.error).toHaveBeenCalledWith('Port 3000 requires elevated privileges');
+    expect(process.exit).toHaveBeenCalledWith(1);
+  });
+
+  test('onError handles EADDRINUSE error as expected', () => {
+    const err = new Error();
+    err.syscall = 'listen';
+    err.code = 'EADDRINUSE';
+    console.error = jest.fn();
+    process.exit = jest.fn();
+    onError(err);
+    expect(console.error).toHaveBeenCalledWith('Port 3000 is already in use');
+    expect(process.exit).toHaveBeenCalledWith(1);
+  });
 });

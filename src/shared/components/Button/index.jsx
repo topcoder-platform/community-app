@@ -11,6 +11,9 @@
  * To create big btn pass 'tc-bg-btn' className along with one of the above two btn type
  */
 
+/* TODO: In its current form this component is not that userful. Should we
+ * get rid of it, just replacing with direct use of <button> tag? */
+
 import React from 'react';
 import PT from 'prop-types';
 import _ from 'lodash';

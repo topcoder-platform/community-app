@@ -1,0 +1,636 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Default render 1`] = `
+<div
+  className="src-shared-components-TopcoderHeader-___style__header___LwYWf"
+>
+  <div
+    className="src-shared-components-TopcoderHeader-___style__main-desktop-header___oqm_l"
+  >
+    <a
+      className="src-shared-components-TopcoderHeader-___style__logo___2WLJ0"
+      href="/"
+    >
+      <LogoTopcoderWithName
+        height={54}
+        width={156}
+      />
+    </a>
+    <ul
+      className="src-shared-components-TopcoderHeader-___style__main-menu___1pz4L"
+    >
+      <li
+        className="src-shared-components-TopcoderHeader-___style__main-menu-item___2KIu6"
+        onMouseEnter={[Function]}
+        onMouseLeave={[Function]}
+      >
+        Compete
+      </li>
+      <li
+        className="src-shared-components-TopcoderHeader-___style__main-menu-item___2KIu6"
+        onMouseEnter={[Function]}
+        onMouseLeave={[Function]}
+      >
+        Learn
+      </li>
+      <li
+        className="src-shared-components-TopcoderHeader-___style__main-menu-item___2KIu6"
+        onMouseEnter={[Function]}
+        onMouseLeave={[Function]}
+      >
+        Community
+      </li>
+    </ul>
+    <div
+      className="src-shared-components-TopcoderHeader-___style__right-menu___34OkD"
+    >
+      <div
+        className="src-shared-components-TopcoderHeader-___style__auth-buttons___164uC"
+      >
+        <a
+          className="tc-btn-sm tc-btn-primary"
+          href="https://accounts.topcoder-dev.com/member/registration"
+        >
+          Join
+        </a>
+        <a
+          className="tc-btn-sm tc-btn-default"
+          href="https://accounts.topcoder-dev.com/member"
+        >
+          Log In
+        </a>
+      </div>
+      <div
+        className="src-shared-components-TopcoderHeader-___style__search-icon___3w5nA"
+        onMouseEnter={[Function]}
+        onMouseLeave={[Function]}
+      >
+        <MagnifyingGlass />
+      </div>
+    </div>
+  </div>
+  <ul
+    className="src-shared-components-TopcoderHeader-___style__sub-menu___2kDGO"
+    onMouseLeave={[Function]}
+  />
+  <div
+    className="src-shared-components-TopcoderHeader-___style__search-field___2VMzu"
+    onMouseLeave={[Function]}
+  >
+    <input
+      onKeyPress={[Function]}
+      placeholder="Find members by username or skill"
+    />
+  </div>
+  <Header
+    close={[Function]}
+    mainMenu={
+      Array [
+        Object {
+          "items": Array [
+            Object {
+              "icon": <IconNavRocket />,
+              "link": "/challenges",
+              "title": "All Challenges",
+            },
+            Object {
+              "icon": <IconNavDesign />,
+              "link": "/challenges/#&tracks=design&mode=6&name=All%20Challenges",
+              "title": "Design Challenges",
+            },
+            Object {
+              "icon": <IconNavDevelop />,
+              "link": "/challenges/#&tracks=develop&mode=6&name=All%20Challenges",
+              "title": "Development Challenges",
+            },
+            Object {
+              "icon": <IconNavDat />,
+              "link": "/challenges/#&tracks=datasci&mode=6&name=All%20Challenges",
+              "title": "Data Science Challenges",
+            },
+            Object {
+              "icon": <IconNavCP />,
+              "link": "https://arena.topcoder-dev.com/",
+              "title": "Competitive Programming",
+            },
+          ],
+          "title": "Compete",
+        },
+        Object {
+          "items": Array [
+            Object {
+              "icon": <IconNavRocket />,
+              "link": "/getting-started",
+              "title": "Getting Started",
+            },
+            Object {
+              "icon": <IconNavBookDesign />,
+              "link": "/community/design",
+              "title": "Design",
+            },
+            Object {
+              "icon": <IconNavBoolDevelop />,
+              "link": "/community/development",
+              "title": "Development",
+            },
+            Object {
+              "icon": <IconNavBookData />,
+              "link": "/community/data-science/",
+              "title": "Data Science",
+            },
+            Object {
+              "icon": <IconNavBookCP />,
+              "link": "/community/competitive-programming",
+              "title": "Competitive Programming",
+            },
+          ],
+          "title": "Learn",
+        },
+        Object {
+          "items": Array [
+            Object {
+              "icon": <IconNavMembers />,
+              "link": "/community/members",
+              "title": "Overview",
+            },
+            Object {
+              "icon": <IconNavTcoGeneric />,
+              "link": "https://www.topcoder.com/tco",
+              "title": "TCO",
+            },
+            Object {
+              "icon": <IconNavPrograms />,
+              "link": "/community/member-programs",
+              "title": "Programs",
+            },
+            Object {
+              "icon": <IconNavForums />,
+              "link": "https://apps.topcoder-dev.com/forums",
+              "title": "Forums",
+            },
+            Object {
+              "icon": <IconNavStatistics />,
+              "link": "/community/statistics",
+              "title": "Statistics",
+            },
+            Object {
+              "icon": <IconNavEvents />,
+              "link": "/community/events",
+              "title": "Events",
+            },
+            Object {
+              "icon": <IconNavBlog />,
+              "link": "/blog",
+              "title": "Blog",
+            },
+          ],
+          "title": "Community",
+        },
+      ]
+    }
+    open={[Function]}
+    opened={false}
+    profile={null}
+    userMenu={null}
+  />
+</div>
+`;
+
+exports[`Render with open menu 1`] = `
+<div
+  className="src-shared-components-TopcoderHeader-___style__header___LwYWf"
+>
+  <div
+    className="src-shared-components-TopcoderHeader-___style__main-desktop-header___oqm_l"
+  >
+    <a
+      className="src-shared-components-TopcoderHeader-___style__logo___2WLJ0"
+      href="/"
+    >
+      <LogoTopcoderWithName
+        height={54}
+        width={156}
+      />
+    </a>
+    <ul
+      className="src-shared-components-TopcoderHeader-___style__main-menu___1pz4L"
+    >
+      <li
+        className="src-shared-components-TopcoderHeader-___style__main-menu-item___2KIu6"
+        onMouseEnter={[Function]}
+        onMouseLeave={[Function]}
+      >
+        Compete
+      </li>
+      <li
+        className="src-shared-components-TopcoderHeader-___style__main-menu-item___2KIu6"
+        onMouseEnter={[Function]}
+        onMouseLeave={[Function]}
+      >
+        Learn
+      </li>
+      <li
+        className="src-shared-components-TopcoderHeader-___style__main-menu-item___2KIu6"
+        onMouseEnter={[Function]}
+        onMouseLeave={[Function]}
+      >
+        Community
+      </li>
+    </ul>
+    <div
+      className="src-shared-components-TopcoderHeader-___style__right-menu___34OkD"
+    >
+      <div
+        className="src-shared-components-TopcoderHeader-___style__auth-buttons___164uC"
+      >
+        <a
+          className="tc-btn-sm tc-btn-primary"
+          href="https://accounts.topcoder-dev.com/member/registration"
+        >
+          Join
+        </a>
+        <a
+          className="tc-btn-sm tc-btn-default"
+          href="https://accounts.topcoder-dev.com/member"
+        >
+          Log In
+        </a>
+      </div>
+      <div
+        className="src-shared-components-TopcoderHeader-___style__search-icon___3w5nA"
+        onMouseEnter={[Function]}
+        onMouseLeave={[Function]}
+      >
+        <MagnifyingGlass />
+      </div>
+    </div>
+  </div>
+  <ul
+    className="opened src-shared-components-TopcoderHeader-___style__sub-menu___2kDGO"
+    onMouseLeave={[Function]}
+  >
+    <li
+      className="src-shared-components-TopcoderHeader-___style__sub-menu-item___EmjZ4"
+    >
+      <a
+        href="/link"
+      >
+        <div />
+        Title
+      </a>
+    </li>
+  </ul>
+  <div
+    className="src-shared-components-TopcoderHeader-___style__search-field___2VMzu"
+    onMouseLeave={[Function]}
+  >
+    <input
+      onKeyPress={[Function]}
+      placeholder="Find members by username or skill"
+    />
+  </div>
+  <Header
+    close={[Function]}
+    mainMenu={
+      Array [
+        Object {
+          "items": Array [
+            Object {
+              "icon": <IconNavRocket />,
+              "link": "/challenges",
+              "title": "All Challenges",
+            },
+            Object {
+              "icon": <IconNavDesign />,
+              "link": "/challenges/#&tracks=design&mode=6&name=All%20Challenges",
+              "title": "Design Challenges",
+            },
+            Object {
+              "icon": <IconNavDevelop />,
+              "link": "/challenges/#&tracks=develop&mode=6&name=All%20Challenges",
+              "title": "Development Challenges",
+            },
+            Object {
+              "icon": <IconNavDat />,
+              "link": "/challenges/#&tracks=datasci&mode=6&name=All%20Challenges",
+              "title": "Data Science Challenges",
+            },
+            Object {
+              "icon": <IconNavCP />,
+              "link": "https://arena.topcoder-dev.com/",
+              "title": "Competitive Programming",
+            },
+          ],
+          "title": "Compete",
+        },
+        Object {
+          "items": Array [
+            Object {
+              "icon": <IconNavRocket />,
+              "link": "/getting-started",
+              "title": "Getting Started",
+            },
+            Object {
+              "icon": <IconNavBookDesign />,
+              "link": "/community/design",
+              "title": "Design",
+            },
+            Object {
+              "icon": <IconNavBoolDevelop />,
+              "link": "/community/development",
+              "title": "Development",
+            },
+            Object {
+              "icon": <IconNavBookData />,
+              "link": "/community/data-science/",
+              "title": "Data Science",
+            },
+            Object {
+              "icon": <IconNavBookCP />,
+              "link": "/community/competitive-programming",
+              "title": "Competitive Programming",
+            },
+          ],
+          "title": "Learn",
+        },
+        Object {
+          "items": Array [
+            Object {
+              "icon": <IconNavMembers />,
+              "link": "/community/members",
+              "title": "Overview",
+            },
+            Object {
+              "icon": <IconNavTcoGeneric />,
+              "link": "https://www.topcoder.com/tco",
+              "title": "TCO",
+            },
+            Object {
+              "icon": <IconNavPrograms />,
+              "link": "/community/member-programs",
+              "title": "Programs",
+            },
+            Object {
+              "icon": <IconNavForums />,
+              "link": "https://apps.topcoder-dev.com/forums",
+              "title": "Forums",
+            },
+            Object {
+              "icon": <IconNavStatistics />,
+              "link": "/community/statistics",
+              "title": "Statistics",
+            },
+            Object {
+              "icon": <IconNavEvents />,
+              "link": "/community/events",
+              "title": "Events",
+            },
+            Object {
+              "icon": <IconNavBlog />,
+              "link": "/blog",
+              "title": "Blog",
+            },
+          ],
+          "title": "Community",
+        },
+      ]
+    }
+    open={[Function]}
+    opened={false}
+    profile={null}
+    userMenu={null}
+  />
+</div>
+`;
+
+exports[`Render with specified profile 1`] = `
+<div
+  className="src-shared-components-TopcoderHeader-___style__header___LwYWf"
+>
+  <div
+    className="src-shared-components-TopcoderHeader-___style__main-desktop-header___oqm_l"
+  >
+    <a
+      className="src-shared-components-TopcoderHeader-___style__logo___2WLJ0"
+      href="/"
+    >
+      <LogoTopcoderWithName
+        height={54}
+        width={156}
+      />
+    </a>
+    <ul
+      className="src-shared-components-TopcoderHeader-___style__main-menu___1pz4L"
+    >
+      <li
+        className="src-shared-components-TopcoderHeader-___style__main-menu-item___2KIu6"
+        onMouseEnter={[Function]}
+        onMouseLeave={[Function]}
+      >
+        Compete
+      </li>
+      <li
+        className="src-shared-components-TopcoderHeader-___style__main-menu-item___2KIu6"
+        onMouseEnter={[Function]}
+        onMouseLeave={[Function]}
+      >
+        Learn
+      </li>
+      <li
+        className="src-shared-components-TopcoderHeader-___style__main-menu-item___2KIu6"
+        onMouseEnter={[Function]}
+        onMouseLeave={[Function]}
+      >
+        Community
+      </li>
+    </ul>
+    <div
+      className="src-shared-components-TopcoderHeader-___style__right-menu___34OkD"
+    >
+      <div
+        className="src-shared-components-TopcoderHeader-___style__user-menu___3CMgb"
+        onMouseEnter={[Function]}
+        onMouseLeave={[Function]}
+      >
+        <div
+          className="src-shared-components-TopcoderHeader-___style__user-menu-handle___r6kbg"
+          style={
+            Object {
+              "color": "#9D9FA0",
+            }
+          }
+        />
+        <div
+          className="src-shared-components-TopcoderHeader-___style__avatar___3BqbY"
+        >
+          <Avatar
+            url={null}
+          />
+        </div>
+      </div>
+      <div
+        className="src-shared-components-TopcoderHeader-___style__search-icon___3w5nA"
+        onMouseEnter={[Function]}
+        onMouseLeave={[Function]}
+      >
+        <MagnifyingGlass />
+      </div>
+    </div>
+  </div>
+  <ul
+    className="src-shared-components-TopcoderHeader-___style__sub-menu___2kDGO"
+    onMouseLeave={[Function]}
+  />
+  <div
+    className="src-shared-components-TopcoderHeader-___style__search-field___2VMzu"
+    onMouseLeave={[Function]}
+  >
+    <input
+      onKeyPress={[Function]}
+      placeholder="Find members by username or skill"
+    />
+  </div>
+  <Header
+    close={[Function]}
+    mainMenu={
+      Array [
+        Object {
+          "items": Array [
+            Object {
+              "icon": <IconNavRocket />,
+              "link": "/challenges",
+              "title": "All Challenges",
+            },
+            Object {
+              "icon": <IconNavDesign />,
+              "link": "/challenges/#&tracks=design&mode=6&name=All%20Challenges",
+              "title": "Design Challenges",
+            },
+            Object {
+              "icon": <IconNavDevelop />,
+              "link": "/challenges/#&tracks=develop&mode=6&name=All%20Challenges",
+              "title": "Development Challenges",
+            },
+            Object {
+              "icon": <IconNavDat />,
+              "link": "/challenges/#&tracks=datasci&mode=6&name=All%20Challenges",
+              "title": "Data Science Challenges",
+            },
+            Object {
+              "icon": <IconNavCP />,
+              "link": "https://arena.topcoder-dev.com/",
+              "title": "Competitive Programming",
+            },
+          ],
+          "title": "Compete",
+        },
+        Object {
+          "items": Array [
+            Object {
+              "icon": <IconNavRocket />,
+              "link": "/getting-started",
+              "title": "Getting Started",
+            },
+            Object {
+              "icon": <IconNavBookDesign />,
+              "link": "/community/design",
+              "title": "Design",
+            },
+            Object {
+              "icon": <IconNavBoolDevelop />,
+              "link": "/community/development",
+              "title": "Development",
+            },
+            Object {
+              "icon": <IconNavBookData />,
+              "link": "/community/data-science/",
+              "title": "Data Science",
+            },
+            Object {
+              "icon": <IconNavBookCP />,
+              "link": "/community/competitive-programming",
+              "title": "Competitive Programming",
+            },
+          ],
+          "title": "Learn",
+        },
+        Object {
+          "items": Array [
+            Object {
+              "icon": <IconNavMembers />,
+              "link": "/community/members",
+              "title": "Overview",
+            },
+            Object {
+              "icon": <IconNavTcoGeneric />,
+              "link": "https://www.topcoder.com/tco",
+              "title": "TCO",
+            },
+            Object {
+              "icon": <IconNavPrograms />,
+              "link": "/community/member-programs",
+              "title": "Programs",
+            },
+            Object {
+              "icon": <IconNavForums />,
+              "link": "https://apps.topcoder-dev.com/forums",
+              "title": "Forums",
+            },
+            Object {
+              "icon": <IconNavStatistics />,
+              "link": "/community/statistics",
+              "title": "Statistics",
+            },
+            Object {
+              "icon": <IconNavEvents />,
+              "link": "/community/events",
+              "title": "Events",
+            },
+            Object {
+              "icon": <IconNavBlog />,
+              "link": "/blog",
+              "title": "Blog",
+            },
+          ],
+          "title": "Community",
+        },
+      ]
+    }
+    open={[Function]}
+    opened={false}
+    profile={Object {}}
+    userMenu={
+      Object {
+        "items": Array [
+          Object {
+            "icon": <IconNavDashboard />,
+            "link": "/my-dashboard",
+            "title": "Dashboard",
+          },
+          Object {
+            "icon": <IconNavProfile />,
+            "link": "/members/undefined",
+            "title": "My Profile",
+          },
+          Object {
+            "icon": <IconNavWallet />,
+            "link": "https://community.topcoder-dev.com/PactsMemberServlet?module=PaymentHistory&full_list=false",
+            "title": "Payments",
+          },
+          Object {
+            "icon": <IconNavSettings />,
+            "link": "/settings/profile",
+            "title": "Settings",
+          },
+          Object {
+            "icon": <IconNavExit />,
+            "link": "/logout",
+            "title": "Log Out",
+          },
+        ],
+        "title": "User",
+      }
+    }
+  />
+</div>
+`;

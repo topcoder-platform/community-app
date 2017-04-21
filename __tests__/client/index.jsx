@@ -1,7 +1,15 @@
 /* eslint-env browser */
 
-/* eslint-disable import/no-dynamic-require */
-const MODULE = '../../src/client';
+import _ from 'lodash';
+import PT from 'prop-types';
+import React from 'react';
+import renderer from 'react-test-renderer';
+
+const SRC = '../../src';
+const MODULE = `${SRC}/client`;
+
+document.getElementById = id =>
+  (id === 'react-view' ? 'REACT-VIEW' : undefined);
 
 window.CONFIG = {
   ACCOUNTS_APP_CONNECT_URL: 'https://dummy.url',
@@ -11,35 +19,154 @@ window.CONFIG = {
   },
 };
 
+window.ISTATE = 'Initial state of Redux store';
+
+/* Mock of browser-cookies */
+
+let tokenV2;
 jest.setMock('browser-cookies', {
   erase: () => {},
-  get: () => 'Dummy cookie',
+  get: (name) => {
+    switch (name) {
+      case 'tcjwt': return tokenV2;
+      default: return undefined;
+    }
+  },
   set: () => {},
 });
 
+/* Mock of react-redux module */
+
+function MockProvider(props) {
+  return (
+    <div>
+      <h1>Mock react-redux Provider</h1>
+      {props.children}
+    </div>
+  );
+}
+
+MockProvider.propTypes = {
+  children: PT.node.isRequired,
+};
+
+jest.setMock('react-redux', {
+  Provider: MockProvider,
+});
+
+/* Mock of react-router-dom */
+
+const mockBrowserHistory = 'Mock Browser History';
+
+function MockBrowserRouter(props) {
+  return (
+    <div>
+      <h1>Mock react-router-dom BrowserRouter</h1>
+      {props.history}
+      {props.children}
+    </div>
+  );
+}
+
+MockBrowserRouter.propTypes = {
+  children: PT.node.isRequired,
+  history: PT.string.isRequired,
+};
+
+jest.setMock('react-router-dom', {
+  browserHistory: mockBrowserHistory,
+  BrowserRouter: MockBrowserRouter,
+});
+
+/* Mock of tc-accounts */
+
+let tokenV3;
 jest.setMock('tc-accounts', {
   configureConnector: () => undefined,
   decodeToken: () => 'Decoded user object',
-  getFreshToken: () => Promise.resolve('Dummy token'),
+  getFreshToken: () => Promise.resolve(tokenV3),
 });
 
-let FRONT_END;
+/* Mock auth actions */
 
-beforeAll(() => {
-  FRONT_END = process.env.FRONT_END;
-  delete process.env.FRONT_END;
+const mockAuthActions = {
+  auth: {
+    loadProfile: jest.fn(),
+    setTcTokenV2: jest.fn(),
+    setTcTokenV3: jest.fn(),
+  },
+};
+
+jest.setMock(`${SRC}/shared/actions/auth`, mockAuthActions);
+
+/* Mock of store factory */
+
+const mockStoreFactory = jest.fn(() => Promise.resolve({
+  dispatch: _.noop,
+  getState: () => ({
+    auth: {},
+  }),
+}));
+jest.setMock(`${SRC}/shared/store-factory`, mockStoreFactory);
+
+jest.setMock(`${SRC}/shared`, {
+  default: () => <div>Application</div>,
 });
 
-test('should not start without process.env.FRONT_END evaluating true', () => {
-  expect(() => require(MODULE).default).toThrow();
-});
-
-test('should start whit process.env.FRONT_END evaluating true', () => {
+test('Fails to start with process.env.FRONT_END evaluating false', () => {
   jest.resetModules();
-  process.env.FRONT_END = true;
-  expect(require(MODULE).default).toBeNull();
+  delete process.env.FRONT_END;
+  expect(() => require(MODULE)).toThrow();
 });
 
-afterAll(() => {
-  process.env.FRONT_END = FRONT_END;
+describe('Properly starts with process.env.FRONT_ENV evaluating true', () => {
+  /* NOTE: Before each test a promise is stored into this variable, which will
+   * resolve once the page is rendered. */
+  let rendered;
+
+  beforeEach(() => {
+    jest.resetModules();
+    jest.clearAllMocks();
+    process.env.FRONT_END = true;
+
+    let resolve;
+    rendered = new Promise((r) => { resolve = r; });
+    jest.setMock('react-dom', {
+      render: (code, target) => resolve({ code, target }),
+    });
+  });
+
+  test('Constructs Redux store with proper initial state', () => {
+    require(MODULE);
+    expect(mockStoreFactory).toHaveBeenCalledWith(undefined, window.ISTATE);
+  });
+
+  test('Renders proper code (matching snapshot)', () => {
+    require(MODULE);
+    return rendered.then(({ code, target }) => {
+      expect(target).toBe('REACT-VIEW');
+      const app = renderer.create(code).toJSON();
+      expect(app).toMatchSnapshot();
+    });
+  });
+
+  test('Sets auth tokens when user is authorised', () =>
+    new Promise((resolve) => {
+      tokenV2 = 'Token V2';
+      tokenV3 = 'Token V3';
+      require(MODULE);
+
+      /* NOTE: We have mocked getFreshToken to return Promise.resolve(..),
+       * which resolves immediately. Thus, this call to setImmediate(..) is
+       * enough to wait until tokens are processed. */
+      setImmediate(() => {
+        expect(mockAuthActions.auth.setTcTokenV2)
+          .toHaveBeenCalledWith('Token V2');
+        expect(mockAuthActions.auth.setTcTokenV3)
+          .toHaveBeenCalledWith('Token V3');
+        resolve();
+      });
+    }),
+  );
 });
+

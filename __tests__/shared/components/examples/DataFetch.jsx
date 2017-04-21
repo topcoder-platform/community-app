@@ -1,9 +1,9 @@
 import React from 'react';
-import renderer from 'react-test-renderer';
-
+import Renderer from 'react-test-renderer/shallow';
 import DataFetch from 'components/examples/DataFetch';
 
-test('matches snapshots', () => {
-  const cmp = renderer.create(<DataFetch />);
-  expect(cmp.toJSON()).toMatchSnapshot();
+test('Matches shallow shapshot', () => {
+  const renderer = new Renderer();
+  renderer.render(<DataFetch />);
+  expect(renderer.getRenderOutput()).toMatchSnapshot();
 });

@@ -1,110 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`matches snapshots - is loading challenge 1`] = `
-<div
-  className="src-shared-containers-SubmissionManagement-___styles__outer-container___u-zaP"
->
-  <div
-    className="src-shared-containers-SubmissionManagement-___styles__submission-management-container___dQIrV"
-  >
-    <div
-      className="src-shared-components-LoadingIndicator-___styles__root___3fi9o"
-    >
-      <img
-        alt="Loading data"
-        src="https://raw.githubusercontent.com/appirio-tech/topcoder-app/dev/assets/images/ripple.gif"
-      />
-    </div>
-  </div>
-</div>
-`;
-
-exports[`matches snapshots - no challenge and not loading challenges 1`] = `
-<div
-  className="src-shared-containers-SubmissionManagement-___styles__outer-container___u-zaP"
->
-  <div
-    className="src-shared-containers-SubmissionManagement-___styles__submission-management-container___dQIrV"
-  />
-</div>
-`;
-
-exports[`matches snapshots - no submission and not loading submissions 1`] = `
-<div
-  className="src-shared-containers-SubmissionManagement-___styles__outer-container___u-zaP"
->
-  <div
-    className="src-shared-containers-SubmissionManagement-___styles__submission-management-container___dQIrV"
-  />
-</div>
-`;
-
-exports[`matches snapshots - show modal 1`] = `
-<div
-  className="src-shared-containers-SubmissionManagement-___styles__outer-container___u-zaP"
->
-  <div
-    className="src-shared-containers-SubmissionManagement-___styles__submission-management-container___dQIrV"
-  >
-    <div
-      className="src-shared-components-LoadingIndicator-___styles__root___3fi9o"
-    >
-      <img
-        alt="Loading data"
-        src="https://raw.githubusercontent.com/appirio-tech/topcoder-app/dev/assets/images/ripple.gif"
-      />
-    </div>
-    <div>
-      <div
-        className="src-shared-components-Modal-___styles__modal-container___2m4KB"
-      >
-        <div
-          className="src-shared-containers-SubmissionManagement-___styles__modal-content___1fRXg"
-        >
-          <p
-            className="src-shared-containers-SubmissionManagement-___styles__are-you-sure___34ylg"
-          >
-            Are you sure you want to delete submission
-            <span
-              className="src-shared-containers-SubmissionManagement-___styles__id___3p_c7"
-            >
-              0
-            </span>
-            ?
-          </p>
-          <p
-            className="src-shared-containers-SubmissionManagement-___styles__remove-warn___1NyDB"
-          >
-            This will permanently remove all files from our servers and can’t be undone. You’ll have to upload all the files again in order to restore it.
-          </p>
-          <div
-            className="src-shared-containers-SubmissionManagement-___styles__action-btns___2ZE4h"
-          >
-            <button
-              className="tc-btn tc-btn-sm tc-btn-default"
-              onClick={[Function]}
-            >
-              Cancel
-            </button>
-            <button
-              className="tc-btn tc-btn-sm tc-btn-warning"
-              onClick={[Function]}
-            >
-              Delete Submission
-            </button>
-          </div>
-        </div>
-      </div>
-      <button
-        className="src-shared-components-Modal-___styles__bg-overlay___2xty_"
-        onClick={[Function]}
-      />
-    </div>
-  </div>
-</div>
-`;
-
-exports[`matches snapshots 1`] = `
+exports[`Matches shapshot 1`] = `
 <div
   className="src-shared-containers-SubmissionManagement-___styles__outer-container___u-zaP"
 >
@@ -122,12 +18,10 @@ exports[`matches snapshots 1`] = `
         >
           <h4
             className="src-shared-components-SubmissionManagement-SubmissionManagement-___styles__name___3U4Rx"
-          >
-            Test Design Challenge for Submission Management Page
-          </h4>
+          />
           <a
             className="src-shared-components-SubmissionManagement-SubmissionManagement-___styles__back-btn___1nKEx"
-            href="https://www.topcoder-dev.com/challenge-details/30050696/?type=design"
+            href="https://www.topcoder-dev.com/challenge-details/12345/?type=track"
           >
             &lt; Back
           </a>
@@ -137,17 +31,14 @@ exports[`matches snapshots 1`] = `
         >
           <p
             className="src-shared-components-SubmissionManagement-SubmissionManagement-___styles__round___3QPI9"
-          >
-            Submission
-          </p>
+          />
           <p
             className="src-shared-components-SubmissionManagement-SubmissionManagement-___styles__time-left___1Tye2"
           >
-            27D
-
-            10
-            H
-            7
+             
+            0
+            H 
+            0
             M
           </p>
           <p
@@ -168,25 +59,7 @@ exports[`matches snapshots 1`] = `
           >
             Manage your submissions
           </p>
-          <p
-            className="src-shared-components-SubmissionManagement-SubmissionManagement-___styles__round-ends___39A0J"
-          >
-            <span
-              className="src-shared-components-SubmissionManagement-SubmissionManagement-___styles__ends-label___3gCTv"
-            >
-              Submission
-               Ends:
-            </span>
-
-            Sunday 07/02/17 04:00 PM
-             EDT
-          </p>
         </div>
-        <p
-          className="src-shared-components-SubmissionManagement-SubmissionManagement-___styles__recommend-info___n3jfo"
-        >
-          We always recommend to download your submission to check you uploaded the correct zip files and also verify the photos and fonts declarations. If you don’t want to see a submission, simply delete. If you have a new submission, use the Upload Submission button to add one at the top of the list.
-        </p>
         <div
           className="src-shared-components-SubmissionManagement-SubmissionsTable-___styles__submissions-table___1J9eA"
         >
@@ -232,11 +105,65 @@ exports[`matches snapshots 1`] = `
       >
         <a
           className="tc-btn tc-btn-primary tc-btn-md src-shared-components-SubmissionManagement-SubmissionManagement-___styles__add-sub-btn___1ZToV"
-          href=""
+          href="/challenges/undefined/submit/file"
         >
           Add Submission
         </a>
       </div>
+    </div>
+    <div
+      className="src-shared-components-LoadingIndicator-___styles__root___3fi9o"
+    >
+      <img
+        alt="Loading data"
+        src="https://raw.githubusercontent.com/appirio-tech/topcoder-app/dev/assets/images/ripple.gif"
+      />
+    </div>
+    <div>
+      <div
+        className="src-shared-components-Modal-___styles__modal-container___2m4KB"
+      >
+        <div
+          className="src-shared-containers-SubmissionManagement-___styles__modal-content___1fRXg"
+        >
+          <p
+            className="src-shared-containers-SubmissionManagement-___styles__are-you-sure___34ylg"
+          >
+            Are you sure you want to delete submission 
+            <span
+              className="src-shared-containers-SubmissionManagement-___styles__id___3p_c7"
+            >
+              0
+            </span>
+            ?
+          </p>
+          <p
+            className="src-shared-containers-SubmissionManagement-___styles__remove-warn___1NyDB"
+          >
+            This will permanently remove all files from our servers and can’t be undone. You’ll have to upload all the files again in order to restore it.
+          </p>
+          <div
+            className="src-shared-containers-SubmissionManagement-___styles__action-btns___2ZE4h"
+          >
+            <button
+              className="tc-btn tc-btn-sm tc-btn-default"
+              onClick={[Function]}
+            >
+              Cancel
+            </button>
+            <button
+              className="tc-btn tc-btn-sm tc-btn-warning"
+              onClick={[Function]}
+            >
+              Delete Submission
+            </button>
+          </div>
+        </div>
+      </div>
+      <button
+        className="src-shared-components-Modal-___styles__bg-overlay___2xty_"
+        onClick={[Function]}
+      />
     </div>
   </div>
 </div>

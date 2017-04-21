@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`matches snapshots 1`] = `
+exports[`Matches shallow shapshot 1`] = `
 <div
   className="src-shared-components-examples-Content-___style__Content___3X7yY"
 >
@@ -110,7 +110,7 @@ exports[`matches snapshots 1`] = `
       >
         Submission Management Page
       </a>
-       – New submission management page, is available at the endpoint
+       – New submission management page, is available at the endpoint 
       <code>
         /challenge/:challengeId/my-submissions
       </code>
@@ -122,39 +122,39 @@ exports[`matches snapshots 1`] = `
   </h3>
   <ul>
     <li>
-      <a
-        href="/examples/css-modules"
-        onClick={[Function]}
+      <Link
+        replace={false}
+        to="/examples/css-modules"
       >
         CSS Modules
-      </a>
+      </Link>
        - Demo/test of CSS modules in action;
     </li>
     <li>
-      <a
-        href="/examples/data-fetch"
-        onClick={[Function]}
+      <Link
+        replace={false}
+        to="/examples/data-fetch"
       >
         Data Fetch
-      </a>
+      </Link>
        - Demonstrates how data fetching should be implemented in isomorphic way, using Redux with Flux Standard Actions and promise;
     </li>
     <li>
-      <a
-        href="/examples/fonts-test"
-        onClick={[Function]}
+      <Link
+        replace={false}
+        to="/examples/fonts-test"
       >
         Fonts Test
-      </a>
+      </Link>
        - A simple showcase of the fonts included into this repo, and the test of their proper inclusion into the bundle;
     </li>
     <li>
-      <a
-        href="/examples/svg-loading"
-        onClick={[Function]}
+      <Link
+        replace={false}
+        to="/examples/svg-loading"
       >
         SVG Loading
-      </a>
+      </Link>
        - Shows how to load 
       <code>
         .svg

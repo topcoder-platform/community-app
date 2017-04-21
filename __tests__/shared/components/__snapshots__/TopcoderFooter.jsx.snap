@@ -1,0 +1,78 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Matches shallow shapshot 1`] = `
+<div
+  className="src-shared-components-TopcoderFooter-___style__footer___28yQ6"
+>
+  <nav>
+    <ul>
+      <Link
+        to="https://www.topcoder-dev.com/sitemap"
+      >
+        SITE MAP
+      </Link>
+      <Link
+        to="https://www.topcoder-dev.com/about"
+      >
+        ABOUT US
+      </Link>
+      <Link
+        to="https://help.topcoder-dev.com/hc/en-us/articles/219069687-Contact-Support"
+      >
+        CONTACT US
+      </Link>
+      <Link
+        to="https://help.topcoder-dev.com"
+      >
+        HELP CENTER
+      </Link>
+      <Link
+        to="https://www.topcoder-dev.com/community/how-it-works/privacy-policy/"
+      >
+        PRIVACY POLICY
+      </Link>
+      <Link
+        to="https://www.topcoder-dev.com/community/how-it-works/terms/"
+      >
+        TERMS
+      </Link>
+    </ul>
+  </nav>
+  <div
+    className="src-shared-components-TopcoderFooter-___style__social-links___2G4Ia"
+  >
+    <p>
+      Topcoder is also on
+    </p>
+    <a
+      href="https://www.facebook.com/topcoder"
+      target="fbwindow"
+    >
+      <FacebookIcon />
+    </a>
+    <a
+      href="http://www.twitter.com/topcoder"
+      target="twwindow"
+    >
+      <TwitterIcon />
+    </a>
+    <a
+      href="https://www.linkedin.com/company/topcoder"
+      target="liwindow"
+    >
+      <LinkedInIcon />
+    </a>
+    <a
+      href="https://plus.google.com/u/0/b/104268008777050019973/104268008777050019973/posts"
+      target="gpwindow"
+    >
+      <GooglePlusIcon />
+    </a>
+  </div>
+  <p
+    className="src-shared-components-TopcoderFooter-___style__copyright-notice___24f5v"
+  >
+    © 2017 Topcoder. All Rights Reserved
+  </p>
+</div>
+`;

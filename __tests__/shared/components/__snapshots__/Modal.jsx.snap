@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`matches snapshots 1`] = `
+exports[`Matches shallow shapshot 1`] = `
 <div>
   <div
     className="src-shared-components-Modal-___styles__modal-container___2m4KB"
