@@ -3,10 +3,11 @@
 window.CONFIG = 'Client-side config';
 jest.setMock('config', 'Server-side config');
 
+afterAll(() => delete process.env.FRONT_END);
 beforeEach(() => jest.resetModules());
 
 test('Serves config from node-config at the server-side', () => {
-  delete process.env.FRONT_END;
+  expect(process.env.FRONT_END).toBeUndefined();
   expect(require('utils/config')).toBe('Server-side config');
 });
 

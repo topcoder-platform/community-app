@@ -11,9 +11,6 @@ import IconNavBookData from '../../../assets/images/nav/book-data.svg';
 import IconNavBookDesign from '../../../assets/images/nav/book-design.svg';
 import IconNavBoolDevelop from '../../../assets/images/nav/book-develop.svg';
 import IconNavCP from '../../../assets/images/nav/track-cp.svg';
-import IconNavDat from '../../../assets/images/nav/track-data.svg';
-import IconNavDesign from '../../../assets/images/nav/track-design.svg';
-import IconNavDevelop from '../../../assets/images/nav/track-develop.svg';
 import IconNavEvents from '../../../assets/images/nav/events.svg';
 import IconNavForums from '../../../assets/images/nav/forums.svg';
 import IconNavMembers from '../../../assets/images/nav/members.svg';
@@ -48,18 +45,6 @@ const MENU = [{
     icon: <IconNavRocket />,
     link: '/challenges',
     title: 'All Challenges',
-  }, {
-    icon: <IconNavDesign />,
-    link: '/challenges/#&tracks=design&mode=6&name=All%20Challenges',
-    title: 'Design Challenges',
-  }, {
-    icon: <IconNavDevelop />,
-    link: '/challenges/#&tracks=develop&mode=6&name=All%20Challenges',
-    title: 'Development Challenges',
-  }, {
-    icon: <IconNavDat />,
-    link: '/challenges/#&tracks=datasci&mode=6&name=All%20Challenges',
-    title: 'Data Science Challenges',
   }, {
     icon: <IconNavCP />,
     link: config.ARENA_URL,

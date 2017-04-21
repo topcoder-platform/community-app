@@ -1,9 +1,13 @@
 const mod = () => require('utils/isomorphy');
 
+afterAll(() => {
+  delete process.env.FRONT_END;
+  process.env.NODE_ENV = 'test';
+});
 beforeEach(() => jest.resetModules());
 
 test('Client- and server-side checks work properly at the server-side', () => {
-  delete process.env.FRONT_END;
+  expect(process.env.FRONT_END).toBeUndefined();
   expect(mod().isClientSide()).toBe(false);
   expect(mod().isServerSide()).toBe(true);
 });

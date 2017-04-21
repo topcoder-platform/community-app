@@ -1,5 +1,9 @@
 import _ from 'lodash';
 
+afterAll(() => {
+  process.env.NODE_ENV = 'test';
+});
+
 describe('Dev logger', () => {
   beforeAll(() => {
     process.env.NODE_ENV = 'development';

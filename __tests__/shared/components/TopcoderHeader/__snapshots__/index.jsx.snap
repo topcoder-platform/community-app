@@ -94,21 +94,6 @@ exports[`Default render 1`] = `
               "title": "All Challenges",
             },
             Object {
-              "icon": <IconNavDesign />,
-              "link": "/challenges/#&tracks=design&mode=6&name=All%20Challenges",
-              "title": "Design Challenges",
-            },
-            Object {
-              "icon": <IconNavDevelop />,
-              "link": "/challenges/#&tracks=develop&mode=6&name=All%20Challenges",
-              "title": "Development Challenges",
-            },
-            Object {
-              "icon": <IconNavDat />,
-              "link": "/challenges/#&tracks=datasci&mode=6&name=All%20Challenges",
-              "title": "Data Science Challenges",
-            },
-            Object {
               "icon": <IconNavCP />,
               "link": "https://arena.topcoder-dev.com/",
               "title": "Competitive Programming",
@@ -301,21 +286,6 @@ exports[`Render with open menu 1`] = `
               "title": "All Challenges",
             },
             Object {
-              "icon": <IconNavDesign />,
-              "link": "/challenges/#&tracks=design&mode=6&name=All%20Challenges",
-              "title": "Design Challenges",
-            },
-            Object {
-              "icon": <IconNavDevelop />,
-              "link": "/challenges/#&tracks=develop&mode=6&name=All%20Challenges",
-              "title": "Development Challenges",
-            },
-            Object {
-              "icon": <IconNavDat />,
-              "link": "/challenges/#&tracks=datasci&mode=6&name=All%20Challenges",
-              "title": "Data Science Challenges",
-            },
-            Object {
               "icon": <IconNavCP />,
               "link": "https://arena.topcoder-dev.com/",
               "title": "Competitive Programming",
@@ -500,21 +470,6 @@ exports[`Render with specified profile 1`] = `
               "icon": <IconNavRocket />,
               "link": "/challenges",
               "title": "All Challenges",
-            },
-            Object {
-              "icon": <IconNavDesign />,
-              "link": "/challenges/#&tracks=design&mode=6&name=All%20Challenges",
-              "title": "Design Challenges",
-            },
-            Object {
-              "icon": <IconNavDevelop />,
-              "link": "/challenges/#&tracks=develop&mode=6&name=All%20Challenges",
-              "title": "Development Challenges",
-            },
-            Object {
-              "icon": <IconNavDat />,
-              "link": "/challenges/#&tracks=datasci&mode=6&name=All%20Challenges",
-              "title": "Data Science Challenges",
             },
             Object {
               "icon": <IconNavCP />,
