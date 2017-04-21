@@ -9,8 +9,7 @@ import { factory as reducerFactory } from 'reducers';
 import promiseMiddleware from 'redux-promise';
 import { applyMiddleware, compose, createStore } from 'redux';
 
-const IS_DEV = process.env.NODE_ENV === 'development';
-
+const IS_DEV = process.env.NODE_ENV === 'development' && !!process.env.DEV_TOOLS && false;
 const devTools = IS_DEV
   ? require('./containers/DevTools').default.instrument()
   : undefined;
