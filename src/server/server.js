@@ -19,7 +19,7 @@ if (process.env.FRONT_END) {
     'process.env.FRONT_END must evaluate to false at the server side');
 }
 
-const IS_DEV = process.env.NODE_ENV === 'development';
+const USE_DEV_TOOLS = Boolean(process.env.DEV_TOOLS);
 
 const app = express();
 
@@ -36,10 +36,13 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 
-/* Setup of Webpack Hot Reloading for development environment. */
+/* Setup of Webpack Hot Reloading for development environment.
+ * These dependencies are not used nor installed in production deployment,
+ * hence some import-related lint rules are disabled.*/
 /* eslint-disable global-require */
 /* eslint-disable import/no-extraneous-dependencies */
-if (IS_DEV) {
+/* eslint-disable import/no-unresolved */
+if (USE_DEV_TOOLS) {
   const webpack = require('webpack');
   const webpackConfig = require('../../config/webpack/development');
   const webpackDevMiddleware = require('webpack-dev-middleware');
@@ -55,6 +58,7 @@ if (IS_DEV) {
 }
 /* eslint-enable global-require */
 /* eslint-enable import/no-extraneous-dependencies */
+/* eslint-enable import/no-unresolved */
 
 app.use(express.static(path.resolve(__dirname, '../../build')));
 

@@ -24,8 +24,8 @@ window.ISTATE = 'Initial state of Redux store';
 /* Mock of browser-cookies */
 
 let tokenV2;
-jest.setMock('browser-cookies', {
-  erase: () => {},
+const mockCookies = {
+  erase: jest.fn(),
   get: (name) => {
     switch (name) {
       case 'tcjwt': return tokenV2;
@@ -33,7 +33,8 @@ jest.setMock('browser-cookies', {
     }
   },
   set: () => {},
-});
+};
+jest.setMock('browser-cookies', mockCookies);
 
 /* Mock of react-redux module */
 
@@ -81,11 +82,12 @@ jest.setMock('react-router-dom', {
 /* Mock of tc-accounts */
 
 let tokenV3;
-jest.setMock('tc-accounts', {
+const mockTcAccounts = {
   configureConnector: () => undefined,
   decodeToken: () => 'Decoded user object',
   getFreshToken: () => Promise.resolve(tokenV3),
-});
+};
+jest.setMock('tc-accounts', mockTcAccounts);
 
 /* Mock auth actions */
 
@@ -167,6 +169,18 @@ describe('Properly starts with process.env.FRONT_ENV evaluating true', () => {
         expect(mockAuthActions.auth.setTcTokenV3)
           .toHaveBeenCalledWith('Token V3');
         resolve();
+      });
+    }),
+  );
+
+  test('Clears auth cookies when authorization fails', () =>
+    new Promise((done) => {
+      mockTcAccounts.getFreshToken = () => Promise.reject('');
+      require(MODULE);
+      setImmediate(() => {
+        expect(mockCookies.erase).toHaveBeenCalledWith('tcjwt');
+        expect(mockCookies.erase).toHaveBeenCalledWith('tctV3');
+        done();
       });
     }),
   );

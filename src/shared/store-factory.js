@@ -9,13 +9,14 @@ import { factory as reducerFactory } from 'reducers';
 import promiseMiddleware from 'redux-promise';
 import { applyMiddleware, compose, createStore } from 'redux';
 
-const IS_DEV = process.env.NODE_ENV === 'development' && !!process.env.DEV_TOOLS && false;
-const devTools = IS_DEV
+const USE_DEV_TOOLS = Boolean(process.env.DEV_TOOLS);
+
+const devTools = USE_DEV_TOOLS
   ? require('./containers/DevTools').default.instrument()
   : undefined;
 
 let enhancer = applyMiddleware(promiseMiddleware);
-if (IS_DEV) enhancer = compose(enhancer, devTools);
+if (USE_DEV_TOOLS) enhancer = compose(enhancer, devTools);
 
 /**
  * Creates Redux store.
@@ -30,7 +31,7 @@ export default function storeFactory(req, initialState) {
   return new Promise((resolve) => {
     reducerFactory(req).then((reducer) => {
       const store = createStore(reducer, initialState || {}, enhancer);
-      if (IS_DEV && module.hot) {
+      if (USE_DEV_TOOLS && module.hot) {
         module.hot.accept('./reducers', () => {
           require('./reducers').factory()
           .then(newReducer => store.replaceReducer(newReducer));
