@@ -6,10 +6,10 @@
   "coverageDirectory": "__coverage__",
   "coverageThreshold": {
     "global": {
-      "branches": 68.50,
-      "functions": 83.75,
-      "lines": 83.50,
-      "statements": 83.00
+      "branches": 79.75,
+      "functions": 89.00,
+      "lines": 91.75,
+      "statements": 91.00
     }
   },
   "moduleNameMapper": {

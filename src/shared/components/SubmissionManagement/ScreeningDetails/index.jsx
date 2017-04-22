@@ -17,18 +17,12 @@ export default function ScreeningDetails(props) {
     helpPageUrl,
   } = props;
 
-  const checkScreeningObject = () => {
-    if (screeningObject) {
-      return screeningObject;
-    }
-    return {};
-  };
-  const hasWarnings = checkScreeningObject(screeningObject).warnings;
-  const hasStatus = checkScreeningObject(screeningObject).status;
+  const hasWarnings = screeningObject.warnings;
+  const hasStatus = screeningObject.status;
   const hasStatusPassed = hasStatus === 'passed';
   const hasStatusFailed = hasStatus === 'failed';
-  const hasPending = checkScreeningObject(screeningObject).status === 'pending';
-  const warnLength = checkScreeningObject(screeningObject).warnings && hasWarnings.length;
+  const hasPending = screeningObject.status === 'pending';
+  const warnLength = screeningObject.warnings && hasWarnings.length;
 
   const setStatusInfo = () => {
     if (hasPending) {
@@ -70,7 +64,7 @@ export default function ScreeningDetails(props) {
   };
 
   let warnings = [];
-  if (checkScreeningObject(screeningObject).warnings) {
+  if (screeningObject.warnings) {
     warnings = screeningObject.warnings.map((warning, i) =>
       <div styleName="screening-warning" key={shortid.generate()}>
         <div styleName="warning-bold"><span>Warning</span> {`${1 + i} : ${warning.brief}`}</div>

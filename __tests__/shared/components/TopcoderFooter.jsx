@@ -1,9 +1,8 @@
 import React from 'react';
-import Renderer from 'react-test-renderer/shallow';
+import Rnd from 'react-test-renderer';
 import TopcoderFooter from 'components/TopcoderFooter';
 
 test('Matches shallow shapshot', () => {
-  const renderer = new Renderer();
-  renderer.render(<TopcoderFooter />);
-  expect(renderer.getRenderOutput()).toMatchSnapshot();
+  const rnd = Rnd.create(<TopcoderFooter />);
+  expect(rnd.toJSON()).toMatchSnapshot();
 });

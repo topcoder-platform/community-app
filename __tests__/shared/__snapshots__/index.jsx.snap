@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Snapshot match 1`] = `
+<div>
+  <Routes />
+</div>
+`;
+
+exports[`Snapshot match 2`] = `
+<div>
+  <Routes />
+  <DevTools />
+</div>
+`;
