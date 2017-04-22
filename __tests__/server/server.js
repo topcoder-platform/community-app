@@ -10,6 +10,7 @@ jest.setMock('../../config/webpack/development', {
 });
 jest.setMock('../../src/server/renderer', _.noop);
 
+/*
 jest.setMock('webpack-dev-middleware', () =>
   (req, res, next) => next && next(),
 );
@@ -17,6 +18,7 @@ jest.setMock('webpack-dev-middleware', () =>
 jest.setMock('webpack-hot-middleware', () =>
   (req, res, next) => next && next(),
 );
+*/
 
 afterAll(() => {
   delete process.env.FRONT_END;

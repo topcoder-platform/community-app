@@ -7,14 +7,14 @@
 import React from 'react';
 import Routes from 'routes';
 
-const IS_DEV = process.env.NODE_ENV === 'development';
-const DevTools = IS_DEV ? require('containers/DevTools').default : undefined;
+const USE_DEV_TOOLS = Boolean(process.env.DEV_TOOLS);
+const DevTools = USE_DEV_TOOLS ? require('containers/DevTools').default : undefined;
 
 export default function App() {
   return (
     <div>
       <Routes />
-      { IS_DEV ? <DevTools /> : undefined }
+      { USE_DEV_TOOLS ? <DevTools /> : undefined }
     </div>
   );
 }

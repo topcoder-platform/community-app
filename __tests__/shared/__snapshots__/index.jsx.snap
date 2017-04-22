@@ -9,6 +9,5 @@ exports[`Snapshot match 1`] = `
 exports[`Snapshot match 2`] = `
 <div>
   <Routes />
-  <DevTools />
 </div>
 `;
