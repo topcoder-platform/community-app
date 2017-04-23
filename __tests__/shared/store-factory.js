@@ -1,7 +1,7 @@
 const MODULE = require.resolve('shared/store-factory');
 
 afterAll(() => {
-  process.env.NODE_ENV = 'test';
+  delete process.env.DEV_TOOLS;
 });
 
 beforeEach(() => {
@@ -12,9 +12,9 @@ test('Does not throw', () => {
   expect(() => require(MODULE)).not.toThrow();
 });
 
-test('Does not throw in dev', () => {
-  process.env.NODE_ENV = 'development';
+test('Does not throw when uses dev tools', () => {
+  process.env.DEV_TOOLS = true;
   expect(() => require(MODULE)).not.toThrow();
-  process.env.NODE_ENV = 'test';
+  delete process.env.DEV_TOOLS;
 });
 

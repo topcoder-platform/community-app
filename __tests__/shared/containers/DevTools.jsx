@@ -2,27 +2,22 @@
  * work in prod until we find a way to mock a non-installed module. I believe,
  * Babel should be able to help here. */
 
+/*
 import _ from 'lodash';
 
 test('placeholder', _.noop);
+*/
 
-/*
+
 import React from 'react';
 import Rnd from 'react-test-renderer/shallow';
-import { createStore } from 'redux';
 
-jest.setMock('redux-devtools', {});
 const DevTools = require('containers/DevTools').default;
 
 const rnd = new Rnd();
-const store = createStore(() => ({}), {}, DevTools.instrument());
+// const store = createStore(() => ({}), {}, DevTools.instrument());
 
 test('Snapshot match', () => {
-  rnd.render((
-    <DevTools
-      store={store}
-    />
-  ));
+  rnd.render(<DevTools />);
   expect(rnd.getRenderOutput()).toMatchSnapshot();
 });
-*/

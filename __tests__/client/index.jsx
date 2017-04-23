@@ -106,10 +106,15 @@ jest.setMock(`${SRC}/shared/actions/auth`, mockAuthActions);
 const mockStoreFactory = jest.fn(() => Promise.resolve({
   dispatch: _.noop,
   getState: () => ({
-    auth: {},
+    auth: {
+      tokenV2: '12345',
+      tokenV3: '12345',
+    },
   }),
 }));
 jest.setMock(`${SRC}/shared/store-factory`, mockStoreFactory);
+
+/* Some other mocks */
 
 jest.setMock(`${SRC}/shared`, {
   default: () => <div>Application</div>,
@@ -168,6 +173,23 @@ describe('Properly starts with process.env.FRONT_ENV evaluating true', () => {
           .toHaveBeenCalledWith('Token V2');
         expect(mockAuthActions.auth.setTcTokenV3)
           .toHaveBeenCalledWith('Token V3');
+        resolve();
+      });
+    }),
+  );
+
+  test('Does not write auth tokens to the state, when no need to', () =>
+    new Promise((resolve) => {
+      tokenV2 = '12345';
+      tokenV3 = '12345';
+      require(MODULE);
+
+      /* NOTE: We have mocked getFreshToken to return Promise.resolve(..),
+       * which resolves immediately. Thus, this call to setImmediate(..) is
+       * enough to wait until tokens are processed. */
+      setImmediate(() => {
+        expect(mockAuthActions.auth.setTcTokenV2).not.toHaveBeenCalled();
+        expect(mockAuthActions.auth.setTcTokenV3).not.toHaveBeenCalled();
         resolve();
       });
     }),

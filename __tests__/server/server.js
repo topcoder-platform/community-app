@@ -2,27 +2,16 @@ import _ from 'lodash';
 
 const MODULE = require.resolve('server/server');
 
-jest.setMock('webpack', _.noop);
 jest.setMock('../../config/webpack/development', {
   output: {
     publicPath: '',
   },
 });
-jest.setMock('../../src/server/renderer', _.noop);
-
-/*
-jest.setMock('webpack-dev-middleware', () =>
-  (req, res, next) => next && next(),
-);
-
-jest.setMock('webpack-hot-middleware', () =>
-  (req, res, next) => next && next(),
-);
-*/
+jest.setMock(require.resolve('server/renderer'), _.noop);
 
 afterAll(() => {
+  delete process.env.DEV_TOOLS;
   delete process.env.FRONT_END;
-  process.env.NODE_ENV = 'test';
 });
 
 beforeEach(() => {
@@ -39,8 +28,14 @@ test('Does not throw when executed at the back end', () => {
   expect(() => require(MODULE)).not.toThrow();
 });
 
-test('Does not throw when executed at the back end in dev', () => {
-  process.env.NODE_ENV = 'development';
+test('Does not throw when executed with pipe name', () => {
+  process.env.PORT = 80;
   expect(() => require(MODULE)).not.toThrow();
-  process.env.NODE_ENV = 'test';
+  delete process.env.PORT;
+});
+
+test('Does not throw when uses dev tools', () => {
+  process.env.DEV_TOOLS = true;
+  expect(() => require(MODULE)).not.toThrow();
+  delete process.env.DEV_TOOLS;
 });
