@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Matches shallow shapshot 1`] = `
+exports[`Snapshot match 1`] = `
 <tr
   className="src-shared-components-SubmissionManagement-Submission-___styles__submission-row___2yQOc"
 >
@@ -9,7 +9,7 @@ exports[`Matches shallow shapshot 1`] = `
   >
     <img
       alt="preview"
-      className="src-shared-components-SubmissionManagement-Submission-___styles__design-img___1klwr"
+      className="src-shared-components-SubmissionManagement-Submission-___styles__dev-img___rbFEF"
       src="https://studio.topcoder-dev.com?module=DownloadSubmission&sbmid=undefined&sbt=tiny"
     />
   </td>
@@ -22,9 +22,6 @@ exports[`Matches shallow shapshot 1`] = `
   >
     Invalid date
   </td>
-  <td
-    className="src-shared-components-SubmissionManagement-Submission-___styles__status-col___1Byk3"
-  />
   <td>
     <div
       className="src-shared-components-SubmissionManagement-Submission-___styles__action-col___2M1RY"
@@ -34,6 +31,71 @@ exports[`Matches shallow shapshot 1`] = `
       >
         <DownloadIcon />
       </a>
+      <button
+        className="src-shared-components-SubmissionManagement-Submission-___styles__delete-icon___2M67z"
+        onClick={[Function]}
+      >
+        <DeleteIcon />
+      </button>
+      <button
+        className="src-shared-components-SubmissionManagement-Submission-___styles__expand-icon___TDY6Y src-shared-components-SubmissionManagement-Submission-___styles__expanded___8pRX_"
+        onClick={[Function]}
+      >
+        <ExpandIcon />
+      </button>
+    </div>
+  </td>
+</tr>
+`;
+
+exports[`Snapshot match 2`] = `
+<tr
+  className="src-shared-components-SubmissionManagement-Submission-___styles__submission-row___2yQOc"
+>
+  <td
+    className="src-shared-components-SubmissionManagement-Submission-___styles__preview-col___1pWYq"
+  >
+    <img
+      alt="preview"
+      className="src-shared-components-SubmissionManagement-Submission-___styles__design-img___1klwr"
+      src="https://studio.topcoder-dev.com?module=DownloadSubmission&sbmid=12345&sbt=tiny"
+    />
+  </td>
+  <td
+    className="src-shared-components-SubmissionManagement-Submission-___styles__id-col___zC6Hi"
+  >
+    12345
+  </td>
+  <td />
+  <td
+    className="src-shared-components-SubmissionManagement-Submission-___styles__date-col___3XOxK"
+  >
+    Invalid date
+  </td>
+  <td
+    className="src-shared-components-SubmissionManagement-Submission-___styles__status-col___1Byk3"
+  >
+    <ScreeningStatus
+      onShowDetails={[Function]}
+      screeningObject={Object {}}
+      submissionId={12345}
+    />
+  </td>
+  <td>
+    <div
+      className="src-shared-components-SubmissionManagement-Submission-___styles__action-col___2M1RY"
+    >
+      <a
+        href="https://studio.topcoder-dev.com?module=DownloadSubmission&sbmid=12345&sbt=original"
+      >
+        <DownloadIcon />
+      </a>
+      <button
+        className="src-shared-components-SubmissionManagement-Submission-___styles__delete-icon___2M67z"
+        onClick={[Function]}
+      >
+        <DeleteIcon />
+      </button>
       <button
         className="src-shared-components-SubmissionManagement-Submission-___styles__expand-icon___TDY6Y"
         onClick={[Function]}

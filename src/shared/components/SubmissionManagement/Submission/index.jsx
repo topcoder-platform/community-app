@@ -17,6 +17,7 @@ import moment from 'moment';
 import React from 'react';
 import PT from 'prop-types';
 
+import DeleteIcon from '../Icons/IconTrashSimple.svg';
 import DownloadIcon from '../Icons/IconSquareDownload.svg';
 import ExpandIcon from '../Icons/IconMinimalDown.svg';
 import ScreeningStatus from '../ScreeningStatus';
@@ -28,6 +29,7 @@ export default function Submission(props) {
     submissionObject,
     showScreeningDetails,
     type,
+    onDelete,
     onShowDetails,
   } = props;
   const formatDate = date => moment(+new Date(date)).format('MMM DD, YYYY hh:mm A');
@@ -70,12 +72,10 @@ export default function Submission(props) {
             onClick={() => onDownload(submissionObject.submissionId)}
           ><DownloadIcon /></button>
           */ }
-          {/* TODO: At the moment APIs don't support removal of
-            submissions, thus the icon is temporarly removed.
           <button
             styleName="delete-icon"
             onClick={() => onDelete(submissionObject.submissionId)}
-          ><DeleteIcon /></button> */}
+          ><DeleteIcon /></button>
           <button
             styleName={`expand-icon ${(showScreeningDetails ? 'expanded' : '')}`}
             onClick={() => onShowDetails(submissionObject.submissionId)}
@@ -96,7 +96,7 @@ Submission.defaultProps = {
 Submission.propTypes = {
   submissionObject: PT.shape(
     {
-      id: PT.string,
+      submissionId: PT.number,
       warpreviewnings: PT.string,
       screening: PT.shape({
         status: PT.string,
@@ -107,5 +107,6 @@ Submission.propTypes = {
   ),
   showScreeningDetails: PT.bool,
   type: PT.string,
+  onDelete: PT.func.isRequired,
   onShowDetails: PT.func,
 };

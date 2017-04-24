@@ -5,12 +5,11 @@
 import _ from 'lodash';
 import 'isomorphic-fetch';
 import { createActions } from 'redux-actions';
+import { getApiV3 } from 'services/api';
 
-function deleteSubmission(challengeId, submissionId) {
-  // TODO: replace Promise.resolve with the actual api call to delete the submission
-  // eg: getApiV3().delete(`/challenges/${challengeId}/submissions/${submissionId}`);
-
-  return Promise.resolve(submissionId);
+function deleteSubmission(tokenV3, submissionId) {
+  return getApiV3(tokenV3).delete(`/submissions/${submissionId}`)
+    .then(() => submissionId);
 }
 
 /*  TODO: At this moment we don't need any special JS code to download
@@ -29,6 +28,7 @@ export default createActions({
     CANCEL_DELETE: _.noop,
     CONFIRM_DELETE: _.identity,
     DELETE_SUBMISSION_DONE: deleteSubmission,
+    DELETE_SUBMISSION_INIT: _.noop,
     DOWNLOAD_SUBMISSION: downloadSubmission,
   },
 });

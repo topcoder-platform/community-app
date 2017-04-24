@@ -10,7 +10,7 @@ test('Snapshot match', () => {
       screeningObject={{
         status: 'failed',
       }}
-      submissionId="12345"
+      submissionId={12345}
     />
   ));
   expect(rnd.getRenderOutput()).toMatchSnapshot();
@@ -21,7 +21,7 @@ test('Snapshot match', () => {
         status: 'failed',
         warnings: [],
       }}
-      submissionId="12345"
+      submissionId={12345}
     />
   ));
   expect(rnd.getRenderOutput()).toMatchSnapshot();
@@ -31,7 +31,7 @@ test('Snapshot match', () => {
       screeningObject={{
         status: 'passed',
       }}
-      submissionId="12345"
+      submissionId={12345}
     />
   ));
   expect(rnd.getRenderOutput()).toMatchSnapshot();
@@ -42,7 +42,7 @@ test('Snapshot match', () => {
         status: 'passed',
         warnings: [],
       }}
-      submissionId="12345"
+      submissionId={12345}
     />
   ));
   expect(rnd.getRenderOutput()).toMatchSnapshot();
@@ -53,7 +53,7 @@ test('Snapshot match', () => {
         status: 'pending',
         warnings: [],
       }}
-      submissionId="12345"
+      submissionId={12345}
     />
   ));
   expect(rnd.getRenderOutput()).toMatchSnapshot();
@@ -64,7 +64,7 @@ test('Snapshot match', () => {
         status: 'Screening Status',
         warnings: [],
       }}
-      submissionId="12345"
+      submissionId={12345}
     />
   ));
   expect(rnd.getRenderOutput()).toMatchSnapshot();

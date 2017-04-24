@@ -30,8 +30,14 @@ function create(initialState) {
 
     [actions.smp.deleteSubmissionDone]: state => ({
       ...state,
+      deletingSubmission: false,
       showModal: false,
       toBeDeletedId: 0,
+    }),
+
+    [actions.smp.deleteSubmissionInit]: state => ({
+      ...state,
+      deletingSubmission: true,
     }),
 
   }, initialState || {});

@@ -51,10 +51,23 @@ describe('smp.confirmDelete', () => {
 });
 
 describe('smp.deleteSubmissionDone', () => {
-  const a = actions.smp.deleteSubmissionDone('challengeId', 'submissionId');
+  global.fetch = jest.fn(() => Promise.resolve());
+
+  const a = actions.smp.deleteSubmissionDone('Token V3', 'submissionId');
 
   test('has expected type', () => {
     expect(a.type).toBe('SMP/DELETE_SUBMISSION_DONE');
+  });
+
+  test('Calls the correct endpoint', () => {
+    expect(global.fetch).toHaveBeenCalledWith(
+      'API-URL-V3/submissions/submissionId', {
+        headers: {
+          Authorization: 'Bearer Token V3',
+          'Content-Type': 'application/json',
+        },
+        method: 'DELETE',
+      });
   });
 
   test('payload be submissionId', () =>

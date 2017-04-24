@@ -1,7 +1,9 @@
 import _ from 'lodash';
 import React from 'react';
-import renderer from 'react-test-renderer';
+import Rnd from 'react-test-renderer/shallow';
 import TU from 'react-dom/test-utils';
+
+const rnd = new Rnd();
 
 const mockChallengeActions = {
   fetchChallengeInit: jest.fn(),
@@ -16,6 +18,7 @@ const mockSmpActions = {
     cancelDelete: jest.fn(),
     confirmDelete: jest.fn(),
     deleteSubmissionDone: jest.fn(),
+    deleteSubmissionInit: jest.fn(),
     downloadSubmission: jest.fn(),
     showDetails: jest.fn(),
   },
@@ -23,16 +26,34 @@ const mockSmpActions = {
 jest.setMock(require.resolve('actions/smp'), mockSmpActions);
 
 const mockState = {
-  auth: {},
+  auth: {
+    tokenV3: 'Token V3',
+  },
   challenge: {
     details: {
       track: 'Track',
     },
     loadingDetails: true,
+    mySubmissions: {
+      v2: [{
+        submissionId: 12345,
+      }],
+    },
     mySubmissionsManagement: {
+      deletingSubmission: true,
       showDetails: new Set(),
       showModal: true,
+      toBeDeletedId: 12345,
     },
+  },
+};
+
+const mockState2 = {
+  auth: {
+    tokenV3: 'Token V3',
+  },
+  challenge: {
+    mySubmissionsManagement: {},
   },
 };
 
@@ -41,11 +62,11 @@ const SubmissionManagement = require('containers/SubmissionManagement').default;
 beforeEach(() => jest.clearAllMocks());
 
 test('Matches shapshot', () => {
-  const render = renderer.create((
+  rnd.render((
     <SubmissionManagement
       match={{
         params: {
-          challengeId: '12345',
+          challengeId: 12345,
         },
       }}
       store={{
@@ -55,14 +76,41 @@ test('Matches shapshot', () => {
       }}
     />
   ));
-  expect(render.toJSON()).toMatchSnapshot();
+  expect(rnd.getRenderOutput()).toMatchSnapshot();
+});
+
+test('Triggers data loading, if necessary', () => {
+  TU.renderIntoDocument((
+    <SubmissionManagement
+      match={{
+        params: {
+          challengeId: 12345,
+        },
+      }}
+      store={{
+        dispatch: () => _.noop,
+        getState: () => mockState2,
+        subscribe: _.noop,
+      }}
+    />
+  ));
+  expect(mockChallengeActions.fetchChallengeInit).toHaveBeenCalled();
+  expect(mockChallengeActions.fetchChallengeDone)
+    .toHaveBeenCalledWith({
+      tokenV3: 'Token V3',
+    }, 12345);
+  expect(mockChallengeActions.fetchChallengeInit).toHaveBeenCalled();
+  expect(mockChallengeActions.fetchSubmissionsDone)
+    .toHaveBeenCalledWith({
+      tokenV3: 'Token V3',
+    }, 12345);
 });
 
 const obj = TU.renderIntoDocument((
   <SubmissionManagement
     match={{
       params: {
-        challengeId: '12345',
+        challengeId: 12345,
       },
     }}
     store={{
@@ -75,13 +123,13 @@ const obj = TU.renderIntoDocument((
 const props = obj.selector.props;
 
 test('onShowDetails dispatches', () => {
-  props.onShowDetails('12345');
-  expect(mockSmpActions.smp.showDetails).toHaveBeenCalledWith('12345');
+  props.onShowDetails(12345);
+  expect(mockSmpActions.smp.showDetails).toHaveBeenCalledWith(12345);
 });
 
 test('onSubmissionDelete dispatches', () => {
-  props.onSubmissionDelete('12345');
-  expect(mockSmpActions.smp.confirmDelete).toHaveBeenCalledWith('12345');
+  props.onSubmissionDelete(12345);
+  expect(mockSmpActions.smp.confirmDelete).toHaveBeenCalledWith(12345);
 });
 
 test('onCancelSubmissionDelete dispatches', () => {
@@ -90,9 +138,11 @@ test('onCancelSubmissionDelete dispatches', () => {
 });
 
 test('onSubmissionDeleteConfirmed dispatches', () => {
-  props.onSubmissionDeleteConfirmed('12345', '54321');
+  props.onSubmissionDeleteConfirmed(12345, 54321);
+  expect(mockSmpActions.smp.deleteSubmissionInit)
+    .toHaveBeenCalled();
   expect(mockSmpActions.smp.deleteSubmissionDone)
-    .toHaveBeenCalledWith('12345', '54321');
+    .toHaveBeenCalledWith(12345, 54321);
 });
 
 test('onDownloadSubmission dispatches', () => {
@@ -102,15 +152,32 @@ test('onDownloadSubmission dispatches', () => {
 });
 
 test('loadChallengeDetails dispatches', () => {
-  props.loadChallengeDetails('12345', '54321');
+  props.loadChallengeDetails('12345', 54321);
   expect(mockChallengeActions.fetchChallengeInit).toHaveBeenCalled();
   expect(mockChallengeActions.fetchChallengeDone)
-    .toHaveBeenCalledWith('12345', '54321');
+    .toHaveBeenCalledWith('12345', 54321);
 });
 
 test('loadMySubmissions dispatches', () => {
-  props.loadMySubmissions('12345', '54321');
+  props.loadMySubmissions('12345', 54321);
   expect(mockChallengeActions.fetchSubmissionsInit).toHaveBeenCalled();
   expect(mockChallengeActions.fetchSubmissionsDone)
-    .toHaveBeenCalledWith('12345', '54321');
+    .toHaveBeenCalledWith('12345', 54321);
+});
+
+test('onBtnDefault', () => {
+  const button = TU.findAllInRenderedTree(obj, item =>
+    item && item.className && item.className.match(/tc-btn-default/));
+  expect(button.length).toBe(1);
+  TU.Simulate.click(button[0]);
+  expect(mockSmpActions.smp.cancelDelete).toHaveBeenCalled();
+});
+
+test('onBtnWarning', () => {
+  const button = TU.findAllInRenderedTree(obj, item =>
+    item && item.className && item.className.match(/tc-btn-warning/));
+  expect(button.length).toBe(1);
+  TU.Simulate.click(button[0]);
+  expect(mockSmpActions.smp.deleteSubmissionDone)
+    .toHaveBeenCalledWith('Token V3', 12345);
 });

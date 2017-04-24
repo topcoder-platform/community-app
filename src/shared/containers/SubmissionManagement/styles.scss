@@ -10,6 +10,14 @@ $sm-space-40: $base-unit * 8;
   padding: 24px;
 }
 
+.deletingIndicator {
+  margin: -17px 0;
+
+  &:global.hidden {
+    display: none;
+  }
+}
+
 .submission-management-container {
   @include roboto;
 
@@ -46,6 +54,10 @@ $sm-space-40: $base-unit * 8;
     .action-btns {
       button {
         margin: 0 5px;
+      }
+
+      &:global.hidden {
+        display: none;
       }
     }
   }
