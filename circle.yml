@@ -15,7 +15,7 @@ deployment:
   development:
     branch: feature/deploy
     commands:
-      - eb_deploy.sh community-app DEV $CIRCLE_BUILD_NUM topcoder-dev-vpc-nat
+      - ./deploy/eb_deploy.sh community-app DEV $CIRCLE_BUILD_NUM topcoder-dev-vpc-nat
 
 
   production:
@@ -23,7 +23,7 @@ deployment:
     tag: /v[0-9]+(\.[0-9]+)*/
     owner: topcoder-platform
     commands:
-      - ./eb_deploy.sh community-app PROD $CIRCLE_BUILD_NUM topcoder-prod-nat
+      - ./deploy/eb_deploy.sh community-app PROD $CIRCLE_BUILD_NUM topcoder-prod-nat
 
 general:
   artifacts:
