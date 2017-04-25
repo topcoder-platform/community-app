@@ -10,8 +10,8 @@ ENV_LOWER=`echo "$ENV" | awk '{print tolower($0)}'`
 
 echo "Deploying to Elasticbeanstalk"
 echo "############################"
-#export AWS_ACCESS_KEY_ID=$(eval "echo \$${ENV}_AWS_ACCESS_KEY_ID")
-#export AWS_SECRET_ACCESS_KEY=$(eval "echo \$${ENV}_AWS_SECRET_ACCESS_KEY")
+export AWS_ACCESS_KEY_ID=$(eval "echo \$${ENV}_AWS_ACCESS_KEY_ID")
+export AWS_SECRET_ACCESS_KEY=$(eval "echo \$${ENV}_AWS_SECRET_ACCESS_KEY")
 
 mkdir .elasticbeanstalk
 envsub -e EC2_KEYNAME=$KEYNAME -e APPLICATION_NAME=$APP deploy/eb-config.yml .elasticbeanstalk/config.yml
