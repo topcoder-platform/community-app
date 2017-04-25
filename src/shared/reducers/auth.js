@@ -5,6 +5,19 @@
 import actions from 'actions/auth';
 import { handleActions } from 'redux-actions';
 import { decodeToken } from 'tc-accounts';
+import { toFSA } from 'utils/redux';
+
+/**
+ * Handles actions.auth.loadProfile action.
+ * @param {Object} state
+ * @param {Object} action
+ */
+function onProfileLoaded(state, action) {
+  return {
+    ...state,
+    profile: action.payload,
+  };
+}
 
 /**
  * Creates a new Auth reducer with the specified initial state.
@@ -13,10 +26,7 @@ import { decodeToken } from 'tc-accounts';
  */
 function create(initialState) {
   return handleActions({
-    [actions.auth.loadProfile]: (state, action) => ({
-      ...state,
-      profile: action.payload,
-    }),
+    [actions.auth.loadProfile]: onProfileLoaded,
     [actions.auth.setTcTokenV2]: (state, action) => ({
       ...state,
       tokenV2: action.payload,
@@ -44,6 +54,11 @@ export function factory(req) {
     tokenV3,
     user: tokenV3 ? decodeToken(tokenV3) : null,
   };
+  if (tokenV3) {
+    return toFSA(actions.auth.loadProfile(tokenV3)).then(res =>
+      create(onProfileLoaded(state, res)),
+    );
+  }
   return Promise.resolve(create(state));
 }
 

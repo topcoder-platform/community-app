@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Snapshot match 1`] = `
+<ReduxDevtoolsDockMonitor
+  changePositionKey="ctrl-p"
+  toggleVisibilityKey="ctrl-m"
+>
+  <ReduxDevtoolsLogMonitor
+    theme="tomorrow"
+  />
+</ReduxDevtoolsDockMonitor>
+`;

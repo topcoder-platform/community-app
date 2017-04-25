@@ -77,5 +77,5 @@ ScreeningStatus.propTypes = {
     },
   ).isRequired,
   onShowDetails: PT.func,
-  submissionId: PT.string.isRequired,
+  submissionId: PT.number.isRequired,
 };

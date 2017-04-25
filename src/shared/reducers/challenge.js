@@ -56,9 +56,6 @@ function create(initialState) {
       mySubmissions: { v2: null },
     }),
     [challengeActions.fetchSubmissionsDone]: onFetchSubmissionsDone,
-
-    // TODO: remove this reducer once the deleteSubmission action
-    // in 'shared/actions/challenge' was fixed
     [smpActions.smp.deleteSubmissionDone]: (state, { payload }) => ({
       ...state,
       mySubmissions: { v2: state.mySubmissions.v2.filter(subm => (

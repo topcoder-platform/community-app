@@ -1,170 +1,66 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Matches shapshot 1`] = `
-<div
-  className="src-shared-containers-SubmissionManagement-___styles__outer-container___u-zaP"
->
-  <div
-    className="src-shared-containers-SubmissionManagement-___styles__submission-management-container___dQIrV"
-  >
-    <div
-      className="src-shared-components-SubmissionManagement-SubmissionManagement-___styles__submission-management___3JDUS"
-    >
-      <div
-        className="src-shared-components-SubmissionManagement-SubmissionManagement-___styles__submission-management-header___3NQqC"
-      >
-        <div
-          className="src-shared-components-SubmissionManagement-SubmissionManagement-___styles__left-col___2Z7o4"
-        >
-          <h4
-            className="src-shared-components-SubmissionManagement-SubmissionManagement-___styles__name___3U4Rx"
-          />
-          <a
-            className="src-shared-components-SubmissionManagement-SubmissionManagement-___styles__back-btn___1nKEx"
-            href="https://www.topcoder-dev.com/challenge-details/12345/?type=track"
-          >
-            &lt; Back
-          </a>
-        </div>
-        <div
-          className="src-shared-components-SubmissionManagement-SubmissionManagement-___styles__right-col___3vkUr"
-        >
-          <p
-            className="src-shared-components-SubmissionManagement-SubmissionManagement-___styles__round___3QPI9"
-          />
-          <p
-            className="src-shared-components-SubmissionManagement-SubmissionManagement-___styles__time-left___1Tye2"
-          >
-             
-            0
-            H 
-            0
-            M
-          </p>
-          <p
-            className="src-shared-components-SubmissionManagement-SubmissionManagement-___styles__left-label___1eGT9"
-          >
-            left
-          </p>
-        </div>
-      </div>
-      <div
-        className="src-shared-components-SubmissionManagement-SubmissionManagement-___styles__submission-management-content___1iGPg"
-      >
-        <div
-          className="src-shared-components-SubmissionManagement-SubmissionManagement-___styles__content-head___3KW7D"
-        >
-          <p
-            className="src-shared-components-SubmissionManagement-SubmissionManagement-___styles__title___Hdx_v"
-          >
-            Manage your submissions
-          </p>
-        </div>
-        <div
-          className="src-shared-components-SubmissionManagement-SubmissionsTable-___styles__submissions-table___1J9eA"
-        >
-          <table>
-            <thead>
-              <tr>
-                <th>
-                  Preview
-                </th>
-                <th>
-                  ID
-                </th>
-                <th>
-                  Type
-                </th>
-                <th>
-                  Submission Date
-                </th>
-                <th
-                  className="src-shared-components-SubmissionManagement-SubmissionsTable-___styles__actions___16pRz"
-                >
-                  Actions
-                </th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr
-                className="src-shared-components-SubmissionManagement-SubmissionsTable-___styles__submission-row___1uclT"
-              >
-                <td
-                  className="src-shared-components-SubmissionManagement-SubmissionsTable-___styles__no-submission___1jFHS"
-                  colSpan="6"
-                >
-                  You have no submission uploaded so far.
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-      <div
-        className="src-shared-components-SubmissionManagement-SubmissionManagement-___styles__btn-wrap___2G2IK"
-      >
-        <a
-          className="tc-btn tc-btn-primary tc-btn-md src-shared-components-SubmissionManagement-SubmissionManagement-___styles__add-sub-btn___1ZToV"
-          href="/challenges/undefined/submit/file"
-        >
-          Add Submission
-        </a>
-      </div>
-    </div>
-    <div
-      className="src-shared-components-LoadingIndicator-___styles__root___3fi9o"
-    >
-      <img
-        alt="Loading data"
-        src="https://raw.githubusercontent.com/appirio-tech/topcoder-app/dev/assets/images/ripple.gif"
-      />
-    </div>
-    <div>
-      <div
-        className="src-shared-components-Modal-___styles__modal-container___2m4KB"
-      >
-        <div
-          className="src-shared-containers-SubmissionManagement-___styles__modal-content___1fRXg"
-        >
-          <p
-            className="src-shared-containers-SubmissionManagement-___styles__are-you-sure___34ylg"
-          >
-            Are you sure you want to delete submission 
-            <span
-              className="src-shared-containers-SubmissionManagement-___styles__id___3p_c7"
-            >
-              0
-            </span>
-            ?
-          </p>
-          <p
-            className="src-shared-containers-SubmissionManagement-___styles__remove-warn___1NyDB"
-          >
-            This will permanently remove all files from our servers and can’t be undone. You’ll have to upload all the files again in order to restore it.
-          </p>
-          <div
-            className="src-shared-containers-SubmissionManagement-___styles__action-btns___2ZE4h"
-          >
-            <button
-              className="tc-btn tc-btn-sm tc-btn-default"
-              onClick={[Function]}
-            >
-              Cancel
-            </button>
-            <button
-              className="tc-btn tc-btn-sm tc-btn-warning"
-              onClick={[Function]}
-            >
-              Delete Submission
-            </button>
-          </div>
-        </div>
-      </div>
-      <button
-        className="src-shared-components-Modal-___styles__bg-overlay___2xty_"
-        onClick={[Function]}
-      />
-    </div>
-  </div>
-</div>
+<SubmissionManagementPageContainer
+  authTokens={
+    Object {
+      "tokenV3": "Token V3",
+    }
+  }
+  challenge={
+    Object {
+      "track": "Track",
+    }
+  }
+  challengeId={12345}
+  deleting={true}
+  isLoadingChallenge={true}
+  isLoadingSubmissions={false}
+  loadChallengeDetails={[Function]}
+  loadMySubmissions={[Function]}
+  match={
+    Object {
+      "params": Object {
+        "challengeId": 12345,
+      },
+    }
+  }
+  mySubmissions={
+    Array [
+      Object {
+        "submissionId": 12345,
+      },
+    ]
+  }
+  onCancelSubmissionDelete={[Function]}
+  onDownloadSubmission={[Function]}
+  onShowDetails={[Function]}
+  onSubmissionDelete={[Function]}
+  onSubmissionDeleteConfirmed={[Function]}
+  showDetails={Array []}
+  showModal={true}
+  store={
+    Object {
+      "dispatch": [Function],
+      "getState": [Function],
+      "subscribe": [Function],
+    }
+  }
+  storeSubscription={
+    Subscription {
+      "listeners": Object {
+        "notify": [Function],
+      },
+      "onStateChange": [Function],
+      "parentSub": undefined,
+      "store": Object {
+        "dispatch": [Function],
+        "getState": [Function],
+        "subscribe": [Function],
+      },
+      "unsubscribe": null,
+    }
+  }
+  toBeDeletedId={12345}
+/>
 `;

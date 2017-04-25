@@ -27,7 +27,7 @@ class SubmissionManagementPageContainer extends React.Component {
       this.props.loadChallengeDetails(this.props.authTokens, this.props.challengeId);
     }
 
-    if (!(this.props.mySubmissions || this.props.isLoadingSubmissions)) {
+    if (!(this.props.mySubmissions.length || this.props.isLoadingSubmissions)) {
       this.props.loadMySubmissions(this.props.authTokens, this.props.challengeId);
     }
   }
@@ -58,7 +58,12 @@ class SubmissionManagementPageContainer extends React.Component {
               {...smConfig}
             />}
           {this.props.isLoadingChallenge && <LoadingIndicator />}
-          {this.props.showModal && <Modal onCancel={this.props.onCancelSubmissionDelete}>
+          {/* TODO: The modal should be split out as a separate component.
+            * Not critical though, so keeping it here for the moment. */}
+          {this.props.showModal &&
+          <Modal
+            onCancel={this.props.deleting ? _.noop : this.props.onCancelSubmissionDelete}
+          >
             <div styleName="modal-content">
               <p styleName="are-you-sure">
                 Are you sure you want to delete
@@ -67,7 +72,19 @@ class SubmissionManagementPageContainer extends React.Component {
                 This will permanently remove all
                 files from our servers and can’t be undone.
                 You’ll have to upload all the files again in order to restore it.</p>
-              <div styleName="action-btns">
+              <div
+                /* NOTE: Current implementation of the loading indicator is
+                 * based on a gif image. Thus, we want to load create this
+                 * element from the beginning to ensure that the image is
+                 * downloaded in background, and will be shown immediately,
+                 * when needed. */
+                className={this.props.deleting ? '' : 'hidden'}
+                styleName="deletingIndicator"
+              ><LoadingIndicator /></div>
+              <div
+                className={this.props.deleting ? 'hidden' : ''}
+                styleName="action-btns"
+              >
                 <Button
                   className="tc-btn-sm tc-btn-default"
                   onClick={() => this.props.onCancelSubmissionDelete()}
@@ -76,7 +93,7 @@ class SubmissionManagementPageContainer extends React.Component {
                   className="tc-btn-sm tc-btn-warning"
                   onClick={
                     () => this.props.onSubmissionDeleteConfirmed(
-                      this.props.challengeId,
+                      this.props.authTokens.tokenV3,
                       this.props.toBeDeletedId)
                     }
                 >Delete Submission</Button>
@@ -90,6 +107,7 @@ class SubmissionManagementPageContainer extends React.Component {
 }
 
 SubmissionManagementPageContainer.defaultProps = {
+  deleting: false,
   isLoadingChallenge: false,
   mySubmissions: [],
   isLoadingSubmissions: false,
@@ -100,10 +118,11 @@ SubmissionManagementPageContainer.defaultProps = {
 
 SubmissionManagementPageContainer.propTypes = {
   challenge: PT.shape(),
+  deleting: PT.bool,
   isLoadingChallenge: PT.bool,
   loadChallengeDetails: PT.func.isRequired,
   authTokens: PT.shape().isRequired,
-  challengeId: PT.string.isRequired,
+  challengeId: PT.number.isRequired,
   mySubmissions: PT.arrayOf(PT.shape()),
   isLoadingSubmissions: PT.bool,
   loadMySubmissions: PT.func.isRequired,
@@ -119,8 +138,11 @@ SubmissionManagementPageContainer.propTypes = {
 
 
 const mapStateToProps = (state, props) => ({
-  challengeId: props.match.params.challengeId,
+  challengeId: Number(props.match.params.challengeId),
   challenge: state.challenge.details,
+
+  deleting: state.challenge.mySubmissionsManagement.deletingSubmission,
+
   isLoadingChallenge: state.challenge.loadingDetails,
 
   mySubmissions: (state.challenge.mySubmissions || {}).v2,
@@ -147,6 +169,7 @@ const mapDispatchToProps = dispatch => ({
   },
 
   onSubmissionDeleteConfirmed: (challengeId, submissionId) => {
+    dispatch(smpActions.smp.deleteSubmissionInit());
     dispatch(smpActions.smp.deleteSubmissionDone(challengeId, submissionId));
   },
 
