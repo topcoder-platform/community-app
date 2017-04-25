@@ -13,13 +13,12 @@ dependencies:
 
 deployment:
   development:
-    branch: feature/deploy
+    branch: develop
     commands:
       - ./deploy/eb_deploy.sh community-app DEV $CIRCLE_BUILD_NUM topcoder-dev-vpc-nat
 
 
   production:
-    branch: master
     tag: /v[0-9]+(\.[0-9]+)*/
     owner: topcoder-platform
     commands:
@@ -28,14 +27,3 @@ deployment:
 general:
   artifacts:
     - ./__coverage__
-
-notify:
-  webhooks:
-    # slack - product-dev
-    - url: https://hooks.slack.com/services/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
-
-experimental:
-  notify:
-    branches:
-      only:
-        - master
