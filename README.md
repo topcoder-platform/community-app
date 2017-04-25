@@ -5,29 +5,42 @@ New version of Topcoder Community website.
 
 *Disclaimer:* Current instructions are biased towards Ubuntu 16.04. Hovewer, similar recipies should work for other OS. Should you encounter and overcome any tricky issues on other OS, you are welcome to add notes/hints into this file.
 
-In all cases, you need NodeJS 6.10.0 (other recent version should also work fine), and you should install dependencies by executing `$ npm install` in the root of this repo.
+1.  You should have NodeJS 6.10.0 (other recent versions should also work fine);
 
-To control code quality we have set up ESLint for .js/.jsx (AirBnB style), and Stylelint for .scss (standard style, you are not supposed to use .css in this repo). To run the linting use `$ npm run lint:js` in the former case, `$npm run lint:scss` in the latter, or `$npm run lint` to run both. Note that the `/src/styles` folder contains a bunch of general Topcoder stylesheets with various variables and mixins, which you should use whenever you can.
+2.  Install dependencies with one of the following commands:
+    -   `$ npm install` Installs all dependencies. Recommended for local development;
+    -   `$ npm install --production` Installs only production dependencies. These include all you need to run linters & unit tests, to build & run production version of the App. Does not include additional development tools.
 
-StyleFmt is installed as dev dependency of the project. This tool can automatically fix many lint errors in `.scss` files, to fit them into our Stylelint rules. It can help when you move styling from other projects into this repo. Run the tool with `$ npm run fix:styles`.
+3.  Run linters and unit tests with following commands:
+    -   `$ npm run lint:js` Runs ESLint (AirBnB style);
+    -   `$ npm run lint:scss` Runs Stylelint (standard Stylelint style);
+    -   `$ npm run lint` Runs both ESLint and Stylelint;
+    -   `$ npm run jest` Runs unit tests;
+    -   `$ npm run jest -- -u` Runs unit test with update of component snapshots;
+    -   `$ npm test` Runs ESLint, Stylelint and unit tests.
 
-To run unit tests use `$ npm run jest`, also you can `$ npm test` to run both the linter and the unit-tests.
+4.  Set environment variables:
+    -   `PORT` Specifies the port to run the App at. Defaults to 3000;
+    -   `NODE_ENV` Specifies Topcoder backend to use. Should be either `development` either `production`. Defaults to `production`.
 
-To run development build of the App against development Topcoder backend do `$ npm run dev` and access website as `local.topcoder-dev.com:3000`. Prior doing this you should add into your `/etc/hosts` the line `127.0.0.1 local.topcoder-dev.com:3000`. In this case you'll have all development bells and whistles enabled, like Redux DevTools, hot module reloading, etc. To access pages which need Topcoder authentication use `accounts.topcoder-dev.com/members` to login, and just wipe out your cookies for the page to log out.
+5.  To rebuild the App's frontend (initially, it is automatically build as a part of the install step) run one of (the result of build will be output into `/build` folder in both cases):
+    -   `$ npm run build` To rebuild production frontend;
+    -   `$ npm run build:dev` This command should only be used to test whether development build of the front end works. You don't have to execute this command to run development version of the App (the server will automatically build frontend in memory anyway). You can't successfully execute this command without installing dev dependencies.
 
-To run production build of the App against production Topcoder backend do `$ npm run build` to build the bundle, then `$ PORT=80 npm start` to run the server at port #80. In this case you should access the site as `local.topcoder.com`. Prior doing this you should add into your `/etc/hosts` the line `127.0.0.1 local.topcoder.com`. You should also allow the App to listen on the port 80. The easiest way to do it on Ubuntu 16.04 is (no guarantees, how safe is it):
+6. To run the App use:
+    -   `$ npm start` To run the App in normal mode. The frontend will be served from `/build` folder. The Topcoder backend to use will be chosen depending on `NODE_ENV` value;
+    -   `$ npm run dev` To run the App with development tools. In this case the frontend is build in memory by server and uses dev tools like redux-devtools. The Topcoder backend to use will be chosen depending on `NODE_ENV` value. This demands dev dependencies installed at the firts step.
+
+If you run the App locally against development Topcoder backend you should access the App as `local.topcoder-dev.com:3000`. Prior doing this you should add into your `/etc/hosts` the line `127.0.0.1 local.topcoder-dev.com:3000`. To login into development Topcoder backend use `accounts.topcoder-dev.com/members` to login. Log out at `www.topcoder-dev.com`, or just wipe out auth cookies.
+
+If you run the App locally against production Topcoder backend you should run it at the port 80 and access the App as `local.topcoder.com`. Prior doing this you should add into your `/etc/hosts` the line `127.0.0.1 local.topcoder.com`. The easiest way to allow the App to listen at the port 80 on Ubuntu 16.04 is (no guarantees, how safe is it):
 - `$ sudo apt install libcap2-bin`;
 - `$ which node` to figure out your `path/to/node`;
 - `$ sudo setcap cap_net_bind_service=+ep /path/to/node`;
 - Now you can run the App.
-To login in Topcoder you should use `accounts.topcoder.com/members` with your regular account, and to logout you can just wipe out cookies, or just log out at `www.topcoder.com`.
+To login into production Topcoder backend use `accounts.topcoder.com/members` with your regular account, and to logout you can just wipe out cookies, or just log out at `www.topcoder.com`.
 
-You can also run development build of the frontend against production backend:
-```
-$ npm run build:dev
-$ npm start
-```
-In this case you still should follow all notes for the production build/run, stated just above.
+Development dependencies include StyleFMT. You can execute `$ npm run fix:styles` to automatically correct you stylesheets to comply with Stylelint rules (but it can fail for some rules).
 
 ### Development Notes
 
@@ -63,7 +76,6 @@ This App already contains:
 - Various examples;
 - Webpack;
 
-Pending low-priority staff (these are important, but can be added along the way):
-- CircleCI deploys;
+Pending low-priority stuff (these are important, but can be added along the way):
 - react-css-themr (https://github.com/javivelasco/react-css-themr);
 - Webpack Dashboard (https://github.com/FormidableLabs/webpack-dashboard);

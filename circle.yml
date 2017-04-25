@@ -1,0 +1,41 @@
+machine:
+  node:
+    version: 6.10.2
+
+dependencies:
+  pre:
+    - sudo apt-get install libyaml-dev libpython2.7-dev
+    - sudo pip install 'awsebcli==3.7.4' --force-reinstall
+  override:
+    - npm install
+  post:
+    - npm install -g envsub
+
+deployment:
+  development:
+    branch: feature/deploy
+    commands:
+      - ./deploy/eb_deploy.sh community-app DEV $CIRCLE_BUILD_NUM topcoder-dev-vpc-nat
+
+
+  production:
+    branch: master
+    tag: /v[0-9]+(\.[0-9]+)*/
+    owner: topcoder-platform
+    commands:
+      - ./deploy/eb_deploy.sh community-app PROD $CIRCLE_BUILD_NUM topcoder-prod-nat
+
+general:
+  artifacts:
+    - ./__coverage__
+
+notify:
+  webhooks:
+    # slack - product-dev
+    - url: https://hooks.slack.com/services/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
+
+experimental:
+  notify:
+    branches:
+      only:
+        - master

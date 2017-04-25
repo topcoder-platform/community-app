@@ -1,10 +1,64 @@
 import React from 'react';
-import Renderer from 'react-test-renderer/shallow';
+import Rnd from 'react-test-renderer/shallow';
 import ScreeningStatus from 'components/SubmissionManagement/ScreeningStatus';
 
-test('Matches shallow shapshot', () => {
-  const renderer = new Renderer();
-  renderer.render((
+const rnd = new Rnd();
+
+test('Snapshot match', () => {
+  rnd.render((
+    <ScreeningStatus
+      screeningObject={{
+        status: 'failed',
+      }}
+      submissionId="12345"
+    />
+  ));
+  expect(rnd.getRenderOutput()).toMatchSnapshot();
+
+  rnd.render((
+    <ScreeningStatus
+      screeningObject={{
+        status: 'failed',
+        warnings: [],
+      }}
+      submissionId="12345"
+    />
+  ));
+  expect(rnd.getRenderOutput()).toMatchSnapshot();
+
+  rnd.render((
+    <ScreeningStatus
+      screeningObject={{
+        status: 'passed',
+      }}
+      submissionId="12345"
+    />
+  ));
+  expect(rnd.getRenderOutput()).toMatchSnapshot();
+
+  rnd.render((
+    <ScreeningStatus
+      screeningObject={{
+        status: 'passed',
+        warnings: [],
+      }}
+      submissionId="12345"
+    />
+  ));
+  expect(rnd.getRenderOutput()).toMatchSnapshot();
+
+  rnd.render((
+    <ScreeningStatus
+      screeningObject={{
+        status: 'pending',
+        warnings: [],
+      }}
+      submissionId="12345"
+    />
+  ));
+  expect(rnd.getRenderOutput()).toMatchSnapshot();
+
+  rnd.render((
     <ScreeningStatus
       screeningObject={{
         status: 'Screening Status',
@@ -13,5 +67,5 @@ test('Matches shallow shapshot', () => {
       submissionId="12345"
     />
   ));
-  expect(renderer.getRenderOutput()).toMatchSnapshot();
+  expect(rnd.getRenderOutput()).toMatchSnapshot();
 });
