@@ -1,3 +1,5 @@
+![Dev Build Status](https://img.shields.io/circleci/project/github/topcoder-platform/community-app/develop.svg?label=develop)
+
 # Topcoder Community App
 New version of Topcoder Community website.
 
