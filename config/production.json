@@ -4,14 +4,14 @@
     "V2": "https://api.topcoder.com/v2",
     "V3": "https://api.topcoder.com/v3"
   },
-
-  "ARENA_URL": "https://arena.topcoder.com/",
-  "AUTH_URL": "https://accounts.topcoder.com/member",
-  "COMMUNITY_URL": "https://community.topcoder.com",
-  "DOMAIN": "topcoder.com",
-  "FORUMS_APP_URL": "https://apps.topcoder.com/forums",
-  "HELP_URL": "https://help.topcoder.com",
-  "OR_BASE_URL": "https://software.topcoder.com",
-  "STUDIO_URL": "https://studio.topcoder.com",
-  "TC_BASE_URL": "https://www.topcoder.com"
+  "URL": {
+    "ARENA": "https://arena.topcoder.com/",
+    "AUTH": "https://accounts.topcoder.com/member",
+    "BASE": "https://www.topcoder.com",
+    "COMMUNITY": "https://community.topcoder.com",
+    "FORUMS": "https://apps.topcoder.com/forums",
+    "HELP": "https://help.topcoder.com",
+    "ONLINE_REVIEW": "https://software.topcoder.com",
+    "STUDIO": "https://studio.topcoder.com"
+  }
 }

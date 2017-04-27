@@ -42,7 +42,7 @@ export default function Submission(props) {
           styleName={type === 'design' ? 'design-img' : 'dev-img'}
           src={
             submissionObject.preview ||
-            `${config.STUDIO_URL}?module=DownloadSubmission&sbmid=${submissionObject.submissionId}&sbt=tiny`
+            `${config.URL.STUDIO}?module=DownloadSubmission&sbmid=${submissionObject.submissionId}&sbt=tiny`
           }
         />
       </td>
@@ -59,7 +59,7 @@ export default function Submission(props) {
       </td>}
       <td>
         <div styleName="action-col">
-          <a href={`${config.STUDIO_URL}?module=DownloadSubmission&sbmid=${submissionObject.submissionId}&sbt=original`}>
+          <a href={`${config.URL.STUDIO}?module=DownloadSubmission&sbmid=${submissionObject.submissionId}&sbt=original`}>
             <DownloadIcon />
           </a>
           { /*

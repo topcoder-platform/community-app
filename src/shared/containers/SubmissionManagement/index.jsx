@@ -40,10 +40,10 @@ class SubmissionManagementPageContainer extends React.Component {
       onShowDetails: this.props.onShowDetails,
       onDelete: this.props.onSubmissionDelete,
       onDownload: () => this.props.onDownloadSubmission(0, this.props.authTokens),
-      onlineReviewUrl: `${config.OR_BASE_URL}/review/actions/ViewProjectDetails?pid=${this.props.challengeId}`,
-      challengeUrl: `${config.TC_BASE_URL}/challenge-details/${this.props.challengeId}/?type=${challengeType}`,
-      addSumissionUrl: `${config.TC_BASE_URL}/challenges/${this.props.challengeId}/submit/file/`,
-      helpPageUrl: config.HELP_URL,
+      onlineReviewUrl: `${config.URL.ONLINE_REVIEW}/review/actions/ViewProjectDetails?pid=${this.props.challengeId}`,
+      challengeUrl: `${config.URL.BASE}/challenge-details/${this.props.challengeId}/?type=${challengeType}`,
+      addSumissionUrl: `${config.URL.BASE}/challenges/${this.props.challengeId}/submit/file/`,
+      helpPageUrl: config.URL.HELP,
     };
 
     return (

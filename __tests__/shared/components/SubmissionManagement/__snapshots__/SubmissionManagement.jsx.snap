@@ -70,7 +70,7 @@ exports[`Matches shallow shapshot 1`] = `
   >
     <a
       className="tc-btn tc-btn-primary tc-btn-md src-shared-components-SubmissionManagement-SubmissionManagement-___styles__add-sub-btn___1ZToV"
-      href="/challenges/undefined/submit/file"
+      href="https://www.topcoder-dev.com/challenges/undefined/submit/file"
     >
       Add Submission
     </a>

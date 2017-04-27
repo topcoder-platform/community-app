@@ -14,6 +14,7 @@
  */
 
 import _ from 'lodash';
+import config from 'utils/config';
 import LoadingIndicator from 'components/LoadingIndicator';
 import React from 'react';
 import PT from 'prop-types';
@@ -52,7 +53,7 @@ export default function SubmissionManagement(props) {
     timeLeft.get('minutes'),
   ];
 
-  const config = {
+  const componentConfig = {
     helpPageUrl,
     onDelete,
     onDownload: onDownload.bind(0, challengeType),
@@ -99,13 +100,13 @@ export default function SubmissionManagement(props) {
             submissionObjects={submissions}
             showDetails={showDetails}
             type={challenge.type}
-            {...config}
+            {...componentConfig}
           />
         }
       </div>
       <div styleName="btn-wrap">
         <a
-          href={`/challenges/${challenge.id}/submit/file`}
+          href={`${config.URL.BASE}/challenges/${challenge.id}/submit/file`}
           className="tc-btn tc-btn-primary tc-btn-md"
           styleName="add-sub-btn"
         >

@@ -9,7 +9,7 @@ exports[`Default render 1`] = `
   >
     <a
       className="src-shared-components-TopcoderHeader-___style__logo___2WLJ0"
-      href="/"
+      href="https://www.topcoder-dev.com"
     >
       <LogoTopcoderWithName
         height={54}
@@ -90,7 +90,7 @@ exports[`Default render 1`] = `
           "items": Array [
             Object {
               "icon": <IconNavRocket />,
-              "link": "/challenges",
+              "link": "https://www.topcoder-dev.com/challenges",
               "title": "All Challenges",
             },
             Object {
@@ -105,27 +105,27 @@ exports[`Default render 1`] = `
           "items": Array [
             Object {
               "icon": <IconNavRocket />,
-              "link": "/getting-started",
+              "link": "https://www.topcoder-dev.com/getting-started",
               "title": "Getting Started",
             },
             Object {
               "icon": <IconNavBookDesign />,
-              "link": "/community/design",
+              "link": "https://www.topcoder-dev.com/community/design",
               "title": "Design",
             },
             Object {
               "icon": <IconNavBoolDevelop />,
-              "link": "/community/development",
+              "link": "https://www.topcoder-dev.com/community/development",
               "title": "Development",
             },
             Object {
               "icon": <IconNavBookData />,
-              "link": "/community/data-science/",
+              "link": "https://www.topcoder-dev.com/community/data-science/",
               "title": "Data Science",
             },
             Object {
               "icon": <IconNavBookCP />,
-              "link": "/community/competitive-programming",
+              "link": "https://www.topcoder-dev.com/community/competitive-programming",
               "title": "Competitive Programming",
             },
           ],
@@ -135,7 +135,7 @@ exports[`Default render 1`] = `
           "items": Array [
             Object {
               "icon": <IconNavMembers />,
-              "link": "/community/members",
+              "link": "https://www.topcoder-dev.com/community/members",
               "title": "Overview",
             },
             Object {
@@ -145,7 +145,7 @@ exports[`Default render 1`] = `
             },
             Object {
               "icon": <IconNavPrograms />,
-              "link": "/community/member-programs",
+              "link": "https://www.topcoder-dev.com/community/member-programs",
               "title": "Programs",
             },
             Object {
@@ -155,17 +155,17 @@ exports[`Default render 1`] = `
             },
             Object {
               "icon": <IconNavStatistics />,
-              "link": "/community/statistics",
+              "link": "https://www.topcoder-dev.com/community/statistics",
               "title": "Statistics",
             },
             Object {
               "icon": <IconNavEvents />,
-              "link": "/community/events",
+              "link": "https://www.topcoder-dev.com/community/events",
               "title": "Events",
             },
             Object {
               "icon": <IconNavBlog />,
-              "link": "/blog",
+              "link": "https://www.topcoder-dev.com/blog",
               "title": "Blog",
             },
           ],
@@ -190,7 +190,7 @@ exports[`Render with open menu 1`] = `
   >
     <a
       className="src-shared-components-TopcoderHeader-___style__logo___2WLJ0"
-      href="/"
+      href="https://www.topcoder-dev.com"
     >
       <LogoTopcoderWithName
         height={54}
@@ -282,7 +282,7 @@ exports[`Render with open menu 1`] = `
           "items": Array [
             Object {
               "icon": <IconNavRocket />,
-              "link": "/challenges",
+              "link": "https://www.topcoder-dev.com/challenges",
               "title": "All Challenges",
             },
             Object {
@@ -297,27 +297,27 @@ exports[`Render with open menu 1`] = `
           "items": Array [
             Object {
               "icon": <IconNavRocket />,
-              "link": "/getting-started",
+              "link": "https://www.topcoder-dev.com/getting-started",
               "title": "Getting Started",
             },
             Object {
               "icon": <IconNavBookDesign />,
-              "link": "/community/design",
+              "link": "https://www.topcoder-dev.com/community/design",
               "title": "Design",
             },
             Object {
               "icon": <IconNavBoolDevelop />,
-              "link": "/community/development",
+              "link": "https://www.topcoder-dev.com/community/development",
               "title": "Development",
             },
             Object {
               "icon": <IconNavBookData />,
-              "link": "/community/data-science/",
+              "link": "https://www.topcoder-dev.com/community/data-science/",
               "title": "Data Science",
             },
             Object {
               "icon": <IconNavBookCP />,
-              "link": "/community/competitive-programming",
+              "link": "https://www.topcoder-dev.com/community/competitive-programming",
               "title": "Competitive Programming",
             },
           ],
@@ -327,7 +327,7 @@ exports[`Render with open menu 1`] = `
           "items": Array [
             Object {
               "icon": <IconNavMembers />,
-              "link": "/community/members",
+              "link": "https://www.topcoder-dev.com/community/members",
               "title": "Overview",
             },
             Object {
@@ -337,7 +337,7 @@ exports[`Render with open menu 1`] = `
             },
             Object {
               "icon": <IconNavPrograms />,
-              "link": "/community/member-programs",
+              "link": "https://www.topcoder-dev.com/community/member-programs",
               "title": "Programs",
             },
             Object {
@@ -347,17 +347,17 @@ exports[`Render with open menu 1`] = `
             },
             Object {
               "icon": <IconNavStatistics />,
-              "link": "/community/statistics",
+              "link": "https://www.topcoder-dev.com/community/statistics",
               "title": "Statistics",
             },
             Object {
               "icon": <IconNavEvents />,
-              "link": "/community/events",
+              "link": "https://www.topcoder-dev.com/community/events",
               "title": "Events",
             },
             Object {
               "icon": <IconNavBlog />,
-              "link": "/blog",
+              "link": "https://www.topcoder-dev.com/blog",
               "title": "Blog",
             },
           ],
@@ -382,7 +382,7 @@ exports[`Render with specified profile 1`] = `
   >
     <a
       className="src-shared-components-TopcoderHeader-___style__logo___2WLJ0"
-      href="/"
+      href="https://www.topcoder-dev.com"
     >
       <LogoTopcoderWithName
         height={54}
@@ -468,7 +468,7 @@ exports[`Render with specified profile 1`] = `
           "items": Array [
             Object {
               "icon": <IconNavRocket />,
-              "link": "/challenges",
+              "link": "https://www.topcoder-dev.com/challenges",
               "title": "All Challenges",
             },
             Object {
@@ -483,27 +483,27 @@ exports[`Render with specified profile 1`] = `
           "items": Array [
             Object {
               "icon": <IconNavRocket />,
-              "link": "/getting-started",
+              "link": "https://www.topcoder-dev.com/getting-started",
               "title": "Getting Started",
             },
             Object {
               "icon": <IconNavBookDesign />,
-              "link": "/community/design",
+              "link": "https://www.topcoder-dev.com/community/design",
               "title": "Design",
             },
             Object {
               "icon": <IconNavBoolDevelop />,
-              "link": "/community/development",
+              "link": "https://www.topcoder-dev.com/community/development",
               "title": "Development",
             },
             Object {
               "icon": <IconNavBookData />,
-              "link": "/community/data-science/",
+              "link": "https://www.topcoder-dev.com/community/data-science/",
               "title": "Data Science",
             },
             Object {
               "icon": <IconNavBookCP />,
-              "link": "/community/competitive-programming",
+              "link": "https://www.topcoder-dev.com/community/competitive-programming",
               "title": "Competitive Programming",
             },
           ],
@@ -513,7 +513,7 @@ exports[`Render with specified profile 1`] = `
           "items": Array [
             Object {
               "icon": <IconNavMembers />,
-              "link": "/community/members",
+              "link": "https://www.topcoder-dev.com/community/members",
               "title": "Overview",
             },
             Object {
@@ -523,7 +523,7 @@ exports[`Render with specified profile 1`] = `
             },
             Object {
               "icon": <IconNavPrograms />,
-              "link": "/community/member-programs",
+              "link": "https://www.topcoder-dev.com/community/member-programs",
               "title": "Programs",
             },
             Object {
@@ -533,17 +533,17 @@ exports[`Render with specified profile 1`] = `
             },
             Object {
               "icon": <IconNavStatistics />,
-              "link": "/community/statistics",
+              "link": "https://www.topcoder-dev.com/community/statistics",
               "title": "Statistics",
             },
             Object {
               "icon": <IconNavEvents />,
-              "link": "/community/events",
+              "link": "https://www.topcoder-dev.com/community/events",
               "title": "Events",
             },
             Object {
               "icon": <IconNavBlog />,
-              "link": "/blog",
+              "link": "https://www.topcoder-dev.com/blog",
               "title": "Blog",
             },
           ],
@@ -559,12 +559,12 @@ exports[`Render with specified profile 1`] = `
         "items": Array [
           Object {
             "icon": <IconNavDashboard />,
-            "link": "/my-dashboard",
+            "link": "https://www.topcoder-dev.com/my-dashboard",
             "title": "Dashboard",
           },
           Object {
             "icon": <IconNavProfile />,
-            "link": "/members/undefined",
+            "link": "https://www.topcoder-dev.com/members/undefined",
             "title": "My Profile",
           },
           Object {
@@ -574,12 +574,12 @@ exports[`Render with specified profile 1`] = `
           },
           Object {
             "icon": <IconNavSettings />,
-            "link": "/settings/profile",
+            "link": "https://www.topcoder-dev.com/settings/profile",
             "title": "Settings",
           },
           Object {
             "icon": <IconNavExit />,
-            "link": "/logout",
+            "link": "https://www.topcoder-dev.com/logout",
             "title": "Log Out",
           },
         ],

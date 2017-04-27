@@ -39,69 +39,71 @@ import './style.scss';
  * executed at client side, thus it does not make the code non-isomorphic. */
 /* global window */
 
+const BASE_URL = config.URL.BASE;
+
 const MENU = [{
   title: 'Compete',
   items: [{
     icon: <IconNavRocket />,
-    link: '/challenges',
+    link: `${BASE_URL}/challenges`,
     title: 'All Challenges',
   }, {
     icon: <IconNavCP />,
-    link: config.ARENA_URL,
+    link: config.URL.ARENA,
     title: 'Competitive Programming',
   }],
 }, {
   title: 'Learn',
   items: [{
     icon: <IconNavRocket />,
-    link: '/getting-started',
+    link: `${BASE_URL}/getting-started`,
     title: 'Getting Started',
   }, {
     icon: <IconNavBookDesign />,
-    link: '/community/design',
+    link: `${BASE_URL}/community/design`,
     title: 'Design',
   }, {
     icon: <IconNavBoolDevelop />,
-    link: '/community/development',
+    link: `${BASE_URL}/community/development`,
     title: 'Development',
   }, {
     icon: <IconNavBookData />,
-    link: '/community/data-science/',
+    link: `${BASE_URL}/community/data-science/`,
     title: 'Data Science',
   }, {
     icon: <IconNavBookCP />,
-    link: '/community/competitive-programming',
+    link: `${BASE_URL}/community/competitive-programming`,
     title: 'Competitive Programming',
   }],
 }, {
   title: 'Community',
   items: [{
     icon: <IconNavMembers />,
-    link: '/community/members',
+    link: `${BASE_URL}/community/members`,
     title: 'Overview',
   }, {
     icon: <IconNavTcoGeneric />,
-    link: config.TCO_HOME_URL,
+    link: config.URL.TCO,
     title: 'TCO',
   }, {
     icon: <IconNavPrograms />,
-    link: '/community/member-programs',
+    link: `${BASE_URL}/community/member-programs`,
     title: 'Programs',
   }, {
     icon: <IconNavForums />,
-    link: config.FORUMS_APP_URL,
+    link: config.URL.FORUMS,
     title: 'Forums',
   }, {
     icon: <IconNavStatistics />,
-    link: '/community/statistics',
+    link: `${BASE_URL}/community/statistics`,
     title: 'Statistics',
   }, {
     icon: <IconNavEvents />,
-    link: '/community/events',
+    link: `${BASE_URL}/community/events`,
     title: 'Events',
   }, {
     icon: <IconNavBlog />,
-    link: '/blog',
+    link: `${BASE_URL}/blog`,
     title: 'Blog',
   }],
 }];
@@ -164,23 +166,23 @@ export default function TopcoderHeader({
       title: 'User',
       items: [{
         icon: <IconNavDashboard />,
-        link: '/my-dashboard',
+        link: `${BASE_URL}/my-dashboard`,
         title: 'Dashboard',
       }, {
         icon: <IconNavProfile />,
-        link: `/members/${profile.handle}`,
+        link: `${BASE_URL}/members/${profile.handle}`,
         title: 'My Profile',
       }, {
         icon: <IconNavWallet />,
-        link: `${config.COMMUNITY_URL}/PactsMemberServlet?module=PaymentHistory&full_list=false`,
+        link: `${config.URL.COMMUNITY}/PactsMemberServlet?module=PaymentHistory&full_list=false`,
         title: 'Payments',
       }, {
         icon: <IconNavSettings />,
-        link: '/settings/profile',
+        link: `${BASE_URL}/settings/profile`,
         title: 'Settings',
       }, {
         icon: <IconNavExit />,
-        link: '/logout',
+        link: `${BASE_URL}/logout`,
         title: 'Log Out',
       }],
     };
@@ -219,11 +221,11 @@ export default function TopcoderHeader({
       <div styleName="auth-buttons">
         <a
           className="tc-btn-sm tc-btn-primary"
-          href={`${config.AUTH_URL}/registration`}
+          href={`${config.URL.AUTH}/registration`}
         >Join</a>
         <a
           className="tc-btn-sm tc-btn-default"
-          href={config.AUTH_URL}
+          href={config.URL.AUTH}
         >Log In</a>
       </div>
     );
@@ -232,7 +234,7 @@ export default function TopcoderHeader({
   return (
     <div styleName="header">
       <div styleName="main-desktop-header">
-        <a href="/" styleName="logo">
+        <a href={BASE_URL} styleName="logo">
           <LogoTopcoderWithName height={54} width={156} />
         </a>
         <ul styleName="main-menu">
@@ -282,7 +284,7 @@ export default function TopcoderHeader({
         <input
           onKeyPress={(event) => {
             if (event.key === 'Enter') {
-              window.location = `/search/members?q=${
+              window.location = `${BASE_URL}/search/members?q=${
                 encodeURIComponent(event.target.value)
               }`;
             }

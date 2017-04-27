@@ -23,11 +23,11 @@ export default function Auth({ column }) {
     >
       <a
         className="tc-btn-sm tc-btn-primary"
-        href={`${config.AUTH_URL}/registration`}
+        href={`${config.URL.AUTH}/registration`}
       >Join</a>
       <a
         className="tc-btn-sm tc-btn-default"
-        href={config.AUTH_URL}
+        href={config.URL.AUTH}
       >Log In</a>
     </div>
   );

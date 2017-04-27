@@ -24,7 +24,7 @@ Link.propTypes = {
 };
 
 export default function TopcoderFooter() {
-  const base = `https://www.${config.DOMAIN}`;
+  const base = config.URL.BASE;
   const currentYear = moment().year();
   return (
     <div styleName="footer">
@@ -32,8 +32,8 @@ export default function TopcoderFooter() {
         <ul>
           <Link to={`${base}/sitemap`}>SITE MAP</Link>
           <Link to={`${base}/about`}>ABOUT US</Link>
-          <Link to={`${config.HELP_URL}/hc/en-us/articles/219069687-Contact-Support`}>CONTACT US</Link>
-          <Link to={config.HELP_URL}>HELP CENTER</Link>
+          <Link to={`${config.URL.HELP}/hc/en-us/articles/219069687-Contact-Support`}>CONTACT US</Link>
+          <Link to={config.URL.HELP}>HELP CENTER</Link>
           <Link to={`${base}/community/how-it-works/privacy-policy/`}>PRIVACY POLICY</Link>
           <Link to={`${base}/community/how-it-works/terms/`}>TERMS</Link>
         </ul>
