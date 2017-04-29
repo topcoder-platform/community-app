@@ -123,7 +123,7 @@ exports[`Matches shallow shapshot 1`] = `
       >
         Community Challenge Listing Page
       </Link>
-      – An example of community challenge list apge which shows only challenges with special criteria. In this case only challenges which has JavaScript technology tag.
+       – An example of community challenge list apge which shows only challenges with special criteria. In this case only challenges which has JavaScript technology tag.
     </li>
   </ul>
   <h3>
