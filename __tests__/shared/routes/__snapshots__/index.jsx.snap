@@ -6,6 +6,10 @@ exports[`Matches shallow shapshot 1`] = `
     component={[Function]}
     path="/challenge"
   />
+  <Route
+    component={[Function]}
+    path="/community-challenge-listing"
+  />
   <Switch>
     <Route
       component={[Function]}
@@ -27,11 +31,19 @@ exports[`Matches shallow shapshot 1`] = `
     />
     <Route
       component={[Function]}
+      path="/community-challenge-listing/:keyword"
+    />
+    <Route
+      component={[Function]}
     />
   </Switch>
   <Route
     component={[Function]}
     path="/challenge"
+  />
+  <Route
+    component={[Function]}
+    path="/community-challenge-listing"
   />
 </div>
 `;

@@ -1,0 +1,32 @@
+@import '~styles/tc-styles';
+
+.sidebar-row {
+  display: flex;
+
+  .l-row {
+    font-family: 'Roboto';
+    font-weight: 400;
+    font-size: 13px;
+    color: $tc-black;
+    line-height: $base-unit * 6;
+
+    @include xs {
+      font-size: 15px;
+      line-height: $base-unit * 7;
+    }
+  }
+
+  .r-row {
+    font-family: 'Roboto';
+    font-weight: 700;
+    font-size: 13px;
+    color: $tc-gray-50;
+    line-height: $base-unit * 6;
+    margin-left: auto;
+
+    @include xs {
+      font-size: 15px;
+      line-height: $base-unit * 7;
+    }
+  }
+}

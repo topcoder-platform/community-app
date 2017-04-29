@@ -1,0 +1,76 @@
+@import '~styles/tc-styles';
+$prize-space-10: $base-unit * 2;
+$prize-space-15: $base-unit * 3;
+$prize-radius-15: $corner-radius * 7 + 1;
+
+.prizes-tooltip {
+  font-family: 'Roboto';
+  max-width: 480px;
+  padding: 15px;
+  overflow: hidden;
+
+  .bonuses {
+    border-top: 1px solid $tc-gray-70;
+    clear: both;
+    padding: $prize-space-10 0 0;
+
+    .bonus {
+      .bonus-name {
+        background: $tc-light_blue;
+        border-radius: 3px;
+        margin-right: $base-unit;
+        padding: 0 $base-unit;
+        font-size: 11px;
+        font-weight: 900;
+        line-height: $prize-space-15;
+      }
+
+      margin-right: 12px;
+    }
+  }
+
+  h1 {
+    border: none;
+    color: $tc-white;
+    font-size: 15px;
+    line-height: 15px;
+    margin: 0 0 $prize-space-10;
+    padding: 0;
+    text-align: left;
+    text-transform: none;
+    font-weight: 700;
+  }
+
+  .prize {
+    float: left;
+    margin: 0 $prize-space-15 $prize-space-15 0;
+    font-size: 11px;
+    font-weight: 500;
+    text-shadow: none;
+
+    .medal {
+      background: $tc-gray-20;
+      display: inline-block;
+      margin-right: $base-unit;
+      border-radius: $prize-radius-15;
+      width: $prize-space-15;
+      height: $prize-space-15;
+      font-weight: 900;
+      color: $tc-gray-80;
+      text-align: center;
+      line-height: $prize-space-15;
+
+      &.place-1 {
+        background: $tc-gold;
+      }
+
+      &.place-2 {
+        background: $tc-silver;
+      }
+
+      &.place-3 {
+        background: $tc-bronze;
+      }
+    }
+  }
+}

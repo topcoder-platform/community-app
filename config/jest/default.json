@@ -13,7 +13,7 @@
     }
   },
   "moduleNameMapper": {
-    "\\.scss$": "identity-obj-proxy"
+    "\\.(scss|css)$": "identity-obj-proxy"
   },
   "testPathIgnorePatterns": [
     "__mocks__",

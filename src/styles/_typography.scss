@@ -1,5 +1,10 @@
 @import 'tc-includes';
 
+html,
+body {
+  text-rendering: geometricPrecision;
+}
+
 // Headings
 h1 {
   @include tc-heading-extra-large;

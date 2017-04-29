@@ -1,0 +1,96 @@
+@import '~styles/tc-styles';
+
+.challenge-filters {
+  width: 100%;
+  font-family: 'Roboto';
+
+  .filter-header {
+    background: $tc-gray-neutral-light;
+    border-bottom: 1px solid $tc-gray-30;
+    padding: 0 $base-unit * 4;
+
+    @include xs-to-sm {
+      padding: 0 $base-unit * 3;
+    }
+  }
+
+  .FiltersSwitch {
+    margin-top: 14.3px;
+    margin-left: 0;
+
+    @include xs-to-sm {
+      display: none;
+    }
+  }
+
+  .filter-switch-with-label {
+    display: inline-block;
+    margin-right: 10px;
+
+    @include xs-to-sm {
+      display: none;
+    }
+  }
+
+  .pulled-right {
+    float: right;
+    display: inline-block;
+    height: 60px;
+
+    @include xs-to-sm {
+      height: 40px;
+    }
+  }
+
+  .track-btn {
+    display: none;
+
+    @include xs-to-sm {
+      position: relative;
+      cursor: pointer;
+      display: inline-block;
+      height: 40px;
+      line-height: 40px;
+      font-family: 'Roboto';
+      font-weight: 400;
+      font-size: 14px;
+      color: #737380;
+      padding-right: 30px;
+    }
+  }
+
+  .down-arrow {
+    position: absolute;
+    top: 18px;
+    right: 15px;
+    width: 0;
+    height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 5px solid $tc-gray-50;
+    margin-left: 15px;
+  }
+
+  .filter-btn {
+    display: none;
+
+    @include xs-to-sm {
+      cursor: pointer;
+      display: inline-block;
+      height: 40px;
+      line-height: 40px;
+      font-family: 'Roboto';
+      font-weight: 400;
+      font-size: 14px;
+      color: #737380;
+      padding-left: 15px;
+      border-left: solid 1px #b7b7c6;
+
+      .FiltersIcon {
+        margin-right: 10px;
+        position: relative;
+        top: 3px;
+      }
+    }
+  }
+}

@@ -43,9 +43,11 @@ If you run the App locally against production Topcoder backend you should run it
 To login into production Topcoder backend use `accounts.topcoder.com/members` with your regular account, and to logout you can just wipe out cookies, or just log out at `www.topcoder.com`.
 
 Development dependencies include StyleFMT. You can execute `$ npm run fix:styles` to automatically correct you stylesheets to comply with Stylelint rules (but it can fail for some rules).
+To automatically correct js files, you can use `npm run fix:js`.
 
 ### Development Notes
 
+-   [Challenge Listing - Notes from Winning Submission](docs/challenge-listing-notes.md)
 -   [Why Reducer Factories and How to Use Them?](docs/why-reducer-factories-and-how-to-use-them.md)
 
 ### Current Status
@@ -72,6 +74,7 @@ This App already contains:
 - React Router;
 - Redux with Flux Standard Actions, redux-promise middleware, support of server-side rendering, and DevTools for dev environment;
 - SCSS support;
+- CSS support for third party modules;
 - StyleFMT;
 - Stylelint for scss (standard Stylelint style);
 - Unit testing with Jest;

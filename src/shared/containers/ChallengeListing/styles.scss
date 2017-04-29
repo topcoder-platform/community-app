@@ -1,0 +1,51 @@
+@import '~styles/tc-styles';
+$sm-space-10: $base-unit * 2;
+$sm-space-15: $base-unit * 3;
+$sm-space-25: $base-unit * 5;
+$sm-space-40: $base-unit * 8;
+
+.outer-container {
+  background: $tc-gray-10;
+  padding: 24px;
+}
+
+.submission-management-container {
+  @include roboto;
+
+  background: #fff;
+  margin: auto;
+  width: 1242px;
+
+  .modal-content {
+    text-align: center;
+
+    .are-you-sure {
+      font-weight: 400;
+      font-size: 15px;
+      color: $tc-gray-80;
+      line-height: $sm-space-25;
+      margin-bottom: $sm-space-10;
+      padding: 0 $sm-space-15;
+
+      .id {
+        color: #000;
+        font-weight: 500;
+      }
+    }
+
+    .remove-warn {
+      font-weight: 400;
+      font-size: 13px;
+      color: $tc-gray-60;
+      line-height: $sm-space-25;
+      padding: 0 $sm-space-15;
+      margin-bottom: $sm-space-40;
+    }
+
+    .action-btns {
+      button {
+        margin: 0 5px;
+      }
+    }
+  }
+}

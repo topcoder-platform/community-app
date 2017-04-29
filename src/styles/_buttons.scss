@@ -152,4 +152,32 @@
     cursor: default;
     color: $tc-white;
   }
+
+  .tc-outline-btn {
+    border: 1px solid $tc-gray-30;
+    background: $tc-white;
+    cursor: pointer;
+    display: inline-block;
+    padding: $base-unit - 1 $base-unit * 2;
+    font-weight: 400;
+    font-size: 12px;
+    color: $tc-black;
+    line-height: $base-unit * 4;
+    border-radius: $corner-radius;
+    margin-left: $base-unit * 3;
+  }
+
+  .tc-blue-btn {
+    cursor: pointer;
+    display: inline-block;
+    padding: $base-unit - 1 $base-unit * 2;
+    font-weight: 400;
+    font-size: 12px;
+    border-radius: $corner-radius;
+    margin-left: $base-unit * 3;
+    background: $tc-dark-blue;
+    color: $tc-white;
+    border: none;
+    line-height: $base-unit * 4 + 2;
+  }
 }

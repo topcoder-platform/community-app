@@ -15,9 +15,12 @@ module.exports = webpackMerge(defaultConfig, {
        * Webpack Hot Module Reloading (when you update styling of a page
        * using the fonts loaded with file-loader, all text using those
        * fonts dissapears). Url-loader solves this problem. */
+      // NOTE: changed back to file-loader, because otherwise resulting
+      // style.css bundle become to big, caused by font being base64 encoded
+      // and scss import includes file content every time we import them
       test: /\.(eot|svg|ttf|woff)$/,
       include: /src\/assets\/fonts/,
-      loader: 'url-loader',
+      loader: 'file-loader',
       options: {
         outputPath: '/fonts/',
         publicPath: '/fonts/',

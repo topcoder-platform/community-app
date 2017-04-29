@@ -177,6 +177,7 @@
   visibility: false;
   width: 100%;
   transition: all 0.25s ease-in-out;
+  z-index: 1000;
 
   &:global.opened {
     height: 128px;
