@@ -4,14 +4,6 @@
     "src/**/*.{js,jsx}"
   ],
   "coverageDirectory": "__coverage__",
-  "coverageThreshold": {
-    "global": {
-      "branches": 83.00,
-      "functions": 93.00,
-      "lines": 93.75,
-      "statements": 93.00
-    }
-  },
   "moduleNameMapper": {
     "\\.(scss|css)$": "identity-obj-proxy"
   },
