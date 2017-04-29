@@ -1,0 +1,43 @@
+@import "~styles/tc-styles";
+
+.EditMyFilters {
+  h1 {
+    border: none;
+    color: $tc-gray-50;
+    display: inline-block;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0;
+    margin: 8px 15px 0;
+    padding: 0;
+    text-align: left;
+    text-decoration: none;
+  }
+
+  input {
+    font-size: 13px;
+  }
+
+  .done-button {
+    font-size: 12px;
+    background: $tc-dark-blue-90;
+    border-radius: 2 * $corner-radius;
+    color: $tc-white;
+    cursor: pointer;
+    float: right;
+    line-height: 13px;
+    padding: $base-unit 11px;
+    margin: 10px;
+  }
+
+  .note {
+    color: $tc-gray-70;
+    font-size: 13px;
+    background: $tc-gray-neutral-light;
+    border-top: 1px solid $tc-gray-10;
+    line-height: 25px;
+    padding: 4 * $base-unit;
+    margin: -2 * $base-unit;
+    margin-top: 10 * $base-unit;
+  }
+}

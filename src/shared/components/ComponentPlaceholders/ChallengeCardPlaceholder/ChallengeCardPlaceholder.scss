@@ -1,0 +1,123 @@
+@import '~styles/tc-styles';
+$challenge-space-10: $base-unit * 2;
+$challenge-space-15: $base-unit * 3;
+$challenge-space-20: $base-unit * 4;
+$challenge-space-30: $base-unit * 6;
+$challenge-space-40: $base-unit * 8;
+$challenge-space-45: $base-unit * 9;
+$challenge-space-50: $base-unit * 10;
+$challenge-space-90: $base-unit * 18;
+$challenge-radius-1: $corner-radius / 2;
+$challenge-radius-4: $corner-radius * 2;
+
+.placeholder {
+  display: flex;
+  justify-content: flex-start;
+  position: relative;
+  background: $tc-white;
+  padding: $challenge-space-20;
+  border-top: 1px solid $tc-gray-10;
+  color: $tc-black;
+  font-size: 15px;
+  font-family: 'Roboto';
+  font-weight: 500;
+
+  .left-panel {
+    display: flex;
+    justify-content: flex-start;
+    width: 50%;
+
+    @include xs-to-md {
+      width: 100%;
+    }
+  }
+
+  .right-panel {
+    display: flex;
+    justify-content: space-between;
+    width: 50%;
+
+    @include xs-to-md {
+      width: 100%;
+    }
+
+    @include xs {
+      display: block;
+    }
+  }
+
+  .challenge-track {
+    width: $base-unit * 6;
+    height: $base-unit * 6;
+  }
+
+  .challenge-title {
+    height: $base-unit * 8;
+    margin-left: $base-unit * 2;
+  }
+
+  .details-footer {
+    height: $base-unit * 4;
+    margin-left: $base-unit * 2;
+  }
+
+  .prizes {
+    height: $base-unit * 10;
+    width: $base-unit * 13;
+  }
+
+  .challenge-status {
+    display: flex;
+  }
+
+  .progress-container {
+    height: $base-unit * 10;
+    width: $base-unit * 36;
+  }
+
+  .challenge-stats-container {
+    display: flex;
+    justify-content: flex-end;
+    flex-grow: 1;
+  }
+
+  .challenge-stats {
+    width: $base-unit * 10;
+    height: $base-unit * 6;
+    margin-left: $base-unit * 4;
+  }
+
+  .placeholder-template {
+    background: $tc-gray-10;
+    border-radius: $corner-radius;
+  }
+
+  .challenge-details {
+    display: inline-block;
+    vertical-align: baseline;
+    width: 82%;
+    margin-right: $challenge-space-30;
+
+    @include sm {
+      margin-right: $challenge-space-90;
+    }
+
+    @include xs {
+      margin-right: 0;
+    }
+
+    &.with-register-button {
+      @include sm {
+        margin-right: 180px;
+      }
+    }
+
+    a {
+      line-height: $challenge-space-20;
+
+      @include xs {
+        display: inline-block;
+      }
+    }
+  }
+}

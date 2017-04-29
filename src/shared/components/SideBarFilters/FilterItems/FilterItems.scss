@@ -1,0 +1,124 @@
+@import "~styles/tc-styles";
+
+// Styling of ActiveFilterItem.
+
+.ActiveFilterItem {
+  cursor: pointer;
+  margin: 0 -2 * $base-unit;
+  padding: 0 5 * $base-unit;
+  position: relative;
+
+  .input {
+    background: transparent;
+    border: none;
+    display: inline-block;
+    height: 13px;
+    font-size: 13px;
+    margin-bottom: 0;
+    padding: 2 * $base-unit 0;
+    outline: none;
+    width: 270px;
+
+    &:hover {
+      box-shadow: inset 0 0 2px 0 #b7b7b7;
+      border: 0;
+    }
+  }
+
+  .icon-arrows-v {
+    display: none;
+  }
+
+  .icon-cross {
+    display: none;
+  }
+
+  .right {
+    float: right;
+  }
+}
+
+.ActiveFilterItem:hover {
+  background: $tc-dark-blue-10;
+
+  .icon-arrows-v {
+    display: block;
+  }
+
+  .icon-cross {
+    display: inline;
+  }
+
+  .right:hover {
+    .cross-tooltip {
+      display: block;
+    }
+
+    .icon-cross {
+      background: $tc-dark-blue;
+      border-radius: 26px;
+      fill: $tc-white;
+    }
+  }
+}
+
+.icon-arrows-v {
+  height: 13px;
+  left: $base-unit;
+  position: absolute;
+  fill: $tc-dark-blue;
+  top: 12px;
+}
+
+.icon-cross {
+  fill: $tc-dark-blue;
+  height: 13px;
+  position: relative;
+  top: 2px;
+}
+
+.cross-tooltip {
+  background: $tc-white;
+  border: 1px solid $tc-gray-20;
+  display: none;
+  line-height: 13px;
+  padding: $base-unit;
+  position: absolute;
+  right: 0;
+  top: 30px;
+  z-index: 10;
+}
+
+// Styling of FilterItem.
+
+.FilterItem {
+  color: $tc-black;
+  border-radius: 2 * $corner-radius;
+  cursor: pointer;
+  padding: 0 2 * $base-unit 0 3 * $base-unit;
+
+  @include xs {
+    font-size: 15px;
+    padding: 2px 0;
+  }
+
+  .right {
+    color: $tc-gray-50;
+    float: right;
+    position: static;
+    font-weight: 700;
+  }
+}
+
+.FilterItem.highlighted {
+  background: $tc-gray-10;
+  cursor: default;
+
+  @include xs {
+    background: $tc-white;
+  }
+
+  .left {
+    font-weight: 600;
+  }
+}

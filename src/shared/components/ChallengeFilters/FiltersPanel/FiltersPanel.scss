@@ -1,0 +1,354 @@
+@import '~styles/tc-styles';
+$panel-space-7: $base-unit + 2;
+$panel-space-10: $base-unit * 2;
+$panel-space-15: $base-unit * 3;
+$panel-space-20: $base-unit * 4;
+$panel-space-25: $base-unit * 5;
+$panel-space-30: $base-unit * 6;
+$panel-space-50: $base-unit * 10;
+$panel-space-100: $base-unit * 20;
+$panel-space-110: $base-unit * 22;
+$panel-radius-1: $corner-radius / 2;
+$panel-radius-4: $corner-radius * 2;
+
+.FiltersPanel {
+  background: white;
+  padding: $panel-space-15 $panel-space-20;
+  width: 100%;
+  position: relative;
+
+  @include xs-to-sm {
+    position: fixed;
+    z-index: 10;
+    width: auto;
+    height: auto;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background: $tc-white;
+    padding: 15px;
+  }
+
+  &.hidden {
+    display: none;
+  }
+
+  .header {
+    display: none;
+
+    @include xs-to-sm {
+      display: flex;
+      justify-content: space-between;
+      padding-bottom: 25px;
+    }
+  }
+
+  .title {
+    display: none;
+
+    @include xs-to-sm {
+      display: block;
+      font-weight: 500;
+      font-size: 12px;
+      color: $tc-gray-50;
+      letter-spacing: 0;
+      line-height: $base-unit * 4;
+      text-transform: uppercase;
+    }
+  }
+
+  .close-icon {
+    display: none;
+
+    @include xs-to-sm {
+      display: block;
+      cursor: pointer;
+    }
+  }
+
+  .buttons {
+    border-left: 1px solid $tc-gray-20;
+    float: right;
+    padding-left: $panel-space-20;
+    position: absolute;
+    right: $panel-space-20;
+    top: $panel-space-15;
+
+    @include xs-to-sm {
+      float: none;
+      display: flex;
+      justify-content: center;
+      position: relative;
+      width: 100%;
+      padding-left: 0;
+      border-left: none;
+    }
+
+    button {
+      display: block;
+      text-transform: none;
+      width: $panel-space-100 - 3;
+      margin-left: 0;
+
+      @include xs-to-sm {
+        display: inline-block;
+      }
+
+      &.blue {
+        color: $tc-white;
+
+        @include xs-to-sm {
+          margin: 0 3px;
+        }
+      }
+
+      &.white {
+        color: $tc-gray-70;
+        margin-bottom: $panel-space-15;
+
+        @include xs-to-sm {
+          margin: 0 3px;
+        }
+      }
+    }
+  }
+}
+
+.filters {
+  display: inline-block;
+  width: 100%;
+
+  @include xs-to-sm {
+    display: block;
+  }
+
+  .filter-row {
+    display: flex;
+    align-items: center;
+    margin-right: $panel-space-100 + 17;
+
+    @include xs-to-sm {
+      display: block;
+    }
+  }
+
+  .filter {
+    display: flex;
+    align-items: center;
+
+    &.keywords {
+      margin-bottom: $panel-space-15;
+    }
+
+    label {
+      display: inline-block;
+      font-size: 13px;
+      line-height: $panel-space-15;
+      margin-right: $panel-space-15;
+      min-width: $panel-space-50 + 8;
+      text-align: right;
+    }
+
+    :global(.Select) {
+      display: inline-block;
+      width: 100%;
+      margin-bottom: 0;
+
+      &#keywordsFilter {
+        @include calc(width, '100% - 56px');
+      }
+    }
+
+    &.keywords :global(.Select) {
+      @include calc(width, '100% - 211px');
+    }
+
+    &.track {
+      display: flex;
+      align-items: center;
+
+      @include calc(width, '100% - 395px');
+
+      margin-right: $panel-space-50;
+
+      @include xs-to-sm {
+        width: initial;
+      }
+    }
+
+    &.dates {
+      display: inline-block;
+      text-align: left;
+
+      @include xs-to-sm {
+        margin-top: 20px;
+      }
+    }
+  }
+}
+// filter by date
+.filter.dates {
+  :global {
+    .DateInput {
+      padding: $base-unit - 3;
+      line-height: $panel-space-20;
+      width: $panel-space-110 + 2;
+
+      input {
+        padding: $base-unit;
+        height: $panel-space-30;
+        margin-bottom: 0;
+        font-family: 'Roboto';
+        font-weight: 400;
+        font-size: 13px;
+        color: $tc-black;
+        line-height: $panel-space-15 + 1;
+      }
+
+      .DateInput__display-text,
+      .DateInput__display-text--has-input {
+        font-family: 'Roboto';
+        font-weight: 400;
+        font-size: 13px;
+        color: $tc-black;
+        line-height: $panel-space-15 + 1;
+        padding-left: $panel-space-25;
+      }
+
+      .DateInput__display-text {
+        position: relative;
+
+        &::before {
+          content: '';
+          background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB4PSIwcHgiIHk9IjBweCIgd2lkdGg9IjEycHgiIGhlaWdodD0iMTJweCIgdmlld0JveD0iMCAwIDE2IDE2Ij48ZyA+PHBhdGggZmlsbD0iI0EzQTNBRCIgZD0iTTE1LDJoLTJWMWMwLTAuNi0wLjQtMS0xLTFoLTFjLTAuNiwwLTEsMC40LTEsMXYxSDZWMWMwLTAuNi0wLjQtMS0xLTFINEMzLjQsMCwzLDAuNCwzLDF2MUgxQzAuNCwyLDAsMi40LDAsM3YxMmMwLDAuNiwwLjQsMSwxLDFoMTRjMC42LDAsMS0wLjQsMS0xVjNDMTYsMi40LDE1LjYsMiwxNSwyeiBNMTQsMTRIMlY3aDEyVjE0eiIvPjwvZz48L3N2Zz4=);
+          background-position: 0 0;
+          background-repeat: no-repeat;
+          width: $panel-space-15 - 1;
+          height: $panel-space-15 - 1;
+          display: inline-block;
+          position: absolute;
+          left: $panel-space-7;
+          top: $panel-space-7 - 1;
+        }
+      }
+    }
+
+    .CalendarMonth table {
+      font-weight: 400;
+    }
+
+    .CalendarMonth__caption {
+      margin-bottom: $panel-space-10;
+    }
+
+    .DayPicker__week-header {
+      font-weight: 400;
+    }
+
+    .DateRangePickerInput__arrow svg {
+      width: $panel-space-15;
+      height: $panel-space-15;
+      fill: $tc-black;
+    }
+
+    .DateRangePicker__picker {
+      top: $base-unit * 9;
+    }
+
+    .DateInput--with-caret::before {
+      top: $panel-space-30 + 4;
+    }
+
+    .DateInput--with-caret::after {
+      top: $panel-space-30 + 5;
+    }
+  }
+}
+
+// filter by keywords
+.filter {
+  :global {
+    .Select-placeholder {
+      font-weight: 300;
+      font-size: 13px;
+      color: $tc-gray-50;
+      line-height: $panel-space-30 - 2;
+    }
+
+    .Select-input > input:not([type="checkbox"]) {
+      height: $panel-space-30 - 2;
+      border: none;
+      box-shadow: none;
+      background: transparent;
+      border-radius: 0;
+      transition: none;
+      padding-left: 0;
+      margin-bottom: 0;
+
+      &:focus {
+        border: none;
+        box-shadow: none;
+        background: transparent;
+        border-radius: 0;
+        transition: none;
+      }
+    }
+
+    .Select-input {
+      height: 28px;
+
+      input {
+        font-size: 15px;
+        padding: 0;
+      }
+    }
+
+    .Select-control {
+      height: $panel-space-30;
+      border-radius: $corner-radius;
+    }
+
+    .Select-menu-outer {
+      font-weight: 500;
+      font-size: 13px;
+    }
+
+    .Select--multi,
+    .Select-value {
+      background: $tc-gray-neutral-dark !important;
+      border: none !important;
+      font-family: 'Roboto';
+      font-weight: 700;
+      font-size: 10px;
+      color: $tc-gray-80 !important;
+      line-height: $panel-space-10 + 2;
+      margin-top: $base-unit - 1;
+      border-radius: $corner-radius + 1;
+      position: relative;
+
+      .Select-value-label {
+        padding: $base-unit - 1 $panel-space-25 $base-unit - 1 $panel-space-7;
+      }
+
+      .Select-value-icon {
+        position: absolute;
+        right: 0;
+        top: 0;
+        padding: 0 $panel-space-7;
+        font-size: 14px;
+        border: none;
+        border-radius: 0 $corner-radius + 1 $corner-radius + 1 0;
+      }
+    }
+  }
+
+  &.track {
+    :global {
+      .Select-value {
+        background: $tc-light_blue !important;
+        color: $tc-white !important;
+      }
+    }
+  }
+}

@@ -1,0 +1,59 @@
+{
+  "rules": {
+    "indent": [2, 2],
+    "quotes": [2, "single"],
+    "linebreak-style": [2, "unix"],
+    "semi": [2, "never"],
+    "no-console": 0,
+    "prefer-const": 2,
+    "no-const-assign": 2,
+    "no-var": 2,
+    "object-shorthand": 2,
+    "quote-props": [2, "as-needed", { "keywords": true }],
+    "prefer-arrow-callback": 2,
+    "arrow-spacing": 2,
+    "camelcase": 2,
+    "new-cap": 2,
+    "one-var": [2, "never"],
+    "eqeqeq": 2,
+    "comma-style": 2,
+    "comma-spacing": ["error", {"before": false, "after": true}],
+    "no-nested-ternary": 2,
+    "no-unneeded-ternary": 2,
+    "react/jsx-uses-vars": 2,
+    "react/jsx-no-bind": 2,
+    "react/jsx-uses-react": 2,
+    "react/prefer-es6-class": [2, "always"],
+    "react/jsx-pascal-case": 2,
+    "react/jsx-closing-bracket-location": 2,
+    "jsx-quotes": [2, "prefer-double"],
+    "react/jsx-boolean-value": 2,
+    "react/wrap-multilines": 2,
+    "react/self-closing-comp": 2,
+    "react/no-is-mounted": 2
+  },
+  "globals": {
+    "React": true,
+    "_": true
+  },
+  "env": {
+    "es6": true,
+    "browser": true,
+    "node": true,
+    "mocha": true,
+    "jquery": true
+  },
+  "parserOptions": {
+    "ecmaVersion": 6,
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true,
+      "experimentalObjectRestSpread": true,
+      "blockBindings": true
+    }
+  },
+  "extends": "eslint:recommended",
+  "plugins": [
+    "react"
+  ]
+}

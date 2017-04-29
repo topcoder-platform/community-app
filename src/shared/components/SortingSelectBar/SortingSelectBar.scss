@@ -1,0 +1,191 @@
+@import '~styles/tc-styles';
+$view-options-toggle-right-margin: $base-unit * 2;
+$down-arrow-size: $base-unit;
+
+%sorting-select-button {
+  line-height: 12px;
+  border-radius: 20px;
+  padding: 4px 10px;
+  background-color: $tc-white;
+  font-weight: 400;
+  text-transform: none;
+}
+
+.sortingBar {
+  display: flex;
+  justify-content: space-between;
+  padding: 2 * $base-unit;
+  position: relative;
+
+  .title {
+    display: flex;
+    align-items: center;
+    color: $tc-gray-80;
+    font-size: 13px;
+    line-height: 13px;
+    margin: 0;
+    padding: 0 0 0 10px;
+    border: none;
+    text-transform: none;
+  }
+
+  .view-options-toggle-container {
+    display: flex;
+    align-items: center right;
+  }
+
+  .view-options-toggle-container-label {
+    display: flex;
+    align-items: center;
+    font-weight: 300;
+    font-size: 12px;
+    font-family: 'Roboto';
+    margin-right: $base-unit * 2;
+  }
+
+  .view-options {
+    position: absolute;
+    right: $view-options-toggle-right-margin;
+    top: $base-unit * 10;
+    z-index: 1;
+    background: $tc-white;
+    border-radius: $base-unit;
+    padding: $base-unit;
+    box-shadow: 1px 5px 15px $tc-gray-20;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .view-option {
+    @extend %sorting-select-button;
+
+    font-weight: 300;
+    font-size: 12px;
+    padding: $base-unit * 2;
+    outline: none;
+    border: 0;
+    color: $tc-black;
+    text-align: left;
+  }
+
+  .view-options-toggle {
+    @extend %sorting-select-button;
+
+    display: flex;
+    align-items: center;
+    color: $tc-gray-90;
+    border: 1px solid $tc-gray-neutral-dark;
+    font-size: 12px;
+    outline: none;
+  }
+
+  .down-arrow {
+    width: 0;
+    height: 0;
+    border-left: $down-arrow-size solid transparent;
+    border-right: $down-arrow-size solid transparent;
+    border-top: $down-arrow-size solid $tc-gray-50;
+    margin-left: 3 * $base-unit;
+  }
+
+  :global {
+    // 'Sort by' dropdown
+    .Dropdown-root {
+      font-family: 'Roboto';
+      position: relative;
+    }
+
+    .Dropdown-control {
+      line-height: 12px;
+      border-radius: 20px;
+      padding: 4px 35px 4px 10px;
+      background-color: $tc-white;
+      font-weight: 400;
+      font-size: 12px;
+      text-transform: none;
+      border: 1px solid $tc-gray-neutral-dark;
+      color: $tc-gray-90;
+      position: relative;
+      overflow: hidden;
+      box-sizing: border-box;
+      cursor: default;
+      outline: none;
+      transition: all 200ms ease;
+    }
+
+    .Dropdown-arrow {
+      border-color: $tc-gray-50 transparent transparent;
+      border-style: solid;
+      border-width: 5px 5px 0;
+      content: ' ';
+      display: block;
+      height: 0;
+      position: absolute;
+      right: 10px;
+      top: 8px;
+      width: 0;
+    }
+
+    .is-open .Dropdown-arrow {
+      border-color: transparent transparent $tc-gray-50;
+      border-width: 0 5px 5px;
+    }
+
+    .Dropdown-menu {
+      color: $tc-gray-90;
+      font-weight: 400;
+      font-size: 12px;
+      background-color: $tc-white;
+      border: 1px solid $tc-gray-neutral-dark;
+      border-radius: $base-unit;
+      box-shadow: 1px 5px 15px $tc-gray-20;
+      box-sizing: border-box;
+      margin-top: 5px;
+      padding: 8px 0;
+      overflow-y: auto;
+      position: absolute;
+      top: 100%;
+      right: 0;
+      width: 140px;
+      z-index: 1000;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .Dropdown-menu .Dropdown-group > .Dropdown-title {
+      padding: 8px 20px;
+      color: rgba(51, 51, 51, 1);
+      font-weight: bold;
+      text-transform: capitalize;
+    }
+
+    .Dropdown-option {
+      box-sizing: border-box;
+      color: rgba(51, 51, 51, 0.8);
+      cursor: pointer;
+      display: block;
+      padding: 8px 20px;
+    }
+
+    .Dropdown-option:last-child {
+      border-bottom-right-radius: 2px;
+      border-bottom-left-radius: 2px;
+    }
+
+    .Dropdown-option:hover {
+      color: $tc-black;
+    }
+
+    .Dropdown-option.is-selected {
+      color: $tc-black;
+      font-weight: 500;
+    }
+
+    .Dropdown-noresults {
+      box-sizing: border-box;
+      color: $tc-gray-90;
+      cursor: default;
+      display: block;
+      padding: 8px 20px;
+    }
+  }
+}

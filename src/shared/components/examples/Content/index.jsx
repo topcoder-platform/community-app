@@ -64,6 +64,12 @@ export default function Content() {
           the endpoint <code>/challenge/:challengeId/my-submissions</code>.
           The link here leads to the test challenge.
         </li>
+        <li>
+          <Link to="/community-challenge-listing/JavaScript">Community Challenge Listing Page</Link>
+          &ndash; An example of community challenge list apge which shows only challenges
+          with special criteria.
+          In this case only challenges which has JavaScript technology tag.
+        </li>
       </ul>
       <h3>Misc Examples</h3>
       <ul>
