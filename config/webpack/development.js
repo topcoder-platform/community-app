@@ -11,21 +11,6 @@ module.exports = webpackMerge(defaultConfig, {
   ],
   module: {
     rules: [{
-      /* Using file-loader to load fonts in development environment breaks
-       * Webpack Hot Module Reloading (when you update styling of a page
-       * using the fonts loaded with file-loader, all text using those
-       * fonts dissapears). Url-loader solves this problem. */
-      // NOTE: changed back to file-loader, because otherwise resulting
-      // style.css bundle become to big, caused by font being base64 encoded
-      // and scss import includes file content every time we import them
-      test: /\.(eot|svg|ttf|woff)$/,
-      include: /src\/assets\/fonts/,
-      loader: 'file-loader',
-      options: {
-        outputPath: '/fonts/',
-        publicPath: '/fonts/',
-      },
-    }, {
       test: /\.(jsx?|svg)$/,
       exclude: [
         /node_modules\/(?!appirio-tech.*|topcoder|tc-)/,

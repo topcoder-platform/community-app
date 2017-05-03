@@ -8,16 +8,6 @@ module.exports = webpackMerge(defaultConfig, {
   module: {
     /* To avoid bundling of redux-devtools into production bundle. */
     noParse: /\/src\/shared\/containers\/DevTools/,
-
-    rules: [{
-      test: /\.(eot|svg|ttf|woff)$/,
-      include: /src\/assets\/fonts/,
-      loader: 'file-loader',
-      options: {
-        outputPath: '/fonts/',
-        publicPath: '/fonts/',
-      },
-    }],
   },
   plugins: [
     new webpack.DefinePlugin({
