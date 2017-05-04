@@ -1,3 +1,5 @@
+const cssProcessorOptions = require('./dev-css-optimization');
+const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const webpack = require('webpack');
 const webpackMerge = require('webpack-merge');
 
@@ -52,6 +54,7 @@ module.exports = webpackMerge(defaultConfig, {
     }],
   },
   plugins: [
+    new OptimizeCssAssetsPlugin({ cssProcessorOptions }),
     new webpack.DefinePlugin({
       'process.env': {
         DEV_TOOLS: JSON.stringify(true),

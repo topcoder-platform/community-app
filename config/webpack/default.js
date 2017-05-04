@@ -63,10 +63,13 @@ module.exports = {
         }],
       }),
     }, {
-      // we need to support loading css for third party plugins
-      // we are not supposed to use css files inside the project
+      /* We need to support css loading for third-party plugins,
+       * we are not supposed to use css files inside the project. */
       test: /\.css$/,
-      use: ['style-loader', 'css-loader'],
+      use: ExtractTextPlugin.extract({
+        fallback: 'style-loader',
+        use: ['css-loader'],
+      }),
     }],
   },
   output: {
