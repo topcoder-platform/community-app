@@ -8,7 +8,8 @@ exports[`Snapshot match 1`] = `
     <a
       href="/members/username"
     >
-      <Avatar
+      <withStyles(Avatar)
+        customStyles={null}
         url={null}
       />
       <span

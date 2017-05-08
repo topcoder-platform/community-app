@@ -1,0 +1,75 @@
+@import '~styles/tc-styles';
+
+.PodiumSpot {
+  .leaderboard-avatar {
+    display: inline-block;
+    overflow: hidden;
+  }
+
+  .ranking {
+    @include roboto-bold;
+  }
+
+  .winnings-info {
+    @include roboto-light;
+
+    color: #999;
+    font-size: 13px;
+  }
+
+  .winnings-info span {
+    display: block;
+  }
+
+  a.profile-link {
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: $tc-light_blue;
+
+    &:hover {
+      color: $tc-dark-blue;
+    }
+  }
+}
+
+.PodiumSpot--first .leaderboard-avatar {
+  height: 96px;
+  width: 96px;
+}
+
+.PodiumSpot--second,
+.PodiumSpot--third {
+  margin-top: 32px;
+
+  .leaderboard-avatar {
+    height: 64px;
+    width: 64px;
+  }
+}
+
+@media (min-width: #{$sm-width}) and (max-width: #{$lg-width - 1px}) {
+  .PodiumSpot--first .leaderboard-avatar {
+    height: 128px;
+    width: 128px;
+  }
+
+  .PodiumSpot--second .leaderboard-avatar,
+  .PodiumSpot--third .leaderboard-avatar {
+    height: 96px;
+    width: 96px;
+  }
+}
+
+@include lg {
+  .PodiumSpot--first .leaderboard-avatar {
+    height: 160px;
+    width: 160px;
+  }
+
+  .PodiumSpot--second .leaderboard-avatar,
+  .PodiumSpot--third .leaderboard-avatar {
+    height: 128px;
+    width: 128px;
+  }
+}

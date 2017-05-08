@@ -1,0 +1,52 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Matches shallow shapshot 1`] = `
+<Avatar
+  customStyles={null}
+  styles={Object {}}
+  theme={Object {}}
+  url={null}
+/>
+`;
+
+exports[`Matches shallow shapshot 2`] = `
+<Avatar
+  customStyles={null}
+  styles={Object {}}
+  theme={Object {}}
+  url="some-fake-string"
+/>
+`;
+
+exports[`Matches shallow shapshot 3`] = `
+<Avatar
+  customStyles={
+    Object {
+      "height": "100%",
+      "width": "100%",
+    }
+  }
+  styles={Object {}}
+  theme={Object {}}
+  url={null}
+/>
+`;
+
+exports[`Matches shallow shapshot 4`] = `
+<Avatar
+  customStyles={
+    Array [
+      Object {
+        "height": "100%",
+        "width": "100%",
+      },
+      Object {
+        "borderColor": "rgba(0, 0, 0, 0.05)",
+      },
+    ]
+  }
+  styles={Object {}}
+  theme={Object {}}
+  url="some-fake-string"
+/>
+`;

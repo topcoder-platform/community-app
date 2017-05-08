@@ -71,6 +71,9 @@ export default function Content() {
           with special criteria.
           In this case only challenges which has JavaScript technology tag.
         </li>
+        <li>
+          <Link to="/leaderboard">Leaderboard</Link> &ndash; Leaderboard page.
+        </li>
       </ul>
       <h3>Misc Examples</h3>
       <ul>

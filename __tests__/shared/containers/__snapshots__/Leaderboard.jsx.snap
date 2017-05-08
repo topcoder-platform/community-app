@@ -1,0 +1,62 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Matches shapshot 1`] = `
+<LeaderboardPageContainer
+  isLoadingLeaderboard={false}
+  leaderboardData={
+    Array [
+      Object {
+        "avatarUrl": "some.fake.string",
+        "project_result.final_score": 9999999999,
+        "rank": 1,
+        "user.handle": "overachieving.mofo",
+        "wins": 99999,
+      },
+      Object {
+        "avatarUrl": "some.fake.string",
+        "project_result.final_score": 9999999999,
+        "rank": 1,
+        "user.handle": "overachieving.mofo",
+        "wins": 99999,
+      },
+      Object {
+        "avatarUrl": "some.fake.string",
+        "project_result.final_score": 9999999999,
+        "rank": 1,
+        "user.handle": "overachieving.mofo",
+        "wins": 99999,
+      },
+      Object {
+        "avatarUrl": "some.fake.string",
+        "project_result.final_score": 9999999999,
+        "rank": 1,
+        "user.handle": "overachieving.mofo",
+        "wins": 99999,
+      },
+    ]
+  }
+  loadLeaderboard={[Function]}
+  store={
+    Object {
+      "dispatch": [Function],
+      "getState": [Function],
+      "subscribe": [Function],
+    }
+  }
+  storeSubscription={
+    Subscription {
+      "listeners": Object {
+        "notify": [Function],
+      },
+      "onStateChange": [Function],
+      "parentSub": undefined,
+      "store": Object {
+        "dispatch": [Function],
+        "getState": [Function],
+        "subscribe": [Function],
+      },
+      "unsubscribe": null,
+    }
+  }
+/>
+`;

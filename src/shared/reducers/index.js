@@ -20,6 +20,7 @@ import { resolveReducers } from 'utils/redux';
 import { factory as authFactory } from './auth';
 import { factory as challengeFactory } from './challenge';
 import { factory as examplesFactory } from './examples';
+import { factory as leaderboardFactory } from './leaderboard';
 import topcoderHeader from './topcoder_header';
 
 export function factory(req) {
@@ -27,6 +28,7 @@ export function factory(req) {
     auth: authFactory(req),
     challenge: challengeFactory(req),
     examples: examplesFactory(req),
+    leaderboard: leaderboardFactory(req),
   }).then(reducers => combineReducers({
     ...reducers,
     topcoderHeader,
