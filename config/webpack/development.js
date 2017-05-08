@@ -25,18 +25,6 @@ module.exports = webpackMerge(defaultConfig, {
         plugins: [
           'inline-react-svg',
           ['module-resolver', {
-            alias: {
-              // NOTE: Some aliases related to assets and styles are defined in
-              // webpack config.
-              actions: './actions',
-              components: './components',
-              containers: './containers',
-              reducers: './reducers',
-              routes: './routes',
-              server: './server',
-              services: './services',
-              utils: './utils',
-            },
             extensions: ['.js', '.jsx'],
             root: [
               './src/shared',
