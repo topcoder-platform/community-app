@@ -4,6 +4,8 @@
  */
 
 import CssModules from 'components/examples/CssModules';
+import DraftEditor from 'components/examples/DraftEditor';
+import Editor from 'components/examples/Editor';
 import FontsTest from 'components/examples/FontsTest';
 import React from 'react';
 import {
@@ -19,6 +21,8 @@ export default function Examples() {
     <Switch>
       <Route path="*/css-modules" component={CssModules} />
       <Route path="*/data-fetch" component={DataFetch} />
+      <Route path="*/draft-editor" component={DraftEditor} />
+      <Route path="*/editor" component={Editor} />
       <Route path="*/fonts-test" component={FontsTest} />
       <Route path="*/svg-loading" component={SvgLoading} />
     </Switch>

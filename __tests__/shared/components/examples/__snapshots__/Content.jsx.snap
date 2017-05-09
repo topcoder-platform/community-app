@@ -151,6 +151,15 @@ exports[`Matches shallow shapshot 1`] = `
     <li>
       <Link
         replace={false}
+        to="/examples/draft-editor"
+      >
+        Draft Editor
+      </Link>
+       - POC page editor based exusively on DraftJS.
+    </li>
+    <li>
+      <Link
+        replace={false}
         to="/examples/fonts-test"
       >
         Fonts Test
@@ -173,6 +182,15 @@ exports[`Matches shallow shapshot 1`] = `
         babel-plugin-inline-react-svg
       </code>
       .
+    </li>
+    <li>
+      <Link
+        replace={false}
+        to="/examples/editor"
+      >
+        WYSIWYG Page Editor
+      </Link>
+       - POC of page editor.
     </li>
   </ul>
 </div>

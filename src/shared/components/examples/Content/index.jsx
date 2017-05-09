@@ -84,6 +84,10 @@ export default function Content() {
           promise;
         </li>
         <li>
+          <Link to="/examples/draft-editor">Draft Editor</Link> - POC page
+          editor based exusively on DraftJS.
+        </li>
+        <li>
           <Link to="/examples/fonts-test">Fonts Test</Link> - A simple showcase
           of the fonts included into this repo, and the test of their proper
           inclusion into the bundle;
@@ -92,6 +96,10 @@ export default function Content() {
           <Link to="/examples/svg-loading">SVG Loading</Link> - Shows how to
           load <code>.svg</code> assets with use
           of <code>babel-plugin-inline-react-svg</code>.
+        </li>
+        <li>
+          <Link to="/examples/editor">WYSIWYG Page Editor</Link> - POC of page
+          editor.
         </li>
       </ul>
     </div>

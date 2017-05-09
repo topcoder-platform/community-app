@@ -36,6 +36,7 @@ export default (req, res) => {
         <head>
           <title>Topcoder</title>
           <link rel="stylesheet" href="/style.css" />
+          <meta charset="utf-8" />
         </head>
         <body>
           <div id="react-view">${appHtml}</div>
