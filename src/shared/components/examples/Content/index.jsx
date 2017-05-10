@@ -72,6 +72,14 @@ export default function Content() {
           In this case only challenges which has JavaScript technology tag.
         </li>
       </ul>
+      <h3>WYSIWYG Page Editor Experiments</h3>
+      <ul>
+        <li>
+          <Link to="/community-editor">Editor</Link> - Winning submission from
+          the <a href="https://www.topcoder.com/challenge-details/30057514/?type=develop">challenge</a> by <strong>rjnpnigrhi</strong>.
+          Check the edited page <Link to="/community-page">here</Link>.
+        </li>
+      </ul>
       <h3>Misc Examples</h3>
       <ul>
         <li>
