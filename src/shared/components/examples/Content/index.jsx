@@ -72,6 +72,9 @@ export default function Content() {
           In this case only challenges which has JavaScript technology tag.
         </li>
         <li>
+          <Link to="/leaderboard">Leaderboard</Link> &ndash; Leaderboard page.
+        </li>
+        <li>
           <Link to="/community/default-theme/header">Community header
           example</Link> &ndash; An example of cummunity header with default
           style. Also, there are examples of <Link to="/community/custom-theme-red/header">

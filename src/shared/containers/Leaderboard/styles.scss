@@ -1,0 +1,30 @@
+@import '~styles/tc-styles';
+
+.Leaderboard {
+  padding: 0 15px;
+  margin: 20px auto;
+
+  @include sm {
+    margin: 30px auto;
+    width: 750px;
+  }
+
+  @include md {
+    margin: 40px auto;
+    width: 970px;
+  }
+
+  @include lg {
+    margin: 40px auto;
+    width: 1170px;
+  }
+}
+
+.Leaderboard .section-title {
+  @include roboto-light;
+
+  font-size: 30px;
+  text-align: center;
+  color: #6e6e6e;
+  margin: 0 0 30px;
+}
