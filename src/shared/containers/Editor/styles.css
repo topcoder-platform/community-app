@@ -1,0 +1,199 @@
+.playground-root {
+  margin-top: 30px;
+  margin-bottom: 50px;
+  width: 90%;
+}
+
+.custom-editor-wrap {
+  position: relative !important;
+  padding-top: 50px;
+}
+
+.playground-label {
+  font-size: 20px;
+  font-weight: 500;
+  margin-bottom: 20px;
+}
+
+.playground-editorSection {
+  display: flex;
+  margin-top: 150px;
+  justify-content: flex-start;
+}
+
+.playground-editorWrapper {
+
+}
+
+.playground-wrapper {
+
+}
+
+.DraftEditor-root {
+  height: 80% !important;
+}
+
+.playground-editor {
+  border: 1px solid #f1f1f1;
+  padding: 5px;
+  border-radius: 2px;
+}
+
+.playground-toolbar {
+
+}
+
+.playground-content {
+  border: 1px solid #f1f1f1;
+  padding: 5px;
+  border-radius: 5px;
+}
+
+.no-focus:focus {
+  outline: none;
+}
+
+.dropdownClassName {
+  background-color: red;
+  max-height: 100px;
+}
+
+.className {
+  background-color: green;
+}
+
+.toolbox {
+  position: absolute;
+  top: 0;
+  left: 0;
+  margin: 0 auto;
+  z-index: 10;
+}
+
+.rdw-editor-toolbar {
+  padding: 6px 5px 0;
+  border-radius: 2px;
+  border: 1px solid #f1f1f1;
+  background: white;
+  font-size: 15px;
+  margin-bottom: 5px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  width: auto !important;
+}
+
+.custom-toolbox-wrap {
+  height: 30px;
+}
+
+.custom-toolbox-wrap > button {
+  margin: 7px;
+  margin-right: 4px;
+  border: 1px solid #f1f1f1;
+  padding: 5px;
+  border-radius: 2px;
+  cursor: pointer;
+  background: white;
+  text-transform: capitalize;
+  font-size: 15px;
+  font-weight: bold;
+  user-select: none;
+  float: left;
+}
+
+.custom-button {
+  background-color: Transparent;
+  background-repeat: no-repeat;
+  cursor:pointer;
+  overflow: hidden;
+  outline:none;
+  border-radius: 5px;
+}
+
+.delete-button {
+  right: 0;
+  width: 30px;
+  height: 25px;
+  color: red;
+  font-weight: bold;
+  font-size: 14px;
+  position: absolute;
+  opacity: 0.3;
+  float: right;
+}
+
+.delete-button:hover {
+  opacity: 0.9;
+}
+
+.rdw-editor-toolbar {
+
+}
+
+.playground-editorSection {
+  min-height: 150px;
+  width: 100%;
+  margin-top: 0 !important;
+}
+
+.playground-root {
+  margin-left: 5% !important;
+  margin-right: 5% !important;
+  width: 90% !important;
+}
+
+.playground-editor {
+  border: 1px solid lightgrey;
+  height: 100%;
+}
+
+.playground-editorWrapper, .playground-wrapper {
+  width: 100% !important;
+}
+
+.width-33 {
+  width: 33.33% !important;
+}
+
+.width-66 {
+  width: 66.66% !important;
+}
+
+.playground-wrapper {
+  height: 100%;
+}
+
+
+.button-link {
+  background: #3ab4d4;
+  border-radius: 29px;
+  height: 57px;
+  line-height: 57px;
+  min-width: 230px;
+  color: #fff;
+  display: inline-block;
+  font-size: 18px;
+  font-weight: 700;
+  padding: 0 30px;
+  text-align: center;
+  transition-property: all;
+  transition-timing-function: linear;
+  text-decoration: none;
+  box-sizing: border-box;
+  cursor: pointer;
+}
+
+.button-link:hover {
+  background: #fff;
+  color: #2886af;
+}
+
+.float-left {
+  float: left !important;
+}
+
+.float-right {
+  float: right !important;
+}

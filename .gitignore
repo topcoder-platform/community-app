@@ -41,3 +41,6 @@ jspm_packages
 .elasticbeanstalk/*
 !.elasticbeanstalk/*.cfg.yml
 !.elasticbeanstalk/*.global.yml
+
+# macOS system files
+*.DS_Store
