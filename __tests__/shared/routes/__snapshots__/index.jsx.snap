@@ -39,6 +39,10 @@ exports[`Matches shallow shapshot 1`] = `
     />
     <Route
       component={[Function]}
+      path="/community/:communityId/header"
+    />
+    <Route
+      component={[Function]}
       path="/community-challenge-listing/:keyword"
     />
     <Route

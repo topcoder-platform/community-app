@@ -81,6 +81,9 @@ module.exports = {
     new CopyWebpackPlugin([{
       from: path.resolve(__dirname, '../../src/assets/mock-data'),
       to: path.resolve(__dirname, '../../build/mock-data'),
+    }, {
+      from: path.resolve(__dirname, '../../src/assets/themes'),
+      to: path.resolve(__dirname, '../../build/themes'),
     }]),
     new ExtractTextPlugin('style.css'),
     new webpack.DefinePlugin({

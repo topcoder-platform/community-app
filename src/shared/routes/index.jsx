@@ -13,6 +13,7 @@ import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 import TopcoderFooter from 'components/TopcoderFooter';
 import TopcoderHeader from 'containers/TopcoderHeader';
+import CommunitiesHeader from 'containers/tc-communities/Header';
 
 /* TODO: As we move towards production deploy, we should add a guard which
  * will prevent addition of /examples routes into production build. */
@@ -30,6 +31,7 @@ export default function Routes() {
         <Route exact path="/examples" component={Content} />
         <Route path="/examples" component={Examples} />
         <Route path="/challenge/:challengeId/my-submissions" component={SubmissionManagement} />
+        <Route path="/community/:communityId/header" component={CommunitiesHeader} />
         <Route path="/community-challenge-listing/:keyword" component={ChallengeListing} />
         <Route path="/community-editor" component={Editor} />
         <Route path="/community-page" component={LandingPage} />

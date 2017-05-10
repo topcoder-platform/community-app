@@ -1,0 +1,131 @@
+@import '~styles/tc-styles';
+
+.container {
+  background-color: #fff;
+
+  @include roboto;
+
+  a {
+    cursor: pointer;
+  }
+
+  &::after {
+    clear: both;
+    content: '';
+    display: table;
+    width: 100%;
+  }
+}
+
+.logo {
+  float: left;
+
+  > img {
+    display: block;
+  }
+}
+
+.header {
+  float: none;
+  height: 66px;
+  padding: 0 20px;
+
+  &::after {
+    clear: both;
+    content: '';
+    display: table;
+    width: 100%;
+  }
+
+  @media (min-width: #{$md-width}) {
+    float: left;
+  }
+}
+
+.menu-wrap {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease-out;
+
+  &.open {
+    max-height: 1000px;
+    transition-timing-function: ease-in;
+  }
+
+  @media (min-width: #{$md-width}) {
+    overflow: visible;
+  }
+}
+
+.menu {
+  border-top: 1px solid #e7e7e7;
+  padding: 0 20px;
+  text-align: right;
+}
+
+.menu-item {
+  display: block;
+  text-align: left;
+
+  @media (min-width: #{$md-width}) {
+    display: inline-block;
+  }
+}
+
+.menu-link {
+  display: block;
+  line-height: 66px;
+  padding: 0 20px;
+
+  &:hover {
+    color: #2886af;
+  }
+
+  @media (min-width: #{$md-width}) {
+    display: inline-block;
+  }
+}
+
+.mobile-toggle {
+  background-color: transparent;
+  background-image: none;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  display: block;
+  float: right;
+  margin-top: 18px;
+  outline: none;
+  padding: 9px 10px;
+  position: relative;
+
+  &:focus {
+    background-color: #ddd;
+  }
+
+  > span {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+  }
+
+  > i {
+    background-color: #888;
+    border-radius: 1px;
+    display: block;
+    height: 2px;
+    width: 22px;
+
+    & + i {
+      margin-top: 4px;
+    }
+  }
+
+  @media (min-width: #{$md-width}) {
+    display: none;
+  }
+}
