@@ -262,6 +262,15 @@ exports[`Matches shallow shapshot 1`] = `
       </code>
       .
     </li>
+    <li>
+      <Link
+        replace={false}
+        to="/examples/themr"
+      >
+        Themr
+      </Link>
+       - Test/demo of react-css-themr.
+    </li>
   </ul>
 </div>
 `;

@@ -13,6 +13,7 @@ import {
   Route,
 } from 'react-router-dom';
 import SvgLoading from 'components/examples/SvgLoading';
+import Themr from 'components/examples/Themr';
 
 import DataFetch from './DataFetch';
 
@@ -25,6 +26,7 @@ export default function Examples() {
       <Route path="*/editor" component={Editor} />
       <Route path="*/fonts-test" component={FontsTest} />
       <Route path="*/svg-loading" component={SvgLoading} />
+      <Route path="*/themr" component={Themr} />
     </Switch>
   );
 }

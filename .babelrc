@@ -16,6 +16,7 @@
       "filetypes": {
         ".scss": "postcss-scss"
       }
-    }]
+    }],
+    "transform-decorators-legacy"
   ]
 }

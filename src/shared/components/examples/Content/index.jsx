@@ -120,6 +120,10 @@ export default function Content() {
           load <code>.svg</code> assets with use
           of <code>babel-plugin-inline-react-svg</code>.
         </li>
+        <li>
+          <Link to="/examples/themr">Themr</Link> - Test/demo of
+          react-css-themr.
+        </li>
       </ul>
     </div>
   );
