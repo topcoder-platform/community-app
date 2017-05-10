@@ -10,6 +10,14 @@ exports[`Matches shallow shapshot 1`] = `
     component={[Function]}
     path="/community-challenge-listing"
   />
+  <Route
+    component={[Function]}
+    path="/community-editor"
+  />
+  <Route
+    component={[Function]}
+    path="/community-page"
+  />
   <Switch>
     <Route
       component={[Function]}
@@ -35,6 +43,14 @@ exports[`Matches shallow shapshot 1`] = `
     />
     <Route
       component={[Function]}
+      path="/community-editor"
+    />
+    <Route
+      component={[Function]}
+      path="/community-page"
+    />
+    <Route
+      component={[Function]}
     />
   </Switch>
   <Route
@@ -44,6 +60,14 @@ exports[`Matches shallow shapshot 1`] = `
   <Route
     component={[Function]}
     path="/community-challenge-listing"
+  />
+  <Route
+    component={[Function]}
+    path="/community-editor"
+  />
+  <Route
+    component={[Function]}
+    path="/community-page"
   />
 </div>
 `;

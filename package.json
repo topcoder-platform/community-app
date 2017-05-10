@@ -7,6 +7,7 @@
     "build": "./node_modules/.bin/webpack --env=production --progress --profile --colors",
     "build:dev": "./node_modules/.bin/webpack --env=development --progress --profile --colors",
     "dev": "DEV_TOOLS=true node ./bin/www",
+    "fix:js": "eslint --fix --ext .js,.jsx .",
     "fix:styles": "stylefmt -r **/*.scss",
     "jest": "jest --maxWorkers=4 --config config/jest/default.json",
     "lint": "npm run lint:js; npm run lint:scss",

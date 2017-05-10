@@ -1,3 +1,5 @@
+/* global localStorage */
+
 import React, { Component } from 'react';
 import draftToHtml from 'draftjs-to-html'; // eslint-disable-line no-unused-vars
 import draftToMarkdown from 'draftjs-to-markdown'; // eslint-disable-line no-unused-vars
@@ -9,8 +11,7 @@ import {
   ContentState, // eslint-disable-line no-unused-vars
   EditorState, // eslint-disable-line no-unused-vars
 } from 'draft-js';
-import _ from 'lodash';
-import uuid from 'uuid/v4';
+import logger from 'utils/logger';
 import styles from './styles.css'; // eslint-disable-line no-unused-vars
 
 class LandingPage extends Component {
@@ -19,23 +20,23 @@ class LandingPage extends Component {
     this.state = {
       rows: [],
       editorData: {},
-      nextTabIndex: 1
+      nextTabIndex: 1,
     };
   }
 
-  componentDidMount(){
+  componentDidMount() {
     this.load();
   }
 
-  load(){
-    try{
+  load() {
+    try {
       const rows = JSON.parse(localStorage.getItem('rows'));
       const editorData = JSON.parse(localStorage.getItem('editorData'));
       this.setState({
-        rows, editorData
+        rows, editorData,
       });
-    }catch(e){
-      console.log(e);
+    } catch (e) {
+      logger.log(e);
     }
   }
 
@@ -43,19 +44,24 @@ class LandingPage extends Component {
     return (
       <div className="playground-root landing-page-root">
         <div className="custom-editor-wrap">
+          {this.state.rows.map(rowDetails =>
+            <div key={rowDetails.id} className="playground-editorSection">
+              {rowDetails.ids.map((editorId, columnIndex) => {
+                if (rowDetails.type) {
+                  let className = '';
+                  if (rowDetails.type === '1:2' && columnIndex === 0) {
+                    className = 'width-33';
+                  } else if (rowDetails.type === '1:2' && columnIndex === 1) {
+                    className = 'width-66';
+                  } else if (rowDetails.type === '2:1' && columnIndex === 0) {
+                    className = 'width-66';
+                  } else if (rowDetails.type === '2:1' && columnIndex === 1) {
+                    className = 'width-33';
+                  } else if (rowDetails.type === '3C') {
+                    className = 'width-33';
+                  }
 
-        {this.state.rows.map((rowDetails, rowIndex) => {
-
-          return <div key={rowDetails.id} className="playground-editorSection">
-            {rowDetails.ids.map((editorId, columnIndex) => {
-              if(rowDetails.type){
-                const className = rowDetails.type === '1:2' && columnIndex === 0 ? 'width-33' :
-                                  rowDetails.type === '1:2' && columnIndex === 1 ? 'width-66' :
-                                  rowDetails.type === '2:1' && columnIndex === 0 ? 'width-66' :
-                                  rowDetails.type === '2:1' && columnIndex === 1 ? 'width-33' :
-                                  rowDetails.type === '3C' ? 'width-33' : '';
-
-                return <div key={editorId} className={className + " editor-" + editorId + " playground-editorWrapper"}>
+                  return (<div key={editorId} className={`${className} editor-${editorId} playground-editorWrapper`}>
                     <Editor
                       toolbarHidden
                       readOnly
@@ -72,13 +78,12 @@ class LandingPage extends Component {
                         image: { uploadCallback: this.imageUploadCallBack },
                       }}
                     />
-                  </div>
+                  </div>);
                 }
-            })}
+                return undefined;
+              })}
 
-          </div>
-
-        })}
+            </div>)}
 
         </div>
       </div>
