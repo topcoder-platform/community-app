@@ -10,6 +10,9 @@ import path from 'path';
 // Temporarily here to test our API service.
 // import '../shared/services/api';
 
+// Dome API for topcoder communities
+import tcCommunitiesDemoApi from './tc-communities';
+
 import renderer from './renderer';
 
 /* Isomorphic code may rely on this environment variable to check whether it is
@@ -61,6 +64,9 @@ if (USE_DEV_TOOLS) {
 /* eslint-enable import/no-unresolved */
 
 app.use(express.static(path.resolve(__dirname, '../../build')));
+
+// serve demo api
+app.use('/api/tc-communities', tcCommunitiesDemoApi);
 
 app.use(renderer);
 

@@ -1,0 +1,12 @@
+.tc-communities__header__container {
+  background-color: red;
+}
+
+.tc-communities__header__menu-link,
+.tc-communities__header__menu-link:visited {
+  color: #fff;
+}
+
+.tc-communities__header__menu-link:hover {
+  color: #2886af;
+}

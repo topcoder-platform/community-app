@@ -71,6 +71,14 @@ export default function Content() {
           with special criteria.
           In this case only challenges which has JavaScript technology tag.
         </li>
+        <li>
+          <Link to="/community/default-theme/header">Community header
+          example</Link> &ndash; An example of cummunity header with default
+          style. Also, there are examples of <Link to="/community/custom-theme-red/header">
+          custom red theme</Link>, <Link to="/community/custom-theme-green/header">custom
+          green theme</Link> and <Link to="/community/404/header">non-existent
+          community page</Link>.
+        </li>
       </ul>
       <h3>Misc Examples</h3>
       <ul>

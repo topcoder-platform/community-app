@@ -125,6 +125,36 @@ exports[`Matches shallow shapshot 1`] = `
       </Link>
        – An example of community challenge list apge which shows only challenges with special criteria. In this case only challenges which has JavaScript technology tag.
     </li>
+    <li>
+      <Link
+        replace={false}
+        to="/community/default-theme/header"
+      >
+        Community header example
+      </Link>
+       – An example of cummunity header with default style. Also, there are examples of 
+      <Link
+        replace={false}
+        to="/community/custom-theme-red/header"
+      >
+        custom red theme
+      </Link>
+      , 
+      <Link
+        replace={false}
+        to="/community/custom-theme-green/header"
+      >
+        custom green theme
+      </Link>
+       and 
+      <Link
+        replace={false}
+        to="/community/404/header"
+      >
+        non-existent community page
+      </Link>
+      .
+    </li>
   </ul>
   <h3>
     Misc Examples

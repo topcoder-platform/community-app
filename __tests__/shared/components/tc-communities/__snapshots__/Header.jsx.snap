@@ -1,0 +1,114 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Snapshot match 1`] = `
+<div>
+  <header
+    className="tc-communities__header__container src-shared-components-tc-communities-Header-___Header__container___YEWV6"
+  >
+    <div
+      className="tc-communities__header__header src-shared-components-tc-communities-Header-___Header__header___1vQf1"
+    >
+      <button
+        className="tc-communities__header__mobile-toggle src-shared-components-tc-communities-Header-___Header__mobile-toggle___JaNvG"
+        onClick={[Function]}
+      >
+        <span>
+          Toggle navigation
+        </span>
+        <i />
+        <i />
+        <i />
+      </button>
+    </div>
+    <div
+      className="tc-communities__header__menu-wrap src-shared-components-tc-communities-Header-___Header__menu-wrap___4JXX4"
+    >
+      <ul
+        className="tc-communities__header__menu src-shared-components-tc-communities-Header-___Header__menu___2U-Hb"
+      >
+        
+      </ul>
+    </div>
+  </header>
+</div>
+`;
+
+exports[`Snapshot match 2`] = `
+<div>
+  <link
+    href="some/css/url"
+    rel="stylesheet"
+    type="text/css"
+  />
+  <header
+    className="tc-communities__header__container src-shared-components-tc-communities-Header-___Header__container___YEWV6"
+  >
+    <div
+      className="tc-communities__header__header src-shared-components-tc-communities-Header-___Header__header___1vQf1"
+    >
+      <Link
+        className="tc-communities__header__logo src-shared-components-tc-communities-Header-___Header__logo___IYxzO"
+        replace={false}
+        to="/community/someId"
+      >
+        <img
+          alt="Community logo"
+          src="some/logo/url"
+        />
+      </Link>
+      <button
+        className="tc-communities__header__mobile-toggle src-shared-components-tc-communities-Header-___Header__mobile-toggle___JaNvG"
+        onClick={[Function]}
+      >
+        <span>
+          Toggle navigation
+        </span>
+        <i />
+        <i />
+        <i />
+      </button>
+    </div>
+    <div
+      className="tc-communities__header__menu-wrap tc-communities__header__open src-shared-components-tc-communities-Header-___Header__menu-wrap___4JXX4 src-shared-components-tc-communities-Header-___Header__open___3Qq9v"
+    >
+      <ul
+        className="tc-communities__header__menu src-shared-components-tc-communities-Header-___Header__menu___2U-Hb"
+      >
+        <li
+          className="tc-communities__header__menu-item src-shared-components-tc-communities-Header-___Header__menu-item___3LG8-"
+        >
+          <Link
+            className="tc-communities__header__menu-link src-shared-components-tc-communities-Header-___Header__menu-link___Dm7_k"
+            replace={false}
+            to="/community/someId/menu/item/1"
+          >
+            Menu Item 1
+          </Link>
+        </li>
+        <li
+          className="tc-communities__header__menu-item src-shared-components-tc-communities-Header-___Header__menu-item___3LG8-"
+        >
+          <Link
+            className="tc-communities__header__menu-link src-shared-components-tc-communities-Header-___Header__menu-link___Dm7_k"
+            replace={false}
+            to="/community/someId/menu/item/2"
+          >
+            Menu Item 2
+          </Link>
+        </li>
+        <li
+          className="tc-communities__header__menu-item src-shared-components-tc-communities-Header-___Header__menu-item___3LG8-"
+        >
+          <Link
+            className="tc-communities__header__menu-link src-shared-components-tc-communities-Header-___Header__menu-link___Dm7_k"
+            replace={false}
+            to="/community/someId/menu/item/3"
+          >
+            Menu Item 3
+          </Link>
+        </li>
+      </ul>
+    </div>
+  </header>
+</div>
+`;
