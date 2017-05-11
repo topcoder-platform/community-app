@@ -44,7 +44,7 @@ LeaderboardPageContainer.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  leaderboardData: state.leaderboard.data,
+  leaderboardData: state.leaderboard.data || [],
   isLoadingLeaderboard: state.leaderboard.loading,
 });
 

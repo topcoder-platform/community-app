@@ -48,7 +48,7 @@ function create(initialState) {
  */
 export function factory(req) {
   /* Server-side rendering of Leaderboard Page. */
-  if (req) {
+  if (req && req.url.match(/^\/leaderboard/)) {
     return toFSA(actions.leaderboard.fetchLeaderboardDone())
       .then(response => create(onDone({}, response)));
   }
