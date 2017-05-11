@@ -60,7 +60,7 @@ exports[`Matches shallow shapshot 1`] = `
       onDownload={[Function]}
       onShowDetails={[Function]}
       onlineReviewUrl=""
-      showDetails={Array []}
+      showDetails={Set {}}
       submissionObjects={Array []}
       type=""
     />

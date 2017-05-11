@@ -37,7 +37,7 @@ exports[`Matches shapshot 1`] = `
   onShowDetails={[Function]}
   onSubmissionDelete={[Function]}
   onSubmissionDeleteConfirmed={[Function]}
-  showDetails={Array []}
+  showDetails={Set {}}
   showModal={true}
   store={
     Object {
