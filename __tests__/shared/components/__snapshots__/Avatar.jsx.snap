@@ -3,7 +3,6 @@
 exports[`Matches shallow shapshot 1`] = `
 <Avatar
   customStyles={null}
-  styles={Object {}}
   theme={Object {}}
   url={null}
 />
@@ -12,7 +11,6 @@ exports[`Matches shallow shapshot 1`] = `
 exports[`Matches shallow shapshot 2`] = `
 <Avatar
   customStyles={null}
-  styles={Object {}}
   theme={Object {}}
   url="some-fake-string"
 />
@@ -26,7 +24,6 @@ exports[`Matches shallow shapshot 3`] = `
       "width": "100%",
     }
   }
-  styles={Object {}}
   theme={Object {}}
   url={null}
 />
@@ -45,7 +42,6 @@ exports[`Matches shallow shapshot 4`] = `
       },
     ]
   }
-  styles={Object {}}
   theme={Object {}}
   url="some-fake-string"
 />

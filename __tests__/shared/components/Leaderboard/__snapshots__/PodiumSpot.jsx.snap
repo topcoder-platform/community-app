@@ -7,20 +7,13 @@ exports[`Matches shallow shapshot 1`] = `
   <span
     className="src-shared-components-Leaderboard-PodiumSpot-___styles__leaderboard-avatar___2Aea7"
   >
-    <withStyles(Avatar)
-      customStyles={
-        Array [
-          Object {
-            "borderRadius": "50%",
-            "borderStyle": "solid",
-            "borderWidth": "5px",
-            "height": "100%",
-            "width": "100%",
-          },
-          Object {
-            "borderColor": "#fce217",
-          },
-        ]
+    <ThemedAvatar
+      composeTheme="deeply"
+      customStyles={null}
+      theme={
+        Object {
+          "avatar": "gold",
+        }
       }
       url="some.fake.string"
     />

@@ -433,7 +433,8 @@ exports[`Render with specified profile 1`] = `
         <div
           className="src-shared-components-TopcoderHeader-___style__avatar___3BqbY"
         >
-          <withStyles(Avatar)
+          <ThemedAvatar
+            composeTheme="deeply"
             customStyles={null}
             url={null}
           />

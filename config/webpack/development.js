@@ -37,7 +37,6 @@ module.exports = webpackMerge(defaultConfig, {
               '.scss': 'postcss-scss',
             },
           }],
-          'transform-decorators-legacy',
         ],
       },
     }],

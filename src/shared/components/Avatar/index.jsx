@@ -7,49 +7,27 @@
  *   user avatar.
  *
  * Styling:
- *   Styling is applied by default (see defaultStyles object).
- *   However, the Avatar can be styled in any possible way by providing
- *   a custom style object via props.
- *   Styling implemented with react-with-styles
- *   (https://github.com/airbnb/react-with-styles)
+ *  By default the avatar is round-shaped. Custom styling may be applied using
+ *  react-css-themr.
  *
  * Usage:
- *   <Avatar url={imgUrl} customStyles="{customStylesObj}" />
+ *   <Avatar url={imgUrl} theme={customeTheme} />
  *
  * Props:
+ *    - theme: Object, optional. Parent-provided theme.
  *    - url: String, optional. Image URL.
- *    - customStyles: Object or Array of Objects, optional
- *      See https://github.com/airbnb/react-with-styles for details.
  */
 
 import PT from 'prop-types';
 import React from 'react';
-import { css, withStyles } from 'utils/withStyles';
+import { themr } from 'react-css-themr';
 import DefaultAvatar from '../../../assets/images/ico-user-default.svg';
+import defaultStyle from './style.scss';
 
-function Avatar(props) {
-  const {
-    customStyles,
-    url,
-  } = props;
-
-  const defaultStyles = {
-    height: '32px',
-    width: '32px',
-    borderRadius: '16px',
-  };
-
-  const setStyles = (styles) => {
-    if (styles) {
-      return styles;
-    }
-
-    return defaultStyles;
-  };
-
+function Avatar({ theme, url }) {
   return url
-    ? <img alt="Avatar" src={url} {...css(setStyles(customStyles))} />
-    : <DefaultAvatar {...css(setStyles(customStyles))} />;
+    ? <img alt="Avatar" src={url} className={theme.avatar} />
+    : <DefaultAvatar className={theme.avatar} />;
 }
 
 Avatar.defaultProps = {
@@ -58,8 +36,10 @@ Avatar.defaultProps = {
 };
 
 Avatar.propTypes = {
-  customStyles: PT.oneOfType([PT.object, PT.array]),
+  theme: PT.shape({
+    avatar: PT.string.isRequired,
+  }).isRequired,
   url: PT.string,
 };
 
-export default withStyles(() => ({}))(Avatar);
+export default themr('Avatar', defaultStyle)(Avatar);

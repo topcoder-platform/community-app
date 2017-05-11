@@ -8,25 +8,17 @@ import React from 'react';
 import { themr } from 'react-css-themr';
 import style from './style.scss';
 
-@themr('ThemableComponent', style)
-class ThemableComponent extends React.Component {
-
-  componentWillMount() {
-  }
-
-  render() {
-    const { theme } = this.props;
-    return (
-      <div className={theme.box}>
-        <span className={theme.text}>
-          Themable Component
-        </span>
-      </div>
-    );
-  }
+function ThemableComponent({ theme }) {
+  return (
+    <div className={theme.box}>
+      <span className={theme.text}>
+        Themable Component
+      </span>
+    </div>
+  );
 }
 
-export default ThemableComponent;
+export default themr('ThemableComponent', style)(ThemableComponent);
 
 ThemableComponent.propTypes = {
   theme: PT.shape({}).isRequired,

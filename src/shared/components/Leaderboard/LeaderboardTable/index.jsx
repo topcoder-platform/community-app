@@ -22,9 +22,9 @@ import config from 'utils/config';
 import React from 'react';
 import PT from 'prop-types';
 import Avatar from 'components/Avatar';
-import { defaultAvatarStyles } from '../avatarStyles';
 
-import './styles.scss';
+import avatarStyles from '../avatarStyles.scss';
+import styles from './styles.scss'; // eslint-disable-line
 
 export default function LeaderboardTable(props) {
   const {
@@ -34,34 +34,39 @@ export default function LeaderboardTable(props) {
   const renderTableRows = comps => (
     comps.map(competitor => (
       <tr key={competitor.rank}>
-        <td styleName="col-rank">{competitor.rank}</td>
-        <td styleName="col-avatar">
-          <span styleName="leaderboard-avatar">
-            <Avatar url={competitor.avatarUrl} customStyles={defaultAvatarStyles} />
+        <td styleName="styles.col-rank">{competitor.rank}</td>
+        <td styleName="styles.col-avatar">
+          <span styleName="styles.leaderboard-avatar">
+            <Avatar
+              theme={{
+                avatar: avatarStyles.default,
+              }}
+              url={competitor.avatarUrl}
+            />
           </span>
         </td>
-        <td styleName="col-handle">
+        <td styleName="styles.col-handle">
           <a href={`${config.URL.BASE}/members/${competitor['user.handle']}/`}>{competitor['user.handle']}</a>
-          <div styleName="winnings-info">
+          <div styleName="styles.winnings-info">
             <span>{competitor['project_result.final_score']} points</span>
             <span>{competitor.wins} challenges</span>
           </div>
         </td>
-        <td styleName="col-challenges">{competitor.wins}</td>
-        <td styleName="col-points">{competitor['project_result.final_score']}</td>
+        <td styleName="styles.col-challenges">{competitor.wins}</td>
+        <td styleName="styles.col-points">{competitor['project_result.final_score']}</td>
       </tr>
     ))
   );
 
   return (
-    <table styleName="LeaderboardTable">
+    <table styleName="styles.LeaderboardTable">
       <thead>
         <tr>
-          <th styleName="col-rank">Rank</th>
+          <th styleName="styles.col-rank">Rank</th>
           <th>&nbsp;</th>
-          <th styleName="col-handle">Handle</th>
-          <th styleName="col-challenges"># of Challenges</th>
-          <th styleName="col-points">Points</th>
+          <th styleName="styles.col-handle">Handle</th>
+          <th styleName="styles.col-challenges"># of Challenges</th>
+          <th styleName="styles.col-points">Points</th>
         </tr>
       </thead>
       <tbody>

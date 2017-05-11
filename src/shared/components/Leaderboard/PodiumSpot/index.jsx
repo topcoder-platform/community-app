@@ -23,9 +23,9 @@ import config from 'utils/config';
 import React from 'react';
 import PT from 'prop-types';
 import Avatar from 'components/Avatar';
-import { goldAvatarStyles, silverAvatarStyles, bronzeAvatarStyles } from '../avatarStyles';
 
-import './styles.scss';
+import avatarStyles from '../avatarStyles.scss';
+import styles from './styles.scss'; // eslint-disable-line
 
 /**
  * Object used to add a CSS modifier (PodiumSpot--first) that will
@@ -43,9 +43,9 @@ const PODIUM_ITEM_MODIFIER = {
  * based based on user ranking.
  */
 const CUSTOM_STYLES = {
-  1: goldAvatarStyles,
-  2: silverAvatarStyles,
-  3: bronzeAvatarStyles,
+  1: avatarStyles.gold,
+  2: avatarStyles.silver,
+  3: avatarStyles.bronze,
 };
 
 /**
@@ -63,17 +63,22 @@ export default function PodiumSpot(props) {
   } = props;
 
   return (
-    <div styleName={`PodiumSpot PodiumSpot--${PODIUM_ITEM_MODIFIER[competitor.rank]}`}>
-      <span styleName="leaderboard-avatar">
-        <Avatar url={competitor.avatarUrl} customStyles={CUSTOM_STYLES[competitor.rank]} />
+    <div styleName={`styles.PodiumSpot styles.PodiumSpot--${PODIUM_ITEM_MODIFIER[competitor.rank]}`}>
+      <span styleName="styles.leaderboard-avatar">
+        <Avatar
+          theme={{
+            avatar: CUSTOM_STYLES[competitor.rank],
+          }}
+          url={competitor.avatarUrl}
+        />
       </span>
-      <div styleName="ranking">{DISPLAY_RANKING[competitor.rank]}</div>
+      <div styleName="styles.ranking">{DISPLAY_RANKING[competitor.rank]}</div>
       <div>
-        <a styleName="profile-link" href={`${config.URL.BASE}/members/${competitor['user.handle']}/`}>
+        <a styleName="styles.profile-link" href={`${config.URL.BASE}/members/${competitor['user.handle']}/`}>
           {competitor['user.handle']}
         </a>
       </div>
-      <div styleName="winnings-info">
+      <div styleName="styles.winnings-info">
         <span>{competitor['project_result.final_score']} points</span>
         <span>{competitor.wins} challenges</span>
       </div>

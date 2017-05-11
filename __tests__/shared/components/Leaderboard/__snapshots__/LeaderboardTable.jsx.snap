@@ -44,20 +44,13 @@ exports[`Matches shallow shapshot 1`] = `
         <span
           className="src-shared-components-Leaderboard-LeaderboardTable-___styles__leaderboard-avatar___3Ly7x"
         >
-          <withStyles(Avatar)
-            customStyles={
-              Array [
-                Object {
-                  "borderRadius": "50%",
-                  "borderStyle": "solid",
-                  "borderWidth": "5px",
-                  "height": "100%",
-                  "width": "100%",
-                },
-                Object {
-                  "borderColor": "rgba(0, 0, 0, 0.05)",
-                },
-              ]
+          <ThemedAvatar
+            composeTheme="deeply"
+            customStyles={null}
+            theme={
+              Object {
+                "avatar": "default",
+              }
             }
             url="some.fake.string"
           />
@@ -107,20 +100,13 @@ exports[`Matches shallow shapshot 1`] = `
         <span
           className="src-shared-components-Leaderboard-LeaderboardTable-___styles__leaderboard-avatar___3Ly7x"
         >
-          <withStyles(Avatar)
-            customStyles={
-              Array [
-                Object {
-                  "borderRadius": "50%",
-                  "borderStyle": "solid",
-                  "borderWidth": "5px",
-                  "height": "100%",
-                  "width": "100%",
-                },
-                Object {
-                  "borderColor": "rgba(0, 0, 0, 0.05)",
-                },
-              ]
+          <ThemedAvatar
+            composeTheme="deeply"
+            customStyles={null}
+            theme={
+              Object {
+                "avatar": "default",
+              }
             }
             url="some.fake.string"
           />
@@ -170,20 +156,13 @@ exports[`Matches shallow shapshot 1`] = `
         <span
           className="src-shared-components-Leaderboard-LeaderboardTable-___styles__leaderboard-avatar___3Ly7x"
         >
-          <withStyles(Avatar)
-            customStyles={
-              Array [
-                Object {
-                  "borderRadius": "50%",
-                  "borderStyle": "solid",
-                  "borderWidth": "5px",
-                  "height": "100%",
-                  "width": "100%",
-                },
-                Object {
-                  "borderColor": "rgba(0, 0, 0, 0.05)",
-                },
-              ]
+          <ThemedAvatar
+            composeTheme="deeply"
+            customStyles={null}
+            theme={
+              Object {
+                "avatar": "default",
+              }
             }
             url="some.fake.string"
           />
@@ -233,20 +212,13 @@ exports[`Matches shallow shapshot 1`] = `
         <span
           className="src-shared-components-Leaderboard-LeaderboardTable-___styles__leaderboard-avatar___3Ly7x"
         >
-          <withStyles(Avatar)
-            customStyles={
-              Array [
-                Object {
-                  "borderRadius": "50%",
-                  "borderStyle": "solid",
-                  "borderWidth": "5px",
-                  "height": "100%",
-                  "width": "100%",
-                },
-                Object {
-                  "borderColor": "rgba(0, 0, 0, 0.05)",
-                },
-              ]
+          <ThemedAvatar
+            composeTheme="deeply"
+            customStyles={null}
+            theme={
+              Object {
+                "avatar": "default",
+              }
             }
             url="some.fake.string"
           />

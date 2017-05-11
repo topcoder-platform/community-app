@@ -72,6 +72,7 @@ This App already contains:
 - Node-Config;
 - React;
 - React CSS Modules (via Babel plugin);
+- [react-css-themr](https://github.com/javivelasco/react-css-themr);
 - React Router;
 - Redux with Flux Standard Actions, redux-promise middleware, support of server-side rendering, and DevTools for dev environment;
 - SCSS support;
@@ -83,5 +84,4 @@ This App already contains:
 - Webpack;
 
 Pending low-priority stuff (these are important, but can be added along the way):
-- react-css-themr (https://github.com/javivelasco/react-css-themr);
 - Webpack Dashboard (https://github.com/FormidableLabs/webpack-dashboard);
