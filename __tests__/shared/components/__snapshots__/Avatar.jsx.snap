@@ -3,7 +3,11 @@
 exports[`Matches shallow shapshot 1`] = `
 <Avatar
   customStyles={null}
-  theme={Object {}}
+  theme={
+    Object {
+      "avatar": "",
+    }
+  }
   url={null}
 />
 `;
@@ -11,38 +15,35 @@ exports[`Matches shallow shapshot 1`] = `
 exports[`Matches shallow shapshot 2`] = `
 <Avatar
   customStyles={null}
-  theme={Object {}}
+  theme={
+    Object {
+      "avatar": "",
+    }
+  }
   url="some-fake-string"
 />
 `;
 
 exports[`Matches shallow shapshot 3`] = `
 <Avatar
-  customStyles={
+  customStyles={null}
+  theme={
     Object {
-      "height": "100%",
-      "width": "100%",
+      "avatar": "test-style",
     }
   }
-  theme={Object {}}
   url={null}
 />
 `;
 
 exports[`Matches shallow shapshot 4`] = `
 <Avatar
-  customStyles={
-    Array [
-      Object {
-        "height": "100%",
-        "width": "100%",
-      },
-      Object {
-        "borderColor": "rgba(0, 0, 0, 0.05)",
-      },
-    ]
+  customStyles={null}
+  theme={
+    Object {
+      "avatar": "test-style",
+    }
   }
-  theme={Object {}}
   url="some-fake-string"
 />
 `;

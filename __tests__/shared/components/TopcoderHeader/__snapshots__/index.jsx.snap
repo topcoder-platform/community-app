@@ -436,6 +436,12 @@ exports[`Render with specified profile 1`] = `
           <ThemedAvatar
             composeTheme="deeply"
             customStyles={null}
+            mapThemrProps={[Function]}
+            theme={
+              Object {
+                "avatar": "",
+              }
+            }
             url={null}
           />
         </div>
