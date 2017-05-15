@@ -4,6 +4,10 @@
 {
   "presets": ["env", "react", "stage-2"],
   "plugins": [
+    ["css-modules-transform", {
+      "extensions": [".css", ".scss"],
+      "generateScopedName": "[path]___[name]__[local]___[hash:base64:5]"
+    }],
     "inline-react-svg",
     ["module-resolver", {
       "extensions": [".js", ".jsx"],

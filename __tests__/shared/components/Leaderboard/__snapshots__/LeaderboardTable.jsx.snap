@@ -50,7 +50,7 @@ exports[`Matches shallow shapshot 1`] = `
             mapThemrProps={[Function]}
             theme={
               Object {
-                "avatar": "default",
+                "avatar": "src-shared-components-Leaderboard-___avatarStyles__default___1bHTz",
               }
             }
             url="some.fake.string"
@@ -107,7 +107,7 @@ exports[`Matches shallow shapshot 1`] = `
             mapThemrProps={[Function]}
             theme={
               Object {
-                "avatar": "default",
+                "avatar": "src-shared-components-Leaderboard-___avatarStyles__default___1bHTz",
               }
             }
             url="some.fake.string"
@@ -164,7 +164,7 @@ exports[`Matches shallow shapshot 1`] = `
             mapThemrProps={[Function]}
             theme={
               Object {
-                "avatar": "default",
+                "avatar": "src-shared-components-Leaderboard-___avatarStyles__default___1bHTz",
               }
             }
             url="some.fake.string"
@@ -221,7 +221,7 @@ exports[`Matches shallow shapshot 1`] = `
             mapThemrProps={[Function]}
             theme={
               Object {
-                "avatar": "default",
+                "avatar": "src-shared-components-Leaderboard-___avatarStyles__default___1bHTz",
               }
             }
             url="some.fake.string"

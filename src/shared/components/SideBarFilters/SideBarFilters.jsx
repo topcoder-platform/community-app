@@ -1,5 +1,5 @@
 /* global
-  document, fetch, window
+  fetch, window
 */
 
 /* eslint jsx-a11y/no-static-element-interactions:0 */

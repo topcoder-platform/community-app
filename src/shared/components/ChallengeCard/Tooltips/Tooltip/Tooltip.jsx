@@ -1,7 +1,3 @@
-/* global
-  window
-*/
-
 /**
  * Tooltip component.
  */

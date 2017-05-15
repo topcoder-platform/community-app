@@ -1,5 +1,5 @@
 /* global
-  document, fetch, Promise
+  fetch, Promise
 */
 
 import _ from 'lodash';
