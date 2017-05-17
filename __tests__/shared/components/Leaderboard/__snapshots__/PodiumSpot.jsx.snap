@@ -13,7 +13,7 @@ exports[`Matches shallow shapshot 1`] = `
       mapThemrProps={[Function]}
       theme={
         Object {
-          "avatar": "gold",
+          "avatar": "src-shared-components-Leaderboard-___avatarStyles__gold___1KUGN",
         }
       }
       url="some.fake.string"

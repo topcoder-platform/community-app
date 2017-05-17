@@ -25,9 +25,25 @@ module.exports = {
         /src\/assets\/fonts/,
       ],
       loader: 'babel-loader',
-      /* NOTE: Babel configuration is taken from .babelrc, in general case.
-       * For development Webpack build, however, Babel is configured directly
-       * inside Webpack's development.js config. */
+      options: {
+        babelrc: false,
+        presets: ['env', 'react', 'stage-2'],
+        plugins: [
+          'inline-react-svg',
+          ['module-resolver', {
+            extensions: ['.js', '.jsx'],
+            root: [
+              './src/shared',
+              './src',
+            ],
+          }],
+          ['react-css-modules', {
+            filetypes: {
+              '.scss': 'postcss-scss',
+            },
+          }],
+        ],
+      },
     }, {
       test: /\.(jpeg|jpg|png)$/,
       include: /src\/assets\/images/,

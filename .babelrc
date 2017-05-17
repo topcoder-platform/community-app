@@ -1,9 +1,12 @@
-// NOTE: Babel config for development version of the frontend code is located
-// inside Webpack config file, because to enabel Hot Module Replacement it uses
-// some special settings, incompatible with NodeJS.
+// Babel config for NodeJS (server-side). Frontend Babel configuration is embed
+// inside Webpack config.
 {
   "presets": ["env", "react", "stage-2"],
   "plugins": [
+    ["css-modules-transform", {
+      "extensions": [".css", ".scss"],
+      "generateScopedName": "[path]___[name]__[local]___[hash:base64:5]"
+    }],
     "inline-react-svg",
     ["module-resolver", {
       "extensions": [".js", ".jsx"],

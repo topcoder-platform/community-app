@@ -32,13 +32,16 @@ function Avatar({ theme, url }) {
 
 Avatar.defaultProps = {
   customStyles: null,
+  theme: {
+    avatar: '',
+  },
   url: null,
 };
 
 Avatar.propTypes = {
   theme: PT.shape({
     avatar: PT.string.isRequired,
-  }).isRequired,
+  }),
   url: PT.string,
 };
 

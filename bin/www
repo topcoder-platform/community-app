@@ -7,8 +7,5 @@ require('babel-register')({
   ignore: /node_modules\/(?!appirio-tech.*|topcoder|tc-)/,
 });
 
-/* Ignores style imports during server-side rendering. */
-require('ignore-styles');
-
 /* Runs the ExpressJS startup script. */
 require('../src/server');
