@@ -1,43 +1,23 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Matches shapshot 1`] = `
-<HeaderContainer
+<ContentContainer
   communityId="someId"
-  cssUrl="some/css/url"
-  isCommunityNotFound={false}
+  dispatch={[Function]}
   isLoading={false}
-  isMobileOpen={false}
-  loadData={[Function]}
+  leaderboardApiUrl="some/api/url"
   loadedCommunityId="someId"
-  logos={
-    Array [
-      "some/logo/url",
-    ]
-  }
   match={
     Object {
       "params": Object {
         "communityId": "someId",
+        "history": Object {},
+        "location": Object {},
+        "pageId": "somePageId",
       },
     }
   }
-  menuItems={
-    Array [
-      Object {
-        "title": "Menu Item 1",
-        "url": "pageId1",
-      },
-      Object {
-        "title": "Menu Item 2",
-        "url": "pageId2",
-      },
-      Object {
-        "title": "Menu Item 3",
-        "url": "pageId3",
-      },
-    ]
-  }
-  mobileToggle={[Function]}
+  pageId="somePageId"
   store={
     Object {
       "dispatch": [Function],

@@ -11,6 +11,7 @@ exports[`Snapshot match 1`] = `
       <ThemedAvatar
         composeTheme="deeply"
         customStyles={null}
+        mapThemrProps={[Function]}
         url={null}
       />
       <span

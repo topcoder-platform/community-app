@@ -10,6 +10,7 @@ exports[`Matches shallow shapshot 1`] = `
     <ThemedAvatar
       composeTheme="deeply"
       customStyles={null}
+      mapThemrProps={[Function]}
       theme={
         Object {
           "avatar": "gold",

@@ -27,12 +27,12 @@ describe('challenge.fetchLeaderboardInit', () => {
 describe('challenge.fetchLeaderboardDone', () => {
   global.fetch = mockFetch([{ 'user.handle': 'fake.username' }]);
 
-  const a = actions.leaderboard.fetchLeaderboardDone({});
+  const a = actions.leaderboard.fetchLeaderboardDone({}, '');
 
   test('has expected type', () => {
     expect(a.type).toBe('LEADERBOARD/FETCH_LEADERBOARD_DONE');
   });
 
   test('payload is a promise which resolves to the expected object', () =>
-    a.payload.then(res => expect(res[0]['user.handle']).toEqual('fake.username')));
+    a.payload.then(res => expect(res.data[0]['user.handle']).toEqual('fake.username')));
 });

@@ -30,11 +30,12 @@ function testReducer(reducer, istate) {
     state = reducer(state, mockHeaderActions.tcCommunities.header.fetchDataInit());
     expect(state).toEqual({
       communityId: null,
-      logoUrl: null,
+      logos: [],
       menuItems: [],
       failed: false,
       loading: true,
       cssUrl: null,
+      leaderboardApiUrl: null,
     });
   });
 

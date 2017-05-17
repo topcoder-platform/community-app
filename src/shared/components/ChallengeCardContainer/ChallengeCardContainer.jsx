@@ -1,5 +1,5 @@
 /* global
-  sessionStorage, window, Math
+  sessionStorage, Math
 */
 
 /**

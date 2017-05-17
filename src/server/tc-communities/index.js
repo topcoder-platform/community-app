@@ -3,50 +3,25 @@
  */
 
 import express from 'express';
+import fs from 'fs';
+import path from 'path';
 
 const router = express.Router();
 
 /**
- * Endpoint for communities header
+ * Endpoint for community meta data
  */
-router.get('/:communityId/header', (req, res) => {
+router.get('/:communityId/meta', (req, res) => {
   const communityId = req.params.communityId;
-  const respond = {
-    communityId,
-    logoUrl: 'http://predix.topcoder.com/wp-content/uploads/sites/7/2016/11/topcoder-hat-logo.png',
-    menuItems: [
-      {
-        title: 'HOME',
-        url: '/home',
-      }, {
-        title: 'GET STARTED',
-        url: '/get-started',
-      }, {
-        title: 'ABOUT PREDIX',
-        url: '/about',
-      }, {
-        title: 'RESOURCES',
-        url: '/resources',
-      }, {
-        title: 'COMPETE',
-        url: '/complete',
-      },
-    ],
-  };
 
-  if (communityId === 'custom-theme-red') {
-    respond.style = '/themes/red/Header.css';
-  }
-
-  if (communityId === 'custom-theme-green') {
-    respond.style = '/themes/green/Header.css';
-  }
-
-  if (['default-theme', 'custom-theme-red', 'custom-theme-green'].includes(communityId)) {
-    res.json(respond);
-  } else {
-    res.status(404).send();
-  }
+  fs.readFile(path.resolve(__dirname, `${communityId}/metadata.json`), 'utf8', (err, data) => {
+    if (err) {
+      res.status(404).send();
+    } else {
+      const metadata = JSON.parse(data);
+      res.json(metadata);
+    }
+  });
 });
 
 export default router;

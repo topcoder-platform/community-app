@@ -8,6 +8,11 @@ exports[`Snapshot match 1`] = `
     <div
       className="tc-communities__header__header src-shared-components-tc-communities-Header-___Header__header___1vQf1"
     >
+      <div
+        className="tc-communities__header__logos src-shared-components-tc-communities-Header-___Header__logos___1u4yY"
+      >
+        
+      </div>
       <button
         className="tc-communities__header__mobile-toggle src-shared-components-tc-communities-Header-___Header__mobile-toggle___JaNvG"
         onClick={[Function]}
@@ -46,16 +51,20 @@ exports[`Snapshot match 2`] = `
     <div
       className="tc-communities__header__header src-shared-components-tc-communities-Header-___Header__header___1vQf1"
     >
-      <Link
-        className="tc-communities__header__logo src-shared-components-tc-communities-Header-___Header__logo___IYxzO"
-        replace={false}
-        to="/community/someId"
+      <div
+        className="tc-communities__header__logos src-shared-components-tc-communities-Header-___Header__logos___1u4yY"
       >
-        <img
-          alt="Community logo"
-          src="some/logo/url"
-        />
-      </Link>
+        <Link
+          className="tc-communities__header__logo src-shared-components-tc-communities-Header-___Header__logo___IYxzO"
+          replace={false}
+          to="/community/someId/pageId1"
+        >
+          <img
+            alt="Community logo"
+            src="some/logo/url"
+          />
+        </Link>
+      </div>
       <button
         className="tc-communities__header__mobile-toggle src-shared-components-tc-communities-Header-___Header__mobile-toggle___JaNvG"
         onClick={[Function]}
@@ -77,35 +86,35 @@ exports[`Snapshot match 2`] = `
         <li
           className="tc-communities__header__menu-item src-shared-components-tc-communities-Header-___Header__menu-item___3LG8-"
         >
-          <Link
+          <NavLink
+            activeClassName="menu-link_active tc-communities__header__menu-link_active"
             className="tc-communities__header__menu-link src-shared-components-tc-communities-Header-___Header__menu-link___Dm7_k"
-            replace={false}
-            to="/community/someId/menu/item/1"
+            to="/community/someId/pageId1"
           >
             Menu Item 1
-          </Link>
+          </NavLink>
         </li>
         <li
           className="tc-communities__header__menu-item src-shared-components-tc-communities-Header-___Header__menu-item___3LG8-"
         >
-          <Link
+          <NavLink
+            activeClassName="menu-link_active tc-communities__header__menu-link_active"
             className="tc-communities__header__menu-link src-shared-components-tc-communities-Header-___Header__menu-link___Dm7_k"
-            replace={false}
-            to="/community/someId/menu/item/2"
+            to="/community/someId/pageId2"
           >
             Menu Item 2
-          </Link>
+          </NavLink>
         </li>
         <li
           className="tc-communities__header__menu-item src-shared-components-tc-communities-Header-___Header__menu-item___3LG8-"
         >
-          <Link
+          <NavLink
+            activeClassName="menu-link_active tc-communities__header__menu-link_active"
             className="tc-communities__header__menu-link src-shared-components-tc-communities-Header-___Header__menu-link___Dm7_k"
-            replace={false}
-            to="/community/someId/menu/item/3"
+            to="/community/someId/pageId3"
           >
             Menu Item 3
-          </Link>
+          </NavLink>
         </li>
       </ul>
     </div>

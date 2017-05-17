@@ -2,6 +2,7 @@
 
 .container {
   background-color: #fff;
+  border-bottom: 1px solid #e7e7e7;
 
   @include roboto;
 
@@ -18,11 +19,27 @@
 }
 
 .logo {
-  float: left;
+  & + .logo {
+    margin-left: 20px;
+  }
 
   > img {
     display: block;
+    max-height: 40px;
   }
+
+  @include xxs-to-sm {
+    & + .logo {
+      margin-left: 10px;
+    }
+  }
+}
+
+.logos {
+  align-items: center;
+  display: flex;
+  float: left;
+  height: 100%;
 }
 
 .header {
@@ -83,6 +100,29 @@
 
   @media (min-width: #{$md-width}) {
     display: inline-block;
+  }
+}
+
+/*
+  This is a hack for server-rendering
+
+  As we have to change active link style dynamically we have import styles to some variable like
+  import styles from './Header.scss' and after use it like className={styles['menu-link_active']}
+  But so far on the server when importing styles it returns empty object styles == {}
+  So when when we try to use styles['menu-link_active'] we get undefined instead of real class name
+  It breaks server rendering.
+
+  To temporary fix it, we create a global style instead so inside Header component we can use
+  a constant string instead of variable.
+
+  TODO: when importing styles on server will be fixed to return an object with style list
+        the :global has to be removed and inside Header component string "menu-link_active"
+        must be replaced with styles['menu-link_active']
+ */
+:global {
+  .menu-link_active,
+  .menu-link_active:visited {
+    color: #2886af;
   }
 }
 

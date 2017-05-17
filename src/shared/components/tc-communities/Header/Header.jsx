@@ -8,24 +8,39 @@
 import _ from 'lodash';
 import React from 'react';
 import PT from 'prop-types';
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import './Header.scss';
 
 export default function Header(props) {
-  const { logoUrl, menuItems, communityId, cssUrl, isMobileOpen, onMobileToggleClick } = props;
+  const { logos, menuItems, communityId, cssUrl, isMobileOpen, onMobileToggleClick } = props;
 
   return (
     <div>
       {cssUrl && <link rel="stylesheet" type="text/css" href={cssUrl} />}
       <header styleName="container" className="tc-communities__header__container">
         <div styleName="header" className="tc-communities__header__header">
-          {logoUrl && <Link
-            to={`/community/${communityId}`}
-            styleName="logo"
-            className="tc-communities__header__logo"
-          >
-            <img src={logoUrl} alt="Community logo" />
-          </Link>}
+          <div styleName="logos" className="tc-communities__header__logos">
+            {_.map(logos, (logoUrl, index) =>
+              (menuItems.length ? (
+                <Link
+                  key={index}
+                  to={`/community/${communityId}/${menuItems[0].url}`}
+                  styleName="logo"
+                  className="tc-communities__header__logo"
+                >
+                  <img src={logoUrl} alt="Community logo" />
+                </Link>
+              ) : (
+                <span
+                  key={index}
+                  styleName="logo"
+                  className="tc-communities__header__logo"
+                >
+                  <img src={logoUrl} alt="Community logo" />
+                </span>
+              )),
+            )}
+          </div>
           <button
             styleName="mobile-toggle"
             className="tc-communities__header__mobile-toggle"
@@ -46,13 +61,14 @@ export default function Header(props) {
                 className="tc-communities__header__menu-item"
                 key={item.url}
               >
-                <Link
+                <NavLink
                   styleName="menu-link"
                   className="tc-communities__header__menu-link"
-                  to={`/community/${communityId}${item.url}`}
+                  activeClassName="menu-link_active tc-communities__header__menu-link_active"
+                  to={`/community/${communityId}/${item.url}`}
                 >
                   {item.title}
-                </Link>
+                </NavLink>
               </li>
             ))}
           </ul>
@@ -64,7 +80,7 @@ export default function Header(props) {
 
 Header.defaultProps = {
   menuItems: [],
-  logoUrl: null,
+  logos: [],
   isMobileOpen: false,
   cssUrl: null,
   communityId: null,
@@ -75,7 +91,7 @@ Header.propTypes = {
     title: PT.string.isRequired,
     url: PT.string.isRequired,
   })),
-  logoUrl: PT.string,
+  logos: PT.arrayOf(PT.string),
   isMobileOpen: PT.bool,
   cssUrl: PT.string,
   onMobileToggleClick: PT.func.isRequired,

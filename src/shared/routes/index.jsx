@@ -14,7 +14,8 @@ import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 import TopcoderFooter from 'components/TopcoderFooter';
 import TopcoderHeader from 'containers/TopcoderHeader';
-import CommunitiesHeader from 'containers/tc-communities/Header';
+import CommunityHeader from 'containers/tc-communities/Header';
+import CommunityContent from 'containers/tc-communities/Content';
 
 /* TODO: As we move towards production deploy, we should add a guard which
  * will prevent addition of /examples routes into production build. */
@@ -28,16 +29,18 @@ export default function Routes() {
       <Route path="/community-editor" component={TopcoderHeader} />
       <Route path="/community-page" component={TopcoderHeader} />
       <Route path="/leaderboard" component={TopcoderHeader} />
+      <Route path="/community/:communityId/:pageId" component={CommunityHeader} />
       <Switch>
         <Route exact path="/" component={Content} />
         <Route exact path="/examples" component={Content} />
         <Route path="/examples" component={Examples} />
         <Route path="/challenge/:challengeId/my-submissions" component={SubmissionManagement} />
-        <Route path="/community/:communityId/header" component={CommunitiesHeader} />
         <Route path="/community-challenge-listing/:keyword" component={ChallengeListing} />
         <Route path="/community-editor" component={Editor} />
         <Route path="/community-page" component={LandingPage} />
         <Route path="/leaderboard" component={Leaderboard} />
+        <Route path="/community/:communityId/:pageId" component={CommunityContent} />
+        <Route path="/mock/community/:communityId/:pageId" component={CommunityHeader} />
         <Route component={Error404} />
       </Switch>
       <Route path="/challenge" component={TopcoderFooter} />
@@ -45,6 +48,7 @@ export default function Routes() {
       <Route path="/community-editor" component={TopcoderFooter} />
       <Route path="/community-page" component={TopcoderFooter} />
       <Route path="/leaderboard" component={TopcoderFooter} />
+      <Route path="/community/:communityId/:pageId" component={TopcoderFooter} />
     </div>
   );
 }

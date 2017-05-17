@@ -35,7 +35,7 @@ class HeaderContainer extends React.Component {
         <Redirect to={{ pathname: '/404' }} />
       ) : (
         <Header
-          logoUrl={this.props.logoUrl}
+          logos={this.props.logos}
           menuItems={this.props.menuItems}
           isMobileOpen={this.props.isMobileOpen}
           communityId={this.props.loadedCommunityId}
@@ -50,7 +50,7 @@ class HeaderContainer extends React.Component {
 HeaderContainer.defaultProps = {
   isLoading: false,
   menuItems: [],
-  logoUrl: null,
+  logos: [],
   loadedCommunityId: null,
   isCommunityNotFound: false,
   isMobileOpen: false,
@@ -60,7 +60,7 @@ HeaderContainer.defaultProps = {
 HeaderContainer.propTypes = {
   isLoading: PT.bool,
   menuItems: PT.arrayOf(PT.shape()),
-  logoUrl: PT.string,
+  logos: PT.arrayOf(PT.string),
   loadedCommunityId: PT.string,
   loadData: PT.func.isRequired,
   communityId: PT.string.isRequired,
@@ -73,13 +73,13 @@ HeaderContainer.propTypes = {
 
 const mapStateToProps = (state, props) => ({
   communityId: props.match.params.communityId,
-  loadedCommunityId: state.tcCommunities.header.communityId,
-  isLoading: state.tcCommunities.header.loading,
-  menuItems: state.tcCommunities.header.menuItems,
-  logoUrl: state.tcCommunities.header.logoUrl,
-  cssUrl: state.tcCommunities.header.cssUrl,
-  isCommunityNotFound: state.tcCommunities.header.failed === '404',
-  isMobileOpen: state.tcCommunities.header.isMobileOpen,
+  loadedCommunityId: state.tcCommunities.meta.communityId,
+  isLoading: state.tcCommunities.meta.loading,
+  menuItems: state.tcCommunities.meta.menuItems,
+  logos: state.tcCommunities.meta.logos,
+  cssUrl: state.tcCommunities.meta.cssUrl,
+  isCommunityNotFound: state.tcCommunities.meta.failed === '404',
+  isMobileOpen: state.tcCommunities.meta.isMobileOpen,
 });
 
 const mapDispatchToProps = dispatch => ({

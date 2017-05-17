@@ -9,7 +9,7 @@ import { factory as headerFactory } from './header';
 
 export function factory(req) {
   return resolveReducers({
-    header: headerFactory(req),
+    meta: headerFactory(req),
   }).then(reducers => combineReducers({
     ...reducers,
   }));

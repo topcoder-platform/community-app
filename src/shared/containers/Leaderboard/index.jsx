@@ -16,8 +16,8 @@ import './styles.scss';
 class LeaderboardPageContainer extends React.Component {
 
   componentDidMount() {
-    if (!(this.props.leaderboardData.length || this.props.isLoadingLeaderboard)) {
-      this.props.loadLeaderboard();
+    if (!(this.props.apiUrl === this.props.loadedApiUrl || this.props.isLoadingLeaderboard)) {
+      this.props.loadLeaderboard(this.props.auth, this.props.apiUrl);
     }
   }
 
@@ -35,23 +35,33 @@ class LeaderboardPageContainer extends React.Component {
 LeaderboardPageContainer.defaultProps = {
   leaderboardData: [],
   isLoadingLeaderboard: false,
+  loadedApiUrl: null,
+  // this default url is used for demo page only
+  // TODO: make it null, when we don't need a demo page
+  apiUrl: 'http://www.mocky.io/v2/59098e60100000b60747c10b',
+  auth: null,
 };
 
 LeaderboardPageContainer.propTypes = {
   leaderboardData: PT.arrayOf(PT.shape()),
   isLoadingLeaderboard: PT.bool,
   loadLeaderboard: PT.func.isRequired,
+  loadedApiUrl: PT.string,
+  apiUrl: PT.string,
+  auth: PT.shape(),
 };
 
 const mapStateToProps = state => ({
   leaderboardData: state.leaderboard.data || [],
   isLoadingLeaderboard: state.leaderboard.loading,
+  loadedApiUrl: state.leaderboard.loadedApiUrl,
+  auth: state.auth,
 });
 
 const mapDispatchToProps = dispatch => ({
-  loadLeaderboard: () => {
+  loadLeaderboard: (auth, apiUrl) => {
     dispatch(actions.leaderboard.fetchLeaderboardInit());
-    dispatch(actions.leaderboard.fetchLeaderboardDone());
+    dispatch(actions.leaderboard.fetchLeaderboardDone(auth, apiUrl));
   },
 });
 

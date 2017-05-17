@@ -9,6 +9,18 @@ $md-width: 1024px;
 // large size - desktop
 $lg-width: 1280px;
 
+@mixin xxs {
+  @media (max-width: #{$xs-width - 1px}) {
+    @content;
+  }
+}
+
+@mixin xxs-to-sm {
+  @media (max-width: #{$sm-width - 1px}) {
+    @content;
+  }
+}
+
 @mixin xs {
   @media (min-width: #{$xs-width}) and (max-width: #{$sm-width - 1px}) {
     @content;

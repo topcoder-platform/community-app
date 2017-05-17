@@ -3,6 +3,7 @@
  */
 
 import actions from 'actions/leaderboard';
+import headerActions from 'actions/tc-communities/header';
 import { handleActions } from 'redux-actions';
 import { toFSA } from 'utils/redux';
 
@@ -14,8 +15,9 @@ import { toFSA } from 'utils/redux';
 function onDone(state, action) {
   return {
     ...state,
-    data: action.error ? null : action.payload,
-    failed: action.error,
+    data: action.error ? null : action.payload.data,
+    loadedApiUrl: action.error ? null : action.payload.loadedApiUrl,
+    failed: !!action.error,
     loading: false,
   };
 }
@@ -31,6 +33,7 @@ function create(initialState) {
       return {
         ...state,
         data: null,
+        loadedApiUrl: null,
         failed: false,
         loading: true,
       };
@@ -47,10 +50,26 @@ function create(initialState) {
  * @return Promise which resolves to the new reducer.
  */
 export function factory(req) {
-  /* Server-side rendering of Leaderboard Page. */
-  if (req && req.url.match(/^\/leaderboard/)) {
-    return toFSA(actions.leaderboard.fetchLeaderboardDone())
-      .then(response => create(onDone({}, response)));
+  /* Server-side rendering of Leaderboard Page for communities. */
+  const match = req && req.url.match(/community\/([^/]+)\/leaderboard/);
+
+  if (match) {
+    const tokens = {
+      tokenV2: req.cookies.tcjwt,
+      tokenV3: req.cookies.tctV3,
+    };
+    const communityId = match[1];
+    // as every community can has its own leaderboard page url
+    // we are trying to get leadeboard page url from community meta data api
+    return headerActions.tcCommunities.header.fetchDataDone(communityId).payload.then((data) => {
+      // reject if there is no leaderboardApiUrl for current community
+      if (!data.leaderboardApiUrl) {
+        return Promise.reject();
+      }
+
+      return toFSA(actions.leaderboard.fetchLeaderboardDone(tokens, data.leaderboardApiUrl))
+        .then(response => create(onDone({}, response)));
+    });
   }
   /* Otherwise this part of Redux state is initialized empty. */
   return Promise.resolve(create());

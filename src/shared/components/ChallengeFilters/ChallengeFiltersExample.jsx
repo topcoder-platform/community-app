@@ -101,33 +101,45 @@ class ChallengeFiltersExample extends React.Component {
     }
     this.setCardType.bind(this);
 
-    // APIs to fetch valid subtracks.
-    const SUBTRACKS_DESIGN_API = `${this.props.config.API_URL_V2}/design/challengetypes`;
-    const SUBTRACKS_DEVELOP_API = `${this.props.config.API_URL_V2}/develop/challengetypes`;
+    // as subtracks are stored on the module level, we don't need to re-download them
+    // each time we construct ChallengeFiltersExample component otherwise we will duplicate
+    // existent data
+    if (VALID_SUBTRACKS.length < 1) {
+      // APIs to fetch valid subtracks.
+      const SUBTRACKS_DESIGN_API = `${this.props.config.API_URL_V2}/design/challengetypes`;
+      const SUBTRACKS_DEVELOP_API = `${this.props.config.API_URL_V2}/develop/challengetypes`;
 
-    /* Fetching of design subtracks */
-    fetch(SUBTRACKS_DESIGN_API)
-      .then(res => res.json())
-      .then((json) => {
-        json.forEach(item => VALID_SUBTRACKS.push(keywordsMapper(item.name)));
-      });
+      /* Fetching of design subtracks */
+      fetch(SUBTRACKS_DESIGN_API)
+        .then(res => res.json())
+        .then((json) => {
+          json.forEach(item => VALID_SUBTRACKS.push(keywordsMapper(item.name)));
+        });
 
-    /* Fetching of develop subtracks */
-    fetch(SUBTRACKS_DEVELOP_API)
-      .then(res => res.json())
-      .then((json) => {
-        json.forEach(item => VALID_SUBTRACKS.push(keywordsMapper(item.name)));
-      });
+      /* Fetching of develop subtracks */
+      fetch(SUBTRACKS_DEVELOP_API)
+        .then(res => res.json())
+        .then((json) => {
+          json.forEach(item => VALID_SUBTRACKS.push(keywordsMapper(item.name)));
+        });
+    }
 
-    // API to fetch valid keywords
-    const KEYWORDS_API = `${this.props.config.API_URL}/technologies/`;
+    // same as for subtracks
+    // keyword are stored on the module level, we don't need to re-download them
+    // each time we construct ChallengeFiltersExample component otherwise we will duplicate
+    // existent data
+    if (VALID_KEYWORDS.length < 1) {
+      // API to fetch valid keywords
+      const KEYWORDS_API = `${this.props.config.API_URL}/technologies/`;
 
-    /* Fetching of keywords */
-    fetch(KEYWORDS_API)
-      .then(res => res.json())
-      .then((json) => {
-        json.result.content.forEach(item => VALID_KEYWORDS.push(keywordsMapper(item.name)));
-      });
+      /* Fetching of keywords */
+      fetch(KEYWORDS_API)
+        .then(res => res.json())
+        .then((json) => {
+          json.result.content.forEach(item => VALID_KEYWORDS.push(keywordsMapper(item.name)));
+        });
+    }
+
     // callback to listings.controller.js
     props.setChallengeFilter(this);
   }

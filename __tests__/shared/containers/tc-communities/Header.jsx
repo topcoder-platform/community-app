@@ -18,15 +18,15 @@ jest.setMock(require.resolve('actions/tc-communities/header'), mockHeaderActions
 
 const mockState = {
   tcCommunities: {
-    header: {
+    meta: {
       communityId: 'someId',
       loading: false,
       menuItems: [
-        { title: 'Menu Item 1', url: '/menu/item/1' },
-        { title: 'Menu Item 2', url: '/menu/item/2' },
-        { title: 'Menu Item 3', url: '/menu/item/3' },
+        { title: 'Menu Item 1', url: 'pageId1' },
+        { title: 'Menu Item 2', url: 'pageId2' },
+        { title: 'Menu Item 3', url: 'pageId3' },
       ],
-      logoUrl: 'some/logo/url',
+      logos: ['some/logo/url'],
       cssUrl: 'some/css/url',
       isMobileOpen: false,
       failed: false,
@@ -36,13 +36,13 @@ const mockState = {
 
 const mockState2 = {
   tcCommunities: {
-    header: {},
+    meta: {},
   },
 };
 
 const mockState3 = {
   tcCommunities: {
-    header: {
+    meta: {
       communityId: 'anotherId',
     },
   },
@@ -50,7 +50,7 @@ const mockState3 = {
 
 const mockState4 = {
   tcCommunities: {
-    header: {
+    meta: {
       communityId: 'someId',
       isMobileOpen: true,
     },

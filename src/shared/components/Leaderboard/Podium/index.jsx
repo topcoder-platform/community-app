@@ -13,10 +13,10 @@
  *   - competitors (required): Array of Top Coder user object, with
  *     the following properties:
  *      - rank: Number, required. User current ranking in the leaderboard
- *      - avatarUrl: String. URL for the user's profile picture
+ *      - photourl: String. URL for the user's profile picture
  *        This will default to the default user avatar is undefined
  *      - user.handle: String, required. User handle
- *      - wins: Number, required. The number of challenge the user won
+ *      - challenge.count: Number, required. The number of challenge the user won
  *      - project_result.final_score: Number, required. The user's current score
  */
 
@@ -63,9 +63,9 @@ export default function Podium(props) {
 
 const CompetitorShape = PT.shape({
   rank: PT.number.isRequired,
-  avatarUrl: PT.string,
+  photourl: PT.string,
   'user.handle': PT.string.isRequired,
-  wins: PT.number.isRequired,
+  'challenge.count': PT.number.isRequired,
   'project_result.final_score': PT.number.isRequired,
 });
 

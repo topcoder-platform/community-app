@@ -17,22 +17,24 @@ function onDone(state, action) {
     return {
       ...state,
       communityId: action.payload.communityId,
-      logoUrl: action.payload.logoUrl,
+      logos: action.payload.logos,
       menuItems: action.payload.menuItems,
       failed: false,
       loading: false,
       cssUrl: action.payload.style,
+      leaderboardApiUrl: action.payload.leaderboardApiUrl,
     };
   }
   // if community is not found or other error
   return {
     ...state,
     communityId: action.payload.error === '404' ? action.payload.communityId : null,
-    logoUrl: null,
+    logos: [],
     menuItems: [],
     failed: action.payload.error === '404' ? action.payload.error : true,
     loading: false,
     cssUrl: null,
+    leaderboardApiUrl: null,
   };
 }
 
@@ -53,11 +55,12 @@ function create(initialState) {
       return {
         ...state,
         communityId: null,
-        logoUrl: null,
+        logos: [],
         menuItems: [],
         failed: false,
         loading: true,
         cssUrl: null,
+        leaderboardApiUrl: null,
       };
     },
     [actions.tcCommunities.header.fetchDataDone]: onDone,
@@ -72,10 +75,11 @@ function create(initialState) {
  * @return Promise which resolves to the new reducer.
  */
 export function factory(req) {
-  const match = req && req.url.match(/\/community\/([^/]+)\/header$/);
+  const match = req && req.url.match(/\/community\/([^/]+)\//);
 
   if (match) {
     const communityId = match[1];
+
     return toFSA(actions.tcCommunities.header.fetchDataDone(communityId))
       .then(res => create(onDone({}, res)));
   }

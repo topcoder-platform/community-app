@@ -20,11 +20,11 @@ test('Snapshot match', () => {
     <Header
       onMobileToggleClick={mockOnMobileToggle}
       communityId="someId"
-      logoUrl="some/logo/url"
+      logos={['some/logo/url']}
       menuItems={[
-        { title: 'Menu Item 1', url: '/menu/item/1' },
-        { title: 'Menu Item 2', url: '/menu/item/2' },
-        { title: 'Menu Item 3', url: '/menu/item/3' },
+        { title: 'Menu Item 1', url: 'pageId1' },
+        { title: 'Menu Item 2', url: 'pageId2' },
+        { title: 'Menu Item 3', url: 'pageId3' },
       ]}
       cssUrl="some/css/url"
       isMobileOpen

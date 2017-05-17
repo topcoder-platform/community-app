@@ -32,7 +32,21 @@ class ChallengeListingPageContainer extends React.Component {
    * @return {boolean} whether the item pass filter or not
    */
   masterFilterFunc(item) {
-    const keyword = this.props.match.params.keyword;
+    let keyword;
+
+    // if there is tag in props, use it as keyword
+    if (this.props.tag) {
+      keyword = this.props.tag;
+
+    // if there is defined keyword param in the route, use it as keyword
+    } else if (this.props.match && this.props.match.params && this.props.match.params.keyword) {
+      keyword = this.props.match.params.keyword;
+
+    // if keyword is not defined at all, don't filter
+    } else {
+      return true;
+    }
+
     const techs = ` ${item.technologies.join(' ').toLowerCase()} `;
 
     return !!(techs.indexOf(` ${keyword.toLowerCase()} `) >= 0);
@@ -56,14 +70,17 @@ class ChallengeListingPageContainer extends React.Component {
 }
 
 ChallengeListingPageContainer.defaultProps = {
+  match: null,
+  tag: null,
 };
 
 ChallengeListingPageContainer.propTypes = {
   match: PT.shape({
     params: PT.shape({
-      keyword: PT.string.isRequired,
-    }).isRequired,
-  }).isRequired,
+      keyword: PT.string,
+    }),
+  }),
+  tag: PT.string,
   history: PT.shape({
     replace: PT.func.isRequired,
   }).isRequired,

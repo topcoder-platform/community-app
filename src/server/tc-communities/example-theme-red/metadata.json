@@ -1,0 +1,23 @@
+{
+  "communityId": "example-theme-red",
+  "logos": ["http://predix.topcoder.com/wp-content/uploads/sites/7/2016/11/topcoder-hat-logo.png"],
+  "menuItems": [
+    {
+      "title": "HOME",
+      "url": "header"
+    }, {
+      "title": "GET STARTED",
+      "url": "get-started"
+    }, {
+      "title": "ABOUT PREDIX",
+      "url": "about"
+    }, {
+      "title": "RESOURCES",
+      "url": "resources"
+    }, {
+      "title": "COMPETE",
+      "url": "complete"
+    }
+  ],
+  "style": "/themes/red/Header.css"
+}
