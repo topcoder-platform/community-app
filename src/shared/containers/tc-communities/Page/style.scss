@@ -1,0 +1,12 @@
+@import '~styles/tc-styles';
+
+.auth-check {
+  @include tc-body-large;
+
+  padding-top: 100px;
+  text-align: center;
+}
+
+.msg {
+  padding-top: 48px;
+}

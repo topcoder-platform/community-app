@@ -22,10 +22,6 @@ exports[`Matches shallow shapshot 1`] = `
     component={[Function]}
     path="/leaderboard"
   />
-  <Route
-    component={[Function]}
-    path="/community/:communityId/:pageId"
-  />
   <Switch>
     <Route
       component={[Function]}
@@ -92,10 +88,6 @@ exports[`Matches shallow shapshot 1`] = `
   <Route
     component={[Function]}
     path="/leaderboard"
-  />
-  <Route
-    component={[Function]}
-    path="/community/:communityId/:pageId"
   />
 </div>
 `;

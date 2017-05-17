@@ -61,14 +61,13 @@ function authenticate(store) {
     return ({});
   }).then(({ tctV2, tctV3 }) => {
     const auth = store.getState().auth;
-
     if (auth.tokenV3 !== (tctV3 || null)) {
       store.dispatch(actions.auth.setTcTokenV3(tctV3));
-      store.dispatch(actions.auth.loadProfile(tctV3));
     }
     if (auth.tokenV2 !== (tctV2 || null)) {
       store.dispatch(actions.auth.setTcTokenV2(tctV2));
     }
+    store.dispatch(actions.auth.loadProfile(tctV3));
   });
 }
 

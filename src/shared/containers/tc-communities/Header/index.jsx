@@ -70,7 +70,6 @@ HeaderContainer.propTypes = {
   cssUrl: PT.string,
 };
 
-
 const mapStateToProps = (state, props) => ({
   communityId: props.match.params.communityId,
   loadedCommunityId: state.tcCommunities.meta.communityId,

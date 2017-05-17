@@ -15,7 +15,8 @@ import { Switch, Route } from 'react-router-dom';
 import TopcoderFooter from 'components/TopcoderFooter';
 import TopcoderHeader from 'containers/TopcoderHeader';
 import CommunityHeader from 'containers/tc-communities/Header';
-import CommunityContent from 'containers/tc-communities/Content';
+
+import TcCommunitiesPage from 'containers/tc-communities/Page';
 
 /* TODO: As we move towards production deploy, we should add a guard which
  * will prevent addition of /examples routes into production build. */
@@ -29,7 +30,6 @@ export default function Routes() {
       <Route path="/community-editor" component={TopcoderHeader} />
       <Route path="/community-page" component={TopcoderHeader} />
       <Route path="/leaderboard" component={TopcoderHeader} />
-      <Route path="/community/:communityId/:pageId" component={CommunityHeader} />
       <Switch>
         <Route exact path="/" component={Content} />
         <Route exact path="/examples" component={Content} />
@@ -39,7 +39,10 @@ export default function Routes() {
         <Route path="/community-editor" component={Editor} />
         <Route path="/community-page" component={LandingPage} />
         <Route path="/leaderboard" component={Leaderboard} />
-        <Route path="/community/:communityId/:pageId" component={CommunityContent} />
+        <Route
+          component={TcCommunitiesPage}
+          path="/community/:communityId/:pageId"
+        />
         <Route path="/mock/community/:communityId/:pageId" component={CommunityHeader} />
         <Route component={Error404} />
       </Switch>
@@ -48,7 +51,6 @@ export default function Routes() {
       <Route path="/community-editor" component={TopcoderFooter} />
       <Route path="/community-page" component={TopcoderFooter} />
       <Route path="/leaderboard" component={TopcoderFooter} />
-      <Route path="/community/:communityId/:pageId" component={TopcoderFooter} />
     </div>
   );
 }

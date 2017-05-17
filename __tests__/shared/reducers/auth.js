@@ -28,6 +28,7 @@ function testReducer(reducer, istate) {
     toFSA(mockActions.auth.loadProfile()).then((action) => {
       const state = reducer({ dummy }, action);
       expect(state).toEqual({
+        authenticating: false,
         dummy,
         profile: 'Profile',
       });
@@ -64,7 +65,9 @@ function testReducer(reducer, istate) {
 }
 
 describe('Default reducer', () => {
-  testReducer(reducers.default, {});
+  testReducer(reducers.default, {
+    authenticating: true,
+  });
 });
 
 describe('Factory without server side rendering', () =>

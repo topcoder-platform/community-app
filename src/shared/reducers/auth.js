@@ -15,6 +15,7 @@ import { toFSA } from 'utils/redux';
 function onProfileLoaded(state, action) {
   return {
     ...state,
+    authenticating: false,
     profile: action.payload,
   };
 }
@@ -36,7 +37,9 @@ function create(initialState) {
       tokenV3: payload,
       user: payload ? decodeToken(payload) : null,
     }),
-  }, initialState || {});
+  }, initialState || {
+    authenticating: true,
+  });
 }
 
 /**
@@ -50,6 +53,7 @@ export function factory(req) {
   const cookies = (req && req.cookies) || {};
   const tokenV3 = cookies.tctV3 || null;
   const state = {
+    authenticating: true,
     tokenV2: cookies.tcjwt || null,
     tokenV3,
     user: tokenV3 ? decodeToken(tokenV3) : null,
