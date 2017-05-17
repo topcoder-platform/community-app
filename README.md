@@ -46,10 +46,11 @@ Development dependencies include StyleFMT. You can execute `$ npm run fix:styles
 To automatically correct js files, you can use `npm run fix:js`.
 
 ### Development Notes
--   [Challenge Listing - Notes from Winning Submission](docs/challenge-listing-notes.md)
--   [Leaderboard - Notes from the preliminary winning submission](docs/leaderboard-notes.md)
+-   [Challenge Listing - Notes from winning submission](docs/challenge-listing-notes.md)
+-   [Leaderboard - Notes from the winning submission](docs/leaderboard-notes.md)
+-   [Wipro Community - Notes from the preliminary winning submission](docs/wipro-community-md)
 -   [Why Reducer Factories and How to Use Them?](docs/why-reducer-factories-and-how-to-use-them.md)
--   [WYSIWYG Page Editor - Notes from the Winning Submission](docs/editor-notes.pdf)
+-   [WYSIWYG Page Editor - Notes from the winning submission](docs/editor-notes.pdf)
 
 ### Current Status
 
