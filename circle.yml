@@ -1,6 +1,11 @@
 machine:
   node:
     version: 6.10.2
+  environment:
+    AWS_REGION: us-east-1
+
+  services:
+    - docker
 
 dependencies:
   pre:
@@ -15,7 +20,9 @@ deployment:
   development:
     branch: develop
     commands:
-      - ./deploy/eb_deploy.sh community-app DEV $CIRCLE_BUILD_NUM topcoder-dev-vpc-nat
+      - docker build --build-arg BUILD_ENV=dev -f deploy/Dockerfile -t $DEV_AWS_ACCOUNT_ID.dkr.ecs.$AWS_REGION.amazonaws.com/community-app:$CIRCLE_SHA1 .
+      - ./deploy.sh DEV
+      # - ./deploy/eb_deploy.sh community-app DEV $CIRCLE_BUILD_NUM topcoder-dev-vpc-nat
 
 
   production:
