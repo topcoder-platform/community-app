@@ -6,6 +6,7 @@
 /* eslint-disable */
 
 import React from 'react';
+import '../legacy-style.css';
 import '../style.scss';
 
 export default function Home(props) {

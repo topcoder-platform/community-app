@@ -19,6 +19,11 @@ import WiproHome from 'components/tc-communities/communities/wipro/Home';
 import WiproAbout from 'components/tc-communities/communities/wipro/About';
 import { Redirect } from 'react-router-dom';
 
+/* TODO: Bootstrap import should be moved to a more appropriate place, which
+ * depends on whether we want it to be available globally, or only in specific
+ * communities. */
+require('bootstrap/dist/css/bootstrap.min.css');
+
 // The container component
 class ContentContainer extends React.Component {
   /**
@@ -100,16 +105,6 @@ class ContentContainer extends React.Component {
             TODO: remove these style when we don't need static Home about About page examples
           */}
           {/* eslint-disable max-len */}
-          <link
-            rel="stylesheet"
-            type="text/css"
-            href="http://topgear.tcmini.wpengine.com/wp-content/themes/nokia/bower_components/bootstrap/dist/css/bootstrap.min.css?ver=4.7.4"
-          />
-          <link
-            rel="stylesheet"
-            type="text/css"
-            href="http://topgear.tcmini.wpengine.com/wp-content/themes/nokia/css/styles.css?v=20170307&#038;ver=4.7.4"
-          />
           {/* eslint-enable max-len */}
           {this.renderPageContent()}
         </div>

@@ -11,8 +11,11 @@ module.exports = {
   entry: './src/client',
   module: {
     rules: [{
-      test: /\.(eot|svg|ttf|woff)$/,
-      include: /src\/assets\/fonts/,
+      test: /\.(eot|otf|svg|ttf|woff|woff2)$/,
+      include: [
+        /src\/assets\/fonts/,
+        /node_modules/,
+      ],
       loader: 'file-loader',
       options: {
         outputPath: '/fonts/',
