@@ -15,4 +15,4 @@ export AWS_SECRET_ACCESS_KEY=$(eval "echo \$${ENV}_AWS_SECRET_ACCESS_KEY")
 
 mkdir .elasticbeanstalk
 envsub -e EC2_KEYNAME=$KEYNAME -e APPLICATION_NAME=$APP deploy/eb-config.yml .elasticbeanstalk/config.yml
-eb deploy $APP-${ENV_LOWER} -l $TAG -r us-east-1
+eb deploy $APP-${ENV_LOWER} -l $TAG -r us-east-1 --timeout 10
