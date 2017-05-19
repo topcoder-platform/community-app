@@ -6,8 +6,6 @@ import Content from 'components/examples/Content';
 import Error404 from 'components/Error404';
 import SubmissionManagement from 'containers/SubmissionManagement';
 import ChallengeListing from 'containers/ChallengeListing';
-import Editor from 'containers/Editor';
-import LandingPage from 'components/LandingPage';
 import Leaderboard from 'containers/Leaderboard';
 import 'isomorphic-fetch';
 import React from 'react';
@@ -27,7 +25,6 @@ export default function Routes() {
     <div>
       <Route path="/challenge" component={TopcoderHeader} />
       <Route path="/community-challenge-listing" component={TopcoderHeader} />
-      <Route path="/community-editor" component={TopcoderHeader} />
       <Route path="/community-page" component={TopcoderHeader} />
       <Route path="/leaderboard" component={TopcoderHeader} />
       <Switch>
@@ -36,8 +33,6 @@ export default function Routes() {
         <Route path="/examples" component={Examples} />
         <Route path="/challenge/:challengeId/my-submissions" component={SubmissionManagement} />
         <Route path="/community-challenge-listing/:keyword" component={ChallengeListing} />
-        <Route path="/community-editor" component={Editor} />
-        <Route path="/community-page" component={LandingPage} />
         <Route path="/leaderboard" component={Leaderboard} />
         <Route
           component={TcCommunitiesPage}
@@ -48,7 +43,6 @@ export default function Routes() {
       </Switch>
       <Route path="/challenge" component={TopcoderFooter} />
       <Route path="/community-challenge-listing" component={TopcoderFooter} />
-      <Route path="/community-editor" component={TopcoderFooter} />
       <Route path="/community-page" component={TopcoderFooter} />
       <Route path="/leaderboard" component={TopcoderFooter} />
     </div>

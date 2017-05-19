@@ -12,8 +12,8 @@ Basically it's `npm i`, `npm run dev` and open http://local.topcoder-dev.com:300
 
 ### NOTES
 - There could be warnings about 6 lines add whitespace errors during git patch applying. But all these lines are inside snapshot files, so this code is being generated automatically.
-- Project has to run using domain `http://local.topcoder-dev.com:3000/`. It's because we use server not only to serve frontend but also for demo API.
-  Though for API we have to define absolute paths to work properly on the server side.
+- ~~Project has to run using domain `http://local.topcoder-dev.com:3000/`. It's because we use server not only to serve frontend but also for demo API.
+  Though for API we have to define absolute paths to work properly on the server side.~~
 - For reviewing purpose it's preferable to run `npm run dev` because in dev mode there are more errors can be seen in browser console, in particular server-rendering warnings.
 
 ## VERIFICATION

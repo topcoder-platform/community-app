@@ -92,22 +92,6 @@ export default function Content() {
           page</Link> and <Link to="/community/404/home">non-existent community</Link>.
         </li>
       </ul>
-      <h3>WYSIWYG Page Editor Experiments</h3>
-      <ul>
-        <li>
-          <Link to="/community-editor">Editor</Link> - Winning submission from
-          the <a href="https://www.topcoder.com/challenge-details/30057514/?type=develop">challenge</a> by <strong>rjnpnigrhi</strong>.
-          Check the edited page <Link to="/community-page">here</Link>.
-        </li>
-        <li>
-          <Link to="/examples/draft-editor">Draft Editor</Link> - POC page
-          editor based exusively on DraftJS (unfinished).
-        </li>
-        <li>
-          <Link to="/examples/editor">WYSIWYG Page Editor</Link> - POC of page
-          editor (unfinished).
-        </li>
-      </ul>
       <h3>Misc Examples</h3>
       <ul>
         <li>
