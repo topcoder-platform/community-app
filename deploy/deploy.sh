@@ -22,8 +22,8 @@ deploy_cluster() {
 
     make_task_def
     register_definition
-    echo "aws ecs update-service --cluster $AWS_ECS_CLUSTER --service $AWS_ECS_SERVICE --task-definition $revision"
-    if [[ $(aws ecs update-service --cluster $AWS_ECS_CLUSTER --service $AWS_ECS_SERVICE --task-definition $revision | \
+
+		if [[ $(aws ecs update-service --cluster $AWS_ECS_CLUSTER --service $AWS_ECS_SERVICE --task-definition $revision | \
                    $JQ '.service.taskDefinition') != $revision ]]; then
         echo "Error updating service."
         return 1
@@ -39,8 +39,8 @@ make_task_def(){
 			"name": "community-app",
 			"image": "%s.dkr.ecr.%s.amazonaws.com/%s:%s",
 			"essential": true,
-			"memory": 200,
-			"cpu": 10,
+			"memory": 500,
+			"cpu": 100,
       "environment": [
         {
           "name": "NODE_ENV",
