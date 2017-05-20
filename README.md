@@ -86,16 +86,3 @@ This App already contains:
 
 Pending low-priority stuff (these are important, but can be added along the way):
 - Webpack Dashboard (https://github.com/FormidableLabs/webpack-dashboard);
-
-### CI / CD
-Deploy scripts are setup to use AWS ECS + CircleCI. Make sure the following environment variables are setup in CircleCI:
-* AWS_REGION
-* DEV_AWS_ACCOUNT_ID
-* DEV_AWS_ACCESS_KEY_ID
-* DEV_AWS_SECRET_ACCESS_KEY
-* PROD_AWS_ACCOUNT_ID
-* PROD_AWS_ACCESS_KEY_ID
-* PROD_AWS_SECRET_ACCESS_KEY
-* AWS_ECS_SERVICE
-* AWS_ECS_CLUSTER
-* AWS_REPOSITORY
