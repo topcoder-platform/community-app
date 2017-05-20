@@ -64,7 +64,6 @@ class ContentContainer extends React.Component {
    */
   renderPageContent() {
     let pageContent = <div />;
-
     switch (this.props.pageId) {
       case 'leaderboard':
         pageContent = (<Leaderboard
@@ -73,7 +72,7 @@ class ContentContainer extends React.Component {
         break;
       case 'challenges':
         pageContent = (<ChallengeListing
-          tag="JavaScript"
+          tag={this.props.challengeFilterTag}
           history={this.props.history}
           location={this.props.location}
         />);
@@ -114,12 +113,14 @@ class ContentContainer extends React.Component {
 }
 
 ContentContainer.defaultProps = {
+  challengeFilterTag: '',
   isLoading: false,
   loadedCommunityId: null,
   leaderboardApiUrl: null,
 };
 
 ContentContainer.propTypes = {
+  challengeFilterTag: PT.string,
   isLoading: PT.bool,
   loadedCommunityId: PT.string,
   leaderboardApiUrl: PT.string,
@@ -130,6 +131,7 @@ ContentContainer.propTypes = {
 };
 
 const mapStateToProps = (state, props) => ({
+  challengeFilterTag: state.tcCommunities.meta.challengeFilterTag,
   isLoading: state.tcCommunities.meta.loading,
   leaderboardApiUrl: state.tcCommunities.meta.leaderboardApiUrl,
   loadedCommunityId: state.tcCommunities.meta.communityId,

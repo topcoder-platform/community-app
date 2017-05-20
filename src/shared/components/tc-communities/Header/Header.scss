@@ -1,5 +1,39 @@
 @import '~styles/tc-styles';
 
+.avatar {
+  display: inline-block;
+  margin: 12px 6px 8px 12px;
+}
+
+.avatar-mobile {
+  float: right;
+  margin: 19px 0 8px 12px;
+}
+
+.user-menu {
+  cursor: pointer;
+  display: inline-block;
+  height: 100%;
+  margin-bottom: 6px;
+  margin-left: 24px;
+  vertical-align: bottom;
+}
+
+@media (max-width: #{$md-width}) {
+  .user-menu {
+    display: none;
+  }
+}
+
+.user-menu-handle {
+  // border-bottom: 2px solid $tc-dark-blue-90;
+  display: inline-block;
+  font-size: 15px;
+  height: 54px;
+  padding: 20px 0;
+  vertical-align: bottom;
+}
+
 .container {
   background-color: #fff;
   border-bottom: 1px solid #e7e7e7;

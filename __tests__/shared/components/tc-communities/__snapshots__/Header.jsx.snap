@@ -13,6 +13,21 @@ exports[`Snapshot match 1`] = `
       >
         
       </div>
+      <div
+        className="src-shared-components-tc-communities-Header-___Header__avatar-mobile___3rAx0"
+      >
+        <ThemedAvatar
+          composeTheme="deeply"
+          customStyles={null}
+          mapThemrProps={[Function]}
+          theme={
+            Object {
+              "avatar": "",
+            }
+          }
+          url=""
+        />
+      </div>
       <button
         className="tc-communities__header__mobile-toggle src-shared-components-tc-communities-Header-___Header__mobile-toggle___JaNvG"
         onClick={[Function]}
@@ -64,6 +79,21 @@ exports[`Snapshot match 2`] = `
             src="some/logo/url"
           />
         </Link>
+      </div>
+      <div
+        className="src-shared-components-tc-communities-Header-___Header__avatar-mobile___3rAx0"
+      >
+        <ThemedAvatar
+          composeTheme="deeply"
+          customStyles={null}
+          mapThemrProps={[Function]}
+          theme={
+            Object {
+              "avatar": "",
+            }
+          }
+          url=""
+        />
       </div>
       <button
         className="tc-communities__header__mobile-toggle src-shared-components-tc-communities-Header-___Header__mobile-toggle___JaNvG"

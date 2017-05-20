@@ -8,11 +8,34 @@
 import _ from 'lodash';
 import React from 'react';
 import PT from 'prop-types';
+import Avatar from 'components/Avatar';
 import { Link, NavLink } from 'react-router-dom';
+import { getRatingColor } from 'utils/tc';
 import './Header.scss';
 
 export default function Header(props) {
-  const { logos, menuItems, communityId, cssUrl, isMobileOpen, onMobileToggleClick } = props;
+  const {
+    logos, menuItems, communityId, cssUrl, isMobileOpen, onMobileToggleClick, profile,
+  } = props;
+
+  const loginState = profile ? (
+    <div
+      /* Login state component. */
+      styleName="user-menu"
+    >
+      <div
+        style={{
+          color: getRatingColor(_.get(profile, 'maxRating.rating', 0)),
+        }}
+        styleName="user-menu-handle"
+      >
+        {profile.handle}
+      </div>
+      <div styleName="avatar">
+        <Avatar url={profile.photoURL} />
+      </div>
+    </div>
+  ) : null;
 
   return (
     <div>
@@ -41,6 +64,9 @@ export default function Header(props) {
               )),
             )}
           </div>
+          <div styleName="avatar-mobile">
+            <Avatar url={profile ? profile.photoURL : ''} />
+          </div>
           <button
             styleName="mobile-toggle"
             className="tc-communities__header__mobile-toggle"
@@ -55,7 +81,7 @@ export default function Header(props) {
           className={`tc-communities__header__menu-wrap${isMobileOpen ? ' tc-communities__header__open' : ''}`}
         >
           <ul styleName="menu" className="tc-communities__header__menu">
-            {_.map(menuItems, item => (
+            {_.concat(_.map(menuItems, item => (
               <li
                 styleName="menu-item"
                 className="tc-communities__header__menu-item"
@@ -70,7 +96,7 @@ export default function Header(props) {
                   {item.title}
                 </NavLink>
               </li>
-            ))}
+            )), loginState)}
           </ul>
         </div>
       </header>
@@ -84,6 +110,7 @@ Header.defaultProps = {
   isMobileOpen: false,
   cssUrl: null,
   communityId: null,
+  profile: null,
 };
 
 Header.propTypes = {
@@ -96,4 +123,5 @@ Header.propTypes = {
   cssUrl: PT.string,
   onMobileToggleClick: PT.func.isRequired,
   communityId: PT.string,
+  profile: PT.shape({}),
 };

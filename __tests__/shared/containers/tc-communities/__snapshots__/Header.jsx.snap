@@ -38,6 +38,7 @@ exports[`Matches shapshot 1`] = `
     ]
   }
   mobileToggle={[Function]}
+  profile={null}
   store={
     Object {
       "dispatch": [Function],

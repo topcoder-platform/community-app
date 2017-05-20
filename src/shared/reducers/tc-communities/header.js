@@ -16,6 +16,7 @@ function onDone(state, action) {
     // if everything is ok, populate data from payload
     return {
       ...state,
+      challengeFilterTag: action.payload.challengeFilterTag,
       communityId: action.payload.communityId,
       logos: action.payload.logos,
       menuItems: action.payload.menuItems,

@@ -36,6 +36,7 @@ class HeaderContainer extends React.Component {
       ) : (
         <Header
           logos={this.props.logos}
+          profile={this.props.profile}
           menuItems={this.props.menuItems}
           isMobileOpen={this.props.isMobileOpen}
           communityId={this.props.loadedCommunityId}
@@ -50,6 +51,7 @@ class HeaderContainer extends React.Component {
 HeaderContainer.defaultProps = {
   isLoading: false,
   menuItems: [],
+  profile: null,
   logos: [],
   loadedCommunityId: null,
   isCommunityNotFound: false,
@@ -59,6 +61,7 @@ HeaderContainer.defaultProps = {
 
 HeaderContainer.propTypes = {
   isLoading: PT.bool,
+  profile: PT.shape({}),
   menuItems: PT.arrayOf(PT.shape()),
   logos: PT.arrayOf(PT.string),
   loadedCommunityId: PT.string,
@@ -71,6 +74,7 @@ HeaderContainer.propTypes = {
 };
 
 const mapStateToProps = (state, props) => ({
+  profile: state.auth ? state.auth.profile : null,
   communityId: props.match.params.communityId,
   loadedCommunityId: state.tcCommunities.meta.communityId,
   isLoading: state.tcCommunities.meta.loading,

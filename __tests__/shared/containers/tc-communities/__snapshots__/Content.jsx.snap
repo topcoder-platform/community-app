@@ -2,6 +2,7 @@
 
 exports[`Matches shapshot 1`] = `
 <ContentContainer
+  challengeFilterTag=""
   communityId="someId"
   dispatch={[Function]}
   isLoading={false}
