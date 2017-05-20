@@ -25,6 +25,12 @@
   }
 }
 
+@media (min-width: #{$md-width}) {
+  .avatar-mobile {
+    display: none;
+  }
+}
+
 .user-menu-handle {
   // border-bottom: 2px solid $tc-dark-blue-90;
   display: inline-block;

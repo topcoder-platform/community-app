@@ -22,6 +22,7 @@ export default function Header(props) {
     <div
       /* Login state component. */
       styleName="user-menu"
+      key="login-state"
     >
       <div
         style={{
