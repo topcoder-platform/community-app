@@ -8,9 +8,11 @@ TAG=$2
 ACCOUNT_ID=$(eval "echo \$${ENV}_AWS_ACCOUNT_ID")
 
 configure_aws_cli() {
-	export AWS_ACCESS_KEY_ID=$(eval "echo \$${ENV}_AWS_ACCESS_KEY_ID")
-	export AWS_SECRET_ACCESS_KEY=$(eval "echo \$${ENV}_AWS_SECRET_ACCESS_KEY")
+	AWS_ACCESS_KEY_ID=$(eval "echo \$${ENV}_AWS_ACCESS_KEY_ID")
+	AWS_SECRET_ACCESS_KEY=$(eval "echo \$${ENV}_AWS_SECRET_ACCESS_KEY")
 	aws --version
+	aws configure set aws_access_key_id $AWS_ACCESS_KEY_ID
+	aws configure set aws_secret_access_key $AWS_SECRET_ACCESS_KEY
 	aws configure set default.region $AWS_REGION
 	aws configure set default.output json
   echo "Configured AWS CLI."
@@ -94,4 +96,4 @@ register_definition() {
 
 configure_aws_cli
 push_ecr_image
-deploy_cluster
+#deploy_cluster

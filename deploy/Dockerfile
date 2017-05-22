@@ -3,11 +3,11 @@ LABEL version="1.0"
 LABEL description="Community App"
 
 # Create app directory
-ADD package.json /tmp/package.json
-RUN cd /tmp && npm install
-
-RUN mkdir -p /opt/app && cp -a /tmp/node_modules /opt/app/
+RUN mkdir -p /opt/app
+ADD package.json /opt/app/package.json
 WORKDIR /opt/app
+RUN npm install
+
 ADD . /opt/app
 
 ARG BUILD_ENV=prod
