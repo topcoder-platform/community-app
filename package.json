@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "./node_modules/.bin/webpack --env=production --progress --profile --colors",
+    "build:prod": "./node_modules/.bin/webpack --env=production --progress --profile --colors",
     "build:dev": "./node_modules/.bin/webpack --env=development --progress --profile --colors",
     "dev": "DEV_TOOLS=true node ./bin/www",
     "fix:js": "eslint --fix --ext .js,.jsx .",

@@ -8,8 +8,6 @@ dependencies:
     - sudo pip install 'awsebcli==3.7.4' --force-reinstall
   override:
     - npm install
-  post:
-    - npm install -g envsub
 
 deployment:
   development:
