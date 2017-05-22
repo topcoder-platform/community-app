@@ -176,7 +176,7 @@ describe('User input handling', () => {
 
   test('sub-menu closes when mouse leave downwards', () => {
     const items = TU.findAllInRenderedTree(page, item =>
-      styleNameMatch(item, 'sub-menu'));
+      styleNameMatch(item, 'closed-menu'));
     expect(items.length).toBe(1);
     TU.Simulate.mouseLeave(items[0], { pageY: 1 });
     expect(mockCloseMenu).toHaveBeenCalled();

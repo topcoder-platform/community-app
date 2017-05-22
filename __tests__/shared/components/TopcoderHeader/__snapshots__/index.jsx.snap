@@ -69,9 +69,10 @@ exports[`Default render 1`] = `
       </div>
     </div>
   </div>
-  <ul
-    className="src-shared-components-TopcoderHeader-___style__sub-menu___2kDGO"
-    onMouseLeave={[Function]}
+  <SubMenu
+    closeMenu={[Function]}
+    menu={null}
+    trigger={null}
   />
   <div
     className="src-shared-components-TopcoderHeader-___style__search-field___2VMzu"
@@ -250,21 +251,22 @@ exports[`Render with open menu 1`] = `
       </div>
     </div>
   </div>
-  <ul
-    className="opened src-shared-components-TopcoderHeader-___style__sub-menu___2kDGO"
-    onMouseLeave={[Function]}
-  >
-    <li
-      className="src-shared-components-TopcoderHeader-___style__sub-menu-item___EmjZ4"
-    >
-      <a
-        href="/link"
-      >
-        <div />
-        Title
-      </a>
-    </li>
-  </ul>
+  <SubMenu
+    closeMenu={[Function]}
+    menu={
+      Object {
+        "items": Array [
+          Object {
+            "icon": <div />,
+            "link": "/link",
+            "title": "Title",
+          },
+        ],
+        "title": "Menu Title",
+      }
+    }
+    trigger={null}
+  />
   <div
     className="src-shared-components-TopcoderHeader-___style__search-field___2VMzu"
     onMouseLeave={[Function]}
@@ -455,9 +457,10 @@ exports[`Render with specified profile 1`] = `
       </div>
     </div>
   </div>
-  <ul
-    className="src-shared-components-TopcoderHeader-___style__sub-menu___2kDGO"
-    onMouseLeave={[Function]}
+  <SubMenu
+    closeMenu={[Function]}
+    menu={null}
+    trigger={null}
   />
   <div
     className="src-shared-components-TopcoderHeader-___style__search-field___2VMzu"

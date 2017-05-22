@@ -5,6 +5,7 @@
 /* TODO: I believe, we don't need separate Content and Header containers,
  * they should be just merged into this page container! */
 
+import config from 'utils/config';
 import Content from 'containers/tc-communities/Content';
 import Footer from 'components/TopcoderFooter';
 import Header from 'containers/tc-communities/Header';
@@ -33,10 +34,18 @@ function Page(props) {
       </div>
     );
   }
+  const returnUrl =
+    encodeURIComponent(`${config.URL.MEMBER}/community/wipro/home`);
   return (
     <div styleName="auth-check">
       <TopcoderLogo />
       <div styleName="msg">You must be authenticated to access this page.</div>
+      <div styleName="msg">
+        <a
+          className="btnButton"
+          href={`${config.URL.AUTH}?retUrl=${returnUrl}`}
+        >Log In Here</a>
+      </div>
     </div>
   );
 }

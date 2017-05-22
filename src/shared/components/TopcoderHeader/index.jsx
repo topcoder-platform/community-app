@@ -33,6 +33,8 @@ import MagnifyingGlass from '../../../assets/images/magnifying_glass.svg';
 import MobileHeader from './mobile/Header';
 import { SUB_MENU_SHAPE } from './mobile/SubMenu';
 
+import DesktopSubMenu from './desktop/SubMenu';
+
 import './style.scss';
 
 /* NOTE: We use window object only in key / mouse handlers, which are only
@@ -138,18 +140,6 @@ export default function TopcoderHeader({
     </li>
   ));
 
-  let subMenu;
-  if (openedMenu) {
-    subMenu = openedMenu.items.map(item => (
-      <li key={item.title} styleName="sub-menu-item">
-        <a href={item.link}>
-          {item.icon}
-          {item.title}
-        </a>
-      </li>
-    ));
-  }
-
   let authButtons;
   let userAvatar;
   let userMenuHandle;
@@ -253,20 +243,11 @@ export default function TopcoderHeader({
           ><MagnifyingGlass /></div>
         </div>
       </div>
-      <ul
-        className={openedMenu ? 'opened' : ''}
-        onMouseLeave={(event) => {
-          /* False when cursor leaves from the sub-menu to the element that has
-           * opened it. In that case we want to keep the menu opened, and the
-           * element under the mouse will control the menu state further. */
-          if ((event.pageX < activeTrigger.left)
-            || (event.pageX > activeTrigger.right)
-            || (event.pageY > activeTrigger.bottom)) {
-            closeMenu();
-          }
-        }}
-        styleName="sub-menu"
-      >{subMenu}</ul>
+      <DesktopSubMenu
+        closeMenu={closeMenu}
+        menu={openedMenu}
+        trigger={activeTrigger}
+      />
       <div
         className={searchOpened ? 'opened' : ''}
         onMouseLeave={(event) => {
