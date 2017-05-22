@@ -1,0 +1,27 @@
+@import "~styles/tc-includes";
+
+@mixin menu {
+  background: $tc-black;
+  height: 0;
+  margin-top: -1px;
+  opacity: 0.98;
+  overflow: hidden;
+  position: absolute;
+  text-align: center;
+  visibility: false;
+  width: 100%;
+  transition: all 0.25s ease-in-out;
+  z-index: 1000;
+}
+
+.closed-menu {
+  @include menu;
+
+  height: 0;
+}
+
+.opened-menu {
+  @include menu;
+
+  height: 128px;
+}

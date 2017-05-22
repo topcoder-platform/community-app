@@ -166,52 +166,6 @@
   }
 }
 
-.sub-menu {
-  background: $tc-black;
-  height: 0;
-  margin-top: -1px;
-  opacity: 0.98;
-  overflow: hidden;
-  position: absolute;
-  text-align: center;
-  visibility: false;
-  width: 100%;
-  transition: all 0.25s ease-in-out;
-  z-index: 1000;
-
-  &:global.opened {
-    height: 128px;
-    transition: all 0.25s ease-in-out;
-  }
-}
-
-.sub-menu-item {
-  color: $tc-white;
-  cursor: pointer;
-  display: inline-block;
-  font-family: 'Sofia Pro', sans-serif;
-  font-size: 12px;
-  font-weight: 300;
-  height: 100%;
-  line-height: 14px;
-  padding: 30px;
-  text-align: center;
-  text-transform: uppercase;
-  vertical-align: top;
-  width: 150px;
-
-  svg {
-    display: block;
-    height: 36px;
-    margin: 0 auto 10px;
-    width: 36px;
-  }
-
-  &:hover {
-    background: $tc-dark-blue-90;
-  }
-}
-
 .user-menu {
   cursor: pointer;
   display: inline-block;
