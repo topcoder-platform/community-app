@@ -18,6 +18,7 @@ dependencies:
 deployment:
   development:
     branch: develop
+    owner: topcoder-platform
     commands:
       - docker build --build-arg BUILD_ENV=dev -f deploy/Dockerfile -t $DEV_AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/community-app:$CIRCLE_SHA1 .
       - ./deploy/deploy.sh DEV $CIRCLE_SHA1
