@@ -11,7 +11,8 @@ RUN npm install
 ADD . /opt/app
 
 ARG BUILD_ENV=prod
-RUN npm run build:$BUILD_ENV
+ENV NODE_ENV=$BUILD_ENV
+RUN npm run build
 
 EXPOSE 3000
 
