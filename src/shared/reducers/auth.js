@@ -54,7 +54,6 @@ export function factory(req) {
   const tokenV3 = cookies.tctV3 || null;
   const state = {
     authenticating: true,
-    subdomains: req ? req.subdomains : [],
     tokenV2: cookies.tcjwt || null,
     tokenV3,
     user: tokenV3 ? decodeToken(tokenV3) : null,
