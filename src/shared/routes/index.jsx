@@ -15,11 +15,21 @@ import TopcoderHeader from 'containers/TopcoderHeader';
 
 import TcCommunitiesPage from 'containers/tc-communities/Page';
 
+import { connect } from 'react-redux';
+
 /* TODO: As we move towards production deploy, we should add a guard which
  * will prevent addition of /examples routes into production build. */
 import Examples from './examples';
 
-export default function Routes() {
+function Routes(/* props */) {
+  /*
+  if (props.subdomains.indexOf('wipro') >= 0) {
+    return (
+      <TcCommunitiesPage />
+    );
+  }
+  */
+
   return (
     <div>
       <Route path="/challenge" component={TopcoderHeader} />
@@ -46,3 +56,9 @@ export default function Routes() {
     </div>
   );
 }
+
+export default connect(
+  state => ({
+    subdomains: state.auth.subdomains,
+  }),
+)(Routes);
