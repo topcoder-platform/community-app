@@ -5,10 +5,14 @@
  * It also redirects to 404 page if community is not found by its id.
  */
 
+import _ from 'lodash';
 import React from 'react';
 import PT from 'prop-types';
 import { connect } from 'react-redux';
+
 import actions from 'actions/tc-communities/header';
+import { bindActionCreators } from 'redux';
+import standardHeaderActions from 'actions/topcoder_header';
 import { Redirect } from 'react-router-dom';
 import Header from 'components/tc-communities/Header';
 
@@ -35,9 +39,13 @@ class HeaderContainer extends React.Component {
         <Redirect to={{ pathname: '/404' }} />
       ) : (
         <Header
+          activeTrigger={this.props.activeTrigger}
+          closeMenu={this.props.closeMenu}
           logos={this.props.logos}
           profile={this.props.profile}
           menuItems={this.props.menuItems}
+          openedMenu={this.props.openedMenu}
+          openMenu={this.props.openMenu}
           isMobileOpen={this.props.isMobileOpen}
           communityId={this.props.loadedCommunityId}
           onMobileToggleClick={this.props.mobileToggle}
@@ -49,8 +57,10 @@ class HeaderContainer extends React.Component {
 }
 
 HeaderContainer.defaultProps = {
+  activeTrigger: null,
   isLoading: false,
   menuItems: [],
+  openedMenu: null,
   profile: null,
   logos: [],
   loadedCommunityId: null,
@@ -60,9 +70,13 @@ HeaderContainer.defaultProps = {
 };
 
 HeaderContainer.propTypes = {
+  activeTrigger: PT.shape({}),
+  closeMenu: PT.func.isRequired,
   isLoading: PT.bool,
   profile: PT.shape({}),
   menuItems: PT.arrayOf(PT.shape()),
+  openedMenu: PT.shape({}),
+  openMenu: PT.func.isRequired,
   logos: PT.arrayOf(PT.string),
   loadedCommunityId: PT.string,
   loadData: PT.func.isRequired,
@@ -74,6 +88,7 @@ HeaderContainer.propTypes = {
 };
 
 const mapStateToProps = (state, props) => ({
+  ...state.topcoderHeader,
   profile: state.auth ? state.auth.profile : null,
   communityId: props.match.params.communityId,
   loadedCommunityId: state.tcCommunities.meta.communityId,
@@ -85,15 +100,16 @@ const mapStateToProps = (state, props) => ({
   isMobileOpen: state.tcCommunities.meta.isMobileOpen,
 });
 
-const mapDispatchToProps = dispatch => ({
-  loadData: (communityId) => {
-    dispatch(actions.tcCommunities.header.fetchDataInit());
-    dispatch(actions.tcCommunities.header.fetchDataDone(communityId));
-  },
-  mobileToggle: () => {
-    dispatch(actions.tcCommunities.header.mobileToggle());
-  },
-});
+const mapDispatchToProps = dispatch => _.merge(
+  bindActionCreators(standardHeaderActions.topcoderHeader, dispatch), {
+    loadData: (communityId) => {
+      dispatch(actions.tcCommunities.header.fetchDataInit());
+      dispatch(actions.tcCommunities.header.fetchDataDone(communityId));
+    },
+    mobileToggle: () => {
+      dispatch(actions.tcCommunities.header.mobileToggle());
+    },
+  });
 
 export default connect(
   mapStateToProps,

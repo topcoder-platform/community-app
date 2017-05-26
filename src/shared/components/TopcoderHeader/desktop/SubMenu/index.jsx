@@ -20,7 +20,8 @@ export default function SubMenu({ closeMenu, menu, trigger }) {
          * element under the mouse will control the menu state further. */
         if ((event.pageX < trigger.left)
           || (event.pageX > trigger.right)
-          || (event.pageY > trigger.bottom)) {
+          || (event.pageY > trigger.bottom)
+          || (event.pageY < trigger.top)) {
           closeMenu();
         }
       }}
@@ -45,5 +46,6 @@ SubMenu.propTypes = {
     bottom: PT.number.isRequired,
     left: PT.number.isRequired,
     right: PT.number.isRequired,
+    top: PT.number.isRequired,
   }),
 };

@@ -1,7 +1,7 @@
 import actions from 'actions/topcoder_header';
 
 const mockNode = {
-  getBoundingClientRect: () => 'rect',
+  getBoundingClientRect: () => {},
 };
 
 test('openMenu', () => {
@@ -9,7 +9,8 @@ test('openMenu', () => {
   expect(a.type).toBe('TOPCODER_HEADER/OPEN_MENU');
   expect(a.payload).toEqual({
     menu: 'Menu',
-    trigger: 'rect',
+    trigger: {
+    },
   });
 });
 
@@ -17,6 +18,7 @@ test('openSearch', () => {
   const a = actions.topcoderHeader.openSearch(mockNode);
   expect(a.type).toBe('TOPCODER_HEADER/OPEN_SEARCH');
   expect(a.payload).toEqual({
-    trigger: 'rect',
+    trigger: {
+    },
   });
 });

@@ -6,20 +6,59 @@
  */
 
 import _ from 'lodash';
+import config from 'utils/config';
+import DesktopSubMenu from 'components/TopcoderHeader/desktop/SubMenu';
 import React from 'react';
 import PT from 'prop-types';
 import Avatar from 'components/Avatar';
 import { Link, NavLink } from 'react-router-dom';
 import { getRatingColor } from 'utils/tc';
+import IconNavExit from '../../../../assets/images/nav/exit.svg';
+import IconNavSettings from '../../../../assets/images/nav/settings.svg';
 import './Header.scss';
 
 export default function Header(props) {
   const {
-    logos, menuItems, communityId, cssUrl, isMobileOpen, onMobileToggleClick, profile,
+    activeTrigger,
+    closeMenu,
+    openMenu,
+    openedMenu,
+    logos,
+    menuItems,
+    communityId,
+    cssUrl,
+    isMobileOpen,
+    onMobileToggleClick,
+    profile,
   } = props;
+
+  const BASE_URL = config.URL.BASE;
+
+  let userSubMenu;
+  if (profile) {
+    userSubMenu = {
+      title: 'User',
+      items: [{
+        icon: <IconNavSettings />,
+        link: `${BASE_URL}/settings/profile`,
+        title: 'Settings',
+      }, {
+        icon: <IconNavExit />,
+        link: `${BASE_URL}/logout`,
+        title: 'Log Out',
+      }],
+    };
+  }
 
   const loginState = profile ? (
     <div
+      onMouseEnter={event => openMenu(userSubMenu, event.target)}
+      onMouseLeave={(event) => {
+        /* False when mouse cursor leaves from the main menu element to the
+          * sub-menu. In that case we keep the sub-menu opened, and responsible
+          * for further tracking of the mouse cursor. */
+        if (1 + event.pageY < activeTrigger.bottom) closeMenu();
+      }}
       /* Login state component. */
       styleName="user-menu"
       key="login-state"
@@ -101,12 +140,19 @@ export default function Header(props) {
           </ul>
         </div>
       </header>
+      <DesktopSubMenu
+        closeMenu={closeMenu}
+        menu={openedMenu}
+        trigger={activeTrigger}
+      />
     </div>
   );
 }
 
 Header.defaultProps = {
+  activeTrigger: null,
   menuItems: [],
+  openedMenu: null,
   logos: [],
   isMobileOpen: false,
   cssUrl: null,
@@ -115,11 +161,15 @@ Header.defaultProps = {
 };
 
 Header.propTypes = {
+  activeTrigger: PT.shape({}),
+  closeMenu: PT.func.isRequired,
   menuItems: PT.arrayOf(PT.shape({
     title: PT.string.isRequired,
     url: PT.string.isRequired,
   })),
   logos: PT.arrayOf(PT.string),
+  openedMenu: PT.shape({}),
+  openMenu: PT.func.isRequired,
   isMobileOpen: PT.bool,
   cssUrl: PT.string,
   onMobileToggleClick: PT.func.isRequired,

@@ -50,6 +50,11 @@ exports[`Snapshot match 1`] = `
       </ul>
     </div>
   </header>
+  <SubMenu
+    closeMenu={undefined}
+    menu={null}
+    trigger={null}
+  />
 </div>
 `;
 
@@ -149,5 +154,10 @@ exports[`Snapshot match 2`] = `
       </ul>
     </div>
   </header>
+  <SubMenu
+    closeMenu={undefined}
+    menu={null}
+    trigger={null}
+  />
 </div>
 `;

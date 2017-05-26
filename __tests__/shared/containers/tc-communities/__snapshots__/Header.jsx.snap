@@ -2,6 +2,10 @@
 
 exports[`Matches shapshot 1`] = `
 <HeaderContainer
+  activeTrigger={null}
+  closeMenu={[Function]}
+  closeMobileMenu={[Function]}
+  closeSearch={[Function]}
   communityId="someId"
   cssUrl="some/css/url"
   isCommunityNotFound={false}
@@ -38,6 +42,10 @@ exports[`Matches shapshot 1`] = `
     ]
   }
   mobileToggle={[Function]}
+  openMenu={[Function]}
+  openMobileMenu={[Function]}
+  openSearch={[Function]}
+  openedMenu={null}
   profile={null}
   store={
     Object {
