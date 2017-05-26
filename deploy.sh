@@ -5,6 +5,7 @@ JQ="jq --raw-output --exit-status"
 
 ENV=$1
 TAG=$2
+AWS_REGION=$(eval "echo \$${ENV}_AWS_REGION")
 ACCOUNT_ID=$(eval "echo \$${ENV}_AWS_ACCOUNT_ID")
 
 configure_aws_cli() {
