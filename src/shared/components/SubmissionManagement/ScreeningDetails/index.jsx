@@ -65,12 +65,12 @@ export default function ScreeningDetails(props) {
 
   let warnings = [];
   if (screeningObject.warnings) {
-    warnings = screeningObject.warnings.map((warning, i) =>
+    warnings = screeningObject.warnings.map((warning, i) => (
       <div styleName="screening-warning" key={shortid.generate()}>
         <div styleName="warning-bold"><span>Warning</span> {`${1 + i} : ${warning.brief}`}</div>
         <p>{warning.details}</p>
-      </div>,
-    );
+      </div>
+    ));
   }
   return (
     <div styleName="screening-details" >

@@ -8,13 +8,6 @@ import Menu from '../Menu';
 import { SUB_MENU_SHAPE } from '../SubMenu';
 import './style.scss';
 
-/* TODO: According to recent discussion in jsx-a11y's Git, this rule should not
- * trigger for static elements when they have a properly set role attribute.
- * Hovewer, it does trigger at the moment. Probably, the most recent changes
- * have not been published to npm yet. As a temporary solution, we disable
- * this rule where necessary. */
-/* eslint-disable jsx-a11y/no-static-element-interactions */
-
 export default function Header({
   close,
   mainMenu,
@@ -29,6 +22,7 @@ export default function Header({
         onClick={open}
         role="button"
         styleName="header"
+        tabIndex={0}
       >
         {<LogoTopcoder styleName="logo" />}
         <div styleName="menu">Menu</div>
