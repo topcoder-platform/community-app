@@ -14,8 +14,7 @@
  * To understand reducers read http://redux.js.org/docs/basics/Reducers.html.
  */
 
-import { combineReducers } from 'redux';
-import { resolveReducers } from 'utils/redux';
+import { combine, resolveReducers } from 'utils/redux';
 
 import { factory as authFactory } from './auth';
 import { factory as challengeFactory } from './challenge';
@@ -31,7 +30,11 @@ export function factory(req) {
     examples: examplesFactory(req),
     tcCommunities: tcCommunitiesFactory(req),
     leaderboard: leaderboardFactory(req),
-  }).then(reducers => combineReducers({
+  }).then(reducers => combine((state) => {
+    const res = { ...state };
+    if (req) res.subdomains = req.subdomains;
+    return res;
+  }, {
     ...reducers,
     topcoderHeader,
   }));

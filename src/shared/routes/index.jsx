@@ -9,17 +9,29 @@ import ChallengeListing from 'containers/ChallengeListing';
 import Leaderboard from 'containers/Leaderboard';
 import 'isomorphic-fetch';
 import React from 'react';
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route, withRouter } from 'react-router-dom';
 import TopcoderFooter from 'components/TopcoderFooter';
 import TopcoderHeader from 'containers/TopcoderHeader';
 
+import PT from 'prop-types';
+
 import TcCommunitiesPage from 'containers/tc-communities/Page';
+
+import { connect } from 'react-redux';
 
 /* TODO: As we move towards production deploy, we should add a guard which
  * will prevent addition of /examples routes into production build. */
 import Examples from './examples';
 
-export default function Routes() {
+function Routes({ location, subdomains }) {
+  if (subdomains.indexOf('test-subdomain') >= 0) {
+    return (
+      <div>
+        <div>Subdomain Test!</div>
+        <div>Route: {location.pathname}</div>
+      </div>
+    );
+  }
   return (
     <div>
       <Route path="/challenge" component={TopcoderHeader} />
@@ -46,3 +58,14 @@ export default function Routes() {
     </div>
   );
 }
+
+Routes.propTypes = {
+  location: PT.shape({
+    pathname: PT.string.isRequired,
+  }).isRequired,
+  subdomains: PT.arrayOf(PT.string).isRequired,
+};
+
+export default withRouter(connect(state => ({
+  subdomains: state.subdomains,
+}))(Routes));
