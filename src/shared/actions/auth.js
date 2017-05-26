@@ -18,9 +18,11 @@ function loadProfileDone(userTokenV3) {
   const api = getApiV3(userTokenV3);
   return Promise.all([
     api.get(`/members/${user.handle}`)
-    .then(res => res.json()).then(res => res.result.content),
+    .then(res => res.json()).then(res =>
+      (res.result.status === 200 ? res.result.content : {})),
     api.get(`/groups?memberId=${user.userId}&membershipType=user`)
-    .then(res => res.json()).then(res => res.result.content),
+    .then(res => res.json()).then(res =>
+      (res.result.status === 200 ? res.result.content : [])),
   ]).then(([profile, groups]) => ({ ...profile, groups }));
 }
 

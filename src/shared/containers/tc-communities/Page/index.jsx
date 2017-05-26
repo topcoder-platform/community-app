@@ -34,7 +34,10 @@ import WiproAbout from 'components/tc-communities/communities/wipro/About';
 import Wipro2Home from 'components/tc-communities/communities/wipro2/Home';
 import Wipro2Learn from 'components/tc-communities/communities/wipro2/Learn';
 
-import TopcoderLogo from '../../../../assets/images/logo_topcoder.svg';
+import AccessDenied, {
+  CAUSE as ACCESS_DENIED_CAUSE,
+} from 'components/tc-communities/AccessDenied';
+
 import './style.scss';
 
 /* TODO: Bootstrap import should be moved to a more appropriate place, which
@@ -43,18 +46,16 @@ import './style.scss';
 require('bootstrap/dist/css/bootstrap.min.css');
 
 class Page extends Component {
-  componentDidMount() {
-    // load data if data is loaded for other communityId or is not loaded yet
-    if (!((this.props.loadedCommunityId === this.props.communityId) || this.props.isLoading)) {
-      this.props.loadData(this.props.communityId);
-    }
 
-    if (this.props.isMobileOpen) {
-      this.props.mobileToggle();
-    }
+  componentDidMount() {
+    const communityId = this.props.match.params.communityId;
+    if ((communityId !== this.props.meta.communityId)
+    && !this.props.meta.loading) this.props.loadMetaData(communityId);
+
+    if (this.props.meta.isMobileOpen) this.props.mobileToggle();
   }
 
- /**
+  /**
    * Returns custom page content which is created by landing page editor
    *
    * TODO: as editor is not implemented yet, this method returns static
@@ -62,23 +63,25 @@ class Page extends Component {
    */
   renderCustomPage() {
     let pageContent;
+    const communityId = this.props.meta.communityId;
+    const pageId = this.props.match.params.pageId;
 
     // as for now landing page editor is not implemented yet
     // for Wipro and Wipro 2 communities we return static pages
     // TODO: this have to be removed when editor implemented
-    if (this.props.loadedCommunityId === 'wipro') {
-      if (this.props.pageId === 'home') {
+    if (communityId === 'wipro') {
+      if (pageId === 'home') {
         pageContent = <WiproHome />;
-      } else if (this.props.pageId === 'about') {
+      } else if (pageId === 'about') {
         pageContent = <WiproAbout />;
       }
-    } else if (this.props.loadedCommunityId === 'wipro2') {
-      if (this.props.pageId === 'home') {
+    } else if (communityId === 'wipro2') {
+      if (pageId === 'home') {
         pageContent = <Wipro2Home />;
-      } else if (this.props.pageId === 'learn') {
+      } else if (pageId === 'learn') {
         pageContent = <Wipro2Learn />;
       }
-    } else if (this.props.loadedCommunityId.match(/example-theme-\w/)) {
+    } else if (communityId.match(/example-theme-\w/)) {
       pageContent = <div />;
     }
 
@@ -99,16 +102,17 @@ class Page extends Component {
    *     renderCustomPage() method has to return a page made in the editor
    */
   renderPageContent() {
+    const pageId = this.props.match.params.pageId;
     let pageContent = <div />;
-    switch (this.props.pageId) {
+    switch (pageId) {
       case 'leaderboard':
         pageContent = (<Leaderboard
-          apiUrl={this.props.leaderboardApiUrl}
+          apiUrl={this.props.meta.leaderboardApiUrl}
         />);
         break;
       case 'challenges':
         pageContent = (<ChallengeListing
-          tag={this.props.challengeFilterTag}
+          tag={this.props.meta.challengeFilterTag}
           history={this.props.history}
           location={this.props.location}
         />);
@@ -126,132 +130,112 @@ class Page extends Component {
     const loginUrl = `${config.URL.AUTH}?retUrl=${returnUrl}`;
     const registerUrl = `${config.URL.AUTH}/registration`;
 
-    // true, if currently requested community is not found
-    const isNotFound = this.props.isCommunityNotFound
-      && (this.props.loadedCommunityId === this.props.communityId);
+    const communityId = this.props.match.params.communityId;
 
     // true, if is loading now, or if not started loading yet
-    const isNotLoaded = this.props.isLoading ||
-      (this.props.loadedCommunityId !== this.props.communityId);
+    const isNotLoaded = communityId !== this.props.meta.communityId;
 
-    if (this.props.profile) {
-      if (isNotFound) {
-        return <Redirect to={{ pathname: '/404' }} />;
-      } else if (isNotLoaded) {
+    if (this.props.profile && !isNotLoaded) {
+      const userGroupIds = this.props.profile.groups.map(item => item.id);
+      if (_.intersection(userGroupIds, this.props.meta.authorizedGroupIds || []).length) {
         return (
-          <div styleName="loading">
-            <LoadingIndicator />
+          <div>
+            <Header
+              activeTrigger={this.props.activeTrigger}
+              closeMenu={this.props.closeMenu}
+              logos={this.props.meta.logos}
+              profile={this.props.profile}
+              menuItems={this.props.meta.menuItems}
+              openedMenu={this.props.openedMenu}
+              openMenu={this.props.openMenu}
+              isMobileOpen={this.props.meta.isMobileOpen}
+              communityId={communityId}
+              onMobileToggleClick={this.props.mobileToggle}
+              cssUrl={this.props.meta.cssUrl}
+              registerUrl={registerUrl}
+              loginUrl={loginUrl}
+            />
+            {this.renderPageContent()}
+            <Footer
+              menuItems={this.props.meta.menuItems}
+              communityId={communityId}
+              registerUrl={registerUrl}
+              loginUrl={loginUrl}
+              isAuthorized={!!this.props.profile}
+            />
           </div>
         );
       }
+      return <AccessDenied cause={ACCESS_DENIED_CAUSE.NOT_AUTHORIZED} />;
+    } else if (this.props.authenticating || isNotLoaded) {
       return (
-        <div>
-          <Header
-            activeTrigger={this.props.activeTrigger}
-            closeMenu={this.props.closeMenu}
-            logos={this.props.logos}
-            profile={this.props.profile}
-            menuItems={this.props.menuItems}
-            openedMenu={this.props.openedMenu}
-            openMenu={this.props.openMenu}
-            isMobileOpen={this.props.isMobileOpen}
-            communityId={this.props.loadedCommunityId}
-            onMobileToggleClick={this.props.mobileToggle}
-            cssUrl={this.props.cssUrl}
-            registerUrl={registerUrl}
-            loginUrl={loginUrl}
-          />
-          {this.renderPageContent()}
-          <Footer
-            menuItems={this.props.menuItems}
-            communityId={this.props.loadedCommunityId}
-            registerUrl={registerUrl}
-            loginUrl={loginUrl}
-            isAuthorized={!!this.props.profile}
-          />
-        </div>
-      );
-    } else if (this.props.authenticating) {
-      return (
-        <div styleName="auth-check">
+        <div styleName="loading">
           <LoadingIndicator />
         </div>
       );
     }
-    return (
-      <div styleName="auth-check">
-        <TopcoderLogo />
-        <div styleName="msg">You must be authenticated to access this page.</div>
-        <div styleName="msg">
-          <a
-            className="btnButton"
-            href={`${config.URL.AUTH}?retUrl=${returnUrl}`}
-          >Log In Here</a>
-        </div>
-      </div>
-    );
+    return <AccessDenied cause={ACCESS_DENIED_CAUSE.NOT_AUTHENTICATED} />;
   }
 }
 
 Page.defaultProps = {
   activeTrigger: null,
-  challengeFilterTag: '',
-  leaderboardApiUrl: null,
-  authenticating: false,
-  isLoading: false,
-  menuItems: [],
   openedMenu: null,
   profile: null,
-  logos: [],
-  loadedCommunityId: null,
-  isCommunityNotFound: false,
   isMobileOpen: false,
-  cssUrl: null,
 };
 
 Page.propTypes = {
+  authenticating: PT.bool.isRequired,
   activeTrigger: PT.shape({}),
   closeMenu: PT.func.isRequired,
-  challengeFilterTag: PT.string,
-  leaderboardApiUrl: PT.string,
-  isLoading: PT.bool,
-  profile: PT.shape({}),
-  menuItems: PT.arrayOf(PT.shape()),
+  profile: PT.shape({
+    groups: PT.arrayOf(PT.shape({
+      id: PT.string.isRequired,
+    })),
+  }),
+  match: PT.shape({
+    params: PT.shape({
+      communityId: PT.string,
+      pageId: PT.string,
+    }),
+  }).isRequired,
+  meta: PT.shape({
+    authorizedGroupIds: PT.arrayOf(PT.string),
+    challengeFilterTag: PT.string,
+    communityId: PT.string,
+    cssUrl: PT.string,
+
+    // TODO: isMobileOpen does not belong to community meta data, should be
+    // moved to a proper place!
+    isMobileOpen: PT.bool,
+
+    leaderboardApiUrl: PT.string.isRequired,
+    loading: PT.bool,
+    logos: PT.arrayOf(PT.string).isRequired,
+    menuItems: PT.arrayOf(PT.shape({})).isRequired,
+  }).isRequired,
   openedMenu: PT.shape({}),
   openMenu: PT.func.isRequired,
-  logos: PT.arrayOf(PT.string),
-  loadedCommunityId: PT.string,
-  loadData: PT.func.isRequired,
-  communityId: PT.string.isRequired,
-  isCommunityNotFound: PT.bool,
-  isMobileOpen: PT.bool,
+  loadMetaData: PT.func.isRequired,
   mobileToggle: PT.func.isRequired,
-  cssUrl: PT.string,
-  authenticating: PT.bool,
   pageId: PT.string.isRequired,
   history: PT.shape().isRequired,
   location: PT.shape().isRequired,
 };
 
 const mapStateToProps = (state, props) => ({
+  ...state.auth,
   ...state.topcoderHeader,
-  challengeFilterTag: state.tcCommunities.meta.challengeFilterTag,
-  leaderboardApiUrl: state.tcCommunities.meta.leaderboardApiUrl,
+  meta: state.tcCommunities.meta,
   profile: state.auth ? state.auth.profile : null,
   communityId: props.match.params.communityId,
-  loadedCommunityId: state.tcCommunities.meta.communityId,
-  isLoading: state.tcCommunities.meta.loading,
-  menuItems: state.tcCommunities.meta.menuItems,
-  logos: state.tcCommunities.meta.logos,
-  cssUrl: state.tcCommunities.meta.cssUrl,
-  isCommunityNotFound: state.tcCommunities.meta.failed === '404',
-  isMobileOpen: state.tcCommunities.meta.isMobileOpen,
   pageId: props.match.params.pageId,
 });
 
 const mapDispatchToProps = dispatch => _.merge(
   bindActionCreators(standardHeaderActions.topcoderHeader, dispatch), {
-    loadData: (communityId) => {
+    loadMetaData: (communityId) => {
       dispatch(actions.tcCommunities.meta.fetchDataInit());
       dispatch(actions.tcCommunities.meta.fetchDataDone(communityId));
     },
