@@ -14,7 +14,7 @@ const mockHeaderActions = {
     },
   },
 };
-jest.setMock(require.resolve('actions/tc-communities/header'), mockHeaderActions);
+jest.setMock(require.resolve('actions/tc-communities/meta'), mockHeaderActions);
 
 const mockState = {
   tcCommunities: {

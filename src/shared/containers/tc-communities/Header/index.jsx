@@ -10,7 +10,7 @@ import React from 'react';
 import PT from 'prop-types';
 import { connect } from 'react-redux';
 
-import actions from 'actions/tc-communities/header';
+import actions from 'actions/tc-communities/meta';
 import { bindActionCreators } from 'redux';
 import standardHeaderActions from 'actions/topcoder_header';
 import { Redirect } from 'react-router-dom';

@@ -1,4 +1,7 @@
 {
+  "authorizedGroupIds": [
+    "20000000"
+  ],
   "challengeFilterTag": "Bootstrap",
   "communityId": "wipro",
   "logos": [

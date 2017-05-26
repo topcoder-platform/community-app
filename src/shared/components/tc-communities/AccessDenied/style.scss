@@ -1,8 +1,16 @@
 @import '~styles/tc-styles';
 
-.loading {
+.access-denied {
   @include tc-body-large;
 
   padding-top: 100px;
   text-align: center;
+}
+
+.msg {
+  padding-top: 48px;
+
+  a {
+    cursor: pointer;
+  }
 }

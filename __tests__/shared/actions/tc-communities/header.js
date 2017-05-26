@@ -1,4 +1,4 @@
-import actions from 'actions/tc-communities/header';
+import actions from 'actions/tc-communities/meta';
 
 const mockFetch = (resolvesTo, is404) => jest.fn(() => (
   is404

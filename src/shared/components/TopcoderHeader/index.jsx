@@ -172,6 +172,8 @@ export default function TopcoderHeader({
         title: 'Settings',
       }, {
         icon: <IconNavExit />,
+        // TODO: In addition to hitting ${BASE_URL}/logout, which logs out
+        // from the accounts-app, we should wipe out auth cookies!
         link: `${BASE_URL}/logout`,
         title: 'Log Out',
       }],

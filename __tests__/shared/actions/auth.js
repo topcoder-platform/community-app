@@ -13,7 +13,7 @@ global.fetch = jest.fn(url => Promise.resolve({
       default: throw new Error('Unexpected URL!');
     }
     return {
-      result: { content },
+      result: { content, status: 200 },
     };
   },
 }));

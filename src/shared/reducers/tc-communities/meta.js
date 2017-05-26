@@ -2,7 +2,7 @@
  * Reducer for state.tcCommunities.header
  */
 
-import actions from 'actions/tc-communities/header';
+import actions from 'actions/tc-communities/meta';
 import { handleActions } from 'redux-actions';
 import { toFSA } from 'utils/redux';
 
@@ -16,6 +16,7 @@ function onDone(state, action) {
     // if everything is ok, populate data from payload
     return {
       ...state,
+      authorizedGroupIds: action.payload.authorizedGroupIds,
       challengeFilterTag: action.payload.challengeFilterTag,
       communityId: action.payload.communityId,
       logos: action.payload.logos,
@@ -29,6 +30,7 @@ function onDone(state, action) {
   // if community is not found or other error
   return {
     ...state,
+    authorizedGroupIds: [],
     communityId: action.payload.error === '404' ? action.payload.communityId : null,
     logos: [],
     menuItems: [],
