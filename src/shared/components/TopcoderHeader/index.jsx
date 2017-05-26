@@ -132,7 +132,7 @@ export default function TopcoderHeader({
         /* False when mouse cursor leaves from the main menu element to the
          * sub-menu. In that case we keep the sub-menu opened, and responsible
          * for further tracking of the mouse cursor. */
-        if (1 + event.clientY < activeTrigger.bottom) closeMenu();
+        if (1 + event.pageY < activeTrigger.bottom) closeMenu();
       }}
       styleName="main-menu-item"
     >
@@ -183,7 +183,7 @@ export default function TopcoderHeader({
           /* False when mouse cursor leaves from the main menu element to the
            * sub-menu. In that case we keep the sub-menu opened, and responsible
            * for further tracking of the mouse cursor. */
-          if (1 + event.clientY < activeTrigger.bottom) closeMenu();
+          if (1 + event.pageY < activeTrigger.bottom) closeMenu();
         }}
         styleName="user-menu"
       >
@@ -237,7 +237,7 @@ export default function TopcoderHeader({
             className={searchOpened ? 'opened' : ''}
             onMouseEnter={event => openSearch(event.target)}
             onMouseLeave={(event) => {
-              if (1 + event.clientY < activeTrigger.bottom) closeSearch();
+              if (1 + event.pageY < activeTrigger.bottom) closeSearch();
             }}
             styleName="search-icon"
           ><MagnifyingGlass /></div>

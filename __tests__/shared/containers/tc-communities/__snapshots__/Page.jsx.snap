@@ -2,8 +2,12 @@
 
 exports[`Matches shapshot 1`] = `
 <Page
+  activeTrigger={null}
   authenticating={false}
   challengeFilterTag=""
+  closeMenu={[Function]}
+  closeMobileMenu={[Function]}
+  closeSearch={[Function]}
   communityId="someId"
   cssUrl="some/css/url"
   history={Object {}}
@@ -44,6 +48,10 @@ exports[`Matches shapshot 1`] = `
     ]
   }
   mobileToggle={[Function]}
+  openMenu={[Function]}
+  openMobileMenu={[Function]}
+  openSearch={[Function]}
+  openedMenu={null}
   pageId="somePageId"
   profile={Object {}}
   store={

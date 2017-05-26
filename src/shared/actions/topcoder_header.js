@@ -16,7 +16,7 @@ import { createActions } from 'redux-actions';
 function openMenu(menu, triggerNode) {
   return ({
     menu,
-    trigger: triggerNode.getBoundingClientRect(),
+    trigger: _.toPlainObject(triggerNode.getBoundingClientRect()),
   });
 }
 

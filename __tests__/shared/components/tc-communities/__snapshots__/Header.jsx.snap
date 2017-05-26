@@ -99,6 +99,11 @@ exports[`Snapshot match 1`] = `
       </div>
     </div>
   </header>
+  <SubMenu
+    closeMenu={undefined}
+    menu={null}
+    trigger={null}
+  />
 </div>
 `;
 
@@ -247,5 +252,10 @@ exports[`Snapshot match 2`] = `
       </div>
     </div>
   </header>
+  <SubMenu
+    closeMenu={undefined}
+    menu={null}
+    trigger={null}
+  />
 </div>
 `;

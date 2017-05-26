@@ -13,12 +13,15 @@
  * It redirects to 404 page if content cannot be rendered by its pageId.
  */
 
+import _ from 'lodash';
 import config from 'utils/config';
 import PT from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import actions from 'actions/tc-communities/meta';
+import { bindActionCreators } from 'redux';
+import standardHeaderActions from 'actions/topcoder_header';
 import Header from 'components/tc-communities/Header';
 import Footer from 'components/tc-communities/Footer';
 import LoadingIndicator from 'components/LoadingIndicator';
@@ -144,9 +147,13 @@ class Page extends Component {
       return (
         <div>
           <Header
+            activeTrigger={this.props.activeTrigger}
+            closeMenu={this.props.closeMenu}
             logos={this.props.logos}
             profile={this.props.profile}
             menuItems={this.props.menuItems}
+            openedMenu={this.props.openedMenu}
+            openMenu={this.props.openMenu}
             isMobileOpen={this.props.isMobileOpen}
             communityId={this.props.loadedCommunityId}
             onMobileToggleClick={this.props.mobileToggle}
@@ -187,11 +194,13 @@ class Page extends Component {
 }
 
 Page.defaultProps = {
+  activeTrigger: null,
   challengeFilterTag: '',
   leaderboardApiUrl: null,
   authenticating: false,
   isLoading: false,
   menuItems: [],
+  openedMenu: null,
   profile: null,
   logos: [],
   loadedCommunityId: null,
@@ -201,11 +210,15 @@ Page.defaultProps = {
 };
 
 Page.propTypes = {
+  activeTrigger: PT.shape({}),
+  closeMenu: PT.func.isRequired,
   challengeFilterTag: PT.string,
   leaderboardApiUrl: PT.string,
   isLoading: PT.bool,
   profile: PT.shape({}),
   menuItems: PT.arrayOf(PT.shape()),
+  openedMenu: PT.shape({}),
+  openMenu: PT.func.isRequired,
   logos: PT.arrayOf(PT.string),
   loadedCommunityId: PT.string,
   loadData: PT.func.isRequired,
@@ -221,6 +234,7 @@ Page.propTypes = {
 };
 
 const mapStateToProps = (state, props) => ({
+  ...state.topcoderHeader,
   challengeFilterTag: state.tcCommunities.meta.challengeFilterTag,
   leaderboardApiUrl: state.tcCommunities.meta.leaderboardApiUrl,
   profile: state.auth ? state.auth.profile : null,
@@ -235,15 +249,16 @@ const mapStateToProps = (state, props) => ({
   pageId: props.match.params.pageId,
 });
 
-const mapDispatchToProps = dispatch => ({
-  loadData: (communityId) => {
-    dispatch(actions.tcCommunities.meta.fetchDataInit());
-    dispatch(actions.tcCommunities.meta.fetchDataDone(communityId));
-  },
-  mobileToggle: () => {
-    dispatch(actions.tcCommunities.meta.mobileToggle());
-  },
-});
+const mapDispatchToProps = dispatch => _.merge(
+  bindActionCreators(standardHeaderActions.topcoderHeader, dispatch), {
+    loadData: (communityId) => {
+      dispatch(actions.tcCommunities.meta.fetchDataInit());
+      dispatch(actions.tcCommunities.meta.fetchDataDone(communityId));
+    },
+    mobileToggle: () => {
+      dispatch(actions.tcCommunities.meta.mobileToggle());
+    },
+  });
 
 export default connect(
   mapStateToProps,

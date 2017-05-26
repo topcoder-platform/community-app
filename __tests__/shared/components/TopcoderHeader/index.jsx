@@ -114,7 +114,7 @@ describe('User input handling', () => {
     const items = TU.findAllInRenderedTree(page, item =>
       item && item.className && item.className.match(/main-menu-item/));
     expect(items.length).toBeGreaterThan(1);
-    TU.Simulate.mouseLeave(items[0], { clientY: -1 });
+    TU.Simulate.mouseLeave(items[0], { pageY: -1 });
     expect(mockCloseMenu).not.toHaveBeenCalled();
   });
 
@@ -122,7 +122,7 @@ describe('User input handling', () => {
     const items = TU.findAllInRenderedTree(page, item =>
       item && item.className && item.className.match(/main-menu-item/));
     expect(items.length).toBeGreaterThan(1);
-    TU.Simulate.mouseLeave(items[0], { clientY: -2 });
+    TU.Simulate.mouseLeave(items[0], { pageY: -2 });
     expect(mockCloseMenu).toHaveBeenCalled();
   });
 
@@ -138,7 +138,7 @@ describe('User input handling', () => {
     const items = TU.findAllInRenderedTree(page, item =>
       item && item.className && item.className.match(/user-menu/));
     expect(items.length).toBeGreaterThan(1);
-    TU.Simulate.mouseLeave(items[0], { clientY: -1 });
+    TU.Simulate.mouseLeave(items[0], { pageY: -1 });
     expect(mockCloseMenu).not.toHaveBeenCalled();
   });
 
@@ -146,7 +146,7 @@ describe('User input handling', () => {
     const items = TU.findAllInRenderedTree(page, item =>
       item && item.className && item.className.match(/user-menu/));
     expect(items.length).toBeGreaterThan(1);
-    TU.Simulate.mouseLeave(items[0], { clientY: -2 });
+    TU.Simulate.mouseLeave(items[0], { pageY: -2 });
     expect(mockCloseMenu).toHaveBeenCalled();
   });
 
@@ -162,7 +162,7 @@ describe('User input handling', () => {
     const items = TU.findAllInRenderedTree(page, item =>
       item && item.className && item.className.match(/search-icon/));
     expect(items.length).toBe(1);
-    TU.Simulate.mouseLeave(items[0], { clientY: -1 });
+    TU.Simulate.mouseLeave(items[0], { pageY: -1 });
     expect(mockCloseSearch).not.toHaveBeenCalled();
   });
 
@@ -170,7 +170,7 @@ describe('User input handling', () => {
     const items = TU.findAllInRenderedTree(page, item =>
       item && item.className && item.className.match(/search-icon/));
     expect(items.length).toBe(1);
-    TU.Simulate.mouseLeave(items[0], { clientY: -2 });
+    TU.Simulate.mouseLeave(items[0], { pageY: -2 });
     expect(mockCloseSearch).toHaveBeenCalled();
   });
 
