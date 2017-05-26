@@ -28,7 +28,7 @@
     "react/jsx-closing-bracket-location": 2,
     "jsx-quotes": [2, "prefer-double"],
     "react/jsx-boolean-value": 2,
-    "react/wrap-multilines": 2,
+    "react/jsx-wrap-multilines": 2,
     "react/self-closing-comp": 2,
     "react/no-is-mounted": 2
   },

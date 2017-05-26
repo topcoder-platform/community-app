@@ -148,7 +148,8 @@ class Tags extends React.Component {
       }
       return technologyList.map(c => (
         <a
-          key={c} styleName="technology"
+          key={c}
+          styleName="technology"
           onClick={() => this.onClick(c)}
         >{c}
         </a>

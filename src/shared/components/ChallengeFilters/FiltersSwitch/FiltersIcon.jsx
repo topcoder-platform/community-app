@@ -7,7 +7,11 @@ export default function FiltersIcon(props) {
   return (
     <svg
       className={props.className}
-      x="0px" y="0px" width={s} height={s} viewBox="0 0 16 16"
+      x="0px"
+      y="0px"
+      width={s}
+      height={s}
+      viewBox="0 0 16 16"
     >
       <g>
         <path fill={c} d="M15,3h-5C9.4,3,9,3.4,9,4s0.4,1,1,1h5c0.6,0,1-0.4,1-1S15.6,3,15,3z" />
