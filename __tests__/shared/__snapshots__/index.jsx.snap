@@ -2,12 +2,12 @@
 
 exports[`Snapshot match 1`] = `
 <div>
-  <Connect(Routes) />
+  <Routes />
 </div>
 `;
 
 exports[`Snapshot match 2`] = `
 <div>
-  <Connect(Routes) />
+  <Routes />
 </div>
 `;
