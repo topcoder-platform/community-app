@@ -194,17 +194,5 @@ describe('Properly starts with process.env.FRONT_ENV evaluating true', () => {
       });
     }),
   );
-
-  test('Clears auth cookies when authorization fails', () =>
-    new Promise((done) => {
-      mockTcAccounts.getFreshToken = () => Promise.reject('');
-      require(MODULE);
-      setImmediate(() => {
-        expect(mockCookies.erase).toHaveBeenCalledWith('tcjwt');
-        expect(mockCookies.erase).toHaveBeenCalledWith('tctV3');
-        done();
-      });
-    }),
-  );
 });
 

@@ -80,7 +80,7 @@ describe('Factory with server side rendering', () =>
   reducers.factory({
     cookies: {
       tcjwt: 'Token V2',
-      tctV3: 'Token V3',
+      v3jwt: 'Token V3',
     },
   }).then(res =>
     testReducer(res, {}),

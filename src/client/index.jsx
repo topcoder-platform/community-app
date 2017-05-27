@@ -45,10 +45,6 @@ function authenticate(store) {
 
   getFreshToken().then((tctV3) => {
     const tctV2 = cookies.get('tcjwt');
-    cookies.set('tctV3', tctV3, {
-      expires: config.COOKIES.MAXAGE,
-      secure: config.COOKIES.SECURE,
-    });
     logger.log('Authenticated as:', decodeToken(tctV3));
     logger.log('Topcoder API v3 token:', tctV3);
     if (!tctV2) logger.error('Failed to fetch API v2 token!');
@@ -56,8 +52,6 @@ function authenticate(store) {
     return ({ tctV2, tctV3 });
   }).catch(() => {
     logger.warn('Authentication failed!');
-    cookies.erase('tcjwt');
-    cookies.erase('tctV3');
     return ({});
   }).then(({ tctV2, tctV3 }) => {
     const auth = store.getState().auth;

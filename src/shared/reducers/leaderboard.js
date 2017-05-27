@@ -56,7 +56,7 @@ export function factory(req) {
   if (match) {
     const tokens = {
       tokenV2: req.cookies.tcjwt,
-      tokenV3: req.cookies.tctV3,
+      tokenV3: req.cookies.v3jwt,
     };
     const communityId = match[1];
     // as every community can has its own leaderboard page url
