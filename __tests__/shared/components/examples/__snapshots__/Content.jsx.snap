@@ -78,7 +78,7 @@ exports[`Matches shallow shapshot 1`] = `
       </code>
        of Redux store, or in 
       <code>
-        tctV3
+        v3jwt
       </code>
        and 
       <code>

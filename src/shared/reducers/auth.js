@@ -51,7 +51,7 @@ function create(initialState) {
  */
 export function factory(req) {
   const cookies = (req && req.cookies) || {};
-  const tokenV3 = cookies.tctV3 || null;
+  const tokenV3 = cookies.v3jwt || null;
   const state = {
     authenticating: true,
     tokenV2: cookies.tcjwt || null,

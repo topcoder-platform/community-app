@@ -46,7 +46,7 @@ export default function Content() {
           (see <code>/src/shared/services/api.js</code>), with support of TC
           authentication (look for auth tokens either
           in <code>store.auth</code> of Redux store, or
-          in <code>tctV3</code> and <code>tcjwt</code> cookies of the front-end
+          in <code>v3jwt</code> and <code>tcjwt</code> cookies of the front-end
           requests to the server);
         </li>
         <li>Stylefmt;</li>

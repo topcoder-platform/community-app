@@ -77,7 +77,7 @@ export function factory(req) {
   if (req && req.url.match(/^\/challenge\/\d+\/my-submissions/)) {
     const tokens = {
       tokenV2: req.cookies.tcjwt,
-      tokenV3: req.cookies.tctV3,
+      tokenV3: req.cookies.v3jwt,
     };
     const challengeId = req.url.match(/\d+/)[0];
     return Promise.all([
