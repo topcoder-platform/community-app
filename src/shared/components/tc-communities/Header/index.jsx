@@ -40,17 +40,14 @@ export default function Header(props) {
   // hardcode dropdown options for now
   const communitiesDropdownOptions = [
     {
-      label: 'iOS Community',
+      label: 'Wipro Hybrid Crowd',
       value: '1',
     }, {
-      label: 'Predix Topcoder',
+      label: 'Cognitive Community',
       value: '2',
     }, {
-      label: 'Cognitive Topcoder',
+      label: 'iOS Community',
       value: '3',
-    }, {
-      label: 'Android Community',
-      value: '4',
     },
   ];
 
@@ -142,12 +139,14 @@ export default function Header(props) {
                 )),
               )}
             </div>
+
             <div styleName="challenge-dropdown">
               <Dropdown
                 options={communitiesDropdownOptions}
                 value={communitiesDropdownOptions[0]}
               />
             </div>
+            
           </div>
           <div styleName="user-wrap-mobile">
             {profile && (
