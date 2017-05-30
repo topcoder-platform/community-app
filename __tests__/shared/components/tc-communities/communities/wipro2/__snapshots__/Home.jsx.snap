@@ -12,9 +12,9 @@ exports[`Snapshot match 1`] = `
       }
     }
     mapThemrProps={[Function]}
-    text="You’re eager to get started, and we have a bunch of iOS/Swift challenges lined up to give you new opportunities to earn cash. We also have an exclusive iOS badging program to prove your app design and development expertise, so dive in and start competing!"
+    text="Wipro's Hybrid Crowd gives our vast ecosystem of customers and partners options to access new range of skills that provide new value services and efficiency options all over the world."
     theme={Object {}}
-    title="iOS"
+    title="Wipro Crowd"
   />
   <ThemedSection
     composeTheme="deeply"
@@ -33,7 +33,7 @@ exports[`Snapshot match 1`] = `
       icon={[Function]}
       label="Projects"
       mapThemrProps={[Function]}
-      number="5"
+      number="NA"
       theme={Object {}}
     />
     <ThemedIconStat
@@ -41,7 +41,7 @@ exports[`Snapshot match 1`] = `
       icon={[Function]}
       label="Challenges"
       mapThemrProps={[Function]}
-      number="12"
+      number="NA"
       theme={Object {}}
     />
     <ThemedIconStat
@@ -49,7 +49,7 @@ exports[`Snapshot match 1`] = `
       icon={[Function]}
       label="Members"
       mapThemrProps={[Function]}
-      number="347"
+      number="NA"
       theme={Object {}}
     />
     <ThemedIconStat
@@ -57,7 +57,7 @@ exports[`Snapshot match 1`] = `
       icon={[Function]}
       label="Prizes"
       mapThemrProps={[Function]}
-      number="$10K"
+      number="$NA"
       theme={Object {}}
     />
   </ThemedSection>
@@ -79,27 +79,27 @@ exports[`Snapshot match 1`] = `
         link={
           Object {
             "title": "Start Learning",
-            "url": "/community/wipro2/home",
+            "url": "/community/wipro2/learn",
           }
         }
         mapThemrProps={[Function]}
-        text="You can learn and get certified donec facilisis tortor ut augue lacinia, at viverra est semper. Sed sapien metus, scelerisque nec pharetra id, tempor a tortor. Pellentesque non dignissim neque. Ut porta viverra est, ut dignissim elit"
+        text="Our continuously evolving structured learning paths, constantly abreast of the latest, tailored for employees to deepen your knowledge, infuses important software capabilities that are industry specific and help you get the skills you need to succeed."
         theme={Object {}}
-        title="Learn"
+        title="Improve Your Skills"
       />
       <ThemedImageText
         composeTheme="deeply"
         imageSrc="/themes/wipro2/home/image-text-do.jpg"
         link={
           Object {
-            "title": "Start Learning",
-            "url": "/community/wipro2/home",
+            "title": "Start Earning",
+            "url": "/community/wipro2/challenges",
           }
         }
         mapThemrProps={[Function]}
-        text="Jump into challenges and start competing sed sapien metus, scelerisque nec pharetra id, tempor a tortor. Pellentesque non dignissim neque. Nunc vel rhoncus nibh, ut tincidunt turpis."
+        text="Rewards program is intended to celebrate and recognize your contribution. Rewards for project contributions are given using ‘Reward Points’. Points earned translate into badges. Quarterly rewards are given away to the toppers of all categories."
         theme={Object {}}
-        title="Do Work"
+        title="Get Involved"
       />
     </div>
   </ThemedSection>
@@ -120,7 +120,7 @@ exports[`Snapshot match 1`] = `
       link={
         Object {
           "title": "Browse resources",
-          "url": "/community/wipro2/home",
+          "url": "/community/wipro2/learn",
         }
       }
       mapThemrProps={[Function]}
@@ -134,7 +134,7 @@ exports[`Snapshot match 1`] = `
       link={
         Object {
           "title": "Learn about badges",
-          "url": "/community/wipro2/home",
+          "url": "/community/wipro2/leaderboard",
         }
       }
       mapThemrProps={[Function]}
@@ -148,7 +148,7 @@ exports[`Snapshot match 1`] = `
       link={
         Object {
           "title": "Browse challenges",
-          "url": "/community/wipro2/home",
+          "url": "/community/wipro2/challenges",
         }
       }
       mapThemrProps={[Function]}
@@ -190,7 +190,7 @@ exports[`Snapshot match 1`] = `
       mapThemrProps={[Function]}
       text="HDMI, or high definition multimedia interface, is a type of audio and video interface that is used for the transmission of uncompressed"
       theme={Object {}}
-      title="Video Games Playing With Imagination"
+      title="Video Games Playing With Imagination "
     />
     <ThemedArticleCard
       composeTheme="deeply"
@@ -208,7 +208,7 @@ exports[`Snapshot match 1`] = `
     />
   </ThemedSection>
   <ThemedNewsletterSignup
-    buttonText="Sing Up"
+    buttonText="Sign Up"
     composeTheme="deeply"
     emailPlaceholder="Email address"
     imageSrc="/themes/wipro2/subscribe-bg.jpg"
