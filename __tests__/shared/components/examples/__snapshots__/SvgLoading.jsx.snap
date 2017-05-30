@@ -1,0 +1,55 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`matches snapshots 1`] = `
+<div>
+  <h1>
+    SVG Loading
+  </h1>
+  <p>
+    This component show how to load 
+    <code>
+      .svg
+    </code>
+     assets with use of
+    <code>
+       babel-plugin-inline-react-svg
+    </code>
+    .
+  </p>
+  <svg
+    height="200px"
+    viewBox="0 0 283.46455 85.039373"
+    width="640px"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      d="M12.906 12.034h260.215v60.327H12.907z"
+      fill="none"
+      stroke="green"
+      strokeWidth=".49"
+    />
+    <text
+      fontFamily="sans-serif"
+      fontSize="20"
+      fontWeight="400"
+      letterSpacing="0"
+      style={
+        Object {
+          "lineHeight": "125%",
+        }
+      }
+      transform="translate(-164.279 -116.897)"
+      wordSpacing="0"
+      x="196.071"
+      y="141.291"
+    >
+      <tspan
+        x="196.071"
+        y="166.291"
+      >
+        A Sample SVG asset :)
+      </tspan>
+    </text>
+  </svg>
+</div>
+`;

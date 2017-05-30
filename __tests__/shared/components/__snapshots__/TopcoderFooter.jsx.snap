@@ -1,0 +1,160 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Matches shallow shapshot 1`] = `
+<div
+  className="src-shared-components-TopcoderFooter-___style__footer___28yQ6"
+>
+  <nav>
+    <ul>
+      <li
+        className="src-shared-components-TopcoderFooter-___style__link___3-nzm"
+      >
+        <a
+          href="https://www.topcoder-dev.com/sitemap"
+        >
+          SITE MAP
+        </a>
+      </li>
+      <li
+        className="src-shared-components-TopcoderFooter-___style__link___3-nzm"
+      >
+        <a
+          href="https://www.topcoder-dev.com/about"
+        >
+          ABOUT US
+        </a>
+      </li>
+      <li
+        className="src-shared-components-TopcoderFooter-___style__link___3-nzm"
+      >
+        <a
+          href="https://help.topcoder-dev.com/hc/en-us/articles/219069687-Contact-Support"
+        >
+          CONTACT US
+        </a>
+      </li>
+      <li
+        className="src-shared-components-TopcoderFooter-___style__link___3-nzm"
+      >
+        <a
+          href="https://help.topcoder-dev.com"
+        >
+          HELP CENTER
+        </a>
+      </li>
+      <li
+        className="src-shared-components-TopcoderFooter-___style__link___3-nzm"
+      >
+        <a
+          href="https://www.topcoder-dev.com/community/how-it-works/privacy-policy/"
+        >
+          PRIVACY POLICY
+        </a>
+      </li>
+      <li
+        className="src-shared-components-TopcoderFooter-___style__link___3-nzm"
+      >
+        <a
+          href="https://www.topcoder-dev.com/community/how-it-works/terms/"
+        >
+          TERMS
+        </a>
+      </li>
+    </ul>
+  </nav>
+  <div
+    className="src-shared-components-TopcoderFooter-___style__social-links___2G4Ia"
+  >
+    <p>
+      Topcoder is also on
+    </p>
+    <a
+      href="https://www.facebook.com/topcoder"
+      target="fbwindow"
+    >
+      <svg
+        height="32"
+        version="1"
+        viewBox="0 0 32 32"
+        width="32"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M18 32V18h6l1-6h-7V9c0-2 1.002-3 3-3h3V0h-5c-5 0-7 3-7 8v4H6v6h6v14h6z"
+          fill="#3B5998"
+        />
+      </svg>
+    </a>
+    <a
+      href="http://www.twitter.com/topcoder"
+      target="twwindow"
+    >
+      <svg
+        height="32"
+        version="1"
+        viewBox="0 0 32 32"
+        width="32"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M31.993 6.077a13.027 13.027 0 0 1-3.77 1.033 6.588 6.588 0 0 0 2.887-3.63 13.144 13.144 0 0 1-4.168 1.592A6.56 6.56 0 0 0 22.149 3a6.562 6.562 0 0 0-6.562 6.563c0 .514.057 1.016.169 1.496-5.455-.274-10.291-2.887-13.529-6.858a6.544 6.544 0 0 0-.888 3.3 6.564 6.564 0 0 0 2.919 5.464 6.544 6.544 0 0 1-2.972-.821l-.001.082a6.568 6.568 0 0 0 5.265 6.437 6.606 6.606 0 0 1-2.963.113 6.572 6.572 0 0 0 6.13 4.558 13.166 13.166 0 0 1-8.15 2.811c-.53 0-1.053-.031-1.566-.092A18.592 18.592 0 0 0 10.062 29c12.072 0 18.675-10.001 18.675-18.675 0-.284-.008-.568-.02-.85a13.315 13.315 0 0 0 3.276-3.398z"
+          fill="#55ACEE"
+        />
+      </svg>
+    </a>
+    <a
+      href="https://www.linkedin.com/company/topcoder"
+      target="liwindow"
+    >
+      <svg
+        height="32"
+        version="1"
+        viewBox="0 0 32 32"
+        width="32"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <g
+          fill="#007BB5"
+        >
+          <path
+            d="M0 9h7v23H0zM24.003 9C20 9 18.89 10.312 18 12V9h-7v23h7V19c0-2 0-4 3.5-4s3.5 2 3.5 4v13h7V19c0-6-1-10-7.997-10z"
+          />
+          <circle
+            cx="3.5"
+            cy="3.5"
+            r="3.5"
+          />
+        </g>
+      </svg>
+    </a>
+    <a
+      href="https://plus.google.com/u/0/b/104268008777050019973/104268008777050019973/posts"
+      target="gpwindow"
+    >
+      <svg
+        height="32"
+        version="1"
+        viewBox="0 0 32 32"
+        width="32"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <g
+          fill="#E02F2F"
+        >
+          <path
+            d="M16.425 18.415c-.897-.634-2.609-2.176-2.609-3.083 0-1.062.303-1.586 1.902-2.835 1.638-1.281 2.799-3.38 2.799-5.476C18.517 4.529 17.405 3 15.321 1h3.144l2.218-1H10.77C6.325 0 2.144 3.362 2.144 7.261c0 3.986 3.029 7.201 7.551 7.201.314 0 .619-.008.919-.028-.294.56-.503 1.192-.503 1.849 0 1.108.596 2.006 1.348 2.74-.567 0-1.118.016-1.717.016C4.235 19.038 0 22.543 0 26.179 0 29.758 4.645 32 10.148 32c6.276 0 9.741-3.562 9.741-7.142.001-2.871-.847-4.589-3.464-6.443zm-5.296-4.967c-2.555-.076-4.981-2.857-5.422-6.209-.44-3.355 1.272-5.922 3.824-5.846 2.554.078 4.981 2.768 5.423 6.122.441 3.355-1.273 6.009-3.825 5.933zm-1.001 16.967c-3.805 0-6.553-2.407-6.553-5.301 0-2.834 3.408-5.195 7.214-5.154.888.01 1.715.152 2.465.395 2.066 1.438 3.548 2.25 3.968 3.885.076.332.121.675.121 1.023 0 2.892-1.865 5.152-7.215 5.152z"
+          />
+          <path
+            d="M27 14V9h-2v5h-5v2h5v5h2v-5h5v-2z"
+          />
+        </g>
+      </svg>
+    </a>
+  </div>
+  <p
+    className="src-shared-components-TopcoderFooter-___style__copyright-notice___24f5v"
+  >
+    © 2017 Topcoder. All Rights Reserved
+  </p>
+</div>
+`;

@@ -1,0 +1,7 @@
+{
+  "rules": {
+    // It is fine to use console server-side
+    // http://eslint.org/docs/rules/no-console
+    "no-console": 0
+  }
+}

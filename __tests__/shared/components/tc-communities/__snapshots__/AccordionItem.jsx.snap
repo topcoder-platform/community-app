@@ -1,0 +1,43 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Snapshot match 1`] = `
+<AccordionItem
+  isOpen={false}
+  onTitleClick={[Function]}
+  theme={
+    Object {
+      "containerOpen": "src-shared-components-tc-communities-Accordion-AccordionItem-___style__containerOpen___2_Z8e",
+      "content": "src-shared-components-tc-communities-Accordion-AccordionItem-___style__content___1dpq2",
+      "title": "src-shared-components-tc-communities-Accordion-AccordionItem-___style__title___1l-ih",
+      "titleArrow": "src-shared-components-tc-communities-Accordion-AccordionItem-___style__titleArrow___33JDq",
+      "titleText": "src-shared-components-tc-communities-Accordion-AccordionItem-___style__titleText___1TU4v",
+    }
+  }
+  title="Test title"
+>
+  <div>
+    Test content
+  </div>
+</AccordionItem>
+`;
+
+exports[`Snapshot match 2`] = `
+<AccordionItem
+  isOpen={true}
+  onTitleClick={[Function]}
+  theme={
+    Object {
+      "containerOpen": "src-shared-components-tc-communities-Accordion-AccordionItem-___style__containerOpen___2_Z8e",
+      "content": "src-shared-components-tc-communities-Accordion-AccordionItem-___style__content___1dpq2",
+      "title": "src-shared-components-tc-communities-Accordion-AccordionItem-___style__title___1l-ih",
+      "titleArrow": "src-shared-components-tc-communities-Accordion-AccordionItem-___style__titleArrow___33JDq",
+      "titleText": "src-shared-components-tc-communities-Accordion-AccordionItem-___style__titleText___1TU4v",
+    }
+  }
+  title="Test title"
+>
+  <div>
+    Test content
+  </div>
+</AccordionItem>
+`;

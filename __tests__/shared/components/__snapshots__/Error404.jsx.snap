@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly with context 1`] = `
+<div>
+  <h1>
+    404 HTTP error
+  </h1>
+  <p>
+    The resource you are looking for does not exist in Topcoder community App :(
+  </p>
+</div>
+`;
+
+exports[`renders correctly without context 1`] = `
+<div>
+  <h1>
+    404 HTTP error
+  </h1>
+  <p>
+    The resource you are looking for does not exist in Topcoder community App :(
+  </p>
+</div>
+`;

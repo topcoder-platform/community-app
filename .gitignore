@@ -12,6 +12,7 @@ pids
 lib-cov
 
 # Coverage directory used by tools like istanbul
+__coverage__
 coverage
 
 # nyc test coverage
@@ -24,7 +25,7 @@ coverage
 .lock-wscript
 
 # Compiled binary addons (http://nodejs.org/api/addons.html)
-build/Release
+build
 
 # Dependency directories
 node_modules
@@ -35,3 +36,14 @@ jspm_packages
 
 # Optional REPL history
 .node_repl_history
+
+# Elastic Beanstalk Files
+.elasticbeanstalk/*
+!.elasticbeanstalk/*.cfg.yml
+!.elasticbeanstalk/*.global.yml
+
+# macOS system files
+*.DS_Store
+
+# Misc files
+.vscode

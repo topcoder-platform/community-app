@@ -1,0 +1,68 @@
+@import '~styles/tc-styles';
+
+.container {
+  align-items: flex-start;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.titleList {
+  position: relative;
+  width: 300px;
+
+  &::after {
+    background-color: #ddd;
+    bottom: 5px;
+    content: '';
+    display: block;
+    position: absolute;
+    right: 0;
+    top: 5px;
+    width: 1px;
+  }
+
+  @include sm {
+    width: 250px;
+  }
+
+  @include xxs-to-sm {
+    display: none;
+  }
+}
+
+.titleListItem {
+  color: #a3a3ae;
+  cursor: pointer;
+  font: 600 15px/20px 'Open Sans';
+  padding: 20px 0;
+  position: relative;
+}
+
+.titleListItemSelected {
+  color: #202a36;
+  cursor: default;
+
+  &::after {
+    background-color: #0092ff;
+    bottom: 5px;
+    content: '';
+    display: block;
+    position: absolute;
+    right: 1px;
+    top: 5px;
+    width: 3px;
+  }
+}
+
+.content {
+  width: 600px;
+
+  @include sm {
+    width: 430px;
+  }
+
+  @include xxs-to-sm {
+    width: 100%;
+  }
+}

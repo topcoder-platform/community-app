@@ -1,0 +1,222 @@
+// Table of contents
+// 
+// Checkboxes
+// Switches
+// Radios
+input[type=checkbox] {
+  visibility: hidden;
+}
+
+// Checkboxes
+// CHECKBOX
+// ----------------------------------------------------------------------
+// 
+// TODO: Refactor to use parameters as the slider;
+// TODO: Create mixin for the 4 sizes - lg, md, sm, xs
+// 
+$checkbox-size: $base-unit * 4;
+$checkbox-bg-empty: $tc-gray-neutral-light;
+$checkbox-bg-selected: $tc-dark-blue-90;
+
+.tc-checkbox-label {
+  display: inline-block;
+
+  @include tc-label-lg;
+
+  line-height: $checkbox-size;
+  vertical-align: middle;
+  margin-left: $base-unit * 2;
+  user-select: none;
+  cursor: pointer;
+}
+
+.tc-checkbox {
+  height: $checkbox-size;
+  width: $checkbox-size;
+  margin: 0;
+  padding: 0;
+  vertical-align: bottom;
+  position: relative;
+  display: inline-block;
+
+  input[type=checkbox] {
+    display: none;
+  }
+
+  label {
+    cursor: pointer;
+    position: absolute;
+    display: inline-block;
+    width: $checkbox-size;
+    height: $checkbox-size;
+    top: 0;
+    left: 0;
+    border-radius: $corner-radius;
+    box-shadow: none;
+    border: 1px solid $tc-gray-50;
+    background: $tc-gray-neutral-light;
+    transition: all 0.15s ease-in-out;
+
+    &::after {
+      opacity: 0;
+      content: '';
+      position: absolute;
+      width: 13px;
+      height: 7px;
+      background: transparent;
+      top: 4px;
+      left: 3px;
+      border: 3px solid $tc-dark-blue-90;
+      border-top: none;
+      border-right: none;
+      transform: rotate(-45deg);
+      transition: all 0.15s ease-in-out;
+    }
+
+    &:hover::after {
+      opacity: 0.3;
+    }
+  }
+
+  input[type=checkbox]:checked ~ label {
+    background: $checkbox-bg-selected;
+    border-color: $checkbox-bg-selected;
+  }
+
+  input[type=checkbox]:checked + label::after {
+    opacity: 1;
+    border-color: $tc-white;
+  }
+}
+
+// Checkboxes
+// SLIDER
+// ----------------------------------------------------------------------
+// 
+// TODO: Create mixin and render the 4 sizes - lg, md, sm, xs
+$slider-height: $base-unit * 5;
+$slider-handle-offset: 3px;
+$slider-width: $slider-height * 2 - ($slider-handle-offset * 2);
+$slider-handle-size: $slider-height - (2 * $slider-handle-offset);
+$slider-speed: 150ms;
+$slider-off-bg: $tc-gray-40;
+$slider-on-bg: $tc-dark-blue-90;
+$slider-handle-color: $tc-white;
+
+.tc-slider-label {
+  display: inline-block;
+
+  @include tc-label-lg;
+
+  line-height: $slider-height;
+  vertical-align: bottom;
+  margin-right: $base-unit * 2;
+  user-select: none;
+  cursor: pointer;
+}
+
+.tc-slider {
+  height: $slider-height;
+  position: relative;
+  width: $slider-width;
+  display: inline-block;
+
+  input[type=checkbox]:focus ~ label {
+    box-shadow: inset 1px 1px 2px rgba(0, 0, 0, 0.4), 1px 1px 1px rgba(255, 255, 255, 0.6);
+    background: $slider-off-bg;
+  }
+
+  input[type=checkbox]:checked ~ label {
+    background: $slider-on-bg;
+
+    &::after {
+      left: ($slider-width - $slider-handle-size) - $slider-handle-offset * 2;
+    }
+  }
+
+  label {
+    border-radius: $slider-height / 2;
+    box-shadow: inset 0 1px 2px 0 rgba(38, 38, 40, 0.3);
+    height: $slider-height;
+    width: $slider-width;
+    position: absolute;
+    top: 0;
+    left: 0;
+    transition: background $slider-speed ease-in-out;
+    text-indent: -9999em;
+    background: $slider-off-bg;
+
+    &:hover {
+      cursor: pointer;
+    }
+
+    &::after {
+      border-radius: $slider-height / 2;
+      // box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.42);
+      content: "";
+      cursor: pointer;
+      display: block;
+      height: $slider-handle-size;
+      width: $slider-handle-size;
+      position: absolute;
+      top: 0;
+      left: 0;
+      transition: left $slider-speed ease-in-out;
+      margin: $slider-handle-offset;
+      z-index: 1;
+      background: $slider-handle-color;
+    }
+  }
+}
+
+// 
+// RADIO
+// ----------------------------------------------------------------------
+// 
+// TODO: Refactor to use parameters like the Slider
+.radio {
+  margin: 0;
+
+  input[type="radio"] {
+    opacity: 0;
+    display: none;
+  }
+
+  label {
+    display: inline-block;
+    line-height: 19px;
+    padding-left: 26px;
+    position: relative;
+
+    @include tc-label-md;
+
+    font-size: 14px;
+    color: $tc-black;
+    margin-right: 30px;
+
+    &::before {
+      border: 1px solid $tc-gray-20;
+      border-radius: 50%;
+      background-color: #fff;
+      content: "";
+      display: inline-block;
+      height: 19px;
+      left: 0;
+      position: absolute;
+      top: 0;
+      width: 19px;
+    }
+  }
+
+  input[type="radio"]:checked + label::after {
+    background: $tc-dark-blue-90;
+    border-radius: 50%;
+    content: "";
+    display: inline-block;
+    left: 4px;
+    position: absolute;
+    top: 4px;
+    height: 11px;
+    width: 11px;
+  }
+}

@@ -1,0 +1,65 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Matches shapshot 1`] = `
+<LeaderboardPageContainer
+  apiUrl="http://www.mocky.io/v2/59098e60100000b60747c10b"
+  auth={null}
+  isLoadingLeaderboard={false}
+  leaderboardData={
+    Array [
+      Object {
+        "avatarUrl": "some.fake.string",
+        "project_result.final_score": 9999999999,
+        "rank": 1,
+        "user.handle": "overachieving.mofo",
+        "wins": 99999,
+      },
+      Object {
+        "avatarUrl": "some.fake.string",
+        "project_result.final_score": 9999999999,
+        "rank": 1,
+        "user.handle": "overachieving.mofo",
+        "wins": 99999,
+      },
+      Object {
+        "avatarUrl": "some.fake.string",
+        "project_result.final_score": 9999999999,
+        "rank": 1,
+        "user.handle": "overachieving.mofo",
+        "wins": 99999,
+      },
+      Object {
+        "avatarUrl": "some.fake.string",
+        "project_result.final_score": 9999999999,
+        "rank": 1,
+        "user.handle": "overachieving.mofo",
+        "wins": 99999,
+      },
+    ]
+  }
+  loadLeaderboard={[Function]}
+  loadedApiUrl={null}
+  store={
+    Object {
+      "dispatch": [Function],
+      "getState": [Function],
+      "subscribe": [Function],
+    }
+  }
+  storeSubscription={
+    Subscription {
+      "listeners": Object {
+        "notify": [Function],
+      },
+      "onStateChange": [Function],
+      "parentSub": undefined,
+      "store": Object {
+        "dispatch": [Function],
+        "getState": [Function],
+        "subscribe": [Function],
+      },
+      "unsubscribe": null,
+    }
+  }
+/>
+`;

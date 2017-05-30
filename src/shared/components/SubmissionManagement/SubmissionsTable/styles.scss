@@ -1,0 +1,151 @@
+@import '~styles/tc-styles';
+$status-space-10: $base-unit * 2;
+$status-space-20: $base-unit * 4;
+$status-space-25: $base-unit * 5;
+$submission-space-10: $base-unit * 2;
+$submission-space-20: $base-unit * 4;
+$submission-space-25: $base-unit * 5;
+$submission-space-50: $base-unit * 10;
+
+.submissions-table {
+  border: 1px solid $tc-gray-10;
+  overflow: hidden;
+  border-radius: 4px 4px 0 0;
+
+  table {
+    width: 100%;
+
+    thead {
+      tr {
+        background: $tc-gray-neutral-light;
+      }
+    }
+
+    th {
+      font-size: 13px;
+      color: $tc-gray-50;
+      font-weight: 500;
+      line-height: $status-space-20;
+      text-align: left;
+      padding: $status-space-25 $status-space-20;
+
+      &.status,
+      &.actions {
+        text-align: center;
+      }
+    }
+
+    .no-submission {
+      line-height: $submission-space-20;
+      padding: $submission-space-50 $submission-space-20;
+      text-align: center;
+    }
+  }
+
+  .status-col {
+    text-align: center;
+  }
+
+  .action-col {
+    text-align: center;
+  }
+}
+
+.submission-row {
+  width: 100%;
+  font-size: 15px;
+  color: $tc-black;
+  font-weight: 400;
+
+  td {
+    vertical-align: middle;
+    padding: $submission-space-20;
+    background: $tc-white;
+    border-top: 1px solid $tc-gray-10;
+    line-height: 12px;
+
+    &.no-submission {
+      line-height: $submission-space-20;
+      padding: $submission-space-50 $submission-space-20;
+      text-align: center;
+    }
+
+    &.dev-details {
+      background: $tc-gray-neutral-light;
+      padding-right: 60px;
+    }
+  }
+
+  .preview-col {
+    .design-img {
+      width: 90px;
+      height: 90px;
+    }
+
+    .dev-img {
+      width: 40px;
+      height: 40px;
+    }
+  }
+
+  .id-col {
+    font-weight: 700;
+  }
+
+  .date-col {
+    color: $tc-gray-50;
+    font-weight: 400;
+    line-height: $submission-space-20;
+  }
+
+  .status-col {
+    text-align: center;
+
+    button {
+      background: none;
+      border: none;
+      padding: 0;
+
+      .pending {
+        text-transform: initial;
+        font-size: 15px;
+        color: $tc-gray-40;
+        line-height: $submission-space-20;
+      }
+
+      &:focus {
+        outline: none;
+      }
+    }
+  }
+
+  .action-col {
+    text-align: center;
+
+    .delete-icon {
+      margin: 0 $submission-space-25;
+    }
+
+    button {
+      background: none;
+      border: 0;
+      font-size: 0;
+      padding: 0;
+      line-height: 0;
+      display: inline-block;
+
+      &:focus {
+        outline: none;
+      }
+    }
+
+    .expand-icon {
+      transition: all 1.5s;
+
+      &.expanded {
+        transform: rotate(180deg);
+      }
+    }
+  }
+}
+

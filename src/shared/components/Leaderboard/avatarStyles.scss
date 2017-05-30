@@ -1,0 +1,31 @@
+@mixin avatar {
+  border-radius: 50%;
+  border-style: solid;
+  border-width: 5px;
+  height: 100%;
+  width: 100%;
+}
+
+.bronze {
+  @include avatar;
+
+  border-color: #bd731e;
+}
+
+.default {
+  @include avatar;
+
+  border-color: rgba(0, 0, 0, 0.05);
+}
+
+.gold {
+  @include avatar;
+
+  border-color: #fce217;
+}
+
+.silver {
+  @include avatar;
+
+  border-color: #a9bcd4;
+}

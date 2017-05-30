@@ -1,0 +1,61 @@
+@import "~styles/mixins";
+
+.roboto-thin {
+  @include roboto-thin;
+}
+
+.roboto-thin-italic {
+  @include roboto-thin;
+
+  font-style: italic;
+}
+
+.roboto-light {
+  @include roboto-light;
+}
+
+.roboto-light-italic {
+  @include roboto-light;
+
+  font-style: italic;
+}
+
+.roboto-regular {
+  @include roboto;
+}
+
+.roboto-regular-italic {
+  @include roboto;
+
+  font-style: italic;
+}
+
+.roboto-medium {
+  @include roboto-medium;
+}
+
+.roboto-medium-italic {
+  @include roboto-medium;
+
+  font-style: italic;
+}
+
+.roboto-bold {
+  @include roboto-bold;
+}
+
+.roboto-bold-italic {
+  @include roboto-bold;
+
+  font-style: italic;
+}
+
+.roboto-black {
+  @include roboto-black;
+}
+
+.roboto-black-italic {
+  @include roboto-black;
+
+  font-style: italic;
+}

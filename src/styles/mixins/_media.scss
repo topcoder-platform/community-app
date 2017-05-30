@@ -1,0 +1,70 @@
+// Create mixin and render the 4 sizes - lg, md, sm, xs
+
+// extra small size
+$xs-width: 320px;
+// small size - mobile
+$sm-width: 768px;
+// medium size - tablet
+$md-width: 1024px;
+// large size - desktop
+$lg-width: 1280px;
+
+@mixin xxs {
+  @media (max-width: #{$xs-width - 1px}) {
+    @content;
+  }
+}
+
+@mixin xxs-to-sm {
+  @media (max-width: #{$sm-width - 1px}) {
+    @content;
+  }
+}
+
+@mixin xxs-to-md {
+  @media (max-width: #{$md-width - 1px}) {
+    @content;
+  }
+}
+
+@mixin xxs-to-lg {
+  @media (max-width: #{$lg-width - 1px}) {
+    @content;
+  }
+}
+
+@mixin xs {
+  @media (min-width: #{$xs-width}) and (max-width: #{$sm-width - 1px}) {
+    @content;
+  }
+}
+
+@mixin sm {
+  @media (min-width: #{$sm-width}) and (max-width: #{$md-width}) {
+    @content;
+  }
+}
+
+@mixin xs-to-sm {
+  @media (min-width: #{$xs-width}) and (max-width: #{$md-width} - 1px) {
+    @content;
+  }
+}
+
+@mixin xs-to-md {
+  @media (min-width: #{$xs-width}) and (max-width: #{$lg-width - 1px}) {
+    @content;
+  }
+}
+
+@mixin md {
+  @media (min-width: #{$md-width + 1px}) and (max-width: #{$lg-width - 1px}) {
+    @content;
+  }
+}
+
+@mixin lg {
+  @media (min-width: #{$lg-width}) {
+    @content;
+  }
+}

@@ -1,0 +1,117 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Snapshot match 1`] = `
+<button
+  onClick={[Function]}
+>
+  <div
+    className="src-shared-components-SubmissionManagement-ScreeningStatus-___styles__screening-status___JV4BF src-shared-components-SubmissionManagement-ScreeningStatus-___styles__fail-with-no-warn___3zepk"
+  >
+    <span
+      className="src-shared-components-SubmissionManagement-ScreeningStatus-___styles__status___1CCjJ"
+    >
+      fail
+    </span>
+  </div>
+</button>
+`;
+
+exports[`Snapshot match 2`] = `
+<button
+  onClick={[Function]}
+>
+  <div
+    className="src-shared-components-SubmissionManagement-ScreeningStatus-___styles__screening-status___JV4BF src-shared-components-SubmissionManagement-ScreeningStatus-___styles__has-warn___8jqPg"
+  >
+    <span
+      className="src-shared-components-SubmissionManagement-ScreeningStatus-___styles__status___1CCjJ src-shared-components-SubmissionManagement-ScreeningStatus-___styles__failed___2N6ch"
+    >
+      fail
+    </span>
+    <span
+      className="src-shared-components-SubmissionManagement-ScreeningStatus-___styles__warning___6tSHD"
+    >
+      0 
+      warning
+    </span>
+  </div>
+</button>
+`;
+
+exports[`Snapshot match 3`] = `
+<button
+  onClick={[Function]}
+>
+  <div
+    className="src-shared-components-SubmissionManagement-ScreeningStatus-___styles__screening-status___JV4BF src-shared-components-SubmissionManagement-ScreeningStatus-___styles__pass-with-no-warn___2Lbv4"
+  >
+    <span
+      className="src-shared-components-SubmissionManagement-ScreeningStatus-___styles__status___1CCjJ"
+    >
+      pass
+    </span>
+  </div>
+</button>
+`;
+
+exports[`Snapshot match 4`] = `
+<button
+  onClick={[Function]}
+>
+  <div
+    className="src-shared-components-SubmissionManagement-ScreeningStatus-___styles__screening-status___JV4BF src-shared-components-SubmissionManagement-ScreeningStatus-___styles__has-warn___8jqPg"
+  >
+    <span
+      className="src-shared-components-SubmissionManagement-ScreeningStatus-___styles__status___1CCjJ src-shared-components-SubmissionManagement-ScreeningStatus-___styles__passed___1R8KE"
+    >
+      pass
+    </span>
+    <span
+      className="src-shared-components-SubmissionManagement-ScreeningStatus-___styles__warning___6tSHD"
+    >
+      0 
+      warning
+    </span>
+  </div>
+</button>
+`;
+
+exports[`Snapshot match 5`] = `
+<button
+  onClick={[Function]}
+>
+  <div
+    className="src-shared-components-SubmissionManagement-ScreeningStatus-___styles__screening-status___JV4BF src-shared-components-SubmissionManagement-ScreeningStatus-___styles__pending___2TqCq"
+  >
+    <span>
+      Not yet performed
+    </span>
+    <span
+      className="src-shared-components-SubmissionManagement-ScreeningStatus-___styles__warning___6tSHD"
+    >
+      0 
+      warning
+    </span>
+  </div>
+</button>
+`;
+
+exports[`Snapshot match 6`] = `
+<button
+  onClick={[Function]}
+>
+  <div
+    className="src-shared-components-SubmissionManagement-ScreeningStatus-___styles__screening-status___JV4BF src-shared-components-SubmissionManagement-ScreeningStatus-___styles__has-warn___8jqPg"
+  >
+    <span
+      className="src-shared-components-SubmissionManagement-ScreeningStatus-___styles__status___1CCjJ"
+    />
+    <span
+      className="src-shared-components-SubmissionManagement-ScreeningStatus-___styles__warning___6tSHD"
+    >
+      0 
+      warning
+    </span>
+  </div>
+</button>
+`;

@@ -1,0 +1,22 @@
+{
+  "ACCOUNTS_APP_CONNECTOR_URL": "https://accounts.topcoder.com/connector.html",
+  "API": {
+    "V2": "https://api.topcoder.com/v2",
+    "V3": "https://api.topcoder.com/v3"
+  },
+  "COOKIES": {
+    "MAXAGE": 7,
+    "SECURE": true
+  },
+  "URL": {
+    "ARENA": "https://arena.topcoder.com/",
+    "AUTH": "https://accounts.topcoder.com/member",
+    "BASE": "https://www.topcoder.com",
+    "COMMUNITY": "https://community.topcoder.com",
+    "FORUMS": "https://apps.topcoder.com/forums",
+    "HELP": "https://help.topcoder.com",
+    "MEMBER": "https://member.topcoder.com",
+    "ONLINE_REVIEW": "https://software.topcoder.com",
+    "STUDIO": "https://studio.topcoder.com"
+  }
+}

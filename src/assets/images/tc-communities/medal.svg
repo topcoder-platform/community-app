@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="104px" height="104px" viewBox="0 0 104 104" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 43.1 (39012) - http://www.bohemiancoding.com/sketch -->
+    <title>Group</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linejoin="round">
+        <g id="01_Desktop_Home" transform="translate(-588.000000, -1593.000000)" stroke-width="4" stroke="#47474F">
+            <g id="Stacked-Group">
+                <g id="section/mid-bottom" transform="translate(0.000000, 1525.000000)">
+                    <g id="section/icon-contents">
+                        <g id="Stacked-Group" transform="translate(160.000000, 69.000000)">
+                            <g transform="translate(340.000000, 1.000000)" id="Group">
+                                <g transform="translate(90.000000, 0.000000)">
+                                    <path d="M70,20 L29,20" id="Stroke-2009"></path>
+                                    <polyline id="Stroke-2011" points="28.5725 60 0 19.9501247 15 0 85 0 100 19.9501247 70.43 60"></polyline>
+                                    <polyline id="Stroke-2013" stroke-linecap="round" points="15 0 50 49 85 0"></polyline>
+                                    <path d="M25,75 C25,61.1925 36.1925,50 50,50 C63.8075,50 75,61.1925 75,75 C75,88.8075 63.8075,100 50,100 C36.1925,100 25,88.8075 25,75 L25,75 Z" id="Stroke-2082" stroke-linecap="round"></path>
+                                    <polygon id="Star" stroke-linecap="round" points="50 83.29211 41.9655581 87.6785259 43.5 78.387948 37 71.8083241 45.9827791 70.4528471 50 62 54.0172209 70.4528471 63 71.8083241 56.5 78.387948 58.0344419 87.6785259"></polygon>
+                                </g>
+                            </g>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

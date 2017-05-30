@@ -1,0 +1,55 @@
+@import '~styles/tc-styles';
+
+.title {
+  border-bottom: 1px solid #d1d3d4;
+  display: none;
+  color: #a3a3ae;
+  cursor: pointer;
+  height: 60px;
+  font: 600 15px/60px 'Open Sans';
+  padding: 0 16px;
+  position: relative;
+
+  @include xxs-to-sm {
+    display: block;
+  }
+
+  .containerOpen & {
+    color: #202a36;
+    cursor: default;
+  }
+}
+
+.titleText {
+  display: block;
+}
+
+.titleArrow {
+  align-items: center;
+  display: flex;
+  height: 23px;
+  margin-top: -12px;
+  position: absolute;
+  right: 15px;
+  transform: rotate(-90deg);
+  top: 50%;
+  width: 23px;
+
+  .containerOpen & {
+    transform: rotate(0);
+  }
+}
+
+.content {
+  display: none;
+  padding-top: 25px;
+
+  @include xxs-to-sm {
+    background-color: #fafafa;
+    padding: 20px 15px 26px;
+  }
+
+  .containerOpen & {
+    display: block;
+  }
+}

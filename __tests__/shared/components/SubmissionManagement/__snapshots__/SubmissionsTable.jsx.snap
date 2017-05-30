@@ -1,0 +1,60 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Matches shallow shapshot 1`] = `
+<div
+  className="src-shared-components-SubmissionManagement-SubmissionsTable-___styles__submissions-table___1J9eA"
+>
+  <table>
+    <thead>
+      <tr>
+        <th>
+          Preview
+        </th>
+        <th>
+          ID
+        </th>
+        <th>
+          Type
+        </th>
+        <th>
+          Submission Date
+        </th>
+        <th
+          className="src-shared-components-SubmissionManagement-SubmissionsTable-___styles__actions___16pRz"
+        >
+          Actions
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <Submission
+        onDelete={[Function]}
+        onDownload={[Function]}
+        onShowDetails={[Function]}
+        showScreeningDetails={true}
+        submissionObject={
+          Object {
+            "submissionId": 12345,
+          }
+        }
+        type=""
+      />
+      <tr
+        className="src-shared-components-SubmissionManagement-SubmissionsTable-___styles__submission-row___1uclT"
+      >
+        <td
+          className="src-shared-components-SubmissionManagement-SubmissionsTable-___styles__dev-details___2GC2b"
+          colSpan="6"
+        >
+          <ScreeningDetails
+            helpPageUrl=""
+            onlineReviewUrl=""
+            screeningObject={Object {}}
+            submissionId={12345}
+          />
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+`;

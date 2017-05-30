@@ -1,0 +1,63 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Matches shallow shapshot 1`] = `
+<div
+  className="src-shared-components-Leaderboard-Podium-___styles__Podium___2rb4T"
+>
+  <div>
+    <div
+      className="src-shared-components-Leaderboard-Podium-___styles__podium-column___rPHl-"
+    >
+      <PodiumSpot
+        competitor={
+          Object {
+            "challenge.count": 99999,
+            "photourl": "some.fake.string",
+            "project_result.final_score": 9999999999,
+            "rank": 1,
+            "user.handle": "overachieving.mofo",
+          }
+        }
+      />
+    </div>
+    <div
+      className="src-shared-components-Leaderboard-Podium-___styles__podium-column___rPHl-"
+    >
+      <PodiumSpot
+        competitor={
+          Object {
+            "challenge.count": 99999,
+            "photourl": "some.fake.string",
+            "project_result.final_score": 9999999999,
+            "rank": 1,
+            "user.handle": "overachieving.mofo",
+          }
+        }
+      />
+    </div>
+    <div
+      className="src-shared-components-Leaderboard-Podium-___styles__podium-column___rPHl-"
+    >
+      <PodiumSpot
+        competitor={
+          Object {
+            "challenge.count": 99999,
+            "photourl": "some.fake.string",
+            "project_result.final_score": 9999999999,
+            "rank": 1,
+            "user.handle": "overachieving.mofo",
+          }
+        }
+      />
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Matches shallow shapshot 2`] = `
+<div
+  className="src-shared-components-Leaderboard-Podium-___styles__Podium___2rb4T"
+>
+  <LoadingIndicator />
+</div>
+`;

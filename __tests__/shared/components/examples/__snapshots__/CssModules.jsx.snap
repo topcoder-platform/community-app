@@ -1,0 +1,22 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`matches snapshots 1`] = `
+<div>
+  <h1>
+    CSS Modules
+  </h1>
+  <p>
+    Here is a simple demo/test of CSS modules in action.
+  </p>
+  <div
+    className="src-shared-components-examples-CssModules-___style-a__Style___1EI5k"
+  >
+    If CSS modules work fine this text should be red, otherwise - green.
+  </div>
+  <div
+    className="src-shared-components-examples-CssModules-___style-b__Style___UiIPX"
+  >
+    This text should be green in all cases.
+  </div>
+</div>
+`;

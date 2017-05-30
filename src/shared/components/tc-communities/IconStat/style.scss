@@ -1,0 +1,37 @@
+@import '~styles/tc-styles';
+
+.container {
+  display: block;
+  text-align: center;
+}
+
+.icon {
+  height: auto;
+  max-height: 50px;
+  max-width: 50px;
+
+  @include xxs-to-sm {
+    max-height: 30px;
+    max-width: 30px;
+  }
+}
+
+.number {
+  color: #394146;
+  font: 600 40px/137.5% 'Open Sans';
+  margin-top: 17px;
+
+  @include xxs-to-sm {
+    font-size: 24px;
+  }
+}
+
+.label {
+  color: #47474f;
+  font: 15px 'Open Sans';
+  text-transform: uppercase;
+
+  @include xxs-to-sm {
+    font-size: 11px;
+  }
+}

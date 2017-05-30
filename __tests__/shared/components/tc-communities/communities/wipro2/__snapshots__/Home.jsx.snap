@@ -1,0 +1,221 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Snapshot match 1`] = `
+<main>
+  <ThemedBanner
+    composeTheme="deeply"
+    imageSrc="/themes/wipro2/home/banner.jpg"
+    link={
+      Object {
+        "title": "Compete Now",
+        "url": "/community/wipro2/home",
+      }
+    }
+    mapThemrProps={[Function]}
+    text="Wipro's Hybrid Crowd gives our vast ecosystem of customers and partners options to access new range of skills that provide new value services and efficiency options all over the world."
+    theme={Object {}}
+    title="Wipro Crowd"
+  />
+  <ThemedSection
+    composeTheme="deeply"
+    link={null}
+    mapThemrProps={[Function]}
+    theme={
+      Object {
+        "container": "src-shared-components-tc-communities-communities-wipro2-Home-___style__statsContainer___DFJwD",
+        "content": "src-shared-components-tc-communities-communities-wipro2-Home-___style__statsContent___veytS",
+      }
+    }
+    title={null}
+  >
+    <ThemedIconStat
+      composeTheme="deeply"
+      icon={[Function]}
+      label="Projects"
+      mapThemrProps={[Function]}
+      number="NA"
+      theme={Object {}}
+    />
+    <ThemedIconStat
+      composeTheme="deeply"
+      icon={[Function]}
+      label="Challenges"
+      mapThemrProps={[Function]}
+      number="NA"
+      theme={Object {}}
+    />
+    <ThemedIconStat
+      composeTheme="deeply"
+      icon={[Function]}
+      label="Members"
+      mapThemrProps={[Function]}
+      number="NA"
+      theme={Object {}}
+    />
+    <ThemedIconStat
+      composeTheme="deeply"
+      icon={[Function]}
+      label="Prizes"
+      mapThemrProps={[Function]}
+      number="$NA"
+      theme={Object {}}
+    />
+  </ThemedSection>
+  <ThemedSection
+    composeTheme="deeply"
+    link={null}
+    mapThemrProps={[Function]}
+    theme={
+      Object {
+        "container": "src-shared-components-tc-communities-communities-wipro2-Home-___style__linksContainer___1AmgK",
+      }
+    }
+    title={null}
+  >
+    <div>
+      <ThemedImageText
+        composeTheme="deeply"
+        imageSrc="/themes/wipro2/home/image-text-learn.jpg"
+        link={
+          Object {
+            "title": "Start Learning",
+            "url": "/community/wipro2/learn",
+          }
+        }
+        mapThemrProps={[Function]}
+        text="Our continuously evolving structured learning paths, constantly abreast of the latest, tailored for employees to deepen your knowledge, infuses important software capabilities that are industry specific and help you get the skills you need to succeed."
+        theme={Object {}}
+        title="Improve Your Skills"
+      />
+      <ThemedImageText
+        composeTheme="deeply"
+        imageSrc="/themes/wipro2/home/image-text-do.jpg"
+        link={
+          Object {
+            "title": "Start Earning",
+            "url": "/community/wipro2/challenges",
+          }
+        }
+        mapThemrProps={[Function]}
+        text="Rewards program is intended to celebrate and recognize your contribution. Rewards for project contributions are given using ‘Reward Points’. Points earned translate into badges. Quarterly rewards are given away to the toppers of all categories."
+        theme={Object {}}
+        title="Get Involved"
+      />
+    </div>
+  </ThemedSection>
+  <ThemedSection
+    composeTheme="deeply"
+    link={null}
+    mapThemrProps={[Function]}
+    theme={
+      Object {
+        "container": "src-shared-components-tc-communities-communities-wipro2-Home-___style__resourcesContainer___xpgU3",
+      }
+    }
+    title={null}
+  >
+    <ThemedResourceCard
+      composeTheme="deeply"
+      icon={[Function]}
+      link={
+        Object {
+          "title": "Browse resources",
+          "url": "/community/wipro2/learn",
+        }
+      }
+      mapThemrProps={[Function]}
+      text="Pellentesque non dignissim neque. Nunc vel rhoncus nibh, ut tincidunt turpis. Integer ac enim pellentesque, adipiscing metus id, pharetra odio."
+      theme={Object {}}
+      title="Up Your iOS and Swift Development Skills"
+    />
+    <ThemedResourceCard
+      composeTheme="deeply"
+      icon={[Function]}
+      link={
+        Object {
+          "title": "Learn about badges",
+          "url": "/community/wipro2/leaderboard",
+        }
+      }
+      mapThemrProps={[Function]}
+      text="Donec bibendum nunc sit amet tortor scelerisque luctus et sit amet mauris. Suspendisse felis sem, condimentum ullamcorper est sit amet, molestie"
+      theme={Object {}}
+      title="Take the First Steps to Stand Out in the Community"
+    />
+    <ThemedResourceCard
+      composeTheme="deeply"
+      icon={[Function]}
+      link={
+        Object {
+          "title": "Browse challenges",
+          "url": "/community/wipro2/challenges",
+        }
+      }
+      mapThemrProps={[Function]}
+      text="Suspendisse felis sem, condimentum ullamcorper est sit amet, molestie mollis nulla. Etiam lorem orci, consequat ac magna quis, facilisis"
+      theme={Object {}}
+      title="Compete in Challenges and Win Cash"
+    />
+  </ThemedSection>
+  <ThemedSection
+    composeTheme="deeply"
+    link={null}
+    mapThemrProps={[Function]}
+    theme={Object {}}
+    title="Latest News"
+  >
+    <ThemedArticleCard
+      composeTheme="deeply"
+      imageSrc="/themes/wipro2/home/news-01.jpg"
+      link={
+        Object {
+          "title": "Read More",
+          "url": "/community/wipro2/home",
+        }
+      }
+      mapThemrProps={[Function]}
+      text="There are advances being made in science and technology everyday, and a good example of this is the LCD monitor. LCD monitors have"
+      theme={Object {}}
+      title="How Does An IOS 10 LCD Work"
+    />
+    <ThemedArticleCard
+      composeTheme="deeply"
+      imageSrc="/themes/wipro2/home/news-02.jpg"
+      link={
+        Object {
+          "title": "Read More",
+          "url": "/community/wipro2/home",
+        }
+      }
+      mapThemrProps={[Function]}
+      text="HDMI, or high definition multimedia interface, is a type of audio and video interface that is used for the transmission of uncompressed"
+      theme={Object {}}
+      title="Video Games Playing With Imagination "
+    />
+    <ThemedArticleCard
+      composeTheme="deeply"
+      imageSrc="/themes/wipro2/home/news-03.jpg"
+      link={
+        Object {
+          "title": "Read More",
+          "url": "/community/wipro2/home",
+        }
+      }
+      mapThemrProps={[Function]}
+      text="If you are in the market for a computer, there are a number of factors to consider. Will it be used for your home, your office or"
+      theme={Object {}}
+      title="Myspace Layouts The Missing Element"
+    />
+  </ThemedSection>
+  <ThemedNewsletterSignup
+    buttonText="Sign Up"
+    composeTheme="deeply"
+    emailPlaceholder="Email address"
+    imageSrc="/themes/wipro2/subscribe-bg.jpg"
+    mapThemrProps={[Function]}
+    text="Don’t miss out on the latest Topcoder IOS challenges and information!"
+    theme={Object {}}
+    title="Sign up for our newsletter"
+  />
+</main>
+`;

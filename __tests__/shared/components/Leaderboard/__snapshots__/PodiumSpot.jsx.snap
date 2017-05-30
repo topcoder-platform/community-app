@@ -1,0 +1,48 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Matches shallow shapshot 1`] = `
+<div
+  className="src-shared-components-Leaderboard-PodiumSpot-___styles__PodiumSpot___22B_7 src-shared-components-Leaderboard-PodiumSpot-___styles__PodiumSpot--first___1NOMr"
+>
+  <span
+    className="src-shared-components-Leaderboard-PodiumSpot-___styles__leaderboard-avatar___2Aea7"
+  >
+    <ThemedAvatar
+      composeTheme="deeply"
+      customStyles={null}
+      mapThemrProps={[Function]}
+      theme={
+        Object {
+          "avatar": "src-shared-components-Leaderboard-___avatarStyles__gold___1KUGN",
+        }
+      }
+      url="some.fake.string"
+    />
+  </span>
+  <div
+    className="src-shared-components-Leaderboard-PodiumSpot-___styles__ranking___HAFy6"
+  >
+    1st
+  </div>
+  <div>
+    <a
+      className="src-shared-components-Leaderboard-PodiumSpot-___styles__profile-link___n7nJB"
+      href="https://www.topcoder-dev.com/members/overachieving.mofo/"
+    >
+      overachieving.mofo
+    </a>
+  </div>
+  <div
+    className="src-shared-components-Leaderboard-PodiumSpot-___styles__winnings-info___2_pZP"
+  >
+    <span>
+      9999999999
+       points
+    </span>
+    <span>
+      99999
+       challenges
+    </span>
+  </div>
+</div>
+`;

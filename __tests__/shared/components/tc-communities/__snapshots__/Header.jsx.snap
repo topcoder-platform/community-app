@@ -1,0 +1,253 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Snapshot match 1`] = `
+<div>
+  <header
+    className="tc-communities__header__container src-shared-components-tc-communities-Header-___style__container___2P8yC"
+  >
+    <div
+      className="tc-communities__header__header src-shared-components-tc-communities-Header-___style__header___3TwY_"
+    >
+      <button
+        className="tc-communities__header__mobile-toggle src-shared-components-tc-communities-Header-___style__mobile-toggle___FAQgn"
+        onClick={[Function]}
+      >
+        <span>
+          Toggle navigation
+        </span>
+        <i />
+        <i />
+        <i />
+      </button>
+      <div
+        className="src-shared-components-tc-communities-Header-___style__logos-wrap___1Q_GY"
+      >
+        <div
+          className="tc-communities__header__logos src-shared-components-tc-communities-Header-___style__logos___38nqG"
+        >
+          
+        </div>
+        <div
+          className="src-shared-components-tc-communities-Header-___style__challenge-dropdown___3fQW9"
+        >
+          <Dropdown
+            options={
+              Array [
+                Object {
+                  "label": "Wipro Hybrid Crowd",
+                  "value": "1",
+                },
+                Object {
+                  "label": "Cognitive Community",
+                  "value": "2",
+                },
+                Object {
+                  "label": "iOS Community",
+                  "value": "3",
+                },
+              ]
+            }
+            value={
+              Object {
+                "label": "Wipro Hybrid Crowd",
+                "value": "1",
+              }
+            }
+          />
+        </div>
+      </div>
+      <div
+        className="src-shared-components-tc-communities-Header-___style__user-wrap-mobile___20JBH"
+      />
+    </div>
+    <div
+      className="tc-communities__header__menu-wrap src-shared-components-tc-communities-Header-___style__menu-wrap___1IGCF"
+    >
+      <ul
+        className="tc-communities__header__menu src-shared-components-tc-communities-Header-___style__menu___2jUFE"
+      >
+        
+      </ul>
+    </div>
+    <div
+      className="src-shared-components-tc-communities-Header-___style__user-wrap___1kgTa"
+    >
+      <div
+        className="src-shared-components-tc-communities-Header-___style__authorize___3ARhM"
+      >
+        <a
+          className="src-shared-components-tc-communities-Header-___style__btnRegister___2mlu6"
+          href="/some/register/url"
+        >
+          Register
+        </a>
+        <a
+          className="src-shared-components-tc-communities-Header-___style__btnLogin___37sgV"
+          href="/some/login/url"
+        >
+          Login
+        </a>
+      </div>
+      <div
+        className="src-shared-components-tc-communities-Header-___style__search___3BJGl"
+      >
+        <IconSearch />
+      </div>
+    </div>
+  </header>
+  <SubMenu
+    closeMenu={undefined}
+    menu={null}
+    trigger={null}
+  />
+</div>
+`;
+
+exports[`Snapshot match 2`] = `
+<div>
+  <link
+    href="some/css/url"
+    rel="stylesheet"
+    type="text/css"
+  />
+  <header
+    className="tc-communities__header__container src-shared-components-tc-communities-Header-___style__container___2P8yC"
+  >
+    <div
+      className="tc-communities__header__header src-shared-components-tc-communities-Header-___style__header___3TwY_"
+    >
+      <button
+        className="tc-communities__header__mobile-toggle src-shared-components-tc-communities-Header-___style__mobile-toggle___FAQgn"
+        onClick={[Function]}
+      >
+        <span>
+          Toggle navigation
+        </span>
+        <i />
+        <i />
+        <i />
+      </button>
+      <div
+        className="src-shared-components-tc-communities-Header-___style__logos-wrap___1Q_GY"
+      >
+        <div
+          className="tc-communities__header__logos src-shared-components-tc-communities-Header-___style__logos___38nqG"
+        >
+          <Link
+            className="tc-communities__header__logo src-shared-components-tc-communities-Header-___style__logo___z2xG6"
+            replace={false}
+            to="/community/someId/pageId1"
+          >
+            <img
+              alt="Community logo"
+              src="some/logo/url"
+            />
+          </Link>
+        </div>
+        <div
+          className="src-shared-components-tc-communities-Header-___style__challenge-dropdown___3fQW9"
+        >
+          <Dropdown
+            options={
+              Array [
+                Object {
+                  "label": "Wipro Hybrid Crowd",
+                  "value": "1",
+                },
+                Object {
+                  "label": "Cognitive Community",
+                  "value": "2",
+                },
+                Object {
+                  "label": "iOS Community",
+                  "value": "3",
+                },
+              ]
+            }
+            value={
+              Object {
+                "label": "Wipro Hybrid Crowd",
+                "value": "1",
+              }
+            }
+          />
+        </div>
+      </div>
+      <div
+        className="src-shared-components-tc-communities-Header-___style__user-wrap-mobile___20JBH"
+      />
+    </div>
+    <div
+      className="tc-communities__header__menu-wrap tc-communities__header__open src-shared-components-tc-communities-Header-___style__menu-wrap___1IGCF src-shared-components-tc-communities-Header-___style__open___3Mfi_"
+    >
+      <ul
+        className="tc-communities__header__menu src-shared-components-tc-communities-Header-___style__menu___2jUFE"
+      >
+        <li
+          className="tc-communities__header__menu-item src-shared-components-tc-communities-Header-___style__menu-item___2Ead6"
+        >
+          <NavLink
+            activeClassName="menu-link_active tc-communities__header__menu-link_active"
+            className="tc-communities__header__menu-link src-shared-components-tc-communities-Header-___style__menu-link___1pPZf"
+            to="/community/someId/pageId1"
+          >
+            Menu Item 1
+          </NavLink>
+        </li>
+        <li
+          className="tc-communities__header__menu-item src-shared-components-tc-communities-Header-___style__menu-item___2Ead6"
+        >
+          <NavLink
+            activeClassName="menu-link_active tc-communities__header__menu-link_active"
+            className="tc-communities__header__menu-link src-shared-components-tc-communities-Header-___style__menu-link___1pPZf"
+            to="/community/someId/pageId2"
+          >
+            Menu Item 2
+          </NavLink>
+        </li>
+        <li
+          className="tc-communities__header__menu-item src-shared-components-tc-communities-Header-___style__menu-item___2Ead6"
+        >
+          <NavLink
+            activeClassName="menu-link_active tc-communities__header__menu-link_active"
+            className="tc-communities__header__menu-link src-shared-components-tc-communities-Header-___style__menu-link___1pPZf"
+            to="/community/someId/pageId3"
+          >
+            Menu Item 3
+          </NavLink>
+        </li>
+      </ul>
+    </div>
+    <div
+      className="src-shared-components-tc-communities-Header-___style__user-wrap___1kgTa"
+    >
+      <div
+        className="src-shared-components-tc-communities-Header-___style__authorize___3ARhM"
+      >
+        <a
+          className="src-shared-components-tc-communities-Header-___style__btnRegister___2mlu6"
+          href="/some/register/url"
+        >
+          Register
+        </a>
+        <a
+          className="src-shared-components-tc-communities-Header-___style__btnLogin___37sgV"
+          href="/some/login/url"
+        >
+          Login
+        </a>
+      </div>
+      <div
+        className="src-shared-components-tc-communities-Header-___style__search___3BJGl"
+      >
+        <IconSearch />
+      </div>
+    </div>
+  </header>
+  <SubMenu
+    closeMenu={undefined}
+    menu={null}
+    trigger={null}
+  />
+</div>
+`;

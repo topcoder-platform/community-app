@@ -1,0 +1,43 @@
+@import '~styles/tc-styles';
+
+.challengeCardContainer {
+  border-radius: $corner-radius;
+  width: 70%;
+  padding: 0 $base-unit;
+
+  @include xs-to-sm {
+    width: 100%;
+    padding: 0 $base-unit + 5;
+  }
+
+  .category-challenges-container {
+    background: $tc-gray-neutral-light;
+    margin: 20px 0;
+  }
+
+  .view-more {
+    width: 100%;
+    background: $tc-gray-neutral-light;
+    border-top: 1px solid $tc-gray-10;
+    border-bottom: 1px solid $tc-gray-10;
+    border-left: 0;
+    border-right: 0;
+    color: $tc-gray-50;
+    font-weight: 300;
+    text-transform: none;
+    border-radius: 0;
+    outline: none;
+    font-size: 13px;
+    padding: 12px 0;
+  }
+
+  .loading {
+    bottom: 10px;
+    background: $tc-orange;
+    color: $tc-white;
+    width: 100%;
+    text-align: center;
+    padding-top: $base-unit;
+    margin: 0;
+  }
+}

@@ -1,0 +1,37 @@
+/* All availalbe configuration options should be documented in the default
+ * config file, even when they are overriden in every custom configuration. */
+{
+  /* Connector URL of the TC accounts App. */
+  "ACCOUNTS_APP_CONNECTOR_URL": "https://accounts.topcoder-dev.com/connector.html",
+
+  /* Configuration of Topcoder APIs. */
+  "API": {
+    "V2": "https://api.topcoder-dev.com/v2",
+    "V3": "https://api.topcoder-dev.com/v3"
+  },
+
+  "COOKIES": {
+    /* Expiration time [days] for browser cookies set by the App. */
+    "MAXAGE": 7,
+
+    /* If true the cookies set by this App will only be transmitted over secure
+     * protocols like https. */
+    "SECURE": false
+  },
+
+  /* Various URLs. Most of them lead to different segments of Topcoder
+   * platform. */
+  "URL": {
+    "ARENA": "https://arena.topcoder-dev.com/",
+    "AUTH": "https://accounts.topcoder-dev.com/member",
+    "BASE": "https://www.topcoder-dev.com",
+    "COMMUNITY": "https://community.topcoder-dev.com",
+    "FORUMS": "https://apps.topcoder-dev.com/forums",
+    "HELP": "https://help.topcoder-dev.com",
+    "MEMBER": "https://members.topcoder-dev.com",
+    "ONLINE_REVIEW": "https://software.topcoder-dev.com",
+    "STUDIO": "https://studio.topcoder-dev.com",
+    "TCO": "https://www.topcoder.com/tco",
+    "WIPRO": "https://wipro.topcoder.com"
+  }
+}

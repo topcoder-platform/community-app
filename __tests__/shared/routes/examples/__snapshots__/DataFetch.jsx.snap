@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Matches snapshot 1`] = `
+<Switch>
+  <Route
+    component={[Function]}
+    exact={true}
+    path="*/data-fetch"
+  />
+  <Route
+    component={[Function]}
+  />
+</Switch>
+`;
