@@ -12,7 +12,6 @@ import React from 'react';
 import { Switch, Route } from 'react-router-dom';
 import TopcoderFooter from 'components/TopcoderFooter';
 import TopcoderHeader from 'containers/TopcoderHeader';
-import CommunityHeader from 'containers/tc-communities/Header';
 
 import TcCommunitiesPage from 'containers/tc-communities/Page';
 
@@ -38,7 +37,6 @@ export default function Routes() {
           component={TcCommunitiesPage}
           path="/community/:communityId/:pageId"
         />
-        <Route path="/mock/community/:communityId/:pageId" component={CommunityHeader} />
         <Route component={Error404} />
       </Switch>
       <Route path="/challenge" component={TopcoderFooter} />

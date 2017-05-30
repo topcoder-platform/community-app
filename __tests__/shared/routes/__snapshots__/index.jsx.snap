@@ -51,10 +51,6 @@ exports[`Matches shallow shapshot 1`] = `
     />
     <Route
       component={[Function]}
-      path="/mock/community/:communityId/:pageId"
-    />
-    <Route
-      component={[Function]}
     />
   </Switch>
   <Route

@@ -12,6 +12,8 @@ test('Snapshot match', () => {
     <Header
       onMobileToggleClick={mockOnMobileToggle}
       communityId="someId"
+      registerUrl="/some/register/url"
+      loginUrl="/some/login/url"
     />
   ));
   expect(rnd.getRenderOutput()).toMatchSnapshot();
@@ -20,6 +22,8 @@ test('Snapshot match', () => {
     <Header
       onMobileToggleClick={mockOnMobileToggle}
       communityId="someId"
+      registerUrl="/some/register/url"
+      loginUrl="/some/login/url"
       logos={['some/logo/url']}
       menuItems={[
         { title: 'Menu Item 1', url: 'pageId1' },
@@ -44,6 +48,8 @@ const page = TU.renderIntoDocument((
   <Wrapper
     onMobileToggleClick={mockOnMobileToggle}
     communityId="someId"
+    registerUrl="/some/register/url"
+    loginUrl="/some/login/url"
   />
 ));
 

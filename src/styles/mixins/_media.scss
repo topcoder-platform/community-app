@@ -21,6 +21,18 @@ $lg-width: 1280px;
   }
 }
 
+@mixin xxs-to-md {
+  @media (max-width: #{$md-width - 1px}) {
+    @content;
+  }
+}
+
+@mixin xxs-to-lg {
+  @media (max-width: #{$lg-width - 1px}) {
+    @content;
+  }
+}
+
 @mixin xs {
   @media (min-width: #{$xs-width}) and (max-width: #{$sm-width - 1px}) {
     @content;

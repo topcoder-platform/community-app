@@ -1,0 +1,63 @@
+@import '~styles/tc-styles';
+
+.container {
+  padding-bottom: 70px;
+
+  @include xxs-to-sm {
+    padding-bottom: 42px;
+  }
+}
+
+.title {
+  color: #394146;
+  font: 600 36px/136.11% 'Open Sans';
+  padding: 60px 0 30px;
+  text-align: center;
+
+  @include xxs-to-sm {
+    font-size: 24px;
+    padding-top: 30px;
+  }
+}
+
+.content {
+  display: flex;
+  justify-content: space-between;
+  margin: 0 auto;
+  width: 960px;
+
+  @include sm {
+    width: 720px;
+  }
+
+  @include xxs-to-sm {
+    display: block;
+    width: 100%;
+  }
+}
+
+.linkWrap {
+  margin-top: 30px;
+  text-align: center;
+}
+
+.link {
+  color: #0092ff;
+  display: inline-block;
+  border: 1px solid #0092ff;
+  border-radius: 20px;
+  font: 700 14px/40px 'OpenSans';
+  height: 40px;
+  text-align: center;
+  text-transform: uppercase;
+  width: 171px;
+
+  &:hover,
+  &:active,
+  &:focus,
+  &:visited {
+    color: #0092ff;
+    outline: none;
+    text-decoration: none;
+  }
+}

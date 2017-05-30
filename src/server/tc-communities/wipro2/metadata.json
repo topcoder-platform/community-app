@@ -1,0 +1,24 @@
+{
+  "challengeFilterTag": "Bootstrap",
+  "communityId": "wipro2",
+  "logos": [
+    "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0e/Wipro_Logo_RGB.png/480px-Wipro_Logo_RGB.png",
+    "/themes/wipro/logo_topcoder_with_name.svg"
+  ],
+  "menuItems": [
+    {
+      "title": "Home",
+      "url": "home"
+    }, {
+      "title": "Learn",
+      "url": "learn"
+    }, {
+      "title": "Challenges",
+      "url": "challenges"
+    }, {
+      "title": "Leaderboard",
+      "url": "leaderboard"
+    }
+  ],
+  "leaderboardApiUrl": "https://api.topcoder.com/v4/looks/412/run/json/"
+}

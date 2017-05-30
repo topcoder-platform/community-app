@@ -1,0 +1,43 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Snapshot match 1`] = `
+<NewsletterSignup
+  buttonText="Sing Up"
+  emailPlaceholder="Email address"
+  imageSrc="/themes/wipro2/subscribe-bg.jpg"
+  text="Don’t miss out on the latest Topcoder IOS challenges and information!"
+  theme={
+    Object {
+      "container": "src-shared-components-tc-communities-NewsletterSignup-___style__container___3FbuD",
+      "content": "src-shared-components-tc-communities-NewsletterSignup-___style__content___3QiYz",
+      "form": "src-shared-components-tc-communities-NewsletterSignup-___style__form___3yW86",
+      "formButton": "src-shared-components-tc-communities-NewsletterSignup-___style__formButton___Jve55",
+      "formEmail": "src-shared-components-tc-communities-NewsletterSignup-___style__formEmail___3N_Uv",
+      "text": "src-shared-components-tc-communities-NewsletterSignup-___style__text___1bA_y",
+      "title": "src-shared-components-tc-communities-NewsletterSignup-___style__title___ErlHl",
+    }
+  }
+  title="Sign up for our newsletter"
+/>
+`;
+
+exports[`Snapshot match 2`] = `
+<NewsletterSignup
+  buttonText="Sing Up"
+  emailPlaceholder="Email address"
+  imageSrc="/themes/wipro2/subscribe-bg.jpg"
+  text="Don’t miss out on the latest Topcoder IOS challenges and information!"
+  theme={
+    Object {
+      "container": "src-shared-components-tc-communities-NewsletterSignup-___style__container___3FbuD container",
+      "content": "src-shared-components-tc-communities-NewsletterSignup-___style__content___3QiYz content",
+      "form": "src-shared-components-tc-communities-NewsletterSignup-___style__form___3yW86 form",
+      "formButton": "src-shared-components-tc-communities-NewsletterSignup-___style__formButton___Jve55 formButton",
+      "formEmail": "src-shared-components-tc-communities-NewsletterSignup-___style__formEmail___3N_Uv formEmail",
+      "text": "src-shared-components-tc-communities-NewsletterSignup-___style__text___1bA_y text",
+      "title": "src-shared-components-tc-communities-NewsletterSignup-___style__title___ErlHl title",
+    }
+  }
+  title="Sign up for our newsletter"
+/>
+`;

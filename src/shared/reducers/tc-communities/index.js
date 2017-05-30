@@ -5,11 +5,11 @@
 import { combineReducers } from 'redux';
 import { resolveReducers } from 'utils/redux';
 
-import { factory as headerFactory } from './header';
+import { factory as metaFactory } from './meta';
 
 export function factory(req) {
   return resolveReducers({
-    meta: headerFactory(req),
+    meta: metaFactory(req),
   }).then(reducers => combineReducers({
     ...reducers,
   }));

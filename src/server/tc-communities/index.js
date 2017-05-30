@@ -3,8 +3,7 @@
  */
 
 import express from 'express';
-import fs from 'fs';
-import path from 'path';
+import { getCommunitiesMetadata } from 'utils/tc';
 
 const router = express.Router();
 
@@ -14,13 +13,10 @@ const router = express.Router();
 router.get('/:communityId/meta', (req, res) => {
   const communityId = req.params.communityId;
 
-  fs.readFile(path.resolve(__dirname, `${communityId}/metadata.json`), 'utf8', (err, data) => {
-    if (err) {
-      res.status(404).send();
-    } else {
-      const metadata = JSON.parse(data);
-      res.json(metadata);
-    }
+  getCommunitiesMetadata(communityId).then((data) => {
+    res.json(data);
+  }).catch(() => {
+    res.status(404).send();
   });
 });
 

@@ -1,0 +1,48 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Snapshot match 1`] = `
+<Banner
+  imageSrc="/themes/wipro2/home/banner.jpg"
+  link={null}
+  text="You’re eager to get started, and we have a bunch of iOS/Swift challenges!"
+  theme={
+    Object {
+      "container": "src-shared-components-tc-communities-Banner-___style__container___2NxGp",
+      "content": "src-shared-components-tc-communities-Banner-___style__content___21lXO",
+      "contentBg": "src-shared-components-tc-communities-Banner-___style__contentBg___145Ln",
+      "contentInner": "src-shared-components-tc-communities-Banner-___style__contentInner___3w8VH",
+      "link": "src-shared-components-tc-communities-Banner-___style__link___2xUKc",
+      "linkWrap": "src-shared-components-tc-communities-Banner-___style__linkWrap___3Lp77",
+      "text": "src-shared-components-tc-communities-Banner-___style__text___-lkXi",
+      "title": "src-shared-components-tc-communities-Banner-___style__title___GMY8V",
+    }
+  }
+  title="iOS"
+/>
+`;
+
+exports[`Snapshot match 2`] = `
+<Banner
+  imageSrc="/themes/wipro2/home/banner.jpg"
+  link={
+    Object {
+      "title": "Compete Now",
+      "url": "#",
+    }
+  }
+  text="You’re eager to get started, and we have a bunch of iOS/Swift challenges!"
+  theme={
+    Object {
+      "container": "src-shared-components-tc-communities-Banner-___style__container___2NxGp container",
+      "content": "src-shared-components-tc-communities-Banner-___style__content___21lXO content",
+      "contentBg": "src-shared-components-tc-communities-Banner-___style__contentBg___145Ln contentBg",
+      "contentInner": "src-shared-components-tc-communities-Banner-___style__contentInner___3w8VH contentInner",
+      "link": "src-shared-components-tc-communities-Banner-___style__link___2xUKc link",
+      "linkWrap": "src-shared-components-tc-communities-Banner-___style__linkWrap___3Lp77 linkWrap",
+      "text": "src-shared-components-tc-communities-Banner-___style__text___-lkXi text",
+      "title": "src-shared-components-tc-communities-Banner-___style__title___GMY8V title",
+    }
+  }
+  title="iOS"
+/>
+`;

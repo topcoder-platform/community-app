@@ -1,0 +1,29 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Snapshot match 1`] = `
+<Accordion
+  defaultSelectedIndex={0}
+  theme={
+    Object {
+      "container": "src-shared-components-tc-communities-Accordion-Accordion-___style__container___2y_cC",
+      "content": "src-shared-components-tc-communities-Accordion-Accordion-___style__content___39ka7",
+      "titleList": "src-shared-components-tc-communities-Accordion-Accordion-___style__titleList___1AJq5",
+      "titleListItem": "src-shared-components-tc-communities-Accordion-Accordion-___style__titleListItem___3MrXc",
+      "titleListItemSelected": "src-shared-components-tc-communities-Accordion-Accordion-___style__titleListItemSelected___2EAYn",
+    }
+  }
+>
+  <ThemedAccordionItem
+    composeTheme="deeply"
+    isOpen={false}
+    mapThemrProps={[Function]}
+    onTitleClick={[Function]}
+    theme={Object {}}
+    title="Test title"
+  >
+    <div>
+      Test content
+    </div>
+  </ThemedAccordionItem>
+</Accordion>
+`;

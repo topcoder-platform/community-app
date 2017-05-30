@@ -9,8 +9,10 @@ import { connect } from 'react-redux';
 import actions from 'actions/leaderboard';
 import LeaderboardTable from 'components/Leaderboard/LeaderboardTable';
 import Podium from 'components/Leaderboard/Podium';
+import Banner from 'components/tc-communities/Banner';
+import NewsletterSignup from 'components/tc-communities/NewsletterSignup';
 
-import './styles.scss';
+import style from './styles.scss';
 
 // The container component
 class LeaderboardPageContainer extends React.Component {
@@ -23,10 +25,30 @@ class LeaderboardPageContainer extends React.Component {
 
   render() {
     return (
-      <div styleName="Leaderboard">
-        <h2 styleName="section-title">Leaderboard</h2>
-        <Podium competitors={this.props.leaderboardData.slice(0, 3)} />
-        <LeaderboardTable competitors={this.props.leaderboardData.slice(3)} />
+      <div>
+        {/* For demo we hardcode banner properties so we can disable max-len linting */}
+        {/* eslint-disable max-len */}
+        <Banner
+          title="Leaderboard"
+          text="Mauris vitae ultricies metus, at condimentum nulla. Donec quis ornare lacus. Etiam gravida mollis tortor quis porttitor. Rutrum quam vitae fringilla tincidunt. Suspendisse nec tortor urna."
+          theme={{
+            container: style.bannerContainer,
+            content: style.bannerContent,
+            contentInner: style.bannerContentInner,
+          }}
+          imageSrc="/themes/wipro2/leaderboard/banner.jpg"
+        />
+        {/* eslint-enable max-len */}
+        <div styleName="Leaderboard">
+          <h2 styleName="section-title">Leaderboard</h2>
+          <Podium competitors={this.props.leaderboardData.slice(0, 3)} />
+          <LeaderboardTable competitors={this.props.leaderboardData.slice(3)} />
+        </div>
+        <NewsletterSignup
+          title="Sign up for our newsletter"
+          text="Don’t miss out on the latest Topcoder IOS challenges and information!"
+          imageSrc="/themes/wipro2/subscribe-bg.jpg"
+        />
       </div>
     );
   }
