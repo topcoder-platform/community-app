@@ -23,5 +23,5 @@
       "url": "leaderboard"
     }
   ],
-  "leaderboardApiUrl": "https://api.topcoder.com/v4/looks/412/run/json/"
+  "leaderboardApiUrl": "https://api.topcoder.com/v4/looks/0/run/json/"
 }

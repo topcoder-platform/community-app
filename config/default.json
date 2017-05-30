@@ -31,6 +31,7 @@
     "MEMBER": "https://members.topcoder-dev.com",
     "ONLINE_REVIEW": "https://software.topcoder-dev.com",
     "STUDIO": "https://studio.topcoder-dev.com",
-    "TCO": "https://www.topcoder.com/tco"
+    "TCO": "https://www.topcoder.com/tco",
+    "WIPRO": "https://wipro.topcoder.com"
   }
 }
