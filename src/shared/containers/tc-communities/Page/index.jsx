@@ -126,7 +126,7 @@ class Page extends Component {
   }
 
   render() {
-    const returnUrl = encodeURIComponent(`${config.URL.MEMBER}/community/wipro/home`);
+    const returnUrl = encodeURIComponent(`${config.URL.WIPRO}/community/wipro2/home`);
     const loginUrl = `${config.URL.AUTH}?retUrl=${returnUrl}`;
     const registerUrl = `${config.URL.AUTH}/registration`;
 
