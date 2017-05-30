@@ -31,7 +31,7 @@ function NewsletterSignup(props) {
 
 NewsletterSignup.defaultProps = {
   emailPlaceholder: 'Email address',
-  buttonText: 'Sing Up',
+  buttonText: 'Sign Up',
   theme: {},
 };
 

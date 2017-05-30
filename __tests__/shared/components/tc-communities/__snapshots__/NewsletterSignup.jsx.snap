@@ -2,7 +2,7 @@
 
 exports[`Snapshot match 1`] = `
 <NewsletterSignup
-  buttonText="Sing Up"
+  buttonText="Sign Up"
   emailPlaceholder="Email address"
   imageSrc="/themes/wipro2/subscribe-bg.jpg"
   text="Don’t miss out on the latest Topcoder IOS challenges and information!"
@@ -23,7 +23,7 @@ exports[`Snapshot match 1`] = `
 
 exports[`Snapshot match 2`] = `
 <NewsletterSignup
-  buttonText="Sing Up"
+  buttonText="Sign Up"
   emailPlaceholder="Email address"
   imageSrc="/themes/wipro2/subscribe-bg.jpg"
   text="Don’t miss out on the latest Topcoder IOS challenges and information!"

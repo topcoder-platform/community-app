@@ -30,7 +30,7 @@ class LeaderboardPageContainer extends React.Component {
         {/* eslint-disable max-len */}
         <Banner
           title="Leaderboard"
-          text="Mauris vitae ultricies metus, at condimentum nulla. Donec quis ornare lacus. Etiam gravida mollis tortor quis porttitor. Rutrum quam vitae fringilla tincidunt. Suspendisse nec tortor urna."
+          text="Rewards program is intended to celebrate and recognize your contribution. Rewards for project contributions are given using ‘Reward Points’. Points earned translate into badges. Quarterly rewards are given away to the toppers of all categories."
           theme={{
             container: style.bannerContainer,
             content: style.bannerContent,

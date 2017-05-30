@@ -28,8 +28,8 @@ export default function Home() {
   return (
     <main>
       <Banner
-        title="iOS"
-        text="You’re eager to get started, and we have a bunch of iOS/Swift challenges lined up to give you new opportunities to earn cash. We also have an exclusive iOS badging program to prove your app design and development expertise, so dive in and start competing!"
+        title="Wipro Crowd"
+        text="Wipro's Hybrid Crowd gives our vast ecosystem of customers and partners options to access new range of skills that provide new value services and efficiency options all over the world."
         link={{
           title: 'Compete Now',
           url: '/community/wipro2/home',
@@ -43,10 +43,10 @@ export default function Home() {
           content: style.statsContent,
         }}
       >
-        <IconStat icon={IconSuitcase} number="5" label="Projects" />
-        <IconStat icon={IconRocket} number="12" label="Challenges" />
-        <IconStat icon={IconMember} number="347" label="Members" />
-        <IconStat icon={IconDollar} number="$10K" label="Prizes" />
+        <IconStat icon={IconSuitcase} number="NA" label="Projects" />
+        <IconStat icon={IconRocket} number="NA" label="Challenges" />
+        <IconStat icon={IconMember} number="NA" label="Members" />
+        <IconStat icon={IconDollar} number="$NA" label="Prizes" />
       </Section>
 
       <Section
@@ -57,19 +57,19 @@ export default function Home() {
         <div>
           <ImageText
             title="Learn"
-            text="You can learn and get certified donec facilisis tortor ut augue lacinia, at viverra est semper. Sed sapien metus, scelerisque nec pharetra id, tempor a tortor. Pellentesque non dignissim neque. Ut porta viverra est, ut dignissim elit"
+            text="Our continuously evolving structured learning paths, constantly abreast of the latest, tailored for employees to deepen your knowledge, infuses important software capabilities that are industry specific and help you get the skills you need to succeed."
             link={{
               title: 'Start Learning',
-              url: '/community/wipro2/home',
+              url: '/community/wipro2/learn',
             }}
             imageSrc="/themes/wipro2/home/image-text-learn.jpg"
           />
           <ImageText
-            title="Do Work"
-            text="Jump into challenges and start competing sed sapien metus, scelerisque nec pharetra id, tempor a tortor. Pellentesque non dignissim neque. Nunc vel rhoncus nibh, ut tincidunt turpis."
+            title="Get Involved"
+            text="Rewards program is intended to celebrate and recognize your contribution. Rewards for project contributions are given using ‘Reward Points’. Points earned translate into badges. Quarterly rewards are given away to the toppers of all categories."
             link={{
-              title: 'Start Learning',
-              url: '/community/wipro2/home',
+              title: 'Start Earning',
+              url: '/community/wipro2/challenges',
             }}
             imageSrc="/themes/wipro2/home/image-text-do.jpg"
           />
@@ -87,7 +87,7 @@ export default function Home() {
           text="Pellentesque non dignissim neque. Nunc vel rhoncus nibh, ut tincidunt turpis. Integer ac enim pellentesque, adipiscing metus id, pharetra odio."
           link={{
             title: 'Browse resources',
-            url: '/community/wipro2/home',
+            url: '/community/wipro2/learn',
           }}
         />
         <ResourceCard
@@ -96,7 +96,7 @@ export default function Home() {
           text="Donec bibendum nunc sit amet tortor scelerisque luctus et sit amet mauris. Suspendisse felis sem, condimentum ullamcorper est sit amet, molestie"
           link={{
             title: 'Learn about badges',
-            url: '/community/wipro2/home',
+            url: '/community/wipro2/leaderboard',
           }}
         />
         <ResourceCard
@@ -105,7 +105,7 @@ export default function Home() {
           text="Suspendisse felis sem, condimentum ullamcorper est sit amet, molestie mollis nulla. Etiam lorem orci, consequat ac magna quis, facilisis"
           link={{
             title: 'Browse challenges',
-            url: '/community/wipro2/home',
+            url: '/community/wipro2/challenges',
           }}
         />
       </Section>
@@ -123,7 +123,7 @@ export default function Home() {
           imageSrc="/themes/wipro2/home/news-01.jpg"
         />
         <ArticleCard
-          title="Video Games Playing With Imagination"
+          title="Video Games Playing With Imagination "
           text="HDMI, or high definition multimedia interface, is a type of audio and video interface that is used for the transmission of uncompressed"
           link={{
             title: 'Read More',

@@ -25,7 +25,7 @@ export default function Learn() {
 
       <Banner
         title="Learning & Certification"
-        text="IOS Community offers you an opportunity to get involved with a variety of challenging and interesting projects. It will help accelerate your learning path and open up opportunities that were not visible in the past."
+        text="Our continuously evolving structured learning paths, constantly abreast of the latest, tailored for employees to deepen your knowledge, infuses important software capabilities that are industry specific and help you get the skills you need to succeed."
         theme={{
           container: style.bannerContainer,
           content: style.bannerContent,
@@ -41,7 +41,7 @@ export default function Learn() {
         }}
       >
         <Accordion>
-          <AccordionItem title="Joining the IOS Community">
+          <AccordionItem title="Joining the  Community">
             <Text>
               <p>Nam dapibus nisl vitae elit fringilla rutrum. Aenean sollicitudin, erat a elementum rutrum, neque sem pretium metus, quis mollis nisl nunc et massa. Vestibulum sed metus in lorem tristique ullamcorper id vitae erat. Nulla mollis sapien sollicitudin lacinia lacinia. Vivamus facilisis dolor et massa placerat, at vestibulum nisl egestas. Nullam rhoncus lacus non odio luctus, eu condimentum mauris ultrices. Praesent blandit, augue a posuere aliquam, arcu tortor feugiat turpis,</p>
               <p>Nam dapibus nisl vitae elit fringilla rutrum. Aenean sollicitudin, erat a elementum rutrum, neque sem pretium metus, quis mollis nisl nunc et massa. Vestibulum sed metus in lorem tristique ullamcorper id vitae erat. Nulla mollis sapien sollicitudin lacinia lacinia. Vivamus facilisis dolor et massa placerat, at vestibulum nisl egestas. Nullam rhoncus lacus non odio luctus, eu condimentum mauris ultrices. Praesent blandit, augue a posuere aliquam, arcu tortor feugiat turpis,</p>

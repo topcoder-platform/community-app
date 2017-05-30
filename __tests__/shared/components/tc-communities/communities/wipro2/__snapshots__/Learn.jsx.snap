@@ -355,7 +355,7 @@ exports[`Snapshot match 1`] = `
     />
   </ThemedSection>
   <ThemedNewsletterSignup
-    buttonText="Sing Up"
+    buttonText="Sign Up"
     composeTheme="deeply"
     emailPlaceholder="Email address"
     imageSrc="/themes/wipro2/subscribe-bg.jpg"
