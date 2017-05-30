@@ -34,26 +34,22 @@ exports[`Snapshot match 1`] = `
             options={
               Array [
                 Object {
-                  "label": "iOS Community",
+                  "label": "Wipro Hybrid Crowd",
                   "value": "1",
                 },
                 Object {
-                  "label": "Predix Topcoder",
+                  "label": "Cognitive Community",
                   "value": "2",
                 },
                 Object {
-                  "label": "Cognitive Topcoder",
+                  "label": "iOS Community",
                   "value": "3",
-                },
-                Object {
-                  "label": "Android Community",
-                  "value": "4",
                 },
               ]
             }
             value={
               Object {
-                "label": "iOS Community",
+                "label": "Wipro Hybrid Crowd",
                 "value": "1",
               }
             }
@@ -155,26 +151,22 @@ exports[`Snapshot match 2`] = `
             options={
               Array [
                 Object {
-                  "label": "iOS Community",
+                  "label": "Wipro Hybrid Crowd",
                   "value": "1",
                 },
                 Object {
-                  "label": "Predix Topcoder",
+                  "label": "Cognitive Community",
                   "value": "2",
                 },
                 Object {
-                  "label": "Cognitive Topcoder",
+                  "label": "iOS Community",
                   "value": "3",
-                },
-                Object {
-                  "label": "Android Community",
-                  "value": "4",
                 },
               ]
             }
             value={
               Object {
-                "label": "iOS Community",
+                "label": "Wipro Hybrid Crowd",
                 "value": "1",
               }
             }

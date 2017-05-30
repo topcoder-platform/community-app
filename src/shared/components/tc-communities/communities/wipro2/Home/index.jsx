@@ -56,7 +56,7 @@ export default function Home() {
       >
         <div>
           <ImageText
-            title="Learn"
+            title="Improve Your Skills"
             text="Our continuously evolving structured learning paths, constantly abreast of the latest, tailored for employees to deepen your knowledge, infuses important software capabilities that are industry specific and help you get the skills you need to succeed."
             link={{
               title: 'Start Learning',

@@ -146,7 +146,7 @@ export default function Header(props) {
                 value={communitiesDropdownOptions[0]}
               />
             </div>
-            
+
           </div>
           <div styleName="user-wrap-mobile">
             {profile && (
