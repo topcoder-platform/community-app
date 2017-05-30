@@ -24,7 +24,6 @@
   "URL": {
     "ARENA": "https://arena.topcoder-dev.com/",
     "AUTH": "https://accounts.topcoder-dev.com/member",
-    "REGISTER": "https://accounts.topcoder-dev.com/member/registration",
     "BASE": "https://www.topcoder-dev.com",
     "COMMUNITY": "https://community.topcoder-dev.com",
     "FORUMS": "https://apps.topcoder-dev.com/forums",

@@ -121,7 +121,7 @@ class Page extends Component {
   render() {
     const returnUrl = encodeURIComponent(`${config.URL.MEMBER}/community/wipro/home`);
     const loginUrl = `${config.URL.AUTH}?retUrl=${returnUrl}`;
-    const registerUrl = config.URL.REGISTER;
+    const registerUrl = `${config.URL.AUTH}/registration`;
 
     // true, if currently requested community is not found
     const isNotFound = this.props.isCommunityNotFound
