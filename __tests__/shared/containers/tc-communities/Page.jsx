@@ -20,6 +20,7 @@ jest.setMock(require.resolve('actions/tc-communities/meta'), mockMetaActions);
 const mockState = {
   tcCommunities: {
     meta: {
+      authorizedGroupIds: ['12345'],
       communityId: 'someId',
       pageId: 'somePageId',
       loading: false,
@@ -35,7 +36,9 @@ const mockState = {
     },
   },
   auth: {
-    profile: {},
+    profile: {
+      groups: [{ id: '12345' }],
+    },
   },
 };
 
@@ -69,7 +72,9 @@ const mockState4 = {
     },
   },
   auth: {
-    profile: {},
+    profile: {
+      groups: [],
+    },
   },
 };
 

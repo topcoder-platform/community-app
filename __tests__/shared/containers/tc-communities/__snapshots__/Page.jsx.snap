@@ -3,26 +3,14 @@
 exports[`Matches shapshot 1`] = `
 <Page
   activeTrigger={null}
-  authenticating={false}
-  challengeFilterTag=""
   closeMenu={[Function]}
   closeMobileMenu={[Function]}
   closeSearch={[Function]}
   communityId="someId"
-  cssUrl="some/css/url"
   history={Object {}}
-  isCommunityNotFound={false}
-  isLoading={false}
   isMobileOpen={false}
-  leaderboardApiUrl={null}
-  loadData={[Function]}
-  loadedCommunityId="someId"
+  loadMetaData={[Function]}
   location={Object {}}
-  logos={
-    Array [
-      "some/logo/url",
-    ]
-  }
   match={
     Object {
       "params": Object {
@@ -31,21 +19,35 @@ exports[`Matches shapshot 1`] = `
       },
     }
   }
-  menuItems={
-    Array [
-      Object {
-        "title": "Menu Item 1",
-        "url": "pageId1",
-      },
-      Object {
-        "title": "Menu Item 2",
-        "url": "pageId2",
-      },
-      Object {
-        "title": "Menu Item 3",
-        "url": "pageId3",
-      },
-    ]
+  meta={
+    Object {
+      "authorizedGroupIds": Array [
+        "12345",
+      ],
+      "communityId": "someId",
+      "cssUrl": "some/css/url",
+      "failed": false,
+      "isMobileOpen": false,
+      "loading": false,
+      "logos": Array [
+        "some/logo/url",
+      ],
+      "menuItems": Array [
+        Object {
+          "title": "Menu Item 1",
+          "url": "pageId1",
+        },
+        Object {
+          "title": "Menu Item 2",
+          "url": "pageId2",
+        },
+        Object {
+          "title": "Menu Item 3",
+          "url": "pageId3",
+        },
+      ],
+      "pageId": "somePageId",
+    }
   }
   mobileToggle={[Function]}
   openMenu={[Function]}
@@ -53,7 +55,15 @@ exports[`Matches shapshot 1`] = `
   openSearch={[Function]}
   openedMenu={null}
   pageId="somePageId"
-  profile={Object {}}
+  profile={
+    Object {
+      "groups": Array [
+        Object {
+          "id": "12345",
+        },
+      ],
+    }
+  }
   store={
     Object {
       "dispatch": [Function],
