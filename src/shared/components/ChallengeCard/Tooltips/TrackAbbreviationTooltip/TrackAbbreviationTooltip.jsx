@@ -12,32 +12,38 @@ import Tooltip from '../Tooltip';
 import './TrackAbbreviationTooltip.scss';
 
 const DESCRIPTION = {
-  'APPLICATION_FRONT-END_DESIGN': 'Design UI and front end experiences for apps',
-  ASSEMBLY_COMPETITION: 'Develop code for a variety of use cases. Rigorous review and final fix process is included.',
-  CODE: 'Develop code for apps, services, etc. Final fixes are not included',
-  FIRST2FINISH: 'Be the first to deliver the solution',
-  'PRINT/PRESENTATION': 'Design print and presentation assets',
-  UI_PROTOTYPE_COMPETITION: 'Develop the front end of a UX',
+  APPLICATION_FRONT_END_DESIGN: 'Design UI and front end experiences for apps',
   ARCHITECTURE: 'Architect modules, components, or full applications',
-  WEB_DESIGN: 'Design UI and front end experiences for web experiences',
+  ASSEMBLY_COMPETITION: 'Develop code for a variety of use cases. Rigorous review and final fix process is included.',
+  BANNERS_OR_ICONS: 'Design UI assets for use in web, mobile, print, and other digital formats',
+  CODE: 'Develop code for apps, services, etc. Final fixes are not included',
+  CONCEPTUALIZATION: 'Discover and define user stories and requirements',
+  DESIGN_FIRST_2_FINISH: 'Be the first to deliver the design solution',
+  FIRST_2_FINISH: 'Be the first to deliver the development solution',
+  MARATHON_MATCH: 'Write algorythms to solve complex problems, often for real world issues',
+  PRINT_OR_PRESENTATION: 'Design print and presentation assets',
+  SRM: 'Single Round Match - quickly write code to solve algorythm problems head to head against other competitors',
+  UI_PROTOTYPE_COMPETITION: 'Develop the front end of a UX',
+  WEB_DESIGNS: 'Design UI and front end experiences for web experiences',
   WIDGET_OR_MOBILE_SCREEN_DESIGN: 'Design UI and front end experiences for mobile',
   WIREFRAMES: 'Produce the information architecture for user experiences',
-  SRM: 'Single Round Match - quickly write code to solve algorythm problems head to head against other competitors',
-  MARATHON_MATCH: 'Write algorythms to solve complex problems, often for real world issues',
 };
 
 const HEADER = {
-  'APPLICATION_FRONT-END_DESIGN': 'Application Front-End Design (AFED)',
-  ASSEMBLY_COMPETITION: 'Assembly (As)',
-  CODE: 'Code (Cd)',
-  FIRST2FINISH: 'First2Finish (F2F)',
-  'PRINT/PRESENTATION': 'Print/Presentation (PP)',
-  UI_PROTOTYPE_COMPETITION: 'UI Prototype (Pr)',
+  APPLICATION_FRONT_END_DESIGN: 'Application Front-End Design (AFED)',
   ARCHITECTURE: 'Architecture (Ar)',
-  WEB_DESIGN: 'Web Design (Wd)',
-  WIDGET_OR_MOBILE_SCREEN_DESIGN: 'Widget or Mobile Screen Design (Wg)',
-  SRM: 'Single Round Match (SRM)',
+  ASSEMBLY_COMPETITION: 'Assembly (As)',
+  BANNERS_OR_ICONS: 'Banners/Icons (BI)',
+  CODE: 'Code (Cd)',
+  CONCEPTUALIZATION: 'Conceptualization (Cn)',
+  DESIGN_FIRST_2_FINISH: 'Design First2Finish(DF2F)',
+  FIRST_2_FINISH: 'First2Finish (F2F)',
   MARATHON_MATCH: 'Marathon Match',
+  PRINT_OR_PRESENTATION: 'Print/Presentation (PP)',
+  SRM: 'Single Round Match (SRM)',
+  UI_PROTOTYPE_COMPETITION: 'UI Prototype (Pr)',
+  WEB_DESIGNS: 'Web Design (Wd)',
+  WIDGET_OR_MOBILE_SCREEN_DESIGN: 'Widget or Mobile Screen Design (Wg)',
 };
 
 const TRACK_COLOR_CLASS = {
@@ -65,13 +71,23 @@ Tip.propTypes = {
   track: PT.string.isRequired,
 };
 
+function placeArrow(TooltipNode) {
+  const arrow = TooltipNode.querySelector('.rc-tooltip-arrow');
+  arrow.style.left = '15px';
+}
+
 /**
  * Renders the tooltip.
  */
 function TrackAbbreviationTooltip(props) {
   const tip = <Tip track={props.track} subTrack={props.subTrack} />;
   return (
-    <Tooltip content={tip} placement="topLeft">
+    <Tooltip
+      className="track-abbreviation-tooltip"
+      content={tip}
+      position="topLeft"
+      placeArrow={placeArrow}
+    >
       {props.children}
     </Tooltip>
   );

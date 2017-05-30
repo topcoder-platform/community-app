@@ -65,6 +65,10 @@ export default function Content() {
           The link here leads to the test challenge.
         </li>
         <li>
+          <Link to="/challenges">Main Website Challenge Listing
+          Page</Link> &ndash; Ported Challenge Listing for the main website.
+        </li>
+        <li>
           <Link to="/community-challenge-listing/JavaScript">Community
           Challenge Listing Page</Link> &ndash; An example of community
           challenge list apge which shows only challenges

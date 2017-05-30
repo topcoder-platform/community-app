@@ -51,7 +51,7 @@ import style from './ChallengeCardContainer.scss';
 
 const initialNumberToShow = 10;
 const batchLoadNumber = 50;
-const challengeUniqueIdentifier = 'challengeId';
+const challengeUniqueIdentifier = 'id';
 
 class ChallengeCardContainer extends Component {
   constructor(props) {
@@ -147,7 +147,8 @@ class ChallengeCardContainer extends Component {
           Object.keys(filterChallengesStore).map((filterName) => {
             let expansionButtion;
             const unfilteredChallenges = filterChallengesStore[filterName];
-            const filteredChallenges = _.filter(unfilteredChallenges, additionalFilter);
+            const filteredChallenges = _.sortBy(_.filter(unfilteredChallenges, additionalFilter),
+             sortingFunctionStore[filterSortingStore[filterName]]);
             let initialChallenges = unfilteredChallenges;
 
             const challengeCountTotal = filterTotalCountStore[filterName];
@@ -201,6 +202,7 @@ class ChallengeCardContainer extends Component {
                   fetchItemFinishCallback={fetchCallback}
                   batchNumber={batchLoadNumber}
                   filter={additionalFilter}
+                  tempDataFilter={filterName}
                   sort={sortingFunctionStore[filterSortingStore[filterName]]}
                   uniqueIdentifier={challengeUniqueIdentifier}
                 />

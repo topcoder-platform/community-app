@@ -1,5 +1,6 @@
 import moment from 'moment';
 import config from 'utils/config';
+import { openForRegistrationFilter } from '../SideBarFilters/SideBarFilter';
 
 export default [
   {
@@ -26,10 +27,7 @@ export default [
   },
   {
     name: 'Open for registration',
-    check(item) {
-      return item.registrationOpen.startsWith('Yes') && item.currentPhaseName
-        && item.currentPhaseName.startsWith('Registration');
-    },
+    check: openForRegistrationFilter,
     sortingOptions: [
       'Most recent',
       'Time to register',
@@ -42,14 +40,15 @@ export default [
     info: {
       phaseName: 'registration',
     },
+    // v3 end point need to be updated once it is created for open for registration challenges
     getApiUrl: (pageIndex, pageSize = 50) => (
-      `${config.API.V2}/challenges/open?pageIndex=${pageIndex}&pageSize=${pageSize}`
+      `${config.API.V3}/challenges/?filter=status%3DActive&offset=${pageIndex * pageSize}&limit=${pageSize}`
     ),
   },
   {
     name: 'Ongoing challenges',
     check(item) {
-      return !item.registrationOpen.startsWith('Yes') && item.status === 'Active';
+      return !openForRegistrationFilter(item) && item.status === 'ACTIVE';
     },
     sortingOptions: [
       'Most recent',
@@ -57,24 +56,24 @@ export default [
       'Title A-Z',
       'Prize high to low',
     ],
-    // this api endpoint probably doesn't match the filter criteria exactly
-    // kept for reference
-    // getApiUrl: (pageIndex, pageSize = 50) => (
-    //   `http://api.topcoder.com/v2/challenges/active?pageIndex=${pageIndex}&pageSize=${pageSize}`
-    // ),
+    // v3 end point need to be updated once it is created for open for ongoing challenges
+    getApiUrl: (pageIndex, pageSize = 50) => (
+      `${config.API.V3}/challenges/?filter=status%3DActive&offset=${pageIndex * pageSize}&limit=${pageSize}`
+    ),
   },
   {
     name: 'Past challenges',
     check(item) {
-      return item.status === 'Completed';
+      return item.status === 'COMPLETED';
     },
     sortingOptions: [
       'Most recent',
       'Title A-Z',
       'Prize high to low',
     ],
+    // v3 end point need to be updated once it is created for past challenges
     getApiUrl: (pageIndex, pageSize = 50) => (
-      `${config.API.V2}/challenges/past?pageIndex=${pageIndex}&pageSize=${pageSize}`
+      `${config.API.V3}/challenges/?filter=status%3DCompleted&offset=${pageIndex * pageSize}&limit=${pageSize}`
     ),
   },
   /**

@@ -27,6 +27,21 @@ export const MODE = {
   CUSTOM: 'custom',
 };
 
+export const openForRegistrationFilter = (item) => {
+  const registrationPhase = item.allPhases.filter(d => d.phaseType === 'Registration')[0];
+  const registrationOpen = registrationPhase && registrationPhase.phaseStatus === 'Open';
+  const reviewPhase = item.allPhases.filter(d => d.phaseType === 'Iterative Review');
+  const isReviewClosed = !_.isEmpty(reviewPhase) && _.every(reviewPhase, phase => phase.phaseStatus === 'Closed');
+  const checkPointPhase = item.allPhases.filter(d => d.phaseType === 'Checkpoint Submission')[0];
+  const isCheckPointClosed = checkPointPhase && checkPointPhase.phaseStatus === 'Closed';
+  const isFirst2Finish = item.subTrack === 'FIRST_2_FINISH';
+
+  return (item.track === 'DEVELOP' && !isFirst2Finish && registrationOpen)
+    // First 2 Finish challenges may be closed even if registration is open
+    || (item.track === 'DEVELOP' && isFirst2Finish && registrationOpen && !isReviewClosed)
+    || (item.track === 'DESIGN' && registrationOpen && !isCheckPointClosed)
+    || (item.subTrack.startsWith('MARATHON') && !item.status.startsWith('COMPLETED'));
+};
 
 class SideBarFilter extends ChallengeFilter {
 
@@ -80,17 +95,14 @@ class SideBarFilter extends ChallengeFilter {
     switch (this.mode) {
       case MODE.ALL_CHALLENGES: return () => true;
       case MODE.MY_CHALLENGES: return item => item.myChallenge;
-      case MODE.OPEN_FOR_REVIEW: return item => item.currentPhaseName === 'Review';
+      case MODE.OPEN_FOR_REVIEW: return item => item.allPhases.filter(d => d.phaseType === 'Registration')[0].phaseStatus === 'REVIEW';
       // The API has some incosistencies in the challenge items
       // thus we have to check all fields that define a challenges as 'Open for registration'
-      case MODE.OPEN_FOR_REGISTRATION: return item => (item.currentPhaseName
-        && (item.currentPhaseName.startsWith('Registration') || item.challengeType.startsWith('Marathon')))
-        && !item.status.startsWith('Completed')
-        && item.registrationOpen.startsWith('Yes');
+      case MODE.OPEN_FOR_REGISTRATION:
+        return openForRegistrationFilter;
       case MODE.ONGOING_CHALLENGES:
-        return item => !item.registrationOpen.startsWith('Yes')
-          && item.status === 'Active';
-      case MODE.PAST_CHALLENGES: return item => item.status === 'Completed';
+        return item => !openForRegistrationFilter(item) && item.status === 'ACTIVE';
+      case MODE.PAST_CHALLENGES: return item => item.status === 'COMPLETED';
       case MODE.UPCOMING_CHALLENGES: return item => moment(item.registrationStartDate) > moment();
       default: return super.getFilterFunction();
     }
@@ -100,6 +112,13 @@ class SideBarFilter extends ChallengeFilter {
     super.merge(filter);
     if (!filter.isSideBarFilter) return this;
     this.mode = _.clone(filter.mode);
+    this.name = _.clone(filter.name);
+    this.uuid = _.clone(filter.uuid);
+    return this;
+  }
+
+  copySidebarFilterProps(filter) {
+    if (!filter.isSideBarFilter) return this;
     this.name = _.clone(filter.name);
     this.uuid = _.clone(filter.uuid);
     return this;

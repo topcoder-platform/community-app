@@ -1,0 +1,10 @@
+@import '~styles/tc-includes';
+
+:global {
+  .SideBarFilters.placeholder {
+    .filter-item {
+      height: $base-unit * 2;
+      margin: $base-unit * 4;
+    }
+  }
+}

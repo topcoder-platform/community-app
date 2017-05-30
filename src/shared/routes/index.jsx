@@ -38,12 +38,20 @@ function Routes({ location, subdomains }) {
       <Route path="/community-challenge-listing" component={TopcoderHeader} />
       <Route path="/community-page" component={TopcoderHeader} />
       <Route path="/leaderboard" component={TopcoderHeader} />
+      <Route path="/challenges" component={TopcoderHeader} />
       <Switch>
         <Route exact path="/" component={Content} />
         <Route exact path="/examples" component={Content} />
         <Route path="/examples" component={Examples} />
         <Route path="/challenge/:challengeId/my-submissions" component={SubmissionManagement} />
-        <Route path="/community-challenge-listing/:keyword" component={ChallengeListing} />
+        <Route
+          path="/community-challenge-listing/:keyword"
+          render={props => <ChallengeListing listingOnly {...props} />}
+        />
+        <Route
+          path="/challenges"
+          render={props => <ChallengeListing listingOnly {...props} />}
+        />
         <Route path="/leaderboard" component={Leaderboard} />
         <Route
           component={TcCommunitiesPage}
@@ -55,6 +63,7 @@ function Routes({ location, subdomains }) {
       <Route path="/community-challenge-listing" component={TopcoderFooter} />
       <Route path="/community-page" component={TopcoderFooter} />
       <Route path="/leaderboard" component={TopcoderFooter} />
+      <Route path="/challenges" component={TopcoderFooter} />
     </div>
   );
 }

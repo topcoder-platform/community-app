@@ -65,15 +65,16 @@ class FilterPanelFilter extends BaseFilter {
   getFilterFunction() {
     const parent = super.getFilterFunction();
     return (item) => {
+      const filterSubtrack = this.subtracks.map(st =>
+        st.toLowerCase().split(' ').join(''));
+      const itemSubtrack = item.subTrack.toLowerCase().split('_').join('');
       if (!parent(item)) return false;
       if (this.subtracks.length && this.subtracks[0]
-      && !this.subtracks.includes(item.challengeType)) return false;
+      && !filterSubtrack.includes(itemSubtrack)) return false;
       if (this.startDate && this.startDate.isAfter(item.submissionEndDate)) return false;
-      if (this.endDate && this.endDate.isBefore(item.postingDate)) return false;
+      if (this.endDate && this.endDate.isBefore(item.createdAt)) return false;
       if (!this.keywords.length || !this.keywords[0]) return true;
-      const platforms = item.platforms.join(' ');
-      const techs = item.technologies.join(' ');
-      const data = ` ${item.challengeName} ${platforms} ${techs} `.toLowerCase();
+      const data = ` ${item.name} ${item.platforms} ${item.technologies} `.toLowerCase();
       for (let i = 0; i !== this.keywords.length; i += 1) {
         if (data.indexOf(` ${this.keywords[i].toLowerCase()} `) >= 0) return true;
       }

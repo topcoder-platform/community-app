@@ -10,7 +10,7 @@ $avatar-radius-4: $corner-radius * 2;
 .user-avatar-tooltip {
   max-width: 640px;
   font-family: 'Roboto';
-  overflow: hidden;
+  overflow: auto;
   padding: 15px;
 
   .achievements {

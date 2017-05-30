@@ -39,14 +39,19 @@ export function getFilterSortingStore(filters, sortingSetting = {}) {
 export function getFilterTotalCountStore() {
   return Promise.all(
     challengeFilters.map((filter) => {
-      const newFitler = _.assign({}, filter);
+      const newFilter = _.assign({}, filter);
 
       if (filter.getApiUrl) {
         return fetch(filter.getApiUrl(1, 1))
           .then(response => response.json())
-          .then(responseJson => _.set(newFitler, 'totalCount', responseJson.total));
+          .then((responseJson) => {
+            if (responseJson.result) {
+              return _.set(newFilter, 'totalCount', responseJson.result.metadata.totalCount);
+            }
+            return _.set(newFilter, 'totalCount', responseJson.total);
+          });
       }
-      return _.set(newFitler, 'totalCount', null);
+      return _.set(newFilter, 'totalCount', null);
     }),
   ).then(filters => (
     filters.reduce((filterTotalCountStore, filter) => (

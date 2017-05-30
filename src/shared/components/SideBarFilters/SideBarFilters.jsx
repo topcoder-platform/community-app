@@ -89,7 +89,6 @@ class SideBarFilters extends React.Component {
     if (secondLastDotIndex === -1) {
       return fullDomainName;
     }
-
     return fullDomainName.slice(secondLastDotIndex + 1, fullDomainName.length);
   }
 
@@ -424,13 +423,14 @@ class SideBarFilters extends React.Component {
    */
   selectFilterWithName(filterName) {
     // find a filter with matching name
-    const currentFilter = _.find(this.state.filters, filter => filter.name === filterName);
-    if (currentFilter.mode === 'Open for review') {
+    const selectedFilter = _.find(this.state.filters, filter => filter.name === filterName);
+    if (selectedFilter.mode === 'Open for review') {
       // Jump to Development Review Opportunities page
       window.location.href = `${this.props.config.MAIN_URL}/review/development-review-opportunities/`;
       return;
     }
-    this.setState({ currentFilter }, () => this.props.onFilter(currentFilter));
+    const mergedFilter = this.props.filter.copySidebarFilterProps(selectedFilter);
+    this.setState({ currentFilter: mergedFilter }, () => this.props.onFilter(mergedFilter));
   }
 
   /**
