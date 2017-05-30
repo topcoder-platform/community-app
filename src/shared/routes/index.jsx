@@ -12,7 +12,6 @@ import React from 'react';
 import { Switch, Route, withRouter } from 'react-router-dom';
 import TopcoderFooter from 'components/TopcoderFooter';
 import TopcoderHeader from 'containers/TopcoderHeader';
-import CommunityHeader from 'containers/tc-communities/Header';
 
 import PT from 'prop-types';
 
@@ -50,7 +49,6 @@ function Routes({ location, subdomains }) {
           component={TcCommunitiesPage}
           path="/community/:communityId/:pageId"
         />
-        <Route path="/mock/community/:communityId/:pageId" component={CommunityHeader} />
         <Route component={Error404} />
       </Switch>
       <Route path="/challenge" component={TopcoderFooter} />

@@ -1,0 +1,80 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Matches shapshot 1`] = `
+<Page
+  activeTrigger={null}
+  authenticating={false}
+  challengeFilterTag=""
+  closeMenu={[Function]}
+  closeMobileMenu={[Function]}
+  closeSearch={[Function]}
+  communityId="someId"
+  cssUrl="some/css/url"
+  history={Object {}}
+  isCommunityNotFound={false}
+  isLoading={false}
+  isMobileOpen={false}
+  leaderboardApiUrl={null}
+  loadData={[Function]}
+  loadedCommunityId="someId"
+  location={Object {}}
+  logos={
+    Array [
+      "some/logo/url",
+    ]
+  }
+  match={
+    Object {
+      "params": Object {
+        "communityId": "someId",
+        "pageId": "somePageId",
+      },
+    }
+  }
+  menuItems={
+    Array [
+      Object {
+        "title": "Menu Item 1",
+        "url": "pageId1",
+      },
+      Object {
+        "title": "Menu Item 2",
+        "url": "pageId2",
+      },
+      Object {
+        "title": "Menu Item 3",
+        "url": "pageId3",
+      },
+    ]
+  }
+  mobileToggle={[Function]}
+  openMenu={[Function]}
+  openMobileMenu={[Function]}
+  openSearch={[Function]}
+  openedMenu={null}
+  pageId="somePageId"
+  profile={Object {}}
+  store={
+    Object {
+      "dispatch": [Function],
+      "getState": [Function],
+      "subscribe": [Function],
+    }
+  }
+  storeSubscription={
+    Subscription {
+      "listeners": Object {
+        "notify": [Function],
+      },
+      "onStateChange": [Function],
+      "parentSub": undefined,
+      "store": Object {
+        "dispatch": [Function],
+        "getState": [Function],
+        "subscribe": [Function],
+      },
+      "unsubscribe": null,
+    }
+  }
+/>
+`;

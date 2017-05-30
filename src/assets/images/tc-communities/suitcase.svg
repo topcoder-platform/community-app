@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="52px" height="48px" viewBox="0 0 52 48" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 43.1 (39012) - http://www.bohemiancoding.com/sketch -->
+    <title>icon/project</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Symbols" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round">
+        <g id="icon/project" transform="translate(1.000000, -1.000000)" stroke="#47474F" stroke-width="2">
+            <g transform="translate(0.000000, 2.000000)">
+                <path d="M19.4545455,30 L2.99713753,30 C1.34186418,30 0,28.6582294 0,27.0089096 L0,8.99109042 C0,7.33915679 1.33737922,6 2.99653242,6 L47.0034676,6 C48.6584067,6 50,7.34177063 50,8.99109042 L50,27.0089096 C50,28.6608432 48.6628103,30 47.0028625,30 L30.5454545,30" id="Stroke-918"></path>
+                <circle id="Oval" cx="25" cy="30" r="5"></circle>
+                <path d="M50,28 L50,42.0052166 C50,44.2114745 48.2057317,46 45.9928103,46 L4.00718972,46 C1.79407995,46 0,44.2082844 0,42.0052166 L0,28" id="Stroke-919"></path>
+                <polyline id="Stroke-921" points="16 5 16 0 34 0 34 5"></polyline>
+            </g>
+        </g>
+    </g>
+</svg>

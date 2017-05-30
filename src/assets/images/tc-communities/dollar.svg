@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="52px" height="52px" viewBox="0 0 52 52" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 43.1 (39012) - http://www.bohemiancoding.com/sketch -->
+    <title>icon/prize</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Symbols" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round">
+        <g id="icon/prize" transform="translate(1.000000, 1.000000)" stroke-width="2" stroke="#47474F">
+            <g>
+                <path d="M0,25 C0,11.1931818 11.1931818,0 25,0 C38.8068182,0 50,11.1931818 50,25 C50,38.8068182 38.8068182,50 25,50 C11.1931818,50 0,38.8068182 0,25 L0,25 Z" id="Stroke-902"></path>
+                <path d="M18.1818182,30.6818182 L18.1818182,30.6818182 C18.1818182,33.8193182 20.7261364,36.3636364 23.8636364,36.3636364 L26.1363636,36.3636364 C29.2738636,36.3636364 31.8181818,33.8193182 31.8181818,30.6818182 C31.8181818,22.7272727 18.1818182,27.2727273 18.1818182,19.3181818 C18.1818182,16.1806818 20.7261364,13.6363636 23.8636364,13.6363636 L26.1363636,13.6363636 C29.2738636,13.6363636 31.8181818,16.1806818 31.8181818,19.3181818" id="Stroke-906"></path>
+                <path d="M25,11.3636364 L25,38.6363636" id="Stroke-907"></path>
+            </g>
+        </g>
+    </g>
+</svg>

@@ -49,3 +49,30 @@ $sm-space-40: $base-unit * 8;
     }
   }
 }
+
+.bannerContainer {
+  height: 252px;
+
+  @include xxs-to-sm {
+    height: 300px;
+  }
+}
+
+.bannerContent {
+  bottom: 0;
+  top: 0;
+  transform: none;
+  width: 600px;
+
+  @include xxs-to-sm {
+    top: auto;
+    width: 100%;
+  }
+}
+
+.bannerContentInner {
+  @include xxs-to-sm {
+    padding-bottom: 20px;
+    padding-top: 48px;
+  }
+}

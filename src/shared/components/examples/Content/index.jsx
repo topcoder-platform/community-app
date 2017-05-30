@@ -75,11 +75,11 @@ export default function Content() {
           <Link to="/leaderboard">Leaderboard</Link> &ndash; Leaderboard page.
         </li>
         <li>
-          <Link to="/mock/community/example-theme-default/header">Community header
+          <Link to="/community/example-theme-default/header">Community header
           example</Link> &ndash; An example of cummunity header with default
-          style. Also, there are examples of <Link to="/mock/community/example-theme-red/header">
-          custom red theme</Link>, <Link to="/mock/community/example-theme-green/header">custom
-          green theme</Link> and <Link to="/mock/community/404/header">non-existent
+          style. Also, there are examples of <Link to="/community/example-theme-red/header">
+          custom red theme</Link>, <Link to="/community/example-theme-green/header">custom
+          green theme</Link> and <Link to="/community/404/header">non-existent
           community page</Link>.
         </li>
         <li>
@@ -90,6 +90,15 @@ export default function Content() {
           </Link> and <Link to="/community/wipro/leaderboard">Leaderboard</Link>.
           There are also examples of <Link to="/community/wipro/404">non-existent community
           page</Link> and <Link to="/community/404/home">non-existent community</Link>.
+        </li>
+        <li>
+          <Link to="/community/wipro2/home">Wipro 2 Community Homepage</Link> &ndash;
+          Example of community implementation with new design.
+          This community has three more pages: <Link to="/community/wipro2/learn">Learn
+          </Link>, <Link to="/community/wipro2/challenges">Challenges
+          </Link> and <Link to="/community/wipro2/leaderboard">Leaderboard</Link>.
+          There is also an example of <Link to="/community/wipro2/404">non-existent community
+          page</Link>.
         </li>
       </ul>
       <h3>Misc Examples</h3>

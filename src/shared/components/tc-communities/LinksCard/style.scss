@@ -1,0 +1,57 @@
+@import '~styles/tc-styles';
+
+.container {
+  border-right: 1px solid #ddd;
+  padding-right: 10px;
+  width: 300px;
+
+  &:last-child {
+    border-right: 0;
+  }
+
+  @include sm {
+    width: 220px;
+  }
+
+  @include xxs-to-sm {
+    border-bottom: 1px solid #ddd;
+    border-right: 0;
+    margin: 0 15px 30px;
+    padding-bottom: 15px;
+    text-align: center;
+    width: auto;
+
+    &:last-child {
+      border-bottom: 0;
+      margin-bottom: 0;
+      padding-bottom: 0;
+    }
+  }
+}
+
+.title {
+  color: #a3a3ae;
+  font: 700 14px 'Open Sans';
+  text-transform: uppercase;
+}
+
+.list {
+  margin-top: 20px;
+}
+
+.item {
+  padding: 10px 0;
+}
+
+.link {
+  color: #0a71e6;
+  font: 15px 'Open Sans';
+
+  &:hover,
+  &:active,
+  &:focus,
+  &:visited {
+    color: #0a71e6;
+    text-decoration: none;
+  }
+}

@@ -1,0 +1,37 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Snapshot match 1`] = `
+<div
+  className="src-shared-components-tc-communities-Dropdown-___style__container___3YuOU"
+>
+  <Dropdown
+    baseClassName="Dropdown"
+    options={
+      Array [
+        Object {
+          "label": "iOS Community",
+          "value": "1",
+        },
+        Object {
+          "label": "Predix Topcoder",
+          "value": "2",
+        },
+        Object {
+          "label": "Cognitive Topcoder",
+          "value": "3",
+        },
+        Object {
+          "label": "Android Community",
+          "value": "4",
+        },
+      ]
+    }
+    value={
+      Object {
+        "label": "iOS Community",
+        "value": "1",
+      }
+    }
+  />
+</div>
+`;

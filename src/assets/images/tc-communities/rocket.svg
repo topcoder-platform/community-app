@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="37px" height="52px" viewBox="0 0 37 52" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 43.1 (39012) - http://www.bohemiancoding.com/sketch -->
+    <title>icon/challenge</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Symbols" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round">
+        <g id="icon/challenge" transform="translate(-7.000000, 1.000000)" stroke-width="2" stroke="#47474F">
+            <g>
+                <g id="Group-4" transform="translate(8.000000, 29.332092)">
+                    <polyline id="Path-2" points="27.1666667 0 34.5 5.26501715 34.5 20.1825657 23.5 13.1625429"></polyline>
+                    <polyline id="Path-2-Copy" transform="translate(5.500000, 10.091283) scale(-1, 1) translate(-5.500000, -10.091283) " points="3.66666667 0 11 5.26501715 11 20.1825657 0 13.1625429"></polyline>
+                </g>
+                <path d="M20.0931584,8.59212596 L30.323309,18.5891469" id="Stroke-4060" transform="translate(25.273309, 13.548311) rotate(-45.000000) translate(-25.273309, -13.548311) "></path>
+                <path d="M8.9790496,40.5122553 C5.32625015,37.0054625 9.58939696,30.1283328 9.58939696,30.1283328 C9.58939696,30.1283328 18.2653411,9.408004 42.6,8.18845134 C41.224633,31.4487248 19.7466437,39.8795828 19.7466437,39.8795828 C19.7466437,39.8795828 12.6318491,44.0190482 8.9790496,40.5122553 Z" id="Stroke-4224" transform="translate(25.050000, 25.055310) rotate(-45.000000) translate(-25.050000, -25.055310) "></path>
+                <path d="M22.5260708,20.8996915 C23.9318708,19.5486129 26.2115708,19.5486129 27.6173708,20.8996915 C29.0231708,22.2507701 29.0231708,24.4417318 27.6173708,25.7928104 C26.2115708,27.143889 23.9318708,27.143889 22.5260708,25.7928104 C21.1202708,24.4417318 21.1202708,22.2507701 22.5260708,20.8996915 L22.5260708,20.8996915 Z" id="Stroke-4226" transform="translate(25.071721, 23.346251) rotate(-45.000000) translate(-25.071721, -23.346251) "></path>
+            </g>
+        </g>
+    </g>
+</svg>

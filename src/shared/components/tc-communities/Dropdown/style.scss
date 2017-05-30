@@ -1,0 +1,87 @@
+@import '~styles/tc-styles';
+
+.container {
+  :global {
+    .Dropdown-root {
+      position: relative;
+    }
+
+    .Dropdown-control {
+      cursor: pointer;
+    }
+
+    .Dropdown-placeholder {
+      display: inline-block;
+      vertical-align: middle;
+    }
+
+    .Dropdown-arrow {
+      background: url('assets/images/tc-communities/tick_down.png') center no-repeat;
+      display: inline-block;
+      height: 6px;
+      margin-left: 8px;
+      vertical-align: middle;
+      width: 10px;
+    }
+
+    .is-open .Dropdown-arrow {
+      transform: rotate(180deg);
+    }
+
+    .Dropdown-menu {
+      background: #fff;
+      border: 1px solid #ddd;
+      box-shadow: 0 6px 12px 0 rgba(155, 155, 155, 0.5);
+      border-radius: 1px;
+      margin-top: 16px;
+      padding: 15px 23px 15px 15px;
+      position: absolute;
+      right: -25px;
+      top: 100%;
+      white-space: nowrap;
+      z-index: 1000;
+
+      &::after,
+      &::before {
+        bottom: 100%;
+        right: 21px;
+        border: solid transparent;
+        content: " ";
+        height: 0;
+        width: 0;
+        position: absolute;
+        pointer-events: none;
+      }
+
+      &::after {
+        border-color: rgba(255, 255, 255, 0);
+        border-bottom-color: #fff;
+        border-width: 8px;
+        margin-right: 1px;
+      }
+
+      &::before {
+        border-color: rgba(221, 221, 221, 0);
+        border-bottom-color: #ddd;
+        border-width: 9px;
+      }
+    }
+
+    .Dropdown-option {
+      color: #4a4a4a;
+      cursor: pointer;
+      display: block;
+      font: 600 14px/30px 'Open Sans';
+      text-transform: none;
+    }
+
+    .Dropdown-option:hover {
+      color: #a3a3ae;
+    }
+
+    .Dropdown-option.is-selected {
+      color: #a3a3ae;
+      cursor: default;
+    }
+  }
+}

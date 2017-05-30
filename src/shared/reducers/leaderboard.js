@@ -61,7 +61,7 @@ export function factory(req) {
     const communityId = match[1];
     // as every community can has its own leaderboard page url
     // we are trying to get leadeboard page url from community meta data api
-    return metaActions.tcCommunities.header.fetchDataDone(communityId).payload.then((data) => {
+    return metaActions.tcCommunities.meta.fetchDataDone(communityId).payload.then((data) => {
       // reject if there is no leaderboardApiUrl for current community
       if (!data.leaderboardApiUrl) {
         return Promise.reject();

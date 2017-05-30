@@ -53,3 +53,15 @@
 @include font-family('Sofia Pro', 600, italic, '../assets/fonts/sofiapro/', 'sofiapro-semibold-italic-webfont');
 @include font-family('Sofia Pro', 700, normal, '../assets/fonts/sofiapro/', 'sofiapro-bold-webfont');
 @include font-family('Sofia Pro', 700, italic, '../assets/fonts/sofiapro/', 'sofiapro-bold-italic-webfont');
+
+/* OpenSans font is being used by the new design of community pages */
+@include font-family('Open Sans', 300, normal, '../assets/fonts/opensans/', 'opensans-light-webfont');
+@include font-family('Open Sans', 300, italic, '../assets/fonts/opensans/', 'opensans-lightitalic-webfont');
+@include font-family('Open Sans', 400, normal, '../assets/fonts/opensans/', 'opensans-regular-webfont');
+@include font-family('Open Sans', 400, italic, '../assets/fonts/opensans/', 'opensans-italic-webfont');
+@include font-family('Open Sans', 600, normal, '../assets/fonts/opensans/', 'opensans-semibold-webfont');
+@include font-family('Open Sans', 600, italic, '../assets/fonts/opensans/', 'opensans-semibolditalic-webfont');
+@include font-family('Open Sans', 700, normal, '../assets/fonts/opensans/', 'opensans-bold-webfont');
+@include font-family('Open Sans', 700, italic, '../assets/fonts/opensans/', 'opensans-bolditalic-webfont');
+@include font-family('Open Sans', 800, normal, '../assets/fonts/opensans/', 'opensans-extrabold-webfont');
+@include font-family('Open Sans', 800, italic, '../assets/fonts/opensans/', 'opensans-extrabolditalic-webfont');

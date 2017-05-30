@@ -1,0 +1,22 @@
+@import '~styles/tc-styles';
+
+.container {
+  p {
+    color: #394146;
+    font: 15px/22px 'Open Sans';
+    margin-bottom: 20px;
+    opacity: 0.7;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+
+    @include xxs-to-sm {
+      margin-bottom: 10px;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+  }
+}

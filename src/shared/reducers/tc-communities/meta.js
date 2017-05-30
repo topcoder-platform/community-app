@@ -1,5 +1,5 @@
 /**
- * Reducer for state.tcCommunities.header
+ * Reducer for state.tcCommunities.meta
  */
 
 import actions from 'actions/tc-communities/meta';
@@ -7,7 +7,7 @@ import { handleActions } from 'redux-actions';
 import { toFSA } from 'utils/redux';
 
 /**
- * Handles tcCommunities.header.fetchDataDone action.
+ * Handles tcCommunities.meta.fetchDataDone action.
  * @param {Object} state Previous state.
  * @param {Object} action Action.
  */
@@ -42,19 +42,19 @@ function onDone(state, action) {
 }
 
 /**
- * Creates a new community header reducer with the specified initial state.
+ * Creates a new community meta reducer with the specified initial state.
  * @param {Object} initialState Optional. Initial state.
- * @return community header reducer.
+ * @return community meta reducer.
  */
 function create(initialState) {
   return handleActions({
-    [actions.tcCommunities.header.mobileToggle](state) {
+    [actions.tcCommunities.meta.mobileToggle](state) {
       return {
         ...state,
         isMobileOpen: !state.isMobileOpen,
       };
     },
-    [actions.tcCommunities.header.fetchDataInit](state) {
+    [actions.tcCommunities.meta.fetchDataInit](state) {
       return {
         ...state,
         communityId: null,
@@ -66,7 +66,7 @@ function create(initialState) {
         leaderboardApiUrl: null,
       };
     },
-    [actions.tcCommunities.header.fetchDataDone]: onDone,
+    [actions.tcCommunities.meta.fetchDataDone]: onDone,
   }, initialState || {});
 }
 
@@ -83,7 +83,7 @@ export function factory(req) {
   if (match) {
     const communityId = match[1];
 
-    return toFSA(actions.tcCommunities.header.fetchDataDone(communityId))
+    return toFSA(actions.tcCommunities.meta.fetchDataDone(communityId))
       .then(res => create(onDone({}, res)));
   }
   return Promise.resolve(create());

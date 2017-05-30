@@ -1,0 +1,94 @@
+@import '~styles/tc-styles';
+
+.container {
+  background: #fff;
+  border-radius: 4px;
+  box-shadow: 0 6px 20px 0 rgba(101, 101, 112, 0.2);
+  height: 450px;
+  width: 300px;
+
+  @include sm {
+    width: 220px;
+  }
+
+  @include xxs-to-sm {
+    height: auto;
+    margin: 0 15px;
+    padding-bottom: 30px;
+    width: auto;
+
+    & + & {
+      margin-top: 30px;
+    }
+  }
+}
+
+.image {
+  background: no-repeat center;
+  background-size: cover;
+  display: block;
+  height: 200px;
+
+  @include xxs-to-sm {
+    height: auto;
+    min-height: 205px;
+
+    &::after {
+      content: '';
+      display: block;
+      height: 0;
+      padding-bottom: 59.42%; /* fixed aspect ration 205 / 345 */
+    }
+  }
+}
+
+.content {
+  padding: 0 12px;
+  text-align: center;
+}
+
+.title {
+  color: #394146;
+  font: 600 20px/150% 'Open Sans';
+  margin-top: 20px;
+
+  @include sm {
+    font-size: 16px;
+  }
+}
+
+.text {
+  color: #394146;
+  font: 15px/146.67% 'Open Sans';
+  margin-top: 10px;
+  max-height: 84px;
+  overflow: hidden;
+  opacity: 0.7;
+  text-overflow: ellipsis;
+}
+
+.linkWrap {
+  margin-top: 27px;
+
+  @include xxs-to-md {
+    margin-top: 20px;
+  }
+}
+
+.link {
+  color: #0092ff;
+  display: inline-block;
+  font: 700 14px/30px 'OpenSans';
+  height: 30px;
+  padding: 0 30px;
+  text-transform: uppercase;
+
+  &:hover,
+  &:active,
+  &:focus,
+  &:visited {
+    color: #0092ff;
+    outline: none;
+    text-decoration: none;
+  }
+}

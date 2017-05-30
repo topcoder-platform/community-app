@@ -13,7 +13,9 @@ import React from 'react';
 import PT from 'prop-types';
 import { connect } from 'react-redux';
 import ChallengeFiltersExample from 'components/ChallengeFilters/ChallengeFiltersExample';
-import './styles.scss';
+import Banner from 'components/tc-communities/Banner';
+import NewsletterSignup from 'components/tc-communities/NewsletterSignup';
+import style from './styles.scss';
 
 // The container component
 class ChallengeListingPageContainer extends React.Component {
@@ -55,6 +57,19 @@ class ChallengeListingPageContainer extends React.Component {
   render() {
     return (
       <div>
+        {/* For demo we hardcode banner properties so we can disable max-len linting */}
+        {/* eslint-disable max-len */}
+        <Banner
+          title="Challenges"
+          text="Browse our available challenges and compete. Vestibulum rutrum quam vitae fringilla tincidunt. Suspendisse nec tortor urna. Ut laoreet sodales nisi, quis iaculis nulla iaculis vitae. Donec sagittis faucibus lacus eget blandit. "
+          theme={{
+            container: style.bannerContainer,
+            content: style.bannerContent,
+            contentInner: style.bannerContentInner,
+          }}
+          imageSrc="/themes/wipro2/challenges/banner.jpg"
+        />
+        {/* eslint-enable max-len */}
         <ChallengeFiltersExample
           filterFromUrl={this.props.location.hash}
           masterFilterFunc={this.masterFilterFunc}
@@ -63,6 +78,11 @@ class ChallengeListingPageContainer extends React.Component {
           }}
           isAuth={!!this.props.auth.user}
           auth={this.props.auth}
+        />
+        <NewsletterSignup
+          title="Sign up for our newsletter"
+          text="Don’t miss out on the latest Topcoder IOS challenges and information!"
+          imageSrc="/themes/wipro2/subscribe-bg.jpg"
         />
       </div>
     );
