@@ -43,6 +43,7 @@
 }
 
 .main-menu {
+  margin-bottom: 0;
   text-align: center;
 }
 
@@ -180,6 +181,8 @@
   height: 54px;
   padding: 20px 0;
   vertical-align: bottom;
+  position: relative;
+  top: -2px;
 }
 
 @media only screen and (max-width: 1024px) {

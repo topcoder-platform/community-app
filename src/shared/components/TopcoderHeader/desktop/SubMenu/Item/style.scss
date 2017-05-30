@@ -22,6 +22,10 @@
     width: 36px;
   }
 
+  a {
+    color: $tc-white;
+  }
+
   &:hover {
     background: $tc-dark-blue-90;
 
