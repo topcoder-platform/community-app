@@ -40,42 +40,42 @@ deploy_cluster() {
 make_task_def(){
 	task_template='[
 		{
-			"name": "community-app",
-			"image": "%s.dkr.ecr.%s.amazonaws.com/%s:%s",
-			"essential": true,
-			"memory": 500,
-			"cpu": 100,
-      "environment": [
-        {
-          "name": "NODE_ENV",
-          "value": "%s"
-        }
-      ],
-      "portMappings": [
-        {
-          "hostPort": 0,
-          "containerPort": 3000,
-          "protocol": "tcp"
-        }
-      ],
-      "logConfiguration": {
-       "logDriver": "awslogs",
-       "options": {
-         "awslogs-group": "/aws/ecs/cluster-1",
-         "awslogs-region": "us-west-2",
-         "awslogs-stream-prefix": "community-app"
-       }
-     }
+				"name": "community-app",
+				"image": "%s.dkr.ecr.%s.amazonaws.com/%s:%s",
+				"essential": true,
+				"memory": 500,
+				"cpu": 100,
+				"environment": [
+						{
+								"name": "NODE_ENV",
+								"value": "%s"
+						}
+				],
+				"portMappings": [
+						{
+								"hostPort": 0,
+								"containerPort": 3000,
+								"protocol": "tcp"
+						}
+				],
+				"logConfiguration": {
+						"logDriver": "awslogs",
+						"options": {
+								"awslogs-group": "/aws/ecs/%s",
+								"awslogs-region": "%s",
+								"awslogs-stream-prefix": "community-app"
+						}
+				}
 		}
 	]'
+	
 	if [ "$ENV" = "PROD" ]; then
-		NODE_ENV=production
+			NODE_ENV=production
 	elif [ "$ENV" = "DEV" ]; then
-		NODE_ENV=development
+			NODE_ENV=development
 	fi
 
-	task_def=$(printf "$task_template" $ACCOUNT_ID $AWS_REGION $AWS_REPOSITORY $TAG $NODE_ENV)
-
+	task_def=$(printf "$task_template" $ACCOUNT_ID $AWS_REGION $AWS_REPOSITORY $TAG $NODE_ENV $AWS_ECS_CLUSTER $AWS_REGION)
 }
 
 push_ecr_image() {
