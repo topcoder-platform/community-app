@@ -20,9 +20,16 @@ function AccordionItem(props) {
 
   return (
     <div className={cn(theme.container, { [theme.containerOpen]: isOpen })}>
-      <h3 className={theme.title} onClick={onTitleClick} role="button">
-        <span className={theme.titleText}>{title}</span>
-        <span className={theme.titleArrow}><IconTickDown /></span>
+      <h3 className={theme.title}>
+        <div
+          className="accordion-title-button"
+          onClick={onTitleClick}
+          role="button"
+          tabIndex={0}
+        >
+          <span className={theme.titleText}>{title}</span>
+          <span className={theme.titleArrow}><IconTickDown /></span>
+        </div>
       </h3>
       <div className={theme.content}>
         {children}

@@ -18,6 +18,7 @@ function onDone(state, action) {
       ...state,
       authorizedGroupIds: action.payload.authorizedGroupIds,
       challengeFilterTag: action.payload.challengeFilterTag,
+      challengeGroupId: action.payload.challengeGroupId,
       communityId: action.payload.communityId,
       logos: action.payload.logos,
       menuItems: action.payload.menuItems,
@@ -31,6 +32,7 @@ function onDone(state, action) {
   return {
     ...state,
     authorizedGroupIds: [],
+    challengeGroupId: '',
     communityId: action.payload.error === '404' ? action.payload.communityId : null,
     logos: [],
     menuItems: [],

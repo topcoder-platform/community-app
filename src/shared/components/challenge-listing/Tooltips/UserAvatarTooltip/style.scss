@@ -1,0 +1,92 @@
+@import '~styles/tc-styles';
+$avatar-space-10: $base-unit * 2;
+$avatar-space-15: $base-unit * 3;
+$avatar-space-20: $base-unit * 4;
+$avatar-space-130: $base-unit * 26;
+$avatar-space-35: $base-unit * 7;
+$avatar-radius-50: $corner-radius * 25;
+$avatar-radius-4: $corner-radius * 2;
+
+.user-avatar-tooltip {
+  max-width: 640px;
+  font-family: 'Roboto';
+  overflow: auto;
+  padding: 15px;
+
+  .achievements {
+    border-top: 1px solid $tc-gray-70;
+    margin-top: 12px;
+    padding-top: 12px;
+
+    h3 {
+      color: $tc-white;
+      text-transform: none;
+      font-weight: 700;
+      margin-bottom: $avatar-space-10;
+      text-shadow: none;
+    }
+
+    .rating {
+      background: $tc-green;
+      border-radius: $avatar-space-130;
+      display: inline-block;
+      font-weight: bold;
+      padding: $base-unit $avatar-space-10;
+      margin-right: $base-unit;
+      text-shadow: none;
+
+      span {
+        margin: 0 $base-unit - 2;
+      }
+    }
+  }
+
+  .avatar {
+    border-radius: $avatar-radius-50;
+    float: left;
+    margin-right: $avatar-space-15;
+    width: $base-unit * 10;
+  }
+
+  .handle {
+    display: inline-block;
+    font-weight: 500;
+    font-size: 20px;
+    color: $tc-level-4;
+    line-height: $base-unit * 6;
+    text-shadow: none;
+  }
+
+  .info {
+    line-height: $base-unit * 4;
+    text-shadow: none;
+
+    .country {
+      text-transform: uppercase;
+      font-weight: 700;
+      font-size: 13px;
+      color: $tc-white;
+      letter-spacing: 0;
+    }
+
+    .wins {
+      font-weight: 300;
+      font-size: 13px;
+      letter-spacing: 0;
+      color: $tc-white;
+    }
+
+    .joined {
+      white-space: nowrap;
+      font-weight: 300;
+      font-size: 13px;
+      color: $tc-gray-60;
+      letter-spacing: 0;
+      line-height: $avatar-space-20;
+    }
+
+    .separtor {
+      @extend .joined;
+    }
+  }
+}

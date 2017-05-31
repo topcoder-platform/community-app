@@ -1,0 +1,34 @@
+@import '~styles/tc-styles';
+$track-space-20: $base-unit * 4;
+$track-radius-4: $corner-radius * 2;
+
+.track-abbreviation-tooltip {
+  font-family: 'Roboto';
+  min-width: $base-unit * 45;
+  max-width: $base-unit * 60;
+  line-height: $track-space-20 - 2;
+  padding: 15px;
+
+  .header {
+    font-weight: 700;
+    padding-left: $base-unit * 2;
+
+    &.blue {
+      border-left: $track-radius-4 solid $tc-light-blue;
+    }
+
+    &.green {
+      border-left: $track-radius-4 solid $tc-green;
+    }
+
+    &.orange {
+      border-left: $track-radius-4 solid $tc-orange;
+    }
+  }
+
+  .body {
+    font-weight: 300;
+    margin-top: $base-unit + 1;
+    color: $tc-gray-20;
+  }
+}

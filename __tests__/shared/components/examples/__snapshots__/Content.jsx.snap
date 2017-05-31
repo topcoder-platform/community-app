@@ -119,6 +119,15 @@ exports[`Matches shallow shapshot 1`] = `
     <li>
       <Link
         replace={false}
+        to="/challenges"
+      >
+        Main Website Challenge Listing Page
+      </Link>
+       – Ported Challenge Listing for the main website.
+    </li>
+    <li>
+      <Link
+        replace={false}
         to="/community-challenge-listing/JavaScript"
       >
         Community Challenge Listing Page

@@ -2,7 +2,8 @@
   "authorizedGroupIds": [
     "20000000"
   ],
-  "challengeFilterTag": "Bootstrap",
+  "challengeGroupId": "20000000",
+  "challengeFilterTag": "",
   "communityId": "wipro2",
   "logos": [
     "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0e/Wipro_Logo_RGB.png/480px-Wipro_Logo_RGB.png",
