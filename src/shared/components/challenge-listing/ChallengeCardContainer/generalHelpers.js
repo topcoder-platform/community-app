@@ -4,6 +4,7 @@
 
 import _ from 'lodash';
 
+// TODO: These are dublicated in some other files. Should be cleaned up.
 const COMMUNITIES = {
   DEVELOP: 'develop',
   DESIGN: 'design',

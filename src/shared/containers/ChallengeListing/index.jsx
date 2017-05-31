@@ -55,7 +55,7 @@ class ChallengeListingPageContainer extends React.Component {
   }
 
   render() {
-    const { listingOnly } = this.props;
+    const { challengeGroupId, listingOnly } = this.props;
     return (
       <div>
         {/* For demo we hardcode banner properties so we can disable max-len linting */}
@@ -75,6 +75,7 @@ class ChallengeListingPageContainer extends React.Component {
         }
         {/* eslint-enable max-len */}
         <ChallengeFiltersExample
+          challengeGroupId={challengeGroupId}
           filterFromUrl={this.props.location.hash}
           masterFilterFunc={this.masterFilterFunc}
           onSaveFilterToUrl={(filter) => {
@@ -96,6 +97,7 @@ class ChallengeListingPageContainer extends React.Component {
 }
 
 ChallengeListingPageContainer.defaultProps = {
+  challengeGroupId: '',
   listingOnly: false,
   match: null,
   tag: null,
@@ -108,6 +110,7 @@ ChallengeListingPageContainer.propTypes = {
       keyword: PT.string,
     }),
   }),
+  challengeGroupId: PT.string,
   tag: PT.string,
   history: PT.shape({
     replace: PT.func.isRequired,

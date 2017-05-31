@@ -40,7 +40,7 @@ export const openForRegistrationFilter = (item) => {
     // First 2 Finish challenges may be closed even if registration is open
     || (item.track === 'DEVELOP' && isFirst2Finish && registrationOpen && !isReviewClosed)
     || (item.track === 'DESIGN' && registrationOpen && !isCheckPointClosed)
-    || (item.subTrack.startsWith('MARATHON') && !item.status.startsWith('COMPLETED'));
+    || (item.subTrack.startsWith('MARATHON') && !item.status.startsWith('PAST'));
 };
 
 class SideBarFilter extends ChallengeFilter {

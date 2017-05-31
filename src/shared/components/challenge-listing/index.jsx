@@ -21,6 +21,8 @@ import PT from 'prop-types';
 import config from 'utils/config';
 import Sticky from 'react-stickynode';
 
+import { getService as getChallengesService } from 'services/challenges';
+
 import { DESIGN_TRACK, DEVELOP_TRACK, DATA_SCIENCE_TRACK } from './Filters/ChallengeFilter';
 import ChallengeFilterWithSearch from './Filters/ChallengeFilterWithSearch';
 import ChallengeFilters from './Filters/ChallengeFilters';
@@ -75,6 +77,28 @@ const SRMsSidebarMock = {
     { name: 'TCO Finals', value: 23 },
   ],
 };
+
+/** Fetch Past challenges
+ * {param} limit: Number of challenges to fetch
+ * {param} helper: Function to invoke to map response
+ */
+function fetchPastChallenges(limit, helper, groupIds, tokenV3) {
+  const cService = getChallengesService(tokenV3);
+  const MAX_LIMIT = 50;
+  const result = [];
+  const numFetch = Math.ceil(limit / MAX_LIMIT);
+  const handleResponse = res => helper(res);
+  for (let i = 0; i < numFetch; i += 1) {
+    result.push(cService.getChallenges({
+      groupIds,
+      status: 'COMPLETED',
+    }, {
+      limit: MAX_LIMIT,
+      offset: i * MAX_LIMIT,
+    }).then(handleResponse));
+  }
+  return result;
+}
 
 // helper function to serialize object to query string
 const serialize = filter => filter.getURLEncoded();
@@ -189,6 +213,27 @@ class ChallengeFiltersExample extends React.Component {
     }
   }
 
+  componentDidUpdate(prevProps) {
+    if (this.props.auth.tokenV3 !== prevProps.auth.tokenV3) {
+      setImmediate(() => {
+        this.setState({
+          challenges: [],
+          lastFetchId: 1,
+          isChallengesLoading: true,
+          isChallengesLoaded: false,
+          isLoaded: false,
+        });
+        this.fetchChallenges().then((res) => {
+          this.setChallenges(1, res);
+          this.setState({
+            isChallengesLoading: false,
+            isChallengesLoaded: true,
+          });
+        });
+      });
+    }
+  }
+
   /**
    * Searches the challenges for with the specified search string, competition
    * tracks, and filters.
@@ -248,23 +293,6 @@ class ChallengeFiltersExample extends React.Component {
     });
   }
 
-  /** Fetch Past challenges
-   * {param} limit: Number of challenges to fetch
-   * {param} helper: Function to invoke to map response
-   */
-  fetchPastChallenges(limit, helper) {
-    const api = this.props.config.API_URL;
-    const MAX_LIMIT = 50;
-    const result = [];
-    const numFetch = Math.ceil(limit / MAX_LIMIT);
-    const handleResponse = res => helper(res);
-    for (let i = 0; i < numFetch; i += 1) {
-      result.push(fetch(`${api}/challenges/?filter=status=Completed&offset=${i * MAX_LIMIT}&limit=50`)
-      .then(handleResponse));
-    }
-    return result;
-  }
-
   /**
    * Saves current filters to the URL hash.
    */
@@ -295,6 +323,7 @@ class ChallengeFiltersExample extends React.Component {
    * @return Promise which resolves to the array of challenges.
    */
   fetchChallenges() {
+    const { auth } = this.props;
     const challenges = [];
     const knownKeywords = new Set();
     VALID_KEYWORDS.forEach(item => knownKeywords.add(item.value));
@@ -307,32 +336,36 @@ class ChallengeFiltersExample extends React.Component {
     }
     /* Normalizes challenge objects received from different API endpoints,
      * and adds them to the list of loaded challenges. */
+    // TODO: Do we still need to pass api responses through this helper
+    // after we have moved to API V3?
     function helper2(response, community) {
       return response.json().then((res) => {
+        // TODO: API v3 always has res.result!
         const content = res.result ? res.result.content : res.data;
         content.forEach((item) => {
-        /* Only marathon matches, when received from the /data/marathon/challenges
-         * endpoint, satisfy this. */
-          if (item.roundId) {
+          if (item.subTrack === 'MARATHON_MATCH') {
+            // TODO: After we have moved to API v3, most probably there is
+            // a more optimal way to set some of these defaults, or probably
+            // we can get rid of this method at all. Don't have time to
+            // investigate it carefully now.
             const endTimestamp = new Date(item.endDate).getTime();
             const allphases = [{
-              challengeId: item.roundId,
+              challengeId: item.id,
               phaseType: 'Registration',
               phaseStatus: endTimestamp > Date.now() ? 'Open' : 'Close',
               scheduledEndTime: item.endDate,
-            },
-            ];
+            }];
             _.defaults(item, {
-              id: item.roundId,
-              name: item.fullName,
+              id: item.id,
+              name: item.name,
               challengeCommunity: 'Data',
               challengeType: 'Marathon',
               allPhases: allphases,
               currentPhases: allphases.filter(phase => phase.phaseStatus === 'Open'),
               communities: new Set([community]),
               currentPhaseName: endTimestamp > Date.now() ? 'Registration' : '',
-              numRegistrants: item.numberOfRegistrants,
-              numSubmissions: item.numberOfSubmissions,
+              numRegistrants: item.numRegistrants[0],
+              numSubmissions: item.userIds.length,
               platforms: '',
               prizes: [0],
               registrationOpen: endTimestamp > Date.now() ? 'Yes' : 'No',
@@ -373,16 +406,27 @@ class ChallengeFiltersExample extends React.Component {
       },
       );
     }
-    const api = this.props.config.API_URL;
-    const apiV2 = this.props.config.API_URL_V2;
+
+    const cService = getChallengesService(auth.tokenV3);
     return Promise.all([
       /* Fetching of active challenges */
-      fetch(`${api}/challenges/?filter=status=active`).then(res => helper2(res)),
-      fetch(`${apiV2}/data/marathon/challenges/?listType=active`).then(res => helper2(res, DATA_SCIENCE_TRACK)),
+      cService.getChallenges({
+        groupIds: this.props.challengeGroupId || undefined,
+        status: 'ACTIVE',
+      }).then(res => helper2(res)),
+      cService.getMarathonMatches({
+        groupIds: this.props.challengeGroupId || undefined,
+        status: 'ACTIVE',
+      }).then(res => helper2(res, DATA_SCIENCE_TRACK)),
 
       // Fetch some past challenges
-      ...this.fetchPastChallenges(400, helper2),
-      fetch(`${apiV2}/data/marathon/challenges/?listType=past&pageSize=100`).then(res => helper2(res, DATA_SCIENCE_TRACK)),
+      ...fetchPastChallenges(400, helper2, this.props.challengeGroupId || undefined, auth.tokenV3),
+      cService.getMarathonMatches({
+        groupIds: this.props.challengeGroupId || undefined,
+        status: 'PAST',
+      }, {
+        limit: 100,
+      }).then(res => helper2(res, DATA_SCIENCE_TRACK)),
     ]).then(() => {
       _.forIn(map, item => challenges.push(item));
       challenges.sort((a, b) => b.submissionEndDate - a.submissionEndDate);
@@ -511,7 +555,6 @@ class ChallengeFiltersExample extends React.Component {
       (a, b) => new Date(a.startDate).getTime() - new Date(b.startDate).getTime(),
     );
 
-
     const UpcomingSrm = futureSRMChallenge.map(
       srmChallenge => (
         <SRMCard
@@ -632,6 +675,7 @@ class ChallengeFiltersExample extends React.Component {
 }
 
 ChallengeFiltersExample.defaultProps = {
+  challengeGroupId: '',
   config: {
     API_URL_V2: config.API.V2,
     API_URL: config.API.V3,
@@ -655,6 +699,7 @@ ChallengeFiltersExample.propTypes = {
     MAIN_URL: PT.MAIN_URL,
     COMMUNITY_URL: PT.COMMUNITY_URL,
   }),
+  challengeGroupId: PT.string,
   filterFromUrl: PT.string,
   onSaveFilterToUrl: PT.func,
   setChallengeFilter: PT.func,

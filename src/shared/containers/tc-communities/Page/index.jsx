@@ -112,6 +112,7 @@ class Page extends Component {
         break;
       case 'challenges':
         pageContent = (<ChallengeListing
+          challengeGroupId={this.props.meta.challengeGroupId}
           tag={this.props.meta.challengeFilterTag}
           history={this.props.history}
           location={this.props.location}
@@ -203,6 +204,7 @@ Page.propTypes = {
   meta: PT.shape({
     authorizedGroupIds: PT.arrayOf(PT.string),
     challengeFilterTag: PT.string,
+    challengeGroupId: PT.string,
     communityId: PT.string,
     cssUrl: PT.string,
 
@@ -210,7 +212,7 @@ Page.propTypes = {
     // moved to a proper place!
     isMobileOpen: PT.bool,
 
-    leaderboardApiUrl: PT.string.isRequired,
+    leaderboardApiUrl: PT.string,
     loading: PT.bool,
     logos: PT.arrayOf(PT.string).isRequired,
     menuItems: PT.arrayOf(PT.shape({})).isRequired,
