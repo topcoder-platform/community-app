@@ -1,0 +1,81 @@
+@import '~styles/tc-styles';
+
+$leader-space-10: $base-unit * 2;
+$leader-space-15: $base-unit * 3;
+$leader-space-20: $base-unit * 4;
+$leader-space-25: $base-unit * 5;
+$leader-space-30: $base-unit * 6;
+$leader-space-40: $base-unit * 8;
+$leader-space-50: $base-unit * 10;
+$leader-radius-50: $corner-radius * 25;
+$leader-radius-4: $corner-radius * 2;
+
+.leaderboard-avatar {
+  position: relative;
+  text-align: center;
+  font-size: 12px;
+  color: $tc-white;
+  line-height: $leader-space-30;
+  display: inline-block;
+  width: $leader-space-30;
+  height: $leader-space-30;
+  border-radius: $leader-radius-50;
+  vertical-align: text-bottom;
+
+  img {
+    width: 100%;
+    height: 100%;
+    border-radius: $leader-radius-50;
+    vertical-align: top;
+  }
+
+  &.dark-gray {
+    background: $tc-gray-60;
+
+    &:hover {
+      background: $tc-gray-70;
+    }
+  }
+
+  &.light-gray {
+    background: $tc-gray-10;
+    color: $tc-black;
+
+    &:hover {
+      background: $tc-gray-20;
+    }
+  }
+
+  .placement {
+    position: absolute;
+    display: block;
+    width: $leader-space-15 + 2;
+    height: $leader-space-15 + 2;
+    right: -($leader-space-10 - 3);
+    bottom: -($leader-space-10 - 3);
+    text-align: center;
+    line-height: $leader-space-10 + 3;
+    border-radius: $leader-radius-50;
+    border: 2px solid $tc-white;
+
+    &.placement-1 {
+      background: $tc-gold;
+    }
+
+    &.placement-2 {
+      background: $tc-silver;
+    }
+
+    &.placement-3 {
+      background: $tc-bronze;
+    }
+
+    &.placement-4 {
+      background: $tc-gray-50;
+    }
+  }
+
+  .hidden {
+    display: none;
+  }
+}

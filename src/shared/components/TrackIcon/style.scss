@@ -1,0 +1,76 @@
+@import '~styles/tc-styles';
+$track-code-pad: ($base-unit * 2) - 2;
+$tco-line-hieght: $base-unit * 2 + 2;
+$track-space-10: $base-unit * 2;
+$track-space-15: $base-unit * 3;
+$track-space-20: $base-unit * 4;
+$track-radius-4: $corner-radius * 2;
+
+.trackIcon {
+  display: inline-block;
+  width: $base-unit * 6;
+  height: $base-unit * 6;
+  margin-right: $track-space-20;
+
+  @include xs {
+    margin-right: $track-space-15;
+  }
+
+  .main-icon {
+    text-align: center;
+    font-size: 13px;
+    font-family: 'Roboto';
+    font-weight: 500;
+    line-height: $track-space-15;
+    color: $tc-gray-neutral-light;
+    padding: $track-code-pad - 1 0 $track-code-pad;
+    border-radius: $corner-radius;
+    cursor: pointer;
+
+    &.design,
+    &.generic {
+      background: $tc-light-blue;
+    }
+
+    &.develop {
+      background: $tc-green;
+    }
+
+    &.data_science,
+    &.data {
+      background: $tc-orange;
+    }
+  }
+
+  .tco-icon {
+    text-align: center;
+    font-size: 10px;
+    font-family: 'Roboto';
+    font-weight: 700;
+    border-radius: $corner-radius + 1px;
+    line-height: $tco-line-hieght;
+    padding: $base-unit - 1 0;
+    margin-top: $base-unit - 4;
+
+    &.design,
+    &.generic {
+      color: $tc-light-blue;
+      background: $tc-light-blue-10;
+    }
+
+    &.develop {
+      color: $tc-green;
+      background: $tc-green-10;
+    }
+
+    &.data_science,
+    &.data {
+      color: $tc-orange;
+      background: $tc-orange-10;
+    }
+  }
+
+  .hidden {
+    display: none;
+  }
+}

@@ -12,7 +12,7 @@
 import React from 'react';
 import PT from 'prop-types';
 import { connect } from 'react-redux';
-import ChallengeFiltersExample from 'components/ChallengeFilters/ChallengeFiltersExample';
+import ChallengeFiltersExample from 'components/challenge-listing';
 import Banner from 'components/tc-communities/Banner';
 import NewsletterSignup from 'components/tc-communities/NewsletterSignup';
 import style from './styles.scss';
