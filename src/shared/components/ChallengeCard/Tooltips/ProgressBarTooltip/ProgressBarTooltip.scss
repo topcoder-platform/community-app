@@ -14,6 +14,10 @@ div.progress-bar-tooltip {
   max-width: none;
   padding: 0 $base-unit * 3;
 
+  .rc-tooltip-inner {
+    padding: 0 $base-unit * 3;
+  }
+
   .tip {
     word-wrap: none;
     white-space: nowrap;

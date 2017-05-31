@@ -21,7 +21,7 @@ import PT from 'prop-types';
 import config from 'utils/config';
 import Sticky from 'react-stickynode';
 
-import { DATA_SCIENCE_TRACK, DESIGN_TRACK, DEVELOP_TRACK } from './ChallengeFilter';
+import { DESIGN_TRACK, DEVELOP_TRACK, DATA_SCIENCE_TRACK } from './ChallengeFilter';
 import ChallengeFilterWithSearch from './ChallengeFilterWithSearch';
 import ChallengeFilters from './ChallengeFilters';
 import SideBarFilter, { MODE as SideBarFilterModes } from '../SideBarFilters/SideBarFilter';
@@ -29,6 +29,8 @@ import SideBarFilters from '../SideBarFilters';
 import './ChallengeFiltersExample.scss';
 import ChallengeCard from '../ChallengeCard/ChallengeCard';
 import ChallengeCardContainer from '../ChallengeCardContainer/ChallengeCardContainer';
+import ChallengeCardPlaceholder from '../ComponentPlaceholders/ChallengeCardPlaceholder/ChallengeCardPlaceholder';
+import SidebarFilterPlaceholder from '../ComponentPlaceholders/SidebarFilterPlaceholder/SidebarFilterPlaceholder';
 import SRMCard from '../SRMCard/SRMCard';
 import ChallengesSidebar from '../ChallengesSidebar/ChallengesSidebar';
 
@@ -44,6 +46,15 @@ function keywordsMapper(keyword) {
     value: keyword,
   };
 }
+
+const communityMap = {
+  DEVELOP: DEVELOP_TRACK,
+  DESIGN: DESIGN_TRACK,
+  DATA_SCIENCE: DATA_SCIENCE_TRACK,
+};
+
+// Number of challenge placeholder card to display
+const CHALLENGE_PLACEHOLDER_COUNT = 8;
 
 // List of keywords to allow in the Keywords filter.
 const VALID_KEYWORDS = [];
@@ -67,7 +78,6 @@ const SRMsSidebarMock = {
 // helper function to serialize object to query string
 const serialize = filter => filter.getURLEncoded();
 
-
 // helper function to de-serialize query string to filter object
 const deserialize = (queryString) => {
   const filter = new SideBarFilter({
@@ -90,6 +100,7 @@ class ChallengeFiltersExample extends React.Component {
       currentCardType: 'Challenges',
       filter: new SideBarFilter(),
       lastFetchId: 0,
+      isLoaded: false,
       isSRMChallengesLoading: false,
       isSRMChallengesLoaded: false,
       isChallengesLoading: false,
@@ -113,14 +124,14 @@ class ChallengeFiltersExample extends React.Component {
       fetch(SUBTRACKS_DESIGN_API)
         .then(res => res.json())
         .then((json) => {
-          json.forEach(item => VALID_SUBTRACKS.push(keywordsMapper(item.name)));
+          json.forEach(item => VALID_SUBTRACKS.push(keywordsMapper(item.description)));
         });
 
       /* Fetching of develop subtracks */
       fetch(SUBTRACKS_DEVELOP_API)
         .then(res => res.json())
         .then((json) => {
-          json.forEach(item => VALID_SUBTRACKS.push(keywordsMapper(item.name)));
+          json.forEach(item => VALID_SUBTRACKS.push(keywordsMapper(item.description)));
         });
     }
 
@@ -194,17 +205,21 @@ class ChallengeFiltersExample extends React.Component {
     const f = new ChallengeFilterWithSearch();
     _.merge(f, filter);
     f.query = searchString;
-    const fetchId = 1 + this.state.lastFetchId;
-    this.setState({ challenges: [], lastFetchId: fetchId, searchQuery: searchString });
-    this.fetchChallenges(fetchId).then(res => this.setChallenges(fetchId, res, f));
-    this.onFilterByTopFilter(f);
+    this.setState({ searchQuery: searchString }, () => this.onFilterByTopFilter(f));
   }
 
   onFilterByTopFilter(filter, isSidebarFilter) {
-    const mergedFilter = Object.assign({}, this.state.filter, filter);
-    const updatedFilter = new SideBarFilter(mergedFilter);
-    if (!isSidebarFilter) {
+    let updatedFilter;
+    if (filter.query && filter.query !== '') {
+      updatedFilter = filter;
+      updatedFilter.isCustomFilter = true;
       updatedFilter.mode = SideBarFilterModes.CUSTOM;
+    } else {
+      const mergedFilter = Object.assign({}, this.state.filter, filter);
+      updatedFilter = new SideBarFilter(mergedFilter);
+      if (!isSidebarFilter) {
+        updatedFilter.mode = SideBarFilterModes.CUSTOM;
+      }
     }
     this.setState({ filter: updatedFilter }, this.saveFiltersToHash.bind(this, updatedFilter));
   }
@@ -222,7 +237,7 @@ class ChallengeFiltersExample extends React.Component {
   setChallenges(fetchId, challenges, filter) {
     if (fetchId !== this.state.lastFetchId) return;
     const c = filter ? challenges.filter(filter.getFilterFunction()) : challenges;
-    this.setState({ challenges: c });
+    this.setState({ challenges: c, isLoaded: true });
   }
 
   // set current card type
@@ -230,6 +245,23 @@ class ChallengeFiltersExample extends React.Component {
     this.setState({
       currentCardType: cardType,
     });
+  }
+
+  /** Fetch Past challenges
+   * {param} limit: Number of challenges to fetch
+   * {param} helper: Function to invoke to map response
+   */
+  fetchPastChallenges(limit, helper) {
+    const api = this.props.config.API_URL;
+    const MAX_LIMIT = 50;
+    const result = [];
+    const numFetch = Math.ceil(limit / MAX_LIMIT);
+    const handleResponse = res => helper(res);
+    for (let i = 0; i < numFetch; i += 1) {
+      result.push(fetch(`${api}/challenges/?filter=status=Completed&offset=${i * MAX_LIMIT}&limit=50`)
+      .then(handleResponse));
+    }
+    return result;
   }
 
   /**
@@ -275,77 +307,84 @@ class ChallengeFiltersExample extends React.Component {
     /* Normalizes challenge objects received from different API endpoints,
      * and adds them to the list of loaded challenges. */
     function helper2(response, community) {
-      return response.json().then(res => res.data.forEach((item) => {
+      return response.json().then((res) => {
+        const content = res.result ? res.result.content : res.data;
+        content.forEach((item) => {
         /* Only marathon matches, when received from the /data/marathon/challenges
          * endpoint, satisfy this. */
-        if (item.roundId) {
-          const endTimestamp = new Date(item.endDate).getTime();
-          _.defaults(item, {
-            challengeId: item.roundId,
-            challengeName: item.fullName,
-            challengeCommunity: 'Data',
-            challengeType: 'Marathon',
-            communities: new Set([community]),
-            currentPhaseEndDate: item.endDate,
-            currentPhaseName: endTimestamp > Date.now() ? 'Registration' : '',
-            numRegistrants: item.numberOfRegistrants,
-            numSubmissions: item.numberOfSubmissions,
-            platforms: [],
-            prize: [],
-            registrationOpen: endTimestamp > Date.now() ? 'Yes' : 'No',
-            registrationStartDate: item.startDate,
-            submissionEndDate: item.endDate,
-            submissionEndTimestamp: endTimestamp,
-            technologies: [],
-            totalPrize: 0,
-            track: 'DATA_SCIENCE',
-            status: endTimestamp > Date.now() ? 'Active' : 'Completed',
-            subTrack: 'MARATHON_MATCH',
-          });
-          map[item.challengeId] = item;
-        } else if (item.challengeType === 'SRM') {
-          /* We don't support SRM yet, so we don't want them around */
-        } else { /* All challenges from other endpoints have the same format. */
-          const existing = map[item.challengeId];
-          if (existing) existing.communities.add(community);
-          else {
-            const endTimestamp = new Date(item.submissionEndDate).getTime();
+          if (item.roundId) {
+            const endTimestamp = new Date(item.endDate).getTime();
+            const allphases = [{
+              challengeId: item.roundId,
+              phaseType: 'Registration',
+              phaseStatus: endTimestamp > Date.now() ? 'Open' : 'Close',
+              scheduledEndTime: item.endDate,
+            },
+            ];
             _.defaults(item, {
+              id: item.roundId,
+              name: item.fullName,
+              challengeCommunity: 'Data',
+              challengeType: 'Marathon',
+              allPhases: allphases,
+              currentPhases: allphases.filter(phase => phase.phaseStatus === 'Open'),
               communities: new Set([community]),
-              platforms: [],
+              currentPhaseName: endTimestamp > Date.now() ? 'Registration' : '',
+              numRegistrants: item.numberOfRegistrants,
+              numSubmissions: item.numberOfSubmissions,
+              platforms: '',
+              prizes: [0],
               registrationOpen: endTimestamp > Date.now() ? 'Yes' : 'No',
-              technologies: [],
-              track: item.challengeCommunity.toUpperCase(),
-              status: endTimestamp > Date.now() ? 'Active' : 'Completed',
+              registrationStartDate: item.startDate,
+              submissionEndDate: item.endDate,
               submissionEndTimestamp: endTimestamp,
-              subTrack: item.challengeType.toUpperCase().split(' ').join('_'),
+              technologies: '',
+              totalPrize: 0,
+              track: 'DATA_SCIENCE',
+              status: endTimestamp > Date.now() ? 'ACTIVE' : 'COMPLETED',
+              subTrack: 'MARATHON_MATCH',
             });
-            map[item.challengeId] = item;
-            item.platforms.forEach(helper1);
-            item.technologies.forEach(helper1);
+            map[item.id] = item;
+          } else if (item.track === 'SRM') {
+            /* We don't support SRM yet, so we don't want them around */
+          } else { /* All challenges from other endpoints have the same format. */
+            const existing = map[item.id];
+            const challengeCommunity = community || communityMap[item.track];
+            if (existing) existing.communities.add(challengeCommunity);
+            else {
+              _.defaults(item, {
+                communities: new Set([challengeCommunity]),
+                platforms: '',
+                registrationOpen: item.allPhases.filter(d => d.phaseType === 'Registration')[0].phaseStatus === 'Open' ? 'Yes' : 'No',
+                technologies: '',
+                submissionEndTimestamp: item.submissionEndDate,
+              });
+              map[item.id] = item;
+              if (item.platforms) {
+                item.platforms.split(',').forEach(helper1);
+              }
+              if (item.technologies) {
+                item.technologies.split(',').forEach(helper1);
+              }
+            }
           }
-        }
-      }));
+        });
+      },
+      );
     }
-    const api = this.props.config.API_URL_V2;
+    const api = this.props.config.API_URL;
+    const apiV2 = this.props.config.API_URL_V2;
     return Promise.all([
       /* Fetching of active challenges */
-      fetch(`${api}/challenges/active?type=design`).then(res => helper2(res, DESIGN_TRACK)),
-      fetch(`${api}/challenges/active?type=develop`).then(res => helper2(res, DEVELOP_TRACK)),
-      fetch(`${api}/dataScience/challenges/active`).then(res => helper2(res, DATA_SCIENCE_TRACK)),
-      fetch(`${api}/data/marathon/challenges/?listType=active`).then(res => helper2(res, DATA_SCIENCE_TRACK)),
-      /* Fetching of some past challenges */
-      fetch(`${api}/challenges/past?type=design&pageSize=100`).then(res => helper2(res, DESIGN_TRACK)),
-      fetch(`${api}/challenges/past?type=develop&pageSize=100`).then(res => helper2(res, DEVELOP_TRACK)),
-      fetch(`${api}/dataScience/challenges/past?pageSize=100`).then(res => helper2(res, DATA_SCIENCE_TRACK)),
-      fetch(`${api}/data/marathon/challenges/?listType=past&pageSize=100`).then(res => helper2(res, DATA_SCIENCE_TRACK)),
-      // Fetching upcoming challenges
-      fetch(`${api}/challenges/upcoming?type=design&pageSize=100`).then(res => helper2(res, DESIGN_TRACK)),
-      fetch(`${api}/challenges/upcoming?type=develop&pageSize=100`).then(res => helper2(res, DEVELOP_TRACK)),
-      fetch(`${api}/dataScience/challenges/upcoming?pageSize=100`).then(res => helper2(res, DATA_SCIENCE_TRACK)),
+      fetch(`${api}/challenges/?filter=status=active`).then(res => helper2(res)),
+      fetch(`${apiV2}/data/marathon/challenges/?listType=active`).then(res => helper2(res, DATA_SCIENCE_TRACK)),
+
+      // Fetch some past challenges
+      ...this.fetchPastChallenges(400, helper2),
+      fetch(`${apiV2}/data/marathon/challenges/?listType=past&pageSize=100`).then(res => helper2(res, DATA_SCIENCE_TRACK)),
     ]).then(() => {
       _.forIn(map, item => challenges.push(item));
-      challenges.sort((a, b) => b.submissionEndTimestamp - a.submissionEndTimestamp);
+      challenges.sort((a, b) => b.submissionEndDate - a.submissionEndDate);
       // TODO: Using forceUpdate() in ReactJS is a bad practice. The reason here
       // is that we need to update the component if we have updated the mock list
       // VALID_KEYWORDS. In the real App the list of valid keywords will be passed
@@ -356,20 +395,12 @@ class ChallengeFiltersExample extends React.Component {
     });
   }
 
-  updateFilter(hash) {
-    // get the latest filter and update current challenges
-    this.state = {
-      challenges: [],
-      srmChallenges: [],
-      currentCardType: 'Challenges',
-      filter: new SideBarFilter(),
-      lastFetchId: 0,
-    };
-    if (hash) {
-      this.state.filter = deserialize(hash);
-      this.state.searchQuery = hash.split('&').filter(e => e.startsWith('query')).map(element => element.split('=')[1])[0];
-    }
-    this.fetchChallenges(0).then(res => this.setChallenges(0, res));
+  // TODO:
+  // This method is not being used any more
+  // and should be removed in future.
+  updateFilter() {
+    const filter = this.state.filter;
+    return filter;
   }
 
   // ReactJS render method.
@@ -392,7 +423,7 @@ class ChallengeFiltersExample extends React.Component {
     challenges = challenges.map((item) => {
       // check the challenge id exist in my challenges id
       // TODO: This is also should be moved to a better place, fetchChallenges() ?
-      if (_.indexOf(myChallengesId, item.challengeId) > -1) {
+      if (_.indexOf(myChallengesId, item.id) > -1) {
         _.assign(item, { myChallenge: true });
       }
       return item;
@@ -402,7 +433,17 @@ class ChallengeFiltersExample extends React.Component {
     const { name: sidebarFilterName } = filter;
 
     let challengeCardContainer;
-    if (filter.isCustomFilter) {
+    if (!this.state.isLoaded) {
+      const challengeCards = _.range(CHALLENGE_PLACEHOLDER_COUNT)
+      .map(key => <ChallengeCardPlaceholder id={key} key={key} />);
+      challengeCardContainer = (
+        <div className="challenge-cards-container">
+          <div className="ChallengeCardExamples">
+            { challengeCards }
+          </div>
+        </div>
+      );
+    } else if (filter.isCustomFilter) {
       if (currentFilter.mode === SideBarFilterModes.CUSTOM) {
         challenges = this.state.challenges.filter(currentFilter.getFilterFunction());
       }
@@ -414,7 +455,7 @@ class ChallengeFiltersExample extends React.Component {
           onTechTagClicked={(tag) => {
             if (this.challengeFilters) this.challengeFilters.setKeywords(tag);
           }}
-          key={challenge.challengeId}
+          key={challenge.id}
         />
       );
 
@@ -440,14 +481,14 @@ class ChallengeFiltersExample extends React.Component {
           onTechTagClicked={(tag) => {
             if (this.challengeFilters) this.challengeFilters.setKeywords(tag);
           }}
-          challenges={_.uniqBy(challenges, 'challengeId')}
+          challenges={_.uniqBy(challenges, 'id')}
           currentFilterName={sidebarFilterName}
           expanded={sidebarFilterName !== 'All Challenges'}
           fetchCallback={(fetchedChallenges) => {
             this.setState({
               challenges: _.uniqBy(
                 challenges.concat(fetchedChallenges),
-                'challengeId',
+                'id',
               ),
             });
           }}
@@ -546,7 +587,7 @@ class ChallengeFiltersExample extends React.Component {
 
         <div styleName={`tc-content-wrapper ${this.state.currentCardType === 'Challenges' ? '' : 'hidden'}`}>
           <div styleName="sidebar-container-mobile">
-            <SideBarFilters
+            {this.state.isLoaded ? (<SideBarFilters
               config={this.props.config}
               challenges={challenges}
               filter={this.state.sidebarFilter}
@@ -562,14 +603,14 @@ class ChallengeFiltersExample extends React.Component {
               isAuth={this.props.isAuth}
               myChallenges={this.props.myChallenges}
               auth={this.props.auth}
-            />
+            />) : <SidebarFilterPlaceholder />}
           </div>
 
           {challengeCardContainer}
 
           <div styleName="sidebar-container-desktop">
             <Sticky top={20}>
-              <SideBarFilters
+              {this.state.isLoaded ? (<SideBarFilters
                 config={this.props.config}
                 challenges={challenges}
                 filter={this.state.filter}
@@ -580,7 +621,7 @@ class ChallengeFiltersExample extends React.Component {
                 isAuth={this.props.isAuth}
                 myChallenges={this.props.myChallenges}
                 auth={this.props.auth}
-              />
+              />) : <SidebarFilterPlaceholder />}
             </Sticky>
           </div>
         </div>

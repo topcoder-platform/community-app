@@ -42,10 +42,12 @@ class Accordion extends Component {
               className={cn(theme.titleListItem, {
                 [theme.titleListItemSelected]: index === selectedIndex,
               })}
-              onClick={() => this.selectItem(index)}
-              role="button"
             >
-              {child.props.title}
+              <div
+                onClick={() => this.selectItem(index)}
+                role="button"
+                tabIndex={0}
+              >{child.props.title}</div>
             </li>
           ))}
         </ul>

@@ -37,9 +37,7 @@ class Filter extends BaseFilter {
     return (item) => {
       if (!parent(item)) return false;
       if (this.query) {
-        const platforms = item.platforms.join(' ');
-        const techs = item.technologies.join(' ');
-        const str = `${item.challengeName} ${platforms} ${techs}`.toLowerCase();
+        const str = `${item.name} ${item.platforms} ${item.technologies}`.toLowerCase();
         if (str.indexOf(this.query.toLowerCase()) < 0) return false;
       }
       return true;

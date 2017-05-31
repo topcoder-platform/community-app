@@ -13,7 +13,7 @@ const Abbreviation = {
     TEST_SUITES: 'TS',
     ASSEMBLY_COMPETITION: 'As',
     UI_PROTOTYPE_COMPETITION: 'Pr',
-    CONSEPTUALIZATION: 'Cn',
+    CONCEPTUALIZATION: 'Cn',
     RIA_BUILD_COMPETITION: 'RB',
     RIA_COMPONENT_COMPETITION: 'RC',
     TEST_SCENARIOS: 'Ts',
@@ -23,20 +23,23 @@ const Abbreviation = {
     REPORTING: 'Rp',
     DEVELOP_MARATHON_MATCH: 'MM',
     FIRST2FINISH: 'F2F',
+    FIRST_2_FINISH: 'F2F',
     CODE: 'Cd',
   },
   DESIGN: {
-    'BANNERS/ICONS': 'BI',
+    BANNERS_OR_ICONS: 'BI',
     WEB_DESIGN: 'Wb',
     WIREFRAMES: 'Wf',
     LOGO_DESIGN: 'Lg',
-    'PRINT/PRESENTATION': 'PP',
+    PRINT_OR_PRESENTATION: 'PP',
     WIDGET_OR_MOBILE_SCREEN_DESIGN: 'Wg',
     FRONT_END_FLASH: 'FL',
-    'APPLICATION_FRONT-END_DESIGN': 'FE',
+    APPLICATION_FRONT_END_DESIGN: 'FE',
     STUDIO_OTHER: 'O',
     IDEA_GENERATION: 'IG',
     DESIGN_FIRST2FINISH: 'DF2F',
+    DESIGN_FIRST_2_FINISH: 'DF2F',
+    WEB_DESIGNS: 'Wb',
   },
 
   // TODO: When data science challenges are returned by the API v2, they have
@@ -52,10 +55,9 @@ const Abbreviation = {
     SRM: 'SRM',
     MARATHON: 'MM',
   },
-
   GENERIC: {
     GENERIC_SCORECARDS: 'G',
-  }
-}
+  },
+};
 
-export default Abbreviation
+export default Abbreviation;

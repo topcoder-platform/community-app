@@ -5,7 +5,7 @@
 import _ from 'lodash';
 
 const fetchPromise = Promise.resolve();
-const loadBatchSize = 1;
+const loadBatchSize = 50;
 let lastItemReturnTimeout;
 
 // fetch items and then return them in batches

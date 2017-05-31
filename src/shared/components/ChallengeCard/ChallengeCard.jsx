@@ -33,24 +33,27 @@ function ChallengeCard({
   const challenge = passedInChallenge;
 
   challenge.isDataScience = false;
-  if (_.indexOf(challenge.technologies, 'Data Science') > -1) {
+  if (challenge.technologies.includes('Data Science')) {
     challenge.isDataScience = true;
   }
-  challenge.prize = challenge.prize || [];
+  challenge.prize = challenge.prizes || [];
   // challenge.totalPrize = challenge.prize.reduce((x, y) => y + x, 0)
 
   const challengeDetailLink = () => {
     const challengeUrl = `${config.MAIN_URL}/challenge-details/`;
     const mmDetailUrl = `${window.location.protocol}${config.COMMUNITY_URL}/tc?module=MatchDetails&rd=`; // Marathon Match details
     if (challenge.track === 'DATA_SCIENCE') {
-      const id = `${challenge.challengeId}`;
+      const id = `${challenge.id}`;
       if (id.length < ID_LENGTH) {
-        return `${mmDetailUrl}${challenge.challengeId}`;
+        return `${mmDetailUrl}${challenge.id}`;
       }
-      return `${challengeUrl}${challenge.challengeId}/?type=develop`;
+      return `${challengeUrl}${challenge.id}/?type=develop`;
     }
-    return `${challengeUrl}${challenge.challengeId}/?type=${challenge.track.toLowerCase()}`;
+    return `${challengeUrl}${challenge.id}/?type=${challenge.track.toLowerCase()}`;
   };
+
+  const registrationPhase = challenge.allPhases.filter(phase => phase.phaseType === 'Registration')[0];
+  const isRegistrationOpen = registrationPhase ? registrationPhase.phaseStatus === 'Open' : false;
 
   return (
     <div styleName="challengeCard">
@@ -61,20 +64,20 @@ function ChallengeCard({
               <TrackIcon
                 track={challenge.track}
                 subTrack={challenge.subTrack}
-                tcoEligible={challenge.eventName}
+                tcoEligible={challenge.events ? challenge.events[0].eventName : ''}
                 isDataScience={challenge.isDataScience}
               />
             </span>
           </TrackAbbreviationTooltip>
         </div>
 
-        <div styleName={challenge.registrationOpen === 'Yes' ? 'challenge-details with-register-button' : 'challenge-details'}>
+        <div className={isRegistrationOpen ? 'challenge-details with-register-button' : 'challenge-details'}>
           <a className="challenge-title" href={challengeDetailLink(challenge)}>
-            {challenge.challengeName}
+            {challenge.name}
           </a>
           <div styleName="details-footer">
             <span styleName="date">
-              {challenge.status === 'Active' ? 'Ends ' : 'Ended '}
+              {challenge.status === 'ACTIVE' ? 'Ends ' : 'Ended '}
               {getEndDate(challenge.submissionEndDate)}
             </span>
             <Tags technologies={challenge.technologies} onTechTagClicked={onTechTagClicked} />
@@ -82,7 +85,7 @@ function ChallengeCard({
         </div>
       </div>
       <div styleName="right-panel">
-        <div styleName={challenge.registrationOpen === 'Yes' ? 'prizes with-register-button' : 'prizes'}>
+        <div className={isRegistrationOpen ? 'prizes with-register-button' : 'prizes'}>
           <PrizesTooltip challenge={challenge} config={config}>
             <div>
               <div><span styleName="dollar">$</span>{numberWithCommas(challenge.totalPrize)}</div>
@@ -139,11 +142,12 @@ class Tags extends React.Component {
   }
 
   renderTechnologies() {
-    if (this.props.technologies.length) {
-      let technologyList = this.props.technologies;
-      if (this.props.technologies.length > VISIBLE_TECHNOLOGIES && !this.state.expanded) {
+    const technologies = this.props.technologies ? this.props.technologies.split(',') : [];
+    if (technologies.length) {
+      let technologyList = technologies;
+      if (technologies.length > VISIBLE_TECHNOLOGIES && !this.state.expanded) {
         const lastItem = `+${technologyList.length - VISIBLE_TECHNOLOGIES}`;
-        technologyList = this.props.technologies.slice(0, VISIBLE_TECHNOLOGIES);
+        technologyList = technologies.slice(0, VISIBLE_TECHNOLOGIES);
         technologyList.push(lastItem);
       }
       return technologyList.map(c => (
@@ -167,13 +171,14 @@ class Tags extends React.Component {
     );
   }
 }
+
 Tags.defaultProps = {
-  technologies: [],
+  technologies: '',
   onTechTagClicked: _.noop,
 };
 
 Tags.propTypes = {
-  technologies: PT.arrayOf(PT.string),
+  technologies: PT.string,
   onTechTagClicked: PT.func,
 };
 

@@ -23,6 +23,8 @@ import _ from 'lodash';
 import React, { Component } from 'react';
 import PT from 'prop-types';
 import Waypoint from 'react-waypoint';
+import moment from 'moment';
+
 import {
   fetchAdditionalItems,
   generateIds,
@@ -32,7 +34,7 @@ import {
 
 const assignedIdKey = 'assignedId';
 const loadpointBottomOffset = -150;
-const initialPageIndex = 1;
+const initialPageIndex = -1;
 
 class InfiniteList extends Component {
 
@@ -153,10 +155,23 @@ class InfiniteList extends Component {
 
   // fetch new items either from cache or API endpoint
   fetchNewItems() {
-    const { fetchItems, batchNumber } = this.props;
+    const { fetchItems, batchNumber, tempDataFilter } = this.props;
     const { cachedPassedInItems } = this;
 
     if (cachedPassedInItems.length === 0) {
+      // conditions need to be removed once v3 api endpoint is created for
+      // Open for registration and ongoing challenges filters
+      if (tempDataFilter === 'Open for registration') {
+        return fetchItems(this.currentPageIndex + 1).then(data => data.filter((item) => {
+          const allphases = item.allPhases.filter(phase => phase.phaseType === 'Registration' && phase.phaseStatus === 'Open');
+          return moment(item.registrationEndDate) > moment() && allphases && allphases.length > 0;
+        }));
+      } else if (tempDataFilter === 'Ongoing challenges') {
+        return fetchItems(this.currentPageIndex + 1).then(data => data.filter((item) => {
+          const allphases = item.allPhases.filter(phase => phase.phaseType === 'Registration' && phase.phaseStatus === 'Closed');
+          return moment(item.registrationEndDate) < moment() && allphases && allphases.length > 0;
+        }));
+      }
       return fetchItems(this.currentPageIndex + 1);
     }
     this.cachedPassedInItems = cachedPassedInItems.slice(batchNumber);
@@ -202,8 +217,11 @@ InfiniteList.defaultProps = {
   uniqueIdentifier: false,
   fetchItemFinishCallback: _.noop,
   renderItem: _.noop,
+  tempDataFilter: null,
 };
 
+// tempDataFilter prop is added for temporary use. Need to be removed once V3 api
+// end points are created
 InfiniteList.propTypes = {
   itemCountTotal: PT.number,
   batchNumber: PT.number,
@@ -214,6 +232,7 @@ InfiniteList.propTypes = {
   uniqueIdentifier: PT.oneOfType([PT.string, PT.bool]),
   fetchItemFinishCallback: PT.func,
   renderItem: PT.func,
+  tempDataFilter: PT.string,
 };
 
 export default InfiniteList;

@@ -65,7 +65,7 @@ class ChallengeFilter extends FilterPanelFilter {
   getFilterFunction() {
     const parent = super.getFilterFunction();
     return (item) => {
-      if (this.tracks.size && !doIntersect(this.tracks, item.communities)) {
+      if (this.tracks.size && item.communities && !doIntersect(this.tracks, item.communities)) {
         return false;
       }
       return parent(item);

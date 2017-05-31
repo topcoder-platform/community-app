@@ -49,26 +49,30 @@ class ChallengeListingPageContainer extends React.Component {
       return true;
     }
 
-    const techs = ` ${item.technologies.join(' ').toLowerCase()} `;
+    const techs = ` ${item.technologies.toLowerCase()} `;
 
     return !!(techs.indexOf(` ${keyword.toLowerCase()} `) >= 0);
   }
 
   render() {
+    const { listingOnly } = this.props;
     return (
       <div>
         {/* For demo we hardcode banner properties so we can disable max-len linting */}
         {/* eslint-disable max-len */}
-        <Banner
-          title="Challenges"
-          text="Browse our available challenges and compete. Vestibulum rutrum quam vitae fringilla tincidunt. Suspendisse nec tortor urna. Ut laoreet sodales nisi, quis iaculis nulla iaculis vitae. Donec sagittis faucibus lacus eget blandit. "
-          theme={{
-            container: style.bannerContainer,
-            content: style.bannerContent,
-            contentInner: style.bannerContentInner,
-          }}
-          imageSrc="/themes/wipro2/challenges/banner.jpg"
-        />
+        { !listingOnly ? (
+          <Banner
+            title="Challenges"
+            text="Browse our available challenges and compete. Vestibulum rutrum quam vitae fringilla tincidunt. Suspendisse nec tortor urna. Ut laoreet sodales nisi, quis iaculis nulla iaculis vitae. Donec sagittis faucibus lacus eget blandit. "
+            theme={{
+              container: style.bannerContainer,
+              content: style.bannerContent,
+              contentInner: style.bannerContentInner,
+            }}
+            imageSrc="/themes/wipro2/challenges/banner.jpg"
+          />
+        ) : null
+        }
         {/* eslint-enable max-len */}
         <ChallengeFiltersExample
           filterFromUrl={this.props.location.hash}
@@ -79,22 +83,26 @@ class ChallengeListingPageContainer extends React.Component {
           isAuth={!!this.props.auth.user}
           auth={this.props.auth}
         />
-        <NewsletterSignup
-          title="Sign up for our newsletter"
-          text="Don’t miss out on the latest Topcoder IOS challenges and information!"
-          imageSrc="/themes/wipro2/subscribe-bg.jpg"
-        />
+        { !listingOnly ? (
+          <NewsletterSignup
+            title="Sign up for our newsletter"
+            text="Don’t miss out on the latest Topcoder IOS challenges and information!"
+            imageSrc="/themes/wipro2/subscribe-bg.jpg"
+          />
+        ) : null }
       </div>
     );
   }
 }
 
 ChallengeListingPageContainer.defaultProps = {
+  listingOnly: false,
   match: null,
   tag: null,
 };
 
 ChallengeListingPageContainer.propTypes = {
+  listingOnly: PT.bool,
   match: PT.shape({
     params: PT.shape({
       keyword: PT.string,
