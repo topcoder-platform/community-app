@@ -44,9 +44,11 @@ export default function Header(props) {
       value: '1',
     }, {
       label: 'Cognitive Community',
+      redirect: 'http://cognitive.topcoder.com/',
       value: '2',
     }, {
       label: 'iOS Community',
+      redirect: 'https://ios.topcoder.com/',
       value: '3',
     },
   ];

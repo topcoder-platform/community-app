@@ -3,6 +3,9 @@
  *
  * It's styled for tc communities
  */
+
+/* global window */
+
 import React from 'react';
 import PT from 'prop-types';
 import ReactDropdown from 'react-dropdown';
@@ -14,6 +17,10 @@ function Dropdown(props) {
   return (
     <div styleName="container">
       <ReactDropdown
+        onChange={(option) => {
+          const op = options.find(item => item.value === option.value) || {};
+          if (op.redirect) window.location = op.redirect;
+        }}
         options={options}
         value={value}
       />
