@@ -37,6 +37,10 @@ export default (req, res) => {
           <title>Topcoder</title>
           <link rel="stylesheet" href="/style.css" />
           <meta charset="utf-8" />
+          <meta
+            content="width=device-width,initial-scale=1"
+            name="viewport"
+          />
         </head>
         <body>
           <div id="react-view">${appHtml}</div>
