@@ -4,6 +4,7 @@
 /* eslint jsx-a11y/no-static-element-interactions:0 */
 
 import _ from 'lodash';
+import config from 'utils/config';
 import moment from 'moment';
 import React from 'react';
 import PT from 'prop-types';
@@ -26,7 +27,7 @@ const numberWithCommas = n => (n ? n.toString().replace(/\B(?=(\d{3})+(?!\d))/g,
 
 function ChallengeCard({
   challenge: passedInChallenge,
-  config,
+  config: configFromProps,
   sampleWinnerProfile,
   onTechTagClicked,
 }) {
@@ -40,8 +41,8 @@ function ChallengeCard({
   // challenge.totalPrize = challenge.prize.reduce((x, y) => y + x, 0)
 
   const challengeDetailLink = () => {
-    const challengeUrl = `${config.MAIN_URL}/challenge-details/`;
-    const mmDetailUrl = `${window.location.protocol}${config.COMMUNITY_URL}/tc?module=MatchDetails&rd=`; // Marathon Match details
+    const challengeUrl = `${config.URL.BASE}/challenge-details/`;
+    const mmDetailUrl = `${config.URL.COMMUNITY}/tc?module=MatchDetails&rd=`; // Marathon Match details
     if (challenge.track === 'DATA_SCIENCE') {
       const id = `${challenge.id}`;
       if (id.length < ID_LENGTH) {
@@ -86,7 +87,7 @@ function ChallengeCard({
       </div>
       <div styleName="right-panel">
         <div styleName={isRegistrationOpen ? 'prizes with-register-button' : 'prizes'}>
-          <PrizesTooltip challenge={challenge} config={config}>
+          <PrizesTooltip challenge={challenge} config={configFromProps}>
             <div>
               <div><span styleName="dollar">$</span>{numberWithCommas(challenge.totalPrize)}</div>
               <div styleName="label">Purse</div>
@@ -96,7 +97,7 @@ function ChallengeCard({
 
         <ChallengeStatus
           challenge={challenge}
-          config={config}
+          config={configFromProps}
           detailLink={challengeDetailLink(challenge)}
           sampleWinnerProfile={sampleWinnerProfile}
         />
