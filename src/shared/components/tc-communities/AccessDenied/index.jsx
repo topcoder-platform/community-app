@@ -1,3 +1,5 @@
+/* global window */
+
 import _ from 'lodash';
 import config from 'utils/config';
 import PT from 'prop-types';
@@ -12,10 +14,10 @@ export const CAUSE = {
 };
 
 export default function AccessDenied({ cause }) {
+  const origin = window ? window.location.origin : '';
   switch (cause) {
     case CAUSE.NOT_AUTHENTICATED: {
-      const returnUrl =
-        encodeURIComponent(`${config.URL.MEMBER}/community/wipro/home`);
+      const returnUrl = encodeURIComponent(`${origin}/community/wipro2/home`);
       return (
         <div styleName="access-denied">
           <TopcoderLogo />

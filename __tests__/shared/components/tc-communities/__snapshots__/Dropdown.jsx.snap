@@ -6,6 +6,7 @@ exports[`Snapshot match 1`] = `
 >
   <Dropdown
     baseClassName="Dropdown"
+    onChange={[Function]}
     options={
       Array [
         Object {

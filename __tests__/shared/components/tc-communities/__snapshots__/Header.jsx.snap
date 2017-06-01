@@ -39,10 +39,12 @@ exports[`Snapshot match 1`] = `
                 },
                 Object {
                   "label": "Cognitive Community",
+                  "redirect": "http://cognitive.topcoder.com/",
                   "value": "2",
                 },
                 Object {
                   "label": "iOS Community",
+                  "redirect": "https://ios.topcoder.com/",
                   "value": "3",
                 },
               ]
@@ -156,10 +158,12 @@ exports[`Snapshot match 2`] = `
                 },
                 Object {
                   "label": "Cognitive Community",
+                  "redirect": "http://cognitive.topcoder.com/",
                   "value": "2",
                 },
                 Object {
                   "label": "iOS Community",
+                  "redirect": "https://ios.topcoder.com/",
                   "value": "3",
                 },
               ]
