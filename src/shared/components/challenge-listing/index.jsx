@@ -21,6 +21,9 @@ import PT from 'prop-types';
 import config from 'utils/config';
 import Sticky from 'react-stickynode';
 
+import { getService as getChallengesService } from 'services/challenges';
+
+import { DESIGN_TRACK, DEVELOP_TRACK, DATA_SCIENCE_TRACK } from './Filters/ChallengeFilter';
 import ChallengeFilterWithSearch from './Filters/ChallengeFilterWithSearch';
 import ChallengeFilters from './Filters/ChallengeFilters';
 import SideBarFilter, { MODE as SideBarFilterModes } from './SideBarFilters/SideBarFilter';
@@ -46,6 +49,12 @@ function keywordsMapper(keyword) {
     value: keyword,
   };
 }
+
+const communityMap = {
+  DEVELOP: DEVELOP_TRACK,
+  DESIGN: DESIGN_TRACK,
+  DATA_SCIENCE: DATA_SCIENCE_TRACK,
+};
 
 // Number of challenge placeholder card to display
 const CHALLENGE_PLACEHOLDER_COUNT = 8;
@@ -73,7 +82,6 @@ const SRMsSidebarMock = {
  * {param} limit: Number of challenges to fetch
  * {param} helper: Function to invoke to map response
  */
-/*
 function fetchPastChallenges(limit, helper, groupIds, tokenV3) {
   const cService = getChallengesService(tokenV3);
   const MAX_LIMIT = 50;
@@ -91,7 +99,6 @@ function fetchPastChallenges(limit, helper, groupIds, tokenV3) {
   }
   return result;
 }
-*/
 
 // helper function to serialize object to query string
 const serialize = filter => filter.getURLEncoded();
@@ -118,9 +125,11 @@ class ChallengeFiltersExample extends React.Component {
       currentCardType: 'Challenges',
       filter: new SideBarFilter(),
       lastFetchId: 0,
-
+      isLoaded: false,
       isSRMChallengesLoading: false,
       isSRMChallengesLoaded: false,
+      isChallengesLoading: false,
+      isChallengesLoaded: false,
     };
     if (props.filterFromUrl) {
       this.state.filter = deserialize(props.filterFromUrl);
@@ -179,12 +188,10 @@ class ChallengeFiltersExample extends React.Component {
    * load data only once.
    */
   componentDidMount() {
-    /*
     if (!this.state.isSRMChallengesLoading && !this.state.isSRMChallengesLoaded) {
       // eslint-disable-next-line react/no-did-mount-set-state
       this.setState({ isSRMChallengesLoading: true });
       /* Fetching of SRM challenges */
-      /*
       fetch(`${this.props.config.API_URL}/srms/?filter=status=FUTURE`)
         .then(res => res.json())
         .then((json) => {
@@ -195,9 +202,7 @@ class ChallengeFiltersExample extends React.Component {
           });
         });
     }
-    */
 
-    /*
     if (!this.state.isChallengesLoading && !this.state.isChallengesLoaded) {
       // eslint-disable-next-line react/no-did-mount-set-state
       this.setState({ isChallengesLoading: true });
@@ -206,10 +211,8 @@ class ChallengeFiltersExample extends React.Component {
         this.setState({ isChallengesLoading: false, isChallengesLoaded: true });
       });
     }
-    */
   }
 
-  /*
   componentDidUpdate(prevProps) {
     if (this.props.auth.tokenV3 !== prevProps.auth.tokenV3) {
       setImmediate(() => {
@@ -230,7 +233,6 @@ class ChallengeFiltersExample extends React.Component {
       });
     }
   }
-  */
 
   /**
    * Searches the challenges for with the specified search string, competition
@@ -268,6 +270,22 @@ class ChallengeFiltersExample extends React.Component {
     this.setState({ filter: updatedFilter }, this.saveFiltersToHash.bind(this, updatedFilter));
   }
 
+  /**
+   * Writes array of challenges into the state.
+   * @param {Number} fetchId Nothing will be done, if this ID mismatches the one
+   *  stored in the state (this way we deal with async fetches: only the latest
+   *  fetch will be able to write its result into the state).
+   * @param {Array} challenges Array of challenge objects.
+   * @param {Function(Object)} filter An optional filter function. If provided,
+   *  the array of challenges, given as the second argument, will be prefiltered
+   *  with this function before writing into the state.
+   */
+  setChallenges(fetchId, challenges, filter) {
+    if (fetchId !== this.state.lastFetchId) return;
+    const c = filter ? challenges.filter(filter.getFilterFunction()) : challenges;
+    this.setState({ challenges: c, isLoaded: true });
+  }
+
   // set current card type
   setCardType(cardType) {
     this.setState({
@@ -284,6 +302,144 @@ class ChallengeFiltersExample extends React.Component {
     this.props.onSaveFilterToUrl(urlString);
   }
 
+  /**
+   * Fetches challenges from the backend API v2.
+   *
+   * As there is no single endpoint to fetch and filter challenges from all tracks,
+   * this function calls three separate enpoints (design, development, and dataScience
+   * science), and fetches all active challenges from each of them.
+   *
+   * As some of the challenges may belong to several tracks (currently some challenges
+   * are returned both for development and data science listings, although technically
+   * they are registered as development challenges), this function appends to all
+   * fetched challenges a new `communities` field, which is a set of all tracks a
+   * challenge belongs to, based on the endpoints which have returned that challenge.
+   *
+   * As pure data science challenges don't have in their objects some of the fields
+   * the challenges in other tracks have, this function also attaches some of the
+   * missing fields to them, in order to avoid the need for aditional conditions
+   * in the dependent code.
+   *
+   * @return Promise which resolves to the array of challenges.
+   */
+  fetchChallenges() {
+    const { auth } = this.props;
+    const challenges = [];
+    const knownKeywords = new Set();
+    VALID_KEYWORDS.forEach(item => knownKeywords.add(item.value));
+    const map = {};
+    let forceUpdate = false;
+    function helper1(key) {
+      if (knownKeywords.has(key)) return;
+      knownKeywords.add(key);
+      forceUpdate = true;
+    }
+    /* Normalizes challenge objects received from different API endpoints,
+     * and adds them to the list of loaded challenges. */
+    // TODO: Do we still need to pass api responses through this helper
+    // after we have moved to API V3?
+    function helper2(response, community) {
+      return response.json().then((res) => {
+        // TODO: API v3 always has res.result!
+        const content = res.result ? res.result.content : res.data;
+        content.forEach((item) => {
+          if (item.subTrack === 'MARATHON_MATCH') {
+            // TODO: After we have moved to API v3, most probably there is
+            // a more optimal way to set some of these defaults, or probably
+            // we can get rid of this method at all. Don't have time to
+            // investigate it carefully now.
+            const endTimestamp = new Date(item.endDate).getTime();
+            const allphases = [{
+              challengeId: item.id,
+              phaseType: 'Registration',
+              phaseStatus: endTimestamp > Date.now() ? 'Open' : 'Close',
+              scheduledEndTime: item.endDate,
+            }];
+            _.defaults(item, {
+              id: item.id,
+              name: item.name,
+              challengeCommunity: 'Data',
+              challengeType: 'Marathon',
+              allPhases: allphases,
+              currentPhases: allphases.filter(phase => phase.phaseStatus === 'Open'),
+              communities: new Set([community]),
+              currentPhaseName: endTimestamp > Date.now() ? 'Registration' : '',
+              numRegistrants: item.numRegistrants[0],
+              numSubmissions: item.userIds.length,
+              platforms: '',
+              prizes: [0],
+              registrationOpen: endTimestamp > Date.now() ? 'Yes' : 'No',
+              registrationStartDate: item.startDate,
+              submissionEndDate: item.endDate,
+              submissionEndTimestamp: endTimestamp,
+              technologies: '',
+              totalPrize: 0,
+              track: 'DATA_SCIENCE',
+              status: endTimestamp > Date.now() ? 'ACTIVE' : 'COMPLETED',
+              subTrack: 'MARATHON_MATCH',
+            });
+            map[item.id] = item;
+          } else if (item.track === 'SRM') {
+            /* We don't support SRM yet, so we don't want them around */
+          } else { /* All challenges from other endpoints have the same format. */
+            const existing = map[item.id];
+            const challengeCommunity = community || communityMap[item.track];
+            if (existing) existing.communities.add(challengeCommunity);
+            else {
+              _.defaults(item, {
+                communities: new Set([challengeCommunity]),
+                platforms: '',
+                registrationOpen: item.allPhases.filter(d => d.phaseType === 'Registration')[0].phaseStatus === 'Open' ? 'Yes' : 'No',
+                technologies: '',
+                submissionEndTimestamp: item.submissionEndDate,
+              });
+              map[item.id] = item;
+              if (item.platforms) {
+                item.platforms.split(',').forEach(helper1);
+              }
+              if (item.technologies) {
+                item.technologies.split(',').forEach(helper1);
+              }
+            }
+          }
+        });
+      },
+      );
+    }
+
+    const cService = getChallengesService(auth.tokenV3);
+    return Promise.all([
+      /* Fetching of active challenges */
+      cService.getChallenges({
+        groupIds: this.props.challengeGroupId || undefined,
+        status: 'ACTIVE',
+      }).then(res => helper2(res)),
+      cService.getMarathonMatches({
+        groupIds: this.props.challengeGroupId || undefined,
+        status: 'ACTIVE',
+      }).then(res => helper2(res, DATA_SCIENCE_TRACK)),
+
+      // Fetch some past challenges
+      ...fetchPastChallenges(400, helper2, this.props.challengeGroupId || undefined, auth.tokenV3),
+      cService.getMarathonMatches({
+        groupIds: this.props.challengeGroupId || undefined,
+        status: 'PAST',
+      }, {
+        limit: 100,
+      }).then(res => helper2(res, DATA_SCIENCE_TRACK)),
+    ]).then(() => {
+      _.forIn(map, item => challenges.push(item));
+      challenges.sort((a, b) => b.submissionEndDate - a.submissionEndDate);
+      // TODO: Using forceUpdate() in ReactJS is a bad practice. The reason here
+      // is that we need to update the component if we have updated the mock list
+      // VALID_KEYWORDS. In the real App the list of valid keywords will be passed
+      // via props from the parent component, and no force update will be necessary.
+      // Thus, it is a temporary solution, which will be changed later.
+      if (forceUpdate) this.forceUpdate();
+      return challenges;
+    });
+  }
+
   // TODO:
   // This method is not being used any more
   // and should be removed in future.
@@ -294,26 +450,35 @@ class ChallengeFiltersExample extends React.Component {
 
   // ReactJS render method.
   render() {
-    // console.log('RENDER', this.props);
+    // TODO: This is bad code. Generation of myChallengesId array is O(N),
+    // using it to mark `My Challenges` using that array is O(N^2). Not that
+    // critical for now, as nobody has huge amount of challenges he is participating,
+    // but... One should generate a set of myChallengesId, which is O(N), and
+    // then use it to mark `My Challenges`, which also will be O(N).
+    let myChallengesId = [];
+    // get my challenges id
+    if (this.props.myChallenges) {
+      myChallengesId = this.props.myChallenges.map(challenge => challenge.id);
+    }
 
-    let challenges = this.props.challenges;
+    let challenges = this.state.challenges;
     // filter all challenges by master filter before applying any user filters
     challenges = _.filter(challenges, this.props.masterFilterFunc);
     const currentFilter = this.state.filter;
-    if (this.props.auth.user) {
-      challenges = challenges.map((item) => {
-        if (item.users[this.props.auth.user.handle]) {
-          _.assign(item, { myChallenge: true });
-        }
-        return item;
-      });
-    }
+    challenges = challenges.map((item) => {
+      // check the challenge id exist in my challenges id
+      // TODO: This is also should be moved to a better place, fetchChallenges() ?
+      if (_.indexOf(myChallengesId, item.id) > -1) {
+        _.assign(item, { myChallenge: true });
+      }
+      return item;
+    });
 
     const { filter } = this.state;
     const { name: sidebarFilterName } = filter;
 
     let challengeCardContainer;
-    if (this.props.loading) {
+    if (!this.state.isLoaded) {
       const challengeCards = _.range(CHALLENGE_PLACEHOLDER_COUNT)
       .map(key => <ChallengeCardPlaceholder id={key} key={key} />);
       challengeCardContainer = (
@@ -466,7 +631,7 @@ class ChallengeFiltersExample extends React.Component {
 
         <div styleName={`tc-content-wrapper ${this.state.currentCardType === 'Challenges' ? '' : 'hidden'}`}>
           <div styleName="sidebar-container-mobile">
-            {!this.props.loading ? (<SideBarFilters
+            {this.state.isLoaded ? (<SideBarFilters
               config={this.props.config}
               challenges={challenges}
               filter={this.state.sidebarFilter}
@@ -489,7 +654,7 @@ class ChallengeFiltersExample extends React.Component {
 
           <div styleName="sidebar-container-desktop">
             <Sticky top={20}>
-              {!this.props.loading ? (<SideBarFilters
+              {this.state.isLoaded ? (<SideBarFilters
                 config={this.props.config}
                 challenges={challenges}
                 filter={this.state.filter}
@@ -528,21 +693,13 @@ ChallengeFiltersExample.defaultProps = {
 };
 
 ChallengeFiltersExample.propTypes = {
-  challenges: PT.arrayOf(PT.shape({
-
-  })).isRequired,
-  // getChallenges: PT.func.isRequired,
-  // getMarathonMatches: PT.func.isRequired,
-  loading: PT.bool.isRequired,
-
-  /* OLD PROPS BELOW */
   config: PT.shape({
     API_URL_V2: PT.string,
     API_URL: PT.string,
     MAIN_URL: PT.MAIN_URL,
     COMMUNITY_URL: PT.COMMUNITY_URL,
   }),
-  // challengeGroupId: PT.string,
+  challengeGroupId: PT.string,
   filterFromUrl: PT.string,
   onSaveFilterToUrl: PT.func,
   setChallengeFilter: PT.func,
