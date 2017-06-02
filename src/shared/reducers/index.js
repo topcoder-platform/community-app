@@ -18,6 +18,7 @@ import { combine, resolveReducers } from 'utils/redux';
 
 import { factory as authFactory } from './auth';
 import { factory as challengeFactory } from './challenge';
+import { factory as challengeListingFactory } from './challenge-listing';
 import { factory as examplesFactory } from './examples';
 import { factory as tcCommunitiesFactory } from './tc-communities';
 import { factory as leaderboardFactory } from './leaderboard';
@@ -27,6 +28,7 @@ export function factory(req) {
   return resolveReducers({
     auth: authFactory(req),
     challenge: challengeFactory(req),
+    challengeListing: challengeListingFactory(req),
     examples: examplesFactory(req),
     tcCommunities: tcCommunitiesFactory(req),
     leaderboard: leaderboardFactory(req),
