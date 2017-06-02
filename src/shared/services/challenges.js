@@ -34,7 +34,14 @@ class ChallengesService {
         filter: qs.stringify(filters),
         ...params,
       };
-      return this.private.api.get(`${endpoint}?${qs.stringify(query)}`);
+      return this.private.api.get(`${endpoint}?${qs.stringify(query)}`)
+      .then(res => (res.ok ? res.json() : new Error(res.statusText)))
+      .then(res => (
+        res.result.status === 200 ? {
+          challenges: res.result.content,
+          totalCount: res.result.metadata.totalCount,
+        } : new Error(res.result.content)
+      ));
     };
 
     this.private = {
