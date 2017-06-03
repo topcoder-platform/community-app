@@ -15,7 +15,7 @@ import logger from 'utils/logger';
 import React from 'react';
 import PT from 'prop-types';
 import { connect } from 'react-redux';
-import ChallengeFiltersExample from 'components/challenge-listing';
+import ChallengeListing from 'components/challenge-listing';
 import Banner from 'components/tc-communities/Banner';
 import NewsletterSignup from 'components/tc-communities/NewsletterSignup';
 import shortid from 'shortid';
@@ -157,14 +157,14 @@ class ChallengeListingPageContainer extends React.Component {
         ) : null
         }
         {/* eslint-enable max-len */}
-        <ChallengeFiltersExample
+        <ChallengeListing
           challenges={cl.challenges}
           challengeSubtracks={cl.challengeSubtracks}
           challengeTags={cl.challengeTags}
           filter={this.props.challengeListing.filter}
           getChallenges={this.props.getChallenges}
           getMarathonMatches={this.props.getMarathonMatches}
-          loading={Boolean(_.keys(this.props.challengeListing.pendingRequests).length)}
+          loadingChallenges={Boolean(_.keys(this.props.challengeListing.pendingRequests).length)}
           setFilter={(filter) => {
             const f = encodeURI(filter);
             this.props.history.replace(`#${f}`);
@@ -246,7 +246,9 @@ const mapStateToProps = state => ({
 function getChallenges(dispatch, ...rest) {
   const uuid = shortid();
   dispatch(actions.challengeListing.getInit(uuid));
-  dispatch(actions.challengeListing.getChallenges(uuid, ...rest));
+  const action = actions.challengeListing.getChallenges(uuid, ...rest);
+  dispatch(action);
+  return action.payload;
 }
 
 /**
@@ -258,7 +260,12 @@ function getChallenges(dispatch, ...rest) {
 function getMarathonMatches(dispatch, ...rest) {
   const uuid = shortid();
   dispatch(actions.challengeListing.getInit(uuid));
-  dispatch(actions.challengeListing.getMarathonMatches(uuid, ...rest));
+  const action = actions.challengeListing.getMarathonMatches(uuid, ...rest);
+  dispatch(action);
+  // TODO: This is hack to make the Redux loading of challenges to work
+  // with older code inside the InfiniteList, until it is properly
+  // refactored.
+  return action.payload;
 }
 
 function mapDispatchToProps(dispatch) {

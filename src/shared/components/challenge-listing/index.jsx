@@ -25,7 +25,7 @@ import SideBarFilter, { MODE as SideBarFilterModes } from './SideBarFilters/Side
 import SideBarFilters from './SideBarFilters';
 import ChallengeCard from './ChallengeCard';
 import ChallengeCardContainer from './ChallengeCardContainer';
-import ChallengeCardPlaceholder from './placeholders/ChallengeCardPlaceholder';
+// import ChallengeCardPlaceholder from './placeholders/ChallengeCardPlaceholder';
 import SidebarFilterPlaceholder from './placeholders/SidebarFilterPlaceholder';
 import SRMCard from './SRMCard';
 import ChallengesSidebar from './Sidebar';
@@ -46,7 +46,7 @@ function keywordsMapper(keyword) {
 }
 
 // Number of challenge placeholder card to display
-const CHALLENGE_PLACEHOLDER_COUNT = 8;
+// const CHALLENGE_PLACEHOLDER_COUNT = 8;
 
 // A mock list of SRMs side bar
 const SRMsSidebarMock = {
@@ -282,7 +282,10 @@ class ChallengeFiltersExample extends React.Component {
     const { name: sidebarFilterName } = filter;
 
     let challengeCardContainer;
-    if (this.props.loading) {
+    /*
+      TODO: Rendering of the challenge placeholders during initial loading
+      is temporarly disabled.
+    if (false && this.props.loadingChallenges && (sidebarFilterName !== 'All Challenges')) {
       const challengeCards = _.range(CHALLENGE_PLACEHOLDER_COUNT)
       .map(key => <ChallengeCardPlaceholder id={key} key={key} />);
       challengeCardContainer = (
@@ -292,7 +295,7 @@ class ChallengeFiltersExample extends React.Component {
           </div>
         </div>
       );
-    } else if (filter.isCustomFilter) {
+    } else */ if (filter.isCustomFilter) {
       if (currentFilter.mode === SideBarFilterModes.CUSTOM) {
         challenges = this.props.challenges.filter(currentFilter.getFilterFunction());
       }
@@ -326,11 +329,13 @@ class ChallengeFiltersExample extends React.Component {
 
       challengeCardContainer = (
         <ChallengeCardContainer
+          auth={this.props.auth}
           config={this.props.config}
           onTechTagClicked={(tag) => {
             if (this.challengeFilters) this.challengeFilters.setKeywords(tag);
           }}
           challenges={_.uniqBy(challenges, 'id')}
+          challengeGroupId={this.props.challengeGroupId}
           currentFilterName={sidebarFilterName}
           expanded={sidebarFilterName !== 'All Challenges'}
           fetchCallback={_.noop /* (fetchedChallenges) => {
@@ -342,6 +347,8 @@ class ChallengeFiltersExample extends React.Component {
               ),
             });
           }*/}
+          getChallenges={this.props.getChallenges}
+          getMarathonMatches={this.props.getMarathonMatches}
           additionalFilter={
             challenge => filterFunc(challenge) && sidebarFilterFunc(challenge)
           }
@@ -423,7 +430,7 @@ class ChallengeFiltersExample extends React.Component {
 
         <div styleName={`tc-content-wrapper ${/* this.state.currentCardType === 'Challenges' ? '' : 'hidden' */''}`}>
           <div styleName="sidebar-container-mobile">
-            {!this.props.loading ? (<SideBarFilters
+            {!this.props.loadingChallenges ? (<SideBarFilters
               config={this.props.config}
               challenges={challenges}
               filter={this.getFilter()}
@@ -443,7 +450,7 @@ class ChallengeFiltersExample extends React.Component {
 
           <div styleName="sidebar-container-desktop">
             <Sticky top={20}>
-              {!this.props.loading ? (<SideBarFilters
+              {!this.props.loadingChallenges ? (<SideBarFilters
                 config={this.props.config}
                 challenges={challenges}
                 filter={this.getFilter()}
@@ -485,9 +492,9 @@ ChallengeFiltersExample.propTypes = {
   challengeSubtracks: PT.arrayOf(PT.string).isRequired,
   challengeTags: PT.arrayOf(PT.string).isRequired,
   filter: PT.string.isRequired,
-  // getChallenges: PT.func.isRequired,
-  // getMarathonMatches: PT.func.isRequired,
-  loading: PT.bool.isRequired,
+  getChallenges: PT.func.isRequired,
+  getMarathonMatches: PT.func.isRequired,
+  loadingChallenges: PT.bool.isRequired,
   setFilter: PT.func.isRequired,
 
   /* OLD PROPS BELOW */

@@ -21,6 +21,12 @@ export default [
       'Prize high to low',
       'Title A-Z',
     ],
+
+    filteringParams: {
+      status: 'active',
+      user: true,
+    },
+
     // TODO:
     // 1. This call still uses V2 API;
     // 2. Actually it fails with Error: type is a required parameter for this action.
@@ -47,6 +53,11 @@ export default [
     info: {
       phaseName: 'registration',
     },
+
+    filteringParams: {
+      status: 'active',
+    },
+
     // v3 end point need to be updated once it is created for open for registration challenges
     getApiUrl: (pageIndex, pageSize = 50) => (
       `${config.API.V3}/challenges/?filter=status%3DActive&offset=${pageIndex * pageSize}&limit=${pageSize}`
@@ -63,6 +74,11 @@ export default [
       'Title A-Z',
       'Prize high to low',
     ],
+
+    filteringParams: {
+      status: 'active',
+    },
+
     // v3 end point need to be updated once it is created for open for ongoing challenges
     getApiUrl: (pageIndex, pageSize = 50) => (
       `${config.API.V3}/challenges/?filter=status%3DActive&offset=${pageIndex * pageSize}&limit=${pageSize}`
@@ -78,6 +94,11 @@ export default [
       'Title A-Z',
       'Prize high to low',
     ],
+
+    filteringParams: {
+      status: 'completed',
+    },
+
     // v3 end point need to be updated once it is created for past challenges
     getApiUrl: (pageIndex, pageSize = 50) => (
       `${config.API.V3}/challenges/?filter=status%3DCompleted&offset=${pageIndex * pageSize}&limit=${pageSize}`
@@ -119,6 +140,12 @@ export default [
       'Title A-Z',
       'Prize high to low',
     ],
+
+    // TODO: This is not correct, the proper should be set later.
+    filteringParams: {
+      status: 'active',
+    },
+
     // TODO: Why is it still V2 API? Anyway, this does not work now.
     getApiUrl: (pageIndex, pageSize = 50) => (
       `${config.API.V2}/challenges/upcoming?pageIndex=${pageIndex}&pageSize=${pageSize}`
