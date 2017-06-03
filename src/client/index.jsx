@@ -43,6 +43,9 @@ function authenticate(store) {
     frameId: 'tc-accounts-iframe',
   });
 
+  /* TODO: Should we schedule authomatical re-authentication with help of
+    setTimeout(), so that we don't have to worry about updates of the token
+    in any other frontend code? */
   getFreshToken().then((tctV3) => {
     const tctV2 = cookies.get('tcjwt');
     logger.log('Authenticated as:', decodeToken(tctV3));

@@ -32,6 +32,8 @@
 
 import _ from 'lodash';
 import actions from 'actions/challenge-listing';
+import SideBarFilter from
+  'components/challenge-listing/SideBarFilters/SideBarFilter';
 import { handleActions } from 'redux-actions';
 import { COMMUNITY } from 'utils/tc';
 
@@ -246,9 +248,11 @@ function create(initialState) {
     [a.getInit]: onGetInit,
     [a.getMarathonMatches]: onGetMarathonMatches,
     [a.reset]: onReset,
+    [a.setFilter]: (state, { payload }) => ({ ...state, filter: payload }),
   }, _.defaults(_.clone(initialState) || {}, {
     challenges: [],
     counts: {},
+    filter: (new SideBarFilter()).getURLEncoded(),
     oldestData: Date.now(),
     pendingRequests: {},
   }));

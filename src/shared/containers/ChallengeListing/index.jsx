@@ -11,6 +11,7 @@
 
 import _ from 'lodash';
 import actions from 'actions/challenge-listing';
+import logger from 'utils/logger';
 import React from 'react';
 import PT from 'prop-types';
 import { connect } from 'react-redux';
@@ -19,6 +20,8 @@ import Banner from 'components/tc-communities/Banner';
 import NewsletterSignup from 'components/tc-communities/NewsletterSignup';
 import shortid from 'shortid';
 import style from './styles.scss';
+
+let mounted = false;
 
 // The container component
 class ChallengeListingPageContainer extends React.Component {
@@ -29,13 +32,29 @@ class ChallengeListingPageContainer extends React.Component {
   }
 
   componentDidMount() {
+    if (mounted) {
+      logger.error('Attempt to mount multiple instances of ChallengeListingPageContainer at the same time!');
+    } else mounted = true;
     this.loadChallenges();
+
+    /* Get filter from the URL hash, if necessary. */
+    const filter = this.props.location.hash.slice(1);
+    if (filter && filter !== this.props.challengeListing.filter) {
+      this.props.setFilter(filter);
+    }
   }
 
   componentDidUpdate(prevProps) {
     const token = this.props.auth.tokenV3;
     if (token && token !== prevProps.auth.tokenV3) {
       setImmediate(() => this.loadChallenges());
+    }
+  }
+
+  componentWillUnmount() {
+    if (mounted) mounted = false;
+    else {
+      logger.error('A mounted instance of ChallengeListingPageContainer is not tracked as mounted!');
     }
   }
 
@@ -131,17 +150,22 @@ class ChallengeListingPageContainer extends React.Component {
         {/* eslint-enable max-len */}
         <ChallengeFiltersExample
           challenges={this.props.challengeListing.challenges}
+          filter={this.props.challengeListing.filter}
           getChallenges={this.props.getChallenges}
           getMarathonMatches={this.props.getMarathonMatches}
           loading={Boolean(_.keys(this.props.challengeListing.pendingRequests).length)}
+          setFilter={(filter) => {
+            const f = encodeURI(filter);
+            this.props.history.replace(`#${f}`);
+            if (f !== this.props.challengeListing.filter) {
+              this.props.setFilter(f);
+            }
+          }}
 
           /* OLD PROPS BELOW */
           challengeGroupId={challengeGroupId}
           filterFromUrl={this.props.location.hash}
           masterFilterFunc={this.masterFilterFunc}
-          onSaveFilterToUrl={(filter) => {
-            this.props.history.replace(`#${encodeURI(filter)}`);
-          }}
           isAuth={!!this.props.auth.user}
           auth={this.props.auth}
         />
@@ -167,10 +191,12 @@ ChallengeListingPageContainer.defaultProps = {
 ChallengeListingPageContainer.propTypes = {
   challengeListing: PT.shape({
     challenges: PT.arrayOf(PT.shape({})).isRequired,
+    filter: PT.string.isRequired,
     pendingRequests: PT.shape({}).isRequired,
   }).isRequired,
   getChallenges: PT.func.isRequired,
   getMarathonMatches: PT.func.isRequired,
+  setFilter: PT.func.isRequired,
 
   /* OLD PROPS BELOW */
   listingOnly: PT.bool,
@@ -227,6 +253,7 @@ function mapDispatchToProps(dispatch) {
     getChallenges: (...rest) => getChallenges(dispatch, ...rest),
     getMarathonMatches: (...rest) => getMarathonMatches(dispatch, ...rest),
     reset: () => dispatch(actions.challengeListing.reset()),
+    setFilter: f => dispatch(actions.challengeListing.setFilter(f)),
   };
 }
 

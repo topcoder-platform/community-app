@@ -1,6 +1,3 @@
-/* global
-  window
-*/
 /* eslint jsx-a11y/no-static-element-interactions:0 */
 
 import _ from 'lodash';

@@ -113,20 +113,16 @@ class ChallengeFiltersExample extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      challenges: [],
-      srmChallenges: [],
-      currentCardType: 'Challenges',
-      filter: new SideBarFilter(),
-      lastFetchId: 0,
+      // challenges: [],
+      // srmChallenges: [],
+      // currentCardType: 'Challenges',
+      // filter: new SideBarFilter(),
+      // lastFetchId: 0,
 
-      isSRMChallengesLoading: false,
-      isSRMChallengesLoaded: false,
+      // isSRMChallengesLoading: false,
+      // isSRMChallengesLoaded: false,
     };
-    if (props.filterFromUrl) {
-      this.state.filter = deserialize(props.filterFromUrl);
-      this.state.searchQuery = props.filterFromUrl.split('&').filter(e => e.startsWith('query')).map(element => element.split('=')[1])[0];
-    }
-    this.setCardType.bind(this);
+    // this.setCardType.bind(this);
 
     // as subtracks are stored on the module level, we don't need to re-download them
     // each time we construct ChallengeFiltersExample component otherwise we will duplicate
@@ -166,9 +162,6 @@ class ChallengeFiltersExample extends React.Component {
           json.result.content.forEach(item => VALID_KEYWORDS.push(keywordsMapper(item.name)));
         });
     }
-
-    // callback to listings.controller.js
-    props.setChallengeFilter(this);
   }
 
   /**
@@ -245,11 +238,12 @@ class ChallengeFiltersExample extends React.Component {
    * @param {String} searchString The search string.
    * @param {Function(Challenge)} filter Additional filter function.
    */
-  onSearch(searchString, filter) {
+  onSearch(searchString) {
     const f = new ChallengeFilterWithSearch();
-    _.merge(f, filter);
+    _.merge(f, this.getFilter());
     f.query = searchString;
-    this.setState({ searchQuery: searchString }, () => this.onFilterByTopFilter(f));
+    if (f.query) this.onFilterByTopFilter(f);
+    else this.saveFiltersToHash(this.getFilter());
   }
 
   onFilterByTopFilter(filter, isSidebarFilter) {
@@ -259,47 +253,67 @@ class ChallengeFiltersExample extends React.Component {
       updatedFilter.isCustomFilter = true;
       updatedFilter.mode = SideBarFilterModes.CUSTOM;
     } else {
-      const mergedFilter = Object.assign({}, this.state.filter, filter);
+      const mergedFilter = Object.assign({}, this.getFilter(), filter);
       updatedFilter = new SideBarFilter(mergedFilter);
       if (!isSidebarFilter) {
         updatedFilter.mode = SideBarFilterModes.CUSTOM;
       }
     }
-    this.setState({ filter: updatedFilter }, this.saveFiltersToHash.bind(this, updatedFilter));
+    this.saveFiltersToHash(updatedFilter, updatedFilter.query || this.getSearchQuery());
   }
 
   // set current card type
+  /*
   setCardType(cardType) {
     this.setState({
       currentCardType: cardType,
     });
   }
+  */
+
+  /**
+   * Creates filter object from the text filter representation in the state.
+   * @return {Object}
+   */
+  getFilter() {
+    const q = this.getSearchQuery();
+    let f = deserialize(this.props.filter);
+    if (q) {
+      f = _.merge(new ChallengeFilterWithSearch(), f);
+      f.query = q;
+    }
+    return f;
+  }
+
+  /**
+   * Extracts free text search query from the filter string.
+   * @return {String}
+   */
+  getSearchQuery() {
+    return this.props.filter.split('&').filter(e =>
+      e.startsWith('query')).map(element => element.split('=')[1])[0];
+  }
 
   /**
    * Saves current filters to the URL hash.
    */
-  saveFiltersToHash(filter) {
-    let urlString = this.state.searchQuery ? `&query=${this.state.searchQuery}` : '';
+  saveFiltersToHash(filter, searchQuery) {
+    let urlString = searchQuery ? `&query=${searchQuery}` : '';
     urlString += serialize(filter);
-    this.props.onSaveFilterToUrl(urlString);
-  }
-
-  // TODO:
-  // This method is not being used any more
-  // and should be removed in future.
-  updateFilter() {
-    const filter = this.state.filter;
-    return filter;
+    this.props.setFilter(urlString);
   }
 
   // ReactJS render method.
   render() {
-    // console.log('RENDER', this.props);
-
     let challenges = this.props.challenges;
+    if (this.props.challengeGroupId) {
+      challenges = challenges.filter(item =>
+        item.groups[this.props.challengeGroupId]);
+    }
+
     // filter all challenges by master filter before applying any user filters
     challenges = _.filter(challenges, this.props.masterFilterFunc);
-    const currentFilter = this.state.filter;
+    const currentFilter = this.getFilter();
     if (this.props.auth.user) {
       challenges = challenges.map((item) => {
         if (item.users[this.props.auth.user.handle]) {
@@ -309,7 +323,9 @@ class ChallengeFiltersExample extends React.Component {
       });
     }
 
-    const { filter } = this.state;
+    challenges.sort((a, b) => b.submissionEndDate - a.submissionEndDate);
+
+    const filter = this.getFilter();
     const { name: sidebarFilterName } = filter;
 
     let challengeCardContainer;
@@ -325,7 +341,7 @@ class ChallengeFiltersExample extends React.Component {
       );
     } else if (filter.isCustomFilter) {
       if (currentFilter.mode === SideBarFilterModes.CUSTOM) {
-        challenges = this.state.challenges.filter(currentFilter.getFilterFunction());
+        challenges = this.props.challenges.filter(currentFilter.getFilterFunction());
       }
 
       const cardify = challenge => (
@@ -364,14 +380,15 @@ class ChallengeFiltersExample extends React.Component {
           challenges={_.uniqBy(challenges, 'id')}
           currentFilterName={sidebarFilterName}
           expanded={sidebarFilterName !== 'All Challenges'}
-          fetchCallback={(fetchedChallenges) => {
+          fetchCallback={_.noop /* (fetchedChallenges) => {
+            /*
             this.setState({
               challenges: _.uniqBy(
                 challenges.concat(fetchedChallenges),
                 'id',
               ),
             });
-          }}
+          }*/}
           additionalFilter={
             challenge => filterFunc(challenge) && sidebarFilterFunc(challenge)
           }
@@ -384,8 +401,9 @@ class ChallengeFiltersExample extends React.Component {
     }
 
     // Upcoming srms
-    let futureSRMChallenge = this.state.srmChallenges.filter(challenge => challenge.status === 'FUTURE');
-
+    // let futureSRMChallenge = this.state.srmChallenges.filter(challenge =>
+    //  challenge.status === 'FUTURE');
+    /*
     futureSRMChallenge = futureSRMChallenge.sort(
       (a, b) => new Date(a.startDate).getTime() - new Date(b.startDate).getTime(),
     );
@@ -399,6 +417,7 @@ class ChallengeFiltersExample extends React.Component {
         />
       ),
     );
+    */
     VALID_SUBTRACKS.sort((a, b) => {
       if (a.label < b.label) {
         return -1;
@@ -418,7 +437,7 @@ class ChallengeFiltersExample extends React.Component {
     return (
       <div styleName="ChallengeFiltersExample">
         <ChallengeFilters
-          filter={this.state.filter}
+          filter={this.getFilter()}
           onFilter={topFilter => this.onFilterByTopFilter(topFilter)}
           onSaveFilter={(filterToSave) => {
             if (this.sidebar) {
@@ -427,15 +446,15 @@ class ChallengeFiltersExample extends React.Component {
               this.sidebar.addFilter(f);
             }
           }}
-          searchQuery={this.state.searchQuery}
-          onSearch={(query, existingFilter) => this.onSearch(query, existingFilter)}
+          searchQuery={this.getSearchQuery()}
+          onSearch={query => this.onSearch(query)}
           validKeywords={VALID_KEYWORDS}
           validSubtracks={VALID_SUBTRACKS}
-          setCardType={cardType => this.setCardType(cardType)}
-          isCardTypeSet={this.state.currentCardType}
+          setCardType={_.noop/* cardType => this.setCardType(cardType) */}
+          isCardTypeSet={'Challenges' /* this.state.currentCardType */}
           ref={(node) => { this.challengeFilters = node; }}
         />
-        <div styleName={`tc-content-wrapper ${this.state.currentCardType === 'SRMs' ? '' : 'hidden'}`}>
+        <div styleName={`tc-content-wrapper ${/* this.state.currentCardType === 'SRMs' ? '' :*/'hidden'}`}>
           <div styleName="sidebar-container-mobile">
             <ChallengesSidebar SidebarMock={SRMsSidebarMock} />
           </div>
@@ -448,7 +467,7 @@ class ChallengeFiltersExample extends React.Component {
             {/* upcoming SRMs */}
             <div>
               <div styleName="title">Upcoming SRMs</div>
-              { UpcomingSrm }
+              { /* UpcomingSrm */ }
             </div>
             {/* past SRMs */}
             <div>
@@ -464,17 +483,14 @@ class ChallengeFiltersExample extends React.Component {
           </div>
         </div>
 
-        <div styleName={`tc-content-wrapper ${this.state.currentCardType === 'Challenges' ? '' : 'hidden'}`}>
+        <div styleName={`tc-content-wrapper ${/* this.state.currentCardType === 'Challenges' ? '' : 'hidden' */''}`}>
           <div styleName="sidebar-container-mobile">
             {!this.props.loading ? (<SideBarFilters
               config={this.props.config}
               challenges={challenges}
-              filter={this.state.sidebarFilter}
+              filter={this.getFilter()}
               onFilter={
-                selectedFilter => this.setState(
-                  { sidebarFilter: selectedFilter },
-                  () => this.saveFiltersToHash(),
-                )
+                selectedFilter => this.saveFiltersToHash(selectedFilter)
               }
               ref={(node) => {
                 this.sidebar = node;
@@ -492,7 +508,7 @@ class ChallengeFiltersExample extends React.Component {
               {!this.props.loading ? (<SideBarFilters
                 config={this.props.config}
                 challenges={challenges}
-                filter={this.state.filter}
+                filter={this.getFilter()}
                 onFilter={topFilter => this.onFilterByTopFilter(topFilter, true)}
                 ref={(node) => {
                   this.sidebar = node;
@@ -517,9 +533,6 @@ ChallengeFiltersExample.defaultProps = {
     MAIN_URL: config.TC_BASE_URL,
     COMMUNITY_URL: config.COMMUNITY_URL,
   },
-  filterFromUrl: '',
-  onSaveFilterToUrl: _.noop,
-  setChallengeFilter: _.noop,
   myChallenges: [],
   // challengeFilters: undefined,
   isAuth: false,
@@ -531,9 +544,11 @@ ChallengeFiltersExample.propTypes = {
   challenges: PT.arrayOf(PT.shape({
 
   })).isRequired,
+  filter: PT.string.isRequired,
   // getChallenges: PT.func.isRequired,
   // getMarathonMatches: PT.func.isRequired,
   loading: PT.bool.isRequired,
+  setFilter: PT.func.isRequired,
 
   /* OLD PROPS BELOW */
   config: PT.shape({
@@ -542,10 +557,7 @@ ChallengeFiltersExample.propTypes = {
     MAIN_URL: PT.MAIN_URL,
     COMMUNITY_URL: PT.COMMUNITY_URL,
   }),
-  // challengeGroupId: PT.string,
-  filterFromUrl: PT.string,
-  onSaveFilterToUrl: PT.func,
-  setChallengeFilter: PT.func,
+  challengeGroupId: PT.string,
   myChallenges: PT.arrayOf(PT.shape),
   // challengeFilters: PT.object,
   isAuth: PT.bool,

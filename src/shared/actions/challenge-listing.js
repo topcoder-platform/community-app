@@ -123,11 +123,21 @@ function reset() {
   return undefined;
 }
 
+/**
+ * Corresponding action writes the filter given in string representation into
+ * the Redux state.
+ * @param {String} filter String representation of the filter.
+ */
+function setFilter(filter) {
+  return filter;
+}
+
 export default createActions({
   CHALLENGE_LISTING: {
     GET_CHALLENGES: getChallenges,
     GET_INIT: getInit,
     GET_MARATHON_MATCHES: getMarathonMatches,
     RESET: reset,
+    SET_FILTER: setFilter,
   },
 });
