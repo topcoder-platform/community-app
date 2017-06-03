@@ -32,6 +32,7 @@
 
 import _ from 'lodash';
 import actions from 'actions/challenge-listing';
+import logger from 'utils/logger';
 import SideBarFilter from
   'components/challenge-listing/SideBarFilters/SideBarFilter';
 import { handleActions } from 'redux-actions';
@@ -97,6 +98,36 @@ function normalizeMarathonMatch(challenge) {
     status: endTimestamp > Date.now() ? 'ACTIVE' : 'COMPLETED',
     subTrack: 'MARATHON_MATCH',
   });
+}
+
+/**
+ * Handles CHALLENGE_LISTING/GET_CHALLENGE_SUBTRACKS_DONE action.
+ * @param {Object} state
+ * @param {Object} action
+ * @return {Object}
+ */
+function onGetChallengeSubtracksDone(state, action) {
+  if (action.error) logger.error(action.payload);
+  return {
+    ...state,
+    challengeSubtracks: action.error ? [] : action.payload,
+    loadingChallengeSubtracks: false,
+  };
+}
+
+/**
+ * Handles CHALLENGE_LISTING/GET_CHALLENGE_TAGS_DONE action.
+ * @param {Object} state
+ * @param {Object} action
+ * @return {Object}
+ */
+function onGetChallengeTagsDone(state, action) {
+  if (action.error) logger.error(action.payload);
+  return {
+    ...state,
+    challengeTags: action.error ? [] : action.payload,
+    loadingChallengeTags: false,
+  };
 }
 
 /**
@@ -244,6 +275,16 @@ function onReset(state) {
 function create(initialState) {
   const a = actions.challengeListing;
   return handleActions({
+    [a.getChallengeSubtracksDone]: onGetChallengeSubtracksDone,
+    [a.getChallengeSubtracksInit]: state => ({
+      ...state,
+      loadingChallengeSubtracks: true,
+    }),
+    [a.getChallengeTagsDone]: onGetChallengeTagsDone,
+    [a.getChallengeTagsInit]: state => ({
+      ...state,
+      loadingChallengeTags: true,
+    }),
     [a.getChallenges]: onGetChallenges,
     [a.getInit]: onGetInit,
     [a.getMarathonMatches]: onGetMarathonMatches,
@@ -251,6 +292,8 @@ function create(initialState) {
     [a.setFilter]: (state, { payload }) => ({ ...state, filter: payload }),
   }, _.defaults(_.clone(initialState) || {}, {
     challenges: [],
+    challengeSubtracks: [],
+    challengeTags: [],
     counts: {},
     filter: (new SideBarFilter()).getURLEncoded(),
     oldestData: Date.now(),

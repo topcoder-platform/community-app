@@ -32,10 +32,15 @@ class ChallengeListingPageContainer extends React.Component {
   }
 
   componentDidMount() {
+    const { challengeListing: cl } = this.props;
+
     if (mounted) {
       logger.error('Attempt to mount multiple instances of ChallengeListingPageContainer at the same time!');
     } else mounted = true;
     this.loadChallenges();
+
+    if (!cl.loadingChallengeSubtracks) this.props.getChallengeSubtracks();
+    if (!cl.loadingChallengeTags) this.props.getChallengeTags();
 
     /* Get filter from the URL hash, if necessary. */
     const filter = this.props.location.hash.slice(1);
@@ -129,7 +134,11 @@ class ChallengeListingPageContainer extends React.Component {
   }
 
   render() {
-    const { challengeGroupId, listingOnly } = this.props;
+    const {
+      challengeGroupId,
+      challengeListing: cl,
+      listingOnly,
+    } = this.props;
     return (
       <div>
         {/* For demo we hardcode banner properties so we can disable max-len linting */}
@@ -149,7 +158,9 @@ class ChallengeListingPageContainer extends React.Component {
         }
         {/* eslint-enable max-len */}
         <ChallengeFiltersExample
-          challenges={this.props.challengeListing.challenges}
+          challenges={cl.challenges}
+          challengeSubtracks={cl.challengeSubtracks}
+          challengeTags={cl.challengeTags}
           filter={this.props.challengeListing.filter}
           getChallenges={this.props.getChallenges}
           getMarathonMatches={this.props.getMarathonMatches}
@@ -195,6 +206,8 @@ ChallengeListingPageContainer.propTypes = {
     pendingRequests: PT.shape({}).isRequired,
   }).isRequired,
   getChallenges: PT.func.isRequired,
+  getChallengeSubtracks: PT.func.isRequired,
+  getChallengeTags: PT.func.isRequired,
   getMarathonMatches: PT.func.isRequired,
   setFilter: PT.func.isRequired,
 
@@ -249,11 +262,20 @@ function getMarathonMatches(dispatch, ...rest) {
 }
 
 function mapDispatchToProps(dispatch) {
+  const a = actions.challengeListing;
   return {
     getChallenges: (...rest) => getChallenges(dispatch, ...rest),
+    getChallengeSubtracks: () => {
+      dispatch(a.getChallengeSubtracksInit());
+      dispatch(a.getChallengeSubtracksDone());
+    },
+    getChallengeTags: () => {
+      dispatch(a.getChallengeTagsInit());
+      dispatch(a.getChallengeTagsDone());
+    },
     getMarathonMatches: (...rest) => getMarathonMatches(dispatch, ...rest),
-    reset: () => dispatch(actions.challengeListing.reset()),
-    setFilter: f => dispatch(actions.challengeListing.setFilter(f)),
+    reset: () => dispatch(a.reset()),
+    setFilter: f => dispatch(a.setFilter(f)),
   };
 }
 

@@ -38,12 +38,9 @@ class Api {
    */
   fetch(endpoint, options) {
     const p = this.private;
-    const ops = _.merge(_.cloneDeep(options) || {}, {
-      headers: {
-        Authorization: p.token ? `Bearer ${p.token}` : undefined,
-        'Content-Type': 'application/json',
-      },
-    });
+    const headers = { 'Content-Type': 'application/json' };
+    if (p.token) headers.Authorization = `Bearer ${p.token}`;
+    const ops = _.merge(_.cloneDeep(options) || {}, { headers });
     return fetch(`${p.base}${endpoint}`, ops);
   }
 

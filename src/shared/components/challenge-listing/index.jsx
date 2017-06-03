@@ -1,6 +1,4 @@
-/* global
-  fetch, JSON
-*/
+/* global JSON */
 
 /**
  * This component implements a demo of ChallengeFilters in action.
@@ -49,12 +47,6 @@ function keywordsMapper(keyword) {
 
 // Number of challenge placeholder card to display
 const CHALLENGE_PLACEHOLDER_COUNT = 8;
-
-// List of keywords to allow in the Keywords filter.
-const VALID_KEYWORDS = [];
-
-// List of keywords to allow in the Tracks filter.
-const VALID_SUBTRACKS = [];
 
 // A mock list of SRMs side bar
 const SRMsSidebarMock = {
@@ -123,45 +115,6 @@ class ChallengeFiltersExample extends React.Component {
       // isSRMChallengesLoaded: false,
     };
     // this.setCardType.bind(this);
-
-    // as subtracks are stored on the module level, we don't need to re-download them
-    // each time we construct ChallengeFiltersExample component otherwise we will duplicate
-    // existent data
-    if (VALID_SUBTRACKS.length < 1) {
-      // APIs to fetch valid subtracks.
-      const SUBTRACKS_DESIGN_API = `${this.props.config.API_URL_V2}/design/challengetypes`;
-      const SUBTRACKS_DEVELOP_API = `${this.props.config.API_URL_V2}/develop/challengetypes`;
-
-      /* Fetching of design subtracks */
-      fetch(SUBTRACKS_DESIGN_API)
-        .then(res => res.json())
-        .then((json) => {
-          json.forEach(item => VALID_SUBTRACKS.push(keywordsMapper(item.description)));
-        });
-
-      /* Fetching of develop subtracks */
-      fetch(SUBTRACKS_DEVELOP_API)
-        .then(res => res.json())
-        .then((json) => {
-          json.forEach(item => VALID_SUBTRACKS.push(keywordsMapper(item.description)));
-        });
-    }
-
-    // same as for subtracks
-    // keyword are stored on the module level, we don't need to re-download them
-    // each time we construct ChallengeFiltersExample component otherwise we will duplicate
-    // existent data
-    if (VALID_KEYWORDS.length < 1) {
-      // API to fetch valid keywords
-      const KEYWORDS_API = `${this.props.config.API_URL}/technologies/`;
-
-      /* Fetching of keywords */
-      fetch(KEYWORDS_API)
-        .then(res => res.json())
-        .then((json) => {
-          json.result.content.forEach(item => VALID_KEYWORDS.push(keywordsMapper(item.name)));
-        });
-    }
   }
 
   /**
@@ -418,21 +371,6 @@ class ChallengeFiltersExample extends React.Component {
       ),
     );
     */
-    VALID_SUBTRACKS.sort((a, b) => {
-      if (a.label < b.label) {
-        return -1;
-      } else if (a.label > b.label) {
-        return 1;
-      } return 0;
-    });
-
-    VALID_KEYWORDS.sort((a, b) => {
-      if (a.label < b.label) {
-        return -1;
-      } else if (a.label > b.label) {
-        return 1;
-      } return 0;
-    });
 
     return (
       <div styleName="ChallengeFiltersExample">
@@ -448,8 +386,8 @@ class ChallengeFiltersExample extends React.Component {
           }}
           searchQuery={this.getSearchQuery()}
           onSearch={query => this.onSearch(query)}
-          validKeywords={VALID_KEYWORDS}
-          validSubtracks={VALID_SUBTRACKS}
+          validKeywords={this.props.challengeTags.map(keywordsMapper)}
+          validSubtracks={this.props.challengeSubtracks.map(keywordsMapper)}
           setCardType={_.noop/* cardType => this.setCardType(cardType) */}
           isCardTypeSet={'Challenges' /* this.state.currentCardType */}
           ref={(node) => { this.challengeFilters = node; }}
@@ -544,6 +482,8 @@ ChallengeFiltersExample.propTypes = {
   challenges: PT.arrayOf(PT.shape({
 
   })).isRequired,
+  challengeSubtracks: PT.arrayOf(PT.string).isRequired,
+  challengeTags: PT.arrayOf(PT.string).isRequired,
   filter: PT.string.isRequired,
   // getChallenges: PT.func.isRequired,
   // getMarathonMatches: PT.func.isRequired,

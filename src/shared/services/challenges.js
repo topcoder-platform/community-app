@@ -4,7 +4,7 @@
  */
 
 import qs from 'qs';
-import { getApiV3 } from './api';
+import { getApiV2, getApiV3 } from './api';
 
 export const ORDER_BY = {
   SUBMISSION_END_DATE: 'submissionEndDate',
@@ -46,9 +46,37 @@ class ChallengesService {
 
     this.private = {
       api: getApiV3(tokenV3),
+      apiV2: getApiV2(),
       getChallenges,
       tokenV3,
     };
+  }
+
+  /**
+   * Gets possible challenge subtracks.
+   * @return {Promise} Resolves to the array of subtrack names.
+   */
+  getChallengeSubtracks() {
+    return Promise.all([
+      this.private.apiV2.get('/design/challengetypes')
+      .then(res => (res.ok ? res.json() : new Error(res.statusText))),
+      this.private.apiV2.get('/develop/challengetypes')
+      .then(res => (res.ok ? res.json() : new Error(res.statusText))),
+    ]).then(([a, b]) => a.concat(b));
+  }
+
+  /**
+   * Gets possible challenge tags (technologies).
+   * @return {Promise} Resolves to the array of tag strings.
+   */
+  getChallengeTags() {
+    return this.private.api.get('/technologies')
+    .then(res => (res.ok ? res.json() : new Error(res.statusText)))
+    .then(res => (
+      res.result.status === 200 ?
+      res.result.content :
+      new Error(res.result.content)
+    ));
   }
 
   /**
