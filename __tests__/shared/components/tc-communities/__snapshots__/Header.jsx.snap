@@ -193,6 +193,7 @@ exports[`Snapshot match 2`] = `
           <NavLink
             activeClassName="menu-link_active tc-communities__header__menu-link_active"
             className="tc-communities__header__menu-link src-shared-components-tc-communities-Header-___style__menu-link___1pPZf"
+            isActive={[Function]}
             to="pageId1"
           >
             Menu Item 1
@@ -204,6 +205,7 @@ exports[`Snapshot match 2`] = `
           <NavLink
             activeClassName="menu-link_active tc-communities__header__menu-link_active"
             className="tc-communities__header__menu-link src-shared-components-tc-communities-Header-___style__menu-link___1pPZf"
+            isActive={[Function]}
             to="pageId2"
           >
             Menu Item 2
@@ -215,6 +217,7 @@ exports[`Snapshot match 2`] = `
           <NavLink
             activeClassName="menu-link_active tc-communities__header__menu-link_active"
             className="tc-communities__header__menu-link src-shared-components-tc-communities-Header-___style__menu-link___1pPZf"
+            isActive={[Function]}
             to="pageId3"
           >
             Menu Item 3
