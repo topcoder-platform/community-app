@@ -15,7 +15,8 @@ $type-radius-4: $corner-radius * 2;
     height: $type-space-60;
     font-weight: 400;
     font-size: 20px;
-    color: #737380;
+    color: $tc-dark-blue-70;
+    cursor: pointer;
     line-height: $type-space-60;
     display: inline-block;
     margin-right: $type-space-40;
@@ -28,9 +29,16 @@ $type-radius-4: $corner-radius * 2;
       margin-right: $type-space-20;
     }
 
+    &:hover {
+      color: $tc-dark-blue;
+      text-decoration: none;
+    }
+
     &.active {
       color: $tc-black;
       border-bottom: 2px solid $tc-gray-70;
+      cursor: default;
+      text-decoration: none;
 
       @include xs-to-sm {
         font-weight: 500;

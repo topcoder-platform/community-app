@@ -10,6 +10,11 @@
     "V3": "https://api.topcoder-dev.com/v3"
   },
 
+  /* Amount of time [seconds] before expiration of authentication tokens,
+   * when the code will treat them as expired (to prevent attempts to
+   * authenticate with an expired token). */
+  "AUTH_DROP_TIME": 25,
+
   "COOKIES": {
     /* Expiration time [days] for browser cookies set by the App. */
     "MAXAGE": 7,
@@ -18,6 +23,16 @@
      * protocols like https. */
     "SECURE": false
   },
+
+  /* Amount of time [seconds] before expiration of authentication tokens,
+   * when the frontend will automatically trigger their refreshment. Once
+   * ready, it will either write to the Redux store fresh token, or will
+   * remove auth tokens from the store.
+   * NOTE: With the current implementation of accounts-app this value must be
+   * smaller than 60 seconds (earlier than 60 seconds before expiration of an
+   * auth token, a call to the getFreshToken() method returns the old token,
+   * due to caching). */
+  "REAUTH_TIME": 55,
 
   /* Various URLs. Most of them lead to different segments of Topcoder
    * platform. */

@@ -47,7 +47,7 @@ function handle(promise, uuid, filters, countCategory, user) {
       totalCount: 0,
     };
   }).then(res => ({
-    challenges: res.challenges,
+    challenges: res.challenges || [],
     filters,
     totalCount: countCategory ? {
       category: countCategory,
