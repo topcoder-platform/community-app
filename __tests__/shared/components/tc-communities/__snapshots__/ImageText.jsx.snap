@@ -2,7 +2,7 @@
 
 exports[`Snapshot match 1`] = `
 <ImageText
-  imageSrc="/themes/wipro2/home/image-text-learn.jpg"
+  imageSrc="/themes/wipro/home/image-text-learn.jpg"
   link={null}
   text="You can learn and get certified donec facilisis tortor ut augue lacinia"
   theme={
@@ -24,7 +24,7 @@ exports[`Snapshot match 1`] = `
 
 exports[`Snapshot match 2`] = `
 <ImageText
-  imageSrc="/themes/wipro2/home/image-text-learn.jpg"
+  imageSrc="/themes/wipro/home/image-text-learn.jpg"
   link={
     Object {
       "title": "Start Learning",

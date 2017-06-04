@@ -4,7 +4,7 @@ exports[`Snapshot match 1`] = `
 <NewsletterSignup
   buttonText="Sign Up"
   emailPlaceholder="Email address"
-  imageSrc="/themes/wipro2/subscribe-bg.jpg"
+  imageSrc="/themes/wipro/subscribe-bg.jpg"
   text="Don’t miss out on the latest Topcoder IOS challenges and information!"
   theme={
     Object {
@@ -25,7 +25,7 @@ exports[`Snapshot match 2`] = `
 <NewsletterSignup
   buttonText="Sign Up"
   emailPlaceholder="Email address"
-  imageSrc="/themes/wipro2/subscribe-bg.jpg"
+  imageSrc="/themes/wipro/subscribe-bg.jpg"
   text="Don’t miss out on the latest Topcoder IOS challenges and information!"
   theme={
     Object {

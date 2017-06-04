@@ -23,12 +23,30 @@ import { connect } from 'react-redux';
  * will prevent addition of /examples routes into production build. */
 import Examples from './examples';
 
-function Routes({ location, subdomains }) {
-  if (subdomains.indexOf('test-subdomain') >= 0) {
+function Routes({ subdomains }) {
+  if (subdomains.indexOf('wipro') >= 0) {
     return (
       <div>
-        <div>Subdomain Test!</div>
-        <div>Route: {location.pathname}</div>
+        <Route
+          exact
+          path="/"
+          render={props => (
+            <TcCommunitiesPage
+              communityId="wipro"
+              pageId="home"
+              {...props}
+            />
+          )}
+        />
+        <Route
+          path="/:pageId"
+          render={props => (
+            <TcCommunitiesPage
+              communityId="wipro"
+              {...props}
+            />
+          )}
+        />
       </div>
     );
   }
@@ -54,6 +72,16 @@ function Routes({ location, subdomains }) {
         />
         <Route path="/leaderboard" component={Leaderboard} />
         <Route
+          exact
+          path="/community/:communityId"
+          render={props => (
+            <TcCommunitiesPage
+              pageId="home"
+              {...props}
+            />
+          )}
+        />
+        <Route
           component={TcCommunitiesPage}
           path="/community/:communityId/:pageId"
         />
@@ -69,9 +97,6 @@ function Routes({ location, subdomains }) {
 }
 
 Routes.propTypes = {
-  location: PT.shape({
-    pathname: PT.string.isRequired,
-  }).isRequired,
   subdomains: PT.arrayOf(PT.string).isRequired,
 };
 

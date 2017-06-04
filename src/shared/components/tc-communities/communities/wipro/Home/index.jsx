@@ -32,9 +32,9 @@ export default function Home() {
         text="Wipro's Hybrid Crowd gives our vast ecosystem of customers and partners options to access new range of skills that provide new value services and efficiency options all over the world."
         link={{
           title: 'Compete Now',
-          url: '/community/wipro2/home',
+          url: '.',
         }}
-        imageSrc="/themes/wipro2/home/banner.jpg"
+        imageSrc="/themes/wipro/home/banner.jpg"
       />
 
       <Section
@@ -60,18 +60,18 @@ export default function Home() {
             text="Our continuously evolving structured learning paths, constantly abreast of the latest, tailored for employees to deepen your knowledge, infuses important software capabilities that are industry specific and help you get the skills you need to succeed."
             link={{
               title: 'Start Learning',
-              url: '/community/wipro2/learn',
+              url: 'learn',
             }}
-            imageSrc="/themes/wipro2/home/image-text-learn.jpg"
+            imageSrc="/themes/wipro/home/image-text-learn.jpg"
           />
           <ImageText
             title="Get Involved"
             text="Rewards program is intended to celebrate and recognize your contribution. Rewards for project contributions are given using ‘Reward Points’. Points earned translate into badges. Quarterly rewards are given away to the toppers of all categories."
             link={{
               title: 'Start Earning',
-              url: '/community/wipro2/challenges',
+              url: 'challenges',
             }}
-            imageSrc="/themes/wipro2/home/image-text-do.jpg"
+            imageSrc="/themes/wipro/home/image-text-do.jpg"
           />
         </div>
       </Section>
@@ -87,7 +87,7 @@ export default function Home() {
           text="Pellentesque non dignissim neque. Nunc vel rhoncus nibh, ut tincidunt turpis. Integer ac enim pellentesque, adipiscing metus id, pharetra odio."
           link={{
             title: 'Browse resources',
-            url: '/community/wipro2/learn',
+            url: 'learn',
           }}
         />
         <ResourceCard
@@ -96,7 +96,7 @@ export default function Home() {
           text="Donec bibendum nunc sit amet tortor scelerisque luctus et sit amet mauris. Suspendisse felis sem, condimentum ullamcorper est sit amet, molestie"
           link={{
             title: 'Learn about badges',
-            url: '/community/wipro2/leaderboard',
+            url: 'leaderboard',
           }}
         />
         <ResourceCard
@@ -105,7 +105,7 @@ export default function Home() {
           text="Suspendisse felis sem, condimentum ullamcorper est sit amet, molestie mollis nulla. Etiam lorem orci, consequat ac magna quis, facilisis"
           link={{
             title: 'Browse challenges',
-            url: '/community/wipro2/challenges',
+            url: 'challenges',
           }}
         />
       </Section>
@@ -118,34 +118,34 @@ export default function Home() {
           text="There are advances being made in science and technology everyday, and a good example of this is the LCD monitor. LCD monitors have"
           link={{
             title: 'Read More',
-            url: '/community/wipro2/home',
+            url: '.',
           }}
-          imageSrc="/themes/wipro2/home/news-01.jpg"
+          imageSrc="/themes/wipro/home/news-01.jpg"
         />
         <ArticleCard
           title="Video Games Playing With Imagination "
           text="HDMI, or high definition multimedia interface, is a type of audio and video interface that is used for the transmission of uncompressed"
           link={{
             title: 'Read More',
-            url: '/community/wipro2/home',
+            url: '.',
           }}
-          imageSrc="/themes/wipro2/home/news-02.jpg"
+          imageSrc="/themes/wipro/home/news-02.jpg"
         />
         <ArticleCard
           title="Myspace Layouts The Missing Element"
           text="If you are in the market for a computer, there are a number of factors to consider. Will it be used for your home, your office or"
           link={{
             title: 'Read More',
-            url: '/community/wipro2/home',
+            url: '.',
           }}
-          imageSrc="/themes/wipro2/home/news-03.jpg"
+          imageSrc="/themes/wipro/home/news-03.jpg"
         />
       </Section>
 
       <NewsletterSignup
         title="Sign up for our newsletter"
         text="Don’t miss out on the latest Topcoder IOS challenges and information!"
-        imageSrc="/themes/wipro2/subscribe-bg.jpg"
+        imageSrc="/themes/wipro/subscribe-bg.jpg"
       />
 
     </main>

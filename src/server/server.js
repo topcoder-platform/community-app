@@ -5,7 +5,7 @@ import cookieParser from 'cookie-parser';
 import express from 'express';
 import logger from 'morgan';
 import path from 'path';
-// import favicon from 'serve-favicon';
+import favicon from 'serve-favicon';
 
 // Temporarily here to test our API service.
 // import '../shared/services/api';
@@ -32,8 +32,7 @@ const app = express();
  * fix. */
 global.atob = atob;
 
-/* Uncomment once favicon is included into the project. */
-// app.use(favicon(path.resolve(__dirname, '../../build/assets/favicon.ico')));
+app.use(favicon(path.resolve(__dirname, '../assets/images/favicon.ico')));
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));

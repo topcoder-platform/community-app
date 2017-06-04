@@ -28,7 +28,6 @@ export default function Header(props) {
     openedMenu,
     logos,
     menuItems,
-    communityId,
     cssUrl,
     isMobileOpen,
     onMobileToggleClick,
@@ -124,7 +123,7 @@ export default function Header(props) {
                 (menuItems.length ? (
                   <Link
                     key={index}
-                    to={`/community/${communityId}/${menuItems[0].url}`}
+                    to={menuItems[0].url}
                     styleName="logo"
                     className="tc-communities__header__logo"
                   >
@@ -173,7 +172,7 @@ export default function Header(props) {
                   styleName="menu-link"
                   className="tc-communities__header__menu-link"
                   activeClassName="menu-link_active tc-communities__header__menu-link_active"
-                  to={`/community/${communityId}/${item.url}`}
+                  to={item.url}
                 >
                   {item.title}
                 </NavLink>
@@ -220,6 +219,5 @@ Header.propTypes = {
   isMobileOpen: PT.bool,
   cssUrl: PT.string,
   onMobileToggleClick: PT.func.isRequired,
-  communityId: PT.string.isRequired,
   profile: PT.shape({}),
 };

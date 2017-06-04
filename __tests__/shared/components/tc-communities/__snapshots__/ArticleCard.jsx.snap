@@ -2,7 +2,7 @@
 
 exports[`Snapshot match 1`] = `
 <ArticleCard
-  imageSrc="/themes/wipro2/home/news-01.jpg"
+  imageSrc="/themes/wipro/home/news-01.jpg"
   link={null}
   text="There are advances being made in science and technology everyday"
   theme={
@@ -22,7 +22,7 @@ exports[`Snapshot match 1`] = `
 
 exports[`Snapshot match 2`] = `
 <ArticleCard
-  imageSrc="/themes/wipro2/home/news-01.jpg"
+  imageSrc="/themes/wipro/home/news-01.jpg"
   link={
     Object {
       "title": "Read More",

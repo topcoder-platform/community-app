@@ -1,6 +1,6 @@
 import React from 'react';
 import Rnd from 'react-test-renderer/shallow';
-import Learn from 'components/tc-communities/communities/wipro2/Learn';
+import Learn from 'components/tc-communities/communities/wipro/Learn';
 
 const rnd = new Rnd();
 
