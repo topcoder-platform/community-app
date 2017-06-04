@@ -10,12 +10,12 @@
     "fix:js": "eslint --fix --ext .js,.jsx .",
     "fix:styles": "stylefmt -r **/*.scss",
     "jest": "jest --maxWorkers=4 --config config/jest/default.js",
-    "lint": "npm run lint:js; npm run lint:scss",
+    "lint": "npm run lint:js && npm run lint:scss",
     "lint:js": "eslint --ext .js,.jsx .",
     "lint:scss": "stylelint **/*.scss",
     "postinstall": "npm run build",
     "start": "node ./bin/www",
-    "test": "npm run lint; npm run jest"
+    "test": "npm run lint && npm run jest"
   },
   "repository": {
     "type": "git",
