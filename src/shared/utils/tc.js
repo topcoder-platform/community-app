@@ -1,6 +1,16 @@
 /**
  * Collection of small Topcoder-related functions.
  */
+
+/**
+ * Codes of the Topcoder communities.
+ */
+export const COMMUNITY = {
+  DATA_SCIENCE: 'datasci',
+  DESIGN: 'design',
+  DEVELOP: 'develop',
+};
+
 /**
  * Given a rating value, returns corresponding color.
  * @param {Number} rating Rating.
