@@ -132,6 +132,7 @@ class Page extends Component {
               activeTrigger={this.props.activeTrigger}
               closeMenu={this.props.closeMenu}
               logos={this.props.meta.logos}
+              pageId={this.props.pageId}
               profile={this.props.profile}
               menuItems={this.props.meta.menuItems}
               openedMenu={this.props.openedMenu}

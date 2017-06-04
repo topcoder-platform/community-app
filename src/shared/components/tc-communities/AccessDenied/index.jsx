@@ -24,7 +24,7 @@ export default function AccessDenied({ cause }) {
           <div styleName="msg">You must be authenticated to access this page.</div>
           <div styleName="msg">
             <a
-              className="btnButton"
+              className="tc-btn-md tc-btn-primary"
               href={`${config.URL.AUTH}?retUrl=${returnUrl}`}
             >Log In Here</a>
           </div>

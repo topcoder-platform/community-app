@@ -28,6 +28,7 @@ export default function Header(props) {
     openedMenu,
     logos,
     menuItems,
+    pageId,
     cssUrl,
     isMobileOpen,
     onMobileToggleClick,
@@ -104,6 +105,8 @@ export default function Header(props) {
     </div>
   );
 
+  const currentPage = pageId === 'home' ? '.' : pageId;
+
   return (
     <div>
       {cssUrl && <link rel="stylesheet" type="text/css" href={cssUrl} />}
@@ -172,6 +175,7 @@ export default function Header(props) {
                   styleName="menu-link"
                   className="tc-communities__header__menu-link"
                   activeClassName="menu-link_active tc-communities__header__menu-link_active"
+                  isActive={() => currentPage === item.url}
                   to={item.url}
                 >
                   {item.title}
@@ -216,6 +220,7 @@ Header.propTypes = {
   logos: PT.arrayOf(PT.string),
   openedMenu: PT.shape({}),
   openMenu: PT.func.isRequired,
+  pageId: PT.string.isRequired,
   isMobileOpen: PT.bool,
   cssUrl: PT.string,
   onMobileToggleClick: PT.func.isRequired,
