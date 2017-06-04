@@ -9,7 +9,7 @@ test('Snapshot match', () => {
     <Banner
       title="iOS"
       text="You’re eager to get started, and we have a bunch of iOS/Swift challenges!"
-      imageSrc="/themes/wipro2/home/banner.jpg"
+      imageSrc="/themes/wipro/home/banner.jpg"
     />
   ));
   expect(rnd.getRenderOutput()).toMatchSnapshot();
@@ -22,7 +22,7 @@ test('Snapshot match', () => {
         title: 'Compete Now',
         url: '#',
       }}
-      imageSrc="/themes/wipro2/home/banner.jpg"
+      imageSrc="/themes/wipro/home/banner.jpg"
       theme={{
         container: 'container',
         content: 'content',

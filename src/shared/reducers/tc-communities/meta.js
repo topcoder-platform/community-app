@@ -80,6 +80,12 @@ function create(initialState) {
  * @return Promise which resolves to the new reducer.
  */
 export function factory(req) {
+  const subdomains = (req && req.subdomains) || [];
+  if (subdomains.indexOf('wipro') >= 0) {
+    return toFSA(actions.tcCommunities.meta.fetchDataDone('wipro'))
+      .then(res => create(onDone({}, res)));
+  }
+
   const match = req && req.url.match(/\/community\/([^/]+)\//);
 
   if (match) {

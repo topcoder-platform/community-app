@@ -49,7 +49,7 @@ $search-input-width: '100% - 56px';
     display: inline-block;
     background: $tc-gray-20;
     cursor: pointer;
-    padding: $challenge-space-10 + 1 $challenge-space-20;
+    padding: $challenge-space-10 + 1 $challenge-space-20 $challenge-space-10 - 2;
     border-radius: 0 $challenge-radius-4 $challenge-radius-4 0;
     vertical-align: middle;
 

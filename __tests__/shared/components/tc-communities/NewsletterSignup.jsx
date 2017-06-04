@@ -9,7 +9,7 @@ test('Snapshot match', () => {
     <NewsletterSignup
       title="Sign up for our newsletter"
       text="Don’t miss out on the latest Topcoder IOS challenges and information!"
-      imageSrc="/themes/wipro2/subscribe-bg.jpg"
+      imageSrc="/themes/wipro/subscribe-bg.jpg"
     />
   ));
   expect(rnd.getRenderOutput()).toMatchSnapshot();
@@ -18,7 +18,7 @@ test('Snapshot match', () => {
     <NewsletterSignup
       title="Sign up for our newsletter"
       text="Don’t miss out on the latest Topcoder IOS challenges and information!"
-      imageSrc="/themes/wipro2/subscribe-bg.jpg"
+      imageSrc="/themes/wipro/subscribe-bg.jpg"
       theme={{
         container: 'container',
         content: 'content',

@@ -20,7 +20,7 @@ test('Snapshot match', () => {
         title: 'Leaderboard',
         url: 'leaderboard',
       }]}
-      communityId="wipro2"
+      communityId="wipro"
       registerUrl="https://accounts.topcoder-dev.com/member/registration"
       loginUrl="https://accounts.topcoder-dev.com/member"
       isAuthorized
@@ -43,7 +43,7 @@ test('Snapshot match', () => {
         title: 'Leaderboard',
         url: 'leaderboard',
       }]}
-      communityId="wipro2"
+      communityId="wipro"
       registerUrl="https://accounts.topcoder-dev.com/member/registration"
       loginUrl="https://accounts.topcoder-dev.com/member"
       isAuthorized

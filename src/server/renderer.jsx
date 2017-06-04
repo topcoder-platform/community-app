@@ -36,6 +36,7 @@ export default (req, res) => {
         <head>
           <title>Topcoder</title>
           <link rel="stylesheet" href="/style.css" />
+          <link rel="shortcut icon" href="/favicon.ico" />
           <meta charset="utf-8" />
           <meta
             content="width=device-width,initial-scale=1"

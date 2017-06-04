@@ -9,7 +9,7 @@ test('Snapshot match', () => {
     <ArticleCard
       title="How Does An IOS 10 LCD Work"
       text="There are advances being made in science and technology everyday"
-      imageSrc="/themes/wipro2/home/news-01.jpg"
+      imageSrc="/themes/wipro/home/news-01.jpg"
     />
   ));
   expect(rnd.getRenderOutput()).toMatchSnapshot();
@@ -18,7 +18,7 @@ test('Snapshot match', () => {
     <ArticleCard
       title="How Does An IOS 10 LCD Work"
       text="There are advances being made in science and technology everyday"
-      imageSrc="/themes/wipro2/home/news-01.jpg"
+      imageSrc="/themes/wipro/home/news-01.jpg"
       link={{
         title: 'Read More',
         url: '#',

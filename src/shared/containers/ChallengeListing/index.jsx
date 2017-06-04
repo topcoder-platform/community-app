@@ -11,14 +11,17 @@
 
 import _ from 'lodash';
 import actions from 'actions/challenge-listing';
+import logger from 'utils/logger';
 import React from 'react';
 import PT from 'prop-types';
 import { connect } from 'react-redux';
-import ChallengeFiltersExample from 'components/challenge-listing';
+import ChallengeListing from 'components/challenge-listing';
 import Banner from 'components/tc-communities/Banner';
 import NewsletterSignup from 'components/tc-communities/NewsletterSignup';
 import shortid from 'shortid';
 import style from './styles.scss';
+
+let mounted = false;
 
 // The container component
 class ChallengeListingPageContainer extends React.Component {
@@ -29,13 +32,34 @@ class ChallengeListingPageContainer extends React.Component {
   }
 
   componentDidMount() {
+    const { challengeListing: cl } = this.props;
+
+    if (mounted) {
+      logger.error('Attempt to mount multiple instances of ChallengeListingPageContainer at the same time!');
+    } else mounted = true;
     this.loadChallenges();
+
+    if (!cl.loadingChallengeSubtracks) this.props.getChallengeSubtracks();
+    if (!cl.loadingChallengeTags) this.props.getChallengeTags();
+
+    /* Get filter from the URL hash, if necessary. */
+    const filter = this.props.location.hash.slice(1);
+    if (filter && filter !== this.props.challengeListing.filter) {
+      this.props.setFilter(filter);
+    }
   }
 
   componentDidUpdate(prevProps) {
     const token = this.props.auth.tokenV3;
     if (token && token !== prevProps.auth.tokenV3) {
       setImmediate(() => this.loadChallenges());
+    }
+  }
+
+  componentWillUnmount() {
+    if (mounted) mounted = false;
+    else {
+      logger.error('A mounted instance of ChallengeListingPageContainer is not tracked as mounted!');
     }
   }
 
@@ -110,7 +134,11 @@ class ChallengeListingPageContainer extends React.Component {
   }
 
   render() {
-    const { challengeGroupId, listingOnly } = this.props;
+    const {
+      challengeGroupId,
+      challengeListing: cl,
+      listingOnly,
+    } = this.props;
     return (
       <div>
         {/* For demo we hardcode banner properties so we can disable max-len linting */}
@@ -124,24 +152,31 @@ class ChallengeListingPageContainer extends React.Component {
               content: style.bannerContent,
               contentInner: style.bannerContentInner,
             }}
-            imageSrc="/themes/wipro2/challenges/banner.jpg"
+            imageSrc="/themes/wipro/challenges/banner.jpg"
           />
         ) : null
         }
         {/* eslint-enable max-len */}
-        <ChallengeFiltersExample
-          challenges={this.props.challengeListing.challenges}
+        <ChallengeListing
+          challenges={cl.challenges}
+          challengeSubtracks={cl.challengeSubtracks}
+          challengeTags={cl.challengeTags}
+          filter={this.props.challengeListing.filter}
           getChallenges={this.props.getChallenges}
           getMarathonMatches={this.props.getMarathonMatches}
-          loading={Boolean(_.keys(this.props.challengeListing.pendingRequests).length)}
+          loadingChallenges={Boolean(_.keys(this.props.challengeListing.pendingRequests).length)}
+          setFilter={(filter) => {
+            const f = encodeURI(filter);
+            this.props.history.replace(`#${f}`);
+            if (f !== this.props.challengeListing.filter) {
+              this.props.setFilter(f);
+            }
+          }}
 
           /* OLD PROPS BELOW */
           challengeGroupId={challengeGroupId}
           filterFromUrl={this.props.location.hash}
           masterFilterFunc={this.masterFilterFunc}
-          onSaveFilterToUrl={(filter) => {
-            this.props.history.replace(`#${encodeURI(filter)}`);
-          }}
           isAuth={!!this.props.auth.user}
           auth={this.props.auth}
         />
@@ -149,7 +184,7 @@ class ChallengeListingPageContainer extends React.Component {
           <NewsletterSignup
             title="Sign up for our newsletter"
             text="Don’t miss out on the latest Topcoder IOS challenges and information!"
-            imageSrc="/themes/wipro2/subscribe-bg.jpg"
+            imageSrc="/themes/wipro/subscribe-bg.jpg"
           />
         ) : null }
       </div>
@@ -167,10 +202,14 @@ ChallengeListingPageContainer.defaultProps = {
 ChallengeListingPageContainer.propTypes = {
   challengeListing: PT.shape({
     challenges: PT.arrayOf(PT.shape({})).isRequired,
+    filter: PT.string.isRequired,
     pendingRequests: PT.shape({}).isRequired,
   }).isRequired,
   getChallenges: PT.func.isRequired,
+  getChallengeSubtracks: PT.func.isRequired,
+  getChallengeTags: PT.func.isRequired,
   getMarathonMatches: PT.func.isRequired,
+  setFilter: PT.func.isRequired,
 
   /* OLD PROPS BELOW */
   listingOnly: PT.bool,
@@ -207,7 +246,9 @@ const mapStateToProps = state => ({
 function getChallenges(dispatch, ...rest) {
   const uuid = shortid();
   dispatch(actions.challengeListing.getInit(uuid));
-  dispatch(actions.challengeListing.getChallenges(uuid, ...rest));
+  const action = actions.challengeListing.getChallenges(uuid, ...rest);
+  dispatch(action);
+  return action.payload;
 }
 
 /**
@@ -219,14 +260,29 @@ function getChallenges(dispatch, ...rest) {
 function getMarathonMatches(dispatch, ...rest) {
   const uuid = shortid();
   dispatch(actions.challengeListing.getInit(uuid));
-  dispatch(actions.challengeListing.getMarathonMatches(uuid, ...rest));
+  const action = actions.challengeListing.getMarathonMatches(uuid, ...rest);
+  dispatch(action);
+  // TODO: This is hack to make the Redux loading of challenges to work
+  // with older code inside the InfiniteList, until it is properly
+  // refactored.
+  return action.payload;
 }
 
 function mapDispatchToProps(dispatch) {
+  const a = actions.challengeListing;
   return {
     getChallenges: (...rest) => getChallenges(dispatch, ...rest),
+    getChallengeSubtracks: () => {
+      dispatch(a.getChallengeSubtracksInit());
+      dispatch(a.getChallengeSubtracksDone());
+    },
+    getChallengeTags: () => {
+      dispatch(a.getChallengeTagsInit());
+      dispatch(a.getChallengeTagsDone());
+    },
     getMarathonMatches: (...rest) => getMarathonMatches(dispatch, ...rest),
-    reset: () => dispatch(actions.challengeListing.reset()),
+    reset: () => dispatch(a.reset()),
+    setFilter: f => dispatch(a.setFilter(f)),
   };
 }
 

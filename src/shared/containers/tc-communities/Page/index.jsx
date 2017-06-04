@@ -30,9 +30,7 @@ import LoadingIndicator from 'components/LoadingIndicator';
 import ChallengeListing from 'containers/ChallengeListing';
 import Leaderboard from 'containers/Leaderboard';
 import WiproHome from 'components/tc-communities/communities/wipro/Home';
-import WiproAbout from 'components/tc-communities/communities/wipro/About';
-import Wipro2Home from 'components/tc-communities/communities/wipro2/Home';
-import Wipro2Learn from 'components/tc-communities/communities/wipro2/Learn';
+import WiproLearn from 'components/tc-communities/communities/wipro/Learn';
 
 import AccessDenied, {
   CAUSE as ACCESS_DENIED_CAUSE,
@@ -40,15 +38,10 @@ import AccessDenied, {
 
 import './style.scss';
 
-/* TODO: Bootstrap import should be moved to a more appropriate place, which
- * depends on whether we want it to be available globally, or only in specific
- * communities. */
-require('bootstrap/dist/css/bootstrap.min.css');
-
 class Page extends Component {
 
   componentDidMount() {
-    const communityId = this.props.match.params.communityId;
+    const communityId = this.props.communityId;
     if ((communityId !== this.props.meta.communityId)
     && !this.props.meta.loading) this.props.loadMetaData(communityId);
 
@@ -64,7 +57,7 @@ class Page extends Component {
   renderCustomPage() {
     let pageContent;
     const communityId = this.props.meta.communityId;
-    const pageId = this.props.match.params.pageId;
+    const pageId = this.props.pageId;
 
     // as for now landing page editor is not implemented yet
     // for Wipro and Wipro 2 communities we return static pages
@@ -72,14 +65,8 @@ class Page extends Component {
     if (communityId === 'wipro') {
       if (pageId === 'home') {
         pageContent = <WiproHome />;
-      } else if (pageId === 'about') {
-        pageContent = <WiproAbout />;
-      }
-    } else if (communityId === 'wipro2') {
-      if (pageId === 'home') {
-        pageContent = <Wipro2Home />;
       } else if (pageId === 'learn') {
-        pageContent = <Wipro2Learn />;
+        pageContent = <WiproLearn />;
       }
     } else if (communityId.match(/example-theme-\w/)) {
       pageContent = <div />;
@@ -102,7 +89,7 @@ class Page extends Component {
    *     renderCustomPage() method has to return a page made in the editor
    */
   renderPageContent() {
-    const pageId = this.props.match.params.pageId;
+    const pageId = this.props.pageId;
     let pageContent = <div />;
     switch (pageId) {
       case 'leaderboard':
@@ -127,11 +114,11 @@ class Page extends Component {
   }
 
   render() {
-    const returnUrl = encodeURIComponent(`${config.URL.WIPRO}/community/wipro2/home`);
+    const returnUrl = encodeURIComponent(`${config.URL.WIPRO}/community/wipro/home`);
     const loginUrl = `${config.URL.AUTH}?retUrl=${returnUrl}`;
     const registerUrl = `${config.URL.AUTH}/registration`;
 
-    const communityId = this.props.match.params.communityId;
+    const communityId = this.props.communityId;
 
     // true, if is loading now, or if not started loading yet
     const isNotLoaded = communityId !== this.props.meta.communityId;
@@ -145,6 +132,7 @@ class Page extends Component {
               activeTrigger={this.props.activeTrigger}
               closeMenu={this.props.closeMenu}
               logos={this.props.meta.logos}
+              pageId={this.props.pageId}
               profile={this.props.profile}
               menuItems={this.props.meta.menuItems}
               openedMenu={this.props.openedMenu}
@@ -190,17 +178,12 @@ Page.propTypes = {
   authenticating: PT.bool.isRequired,
   activeTrigger: PT.shape({}),
   closeMenu: PT.func.isRequired,
+  communityId: PT.string.isRequired,
   profile: PT.shape({
     groups: PT.arrayOf(PT.shape({
       id: PT.string.isRequired,
     })),
   }),
-  match: PT.shape({
-    params: PT.shape({
-      communityId: PT.string,
-      pageId: PT.string,
-    }),
-  }).isRequired,
   meta: PT.shape({
     authorizedGroupIds: PT.arrayOf(PT.string),
     challengeFilterTag: PT.string,
@@ -231,8 +214,8 @@ const mapStateToProps = (state, props) => ({
   ...state.topcoderHeader,
   meta: state.tcCommunities.meta,
   profile: state.auth ? state.auth.profile : null,
-  communityId: props.match.params.communityId,
-  pageId: props.match.params.pageId,
+  communityId: props.communityId || props.match.params.communityId,
+  pageId: props.pageId || props.match.params.pageId,
 });
 
 const mapDispatchToProps = dispatch => _.merge(

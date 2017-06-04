@@ -44,7 +44,6 @@ import {
 import {
   findFilterByName,
   filterFilterChallengesStore,
-  fetchChallenges,
   isChallengeCategoryExpandable,
 } from './generalHelpers';
 import style from './style.scss';
@@ -194,11 +193,37 @@ class ChallengeCardContainer extends Component {
                     tag => this.props.onTechTagClicked(tag),
                   )}
                   renderItemTemplate={getChallengeCardPlaceholder}
-                  fetchItems={
-                    filter.getApiUrl
-                    ? _.partial(fetchChallenges, filter.getApiUrl)
-                    : null
-                  }
+                  fetchItems={(pageIndex, pageSize = 50) => {
+                    const f = {};
+                    if (filter.filteringParams.status) {
+                      f.status = filter.filteringParams.status;
+                    }
+                    if (this.props.challengeGroupId) {
+                      f.groupIds = this.props.challengeGroupId;
+                    }
+                    const fm = _.clone(f);
+                    if (fm.status === 'completed') fm.status = 'past';
+                    return Promise.all([
+                      this.props.getChallenges(f, {
+                        limit: pageSize,
+                        offset: pageIndex * pageSize,
+                      },
+                      this.props.auth.tokenV3,
+                      undefined,
+                      filter.filteringParams.user ?
+                      this.props.auth.user.handle && this.props.auth.user :
+                      undefined).then(res => res.challenges),
+                      this.props.getMarathonMatches(f, {
+                        limit: pageSize,
+                        offset: pageIndex * pageSize,
+                      },
+                      this.props.auth.tokenV3,
+                      undefined,
+                      filter.filteringParams.user && this.props.auth.user ?
+                      this.props.auth.user.handle : undefined).then(res =>
+                        res.challenges),
+                    ]).then(([a, b]) => a.concat(b));
+                  }}
                   fetchItemFinishCallback={fetchCallback}
                   batchNumber={batchLoadNumber}
                   filter={additionalFilter}
@@ -217,6 +242,7 @@ class ChallengeCardContainer extends Component {
 }
 
 ChallengeCardContainer.defaultProps = {
+  challengeGroupId: '',
   onTechTagClicked: _.noop,
   onExpandFilterResult: _.noop,
   filters: defaultFilters,
@@ -231,6 +257,13 @@ ChallengeCardContainer.defaultProps = {
 };
 
 ChallengeCardContainer.propTypes = {
+  auth: PT.shape({
+    tokenV3: PT.string,
+    user: PT.shape({
+      handle: PT.string,
+    }),
+  }).isRequired,
+  challengeGroupId: PT.string,
   onTechTagClicked: PT.func,
   onExpandFilterResult: PT.func,
   additionalFilter: PT.func,
@@ -246,6 +279,8 @@ ChallengeCardContainer.propTypes = {
   })),
   expanded: PT.oneOfType([PT.bool, PT.string]),
   fetchCallback: PT.func,
+  getChallenges: PT.func.isRequired,
+  getMarathonMatches: PT.func.isRequired,
   config: PT.shape(),
 };
 

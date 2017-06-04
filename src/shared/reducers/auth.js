@@ -3,8 +3,9 @@
  */
 
 import actions from 'actions/auth';
+import config from 'utils/config';
 import { handleActions } from 'redux-actions';
-import { decodeToken } from 'tc-accounts';
+import { decodeToken, isTokenExpired } from 'tc-accounts';
 import { toFSA } from 'utils/redux';
 
 /**
@@ -51,10 +52,22 @@ function create(initialState) {
  */
 export function factory(req) {
   const cookies = (req && req.cookies) || {};
-  const tokenV3 = cookies.v3jwt || null;
+
+  /* If tokens are expired we ignore them, because there is no easy way to
+   * get fresh tokens at the server side. Not a big deal, they will be
+   * refreshed at the frontend, once the App is started. */
+
+  const adt = config.AUTH_DROP_TIME;
+
+  let tokenV2 = cookies.tcjwt;
+  if (!tokenV2 || isTokenExpired(tokenV2, adt)) tokenV2 = null;
+
+  let tokenV3 = cookies.v3jwt;
+  if (!tokenV3 || isTokenExpired(tokenV3, adt)) tokenV3 = null;
+
   const state = {
     authenticating: true,
-    tokenV2: cookies.tcjwt || null,
+    tokenV2,
     tokenV3,
     user: tokenV3 ? decodeToken(tokenV3) : null,
   };

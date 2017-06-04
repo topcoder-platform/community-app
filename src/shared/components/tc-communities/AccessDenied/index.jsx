@@ -17,14 +17,14 @@ export default function AccessDenied({ cause }) {
   const origin = window ? window.location.origin : '';
   switch (cause) {
     case CAUSE.NOT_AUTHENTICATED: {
-      const returnUrl = encodeURIComponent(`${origin}/community/wipro2/home`);
+      const returnUrl = encodeURIComponent(`${origin}/community/wipro/home`);
       return (
         <div styleName="access-denied">
           <TopcoderLogo />
           <div styleName="msg">You must be authenticated to access this page.</div>
           <div styleName="msg">
             <a
-              className="btnButton"
+              className="tc-btn-md tc-btn-primary"
               href={`${config.URL.AUTH}?retUrl=${returnUrl}`}
             >Log In Here</a>
           </div>

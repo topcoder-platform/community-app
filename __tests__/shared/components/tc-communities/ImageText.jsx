@@ -9,7 +9,7 @@ test('Snapshot match', () => {
     <ImageText
       title="Learn"
       text="You can learn and get certified donec facilisis tortor ut augue lacinia"
-      imageSrc="/themes/wipro2/home/image-text-learn.jpg"
+      imageSrc="/themes/wipro/home/image-text-learn.jpg"
     />
   ));
   expect(rnd.getRenderOutput()).toMatchSnapshot();
@@ -22,7 +22,7 @@ test('Snapshot match', () => {
         title: 'Start Learning',
         url: '#',
       }}
-      imageSrc="/themes/wipro2/home/image-text-learn.jpg"
+      imageSrc="/themes/wipro/home/image-text-learn.jpg"
       theme={{
         container: 'container',
         image: 'image',

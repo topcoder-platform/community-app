@@ -25,6 +25,7 @@
  * into a special map of counts in the Redux state.
  */
 
+import _ from 'lodash';
 import logger from 'utils/logger';
 import { createActions } from 'redux-actions';
 import { getService } from 'services/challenges';
@@ -46,7 +47,7 @@ function handle(promise, uuid, filters, countCategory, user) {
       totalCount: 0,
     };
   }).then(res => ({
-    challenges: res.challenges,
+    challenges: res.challenges || [],
     filters,
     totalCount: countCategory ? {
       category: countCategory,
@@ -55,6 +56,32 @@ function handle(promise, uuid, filters, countCategory, user) {
     user: user || null,
     uuid,
   }));
+}
+
+/**
+ * Gets possible challenge subtracks.
+ * @return {Promise}
+ */
+function getChallengeSubtracksDone() {
+  return getService()
+  .getChallengeSubtracks()
+  .then(res =>
+    res.map(item => item.description)
+    .sort((a, b) => a.localeCompare(b)),
+  );
+}
+
+/**
+ * Gets possible challenge tags (technologies).
+ * @return {Promise}
+ */
+function getChallengeTagsDone() {
+  return getService()
+  .getChallengeTags()
+  .then(res =>
+    res.map(item => item.name)
+    .sort((a, b) => a.localeCompare(b)),
+  );
 }
 
 /**
@@ -123,11 +150,26 @@ function reset() {
   return undefined;
 }
 
+/**
+ * Corresponding action writes the filter given in string representation into
+ * the Redux state.
+ * @param {String} filter String representation of the filter.
+ */
+function setFilter(filter) {
+  return filter;
+}
+
 export default createActions({
   CHALLENGE_LISTING: {
+    GET_CHALLENGE_SUBTRACKS_INIT: _.noop,
+    GET_CHALLENGE_SUBTRACKS_DONE: getChallengeSubtracksDone,
+    GET_CHALLENGE_TAGS_INIT: _.noop,
+    GET_CHALLENGE_TAGS_DONE: getChallengeTagsDone,
+
     GET_CHALLENGES: getChallenges,
     GET_INIT: getInit,
     GET_MARATHON_MATCHES: getMarathonMatches,
     RESET: reset,
+    SET_FILTER: setFilter,
   },
 });

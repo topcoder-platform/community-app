@@ -33,16 +33,23 @@ const config = window.CONFIG;
  * Results will be storted in the Redux store, inside state.auth.
  * @param {Object} store Redux store.
  */
+let firstAuth = true;
 function authenticate(store) {
   /* TODO: The iframe injected into the page by this call turns out to be
    * visible as a tiny nob (~3x3 px). It has html ID `tc-accounts-iframe`
    * (as specified in this call). We should hide it by adding the proper side
    * in our stylesheet, or to figure out, why it is not hidden by default.  */
-  configureConnector({
-    connectorUrl: config.ACCOUNTS_APP_CONNECTOR_URL,
-    frameId: 'tc-accounts-iframe',
-  });
+  if (firstAuth) {
+    firstAuth = false;
+    configureConnector({
+      connectorUrl: config.ACCOUNTS_APP_CONNECTOR_URL,
+      frameId: 'tc-accounts-iframe',
+    });
+  }
 
+  /* TODO: Should we schedule authomatical re-authentication with help of
+    setTimeout(), so that we don't have to worry about updates of the token
+    in any other frontend code? */
   getFreshToken().then((tctV3) => {
     const tctV2 = cookies.get('tcjwt');
     logger.log('Authenticated as:', decodeToken(tctV3));
@@ -62,6 +69,17 @@ function authenticate(store) {
       store.dispatch(actions.auth.setTcTokenV2(tctV2));
     }
     store.dispatch(actions.auth.loadProfile(tctV3));
+
+    /* Automatic refreshment of auth tokens. */
+    let time = Number.MAX_VALUE;
+    if (tctV2) time = decodeToken(tctV2).exp;
+    if (tctV3) time = Math.min(time, decodeToken(tctV3).exp);
+    if (time < Number.MAX_VALUE) {
+      time = 1000 * (time - config.REAUTH_TIME);
+      time = Math.max(0, time - Date.now());
+      logger.log('Reauth scheduled in', time / 1000, 'seconds');
+      setTimeout(() => authenticate(store), time);
+    }
   });
 }
 
