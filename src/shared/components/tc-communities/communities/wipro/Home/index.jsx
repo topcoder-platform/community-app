@@ -32,7 +32,7 @@ export default function Home() {
         text="Wipro's Hybrid Crowd gives our vast ecosystem of customers and partners options to access new range of skills that provide new value services and efficiency options all over the world."
         link={{
           title: 'Compete Now',
-          url: '.',
+          url: 'challenges',
         }}
         imageSrc="/themes/wipro/home/banner.jpg"
       />
