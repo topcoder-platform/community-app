@@ -7,6 +7,7 @@ import logger from 'utils/logger';
 import loggerMiddleware from 'morgan';
 import path from 'path';
 import favicon from 'serve-favicon';
+import requestIp from 'request-ip';
 import stream from 'stream';
 
 // Temporarily here to test our API service.
@@ -38,10 +39,11 @@ app.use(favicon(path.resolve(__dirname, '../assets/images/favicon.ico')));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(requestIp.mw());
 
 /* Log Entries service proxy. */
 app.use('/api/logger', (req, res) => {
-  logger.log(`${req.ip} - `, ...req.body.data);
+  logger.log(`${req.clientIp} - `, ...req.body.data);
   res.end();
 });
 
