@@ -51,7 +51,9 @@ app.use(loggerMiddleware('combined', {
   stream: new stream.Writable({
     decodeStrings: false,
     write: (chunk, encoding, cb) => {
-      logger.log(chunk);
+      if (!chunk.match(/ELB-HealthChecker\/2.0/)) {
+        logger.log(chunk);
+      }
       cb();
     },
   }),
