@@ -43,11 +43,13 @@ app.use(requestIp.mw());
 
 /* Log Entries service proxy. */
 app.use('/api/logger', (req, res) => {
-  logger.log(`${req.clientIp} - `, ...req.body.data);
+  logger.log(`${req.clientIp} > `, ...req.body.data);
   res.end();
 });
 
-app.use(loggerMiddleware('combined', {
+loggerMiddleware.token('ip', req => req.clientIp);
+
+app.use(loggerMiddleware(':ip > :status :method :url :response-time ms :res[content-length] :referrer :user-agent', {
   stream: new stream.Writable({
     decodeStrings: false,
     write: (chunk, encoding, cb) => {
