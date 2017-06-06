@@ -55,7 +55,11 @@ It is intended that Wipro community is accessed as `wipro.topcoder-dev.com` in d
 
 2.  Once you have added this alias to your `/etc/hosts`, it is extremely easy to forget about it and to be totally confused when failing to access the remotely deployed dev version of the App (because `wipro.topcoder-dev.com` is used in both places). ***Thus we recommend to comment out this alias in `/etc/hosts` whenever you don't need it!!!*** Technically, it makes total sense just to run the local dev version of the App at, say, `local.wipro.topcoder-dev.com:3000`, and the code does support it... the problem is that, as of now, Topcoder's `accounts-app` does not allow to authenticated from such subdomain/port, thus you won't be permitted to access.
 
-3.  As of now, this community can be also rapidly accessed at `local.topcoder-dev.com/community/wipro/`. It should be fine to use it during development, just keep in mind that you should use relative links to navigate inside the community, as our primary goal is to ensure it is properly funcional at `wipro.topcode-dev.com`.
+3.  As of now, this community can be also rapidly accessed at `local.topcoder-dev.com/community/wipro/`. It should be fine to use it during development, just keep in mind that you should use relative links to navigate inside the community, as our primary goal is to ensure it is properly funcional at `wipro.topcoder-dev.com`.
+
+### Configuration for *logentries.com*
+
+We use [https://logentries.com](https://logentries.com) to track the logs. Log Entries API token should be provided via the `LOG_ENTRIES_TOKEN` environment variable, which will override the default values set in `/config/default.json` (sample account for local setup testing), and in `/config/production.json` (empty token) - with empty token Log Entries will not be used.
 
 ### Development Notes
 -   [Challenge Listing - Notes from winning submission](docs/challenge-listing-notes.md)

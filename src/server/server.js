@@ -3,9 +3,11 @@ import atob from 'atob';
 import bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser';
 import express from 'express';
-import logger from 'morgan';
+import logger from 'utils/logger';
+import loggerMiddleware from 'morgan';
 import path from 'path';
 import favicon from 'serve-favicon';
+import stream from 'stream';
 
 // Temporarily here to test our API service.
 // import '../shared/services/api';
@@ -33,10 +35,25 @@ const app = express();
 global.atob = atob;
 
 app.use(favicon(path.resolve(__dirname, '../assets/images/favicon.ico')));
-app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
+
+/* Log Entries service proxy. */
+app.use('/api/logger', (req, res) => {
+  logger.log(`${req.ip} - `, ...req.body.data);
+  res.end();
+});
+
+app.use(loggerMiddleware('combined', {
+  stream: new stream.Writable({
+    decodeStrings: false,
+    write: (chunk, encoding, cb) => {
+      logger.log(chunk);
+      cb();
+    },
+  }),
+}));
 
 /* Setup of Webpack Hot Reloading for development environment.
  * These dependencies are not used nor installed in production deployment,

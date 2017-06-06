@@ -178,7 +178,7 @@ exports[`Matches shallow shapshot 1`] = `
         replace={false}
         to="/community/wipro/home"
       >
-        Wipro 2 Community Homepage
+        Wipro Community Homepage
       </Link>
        – Example of community implementation with new design. This community has three more pages: 
       <Link
