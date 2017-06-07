@@ -1,0 +1,84 @@
+@import '~styles/tc-styles';
+
+.coursesContainer {
+  padding-bottom: 60px;
+}
+
+.resourcesTitle {
+  padding-bottom: 50px;
+  padding-top: 0;
+
+  @include xxs-to-sm {
+    font-size: 36px;
+    padding-bottom: 30px;
+  }
+}
+
+.resourcesContainer {
+  padding-bottom: 60px;
+
+  @include xxs-to-sm {
+    padding-bottom: 50px;
+  }
+}
+
+.bannerContainer {
+  height: 252px;
+
+  @include xxs-to-sm {
+    height: 300px;
+  }
+}
+
+.bannerContent {
+  bottom: 0;
+  top: 0;
+  transform: none;
+  width: 600px;
+
+  @include xxs-to-sm {
+    top: auto;
+    width: 100%;
+  }
+}
+
+.bannerContentInner {
+  @include xxs-to-sm {
+    padding-bottom: 20px;
+    padding-top: 48px;
+  }
+}
+
+.learnBasicsContainer {
+  padding-bottom: 0;
+}
+
+.joinnowWrap {
+  margin-top: 10px;
+
+  @include xxs-to-sm {
+    margin-top: 20px;
+    text-align: center;
+  }
+}
+
+.joinnow {
+  color: #0092ff;
+  display: inline-block;
+  border: 1px solid #0092ff;
+  border-radius: 20px;
+  font: 700 14px/40px 'OpenSans';
+  height: 40px;
+  text-align: center;
+  text-transform: uppercase;
+  width: 171px;
+
+  &:hover,
+  &:active,
+  &:focus,
+  &:visited {
+    color: #0092ff;
+    outline: none;
+    text-decoration: none;
+  }
+}

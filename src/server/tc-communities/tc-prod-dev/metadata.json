@@ -4,9 +4,9 @@
   ],
   "challengeGroupId": "20000000",
   "challengeFilterTag": "",
-  "communityId": "wipro",
+  "communityId": "tc-prod-dev",
   "communitySelector": [{
-    "label": "Wipro Hybrid Crowd",
+    "label": "Topcoder Product Development",
     "value": "1"
   }, {
     "label": "Cognitive Community",
@@ -18,7 +18,6 @@
     "value": "3"
   }],
   "logos": [
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0e/Wipro_Logo_RGB.png/480px-Wipro_Logo_RGB.png",
     "/themes/wipro/logo_topcoder_with_name.svg"
   ],
   "menuItems": [

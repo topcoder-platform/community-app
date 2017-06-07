@@ -3,9 +3,12 @@ import atob from 'atob';
 import bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser';
 import express from 'express';
-import logger from 'morgan';
+import logger from 'utils/logger';
+import loggerMiddleware from 'morgan';
 import path from 'path';
 import favicon from 'serve-favicon';
+import requestIp from 'request-ip';
+import stream from 'stream';
 
 // Temporarily here to test our API service.
 // import '../shared/services/api';
@@ -33,10 +36,30 @@ const app = express();
 global.atob = atob;
 
 app.use(favicon(path.resolve(__dirname, '../assets/images/favicon.ico')));
-app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(requestIp.mw());
+
+/* Log Entries service proxy. */
+app.use('/api/logger', (req, res) => {
+  logger.log(`${req.clientIp} > `, ...req.body.data);
+  res.end();
+});
+
+loggerMiddleware.token('ip', req => req.clientIp);
+
+app.use(loggerMiddleware(':ip > :status :method :url :response-time ms :res[content-length] :referrer :user-agent', {
+  stream: new stream.Writable({
+    decodeStrings: false,
+    write: (chunk, encoding, cb) => {
+      if (!chunk.match(/ELB-HealthChecker\/2.0/)) {
+        logger.log(chunk);
+      }
+      cb();
+    },
+  }),
+}));
 
 /* Setup of Webpack Hot Reloading for development environment.
  * These dependencies are not used nor installed in production deployment,

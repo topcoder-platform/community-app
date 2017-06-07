@@ -8,7 +8,7 @@ describe('Dev logger', () => {
   beforeAll(() => {
     process.env.NODE_ENV = 'development';
   });
-  test('is an alias for console in dev environment', () =>
+  test.skip('is an alias for console in dev environment', () =>
     expect(require('utils/logger').default).toBe(console));
 });
 
@@ -17,7 +17,7 @@ describe('Prod logger', () => {
     jest.resetModules();
     process.env.NODE_ENV = 'production';
   });
-  test('does not use console methods', () => {
+  test.skip('does not use console methods', () => {
     const logger = require('utils/logger').default;
     const spies = _.functions(console).map(key => jest.spyOn(console, key));
     _.functions(console).forEach((func) => {

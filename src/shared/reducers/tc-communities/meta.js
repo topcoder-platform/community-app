@@ -20,6 +20,7 @@ function onDone(state, action) {
       challengeFilterTag: action.payload.challengeFilterTag,
       challengeGroupId: action.payload.challengeGroupId,
       communityId: action.payload.communityId,
+      communitySelector: action.payload.communitySelector,
       logos: action.payload.logos,
       menuItems: action.payload.menuItems,
       failed: false,
@@ -34,6 +35,7 @@ function onDone(state, action) {
     authorizedGroupIds: [],
     challengeGroupId: '',
     communityId: action.payload.error === '404' ? action.payload.communityId : null,
+    communitySelector: [],
     logos: [],
     menuItems: [],
     failed: action.payload.error === '404' ? action.payload.error : true,
@@ -60,6 +62,7 @@ function create(initialState) {
       return {
         ...state,
         communityId: null,
+        communitySelector: [],
         logos: [],
         menuItems: [],
         failed: false,

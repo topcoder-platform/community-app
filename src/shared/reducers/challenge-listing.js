@@ -152,8 +152,10 @@ function onGetDone(state, { payload }, normalizer) {
     we write this count into the state, probably overwritting the old value. */
   let counts = state.counts;
   if (payload.totalCount) {
-    counts = _.clone(counts);
-    counts[payload.totalCount.category] = payload.totalCount.value;
+    counts = {
+      ...counts,
+      [payload.totalCount.category]: payload.totalCount.value || 0,
+    };
   }
 
   if (!payload.challenges || !payload.challenges.length) {

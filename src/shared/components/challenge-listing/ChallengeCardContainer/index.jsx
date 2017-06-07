@@ -28,7 +28,7 @@ import _ from 'lodash';
 import React, { Component } from 'react';
 import PT from 'prop-types';
 import SortingSelectBar from 'components/SortingSelectBar';
-import InfiniteList from 'components/InfiniteList';
+import InfiniteList from '../InfiniteList';
 import defaultFilters from './challengeFilters';
 import defaultSortingFunctionStore from './sortingFunctionStore';
 import {
@@ -126,7 +126,7 @@ class ChallengeCardContainer extends Component {
   }
 
   render() {
-    const { additionalFilter, filters, fetchCallback } = this.props;
+    const { additionalFilter, filters } = this.props;
     const {
       currentFilter,
       expanded,
@@ -224,7 +224,6 @@ class ChallengeCardContainer extends Component {
                         res.challenges),
                     ]).then(([a, b]) => a.concat(b));
                   }}
-                  fetchItemFinishCallback={fetchCallback}
                   batchNumber={batchLoadNumber}
                   filter={additionalFilter}
                   tempDataFilter={filterName}
@@ -252,7 +251,6 @@ ChallengeCardContainer.defaultProps = {
   currentFilterName: '',
   challenges: [],
   expanded: false,
-  fetchCallback: _.noop,
   config: {},
 };
 
@@ -278,7 +276,6 @@ ChallengeCardContainer.propTypes = {
     info: PT.shape(),
   })),
   expanded: PT.oneOfType([PT.bool, PT.string]),
-  fetchCallback: PT.func,
   getChallenges: PT.func.isRequired,
   getMarathonMatches: PT.func.isRequired,
   config: PT.shape(),

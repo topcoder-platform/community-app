@@ -24,7 +24,11 @@ import { connect } from 'react-redux';
 import Examples from './examples';
 
 function Routes({ subdomains }) {
-  if (subdomains.indexOf('wipro') >= 0) {
+  let communityId;
+  if (subdomains.indexOf('demo-expert') >= 0) communityId = 'demo-expert';
+  else if (subdomains.indexOf('wipro') >= 0) communityId = 'wipro';
+  else if (subdomains.indexOf('tc-prod-dev') >= 0) communityId = 'tc-prod-dev';
+  if (communityId) {
     return (
       <div>
         <Route
@@ -32,7 +36,7 @@ function Routes({ subdomains }) {
           path="/"
           render={props => (
             <TcCommunitiesPage
-              communityId="wipro"
+              communityId={communityId}
               pageId="home"
               {...props}
             />
@@ -42,7 +46,7 @@ function Routes({ subdomains }) {
           path="/:pageId"
           render={props => (
             <TcCommunitiesPage
-              communityId="wipro"
+              communityId={communityId}
               {...props}
             />
           )}

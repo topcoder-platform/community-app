@@ -4,6 +4,7 @@
 
 import _ from 'lodash';
 import http from 'http';
+import logger from 'utils/logger';
 import app from './server';
 
 /**
@@ -36,11 +37,11 @@ function onError(error) {
   /* Human-readable messages for some specific listen errors. */
   switch (error.code) {
     case 'EACCES':
-      console.error(`${bind} requires elevated privileges`);
+      logger.error(`${bind} requires elevated privileges`);
       process.exit(1);
       break;
     case 'EADDRINUSE':
-      console.error(`${bind} is already in use`);
+      logger.error(`${bind} is already in use`);
       process.exit(1);
       break;
     default:
@@ -54,7 +55,7 @@ function onError(error) {
 function onListening() {
   const addr = server.address();
   const bind = _.isString(addr) ? `pipe ${addr}` : `port ${addr.port}`;
-  console.log(`Server listening on ${bind} in ${process.env.NODE_ENV} mode`);
+  logger.log(`Server listening on ${bind} in ${process.env.NODE_ENV} mode`);
 }
 
 /* Listens on provided port, on all network interfaces. */

@@ -86,7 +86,6 @@ class InfiniteList extends Component {
       fetchItems: () => this.fetchNewItems(),
       finishCallback: (newItems) => {
         this.state.newItemsCount = newItems.length ? newItems.length : 0;
-        this.props.fetchItemFinishCallback(newItems);
         this.currentPageIndex += 1;
         this.setLoadingStatus(false);
       },
@@ -215,7 +214,6 @@ InfiniteList.defaultProps = {
   sort: () => true,
   fetchItems: null,
   uniqueIdentifier: false,
-  fetchItemFinishCallback: _.noop,
   renderItem: _.noop,
   tempDataFilter: null,
 };
@@ -230,7 +228,6 @@ InfiniteList.propTypes = {
   filter: PT.func,
   sort: PT.func,
   uniqueIdentifier: PT.oneOfType([PT.string, PT.bool]),
-  fetchItemFinishCallback: PT.func,
   renderItem: PT.func,
   tempDataFilter: PT.string,
 };
