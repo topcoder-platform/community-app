@@ -141,8 +141,8 @@ class Page extends Component {
     // true, if is loading now, or if not started loading yet
     const isNotLoaded = communityId !== this.props.meta.communityId;
 
-    if (this.props.profile && !isNotLoaded) {
-      const userGroupIds = this.props.profile.groups.map(item => item.id);
+    if ((this.props.profile || !this.props.meta.authorizedGroupIds) && !isNotLoaded) {
+      const userGroupIds = this.props.profile ? this.props.profile.groups.map(item => item.id) : [];
       if (!this.props.meta.authorizedGroupIds ||
       _.intersection(userGroupIds, this.props.meta.authorizedGroupIds || []).length) {
         return (
