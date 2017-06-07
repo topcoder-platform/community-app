@@ -24,6 +24,7 @@ export default function Header(props) {
   const {
     activeTrigger,
     closeMenu,
+    communitySelector,
     openMenu,
     openedMenu,
     logos,
@@ -36,22 +37,6 @@ export default function Header(props) {
     registerUrl,
     loginUrl,
   } = props;
-
-  // hardcode dropdown options for now
-  const communitiesDropdownOptions = [
-    {
-      label: 'Wipro Hybrid Crowd',
-      value: '1',
-    }, {
-      label: 'Cognitive Community',
-      redirect: 'http://cognitive.topcoder.com/',
-      value: '2',
-    }, {
-      label: 'iOS Community',
-      redirect: 'https://ios.topcoder.com/',
-      value: '3',
-    },
-  ];
 
   const BASE_URL = config.URL.BASE;
 
@@ -146,8 +131,8 @@ export default function Header(props) {
 
             <div styleName="challenge-dropdown">
               <Dropdown
-                options={communitiesDropdownOptions}
-                value={communitiesDropdownOptions[0]}
+                options={communitySelector}
+                value={communitySelector[0]}
               />
             </div>
 
@@ -211,6 +196,7 @@ Header.defaultProps = {
 Header.propTypes = {
   activeTrigger: PT.shape({}),
   closeMenu: PT.func.isRequired,
+  communitySelector: PT.arrayOf(PT.shape()).isRequired,
   registerUrl: PT.string.isRequired,
   loginUrl: PT.string.isRequired,
   menuItems: PT.arrayOf(PT.shape({

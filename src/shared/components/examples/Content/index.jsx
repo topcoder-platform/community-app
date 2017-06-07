@@ -87,6 +87,13 @@ export default function Content() {
           community page</Link>.
         </li>
         <li>
+          <Link to="/community/demo-expert/home">Demo Expert Community</Link>
+        </li>
+        <li>
+          <Link to="/community/tc-prod-dev/home">Topcoder Product
+          Development</Link>
+        </li>
+        <li>
           <Link to="/community/wipro/home">Wipro Community Homepage</Link> &ndash;
           Example of community implementation with new design.
           This community has three more pages: <Link to="/community/wipro/learn">Learn

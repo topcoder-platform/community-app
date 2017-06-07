@@ -32,6 +32,12 @@ import Leaderboard from 'containers/Leaderboard';
 import WiproHome from 'components/tc-communities/communities/wipro/Home';
 import WiproLearn from 'components/tc-communities/communities/wipro/Learn';
 
+import TcProdDevHome from 'components/tc-communities/communities/tc-prod-dev/Home';
+import TcProdDevLearn from 'components/tc-communities/communities/tc-prod-dev/Learn';
+
+import DemoExpertHome from 'components/tc-communities/communities/demo-expert/Home';
+import DemoExpertLearn from 'components/tc-communities/communities/demo-expert/Learn';
+
 import AccessDenied, {
   CAUSE as ACCESS_DENIED_CAUSE,
 } from 'components/tc-communities/AccessDenied';
@@ -67,6 +73,18 @@ class Page extends Component {
         pageContent = <WiproHome />;
       } else if (pageId === 'learn') {
         pageContent = <WiproLearn />;
+      }
+    } else if (communityId === 'tc-prod-dev') {
+      switch (pageId) {
+        case 'home': pageContent = <TcProdDevHome />; break;
+        case 'learn': pageContent = <TcProdDevLearn />; break;
+        default: break;
+      }
+    } else if (communityId === 'demo-expert') {
+      switch (pageId) {
+        case 'home': pageContent = <DemoExpertHome />; break;
+        case 'learn': pageContent = <DemoExpertLearn />; break;
+        default: break;
       }
     } else if (communityId.match(/example-theme-\w/)) {
       pageContent = <div />;
@@ -125,7 +143,8 @@ class Page extends Component {
 
     if (this.props.profile && !isNotLoaded) {
       const userGroupIds = this.props.profile.groups.map(item => item.id);
-      if (_.intersection(userGroupIds, this.props.meta.authorizedGroupIds || []).length) {
+      if (!this.props.meta.authorizedGroupIds ||
+      _.intersection(userGroupIds, this.props.meta.authorizedGroupIds || []).length) {
         return (
           <div>
             <Header
@@ -139,6 +158,7 @@ class Page extends Component {
               openMenu={this.props.openMenu}
               isMobileOpen={this.props.meta.isMobileOpen}
               communityId={communityId}
+              communitySelector={this.props.meta.communitySelector}
               onMobileToggleClick={this.props.mobileToggle}
               cssUrl={this.props.meta.cssUrl}
               registerUrl={registerUrl}
@@ -189,6 +209,7 @@ Page.propTypes = {
     challengeFilterTag: PT.string,
     challengeGroupId: PT.string,
     communityId: PT.string,
+    communitySelector: PT.arrayOf(PT.shape()),
     cssUrl: PT.string,
 
     // TODO: isMobileOpen does not belong to community meta data, should be

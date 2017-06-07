@@ -25,6 +25,12 @@ exports[`Matches shapshot 1`] = `
         "12345",
       ],
       "communityId": "someId",
+      "communitySelector": Array [
+        Object {
+          "label": "Community Name",
+          "value": "1",
+        },
+      ],
       "cssUrl": "some/css/url",
       "failed": false,
       "isMobileOpen": false,

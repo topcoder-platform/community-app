@@ -34,24 +34,14 @@ exports[`Snapshot match 1`] = `
             options={
               Array [
                 Object {
-                  "label": "Wipro Hybrid Crowd",
+                  "label": "Community Name",
                   "value": "1",
-                },
-                Object {
-                  "label": "Cognitive Community",
-                  "redirect": "http://cognitive.topcoder.com/",
-                  "value": "2",
-                },
-                Object {
-                  "label": "iOS Community",
-                  "redirect": "https://ios.topcoder.com/",
-                  "value": "3",
                 },
               ]
             }
             value={
               Object {
-                "label": "Wipro Hybrid Crowd",
+                "label": "Community Name",
                 "value": "1",
               }
             }
@@ -153,24 +143,14 @@ exports[`Snapshot match 2`] = `
             options={
               Array [
                 Object {
-                  "label": "Wipro Hybrid Crowd",
+                  "label": "Community Name",
                   "value": "1",
-                },
-                Object {
-                  "label": "Cognitive Community",
-                  "redirect": "http://cognitive.topcoder.com/",
-                  "value": "2",
-                },
-                Object {
-                  "label": "iOS Community",
-                  "redirect": "https://ios.topcoder.com/",
-                  "value": "3",
                 },
               ]
             }
             value={
               Object {
-                "label": "Wipro Hybrid Crowd",
+                "label": "Community Name",
                 "value": "1",
               }
             }
