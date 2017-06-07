@@ -25,7 +25,7 @@ import SideBarFilter, { MODE as SideBarFilterModes } from './SideBarFilters/Side
 import SideBarFilters from './SideBarFilters';
 import ChallengeCard from './ChallengeCard';
 import ChallengeCardContainer from './ChallengeCardContainer';
-// import ChallengeCardPlaceholder from './placeholders/ChallengeCardPlaceholder';
+import ChallengeCardPlaceholder from './placeholders/ChallengeCardPlaceholder';
 import SidebarFilterPlaceholder from './placeholders/SidebarFilterPlaceholder';
 import SRMCard from './SRMCard';
 import ChallengesSidebar from './Sidebar';
@@ -46,7 +46,7 @@ function keywordsMapper(keyword) {
 }
 
 // Number of challenge placeholder card to display
-// const CHALLENGE_PLACEHOLDER_COUNT = 8;
+const CHALLENGE_PLACEHOLDER_COUNT = 8;
 
 // A mock list of SRMs side bar
 const SRMsSidebarMock = {
@@ -102,20 +102,6 @@ const deserialize = (queryString) => {
 
 // The demo component itself.
 class ChallengeFiltersExample extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      // challenges: [],
-      // srmChallenges: [],
-      // currentCardType: 'Challenges',
-      // filter: new SideBarFilter(),
-      // lastFetchId: 0,
-
-      // isSRMChallengesLoading: false,
-      // isSRMChallengesLoaded: false,
-    };
-    // this.setCardType.bind(this);
-  }
 
   /**
    * ChallengeFiltersExample was brought from another project without server rendering support.
@@ -142,41 +128,7 @@ class ChallengeFiltersExample extends React.Component {
         });
     }
     */
-
-    /*
-    if (!this.state.isChallengesLoading && !this.state.isChallengesLoaded) {
-      // eslint-disable-next-line react/no-did-mount-set-state
-      this.setState({ isChallengesLoading: true });
-      this.fetchChallenges(0).then((res) => {
-        this.setChallenges(0, res);
-        this.setState({ isChallengesLoading: false, isChallengesLoaded: true });
-      });
-    }
-    */
   }
-
-  /*
-  componentDidUpdate(prevProps) {
-    if (this.props.auth.tokenV3 !== prevProps.auth.tokenV3) {
-      setImmediate(() => {
-        this.setState({
-          challenges: [],
-          lastFetchId: 1,
-          isChallengesLoading: true,
-          isChallengesLoaded: false,
-          isLoaded: false,
-        });
-        this.fetchChallenges().then((res) => {
-          this.setChallenges(1, res);
-          this.setState({
-            isChallengesLoading: false,
-            isChallengesLoaded: true,
-          });
-        });
-      });
-    }
-  }
-  */
 
   /**
    * Searches the challenges for with the specified search string, competition
@@ -281,11 +233,10 @@ class ChallengeFiltersExample extends React.Component {
     const filter = this.getFilter();
     const { name: sidebarFilterName } = filter;
 
+    const expanded = sidebarFilterName !== 'All Challenges';
+
     let challengeCardContainer;
-    /*
-      TODO: Rendering of the challenge placeholders during initial loading
-      is temporarly disabled.
-    if (false && this.props.loadingChallenges && (sidebarFilterName !== 'All Challenges')) {
+    if (!expanded && this.props.loadingChallenges) {
       const challengeCards = _.range(CHALLENGE_PLACEHOLDER_COUNT)
       .map(key => <ChallengeCardPlaceholder id={key} key={key} />);
       challengeCardContainer = (
@@ -295,7 +246,7 @@ class ChallengeFiltersExample extends React.Component {
           </div>
         </div>
       );
-    } else */ if (filter.isCustomFilter) {
+    } else if (filter.isCustomFilter) {
       if (currentFilter.mode === SideBarFilterModes.CUSTOM) {
         challenges = this.props.challenges.filter(currentFilter.getFilterFunction());
       }
@@ -338,15 +289,6 @@ class ChallengeFiltersExample extends React.Component {
           challengeGroupId={this.props.challengeGroupId}
           currentFilterName={sidebarFilterName}
           expanded={sidebarFilterName !== 'All Challenges'}
-          fetchCallback={_.noop /* (fetchedChallenges) => {
-            /*
-            this.setState({
-              challenges: _.uniqBy(
-                challenges.concat(fetchedChallenges),
-                'id',
-              ),
-            });
-          }*/}
           getChallenges={this.props.getChallenges}
           getMarathonMatches={this.props.getMarathonMatches}
           additionalFilter={
@@ -430,7 +372,7 @@ class ChallengeFiltersExample extends React.Component {
 
         <div styleName={`tc-content-wrapper ${/* this.state.currentCardType === 'Challenges' ? '' : 'hidden' */''}`}>
           <div styleName="sidebar-container-mobile">
-            {!this.props.loadingChallenges ? (<SideBarFilters
+            {!this.props.loadingChallenges || expanded ? (<SideBarFilters
               config={this.props.config}
               challenges={challenges}
               filter={this.getFilter()}
@@ -450,7 +392,7 @@ class ChallengeFiltersExample extends React.Component {
 
           <div styleName="sidebar-container-desktop">
             <Sticky top={20}>
-              {!this.props.loadingChallenges ? (<SideBarFilters
+              {!this.props.loadingChallenges || expanded ? (<SideBarFilters
                 config={this.props.config}
                 challenges={challenges}
                 filter={this.getFilter()}
