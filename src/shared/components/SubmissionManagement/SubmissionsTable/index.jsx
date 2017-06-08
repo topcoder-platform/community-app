@@ -84,7 +84,7 @@ export default function SubmissionsTable(props) {
             <th>ID</th>
             <th>Type</th>
             <th>Submission Date</th>
-            {type === 'design' && <th styleName="status">Screening Status</th>}
+            {type === 'DESIGN' && <th styleName="status">Screening Status</th>}
             <th styleName="actions">Actions</th>
           </tr>
         </thead>
@@ -109,7 +109,6 @@ const SubShape = PT.shape({
 SubmissionsTable.defaultProps = {
   submissionObjects: [],
   showDetails: new Set(),
-  type: '',
   onDelete: _.noop,
   onDownload: _.noop,
   onShowDetails: _.noop,
@@ -120,7 +119,7 @@ SubmissionsTable.defaultProps = {
 SubmissionsTable.propTypes = {
   submissionObjects: PT.arrayOf(SubShape),
   showDetails: PT.instanceOf(Set),
-  type: PT.string,
+  type: PT.string.isRequired,
   onDelete: PT.func,
   onlineReviewUrl: PT.string,
   helpPageUrl: PT.string,
