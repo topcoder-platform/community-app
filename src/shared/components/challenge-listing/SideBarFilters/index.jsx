@@ -170,7 +170,8 @@ class SideBarFilters extends React.Component {
     this.state.filters.forEach((filter) => {
       const filterClone = new SideBarFilter(filter);
       if (this.state.currentFilter === filter) currentFilter = filterClone;
-      filterClone.count = nextProps.challenges.filter(filter.getFilterFunction()).length;
+      filterClone.groupId = nextProps.filter.groupId;
+      filterClone.count = nextProps.challenges.filter(filterClone.getFilterFunction()).length;
       filters.push(filterClone);
     });
     for (let i = 0; i < filters.length; i += 1) {

@@ -158,7 +158,11 @@ class ChallengeFiltersExample extends React.Component {
       updatedFilter.isCustomFilter = true;
       updatedFilter.mode = SideBarFilterModes.CUSTOM;
     } else {
-      const mergedFilter = Object.assign({}, this.getFilter(), filter);
+      const f = this.getFilter();
+      const mergedFilter = Object.assign({}, f, filter);
+      if (isSidebarFilter) {
+        if (f.groupId) mergedFilter.groupId = f.groupId;
+      }
       updatedFilter = new SideBarFilter(mergedFilter);
       if (!isSidebarFilter) {
         updatedFilter.mode = SideBarFilterModes.CUSTOM;
@@ -211,14 +215,17 @@ class ChallengeFiltersExample extends React.Component {
   // ReactJS render method.
   render() {
     let challenges = this.props.challenges;
+    /*
     if (this.props.challengeGroupId) {
       challenges = challenges.filter(item =>
         item.groups[this.props.challengeGroupId]);
     }
+    */
 
     // filter all challenges by master filter before applying any user filters
     challenges = _.filter(challenges, this.props.masterFilterFunc);
     const currentFilter = this.getFilter();
+    currentFilter.mode = 'custom';
     if (this.props.auth.user) {
       challenges = challenges.map((item) => {
         if (item.users[this.props.auth.user.handle]) {
@@ -333,6 +340,8 @@ class ChallengeFiltersExample extends React.Component {
               this.sidebar.addFilter(f);
             }
           }}
+          challengeGroupId={this.props.challengeGroupId}
+          communityName={this.props.communityName}
           searchQuery={this.getSearchQuery()}
           onSearch={query => this.onSearch(query)}
           validKeywords={this.props.challengeTags.map(keywordsMapper)}
@@ -433,6 +442,7 @@ ChallengeFiltersExample.propTypes = {
   })).isRequired,
   challengeSubtracks: PT.arrayOf(PT.string).isRequired,
   challengeTags: PT.arrayOf(PT.string).isRequired,
+  communityName: PT.string.isRequired,
   filter: PT.string.isRequired,
   getChallenges: PT.func.isRequired,
   getMarathonMatches: PT.func.isRequired,

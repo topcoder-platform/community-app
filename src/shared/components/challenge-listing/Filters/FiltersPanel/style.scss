@@ -138,7 +138,9 @@ $panel-radius-4: $corner-radius * 2;
     align-items: center;
 
     &.keywords {
+      width: 100%;
       margin-bottom: $panel-space-15;
+      margin-right: $panel-space-15;
     }
 
     label {
@@ -146,7 +148,7 @@ $panel-radius-4: $corner-radius * 2;
       font-size: 13px;
       line-height: $panel-space-15;
       margin-right: $panel-space-15;
-      min-width: $panel-space-50 + 8;
+      min-width: 96px;
       text-align: right;
     }
 
@@ -160,17 +162,13 @@ $panel-radius-4: $corner-radius * 2;
       }
     }
 
-    &.keywords :global(.Select) {
-      @include calc(width, '100% - 211px');
-    }
-
     &.track {
       display: flex;
       align-items: center;
 
       @include calc(width, '100% - 395px');
 
-      margin-right: $panel-space-50;
+      margin-right: $panel-space-30;
 
       @include xs-to-sm {
         width: initial;
@@ -187,6 +185,43 @@ $panel-radius-4: $corner-radius * 2;
     }
   }
 }
+
+.inGroup .filter-row {
+  .filter.keywords {
+    @include calc(width, '50% - 30px');
+
+    @include xs-to-sm {
+      width: 100%;
+    }
+
+    margin-right: $panel-space-30;
+  }
+
+  .filter.community {
+    @include calc(width, '50% - 30px');
+
+    @include xs-to-sm {
+      width: 100%;
+    }
+
+    :global(.Select-value) {
+      line-height: 28px;
+      top: inherit;
+    }
+
+    margin-bottom: $panel-space-15;
+    margin-right: $panel-space-30;
+  }
+
+  .filter.track {
+    @include calc(width, '50% - 30px');
+
+    @include xs-to-sm {
+      width: 100%;
+    }
+  }
+}
+
 // filter by date
 .filter.dates {
   :global {

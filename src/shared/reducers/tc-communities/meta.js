@@ -20,6 +20,7 @@ function onDone(state, action) {
       challengeFilterTag: action.payload.challengeFilterTag,
       challengeGroupId: action.payload.challengeGroupId,
       communityId: action.payload.communityId,
+      communityName: action.payload.communityName,
       communitySelector: action.payload.communitySelector,
       logos: action.payload.logos,
       menuItems: action.payload.menuItems,

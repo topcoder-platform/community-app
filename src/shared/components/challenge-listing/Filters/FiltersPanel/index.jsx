@@ -103,6 +103,18 @@ class FiltersPanel extends React.Component {
   render() {
     let className = 'FiltersPanel';
     if (this.props.hidden) className += ' hidden';
+
+    let communityOps;
+    if (this.props.challengeGroupId) {
+      communityOps = [{
+        label: this.props.communityName,
+        value: this.props.communityName,
+      }, {
+        label: 'All',
+        value: 'all',
+      }];
+    }
+
     return (
       <div styleName={className}>
         <div styleName="header">
@@ -111,17 +123,38 @@ class FiltersPanel extends React.Component {
             <UiSimpleRemove className="cross" />
           </span>
         </div>
-        <div styleName="filters">
-          <div styleName="filter keywords">
-            <label htmlFor="keyword-select">Keywords</label>
-            <Select
-              id="keyword-select"
-              multi
-              onChange={value => this.onKeywordsChanged(value ? value.split(',') : [])}
-              options={this.props.validKeywords}
-              simpleValue
-              value={this.state.filter.keywords.join(',')}
-            />
+        <div styleName={`filters ${this.props.challengeGroupId ? 'inGroup' : ''}`}>
+          <div styleName="filter-row">
+            <div styleName="filter keywords">
+              <label htmlFor="keyword-select">Keywords</label>
+              <Select
+                id="keyword-select"
+                multi
+                onChange={value => this.onKeywordsChanged(value ? value.split(',') : [])}
+                options={this.props.validKeywords}
+                simpleValue
+                value={this.state.filter.keywords.join(',')}
+              />
+            </div>
+            {this.props.challengeGroupId ? (
+              <div styleName="filter community">
+                <label htmlFor="community-select">Sub community</label>
+                <Select
+                  id="community-select"
+                  onChange={(value) => {
+                    if (value !== 'all') {
+                      this.state.filter.groupId = this.props.challengeGroupId;
+                    } else {
+                      this.state.filter.groupId = null;
+                    }
+                    this.props.onFilter(this.state.filter);
+                  }}
+                  options={communityOps}
+                  simpleValue
+                  value={this.state.filter.groupId ? this.props.communityName : 'all'}
+                />
+              </div>
+            ) : null}
           </div>
           <div styleName="filter-row">
             <div styleName="filter track">
@@ -184,6 +217,8 @@ const SelectOptions = PT.arrayOf(
 );
 
 FiltersPanel.propTypes = {
+  challengeGroupId: PT.string.isRequired,
+  communityName: PT.string.isRequired,
   filter: PT.instanceOf(FilterPanelFilter),
   hidden: PT.bool,
   onClearFilters: PT.func,

@@ -118,6 +118,7 @@ class Page extends Component {
       case 'challenges':
         pageContent = (<ChallengeListing
           challengeGroupId={this.props.meta.challengeGroupId}
+          communityName={this.props.meta.communityName}
           tag={this.props.meta.challengeFilterTag}
           history={this.props.history}
           location={this.props.location}
@@ -209,6 +210,7 @@ Page.propTypes = {
     challengeFilterTag: PT.string,
     challengeGroupId: PT.string,
     communityId: PT.string,
+    communityName: PT.string,
     communitySelector: PT.arrayOf(PT.shape()),
     cssUrl: PT.string,
 

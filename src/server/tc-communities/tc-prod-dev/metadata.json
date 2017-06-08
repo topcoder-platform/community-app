@@ -5,6 +5,7 @@
   "challengeGroupId": "20000000",
   "challengeFilterTag": "",
   "communityId": "tc-prod-dev",
+  "communityName": "Topcoder Product Development",
   "communitySelector": [{
     "label": "Topcoder Product Development",
     "value": "1"
