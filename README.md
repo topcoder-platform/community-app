@@ -63,9 +63,9 @@ We use [https://logentries.com](https://logentries.com) to track the logs. Log E
 
 ### Development Notes
 -   [Challenge Listing - Notes from winning submission](docs/challenge-listing-notes.md)
+-   [**How to Add a New Topcoder Community?**](docs/how-to-add-a-new-topcoder-community.md)
 -   [Leaderboard - Notes from the winning submission](docs/leaderboard-notes.md)
--   [Why Reducer Factories and How to Use Them?](docs/why-reducer-factories-and-how-to-use-them.md)
--   [~~WYSIWYG Page Editor - Notes from the winning submission~~](docs/editor-notes.pdf)
+-   [**Why Reducer Factories and How to Use Them?**](docs/why-reducer-factories-and-how-to-use-them.md)
 
 ### Current Status
 
