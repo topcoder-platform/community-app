@@ -11,15 +11,21 @@ import defaultStyle from './style.scss';
 function ArticleCard(props) {
   const { imageSrc, title, text, link, theme } = props;
 
+  const t = text.match(/<p>.*<\/p>/)[0].slice(3, -4);
+
   return (
     <div className={theme.container}>
       <div className={theme.image} style={{ backgroundImage: `url(${imageSrc})` }} />
       <div className={theme.content}>
         <h3 className={theme.title}>{title}</h3>
-        <p className={theme.text}>{text}</p>
+        <p className={theme.text}>{t}</p>
         {link &&
           <div className={theme.linkWrap}>
-            <Link className={theme.link} to={link.url}>{link.title}</Link>
+            {
+              link.url.startsWith('http://') || link.url.startsWith('https://') ?
+                <a className={theme.link} href={link.url}>{link.title}</a>
+             : <Link className={theme.link} to={link.url}>{link.title}</Link>
+            }
           </div>
         }
       </div>

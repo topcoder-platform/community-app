@@ -25,6 +25,7 @@ To add a new community with the name **demo**, we should follow the following pr
         "redirect": "https://ios.topcoder.com/",
         "value": "3"
       }],
+      "leaderboardApiUrl": "https://api.topcoder.com/v4/looks/0/run/json/",
       "logos": [
         "/themes/demo/logo_topcoder_with_name.svg"
       ],
@@ -43,7 +44,7 @@ To add a new community with the name **demo**, we should follow the following pr
           "url": "leaderboard"
         }
       ],
-      "leaderboardApiUrl": "https://api.topcoder.com/v4/looks/0/run/json/"
+      "newsFeed": "http://www.topcoder.com/feed"
     }
     ```
     Its fields serve the following purposes:
@@ -52,9 +53,18 @@ To add a new community with the name **demo**, we should follow the following pr
     -   `challengeFilterTag` - *String* - Optional. If specified, and not an empty string, only challenges having this technology tag will be shown inside the community (it acts as an additional filter after the group-based filtering).
     -   `communityId` - *String* - Unique ID of this community.
     -   `communitySelector` - *Object Array* - Specifies data for the community selection dropdown inside the community header. Each object MUST HAVE `label` and `value` string fields, and MAY HAVE `redirect` field. If `redirect` field is specified, a click on that option in the dropdown will redirect user to the specified URL.
+    -   `leaderboardApiUrl` - *String* - Endpoint from where the leaderboard data should be loaded.
     -   `logo` - *String Array* - Array of image URLs to insert as logos into the left corner of community's header.
     -   `menuItems` - *Object Array* - Specifies options for the community navigation menu (both in the header and footer). Each object MUST HAVE `title` and `url` fields. For now, `url` field should be a relative link inside the community, within the same path segment.
-    -   `leaderboardApiUrl` - *String* - Endpoint from where the leaderboard data should be loaded.
+    -   `newsFeed` - *String* - Optional. URL of an XML blog feed to be used to render news section at a custom page. To actually render the news section, you should include it into the page code like (also see as example `/src/shared/components/tc-communities/communities/wipro/Home/index.jsx`):
+        ```js
+        /* This goes inside the import section in the beginning of the file. */
+        import NewsSection from 'components/tc-communities/NewsSection';
+
+        /* This goes into appropriate place of the render function. */
+        <NewsSection news={props.news} />
+        ```
+        The `<NewsSection />` component does not render anything, if its `news` property is *null* or an empty array, thus it can be kept inside the page code even when there is no news feed configured for a community.
 3.  Custom pages of the community (anything beside `Challenges` and `Leaderboard`) should be created inside `/src/shared/components/tc-communities/communities/demo`. At the moment all communities have two custom pages: `Home` and `Learn`, you may just copy these from an existing community, and then customize to your particular needs.
 4.  Created custom pages should be registered inside `/src/shared/containers/tc-communities/Page/index.jsx`.
     -   First, import your custom pages into the file as

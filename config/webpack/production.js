@@ -10,6 +10,8 @@ module.exports = webpackMerge(defaultConfig, {
       /* NodeJS library for https://logentries.com. It is server-side only. */
       /\/node_modules\/le_node/,
 
+      /\/node_modules\/xml2json/,
+
       /* To avoid bundling of redux-devtools into production bundle. */
       /\/src\/shared\/containers\/DevTools/,
     ],

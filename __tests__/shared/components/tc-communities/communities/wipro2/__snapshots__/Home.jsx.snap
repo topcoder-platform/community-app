@@ -157,56 +157,9 @@ exports[`Snapshot match 1`] = `
       title="Compete in Challenges and Win Cash"
     />
   </ThemedSection>
-  <ThemedSection
-    composeTheme="deeply"
-    link={null}
-    mapThemrProps={[Function]}
-    theme={Object {}}
-    title="Latest News"
-  >
-    <ThemedArticleCard
-      composeTheme="deeply"
-      imageSrc="/themes/wipro/home/news-01.jpg"
-      link={
-        Object {
-          "title": "Read More",
-          "url": ".",
-        }
-      }
-      mapThemrProps={[Function]}
-      text="There are advances being made in science and technology everyday, and a good example of this is the LCD monitor. LCD monitors have"
-      theme={Object {}}
-      title="How Does An IOS 10 LCD Work"
-    />
-    <ThemedArticleCard
-      composeTheme="deeply"
-      imageSrc="/themes/wipro/home/news-02.jpg"
-      link={
-        Object {
-          "title": "Read More",
-          "url": ".",
-        }
-      }
-      mapThemrProps={[Function]}
-      text="HDMI, or high definition multimedia interface, is a type of audio and video interface that is used for the transmission of uncompressed"
-      theme={Object {}}
-      title="Video Games Playing With Imagination "
-    />
-    <ThemedArticleCard
-      composeTheme="deeply"
-      imageSrc="/themes/wipro/home/news-03.jpg"
-      link={
-        Object {
-          "title": "Read More",
-          "url": ".",
-        }
-      }
-      mapThemrProps={[Function]}
-      text="If you are in the market for a computer, there are a number of factors to consider. Will it be used for your home, your office or"
-      theme={Object {}}
-      title="Myspace Layouts The Missing Element"
-    />
-  </ThemedSection>
+  <NewsSection
+    news={Array []}
+  />
   <ThemedNewsletterSignup
     buttonText="Sign Up"
     composeTheme="deeply"

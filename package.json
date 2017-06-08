@@ -105,7 +105,8 @@
     "tc-accounts": "https://github.com/appirio-tech/accounts-app.git#dev",
     "uuid": "^3.0.1",
     "webpack": "^2.2.1",
-    "webpack-merge": "^4.0.0"
+    "webpack-merge": "^4.0.0",
+    "xml2json": "^0.11.0"
   },
   "devDependencies": {
     "redux-devtools": "^3.3.2",

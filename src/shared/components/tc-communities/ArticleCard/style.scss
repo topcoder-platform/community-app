@@ -51,6 +51,9 @@
   color: #394146;
   font: 600 20px/150% 'Open Sans';
   margin-top: 20px;
+  max-height: 64px;
+  overflow: hidden;
+  text-overflow: ellipsis;
 
   @include sm {
     font-size: 16px;

@@ -21,12 +21,13 @@ function onDone(state, action) {
       challengeGroupId: action.payload.challengeGroupId,
       communityId: action.payload.communityId,
       communitySelector: action.payload.communitySelector,
+      cssUrl: action.payload.style,
       logos: action.payload.logos,
       menuItems: action.payload.menuItems,
       failed: false,
-      loading: false,
-      cssUrl: action.payload.style,
       leaderboardApiUrl: action.payload.leaderboardApiUrl,
+      loading: false,
+      newsFeed: action.payload.newsFeed,
     };
   }
   // if community is not found or other error
