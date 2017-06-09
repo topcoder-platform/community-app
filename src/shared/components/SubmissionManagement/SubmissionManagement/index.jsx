@@ -60,6 +60,7 @@ export default function SubmissionManagement(props) {
     onlineReviewUrl,
     onShowDetails,
   };
+
   return (
     <div styleName="submission-management">
       <div styleName="submission-management-header">
@@ -99,7 +100,7 @@ export default function SubmissionManagement(props) {
           <SubmissionsTable
             submissionObjects={submissions}
             showDetails={showDetails}
-            type={challenge.type}
+            type={challenge.track}
             {...componentConfig}
           />
         }

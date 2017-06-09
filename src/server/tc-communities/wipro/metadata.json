@@ -18,6 +18,7 @@
     "redirect": "https://ios.topcoder.com/",
     "value": "3"
   }],
+  "leaderboardApiUrl": "https://api.topcoder.com/v4/looks/0/run/json/",
   "logos": [
     "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0e/Wipro_Logo_RGB.png/480px-Wipro_Logo_RGB.png",
     "/themes/wipro/logo_topcoder_with_name.svg"
@@ -37,5 +38,5 @@
       "url": "leaderboard"
     }
   ],
-  "leaderboardApiUrl": "https://api.topcoder.com/v4/looks/0/run/json/"
+  "newsFeed": "http://www.topcoder.com/feed"
 }

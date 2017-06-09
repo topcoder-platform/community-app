@@ -39,7 +39,7 @@ export default function Submission(props) {
       <td styleName="preview-col">
         <img
           alt="preview"
-          styleName={type === 'design' ? 'design-img' : 'dev-img'}
+          styleName={type === 'DESIGN' ? 'design-img' : 'dev-img'}
           src={
             submissionObject.preview ||
             `${config.URL.STUDIO}?module=DownloadSubmission&sbmid=${submissionObject.submissionId}&sbt=tiny`
@@ -49,7 +49,7 @@ export default function Submission(props) {
       <td styleName="id-col">{submissionObject.submissionId}</td>
       <td>{submissionObject.submissionType}</td>
       <td styleName="date-col">{formatDate(submissionObject.submissionDate)}</td>
-      {type === 'design' && <td styleName="status-col">
+      {type === 'DESIGN' && <td styleName="status-col">
         {submissionObject.screening &&
           <ScreeningStatus
             screeningObject={submissionObject.screening}
@@ -89,7 +89,6 @@ export default function Submission(props) {
 Submission.defaultProps = {
   submissionObject: {},
   showScreeningDetails: false,
-  type: 'design',
   onShowDetails: _.noop,
 };
 
@@ -106,7 +105,7 @@ Submission.propTypes = {
     },
   ),
   showScreeningDetails: PT.bool,
-  type: PT.string,
+  type: PT.string.isRequired,
   onDelete: PT.func.isRequired,
   onShowDetails: PT.func,
 };

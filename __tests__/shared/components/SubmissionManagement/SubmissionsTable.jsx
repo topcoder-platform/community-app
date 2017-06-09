@@ -10,6 +10,7 @@ test('Matches shallow shapshot', () => {
       submissionObjects={[{
         submissionId: 12345,
       }]}
+      type="DESIGN"
     />
   ));
   expect(renderer.getRenderOutput()).toMatchSnapshot();
