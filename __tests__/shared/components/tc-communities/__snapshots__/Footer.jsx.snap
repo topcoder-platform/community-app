@@ -2,7 +2,7 @@
 
 exports[`Snapshot match 1`] = `
 <Footer
-  communityId="wipro2"
+  communityId="wipro"
   isAuthorized={true}
   loginUrl="https://accounts.topcoder-dev.com/member"
   menuItems={
@@ -43,7 +43,7 @@ exports[`Snapshot match 1`] = `
 
 exports[`Snapshot match 2`] = `
 <Footer
-  communityId="wipro2"
+  communityId="wipro"
   isAuthorized={true}
   loginUrl="https://accounts.topcoder-dev.com/member"
   menuItems={

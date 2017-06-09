@@ -1,0 +1,80 @@
+@import '~styles/tc-styles';
+$division-space-10: $base-unit * 2;
+$division-space-15: $base-unit * 3;
+$division-space-20: $base-unit * 4;
+$division-space-25: $base-unit * 5;
+$division-space-30: $base-unit * 6;
+$division-space-40: $base-unit * 8;
+$division-space-45: $base-unit * 9;
+$division-space-50: $base-unit * 10;
+$division-radius-1: $corner-radius / 2;
+$division-radius-4: $corner-radius * 2;
+
+.clickable {
+  cursor: pointer;
+}
+
+/*
+* Division
+*/
+.division {
+  padding: $division-space-30 0 0;
+
+  @include xs {
+    padding: $division-space-20 0 0;
+  }
+
+  .leaderboard-row {
+    display: flex;
+    margin-bottom: $division-space-20;
+
+    .stage {
+      font-size: 13px;
+      color: $tc-black;
+      line-height: $division-space-20;
+    }
+
+    .leaders {
+      margin-left: auto;
+      padding-right: $division-space-25;
+      display: flex;
+
+      @include xs {
+        padding-right: 0;
+      }
+    }
+  }
+
+  .results-detail-row {
+    display: flex;
+    background: $tc-gray-neutral-light;
+    border-radius: $corner-radius * 2;
+    padding: $base-unit $division-space-10;
+    margin-bottom: $base-unit - 4;
+
+    .d-title {
+      font-weight: 400;
+      font-size: 12px;
+      color: $tc-black;
+      line-height: $division-space-20;
+
+      @include xs {
+        width: 50%;
+      }
+    }
+
+    .challenge-stats {
+      margin-left: auto;
+
+      a {
+        margin-left: $division-space-10;
+      }
+    }
+
+    .number {
+      min-width: $division-space-45;
+      text-align: left;
+      display: inline-block;
+    }
+  }
+}

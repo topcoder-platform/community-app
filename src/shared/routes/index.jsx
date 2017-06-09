@@ -23,12 +23,34 @@ import { connect } from 'react-redux';
  * will prevent addition of /examples routes into production build. */
 import Examples from './examples';
 
-function Routes({ location, subdomains }) {
-  if (subdomains.indexOf('test-subdomain') >= 0) {
+function Routes({ subdomains }) {
+  let communityId;
+  if (subdomains.indexOf('demo-expert') >= 0) communityId = 'demo-expert';
+  else if (subdomains.indexOf('wipro') >= 0) communityId = 'wipro';
+  else if (subdomains.indexOf('tc-prod-dev') >= 0) communityId = 'tc-prod-dev';
+  if (communityId) {
     return (
       <div>
-        <div>Subdomain Test!</div>
-        <div>Route: {location.pathname}</div>
+        <Route
+          exact
+          path="/"
+          render={props => (
+            <TcCommunitiesPage
+              communityId={communityId}
+              pageId="home"
+              {...props}
+            />
+          )}
+        />
+        <Route
+          path="/:pageId"
+          render={props => (
+            <TcCommunitiesPage
+              communityId={communityId}
+              {...props}
+            />
+          )}
+        />
       </div>
     );
   }
@@ -54,6 +76,16 @@ function Routes({ location, subdomains }) {
         />
         <Route path="/leaderboard" component={Leaderboard} />
         <Route
+          exact
+          path="/community/:communityId"
+          render={props => (
+            <TcCommunitiesPage
+              pageId="home"
+              {...props}
+            />
+          )}
+        />
+        <Route
           component={TcCommunitiesPage}
           path="/community/:communityId/:pageId"
         />
@@ -69,9 +101,6 @@ function Routes({ location, subdomains }) {
 }
 
 Routes.propTypes = {
-  location: PT.shape({
-    pathname: PT.string.isRequired,
-  }).isRequired,
   subdomains: PT.arrayOf(PT.string).isRequired,
 };
 

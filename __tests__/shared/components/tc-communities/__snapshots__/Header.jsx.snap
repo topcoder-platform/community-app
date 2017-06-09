@@ -34,22 +34,14 @@ exports[`Snapshot match 1`] = `
             options={
               Array [
                 Object {
-                  "label": "Wipro Hybrid Crowd",
+                  "label": "Community Name",
                   "value": "1",
-                },
-                Object {
-                  "label": "Cognitive Community",
-                  "value": "2",
-                },
-                Object {
-                  "label": "iOS Community",
-                  "value": "3",
                 },
               ]
             }
             value={
               Object {
-                "label": "Wipro Hybrid Crowd",
+                "label": "Community Name",
                 "value": "1",
               }
             }
@@ -136,7 +128,7 @@ exports[`Snapshot match 2`] = `
           <Link
             className="tc-communities__header__logo src-shared-components-tc-communities-Header-___style__logo___z2xG6"
             replace={false}
-            to="/community/someId/pageId1"
+            to="pageId1"
           >
             <img
               alt="Community logo"
@@ -151,22 +143,14 @@ exports[`Snapshot match 2`] = `
             options={
               Array [
                 Object {
-                  "label": "Wipro Hybrid Crowd",
+                  "label": "Community Name",
                   "value": "1",
-                },
-                Object {
-                  "label": "Cognitive Community",
-                  "value": "2",
-                },
-                Object {
-                  "label": "iOS Community",
-                  "value": "3",
                 },
               ]
             }
             value={
               Object {
-                "label": "Wipro Hybrid Crowd",
+                "label": "Community Name",
                 "value": "1",
               }
             }
@@ -189,7 +173,8 @@ exports[`Snapshot match 2`] = `
           <NavLink
             activeClassName="menu-link_active tc-communities__header__menu-link_active"
             className="tc-communities__header__menu-link src-shared-components-tc-communities-Header-___style__menu-link___1pPZf"
-            to="/community/someId/pageId1"
+            isActive={[Function]}
+            to="pageId1"
           >
             Menu Item 1
           </NavLink>
@@ -200,7 +185,8 @@ exports[`Snapshot match 2`] = `
           <NavLink
             activeClassName="menu-link_active tc-communities__header__menu-link_active"
             className="tc-communities__header__menu-link src-shared-components-tc-communities-Header-___style__menu-link___1pPZf"
-            to="/community/someId/pageId2"
+            isActive={[Function]}
+            to="pageId2"
           >
             Menu Item 2
           </NavLink>
@@ -211,7 +197,8 @@ exports[`Snapshot match 2`] = `
           <NavLink
             activeClassName="menu-link_active tc-communities__header__menu-link_active"
             className="tc-communities__header__menu-link src-shared-components-tc-communities-Header-___style__menu-link___1pPZf"
-            to="/community/someId/pageId3"
+            isActive={[Function]}
+            to="pageId3"
           >
             Menu Item 3
           </NavLink>

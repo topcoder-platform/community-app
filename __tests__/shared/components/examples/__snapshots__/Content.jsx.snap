@@ -176,16 +176,32 @@ exports[`Matches shallow shapshot 1`] = `
     <li>
       <Link
         replace={false}
+        to="/community/demo-expert/home"
+      >
+        Demo Expert Community
+      </Link>
+    </li>
+    <li>
+      <Link
+        replace={false}
+        to="/community/tc-prod-dev/home"
+      >
+        Topcoder Product Development
+      </Link>
+    </li>
+    <li>
+      <Link
+        replace={false}
         to="/community/wipro/home"
       >
         Wipro Community Homepage
       </Link>
-       – Example of community implementation. This community has three more pages: 
+       – Example of community implementation with new design. This community has three more pages: 
       <Link
         replace={false}
-        to="/community/wipro/about"
+        to="/community/wipro/learn"
       >
-        Learning & Certification
+        Learn
       </Link>
       , 
       <Link
@@ -201,54 +217,10 @@ exports[`Matches shallow shapshot 1`] = `
       >
         Leaderboard
       </Link>
-      . There are also examples of 
-      <Link
-        replace={false}
-        to="/community/wipro/404"
-      >
-        non-existent community page
-      </Link>
-       and 
-      <Link
-        replace={false}
-        to="/community/404/home"
-      >
-        non-existent community
-      </Link>
-      .
-    </li>
-    <li>
-      <Link
-        replace={false}
-        to="/community/wipro2/home"
-      >
-        Wipro 2 Community Homepage
-      </Link>
-       – Example of community implementation with new design. This community has three more pages: 
-      <Link
-        replace={false}
-        to="/community/wipro2/learn"
-      >
-        Learn
-      </Link>
-      , 
-      <Link
-        replace={false}
-        to="/community/wipro2/challenges"
-      >
-        Challenges
-      </Link>
-       and 
-      <Link
-        replace={false}
-        to="/community/wipro2/leaderboard"
-      >
-        Leaderboard
-      </Link>
       . There is also an example of 
       <Link
         replace={false}
-        to="/community/wipro2/404"
+        to="/community/wipro/404"
       >
         non-existent community page
       </Link>

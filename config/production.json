@@ -8,6 +8,7 @@
     "MAXAGE": 7,
     "SECURE": true
   },
+  "LOG_ENTRIES_TOKEN": "",
   "URL": {
     "ARENA": "https://arena.topcoder.com/",
     "AUTH": "https://accounts.topcoder.com/member",

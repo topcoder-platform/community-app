@@ -4,11 +4,11 @@ exports[`Snapshot match 1`] = `
 <main>
   <ThemedBanner
     composeTheme="deeply"
-    imageSrc="/themes/wipro2/home/banner.jpg"
+    imageSrc="/themes/wipro/home/banner.jpg"
     link={
       Object {
         "title": "Compete Now",
-        "url": "/community/wipro2/home",
+        "url": "challenges",
       }
     }
     mapThemrProps={[Function]}
@@ -22,8 +22,8 @@ exports[`Snapshot match 1`] = `
     mapThemrProps={[Function]}
     theme={
       Object {
-        "container": "src-shared-components-tc-communities-communities-wipro2-Home-___style__statsContainer___DFJwD",
-        "content": "src-shared-components-tc-communities-communities-wipro2-Home-___style__statsContent___veytS",
+        "container": "src-shared-components-tc-communities-communities-wipro-Home-___style__statsContainer___2GsLF",
+        "content": "src-shared-components-tc-communities-communities-wipro-Home-___style__statsContent___2rt0J",
       }
     }
     title={null}
@@ -67,7 +67,7 @@ exports[`Snapshot match 1`] = `
     mapThemrProps={[Function]}
     theme={
       Object {
-        "container": "src-shared-components-tc-communities-communities-wipro2-Home-___style__linksContainer___1AmgK",
+        "container": "src-shared-components-tc-communities-communities-wipro-Home-___style__linksContainer___3FK-S",
       }
     }
     title={null}
@@ -75,11 +75,11 @@ exports[`Snapshot match 1`] = `
     <div>
       <ThemedImageText
         composeTheme="deeply"
-        imageSrc="/themes/wipro2/home/image-text-learn.jpg"
+        imageSrc="/themes/wipro/home/image-text-learn.jpg"
         link={
           Object {
             "title": "Start Learning",
-            "url": "/community/wipro2/learn",
+            "url": "learn",
           }
         }
         mapThemrProps={[Function]}
@@ -89,11 +89,11 @@ exports[`Snapshot match 1`] = `
       />
       <ThemedImageText
         composeTheme="deeply"
-        imageSrc="/themes/wipro2/home/image-text-do.jpg"
+        imageSrc="/themes/wipro/home/image-text-do.jpg"
         link={
           Object {
             "title": "Start Earning",
-            "url": "/community/wipro2/challenges",
+            "url": "challenges",
           }
         }
         mapThemrProps={[Function]}
@@ -109,7 +109,7 @@ exports[`Snapshot match 1`] = `
     mapThemrProps={[Function]}
     theme={
       Object {
-        "container": "src-shared-components-tc-communities-communities-wipro2-Home-___style__resourcesContainer___xpgU3",
+        "container": "src-shared-components-tc-communities-communities-wipro-Home-___style__resourcesContainer___3Dnui",
       }
     }
     title={null}
@@ -120,7 +120,7 @@ exports[`Snapshot match 1`] = `
       link={
         Object {
           "title": "Browse resources",
-          "url": "/community/wipro2/learn",
+          "url": "learn",
         }
       }
       mapThemrProps={[Function]}
@@ -134,7 +134,7 @@ exports[`Snapshot match 1`] = `
       link={
         Object {
           "title": "Learn about badges",
-          "url": "/community/wipro2/leaderboard",
+          "url": "leaderboard",
         }
       }
       mapThemrProps={[Function]}
@@ -148,7 +148,7 @@ exports[`Snapshot match 1`] = `
       link={
         Object {
           "title": "Browse challenges",
-          "url": "/community/wipro2/challenges",
+          "url": "challenges",
         }
       }
       mapThemrProps={[Function]}
@@ -157,61 +157,14 @@ exports[`Snapshot match 1`] = `
       title="Compete in Challenges and Win Cash"
     />
   </ThemedSection>
-  <ThemedSection
-    composeTheme="deeply"
-    link={null}
-    mapThemrProps={[Function]}
-    theme={Object {}}
-    title="Latest News"
-  >
-    <ThemedArticleCard
-      composeTheme="deeply"
-      imageSrc="/themes/wipro2/home/news-01.jpg"
-      link={
-        Object {
-          "title": "Read More",
-          "url": "/community/wipro2/home",
-        }
-      }
-      mapThemrProps={[Function]}
-      text="There are advances being made in science and technology everyday, and a good example of this is the LCD monitor. LCD monitors have"
-      theme={Object {}}
-      title="How Does An IOS 10 LCD Work"
-    />
-    <ThemedArticleCard
-      composeTheme="deeply"
-      imageSrc="/themes/wipro2/home/news-02.jpg"
-      link={
-        Object {
-          "title": "Read More",
-          "url": "/community/wipro2/home",
-        }
-      }
-      mapThemrProps={[Function]}
-      text="HDMI, or high definition multimedia interface, is a type of audio and video interface that is used for the transmission of uncompressed"
-      theme={Object {}}
-      title="Video Games Playing With Imagination "
-    />
-    <ThemedArticleCard
-      composeTheme="deeply"
-      imageSrc="/themes/wipro2/home/news-03.jpg"
-      link={
-        Object {
-          "title": "Read More",
-          "url": "/community/wipro2/home",
-        }
-      }
-      mapThemrProps={[Function]}
-      text="If you are in the market for a computer, there are a number of factors to consider. Will it be used for your home, your office or"
-      theme={Object {}}
-      title="Myspace Layouts The Missing Element"
-    />
-  </ThemedSection>
+  <NewsSection
+    news={Array []}
+  />
   <ThemedNewsletterSignup
     buttonText="Sign Up"
     composeTheme="deeply"
     emailPlaceholder="Email address"
-    imageSrc="/themes/wipro2/subscribe-bg.jpg"
+    imageSrc="/themes/wipro/subscribe-bg.jpg"
     mapThemrProps={[Function]}
     text="Don’t miss out on the latest Topcoder IOS challenges and information!"
     theme={Object {}}

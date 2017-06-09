@@ -3,6 +3,7 @@
  * the App.
  */
 
+import _ from 'lodash';
 import config from 'config';
 import React from 'react';
 import ReactDOM from 'react-dom/server'; // This may cause warning of PropTypes
@@ -15,6 +16,14 @@ import App from '../shared';
 /* This is always initial state of the store. Later we'll have to provide a way
  * to put the store into correct state depending on the demanded route. */
 import storeFactory from '../shared/store-factory';
+
+const sanitizedConfig = serializeJs(
+  _.omit(config, [
+    'LOG_ENTRIES_TOKEN',
+  ]), {
+    isJSON: true,
+  },
+);
 
 export default (req, res) => {
   storeFactory(req).then((store) => {
@@ -36,12 +45,17 @@ export default (req, res) => {
         <head>
           <title>Topcoder</title>
           <link rel="stylesheet" href="/style.css" />
+          <link rel="shortcut icon" href="/favicon.ico" />
           <meta charset="utf-8" />
+          <meta
+            content="width=device-width,initial-scale=1"
+            name="viewport"
+          />
         </head>
         <body>
           <div id="react-view">${appHtml}</div>
           <script type="application/javascript">
-            window.CONFIG = ${serializeJs(config, { isJSON: true })}
+            window.CONFIG = ${sanitizedConfig}
             window.ISTATE = ${serializeJs(store.getState(), { isJSON: true })}
           </script>
           <script type="application/javascript" src="/bundle.js"></script>

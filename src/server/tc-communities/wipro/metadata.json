@@ -2,8 +2,23 @@
   "authorizedGroupIds": [
     "20000000"
   ],
-  "challengeFilterTag": "Bootstrap",
+  "challengeGroupId": "20000000",
+  "challengeFilterTag": "",
   "communityId": "wipro",
+  "communityName": "Wipro Hybrid Crowd",
+  "communitySelector": [{
+    "label": "Wipro Hybrid Crowd",
+    "value": "1"
+  }, {
+    "label": "Cognitive Community",
+    "redirect": "http://cognitive.topcoder.com/",
+    "value": "2"
+  }, {
+    "label": "iOS Community",
+    "redirect": "https://ios.topcoder.com/",
+    "value": "3"
+  }],
+  "leaderboardApiUrl": "https://api.topcoder.com/v4/looks/0/run/json/",
   "logos": [
     "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0e/Wipro_Logo_RGB.png/480px-Wipro_Logo_RGB.png",
     "/themes/wipro/logo_topcoder_with_name.svg"
@@ -11,10 +26,10 @@
   "menuItems": [
     {
       "title": "Home",
-      "url": "home"
+      "url": "."
     }, {
-      "title": "Learning & Certification",
-      "url": "about"
+      "title": "Learn",
+      "url": "learn"
     }, {
       "title": "Challenges",
       "url": "challenges"
@@ -23,5 +38,5 @@
       "url": "leaderboard"
     }
   ],
-  "leaderboardApiUrl": "https://api.topcoder.com/v4/looks/412/run/json/"
+  "newsFeed": "http://www.topcoder.com/feed"
 }

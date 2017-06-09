@@ -10,6 +10,12 @@ module.exports = {
   context,
   entry: './src/client',
   module: {
+    noParse: [
+      /* NodeJS library for https://logentries.com. It is server-side only. */
+      /\/node_modules\/le_node/,
+
+      /\/node_modules\/xml2json/,
+    ],
     rules: [{
       test: /\.(eot|otf|svg|ttf|woff|woff2)$/,
       include: [

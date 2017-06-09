@@ -87,21 +87,19 @@ export default function Content() {
           community page</Link>.
         </li>
         <li>
-          <Link to="/community/wipro/home">Wipro Community Homepage</Link> &ndash;
-          Example of community implementation.
-          This community has three more pages: <Link to="/community/wipro/about">Learning &
-          Certification</Link>, <Link to="/community/wipro/challenges">Challenges
-          </Link> and <Link to="/community/wipro/leaderboard">Leaderboard</Link>.
-          There are also examples of <Link to="/community/wipro/404">non-existent community
-          page</Link> and <Link to="/community/404/home">non-existent community</Link>.
+          <Link to="/community/demo-expert/home">Demo Expert Community</Link>
         </li>
         <li>
-          <Link to="/community/wipro2/home">Wipro 2 Community Homepage</Link> &ndash;
+          <Link to="/community/tc-prod-dev/home">Topcoder Product
+          Development</Link>
+        </li>
+        <li>
+          <Link to="/community/wipro/home">Wipro Community Homepage</Link> &ndash;
           Example of community implementation with new design.
-          This community has three more pages: <Link to="/community/wipro2/learn">Learn
-          </Link>, <Link to="/community/wipro2/challenges">Challenges
-          </Link> and <Link to="/community/wipro2/leaderboard">Leaderboard</Link>.
-          There is also an example of <Link to="/community/wipro2/404">non-existent community
+          This community has three more pages: <Link to="/community/wipro/learn">Learn
+          </Link>, <Link to="/community/wipro/challenges">Challenges
+          </Link> and <Link to="/community/wipro/leaderboard">Leaderboard</Link>.
+          There is also an example of <Link to="/community/wipro/404">non-existent community
           page</Link>.
         </li>
       </ul>

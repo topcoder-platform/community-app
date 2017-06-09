@@ -14,6 +14,7 @@ jest.setMock(require.resolve('actions/auth'), mockActions);
 
 jest.setMock('tc-accounts', {
   decodeToken: () => 'User object',
+  isTokenExpired: () => false,
 });
 
 const reducers = require('reducers/auth');

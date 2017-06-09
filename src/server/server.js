@@ -3,9 +3,13 @@ import atob from 'atob';
 import bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser';
 import express from 'express';
-import logger from 'morgan';
+import logger from 'utils/logger';
+import loggerMiddleware from 'morgan';
 import path from 'path';
-// import favicon from 'serve-favicon';
+import favicon from 'serve-favicon';
+import requestIp from 'request-ip';
+import stream from 'stream';
+import { toJson as xmlToJson } from 'utils/xml2json';
 
 // Temporarily here to test our API service.
 // import '../shared/services/api';
@@ -32,12 +36,31 @@ const app = express();
  * fix. */
 global.atob = atob;
 
-/* Uncomment once favicon is included into the project. */
-// app.use(favicon(path.resolve(__dirname, '../../build/assets/favicon.ico')));
-app.use(logger('dev'));
+app.use(favicon(path.resolve(__dirname, '../assets/images/favicon.ico')));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(requestIp.mw());
+
+/* Log Entries service proxy. */
+app.use('/api/logger', (req, res) => {
+  logger.log(`${req.clientIp} > `, ...req.body.data);
+  res.end();
+});
+
+loggerMiddleware.token('ip', req => req.clientIp);
+
+app.use(loggerMiddleware(':ip > :status :method :url :response-time ms :res[content-length] :referrer :user-agent', {
+  stream: new stream.Writable({
+    decodeStrings: false,
+    write: (chunk, encoding, cb) => {
+      if (!chunk.match(/ELB-HealthChecker\/2.0/)) {
+        logger.log(chunk);
+      }
+      cb();
+    },
+  }),
+}));
 
 /* Setup of Webpack Hot Reloading for development environment.
  * These dependencies are not used nor installed in production deployment,
@@ -51,9 +74,9 @@ if (USE_DEV_TOOLS) {
   const webpackDevMiddleware = require('webpack-dev-middleware');
   const webpackHotMiddleware = require('webpack-hot-middleware');
   const compiler = webpack(webpackConfig);
+  compiler.apply(new webpack.ProgressPlugin());
   app.use(webpackDevMiddleware(compiler, {
     name: 'bundle.js',
-    noInfo: true,
     publicPath: webpackConfig.output.publicPath,
     serverSideRender: true,
   }));
@@ -67,6 +90,14 @@ app.use(express.static(path.resolve(__dirname, '../../build')));
 
 // serve demo api
 app.use('/api/tc-communities', tcCommunitiesDemoApi);
+
+/**
+ * Auxiliary endpoint for xml -> json conversion (the most popular npm library
+ * for such conversion works only in the node :(
+ */
+app.use('/api/xml2json', (req, res) => {
+  xmlToJson(req.body.xml).then(json => res.json(json));
+});
 
 app.use(renderer);
 

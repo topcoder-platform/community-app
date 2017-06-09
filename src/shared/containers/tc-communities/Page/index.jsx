@@ -20,6 +20,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import actions from 'actions/tc-communities/meta';
+import newsActions from 'actions/tc-communities/news';
 import { bindActionCreators } from 'redux';
 import standardHeaderActions from 'actions/topcoder_header';
 import Header from 'components/tc-communities/Header';
@@ -30,9 +31,13 @@ import LoadingIndicator from 'components/LoadingIndicator';
 import ChallengeListing from 'containers/ChallengeListing';
 import Leaderboard from 'containers/Leaderboard';
 import WiproHome from 'components/tc-communities/communities/wipro/Home';
-import WiproAbout from 'components/tc-communities/communities/wipro/About';
-import Wipro2Home from 'components/tc-communities/communities/wipro2/Home';
-import Wipro2Learn from 'components/tc-communities/communities/wipro2/Learn';
+import WiproLearn from 'components/tc-communities/communities/wipro/Learn';
+
+import TcProdDevHome from 'components/tc-communities/communities/tc-prod-dev/Home';
+import TcProdDevLearn from 'components/tc-communities/communities/tc-prod-dev/Learn';
+
+import DemoExpertHome from 'components/tc-communities/communities/demo-expert/Home';
+import DemoExpertLearn from 'components/tc-communities/communities/demo-expert/Learn';
 
 import AccessDenied, {
   CAUSE as ACCESS_DENIED_CAUSE,
@@ -40,19 +45,25 @@ import AccessDenied, {
 
 import './style.scss';
 
-/* TODO: Bootstrap import should be moved to a more appropriate place, which
- * depends on whether we want it to be available globally, or only in specific
- * communities. */
-require('bootstrap/dist/css/bootstrap.min.css');
-
 class Page extends Component {
 
   componentDidMount() {
-    const communityId = this.props.match.params.communityId;
+    const communityId = this.props.communityId;
     if ((communityId !== this.props.meta.communityId)
     && !this.props.meta.loading) this.props.loadMetaData(communityId);
 
     if (this.props.meta.isMobileOpen) this.props.mobileToggle();
+
+    if (this.props.meta.newsFeed && !this.props.news && !this.props.loadingNews) {
+      this.props.loadNews(this.props.meta.newsFeed);
+    }
+  }
+
+  componentWillUpdate(nextProps) {
+    if (nextProps.meta.communityId === this.props.communityId
+    && nextProps.meta.newsFeed && !this.props.news) {
+      nextProps.loadNews(nextProps.meta.newsFeed);
+    }
   }
 
   /**
@@ -64,7 +75,7 @@ class Page extends Component {
   renderCustomPage() {
     let pageContent;
     const communityId = this.props.meta.communityId;
-    const pageId = this.props.match.params.pageId;
+    const pageId = this.props.pageId;
 
     // as for now landing page editor is not implemented yet
     // for Wipro and Wipro 2 communities we return static pages
@@ -72,14 +83,20 @@ class Page extends Component {
     if (communityId === 'wipro') {
       if (pageId === 'home') {
         pageContent = <WiproHome />;
-      } else if (pageId === 'about') {
-        pageContent = <WiproAbout />;
-      }
-    } else if (communityId === 'wipro2') {
-      if (pageId === 'home') {
-        pageContent = <Wipro2Home />;
       } else if (pageId === 'learn') {
-        pageContent = <Wipro2Learn />;
+        pageContent = <WiproLearn />;
+      }
+    } else if (communityId === 'tc-prod-dev') {
+      switch (pageId) {
+        case 'home': pageContent = <TcProdDevHome />; break;
+        case 'learn': pageContent = <TcProdDevLearn />; break;
+        default: break;
+      }
+    } else if (communityId === 'demo-expert') {
+      switch (pageId) {
+        case 'home': pageContent = <DemoExpertHome />; break;
+        case 'learn': pageContent = <DemoExpertLearn />; break;
+        default: break;
       }
     } else if (communityId.match(/example-theme-\w/)) {
       pageContent = <div />;
@@ -89,6 +106,10 @@ class Page extends Component {
     if (!pageContent) {
       pageContent = <Redirect to={{ pathname: '/404' }} />;
     }
+
+    pageContent = React.cloneElement(pageContent, {
+      news: this.props.news,
+    });
 
     return pageContent;
   }
@@ -102,7 +123,7 @@ class Page extends Component {
    *     renderCustomPage() method has to return a page made in the editor
    */
   renderPageContent() {
-    const pageId = this.props.match.params.pageId;
+    const pageId = this.props.pageId;
     let pageContent = <div />;
     switch (pageId) {
       case 'leaderboard':
@@ -112,6 +133,8 @@ class Page extends Component {
         break;
       case 'challenges':
         pageContent = (<ChallengeListing
+          challengeGroupId={this.props.meta.challengeGroupId}
+          communityName={this.props.meta.communityName}
           tag={this.props.meta.challengeFilterTag}
           history={this.props.history}
           location={this.props.location}
@@ -126,30 +149,33 @@ class Page extends Component {
   }
 
   render() {
-    const returnUrl = encodeURIComponent(`${config.URL.WIPRO}/community/wipro2/home`);
+    const returnUrl = encodeURIComponent(`${config.URL.WIPRO}/community/wipro/home`);
     const loginUrl = `${config.URL.AUTH}?retUrl=${returnUrl}`;
     const registerUrl = `${config.URL.AUTH}/registration`;
 
-    const communityId = this.props.match.params.communityId;
+    const communityId = this.props.communityId;
 
     // true, if is loading now, or if not started loading yet
     const isNotLoaded = communityId !== this.props.meta.communityId;
 
-    if (this.props.profile && !isNotLoaded) {
-      const userGroupIds = this.props.profile.groups.map(item => item.id);
-      if (_.intersection(userGroupIds, this.props.meta.authorizedGroupIds || []).length) {
+    if ((this.props.profile || !this.props.meta.authorizedGroupIds) && !isNotLoaded) {
+      const userGroupIds = this.props.profile ? this.props.profile.groups.map(item => item.id) : [];
+      if (!this.props.meta.authorizedGroupIds ||
+      _.intersection(userGroupIds, this.props.meta.authorizedGroupIds || []).length) {
         return (
           <div>
             <Header
               activeTrigger={this.props.activeTrigger}
               closeMenu={this.props.closeMenu}
               logos={this.props.meta.logos}
+              pageId={this.props.pageId}
               profile={this.props.profile}
               menuItems={this.props.meta.menuItems}
               openedMenu={this.props.openedMenu}
               openMenu={this.props.openMenu}
               isMobileOpen={this.props.meta.isMobileOpen}
               communityId={communityId}
+              communitySelector={this.props.meta.communitySelector}
               onMobileToggleClick={this.props.mobileToggle}
               cssUrl={this.props.meta.cssUrl}
               registerUrl={registerUrl}
@@ -183,41 +209,45 @@ Page.defaultProps = {
   openedMenu: null,
   profile: null,
   isMobileOpen: false,
+  loadingNews: false,
+  news: null,
 };
 
 Page.propTypes = {
   authenticating: PT.bool.isRequired,
   activeTrigger: PT.shape({}),
   closeMenu: PT.func.isRequired,
+  communityId: PT.string.isRequired,
   profile: PT.shape({
     groups: PT.arrayOf(PT.shape({
       id: PT.string.isRequired,
     })),
   }),
-  match: PT.shape({
-    params: PT.shape({
-      communityId: PT.string,
-      pageId: PT.string,
-    }),
-  }).isRequired,
   meta: PT.shape({
     authorizedGroupIds: PT.arrayOf(PT.string),
     challengeFilterTag: PT.string,
+    challengeGroupId: PT.string,
     communityId: PT.string,
+    communityName: PT.string,
+    communitySelector: PT.arrayOf(PT.shape()),
     cssUrl: PT.string,
 
     // TODO: isMobileOpen does not belong to community meta data, should be
     // moved to a proper place!
     isMobileOpen: PT.bool,
 
-    leaderboardApiUrl: PT.string.isRequired,
+    leaderboardApiUrl: PT.string,
     loading: PT.bool,
     logos: PT.arrayOf(PT.string).isRequired,
     menuItems: PT.arrayOf(PT.shape({})).isRequired,
+    newsFeed: PT.string,
   }).isRequired,
+  loadingNews: PT.bool,
+  news: PT.arrayOf(PT.shape),
   openedMenu: PT.shape({}),
   openMenu: PT.func.isRequired,
   loadMetaData: PT.func.isRequired,
+  loadNews: PT.func.isRequired,
   mobileToggle: PT.func.isRequired,
   pageId: PT.string.isRequired,
   history: PT.shape().isRequired,
@@ -228,16 +258,23 @@ const mapStateToProps = (state, props) => ({
   ...state.auth,
   ...state.topcoderHeader,
   meta: state.tcCommunities.meta,
+  loadingNews: state.tcCommunities.news.loading,
+  news: state.tcCommunities.news.data,
   profile: state.auth ? state.auth.profile : null,
-  communityId: props.match.params.communityId,
-  pageId: props.match.params.pageId,
+  communityId: props.communityId || props.match.params.communityId,
+  pageId: props.pageId || props.match.params.pageId,
 });
 
 const mapDispatchToProps = dispatch => _.merge(
   bindActionCreators(standardHeaderActions.topcoderHeader, dispatch), {
     loadMetaData: (communityId) => {
+      dispatch(newsActions.tcCommunities.news.drop());
       dispatch(actions.tcCommunities.meta.fetchDataInit());
       dispatch(actions.tcCommunities.meta.fetchDataDone(communityId));
+    },
+    loadNews: (url) => {
+      dispatch(newsActions.tcCommunities.news.getNewsInit());
+      dispatch(newsActions.tcCommunities.news.getNewsDone(url));
     },
     mobileToggle: () => {
       dispatch(actions.tcCommunities.meta.mobileToggle());

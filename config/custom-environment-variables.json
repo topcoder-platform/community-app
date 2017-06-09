@@ -1,0 +1,6 @@
+/* Specifies environment variables, which, when set, will override their
+ * counterparts from configuration files. */
+
+{
+  "LOG_ENTRIES_TOKEN": "LOG_ENTRIES_TOKEN"
+}

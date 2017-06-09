@@ -30,8 +30,8 @@ $submission-space-50: $base-unit * 10;
 
   .preview-col {
     .design-img {
-      width: 90px;
-      height: 90px;
+      width: 128px;
+      height: 128px;
     }
 
     .dev-img {
@@ -79,7 +79,7 @@ $submission-space-50: $base-unit * 10;
     }
 
     .delete-icon {
-      margin: 0 0 0 3 * $base-unit;
+      margin: 0 0 0 24px;
     }
 
     button {
@@ -97,7 +97,7 @@ $submission-space-50: $base-unit * 10;
 
     .expand-icon {
       transition: all 1.5s;
-      margin-left: 12px;
+      margin-left: 24px;
 
       &.expanded {
         transform: rotate(180deg);

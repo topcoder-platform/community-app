@@ -21,6 +21,13 @@ export function isDev() {
 }
 
 /**
+ * Returns true if production version of the code is running.
+ */
+export function isProd() {
+  return process.env.NODE_ENV === 'production';
+}
+
+/**
  * Returns true if the calling code is running server-side.
  * @return True if the code is running server-side.
  */

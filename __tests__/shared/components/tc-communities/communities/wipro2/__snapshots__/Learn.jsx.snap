@@ -4,15 +4,15 @@ exports[`Snapshot match 1`] = `
 <main>
   <ThemedBanner
     composeTheme="deeply"
-    imageSrc="/themes/wipro2/learn/banner.jpg"
+    imageSrc="/themes/wipro/learn/banner.jpg"
     link={null}
     mapThemrProps={[Function]}
     text="Our continuously evolving structured learning paths, constantly abreast of the latest, tailored for employees to deepen your knowledge, infuses important software capabilities that are industry specific and help you get the skills you need to succeed."
     theme={
       Object {
-        "container": "src-shared-components-tc-communities-communities-wipro2-Learn-___style__bannerContainer___8SKqT",
-        "content": "src-shared-components-tc-communities-communities-wipro2-Learn-___style__bannerContent___27vYa",
-        "contentInner": "src-shared-components-tc-communities-communities-wipro2-Learn-___style__bannerContentInner___fRgrX",
+        "container": "src-shared-components-tc-communities-communities-wipro-Learn-___style__bannerContainer___1MiM0",
+        "content": "src-shared-components-tc-communities-communities-wipro-Learn-___style__bannerContent___2rbyc",
+        "contentInner": "src-shared-components-tc-communities-communities-wipro-Learn-___style__bannerContentInner___4smdO",
       }
     }
     title="Learning & Certification"
@@ -23,7 +23,7 @@ exports[`Snapshot match 1`] = `
     mapThemrProps={[Function]}
     theme={
       Object {
-        "container": "src-shared-components-tc-communities-communities-wipro2-Learn-___style__learnBasicsContainer___vhI3n",
+        "container": "src-shared-components-tc-communities-communities-wipro-Learn-___style__learnBasicsContainer___1zbhE",
       }
     }
     title="Learn The Basics"
@@ -40,7 +40,7 @@ exports[`Snapshot match 1`] = `
         mapThemrProps={[Function]}
         onTitleClick={[Function]}
         theme={Object {}}
-        title="Joining the  Community"
+        title="Overview"
       >
         <ThemedText
           composeTheme="deeply"
@@ -48,158 +48,27 @@ exports[`Snapshot match 1`] = `
           theme={Object {}}
         >
           <p>
-            Nam dapibus nisl vitae elit fringilla rutrum. Aenean sollicitudin, erat a elementum rutrum, neque sem pretium metus, quis mollis nisl nunc et massa. Vestibulum sed metus in lorem tristique ullamcorper id vitae erat. Nulla mollis sapien sollicitudin lacinia lacinia. Vivamus facilisis dolor et massa placerat, at vestibulum nisl egestas. Nullam rhoncus lacus non odio luctus, eu condimentum mauris ultrices. Praesent blandit, augue a posuere aliquam, arcu tortor feugiat turpis,
+            The FULCRUM is “one stop shop” for access to a wide range of training and learning opportunities on Wipro’s Hybrid Crowd. Designed to strengthen the skills of employees, the hub offers physical and online platforms to learn skills on demand, gain hands-on experience, and be future ready.
           </p>
           <p>
-            Nam dapibus nisl vitae elit fringilla rutrum. Aenean sollicitudin, erat a elementum rutrum, neque sem pretium metus, quis mollis nisl nunc et massa. Vestibulum sed metus in lorem tristique ullamcorper id vitae erat. Nulla mollis sapien sollicitudin lacinia lacinia. Vivamus facilisis dolor et massa placerat, at vestibulum nisl egestas. Nullam rhoncus lacus non odio luctus, eu condimentum mauris ultrices. Praesent blandit, augue a posuere aliquam, arcu tortor feugiat turpis,
+            Meticulously crafted comprehensive learning paths, detailed study material, engaging case studies, training projects to systematically enhance your career, development environments to practice, convenient online accessibility, opportunity to connect with mentors, peers, SMEs of various technologies – a variety of resources bringing people and technology together for an innovative and valuable learning experience.
+          </p>
+          <p>
+            Our compelling learning environment across wide range of emerging technologies helps you in mastering today’s most essential skills, that brings your knowledge to the next level, step by step, which ultimately creates a more effective learning experience.
+          </p>
+          <p>
+            Are you ready to step onto the innovative journey of learning?
           </p>
           <div
-            className="src-shared-components-tc-communities-communities-wipro2-Learn-___style__joinnowWrap___2Vk_F"
+            className="src-shared-components-tc-communities-communities-wipro-Learn-___style__joinnowWrap___3oU4A"
           >
-            <Link
-              className="src-shared-components-tc-communities-communities-wipro2-Learn-___style__joinnow___mgu3E"
-              replace={false}
-              to="/community/wipro2/learn"
+            <a
+              className="src-shared-components-tc-communities-communities-wipro-Learn-___style__joinnow___2MIUq"
+              href="https://topgear.wipro.com"
             >
-              Join Now
-            </Link>
+              Start Exploring
+            </a>
           </div>
-        </ThemedText>
-      </ThemedAccordionItem>
-      <ThemedAccordionItem
-        composeTheme="deeply"
-        isOpen={false}
-        mapThemrProps={[Function]}
-        onTitleClick={[Function]}
-        theme={Object {}}
-        title="How to sign up for work"
-      >
-        <ThemedText
-          composeTheme="deeply"
-          mapThemrProps={[Function]}
-          theme={Object {}}
-        >
-          <p>
-            Nam dapibus nisl vitae elit fringilla rutrum. Aenean sollicitudin, erat a elementum rutrum, neque sem pretium metus, quis mollis nisl nunc et massa. Vestibulum sed metus in lorem tristique ullamcorper id vitae erat. Nulla mollis sapien sollicitudin lacinia lacinia. Vivamus facilisis dolor et massa placerat, at vestibulum nisl egestas. Nullam rhoncus lacus non odio luctus, eu condimentum mauris ultrices. Praesent blandit, augue a posuere aliquam, arcu tortor feugiat turpis,
-          </p>
-        </ThemedText>
-      </ThemedAccordionItem>
-      <ThemedAccordionItem
-        composeTheme="deeply"
-        isOpen={false}
-        mapThemrProps={[Function]}
-        onTitleClick={[Function]}
-        theme={Object {}}
-        title="How to compete for work"
-      >
-        <ThemedText
-          composeTheme="deeply"
-          mapThemrProps={[Function]}
-          theme={Object {}}
-        >
-          <p>
-            Nam dapibus nisl vitae elit fringilla rutrum. Aenean sollicitudin, erat a elementum rutrum, neque sem pretium metus, quis mollis nisl nunc et massa. Vestibulum sed metus in lorem tristique ullamcorper id vitae erat. Nulla mollis sapien sollicitudin lacinia lacinia. Vivamus facilisis dolor et massa placerat, at vestibulum nisl egestas. Nullam rhoncus lacus non odio luctus, eu condimentum mauris ultrices. Praesent blandit, augue a posuere aliquam, arcu tortor feugiat turpis,
-          </p>
-          <p>
-            Nam dapibus nisl vitae elit fringilla rutrum. Aenean sollicitudin, erat a elementum rutrum, neque sem pretium metus, quis mollis nisl nunc et massa. Vestibulum sed metus in lorem tristique ullamcorper id vitae erat. Nulla mollis sapien sollicitudin lacinia lacinia. Vivamus facilisis dolor et massa placerat, at vestibulum nisl egestas. Nullam rhoncus lacus non odio luctus, eu condimentum mauris ultrices. Praesent blandit, augue a posuere aliquam, arcu tortor feugiat turpis,
-          </p>
-          <div
-            className="src-shared-components-tc-communities-communities-wipro2-Learn-___style__joinnowWrap___2Vk_F"
-          >
-            <Link
-              className="src-shared-components-tc-communities-communities-wipro2-Learn-___style__joinnow___mgu3E"
-              replace={false}
-              to="/community/wipro2/learn"
-            >
-              Join Now
-            </Link>
-          </div>
-        </ThemedText>
-      </ThemedAccordionItem>
-      <ThemedAccordionItem
-        composeTheme="deeply"
-        isOpen={false}
-        mapThemrProps={[Function]}
-        onTitleClick={[Function]}
-        theme={Object {}}
-        title="Payment & Rewards"
-      >
-        <ThemedText
-          composeTheme="deeply"
-          mapThemrProps={[Function]}
-          theme={Object {}}
-        >
-          <p>
-            Nam dapibus nisl vitae elit fringilla rutrum. Aenean sollicitudin, erat a elementum rutrum, neque sem pretium metus, quis mollis nisl nunc et massa. Vestibulum sed metus in lorem tristique ullamcorper id vitae erat. Nulla mollis sapien sollicitudin lacinia lacinia. Vivamus facilisis dolor et massa placerat, at vestibulum nisl egestas. Nullam rhoncus lacus non odio luctus, eu condimentum mauris ultrices. Praesent blandit, augue a posuere aliquam, arcu tortor feugiat turpis,
-          </p>
-        </ThemedText>
-      </ThemedAccordionItem>
-      <ThemedAccordionItem
-        composeTheme="deeply"
-        isOpen={false}
-        mapThemrProps={[Function]}
-        onTitleClick={[Function]}
-        theme={Object {}}
-        title="Managing your Certifications"
-      >
-        <ThemedText
-          composeTheme="deeply"
-          mapThemrProps={[Function]}
-          theme={Object {}}
-        >
-          <p>
-            Nam dapibus nisl vitae elit fringilla rutrum. Aenean sollicitudin, erat a elementum rutrum, neque sem pretium metus, quis mollis nisl nunc et massa. Vestibulum sed metus in lorem tristique ullamcorper id vitae erat. Nulla mollis sapien sollicitudin lacinia lacinia. Vivamus facilisis dolor et massa placerat, at vestibulum nisl egestas. Nullam rhoncus lacus non odio luctus, eu condimentum mauris ultrices. Praesent blandit, augue a posuere aliquam, arcu tortor feugiat turpis,
-          </p>
-          <p>
-            Nam dapibus nisl vitae elit fringilla rutrum. Aenean sollicitudin, erat a elementum rutrum, neque sem pretium metus, quis mollis nisl nunc et massa. Vestibulum sed metus in lorem tristique ullamcorper id vitae erat. Nulla mollis sapien sollicitudin lacinia lacinia. Vivamus facilisis dolor et massa placerat, at vestibulum nisl egestas. Nullam rhoncus lacus non odio luctus, eu condimentum mauris ultrices. Praesent blandit, augue a posuere aliquam, arcu tortor feugiat turpis,
-          </p>
-          <div
-            className="src-shared-components-tc-communities-communities-wipro2-Learn-___style__joinnowWrap___2Vk_F"
-          >
-            <Link
-              className="src-shared-components-tc-communities-communities-wipro2-Learn-___style__joinnow___mgu3E"
-              replace={false}
-              to="/community/wipro2/learn"
-            >
-              Join Now
-            </Link>
-          </div>
-        </ThemedText>
-      </ThemedAccordionItem>
-      <ThemedAccordionItem
-        composeTheme="deeply"
-        isOpen={false}
-        mapThemrProps={[Function]}
-        onTitleClick={[Function]}
-        theme={Object {}}
-        title="Managing your Badges"
-      >
-        <ThemedText
-          composeTheme="deeply"
-          mapThemrProps={[Function]}
-          theme={Object {}}
-        >
-          <p>
-            Nam dapibus nisl vitae elit fringilla rutrum. Aenean sollicitudin, erat a elementum rutrum, neque sem pretium metus, quis mollis nisl nunc et massa. Vestibulum sed metus in lorem tristique ullamcorper id vitae erat. Nulla mollis sapien sollicitudin lacinia lacinia. Vivamus facilisis dolor et massa placerat, at vestibulum nisl egestas. Nullam rhoncus lacus non odio luctus, eu condimentum mauris ultrices. Praesent blandit, augue a posuere aliquam, arcu tortor feugiat turpis,
-          </p>
-        </ThemedText>
-      </ThemedAccordionItem>
-      <ThemedAccordionItem
-        composeTheme="deeply"
-        isOpen={false}
-        mapThemrProps={[Function]}
-        onTitleClick={[Function]}
-        theme={Object {}}
-        title="Updating your Profile"
-      >
-        <ThemedText
-          composeTheme="deeply"
-          mapThemrProps={[Function]}
-          theme={Object {}}
-        >
-          <p>
-            Nam dapibus nisl vitae elit fringilla rutrum. Aenean sollicitudin, erat a elementum rutrum, neque sem pretium metus, quis mollis nisl nunc et massa. Vestibulum sed metus in lorem tristique ullamcorper id vitae erat. Nulla mollis sapien sollicitudin lacinia lacinia. Vivamus facilisis dolor et massa placerat, at vestibulum nisl egestas. Nullam rhoncus lacus non odio luctus, eu condimentum mauris ultrices. Praesent blandit, augue a posuere aliquam, arcu tortor feugiat turpis,
-          </p>
         </ThemedText>
       </ThemedAccordionItem>
     </ThemedAccordion>
@@ -209,24 +78,24 @@ exports[`Snapshot match 1`] = `
     link={
       Object {
         "title": "View All",
-        "url": "/community/wipro2/learn",
+        "url": "learn",
       }
     }
     mapThemrProps={[Function]}
     theme={
       Object {
-        "container": "src-shared-components-tc-communities-communities-wipro2-Learn-___style__coursesContainer___39UQE",
+        "container": "src-shared-components-tc-communities-communities-wipro-Learn-___style__coursesContainer___2lfyP",
       }
     }
     title="Courses and Tutorials"
   >
     <ThemedArticleCard
       composeTheme="deeply"
-      imageSrc="/themes/wipro2/learn/courses-01.jpg"
+      imageSrc="/themes/wipro/learn/courses-01.jpg"
       link={
         Object {
           "title": "Read More",
-          "url": "/community/wipro2/learn",
+          "url": "learn",
         }
       }
       mapThemrProps={[Function]}
@@ -236,11 +105,11 @@ exports[`Snapshot match 1`] = `
     />
     <ThemedArticleCard
       composeTheme="deeply"
-      imageSrc="/themes/wipro2/learn/courses-02.jpg"
+      imageSrc="/themes/wipro/learn/courses-02.jpg"
       link={
         Object {
           "title": "Read More",
-          "url": "/community/wipro2/learn",
+          "url": "learn",
         }
       }
       mapThemrProps={[Function]}
@@ -250,11 +119,11 @@ exports[`Snapshot match 1`] = `
     />
     <ThemedArticleCard
       composeTheme="deeply"
-      imageSrc="/themes/wipro2/learn/courses-03.jpg"
+      imageSrc="/themes/wipro/learn/courses-03.jpg"
       link={
         Object {
           "title": "Read More",
-          "url": "/community/wipro2/learn",
+          "url": "learn",
         }
       }
       mapThemrProps={[Function]}
@@ -269,8 +138,8 @@ exports[`Snapshot match 1`] = `
     mapThemrProps={[Function]}
     theme={
       Object {
-        "container": "src-shared-components-tc-communities-communities-wipro2-Learn-___style__resourcesContainer___aJUAu",
-        "title": "src-shared-components-tc-communities-communities-wipro2-Learn-___style__resourcesTitle___rmGNm",
+        "container": "src-shared-components-tc-communities-communities-wipro-Learn-___style__resourcesContainer___38MQ9",
+        "title": "src-shared-components-tc-communities-communities-wipro-Learn-___style__resourcesTitle___3IO3e",
       }
     }
     title="Resources"
@@ -281,19 +150,19 @@ exports[`Snapshot match 1`] = `
         Array [
           Object {
             "title": "Nam dapibus nisl vitae elit fringilla",
-            "url": "/community/wipro2/learn",
+            "url": "learn",
           },
           Object {
             "title": "Aenean sollicitudin",
-            "url": "/community/wipro2/learn",
+            "url": "learn",
           },
           Object {
             "title": "Erat a elementum rutrum",
-            "url": "/community/wipro2/learn",
+            "url": "learn",
           },
           Object {
             "title": "Neque sem pretium metus",
-            "url": "/community/wipro2/learn",
+            "url": "learn",
           },
         ]
       }
@@ -307,19 +176,19 @@ exports[`Snapshot match 1`] = `
         Array [
           Object {
             "title": "Tristique ullamcorper id vitae",
-            "url": "/community/wipro2/learn",
+            "url": "learn",
           },
           Object {
             "title": "Nulla mollis sapien sollicitudin",
-            "url": "/community/wipro2/learn",
+            "url": "learn",
           },
           Object {
             "title": "Vivamus facilisis dolor et massa",
-            "url": "/community/wipro2/learn",
+            "url": "learn",
           },
           Object {
             "title": "Vestibulum nisl egestas",
-            "url": "/community/wipro2/learn",
+            "url": "learn",
           },
         ]
       }
@@ -333,19 +202,19 @@ exports[`Snapshot match 1`] = `
         Array [
           Object {
             "title": "Nam dapibus nisl vitae elit fringilla",
-            "url": "/community/wipro2/learn",
+            "url": "learn",
           },
           Object {
             "title": "Aenean sollicitudin",
-            "url": "/community/wipro2/learn",
+            "url": "learn",
           },
           Object {
             "title": "Erat a elementum rutrum",
-            "url": "/community/wipro2/learn",
+            "url": "learn",
           },
           Object {
             "title": "Neque sem pretium metus",
-            "url": "/community/wipro2/learn",
+            "url": "learn",
           },
         ]
       }
@@ -358,7 +227,7 @@ exports[`Snapshot match 1`] = `
     buttonText="Sign Up"
     composeTheme="deeply"
     emailPlaceholder="Email address"
-    imageSrc="/themes/wipro2/subscribe-bg.jpg"
+    imageSrc="/themes/wipro/subscribe-bg.jpg"
     mapThemrProps={[Function]}
     text="Don’t miss out on the latest Topcoder IOS challenges and information!"
     theme={Object {}}

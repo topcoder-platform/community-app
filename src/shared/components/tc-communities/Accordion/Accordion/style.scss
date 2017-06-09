@@ -37,6 +37,10 @@
   font: 600 15px/20px 'Open Sans';
   padding: 20px 0;
   position: relative;
+
+  div {
+    outline: none;
+  }
 }
 
 .titleListItemSelected {

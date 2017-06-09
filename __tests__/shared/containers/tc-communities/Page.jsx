@@ -17,11 +17,17 @@ const mockMetaActions = {
 };
 jest.setMock(require.resolve('actions/tc-communities/meta'), mockMetaActions);
 
+const COMMUNITY_SELECTOR = [{
+  label: 'Community Name',
+  value: '1',
+}];
+
 const mockState = {
   tcCommunities: {
     meta: {
       authorizedGroupIds: ['12345'],
       communityId: 'someId',
+      communitySelector: COMMUNITY_SELECTOR,
       pageId: 'somePageId',
       loading: false,
       menuItems: [
@@ -34,6 +40,7 @@ const mockState = {
       isMobileOpen: false,
       failed: false,
     },
+    news: {},
   },
   auth: {
     profile: {
@@ -45,6 +52,7 @@ const mockState = {
 const mockState2 = {
   tcCommunities: {
     meta: {},
+    news: {},
   },
   auth: {
     profile: {},
@@ -55,8 +63,10 @@ const mockState3 = {
   tcCommunities: {
     meta: {
       communityId: 'anotherId',
+      communitySelector: COMMUNITY_SELECTOR,
       pageId: 'somePageId',
     },
+    news: {},
   },
   auth: {
     profile: {},
@@ -67,9 +77,16 @@ const mockState4 = {
   tcCommunities: {
     meta: {
       communityId: 'someId',
+      communitySelector: COMMUNITY_SELECTOR,
+      menuItems: [
+        { title: 'Menu Item 1', url: 'pageId1' },
+        { title: 'Menu Item 2', url: 'pageId2' },
+        { title: 'Menu Item 3', url: 'pageId3' },
+      ],
       pageId: 'somePageId',
       isMobileOpen: true,
     },
+    news: {},
   },
   auth: {
     profile: {

@@ -17,14 +17,21 @@
 
 .link {
   display: inline-block;
-  color: $tc-white;
   cursor: pointer;
   line-height: 24px;
   margin: 0 24px;
   text-align: center;
 
-  &:hover {
-    color: $tc-dark-blue-90;
+  a,
+  a:visited,
+  a:focus,
+  a:hover {
+    color: $tc-white;
+    text-decoration: none;
+
+    &:hover {
+      color: $tc-dark-blue-90;
+    }
   }
 }
 

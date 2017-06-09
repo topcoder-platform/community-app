@@ -18,20 +18,26 @@ function onDone(state, action) {
       ...state,
       authorizedGroupIds: action.payload.authorizedGroupIds,
       challengeFilterTag: action.payload.challengeFilterTag,
+      challengeGroupId: action.payload.challengeGroupId,
       communityId: action.payload.communityId,
+      communityName: action.payload.communityName,
+      communitySelector: action.payload.communitySelector,
+      cssUrl: action.payload.style,
       logos: action.payload.logos,
       menuItems: action.payload.menuItems,
       failed: false,
-      loading: false,
-      cssUrl: action.payload.style,
       leaderboardApiUrl: action.payload.leaderboardApiUrl,
+      loading: false,
+      newsFeed: action.payload.newsFeed,
     };
   }
   // if community is not found or other error
   return {
     ...state,
     authorizedGroupIds: [],
+    challengeGroupId: '',
     communityId: action.payload.error === '404' ? action.payload.communityId : null,
+    communitySelector: [],
     logos: [],
     menuItems: [],
     failed: action.payload.error === '404' ? action.payload.error : true,
@@ -58,6 +64,7 @@ function create(initialState) {
       return {
         ...state,
         communityId: null,
+        communitySelector: [],
         logos: [],
         menuItems: [],
         failed: false,
@@ -78,6 +85,12 @@ function create(initialState) {
  * @return Promise which resolves to the new reducer.
  */
 export function factory(req) {
+  const subdomains = (req && req.subdomains) || [];
+  if (subdomains.indexOf('wipro') >= 0) {
+    return toFSA(actions.tcCommunities.meta.fetchDataDone('wipro'))
+      .then(res => create(onDone({}, res)));
+  }
+
   const match = req && req.url.match(/\/community\/([^/]+)\//);
 
   if (match) {

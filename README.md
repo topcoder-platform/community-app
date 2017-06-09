@@ -45,12 +45,27 @@ To login into production Topcoder backend use `accounts.topcoder.com/members` wi
 Development dependencies include StyleFMT. You can execute `$ npm run fix:styles` to automatically correct you stylesheets to comply with Stylelint rules (but it can fail for some rules).
 To automatically correct js files, you can use `npm run fix:js`.
 
+### Accessing Wipro Community
+
+Access to Wipro community demands proper authorization. In development environment (both local and remote) the test user `dan_developer / dantopcoder123` is authorized to access this community.
+
+It is intended that Wipro community is accessed as `wipro.topcoder-dev.com` in dev (both local and remote) and `wipro.topcoder.com` in prod. Thus, to deploy it locally you should have in your `/etc/hosts` the alias `127.0.0.1 wipro.topcoder-dev.com`, and run the app with the command `NODE_ENV=development PORT=80 npm run dev`. Take into account the following:
+
+1.  To run the App at port 80 you may need extra configuration (see in the end of the previous section);
+
+2.  Once you have added this alias to your `/etc/hosts`, it is extremely easy to forget about it and to be totally confused when failing to access the remotely deployed dev version of the App (because `wipro.topcoder-dev.com` is used in both places). ***Thus we recommend to comment out this alias in `/etc/hosts` whenever you don't need it!!!*** Technically, it makes total sense just to run the local dev version of the App at, say, `local.wipro.topcoder-dev.com:3000`, and the code does support it... the problem is that, as of now, Topcoder's `accounts-app` does not allow to authenticated from such subdomain/port, thus you won't be permitted to access.
+
+3.  As of now, this community can be also rapidly accessed at `local.topcoder-dev.com/community/wipro/`. It should be fine to use it during development, just keep in mind that you should use relative links to navigate inside the community, as our primary goal is to ensure it is properly funcional at `wipro.topcoder-dev.com`.
+
+### Configuration for *logentries.com*
+
+We use [https://logentries.com](https://logentries.com) to track the logs. Log Entries API token should be provided via the `LOG_ENTRIES_TOKEN` environment variable, which will override the default values set in `/config/default.json` (sample account for local setup testing), and in `/config/production.json` (empty token) - with empty token Log Entries will not be used.
+
 ### Development Notes
 -   [Challenge Listing - Notes from winning submission](docs/challenge-listing-notes.md)
+-   [**How to Add a New Topcoder Community?**](docs/how-to-add-a-new-topcoder-community.md)
 -   [Leaderboard - Notes from the winning submission](docs/leaderboard-notes.md)
--   [Wipro Community - Notes from the preliminary winning submission](docs/wipro-community.md)
--   [Why Reducer Factories and How to Use Them?](docs/why-reducer-factories-and-how-to-use-them.md)
--   [~~WYSIWYG Page Editor - Notes from the winning submission~~](docs/editor-notes.pdf)
+-   [**Why Reducer Factories and How to Use Them?**](docs/why-reducer-factories-and-how-to-use-them.md)
 
 ### Current Status
 

@@ -7,11 +7,17 @@ const mockOnMobileToggle = jest.fn();
 
 const rnd = new Rnd();
 
+const COMMUNITY_SELECTOR = [{
+  label: 'Community Name',
+  value: '1',
+}];
+
 test('Snapshot match', () => {
   rnd.render((
     <Header
       onMobileToggleClick={mockOnMobileToggle}
       communityId="someId"
+      communitySelector={COMMUNITY_SELECTOR}
       registerUrl="/some/register/url"
       loginUrl="/some/login/url"
     />
@@ -22,6 +28,7 @@ test('Snapshot match', () => {
     <Header
       onMobileToggleClick={mockOnMobileToggle}
       communityId="someId"
+      communitySelector={COMMUNITY_SELECTOR}
       registerUrl="/some/register/url"
       loginUrl="/some/login/url"
       logos={['some/logo/url']}
@@ -48,6 +55,7 @@ const page = TU.renderIntoDocument((
   <Wrapper
     onMobileToggleClick={mockOnMobileToggle}
     communityId="someId"
+    communitySelector={COMMUNITY_SELECTOR}
     registerUrl="/some/register/url"
     loginUrl="/some/login/url"
   />
