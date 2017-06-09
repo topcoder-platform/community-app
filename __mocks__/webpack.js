@@ -1,3 +1,7 @@
 import _ from 'lodash';
 
-module.exports = _.noop;
+module.exports = () => ({
+  apply: _.noop,
+});
+
+module.exports.ProgressPlugin = () => ({});
