@@ -9,6 +9,7 @@ import path from 'path';
 import favicon from 'serve-favicon';
 import requestIp from 'request-ip';
 import stream from 'stream';
+import { toJson as xmlToJson } from 'utils/xml2json';
 
 // Temporarily here to test our API service.
 // import '../shared/services/api';
@@ -89,6 +90,14 @@ app.use(express.static(path.resolve(__dirname, '../../build')));
 
 // serve demo api
 app.use('/api/tc-communities', tcCommunitiesDemoApi);
+
+/**
+ * Auxiliary endpoint for xml -> json conversion (the most popular npm library
+ * for such conversion works only in the node :(
+ */
+app.use('/api/xml2json', (req, res) => {
+  xmlToJson(req.body.xml).then(json => res.json(json));
+});
 
 app.use(renderer);
 

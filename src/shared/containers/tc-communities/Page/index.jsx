@@ -20,6 +20,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Redirect } from 'react-router-dom';
 import actions from 'actions/tc-communities/meta';
+import newsActions from 'actions/tc-communities/news';
 import { bindActionCreators } from 'redux';
 import standardHeaderActions from 'actions/topcoder_header';
 import Header from 'components/tc-communities/Header';
@@ -52,6 +53,17 @@ class Page extends Component {
     && !this.props.meta.loading) this.props.loadMetaData(communityId);
 
     if (this.props.meta.isMobileOpen) this.props.mobileToggle();
+
+    if (this.props.meta.newsFeed && !this.props.news && !this.props.loadingNews) {
+      this.props.loadNews(this.props.meta.newsFeed);
+    }
+  }
+
+  componentWillUpdate(nextProps) {
+    if (nextProps.meta.communityId === this.props.communityId
+    && nextProps.meta.newsFeed && !this.props.news) {
+      nextProps.loadNews(nextProps.meta.newsFeed);
+    }
   }
 
   /**
@@ -95,6 +107,10 @@ class Page extends Component {
       pageContent = <Redirect to={{ pathname: '/404' }} />;
     }
 
+    pageContent = React.cloneElement(pageContent, {
+      news: this.props.news,
+    });
+
     return pageContent;
   }
 
@@ -118,6 +134,7 @@ class Page extends Component {
       case 'challenges':
         pageContent = (<ChallengeListing
           challengeGroupId={this.props.meta.challengeGroupId}
+          communityName={this.props.meta.communityName}
           tag={this.props.meta.challengeFilterTag}
           history={this.props.history}
           location={this.props.location}
@@ -192,6 +209,8 @@ Page.defaultProps = {
   openedMenu: null,
   profile: null,
   isMobileOpen: false,
+  loadingNews: false,
+  news: null,
 };
 
 Page.propTypes = {
@@ -209,6 +228,7 @@ Page.propTypes = {
     challengeFilterTag: PT.string,
     challengeGroupId: PT.string,
     communityId: PT.string,
+    communityName: PT.string,
     communitySelector: PT.arrayOf(PT.shape()),
     cssUrl: PT.string,
 
@@ -220,10 +240,14 @@ Page.propTypes = {
     loading: PT.bool,
     logos: PT.arrayOf(PT.string).isRequired,
     menuItems: PT.arrayOf(PT.shape({})).isRequired,
+    newsFeed: PT.string,
   }).isRequired,
+  loadingNews: PT.bool,
+  news: PT.arrayOf(PT.shape),
   openedMenu: PT.shape({}),
   openMenu: PT.func.isRequired,
   loadMetaData: PT.func.isRequired,
+  loadNews: PT.func.isRequired,
   mobileToggle: PT.func.isRequired,
   pageId: PT.string.isRequired,
   history: PT.shape().isRequired,
@@ -234,6 +258,8 @@ const mapStateToProps = (state, props) => ({
   ...state.auth,
   ...state.topcoderHeader,
   meta: state.tcCommunities.meta,
+  loadingNews: state.tcCommunities.news.loading,
+  news: state.tcCommunities.news.data,
   profile: state.auth ? state.auth.profile : null,
   communityId: props.communityId || props.match.params.communityId,
   pageId: props.pageId || props.match.params.pageId,
@@ -242,8 +268,13 @@ const mapStateToProps = (state, props) => ({
 const mapDispatchToProps = dispatch => _.merge(
   bindActionCreators(standardHeaderActions.topcoderHeader, dispatch), {
     loadMetaData: (communityId) => {
+      dispatch(newsActions.tcCommunities.news.drop());
       dispatch(actions.tcCommunities.meta.fetchDataInit());
       dispatch(actions.tcCommunities.meta.fetchDataDone(communityId));
+    },
+    loadNews: (url) => {
+      dispatch(newsActions.tcCommunities.news.getNewsInit());
+      dispatch(newsActions.tcCommunities.news.getNewsDone(url));
     },
     mobileToggle: () => {
       dispatch(actions.tcCommunities.meta.mobileToggle());

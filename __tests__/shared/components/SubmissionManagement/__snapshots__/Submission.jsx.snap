@@ -57,7 +57,7 @@ exports[`Snapshot match 2`] = `
   >
     <img
       alt="preview"
-      className="src-shared-components-SubmissionManagement-Submission-___styles__design-img___1klwr"
+      className="src-shared-components-SubmissionManagement-Submission-___styles__dev-img___rbFEF"
       src="https://studio.topcoder-dev.com?module=DownloadSubmission&sbmid=12345&sbt=tiny"
     />
   </td>
@@ -71,15 +71,6 @@ exports[`Snapshot match 2`] = `
     className="src-shared-components-SubmissionManagement-Submission-___styles__date-col___3XOxK"
   >
     Invalid date
-  </td>
-  <td
-    className="src-shared-components-SubmissionManagement-Submission-___styles__status-col___1Byk3"
-  >
-    <ScreeningStatus
-      onShowDetails={[Function]}
-      screeningObject={Object {}}
-      submissionId={12345}
-    />
   </td>
   <td>
     <div

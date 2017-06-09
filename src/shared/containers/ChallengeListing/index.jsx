@@ -19,7 +19,20 @@ import ChallengeListing from 'components/challenge-listing';
 import Banner from 'components/tc-communities/Banner';
 import NewsletterSignup from 'components/tc-communities/NewsletterSignup';
 import shortid from 'shortid';
+import SideBarFilter, { MODE as SideBarFilterModes } from 'components/challenge-listing/SideBarFilters/SideBarFilter';
 import style from './styles.scss';
+
+// helper function to de-serialize query string to filter object
+const deserialize = (queryString) => {
+  const filter = new SideBarFilter({
+    filter: queryString,
+    isSavedFilter: true, // So that we can reuse constructor for deserializing
+  });
+  if (!_.values(SideBarFilterModes).includes(filter.name)) {
+    filter.isCustomFilter = true;
+  }
+  return filter;
+};
 
 let mounted = false;
 
@@ -46,6 +59,10 @@ class ChallengeListingPageContainer extends React.Component {
     const filter = this.props.location.hash.slice(1);
     if (filter && filter !== this.props.challengeListing.filter) {
       this.props.setFilter(filter);
+    } else if (this.props.challengeGroupId) {
+      const f = deserialize(this.props.challengeListing.filter);
+      f.groupId = this.props.challengeGroupId;
+      this.props.setFilter(f.getURLEncoded());
     }
   }
 
@@ -103,6 +120,37 @@ class ChallengeListingPageContainer extends React.Component {
       groupIds,
       status: 'PAST',
     }, {}, tokenV3, 'pastMM');
+
+    /* In case we are inside a group, we still need to load all challenges,
+     * to be able to use All / Group challenges filter. */
+    if (groupIds) {
+      /* Active challenges. */
+      this.props.getChallenges({
+        status: 'ACTIVE',
+      }, {}, tokenV3, 'active');
+      this.props.getMarathonMatches({
+        status: 'ACTIVE',
+      }, {}, tokenV3, 'activeMM');
+
+      /* My active challenges. */
+      if (user) {
+        this.props.getChallenges({
+          status: 'ACTIVE',
+        }, {}, tokenV3, 'myActive', user.handle);
+        this.props.getMarathonMatches({
+          groupIds,
+          status: 'ACTIVE',
+        }, {}, tokenV3, 'myActiveMM', user.handle);
+      }
+
+      /* Past challenges. */
+      this.props.getChallenges({
+        status: 'COMPLETED',
+      }, {}, tokenV3, 'past');
+      this.props.getMarathonMatches({
+        status: 'PAST',
+      }, {}, tokenV3, 'pastMM');
+    }
   }
 
   /**
@@ -161,6 +209,7 @@ class ChallengeListingPageContainer extends React.Component {
           challenges={cl.challenges}
           challengeSubtracks={cl.challengeSubtracks}
           challengeTags={cl.challengeTags}
+          communityName={this.props.communityName}
           filter={this.props.challengeListing.filter}
           getChallenges={this.props.getChallenges}
           getMarathonMatches={this.props.getMarathonMatches}
@@ -205,6 +254,7 @@ ChallengeListingPageContainer.propTypes = {
     filter: PT.string.isRequired,
     pendingRequests: PT.shape({}).isRequired,
   }).isRequired,
+  communityName: PT.string.isRequired,
   getChallenges: PT.func.isRequired,
   getChallengeSubtracks: PT.func.isRequired,
   getChallengeTags: PT.func.isRequired,
@@ -257,10 +307,12 @@ function getChallenges(dispatch, ...rest) {
  * of the getChallenges action.
  * @param {Function} dispatch
  */
-function getMarathonMatches(dispatch, ...rest) {
+function getMarathonMatches(dispatch, filters, ...rest) {
   const uuid = shortid();
   dispatch(actions.challengeListing.getInit(uuid));
-  const action = actions.challengeListing.getMarathonMatches(uuid, ...rest);
+  const f = _.clone(filters);
+  if (f.status === 'COMPLETED') f.status = 'PAST';
+  const action = actions.challengeListing.getMarathonMatches(uuid, f, ...rest);
   dispatch(action);
   // TODO: This is hack to make the Redux loading of challenges to work
   // with older code inside the InfiniteList, until it is properly

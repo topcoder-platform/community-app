@@ -62,7 +62,7 @@ exports[`Matches shallow shapshot 1`] = `
       onlineReviewUrl=""
       showDetails={Set {}}
       submissionObjects={Array []}
-      type=""
+      type="Challenge Track"
     />
   </div>
   <div

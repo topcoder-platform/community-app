@@ -40,6 +40,7 @@ const mockState = {
       isMobileOpen: false,
       failed: false,
     },
+    news: {},
   },
   auth: {
     profile: {
@@ -51,6 +52,7 @@ const mockState = {
 const mockState2 = {
   tcCommunities: {
     meta: {},
+    news: {},
   },
   auth: {
     profile: {},
@@ -64,6 +66,7 @@ const mockState3 = {
       communitySelector: COMMUNITY_SELECTOR,
       pageId: 'somePageId',
     },
+    news: {},
   },
   auth: {
     profile: {},
@@ -83,6 +86,7 @@ const mockState4 = {
       pageId: 'somePageId',
       isMobileOpen: true,
     },
+    news: {},
   },
   auth: {
     profile: {

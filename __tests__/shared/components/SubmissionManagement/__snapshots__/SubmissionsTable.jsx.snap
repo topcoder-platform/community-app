@@ -20,6 +20,11 @@ exports[`Matches shallow shapshot 1`] = `
           Submission Date
         </th>
         <th
+          className="src-shared-components-SubmissionManagement-SubmissionsTable-___styles__status___1X1-o"
+        >
+          Screening Status
+        </th>
+        <th
           className="src-shared-components-SubmissionManagement-SubmissionsTable-___styles__actions___16pRz"
         >
           Actions
@@ -37,7 +42,7 @@ exports[`Matches shallow shapshot 1`] = `
             "submissionId": 12345,
           }
         }
-        type=""
+        type="DESIGN"
       />
       <tr
         className="src-shared-components-SubmissionManagement-SubmissionsTable-___styles__submission-row___1uclT"

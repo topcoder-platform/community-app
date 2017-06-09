@@ -2,6 +2,7 @@
   "challengeGroupId": "1001",
   "challengeFilterTag": ".NET",
   "communityId": "demo-expert",
+  "communityName": "Demo Expert Community",
   "communitySelector": [{
     "label": "Demo Expert Community",
     "value": "1"

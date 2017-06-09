@@ -230,6 +230,8 @@ class ChallengeFilters extends React.Component {
           </span>
         </div>
         <FiltersPanel
+          challengeGroupId={this.props.challengeGroupId}
+          communityName={this.props.communityName}
           hidden={!this.state.showFilters}
           filter={this.state.filter}
           onClose={() => this.setState({ showFilters: false })}
@@ -272,6 +274,8 @@ ChallengeFilters.defaultProps = {
 };
 
 ChallengeFilters.propTypes = {
+  challengeGroupId: PT.string.isRequired,
+  communityName: PT.string.isRequired,
   filter: PT.instanceOf(ChallengeFilter),
   isCardTypeSet: PT.string,
   searchQuery: PT.string,

@@ -12,28 +12,28 @@ export default function ChallengesSidebar({ SidebarMock }) {
   const all = () => (
     <SidebarRow>
       <p styleName={'l-row'}>{SidebarMock.all.name}</p>
-      <p styleName={'r-row'}>{SidebarMock.all.value}</p>
+      <p styleName={'r-row'}>{/* SidebarMock.all.value */ ''}</p>
     </SidebarRow>
   );
 
   const myChallenges = () => (
     <SidebarRow>
       <p styleName={'l-row'}>{SidebarMock.myChallenges.name}</p>
-      <p styleName={'r-row'}>{SidebarMock.myChallenges.value}</p>
+      <p styleName={'r-row'}>{/* SidebarMock.myChallenges.value */ ''}</p>
     </SidebarRow>
   );
 
   const others = SidebarMock.others.map(other => (
     <SidebarRow key={JSON.stringify(other)}>
       <p styleName={'l-row'}>{other.name}</p>
-      <p styleName={'r-row'}>{other.value}</p>
+      <p styleName={'r-row'}>{/* other.value */ ''}</p>
     </SidebarRow>
   ));
 
   const myFilters = SidebarMock.myFilters.map(other => (
     <SidebarRow key={JSON.stringify(other)}>
       <p styleName={'l-row'}>{other.name}</p>
-      <p styleName={'r-row'}>{other.value}</p>
+      <p styleName={'r-row'}>{/* other.value */ ''}</p>
     </SidebarRow>
   ));
 

@@ -10,6 +10,8 @@ exports[`Matches shapshot 1`] = `
   history={Object {}}
   isMobileOpen={false}
   loadMetaData={[Function]}
+  loadNews={[Function]}
+  loadingNews={false}
   location={Object {}}
   match={
     Object {
@@ -56,6 +58,7 @@ exports[`Matches shapshot 1`] = `
     }
   }
   mobileToggle={[Function]}
+  news={null}
   openMenu={[Function]}
   openMobileMenu={[Function]}
   openSearch={[Function]}

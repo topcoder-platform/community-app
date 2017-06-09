@@ -12,8 +12,9 @@ import Banner from 'components/tc-communities/Banner';
 import IconStat from 'components/tc-communities/IconStat';
 import ImageText from 'components/tc-communities/ImageText';
 import ResourceCard from 'components/tc-communities/ResourceCard';
-import ArticleCard from 'components/tc-communities/ArticleCard';
 import NewsletterSignup from 'components/tc-communities/NewsletterSignup';
+import NewsSection from 'components/tc-communities/NewsSection';
+import PT from 'prop-types';
 
 import IconSuitcase from '../../../../../../assets/images/tc-communities/suitcase.svg';
 import IconRocket from '../../../../../../assets/images/tc-communities/rocket.svg';
@@ -24,7 +25,7 @@ import IconMedal from '../../../../../../assets/images/tc-communities/medal.svg'
 
 import style from './style.scss';
 
-export default function Home() {
+export default function Home(props) {
   return (
     <main>
       <Banner
@@ -110,37 +111,7 @@ export default function Home() {
         />
       </Section>
 
-      <Section
-        title="Latest News"
-      >
-        <ArticleCard
-          title="How Does An IOS 10 LCD Work"
-          text="There are advances being made in science and technology everyday, and a good example of this is the LCD monitor. LCD monitors have"
-          link={{
-            title: 'Read More',
-            url: '.',
-          }}
-          imageSrc="/themes/wipro/home/news-01.jpg"
-        />
-        <ArticleCard
-          title="Video Games Playing With Imagination "
-          text="HDMI, or high definition multimedia interface, is a type of audio and video interface that is used for the transmission of uncompressed"
-          link={{
-            title: 'Read More',
-            url: '.',
-          }}
-          imageSrc="/themes/wipro/home/news-02.jpg"
-        />
-        <ArticleCard
-          title="Myspace Layouts The Missing Element"
-          text="If you are in the market for a computer, there are a number of factors to consider. Will it be used for your home, your office or"
-          link={{
-            title: 'Read More',
-            url: '.',
-          }}
-          imageSrc="/themes/wipro/home/news-03.jpg"
-        />
-      </Section>
+      <NewsSection news={props.news} />
 
       <NewsletterSignup
         title="Sign up for our newsletter"
@@ -151,3 +122,11 @@ export default function Home() {
     </main>
   );
 }
+
+Home.defaultProps = {
+  news: [],
+};
+
+Home.propTypes = {
+  news: PT.arrayOf(PT.shape()),
+};

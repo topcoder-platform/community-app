@@ -27,6 +27,7 @@
 import _ from 'lodash';
 import React, { Component } from 'react';
 import PT from 'prop-types';
+import { normalizeChallenge, normalizeMarathonMatch } from 'reducers/challenge-listing';
 import SortingSelectBar from 'components/SortingSelectBar';
 import InfiniteList from '../InfiniteList';
 import defaultFilters from './challengeFilters';
@@ -212,7 +213,9 @@ class ChallengeCardContainer extends Component {
                       undefined,
                       filter.filteringParams.user ?
                       this.props.auth.user.handle && this.props.auth.user :
-                      undefined).then(res => res.challenges),
+                      undefined).then(res =>
+                        res.challenges.map(i => normalizeChallenge(i)),
+                      ),
                       this.props.getMarathonMatches(f, {
                         limit: pageSize,
                         offset: pageIndex * pageSize,
@@ -221,7 +224,8 @@ class ChallengeCardContainer extends Component {
                       undefined,
                       filter.filteringParams.user && this.props.auth.user ?
                       this.props.auth.user.handle : undefined).then(res =>
-                        res.challenges),
+                        res.challenges.map(i => normalizeMarathonMatch(i)),
+                      ),
                     ]).then(([a, b]) => a.concat(b));
                   }}
                   batchNumber={batchLoadNumber}

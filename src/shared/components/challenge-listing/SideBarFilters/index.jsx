@@ -95,6 +95,8 @@ class SideBarFilters extends React.Component {
   constructor(props) {
     super(props);
 
+    const { challengeGroupId: cgi } = props;
+
     const authToken = (props.auth && props.auth.tokenV2) || null;
 
     this.state = {
@@ -106,7 +108,8 @@ class SideBarFilters extends React.Component {
 
     for (let i = 0; i < this.state.filters.length; i += 1) {
       const item = this.state.filters[i];
-      item.count = props.challenges.filter(item.getFilterFunction()).length;
+      item.count = props.challenges.filter(item.getFilterFunction())
+      .filter(it => !cgi || it.groups[cgi]).length;
     }
     for (let i = 0; i !== this.state.filters.length; i += 1) {
       const f = this.state.filters[i];
@@ -128,7 +131,8 @@ class SideBarFilters extends React.Component {
       this.state.currentFilter = DEFAULT_FILTERS[_.values(MODE).indexOf(props.filter.name)];
     } else {
       const f = new SideBarFilter(props.filter);
-      f.count = props.challenges.filter(f.getFilterFunction()).length;
+      f.count = props.challenges.filter(f.getFilterFunction())
+      .filter(it => !cgi || it.groups[cgi]).length;
       this.state.currentFilter = f;
       this.state.filters.push(f);
     }
@@ -165,12 +169,15 @@ class SideBarFilters extends React.Component {
    * this sidebar.
    */
   componentWillReceiveProps(nextProps) {
+    const { challengeGroupId: cgi } = nextProps;
     let currentFilter;
     const filters = [];
     this.state.filters.forEach((filter) => {
       const filterClone = new SideBarFilter(filter);
       if (this.state.currentFilter === filter) currentFilter = filterClone;
-      filterClone.count = nextProps.challenges.filter(filter.getFilterFunction()).length;
+      filterClone.groupId = nextProps.filter.groupId;
+      filterClone.count = nextProps.challenges.filter(filterClone.getFilterFunction())
+      .filter(it => !cgi || it.groups[cgi]).length;
       filters.push(filterClone);
     });
     for (let i = 0; i < filters.length; i += 1) {
@@ -449,6 +456,7 @@ SideBarFilters.defaultProps = {
   filter: new SideBarFilter(MODE.ALL_CHALLENGES),
   isAuth: false,
   onFilter: _.noop,
+  challengeGroupId: '',
   config: {
     MAIN_URL: '',
   },
@@ -460,6 +468,7 @@ SideBarFilters.propTypes = {
     registrationOpen: PT.string.isRequired,
   })).isRequired,
   filter: PT.instanceOf(SideBarFilter),
+  challengeGroupId: PT.string,
   onFilter: PT.func,
   isAuth: PT.bool,
   config: PT.shape({
