@@ -47,7 +47,7 @@ import { COMMUNITY } from 'utils/tc';
  * @param {Object} challenge Challenge object received from the backend.
  * @return {Object} Normalized challenge.
  */
-function normalizeChallenge(challenge) {
+export function normalizeChallenge(challenge) {
   const registrationOpen = challenge.allPhases.filter(d =>
     d.phaseType === 'Registration',
   )[0].phaseStatus === 'Open' ? 'Yes' : 'No';
@@ -69,7 +69,7 @@ function normalizeChallenge(challenge) {
  * @param {Object} challenge MM challenge object received from the backend.
  * @return {Object} Normalized challenge.
  */
-function normalizeMarathonMatch(challenge) {
+export function normalizeMarathonMatch(challenge) {
   const endTimestamp = new Date(challenge.endDate).getTime();
   const allphases = [{
     challengeId: challenge.id,

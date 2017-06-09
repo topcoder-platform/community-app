@@ -385,9 +385,7 @@ class ChallengeFiltersExample extends React.Component {
               config={this.props.config}
               challenges={challenges}
               filter={this.getFilter()}
-              onFilter={
-                selectedFilter => this.saveFiltersToHash(selectedFilter)
-              }
+              onFilter={topFilter => this.onFilterByTopFilter(topFilter, true)}
               ref={(node) => {
                 this.sidebar = node;
               }}

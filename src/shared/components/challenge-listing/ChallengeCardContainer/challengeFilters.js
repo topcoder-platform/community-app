@@ -87,7 +87,7 @@ export default [
   {
     name: 'Past challenges',
     check(item) {
-      return item.status === 'COMPLETED';
+      return item.status === 'COMPLETED' || item.status === 'PAST';
     },
     sortingOptions: [
       'Most recent',

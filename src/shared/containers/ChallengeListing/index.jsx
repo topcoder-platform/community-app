@@ -307,10 +307,12 @@ function getChallenges(dispatch, ...rest) {
  * of the getChallenges action.
  * @param {Function} dispatch
  */
-function getMarathonMatches(dispatch, ...rest) {
+function getMarathonMatches(dispatch, filters, ...rest) {
   const uuid = shortid();
   dispatch(actions.challengeListing.getInit(uuid));
-  const action = actions.challengeListing.getMarathonMatches(uuid, ...rest);
+  const f = _.clone(filters);
+  if (f.status === 'COMPLETED') f.status = 'PAST';
+  const action = actions.challengeListing.getMarathonMatches(uuid, f, ...rest);
   dispatch(action);
   // TODO: This is hack to make the Redux loading of challenges to work
   // with older code inside the InfiniteList, until it is properly
