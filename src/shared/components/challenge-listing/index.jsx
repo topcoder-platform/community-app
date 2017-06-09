@@ -383,6 +383,7 @@ class ChallengeFiltersExample extends React.Component {
           <div styleName="sidebar-container-mobile">
             {!this.props.loadingChallenges || expanded ? (<SideBarFilters
               config={this.props.config}
+              challengeGroupId={filter.groupId}
               challenges={challenges}
               filter={this.getFilter()}
               onFilter={topFilter => this.onFilterByTopFilter(topFilter, true)}
@@ -403,6 +404,7 @@ class ChallengeFiltersExample extends React.Component {
                 config={this.props.config}
                 challenges={challenges}
                 filter={this.getFilter()}
+                challengeGroupId={filter.groupId}
                 onFilter={topFilter => this.onFilterByTopFilter(topFilter, true)}
                 ref={(node) => {
                   this.sidebar = node;
