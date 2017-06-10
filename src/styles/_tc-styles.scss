@@ -1,9 +1,8 @@
-@import 'tc-includes';
 @import 'reset';
 
 // Use to list all modules to include
+@import 'typography';
 @import 'buttons';
 @import 'checkboxes';
 @import 'forms';
 @import 'flexbox';
-@import 'typography';
