@@ -110,7 +110,10 @@ module.exports = {
       from: path.resolve(__dirname, '../../src/assets/themes'),
       to: path.resolve(__dirname, '../../build/themes'),
     }]),
-    new ExtractTextPlugin('style.css'),
+    new ExtractTextPlugin({
+      allChunks: true,
+      filename: 'style.css',
+    }),
     new webpack.DefinePlugin({
       'process.env': {
         /* Some isomorphic code relies on this variable to determine, whether
