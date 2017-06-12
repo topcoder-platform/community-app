@@ -29,8 +29,8 @@ export default function Home(props) {
   return (
     <main>
       <Banner
-        title="Wipro Crowd"
-        text="Wipro's Hybrid Crowd gives our vast ecosystem of customers and partners options to access new range of skills that provide new value services and efficiency options all over the world."
+        title="Topcoder Product Development Community"
+        text="This is the place where Topcoder members can come to focus on work that involves building out the Topcoder Platform."
         link={{
           title: 'Compete Now',
           url: 'challenges',
@@ -57,8 +57,8 @@ export default function Home(props) {
       >
         <div>
           <ImageText
-            title="Improve Your Skills"
-            text="Our continuously evolving structured learning paths, constantly abreast of the latest, tailored for employees to deepen your knowledge, infuses important software capabilities that are industry specific and help you get the skills you need to succeed."
+            title="Ramp Up"
+            text="Learn about what we're working on, our environments, procedures, etc."
             link={{
               title: 'Start Learning',
               url: 'learn',
@@ -67,9 +67,9 @@ export default function Home(props) {
           />
           <ImageText
             title="Get Involved"
-            text="Rewards program is intended to celebrate and recognize your contribution. Rewards for project contributions are given using ‘Reward Points’. Points earned translate into badges. Quarterly rewards are given away to the toppers of all categories."
+            text="Whether you're a copilot, designer, developer, or data scientist...we want you involved. "
             link={{
-              title: 'Start Earning',
+              title: 'Start Contributing',
               url: 'challenges',
             }}
             imageSrc="/themes/wipro/home/image-text-do.jpg"
@@ -84,8 +84,8 @@ export default function Home(props) {
       >
         <ResourceCard
           icon={IconNetwork}
-          title="Up Your iOS and Swift Development Skills"
-          text="Pellentesque non dignissim neque. Nunc vel rhoncus nibh, ut tincidunt turpis. Integer ac enim pellentesque, adipiscing metus id, pharetra odio."
+          title="Learn about our platform"
+          text="Pellentesque non dignissim neque. Nunc  vel rhoncus nibh, ut tincidunt turpis. Integer ac enim pellentesque, adipiscing metus id, pharetra odio."
           link={{
             title: 'Browse resources',
             url: 'learn',
@@ -93,7 +93,7 @@ export default function Home(props) {
         />
         <ResourceCard
           icon={IconMedal}
-          title="Take the First Steps to Stand Out in the Community"
+          title="What's in it for me?"
           text="Donec bibendum nunc sit amet tortor scelerisque luctus et sit amet mauris. Suspendisse felis sem, condimentum ullamcorper est sit amet, molestie"
           link={{
             title: 'Learn about badges',
@@ -102,8 +102,8 @@ export default function Home(props) {
         />
         <ResourceCard
           icon={IconRocket}
-          title="Compete in Challenges and Win Cash"
-          text="Suspendisse felis sem, condimentum ullamcorper est sit amet, molestie mollis nulla. Etiam lorem orci, consequat ac magna quis, facilisis"
+          title="Participate in many ways"
+          text="Suspendisse felis sem, condimentum ullamcorper est sit amet, molestie mollis nulla. Etiam lorem orci, consequat ac magna quis, facilisis "
           link={{
             title: 'Browse challenges',
             url: 'challenges',
@@ -114,8 +114,8 @@ export default function Home(props) {
       <NewsSection news={props.news} />
 
       <NewsletterSignup
-        title="Sign up for our newsletter"
-        text="Don’t miss out on the latest Topcoder IOS challenges and information!"
+        title="Sign up for Topcoder Product Development Updates"
+        text="Don’t miss out opportunities to work on the Topcoder Platform!"
         imageSrc="/themes/wipro/subscribe-bg.jpg"
       />
 

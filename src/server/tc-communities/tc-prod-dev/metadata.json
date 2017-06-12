@@ -1,8 +1,5 @@
 {
-  "authorizedGroupIds": [
-    "20000000"
-  ],
-  "challengeGroupId": "20000000",
+  "challengeGroupId": "20000001",
   "challengeFilterTag": "",
   "communityId": "tc-prod-dev",
   "communityName": "Topcoder Product Development",
@@ -36,5 +33,5 @@
       "url": "leaderboard"
     }
   ],
-  "leaderboardApiUrl": "https://api.topcoder.com/v4/looks/0/run/json/"
+  "leaderboardApiUrl": "https://api.topcoder.com/v4/looks/412/run/json/"
 }
