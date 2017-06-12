@@ -17,12 +17,7 @@ export default function AccessDenied({ cause }) {
   const origin = window ? window.location.origin : '';
   switch (cause) {
     case CAUSE.NOT_AUTHENTICATED: {
-<<<<<<< HEAD
-      const returnUrl =
-        encodeURIComponent(`${config.URL.WIPRO}/`);
-=======
       const returnUrl = encodeURIComponent(`${origin}/`);
->>>>>>> develop
       return (
         <div styleName="access-denied">
           <TopcoderLogo />
