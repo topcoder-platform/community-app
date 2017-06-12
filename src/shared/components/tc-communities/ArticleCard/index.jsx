@@ -11,7 +11,8 @@ import defaultStyle from './style.scss';
 function ArticleCard(props) {
   const { imageSrc, title, text, link, theme } = props;
 
-  const t = text.match(/<p>.*<\/p>/)[0].slice(3, -4);
+  let t = text.match(/<p>.*<\/p>/) || '';
+  if (t && t[0]) t = t[0].slice(3, -4);
 
   return (
     <div className={theme.container}>

@@ -25,7 +25,7 @@ module.exports = {
       loader: 'file-loader',
       options: {
         outputPath: '/fonts/',
-        publicPath: '/fonts/',
+        publicPath: '/fonts/../',
       },
     }, {
       test: /\.(jsx?|svg)$/,
@@ -59,7 +59,7 @@ module.exports = {
       loader: 'file-loader',
       options: {
         outputPath: '/images/',
-        publicPath: '/images/',
+        publicPath: '/images/../',
       },
     }, {
       test: /\.scss$/,
@@ -73,14 +73,14 @@ module.exports = {
             localIdentName: '[path]___[name]__[local]___[hash:base64:5]',
             modules: true,
           },
-        }, 'resolve-url-loader', {
+        }, {
           loader: 'postcss-loader',
           options: {
             plugins: [
               autoprefixer,
             ],
           },
-        }, {
+        }, 'resolve-url-loader', {
           loader: 'sass-loader',
           options: {
             sourceMap: true,
@@ -110,7 +110,10 @@ module.exports = {
       from: path.resolve(__dirname, '../../src/assets/themes'),
       to: path.resolve(__dirname, '../../build/themes'),
     }]),
-    new ExtractTextPlugin('style.css'),
+    new ExtractTextPlugin({
+      allChunks: true,
+      filename: 'style.css',
+    }),
     new webpack.DefinePlugin({
       'process.env': {
         /* Some isomorphic code relies on this variable to determine, whether

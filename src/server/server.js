@@ -74,9 +74,9 @@ if (USE_DEV_TOOLS) {
   const webpackDevMiddleware = require('webpack-dev-middleware');
   const webpackHotMiddleware = require('webpack-hot-middleware');
   const compiler = webpack(webpackConfig);
+  compiler.apply(new webpack.ProgressPlugin());
   app.use(webpackDevMiddleware(compiler, {
     name: 'bundle.js',
-    noInfo: true,
     publicPath: webpackConfig.output.publicPath,
     serverSideRender: true,
   }));
