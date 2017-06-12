@@ -35,7 +35,7 @@ export default function Home(props) {
           title: 'Compete Now',
           url: 'challenges',
         }}
-        imageSrc="/themes/wipro/home/banner.jpg"
+        imageSrc="/themes/tc-prod-dev/community-hero.jpg"
       />
 
       <Section
@@ -58,7 +58,7 @@ export default function Home(props) {
         <div>
           <ImageText
             title="Ramp Up"
-            text="Learn about what we're working on, our environments, procedures, etc."
+            text="Learn about what we're working on, our environments, procedures, etc. If you want to get involved in Topcoder projects, this is a good place to start. We run challenges and tasks constantly, so we're always looking for help."
             link={{
               title: 'Start Learning',
               url: 'learn',
@@ -67,7 +67,7 @@ export default function Home(props) {
           />
           <ImageText
             title="Get Involved"
-            text="Whether you're a copilot, designer, developer, or data scientist...we want you involved. "
+            text="Whether you're a copilot, designer, developer, or data scientist...we want you involved. Topcoder is one of the biggest customers of our own platform, so there is never a shortage of interesting things to work on."
             link={{
               title: 'Start Contributing',
               url: 'challenges',
@@ -85,7 +85,7 @@ export default function Home(props) {
         <ResourceCard
           icon={IconNetwork}
           title="Learn about our platform"
-          text="Pellentesque non dignissim neque. Nunc  vel rhoncus nibh, ut tincidunt turpis. Integer ac enim pellentesque, adipiscing metus id, pharetra odio."
+          text="There are many aspects to our platform...something for everyone."
           link={{
             title: 'Browse resources',
             url: 'learn',
@@ -94,16 +94,16 @@ export default function Home(props) {
         <ResourceCard
           icon={IconMedal}
           title="What's in it for me?"
-          text="Donec bibendum nunc sit amet tortor scelerisque luctus et sit amet mauris. Suspendisse felis sem, condimentum ullamcorper est sit amet, molestie"
+          text="Topcoder rewards participants with cash. The more deliverables you produce, the more you can make."
           link={{
-            title: 'Learn about badges',
+            title: 'Learn about rewards',
             url: 'leaderboard',
           }}
         />
         <ResourceCard
           icon={IconRocket}
           title="Participate in many ways"
-          text="Suspendisse felis sem, condimentum ullamcorper est sit amet, molestie mollis nulla. Etiam lorem orci, consequat ac magna quis, facilisis "
+          text="We're always running challenges and tasks.  Check back every day to see what's new."
           link={{
             title: 'Browse challenges',
             url: 'challenges',
