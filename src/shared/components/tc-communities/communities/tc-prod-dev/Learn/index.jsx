@@ -62,8 +62,8 @@ export default function Learn() {
           </AccordionItem>
           <AccordionItem title="How to compete for work">
             <Text>
-              <p>If you'd like to be a copilot for Topcoder projects, send an email to support@topcoder.com and tell us a little about yourself.  
-              <p>If  you'd like to work on challenges, check out what's active on the <a href=/challenges>challenges</a> page.  If there is nothing active, send us a note and tell us to stop slacking! :)</p>
+              <p>If you'd like to be a copilot for Topcoder projects, send an email to support@topcoder.com and tell us a little about yourself.</p>
+              <p>If  you'd like to work on challenges, check out what's active on the <a href="challenges">challenges</a> page.  If there is nothing active, send us a note and tell us to stop slacking! :)</p>
               <div styleName="joinnowWrap">
                 <Link styleName="joinnow" to="challenges">Compete</Link>
               </div>
