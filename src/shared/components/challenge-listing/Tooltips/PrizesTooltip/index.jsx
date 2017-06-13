@@ -41,9 +41,13 @@ Bonus.propTypes = {
  * and the prize, formatted as currency, next to it.
  */
 function Prize(props) {
+  let medalStyleName = 'medal';
+  if (props.place <= 3) {
+    medalStyleName += ` place-${props.place}`;
+  }
   return (
     <div styleName="prize">
-      <span styleName={`medal place-${props.place}`}>{props.place}</span>
+      <span styleName={medalStyleName}>{props.place}</span>
       ${props.prize.toLocaleString()}
     </div>
   );
