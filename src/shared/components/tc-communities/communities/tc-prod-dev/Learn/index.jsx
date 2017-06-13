@@ -24,8 +24,8 @@ export default function Learn() {
     <main>
 
       <Banner
-        title="Learning"
-        text="Learn by doing. The Topcoder Platform leverages several technology stacks ranging from J2EE to Node and ReactJS. We run on a cloud based infrastructure that is primarily hosted in AWS."
+        title="Learning & Certification"
+        text="Our continuously evolving structured learning paths, constantly abreast of the latest, tailored for employees to deepen your knowledge, infuses important software capabilities that are industry specific and help you get the skills you need to succeed."
         theme={{
           container: style.bannerContainer,
           content: style.bannerContent,
@@ -35,7 +35,7 @@ export default function Learn() {
       />
 
       <Section
-        title="Things To Know"
+        title="Learn The Basics"
         theme={{
           container: style.learnBasicsContainer,
         }}
@@ -43,47 +43,56 @@ export default function Learn() {
         <Accordion>
           <AccordionItem title="Joining the  Community">
             <Text>
-              <p>First things first, ...make sure you sign up for Topcoder. It's quick and painless and opens the door to a whole new world.</p>
+              <p>Nam dapibus nisl vitae elit fringilla rutrum. Aenean sollicitudin, erat a elementum rutrum, neque sem pretium metus, quis mollis nisl nunc et massa. Vestibulum sed metus in lorem tristique ullamcorper id vitae erat. Nulla mollis sapien sollicitudin lacinia lacinia. Vivamus facilisis dolor et massa placerat, at vestibulum nisl egestas. Nullam rhoncus lacus non odio luctus, eu condimentum mauris ultrices. Praesent blandit, augue a posuere aliquam, arcu tortor feugiat turpis,</p>
+              <p>Nam dapibus nisl vitae elit fringilla rutrum. Aenean sollicitudin, erat a elementum rutrum, neque sem pretium metus, quis mollis nisl nunc et massa. Vestibulum sed metus in lorem tristique ullamcorper id vitae erat. Nulla mollis sapien sollicitudin lacinia lacinia. Vivamus facilisis dolor et massa placerat, at vestibulum nisl egestas. Nullam rhoncus lacus non odio luctus, eu condimentum mauris ultrices. Praesent blandit, augue a posuere aliquam, arcu tortor feugiat turpis,</p>
               <div styleName="joinnowWrap">
                 <Link styleName="joinnow" to="learn">Join Now</Link>
               </div>
             </Text>
           </AccordionItem>
-          <AccordionItem title="Get familiar with the platform">
+          <AccordionItem title="How to sign up for work">
             <Text>
-              <p>It's likely that you'll be working on code in a specific git repo. We have many of them, so be sure to ask if you're not sure which one you shoudl be looking at.</p>
-              <p>In general, you'll typically find them at https://github.com/topcoder-platform</p>
-            </Text>
-          </AccordionItem>
-          <AccordionItem title="Look at past challenges">
-            <Text>
-              <p>You can learn a lot from the past. Take a look at previous challenges that were run to do design and development on the Topcoder Platform. https://www.topcoder.com/challenges/#&query=topcoder&tracks=design&tracks=develop </p>
+              <p>Nam dapibus nisl vitae elit fringilla rutrum. Aenean sollicitudin, erat a elementum rutrum, neque sem pretium metus, quis mollis nisl nunc et massa. Vestibulum sed metus in lorem tristique ullamcorper id vitae erat. Nulla mollis sapien sollicitudin lacinia lacinia. Vivamus facilisis dolor et massa placerat, at vestibulum nisl egestas. Nullam rhoncus lacus non odio luctus, eu condimentum mauris ultrices. Praesent blandit, augue a posuere aliquam, arcu tortor feugiat turpis,</p>
             </Text>
           </AccordionItem>
           <AccordionItem title="How to compete for work">
             <Text>
-              <p>If you'd like to be a copilot for Topcoder projects, send an email to support@topcoder.com and tell us a little about yourself.  
-              <p>If  you'd like to work on challenges, check out what's active on the <a href=/challenges>challenges</a> page.  If there is nothing active, send us a note and tell us to stop slacking! :)</p>
+              <p>Nam dapibus nisl vitae elit fringilla rutrum. Aenean sollicitudin, erat a elementum rutrum, neque sem pretium metus, quis mollis nisl nunc et massa. Vestibulum sed metus in lorem tristique ullamcorper id vitae erat. Nulla mollis sapien sollicitudin lacinia lacinia. Vivamus facilisis dolor et massa placerat, at vestibulum nisl egestas. Nullam rhoncus lacus non odio luctus, eu condimentum mauris ultrices. Praesent blandit, augue a posuere aliquam, arcu tortor feugiat turpis,</p>
+              <p>Nam dapibus nisl vitae elit fringilla rutrum. Aenean sollicitudin, erat a elementum rutrum, neque sem pretium metus, quis mollis nisl nunc et massa. Vestibulum sed metus in lorem tristique ullamcorper id vitae erat. Nulla mollis sapien sollicitudin lacinia lacinia. Vivamus facilisis dolor et massa placerat, at vestibulum nisl egestas. Nullam rhoncus lacus non odio luctus, eu condimentum mauris ultrices. Praesent blandit, augue a posuere aliquam, arcu tortor feugiat turpis,</p>
               <div styleName="joinnowWrap">
-                <Link styleName="joinnow" to="challenges">Compete</Link>
+                <Link styleName="joinnow" to="learn">Join Now</Link>
               </div>
             </Text>
           </AccordionItem>
-          <AccordionItem title="Payments & Rewards">
+          <AccordionItem title="Payment & Rewards">
             <Text>
-              <p>Make sure you've setup your payment preferences at https://community.topcoder.com/tc?module=EditPaymentPreferences.  When you've earned some money and want to withdraw it, you can do that at https://community.topcoder.com/PactsMemberServlet?module=PaymentHistory&full_list=false</p>
+              <p>Nam dapibus nisl vitae elit fringilla rutrum. Aenean sollicitudin, erat a elementum rutrum, neque sem pretium metus, quis mollis nisl nunc et massa. Vestibulum sed metus in lorem tristique ullamcorper id vitae erat. Nulla mollis sapien sollicitudin lacinia lacinia. Vivamus facilisis dolor et massa placerat, at vestibulum nisl egestas. Nullam rhoncus lacus non odio luctus, eu condimentum mauris ultrices. Praesent blandit, augue a posuere aliquam, arcu tortor feugiat turpis,</p>
             </Text>
           </AccordionItem>
-          <AccordionItem title="Manage your Profile">
+          <AccordionItem title="Managing your Certifications">
             <Text>
-              <p>Everything to do with managing your profile and preferences can be found at https://www.topcoder.com/settings/account/.  If you can't find what you're looking for, send us a note at support@topcoder.com.</p>
+              <p>Nam dapibus nisl vitae elit fringilla rutrum. Aenean sollicitudin, erat a elementum rutrum, neque sem pretium metus, quis mollis nisl nunc et massa. Vestibulum sed metus in lorem tristique ullamcorper id vitae erat. Nulla mollis sapien sollicitudin lacinia lacinia. Vivamus facilisis dolor et massa placerat, at vestibulum nisl egestas. Nullam rhoncus lacus non odio luctus, eu condimentum mauris ultrices. Praesent blandit, augue a posuere aliquam, arcu tortor feugiat turpis,</p>
+              <p>Nam dapibus nisl vitae elit fringilla rutrum. Aenean sollicitudin, erat a elementum rutrum, neque sem pretium metus, quis mollis nisl nunc et massa. Vestibulum sed metus in lorem tristique ullamcorper id vitae erat. Nulla mollis sapien sollicitudin lacinia lacinia. Vivamus facilisis dolor et massa placerat, at vestibulum nisl egestas. Nullam rhoncus lacus non odio luctus, eu condimentum mauris ultrices. Praesent blandit, augue a posuere aliquam, arcu tortor feugiat turpis,</p>
+              <div styleName="joinnowWrap">
+                <Link styleName="joinnow" to="learn">Join Now</Link>
+              </div>
+            </Text>
+          </AccordionItem>
+          <AccordionItem title="Managing your Badges">
+            <Text>
+              <p>Nam dapibus nisl vitae elit fringilla rutrum. Aenean sollicitudin, erat a elementum rutrum, neque sem pretium metus, quis mollis nisl nunc et massa. Vestibulum sed metus in lorem tristique ullamcorper id vitae erat. Nulla mollis sapien sollicitudin lacinia lacinia. Vivamus facilisis dolor et massa placerat, at vestibulum nisl egestas. Nullam rhoncus lacus non odio luctus, eu condimentum mauris ultrices. Praesent blandit, augue a posuere aliquam, arcu tortor feugiat turpis,</p>
+            </Text>
+          </AccordionItem>
+          <AccordionItem title="Updating your Profile">
+            <Text>
+              <p>Nam dapibus nisl vitae elit fringilla rutrum. Aenean sollicitudin, erat a elementum rutrum, neque sem pretium metus, quis mollis nisl nunc et massa. Vestibulum sed metus in lorem tristique ullamcorper id vitae erat. Nulla mollis sapien sollicitudin lacinia lacinia. Vivamus facilisis dolor et massa placerat, at vestibulum nisl egestas. Nullam rhoncus lacus non odio luctus, eu condimentum mauris ultrices. Praesent blandit, augue a posuere aliquam, arcu tortor feugiat turpis,</p>
             </Text>
           </AccordionItem>
         </Accordion>
       </Section>
 
       <Section
-        title="Tutorials"
+        title="Courses and Tutorials"
         link={{
           title: 'View All',
           url: 'learn',
