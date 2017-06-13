@@ -43,7 +43,7 @@ export default function Learn() {
         <Accordion>
           <AccordionItem title="Joining the  Community">
             <Text>
-              <p>First things first, ...make sure you sign up for Topcoder. It's quick and painless and opens the door to a whole new world.</p>
+              <p>First things first, ...make sure you sign up for Topcoder. It&apos;s quick and painless and opens the door to a whole new world.</p>
               <div styleName="joinnowWrap">
                 <Link styleName="joinnow" to="learn">Join Now</Link>
               </div>
@@ -51,8 +51,8 @@ export default function Learn() {
           </AccordionItem>
           <AccordionItem title="Get familiar with the platform">
             <Text>
-              <p>It's likely that you'll be working on code in a specific git repo. We have many of them, so be sure to ask if you're not sure which one you shoudl be looking at.</p>
-              <p>In general, you'll typically find them at https://github.com/topcoder-platform</p>
+              <p>It&apos;s likely that you&apos;ll be working on code in a specific git repo. We have many of them, so be sure to ask if you&apos;re not sure which one you shoudl be looking at.</p>
+              <p>In general, you&apos;ll typically find them at https://github.com/topcoder-platform</p>
             </Text>
           </AccordionItem>
           <AccordionItem title="Look at past challenges">
@@ -62,8 +62,8 @@ export default function Learn() {
           </AccordionItem>
           <AccordionItem title="How to compete for work">
             <Text>
-              <p>If you'd like to be a copilot for Topcoder projects, send an email to support@topcoder.com and tell us a little about yourself.</p>
-              <p>If  you'd like to work on challenges, check out what's active on the <a href="challenges">challenges</a> page.  If there is nothing active, send us a note and tell us to stop slacking! :)</p>
+              <p>If you&apos;d like to be a copilot for Topcoder projects, send an email to support@topcoder.com and tell us a little about yourself.</p>
+              <p>If  you&apos;d like to work on challenges, check out what&apos;s active on the <a href="challenges">challenges</a> page.  If there is nothing active, send us a note and tell us to stop slacking! :)</p>
               <div styleName="joinnowWrap">
                 <Link styleName="joinnow" to="challenges">Compete</Link>
               </div>
@@ -71,12 +71,12 @@ export default function Learn() {
           </AccordionItem>
           <AccordionItem title="Payments & Rewards">
             <Text>
-              <p>Make sure you've setup your payment preferences at https://community.topcoder.com/tc?module=EditPaymentPreferences.  When you've earned some money and want to withdraw it, you can do that at https://community.topcoder.com/PactsMemberServlet?module=PaymentHistory&full_list=false</p>
+              <p>Make sure you&apos;ve setup your payment preferences at https://community.topcoder.com/tc?module=EditPaymentPreferences.  When you&apos;ve earned some money and want to withdraw it, you can do that at https://community.topcoder.com/PactsMemberServlet?module=PaymentHistory&full_list=false</p>
             </Text>
           </AccordionItem>
           <AccordionItem title="Manage your Profile">
             <Text>
-              <p>Everything to do with managing your profile and preferences can be found at https://www.topcoder.com/settings/account/.  If you can't find what you're looking for, send us a note at support@topcoder.com.</p>
+              <p>Everything to do with managing your profile and preferences can be found at https://www.topcoder.com/settings/account/.  If you can&apos;t find what you&apos;re looking for, send us a note at support@topcoder.com.</p>
             </Text>
           </AccordionItem>
         </Accordion>
