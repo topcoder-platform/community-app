@@ -51,7 +51,7 @@ export default function Learn() {
           </AccordionItem>
           <AccordionItem title="Get familiar with the platform">
             <Text>
-              <p>It's likely that you&apos;ll be working on code in a specific git repo. We have many of them, so be sure to ask if you&apos;re not sure which one you shoudl be looking at.</p>
+              <p>It&apos;s likely that you&apos;ll be working on code in a specific git repo. We have many of them, so be sure to ask if you&apos;re not sure which one you shoudl be looking at.</p>
               <p>In general, you&apos;ll typically find them at https://github.com/topcoder-platform</p>
             </Text>
           </AccordionItem>
