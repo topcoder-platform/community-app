@@ -43,8 +43,7 @@ export default function Learn() {
         <Accordion>
           <AccordionItem title="Joining the  Community">
             <Text>
-              <p>Nam dapibus nisl vitae elit fringilla rutrum. Aenean sollicitudin, erat a elementum rutrum, neque sem pretium metus, quis mollis nisl nunc et massa. Vestibulum sed metus in lorem tristique ullamcorper id vitae erat. Nulla mollis sapien sollicitudin lacinia lacinia. Vivamus facilisis dolor et massa placerat, at vestibulum nisl egestas. Nullam rhoncus lacus non odio luctus, eu condimentum mauris ultrices. Praesent blandit, augue a posuere aliquam, arcu tortor feugiat turpis,</p>
-              <p>Nam dapibus nisl vitae elit fringilla rutrum. Aenean sollicitudin, erat a elementum rutrum, neque sem pretium metus, quis mollis nisl nunc et massa. Vestibulum sed metus in lorem tristique ullamcorper id vitae erat. Nulla mollis sapien sollicitudin lacinia lacinia. Vivamus facilisis dolor et massa placerat, at vestibulum nisl egestas. Nullam rhoncus lacus non odio luctus, eu condimentum mauris ultrices. Praesent blandit, augue a posuere aliquam, arcu tortor feugiat turpis,</p>
+              <p>First things first, ...make sure you sign up for Topcoder. It&apos;s quick and painless and opens the door to a whole new world.</p>
               <div styleName="joinnowWrap">
                 <Link styleName="joinnow" to="learn">Join Now</Link>
               </div>
@@ -52,7 +51,8 @@ export default function Learn() {
           </AccordionItem>
           <AccordionItem title="How to sign up for work">
             <Text>
-              <p>Nam dapibus nisl vitae elit fringilla rutrum. Aenean sollicitudin, erat a elementum rutrum, neque sem pretium metus, quis mollis nisl nunc et massa. Vestibulum sed metus in lorem tristique ullamcorper id vitae erat. Nulla mollis sapien sollicitudin lacinia lacinia. Vivamus facilisis dolor et massa placerat, at vestibulum nisl egestas. Nullam rhoncus lacus non odio luctus, eu condimentum mauris ultrices. Praesent blandit, augue a posuere aliquam, arcu tortor feugiat turpis,</p>
+              <p>It&apos;s likely that you&apos;ll be working on code in a specific git repo. We have many of them, so be sure to ask if you&apos;re not sure which one you shoudl be looking at.</p>
+              <p>In general, you&apos;ll typically find them at https://github.com/topcoder-platform</p>
             </Text>
           </AccordionItem>
           <AccordionItem title="How to compete for work">
@@ -66,13 +66,8 @@ export default function Learn() {
           </AccordionItem>
           <AccordionItem title="Payment & Rewards">
             <Text>
-              <p>Nam dapibus nisl vitae elit fringilla rutrum. Aenean sollicitudin, erat a elementum rutrum, neque sem pretium metus, quis mollis nisl nunc et massa. Vestibulum sed metus in lorem tristique ullamcorper id vitae erat. Nulla mollis sapien sollicitudin lacinia lacinia. Vivamus facilisis dolor et massa placerat, at vestibulum nisl egestas. Nullam rhoncus lacus non odio luctus, eu condimentum mauris ultrices. Praesent blandit, augue a posuere aliquam, arcu tortor feugiat turpis,</p>
-            </Text>
-          </AccordionItem>
-          <AccordionItem title="Managing your Certifications">
-            <Text>
-              <p>Nam dapibus nisl vitae elit fringilla rutrum. Aenean sollicitudin, erat a elementum rutrum, neque sem pretium metus, quis mollis nisl nunc et massa. Vestibulum sed metus in lorem tristique ullamcorper id vitae erat. Nulla mollis sapien sollicitudin lacinia lacinia. Vivamus facilisis dolor et massa placerat, at vestibulum nisl egestas. Nullam rhoncus lacus non odio luctus, eu condimentum mauris ultrices. Praesent blandit, augue a posuere aliquam, arcu tortor feugiat turpis,</p>
-              <p>Nam dapibus nisl vitae elit fringilla rutrum. Aenean sollicitudin, erat a elementum rutrum, neque sem pretium metus, quis mollis nisl nunc et massa. Vestibulum sed metus in lorem tristique ullamcorper id vitae erat. Nulla mollis sapien sollicitudin lacinia lacinia. Vivamus facilisis dolor et massa placerat, at vestibulum nisl egestas. Nullam rhoncus lacus non odio luctus, eu condimentum mauris ultrices. Praesent blandit, augue a posuere aliquam, arcu tortor feugiat turpis,</p>
+              <p>If you&apos;d like to be a copilot for Topcoder projects, send an email to support@topcoder.com and tell us a little about yourself.</p>
+              <p>If  you&apos;d like to work on challenges, check out what&apos;s active on the <a href="challenges">challenges</a> page.  If there is nothing active, send us a note and tell us to stop slacking! :)</p>
               <div styleName="joinnowWrap">
                 <Link styleName="joinnow" to="learn">Join Now</Link>
               </div>
@@ -80,12 +75,12 @@ export default function Learn() {
           </AccordionItem>
           <AccordionItem title="Managing your Badges">
             <Text>
-              <p>Nam dapibus nisl vitae elit fringilla rutrum. Aenean sollicitudin, erat a elementum rutrum, neque sem pretium metus, quis mollis nisl nunc et massa. Vestibulum sed metus in lorem tristique ullamcorper id vitae erat. Nulla mollis sapien sollicitudin lacinia lacinia. Vivamus facilisis dolor et massa placerat, at vestibulum nisl egestas. Nullam rhoncus lacus non odio luctus, eu condimentum mauris ultrices. Praesent blandit, augue a posuere aliquam, arcu tortor feugiat turpis,</p>
+              <p>Make sure you&apos;ve setup your payment preferences at https://community.topcoder.com/tc?module=EditPaymentPreferences.  When you&apos;ve earned some money and want to withdraw it, you can do that at https://community.topcoder.com/PactsMemberServlet?module=PaymentHistory&full_list=false</p>
             </Text>
           </AccordionItem>
           <AccordionItem title="Updating your Profile">
             <Text>
-              <p>Nam dapibus nisl vitae elit fringilla rutrum. Aenean sollicitudin, erat a elementum rutrum, neque sem pretium metus, quis mollis nisl nunc et massa. Vestibulum sed metus in lorem tristique ullamcorper id vitae erat. Nulla mollis sapien sollicitudin lacinia lacinia. Vivamus facilisis dolor et massa placerat, at vestibulum nisl egestas. Nullam rhoncus lacus non odio luctus, eu condimentum mauris ultrices. Praesent blandit, augue a posuere aliquam, arcu tortor feugiat turpis,</p>
+              <p>Everything to do with managing your profile and preferences can be found at https://www.topcoder.com/settings/account/.  If you can&apos;t find what you&apos;re looking for, send us a note at support@topcoder.com.</p>
             </Text>
           </AccordionItem>
         </Accordion>
