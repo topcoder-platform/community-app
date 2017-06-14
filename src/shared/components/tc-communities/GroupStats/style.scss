@@ -1,0 +1,16 @@
+@import '~styles/tc-styles';
+
+.container {
+  padding: 0;
+}
+
+.content {
+  border-bottom: 1px solid #ddd;
+  padding: 43px 38px 50px;
+
+  @include xxs-to-sm {
+    display: flex;
+    justify-content: space-around;
+    padding: 30px 12px 32px;
+  }
+}

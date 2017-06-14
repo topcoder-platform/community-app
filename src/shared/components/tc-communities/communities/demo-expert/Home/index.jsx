@@ -9,17 +9,15 @@
 import React from 'react';
 import Section from 'components/tc-communities/Section';
 import Banner from 'components/tc-communities/Banner';
-import IconStat from 'components/tc-communities/IconStat';
 import ImageText from 'components/tc-communities/ImageText';
 import ResourceCard from 'components/tc-communities/ResourceCard';
 import NewsletterSignup from 'components/tc-communities/NewsletterSignup';
 import NewsSection from 'components/tc-communities/NewsSection';
 import PT from 'prop-types';
 
-import IconSuitcase from '../../../../../../assets/images/tc-communities/suitcase.svg';
+import GroupStats from 'containers/tc-communities/GroupStats';
+
 import IconRocket from '../../../../../../assets/images/tc-communities/rocket.svg';
-import IconMember from '../../../../../../assets/images/tc-communities/member.svg';
-import IconDollar from '../../../../../../assets/images/tc-communities/dollar.svg';
 import IconNetwork from '../../../../../../assets/images/tc-communities/network.svg';
 import IconMedal from '../../../../../../assets/images/tc-communities/medal.svg';
 
@@ -38,17 +36,7 @@ export default function Home(props) {
         imageSrc="/themes/wipro/home/banner.jpg"
       />
 
-      <Section
-        theme={{
-          container: style.statsContainer,
-          content: style.statsContent,
-        }}
-      >
-        <IconStat icon={IconSuitcase} number="NA" label="Projects" />
-        <IconStat icon={IconRocket} number="NA" label="Challenges" />
-        <IconStat icon={IconMember} number="NA" label="Members" />
-        <IconStat icon={IconDollar} number="$NA" label="Prizes" />
-      </Section>
+      <GroupStats />
 
       <Section
         theme={{

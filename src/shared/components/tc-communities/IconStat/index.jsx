@@ -25,7 +25,7 @@ IconStat.defaultProps = {
 
 IconStat.propTypes = {
   icon: PT.func.isRequired,
-  number: PT.string.isRequired,
+  number: PT.oneOfType([PT.number, PT.string]).isRequired,
   label: PT.string.isRequired,
   theme: PT.shape({
     container: PT.string,

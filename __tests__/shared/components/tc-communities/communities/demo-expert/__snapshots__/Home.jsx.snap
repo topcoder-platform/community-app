@@ -16,58 +16,14 @@ exports[`Snapshot match 1`] = `
     theme={Object {}}
     title="Wipro Crowd"
   />
+  <Connect(GroupStatsContainer) />
   <ThemedSection
     composeTheme="deeply"
     link={null}
     mapThemrProps={[Function]}
     theme={
       Object {
-        "container": "src-shared-components-tc-communities-communities-wipro-Home-___style__statsContainer___2GsLF",
-        "content": "src-shared-components-tc-communities-communities-wipro-Home-___style__statsContent___2rt0J",
-      }
-    }
-    title={null}
-  >
-    <ThemedIconStat
-      composeTheme="deeply"
-      icon={[Function]}
-      label="Projects"
-      mapThemrProps={[Function]}
-      number="NA"
-      theme={Object {}}
-    />
-    <ThemedIconStat
-      composeTheme="deeply"
-      icon={[Function]}
-      label="Challenges"
-      mapThemrProps={[Function]}
-      number="NA"
-      theme={Object {}}
-    />
-    <ThemedIconStat
-      composeTheme="deeply"
-      icon={[Function]}
-      label="Members"
-      mapThemrProps={[Function]}
-      number="NA"
-      theme={Object {}}
-    />
-    <ThemedIconStat
-      composeTheme="deeply"
-      icon={[Function]}
-      label="Prizes"
-      mapThemrProps={[Function]}
-      number="$NA"
-      theme={Object {}}
-    />
-  </ThemedSection>
-  <ThemedSection
-    composeTheme="deeply"
-    link={null}
-    mapThemrProps={[Function]}
-    theme={
-      Object {
-        "container": "src-shared-components-tc-communities-communities-wipro-Home-___style__linksContainer___3FK-S",
+        "container": "src-shared-components-tc-communities-communities-demo-expert-Home-___style__linksContainer___15dON",
       }
     }
     title={null}
@@ -109,7 +65,7 @@ exports[`Snapshot match 1`] = `
     mapThemrProps={[Function]}
     theme={
       Object {
-        "container": "src-shared-components-tc-communities-communities-wipro-Home-___style__resourcesContainer___3Dnui",
+        "container": "src-shared-components-tc-communities-communities-demo-expert-Home-___style__resourcesContainer___3u3oE",
       }
     }
     title={null}
