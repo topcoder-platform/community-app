@@ -5,6 +5,8 @@
  * so the whole design can be overridden by an additional css file
  */
 
+/* global window */
+
 import _ from 'lodash';
 import config from 'utils/config';
 import DesktopSubMenu from 'components/TopcoderHeader/desktop/SubMenu';
@@ -34,8 +36,6 @@ export default function Header(props) {
     isMobileOpen,
     onMobileToggleClick,
     profile,
-    registerUrl,
-    loginUrl,
   } = props;
 
   const BASE_URL = config.URL.BASE;
@@ -85,8 +85,20 @@ export default function Header(props) {
     </div>
   ) : (
     <div styleName="authorize">
-      <a href={registerUrl} styleName="btnRegister">Register</a>
-      <a href={loginUrl} styleName="btnLogin">Login</a>
+      <button
+        onClick={() => {
+          const url = encodeURIComponent(window.location.href);
+          window.location = `${config.URL.AUTH}/registration?retUrl=${url}`;
+        }}
+        styleName="btnRegister"
+      >Register</button>
+      <button
+        onClick={() => {
+          const url = encodeURIComponent(window.location.href);
+          window.location = `${config.URL.AUTH}?retUrl=${url}`;
+        }}
+        styleName="btnLogin"
+      >Login</button>
     </div>
   );
 
@@ -197,8 +209,6 @@ Header.propTypes = {
   activeTrigger: PT.shape({}),
   closeMenu: PT.func.isRequired,
   communitySelector: PT.arrayOf(PT.shape()).isRequired,
-  registerUrl: PT.string.isRequired,
-  loginUrl: PT.string.isRequired,
   menuItems: PT.arrayOf(PT.shape({
     title: PT.string.isRequired,
     url: PT.string.isRequired,

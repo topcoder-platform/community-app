@@ -67,18 +67,18 @@ exports[`Snapshot match 1`] = `
       <div
         className="src-shared-components-tc-communities-Header-___style__authorize___3ARhM"
       >
-        <a
+        <button
           className="src-shared-components-tc-communities-Header-___style__btnRegister___2mlu6"
-          href="/some/register/url"
+          onClick={[Function]}
         >
           Register
-        </a>
-        <a
+        </button>
+        <button
           className="src-shared-components-tc-communities-Header-___style__btnLogin___37sgV"
-          href="/some/login/url"
+          onClick={[Function]}
         >
           Login
-        </a>
+        </button>
       </div>
       <div
         className="src-shared-components-tc-communities-Header-___style__search___3BJGl"
@@ -211,18 +211,18 @@ exports[`Snapshot match 2`] = `
       <div
         className="src-shared-components-tc-communities-Header-___style__authorize___3ARhM"
       >
-        <a
+        <button
           className="src-shared-components-tc-communities-Header-___style__btnRegister___2mlu6"
-          href="/some/register/url"
+          onClick={[Function]}
         >
           Register
-        </a>
-        <a
+        </button>
+        <button
           className="src-shared-components-tc-communities-Header-___style__btnLogin___37sgV"
-          href="/some/login/url"
+          onClick={[Function]}
         >
           Login
-        </a>
+        </button>
       </div>
       <div
         className="src-shared-components-tc-communities-Header-___style__search___3BJGl"
