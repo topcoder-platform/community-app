@@ -1,0 +1,368 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Snapshot match 1`] = `
+<main>
+  <ThemedBanner
+    composeTheme="deeply"
+    imageSrc="/themes/wipro/learn/banner.jpg"
+    link={null}
+    mapThemrProps={[Function]}
+    text="Our continuously evolving structured learning paths, constantly abreast of the latest, tailored for employees to deepen your knowledge, infuses important software capabilities that are industry specific and help you get the skills you need to succeed."
+    theme={
+      Object {
+        "container": "src-shared-components-tc-communities-communities-demo-expert-Learn-___style__bannerContainer___1FmI8",
+        "content": "src-shared-components-tc-communities-communities-demo-expert-Learn-___style__bannerContent___2geag",
+        "contentInner": "src-shared-components-tc-communities-communities-demo-expert-Learn-___style__bannerContentInner___1RtLF",
+      }
+    }
+    title="Learning & Certification"
+  />
+  <ThemedSection
+    composeTheme="deeply"
+    link={null}
+    mapThemrProps={[Function]}
+    theme={
+      Object {
+        "container": "src-shared-components-tc-communities-communities-demo-expert-Learn-___style__learnBasicsContainer___aCUEb",
+      }
+    }
+    title="Learn The Basics"
+  >
+    <ThemedAccordion
+      composeTheme="deeply"
+      defaultSelectedIndex={0}
+      mapThemrProps={[Function]}
+      theme={Object {}}
+    >
+      <ThemedAccordionItem
+        composeTheme="deeply"
+        isOpen={false}
+        mapThemrProps={[Function]}
+        onTitleClick={[Function]}
+        theme={Object {}}
+        title="Joining the  Community"
+      >
+        <ThemedText
+          composeTheme="deeply"
+          mapThemrProps={[Function]}
+          theme={Object {}}
+        >
+          <p>
+            Nam dapibus nisl vitae elit fringilla rutrum. Aenean sollicitudin, erat a elementum rutrum, neque sem pretium metus, quis mollis nisl nunc et massa. Vestibulum sed metus in lorem tristique ullamcorper id vitae erat. Nulla mollis sapien sollicitudin lacinia lacinia. Vivamus facilisis dolor et massa placerat, at vestibulum nisl egestas. Nullam rhoncus lacus non odio luctus, eu condimentum mauris ultrices. Praesent blandit, augue a posuere aliquam, arcu tortor feugiat turpis,
+          </p>
+          <p>
+            Nam dapibus nisl vitae elit fringilla rutrum. Aenean sollicitudin, erat a elementum rutrum, neque sem pretium metus, quis mollis nisl nunc et massa. Vestibulum sed metus in lorem tristique ullamcorper id vitae erat. Nulla mollis sapien sollicitudin lacinia lacinia. Vivamus facilisis dolor et massa placerat, at vestibulum nisl egestas. Nullam rhoncus lacus non odio luctus, eu condimentum mauris ultrices. Praesent blandit, augue a posuere aliquam, arcu tortor feugiat turpis,
+          </p>
+          <div
+            className="src-shared-components-tc-communities-communities-demo-expert-Learn-___style__joinnowWrap___2oj4B"
+          >
+            <Link
+              className="src-shared-components-tc-communities-communities-demo-expert-Learn-___style__joinnow___1hSrZ"
+              replace={false}
+              to="learn"
+            >
+              Join Now
+            </Link>
+          </div>
+        </ThemedText>
+      </ThemedAccordionItem>
+      <ThemedAccordionItem
+        composeTheme="deeply"
+        isOpen={false}
+        mapThemrProps={[Function]}
+        onTitleClick={[Function]}
+        theme={Object {}}
+        title="How to sign up for work"
+      >
+        <ThemedText
+          composeTheme="deeply"
+          mapThemrProps={[Function]}
+          theme={Object {}}
+        >
+          <p>
+            Nam dapibus nisl vitae elit fringilla rutrum. Aenean sollicitudin, erat a elementum rutrum, neque sem pretium metus, quis mollis nisl nunc et massa. Vestibulum sed metus in lorem tristique ullamcorper id vitae erat. Nulla mollis sapien sollicitudin lacinia lacinia. Vivamus facilisis dolor et massa placerat, at vestibulum nisl egestas. Nullam rhoncus lacus non odio luctus, eu condimentum mauris ultrices. Praesent blandit, augue a posuere aliquam, arcu tortor feugiat turpis,
+          </p>
+        </ThemedText>
+      </ThemedAccordionItem>
+      <ThemedAccordionItem
+        composeTheme="deeply"
+        isOpen={false}
+        mapThemrProps={[Function]}
+        onTitleClick={[Function]}
+        theme={Object {}}
+        title="How to compete for work"
+      >
+        <ThemedText
+          composeTheme="deeply"
+          mapThemrProps={[Function]}
+          theme={Object {}}
+        >
+          <p>
+            Nam dapibus nisl vitae elit fringilla rutrum. Aenean sollicitudin, erat a elementum rutrum, neque sem pretium metus, quis mollis nisl nunc et massa. Vestibulum sed metus in lorem tristique ullamcorper id vitae erat. Nulla mollis sapien sollicitudin lacinia lacinia. Vivamus facilisis dolor et massa placerat, at vestibulum nisl egestas. Nullam rhoncus lacus non odio luctus, eu condimentum mauris ultrices. Praesent blandit, augue a posuere aliquam, arcu tortor feugiat turpis,
+          </p>
+          <p>
+            Nam dapibus nisl vitae elit fringilla rutrum. Aenean sollicitudin, erat a elementum rutrum, neque sem pretium metus, quis mollis nisl nunc et massa. Vestibulum sed metus in lorem tristique ullamcorper id vitae erat. Nulla mollis sapien sollicitudin lacinia lacinia. Vivamus facilisis dolor et massa placerat, at vestibulum nisl egestas. Nullam rhoncus lacus non odio luctus, eu condimentum mauris ultrices. Praesent blandit, augue a posuere aliquam, arcu tortor feugiat turpis,
+          </p>
+          <div
+            className="src-shared-components-tc-communities-communities-demo-expert-Learn-___style__joinnowWrap___2oj4B"
+          >
+            <Link
+              className="src-shared-components-tc-communities-communities-demo-expert-Learn-___style__joinnow___1hSrZ"
+              replace={false}
+              to="learn"
+            >
+              Join Now
+            </Link>
+          </div>
+        </ThemedText>
+      </ThemedAccordionItem>
+      <ThemedAccordionItem
+        composeTheme="deeply"
+        isOpen={false}
+        mapThemrProps={[Function]}
+        onTitleClick={[Function]}
+        theme={Object {}}
+        title="Payment & Rewards"
+      >
+        <ThemedText
+          composeTheme="deeply"
+          mapThemrProps={[Function]}
+          theme={Object {}}
+        >
+          <p>
+            Nam dapibus nisl vitae elit fringilla rutrum. Aenean sollicitudin, erat a elementum rutrum, neque sem pretium metus, quis mollis nisl nunc et massa. Vestibulum sed metus in lorem tristique ullamcorper id vitae erat. Nulla mollis sapien sollicitudin lacinia lacinia. Vivamus facilisis dolor et massa placerat, at vestibulum nisl egestas. Nullam rhoncus lacus non odio luctus, eu condimentum mauris ultrices. Praesent blandit, augue a posuere aliquam, arcu tortor feugiat turpis,
+          </p>
+        </ThemedText>
+      </ThemedAccordionItem>
+      <ThemedAccordionItem
+        composeTheme="deeply"
+        isOpen={false}
+        mapThemrProps={[Function]}
+        onTitleClick={[Function]}
+        theme={Object {}}
+        title="Managing your Certifications"
+      >
+        <ThemedText
+          composeTheme="deeply"
+          mapThemrProps={[Function]}
+          theme={Object {}}
+        >
+          <p>
+            Nam dapibus nisl vitae elit fringilla rutrum. Aenean sollicitudin, erat a elementum rutrum, neque sem pretium metus, quis mollis nisl nunc et massa. Vestibulum sed metus in lorem tristique ullamcorper id vitae erat. Nulla mollis sapien sollicitudin lacinia lacinia. Vivamus facilisis dolor et massa placerat, at vestibulum nisl egestas. Nullam rhoncus lacus non odio luctus, eu condimentum mauris ultrices. Praesent blandit, augue a posuere aliquam, arcu tortor feugiat turpis,
+          </p>
+          <p>
+            Nam dapibus nisl vitae elit fringilla rutrum. Aenean sollicitudin, erat a elementum rutrum, neque sem pretium metus, quis mollis nisl nunc et massa. Vestibulum sed metus in lorem tristique ullamcorper id vitae erat. Nulla mollis sapien sollicitudin lacinia lacinia. Vivamus facilisis dolor et massa placerat, at vestibulum nisl egestas. Nullam rhoncus lacus non odio luctus, eu condimentum mauris ultrices. Praesent blandit, augue a posuere aliquam, arcu tortor feugiat turpis,
+          </p>
+          <div
+            className="src-shared-components-tc-communities-communities-demo-expert-Learn-___style__joinnowWrap___2oj4B"
+          >
+            <Link
+              className="src-shared-components-tc-communities-communities-demo-expert-Learn-___style__joinnow___1hSrZ"
+              replace={false}
+              to="learn"
+            >
+              Join Now
+            </Link>
+          </div>
+        </ThemedText>
+      </ThemedAccordionItem>
+      <ThemedAccordionItem
+        composeTheme="deeply"
+        isOpen={false}
+        mapThemrProps={[Function]}
+        onTitleClick={[Function]}
+        theme={Object {}}
+        title="Managing your Badges"
+      >
+        <ThemedText
+          composeTheme="deeply"
+          mapThemrProps={[Function]}
+          theme={Object {}}
+        >
+          <p>
+            Nam dapibus nisl vitae elit fringilla rutrum. Aenean sollicitudin, erat a elementum rutrum, neque sem pretium metus, quis mollis nisl nunc et massa. Vestibulum sed metus in lorem tristique ullamcorper id vitae erat. Nulla mollis sapien sollicitudin lacinia lacinia. Vivamus facilisis dolor et massa placerat, at vestibulum nisl egestas. Nullam rhoncus lacus non odio luctus, eu condimentum mauris ultrices. Praesent blandit, augue a posuere aliquam, arcu tortor feugiat turpis,
+          </p>
+        </ThemedText>
+      </ThemedAccordionItem>
+      <ThemedAccordionItem
+        composeTheme="deeply"
+        isOpen={false}
+        mapThemrProps={[Function]}
+        onTitleClick={[Function]}
+        theme={Object {}}
+        title="Updating your Profile"
+      >
+        <ThemedText
+          composeTheme="deeply"
+          mapThemrProps={[Function]}
+          theme={Object {}}
+        >
+          <p>
+            Nam dapibus nisl vitae elit fringilla rutrum. Aenean sollicitudin, erat a elementum rutrum, neque sem pretium metus, quis mollis nisl nunc et massa. Vestibulum sed metus in lorem tristique ullamcorper id vitae erat. Nulla mollis sapien sollicitudin lacinia lacinia. Vivamus facilisis dolor et massa placerat, at vestibulum nisl egestas. Nullam rhoncus lacus non odio luctus, eu condimentum mauris ultrices. Praesent blandit, augue a posuere aliquam, arcu tortor feugiat turpis,
+          </p>
+        </ThemedText>
+      </ThemedAccordionItem>
+    </ThemedAccordion>
+  </ThemedSection>
+  <ThemedSection
+    composeTheme="deeply"
+    link={
+      Object {
+        "title": "View All",
+        "url": "learn",
+      }
+    }
+    mapThemrProps={[Function]}
+    theme={
+      Object {
+        "container": "src-shared-components-tc-communities-communities-demo-expert-Learn-___style__coursesContainer___1l39O",
+      }
+    }
+    title="Courses and Tutorials"
+  >
+    <ThemedArticleCard
+      composeTheme="deeply"
+      imageSrc="/themes/wipro/learn/courses-01.jpg"
+      link={
+        Object {
+          "title": "Read More",
+          "url": "learn",
+        }
+      }
+      mapThemrProps={[Function]}
+      text="There are advances being made in science and technology everyday, and a good example of this is the LCD monitor. LCD monitors have"
+      theme={Object {}}
+      title="What You Need to Join a Challenge"
+    />
+    <ThemedArticleCard
+      composeTheme="deeply"
+      imageSrc="/themes/wipro/learn/courses-02.jpg"
+      link={
+        Object {
+          "title": "Read More",
+          "url": "learn",
+        }
+      }
+      mapThemrProps={[Function]}
+      text="Planning to visit Las Vegas or any other vacational resort where casinos are a major portion of their business? I have just the thing for"
+      theme={Object {}}
+      title="An Ugly Myspace Profile Will Sure Ruin Your Reputation"
+    />
+    <ThemedArticleCard
+      composeTheme="deeply"
+      imageSrc="/themes/wipro/learn/courses-03.jpg"
+      link={
+        Object {
+          "title": "Read More",
+          "url": "learn",
+        }
+      }
+      mapThemrProps={[Function]}
+      text="If you are in the market for a computer, there are a number of factors to consider. Will it be used for your home, your office or"
+      theme={Object {}}
+      title="3 Simple Ways Work Fast in Competition"
+    />
+  </ThemedSection>
+  <ThemedSection
+    composeTheme="deeply"
+    link={null}
+    mapThemrProps={[Function]}
+    theme={
+      Object {
+        "container": "src-shared-components-tc-communities-communities-demo-expert-Learn-___style__resourcesContainer___299NM",
+        "title": "src-shared-components-tc-communities-communities-demo-expert-Learn-___style__resourcesTitle___ao4RB",
+      }
+    }
+    title="Resources"
+  >
+    <ThemedLinksCard
+      composeTheme="deeply"
+      links={
+        Array [
+          Object {
+            "title": "Nam dapibus nisl vitae elit fringilla",
+            "url": "learn",
+          },
+          Object {
+            "title": "Aenean sollicitudin",
+            "url": "learn",
+          },
+          Object {
+            "title": "Erat a elementum rutrum",
+            "url": "learn",
+          },
+          Object {
+            "title": "Neque sem pretium metus",
+            "url": "learn",
+          },
+        ]
+      }
+      mapThemrProps={[Function]}
+      theme={Object {}}
+      title="Documents"
+    />
+    <ThemedLinksCard
+      composeTheme="deeply"
+      links={
+        Array [
+          Object {
+            "title": "Tristique ullamcorper id vitae",
+            "url": "learn",
+          },
+          Object {
+            "title": "Nulla mollis sapien sollicitudin",
+            "url": "learn",
+          },
+          Object {
+            "title": "Vivamus facilisis dolor et massa",
+            "url": "learn",
+          },
+          Object {
+            "title": "Vestibulum nisl egestas",
+            "url": "learn",
+          },
+        ]
+      }
+      mapThemrProps={[Function]}
+      theme={Object {}}
+      title="Videos"
+    />
+    <ThemedLinksCard
+      composeTheme="deeply"
+      links={
+        Array [
+          Object {
+            "title": "Nam dapibus nisl vitae elit fringilla",
+            "url": "learn",
+          },
+          Object {
+            "title": "Aenean sollicitudin",
+            "url": "learn",
+          },
+          Object {
+            "title": "Erat a elementum rutrum",
+            "url": "learn",
+          },
+          Object {
+            "title": "Neque sem pretium metus",
+            "url": "learn",
+          },
+        ]
+      }
+      mapThemrProps={[Function]}
+      theme={Object {}}
+      title="Useful Links"
+    />
+  </ThemedSection>
+  <ThemedNewsletterSignup
+    buttonText="Sign Up"
+    composeTheme="deeply"
+    emailPlaceholder="Email address"
+    imageSrc="/themes/wipro/subscribe-bg.jpg"
+    mapThemrProps={[Function]}
+    text="Don’t miss out on the latest Topcoder IOS challenges and information!"
+    theme={Object {}}
+    title="Sign up for our newsletter"
+  />
+</main>
+`;

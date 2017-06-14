@@ -2,7 +2,10 @@
  * Footer component for communities
  */
 
+/* global window */
+
 import _ from 'lodash';
+import config from 'utils/config';
 import React from 'react';
 import PT from 'prop-types';
 import { themr } from 'react-css-themr';
@@ -11,7 +14,7 @@ import defaultStyle from './style.scss';
 import TopcoderLogoGray from '../../../../assets/images/tc-communities/logo_topcoder_gray.svg';
 
 function Footer(props) {
-  const { menuItems, theme, registerUrl, loginUrl } = props;
+  const { menuItems, theme } = props;
 
   const items = _.map(menuItems, (item, index) => (
     <li key={index} className={theme.item}>
@@ -44,8 +47,20 @@ function Footer(props) {
       </ul>
       {!props.isAuthorized && (
         <div className={theme.authorize}>
-          <a href={registerUrl} className={theme.btnRegister}>Register</a>
-          <a href={loginUrl} className={theme.btnLogin}>Login</a>
+          <button
+            className={theme.btnRegister}
+            onClick={() => {
+              const url = encodeURIComponent(window.location.href);
+              window.location = `${config.URL.AUTH}/registration?retUrl=${url}`;
+            }}
+          >Register</button>
+          <button
+            className={theme.btnLogin}
+            onClick={() => {
+              const url = encodeURIComponent(window.location.href);
+              window.location = `${config.URL.AUTH}?retUrl=${url}`;
+            }}
+          >Login</button>
         </div>
       )}
     </nav>
@@ -61,8 +76,6 @@ Footer.propTypes = {
     title: PT.string.isRequired,
     url: PT.string.isRequired,
   })).isRequired,
-  registerUrl: PT.string.isRequired,
-  loginUrl: PT.string.isRequired,
   isAuthorized: PT.bool.isRequired,
   theme: PT.shape({
     container: PT.string,

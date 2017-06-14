@@ -1,33 +1,19 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Snapshot match 1`] = `
-<IconStat
-  icon={[Function]}
-  label="Projects"
-  number="5"
-  theme={
-    Object {
-      "container": "src-shared-components-tc-communities-IconStat-___style__container___145TJ",
-      "icon": "src-shared-components-tc-communities-IconStat-___style__icon___2PSr9",
-      "label": "src-shared-components-tc-communities-IconStat-___style__label___3v7Pl",
-      "number": "src-shared-components-tc-communities-IconStat-___style__number___3GKcu",
-    }
-  }
-/>
-`;
-
-exports[`Snapshot match 2`] = `
-<IconStat
-  icon={[Function]}
-  label="Projects"
-  number="5"
-  theme={
-    Object {
-      "container": "src-shared-components-tc-communities-IconStat-___style__container___145TJ container",
-      "icon": "src-shared-components-tc-communities-IconStat-___style__icon___2PSr9 icon",
-      "label": "src-shared-components-tc-communities-IconStat-___style__label___3v7Pl label",
-      "number": "src-shared-components-tc-communities-IconStat-___style__number___3GKcu number",
-    }
-  }
-/>
+<div
+  className="src-shared-components-tc-communities-IconStat-___style__container___145TJ container"
+>
+  <div />
+  <p
+    className="src-shared-components-tc-communities-IconStat-___style__number___3GKcu number"
+  >
+    5
+  </p>
+  <p
+    className="src-shared-components-tc-communities-IconStat-___style__label___3v7Pl label"
+  >
+    Projects
+  </p>
+</div>
 `;

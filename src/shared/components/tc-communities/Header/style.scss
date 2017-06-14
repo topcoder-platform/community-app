@@ -293,13 +293,14 @@
   }
 }
 
-a.btnRegister {
+.btnRegister {
   border: 1px solid #60c700;
   border-radius: 30px;
   background: #60c700;
   color: #fafafa;
   display: inline-block;
   font: 700 14px/30px 'Open Sans';
+  height: 32px;
   text-align: center;
   text-transform: uppercase;
   width: 100px;
@@ -313,13 +314,14 @@ a.btnRegister {
   }
 }
 
-a.btnLogin {
+.btnLogin {
   background: #0092ff;
   border: 1px solid #0b71e6;
   border-radius: 30px;
   color: #fafafa;
   display: inline-block;
   font: 700 14px/30px 'Open Sans';
+  height: 32px;
   margin-left: 10px;
   text-align: center;
   text-transform: uppercase;

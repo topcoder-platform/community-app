@@ -20,6 +20,7 @@ import { factory as authFactory } from './auth';
 import { factory as challengeFactory } from './challenge';
 import { factory as challengeListingFactory } from './challenge-listing';
 import { factory as examplesFactory } from './examples';
+import { factory as statsFactory } from './stats';
 import { factory as tcCommunitiesFactory } from './tc-communities';
 import { factory as leaderboardFactory } from './leaderboard';
 import topcoderHeader from './topcoder_header';
@@ -30,6 +31,7 @@ export function factory(req) {
     challenge: challengeFactory(req),
     challengeListing: challengeListingFactory(req),
     examples: examplesFactory(req),
+    stats: statsFactory(req),
     tcCommunities: tcCommunitiesFactory(req),
     leaderboard: leaderboardFactory(req),
   }).then(reducers => combine((state) => {

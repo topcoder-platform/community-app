@@ -14,7 +14,6 @@
  */
 
 import _ from 'lodash';
-import config from 'utils/config';
 import PT from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
@@ -149,10 +148,6 @@ class Page extends Component {
   }
 
   render() {
-    const returnUrl = encodeURIComponent(`${config.URL.WIPRO}/community/wipro/home`);
-    const loginUrl = `${config.URL.AUTH}?retUrl=${returnUrl}`;
-    const registerUrl = `${config.URL.AUTH}/registration`;
-
     const communityId = this.props.communityId;
 
     // true, if is loading now, or if not started loading yet
@@ -178,15 +173,11 @@ class Page extends Component {
               communitySelector={this.props.meta.communitySelector}
               onMobileToggleClick={this.props.mobileToggle}
               cssUrl={this.props.meta.cssUrl}
-              registerUrl={registerUrl}
-              loginUrl={loginUrl}
             />
             {this.renderPageContent()}
             <Footer
               menuItems={this.props.meta.menuItems}
               communityId={communityId}
-              registerUrl={registerUrl}
-              loginUrl={loginUrl}
               isAuthorized={!!this.props.profile}
             />
           </div>

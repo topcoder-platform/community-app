@@ -1,20 +1,13 @@
 import React from 'react';
-import Rnd from 'react-test-renderer/shallow';
+import Render from 'react-test-renderer';
 import IconStat from 'components/tc-communities/IconStat';
-
-const rnd = new Rnd();
 
 function Icon() {
   return <div />;
 }
 
 test('Snapshot match', () => {
-  rnd.render((
-    <IconStat icon={Icon} number="5" label="Projects" />
-  ));
-  expect(rnd.getRenderOutput()).toMatchSnapshot();
-
-  rnd.render((
+  const render = Render.create((
     <IconStat
       icon={Icon}
       number="5"
@@ -27,5 +20,5 @@ test('Snapshot match', () => {
       }}
     />
   ));
-  expect(rnd.getRenderOutput()).toMatchSnapshot();
+  expect(render.toJSON()).toMatchSnapshot();
 });
