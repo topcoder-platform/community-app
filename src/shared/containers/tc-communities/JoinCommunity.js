@@ -1,6 +1,8 @@
 import _ from 'lodash';
 import actions from 'actions/tc-communities';
-import JoinCommunity from 'components/tc-communities/JoinCommunity';
+import JoinCommunity, {
+  STATE as JOIN_COMMUNITY,
+} from 'components/tc-communities/JoinCommunity';
 import { connect } from 'react-redux';
 
 function mapStateToProps(state) {
@@ -11,13 +13,14 @@ function mapStateToProps(state) {
     item.id === state.tcCommunities.meta.challengeGroupId);
   if (state.tcCommunities.hideJoinButton) canJoin = false;
 
+  if (canJoin) canJoin = state.tcCommunities.joinCommunityButton;
+  else canJoin = JOIN_COMMUNITY.HIDDEN;
+
   return {
-    canJoin,
     communityName: state.tcCommunities.meta.communityName,
     groupId: state.tcCommunities.meta.challengeGroupId,
-    joined: state.tcCommunities.joined,
-    joining: state.tcCommunities.joining,
     token: state.auth.tokenV3,
+    state: canJoin,
     userId: _.get(state.auth.user, 'userId'),
   };
 }
@@ -30,6 +33,8 @@ function mapDispatchToProps(dispatch) {
       dispatch(a.joinInit());
       dispatch(a.joinDone(...args));
     },
+    resetJoinButton: () => dispatch(a.resetJoinButton()),
+    showJoinConfirmModal: () => dispatch(a.showJoinConfirmModal()),
   };
 }
 

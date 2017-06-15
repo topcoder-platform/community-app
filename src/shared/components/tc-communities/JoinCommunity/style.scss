@@ -1,5 +1,58 @@
 @import "~styles/tc-styles";
 
+@mixin button($color, $highlight-color) {
+  color: $color;
+  display: block;
+  background: $tc-white;
+  border: 1px solid $color;
+  border-radius: 20px;
+  font: 700 14px/40px 'Open Sans';
+  margin: 24px auto;
+  height: 40px;
+  text-align: center;
+  text-transform: uppercase;
+  width: 171px;
+
+  &:hover,
+  &:active,
+  &:focus,
+  &:visited {
+    color: $color;
+    outline: none;
+    text-decoration: none;
+  }
+
+  &:hover {
+    background: $highlight-color;
+  }
+}
+
+.confirmMsg {
+  @include tc-body;
+
+  text-align: center;
+}
+
+.btnCancel {
+  @include button($tc-light-blue, $tc-light-blue-10);
+
+  display: inline-block;
+  margin: 24px 0 0 12px;
+  width: 100px;
+}
+
+.btnConfirm {
+  @include button($tc-green, $tc-green-10);
+
+  display: inline-block;
+  margin: 24px 12px 0 0;
+  width: 100px;
+}
+
+.buttons {
+  text-align: center;
+}
+
 .done {
   color: $tc-light-blue;
   display: block;
