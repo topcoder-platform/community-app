@@ -9,6 +9,7 @@ import actions from 'actions/tc-communities';
 import logger from 'utils/logger';
 import { handleActions } from 'redux-actions';
 import { combine, resolveReducers } from 'utils/redux';
+import { STATE as JOIN_COMMUNITY } from 'components/tc-communities/JoinCommunity';
 
 import { factory as metaFactory } from './meta';
 import { factory as newsFactory } from './news';
@@ -22,21 +23,29 @@ function onJoinDone(state, action) {
      * to see it normally. */
     alert('Failed to join the group!'); // eslint-disable-line no-alert
 
-    return { ...state, joined: false, joining: false };
+    return { ...state, joinCommunityButton: JOIN_COMMUNITY.DEFAULT };
   }
-  return { ...state, joined: true };
+  return { ...state, joinCommunityButton: JOIN_COMMUNITY.JOINED };
 }
 
 function create(initialState = {}) {
   const a = actions.tcCommunity;
   return handleActions({
-    [a.hideJoinButton]: state => ({ ...state, hideJoinButton: true }),
-    [a.joinInit]: state => ({ ...state, joining: true }),
+    [a.hideJoinButton]: state => ({
+      ...state, joinCommunityButton: JOIN_COMMUNITY.HIDDEN,
+    }),
+    [a.joinInit]: state => ({
+      ...state, joinCommunityButton: JOIN_COMMUNITY.JOINING,
+    }),
     [a.joinDone]: onJoinDone,
+    [a.resetJoinButton]: state => ({
+      ...state, joinCommunityButton: JOIN_COMMUNITY.DEFAULT,
+    }),
+    [a.showJoinConfirmModal]: state => ({
+      ...state, joinCommunityButton: JOIN_COMMUNITY.CONFIRM_JOIN,
+    }),
   }, _.defaults(_.clone(initialState), {
-    hideJoinButton: false,
-    joined: false,
-    joining: false,
+    joinCommunityButton: JOIN_COMMUNITY.DEFAULT,
   }));
 }
 

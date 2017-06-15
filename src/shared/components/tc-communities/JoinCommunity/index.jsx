@@ -7,6 +7,7 @@
 
 /* global window */
 
+import _ from 'lodash';
 import config from 'utils/config';
 import LoadingIndicator from 'components/LoadingIndicator';
 import Modal from 'components/Modal';
@@ -14,24 +15,37 @@ import PT from 'prop-types';
 import React from 'react';
 import style from './style.scss';
 
+export const STATE = {
+  CONFIRM_JOIN: 'confirm-join',
+  DEFAULT: 'default',
+  HIDDEN: 'hidden',
+  JOINED: 'joined',
+  JOINING: 'joining',
+};
+
 export default function JoinCommunity({
-  canJoin,
   communityName,
   groupId,
   hideJoinButton,
   join,
-  joined,
-  joining,
+  resetJoinButton,
+  showJoinConfirmModal,
+  state,
   token,
   userId,
 }) {
-  if (!canJoin) return <div styleName="placeholder" />;
+  if (state === STATE.HIDDEN) return <div styleName="placeholder" />;
   return (
     <div>
       <button
         onClick={() => {
-          if (joining || joined) return;
-          if (token) join(token, groupId, userId);
+          switch (state) {
+            case STATE.JOINED:
+            case STATE.JOINING:
+              return;
+            default:
+          }
+          if (token) showJoinConfirmModal();
           else {
             /* If our visitor is not authenticated, the button redirects to
              * login page, with return URL set back to this page. */
@@ -39,16 +53,16 @@ export default function JoinCommunity({
             window.location = `${config.URL.AUTH}?retUrl=${url}`;
           }
         }}
-        styleName={`link ${joining ? 'joining' : ''}`}
+        styleName={`link ${state === STATE.JOINING ? 'joining' : ''}`}
       >
-        { joining ? (
+        { state === STATE.JOINING ? (
           <div>
             <p>Joining...</p>
             <LoadingIndicator theme={{ style: style.loadingIndicator }} />
           </div>
         ) : 'Join Community'}
       </button>
-      { joined ? (
+      { state === STATE.JOINED ? (
         <Modal onCancel={hideJoinButton}>
           <h1 styleName="modalTitle">Congratulations!</h1>
           <p styleName="modalMsg">You have joined {communityName}!</p>
@@ -56,6 +70,23 @@ export default function JoinCommunity({
             onClick={hideJoinButton}
             styleName="done"
           >Return to the Community</button>
+        </Modal>
+      ) : null}
+      { state === STATE.CONFIRM_JOIN ? (
+        <Modal onCancel={resetJoinButton}>
+          <p styleName="confirmMsg">
+            Are you sure you want to join {communityName}?
+          </p>
+          <div styleName="buttons">
+            <button
+              onClick={() => join(token, groupId, userId)}
+              styleName="btnConfirm"
+            >Join</button>
+            <button
+              onClick={resetJoinButton}
+              styleName="btnCancel"
+            >Cancel</button>
+          </div>
         </Modal>
       ) : null}
     </div>
@@ -69,13 +100,13 @@ JoinCommunity.defaultProps = {
 };
 
 JoinCommunity.propTypes = {
-  canJoin: PT.bool.isRequired,
   communityName: PT.string.isRequired,
   groupId: PT.string,
   hideJoinButton: PT.func.isRequired,
   join: PT.func.isRequired,
-  joined: PT.bool.isRequired,
-  joining: PT.bool.isRequired,
+  resetJoinButton: PT.func.isRequired,
+  showJoinConfirmModal: PT.func.isRequired,
+  state: PT.oneOf(_.values(STATE)).isRequired,
   token: PT.string,
   userId: PT.string,
 };

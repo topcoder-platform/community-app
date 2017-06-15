@@ -18,5 +18,7 @@ export default createActions({
     HIDE_JOIN_BUTTON: _.noop,
     JOIN_INIT: _.noop,
     JOIN_DONE: joinDone,
+    RESET_JOIN_BUTTON: _.noop,
+    SHOW_JOIN_CONFIRM_MODAL: _.noop,
   },
 });
