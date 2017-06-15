@@ -16,6 +16,7 @@ import NewsSection from 'components/tc-communities/NewsSection';
 import PT from 'prop-types';
 
 import GroupStats from 'containers/tc-communities/GroupStats';
+import JoinCommunity from 'containers/tc-communities/JoinCommunity';
 
 import IconRocket from '../../../../../../assets/images/tc-communities/rocket.svg';
 import IconNetwork from '../../../../../../assets/images/tc-communities/network.svg';
@@ -37,6 +38,8 @@ export default function Home(props) {
       />
 
       <GroupStats />
+
+      <JoinCommunity />
 
       <Section
         theme={{

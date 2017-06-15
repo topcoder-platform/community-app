@@ -17,6 +17,24 @@ class GroupService {
   }
 
   /**
+   * Adds new member to the group.
+   * @param {String} groupId
+   * @param {String} memberId
+   * @param {String} membershipType
+   * @return {Promise}
+   */
+  addMember(groupId, memberId, membershipType) {
+    return this.private.api.postJson(`/groups/${groupId}/members`, {
+      param: { memberId, membershipType },
+    }).then(res => (res.ok ? res.json() : new Error(res.statusText)))
+    .then(res => (
+      res.result.status === 200
+      ? res.result.content
+      : new Error(res.result.content)
+    ));
+  }
+
+  /**
    * Gets group members.
    * @param {String} groupId
    * @return {Promise} On sucess resolves to the array of member objects,

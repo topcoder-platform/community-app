@@ -17,6 +17,7 @@ exports[`Snapshot match 1`] = `
     title="Topcoder Product Development Community"
   />
   <Connect(GroupStatsContainer) />
+  <Connect(JoinCommunity) />
   <ThemedSection
     composeTheme="deeply"
     link={null}

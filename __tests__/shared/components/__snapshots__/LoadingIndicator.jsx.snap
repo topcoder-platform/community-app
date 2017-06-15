@@ -1,12 +1,9 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`renders correctly 1`] = `
-<div
-  className="src-shared-components-LoadingIndicator-___styles__root___3fi9o"
->
-  <img
-    alt="Loading data"
-    src="https://raw.githubusercontent.com/appirio-tech/topcoder-app/dev/assets/images/ripple.gif"
-  />
-</div>
+<img
+  alt="Loading..."
+  className="src-shared-components-LoadingIndicator-___styles__style___3RNHL"
+  src="2f402d440d802a10b7672b75897c47a5.gif"
+/>
 `;

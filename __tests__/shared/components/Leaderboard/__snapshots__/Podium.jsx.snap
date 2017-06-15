@@ -58,6 +58,9 @@ exports[`Matches shallow shapshot 2`] = `
 <div
   className="src-shared-components-Leaderboard-Podium-___styles__Podium___2rb4T"
 >
-  <LoadingIndicator />
+  <ThemedLoadingIndicator
+    composeTheme="deeply"
+    mapThemrProps={[Function]}
+  />
 </div>
 `;

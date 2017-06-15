@@ -1,6 +1,7 @@
 @import '~styles/tc-styles';
 
 .container {
+  padding: 35px 0;
   padding-bottom: 70px;
 
   @include xxs-to-sm {

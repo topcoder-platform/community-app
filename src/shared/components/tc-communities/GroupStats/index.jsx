@@ -43,14 +43,14 @@ export default function GroupStats(props) {
       />
     )),
   );
-  return (
+  return icons.length ? (
     <Section
       theme={{
         container: style.container,
         content: style.content,
       }}
     >{icons}</Section>
-  );
+  ) : null;
 }
 
 GroupStats.defaultProps = {

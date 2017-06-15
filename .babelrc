@@ -19,6 +19,10 @@
       "filetypes": {
         ".scss": "postcss-scss"
       }
+    }],
+    ["transform-assets", {
+      "extensions": ["gif", "jpeg", "jpg", "png"],
+      "name": "[hash].[ext]"
     }]
   ]
 }

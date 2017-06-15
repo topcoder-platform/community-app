@@ -4,10 +4,12 @@ exports[`Snapshot match 1`] = `
 <div>
   <div
     className="src-shared-components-Modal-___styles__modal-container___2m4KB"
+    onWheel={[Function]}
   />
   <button
     className="src-shared-components-Modal-___styles__bg-overlay___2xty_"
     onClick={[Function]}
+    onWheel={[Function]}
   />
 </div>
 `;
