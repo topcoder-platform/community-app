@@ -1,0 +1,84 @@
+@import "~styles/tc-styles";
+
+.done {
+  color: $tc-light-blue;
+  display: block;
+  background: $tc-white;
+  border: 1px solid $tc-light-blue;
+  border-radius: 20px;
+  font: 700 14px/40px 'Open Sans';
+  margin: 0 auto;
+  height: 40px;
+  text-align: center;
+  text-transform: uppercase;
+  width: 300px;
+
+  &:hover,
+  &:active,
+  &:focus,
+  &:visited {
+    color: $tc-light-blue;
+    outline: none;
+    text-decoration: none;
+  }
+
+  &:hover {
+    background: $tc-light-blue-10;
+  }
+}
+
+.link {
+  color: $tc-green;
+  display: block;
+  background: $tc-white;
+  border: 1px solid $tc-green;
+  border-radius: 20px;
+  font: 700 14px/40px 'Open Sans';
+  margin: 48px auto 0;
+  height: 40px;
+  text-align: center;
+  text-transform: uppercase;
+  width: 171px;
+
+  &:hover,
+  &:active,
+  &:focus,
+  &:visited {
+    color: $tc-green;
+    outline: none;
+    text-decoration: none;
+  }
+
+  &:hover {
+    background: $tc-green-10;
+  }
+
+  &.joining:hover {
+    background: $tc-white;
+    cursor: default;
+  }
+
+  &.joining div p {
+    display: inline-block;
+    margin-right: 12px;
+    vertical-align: top;
+  }
+}
+
+.loadingIndicator {
+  display: inline-block;
+  height: 32px;
+  padding-top: 4px;
+  width: 32px;
+}
+
+.modalTitle {
+  text-align: center;
+}
+
+.modalMsg {
+  @include tc-body;
+
+  margin: 24px 0;
+  text-align: center;
+}

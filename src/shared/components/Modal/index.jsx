@@ -14,8 +14,15 @@ import './styles.scss';
 export default function Modal(props) {
   return (
     <div>
-      <div styleName="modal-container">{props.children}</div>
-      <button styleName="bg-overlay" onClick={() => props.onCancel()} />
+      <div
+        onWheel={event => event.preventDefault()}
+        styleName="modal-container"
+      >{props.children}</div>
+      <button
+        onClick={() => props.onCancel()}
+        onWheel={event => event.preventDefault()}
+        styleName="bg-overlay"
+      />
     </div>
   );
 }

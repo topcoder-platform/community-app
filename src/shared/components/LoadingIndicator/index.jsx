@@ -1,12 +1,21 @@
+import PT from 'prop-types';
+import Source from 'assets/images/ripple.gif';
 import React from 'react';
-import './styles.scss';
+import { themr } from 'react-css-themr';
+import style from './styles.scss';
 
-const Loader = 'https://raw.githubusercontent.com/appirio-tech/topcoder-app/dev/assets/images/ripple.gif';
-
-export default function LoadingIndicator() {
+function LoadingIndicator({ theme }) {
   return (
-    <div styleName="root">
-      <img src={Loader} alt="Loading data" />
-    </div>
+    <img
+      alt="Loading..."
+      className={theme.style}
+      src={Source}
+    />
   );
 }
+
+LoadingIndicator.propTypes = {
+  theme: PT.shape().isRequired,
+};
+
+export default themr('LoadingIndicator', style)(LoadingIndicator);

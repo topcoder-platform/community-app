@@ -54,7 +54,7 @@ module.exports = {
         ],
       },
     }, {
-      test: /\.(jpeg|jpg|png)$/,
+      test: /\.(gif|jpeg|jpg|png)$/,
       include: /src\/assets\/images/,
       loader: 'file-loader',
       options: {
