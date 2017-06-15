@@ -25,7 +25,7 @@ export default function JoinCommunity({
   token,
   userId,
 }) {
-  if (!canJoin) return null;
+  if (!canJoin) return <div styleName="placeholder" />;
   return (
     <div>
       <button
