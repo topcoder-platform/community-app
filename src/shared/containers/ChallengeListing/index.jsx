@@ -85,75 +85,32 @@ class ChallengeListingPageContainer extends React.Component {
 
   loadChallenges() {
     const { tokenV3, user } = this.props.auth;
-    const groupIds = this.props.challengeGroupId || undefined;
-
-    /* Initial loading of the challenges. Later we'll add some extra
-      conditions to prevent loading when data are up-to-date because
-      of server-side rendering, or because we have been at this page
-      recently. */
 
     /* Active challenges. */
     this.props.getChallenges({
-      groupIds,
       status: 'ACTIVE',
     }, {}, tokenV3, 'active');
     this.props.getMarathonMatches({
-      groupIds,
       status: 'ACTIVE',
     }, {}, tokenV3, 'activeMM');
 
     /* My active challenges. */
     if (user) {
       this.props.getChallenges({
-        groupIds,
         status: 'ACTIVE',
       }, {}, tokenV3, 'myActive', user.handle);
       this.props.getMarathonMatches({
-        groupIds,
         status: 'ACTIVE',
       }, {}, tokenV3, 'myActiveMM', user.handle);
     }
 
     /* Past challenges. */
     this.props.getChallenges({
-      groupIds,
       status: 'COMPLETED',
     }, {}, tokenV3, 'past');
     this.props.getMarathonMatches({
-      groupIds,
       status: 'PAST',
     }, {}, tokenV3, 'pastMM');
-
-    /* In case we are inside a group, we still need to load all challenges,
-     * to be able to use All / Group challenges filter. */
-    if (groupIds) {
-      /* Active challenges. */
-      this.props.getChallenges({
-        status: 'ACTIVE',
-      }, {}, tokenV3, 'active');
-      this.props.getMarathonMatches({
-        status: 'ACTIVE',
-      }, {}, tokenV3, 'activeMM');
-
-      /* My active challenges. */
-      if (user) {
-        this.props.getChallenges({
-          status: 'ACTIVE',
-        }, {}, tokenV3, 'myActive', user.handle);
-        this.props.getMarathonMatches({
-          groupIds,
-          status: 'ACTIVE',
-        }, {}, tokenV3, 'myActiveMM', user.handle);
-      }
-
-      /* Past challenges. */
-      this.props.getChallenges({
-        status: 'COMPLETED',
-      }, {}, tokenV3, 'past');
-      this.props.getMarathonMatches({
-        status: 'PAST',
-      }, {}, tokenV3, 'pastMM');
-    }
   }
 
   /**
