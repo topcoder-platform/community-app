@@ -7,9 +7,16 @@ import React from 'react';
 
 import './style.scss';
 
-export default function Item({ icon, link, title }) {
+export default function Item({
+  currentSubMenuTitle,
+  icon,
+  link,
+  title,
+}) {
+  let styleName = 'item';
+  if (currentSubMenuTitle === title) styleName += ' current';
   return (
-    <li styleName="item">
+    <li styleName={styleName}>
       <a href={link}>
         {icon}
         {title}
@@ -19,6 +26,7 @@ export default function Item({ icon, link, title }) {
 }
 
 Item.propTypes = {
+  currentSubMenuTitle: PT.string.isRequired,
   icon: PT.node.isRequired,
   link: PT.string.isRequired,
   title: PT.string.isRequired,

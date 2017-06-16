@@ -15,6 +15,10 @@
   vertical-align: top;
   width: 150px;
 
+  &.current {
+    background: fade-out($tc-dark-blue-90, 0.66);
+  }
+
   svg {
     display: block;
     height: 36px;

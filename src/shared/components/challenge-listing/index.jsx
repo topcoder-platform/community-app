@@ -423,6 +423,7 @@ class ChallengeFiltersExample extends React.Component {
 
 ChallengeFiltersExample.defaultProps = {
   challengeGroupId: '',
+  communityName: null,
   config: {
     API_URL_V2: config.API.V2,
     API_URL: config.API.V3,
@@ -442,7 +443,7 @@ ChallengeFiltersExample.propTypes = {
   })).isRequired,
   challengeSubtracks: PT.arrayOf(PT.string).isRequired,
   challengeTags: PT.arrayOf(PT.string).isRequired,
-  communityName: PT.string.isRequired,
+  communityName: PT.string,
   filter: PT.string.isRequired,
   getChallenges: PT.func.isRequired,
   getMarathonMatches: PT.func.isRequired,

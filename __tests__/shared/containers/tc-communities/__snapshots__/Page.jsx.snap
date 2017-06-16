@@ -73,6 +73,7 @@ exports[`Matches shapshot 1`] = `
       ],
     }
   }
+  setCurrentNav={[Function]}
   store={
     Object {
       "dispatch": [Function],

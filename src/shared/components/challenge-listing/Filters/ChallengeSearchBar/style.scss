@@ -16,6 +16,8 @@ $search-input-width: '100% - 56px';
   display: inline-block;
   vertical-align: middle;
   margin-right: 40px;
+  position: relative;
+  top: 1px;
 
   @include xs-to-sm {
     display: none;
@@ -43,6 +45,10 @@ $search-input-width: '100% - 56px';
       text-transform: none;
       opacity: 1;
     }
+
+    &:hover {
+      border: 1px solid $tc-gray-40;
+    }
   }
 
   .SearchButton {
@@ -52,6 +58,7 @@ $search-input-width: '100% - 56px';
     padding: $challenge-space-10 + 1 $challenge-space-20 $challenge-space-10 - 2;
     border-radius: 0 $challenge-radius-4 $challenge-radius-4 0;
     vertical-align: middle;
+    height: 40px;
 
     &.active,
     &:hover {

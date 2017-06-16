@@ -12,8 +12,8 @@ exports[`Default render 1`] = `
       href="https://www.topcoder-dev.com"
     >
       <LogoTopcoderWithName
-        height={54}
-        width={156}
+        height={53}
+        width={135}
       />
     </a>
     <ul
@@ -71,6 +71,7 @@ exports[`Default render 1`] = `
   </div>
   <SubMenu
     closeMenu={[Function]}
+    currentSubMenuTitle=""
     menu={null}
     trigger={null}
   />
@@ -194,8 +195,8 @@ exports[`Render with open menu 1`] = `
       href="https://www.topcoder-dev.com"
     >
       <LogoTopcoderWithName
-        height={54}
-        width={156}
+        height={53}
+        width={135}
       />
     </a>
     <ul
@@ -253,6 +254,7 @@ exports[`Render with open menu 1`] = `
   </div>
   <SubMenu
     closeMenu={[Function]}
+    currentSubMenuTitle=""
     menu={
       Object {
         "items": Array [
@@ -387,8 +389,8 @@ exports[`Render with specified profile 1`] = `
       href="https://www.topcoder-dev.com"
     >
       <LogoTopcoderWithName
-        height={54}
-        width={156}
+        height={53}
+        width={135}
       />
     </a>
     <ul
@@ -459,6 +461,7 @@ exports[`Render with specified profile 1`] = `
   </div>
   <SubMenu
     closeMenu={[Function]}
+    currentSubMenuTitle=""
     menu={null}
     trigger={null}
   />

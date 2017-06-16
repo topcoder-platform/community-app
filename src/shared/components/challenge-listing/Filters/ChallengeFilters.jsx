@@ -264,6 +264,7 @@ const TagShape = PT.shape({
 });
 
 ChallengeFilters.defaultProps = {
+  communityName: null,
   filter: new ChallengeFilter(),
   isCardTypeSet: '',
   searchQuery: '',
@@ -275,7 +276,7 @@ ChallengeFilters.defaultProps = {
 
 ChallengeFilters.propTypes = {
   challengeGroupId: PT.string.isRequired,
-  communityName: PT.string.isRequired,
+  communityName: PT.string,
   filter: PT.instanceOf(ChallengeFilter),
   isCardTypeSet: PT.string,
   searchQuery: PT.string,

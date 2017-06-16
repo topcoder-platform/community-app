@@ -89,6 +89,7 @@ exports[`Snapshot match 1`] = `
   </header>
   <SubMenu
     closeMenu={undefined}
+    currentSubMenuTitle=""
     menu={null}
     trigger={null}
   />
@@ -233,6 +234,7 @@ exports[`Snapshot match 2`] = `
   </header>
   <SubMenu
     closeMenu={undefined}
+    currentSubMenuTitle=""
     menu={null}
     trigger={null}
   />
