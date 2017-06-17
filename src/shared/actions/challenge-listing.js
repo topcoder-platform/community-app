@@ -31,6 +31,39 @@ import { createActions } from 'redux-actions';
 import { getService } from 'services/challenges';
 
 /**
+ * Private. Common logic to get all challenge or marathon matches.
+ * @param {Function} getter getChallenges(..) or getMarathonMatches(..)
+ * @param {String} uuid
+ * @param {Object} filters
+ * @param {String} token
+ * @param {String} user
+ * @return {Promise}
+ */
+function getAll(getter, uuid, filters, token, countCategory, user) {
+  /* API does not allow to get more than 50 challenges or MMs a time. */
+  const LIMIT = 50;
+  let page = 0;
+  let res;
+
+  /* Single iteration of the fetch procedure. */
+  function iteration() {
+    return getter(uuid, filters, {
+      limit: LIMIT,
+      offset: LIMIT * page,
+    }, token, countCategory || 'count', user).then((next) => {
+      if (res) res.challenges = res.challenges.concat(next.challenges);
+      else res = next;
+      page += 1;
+      if (LIMIT * page < res.totalCount.value) return iteration();
+      if (!countCategory) res.totalCount = null;
+      return res;
+    });
+  }
+
+  return iteration();
+}
+
+/**
  * Private. Common processing of promises returned from ChallengesService.
  * @param {Object} promise
  * @param {String} uuid
@@ -113,6 +146,23 @@ function getChallenges(uuid, filters, params, token, countCategory, user) {
 }
 
 /**
+ * Calls getChallenges(..) recursively to get all challenges matching given
+ * arguments. Mind that API does not allow to get more than 50 challenges a
+ * time. You should use this function carefully, and never call it when there
+ * might be many challenges matching your request. It is originally intended
+ * to get all active challenges, as there never too many of them.
+ * @param {String} uuid
+ * @param {Object} filters
+ * @param {String} token
+ * @param {String} countCategory
+ * @param {String} user
+ * @return {Promise}
+ */
+function getAllChallenges(uuid, filters, token, countCategory, user) {
+  return getAll(getChallenges, uuid, filters, token, countCategory, user);
+}
+
+/**
  * Writes specified UUID into the set of pending requests to load challenges.
  * This allows (1) to understand whether we are waiting to load any challenges;
  * (2) to cancel pending request by removing UUID from the set.
@@ -143,6 +193,23 @@ function getMarathonMatches(uuid, filters, params, token, countCategory, user) {
 }
 
 /**
+ * Calls getMarathonMatches(..) recursively to get all challenges matching given
+ * arguments. Mind that API does not allow to get more than 50 challenges a
+ * time. You should use this function carefully, and never call it when there
+ * might be many challenges matching your request. It is originally intended
+ * to get all active challenges, as there never too many of them.
+ * @param {String} uuid
+ * @param {Object} filters
+ * @param {String} token
+ * @param {String} countCategory
+ * @param {String} user
+ * @return {Promise}
+ */
+function getAllMarathonMatches(uuid, filters, token, countCategory, user) {
+  return getAll(getMarathonMatches, uuid, filters, token, countCategory, user);
+}
+
+/**
  * This action tells Redux to remove all loaded challenges and to cancel
  * any pending requests to load more challenges.
  */
@@ -161,6 +228,9 @@ function setFilter(filter) {
 
 export default createActions({
   CHALLENGE_LISTING: {
+    GET_ALL_CHALLENGES: getAllChallenges,
+    GET_ALL_MARATHON_MATCHES: getAllMarathonMatches,
+
     GET_CHALLENGE_SUBTRACKS_INIT: _.noop,
     GET_CHALLENGE_SUBTRACKS_DONE: getChallengeSubtracksDone,
     GET_CHALLENGE_TAGS_INIT: _.noop,

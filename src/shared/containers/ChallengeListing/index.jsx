@@ -86,31 +86,23 @@ class ChallengeListingPageContainer extends React.Component {
   loadChallenges() {
     const { tokenV3, user } = this.props.auth;
 
-    /* Active challenges. */
-    this.props.getChallenges({
-      status: 'ACTIVE',
-    }, {}, tokenV3, 'active');
-    this.props.getMarathonMatches({
-      status: 'ACTIVE',
-    }, {}, tokenV3, 'activeMM');
+    /* Gets all active challenges. */
+    this.props.getAllChallenges({ status: 'ACTIVE' }, tokenV3);
+    this.props.getAllMarathonMatches({ status: 'ACTIVE' }, tokenV3);
 
-    /* My active challenges. */
+    /* Gets all active challenges, where the vistor is participant. */
     if (user) {
-      this.props.getChallenges({
+      this.props.getAllChallenges({
         status: 'ACTIVE',
-      }, {}, tokenV3, 'myActive', user.handle);
-      this.props.getMarathonMatches({
+      }, tokenV3, null, user.handle);
+      this.props.getAllMarathonMatches({
         status: 'ACTIVE',
-      }, {}, tokenV3, 'myActiveMM', user.handle);
+      }, tokenV3, null, user.handle);
     }
 
-    /* Past challenges. */
-    this.props.getChallenges({
-      status: 'COMPLETED',
-    }, {}, tokenV3, 'past');
-    this.props.getMarathonMatches({
-      status: 'PAST',
-    }, {}, tokenV3, 'pastMM');
+    /* Gets some (50 + 50) past challenges and MMs. */
+    this.props.getChallenges({ status: 'COMPLETED' }, {}, tokenV3);
+    this.props.getMarathonMatches({ status: 'PAST' }, {}, tokenV3);
   }
 
   /**
@@ -216,6 +208,8 @@ ChallengeListingPageContainer.propTypes = {
     pendingRequests: PT.shape({}).isRequired,
   }).isRequired,
   communityName: PT.string,
+  getAllChallenges: PT.func.isRequired,
+  getAllMarathonMatches: PT.func.isRequired,
   getChallenges: PT.func.isRequired,
   getChallengeSubtracks: PT.func.isRequired,
   getChallengeTags: PT.func.isRequired,
@@ -251,6 +245,26 @@ const mapStateToProps = state => ({
     filter: decodeURIComponent(state.challengeListing.filter),
   },
 });
+
+/**
+ * Loads into redux all challenges matching the request.
+ * @param {Function} dispatch
+ */
+function getAllChallenges(dispatch, ...rest) {
+  const uuid = shortid();
+  dispatch(actions.challengeListing.getInit(uuid));
+  dispatch(actions.challengeListing.getAllChallenges(uuid, ...rest));
+}
+
+/**
+ * Loads into redux all MMs matching the request.
+ * @param {Function} dispatch
+ */
+function getAllMarathonMatches(dispatch, ...rest) {
+  const uuid = shortid();
+  dispatch(actions.challengeListing.getInit(uuid));
+  dispatch(actions.challengeListing.getAllMarathonMatches(uuid, ...rest));
+}
 
 /**
  * Callback for loading challenges satisfying to the specified criteria.
@@ -289,6 +303,9 @@ function mapDispatchToProps(dispatch) {
   const a = actions.challengeListing;
   const ah = headerActions.topcoderHeader;
   return {
+    getAllChallenges: (...rest) => getAllChallenges(dispatch, ...rest),
+    getAllMarathonMatches: (...rest) =>
+      getAllMarathonMatches(dispatch, ...rest),
     getChallenges: (...rest) => getChallenges(dispatch, ...rest),
     getChallengeSubtracks: () => {
       dispatch(a.getChallengeSubtracksInit());

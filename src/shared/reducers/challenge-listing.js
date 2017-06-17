@@ -276,6 +276,8 @@ function onReset(state) {
 function create(initialState) {
   const a = actions.challengeListing;
   return handleActions({
+    [a.getAllChallenges]: onGetChallenges,
+    [a.getAllMarathonMatches]: onGetMarathonMatches,
     [a.getChallengeSubtracksDone]: onGetChallengeSubtracksDone,
     [a.getChallengeSubtracksInit]: state => ({
       ...state,
