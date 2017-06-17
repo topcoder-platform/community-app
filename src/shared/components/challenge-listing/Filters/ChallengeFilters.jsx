@@ -42,6 +42,8 @@ import _ from 'lodash';
 import React from 'react';
 import PT from 'prop-types';
 import SwitchWithLabel from 'components/SwitchWithLabel';
+import * as Filter from 'utils/challenge-listing/filter';
+import { COMPETITION_TRACKS as TRACKS } from 'utils/tc';
 
 import ChallengeFilter, { DATA_SCIENCE_TRACK, DESIGN_TRACK, DEVELOP_TRACK } from './ChallengeFilter';
 import ChallengeSearchBar from './ChallengeSearchBar';
@@ -165,6 +167,7 @@ class ChallengeFilters extends React.Component {
   }
 
   render() {
+    const { filterState, setFilterState } = this.props;
     return (
       <div styleName="challenge-filters">
         <div styleName="filter-header">
@@ -182,23 +185,41 @@ class ChallengeFilters extends React.Component {
               <span>
                 <span styleName="filter-switch-with-label">
                   <SwitchWithLabel
-                    enabled={this.state.filter.tracks.has(DESIGN_TRACK)}
+                    enabled={
+                      !filterState.tracks
+                      || filterState.tracks[TRACKS.DESIGN]
+                    }
                     labelBefore="Design"
-                    onSwitch={enable => this.setTracks(DESIGN_TRACK, enable)}
+                    onSwitch={(on) => {
+                      const act = on ? Filter.addTrack : Filter.removeTrack;
+                      setFilterState(act(filterState, TRACKS.DESIGN));
+                    }}
                   />
                 </span>
                 <span styleName="filter-switch-with-label">
                   <SwitchWithLabel
-                    enabled={this.state.filter.tracks.has(DEVELOP_TRACK)}
+                    enabled={
+                      !filterState.tracks
+                      || filterState.tracks[TRACKS.DEVELOP]
+                    }
                     labelBefore="Development"
-                    onSwitch={enable => this.setTracks(DEVELOP_TRACK, enable)}
+                    onSwitch={(on) => {
+                      const act = on ? Filter.addTrack : Filter.removeTrack;
+                      setFilterState(act(filterState, TRACKS.DEVELOP));
+                    }}
                   />
                 </span>
                 <span styleName="filter-switch-with-label">
                   <SwitchWithLabel
-                    enabled={this.state.filter.tracks.has(DATA_SCIENCE_TRACK)}
+                    enabled={
+                      !filterState.tracks
+                      || filterState.tracks[TRACKS.DATA_SCIENCE]
+                    }
                     labelBefore="Data Science"
-                    onSwitch={enable => this.setTracks(DATA_SCIENCE_TRACK, enable)}
+                    onSwitch={(on) => {
+                      const act = on ? Filter.addTrack : Filter.removeTrack;
+                      setFilterState(act(filterState, TRACKS.DATA_SCIENCE));
+                    }}
                   />
                 </span>
               </span>
@@ -278,12 +299,14 @@ ChallengeFilters.propTypes = {
   challengeGroupId: PT.string.isRequired,
   communityName: PT.string,
   filter: PT.instanceOf(ChallengeFilter),
+  filterState: PT.shape().isRequired,
   isCardTypeSet: PT.string,
   searchQuery: PT.string,
   onFilter: PT.func,
   onSearch: PT.func,
   onSaveFilter: PT.func,
   setCardType: PT.func,
+  setFilterState: PT.func.isRequired,
   validKeywords: PT.arrayOf(TagShape).isRequired,
   validSubtracks: PT.arrayOf(TagShape).isRequired,
 };

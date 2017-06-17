@@ -163,6 +163,7 @@ class ChallengeListingPageContainer extends React.Component {
           challengeTags={cl.challengeTags}
           communityName={this.props.communityName}
           filter={this.props.challengeListing.filter}
+          filterState={this.props.challengeListing.filterState}
           getChallenges={this.props.getChallenges}
           getMarathonMatches={this.props.getMarathonMatches}
           loadingChallenges={Boolean(_.keys(this.props.challengeListing.pendingRequests).length)}
@@ -173,6 +174,7 @@ class ChallengeListingPageContainer extends React.Component {
               this.props.setFilter(f);
             }
           }}
+          setFilterState={this.props.setFilterState}
 
           /* OLD PROPS BELOW */
           challengeGroupId={challengeGroupId}
@@ -205,6 +207,7 @@ ChallengeListingPageContainer.propTypes = {
   challengeListing: PT.shape({
     challenges: PT.arrayOf(PT.shape({})).isRequired,
     filter: PT.string.isRequired,
+    filterState: PT.shape.isRequired,
     pendingRequests: PT.shape({}).isRequired,
   }).isRequired,
   communityName: PT.string,
@@ -216,6 +219,7 @@ ChallengeListingPageContainer.propTypes = {
   getMarathonMatches: PT.func.isRequired,
   markHeaderMenu: PT.func.isRequired,
   setFilter: PT.func.isRequired,
+  setFilterState: PT.func.isRequired,
 
   /* OLD PROPS BELOW */
   listingOnly: PT.bool,
@@ -318,6 +322,7 @@ function mapDispatchToProps(dispatch) {
     getMarathonMatches: (...rest) => getMarathonMatches(dispatch, ...rest),
     reset: () => dispatch(a.reset()),
     setFilter: f => dispatch(a.setFilter(f)),
+    setFilterState: state => dispatch(a.setFilterState(state)),
     markHeaderMenu: () =>
       dispatch(ah.setCurrentNav('Compete', 'All Challenges')),
   };

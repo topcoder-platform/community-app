@@ -36,7 +36,7 @@ import logger from 'utils/logger';
 import SideBarFilter from
   'components/challenge-listing/SideBarFilters/SideBarFilter';
 import { handleActions } from 'redux-actions';
-import { COMMUNITY } from 'utils/tc';
+import { COMPETITION_TRACKS } from 'utils/tc';
 
 /**
  * Normalizes a regular challenge object received from the backend.
@@ -58,7 +58,7 @@ export function normalizeChallenge(challenge) {
     });
   }
   return _.defaults(_.clone(challenge), {
-    communities: new Set([COMMUNITY[challenge.track]]),
+    communities: new Set([COMPETITION_TRACKS[challenge.track]]),
     groups,
     platforms: '',
     registrationOpen,
@@ -95,7 +95,7 @@ export function normalizeMarathonMatch(challenge) {
     challengeType: 'Marathon',
     allPhases: allphases,
     currentPhases: allphases.filter(phase => phase.phaseStatus === 'Open'),
-    communities: new Set([COMMUNITY.DATA_SCIENCE]),
+    communities: new Set([COMPETITION_TRACKS.DATA_SCIENCE]),
     currentPhaseName: endTimestamp > Date.now() ? 'Registration' : '',
     groups,
     numRegistrants: challenge.numRegistrants ? challenge.numRegistrants[0] : 0,
@@ -293,12 +293,16 @@ function create(initialState) {
     [a.getMarathonMatches]: onGetMarathonMatches,
     [a.reset]: onReset,
     [a.setFilter]: (state, { payload }) => ({ ...state, filter: payload }),
+    [a.setFilterState]: (state, { payload }) => ({
+      ...state, filterState: payload,
+    }),
   }, _.defaults(_.clone(initialState) || {}, {
     challenges: [],
     challengeSubtracks: [],
     challengeTags: [],
     counts: {},
     filter: (new SideBarFilter()).getURLEncoded(),
+    filterState: {},
     oldestData: Date.now(),
     pendingRequests: {},
   }));

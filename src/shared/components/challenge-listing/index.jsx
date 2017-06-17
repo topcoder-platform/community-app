@@ -18,6 +18,7 @@ import React from 'react';
 import PT from 'prop-types';
 import config from 'utils/config';
 import Sticky from 'react-stickynode';
+import * as Filter from 'utils/challenge-listing/filter';
 
 import ChallengeFilterWithSearch from './Filters/ChallengeFilterWithSearch';
 import ChallengeFilters from './Filters/ChallengeFilters';
@@ -235,6 +236,9 @@ class ChallengeFiltersExample extends React.Component {
       });
     }
 
+    challenges = challenges.filter(
+      Filter.getFilterFunction(this.props.filterState));
+
     challenges.sort((a, b) => b.submissionEndDate - a.submissionEndDate);
 
     const filter = this.getFilter();
@@ -332,6 +336,7 @@ class ChallengeFiltersExample extends React.Component {
       <div styleName="ChallengeFiltersExample">
         <ChallengeFilters
           filter={this.getFilter()}
+          filterState={this.props.filterState}
           onFilter={topFilter => this.onFilterByTopFilter(topFilter)}
           onSaveFilter={(filterToSave) => {
             if (this.sidebar) {
@@ -347,6 +352,7 @@ class ChallengeFiltersExample extends React.Component {
           validKeywords={this.props.challengeTags.map(keywordsMapper)}
           validSubtracks={this.props.challengeSubtracks.map(keywordsMapper)}
           setCardType={_.noop/* cardType => this.setCardType(cardType) */}
+          setFilterState={this.props.setFilterState}
           isCardTypeSet={'Challenges' /* this.state.currentCardType */}
           ref={(node) => { this.challengeFilters = node; }}
         />
@@ -445,10 +451,12 @@ ChallengeFiltersExample.propTypes = {
   challengeTags: PT.arrayOf(PT.string).isRequired,
   communityName: PT.string,
   filter: PT.string.isRequired,
+  filterState: PT.shape().isRequired,
   getChallenges: PT.func.isRequired,
   getMarathonMatches: PT.func.isRequired,
   loadingChallenges: PT.bool.isRequired,
   setFilter: PT.func.isRequired,
+  setFilterState: PT.func.isRequired,
 
   /* OLD PROPS BELOW */
   config: PT.shape({

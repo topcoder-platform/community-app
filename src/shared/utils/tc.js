@@ -5,7 +5,7 @@
 /**
  * Codes of the Topcoder communities.
  */
-export const COMMUNITY = {
+export const COMPETITION_TRACKS = {
   DATA_SCIENCE: 'datasci',
   DESIGN: 'design',
   DEVELOP: 'develop',

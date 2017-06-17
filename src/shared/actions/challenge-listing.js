@@ -241,5 +241,6 @@ export default createActions({
     GET_MARATHON_MATCHES: getMarathonMatches,
     RESET: reset,
     SET_FILTER: setFilter,
+    SET_FILTER_STATE: _.identity,
   },
 });
