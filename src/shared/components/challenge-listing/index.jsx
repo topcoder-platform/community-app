@@ -14,14 +14,14 @@
  */
 
 import _ from 'lodash';
+import ChallengeFilters from 'containers/challenge-listing/FilterPanel';
 import React from 'react';
 import PT from 'prop-types';
 import config from 'utils/config';
 import Sticky from 'react-stickynode';
 import * as Filter from 'utils/challenge-listing/filter';
-
 import ChallengeFilterWithSearch from './Filters/ChallengeFilterWithSearch';
-import ChallengeFilters from './Filters/ChallengeFilters';
+
 import SideBarFilter, { MODE as SideBarFilterModes } from './SideBarFilters/SideBarFilter';
 import SideBarFilters from './SideBarFilters';
 import ChallengeCard from './ChallengeCard';
@@ -353,8 +353,6 @@ class ChallengeFiltersExample extends React.Component {
           validSubtracks={this.props.challengeSubtracks.map(keywordsMapper)}
           setCardType={_.noop/* cardType => this.setCardType(cardType) */}
           setFilterState={this.props.setFilterState}
-          searchText={this.props.searchText}
-          setSearchText={this.props.setSearchText}
           isCardTypeSet={'Challenges' /* this.state.currentCardType */}
           ref={(node) => { this.challengeFilters = node; }}
         />
@@ -459,8 +457,6 @@ ChallengeFiltersExample.propTypes = {
   loadingChallenges: PT.bool.isRequired,
   setFilter: PT.func.isRequired,
   setFilterState: PT.func.isRequired,
-  searchText: PT.string.isRequired,
-  setSearchText: PT.func.isRequired,
 
   /* OLD PROPS BELOW */
   config: PT.shape({

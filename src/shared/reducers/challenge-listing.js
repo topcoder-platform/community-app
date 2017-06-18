@@ -37,6 +37,8 @@ import SideBarFilter from
   'components/challenge-listing/SideBarFilters/SideBarFilter';
 import { handleActions } from 'redux-actions';
 import { COMPETITION_TRACKS } from 'utils/tc';
+import { combine } from 'utils/redux';
+import filterPanel from './challenge-listing/filter-panel';
 
 /**
  * Normalizes a regular challenge object received from the backend.
@@ -296,9 +298,6 @@ function create(initialState) {
     [a.setFilterState]: (state, { payload }) => ({
       ...state, filterState: payload,
     }),
-    [a.setSearchText]: (state, { payload }) => ({
-      ...state, searchText: payload,
-    }),
   }, _.defaults(_.clone(initialState) || {}, {
     challenges: [],
     challengeSubtracks: [],
@@ -308,7 +307,6 @@ function create(initialState) {
     filterState: {},
     oldestData: Date.now(),
     pendingRequests: {},
-    searchText: '',
   }));
 }
 
@@ -322,8 +320,8 @@ function create(initialState) {
 export function factory() {
   /* Server-side rendering is not implemented yet.
     Let's first ensure it all works fine without it. */
-  return Promise.resolve(create());
+  return Promise.resolve(combine(create(), { filterPanel }));
 }
 
 /* Default reducer with empty initial state. */
-export default create();
+export default combine(create(), { filterPanel });

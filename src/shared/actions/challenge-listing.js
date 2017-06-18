@@ -242,11 +242,5 @@ export default createActions({
     RESET: reset,
     SET_FILTER: setFilter,
     SET_FILTER_STATE: _.identity,
-
-    /* Corresponding action sets the challenge search text without applying
-     * it to the challenge filter. It is necessary because current version of
-     * the UI suggests that to execute the search user must press the search
-     * button. */
-    SET_SEARCH_TEXT: _.identity,
   },
 });
