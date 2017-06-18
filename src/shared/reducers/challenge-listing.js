@@ -305,6 +305,8 @@ function create(initialState) {
     counts: {},
     filter: (new SideBarFilter()).getURLEncoded(),
     filterState: {},
+    loadingChallengeSubtracks: false,
+    loadingChallengeTags: false,
     oldestData: Date.now(),
     pendingRequests: {},
   }));

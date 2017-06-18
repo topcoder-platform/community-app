@@ -200,11 +200,6 @@ class ChallengeFilters extends React.Component {
   }
 }
 
-const TagShape = PT.shape({
-  label: PT.string.isRequired,
-  value: PT.string.isRequired,
-});
-
 ChallengeFilters.defaultProps = {
   communityName: null,
   filter: new ChallengeFilter(),
@@ -230,8 +225,8 @@ ChallengeFilters.propTypes = {
   setSearchText: PT.func.isRequired,
   showTrackModal: PT.func.isRequired,
   trackModalShown: PT.bool.isRequired,
-  validKeywords: PT.arrayOf(TagShape).isRequired,
-  validSubtracks: PT.arrayOf(TagShape).isRequired,
+  validKeywords: PT.arrayOf(PT.string).isRequired,
+  validSubtracks: PT.arrayOf(PT.string).isRequired,
 };
 
 export default ChallengeFilters;

@@ -46,17 +46,12 @@ class ChallengeListingPageContainer extends React.Component {
   }
 
   componentDidMount() {
-    const { challengeListing: cl } = this.props;
-
     this.props.markHeaderMenu();
 
     if (mounted) {
       logger.error('Attempt to mount multiple instances of ChallengeListingPageContainer at the same time!');
     } else mounted = true;
     this.loadChallenges();
-
-    if (!cl.loadingChallengeSubtracks) this.props.getChallengeSubtracks();
-    if (!cl.loadingChallengeTags) this.props.getChallengeTags();
 
     /* Get filter from the URL hash, if necessary. */
     const filter = this.props.location.hash.slice(1);
@@ -214,8 +209,6 @@ ChallengeListingPageContainer.propTypes = {
   getAllChallenges: PT.func.isRequired,
   getAllMarathonMatches: PT.func.isRequired,
   getChallenges: PT.func.isRequired,
-  getChallengeSubtracks: PT.func.isRequired,
-  getChallengeTags: PT.func.isRequired,
   getMarathonMatches: PT.func.isRequired,
   markHeaderMenu: PT.func.isRequired,
   setFilter: PT.func.isRequired,
@@ -311,14 +304,6 @@ function mapDispatchToProps(dispatch) {
     getAllMarathonMatches: (...rest) =>
       getAllMarathonMatches(dispatch, ...rest),
     getChallenges: (...rest) => getChallenges(dispatch, ...rest),
-    getChallengeSubtracks: () => {
-      dispatch(a.getChallengeSubtracksInit());
-      dispatch(a.getChallengeSubtracksDone());
-    },
-    getChallengeTags: () => {
-      dispatch(a.getChallengeTagsInit());
-      dispatch(a.getChallengeTagsDone());
-    },
     getMarathonMatches: (...rest) => getMarathonMatches(dispatch, ...rest),
     reset: () => dispatch(a.reset()),
     setFilter: f => dispatch(a.setFilter(f)),

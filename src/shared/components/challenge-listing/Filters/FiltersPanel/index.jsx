@@ -101,6 +101,11 @@ class FiltersPanel extends React.Component {
   }
 
   render() {
+    const {
+      validKeywords,
+      validSubtracks,
+    } = this.props;
+
     let className = 'FiltersPanel';
     if (this.props.hidden) className += ' hidden';
 
@@ -114,6 +119,8 @@ class FiltersPanel extends React.Component {
         value: 'all',
       }];
     }
+
+    const mapOps = item => ({ label: item, value: item });
 
     return (
       <div styleName={className}>
@@ -131,7 +138,7 @@ class FiltersPanel extends React.Component {
                 id="keyword-select"
                 multi
                 onChange={value => this.onKeywordsChanged(value ? value.split(',') : [])}
-                options={this.props.validKeywords}
+                options={validKeywords.map(mapOps)}
                 simpleValue
                 value={this.state.filter.keywords.join(',')}
               />
@@ -163,7 +170,7 @@ class FiltersPanel extends React.Component {
                 id="track-select"
                 multi
                 onChange={value => this.onSubtracksChanged(value ? value.split(',') : [])}
-                options={this.props.validSubtracks}
+                options={validSubtracks.map(mapOps)}
                 simpleValue
                 value={this.state.filter.subtracks.join(',')}
               />
@@ -210,13 +217,6 @@ FiltersPanel.defaultProps = {
   onClose: _.noop,
 };
 
-const SelectOptions = PT.arrayOf(
-  PT.shape({
-    label: PT.string.isRequired,
-    value: PT.string.isRequired,
-  }),
-);
-
 FiltersPanel.propTypes = {
   challengeGroupId: PT.string.isRequired,
   communityName: PT.string,
@@ -225,8 +225,8 @@ FiltersPanel.propTypes = {
   onClearFilters: PT.func,
   onFilter: PT.func,
   onSaveFilter: PT.func,
-  validKeywords: SelectOptions.isRequired,
-  validSubtracks: SelectOptions.isRequired,
+  validKeywords: PT.arrayOf(PT.string).isRequired,
+  validSubtracks: PT.arrayOf(PT.string).isRequired,
   onClose: PT.func,
 };
 

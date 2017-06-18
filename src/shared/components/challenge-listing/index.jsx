@@ -33,18 +33,6 @@ import ChallengesSidebar from './Sidebar';
 
 import './style.scss';
 
-/**
- * Helper function for generation of VALID_KEYWORDS and VALID_TRACKS arrays.
- * @param {String} keyword
- * @return {Object} The valid object to include into the array which will be
- *  passed into the ChallengeFilters component.
- */
-function keywordsMapper(keyword) {
-  return {
-    label: keyword,
-    value: keyword,
-  };
-}
 
 // Number of challenge placeholder card to display
 const CHALLENGE_PLACEHOLDER_COUNT = 8;
@@ -129,27 +117,6 @@ class ChallengeFiltersExample extends React.Component {
         });
     }
     */
-  }
-
-  /**
-   * Searches the challenges for with the specified search string, competition
-   * tracks, and filters.
-   *
-   * As TopCoder API v2 does not provide all necessary search & filtering
-   * capabilites, this function fetches all challenges from the requested
-   * tracks, then filters them by searching for 'searchString' in challenge
-   * name, platforms, and techologies, and by filtering them with 'filter'
-   * function, and then sets the remaining challenges into the component state.
-   *
-   * @param {String} searchString The search string.
-   * @param {Function(Challenge)} filter Additional filter function.
-   */
-  onSearch(searchString) {
-    const f = new ChallengeFilterWithSearch();
-    _.merge(f, this.getFilter());
-    f.query = searchString;
-    if (f.query) this.onFilterByTopFilter(f);
-    else this.saveFiltersToHash(this.getFilter());
   }
 
   onFilterByTopFilter(filter, isSidebarFilter) {
@@ -336,7 +303,6 @@ class ChallengeFiltersExample extends React.Component {
       <div styleName="ChallengeFiltersExample">
         <ChallengeFilters
           filter={this.getFilter()}
-
           onFilter={topFilter => this.onFilterByTopFilter(topFilter)}
           onSaveFilter={(filterToSave) => {
             if (this.sidebar) {
@@ -347,12 +313,7 @@ class ChallengeFiltersExample extends React.Component {
           }}
           challengeGroupId={this.props.challengeGroupId}
           communityName={this.props.communityName}
-          searchQuery={this.getSearchQuery()}
-          onSearch={query => this.onSearch(query)}
-          validKeywords={this.props.challengeTags.map(keywordsMapper)}
-          validSubtracks={this.props.challengeSubtracks.map(keywordsMapper)}
           setCardType={_.noop/* cardType => this.setCardType(cardType) */}
-
           isCardTypeSet={'Challenges' /* this.state.currentCardType */}
           ref={(node) => { this.challengeFilters = node; }}
         />
@@ -437,18 +398,13 @@ ChallengeFiltersExample.defaultProps = {
     COMMUNITY_URL: config.COMMUNITY_URL,
   },
   myChallenges: [],
-  // challengeFilters: undefined,
   isAuth: false,
   masterFilterFunc: () => true,
   auth: null,
 };
 
 ChallengeFiltersExample.propTypes = {
-  challenges: PT.arrayOf(PT.shape({
-
-  })).isRequired,
-  challengeSubtracks: PT.arrayOf(PT.string).isRequired,
-  challengeTags: PT.arrayOf(PT.string).isRequired,
+  challenges: PT.arrayOf(PT.shape()).isRequired,
   communityName: PT.string,
   filter: PT.string.isRequired,
   filterState: PT.shape().isRequired,
@@ -466,7 +422,6 @@ ChallengeFiltersExample.propTypes = {
   }),
   challengeGroupId: PT.string,
   myChallenges: PT.arrayOf(PT.shape),
-  // challengeFilters: PT.object,
   isAuth: PT.bool,
   masterFilterFunc: PT.func,
   auth: PT.shape(),
