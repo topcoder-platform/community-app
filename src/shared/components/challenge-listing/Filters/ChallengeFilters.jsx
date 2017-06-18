@@ -1,41 +1,5 @@
-/* eslint jsx-a11y/no-static-element-interactions:0 */
-
 /**
  * Challenge search & filters panel.
- *
- * It consists of the always visible search panel and of the filters pannel,
- * which can be hidden/shown by the dedicated switch in the search panel.
- *
- * Thus the search panel contains:
- *  - Search string input field & search button;
- *  - Data Science / Design / Development switches;
- *  - Filters panel hide/show switch.
- *
- * For the content of filters panel look into docs of the FiltersPanel component.
- *
- * This component accepts two optional callbacks via the 'onFilter' and 'onSearch'
- * properties.
- *
- * When provided, the 'onFilter' callback is triggered each time the user changes
- * any filter. An auxiliary filter function is passed in as the first argument.
- * That function can be passed into the .filter() method of challenge objects
- * array to filter it according to the current set of filters.
- *
- * When provided, the 'onSearch' callback is triggered each time the user presses
- * Enter inside the search input field, or clicks the search button next to that
- * field. The search&filter query string is passed as the first argument into
- * this callback. This query string can be appended to a call to V2 TopCoder API
- * to perform the search. IMPORTANT: As it seems that V2 API is not really compatible
- * with the search and filtering demanded, in the current implementation an empty
- * string is passed into the first argument of this callback, and the next three
- * arguments are used to pass in:
- *  - The search string;
- *  - The set of Data Science / Design / Development switch values,
- *    which is a JS set of DATA_SCIENCE_TRACK, DESIGN_TRACK, and DEVELOP_TRACK
- *    constants;
- *  - The filter function.
- * Using this data we can use existing V2 API to fetch challenges from the
- * Design and Development tracks, and then filter them on the front-end side.
  */
 
 import _ from 'lodash';
@@ -45,7 +9,7 @@ import SwitchWithLabel from 'components/SwitchWithLabel';
 import * as Filter from 'utils/challenge-listing/filter';
 import { COMPETITION_TRACKS as TRACKS } from 'utils/tc';
 
-import ChallengeFilter, { DATA_SCIENCE_TRACK, DESIGN_TRACK, DEVELOP_TRACK } from './ChallengeFilter';
+import ChallengeFilter from './ChallengeFilter';
 import ChallengeSearchBar from './ChallengeSearchBar';
 import EditTrackPanel from './EditTrackPanel';
 import FiltersIcon from './FiltersSwitch/FiltersIcon';
@@ -62,8 +26,6 @@ class ChallengeFilters extends React.Component {
     this.state = {
       filter: props.filter,
       filtersCount: props.filter.count(),
-      showFilters: false,
-      showEditTrackPanel: false,
     };
   }
 
@@ -106,26 +68,6 @@ class ChallengeFilters extends React.Component {
   }
 
   /**
-   * Triggers the 'onSearch' callback provided by the parent component, if any.
-   *
-   * The challenge query string for V2 API is passed into the callback as the
-   * first argument. As V2 API does not really support the intended searching
-   * and filtering, at the moment an empty string is always passed into the
-   * first argument, and all search & filtering data are passed into the next
-   * three arguments:
-   *  - The search string;
-   *  - The set of values of Data Science / Design / Development track switches
-   *    (JS Set of DATA_SCIENCE_TRACK, DESIGN_TRACK, DEVELOP_TRACK constants);
-   *  - The filter function.
-   *
-   * @param {String} searchString
-   */
-  onSearch(searchString) {
-    if (!this.props.onSearch) return;
-    this.props.onSearch(searchString, this.state.filter);
-  }
-
-  /**
    * Sets the keywords filter in the FilterPanel to the specified value.
    * @param {String} keywords A comma-separated list of the keywords.
    */
@@ -133,35 +75,24 @@ class ChallengeFilters extends React.Component {
     if (this.filtersPanel) this.filtersPanel.onKeywordsChanged([keywords]);
   }
 
-  /**
-   * Sets/unsets the specified track in the this.tracks set.
-   * @param {String} community One of DATA_SCIENCE_TRACK, DESIGN_TRACK, DEVELOP_TRACK.
-   * @param {Boolean} set True to include the track into the set, false to remove it.
-   */
-  setTracks(track, set) {
-    const filter = new ChallengeFilter(this.state.filter);
-    if (set) filter.tracks.add(track);
-    else filter.tracks.delete(track);
-    this.props.onFilter(filter);
-    this.setState({ filter });
-  }
-
-  /**
-   * Hide/Show the EditTrackPanel
-   */
-  toggleEditTrackPanel() {
-    this.setState({ showEditTrackPanel: !this.state.showEditTrackPanel });
-  }
-
-  /**
-   * Hide/Show the filters
-   */
-  toggleShowFilters() {
-    this.setState({ showFilters: !this.state.showFilters });
-  }
-
   render() {
-    const { filterState, setFilterState } = this.props;
+    const {
+      expanded,
+      filterState,
+      setExpanded,
+      setFilterState,
+      showTrackModal,
+      trackModalShown,
+    } = this.props;
+
+    const isTrackOn = track =>
+      !filterState.tracks || Boolean(filterState.tracks[track]);
+
+    const switchTrack = (track, on) => {
+      const act = on ? Filter.addTrack : Filter.removeTrack;
+      setFilterState(act(filterState, track));
+    };
+
     return (
       <div styleName="challenge-filters">
         <div styleName="filter-header">
@@ -181,41 +112,23 @@ class ChallengeFilters extends React.Component {
               <span>
                 <span styleName="filter-switch-with-label">
                   <SwitchWithLabel
-                    enabled={
-                      !filterState.tracks
-                      || filterState.tracks[TRACKS.DESIGN]
-                    }
+                    enabled={isTrackOn(TRACKS.DESIGN)}
                     labelBefore="Design"
-                    onSwitch={(on) => {
-                      const act = on ? Filter.addTrack : Filter.removeTrack;
-                      setFilterState(act(filterState, TRACKS.DESIGN));
-                    }}
+                    onSwitch={on => switchTrack(TRACKS.DESIGN, on)}
                   />
                 </span>
                 <span styleName="filter-switch-with-label">
                   <SwitchWithLabel
-                    enabled={
-                      !filterState.tracks
-                      || filterState.tracks[TRACKS.DEVELOP]
-                    }
+                    enabled={isTrackOn(TRACKS.DEVELOP)}
                     labelBefore="Development"
-                    onSwitch={(on) => {
-                      const act = on ? Filter.addTrack : Filter.removeTrack;
-                      setFilterState(act(filterState, TRACKS.DEVELOP));
-                    }}
+                    onSwitch={on => switchTrack(TRACKS.DEVELOP, on)}
                   />
                 </span>
                 <span styleName="filter-switch-with-label">
                   <SwitchWithLabel
-                    enabled={
-                      !filterState.tracks
-                      || filterState.tracks[TRACKS.DATA_SCIENCE]
-                    }
+                    enabled={isTrackOn(TRACKS.DATA_SCIENCE)}
                     labelBefore="Data Science"
-                    onSwitch={(on) => {
-                      const act = on ? Filter.addTrack : Filter.removeTrack;
-                      setFilterState(act(filterState, TRACKS.DATA_SCIENCE));
-                    }}
+                    onSwitch={on => switchTrack(TRACKS.DATA_SCIENCE, on)}
                   />
                 </span>
               </span>
@@ -225,33 +138,45 @@ class ChallengeFilters extends React.Component {
             {
               this.props.isCardTypeSet === 'Challenges' ?
               (
-                <span onClick={() => this.toggleEditTrackPanel()} styleName="track-btn">
+                <span
+                  onClick={() => showTrackModal(true)}
+                  role="button"
+                  styleName="track-btn"
+                  tabIndex={0}
+                >
                   Tracks
                   <span styleName="down-arrow" />
                 </span>
               ) : ''
             }
+            {/* TODO: Two components below are filter switch buttons for
+              * mobile and desktop views. Should be refactored to use the
+              * same component, which automatically changes its style depending
+              * on the viewport size. */}
             <span
-              onClick={() => this.toggleShowFilters()}
+              onClick={() => setExpanded(!expanded)}
+              role="button"
               styleName="filter-btn"
+              tabIndex={0}
             >
               <FiltersIcon color="#737380" styleName="FiltersIcon" />
               Filter
             </span>
             <FiltersSwitch
-              active={this.state.showFilters}
+              active={expanded}
               filtersCount={this.state.filtersCount}
-              onSwitch={active => this.setState({ showFilters: active })}
+              onSwitch={setExpanded}
               styleName="FiltersSwitch"
             />
           </span>
         </div>
+
         <FiltersPanel
           challengeGroupId={this.props.challengeGroupId}
           communityName={this.props.communityName}
-          hidden={!this.state.showFilters}
+          hidden={!expanded}
           filter={this.state.filter}
-          onClose={() => this.setState({ showFilters: false })}
+          onClose={() => setExpanded(false)}
           onClearFilters={() => this.onClearFilters()}
           onFilter={filter => this.onFilter(filter)}
           onSaveFilter={() => this.props.onSaveFilter(this.state.filter)}
@@ -261,14 +186,14 @@ class ChallengeFilters extends React.Component {
         />
 
         <EditTrackPanel
-          opened={this.state.showEditTrackPanel}
-          onClose={() => this.toggleEditTrackPanel()}
-          designEnabled={this.state.filter.tracks.has(DESIGN_TRACK)}
-          switchDesign={enable => this.setTracks(DESIGN_TRACK, enable)}
-          devEnabled={this.state.filter.tracks.has(DEVELOP_TRACK)}
-          switchDev={enable => this.setTracks(DEVELOP_TRACK, enable)}
-          dataScienceEnabled={this.state.filter.tracks.has(DATA_SCIENCE_TRACK)}
-          switchDataScience={enable => this.setTracks(DATA_SCIENCE_TRACK, enable)}
+          opened={trackModalShown}
+          onClose={() => showTrackModal(false)}
+          designEnabled={isTrackOn(TRACKS.DESIGN)}
+          switchDesign={on => switchTrack(TRACKS.DESIGN, on)}
+          devEnabled={isTrackOn(TRACKS.DEVELOP)}
+          switchDev={on => switchTrack(TRACKS.DEVELOP, on)}
+          dataScienceEnabled={isTrackOn(TRACKS.DATA_SCIENCE)}
+          switchDataScience={on => switchTrack(TRACKS.DATA_SCIENCE, on)}
         />
       </div>
     );
@@ -286,23 +211,25 @@ ChallengeFilters.defaultProps = {
   isCardTypeSet: '',
   onFilter: _.noop,
   onSaveFilter: _.noop,
-  onSearch: _.noop,
   setCardType: _.noop,
 };
 
 ChallengeFilters.propTypes = {
   challengeGroupId: PT.string.isRequired,
   communityName: PT.string,
+  expanded: PT.bool.isRequired,
   filter: PT.instanceOf(ChallengeFilter),
   filterState: PT.shape().isRequired,
   isCardTypeSet: PT.string,
   onFilter: PT.func,
-  onSearch: PT.func,
   onSaveFilter: PT.func,
   setCardType: PT.func,
+  setExpanded: PT.func.isRequired,
   setFilterState: PT.func.isRequired,
   searchText: PT.string.isRequired,
   setSearchText: PT.func.isRequired,
+  showTrackModal: PT.func.isRequired,
+  trackModalShown: PT.bool.isRequired,
   validKeywords: PT.arrayOf(TagShape).isRequired,
   validSubtracks: PT.arrayOf(TagShape).isRequired,
 };

@@ -336,7 +336,7 @@ class ChallengeFiltersExample extends React.Component {
       <div styleName="ChallengeFiltersExample">
         <ChallengeFilters
           filter={this.getFilter()}
-          filterState={this.props.filterState}
+
           onFilter={topFilter => this.onFilterByTopFilter(topFilter)}
           onSaveFilter={(filterToSave) => {
             if (this.sidebar) {
@@ -352,7 +352,7 @@ class ChallengeFiltersExample extends React.Component {
           validKeywords={this.props.challengeTags.map(keywordsMapper)}
           validSubtracks={this.props.challengeSubtracks.map(keywordsMapper)}
           setCardType={_.noop/* cardType => this.setCardType(cardType) */}
-          setFilterState={this.props.setFilterState}
+
           isCardTypeSet={'Challenges' /* this.state.currentCardType */}
           ref={(node) => { this.challengeFilters = node; }}
         />
@@ -456,7 +456,6 @@ ChallengeFiltersExample.propTypes = {
   getMarathonMatches: PT.func.isRequired,
   loadingChallenges: PT.bool.isRequired,
   setFilter: PT.func.isRequired,
-  setFilterState: PT.func.isRequired,
 
   /* OLD PROPS BELOW */
   config: PT.shape({
