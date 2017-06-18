@@ -234,7 +234,9 @@ class ChallengeFiltersExample extends React.Component {
           challenge={challenge}
           config={this.props.config}
           onTechTagClicked={(tag) => {
-            if (this.challengeFilters) this.challengeFilters.setKeywords(tag);
+            _.noop(tag);
+            /* TODO: This should be rewired using setFilterState(..) */
+            // if (this.challengeFilters) this.challengeFilters.setKeywords(tag);
           }}
           key={challenge.id}
         />
@@ -261,7 +263,9 @@ class ChallengeFiltersExample extends React.Component {
           auth={this.props.auth}
           config={this.props.config}
           onTechTagClicked={(tag) => {
-            if (this.challengeFilters) this.challengeFilters.setKeywords(tag);
+            _.noop(tag);
+            /* TODO: This should be rewired using setFilterState(..) */
+            // if (this.challengeFilters) this.challengeFilters.setKeywords(tag);
           }}
           challenges={_.uniqBy(challenges, 'id')}
           challengeGroupId={this.props.challengeGroupId}
@@ -302,8 +306,6 @@ class ChallengeFiltersExample extends React.Component {
     return (
       <div styleName="ChallengeFiltersExample">
         <ChallengeFilters
-          filter={this.getFilter()}
-          onFilter={topFilter => this.onFilterByTopFilter(topFilter)}
           onSaveFilter={(filterToSave) => {
             if (this.sidebar) {
               const f = (new SideBarFilter(SideBarFilterModes.CUSTOM)).merge(filterToSave);
@@ -315,7 +317,6 @@ class ChallengeFiltersExample extends React.Component {
           communityName={this.props.communityName}
           setCardType={_.noop/* cardType => this.setCardType(cardType) */}
           isCardTypeSet={'Challenges' /* this.state.currentCardType */}
-          ref={(node) => { this.challengeFilters = node; }}
         />
         <div styleName={`tc-content-wrapper ${/* this.state.currentCardType === 'SRMs' ? '' :*/'hidden'}`}>
           <div styleName="sidebar-container-mobile">

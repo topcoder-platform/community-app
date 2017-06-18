@@ -21,7 +21,7 @@
 import React from 'react';
 import PT from 'prop-types';
 import Switch from 'components/Switch';
-import UiSimpleRemove from '../../Icons/UiSimpleRemove';
+import UiSimpleRemove from '../../Icons/ui-simple-remove.svg';
 import './style.scss';
 
 const EditTrackPanel = props => (

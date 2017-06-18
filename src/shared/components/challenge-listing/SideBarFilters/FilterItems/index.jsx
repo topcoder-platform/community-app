@@ -12,7 +12,7 @@ import PT from 'prop-types';
 import './style.scss';
 
 import ArrowsMoveVertical from '../../Icons/ArrowsMoveVertical';
-import UiSimpleRemove from '../../Icons/UiSimpleRemove';
+import UiSimpleRemove from '../../Icons/ui-simple-remove.svg';
 
 /**
  * A single line in the sidebar in the 'Edit My Filters' mode. It shows the filter

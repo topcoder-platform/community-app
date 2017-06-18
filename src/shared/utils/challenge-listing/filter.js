@@ -45,7 +45,30 @@
  */
 
 import _ from 'lodash';
+import moment from 'moment';
 import { COMPETITION_TRACKS } from 'utils/tc';
+
+/**
+ * Returns true if the challenge matches the end date filter rule.
+ * @param {Object} challenge
+ * @param {Object} state
+ * @return {Boolean}
+ */
+function filterByEndDate(challenge, state) {
+  if (!state.endDate) return true;
+  return moment(state.endDate).isAfter(challenge.createdAt);
+}
+
+/**
+ * Returns true if the challenge matches the start date filter rule.
+ * @param {Object} challenge
+ * @param {Object} state
+ * @return {Boolean}
+ */
+function filterByStartDate(challenge, state) {
+  if (!state.startDate) return true;
+  return moment(state.startDate).isBefore(challenge.submissionEndDate);
+}
 
 /**
  * Returns true if the challenge satisfies the subtracks filtering rule.
@@ -139,7 +162,9 @@ export function getFilterFunction(state) {
   return challenge => filterByTrack(challenge, state)
   && filterByText(challenge, state)
   && filterByTags(challenge, state)
-  && filterBySubtracks(challenge, state);
+  && filterBySubtracks(challenge, state)
+  && filterByEndDate(challenge, state)
+  && filterByStartDate(challenge, state);
 }
 
 /**
@@ -158,6 +183,34 @@ export function removeTrack(state, track) {
     });
   }
   delete res.tracks[track];
+  return res;
+}
+
+/**
+ * Clone the state and sets the end date.
+ * @param {Object} state
+ * @param {String} date
+ * @return {Object}
+ */
+export function setEndDate(state, date) {
+  if (date) return { ...state, endDate: date };
+  if (!state.endDate) return state;
+  const res = _.clone(state);
+  delete res.endDate;
+  return res;
+}
+
+/**
+ * Clones the state and sets the start date.
+ * @param {Object} state
+ * @param {String} date ISO date string.
+ * @return {Object}
+ */
+export function setStartDate(state, date) {
+  if (date) return { ...state, startDate: date };
+  if (!state.startDate) return state;
+  const res = _.clone(state);
+  delete res.startDate;
   return res;
 }
 

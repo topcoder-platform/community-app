@@ -15,18 +15,16 @@
 import React from 'react';
 import PT from 'prop-types';
 
-import FiltersIcon from './FiltersIcon';
+import FiltersIcon from './filters-icon.svg';
 import './style.scss';
 
 export default function FiltersSwitch(props) {
   let className = 'FiltersSwitch';
   if (props.active) className += ' active';
 
-  /* We subtract 1 because filtering by the track is always counted, but we don't
-   * want to account for it in the filters panel switch. */
   let filtersCount;
-  if (props.filtersCount > 1) {
-    filtersCount = <span styleName="filtersCount">{props.filtersCount - 1}</span>;
+  if (props.filtersCount) {
+    filtersCount = <span styleName="filtersCount">{props.filtersCount}</span>;
   }
 
   return (
