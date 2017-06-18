@@ -176,11 +176,13 @@ class ChallengeFilters extends React.Component {
           communityName={this.props.communityName}
           hidden={!expanded}
           filter={this.state.filter}
+          filterState={filterState}
           onClose={() => setExpanded(false)}
           onClearFilters={() => this.onClearFilters()}
           onFilter={filter => this.onFilter(filter)}
           onSaveFilter={() => this.props.onSaveFilter(this.state.filter)}
           ref={(node) => { this.filtersPanel = node; }}
+          setFilterState={setFilterState}
           validKeywords={this.props.validKeywords}
           validSubtracks={this.props.validSubtracks}
         />

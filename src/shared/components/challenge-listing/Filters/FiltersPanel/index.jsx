@@ -20,6 +20,7 @@
  */
 
 import _ from 'lodash';
+import * as Filter from 'utils/challenge-listing/filter';
 import React from 'react';
 import PT from 'prop-types';
 import Select from 'components/Select';
@@ -72,28 +73,6 @@ class FiltersPanel extends React.Component {
   }
 
   /**
-   * Handles updates of the keywords filter.
-   * @param {Array} keywords An array of selected keywords.
-   */
-  onKeywordsChanged(keywords) {
-    const filter = new FilterPanelFilter(this.state.filter);
-    filter.keywords = keywords;
-    this.props.onFilter(filter);
-    this.setState({ filter });
-  }
-
-  /**
-   * Handles updates of the subtracks filter.
-   * @param {Array} subtracks An array of selected subtracks.
-   */
-  onSubtracksChanged(subtracks) {
-    const filter = new FilterPanelFilter(this.state.filter);
-    filter.subtracks = subtracks;
-    this.props.onFilter(filter);
-    this.setState({ filter });
-  }
-
-  /**
    * Triggers the 'onFilter' callback, if it is provided in properties.
    */
   filter() {
@@ -102,6 +81,8 @@ class FiltersPanel extends React.Component {
 
   render() {
     const {
+      filterState,
+      setFilterState,
       validKeywords,
       validSubtracks,
     } = this.props;
@@ -137,10 +118,13 @@ class FiltersPanel extends React.Component {
               <Select
                 id="keyword-select"
                 multi
-                onChange={value => this.onKeywordsChanged(value ? value.split(',') : [])}
+                onChange={(value) => {
+                  const tags = value ? value.split(',') : undefined;
+                  setFilterState(Filter.setTags(filterState, tags));
+                }}
                 options={validKeywords.map(mapOps)}
                 simpleValue
-                value={this.state.filter.keywords.join(',')}
+                value={filterState.tags ? filterState.tags.join(',') : null}
               />
             </div>
             {this.props.challengeGroupId ? (
@@ -169,10 +153,15 @@ class FiltersPanel extends React.Component {
               <Select
                 id="track-select"
                 multi
-                onChange={value => this.onSubtracksChanged(value ? value.split(',') : [])}
+                onChange={(value) => {
+                  const subtracks = value ? value.split(',') : undefined;
+                  setFilterState(Filter.setSubtracks(filterState, subtracks));
+                }}
                 options={validSubtracks.map(mapOps)}
                 simpleValue
-                value={this.state.filter.subtracks.join(',')}
+                value={
+                  filterState.subtracks ? filterState.subtracks.join(',') : null
+                }
               />
             </div>
             <div styleName="filter dates">
@@ -221,10 +210,12 @@ FiltersPanel.propTypes = {
   challengeGroupId: PT.string.isRequired,
   communityName: PT.string,
   filter: PT.instanceOf(FilterPanelFilter),
+  filterState: PT.shape().isRequired,
   hidden: PT.bool,
   onClearFilters: PT.func,
   onFilter: PT.func,
   onSaveFilter: PT.func,
+  setFilterState: PT.func.isRequired,
   validKeywords: PT.arrayOf(PT.string).isRequired,
   validSubtracks: PT.arrayOf(PT.string).isRequired,
   onClose: PT.func,

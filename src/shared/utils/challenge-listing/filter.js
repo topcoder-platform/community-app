@@ -27,8 +27,11 @@
  * status {Object} - Permits only the challenges with status matching one of
  * the keys of this object.
  *
- * subtracks {Object} - Permits only the challenges belonging to at least one
+ * subtracks {Array} - Permits only the challenges belonging to at least one
  * of the competition subtracks presented as keys of this object.
+ *
+ * tags {Array} - Permits only the challenges that have at least one of the
+ * tags within their platform and technology tags (keywords).
  *
  * text {String} - Free-text string which will be matched against challenge
  * name, its platform and technology tags. If not found anywhere, the challenge
@@ -45,6 +48,38 @@ import _ from 'lodash';
 import { COMPETITION_TRACKS } from 'utils/tc';
 
 /**
+ * Returns true if the challenge satisfies the subtracks filtering rule.
+ * @param {Object} challenge
+ * @param {Object} state
+ * @return {Boolean}
+ */
+function filterBySubtracks(challenge, state) {
+  if (!state.subtracks) return true;
+
+  /* TODO: Although this is takend from the current code in prod,
+   * it probably does not work in all cases. It should be double-checked,
+   * why challenge subtracks in challenge objects are different from those
+   * return from the API as the list of possible subtracks. */
+  const filterSubtracks = state.subtracks.map(item =>
+    item.toLowerCase().replace(/ /g, ''));
+  const challengeSubtrack = challenge.subTrack.toLowerCase().replace(/_/g, '');
+  return filterSubtracks.includes(challengeSubtrack);
+}
+
+/**
+ * Returns true if the challenge satisfies the tags filtering rule.
+ * @param {Object} challenge
+ * @param {Object} state
+ * @return {Boolean}
+ */
+function filterByTags(challenge, state) {
+  if (!state.tags) return true;
+  const str = `${challenge.name} ${challenge.platforms} ${
+    challenge.technologies}`.toLowerCase();
+  return state.tags.some(tag => str.includes(tag.toLowerCase()));
+}
+
+/**
  * Returns true if the challenge satisfies the free-text filtering condition set
  * in the provided filter state.
  * @param {Object} challenge
@@ -56,7 +91,7 @@ function filterByText(challenge, state) {
   const str =
     `${challenge.name} ${challenge.platforms} ${challenge.technologies}`
     .toLowerCase();
-  return str.indexOf(state.text.toLowerCase()) >= 0;
+  return str.includes(state.text.toLowerCase());
 }
 
 /**
@@ -102,7 +137,9 @@ export function addTrack(state, track) {
  */
 export function getFilterFunction(state) {
   return challenge => filterByTrack(challenge, state)
-  && filterByText(challenge, state);
+  && filterByText(challenge, state)
+  && filterByTags(challenge, state)
+  && filterBySubtracks(challenge, state);
 }
 
 /**
@@ -121,6 +158,34 @@ export function removeTrack(state, track) {
     });
   }
   delete res.tracks[track];
+  return res;
+}
+
+/**
+ * Clones the state and sets the subtracks.
+ * @param {Object} state
+ * @param {Array} subtracks
+ * @return {Object}
+ */
+export function setSubtracks(state, subtracks) {
+  if (subtracks && subtracks.length) return { ...state, subtracks };
+  if (!state.subtracks) return state;
+  const res = _.clone(state);
+  delete res.subtracks;
+  return res;
+}
+
+/**
+ * Clones the state and sets the tags.
+ * @param {Object} state
+ * @param {Array} tags String array.
+ * @return {Object}
+ */
+export function setTags(state, tags) {
+  if (tags && tags.length) return { ...state, tags };
+  if (!state.tags) return state;
+  const res = _.clone(state);
+  delete res.tags;
   return res;
 }
 

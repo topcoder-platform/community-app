@@ -4,6 +4,7 @@ import PT from 'prop-types';
 import ReactSelect from 'react-select';
 import 'react-select/dist/react-select.css';
 
+/* TODO: Do we really need the instanceId? */
 export default function Select(props) {
   return (
     <ReactSelect {...props} instanceId={props.id} />
