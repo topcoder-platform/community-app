@@ -44,6 +44,28 @@
 import _ from 'lodash';
 import { COMPETITION_TRACKS } from 'utils/tc';
 
+/**
+ * Returns true if the challenge satisfies the free-text filtering condition set
+ * in the provided filter state.
+ * @param {Object} challenge
+ * @param {Object} state
+ * @return {Boolean}
+ */
+function filterByText(challenge, state) {
+  if (!state.text) return true;
+  const str =
+    `${challenge.name} ${challenge.platforms} ${challenge.technologies}`
+    .toLowerCase();
+  return str.indexOf(state.text.toLowerCase()) >= 0;
+}
+
+/**
+ * Returns true if the challenge satisfies the track filtering condition set in
+ * the provided filter state.
+ * @param {Object} challenge
+ * @param {Object} state
+ * @return {Boolean}
+ */
 function filterByTrack(challenge, state) {
   if (!state.tracks) return true;
   return _.keys(state.tracks).some(track => challenge.communities.has(track));
@@ -79,7 +101,8 @@ export function addTrack(state, track) {
  * @return {Function}
  */
 export function getFilterFunction(state) {
-  return item => filterByTrack(item, state);
+  return challenge => filterByTrack(challenge, state)
+  && filterByText(challenge, state);
 }
 
 /**
@@ -98,6 +121,22 @@ export function removeTrack(state, track) {
     });
   }
   delete res.tracks[track];
+  return res;
+}
+
+/**
+ * Clones fitler state and sets the free-text string for the filtering by
+ * challenge name and tags. To clear the string set it to anything evaluating
+ * to falst (empty string, null, undefined).
+ * @param {Object} state
+ * @param {String} text
+ * @return {Object} Resulting string.
+ */
+export function setText(state, text) {
+  if (!text && !state.text) return state;
+  const res = _.clone(state);
+  if (text) res.text = text;
+  else delete res.text;
   return res;
 }
 

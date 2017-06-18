@@ -353,6 +353,8 @@ class ChallengeFiltersExample extends React.Component {
           validSubtracks={this.props.challengeSubtracks.map(keywordsMapper)}
           setCardType={_.noop/* cardType => this.setCardType(cardType) */}
           setFilterState={this.props.setFilterState}
+          searchText={this.props.searchText}
+          setSearchText={this.props.setSearchText}
           isCardTypeSet={'Challenges' /* this.state.currentCardType */}
           ref={(node) => { this.challengeFilters = node; }}
         />
@@ -457,6 +459,8 @@ ChallengeFiltersExample.propTypes = {
   loadingChallenges: PT.bool.isRequired,
   setFilter: PT.func.isRequired,
   setFilterState: PT.func.isRequired,
+  searchText: PT.string.isRequired,
+  setSearchText: PT.func.isRequired,
 
   /* OLD PROPS BELOW */
   config: PT.shape({

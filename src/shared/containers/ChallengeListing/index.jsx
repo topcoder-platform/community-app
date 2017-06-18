@@ -175,6 +175,8 @@ class ChallengeListingPageContainer extends React.Component {
             }
           }}
           setFilterState={this.props.setFilterState}
+          searchText={this.props.challengeListing.searchText}
+          setSearchText={this.props.setSearchText}
 
           /* OLD PROPS BELOW */
           challengeGroupId={challengeGroupId}
@@ -209,6 +211,7 @@ ChallengeListingPageContainer.propTypes = {
     filter: PT.string.isRequired,
     filterState: PT.shape.isRequired,
     pendingRequests: PT.shape({}).isRequired,
+    searchText: PT.string.isRequired,
   }).isRequired,
   communityName: PT.string,
   getAllChallenges: PT.func.isRequired,
@@ -220,6 +223,7 @@ ChallengeListingPageContainer.propTypes = {
   markHeaderMenu: PT.func.isRequired,
   setFilter: PT.func.isRequired,
   setFilterState: PT.func.isRequired,
+  setSearchText: PT.func.isRequired,
 
   /* OLD PROPS BELOW */
   listingOnly: PT.bool,
@@ -325,6 +329,7 @@ function mapDispatchToProps(dispatch) {
     setFilterState: state => dispatch(a.setFilterState(state)),
     markHeaderMenu: () =>
       dispatch(ah.setCurrentNav('Compete', 'All Challenges')),
+    setSearchText: text => dispatch(a.setSearchText(text)),
   };
 }
 

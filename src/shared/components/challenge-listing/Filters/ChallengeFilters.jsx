@@ -65,12 +65,6 @@ class ChallengeFilters extends React.Component {
       showFilters: false,
       showEditTrackPanel: false,
     };
-    this.searchBarProps = {
-      placeholder: 'Search Challenges',
-    };
-    if (props.searchQuery) {
-      this.searchBarProps.query = props.searchQuery;
-    }
   }
 
   componentWillReceiveProps(nextProps) {
@@ -176,8 +170,10 @@ class ChallengeFilters extends React.Component {
             setCardType={this.props.setCardType}
           />
           <ChallengeSearchBar
-            onSearch={str => this.onSearch(str)}
-            {...this.searchBarProps}
+            onSearch={text => setFilterState(Filter.setText(filterState, text))}
+            placeholder="Search Challenges"
+            query={this.props.searchText}
+            setQuery={this.props.setSearchText}
           />
           {
             this.props.isCardTypeSet === 'Challenges' ?
@@ -288,7 +284,6 @@ ChallengeFilters.defaultProps = {
   communityName: null,
   filter: new ChallengeFilter(),
   isCardTypeSet: '',
-  searchQuery: '',
   onFilter: _.noop,
   onSaveFilter: _.noop,
   onSearch: _.noop,
@@ -301,12 +296,13 @@ ChallengeFilters.propTypes = {
   filter: PT.instanceOf(ChallengeFilter),
   filterState: PT.shape().isRequired,
   isCardTypeSet: PT.string,
-  searchQuery: PT.string,
   onFilter: PT.func,
   onSearch: PT.func,
   onSaveFilter: PT.func,
   setCardType: PT.func,
   setFilterState: PT.func.isRequired,
+  searchText: PT.string.isRequired,
+  setSearchText: PT.func.isRequired,
   validKeywords: PT.arrayOf(TagShape).isRequired,
   validSubtracks: PT.arrayOf(TagShape).isRequired,
 };

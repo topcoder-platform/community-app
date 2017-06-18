@@ -296,6 +296,9 @@ function create(initialState) {
     [a.setFilterState]: (state, { payload }) => ({
       ...state, filterState: payload,
     }),
+    [a.setSearchText]: (state, { payload }) => ({
+      ...state, searchText: payload,
+    }),
   }, _.defaults(_.clone(initialState) || {}, {
     challenges: [],
     challengeSubtracks: [],
@@ -305,6 +308,7 @@ function create(initialState) {
     filterState: {},
     oldestData: Date.now(),
     pendingRequests: {},
+    searchText: '',
   }));
 }
 
