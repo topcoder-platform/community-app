@@ -20,9 +20,15 @@
  */
 
 import _ from 'lodash';
+import * as Filter from 'utils/challenge-listing/filter';
+import config from 'utils/config';
 import uuid from 'uuid/v4';
 import React from 'react';
 import PT from 'prop-types';
+import { BUCKETS } from 'utils/challenge-listing/buckets';
+
+import Bucket from './Bucket';
+import Footer from './Footer';
 import EditMyFilters, { SAVE_FILTERS_API } from './EditMyFilters';
 import SideBarFilter, { MODE } from './SideBarFilter';
 import { FilterItem } from './FilterItems';
@@ -251,7 +257,6 @@ class SideBarFilters extends React.Component {
    * Renders the component in the Edit My Filters mode.
    */
   editMyFiltersMode() {
-    const domain = SideBarFilters.domainFromUrl(this.props.config.MAIN_URL);
     return (
       <div styleName="SideBarFilters">
         <div styleName="FilterBox">
@@ -268,16 +273,7 @@ class SideBarFilters extends React.Component {
             }}
           />
         </div>
-        <div styleName="sidebar-footer">
-          <ul>
-            <li><a href={`https://www.${domain}/about`}>About</a>&nbsp;•&nbsp;</li>
-            <li><a href={`https://help.${domain}/hc/en-us/articles/219069687-Contact-Support`}>Contact</a>&nbsp;•&nbsp;</li>
-            <li><a href={`https://help.${domain}`}>Help</a>&nbsp;•&nbsp;</li>
-            <li><a href={`https://www.${domain}/community/how-it-works/privacy-policy/`}>Privacy</a>&nbsp;•&nbsp;</li>
-            <li><a href={`https://www.${domain}/community/how-it-works/terms/`}>Terms</a></li>
-          </ul>
-          <p styleName="copyright">Topcoder © 2017.</p>
-        </div>
+        <Footer />
       </div>
     );
   }
@@ -351,30 +347,50 @@ class SideBarFilters extends React.Component {
   selectFilterMode() {
     if (this.state.filters[FILTER_ID.ALL_CHALLENGES].count === 0) return null;
 
-    const filters = this.state.filters.map((filter, index) => (
+    const {
+      activeBucket,
+      buckets,
+      isAuth,
+      selectBucket,
+    } = this.props;
+
+    const filter = Filter.getFilterFunction(this.props.filterState);
+    const challenges = this.props.challenges.filter(filter);
+
+    const getBucket = bucket => (
+      <Bucket
+        active={activeBucket === bucket}
+        bucket={buckets[bucket]}
+        challenges={challenges}
+        onClick={() => selectBucket(bucket)}
+      />
+    );
+
+    const filters = this.state.filters.map((filter_, index) => (
       <FilterItem
-        count={filter.count}
-        highlighted={filter === this.state.currentFilter}
+        count={filter_.count}
+        highlighted={filter_ === this.state.currentFilter}
         myFilter={index >= FILTER_ID.FIRST_USER_DEFINED}
-        key={`${filter.name}-filter`}
-        name={filter.name}
+        key={`${filter_.name}-filter`}
+        name={filter_.name}
         onClick={() => this.selectFilter(index)}
       />
     ));
     const myFilters = filters.slice(FILTER_ID.FIRST_USER_DEFINED);
-    const domain = SideBarFilters.domainFromUrl(this.props.config.MAIN_URL);
     return (
       <div styleName="SideBarFilters">
         <div styleName="FilterBox">
-          {filters[FILTER_ID.ALL_CHALLENGES]}
-
-          {this.props.isAuth ? <span> {filters[FILTER_ID.MY_CHALLENGES]}</span> : ''}
-          {filters[FILTER_ID.OPEN_FOR_REGISTRATION]}
-          {filters[FILTER_ID.ONGOING_CHALLENGES]}
-          {filters[FILTER_ID.OPEN_FOR_REVIEW]}
-          {filters[FILTER_ID.UPCOMING_CHALLENGES]}
+          {getBucket(BUCKETS.ALL)}
+          {isAuth ? getBucket(BUCKETS.MY) : null}
+          {getBucket(BUCKETS.OPEN_FOR_REGISTRATION)}
+          {getBucket(BUCKETS.ONGOING)}
           <hr />
-          {filters[FILTER_ID.PAST_CHALLENGES]}
+          <a
+            href={`${config.URL.BASE}/review/development-review-opportunities/`}
+            styleName="openForReview"
+          >Open for review</a>
+          {getBucket(BUCKETS.PAST)}
+          {getBucket(BUCKETS.UPCOMING)}
           {
             myFilters.length ?
               <div>
@@ -398,16 +414,7 @@ class SideBarFilters extends React.Component {
             <a href={RSS_LINK}>Get the RSS feed</a>
           </div>
         </div>
-        <div styleName="sidebar-footer">
-          <ul>
-            <li><a href={`https://www.${domain}/about`}>About</a>&nbsp;•&nbsp;</li>
-            <li><a href={`https://help.${domain}/hc/en-us/articles/219069687-Contact-Support`}>Contact</a>&nbsp;•&nbsp;</li>
-            <li><a href={`https://help.${domain}`}>Help</a>&nbsp;•&nbsp;</li>
-            <li><a href={`https://www.${domain}/community/how-it-works/privacy-policy/`}>Privacy</a>&nbsp;•&nbsp;</li>
-            <li><a href={`https://www.${domain}/community/how-it-works/terms/`}>Terms</a></li>
-          </ul>
-          <p styleName="copyright">Topcoder © 2017</p>
-        </div>
+        <Footer />
       </div>
     );
   }
@@ -464,10 +471,13 @@ SideBarFilters.defaultProps = {
 };
 
 SideBarFilters.propTypes = {
+  activeBucket: PT.string.isRequired,
+  buckets: PT.shape().isRequired,
   challenges: PT.arrayOf(PT.shape({
     registrationOpen: PT.string.isRequired,
   })).isRequired,
   filter: PT.instanceOf(SideBarFilter),
+  filterState: PT.shape().isRequired,
   challengeGroupId: PT.string,
   onFilter: PT.func,
   isAuth: PT.bool,
@@ -477,6 +487,7 @@ SideBarFilters.propTypes = {
   auth: PT.shape({
     tokenV2: PT.string,
   }),
+  selectBucket: PT.func.isRequired,
 };
 
 export default SideBarFilters;

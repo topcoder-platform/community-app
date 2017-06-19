@@ -4,10 +4,9 @@
  */
 
 import React from 'react';
+import Footer from '../../SideBarFilters/Footer';
 import { MODE } from '../../SideBarFilters/SideBarFilter';
 import './style.scss';
-
-const domain = '';
 
 const SidebarFilterPlaceholder = () => (
   <div styleName="SideBarFilters placeholder">
@@ -33,16 +32,7 @@ const SidebarFilterPlaceholder = () => (
         <a href={'RSS_LINK'}>Get the RSS feed</a>
       </div>
     </div>
-    <div styleName="sidebar-footer">
-      <ul>
-        <li><a href={`https://www.${domain}/about`}>About</a>&nbsp;•&nbsp;</li>
-        <li><a href={`https://help.${domain}/hc/en-us/articles/219069687-Contact-Support`}>Contact</a>&nbsp;•&nbsp;</li>
-        <li><a href={`https://help.${domain}`}>Help</a>&nbsp;•&nbsp;</li>
-        <li><a href={`https://www.${domain}/community/how-it-works/privacy-policy/`}>Privacy</a>&nbsp;•&nbsp;</li>
-        <li><a href={`https://www.${domain}/community/how-it-works/terms/`}>Terms</a></li>
-      </ul>
-      <p styleName="copyright">Topcoder © 2017</p>
-    </div>
+    <Footer />
   </div>
 );
 

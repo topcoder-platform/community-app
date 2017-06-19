@@ -18,13 +18,13 @@
  * groupIds {Object} - Permits only the challenges belonging to at least one
  * of the groups which IDs are presented as keys in this object.
  *
- * registrationEnd {Number|String} - Permits only the challenges with
- * registration deadline before this date.
+ * registrationOpen {Boolean} - Permits only the challenges with open or closed
+ * registration.
  *
  * startDate {Number|String} - Permits only those challenges started after this
  * date.
  *
- * status {Object} - Permits only the challenges with status matching one of
+ * status {Array} - Permits only the challenges with status matching one of
  * the keys of this object.
  *
  * subtracks {Array} - Permits only the challenges belonging to at least one
@@ -40,8 +40,8 @@
  * tracks {Object} - Permits only the challenges belonging to at least one of
  * the competition tracks presented as keys of this object.
  *
- * userIds {Object} - Permits only the challenges where the specified users are
- * participating.
+ * users {Array} - Permits only the challenges where the specified (by handles)
+ * users are participating.
  */
 
 import _ from 'lodash';
@@ -49,37 +49,51 @@ import moment from 'moment';
 import { COMPETITION_TRACKS } from 'utils/tc';
 
 /**
- * Returns true if the challenge matches the end date filter rule.
- * @param {Object} challenge
- * @param {Object} state
- * @return {Boolean}
+ * Here are many similiar filerBy..(challenge, state) functions. Each of them
+ * checks whether the given challenge fulfills the corresponding filtering rule
+ * from the filter state object, and returns true or false depending on it.
  */
+
 function filterByEndDate(challenge, state) {
   if (!state.endDate) return true;
   return moment(state.endDate).isAfter(challenge.createdAt);
 }
 
-/**
- * Returns true if the challenge matches the start date filter rule.
- * @param {Object} challenge
- * @param {Object} state
- * @return {Boolean}
- */
+function filterByRegistrationOpen(challenge, state) {
+  if (_.isUndefined(state.registrationOpen)) return true;
+  const isRegOpen = () => {
+    if (challenge.subTrack === 'MARATHON_MATCH') {
+      return challenge.status !== 'PAST';
+    }
+    const registrationPhase = challenge.allPhases.find(item =>
+      item.phaseType === 'Registration');
+    if (!registrationPhase || !registrationPhase.phaseStatus === 'Open') {
+      return false;
+    }
+    if (challenge.track === 'DESIGN') {
+      const checkpointPhase = challenge.allPhases.find(item =>
+        item.phaseType === 'Checkpoint Submission');
+      return !checkpointPhase || checkpointPhase.phaseStatus !== 'Closed';
+    }
+    return true;
+  };
+  return isRegOpen() === state.registrationOpen;
+}
+
 function filterByStartDate(challenge, state) {
   if (!state.startDate) return true;
   return moment(state.startDate).isBefore(challenge.submissionEndDate);
 }
 
-/**
- * Returns true if the challenge satisfies the subtracks filtering rule.
- * @param {Object} challenge
- * @param {Object} state
- * @return {Boolean}
- */
+function filterByStatus(challenge, state) {
+  if (!state.status) return true;
+  return state.status.includes(challenge.status);
+}
+
 function filterBySubtracks(challenge, state) {
   if (!state.subtracks) return true;
 
-  /* TODO: Although this is takend from the current code in prod,
+  /* TODO: Although this is taken from the current code in prod,
    * it probably does not work in all cases. It should be double-checked,
    * why challenge subtracks in challenge objects are different from those
    * return from the API as the list of possible subtracks. */
@@ -89,12 +103,6 @@ function filterBySubtracks(challenge, state) {
   return filterSubtracks.includes(challengeSubtrack);
 }
 
-/**
- * Returns true if the challenge satisfies the tags filtering rule.
- * @param {Object} challenge
- * @param {Object} state
- * @return {Boolean}
- */
 function filterByTags(challenge, state) {
   if (!state.tags) return true;
   const str = `${challenge.name} ${challenge.platforms} ${
@@ -102,13 +110,6 @@ function filterByTags(challenge, state) {
   return state.tags.some(tag => str.includes(tag.toLowerCase()));
 }
 
-/**
- * Returns true if the challenge satisfies the free-text filtering condition set
- * in the provided filter state.
- * @param {Object} challenge
- * @param {Object} state
- * @return {Boolean}
- */
 function filterByText(challenge, state) {
   if (!state.text) return true;
   const str =
@@ -117,16 +118,14 @@ function filterByText(challenge, state) {
   return str.includes(state.text.toLowerCase());
 }
 
-/**
- * Returns true if the challenge satisfies the track filtering condition set in
- * the provided filter state.
- * @param {Object} challenge
- * @param {Object} state
- * @return {Boolean}
- */
 function filterByTrack(challenge, state) {
   if (!state.tracks) return true;
   return _.keys(state.tracks).some(track => challenge.communities.has(track));
+}
+
+function filterByUsers(challenge, state) {
+  if (!state.users) return true;
+  return state.users.find(user => challenge.users[user]);
 }
 
 /**
@@ -159,12 +158,15 @@ export function addTrack(state, track) {
  * @return {Function}
  */
 export function getFilterFunction(state) {
-  return challenge => filterByTrack(challenge, state)
+  return challenge => filterByStatus(challenge, state)
+  && filterByTrack(challenge, state)
   && filterByText(challenge, state)
   && filterByTags(challenge, state)
   && filterBySubtracks(challenge, state)
+  && filterByUsers(challenge, state)
   && filterByEndDate(challenge, state)
-  && filterByStartDate(challenge, state);
+  && filterByStartDate(challenge, state)
+  && filterByRegistrationOpen(challenge, state);
 }
 
 /**

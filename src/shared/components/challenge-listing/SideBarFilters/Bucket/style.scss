@@ -1,0 +1,30 @@
+@import "~styles/tc-styles";
+
+.active {
+  background: $tc-gray-10;
+  cursor: default;
+  font-weight: 600;
+
+  @include xs {
+    background: $tc-white;
+  }
+}
+
+.bucket {
+  color: $tc-black;
+  border-radius: 2 * $corner-radius;
+  cursor: pointer;
+  padding: 0 2 * $base-unit 0 3 * $base-unit;
+
+  @include xs {
+    font-size: 15px;
+    padding: 2px 0;
+  }
+}
+
+.right {
+  color: $tc-gray-50;
+  float: right;
+  position: static;
+  font-weight: 700;
+}

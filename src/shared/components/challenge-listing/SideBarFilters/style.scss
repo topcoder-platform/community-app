@@ -69,45 +69,17 @@
       }
     }
   }
-  // sidebar footer
-  .sidebar-footer {
-    padding: 10px;
 
-    @include xs-to-sm {
-      display: none;
-    }
+  .openForReview {
+    color: $tc-black;
+    border-radius: 2 * $corner-radius;
+    cursor: pointer;
+    display: block;
+    padding: 0 2 * $base-unit 0 3 * $base-unit;
 
-    ul {
-      display: inline-block;
-    }
-
-    li {
-      display: inline-block;
-      font-weight: 400;
-      font-size: 13px;
-      color: $tc-gray-70;
-      line-height: 30px;
-    }
-
-    li a {
-      font-weight: 400;
-      font-size: 13px;
-      color: $tc-gray-70;
-      display: inline-block;
-
-      &:hover {
-        text-decoration: underline;
-      }
-    }
-
-    .copyright {
-      display: inline-block;
-      position: absolute;
-      right: 0;
-      font-weight: 500;
-      font-size: 13px;
-      color: $tc-gray-30;
-      line-height: 30px;
+    @include xs {
+      font-size: 15px;
+      padding: 2px 0;
     }
   }
 }

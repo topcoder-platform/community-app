@@ -38,7 +38,9 @@ import SideBarFilter from
 import { handleActions } from 'redux-actions';
 import { COMPETITION_TRACKS } from 'utils/tc';
 import { combine } from 'utils/redux';
+
 import filterPanel from './challenge-listing/filter-panel';
+import sidebar from './challenge-listing/sidebar';
 
 /**
  * Normalizes a regular challenge object received from the backend.
@@ -322,8 +324,8 @@ function create(initialState) {
 export function factory() {
   /* Server-side rendering is not implemented yet.
     Let's first ensure it all works fine without it. */
-  return Promise.resolve(combine(create(), { filterPanel }));
+  return Promise.resolve(combine(create(), { filterPanel, sidebar }));
 }
 
 /* Default reducer with empty initial state. */
-export default combine(create(), { filterPanel });
+export default combine(create(), { filterPanel, sidebar });

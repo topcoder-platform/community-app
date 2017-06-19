@@ -20,10 +20,11 @@ import PT from 'prop-types';
 import config from 'utils/config';
 import Sticky from 'react-stickynode';
 import * as Filter from 'utils/challenge-listing/filter';
+import SideBarFilters from 'containers/challenge-listing/Sidebar';
 import ChallengeFilterWithSearch from './Filters/ChallengeFilterWithSearch';
 
 import SideBarFilter, { MODE as SideBarFilterModes } from './SideBarFilters/SideBarFilter';
-import SideBarFilters from './SideBarFilters';
+
 import ChallengeCard from './ChallengeCard';
 import ChallengeCardContainer from './ChallengeCardContainer';
 import ChallengeCardPlaceholder from './placeholders/ChallengeCardPlaceholder';
