@@ -1,7 +1,3 @@
-/* global
-  sessionStorage, Math
-*/
-
 /**
  *  This component is responsible for displaying and handling the container
  *  interaction of challenges with respect to their filter categories.
@@ -25,12 +21,15 @@
  */
 
 import _ from 'lodash';
-import React, { Component } from 'react';
+import React from 'react';
 import PT from 'prop-types';
-import { normalizeChallenge, normalizeMarathonMatch } from 'reducers/challenge-listing';
-import SortingSelectBar from 'components/SortingSelectBar';
-import InfiniteList from '../InfiniteList';
+// import { normalizeChallenge, normalizeMarathonMatch } from 'reducers/challenge-listing';
+// import SortingSelectBar from 'components/SortingSelectBar';
+import { BUCKETS, getBuckets } from 'utils/challenge-listing/buckets';
+import Bucket from './Bucket';
+// import InfiniteList from '../InfiniteList';
 import defaultFilters from './challengeFilters';
+/*
 import defaultSortingFunctionStore from './sortingFunctionStore';
 import {
   getChallengeCardPlaceholder,
@@ -47,13 +46,37 @@ import {
   filterFilterChallengesStore,
   isChallengeCategoryExpandable,
 } from './generalHelpers';
-import style from './style.scss';
+*/
+import './style.scss';
 
+export default function ChallengeCardContainer({ auth, challenges }) {
+  const buckets = getBuckets(_.get(auth.user, 'handle'));
+
+  const getBucket = bucket => (
+    <Bucket
+      bucket={buckets[bucket]}
+      challenges={challenges}
+    />
+  );
+
+  return (
+    <div styleName="challengeCardContainer">
+      {auth.user ? getBucket(BUCKETS.MY) : null}
+      {getBucket(BUCKETS.OPEN_FOR_REGISTRATION)}
+      {getBucket(BUCKETS.ONGOING)}
+      {getBucket(BUCKETS.PAST)}
+    </div>
+  );
+}
+
+/*
 const initialNumberToShow = 10;
 const batchLoadNumber = 50;
 const challengeUniqueIdentifier = 'id';
+*/
 
-class ChallengeCardContainer extends Component {
+// class ChallengeCardContainer extends Component {
+  /*
   constructor(props) {
     super(props);
     const { challenges, filters, currentFilterName, expanded } = props;
@@ -82,6 +105,7 @@ class ChallengeCardContainer extends Component {
    * can call setState from the constructor to here. Also we added some logic to make sure we
    * load data only once.
    */
+  /*
   componentDidMount() {
     if (!this.state.isLoading && !this.state.isLoaded) {
       // eslint-disable-next-line react/no-did-mount-set-state
@@ -127,15 +151,27 @@ class ChallengeCardContainer extends Component {
   }
 
   render() {
-    const { additionalFilter, filters } = this.props;
-    const {
-      currentFilter,
-      expanded,
-      filterSortingStore,
-      sortingFunctionStore,
-      filterTotalCountStore,
-    } = this.state;
+    const { auth, challenges } = this.props;
 
+    const buckets = getBuckets(_.get(auth.user, 'handle'));
+
+    const getBucket = bucket => (
+      <Bucket
+        bucket={buckets[bucket]}
+        challenges={challenges}
+      />
+    );
+
+    return (
+      <div styleName="challengeCardContainer">
+        {auth.user ? getBucket(BUCKETS.MY) : null}
+        {getBucket(BUCKETS.OPEN_FOR_REGISTRATION)}
+        {getBucket(BUCKETS.ONGOING)}
+        {getBucket(BUCKETS.PAST)}
+      </div>
+    );
+
+    /*
     const filterChallengesStore = filterFilterChallengesStore(
       this.state.filterChallengesStore,
       currentFilter,
@@ -241,21 +277,18 @@ class ChallengeCardContainer extends Component {
         }
       </div>
     );
-  }
-}
+    */
+  // }
+// }
 
 ChallengeCardContainer.defaultProps = {
   challengeGroupId: '',
   onTechTagClicked: _.noop,
   onExpandFilterResult: _.noop,
   filters: defaultFilters,
-  additionalFilter() {
-    return true;
-  },
   currentFilterName: '',
   challenges: [],
   expanded: false,
-  config: {},
 };
 
 ChallengeCardContainer.propTypes = {
@@ -265,12 +298,14 @@ ChallengeCardContainer.propTypes = {
       handle: PT.string,
     }),
   }).isRequired,
-  challengeGroupId: PT.string,
-  onTechTagClicked: PT.func,
-  onExpandFilterResult: PT.func,
-  additionalFilter: PT.func,
+  // challengeGroupId: PT.string,
+  // onTechTagClicked: PT.func,
+  // onExpandFilterResult: PT.func,
+  // additionalFilter: PT.func,
   challenges: PT.arrayOf(PT.shape()),
+  /*
   currentFilterName: PT.string,
+
   filters: PT.arrayOf(PT.shape({
     check: PT.func,
     name: PT.string,
@@ -279,10 +314,10 @@ ChallengeCardContainer.propTypes = {
     allIncluded: PT.bool,
     info: PT.shape(),
   })),
-  expanded: PT.oneOfType([PT.bool, PT.string]),
-  getChallenges: PT.func.isRequired,
-  getMarathonMatches: PT.func.isRequired,
-  config: PT.shape(),
+  */
+  // expanded: PT.oneOfType([PT.bool, PT.string]),
+  // getChallenges: PT.func.isRequired,
+  // getMarathonMatches: PT.func.isRequired,
 };
 
-export default ChallengeCardContainer;
+// export default ChallengeCardContainer;

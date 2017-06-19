@@ -1,5 +1,5 @@
 /* global
-  Math, window, Promise
+  Math, Promise
 */
 
 /* eslint react/no-unused-prop-types: 0 */  // this rule not working properly here
@@ -22,7 +22,7 @@
 import _ from 'lodash';
 import React, { Component } from 'react';
 import PT from 'prop-types';
-import Waypoint from 'react-waypoint';
+// import Waypoint from 'react-waypoint';
 import moment from 'moment';
 
 import {
@@ -33,7 +33,7 @@ import {
 } from './generalHelpers';
 
 const assignedIdKey = 'assignedId';
-const loadpointBottomOffset = -150;
+// const loadpointBottomOffset = -150;
 const initialPageIndex = -1;
 
 class InfiniteList extends Component {
@@ -194,12 +194,15 @@ class InfiniteList extends Component {
       <div>
         {cachedItemElements}
         {templates}
+        {/*
         <Waypoint
           onEnter={() => this.onScrollToLoadPoint()}
           scrollableAncestor={window}
           bottomOffset={loadpointBottomOffset}
           key={Math.random()}
         />
+        */
+        }
       </div>
     );
   }

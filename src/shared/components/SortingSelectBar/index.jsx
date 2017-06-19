@@ -24,7 +24,7 @@ class SortingSelectBar extends Component {
   }
 
   render() {
-    const { filterName, sortingOptions } = this.props;
+    const { title, sortingOptions } = this.props;
     const { selectedSortingOption, optionsVisible } = this.state;
     let options;
 
@@ -35,7 +35,7 @@ class SortingSelectBar extends Component {
             sortingOptions.map(optionName => (
               <button
                 className="view-option"
-                key={`${filterName.replace(/\s+/g, '-').toLowerCase()}-${optionName}-sorting-bar`}
+                key={`${title.replace(/\s+/g, '-').toLowerCase()}-${optionName}-sorting-bar`}
                 onClick={() => this.onSelectOption(optionName)}
               >
                 {optionName}
@@ -48,7 +48,7 @@ class SortingSelectBar extends Component {
 
     return (
       <div styleName="sortingBar">
-        <h1 styleName="title">{filterName}</h1>
+        <h1 styleName="title">{title}</h1>
         <div styleName="view-options-toggle-container">
           <p styleName="view-options-toggle-container-label">
             Sort by:
@@ -73,14 +73,14 @@ SortingSelectBar.defaultProps = {
   onSortingSelect: _.noop,
   value: '',
   sortingOptions: [],
-  filterName: '',
+  title: '',
 };
 
 SortingSelectBar.propTypes = {
-  filterName: PT.string,
   sortingOptions: PT.arrayOf(PT.string),
   onSortingSelect: PT.func,
   value: PT.string,
+  title: PT.string,
 };
 
 export default SortingSelectBar;

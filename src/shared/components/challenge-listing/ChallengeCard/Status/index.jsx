@@ -3,13 +3,13 @@ import React, { Component } from 'react';
 import PT from 'prop-types';
 import moment from 'moment';
 import LeaderboardAvatar from 'components/LeaderboardAvatar';
-import ChallengeProgressBar from '../ChallengeProgressBar';
-import ProgressBarTooltip from '../Tooltips/ProgressBarTooltip';
-import RegistrantsIcon from '../Icons/RegistrantsIcon';
-import SubmissionsIcon from '../Icons/SubmissionsIcon';
-import Tooltip from '../Tooltips/Tooltip';
-import UserAvatarTooltip from '../Tooltips/UserAvatarTooltip';
-import ForumIcon from '../Icons/forum.svg';
+import ChallengeProgressBar from '../../ChallengeProgressBar';
+import ProgressBarTooltip from '../../Tooltips/ProgressBarTooltip';
+import RegistrantsIcon from '../../Icons/RegistrantsIcon';
+import SubmissionsIcon from '../../Icons/SubmissionsIcon';
+import Tooltip from '../../Tooltips/Tooltip';
+import UserAvatarTooltip from '../../Tooltips/UserAvatarTooltip';
+import ForumIcon from '../../Icons/forum.svg';
 import './style.scss';
 
 // Constants
@@ -138,9 +138,8 @@ function getProfile(user) {
 class ChallengeStatus extends Component {
   constructor(props) {
     super(props);
-
-    const CHALLENGE_URL = `${props.MAIN_URL}/challenge-details/`;
-    const DS_CHALLENGE_URL = `https:${props.config.COMMUNITY_URL}/longcontest/stats/?module=ViewOverview&rd=`;
+    const CHALLENGE_URL = `${config.URL.BASE}/challenge-details/`;
+    const DS_CHALLENGE_URL = `${config.URL.COMMUNITY}/longcontest/stats/?module=ViewOverview&rd=`;
     const FORUM_URL = `${config.URL.FORUMS}/?module=Category&categoryID=`;
     this.state = {
       winners: '',
@@ -198,7 +197,7 @@ class ChallengeStatus extends Component {
   activeChallenge() {
     const { challenge } = this.props;
     const { FORUM_URL } = this.state;
-    const MM_LONGCONTEST = `https:${this.props.config.COMMUNITY_URL}/longcontest/?module`;
+    const MM_LONGCONTEST = `${config.URL.COMMUNITY}/longcontest/?module`;
     const MM_REG = `${MM_LONGCONTEST}=ViewRegistrants&rd=`;
     const MM_SUB = `${MM_LONGCONTEST}=ViewStandings&rd=`;
 
@@ -254,7 +253,7 @@ class ChallengeStatus extends Component {
             </span>
           }
         </span>
-        <ProgressBarTooltip challenge={challenge} config={this.props.config}>
+        <ProgressBarTooltip challenge={challenge}>
           {
             challenge.status === 'ACTIVE' && challenge.currentPhases.length > 0 ?
               <div>
@@ -339,7 +338,7 @@ class ChallengeStatus extends Component {
     .map(winner => ({
       handle: winner.handle,
       position: winner.placement,
-      photoURL: winner.photoURL || `${this.props.MAIN_URL}/i/m/${winner.handle}.jpeg`,
+      photoURL: winner.photoURL || `${config.URL.BASE}/i/m/${winner.handle}.jpeg`,
     }));
 
     if (winners && winners.length > MAX_VISIBLE_WINNERS) {
@@ -381,17 +380,13 @@ class ChallengeStatus extends Component {
 
 ChallengeStatus.defaultProps = {
   challenge: {},
-  config: {},
   detailLink: '',
   sampleWinnerProfile: undefined,
-  MAIN_URL: config.URL.BASE,
 };
 
 ChallengeStatus.propTypes = {
   challenge: PT.shape(),
-  config: PT.shape(),
   detailLink: PT.string,
-  MAIN_URL: PT.string,
 };
 
 export default ChallengeStatus;
