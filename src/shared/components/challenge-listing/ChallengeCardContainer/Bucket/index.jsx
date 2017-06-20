@@ -5,6 +5,7 @@
 import _ from 'lodash';
 import PT from 'prop-types';
 import React from 'react';
+import sort from 'utils/challenge-listing/sort';
 import SortingSelectBar from 'components/SortingSelectBar';
 import { getFilterFunction } from 'utils/challenge-listing/filter';
 import ChallengeCard from '../../ChallengeCard';
@@ -25,6 +26,8 @@ export default function Bucket({ bucket, challenges, expanded }) {
     }
   }
 
+  if (!filteredChallenges.length) return null;
+
   const cards = filteredChallenges.map(item => (
     <ChallengeCard
       challenge={item}
@@ -36,7 +39,9 @@ export default function Bucket({ bucket, challenges, expanded }) {
   return (
     <div styleName="bucket">
       <SortingSelectBar
+        options={bucket.sorts.map(item => sort[item].name)}
         title={bucket.name}
+        value={sort[bucket.sorts[0]].name}
       />
       {cards}
       {

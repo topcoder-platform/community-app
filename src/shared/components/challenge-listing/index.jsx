@@ -25,7 +25,7 @@ import ChallengeFilterWithSearch from './Filters/ChallengeFilterWithSearch';
 
 import SideBarFilter, { MODE as SideBarFilterModes } from './SideBarFilters/SideBarFilter';
 
-import ChallengeCard from './ChallengeCard';
+// import ChallengeCard from './ChallengeCard';
 import ChallengeCardContainer from './ChallengeCardContainer';
 import ChallengeCardPlaceholder from './placeholders/ChallengeCardPlaceholder';
 import SidebarFilterPlaceholder from './placeholders/SidebarFilterPlaceholder';
@@ -33,7 +33,6 @@ import SRMCard from './SRMCard';
 import ChallengesSidebar from './Sidebar';
 
 import './style.scss';
-
 
 // Number of challenge placeholder card to display
 const CHALLENGE_PLACEHOLDER_COUNT = 8;
@@ -192,6 +191,7 @@ class ChallengeFiltersExample extends React.Component {
     */
 
     // filter all challenges by master filter before applying any user filters
+    /*
     challenges = _.filter(challenges, this.props.masterFilterFunc);
     const currentFilter = this.getFilter();
     currentFilter.mode = 'custom';
@@ -203,16 +203,19 @@ class ChallengeFiltersExample extends React.Component {
         return item;
       });
     }
+    */
 
     challenges = challenges.filter(
       Filter.getFilterFunction(this.props.filterState));
 
-    challenges.sort((a, b) => b.submissionEndDate - a.submissionEndDate);
+    // challenges.sort((a, b) => b.submissionEndDate - a.submissionEndDate);
 
-    const filter = this.getFilter();
-    const { name: sidebarFilterName } = filter;
+    // const filter = this.getFilter();
+    // const { name: sidebarFilterName } = filter;
 
-    const expanded = sidebarFilterName !== 'All Challenges';
+    // const expanded = sidebarFilterName !== 'All Challenges';
+
+    const expanded = false;
 
     let challengeCardContainer;
     if (!expanded && this.props.loadingChallenges) {
@@ -225,7 +228,7 @@ class ChallengeFiltersExample extends React.Component {
           </div>
         </div>
       );
-    } else if (filter.isCustomFilter) {
+    } else { /* else if (filter.isCustomFilter) {
       if (currentFilter.mode === SideBarFilterModes.CUSTOM) {
         challenges = this.props.challenges.filter(currentFilter.getFilterFunction());
       }
@@ -238,6 +241,7 @@ class ChallengeFiltersExample extends React.Component {
             _.noop(tag);
             /* TODO: This should be rewired using setFilterState(..) */
             // if (this.challengeFilters) this.challengeFilters.setKeywords(tag);
+            /*
           }}
           key={challenge.id}
         />
@@ -250,7 +254,9 @@ class ChallengeFiltersExample extends React.Component {
           </div>
         </div>
       );
-    } else {
+    } */
+      // else {
+      /*
       const filterFunc = filter.getFilterFunction();
       const sidebarFilterFunc = (challenge) => {
         if (currentFilter.mode !== SideBarFilterModes.CUSTOM) {
@@ -258,22 +264,24 @@ class ChallengeFiltersExample extends React.Component {
         }
         return currentFilter.getFilterFunction()(challenge);
       };
+      */
 
       challengeCardContainer = (
         <ChallengeCardContainer
           auth={this.props.auth}
-          config={this.props.config}
+          // config={this.props.config}
           onTechTagClicked={(tag) => {
             _.noop(tag);
             /* TODO: This should be rewired using setFilterState(..) */
             // if (this.challengeFilters) this.challengeFilters.setKeywords(tag);
           }}
           challenges={_.uniqBy(challenges, 'id')}
-          challengeGroupId={this.props.challengeGroupId}
-          currentFilterName={sidebarFilterName}
-          expanded={sidebarFilterName !== 'All Challenges'}
-          getChallenges={this.props.getChallenges}
-          getMarathonMatches={this.props.getMarathonMatches}
+          // challengeGroupId={this.props.challengeGroupId}
+          // currentFilterName={sidebarFilterName}
+          // expanded={sidebarFilterName !== 'All Challenges'}
+          // getChallenges={this.props.getChallenges}
+          // getMarathonMatches={this.props.getMarathonMatches}
+          /*
           additionalFilter={
             challenge => filterFunc(challenge) && sidebarFilterFunc(challenge)
           }
@@ -281,6 +289,7 @@ class ChallengeFiltersExample extends React.Component {
           onExpandFilterResult={
             filterName => this.sidebar.selectFilterWithName(filterName)
           }
+          */
         />
       );
     }
@@ -352,7 +361,7 @@ class ChallengeFiltersExample extends React.Component {
           <div styleName="sidebar-container-mobile">
             {!this.props.loadingChallenges || expanded ? (<SideBarFilters
               config={this.props.config}
-              challengeGroupId={filter.groupId}
+              // challengeGroupId={filter.groupId}
               challenges={challenges}
               filter={this.getFilter()}
               onFilter={topFilter => this.onFilterByTopFilter(topFilter, true)}
@@ -373,7 +382,7 @@ class ChallengeFiltersExample extends React.Component {
                 config={this.props.config}
                 challenges={challenges}
                 filter={this.getFilter()}
-                challengeGroupId={filter.groupId}
+                // challengeGroupId={filter.groupId}
                 onFilter={topFilter => this.onFilterByTopFilter(topFilter, true)}
                 ref={(node) => {
                   this.sidebar = node;
@@ -410,8 +419,8 @@ ChallengeFiltersExample.propTypes = {
   communityName: PT.string,
   filter: PT.string.isRequired,
   filterState: PT.shape().isRequired,
-  getChallenges: PT.func.isRequired,
-  getMarathonMatches: PT.func.isRequired,
+  // getChallenges: PT.func.isRequired,
+  // getMarathonMatches: PT.func.isRequired,
   loadingChallenges: PT.bool.isRequired,
   setFilter: PT.func.isRequired,
 
@@ -425,7 +434,7 @@ ChallengeFiltersExample.propTypes = {
   challengeGroupId: PT.string,
   myChallenges: PT.arrayOf(PT.shape),
   isAuth: PT.bool,
-  masterFilterFunc: PT.func,
+  // masterFilterFunc: PT.func,
   auth: PT.shape(),
 };
 

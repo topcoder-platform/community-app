@@ -67,7 +67,7 @@ function filterByRegistrationOpen(challenge, state) {
     }
     const registrationPhase = challenge.allPhases.find(item =>
       item.phaseType === 'Registration');
-    if (!registrationPhase || !registrationPhase.phaseStatus === 'Open') {
+    if (!registrationPhase || registrationPhase.phaseStatus !== 'Open') {
       return false;
     }
     if (challenge.track === 'DESIGN') {
