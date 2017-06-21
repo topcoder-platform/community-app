@@ -4,6 +4,6 @@ exports[`renders correctly 1`] = `
 <img
   alt="Loading..."
   className="src-shared-components-LoadingIndicator-___styles__style___3RNHL"
-  src="2f402d440d802a10b7672b75897c47a5.gif"
+  src="/images/2f402d440d802a10b7672b75897c47a5.gif"
 />
 `;

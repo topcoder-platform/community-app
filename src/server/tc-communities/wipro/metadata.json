@@ -18,7 +18,7 @@
     "redirect": "https://ios.topcoder.com/",
     "value": "3"
   }],
-  "leaderboardApiUrl": "https://api.topcoder.com/v4/looks/0/run/json/",
+  "leaderboardApiUrl": "https://api.topcoder.com/v4/looks/458/run/json/",
   "logos": [
     "/themes/wipro/wipro-logo.png",
     "/themes/wipro/logo_topcoder_with_name.svg"
