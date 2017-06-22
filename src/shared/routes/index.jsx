@@ -65,7 +65,7 @@ function Routes({ subdomains }) {
         <Route exact path="/" component={Content} />
         <Route exact path="/examples" component={Content} />
         <Route path="/examples" component={Examples} />
-        <Route path="/challenge/:challengeId/my-submissions" component={SubmissionManagement} />
+        <Route path="/challenges/:challengeId/my-submissions" component={SubmissionManagement} />
         <Route
           path="/community-challenge-listing/:keyword"
           render={props => <ChallengeListing listingOnly {...props} />}
