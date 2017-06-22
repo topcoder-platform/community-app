@@ -150,6 +150,10 @@ $panel-radius-4: $corner-radius * 2;
       margin-right: $panel-space-15;
       min-width: 96px;
       text-align: right;
+
+      &.left-label {
+        min-width: 58px;
+      }
     }
 
     :global(.Select) {

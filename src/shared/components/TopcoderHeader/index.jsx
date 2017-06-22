@@ -115,6 +115,7 @@ export default function TopcoderHeader({
   closeMenu,
   closeMobileMenu,
   closeSearch,
+  currentNav,
   mobileMenuOpened,
   openedMenu,
   openMenu,
@@ -123,22 +124,24 @@ export default function TopcoderHeader({
   profile,
   searchOpened,
 }) {
-  const mainMenu = MENU.map(item => (
-    <li
-      className={openedMenu && openedMenu.title === item.title ? 'opened' : ''}
-      key={item.title}
-      onMouseEnter={event => openMenu(item, event.target)}
-      onMouseLeave={(event) => {
-        /* False when mouse cursor leaves from the main menu element to the
-         * sub-menu. In that case we keep the sub-menu opened, and responsible
-         * for further tracking of the mouse cursor. */
-        if (1 + event.pageY < activeTrigger.bottom) closeMenu();
-      }}
-      styleName="main-menu-item"
-    >
-      {item.title}
-    </li>
-  ));
+  const mainMenu = MENU.map((item) => {
+    let styleName = 'main-menu-item';
+    if (openedMenu && openedMenu.title === item.title) styleName += ' opened';
+    if (item.title === currentNav.menuTitle) styleName += ' current';
+    return (
+      <li
+        key={item.title}
+        onMouseEnter={event => openMenu(item, event.target)}
+        onMouseLeave={(event) => {
+          /* False when mouse cursor leaves from the main menu element to the
+          * sub-menu. In that case we keep the sub-menu opened, and responsible
+          * for further tracking of the mouse cursor. */
+          if (1 + event.pageY < activeTrigger.bottom) closeMenu();
+        }}
+        styleName={styleName}
+      >{item.title}</li>
+    );
+  });
 
   let authButtons;
   let userAvatar;
@@ -227,7 +230,7 @@ export default function TopcoderHeader({
     <div styleName="header">
       <div styleName="main-desktop-header">
         <a href={BASE_URL} styleName="logo">
-          <LogoTopcoderWithName height={54} width={156} />
+          <LogoTopcoderWithName height={53} width={135} />
         </a>
         <ul styleName="main-menu">
           {mainMenu}
@@ -247,6 +250,7 @@ export default function TopcoderHeader({
       </div>
       <DesktopSubMenu
         closeMenu={closeMenu}
+        currentSubMenuTitle={currentNav.subMenuTitle}
         menu={openedMenu}
         trigger={activeTrigger}
       />
@@ -305,6 +309,10 @@ TopcoderHeader.propTypes = {
   closeMenu: PT.func.isRequired,
   closeMobileMenu: PT.func.isRequired,
   closeSearch: PT.func.isRequired,
+  currentNav: PT.shape({
+    menuTitle: PT.string,
+    subMenuTitle: PT.string,
+  }).isRequired,
   mobileMenuOpened: PT.bool,
   openedMenu: SUB_MENU_SHAPE,
   openMenu: PT.func.isRequired,

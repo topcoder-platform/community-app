@@ -126,7 +126,7 @@ class FiltersPanel extends React.Component {
         <div styleName={`filters ${this.props.challengeGroupId ? 'inGroup' : ''}`}>
           <div styleName="filter-row">
             <div styleName="filter keywords">
-              <label htmlFor="keyword-select">Keywords</label>
+              <label htmlFor="keyword-select" styleName="left-label">Keywords</label>
               <Select
                 id="keyword-select"
                 multi
@@ -158,7 +158,7 @@ class FiltersPanel extends React.Component {
           </div>
           <div styleName="filter-row">
             <div styleName="filter track">
-              <label htmlFor="track-select">Subtrack</label>
+              <label htmlFor="track-select" styleName="left-label">Subtrack</label>
               <Select
                 id="track-select"
                 multi
@@ -201,6 +201,7 @@ class FiltersPanel extends React.Component {
 }
 
 FiltersPanel.defaultProps = {
+  communityName: null,
   filter: new FilterPanelFilter(),
   hidden: false,
   onClearFilters: _.noop,
@@ -218,7 +219,7 @@ const SelectOptions = PT.arrayOf(
 
 FiltersPanel.propTypes = {
   challengeGroupId: PT.string.isRequired,
-  communityName: PT.string.isRequired,
+  communityName: PT.string,
   filter: PT.instanceOf(FilterPanelFilter),
   hidden: PT.bool,
   onClearFilters: PT.func,

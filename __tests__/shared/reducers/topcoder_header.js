@@ -79,6 +79,8 @@ function testReducer(reducer, istate) {
 }
 
 describe('Default reducer', () =>
-  testReducer(reducers.default, {}),
+  testReducer(reducers.default, {
+    currentNav: {},
+  }),
 );
 

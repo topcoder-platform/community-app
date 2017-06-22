@@ -9,7 +9,7 @@ import RegistrantsIcon from '../Icons/RegistrantsIcon';
 import SubmissionsIcon from '../Icons/SubmissionsIcon';
 import Tooltip from '../Tooltips/Tooltip';
 import UserAvatarTooltip from '../Tooltips/UserAvatarTooltip';
-import ForumIcon from '../Icons/ForumIcon';
+import ForumIcon from '../Icons/forum.svg';
 import './style.scss';
 
 // Constants
@@ -141,7 +141,7 @@ class ChallengeStatus extends Component {
 
     const CHALLENGE_URL = `${props.MAIN_URL}/challenge-details/`;
     const DS_CHALLENGE_URL = `https:${props.config.COMMUNITY_URL}/longcontest/stats/?module=ViewOverview&rd=`;
-    const FORUM_URL = `https:${props.config.FORUMS_APP_URL}/?module=Category&categoryID=`;
+    const FORUM_URL = `${config.URL.FORUMS}/?module=Category&categoryID=`;
     this.state = {
       winners: '',
       CHALLENGE_URL,

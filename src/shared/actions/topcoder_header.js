@@ -29,6 +29,19 @@ function openSearch(triggerNode) {
   return openMenu(undefined, triggerNode);
 }
 
+/**
+ * The corresponding action sets current menu and submenu options to mark them
+ * with special hightlighting in the header.
+ * @param {String} menuTitle
+ * @param {String} subMenuTitle
+ */
+function setCurrentNav(menuTitle, subMenuTitle) {
+  return {
+    menuTitle,
+    subMenuTitle,
+  };
+}
+
 export default createActions({
   TOPCODER_HEADER: {
     /* Closes the currently opened menu, if any. */
@@ -41,5 +54,7 @@ export default createActions({
     OPEN_MENU: openMenu,
     OPEN_MOBILE_MENU: _.noop,
     OPEN_SEARCH: openSearch,
+
+    SET_CURRENT_NAV: setCurrentNav,
   },
 });

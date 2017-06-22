@@ -3,6 +3,7 @@
  * related to the standard Topcoder header.
  */
 
+import _ from 'lodash';
 import actions from 'actions/topcoder_header';
 import { handleActions } from 'redux-actions';
 
@@ -11,43 +12,50 @@ import { handleActions } from 'redux-actions';
  * @param {Object} initialState Optional. Initial state.
  * @return Reducer.
  */
-function create(initialState) {
+function create(initialState = {}) {
+  const a = actions.topcoderHeader;
   return handleActions({
-    [actions.topcoderHeader.closeMenu](state) {
+    [a.closeMenu](state) {
       return {
         ...state,
         openedMenu: null,
       };
     },
-    [actions.topcoderHeader.closeMobileMenu](state) {
+    [a.closeMobileMenu](state) {
       return {
         ...state,
         mobileMenuOpened: false,
       };
     },
-    [actions.topcoderHeader.closeSearch](state) {
+    [a.closeSearch](state) {
       return {
         ...state,
         searchOpened: false,
       };
     },
-    [actions.topcoderHeader.openMenu](state, action) {
+    [a.openMenu](state, action) {
       return {
         ...state,
         openedMenu: action.payload.menu,
         activeTrigger: action.payload.trigger,
       };
     },
-    [actions.topcoderHeader.openMobileMenu]: state => ({
+    [a.openMobileMenu]: state => ({
       ...state,
       mobileMenuOpened: true,
     }),
-    [actions.topcoderHeader.openSearch]: (state, action) => ({
+    [a.openSearch]: (state, action) => ({
       ...state,
       searchOpened: true,
       activeTrigger: action.payload.trigger,
     }),
-  }, initialState || {});
+    [a.setCurrentNav]: (state, { payload }) => ({
+      ...state,
+      currentNav: payload,
+    }),
+  }, _.defaults(_.clone(initialState), {
+    currentNav: {},
+  }));
 }
 
 /* Default reducer with empty initial state. */

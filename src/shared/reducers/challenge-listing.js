@@ -51,8 +51,15 @@ export function normalizeChallenge(challenge) {
   const registrationOpen = challenge.allPhases.filter(d =>
     d.phaseType === 'Registration',
   )[0].phaseStatus === 'Open' ? 'Yes' : 'No';
+  const groups = {};
+  if (challenge.groupIds) {
+    challenge.groupIds.forEach((id) => {
+      groups[id] = true;
+    });
+  }
   return _.defaults(_.clone(challenge), {
     communities: new Set([COMMUNITY[challenge.track]]),
+    groups,
     platforms: '',
     registrationOpen,
     technologies: '',
@@ -77,6 +84,12 @@ export function normalizeMarathonMatch(challenge) {
     phaseStatus: endTimestamp > Date.now() ? 'Open' : 'Close',
     scheduledEndTime: challenge.endDate,
   }];
+  const groups = {};
+  if (challenge.groupIds) {
+    challenge.groupIds.forEach((id) => {
+      groups[id] = true;
+    });
+  }
   return _.defaults(_.clone(challenge), {
     challengeCommunity: 'Data',
     challengeType: 'Marathon',
@@ -84,6 +97,7 @@ export function normalizeMarathonMatch(challenge) {
     currentPhases: allphases.filter(phase => phase.phaseStatus === 'Open'),
     communities: new Set([COMMUNITY.DATA_SCIENCE]),
     currentPhaseName: endTimestamp > Date.now() ? 'Registration' : '',
+    groups,
     numRegistrants: challenge.numRegistrants ? challenge.numRegistrants[0] : 0,
     numSubmissions: challenge.userIds ? challenge.userIds.length : 0,
     platforms: '',
@@ -175,20 +189,8 @@ function onGetDone(state, { payload }, normalizer) {
   });
   payload.challenges.forEach((item) => {
     const it = _.defaults(normalizer(item), {
-      groups: {},
       users: {},
     });
-
-    /* Challenge objects returned from the backend do not have list of
-      groups they belong to (to keep private groups secret). We know about
-      challenge - group associations because we specify groupIds filter in
-      the request. So, we add groups information, known to us, to the
-      challenge objects. */
-    if (_.get(payload, 'filters.groupIds')) {
-      payload.filters.groupIds.split(',').forEach((g) => {
-        it.groups[g] = true;
-      });
-    }
 
     /* Similarly it happens with users participating in the challenges. */
     if (payload.user) it.users[payload.user] = true;
@@ -196,10 +198,7 @@ function onGetDone(state, { payload }, normalizer) {
     /* If we already had some data about this challenge loaded, we should
       properly merge-in the known information about groups and users. */
     const old = challenges[it.id];
-    if (old) {
-      _.merge(it.groups, old.groups);
-      _.merge(it.users, old.users);
-    }
+    if (old) _.merge(it.users, old.users);
 
     challenges[it.id] = it;
   });

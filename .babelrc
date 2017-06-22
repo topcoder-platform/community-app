@@ -22,7 +22,7 @@
     }],
     ["transform-assets", {
       "extensions": ["gif", "jpeg", "jpg", "png"],
-      "name": "[hash].[ext]"
+      "name": "/images/[hash].[ext]"
     }]
   ]
 }

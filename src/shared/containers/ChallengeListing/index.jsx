@@ -11,6 +11,7 @@
 
 import _ from 'lodash';
 import actions from 'actions/challenge-listing';
+import headerActions from 'actions/topcoder_header';
 import logger from 'utils/logger';
 import React from 'react';
 import PT from 'prop-types';
@@ -47,6 +48,8 @@ class ChallengeListingPageContainer extends React.Component {
   componentDidMount() {
     const { challengeListing: cl } = this.props;
 
+    this.props.markHeaderMenu();
+
     if (mounted) {
       logger.error('Attempt to mount multiple instances of ChallengeListingPageContainer at the same time!');
     } else mounted = true;
@@ -82,75 +85,32 @@ class ChallengeListingPageContainer extends React.Component {
 
   loadChallenges() {
     const { tokenV3, user } = this.props.auth;
-    const groupIds = this.props.challengeGroupId || undefined;
-
-    /* Initial loading of the challenges. Later we'll add some extra
-      conditions to prevent loading when data are up-to-date because
-      of server-side rendering, or because we have been at this page
-      recently. */
 
     /* Active challenges. */
     this.props.getChallenges({
-      groupIds,
       status: 'ACTIVE',
     }, {}, tokenV3, 'active');
     this.props.getMarathonMatches({
-      groupIds,
       status: 'ACTIVE',
     }, {}, tokenV3, 'activeMM');
 
     /* My active challenges. */
     if (user) {
       this.props.getChallenges({
-        groupIds,
         status: 'ACTIVE',
       }, {}, tokenV3, 'myActive', user.handle);
       this.props.getMarathonMatches({
-        groupIds,
         status: 'ACTIVE',
       }, {}, tokenV3, 'myActiveMM', user.handle);
     }
 
     /* Past challenges. */
     this.props.getChallenges({
-      groupIds,
       status: 'COMPLETED',
     }, {}, tokenV3, 'past');
     this.props.getMarathonMatches({
-      groupIds,
       status: 'PAST',
     }, {}, tokenV3, 'pastMM');
-
-    /* In case we are inside a group, we still need to load all challenges,
-     * to be able to use All / Group challenges filter. */
-    if (groupIds) {
-      /* Active challenges. */
-      this.props.getChallenges({
-        status: 'ACTIVE',
-      }, {}, tokenV3, 'active');
-      this.props.getMarathonMatches({
-        status: 'ACTIVE',
-      }, {}, tokenV3, 'activeMM');
-
-      /* My active challenges. */
-      if (user) {
-        this.props.getChallenges({
-          status: 'ACTIVE',
-        }, {}, tokenV3, 'myActive', user.handle);
-        this.props.getMarathonMatches({
-          groupIds,
-          status: 'ACTIVE',
-        }, {}, tokenV3, 'myActiveMM', user.handle);
-      }
-
-      /* Past challenges. */
-      this.props.getChallenges({
-        status: 'COMPLETED',
-      }, {}, tokenV3, 'past');
-      this.props.getMarathonMatches({
-        status: 'PAST',
-      }, {}, tokenV3, 'pastMM');
-    }
   }
 
   /**
@@ -243,6 +203,7 @@ class ChallengeListingPageContainer extends React.Component {
 
 ChallengeListingPageContainer.defaultProps = {
   challengeGroupId: '',
+  communityName: null,
   listingOnly: false,
   match: null,
   tag: null,
@@ -254,11 +215,12 @@ ChallengeListingPageContainer.propTypes = {
     filter: PT.string.isRequired,
     pendingRequests: PT.shape({}).isRequired,
   }).isRequired,
-  communityName: PT.string.isRequired,
+  communityName: PT.string,
   getChallenges: PT.func.isRequired,
   getChallengeSubtracks: PT.func.isRequired,
   getChallengeTags: PT.func.isRequired,
   getMarathonMatches: PT.func.isRequired,
+  markHeaderMenu: PT.func.isRequired,
   setFilter: PT.func.isRequired,
 
   /* OLD PROPS BELOW */
@@ -284,7 +246,10 @@ ChallengeListingPageContainer.propTypes = {
 
 const mapStateToProps = state => ({
   auth: state.auth,
-  challengeListing: state.challengeListing,
+  challengeListing: {
+    ...state.challengeListing,
+    filter: decodeURIComponent(state.challengeListing.filter),
+  },
 });
 
 /**
@@ -322,6 +287,7 @@ function getMarathonMatches(dispatch, filters, ...rest) {
 
 function mapDispatchToProps(dispatch) {
   const a = actions.challengeListing;
+  const ah = headerActions.topcoderHeader;
   return {
     getChallenges: (...rest) => getChallenges(dispatch, ...rest),
     getChallengeSubtracks: () => {
@@ -335,6 +301,8 @@ function mapDispatchToProps(dispatch) {
     getMarathonMatches: (...rest) => getMarathonMatches(dispatch, ...rest),
     reset: () => dispatch(a.reset()),
     setFilter: f => dispatch(a.setFilter(f)),
+    markHeaderMenu: () =>
+      dispatch(ah.setCurrentNav('Compete', 'All Challenges')),
   };
 }
 

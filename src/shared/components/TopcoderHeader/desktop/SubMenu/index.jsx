@@ -7,10 +7,21 @@ import React from 'react';
 import Item from './Item';
 import './style.scss';
 
-export default function SubMenu({ closeMenu, menu, trigger }) {
+export default function SubMenu({
+  closeMenu,
+  currentSubMenuTitle,
+  menu,
+  trigger,
+}) {
   let items;
   if (menu) {
-    items = menu.items.map(item => <Item key={item.title} {...item} />);
+    items = menu.items.map(item => (
+      <Item
+        currentSubMenuTitle={currentSubMenuTitle}
+        key={item.title}
+        {...item}
+      />
+    ));
   }
   return (
     <ul
@@ -31,12 +42,14 @@ export default function SubMenu({ closeMenu, menu, trigger }) {
 }
 
 SubMenu.defaultProps = {
+  currentSubMenuTitle: '',
   menu: null,
   trigger: null,
 };
 
 SubMenu.propTypes = {
   closeMenu: PT.func.isRequired,
+  currentSubMenuTitle: PT.string,
   menu: PT.shape({
     items: PT.arrayOf(PT.shape({
       title: PT.string.isRequired,
