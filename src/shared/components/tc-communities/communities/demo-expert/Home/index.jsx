@@ -28,8 +28,8 @@ export default function Home(props) {
   return (
     <main>
       <Banner
-        title="Wipro Crowd"
-        text="Wipro's Hybrid Crowd gives our vast ecosystem of customers and partners options to access new range of skills that provide new value services and efficiency options all over the world."
+        title="ACME Crowd"
+        text="ACME's Hybrid Crowd gives our vast ecosystem of customers and partners options to access new range of skills that provide new value services and efficiency options all over the world."
         link={{
           title: 'Compete Now',
           url: 'challenges',

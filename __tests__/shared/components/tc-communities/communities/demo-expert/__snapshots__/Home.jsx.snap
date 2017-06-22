@@ -12,9 +12,9 @@ exports[`Snapshot match 1`] = `
       }
     }
     mapThemrProps={[Function]}
-    text="Wipro's Hybrid Crowd gives our vast ecosystem of customers and partners options to access new range of skills that provide new value services and efficiency options all over the world."
+    text="ACME's Hybrid Crowd gives our vast ecosystem of customers and partners options to access new range of skills that provide new value services and efficiency options all over the world."
     theme={Object {}}
-    title="Wipro Crowd"
+    title="ACME Crowd"
   />
   <Connect(GroupStatsContainer) />
   <Connect(JoinCommunity) />
