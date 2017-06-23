@@ -1,5 +1,5 @@
 /**
- * Static implementation of Home page for Wipro 2 community
+ * Static implementation of Home page for a community
  *
  * It hardcodes data which is passed to dummy components,
  * thus we disable max-len eslint rule for this file
@@ -29,7 +29,7 @@ export default function Home(props) {
     <main>
       <Banner
         title="Community 2"
-        text="Wipro's Hybrid Crowd gives our vast ecosystem of customers and partners options to access new range of skills that provide new value services and efficiency options all over the world."
+        text="BAE's Hybrid Crowd gives our vast ecosystem of customers and partners options to access new range of skills that provide new value services and efficiency options all over the world."
         link={{
           title: 'Compete Now',
           url: 'challenges',
