@@ -38,6 +38,9 @@ import TcProdDevLearn from 'components/tc-communities/communities/tc-prod-dev/Le
 import DemoExpertHome from 'components/tc-communities/communities/demo-expert/Home';
 import DemoExpertLearn from 'components/tc-communities/communities/demo-expert/Learn';
 
+import Community2Home from 'components/tc-communities/communities/community-2/Home';
+import Community2Learn from 'components/tc-communities/communities/community-2/Learn';
+
 import AccessDenied, {
   CAUSE as ACCESS_DENIED_CAUSE,
 } from 'components/tc-communities/AccessDenied';
@@ -84,6 +87,12 @@ class Page extends Component {
         pageContent = <WiproHome />;
       } else if (pageId === 'learn') {
         pageContent = <WiproLearn />;
+      }
+    } else if (communityId === 'community-2') {
+      switch (pageId) {
+        case 'home': pageContent = <Community2Home />; break;
+        case 'learn': pageContent = <Community2Learn />; break;
+        default: break;
       }
     } else if (communityId === 'tc-prod-dev') {
       switch (pageId) {
