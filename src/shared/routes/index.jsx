@@ -28,6 +28,7 @@ function Routes({ subdomains }) {
   if (subdomains.indexOf('demo-expert') >= 0) communityId = 'demo-expert';
   else if (subdomains.indexOf('wipro') >= 0) communityId = 'wipro';
   else if (subdomains.indexOf('tc-prod-dev') >= 0) communityId = 'tc-prod-dev';
+  else if (subdomains.includes('community-2')) communityId = 'community-2';
   if (communityId) {
     return (
       <div>
@@ -65,7 +66,7 @@ function Routes({ subdomains }) {
         <Route exact path="/" component={Content} />
         <Route exact path="/examples" component={Content} />
         <Route path="/examples" component={Examples} />
-        <Route path="/challenge/:challengeId/my-submissions" component={SubmissionManagement} />
+        <Route path="/challenges/:challengeId/my-submissions" component={SubmissionManagement} />
         <Route
           path="/community-challenge-listing/:keyword"
           render={props => <ChallengeListing listingOnly {...props} />}

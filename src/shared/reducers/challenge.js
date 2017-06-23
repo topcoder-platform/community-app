@@ -74,7 +74,7 @@ function create(initialState) {
  */
 export function factory(req) {
   /* Server-side rendering of Submission Management Page. */
-  if (req && req.url.match(/^\/challenge\/\d+\/my-submissions/)) {
+  if (req && req.url.match(/^\/challenges\/\d+\/my-submissions/)) {
     const tokens = {
       tokenV2: req.cookies.tcjwt,
       tokenV3: req.cookies.v3jwt,

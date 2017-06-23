@@ -30,32 +30,37 @@ export default function LeaderboardTable(props) {
   const {
     competitors,
   } = props;
-
   const renderTableRows = comps => (
-    comps.map(competitor => (
-      <tr key={competitor.rank}>
-        <td styleName="styles.col-rank">{competitor.rank}</td>
-        <td styleName="styles.col-avatar">
-          <span styleName="styles.leaderboard-avatar">
-            <Avatar
-              theme={{
-                avatar: avatarStyles.default,
-              }}
-              url={competitor.photourl}
-            />
-          </span>
-        </td>
-        <td styleName="styles.col-handle">
-          <a href={`${config.URL.BASE}/members/${competitor['user.handle']}/`}>{competitor['user.handle']}</a>
-          <div styleName="styles.winnings-info">
-            <span>{competitor['project_result.final_score']} points</span>
-            <span>{competitor['challenge.count']} challenges</span>
-          </div>
-        </td>
-        <td styleName="styles.col-challenges">{competitor['challenge.count']}</td>
-        <td styleName="styles.col-points">{competitor['project_result.final_score']}</td>
-      </tr>
-    ))
+    comps.map((competitor) => {
+      let photoUrl = competitor['challenge_stats.photo_url'];
+      if (photoUrl && (photoUrl[0] === '/')) {
+        photoUrl = config.URL.BASE + photoUrl;
+      }
+      return (
+        <tr key={competitor.rank}>
+          <td styleName="styles.col-rank">{competitor.rank}</td>
+          <td styleName="styles.col-avatar">
+            <span styleName="styles.leaderboard-avatar">
+              <Avatar
+                theme={{
+                  avatar: avatarStyles.default,
+                }}
+                url={photoUrl}
+              />
+            </span>
+          </td>
+          <td styleName="styles.col-handle">
+            <a href={`${config.URL.BASE}/members/${competitor['challenge_stats.winner_handle']}/`}>{competitor['challenge_stats.winner_handle']}</a>
+            <div styleName="styles.winnings-info">
+              <span>{competitor.points} points</span>
+              <span>{competitor['challenge_stats.count']} challenges</span>
+            </div>
+          </td>
+          <td styleName="styles.col-challenges">{competitor['challenge_stats.count']}</td>
+          <td styleName="styles.col-points">{competitor.points}</td>
+        </tr>
+      );
+    })
   );
 
   return (
@@ -78,10 +83,10 @@ export default function LeaderboardTable(props) {
 
 const CompetitorShape = PT.shape({
   rank: PT.number.isRequired,
-  photourl: PT.string,
-  'user.handle': PT.string.isRequired,
-  'challenge.count': PT.number.isRequired,
-  'project_result.final_score': PT.number.isRequired,
+  'challenge_stats.photo_url': PT.string,
+  'challenge_stats.winner_handle': PT.string.isRequired,
+  'challenge_stats.count': PT.number.isRequired,
+  points: PT.number.isRequired,
 });
 
 LeaderboardTable.propTypes = {

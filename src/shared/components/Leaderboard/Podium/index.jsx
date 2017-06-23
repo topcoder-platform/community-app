@@ -63,10 +63,10 @@ export default function Podium(props) {
 
 const CompetitorShape = PT.shape({
   rank: PT.number.isRequired,
-  photourl: PT.string,
-  'user.handle': PT.string.isRequired,
-  'challenge.count': PT.number.isRequired,
-  'project_result.final_score': PT.number.isRequired,
+  'challenge_stats.photo_url': PT.string,
+  'challenge_stats.winner_handle': PT.string.isRequired,
+  'challenge_stats.count': PT.number.isRequired,
+  points: PT.number.isRequired,
 });
 
 Podium.propTypes = {

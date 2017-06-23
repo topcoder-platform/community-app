@@ -28,13 +28,13 @@ export default function Home(props) {
   return (
     <main>
       <Banner
-        title="ACME Crowd"
-        text="ACME's Hybrid Crowd gives our vast ecosystem of customers and partners options to access new range of skills that provide new value services and efficiency options all over the world."
+        title="Community 2"
+        text="Wipro's Hybrid Crowd gives our vast ecosystem of customers and partners options to access new range of skills that provide new value services and efficiency options all over the world."
         link={{
           title: 'Compete Now',
           url: 'challenges',
         }}
-        imageSrc="/themes/wipro/home/banner.jpg"
+        imageSrc="/themes/community-2/home/banner.jpg"
       />
 
       <GroupStats />
@@ -54,7 +54,7 @@ export default function Home(props) {
               title: 'Start Learning',
               url: 'learn',
             }}
-            imageSrc="/themes/wipro/home/image-text-learn.jpg"
+            imageSrc="/themes/community-2/home/image-text-learn.jpg"
           />
           <ImageText
             title="Get Involved"
@@ -63,7 +63,7 @@ export default function Home(props) {
               title: 'Start Earning',
               url: 'challenges',
             }}
-            imageSrc="/themes/wipro/home/image-text-do.jpg"
+            imageSrc="/themes/community-2/home/image-text-do.jpg"
           />
         </div>
       </Section>
@@ -107,7 +107,7 @@ export default function Home(props) {
       <NewsletterSignup
         title="Sign up for our newsletter"
         text="Don’t miss out on the latest Topcoder IOS challenges and information!"
-        imageSrc="/themes/wipro/subscribe-bg.jpg"
+        imageSrc="/themes/community-2/subscribe-bg.jpg"
       />
 
     </main>
@@ -121,4 +121,3 @@ Home.defaultProps = {
 Home.propTypes = {
   news: PT.arrayOf(PT.shape()),
 };
-

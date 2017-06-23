@@ -33,5 +33,6 @@
       "url": "leaderboard"
     }
   ],
-  "leaderboardApiUrl": "https://api.topcoder.com/v4/looks/412/run/json/"
+  "leaderboardApiUrl": "https://api.topcoder.com/v4/looks/458/run/json/",
+  "newsFeed": "http://www.topcoder.com/feed"
 }
