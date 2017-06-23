@@ -28,6 +28,7 @@ function Routes({ subdomains }) {
   if (subdomains.indexOf('demo-expert') >= 0) communityId = 'demo-expert';
   else if (subdomains.indexOf('wipro') >= 0) communityId = 'wipro';
   else if (subdomains.indexOf('tc-prod-dev') >= 0) communityId = 'tc-prod-dev';
+  else if (subdomains.includes('community-2')) communityId = 'community-2';
   if (communityId) {
     return (
       <div>
