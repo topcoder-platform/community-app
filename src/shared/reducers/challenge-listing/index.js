@@ -39,8 +39,8 @@ import { handleActions } from 'redux-actions';
 import { COMPETITION_TRACKS } from 'utils/tc';
 import { combine } from 'utils/redux';
 
-import filterPanel from './challenge-listing/filter-panel';
-import sidebar from './challenge-listing/sidebar';
+import filterPanel from '../challenge-listing/filter-panel';
+import sidebar from '../challenge-listing/sidebar';
 
 /**
  * Normalizes a regular challenge object received from the backend.
@@ -300,6 +300,20 @@ function create(initialState) {
     [a.setFilterState]: (state, { payload }) => ({
       ...state, filterState: payload,
     }),
+    [a.setSort]: (state, { payload }) => ({
+      ...state,
+      sorts: {
+        ...state.sorts,
+        [payload.bucket]: payload.sort,
+      },
+    }),
+    [a.setLoadMore]: (state, { payload }) => ({
+      ...state,
+      loadMore: {
+        ...state.loadMore,
+        [payload.key]: payload.data,
+      },
+    }),
   }, _.defaults(_.clone(initialState) || {}, {
     challenges: [],
     challengeSubtracks: [],
@@ -309,8 +323,19 @@ function create(initialState) {
     filterState: {},
     loadingChallengeSubtracks: false,
     loadingChallengeTags: false,
+    loadMore: {
+      past: {
+        loading: false,
+        nextPage: 1,
+      },
+      upcoming: {
+        loading: false,
+        nextPage: 1,
+      },
+    },
     oldestData: Date.now(),
     pendingRequests: {},
+    sorts: {},
   }));
 }
 

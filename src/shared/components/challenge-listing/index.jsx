@@ -268,6 +268,7 @@ class ChallengeFiltersExample extends React.Component {
 
       challengeCardContainer = (
         <ChallengeCardContainer
+          activeBucket={this.props.activeBucket}
           auth={this.props.auth}
           // config={this.props.config}
           onTechTagClicked={(tag) => {
@@ -276,6 +277,13 @@ class ChallengeFiltersExample extends React.Component {
             // if (this.challengeFilters) this.challengeFilters.setKeywords(tag);
           }}
           challenges={_.uniqBy(challenges, 'id')}
+          loadMore={this.props.loadMore}
+          loadMorePast={this.props.loadMorePast}
+          selectBucket={this.props.selectBucket}
+          setFilterState={this.props.setFilterState}
+          setSort={this.props.setSort}
+          sorts={this.props.sorts}
+
           // challengeGroupId={this.props.challengeGroupId}
           // currentFilterName={sidebarFilterName}
           // expanded={sidebarFilterName !== 'All Challenges'}
@@ -415,6 +423,7 @@ ChallengeFiltersExample.defaultProps = {
 };
 
 ChallengeFiltersExample.propTypes = {
+  activeBucket: PT.string.isRequired,
   challenges: PT.arrayOf(PT.shape()).isRequired,
   communityName: PT.string,
   filter: PT.string.isRequired,
@@ -422,7 +431,13 @@ ChallengeFiltersExample.propTypes = {
   // getChallenges: PT.func.isRequired,
   // getMarathonMatches: PT.func.isRequired,
   loadingChallenges: PT.bool.isRequired,
+  loadMorePast: PT.func.isRequired,
+  loadMore: PT.shape().isRequired,
+  selectBucket: PT.func.isRequired,
   setFilter: PT.func.isRequired,
+  setFilterState: PT.func.isRequired,
+  setSort: PT.func.isRequired,
+  sorts: PT.shape.isRequired,
 
   /* OLD PROPS BELOW */
   config: PT.shape({

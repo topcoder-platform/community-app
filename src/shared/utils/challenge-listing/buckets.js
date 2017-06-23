@@ -9,7 +9,6 @@ export const BUCKETS = {
   MY: 'my',
   OPEN_FOR_REGISTRATION: 'openForRegistration',
   ONGOING: 'ongoing',
-  // OPEN_FOR_REVIEW: 'Open for review',
   PAST: 'past',
   UPCOMING: 'upcoming',
 };

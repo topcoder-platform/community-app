@@ -20,6 +20,7 @@ import ChallengeListing from 'components/challenge-listing';
 import Banner from 'components/tc-communities/Banner';
 import NewsletterSignup from 'components/tc-communities/NewsletterSignup';
 import shortid from 'shortid';
+import sidebarActions from 'actions/challenge-listing/sidebar';
 import SideBarFilter, { MODE as SideBarFilterModes } from 'components/challenge-listing/SideBarFilters/SideBarFilter';
 import style from './styles.scss';
 
@@ -96,8 +97,25 @@ class ChallengeListingPageContainer extends React.Component {
     }
 
     /* Gets some (50 + 50) past challenges and MMs. */
-    this.props.getChallenges({ status: 'COMPLETED' }, {}, tokenV3);
-    this.props.getMarathonMatches({ status: 'PAST' }, {}, tokenV3);
+    this.props.getChallenges({ status: 'COMPLETED' }, { limit: 50 }, tokenV3);
+    this.props.getMarathonMatches({ status: 'PAST' }, { limit: 50 }, tokenV3);
+  }
+
+  loadMorePast() {
+    const { tokenV3 } = this.props.auth;
+    const { nextPage } = this.props.loadMore.past;
+    this.props.setLoadMore('past', {
+      loading: true,
+    });
+    console.log('LOAD MORE PAST CHALLENGES!');
+    Promise.all([
+      this.props.getChallenges({
+        status: 'COMPLETED',
+      }, { limit: 50, offset: 50 * nextPage }, tokenV3),
+      this.props.getMarathonMatches({
+        status: 'PAST',
+      }, { limit: 50, offset: 50 * nextPage }, tokenV3),
+    ]).then(() => console.log('READY!'));
   }
 
   /**
@@ -135,6 +153,8 @@ class ChallengeListingPageContainer extends React.Component {
       challengeTags,
       challengeGroupId,
       listingOnly,
+      selectBucket,
+      sidebar,
     } = this.props;
     return (
       <div>
@@ -155,6 +175,7 @@ class ChallengeListingPageContainer extends React.Component {
         }
         {/* eslint-enable max-len */}
         <ChallengeListing
+          activeBucket={sidebar.activeBucket}
           challenges={challenges}
           challengeSubtracks={challengeSubtracks}
           challengeTags={challengeTags}
@@ -164,6 +185,7 @@ class ChallengeListingPageContainer extends React.Component {
           getChallenges={this.props.getChallenges}
           getMarathonMatches={this.props.getMarathonMatches}
           loadingChallenges={Boolean(_.keys(this.props.pendingRequests).length)}
+          selectBucket={selectBucket}
           setFilter={(filter) => {
             const f = encodeURI(filter);
             this.props.history.replace(`#${f}`);
@@ -171,7 +193,11 @@ class ChallengeListingPageContainer extends React.Component {
               this.props.setFilter(f);
             }
           }}
+          loadMore={this.props.loadMore}
+          loadMorePast={() => this.loadMorePast()}
           setFilterState={this.props.setFilterState}
+          setSort={this.props.setSort}
+          sorts={this.props.sorts}
 
           /* OLD PROPS BELOW */
           challengeGroupId={challengeGroupId}
@@ -213,8 +239,16 @@ ChallengeListingPageContainer.propTypes = {
   getChallenges: PT.func.isRequired,
   getMarathonMatches: PT.func.isRequired,
   markHeaderMenu: PT.func.isRequired,
+  selectBucket: PT.func.isRequired,
   setFilter: PT.shape().isRequired,
   setFilterState: PT.func.isRequired,
+  sidebar: PT.shape({
+    activeBucket: PT.string.isRequired,
+  }).isRequired,
+  sorts: PT.shape().isRequired,
+  setSort: PT.func.isRequired,
+  setLoadMore: PT.func.isRequired,
+  loadMore: PT.shape().isRequired,
 
   /* OLD PROPS BELOW */
   listingOnly: PT.bool,
@@ -299,6 +333,7 @@ function getMarathonMatches(dispatch, filters, ...rest) {
 function mapDispatchToProps(dispatch) {
   const a = actions.challengeListing;
   const ah = headerActions.topcoderHeader;
+  const sa = sidebarActions.challengeListing.sidebar;
   return {
     getAllChallenges: (...rest) => getAllChallenges(dispatch, ...rest),
     getAllMarathonMatches: (...rest) =>
@@ -306,8 +341,11 @@ function mapDispatchToProps(dispatch) {
     getChallenges: (...rest) => getChallenges(dispatch, ...rest),
     getMarathonMatches: (...rest) => getMarathonMatches(dispatch, ...rest),
     reset: () => dispatch(a.reset()),
+    selectBucket: bucket => dispatch(sa.selectBucket(bucket)),
     setFilter: f => dispatch(a.setFilter(f)),
     setFilterState: state => dispatch(a.setFilterState(state)),
+    setLoadMore: (...rest) => dispatch(a.setLoadMore(...rest)),
+    setSort: (bucket, sort) => dispatch(a.setSort(bucket, sort)),
     markHeaderMenu: () =>
       dispatch(ah.setCurrentNav('Compete', 'All Challenges')),
   };

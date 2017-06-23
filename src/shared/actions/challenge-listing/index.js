@@ -242,5 +242,9 @@ export default createActions({
     RESET: reset,
     SET_FILTER: setFilter,
     SET_FILTER_STATE: _.identity,
+
+    SET_SORT: (bucket, sort) => ({ bucket, sort }),
+
+    SET_LOAD_MORE: (key, data) => ({ key, data }),
   },
 });

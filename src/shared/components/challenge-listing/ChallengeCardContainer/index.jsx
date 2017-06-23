@@ -49,13 +49,45 @@ import {
 */
 import './style.scss';
 
-export default function ChallengeCardContainer({ auth, challenges }) {
+export default function ChallengeCardContainer({
+  activeBucket,
+  auth,
+  challenges,
+  loadMore,
+  loadMorePast,
+  selectBucket,
+  setFilterState,
+  setSort,
+  sorts,
+}) {
   const buckets = getBuckets(_.get(auth.user, 'handle'));
+
+  if (activeBucket !== BUCKETS.ALL) {
+    return (
+      <div styleName="challengeCardContainer">
+        <Bucket
+          bucket={buckets[activeBucket]}
+          challenges={challenges}
+          expanded
+          loadingMore={activeBucket === BUCKETS.PAST ? loadMore.past.loading : null}
+          loadMore={activeBucket === BUCKETS.PAST ? loadMorePast : null}
+          setFilterState={setFilterState}
+          setSort={sort => setSort(activeBucket, sort)}
+          sort={sorts[activeBucket]}
+        />
+      </div>
+    );
+  }
 
   const getBucket = bucket => (
     <Bucket
       bucket={buckets[bucket]}
       challenges={challenges}
+      expand={() => selectBucket(bucket)}
+      // loadMore={bucket === BUCKETS.PAST ? loadMorePast : null}
+      setFilterState={setFilterState}
+      setSort={sort => setSort(bucket, sort)}
+      sort={sorts[bucket]}
     />
   );
 
@@ -292,6 +324,7 @@ ChallengeCardContainer.defaultProps = {
 };
 
 ChallengeCardContainer.propTypes = {
+  activeBucket: PT.string.isRequired,
   auth: PT.shape({
     tokenV3: PT.string,
     user: PT.shape({
@@ -303,6 +336,13 @@ ChallengeCardContainer.propTypes = {
   // onExpandFilterResult: PT.func,
   // additionalFilter: PT.func,
   challenges: PT.arrayOf(PT.shape()),
+  loadMore: PT.shape({}).isRequired,
+  loadMorePast: PT.func.isRequired,
+  selectBucket: PT.func.isRequired,
+  setFilterState: PT.func.isRequired,
+  setSort: PT.func.isRequired,
+  sorts: PT.shape().isRequired,
+
   /*
   currentFilterName: PT.string,
 

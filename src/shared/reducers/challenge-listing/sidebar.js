@@ -10,10 +10,15 @@ import { handleActions } from 'redux-actions';
 function create(initialState = {}) {
   const a = actions.challengeListing.sidebar;
   return handleActions({
+    [a.getFilters]: (state, action) => ({
+      ...state,
+      savedFilters: action.error ? [] : action.payload,
+    }),
     [a.selectBucket]: (state, { payload }) => ({
       ...state, activeBucket: payload }),
   }, _.defaults(initialState, {
     activeBucket: BUCKETS.ALL,
+    savedFilters: [],
   }));
 }
 

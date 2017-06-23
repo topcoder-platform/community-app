@@ -148,7 +148,9 @@ class Tags extends React.Component {
         <a
           key={c}
           styleName="technology"
-          onClick={() => this.onClick(c)}
+          /* TODO: Find out why all tags beside the first one are prepended
+           * with whitespaces? */
+          onClick={() => this.onClick(c.trim())}
         >{c}
         </a>
       ));

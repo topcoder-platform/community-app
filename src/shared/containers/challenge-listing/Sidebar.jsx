@@ -14,7 +14,8 @@ import { getBuckets } from 'utils/challenge-listing/buckets';
 class Container extends React.Component {
 
   componentDidMount() {
-    _.noop();
+    const token = this.props.tokenV2;
+    if (token) this.props.getSavedFilters(token);
   }
 
   render() {
@@ -29,10 +30,13 @@ class Container extends React.Component {
 }
 
 Container.defaultProps = {
+  tokenV2: null,
   user: null,
 };
 
 Container.propTypes = {
+  getSavedFilters: PT.func.isRequired,
+  tokenV2: PT.string,
   user: PT.string,
 };
 
@@ -46,6 +50,8 @@ function mapStateToProps(state) {
     ...state.challengeListing.sidebar,
     challenges: state.challengeListing.challenges,
     filterState: state.challengeListing.filterState,
+    savedFilters: state.challengeListing.sidebar.savedFilters,
+    tokenV2: state.auth.tokenV2,
     user: _.get(state.auth.user, 'handle'),
   };
 }

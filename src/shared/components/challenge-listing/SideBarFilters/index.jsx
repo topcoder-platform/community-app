@@ -157,6 +157,7 @@ class SideBarFilters extends React.Component {
       })
         .then(res => res.json())
         .then((data) => {
+          console.log(data);
           const myFilters = data.map((item) => {
             const filter = item;
             filter.isSavedFilter = true;
@@ -351,6 +352,7 @@ class SideBarFilters extends React.Component {
       activeBucket,
       buckets,
       isAuth,
+      savedFilters,
       selectBucket,
     } = this.props;
 
@@ -392,7 +394,7 @@ class SideBarFilters extends React.Component {
           {getBucket(BUCKETS.PAST)}
           {getBucket(BUCKETS.UPCOMING)}
           {
-            myFilters.length ?
+            savedFilters.length ?
               <div>
                 <div styleName="my-filters">
                   <h1>My filters</h1>
@@ -480,6 +482,7 @@ SideBarFilters.propTypes = {
   filterState: PT.shape().isRequired,
   challengeGroupId: PT.string,
   onFilter: PT.func,
+  savedFilters: PT.arrayOf(PT.shape).isRequired,
   isAuth: PT.bool,
   config: PT.shape({
     MAIN_URL: PT.string,
