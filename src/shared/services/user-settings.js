@@ -4,7 +4,7 @@
  * save user-defined filters in the challenge search.
  */
 
-import _ from 'lodash';
+// import _ from 'lodash';
 import config from 'utils/config';
 import Api from './api';
 

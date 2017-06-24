@@ -27,7 +27,7 @@ import Footer from 'components/tc-communities/Footer';
 import LoadingIndicator from 'components/LoadingIndicator';
 
 // page content components
-import ChallengeListing from 'containers/ChallengeListing';
+import ChallengeListing from 'containers/challenge-listing/Listing';
 import Leaderboard from 'containers/Leaderboard';
 import WiproHome from 'components/tc-communities/communities/wipro/Home';
 import WiproLearn from 'components/tc-communities/communities/wipro/Learn';

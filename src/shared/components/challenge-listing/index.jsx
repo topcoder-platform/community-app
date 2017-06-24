@@ -17,38 +17,20 @@ import _ from 'lodash';
 import ChallengeFilters from 'containers/challenge-listing/FilterPanel';
 import React from 'react';
 import PT from 'prop-types';
-import config from 'utils/config';
+// import config from 'utils/config';
 import Sticky from 'react-stickynode';
 import * as Filter from 'utils/challenge-listing/filter';
-import SideBarFilters from 'containers/challenge-listing/Sidebar';
-import ChallengeFilterWithSearch from './Filters/ChallengeFilterWithSearch';
-
-import SideBarFilter, { MODE as SideBarFilterModes } from './SideBarFilters/SideBarFilter';
+import Sidebar from 'containers/challenge-listing/Sidebar';
 
 // import ChallengeCard from './ChallengeCard';
-import ChallengeCardContainer from './ChallengeCardContainer';
-import ChallengeCardPlaceholder from './placeholders/ChallengeCardPlaceholder';
-import SidebarFilterPlaceholder from './placeholders/SidebarFilterPlaceholder';
+import Listing from './Listing';
+import ChallengeCardPlaceholder from './placeholders/ChallengeCard';
 import SRMCard from './SRMCard';
-import ChallengesSidebar from './Sidebar';
 
 import './style.scss';
 
 // Number of challenge placeholder card to display
 const CHALLENGE_PLACEHOLDER_COUNT = 8;
-
-// A mock list of SRMs side bar
-const SRMsSidebarMock = {
-  all: { name: 'All SRMs', value: 853 },
-  myChallenges: { name: 'My Challenges', value: 3 },
-  others: [
-    { name: 'Upcoming SRM', value: 16 },
-    { name: 'Past SRM', value: 34 },
-  ],
-  myFilters: [
-    { name: 'TCO Finals', value: 23 },
-  ],
-};
 
 /** Fetch Past challenges
  * {param} limit: Number of challenges to fetch
@@ -75,9 +57,10 @@ function fetchPastChallenges(limit, helper, groupIds, tokenV3) {
 */
 
 // helper function to serialize object to query string
-const serialize = filter => filter.getURLEncoded();
+// const serialize = filter => filter.getURLEncoded();
 
 // helper function to de-serialize query string to filter object
+/*
 const deserialize = (queryString) => {
   const filter = new SideBarFilter({
     filter: queryString,
@@ -88,345 +71,186 @@ const deserialize = (queryString) => {
   }
   return filter;
 };
+*/
 
 // The demo component itself.
-class ChallengeFiltersExample extends React.Component {
-
-  /**
-   * ChallengeFiltersExample was brought from another project without server rendering support.
-   * To make rendering on the server consistent with the client rendering, we have to make sure all
-   * setState calls will preform after this component is mounted. So we moved all the code which
-   * can call setState from the constructor to here. Also we added some logic to make sure we
-   * load data only once.
-   */
-  componentDidMount() {
-    /*
-    if (!this.state.isSRMChallengesLoading && !this.state.isSRMChallengesLoaded) {
-      // eslint-disable-next-line react/no-did-mount-set-state
-      this.setState({ isSRMChallengesLoading: true });
-      /* Fetching of SRM challenges */
-      /*
-      fetch(`${this.props.config.API_URL}/srms/?filter=status=FUTURE`)
-        .then(res => res.json())
-        .then((json) => {
-          this.setState({
-            srmChallenges: json.result.content,
-            isSRMChallengesLoading: false,
-            isSRMChallengesLoaded: true,
-          });
-        });
-    }
-    */
-  }
-
-  onFilterByTopFilter(filter, isSidebarFilter) {
-    let updatedFilter;
-    if (filter.query && filter.query !== '') {
-      updatedFilter = filter;
-      updatedFilter.isCustomFilter = true;
-      updatedFilter.mode = SideBarFilterModes.CUSTOM;
-    } else {
-      const f = this.getFilter();
-      const mergedFilter = Object.assign({}, f, filter);
-      if (isSidebarFilter) {
-        if (f.groupId) mergedFilter.groupId = f.groupId;
-      }
-      updatedFilter = new SideBarFilter(mergedFilter);
-      if (!isSidebarFilter) {
-        updatedFilter.mode = SideBarFilterModes.CUSTOM;
-      }
-    }
-    this.saveFiltersToHash(updatedFilter, updatedFilter.query || this.getSearchQuery());
-  }
-
-  // set current card type
+export default function ChallengeListing(props) {
+  let challenges = props.challenges;
   /*
-  setCardType(cardType) {
-    this.setState({
-      currentCardType: cardType,
+  if (this.props.challengeGroupId) {
+    challenges = challenges.filter(item =>
+      item.groups[this.props.challengeGroupId]);
+  }
+  */
+
+  // filter all challenges by master filter before applying any user filters
+  /*
+  challenges = _.filter(challenges, this.props.masterFilterFunc);
+  const currentFilter = this.getFilter();
+  currentFilter.mode = 'custom';
+  if (this.props.auth.user) {
+    challenges = challenges.map((item) => {
+      if (item.users[this.props.auth.user.handle]) {
+        _.assign(item, { myChallenge: true });
+      }
+      return item;
     });
   }
   */
 
-  /**
-   * Creates filter object from the text filter representation in the state.
-   * @return {Object}
-   */
-  getFilter() {
-    const q = this.getSearchQuery();
-    let f = deserialize(this.props.filter);
-    if (q) {
-      f = _.merge(new ChallengeFilterWithSearch(), f);
-      f.query = q;
-    }
-    return f;
-  }
+  challenges = challenges.filter(
+    Filter.getFilterFunction(props.filterState));
 
-  /**
-   * Extracts free text search query from the filter string.
-   * @return {String}
-   */
-  getSearchQuery() {
-    return this.props.filter.split('&').filter(e =>
-      e.startsWith('query')).map(element => element.split('=')[1])[0];
-  }
+  // challenges.sort((a, b) => b.submissionEndDate - a.submissionEndDate);
 
-  /**
-   * Saves current filters to the URL hash.
-   */
-  saveFiltersToHash(filter, searchQuery) {
-    let urlString = searchQuery ? `&query=${searchQuery}` : '';
-    urlString += serialize(filter);
-    this.props.setFilter(urlString);
-  }
+  // const filter = this.getFilter();
+  // const { name: sidebarFilterName } = filter;
 
-  // ReactJS render method.
-  render() {
-    let challenges = this.props.challenges;
-    /*
-    if (this.props.challengeGroupId) {
-      challenges = challenges.filter(item =>
-        item.groups[this.props.challengeGroupId]);
-    }
-    */
+  // const expanded = sidebarFilterName !== 'All Challenges';
 
-    // filter all challenges by master filter before applying any user filters
-    /*
-    challenges = _.filter(challenges, this.props.masterFilterFunc);
-    const currentFilter = this.getFilter();
-    currentFilter.mode = 'custom';
-    if (this.props.auth.user) {
-      challenges = challenges.map((item) => {
-        if (item.users[this.props.auth.user.handle]) {
-          _.assign(item, { myChallenge: true });
-        }
-        return item;
-      });
-    }
-    */
+  const expanded = false;
 
-    challenges = challenges.filter(
-      Filter.getFilterFunction(this.props.filterState));
-
-    // challenges.sort((a, b) => b.submissionEndDate - a.submissionEndDate);
-
-    // const filter = this.getFilter();
-    // const { name: sidebarFilterName } = filter;
-
-    // const expanded = sidebarFilterName !== 'All Challenges';
-
-    const expanded = false;
-
-    let challengeCardContainer;
-    if (!expanded && this.props.loadingChallenges) {
-      const challengeCards = _.range(CHALLENGE_PLACEHOLDER_COUNT)
-      .map(key => <ChallengeCardPlaceholder id={key} key={key} />);
-      challengeCardContainer = (
-        <div styleName="challenge-cards-container">
-          <div styleName="ChallengeCardExamples">
-            { challengeCards }
-          </div>
-        </div>
-      );
-    } else { /* else if (filter.isCustomFilter) {
-      if (currentFilter.mode === SideBarFilterModes.CUSTOM) {
-        challenges = this.props.challenges.filter(currentFilter.getFilterFunction());
-      }
-
-      const cardify = challenge => (
-        <ChallengeCard
-          challenge={challenge}
-          config={this.props.config}
-          onTechTagClicked={(tag) => {
-            _.noop(tag);
-            /* TODO: This should be rewired using setFilterState(..) */
-            // if (this.challengeFilters) this.challengeFilters.setKeywords(tag);
-            /*
-          }}
-          key={challenge.id}
-        />
-      );
-
-      challengeCardContainer = (
-        <div styleName="challenge-cards-container">
-          <div>
-            {challenges.filter(filter.getFilterFunction()).map(cardify)}
-          </div>
-        </div>
-      );
-    } */
-      // else {
-      /*
-      const filterFunc = filter.getFilterFunction();
-      const sidebarFilterFunc = (challenge) => {
-        if (currentFilter.mode !== SideBarFilterModes.CUSTOM) {
-          return true;
-        }
-        return currentFilter.getFilterFunction()(challenge);
-      };
-      */
-
-      challengeCardContainer = (
-        <ChallengeCardContainer
-          activeBucket={this.props.activeBucket}
-          auth={this.props.auth}
-          // config={this.props.config}
-          onTechTagClicked={(tag) => {
-            _.noop(tag);
-            /* TODO: This should be rewired using setFilterState(..) */
-            // if (this.challengeFilters) this.challengeFilters.setKeywords(tag);
-          }}
-          challenges={_.uniqBy(challenges, 'id')}
-          loadMore={this.props.loadMore}
-          loadMorePast={this.props.loadMorePast}
-          selectBucket={this.props.selectBucket}
-          setFilterState={this.props.setFilterState}
-          setSort={this.props.setSort}
-          sorts={this.props.sorts}
-
-          // challengeGroupId={this.props.challengeGroupId}
-          // currentFilterName={sidebarFilterName}
-          // expanded={sidebarFilterName !== 'All Challenges'}
-          // getChallenges={this.props.getChallenges}
-          // getMarathonMatches={this.props.getMarathonMatches}
-          /*
-          additionalFilter={
-            challenge => filterFunc(challenge) && sidebarFilterFunc(challenge)
-          }
-          // Handle onExpandFilterResult to update the sidebar
-          onExpandFilterResult={
-            filterName => this.sidebar.selectFilterWithName(filterName)
-          }
-          */
-        />
-      );
-    }
-
-    // Upcoming srms
-    // let futureSRMChallenge = this.state.srmChallenges.filter(challenge =>
-    //  challenge.status === 'FUTURE');
-    /*
-    futureSRMChallenge = futureSRMChallenge.sort(
-      (a, b) => new Date(a.startDate).getTime() - new Date(b.startDate).getTime(),
-    );
-
-    const UpcomingSrm = futureSRMChallenge.map(
-      srmChallenge => (
-        <SRMCard
-          category={'upcoming'}
-          srmChallenge={srmChallenge}
-          key={JSON.stringify(srmChallenge)}
-        />
-      ),
-    );
-    */
-
-    return (
-      <div styleName="ChallengeFiltersExample">
-        <ChallengeFilters
-          onSaveFilter={(filterToSave) => {
-            if (this.sidebar) {
-              const f = (new SideBarFilter(SideBarFilterModes.CUSTOM)).merge(filterToSave);
-              f.name = this.sidebar.getAvailableFilterName();
-              this.sidebar.addFilter(f);
-            }
-          }}
-          challengeGroupId={this.props.challengeGroupId}
-          communityName={this.props.communityName}
-          setCardType={_.noop/* cardType => this.setCardType(cardType) */}
-          isCardTypeSet={'Challenges' /* this.state.currentCardType */}
-        />
-        <div styleName={`tc-content-wrapper ${/* this.state.currentCardType === 'SRMs' ? '' :*/'hidden'}`}>
-          <div styleName="sidebar-container-mobile">
-            <ChallengesSidebar SidebarMock={SRMsSidebarMock} />
-          </div>
-
-          <div styleName="challenges-container SRMs-container">
-            {/* happening now */}
-            <div>
-              <SRMCard category={'now'} />
-            </div>
-            {/* upcoming SRMs */}
-            <div>
-              <div styleName="title">Upcoming SRMs</div>
-              { /* UpcomingSrm */ }
-            </div>
-            {/* past SRMs */}
-            <div>
-              <div styleName="title">Past SRMs</div>
-              <SRMCard category={'past'} />
-            </div>
-          </div>
-
-          <div styleName="sidebar-container-desktop">
-            <Sticky top={20}>
-              <ChallengesSidebar SidebarMock={SRMsSidebarMock} />
-            </Sticky>
-          </div>
-        </div>
-
-        <div styleName={`tc-content-wrapper ${/* this.state.currentCardType === 'Challenges' ? '' : 'hidden' */''}`}>
-          <div styleName="sidebar-container-mobile">
-            {!this.props.loadingChallenges || expanded ? (<SideBarFilters
-              config={this.props.config}
-              // challengeGroupId={filter.groupId}
-              challenges={challenges}
-              filter={this.getFilter()}
-              onFilter={topFilter => this.onFilterByTopFilter(topFilter, true)}
-              ref={(node) => {
-                this.sidebar = node;
-              }}
-              isAuth={this.props.isAuth}
-              myChallenges={this.props.myChallenges}
-              auth={this.props.auth}
-            />) : <SidebarFilterPlaceholder />}
-          </div>
-
-          {challengeCardContainer}
-
-          <div styleName="sidebar-container-desktop">
-            <Sticky top={20}>
-              {!this.props.loadingChallenges || expanded ? (<SideBarFilters
-                config={this.props.config}
-                challenges={challenges}
-                filter={this.getFilter()}
-                // challengeGroupId={filter.groupId}
-                onFilter={topFilter => this.onFilterByTopFilter(topFilter, true)}
-                ref={(node) => {
-                  this.sidebar = node;
-                }}
-                isAuth={this.props.isAuth}
-                myChallenges={this.props.myChallenges}
-                auth={this.props.auth}
-              />) : <SidebarFilterPlaceholder />}
-            </Sticky>
-          </div>
+  let challengeCardContainer;
+  if (!expanded && props.loadingChallenges) {
+    const challengeCards = _.range(CHALLENGE_PLACEHOLDER_COUNT)
+    .map(key => <ChallengeCardPlaceholder id={key} key={key} />);
+    challengeCardContainer = (
+      <div styleName="challenge-cards-container">
+        <div styleName="ChallengeCardExamples">
+          { challengeCards }
         </div>
       </div>
     );
+  } else {
+    challengeCardContainer = (
+      <Listing
+        activeBucket={props.activeBucket}
+        auth={props.auth}
+        // config={this.props.config}
+        onTechTagClicked={(tag) => {
+          _.noop(tag);
+          /* TODO: This should be rewired using setFilterState(..) */
+          // if (this.challengeFilters) this.challengeFilters.setKeywords(tag);
+        }}
+        challenges={challenges}
+        loadMore={props.loadMore}
+        loadMorePast={props.loadMorePast}
+        selectBucket={props.selectBucket}
+        setFilterState={props.setFilterState}
+        setSort={props.setSort}
+        sorts={props.sorts}
+
+        // challengeGroupId={this.props.challengeGroupId}
+        // currentFilterName={sidebarFilterName}
+        // expanded={sidebarFilterName !== 'All Challenges'}
+        // getChallenges={this.props.getChallenges}
+        // getMarathonMatches={this.props.getMarathonMatches}
+        /*
+        additionalFilter={
+          challenge => filterFunc(challenge) && sidebarFilterFunc(challenge)
+        }
+        // Handle onExpandFilterResult to update the sidebar
+        onExpandFilterResult={
+          filterName => this.sidebar.selectFilterWithName(filterName)
+        }
+        */
+      />
+    );
   }
+
+  // Upcoming srms
+  // let futureSRMChallenge = this.state.srmChallenges.filter(challenge =>
+  //  challenge.status === 'FUTURE');
+  /*
+  futureSRMChallenge = futureSRMChallenge.sort(
+    (a, b) => new Date(a.startDate).getTime() - new Date(b.startDate).getTime(),
+  );
+
+  const UpcomingSrm = futureSRMChallenge.map(
+    srmChallenge => (
+      <SRMCard
+        category={'upcoming'}
+        srmChallenge={srmChallenge}
+        key={JSON.stringify(srmChallenge)}
+      />
+    ),
+  );
+  */
+
+  return (
+    <div styleName="ChallengeFiltersExample">
+      <ChallengeFilters
+        onSaveFilter={_.noop /* (filterToSave) => {
+          /*
+          if (this.sidebar) {
+            const f = (new SideBarFilter(SideBarFilterModes.CUSTOM)).merge(filterToSave);
+            f.name = this.sidebar.getAvailableFilterName();
+            this.sidebar.addFilter(f);
+          }
+          */
+        }
+        challengeGroupId={props.challengeGroupId}
+        communityName={props.communityName}
+        setCardType={_.noop/* cardType => this.setCardType(cardType) */}
+        isCardTypeSet={'Challenges' /* this.state.currentCardType */}
+      />
+      <div styleName={`tc-content-wrapper ${/* this.state.currentCardType === 'SRMs' ? '' :*/'hidden'}`}>
+        <div styleName="sidebar-container-mobile">
+          {/* <ChallengesSidebar SidebarMock={SRMsSidebarMock} /> */}
+        </div>
+
+        <div styleName="challenges-container SRMs-container">
+          {/* happening now */}
+          <div>
+            <SRMCard category={'now'} />
+          </div>
+          {/* upcoming SRMs */}
+          <div>
+            <div styleName="title">Upcoming SRMs</div>
+            { /* UpcomingSrm */ }
+          </div>
+          {/* past SRMs */}
+          <div>
+            <div styleName="title">Past SRMs</div>
+            <SRMCard category={'past'} />
+          </div>
+        </div>
+
+        <div styleName="sidebar-container-desktop">
+          <Sticky top={20}>
+            {/* <ChallengesSidebar SidebarMock={SRMsSidebarMock} /> */}
+          </Sticky>
+        </div>
+      </div>
+
+      <div styleName={`tc-content-wrapper ${/* this.state.currentCardType === 'Challenges' ? '' : 'hidden' */''}`}>
+        <div styleName="sidebar-container-mobile">
+          <Sidebar />
+        </div>
+
+        {challengeCardContainer}
+
+        <div styleName="sidebar-container-desktop">
+          <Sticky top={20}>
+            <Sidebar />
+          </Sticky>
+        </div>
+      </div>
+    </div>
+  );
 }
 
-ChallengeFiltersExample.defaultProps = {
+ChallengeListing.defaultProps = {
   challengeGroupId: '',
   communityName: null,
-  config: {
-    API_URL_V2: config.API.V2,
-    API_URL: config.API.V3,
-    MAIN_URL: config.TC_BASE_URL,
-    COMMUNITY_URL: config.COMMUNITY_URL,
-  },
-  myChallenges: [],
-  isAuth: false,
   masterFilterFunc: () => true,
   auth: null,
 };
 
-ChallengeFiltersExample.propTypes = {
+ChallengeListing.propTypes = {
   activeBucket: PT.string.isRequired,
   challenges: PT.arrayOf(PT.shape()).isRequired,
   communityName: PT.string,
-  filter: PT.string.isRequired,
   filterState: PT.shape().isRequired,
   // getChallenges: PT.func.isRequired,
   // getMarathonMatches: PT.func.isRequired,
@@ -434,23 +258,11 @@ ChallengeFiltersExample.propTypes = {
   loadMorePast: PT.func.isRequired,
   loadMore: PT.shape().isRequired,
   selectBucket: PT.func.isRequired,
-  setFilter: PT.func.isRequired,
   setFilterState: PT.func.isRequired,
   setSort: PT.func.isRequired,
-  sorts: PT.shape.isRequired,
+  sorts: PT.shape().isRequired,
 
-  /* OLD PROPS BELOW */
-  config: PT.shape({
-    API_URL_V2: PT.string,
-    API_URL: PT.string,
-    MAIN_URL: PT.MAIN_URL,
-    COMMUNITY_URL: PT.COMMUNITY_URL,
-  }),
   challengeGroupId: PT.string,
-  myChallenges: PT.arrayOf(PT.shape),
-  isAuth: PT.bool,
   // masterFilterFunc: PT.func,
   auth: PT.shape(),
 };
-
-export default ChallengeFiltersExample;

@@ -1,3 +1,4 @@
+import PT from 'prop-types';
 import React from 'react';
 import LeaderboardAvatar from 'components/LeaderboardAvatar';
 
@@ -84,14 +85,14 @@ const resultsRows = MOCK_RESULTS.map(row => (
     <span className="challenge-stats">
       <span>
         <Tooltip content={numSubmissionsTipText(row.submission)}>
-          <a className="num-sub" href="javascript:;">
+          <a className="num-sub" href="">
             <SubmissionsIcon /> <span className="number">{row.submission}</span>
           </a>
         </Tooltip>
       </span>
       <span>
         <Tooltip content={numRegistrantsTipText(row.percent)}>
-          <a className="num-reg" href="javascript:;">
+          <a className="num-reg" href="">
             <RegistrantsIcon /> <span className="number">{row.percent}%</span>
           </a>
         </Tooltip>
@@ -112,5 +113,9 @@ const Division = props => (
     {resultsRows}
   </div>
 );
+
+Division.propTypes = {
+  division: PT.string.isRequired,
+};
 
 module.exports = Division;

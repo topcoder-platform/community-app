@@ -1,124 +1,85 @@
-@import '~styles/tc-styles';
-$sidebar-space-10: $base-unit * 2;
-$sidebar-space-15: $base-unit * 3;
-$sidebar-space-20: $base-unit * 4;
-$sidebar-space-30: $base-unit * 6;
-$sidebar-space-40: $base-unit * 8;
-$sidebar-radius-4: $corner-radius * 2;
+@import "~styles/tc-styles";
 
-.clickable {
-  cursor: pointer;
-}
+.SideBarFilters {
+  font: 400 13px/30px Roboto;
+  width: 100%;
 
-.challenges-sidebar {
-  padding: $sidebar-space-10;
-  background: $tc-white;
-  border-radius: $sidebar-radius-4;
+  .FilterBox {
+    background: $tc-white;
+    padding: 2 * $base-unit;
+    padding-bottom: 2 * $base-unit;
+    border-radius: $corner-radius * 2;
 
-  .header {
-    background: $tc-gray-10;
-    border-radius: $sidebar-radius-4;
-    padding: 0 $sidebar-space-10 0 $sidebar-space-15;
-    margin-bottom: $sidebar-space-10;
-
-    @include xs {
-      padding: 0;
-      background: $tc-white;
+    hr {
+      color: $tc-gray-10;
+      background: $tc-gray-10;
+      border: 0;
+      height: 1px;
+      margin: 2 * $base-unit;
     }
 
-    .l-row {
-      font-weight: 700;
-      font-size: 13px;
-      color: $tc-black;
-      line-height: $sidebar-space-30;
+    .my-filters {
+      display: block;
+      position: relative;
+      padding: 0 3 * $base-unit;
+      margin-top: 7 * $base-unit;
 
       @include xs {
-        font-size: 15px;
+        padding: 0;
       }
-    }
-  }
 
-  .challenges {
-    border-top: 1px solid $tc-gray-10;
-    margin: 0 $sidebar-space-10;
-    padding: $sidebar-space-10 0 $sidebar-space-10 $base-unit;
+      h1 {
+        display: inline-block;
+        margin: 0;
+        padding: 0;
+        font-weight: 500;
+        font-size: 12px;
+        color: $tc-gray-50;
+        letter-spacing: 0;
+        line-height: 30px;
+        border: none;
+        text-transform: uppercase;
 
-    @include xs {
-      margin: 0;
-      padding: $sidebar-space-10 0 $sidebar-space-10 0;
-    }
-  }
+        @include xs {
+          font-size: 15px;
+        }
+      }
 
-  .filters {
-    margin-bottom: $sidebar-space-10;
+      .edit-link {
+        float: right;
+        font-weight: 400;
+        font-size: 11px;
+        color: $tc-dark-blue;
+        line-height: $base-unit * 4;
+        cursor: pointer;
 
-    .l-row {
-      font-weight: 500;
-      font-size: 12px;
-      color: $tc-gray-50;
-      letter-spacing: 0;
-      line-height: $base-unit * 4;
-
-      @include xs {
-        font-size: 15px;
+        @include xs {
+          font-size: 13px;
+        }
       }
     }
 
-    .r-row {
-      font-weight: 400;
-      font-size: 11px;
-      line-height: $base-unit * 4;
-
-      @include xs {
-        font-size: 13px;
-      }
+    .get-rss {
+      text-align: center;
 
       a {
-        color: $tc-dark-blue;
+        color: $tc-gray-50;
+        font-size: 13px;
+        line-height: 30px;
       }
     }
   }
-}
-// sidebar footer
-.sidebar-footer {
-  padding: $sidebar-space-10;
 
-  ul {
-    display: flex;
-    flex-wrap: wrap;
-  }
+  .openForReview {
+    color: $tc-black;
+    border-radius: 2 * $corner-radius;
+    cursor: pointer;
+    display: block;
+    padding: 0 2 * $base-unit 0 3 * $base-unit;
 
-  li {
-    font-weight: 400;
-    font-size: 13px;
-    color: $tc-gray-70;
-    line-height: $sidebar-space-30;
-  }
-
-  li a {
-    font-weight: 400;
-    font-size: 13px;
-    color: $tc-gray-70;
-    display: inline-block;
-
-    &:hover {
-      text-decoration: underline;
+    @include xs {
+      font-size: 15px;
+      padding: 2px 0;
     }
-  }
-
-  .copyright {
-    font-weight: 500;
-    font-size: 13px;
-    color: $tc-gray-30;
-    line-height: $sidebar-space-30;
-  }
-
-  /*
-    On mobile devices, the ChallengesSidebar is not on the side
-    but on top of the list of challenges. Also, the footer is
-    not displayed.
-  */
-  @include xs-to-sm {
-    display: none;
   }
 }

@@ -29,6 +29,10 @@ $type-radius-4: $corner-radius * 2;
       margin-right: $type-space-20;
     }
 
+    &:visited {
+      color: $tc-dark-blue-70;
+    }
+
     &:hover {
       color: $tc-dark-blue;
       text-decoration: none;

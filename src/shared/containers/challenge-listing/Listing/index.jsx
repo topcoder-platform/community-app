@@ -21,10 +21,10 @@ import Banner from 'components/tc-communities/Banner';
 import NewsletterSignup from 'components/tc-communities/NewsletterSignup';
 import shortid from 'shortid';
 import sidebarActions from 'actions/challenge-listing/sidebar';
-import SideBarFilter, { MODE as SideBarFilterModes } from 'components/challenge-listing/SideBarFilters/SideBarFilter';
 import style from './styles.scss';
 
 // helper function to de-serialize query string to filter object
+/*
 const deserialize = (queryString) => {
   const filter = new SideBarFilter({
     filter: queryString,
@@ -35,11 +35,12 @@ const deserialize = (queryString) => {
   }
   return filter;
 };
+*/
 
 let mounted = false;
 
 // The container component
-class ChallengeListingPageContainer extends React.Component {
+class ListingContainer extends React.Component {
 
   constructor(props) {
     super(props);
@@ -54,15 +55,19 @@ class ChallengeListingPageContainer extends React.Component {
     } else mounted = true;
     this.loadChallenges();
 
+    /* LOAD FILTER FROM URL, IF NECESSARY! */
+
     /* Get filter from the URL hash, if necessary. */
+    /*
     const filter = this.props.location.hash.slice(1);
     if (filter && filter !== this.props.filter) {
-      this.props.setFilter(filter);
+      // this.props.setFilter(filter);
     } else if (this.props.challengeGroupId) {
       const f = deserialize(this.props.filter);
       f.groupId = this.props.challengeGroupId;
-      this.props.setFilter(f.getURLEncoded());
+      // this.props.setFilter(f.getURLEncoded());
     }
+    */
   }
 
   componentDidUpdate(prevProps) {
@@ -99,6 +104,10 @@ class ChallengeListingPageContainer extends React.Component {
     /* Gets some (50 + 50) past challenges and MMs. */
     this.props.getChallenges({ status: 'COMPLETED' }, { limit: 50 }, tokenV3);
     this.props.getMarathonMatches({ status: 'PAST' }, { limit: 50 }, tokenV3);
+
+    /* Gets some (50 + 50) upcoming challenges and MMs. */
+    this.props.getChallenges({ status: 'DRAFT' }, { limit: 50 }, tokenV3);
+    this.props.getMarathonMatches({ status: 'DRAFT' }, { limit: 50 }, tokenV3);
   }
 
   loadMorePast() {
@@ -180,22 +189,14 @@ class ChallengeListingPageContainer extends React.Component {
           challengeSubtracks={challengeSubtracks}
           challengeTags={challengeTags}
           communityName={this.props.communityName}
-          filter={this.props.filter}
-          filterState={this.props.filterState}
+          filterState={this.props.filter}
           getChallenges={this.props.getChallenges}
           getMarathonMatches={this.props.getMarathonMatches}
           loadingChallenges={Boolean(_.keys(this.props.pendingRequests).length)}
           selectBucket={selectBucket}
-          setFilter={(filter) => {
-            const f = encodeURI(filter);
-            this.props.history.replace(`#${f}`);
-            if (f !== this.props.filter) {
-              this.props.setFilter(f);
-            }
-          }}
           loadMore={this.props.loadMore}
           loadMorePast={() => this.loadMorePast()}
-          setFilterState={this.props.setFilterState}
+          setFilterState={this.props.setFilter}
           setSort={this.props.setSort}
           sorts={this.props.sorts}
 
@@ -218,7 +219,7 @@ class ChallengeListingPageContainer extends React.Component {
   }
 }
 
-ChallengeListingPageContainer.defaultProps = {
+ListingContainer.defaultProps = {
   challengeGroupId: '',
   communityName: null,
   listingOnly: false,
@@ -226,12 +227,11 @@ ChallengeListingPageContainer.defaultProps = {
   tag: null,
 };
 
-ChallengeListingPageContainer.propTypes = {
+ListingContainer.propTypes = {
   challenges: PT.arrayOf(PT.shape({})).isRequired,
   challengeSubtracks: PT.arrayOf(PT.string).isRequired,
   challengeTags: PT.arrayOf(PT.string).isRequired,
-  filter: PT.string.isRequired,
-  filterState: PT.shape().isRequired,
+  filter: PT.shape().isRequired,
   pendingRequests: PT.shape().isRequired,
   communityName: PT.string,
   getAllChallenges: PT.func.isRequired,
@@ -240,8 +240,7 @@ ChallengeListingPageContainer.propTypes = {
   getMarathonMatches: PT.func.isRequired,
   markHeaderMenu: PT.func.isRequired,
   selectBucket: PT.func.isRequired,
-  setFilter: PT.shape().isRequired,
-  setFilterState: PT.func.isRequired,
+  setFilter: PT.func.isRequired,
   sidebar: PT.shape({
     activeBucket: PT.string.isRequired,
   }).isRequired,
@@ -259,9 +258,6 @@ ChallengeListingPageContainer.propTypes = {
   }),
   challengeGroupId: PT.string,
   tag: PT.string,
-  history: PT.shape({
-    replace: PT.func.isRequired,
-  }).isRequired,
   location: PT.shape({
     hash: PT.string,
   }).isRequired,
@@ -274,7 +270,6 @@ ChallengeListingPageContainer.propTypes = {
 const mapStateToProps = state => ({
   auth: state.auth,
   ..._.omit(state.challengeListing, ['filterPanel']),
-  filter: decodeURIComponent(state.challengeListing.filter),
 });
 
 /**
@@ -342,8 +337,7 @@ function mapDispatchToProps(dispatch) {
     getMarathonMatches: (...rest) => getMarathonMatches(dispatch, ...rest),
     reset: () => dispatch(a.reset()),
     selectBucket: bucket => dispatch(sa.selectBucket(bucket)),
-    setFilter: f => dispatch(a.setFilter(f)),
-    setFilterState: state => dispatch(a.setFilterState(state)),
+    setFilter: state => dispatch(a.setFilter(state)),
     setLoadMore: (...rest) => dispatch(a.setLoadMore(...rest)),
     setSort: (bucket, sort) => dispatch(a.setSort(bucket, sort)),
     markHeaderMenu: () =>
@@ -354,6 +348,6 @@ function mapDispatchToProps(dispatch) {
 const ChallengeListingContainer = connect(
   mapStateToProps,
   mapDispatchToProps,
-)(ChallengeListingPageContainer);
+)(ListingContainer);
 
 export default ChallengeListingContainer;

@@ -33,8 +33,6 @@
 import _ from 'lodash';
 import actions from 'actions/challenge-listing';
 import logger from 'utils/logger';
-import SideBarFilter from
-  'components/challenge-listing/SideBarFilters/SideBarFilter';
 import { handleActions } from 'redux-actions';
 import { COMPETITION_TRACKS } from 'utils/tc';
 import { combine } from 'utils/redux';
@@ -296,9 +294,8 @@ function create(initialState) {
     [a.getInit]: onGetInit,
     [a.getMarathonMatches]: onGetMarathonMatches,
     [a.reset]: onReset,
-    [a.setFilter]: (state, { payload }) => ({ ...state, filter: payload }),
-    [a.setFilterState]: (state, { payload }) => ({
-      ...state, filterState: payload,
+    [a.setFilter]: (state, { payload }) => ({
+      ...state, filter: payload,
     }),
     [a.setSort]: (state, { payload }) => ({
       ...state,
@@ -319,8 +316,7 @@ function create(initialState) {
     challengeSubtracks: [],
     challengeTags: [],
     counts: {},
-    filter: (new SideBarFilter()).getURLEncoded(),
-    filterState: {},
+    filter: {},
     loadingChallengeSubtracks: false,
     loadingChallengeTags: false,
     loadMore: {

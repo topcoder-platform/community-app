@@ -74,7 +74,10 @@ export function getBuckets(userHandle) {
       ],
     },
     [BUCKETS.UPCOMING]: {
-      filter: {},
+      filter: {
+        status: ['DRAFT'],
+        startDate: Date.now(),
+      },
       hideCount: true,
       name: 'Upcoming challenges',
       sorts: [

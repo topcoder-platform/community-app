@@ -8,9 +8,15 @@ import PT from 'prop-types';
 import React from 'react';
 import './style.scss';
 
-export default function Bucket({ active, bucket, challenges, onClick }) {
+export default function Bucket({
+  active,
+  bucket,
+  challenges,
+  disabled,
+  onClick,
+}) {
   let count;
-  if (!bucket.hideCount) {
+  if (!bucket.hideCount && !disabled) {
     const filter = Filter.getFilterFunction(bucket.filter);
     count = challenges.filter(filter).length;
     count = <span styleName="right">{count}</span>;
@@ -20,7 +26,7 @@ export default function Bucket({ active, bucket, challenges, onClick }) {
 
   return (
     <div
-      onClick={onClick}
+      onClick={disabled ? _.noop : onClick}
       onKeyPress={e => (e.key === 'Enter' ? onClick() : null)}
       role="button"
       styleName="bucket"
@@ -31,6 +37,7 @@ export default function Bucket({ active, bucket, challenges, onClick }) {
 
 Bucket.defaultProps = {
   active: false,
+  disabled: false,
   onClick: _.noop,
 };
 
@@ -38,5 +45,6 @@ Bucket.propTypes = {
   active: PT.bool,
   bucket: PT.shape().isRequired,
   challenges: PT.arrayOf(PT.shape).isRequired,
+  disabled: PT.bool,
   onClick: PT.func,
 };

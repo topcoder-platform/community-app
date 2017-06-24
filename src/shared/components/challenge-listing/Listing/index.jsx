@@ -28,7 +28,6 @@ import PT from 'prop-types';
 import { BUCKETS, getBuckets } from 'utils/challenge-listing/buckets';
 import Bucket from './Bucket';
 // import InfiniteList from '../InfiniteList';
-import defaultFilters from './challengeFilters';
 /*
 import defaultSortingFunctionStore from './sortingFunctionStore';
 import {
@@ -96,6 +95,7 @@ export default function ChallengeCardContainer({
       {auth.user ? getBucket(BUCKETS.MY) : null}
       {getBucket(BUCKETS.OPEN_FOR_REGISTRATION)}
       {getBucket(BUCKETS.ONGOING)}
+      {getBucket(BUCKETS.UPCOMING)}
       {getBucket(BUCKETS.PAST)}
     </div>
   );
@@ -317,7 +317,6 @@ ChallengeCardContainer.defaultProps = {
   challengeGroupId: '',
   onTechTagClicked: _.noop,
   onExpandFilterResult: _.noop,
-  filters: defaultFilters,
   currentFilterName: '',
   challenges: [],
   expanded: false,

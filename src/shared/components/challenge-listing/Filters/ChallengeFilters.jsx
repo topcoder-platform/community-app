@@ -9,7 +9,6 @@ import SwitchWithLabel from 'components/SwitchWithLabel';
 import * as Filter from 'utils/challenge-listing/filter';
 import { COMPETITION_TRACKS as TRACKS } from 'utils/tc';
 
-import ChallengeFilter from './ChallengeFilter';
 import ChallengeSearchBar from './ChallengeSearchBar';
 import EditTrackPanel from './EditTrackPanel';
 import FiltersIcon from './FiltersSwitch/filters-icon.svg';
@@ -159,7 +158,6 @@ export default function ChallengeFilters({
 
 ChallengeFilters.defaultProps = {
   communityName: null,
-  filter: new ChallengeFilter(),
   isCardTypeSet: '',
   onSaveFilter: _.noop,
   setCardType: _.noop,

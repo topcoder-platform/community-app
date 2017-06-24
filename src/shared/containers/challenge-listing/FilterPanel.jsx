@@ -42,7 +42,7 @@ function mapDispatchToProps(dispatch) {
       dispatch(cla.getChallengeTagsInit());
       dispatch(cla.getChallengeTagsDone());
     },
-    setFilterState: s => dispatch(cla.setFilterState(s)),
+    setFilterState: s => dispatch(cla.setFilter(s)),
   };
 }
 
@@ -51,7 +51,7 @@ function mapStateToProps(state, ownProps) {
   return {
     ...ownProps,
     ...state.challengeListing.filterPanel,
-    filterState: cl.filterState,
+    filterState: cl.filter,
     loadingKeywords: cl.loadingChallengeTags,
     loadingSubtracks: cl.loadingChallengeSubtracks,
     validKeywords: cl.challengeTags,

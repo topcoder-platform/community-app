@@ -31,12 +31,12 @@ SortingSelectBar.defaultProps = {
   onSelect: _.noop,
   options: null,
   title: '',
-  value: '',
+  value: null,
 };
 
 SortingSelectBar.propTypes = {
   onSelect: PT.func,
-  options: PT.arrayOf(PT.string),
+  options: PT.arrayOf(PT.shape()),
   title: PT.string,
-  value: PT.string,
+  value: PT.shape(),
 };

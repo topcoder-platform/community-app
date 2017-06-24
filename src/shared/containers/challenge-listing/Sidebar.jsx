@@ -6,12 +6,12 @@ import _ from 'lodash';
 import actions from 'actions/challenge-listing/sidebar';
 import PT from 'prop-types';
 import React from 'react';
-import Sidebar from 'components/challenge-listing/SideBarFilters';
+import Sidebar from 'components/challenge-listing/Sidebar';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { getBuckets } from 'utils/challenge-listing/buckets';
+import { BUCKETS, getBuckets } from 'utils/challenge-listing/buckets';
 
-class Container extends React.Component {
+class SidebarContainer extends React.Component {
 
   componentDidMount() {
     const token = this.props.tokenV2;
@@ -19,7 +19,7 @@ class Container extends React.Component {
   }
 
   render() {
-    const buckets = getBuckets(this.props.user);
+    const buckets = getBuckets(this.props.user && this.props.user.handle);
     return (
       <Sidebar
         {...this.props}
@@ -29,15 +29,15 @@ class Container extends React.Component {
   }
 }
 
-Container.defaultProps = {
+SidebarContainer.defaultProps = {
   tokenV2: null,
   user: null,
 };
 
-Container.propTypes = {
+SidebarContainer.propTypes = {
   getSavedFilters: PT.func.isRequired,
   tokenV2: PT.string,
-  user: PT.string,
+  user: PT.shape(),
 };
 
 function mapDispatchToProps(dispatch) {
@@ -46,14 +46,17 @@ function mapDispatchToProps(dispatch) {
 }
 
 function mapStateToProps(state) {
+  const activeBucket = state.challengeListing.sidebar.activeBucket;
+  const pending = _.keys(state.challengeListing.pendingRequests);
   return {
     ...state.challengeListing.sidebar,
     challenges: state.challengeListing.challenges,
-    filterState: state.challengeListing.filterState,
-    savedFilters: state.challengeListing.sidebar.savedFilters,
+    disabled: (activeBucket === BUCKETS.ALL) && Boolean(pending.length),
+    filterState: state.challengeListing.filter,
+    isAuth: Boolean(state.auth.user),
     tokenV2: state.auth.tokenV2,
-    user: _.get(state.auth.user, 'handle'),
+    user: state.auth.user,
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Container);
+export default connect(mapStateToProps, mapDispatchToProps)(SidebarContainer);

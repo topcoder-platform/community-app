@@ -9,7 +9,7 @@ import Sort from 'utils/challenge-listing/sort';
 import SortingSelectBar from 'components/SortingSelectBar';
 import Waypoint from 'react-waypoint';
 import { getFilterFunction } from 'utils/challenge-listing/filter';
-import CardPlaceholder from '../../placeholders/ChallengeCardPlaceholder';
+import CardPlaceholder from '../../placeholders/ChallengeCard';
 import ChallengeCard from '../../ChallengeCard';
 import './style.scss';
 
