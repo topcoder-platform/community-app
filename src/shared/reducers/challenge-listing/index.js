@@ -30,9 +30,12 @@
  *    as only plain objects can be safely stored into Redux state.
  */
 
+/* global window */
+
 import _ from 'lodash';
 import actions from 'actions/challenge-listing';
 import logger from 'utils/logger';
+import qs from 'qs';
 import { handleActions } from 'redux-actions';
 import { COMPETITION_TRACKS } from 'utils/tc';
 import { combine } from 'utils/redux';
@@ -271,6 +274,24 @@ function onReset(state) {
 }
 
 /**
+ * @param {Object} state
+ * @param {Object} action
+ * @return {Object}
+ */
+function onSetFilter(state, { payload }) {
+  if (window) {
+    let query = qs.parse(window.location.search.slice(1));
+    query.filter = payload;
+    query = `?${qs.stringify(query, { encode: false })}`;
+    window.history.replaceState(window.history.state, '', query);
+  }
+  return {
+    ...state,
+    filter: payload,
+  };
+}
+
+/**
  * Creates a new Challenge Listing reducer with the specified initial state.
  * @param {Object} initialState Optional. Initial state.
  * @return Challenge Listing reducer.
@@ -294,9 +315,7 @@ function create(initialState) {
     [a.getInit]: onGetInit,
     [a.getMarathonMatches]: onGetMarathonMatches,
     [a.reset]: onReset,
-    [a.setFilter]: (state, { payload }) => ({
-      ...state, filter: payload,
-    }),
+    [a.setFilter]: onSetFilter,
     [a.setSort]: (state, { payload }) => ({
       ...state,
       sorts: {
@@ -342,10 +361,16 @@ function create(initialState) {
  * @param {Object} req Optional. ExpressJS HTTP request.
  * @return {Promise} Resolves to the new reducer.
  */
-export function factory() {
+export function factory(req) {
+  const state = {};
+
+  if (req) {
+    state.filter = req.query.filter;
+  }
+
   /* Server-side rendering is not implemented yet.
     Let's first ensure it all works fine without it. */
-  return Promise.resolve(combine(create(), { filterPanel, sidebar }));
+  return Promise.resolve(combine(create(state), { filterPanel, sidebar }));
 }
 
 /* Default reducer with empty initial state. */
