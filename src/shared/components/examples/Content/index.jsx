@@ -103,6 +103,9 @@ export default function Content() {
           page</Link>.
         </li>
         <li>
+          <Link to="/community/community-2/home">Community 2</Link>
+        </li>
+        <li>
           <Link to="/my-dashboard">Dashboard</Link> &ndash; Dashboard page.
         </li>
       </ul>

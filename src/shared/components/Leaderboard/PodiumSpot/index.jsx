@@ -62,6 +62,11 @@ export default function PodiumSpot(props) {
     competitor,
   } = props;
 
+  let photoUrl = competitor['challenge_stats.photo_url'];
+  if (photoUrl && (photoUrl[0] === '/')) {
+    photoUrl = config.URL.BASE + photoUrl;
+  }
+
   return (
     <div styleName={`styles.PodiumSpot styles.PodiumSpot--${PODIUM_ITEM_MODIFIER[competitor.rank]}`}>
       <span styleName="styles.leaderboard-avatar">
@@ -69,18 +74,18 @@ export default function PodiumSpot(props) {
           theme={{
             avatar: CUSTOM_STYLES[competitor.rank],
           }}
-          url={competitor.photourl}
+          url={photoUrl}
         />
       </span>
       <div styleName="styles.ranking">{DISPLAY_RANKING[competitor.rank]}</div>
       <div>
-        <a styleName="styles.profile-link" href={`${config.URL.BASE}/members/${competitor['user.handle']}/`}>
-          {competitor['user.handle']}
+        <a styleName="styles.profile-link" href={`${config.URL.BASE}/members/${competitor['challenge_stats.winner_handle']}/`}>
+          {competitor['challenge_stats.winner_handle']}
         </a>
       </div>
       <div styleName="styles.winnings-info">
-        <span>{competitor['project_result.final_score']} points</span>
-        <span>{competitor['challenge.count']} challenges</span>
+        <span>{competitor.points} points</span>
+        <span>{competitor['challenge_stats.count']} challenges</span>
       </div>
     </div>
   );
@@ -88,10 +93,10 @@ export default function PodiumSpot(props) {
 
 const CompetitorShape = PT.shape({
   rank: PT.number.isRequired,
-  photourl: PT.string,
-  'user.handle': PT.string.isRequired,
-  'challenge.count': PT.number.isRequired,
-  'project_result.final_score': PT.number.isRequired,
+  'challenge_stats.photo_url': PT.string,
+  'challenge_stats.winner_handle': PT.string.isRequired,
+  'challenge_stats.count': PT.number.isRequired,
+  points: PT.number.isRequired,
 });
 
 PodiumSpot.propTypes = {

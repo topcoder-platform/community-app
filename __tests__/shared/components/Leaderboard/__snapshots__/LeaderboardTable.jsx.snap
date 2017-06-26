@@ -53,7 +53,7 @@ exports[`Matches shallow shapshot 1`] = `
                 "avatar": "src-shared-components-Leaderboard-___avatarStyles__default___1bHTz",
               }
             }
-            url="some.fake.string"
+            url={null}
           />
         </span>
       </td>
@@ -61,33 +61,25 @@ exports[`Matches shallow shapshot 1`] = `
         className="src-shared-components-Leaderboard-LeaderboardTable-___styles__col-handle___3Sr8G"
       >
         <a
-          href="https://www.topcoder-dev.com/members/overachieving.mofo/"
-        >
-          overachieving.mofo
-        </a>
+          href="https://www.topcoder-dev.com/members/undefined/"
+        />
         <div
           className="src-shared-components-Leaderboard-LeaderboardTable-___styles__winnings-info___1Fiyn"
         >
           <span>
-            9999999999
              points
           </span>
           <span>
-            99999
              challenges
           </span>
         </div>
       </td>
       <td
         className="src-shared-components-Leaderboard-LeaderboardTable-___styles__col-challenges___29htm"
-      >
-        99999
-      </td>
+      />
       <td
         className="src-shared-components-Leaderboard-LeaderboardTable-___styles__col-points___10Lis"
-      >
-        9999999999
-      </td>
+      />
     </tr>
     <tr>
       <td
@@ -110,7 +102,7 @@ exports[`Matches shallow shapshot 1`] = `
                 "avatar": "src-shared-components-Leaderboard-___avatarStyles__default___1bHTz",
               }
             }
-            url="some.fake.string"
+            url={null}
           />
         </span>
       </td>
@@ -118,33 +110,25 @@ exports[`Matches shallow shapshot 1`] = `
         className="src-shared-components-Leaderboard-LeaderboardTable-___styles__col-handle___3Sr8G"
       >
         <a
-          href="https://www.topcoder-dev.com/members/overachieving.mofo/"
-        >
-          overachieving.mofo
-        </a>
+          href="https://www.topcoder-dev.com/members/undefined/"
+        />
         <div
           className="src-shared-components-Leaderboard-LeaderboardTable-___styles__winnings-info___1Fiyn"
         >
           <span>
-            9999999999
              points
           </span>
           <span>
-            99999
              challenges
           </span>
         </div>
       </td>
       <td
         className="src-shared-components-Leaderboard-LeaderboardTable-___styles__col-challenges___29htm"
-      >
-        99999
-      </td>
+      />
       <td
         className="src-shared-components-Leaderboard-LeaderboardTable-___styles__col-points___10Lis"
-      >
-        9999999999
-      </td>
+      />
     </tr>
     <tr>
       <td
@@ -167,7 +151,7 @@ exports[`Matches shallow shapshot 1`] = `
                 "avatar": "src-shared-components-Leaderboard-___avatarStyles__default___1bHTz",
               }
             }
-            url="some.fake.string"
+            url={null}
           />
         </span>
       </td>
@@ -175,33 +159,25 @@ exports[`Matches shallow shapshot 1`] = `
         className="src-shared-components-Leaderboard-LeaderboardTable-___styles__col-handle___3Sr8G"
       >
         <a
-          href="https://www.topcoder-dev.com/members/overachieving.mofo/"
-        >
-          overachieving.mofo
-        </a>
+          href="https://www.topcoder-dev.com/members/undefined/"
+        />
         <div
           className="src-shared-components-Leaderboard-LeaderboardTable-___styles__winnings-info___1Fiyn"
         >
           <span>
-            9999999999
              points
           </span>
           <span>
-            99999
              challenges
           </span>
         </div>
       </td>
       <td
         className="src-shared-components-Leaderboard-LeaderboardTable-___styles__col-challenges___29htm"
-      >
-        99999
-      </td>
+      />
       <td
         className="src-shared-components-Leaderboard-LeaderboardTable-___styles__col-points___10Lis"
-      >
-        9999999999
-      </td>
+      />
     </tr>
     <tr>
       <td
@@ -224,7 +200,7 @@ exports[`Matches shallow shapshot 1`] = `
                 "avatar": "src-shared-components-Leaderboard-___avatarStyles__default___1bHTz",
               }
             }
-            url="some.fake.string"
+            url={null}
           />
         </span>
       </td>
@@ -232,33 +208,25 @@ exports[`Matches shallow shapshot 1`] = `
         className="src-shared-components-Leaderboard-LeaderboardTable-___styles__col-handle___3Sr8G"
       >
         <a
-          href="https://www.topcoder-dev.com/members/overachieving.mofo/"
-        >
-          overachieving.mofo
-        </a>
+          href="https://www.topcoder-dev.com/members/undefined/"
+        />
         <div
           className="src-shared-components-Leaderboard-LeaderboardTable-___styles__winnings-info___1Fiyn"
         >
           <span>
-            9999999999
              points
           </span>
           <span>
-            99999
              challenges
           </span>
         </div>
       </td>
       <td
         className="src-shared-components-Leaderboard-LeaderboardTable-___styles__col-challenges___29htm"
-      >
-        99999
-      </td>
+      />
       <td
         className="src-shared-components-Leaderboard-LeaderboardTable-___styles__col-points___10Lis"
-      >
-        9999999999
-      </td>
+      />
     </tr>
   </tbody>
 </table>

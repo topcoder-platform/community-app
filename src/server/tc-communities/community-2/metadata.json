@@ -1,13 +1,13 @@
 {
   "authorizedGroupIds": [
-    "20000000"
+    "20000002"
   ],
-  "challengeGroupId": "20000000",
+  "challengeGroupId": "20000002",
   "challengeFilterTag": "",
-  "communityId": "wipro",
-  "communityName": "Wipro Hybrid Crowd",
+  "communityId": "community-2",
+  "communityName": "Community 2",
   "communitySelector": [{
-    "label": "Wipro Hybrid Crowd",
+    "label": "Community 2",
     "value": "1"
   }, {
     "label": "Cognitive Community",
@@ -20,8 +20,8 @@
   }],
   "leaderboardApiUrl": "https://api.topcoder.com/v4/looks/458/run/json/",
   "logos": [
-    "/themes/wipro/wipro-logo.png",
-    "/themes/wipro/logo_topcoder_with_name.svg"
+    "/themes/community-2/wipro-logo.png",
+    "/themes/community-2/logo_topcoder_with_name.svg"
   ],
   "menuItems": [
     {
