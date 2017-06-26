@@ -18,7 +18,12 @@ const CommunityUpdates = (props) => {
           blogs.map(blog => (
             <div styleName="post" key={blog.link}>
               <div styleName="blog-link">
-                <a href={blog.link} target="_blank" title={blog.title}>{blog.title}</a>
+                <a
+                  href={blog.link}
+                  target="_blank"
+                  title={blog.title}
+                  rel="noopener noreferrer"
+                >{blog.title}</a>
               </div>
               <div styleName="description" dangerouslySetInnerHTML={{ __html: blog.description }} />
             </div>
