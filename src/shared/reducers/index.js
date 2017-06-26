@@ -23,6 +23,7 @@ import { factory as examplesFactory } from './examples';
 import { factory as statsFactory } from './stats';
 import { factory as tcCommunitiesFactory } from './tc-communities';
 import { factory as leaderboardFactory } from './leaderboard';
+import { factory as dashboardFactory } from './dashboard';
 import topcoderHeader from './topcoder_header';
 
 export function factory(req) {
@@ -34,6 +35,7 @@ export function factory(req) {
     stats: statsFactory(req),
     tcCommunities: tcCommunitiesFactory(req),
     leaderboard: leaderboardFactory(req),
+    dashboard: dashboardFactory(req),
   }).then(reducers => combine((state) => {
     const res = { ...state };
     if (req) res.subdomains = req.subdomains;

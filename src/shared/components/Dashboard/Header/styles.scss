@@ -1,0 +1,110 @@
+.header-dashboard {
+  max-width: 1242px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.page-state-header {
+  background-color: #fcfcfc;
+  padding: 15px;
+  border-bottom: 1px solid #f0f0f0;
+
+  header {
+    display: flex;
+    flex-direction: column;
+
+    h1 {
+      font-family: 'Sofia Pro', Arial, Helvetica, sans-serif;
+      font-weight: 500;
+      font-size: 24px;
+      line-height: 31px;
+      color: #3d3d3d;
+      text-transform: uppercase;
+      text-align: center;
+      margin-bottom: 15px;
+    }
+
+    .info {
+      display: flex;
+      flex-direction: row;
+
+      .pic {
+        img.profile-circle {
+          border-radius: 50%;
+          display: inline;
+          width: 60px;
+          height: 60px;
+        }
+      }
+    }
+
+    .user-metrics {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: center;
+      margin-bottom: 12px;
+      margin-left: 15px;
+
+      .money-earned {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+
+        .number {
+          font-family: 'Sofia Pro', Arial, Helvetica, sans-serif;
+          font-weight: bold;
+          font-size: 18px;
+          line-height: 23px;
+          color: #3d3d3d;
+        }
+
+        p:not(.number) {
+          font-family: 'Sofia Pro', Arial, Helvetica, sans-serif;
+          font-weight: 400;
+          font-size: 10px;
+          line-height: 13px;
+          text-transform: lowercase;
+          margin-left: 5px;
+          color: #a3a3ae;
+
+          @media only screen and (min-width: 600px) {
+            font-size: 12px;
+            line-height: 14px;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (min-width: 768px) {
+  .page-state-header {
+    padding: 30px 60px;
+
+    header {
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+
+      .page-info {
+        order: 2;
+        display: flex;
+        flex-direction: row;
+
+        h1 {
+          font-size: 36px;
+          line-height: 43px;
+        }
+      }
+
+      .info {
+        order: 1;
+      }
+
+      .user-metrics {
+        margin-bottom: 0;
+      }
+    }
+  }
+}

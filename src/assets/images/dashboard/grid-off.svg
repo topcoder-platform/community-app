@@ -1,0 +1,10 @@
+<svg width="12px" height="12px" viewBox="0 0 12 12" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
+    <title>grid-off</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Dashboard-Web" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
+        <g id="Dashboard-Cards" sketch:type="MSArtboardGroup" transform="translate(-2487.000000, -180.000000)" fill="#A3A3AE">
+            <path d="M2491,180 L2488,180 C2487.447,180 2487,180.447 2487,181 L2487,184 C2487,184.552 2487.447,185 2488,185 L2491,185 C2491.553,185 2492,184.552 2492,184 L2492,181 C2492,180.448 2491.553,180 2491,180 L2491,180 Z M2498,180 L2495,180 C2494.447,180 2494,180.447 2494,181 L2494,184 C2494,184.552 2494.447,185 2495,185 L2498,185 C2498.553,185 2499,184.552 2499,184 L2499,181 C2499,180.448 2498.553,180 2498,180 L2498,180 Z M2491,187 L2488,187 C2487.447,187 2487,187.447 2487,188 L2487,191 C2487,191.552 2487.447,192 2488,192 L2491,192 C2491.553,192 2492,191.552 2492,191 L2492,188 C2492,187.448 2491.553,187 2491,187 L2491,187 Z M2498,187 L2495,187 C2494.447,187 2494,187.447 2494,188 L2494,191 C2494,191.552 2494.447,192 2495,192 L2498,192 C2498.553,192 2499,191.552 2499,191 L2499,188 C2499,187.448 2498.553,187 2498,187 L2498,187 Z" id="grid-off" sketch:type="MSShapeGroup"></path>
+        </g>
+    </g>
+</svg>

@@ -1,0 +1,159 @@
+@import '~styles/tc-styles';
+
+.community-updates {
+  display: flex;
+  flex-direction: column;
+  color: #3d3d3d;
+
+  header {
+    background-color: $tc-white;
+    padding-bottom: 24px;
+
+    @media only screen and (min-width: 1132px) {
+      margin-top: 0;
+      padding-top: 0;
+    }
+
+    h1.section-title {
+      font-family: 'Sofia Pro', Arial, Helvetica, sans-serif;
+      font-weight: 500;
+      font-size: 24px;
+      line-height: 29px;
+      color: #3d3d3d;
+      text-align: center;
+      text-transform: uppercase;
+      padding-top: 30px;
+      margin-bottom: 30px;
+    }
+  }
+
+  .posts {
+    padding: 0 10px 6px;
+
+    @media only screen and (min-width: 570px) {
+      display: flex;
+      flex-flow: row wrap;
+      margin: 0 auto;
+      padding-left: 0;
+      padding-right: 0;
+      width: 550px;
+    }
+
+    @media only screen and (min-width: 850px) {
+      width: 830px;
+    }
+
+    @media only screen and (min-width: 1132px) {
+      width: 1110px;
+    }
+
+    .post {
+      margin-top: 6px;
+      background-color: $tc-white;
+      display: flex;
+      flex-direction: column;
+      border: 1px solid #f0f0f0;
+
+      @media only screen and (min-width: 570px) {
+        margin-top: 6px;
+        width: 270px;
+        // height: 386px;
+
+        &:nth-child(2n + 1) {
+          margin-right: 10px;
+        }
+      }
+
+      @media only screen and (min-width: 850px) {
+        margin-top: 6px;
+        margin-right: 10px;
+
+        &:nth-child(3) {
+          margin-right: 0;
+        }
+      }
+
+      @media only screen and (min-width: 1132px) {
+        margin-top: 6px;
+
+        &:nth-child(3) {
+          margin-right: 10px;
+        }
+
+        &:last-child {
+          margin-right: 0;
+        }
+      }
+
+      .blog-link {
+        min-height: 76px;
+        padding: 20px 10px 12px;
+        font-family: 'Sofia Pro', Arial, Helvetica, sans-serif;
+        font-weight: 500;
+        font-size: 16px;
+        line-height: 22px;
+        background-color: #f2faff;
+        height: 76px;
+        overflow: hidden;
+
+        @media only screen and (min-width: 570px) {
+          padding: 20px 20px 12px;
+        }
+
+        a {
+          display: block;
+          height: 44px;
+          overflow: hidden;
+          text-decoration: none;
+          color: inherit;
+        }
+      }
+
+      .description {
+        padding: 20px 10px;
+        font-family: 'Merriweather Sans', Arial, Helvetica, sans-serif;
+        font-size: 13px;
+        line-height: 18px;
+
+        @media only screen and (min-width: 570px) {
+          padding: 20px;
+        }
+
+        a {
+          display: block;
+          margin-top: 25px;
+          color: #0096ff;
+          text-decoration: none;
+
+          @media only screen and (min-width: 1132px) {
+            margin-top: 0;
+          }
+
+          &:hover {
+            text-decoration: underline;
+          }
+        }
+      }
+    }
+  }
+
+  .blog-links {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: $tc-white;
+    min-height: 72px;
+
+    @media only screen and (min-width: 900px) {
+      padding: 30px 0;
+    }
+
+    text-transform: uppercase;
+
+    a {
+      color: #0096ff;
+      font-size: 12px;
+    }
+  }
+}

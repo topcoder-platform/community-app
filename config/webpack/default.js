@@ -32,6 +32,7 @@ module.exports = {
       exclude: [
         /node_modules\/(?!appirio-tech.*|topcoder|tc-)/,
         /src\/assets\/fonts/,
+        /src\/assets\/images\/dashboard/,
       ],
       loader: 'babel-loader',
       options: {
@@ -54,7 +55,7 @@ module.exports = {
         ],
       },
     }, {
-      test: /\.(gif|jpeg|jpg|png)$/,
+      test: /\.(gif|jpeg|jpg|png|svg)$/,
       include: /src\/assets\/images/,
       loader: 'file-loader',
       options: {
@@ -119,6 +120,7 @@ module.exports = {
         /* Some isomorphic code relies on this variable to determine, whether
          * it is executed client- or server-side. */
         FRONT_END: true,
+        DOMAIN: "'topcoder-dev.com'",
       },
     }),
   ],

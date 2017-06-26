@@ -1,0 +1,210 @@
+@import '~styles/tc-styles';
+
+.srms {
+  min-height: 50px;
+  display: flex;
+  flex-direction: column;
+
+  > header {
+    position: relative;
+    margin-bottom: 30px;
+
+    a.viewSRMs {
+      position: absolute;
+      top: 3px;
+      right: 10px;
+      text-decoration: underline;
+    }
+  }
+
+  .section-title {
+    font-family: 'Sofia Pro', Arial, Helvetica, sans-serif;
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 29px;
+    color: #3d3d3d;
+    text-align: center;
+    text-transform: uppercase;
+    padding-top: 30px;
+  }
+
+  section {
+    padding: 20px 15px 5px;
+    border-top: 1px solid #f0f0f0;
+    border-bottom: 1px solid #f0f0f0;
+    background-color: #fcfcfc;
+
+    .srm-tiles {
+      white-space: nowrap;
+      overflow-y: hidden;
+      overflow-x: scroll;
+
+      @media only screen and (min-width: 768px) {
+        display: flex;
+        flex-flow: row wrap;
+        margin: 0 auto;
+        overflow: visible;
+        white-space: normal;
+        width: 555px;
+      }
+
+      @media only screen and (min-width: 870px) {
+        width: 840px;
+      }
+
+      @media only screen and (min-width: 1155px) {
+        width: 1125px;
+      }
+
+      .srm-tile {
+        display: inline;
+        margin-bottom: 15px;
+
+        @media only screen and (max-width: 767px) {
+          display: inline-block;
+          margin-left: 15px;
+
+          &:first-child {
+            margin-left: 0;
+          }
+        }
+
+        @media only screen and (min-width: 768px) {
+          &:nth-child(2n + 1) {
+            margin-right: 15px;
+          }
+        }
+
+        @media only screen and (min-width: 870px) {
+          margin-right: 15px;
+
+          &:nth-child(3n) {
+            margin-right: 0;
+          }
+        }
+
+        @media only screen and (min-width: 1155px) {
+          &:nth-child(3n) {
+            margin-right: 15px;
+          }
+
+          &:nth-child(4n) {
+            margin-right: 0;
+          }
+        }
+      }
+
+      .srm-links-card {
+        display: inline;
+        width: 270px;
+        height: 321px;
+        vertical-align: top;
+        margin-bottom: 15px;
+        padding: 0 21px;
+        border: 1px solid #dcdcdc;
+        background-color: $tc-white;
+        border-radius: 4px;
+
+        @media only screen and (max-width: 767px) {
+          display: inline-block;
+          margin-left: 15px;
+        }
+
+        a {
+          width: 196px;
+          text-align: center;
+        }
+      }
+
+      .flex-wrapper {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        h2 {
+          margin-top: 60px;
+          margin-bottom: 55px;
+          font-family: 'Sofia Pro', Arial, Helvetica, sans-serif;
+          font-weight: 300;
+          font-size: 24px;
+          line-height: 1;
+          text-align: center;
+          color: #3d3d3d;
+          text-transform: uppercase;
+          white-space: normal;
+          max-width: 100%;
+        }
+
+        a {
+          margin-bottom: 21px;
+        }
+      }
+    }
+  }
+
+  .srms-links {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: $tc-white;
+    min-height: 72px;
+    text-transform: uppercase;
+
+    @media only screen and (min-width: 900px) {
+      padding: 30px 0;
+    }
+
+    a {
+      color: #0096ff;
+      font-size: 12px;
+    }
+
+    a:not(:first-child) {
+      margin-left: 30px;
+    }
+  }
+}
+
+a.tc-btn {
+  height: 40px;
+  padding: 0 15px;
+  line-height: 40px;
+  border-radius: 4px;
+  border: 1px solid #0096ff;
+  background-color: #0096ff;
+  background-image: none;
+  font-family: 'Sofia Pro', Arial, Helvetica, sans-serif;
+  font-weight: 500;
+  font-size: 12px;
+  font-style: normal;
+  color: $tc-white;
+  text-transform: uppercase;
+  outline: none;
+  text-shadow: none;
+
+  &:focus {
+    border: 1px solid #0096ff;
+    background-color: #0096ff;
+    color: $tc-white;
+  }
+
+  &:hover {
+    background-color: #097dce;
+    border-color: #097dce;
+    color: $tc-white;
+  }
+
+  &:active {
+    background-color: #097dce;
+    background-image: none;
+    border-color: #097dce;
+    box-shadow: inset 0 1px 1px 0 rgba(0, 0, 0, 0.3);
+    line-height: 30px;
+  }
+
+  &:disabled {
+    opacity: 0.3;
+    cursor: default;
+  }
+}

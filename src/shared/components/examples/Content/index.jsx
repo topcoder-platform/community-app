@@ -102,6 +102,9 @@ export default function Content() {
           There is also an example of <Link to="/community/wipro/404">non-existent community
           page</Link>.
         </li>
+        <li>
+          <Link to="/my-dashboard">Dashboard</Link> &ndash; Dashboard page.
+        </li>
       </ul>
       <h3>Misc Examples</h3>
       <ul>

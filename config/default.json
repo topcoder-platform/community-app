@@ -52,5 +52,8 @@
     "STUDIO": "https://studio.topcoder-dev.com",
     "TCO": "https://www.topcoder.com/tco",
     "WIPRO": "https://wipro.topcoder.com"
-  }
+  },
+  "DOMAIN": "topcoder-dev.com",
+  "SWIFT_PROGRAM_ID": 3445,
+  "BLOG_LOCATION": "https://www.topcoder-dev.com/feed/"
 }
