@@ -37,6 +37,7 @@ export default function FiltersPanel({
   onClose,
   onSaveFilter,
   setFilterState,
+  setSearchText,
   validKeywords,
   validSubtracks,
 }) {
@@ -146,7 +147,10 @@ export default function FiltersPanel({
         <button
           styleName="white"
           className="tc-outline-btn"
-          onClick={() => setFilterState({})}
+          onClick={() => {
+            setFilterState({});
+            setSearchText('');
+          }}
         >Clear filters</button>
         <button
           styleName="blue"
@@ -172,6 +176,7 @@ FiltersPanel.propTypes = {
   hidden: PT.bool,
   onSaveFilter: PT.func,
   setFilterState: PT.func.isRequired,
+  setSearchText: PT.func.isRequired,
   validKeywords: PT.arrayOf(PT.string).isRequired,
   validSubtracks: PT.arrayOf(PT.string).isRequired,
   onClose: PT.func,

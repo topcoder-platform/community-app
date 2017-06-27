@@ -61,7 +61,8 @@ export default function ChallengeCardContainer({
 }) {
   const buckets = getBuckets(_.get(auth.user, 'handle'));
 
-  if (activeBucket !== BUCKETS.ALL) {
+  if ((activeBucket !== BUCKETS.ALL)
+  && (activeBucket !== BUCKETS.SAVED_FILTER)) {
     return (
       <div styleName="challengeCardContainer">
         <Bucket

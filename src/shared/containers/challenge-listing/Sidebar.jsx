@@ -4,6 +4,8 @@
 
 import _ from 'lodash';
 import actions from 'actions/challenge-listing/sidebar';
+import challengeListingActions from 'actions/challenge-listing';
+import filterPanelActions from 'actions/challenge-listing/filter-panel';
 import PT from 'prop-types';
 import React from 'react';
 import Sidebar from 'components/challenge-listing/Sidebar';
@@ -20,10 +22,26 @@ class SidebarContainer extends React.Component {
 
   render() {
     const buckets = getBuckets(this.props.user && this.props.user.handle);
+    const tokenV2 = this.props.tokenV2;
     return (
       <Sidebar
         {...this.props}
         buckets={buckets}
+        deleteSavedFilter={id => this.props.deleteSavedFilter(id, tokenV2)}
+        selectSavedFilter={(index) => {
+          const filter = this.props.savedFilters[index].filter;
+          this.props.selectSavedFilter(index);
+          this.props.setFilter(filter);
+          this.props.setSearchText(filter.text || '');
+        }}
+        updateAllSavedFilters={() =>
+          this.props.updateAllSavedFilters(
+            this.props.savedFilters,
+            this.props.tokenV2,
+          )
+        }
+        updateSavedFilter={filter =>
+          this.props.updateSavedFilter(filter, this.props.tokenV2)}
       />
     );
   }
@@ -35,14 +53,27 @@ SidebarContainer.defaultProps = {
 };
 
 SidebarContainer.propTypes = {
+  deleteSavedFilter: PT.func.isRequired,
   getSavedFilters: PT.func.isRequired,
+  savedFilters: PT.arrayOf(PT.shape()).isRequired,
+  selectSavedFilter: PT.func.isRequired,
+  setFilter: PT.func.isRequired,
+  setSearchText: PT.func.isRequired,
   tokenV2: PT.string,
+  updateAllSavedFilters: PT.func.isRequired,
+  updateSavedFilter: PT.func.isRequired,
   user: PT.shape(),
 };
 
 function mapDispatchToProps(dispatch) {
   const a = actions.challengeListing.sidebar;
-  return bindActionCreators(a, dispatch);
+  const cla = challengeListingActions.challengeListing;
+  const fpa = filterPanelActions.challengeListing.filterPanel;
+  return {
+    ...bindActionCreators(a, dispatch),
+    setFilter: filter => dispatch(cla.setFilter(filter)),
+    setSearchText: text => dispatch(fpa.setSearchText(text)),
+  };
 }
 
 function mapStateToProps(state) {

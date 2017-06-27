@@ -24,6 +24,7 @@ export default function ChallengeFilters({
   expanded,
   filterState,
   isCardTypeSet,
+  saveFilter,
   searchText,
   setCardType,
   setExpanded,
@@ -131,13 +132,9 @@ export default function ChallengeFilters({
         hidden={!expanded}
         filterState={filterState}
         onClose={() => setExpanded(false)}
-        onSaveFilter={
-          _.noop
-          /* TODO: To be properly rewired! */
-          // () => this.props.onSaveFilter(this.state.filter)
-        }
-        // ref={(node) => { this.filtersPanel = node; }}
+        onSaveFilter={saveFilter}
         setFilterState={setFilterState}
+        setSearchText={setSearchText}
         validKeywords={validKeywords}
         validSubtracks={validSubtracks}
       />
@@ -159,7 +156,6 @@ export default function ChallengeFilters({
 ChallengeFilters.defaultProps = {
   communityName: null,
   isCardTypeSet: '',
-  onSaveFilter: _.noop,
   setCardType: _.noop,
 };
 
@@ -169,7 +165,7 @@ ChallengeFilters.propTypes = {
   expanded: PT.bool.isRequired,
   filterState: PT.shape().isRequired,
   isCardTypeSet: PT.string,
-  // onSaveFilter: PT.func,
+  saveFilter: PT.func.isRequired,
   setCardType: PT.func,
   setExpanded: PT.func.isRequired,
   setFilterState: PT.func.isRequired,

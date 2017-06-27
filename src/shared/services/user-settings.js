@@ -4,7 +4,7 @@
  * save user-defined filters in the challenge search.
  */
 
-// import _ from 'lodash';
+import _ from 'lodash';
 import config from 'utils/config';
 import Api from './api';
 
@@ -26,7 +26,8 @@ export default class UserSettings {
    * @return {Promise}
    */
   deleteFilter(id) {
-    return this.private.api.delete(`/saved-searches/${id}`);
+    return this.private.api.delete(`/saved-searches/${id}`)
+    .then(res => (res.ok ? null : new Error(res.statusText)));
   }
 
   /**
@@ -36,7 +37,20 @@ export default class UserSettings {
   getFilters() {
     return this.private.api.get('/saved-searches')
     .then(res => (res.ok ? res.json() : new Error(res.statusText)))
-    .then(res => res.filter(item => item.version === '1.0'));
+    .then(res => res.map((item) => {
+      /* NOTE: Previous version of the challenge listing saved filter in
+       * different format (like an URL query string). This try/catch block
+       * effectively differentiate between the old (unsupported) and new
+       * format of the filters. */
+      let filter;
+      try {
+        filter = JSON.parse(item.filter);
+      } catch (e) {
+        _.noop();
+      }
+      return { ...item, filter };
+    }))
+    .then(res => res.filter(item => item.filter));
   }
 
   /**
@@ -46,9 +60,10 @@ export default class UserSettings {
    */
   saveFilter(name, filter) {
     return this.private.api.postJson('/saved-searches', {
-      filter,
+      filter: JSON.stringify(filter),
       name,
-    });
+      type: 'develop',
+    }).then(res => (res.ok ? res.json() : new Error(res.statusText)));
   }
 
   /**
@@ -59,9 +74,10 @@ export default class UserSettings {
    */
   updateFilter(id, name, filter) {
     return this.private.api.putJson(`/saved-searches/${id}`, {
-      filter,
+      filter: JSON.stringify(filter.filter),
       name,
-    });
+      type: 'develop',
+    }).then(res => (res.ok ? res.json() : new Error(res.statusText)));
   }
 }
 

@@ -10,6 +10,7 @@ export const BUCKETS = {
   OPEN_FOR_REGISTRATION: 'openForRegistration',
   ONGOING: 'ongoing',
   PAST: 'past',
+  SAVED_FILTER: 'saved-filter',
   UPCOMING: 'upcoming',
 };
 

@@ -285,6 +285,7 @@ function onSetFilter(state, { payload }) {
     query = `?${qs.stringify(query, { encode: false })}`;
     window.history.replaceState(window.history.state, '', query);
   }
+
   return {
     ...state,
     filter: payload,

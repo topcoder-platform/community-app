@@ -43,7 +43,10 @@ Bucket.defaultProps = {
 
 Bucket.propTypes = {
   active: PT.bool,
-  bucket: PT.shape().isRequired,
+  bucket: PT.shape({
+    hideCount: PT.bool,
+    name: PT.string.isRequired,
+  }).isRequired,
   challenges: PT.arrayOf(PT.shape).isRequired,
   disabled: PT.bool,
   onClick: PT.func,

@@ -11,6 +11,7 @@
 
 import _ from 'lodash';
 import actions from 'actions/challenge-listing';
+import filterPanelActions from 'actions/challenge-listing/filter-panel';
 import headerActions from 'actions/topcoder_header';
 import logger from 'utils/logger';
 import React from 'react';
@@ -21,6 +22,7 @@ import Banner from 'components/tc-communities/Banner';
 import NewsletterSignup from 'components/tc-communities/NewsletterSignup';
 import shortid from 'shortid';
 import sidebarActions from 'actions/challenge-listing/sidebar';
+import { BUCKETS } from 'utils/challenge-listing/buckets';
 import style from './styles.scss';
 
 // helper function to de-serialize query string to filter object
@@ -157,13 +159,13 @@ class ListingContainer extends React.Component {
 
   render() {
     const {
+      activeBucket,
       challenges,
       challengeSubtracks,
       challengeTags,
       challengeGroupId,
       listingOnly,
       selectBucket,
-      sidebar,
     } = this.props;
     return (
       <div>
@@ -184,7 +186,7 @@ class ListingContainer extends React.Component {
         }
         {/* eslint-enable max-len */}
         <ChallengeListing
-          activeBucket={sidebar.activeBucket}
+          activeBucket={activeBucket}
           challenges={challenges}
           challengeSubtracks={challengeSubtracks}
           challengeTags={challengeTags}
@@ -196,7 +198,13 @@ class ListingContainer extends React.Component {
           selectBucket={selectBucket}
           loadMore={this.props.loadMore}
           loadMorePast={() => this.loadMorePast()}
-          setFilterState={this.props.setFilter}
+          setFilterState={(state) => {
+            this.props.setFilter(state);
+            this.props.setSearchText(state.text || '');
+            if (activeBucket === BUCKETS.SAVED_FILTER) {
+              this.props.selectBucket(BUCKETS.ALL);
+            }
+          }}
           setSort={this.props.setSort}
           sorts={this.props.sorts}
 
@@ -241,10 +249,9 @@ ListingContainer.propTypes = {
   markHeaderMenu: PT.func.isRequired,
   selectBucket: PT.func.isRequired,
   setFilter: PT.func.isRequired,
-  sidebar: PT.shape({
-    activeBucket: PT.string.isRequired,
-  }).isRequired,
+  activeBucket: PT.string.isRequired,
   sorts: PT.shape().isRequired,
+  setSearchText: PT.func.isRequired,
   setSort: PT.func.isRequired,
   setLoadMore: PT.func.isRequired,
   loadMore: PT.shape().isRequired,
@@ -267,10 +274,24 @@ ListingContainer.propTypes = {
   }).isRequired,
 };
 
-const mapStateToProps = state => ({
-  auth: state.auth,
-  ..._.omit(state.challengeListing, ['filterPanel']),
-});
+const mapStateToProps = (state) => {
+  const cl = state.challengeListing;
+  return {
+    auth: state.auth,
+    filter: cl.filter,
+    challenges: cl.challenges,
+    challengeSubtracks: cl.challengeSubtracks,
+    challengeTags: cl.challengeTags,
+    counts: cl.counts,
+    loadingChallengeSubtracks: cl.loadingChallengeSubtracks,
+    loadingChallengeTags: cl.loadingChallengeTags,
+    loadMore: cl.loadMore,
+    oldestData: cl.oldestData,
+    pendingRequests: cl.pendingRequests,
+    sorts: cl.sorts,
+    activeBucket: cl.sidebar.activeBucket,
+  };
+};
 
 /**
  * Loads into redux all challenges matching the request.
@@ -328,6 +349,7 @@ function getMarathonMatches(dispatch, filters, ...rest) {
 function mapDispatchToProps(dispatch) {
   const a = actions.challengeListing;
   const ah = headerActions.topcoderHeader;
+  const fpa = filterPanelActions.challengeListing.filterPanel;
   const sa = sidebarActions.challengeListing.sidebar;
   return {
     getAllChallenges: (...rest) => getAllChallenges(dispatch, ...rest),
@@ -339,6 +361,7 @@ function mapDispatchToProps(dispatch) {
     selectBucket: bucket => dispatch(sa.selectBucket(bucket)),
     setFilter: state => dispatch(a.setFilter(state)),
     setLoadMore: (...rest) => dispatch(a.setLoadMore(...rest)),
+    setSearchText: text => dispatch(fpa.setSearchText(text)),
     setSort: (bucket, sort) => dispatch(a.setSort(bucket, sort)),
     markHeaderMenu: () =>
       dispatch(ah.setCurrentNav('Compete', 'All Challenges')),
