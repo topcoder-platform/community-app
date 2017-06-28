@@ -1,94 +1,40 @@
 /**
  * Challenge listing actions.
- *
- * In the Redux state we keep an array of challenge objects loaded into the
- * listing(s), and a set of UUIDs of pending requests to load more challenges.
- * To load more challenges you should first dispatch GET_INIT action with some
- * UUID (use shortid package to generate it), then one of GET_CHALLENGES,
- * GET_MARATHON_MATCHES, GET_USER_CHALLENGES, or GET_USER_MARATHON_MATCHES
- * actions with the same UUID and a set of authorization, filtering, and
- * pagination options. Received challenges will be merged into the array of
- * challenges stored in the state, with some filtering options appended to the
- * challenge objects (so that we can filter them again at the frontend side:
- * challenge objects received from the backend do not include some of the
- * necessary data, like groupIds, lists of participating users, etc).
- *
- * RESET action allows to remove all loaded challenges and cancel any pending
- * requests to load challenges (removing an UUID from the set of pending
- * requests results in ignoring the response for that request).
- *
- * The backend includes into each response the total count of challenges
- * matching the specified filtering options (the actual number of challenge
- * objects included into the response might be smaller, due to the pagination
- * params). If "count" argument was provided in the dispatched action,
- * the total count of matching challenges from the response will be written
- * into a special map of counts in the Redux state.
  */
 
 import _ from 'lodash';
-import logger from 'utils/logger';
 import { createActions } from 'redux-actions';
+import { decodeToken } from 'tc-accounts';
 import { getService } from 'services/challenges';
 
 /**
- * Private. Common logic to get all challenge or marathon matches.
- * @param {Function} getter getChallenges(..) or getMarathonMatches(..)
- * @param {String} uuid
- * @param {Object} filters
- * @param {String} token
- * @param {String} user
- * @return {Promise}
+ * The maximum number of challenges to fetch in a single API call. Currently,
+ * the backend never returns more than 50 challenges, even when a higher limit
+ * was specified in the request. Thus, this constant should not be larger than
+ * 50 (otherwise the frontend code will miss to load some challenges).
  */
-function getAll(getter, uuid, filters, token, countCategory, user) {
-  /* API does not allow to get more than 50 challenges or MMs a time. */
-  const LIMIT = 50;
-  let page = 0;
-  let res;
-
-  /* Single iteration of the fetch procedure. */
-  function iteration() {
-    return getter(uuid, filters, {
-      limit: LIMIT,
-      offset: LIMIT * page,
-    }, token, countCategory || 'count', user).then((next) => {
-      if (res) res.challenges = res.challenges.concat(next.challenges);
-      else res = next;
-      page += 1;
-      if (LIMIT * page < res.totalCount.value) return iteration();
-      if (!countCategory) res.totalCount = null;
-      return res;
-    });
-  }
-
-  return iteration();
-}
+const PAGE_SIZE = 50;
 
 /**
- * Private. Common processing of promises returned from ChallengesService.
- * @param {Object} promise
- * @param {String} uuid
- * @param {Object} filters
- * @param {Object} countCategory
- * @param {String} user
- * @return {Promise}
+ * Private. Loads from the backend all challenges matching some conditions.
+ * @param {Function} getter Given params object of shape { limit, offset }
+ *  loads from the backend at most "limit" challenges, skipping the first
+ *  "offset" ones. Returns loaded challenges as an array.
+ * @param {Number} page Optional. Next page of challenges to load.
+ * @param {Array} prev Optional. Challenges loaded so far.
  */
-function handle(promise, uuid, filters, countCategory, user) {
-  return promise.catch((error) => {
-    logger.error(error);
-    return {
-      challenges: [],
-      totalCount: 0,
-    };
-  }).then(res => ({
-    challenges: res.challenges || [],
-    filters,
-    totalCount: countCategory ? {
-      category: countCategory,
-      value: res.totalCount,
-    } : null,
-    user: user || null,
-    uuid,
-  }));
+function getAll(getter, page = 0, prev) {
+  /* Amount of challenges to fetch in one API call. 50 is the current maximum
+   * amount of challenges the backend returns, event when the larger limit is
+   * explicitely required. */
+
+  return getter({
+    limit: PAGE_SIZE,
+    offset: page * PAGE_SIZE,
+  }).then(({ challenges: chunk }) => {
+    if (!chunk.length) return prev || [];
+    return getAll(getter, 1 + page, prev ? prev.concat(chunk) : chunk);
+  });
 }
 
 /**
@@ -118,123 +64,148 @@ function getChallengeTagsDone() {
 }
 
 /**
- * Gets a portion of challenges from the backend.
- * @param {String} uuid Should match an UUID stored into the state by
- *  a previously dispatched GET_INIT action. Reducer will ignore the challenges
- *  loaded by this action, if the UUID has already been removed from the set of
- *  UUIDs of pending fetch challenge actions. Also, once the action results are
- *  processed, its UUID is removed from the set of pending action UUIDs.
- * @param {Object} filters Optional. An object with filters to pass to the
- *  backend.
- * @param {Object} params Optional. An object with params to pass to the backend
- *  (except of the filter param, which is set by the previous argument).
- * @param {String} token Optional. Auth token for Topcoder API v3. Some of the
- *  challenges are visible only to the properly authenticated and authorized
- *  users. With this argument omitted you will fetch only public challenges.
- * @param {String} countCategory Optional. Specifies the category whereh the
- *  total count of challenges returned by this request should be written.
- * @param {String} user Optional. User handle. If specified, only challenges
- *  where this user has some role are loaded.
- * @return {Promise}
- */
-function getChallenges(uuid, filters, params, token, countCategory, user) {
-  const service = getService(token);
-  const promise = user ?
-    service.getUserChallenges(user, filters, params) :
-    service.getChallenges(filters, params);
-  return handle(promise, uuid, filters, countCategory, user);
-}
-
-/**
- * Calls getChallenges(..) recursively to get all challenges matching given
- * arguments. Mind that API does not allow to get more than 50 challenges a
- * time. You should use this function carefully, and never call it when there
- * might be many challenges matching your request. It is originally intended
- * to get all active challenges, as there never too many of them.
+ * Notifies about reloading of all active challenges. The UUID is stored in the
+ * state, and only challenges fetched by getAllActiveChallengesDone action with
+ * the same UUID will be accepted into the state.
  * @param {String} uuid
- * @param {Object} filters
- * @param {String} token
- * @param {String} countCategory
- * @param {String} user
- * @return {Promise}
+ * @return {String}
  */
-function getAllChallenges(uuid, filters, token, countCategory, user) {
-  return getAll(getChallenges, uuid, filters, token, countCategory, user);
-}
-
-/**
- * Writes specified UUID into the set of pending requests to load challenges.
- * This allows (1) to understand whether we are waiting to load any challenges;
- * (2) to cancel pending request by removing UUID from the set.
- * @param {String} uuid
- */
-function getInit(uuid) {
+function getAllActiveChallengesInit(uuid) {
   return uuid;
 }
 
 /**
- * Gets a portion of marathon matches from the backend. Parameters are the same
- * as for getChallenges() function.
+ * Gets all active challenges (including marathon matches) from the backend.
+ * Once this action is completed any active challenges saved to the state before
+ * will be dropped, and the newly fetched ones will be stored there.
  * @param {String} uuid
- * @param {Object} filters
- * @param {Object} params
- * @param {String} token
- * @param {String} countCategory
- * @param {String} user Optional. User handle. If specified, only challenges
- *  where this user has some role are loaded.
- * @param {Promise}
- */
-function getMarathonMatches(uuid, filters, params, token, countCategory, user) {
-  const service = getService(token);
-  const promise = user ?
-    service.getUserMarathonMatches(user, filters, params) :
-    service.getMarathonMatches(filters, params);
-  return handle(promise, uuid, filters, countCategory, user);
-}
-
-/**
- * Calls getMarathonMatches(..) recursively to get all challenges matching given
- * arguments. Mind that API does not allow to get more than 50 challenges a
- * time. You should use this function carefully, and never call it when there
- * might be many challenges matching your request. It is originally intended
- * to get all active challenges, as there never too many of them.
- * @param {String} uuid
- * @param {Object} filters
- * @param {String} token
- * @param {String} countCategory
- * @param {String} user
+ * @param {String} tokenV3 Optional. Topcoder auth token v3. Without token only
+ *  public challenges will be fetched. With the token provided, the action will
+ *  also fetch private challenges related to this user.
  * @return {Promise}
  */
-function getAllMarathonMatches(uuid, filters, token, countCategory, user) {
-  return getAll(getMarathonMatches, uuid, filters, token, countCategory, user);
+function getAllActiveChallengesDone(uuid, tokenV3) {
+  const filter = { status: 'ACTIVE' };
+  const service = getService(tokenV3);
+  const calls = [
+    getAll(params => service.getChallenges(filter, params)),
+    getAll(params => service.getMarathonMatches(filter, params)),
+  ];
+  let user;
+  if (tokenV3) {
+    user = decodeToken(tokenV3).handle;
+    calls.push(getAll(params =>
+      service.getUserChallenges(user, filter, params)));
+    calls.push(getAll(params =>
+      service.getUserMarathonMatches(user, filter, params)));
+  }
+  return Promise.all(calls).then(([ch, mm, uch, umm]) => {
+    const challenges = ch.concat(mm);
+
+    /* uch and umm arrays contain challenges where the user is participating in
+     * some role. The same challenge are already listed in res array, but they
+     * are not attributed to the user there. This block of code marks user
+     * challenges in an efficient way. */
+    if (uch) {
+      const set = new Set();
+      uch.forEach(item => set.add(item.id));
+      umm.forEach(item => set.add(item.id));
+      challenges.forEach((item) => {
+        if (set.has(item.id)) {
+          /* It is fine to reassing, as the array we modifying is created just
+           * above within the same function. */
+          item.users[user] = true; // eslint-disable-line no-param-reassign
+        }
+      });
+    }
+
+    return { uuid, challenges };
+  });
 }
 
 /**
- * This action tells Redux to remove all loaded challenges and to cancel
- * any pending requests to load more challenges.
+ * Notifies the state that we are about to load the specified page of draft
+ * challenges.
+ * @param {Number} page
+ * @return {Object}
  */
-function reset() {
-  return undefined;
+function getDraftChallengesInit(uuid, page) {
+  return { uuid, page };
+}
+
+/**
+ * Gets the specified page of draft challenges (including MMs).
+ * @param {Number} page Page of challenges to fetch.
+ * @param {String} tokenV3 Optional. Topcoder auth token v3.
+ * @param {Object}
+ */
+function getDraftChallengesDone(uuid, page, tokenV3) {
+  const service = getService(tokenV3);
+  return Promise.all([
+    service.getChallenges({ status: 'DRAFT' }, {
+      limit: PAGE_SIZE,
+      offset: page * PAGE_SIZE,
+    }),
+    service.getMarathonMatches({ status: 'DRAFT' }, {
+      limit: PAGE_SIZE,
+      offset: page * PAGE_SIZE,
+    }),
+  ]).then(([{ challenges: chunkA }, { challenges: chunkB }]) =>
+    ({ uuid, challenges: chunkA.concat(chunkB) }));
+}
+
+/**
+ * Notifies the state that we are about to load the specified page of past
+ * challenges.
+ * @param {Number} page
+ * @return {Object}
+ */
+function getPastChallengesInit(uuid, page) {
+  return { uuid, page };
+}
+
+/**
+ * Gets the specified page of past challenges (including MMs).
+ * @param {Number} page Page of challenges to fetch.
+ * @param {String} tokenV3 Optional. Topcoder auth token v3.
+ * @param {Object}
+ */
+function getPastChallengesDone(uuid, page, tokenV3) {
+  const service = getService(tokenV3);
+  return Promise.all([
+    service.getChallenges({ status: 'COMPLETED' }, {
+      limit: PAGE_SIZE,
+      offset: page * PAGE_SIZE,
+    }),
+    service.getMarathonMatches({ status: 'PAST' }, {
+      limit: PAGE_SIZE,
+      offset: page * PAGE_SIZE,
+    }),
+  ]).then(([{ challenges: chunkA }, { challenges: chunkB }]) =>
+    ({ uuid, challenges: chunkA.concat(chunkB) }));
 }
 
 export default createActions({
   CHALLENGE_LISTING: {
-    GET_ALL_CHALLENGES: getAllChallenges,
-    GET_ALL_MARATHON_MATCHES: getAllMarathonMatches,
+    DROP_CHALLENGES: _.noop,
+
+    GET_ALL_ACTIVE_CHALLENGES_INIT: getAllActiveChallengesInit,
+    GET_ALL_ACTIVE_CHALLENGES_DONE: getAllActiveChallengesDone,
 
     GET_CHALLENGE_SUBTRACKS_INIT: _.noop,
     GET_CHALLENGE_SUBTRACKS_DONE: getChallengeSubtracksDone,
+
     GET_CHALLENGE_TAGS_INIT: _.noop,
     GET_CHALLENGE_TAGS_DONE: getChallengeTagsDone,
 
-    GET_CHALLENGES: getChallenges,
-    GET_INIT: getInit,
-    GET_MARATHON_MATCHES: getMarathonMatches,
-    RESET: reset,
+    GET_DRAFT_CHALLENGES_INIT: getDraftChallengesInit,
+    GET_DRAFT_CHALLENGES_DONE: getDraftChallengesDone,
+
+    GET_PAST_CHALLENGES_INIT: getPastChallengesInit,
+    GET_PAST_CHALLENGES_DONE: getPastChallengesDone,
+
     SET_FILTER: _.identity,
 
     SET_SORT: (bucket, sort) => ({ bucket, sort }),
-
-    SET_LOAD_MORE: (key, data) => ({ key, data }),
   },
 });

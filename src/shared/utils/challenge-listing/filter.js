@@ -40,6 +40,8 @@
  * tracks {Object} - Permits only the challenges belonging to at least one of
  * the competition tracks presented as keys of this object.
  *
+ * upcoming {Boolean} - Permits only upcoming challenges.
+ *
  * users {Array} - Permits only the challenges where the specified (by handles)
  * users are participating.
  */
@@ -123,6 +125,11 @@ function filterByTrack(challenge, state) {
   return _.keys(state.tracks).some(track => challenge.communities.has(track));
 }
 
+function filterByUpcoming(challenge, state) {
+  if (_.isUndefined(state.upcoming)) return true;
+  return moment().isBefore(challenge.registrationStartDate);
+}
+
 function filterByUsers(challenge, state) {
   if (!state.users) return true;
   return state.users.find(user => challenge.users[user]);
@@ -160,6 +167,7 @@ export function addTrack(state, track) {
 export function getFilterFunction(state) {
   return challenge => filterByStatus(challenge, state)
   && filterByTrack(challenge, state)
+  && filterByUpcoming(challenge, state)
   && filterByText(challenge, state)
   && filterByTags(challenge, state)
   && filterBySubtracks(challenge, state)

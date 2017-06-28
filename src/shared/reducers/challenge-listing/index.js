@@ -1,33 +1,5 @@
 /**
  * Reducer for state.challengeListing.
- *
- * This section of the state holds the following fields:
- *
- *  - challenges {Array} - Normalized challenge objects loaded from the
- *    backend. Normalization means that we add extra fields to the challenge
- *    and marathon match objects, received from different backend endpoints,
- *    to ensure that the rest of the code can handle them in a uniform way,
- *    and that we are able to filter them in all necessary ways (e.g., when
- *    we fetch challenges belonging to a specific group, returned challenge
- *    objects do not have group information; so we append group ids to these
- *    objects to be able to filter them out by groups on the frontend side);
- *
- *  - counts {Object} - Total counts of challenges in the backend. This object
- *    holds key - value pairs, where the key specifies a category and value
- *    specifies the total count of challenges under that category;
- *
- *  - oldestData {Number} - Timestamp of the moment of reducer construction,
- *    or of the last reset of this section of the state. This allows to
- *    automatically refresh loaded challenge data from time to time to
- *    ensure that displayed data are in reasonable sync with the backend.
- *
- *  - pendingRequests {Object} - Set of UUIDs of pending requests to
- *    load challenge data. It allows
- *    1. To see that we are loading something right now;
- *    2. To cancel pending requests (reducer will ignore resolved actions
- *       with UUID not present in this set at the time of resolution).
- *    Technically it is stored as a map of UUIDs to boolean values,
- *    as only plain objects can be safely stored into Redux state.
  */
 
 /* global window */
@@ -37,86 +9,38 @@ import actions from 'actions/challenge-listing';
 import logger from 'utils/logger';
 import qs from 'qs';
 import { handleActions } from 'redux-actions';
-import { COMPETITION_TRACKS } from 'utils/tc';
 import { combine } from 'utils/redux';
 
 import filterPanel from '../challenge-listing/filter-panel';
 import sidebar from '../challenge-listing/sidebar';
 
-/**
- * Normalizes a regular challenge object received from the backend.
- * NOTE: This function is copied from the existing code in the challenge listing
- * component. It is possible, that this normalization is not necessary after we
- * have moved to Topcoder API v3, but it is kept for now to minimize a risk of
- * breaking anything.
- * @param {Object} challenge Challenge object received from the backend.
- * @return {Object} Normalized challenge.
- */
-export function normalizeChallenge(challenge) {
-  const registrationOpen = challenge.allPhases.filter(d =>
-    d.phaseType === 'Registration',
-  )[0].phaseStatus === 'Open' ? 'Yes' : 'No';
-  const groups = {};
-  if (challenge.groupIds) {
-    challenge.groupIds.forEach((id) => {
-      groups[id] = true;
-    });
+function onGetAllActiveChallengesDone(state, { error, payload }) {
+  if (error) {
+    logger.error(payload);
+    return state;
   }
-  return _.defaults(_.clone(challenge), {
-    communities: new Set([COMPETITION_TRACKS[challenge.track]]),
-    groups,
-    platforms: '',
-    registrationOpen,
-    technologies: '',
-    submissionEndTimestamp: challenge.submissionEndDate,
-  });
+  const { uuid, challenges: loaded } = payload;
+  if (uuid !== state.loadingActiveChallengesUUID) return state;
+
+  /* Once all active challenges are fetched from the API, we remove from the
+   * store any active challenges stored there previously, and also any
+   * challenges with IDs matching any challenges loaded now as active. */
+  const ids = new Set();
+  loaded.forEach(item => ids.add(item.id));
+  const challenges = state.challenges
+  .filter(item => item.status !== 'ACTIVE' && !ids.has(item.id))
+  .concat(loaded);
+
+  return {
+    ...state,
+    challenges,
+    lastUpdateOfActiveChallenges: Date.now(),
+    loadingActiveChallengesUUID: '',
+  };
 }
 
-/**
- * Normalizes a marathon match challenge object received from the backend.
- * NOTE: This function is copied from the existing code in the challenge listing
- * component. It is possible, that this normalization is not necessary after we
- * have moved to Topcoder API v3, but it is kept for now to minimize a risk of
- * breaking anything.
- * @param {Object} challenge MM challenge object received from the backend.
- * @return {Object} Normalized challenge.
- */
-export function normalizeMarathonMatch(challenge) {
-  const endTimestamp = new Date(challenge.endDate).getTime();
-  const allphases = [{
-    challengeId: challenge.id,
-    phaseType: 'Registration',
-    phaseStatus: endTimestamp > Date.now() ? 'Open' : 'Close',
-    scheduledEndTime: challenge.endDate,
-  }];
-  const groups = {};
-  if (challenge.groupIds) {
-    challenge.groupIds.forEach((id) => {
-      groups[id] = true;
-    });
-  }
-  return _.defaults(_.clone(challenge), {
-    challengeCommunity: 'Data',
-    challengeType: 'Marathon',
-    allPhases: allphases,
-    currentPhases: allphases.filter(phase => phase.phaseStatus === 'Open'),
-    communities: new Set([COMPETITION_TRACKS.DATA_SCIENCE]),
-    currentPhaseName: endTimestamp > Date.now() ? 'Registration' : '',
-    groups,
-    numRegistrants: challenge.numRegistrants ? challenge.numRegistrants[0] : 0,
-    numSubmissions: challenge.userIds ? challenge.userIds.length : 0,
-    platforms: '',
-    prizes: [0],
-    registrationOpen: endTimestamp > Date.now() ? 'Yes' : 'No',
-    registrationStartDate: challenge.startDate,
-    submissionEndDate: challenge.endDate,
-    submissionEndTimestamp: endTimestamp,
-    technologies: '',
-    totalPrize: 0,
-    track: 'DATA_SCIENCE',
-    status: endTimestamp > Date.now() ? 'ACTIVE' : 'COMPLETED',
-    subTrack: 'MARATHON_MATCH',
-  });
+function onGetAllActiveChallengesInit(state, { payload }) {
+  return { ...state, loadingActiveChallengesUUID: payload };
 }
 
 /**
@@ -149,127 +73,74 @@ function onGetChallengeTagsDone(state, action) {
   };
 }
 
-/**
- * Commong handling of all get challenge / get marathon matches actions.
- * This function merges already normalized data into the array of loaded
- * challenges.
- * @param {Object} state
- * @param {Object} action
- * @param {Function} normalizer A function to use for normalization of
- *  challenges contained in the payload to the common format expected by
- *  the frontend.
- * @return {Object} New state.
- */
-function onGetDone(state, { payload }, normalizer) {
-  /* Tests whether we should accept the result of this action, and removes
-    UUID of this action from the set of pending actions. */
-  if (!state.pendingRequests[payload.uuid]) return state;
-  const pendingRequests = _.clone(state.pendingRequests);
-  delete pendingRequests[payload.uuid];
-
-  /* In case the payload holds a total count for some category of challenges,
-    we write this count into the state, probably overwritting the old value. */
-  let counts = state.counts;
-  if (payload.totalCount) {
-    counts = {
-      ...counts,
-      [payload.totalCount.category]: payload.totalCount.value || 0,
-    };
-  }
-
-  if (!payload.challenges || !payload.challenges.length) {
-    return {
-      ...state,
-      counts,
-      pendingRequests,
-    };
-  }
-
-  /* Merge of the known and received challenge data. First of all we reduce
-    the array of already loaded challenges to the map, to allow efficient
-    lookup. */
-  const challenges = {};
-  state.challenges.forEach((item) => {
-    challenges[item.id] = item;
-  });
-  payload.challenges.forEach((item) => {
-    const it = _.defaults(normalizer(item), {
-      users: {},
-    });
-
-    /* Similarly it happens with users participating in the challenges. */
-    if (payload.user) it.users[payload.user] = true;
-
-    /* If we already had some data about this challenge loaded, we should
-      properly merge-in the known information about groups and users. */
-    const old = challenges[it.id];
-    if (old) _.merge(it.users, old.users);
-
-    challenges[it.id] = it;
-  });
-
+function onGetDraftChallengesInit(state, { payload: { uuid, page } }) {
   return {
     ...state,
-    challenges: _.toArray(challenges),
-    counts,
-    pendingRequests,
+    lastRequestedPageOfDraftChallenges: page,
+    loadingDraftChallengesUUID: uuid,
   };
 }
 
-/**
- * Handles the CHALLENGE_LISTING/GET_INIT action.
- * @param {Object} state
- * @param {Object} action
- * @return {Object} New state.
- */
-function onGetInit(state, { payload }) {
-  if (state.pendingRequests[payload]) {
-    throw new Error('Request UUID is not unique.');
+function onGetDraftChallengesDone(state, { error, payload }) {
+  if (error) {
+    logger.error(payload);
+    return state;
   }
+  const { uuid, challenges: loaded } = payload;
+  if (uuid !== state.loadingDraftChallengesUUID) return state;
+
+  const ids = new Set();
+  loaded.forEach(item => ids.add(item.id));
+
+  /* Fetching 0 page of draft challenges also drops any draft challenges
+   * loaded to the state before. */
+  const filter = state.lastRequestedPageOfDraftChallenges
+    ? item => !ids.has(item.id)
+    : item => !ids.has(item.id) && item.status !== 'DRAFT';
+
+  const challenges = state.challenges
+  .filter(filter).concat(loaded);
+
   return {
     ...state,
-    pendingRequests: {
-      ...state.pendingRequests,
-      [payload]: true,
-    },
+    allDraftChallengesLoaded: loaded.length === 0,
+    challenges,
+    loadingDraftChallengesUUID: '',
   };
 }
 
-/**
- * Handling of CHALLENGE_LISTING/GET_CHALLENGES
- * and CHALLENGE_LISTING/GET_USER_CHALLENGES actions.
- * @param {Object} state
- * @param {Object} action
- * @return {Object} New state.
- */
-function onGetChallenges(state, action) {
-  return onGetDone(state, action, normalizeChallenge);
-}
-
-/**
- * Handling of CHALLENGE_LISTING/GET_MARATHON_MATCHES
- * and CHALLENGE_LISTING/GET_USER_MARATHON_MATCHES actions.
- * @param {Object} state
- * @param {Object} action
- * @return {Object} New state.
- */
-function onGetMarathonMatches(state, action) {
-  return onGetDone(state, action, normalizeMarathonMatch);
-}
-
-/**
- * Cleans received data from the state, and cancels any pending requests to
- * fetch challenges. It does not reset total counts of challenges, as they
- * are anyway will be overwritten with up-to-date values.
- * @param {Object} state Previous state.
- * @return {Object} New state.
- */
-function onReset(state) {
+function onGetPastChallengesInit(state, { payload: { uuid, page } }) {
   return {
     ...state,
-    challenges: [],
-    oldestData: Date.now(),
-    pendingRequests: {},
+    lastRequestedPageOfPastChallenges: page,
+    loadingPastChallengesUUID: uuid,
+  };
+}
+
+function onGetPastChallengesDone(state, { error, payload }) {
+  if (error) {
+    logger.error(payload);
+    return state;
+  }
+  const { uuid, challenges: loaded } = payload;
+  if (uuid !== state.loadingPastChallengesUUID) return state;
+
+  const ids = new Set();
+  loaded.forEach(item => ids.add(item.id));
+
+  /* Fetching 0 page of past challenges also drops any past challenges
+   * loaded to the state before. */
+  const filter = state.lastRequestedPageOfPastChallenges
+    ? item => !ids.has(item.id)
+    : item => !ids.has(item.id) && item.status !== 'COMPLETED' && item.status !== 'PAST';
+
+  const challenges = state.challenges.filter(filter).concat(loaded);
+
+  return {
+    ...state,
+    allPastChallengesLoaded: loaded.length === 0,
+    challenges,
+    loadingPastChallengesUUID: '',
   };
 }
 
@@ -300,22 +171,40 @@ function onSetFilter(state, { payload }) {
 function create(initialState) {
   const a = actions.challengeListing;
   return handleActions({
-    [a.getAllChallenges]: onGetChallenges,
-    [a.getAllMarathonMatches]: onGetMarathonMatches,
-    [a.getChallengeSubtracksDone]: onGetChallengeSubtracksDone,
+    [a.dropChallenges]: state => ({
+      ...state,
+      allDraftChallengesLoaded: false,
+      allPastChallengesLoaded: false,
+      challenges: [],
+      lastRequestedPageOfDraftChallenges: -1,
+      lastRequestedPageOfPastChallenges: -1,
+      lastUpdateOfActiveChallenges: 0,
+      loadingActiveChallengesUUID: '',
+      loadingDraftChallengesUUID: '',
+      loadingPastChallengesUUID: '',
+    }),
+
+    [a.getAllActiveChallengesInit]: onGetAllActiveChallengesInit,
+    [a.getAllActiveChallengesDone]: onGetAllActiveChallengesDone,
+
     [a.getChallengeSubtracksInit]: state => ({
       ...state,
       loadingChallengeSubtracks: true,
     }),
-    [a.getChallengeTagsDone]: onGetChallengeTagsDone,
+    [a.getChallengeSubtracksDone]: onGetChallengeSubtracksDone,
+
     [a.getChallengeTagsInit]: state => ({
       ...state,
       loadingChallengeTags: true,
     }),
-    [a.getChallenges]: onGetChallenges,
-    [a.getInit]: onGetInit,
-    [a.getMarathonMatches]: onGetMarathonMatches,
-    [a.reset]: onReset,
+    [a.getChallengeTagsDone]: onGetChallengeTagsDone,
+
+    [a.getDraftChallengesInit]: onGetDraftChallengesInit,
+    [a.getDraftChallengesDone]: onGetDraftChallengesDone,
+
+    [a.getPastChallengesInit]: onGetPastChallengesInit,
+    [a.getPastChallengesDone]: onGetPastChallengesDone,
+
     [a.setFilter]: onSetFilter,
     [a.setSort]: (state, { payload }) => ({
       ...state,
@@ -324,33 +213,26 @@ function create(initialState) {
         [payload.bucket]: payload.sort,
       },
     }),
-    [a.setLoadMore]: (state, { payload }) => ({
-      ...state,
-      loadMore: {
-        ...state.loadMore,
-        [payload.key]: payload.data,
-      },
-    }),
   }, _.defaults(_.clone(initialState) || {}, {
+    allDraftChallengesLoaded: false,
+    allPastChallengesLoaded: false,
+
     challenges: [],
     challengeSubtracks: [],
     challengeTags: [],
-    counts: {},
     filter: {},
+
+    lastRequestedPageOfDraftChallenges: -1,
+    lastRequestedPageOfPastChallenges: -1,
+    lastUpdateOfActiveChallenges: 0,
+
+    loadingActiveChallengesUUID: '',
+    loadingDraftChallengesUUID: '',
+    loadingPastChallengesUUID: '',
+
     loadingChallengeSubtracks: false,
     loadingChallengeTags: false,
-    loadMore: {
-      past: {
-        loading: false,
-        nextPage: 1,
-      },
-      upcoming: {
-        loading: false,
-        nextPage: 1,
-      },
-    },
-    oldestData: Date.now(),
-    pendingRequests: {},
+
     sorts: {},
   }));
 }

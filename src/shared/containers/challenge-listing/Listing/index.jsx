@@ -9,39 +9,24 @@
  * which is used to define which challenges should be listed for the certain community.
  */
 
-import _ from 'lodash';
+// import _ from 'lodash';
 import actions from 'actions/challenge-listing';
 import filterPanelActions from 'actions/challenge-listing/filter-panel';
 import headerActions from 'actions/topcoder_header';
 import logger from 'utils/logger';
 import React from 'react';
 import PT from 'prop-types';
+import shortid from 'shortid';
 import { connect } from 'react-redux';
 import ChallengeListing from 'components/challenge-listing';
 import Banner from 'components/tc-communities/Banner';
 import NewsletterSignup from 'components/tc-communities/NewsletterSignup';
-import shortid from 'shortid';
 import sidebarActions from 'actions/challenge-listing/sidebar';
 import { BUCKETS } from 'utils/challenge-listing/buckets';
 import style from './styles.scss';
 
-// helper function to de-serialize query string to filter object
-/*
-const deserialize = (queryString) => {
-  const filter = new SideBarFilter({
-    filter: queryString,
-    isSavedFilter: true, // So that we can reuse constructor for deserializing
-  });
-  if (!_.values(SideBarFilterModes).includes(filter.name)) {
-    filter.isCustomFilter = true;
-  }
-  return filter;
-};
-*/
-
 let mounted = false;
 
-// The container component
 class ListingContainer extends React.Component {
 
   constructor(props) {
@@ -56,26 +41,17 @@ class ListingContainer extends React.Component {
       logger.error('Attempt to mount multiple instances of ChallengeListingPageContainer at the same time!');
     } else mounted = true;
     this.loadChallenges();
-
-    /* LOAD FILTER FROM URL, IF NECESSARY! */
-
-    /* Get filter from the URL hash, if necessary. */
-    /*
-    const filter = this.props.location.hash.slice(1);
-    if (filter && filter !== this.props.filter) {
-      // this.props.setFilter(filter);
-    } else if (this.props.challengeGroupId) {
-      const f = deserialize(this.props.filter);
-      f.groupId = this.props.challengeGroupId;
-      // this.props.setFilter(f.getURLEncoded());
-    }
-    */
   }
 
   componentDidUpdate(prevProps) {
     const token = this.props.auth.tokenV3;
-    if (token && token !== prevProps.auth.tokenV3) {
-      setImmediate(() => this.loadChallenges());
+    if (token) {
+      if (!prevProps.auth.tokenV3) setImmediate(() => this.loadChallenges());
+    } else if (prevProps.auth.tokenV3) {
+      setImmediate(() => {
+        this.props.dropChallenges();
+        this.loadChallenges();
+      });
     }
   }
 
@@ -87,46 +63,9 @@ class ListingContainer extends React.Component {
   }
 
   loadChallenges() {
-    const { tokenV3, user } = this.props.auth;
-
-    /* Gets all active challenges. */
-    this.props.getAllChallenges({ status: 'ACTIVE' }, tokenV3);
-    this.props.getAllMarathonMatches({ status: 'ACTIVE' }, tokenV3);
-
-    /* Gets all active challenges, where the vistor is participant. */
-    if (user) {
-      this.props.getAllChallenges({
-        status: 'ACTIVE',
-      }, tokenV3, null, user.handle);
-      this.props.getAllMarathonMatches({
-        status: 'ACTIVE',
-      }, tokenV3, null, user.handle);
-    }
-
-    /* Gets some (50 + 50) past challenges and MMs. */
-    this.props.getChallenges({ status: 'COMPLETED' }, { limit: 50 }, tokenV3);
-    this.props.getMarathonMatches({ status: 'PAST' }, { limit: 50 }, tokenV3);
-
-    /* Gets some (50 + 50) upcoming challenges and MMs. */
-    this.props.getChallenges({ status: 'DRAFT' }, { limit: 50 }, tokenV3);
-    this.props.getMarathonMatches({ status: 'DRAFT' }, { limit: 50 }, tokenV3);
-  }
-
-  loadMorePast() {
-    const { tokenV3 } = this.props.auth;
-    const { nextPage } = this.props.loadMore.past;
-    this.props.setLoadMore('past', {
-      loading: true,
-    });
-    console.log('LOAD MORE PAST CHALLENGES!');
-    Promise.all([
-      this.props.getChallenges({
-        status: 'COMPLETED',
-      }, { limit: 50, offset: 50 * nextPage }, tokenV3),
-      this.props.getMarathonMatches({
-        status: 'PAST',
-      }, { limit: 50, offset: 50 * nextPage }, tokenV3),
-    ]).then(() => console.log('READY!'));
+    this.props.getAllActiveChallenges(this.props.auth.tokenV3);
+    this.props.getDraftChallenges(0, this.props.auth.tokenV3);
+    this.props.getPastChallenges(0, this.props.auth.tokenV3);
   }
 
   /**
@@ -159,14 +98,36 @@ class ListingContainer extends React.Component {
 
   render() {
     const {
+      auth: {
+        tokenV3,
+      },
+      allDraftChallengesLoaded,
+      allPastChallengesLoaded,
       activeBucket,
       challenges,
       challengeSubtracks,
       challengeTags,
       challengeGroupId,
+      getDraftChallenges,
+      getPastChallenges,
+      lastRequestedPageOfDraftChallenges,
+      lastRequestedPageOfPastChallenges,
       listingOnly,
       selectBucket,
     } = this.props;
+
+    let loadMoreDraft;
+    if (!allDraftChallengesLoaded) {
+      loadMoreDraft = () =>
+        getDraftChallenges(1 + lastRequestedPageOfDraftChallenges, tokenV3);
+    }
+
+    let loadMorePast;
+    if (!allPastChallengesLoaded) {
+      loadMorePast = () =>
+        getPastChallenges(1 + lastRequestedPageOfPastChallenges, tokenV3);
+    }
+
     return (
       <div>
         {/* For demo we hardcode banner properties so we can disable max-len linting */}
@@ -192,12 +153,12 @@ class ListingContainer extends React.Component {
           challengeTags={challengeTags}
           communityName={this.props.communityName}
           filterState={this.props.filter}
-          getChallenges={this.props.getChallenges}
-          getMarathonMatches={this.props.getMarathonMatches}
-          loadingChallenges={Boolean(_.keys(this.props.pendingRequests).length)}
+          loadingChallenges={Boolean(this.props.loadingActiveChallengesUUID)}
+          loadingDraftChallenges={Boolean(this.props.loadingDraftChallengesUUID)}
+          loadingPastChallenges={Boolean(this.props.loadingPastChallengesUUID)}
           selectBucket={selectBucket}
-          loadMore={this.props.loadMore}
-          loadMorePast={() => this.loadMorePast()}
+          loadMoreDraft={loadMoreDraft}
+          loadMorePast={loadMorePast}
           setFilterState={(state) => {
             this.props.setFilter(state);
             this.props.setSearchText(state.text || '');
@@ -236,16 +197,26 @@ ListingContainer.defaultProps = {
 };
 
 ListingContainer.propTypes = {
+  auth: PT.shape({
+    tokenV3: PT.string,
+    user: PT.shape(),
+  }).isRequired,
+  allDraftChallengesLoaded: PT.bool.isRequired,
+  allPastChallengesLoaded: PT.bool.isRequired,
   challenges: PT.arrayOf(PT.shape({})).isRequired,
   challengeSubtracks: PT.arrayOf(PT.string).isRequired,
   challengeTags: PT.arrayOf(PT.string).isRequired,
+  dropChallenges: PT.func.isRequired,
   filter: PT.shape().isRequired,
-  pendingRequests: PT.shape().isRequired,
   communityName: PT.string,
-  getAllChallenges: PT.func.isRequired,
-  getAllMarathonMatches: PT.func.isRequired,
-  getChallenges: PT.func.isRequired,
-  getMarathonMatches: PT.func.isRequired,
+  getAllActiveChallenges: PT.func.isRequired,
+  getDraftChallenges: PT.func.isRequired,
+  getPastChallenges: PT.func.isRequired,
+  lastRequestedPageOfDraftChallenges: PT.number.isRequired,
+  lastRequestedPageOfPastChallenges: PT.number.isRequired,
+  loadingActiveChallengesUUID: PT.string.isRequired,
+  loadingDraftChallengesUUID: PT.string.isRequired,
+  loadingPastChallengesUUID: PT.string.isRequired,
   markHeaderMenu: PT.func.isRequired,
   selectBucket: PT.func.isRequired,
   setFilter: PT.func.isRequired,
@@ -253,8 +224,6 @@ ListingContainer.propTypes = {
   sorts: PT.shape().isRequired,
   setSearchText: PT.func.isRequired,
   setSort: PT.func.isRequired,
-  setLoadMore: PT.func.isRequired,
-  loadMore: PT.shape().isRequired,
 
   /* OLD PROPS BELOW */
   listingOnly: PT.bool,
@@ -268,83 +237,29 @@ ListingContainer.propTypes = {
   location: PT.shape({
     hash: PT.string,
   }).isRequired,
-  auth: PT.shape({
-    tokenV3: PT.string,
-    user: PT.shape(),
-  }).isRequired,
 };
 
 const mapStateToProps = (state) => {
   const cl = state.challengeListing;
   return {
     auth: state.auth,
+    allDraftChallengesLoaded: cl.allDraftChallengesLoaded,
+    allPastChallengesLoaded: cl.allPastChallengesLoaded,
     filter: cl.filter,
     challenges: cl.challenges,
     challengeSubtracks: cl.challengeSubtracks,
     challengeTags: cl.challengeTags,
-    counts: cl.counts,
+    lastRequestedPageOfDraftChallenges: cl.lastRequestedPageOfDraftChallenges,
+    lastRequestedPageOfPastChallenges: cl.lastRequestedPageOfPastChallenges,
+    loadingActiveChallengesUUID: cl.loadingActiveChallengesUUID,
+    loadingDraftChallengesUUID: cl.loadingDraftChallengesUUID,
+    loadingPastChallengesUUID: cl.loadingPastChallengesUUID,
     loadingChallengeSubtracks: cl.loadingChallengeSubtracks,
     loadingChallengeTags: cl.loadingChallengeTags,
-    loadMore: cl.loadMore,
-    oldestData: cl.oldestData,
-    pendingRequests: cl.pendingRequests,
     sorts: cl.sorts,
     activeBucket: cl.sidebar.activeBucket,
   };
 };
-
-/**
- * Loads into redux all challenges matching the request.
- * @param {Function} dispatch
- */
-function getAllChallenges(dispatch, ...rest) {
-  const uuid = shortid();
-  dispatch(actions.challengeListing.getInit(uuid));
-  dispatch(actions.challengeListing.getAllChallenges(uuid, ...rest));
-}
-
-/**
- * Loads into redux all MMs matching the request.
- * @param {Function} dispatch
- */
-function getAllMarathonMatches(dispatch, ...rest) {
-  const uuid = shortid();
-  dispatch(actions.challengeListing.getInit(uuid));
-  dispatch(actions.challengeListing.getAllMarathonMatches(uuid, ...rest));
-}
-
-/**
- * Callback for loading challenges satisfying to the specified criteria.
- * All arguments starting from second should match corresponding arguments
- * of the getChallenges action.
- * @param {Function} dispatch
- */
-function getChallenges(dispatch, ...rest) {
-  const uuid = shortid();
-  dispatch(actions.challengeListing.getInit(uuid));
-  const action = actions.challengeListing.getChallenges(uuid, ...rest);
-  dispatch(action);
-  return action.payload;
-}
-
-/**
- * Callback for loading marathon matches satisfying to the specified criteria.
- * All arguments starting from second should match corresponding arguments
- * of the getChallenges action.
- * @param {Function} dispatch
- */
-function getMarathonMatches(dispatch, filters, ...rest) {
-  const uuid = shortid();
-  dispatch(actions.challengeListing.getInit(uuid));
-  const f = _.clone(filters);
-  if (f.status === 'COMPLETED') f.status = 'PAST';
-  const action = actions.challengeListing.getMarathonMatches(uuid, f, ...rest);
-  dispatch(action);
-  // TODO: This is hack to make the Redux loading of challenges to work
-  // with older code inside the InfiniteList, until it is properly
-  // refactored.
-  return action.payload;
-}
 
 function mapDispatchToProps(dispatch) {
   const a = actions.challengeListing;
@@ -352,15 +267,24 @@ function mapDispatchToProps(dispatch) {
   const fpa = filterPanelActions.challengeListing.filterPanel;
   const sa = sidebarActions.challengeListing.sidebar;
   return {
-    getAllChallenges: (...rest) => getAllChallenges(dispatch, ...rest),
-    getAllMarathonMatches: (...rest) =>
-      getAllMarathonMatches(dispatch, ...rest),
-    getChallenges: (...rest) => getChallenges(dispatch, ...rest),
-    getMarathonMatches: (...rest) => getMarathonMatches(dispatch, ...rest),
-    reset: () => dispatch(a.reset()),
+    dropChallenges: () => dispatch(a.dropChallenges()),
+    getAllActiveChallenges: (token) => {
+      const uuid = shortid();
+      dispatch(a.getAllActiveChallengesInit(uuid));
+      dispatch(a.getAllActiveChallengesDone(uuid, token));
+    },
+    getDraftChallenges: (page, token) => {
+      const uuid = shortid();
+      dispatch(a.getDraftChallengesInit(uuid, page));
+      dispatch(a.getDraftChallengesDone(uuid, page, token));
+    },
+    getPastChallenges: (page, token) => {
+      const uuid = shortid();
+      dispatch(a.getPastChallengesInit(uuid, page));
+      dispatch(a.getPastChallengesDone(uuid, page, token));
+    },
     selectBucket: bucket => dispatch(sa.selectBucket(bucket)),
     setFilter: state => dispatch(a.setFilter(state)),
-    setLoadMore: (...rest) => dispatch(a.setLoadMore(...rest)),
     setSearchText: text => dispatch(fpa.setSearchText(text)),
     setSort: (bucket, sort) => dispatch(a.setSort(bucket, sort)),
     markHeaderMenu: () =>

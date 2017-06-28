@@ -20,7 +20,7 @@ export default function Bucket({
   challenges,
   expanded,
   expand,
-  loadingMore,
+  loading,
   loadMore,
   setFilterState,
   setSort,
@@ -44,7 +44,7 @@ export default function Bucket({
     }
   }
 
-  if (!filteredChallenges.length) return null;
+  if (!filteredChallenges.length && !loadMore) return null;
 
   const cards = filteredChallenges.map(item => (
     <ChallengeCard
@@ -55,7 +55,7 @@ export default function Bucket({
   ));
 
   const placeholders = [];
-  if (loadingMore) {
+  if (loading) {
     for (let i = 0; i < 8; i += 1) {
       placeholders.push(<CardPlaceholder key={i} />);
     }
@@ -80,7 +80,7 @@ export default function Bucket({
       {cards}
       {placeholders}
       {
-        expandable ? (
+        (expandable || loadMore) && !expanded ? (
           <button
             onClick={expand}
             styleName="view-more"
@@ -88,12 +88,8 @@ export default function Bucket({
         ) : null
       }
       {
-        expanded ? (
-          <Waypoint
-            onEnter={() => {
-              if (loadMore && !loadingMore) loadMore();
-            }}
-          />
+        !expandable && loadMore && !loading ? (
+          <Waypoint onEnter={loadMore} />
         ) : null
       }
     </div>
@@ -103,7 +99,7 @@ export default function Bucket({
 Bucket.defaultProps = {
   expanded: false,
   expand: _.noop,
-  loadingMore: false,
+  loading: false,
   loadMore: null,
   sort: null,
 };
@@ -113,7 +109,7 @@ Bucket.propTypes = {
   expanded: PT.bool,
   expand: PT.func,
   challenges: PT.arrayOf(PT.shape()).isRequired,
-  loadingMore: PT.bool,
+  loading: PT.bool,
   loadMore: PT.func,
   setFilterState: PT.func.isRequired,
   setSort: PT.func.isRequired,
