@@ -27,7 +27,7 @@ import Footer from 'components/tc-communities/Footer';
 import LoadingIndicator from 'components/LoadingIndicator';
 
 // page content components
-import ChallengeListing from 'containers/ChallengeListing';
+import ChallengeListing from 'containers/challenge-listing/Listing';
 import Leaderboard from 'containers/Leaderboard';
 import WiproHome from 'components/tc-communities/communities/wipro/Home';
 import WiproLearn from 'components/tc-communities/communities/wipro/Learn';
@@ -142,6 +142,7 @@ class Page extends Component {
       case 'challenges':
         pageContent = (<ChallengeListing
           challengeGroupId={this.props.meta.challengeGroupId}
+          communityId={this.props.meta.communityId}
           communityName={this.props.meta.communityName}
           tag={this.props.meta.challengeFilterTag}
           history={this.props.history}

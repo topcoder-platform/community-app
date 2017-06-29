@@ -48,14 +48,14 @@ const PastSRMCard = () => (
           <span className="challenge-stats">
             <span>
               <Tooltip content={numRegistrantsTipText(NUM_REGISTRANTS)}>
-                <a className="num-reg" href="javascript:;">
+                <a className="num-reg" href="">
                   <RegistrantsIcon /> <span className="number">{NUM_REGISTRANTS}</span>
                 </a>
               </Tooltip>
             </span>
             <span>
               <Tooltip content={numSubmissionsTipText(NUM_SUBMISSION)}>
-                <a className="num-sub" href="javascript:;">
+                <a className="num-sub" href="">
                   <SubmissionsIcon /> <span className="number">{NUM_SUBMISSION}</span>
                 </a>
               </Tooltip>

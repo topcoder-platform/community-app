@@ -3,12 +3,94 @@
  * challenges via TC API.
  */
 
+import _ from 'lodash';
 import qs from 'qs';
+import { COMPETITION_TRACKS } from 'utils/tc';
 import { getApiV2, getApiV3 } from './api';
 
 export const ORDER_BY = {
   SUBMISSION_END_DATE: 'submissionEndDate',
 };
+
+/**
+ * Normalizes a regular challenge object received from the backend.
+ * NOTE: This function is copied from the existing code in the challenge listing
+ * component. It is possible, that this normalization is not necessary after we
+ * have moved to Topcoder API v3, but it is kept for now to minimize a risk of
+ * breaking anything.
+ * @param {Object} challenge Challenge object received from the backend.
+ * @param {String} username Optional.
+ * @return {Object} Normalized challenge.
+ */
+export function normalizeChallenge(challenge, username) {
+  const registrationOpen = challenge.allPhases.filter(d =>
+    d.phaseType === 'Registration',
+  )[0].phaseStatus === 'Open' ? 'Yes' : 'No';
+  const groups = {};
+  if (challenge.groupIds) {
+    challenge.groupIds.forEach((id) => {
+      groups[id] = true;
+    });
+  }
+  _.defaults(challenge, {
+    communities: new Set([COMPETITION_TRACKS[challenge.track]]),
+    groups,
+    platforms: '',
+    registrationOpen,
+    technologies: '',
+    submissionEndTimestamp: challenge.submissionEndDate,
+    users: username ? { username: true } : {},
+  });
+}
+
+/**
+ * Normalizes a marathon match challenge object received from the backend.
+ * NOTE: This function is copied from the existing code in the challenge listing
+ * component. It is possible, that this normalization is not necessary after we
+ * have moved to Topcoder API v3, but it is kept for now to minimize a risk of
+ * breaking anything.
+ * @param {Object} challenge MM challenge object received from the backend.
+ * @param {String} username Optional.
+ * @return {Object} Normalized challenge.
+ */
+export function normalizeMarathonMatch(challenge, username) {
+  const endTimestamp = new Date(challenge.endDate).getTime();
+  const allphases = [{
+    challengeId: challenge.id,
+    phaseType: 'Registration',
+    phaseStatus: endTimestamp > Date.now() ? 'Open' : 'Close',
+    scheduledEndTime: challenge.endDate,
+  }];
+  const groups = {};
+  if (challenge.groupIds) {
+    challenge.groupIds.forEach((id) => {
+      groups[id] = true;
+    });
+  }
+  _.defaults(challenge, {
+    challengeCommunity: 'Data',
+    challengeType: 'Marathon',
+    allPhases: allphases,
+    currentPhases: allphases.filter(phase => phase.phaseStatus === 'Open'),
+    communities: new Set([COMPETITION_TRACKS.DATA_SCIENCE]),
+    currentPhaseName: endTimestamp > Date.now() ? 'Registration' : '',
+    groups,
+    numRegistrants: challenge.numRegistrants ? challenge.numRegistrants[0] : 0,
+    numSubmissions: challenge.userIds ? challenge.userIds.length : 0,
+    platforms: '',
+    prizes: [0],
+    registrationOpen: endTimestamp > Date.now() ? 'Yes' : 'No',
+    registrationStartDate: challenge.startDate,
+    submissionEndDate: challenge.endDate,
+    submissionEndTimestamp: endTimestamp,
+    technologies: '',
+    totalPrize: 0,
+    track: 'DATA_SCIENCE',
+    status: endTimestamp > Date.now() ? 'ACTIVE' : 'COMPLETED',
+    subTrack: 'MARATHON_MATCH',
+    users: username ? { username: true } : {},
+  });
+}
 
 class ChallengesService {
 
@@ -38,7 +120,7 @@ class ChallengesService {
       .then(res => (res.ok ? res.json() : new Error(res.statusText)))
       .then(res => (
         res.result.status === 200 ? {
-          challenges: res.result.content,
+          challenges: res.result.content || [],
           totalCount: res.result.metadata.totalCount,
         } : new Error(res.result.content)
       ));
@@ -86,7 +168,11 @@ class ChallengesService {
    * @return {Promise} Resolves to the api response.
    */
   getChallenges(filters, params) {
-    return this.private.getChallenges('/challenges/', filters, params);
+    return this.private.getChallenges('/challenges/', filters, params)
+    .then((res) => {
+      res.challenges.forEach(item => normalizeChallenge(item));
+      return res;
+    });
   }
 
   /**
@@ -96,7 +182,11 @@ class ChallengesService {
    * @return {Promise} Resolve to the api response.
    */
   getMarathonMatches(filters, params) {
-    return this.private.getChallenges('/marathonMatches/', filters, params);
+    return this.private.getChallenges('/marathonMatches/', filters, params)
+    .then((res) => {
+      res.challenges.forEach(item => normalizeMarathonMatch(item));
+      return res;
+    });
   }
 
   /**
@@ -108,7 +198,11 @@ class ChallengesService {
    */
   getUserChallenges(username, filters, params) {
     const endpoint = `/members/${username.toLowerCase()}/challenges/`;
-    return this.private.getChallenges(endpoint, filters, params);
+    return this.private.getChallenges(endpoint, filters, params)
+    .then((res) => {
+      res.challenges.forEach(item => normalizeChallenge(item, username));
+      return res;
+    });
   }
 
   /**
@@ -120,7 +214,11 @@ class ChallengesService {
    */
   getUserMarathonMatches(username, filters, params) {
     const endpoint = `/members/${username.toLowerCase()}/mms/`;
-    return this.private.api.get(endpoint, filters, params);
+    return this.private.getChallenges(endpoint, filters, params)
+    .then((res) => {
+      res.challenges.forEach(item => normalizeMarathonMatch(item, username));
+      return res;
+    });
   }
 }
 

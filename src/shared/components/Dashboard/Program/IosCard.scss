@@ -1,0 +1,258 @@
+@import '~styles/tc-styles';
+
+// Default Challenge Tile Stylings
+.challenge.tile-view {
+  position: relative;
+  width: 270px;
+  height: 370px;
+  border: 1px solid #dcdcdc;
+  border-radius: 4px;
+  background-color: $tc-white;
+
+  .challenge-track {
+    width: 5px;
+    height: 91px;
+    position: absolute;
+    top: -1px;
+    left: -1px;
+    border-top-left-radius: 4px;
+  }
+
+  header {
+    height: 91px;
+    border-bottom: 1px solid #f0f0f0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    a.name {
+      display: block;
+      padding: 15px 20px 0;
+      font-family: 'Sofia Pro', Arial, Helvetica, sans-serif;
+      font-weight: 500;
+      font-size: 14px;
+      line-height: 20px;
+      color: #3d3d3d;
+      text-decoration: none;
+
+      @include ellipsis;
+
+      text-transform: uppercase;
+    }
+
+    p.subtrack-color {
+      padding: 0 20px;
+      margin-top: 5px;
+      font-family: 'Sofia Pro', Arial, Helvetica, sans-serif;
+      font-weight: 500;
+      font-size: 12px;
+      line-height: 14px;
+      text-transform: uppercase;
+    }
+
+    .challenge-links {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      border-bottom-right-radius: 3px;
+      border-bottom-left-radius: 3px;
+      padding: 0 20px;
+      margin-bottom: 10px;
+
+      a {
+        text-decoration: none;
+
+        p {
+          color: #a3a3ae;
+          font-family: 'Sofia Pro', Arial, Helvetica, sans-serif;
+          font-weight: 500;
+          font-size: 12px;
+          line-height: 14px;
+          text-transform: uppercase;
+        }
+      }
+
+      .stats,
+      .registrants,
+      .submissions,
+      .forum {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+      }
+
+      .registrants,
+      .submissions,
+      .form {
+        cursor: pointer;
+      }
+
+      .registrants {
+        margin-right: 15px;
+      }
+    }
+  }
+
+  .challenge-details {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .currentPhase {
+      margin-top: 40px;
+      font-family: 'Sofia Pro', Arial, Helvetica, sans-serif;
+      font-weight: 300;
+      font-size: 18px;
+      line-height: 23px;
+      text-transform: uppercase;
+      color: #3d3d3d;
+    }
+  }
+
+  .prize-money {
+    margin-top: 32px;
+    margin-bottom: 10px;
+    font-family: 'Sofia Pro', Arial, Helvetica, sans-serif;
+    font-weight: 300;
+    font-size: 20px;
+    line-height: 24px;
+  }
+
+  .technologies {
+    height: 36px;
+    margin-bottom: 33px;
+    padding: 0 20px;
+    font-family: 'Merriweather Sans', Arial, Helvetica, sans-serif;
+    font-size: 13px;
+    line-height: 18px;
+  }
+
+  .challenge-calendar {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 75px;
+    height: 63px;
+    margin-top: 16px;
+    background-image: url(assets/images/dashboard/ico-calendar.svg);
+
+    > p {
+      font-family: 'Sofia Pro', Arial, Helvetica, sans-serif;
+      font-weight: bold;
+    }
+
+    .starts-in {
+      margin-top: 3px;
+      font-size: 10px;
+      line-height: 13px;
+      text-transform: uppercase;
+      color: #7f7f7f;
+    }
+
+    .time-remaining {
+      margin-top: 5px;
+      font-size: 24px;
+      color: #3d3d3d;
+    }
+
+    .unit-of-time {
+      margin-top: 1px;
+      font-size: 10px;
+      text-transform: lowercase;
+      color: #7f7f7f;
+    }
+  }
+
+  .stalled-challenge {
+    margin-top: 31px;
+    margin-bottom: 12px;
+    height: 36px;
+    padding: 0 20px;
+    font-family: 'Sofia Pro', Arial, Helvetica, sans-serif;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 18px;
+    text-transform: uppercase;
+    text-align: center;
+    color: #a3a3ae;
+  }
+
+  .phase-action {
+    margin-bottom: 25px;
+  }
+
+  .roles {
+    min-height: 36px;
+    margin-bottom: 25px;
+    color: #3d3d3d;
+    font-family: 'Merriweather Sans', Arial, Helvetica, sans-serif;
+    font-size: 13px;
+    line-height: 18px;
+  }
+
+  div[class$="-icon"] {
+    margin-right: 3px;
+  }
+
+  .registrants-icon {
+    width: 15px;
+    height: 16px;
+    background-image: url(assets/images/dashboard/ico-users.svg);
+    background-size: 15px 16px;
+  }
+
+  .submissions-icon {
+    width: 22px;
+    height: 14px;
+    background-image: url(assets/images/dashboard/ico-submissions.svg);
+  }
+
+  .forum-icon {
+    width: 20px;
+    height: 17px;
+    background-image: url(assets/images/dashboard/ico-posts.svg);
+  }
+
+  // Dynamic colors based on track
+  &.DESIGN {
+    .challenge-track {
+      background-color: #21b2f1;
+    }
+
+    header p.subtrack-color {
+      color: #21b2f1;
+    }
+  }
+
+  &.DEVELOP {
+    .challenge-track {
+      background-color: #05c14f;
+    }
+
+    header p.subtrack-color {
+      color: #05c14f;
+    }
+  }
+
+  &.DATA_SCIENCE {
+    .challenge-track {
+      background-color: #fc9a00;
+    }
+
+    header p.subtrack-color {
+      color: #fc9a00;
+    }
+  }
+
+  &.COPILOT {
+    .challenge-track {
+      background-color: #7d939e;
+    }
+
+    header p.subtrack-color {
+      color: #7d939e;
+    }
+  }
+}

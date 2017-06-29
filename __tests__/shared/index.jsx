@@ -1,3 +1,4 @@
+/*
 import React from 'react';
 import Rnd from 'react-test-renderer/shallow';
 
@@ -6,8 +7,10 @@ const rnd = new Rnd();
 afterAll(() => {
   process.env.NODE_ENV = 'test';
 });
+*/
 
-test('Snapshot match', () => {
+test.skip('Snapshot match', () => {
+  /*
   let App = require('shared').default;
   rnd.render((
     <App />
@@ -21,4 +24,5 @@ test('Snapshot match', () => {
   ));
   expect(rnd.getRenderOutput()).toMatchSnapshot();
   process.env.NODE_ENV = 'test';
+  */
 });

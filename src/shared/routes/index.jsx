@@ -5,8 +5,9 @@
 import Content from 'components/examples/Content';
 import Error404 from 'components/Error404';
 import SubmissionManagement from 'containers/SubmissionManagement';
-import ChallengeListing from 'containers/ChallengeListing';
+import ChallengeListing from 'containers/challenge-listing/Listing';
 import Leaderboard from 'containers/Leaderboard';
+import Dashboard from 'containers/Dashboard';
 import 'isomorphic-fetch';
 import React from 'react';
 import { Switch, Route, withRouter } from 'react-router-dom';
@@ -62,6 +63,7 @@ function Routes({ subdomains }) {
       <Route path="/community-page" component={TopcoderHeader} />
       <Route path="/leaderboard" component={TopcoderHeader} />
       <Route path="/challenges" component={TopcoderHeader} />
+      <Route path="/my-dashboard" component={TopcoderHeader} />
       <Switch>
         <Route exact path="/" component={Content} />
         <Route exact path="/examples" component={Content} />
@@ -90,6 +92,10 @@ function Routes({ subdomains }) {
           component={TcCommunitiesPage}
           path="/community/:communityId/:pageId"
         />
+        <Route
+          component={Dashboard}
+          path="/my-dashboard"
+        />
         <Route component={Error404} />
       </Switch>
       <Route path="/challenge" component={TopcoderFooter} />
@@ -97,6 +103,7 @@ function Routes({ subdomains }) {
       <Route path="/community-page" component={TopcoderFooter} />
       <Route path="/leaderboard" component={TopcoderFooter} />
       <Route path="/challenges" component={TopcoderFooter} />
+      <Route path="/my-dashboard" component={TopcoderFooter} />
     </div>
   );
 }

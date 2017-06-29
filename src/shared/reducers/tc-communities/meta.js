@@ -18,7 +18,7 @@ function onDone(state, action) {
       ...state,
       authorizedGroupIds: action.payload.authorizedGroupIds,
       challengeFilterTag: action.payload.challengeFilterTag,
-      challengeGroupId: action.payload.challengeGroupId,
+      challengeGroupId: action.payload.groupId,
       communityId: action.payload.communityId,
       communityName: action.payload.communityName,
       communitySelector: action.payload.communitySelector,

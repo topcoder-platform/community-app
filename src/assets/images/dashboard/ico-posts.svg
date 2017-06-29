@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="22px" height="19px" viewBox="0 0 22 19" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
+    <!-- Generator: Sketch 3.3.3 (12081) - http://www.bohemiancoding.com/sketch -->
+    <title>ico-posts</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Dashboard" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
+        <g id="Cards---Specks" sketch:type="MSArtboardGroup" transform="translate(-285.000000, -1494.000000)" fill="#D1D3D4">
+            <g id="card-dashboard-cta" sketch:type="MSLayerGroup" transform="translate(87.000000, 1154.000000)">
+                <g id="Rectangle-311-+-Group" transform="translate(22.000000, 338.000000)" sketch:type="MSShapeGroup">
+                    <g id="Group">
+                        <path d="M185.846154,3 C184.830769,3 184,3.83076923 184,4.84615385 L184,12.2307692 L190.461538,12.2307692 L193.230769,15 L193.230769,12.2307692 L194.153846,12.2307692 C195.169231,12.2307692 196,11.4009231 196,10.3846154 L196,4.84615385 C196,3.83076923 195.169231,3 194.153846,3 L185.846154,3 Z M183.538462,12.5384615 L183.538462,7 L179.846154,7 C178.830769,7 178,7.83076923 178,8.84615385 L178,14.3846154 C178,15.4 178.830769,16.2307692 179.846154,16.2307692 L180.769231,16.2307692 L180.769231,19 L183.538462,16.2307692 L188.153846,16.2307692 C189.169231,16.2307692 190,15.4 190,14.3846154 L190,12.5384615 C189.940923,12.7175385 189.878154,12.724 190,12.5384615 L183.538462,12.5384615 Z" id="ico-posts"></path>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

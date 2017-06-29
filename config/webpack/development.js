@@ -17,6 +17,7 @@ module.exports = webpackMerge(defaultConfig, {
       exclude: [
         /node_modules\/(?!appirio-tech.*|topcoder|tc-)/,
         /src\/assets\/fonts/,
+        /src\/assets\/images\/dashboard/,
       ],
       loader: 'babel-loader',
       options: {

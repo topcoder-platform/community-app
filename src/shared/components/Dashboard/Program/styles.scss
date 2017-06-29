@@ -1,0 +1,279 @@
+@import '~styles/tc-styles';
+
+.programs {
+  .section-loading {
+    min-height: 200px;
+  }
+
+  h1.section-title {
+    font-family: 'Sofia Pro', Arial, Helvetica, sans-serif;
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 29px;
+    color: #3d3d3d;
+    text-align: center;
+    text-transform: uppercase;
+    padding-top: 30px;
+    margin-bottom: 30px;
+
+    span {
+      text-transform: none;
+    }
+  }
+
+  .unregistered {
+    .empty-state-placeholder {
+      .title {
+        text-transform: none;
+      }
+    }
+  }
+
+  .registered {
+    padding: 20px 15px 5px;
+    border-top: 1px solid #f0f0f0;
+    border-bottom: 1px solid #f0f0f0;
+    background-color: #fcfcfc;
+
+    .badge-and-challenges {
+      white-space: nowrap;
+      overflow-y: hidden;
+      overflow-x: scroll;
+
+      @media only screen and (min-width: 768px) {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        margin: 0 auto;
+        overflow: visible;
+        white-space: normal;
+        width: 555px;
+      }
+
+      @media only screen and (min-width: 870px) {
+        width: 840px;
+      }
+
+      @media only screen and (min-width: 1155px) {
+        width: 1125px;
+      }
+    }
+
+    .registered-badge {
+      display: inline;
+      vertical-align: top;
+      height: 370px;
+      min-width: 270px;
+      border: 1px solid #dcdcdc;
+      border-radius: 4px;
+      background-color: $tc-white;
+
+      @media only screen and (max-width: 767px) {
+        display: inline-block;
+      }
+
+      .flex-wrapper {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+
+      p {
+        margin-top: 60px;
+        margin-bottom: 37px;
+        font-family: 'Sofia Pro', Arial, Helvetica, sans-serif;
+        font-weight: 300;
+        font-size: 20px;
+        color: #3d3d3d;
+      }
+
+      .badge-timeline {
+        width: 120px;
+      }
+
+      a {
+        display: block;
+        margin-top: 37px;
+        text-decoration: none;
+      }
+    }
+
+    .ios-card {
+      display: inline;
+      margin-bottom: 15px;
+
+      @media only screen and (max-width: 767px) {
+        display: inline-block;
+        margin-left: 15px;
+
+        &:first-child {
+          margin-left: 0;
+        }
+      }
+
+      @media only screen and (min-width: 768px) {
+        &:nth-child(2n) {
+          margin-left: 15px;
+        }
+      }
+
+      @media only screen and (min-width: 870px) {
+        margin-left: 15px;
+
+        &:nth-child(4n) {
+          margin-left: 0;
+        }
+      }
+
+      @media only screen and (min-width: 1155px) {
+        &:nth-child(4n) {
+          margin-left: 15px;
+        }
+      }
+    }
+  }
+}
+
+.empty-state-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: #3d3d3d;
+  padding: 20px 10px;
+
+  @media only screen and (min-width: 768px) {
+    padding: 30px 20px;
+  }
+
+  .title {
+    font-family: 'Sofia Pro', Arial, Helvetica, sans-serif;
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 29px;
+    text-align: center;
+    text-transform: uppercase;
+  }
+
+  .content {
+    margin-top: 20px;
+
+    @media only screen and (min-width: 768px) {
+      margin-top: 30px;
+    }
+  }
+
+  .description {
+    max-width: 650px;
+    margin-top: 20px;
+    font-family: 'Merriweather Sans', Arial, Helvetica, sans-serif;
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 24px;
+    text-align: center;
+
+    @media only screen and (min-width: 768px) {
+      margin-top: 30px;
+    }
+
+    @media only screen and (min-width: 900px) {
+      max-width: 856px;
+    }
+  }
+
+  .help-links {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+
+    @media only screen and (min-width: 768px) {
+      margin-top: 30px;
+    }
+
+    .help-link {
+      &:not(:first-child) {
+        margin-top: 30px;
+      }
+    }
+
+    a {
+      text-transform: uppercase;
+      display: block;
+      font-family: 'Sofia Pro', Arial, Helvetica, sans-serif;
+      font-weight: 500;
+
+      // used more generic css class (secondary-cta)
+      // remove learn-more class once we are sure that it is not being used in any empty state
+      &.secondary-cta,
+      &.learn-more {
+        font-size: 12px;
+        line-height: 12px;
+        color: #a3a3ae;
+      }
+    }
+  }
+}
+
+.empty-state-placeholder.sky {
+  background-image: url(assets/images/pattern-ios-challenges.png);
+  background-repeat: repeat;
+
+  .title {
+    color: $tc-white;
+  }
+
+  .description {
+    color: $tc-white;
+  }
+
+  .help-links {
+    .help-link {
+      .learn-more {
+        color: #f6f6f6;
+      }
+    }
+  }
+}
+
+a.tc-btn {
+  height: 40px;
+  padding: 0 15px;
+  line-height: 40px;
+  border-radius: 4px;
+  border: 1px solid #0096ff;
+  background-color: #0096ff;
+  background-image: none;
+  font-family: 'Sofia Pro', Arial, Helvetica, sans-serif;
+  font-weight: 500;
+  font-size: 12px;
+  font-style: normal;
+  color: $tc-white;
+  text-transform: uppercase;
+  outline: none;
+  text-shadow: none;
+
+  &:focus {
+    border: 1px solid #0096ff;
+    background-color: #0096ff;
+    color: $tc-white;
+  }
+
+  &:hover {
+    background-color: #097dce;
+    border-color: #097dce;
+    color: $tc-white;
+  }
+
+  &:active {
+    background-color: #097dce;
+    background-image: none;
+    border-color: #097dce;
+    box-shadow: inset 0 1px 1px 0 rgba(0, 0, 0, 0.3);
+    line-height: 30px;
+  }
+
+  &:disabled {
+    opacity: 0.3;
+    cursor: default;
+  }
+}

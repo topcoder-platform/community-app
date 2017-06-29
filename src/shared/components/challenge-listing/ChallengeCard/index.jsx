@@ -7,7 +7,7 @@ import React from 'react';
 import PT from 'prop-types';
 import TrackIcon from 'components/TrackIcon';
 
-import ChallengeStatus from '../ChallengeStatus';
+import ChallengeStatus from './Status';
 import PrizesTooltip from '../Tooltips/PrizesTooltip';
 import TrackAbbreviationTooltip from '../Tooltips/TrackAbbreviationTooltip';
 import './style.scss';
@@ -24,7 +24,6 @@ const numberWithCommas = n => (n ? n.toString().replace(/\B(?=(\d{3})+(?!\d))/g,
 
 function ChallengeCard({
   challenge: passedInChallenge,
-  config: configFromProps,
   sampleWinnerProfile,
   onTechTagClicked,
 }) {
@@ -84,7 +83,7 @@ function ChallengeCard({
       </div>
       <div styleName="right-panel">
         <div styleName={isRegistrationOpen ? 'prizes with-register-button' : 'prizes'}>
-          <PrizesTooltip challenge={challenge} config={configFromProps}>
+          <PrizesTooltip challenge={challenge}>
             <div>
               <div><span styleName="dollar">$</span>{numberWithCommas(challenge.totalPrize)}</div>
               <div styleName="label">Purse</div>
@@ -94,7 +93,6 @@ function ChallengeCard({
 
         <ChallengeStatus
           challenge={challenge}
-          config={configFromProps}
           detailLink={challengeDetailLink(challenge)}
           sampleWinnerProfile={sampleWinnerProfile}
         />
@@ -106,14 +104,12 @@ function ChallengeCard({
 ChallengeCard.defaultProps = {
   onTechTagClicked: _.noop,
   challenge: {},
-  config: process.env,
   sampleWinnerProfile: undefined,
 };
 
 ChallengeCard.propTypes = {
   onTechTagClicked: PT.func,
   challenge: PT.shape(),
-  config: PT.shape(),
   sampleWinnerProfile: PT.shape(),
 };
 
@@ -152,7 +148,9 @@ class Tags extends React.Component {
         <a
           key={c}
           styleName="technology"
-          onClick={() => this.onClick(c)}
+          /* TODO: Find out why all tags beside the first one are prepended
+           * with whitespaces? */
+          onClick={() => this.onClick(c.trim())}
         >{c}
         </a>
       ));
