@@ -127,14 +127,17 @@ function getAllActiveChallengesDone(uuid, tokenV3) {
      * are not attributed to the user there. This block of code marks user
      * challenges in an efficient way. */
     if (uch) {
-      const set = new Set();
-      uch.forEach(item => set.add(item.id));
-      umm.forEach(item => set.add(item.id));
+      const map = {};
+      uch.forEach((item) => { map[item.id] = item; });
+      umm.forEach((item) => { map[item.id] = item; });
       challenges.forEach((item) => {
-        if (set.has(item.id)) {
+        if (map[item.id]) {
           /* It is fine to reassing, as the array we modifying is created just
            * above within the same function. */
-          item.users[user] = true; // eslint-disable-line no-param-reassign
+          /* eslint-disable no-param-reassign */
+          item.users[user] = true;
+          item.userDetails = map[item.id].userDetails;
+          /* eslint-enable no-param-reassign */
         }
       });
     }

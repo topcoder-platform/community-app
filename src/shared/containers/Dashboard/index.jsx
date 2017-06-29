@@ -25,92 +25,28 @@ import './styles.scss';
 // The container component
 class DashboardPageContainer extends React.Component {
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      loadingMyChallenges: false,
-      loadingMyMarathon: false,
-      loadingIosChallenges: false,
-    };
-  }
-
   componentDidMount() {
     if (!this.props.auth.tokenV2) {
+      /* TODO: dev/prod URLs should be generated based on the config,
+       * now it is hardcoded with dev URL - wrong! */
       location.href = 'http://accounts.topcoder-dev.com/#!/member?retUrl=http:%2F%2Flocal.topcoder-dev.com:3000%2Fmy-dashboard';
       return false;
     }
+    this.props.getAllActiveChallenges(this.props.auth.tokenV3);
     this.props.getBlogs();
     return true;
   }
 
   componentDidUpdate(prevProps) {
     const { user, tokenV3 } = this.props.auth;
-    const { challenges } = this.props.challengeListing;
-    const { iosRegistered } = this.props.dashboard;
     if (tokenV3 && tokenV3 !== prevProps.auth.tokenV3) {
       setImmediate(() => {
+        this.props.getAllActiveChallenges(tokenV3);
         this.props.getSubtrackRanks(tokenV3, user.handle);
         this.props.getSRMs(tokenV3, user.handle);
         this.props.getIosRegistration(tokenV3, user.userId);
         this.props.getUserFinancials(tokenV3, user.handle);
       });
-    }
-    if (user && !prevProps.auth.user && (!challenges || !challenges.length)) {
-      setImmediate(
-        () => {
-          this.setState({ loadingMyChallenges: true });
-          this.props.getChallenges(
-            {
-              status: 'ACTIVE',
-            }, {
-              limit: 8,
-              orderBy: 'submissionEndDate',
-            }, tokenV3, 'active', user.handle,
-          ).then(() => {
-            this.setState({ loadingMyChallenges: false });
-          })
-          .catch(() => {
-            this.setState({ loadingMyChallenges: false });
-          });
-
-          this.setState({ loadingMyMarathon: true });
-          this.props.getMarathonMatches(
-            {
-              status: 'ACTIVE',
-            }, {
-              limit: 8,
-            }, tokenV3, 'myActiveMM', user.handle,
-          )
-          .then(() => {
-            this.setState({ loadingMyMarathon: false });
-          })
-          .catch(() => {
-            this.setState({ loadingMyMarathon: false });
-          });
-        },
-      );
-    }
-    if (iosRegistered && !prevProps.dashboard.iosRegistered) {
-      setImmediate(
-        () => {
-          this.setState({ loadingIosChallenges: true });
-          this.props.getChallenges({
-            platforms: 'ios',
-            technologies: 'swift',
-            status: 'active',
-          }, {
-            limit: 3,
-            offset: 0,
-            orderBy: 'submissionEndDate asc',
-          })
-          .then(() => {
-            this.setState({ loadingIosChallenges: false });
-          })
-          .catch(() => {
-            this.setState({ loadingIosChallenges: false });
-          });
-        },
-      );
     }
   }
 
@@ -131,7 +67,9 @@ class DashboardPageContainer extends React.Component {
       _.filter(challenges, c => c.platforms === 'iOS'),
     );
 
-    const { loadingMyChallenges, loadingMyMarathon, loadingIosChallenges } = this.state;
+    const loadingActiveChallenges =
+      Boolean(this.props.challengeListing.loadingActiveChallengesUUID);
+
     return (
       <div styleName="dashboard-container">
         <div styleName="page-container">
@@ -149,11 +87,11 @@ class DashboardPageContainer extends React.Component {
             </div>
             <div styleName="challenges">
               {
-                (loadingMyMarathon || loadingMyChallenges) &&
+                loadingActiveChallenges &&
                 <LoadingIndicator theme={{}} />
               }
               {
-                !loadingMyChallenges && !loadingMyMarathon &&
+                !loadingActiveChallenges &&
                 <MyChallenges
                   challenges={myChallenges.slice(0, 8)}
                   groups={profile ? profile.groups : []}
@@ -200,11 +138,11 @@ class DashboardPageContainer extends React.Component {
             </div>
             <div styleName="programs">
               {
-                loadingIosChallenges &&
+                loadingActiveChallenges &&
                 <LoadingIndicator theme={{}} />
               }
               {
-                !loadingIosChallenges &&
+                !loadingActiveChallenges &&
                 <Program
                   challenges={iosChallenges.slice(0, 3)}
                   iosRegistered={iosRegistered}
@@ -233,10 +171,9 @@ DashboardPageContainer.propTypes = {
   auth: PT.shape(),
   dashboard: PT.shape(),
   challengeListing: PT.shape(),
+  getAllActiveChallenges: PT.func.isRequired,
   getSubtrackRanks: PT.func.isRequired,
-  getChallenges: PT.func.isRequired,
   getSRMs: PT.func.isRequired,
-  getMarathonMatches: PT.func.isRequired,
   getIosRegistration: PT.func.isRequired,
   registerIos: PT.func.isRequired,
   getBlogs: PT.func.isRequired,
@@ -249,39 +186,6 @@ DashboardPageContainer.defaultProps = {
   challengeListing: {},
 };
 
-/**
- * Callback for loading challenges satisfying to the specified criteria.
- * All arguments starting from second should match corresponding arguments
- * of the getChallenges action.
- * @param {Function} dispatch
- */
-function getChallenges(dispatch, ...rest) {
-  const uuid = shortid();
-  dispatch(cActions.challengeListing.getInit(uuid));
-  const action = cActions.challengeListing.getChallenges(uuid, ...rest);
-  dispatch(action);
-  return action.payload;
-}
-
-/**
- * Callback for loading marathon matches satisfying to the specified criteria.
- * All arguments starting from second should match corresponding arguments
- * of the getChallenges action.
- * @param {Function} dispatch
- */
-function getMarathonMatches(dispatch, filters, ...rest) {
-  const uuid = shortid();
-  dispatch(cActions.challengeListing.getInit(uuid));
-  const f = _.clone(filters);
-  if (f.status === 'COMPLETED') f.status = 'PAST';
-  const action = cActions.challengeListing.getMarathonMatches(uuid, f, ...rest);
-  dispatch(action);
-  // TODO: This is hack to make the Redux loading of challenges to work
-  // with older code inside the InfiniteList, until it is properly
-  // refactored.
-  return action.payload;
-}
-
 const mapStateToProps = state => ({
   auth: state.auth,
   dashboard: state.dashboard,
@@ -293,8 +197,11 @@ const mapDispatchToProps = dispatch => ({
     dispatch(actions.dashboard.getSubtrackRanksInit());
     dispatch(actions.dashboard.getSubtrackRanksDone(tokenV3, handle));
   },
-  getChallenges: (...rest) => getChallenges(dispatch, ...rest),
-  getMarathonMatches: (...rest) => getMarathonMatches(dispatch, ...rest),
+  getAllActiveChallenges: (tokenV3) => {
+    const uuid = shortid();
+    dispatch(cActions.challengeListing.getAllActiveChallengesInit(uuid));
+    dispatch(cActions.challengeListing.getAllActiveChallengesDone(uuid, tokenV3));
+  },
   getSRMs: (tokenV3, handle) => {
     dispatch(actions.dashboard.getSrmsInit());
     dispatch(actions.dashboard.getSrmsDone(tokenV3, handle, {

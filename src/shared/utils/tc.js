@@ -143,6 +143,8 @@ export function stripUnderscore(string) {
  * @param  {array} challenges  challenges array to process
  * @return {array}            processed challenges array
  */
+/* TODO: This function should be mixed into normalization function
+ * of the challenges service. */
 export function processActiveDevDesignChallenges(challenges) {
   return _.map(challenges, (c) => {
     const challenge = _.cloneDeep(c);
