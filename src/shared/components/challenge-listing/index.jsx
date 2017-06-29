@@ -22,6 +22,11 @@ const CHALLENGE_PLACEHOLDER_COUNT = 8;
 export default function ChallengeListing(props) {
   let challenges = props.challenges;
 
+  if (props.communityFilter) {
+    challenges = challenges.filter(
+      Filter.getFilterFunction(props.communityFilter));
+  }
+
   challenges = challenges.filter(
     Filter.getFilterFunction(props.filterState));
 
@@ -112,6 +117,7 @@ export default function ChallengeListing(props) {
 
 ChallengeListing.defaultProps = {
   challengeGroupId: '',
+  communityFilter: null,
   communityName: null,
   loadMoreDraft: null,
   loadMorePast: null,
@@ -122,6 +128,7 @@ ChallengeListing.defaultProps = {
 ChallengeListing.propTypes = {
   activeBucket: PT.string.isRequired,
   challenges: PT.arrayOf(PT.shape()).isRequired,
+  communityFilter: PT.shape(),
   communityName: PT.string,
   filterState: PT.shape().isRequired,
   loadingChallenges: PT.bool.isRequired,

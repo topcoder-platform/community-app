@@ -20,12 +20,15 @@ import './ChallengeFilters.scss';
 
 export default function ChallengeFilters({
   challengeGroupId,
+  communityFilters,
   communityName,
   expanded,
   filterState,
   isCardTypeSet,
   saveFilter,
   searchText,
+  selectCommunity,
+  selectedCommunityId,
   setCardType,
   setExpanded,
   setFilterState,
@@ -128,11 +131,14 @@ export default function ChallengeFilters({
 
       <FiltersPanel
         challengeGroupId={challengeGroupId}
+        communityFilters={communityFilters}
         communityName={communityName}
         hidden={!expanded}
         filterState={filterState}
         onClose={() => setExpanded(false)}
         onSaveFilter={saveFilter}
+        selectCommunity={selectCommunity}
+        selectedCommunityId={selectedCommunityId}
         setFilterState={setFilterState}
         setSearchText={setSearchText}
         validKeywords={validKeywords}
@@ -161,11 +167,14 @@ ChallengeFilters.defaultProps = {
 
 ChallengeFilters.propTypes = {
   challengeGroupId: PT.string.isRequired,
+  communityFilters: PT.arrayOf(PT.shape()).isRequired,
   communityName: PT.string,
   expanded: PT.bool.isRequired,
   filterState: PT.shape().isRequired,
   isCardTypeSet: PT.string,
   saveFilter: PT.func.isRequired,
+  selectCommunity: PT.func.isRequired,
+  selectedCommunityId: PT.string.isRequired,
   setCardType: PT.func,
   setExpanded: PT.func.isRequired,
   setFilterState: PT.func.isRequired,

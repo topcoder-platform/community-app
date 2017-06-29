@@ -31,11 +31,13 @@ import './style.scss';
 import DateRangePicker from '../DateRangePicker';
 
 export default function FiltersPanel({
-  challengeGroupId,
+  communityFilters,
   filterState,
   hidden,
   onClose,
   onSaveFilter,
+  selectCommunity,
+  selectedCommunityId,
   setFilterState,
   setSearchText,
   validKeywords,
@@ -44,18 +46,10 @@ export default function FiltersPanel({
   let className = 'FiltersPanel';
   if (hidden) className += ' hidden';
 
-  // let communityOps;
-  /*
-  if (this.props.challengeGroupId) {
-    communityOps = [{
-      label: this.props.communityName,
-      value: this.props.communityName,
-    }, {
-      label: 'All',
-      value: 'all',
-    }];
-  }
-  */
+  const communityOps = communityFilters.map(item => ({
+    label: item.name,
+    value: item.id,
+  }));
 
   const mapOps = item => ({ label: item, value: item });
 
@@ -67,7 +61,7 @@ export default function FiltersPanel({
           <UiSimpleRemove className="cross" />
         </span>
       </div>
-      <div styleName={`filters ${challengeGroupId ? 'inGroup' : ''}`}>
+      <div styleName="filters inGroup">
         <div styleName="filter-row">
           <div styleName="filter keywords">
             <label htmlFor="keyword-select" styleName="left-label">Keywords</label>
@@ -83,29 +77,16 @@ export default function FiltersPanel({
               value={filterState.tags ? filterState.tags.join(',') : null}
             />
           </div>
-          {challengeGroupId ? (
-            <div styleName="filter community">
-              <label htmlFor="community-select">Sub community</label>
-              <Select
-                /* TODO: This one is not refactored yet! */
-                /*
-                id="community-select"
-                onChange={(value) => {
-                  if (value !== 'all') {
-                    this.state.filter.groupId = this.props.challengeGroupId;
-                  } else {
-                    this.state.filter.groupId = null;
-                  }
-                  this.props.onFilter(this.state.filter);
-                }}
-                options={communityOps}
-                simpleValue
-                value={this.state.filter.groupId ? this.props.communityName : 'all'}
-                */
-                tmp
-              />
-            </div>
-          ) : null}
+          <div styleName="filter community">
+            <label htmlFor="community-select">Sub community</label>
+            <Select
+              id="community-select"
+              onChange={selectCommunity}
+              options={communityOps}
+              simpleValue
+              value={selectedCommunityId}
+            />
+          </div>
         </div>
         <div styleName="filter-row">
           <div styleName="filter track">
@@ -163,18 +144,18 @@ export default function FiltersPanel({
 }
 
 FiltersPanel.defaultProps = {
-  communityName: null,
   hidden: false,
   onSaveFilter: _.noop,
   onClose: _.noop,
 };
 
 FiltersPanel.propTypes = {
-  challengeGroupId: PT.string.isRequired,
-  // communityName: PT.string,
+  communityFilters: PT.arrayOf(PT.shape()).isRequired,
   filterState: PT.shape().isRequired,
   hidden: PT.bool,
   onSaveFilter: PT.func,
+  selectCommunity: PT.func.isRequired,
+  selectedCommunityId: PT.string.isRequired,
   setFilterState: PT.func.isRequired,
   setSearchText: PT.func.isRequired,
   validKeywords: PT.arrayOf(PT.string).isRequired,

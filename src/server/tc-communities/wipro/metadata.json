@@ -2,8 +2,9 @@
   "authorizedGroupIds": [
     "20000000"
   ],
-  "challengeGroupId": "20000000",
-  "challengeFilterTag": "",
+  "challengeFilter": {
+    "groupIds": ["20000000"]
+  },
   "communityId": "wipro",
   "communityName": "Wipro Hybrid Crowd",
   "communitySelector": [{
@@ -18,6 +19,7 @@
     "redirect": "https://ios.topcoder.com/",
     "value": "3"
   }],
+  "groupId": "20000000",
   "leaderboardApiUrl": "https://api.topcoder.com/v4/looks/458/run/json/",
   "logos": [
     "/themes/wipro/wipro-logo.png",

@@ -95,6 +95,7 @@ function mapDispatchToProps(dispatch) {
     saveFilter: (...rest) =>
       dispatch(sa.saveFilter(...rest)),
     selectBucket: bucket => dispatch(sa.selectBucket(bucket)),
+    selectCommunity: id => dispatch(cla.selectCommunity(id)),
     setFilterState: s => dispatch(cla.setFilter(s)),
   };
 }
@@ -105,12 +106,14 @@ function mapStateToProps(state, ownProps) {
     ...ownProps,
     ...state.challengeListing.filterPanel,
     activeBucket: cl.sidebar.activeBucket,
+    communityFilters: cl.communityFilters,
     filterState: cl.filter,
     getAvailableFilterName: () => getAvailableFilterName(state),
     loadingKeywords: cl.loadingChallengeTags,
     loadingSubtracks: cl.loadingChallengeSubtracks,
     validKeywords: cl.challengeTags,
     validSubtracks: cl.challengeSubtracks,
+    selectedCommunityId: cl.selectedCommunityId,
     tokenV2: state.auth.tokenV2,
   };
 }

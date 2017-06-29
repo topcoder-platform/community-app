@@ -1,6 +1,8 @@
 {
-  "challengeGroupId": "1001",
-  "challengeFilterTag": ".NET",
+  "challengeFilter": {
+    "groupIds": ["1001"],
+    "tags": [".NET"]
+  },
   "communityId": "demo-expert",
   "communityName": "Demo Expert Community",
   "communitySelector": [{
@@ -15,6 +17,7 @@
     "redirect": "https://ios.topcoder.com/",
     "value": "3"
   }],
+  "groupId": "1001",
   "logos": [
     "/themes/demo-expert/logo_topcoder_with_name.svg"
   ],

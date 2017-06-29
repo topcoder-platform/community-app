@@ -23,10 +23,16 @@ class SidebarContainer extends React.Component {
   render() {
     const buckets = getBuckets(this.props.user && this.props.user.handle);
     const tokenV2 = this.props.tokenV2;
+
+    let communityFilter = this.props.communityFilters.find(item =>
+      item.id === this.props.selectedCommunityId);
+    if (communityFilter) communityFilter = communityFilter.filter;
+
     return (
       <Sidebar
         {...this.props}
         buckets={buckets}
+        communityFilter={communityFilter}
         deleteSavedFilter={id => this.props.deleteSavedFilter(id, tokenV2)}
         selectSavedFilter={(index) => {
           const filter = this.props.savedFilters[index].filter;
@@ -48,14 +54,17 @@ class SidebarContainer extends React.Component {
 }
 
 SidebarContainer.defaultProps = {
+  selectedCommunityId: null,
   tokenV2: null,
   user: null,
 };
 
 SidebarContainer.propTypes = {
+  communityFilters: PT.arrayOf(PT.shape()).isRequired,
   deleteSavedFilter: PT.func.isRequired,
   getSavedFilters: PT.func.isRequired,
   savedFilters: PT.arrayOf(PT.shape()).isRequired,
+  selectedCommunityId: PT.string,
   selectSavedFilter: PT.func.isRequired,
   setFilter: PT.func.isRequired,
   setSearchText: PT.func.isRequired,
@@ -85,6 +94,8 @@ function mapStateToProps(state) {
     disabled: (activeBucket === BUCKETS.ALL) && Boolean(pending.length),
     filterState: state.challengeListing.filter,
     isAuth: Boolean(state.auth.user),
+    communityFilters: state.challengeListing.communityFilters,
+    selectedCommunityId: state.challengeListing.selectedCommunityId,
     tokenV2: state.auth.tokenV2,
     user: state.auth.user,
   };

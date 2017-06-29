@@ -37,6 +37,10 @@ class ListingContainer extends React.Component {
   componentDidMount() {
     this.props.markHeaderMenu();
 
+    if (this.props.communityId) {
+      this.props.selectCommunity(this.props.communityId);
+    }
+
     if (mounted) {
       logger.error('Attempt to mount multiple instances of ChallengeListingPageContainer at the same time!');
     } else mounted = true;
@@ -44,10 +48,10 @@ class ListingContainer extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    const token = this.props.auth.tokenV3;
-    if (token) {
-      if (!prevProps.auth.tokenV3) setImmediate(() => this.loadChallenges());
-    } else if (prevProps.auth.tokenV3) {
+    const profile = this.props.auth.profile;
+    if (profile) {
+      if (!prevProps.auth.profile) setImmediate(() => this.loadChallenges());
+    } else if (prevProps.auth.profile) {
       setImmediate(() => {
         this.props.dropChallenges();
         this.loadChallenges();
@@ -63,6 +67,7 @@ class ListingContainer extends React.Component {
   }
 
   loadChallenges() {
+    this.props.getCommunityFilters(this.props.auth);
     this.props.getAllActiveChallenges(this.props.auth.tokenV3);
     this.props.getDraftChallenges(0, this.props.auth.tokenV3);
     this.props.getPastChallenges(0, this.props.auth.tokenV3);
@@ -128,6 +133,10 @@ class ListingContainer extends React.Component {
         getPastChallenges(1 + lastRequestedPageOfPastChallenges, tokenV3);
     }
 
+    let communityFilter = this.props.communityFilters.find(item =>
+      item.id === this.props.selectedCommunityId);
+    if (communityFilter) communityFilter = communityFilter.filter;
+
     return (
       <div>
         {/* For demo we hardcode banner properties so we can disable max-len linting */}
@@ -151,12 +160,14 @@ class ListingContainer extends React.Component {
           challenges={challenges}
           challengeSubtracks={challengeSubtracks}
           challengeTags={challengeTags}
+          communityFilter={communityFilter}
           communityName={this.props.communityName}
           filterState={this.props.filter}
           loadingChallenges={Boolean(this.props.loadingActiveChallengesUUID)}
           loadingDraftChallenges={Boolean(this.props.loadingDraftChallengesUUID)}
           loadingPastChallenges={Boolean(this.props.loadingPastChallengesUUID)}
           selectBucket={selectBucket}
+
           loadMoreDraft={loadMoreDraft}
           loadMorePast={loadMorePast}
           setFilterState={(state) => {
@@ -190,6 +201,7 @@ class ListingContainer extends React.Component {
 
 ListingContainer.defaultProps = {
   challengeGroupId: '',
+  communityId: null,
   communityName: null,
   listingOnly: false,
   match: null,
@@ -198,6 +210,7 @@ ListingContainer.defaultProps = {
 
 ListingContainer.propTypes = {
   auth: PT.shape({
+    profile: PT.shape(),
     tokenV3: PT.string,
     user: PT.shape(),
   }).isRequired,
@@ -206,10 +219,13 @@ ListingContainer.propTypes = {
   challenges: PT.arrayOf(PT.shape({})).isRequired,
   challengeSubtracks: PT.arrayOf(PT.string).isRequired,
   challengeTags: PT.arrayOf(PT.string).isRequired,
+  communityFilters: PT.arrayOf(PT.shape()).isRequired,
   dropChallenges: PT.func.isRequired,
   filter: PT.shape().isRequired,
+  communityId: PT.string,
   communityName: PT.string,
   getAllActiveChallenges: PT.func.isRequired,
+  getCommunityFilters: PT.func.isRequired,
   getDraftChallenges: PT.func.isRequired,
   getPastChallenges: PT.func.isRequired,
   lastRequestedPageOfDraftChallenges: PT.number.isRequired,
@@ -219,8 +235,10 @@ ListingContainer.propTypes = {
   loadingPastChallengesUUID: PT.string.isRequired,
   markHeaderMenu: PT.func.isRequired,
   selectBucket: PT.func.isRequired,
+  selectCommunity: PT.func.isRequired,
   setFilter: PT.func.isRequired,
   activeBucket: PT.string.isRequired,
+  selectedCommunityId: PT.string.isRequired,
   sorts: PT.shape().isRequired,
   setSearchText: PT.func.isRequired,
   setSort: PT.func.isRequired,
@@ -249,6 +267,7 @@ const mapStateToProps = (state) => {
     challenges: cl.challenges,
     challengeSubtracks: cl.challengeSubtracks,
     challengeTags: cl.challengeTags,
+    communityFilters: cl.communityFilters,
     lastRequestedPageOfDraftChallenges: cl.lastRequestedPageOfDraftChallenges,
     lastRequestedPageOfPastChallenges: cl.lastRequestedPageOfPastChallenges,
     loadingActiveChallengesUUID: cl.loadingActiveChallengesUUID,
@@ -256,6 +275,7 @@ const mapStateToProps = (state) => {
     loadingPastChallengesUUID: cl.loadingPastChallengesUUID,
     loadingChallengeSubtracks: cl.loadingChallengeSubtracks,
     loadingChallengeTags: cl.loadingChallengeTags,
+    selectedCommunityId: cl.selectedCommunityId,
     sorts: cl.sorts,
     activeBucket: cl.sidebar.activeBucket,
   };
@@ -273,6 +293,7 @@ function mapDispatchToProps(dispatch) {
       dispatch(a.getAllActiveChallengesInit(uuid));
       dispatch(a.getAllActiveChallengesDone(uuid, token));
     },
+    getCommunityFilters: auth => dispatch(a.getCommunityFilters(auth)),
     getDraftChallenges: (page, token) => {
       const uuid = shortid();
       dispatch(a.getDraftChallengesInit(uuid, page));
@@ -284,6 +305,7 @@ function mapDispatchToProps(dispatch) {
       dispatch(a.getPastChallengesDone(uuid, page, token));
     },
     selectBucket: bucket => dispatch(sa.selectBucket(bucket)),
+    selectCommunity: id => dispatch(a.selectCommunity(id)),
     setFilter: state => dispatch(a.setFilter(state)),
     setSearchText: text => dispatch(fpa.setSearchText(text)),
     setSort: (bucket, sort) => dispatch(a.setSort(bucket, sort)),

@@ -46,6 +46,7 @@ export default function SideBarFilters(props) {
             activeSavedFilter={props.activeSavedFilter}
             buckets={props.buckets}
             challenges={props.challenges}
+            communityFilter={props.communityFilter}
             disabled={props.disabled}
             filterState={props.filterState}
             isAuth={props.isAuth}
@@ -62,6 +63,7 @@ export default function SideBarFilters(props) {
 }
 
 SideBarFilters.defaultProps = {
+  communityFilter: null,
   disabled: false,
   dragState: {},
   isAuth: false,
@@ -75,6 +77,7 @@ SideBarFilters.propTypes = {
     registrationOpen: PT.string.isRequired,
   })).isRequired,
   changeFilterName: PT.func.isRequired,
+  communityFilter: PT.shape(),
   deleteSavedFilter: PT.func.isRequired,
   disabled: PT.bool,
   dragState: PT.shape(),

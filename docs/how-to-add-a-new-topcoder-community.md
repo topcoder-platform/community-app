@@ -10,8 +10,9 @@ To add a new community with the name **demo**, we should follow the following pr
       "authorizedGroupIds": [
         "12345"
       ],
-      "challengeGroupId": "12345",
-      "challengeFilterTag": "",
+      "challengeFilter": {
+        "groupIds": ["12345"]
+      },
       "communityId": "demo",
       "communitySelector": [{
         "label": "Demo Community",
@@ -25,6 +26,7 @@ To add a new community with the name **demo**, we should follow the following pr
         "redirect": "https://ios.topcoder.com/",
         "value": "3"
       }],
+      "groupId": "12345",
       "leaderboardApiUrl": "https://api.topcoder.com/v4/looks/0/run/json/",
       "logos": [
         "/themes/demo/logo_topcoder_with_name.svg"
@@ -49,10 +51,28 @@ To add a new community with the name **demo**, we should follow the following pr
     ```
     Its fields serve the following purposes:
     -   `authorizedGroupIds` - *String Array* - Optional. Array of group IDs. If specified, access to the community will be restricted only to authenticated visitors, included into, at least, one of the groups listed in this array. If undefined, community will be accessible to any visitors (including non-authenticated ones).
-    -   `challengeGroupId` - *String* - Optional. ID of the group holding challenges related to this community. If undefined, challenge listing in this community will show all public challenges.
-    -   `challengeFilterTag` - *String* - Optional. If specified, and not an empty string, only challenges having this technology tag will be shown inside the community (it acts as an additional filter after the group-based filtering).
+    -   `challengeFilter` - *Object* - Challenge filter matching challenges related to the community. This object can include any options known to the `/src/utils/challenge-listing/filter.js` module, though in many cases you want to use just one of these:
+        ```js
+        /* Matches challenges belonging to any of the groups listed by ID. */
+        {
+          "groupIds": ["12345"]
+        }
+
+        /* Matches challenges tagged with at least one of the tags. */
+        {
+          "tags": ["JavaScript"]
+        }
+
+        /* Matches challenges belonging to any of the groups AND tagged with
+         * at least one of the tags. */
+        {
+          "groupIds": ["12345"],
+          "tags": ["JavaScript"]
+        }
+        ```
     -   `communityId` - *String* - Unique ID of this community.
     -   `communitySelector` - *Object Array* - Specifies data for the community selection dropdown inside the community header. Each object MUST HAVE `label` and `value` string fields, and MAY HAVE `redirect` field. If `redirect` field is specified, a click on that option in the dropdown will redirect user to the specified URL.
+    -   `groupId` - *String* - This value of group ID is now used to fetch community statistics. Probably, it makes sense to use this value everywhere where `authorizedGroupIds` array is used, however, at the moment, these two are independent.
     -   `leaderboardApiUrl` - *String* - Endpoint from where the leaderboard data should be loaded.
     -   `logo` - *String Array* - Array of image URLs to insert as logos into the left corner of community's header.
     -   `menuItems` - *Object Array* - Specifies options for the community navigation menu (both in the header and footer). Each object MUST HAVE `title` and `url` fields. For now, `url` field should be a relative link inside the community, within the same path segment.

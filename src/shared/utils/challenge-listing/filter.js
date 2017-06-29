@@ -15,7 +15,7 @@
  * endDate {Number|String} - Permits only those challenges with submission
  * deadline before this date.
  *
- * groupIds {Object} - Permits only the challenges belonging to at least one
+ * groupIds {Array} - Permits only the challenges belonging to at least one
  * of the groups which IDs are presented as keys in this object.
  *
  * registrationOpen {Boolean} - Permits only the challenges with open or closed
@@ -59,6 +59,11 @@ import { COMPETITION_TRACKS } from 'utils/tc';
 function filterByEndDate(challenge, state) {
   if (!state.endDate) return true;
   return moment(state.endDate).isAfter(challenge.createdAt);
+}
+
+function filterByGroupIds(challenge, state) {
+  if (!state.groupIds) return true;
+  return state.groupIds.some(id => challenge.groups[id]);
 }
 
 function filterByRegistrationOpen(challenge, state) {
@@ -168,6 +173,7 @@ export function getFilterFunction(state) {
   return challenge => filterByStatus(challenge, state)
   && filterByTrack(challenge, state)
   && filterByUpcoming(challenge, state)
+  && filterByGroupIds(challenge, state)
   && filterByText(challenge, state)
   && filterByTags(challenge, state)
   && filterBySubtracks(challenge, state)

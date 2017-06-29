@@ -73,6 +73,16 @@ function onGetChallengeTagsDone(state, action) {
   };
 }
 
+function onGetCommunityFitlers(state, { error, payload }) {
+  let communityFilters = [{
+    id: '',
+    name: 'All',
+  }];
+  if (error) logger.error(payload);
+  else communityFilters = communityFilters.concat(payload);
+  return { ...state, communityFilters };
+}
+
 function onGetDraftChallengesInit(state, { payload: { uuid, page } }) {
   return {
     ...state,
@@ -199,11 +209,17 @@ function create(initialState) {
     }),
     [a.getChallengeTagsDone]: onGetChallengeTagsDone,
 
+    [a.getCommunityFilters]: onGetCommunityFitlers,
+
     [a.getDraftChallengesInit]: onGetDraftChallengesInit,
     [a.getDraftChallengesDone]: onGetDraftChallengesDone,
 
     [a.getPastChallengesInit]: onGetPastChallengesInit,
     [a.getPastChallengesDone]: onGetPastChallengesDone,
+
+    [a.selectCommunity]: (state, { payload }) => ({
+      ...state, selectedCommunityId: payload,
+    }),
 
     [a.setFilter]: onSetFilter,
     [a.setSort]: (state, { payload }) => ({
@@ -220,6 +236,12 @@ function create(initialState) {
     challenges: [],
     challengeSubtracks: [],
     challengeTags: [],
+
+    communityFilters: [{
+      id: '',
+      name: 'All',
+    }],
+
     filter: {},
 
     lastRequestedPageOfDraftChallenges: -1,
@@ -232,6 +254,8 @@ function create(initialState) {
 
     loadingChallengeSubtracks: false,
     loadingChallengeTags: false,
+
+    selectedCommunityId: '',
 
     sorts: {},
   }));

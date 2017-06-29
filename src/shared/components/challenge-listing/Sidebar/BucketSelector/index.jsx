@@ -21,6 +21,7 @@ export default function BucketSelector({
   activeSavedFilter,
   buckets,
   challenges,
+  communityFilter,
   disabled,
   filterState,
   isAuth,
@@ -29,7 +30,12 @@ export default function BucketSelector({
   selectSavedFilter,
   setEditSavedFiltersMode,
 }) {
-  const filteredChallenges = challenges.filter(getFilterFunction(filterState));
+  let filteredChallenges = challenges.filter(getFilterFunction(filterState));
+
+  if (communityFilter) {
+    filteredChallenges = filteredChallenges.filter(
+      getFilterFunction(communityFilter));
+  }
 
   const getBucket = bucket => (
     <Bucket
@@ -97,6 +103,7 @@ export default function BucketSelector({
 }
 
 BucketSelector.defaultProps = {
+  communityFilter: null,
   disabled: false,
   isAuth: false,
 };
@@ -108,6 +115,7 @@ BucketSelector.propTypes = {
   challenges: PT.arrayOf(PT.shape({
     registrationOpen: PT.string.isRequired,
   })).isRequired,
+  communityFilter: PT.shape(),
   disabled: PT.bool,
   filterState: PT.shape().isRequired,
   isAuth: PT.bool,
