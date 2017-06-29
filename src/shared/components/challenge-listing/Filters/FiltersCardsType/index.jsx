@@ -10,32 +10,26 @@ import PT from 'prop-types';
 import config from 'utils/config';
 import './style.scss';
 
-const FiltersCardsType = ({ isCardTypeSet, ARENA_URL }) => (
+const FiltersCardsType = ({ isCardTypeSet }) => (
   <div styleName="cards-type-col">
     <a
       styleName={`${isCardTypeSet === 'Challenges' ? 'active' : ''}`}
       onClick={e => e.preventDefault()}
-    >
-      Challenges
-    </a>
+    >Challenges</a>
     <a
-      href={ARENA_URL}
+      href={config.URL.ARENA}
       target="_blank"
       rel="noopener noreferrer"
-    >
-      SRMs
-    </a>
+    >SRMs</a>
   </div>
 );
 
 FiltersCardsType.defaultProps = {
   isCardTypeSet: false,
-  ARENA_URL: config.ARENA_URL,
 };
 
 FiltersCardsType.propTypes = {
   isCardTypeSet: PT.oneOfType([PT.bool, PT.string]),
-  ARENA_URL: PT.string,
 };
 
 export default FiltersCardsType;

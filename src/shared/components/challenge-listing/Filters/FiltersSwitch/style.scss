@@ -15,6 +15,10 @@ $switch-radius-4: $corner-radius * 2;
     margin-right: $switch-space-10;
     position: relative;
     top: $base-unit - 2;
+
+    path {
+      fill: #5d5d66;
+    }
   }
 
   &.active {

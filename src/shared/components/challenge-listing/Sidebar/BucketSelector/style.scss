@@ -1,0 +1,66 @@
+@import "~styles/tc-styles";
+
+.get-rss {
+  text-align: center;
+
+  a {
+    color: $tc-gray-50;
+    font-size: 13px;
+    line-height: 30px;
+  }
+}
+
+.my-filters {
+  display: block;
+  position: relative;
+  padding: 0 3 * $base-unit;
+  margin-top: 7 * $base-unit;
+
+  @include xs {
+    padding: 0;
+  }
+
+  h1 {
+    display: inline-block;
+    margin: 0;
+    padding: 0;
+    font-weight: 500;
+    font-size: 12px;
+    color: $tc-gray-50;
+    letter-spacing: 0;
+    line-height: 30px;
+    border: none;
+    text-transform: uppercase;
+
+    @include xs {
+      font-size: 15px;
+    }
+  }
+
+  .edit-link {
+    float: right;
+    font-weight: 400;
+    font-size: 11px;
+    color: $tc-dark-blue;
+    line-height: $base-unit * 4;
+    cursor: pointer;
+
+    @include xs {
+      font-size: 13px;
+    }
+  }
+}
+
+.openForReview {
+  color: $tc-black;
+  border-radius: 2 * $corner-radius;
+  cursor: pointer;
+  display: block;
+  padding: 0 2 * $base-unit 0 3 * $base-unit;
+
+  @include xs {
+    font-size: 15px;
+    padding: 2px 0;
+  }
+}
+

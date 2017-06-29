@@ -17,63 +17,38 @@ import PT from 'prop-types';
 import './style.scss';
 import ZoomIcon from './ui-zoom.svg';
 
-class ChallengeSearchBar extends React.Component {
-
-  constructor(props) {
-    super(props);
-    this.state = {
-      value: '',
-    };
-    if (this.props.query) {
-      this.state.value = this.props.query;
-      this.onSearch();
-    }
-  }
-
-  onKeyPress(event) {
-    switch (event.key) {
-      case 'Enter':
-        return this.onSearch();
-      default:
-        return null;
-    }
-  }
-
-  onSearch() {
-    if (this.props.onSearch) this.props.onSearch(this.state.value);
-  }
-
-  render() {
-    return (
-      <div styleName="ChallengeSearchBar">
-        <input
-          onChange={event => this.setState({ value: event.target.value })}
-          onKeyPress={event => this.onKeyPress(event)}
-          placeholder={this.props.placeholder}
-          type="text"
-          value={this.state.value}
-        />
-        <span
-          styleName={`SearchButton ${this.state.value ? 'active' : ''}`}
-          onClick={() => this.onSearch()}
-        >
-          <ZoomIcon styleName="zoomIcon" />
-        </span>
-      </div>
-    );
-  }
+export default function ChallengeSearchBar({
+  onSearch,
+  placeholder,
+  query,
+  setQuery,
+}) {
+  return (
+    <div styleName="ChallengeSearchBar">
+      <input
+        onChange={event => setQuery(event.target.value)}
+        onKeyPress={event => (event.key === 'Enter' ? onSearch(query) : null)}
+        placeholder={placeholder}
+        type="text"
+        value={query}
+      />
+      <span
+        styleName={`SearchButton ${query ? 'active' : ''}`}
+        onClick={() => onSearch(query)}
+      >
+        <ZoomIcon styleName="zoomIcon" />
+      </span>
+    </div>
+  );
 }
 
 ChallengeSearchBar.defaultProps = {
-  onSearch: () => true,
   placeholder: '',
-  query: '',
 };
 
 ChallengeSearchBar.propTypes = {
-  onSearch: PT.func,
+  onSearch: PT.func.isRequired,
   placeholder: PT.string,
-  query: PT.string,
+  query: PT.string.isRequired,
+  setQuery: PT.func.isRequired,
 };
-
-export default ChallengeSearchBar;

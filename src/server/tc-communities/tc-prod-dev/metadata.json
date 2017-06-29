@@ -1,6 +1,7 @@
 {
-  "challengeGroupId": "20000001",
-  "challengeFilterTag": "",
+  "challengeFilter": {
+    "groupIds": ["20000001"]
+  },
   "communityId": "tc-prod-dev",
   "communityName": "Topcoder Product Development",
   "communitySelector": [{
@@ -15,6 +16,7 @@
     "redirect": "https://ios.topcoder.com/",
     "value": "3"
   }],
+  "groupId": "20000001",
   "logos": [
     "/themes/wipro/logo_topcoder_with_name.svg"
   ],

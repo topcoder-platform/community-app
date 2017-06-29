@@ -76,7 +76,7 @@ const HappeningNow = () => (
         {renderLeaderboard}
       </div>
     </div>
-    <a href="javascript:;" className="register-button">
+    <a href="" className="register-button">
       <span className="to-register">+ Register</span>
     </a>
   </div>
@@ -98,9 +98,9 @@ const UpcomingSRMs = ({ srmChallenge }) => (
     </div>
     <div className="right-panel upcoming">
       <div className="SRM-date">{moment(srmChallenge.startDate).format('MMM DD, YYYY hh:mm a')}</div>
-      <a href="javascript:;" className="notify-me">Notify me</a>
+      <a href="" className="notify-me">Notify me</a>
     </div>
-    <a href="javascript:;" className="notify-button">
+    <a href="" className="notify-button">
       <span className="notify-me">+ Notify me</span>
     </a>
   </div>

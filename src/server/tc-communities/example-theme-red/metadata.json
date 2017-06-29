@@ -1,4 +1,5 @@
 {
+  "authorizedGroupIds": [],
   "communityId": "example-theme-red",
   "communityName": "Example Community",
   "logos": ["http://predix.topcoder.com/wp-content/uploads/sites/7/2016/11/topcoder-hat-logo.png"],

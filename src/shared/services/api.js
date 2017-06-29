@@ -11,7 +11,7 @@ import config from 'utils/config';
  * as in these cases we are fine with the same interface, and the only
  * thing we need to be different is the base URL and auth token to use.
  */
-class Api {
+export default class Api {
 
   /**
    * @param {String} base Base URL of the API.
@@ -137,6 +137,3 @@ export function getApiV3(token) {
   }
   return lastApiV3;
 }
-
-/* Default export is reserved for the combined API object. */
-export default undefined;

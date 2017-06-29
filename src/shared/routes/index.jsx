@@ -5,7 +5,7 @@
 import Content from 'components/examples/Content';
 import Error404 from 'components/Error404';
 import SubmissionManagement from 'containers/SubmissionManagement';
-import ChallengeListing from 'containers/ChallengeListing';
+import ChallengeListing from 'containers/challenge-listing/Listing';
 import Leaderboard from 'containers/Leaderboard';
 import Dashboard from 'containers/Dashboard';
 import 'isomorphic-fetch';
