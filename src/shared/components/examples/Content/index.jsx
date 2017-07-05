@@ -90,6 +90,9 @@ export default function Content() {
           <Link to="/community/demo-expert/home">Demo Expert Community</Link>
         </li>
         <li>
+          <Link to="/community/taskforce/home">Taskforce community</Link>
+        </li>
+        <li>
           <Link to="/community/tc-prod-dev/home">Topcoder Product
           Development</Link>
         </li>

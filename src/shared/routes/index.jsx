@@ -26,9 +26,10 @@ import Examples from './examples';
 
 function Routes({ subdomains }) {
   let communityId;
-  if (subdomains.indexOf('demo-expert') >= 0) communityId = 'demo-expert';
-  else if (subdomains.indexOf('wipro') >= 0) communityId = 'wipro';
-  else if (subdomains.indexOf('tc-prod-dev') >= 0) communityId = 'tc-prod-dev';
+  if (subdomains.includes('demo-expert')) communityId = 'demo-expert';
+  else if (subdomains.includes('wipro')) communityId = 'wipro';
+  else if (subdomains.includes('taskforce')) communityId = 'taskforce';
+  else if (subdomains.includes('tc-prod-dev')) communityId = 'tc-prod-dev';
   else if (subdomains.includes('community-2')) communityId = 'community-2';
   if (communityId) {
     return (

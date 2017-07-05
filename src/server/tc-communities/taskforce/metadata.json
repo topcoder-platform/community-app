@@ -1,0 +1,44 @@
+{
+  "authorizedGroupIds": [
+    "20000003"
+  ],
+  "challengeFilter": {
+    "groupIds": ["20000003"]
+  },
+  "communityId": "taskforce",
+  "communityName": "Taskforce",
+  "communitySelector": [{
+    "label": "Taskforce",
+    "value": "1"
+  }, {
+    "label": "Cognitive Community",
+    "redirect": "http://cognitive.topcoder.com/",
+    "value": "2"
+  }, {
+    "label": "iOS Community",
+    "redirect": "https://ios.topcoder.com/",
+    "value": "3"
+  }],
+  "groupId": "20000003",
+  "leaderboardApiUrl": "https://api.topcoder.com/v4/looks/458/run/json/",
+  "logos": [
+    "/themes/taskforce/wipro-logo.png",
+    "/themes/taskforce/logo_topcoder_with_name.svg"
+  ],
+  "menuItems": [
+    {
+      "title": "Home",
+      "url": "."
+    }, {
+      "title": "Learn",
+      "url": "learn"
+    }, {
+      "title": "Challenges",
+      "url": "challenges"
+    }, {
+      "title": "Leaderboard",
+      "url": "leaderboard"
+    }
+  ],
+  "newsFeed": "http://www.topcoder.com/feed"
+}
