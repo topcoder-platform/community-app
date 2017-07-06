@@ -159,17 +159,24 @@ function getDraftChallengesInit(uuid, page) {
 /**
  * Gets the specified page of draft challenges (including MMs).
  * @param {Number} page Page of challenges to fetch.
+ * @param {Object} filter Backend filter to use.
  * @param {String} tokenV3 Optional. Topcoder auth token v3.
  * @param {Object}
  */
-function getDraftChallengesDone(uuid, page, tokenV3) {
+function getDraftChallengesDone(uuid, page, filter, tokenV3) {
   const service = getService(tokenV3);
   return Promise.all([
-    service.getChallenges({ status: 'DRAFT' }, {
+    service.getChallenges({
+      ...filter,
+      status: 'DRAFT',
+    }, {
       limit: PAGE_SIZE,
       offset: page * PAGE_SIZE,
     }),
-    service.getMarathonMatches({ status: 'DRAFT' }, {
+    service.getMarathonMatches({
+      ...filter,
+      status: 'DRAFT',
+    }, {
       limit: PAGE_SIZE,
       offset: page * PAGE_SIZE,
     }),
@@ -190,17 +197,24 @@ function getPastChallengesInit(uuid, page) {
 /**
  * Gets the specified page of past challenges (including MMs).
  * @param {Number} page Page of challenges to fetch.
+ * @param {Object} filter Backend filter to use.
  * @param {String} tokenV3 Optional. Topcoder auth token v3.
  * @param {Object}
  */
-function getPastChallengesDone(uuid, page, tokenV3) {
+function getPastChallengesDone(uuid, page, filter, tokenV3) {
   const service = getService(tokenV3);
   return Promise.all([
-    service.getChallenges({ status: 'COMPLETED' }, {
+    service.getChallenges({
+      ...filter,
+      status: 'COMPLETED',
+    }, {
       limit: PAGE_SIZE,
       offset: page * PAGE_SIZE,
     }),
-    service.getMarathonMatches({ status: 'PAST' }, {
+    service.getMarathonMatches({
+      ...filter,
+      status: 'PAST',
+    }, {
       limit: PAGE_SIZE,
       offset: page * PAGE_SIZE,
     }),

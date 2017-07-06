@@ -23,6 +23,7 @@ import Banner from 'components/tc-communities/Banner';
 import NewsletterSignup from 'components/tc-communities/NewsletterSignup';
 import sidebarActions from 'actions/challenge-listing/sidebar';
 import { BUCKETS } from 'utils/challenge-listing/buckets';
+import { combine, mapToBackend } from 'utils/challenge-listing/filter';
 import style from './styles.scss';
 
 let mounted = false;
@@ -33,6 +34,12 @@ class ListingContainer extends React.Component {
     super(props);
     this.masterFilterFunc = this.masterFilterFunc.bind(this);
   }
+
+  /* TODO: We should add here an automatic periodical update of the loaded
+   * challenges, say once each 5 minutes. Otherwise, it is possible that a
+   * visitor has the same challenge listing page open for too long, navigating
+   * withing it, without triggering refresh of the cached challenges - not
+   * good! */
 
   componentDidMount() {
     this.props.markHeaderMenu();
@@ -66,11 +73,23 @@ class ListingContainer extends React.Component {
     }
   }
 
+  /* Evaluates the backend challenge filter most suitable for the current state
+   * of the active frontend filters. */
+  getBackendFilter() {
+    let filter = this.props.filter;
+    let communityFilter = this.props.communityFilters.find(item =>
+      item.id === this.props.selectedCommunityId);
+    if (communityFilter) communityFilter = communityFilter.filter;
+    if (communityFilter) filter = combine(filter, communityFilter);
+    return mapToBackend(filter);
+  }
+
   loadChallenges() {
+    const backendFilter = this.getBackendFilter();
     this.props.getCommunityFilters(this.props.auth);
     this.props.getAllActiveChallenges(this.props.auth.tokenV3);
-    this.props.getDraftChallenges(0, this.props.auth.tokenV3);
-    this.props.getPastChallenges(0, this.props.auth.tokenV3);
+    this.props.getDraftChallenges(0, backendFilter, this.props.auth.tokenV3);
+    this.props.getPastChallenges(0, backendFilter, this.props.auth.tokenV3);
   }
 
   /**
@@ -113,6 +132,7 @@ class ListingContainer extends React.Component {
       challengeSubtracks,
       challengeTags,
       challengeGroupId,
+      filter,
       getDraftChallenges,
       getPastChallenges,
       lastRequestedPageOfDraftChallenges,
@@ -123,14 +143,24 @@ class ListingContainer extends React.Component {
 
     let loadMoreDraft;
     if (!allDraftChallengesLoaded) {
-      loadMoreDraft = () =>
-        getDraftChallenges(1 + lastRequestedPageOfDraftChallenges, tokenV3);
+      loadMoreDraft = () => {
+        getDraftChallenges(
+          1 + lastRequestedPageOfDraftChallenges,
+          this.getBackendFilter(),
+          tokenV3,
+        );
+      };
     }
 
     let loadMorePast;
     if (!allPastChallengesLoaded) {
-      loadMorePast = () =>
-        getPastChallenges(1 + lastRequestedPageOfPastChallenges, tokenV3);
+      loadMorePast = () => {
+        getPastChallenges(
+          1 + lastRequestedPageOfPastChallenges,
+          this.getBackendFilter(),
+          tokenV3,
+        );
+      };
     }
 
     let communityFilter = this.props.communityFilters.find(item =>
@@ -162,7 +192,7 @@ class ListingContainer extends React.Component {
           challengeTags={challengeTags}
           communityFilter={communityFilter}
           communityName={this.props.communityName}
-          filterState={this.props.filter}
+          filterState={filter}
           loadingChallenges={Boolean(this.props.loadingActiveChallengesUUID)}
           loadingDraftChallenges={Boolean(this.props.loadingDraftChallengesUUID)}
           loadingPastChallenges={Boolean(this.props.loadingPastChallengesUUID)}
@@ -294,15 +324,15 @@ function mapDispatchToProps(dispatch) {
       dispatch(a.getAllActiveChallengesDone(uuid, token));
     },
     getCommunityFilters: auth => dispatch(a.getCommunityFilters(auth)),
-    getDraftChallenges: (page, token) => {
+    getDraftChallenges: (page, filter, token) => {
       const uuid = shortid();
       dispatch(a.getDraftChallengesInit(uuid, page));
-      dispatch(a.getDraftChallengesDone(uuid, page, token));
+      dispatch(a.getDraftChallengesDone(uuid, page, filter, token));
     },
-    getPastChallenges: (page, token) => {
+    getPastChallenges: (page, filter, token) => {
       const uuid = shortid();
       dispatch(a.getPastChallengesInit(uuid, page));
-      dispatch(a.getPastChallengesDone(uuid, page, token));
+      dispatch(a.getPastChallengesDone(uuid, page, filter, token));
     },
     selectBucket: bucket => dispatch(sa.selectBucket(bucket)),
     selectCommunity: id => dispatch(a.selectCommunity(id)),

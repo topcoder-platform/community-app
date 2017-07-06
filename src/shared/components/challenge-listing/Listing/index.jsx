@@ -9,7 +9,7 @@ import { BUCKETS, getBuckets } from 'utils/challenge-listing/buckets';
 import Bucket from './Bucket';
 import './style.scss';
 
-export default function ChallengeCardContainer({
+export default function Listing({
   activeBucket,
   auth,
   challenges,
@@ -94,8 +94,10 @@ export default function ChallengeCardContainer({
   );
 }
 
-ChallengeCardContainer.defaultProps = {
+Listing.defaultProps = {
   challengeGroupId: '',
+  loadMoreDraft: null,
+  loadMorePast: null,
   onTechTagClicked: _.noop,
   onExpandFilterResult: _.noop,
   currentFilterName: '',
@@ -103,7 +105,7 @@ ChallengeCardContainer.defaultProps = {
   expanded: false,
 };
 
-ChallengeCardContainer.propTypes = {
+Listing.propTypes = {
   activeBucket: PT.string.isRequired,
   auth: PT.shape({
     tokenV3: PT.string,
@@ -114,8 +116,8 @@ ChallengeCardContainer.propTypes = {
   challenges: PT.arrayOf(PT.shape()),
   loadingDraftChallenges: PT.bool.isRequired,
   loadingPastChallenges: PT.bool.isRequired,
-  loadMoreDraft: PT.func.isRequired,
-  loadMorePast: PT.func.isRequired,
+  loadMoreDraft: PT.func,
+  loadMorePast: PT.func,
   selectBucket: PT.func.isRequired,
   setFilterState: PT.func.isRequired,
   setSort: PT.func.isRequired,

@@ -170,6 +170,13 @@ function onSetFilter(state, { payload }) {
   return {
     ...state,
     filter: payload,
+
+    /* Page numbers of past/upcoming challenges depend on the filters. To keep
+     * the code simple we just reset them each time a filter is modified. */
+    allDraftChallengesLoaded: false,
+    allPastChallengesLoaded: false,
+    lastRequestedPageOfDraftChallenges: -1,
+    lastRequestedPageOfPastChallenges: -1,
   };
 }
 
@@ -218,7 +225,17 @@ function create(initialState) {
     [a.getPastChallengesDone]: onGetPastChallengesDone,
 
     [a.selectCommunity]: (state, { payload }) => ({
-      ...state, selectedCommunityId: payload,
+      ...state,
+      selectedCommunityId: payload,
+
+      /* Page numbers of past/upcoming challenges depend on the filters. To keep
+       * the code simple we just reset them each time a filter is modified.
+       * (This community selection defines community-specific filter for
+       * challenges). */
+      allDraftChallengesLoaded: false,
+      allPastChallengesLoaded: false,
+      lastRequestedPageOfDraftChallenges: -1,
+      lastRequestedPageOfPastChallenges: -1,
     }),
 
     [a.setFilter]: onSetFilter,
