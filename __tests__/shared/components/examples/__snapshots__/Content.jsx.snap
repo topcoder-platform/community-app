@@ -106,7 +106,7 @@ exports[`Matches shallow shapshot 1`] = `
   <ul>
     <li>
       <a
-        href="/challenge/30050696/my-submissions"
+        href="/challenges/30050696/my-submissions"
       >
         Submission Management Page
       </a>
