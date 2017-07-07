@@ -2,12 +2,13 @@
  * Challenge listing sidebar reducer.
  */
 
-/* global alert */
+/* global alert, window */
 /* eslint-disable no-alert */
 
 import _ from 'lodash';
 import actions from 'actions/challenge-listing/sidebar';
 import logger from 'utils/logger';
+import qs from 'qs';
 import { BUCKETS } from 'utils/challenge-listing/buckets';
 import { handleActions } from 'redux-actions';
 
@@ -108,6 +109,39 @@ function onResetFilterName(state, action) {
   return { ...state, savedFilters };
 }
 
+function onSelectBucket(state, { payload }) {
+  if (window) {
+    let query = qs.parse(window.location.search.slice(1));
+    switch (payload) {
+      case BUCKETS.ALL:
+      case BUCKETS.SAVED_FILTER:
+        delete query.bucket;
+        break;
+      default:
+        query.bucket = payload;
+        break;
+    }
+    query = `?${qs.stringify(query, { encode: false })}`;
+    window.history.replaceState(window.history.state, '', query);
+  }
+
+  return { ...state, activeBucket: payload };
+}
+
+function onSelectSavedFilter(state, { payload }) {
+  if (window) {
+    let query = qs.parse(window.location.search.slice(1));
+    delete query.bucket;
+    query = `?${qs.stringify(query, { encode: false })}`;
+    window.history.replaceState(window.history.state, '', query);
+  }
+  return {
+    ...state,
+    activeBucket: BUCKETS.SAVED_FILTER,
+    activeSavedFilter: payload,
+  };
+}
+
 /**
  * Handles outcome of the updateSavedFilterAction.
  * @param {Object} state
@@ -139,13 +173,8 @@ function create(initialState = {}) {
     }),
     [a.resetFilterName]: onResetFilterName,
     [a.saveFilter]: onFilterSaved,
-    [a.selectBucket]: (state, { payload }) => ({
-      ...state, activeBucket: payload }),
-    [a.selectSavedFilter]: (state, { payload }) => ({
-      ...state,
-      activeBucket: BUCKETS.SAVED_FILTER,
-      activeSavedFilter: payload,
-    }),
+    [a.selectBucket]: onSelectBucket,
+    [a.selectSavedFilter]: onSelectSavedFilter,
     [a.setEditSavedFiltersMode]: (state, { payload }) => ({
       ...state,
       editSavedFiltersMode: payload,
@@ -159,8 +188,14 @@ function create(initialState = {}) {
   }));
 }
 
-export function factory() {
-  return Promise.resolve(create());
+export function factory(req) {
+  const state = {};
+
+  if (req) {
+    state.activeBucket = req.query.bucket;
+  }
+
+  return Promise.resolve(create(state));
 }
 
 export default create();
