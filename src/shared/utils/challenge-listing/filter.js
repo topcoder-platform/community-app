@@ -231,7 +231,7 @@ function combineStartDate(a, b) {
 
 function combineTracks(a, b) {
   if (a.tracks && b.tracks) {
-    _.forIn(a.tracks, (key) => {
+    _.forIn(a.tracks, (value, key) => {
       if (!b.tracks[key]) delete a.tracks[key];
     });
   } else if (b.tracks) a.tracks = b.tracks;

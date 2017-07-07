@@ -2,15 +2,15 @@
  * Challenge listing sidebar reducer.
  */
 
-/* global alert, window */
+/* global alert */
 /* eslint-disable no-alert */
 
 import _ from 'lodash';
 import actions from 'actions/challenge-listing/sidebar';
 import logger from 'utils/logger';
-import qs from 'qs';
 import { BUCKETS } from 'utils/challenge-listing/buckets';
 import { handleActions } from 'redux-actions';
+import { updateQuery } from 'utils/url';
 
 const MAX_FILTER_NAME_LENGTH = 35;
 
@@ -110,31 +110,20 @@ function onResetFilterName(state, action) {
 }
 
 function onSelectBucket(state, { payload }) {
-  if (window) {
-    let query = qs.parse(window.location.search.slice(1));
-    switch (payload) {
-      case BUCKETS.ALL:
-      case BUCKETS.SAVED_FILTER:
-        delete query.bucket;
-        break;
-      default:
-        query.bucket = payload;
-        break;
-    }
-    query = `?${qs.stringify(query, { encode: false })}`;
-    window.history.replaceState(window.history.state, '', query);
+  switch (payload) {
+    case BUCKETS.ALL:
+    case BUCKETS.SAVED_FILTER:
+      updateQuery({ bucket: undefined });
+      break;
+    default:
+      updateQuery({ bucket: payload });
+      break;
   }
-
   return { ...state, activeBucket: payload };
 }
 
 function onSelectSavedFilter(state, { payload }) {
-  if (window) {
-    let query = qs.parse(window.location.search.slice(1));
-    delete query.bucket;
-    query = `?${qs.stringify(query, { encode: false })}`;
-    window.history.replaceState(window.history.state, '', query);
-  }
+  updateQuery({ bucket: undefined });
   return {
     ...state,
     activeBucket: BUCKETS.SAVED_FILTER,

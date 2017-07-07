@@ -2,14 +2,12 @@
  * Reducer for state.challengeListing.
  */
 
-/* global window */
-
 import _ from 'lodash';
 import actions from 'actions/challenge-listing';
 import logger from 'utils/logger';
-import qs from 'qs';
 import { handleActions } from 'redux-actions';
 import { combine, resolveReducers } from 'utils/redux';
+import { updateQuery } from 'utils/url';
 
 import filterPanel from '../challenge-listing/filter-panel';
 import sidebar, { factory as sidebarFactory } from '../challenge-listing/sidebar';
@@ -155,12 +153,7 @@ function onGetPastChallengesDone(state, { error, payload }) {
 }
 
 function onSelectCommunity(state, { payload }) {
-  if (window) {
-    let query = qs.parse(window.location.search.slice(1));
-    query.communityId = payload || undefined;
-    query = `?${qs.stringify(query, { encode: false })}`;
-    window.history.replaceState(window.history.state, '', query);
-  }
+  updateQuery({ communityId: payload || undefined });
   return {
     ...state,
     selectedCommunityId: payload,
@@ -182,15 +175,7 @@ function onSelectCommunity(state, { payload }) {
  * @return {Object}
  */
 function onSetFilter(state, { payload }) {
-  if (window) {
-    /* TODO: Similar code for updating URL query is used in other places
-     * of the app. Should be moved to an utils module. */
-    let query = qs.parse(window.location.search.slice(1));
-    query.filter = payload;
-    query = `?${qs.stringify(query, { encode: false })}`;
-    window.history.replaceState(window.history.state, '', query);
-  }
-
+  updateQuery({ filter: payload });
   return {
     ...state,
     filter: payload,
