@@ -88,7 +88,10 @@ export default function Listing({
       {auth.user ? getBucket(BUCKETS.MY) : null}
       {getBucket(BUCKETS.OPEN_FOR_REGISTRATION)}
       {getBucket(BUCKETS.ONGOING)}
-      {getBucket(BUCKETS.UPCOMING)}
+      {/* NOTE: We do not show upcoming challenges for now, for various reasons,
+        * more political than technical ;)
+        getBucket(BUCKETS.UPCOMING) */
+      }
       {getBucket(BUCKETS.PAST)}
     </div>
   );
