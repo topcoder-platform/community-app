@@ -3,7 +3,9 @@
  */
 
 import _ from 'lodash';
+import config from 'utils/config';
 import ChallengeFilters from 'containers/challenge-listing/FilterPanel';
+import moment from 'moment';
 import React from 'react';
 import PT from 'prop-types';
 import Sticky from 'react-stickynode';
@@ -32,8 +34,27 @@ export default function ChallengeListing(props) {
 
   const expanded = false;
 
+  /* When we automatically reload cached challenge objects, we do not want to
+   * show the loading state, if the currently loaded challenges are not very
+   * outdated (i.e. no need to show placeholders in the situations when it is
+   * fine to reload silently, keeping showing the previously cached challenges,
+   * while the reload is going on).
+   *
+   * In this code lastUpdateOfActiveChallenges serves as an adequate indication
+   * when the challenges were fetched the last time, and the magic numbers are:
+   * 1000 - to conver config.CHALLENGE_LISTING_AUTO_REFRESH from seconds to ms.
+   * 1.5 - a reasonable margin factor, to decide when we consider already cached
+   * challenges too old to display while the reload takes place.
+   */
+  let suppressPlaceholders = false;
+  if (config.CHALLENGE_LISTING_AUTO_REFRESH) {
+    const outage = moment().diff(props.lastUpdateOfActiveChallenges);
+    suppressPlaceholders =
+      outage < 1.5 * 1000 * config.CHALLENGE_LISTING_AUTO_REFRESH;
+  }
+
   let challengeCardContainer;
-  if (!expanded && props.loadingChallenges) {
+  if (!expanded && props.loadingChallenges && !suppressPlaceholders) {
     const challengeCards = _.range(CHALLENGE_PLACEHOLDER_COUNT)
     .map(key => <ChallengeCardPlaceholder id={key} key={key} />);
     challengeCardContainer = (
@@ -121,7 +142,6 @@ ChallengeListing.defaultProps = {
   communityName: null,
   loadMoreDraft: null,
   loadMorePast: null,
-  masterFilterFunc: () => true,
   auth: null,
 };
 
@@ -131,6 +151,7 @@ ChallengeListing.propTypes = {
   communityFilter: PT.shape(),
   communityName: PT.string,
   filterState: PT.shape().isRequired,
+  lastUpdateOfActiveChallenges: PT.number.isRequired,
   loadingChallenges: PT.bool.isRequired,
   loadingDraftChallenges: PT.bool.isRequired,
   loadingPastChallenges: PT.bool.isRequired,

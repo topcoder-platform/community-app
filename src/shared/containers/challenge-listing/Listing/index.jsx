@@ -11,6 +11,7 @@
 
 // import _ from 'lodash';
 import actions from 'actions/challenge-listing';
+import config from 'utils/config';
 import filterPanelActions from 'actions/challenge-listing/filter-panel';
 import headerActions from 'actions/topcoder_header';
 import logger from 'utils/logger';
@@ -30,11 +31,6 @@ let mounted = false;
 
 class ListingContainer extends React.Component {
 
-  constructor(props) {
-    super(props);
-    this.masterFilterFunc = this.masterFilterFunc.bind(this);
-  }
-
   /* TODO: We should add here an automatic periodical update of the loaded
    * challenges, say once each 5 minutes. Otherwise, it is possible that a
    * visitor has the same challenge listing page open for too long, navigating
@@ -51,6 +47,7 @@ class ListingContainer extends React.Component {
     if (mounted) {
       logger.error('Attempt to mount multiple instances of ChallengeListingPageContainer at the same time!');
     } else mounted = true;
+
     this.loadChallenges();
   }
 
@@ -71,6 +68,7 @@ class ListingContainer extends React.Component {
     else {
       logger.error('A mounted instance of ChallengeListingPageContainer is not tracked as mounted!');
     }
+    if (this.autoRefreshTimerId) clearTimeout(this.autoRefreshTimerId);
   }
 
   /* Evaluates the backend challenge filter most suitable for the current state
@@ -88,36 +86,18 @@ class ListingContainer extends React.Component {
     const backendFilter = this.getBackendFilter();
     this.props.getCommunityFilters(this.props.auth);
     this.props.getAllActiveChallenges(this.props.auth.tokenV3);
-    this.props.getDraftChallenges(0, backendFilter, this.props.auth.tokenV3);
+
+    /* No need to fetch draft challenges for now: we are not showing the
+     * Upcoming Challenges bucket, for now. */
+    // this.props.getDraftChallenges(0, backendFilter, this.props.auth.tokenV3);
+
     this.props.getPastChallenges(0, backendFilter, this.props.auth.tokenV3);
-  }
 
-  /**
-   * It takes one challenge object and check if it passes master filter
-   * which defines which challenges should be displayed for the current community
-   *
-   * @param  {Object}  challenge object
-   * @return {boolean} whether the item pass filter or not
-   */
-  masterFilterFunc(item) {
-    let keyword;
-
-    // if there is tag in props, use it as keyword
-    if (this.props.tag) {
-      keyword = this.props.tag;
-
-    // if there is defined keyword param in the route, use it as keyword
-    } else if (this.props.match && this.props.match.params && this.props.match.params.keyword) {
-      keyword = this.props.match.params.keyword;
-
-    // if keyword is not defined at all, don't filter
-    } else {
-      return true;
+    if (config.CHALLENGE_LISTING_AUTO_REFRESH) {
+      if (this.autoRefreshTimerId) clearTimeout(this.autoRefreshTimerId);
+      this.autoRefreshTimerId = setTimeout(() =>
+        this.loadChallenges(), 1000 * config.CHALLENGE_LISTING_AUTO_REFRESH);
     }
-
-    const techs = ` ${item.technologies.toLowerCase()} `;
-
-    return !!(techs.indexOf(` ${keyword.toLowerCase()} `) >= 0);
   }
 
   render() {
@@ -137,6 +117,7 @@ class ListingContainer extends React.Component {
       getPastChallenges,
       lastRequestedPageOfDraftChallenges,
       lastRequestedPageOfPastChallenges,
+      lastUpdateOfActiveChallenges,
       listingOnly,
       selectBucket,
     } = this.props;
@@ -193,6 +174,7 @@ class ListingContainer extends React.Component {
           communityFilter={communityFilter}
           communityName={this.props.communityName}
           filterState={filter}
+          lastUpdateOfActiveChallenges={lastUpdateOfActiveChallenges}
           loadingChallenges={Boolean(this.props.loadingActiveChallengesUUID)}
           loadingDraftChallenges={Boolean(this.props.loadingDraftChallengesUUID)}
           loadingPastChallenges={Boolean(this.props.loadingPastChallengesUUID)}
@@ -209,12 +191,7 @@ class ListingContainer extends React.Component {
           }}
           setSort={this.props.setSort}
           sorts={this.props.sorts}
-
-          /* OLD PROPS BELOW */
           challengeGroupId={challengeGroupId}
-          filterFromUrl={this.props.location.hash}
-          masterFilterFunc={this.masterFilterFunc}
-          isAuth={!!this.props.auth.user}
           auth={this.props.auth}
         />
         { !listingOnly ? (
@@ -234,8 +211,6 @@ ListingContainer.defaultProps = {
   communityId: null,
   communityName: null,
   listingOnly: false,
-  match: null,
-  tag: null,
 };
 
 ListingContainer.propTypes = {
@@ -260,6 +235,7 @@ ListingContainer.propTypes = {
   getPastChallenges: PT.func.isRequired,
   lastRequestedPageOfDraftChallenges: PT.number.isRequired,
   lastRequestedPageOfPastChallenges: PT.number.isRequired,
+  lastUpdateOfActiveChallenges: PT.number.isRequired,
   loadingActiveChallengesUUID: PT.string.isRequired,
   loadingDraftChallengesUUID: PT.string.isRequired,
   loadingPastChallengesUUID: PT.string.isRequired,
@@ -272,19 +248,8 @@ ListingContainer.propTypes = {
   sorts: PT.shape().isRequired,
   setSearchText: PT.func.isRequired,
   setSort: PT.func.isRequired,
-
-  /* OLD PROPS BELOW */
   listingOnly: PT.bool,
-  match: PT.shape({
-    params: PT.shape({
-      keyword: PT.string,
-    }),
-  }),
   challengeGroupId: PT.string,
-  tag: PT.string,
-  location: PT.shape({
-    hash: PT.string,
-  }).isRequired,
 };
 
 const mapStateToProps = (state) => {
@@ -300,6 +265,7 @@ const mapStateToProps = (state) => {
     communityFilters: cl.communityFilters,
     lastRequestedPageOfDraftChallenges: cl.lastRequestedPageOfDraftChallenges,
     lastRequestedPageOfPastChallenges: cl.lastRequestedPageOfPastChallenges,
+    lastUpdateOfActiveChallenges: cl.lastUpdateOfActiveChallenges,
     loadingActiveChallengesUUID: cl.loadingActiveChallengesUUID,
     loadingDraftChallengesUUID: cl.loadingDraftChallengesUUID,
     loadingPastChallengesUUID: cl.loadingPastChallengesUUID,
