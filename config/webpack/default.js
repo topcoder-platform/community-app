@@ -49,7 +49,9 @@ module.exports = {
           }],
           ['react-css-modules', {
             filetypes: {
-              '.scss': 'postcss-scss',
+              '.scss': {
+                syntax: 'postcss-scss',
+              },
             },
           }],
         ],
@@ -123,6 +125,7 @@ module.exports = {
         DOMAIN: "'topcoder-dev.com'",
       },
     }),
+    new webpack.optimize.ModuleConcatenationPlugin(),
   ],
   resolve: {
     alias: {

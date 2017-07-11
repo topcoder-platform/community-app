@@ -35,7 +35,9 @@ module.exports = webpackMerge(defaultConfig, {
           'react-hot-loader/babel',
           ['react-css-modules', {
             filetypes: {
-              '.scss': 'postcss-scss',
+              '.scss': {
+                syntax: 'postcss-scss',
+              },
             },
           }],
         ],
