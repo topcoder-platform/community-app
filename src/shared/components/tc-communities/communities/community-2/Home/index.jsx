@@ -15,7 +15,7 @@ import NewsletterSignup from 'components/tc-communities/NewsletterSignup';
 import NewsSection from 'components/tc-communities/NewsSection';
 import PT from 'prop-types';
 
-import GroupStats from 'containers/tc-communities/GroupStats';
+import CommunityStats from 'containers/tc-communities/CommunityStats';
 import JoinCommunity from 'containers/tc-communities/JoinCommunity';
 
 import IconRocket from '../../../../../../assets/images/tc-communities/rocket.svg';
@@ -37,7 +37,7 @@ export default function Home(props) {
         imageSrc="/themes/community-2/home/banner.jpg"
       />
 
-      <GroupStats />
+      <CommunityStats />
 
       <JoinCommunity />
 

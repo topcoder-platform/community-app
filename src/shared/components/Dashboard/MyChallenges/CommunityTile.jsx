@@ -14,7 +14,7 @@ const CommunityTile = (props) => {
       <img src={require(`assets/images/tc-communities/background/${community.image}`)} alt="" />
       <div styleName="name">{community.communityName}</div>
       <div styleName="desc">{community.description}</div>
-      <a target="_blank" styleName="learn-more" href={`${config.URL.LOCAL}/community/${community.communityId}/home`}>Learn more</a>
+      <a target="_blank" styleName="learn-more" href={`/community/${community.communityId}/home`}>Learn more</a>
     </div>
     <div styleName="right">
       <div styleName="stats">
@@ -33,9 +33,9 @@ const CommunityTile = (props) => {
       </div>
       <div styleName="actions">
         <a styleName={cn({ reg: !registered, unreg: registered })}>{registered ? 'Unregister' : 'Register'}</a>
-        <a styleName="link" target="_blank" href={`${config.URL.LOCAL}/community/${community.communityId}/challenges`}>View All Challenges</a>
+        <a styleName="link" target="_blank" href={`/community/${community.communityId}/challenges`}>View All Challenges</a>
         <div styleName="pipe" />
-        <a styleName="link" target="_blank" href={`${config.URL.LOCAL}/community/${community.communityId}/leaderboard`}>Leaderboard</a>
+        <a styleName="link" target="_blank" href={`/community/${community.communityId}/leaderboard`}>Leaderboard</a>
       </div>
     </div>
   </div>);

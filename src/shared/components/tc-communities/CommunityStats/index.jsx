@@ -31,7 +31,7 @@ const LABELS = {
   openPrizes: 'Prizes',
 };
 
-export default function GroupStats(props) {
+export default function CommunityStats(props) {
   const icons = [];
   _.forIn(props.stats, (value, key) =>
     icons.push((
@@ -53,13 +53,13 @@ export default function GroupStats(props) {
   ) : null;
 }
 
-GroupStats.defaultProps = {
+CommunityStats.defaultProps = {
   stats: {},
 };
 
 const numberOrString = PT.oneOfType([PT.number, PT.string]);
 
-GroupStats.propTypes = {
+CommunityStats.propTypes = {
   stats: PT.shape({
     numChallenges: numberOrString,
     numMembers: numberOrString,

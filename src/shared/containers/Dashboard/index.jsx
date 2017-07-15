@@ -36,9 +36,7 @@ class DashboardPageContainer extends React.Component {
       getCommunityStats,
     } = this.props;
     if (!tokenV2) {
-      /* TODO: dev/prod URLs should be generated based on the config,
-       * now it is hardcoded with dev URL - wrong! */
-      location.href = `${config.URL.AUTH}?retUrl=${encodeURIComponent(`${config.URL.LOCAL}/my-dashboard`)}`;
+      location.href = `${config.URL.AUTH}?retUrl=${encodeURIComponent(location.href)}`;
       return false;
     }
     this.props.getBlogs();

@@ -36,8 +36,6 @@ function getCommunityStats(community, challenges, token) {
   if (groupId) {
     return groupService.getMembers(community.challengeGroupId || community.groupId)
         .then((members) => {
-          /* NOTE: MMs objects do not include total prize data, so their prizes
-           * are not include into the stats, at the moment. */
           result.numChallenges = members.length;
           return result;
         }).catch(() => result);

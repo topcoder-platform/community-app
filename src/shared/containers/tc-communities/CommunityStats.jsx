@@ -1,6 +1,6 @@
 /**
- * Container for GroupStats component. It automatically loads and renders stats
- * for the currently loaded TC community.
+ * Container for CommunityStats component. It automatically loads and renders
+ * stats for the currently loaded TC community.
  */
 
 import PT from 'prop-types';
@@ -10,9 +10,9 @@ import shortid from 'shortid';
 
 import actions from 'actions/stats';
 import cActions from 'actions/challenge-listing';
-import GroupStats from 'components/tc-communities/GroupStats';
+import CommunityStats from 'components/tc-communities/CommunityStats';
 
-class GroupStatsContainer extends React.Component {
+class CommunityStatsContainer extends React.Component {
 
   /* When container mounts we get / update related stats. */
   componentDidMount() {
@@ -36,12 +36,12 @@ class GroupStatsContainer extends React.Component {
 
   render() {
     return !this.props.loadingChallenges && (
-      <GroupStats stats={this.props.stats} />
+      <CommunityStats stats={this.props.stats} />
     );
   }
 }
 
-GroupStatsContainer.defaultProps = {
+CommunityStatsContainer.defaultProps = {
   community: {},
   stats: {},
   token: '',
@@ -49,7 +49,7 @@ GroupStatsContainer.defaultProps = {
   loadingChallenges: false,
 };
 
-GroupStatsContainer.propTypes = {
+CommunityStatsContainer.propTypes = {
   getAllActiveChallenges: PT.func.isRequired,
   getCommunityStats: PT.func.isRequired,
   community: PT.shape(),
@@ -85,4 +85,4 @@ function mapStateToProps(state) {
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(GroupStatsContainer);
+)(CommunityStatsContainer);
