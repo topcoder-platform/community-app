@@ -36,5 +36,7 @@
     }
   ],
   "leaderboardApiUrl": "https://api.topcoder.com/v4/looks/458/run/json/",
-  "newsFeed": "http://www.topcoder.com/feed"
+  "newsFeed": "http://www.topcoder.com/feed",
+  "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore.",
+  "image":"1.jpg"
 }

@@ -31,7 +31,7 @@ const CommunityUpdates = (props) => {
         }
       </div>
       <div styleName="blog-links">
-        <a href={`https://www.${config.DOMAIN}/blog/`}>View More</a>
+        <a href={`${config.URL.BASE}/blog/`}>View More</a>
       </div>
     </div>
   );

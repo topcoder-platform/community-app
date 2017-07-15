@@ -7,18 +7,18 @@ import cn from 'classnames';
 import './ChallengeFilter.scss';
 
 const ChallengeFilter = (props) => {
-  const { groups, selectedGroupId, selectGroup } = props;
+  const { communities, selectedCommunityId, selectCommunity } = props;
   return (
     <div styleName="container">
       {
-        groups.map(group => (
+        communities.map(community => (
           <div
-            key={group.id}
-            onClick={() => selectGroup(group.id)}
-            styleName={cn(['row', { selected: group.id === selectedGroupId }])}
+            key={community.id}
+            onClick={() => selectCommunity(community.id)}
+            styleName={cn(['row', { selected: community.id === selectedCommunityId }])}
           >
-            <span>{group.name}</span>
-            <span>{group.number}</span>
+            <span>{community.name}</span>
+            <span>{community.number}</span>
           </div>
         ))
       }
@@ -27,14 +27,14 @@ const ChallengeFilter = (props) => {
 };
 
 ChallengeFilter.propTypes = {
-  groups: PT.arrayOf(PT.shape()),
-  selectedGroupId: PT.string,
-  selectGroup: PT.func.isRequired,
+  communities: PT.arrayOf(PT.shape()),
+  selectedCommunityId: PT.string,
+  selectCommunity: PT.func.isRequired,
 };
 
 ChallengeFilter.defaultProps = {
-  groups: [],
-  selectedGroupId: '',
+  communities: [],
+  selectedCommunityId: '',
 };
 
 export default ChallengeFilter;

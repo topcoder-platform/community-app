@@ -3,7 +3,6 @@ import _ from 'lodash';
 import actions from 'actions/dashboard';
 import { handleActions } from 'redux-actions';
 
-
 function create(initialState) {
   const a = actions.dashboard;
   return handleActions({

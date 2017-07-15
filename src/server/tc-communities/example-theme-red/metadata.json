@@ -21,5 +21,7 @@
       "url": "complete"
     }
   ],
-  "style": "/themes/red/Header.css"
+  "style": "/themes/red/Header.css",
+  "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore.",
+  "image":"2.jpg"
 }

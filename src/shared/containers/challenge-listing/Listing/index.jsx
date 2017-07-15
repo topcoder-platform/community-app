@@ -22,6 +22,7 @@ import ChallengeListing from 'components/challenge-listing';
 import Banner from 'components/tc-communities/Banner';
 import NewsletterSignup from 'components/tc-communities/NewsletterSignup';
 import sidebarActions from 'actions/challenge-listing/sidebar';
+import communityActions from 'actions/tc-communities';
 import { BUCKETS } from 'utils/challenge-listing/buckets';
 import { combine, mapToBackend } from 'utils/challenge-listing/filter';
 import style from './styles.scss';
@@ -230,6 +231,7 @@ class ListingContainer extends React.Component {
 }
 
 ListingContainer.defaultProps = {
+  selectedCommunityId: '',
   challengeGroupId: '',
   communityId: null,
   communityName: null,
@@ -268,7 +270,7 @@ ListingContainer.propTypes = {
   selectCommunity: PT.func.isRequired,
   setFilter: PT.func.isRequired,
   activeBucket: PT.string.isRequired,
-  selectedCommunityId: PT.string.isRequired,
+  selectedCommunityId: PT.string,
   sorts: PT.shape().isRequired,
   setSearchText: PT.func.isRequired,
   setSort: PT.func.isRequired,
@@ -289,6 +291,7 @@ ListingContainer.propTypes = {
 
 const mapStateToProps = (state) => {
   const cl = state.challengeListing;
+  const tc = state.tcCommunities;
   return {
     auth: state.auth,
     allDraftChallengesLoaded: cl.allDraftChallengesLoaded,
@@ -297,7 +300,7 @@ const mapStateToProps = (state) => {
     challenges: cl.challenges,
     challengeSubtracks: cl.challengeSubtracks,
     challengeTags: cl.challengeTags,
-    communityFilters: cl.communityFilters,
+    communityFilters: [{ id: '', name: 'All' }].concat(tc.communityFilters),
     lastRequestedPageOfDraftChallenges: cl.lastRequestedPageOfDraftChallenges,
     lastRequestedPageOfPastChallenges: cl.lastRequestedPageOfPastChallenges,
     loadingActiveChallengesUUID: cl.loadingActiveChallengesUUID,
@@ -316,6 +319,7 @@ function mapDispatchToProps(dispatch) {
   const ah = headerActions.topcoderHeader;
   const fpa = filterPanelActions.challengeListing.filterPanel;
   const sa = sidebarActions.challengeListing.sidebar;
+  const ca = communityActions.tcCommunity;
   return {
     dropChallenges: () => dispatch(a.dropChallenges()),
     getAllActiveChallenges: (token) => {
@@ -323,7 +327,7 @@ function mapDispatchToProps(dispatch) {
       dispatch(a.getAllActiveChallengesInit(uuid));
       dispatch(a.getAllActiveChallengesDone(uuid, token));
     },
-    getCommunityFilters: auth => dispatch(a.getCommunityFilters(auth)),
+    getCommunityFilters: auth => dispatch(ca.getCommunityFilters(auth)),
     getDraftChallenges: (page, filter, token) => {
       const uuid = shortid();
       dispatch(a.getDraftChallengesInit(uuid, page));

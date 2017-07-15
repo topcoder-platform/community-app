@@ -9,36 +9,36 @@ import logger from 'utils/logger';
 import { handleActions } from 'redux-actions';
 
 /**
- * Handles result of the getGroupStats action.
+ * Handles result of the getCommunityStats action.
  * @param {Object} state Previous state.
  * @param {Object} action Action result.
  * @return {Object} New state.
  */
-function onGetGroupStats(state, action) {
+function onGetCommunityStats(state, action) {
   if (action.error) {
     logger.error(action.payload);
     return state;
   }
   return {
     ...state,
-    groups: {
-      ...state.groups,
-      [action.payload.groupId]: action.payload.stats,
+    communities: {
+      ...state.communities,
+      [action.payload.communityId]: action.payload.stats,
     },
   };
 }
 
 /**
- * Creates a new Challenge Listing redurect with the specified initial state.
+ * Creates a new Stats reducer with the specified initial state.
  * @param {Object} initialState Optional. Initial state.
  * @return {Function} Reducer.
  */
 function create(initialState = {}) {
   const a = actions.stats;
   return handleActions({
-    [a.getGroupStats]: onGetGroupStats,
+    [a.getCommunityStats]: onGetCommunityStats,
   }, _.defaults(_.clone(initialState), {
-    groups: {},
+    communities: {},
   }));
 }
 
