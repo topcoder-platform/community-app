@@ -229,6 +229,14 @@ function combineStartDate(a, b) {
   } else if (b.startDate) a.startDate = b.startDate;
 }
 
+function combineTracks(a, b) {
+  if (a.tracks && b.tracks) {
+    _.forIn(a.tracks, (value, key) => {
+      if (!b.tracks[key]) delete a.tracks[key];
+    });
+  } else if (b.tracks) a.tracks = b.tracks;
+}
+
 /* eslint-enable no-param-reassign */
 
 /**
@@ -254,7 +262,7 @@ export function combine(...filters) {
     combineArrayRules(res, filter, 'subtracks');
     combineArrayRules(res, filter, 'tags');
     /* TODO: The text rule is just ignored for now. */
-    /* TODO: The tracks rule is just ignored for now. */
+    combineTracks(res, filter);
     /* TODO: The upcoming rule is just ignored for now. */
     /* TODO: The users rule is just ignored for now. */
   });
@@ -284,7 +292,11 @@ export function combine(...filters) {
 export function mapToBackend(filter) {
   const res = {};
   if (filter.groupIds) res.groupIds = filter.groupIds.join(',');
-  if (filter.tags) res.technologies = filter.tags.join(',');
+
+  /* NOTE: Right now the frontend challenge filter by tag works different,
+   * it looks for matches in the challenge name OR in the techs / platforms. */
+  // if (filter.tags) res.technologies = filter.tags.join(',');
+
   return res;
 }
 

@@ -2,17 +2,15 @@
  * Reducer for state.challengeListing.
  */
 
-/* global window */
-
 import _ from 'lodash';
 import actions from 'actions/challenge-listing';
 import logger from 'utils/logger';
-import qs from 'qs';
 import { handleActions } from 'redux-actions';
-import { combine } from 'utils/redux';
+import { combine, resolveReducers } from 'utils/redux';
+import { updateQuery } from 'utils/url';
 
 import filterPanel from '../challenge-listing/filter-panel';
-import sidebar from '../challenge-listing/sidebar';
+import sidebar, { factory as sidebarFactory } from '../challenge-listing/sidebar';
 
 function onGetAllActiveChallengesDone(state, { error, payload }) {
   if (error) {
@@ -144,19 +142,30 @@ function onGetPastChallengesDone(state, { error, payload }) {
   };
 }
 
+function onSelectCommunity(state, { payload }) {
+  updateQuery({ communityId: payload || undefined });
+  return {
+    ...state,
+    selectedCommunityId: payload,
+
+    /* Page numbers of past/upcoming challenges depend on the filters. To keep
+      * the code simple we just reset them each time a filter is modified.
+      * (This community selection defines community-specific filter for
+      * challenges). */
+    allDraftChallengesLoaded: false,
+    allPastChallengesLoaded: false,
+    lastRequestedPageOfDraftChallenges: -1,
+    lastRequestedPageOfPastChallenges: -1,
+  };
+}
+
 /**
  * @param {Object} state
  * @param {Object} action
  * @return {Object}
  */
 function onSetFilter(state, { payload }) {
-  if (window) {
-    let query = qs.parse(window.location.search.slice(1));
-    query.filter = payload;
-    query = `?${qs.stringify(query, { encode: false })}`;
-    window.history.replaceState(window.history.state, '', query);
-  }
-
+  updateQuery({ filter: payload });
   return {
     ...state,
     filter: payload,
@@ -212,19 +221,7 @@ function create(initialState) {
     [a.getPastChallengesInit]: onGetPastChallengesInit,
     [a.getPastChallengesDone]: onGetPastChallengesDone,
 
-    [a.selectCommunity]: (state, { payload }) => ({
-      ...state,
-      selectedCommunityId: payload,
-
-      /* Page numbers of past/upcoming challenges depend on the filters. To keep
-       * the code simple we just reset them each time a filter is modified.
-       * (This community selection defines community-specific filter for
-       * challenges). */
-      allDraftChallengesLoaded: false,
-      allPastChallengesLoaded: false,
-      lastRequestedPageOfDraftChallenges: -1,
-      lastRequestedPageOfPastChallenges: -1,
-    }),
+    [a.selectCommunity]: onSelectCommunity,
 
     [a.setFilter]: onSetFilter,
     [a.setSort]: (state, { payload }) => ({
@@ -273,11 +270,12 @@ export function factory(req) {
 
   if (req) {
     state.filter = req.query.filter;
+    state.selectedCommunityId = req.query.communityId;
   }
 
-  /* Server-side rendering is not implemented yet.
-    Let's first ensure it all works fine without it. */
-  return Promise.resolve(combine(create(state), { filterPanel, sidebar }));
+  return resolveReducers({
+    sidebar: sidebarFactory(req),
+  }).then(reducers => combine(create(state), { ...reducers, filterPanel }));
 }
 
 /* Default reducer with empty initial state. */

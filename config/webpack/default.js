@@ -12,27 +12,27 @@ module.exports = {
   module: {
     noParse: [
       /* NodeJS library for https://logentries.com. It is server-side only. */
-      /\/node_modules\/le_node/,
+      /[\\/]node_modules[\\/]le_node/,
 
-      /\/node_modules\/xml2json/,
+      /[\\/]node_modules[\\/]xml2json/,
     ],
     rules: [{
       test: /\.(eot|otf|svg|ttf|woff|woff2)$/,
       include: [
-        /src\/assets\/fonts/,
+        /src[\\/]assets[\\/]fonts/,
         /node_modules/,
       ],
       loader: 'file-loader',
       options: {
         outputPath: '/fonts/',
-        publicPath: '/fonts/../',
+        publicPath: '',
       },
     }, {
       test: /\.(jsx?|svg)$/,
       exclude: [
-        /node_modules\/(?!appirio-tech.*|topcoder|tc-)/,
-        /src\/assets\/fonts/,
-        /src\/assets\/images\/dashboard/,
+        /node_modules[\\/](?!appirio-tech.*|topcoder|tc-)/,
+        /src[\\/]assets[\\/]fonts/,
+        /src[\\/]assets[\\/]images[\\/]dashboard/,
       ],
       loader: 'babel-loader',
       options: {
@@ -49,14 +49,16 @@ module.exports = {
           }],
           ['react-css-modules', {
             filetypes: {
-              '.scss': 'postcss-scss',
+              '.scss': {
+                syntax: 'postcss-scss',
+              },
             },
           }],
         ],
       },
     }, {
       test: /\.(gif|jpeg|jpg|png|svg)$/,
-      include: /src\/assets\/images/,
+      include: /src[\\/]assets[\\/]images/,
       loader: 'file-loader',
       options: {
         outputPath: '/images/',
@@ -123,6 +125,7 @@ module.exports = {
         DOMAIN: "'topcoder-dev.com'",
       },
     }),
+    new webpack.optimize.ModuleConcatenationPlugin(),
   ],
   resolve: {
     alias: {

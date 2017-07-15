@@ -76,7 +76,10 @@ export default function BucketSelector({
         )
       }
       {getBucket(BUCKETS.PAST)}
-      {getBucket(BUCKETS.UPCOMING)}
+      {/* NOTE: We do not show upcoming challenges for now, for various reasons,
+        * more political than technical ;)
+          getBucket(BUCKETS.UPCOMING) */
+      }
       {
         savedFilters.length ?
           <div>
