@@ -16,7 +16,7 @@ exports[`Snapshot match 1`] = `
     theme={Object {}}
     title="Topcoder Product Development Community"
   />
-  <Connect(GroupStatsContainer) />
+  <Connect(CommunityStatsContainer) />
   <Connect(JoinCommunity) />
   <ThemedSection
     composeTheme="deeply"
