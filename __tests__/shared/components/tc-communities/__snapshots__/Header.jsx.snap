@@ -126,16 +126,15 @@ exports[`Snapshot match 2`] = `
         <div
           className="tc-communities__header__logos src-shared-components-tc-communities-Header-___style__logos___38nqG"
         >
-          <Link
+          <Connect(RRLinkWrapper)
             className="tc-communities__header__logo src-shared-components-tc-communities-Header-___style__logo___z2xG6"
-            replace={false}
             to="pageId1"
           >
             <img
               alt="Community logo"
               src="some/logo/url"
             />
-          </Link>
+          </Connect(RRLinkWrapper)>
         </div>
         <div
           className="src-shared-components-tc-communities-Header-___style__challenge-dropdown___3fQW9"
@@ -171,38 +170,38 @@ exports[`Snapshot match 2`] = `
         <li
           className="tc-communities__header__menu-item src-shared-components-tc-communities-Header-___style__menu-item___2Ead6"
         >
-          <NavLink
+          <Connect(RRNavLinkWrapper)
             activeClassName="menu-link_active tc-communities__header__menu-link_active"
             className="tc-communities__header__menu-link src-shared-components-tc-communities-Header-___style__menu-link___1pPZf"
             isActive={[Function]}
             to="pageId1"
           >
             Menu Item 1
-          </NavLink>
+          </Connect(RRNavLinkWrapper)>
         </li>
         <li
           className="tc-communities__header__menu-item src-shared-components-tc-communities-Header-___style__menu-item___2Ead6"
         >
-          <NavLink
+          <Connect(RRNavLinkWrapper)
             activeClassName="menu-link_active tc-communities__header__menu-link_active"
             className="tc-communities__header__menu-link src-shared-components-tc-communities-Header-___style__menu-link___1pPZf"
             isActive={[Function]}
             to="pageId2"
           >
             Menu Item 2
-          </NavLink>
+          </Connect(RRNavLinkWrapper)>
         </li>
         <li
           className="tc-communities__header__menu-item src-shared-components-tc-communities-Header-___style__menu-item___2Ead6"
         >
-          <NavLink
+          <Connect(RRNavLinkWrapper)
             activeClassName="menu-link_active tc-communities__header__menu-link_active"
             className="tc-communities__header__menu-link src-shared-components-tc-communities-Header-___style__menu-link___1pPZf"
             isActive={[Function]}
             to="pageId3"
           >
             Menu Item 3
-          </NavLink>
+          </Connect(RRNavLinkWrapper)>
         </li>
       </ul>
     </div>

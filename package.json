@@ -107,6 +107,7 @@
     "stylelint": "^7.9.0",
     "stylelint-config-standard": "^16.0.0",
     "tc-accounts": "https://github.com/appirio-tech/accounts-app.git#dev",
+    "url-parse": "^1.1.9",
     "uuid": "^3.0.1",
     "webpack": "^3.1.0",
     "webpack-merge": "^4.0.0",
