@@ -28,13 +28,21 @@ export default function Home(props) {
   return (
     <main>
       <Banner
-        title="Wipro Crowd"
-        text="Wipro's Hybrid Crowd gives our vast ecosystem of customers and partners options to access new range of skills that provide new value services and efficiency options all over the world."
-        link={{
-          title: 'Compete Now',
+        title="Get work done faster with Topcoder TaskForce"
+        text="Time. It’s our most precious resource. You have projects and work where you need to go faster, we have amazing design and development talent, ready to work right now. Let’s get it done."
+        link={[{
+          title: 'Why Topcoder TaskForce',
           url: 'challenges',
-        }}
+        }, {
+          title: 'Create a Task Right Now',
+          url: '.',
+        }]}
         imageSrc="/themes/wipro/home/banner.jpg"
+        theme={{
+          content: style.BannerContent,
+          link: style.BannerLink,
+          linkWrap: style.BannerLinkWrapper,
+        }}
       />
 
       <CommunityStats />
