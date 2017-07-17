@@ -19,6 +19,7 @@ exports[`Snapshot match 1`] = `
   <Connect(CommunityStatsContainer) />
   <Connect(JoinCommunity) />
   <ThemedSection
+    anchor={null}
     composeTheme="deeply"
     link={null}
     mapThemrProps={[Function]}
@@ -61,6 +62,7 @@ exports[`Snapshot match 1`] = `
     </div>
   </ThemedSection>
   <ThemedSection
+    anchor={null}
     composeTheme="deeply"
     link={null}
     mapThemrProps={[Function]}

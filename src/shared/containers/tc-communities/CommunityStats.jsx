@@ -1,6 +1,9 @@
 /**
  * Container for CommunityStats component. It automatically loads and renders
  * stats for the currently loaded TC community.
+ *
+ * NOTE: Stats from Redux store can be overriden by providing own stats prop to
+ * the container. It is useful for demo mock-ups of UI.
  */
 
 import PT from 'prop-types';
@@ -70,14 +73,14 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-function mapStateToProps(state) {
+function mapStateToProps(state, ownProps) {
   const community = state.tcCommunities.meta;
   const challenges = state.challengeListing.challenges;
   return {
     community,
     challenges,
     loadingChallenges: Boolean(state.challengeListing.loadingActiveChallengesUUID),
-    stats: state.stats.communities[community.communityId],
+    stats: ownProps.stats || state.stats.communities[community.communityId],
     token: state.auth.tokenV3,
   };
 }

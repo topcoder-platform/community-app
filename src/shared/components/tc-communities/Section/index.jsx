@@ -22,10 +22,11 @@ import { Link } from 'react-router-dom';
 import defaultStyle from './style.scss';
 
 function Section(props) {
-  const { title, children, link, theme } = props;
+  const { anchor, title, children, link, theme } = props;
 
   return (
     <section className={theme.container}>
+      {anchor && <a name={anchor}>&nbsp;</a>}
       {title &&
         <h2 className={theme.title}>{title}</h2>
       }
@@ -40,12 +41,14 @@ function Section(props) {
 }
 
 Section.defaultProps = {
+  anchor: null,
   title: null,
   link: null,
   theme: {},
 };
 
 Section.propTypes = {
+  anchor: PT.string,
   title: PT.string,
   children: PT.node.isRequired,
   link: PT.shape({

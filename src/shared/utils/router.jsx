@@ -26,20 +26,21 @@ import { Link as RRLink, NavLink as RRNavLink } from 'react-router-dom';
 
 function RRLinkWrapper(props) {
   const url = new URL(props.to);
-  if (props.hostname === url.hostname) {
+  if ((props.hostname !== url.hostname)
+  || props.to.startsWith('#')) {
     return (
-      <RRLink
+      <a
         className={props.className}
-        replace={props.replace}
-        to={props.to}
-      >{props.children}</RRLink>
+        href={props.to}
+      >{props.children}</a>
     );
   }
   return (
-    <a
+    <RRLink
       className={props.className}
-      href={props.to}
-    >{props.children}</a>
+      replace={props.replace}
+      to={props.to}
+    >{props.children}</RRLink>
   );
 }
 
@@ -63,29 +64,31 @@ export const Link = connect(state => ({
 
 function RRNavLinkWrapper(props) {
   const url = new URL(props.to);
-  if (props.hostname === url.hostname) {
+  if ((props.hostname !== url.hostname)
+  || props.to.startsWith('#')) {
     return (
-      <RRNavLink
-        activeClassName={props.activeClassName}
-        activeStyle={props.activeStyle}
+      /* NOTE: Currently we don't handle isActive check here. Though, as this
+       * <a> element is a fallback for URLs leading outside of the app, in
+       * usual use cases it never should be rendered as active within the app.
+       */
+      <a
         className={props.className}
-        exact={props.exact}
-        isActive={props.isActive}
-        location={props.location}
-        replace={props.replace}
-        strict={props.strict}
-        to={props.to}
-      >{props.children}</RRNavLink>
+        href={props.to}
+      >{props.children}</a>
     );
   }
   return (
-    /* NOTE: Currently we don't handle isActive check here. Though, as this <a>
-     * element is a fallback for URLs leading outside of the app, in usual use
-     * cases it never should be rendered as active within the app. */
-    <a
+    <RRNavLink
+      activeClassName={props.activeClassName}
+      activeStyle={props.activeStyle}
       className={props.className}
-      href={props.to}
-    >{props.children}</a>
+      exact={props.exact}
+      isActive={props.isActive}
+      location={props.location}
+      replace={props.replace}
+      strict={props.strict}
+      to={props.to}
+    >{props.children}</RRNavLink>
   );
 }
 

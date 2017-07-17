@@ -2,6 +2,7 @@
 
 exports[`Snapshot match 1`] = `
 <Section
+  anchor={null}
   link={null}
   theme={
     Object {
@@ -22,6 +23,7 @@ exports[`Snapshot match 1`] = `
 
 exports[`Snapshot match 2`] = `
 <Section
+  anchor={null}
   link={
     Object {
       "title": "link",

@@ -1,5 +1,5 @@
 {
-  "_IGNORED_authorizedGroupIds": [
+  "authorizedGroupIds": [
     "20000003"
   ],
   "challengeFilter": {
