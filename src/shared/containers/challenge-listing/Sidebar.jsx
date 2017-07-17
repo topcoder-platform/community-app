@@ -54,7 +54,7 @@ class SidebarContainer extends React.Component {
 }
 
 SidebarContainer.defaultProps = {
-  selectedCommunityId: null,
+  selectedCommunityId: '',
   tokenV2: null,
   user: null,
 };
@@ -94,7 +94,7 @@ function mapStateToProps(state) {
     disabled: (activeBucket === BUCKETS.ALL) && Boolean(pending.length),
     filterState: state.challengeListing.filter,
     isAuth: Boolean(state.auth.user),
-    communityFilters: state.challengeListing.communityFilters,
+    communityFilters: [{ id: '', name: 'All' }].concat(state.tcCommunities.communityFilters),
     selectedCommunityId: state.challengeListing.selectedCommunityId,
     tokenV2: state.auth.tokenV2,
     user: state.auth.user,

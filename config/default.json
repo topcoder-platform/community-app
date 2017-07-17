@@ -1,9 +1,6 @@
 /* All availalbe configuration options should be documented in the default
  * config file, even when they are overriden in every custom configuration. */
 {
-  /* Connector URL of the TC accounts App. */
-  "ACCOUNTS_APP_CONNECTOR_URL": "https://accounts.topcoder-dev.com/connector.html",
-
   /* Configuration of Topcoder APIs. */
   "API": {
     "V2": "https://api.topcoder-dev.com/v2",
@@ -24,6 +21,10 @@
     "SECURE": false
   },
 
+  /* If set, the challenge listing component will automatically reload all
+   * challenges once per this amount of seconds. */
+  "CHALLENGE_LISTING_AUTO_REFRESH": 300,
+
   /* API token for logentries.com. The token below is just for local testing of
    * the setup. To override it use LOG_ENTRIES_TOKEN environment variable. */
   "LOG_ENTRIES_TOKEN": "816f5574-0d4a-49f9-ab3b-00d791f7c1f7",
@@ -41,7 +42,7 @@
   /* Various URLs. Most of them lead to different segments of Topcoder
    * platform. */
   "URL": {
-    "ARENA": "https://arena.topcoder-dev.com/",
+    "ARENA": "https://arena.topcoder-dev.com",
     "AUTH": "https://accounts.topcoder-dev.com/member",
     "BASE": "https://www.topcoder-dev.com",
     "COMMUNITY": "https://community.topcoder-dev.com",
@@ -52,9 +53,13 @@
     "STUDIO": "https://studio.topcoder-dev.com",
     "TCO": "https://www.topcoder.com/tco",
     "USER_SETTINGS": "https://lc1-user-settings-service.herokuapp.com",
-    "WIPRO": "https://wipro.topcoder.com"
+    "WIPRO": "https://wipro.topcoder.com",
+    "IOS": "https://ios.topcoder-dev.com",
+    /* Connector URL of the TC accounts App. */
+    "ACCOUNTS_APP_CONNECTOR": "https://accounts.topcoder-dev.com/connector.html",
+    "BLOG": "https://www.topcoder-dev.com/feed",
+    "COGNITIVE": "https://cognitive.topcoder.com",
+    "TCO17": "https://tco17.topcoder.com/"
   },
-  "DOMAIN": "topcoder-dev.com",
-  "SWIFT_PROGRAM_ID": 3445,
-  "BLOG_LOCATION": "https://www.topcoder-dev.com/feed/"
+  "SWIFT_PROGRAM_ID": 3445
 }

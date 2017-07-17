@@ -50,7 +50,7 @@ function registerIos(tokenV3, userId) {
 }
 
 function getBlogs() {
-  return fetch(config.BLOG_LOCATION)
+  return fetch(config.URL.BLOG)
   .then(res => (res.ok ? res.text() : new Error(res.statusText)))
   .then(res => toJson(res))
   .then(data => data.rss.channel.item.slice(0, 4));

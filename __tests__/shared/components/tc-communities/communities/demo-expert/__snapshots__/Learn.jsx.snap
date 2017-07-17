@@ -18,6 +18,7 @@ exports[`Snapshot match 1`] = `
     title="Learning & Certification"
   />
   <ThemedSection
+    anchor={null}
     composeTheme="deeply"
     link={null}
     mapThemrProps={[Function]}
@@ -205,6 +206,7 @@ exports[`Snapshot match 1`] = `
     </ThemedAccordion>
   </ThemedSection>
   <ThemedSection
+    anchor={null}
     composeTheme="deeply"
     link={
       Object {
@@ -264,6 +266,7 @@ exports[`Snapshot match 1`] = `
     />
   </ThemedSection>
   <ThemedSection
+    anchor={null}
     composeTheme="deeply"
     link={null}
     mapThemrProps={[Function]}

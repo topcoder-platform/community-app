@@ -80,35 +80,3 @@ h2.title {
     line-height: 22px;
   }
 }
-
-.linkWrap {
-  margin-top: 30px;
-
-  @include xxs-to-sm {
-    margin-top: 20px;
-  }
-}
-
-.link {
-  background: #fff;
-  border-radius: 20px;
-  color: #0092ff;
-  display: inline-block;
-  font-family: 'Open Sans';
-  font-weight: bold;
-  font-size: 14px;
-  height: 41px;
-  line-height: 41px;
-  text-align: center;
-  text-transform: uppercase;
-  width: 171px;
-
-  &:hover,
-  &:active,
-  &:focus,
-  &:visited {
-    color: #0092ff;
-    outline: none;
-    text-decoration: none;
-  }
-}

@@ -59,7 +59,8 @@
   height: 40px;
   text-align: center;
   text-transform: uppercase;
-  width: 220px;
+  min-width: 220px;
+  padding: 0 24px;
 
   &:hover,
   &:active,

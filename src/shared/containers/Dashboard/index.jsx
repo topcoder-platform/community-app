@@ -10,8 +10,11 @@ import { connect } from 'react-redux';
 import shortid from 'shortid';
 import _ from 'lodash';
 
+import config from 'utils/config';
 import actions from 'actions/dashboard';
 import cActions from 'actions/challenge-listing';
+import communityActions from 'actions/tc-communities';
+import statsActions from 'actions/stats';
 import { processActiveDevDesignChallenges } from 'utils/tc';
 import Header from 'components/Dashboard/Header';
 import SubtrackStats from 'components/Dashboard/SubtrackStats';
@@ -26,19 +29,40 @@ import './styles.scss';
 class DashboardPageContainer extends React.Component {
 
   componentDidMount() {
-    if (!this.props.auth.tokenV2) {
-      /* TODO: dev/prod URLs should be generated based on the config,
-       * now it is hardcoded with dev URL - wrong! */
-      location.href = 'http://accounts.topcoder-dev.com/#!/member?retUrl=http:%2F%2Flocal.topcoder-dev.com:3000%2Fmy-dashboard';
+    const {
+      auth: { tokenV2, user, tokenV3, profile },
+      challengeListing: { challenges },
+      tcCommunities: { communityList },
+      getCommunityStats,
+    } = this.props;
+    if (!tokenV2) {
+      location.href = `${config.URL.AUTH}?retUrl=${encodeURIComponent(location.href)}`;
       return false;
     }
-    this.props.getAllActiveChallenges(this.props.auth.tokenV3);
     this.props.getBlogs();
+    this.props.getCommunityList();
+    if (tokenV3 && user) {
+      this.props.getAllActiveChallenges(tokenV3);
+      this.props.getSubtrackRanks(tokenV3, user.handle);
+      this.props.getSRMs(tokenV3, user.handle);
+      this.props.getIosRegistration(tokenV3, user.userId);
+      this.props.getUserFinancials(tokenV3, user.handle);
+      _.forEach(communityList, c => getCommunityStats(c, challenges, tokenV3));
+    }
+    if (profile) {
+      this.props.getCommunityFilters(this.props.auth);
+    }
     return true;
   }
 
   componentDidUpdate(prevProps) {
-    const { user, tokenV3 } = this.props.auth;
+    const {
+      auth: { user, tokenV3, profile },
+      challengeListing: { challenges },
+      tcCommunities: { communityList },
+      getCommunityStats,
+    } = this.props;
+
     if (tokenV3 && tokenV3 !== prevProps.auth.tokenV3) {
       setImmediate(() => {
         this.props.getAllActiveChallenges(tokenV3);
@@ -46,7 +70,15 @@ class DashboardPageContainer extends React.Component {
         this.props.getSRMs(tokenV3, user.handle);
         this.props.getIosRegistration(tokenV3, user.userId);
         this.props.getUserFinancials(tokenV3, user.handle);
+        _.forEach(communityList, c => getCommunityStats(c, challenges, tokenV3));
       });
+    }
+    if (profile && !prevProps.auth.profile) {
+      setImmediate(() => this.props.getCommunityFilters(this.props.auth));
+    }
+    if ((challenges !== prevProps.challengeListing.challenges
+      || communityList !== prevProps.tcCommunities.communityList) && tokenV3) {
+      _.forEach(communityList, c => getCommunityStats(c, challenges, tokenV3));
     }
   }
 
@@ -58,7 +90,9 @@ class DashboardPageContainer extends React.Component {
         loadingSubtrackRanks, loadingSRMs, loadingBlogs,
       },
       challengeListing: { challenges },
+      tcCommunities: { communityFilters, communityList },
       registerIos,
+      stats,
     } = this.props;
     const myChallenges = processActiveDevDesignChallenges(
       _.filter(challenges, c => !!c.users[user.handle]),
@@ -94,6 +128,9 @@ class DashboardPageContainer extends React.Component {
                 !loadingActiveChallenges &&
                 <MyChallenges
                   challenges={myChallenges.slice(0, 8)}
+                  communityFilters={communityFilters}
+                  communityList={communityList}
+                  stats={stats}
                   groups={profile ? profile.groups : []}
                 />
               }
@@ -107,7 +144,7 @@ class DashboardPageContainer extends React.Component {
                     experience as a member of the Topcoder Cognitive Community.
                   </div>
                   <a
-                    href="https://cognitive.topcoder.com"
+                    href={config.URL.COGNITIVE}
                     styleName="cta tc-btn-white tc-btn-radius"
                   >Learn More</a>
                 </div>
@@ -120,7 +157,7 @@ class DashboardPageContainer extends React.Component {
                   <div styleName="subtitle">October 21-24, 2017 <br /> Buffalo, NY, USA</div>
                   <div styleName="description">
                     The Ultimate Programming and Design Tournament - The Final Stage</div>
-                  <a href="http://tco17.topcoder.com/" styleName="cta tc-btn-radius tc-btn-white">
+                  <a href={config.URL.TCO17} styleName="cta tc-btn-radius tc-btn-white">
                     Learn More
                   </a>
                 </div>
@@ -171,6 +208,8 @@ DashboardPageContainer.propTypes = {
   auth: PT.shape(),
   dashboard: PT.shape(),
   challengeListing: PT.shape(),
+  tcCommunities: PT.shape(),
+  stats: PT.shape(),
   getAllActiveChallenges: PT.func.isRequired,
   getSubtrackRanks: PT.func.isRequired,
   getSRMs: PT.func.isRequired,
@@ -178,18 +217,25 @@ DashboardPageContainer.propTypes = {
   registerIos: PT.func.isRequired,
   getBlogs: PT.func.isRequired,
   getUserFinancials: PT.func.isRequired,
+  getCommunityStats: PT.func.isRequired,
+  getCommunityList: PT.func.isRequired,
+  getCommunityFilters: PT.func.isRequired,
 };
 
 DashboardPageContainer.defaultProps = {
   auth: {},
   dashboard: {},
   challengeListing: {},
+  tcCommunities: {},
+  stats: {},
 };
 
 const mapStateToProps = state => ({
   auth: state.auth,
   dashboard: state.dashboard,
   challengeListing: state.challengeListing,
+  tcCommunities: state.tcCommunities,
+  stats: state.stats,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -223,6 +269,10 @@ const mapDispatchToProps = dispatch => ({
   getUserFinancials: (tokenV3, handle) => {
     dispatch(actions.dashboard.getUserFinancials(tokenV3, handle));
   },
+  getCommunityFilters: auth => dispatch(communityActions.tcCommunity.getCommunityFilters(auth)),
+  getCommunityList: () => dispatch(communityActions.tcCommunity.getCommunityList()),
+  getCommunityStats: (community, challenges, token) =>
+    dispatch(statsActions.stats.getCommunityStats(community, challenges, token)),
 });
 
 const DashboardContainer = connect(

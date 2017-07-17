@@ -54,7 +54,7 @@ export default class SubtrackStats extends React.Component {
             tracks.map(subtrack => (
               <a
                 href={
-                  `https://www.${config.DOMAIN}/members/${handle}/details/` +
+                  `${config.URL.BASE}/members/${handle}/details/` +
                   `?track=${subtrack.track}&subTrack=${subtrack.subTrack}`
                 }
                 styleName="track"

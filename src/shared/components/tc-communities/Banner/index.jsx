@@ -2,14 +2,27 @@
  * Banner component
  */
 
+import _ from 'lodash';
 import React from 'react';
 import PT from 'prop-types';
 import { themr } from 'react-css-themr';
-import { Link } from 'react-router-dom';
 import defaultStyle from './style.scss';
+import Link from './Link';
 
 function Banner(props) {
   const { title, text, imageSrc, link, theme } = props;
+
+  let links;
+  if (link) {
+    links = (_.isArray(link) ? link : [link]).map(item => (
+      <Link
+        key={item.title}
+        theme={theme}
+        title={item.title}
+        url={item.url}
+      />
+    ));
+  }
 
   return (
     <div className={theme.container} style={{ backgroundImage: `url(${imageSrc})` }}>
@@ -18,11 +31,7 @@ function Banner(props) {
         <div className={theme.contentInner}>
           <h2 className={theme.title}>{title}</h2>
           <p className={theme.text}>{text}</p>
-          {link &&
-            <div className={theme.linkWrap}>
-              <Link to={link.url} className={theme.link}>{link.title}</Link>
-            </div>
-          }
+          {links}
         </div>
       </div>
     </div>
@@ -34,14 +43,19 @@ Banner.defaultProps = {
   theme: {},
 };
 
+const LinkShape = PT.shape({
+  title: PT.string.isRequired,
+  url: PT.string.isRequired,
+});
+
 Banner.propTypes = {
   imageSrc: PT.string.isRequired,
   title: PT.string.isRequired,
   text: PT.string.isRequired,
-  link: PT.shape({
-    title: PT.string.isRequired,
-    url: PT.string.isRequired,
-  }),
+  link: PT.oneOfType([
+    PT.arrayOf(LinkShape),
+    LinkShape,
+  ]),
   theme: PT.shape({
     container: PT.string,
     content: PT.string,

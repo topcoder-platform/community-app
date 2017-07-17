@@ -42,8 +42,6 @@ import Community2Home from 'components/tc-communities/communities/community-2/Ho
 import Community2Learn from 'components/tc-communities/communities/community-2/Learn';
 
 import TaskforceHome from 'components/tc-communities/communities/taskforce/Home';
-import TaskforceLearn from
-'components/tc-communities/communities/taskforce/Learn';
 
 import AccessDenied, {
   CAUSE as ACCESS_DENIED_CAUSE,
@@ -113,7 +111,6 @@ class Page extends Component {
     } else if (communityId === 'taskforce') {
       switch (pageId) {
         case 'home': pageContent = <TaskforceHome />; break;
-        case 'learn': pageContent = <TaskforceLearn />; break;
         default: break;
       }
     } else if (communityId.match(/example-theme-\w/)) {

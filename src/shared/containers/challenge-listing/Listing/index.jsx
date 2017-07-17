@@ -11,6 +11,7 @@
 
 // import _ from 'lodash';
 import actions from 'actions/challenge-listing';
+import config from 'utils/config';
 import filterPanelActions from 'actions/challenge-listing/filter-panel';
 import headerActions from 'actions/topcoder_header';
 import logger from 'utils/logger';
@@ -22,17 +23,20 @@ import ChallengeListing from 'components/challenge-listing';
 import Banner from 'components/tc-communities/Banner';
 import NewsletterSignup from 'components/tc-communities/NewsletterSignup';
 import sidebarActions from 'actions/challenge-listing/sidebar';
+import communityActions from 'actions/tc-communities';
 import { BUCKETS } from 'utils/challenge-listing/buckets';
+import { combine, mapToBackend } from 'utils/challenge-listing/filter';
 import style from './styles.scss';
 
 let mounted = false;
 
 class ListingContainer extends React.Component {
 
-  constructor(props) {
-    super(props);
-    this.masterFilterFunc = this.masterFilterFunc.bind(this);
-  }
+  /* TODO: We should add here an automatic periodical update of the loaded
+   * challenges, say once each 5 minutes. Otherwise, it is possible that a
+   * visitor has the same challenge listing page open for too long, navigating
+   * withing it, without triggering refresh of the cached challenges - not
+   * good! */
 
   componentDidMount() {
     this.props.markHeaderMenu();
@@ -44,6 +48,7 @@ class ListingContainer extends React.Component {
     if (mounted) {
       logger.error('Attempt to mount multiple instances of ChallengeListingPageContainer at the same time!');
     } else mounted = true;
+
     this.loadChallenges();
   }
 
@@ -64,41 +69,36 @@ class ListingContainer extends React.Component {
     else {
       logger.error('A mounted instance of ChallengeListingPageContainer is not tracked as mounted!');
     }
+    if (this.autoRefreshTimerId) clearTimeout(this.autoRefreshTimerId);
+  }
+
+  /* Evaluates the backend challenge filter most suitable for the current state
+   * of the active frontend filters. */
+  getBackendFilter() {
+    let filter = this.props.filter;
+    let communityFilter = this.props.communityFilters.find(item =>
+      item.id === this.props.selectedCommunityId);
+    if (communityFilter) communityFilter = communityFilter.filter;
+    if (communityFilter) filter = combine(filter, communityFilter);
+    return mapToBackend(filter);
   }
 
   loadChallenges() {
+    const backendFilter = this.getBackendFilter();
     this.props.getCommunityFilters(this.props.auth);
     this.props.getAllActiveChallenges(this.props.auth.tokenV3);
-    this.props.getDraftChallenges(0, this.props.auth.tokenV3);
-    this.props.getPastChallenges(0, this.props.auth.tokenV3);
-  }
 
-  /**
-   * It takes one challenge object and check if it passes master filter
-   * which defines which challenges should be displayed for the current community
-   *
-   * @param  {Object}  challenge object
-   * @return {boolean} whether the item pass filter or not
-   */
-  masterFilterFunc(item) {
-    let keyword;
+    /* No need to fetch draft challenges for now: we are not showing the
+     * Upcoming Challenges bucket, for now. */
+    // this.props.getDraftChallenges(0, backendFilter, this.props.auth.tokenV3);
 
-    // if there is tag in props, use it as keyword
-    if (this.props.tag) {
-      keyword = this.props.tag;
+    this.props.getPastChallenges(0, backendFilter, this.props.auth.tokenV3);
 
-    // if there is defined keyword param in the route, use it as keyword
-    } else if (this.props.match && this.props.match.params && this.props.match.params.keyword) {
-      keyword = this.props.match.params.keyword;
-
-    // if keyword is not defined at all, don't filter
-    } else {
-      return true;
+    if (config.CHALLENGE_LISTING_AUTO_REFRESH) {
+      if (this.autoRefreshTimerId) clearTimeout(this.autoRefreshTimerId);
+      this.autoRefreshTimerId = setTimeout(() =>
+        this.loadChallenges(), 1000 * config.CHALLENGE_LISTING_AUTO_REFRESH);
     }
-
-    const techs = ` ${item.technologies.toLowerCase()} `;
-
-    return !!(techs.indexOf(` ${keyword.toLowerCase()} `) >= 0);
   }
 
   render() {
@@ -113,24 +113,36 @@ class ListingContainer extends React.Component {
       challengeSubtracks,
       challengeTags,
       challengeGroupId,
+      filter,
       getDraftChallenges,
       getPastChallenges,
       lastRequestedPageOfDraftChallenges,
       lastRequestedPageOfPastChallenges,
+      lastUpdateOfActiveChallenges,
       listingOnly,
       selectBucket,
     } = this.props;
 
     let loadMoreDraft;
     if (!allDraftChallengesLoaded) {
-      loadMoreDraft = () =>
-        getDraftChallenges(1 + lastRequestedPageOfDraftChallenges, tokenV3);
+      loadMoreDraft = () => {
+        getDraftChallenges(
+          1 + lastRequestedPageOfDraftChallenges,
+          this.getBackendFilter(),
+          tokenV3,
+        );
+      };
     }
 
     let loadMorePast;
     if (!allPastChallengesLoaded) {
-      loadMorePast = () =>
-        getPastChallenges(1 + lastRequestedPageOfPastChallenges, tokenV3);
+      loadMorePast = () => {
+        getPastChallenges(
+          1 + lastRequestedPageOfPastChallenges,
+          this.getBackendFilter(),
+          tokenV3,
+        );
+      };
     }
 
     let communityFilter = this.props.communityFilters.find(item =>
@@ -162,7 +174,8 @@ class ListingContainer extends React.Component {
           challengeTags={challengeTags}
           communityFilter={communityFilter}
           communityName={this.props.communityName}
-          filterState={this.props.filter}
+          filterState={filter}
+          lastUpdateOfActiveChallenges={lastUpdateOfActiveChallenges}
           loadingChallenges={Boolean(this.props.loadingActiveChallengesUUID)}
           loadingDraftChallenges={Boolean(this.props.loadingDraftChallengesUUID)}
           loadingPastChallenges={Boolean(this.props.loadingPastChallengesUUID)}
@@ -179,12 +192,7 @@ class ListingContainer extends React.Component {
           }}
           setSort={this.props.setSort}
           sorts={this.props.sorts}
-
-          /* OLD PROPS BELOW */
           challengeGroupId={challengeGroupId}
-          filterFromUrl={this.props.location.hash}
-          masterFilterFunc={this.masterFilterFunc}
-          isAuth={!!this.props.auth.user}
           auth={this.props.auth}
         />
         { !listingOnly ? (
@@ -200,12 +208,11 @@ class ListingContainer extends React.Component {
 }
 
 ListingContainer.defaultProps = {
+  selectedCommunityId: '',
   challengeGroupId: '',
   communityId: null,
   communityName: null,
   listingOnly: false,
-  match: null,
-  tag: null,
 };
 
 ListingContainer.propTypes = {
@@ -230,6 +237,7 @@ ListingContainer.propTypes = {
   getPastChallenges: PT.func.isRequired,
   lastRequestedPageOfDraftChallenges: PT.number.isRequired,
   lastRequestedPageOfPastChallenges: PT.number.isRequired,
+  lastUpdateOfActiveChallenges: PT.number.isRequired,
   loadingActiveChallengesUUID: PT.string.isRequired,
   loadingDraftChallengesUUID: PT.string.isRequired,
   loadingPastChallengesUUID: PT.string.isRequired,
@@ -238,27 +246,17 @@ ListingContainer.propTypes = {
   selectCommunity: PT.func.isRequired,
   setFilter: PT.func.isRequired,
   activeBucket: PT.string.isRequired,
-  selectedCommunityId: PT.string.isRequired,
+  selectedCommunityId: PT.string,
   sorts: PT.shape().isRequired,
   setSearchText: PT.func.isRequired,
   setSort: PT.func.isRequired,
-
-  /* OLD PROPS BELOW */
   listingOnly: PT.bool,
-  match: PT.shape({
-    params: PT.shape({
-      keyword: PT.string,
-    }),
-  }),
   challengeGroupId: PT.string,
-  tag: PT.string,
-  location: PT.shape({
-    hash: PT.string,
-  }).isRequired,
 };
 
 const mapStateToProps = (state) => {
   const cl = state.challengeListing;
+  const tc = state.tcCommunities;
   return {
     auth: state.auth,
     allDraftChallengesLoaded: cl.allDraftChallengesLoaded,
@@ -267,9 +265,10 @@ const mapStateToProps = (state) => {
     challenges: cl.challenges,
     challengeSubtracks: cl.challengeSubtracks,
     challengeTags: cl.challengeTags,
-    communityFilters: cl.communityFilters,
+    communityFilters: [{ id: '', name: 'All' }].concat(tc.communityFilters),
     lastRequestedPageOfDraftChallenges: cl.lastRequestedPageOfDraftChallenges,
     lastRequestedPageOfPastChallenges: cl.lastRequestedPageOfPastChallenges,
+    lastUpdateOfActiveChallenges: cl.lastUpdateOfActiveChallenges,
     loadingActiveChallengesUUID: cl.loadingActiveChallengesUUID,
     loadingDraftChallengesUUID: cl.loadingDraftChallengesUUID,
     loadingPastChallengesUUID: cl.loadingPastChallengesUUID,
@@ -286,6 +285,7 @@ function mapDispatchToProps(dispatch) {
   const ah = headerActions.topcoderHeader;
   const fpa = filterPanelActions.challengeListing.filterPanel;
   const sa = sidebarActions.challengeListing.sidebar;
+  const ca = communityActions.tcCommunity;
   return {
     dropChallenges: () => dispatch(a.dropChallenges()),
     getAllActiveChallenges: (token) => {
@@ -293,16 +293,16 @@ function mapDispatchToProps(dispatch) {
       dispatch(a.getAllActiveChallengesInit(uuid));
       dispatch(a.getAllActiveChallengesDone(uuid, token));
     },
-    getCommunityFilters: auth => dispatch(a.getCommunityFilters(auth)),
-    getDraftChallenges: (page, token) => {
+    getCommunityFilters: auth => dispatch(ca.getCommunityFilters(auth)),
+    getDraftChallenges: (page, filter, token) => {
       const uuid = shortid();
       dispatch(a.getDraftChallengesInit(uuid, page));
-      dispatch(a.getDraftChallengesDone(uuid, page, token));
+      dispatch(a.getDraftChallengesDone(uuid, page, filter, token));
     },
-    getPastChallenges: (page, token) => {
+    getPastChallenges: (page, filter, token) => {
       const uuid = shortid();
       dispatch(a.getPastChallengesInit(uuid, page));
-      dispatch(a.getPastChallengesDone(uuid, page, token));
+      dispatch(a.getPastChallengesDone(uuid, page, filter, token));
     },
     selectBucket: bucket => dispatch(sa.selectBucket(bucket)),
     selectCommunity: id => dispatch(a.selectCommunity(id)),

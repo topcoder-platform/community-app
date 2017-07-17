@@ -183,6 +183,123 @@ export function getFilterFunction(state) {
   && filterByRegistrationOpen(challenge, state);
 }
 
+/* ************************************************************************** */
+/* Below is a group of functions that allow to combine multiple challenge
+ * filters together. If you are not adding a new filter functionality, just
+ * look for the exported combine(..) function.
+ *
+ * All other helper functions in this section take two filter state objects as
+ * arguments, and combine some of the filter rules, merging the resulting one
+ * into the first filter state object.
+ */
+
+/* NOTE: Current implementation ignores plenty of rules when combining filters.
+ * It is fine for the only current use case: we use combine just before calling
+ * to mapToBackend(..) function, to map several frontend filters to the
+ * matching backend one. The way mapToBackend(..) works, this ignoring of
+ * some rules is not a big deal (resulting backend filter will be not that
+ * specific, as it probably could be, but due to the current api limitations
+ * we cannot be too specific anyway). If you are going to use this for anything
+ * else - thing twice what are you doing? If you need it for filtering, it is
+ * just a lot easier to filter by each frontend filter in turns, rather than
+ * combine them into a single filter. */
+
+/* This ESLint rule is disabled for combineXXX(..) functions, as they are
+ * intended to be used only internally, with a newly constructed object
+ * passed in as the first argument (i.e. we take care that there is no
+ * side-effects to mutate it within this module, and these functions
+ * are not exported outside of the module). */
+/* eslint-disable no-param-reassign */
+
+function combineArrayRules(a, b, ruleName) {
+  if (a[ruleName] && b[ruleName]) {
+    a[ruleName] = _.intersection(a[ruleName], b[ruleName]);
+  } else if (b[ruleName]) a[ruleName] = b[ruleName];
+}
+
+function combineEndDate(a, b) {
+  if (a.endDate && b.endDate) {
+    a.endDate = moment.min(a.endDate, b.endDate).format();
+  } else if (b.endDate) a.endDate = b.endDate;
+}
+
+function combineStartDate(a, b) {
+  if (a.startDate && b.startDate) {
+    a.startDate = moment.max(a.startDate, b.startDate).format();
+  } else if (b.startDate) a.startDate = b.startDate;
+}
+
+function combineTracks(a, b) {
+  if (a.tracks && b.tracks) {
+    _.forIn(a.tracks, (value, key) => {
+      if (!b.tracks[key]) delete a.tracks[key];
+    });
+  } else if (b.tracks) a.tracks = b.tracks;
+}
+
+/* eslint-enable no-param-reassign */
+
+/**
+ * Combines multiple filter state objects together. Resulting state describes
+ * the filter, which matches only those challenges that satisfy each of the
+ * filters passed in as arguments.
+ *
+ * The main intended use of this function is to combine multiple frontend
+ * challenge filters into a single one, that can be mapped into the
+ * corresponding backend filter by mapToBackend(..) function.
+ *
+ * @param {Object} filters Input filter state objects to combine.
+ * @return {Object}
+ */
+export function combine(...filters) {
+  const res = {};
+  filters.forEach((filter) => {
+    combineEndDate(res, filter);
+    combineArrayRules(res, filter, 'groupIds');
+    /* TODO: The registrationOpen rule is just ignored for now. */
+    combineStartDate(res, filter);
+    combineArrayRules(res, filter, 'status');
+    combineArrayRules(res, filter, 'subtracks');
+    combineArrayRules(res, filter, 'tags');
+    /* TODO: The text rule is just ignored for now. */
+    combineTracks(res, filter);
+    /* TODO: The upcoming rule is just ignored for now. */
+    /* TODO: The users rule is just ignored for now. */
+  });
+  return res;
+}
+
+/* ************************************************************************** */
+/* Below is a group of function that allow to map a frontend filter into the
+ * corresponding backend (api) one. If you are not adding a new filter
+ * functionality, just look for the exported mapToBackend(..) function. */
+
+/**
+ * Maps the frontend challenge filter into the corresponding backend (api) one.
+ * As there is no 1:1 match between the frontend and backend challenge filters,
+ * the resulting backend filter is always equal or broader than the given
+ * frontend one; i.e. any challenge that satisfies the original frontend filter
+ * will pass the backend one, though some of the challenges that pass the
+ * backend filter may fail the frontend one.
+ *
+ * It is assumed that this function will help us to load challenges from the
+ * backend more specifically, though it does not prevent as from the need
+ * always perform the final filtering at the frontend side.
+ *
+ * @param {Object} filter
+ * @return {Object}
+ */
+export function mapToBackend(filter) {
+  const res = {};
+  if (filter.groupIds) res.groupIds = filter.groupIds.join(',');
+
+  /* NOTE: Right now the frontend challenge filter by tag works different,
+   * it looks for matches in the challenge name OR in the techs / platforms. */
+  // if (filter.tags) res.technologies = filter.tags.join(',');
+
+  return res;
+}
+
 /**
  * Returns clone of the state with the specified competition track removed.
  * @param {Object} state

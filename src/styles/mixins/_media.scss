@@ -45,6 +45,12 @@ $lg-width: 1280px;
   }
 }
 
+@mixin sm-and-up {
+  @media (min-width: #{$sm-width}) {
+    @content;
+  }
+}
+
 @mixin xs-to-sm {
   @media (min-width: #{$xs-width}) and (max-width: #{$md-width} - 1px) {
     @content;

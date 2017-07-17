@@ -102,11 +102,12 @@ function mapDispatchToProps(dispatch) {
 
 function mapStateToProps(state, ownProps) {
   const cl = state.challengeListing;
+  const tc = state.tcCommunities;
   return {
     ...ownProps,
     ...state.challengeListing.filterPanel,
     activeBucket: cl.sidebar.activeBucket,
-    communityFilters: cl.communityFilters,
+    communityFilters: [{ id: '', name: 'All' }].concat(tc.communityFilters),
     filterState: cl.filter,
     getAvailableFilterName: () => getAvailableFilterName(state),
     loadingKeywords: cl.loadingChallengeTags,

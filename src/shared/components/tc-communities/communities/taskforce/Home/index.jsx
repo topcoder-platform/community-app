@@ -14,8 +14,9 @@ import ResourceCard from 'components/tc-communities/ResourceCard';
 import NewsletterSignup from 'components/tc-communities/NewsletterSignup';
 import NewsSection from 'components/tc-communities/NewsSection';
 import PT from 'prop-types';
+import Text from 'components/tc-communities/Text';
 
-import GroupStats from 'containers/tc-communities/GroupStats';
+import CommunityStats from 'containers/tc-communities/CommunityStats';
 import JoinCommunity from 'containers/tc-communities/JoinCommunity';
 
 import IconRocket from '../../../../../../assets/images/tc-communities/rocket.svg';
@@ -28,44 +29,74 @@ export default function Home(props) {
   return (
     <main>
       <Banner
-        title="Wipro Crowd"
-        text="Wipro's Hybrid Crowd gives our vast ecosystem of customers and partners options to access new range of skills that provide new value services and efficiency options all over the world."
-        link={{
-          title: 'Compete Now',
-          url: 'challenges',
-        }}
+        title="Get work done faster with Topcoder TaskForce"
+        text="Time. It’s our most precious resource. You have projects and work where you need to go faster, we have amazing design and development talent, ready to work right now. Let’s get it done."
+        link={[{
+          title: 'Why Topcoder TaskForce',
+          url: '#why-topcoder-taskforce',
+        }, {
+          title: 'Create a Task Right Now',
+          url: '.',
+        }]}
         imageSrc="/themes/wipro/home/banner.jpg"
+        theme={{
+          content: style.BannerContent,
+          link: style.BannerLink,
+          linkWrap: style.BannerLinkWrapper,
+        }}
       />
 
-      <GroupStats />
+      <CommunityStats
+        /* TODO: Don't forget that stats are hard-coded here for demo-purposes!
+         * Should be switch back to stats from Redux store in future. */
+        stats={{
+          openTasks: 117,
+          numCompanies: 81,
+          work: '$16,542',
+        }}
+      />
 
       <JoinCommunity />
 
       <Section
+        anchor="why-topcoder-taskforce"
         theme={{
           container: style.linksContainer,
         }}
+        title="Why Topcoder TaskForce?"
       >
         <div>
           <ImageText
-            title="Improve Your Skills"
-            text="Our continuously evolving structured learning paths, constantly abreast of the latest, tailored for employees to deepen your knowledge, infuses important software capabilities that are industry specific and help you get the skills you need to succeed."
+            title="No Matchmaking, No&nbsp;Hoping"
+            text="Hope is not a strategy. While other sites that offer technology tasks ask you to do the heavy lifting from start to finish, Topcoder TaskForce is purposefully different. You will never be asked to surf a member base, muck through ratings, and ultimately make a decision that you hope is a strong one. On Topcoder TaskForce we first understand your goals and put the right talent in place so you can succeed with ease. Stop playing matchmaker and simply focus on what you want achieved. "
             link={{
-              title: 'Start Learning',
-              url: 'learn',
+              title: 'Launch a Task',
+              url: '.',
             }}
-            imageSrc="/themes/wipro/home/image-text-learn.jpg"
+            imageSrc="/themes/taskforce/home/image-text-do.jpg"
+            theme={{
+              container: style.ImageTextContainer,
+            }}
           />
           <ImageText
-            title="Get Involved"
-            text="Rewards program is intended to celebrate and recognize your contribution. Rewards for project contributions are given using ‘Reward Points’. Points earned translate into badges. Quarterly rewards are given away to the toppers of all categories."
+            title="Never Go It Alone"
+            text="On other sites it can feel as if you’re left on an island… a deserted island. With Topcoder not only are you paired with the right talent, but you are also provided your very own Copilot. Think of them as your task sherpa and they are all yours. They interface with you, discuss the work, make sure we’re all aligned and then work directly with the paired talent to get this executed for you. It’s like having your very own crowdsourcing concierge and it’s only available on Topcoder."
             link={{
-              title: 'Start Earning',
-              url: 'challenges',
+              title: 'Launch a Task',
+              url: '.',
             }}
-            imageSrc="/themes/wipro/home/image-text-do.jpg"
+            imageSrc="/themes/taskforce/home/working-desk.jpg"
           />
         </div>
+      </Section>
+
+      <Section
+        theme={{
+          container: style.WhatCanYouGetDone,
+        }}
+        title="What Can You Get Done?"
+      >
+        <Text><p>Through Topcoder TaskForce you can easily and quickly get quality design, development, and data tasks accomplished. No matchmaking, no searching for talent, simply tell us what you need done and we’ll take care of the rest.</p></Text>
       </Section>
 
       <Section
@@ -75,29 +106,26 @@ export default function Home(props) {
       >
         <ResourceCard
           icon={IconNetwork}
-          title="Up Your iOS and Swift Development Skills"
-          text="Pellentesque non dignissim neque. Nunc vel rhoncus nibh, ut tincidunt turpis. Integer ac enim pellentesque, adipiscing metus id, pharetra odio."
+          title="Top designers are ready to understand your vision and help you bring it to life fast."
           link={{
-            title: 'Browse resources',
-            url: 'learn',
+            title: 'Launch a Design Task',
+            url: '.',
           }}
         />
         <ResourceCard
           icon={IconMedal}
-          title="Take the First Steps to Stand Out in the Community"
-          text="Donec bibendum nunc sit amet tortor scelerisque luctus et sit amet mauris. Suspendisse felis sem, condimentum ullamcorper est sit amet, molestie"
+          title="Get a specialized developer working on your project today."
           link={{
-            title: 'Learn about badges',
-            url: 'leaderboard',
+            title: 'Launch a Development Task',
+            url: '.',
           }}
         />
         <ResourceCard
           icon={IconRocket}
-          title="Compete in Challenges and Win Cash"
-          text="Suspendisse felis sem, condimentum ullamcorper est sit amet, molestie mollis nulla. Etiam lorem orci, consequat ac magna quis, facilisis"
+          title="Data scientists and algorithmists are hard to come by, but we make it easy."
           link={{
-            title: 'Browse challenges',
-            url: 'challenges',
+            title: 'Launch a Data Science Task',
+            url: '.',
           }}
         />
       </Section>
@@ -105,8 +133,8 @@ export default function Home(props) {
       <NewsSection news={props.news} />
 
       <NewsletterSignup
-        title="Sign up for our newsletter"
-        text="Don’t miss out on the latest Topcoder IOS challenges and information!"
+        title="3 key crowdsourcing stories, 1x per month"
+        text="Get the Topcoder crowdsourcing newsletter, today!"
         imageSrc="/themes/wipro/subscribe-bg.jpg"
       />
 

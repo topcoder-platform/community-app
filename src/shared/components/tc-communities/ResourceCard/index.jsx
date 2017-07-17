@@ -27,13 +27,14 @@ function ResourceCard(props) {
 
 ResourceCard.defaultProps = {
   link: null,
+  text: '',
   theme: {},
 };
 
 ResourceCard.propTypes = {
   icon: PT.func.isRequired,
   title: PT.string.isRequired,
-  text: PT.string.isRequired,
+  text: PT.string,
   link: PT.shape({
     title: PT.string.isRequired,
     url: PT.string.isRequired,

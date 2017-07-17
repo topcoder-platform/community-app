@@ -722,30 +722,6 @@
       margin-right: auto;
       margin-bottom: 15px;
     }
-
-    @media only screen and (min-width: 768px) {
-      &:nth-child(2n + 1) {
-        margin-left: 15px;
-      }
-    }
-
-    @media only screen and (min-width: 870px) {
-      margin-left: 15px;
-
-      &:nth-child(3n) {
-        margin-left: 0;
-      }
-    }
-
-    @media only screen and (min-width: 1155px) {
-      &:nth-child(3n) {
-        margin-left: 15px;
-      }
-
-      &:nth-child(4n) {
-        margin-left: 0;
-      }
-    }
   }
 
   &.list-view {
@@ -800,7 +776,7 @@ a.tc-btn {
   position: relative;
 }
 
-.group-label {
+.community-label {
   background-color: #48f;
   padding: 2px 5px;
   border-radius: 2px;

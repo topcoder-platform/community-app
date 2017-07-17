@@ -41,8 +41,8 @@ const ChallengeTile = (props) => {
                 <div styleName="labels">
                   <p styleName="subtrack-color">{stripUnderscore(challenge.subTrack)}</p>
                   {
-                    challenge.groupLabel &&
-                    <p styleName="group-label">{challenge.groupLabel}</p>
+                    challenge.communityLabel &&
+                    <p styleName="community-label">{challenge.communityLabel}</p>
                   }
                 </div>
                 <ChallengeLinks challenge={challenge} viewMode={viewMode} />

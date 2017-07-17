@@ -17,26 +17,44 @@ const router = express.Router();
  */
 router.get('/', (req, res) => {
   const filters = [];
+  const list = [];
   const groups = new Set(req.query.groups || []);
   const communities = fs.readdirSync(__dirname);
-  communities.forEach((community) => {
-    try {
-      const path = `${__dirname}/${community}/metadata.json`;
-      const data = JSON.parse(fs.readFileSync(path, 'utf8'));
-      if (!data.authorizedGroupIds
-      || data.authorizedGroupIds.some(id => groups.has(id))) {
-        filters.push({
-          filter: data.challengeFilter || {},
-          id: data.communityId,
-          name: data.communityName,
-        });
+  /* TODO: Double-check, whether reponse in these two cases has the same format.
+   * It is apparently not a problem for the current use, but can be confusive
+   * in a long run. */
+  if (req.query.listAll === 'true') {
+    communities.forEach((community) => {
+      try {
+        const path = `${__dirname}/${community}/metadata.json`;
+        const data = JSON.parse(fs.readFileSync(path, 'utf8'));
+        list.push(data);
+      } catch (e) {
+        _.noop();
       }
-    } catch (e) {
-      _.noop();
-    }
-  });
-  filters.sort((a, b) => a.name.localeCompare(b.name));
-  res.json(filters);
+    });
+    list.sort((a, b) => a.communityName.localeCompare(b.communityName));
+    res.json(list);
+  } else {
+    communities.forEach((community) => {
+      try {
+        const path = `${__dirname}/${community}/metadata.json`;
+        const data = JSON.parse(fs.readFileSync(path, 'utf8'));
+        if (!data.authorizedGroupIds
+          || data.authorizedGroupIds.some(id => groups.has(id))) {
+          filters.push({
+            filter: data.challengeFilter || {},
+            id: data.communityId,
+            name: data.communityName,
+          });
+        }
+      } catch (e) {
+        _.noop();
+      }
+    });
+    filters.sort((a, b) => a.name.localeCompare(b.name));
+    res.json(filters);
+  }
 });
 
 /**

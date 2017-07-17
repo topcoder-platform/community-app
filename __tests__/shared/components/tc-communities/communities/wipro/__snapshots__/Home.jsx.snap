@@ -16,9 +16,10 @@ exports[`Snapshot match 1`] = `
     theme={Object {}}
     title="Wipro Crowd"
   />
-  <Connect(GroupStatsContainer) />
+  <Connect(CommunityStatsContainer) />
   <Connect(JoinCommunity) />
   <ThemedSection
+    anchor={null}
     composeTheme="deeply"
     link={null}
     mapThemrProps={[Function]}
@@ -36,11 +37,11 @@ exports[`Snapshot match 1`] = `
         link={
           Object {
             "title": "Start Learning",
-            "url": "learn",
+            "url": "https://topgear.wipro.com",
           }
         }
         mapThemrProps={[Function]}
-        text="Our continuously evolving structured learning paths, constantly abreast of the latest, tailored for employees to deepen your knowledge, infuses important software capabilities that are industry specific and help you get the skills you need to succeed."
+        text="Our continuously evolving structured learning paths, constantly abreast of the latest, tailored for employees to deepen your knowledge, infuses important software capabilities that are industry specific and help you get the skills you need to succeed. Click below to visit TopGear."
         theme={Object {}}
         title="Improve Your Skills"
       />
@@ -61,6 +62,7 @@ exports[`Snapshot match 1`] = `
     </div>
   </ThemedSection>
   <ThemedSection
+    anchor={null}
     composeTheme="deeply"
     link={null}
     mapThemrProps={[Function]}
@@ -77,13 +79,13 @@ exports[`Snapshot match 1`] = `
       link={
         Object {
           "title": "Browse resources",
-          "url": "learn",
+          "url": "https://topgear.wipro.com",
         }
       }
       mapThemrProps={[Function]}
       text="Pellentesque non dignissim neque. Nunc vel rhoncus nibh, ut tincidunt turpis. Integer ac enim pellentesque, adipiscing metus id, pharetra odio."
       theme={Object {}}
-      title="Up Your iOS and Swift Development Skills"
+      title="Up Your Development Skills"
     />
     <ThemedResourceCard
       composeTheme="deeply"
@@ -123,7 +125,7 @@ exports[`Snapshot match 1`] = `
     emailPlaceholder="Email address"
     imageSrc="/themes/wipro/subscribe-bg.jpg"
     mapThemrProps={[Function]}
-    text="Don’t miss out on the latest Topcoder IOS challenges and information!"
+    text="Don’t miss out on the latest challenges and information!"
     theme={Object {}}
     title="Sign up for our newsletter"
   />

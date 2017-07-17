@@ -16,9 +16,10 @@ exports[`Snapshot match 1`] = `
     theme={Object {}}
     title="Topcoder Product Development Community"
   />
-  <Connect(GroupStatsContainer) />
+  <Connect(CommunityStatsContainer) />
   <Connect(JoinCommunity) />
   <ThemedSection
+    anchor={null}
     composeTheme="deeply"
     link={null}
     mapThemrProps={[Function]}
@@ -61,6 +62,7 @@ exports[`Snapshot match 1`] = `
     </div>
   </ThemedSection>
   <ThemedSection
+    anchor={null}
     composeTheme="deeply"
     link={null}
     mapThemrProps={[Function]}

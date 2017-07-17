@@ -17,6 +17,7 @@ function onDone(state, action) {
     return {
       ...state,
       authorizedGroupIds: action.payload.authorizedGroupIds,
+      challengeFilter: action.payload.challengeFilter,
       challengeFilterTag: action.payload.challengeFilterTag,
       challengeGroupId: action.payload.groupId,
       communityId: action.payload.communityId,

@@ -88,7 +88,7 @@ export default function Bucket({
         ) : null
       }
       {
-        expanded && !expandable && loadMore && !loading ? (
+        !expandable && loadMore && !loading ? (
           <Waypoint onEnter={loadMore} />
         ) : null
       }

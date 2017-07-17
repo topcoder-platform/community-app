@@ -38,7 +38,10 @@ export function factory(req) {
     dashboard: dashboardFactory(req),
   }).then(reducers => combine((state) => {
     const res = { ...state };
-    if (req) res.subdomains = req.subdomains;
+    if (req) {
+      res.hostname = req.hostname;
+      res.subdomains = req.subdomains;
+    }
     return res;
   }, {
     ...reducers,

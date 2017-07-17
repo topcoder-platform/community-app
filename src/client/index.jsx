@@ -42,7 +42,7 @@ function authenticate(store) {
   if (firstAuth) {
     firstAuth = false;
     configureConnector({
-      connectorUrl: config.ACCOUNTS_APP_CONNECTOR_URL,
+      connectorUrl: config.URL.ACCOUNTS_APP_CONNECTOR,
       frameId: 'tc-accounts-iframe',
     });
   }

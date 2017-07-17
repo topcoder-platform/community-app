@@ -15,7 +15,7 @@ import NewsletterSignup from 'components/tc-communities/NewsletterSignup';
 import NewsSection from 'components/tc-communities/NewsSection';
 import PT from 'prop-types';
 
-import GroupStats from 'containers/tc-communities/GroupStats';
+import CommunityStats from 'containers/tc-communities/CommunityStats';
 import JoinCommunity from 'containers/tc-communities/JoinCommunity';
 
 import IconRocket from '../../../../../../assets/images/tc-communities/rocket.svg';
@@ -37,7 +37,7 @@ export default function Home(props) {
         imageSrc="/themes/wipro/home/banner.jpg"
       />
 
-      <GroupStats />
+      <CommunityStats />
 
       <JoinCommunity />
 
@@ -49,10 +49,10 @@ export default function Home(props) {
         <div>
           <ImageText
             title="Improve Your Skills"
-            text="Our continuously evolving structured learning paths, constantly abreast of the latest, tailored for employees to deepen your knowledge, infuses important software capabilities that are industry specific and help you get the skills you need to succeed."
+            text="Our continuously evolving structured learning paths, constantly abreast of the latest, tailored for employees to deepen your knowledge, infuses important software capabilities that are industry specific and help you get the skills you need to succeed. Click below to visit TopGear."
             link={{
               title: 'Start Learning',
-              url: 'learn',
+              url: 'https://topgear.wipro.com',
             }}
             imageSrc="/themes/wipro/home/image-text-learn.jpg"
           />
@@ -75,11 +75,11 @@ export default function Home(props) {
       >
         <ResourceCard
           icon={IconNetwork}
-          title="Up Your iOS and Swift Development Skills"
+          title="Up Your Development Skills"
           text="Pellentesque non dignissim neque. Nunc vel rhoncus nibh, ut tincidunt turpis. Integer ac enim pellentesque, adipiscing metus id, pharetra odio."
           link={{
             title: 'Browse resources',
-            url: 'learn',
+            url: 'https://topgear.wipro.com',
           }}
         />
         <ResourceCard
@@ -106,7 +106,7 @@ export default function Home(props) {
 
       <NewsletterSignup
         title="Sign up for our newsletter"
-        text="Don’t miss out on the latest Topcoder IOS challenges and information!"
+        text="Don’t miss out on the latest challenges and information!"
         imageSrc="/themes/wipro/subscribe-bg.jpg"
       />
 

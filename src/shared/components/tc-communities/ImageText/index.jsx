@@ -5,7 +5,7 @@
 import React from 'react';
 import PT from 'prop-types';
 import { themr } from 'react-css-themr';
-import { Link } from 'react-router-dom';
+import { Link } from 'utils/router';
 import defaultStyle from './style.scss';
 
 function ImageText(props) {

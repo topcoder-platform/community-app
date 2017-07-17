@@ -10,6 +10,7 @@ import actions from 'actions/challenge-listing/sidebar';
 import logger from 'utils/logger';
 import { BUCKETS } from 'utils/challenge-listing/buckets';
 import { handleActions } from 'redux-actions';
+import { updateQuery } from 'utils/url';
 
 const MAX_FILTER_NAME_LENGTH = 35;
 
@@ -108,6 +109,28 @@ function onResetFilterName(state, action) {
   return { ...state, savedFilters };
 }
 
+function onSelectBucket(state, { payload }) {
+  switch (payload) {
+    case BUCKETS.ALL:
+    case BUCKETS.SAVED_FILTER:
+      updateQuery({ bucket: undefined });
+      break;
+    default:
+      updateQuery({ bucket: payload });
+      break;
+  }
+  return { ...state, activeBucket: payload };
+}
+
+function onSelectSavedFilter(state, { payload }) {
+  updateQuery({ bucket: undefined });
+  return {
+    ...state,
+    activeBucket: BUCKETS.SAVED_FILTER,
+    activeSavedFilter: payload,
+  };
+}
+
 /**
  * Handles outcome of the updateSavedFilterAction.
  * @param {Object} state
@@ -139,13 +162,8 @@ function create(initialState = {}) {
     }),
     [a.resetFilterName]: onResetFilterName,
     [a.saveFilter]: onFilterSaved,
-    [a.selectBucket]: (state, { payload }) => ({
-      ...state, activeBucket: payload }),
-    [a.selectSavedFilter]: (state, { payload }) => ({
-      ...state,
-      activeBucket: BUCKETS.SAVED_FILTER,
-      activeSavedFilter: payload,
-    }),
+    [a.selectBucket]: onSelectBucket,
+    [a.selectSavedFilter]: onSelectSavedFilter,
     [a.setEditSavedFiltersMode]: (state, { payload }) => ({
       ...state,
       editSavedFiltersMode: payload,
@@ -159,8 +177,14 @@ function create(initialState = {}) {
   }));
 }
 
-export function factory() {
-  return Promise.resolve(create());
+export function factory(req) {
+  const state = {};
+
+  if (req) {
+    state.activeBucket = req.query.bucket;
+  }
+
+  return Promise.resolve(create(state));
 }
 
 export default create();
