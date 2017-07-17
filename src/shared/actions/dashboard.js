@@ -18,6 +18,12 @@ function getSubtrackRanks(tokenV3, handle) {
   .getSubtrackRanks(handle);
 }
 
+/**
+ * Loads SRM matches.
+ * @param {String} tokenV3
+ * @param {String} handle
+ * @param {Object} params
+ */
 function getSRMs(tokenV3, handle, params) {
   const service = srmService(tokenV3);
   const promises = [service.getSRMs(params)];

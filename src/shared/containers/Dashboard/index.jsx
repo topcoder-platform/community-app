@@ -14,6 +14,7 @@ import config from 'utils/config';
 import actions from 'actions/dashboard';
 import cActions from 'actions/challenge-listing';
 import communityActions from 'actions/tc-communities';
+import moment from 'moment';
 import statsActions from 'actions/stats';
 import { processActiveDevDesignChallenges } from 'utils/tc';
 import Header from 'components/Dashboard/Header';
@@ -42,7 +43,7 @@ class DashboardPageContainer extends React.Component {
     this.props.getBlogs();
     this.props.getCommunityList();
     if (tokenV3 && user) {
-      this.props.getAllActiveChallenges(tokenV3);
+      this.loadChallenges();
       this.props.getSubtrackRanks(tokenV3, user.handle);
       this.props.getSRMs(tokenV3, user.handle);
       this.props.getIosRegistration(tokenV3, user.userId);
@@ -65,7 +66,7 @@ class DashboardPageContainer extends React.Component {
 
     if (tokenV3 && tokenV3 !== prevProps.auth.tokenV3) {
       setImmediate(() => {
-        this.props.getAllActiveChallenges(tokenV3);
+        this.loadChallenges();
         this.props.getSubtrackRanks(tokenV3, user.handle);
         this.props.getSRMs(tokenV3, user.handle);
         this.props.getIosRegistration(tokenV3, user.userId);
@@ -82,6 +83,15 @@ class DashboardPageContainer extends React.Component {
     }
   }
 
+  loadChallenges() {
+    this.props.getAllActiveChallenges(this.props.auth.tokenV3);
+    if (config.CHALLENGE_LISTING_AUTO_REFRESH) {
+      if (this.autoRefreshTimerId) clearTimeout(this.autoRefreshTimerId);
+      this.autoRefreshTimerId = setTimeout(() =>
+        this.loadChallenges(), 1000 * config.CHALLENGE_LISTING_AUTO_REFRESH);
+    }
+  }
+
   render() {
     const {
       auth: { profile, user, tokenV3 },
@@ -90,6 +100,7 @@ class DashboardPageContainer extends React.Component {
         loadingSubtrackRanks, loadingSRMs, loadingBlogs,
       },
       challengeListing: { challenges },
+      lastUpdateOfActiveChallenges,
       tcCommunities: { communityFilters, communityList },
       registerIos,
       stats,
@@ -101,8 +112,24 @@ class DashboardPageContainer extends React.Component {
       _.filter(challenges, c => c.platforms === 'iOS'),
     );
 
-    const loadingActiveChallenges =
+  /* When we automatically reload cached challenge objects, we do not want to
+   * show the loading state, if the currently loaded challenges are not very
+   * outdated (i.e. no need to show placeholders in the situations when it is
+   * fine to reload silently, keeping showing the previously cached challenges,
+   * while the reload is going on).
+   *
+   * In this code lastUpdateOfActiveChallenges serves as an adequate indication
+   * when the challenges were fetched the last time, and the magic numbers are:
+   * 1000 - to conver config.CHALLENGE_LISTING_AUTO_REFRESH from seconds to ms.
+   * 1.5 - a reasonable margin factor, to decide when we consider already cached
+   * challenges too old to display while the reload takes place.
+   */
+    let loadingActiveChallenges =
       Boolean(this.props.challengeListing.loadingActiveChallengesUUID);
+    if (loadingActiveChallenges && config.CHALLENGE_LISTING_AUTO_REFRESH) {
+      const outage = moment().diff(lastUpdateOfActiveChallenges);
+      loadingActiveChallenges = outage > 1.5 * 1000 * config.CHALLENGE_LISTING_AUTO_REFRESH;
+    }
 
     return (
       <div styleName="dashboard-container">
@@ -220,6 +247,7 @@ DashboardPageContainer.propTypes = {
   getCommunityStats: PT.func.isRequired,
   getCommunityList: PT.func.isRequired,
   getCommunityFilters: PT.func.isRequired,
+  lastUpdateOfActiveChallenges: PT.number.isRequired,
 };
 
 DashboardPageContainer.defaultProps = {
@@ -234,6 +262,7 @@ const mapStateToProps = state => ({
   auth: state.auth,
   dashboard: state.dashboard,
   challengeListing: state.challengeListing,
+  lastUpdateOfActiveChallenges: state.challengeListing.lastUpdateOfActiveChallenges,
   tcCommunities: state.tcCommunities,
   stats: state.stats,
 });

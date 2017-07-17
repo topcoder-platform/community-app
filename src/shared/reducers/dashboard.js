@@ -1,8 +1,16 @@
+/**
+ * Reducer for the "dashboard" section of Redux store.
+ */
 
 import _ from 'lodash';
 import actions from 'actions/dashboard';
 import { handleActions } from 'redux-actions';
 
+/**
+ * Creates a new dashboard reducer with the specified initial state.
+ * @param {Object} initialState
+ * @return {Function} Reducer.
+ */
 function create(initialState) {
   const a = actions.dashboard;
   return handleActions({
