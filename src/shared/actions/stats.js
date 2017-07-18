@@ -24,7 +24,6 @@ function getCommunityStats(community, challenges, token) {
   const filtered = _.filter(challenges, Filter.getFilterFunction(community.challengeFilter || {}));
   const totalPrize = filtered.reduce((total, challenge) => total + (challenge.totalPrize || 0), 0);
   const groupService = getGroupService(token);
-  const groupId = community.challengeGroupId || community.groupId;
   const result = {
     communityId: community.communityId,
     stats: {
@@ -33,12 +32,12 @@ function getCommunityStats(community, challenges, token) {
       openPrizes: `$${totalPrize.toLocaleString()}`,
     },
   };
-  if (groupId) {
-    return groupService.getMembers(community.challengeGroupId || community.groupId)
-        .then((members) => {
-          result.numChallenges = members.length;
-          return result;
-        }).catch(() => result);
+  if (community.groupId) {
+    return groupService.getMembers(community.groupId)
+    .then((members) => {
+      result.stats.numMembers = members.length;
+      return result;
+    }).catch(() => result);
   }
   return result;
 }

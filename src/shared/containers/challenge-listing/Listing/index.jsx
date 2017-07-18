@@ -112,7 +112,7 @@ class ListingContainer extends React.Component {
       challenges,
       challengeSubtracks,
       challengeTags,
-      challengeGroupId,
+      groupId,
       filter,
       getDraftChallenges,
       getPastChallenges,
@@ -192,7 +192,7 @@ class ListingContainer extends React.Component {
           }}
           setSort={this.props.setSort}
           sorts={this.props.sorts}
-          challengeGroupId={challengeGroupId}
+          groupId={groupId}
           auth={this.props.auth}
         />
         { !listingOnly ? (
@@ -209,7 +209,7 @@ class ListingContainer extends React.Component {
 
 ListingContainer.defaultProps = {
   selectedCommunityId: '',
-  challengeGroupId: '',
+  groupId: '',
   communityId: null,
   communityName: null,
   listingOnly: false,
@@ -254,7 +254,7 @@ ListingContainer.propTypes = {
   setSearchText: PT.func.isRequired,
   setSort: PT.func.isRequired,
   listingOnly: PT.bool,
-  challengeGroupId: PT.string,
+  groupId: PT.string,
 };
 
 const mapStateToProps = (state) => {

@@ -85,7 +85,7 @@ export default function ChallengeListing(props) {
   return (
     <div styleName="ChallengeFiltersExample">
       <ChallengeFilters
-        challengeGroupId={props.challengeGroupId}
+        groupId={props.groupId}
         communityName={props.communityName}
         setCardType={_.noop/* cardType => this.setCardType(cardType) */}
         isCardTypeSet={'Challenges' /* this.state.currentCardType */}
@@ -137,7 +137,7 @@ export default function ChallengeListing(props) {
 }
 
 ChallengeListing.defaultProps = {
-  challengeGroupId: '',
+  groupId: '',
   communityFilter: null,
   communityName: null,
   loadMoreDraft: null,
@@ -161,6 +161,6 @@ ChallengeListing.propTypes = {
   setFilterState: PT.func.isRequired,
   setSort: PT.func.isRequired,
   sorts: PT.shape().isRequired,
-  challengeGroupId: PT.string,
+  groupId: PT.string,
   auth: PT.shape(),
 };

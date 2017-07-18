@@ -148,7 +148,7 @@ class Page extends Component {
         break;
       case 'challenges':
         pageContent = (<ChallengeListing
-          challengeGroupId={this.props.meta.challengeGroupId}
+          groupId={this.props.meta.groupId}
           communityId={this.props.meta.communityId}
           communityName={this.props.meta.communityName}
           tag={this.props.meta.challengeFilterTag}
@@ -234,7 +234,7 @@ Page.propTypes = {
   meta: PT.shape({
     authorizedGroupIds: PT.arrayOf(PT.string),
     challengeFilterTag: PT.string,
-    challengeGroupId: PT.string,
+    groupId: PT.string,
     communityId: PT.string,
     communityName: PT.string,
     communitySelector: PT.arrayOf(PT.shape()),
