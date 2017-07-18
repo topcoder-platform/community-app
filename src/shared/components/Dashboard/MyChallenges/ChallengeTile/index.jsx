@@ -3,8 +3,8 @@ import PT from 'prop-types';
 import cn from 'classnames';
 
 import { stripUnderscore, challengeLinks as getLink } from 'utils/tc';
-import ChallengeLinks from './ChallengeLinks';
-import './ChallengeTile.scss';
+import ChallengeLinks from '../ChallengeLinks';
+import './style.scss';
 
 function listRoles(roles) {
   if (!roles) {

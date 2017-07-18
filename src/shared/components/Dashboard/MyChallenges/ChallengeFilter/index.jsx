@@ -4,7 +4,7 @@ import React from 'react';
 import PT from 'prop-types';
 import cn from 'classnames';
 
-import './ChallengeFilter.scss';
+import './style.scss';
 
 const ChallengeFilter = (props) => {
   const { communities, selectedCommunityId, selectCommunity } = props;

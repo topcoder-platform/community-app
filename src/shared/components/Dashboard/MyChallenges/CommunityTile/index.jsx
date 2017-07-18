@@ -4,7 +4,7 @@ import React from 'react';
 import PT from 'prop-types';
 import cn from 'classnames';
 
-import './CommunityTile.scss';
+import './style.scss';
 
 const CommunityTile = (props) => {
   const { community, stats, registered } = props;

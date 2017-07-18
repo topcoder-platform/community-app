@@ -107,6 +107,9 @@
   }
 
   .show-only {
+    @include roboto;
+
+    color: $tc-gray-80;
     position: absolute;
     bottom: 30px;
     right: 55px;
@@ -212,7 +215,7 @@
       .items {
         flex: 1;
         display: flex;
-        justify-content: space-between;
+        justify-content: center;
       }
 
       .no-challenges {
