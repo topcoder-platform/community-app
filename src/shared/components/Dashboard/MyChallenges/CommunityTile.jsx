@@ -42,7 +42,12 @@ const CommunityTile = (props) => {
 
 CommunityTile.propTypes = {
   stats: PT.shape(),
-  community: PT.shape(),
+  community: PT.shape({
+    communityId: PT.string.isRequired,
+    communityName: PT.string.isRequired,
+    description: PT.string.isRequired,
+    image: PT.string.isRequired,
+  }),
   registered: PT.bool,
 };
 

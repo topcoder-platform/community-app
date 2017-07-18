@@ -31,9 +31,9 @@ class DashboardPageContainer extends React.Component {
 
   componentDidMount() {
     const {
-      auth: { tokenV2, user, tokenV3, profile },
+      auth: { tokenV2, user, tokenV3 },
       challengeListing: { challenges },
-      tcCommunities: { communityList },
+      tcCommunities: { list: communityList },
       getCommunityStats,
     } = this.props;
     if (!tokenV2) {
@@ -41,7 +41,7 @@ class DashboardPageContainer extends React.Component {
       return false;
     }
     this.props.getBlogs();
-    this.props.getCommunityList();
+    this.props.getCommunityList(this.props.auth);
     if (tokenV3 && user) {
       this.loadChallenges();
       this.props.getSubtrackRanks(tokenV3, user.handle);
@@ -50,9 +50,6 @@ class DashboardPageContainer extends React.Component {
       this.props.getUserFinancials(tokenV3, user.handle);
       _.forEach(communityList, c => getCommunityStats(c, challenges, tokenV3));
     }
-    if (profile) {
-      this.props.getCommunityFilters(this.props.auth);
-    }
     return true;
   }
 
@@ -60,7 +57,7 @@ class DashboardPageContainer extends React.Component {
     const {
       auth: { user, tokenV3, profile },
       challengeListing: { challenges },
-      tcCommunities: { communityList },
+      tcCommunities: { list: communityList },
       getCommunityStats,
     } = this.props;
 
@@ -75,10 +72,10 @@ class DashboardPageContainer extends React.Component {
       });
     }
     if (profile && !prevProps.auth.profile) {
-      setImmediate(() => this.props.getCommunityFilters(this.props.auth));
+      setImmediate(() => this.props.getCommunityList(this.props.auth));
     }
     if ((challenges !== prevProps.challengeListing.challenges
-      || communityList !== prevProps.tcCommunities.communityList) && tokenV3) {
+      || communityList !== prevProps.tcCommunities.list) && tokenV3) {
       _.forEach(communityList, c => getCommunityStats(c, challenges, tokenV3));
     }
   }
@@ -101,7 +98,7 @@ class DashboardPageContainer extends React.Component {
       },
       challengeListing: { challenges },
       lastUpdateOfActiveChallenges,
-      tcCommunities: { communityFilters, communityList },
+      tcCommunities: { list: communityList },
       registerIos,
       stats,
     } = this.props;
@@ -155,7 +152,6 @@ class DashboardPageContainer extends React.Component {
                 !loadingActiveChallenges &&
                 <MyChallenges
                   challenges={myChallenges.slice(0, 8)}
-                  communityFilters={communityFilters}
                   communityList={communityList}
                   stats={stats}
                   groups={profile ? profile.groups : []}
@@ -235,7 +231,9 @@ DashboardPageContainer.propTypes = {
   auth: PT.shape(),
   dashboard: PT.shape(),
   challengeListing: PT.shape(),
-  tcCommunities: PT.shape(),
+  tcCommunities: PT.shape({
+    list: PT.arrayOf(PT.shape()).isRequired,
+  }),
   stats: PT.shape(),
   getAllActiveChallenges: PT.func.isRequired,
   getSubtrackRanks: PT.func.isRequired,
@@ -246,7 +244,6 @@ DashboardPageContainer.propTypes = {
   getUserFinancials: PT.func.isRequired,
   getCommunityStats: PT.func.isRequired,
   getCommunityList: PT.func.isRequired,
-  getCommunityFilters: PT.func.isRequired,
   lastUpdateOfActiveChallenges: PT.number.isRequired,
 };
 
@@ -298,8 +295,7 @@ const mapDispatchToProps = dispatch => ({
   getUserFinancials: (tokenV3, handle) => {
     dispatch(actions.dashboard.getUserFinancials(tokenV3, handle));
   },
-  getCommunityFilters: auth => dispatch(communityActions.tcCommunity.getCommunityFilters(auth)),
-  getCommunityList: () => dispatch(communityActions.tcCommunity.getCommunityList()),
+  getCommunityList: auth => dispatch(communityActions.tcCommunity.getList(auth)),
   getCommunityStats: (community, challenges, token) =>
     dispatch(statsActions.stats.getCommunityStats(community, challenges, token)),
 });

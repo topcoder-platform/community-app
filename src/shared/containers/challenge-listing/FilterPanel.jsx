@@ -107,7 +107,7 @@ function mapStateToProps(state, ownProps) {
     ...ownProps,
     ...state.challengeListing.filterPanel,
     activeBucket: cl.sidebar.activeBucket,
-    communityFilters: [{ id: '', name: 'All' }].concat(tc.communityFilters),
+    communityFilters: [{ communityId: '', communityName: 'All' }].concat(tc.list),
     filterState: cl.filter,
     getAvailableFilterName: () => getAvailableFilterName(state),
     loadingKeywords: cl.loadingChallengeTags,

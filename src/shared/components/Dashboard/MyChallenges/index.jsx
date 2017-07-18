@@ -55,17 +55,17 @@ export default class MyChallenges extends React.Component {
     let challenges = this.props.challenges;
     const communityId = this.state.selectedCommunityId;
     if (communityId) {
-      challenges = _.filter(challenges, Filter.getFilterFunction(_.find(this.props.communityFilters, ['id', communityId]).filter));
+      challenges = _.filter(challenges, Filter.getFilterFunction(_.find(this.props.communityList, ['communityId', communityId]).challengeFilter));
     }
 
-    const communityFilters = _.map(this.props.communityFilters, (c) => {
+    const communityFilters = _.map(this.props.communityList, (c) => {
       const community = _.cloneDeep(c);
-      const filterFunc = Filter.getFilterFunction(community.filter);
+      const filterFunc = Filter.getFilterFunction(community.challengeFilter);
       community.number = _.filter(this.props.challenges, (ch) => {
         const result = filterFunc(ch);
-        if (result && community.id) {
+        if (result && community.communityId) {
           // eslint-disable-next-line no-param-reassign
-          ch.communityLabel = community.name;
+          ch.communityLabel = community.communityName;
         }
         return result;
       },
@@ -74,8 +74,8 @@ export default class MyChallenges extends React.Component {
     });
 
     communityFilters.unshift({
-      id: '',
-      name: 'All communities',
+      communityId: '',
+      communityName: 'All communities',
       number: this.props.challenges.length,
     });
 
@@ -201,8 +201,11 @@ MyChallenges.propTypes = {
   challenges: PT.arrayOf(PT.shape()),
   communities: PT.arrayOf(PT.shape()),
   groups: PT.arrayOf(PT.shape()),
-  communityFilters: PT.arrayOf(PT.shape()),
-  communityList: PT.arrayOf(PT.shape()),
+  communityList: PT.arrayOf(PT.shape({
+    challengeFilter: PT.shape(),
+    communityId: PT.string.isRequired,
+    communityName: PT.string.isRequired,
+  })),
 };
 
 MyChallenges.defaultProps = {
@@ -210,6 +213,5 @@ MyChallenges.defaultProps = {
   challenges: [],
   communities: [],
   groups: [],
-  communityFilters: [],
   communityList: [],
 };

@@ -44,18 +44,13 @@ function create(initialState = {}) {
     [a.showJoinConfirmModal]: state => ({
       ...state, joinCommunityButton: JOIN_COMMUNITY.CONFIRM_JOIN,
     }),
-    [a.getCommunityFilters]: (state, action) => ({
+    [a.getList]: (state, action) => ({
       ...state,
-      communityFilters: action.error ? [] : action.payload,
-    }),
-    [a.getCommunityList]: (state, action) => ({
-      ...state,
-      communityList: action.error ? [] : action.payload,
+      list: action.error ? [] : action.payload,
     }),
   }, _.defaults(_.clone(initialState), {
     joinCommunityButton: JOIN_COMMUNITY.DEFAULT,
-    communityFilters: [],
-    communityList: [],
+    list: [],
   }));
 }
 

@@ -13,11 +13,11 @@ const ChallengeFilter = (props) => {
       {
         communities.map(community => (
           <div
-            key={community.id}
-            onClick={() => selectCommunity(community.id)}
-            styleName={cn(['row', { selected: community.id === selectedCommunityId }])}
+            key={community.communityId}
+            onClick={() => selectCommunity(community.communityId)}
+            styleName={cn(['row', { selected: community.communityId === selectedCommunityId }])}
           >
-            <span>{community.name}</span>
+            <span>{community.communityName}</span>
             <span>{community.number}</span>
           </div>
         ))
@@ -27,7 +27,11 @@ const ChallengeFilter = (props) => {
 };
 
 ChallengeFilter.propTypes = {
-  communities: PT.arrayOf(PT.shape()),
+  communities: PT.arrayOf(PT.shape({
+    communityId: PT.string.isRequired,
+    communityName: PT.string.isRequired,
+    number: PT.number.isRequired,
+  })),
   selectedCommunityId: PT.string,
   selectCommunity: PT.func.isRequired,
 };
