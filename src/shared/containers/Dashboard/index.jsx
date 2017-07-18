@@ -151,7 +151,7 @@ class DashboardPageContainer extends React.Component {
               {
                 !loadingActiveChallenges &&
                 <MyChallenges
-                  challenges={myChallenges.slice(0, 8)}
+                  challenges={myChallenges}
                   communityList={communityList}
                   stats={stats}
                   groups={profile ? profile.groups : []}

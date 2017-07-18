@@ -187,7 +187,6 @@ export default class MyChallenges extends React.Component {
         {
           this.state.activeTab === 0 &&
           <div styleName="my-challenges-links">
-            <a href={`${config.URL.BASE}/my-challenges/?status=active`}>View More</a>
             <a href={`${config.URL.BASE}/my-challenges/?status=completed`}>Past Challenges</a>
           </div>
         }
