@@ -17,20 +17,20 @@
     top: 0;
     width: 11px;
   }
+}
 
-  &.disabled {
-    background: $tc-gray-30;
+.disabled {
+  background: $tc-gray-30;
 
-    .switch-handle {
-      left: 0;
-    }
+  .switch-handle {
+    left: 0;
   }
+}
 
-  &.enabled {
-    background: $tc-dark-blue-90;
+.enabled {
+  background: $tc-dark-blue-90;
 
-    .switch-handle {
-      right: 0;
-    }
+  .switch-handle {
+    right: 0;
   }
 }

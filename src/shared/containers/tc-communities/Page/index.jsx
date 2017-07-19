@@ -17,7 +17,6 @@ import _ from 'lodash';
 import PT from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Redirect } from 'react-router-dom';
 import actions from 'actions/tc-communities/meta';
 import newsActions from 'actions/tc-communities/news';
 import { bindActionCreators } from 'redux';
@@ -25,6 +24,7 @@ import standardHeaderActions from 'actions/topcoder_header';
 import Header from 'components/tc-communities/Header';
 import Footer from 'components/tc-communities/Footer';
 import LoadingIndicator from 'components/LoadingIndicator';
+import Error404 from 'components/Error404';
 
 // page content components
 import ChallengeListing from 'containers/challenge-listing/Listing';
@@ -119,7 +119,8 @@ class Page extends Component {
 
     // if page it not found redirect to 404
     if (!pageContent) {
-      pageContent = <Redirect to={{ pathname: '/404' }} />;
+      pageContent = <Error404 />;
+      // pageContent = <Redirect to={{ pathname: '/404' }} />;
     }
 
     pageContent = React.cloneElement(pageContent, {

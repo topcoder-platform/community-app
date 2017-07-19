@@ -7,26 +7,33 @@
 
 import React from 'react';
 import PT from 'prop-types';
-import './style.scss';
+import { themr } from 'react-css-themr';
+import defaultStyle from './style.scss';
 
-export default function Switch(props) {
+function Switch(props) {
   return (
     <div
-      styleName={`Switch ${props.enabled ? 'enabled' : 'disabled'}`}
-      className={props.className}
+      className={`${props.theme.Switch} ${props.enabled ? defaultStyle.enabled : defaultStyle.disabled}`}
       onClick={() => props.onSwitch(!props.enabled)}
-    ><div styleName="switch-handle" />
+    >
+      <div styleName="switch-handle" />
     </div>
   );
 }
 
 Switch.defaultProps = {
   enabled: false,
-  className: '',
+  theme: {
+    Switch: '',
+  },
 };
 
 Switch.propTypes = {
   enabled: PT.bool,
+  theme: PT.shape({
+    Switch: PT.string.isRequired,
+  }),
   onSwitch: PT.func.isRequired,
-  className: PT.string,
 };
+
+export default themr('Switch', defaultStyle)(Switch);
