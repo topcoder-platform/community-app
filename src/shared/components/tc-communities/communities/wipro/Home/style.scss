@@ -31,3 +31,89 @@
     padding: 0;
   }
 }
+
+/* Custom carousel styles */
+.carouselContainer {
+  width: 960px;
+  position: relative;
+
+  .carouselDot {
+    margin-top: 14px;
+    text-align: center;
+
+    li {
+      display: inline-block;
+      margin: 0 8px;
+
+      button {
+        border: none;
+        width: 12px;
+        height: 12px;
+        border-radius: 100%;
+        background-color: #cdecf8;
+        font-size: 0;
+      }
+
+      &:hover,
+      &:focus,
+      &.slick-active {
+        button {
+          background-color: #1aa3dd;
+          outline: none;
+        }
+      }
+    }
+  }
+
+  > div {
+    max-width: 100%;
+    overflow: hidden;
+    padding-left: 12px;
+
+    > div {
+      display: flex;
+    }
+  }
+
+  .PrevArrow,
+  .NextArrow {
+    position: absolute;
+    display: block;
+    width: 60px;
+    height: 60px;
+    border: none;
+    cursor: pointer;
+  }
+
+  .PrevArrow {
+    background: url(/themes/wipro/active_previous_icon.png);
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    top: 50%;
+    left: -80px;
+    transform: translateY(-50%);
+
+    &.disabled {
+    background: url(/themes/wipro/inactive_previous_icon.png);
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    }
+  }
+
+  .NextArrow {
+    background: url(/themes/wipro/active_next_arrow.png);
+    top: 50%;
+    right: -80px;
+    transform: translateY(-50%);
+
+    &.disabled {
+    background: url(/themes/wipro/inactive_next_icon.png);
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    }
+  }
+}
+
+.carouselParent {
+  display: inline-block;
+}

@@ -13,6 +13,8 @@ import ImageText from 'components/tc-communities/ImageText';
 import ResourceCard from 'components/tc-communities/ResourceCard';
 import NewsletterSignup from 'components/tc-communities/NewsletterSignup';
 import NewsSection from 'components/tc-communities/NewsSection';
+import { noop } from 'lodash';
+import Slider from 'react-slick';
 
 import PT from 'prop-types';
 
@@ -30,6 +32,66 @@ import ImageTextStyles from './themes/imageTextStyle.scss';
 import ResourceCardStyles from './themes/resourceCardStyles.scss';
 import ArticleCardStyles from './themes/articleCardStyles.scss';
 import NewsSectionStyles from './themes/newsSectionStyles.scss';
+
+function PrevArrow(props) {
+  return (
+    <button
+      onClick={props.onClick}
+      className={`${style.PrevArrow} ${props.className.indexOf('slick-disabled') > -1 ? style.disabled : ''}`}
+    />);
+}
+
+function NextArrow(props) {
+  return (
+    <button
+      onClick={props.onClick}
+      className={`${style.NextArrow} ${props.className.indexOf('slick-disabled') > -1 ? style.disabled : ''}`}
+    />);
+}
+
+PrevArrow.defaultProps = {
+  className: '',
+  onClick: noop,
+};
+
+PrevArrow.propTypes = {
+  className: PT.string,
+  onClick: PT.func,
+};
+
+NextArrow.defaultProps = {
+  className: '',
+  onClick: noop,
+};
+
+NextArrow.propTypes = {
+  className: PT.string,
+  onClick: PT.func,
+};
+
+const settings = {
+  dots: false,
+  infinite: false,
+  autoplay: false,
+  prevArrow: <PrevArrow />,
+  nextArrow: <NextArrow />,
+  slidesToShow: 3,
+  slidesToScroll: 1,
+  className: style.carouselContainer,
+  responsive: [
+    {
+      breakpoint: 1024,
+      settings: {
+        slidesToShow: 3,
+        dots: true,
+      },
+    },
+    {
+      breakpoint: 768,
+      settings: 'unslick',
+    },
+  ],
+};
 
 export default function Home(props) {
   return (
@@ -83,36 +145,44 @@ export default function Home(props) {
           container: style.resourcesContainer,
         }}
       >
-        <ResourceCard
-          theme={ResourceCardStyles}
-          icon={IconNetwork}
-          title="Up Your iOS and Swift Development Skills"
-          text="Pellentesque non dignissim neque. Nunc vel rhoncus nibh, ut tincidunt turpis. Integer ac enim pellentesque, adipiscing metus id, pharetra odio."
-          link={{
-            title: 'Browse resources',
-            url: 'https://topgear.wipro.com',
-          }}
-        />
-        <ResourceCard
-          theme={ResourceCardStyles}
-          icon={IconMedal}
-          title="Take the First Steps to Stand Out in the Community"
-          text="Donec bibendum nunc sit amet tortor scelerisque luctus et sit amet mauris. Suspendisse felis sem, condimentum ullamcorper est sit amet, molestie"
-          link={{
-            title: 'Learn about badges',
-            url: 'leaderboard',
-          }}
-        />
-        <ResourceCard
-          theme={ResourceCardStyles}
-          icon={IconRocket}
-          title="Compete in Challenges and Win Cash"
-          text="Suspendisse felis sem, condimentum ullamcorper est sit amet, molestie mollis nulla. Etiam lorem orci, consequat ac magna quis, facilisis"
-          link={{
-            title: 'Browse challenges',
-            url: 'challenges',
-          }}
-        />
+        <Slider {...settings}>
+          <div className={style.carouselParent}>
+            <ResourceCard
+              theme={ResourceCardStyles}
+              icon={IconNetwork}
+              title="Up Your iOS and Swift Development Skills"
+              text="Pellentesque non dignissim neque. Nunc vel rhoncus nibh, ut tincidunt turpis. Integer ac enim pellentesque, adipiscing metus id, pharetra odio."
+              link={{
+                title: 'Browse resources',
+                url: 'https://topgear.wipro.com',
+              }}
+            />
+          </div>
+          <div className={style.carouselParent}>
+            <ResourceCard
+              theme={ResourceCardStyles}
+              icon={IconMedal}
+              title="Take the First Steps to Stand Out in the Community"
+              text="Donec bibendum nunc sit amet tortor scelerisque luctus et sit amet mauris. Suspendisse felis sem, condimentum ullamcorper est sit amet, molestie"
+              link={{
+                title: 'Learn about badges',
+                url: 'leaderboard',
+              }}
+            />
+          </div>
+          <div className={style.carouselParent}>
+            <ResourceCard
+              theme={ResourceCardStyles}
+              icon={IconRocket}
+              title="Compete in Challenges and Win Cash"
+              text="Suspendisse felis sem, condimentum ullamcorper est sit amet, molestie mollis nulla. Etiam lorem orci, consequat ac magna quis, facilisis"
+              link={{
+                title: 'Browse challenges',
+                url: 'challenges',
+              }}
+            />
+          </div>
+        </Slider>
       </Section>
 
       <NewsSection
@@ -120,6 +190,9 @@ export default function Home(props) {
         theme={{
           section: NewsSectionStyles,
           card: ArticleCardStyles,
+          carouselContainer: style.carouselContainer,
+          carouselParent: style.carouselParent,
+          carouselDot: style.carouselDot,
         }}
       />
 
@@ -136,17 +209,8 @@ export default function Home(props) {
 
 Home.defaultProps = {
   news: [],
-  stats: {},
 };
-
-const numberOrString = PT.oneOfType([PT.number, PT.string]);
 
 Home.propTypes = {
   news: PT.arrayOf(PT.shape()),
-  stats: PT.shape({
-    numChallenges: numberOrString,
-    numMembers: numberOrString,
-    numProjects: numberOrString,
-    openPrizes: numberOrString,
-  }),
 };
