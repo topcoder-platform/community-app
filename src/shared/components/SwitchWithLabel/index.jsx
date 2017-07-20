@@ -11,10 +11,10 @@ import { themr } from 'react-css-themr';
 import Switch from '../Switch';
 import defaultStyle from './style.scss';
 
-function SimpleSwitch(props) {
+function SwitchWithLabel(props) {
   return (
     <div
-      className={props.theme.SwitchWithLabel}
+      className={props.theme.wrapper}
       onClick={() => props.onSwitch(!props.enabled)}
     >
       {props.labelBefore}
@@ -22,7 +22,7 @@ function SimpleSwitch(props) {
         enabled={props.enabled}
         onSwitch={props.onSwitch}
         theme={{
-          Switch: props.theme.Switch,
+          switch: props.theme.switch,
         }}
       />
       {props.labelAfter}
@@ -30,23 +30,21 @@ function SimpleSwitch(props) {
   );
 }
 
-SimpleSwitch.defaultProps = {
+SwitchWithLabel.defaultProps = {
   enabled: false,
-  theme: {
-    SwitchWithLabel: '',
-  },
   labelAfter: '',
   labelBefore: '',
 };
 
-SimpleSwitch.propTypes = {
+SwitchWithLabel.propTypes = {
   enabled: PT.bool,
   labelAfter: PT.string,
   labelBefore: PT.string,
   theme: PT.shape({
-    SwitchWithLabel: PT.string.isRequired,
-  }),
+    switch: PT.string.isRequired,
+    wrapper: PT.string.isRequired,
+  }).isRequired,
   onSwitch: PT.func.isRequired,
 };
 
-export default themr('SimpleSwitch', defaultStyle)(SimpleSwitch);
+export default themr('SwitchWithLabel', defaultStyle)(SwitchWithLabel);

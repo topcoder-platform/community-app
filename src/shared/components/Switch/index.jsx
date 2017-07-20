@@ -13,26 +13,25 @@ import defaultStyle from './style.scss';
 function Switch(props) {
   return (
     <div
-      className={`${props.theme.Switch} ${props.enabled ? defaultStyle.enabled : defaultStyle.disabled}`}
+      className={`${props.theme.switch} ${props.enabled ? props.theme.enabled : props.theme.disabled}`}
       onClick={() => props.onSwitch(!props.enabled)}
     >
-      <div styleName="switch-handle" />
+      <div styleName="handle" />
     </div>
   );
 }
 
 Switch.defaultProps = {
   enabled: false,
-  theme: {
-    Switch: '',
-  },
 };
 
 Switch.propTypes = {
   enabled: PT.bool,
   theme: PT.shape({
-    Switch: PT.string.isRequired,
-  }),
+    disabled: PT.string.isRequired,
+    enabled: PT.string.isRequired,
+    switch: PT.string.isRequired,
+  }).isRequired,
   onSwitch: PT.func.isRequired,
 };
 
