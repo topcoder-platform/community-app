@@ -184,6 +184,7 @@ export default function Header(props) {
                   className="tc-communities__header__menu-link"
                   activeClassName="menu-link_active tc-communities__header__menu-link_active"
                   isActive={() => currentPage === item.url}
+                  openExternalLinkInNewPage
                   to={item.url}
                 >
                   {item.title}
