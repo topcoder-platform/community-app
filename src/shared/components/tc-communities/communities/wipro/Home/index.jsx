@@ -139,14 +139,6 @@ Home.defaultProps = {
   stats: {},
 };
 
-const numberOrString = PT.oneOfType([PT.number, PT.string]);
-
 Home.propTypes = {
   news: PT.arrayOf(PT.shape()),
-  stats: PT.shape({
-    numChallenges: numberOrString,
-    numMembers: numberOrString,
-    numProjects: numberOrString,
-    openPrizes: numberOrString,
-  }),
 };

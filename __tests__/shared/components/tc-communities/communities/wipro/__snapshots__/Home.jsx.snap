@@ -26,9 +26,7 @@ exports[`Snapshot match 1`] = `
     }
     title="Wipro Crowd"
   />
-  <CommunityStats
-    stats={Object {}}
-  />
+  <Connect(CommunityStatsContainer) />
   <Connect(JoinCommunity) />
   <ThemedSection
     anchor={null}
