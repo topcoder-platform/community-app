@@ -94,9 +94,9 @@
     transform: translateY(-50%);
 
     &.disabled {
-    background: url(/themes/wipro/inactive_previous_icon.png);
-    background-repeat: no-repeat;
-    background-size: 100% 100%;
+      background: url(/themes/wipro/inactive_previous_icon.png);
+      background-repeat: no-repeat;
+      background-size: 100% 100%;
     }
   }
 
@@ -107,9 +107,9 @@
     transform: translateY(-50%);
 
     &.disabled {
-    background: url(/themes/wipro/inactive_next_icon.png);
-    background-repeat: no-repeat;
-    background-size: 100% 100%;
+      background: url(/themes/wipro/inactive_next_icon.png);
+      background-repeat: no-repeat;
+      background-size: 100% 100%;
     }
   }
 }

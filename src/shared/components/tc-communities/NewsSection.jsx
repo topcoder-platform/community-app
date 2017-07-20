@@ -1,8 +1,8 @@
 import PT from 'prop-types';
 import React from 'react';
+import Slider from 'react-slick';
 import ArticleCard from './ArticleCard';
 import Section from './Section';
-import Slider from 'react-slick';
 
 export default function NewsSection(props) {
   if (!props.news || !props.news.length) return null;
@@ -39,22 +39,20 @@ export default function NewsSection(props) {
     >
       <Slider {...settings}>
         {
-          props.news.slice(0, 3).map((item, i) => {
-            return (
-              <div data-index={i} key={i} className={props.theme.carouselParent}>
-                <ArticleCard
-                  theme={props.theme.card}
-                  imageSrc={`/themes/common/NewsSection/news-0${1 + i}.jpg`}
-                  link={{
-                    title: 'Read More',
-                    url: item.link,
-                  }}
-                  text={item.description}
-                  title={item.title}
-                />
-              </div>
-            );
-          })
+          props.news.slice(0, 3).map((item, i) => (
+            <div data-index={i} key={item.title} className={props.theme.carouselParent}>
+              <ArticleCard
+                theme={props.theme.card}
+                imageSrc={`/themes/common/NewsSection/news-0${1 + i}.jpg`}
+                link={{
+                  title: 'Read More',
+                  url: item.link,
+                }}
+                text={item.description}
+                title={item.title}
+              />
+            </div>
+          ))
         }
       </Slider>
     </Section>
