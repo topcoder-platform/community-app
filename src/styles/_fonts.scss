@@ -65,3 +65,9 @@
 @include font-family('Open Sans', 700, italic, '../assets/fonts/opensans/', 'opensans-bolditalic-webfont');
 @include font-family('Open Sans', 800, normal, '../assets/fonts/opensans/', 'opensans-extrabold-webfont');
 @include font-family('Open Sans', 800, italic, '../assets/fonts/opensans/', 'opensans-extrabolditalic-webfont');
+
+/* Akkurat font is being used by the Wipro community */
+@include font-family('Akkurat light', 300, normal, '../assets/fonts/Akkurat/', 'WiproAkkuratTT-Light');
+@include font-family('Akkurat regular', 400, normal, '../assets/fonts/Akkurat/', 'WiproAkkuratTTRegular');
+@include font-family('Akkurat mono', 400, normal, '../assets/fonts/Akkurat/', 'AkkuratMonoMono');
+@include font-family('Akkurat bold', 700, normal, '../assets/fonts/Akkurat/', 'WiproAkkuratTT-Bold');

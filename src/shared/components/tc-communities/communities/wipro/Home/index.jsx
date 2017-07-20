@@ -17,7 +17,7 @@ import NewsSection from 'components/tc-communities/NewsSection';
 import PT from 'prop-types';
 
 import JoinCommunity from 'containers/tc-communities/JoinCommunity';
-import CommunityStats from '../CommunityStats';
+import CommunityStats from 'containers/tc-communities/WiproCommunityStats';
 
 import IconRocket from '../../../../../../assets/images/tc-communities/rocket.svg';
 import IconNetwork from '../../../../../../assets/images/tc-communities/network.svg';
@@ -45,7 +45,7 @@ export default function Home(props) {
         theme={bannerStyle}
       />
 
-      <CommunityStats stats={props.stats} />
+      <CommunityStats />
 
       <JoinCommunity />
 

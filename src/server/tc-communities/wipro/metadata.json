@@ -28,11 +28,6 @@
   "hideSearch": true,
   "chevronOverAvatar": true,
   "footerText": "© Copyright Wipro Ltd 2017",
-  "stats": {
-    "numChallenges": 56,
-    "numMembers": 378,
-    "openPrizes": 14
-  },
   "menuItems": [
     {
       "title": "Home",

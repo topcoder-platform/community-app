@@ -257,7 +257,7 @@ Page.propTypes = {
     loading: PT.bool,
     logos: PT.arrayOf(PT.string).isRequired,
     additionalLogos: PT.arrayOf(PT.string),
-    stats: PT.arrayOf(PT.string),
+    stats: PT.shape(),
     hideSearch: PT.bool,
     chevronOverAvatar: PT.bool,
     footerText: PT.string,
