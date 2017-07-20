@@ -47,8 +47,8 @@ export default function FiltersPanel({
   if (hidden) className += ' hidden';
 
   const communityOps = communityFilters.map(item => ({
-    label: item.name,
-    value: item.id,
+    label: item.communityName,
+    value: item.communityId,
   }));
 
   const mapOps = item => ({ label: item, value: item });
@@ -150,7 +150,10 @@ FiltersPanel.defaultProps = {
 };
 
 FiltersPanel.propTypes = {
-  communityFilters: PT.arrayOf(PT.shape()).isRequired,
+  communityFilters: PT.arrayOf(PT.shape({
+    communityId: PT.string.isRequired,
+    communityName: PT.string.isRequired,
+  })).isRequired,
   filterState: PT.shape().isRequired,
   hidden: PT.bool,
   onSaveFilter: PT.func,

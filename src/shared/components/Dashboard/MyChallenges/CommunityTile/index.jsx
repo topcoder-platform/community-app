@@ -4,7 +4,7 @@ import React from 'react';
 import PT from 'prop-types';
 import cn from 'classnames';
 
-import './CommunityTile.scss';
+import './style.scss';
 
 const CommunityTile = (props) => {
   const { community, stats, registered } = props;
@@ -42,7 +42,12 @@ const CommunityTile = (props) => {
 
 CommunityTile.propTypes = {
   stats: PT.shape(),
-  community: PT.shape(),
+  community: PT.shape({
+    communityId: PT.string.isRequired,
+    communityName: PT.string.isRequired,
+    description: PT.string.isRequired,
+    image: PT.string.isRequired,
+  }),
   registered: PT.bool,
 };
 

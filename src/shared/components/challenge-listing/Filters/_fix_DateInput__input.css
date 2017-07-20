@@ -1,0 +1,8 @@
+/*
+  Minor fix on the DateInput__input
+  Without this the input is not clickable as it's rendered below the text
+*/
+
+.DateInput__input {
+    z-index: 2;
+}

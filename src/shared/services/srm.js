@@ -17,6 +17,10 @@ class SRMService {
     };
   }
 
+  /**
+   * Gets SRM matches.
+   * @param {Object} params
+   */
   getSRMs(params) {
     return this.private.api.get(`/srms/?${qs.stringify(params)}`)
     .then(res => (res.ok ? res.json() : new Error(res.statusText)))
@@ -27,6 +31,11 @@ class SRMService {
     ));
   }
 
+  /**
+   * Gets SRM matches related to the user.
+   * @param {String} userHandle
+   * @param {Object} params
+   */
   getUserSRMs(userHandle, params) {
     return this.private.api.get(`/members/${userHandle}/srms/?${qs.stringify(params)}`)
     .then(res => (res.ok ? res.json() : new Error(res.statusText)))

@@ -1,13 +1,14 @@
 @import '~styles/tc-styles';
 
 .container {
-  border-radius: 2px;
+  border-radius: 3 * $corner-radius;
   margin-bottom: 20px;
   display: flex;
+  overflow: hidden;
   flex-direction: row;
   height: 234px;
   font-family: 'Sofia Pro', Arial, Helvetica, sans-serif;
-  box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.35);
+  box-shadow: 0 0 1px 1px $tc-gray-neutral-dark;
 }
 
 .left {

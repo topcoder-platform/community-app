@@ -7,33 +7,44 @@
 
 import React from 'react';
 import PT from 'prop-types';
+import { themr } from 'react-css-themr';
 import Switch from '../Switch';
-import './SwitchWithLabel.scss';
+import defaultStyle from './style.scss';
 
-function SimpleSwitch(props) {
+function SwitchWithLabel(props) {
   return (
     <div
-      styleName="SwitchWithLabel"
+      className={props.theme.wrapper}
       onClick={() => props.onSwitch(!props.enabled)}
     >
       {props.labelBefore}
-      <Switch enabled={props.enabled} onSwitch={props.onSwitch} styleName="Switch" />
+      <Switch
+        enabled={props.enabled}
+        onSwitch={props.onSwitch}
+        theme={{
+          switch: props.theme.switch,
+        }}
+      />
       {props.labelAfter}
     </div>
   );
 }
 
-SimpleSwitch.defaultProps = {
+SwitchWithLabel.defaultProps = {
   enabled: false,
   labelAfter: '',
   labelBefore: '',
 };
 
-SimpleSwitch.propTypes = {
+SwitchWithLabel.propTypes = {
   enabled: PT.bool,
   labelAfter: PT.string,
   labelBefore: PT.string,
+  theme: PT.shape({
+    switch: PT.string.isRequired,
+    wrapper: PT.string.isRequired,
+  }).isRequired,
   onSwitch: PT.func.isRequired,
 };
 
-export default SimpleSwitch;
+export default themr('SwitchWithLabel', defaultStyle)(SwitchWithLabel);

@@ -1,0 +1,18 @@
+@import '~styles/tc-includes';
+
+.container {
+  @include roboto;
+
+  min-height: 400px;
+  text-align: center;
+  padding: 150px 0;
+}
+
+.details {
+  text-align: center;
+}
+
+.message {
+  margin-bottom: 24px;
+  text-align: center;
+}

@@ -77,8 +77,8 @@ class ListingContainer extends React.Component {
   getBackendFilter() {
     let filter = this.props.filter;
     let communityFilter = this.props.communityFilters.find(item =>
-      item.id === this.props.selectedCommunityId);
-    if (communityFilter) communityFilter = communityFilter.filter;
+      item.communityId === this.props.selectedCommunityId);
+    if (communityFilter) communityFilter = communityFilter.challengeFilter;
     if (communityFilter) filter = combine(filter, communityFilter);
     return mapToBackend(filter);
   }
@@ -112,7 +112,7 @@ class ListingContainer extends React.Component {
       challenges,
       challengeSubtracks,
       challengeTags,
-      challengeGroupId,
+      groupId,
       filter,
       getDraftChallenges,
       getPastChallenges,
@@ -146,8 +146,8 @@ class ListingContainer extends React.Component {
     }
 
     let communityFilter = this.props.communityFilters.find(item =>
-      item.id === this.props.selectedCommunityId);
-    if (communityFilter) communityFilter = communityFilter.filter;
+      item.communityId === this.props.selectedCommunityId);
+    if (communityFilter) communityFilter = communityFilter.challengeFilter;
 
     return (
       <div>
@@ -192,7 +192,7 @@ class ListingContainer extends React.Component {
           }}
           setSort={this.props.setSort}
           sorts={this.props.sorts}
-          challengeGroupId={challengeGroupId}
+          groupId={groupId}
           auth={this.props.auth}
         />
         { !listingOnly ? (
@@ -209,7 +209,7 @@ class ListingContainer extends React.Component {
 
 ListingContainer.defaultProps = {
   selectedCommunityId: '',
-  challengeGroupId: '',
+  groupId: '',
   communityId: null,
   communityName: null,
   listingOnly: false,
@@ -226,7 +226,10 @@ ListingContainer.propTypes = {
   challenges: PT.arrayOf(PT.shape({})).isRequired,
   challengeSubtracks: PT.arrayOf(PT.string).isRequired,
   challengeTags: PT.arrayOf(PT.string).isRequired,
-  communityFilters: PT.arrayOf(PT.shape()).isRequired,
+  communityFilters: PT.arrayOf(PT.shape({
+    challengeFilter: PT.shape(),
+    communityId: PT.string.isRequired,
+  })).isRequired,
   dropChallenges: PT.func.isRequired,
   filter: PT.shape().isRequired,
   communityId: PT.string,
@@ -251,7 +254,7 @@ ListingContainer.propTypes = {
   setSearchText: PT.func.isRequired,
   setSort: PT.func.isRequired,
   listingOnly: PT.bool,
-  challengeGroupId: PT.string,
+  groupId: PT.string,
 };
 
 const mapStateToProps = (state) => {
@@ -265,7 +268,7 @@ const mapStateToProps = (state) => {
     challenges: cl.challenges,
     challengeSubtracks: cl.challengeSubtracks,
     challengeTags: cl.challengeTags,
-    communityFilters: [{ id: '', name: 'All' }].concat(tc.communityFilters),
+    communityFilters: [{ communityId: '', communityName: 'All' }].concat(tc.list),
     lastRequestedPageOfDraftChallenges: cl.lastRequestedPageOfDraftChallenges,
     lastRequestedPageOfPastChallenges: cl.lastRequestedPageOfPastChallenges,
     lastUpdateOfActiveChallenges: cl.lastUpdateOfActiveChallenges,
@@ -293,7 +296,7 @@ function mapDispatchToProps(dispatch) {
       dispatch(a.getAllActiveChallengesInit(uuid));
       dispatch(a.getAllActiveChallengesDone(uuid, token));
     },
-    getCommunityFilters: auth => dispatch(ca.getCommunityFilters(auth)),
+    getCommunityFilters: auth => dispatch(ca.getList(auth)),
     getDraftChallenges: (page, filter, token) => {
       const uuid = shortid();
       dispatch(a.getDraftChallengesInit(uuid, page));

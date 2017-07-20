@@ -31,6 +31,11 @@ To add a new community with the name **demo**, we should follow the following pr
       "logos": [
         "/themes/demo/logo_topcoder_with_name.svg"
       ],
+      "additionalLogos": [
+        "/themes/demo/logo_topcoder_with_name.svg"
+      ],
+      "hideSearch": true,
+      "chevronOverAvatar": true,
       "menuItems": [
         {
           "title": "Home",
@@ -77,6 +82,9 @@ To add a new community with the name **demo**, we should follow the following pr
     -   `groupId` - *String* - This value of group ID is now used to fetch community statistics. Probably, it makes sense to use this value everywhere where `authorizedGroupIds` array is used, however, at the moment, these two are independent.
     -   `leaderboardApiUrl` - *String* - Endpoint from where the leaderboard data should be loaded.
     -   `logo` - *String Array* - Array of image URLs to insert as logos into the left corner of community's header.
+    -   `additionalLogos` - *String Array* - Array of image URLs to insert as logos into the right corner of community's header.
+    -   `hideSearch` - *Boolean* - Hide/Show the search icon.
+    -   `chevronOverAvatar` - *Boolean* - Render a *chevron-down* instead of the user avatar.
     -   `menuItems` - *Object Array* - Specifies options for the community navigation menu (both in the header and footer). Each object MUST HAVE `title` and `url` fields. For now, `url` field should be a relative link inside the community, within the same path segment.
     -   `newsFeed` - *String* - Optional. URL of an XML blog feed to be used to render news section at a custom page. To actually render the news section, you should include it into the page code like (also see as example `/src/shared/components/tc-communities/communities/wipro/Home/index.jsx`):
         ``` js

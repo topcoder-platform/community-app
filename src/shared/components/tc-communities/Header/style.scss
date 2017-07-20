@@ -359,3 +359,17 @@
     display: none;
   }
 }
+
+.chevron-down::before {
+  border-style: solid;
+  border-width: 2px 2px 0 0;
+  content: '';
+  display: inline-block;
+  height: 12px;
+  left: 10px;
+  color: #00a2e0;
+  position: relative;
+  top: -20px;
+  transform: rotate(135deg);
+  width: 14px;
+}

@@ -3,7 +3,7 @@ import PT from 'prop-types';
 import cn from 'classnames';
 
 import { challengeLinks as getLink } from 'utils/tc';
-import './ChallengeLinks.scss';
+import './style.scss';
 
 const ChallengeLinks = (props) => {
   const { viewMode, challenge } = props;

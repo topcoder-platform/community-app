@@ -10,7 +10,7 @@ function mapStateToProps(state) {
    * he is authenticated and not a member of the community group. */
   let canJoin = (state.auth.profile && state.auth.profile.groups) || [];
   canJoin = !canJoin.find(item =>
-    item.id === state.tcCommunities.meta.challengeGroupId);
+    item.id === state.tcCommunities.meta.groupId);
   if (state.tcCommunities.hideJoinButton) canJoin = false;
 
   if (canJoin) canJoin = state.tcCommunities.joinCommunityButton;
@@ -18,7 +18,7 @@ function mapStateToProps(state) {
 
   return {
     communityName: state.tcCommunities.meta.communityName,
-    groupId: state.tcCommunities.meta.challengeGroupId,
+    groupId: state.tcCommunities.meta.groupId,
     token: state.auth.tokenV3,
     state: canJoin,
     userId: _.get(state.auth.user, 'userId'),

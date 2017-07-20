@@ -14,6 +14,7 @@ import config from 'utils/config';
 import actions from 'actions/dashboard';
 import cActions from 'actions/challenge-listing';
 import communityActions from 'actions/tc-communities';
+import moment from 'moment';
 import statsActions from 'actions/stats';
 import { processActiveDevDesignChallenges } from 'utils/tc';
 import Header from 'components/Dashboard/Header';
@@ -30,9 +31,9 @@ class DashboardPageContainer extends React.Component {
 
   componentDidMount() {
     const {
-      auth: { tokenV2, user, tokenV3, profile },
+      auth: { tokenV2, user, tokenV3 },
       challengeListing: { challenges },
-      tcCommunities: { communityList },
+      tcCommunities: { list: communityList },
       getCommunityStats,
     } = this.props;
     if (!tokenV2) {
@@ -40,17 +41,14 @@ class DashboardPageContainer extends React.Component {
       return false;
     }
     this.props.getBlogs();
-    this.props.getCommunityList();
+    this.props.getCommunityList(this.props.auth);
     if (tokenV3 && user) {
-      this.props.getAllActiveChallenges(tokenV3);
+      this.loadChallenges();
       this.props.getSubtrackRanks(tokenV3, user.handle);
       this.props.getSRMs(tokenV3, user.handle);
       this.props.getIosRegistration(tokenV3, user.userId);
       this.props.getUserFinancials(tokenV3, user.handle);
       _.forEach(communityList, c => getCommunityStats(c, challenges, tokenV3));
-    }
-    if (profile) {
-      this.props.getCommunityFilters(this.props.auth);
     }
     return true;
   }
@@ -59,13 +57,13 @@ class DashboardPageContainer extends React.Component {
     const {
       auth: { user, tokenV3, profile },
       challengeListing: { challenges },
-      tcCommunities: { communityList },
+      tcCommunities: { list: communityList },
       getCommunityStats,
     } = this.props;
 
     if (tokenV3 && tokenV3 !== prevProps.auth.tokenV3) {
       setImmediate(() => {
-        this.props.getAllActiveChallenges(tokenV3);
+        this.loadChallenges();
         this.props.getSubtrackRanks(tokenV3, user.handle);
         this.props.getSRMs(tokenV3, user.handle);
         this.props.getIosRegistration(tokenV3, user.userId);
@@ -74,11 +72,20 @@ class DashboardPageContainer extends React.Component {
       });
     }
     if (profile && !prevProps.auth.profile) {
-      setImmediate(() => this.props.getCommunityFilters(this.props.auth));
+      setImmediate(() => this.props.getCommunityList(this.props.auth));
     }
     if ((challenges !== prevProps.challengeListing.challenges
-      || communityList !== prevProps.tcCommunities.communityList) && tokenV3) {
+      || communityList !== prevProps.tcCommunities.list) && tokenV3) {
       _.forEach(communityList, c => getCommunityStats(c, challenges, tokenV3));
+    }
+  }
+
+  loadChallenges() {
+    this.props.getAllActiveChallenges(this.props.auth.tokenV3);
+    if (config.CHALLENGE_LISTING_AUTO_REFRESH) {
+      if (this.autoRefreshTimerId) clearTimeout(this.autoRefreshTimerId);
+      this.autoRefreshTimerId = setTimeout(() =>
+        this.loadChallenges(), 1000 * config.CHALLENGE_LISTING_AUTO_REFRESH);
     }
   }
 
@@ -90,7 +97,8 @@ class DashboardPageContainer extends React.Component {
         loadingSubtrackRanks, loadingSRMs, loadingBlogs,
       },
       challengeListing: { challenges },
-      tcCommunities: { communityFilters, communityList },
+      lastUpdateOfActiveChallenges,
+      tcCommunities: { list: communityList },
       registerIos,
       stats,
     } = this.props;
@@ -101,8 +109,24 @@ class DashboardPageContainer extends React.Component {
       _.filter(challenges, c => c.platforms === 'iOS'),
     );
 
-    const loadingActiveChallenges =
+  /* When we automatically reload cached challenge objects, we do not want to
+   * show the loading state, if the currently loaded challenges are not very
+   * outdated (i.e. no need to show placeholders in the situations when it is
+   * fine to reload silently, keeping showing the previously cached challenges,
+   * while the reload is going on).
+   *
+   * In this code lastUpdateOfActiveChallenges serves as an adequate indication
+   * when the challenges were fetched the last time, and the magic numbers are:
+   * 1000 - to conver config.CHALLENGE_LISTING_AUTO_REFRESH from seconds to ms.
+   * 1.5 - a reasonable margin factor, to decide when we consider already cached
+   * challenges too old to display while the reload takes place.
+   */
+    let loadingActiveChallenges =
       Boolean(this.props.challengeListing.loadingActiveChallengesUUID);
+    if (loadingActiveChallenges && config.CHALLENGE_LISTING_AUTO_REFRESH) {
+      const outage = moment().diff(lastUpdateOfActiveChallenges);
+      loadingActiveChallenges = outage > 1.5 * 1000 * config.CHALLENGE_LISTING_AUTO_REFRESH;
+    }
 
     return (
       <div styleName="dashboard-container">
@@ -127,8 +151,7 @@ class DashboardPageContainer extends React.Component {
               {
                 !loadingActiveChallenges &&
                 <MyChallenges
-                  challenges={myChallenges.slice(0, 8)}
-                  communityFilters={communityFilters}
+                  challenges={myChallenges}
                   communityList={communityList}
                   stats={stats}
                   groups={profile ? profile.groups : []}
@@ -208,7 +231,9 @@ DashboardPageContainer.propTypes = {
   auth: PT.shape(),
   dashboard: PT.shape(),
   challengeListing: PT.shape(),
-  tcCommunities: PT.shape(),
+  tcCommunities: PT.shape({
+    list: PT.arrayOf(PT.shape()).isRequired,
+  }),
   stats: PT.shape(),
   getAllActiveChallenges: PT.func.isRequired,
   getSubtrackRanks: PT.func.isRequired,
@@ -219,7 +244,7 @@ DashboardPageContainer.propTypes = {
   getUserFinancials: PT.func.isRequired,
   getCommunityStats: PT.func.isRequired,
   getCommunityList: PT.func.isRequired,
-  getCommunityFilters: PT.func.isRequired,
+  lastUpdateOfActiveChallenges: PT.number.isRequired,
 };
 
 DashboardPageContainer.defaultProps = {
@@ -234,6 +259,7 @@ const mapStateToProps = state => ({
   auth: state.auth,
   dashboard: state.dashboard,
   challengeListing: state.challengeListing,
+  lastUpdateOfActiveChallenges: state.challengeListing.lastUpdateOfActiveChallenges,
   tcCommunities: state.tcCommunities,
   stats: state.stats,
 });
@@ -269,8 +295,7 @@ const mapDispatchToProps = dispatch => ({
   getUserFinancials: (tokenV3, handle) => {
     dispatch(actions.dashboard.getUserFinancials(tokenV3, handle));
   },
-  getCommunityFilters: auth => dispatch(communityActions.tcCommunity.getCommunityFilters(auth)),
-  getCommunityList: () => dispatch(communityActions.tcCommunity.getCommunityList()),
+  getCommunityList: auth => dispatch(communityActions.tcCommunity.getList(auth)),
   getCommunityStats: (community, challenges, token) =>
     dispatch(statsActions.stats.getCommunityStats(community, challenges, token)),
 });

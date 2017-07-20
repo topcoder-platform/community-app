@@ -17,13 +17,13 @@ function joinDone(token, groupId, memberId) {
 }
 
 /**
- * Gets from the backend challenge filters for public communities, and for
- * the communities the authenticated user has access to.
- * NOTE: At the moment it works with a mocked API.
- * @param {Object} auth Optional
+ * Gets the listing of communities visible to the vistor: (1) all public
+ * communities; (2) if the visitor is an authenticated user, then also
+ * communities he is member of.
+ * @param {Object} auth
  * @return {Promise}
  */
-function getCommunityFilters(auth) {
+function getList(auth) {
   let groups = [];
   if (auth.profile && auth.profile.groups) {
     groups = auth.profile.groups.map(g => g.id);
@@ -32,24 +32,13 @@ function getCommunityFilters(auth) {
   .then(res => (res.ok ? res.json() : new Error(res.statusText)));
 }
 
-/**
- * Gets from the backend all of available communities
- * NOTE: At the moment it works with a mocked API.
- * @return {Promise}
- */
-function getCommunityList() {
-  return fetch('/api/tc-communities?listAll=true')
-    .then(res => (res.ok ? res.json() : new Error(res.statusText)));
-}
-
 export default createActions({
   TC_COMMUNITY: {
+    GET_LIST: getList,
     HIDE_JOIN_BUTTON: _.noop,
     JOIN_INIT: _.noop,
     JOIN_DONE: joinDone,
     RESET_JOIN_BUTTON: _.noop,
     SHOW_JOIN_CONFIRM_MODAL: _.noop,
-    GET_COMMUNITY_FILTERS: getCommunityFilters,
-    GET_COMMUNITY_LIST: getCommunityList,
   },
 });

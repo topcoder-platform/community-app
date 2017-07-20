@@ -17,7 +17,6 @@ import _ from 'lodash';
 import PT from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Redirect } from 'react-router-dom';
 import actions from 'actions/tc-communities/meta';
 import newsActions from 'actions/tc-communities/news';
 import { bindActionCreators } from 'redux';
@@ -25,11 +24,13 @@ import standardHeaderActions from 'actions/topcoder_header';
 import Header from 'components/tc-communities/Header';
 import Footer from 'components/tc-communities/Footer';
 import LoadingIndicator from 'components/LoadingIndicator';
+import Error404 from 'components/Error404';
 
 // page content components
 import ChallengeListing from 'containers/challenge-listing/Listing';
 import Leaderboard from 'containers/Leaderboard';
 import WiproHome from 'components/tc-communities/communities/wipro/Home';
+import WiproFooter from 'components/tc-communities/communities/wipro/Footer';
 import WiproLearn from 'components/tc-communities/communities/wipro/Learn';
 
 import TcProdDevHome from 'components/tc-communities/communities/tc-prod-dev/Home';
@@ -119,7 +120,8 @@ class Page extends Component {
 
     // if page it not found redirect to 404
     if (!pageContent) {
-      pageContent = <Redirect to={{ pathname: '/404' }} />;
+      pageContent = <Error404 />;
+      // pageContent = <Redirect to={{ pathname: '/404' }} />;
     }
 
     pageContent = React.cloneElement(pageContent, {
@@ -148,7 +150,7 @@ class Page extends Component {
         break;
       case 'challenges':
         pageContent = (<ChallengeListing
-          challengeGroupId={this.props.meta.challengeGroupId}
+          groupId={this.props.meta.groupId}
           communityId={this.props.meta.communityId}
           communityName={this.props.meta.communityName}
           tag={this.props.meta.challengeFilterTag}
@@ -180,6 +182,9 @@ class Page extends Component {
               activeTrigger={this.props.activeTrigger}
               closeMenu={this.props.closeMenu}
               logos={this.props.meta.logos}
+              additionalLogos={this.props.meta.additionalLogos}
+              hideSearch={this.props.meta.hideSearch}
+              chevronOverAvatar={this.props.meta.chevronOverAvatar}
               pageId={this.props.pageId}
               profile={this.props.profile}
               menuItems={this.props.meta.menuItems}
@@ -192,11 +197,15 @@ class Page extends Component {
               cssUrl={this.props.meta.cssUrl}
             />
             {this.renderPageContent()}
-            <Footer
-              menuItems={this.props.meta.menuItems}
-              communityId={communityId}
-              isAuthorized={!!this.props.profile}
-            />
+            {
+              this.props.meta.communityId === 'wipro' ?
+                <WiproFooter text={this.props.meta.footerText} /> :
+                <Footer
+                  menuItems={this.props.meta.menuItems}
+                  communityId={communityId}
+                  isAuthorized={!!this.props.profile}
+                />
+            }
           </div>
         );
       }
@@ -234,7 +243,7 @@ Page.propTypes = {
   meta: PT.shape({
     authorizedGroupIds: PT.arrayOf(PT.string),
     challengeFilterTag: PT.string,
-    challengeGroupId: PT.string,
+    groupId: PT.string,
     communityId: PT.string,
     communityName: PT.string,
     communitySelector: PT.arrayOf(PT.shape()),
@@ -247,6 +256,11 @@ Page.propTypes = {
     leaderboardApiUrl: PT.string,
     loading: PT.bool,
     logos: PT.arrayOf(PT.string).isRequired,
+    additionalLogos: PT.arrayOf(PT.string),
+    stats: PT.shape(),
+    hideSearch: PT.bool,
+    chevronOverAvatar: PT.bool,
+    footerText: PT.string,
     menuItems: PT.arrayOf(PT.shape({})).isRequired,
     newsFeed: PT.string,
   }).isRequired,
