@@ -87,7 +87,7 @@ class Page extends Component {
     // TODO: this have to be removed when editor implemented
     if (communityId === 'wipro') {
       if (pageId === 'home') {
-        pageContent = <WiproHome stats={this.props.meta.stats} />;
+        pageContent = <WiproHome />;
       } else if (pageId === 'learn') {
         pageContent = <WiproLearn />;
       }
