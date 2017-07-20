@@ -4,7 +4,7 @@ exports[`Snapshot match 1`] = `
 <main>
   <ThemedBanner
     composeTheme="deeply"
-    imageSrc="/themes/wipro/home/banner.jpg"
+    imageSrc="/themes/wipro/home/top_image.png"
     link={
       Object {
         "title": "Compete Now",
@@ -13,10 +13,22 @@ exports[`Snapshot match 1`] = `
     }
     mapThemrProps={[Function]}
     text="Wipro's Hybrid Crowd gives our vast ecosystem of customers and partners options to access new range of skills that provide new value services and efficiency options all over the world."
-    theme={Object {}}
+    theme={
+      Object {
+        "content": "src-shared-components-tc-communities-communities-wipro-Home-themes-___banner__content___Q3UPe",
+        "contentBg": "src-shared-components-tc-communities-communities-wipro-Home-themes-___banner__contentBg___37wCT",
+        "contentInner": "src-shared-components-tc-communities-communities-wipro-Home-themes-___banner__contentInner___2_XVC",
+        "link": "src-shared-components-tc-communities-communities-wipro-Home-themes-___banner__link___1qqQ7",
+        "linkWrap": "src-shared-components-tc-communities-communities-wipro-Home-themes-___banner__linkWrap___3lNPR",
+        "text": "src-shared-components-tc-communities-communities-wipro-Home-themes-___banner__text___3u-W2",
+        "title": "src-shared-components-tc-communities-communities-wipro-Home-themes-___banner__title___361sT",
+      }
+    }
     title="Wipro Crowd"
   />
-  <Connect(CommunityStatsContainer) />
+  <CommunityStats
+    stats={Object {}}
+  />
   <Connect(JoinCommunity) />
   <ThemedSection
     anchor={null}
@@ -42,7 +54,17 @@ exports[`Snapshot match 1`] = `
         }
         mapThemrProps={[Function]}
         text="Our continuously evolving structured learning paths, constantly abreast of the latest, tailored for employees to deepen your knowledge, infuses important software capabilities that are industry specific and help you get the skills you need to succeed. Click below to visit TopGear."
-        theme={Object {}}
+        theme={
+          Object {
+            "container": "src-shared-components-tc-communities-communities-wipro-Home-themes-___imageTextStyle__container___3QC0T",
+            "contentInner": "src-shared-components-tc-communities-communities-wipro-Home-themes-___imageTextStyle__contentInner___1i9Up",
+            "imageText": "src-shared-components-tc-communities-communities-wipro-Home-themes-___imageTextStyle__imageText___2EacK",
+            "link": "src-shared-components-tc-communities-communities-wipro-Home-themes-___imageTextStyle__link___2JT7c",
+            "linkWrap": "src-shared-components-tc-communities-communities-wipro-Home-themes-___imageTextStyle__linkWrap___2z9IK",
+            "text": "src-shared-components-tc-communities-communities-wipro-Home-themes-___imageTextStyle__text___HNE3s",
+            "title": "src-shared-components-tc-communities-communities-wipro-Home-themes-___imageTextStyle__title___21Zgm",
+          }
+        }
         title="Improve Your Skills"
       />
       <ThemedImageText
@@ -56,7 +78,17 @@ exports[`Snapshot match 1`] = `
         }
         mapThemrProps={[Function]}
         text="Rewards program is intended to celebrate and recognize your contribution. Rewards for project contributions are given using ‘Reward Points’. Points earned translate into badges. Quarterly rewards are given away to the toppers of all categories."
-        theme={Object {}}
+        theme={
+          Object {
+            "container": "src-shared-components-tc-communities-communities-wipro-Home-themes-___imageTextStyle__container___3QC0T",
+            "contentInner": "src-shared-components-tc-communities-communities-wipro-Home-themes-___imageTextStyle__contentInner___1i9Up",
+            "imageText": "src-shared-components-tc-communities-communities-wipro-Home-themes-___imageTextStyle__imageText___2EacK",
+            "link": "src-shared-components-tc-communities-communities-wipro-Home-themes-___imageTextStyle__link___2JT7c",
+            "linkWrap": "src-shared-components-tc-communities-communities-wipro-Home-themes-___imageTextStyle__linkWrap___2z9IK",
+            "text": "src-shared-components-tc-communities-communities-wipro-Home-themes-___imageTextStyle__text___HNE3s",
+            "title": "src-shared-components-tc-communities-communities-wipro-Home-themes-___imageTextStyle__title___21Zgm",
+          }
+        }
         title="Get Involved"
       />
     </div>
@@ -84,8 +116,17 @@ exports[`Snapshot match 1`] = `
       }
       mapThemrProps={[Function]}
       text="Pellentesque non dignissim neque. Nunc vel rhoncus nibh, ut tincidunt turpis. Integer ac enim pellentesque, adipiscing metus id, pharetra odio."
-      theme={Object {}}
-      title="Up Your Development Skills"
+      theme={
+        Object {
+          "container": "src-shared-components-tc-communities-communities-wipro-Home-themes-___resourceCardStyles__container___2io5w",
+          "icon": "src-shared-components-tc-communities-communities-wipro-Home-themes-___resourceCardStyles__icon___3YRUQ",
+          "link": "src-shared-components-tc-communities-communities-wipro-Home-themes-___resourceCardStyles__link___3tD6A",
+          "linkWrap": "src-shared-components-tc-communities-communities-wipro-Home-themes-___resourceCardStyles__linkWrap___34Rak",
+          "text": "src-shared-components-tc-communities-communities-wipro-Home-themes-___resourceCardStyles__text___14SfC",
+          "title": "src-shared-components-tc-communities-communities-wipro-Home-themes-___resourceCardStyles__title___3cgOo",
+        }
+      }
+      title="Up Your iOS and Swift Development Skills"
     />
     <ThemedResourceCard
       composeTheme="deeply"
@@ -98,7 +139,16 @@ exports[`Snapshot match 1`] = `
       }
       mapThemrProps={[Function]}
       text="Donec bibendum nunc sit amet tortor scelerisque luctus et sit amet mauris. Suspendisse felis sem, condimentum ullamcorper est sit amet, molestie"
-      theme={Object {}}
+      theme={
+        Object {
+          "container": "src-shared-components-tc-communities-communities-wipro-Home-themes-___resourceCardStyles__container___2io5w",
+          "icon": "src-shared-components-tc-communities-communities-wipro-Home-themes-___resourceCardStyles__icon___3YRUQ",
+          "link": "src-shared-components-tc-communities-communities-wipro-Home-themes-___resourceCardStyles__link___3tD6A",
+          "linkWrap": "src-shared-components-tc-communities-communities-wipro-Home-themes-___resourceCardStyles__linkWrap___34Rak",
+          "text": "src-shared-components-tc-communities-communities-wipro-Home-themes-___resourceCardStyles__text___14SfC",
+          "title": "src-shared-components-tc-communities-communities-wipro-Home-themes-___resourceCardStyles__title___3cgOo",
+        }
+      }
       title="Take the First Steps to Stand Out in the Community"
     />
     <ThemedResourceCard
@@ -112,12 +162,37 @@ exports[`Snapshot match 1`] = `
       }
       mapThemrProps={[Function]}
       text="Suspendisse felis sem, condimentum ullamcorper est sit amet, molestie mollis nulla. Etiam lorem orci, consequat ac magna quis, facilisis"
-      theme={Object {}}
+      theme={
+        Object {
+          "container": "src-shared-components-tc-communities-communities-wipro-Home-themes-___resourceCardStyles__container___2io5w",
+          "icon": "src-shared-components-tc-communities-communities-wipro-Home-themes-___resourceCardStyles__icon___3YRUQ",
+          "link": "src-shared-components-tc-communities-communities-wipro-Home-themes-___resourceCardStyles__link___3tD6A",
+          "linkWrap": "src-shared-components-tc-communities-communities-wipro-Home-themes-___resourceCardStyles__linkWrap___34Rak",
+          "text": "src-shared-components-tc-communities-communities-wipro-Home-themes-___resourceCardStyles__text___14SfC",
+          "title": "src-shared-components-tc-communities-communities-wipro-Home-themes-___resourceCardStyles__title___3cgOo",
+        }
+      }
       title="Compete in Challenges and Win Cash"
     />
   </ThemedSection>
   <NewsSection
     news={Array []}
+    theme={
+      Object {
+        "card": Object {
+          "container": "src-shared-components-tc-communities-communities-wipro-Home-themes-___articleCardStyles__container___18tVr",
+          "content": "src-shared-components-tc-communities-communities-wipro-Home-themes-___articleCardStyles__content___MMeZI",
+          "image": "src-shared-components-tc-communities-communities-wipro-Home-themes-___articleCardStyles__image___2IfSN",
+          "linkWrap": "src-shared-components-tc-communities-communities-wipro-Home-themes-___articleCardStyles__linkWrap___1PNDP",
+          "text": "src-shared-components-tc-communities-communities-wipro-Home-themes-___articleCardStyles__text___20zAA",
+          "title": "src-shared-components-tc-communities-communities-wipro-Home-themes-___articleCardStyles__title___337db",
+        },
+        "section": Object {
+          "container": "src-shared-components-tc-communities-communities-wipro-Home-themes-___newsSectionStyles__container___6kcTT",
+          "title": "src-shared-components-tc-communities-communities-wipro-Home-themes-___newsSectionStyles__title___3I87s",
+        },
+      }
+    }
   />
   <ThemedNewsletterSignup
     buttonText="Sign Up"
@@ -126,7 +201,17 @@ exports[`Snapshot match 1`] = `
     imageSrc="/themes/wipro/subscribe-bg.jpg"
     mapThemrProps={[Function]}
     text="Don’t miss out on the latest challenges and information!"
-    theme={Object {}}
+    theme={
+      Object {
+        "container": "src-shared-components-tc-communities-communities-wipro-Home-themes-___newsletter_signup__container___2IXh7",
+        "content": "src-shared-components-tc-communities-communities-wipro-Home-themes-___newsletter_signup__content___2hp7q",
+        "form": "src-shared-components-tc-communities-communities-wipro-Home-themes-___newsletter_signup__form___3CGWo",
+        "formButton": "src-shared-components-tc-communities-communities-wipro-Home-themes-___newsletter_signup__formButton___35q53",
+        "formEmail": "src-shared-components-tc-communities-communities-wipro-Home-themes-___newsletter_signup__formEmail___vvjaw",
+        "text": "src-shared-components-tc-communities-communities-wipro-Home-themes-___newsletter_signup__text___3qHjX",
+        "title": "src-shared-components-tc-communities-communities-wipro-Home-themes-___newsletter_signup__title___3T52C",
+      }
+    }
     title="Sign up for our newsletter"
   />
 </main>

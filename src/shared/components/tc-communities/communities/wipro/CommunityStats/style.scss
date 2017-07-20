@@ -1,0 +1,59 @@
+@import '~styles/tc-styles';
+
+.container {
+  padding: 0;
+}
+
+.content {
+  padding: 30px 38px 40px;
+
+  @include xxs-to-sm {
+    display: flex;
+    justify-content: space-around;
+    padding: 25px 12px;
+  }
+}
+
+.statsContainer {
+  display: flex;
+  align-items: center;
+
+  @include xxs-to-sm {
+    display: block;
+    text-align: center;
+  }
+
+  .statsIcon {
+    margin-right: 20px;
+
+    @include xxs-to-sm {
+      font-size: 11px;
+      margin-right: 0;
+    }
+  }
+
+  .text {
+    flex: 1;
+
+    .statsValue {
+      font-family: 'Akkurat regular', sans-serif;
+      font-size: 36px;
+      color: #646363;
+
+      @include xxs-to-sm {
+        font-size: 18px;
+      }
+    }
+
+    .statsLabel {
+      font-family: 'Akkurat regular', sans-serif;
+      font-size: 18px;
+      color: #646363;
+      margin-top: 10px;
+
+      @include xxs-to-sm {
+        font-size: 14px;
+      }
+    }
+  }
+}

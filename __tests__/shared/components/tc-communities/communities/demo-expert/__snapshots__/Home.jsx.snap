@@ -118,6 +118,12 @@ exports[`Snapshot match 1`] = `
   </ThemedSection>
   <NewsSection
     news={Array []}
+    theme={
+      Object {
+        "card": Object {},
+        "section": Object {},
+      }
+    }
   />
   <ThemedNewsletterSignup
     buttonText="Sign Up"

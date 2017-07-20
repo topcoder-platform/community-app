@@ -30,6 +30,7 @@ import Error404 from 'components/Error404';
 import ChallengeListing from 'containers/challenge-listing/Listing';
 import Leaderboard from 'containers/Leaderboard';
 import WiproHome from 'components/tc-communities/communities/wipro/Home';
+import WiproFooter from 'components/tc-communities/communities/wipro/Footer';
 import WiproLearn from 'components/tc-communities/communities/wipro/Learn';
 
 import TcProdDevHome from 'components/tc-communities/communities/tc-prod-dev/Home';
@@ -86,7 +87,7 @@ class Page extends Component {
     // TODO: this have to be removed when editor implemented
     if (communityId === 'wipro') {
       if (pageId === 'home') {
-        pageContent = <WiproHome />;
+        pageContent = <WiproHome stats={this.props.meta.stats} />;
       } else if (pageId === 'learn') {
         pageContent = <WiproLearn />;
       }
@@ -181,6 +182,9 @@ class Page extends Component {
               activeTrigger={this.props.activeTrigger}
               closeMenu={this.props.closeMenu}
               logos={this.props.meta.logos}
+              additionalLogos={this.props.meta.additionalLogos}
+              hideSearch={this.props.meta.hideSearch}
+              chevronOverAvatar={this.props.meta.chevronOverAvatar}
               pageId={this.props.pageId}
               profile={this.props.profile}
               menuItems={this.props.meta.menuItems}
@@ -193,11 +197,15 @@ class Page extends Component {
               cssUrl={this.props.meta.cssUrl}
             />
             {this.renderPageContent()}
-            <Footer
-              menuItems={this.props.meta.menuItems}
-              communityId={communityId}
-              isAuthorized={!!this.props.profile}
-            />
+            {
+              this.props.meta.communityId === 'wipro' ?
+                <WiproFooter text={this.props.meta.footerText} /> :
+                <Footer
+                  menuItems={this.props.meta.menuItems}
+                  communityId={communityId}
+                  isAuthorized={!!this.props.profile}
+                />
+            }
           </div>
         );
       }
@@ -248,6 +256,11 @@ Page.propTypes = {
     leaderboardApiUrl: PT.string,
     loading: PT.bool,
     logos: PT.arrayOf(PT.string).isRequired,
+    additionalLogos: PT.arrayOf(PT.string),
+    stats: PT.arrayOf(PT.string),
+    hideSearch: PT.bool,
+    chevronOverAvatar: PT.bool,
+    footerText: PT.string,
     menuItems: PT.arrayOf(PT.shape({})).isRequired,
     newsFeed: PT.string,
   }).isRequired,

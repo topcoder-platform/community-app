@@ -11,6 +11,7 @@ export default function NewsSection(props) {
     const item = props.news[i];
     cards.push((
       <ArticleCard
+        theme={props.theme.card}
         imageSrc={`/themes/common/NewsSection/news-0${1 + i}.jpg`}
         key={i}
         link={{
@@ -25,6 +26,7 @@ export default function NewsSection(props) {
 
   return (
     <Section
+      theme={props.theme.section}
       title="Latest News"
     >
       {cards}
@@ -34,8 +36,16 @@ export default function NewsSection(props) {
 
 NewsSection.defaultProps = {
   news: null,
+  theme: {
+    section: {},
+    card: {},
+  },
 };
 
 NewsSection.propTypes = {
   news: PT.arrayOf(PT.shape()),
+  theme: PT.shape({
+    section: PT.shape(),
+    card: PT.shape(),
+  }),
 };

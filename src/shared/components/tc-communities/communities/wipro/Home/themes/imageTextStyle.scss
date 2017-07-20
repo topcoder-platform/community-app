@@ -1,0 +1,99 @@
+@import '~styles/tc-styles';
+
+.container {
+  &:nth-child(even) {
+    margin-top: 20px;
+    flex-direction: row-reverse;
+
+    .contentInner {
+      padding-left: 0;
+    }
+  }
+
+  &:nth-child(odd) {
+    flex-direction: row;
+  }
+}
+
+.contentInner {
+  padding: 0 20px 0 40px;
+
+  .imageText:nth-child(even) & {
+    padding: 0 40px 0 20px;
+  }
+
+  @include xxs-to-sm {
+    padding: 20px 15px 40px;
+    text-align: center;
+
+    .imageText:nth-child(even) & {
+      padding: 20px 15px 0;
+    }
+  }
+}
+
+.title {
+  font-family: 'Akkurat mono', sans-serif;
+  font-size: 18px;
+  text-decoration: underline;
+  color: #00a2e0;
+  position: relative;
+
+  &::before {
+    content: '';
+    position: absolute;
+    background-color: #e6f6fc;
+    width: 70px;
+    height: 70px;
+    border-radius: 100%;
+    left: -15px;
+    top: -32px;
+    z-index: -1;
+  }
+
+  @include xxs-to-md {
+    font-size: 17px;
+  }
+}
+
+.text {
+  color: #333;
+  font-family: 'Akkurat regular', sans-serif;
+  font-size: 14px;
+  margin-top: 19px;
+  opacity: 0.7;
+
+  @include xxs-to-md {
+    margin-top: 10px;
+  }
+}
+
+.linkWrap {
+  margin-top: 27px;
+
+  @include xxs-to-md {
+    margin-top: 20px;
+  }
+}
+
+.link {
+  font-family: 'Akkurat regular', sans-serif;
+  font-size: 16px;
+  color: #00a2e0;
+  display: inline-block;
+  border: 1px solid #00a2e0;
+  border-radius: 40px;
+  height: 40px;
+  text-align: center;
+  text-transform: uppercase;
+  width: 250px;
+
+  &:hover,
+  &:active,
+  &:focus,
+  &:visited {
+    color: #00a2e0;
+    outline: none;
+    text-decoration: none;
+  }
+}

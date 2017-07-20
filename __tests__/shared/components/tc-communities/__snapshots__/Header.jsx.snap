@@ -28,7 +28,7 @@ exports[`Snapshot match 1`] = `
           
         </div>
         <div
-          className="src-shared-components-tc-communities-Header-___style__challenge-dropdown___3fQW9"
+          className="tc-communities__header__challenge-dropdown src-shared-components-tc-communities-Header-___style__challenge-dropdown___3fQW9"
         >
           <Dropdown
             options={
@@ -49,7 +49,7 @@ exports[`Snapshot match 1`] = `
         </div>
       </div>
       <div
-        className="src-shared-components-tc-communities-Header-___style__user-wrap-mobile___20JBH"
+        className="tc-communities__header__user-wrap-mobile src-shared-components-tc-communities-Header-___style__user-wrap-mobile___20JBH"
       />
     </div>
     <div
@@ -65,7 +65,7 @@ exports[`Snapshot match 1`] = `
       className="src-shared-components-tc-communities-Header-___style__user-wrap___1kgTa"
     >
       <div
-        className="src-shared-components-tc-communities-Header-___style__authorize___3ARhM"
+        className="tc-communities__header__login-state src-shared-components-tc-communities-Header-___style__authorize___3ARhM"
       >
         <button
           className="src-shared-components-tc-communities-Header-___style__btnRegister___2mlu6"
@@ -84,6 +84,11 @@ exports[`Snapshot match 1`] = `
         className="src-shared-components-tc-communities-Header-___style__search___3BJGl"
       >
         <IconSearch />
+      </div>
+      <div
+        className="tc-communities__header__logos additional-logos src-shared-components-tc-communities-Header-___style__logos___38nqG"
+      >
+        
       </div>
     </div>
   </header>
@@ -137,7 +142,7 @@ exports[`Snapshot match 2`] = `
           </Connect(RRLinkWrapper)>
         </div>
         <div
-          className="src-shared-components-tc-communities-Header-___style__challenge-dropdown___3fQW9"
+          className="tc-communities__header__challenge-dropdown src-shared-components-tc-communities-Header-___style__challenge-dropdown___3fQW9"
         >
           <Dropdown
             options={
@@ -158,7 +163,7 @@ exports[`Snapshot match 2`] = `
         </div>
       </div>
       <div
-        className="src-shared-components-tc-communities-Header-___style__user-wrap-mobile___20JBH"
+        className="tc-communities__header__user-wrap-mobile src-shared-components-tc-communities-Header-___style__user-wrap-mobile___20JBH"
       />
     </div>
     <div
@@ -209,7 +214,7 @@ exports[`Snapshot match 2`] = `
       className="src-shared-components-tc-communities-Header-___style__user-wrap___1kgTa"
     >
       <div
-        className="src-shared-components-tc-communities-Header-___style__authorize___3ARhM"
+        className="tc-communities__header__login-state src-shared-components-tc-communities-Header-___style__authorize___3ARhM"
       >
         <button
           className="src-shared-components-tc-communities-Header-___style__btnRegister___2mlu6"
@@ -228,6 +233,11 @@ exports[`Snapshot match 2`] = `
         className="src-shared-components-tc-communities-Header-___style__search___3BJGl"
       >
         <IconSearch />
+      </div>
+      <div
+        className="tc-communities__header__logos additional-logos src-shared-components-tc-communities-Header-___style__logos___38nqG"
+      >
+        
       </div>
     </div>
   </header>

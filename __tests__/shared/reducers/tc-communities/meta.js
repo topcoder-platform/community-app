@@ -29,6 +29,7 @@ function testReducer(reducer, istate) {
   test('Handles fetchDataInit as expected', () => {
     state = reducer(state, mockMetaActions.tcCommunities.meta.fetchDataInit());
     expect(state).toEqual({
+      additionalLogos: [],
       communityId: null,
       communitySelector: [],
       logos: [],

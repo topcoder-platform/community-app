@@ -16,8 +16,8 @@
 }
 
 .resourcesContainer {
-  background-color: #fafafa;
-  padding: 70px 0;
+  background-color: rgba(#f2f2f2, 0.5);
+  padding: 20px 0;
 
   @include xxs-to-sm {
     padding: 40px 0;

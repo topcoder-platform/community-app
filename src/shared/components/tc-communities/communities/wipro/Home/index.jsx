@@ -13,16 +13,23 @@ import ImageText from 'components/tc-communities/ImageText';
 import ResourceCard from 'components/tc-communities/ResourceCard';
 import NewsletterSignup from 'components/tc-communities/NewsletterSignup';
 import NewsSection from 'components/tc-communities/NewsSection';
+
 import PT from 'prop-types';
 
-import CommunityStats from 'containers/tc-communities/CommunityStats';
 import JoinCommunity from 'containers/tc-communities/JoinCommunity';
+import CommunityStats from '../CommunityStats';
 
 import IconRocket from '../../../../../../assets/images/tc-communities/rocket.svg';
 import IconNetwork from '../../../../../../assets/images/tc-communities/network.svg';
 import IconMedal from '../../../../../../assets/images/tc-communities/medal.svg';
 
 import style from './style.scss';
+import bannerStyle from './themes/banner.scss';
+import NewsletterSignupStyle from './themes/newsletter_signup.scss';
+import ImageTextStyles from './themes/imageTextStyle.scss';
+import ResourceCardStyles from './themes/resourceCardStyles.scss';
+import ArticleCardStyles from './themes/articleCardStyles.scss';
+import NewsSectionStyles from './themes/newsSectionStyles.scss';
 
 export default function Home(props) {
   return (
@@ -34,10 +41,11 @@ export default function Home(props) {
           title: 'Compete Now',
           url: 'challenges',
         }}
-        imageSrc="/themes/wipro/home/banner.jpg"
+        imageSrc="/themes/wipro/home/top_image.png"
+        theme={bannerStyle}
       />
 
-      <CommunityStats />
+      <CommunityStats stats={props.stats} />
 
       <JoinCommunity />
 
@@ -54,6 +62,7 @@ export default function Home(props) {
               title: 'Start Learning',
               url: 'https://topgear.wipro.com',
             }}
+            theme={ImageTextStyles}
             imageSrc="/themes/wipro/home/image-text-learn.jpg"
           />
           <ImageText
@@ -63,6 +72,7 @@ export default function Home(props) {
               title: 'Start Earning',
               url: 'challenges',
             }}
+            theme={ImageTextStyles}
             imageSrc="/themes/wipro/home/image-text-do.jpg"
           />
         </div>
@@ -74,8 +84,9 @@ export default function Home(props) {
         }}
       >
         <ResourceCard
+          theme={ResourceCardStyles}
           icon={IconNetwork}
-          title="Up Your Development Skills"
+          title="Up Your iOS and Swift Development Skills"
           text="Pellentesque non dignissim neque. Nunc vel rhoncus nibh, ut tincidunt turpis. Integer ac enim pellentesque, adipiscing metus id, pharetra odio."
           link={{
             title: 'Browse resources',
@@ -83,6 +94,7 @@ export default function Home(props) {
           }}
         />
         <ResourceCard
+          theme={ResourceCardStyles}
           icon={IconMedal}
           title="Take the First Steps to Stand Out in the Community"
           text="Donec bibendum nunc sit amet tortor scelerisque luctus et sit amet mauris. Suspendisse felis sem, condimentum ullamcorper est sit amet, molestie"
@@ -92,6 +104,7 @@ export default function Home(props) {
           }}
         />
         <ResourceCard
+          theme={ResourceCardStyles}
           icon={IconRocket}
           title="Compete in Challenges and Win Cash"
           text="Suspendisse felis sem, condimentum ullamcorper est sit amet, molestie mollis nulla. Etiam lorem orci, consequat ac magna quis, facilisis"
@@ -102,12 +115,19 @@ export default function Home(props) {
         />
       </Section>
 
-      <NewsSection news={props.news} />
+      <NewsSection
+        news={props.news}
+        theme={{
+          section: NewsSectionStyles,
+          card: ArticleCardStyles,
+        }}
+      />
 
       <NewsletterSignup
         title="Sign up for our newsletter"
         text="Don’t miss out on the latest challenges and information!"
         imageSrc="/themes/wipro/subscribe-bg.jpg"
+        theme={NewsletterSignupStyle}
       />
 
     </main>
@@ -116,8 +136,17 @@ export default function Home(props) {
 
 Home.defaultProps = {
   news: [],
+  stats: {},
 };
+
+const numberOrString = PT.oneOfType([PT.number, PT.string]);
 
 Home.propTypes = {
   news: PT.arrayOf(PT.shape()),
+  stats: PT.shape({
+    numChallenges: numberOrString,
+    numMembers: numberOrString,
+    numProjects: numberOrString,
+    openPrizes: numberOrString,
+  }),
 };
