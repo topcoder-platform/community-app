@@ -155,6 +155,7 @@ class Page extends Component {
           communityName={this.props.meta.communityName}
           tag={this.props.meta.challengeFilterTag}
           history={this.props.history}
+          hideTcLinksInSidebarFooter={this.props.meta.communityId === 'wipro'}
           location={this.props.location}
         />);
         break;

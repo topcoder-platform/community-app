@@ -10,28 +10,32 @@ import React from 'react';
 import Section from 'components/tc-communities/Section';
 import Banner from 'components/tc-communities/Banner';
 import ImageText from 'components/tc-communities/ImageText';
+/*
 import ResourceCard from 'components/tc-communities/ResourceCard';
 import NewsletterSignup from 'components/tc-communities/NewsletterSignup';
 import NewsSection from 'components/tc-communities/NewsSection';
+*/
 import { noop } from 'lodash';
-import Slider from 'react-slick';
+// import Slider from 'react-slick';
 
 import PT from 'prop-types';
 
 import JoinCommunity from 'containers/tc-communities/JoinCommunity';
 import CommunityStats from 'containers/tc-communities/WiproCommunityStats';
 
+/*
 import IconRocket from '../../../../../../assets/images/tc-communities/rocket.svg';
 import IconNetwork from '../../../../../../assets/images/tc-communities/network.svg';
 import IconMedal from '../../../../../../assets/images/tc-communities/medal.svg';
+*/
 
 import style from './style.scss';
 import bannerStyle from './themes/banner.scss';
-import NewsletterSignupStyle from './themes/newsletter_signup.scss';
+// import NewsletterSignupStyle from './themes/newsletter_signup.scss';
 import ImageTextStyles from './themes/imageTextStyle.scss';
-import ResourceCardStyles from './themes/resourceCardStyles.scss';
-import ArticleCardStyles from './themes/articleCardStyles.scss';
-import NewsSectionStyles from './themes/newsSectionStyles.scss';
+// import ResourceCardStyles from './themes/resourceCardStyles.scss';
+// import ArticleCardStyles from './themes/articleCardStyles.scss';
+// import NewsSectionStyles from './themes/newsSectionStyles.scss';
 
 function PrevArrow(props) {
   return (
@@ -69,6 +73,7 @@ NextArrow.propTypes = {
   onClick: PT.func,
 };
 
+/*
 const settings = {
   dots: false,
   infinite: false,
@@ -92,12 +97,13 @@ const settings = {
     },
   ],
 };
+*/
 
-export default function Home(props) {
+export default function Home(/* props */) {
   return (
     <main>
       <Banner
-        title="Wipro Crowd"
+        title="Wipro crowd"
         text="Wipro's Hybrid Crowd gives our vast ecosystem of customers and partners options to access new range of skills that provide new value services and efficiency options all over the world."
         link={{
           title: 'Compete Now',
@@ -122,7 +128,7 @@ export default function Home(props) {
             text="Our continuously evolving structured learning paths, constantly abreast of the latest, tailored for employees to deepen your knowledge, infuses important software capabilities that are industry specific and help you get the skills you need to succeed. Click below to visit TopGear."
             link={{
               title: 'Start Learning',
-              url: 'https://topgear.wipro.com',
+              url: 'https://topgear-app.wipro.com',
             }}
             theme={ImageTextStyles}
             imageSrc="/themes/wipro/home/image-text-learn.jpg"
@@ -140,6 +146,9 @@ export default function Home(props) {
         </div>
       </Section>
 
+      {/*
+        NOTE: Commented out until we get a better content for these sections.
+
       <Section
         theme={{
           container: style.resourcesContainer,
@@ -154,7 +163,7 @@ export default function Home(props) {
               text="Pellentesque non dignissim neque. Nunc vel rhoncus nibh, ut tincidunt turpis. Integer ac enim pellentesque, adipiscing metus id, pharetra odio."
               link={{
                 title: 'Browse resources',
-                url: 'https://topgear.wipro.com',
+                url: 'https://topgear-app.wipro.com',
               }}
             />
           </div>
@@ -202,6 +211,7 @@ export default function Home(props) {
         imageSrc="/themes/wipro/subscribe-bg.jpg"
         theme={NewsletterSignupStyle}
       />
+      */}
 
     </main>
   );

@@ -88,13 +88,14 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-function mapStateToProps(state) {
+function mapStateToProps(state, ownProps) {
   const activeBucket = state.challengeListing.sidebar.activeBucket;
   const pending = _.keys(state.challengeListing.pendingRequests);
   return {
     ...state.challengeListing.sidebar,
     challenges: state.challengeListing.challenges,
     disabled: (activeBucket === BUCKETS.ALL) && Boolean(pending.length),
+    hideTcLinksInFooter: ownProps.hideTcLinksInFooter,
     filterState: state.challengeListing.filter,
     isAuth: Boolean(state.auth.user),
     communityFilters: [{ communityId: '', communityName: 'All' }].concat(state.tcCommunities.list),

@@ -128,7 +128,7 @@ export default function ChallengeListing(props) {
 
         <div styleName="sidebar-container-desktop">
           <Sticky top={20}>
-            <Sidebar />
+            <Sidebar hideTcLinksInFooter={props.hideTcLinksInFooter} />
           </Sticky>
         </div>
       </div>
@@ -142,6 +142,7 @@ ChallengeListing.defaultProps = {
   communityName: null,
   loadMoreDraft: null,
   loadMorePast: null,
+  hideTcLinksInFooter: false,
   auth: null,
 };
 
@@ -151,6 +152,7 @@ ChallengeListing.propTypes = {
   communityFilter: PT.shape(),
   communityName: PT.string,
   filterState: PT.shape().isRequired,
+  hideTcLinksInFooter: PT.bool,
   lastUpdateOfActiveChallenges: PT.number.isRequired,
   loadingChallenges: PT.bool.isRequired,
   loadingDraftChallenges: PT.bool.isRequired,
