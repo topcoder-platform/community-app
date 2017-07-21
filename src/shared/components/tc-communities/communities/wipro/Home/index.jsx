@@ -136,10 +136,18 @@ export default function Home(/* props */) {
           <ImageText
             title="Get Involved"
             text="Rewards program is intended to celebrate and recognize your contribution. Rewards for project contributions are given using ‘Reward Points’. Points earned translate into badges. Quarterly rewards are given away to the toppers of all categories."
-            link={{
+            link={[{
               title: 'Start Earning',
               url: 'challenges',
-            }}
+            }, {
+              newTab: true,
+              title: 'Become a Reviewer',
+              url: 'https://help.topcoder.com/hc/requests/new',
+            }, {
+              newTab: true,
+              title: 'Become a Copilot',
+              url: 'https://help.topcoder.com/hc/requests/new',
+            }]}
             theme={ImageTextStyles}
             imageSrc="/themes/wipro/home/image-text-do.jpg"
           />
