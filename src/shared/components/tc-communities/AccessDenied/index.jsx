@@ -10,6 +10,7 @@ import './style.scss';
 
 export const CAUSE = {
   NOT_AUTHENTICATED: 'Not authenticated',
+  NOT_AUTHENTICATED_WIPRO: 'Not authenticated (Wipro)',
   NOT_AUTHORIZED: 'Not authorized',
 };
 
@@ -38,6 +39,28 @@ export default function AccessDenied({ cause }) {
           <div styleName="msg">You are not authorized to access this page.</div>
         </div>
       );
+    case CAUSE.NOT_AUTHENTICATED_WIPRO: {
+      const returnUrl = encodeURIComponent(`${origin}/`);
+      return (
+        <div styleName="access-denied">
+          <TopcoderLogo />
+          <div styleName="msg">You must be authenticated to access this page.</div>
+          <div styleName="msg">
+            <a
+              className="tc-btn-md tc-btn-primary"
+              href={`${config.URL.AUTH_SSO}?app=member&retUrl=${returnUrl}`}
+            >Login with SSO</a>
+          </div>
+          <div styleName="msg">
+            Not a member yet? <a href={`${config.URL.AUTH}/registration?retUrl=${returnUrl}`} styleName="joinNow">Join Now</a>
+          </div>
+          <div styleName="copyright">
+            <strong>Privacy policy</strong>
+            &copy; 2017 Topcoder. All rights reserved
+          </div>
+        </div>
+      );
+    }
     default: return <div />;
   }
 }

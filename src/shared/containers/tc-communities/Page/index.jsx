@@ -218,7 +218,13 @@ class Page extends Component {
         </div>
       );
     }
-    return <AccessDenied cause={ACCESS_DENIED_CAUSE.NOT_AUTHENTICATED} />;
+    return (
+      <AccessDenied
+        cause={communityId === 'wipro'
+          ? ACCESS_DENIED_CAUSE.NOT_AUTHENTICATED_WIPRO : ACCESS_DENIED_CAUSE.NOT_AUTHENTICATED
+        }
+      />
+    );
   }
 }
 
