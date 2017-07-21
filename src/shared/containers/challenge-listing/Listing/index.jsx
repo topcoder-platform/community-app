@@ -121,6 +121,7 @@ class ListingContainer extends React.Component {
       lastUpdateOfActiveChallenges,
       listingOnly,
       selectBucket,
+      hideTcLinksInSidebarFooter,
     } = this.props;
 
     let loadMoreDraft;
@@ -156,7 +157,7 @@ class ListingContainer extends React.Component {
         { !listingOnly ? (
           <Banner
             title="Challenges"
-            text="Browse our available challenges and compete. Vestibulum rutrum quam vitae fringilla tincidunt. Suspendisse nec tortor urna. Ut laoreet sodales nisi, quis iaculis nulla iaculis vitae. Donec sagittis faucibus lacus eget blandit. "
+            text="Browse our available challenges and compete."
             theme={{
               container: style.bannerContainer,
               content: style.bannerContent,
@@ -180,6 +181,7 @@ class ListingContainer extends React.Component {
           loadingDraftChallenges={Boolean(this.props.loadingDraftChallengesUUID)}
           loadingPastChallenges={Boolean(this.props.loadingPastChallengesUUID)}
           selectBucket={selectBucket}
+          hideTcLinksInFooter={hideTcLinksInSidebarFooter}
 
           loadMoreDraft={loadMoreDraft}
           loadMorePast={loadMorePast}
@@ -210,6 +212,7 @@ class ListingContainer extends React.Component {
 ListingContainer.defaultProps = {
   selectedCommunityId: '',
   groupId: '',
+  hideTcLinksInSidebarFooter: false,
   communityId: null,
   communityName: null,
   listingOnly: false,
@@ -232,6 +235,7 @@ ListingContainer.propTypes = {
   })).isRequired,
   dropChallenges: PT.func.isRequired,
   filter: PT.shape().isRequired,
+  hideTcLinksInSidebarFooter: PT.bool,
   communityId: PT.string,
   communityName: PT.string,
   getAllActiveChallenges: PT.func.isRequired,
@@ -257,7 +261,7 @@ ListingContainer.propTypes = {
   groupId: PT.string,
 };
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state, ownProps) => {
   const cl = state.challengeListing;
   const tc = state.tcCommunities;
   return {
@@ -269,6 +273,7 @@ const mapStateToProps = (state) => {
     challengeSubtracks: cl.challengeSubtracks,
     challengeTags: cl.challengeTags,
     communityFilters: [{ communityId: '', communityName: 'All' }].concat(tc.list),
+    hideTcLinksInSidebarFooter: ownProps.hideTcLinksInSidebarFooter,
     lastRequestedPageOfDraftChallenges: cl.lastRequestedPageOfDraftChallenges,
     lastRequestedPageOfPastChallenges: cl.lastRequestedPageOfPastChallenges,
     lastUpdateOfActiveChallenges: cl.lastUpdateOfActiveChallenges,

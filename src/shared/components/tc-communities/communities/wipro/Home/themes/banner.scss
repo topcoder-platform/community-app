@@ -12,17 +12,17 @@
 }
 
 .contentBg {
-  background-color: rgba(10, 64, 86, 0.85);
+  background: #0e3750;
   position: absolute;
   bottom: -135px;
   left: -30px;
+  opacity: 0.85;
   border-radius: 100%;
   width: 364px;
   height: 364px;
   transform: none;
 
   @include xxs-to-sm {
-    background: rgba(10, 64, 86, 0.85);
     left: 0;
     bottom: 0;
     transform: none;
@@ -42,10 +42,11 @@
 }
 
 h2.title {
-  font-family: 'Open Sans';
+  font-family: 'Akkurat mono';
   font-size: 20px;
   line-height: 136.11%;
   text-decoration: underline;
+  text-transform: none;
 
   @include xxs-to-sm {
     font-size: 30px;
@@ -53,6 +54,7 @@ h2.title {
 }
 
 .text {
+  font-family: 'Akkurat regular';
   line-height: 20px;
 }
 

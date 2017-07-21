@@ -57,7 +57,7 @@ export default function SideBarFilters(props) {
           />
         )}
       </div>
-      <Footer />
+      <Footer hideTcLinksInFooter={props.hideTcLinksInFooter} />
     </div>
   );
 }
@@ -66,6 +66,7 @@ SideBarFilters.defaultProps = {
   communityFilter: null,
   disabled: false,
   dragState: {},
+  hideTcLinksInFooter: false,
   isAuth: false,
 };
 
@@ -85,6 +86,7 @@ SideBarFilters.propTypes = {
   dragSavedFilterStart: PT.func.isRequired,
   editSavedFiltersMode: PT.bool.isRequired,
   filterState: PT.shape().isRequired,
+  hideTcLinksInFooter: PT.bool,
   isAuth: PT.bool,
   resetFilterName: PT.func.isRequired,
   savedFilters: PT.arrayOf(PT.shape()).isRequired,
