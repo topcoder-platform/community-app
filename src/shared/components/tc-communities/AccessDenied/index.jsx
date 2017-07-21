@@ -48,7 +48,7 @@ export default function AccessDenied({ cause }) {
           <div styleName="msg">
             <a
               className="tc-btn-md tc-btn-primary"
-              href={`${config.URL.AUTH_SSO}?app=member&retUrl=${returnUrl}`}
+              href={`${config.URL.AUTH_SSO}/?app=member&retUrl=${returnUrl}`}
             >Login with SSO</a>
           </div>
           <div styleName="msg">
