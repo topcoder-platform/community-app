@@ -43,8 +43,7 @@
    * platform. */
   "URL": {
     "ARENA": "https://arena.topcoder-dev.com",
-    "AUTH": "https://accounts.topcoder-dev.com/member",
-    "AUTH_SSO": "https://accounts.topcoder-dev.com/sso-login",
+    "AUTH": "https://accounts.topcoder-dev.com",
     "BASE": "https://www.topcoder-dev.com",
     "COMMUNITY": "https://community.topcoder-dev.com",
     "FORUMS": "https://apps.topcoder-dev.com/forums",

@@ -26,7 +26,7 @@ export default function AccessDenied({ cause }) {
           <div styleName="msg">
             <a
               className="tc-btn-md tc-btn-primary"
-              href={`${config.URL.AUTH}?retUrl=${returnUrl}`}
+              href={`${config.URL.AUTH}/member?retUrl=${returnUrl}`}
             >Log In Here</a>
           </div>
         </div>
@@ -48,14 +48,14 @@ export default function AccessDenied({ cause }) {
           <div styleName="msg">
             <a
               className="tc-btn-md tc-btn-primary"
-              href={`${config.URL.AUTH_SSO}/?app=member&retUrl=${returnUrl}`}
+              href={`${config.URL.AUTH}/sso-login/?app=member&retUrl=${returnUrl}`}
             >Login with SSO</a>
           </div>
           <div styleName="msg">
-            Not a member yet? <a href={`${config.URL.AUTH}/registration?retUrl=${returnUrl}`} styleName="joinNow">Join Now</a>
+            Not a member yet? <a href={`${config.URL.AUTH}/sso-registration/?app=member&retUrl=${returnUrl}`} styleName="joinNow">Join Now</a>
           </div>
           <div styleName="copyright">
-            <strong>Privacy policy</strong>
+            <a styleName="policy" href={`${config.URL.BASE}/community/how-it-works/privacy-policy/`}>Privacy policy</a>
             &copy; 2017 Topcoder. All rights reserved
           </div>
         </div>
