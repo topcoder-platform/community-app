@@ -96,14 +96,14 @@ export default function Header(props) {
       <button
         onClick={() => {
           const url = encodeURIComponent(window.location.href);
-          window.location = `${config.URL.AUTH}/registration?retUrl=${url}`;
+          window.location = `${config.URL.AUTH}/member/registration?retUrl=${url}`;
         }}
         styleName="btnRegister"
       >Register</button>
       <button
         onClick={() => {
           const url = encodeURIComponent(window.location.href);
-          window.location = `${config.URL.AUTH}?retUrl=${url}`;
+          window.location = `${config.URL.AUTH}/member?retUrl=${url}`;
         }}
         styleName="btnLogin"
       >Login</button>

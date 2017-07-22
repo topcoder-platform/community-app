@@ -51,14 +51,14 @@ function Footer(props) {
             className={theme.btnRegister}
             onClick={() => {
               const url = encodeURIComponent(window.location.href);
-              window.location = `${config.URL.AUTH}/registration?retUrl=${url}`;
+              window.location = `${config.URL.AUTH}/member/registration?retUrl=${url}`;
             }}
           >Register</button>
           <button
             className={theme.btnLogin}
             onClick={() => {
               const url = encodeURIComponent(window.location.href);
-              window.location = `${config.URL.AUTH}?retUrl=${url}`;
+              window.location = `${config.URL.AUTH}/member?retUrl=${url}`;
             }}
           >Login</button>
         </div>
