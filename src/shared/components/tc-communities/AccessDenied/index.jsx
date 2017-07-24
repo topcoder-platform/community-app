@@ -44,12 +44,14 @@ export default function AccessDenied({ cause }) {
       return (
         <div styleName="access-denied">
           <TopcoderLogo />
-          <div styleName="msg">You must be authenticated to access this page.</div>
+          <div styleName="msg">You must be logged in to access this page.</div>
           <div styleName="msg">
-            First time Wipro user? <a href={`${config.URL.AUTH}/sso-registration/?app=member&retUrl=${returnUrl}`} styleName="joinNow">Join Now</a> using your Wipro SSO account to create your new Topcoder account.
+            First time Wipro user? <a href={`${config.URL.AUTH}/sso-registration/?app=member&retUrl=${returnUrl}`} styleName="joinNow">Join Now</a> using your Wipro SSO account.
           </div>
           <div styleName="msg">
             Already registered on Topcoder with your Wipro SSO account?
+          </div>  
+          <div styleName="msg">
             <a
               className="tc-btn-md tc-btn-primary"
               href={`${config.URL.AUTH}/sso-login/?app=member&retUrl=${returnUrl}`}
