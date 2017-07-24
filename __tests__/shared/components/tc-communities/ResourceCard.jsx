@@ -1,25 +1,49 @@
 import React from 'react';
-import Rnd from 'react-test-renderer/shallow';
+import PT from 'prop-types';
+import _ from 'lodash';
+import TU from 'react-dom/test-utils';
 import ResourceCard from 'components/tc-communities/ResourceCard';
 
-const rnd = new Rnd();
+class Wrapper extends React.Component {
+  getChildContext() {
+    return {
+      router: {
+        history: {
+          createHref: _.noop,
+          push: _.noop,
+          replace: _.noop,
+        },
+      },
+    };
+  }
+  componentDidMount() {}
+
+  render() {
+    return <ResourceCard {...this.props} />;
+  }
+}
+
+Wrapper.childContextTypes = {
+  router: PT.shape({
+    history: PT.shape({}),
+  }),
+};
 
 function Icon() {
   return <div />;
 }
 
-test('Snapshot match', () => {
-  rnd.render((
-    <ResourceCard
+test('Render properly', () => {
+  TU.renderIntoDocument((
+    <Wrapper
       icon={Icon}
       title="Take the First Steps to Stand Out in the Community"
       text="Donec bibendum nunc sit amet tortor scelerisque luctus et sit amet mauris."
     />
   ));
-  expect(rnd.getRenderOutput()).toMatchSnapshot();
 
-  rnd.render((
-    <ResourceCard
+  TU.renderIntoDocument((
+    <Wrapper
       icon={Icon}
       title="Take the First Steps to Stand Out in the Community"
       text="Donec bibendum nunc sit amet tortor scelerisque luctus et sit amet mauris."
@@ -37,5 +61,4 @@ test('Snapshot match', () => {
       }}
     />
   ));
-  expect(rnd.getRenderOutput()).toMatchSnapshot();
 });

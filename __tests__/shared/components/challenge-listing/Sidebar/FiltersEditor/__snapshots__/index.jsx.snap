@@ -1,0 +1,33 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Matches shallow shapshot 1`] = `
+<div
+  className="src-shared-components-challenge-listing-Sidebar-FiltersEditor-___style__EditMyFilters___1O81H"
+>
+  <h1>
+    My filters
+  </h1>
+  <div
+    className="src-shared-components-challenge-listing-Sidebar-FiltersEditor-___style__done-button___3Z310"
+    onClick={[Function]}
+    role="button"
+    tabIndex={0}
+  >
+    Done
+  </div>
+  <Item
+    changeFilterName={[Function]}
+    deleteSavedFilter={[Function]}
+    dragSavedFilterMove={[Function]}
+    dragSavedFilterStart={[Function]}
+    name="name"
+    resetFilterName={[Function]}
+    updateSavedFilter={[Function]}
+  />
+  <div
+    className="src-shared-components-challenge-listing-Sidebar-FiltersEditor-___style__note___24HgZ"
+  >
+    Drag the filters to set the order you prefer; use the "x" mark to delete the filter(s) you don't need.
+  </div>
+</div>
+`;

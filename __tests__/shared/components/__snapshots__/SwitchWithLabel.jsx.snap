@@ -1,0 +1,16 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Matches shallow shapshot 1`] = `
+<div
+  className="src-shared-components-SwitchWithLabel-___SwitchWithLabel__SwitchWithLabel___3Cjaw"
+  onClick={[Function]}
+>
+  
+  <Switch
+    className="src-shared-components-SwitchWithLabel-___SwitchWithLabel__Switch___33y7R"
+    enabled={false}
+    onSwitch={[Function]}
+  />
+  
+</div>
+`;

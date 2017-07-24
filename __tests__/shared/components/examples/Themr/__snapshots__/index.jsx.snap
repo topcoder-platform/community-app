@@ -1,0 +1,59 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Matches shallow shapshot 1`] = `
+<div>
+  <h1>
+    react-css-themr test/demo
+  </h1>
+  <h3>
+    Default theme
+  </h3>
+  <ThemedThemableComponent
+    composeTheme="deeply"
+    mapThemrProps={[Function]}
+  />
+  <h3>
+    Default theme + Parent-provided styling
+  </h3>
+  <ThemedThemableComponent
+    composeTheme="deeply"
+    mapThemrProps={[Function]}
+    theme={
+      Object {
+        "text": "src-shared-components-examples-Themr-___style__text___3B1uO",
+      }
+    }
+  />
+  <h3>
+    Default theme + Context styling
+  </h3>
+  <ThemeProvider
+    theme={
+      Object {
+        "ThemableComponent": Object {
+          "box": "src-shared-components-examples-Themr-___contextStyle__box___Rvwpa",
+        },
+      }
+    }
+  >
+    <ThemedThemableComponent
+      composeTheme="deeply"
+      mapThemrProps={[Function]}
+    />
+  </ThemeProvider>
+  <h3>
+    Default theme + Context styling, inject async with 3 sec delay
+  </h3>
+  <p>
+    When you look into the source code, pay attention to the change of key property of ThemeProvider!
+  </p>
+  <ThemeProvider
+    theme={Object {}}
+  >
+    <ThemedThemableComponent
+      composeTheme="deeply"
+      mapThemrProps={[Function]}
+    />
+  </ThemeProvider>
+</div>
+`;

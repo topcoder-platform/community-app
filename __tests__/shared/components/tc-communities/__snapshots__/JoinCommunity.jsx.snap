@@ -1,0 +1,140 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Matches shallow shapshot 1`] = `
+<div>
+  <button
+    className="src-shared-components-tc-communities-JoinCommunity-___style__link___mMDH0"
+    onClick={[Function]}
+  >
+    Join Community
+  </button>
+  <Modal
+    onCancel={[Function]}
+  >
+    <p
+      className="src-shared-components-tc-communities-JoinCommunity-___style__confirmMsg___3Urx0"
+    >
+      Are you sure you want to join 
+      ios
+      ?
+    </p>
+    <div
+      className="src-shared-components-tc-communities-JoinCommunity-___style__buttons___24jiR"
+    >
+      <button
+        className="src-shared-components-tc-communities-JoinCommunity-___style__btnConfirm___21w2M"
+        onClick={[Function]}
+      >
+        Join
+      </button>
+      <button
+        className="src-shared-components-tc-communities-JoinCommunity-___style__btnCancel___21ib7"
+        onClick={[Function]}
+      >
+        Cancel
+      </button>
+    </div>
+  </Modal>
+</div>
+`;
+
+exports[`Matches shallow shapshot 2`] = `
+<div>
+  <button
+    className="src-shared-components-tc-communities-JoinCommunity-___style__link___mMDH0 src-shared-components-tc-communities-JoinCommunity-___style__joining___rq-m2"
+    onClick={[Function]}
+  >
+    <div>
+      <p>
+        Joining...
+      </p>
+      <ThemedLoadingIndicator
+        composeTheme="deeply"
+        mapThemrProps={[Function]}
+        theme={
+          Object {
+            "style": "src-shared-components-tc-communities-JoinCommunity-___style__loadingIndicator___2RP1u",
+          }
+        }
+      />
+    </div>
+  </button>
+</div>
+`;
+
+exports[`Matches shallow shapshot 3`] = `
+<div
+  className="src-shared-components-tc-communities-JoinCommunity-___style__placeholder___1XfW2"
+/>
+`;
+
+exports[`Matches shallow shapshot 4`] = `
+<div>
+  <button
+    className="src-shared-components-tc-communities-JoinCommunity-___style__link___mMDH0"
+    onClick={[Function]}
+  >
+    Join Community
+  </button>
+  <Modal
+    onCancel={[Function]}
+  >
+    <h1
+      className="src-shared-components-tc-communities-JoinCommunity-___style__modalTitle___1U_iw"
+    >
+      Congratulations!
+    </h1>
+    <p
+      className="src-shared-components-tc-communities-JoinCommunity-___style__modalMsg___25f_a"
+    >
+      You have joined 
+      ios
+      !
+    </p>
+    <button
+      className="src-shared-components-tc-communities-JoinCommunity-___style__done___2m1SD"
+      onClick={[Function]}
+    >
+      Return to the Community
+    </button>
+  </Modal>
+</div>
+`;
+
+exports[`Matches shallow shapshot 5`] = `
+<div>
+  <button
+    className="src-shared-components-tc-communities-JoinCommunity-___style__link___mMDH0"
+    onClick={[Function]}
+  >
+    Join Community
+  </button>
+  <Modal
+    onCancel={[Function]}
+  >
+    <p
+      className="src-shared-components-tc-communities-JoinCommunity-___style__confirmMsg___3Urx0"
+    >
+      Are you sure you want to join 
+      ios
+      ?
+    </p>
+    <div
+      className="src-shared-components-tc-communities-JoinCommunity-___style__buttons___24jiR"
+    >
+      <button
+        className="src-shared-components-tc-communities-JoinCommunity-___style__btnConfirm___21w2M"
+        onClick={[Function]}
+      >
+        Join
+      </button>
+      <button
+        className="src-shared-components-tc-communities-JoinCommunity-___style__btnCancel___21ib7"
+        onClick={[Function]}
+      >
+        Cancel
+      </button>
+    </div>
+  </Modal>
+</div>
+`;

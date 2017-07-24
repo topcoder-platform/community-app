@@ -13,7 +13,11 @@ jest.mock('utils/tc', () => ({
   ),
 }));
 
-describe('tcCommunities.header.mobileToggle', () => {
+afterAll(() => {
+  delete process.env.FRONT_END;
+});
+
+describe('tcCommunities.meta.mobileToggle', () => {
   const a = actions.tcCommunities.meta.mobileToggle();
 
   test('has expected type', () => {
@@ -24,7 +28,7 @@ describe('tcCommunities.header.mobileToggle', () => {
     expect(a.payload).toBeUndefined());
 });
 
-describe('tcCommunities.header.fetchDataInit', () => {
+describe('tcCommunities.meta.fetchDataInit', () => {
   const a = actions.tcCommunities.meta.fetchDataInit();
 
   test('has expected type', () => {
@@ -35,7 +39,7 @@ describe('tcCommunities.header.fetchDataInit', () => {
     expect(a.payload).toBeUndefined());
 });
 
-describe('tcCommunities.header.fetchDataDone', () => {
+describe('tcCommunities.meta.fetchDataDone', () => {
   const a = actions.tcCommunities.meta.fetchDataDone('someId');
 
   test('has expected type', () => {
@@ -53,4 +57,38 @@ describe('tcCommunities.header.fetchDataDone', () => {
 
   test('payload is a promise which rejects to the expected object', () =>
     a404.payload.catch(err => expect(err).toEqual({ communityId: 'someId404', error: '404' })));
+});
+
+describe('tcCommunities.meta.fetchDataDone at frontend', () => {
+  global.fetch = jest.fn(() => Promise.resolve({
+    status: 200,
+    json: () => 'dummy',
+  }));
+  process.env.FRONT_END = true;
+
+  const a = actions.tcCommunities.meta.fetchDataDone('someId');
+
+  test('has expected type', () => {
+    expect(a.type).toBe('TC_COMMUNITIES/META/FETCH_DATA_DONE');
+  });
+
+  test('payload is a promise which resolves to the expected object', () =>
+    a.payload.then(res => expect(res).toEqual('dummy')));
+});
+
+describe('tcCommunities.meta.fetchDataDone at frontend with 404 response', () => {
+  global.fetch = jest.fn(() => Promise.resolve({
+    status: 404,
+    json: () => 'dummy',
+  }));
+  process.env.FRONT_END = true;
+
+  const a = actions.tcCommunities.meta.fetchDataDone('someId');
+
+  test('has expected type', () => {
+    expect(a.type).toBe('TC_COMMUNITIES/META/FETCH_DATA_DONE');
+  });
+
+  test('payload is a promise which rejects', () =>
+    expect(a.payload).rejects.toBeDefined());
 });

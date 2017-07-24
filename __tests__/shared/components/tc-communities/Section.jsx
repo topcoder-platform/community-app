@@ -1,19 +1,43 @@
 import React from 'react';
-import Rnd from 'react-test-renderer/shallow';
+import PT from 'prop-types';
+import _ from 'lodash';
+import TU from 'react-dom/test-utils';
 import Section from 'components/tc-communities/Section';
 
-const rnd = new Rnd();
+class Wrapper extends React.Component {
+  getChildContext() {
+    return {
+      router: {
+        history: {
+          createHref: _.noop,
+          push: _.noop,
+          replace: _.noop,
+        },
+      },
+    };
+  }
+  componentDidMount() {}
 
-test('Snapshot match', () => {
-  rnd.render((
-    <Section>
+  render() {
+    return (<Section {...this.props}>
       <div>content</div>
-    </Section>
-  ));
-  expect(rnd.getRenderOutput()).toMatchSnapshot();
+    </Section>);
+  }
+}
 
-  rnd.render((
-    <Section
+Wrapper.childContextTypes = {
+  router: PT.shape({
+    history: PT.shape({}),
+  }),
+};
+
+test('Render properly', () => {
+  TU.renderIntoDocument((
+    <Wrapper />
+  ));
+
+  TU.renderIntoDocument((
+    <Wrapper
       title="Section title"
       link={{
         title: 'link',
@@ -26,9 +50,6 @@ test('Snapshot match', () => {
         linkWrap: 'linkWrap',
         link: 'link',
       }}
-    >
-      <div>content</div>
-    </Section>
+    />
   ));
-  expect(rnd.getRenderOutput()).toMatchSnapshot();
 });

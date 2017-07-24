@@ -1,0 +1,221 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Matches shallow shapshot 1`] = `
+<div
+  className="src-shared-components-challenge-listing-Listing-Bucket-___style__bucket___3jwPe"
+>
+  <SortingSelectBar
+    onSelect={[Function]}
+    options={
+      Array [
+        Object {
+          "label": "Current phase",
+          "value": "current-phase",
+        },
+      ]
+    }
+    title=""
+    value={
+      Object {
+        "label": "Current phase",
+        "value": "current-phase",
+      }
+    }
+  />
+  <ChallengeCard
+    challenge={
+      Object {
+        "allPhases": Array [
+          Object {
+            "phaseStatus": "Open",
+            "phaseType": "Registration",
+          },
+        ],
+        "currentPhases": Array [
+          "Registration",
+        ],
+        "events": Array [
+          Object {
+            "eventName": "Submit",
+          },
+        ],
+        "id": "2",
+        "isDataScience": false,
+        "prize": Array [],
+        "status": "a",
+        "subTrack": "CODE",
+        "technologies": "a, b, c",
+        "track": "DEVELOP",
+      }
+    }
+    onTechTagClicked={[Function]}
+    sampleWinnerProfile={undefined}
+  />
+  <Waypoint
+    bottomOffset="0px"
+    fireOnRapidScroll={true}
+    horizontal={false}
+    onEnter={[Function]}
+    onLeave={[Function]}
+    onPositionChange={[Function]}
+    topOffset="0px"
+  />
+</div>
+`;
+
+exports[`Matches shallow shapshot 2`] = `
+<div
+  className="src-shared-components-challenge-listing-Listing-Bucket-___style__bucket___3jwPe"
+>
+  <SortingSelectBar
+    onSelect={[Function]}
+    options={
+      Array [
+        Object {
+          "label": "Current phase",
+          "value": "current-phase",
+        },
+      ]
+    }
+    title=""
+    value={
+      Object {
+        "label": "Current phase",
+        "value": "current-phase",
+      }
+    }
+  />
+  <ChallengeCard
+    challenge={
+      Object {
+        "id": "6",
+        "status": "a",
+      }
+    }
+    onTechTagClicked={[Function]}
+    sampleWinnerProfile={undefined}
+  />
+  <ChallengeCard
+    challenge={
+      Object {
+        "id": "11",
+        "status": "a",
+      }
+    }
+    onTechTagClicked={[Function]}
+    sampleWinnerProfile={undefined}
+  />
+  <ChallengeCard
+    challenge={
+      Object {
+        "id": "3",
+        "status": "a",
+      }
+    }
+    onTechTagClicked={[Function]}
+    sampleWinnerProfile={undefined}
+  />
+  <ChallengeCard
+    challenge={
+      Object {
+        "id": "4",
+        "status": "a",
+      }
+    }
+    onTechTagClicked={[Function]}
+    sampleWinnerProfile={undefined}
+  />
+  <ChallengeCard
+    challenge={
+      Object {
+        "id": "5",
+        "status": "a",
+      }
+    }
+    onTechTagClicked={[Function]}
+    sampleWinnerProfile={undefined}
+  />
+  <ChallengeCard
+    challenge={
+      Object {
+        "id": "2",
+        "status": "a",
+      }
+    }
+    onTechTagClicked={[Function]}
+    sampleWinnerProfile={undefined}
+  />
+  <ChallengeCard
+    challenge={
+      Object {
+        "id": "7",
+        "status": "a",
+      }
+    }
+    onTechTagClicked={[Function]}
+    sampleWinnerProfile={undefined}
+  />
+  <ChallengeCard
+    challenge={
+      Object {
+        "id": "8",
+        "status": "a",
+      }
+    }
+    onTechTagClicked={[Function]}
+    sampleWinnerProfile={undefined}
+  />
+  <ChallengeCard
+    challenge={
+      Object {
+        "id": "9",
+        "status": "a",
+      }
+    }
+    onTechTagClicked={[Function]}
+    sampleWinnerProfile={undefined}
+  />
+  <ChallengeCard
+    challenge={
+      Object {
+        "id": "10",
+        "status": "a",
+      }
+    }
+    onTechTagClicked={[Function]}
+    sampleWinnerProfile={undefined}
+  />
+  <ChallengeCardPlaceholder
+    id={0}
+  />
+  <ChallengeCardPlaceholder
+    id={1}
+  />
+  <ChallengeCardPlaceholder
+    id={2}
+  />
+  <ChallengeCardPlaceholder
+    id={3}
+  />
+  <ChallengeCardPlaceholder
+    id={4}
+  />
+  <ChallengeCardPlaceholder
+    id={5}
+  />
+  <ChallengeCardPlaceholder
+    id={6}
+  />
+  <ChallengeCardPlaceholder
+    id={7}
+  />
+  <button
+    className="src-shared-components-challenge-listing-Listing-Bucket-___style__view-more___2UekL"
+    onClick={[Function]}
+  >
+    View more challenges
+  </button>
+</div>
+`;
+
+exports[`Matches shallow shapshot 3`] = `null`;

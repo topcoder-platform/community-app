@@ -151,7 +151,7 @@ export default class MyChallenges extends React.Component {
           <section styleName="communities">
             {
               this.props.groups.map(group => (
-                <div styleName="community-tile">
+                <div styleName="community-tile" key={group.id}>
                   <header>{group.name}</header>
                 </div>
               ))

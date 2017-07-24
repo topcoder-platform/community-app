@@ -22,3 +22,12 @@ test('openSearch', () => {
     },
   });
 });
+
+test('setCurrentNav', () => {
+  const a = actions.topcoderHeader.setCurrentNav('title', 'subtitle');
+  expect(a.type).toBe('TOPCODER_HEADER/SET_CURRENT_NAV');
+  expect(a.payload).toEqual({
+    menuTitle: 'title',
+    subMenuTitle: 'subtitle',
+  });
+});

@@ -9,9 +9,10 @@
  *  function.
  * @param {String} type Action type.
  * @param {Any} payload Action payload.
+ * @param {Any} error Has error or not.
  */
-export function mockAction(type, payload) {
-  const res = () => ({ type, payload });
+export function mockAction(type, payload, error) {
+  const res = () => ({ type, payload, error });
   res.toString = () => type;
   return res;
 }

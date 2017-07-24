@@ -1,21 +1,45 @@
 import React from 'react';
-import Rnd from 'react-test-renderer/shallow';
+import PT from 'prop-types';
+import _ from 'lodash';
+import TU from 'react-dom/test-utils';
 import ImageText from 'components/tc-communities/ImageText';
 
-const rnd = new Rnd();
+class Wrapper extends React.Component {
+  getChildContext() {
+    return {
+      router: {
+        history: {
+          createHref: _.noop,
+          push: _.noop,
+          replace: _.noop,
+        },
+      },
+    };
+  }
+  componentDidMount() {}
 
-test('Snapshot match', () => {
-  rnd.render((
-    <ImageText
+  render() {
+    return <ImageText {...this.props} />;
+  }
+}
+
+Wrapper.childContextTypes = {
+  router: PT.shape({
+    history: PT.shape({}),
+  }),
+};
+
+test('render properly', () => {
+  TU.renderIntoDocument((
+    <Wrapper
       title="Learn"
       text="You can learn and get certified donec facilisis tortor ut augue lacinia"
       imageSrc="/themes/wipro/home/image-text-learn.jpg"
     />
   ));
-  expect(rnd.getRenderOutput()).toMatchSnapshot();
 
-  rnd.render((
-    <ImageText
+  TU.renderIntoDocument((
+    <Wrapper
       title="Learn"
       text="You can learn and get certified donec facilisis tortor ut augue lacinia"
       link={{
@@ -35,5 +59,4 @@ test('Snapshot match', () => {
       }}
     />
   ));
-  expect(rnd.getRenderOutput()).toMatchSnapshot();
 });

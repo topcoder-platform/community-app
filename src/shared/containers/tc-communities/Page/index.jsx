@@ -51,7 +51,7 @@ import AccessDenied, {
 
 import './style.scss';
 
-class Page extends Component {
+export class Page extends Component {
 
   componentDidMount() {
     const communityId = this.props.communityId;

@@ -109,7 +109,7 @@ app.use((req, res, next) => {
 });
 
 /* Error handler. */
-app.use((err, req, res) => {
+app.use((err, req, res, next) => { // eslint-disable-line no-unused-vars
   /* Sets locals. Errors are provided only in dev. */
   _.assign(res, {
     locals: {

@@ -29,7 +29,7 @@ import style from './styles.scss';
 
 let mounted = false;
 
-class ListingContainer extends React.Component {
+export class ListingContainer extends React.Component {
 
   /* TODO: We should add here an automatic periodical update of the loaded
    * challenges, say once each 5 minutes. Otherwise, it is possible that a

@@ -1,0 +1,69 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Matches shallow shapshot 1`] = `
+<Tooltip
+  align={Object {}}
+  className=""
+  content={
+    <Tip
+      MAIN_URL={undefined}
+      handleError={[Function]}
+      user={
+        Object {
+          "country": "cn",
+          "handle": "haha",
+          "memberSince": "2016-12-01",
+          "photoLink": "link",
+          "ratingSummary": Array [],
+        }
+      }
+    />
+  }
+  defaultVisible={false}
+  onTooltipHover={[Function]}
+  placeArrow={[Function]}
+  position="top"
+>
+  <div>
+    <div
+      className="mock-class"
+    >
+      abcedfghik
+    </div>
+  </div>
+</Tooltip>
+`;
+
+exports[`Matches shallow shapshot 2`] = `
+<Tooltip
+  align={Object {}}
+  className=""
+  content={
+    <Tip
+      MAIN_URL={undefined}
+      handleError={[Function]}
+      user={
+        Object {
+          "country": "cn",
+          "handle": "haha",
+          "memberSince": "2016-12-01",
+          "photoLink": "link",
+          "ratingSummary": Array [],
+        }
+      }
+    />
+  }
+  defaultVisible={false}
+  onTooltipHover={[Function]}
+  placeArrow={[Function]}
+  position="top"
+>
+  <div>
+    <div
+      className="mock-class"
+    >
+      abcedfghik
+    </div>
+  </div>
+</Tooltip>
+`;

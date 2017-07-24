@@ -23,7 +23,7 @@ import LoadingIndicator from 'components/LoadingIndicator';
 import './styles.scss';
 
 // The container component
-class DashboardPageContainer extends React.Component {
+export class DashboardPageContainer extends React.Component {
 
   componentDidMount() {
     if (!this.props.auth.tokenV2) {

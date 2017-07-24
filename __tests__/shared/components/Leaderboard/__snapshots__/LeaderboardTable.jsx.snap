@@ -53,7 +53,7 @@ exports[`Matches shallow shapshot 1`] = `
                 "avatar": "src-shared-components-Leaderboard-___avatarStyles__default___1bHTz",
               }
             }
-            url={null}
+            url="some.fake.string"
           />
         </span>
       </td>
@@ -61,15 +61,19 @@ exports[`Matches shallow shapshot 1`] = `
         className="src-shared-components-Leaderboard-LeaderboardTable-___styles__col-handle___3Sr8G"
       >
         <a
-          href="https://www.topcoder-dev.com/members/undefined/"
-        />
+          href="https://www.topcoder-dev.com/members/winnner/"
+        >
+          winnner
+        </a>
         <div
           className="src-shared-components-Leaderboard-LeaderboardTable-___styles__winnings-info___1Fiyn"
         >
           <span>
+            0
              points
           </span>
           <span>
+            0
              challenges
           </span>
         </div>
@@ -102,7 +106,7 @@ exports[`Matches shallow shapshot 1`] = `
                 "avatar": "src-shared-components-Leaderboard-___avatarStyles__default___1bHTz",
               }
             }
-            url={null}
+            url="some.fake.string"
           />
         </span>
       </td>
@@ -110,15 +114,19 @@ exports[`Matches shallow shapshot 1`] = `
         className="src-shared-components-Leaderboard-LeaderboardTable-___styles__col-handle___3Sr8G"
       >
         <a
-          href="https://www.topcoder-dev.com/members/undefined/"
-        />
+          href="https://www.topcoder-dev.com/members/winnner/"
+        >
+          winnner
+        </a>
         <div
           className="src-shared-components-Leaderboard-LeaderboardTable-___styles__winnings-info___1Fiyn"
         >
           <span>
+            0
              points
           </span>
           <span>
+            0
              challenges
           </span>
         </div>
@@ -151,7 +159,7 @@ exports[`Matches shallow shapshot 1`] = `
                 "avatar": "src-shared-components-Leaderboard-___avatarStyles__default___1bHTz",
               }
             }
-            url={null}
+            url="some.fake.string"
           />
         </span>
       </td>
@@ -159,15 +167,19 @@ exports[`Matches shallow shapshot 1`] = `
         className="src-shared-components-Leaderboard-LeaderboardTable-___styles__col-handle___3Sr8G"
       >
         <a
-          href="https://www.topcoder-dev.com/members/undefined/"
-        />
+          href="https://www.topcoder-dev.com/members/winnner/"
+        >
+          winnner
+        </a>
         <div
           className="src-shared-components-Leaderboard-LeaderboardTable-___styles__winnings-info___1Fiyn"
         >
           <span>
+            0
              points
           </span>
           <span>
+            0
              challenges
           </span>
         </div>
@@ -200,7 +212,7 @@ exports[`Matches shallow shapshot 1`] = `
                 "avatar": "src-shared-components-Leaderboard-___avatarStyles__default___1bHTz",
               }
             }
-            url={null}
+            url="https://www.topcoder-dev.com/assets/a.jpg"
           />
         </span>
       </td>
@@ -208,15 +220,19 @@ exports[`Matches shallow shapshot 1`] = `
         className="src-shared-components-Leaderboard-LeaderboardTable-___styles__col-handle___3Sr8G"
       >
         <a
-          href="https://www.topcoder-dev.com/members/undefined/"
-        />
+          href="https://www.topcoder-dev.com/members/winnner/"
+        >
+          winnner
+        </a>
         <div
           className="src-shared-components-Leaderboard-LeaderboardTable-___styles__winnings-info___1Fiyn"
         >
           <span>
+            0
              points
           </span>
           <span>
+            0
              challenges
           </span>
         </div>

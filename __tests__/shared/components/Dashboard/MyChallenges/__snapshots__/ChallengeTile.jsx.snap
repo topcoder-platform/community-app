@@ -1,0 +1,1043 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Matches shallow shapshot 1`] = `
+<div
+  className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__challenge-tile___MxMsa src-shared-components-Dashboard-MyChallenges-___ChallengeTile__tile-view___32EZy"
+>
+  <div
+    className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__challenge___3yIxB src-shared-components-Dashboard-MyChallenges-___ChallengeTile__tile-view___32EZy src-shared-components-Dashboard-MyChallenges-___ChallengeTile__DEVELOP___3Ee6i"
+  >
+    <div
+      className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__active-challenge___oFnJX"
+    >
+      <header>
+        <a
+          className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__name___1qU1H"
+          href="https://www.topcoder-dev.com/challenge-details/undefined/?type=develop"
+        >
+          <span />
+        </a>
+        <div
+          className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__labels___1V5c0"
+        >
+          <p
+            className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__subtrack-color___3yf6g"
+          >
+            CODE
+          </p>
+        </div>
+        <ChallengeLinks
+          challenge={
+            Object {
+              "status": "ACTIVE",
+              "subTrack": "CODE",
+              "track": "DEVELOP",
+              "userAction": "Appeal",
+              "userDetails": Object {
+                "roles": Array [
+                  "abcdefg",
+                  "hijklmn",
+                  "opqrst",
+                  "uvwxyz",
+                  "1234567890",
+                  "0987654321",
+                  "abcdefghijklmnopqrstuvwxyz",
+                ],
+              },
+            }
+          }
+          viewMode="tile"
+        />
+      </header>
+      <div
+        className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__challenge-card__bottom___19txu"
+      >
+        <div
+          className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__challenge-details___Yo9M3"
+        >
+          <p
+            className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__currentPhase___nMHcj"
+          />
+          <div
+            className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__stalled-challenge___O6WgJ"
+          >
+            This challenge is currently paused.
+          </div>
+          <div
+            className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__phase-action___2RhS3"
+          >
+            <a
+              className="tc-btn tc-btn-s tc-btn-wide tc-btn-ghost src-shared-components-Dashboard-MyChallenges-___ChallengeTile__tc-btn___1kOzE src-shared-components-Dashboard-MyChallenges-___ChallengeTile__submit___2RcR4"
+              href="https://software.topcoder-dev.com/review/actions/ViewProjectDetails?pid=undefined"
+            >
+              View Scorecards
+            </a>
+          </div>
+        </div>
+        <p
+          className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__roles___3I6ep"
+        >
+          <span>
+            Role:
+          </span>
+          <span>
+            abcdefg, hijklmn, opqrst, uvwxyz, 1234567890, 0987654321,...
+          </span>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Matches shallow shapshot 2`] = `
+<div
+  className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__challenge-tile___MxMsa src-shared-components-Dashboard-MyChallenges-___ChallengeTile__list-view___L_19V"
+>
+  <div
+    className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__challenge___3yIxB src-shared-components-Dashboard-MyChallenges-___ChallengeTile__list-view___L_19V src-shared-components-Dashboard-MyChallenges-___ChallengeTile__DEVELOP___3Ee6i"
+  >
+    <div
+      className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__active-challenge___oFnJX"
+    >
+      <header>
+        <a
+          className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__name___1qU1H"
+          href="https://www.topcoder-dev.com/challenge-details/undefined/?type=develop"
+        >
+          <span />
+        </a>
+        <p
+          className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__subtrack-color___3yf6g"
+        >
+          CODE
+        </p>
+        <p
+          className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__roles___3I6ep"
+        >
+          <span>
+            Role:
+          </span>
+          <span>
+            abcdefg, hijklmn, opqrst, uvwxyz, 1234567890, 0987654321,...
+          </span>
+        </p>
+      </header>
+      <div
+        className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__challenge-details___Yo9M3"
+      >
+        <div
+          className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__challenge-info___2fqqa"
+        >
+          <p
+            className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__currentPhase___nMHcj"
+          />
+          <p
+            className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__ends-in___2RjDE"
+          >
+            This challenge is currently paused.
+          </p>
+        </div>
+        <div
+          className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__phase-action___2RhS3"
+        >
+          <a
+            className="tc-btn tc-btn-s tc-btn-wide tc-btn-ghost src-shared-components-Dashboard-MyChallenges-___ChallengeTile__tc-btn___1kOzE src-shared-components-Dashboard-MyChallenges-___ChallengeTile__submit___2RcR4"
+            href="https://software.topcoder-dev.com/review/actions/ViewProjectDetails?pid=undefined"
+          >
+            View Scorecards
+          </a>
+        </div>
+      </div>
+      <ChallengeLinks
+        challenge={
+          Object {
+            "status": "ACTIVE",
+            "subTrack": "CODE",
+            "track": "DEVELOP",
+            "userAction": "Appeal",
+            "userDetails": Object {
+              "roles": Array [
+                "abcdefg",
+                "hijklmn",
+                "opqrst",
+                "uvwxyz",
+                "1234567890",
+                "0987654321",
+                "abcdefghijklmnopqrstuvwxyz",
+              ],
+            },
+          }
+        }
+        viewMode="list"
+      />
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Matches shallow shapshot 3`] = `
+<div
+  className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__challenge-tile___MxMsa src-shared-components-Dashboard-MyChallenges-___ChallengeTile__tile-view___32EZy"
+>
+  <div
+    className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__challenge___3yIxB src-shared-components-Dashboard-MyChallenges-___ChallengeTile__tile-view___32EZy src-shared-components-Dashboard-MyChallenges-___ChallengeTile__DEVELOP___3Ee6i"
+  >
+    <div
+      className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__active-challenge___oFnJX"
+    >
+      <header>
+        <span
+          className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__name___1qU1H"
+          title={undefined}
+        />
+        <div
+          className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__labels___1V5c0"
+        >
+          <p
+            className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__subtrack-color___3yf6g"
+          >
+            CODE
+          </p>
+          <p
+            className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__group-label___2l1Gc"
+          >
+            do
+          </p>
+        </div>
+        <ChallengeLinks
+          challenge={
+            Object {
+              "groupLabel": "do",
+              "isPrivate": true,
+              "status": "ACTIVE",
+              "subTrack": "CODE",
+              "track": "DEVELOP",
+              "userAction": "Submit",
+              "userCurrentPhaseEndTime": true,
+              "userDetails": Object {
+                "roles": Array [
+                  "abcdefg",
+                ],
+              },
+            }
+          }
+          viewMode="tile"
+        />
+      </header>
+      <div
+        className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__challenge-card__bottom___19txu"
+      >
+        <div
+          className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__challenge-details___Yo9M3"
+        >
+          <p
+            className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__currentPhase___nMHcj"
+          />
+          <div
+            className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__challenge-calendar___TTdXf"
+          >
+            <p
+              className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__ends-in___2RjDE"
+            >
+              Ends In
+            </p>
+            <p
+              className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__time-remaining___3F8ZJ"
+            />
+            <p
+              className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__unit-of-time___3d-0I"
+            />
+          </div>
+          <div
+            className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__phase-action___2RhS3"
+          >
+            <a
+              className="tc-btn tc-btn-s tc-btn-wide tc-btn-ghost src-shared-components-Dashboard-MyChallenges-___ChallengeTile__tc-btn___1kOzE src-shared-components-Dashboard-MyChallenges-___ChallengeTile__submit___2RcR4"
+              href="https://www.topcoder-dev.com/challenge-details/undefined/?type=develop"
+            >
+              Submit
+            </a>
+            <a
+              className="tc-btn tc-btn-s tc-btn-wide src-shared-components-Dashboard-MyChallenges-___ChallengeTile__tc-btn___1kOzE src-shared-components-Dashboard-MyChallenges-___ChallengeTile__submit___2RcR4 src-shared-components-Dashboard-MyChallenges-___ChallengeTile__btn-danger___3_C8c"
+              href="https://software.topcoder-dev.com/review/actions/Unregister?pid=undefined"
+            >
+              Unregister
+            </a>
+          </div>
+        </div>
+        <p
+          className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__roles___3I6ep"
+        >
+          <span>
+            Role:
+          </span>
+          <span>
+            abcdefg
+          </span>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Matches shallow shapshot 4`] = `
+<div
+  className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__challenge-tile___MxMsa src-shared-components-Dashboard-MyChallenges-___ChallengeTile__list-view___L_19V"
+>
+  <div
+    className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__challenge___3yIxB src-shared-components-Dashboard-MyChallenges-___ChallengeTile__list-view___L_19V src-shared-components-Dashboard-MyChallenges-___ChallengeTile__DEVELOP___3Ee6i"
+  >
+    <div
+      className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__active-challenge___oFnJX"
+    >
+      <header>
+        <span
+          className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__name___1qU1H"
+          title={undefined}
+        />
+        <p
+          className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__subtrack-color___3yf6g"
+        >
+          CODE
+        </p>
+        <p
+          className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__roles___3I6ep"
+        >
+          <span>
+            Role:
+          </span>
+          <span>
+            abcdefg
+          </span>
+        </p>
+      </header>
+      <div
+        className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__challenge-details___Yo9M3"
+      >
+        <div
+          className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__challenge-info___2fqqa"
+        >
+          <p
+            className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__currentPhase___nMHcj"
+          />
+          <p
+            className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__ends-in___2RjDE"
+          >
+            Ends undefined
+          </p>
+        </div>
+        <div
+          className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__phase-action___2RhS3"
+        >
+          <a
+            className="tc-btn tc-btn-s tc-btn-wide tc-btn-ghost src-shared-components-Dashboard-MyChallenges-___ChallengeTile__tc-btn___1kOzE src-shared-components-Dashboard-MyChallenges-___ChallengeTile__submit___2RcR4"
+            href="https://www.topcoder-dev.com/challenge-details/undefined/?type=develop"
+          >
+            Submit
+          </a>
+          <a
+            className="tc-btn tc-btn-s tc-btn-wide src-shared-components-Dashboard-MyChallenges-___ChallengeTile__tc-btn___1kOzE src-shared-components-Dashboard-MyChallenges-___ChallengeTile__submit___2RcR4 src-shared-components-Dashboard-MyChallenges-___ChallengeTile__btn-danger___3_C8c"
+            href="https://software.topcoder-dev.com/review/actions/Unregister?pid=undefined"
+          >
+            Unregister
+          </a>
+        </div>
+      </div>
+      <ChallengeLinks
+        challenge={
+          Object {
+            "groupLabel": "do",
+            "isPrivate": true,
+            "status": "ACTIVE",
+            "subTrack": "CODE",
+            "track": "DEVELOP",
+            "userAction": "Submit",
+            "userCurrentPhaseEndTime": true,
+            "userDetails": Object {
+              "roles": Array [
+                "abcdefg",
+              ],
+            },
+          }
+        }
+        viewMode="list"
+      />
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Matches shallow shapshot 5`] = `
+<div
+  className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__challenge-tile___MxMsa src-shared-components-Dashboard-MyChallenges-___ChallengeTile__tile-view___32EZy"
+>
+  <div
+    className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__challenge___3yIxB src-shared-components-Dashboard-MyChallenges-___ChallengeTile__tile-view___32EZy src-shared-components-Dashboard-MyChallenges-___ChallengeTile__DEVELOP___3Ee6i"
+  >
+    <div
+      className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__active-challenge___oFnJX"
+    >
+      <header>
+        <span
+          className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__name___1qU1H"
+          title={undefined}
+        />
+        <div
+          className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__labels___1V5c0"
+        >
+          <p
+            className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__subtrack-color___3yf6g"
+          >
+            CODE
+          </p>
+          <p
+            className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__group-label___2l1Gc"
+          >
+            do
+          </p>
+        </div>
+        <ChallengeLinks
+          challenge={
+            Object {
+              "groupLabel": "do",
+              "isLate": true,
+              "isPrivate": true,
+              "status": "ACTIVE",
+              "subTrack": "CODE",
+              "track": "DEVELOP",
+              "userAction": "Submit",
+              "userCurrentPhaseEndTime": true,
+              "userDetails": Object {
+                "roles": Array [
+                  "abcdefg",
+                ],
+              },
+            }
+          }
+          viewMode="tile"
+        />
+      </header>
+      <div
+        className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__challenge-card__bottom___19txu"
+      >
+        <div
+          className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__challenge-details___Yo9M3"
+        >
+          <p
+            className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__currentPhase___nMHcj"
+          />
+          <div
+            className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__challenge-calendar___TTdXf src-shared-components-Dashboard-MyChallenges-___ChallengeTile__challenge-late___Uvfk3"
+          >
+            <p
+              className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__ends-in___2RjDE"
+            >
+              Late for
+            </p>
+            <p
+              className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__time-remaining___3F8ZJ"
+            />
+            <p
+              className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__unit-of-time___3d-0I"
+            />
+          </div>
+          <div
+            className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__phase-action___2RhS3"
+          >
+            <a
+              className="tc-btn tc-btn-s tc-btn-wide tc-btn-ghost src-shared-components-Dashboard-MyChallenges-___ChallengeTile__tc-btn___1kOzE src-shared-components-Dashboard-MyChallenges-___ChallengeTile__submit___2RcR4"
+              href="https://www.topcoder-dev.com/challenge-details/undefined/?type=develop"
+            >
+              Submit
+            </a>
+            <a
+              className="tc-btn tc-btn-s tc-btn-wide src-shared-components-Dashboard-MyChallenges-___ChallengeTile__tc-btn___1kOzE src-shared-components-Dashboard-MyChallenges-___ChallengeTile__submit___2RcR4 src-shared-components-Dashboard-MyChallenges-___ChallengeTile__btn-danger___3_C8c"
+              href="https://software.topcoder-dev.com/review/actions/Unregister?pid=undefined"
+            >
+              Unregister
+            </a>
+          </div>
+        </div>
+        <p
+          className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__roles___3I6ep"
+        >
+          <span>
+            Role:
+          </span>
+          <span>
+            abcdefg
+          </span>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Matches shallow shapshot 6`] = `
+<div
+  className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__challenge-tile___MxMsa src-shared-components-Dashboard-MyChallenges-___ChallengeTile__list-view___L_19V"
+>
+  <div
+    className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__challenge___3yIxB src-shared-components-Dashboard-MyChallenges-___ChallengeTile__list-view___L_19V src-shared-components-Dashboard-MyChallenges-___ChallengeTile__DEVELOP___3Ee6i"
+  >
+    <div
+      className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__active-challenge___oFnJX"
+    >
+      <header>
+        <span
+          className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__name___1qU1H"
+          title={undefined}
+        />
+        <p
+          className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__subtrack-color___3yf6g"
+        >
+          CODE
+        </p>
+        <p
+          className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__roles___3I6ep"
+        >
+          <span>
+            Role:
+          </span>
+          <span>
+            abcdefg
+          </span>
+        </p>
+      </header>
+      <div
+        className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__challenge-details___Yo9M3"
+      >
+        <div
+          className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__challenge-info___2fqqa src-shared-components-Dashboard-MyChallenges-___ChallengeTile__challenge-late___Uvfk3"
+        >
+          <p
+            className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__currentPhase___nMHcj"
+          />
+          <p
+            className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__ends-in___2RjDE"
+          >
+            Ends undefined
+          </p>
+        </div>
+        <div
+          className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__phase-action___2RhS3"
+        >
+          <a
+            className="tc-btn tc-btn-s tc-btn-wide tc-btn-ghost src-shared-components-Dashboard-MyChallenges-___ChallengeTile__tc-btn___1kOzE src-shared-components-Dashboard-MyChallenges-___ChallengeTile__submit___2RcR4"
+            href="https://www.topcoder-dev.com/challenge-details/undefined/?type=develop"
+          >
+            Submit
+          </a>
+          <a
+            className="tc-btn tc-btn-s tc-btn-wide src-shared-components-Dashboard-MyChallenges-___ChallengeTile__tc-btn___1kOzE src-shared-components-Dashboard-MyChallenges-___ChallengeTile__submit___2RcR4 src-shared-components-Dashboard-MyChallenges-___ChallengeTile__btn-danger___3_C8c"
+            href="https://software.topcoder-dev.com/review/actions/Unregister?pid=undefined"
+          >
+            Unregister
+          </a>
+        </div>
+      </div>
+      <ChallengeLinks
+        challenge={
+          Object {
+            "groupLabel": "do",
+            "isLate": true,
+            "isPrivate": true,
+            "status": "ACTIVE",
+            "subTrack": "CODE",
+            "track": "DEVELOP",
+            "userAction": "Submit",
+            "userCurrentPhaseEndTime": true,
+            "userDetails": Object {
+              "roles": Array [
+                "abcdefg",
+              ],
+            },
+          }
+        }
+        viewMode="list"
+      />
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Matches shallow shapshot 7`] = `
+<div
+  className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__challenge-tile___MxMsa src-shared-components-Dashboard-MyChallenges-___ChallengeTile__tile-view___32EZy"
+>
+  <div
+    className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__challenge___3yIxB src-shared-components-Dashboard-MyChallenges-___ChallengeTile__tile-view___32EZy src-shared-components-Dashboard-MyChallenges-___ChallengeTile__DEVELOP___3Ee6i"
+  >
+    <div
+      className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__active-challenge___oFnJX"
+    >
+      <header>
+        <a
+          className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__name___1qU1H"
+          href="https://www.topcoder-dev.com/challenge-details/undefined/?type=develop"
+        >
+          <span />
+        </a>
+        <div
+          className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__labels___1V5c0"
+        >
+          <p
+            className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__subtrack-color___3yf6g"
+          >
+            CODE
+          </p>
+        </div>
+        <ChallengeLinks
+          challenge={
+            Object {
+              "isSubmitter": true,
+              "status": "ACTIVE",
+              "subTrack": "CODE",
+              "track": "DEVELOP",
+              "userAction": "Appeal",
+              "userDetails": Object {
+                "roles": Array [],
+              },
+            }
+          }
+          viewMode="tile"
+        />
+      </header>
+      <div
+        className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__challenge-card__bottom___19txu"
+      >
+        <div
+          className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__challenge-details___Yo9M3"
+        >
+          <p
+            className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__currentPhase___nMHcj"
+          />
+          <div
+            className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__stalled-challenge___O6WgJ"
+          >
+            This challenge is currently paused.
+          </div>
+          <div
+            className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__phase-action___2RhS3"
+          >
+            <a
+              className="tc-btn tc-btn-s tc-btn-wide tc-btn-ghost src-shared-components-Dashboard-MyChallenges-___ChallengeTile__tc-btn___1kOzE src-shared-components-Dashboard-MyChallenges-___ChallengeTile__submit___2RcR4"
+              href="https://software.topcoder-dev.com/review/actions/ViewProjectDetails?pid=undefined"
+            >
+              View Scorecards
+            </a>
+            <a
+              className="tc-btn tc-btn-s tc-btn-wide src-shared-components-Dashboard-MyChallenges-___ChallengeTile__tc-btn___1kOzE src-shared-components-Dashboard-MyChallenges-___ChallengeTile__submit___2RcR4 src-shared-components-Dashboard-MyChallenges-___ChallengeTile__btn-danger___3_C8c"
+              href="https://software.topcoder-dev.com/review/actions/EarlyAppeals?pid=undefined"
+            >
+              Complete Appeals
+            </a>
+          </div>
+        </div>
+        <p
+          className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__roles___3I6ep"
+        >
+          <span>
+            Role:
+          </span>
+          <span />
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Matches shallow shapshot 8`] = `
+<div
+  className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__challenge-tile___MxMsa src-shared-components-Dashboard-MyChallenges-___ChallengeTile__list-view___L_19V"
+>
+  <div
+    className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__challenge___3yIxB src-shared-components-Dashboard-MyChallenges-___ChallengeTile__list-view___L_19V src-shared-components-Dashboard-MyChallenges-___ChallengeTile__DEVELOP___3Ee6i"
+  >
+    <div
+      className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__active-challenge___oFnJX"
+    >
+      <header>
+        <a
+          className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__name___1qU1H"
+          href="https://www.topcoder-dev.com/challenge-details/undefined/?type=develop"
+        >
+          <span />
+        </a>
+        <p
+          className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__subtrack-color___3yf6g"
+        >
+          CODE
+        </p>
+        <p
+          className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__roles___3I6ep"
+        >
+          <span>
+            Role:
+          </span>
+          <span />
+        </p>
+      </header>
+      <div
+        className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__challenge-details___Yo9M3"
+      >
+        <div
+          className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__challenge-info___2fqqa"
+        >
+          <p
+            className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__currentPhase___nMHcj"
+          />
+          <p
+            className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__ends-in___2RjDE"
+          >
+            This challenge is currently paused.
+          </p>
+        </div>
+        <div
+          className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__phase-action___2RhS3"
+        >
+          <a
+            className="tc-btn tc-btn-s tc-btn-wide tc-btn-ghost src-shared-components-Dashboard-MyChallenges-___ChallengeTile__tc-btn___1kOzE src-shared-components-Dashboard-MyChallenges-___ChallengeTile__submit___2RcR4"
+            href="https://software.topcoder-dev.com/review/actions/ViewProjectDetails?pid=undefined"
+          >
+            View Scorecards
+          </a>
+          <a
+            className="tc-btn tc-btn-s tc-btn-wide src-shared-components-Dashboard-MyChallenges-___ChallengeTile__tc-btn___1kOzE src-shared-components-Dashboard-MyChallenges-___ChallengeTile__submit___2RcR4 src-shared-components-Dashboard-MyChallenges-___ChallengeTile__btn-danger___3_C8c"
+            href="https://software.topcoder-dev.com/review/actions/EarlyAppeals?pid=undefined"
+          >
+            Complete Appeals
+          </a>
+        </div>
+      </div>
+      <ChallengeLinks
+        challenge={
+          Object {
+            "isSubmitter": true,
+            "status": "ACTIVE",
+            "subTrack": "CODE",
+            "track": "DEVELOP",
+            "userAction": "Appeal",
+            "userDetails": Object {
+              "roles": Array [],
+            },
+          }
+        }
+        viewMode="list"
+      />
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Matches shallow shapshot 9`] = `
+<div
+  className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__challenge-tile___MxMsa src-shared-components-Dashboard-MyChallenges-___ChallengeTile__tile-view___32EZy"
+>
+  <div
+    className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__challenge___3yIxB src-shared-components-Dashboard-MyChallenges-___ChallengeTile__tile-view___32EZy src-shared-components-Dashboard-MyChallenges-___ChallengeTile__DEVELOP___3Ee6i"
+  >
+    <div
+      className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__active-challenge___oFnJX"
+    >
+      <header>
+        <a
+          className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__name___1qU1H"
+          href="https://www.topcoder-dev.com/challenge-details/undefined/?type=develop"
+        >
+          <span />
+        </a>
+        <div
+          className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__labels___1V5c0"
+        >
+          <p
+            className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__subtrack-color___3yf6g"
+          >
+            CODE
+          </p>
+        </div>
+        <ChallengeLinks
+          challenge={
+            Object {
+              "status": "ACTIVE",
+              "subTrack": "CODE",
+              "track": "DEVELOP",
+              "userAction": "Submitted",
+              "userDetails": Object {},
+            }
+          }
+          viewMode="tile"
+        />
+      </header>
+      <div
+        className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__challenge-card__bottom___19txu"
+      >
+        <div
+          className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__challenge-details___Yo9M3"
+        >
+          <p
+            className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__currentPhase___nMHcj"
+          />
+          <div
+            className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__stalled-challenge___O6WgJ"
+          >
+            This challenge is currently paused.
+          </div>
+          <div
+            className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__phase-action___2RhS3"
+          >
+            <div
+              className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__submitted___1taqc"
+            >
+              Submitted
+            </div>
+          </div>
+        </div>
+        <p
+          className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__roles___3I6ep"
+        >
+          <span>
+            Role:
+          </span>
+          <span>
+            No assigned role.
+          </span>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Matches shallow shapshot 10`] = `
+<div
+  className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__challenge-tile___MxMsa src-shared-components-Dashboard-MyChallenges-___ChallengeTile__list-view___L_19V"
+>
+  <div
+    className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__challenge___3yIxB src-shared-components-Dashboard-MyChallenges-___ChallengeTile__list-view___L_19V src-shared-components-Dashboard-MyChallenges-___ChallengeTile__DEVELOP___3Ee6i"
+  >
+    <div
+      className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__active-challenge___oFnJX"
+    >
+      <header>
+        <a
+          className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__name___1qU1H"
+          href="https://www.topcoder-dev.com/challenge-details/undefined/?type=develop"
+        >
+          <span />
+        </a>
+        <p
+          className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__subtrack-color___3yf6g"
+        >
+          CODE
+        </p>
+        <p
+          className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__roles___3I6ep"
+        >
+          <span>
+            Role:
+          </span>
+          <span>
+            No assigned role.
+          </span>
+        </p>
+      </header>
+      <div
+        className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__challenge-details___Yo9M3"
+      >
+        <div
+          className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__challenge-info___2fqqa"
+        >
+          <p
+            className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__currentPhase___nMHcj"
+          />
+          <p
+            className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__ends-in___2RjDE"
+          >
+            This challenge is currently paused.
+          </p>
+        </div>
+        <div
+          className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__phase-action___2RhS3"
+        >
+          <div
+            className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__submitted___1taqc"
+          >
+            Submitted
+          </div>
+        </div>
+      </div>
+      <ChallengeLinks
+        challenge={
+          Object {
+            "status": "ACTIVE",
+            "subTrack": "CODE",
+            "track": "DEVELOP",
+            "userAction": "Submitted",
+            "userDetails": Object {},
+          }
+        }
+        viewMode="list"
+      />
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Matches shallow shapshot 11`] = `
+<div
+  className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__challenge-tile___MxMsa src-shared-components-Dashboard-MyChallenges-___ChallengeTile__tile-view___32EZy"
+>
+  <div
+    className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__challenge___3yIxB src-shared-components-Dashboard-MyChallenges-___ChallengeTile__tile-view___32EZy src-shared-components-Dashboard-MyChallenges-___ChallengeTile__DEVELOP___3Ee6i"
+  >
+    <div
+      className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__active-challenge___oFnJX"
+    >
+      <header>
+        <a
+          className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__name___1qU1H"
+          href="https://www.topcoder-dev.com/challenge-details/undefined/?type=develop"
+        >
+          <span />
+        </a>
+        <div
+          className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__labels___1V5c0"
+        >
+          <p
+            className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__subtrack-color___3yf6g"
+          >
+            CODE
+          </p>
+        </div>
+        <ChallengeLinks
+          challenge={
+            Object {
+              "status": "ACTIVE",
+              "subTrack": "CODE",
+              "track": "DEVELOP",
+              "userAction": "Registered",
+              "userDetails": Object {},
+            }
+          }
+          viewMode="tile"
+        />
+      </header>
+      <div
+        className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__challenge-card__bottom___19txu"
+      >
+        <div
+          className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__challenge-details___Yo9M3"
+        >
+          <p
+            className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__currentPhase___nMHcj"
+          />
+          <div
+            className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__stalled-challenge___O6WgJ"
+          >
+            This challenge is currently paused.
+          </div>
+          <div
+            className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__phase-action___2RhS3"
+          >
+            <div
+              className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__submitted___1taqc"
+            >
+              Registered
+            </div>
+          </div>
+        </div>
+        <p
+          className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__roles___3I6ep"
+        >
+          <span>
+            Role:
+          </span>
+          <span>
+            No assigned role.
+          </span>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Matches shallow shapshot 12`] = `
+<div
+  className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__challenge-tile___MxMsa src-shared-components-Dashboard-MyChallenges-___ChallengeTile__list-view___L_19V"
+>
+  <div
+    className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__challenge___3yIxB src-shared-components-Dashboard-MyChallenges-___ChallengeTile__list-view___L_19V src-shared-components-Dashboard-MyChallenges-___ChallengeTile__DEVELOP___3Ee6i"
+  >
+    <div
+      className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__active-challenge___oFnJX"
+    >
+      <header>
+        <a
+          className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__name___1qU1H"
+          href="https://www.topcoder-dev.com/challenge-details/undefined/?type=develop"
+        >
+          <span />
+        </a>
+        <p
+          className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__subtrack-color___3yf6g"
+        >
+          CODE
+        </p>
+        <p
+          className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__roles___3I6ep"
+        >
+          <span>
+            Role:
+          </span>
+          <span>
+            No assigned role.
+          </span>
+        </p>
+      </header>
+      <div
+        className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__challenge-details___Yo9M3"
+      >
+        <div
+          className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__challenge-info___2fqqa"
+        >
+          <p
+            className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__currentPhase___nMHcj"
+          />
+          <p
+            className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__ends-in___2RjDE"
+          >
+            This challenge is currently paused.
+          </p>
+        </div>
+        <div
+          className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__phase-action___2RhS3"
+        >
+          <div
+            className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__submitted___1taqc"
+          >
+            Registered
+          </div>
+        </div>
+      </div>
+      <ChallengeLinks
+        challenge={
+          Object {
+            "status": "ACTIVE",
+            "subTrack": "CODE",
+            "track": "DEVELOP",
+            "userAction": "Registered",
+            "userDetails": Object {},
+          }
+        }
+        viewMode="list"
+      />
+    </div>
+  </div>
+</div>
+`;

@@ -14,4 +14,12 @@ test('Matches shallow shapshot', () => {
     />
   ));
   expect(renderer.getRenderOutput()).toMatchSnapshot();
+
+  renderer.render((
+    <SubmissionsTable
+      showDetails={new Set([12345])}
+      type="DESIGN"
+    />
+  ));
+  expect(renderer.getRenderOutput()).toMatchSnapshot();
 });

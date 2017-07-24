@@ -1,0 +1,33 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Matches shallow shapshot 1`] = `
+<div
+  className="SRMCard-container"
+>
+  <HappeningNow />
+  
+  
+</div>
+`;
+
+exports[`Matches shallow shapshot 2`] = `
+<div
+  className="SRMCard-container"
+>
+  
+  <UpcomingSRMs
+    srmChallenge={Object {}}
+  />
+  
+</div>
+`;
+
+exports[`Matches shallow shapshot 3`] = `
+<div
+  className="SRMCard-container"
+>
+  
+  
+  <PastSRMs />
+</div>
+`;

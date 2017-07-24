@@ -9,7 +9,7 @@ import PT from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
 
-class GroupStatsContainer extends React.Component {
+export class GroupStatsContainer extends React.Component {
 
   /* When container mounts we get / update related stats. */
   componentDidMount() {

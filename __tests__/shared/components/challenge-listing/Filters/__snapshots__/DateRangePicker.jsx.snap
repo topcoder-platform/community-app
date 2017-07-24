@@ -1,0 +1,42 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Matches shallow shapshot 1`] = `
+<DateRangePicker
+  anchorDirection="right"
+  disabled={false}
+  displayFormat="MMM DD, YYYY"
+  enableOutsideDays={false}
+  endDate={undefined}
+  endDateId="endDate"
+  focusedInput={null}
+  horizontalMargin={0}
+  initialVisibleMonth={[Function]}
+  isDayBlocked={[Function]}
+  isDayHighlighted={[Function]}
+  isOutsideRange={[Function]}
+  keepOpenOnDateSelect={false}
+  minimumNights={1}
+  monthFormat="MMMM YYYY"
+  navNext={null}
+  navPrev={null}
+  numberOfMonths={2}
+  onDatesChange={[Function]}
+  onFocusChange={[Function]}
+  onNextMonthClick={[Function]}
+  onPrevMonthClick={[Function]}
+  orientation="horizontal"
+  phrases={
+    Object {
+      "clearDates": "Clear Dates",
+      "closeDatePicker": "Close",
+    }
+  }
+  reopenPickerOnClearDates={false}
+  required={false}
+  showClearDates={false}
+  startDate={undefined}
+  startDateId="startDate"
+  withFullScreenPortal={false}
+  withPortal={false}
+/>
+`;

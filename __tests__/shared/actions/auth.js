@@ -27,31 +27,61 @@ jest.setMock('tc-accounts', {
 
 const actions = require('actions/auth').default;
 
-beforeEach(() => jest.clearAllMocks());
+describe('fetch with success response', () => {
+  beforeEach(() => jest.clearAllMocks());
 
-test('auth.loadProfile works as expected when authenticated', () => {
-  const action = actions.auth.loadProfile('token');
-  expect(action.type).toBe('AUTH/LOAD_PROFILE');
-  return action.payload.then((res) => {
-    expect(global.fetch).toHaveBeenCalledWith(
-      PROFILE_REQ_URL, {
-        headers: {
-          Authorization: 'Bearer token',
-          'Content-Type': 'application/json',
+  test('auth.loadProfile works as expected when authenticated', () => {
+    const action = actions.auth.loadProfile('token');
+    expect(action.type).toBe('AUTH/LOAD_PROFILE');
+    return action.payload.then((res) => {
+      expect(global.fetch).toHaveBeenCalledWith(
+        PROFILE_REQ_URL, {
+          headers: {
+            Authorization: 'Bearer token',
+            'Content-Type': 'application/json',
+          },
         },
-      },
-    );
-    expect(global.fetch).toHaveBeenCalledWith(
-      GROUPS_REQ_URL, {
-        headers: {
-          Authorization: 'Bearer token',
-          'Content-Type': 'application/json',
+      );
+      expect(global.fetch).toHaveBeenCalledWith(
+        GROUPS_REQ_URL, {
+          headers: {
+            Authorization: 'Bearer token',
+            'Content-Type': 'application/json',
+          },
         },
-      },
-    );
-    expect(res).toEqual({
-      groups: ['Group1', 'Group2'],
-      userId: 12345,
+      );
+      expect(res).toEqual({
+        groups: ['Group1', 'Group2'],
+        userId: 12345,
+      });
+    });
+  });
+
+  test('auth.loadProfile with empty token', () => {
+    const action = actions.auth.loadProfile('');
+    expect(action.type).toBe('AUTH/LOAD_PROFILE');
+    return action.payload.then((res) => {
+      expect(res).toBe(null);
+    });
+  });
+});
+
+describe('fetch with failed response', () => {
+  beforeAll(() => {
+    global.fetch = jest.fn(() => Promise.resolve({
+      json: () => ({
+        result: { status: 404 },
+      }),
+    }));
+  });
+
+  test('fetch return 404', () => {
+    const action = actions.auth.loadProfile('token');
+    expect(action.type).toBe('AUTH/LOAD_PROFILE');
+    return action.payload.then((res) => {
+      expect(res).toEqual({
+        groups: [],
+      });
     });
   });
 });

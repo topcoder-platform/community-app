@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Matches shallow shapshot 1`] = `
+<svg
+  className={undefined}
+  height="16px"
+  viewBox="0 0 16 16"
+  width="16px"
+  x="0px"
+  xlinkHref="http://www.w3.org/1999/xlink"
+  xmlns="http://www.w3.org/2000/svg"
+  y="0px"
+>
+  <g>
+    <polygon
+      points="13,11 11.6,9.6 9,12.2 9,3.8 11.6,6.4 13,5 8,0 3,5 4.4,6.4 7,3.8 7,12.2 4.4,9.6 3,11 8,16 "
+    />
+  </g>
+</svg>
+`;

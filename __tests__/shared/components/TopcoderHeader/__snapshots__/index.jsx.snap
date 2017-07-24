@@ -203,7 +203,7 @@ exports[`Render with open menu 1`] = `
       className="src-shared-components-TopcoderHeader-___style__main-menu___1pz4L"
     >
       <li
-        className="src-shared-components-TopcoderHeader-___style__main-menu-item___2KIu6"
+        className="src-shared-components-TopcoderHeader-___style__main-menu-item___2KIu6 src-shared-components-TopcoderHeader-___style__opened___1WPVI src-shared-components-TopcoderHeader-___style__current___1Hk7o"
         onMouseEnter={[Function]}
         onMouseLeave={[Function]}
       >
@@ -254,7 +254,7 @@ exports[`Render with open menu 1`] = `
   </div>
   <SubMenu
     closeMenu={[Function]}
-    currentSubMenuTitle=""
+    currentSubMenuTitle="All Challenges"
     menu={
       Object {
         "items": Array [
@@ -264,7 +264,7 @@ exports[`Render with open menu 1`] = `
             "title": "Title",
           },
         ],
-        "title": "Menu Title",
+        "title": "Compete",
       }
     }
     trigger={null}
@@ -451,7 +451,7 @@ exports[`Render with specified profile 1`] = `
         </div>
       </div>
       <div
-        className="src-shared-components-TopcoderHeader-___style__search-icon___3w5nA"
+        className="opened src-shared-components-TopcoderHeader-___style__search-icon___3w5nA"
         onMouseEnter={[Function]}
         onMouseLeave={[Function]}
       >
@@ -466,7 +466,7 @@ exports[`Render with specified profile 1`] = `
     trigger={null}
   />
   <div
-    className="src-shared-components-TopcoderHeader-___style__search-field___2VMzu"
+    className="opened src-shared-components-TopcoderHeader-___style__search-field___2VMzu"
     onMouseLeave={[Function]}
   >
     <input

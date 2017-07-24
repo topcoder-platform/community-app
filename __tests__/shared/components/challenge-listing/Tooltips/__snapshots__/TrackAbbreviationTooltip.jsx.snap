@@ -1,0 +1,47 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Matches shallow shapshot 1`] = `
+<Tooltip
+  align={Object {}}
+  className="track-abbreviation-tooltip"
+  content={
+    <Tip
+      subTrack="F2F"
+      track="DEVELOP"
+    />
+  }
+  defaultVisible={false}
+  onTooltipHover={[Function]}
+  placeArrow={[Function]}
+  position="topLeft"
+>
+  <div
+    className="mock-class"
+  >
+    abcedfghik
+  </div>
+</Tooltip>
+`;
+
+exports[`Matches shallow shapshot 2`] = `
+<Tooltip
+  align={Object {}}
+  className="track-abbreviation-tooltip"
+  content={
+    <Tip
+      subTrack="CODE"
+      track="DEVELOP"
+    />
+  }
+  defaultVisible={false}
+  onTooltipHover={[Function]}
+  placeArrow={[Function]}
+  position="topLeft"
+>
+  <div
+    className="mock-class"
+  >
+    abcedfghik
+  </div>
+</Tooltip>
+`;

@@ -1,0 +1,28 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Matches shallow shapshot 1`] = `
+<ThemedSection
+  composeTheme="deeply"
+  link={null}
+  mapThemrProps={[Function]}
+  theme={Object {}}
+  title="Latest News"
+>
+  <ThemedArticleCard
+    composeTheme="deeply"
+    imageSrc="/themes/common/NewsSection/news-01.jpg"
+    link={
+      Object {
+        "title": "Read More",
+        "url": "http",
+      }
+    }
+    mapThemrProps={[Function]}
+    text="description"
+    theme={Object {}}
+    title="title"
+  />
+</ThemedSection>
+`;
+
+exports[`Matches shallow shapshot 2`] = `null`;

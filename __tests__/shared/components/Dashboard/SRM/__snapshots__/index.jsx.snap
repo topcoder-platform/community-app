@@ -1,0 +1,75 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Matches shallow shapshot 1`] = `
+<div
+  className="src-shared-components-Dashboard-SRM-___styles__srms___3ppQp"
+>
+  <header>
+    <h1
+      className="src-shared-components-Dashboard-SRM-___styles__section-title___1ZDH8"
+    >
+      Single Round Matches
+    </h1>
+  </header>
+  <section>
+    <div
+      className="src-shared-components-Dashboard-SRM-___styles__srm-tiles___3dwyT"
+    >
+      <div
+        className="src-shared-components-Dashboard-SRM-___styles__srm-tile___mDaqT"
+      >
+        <SRMTile
+          srm={
+            Object {
+              "id": "1",
+            }
+          }
+        />
+      </div>
+      <div
+        className="src-shared-components-Dashboard-SRM-___styles__srm-links-card___1nrpE"
+      >
+        <div
+          className="src-shared-components-Dashboard-SRM-___styles__flex-wrapper___33P15"
+        >
+          <h2>
+            Practice on past problems
+          </h2>
+          <a
+            className="tc-btn tc-btn-s tc-btn-wide tc-btn-ghost src-shared-components-Dashboard-SRM-___styles__tc-btn___3no83"
+            href="https://arena.topcoder-dev.com/#/u/practiceProblemList"
+          >
+            Practice Problems
+          </a>
+          <a
+            className="tc-btn tc-btn-s tc-btn-wide tc-btn-ghost src-shared-components-Dashboard-SRM-___styles__tc-btn___3no83"
+            href="https://community.topcoder-dev.com/tc?module=ProblemArchive"
+          >
+            Problem Archive
+          </a>
+          <a
+            className="tc-btn tc-btn-s tc-btn-wide tc-btn-ghost src-shared-components-Dashboard-SRM-___styles__tc-btn___3no83"
+            href="https://www.topcoder-dev.com/member-onboarding/learning-practicing-skills/"
+          >
+            Learn More
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+  <div
+    className="src-shared-components-Dashboard-SRM-___styles__srms-links___JFdeQ"
+  >
+    <a
+      href="https://www.topcoder-dev.com/my-srms/"
+    >
+      View Past SRMS
+    </a>
+    <a
+      href="https://arena.topcoder-dev.com"
+    >
+      Launch Arena
+    </a>
+  </div>
+</div>
+`;

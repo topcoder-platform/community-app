@@ -13,7 +13,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { BUCKETS, getBuckets } from 'utils/challenge-listing/buckets';
 
-class SidebarContainer extends React.Component {
+export class SidebarContainer extends React.Component {
 
   componentDidMount() {
     const token = this.props.tokenV2;

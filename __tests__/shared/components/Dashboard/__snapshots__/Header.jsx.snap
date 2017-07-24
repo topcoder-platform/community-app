@@ -1,0 +1,44 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Matches shallow shapshot 1`] = `
+<div
+  className="src-shared-components-Dashboard-Header-___styles__header-dashboard___MZIIQ"
+>
+  <div
+    className="src-shared-components-Dashboard-Header-___styles__page-state-header___3LEXR"
+  >
+    <header>
+      <div
+        className="src-shared-components-Dashboard-Header-___styles__page-info___2vqPI"
+      >
+        <h1>
+          title
+        </h1>
+      </div>
+      <div
+        className="src-shared-components-Dashboard-Header-___styles__info___36a-O"
+      >
+        <div
+          className="src-shared-components-Dashboard-Header-___styles__pic___FAPut"
+        >
+          <a>
+            <DefaultUserIcon
+              height={60}
+              width={60}
+            />
+          </a>
+        </div>
+        <div
+          className="src-shared-components-Dashboard-Header-___styles__user-metrics___1lGBa"
+        >
+          <Handle
+            handle=""
+            rating={0}
+            size={24}
+          />
+        </div>
+      </div>
+    </header>
+  </div>
+</div>
+`;
