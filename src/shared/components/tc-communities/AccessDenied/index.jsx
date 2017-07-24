@@ -49,7 +49,7 @@ export default function AccessDenied({ cause }) {
             First time Wipro user? <a href={`${config.URL.AUTH}/sso-registration/?app=member&retUrl=${returnUrl}`} styleName="joinNow">Join Now</a> using your Wipro SSO account to create your new Topcoder account.
           </div>
           <div styleName="msg">
-            Already registered on Topcoder with your Wipro SSO account? 
+            Already registered on Topcoder with your Wipro SSO account?
             <a
               className="tc-btn-md tc-btn-primary"
               href={`${config.URL.AUTH}/sso-login/?app=member&retUrl=${returnUrl}`}
