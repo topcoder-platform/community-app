@@ -5,8 +5,8 @@ exports[`Matches shallow shapshot 1 shapshot 1 1`] = `
   className="src-shared-components-challenge-listing-___style__ChallengeFiltersExample___3IjeI"
 >
   <Connect(Container)
-    challengeGroupId=""
     communityName={null}
+    groupId=""
     isCardTypeSet="Challenges"
     setCardType={[Function]}
   />
@@ -68,10 +68,10 @@ exports[`Matches shallow shapshot 1 shapshot 1 1`] = `
     <Listing
       activeBucket="abc"
       auth={Object {}}
-      challengeGroupId=""
       challenges={Array []}
       currentFilterName=""
       expanded={false}
+      groupId=""
       loadMoreDraft={null}
       loadMorePast={null}
       loadingDraftChallenges={false}
@@ -96,7 +96,9 @@ exports[`Matches shallow shapshot 1 shapshot 1 1`] = `
         shouldFreeze={[Function]}
         top={20}
       >
-        <Connect(SidebarContainer) />
+        <Connect(SidebarContainer)
+          hideTcLinksInFooter={false}
+        />
       </Sticky>
     </div>
   </div>
@@ -108,8 +110,8 @@ exports[`Matches shallow shapshot 2 shapshot 2 1`] = `
   className="src-shared-components-challenge-listing-___style__ChallengeFiltersExample___3IjeI"
 >
   <Connect(Container)
-    challengeGroupId=""
     communityName={null}
+    groupId=""
     isCardTypeSet="Challenges"
     setCardType={[Function]}
   />
@@ -213,7 +215,9 @@ exports[`Matches shallow shapshot 2 shapshot 2 1`] = `
         shouldFreeze={[Function]}
         top={20}
       >
-        <Connect(SidebarContainer) />
+        <Connect(SidebarContainer)
+          hideTcLinksInFooter={false}
+        />
       </Sticky>
     </div>
   </div>

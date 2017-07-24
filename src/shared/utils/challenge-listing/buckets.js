@@ -22,13 +22,17 @@ export const BUCKETS = {
 export function getBuckets(userHandle) {
   return {
     [BUCKETS.ALL]: {
-      filter: { status: ['ACTIVE'] },
+      filter: {
+        started: true,
+        status: ['ACTIVE'],
+      },
       hideCount: false,
       name: 'All Challenges',
       sorts: [],
     },
     [BUCKETS.MY]: {
       filter: {
+        started: true,
         status: ['ACTIVE'],
         users: [userHandle],
       },
@@ -46,6 +50,7 @@ export function getBuckets(userHandle) {
     [BUCKETS.OPEN_FOR_REGISTRATION]: {
       filter: {
         registrationOpen: true,
+        started: true,
         status: ['ACTIVE'],
       },
       hideCount: false,
@@ -63,6 +68,7 @@ export function getBuckets(userHandle) {
     [BUCKETS.ONGOING]: {
       filter: {
         registrationOpen: false,
+        started: true,
         status: ['ACTIVE'],
       },
       hideCount: false,

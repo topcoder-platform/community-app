@@ -23,6 +23,13 @@ function sortByDate(arr) {
   });
 }
 
+/**
+ * Prepares user's statistics for rendering into the Dashboard? (The original
+ * author of the code did not comment, and it is not that clear from the first
+ * glance, what exactly this function does :(
+ * @param {Object} s
+ * @return {Object}
+ */
 function getRanks(s) {
   if (!s) {
     return [];
@@ -127,6 +134,13 @@ function compileSubtracks(trackRanks) {
   }, []);
 }
 
+/**
+ * Unfortunately, athour of this code has not commented, what exactly this
+ * function does. It looks like it helps to prepare user's statistics for
+ * rendering in the dashboard.
+ * @param {Object} r
+ * @return {Ojbect}
+ */
 function processStatRank(r) {
   const rank = _.cloneDeep(r);
   rank.showStats = true;

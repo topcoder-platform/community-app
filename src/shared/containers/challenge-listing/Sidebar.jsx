@@ -25,8 +25,8 @@ export class SidebarContainer extends React.Component {
     const tokenV2 = this.props.tokenV2;
 
     let communityFilter = this.props.communityFilters.find(item =>
-      item.id === this.props.selectedCommunityId);
-    if (communityFilter) communityFilter = communityFilter.filter;
+      item.communityId === this.props.selectedCommunityId);
+    if (communityFilter) communityFilter = communityFilter.challengeFilter;
 
     return (
       <Sidebar
@@ -54,13 +54,16 @@ export class SidebarContainer extends React.Component {
 }
 
 SidebarContainer.defaultProps = {
-  selectedCommunityId: null,
+  selectedCommunityId: '',
   tokenV2: null,
   user: null,
 };
 
 SidebarContainer.propTypes = {
-  communityFilters: PT.arrayOf(PT.shape()).isRequired,
+  communityFilters: PT.arrayOf(PT.shape({
+    challengeFilter: PT.shape(),
+    communityId: PT.string.isRequired,
+  })).isRequired,
   deleteSavedFilter: PT.func.isRequired,
   getSavedFilters: PT.func.isRequired,
   savedFilters: PT.arrayOf(PT.shape()).isRequired,
@@ -85,16 +88,17 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-function mapStateToProps(state) {
+function mapStateToProps(state, ownProps) {
   const activeBucket = state.challengeListing.sidebar.activeBucket;
   const pending = _.keys(state.challengeListing.pendingRequests);
   return {
     ...state.challengeListing.sidebar,
     challenges: state.challengeListing.challenges,
     disabled: (activeBucket === BUCKETS.ALL) && Boolean(pending.length),
+    hideTcLinksInFooter: ownProps.hideTcLinksInFooter,
     filterState: state.challengeListing.filter,
     isAuth: Boolean(state.auth.user),
-    communityFilters: state.challengeListing.communityFilters,
+    communityFilters: [{ communityId: '', communityName: 'All' }].concat(state.tcCommunities.list),
     selectedCommunityId: state.challengeListing.selectedCommunityId,
     tokenV2: state.auth.tokenV2,
     user: state.auth.user,

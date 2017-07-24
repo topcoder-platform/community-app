@@ -97,7 +97,7 @@ exports[`Default render 1`] = `
             },
             Object {
               "icon": <IconNavCP />,
-              "link": "https://arena.topcoder-dev.com/",
+              "link": "https://arena.topcoder-dev.com",
               "title": "Competitive Programming",
             },
           ],
@@ -291,7 +291,7 @@ exports[`Render with open menu 1`] = `
             },
             Object {
               "icon": <IconNavCP />,
-              "link": "https://arena.topcoder-dev.com/",
+              "link": "https://arena.topcoder-dev.com",
               "title": "Competitive Programming",
             },
           ],
@@ -487,7 +487,7 @@ exports[`Render with specified profile 1`] = `
             },
             Object {
               "icon": <IconNavCP />,
-              "link": "https://arena.topcoder-dev.com/",
+              "link": "https://arena.topcoder-dev.com",
               "title": "Competitive Programming",
             },
           ],

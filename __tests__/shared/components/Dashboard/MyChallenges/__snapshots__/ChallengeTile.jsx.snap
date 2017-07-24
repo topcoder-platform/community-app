@@ -2,26 +2,26 @@
 
 exports[`Matches shallow shapshot 1`] = `
 <div
-  className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__challenge-tile___MxMsa src-shared-components-Dashboard-MyChallenges-___ChallengeTile__tile-view___32EZy"
+  className="src-shared-components-Dashboard-MyChallenges-ChallengeTile-___style__challenge-tile___3pXGl src-shared-components-Dashboard-MyChallenges-ChallengeTile-___style__tile-view___1d1Ju"
 >
   <div
-    className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__challenge___3yIxB src-shared-components-Dashboard-MyChallenges-___ChallengeTile__tile-view___32EZy src-shared-components-Dashboard-MyChallenges-___ChallengeTile__DEVELOP___3Ee6i"
+    className="src-shared-components-Dashboard-MyChallenges-ChallengeTile-___style__challenge___2sq5U src-shared-components-Dashboard-MyChallenges-ChallengeTile-___style__tile-view___1d1Ju src-shared-components-Dashboard-MyChallenges-ChallengeTile-___style__DEVELOP___xdjB2"
   >
     <div
-      className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__active-challenge___oFnJX"
+      className="src-shared-components-Dashboard-MyChallenges-ChallengeTile-___style__active-challenge___2iIqh"
     >
       <header>
         <a
-          className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__name___1qU1H"
+          className="src-shared-components-Dashboard-MyChallenges-ChallengeTile-___style__name___3uS0q"
           href="https://www.topcoder-dev.com/challenge-details/undefined/?type=develop"
         >
           <span />
         </a>
         <div
-          className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__labels___1V5c0"
+          className="src-shared-components-Dashboard-MyChallenges-ChallengeTile-___style__labels___1MAdp"
         >
           <p
-            className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__subtrack-color___3yf6g"
+            className="src-shared-components-Dashboard-MyChallenges-ChallengeTile-___style__subtrack-color___2WVzx"
           >
             CODE
           </p>
@@ -50,24 +50,24 @@ exports[`Matches shallow shapshot 1`] = `
         />
       </header>
       <div
-        className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__challenge-card__bottom___19txu"
+        className="src-shared-components-Dashboard-MyChallenges-ChallengeTile-___style__challenge-card__bottom___2_1C6"
       >
         <div
-          className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__challenge-details___Yo9M3"
+          className="src-shared-components-Dashboard-MyChallenges-ChallengeTile-___style__challenge-details___DJz2Z"
         >
           <p
-            className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__currentPhase___nMHcj"
+            className="src-shared-components-Dashboard-MyChallenges-ChallengeTile-___style__currentPhase___PRydF"
           />
           <div
-            className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__stalled-challenge___O6WgJ"
+            className="src-shared-components-Dashboard-MyChallenges-ChallengeTile-___style__stalled-challenge___3jV3F"
           >
             This challenge is currently paused.
           </div>
           <div
-            className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__phase-action___2RhS3"
+            className="src-shared-components-Dashboard-MyChallenges-ChallengeTile-___style__phase-action___1CEL_"
           >
             <a
-              className="tc-btn tc-btn-s tc-btn-wide tc-btn-ghost src-shared-components-Dashboard-MyChallenges-___ChallengeTile__tc-btn___1kOzE src-shared-components-Dashboard-MyChallenges-___ChallengeTile__submit___2RcR4"
+              className="tc-btn tc-btn-s tc-btn-wide tc-btn-ghost src-shared-components-Dashboard-MyChallenges-ChallengeTile-___style__tc-btn___2m_Kz src-shared-components-Dashboard-MyChallenges-ChallengeTile-___style__submit___VryN4"
               href="https://software.topcoder-dev.com/review/actions/ViewProjectDetails?pid=undefined"
             >
               View Scorecards
@@ -75,7 +75,7 @@ exports[`Matches shallow shapshot 1`] = `
           </div>
         </div>
         <p
-          className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__roles___3I6ep"
+          className="src-shared-components-Dashboard-MyChallenges-ChallengeTile-___style__roles___3ndac"
         >
           <span>
             Role:
@@ -92,28 +92,28 @@ exports[`Matches shallow shapshot 1`] = `
 
 exports[`Matches shallow shapshot 2`] = `
 <div
-  className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__challenge-tile___MxMsa src-shared-components-Dashboard-MyChallenges-___ChallengeTile__list-view___L_19V"
+  className="src-shared-components-Dashboard-MyChallenges-ChallengeTile-___style__challenge-tile___3pXGl src-shared-components-Dashboard-MyChallenges-ChallengeTile-___style__list-view___2UnC0"
 >
   <div
-    className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__challenge___3yIxB src-shared-components-Dashboard-MyChallenges-___ChallengeTile__list-view___L_19V src-shared-components-Dashboard-MyChallenges-___ChallengeTile__DEVELOP___3Ee6i"
+    className="src-shared-components-Dashboard-MyChallenges-ChallengeTile-___style__challenge___2sq5U src-shared-components-Dashboard-MyChallenges-ChallengeTile-___style__list-view___2UnC0 src-shared-components-Dashboard-MyChallenges-ChallengeTile-___style__DEVELOP___xdjB2"
   >
     <div
-      className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__active-challenge___oFnJX"
+      className="src-shared-components-Dashboard-MyChallenges-ChallengeTile-___style__active-challenge___2iIqh"
     >
       <header>
         <a
-          className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__name___1qU1H"
+          className="src-shared-components-Dashboard-MyChallenges-ChallengeTile-___style__name___3uS0q"
           href="https://www.topcoder-dev.com/challenge-details/undefined/?type=develop"
         >
           <span />
         </a>
         <p
-          className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__subtrack-color___3yf6g"
+          className="src-shared-components-Dashboard-MyChallenges-ChallengeTile-___style__subtrack-color___2WVzx"
         >
           CODE
         </p>
         <p
-          className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__roles___3I6ep"
+          className="src-shared-components-Dashboard-MyChallenges-ChallengeTile-___style__roles___3ndac"
         >
           <span>
             Role:
@@ -124,25 +124,25 @@ exports[`Matches shallow shapshot 2`] = `
         </p>
       </header>
       <div
-        className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__challenge-details___Yo9M3"
+        className="src-shared-components-Dashboard-MyChallenges-ChallengeTile-___style__challenge-details___DJz2Z"
       >
         <div
-          className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__challenge-info___2fqqa"
+          className="src-shared-components-Dashboard-MyChallenges-ChallengeTile-___style__challenge-info___3Kys1"
         >
           <p
-            className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__currentPhase___nMHcj"
+            className="src-shared-components-Dashboard-MyChallenges-ChallengeTile-___style__currentPhase___PRydF"
           />
           <p
-            className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__ends-in___2RjDE"
+            className="src-shared-components-Dashboard-MyChallenges-ChallengeTile-___style__ends-in___1c9ID"
           >
             This challenge is currently paused.
           </p>
         </div>
         <div
-          className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__phase-action___2RhS3"
+          className="src-shared-components-Dashboard-MyChallenges-ChallengeTile-___style__phase-action___1CEL_"
         >
           <a
-            className="tc-btn tc-btn-s tc-btn-wide tc-btn-ghost src-shared-components-Dashboard-MyChallenges-___ChallengeTile__tc-btn___1kOzE src-shared-components-Dashboard-MyChallenges-___ChallengeTile__submit___2RcR4"
+            className="tc-btn tc-btn-s tc-btn-wide tc-btn-ghost src-shared-components-Dashboard-MyChallenges-ChallengeTile-___style__tc-btn___2m_Kz src-shared-components-Dashboard-MyChallenges-ChallengeTile-___style__submit___VryN4"
             href="https://software.topcoder-dev.com/review/actions/ViewProjectDetails?pid=undefined"
           >
             View Scorecards
@@ -178,31 +178,26 @@ exports[`Matches shallow shapshot 2`] = `
 
 exports[`Matches shallow shapshot 3`] = `
 <div
-  className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__challenge-tile___MxMsa src-shared-components-Dashboard-MyChallenges-___ChallengeTile__tile-view___32EZy"
+  className="src-shared-components-Dashboard-MyChallenges-ChallengeTile-___style__challenge-tile___3pXGl src-shared-components-Dashboard-MyChallenges-ChallengeTile-___style__tile-view___1d1Ju"
 >
   <div
-    className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__challenge___3yIxB src-shared-components-Dashboard-MyChallenges-___ChallengeTile__tile-view___32EZy src-shared-components-Dashboard-MyChallenges-___ChallengeTile__DEVELOP___3Ee6i"
+    className="src-shared-components-Dashboard-MyChallenges-ChallengeTile-___style__challenge___2sq5U src-shared-components-Dashboard-MyChallenges-ChallengeTile-___style__tile-view___1d1Ju src-shared-components-Dashboard-MyChallenges-ChallengeTile-___style__DEVELOP___xdjB2"
   >
     <div
-      className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__active-challenge___oFnJX"
+      className="src-shared-components-Dashboard-MyChallenges-ChallengeTile-___style__active-challenge___2iIqh"
     >
       <header>
         <span
-          className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__name___1qU1H"
+          className="src-shared-components-Dashboard-MyChallenges-ChallengeTile-___style__name___3uS0q"
           title={undefined}
         />
         <div
-          className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__labels___1V5c0"
+          className="src-shared-components-Dashboard-MyChallenges-ChallengeTile-___style__labels___1MAdp"
         >
           <p
-            className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__subtrack-color___3yf6g"
+            className="src-shared-components-Dashboard-MyChallenges-ChallengeTile-___style__subtrack-color___2WVzx"
           >
             CODE
-          </p>
-          <p
-            className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__group-label___2l1Gc"
-          >
-            do
           </p>
         </div>
         <ChallengeLinks
@@ -226,40 +221,40 @@ exports[`Matches shallow shapshot 3`] = `
         />
       </header>
       <div
-        className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__challenge-card__bottom___19txu"
+        className="src-shared-components-Dashboard-MyChallenges-ChallengeTile-___style__challenge-card__bottom___2_1C6"
       >
         <div
-          className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__challenge-details___Yo9M3"
+          className="src-shared-components-Dashboard-MyChallenges-ChallengeTile-___style__challenge-details___DJz2Z"
         >
           <p
-            className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__currentPhase___nMHcj"
+            className="src-shared-components-Dashboard-MyChallenges-ChallengeTile-___style__currentPhase___PRydF"
           />
           <div
-            className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__challenge-calendar___TTdXf"
+            className="src-shared-components-Dashboard-MyChallenges-ChallengeTile-___style__challenge-calendar___2evrd"
           >
             <p
-              className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__ends-in___2RjDE"
+              className="src-shared-components-Dashboard-MyChallenges-ChallengeTile-___style__ends-in___1c9ID"
             >
               Ends In
             </p>
             <p
-              className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__time-remaining___3F8ZJ"
+              className="src-shared-components-Dashboard-MyChallenges-ChallengeTile-___style__time-remaining___30FrH"
             />
             <p
-              className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__unit-of-time___3d-0I"
+              className="src-shared-components-Dashboard-MyChallenges-ChallengeTile-___style__unit-of-time___1Hug2"
             />
           </div>
           <div
-            className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__phase-action___2RhS3"
+            className="src-shared-components-Dashboard-MyChallenges-ChallengeTile-___style__phase-action___1CEL_"
           >
             <a
-              className="tc-btn tc-btn-s tc-btn-wide tc-btn-ghost src-shared-components-Dashboard-MyChallenges-___ChallengeTile__tc-btn___1kOzE src-shared-components-Dashboard-MyChallenges-___ChallengeTile__submit___2RcR4"
+              className="tc-btn tc-btn-s tc-btn-wide tc-btn-ghost src-shared-components-Dashboard-MyChallenges-ChallengeTile-___style__tc-btn___2m_Kz src-shared-components-Dashboard-MyChallenges-ChallengeTile-___style__submit___VryN4"
               href="https://www.topcoder-dev.com/challenge-details/undefined/?type=develop"
             >
               Submit
             </a>
             <a
-              className="tc-btn tc-btn-s tc-btn-wide src-shared-components-Dashboard-MyChallenges-___ChallengeTile__tc-btn___1kOzE src-shared-components-Dashboard-MyChallenges-___ChallengeTile__submit___2RcR4 src-shared-components-Dashboard-MyChallenges-___ChallengeTile__btn-danger___3_C8c"
+              className="tc-btn tc-btn-s tc-btn-wide src-shared-components-Dashboard-MyChallenges-ChallengeTile-___style__tc-btn___2m_Kz src-shared-components-Dashboard-MyChallenges-ChallengeTile-___style__submit___VryN4 src-shared-components-Dashboard-MyChallenges-ChallengeTile-___style__btn-danger___1OQIc"
               href="https://software.topcoder-dev.com/review/actions/Unregister?pid=undefined"
             >
               Unregister
@@ -267,7 +262,7 @@ exports[`Matches shallow shapshot 3`] = `
           </div>
         </div>
         <p
-          className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__roles___3I6ep"
+          className="src-shared-components-Dashboard-MyChallenges-ChallengeTile-___style__roles___3ndac"
         >
           <span>
             Role:
@@ -284,26 +279,26 @@ exports[`Matches shallow shapshot 3`] = `
 
 exports[`Matches shallow shapshot 4`] = `
 <div
-  className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__challenge-tile___MxMsa src-shared-components-Dashboard-MyChallenges-___ChallengeTile__list-view___L_19V"
+  className="src-shared-components-Dashboard-MyChallenges-ChallengeTile-___style__challenge-tile___3pXGl src-shared-components-Dashboard-MyChallenges-ChallengeTile-___style__list-view___2UnC0"
 >
   <div
-    className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__challenge___3yIxB src-shared-components-Dashboard-MyChallenges-___ChallengeTile__list-view___L_19V src-shared-components-Dashboard-MyChallenges-___ChallengeTile__DEVELOP___3Ee6i"
+    className="src-shared-components-Dashboard-MyChallenges-ChallengeTile-___style__challenge___2sq5U src-shared-components-Dashboard-MyChallenges-ChallengeTile-___style__list-view___2UnC0 src-shared-components-Dashboard-MyChallenges-ChallengeTile-___style__DEVELOP___xdjB2"
   >
     <div
-      className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__active-challenge___oFnJX"
+      className="src-shared-components-Dashboard-MyChallenges-ChallengeTile-___style__active-challenge___2iIqh"
     >
       <header>
         <span
-          className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__name___1qU1H"
+          className="src-shared-components-Dashboard-MyChallenges-ChallengeTile-___style__name___3uS0q"
           title={undefined}
         />
         <p
-          className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__subtrack-color___3yf6g"
+          className="src-shared-components-Dashboard-MyChallenges-ChallengeTile-___style__subtrack-color___2WVzx"
         >
           CODE
         </p>
         <p
-          className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__roles___3I6ep"
+          className="src-shared-components-Dashboard-MyChallenges-ChallengeTile-___style__roles___3ndac"
         >
           <span>
             Role:
@@ -314,31 +309,31 @@ exports[`Matches shallow shapshot 4`] = `
         </p>
       </header>
       <div
-        className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__challenge-details___Yo9M3"
+        className="src-shared-components-Dashboard-MyChallenges-ChallengeTile-___style__challenge-details___DJz2Z"
       >
         <div
-          className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__challenge-info___2fqqa"
+          className="src-shared-components-Dashboard-MyChallenges-ChallengeTile-___style__challenge-info___3Kys1"
         >
           <p
-            className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__currentPhase___nMHcj"
+            className="src-shared-components-Dashboard-MyChallenges-ChallengeTile-___style__currentPhase___PRydF"
           />
           <p
-            className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__ends-in___2RjDE"
+            className="src-shared-components-Dashboard-MyChallenges-ChallengeTile-___style__ends-in___1c9ID"
           >
             Ends undefined
           </p>
         </div>
         <div
-          className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__phase-action___2RhS3"
+          className="src-shared-components-Dashboard-MyChallenges-ChallengeTile-___style__phase-action___1CEL_"
         >
           <a
-            className="tc-btn tc-btn-s tc-btn-wide tc-btn-ghost src-shared-components-Dashboard-MyChallenges-___ChallengeTile__tc-btn___1kOzE src-shared-components-Dashboard-MyChallenges-___ChallengeTile__submit___2RcR4"
+            className="tc-btn tc-btn-s tc-btn-wide tc-btn-ghost src-shared-components-Dashboard-MyChallenges-ChallengeTile-___style__tc-btn___2m_Kz src-shared-components-Dashboard-MyChallenges-ChallengeTile-___style__submit___VryN4"
             href="https://www.topcoder-dev.com/challenge-details/undefined/?type=develop"
           >
             Submit
           </a>
           <a
-            className="tc-btn tc-btn-s tc-btn-wide src-shared-components-Dashboard-MyChallenges-___ChallengeTile__tc-btn___1kOzE src-shared-components-Dashboard-MyChallenges-___ChallengeTile__submit___2RcR4 src-shared-components-Dashboard-MyChallenges-___ChallengeTile__btn-danger___3_C8c"
+            className="tc-btn tc-btn-s tc-btn-wide src-shared-components-Dashboard-MyChallenges-ChallengeTile-___style__tc-btn___2m_Kz src-shared-components-Dashboard-MyChallenges-ChallengeTile-___style__submit___VryN4 src-shared-components-Dashboard-MyChallenges-ChallengeTile-___style__btn-danger___1OQIc"
             href="https://software.topcoder-dev.com/review/actions/Unregister?pid=undefined"
           >
             Unregister
@@ -371,31 +366,26 @@ exports[`Matches shallow shapshot 4`] = `
 
 exports[`Matches shallow shapshot 5`] = `
 <div
-  className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__challenge-tile___MxMsa src-shared-components-Dashboard-MyChallenges-___ChallengeTile__tile-view___32EZy"
+  className="src-shared-components-Dashboard-MyChallenges-ChallengeTile-___style__challenge-tile___3pXGl src-shared-components-Dashboard-MyChallenges-ChallengeTile-___style__tile-view___1d1Ju"
 >
   <div
-    className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__challenge___3yIxB src-shared-components-Dashboard-MyChallenges-___ChallengeTile__tile-view___32EZy src-shared-components-Dashboard-MyChallenges-___ChallengeTile__DEVELOP___3Ee6i"
+    className="src-shared-components-Dashboard-MyChallenges-ChallengeTile-___style__challenge___2sq5U src-shared-components-Dashboard-MyChallenges-ChallengeTile-___style__tile-view___1d1Ju src-shared-components-Dashboard-MyChallenges-ChallengeTile-___style__DEVELOP___xdjB2"
   >
     <div
-      className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__active-challenge___oFnJX"
+      className="src-shared-components-Dashboard-MyChallenges-ChallengeTile-___style__active-challenge___2iIqh"
     >
       <header>
         <span
-          className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__name___1qU1H"
+          className="src-shared-components-Dashboard-MyChallenges-ChallengeTile-___style__name___3uS0q"
           title={undefined}
         />
         <div
-          className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__labels___1V5c0"
+          className="src-shared-components-Dashboard-MyChallenges-ChallengeTile-___style__labels___1MAdp"
         >
           <p
-            className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__subtrack-color___3yf6g"
+            className="src-shared-components-Dashboard-MyChallenges-ChallengeTile-___style__subtrack-color___2WVzx"
           >
             CODE
-          </p>
-          <p
-            className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__group-label___2l1Gc"
-          >
-            do
           </p>
         </div>
         <ChallengeLinks
@@ -420,40 +410,40 @@ exports[`Matches shallow shapshot 5`] = `
         />
       </header>
       <div
-        className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__challenge-card__bottom___19txu"
+        className="src-shared-components-Dashboard-MyChallenges-ChallengeTile-___style__challenge-card__bottom___2_1C6"
       >
         <div
-          className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__challenge-details___Yo9M3"
+          className="src-shared-components-Dashboard-MyChallenges-ChallengeTile-___style__challenge-details___DJz2Z"
         >
           <p
-            className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__currentPhase___nMHcj"
+            className="src-shared-components-Dashboard-MyChallenges-ChallengeTile-___style__currentPhase___PRydF"
           />
           <div
-            className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__challenge-calendar___TTdXf src-shared-components-Dashboard-MyChallenges-___ChallengeTile__challenge-late___Uvfk3"
+            className="src-shared-components-Dashboard-MyChallenges-ChallengeTile-___style__challenge-calendar___2evrd src-shared-components-Dashboard-MyChallenges-ChallengeTile-___style__challenge-late___cyxLq"
           >
             <p
-              className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__ends-in___2RjDE"
+              className="src-shared-components-Dashboard-MyChallenges-ChallengeTile-___style__ends-in___1c9ID"
             >
               Late for
             </p>
             <p
-              className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__time-remaining___3F8ZJ"
+              className="src-shared-components-Dashboard-MyChallenges-ChallengeTile-___style__time-remaining___30FrH"
             />
             <p
-              className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__unit-of-time___3d-0I"
+              className="src-shared-components-Dashboard-MyChallenges-ChallengeTile-___style__unit-of-time___1Hug2"
             />
           </div>
           <div
-            className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__phase-action___2RhS3"
+            className="src-shared-components-Dashboard-MyChallenges-ChallengeTile-___style__phase-action___1CEL_"
           >
             <a
-              className="tc-btn tc-btn-s tc-btn-wide tc-btn-ghost src-shared-components-Dashboard-MyChallenges-___ChallengeTile__tc-btn___1kOzE src-shared-components-Dashboard-MyChallenges-___ChallengeTile__submit___2RcR4"
+              className="tc-btn tc-btn-s tc-btn-wide tc-btn-ghost src-shared-components-Dashboard-MyChallenges-ChallengeTile-___style__tc-btn___2m_Kz src-shared-components-Dashboard-MyChallenges-ChallengeTile-___style__submit___VryN4"
               href="https://www.topcoder-dev.com/challenge-details/undefined/?type=develop"
             >
               Submit
             </a>
             <a
-              className="tc-btn tc-btn-s tc-btn-wide src-shared-components-Dashboard-MyChallenges-___ChallengeTile__tc-btn___1kOzE src-shared-components-Dashboard-MyChallenges-___ChallengeTile__submit___2RcR4 src-shared-components-Dashboard-MyChallenges-___ChallengeTile__btn-danger___3_C8c"
+              className="tc-btn tc-btn-s tc-btn-wide src-shared-components-Dashboard-MyChallenges-ChallengeTile-___style__tc-btn___2m_Kz src-shared-components-Dashboard-MyChallenges-ChallengeTile-___style__submit___VryN4 src-shared-components-Dashboard-MyChallenges-ChallengeTile-___style__btn-danger___1OQIc"
               href="https://software.topcoder-dev.com/review/actions/Unregister?pid=undefined"
             >
               Unregister
@@ -461,7 +451,7 @@ exports[`Matches shallow shapshot 5`] = `
           </div>
         </div>
         <p
-          className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__roles___3I6ep"
+          className="src-shared-components-Dashboard-MyChallenges-ChallengeTile-___style__roles___3ndac"
         >
           <span>
             Role:
@@ -478,26 +468,26 @@ exports[`Matches shallow shapshot 5`] = `
 
 exports[`Matches shallow shapshot 6`] = `
 <div
-  className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__challenge-tile___MxMsa src-shared-components-Dashboard-MyChallenges-___ChallengeTile__list-view___L_19V"
+  className="src-shared-components-Dashboard-MyChallenges-ChallengeTile-___style__challenge-tile___3pXGl src-shared-components-Dashboard-MyChallenges-ChallengeTile-___style__list-view___2UnC0"
 >
   <div
-    className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__challenge___3yIxB src-shared-components-Dashboard-MyChallenges-___ChallengeTile__list-view___L_19V src-shared-components-Dashboard-MyChallenges-___ChallengeTile__DEVELOP___3Ee6i"
+    className="src-shared-components-Dashboard-MyChallenges-ChallengeTile-___style__challenge___2sq5U src-shared-components-Dashboard-MyChallenges-ChallengeTile-___style__list-view___2UnC0 src-shared-components-Dashboard-MyChallenges-ChallengeTile-___style__DEVELOP___xdjB2"
   >
     <div
-      className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__active-challenge___oFnJX"
+      className="src-shared-components-Dashboard-MyChallenges-ChallengeTile-___style__active-challenge___2iIqh"
     >
       <header>
         <span
-          className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__name___1qU1H"
+          className="src-shared-components-Dashboard-MyChallenges-ChallengeTile-___style__name___3uS0q"
           title={undefined}
         />
         <p
-          className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__subtrack-color___3yf6g"
+          className="src-shared-components-Dashboard-MyChallenges-ChallengeTile-___style__subtrack-color___2WVzx"
         >
           CODE
         </p>
         <p
-          className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__roles___3I6ep"
+          className="src-shared-components-Dashboard-MyChallenges-ChallengeTile-___style__roles___3ndac"
         >
           <span>
             Role:
@@ -508,31 +498,31 @@ exports[`Matches shallow shapshot 6`] = `
         </p>
       </header>
       <div
-        className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__challenge-details___Yo9M3"
+        className="src-shared-components-Dashboard-MyChallenges-ChallengeTile-___style__challenge-details___DJz2Z"
       >
         <div
-          className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__challenge-info___2fqqa src-shared-components-Dashboard-MyChallenges-___ChallengeTile__challenge-late___Uvfk3"
+          className="src-shared-components-Dashboard-MyChallenges-ChallengeTile-___style__challenge-info___3Kys1 src-shared-components-Dashboard-MyChallenges-ChallengeTile-___style__challenge-late___cyxLq"
         >
           <p
-            className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__currentPhase___nMHcj"
+            className="src-shared-components-Dashboard-MyChallenges-ChallengeTile-___style__currentPhase___PRydF"
           />
           <p
-            className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__ends-in___2RjDE"
+            className="src-shared-components-Dashboard-MyChallenges-ChallengeTile-___style__ends-in___1c9ID"
           >
             Ends undefined
           </p>
         </div>
         <div
-          className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__phase-action___2RhS3"
+          className="src-shared-components-Dashboard-MyChallenges-ChallengeTile-___style__phase-action___1CEL_"
         >
           <a
-            className="tc-btn tc-btn-s tc-btn-wide tc-btn-ghost src-shared-components-Dashboard-MyChallenges-___ChallengeTile__tc-btn___1kOzE src-shared-components-Dashboard-MyChallenges-___ChallengeTile__submit___2RcR4"
+            className="tc-btn tc-btn-s tc-btn-wide tc-btn-ghost src-shared-components-Dashboard-MyChallenges-ChallengeTile-___style__tc-btn___2m_Kz src-shared-components-Dashboard-MyChallenges-ChallengeTile-___style__submit___VryN4"
             href="https://www.topcoder-dev.com/challenge-details/undefined/?type=develop"
           >
             Submit
           </a>
           <a
-            className="tc-btn tc-btn-s tc-btn-wide src-shared-components-Dashboard-MyChallenges-___ChallengeTile__tc-btn___1kOzE src-shared-components-Dashboard-MyChallenges-___ChallengeTile__submit___2RcR4 src-shared-components-Dashboard-MyChallenges-___ChallengeTile__btn-danger___3_C8c"
+            className="tc-btn tc-btn-s tc-btn-wide src-shared-components-Dashboard-MyChallenges-ChallengeTile-___style__tc-btn___2m_Kz src-shared-components-Dashboard-MyChallenges-ChallengeTile-___style__submit___VryN4 src-shared-components-Dashboard-MyChallenges-ChallengeTile-___style__btn-danger___1OQIc"
             href="https://software.topcoder-dev.com/review/actions/Unregister?pid=undefined"
           >
             Unregister
@@ -566,26 +556,26 @@ exports[`Matches shallow shapshot 6`] = `
 
 exports[`Matches shallow shapshot 7`] = `
 <div
-  className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__challenge-tile___MxMsa src-shared-components-Dashboard-MyChallenges-___ChallengeTile__tile-view___32EZy"
+  className="src-shared-components-Dashboard-MyChallenges-ChallengeTile-___style__challenge-tile___3pXGl src-shared-components-Dashboard-MyChallenges-ChallengeTile-___style__tile-view___1d1Ju"
 >
   <div
-    className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__challenge___3yIxB src-shared-components-Dashboard-MyChallenges-___ChallengeTile__tile-view___32EZy src-shared-components-Dashboard-MyChallenges-___ChallengeTile__DEVELOP___3Ee6i"
+    className="src-shared-components-Dashboard-MyChallenges-ChallengeTile-___style__challenge___2sq5U src-shared-components-Dashboard-MyChallenges-ChallengeTile-___style__tile-view___1d1Ju src-shared-components-Dashboard-MyChallenges-ChallengeTile-___style__DEVELOP___xdjB2"
   >
     <div
-      className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__active-challenge___oFnJX"
+      className="src-shared-components-Dashboard-MyChallenges-ChallengeTile-___style__active-challenge___2iIqh"
     >
       <header>
         <a
-          className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__name___1qU1H"
+          className="src-shared-components-Dashboard-MyChallenges-ChallengeTile-___style__name___3uS0q"
           href="https://www.topcoder-dev.com/challenge-details/undefined/?type=develop"
         >
           <span />
         </a>
         <div
-          className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__labels___1V5c0"
+          className="src-shared-components-Dashboard-MyChallenges-ChallengeTile-___style__labels___1MAdp"
         >
           <p
-            className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__subtrack-color___3yf6g"
+            className="src-shared-components-Dashboard-MyChallenges-ChallengeTile-___style__subtrack-color___2WVzx"
           >
             CODE
           </p>
@@ -607,30 +597,30 @@ exports[`Matches shallow shapshot 7`] = `
         />
       </header>
       <div
-        className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__challenge-card__bottom___19txu"
+        className="src-shared-components-Dashboard-MyChallenges-ChallengeTile-___style__challenge-card__bottom___2_1C6"
       >
         <div
-          className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__challenge-details___Yo9M3"
+          className="src-shared-components-Dashboard-MyChallenges-ChallengeTile-___style__challenge-details___DJz2Z"
         >
           <p
-            className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__currentPhase___nMHcj"
+            className="src-shared-components-Dashboard-MyChallenges-ChallengeTile-___style__currentPhase___PRydF"
           />
           <div
-            className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__stalled-challenge___O6WgJ"
+            className="src-shared-components-Dashboard-MyChallenges-ChallengeTile-___style__stalled-challenge___3jV3F"
           >
             This challenge is currently paused.
           </div>
           <div
-            className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__phase-action___2RhS3"
+            className="src-shared-components-Dashboard-MyChallenges-ChallengeTile-___style__phase-action___1CEL_"
           >
             <a
-              className="tc-btn tc-btn-s tc-btn-wide tc-btn-ghost src-shared-components-Dashboard-MyChallenges-___ChallengeTile__tc-btn___1kOzE src-shared-components-Dashboard-MyChallenges-___ChallengeTile__submit___2RcR4"
+              className="tc-btn tc-btn-s tc-btn-wide tc-btn-ghost src-shared-components-Dashboard-MyChallenges-ChallengeTile-___style__tc-btn___2m_Kz src-shared-components-Dashboard-MyChallenges-ChallengeTile-___style__submit___VryN4"
               href="https://software.topcoder-dev.com/review/actions/ViewProjectDetails?pid=undefined"
             >
               View Scorecards
             </a>
             <a
-              className="tc-btn tc-btn-s tc-btn-wide src-shared-components-Dashboard-MyChallenges-___ChallengeTile__tc-btn___1kOzE src-shared-components-Dashboard-MyChallenges-___ChallengeTile__submit___2RcR4 src-shared-components-Dashboard-MyChallenges-___ChallengeTile__btn-danger___3_C8c"
+              className="tc-btn tc-btn-s tc-btn-wide src-shared-components-Dashboard-MyChallenges-ChallengeTile-___style__tc-btn___2m_Kz src-shared-components-Dashboard-MyChallenges-ChallengeTile-___style__submit___VryN4 src-shared-components-Dashboard-MyChallenges-ChallengeTile-___style__btn-danger___1OQIc"
               href="https://software.topcoder-dev.com/review/actions/EarlyAppeals?pid=undefined"
             >
               Complete Appeals
@@ -638,7 +628,7 @@ exports[`Matches shallow shapshot 7`] = `
           </div>
         </div>
         <p
-          className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__roles___3I6ep"
+          className="src-shared-components-Dashboard-MyChallenges-ChallengeTile-___style__roles___3ndac"
         >
           <span>
             Role:
@@ -653,28 +643,28 @@ exports[`Matches shallow shapshot 7`] = `
 
 exports[`Matches shallow shapshot 8`] = `
 <div
-  className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__challenge-tile___MxMsa src-shared-components-Dashboard-MyChallenges-___ChallengeTile__list-view___L_19V"
+  className="src-shared-components-Dashboard-MyChallenges-ChallengeTile-___style__challenge-tile___3pXGl src-shared-components-Dashboard-MyChallenges-ChallengeTile-___style__list-view___2UnC0"
 >
   <div
-    className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__challenge___3yIxB src-shared-components-Dashboard-MyChallenges-___ChallengeTile__list-view___L_19V src-shared-components-Dashboard-MyChallenges-___ChallengeTile__DEVELOP___3Ee6i"
+    className="src-shared-components-Dashboard-MyChallenges-ChallengeTile-___style__challenge___2sq5U src-shared-components-Dashboard-MyChallenges-ChallengeTile-___style__list-view___2UnC0 src-shared-components-Dashboard-MyChallenges-ChallengeTile-___style__DEVELOP___xdjB2"
   >
     <div
-      className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__active-challenge___oFnJX"
+      className="src-shared-components-Dashboard-MyChallenges-ChallengeTile-___style__active-challenge___2iIqh"
     >
       <header>
         <a
-          className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__name___1qU1H"
+          className="src-shared-components-Dashboard-MyChallenges-ChallengeTile-___style__name___3uS0q"
           href="https://www.topcoder-dev.com/challenge-details/undefined/?type=develop"
         >
           <span />
         </a>
         <p
-          className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__subtrack-color___3yf6g"
+          className="src-shared-components-Dashboard-MyChallenges-ChallengeTile-___style__subtrack-color___2WVzx"
         >
           CODE
         </p>
         <p
-          className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__roles___3I6ep"
+          className="src-shared-components-Dashboard-MyChallenges-ChallengeTile-___style__roles___3ndac"
         >
           <span>
             Role:
@@ -683,31 +673,31 @@ exports[`Matches shallow shapshot 8`] = `
         </p>
       </header>
       <div
-        className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__challenge-details___Yo9M3"
+        className="src-shared-components-Dashboard-MyChallenges-ChallengeTile-___style__challenge-details___DJz2Z"
       >
         <div
-          className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__challenge-info___2fqqa"
+          className="src-shared-components-Dashboard-MyChallenges-ChallengeTile-___style__challenge-info___3Kys1"
         >
           <p
-            className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__currentPhase___nMHcj"
+            className="src-shared-components-Dashboard-MyChallenges-ChallengeTile-___style__currentPhase___PRydF"
           />
           <p
-            className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__ends-in___2RjDE"
+            className="src-shared-components-Dashboard-MyChallenges-ChallengeTile-___style__ends-in___1c9ID"
           >
             This challenge is currently paused.
           </p>
         </div>
         <div
-          className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__phase-action___2RhS3"
+          className="src-shared-components-Dashboard-MyChallenges-ChallengeTile-___style__phase-action___1CEL_"
         >
           <a
-            className="tc-btn tc-btn-s tc-btn-wide tc-btn-ghost src-shared-components-Dashboard-MyChallenges-___ChallengeTile__tc-btn___1kOzE src-shared-components-Dashboard-MyChallenges-___ChallengeTile__submit___2RcR4"
+            className="tc-btn tc-btn-s tc-btn-wide tc-btn-ghost src-shared-components-Dashboard-MyChallenges-ChallengeTile-___style__tc-btn___2m_Kz src-shared-components-Dashboard-MyChallenges-ChallengeTile-___style__submit___VryN4"
             href="https://software.topcoder-dev.com/review/actions/ViewProjectDetails?pid=undefined"
           >
             View Scorecards
           </a>
           <a
-            className="tc-btn tc-btn-s tc-btn-wide src-shared-components-Dashboard-MyChallenges-___ChallengeTile__tc-btn___1kOzE src-shared-components-Dashboard-MyChallenges-___ChallengeTile__submit___2RcR4 src-shared-components-Dashboard-MyChallenges-___ChallengeTile__btn-danger___3_C8c"
+            className="tc-btn tc-btn-s tc-btn-wide src-shared-components-Dashboard-MyChallenges-ChallengeTile-___style__tc-btn___2m_Kz src-shared-components-Dashboard-MyChallenges-ChallengeTile-___style__submit___VryN4 src-shared-components-Dashboard-MyChallenges-ChallengeTile-___style__btn-danger___1OQIc"
             href="https://software.topcoder-dev.com/review/actions/EarlyAppeals?pid=undefined"
           >
             Complete Appeals
@@ -736,26 +726,26 @@ exports[`Matches shallow shapshot 8`] = `
 
 exports[`Matches shallow shapshot 9`] = `
 <div
-  className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__challenge-tile___MxMsa src-shared-components-Dashboard-MyChallenges-___ChallengeTile__tile-view___32EZy"
+  className="src-shared-components-Dashboard-MyChallenges-ChallengeTile-___style__challenge-tile___3pXGl src-shared-components-Dashboard-MyChallenges-ChallengeTile-___style__tile-view___1d1Ju"
 >
   <div
-    className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__challenge___3yIxB src-shared-components-Dashboard-MyChallenges-___ChallengeTile__tile-view___32EZy src-shared-components-Dashboard-MyChallenges-___ChallengeTile__DEVELOP___3Ee6i"
+    className="src-shared-components-Dashboard-MyChallenges-ChallengeTile-___style__challenge___2sq5U src-shared-components-Dashboard-MyChallenges-ChallengeTile-___style__tile-view___1d1Ju src-shared-components-Dashboard-MyChallenges-ChallengeTile-___style__DEVELOP___xdjB2"
   >
     <div
-      className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__active-challenge___oFnJX"
+      className="src-shared-components-Dashboard-MyChallenges-ChallengeTile-___style__active-challenge___2iIqh"
     >
       <header>
         <a
-          className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__name___1qU1H"
+          className="src-shared-components-Dashboard-MyChallenges-ChallengeTile-___style__name___3uS0q"
           href="https://www.topcoder-dev.com/challenge-details/undefined/?type=develop"
         >
           <span />
         </a>
         <div
-          className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__labels___1V5c0"
+          className="src-shared-components-Dashboard-MyChallenges-ChallengeTile-___style__labels___1MAdp"
         >
           <p
-            className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__subtrack-color___3yf6g"
+            className="src-shared-components-Dashboard-MyChallenges-ChallengeTile-___style__subtrack-color___2WVzx"
           >
             CODE
           </p>
@@ -774,31 +764,31 @@ exports[`Matches shallow shapshot 9`] = `
         />
       </header>
       <div
-        className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__challenge-card__bottom___19txu"
+        className="src-shared-components-Dashboard-MyChallenges-ChallengeTile-___style__challenge-card__bottom___2_1C6"
       >
         <div
-          className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__challenge-details___Yo9M3"
+          className="src-shared-components-Dashboard-MyChallenges-ChallengeTile-___style__challenge-details___DJz2Z"
         >
           <p
-            className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__currentPhase___nMHcj"
+            className="src-shared-components-Dashboard-MyChallenges-ChallengeTile-___style__currentPhase___PRydF"
           />
           <div
-            className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__stalled-challenge___O6WgJ"
+            className="src-shared-components-Dashboard-MyChallenges-ChallengeTile-___style__stalled-challenge___3jV3F"
           >
             This challenge is currently paused.
           </div>
           <div
-            className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__phase-action___2RhS3"
+            className="src-shared-components-Dashboard-MyChallenges-ChallengeTile-___style__phase-action___1CEL_"
           >
             <div
-              className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__submitted___1taqc"
+              className="src-shared-components-Dashboard-MyChallenges-ChallengeTile-___style__submitted___1dPYX"
             >
               Submitted
             </div>
           </div>
         </div>
         <p
-          className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__roles___3I6ep"
+          className="src-shared-components-Dashboard-MyChallenges-ChallengeTile-___style__roles___3ndac"
         >
           <span>
             Role:
@@ -815,28 +805,28 @@ exports[`Matches shallow shapshot 9`] = `
 
 exports[`Matches shallow shapshot 10`] = `
 <div
-  className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__challenge-tile___MxMsa src-shared-components-Dashboard-MyChallenges-___ChallengeTile__list-view___L_19V"
+  className="src-shared-components-Dashboard-MyChallenges-ChallengeTile-___style__challenge-tile___3pXGl src-shared-components-Dashboard-MyChallenges-ChallengeTile-___style__list-view___2UnC0"
 >
   <div
-    className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__challenge___3yIxB src-shared-components-Dashboard-MyChallenges-___ChallengeTile__list-view___L_19V src-shared-components-Dashboard-MyChallenges-___ChallengeTile__DEVELOP___3Ee6i"
+    className="src-shared-components-Dashboard-MyChallenges-ChallengeTile-___style__challenge___2sq5U src-shared-components-Dashboard-MyChallenges-ChallengeTile-___style__list-view___2UnC0 src-shared-components-Dashboard-MyChallenges-ChallengeTile-___style__DEVELOP___xdjB2"
   >
     <div
-      className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__active-challenge___oFnJX"
+      className="src-shared-components-Dashboard-MyChallenges-ChallengeTile-___style__active-challenge___2iIqh"
     >
       <header>
         <a
-          className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__name___1qU1H"
+          className="src-shared-components-Dashboard-MyChallenges-ChallengeTile-___style__name___3uS0q"
           href="https://www.topcoder-dev.com/challenge-details/undefined/?type=develop"
         >
           <span />
         </a>
         <p
-          className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__subtrack-color___3yf6g"
+          className="src-shared-components-Dashboard-MyChallenges-ChallengeTile-___style__subtrack-color___2WVzx"
         >
           CODE
         </p>
         <p
-          className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__roles___3I6ep"
+          className="src-shared-components-Dashboard-MyChallenges-ChallengeTile-___style__roles___3ndac"
         >
           <span>
             Role:
@@ -847,25 +837,25 @@ exports[`Matches shallow shapshot 10`] = `
         </p>
       </header>
       <div
-        className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__challenge-details___Yo9M3"
+        className="src-shared-components-Dashboard-MyChallenges-ChallengeTile-___style__challenge-details___DJz2Z"
       >
         <div
-          className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__challenge-info___2fqqa"
+          className="src-shared-components-Dashboard-MyChallenges-ChallengeTile-___style__challenge-info___3Kys1"
         >
           <p
-            className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__currentPhase___nMHcj"
+            className="src-shared-components-Dashboard-MyChallenges-ChallengeTile-___style__currentPhase___PRydF"
           />
           <p
-            className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__ends-in___2RjDE"
+            className="src-shared-components-Dashboard-MyChallenges-ChallengeTile-___style__ends-in___1c9ID"
           >
             This challenge is currently paused.
           </p>
         </div>
         <div
-          className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__phase-action___2RhS3"
+          className="src-shared-components-Dashboard-MyChallenges-ChallengeTile-___style__phase-action___1CEL_"
         >
           <div
-            className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__submitted___1taqc"
+            className="src-shared-components-Dashboard-MyChallenges-ChallengeTile-___style__submitted___1dPYX"
           >
             Submitted
           </div>
@@ -890,26 +880,26 @@ exports[`Matches shallow shapshot 10`] = `
 
 exports[`Matches shallow shapshot 11`] = `
 <div
-  className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__challenge-tile___MxMsa src-shared-components-Dashboard-MyChallenges-___ChallengeTile__tile-view___32EZy"
+  className="src-shared-components-Dashboard-MyChallenges-ChallengeTile-___style__challenge-tile___3pXGl src-shared-components-Dashboard-MyChallenges-ChallengeTile-___style__tile-view___1d1Ju"
 >
   <div
-    className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__challenge___3yIxB src-shared-components-Dashboard-MyChallenges-___ChallengeTile__tile-view___32EZy src-shared-components-Dashboard-MyChallenges-___ChallengeTile__DEVELOP___3Ee6i"
+    className="src-shared-components-Dashboard-MyChallenges-ChallengeTile-___style__challenge___2sq5U src-shared-components-Dashboard-MyChallenges-ChallengeTile-___style__tile-view___1d1Ju src-shared-components-Dashboard-MyChallenges-ChallengeTile-___style__DEVELOP___xdjB2"
   >
     <div
-      className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__active-challenge___oFnJX"
+      className="src-shared-components-Dashboard-MyChallenges-ChallengeTile-___style__active-challenge___2iIqh"
     >
       <header>
         <a
-          className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__name___1qU1H"
+          className="src-shared-components-Dashboard-MyChallenges-ChallengeTile-___style__name___3uS0q"
           href="https://www.topcoder-dev.com/challenge-details/undefined/?type=develop"
         >
           <span />
         </a>
         <div
-          className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__labels___1V5c0"
+          className="src-shared-components-Dashboard-MyChallenges-ChallengeTile-___style__labels___1MAdp"
         >
           <p
-            className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__subtrack-color___3yf6g"
+            className="src-shared-components-Dashboard-MyChallenges-ChallengeTile-___style__subtrack-color___2WVzx"
           >
             CODE
           </p>
@@ -928,31 +918,31 @@ exports[`Matches shallow shapshot 11`] = `
         />
       </header>
       <div
-        className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__challenge-card__bottom___19txu"
+        className="src-shared-components-Dashboard-MyChallenges-ChallengeTile-___style__challenge-card__bottom___2_1C6"
       >
         <div
-          className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__challenge-details___Yo9M3"
+          className="src-shared-components-Dashboard-MyChallenges-ChallengeTile-___style__challenge-details___DJz2Z"
         >
           <p
-            className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__currentPhase___nMHcj"
+            className="src-shared-components-Dashboard-MyChallenges-ChallengeTile-___style__currentPhase___PRydF"
           />
           <div
-            className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__stalled-challenge___O6WgJ"
+            className="src-shared-components-Dashboard-MyChallenges-ChallengeTile-___style__stalled-challenge___3jV3F"
           >
             This challenge is currently paused.
           </div>
           <div
-            className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__phase-action___2RhS3"
+            className="src-shared-components-Dashboard-MyChallenges-ChallengeTile-___style__phase-action___1CEL_"
           >
             <div
-              className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__submitted___1taqc"
+              className="src-shared-components-Dashboard-MyChallenges-ChallengeTile-___style__submitted___1dPYX"
             >
               Registered
             </div>
           </div>
         </div>
         <p
-          className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__roles___3I6ep"
+          className="src-shared-components-Dashboard-MyChallenges-ChallengeTile-___style__roles___3ndac"
         >
           <span>
             Role:
@@ -969,28 +959,28 @@ exports[`Matches shallow shapshot 11`] = `
 
 exports[`Matches shallow shapshot 12`] = `
 <div
-  className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__challenge-tile___MxMsa src-shared-components-Dashboard-MyChallenges-___ChallengeTile__list-view___L_19V"
+  className="src-shared-components-Dashboard-MyChallenges-ChallengeTile-___style__challenge-tile___3pXGl src-shared-components-Dashboard-MyChallenges-ChallengeTile-___style__list-view___2UnC0"
 >
   <div
-    className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__challenge___3yIxB src-shared-components-Dashboard-MyChallenges-___ChallengeTile__list-view___L_19V src-shared-components-Dashboard-MyChallenges-___ChallengeTile__DEVELOP___3Ee6i"
+    className="src-shared-components-Dashboard-MyChallenges-ChallengeTile-___style__challenge___2sq5U src-shared-components-Dashboard-MyChallenges-ChallengeTile-___style__list-view___2UnC0 src-shared-components-Dashboard-MyChallenges-ChallengeTile-___style__DEVELOP___xdjB2"
   >
     <div
-      className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__active-challenge___oFnJX"
+      className="src-shared-components-Dashboard-MyChallenges-ChallengeTile-___style__active-challenge___2iIqh"
     >
       <header>
         <a
-          className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__name___1qU1H"
+          className="src-shared-components-Dashboard-MyChallenges-ChallengeTile-___style__name___3uS0q"
           href="https://www.topcoder-dev.com/challenge-details/undefined/?type=develop"
         >
           <span />
         </a>
         <p
-          className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__subtrack-color___3yf6g"
+          className="src-shared-components-Dashboard-MyChallenges-ChallengeTile-___style__subtrack-color___2WVzx"
         >
           CODE
         </p>
         <p
-          className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__roles___3I6ep"
+          className="src-shared-components-Dashboard-MyChallenges-ChallengeTile-___style__roles___3ndac"
         >
           <span>
             Role:
@@ -1001,25 +991,25 @@ exports[`Matches shallow shapshot 12`] = `
         </p>
       </header>
       <div
-        className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__challenge-details___Yo9M3"
+        className="src-shared-components-Dashboard-MyChallenges-ChallengeTile-___style__challenge-details___DJz2Z"
       >
         <div
-          className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__challenge-info___2fqqa"
+          className="src-shared-components-Dashboard-MyChallenges-ChallengeTile-___style__challenge-info___3Kys1"
         >
           <p
-            className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__currentPhase___nMHcj"
+            className="src-shared-components-Dashboard-MyChallenges-ChallengeTile-___style__currentPhase___PRydF"
           />
           <p
-            className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__ends-in___2RjDE"
+            className="src-shared-components-Dashboard-MyChallenges-ChallengeTile-___style__ends-in___1c9ID"
           >
             This challenge is currently paused.
           </p>
         </div>
         <div
-          className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__phase-action___2RhS3"
+          className="src-shared-components-Dashboard-MyChallenges-ChallengeTile-___style__phase-action___1CEL_"
         >
           <div
-            className="src-shared-components-Dashboard-MyChallenges-___ChallengeTile__submitted___1taqc"
+            className="src-shared-components-Dashboard-MyChallenges-ChallengeTile-___style__submitted___1dPYX"
           >
             Registered
           </div>

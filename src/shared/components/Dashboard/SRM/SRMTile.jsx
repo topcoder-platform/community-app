@@ -34,7 +34,7 @@ const SRMTile = (props) => {
               srm.userStatus !== 'registered' &&
               <div>
                 <a
-                  href={`https://community.${config.DOMAIN}/tc` +
+                  href={`${config.URL.COMMUNITY}/tc` +
                     `?module=MatchDetails&rd=${srm.rounds[0] && srm.rounds[0].id}`}
                   styleName="tc-btn"
                   className="tc-btn tc-btn-s tc-btn-wide"

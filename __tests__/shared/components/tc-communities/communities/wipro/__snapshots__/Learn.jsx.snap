@@ -18,6 +18,7 @@ exports[`Snapshot match 1`] = `
     title="Learning & Certification"
   />
   <ThemedSection
+    anchor={null}
     composeTheme="deeply"
     link={null}
     mapThemrProps={[Function]}
@@ -64,7 +65,7 @@ exports[`Snapshot match 1`] = `
           >
             <a
               className="src-shared-components-tc-communities-communities-wipro-Learn-___style__joinnow___2MIUq"
-              href="https://topgear.wipro.com"
+              href="https://topgear-app.wipro.com"
             >
               Start Exploring
             </a>
@@ -74,6 +75,7 @@ exports[`Snapshot match 1`] = `
     </ThemedAccordion>
   </ThemedSection>
   <ThemedSection
+    anchor={null}
     composeTheme="deeply"
     link={
       Object {
@@ -133,6 +135,7 @@ exports[`Snapshot match 1`] = `
     />
   </ThemedSection>
   <ThemedSection
+    anchor={null}
     composeTheme="deeply"
     link={null}
     mapThemrProps={[Function]}

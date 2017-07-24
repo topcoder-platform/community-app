@@ -16,7 +16,7 @@ const router = express.Router();
  * should be included into the response.
  */
 router.get('/', (req, res) => {
-  const filters = [];
+  const list = [];
   const groups = new Set(req.query.groups || []);
   const communities = fs.readdirSync(__dirname);
   communities.forEach((community) => {
@@ -24,19 +24,22 @@ router.get('/', (req, res) => {
       const path = `${__dirname}/${community}/metadata.json`;
       const data = JSON.parse(fs.readFileSync(path, 'utf8'));
       if (!data.authorizedGroupIds
-      || data.authorizedGroupIds.some(id => groups.has(id))) {
-        filters.push({
-          filter: data.challengeFilter || {},
-          id: data.communityId,
-          name: data.communityName,
+        || data.authorizedGroupIds.some(id => groups.has(id))) {
+        list.push({
+          challengeFilter: data.challengeFilter || {},
+          communityId: data.communityId,
+          communityName: data.communityName,
+          description: data.description,
+          groupId: data.groupId,
+          image: data.image,
         });
       }
     } catch (e) {
       _.noop();
     }
   });
-  filters.sort((a, b) => a.name.localeCompare(b.name));
-  res.json(filters);
+  list.sort((a, b) => a.communityName.localeCompare(b.communityName));
+  res.json(list);
 });
 
 /**

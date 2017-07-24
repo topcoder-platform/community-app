@@ -48,7 +48,7 @@ export default function Learn() {
               <p>Our compelling learning environment across wide range of emerging technologies helps you in mastering today’s most essential skills, that brings your knowledge to the next level, step by step, which ultimately creates a more effective learning experience.</p>
               <p>Are you ready to step onto the innovative journey of learning?</p>
               <div styleName="joinnowWrap">
-                <a styleName="joinnow" href="https://topgear.wipro.com">Start Exploring</a>
+                <a styleName="joinnow" href="https://topgear-app.wipro.com">Start Exploring</a>
               </div>
             </Text>
           </AccordionItem>

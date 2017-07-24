@@ -9,6 +9,20 @@ import config from 'utils/config';
 import { stripUnderscore, getRatingColor } from 'utils/tc';
 import './styles.scss';
 
+function NavButton() {
+  return <span />;
+}
+
+NavButton.defaultProps = {
+  currentSlide: null,
+  slideCount: null,
+};
+
+NavButton.propTypes = {
+  currentSlide: PT.number,
+  slideCount: PT.number,
+};
+
 export default class SubtrackStats extends React.Component {
   constructor(props) {
     super(props);
@@ -25,6 +39,11 @@ export default class SubtrackStats extends React.Component {
     window.removeEventListener('resize', this.updateDimensions);
   }
 
+  /* TODO: It looks like this function sets how many stats indicators should be
+   * rendered depending on the width of the page. As it works, no need to touch
+   * it right now, but it should be potentially replaced with a better code,
+   * which takes the width of the page, the width of a single indicator,
+   * and does some simple math to evaluate necessary number. */
   getSlidesNumber() {
     const width = this.state.width;
     if (width >= 1350) {
@@ -54,7 +73,7 @@ export default class SubtrackStats extends React.Component {
             tracks.map(subtrack => (
               <a
                 href={
-                  `https://www.${config.DOMAIN}/members/${handle}/details/` +
+                  `${config.URL.BASE}/members/${handle}/details/` +
                   `?track=${subtrack.track}&subTrack=${subtrack.subTrack}`
                 }
                 styleName="track"
@@ -85,14 +104,12 @@ export default class SubtrackStats extends React.Component {
       </div>
       );
 
-    const navButton = () => (<span />);
-
     const settings = {
       dots: false,
       infinite: false,
       speed: 500,
-      prevArrow: navButton(),
-      nextArrow: navButton(),
+      prevArrow: <NavButton />,
+      nextArrow: <NavButton />,
       slidesToShow: 1,
       slidesToScroll: 1,
       centerMode: true,

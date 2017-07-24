@@ -2,8 +2,6 @@
  * Collection of small Topcoder-related functions.
  */
 
-/* global location */
-
 import _ from 'lodash';
 import jstz from 'jstimezonedetect';
 import moment from 'moment-timezone';
@@ -275,7 +273,6 @@ export function challengeLinks(challenge, type) {
   let data;
   if (challenge.subTrack === 'MARATHON_MATCH') {
     data = {
-      domain: config.DOMAIN,
       roundId: challenge.rounds[0].id,
       forumId: challenge.rounds[0].forumId,
       componentId: _.get(challenge, 'componentId', ''),
@@ -284,34 +281,31 @@ export function challengeLinks(challenge, type) {
     };
     switch (type) {
       case 'forums':
-        return `https://apps.${data.domain}/forums/?module=ThreadList&forumID=${data.forumId}`;
+        return `${config.URL.FORUMS}/?module=ThreadList&forumID=${data.forumId}`;
       case 'registrants':
-        return `https://community.{data.domain}/longcontest/?module=ViewRegistrants&rd=${data.roundId}`;
+        return `${config.URL.COMMUNITY}/longcontest/?module=ViewRegistrants&rd=${data.roundId}`;
       case 'submit':
-        return `https://community.${data.domain}/longcontest/?module=Submit&compid=${data.componentId}&rd=${data.roundId}&cd=${data.challengeId}`;
+        return `${config.URL.COMMUNITY}/longcontest/?module=Submit&compid=${data.componentId}&rd=${data.roundId}&cd=${data.challengeId}`;
       case 'detail':
         if (challenge.status === 'PAST') {
-          return `https://community.${data.domain}/longcontest/stats/?module=ViewOverview&rd=${data.roundId}`;
+          return `${config.URL.COMMUNITY}/longcontest/stats/?module=ViewOverview&rd=${data.roundId}`;
         }  // for all other statues (ACTIVE, UPCOMING), show the problem statement
-        return `https://community.${data.domain}/longcontest/?module=ViewProblemStatement&pm=${data.problemId}&rd=${data.roundId}`;
+        return `${config.URL.COMMUNITY}/longcontest/?module=ViewProblemStatement&pm=${data.problemId}&rd=${data.roundId}`;
       default:
         return '';
     }
   } else if (challenge.subTrack === 'SRM') {
     data = {
-      domain: config.DOMAIN,
       roundId: challenge.rounds[0].id,
     };
     switch (type) {
       case 'detail':
-        return `https://community.${data.domain}/stat?c=round_overview&rd=${data.roundId}`;
+        return `${config.URL.COMMUNITY}/stat?c=round_overview&rd=${data.roundId}`;
       default:
         return '';
     }
   } else {
     data = {
-      domain: config.DOMAIN,
-      subdomain: location.href.search('//members') >= 0 ? 'members' : 'www',
       track: challenge.track.toLowerCase(),
       forumId: challenge.forumId,
       id: challenge.id,
@@ -320,29 +314,29 @@ export function challengeLinks(challenge, type) {
       case 'forums':
         switch (challenge.track.toLowerCase()) {
           case 'develop':
-            return `https://apps.${data.domain}/forums/?module=Category&categoryID=${data.forumId}`;
+            return `${config.URL.FORUMS}/?module=Category&categoryID=${data.forumId}`;
           case 'data':
-            return `https://apps.${data.domain}/forums/?module=Category&categoryID=${data.forumId}`;
+            return `${config.URL.FORUMS}/?module=Category&categoryID=${data.forumId}`;
           case 'design':
-            return `https://apps.${data.domain}/forums/?module=ThreadList&forumID=${data.forumId}`;
+            return `${config.URL.FORUMS}/?module=ThreadList&forumID=${data.forumId}`;
           default:
             return '';
         }
     /* eslint no-fallthrough:0 */
       case 'submissions':
-        return `https://${data.subdomain}.${data.domain}/challenge-details/${data.id}/?type=${data.track}#submissions`;
+        return `${config.URL.BASE}/challenge-details/${data.id}/?type=${data.track}#submissions`;
       case 'registrants':
-        return `https://${data.subdomain}.${data.domain}/challenge-details/${data.id}/?type=${data.track}#viewRegistrant`;
+        return `${config.URL.BASE}/challenge-details/${data.id}/?type=${data.track}#viewRegistrant`;
       case 'submit':// TODO use details link for submit, we can replace it with new submission page url
-        return `https://${data.subdomain}.${data.domain}/challenge-details/${data.id}/?type=${data.track}`;
+        return `${config.URL.BASE}/challenge-details/${data.id}/?type=${data.track}`;
       case 'detail':
-        return `https://${data.subdomain}.${data.domain}/challenge-details/${data.id}/?type=${data.track}`;
+        return `${config.URL.BASE}/challenge-details/${data.id}/?type=${data.track}`;
       case 'viewScorecards':
-        return `https://software.${data.domain}/review/actions/ViewProjectDetails?pid=${data.id}`;
+        return `${config.URL.ONLINE_REVIEW}/review/actions/ViewProjectDetails?pid=${data.id}`;
       case 'completeAppeals':
-        return `https://software.${data.domain}/review/actions/EarlyAppeals?pid=${data.id}`;
+        return `${config.URL.ONLINE_REVIEW}/review/actions/EarlyAppeals?pid=${data.id}`;
       case 'unRegister':
-        return `https://software.${data.domain}/review/actions/Unregister?pid=${data.id}`;
+        return `${config.URL.ONLINE_REVIEW}/review/actions/Unregister?pid=${data.id}`;
       default:
         return '';
     }

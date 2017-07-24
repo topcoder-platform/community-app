@@ -42,7 +42,6 @@ exports[`Matches shallow shapshot shapshot 1`] = `
     </span>
   </div>
   <FiltersPanel
-    challengeGroupId="1"
     communityFilters={
       Array [
         Object {
@@ -52,6 +51,7 @@ exports[`Matches shallow shapshot shapshot 1`] = `
     }
     communityName="name"
     filterState={Object {}}
+    groupId={undefined}
     hidden={true}
     onClose={[Function]}
     onSaveFilter={[Function]}
@@ -104,30 +104,36 @@ exports[`Matches shallow shapshot shapshot 2`] = `
       <span
         className="src-shared-components-challenge-listing-Filters-___ChallengeFilters__filter-switch-with-label___21Ups"
       >
-        <SimpleSwitch
+        <ThemedSwitchWithLabel
+          composeTheme="deeply"
           enabled={false}
           labelAfter=""
           labelBefore="Design"
+          mapThemrProps={[Function]}
           onSwitch={[Function]}
         />
       </span>
       <span
         className="src-shared-components-challenge-listing-Filters-___ChallengeFilters__filter-switch-with-label___21Ups"
       >
-        <SimpleSwitch
+        <ThemedSwitchWithLabel
+          composeTheme="deeply"
           enabled={false}
           labelAfter=""
           labelBefore="Development"
+          mapThemrProps={[Function]}
           onSwitch={[Function]}
         />
       </span>
       <span
         className="src-shared-components-challenge-listing-Filters-___ChallengeFilters__filter-switch-with-label___21Ups"
       >
-        <SimpleSwitch
+        <ThemedSwitchWithLabel
+          composeTheme="deeply"
           enabled={false}
           labelAfter=""
           labelBefore="Data Science"
+          mapThemrProps={[Function]}
           onSwitch={[Function]}
         />
       </span>
@@ -166,7 +172,6 @@ exports[`Matches shallow shapshot shapshot 2`] = `
     </span>
   </div>
   <FiltersPanel
-    challengeGroupId="1"
     communityFilters={
       Array [
         Object {
@@ -177,8 +182,8 @@ exports[`Matches shallow shapshot shapshot 2`] = `
     communityName="name"
     filterState={
       Object {
-        "endDate": "2019-12-31T16:00:00.000Z",
-        "startDate": "2019-12-31T16:00:00.000Z",
+        "endDate": "2019-12-31T23:00:00.000Z",
+        "startDate": "2019-12-31T23:00:00.000Z",
         "subtracks": Array [
           "CODE",
         ],
@@ -190,6 +195,7 @@ exports[`Matches shallow shapshot shapshot 2`] = `
         ],
       }
     }
+    groupId={undefined}
     hidden={true}
     onClose={[Function]}
     onSaveFilter={[Function]}

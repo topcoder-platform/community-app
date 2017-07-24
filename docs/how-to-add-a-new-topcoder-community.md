@@ -31,6 +31,11 @@ To add a new community with the name **demo**, we should follow the following pr
       "logos": [
         "/themes/demo/logo_topcoder_with_name.svg"
       ],
+      "additionalLogos": [
+        "/themes/demo/logo_topcoder_with_name.svg"
+      ],
+      "hideSearch": true,
+      "chevronOverAvatar": true,
       "menuItems": [
         {
           "title": "Home",
@@ -46,7 +51,9 @@ To add a new community with the name **demo**, we should follow the following pr
           "url": "leaderboard"
         }
       ],
-      "newsFeed": "http://www.topcoder.com/feed"
+      "newsFeed": "http://www.topcoder.com/feed",
+      "description": "A berief description which will be displayed in dashboard",
+      "image": "1.jpg"
     }
     ```
     Its fields serve the following purposes:
@@ -75,9 +82,12 @@ To add a new community with the name **demo**, we should follow the following pr
     -   `groupId` - *String* - This value of group ID is now used to fetch community statistics. Probably, it makes sense to use this value everywhere where `authorizedGroupIds` array is used, however, at the moment, these two are independent.
     -   `leaderboardApiUrl` - *String* - Endpoint from where the leaderboard data should be loaded.
     -   `logo` - *String Array* - Array of image URLs to insert as logos into the left corner of community's header.
+    -   `additionalLogos` - *String Array* - Array of image URLs to insert as logos into the right corner of community's header.
+    -   `hideSearch` - *Boolean* - Hide/Show the search icon.
+    -   `chevronOverAvatar` - *Boolean* - Render a *chevron-down* instead of the user avatar.
     -   `menuItems` - *Object Array* - Specifies options for the community navigation menu (both in the header and footer). Each object MUST HAVE `title` and `url` fields. For now, `url` field should be a relative link inside the community, within the same path segment.
     -   `newsFeed` - *String* - Optional. URL of an XML blog feed to be used to render news section at a custom page. To actually render the news section, you should include it into the page code like (also see as example `/src/shared/components/tc-communities/communities/wipro/Home/index.jsx`):
-        ```js
+        ``` js
         /* This goes inside the import section in the beginning of the file. */
         import NewsSection from 'components/tc-communities/NewsSection';
 
@@ -85,6 +95,8 @@ To add a new community with the name **demo**, we should follow the following pr
         <NewsSection news={props.news} />
         ```
         The `<NewsSection />` component does not render anything, if its `news` property is *null* or an empty array, thus it can be kept inside the page code even when there is no news feed configured for a community.
+    - `description`: A berief description which will be displayed in dashboard.
+    - `image`: A image that located at `/assets/images/tc-communities/background` will be displayed in dashboard
 3.  Custom pages of the community (anything beside `Challenges` and `Leaderboard`) should be created inside `/src/shared/components/tc-communities/communities/demo`. At the moment all communities have two custom pages: `Home` and `Learn`, you may just copy these from an existing community, and then customize to your particular needs.
 4.  Created custom pages should be registered inside `/src/shared/containers/tc-communities/Page/index.jsx`.
     -   First, import your custom pages into the file as

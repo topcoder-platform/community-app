@@ -46,7 +46,7 @@ exports[`Matches shallow shapshot 1`] = `
         <span
           className="src-shared-components-Dashboard-SRM-___SRMTile__time-zone___1PwD_"
         >
-          CST
+          CET
         </span>
       </div>
     </div>
@@ -109,7 +109,7 @@ exports[`Matches shallow shapshot 2`] = `
         <span
           className="src-shared-components-Dashboard-SRM-___SRMTile__time-zone___1PwD_"
         >
-          CST
+          CET
         </span>
       </div>
     </div>

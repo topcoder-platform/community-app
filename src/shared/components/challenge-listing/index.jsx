@@ -85,7 +85,7 @@ export default function ChallengeListing(props) {
   return (
     <div styleName="ChallengeFiltersExample">
       <ChallengeFilters
-        challengeGroupId={props.challengeGroupId}
+        groupId={props.groupId}
         communityName={props.communityName}
         setCardType={_.noop/* cardType => this.setCardType(cardType) */}
         isCardTypeSet={'Challenges' /* this.state.currentCardType */}
@@ -128,7 +128,7 @@ export default function ChallengeListing(props) {
 
         <div styleName="sidebar-container-desktop">
           <Sticky top={20}>
-            <Sidebar />
+            <Sidebar hideTcLinksInFooter={props.hideTcLinksInFooter} />
           </Sticky>
         </div>
       </div>
@@ -137,11 +137,12 @@ export default function ChallengeListing(props) {
 }
 
 ChallengeListing.defaultProps = {
-  challengeGroupId: '',
+  groupId: '',
   communityFilter: null,
   communityName: null,
   loadMoreDraft: null,
   loadMorePast: null,
+  hideTcLinksInFooter: false,
   auth: null,
 };
 
@@ -151,6 +152,7 @@ ChallengeListing.propTypes = {
   communityFilter: PT.shape(),
   communityName: PT.string,
   filterState: PT.shape().isRequired,
+  hideTcLinksInFooter: PT.bool,
   lastUpdateOfActiveChallenges: PT.number.isRequired,
   loadingChallenges: PT.bool.isRequired,
   loadingDraftChallenges: PT.bool.isRequired,
@@ -161,6 +163,6 @@ ChallengeListing.propTypes = {
   setFilterState: PT.func.isRequired,
   setSort: PT.func.isRequired,
   sorts: PT.shape().isRequired,
-  challengeGroupId: PT.string,
+  groupId: PT.string,
   auth: PT.shape(),
 };

@@ -6,9 +6,9 @@
     "groupIds": ["20000000"]
   },
   "communityId": "wipro",
-  "communityName": "Wipro Hybrid Crowd",
+  "communityName": "TopGear Community",
   "communitySelector": [{
-    "label": "Wipro Hybrid Crowd",
+    "label": "TopGear Community",
     "value": "1"
   }, {
     "label": "Cognitive Community",
@@ -25,13 +25,19 @@
     "/themes/wipro/wipro-logo.png",
     "/themes/wipro/logo_topcoder_with_name.svg"
   ],
+  "additionalLogos": [
+    "/themes/wipro/topgear_logo.png"
+  ],
+  "hideSearch": true,
+  "chevronOverAvatar": true,
+  "footerText": "© Copyright Wipro Ltd 2017",
   "menuItems": [
     {
       "title": "Home",
       "url": "."
     }, {
       "title": "Learn",
-      "url": "learn"
+      "url": "https://topgear-app.wipro.com"
     }, {
       "title": "Challenges",
       "url": "challenges"
@@ -40,5 +46,8 @@
       "url": "leaderboard"
     }
   ],
-  "newsFeed": "http://www.topcoder.com/feed"
+  "newsFeed": "http://www.topcoder.com/feed",
+  "style": "/themes/wipro/Header.css",
+  "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore.",
+  "image":"2.jpg"
 }

@@ -31,3 +31,26 @@
     padding: 0;
   }
 }
+
+.BannerContent {
+  @include sm-and-up {
+    width: 800px;
+  }
+}
+
+.BannerLink {
+  width: 300px;
+}
+
+.BannerLinkWrapper {
+  display: inline-block;
+  margin-right: 24px;
+}
+
+.ImageTextContainer {
+  padding-bottom: 48px;
+}
+
+.WhatCanYouGetDone {
+  margin-top: -64px;
+}

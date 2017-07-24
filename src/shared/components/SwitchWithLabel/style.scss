@@ -1,0 +1,14 @@
+@import '~styles/tc-styles';
+
+.switch {
+  margin: 0 5px;
+  position: relative;
+  top: 3px;
+}
+
+.wrapper {
+  cursor: pointer;
+  display: inline-block;
+  font-size: 12px;
+  font-weight: normal;
+}

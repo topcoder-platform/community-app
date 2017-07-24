@@ -15,9 +15,9 @@ module.exports = webpackMerge(defaultConfig, {
     rules: [{
       test: /\.(jsx?|svg)$/,
       exclude: [
-        /node_modules\/(?!appirio-tech.*|topcoder|tc-)/,
-        /src\/assets\/fonts/,
-        /src\/assets\/images\/dashboard/,
+        /node_modules[\\/](?!appirio-tech.*|topcoder|tc-)/,
+        /src[\\/]assets[\\/]fonts/,
+        /src[\\/]assets[\\/]images[\\/]dashboard/,
       ],
       loader: 'babel-loader',
       options: {

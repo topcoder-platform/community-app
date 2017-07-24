@@ -27,6 +27,10 @@
  * status {Array} - Permits only the challenges with status matching one of
  * the keys of this object.
  *
+ * started {Boolean} - Matches only the challenges with start date in past.
+ * It turns out that status ACTIVE also includes upcoming activated challenges,
+ * thus we need this additional filter.
+ *
  * subtracks {Array} - Permits only the challenges belonging to at least one
  * of the competition subtracks presented as keys of this object.
  *
@@ -90,6 +94,11 @@ function filterByRegistrationOpen(challenge, state) {
 function filterByStartDate(challenge, state) {
   if (!state.startDate) return true;
   return moment(state.startDate).isBefore(challenge.submissionEndDate);
+}
+
+function filterByStarted(challenge, state) {
+  if (_.isUndefined(state.started)) return true;
+  return moment(challenge.registrationStartDate).isBefore(Date.now());
 }
 
 function filterByStatus(challenge, state) {
@@ -180,6 +189,7 @@ export function getFilterFunction(state) {
   && filterByUsers(challenge, state)
   && filterByEndDate(challenge, state)
   && filterByStartDate(challenge, state)
+  && filterByStarted(challenge, state)
   && filterByRegistrationOpen(challenge, state);
 }
 

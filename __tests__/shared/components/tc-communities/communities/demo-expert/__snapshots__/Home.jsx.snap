@@ -16,9 +16,10 @@ exports[`Snapshot match 1`] = `
     theme={Object {}}
     title="ACME Crowd"
   />
-  <Connect(GroupStatsContainer) />
+  <Connect(CommunityStatsContainer) />
   <Connect(JoinCommunity) />
   <ThemedSection
+    anchor={null}
     composeTheme="deeply"
     link={null}
     mapThemrProps={[Function]}
@@ -61,6 +62,7 @@ exports[`Snapshot match 1`] = `
     </div>
   </ThemedSection>
   <ThemedSection
+    anchor={null}
     composeTheme="deeply"
     link={null}
     mapThemrProps={[Function]}
@@ -116,6 +118,12 @@ exports[`Snapshot match 1`] = `
   </ThemedSection>
   <NewsSection
     news={Array []}
+    theme={
+      Object {
+        "card": Object {},
+        "section": Object {},
+      }
+    }
   />
   <ThemedNewsletterSignup
     buttonText="Sign Up"

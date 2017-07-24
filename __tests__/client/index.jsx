@@ -12,7 +12,9 @@ document.getElementById = id =>
   (id === 'react-view' ? 'REACT-VIEW' : undefined);
 
 window.CONFIG = {
-  ACCOUNTS_APP_CONNECT_URL: 'https://dummy.url',
+  URL: {
+    ACCOUNTS_APP_CONNECT_URL: 'https://dummy.url',
+  },
   COOKIES: {
     MAXAGE: 7,
     SECURE: false,

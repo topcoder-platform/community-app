@@ -1,0 +1,70 @@
+@import '~styles/tc-styles';
+
+.content {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  border-radius: 100%;
+  width: 364px;
+  height: 364px;
+  transform: none;
+  overflow: visible;
+}
+
+.contentBg {
+  background: #0e3750;
+  position: absolute;
+  bottom: -135px;
+  left: -30px;
+  opacity: 0.85;
+  border-radius: 100%;
+  width: 364px;
+  height: 364px;
+  transform: none;
+
+  @include xxs-to-sm {
+    left: 0;
+    bottom: 0;
+    transform: none;
+  }
+}
+
+.contentInner {
+  color: #fff;
+  padding: 76px 30px 0;
+  position: relative;
+  z-index: 1;
+
+  @include xxs-to-sm {
+    padding: 86px 15px 80px;
+    text-align: center;
+  }
+}
+
+h2.title {
+  font-family: 'Akkurat mono';
+  font-size: 20px;
+  line-height: 136.11%;
+  text-decoration: underline;
+  text-transform: none;
+
+  @include xxs-to-sm {
+    font-size: 30px;
+  }
+}
+
+.text {
+  font-family: 'Akkurat regular';
+  line-height: 20px;
+}
+
+.linkWrap {
+  display: none;
+  position: absolute;
+  left: 50%;
+  top: 50px;
+
+  .link {
+    background-color: $tc-dark-blue;
+  }
+}

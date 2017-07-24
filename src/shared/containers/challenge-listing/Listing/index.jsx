@@ -23,6 +23,7 @@ import ChallengeListing from 'components/challenge-listing';
 import Banner from 'components/tc-communities/Banner';
 import NewsletterSignup from 'components/tc-communities/NewsletterSignup';
 import sidebarActions from 'actions/challenge-listing/sidebar';
+import communityActions from 'actions/tc-communities';
 import { BUCKETS } from 'utils/challenge-listing/buckets';
 import { combine, mapToBackend } from 'utils/challenge-listing/filter';
 import style from './styles.scss';
@@ -76,8 +77,8 @@ export class ListingContainer extends React.Component {
   getBackendFilter() {
     let filter = this.props.filter;
     let communityFilter = this.props.communityFilters.find(item =>
-      item.id === this.props.selectedCommunityId);
-    if (communityFilter) communityFilter = communityFilter.filter;
+      item.communityId === this.props.selectedCommunityId);
+    if (communityFilter) communityFilter = communityFilter.challengeFilter;
     if (communityFilter) filter = combine(filter, communityFilter);
     return mapToBackend(filter);
   }
@@ -111,7 +112,7 @@ export class ListingContainer extends React.Component {
       challenges,
       challengeSubtracks,
       challengeTags,
-      challengeGroupId,
+      groupId,
       filter,
       getDraftChallenges,
       getPastChallenges,
@@ -120,6 +121,7 @@ export class ListingContainer extends React.Component {
       lastUpdateOfActiveChallenges,
       listingOnly,
       selectBucket,
+      hideTcLinksInSidebarFooter,
     } = this.props;
 
     let loadMoreDraft;
@@ -145,8 +147,8 @@ export class ListingContainer extends React.Component {
     }
 
     let communityFilter = this.props.communityFilters.find(item =>
-      item.id === this.props.selectedCommunityId);
-    if (communityFilter) communityFilter = communityFilter.filter;
+      item.communityId === this.props.selectedCommunityId);
+    if (communityFilter) communityFilter = communityFilter.challengeFilter;
 
     return (
       <div>
@@ -155,7 +157,7 @@ export class ListingContainer extends React.Component {
         { !listingOnly ? (
           <Banner
             title="Challenges"
-            text="Browse our available challenges and compete. Vestibulum rutrum quam vitae fringilla tincidunt. Suspendisse nec tortor urna. Ut laoreet sodales nisi, quis iaculis nulla iaculis vitae. Donec sagittis faucibus lacus eget blandit. "
+            text="Browse our available challenges and compete."
             theme={{
               container: style.bannerContainer,
               content: style.bannerContent,
@@ -179,6 +181,7 @@ export class ListingContainer extends React.Component {
           loadingDraftChallenges={Boolean(this.props.loadingDraftChallengesUUID)}
           loadingPastChallenges={Boolean(this.props.loadingPastChallengesUUID)}
           selectBucket={selectBucket}
+          hideTcLinksInFooter={hideTcLinksInSidebarFooter}
 
           loadMoreDraft={loadMoreDraft}
           loadMorePast={loadMorePast}
@@ -191,7 +194,7 @@ export class ListingContainer extends React.Component {
           }}
           setSort={this.props.setSort}
           sorts={this.props.sorts}
-          challengeGroupId={challengeGroupId}
+          groupId={groupId}
           auth={this.props.auth}
         />
         { !listingOnly ? (
@@ -207,7 +210,9 @@ export class ListingContainer extends React.Component {
 }
 
 ListingContainer.defaultProps = {
-  challengeGroupId: '',
+  selectedCommunityId: '',
+  groupId: '',
+  hideTcLinksInSidebarFooter: false,
   communityId: null,
   communityName: null,
   listingOnly: false,
@@ -224,9 +229,13 @@ ListingContainer.propTypes = {
   challenges: PT.arrayOf(PT.shape({})).isRequired,
   challengeSubtracks: PT.arrayOf(PT.string).isRequired,
   challengeTags: PT.arrayOf(PT.string).isRequired,
-  communityFilters: PT.arrayOf(PT.shape()).isRequired,
+  communityFilters: PT.arrayOf(PT.shape({
+    challengeFilter: PT.shape(),
+    communityId: PT.string.isRequired,
+  })).isRequired,
   dropChallenges: PT.func.isRequired,
   filter: PT.shape().isRequired,
+  hideTcLinksInSidebarFooter: PT.bool,
   communityId: PT.string,
   communityName: PT.string,
   getAllActiveChallenges: PT.func.isRequired,
@@ -244,16 +253,17 @@ ListingContainer.propTypes = {
   selectCommunity: PT.func.isRequired,
   setFilter: PT.func.isRequired,
   activeBucket: PT.string.isRequired,
-  selectedCommunityId: PT.string.isRequired,
+  selectedCommunityId: PT.string,
   sorts: PT.shape().isRequired,
   setSearchText: PT.func.isRequired,
   setSort: PT.func.isRequired,
   listingOnly: PT.bool,
-  challengeGroupId: PT.string,
+  groupId: PT.string,
 };
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state, ownProps) => {
   const cl = state.challengeListing;
+  const tc = state.tcCommunities;
   return {
     auth: state.auth,
     allDraftChallengesLoaded: cl.allDraftChallengesLoaded,
@@ -262,7 +272,8 @@ const mapStateToProps = (state) => {
     challenges: cl.challenges,
     challengeSubtracks: cl.challengeSubtracks,
     challengeTags: cl.challengeTags,
-    communityFilters: cl.communityFilters,
+    communityFilters: [{ communityId: '', communityName: 'All' }].concat(tc.list),
+    hideTcLinksInSidebarFooter: ownProps.hideTcLinksInSidebarFooter,
     lastRequestedPageOfDraftChallenges: cl.lastRequestedPageOfDraftChallenges,
     lastRequestedPageOfPastChallenges: cl.lastRequestedPageOfPastChallenges,
     lastUpdateOfActiveChallenges: cl.lastUpdateOfActiveChallenges,
@@ -282,6 +293,7 @@ function mapDispatchToProps(dispatch) {
   const ah = headerActions.topcoderHeader;
   const fpa = filterPanelActions.challengeListing.filterPanel;
   const sa = sidebarActions.challengeListing.sidebar;
+  const ca = communityActions.tcCommunity;
   return {
     dropChallenges: () => dispatch(a.dropChallenges()),
     getAllActiveChallenges: (token) => {
@@ -289,7 +301,7 @@ function mapDispatchToProps(dispatch) {
       dispatch(a.getAllActiveChallengesInit(uuid));
       dispatch(a.getAllActiveChallengesDone(uuid, token));
     },
-    getCommunityFilters: auth => dispatch(a.getCommunityFilters(auth)),
+    getCommunityFilters: auth => dispatch(ca.getList(auth)),
     getDraftChallenges: (page, filter, token) => {
       const uuid = shortid();
       dispatch(a.getDraftChallengesInit(uuid, page));

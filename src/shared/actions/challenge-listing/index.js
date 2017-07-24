@@ -2,10 +2,7 @@
  * Challenge listing actions.
  */
 
-/* global fetch */
-
 import _ from 'lodash';
-import qs from 'qs';
 import { createActions } from 'redux-actions';
 import { decodeToken } from 'tc-accounts';
 import { getService } from 'services/challenges';
@@ -65,22 +62,6 @@ function getChallengeTagsDone() {
     res.map(item => item.name)
     .sort((a, b) => a.localeCompare(b)),
   );
-}
-
-/**
- * Gets from the backend challenge filters for public groups, and for
- * the groups the authenticated user has access to.
- * NOTE: At the moment it works with a mocked API.
- * @param {Object} auth Optional
- * @return {Promise}
- */
-function getCommunityFilters(auth) {
-  let groups = [];
-  if (auth.profile && auth.profile.groups) {
-    groups = auth.profile.groups.map(g => g.id);
-  }
-  return fetch(`/api/tc-communities?${qs.stringify({ groups })}`)
-  .then(res => (res.ok ? res.json() : new Error(res.statusText)));
 }
 
 /**
@@ -234,8 +215,6 @@ export default createActions({
 
     GET_CHALLENGE_TAGS_INIT: _.noop,
     GET_CHALLENGE_TAGS_DONE: getChallengeTagsDone,
-
-    GET_COMMUNITY_FILTERS: getCommunityFilters,
 
     GET_DRAFT_CHALLENGES_INIT: getDraftChallengesInit,
     GET_DRAFT_CHALLENGES_DONE: getDraftChallengesDone,

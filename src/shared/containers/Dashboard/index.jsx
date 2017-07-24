@@ -10,8 +10,12 @@ import { connect } from 'react-redux';
 import shortid from 'shortid';
 import _ from 'lodash';
 
+import config from 'utils/config';
 import actions from 'actions/dashboard';
 import cActions from 'actions/challenge-listing';
+import communityActions from 'actions/tc-communities';
+import moment from 'moment';
+import statsActions from 'actions/stats';
 import { processActiveDevDesignChallenges } from 'utils/tc';
 import Header from 'components/Dashboard/Header';
 import SubtrackStats from 'components/Dashboard/SubtrackStats';
@@ -26,27 +30,62 @@ import './styles.scss';
 export class DashboardPageContainer extends React.Component {
 
   componentDidMount() {
-    if (!this.props.auth.tokenV2) {
-      /* TODO: dev/prod URLs should be generated based on the config,
-       * now it is hardcoded with dev URL - wrong! */
-      location.href = 'http://accounts.topcoder-dev.com/#!/member?retUrl=http:%2F%2Flocal.topcoder-dev.com:3000%2Fmy-dashboard';
+    const {
+      auth: { tokenV2, user, tokenV3 },
+      challengeListing: { challenges },
+      tcCommunities: { list: communityList },
+      getCommunityStats,
+    } = this.props;
+    if (!tokenV2) {
+      location.href = `${config.URL.AUTH}/member?retUrl=${encodeURIComponent(location.href)}`;
       return false;
     }
-    this.props.getAllActiveChallenges(this.props.auth.tokenV3);
     this.props.getBlogs();
+    this.props.getCommunityList(this.props.auth);
+    if (tokenV3 && user) {
+      this.loadChallenges();
+      this.props.getSubtrackRanks(tokenV3, user.handle);
+      this.props.getSRMs(tokenV3, user.handle);
+      this.props.getIosRegistration(tokenV3, user.userId);
+      this.props.getUserFinancials(tokenV3, user.handle);
+      _.forEach(communityList, c => getCommunityStats(c, challenges, tokenV3));
+    }
     return true;
   }
 
   componentDidUpdate(prevProps) {
-    const { user, tokenV3 } = this.props.auth;
+    const {
+      auth: { user, tokenV3, profile },
+      challengeListing: { challenges },
+      tcCommunities: { list: communityList },
+      getCommunityStats,
+    } = this.props;
+
     if (tokenV3 && tokenV3 !== prevProps.auth.tokenV3) {
       setImmediate(() => {
-        this.props.getAllActiveChallenges(tokenV3);
+        this.loadChallenges();
         this.props.getSubtrackRanks(tokenV3, user.handle);
         this.props.getSRMs(tokenV3, user.handle);
         this.props.getIosRegistration(tokenV3, user.userId);
         this.props.getUserFinancials(tokenV3, user.handle);
+        _.forEach(communityList, c => getCommunityStats(c, challenges, tokenV3));
       });
+    }
+    if (profile && !prevProps.auth.profile) {
+      setImmediate(() => this.props.getCommunityList(this.props.auth));
+    }
+    if ((challenges !== prevProps.challengeListing.challenges
+      || communityList !== prevProps.tcCommunities.list) && tokenV3) {
+      _.forEach(communityList, c => getCommunityStats(c, challenges, tokenV3));
+    }
+  }
+
+  loadChallenges() {
+    this.props.getAllActiveChallenges(this.props.auth.tokenV3);
+    if (config.CHALLENGE_LISTING_AUTO_REFRESH) {
+      if (this.autoRefreshTimerId) clearTimeout(this.autoRefreshTimerId);
+      this.autoRefreshTimerId = setTimeout(() =>
+        this.loadChallenges(), 1000 * config.CHALLENGE_LISTING_AUTO_REFRESH);
     }
   }
 
@@ -58,7 +97,10 @@ export class DashboardPageContainer extends React.Component {
         loadingSubtrackRanks, loadingSRMs, loadingBlogs,
       },
       challengeListing: { challenges },
+      lastUpdateOfActiveChallenges,
+      tcCommunities: { list: communityList },
       registerIos,
+      stats,
     } = this.props;
     const myChallenges = processActiveDevDesignChallenges(
       _.filter(challenges, c => !!c.users[user.handle]),
@@ -67,8 +109,24 @@ export class DashboardPageContainer extends React.Component {
       _.filter(challenges, c => c.platforms === 'iOS'),
     );
 
-    const loadingActiveChallenges =
+  /* When we automatically reload cached challenge objects, we do not want to
+   * show the loading state, if the currently loaded challenges are not very
+   * outdated (i.e. no need to show placeholders in the situations when it is
+   * fine to reload silently, keeping showing the previously cached challenges,
+   * while the reload is going on).
+   *
+   * In this code lastUpdateOfActiveChallenges serves as an adequate indication
+   * when the challenges were fetched the last time, and the magic numbers are:
+   * 1000 - to conver config.CHALLENGE_LISTING_AUTO_REFRESH from seconds to ms.
+   * 1.5 - a reasonable margin factor, to decide when we consider already cached
+   * challenges too old to display while the reload takes place.
+   */
+    let loadingActiveChallenges =
       Boolean(this.props.challengeListing.loadingActiveChallengesUUID);
+    if (loadingActiveChallenges && config.CHALLENGE_LISTING_AUTO_REFRESH) {
+      const outage = moment().diff(lastUpdateOfActiveChallenges);
+      loadingActiveChallenges = outage > 1.5 * 1000 * config.CHALLENGE_LISTING_AUTO_REFRESH;
+    }
 
     return (
       <div styleName="dashboard-container">
@@ -93,7 +151,9 @@ export class DashboardPageContainer extends React.Component {
               {
                 !loadingActiveChallenges &&
                 <MyChallenges
-                  challenges={myChallenges.slice(0, 8)}
+                  challenges={myChallenges}
+                  communityList={communityList}
+                  stats={stats}
                   groups={profile ? profile.groups : []}
                 />
               }
@@ -107,7 +167,7 @@ export class DashboardPageContainer extends React.Component {
                     experience as a member of the Topcoder Cognitive Community.
                   </div>
                   <a
-                    href="https://cognitive.topcoder.com"
+                    href={config.URL.COGNITIVE}
                     styleName="cta tc-btn-white tc-btn-radius"
                   >Learn More</a>
                 </div>
@@ -120,7 +180,7 @@ export class DashboardPageContainer extends React.Component {
                   <div styleName="subtitle">October 21-24, 2017 <br /> Buffalo, NY, USA</div>
                   <div styleName="description">
                     The Ultimate Programming and Design Tournament - The Final Stage</div>
-                  <a href="http://tco17.topcoder.com/" styleName="cta tc-btn-radius tc-btn-white">
+                  <a href={config.URL.TCO17} styleName="cta tc-btn-radius tc-btn-white">
                     Learn More
                   </a>
                 </div>
@@ -171,6 +231,10 @@ DashboardPageContainer.propTypes = {
   auth: PT.shape(),
   dashboard: PT.shape(),
   challengeListing: PT.shape(),
+  tcCommunities: PT.shape({
+    list: PT.arrayOf(PT.shape()).isRequired,
+  }),
+  stats: PT.shape(),
   getAllActiveChallenges: PT.func.isRequired,
   getSubtrackRanks: PT.func.isRequired,
   getSRMs: PT.func.isRequired,
@@ -178,18 +242,26 @@ DashboardPageContainer.propTypes = {
   registerIos: PT.func.isRequired,
   getBlogs: PT.func.isRequired,
   getUserFinancials: PT.func.isRequired,
+  getCommunityStats: PT.func.isRequired,
+  getCommunityList: PT.func.isRequired,
+  lastUpdateOfActiveChallenges: PT.number.isRequired,
 };
 
 DashboardPageContainer.defaultProps = {
   auth: {},
   dashboard: {},
   challengeListing: {},
+  tcCommunities: {},
+  stats: {},
 };
 
 const mapStateToProps = state => ({
   auth: state.auth,
   dashboard: state.dashboard,
   challengeListing: state.challengeListing,
+  lastUpdateOfActiveChallenges: state.challengeListing.lastUpdateOfActiveChallenges,
+  tcCommunities: state.tcCommunities,
+  stats: state.stats,
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -223,6 +295,9 @@ const mapDispatchToProps = dispatch => ({
   getUserFinancials: (tokenV3, handle) => {
     dispatch(actions.dashboard.getUserFinancials(tokenV3, handle));
   },
+  getCommunityList: auth => dispatch(communityActions.tcCommunity.getList(auth)),
+  getCommunityStats: (community, challenges, token) =>
+    dispatch(statsActions.stats.getCommunityStats(community, challenges, token)),
 });
 
 const DashboardContainer = connect(

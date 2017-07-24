@@ -1,0 +1,34 @@
+@import "~styles/tc-styles";
+
+.linkWrap {
+  margin-top: 30px;
+
+  @include xxs-to-sm {
+    margin-top: 20px;
+  }
+}
+
+.link {
+  background: #fff;
+  border-radius: 20px;
+  color: #0092ff;
+  display: inline-block;
+  font-family: 'Open Sans';
+  font-weight: bold;
+  font-size: 14px;
+  height: 41px;
+  line-height: 41px;
+  padding: 0 24px;
+  text-align: center;
+  text-transform: uppercase;
+  min-width: 171px;
+
+  &:hover,
+  &:active,
+  &:focus,
+  &:visited {
+    color: #0092ff;
+    outline: none;
+    text-decoration: none;
+  }
+}

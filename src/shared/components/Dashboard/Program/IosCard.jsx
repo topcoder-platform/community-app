@@ -8,30 +8,28 @@ import './IosCard.scss';
 
 const IosCard = (props) => {
   const { challenge } = props;
-  /* global location */
-  const SUBDOMAIN = location.href.search('//members') >= 0 ? 'members' : 'www';
   return (
     <div styleName={cn(['challenge', 'tile-view', challenge.track])}>
       <div styleName="challenge-track" />
       <header>
         <div>
-          <a href={`https://${SUBDOMAIN}.${config.DOMAIN}/challenge-details/${challenge.id}/?type=${challenge.track}`} styleName="name">
+          <a href={`${config.URL.BASE}/challenge-details/${challenge.id}/?type=${challenge.track}`} styleName="name">
             <span>{challenge.name}</span>
           </a>
           <p styleName="subtrack-color">{stripUnderscore(challenge.subTrack)}</p>
         </div>
         <div styleName="challenge-links">
           <div styleName="stats">
-            <a href={`https://${SUBDOMAIN}.${config.DOMAIN}/challenge-details/${challenge.id}/?type=${challenge.track}#viewRegistrant`} styleName="registrants">
+            <a href={`${config.URL.BASE}/challenge-details/${challenge.id}/?type=${challenge.track}#viewRegistrant`} styleName="registrants">
               <div styleName="registrants-icon" />
               <p>{challenge.numRegistrants}</p>
             </a>
-            <a href={`https://${SUBDOMAIN}.${config.DOMAIN}/challenge-details/${challenge.id}/?type=${challenge.track}#submissions`} styleName="submissions">
+            <a href={`${config.URL.BASE}/challenge-details/${challenge.id}/?type=${challenge.track}#submissions`} styleName="submissions">
               <div styleName="submissions-icon" />
               <p>{challenge.numSubmissions}</p>
             </a>
           </div>
-          <a href={`http://apps.${config.DOMAIN}/forums//?module=Category&categoryID=${challenge.forumId}`} styleName="forum">
+          <a href={`${config.URL.FORUMS}/?module=Category&categoryID=${challenge.forumId}`} styleName="forum">
             <div styleName="forum-icon" />
             <p>Posts</p>
           </a>

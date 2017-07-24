@@ -98,7 +98,7 @@ export default function Listing({
 }
 
 Listing.defaultProps = {
-  challengeGroupId: '',
+  groupId: '',
   loadMoreDraft: null,
   loadMorePast: null,
   onTechTagClicked: _.noop,

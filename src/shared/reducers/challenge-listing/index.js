@@ -71,16 +71,6 @@ function onGetChallengeTagsDone(state, action) {
   };
 }
 
-function onGetCommunityFitlers(state, { error, payload }) {
-  let communityFilters = [{
-    id: '',
-    name: 'All',
-  }];
-  if (error) logger.error(payload);
-  else communityFilters = communityFilters.concat(payload);
-  return { ...state, communityFilters };
-}
-
 function onGetDraftChallengesInit(state, { payload: { uuid, page } }) {
   return {
     ...state,
@@ -225,8 +215,6 @@ function create(initialState) {
     }),
     [a.getChallengeTagsDone]: onGetChallengeTagsDone,
 
-    [a.getCommunityFilters]: onGetCommunityFitlers,
-
     [a.getDraftChallengesInit]: onGetDraftChallengesInit,
     [a.getDraftChallengesDone]: onGetDraftChallengesDone,
 
@@ -250,11 +238,6 @@ function create(initialState) {
     challenges: [],
     challengeSubtracks: [],
     challengeTags: [],
-
-    communityFilters: [{
-      id: '',
-      name: 'All',
-    }],
 
     filter: {},
 

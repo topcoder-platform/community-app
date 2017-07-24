@@ -13,7 +13,7 @@ import DesktopSubMenu from 'components/TopcoderHeader/desktop/SubMenu';
 import React from 'react';
 import PT from 'prop-types';
 import Avatar from 'components/Avatar';
-import { Link, NavLink } from 'react-router-dom';
+import { Link, NavLink } from 'utils/router';
 import { getRatingColor } from 'utils/tc';
 import Dropdown from 'components/tc-communities/Dropdown';
 import IconSearch from '../../../../assets/images/tc-communities/search.svg';
@@ -30,6 +30,9 @@ export default function Header(props) {
     openMenu,
     openedMenu,
     logos,
+    hideSearch,
+    chevronOverAvatar,
+    additionalLogos,
     menuItems,
     pageId,
     cssUrl,
@@ -69,6 +72,7 @@ export default function Header(props) {
       }}
       /* Login state component. */
       styleName="user-menu"
+      className="tc-communities__header__login-state"
       key="login-state"
     >
       <div
@@ -79,23 +83,27 @@ export default function Header(props) {
       >
         {profile.handle}
       </div>
-      <div styleName="avatar">
-        <Avatar url={profile.photoURL} />
-      </div>
+      {
+        chevronOverAvatar ?
+          <span styleName="chevron-down" /> :
+          <div styleName="avatar">
+            <Avatar url={profile.photoURL} />
+          </div>
+      }
     </div>
   ) : (
-    <div styleName="authorize">
+    <div styleName="authorize" className="tc-communities__header__login-state">
       <button
         onClick={() => {
           const url = encodeURIComponent(window.location.href);
-          window.location = `${config.URL.AUTH}/registration?retUrl=${url}`;
+          window.location = `${config.URL.AUTH}/member/registration?retUrl=${url}`;
         }}
         styleName="btnRegister"
       >Register</button>
       <button
         onClick={() => {
           const url = encodeURIComponent(window.location.href);
-          window.location = `${config.URL.AUTH}?retUrl=${url}`;
+          window.location = `${config.URL.AUTH}/member?retUrl=${url}`;
         }}
         styleName="btnLogin"
       >Login</button>
@@ -141,7 +149,10 @@ export default function Header(props) {
               )}
             </div>
 
-            <div styleName="challenge-dropdown">
+            <div
+              styleName="challenge-dropdown"
+              className="tc-communities__header__challenge-dropdown"
+            >
               <Dropdown
                 options={communitySelector}
                 value={communitySelector[0]}
@@ -149,7 +160,7 @@ export default function Header(props) {
             </div>
 
           </div>
-          <div styleName="user-wrap-mobile">
+          <div styleName="user-wrap-mobile" className="tc-communities__header__user-wrap-mobile">
             {profile && (
               <div styleName="avatar-mobile">
                 <Avatar url={profile ? profile.photoURL : ''} />
@@ -173,6 +184,7 @@ export default function Header(props) {
                   className="tc-communities__header__menu-link"
                   activeClassName="menu-link_active tc-communities__header__menu-link_active"
                   isActive={() => currentPage === item.url}
+                  openExternalLinkInNewPage
                   to={item.url}
                 >
                   {item.title}
@@ -183,7 +195,20 @@ export default function Header(props) {
         </div>
         <div styleName="user-wrap">
           {loginState}
-          <div styleName="search"><IconSearch /></div>
+          { !hideSearch && <div styleName="search"><IconSearch /></div>}
+          <div styleName="logos" className="tc-communities__header__logos additional-logos">
+            {_.map(additionalLogos, (logoUrl, index) =>
+              (
+                <span
+                  key={index}
+                  styleName="logo"
+                  className="tc-communities__header__logo"
+                >
+                  <img src={logoUrl} alt="Community logo" />
+                </span>
+              ),
+            )}
+          </div>
         </div>
       </header>
       <DesktopSubMenu
@@ -200,6 +225,9 @@ Header.defaultProps = {
   menuItems: [],
   openedMenu: null,
   logos: [],
+  additionalLogos: [],
+  hideSearch: false,
+  chevronOverAvatar: false,
   isMobileOpen: false,
   cssUrl: null,
   profile: null,
@@ -214,6 +242,9 @@ Header.propTypes = {
     url: PT.string.isRequired,
   })),
   logos: PT.arrayOf(PT.string),
+  additionalLogos: PT.arrayOf(PT.string),
+  hideSearch: PT.bool,
+  chevronOverAvatar: PT.bool,
   openedMenu: PT.shape({}),
   openMenu: PT.func.isRequired,
   pageId: PT.string.isRequired,

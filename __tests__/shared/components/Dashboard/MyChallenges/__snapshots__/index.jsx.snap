@@ -44,51 +44,55 @@ exports[`Matches shallow shapshot 1`] = `
     <div
       className="src-shared-components-Dashboard-MyChallenges-___styles__challenges___2Vw3T src-shared-components-Dashboard-MyChallenges-___styles__tile-view___1am8R"
     >
-      <ChallengeFilter
-        groups={
-          Array [
+      <div
+        className="src-shared-components-Dashboard-MyChallenges-___styles__items___1Rv77"
+      >
+        <ChallengeTile
+          challenge={
             Object {
-              "id": "",
-              "name": "All communities",
-              "number": 1,
-            },
-            Object {
+              "groups": Object {
+                "2": true,
+              },
               "id": "1",
-              "name": "group 1",
-              "number": 0,
-            },
-            Object {
-              "id": "2",
-              "name": "group 2",
-              "number": 1,
-            },
-          ]
-        }
-        selectGroup={[Function]}
-        selectedGroupId=""
-      />
-      <ChallengeTile
-        challenge={
-          Object {
-            "groupLabel": "group 2",
-            "groups": Object {
-              "2": true,
-            },
-            "id": "1",
+            }
           }
-        }
-        viewMode="tile"
-      />
+          viewMode="tile"
+        />
+      </div>
+      <div
+        className="src-shared-components-Dashboard-MyChallenges-___styles__filter-wrapper___3z8Np"
+        id="dashboard-sticky-filter-container"
+      >
+        <Sticky
+          activeClass="active"
+          bottomBoundary="#dashboard-sticky-filter-container"
+          enableTransforms={true}
+          enabled={true}
+          onStateChange={null}
+          releasedClass="released"
+          shouldFreeze={[Function]}
+          top={20}
+        >
+          <ChallengeFilter
+            communities={
+              Array [
+                Object {
+                  "communityId": "",
+                  "communityName": "All communities",
+                  "number": 1,
+                },
+              ]
+            }
+            selectCommunity={[Function]}
+            selectedCommunityId=""
+          />
+        </Sticky>
+      </div>
     </div>
   </section>
   <div
     className="src-shared-components-Dashboard-MyChallenges-___styles__my-challenges-links___rJaly"
   >
-    <a
-      href="https://www.topcoder-dev.com/my-challenges/?status=active"
-    >
-      View More
-    </a>
     <a
       href="https://www.topcoder-dev.com/my-challenges/?status=completed"
     >

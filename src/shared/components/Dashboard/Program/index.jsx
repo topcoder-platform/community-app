@@ -41,7 +41,7 @@ const Program = (props) => {
                   >Participate</a>
                 </div>
                 <div styleName="help-link">
-                  <a href={`http://ios.${config.DOMAIN}`} styleName="learn-more">Learn More</a>
+                  <a href={config.URL.IOS} styleName="learn-more">Learn More</a>
                 </div>
               </div>
             </div>
@@ -58,7 +58,7 @@ const Program = (props) => {
                     <MemberIcon />
                   </div>
                   <a
-                    href={`http://ios.${config.DOMAIN}`}
+                    href={config.URL.IOS}
                     title="topcoder iOS Member Program"
                     className="tc-btn tc-btn-s tc-btn-ghost tc-btn-wide"
                   >

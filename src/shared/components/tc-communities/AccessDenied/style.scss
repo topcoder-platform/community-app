@@ -14,3 +14,33 @@
     cursor: pointer;
   }
 }
+
+.joinNow {
+  &,
+  &:hover,
+  &:visited {
+    color: $tc-light-blue;
+    text-decoration: underline;
+  }
+}
+
+.policy {
+  font-weight: bold;
+  margin-right: 24px;
+
+  &,
+  &:hover,
+  &:visited {
+    color: $tc-light-blue;
+    text-decoration: underline;
+  }
+}
+
+.copyright {
+  @include roboto;
+
+  color: $tc-gray-60;
+  font-size: 12pt;
+  margin-top: 128px;
+  text-transform: uppercase;
+}

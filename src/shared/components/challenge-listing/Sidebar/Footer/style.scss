@@ -1,7 +1,7 @@
 @import "~styles/tc-styles";
 
 .sidebar-footer {
-  padding: 10px;
+  padding: 10px 0 24px;
 
   @include xs-to-sm {
     display: none;
