@@ -50,7 +50,7 @@ export default function AccessDenied({ cause }) {
           </div>
           <div styleName="msg">
             Already registered on Topcoder with your Wipro SSO account?
-          </div>  
+          </div>
           <div styleName="msg">
             <a
               className="tc-btn-md tc-btn-primary"
