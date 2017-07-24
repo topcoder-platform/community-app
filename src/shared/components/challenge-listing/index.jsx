@@ -90,7 +90,7 @@ export default function ChallengeListing(props) {
         setCardType={_.noop/* cardType => this.setCardType(cardType) */}
         isCardTypeSet={'Challenges' /* this.state.currentCardType */}
       />
-      <div styleName={`tc-content-wrapper ${/* this.state.currentCardType === 'SRMs' ? '' :*/'hidden'}`}>
+      <div styleName={`tc-content-wrapper ${/* this.state.currentCardType === 'SRMs' ? '' : */'hidden'}`}>
         <div styleName="sidebar-container-mobile">
           {/* <ChallengesSidebar SidebarMock={SRMsSidebarMock} /> */}
         </div>

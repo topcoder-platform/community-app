@@ -328,7 +328,7 @@ export function challengeLinks(challenge, type) {
           default:
             return '';
         }
-    /* eslint no-fallthrough:0*/
+    /* eslint no-fallthrough:0 */
       case 'submissions':
         return `https://${data.subdomain}.${data.domain}/challenge-details/${data.id}/?type=${data.track}#submissions`;
       case 'registrants':
