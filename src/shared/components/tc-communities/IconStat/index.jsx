@@ -12,9 +12,15 @@ function IconStat(props) {
 
   return (
     <div className={theme.container}>
-      <Icon className={theme.icon} />
-      <p className={theme.number}>{number}</p>
-      <p className={theme.label}>{label}</p>
+      {
+        typeof Icon === 'string' ?
+        <img alt="Icon" src={Icon} className={theme.icon} /> :
+        <Icon className={theme.icon} />
+      }
+      <div className={theme.text}>
+        <p className={theme.number}>{number}</p>
+        <p className={theme.label}>{label}</p>
+      </div>
     </div>
   );
 }
@@ -29,6 +35,7 @@ IconStat.propTypes = {
   label: PT.string.isRequired,
   theme: PT.shape({
     container: PT.string,
+    text: PT.string,
     icon: PT.string,
     number: PT.string,
     label: PT.string,

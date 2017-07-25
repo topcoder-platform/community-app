@@ -41,16 +41,23 @@ const LABELS = {
 
 export default function CommunityStats(props) {
   const icons = [];
-  _.forIn(props.stats, (value, key) =>
-    icons.push((
-      <IconStat
-        icon={ICONS[key]}
-        key={key}
-        label={LABELS[key]}
-        number={value}
-      />
-    )),
-  );
+  _.forIn(props.stats, (value, key) => {
+    if (props.filter !== null || props.filter[key]) {
+      const ICON = props.icons[key] || ICONS[key];
+      const LABEL = props.titles[key] || LABELS[key];
+      if (ICON && LABEL) {
+        icons.push((
+          <IconStat
+            icon={ICON}
+            key={key}
+            label={LABEL}
+            number={value}
+            theme={props.theme}
+          />
+        ));
+      }
+    }
+  });
   return icons.length ? (
     <Section
       theme={{
@@ -63,6 +70,10 @@ export default function CommunityStats(props) {
 
 CommunityStats.defaultProps = {
   stats: {},
+  theme: {},
+  icons: {},
+  titles: {},
+  filter: undefined,
 };
 
 const numberOrString = PT.oneOfType([PT.number, PT.string]);
@@ -74,4 +85,8 @@ CommunityStats.propTypes = {
     numProjects: numberOrString,
     openPrizes: numberOrString,
   }),
+  theme: PT.shape(),
+  icons: PT.shape(),
+  titles: PT.shape(),
+  filter: PT.shape(),
 };
