@@ -16,6 +16,7 @@ import NewsletterSignup from 'components/tc-communities/NewsletterSignup';
 import NewsSection from 'components/tc-communities/NewsSection';
 */
 import { noop } from 'lodash';
+import { Link } from 'utils/router';
 // import Slider from 'react-slick';
 
 import PT from 'prop-types';
@@ -99,7 +100,7 @@ const settings = {
 };
 */
 
-export default function Home(/* props */) {
+export default function Home(props) {
   return (
     <main>
       <Banner
@@ -151,6 +152,20 @@ export default function Home(/* props */) {
             theme={ImageTextStyles}
             imageSrc="/themes/wipro/home/image-text-do.jpg"
           />
+        </div>
+      </Section>
+
+      <Section
+        theme={{
+          content: style.viewAllPublicChallenges,
+        }}
+      >
+        <div styleName="ImageTextStyles.linkWrap style.linkWrap">
+          <Link
+            onClick={() => props.resetChallengeListing()}
+            styleName="ImageTextStyles.link"
+            to="challenges?communityId="
+          >View All Public Challenges</Link>
         </div>
       </Section>
 
@@ -230,5 +245,6 @@ Home.defaultProps = {
 };
 
 Home.propTypes = {
-  news: PT.arrayOf(PT.shape()),
+  // news: PT.arrayOf(PT.shape()),
+  resetChallengeListing: PT.func.isRequired,
 };

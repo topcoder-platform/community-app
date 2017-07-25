@@ -64,7 +64,7 @@ app.use(loggerMiddleware(':ip > :status :method :url :response-time ms :res[cont
 
 /* Setup of Webpack Hot Reloading for development environment.
  * These dependencies are not used nor installed in production deployment,
- * hence some import-related lint rules are disabled.*/
+ * hence some import-related lint rules are disabled. */
 /* eslint-disable global-require */
 /* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable import/no-unresolved */
