@@ -25,6 +25,7 @@ import Header from 'components/tc-communities/Header';
 import Footer from 'components/tc-communities/Footer';
 import LoadingIndicator from 'components/LoadingIndicator';
 import Error404 from 'components/Error404';
+import qs from 'qs';
 
 // page content components
 import ChallengeListing from 'containers/challenge-listing/Listing';
@@ -148,10 +149,12 @@ class Page extends Component {
           apiUrl={this.props.meta.leaderboardApiUrl}
         />);
         break;
-      case 'challenges':
+      case 'challenges': {
+        const query = this.props.location.search ?
+          qs.parse(this.props.location.search.slice(1)) : null;
         pageContent = (<ChallengeListing
           groupId={this.props.meta.groupId}
-          communityId={this.props.meta.communityId}
+          communityId={_.has(query, 'communityId') ? query.communityId : this.props.meta.communityId}
           communityName={this.props.meta.communityName}
           tag={this.props.meta.challengeFilterTag}
           history={this.props.history}
@@ -159,6 +162,7 @@ class Page extends Component {
           location={this.props.location}
         />);
         break;
+      }
       default:
         pageContent = this.renderCustomPage();
         break;

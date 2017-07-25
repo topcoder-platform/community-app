@@ -29,7 +29,7 @@ function Tip(props) {
       <span>{item.name}</span>
       <span>{item.rating}</span>
     </span>
-  ));*/
+  )); */
   const { photoLink } = props.user;
   const src = photoLink.startsWith('https') ? photoLink : `${props.MAIN_URL}/${photoLink}`;
 
