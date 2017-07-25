@@ -14,6 +14,8 @@
  */
 
 import _ from 'lodash';
+import challengeListingActions from 'actions/challenge-listing';
+import challengeListingSidebarActions from 'actions/challenge-listing/sidebar';
 import PT from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
@@ -26,6 +28,7 @@ import Footer from 'components/tc-communities/Footer';
 import LoadingIndicator from 'components/LoadingIndicator';
 import Error404 from 'components/Error404';
 import qs from 'qs';
+import { BUCKETS } from 'utils/challenge-listing/buckets';
 
 // page content components
 import ChallengeListing from 'containers/challenge-listing/Listing';
@@ -88,7 +91,7 @@ class Page extends Component {
     // TODO: this have to be removed when editor implemented
     if (communityId === 'wipro') {
       if (pageId === 'home') {
-        pageContent = <WiproHome />;
+        pageContent = <WiproHome resetChallengeListing={this.props.resetChallengeListing} />;
       } else if (pageId === 'learn') {
         pageContent = <WiproLearn />;
       }
@@ -285,6 +288,7 @@ Page.propTypes = {
   pageId: PT.string.isRequired,
   history: PT.shape().isRequired,
   location: PT.shape().isRequired,
+  resetChallengeListing: PT.func.isRequired,
 };
 
 const mapStateToProps = (state, props) => ({
@@ -311,6 +315,13 @@ const mapDispatchToProps = dispatch => _.merge(
     },
     mobileToggle: () => {
       dispatch(actions.tcCommunities.meta.mobileToggle());
+    },
+    resetChallengeListing: () => {
+      const a = challengeListingActions.challengeListing;
+      const sa = challengeListingSidebarActions.challengeListing.sidebar;
+      dispatch(a.selectCommunity(''));
+      dispatch(a.setFilter({}));
+      dispatch(sa.selectBucket(BUCKETS.ALL));
     },
   });
 

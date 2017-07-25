@@ -100,7 +100,7 @@ const settings = {
 };
 */
 
-export default function Home(/* props */) {
+export default function Home(props) {
   return (
     <main>
       <Banner
@@ -162,6 +162,7 @@ export default function Home(/* props */) {
       >
         <div styleName="ImageTextStyles.linkWrap style.linkWrap">
           <Link
+            onClick={() => props.resetChallengeListing()}
             styleName="ImageTextStyles.link"
             to="challenges?communityId="
           >View All Public Challenges</Link>
@@ -244,5 +245,6 @@ Home.defaultProps = {
 };
 
 Home.propTypes = {
-  news: PT.arrayOf(PT.shape()),
+  // news: PT.arrayOf(PT.shape()),
+  resetChallengeListing: PT.func.isRequired,
 };
