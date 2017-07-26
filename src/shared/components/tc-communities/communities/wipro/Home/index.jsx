@@ -22,7 +22,7 @@ import { Link } from 'utils/router';
 import PT from 'prop-types';
 
 import JoinCommunity from 'containers/tc-communities/JoinCommunity';
-import CommunityStats from 'containers/tc-communities/WiproCommunityStats';
+import CommunityStats from 'containers/tc-communities/CommunityStats';
 
 /*
 import IconRocket from '../../../../../../assets/images/tc-communities/rocket.svg';
@@ -32,11 +32,19 @@ import IconMedal from '../../../../../../assets/images/tc-communities/medal.svg'
 
 import style from './style.scss';
 import bannerStyle from './themes/banner.scss';
+import IconStatStyles from './themes/IconStatStyles.scss';
 // import NewsletterSignupStyle from './themes/newsletter_signup.scss';
 import ImageTextStyles from './themes/imageTextStyle.scss';
 // import ResourceCardStyles from './themes/resourceCardStyles.scss';
 // import ArticleCardStyles from './themes/articleCardStyles.scss';
 // import NewsSectionStyles from './themes/newsSectionStyles.scss';
+
+// Custom icons for community stats
+const COMMUNITY_STATS_ICONS = {
+  numChallenges: '../../../../../themes/wipro/challenges.png',
+  numMembers: '../../../../../themes/wipro/members.png',
+  openPrizes: '../../../../../themes/wipro/prizes.png',
+};
 
 function PrevArrow(props) {
   return (
@@ -100,7 +108,7 @@ const settings = {
 };
 */
 
-export default function Home(/* props */) {
+export default function Home(props) {
   return (
     <main>
       <Banner
@@ -114,7 +122,7 @@ export default function Home(/* props */) {
         theme={bannerStyle}
       />
 
-      <CommunityStats />
+      <CommunityStats theme={IconStatStyles} icons={COMMUNITY_STATS_ICONS} />
 
       <JoinCommunity />
 
@@ -162,6 +170,7 @@ export default function Home(/* props */) {
       >
         <div styleName="ImageTextStyles.linkWrap style.linkWrap">
           <Link
+            onClick={() => props.resetChallengeListing()}
             styleName="ImageTextStyles.link"
             to="challenges?communityId="
           >View All Public Challenges</Link>
@@ -244,5 +253,6 @@ Home.defaultProps = {
 };
 
 Home.propTypes = {
-  news: PT.arrayOf(PT.shape()),
+  // news: PT.arrayOf(PT.shape()),
+  resetChallengeListing: PT.func.isRequired,
 };
