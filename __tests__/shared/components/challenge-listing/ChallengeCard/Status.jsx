@@ -5,8 +5,9 @@ import ChallengeStatus from 'components/challenge-listing/ChallengeCard/Status';
 import MockDate from 'mockdate';
 
 beforeAll(() => {
-  MockDate.set(1500262917951);
+  MockDate.set(1500262917951, 160);
 });
+
 afterAll(() => {
   MockDate.reset();
 });
@@ -26,7 +27,7 @@ const mockDatas = [{
     subTrack: 'CODE',
     events: [{ eventName: 'Submit' }],
     status: 'ACTIVE',
-    submissionEndDate: '2020-01-01',
+    submissionEndDate: '2019-12-31T23:00:00.000Z',
   },
 }, {
   challenge: {
@@ -44,7 +45,7 @@ const mockDatas = [{
     events: [{ eventName: 'Submit' }],
     status: 'COMPLETED',
     myChallenge: true,
-    submissionEndDate: '2020-01-01',
+    submissionEndDate: '2019-12-31T23:00:00.000Z',
   },
 }, {
   challenge: {
@@ -63,7 +64,7 @@ const mockDatas = [{
     status: 'COMPLETED',
     myChallenge: true,
     winners: [{ type: 'final' }, { type: 'final' }, { type: 'final' }, { type: 'final', isLastItem: true }],
-    submissionEndDate: '2020-01-01',
+    submissionEndDate: '2019-12-31T23:00:00.000Z',
   },
 }, {
   challenge: {
@@ -77,7 +78,7 @@ const mockDatas = [{
     events: [{ eventName: 'Submit' }],
     status: 'DRAFT',
     myChallenge: true,
-    submissionEndDate: '2020-01-01',
+    submissionEndDate: '2019-12-31T23:00:00.000Z',
   },
 }, {
   challenge: {
@@ -91,7 +92,7 @@ const mockDatas = [{
     events: [{ eventName: 'Submit' }],
     status: 'NO-DRAFT',
     myChallenge: true,
-    submissionEndDate: '2020-01-01',
+    submissionEndDate: '2019-12-31T23:00:00.000Z',
   },
 }, {
   challenge: {

@@ -15,12 +15,24 @@ describe('full render pure component', () => {
       tokenV3: 'tokenV3',
       user: {},
     },
+    tcCommunities: {
+      list: [
+        {
+          communityId: '',
+          communityName: 'name',
+        },
+        {
+          communityId: '',
+          communityName: 'name',
+        },
+      ],
+    },
     allDraftChallengesLoaded: false,
     allPastChallengesLoaded: false,
     challenges: [],
     challengeSubtracks: [],
     challengeTags: [],
-    communityFilters: [{ id: '1', name: 'My Filter', filter: {} }],
+    communityFilters: [{ communityId: '1', name: 'My Filter', filter: {} }],
     dropChallenges: jest.fn(),
     filter: {},
     communityId: '',
@@ -156,7 +168,7 @@ describe('full render connnected component and dispatch actions', () => {
       challenges: [{ id: '1' }],
       challengeSubtracks: [],
       challengeTags: [],
-      communityFilters: [{ id: '1', name: 'My Filter', filter: {} }],
+      // communityFilters: [{ id: '1', name: 'My Filter', filter: {} }],
       dropChallenges: jest.fn(),
       filter: {},
       communityId: '',
@@ -170,6 +182,18 @@ describe('full render connnected component and dispatch actions', () => {
       activeBucket: '1',
       selectedCommunityId: '1',
       sorts: {},
+    },
+    tcCommunities: {
+      list: [
+        {
+          communityId: '',
+          communityName: 'name',
+        },
+        {
+          communityId: '',
+          communityName: 'name',
+        },
+      ],
     },
     auth: {
       tokenV2: '',

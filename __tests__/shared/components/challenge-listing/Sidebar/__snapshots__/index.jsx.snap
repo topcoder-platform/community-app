@@ -29,7 +29,9 @@ exports[`Matches shallow shapshot 1`] = `
       setEditSavedFiltersMode={[Function]}
     />
   </div>
-  <Footer />
+  <Footer
+    hideTcLinksInFooter={false}
+  />
 </div>
 `;
 
@@ -53,6 +55,8 @@ exports[`Matches shallow shapshot 2`] = `
       updateSavedFilter={[Function]}
     />
   </div>
-  <Footer />
+  <Footer
+    hideTcLinksInFooter={false}
+  />
 </div>
 `;

@@ -50,19 +50,10 @@ const response2 = {
   }),
 };
 
-const result1 = {
-  groupId: '1',
+const result = {
+  communityId: undefined,
   stats: {
-    numChallenges: 4,
-    numMembers: 2,
-    openPrizes: '$0',
-  },
-};
-
-const result2 = {
-  groupId: '1',
-  stats: {
-    numChallenges: 20,
+    numChallenges: 0,
     numMembers: 0,
     openPrizes: '$0',
   },
@@ -71,25 +62,27 @@ const result2 = {
 describe('stats.getGroupStats fetch all', () => {
   global.fetch = jest.fn(() => Promise.resolve(response1));
 
-  const a = actions.stats.getGroupStats('1');
+  const a = actions.stats.getCommunityStats('1');
 
   test('has expected type', () => {
-    expect(a.type).toBe('STATS/GET_GROUP_STATS');
+    expect(a.type).toBe('STATS/GET_COMMUNITY_STATS');
   });
 
-  test('payload is a promise which resolves to the expected object', () =>
-    a.payload.then(res => expect(res).toEqual(result1)));
+  test('payload is a promise which resolves to the expected object', () => {
+    expect(a.payload).toEqual(result);
+  });
 });
 
 describe('stats.getGroupStats fetch partial', () => {
   global.fetch = jest.fn(() => Promise.resolve(response2));
 
-  const a = actions.stats.getGroupStats('1');
+  const a = actions.stats.getCommunityStats('1');
 
   test('has expected type', () => {
-    expect(a.type).toBe('STATS/GET_GROUP_STATS');
+    expect(a.type).toBe('STATS/GET_COMMUNITY_STATS');
   });
 
-  test('payload is a promise which resolves to the expected object', () =>
-    a.payload.then(res => expect(res).toEqual(result2)));
+  test('payload is a promise which resolves to the expected object', () => {
+    expect(a.payload).toEqual(result);
+  });
 });

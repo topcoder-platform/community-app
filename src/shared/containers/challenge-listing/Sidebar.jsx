@@ -13,6 +13,8 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { BUCKETS, getBuckets } from 'utils/challenge-listing/buckets';
 
+export const SidebarPureComponent = Sidebar;
+
 export class SidebarContainer extends React.Component {
 
   componentDidMount() {

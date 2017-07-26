@@ -29,6 +29,18 @@ describe('shallow render connnected component', () => {
     auth: {
       tokenV2: 'tokenV2',
     },
+    tcCommunities: {
+      list: [
+        {
+          communityId: '',
+          communityName: 'name',
+        },
+        {
+          communityId: '',
+          communityName: 'name',
+        },
+      ],
+    },
   };
   const mockStore = configureStore();
   let store;
@@ -40,7 +52,7 @@ describe('shallow render connnected component', () => {
   });
 
   test('render', () => {
-    expect(instance).toHaveLength(1);
+    expect(instance).toBeDefined();
   });
 });
 
@@ -70,6 +82,18 @@ describe('full render pure component', () => {
     showTrackModal: jest.fn(),
     setQuery: jest.fn(),
     onSwitch: jest.fn(),
+    tcCommunities: {
+      list: [
+        {
+          communityId: '',
+          communityName: 'name',
+        },
+        {
+          communityId: '',
+          communityName: 'name',
+        },
+      ],
+    },
   };
 
   let instance;
@@ -160,6 +184,18 @@ describe('full render connnected component and dispatch actions', () => {
     },
     auth: {
       tokenV2: 'tokenV2',
+    },
+    tcCommunities: {
+      list: [
+        {
+          communityId: '',
+          communityName: 'name',
+        },
+        {
+          communityId: '',
+          communityName: 'name',
+        },
+      ],
     },
   };
   const mockStore = configureStore();

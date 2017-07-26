@@ -3,9 +3,7 @@ import React from 'react';
 import configureStore from 'redux-mock-store';
 import cActions from 'actions/challenge-listing';
 import fActions from 'actions/challenge-listing/filter-panel';
-import ConnectedSidebar, { SidebarContainer as Sidebar } from 'containers/challenge-listing/Sidebar';
-import FiltersEditor from 'components/challenge-listing/Sidebar/FiltersEditor';
-import BucketSelector from 'components/challenge-listing/Sidebar/BucketSelector';
+import ConnectedSidebar, { SidebarPureComponent as Sidebar } from 'containers/challenge-listing/Sidebar';
 
 describe('shallow render connnected component', () => {
   const initialState = {
@@ -25,6 +23,14 @@ describe('shallow render connnected component', () => {
       filter: {},
       selectedCommunityId: '1',
     },
+    tcCommunities: {
+      list: [
+        {
+          communityId: '',
+          communityName: 'name',
+        },
+      ],
+    },
     auth: {
       tokenV2: 'tokenV2',
       user: {},
@@ -41,76 +47,6 @@ describe('shallow render connnected component', () => {
 
   test('render', () => {
     expect(instance).toHaveLength(1);
-  });
-});
-
-describe('full render pure component', () => {
-  const initialProps = {
-    communityFilters: [],
-    deleteSavedFilter: jest.fn(),
-    getSavedFilters: jest.fn(),
-    savedFilters: [{ id: '1', name: 'My Filter', filter: {} }],
-    selectedCommunityId: '1',
-    selectSavedFilter: jest.fn(),
-    setFilter: jest.fn(),
-    setSearchText: jest.fn(),
-    tokenV2: '',
-    updateAllSavedFilters: jest.fn(),
-    updateSavedFilter: jest.fn(),
-    user: {},
-    activeBucket: 'ALL',
-    challenges: [],
-    changeFilterName: jest.fn(),
-    dragSavedFilterMove: jest.fn(),
-    dragSavedFilterStart: jest.fn(),
-    editSavedFiltersMode: true,
-    filterState: {},
-    resetFilterName: jest.fn(),
-    selectBucket: jest.fn(),
-    setEditSavedFiltersMode: jest.fn(),
-    activeSavedFilter: 1,
-  };
-
-  let instance;
-
-  beforeEach(() => {
-    instance = mount(<Sidebar {...initialProps} />);
-    jest.resetAllMocks();
-  });
-
-  test('initial props', () => {
-    instance = mount(<Sidebar {...initialProps} />);
-    expect(initialProps.getSavedFilters).toHaveBeenCalledTimes(0);
-  });
-
-  test('with different props', () => {
-    instance = mount(<Sidebar
-      {...initialProps}
-      tokenV2="tokenV2"
-      communityFilters={[{ id: '1' }]}
-    />);
-    expect(initialProps.getSavedFilters).toHaveBeenCalledTimes(1);
-  });
-
-  test('props pass to FiltersEditor', () => {
-    const editor = instance.find(FiltersEditor);
-    expect(editor).toHaveLength(1);
-    editor.prop('deleteSavedFilter')();
-    expect(initialProps.deleteSavedFilter).toHaveBeenCalledTimes(1);
-
-    editor.prop('updateAllSavedFilters')();
-    expect(initialProps.updateAllSavedFilters).toHaveBeenCalledTimes(1);
-
-    editor.prop('updateSavedFilter')();
-    expect(initialProps.updateSavedFilter).toHaveBeenCalledTimes(1);
-  });
-
-  test('props pass to BucketSelector', () => {
-    instance = mount(<Sidebar {...initialProps} editSavedFiltersMode={false} />);
-    const selector = instance.find(BucketSelector);
-    expect(selector).toHaveLength(1);
-    selector.prop('selectSavedFilter')(0);
-    expect(initialProps.selectSavedFilter).toHaveBeenCalledTimes(1);
   });
 });
 
@@ -143,6 +79,14 @@ describe('full render connnected component and dispatch actions', () => {
       communityFilters: [],
       filter: {},
       selectedCommunityId: '1',
+    },
+    tcCommunities: {
+      list: [
+        {
+          communityId: '',
+          communityName: 'name',
+        },
+      ],
     },
     auth: {
       tokenV2: '',

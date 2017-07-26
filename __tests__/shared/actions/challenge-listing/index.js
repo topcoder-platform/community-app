@@ -107,32 +107,6 @@ describe('challengeListing.getChallengeTagsDone', () => {
     a.payload.then(res => expect(res).toEqual(['dummy 1', 'dummy 2'])));
 });
 
-describe('challengeListing.getCommunityFilters with group', () => {
-  global.fetch = mockFetch(true, 'dummy');
-
-  const a = actions.getCommunityFilters({ profile: { groups: [{ id: 1 }] } });
-
-  test('has expected type', () => {
-    expect(a.type).toBe('CHALLENGE_LISTING/GET_COMMUNITY_FILTERS');
-  });
-
-  test('payload is a promise which resolves to the expected object', () =>
-    a.payload.then(res => expect(res).toEqual('dummy')));
-});
-
-describe('challengeListing.getCommunityFilters without group and error response', () => {
-  global.fetch = mockFetch(false, 'dummy');
-
-  const a = actions.getCommunityFilters({});
-
-  test('has expected type', () => {
-    expect(a.type).toBe('CHALLENGE_LISTING/GET_COMMUNITY_FILTERS');
-  });
-
-  test('payload is a promise which resolves to the expected object', () =>
-    a.payload.catch(res => expect(res).toMatch('Error')));
-});
-
 describe('challengeListing.getAllActiveChallengesDone without token', () => {
   global.fetch = mockFetch(true, {
     result: {

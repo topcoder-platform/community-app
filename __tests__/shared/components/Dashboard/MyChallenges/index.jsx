@@ -59,8 +59,8 @@ describe('handler clicks', () => {
   });
 
   test('select group', () => {
-    const groups = TU.findAllInRenderedTree(view, item => item && item.className && item.className.match('row'));
+    const groups = TU.findAllInRenderedTree(view, item => item && item.className && item.className.match('ChallengeFilter'));
     TU.Simulate.click(groups[1]);
-    expect(view.state.selectedGroupId).toEqual('1');
+    expect(view.state.selectedCommunityId).toEqual('');
   });
 });

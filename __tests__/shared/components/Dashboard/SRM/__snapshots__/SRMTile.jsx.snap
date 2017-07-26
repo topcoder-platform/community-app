@@ -21,8 +21,8 @@ exports[`Matches shallow shapshot 1`] = `
       >
         Starts in 
         <span>
-          7
-                          months
+          1d
+                          1d
         </span>
       </p>
       <div
@@ -31,22 +31,22 @@ exports[`Matches shallow shapshot 1`] = `
         <span
           className="src-shared-components-Dashboard-SRM-___SRMTile__day___1Ls1h"
         >
-          01
+          31
         </span>
         <span
           className="src-shared-components-Dashboard-SRM-___SRMTile__month___l_ZXu"
         >
-          Jan
+          Dec
         </span>
         <span
           className="src-shared-components-Dashboard-SRM-___SRMTile__hour___1BSyv"
         >
-          12:00 am
+          08:00 am
         </span>
         <span
           className="src-shared-components-Dashboard-SRM-___SRMTile__time-zone___1PwD_"
         >
-          CET
+          EET
         </span>
       </div>
     </div>
@@ -84,8 +84,8 @@ exports[`Matches shallow shapshot 2`] = `
       >
         Starts in 
         <span>
-          7
-                          months
+          1d
+                          1d
         </span>
       </p>
       <div
@@ -94,22 +94,22 @@ exports[`Matches shallow shapshot 2`] = `
         <span
           className="src-shared-components-Dashboard-SRM-___SRMTile__day___1Ls1h"
         >
-          01
+          31
         </span>
         <span
           className="src-shared-components-Dashboard-SRM-___SRMTile__month___l_ZXu"
         >
-          Jan
+          Dec
         </span>
         <span
           className="src-shared-components-Dashboard-SRM-___SRMTile__hour___1BSyv"
         >
-          12:00 am
+          08:00 am
         </span>
         <span
           className="src-shared-components-Dashboard-SRM-___SRMTile__time-zone___1PwD_"
         >
-          CET
+          EET
         </span>
       </div>
     </div>

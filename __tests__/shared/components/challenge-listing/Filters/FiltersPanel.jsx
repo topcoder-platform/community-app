@@ -11,7 +11,12 @@ const setSearchText = jest.fn();
 const onClose = jest.fn();
 
 const mockDatas = [{
-  communityFilters: [{}],
+  communityFilters: [
+    {
+      communityId: '123',
+      communityName: 'Sample community',
+    },
+  ],
   filterState: {},
   hidden: true,
   onSaveFilter,
@@ -23,7 +28,12 @@ const mockDatas = [{
   validSubtracks: ['sub', 'track'],
   onClose,
 }, {
-  communityFilters: [{}],
+  communityFilters: [
+    {
+      communityId: '123',
+      communityName: 'Sample community',
+    },
+  ],
   filterState: {},
   hidden: false,
   onSaveFilter,
@@ -67,4 +77,3 @@ test('handle events', () => {
   TU.Simulate.click(matches[1]);
   expect(onSaveFilter).toHaveBeenCalledTimes(1);
 });
-

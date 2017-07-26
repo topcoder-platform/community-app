@@ -4,6 +4,15 @@ import moment from 'moment';
 import Renderer from 'react-test-renderer/shallow';
 import TU from 'react-dom/test-utils';
 import ChallengeFilters from 'components/challenge-listing/Filters/ChallengeFilters';
+import MockDate from 'mockdate';
+
+beforeAll(() => {
+  MockDate.set(1500262917951, 160);
+});
+
+afterAll(() => {
+  MockDate.reset();
+});
 
 const saveFilter = jest.fn();
 const selectCommunity = jest.fn();
@@ -37,7 +46,7 @@ const mockDatas = [{
   communityFilters: [{ filter: {} }],
   communityName: 'name',
   expanded: false,
-  filterState: { tags: ['abc'], subtracks: ['CODE'], endDate: moment('2020-01-01'), startDate: moment('2020-01-01'), tracks: ['tracks'] },
+  filterState: { tags: ['abc'], subtracks: ['CODE'], endDate: moment('2019-12-31T23:00:00.000Z'), startDate: moment('2019-12-31T23:00:00.000Z'), tracks: ['tracks'] },
   isCardTypeSet: 'Challenges',
   saveFilter,
   selectCommunity,
@@ -111,4 +120,3 @@ describe('handle events', () => {
     });
   });
 });
-

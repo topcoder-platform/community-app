@@ -37,7 +37,7 @@ exports[`Matches shallow shapshot 1`] = `
             </div>
             <a
               className="tc-btn tc-btn-s tc-btn-ghost tc-btn-wide"
-              href="http://ios.topcoder-dev.com"
+              href="https://ios.topcoder-dev.com"
               title="topcoder iOS Member Program"
             >
               View Challenges
@@ -104,7 +104,7 @@ exports[`Matches shallow shapshot 2`] = `
           >
             <a
               className="src-shared-components-Dashboard-Program-___styles__learn-more___3Ticw"
-              href="http://ios.topcoder-dev.com"
+              href="https://ios.topcoder-dev.com"
             >
               Learn More
             </a>

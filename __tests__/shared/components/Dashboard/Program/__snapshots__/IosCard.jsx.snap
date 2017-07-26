@@ -48,7 +48,7 @@ exports[`Matches shallow shapshot 1`] = `
       </div>
       <a
         className="src-shared-components-Dashboard-Program-___IosCard__forum___68F-9"
-        href="http://apps.topcoder-dev.com/forums//?module=Category&categoryID=undefined"
+        href="https://apps.topcoder-dev.com/forums/?module=Category&categoryID=undefined"
       >
         <div
           className="src-shared-components-Dashboard-Program-___IosCard__forum-icon___3_Xe5"
@@ -130,7 +130,7 @@ exports[`Matches shallow shapshot 2`] = `
       </div>
       <a
         className="src-shared-components-Dashboard-Program-___IosCard__forum___68F-9"
-        href="http://apps.topcoder-dev.com/forums//?module=Category&categoryID=undefined"
+        href="https://apps.topcoder-dev.com/forums/?module=Category&categoryID=undefined"
       >
         <div
           className="src-shared-components-Dashboard-Program-___IosCard__forum-icon___3_Xe5"
@@ -187,7 +187,7 @@ exports[`Matches shallow shapshot 3`] = `
     <div>
       <a
         className="src-shared-components-Dashboard-Program-___IosCard__name___TOMHJ"
-        href="https://members.topcoder-dev.com/challenge-details/1/?type=undefined"
+        href="https://www.topcoder-dev.com/challenge-details/1/?type=undefined"
       >
         <span>
           name
@@ -205,7 +205,7 @@ exports[`Matches shallow shapshot 3`] = `
       >
         <a
           className="src-shared-components-Dashboard-Program-___IosCard__registrants___gN_NW"
-          href="https://members.topcoder-dev.com/challenge-details/1/?type=undefined#viewRegistrant"
+          href="https://www.topcoder-dev.com/challenge-details/1/?type=undefined#viewRegistrant"
         >
           <div
             className="src-shared-components-Dashboard-Program-___IosCard__registrants-icon___2PTVj"
@@ -214,7 +214,7 @@ exports[`Matches shallow shapshot 3`] = `
         </a>
         <a
           className="src-shared-components-Dashboard-Program-___IosCard__submissions___2AfFz"
-          href="https://members.topcoder-dev.com/challenge-details/1/?type=undefined#submissions"
+          href="https://www.topcoder-dev.com/challenge-details/1/?type=undefined#submissions"
         >
           <div
             className="src-shared-components-Dashboard-Program-___IosCard__submissions-icon___2xhE2"
@@ -224,7 +224,7 @@ exports[`Matches shallow shapshot 3`] = `
       </div>
       <a
         className="src-shared-components-Dashboard-Program-___IosCard__forum___68F-9"
-        href="http://apps.topcoder-dev.com/forums//?module=Category&categoryID=undefined"
+        href="https://apps.topcoder-dev.com/forums/?module=Category&categoryID=undefined"
       >
         <div
           className="src-shared-components-Dashboard-Program-___IosCard__forum-icon___3_Xe5"

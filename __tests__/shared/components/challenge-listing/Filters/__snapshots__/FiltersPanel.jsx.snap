@@ -70,8 +70,8 @@ exports[`Matches shallow shapshot 1`] = `
           options={
             Array [
               Object {
-                "label": undefined,
-                "value": undefined,
+                "label": "Sample community",
+                "value": "123",
               },
             ]
           }
@@ -207,8 +207,8 @@ exports[`Matches shallow shapshot 2`] = `
           options={
             Array [
               Object {
-                "label": undefined,
-                "value": undefined,
+                "label": "Sample community",
+                "value": "123",
               },
             ]
           }

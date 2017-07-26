@@ -83,10 +83,6 @@ let expectedState = {
   challengeSubtracks: [],
   challengeTags: [],
 
-  communityFilters: [{
-    id: '',
-    name: 'All',
-  }],
   filter: {},
 
   filterPanel: {
@@ -199,10 +195,6 @@ function testReducer(reducer) {
 
   test('properly handles getCommunityFilters', () => {
     state = reducer(state, mockActions.getCommunityFilters([])());
-    expectedState = {
-      ...expectedState,
-      communityFilters: [{ id: '', name: 'All' }],
-    };
     expect(state).toEqual(expectedState);
   });
 

@@ -239,4 +239,4 @@ test('Close mobile menu when mount', () => {
 });
 */
 
-test.skip('dummy test', () => {});
+test('dummy test', () => {});

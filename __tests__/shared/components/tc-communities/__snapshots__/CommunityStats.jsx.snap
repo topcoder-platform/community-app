@@ -2,13 +2,14 @@
 
 exports[`Snapshot match 1`] = `
 <ThemedSection
+  anchor={null}
   composeTheme="deeply"
   link={null}
   mapThemrProps={[Function]}
   theme={
     Object {
-      "container": "src-shared-components-tc-communities-GroupStats-___style__container___1W4kT",
-      "content": "src-shared-components-tc-communities-GroupStats-___style__content___A4OK1",
+      "container": "src-shared-components-tc-communities-CommunityStats-___style__container___3IKHh",
+      "content": "src-shared-components-tc-communities-CommunityStats-___style__content___ZqVgq",
     }
   }
   title={null}

@@ -97,7 +97,7 @@ exports[`Matches shallow shapshot shapshot 1 1`] = `
           ],
           "status": "ACTIVE",
           "subTrack": "CODE",
-          "submissionEndDate": "2020-01-01",
+          "submissionEndDate": "2019-12-31T23:00:00.000Z",
           "technologies": "Data Science",
           "track": "DEVELOP",
         }
@@ -495,7 +495,7 @@ exports[`Matches shallow shapshot shapshot 1 4`] = `
           "myChallenge": true,
           "status": "DRAFT",
           "subTrack": "CODE",
-          "submissionEndDate": "2020-01-01",
+          "submissionEndDate": "2019-12-31T23:00:00.000Z",
           "technologies": "Data Science",
           "track": "DEVELOP",
         }
@@ -611,7 +611,7 @@ exports[`Matches shallow shapshot shapshot 1 5`] = `
           "myChallenge": true,
           "status": "NO-DRAFT",
           "subTrack": "CODE",
-          "submissionEndDate": "2020-01-01",
+          "submissionEndDate": "2019-12-31T23:00:00.000Z",
           "technologies": "Data Science",
           "track": "DEVELOP",
         }

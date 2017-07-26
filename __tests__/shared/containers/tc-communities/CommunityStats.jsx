@@ -2,36 +2,7 @@ import { mount } from 'enzyme';
 import React from 'react';
 import configureStore from 'redux-mock-store';
 import sActions from 'actions/stats';
-import ConnectedGroupStats, { GroupStatsContainer as GroupStats } from 'containers/tc-communities/CommunityStats';
-
-describe('full render pure component', () => {
-  const initialProps = {
-    getGroupStats: jest.fn(),
-    groupId: '1',
-    stats: {},
-  };
-
-  let instance;
-
-  beforeEach(() => {
-    instance = mount(<GroupStats {...initialProps} />);
-  });
-
-  afterEach(() => {
-    jest.clearAllMocks();
-  });
-
-  test('componentDidMount', () => {
-    expect(initialProps.getGroupStats).toHaveBeenCalledTimes(1);
-  });
-
-  test('componentWillReceiveProps', () => {
-    instance.setProps({ groupId: '1' });
-    expect(initialProps.getGroupStats).toHaveBeenCalledTimes(1);
-    instance.setProps({ groupId: '2' });
-    expect(initialProps.getGroupStats).toHaveBeenCalledTimes(2);
-  });
-});
+import ConnectedCommunityStats from 'containers/tc-communities/CommunityStats';
 
 describe('full render connnected component and dispatch actions', () => {
   let originalFetch;
@@ -50,17 +21,31 @@ describe('full render connnected component and dispatch actions', () => {
   const initialState = {
     tcCommunities: {
       meta: {
-        challengeGroupId: '1',
+        communityId: '1',
       },
     },
+    icon: 'lorem',
     stats: {
-      groups: {
-        1: {},
+      communities: {
+        1: {
+          numChallenges: 1,
+          numMembers: 1,
+        },
       },
+    },
+    challengeListing: {
+      challenges: [
+        {
+          name: '',
+        },
+      ],
     },
     auth: {
-      tokenV3: 'tokenV3',
+      tokenV2: '',
+      user: {},
     },
+    getCommunityStats: jest.fn(),
+    getAllActiveChallenges: jest.fn(),
   };
 
   const mockStore = configureStore();
@@ -72,12 +57,11 @@ describe('full render connnected component and dispatch actions', () => {
       json: () => ({ result: { status: 200, metadata: {}, content: [] } }),
     });
     store = mockStore(initialState);
-    instance = mount(<ConnectedGroupStats store={store} />);
+    instance = mount(<ConnectedCommunityStats store={store} />);
   });
 
-  test('getGroupStats', () => {
+  test('getCommunityStats', () => {
     const actions = store.getActions();
-    expect(actions).toHaveLength(1);
-    expect(actions[0].type).toEqual(sActions.stats.getGroupStats.toString());
+    expect(actions[0].type).toEqual(sActions.stats.getCommunityStats.toString());
   });
 });

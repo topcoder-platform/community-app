@@ -10,6 +10,9 @@ jest.mock('utils/config', () => ({
     V2: 'API-URL-V2',
     V3: 'API-URL-V3',
   },
+  URL: {
+    BLOG: 'BLOG',
+  },
 }));
 
 let originalFetch;
