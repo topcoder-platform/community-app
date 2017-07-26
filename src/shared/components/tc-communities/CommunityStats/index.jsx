@@ -39,32 +39,30 @@ const LABELS = {
   work: 'Work',
 };
 
-export default function CommunityStats(props) {
-  const icons = [];
-  _.forIn(props.stats, (value, key) => {
-    if (props.filter !== null || props.filter[key]) {
-      const ICON = props.icons[key] || ICONS[key];
-      const LABEL = props.titles[key] || LABELS[key];
-      if (ICON && LABEL) {
-        icons.push((
-          <IconStat
-            icon={ICON}
-            key={key}
-            label={LABEL}
-            number={value}
-            theme={props.theme}
-          />
-        ));
-      }
+export default function CommunityStats({ stats, theme, icons, titles, filter }) {
+  const iconsToRender = [];
+  _.forIn(stats, (value, key) => {
+    if (!filter || filter[key]) {
+      const ICON = icons[key] || ICONS[key];
+      const LABEL = titles[key] || LABELS[key];
+      iconsToRender.push((
+        <IconStat
+          icon={ICON}
+          key={key}
+          label={LABEL}
+          number={value}
+          theme={theme}
+        />
+      ));
     }
   });
-  return icons.length ? (
+  return iconsToRender.length ? (
     <Section
       theme={{
         container: style.container,
         content: style.content,
       }}
-    >{icons}</Section>
+    >{iconsToRender}</Section>
   ) : null;
 }
 
@@ -73,10 +71,11 @@ CommunityStats.defaultProps = {
   theme: {},
   icons: {},
   titles: {},
-  filter: undefined,
+  filter: null,
 };
 
 const numberOrString = PT.oneOfType([PT.number, PT.string]);
+const iconOrPath = PT.oneOfType([PT.func, PT.string]);
 
 CommunityStats.propTypes = {
   stats: PT.shape({
@@ -86,7 +85,12 @@ CommunityStats.propTypes = {
     openPrizes: numberOrString,
   }),
   theme: PT.shape(),
-  icons: PT.shape(),
+  icons: PT.shape({
+    numChallenges: iconOrPath,
+    numMembers: iconOrPath,
+    numProjects: iconOrPath,
+    openPrizes: iconOrPath,
+  }),
   titles: PT.shape(),
   filter: PT.shape(),
 };

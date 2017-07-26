@@ -45,7 +45,7 @@ class CommunityStatsContainer extends React.Component {
         titles={this.props.titles}
         icons={this.props.icons}
         filter={this.props.filter}
-        />
+      />
     );
   }
 }
@@ -59,7 +59,7 @@ CommunityStatsContainer.defaultProps = {
   theme: {},
   titles: {},
   icons: {},
-  filter: {},
+  filter: null,
 };
 
 CommunityStatsContainer.propTypes = {
