@@ -32,6 +32,7 @@ const getTimeLeft = (date, currentPhase) => {
       text: FF_TIME_LEFT_MSG,
     };
   }
+
   const duration = moment.duration(moment(date).diff(moment()));
   const h = duration.hours();
   const d = duration.asDays();

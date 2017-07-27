@@ -1,0 +1,73 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Matches shallow shapshot 1`] = `
+<div
+  className="src-shared-components-Dashboard-MyChallenges-ChallengeLinks-___style__challenge-links___1fJfh src-shared-components-Dashboard-MyChallenges-ChallengeLinks-___style__list-view___2mV4T"
+>
+  <a
+    className="src-shared-components-Dashboard-MyChallenges-ChallengeLinks-___style__registrants___3kbDS"
+    href="https://www.topcoder-dev.com/challenge-details/undefined/?type=develop#viewRegistrant"
+  >
+    <div
+      className="src-shared-components-Dashboard-MyChallenges-ChallengeLinks-___style__icon___3IZGz src-shared-components-Dashboard-MyChallenges-ChallengeLinks-___style__registrants-icon___tm0l6"
+    />
+    <p />
+  </a>
+  <a
+    className="src-shared-components-Dashboard-MyChallenges-ChallengeLinks-___style__submissions___3TDly"
+    href="https://www.topcoder-dev.com/challenge-details/undefined/?type=develop#submissions"
+  >
+    <div
+      className="src-shared-components-Dashboard-MyChallenges-ChallengeLinks-___style__icon___3IZGz src-shared-components-Dashboard-MyChallenges-ChallengeLinks-___style__submissions-icon___3MZ-_"
+    />
+    <p />
+  </a>
+  <a
+    className="src-shared-components-Dashboard-MyChallenges-ChallengeLinks-___style__forum___TQDgX"
+    href="https://apps.topcoder-dev.com/forums/?module=Category&categoryID=undefined"
+  >
+    <div
+      className="src-shared-components-Dashboard-MyChallenges-ChallengeLinks-___style__icon___3IZGz src-shared-components-Dashboard-MyChallenges-ChallengeLinks-___style__forum-icon___b72Li"
+    />
+    <p>
+      Posts
+    </p>
+  </a>
+</div>
+`;
+
+exports[`Matches shallow shapshot 2`] = `
+<div
+  className="src-shared-components-Dashboard-MyChallenges-ChallengeLinks-___style__challenge-links___1fJfh src-shared-components-Dashboard-MyChallenges-ChallengeLinks-___style__list-view___2mV4T"
+>
+  <a
+    className="src-shared-components-Dashboard-MyChallenges-ChallengeLinks-___style__registrants___3kbDS"
+    href="https://community.topcoder-dev.com/longcontest/?module=ViewRegistrants&rd=undefined"
+  >
+    <div
+      className="src-shared-components-Dashboard-MyChallenges-ChallengeLinks-___style__icon___3IZGz src-shared-components-Dashboard-MyChallenges-ChallengeLinks-___style__registrants-icon___tm0l6"
+    />
+    <p />
+  </a>
+  <a
+    className="src-shared-components-Dashboard-MyChallenges-ChallengeLinks-___style__submissions___3TDly"
+    href=""
+  >
+    <div
+      className="src-shared-components-Dashboard-MyChallenges-ChallengeLinks-___style__icon___3IZGz src-shared-components-Dashboard-MyChallenges-ChallengeLinks-___style__submissions-icon___3MZ-_"
+    />
+    <p />
+  </a>
+  <a
+    className="src-shared-components-Dashboard-MyChallenges-ChallengeLinks-___style__forum___TQDgX"
+    href="https://apps.topcoder-dev.com/forums/?module=ThreadList&forumID=undefined"
+  >
+    <div
+      className="src-shared-components-Dashboard-MyChallenges-ChallengeLinks-___style__icon___3IZGz src-shared-components-Dashboard-MyChallenges-ChallengeLinks-___style__forum-icon___b72Li"
+    />
+    <p>
+      Posts
+    </p>
+  </a>
+</div>
+`;

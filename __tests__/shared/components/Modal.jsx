@@ -31,3 +31,12 @@ test('onCancel', () => {
   TU.Simulate.click(obj);
   expect(mockOnCancel).toHaveBeenCalled();
 });
+
+test('onWheel', () => {
+  const container = TU.findAllInRenderedTree(render, item =>
+    item && item.className && item.className.match('modal-container'))[0];
+  TU.Simulate.wheel(container);
+  const overlay = TU.findAllInRenderedTree(render, item =>
+    item && item.className && item.className.match('bg-overlay'))[0];
+  TU.Simulate.wheel(overlay);
+});

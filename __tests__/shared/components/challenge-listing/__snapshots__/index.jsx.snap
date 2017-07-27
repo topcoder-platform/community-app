@@ -1,0 +1,225 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Matches shallow shapshot 1 shapshot 1 1`] = `
+<div
+  className="src-shared-components-challenge-listing-___style__ChallengeFiltersExample___3IjeI"
+>
+  <Connect(Container)
+    communityName={null}
+    groupId=""
+    isCardTypeSet="Challenges"
+    setCardType={[Function]}
+  />
+  <div
+    className="src-shared-components-challenge-listing-___style__tc-content-wrapper___1MqlF src-shared-components-challenge-listing-___style__hidden___4C3Up"
+  >
+    <div
+      className="src-shared-components-challenge-listing-___style__sidebar-container-mobile___3e65d"
+    />
+    <div
+      className="src-shared-components-challenge-listing-___style__challenges-container___1invl src-shared-components-challenge-listing-___style__SRMs-container___1Kmjf"
+    >
+      <div>
+        <SRMCard
+          category="now"
+        />
+      </div>
+      <div>
+        <div
+          className="src-shared-components-challenge-listing-___style__title___2KPNT"
+        >
+          Upcoming SRMs
+        </div>
+      </div>
+      <div>
+        <div
+          className="src-shared-components-challenge-listing-___style__title___2KPNT"
+        >
+          Past SRMs
+        </div>
+        <SRMCard
+          category="past"
+        />
+      </div>
+    </div>
+    <div
+      className="src-shared-components-challenge-listing-___style__sidebar-container-desktop___h0bz6"
+    >
+      <Sticky
+        activeClass="active"
+        bottomBoundary={0}
+        enableTransforms={true}
+        enabled={true}
+        onStateChange={null}
+        releasedClass="released"
+        shouldFreeze={[Function]}
+        top={20}
+      />
+    </div>
+  </div>
+  <div
+    className="src-shared-components-challenge-listing-___style__tc-content-wrapper___1MqlF"
+  >
+    <div
+      className="src-shared-components-challenge-listing-___style__sidebar-container-mobile___3e65d"
+    >
+      <Connect(SidebarContainer) />
+    </div>
+    <Listing
+      activeBucket="abc"
+      auth={Object {}}
+      challenges={Array []}
+      currentFilterName=""
+      expanded={false}
+      groupId=""
+      loadMoreDraft={null}
+      loadMorePast={null}
+      loadingDraftChallenges={false}
+      loadingPastChallenges={false}
+      onExpandFilterResult={[Function]}
+      onTechTagClicked={[Function]}
+      selectBucket={[Function]}
+      setFilterState={[Function]}
+      setSort={[Function]}
+      sorts={Object {}}
+    />
+    <div
+      className="src-shared-components-challenge-listing-___style__sidebar-container-desktop___h0bz6"
+    >
+      <Sticky
+        activeClass="active"
+        bottomBoundary={0}
+        enableTransforms={true}
+        enabled={true}
+        onStateChange={null}
+        releasedClass="released"
+        shouldFreeze={[Function]}
+        top={20}
+      >
+        <Connect(SidebarContainer)
+          hideTcLinksInFooter={false}
+        />
+      </Sticky>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Matches shallow shapshot 2 shapshot 2 1`] = `
+<div
+  className="src-shared-components-challenge-listing-___style__ChallengeFiltersExample___3IjeI"
+>
+  <Connect(Container)
+    communityName={null}
+    groupId=""
+    isCardTypeSet="Challenges"
+    setCardType={[Function]}
+  />
+  <div
+    className="src-shared-components-challenge-listing-___style__tc-content-wrapper___1MqlF src-shared-components-challenge-listing-___style__hidden___4C3Up"
+  >
+    <div
+      className="src-shared-components-challenge-listing-___style__sidebar-container-mobile___3e65d"
+    />
+    <div
+      className="src-shared-components-challenge-listing-___style__challenges-container___1invl src-shared-components-challenge-listing-___style__SRMs-container___1Kmjf"
+    >
+      <div>
+        <SRMCard
+          category="now"
+        />
+      </div>
+      <div>
+        <div
+          className="src-shared-components-challenge-listing-___style__title___2KPNT"
+        >
+          Upcoming SRMs
+        </div>
+      </div>
+      <div>
+        <div
+          className="src-shared-components-challenge-listing-___style__title___2KPNT"
+        >
+          Past SRMs
+        </div>
+        <SRMCard
+          category="past"
+        />
+      </div>
+    </div>
+    <div
+      className="src-shared-components-challenge-listing-___style__sidebar-container-desktop___h0bz6"
+    >
+      <Sticky
+        activeClass="active"
+        bottomBoundary={0}
+        enableTransforms={true}
+        enabled={true}
+        onStateChange={null}
+        releasedClass="released"
+        shouldFreeze={[Function]}
+        top={20}
+      />
+    </div>
+  </div>
+  <div
+    className="src-shared-components-challenge-listing-___style__tc-content-wrapper___1MqlF"
+  >
+    <div
+      className="src-shared-components-challenge-listing-___style__sidebar-container-mobile___3e65d"
+    >
+      <Connect(SidebarContainer) />
+    </div>
+    <div
+      className="src-shared-components-challenge-listing-___style__challenge-cards-container___37tl8"
+    >
+      <div
+        className="src-shared-components-challenge-listing-___style__ChallengeCardExamples___EHRPE"
+      >
+        <ChallengeCardPlaceholder
+          id={0}
+        />
+        <ChallengeCardPlaceholder
+          id={1}
+        />
+        <ChallengeCardPlaceholder
+          id={2}
+        />
+        <ChallengeCardPlaceholder
+          id={3}
+        />
+        <ChallengeCardPlaceholder
+          id={4}
+        />
+        <ChallengeCardPlaceholder
+          id={5}
+        />
+        <ChallengeCardPlaceholder
+          id={6}
+        />
+        <ChallengeCardPlaceholder
+          id={7}
+        />
+      </div>
+    </div>
+    <div
+      className="src-shared-components-challenge-listing-___style__sidebar-container-desktop___h0bz6"
+    >
+      <Sticky
+        activeClass="active"
+        bottomBoundary={0}
+        enableTransforms={true}
+        enabled={true}
+        onStateChange={null}
+        releasedClass="released"
+        shouldFreeze={[Function]}
+        top={20}
+      >
+        <Connect(SidebarContainer)
+          hideTcLinksInFooter={false}
+        />
+      </Sticky>
+    </div>
+  </div>
+</div>
+`;

@@ -57,7 +57,7 @@ export default function Bucket({
   const placeholders = [];
   if (loading) {
     for (let i = 0; i < 8; i += 1) {
-      placeholders.push(<CardPlaceholder key={i} />);
+      placeholders.push(<CardPlaceholder id={i} key={i} />);
     }
   }
 

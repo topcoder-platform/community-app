@@ -1,19 +1,51 @@
+import mockStore from 'redux-mock-store';
 import React from 'react';
-import Rnd from 'react-test-renderer/shallow';
+import PT from 'prop-types';
+import _ from 'lodash';
+import TU from 'react-dom/test-utils';
+import { Provider } from 'react-redux';
 import Section from 'components/tc-communities/Section';
 
-const rnd = new Rnd();
+const store = mockStore()();
 
-test('Snapshot match', () => {
-  rnd.render((
-    <Section>
-      <div>content</div>
-    </Section>
+class Wrapper extends React.Component {
+  getChildContext() {
+    return {
+      router: {
+        history: {
+          createHref: _.noop,
+          push: _.noop,
+          replace: _.noop,
+        },
+      },
+    };
+  }
+  componentDidMount() {}
+
+  render() {
+    return (
+      <Provider store={store}>
+        <Section {...this.props}>
+          <div>content</div>
+        </Section>
+      </Provider>
+    );
+  }
+}
+
+Wrapper.childContextTypes = {
+  router: PT.shape({
+    history: PT.shape({}),
+  }),
+};
+
+test('Render properly', () => {
+  TU.renderIntoDocument((
+    <Wrapper />
   ));
-  expect(rnd.getRenderOutput()).toMatchSnapshot();
 
-  rnd.render((
-    <Section
+  TU.renderIntoDocument((
+    <Wrapper
       title="Section title"
       link={{
         title: 'link',
@@ -26,9 +58,6 @@ test('Snapshot match', () => {
         linkWrap: 'linkWrap',
         link: 'link',
       }}
-    >
-      <div>content</div>
-    </Section>
+    />
   ));
-  expect(rnd.getRenderOutput()).toMatchSnapshot();
 });

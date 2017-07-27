@@ -1,0 +1,37 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Matches shallow shapshot 1`] = `
+<div
+  className="src-shared-components-tc-communities-AccessDenied-___style__access-denied___T1_sq"
+>
+  <TopcoderLogo />
+  <div
+    className="src-shared-components-tc-communities-AccessDenied-___style__msg___33_hS"
+  >
+    You must be authenticated to access this page.
+  </div>
+  <div
+    className="src-shared-components-tc-communities-AccessDenied-___style__msg___33_hS"
+  >
+    <a
+      className="tc-btn-md tc-btn-primary"
+      href="https://accounts.topcoder-dev.com/member?retUrl=null%2F"
+    >
+      Log In Here
+    </a>
+  </div>
+</div>
+`;
+
+exports[`Matches shallow shapshot 2`] = `
+<div
+  className="src-shared-components-tc-communities-AccessDenied-___style__access-denied___T1_sq"
+>
+  <TopcoderLogo />
+  <div
+    className="src-shared-components-tc-communities-AccessDenied-___style__msg___33_hS"
+  >
+    You are not authorized to access this page.
+  </div>
+</div>
+`;

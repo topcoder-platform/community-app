@@ -1,0 +1,91 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Matches shallow shapshot 1`] = `
+<Tooltip
+  align={
+    Object {
+      "offset": Array [
+        0,
+        -15,
+      ],
+    }
+  }
+  className="progress-bar-tooltip"
+  content={
+    <Tip
+      challenge={Object {}}
+      isLoaded={true}
+    />
+  }
+  defaultVisible={false}
+  onTooltipHover={[Function]}
+  placeArrow={[Function]}
+  position="top"
+>
+  <div
+    className="mock-class"
+  >
+    abcedfghik
+  </div>
+</Tooltip>
+`;
+
+exports[`Matches shallow shapshot 2`] = `
+<Tooltip
+  align={
+    Object {
+      "offset": Array [
+        0,
+        -15,
+      ],
+    }
+  }
+  className="progress-bar-tooltip"
+  content={
+    <Tip
+      challenge={Object {}}
+      isLoaded={true}
+    />
+  }
+  defaultVisible={false}
+  onTooltipHover={[Function]}
+  placeArrow={[Function]}
+  position="top"
+>
+  <div
+    className="mock-class"
+  >
+    abcedfghik
+  </div>
+</Tooltip>
+`;
+
+exports[`Matches shallow shapshot 3`] = `
+<Tooltip
+  align={
+    Object {
+      "offset": Array [
+        0,
+        -15,
+      ],
+    }
+  }
+  className="progress-bar-tooltip"
+  content={
+    <Tip
+      challenge={Object {}}
+      isLoaded={true}
+    />
+  }
+  defaultVisible={false}
+  onTooltipHover={[Function]}
+  placeArrow={[Function]}
+  position="top"
+>
+  <div
+    className="mock-class"
+  >
+    abcedfghik
+  </div>
+</Tooltip>
+`;

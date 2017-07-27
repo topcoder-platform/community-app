@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Matches shallow shapshot 1`] = `
+<div
+  className="LoaderExamples flex column middle center"
+>
+  <h1>
+    Default
+  </h1>
+  <Loader
+    type=""
+  />
+</div>
+`;

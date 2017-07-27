@@ -1,39 +1,16 @@
 import React from 'react';
-import Rnd from 'react-test-renderer/shallow';
+import Renderer from 'react-test-renderer/shallow';
 import ImageText from 'components/tc-communities/ImageText';
 
-const rnd = new Rnd();
+test('Matches shallow snapshot', () => {
+  const renderer = new Renderer();
 
-test('Snapshot match', () => {
-  rnd.render((
+  renderer.render((
     <ImageText
       title="Learn"
       text="You can learn and get certified donec facilisis tortor ut augue lacinia"
       imageSrc="/themes/wipro/home/image-text-learn.jpg"
     />
   ));
-  expect(rnd.getRenderOutput()).toMatchSnapshot();
-
-  rnd.render((
-    <ImageText
-      title="Learn"
-      text="You can learn and get certified donec facilisis tortor ut augue lacinia"
-      link={{
-        title: 'Start Learning',
-        url: '#',
-      }}
-      imageSrc="/themes/wipro/home/image-text-learn.jpg"
-      theme={{
-        container: 'container',
-        image: 'image',
-        content: 'content',
-        contentInner: 'contentInner',
-        title: 'title',
-        text: 'text',
-        linkWrap: 'linkWrap',
-        link: 'link',
-      }}
-    />
-  ));
-  expect(rnd.getRenderOutput()).toMatchSnapshot();
+  expect(renderer.getRenderOutput()).toMatchSnapshot();
 });

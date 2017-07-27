@@ -1,0 +1,16 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Matches shallow shapshot 1`] = `
+<a
+  className="src-shared-components-Handle-___styles__handle___VGZkd"
+  href=""
+  style={
+    Object {
+      "color": "#9D9FA0",
+      "fontSize": "24px",
+    }
+  }
+>
+  abc
+</a>
+`;

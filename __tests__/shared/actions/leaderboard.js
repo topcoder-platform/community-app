@@ -13,7 +13,7 @@ afterAll(() => {
   global.fetch = originalFetch;
 });
 
-describe('challenge.fetchLeaderboardInit', () => {
+describe('leaderboard.fetchLeaderboardInit', () => {
   const a = actions.leaderboard.fetchLeaderboardInit();
 
   test('has expected type', () => {
@@ -24,10 +24,37 @@ describe('challenge.fetchLeaderboardInit', () => {
     expect(a.payload).toBeUndefined());
 });
 
-describe('challenge.fetchLeaderboardDone', () => {
+describe('leaderboard.fetchLeaderboardDone', () => {
   global.fetch = mockFetch([{ 'user.handle': 'fake.username' }]);
 
   const a = actions.leaderboard.fetchLeaderboardDone({}, '');
+
+  test('has expected type', () => {
+    expect(a.type).toBe('LEADERBOARD/FETCH_LEADERBOARD_DONE');
+  });
+
+  test('payload is a promise which resolves to the expected object', () =>
+    a.payload.then(res => expect(res.data[0]['user.handle']).toEqual('fake.username')));
+});
+
+describe('leaderboard.fetchLeaderboardDone with token', () => {
+  global.fetch = mockFetch([{ 'user.handle': 'fake.username' }]);
+
+  const a = actions.leaderboard.fetchLeaderboardDone({ tokenV3: 'token' }, '');
+
+  test('has expected type', () => {
+    expect(a.type).toBe('LEADERBOARD/FETCH_LEADERBOARD_DONE');
+  });
+
+  test('payload is a promise which resolves to the expected object', () =>
+    a.payload.then(res => expect(res.data[0]['user.handle']).toEqual('fake.username')));
+});
+
+
+describe('leaderboard.fetchLeaderboardDone with mocky', () => {
+  global.fetch = mockFetch([{ 'user.handle': 'fake.username' }]);
+
+  const a = actions.leaderboard.fetchLeaderboardDone({}, 'http://www.mocky.io');
 
   test('has expected type', () => {
     expect(a.type).toBe('LEADERBOARD/FETCH_LEADERBOARD_DONE');

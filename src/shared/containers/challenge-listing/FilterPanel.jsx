@@ -17,7 +17,7 @@ import { connect } from 'react-redux';
  * names unique. */
 const DEFAULT_SAVED_FILTER_NAME = 'My Filter';
 
-class Container extends React.Component {
+export class Container extends React.Component {
 
   componentDidMount() {
     if (!this.props.loadingSubtracks) this.props.getSubtracks();

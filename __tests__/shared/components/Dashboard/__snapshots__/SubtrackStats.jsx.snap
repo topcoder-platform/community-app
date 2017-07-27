@@ -1,0 +1,161 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Matches shallow shapshot 1`] = `
+<div
+  className="src-shared-components-Dashboard-SubtrackStats-___styles__subtrack-stats___2XEE_"
+>
+  <div
+    className="src-shared-components-Dashboard-SubtrackStats-___styles__ratings___2pnzh"
+  >
+    <div
+      className="src-shared-components-Dashboard-SubtrackStats-___styles__tracks___2UnlG"
+    >
+      <div
+        className="src-shared-components-Dashboard-SubtrackStats-___styles__slide-wrapper___1xP_x"
+      >
+        <a
+          className="src-shared-components-Dashboard-SubtrackStats-___styles__track___1MS06"
+          href="https://www.topcoder-dev.com/members/handle/details/?track=DEVELOP&subTrack=undefined"
+        >
+          <div
+            className="src-shared-components-Dashboard-SubtrackStats-___styles__flex-wrapper___1JpvN"
+          >
+            <p
+              className="src-shared-components-Dashboard-SubtrackStats-___styles__subtrack___2TXRB"
+              title=""
+            />
+            <p
+              className="src-shared-components-Dashboard-SubtrackStats-___styles__rating___9uUVx"
+              style={
+                Object {
+                  "color": "#69C329",
+                }
+              }
+            >
+              1000
+              <span
+                style={
+                  Object {
+                    "backgroundColor": "#69C329",
+                  }
+                }
+              />
+            </p>
+            <p />
+          </div>
+        </a>
+        <a
+          className="src-shared-components-Dashboard-SubtrackStats-___styles__track___1MS06"
+          href="https://www.topcoder-dev.com/members/handle/details/?track=DESIGN&subTrack=undefined"
+        >
+          <div
+            className="src-shared-components-Dashboard-SubtrackStats-___styles__flex-wrapper___1JpvN"
+          >
+            <p
+              className="src-shared-components-Dashboard-SubtrackStats-___styles__subtrack___2TXRB"
+              title=""
+            />
+            <p
+              className="src-shared-components-Dashboard-SubtrackStats-___styles__rating___9uUVx"
+              style={
+                Object {
+                  "color": "#21B2F1",
+                }
+              }
+            >
+              1000
+            </p>
+            <p />
+          </div>
+        </a>
+      </div>
+    </div>
+    <div
+      className="src-shared-components-Dashboard-SubtrackStats-___styles__responsive-carousel___3atTT"
+    >
+      <Slider
+        centerMode={true}
+        dots={false}
+        infinite={false}
+        nextArrow={
+          <NavButton
+            currentSlide={null}
+            slideCount={null}
+          />
+        }
+        prevArrow={
+          <NavButton
+            currentSlide={null}
+            slideCount={null}
+          />
+        }
+        slidesToScroll={1}
+        slidesToShow={1}
+        speed={500}
+      >
+        <div>
+          <div
+            className="src-shared-components-Dashboard-SubtrackStats-___styles__slide-wrapper___1xP_x"
+          >
+            <a
+              className="src-shared-components-Dashboard-SubtrackStats-___styles__track___1MS06"
+              href="https://www.topcoder-dev.com/members/handle/details/?track=DEVELOP&subTrack=undefined"
+            >
+              <div
+                className="src-shared-components-Dashboard-SubtrackStats-___styles__flex-wrapper___1JpvN"
+              >
+                <p
+                  className="src-shared-components-Dashboard-SubtrackStats-___styles__subtrack___2TXRB"
+                  title=""
+                />
+                <p
+                  className="src-shared-components-Dashboard-SubtrackStats-___styles__rating___9uUVx"
+                  style={
+                    Object {
+                      "color": "#69C329",
+                    }
+                  }
+                >
+                  1000
+                  <span
+                    style={
+                      Object {
+                        "backgroundColor": "#69C329",
+                      }
+                    }
+                  />
+                </p>
+                <p />
+              </div>
+            </a>
+            <a
+              className="src-shared-components-Dashboard-SubtrackStats-___styles__track___1MS06"
+              href="https://www.topcoder-dev.com/members/handle/details/?track=DESIGN&subTrack=undefined"
+            >
+              <div
+                className="src-shared-components-Dashboard-SubtrackStats-___styles__flex-wrapper___1JpvN"
+              >
+                <p
+                  className="src-shared-components-Dashboard-SubtrackStats-___styles__subtrack___2TXRB"
+                  title=""
+                />
+                <p
+                  className="src-shared-components-Dashboard-SubtrackStats-___styles__rating___9uUVx"
+                  style={
+                    Object {
+                      "color": "#21B2F1",
+                    }
+                  }
+                >
+                  1000
+                </p>
+                <p />
+              </div>
+            </a>
+          </div>
+        </div>
+      </Slider>
+    </div>
+  </div>
+</div>
+`;

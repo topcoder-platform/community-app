@@ -15,7 +15,7 @@ function ImageText(props) {
   let links;
   if (link) {
     links = (_.isArray(link) ? link : [link]).map(item => (
-      <div className={theme.linkWrap}>
+      <div className={theme.linkWrap} key={item.title}>
         <Link
           className={theme.link}
           openExternalLinkInNewPage={item.newTab}

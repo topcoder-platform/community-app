@@ -1,0 +1,275 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Matches shallow shapshot 1`] = `
+<div
+  className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__FiltersPanel___1XPn6 src-shared-components-challenge-listing-Filters-FiltersPanel-___style__hidden___JoKmL"
+>
+  <div
+    className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__header___dbqVu"
+  >
+    <span
+      className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__title___n4gdC"
+    >
+      Filters
+    </span>
+    <span
+      className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__close-icon___2EeEO"
+      onClick={[Function]}
+    >
+      <UiSimpleRemove
+        className="cross"
+      />
+    </span>
+  </div>
+  <div
+    className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__filters___3um3W src-shared-components-challenge-listing-Filters-FiltersPanel-___style__inGroup___3zhaT"
+  >
+    <div
+      className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__filter-row___2Vfd_"
+    >
+      <div
+        className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__filter___1-QUz src-shared-components-challenge-listing-Filters-FiltersPanel-___style__keywords___3Os3o"
+      >
+        <label
+          className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__left-label___15kRu"
+          htmlFor="keyword-select"
+        >
+          Keywords
+        </label>
+        <Select
+          id="keyword-select"
+          multi={true}
+          onChange={[Function]}
+          options={
+            Array [
+              Object {
+                "label": "key",
+                "value": "key",
+              },
+              Object {
+                "label": "word",
+                "value": "word",
+              },
+            ]
+          }
+          simpleValue={true}
+          value={null}
+        />
+      </div>
+      <div
+        className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__filter___1-QUz src-shared-components-challenge-listing-Filters-FiltersPanel-___style__community___3EFG7"
+      >
+        <label
+          htmlFor="community-select"
+        >
+          Sub community
+        </label>
+        <Select
+          id="community-select"
+          onChange={[Function]}
+          options={
+            Array [
+              Object {
+                "label": "Sample community",
+                "value": "123",
+              },
+            ]
+          }
+          simpleValue={true}
+          value="1"
+        />
+      </div>
+    </div>
+    <div
+      className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__filter-row___2Vfd_"
+    >
+      <div
+        className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__filter___1-QUz src-shared-components-challenge-listing-Filters-FiltersPanel-___style__track___1_Z_F"
+      >
+        <label
+          className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__left-label___15kRu"
+          htmlFor="track-select"
+        >
+          Subtrack
+        </label>
+        <Select
+          id="track-select"
+          multi={true}
+          onChange={[Function]}
+          options={
+            Array [
+              Object {
+                "label": "sub",
+                "value": "sub",
+              },
+              Object {
+                "label": "track",
+                "value": "track",
+              },
+            ]
+          }
+          simpleValue={true}
+          value={null}
+        />
+      </div>
+      <div
+        className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__filter___1-QUz src-shared-components-challenge-listing-Filters-FiltersPanel-___style__dates___3kH3c"
+      >
+        <label
+          htmlFor="date-range-picker"
+        >
+          Date range
+        </label>
+        <DateRangePicker
+          endDate={undefined}
+          id="date-range-picker"
+          onDatesChange={[Function]}
+          startDate={undefined}
+        />
+      </div>
+    </div>
+  </div>
+  <div
+    className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__buttons___2r3xW"
+  >
+    <button
+      className="tc-outline-btn src-shared-components-challenge-listing-Filters-FiltersPanel-___style__white___AWGFv"
+      onClick={[Function]}
+    >
+      Clear filters
+    </button>
+    <button
+      className="tc-blue-btn src-shared-components-challenge-listing-Filters-FiltersPanel-___style__blue___3L4J6"
+      onClick={[Function]}
+    >
+      Save filter
+    </button>
+  </div>
+</div>
+`;
+
+exports[`Matches shallow shapshot 2`] = `
+<div
+  className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__FiltersPanel___1XPn6"
+>
+  <div
+    className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__header___dbqVu"
+  >
+    <span
+      className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__title___n4gdC"
+    >
+      Filters
+    </span>
+    <span
+      className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__close-icon___2EeEO"
+      onClick={[Function]}
+    >
+      <UiSimpleRemove
+        className="cross"
+      />
+    </span>
+  </div>
+  <div
+    className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__filters___3um3W src-shared-components-challenge-listing-Filters-FiltersPanel-___style__inGroup___3zhaT"
+  >
+    <div
+      className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__filter-row___2Vfd_"
+    >
+      <div
+        className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__filter___1-QUz src-shared-components-challenge-listing-Filters-FiltersPanel-___style__keywords___3Os3o"
+      >
+        <label
+          className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__left-label___15kRu"
+          htmlFor="keyword-select"
+        >
+          Keywords
+        </label>
+        <Select
+          id="keyword-select"
+          multi={true}
+          onChange={[Function]}
+          options={Array []}
+          simpleValue={true}
+          value={null}
+        />
+      </div>
+      <div
+        className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__filter___1-QUz src-shared-components-challenge-listing-Filters-FiltersPanel-___style__community___3EFG7"
+      >
+        <label
+          htmlFor="community-select"
+        >
+          Sub community
+        </label>
+        <Select
+          id="community-select"
+          onChange={[Function]}
+          options={
+            Array [
+              Object {
+                "label": "Sample community",
+                "value": "123",
+              },
+            ]
+          }
+          simpleValue={true}
+          value="1"
+        />
+      </div>
+    </div>
+    <div
+      className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__filter-row___2Vfd_"
+    >
+      <div
+        className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__filter___1-QUz src-shared-components-challenge-listing-Filters-FiltersPanel-___style__track___1_Z_F"
+      >
+        <label
+          className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__left-label___15kRu"
+          htmlFor="track-select"
+        >
+          Subtrack
+        </label>
+        <Select
+          id="track-select"
+          multi={true}
+          onChange={[Function]}
+          options={Array []}
+          simpleValue={true}
+          value={null}
+        />
+      </div>
+      <div
+        className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__filter___1-QUz src-shared-components-challenge-listing-Filters-FiltersPanel-___style__dates___3kH3c"
+      >
+        <label
+          htmlFor="date-range-picker"
+        >
+          Date range
+        </label>
+        <DateRangePicker
+          endDate={undefined}
+          id="date-range-picker"
+          onDatesChange={[Function]}
+          startDate={undefined}
+        />
+      </div>
+    </div>
+  </div>
+  <div
+    className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__buttons___2r3xW"
+  >
+    <button
+      className="tc-outline-btn src-shared-components-challenge-listing-Filters-FiltersPanel-___style__white___AWGFv"
+      onClick={[Function]}
+    >
+      Clear filters
+    </button>
+    <button
+      className="tc-blue-btn src-shared-components-challenge-listing-Filters-FiltersPanel-___style__blue___3L4J6"
+      onClick={[Function]}
+    >
+      Save filter
+    </button>
+  </div>
+</div>
+`;

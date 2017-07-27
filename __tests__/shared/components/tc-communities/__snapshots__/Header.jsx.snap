@@ -93,7 +93,7 @@ exports[`Snapshot match 1`] = `
     </div>
   </header>
   <SubMenu
-    closeMenu={undefined}
+    closeMenu={[Function]}
     currentSubMenuTitle=""
     menu={null}
     trigger={null}
@@ -245,7 +245,7 @@ exports[`Snapshot match 2`] = `
     </div>
   </header>
   <SubMenu
-    closeMenu={undefined}
+    closeMenu={[Function]}
     currentSubMenuTitle=""
     menu={null}
     trigger={null}

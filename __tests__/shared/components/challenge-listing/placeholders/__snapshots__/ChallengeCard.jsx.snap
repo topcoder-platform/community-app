@@ -1,0 +1,46 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Matches shallow shapshot 1`] = `
+<div
+  className="src-shared-components-challenge-listing-ChallengeCard-___style__challengeCard___1TmHF src-shared-components-challenge-listing-ChallengeCard-___style__placeholder___1iCHM"
+>
+  <div
+    className="src-shared-components-challenge-listing-ChallengeCard-___style__left-panel___1u9jz"
+  >
+    <div
+      className="src-shared-components-challenge-listing-ChallengeCard-___style__challenge-track___3L9Ng src-shared-components-challenge-listing-ChallengeCard-___style__placeholder-template___1kci1"
+    />
+    <div
+      className="src-shared-components-challenge-listing-ChallengeCard-___style__challenge-details___1wy0w"
+    >
+      <div
+        className="src-shared-components-challenge-listing-ChallengeCard-___style__challenge-title___vir_2 src-shared-components-challenge-listing-ChallengeCard-___style__placeholder-template___1kci1"
+      />
+      <div
+        className="src-shared-components-challenge-listing-ChallengeCard-___style__details-footer___3zNR- src-shared-components-challenge-listing-ChallengeCard-___style__placeholder-template___1kci1"
+      />
+    </div>
+  </div>
+  <div
+    className="src-shared-components-challenge-listing-ChallengeCard-___style__right-panel___3kYYO"
+  >
+    <div
+      className="src-shared-components-challenge-listing-ChallengeCard-___style__prizes___3Ms6o src-shared-components-challenge-listing-ChallengeCard-___style__placeholder-template___1kci1"
+    />
+    <div
+      className="src-shared-components-challenge-listing-ChallengeCard-___style__challenge-status___1-f7s"
+    >
+      <div
+        className="src-shared-components-challenge-listing-ChallengeCard-___style__progress-container___crSft src-shared-components-challenge-listing-ChallengeCard-___style__placeholder-template___1kci1"
+      />
+      <div
+        className="src-shared-components-challenge-listing-ChallengeCard-___style__challenge-stats-container___3N8yF"
+      >
+        <div
+          className="src-shared-components-challenge-listing-ChallengeCard-___style__challenge-stats___25uRg src-shared-components-challenge-listing-ChallengeCard-___style__placeholder-template___1kci1"
+        />
+      </div>
+    </div>
+  </div>
+</div>
+`;

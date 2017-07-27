@@ -1,0 +1,52 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Snapshot match 1`] = `
+<ThemedSection
+  anchor={null}
+  composeTheme="deeply"
+  link={null}
+  mapThemrProps={[Function]}
+  theme={
+    Object {
+      "container": "src-shared-components-tc-communities-CommunityStats-___style__container___3IKHh",
+      "content": "src-shared-components-tc-communities-CommunityStats-___style__content___ZqVgq",
+    }
+  }
+  title={null}
+>
+  <ThemedIconStat
+    composeTheme="deeply"
+    icon={[Function]}
+    label="Challenges"
+    mapThemrProps={[Function]}
+    number={10}
+    theme={Object {}}
+  />
+  <ThemedIconStat
+    composeTheme="deeply"
+    icon={[Function]}
+    label="Members"
+    mapThemrProps={[Function]}
+    number={20}
+    theme={Object {}}
+  />
+  <ThemedIconStat
+    composeTheme="deeply"
+    icon={[Function]}
+    label="Projects"
+    mapThemrProps={[Function]}
+    number={30}
+    theme={Object {}}
+  />
+  <ThemedIconStat
+    composeTheme="deeply"
+    icon={[Function]}
+    label="Prizes"
+    mapThemrProps={[Function]}
+    number={40}
+    theme={Object {}}
+  />
+</ThemedSection>
+`;
+
+exports[`Snapshot match 2`] = `null`;

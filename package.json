@@ -70,6 +70,7 @@
     "jstimezonedetect": "^1.0.6",
     "le_node": "^1.7.0",
     "lodash": "^4.17.4",
+    "mockdate": "^2.0.1",
     "moment": "^2.18.1",
     "moment-timezone": "^0.5.13",
     "morgan": "^1.8.1",
@@ -107,6 +108,7 @@
     "stylefmt": "^6.0.0",
     "stylelint": "^8.0.0",
     "stylelint-config-standard": "^17.0.0",
+    "supertest": "^3.0.0",
     "tc-accounts": "https://github.com/appirio-tech/accounts-app.git#dev",
     "url-parse": "^1.1.9",
     "uuid": "^3.0.1",
@@ -115,9 +117,12 @@
     "xml2json": "^0.11.0"
   },
   "devDependencies": {
+    "enzyme": "^2.9.1",
     "redux-devtools": "^3.3.2",
     "redux-devtools-dock-monitor": "^1.1.1",
     "redux-devtools-log-monitor": "^1.2.0",
+    "redux-mock-store": "^1.2.3",
+    "sinon": "^2.3.8",
     "stylefmt": "^5.3.0",
     "webpack-dev-middleware": "^1.10.1",
     "webpack-hot-middleware": "^2.17.1"

@@ -19,6 +19,7 @@ exports[`Snapshot match 1`] = `
         },
         Object {
           "label": "Cognitive Topcoder",
+          "redirect": "other location",
           "value": "3",
         },
         Object {
