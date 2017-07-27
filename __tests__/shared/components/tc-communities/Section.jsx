@@ -1,8 +1,12 @@
+import mockStore from 'redux-mock-store';
 import React from 'react';
 import PT from 'prop-types';
 import _ from 'lodash';
 import TU from 'react-dom/test-utils';
+import { Provider } from 'react-redux';
 import Section from 'components/tc-communities/Section';
+
+const store = mockStore()();
 
 class Wrapper extends React.Component {
   getChildContext() {
@@ -19,9 +23,13 @@ class Wrapper extends React.Component {
   componentDidMount() {}
 
   render() {
-    return (<Section {...this.props}>
-      <div>content</div>
-    </Section>);
+    return (
+      <Provider store={store}>
+        <Section {...this.props}>
+          <div>content</div>
+        </Section>
+      </Provider>
+    );
   }
 }
 
