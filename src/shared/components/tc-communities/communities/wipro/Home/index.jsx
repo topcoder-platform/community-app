@@ -137,7 +137,7 @@ export default function Home(props) {
             text="Our continuously evolving structured learning paths, constantly abreast of the latest, tailored for employees to deepen your knowledge, infuses important software capabilities that are industry specific and help you get the skills you need to succeed. Click below to visit TopGear."
             link={{
               title: 'Start Learning',
-              url: 'https://topgear-app.wipro.com',
+              url: 'learn',
             }}
             theme={ImageTextStyles}
             imageSrc="/themes/wipro/home/image-text-learn.jpg"
