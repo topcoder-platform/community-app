@@ -19,7 +19,7 @@ const mockDatas = [{
   expanded: true,
   expand,
   challenges: [
-  { id: '1', status: 'b' },
+    { id: '1', status: 'b' },
     {
       id: '2',
       status: 'a',

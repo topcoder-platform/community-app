@@ -184,7 +184,6 @@ function filterStats(ranks) {
 }
 
 class DashboardService {
-
   /**
    * @param {String} tokenV3 Optional. Auth token for Topcoder API v3.
    */
@@ -236,12 +235,12 @@ class DashboardService {
    */
   getUserFinancials(handle) {
     return this.private.api.get(`/members/${handle}/financial/`)
-    .then(res => (res.ok ? res.json() : new Error(res.statusText)))
-    .then(res => (
-      res.result.status === 200
-        ? res.result.content
-        : new Error(res.result.content)
-    ));
+      .then(res => (res.ok ? res.json() : new Error(res.statusText)))
+      .then(res => (
+        res.result.status === 200
+          ? res.result.content
+          : new Error(res.result.content)
+      ));
   }
 }
 

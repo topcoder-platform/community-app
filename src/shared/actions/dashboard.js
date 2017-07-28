@@ -15,7 +15,7 @@ import 'isomorphic-fetch';
  */
 function getSubtrackRanks(tokenV3, handle) {
   return getService(tokenV3)
-  .getSubtrackRanks(handle);
+    .getSubtrackRanks(handle);
 }
 
 /**
@@ -57,9 +57,9 @@ function registerIos(tokenV3, userId) {
 
 function getBlogs() {
   return fetch(config.URL.BLOG)
-  .then(res => (res.ok ? res.text() : new Error(res.statusText)))
-  .then(res => toJson(res))
-  .then(data => data.rss.channel.item.slice(0, 4));
+    .then(res => (res.ok ? res.text() : new Error(res.statusText)))
+    .then(res => toJson(res))
+    .then(data => data.rss.channel.item.slice(0, 4));
 }
 
 function getUserFinancials(tokenV3, handle) {

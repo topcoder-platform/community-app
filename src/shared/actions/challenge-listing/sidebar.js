@@ -23,7 +23,7 @@ function changeFilterName(index, name) {
  */
 function deleteSavedFilter(id, tokenV2) {
   return getUserSettingsService(tokenV2)
-  .deleteFilter(id).then(() => id);
+    .deleteFilter(id).then(() => id);
 }
 
 /**
@@ -96,7 +96,7 @@ function resetFilterName(index) {
  */
 function saveFilter(name, filter, tokenV2) {
   return getUserSettingsService(tokenV2)
-  .saveFilter(name, filter);
+    .saveFilter(name, filter);
 }
 
 /**
@@ -119,7 +119,7 @@ function updateAllSavedFilters(savedFilters, tokenV2) {
  */
 function updateSavedFilter(filter, tokenV2) {
   return getUserSettingsService(tokenV2)
-  .updateFilter(filter.id, filter.name, filter);
+    .updateFilter(filter.id, filter.name, filter);
 }
 
 export default createActions({

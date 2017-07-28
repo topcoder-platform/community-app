@@ -13,7 +13,6 @@ const contextTheme = {
 };
 
 export default class Themr extends React.Component {
-
   constructor(props) {
     super(props);
     this.state = {

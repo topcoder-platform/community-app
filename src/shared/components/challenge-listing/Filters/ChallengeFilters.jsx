@@ -66,46 +66,46 @@ export default function ChallengeFilters({
         />
         {
           isCardTypeSet === 'Challenges' ?
-          (
-            <span>
-              <span styleName="filter-switch-with-label">
-                <SwitchWithLabel
-                  enabled={isTrackOn(TRACKS.DESIGN)}
-                  labelBefore="Design"
-                  onSwitch={on => switchTrack(TRACKS.DESIGN, on)}
-                />
+            (
+              <span>
+                <span styleName="filter-switch-with-label">
+                  <SwitchWithLabel
+                    enabled={isTrackOn(TRACKS.DESIGN)}
+                    labelBefore="Design"
+                    onSwitch={on => switchTrack(TRACKS.DESIGN, on)}
+                  />
+                </span>
+                <span styleName="filter-switch-with-label">
+                  <SwitchWithLabel
+                    enabled={isTrackOn(TRACKS.DEVELOP)}
+                    labelBefore="Development"
+                    onSwitch={on => switchTrack(TRACKS.DEVELOP, on)}
+                  />
+                </span>
+                <span styleName="filter-switch-with-label">
+                  <SwitchWithLabel
+                    enabled={isTrackOn(TRACKS.DATA_SCIENCE)}
+                    labelBefore="Data Science"
+                    onSwitch={on => switchTrack(TRACKS.DATA_SCIENCE, on)}
+                  />
+                </span>
               </span>
-              <span styleName="filter-switch-with-label">
-                <SwitchWithLabel
-                  enabled={isTrackOn(TRACKS.DEVELOP)}
-                  labelBefore="Development"
-                  onSwitch={on => switchTrack(TRACKS.DEVELOP, on)}
-                />
-              </span>
-              <span styleName="filter-switch-with-label">
-                <SwitchWithLabel
-                  enabled={isTrackOn(TRACKS.DATA_SCIENCE)}
-                  labelBefore="Data Science"
-                  onSwitch={on => switchTrack(TRACKS.DATA_SCIENCE, on)}
-                />
-              </span>
-            </span>
-          ) : ''
+            ) : ''
         }
         <span styleName="pulled-right">
           {
             isCardTypeSet === 'Challenges' ?
-            (
-              <span
-                onClick={() => showTrackModal(true)}
-                role="button"
-                styleName="track-btn"
-                tabIndex={0}
-              >
+              (
+                <span
+                  onClick={() => showTrackModal(true)}
+                  role="button"
+                  styleName="track-btn"
+                  tabIndex={0}
+                >
                 Tracks
-                <span styleName="down-arrow" />
-              </span>
-            ) : ''
+                  <span styleName="down-arrow" />
+                </span>
+              ) : ''
           }
           {/* TODO: Two components below are filter switch buttons for
             * mobile and desktop views. Should be refactored to use the

@@ -26,8 +26,8 @@ function onGetAllActiveChallengesDone(state, { error, payload }) {
   const ids = new Set();
   loaded.forEach(item => ids.add(item.id));
   const challenges = state.challenges
-  .filter(item => item.status !== 'ACTIVE' && !ids.has(item.id))
-  .concat(loaded);
+    .filter(item => item.status !== 'ACTIVE' && !ids.has(item.id))
+    .concat(loaded);
 
   return {
     ...state,
@@ -97,7 +97,7 @@ function onGetDraftChallengesDone(state, { error, payload }) {
     : item => !ids.has(item.id) && item.status !== 'DRAFT';
 
   const challenges = state.challenges
-  .filter(filter).concat(loaded);
+    .filter(filter).concat(loaded);
 
   return {
     ...state,

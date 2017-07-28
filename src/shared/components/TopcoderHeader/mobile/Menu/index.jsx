@@ -30,8 +30,8 @@ export default function Menu({
       <Search />
       {
         profile
-        ? <UserMenu menu={userMenu} profile={profile} />
-        : <Auth column />
+          ? <UserMenu menu={userMenu} profile={profile} />
+          : <Auth column />
       }
       <div styleName="separator" />
       {mainMenu.map(item => <SubMenu key={item.title} subMenu={item} />)}

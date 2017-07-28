@@ -115,7 +115,7 @@ function Tip(props) {
 
   steps = steps.sort((a, b) => a.date.getTime() - b.date.getTime());
   const currentPhaseEnd = c.currentPhases[0] ? new Date(c.currentPhases[0].scheduledEndTime) :
-   new Date();
+    new Date();
   steps = steps.map((step, index) => {
     let progress = 0;
     if (index < steps.length - 1) {

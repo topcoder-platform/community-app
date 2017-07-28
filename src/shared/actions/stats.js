@@ -34,10 +34,10 @@ function getCommunityStats(community, challenges, token) {
   };
   if (community.groupId) {
     return groupService.getMembers(community.groupId)
-    .then((members) => {
-      result.stats.numMembers = members.length;
-      return result;
-    }).catch(() => result);
+      .then((members) => {
+        result.stats.numMembers = members.length;
+        return result;
+      }).catch(() => result);
   }
   return result;
 }

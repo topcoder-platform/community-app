@@ -18,7 +18,6 @@ import { connect } from 'react-redux';
 const DEFAULT_SAVED_FILTER_NAME = 'My Filter';
 
 export class Container extends React.Component {
-
   componentDidMount() {
     if (!this.props.loadingSubtracks) this.props.getSubtracks();
     if (!this.props.loadingKeywords) this.props.getKeywords();

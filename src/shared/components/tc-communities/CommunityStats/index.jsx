@@ -9,7 +9,7 @@ import IconStat from '../IconStat';
 import Section from '../Section';
 
 import IconBuilding from
-'../../../../assets/images/tc-communities/tmp/building.svg';
+  '../../../../assets/images/tc-communities/tmp/building.svg';
 import IconRocket from '../../../../assets/images/tc-communities/rocket.svg';
 import IconMember from '../../../../assets/images/tc-communities/member.svg';
 import IconDollar from '../../../../assets/images/tc-communities/dollar.svg';

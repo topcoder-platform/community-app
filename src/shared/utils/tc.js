@@ -289,7 +289,7 @@ export function challengeLinks(challenge, type) {
       case 'detail':
         if (challenge.status === 'PAST') {
           return `${config.URL.COMMUNITY}/longcontest/stats/?module=ViewOverview&rd=${data.roundId}`;
-        }  // for all other statues (ACTIVE, UPCOMING), show the problem statement
+        } // for all other statues (ACTIVE, UPCOMING), show the problem statement
         return `${config.URL.COMMUNITY}/longcontest/?module=ViewProblemStatement&pm=${data.problemId}&rd=${data.roundId}`;
       default:
         return '';
@@ -322,7 +322,7 @@ export function challengeLinks(challenge, type) {
           default:
             return '';
         }
-    /* eslint no-fallthrough:0 */
+        /* eslint no-fallthrough:0 */
       case 'submissions':
         return `${config.URL.BASE}/challenge-details/${data.id}/?type=${data.track}#submissions`;
       case 'registrants':

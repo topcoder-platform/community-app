@@ -70,39 +70,39 @@ export default class SubtrackStats extends React.Component {
     const subtracksEle = tracks => (
       <div styleName="slide-wrapper">
         {
-            tracks.map(subtrack => (
-              <a
-                href={
-                  `${config.URL.BASE}/members/${handle}/details/` +
+          tracks.map(subtrack => (
+            <a
+              href={
+                `${config.URL.BASE}/members/${handle}/details/` +
                   `?track=${subtrack.track}&subTrack=${subtrack.subTrack}`
-                }
-                styleName="track"
-                key={subtrack.track + subtrack.subTrack}
-              >
-                <div styleName="flex-wrapper">
-                  <p
-                    styleName="subtrack"
-                    title={stripUnderscore(subtrack.subTrack)}
-                  >
-                    {stripUnderscore(subtrack.subTrack)}
-                  </p>
-                  <p
-                    styleName="rating"
-                    style={{ color: subtrack.track === 'DESIGN' ? '#21B2F1' : getRatingColor(subtrack.stat) }}
-                  >
-                    {subtrack.stat}
-                    {
-                      (subtrack.track === 'DEVELOP' || subtrack.track === 'DATA_SCIENCE') &&
+              }
+              styleName="track"
+              key={subtrack.track + subtrack.subTrack}
+            >
+              <div styleName="flex-wrapper">
+                <p
+                  styleName="subtrack"
+                  title={stripUnderscore(subtrack.subTrack)}
+                >
+                  {stripUnderscore(subtrack.subTrack)}
+                </p>
+                <p
+                  styleName="rating"
+                  style={{ color: subtrack.track === 'DESIGN' ? '#21B2F1' : getRatingColor(subtrack.stat) }}
+                >
+                  {subtrack.stat}
+                  {
+                    (subtrack.track === 'DEVELOP' || subtrack.track === 'DATA_SCIENCE') &&
                         (<span style={{ backgroundColor: getRatingColor(subtrack.stat) }} />)
-                    }
-                  </p>
-                  <p>{subtrack.statType}</p>
-                </div>
-              </a>
-            ))
-          }
+                  }
+                </p>
+                <p>{subtrack.statType}</p>
+              </div>
+            </a>
+          ))
+        }
       </div>
-      );
+    );
 
     const settings = {
       dots: false,

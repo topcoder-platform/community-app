@@ -31,7 +31,6 @@ import style from './styles.scss';
 let mounted = false;
 
 export class ListingContainer extends React.Component {
-
   /* TODO: We should add here an automatic periodical update of the loaded
    * challenges, say once each 5 minutes. Otherwise, it is possible that a
    * visitor has the same challenge listing page open for too long, navigating
