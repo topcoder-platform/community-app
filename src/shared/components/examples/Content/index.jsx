@@ -76,6 +76,10 @@ export default function Content() {
           In this case only challenges which has JavaScript technology tag.
         </li>
         <li>
+          <Link to="/challenges/30058449">Challenge Management
+            Page</Link> &ndash; Ported Challenge detail for the main website.
+        </li>
+        <li>
           <Link to="/leaderboard">Leaderboard</Link> &ndash; Leaderboard page.
         </li>
         <li>

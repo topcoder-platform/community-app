@@ -137,6 +137,15 @@ exports[`Matches shallow shapshot 1`] = `
     <li>
       <Link
         replace={false}
+        to="/challenges/30058449"
+      >
+        Challenge Management Page
+      </Link>
+       – Ported Challenge detail for the main website.
+    </li>
+    <li>
+      <Link
+        replace={false}
         to="/leaderboard"
       >
         Leaderboard

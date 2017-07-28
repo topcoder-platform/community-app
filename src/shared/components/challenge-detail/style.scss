@@ -1,0 +1,17 @@
+@import "~styles/tc-styles";
+@import "~styles/tc-includes";
+
+.challenge-details-view {
+  text-align: left;
+  padding: 25px;
+
+  div {
+    font-family: roboto;
+    font-weight: 400;
+    width: 100%;
+
+    div {
+      max-width: 720px;
+    }
+  }
+}

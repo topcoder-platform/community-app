@@ -16,7 +16,8 @@ import mySubmissionsManagement from './my-submissions-management';
 function onFetchChallengeDone(state, action) {
   return {
     ...state,
-    details: action.error ? null : action.payload,
+    details: action.error ? null : action.payload[2] || action.payload[0],
+    detailsV2: action.error ? null : action.payload[1],
     fetchChallengeFailure: action.error || false,
     loadingDetails: false,
   };

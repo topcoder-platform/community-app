@@ -52,7 +52,8 @@ describe('challenge.fetchChallengeDone', () => {
   });
 
   test('payload is a promise which resolves to the expected object', () =>
-    a.payload.then(res => expect(res).toEqual('DUMMY DATA')));
+    a.payload.then(res => expect(res).toEqual(
+      ['DUMMY DATA', { result: { content: ['DUMMY DATA'] } }, {}])));
 });
 
 

@@ -1,0 +1,31 @@
+@import "~styles/tc-styles";
+@import "~styles/tc-includes";
+
+// Should this be added to media mixins?
+@mixin md-and-up {
+  @media (min-width: #{$md-width}) {
+    @content;
+  }
+}
+
+.outer-container {
+  background: $tc-gray-10;
+
+  @include xxs-to-sm {
+    padding: 8px 10px 20px;
+  }
+
+  @include sm {
+    padding: 30px 14px 30px 20px;
+  }
+
+  @include md-and-up {
+    padding: 30px 64px;
+  }
+}
+
+.challenge-detail-container {
+  background: $tc-white;
+  width: 100%;
+  margin: auto;
+}

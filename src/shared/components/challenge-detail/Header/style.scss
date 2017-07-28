@@ -1,0 +1,506 @@
+@import "~styles/tc-styles";
+@import "~styles/tc-includes";
+$deadline-text: #c1c1c6;
+$deadline-detail-color: #4c4c53;
+$bonus-normal-color: #00002a;
+
+// Should this be added to media mixins?
+@mixin md-and-up {
+  @media (min-width: #{$md-width}) {
+    @content;
+  }
+}
+
+@mixin xs-and-up {
+  @media (min-width: #{$xs-width}) {
+    @content;
+  }
+}
+
+@mixin design-accent-bg {
+  .design-accent-background {
+    background-color: $tc-dark-blue-90;
+  }
+}
+
+@mixin develop-accent-bg {
+  .develop-accent-background {
+    background-color: $tc-green;
+  }
+}
+
+@mixin datasci-accent-bg {
+  .datasci-accent-background {
+    background-color: $tc-orange;
+  }
+}
+
+@mixin design-accent-clr {
+  .design-accent-color {
+    color: $tc-dark-blue-90;
+  }
+}
+
+@mixin develop-accent-clr {
+  .develop-accent-color {
+    color: $tc-green;
+  }
+}
+
+@mixin datasci-accent-clr {
+  .datasci-accent-color {
+    color: $tc-orange;
+  }
+}
+
+@mixin design-accent-btm-border {
+  .design-accent-bottom-border {
+    border-bottom: 3px solid $tc-dark-blue-90;
+  }
+}
+
+@mixin develop-accent-btm-border {
+  .develop-accent-bottom-border {
+    border-bottom: 3px solid $tc-green;
+  }
+}
+
+@mixin datasci-accent-btm-border {
+  .datasci-accent-bottom-border {
+    border-bottom: 3px solid $tc-orange;
+  }
+}
+
+.challenge-outer-container {
+  background: $tc-gray-neutral-light;
+  border-radius: 6px 6px 0 0;
+
+  @include xxs-to-sm {
+    padding: 4px 4px 1px 0;
+  }
+
+  border-bottom: $tc-gray-20 solid 1px;
+
+  .important-detail {
+    @include xxs-to-sm {
+      padding: 15px 15px 1px;
+    }
+
+    @include sm {
+      padding: 20px 20px 2px;
+    }
+
+    @include md-and-up {
+      padding: 20px 19px 2px 30px;
+    }
+
+    .challenge-header {
+      font-family: roboto;
+      color: $tc-black;
+      font-size: 28px;
+      line-height: 40px;
+      letter-spacing: -0.78px;
+      font-weight: 500;
+      margin-bottom: 5px;
+
+      @include xxs-to-sm {
+        font-size: 20px;
+        line-height: 25px;
+        margin-right: 43px;
+        letter-spacing: 0;
+      }
+
+      @include md-and-up {
+        margin-right: 60px;
+      }
+
+      @include sm {
+        margin-right: -4px;
+      }
+    }
+
+    .tag-holder {
+      .tag-common {
+        border-radius: 3px;
+        font-family: roboto;
+        font-size: 10px;
+        line-height: 20px;
+        margin: 5px 5px 0 0;
+        display: inline-block;
+        text-align: center;
+        padding: 0 5px;
+        font-weight: 700;
+        color: $tc-white;
+        background-color: $tc-light-blue-10;
+      }
+
+      .design-accent-background {
+        background-color: $tc-light-blue;
+      }
+
+      .design-accent-color {
+        background-color: $tc-light-blue;
+      }
+
+      @include develop-accent-bg;
+      @include datasci-accent-bg;
+      @include develop-accent-clr;
+      @include datasci-accent-clr;
+
+      .misc-tag {
+        color: $tc-gray-80;
+        background-color: $tc-gray-neutral-dark;
+        cursor: pointer;
+      }
+    }
+
+    .prizes-ops-container {
+      background-color: $tc-white;
+      border: 1px solid $tc-gray-20;
+      border-radius: 6px 6px 0 0;
+      margin-top: 20px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: stretch;
+
+      .prizes-outer-container {
+        flex: 4;
+
+        .prizes-title {
+          margin-left: 20px;
+
+          @include xxs-to-sm {
+            margin-left: 10px;
+          }
+
+          margin-top: 20px;
+          font-family: roboto;
+          font-weight: 700;
+          font-size: 10px;
+          color: $tc-gray-50;
+          line-height: 10px;
+          letter-spacing: 1.33px;
+        }
+
+        .prizes-container {
+          display: flex;
+          align-content: center;
+          justify-content: center;
+          flex-wrap: wrap;
+
+          @include xs-and-up {
+            min-width: 270px;
+          }
+
+          .prize-fill {
+            min-width: 75px;
+            margin: 15px 15px 0 0;
+
+            .prize-card {
+              float: right;
+              display: inline-block;
+              border-bottom: $tc-gray-20 solid 3px;
+              text-align: right;
+
+              .prize-rank {
+                font-family: roboto;
+                font-weight: 400;
+                font-size: 13px;
+                color: $tc-gray-50;
+                letter-spacing: 0;
+                line-height: 15px;
+                margin-bottom: 5px;
+
+                .rank-ordinal {
+                  color: $tc-gray-50;
+                }
+              }
+
+              .prize-money {
+                font-family: roboto;
+                font-weight: 500;
+                font-size: 20px;
+                color: $tc-gray-80;
+                letter-spacing: -0.5px;
+                line-height: 30px;
+                margin-bottom: 5px;
+
+                .prize-currency {
+                  color: $tc-gray-80;
+                }
+              }
+            }
+
+            .prize-card[id=rank1] {
+              border-bottom: $tc-gold solid 3px;
+            }
+
+            .prize-card[id=rank2] {
+              border-bottom: $tc-silver solid 3px;
+            }
+
+            .prize-card[id=rank3] {
+              border-bottom: $tc-bronze solid 3px;
+            }
+          }
+        }
+
+        .bonus-div {
+          text-align: center;
+          font-family: roboto;
+          font-weight: 400;
+          color: $bonus-normal-color;
+          line-height: 25px;
+          margin: 25px 15px;
+
+          .bonus-text {
+            .bonus-highlight {
+              font-weight: 500;
+            }
+
+            .design-accent-color {
+              color: $tc-light-blue;
+            }
+
+            @include develop-accent-clr;
+            @include datasci-accent-clr;
+          }
+        }
+      }
+
+      .challenge-ops-container {
+        flex: 1;
+
+        .challenge-ops {
+          margin: 10px 20px;
+
+          .challenge-ops-form {
+            display: flex;
+            flex-direction: column;
+            align-content: center;
+
+            .challenge-action-common {
+              margin: 10px;
+              font-family: roboto;
+              font-family: 500;
+              font-size: 15px;
+              line-height: 40px;
+              border-radius: 4px;
+              white-space: nowrap;
+              color: $tc-white;
+              border: 0 hidden;
+            }
+
+            .challenge-action-datasci {
+              background-color: $tc-orange;
+            }
+
+            .challenge-action-datasci:hover {
+              background-image: linear-gradient(-180deg, $tc-orange-70 0%, $tc-orange 100%);
+            }
+
+            .challenge-action-datasci:active {
+              background: $tc-orange;
+              box-shadow: inset 0 1px 3px 0 rgba(71, 71, 79, 0.38);
+            }
+
+            .challenge-action-datasci:focus {
+              border: 1px solid $tc-orange;
+              box-shadow: 0 0 2px 1px $tc-orange-30;
+            }
+
+            .challenge-action-develop {
+              background-color: $tc-green;
+            }
+
+            .challenge-action-develop:hover {
+              background-image: linear-gradient(-180deg, $tc-green-70 0%, $tc-green 100%);
+            }
+
+            .challenge-action-develop:active {
+              background: $tc-green;
+              box-shadow: inset 0 1px 3px 0 rgba(71, 71, 79, 0.38);
+            }
+
+            .challenge-action-develop:focus {
+              border: 1px solid $tc-green;
+              box-shadow: 0 0 2px 1px $tc-green-30;
+            }
+
+            .challenge-action-warning {
+              background-color: $tc-red-70;
+            }
+
+            .challenge-action-warning:hover {
+              background-image: linear-gradient(-180deg, #ff5b52 0%, #f22f24 100%);
+            }
+
+            .challenge-action-warning:active {
+              background: $tc-red;
+              box-shadow: inset 0 1px 3px 0 rgba(71, 71, 79, 0.38);
+            }
+
+            .challenge-action-warning:focus {
+              border: 1px solid $tc-red;
+              box-shadow: 0 0 2px 1px $tc-red-30;
+            }
+
+            .challenge-action-design {
+              background-color: $tc-dark-blue-90;
+            }
+
+            .challenge-action-design:hover {
+              background-image: linear-gradient(-180deg, #3996ff 0%, #127bf3 100%);
+            }
+
+            .challenge-action-design:active {
+              box-shadow: inset 0 1px 3px 0 rgba(71, 71, 79, 0.5);
+            }
+
+            .challenge-action-design:focus {
+              border: 1px solid $tc-dark-blue;
+              box-shadow: 0 0 2px 1px $tc-dark-blue-70;
+            }
+
+            .challenge-action-common:disabled {
+              background-color: $tc-gray-40;
+              color: $tc-gray-neutral-light;
+            }
+          }
+        }
+      }
+    }
+
+    .deadlines-view {
+      border-radius: 0 0 6px 6px;
+      border: 0 hidden $tc-white;
+      overflow: hidden;
+
+      .deadlines-overview {
+        background-color: $tc-gray-70;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+
+        .deadlines-overview-text {
+          display: flex;
+          justify-content: flex-start;
+          font-family: roboto;
+          font-weight: 400;
+          color: $deadline-text;
+          line-height: 20px;
+          padding: 15px 20px;
+          font-size: 15px;
+
+          .next-deadline {
+            word-wrap: normal;
+            border-right: $tc-gray-50 solid 1px;
+            padding-right: 10px;
+
+            .deadline-highlighted {
+              color: $tc-white;
+              font-weight: 700;
+            }
+          }
+
+          .current-phase {
+            overflow-wrap: normal;
+            padding-left: 10px;
+
+            .deadline-highlighted {
+              color: $tc-white;
+              font-weight: 700;
+            }
+          }
+        }
+
+        .deadlines-collapser {
+          font-family: roboto;
+          font-weight: 500;
+          font-size: 13px;
+          color: $tc-gray-20;
+          letter-spacing: 0;
+          line-height: 20px;
+          padding: 15px 20px;
+          cursor: pointer;
+
+          .collapse-text {
+            svg {
+              transform: rotate(180deg);
+            }
+          }
+        }
+      }
+
+      .deadline-detailed {
+        background-color: $deadline-detail-color;
+        display: flex;
+        flex-wrap: wrap;
+        padding: 30px 0 15px;
+
+        .deadline-card {
+          margin-bottom: 10px;
+          padding: 0 20px;
+          border-right: 1px solid $tc-gray-10;
+          font-family: roboto;
+          font-weight: 400;
+
+          .deadline-info {
+            font-size: 13px;
+            color: $tc-gray-40;
+            letter-spacing: 0;
+            line-height: 15px;
+            margin-bottom: 5px;
+          }
+
+          .deadline-date {
+            min-width: 150px;
+            font-size: 20px;
+            letter-spacing: -0.5px;
+            line-height: 25px;
+          }
+
+          .deadline-crossed {
+            color: $tc-green;
+          }
+
+          .deadline-live {
+            color: $tc-white;
+          }
+        }
+      }
+    }
+
+    .challenge-view-selector {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin-top: 20px;
+
+      .challenge-selector-common {
+        font-family: roboto;
+        font-size: 13px;
+        line-height: 30px;
+        margin: 10px 20px 0;
+        cursor: pointer;
+      }
+
+      .challenge-selected-view {
+        font-weight: 700;
+      }
+
+      .challenge-unselected-view {
+        font-weight: 400;
+        color: $tc-gray-70;
+        border-bottom: 3px hidden $tc-white;
+      }
+
+      @include datasci-accent-clr;
+      @include develop-accent-clr;
+      @include design-accent-clr;
+      @include datasci-accent-btm-border;
+      @include develop-accent-btm-border;
+      @include design-accent-btm-border;
+    }
+  }
+}
