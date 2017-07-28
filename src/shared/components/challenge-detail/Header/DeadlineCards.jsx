@@ -46,10 +46,10 @@ export default function DeadlineCards(props) {
               <p styleName="deadline-info">{deadlineKey}</p>
               <p styleName={`deadline-date ${dateStyle}`}>
                 {
-                (index === 0 ?
-                  localTime(phase.actualStartTime
+                  (index === 0 ?
+                    localTime(phase.actualStartTime
                     || phase.scheduledStartTime, deadlineFormat) :
-                  localTime(phase.actualEndTime
+                    localTime(phase.actualEndTime
                     || phase.scheduledEndTime, deadlineFormat))
                 }
               </p>

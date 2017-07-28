@@ -37,14 +37,14 @@ export default function ChallengeTags(props) {
       {
         technPlatforms.map(
           tag =>
-          (
-            <Link
-              key={tag}
-              to={tagFilterString + tag}
-              styleName="tag-common misc-tag"
-            >{tag}
-            </Link>
-          ),
+            (
+              <Link
+                key={tag}
+                to={tagFilterString + tag}
+                styleName="tag-common misc-tag"
+              >{tag}
+              </Link>
+            ),
         )
       }
     </div>

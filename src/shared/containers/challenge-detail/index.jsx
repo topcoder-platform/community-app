@@ -17,7 +17,6 @@ import './styles.scss';
 
 // The container component
 class ChallengeDetailPageContainer extends React.Component {
-
   constructor(props, context) {
     super(props, context);
 

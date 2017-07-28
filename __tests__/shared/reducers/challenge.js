@@ -4,7 +4,7 @@ const mockChallengeActions = {
   fetchChallengeInit: mockAction('FETCH_CHALLENGE_INIT'),
   fetchChallengeDone: mockAction(
     'FETCH_CHALLENGE_DONE',
-    'payload',
+    ['v3-details', 'v2-details', 'v3-user-details'],
   ),
   fetchChallengeDoneError: mockAction(
     'FETCH_CHALLENGE_DONE',
@@ -72,7 +72,8 @@ function testReducer(reducer, istate) {
       mySubmissionsManagement: {},
       loadingDetails: false,
       fetchChallengeFailure: false,
-      details: 'payload',
+      details: 'v3-user-details',
+      detailsV2: 'v2-details',
     });
   });
 
@@ -83,6 +84,7 @@ function testReducer(reducer, istate) {
       loadingDetails: false,
       fetchChallengeFailure: 'Unknown error',
       details: null,
+      detailsV2: null,
     });
   });
 
@@ -93,6 +95,7 @@ function testReducer(reducer, istate) {
       loadingDetails: false,
       fetchChallengeFailure: 'Unknown error',
       details: null,
+      detailsV2: null,
       loadingMySubmissions: true,
       mySubmissions: { v2: null },
     });
@@ -105,6 +108,7 @@ function testReducer(reducer, istate) {
       loadingDetails: false,
       fetchChallengeFailure: 'Unknown error',
       details: null,
+      detailsV2: null,
       mySubmissions: { v2: [{ submissionId: '1' }] },
       fetchMySubmissionsFailure: false,
       loadingMySubmissions: false,
@@ -118,6 +122,7 @@ function testReducer(reducer, istate) {
       loadingDetails: false,
       fetchChallengeFailure: 'Unknown error',
       details: null,
+      detailsV2: null,
       fetchMySubmissionsFailure: false,
       loadingMySubmissions: false,
       mySubmissions: { v2: [{ submissionId: '1' }] },
@@ -131,6 +136,7 @@ function testReducer(reducer, istate) {
       loadingDetails: false,
       fetchChallengeFailure: 'Unknown error',
       details: null,
+      detailsV2: null,
       mySubmissions: { v2: [] },
       loadingMySubmissions: false,
       fetchMySubmissionsFailure: 'Unknown error',
