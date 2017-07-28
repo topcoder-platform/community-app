@@ -1,0 +1,54 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Matches shallow shapshot 1`] = `
+<div
+  className="src-shared-components-challenge-listing-Sidebar-Footer-___style__sidebar-footer___3pKhJ"
+>
+  <ul>
+    <li>
+      <a
+        href="https://www.topcoder-dev.com/about"
+      >
+        About
+      </a>
+       • 
+    </li>
+    <li>
+      <a
+        href="https://help.topcoder-dev.com/hc/en-us/articles/219069687-Contact-Support"
+      >
+        Contact
+      </a>
+       • 
+    </li>
+    <li>
+      <a
+        href="https://help.topcoder-dev.com"
+      >
+        Help
+      </a>
+       • 
+    </li>
+    <li>
+      <a
+        href="https://www.topcoder-dev.com/community/how-it-works/privacy-policy/"
+      >
+        Privacy
+      </a>
+       • 
+    </li>
+    <li>
+      <a
+        href="https://www.topcoder-dev.com/community/how-it-works/terms/"
+      >
+        Terms
+      </a>
+    </li>
+  </ul>
+  <p
+    className="src-shared-components-challenge-listing-Sidebar-Footer-___style__copyright___ghkHg"
+  >
+    Topcoder © 2017
+  </p>
+</div>
+`;

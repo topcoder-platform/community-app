@@ -10,7 +10,7 @@
   "LOG_ENTRIES_TOKEN": "",
   "URL": {
     "ARENA": "https://arena.topcoder.com",
-    "AUTH": "https://accounts.topcoder.com/member",
+    "AUTH": "https://accounts.topcoder.com",
     "BASE": "https://www.topcoder.com",
     "COMMUNITY": "https://community.topcoder.com",
     "FORUMS": "https://apps.topcoder.com/forums",

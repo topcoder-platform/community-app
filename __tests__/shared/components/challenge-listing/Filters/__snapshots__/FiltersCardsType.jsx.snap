@@ -1,0 +1,41 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Matches shallow shapshot 1`] = `
+<div
+  className="src-shared-components-challenge-listing-Filters-FiltersCardsType-___style__cards-type-col___39JxY"
+>
+  <a
+    className=""
+    onClick={[Function]}
+  >
+    Challenges
+  </a>
+  <a
+    href="https://arena.topcoder-dev.com"
+    rel="noopener noreferrer"
+    target="_blank"
+  >
+    SRMs
+  </a>
+</div>
+`;
+
+exports[`Matches shallow shapshot 2`] = `
+<div
+  className="src-shared-components-challenge-listing-Filters-FiltersCardsType-___style__cards-type-col___39JxY"
+>
+  <a
+    className=""
+    onClick={[Function]}
+  >
+    Challenges
+  </a>
+  <a
+    href="https://arena.topcoder-dev.com"
+    rel="noopener noreferrer"
+    target="_blank"
+  >
+    SRMs
+  </a>
+</div>
+`;

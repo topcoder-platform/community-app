@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Matches shallow shapshot 1`] = `
+<div
+  className="src-shared-components-challenge-listing-Sidebar-BucketSelector-Bucket-___style__bucket___1M3_m"
+  onClick={[Function]}
+  onKeyPress={[Function]}
+  role="button"
+  tabIndex={0}
+>
+  name
+</div>
+`;
+
+exports[`Matches shallow shapshot 2`] = `
+<div
+  className="src-shared-components-challenge-listing-Sidebar-BucketSelector-Bucket-___style__active___3-5kD src-shared-components-challenge-listing-Sidebar-BucketSelector-Bucket-___style__bucket___1M3_m"
+>
+  name
+</div>
+`;

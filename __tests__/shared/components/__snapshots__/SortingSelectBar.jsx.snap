@@ -1,0 +1,48 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Matches shallow shapshot 1`] = `
+<div
+  className="src-shared-components-SortingSelectBar-___style__sortingBar___3esqf"
+>
+  <h1
+    className="src-shared-components-SortingSelectBar-___style__title___36eG5"
+  >
+    title
+  </h1>
+  <div
+    className="src-shared-components-SortingSelectBar-___style__view-options-toggle-container___1N4rY"
+  >
+    <p
+      className="src-shared-components-SortingSelectBar-___style__view-options-toggle-container-label___1bC9s"
+    >
+      Sort by:
+    </p>
+    <Dropdown
+      baseClassName="Dropdown"
+      onChange={[Function]}
+      options={
+        Array [
+          Object {
+            "label": "label",
+            "value": "value",
+          },
+        ]
+      }
+      placeholder="Select an option"
+      value={null}
+    />
+  </div>
+</div>
+`;
+
+exports[`Matches shallow shapshot 2`] = `
+<div
+  className="src-shared-components-SortingSelectBar-___style__sortingBar___3esqf"
+>
+  <h1
+    className="src-shared-components-SortingSelectBar-___style__title___36eG5"
+  >
+    title
+  </h1>
+</div>
+`;

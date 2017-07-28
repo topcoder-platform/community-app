@@ -4,7 +4,7 @@
 
 // const rnd = new Rnd();
 
-test.skip('Snapshot match', () => {
+test('Snapshot match', () => {
   /*
   rnd.render((
     <Home />

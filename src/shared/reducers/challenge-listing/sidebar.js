@@ -142,7 +142,7 @@ function onUpdateSavedFilter(state, action) {
     return state;
   }
   const filter = action.payload;
-  const index = state.savedFilters.indexOf(item => item.id === filter.id);
+  const index = _.findIndex(state.savedFilters, item => item.id === filter.id);
   const savedFilters = _.clone(state.savedFilters);
   savedFilters[index] = filter;
   savedFilters[index].filter = JSON.parse(filter.filter);

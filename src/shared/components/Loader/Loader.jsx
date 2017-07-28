@@ -19,7 +19,7 @@ Loader.defaultProps = {
 };
 
 Loader.propTypes = {
-  type: PT.oneOf(['small']),
+  type: PT.oneOf(['small', '']),
 };
 
 module.exports = Loader;

@@ -16,7 +16,7 @@ exports[`Matches shallow shapshot 1`] = `
           "avatar": "src-shared-components-Leaderboard-___avatarStyles__gold___1KUGN",
         }
       }
-      url={null}
+      url="some.fake.string"
     />
   </span>
   <div
@@ -27,16 +27,67 @@ exports[`Matches shallow shapshot 1`] = `
   <div>
     <a
       className="src-shared-components-Leaderboard-PodiumSpot-___styles__profile-link___n7nJB"
-      href="https://www.topcoder-dev.com/members/undefined/"
-    />
+      href="https://www.topcoder-dev.com/members/winner/"
+    >
+      winner
+    </a>
   </div>
   <div
     className="src-shared-components-Leaderboard-PodiumSpot-___styles__winnings-info___2_pZP"
   >
     <span>
+      0
        points
     </span>
     <span>
+      0
+       challenges
+    </span>
+  </div>
+</div>
+`;
+
+exports[`Matches shallow shapshot 2`] = `
+<div
+  className="src-shared-components-Leaderboard-PodiumSpot-___styles__PodiumSpot___22B_7 src-shared-components-Leaderboard-PodiumSpot-___styles__PodiumSpot--first___1NOMr"
+>
+  <span
+    className="src-shared-components-Leaderboard-PodiumSpot-___styles__leaderboard-avatar___2Aea7"
+  >
+    <ThemedAvatar
+      composeTheme="deeply"
+      customStyles={null}
+      mapThemrProps={[Function]}
+      theme={
+        Object {
+          "avatar": "src-shared-components-Leaderboard-___avatarStyles__gold___1KUGN",
+        }
+      }
+      url="https://www.topcoder-dev.com/assets/a.jpg"
+    />
+  </span>
+  <div
+    className="src-shared-components-Leaderboard-PodiumSpot-___styles__ranking___HAFy6"
+  >
+    1st
+  </div>
+  <div>
+    <a
+      className="src-shared-components-Leaderboard-PodiumSpot-___styles__profile-link___n7nJB"
+      href="https://www.topcoder-dev.com/members/winner/"
+    >
+      winner
+    </a>
+  </div>
+  <div
+    className="src-shared-components-Leaderboard-PodiumSpot-___styles__winnings-info___2_pZP"
+  >
+    <span>
+      0
+       points
+    </span>
+    <span>
+      0
        challenges
     </span>
   </div>

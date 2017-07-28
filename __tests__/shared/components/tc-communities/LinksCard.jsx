@@ -1,12 +1,37 @@
 import React from 'react';
-import Rnd from 'react-test-renderer/shallow';
+import PT from 'prop-types';
+import _ from 'lodash';
+import TU from 'react-dom/test-utils';
 import LinksCard from 'components/tc-communities/LinksCard';
 
-const rnd = new Rnd();
+class Wrapper extends React.Component {
+  getChildContext() {
+    return {
+      router: {
+        history: {
+          createHref: _.noop,
+          push: _.noop,
+          replace: _.noop,
+        },
+      },
+    };
+  }
+  componentDidMount() {}
 
-test('Snapshot match', () => {
-  rnd.render((
-    <LinksCard
+  render() {
+    return <LinksCard {...this.props} />;
+  }
+}
+
+Wrapper.childContextTypes = {
+  router: PT.shape({
+    history: PT.shape({}),
+  }),
+};
+
+test('render properly', () => {
+  TU.renderIntoDocument((
+    <Wrapper
       title="Videos"
       links={[{
         title: 'Tristique ullamcorper id vitae',
@@ -23,10 +48,9 @@ test('Snapshot match', () => {
       }]}
     />
   ));
-  expect(rnd.getRenderOutput()).toMatchSnapshot();
 
-  rnd.render((
-    <LinksCard
+  TU.renderIntoDocument((
+    <Wrapper
       title="Videos"
       links={[{
         title: 'Tristique ullamcorper id vitae',
@@ -50,5 +74,4 @@ test('Snapshot match', () => {
       }}
     />
   ));
-  expect(rnd.getRenderOutput()).toMatchSnapshot();
 });

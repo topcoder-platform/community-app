@@ -32,6 +32,7 @@ const getTimeLeft = (date, currentPhase) => {
       text: FF_TIME_LEFT_MSG,
     };
   }
+
   const duration = moment.duration(moment(date).diff(moment()));
   const h = duration.hours();
   const d = duration.asDays();
@@ -335,11 +336,11 @@ class ChallengeStatus extends Component {
 
     const challengeURL = track === 'DATA_SCIENCE' ? DS_CHALLENGE_URL : CHALLENGE_URL;
     let winners = challenge.winners && challenge.winners.filter(winner => winner.type === 'final')
-    .map(winner => ({
-      handle: winner.handle,
-      position: winner.placement,
-      photoURL: winner.photoURL || `${config.URL.BASE}/i/m/${winner.handle}.jpeg`,
-    }));
+      .map(winner => ({
+        handle: winner.handle,
+        position: winner.placement,
+        photoURL: winner.photoURL || `${config.URL.BASE}/i/m/${winner.handle}.jpeg`,
+      }));
 
     if (winners && winners.length > MAX_VISIBLE_WINNERS) {
       const lastItem = {

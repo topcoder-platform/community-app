@@ -56,7 +56,7 @@ export default function ChallengeListing(props) {
   let challengeCardContainer;
   if (!expanded && props.loadingChallenges && !suppressPlaceholders) {
     const challengeCards = _.range(CHALLENGE_PLACEHOLDER_COUNT)
-    .map(key => <ChallengeCardPlaceholder id={key} key={key} />);
+      .map(key => <ChallengeCardPlaceholder id={key} key={key} />);
     challengeCardContainer = (
       <div styleName="challenge-cards-container">
         <div styleName="ChallengeCardExamples">
@@ -90,7 +90,7 @@ export default function ChallengeListing(props) {
         setCardType={_.noop/* cardType => this.setCardType(cardType) */}
         isCardTypeSet={'Challenges' /* this.state.currentCardType */}
       />
-      <div styleName={`tc-content-wrapper ${/* this.state.currentCardType === 'SRMs' ? '' :*/'hidden'}`}>
+      <div styleName={`tc-content-wrapper ${/* this.state.currentCardType === 'SRMs' ? '' : */'hidden'}`}>
         <div styleName="sidebar-container-mobile">
           {/* <ChallengesSidebar SidebarMock={SRMsSidebarMock} /> */}
         </div>
@@ -128,7 +128,7 @@ export default function ChallengeListing(props) {
 
         <div styleName="sidebar-container-desktop">
           <Sticky top={20}>
-            <Sidebar />
+            <Sidebar hideTcLinksInFooter={props.hideTcLinksInFooter} />
           </Sticky>
         </div>
       </div>
@@ -142,6 +142,7 @@ ChallengeListing.defaultProps = {
   communityName: null,
   loadMoreDraft: null,
   loadMorePast: null,
+  hideTcLinksInFooter: false,
   auth: null,
 };
 
@@ -151,6 +152,7 @@ ChallengeListing.propTypes = {
   communityFilter: PT.shape(),
   communityName: PT.string,
   filterState: PT.shape().isRequired,
+  hideTcLinksInFooter: PT.bool,
   lastUpdateOfActiveChallenges: PT.number.isRequired,
   loadingChallenges: PT.bool.isRequired,
   loadingDraftChallenges: PT.bool.isRequired,

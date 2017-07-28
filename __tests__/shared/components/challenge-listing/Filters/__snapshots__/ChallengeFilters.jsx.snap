@@ -1,0 +1,228 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Matches shallow shapshot shapshot 1`] = `
+<div
+  className="src-shared-components-challenge-listing-Filters-___ChallengeFilters__challenge-filters___16ISg"
+>
+  <div
+    className="src-shared-components-challenge-listing-Filters-___ChallengeFilters__filter-header___2l3Jh"
+  >
+    <FiltersCardsType
+      isCardTypeSet="type"
+      setCardType={[Function]}
+    />
+    <ChallengeSearchBar
+      onSearch={[Function]}
+      placeholder="Search Challenges"
+      query=""
+      setQuery={[Function]}
+    />
+    
+    <span
+      className="src-shared-components-challenge-listing-Filters-___ChallengeFilters__pulled-right___bfsMZ"
+    >
+      
+      <span
+        className="src-shared-components-challenge-listing-Filters-___ChallengeFilters__filter-btn___3sRQR"
+        onClick={[Function]}
+        role="button"
+        tabIndex={0}
+      >
+        <FiltersIcon
+          className="src-shared-components-challenge-listing-Filters-___ChallengeFilters__FiltersIcon___2xL1E"
+        />
+        Filter
+      </span>
+      <FiltersSwitch
+        active={false}
+        className="src-shared-components-challenge-listing-Filters-___ChallengeFilters__FiltersSwitch___1VgDJ"
+        filtersCount={0}
+        onSwitch={[Function]}
+      />
+    </span>
+  </div>
+  <FiltersPanel
+    communityFilters={
+      Array [
+        Object {
+          "filter": Object {},
+        },
+      ]
+    }
+    communityName="name"
+    filterState={Object {}}
+    groupId={undefined}
+    hidden={true}
+    onClose={[Function]}
+    onSaveFilter={[Function]}
+    selectCommunity={[Function]}
+    selectedCommunityId="3"
+    setFilterState={[Function]}
+    setSearchText={[Function]}
+    validKeywords={
+      Array [
+        "",
+      ]
+    }
+    validSubtracks={
+      Array [
+        "",
+      ]
+    }
+  />
+  <EditTrackPanel
+    dataScienceEnabled={true}
+    designEnabled={true}
+    devEnabled={true}
+    onClose={[Function]}
+    opened={true}
+    switchDataScience={[Function]}
+    switchDesign={[Function]}
+    switchDev={[Function]}
+  />
+</div>
+`;
+
+exports[`Matches shallow shapshot shapshot 2`] = `
+<div
+  className="src-shared-components-challenge-listing-Filters-___ChallengeFilters__challenge-filters___16ISg"
+>
+  <div
+    className="src-shared-components-challenge-listing-Filters-___ChallengeFilters__filter-header___2l3Jh"
+  >
+    <FiltersCardsType
+      isCardTypeSet="Challenges"
+      setCardType={[Function]}
+    />
+    <ChallengeSearchBar
+      onSearch={[Function]}
+      placeholder="Search Challenges"
+      query=""
+      setQuery={[Function]}
+    />
+    <span>
+      <span
+        className="src-shared-components-challenge-listing-Filters-___ChallengeFilters__filter-switch-with-label___21Ups"
+      >
+        <ThemedSwitchWithLabel
+          composeTheme="deeply"
+          enabled={false}
+          labelAfter=""
+          labelBefore="Design"
+          mapThemrProps={[Function]}
+          onSwitch={[Function]}
+        />
+      </span>
+      <span
+        className="src-shared-components-challenge-listing-Filters-___ChallengeFilters__filter-switch-with-label___21Ups"
+      >
+        <ThemedSwitchWithLabel
+          composeTheme="deeply"
+          enabled={false}
+          labelAfter=""
+          labelBefore="Development"
+          mapThemrProps={[Function]}
+          onSwitch={[Function]}
+        />
+      </span>
+      <span
+        className="src-shared-components-challenge-listing-Filters-___ChallengeFilters__filter-switch-with-label___21Ups"
+      >
+        <ThemedSwitchWithLabel
+          composeTheme="deeply"
+          enabled={false}
+          labelAfter=""
+          labelBefore="Data Science"
+          mapThemrProps={[Function]}
+          onSwitch={[Function]}
+        />
+      </span>
+    </span>
+    <span
+      className="src-shared-components-challenge-listing-Filters-___ChallengeFilters__pulled-right___bfsMZ"
+    >
+      <span
+        className="src-shared-components-challenge-listing-Filters-___ChallengeFilters__track-btn___34Cfs"
+        onClick={[Function]}
+        role="button"
+        tabIndex={0}
+      >
+        Tracks
+        <span
+          className="src-shared-components-challenge-listing-Filters-___ChallengeFilters__down-arrow___21HX_"
+        />
+      </span>
+      <span
+        className="src-shared-components-challenge-listing-Filters-___ChallengeFilters__filter-btn___3sRQR"
+        onClick={[Function]}
+        role="button"
+        tabIndex={0}
+      >
+        <FiltersIcon
+          className="src-shared-components-challenge-listing-Filters-___ChallengeFilters__FiltersIcon___2xL1E"
+        />
+        Filter
+      </span>
+      <FiltersSwitch
+        active={false}
+        className="src-shared-components-challenge-listing-Filters-___ChallengeFilters__FiltersSwitch___1VgDJ"
+        filtersCount={3}
+        onSwitch={[Function]}
+      />
+    </span>
+  </div>
+  <FiltersPanel
+    communityFilters={
+      Array [
+        Object {
+          "filter": Object {},
+        },
+      ]
+    }
+    communityName="name"
+    filterState={
+      Object {
+        "endDate": "2019-12-31T23:00:00.000Z",
+        "startDate": "2019-12-31T23:00:00.000Z",
+        "subtracks": Array [
+          "CODE",
+        ],
+        "tags": Array [
+          "abc",
+        ],
+        "tracks": Array [
+          "tracks",
+        ],
+      }
+    }
+    groupId={undefined}
+    hidden={true}
+    onClose={[Function]}
+    onSaveFilter={[Function]}
+    selectCommunity={[Function]}
+    selectedCommunityId="3"
+    setFilterState={[Function]}
+    setSearchText={[Function]}
+    validKeywords={
+      Array [
+        "",
+      ]
+    }
+    validSubtracks={
+      Array [
+        "",
+      ]
+    }
+  />
+  <EditTrackPanel
+    dataScienceEnabled={false}
+    designEnabled={false}
+    devEnabled={false}
+    onClose={[Function]}
+    opened={true}
+    switchDataScience={[Function]}
+    switchDesign={[Function]}
+    switchDev={[Function]}
+  />
+</div>
+`;

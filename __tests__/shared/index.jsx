@@ -1,28 +1,22 @@
-/*
+
 import React from 'react';
 import Rnd from 'react-test-renderer/shallow';
 
 const rnd = new Rnd();
 
-afterAll(() => {
-  process.env.NODE_ENV = 'test';
-});
-*/
-
-test.skip('Snapshot match', () => {
-  /*
+test('Snapshot match', () => {
+  process.env.DEV_TOOLS = '';
   let App = require('shared').default;
   rnd.render((
     <App />
   ));
   expect(rnd.getRenderOutput()).toMatchSnapshot();
+
+  process.env.DEV_TOOLS = true;
   jest.resetModules();
-  process.env.NODE_ENV = 'development';
   App = require('shared').default;
   rnd.render((
     <App />
   ));
   expect(rnd.getRenderOutput()).toMatchSnapshot();
-  process.env.NODE_ENV = 'test';
-  */
 });

@@ -63,3 +63,50 @@ exports[`Matches shallow shapshot 1`] = `
   </table>
 </div>
 `;
+
+exports[`Matches shallow shapshot 2`] = `
+<div
+  className="src-shared-components-SubmissionManagement-SubmissionsTable-___styles__submissions-table___1J9eA"
+>
+  <table>
+    <thead>
+      <tr>
+        <th>
+          Preview
+        </th>
+        <th>
+          ID
+        </th>
+        <th>
+          Type
+        </th>
+        <th>
+          Submission Date
+        </th>
+        <th
+          className="src-shared-components-SubmissionManagement-SubmissionsTable-___styles__status___1X1-o"
+        >
+          Screening Status
+        </th>
+        <th
+          className="src-shared-components-SubmissionManagement-SubmissionsTable-___styles__actions___16pRz"
+        >
+          Actions
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr
+        className="src-shared-components-SubmissionManagement-SubmissionsTable-___styles__submission-row___1uclT"
+      >
+        <td
+          className="src-shared-components-SubmissionManagement-SubmissionsTable-___styles__no-submission___1jFHS"
+          colSpan="6"
+        >
+          You have no submission uploaded so far.
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+`;

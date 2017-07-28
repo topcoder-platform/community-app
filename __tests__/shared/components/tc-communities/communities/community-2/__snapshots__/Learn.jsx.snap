@@ -1,0 +1,240 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Match shadow snapshot 1`] = `
+<main>
+  <ThemedBanner
+    composeTheme="deeply"
+    imageSrc="/themes/community-2/learn/banner.jpg"
+    link={null}
+    mapThemrProps={[Function]}
+    text="Our continuously evolving structured learning paths, constantly abreast of the latest, tailored for employees to deepen your knowledge, infuses important software capabilities that are industry specific and help you get the skills you need to succeed."
+    theme={
+      Object {
+        "container": "src-shared-components-tc-communities-communities-community-2-Learn-___style__bannerContainer___3YmVR",
+        "content": "src-shared-components-tc-communities-communities-community-2-Learn-___style__bannerContent___2VGBu",
+        "contentInner": "src-shared-components-tc-communities-communities-community-2-Learn-___style__bannerContentInner___1LDdS",
+      }
+    }
+    title="Learning & Certification"
+  />
+  <ThemedSection
+    anchor={null}
+    composeTheme="deeply"
+    link={null}
+    mapThemrProps={[Function]}
+    theme={
+      Object {
+        "container": "src-shared-components-tc-communities-communities-community-2-Learn-___style__learnBasicsContainer___1ZPny",
+      }
+    }
+    title="Learn The Basics"
+  >
+    <ThemedAccordion
+      composeTheme="deeply"
+      defaultSelectedIndex={0}
+      mapThemrProps={[Function]}
+      theme={Object {}}
+    >
+      <ThemedAccordionItem
+        composeTheme="deeply"
+        isOpen={false}
+        mapThemrProps={[Function]}
+        onTitleClick={[Function]}
+        theme={Object {}}
+        title="Overview"
+      >
+        <ThemedText
+          composeTheme="deeply"
+          mapThemrProps={[Function]}
+          theme={Object {}}
+        >
+          <p>
+            The FULCRUM is “one stop shop” for access to a wide range of training and learning opportunities on Wipro’s Hybrid Crowd. Designed to strengthen the skills of employees, the hub offers physical and online platforms to learn skills on demand, gain hands-on experience, and be future ready.
+          </p>
+          <p>
+            Meticulously crafted comprehensive learning paths, detailed study material, engaging case studies, training projects to systematically enhance your career, development environments to practice, convenient online accessibility, opportunity to connect with mentors, peers, SMEs of various technologies – a variety of resources bringing people and technology together for an innovative and valuable learning experience.
+          </p>
+          <p>
+            Our compelling learning environment across wide range of emerging technologies helps you in mastering today’s most essential skills, that brings your knowledge to the next level, step by step, which ultimately creates a more effective learning experience.
+          </p>
+          <p>
+            Are you ready to step onto the innovative journey of learning?
+          </p>
+          <div
+            className="src-shared-components-tc-communities-communities-community-2-Learn-___style__joinnowWrap___Pe9Rh"
+          >
+            <a
+              className="src-shared-components-tc-communities-communities-community-2-Learn-___style__joinnow___1HsYJ"
+              href="https://topgear-app.wipro.com"
+            >
+              Start Exploring
+            </a>
+          </div>
+        </ThemedText>
+      </ThemedAccordionItem>
+    </ThemedAccordion>
+  </ThemedSection>
+  <ThemedSection
+    anchor={null}
+    composeTheme="deeply"
+    link={
+      Object {
+        "title": "View All",
+        "url": "learn",
+      }
+    }
+    mapThemrProps={[Function]}
+    theme={
+      Object {
+        "container": "src-shared-components-tc-communities-communities-community-2-Learn-___style__coursesContainer___3SRv4",
+      }
+    }
+    title="Courses and Tutorials"
+  >
+    <ThemedArticleCard
+      composeTheme="deeply"
+      imageSrc="/themes/community-2/learn/courses-01.jpg"
+      link={
+        Object {
+          "title": "Read More",
+          "url": "learn",
+        }
+      }
+      mapThemrProps={[Function]}
+      text="There are advances being made in science and technology everyday, and a good example of this is the LCD monitor. LCD monitors have"
+      theme={Object {}}
+      title="What You Need to Join a Challenge"
+    />
+    <ThemedArticleCard
+      composeTheme="deeply"
+      imageSrc="/themes/community-2/learn/courses-02.jpg"
+      link={
+        Object {
+          "title": "Read More",
+          "url": "learn",
+        }
+      }
+      mapThemrProps={[Function]}
+      text="Planning to visit Las Vegas or any other vacational resort where casinos are a major portion of their business? I have just the thing for"
+      theme={Object {}}
+      title="An Ugly Myspace Profile Will Sure Ruin Your Reputation"
+    />
+    <ThemedArticleCard
+      composeTheme="deeply"
+      imageSrc="/themes/community-2/learn/courses-03.jpg"
+      link={
+        Object {
+          "title": "Read More",
+          "url": "learn",
+        }
+      }
+      mapThemrProps={[Function]}
+      text="If you are in the market for a computer, there are a number of factors to consider. Will it be used for your home, your office or"
+      theme={Object {}}
+      title="3 Simple Ways Work Fast in Competition"
+    />
+  </ThemedSection>
+  <ThemedSection
+    anchor={null}
+    composeTheme="deeply"
+    link={null}
+    mapThemrProps={[Function]}
+    theme={
+      Object {
+        "container": "src-shared-components-tc-communities-communities-community-2-Learn-___style__resourcesContainer___dzJCp",
+        "title": "src-shared-components-tc-communities-communities-community-2-Learn-___style__resourcesTitle___1QSSn",
+      }
+    }
+    title="Resources"
+  >
+    <ThemedLinksCard
+      composeTheme="deeply"
+      links={
+        Array [
+          Object {
+            "title": "Nam dapibus nisl vitae elit fringilla",
+            "url": "learn",
+          },
+          Object {
+            "title": "Aenean sollicitudin",
+            "url": "learn",
+          },
+          Object {
+            "title": "Erat a elementum rutrum",
+            "url": "learn",
+          },
+          Object {
+            "title": "Neque sem pretium metus",
+            "url": "learn",
+          },
+        ]
+      }
+      mapThemrProps={[Function]}
+      theme={Object {}}
+      title="Documents"
+    />
+    <ThemedLinksCard
+      composeTheme="deeply"
+      links={
+        Array [
+          Object {
+            "title": "Tristique ullamcorper id vitae",
+            "url": "learn",
+          },
+          Object {
+            "title": "Nulla mollis sapien sollicitudin",
+            "url": "learn",
+          },
+          Object {
+            "title": "Vivamus facilisis dolor et massa",
+            "url": "learn",
+          },
+          Object {
+            "title": "Vestibulum nisl egestas",
+            "url": "learn",
+          },
+        ]
+      }
+      mapThemrProps={[Function]}
+      theme={Object {}}
+      title="Videos"
+    />
+    <ThemedLinksCard
+      composeTheme="deeply"
+      links={
+        Array [
+          Object {
+            "title": "Nam dapibus nisl vitae elit fringilla",
+            "url": "learn",
+          },
+          Object {
+            "title": "Aenean sollicitudin",
+            "url": "learn",
+          },
+          Object {
+            "title": "Erat a elementum rutrum",
+            "url": "learn",
+          },
+          Object {
+            "title": "Neque sem pretium metus",
+            "url": "learn",
+          },
+        ]
+      }
+      mapThemrProps={[Function]}
+      theme={Object {}}
+      title="Useful Links"
+    />
+  </ThemedSection>
+  <ThemedNewsletterSignup
+    buttonText="Sign Up"
+    composeTheme="deeply"
+    emailPlaceholder="Email address"
+    imageSrc="/themes/community-2/subscribe-bg.jpg"
+    mapThemrProps={[Function]}
+    text="Don’t miss out on the latest Topcoder IOS challenges and information!"
+    theme={Object {}}
+    title="Sign up for our newsletter"
+  />
+</main>
+`;

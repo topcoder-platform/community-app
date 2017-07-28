@@ -29,7 +29,7 @@ function getList(auth) {
     groups = auth.profile.groups.map(g => g.id);
   }
   return fetch(`/api/tc-communities?${qs.stringify({ groups })}`)
-  .then(res => (res.ok ? res.json() : new Error(res.statusText)));
+    .then(res => (res.ok ? res.json() : new Error(res.statusText)));
 }
 
 export default createActions({

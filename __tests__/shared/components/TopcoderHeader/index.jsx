@@ -47,10 +47,13 @@ test('Render with open menu', () => {
       closeMenu={_.noop}
       closeMobileMenu={_.noop}
       closeSearch={_.noop}
-      currentNav={{}}
+      currentNav={{
+        menuTitle: 'Compete',
+        subMenuTitle: 'All Challenges',
+      }}
       openMenu={_.noop}
       openedMenu={{
-        title: 'Menu Title',
+        title: 'Compete',
         items: [{
           icon: <div />,
           link: '/link',
@@ -75,6 +78,7 @@ test('Render with specified profile', () => {
       openMobileMenu={_.noop}
       openSearch={_.noop}
       profile={{}}
+      searchOpened
     />
   ));
   expect(r.getRenderOutput()).toMatchSnapshot();
@@ -194,6 +198,14 @@ describe('User input handling', () => {
     expect(mockCloseSearch).toHaveBeenCalled();
   });
 
+  test('search-field won\'t close', () => {
+    const items = TU.findAllInRenderedTree(page, item =>
+      styleNameMatch(item, 'search-field'));
+    expect(items.length).toBe(1);
+    TU.Simulate.mouseLeave(items[0], { pageY: -1 });
+    expect(mockCloseSearch).not.toHaveBeenCalled();
+  });
+
   test('Enter submits search field', () => {
     const items = TU.findAllInRenderedTree(page, item =>
       styleNameMatch(item, 'search-field'));
@@ -212,5 +224,20 @@ describe('User input handling', () => {
      * browser's window.location. Should be investigated how to make
      * this check properly. */
     // expect(window.location).toHaveBeenCalledWith('/search/members?q=SEARCH');
+  });
+
+  test('Other key won\'t submit', () => {
+    const items = TU.findAllInRenderedTree(page, item =>
+      styleNameMatch(item, 'search-field'));
+    expect(items.length).toBe(1);
+    expect(items[0].children.length).toBe(1);
+    const input = items[0].children[0];
+    expect(input.tagName).toBe('INPUT');
+    TU.Simulate.keyPress(input, {
+      key: 'A',
+      target: {
+        value: 'SEARCH',
+      },
+    });
   });
 });

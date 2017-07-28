@@ -1,0 +1,117 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Matches shallow shapshot 1`] = `
+<div
+  className="src-shared-components-Dashboard-Program-___styles__programs___fiCaX"
+>
+  <header>
+    <h1
+      className="src-shared-components-Dashboard-Program-___styles__section-title___1Y3kN"
+    >
+      <span>
+        iOS
+      </span>
+       Community
+    </h1>
+  </header>
+  <section>
+    <div
+      className="src-shared-components-Dashboard-Program-___styles__registered___dY9C8"
+    >
+      <div
+        className="src-shared-components-Dashboard-Program-___styles__badge-and-challenges___1o5pV"
+      >
+        <div
+          className="src-shared-components-Dashboard-Program-___styles__registered-badge___2agQm"
+        >
+          <div
+            className="src-shared-components-Dashboard-Program-___styles__flex-wrapper___33TgL"
+          >
+            <p>
+              iOS Community
+            </p>
+            <div
+              className="src-shared-components-Dashboard-Program-___styles__badge-timeline___1WO84"
+            >
+              <MemberIcon />
+            </div>
+            <a
+              className="tc-btn tc-btn-s tc-btn-ghost tc-btn-wide"
+              href="https://ios.topcoder-dev.com"
+              title="topcoder iOS Member Program"
+            >
+              View Challenges
+            </a>
+          </div>
+        </div>
+        <div
+          className="src-shared-components-Dashboard-Program-___styles__ios-card___2drz2"
+        >
+          <IosCard
+            challenge={
+              Object {
+                "id": "1",
+              }
+            }
+          />
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+`;
+
+exports[`Matches shallow shapshot 2`] = `
+<div
+  className="src-shared-components-Dashboard-Program-___styles__programs___fiCaX"
+>
+  <section>
+    <div
+      className="src-shared-components-Dashboard-Program-___styles__unregistered___3Irry"
+    >
+      <div
+        className="src-shared-components-Dashboard-Program-___styles__empty-state-placeholder___1cnwI src-shared-components-Dashboard-Program-___styles__sky___2Rvud"
+      >
+        <div
+          className="src-shared-components-Dashboard-Program-___styles__title___1e-3z"
+        >
+          iOS Community
+        </div>
+        <div
+          className="src-shared-components-Dashboard-Program-___styles__content___32ttS"
+        />
+        <div
+          className="src-shared-components-Dashboard-Program-___styles__description___35EYx"
+        >
+          Earn iOS topcoder badges and exclusive access to iOS challenges, prizes and special community-related events.
+        </div>
+        <div
+          className="src-shared-components-Dashboard-Program-___styles__help-links___WhqVc"
+        >
+          <div
+            className="src-shared-components-Dashboard-Program-___styles__help-link___3FTRX"
+          >
+            <a
+              className="tc-btn tc-btn-s tc-btn-ghost src-shared-components-Dashboard-Program-___styles__tc-btn___CjdgX"
+              onClick={[Function]}
+              title="Participate"
+            >
+              Participate
+            </a>
+          </div>
+          <div
+            className="src-shared-components-Dashboard-Program-___styles__help-link___3FTRX"
+          >
+            <a
+              className="src-shared-components-Dashboard-Program-___styles__learn-more___3Ticw"
+              href="https://ios.topcoder-dev.com"
+            >
+              Learn More
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+`;

@@ -1,0 +1,146 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Matches shallow shapshot 1`] = `
+<div
+  className="src-shared-components-challenge-listing-Listing-___style__challengeCardContainer___3p0Ge"
+>
+  <Bucket
+    bucket={Object {}}
+    challenges={Array []}
+    expand={[Function]}
+    expanded={false}
+    loadMore={null}
+    loading={false}
+    setFilterState={[Function]}
+    setSort={[Function]}
+    sort={null}
+  />
+  <Bucket
+    bucket={Object {}}
+    challenges={Array []}
+    expand={[Function]}
+    expanded={false}
+    loadMore={null}
+    loading={false}
+    setFilterState={[Function]}
+    setSort={[Function]}
+    sort={null}
+  />
+  <Bucket
+    bucket={Object {}}
+    challenges={Array []}
+    expand={[Function]}
+    expanded={false}
+    loadMore={null}
+    loading={false}
+    setFilterState={[Function]}
+    setSort={[Function]}
+    sort={null}
+  />
+  <Bucket
+    bucket={Object {}}
+    challenges={Array []}
+    expand={[Function]}
+    expanded={false}
+    loadMore={[Function]}
+    loading={false}
+    setFilterState={[Function]}
+    setSort={[Function]}
+    sort={null}
+  />
+</div>
+`;
+
+exports[`Matches shallow shapshot 2`] = `
+<div
+  className="src-shared-components-challenge-listing-Listing-___style__challengeCardContainer___3p0Ge"
+>
+  <Bucket
+    bucket={Object {}}
+    challenges={Array []}
+    expand={[Function]}
+    expanded={true}
+    loadMore={[Function]}
+    loading={false}
+    setFilterState={[Function]}
+    setSort={[Function]}
+    sort={null}
+  />
+</div>
+`;
+
+exports[`Matches shallow shapshot 3`] = `
+<div
+  className="src-shared-components-challenge-listing-Listing-___style__challengeCardContainer___3p0Ge"
+>
+  <Bucket
+    bucket={Object {}}
+    challenges={Array []}
+    expand={[Function]}
+    expanded={true}
+    loadMore={[Function]}
+    loading={false}
+    setFilterState={[Function]}
+    setSort={[Function]}
+    sort={null}
+  />
+</div>
+`;
+
+exports[`Matches shallow shapshot 4`] = `
+<div
+  className="src-shared-components-challenge-listing-Listing-___style__challengeCardContainer___3p0Ge"
+>
+  <Bucket
+    bucket={Object {}}
+    challenges={Array []}
+    expand={[Function]}
+    expanded={false}
+    loadMore={null}
+    loading={false}
+    setFilterState={[Function]}
+    setSort={[Function]}
+    sort={null}
+  />
+  <Bucket
+    bucket={Object {}}
+    challenges={Array []}
+    expand={[Function]}
+    expanded={false}
+    loadMore={null}
+    loading={false}
+    setFilterState={[Function]}
+    setSort={[Function]}
+    sort={null}
+  />
+  <Bucket
+    bucket={Object {}}
+    challenges={Array []}
+    expand={[Function]}
+    expanded={false}
+    loadMore={[Function]}
+    loading={false}
+    setFilterState={[Function]}
+    setSort={[Function]}
+    sort={null}
+  />
+</div>
+`;
+
+exports[`Matches shallow shapshot 5`] = `
+<div
+  className="src-shared-components-challenge-listing-Listing-___style__challengeCardContainer___3p0Ge"
+>
+  <Bucket
+    bucket={Object {}}
+    challenges={Array []}
+    expand={[Function]}
+    expanded={true}
+    loadMore={null}
+    loading={false}
+    setFilterState={[Function]}
+    setSort={[Function]}
+    sort={null}
+  />
+</div>
+`;

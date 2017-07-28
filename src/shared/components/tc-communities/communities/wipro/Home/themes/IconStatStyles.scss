@@ -1,0 +1,51 @@
+@import '~styles/tc-styles';
+
+.container {
+  padding: 0;
+}
+
+.container {
+  display: flex;
+  align-items: center;
+
+  @include xxs-to-sm {
+    display: block;
+    text-align: center;
+  }
+
+  .icon {
+    margin-right: 20px;
+    max-height: 100px;
+    max-width: 100px;
+
+    @include xxs-to-sm {
+      font-size: 11px;
+      margin-right: 0;
+    }
+  }
+}
+
+.label {
+  font: 400 18px/20px 'Akkurat regular';
+  color: #646363;
+  margin-top: 10px;
+  text-transform: none;
+
+  @include xxs-to-sm {
+    font-size: 14px;
+  }
+}
+
+.text {
+  flex: 1;
+
+  .number {
+    font: 400 36px/36px 'Akkurat regular';
+    color: #646363;
+    text-align: left;
+
+    @include xxs-to-sm {
+      font-size: 18px;
+    }
+  }
+}

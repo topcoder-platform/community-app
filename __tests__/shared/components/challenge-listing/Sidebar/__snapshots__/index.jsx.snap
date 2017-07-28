@@ -1,0 +1,62 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Matches shallow shapshot 1`] = `
+<div
+  className="src-shared-components-challenge-listing-Sidebar-___style__SideBarFilters___3XfDi"
+>
+  <div
+    className="src-shared-components-challenge-listing-Sidebar-___style__FilterBox___2Fea8"
+  >
+    <BucketSelector
+      activeBucket="activeBucket"
+      activeSavedFilter={3}
+      buckets={Object {}}
+      challenges={
+        Array [
+          Object {
+            "id": "1",
+            "registrationOpen": "open",
+          },
+        ]
+      }
+      communityFilter={Object {}}
+      disabled={false}
+      filterState={Object {}}
+      isAuth={false}
+      savedFilters={Array []}
+      selectBucket={[Function]}
+      selectSavedFilter={[Function]}
+      setEditSavedFiltersMode={[Function]}
+    />
+  </div>
+  <Footer
+    hideTcLinksInFooter={false}
+  />
+</div>
+`;
+
+exports[`Matches shallow shapshot 2`] = `
+<div
+  className="src-shared-components-challenge-listing-Sidebar-___style__SideBarFilters___3XfDi"
+>
+  <div
+    className="src-shared-components-challenge-listing-Sidebar-___style__FilterBox___2Fea8"
+  >
+    <FiltersEditor
+      changeFilterName={[Function]}
+      deleteSavedFilter={[Function]}
+      dragSavedFilterMove={[Function]}
+      dragSavedFilterStart={[Function]}
+      dragState={Object {}}
+      resetFilterName={[Function]}
+      savedFilters={Array []}
+      setEditSavedFiltersMode={[Function]}
+      updateAllSavedFilters={[Function]}
+      updateSavedFilter={[Function]}
+    />
+  </div>
+  <Footer
+    hideTcLinksInFooter={false}
+  />
+</div>
+`;

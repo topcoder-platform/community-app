@@ -1,0 +1,16 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Matches shallow shapshot 1`] = `
+<SwitchWithLabel
+  enabled={false}
+  labelAfter=""
+  labelBefore=""
+  onSwitch={[Function]}
+  theme={
+    Object {
+      "switch": "src-shared-components-SwitchWithLabel-___style__switch___2o1UI",
+      "wrapper": "src-shared-components-SwitchWithLabel-___style__wrapper___3QaLI",
+    }
+  }
+/>
+`;

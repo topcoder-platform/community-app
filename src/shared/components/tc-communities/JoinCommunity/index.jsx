@@ -50,7 +50,7 @@ export default function JoinCommunity({
             /* If our visitor is not authenticated, the button redirects to
              * login page, with return URL set back to this page. */
             const url = encodeURIComponent(window.location.href);
-            window.location = `${config.URL.AUTH}?retUrl=${url}`;
+            window.location = `${config.URL.AUTH}/member?retUrl=${url}`;
           }
         }}
         styleName={`link ${state === STATE.JOINING ? 'joining' : ''}`}

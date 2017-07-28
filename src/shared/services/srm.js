@@ -6,7 +6,6 @@ import qs from 'qs';
 import { getApiV3 } from './api';
 
 class SRMService {
-
   /**
    * @param {String} tokenV3 Optional. Auth token for Topcoder API v3.
    */
@@ -23,12 +22,12 @@ class SRMService {
    */
   getSRMs(params) {
     return this.private.api.get(`/srms/?${qs.stringify(params)}`)
-    .then(res => (res.ok ? res.json() : new Error(res.statusText)))
-    .then(res => (
-      res.result.status === 200
-      ? res.result.content
-      : new Error(res.result.content)
-    ));
+      .then(res => (res.ok ? res.json() : new Error(res.statusText)))
+      .then(res => (
+        res.result.status === 200
+          ? res.result.content
+          : new Error(res.result.content)
+      ));
   }
 
   /**
@@ -38,12 +37,12 @@ class SRMService {
    */
   getUserSRMs(userHandle, params) {
     return this.private.api.get(`/members/${userHandle}/srms/?${qs.stringify(params)}`)
-    .then(res => (res.ok ? res.json() : new Error(res.statusText)))
-    .then(res => (
-      res.result.status === 200
-      ? res.result.content
-      : new Error(res.result.content)
-    ));
+      .then(res => (res.ok ? res.json() : new Error(res.statusText)))
+      .then(res => (
+        res.result.status === 200
+          ? res.result.content
+          : new Error(res.result.content)
+      ));
   }
 }
 

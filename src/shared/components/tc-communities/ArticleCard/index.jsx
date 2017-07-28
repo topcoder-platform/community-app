@@ -25,7 +25,7 @@ function ArticleCard(props) {
             {
               link.url.startsWith('http://') || link.url.startsWith('https://') ?
                 <a className={theme.link} href={link.url}>{link.title}</a>
-             : <Link className={theme.link} to={link.url}>{link.title}</Link>
+                : <Link className={theme.link} to={link.url}>{link.title}</Link>
             }
           </div>
         }

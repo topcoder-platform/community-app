@@ -10,28 +10,41 @@ import React from 'react';
 import Section from 'components/tc-communities/Section';
 import Banner from 'components/tc-communities/Banner';
 import ImageText from 'components/tc-communities/ImageText';
+/*
 import ResourceCard from 'components/tc-communities/ResourceCard';
 import NewsletterSignup from 'components/tc-communities/NewsletterSignup';
 import NewsSection from 'components/tc-communities/NewsSection';
+*/
 import { noop } from 'lodash';
-import Slider from 'react-slick';
+import { Link } from 'utils/router';
+// import Slider from 'react-slick';
 
 import PT from 'prop-types';
 
 import JoinCommunity from 'containers/tc-communities/JoinCommunity';
-import CommunityStats from 'containers/tc-communities/WiproCommunityStats';
+import CommunityStats from 'containers/tc-communities/CommunityStats';
 
+/*
 import IconRocket from '../../../../../../assets/images/tc-communities/rocket.svg';
 import IconNetwork from '../../../../../../assets/images/tc-communities/network.svg';
 import IconMedal from '../../../../../../assets/images/tc-communities/medal.svg';
+*/
 
 import style from './style.scss';
 import bannerStyle from './themes/banner.scss';
-import NewsletterSignupStyle from './themes/newsletter_signup.scss';
+import IconStatStyles from './themes/IconStatStyles.scss';
+// import NewsletterSignupStyle from './themes/newsletter_signup.scss';
 import ImageTextStyles from './themes/imageTextStyle.scss';
-import ResourceCardStyles from './themes/resourceCardStyles.scss';
-import ArticleCardStyles from './themes/articleCardStyles.scss';
-import NewsSectionStyles from './themes/newsSectionStyles.scss';
+// import ResourceCardStyles from './themes/resourceCardStyles.scss';
+// import ArticleCardStyles from './themes/articleCardStyles.scss';
+// import NewsSectionStyles from './themes/newsSectionStyles.scss';
+
+// Custom icons for community stats
+const COMMUNITY_STATS_ICONS = {
+  numChallenges: '../../../../../themes/wipro/challenges.png',
+  numMembers: '../../../../../themes/wipro/members.png',
+  openPrizes: '../../../../../themes/wipro/prizes.png',
+};
 
 function PrevArrow(props) {
   return (
@@ -69,6 +82,7 @@ NextArrow.propTypes = {
   onClick: PT.func,
 };
 
+/*
 const settings = {
   dots: false,
   infinite: false,
@@ -92,12 +106,13 @@ const settings = {
     },
   ],
 };
+*/
 
 export default function Home(props) {
   return (
     <main>
       <Banner
-        title="Wipro Crowd"
+        title="Wipro crowd"
         text="Wipro's Hybrid Crowd gives our vast ecosystem of customers and partners options to access new range of skills that provide new value services and efficiency options all over the world."
         link={{
           title: 'Compete Now',
@@ -107,7 +122,7 @@ export default function Home(props) {
         theme={bannerStyle}
       />
 
-      <CommunityStats />
+      <CommunityStats theme={IconStatStyles} icons={COMMUNITY_STATS_ICONS} />
 
       <JoinCommunity />
 
@@ -122,7 +137,7 @@ export default function Home(props) {
             text="Our continuously evolving structured learning paths, constantly abreast of the latest, tailored for employees to deepen your knowledge, infuses important software capabilities that are industry specific and help you get the skills you need to succeed. Click below to visit TopGear."
             link={{
               title: 'Start Learning',
-              url: 'https://topgear.wipro.com',
+              url: 'learn',
             }}
             theme={ImageTextStyles}
             imageSrc="/themes/wipro/home/image-text-learn.jpg"
@@ -130,15 +145,40 @@ export default function Home(props) {
           <ImageText
             title="Get Involved"
             text="Rewards program is intended to celebrate and recognize your contribution. Rewards for project contributions are given using ‘Reward Points’. Points earned translate into badges. Quarterly rewards are given away to the toppers of all categories."
-            link={{
+            link={[{
               title: 'Start Earning',
               url: 'challenges',
-            }}
+            }, {
+              newTab: true,
+              title: 'Become a Reviewer',
+              url: 'https://help.topcoder.com/hc/requests/new',
+            }, {
+              newTab: true,
+              title: 'Become a Copilot',
+              url: 'https://help.topcoder.com/hc/requests/new',
+            }]}
             theme={ImageTextStyles}
             imageSrc="/themes/wipro/home/image-text-do.jpg"
           />
         </div>
       </Section>
+
+      <Section
+        theme={{
+          content: style.viewAllPublicChallenges,
+        }}
+      >
+        <div styleName="ImageTextStyles.linkWrap style.linkWrap">
+          <Link
+            onClick={() => props.resetChallengeListing()}
+            styleName="ImageTextStyles.link"
+            to="challenges?communityId="
+          >View All Public Challenges</Link>
+        </div>
+      </Section>
+
+      {/*
+        NOTE: Commented out until we get a better content for these sections.
 
       <Section
         theme={{
@@ -154,7 +194,7 @@ export default function Home(props) {
               text="Pellentesque non dignissim neque. Nunc vel rhoncus nibh, ut tincidunt turpis. Integer ac enim pellentesque, adipiscing metus id, pharetra odio."
               link={{
                 title: 'Browse resources',
-                url: 'https://topgear.wipro.com',
+                url: 'https://topgear-app.wipro.com',
               }}
             />
           </div>
@@ -202,6 +242,7 @@ export default function Home(props) {
         imageSrc="/themes/wipro/subscribe-bg.jpg"
         theme={NewsletterSignupStyle}
       />
+      */}
 
     </main>
   );
@@ -212,5 +253,6 @@ Home.defaultProps = {
 };
 
 Home.propTypes = {
-  news: PT.arrayOf(PT.shape()),
+  // news: PT.arrayOf(PT.shape()),
+  resetChallengeListing: PT.func.isRequired,
 };

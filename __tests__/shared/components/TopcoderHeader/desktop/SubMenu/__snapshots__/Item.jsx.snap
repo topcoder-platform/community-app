@@ -1,0 +1,27 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Matches shallow shapshot 1`] = `
+<li
+  className="src-shared-components-TopcoderHeader-desktop-SubMenu-Item-___style__item___2Q-ud src-shared-components-TopcoderHeader-desktop-SubMenu-Item-___style__current___38PHh"
+>
+  <a
+    href="menu url"
+  >
+    icon url
+    title
+  </a>
+</li>
+`;
+
+exports[`Matches shallow shapshot 2`] = `
+<li
+  className="src-shared-components-TopcoderHeader-desktop-SubMenu-Item-___style__item___2Q-ud"
+>
+  <a
+    href="menu url"
+  >
+    icon url
+    title
+  </a>
+</li>
+`;

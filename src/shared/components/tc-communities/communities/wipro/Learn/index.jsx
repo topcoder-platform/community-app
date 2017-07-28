@@ -9,13 +9,17 @@
 import React from 'react';
 // import { Link } from 'react-router-dom';
 import Section from 'components/tc-communities/Section';
+/*
 import Accordion from 'components/tc-communities/Accordion/Accordion';
 import AccordionItem from 'components/tc-communities/Accordion/AccordionItem';
+*/
 import Banner from 'components/tc-communities/Banner';
+/*
 import NewsletterSignup from 'components/tc-communities/NewsletterSignup';
 import ArticleCard from 'components/tc-communities/ArticleCard';
 import LinksCard from 'components/tc-communities/LinksCard';
 import Text from 'components/tc-communities/Text';
+*/
 
 import style from './style.scss';
 
@@ -33,6 +37,20 @@ export default function Learn() {
         }}
         imageSrc="/themes/wipro/learn/banner.jpg"
       />
+      <Section
+        link={{
+          title: 'Continue',
+          url: 'https://topgear-app.wipro.com',
+        }}
+      >
+        <div styleName="message">
+          <p>If  you are accessing TopGear Learning Platform from Wipro backbone network, click on continue to access the platform.</p>
+          <p>To access TopGear Learning Platform outside of Wipro network, please follow the below  instructions:</p>
+          <p>Send an email to <a href="mailto:devenvaccessreq.topgear@wipro.com?subject=Internet%20TopGear%20portal%20access">devenvaccessreq.topgear@wipro.com</a>  with subject line <em>Internet TopGear portal access</em>. You will receive an email within 24 hours  with details for accessing TopGear portal  through Virtual Desktop. Using Virtual Desktop you can access <a href="https://topgear-app.wipro.com/">https://topgear-app.wipro.com</a> to learn new technologies.</p>
+        </div>
+      </Section>
+
+      {/*
 
       <Section
         title="Learn The Basics"
@@ -45,10 +63,10 @@ export default function Learn() {
             <Text>
               <p>The FULCRUM is &ldquo;one stop shop&rdquo; for access to a wide range of training and learning opportunities on Wipro’s Hybrid Crowd. Designed to strengthen the skills of employees, the hub offers physical and online platforms to learn skills on demand, gain hands-on experience, and be future ready.</p>
               <p>Meticulously crafted comprehensive learning paths, detailed study material, engaging case studies, training projects to systematically enhance your career, development environments to practice, convenient online accessibility, opportunity to connect with mentors, peers, SMEs of various technologies – a variety of resources bringing people and technology together for an innovative and valuable learning experience.</p>
-              <p>Our compelling learning environment across wide range of emerging technologies helps you in mastering today’s most essential skills, that brings your knowledge to the next level, step by step, which ultimately creates a more effective learning experience.</p>
+              <p>Our compelling learning environment across wide range of emerging technologies helps you in mastering today’s most essential skills, that brings your knowledge to the next level, step by step, which ultimately creates a more effective learning experience.</p>
               <p>Are you ready to step onto the innovative journey of learning?</p>
               <div styleName="joinnowWrap">
-                <a styleName="joinnow" href="https://topgear.wipro.com">Start Exploring</a>
+                <a styleName="joinnow" href="https://topgear-app.wipro.com">Start Exploring</a>
               </div>
             </Text>
           </AccordionItem>
@@ -156,6 +174,7 @@ export default function Learn() {
         text="Don’t miss out on the latest Topcoder IOS challenges and information!"
         imageSrc="/themes/wipro/subscribe-bg.jpg"
       />
+      */}
     </main>
   );
 }

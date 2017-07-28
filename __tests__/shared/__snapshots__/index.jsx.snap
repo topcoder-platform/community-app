@@ -9,5 +9,6 @@ exports[`Snapshot match 1`] = `
 exports[`Snapshot match 2`] = `
 <div>
   <withRouter(Connect(Routes)) />
+  <res />
 </div>
 `;

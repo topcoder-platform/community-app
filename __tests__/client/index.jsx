@@ -86,7 +86,7 @@ jest.setMock('react-router-dom', {
 let tokenV3;
 const mockTcAccounts = {
   configureConnector: () => undefined,
-  decodeToken: () => 'Decoded user object',
+  decodeToken: () => ({ exp: Date.now() }),
   getFreshToken: () => Promise.resolve(tokenV3),
 };
 jest.setMock('tc-accounts', mockTcAccounts);
@@ -115,6 +115,15 @@ const mockStoreFactory = jest.fn(() => Promise.resolve({
   }),
 }));
 jest.setMock(`${SRC}/shared/store-factory`, mockStoreFactory);
+
+
+const mockLogger = {
+  warn: jest.fn(),
+  log: jest.fn(),
+  error: jest.fn(),
+};
+
+jest.setMock(`${SRC}/shared/utils/logger`, mockLogger);
 
 /* Some other mocks */
 
@@ -192,6 +201,21 @@ describe('Properly starts with process.env.FRONT_ENV evaluating true', () => {
       setImmediate(() => {
         expect(mockAuthActions.auth.setTcTokenV2).not.toHaveBeenCalled();
         expect(mockAuthActions.auth.setTcTokenV3).not.toHaveBeenCalled();
+        resolve();
+      });
+    }),
+  );
+
+  test('Unmock cookies generate a warning', () =>
+    new Promise((resolve) => {
+      jest.setMock('browser-cookies', {
+        get: () => {
+          throw new Error();
+        },
+      });
+      require(MODULE);
+      setImmediate(() => {
+        expect(mockLogger.warn).toHaveBeenCalledWith('Authentication failed!');
         resolve();
       });
     }),

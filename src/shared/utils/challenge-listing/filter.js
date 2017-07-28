@@ -130,7 +130,7 @@ function filterByText(challenge, state) {
   if (!state.text) return true;
   const str =
     `${challenge.name} ${challenge.platforms} ${challenge.technologies}`
-    .toLowerCase();
+      .toLowerCase();
   return str.includes(state.text.toLowerCase());
 }
 

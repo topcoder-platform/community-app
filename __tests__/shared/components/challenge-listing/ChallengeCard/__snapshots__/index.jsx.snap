@@ -1,0 +1,372 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Matches shallow shapshot shapshot 1 1`] = `
+<div
+  className="src-shared-components-challenge-listing-ChallengeCard-___style__challengeCard___1TmHF"
+>
+  <div
+    className="src-shared-components-challenge-listing-ChallengeCard-___style__left-panel___1u9jz"
+  >
+    <div
+      className="src-shared-components-challenge-listing-ChallengeCard-___style__challenge-track___3L9Ng"
+    >
+      <TrackAbbreviationTooltip
+        subTrack="CODE"
+        track="DEVELOP"
+      >
+        <span>
+          <TrackIcon
+            MAIN_URL="https://www.topcoder-dev.com"
+            isDataScience={true}
+            subTrack="CODE"
+            tcoEligible="Submit"
+            track="DEVELOP"
+          />
+        </span>
+      </TrackAbbreviationTooltip>
+    </div>
+    <div
+      className="src-shared-components-challenge-listing-ChallengeCard-___style__challenge-details___1wy0w src-shared-components-challenge-listing-ChallengeCard-___style__with-register-button___1Gmjf"
+    >
+      <a
+        className="src-shared-components-challenge-listing-ChallengeCard-___style__challenge-title___vir_2"
+        href="https://www.topcoder-dev.com/challenge-details/undefined/?type=develop"
+      />
+      <div
+        className="src-shared-components-challenge-listing-ChallengeCard-___style__details-footer___3zNR-"
+      >
+        <span
+          className="src-shared-components-challenge-listing-ChallengeCard-___style__date___JV6Mu"
+        >
+          Ends 
+          Jul 18
+        </span>
+        <Tags
+          onTechTagClicked={[Function]}
+          technologies="Data Science"
+        />
+      </div>
+    </div>
+  </div>
+  <div
+    className="src-shared-components-challenge-listing-ChallengeCard-___style__right-panel___3kYYO"
+  >
+    <div
+      className="src-shared-components-challenge-listing-ChallengeCard-___style__prizes___3Ms6o src-shared-components-challenge-listing-ChallengeCard-___style__with-register-button___1Gmjf"
+    >
+      <PrizesTooltip
+        challenge={
+          Object {
+            "allPhases": Array [
+              Object {
+                "phaseStatus": "Open",
+                "phaseType": "Registration",
+              },
+            ],
+            "currentPhases": Array [
+              "Registration",
+            ],
+            "events": Array [
+              Object {
+                "eventName": "Submit",
+              },
+            ],
+            "isDataScience": true,
+            "prize": Array [],
+            "status": "ACTIVE",
+            "subTrack": "CODE",
+            "technologies": "Data Science",
+            "track": "DEVELOP",
+          }
+        }
+      >
+        <div>
+          <div>
+            <span
+              className="src-shared-components-challenge-listing-ChallengeCard-___style__dollar___8eptG"
+            >
+              $
+            </span>
+            0
+          </div>
+          <div
+            className="src-shared-components-challenge-listing-ChallengeCard-___style__label___1gJ8o"
+          >
+            Purse
+          </div>
+        </div>
+      </PrizesTooltip>
+    </div>
+    <ChallengeStatus
+      challenge={
+        Object {
+          "allPhases": Array [
+            Object {
+              "phaseStatus": "Open",
+              "phaseType": "Registration",
+            },
+          ],
+          "currentPhases": Array [
+            "Registration",
+          ],
+          "events": Array [
+            Object {
+              "eventName": "Submit",
+            },
+          ],
+          "isDataScience": true,
+          "prize": Array [],
+          "status": "ACTIVE",
+          "subTrack": "CODE",
+          "technologies": "Data Science",
+          "track": "DEVELOP",
+        }
+      }
+      detailLink="https://www.topcoder-dev.com/challenge-details/undefined/?type=develop"
+      sampleWinnerProfile={undefined}
+    />
+  </div>
+</div>
+`;
+
+exports[`Matches shallow shapshot shapshot 2 1`] = `
+<div
+  className="src-shared-components-challenge-listing-ChallengeCard-___style__challengeCard___1TmHF"
+>
+  <div
+    className="src-shared-components-challenge-listing-ChallengeCard-___style__left-panel___1u9jz"
+  >
+    <div
+      className="src-shared-components-challenge-listing-ChallengeCard-___style__challenge-track___3L9Ng"
+    >
+      <TrackAbbreviationTooltip
+        subTrack="CODE"
+        track="DATA_SCIENCE"
+      >
+        <span>
+          <TrackIcon
+            MAIN_URL="https://www.topcoder-dev.com"
+            isDataScience={false}
+            subTrack="CODE"
+            tcoEligible=""
+            track="DATA_SCIENCE"
+          />
+        </span>
+      </TrackAbbreviationTooltip>
+    </div>
+    <div
+      className="src-shared-components-challenge-listing-ChallengeCard-___style__challenge-details___1wy0w"
+    >
+      <a
+        className="src-shared-components-challenge-listing-ChallengeCard-___style__challenge-title___vir_2"
+        href="https://community.topcoder-dev.com/tc?module=MatchDetails&rd=1"
+      />
+      <div
+        className="src-shared-components-challenge-listing-ChallengeCard-___style__details-footer___3zNR-"
+      >
+        <span
+          className="src-shared-components-challenge-listing-ChallengeCard-___style__date___JV6Mu"
+        >
+          Ended 
+          Jul 18
+        </span>
+        <Tags
+          onTechTagClicked={[Function]}
+          technologies="Go"
+        />
+      </div>
+    </div>
+  </div>
+  <div
+    className="src-shared-components-challenge-listing-ChallengeCard-___style__right-panel___3kYYO"
+  >
+    <div
+      className="src-shared-components-challenge-listing-ChallengeCard-___style__prizes___3Ms6o"
+    >
+      <PrizesTooltip
+        challenge={
+          Object {
+            "allPhases": Array [
+              Object {
+                "phaseStatus": "Open",
+                "phaseType": "Submit",
+              },
+            ],
+            "currentPhases": Array [
+              "Registration",
+            ],
+            "id": "1",
+            "isDataScience": false,
+            "prize": Array [],
+            "subTrack": "CODE",
+            "technologies": "Go",
+            "totalPrize": 1000,
+            "track": "DATA_SCIENCE",
+          }
+        }
+      >
+        <div>
+          <div>
+            <span
+              className="src-shared-components-challenge-listing-ChallengeCard-___style__dollar___8eptG"
+            >
+              $
+            </span>
+            1,000
+          </div>
+          <div
+            className="src-shared-components-challenge-listing-ChallengeCard-___style__label___1gJ8o"
+          >
+            Purse
+          </div>
+        </div>
+      </PrizesTooltip>
+    </div>
+    <ChallengeStatus
+      challenge={
+        Object {
+          "allPhases": Array [
+            Object {
+              "phaseStatus": "Open",
+              "phaseType": "Submit",
+            },
+          ],
+          "currentPhases": Array [
+            "Registration",
+          ],
+          "id": "1",
+          "isDataScience": false,
+          "prize": Array [],
+          "subTrack": "CODE",
+          "technologies": "Go",
+          "totalPrize": 1000,
+          "track": "DATA_SCIENCE",
+        }
+      }
+      detailLink="https://community.topcoder-dev.com/tc?module=MatchDetails&rd=1"
+      sampleWinnerProfile={undefined}
+    />
+  </div>
+</div>
+`;
+
+exports[`Matches shallow shapshot shapshot 3 1`] = `
+<div
+  className="src-shared-components-challenge-listing-ChallengeCard-___style__challengeCard___1TmHF"
+>
+  <div
+    className="src-shared-components-challenge-listing-ChallengeCard-___style__left-panel___1u9jz"
+  >
+    <div
+      className="src-shared-components-challenge-listing-ChallengeCard-___style__challenge-track___3L9Ng"
+    >
+      <TrackAbbreviationTooltip
+        subTrack="CODE"
+        track="DATA_SCIENCE"
+      >
+        <span>
+          <TrackIcon
+            MAIN_URL="https://www.topcoder-dev.com"
+            isDataScience={false}
+            subTrack="CODE"
+            tcoEligible=""
+            track="DATA_SCIENCE"
+          />
+        </span>
+      </TrackAbbreviationTooltip>
+    </div>
+    <div
+      className="src-shared-components-challenge-listing-ChallengeCard-___style__challenge-details___1wy0w"
+    >
+      <a
+        className="src-shared-components-challenge-listing-ChallengeCard-___style__challenge-title___vir_2"
+        href="https://www.topcoder-dev.com/challenge-details/long id/?type=develop"
+      />
+      <div
+        className="src-shared-components-challenge-listing-ChallengeCard-___style__details-footer___3zNR-"
+      >
+        <span
+          className="src-shared-components-challenge-listing-ChallengeCard-___style__date___JV6Mu"
+        >
+          Ended 
+          Jul 18
+        </span>
+        <Tags
+          onTechTagClicked={[Function]}
+          technologies=""
+        />
+      </div>
+    </div>
+  </div>
+  <div
+    className="src-shared-components-challenge-listing-ChallengeCard-___style__right-panel___3kYYO"
+  >
+    <div
+      className="src-shared-components-challenge-listing-ChallengeCard-___style__prizes___3Ms6o"
+    >
+      <PrizesTooltip
+        challenge={
+          Object {
+            "allPhases": Array [
+              Object {
+                "phaseStatus": "Closed",
+                "phaseType": "Registration",
+              },
+            ],
+            "currentPhases": Array [
+              "Registration",
+            ],
+            "id": "long id",
+            "isDataScience": false,
+            "prize": Array [],
+            "subTrack": "CODE",
+            "technologies": "",
+            "totalPrize": 1000,
+            "track": "DATA_SCIENCE",
+          }
+        }
+      >
+        <div>
+          <div>
+            <span
+              className="src-shared-components-challenge-listing-ChallengeCard-___style__dollar___8eptG"
+            >
+              $
+            </span>
+            1,000
+          </div>
+          <div
+            className="src-shared-components-challenge-listing-ChallengeCard-___style__label___1gJ8o"
+          >
+            Purse
+          </div>
+        </div>
+      </PrizesTooltip>
+    </div>
+    <ChallengeStatus
+      challenge={
+        Object {
+          "allPhases": Array [
+            Object {
+              "phaseStatus": "Closed",
+              "phaseType": "Registration",
+            },
+          ],
+          "currentPhases": Array [
+            "Registration",
+          ],
+          "id": "long id",
+          "isDataScience": false,
+          "prize": Array [],
+          "subTrack": "CODE",
+          "technologies": "",
+          "totalPrize": 1000,
+          "track": "DATA_SCIENCE",
+        }
+      }
+      detailLink="https://www.topcoder-dev.com/challenge-details/long id/?type=develop"
+      sampleWinnerProfile={undefined}
+    />
+  </div>
+</div>
+`;

@@ -1,0 +1,130 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Matches shallow shapshot 1`] = `
+<div
+  className="src-shared-components-Dashboard-SRM-___SRMTile__srm___3Xmy7 src-shared-components-Dashboard-SRM-___SRMTile__tile-view___3PGSy"
+>
+  <div>
+    <div
+      className="src-shared-components-Dashboard-SRM-___SRMTile__challenge-track___3phXC"
+    />
+    <header>
+      <a
+        className="src-shared-components-Dashboard-SRM-___SRMTile__noclick___2OJeG"
+      />
+    </header>
+    <div
+      className="src-shared-components-Dashboard-SRM-___SRMTile__srm-details___1faDH"
+    >
+      <p
+        className="src-shared-components-Dashboard-SRM-___SRMTile__starts-in___aKyKH"
+      >
+        Starts in 
+        <span>
+          1d
+                          1d
+        </span>
+      </p>
+      <div
+        className="src-shared-components-Dashboard-SRM-___SRMTile__srm-calendar___1v6RF"
+      >
+        <span
+          className="src-shared-components-Dashboard-SRM-___SRMTile__day___1Ls1h"
+        >
+          31
+        </span>
+        <span
+          className="src-shared-components-Dashboard-SRM-___SRMTile__month___l_ZXu"
+        >
+          Dec
+        </span>
+        <span
+          className="src-shared-components-Dashboard-SRM-___SRMTile__hour___1BSyv"
+        >
+          08:00 am
+        </span>
+        <span
+          className="src-shared-components-Dashboard-SRM-___SRMTile__time-zone___1PwD_"
+        >
+          EET
+        </span>
+      </div>
+    </div>
+    <div
+      className="src-shared-components-Dashboard-SRM-___SRMTile__phase-status___2bDr5"
+    >
+      <div
+        className="src-shared-components-Dashboard-SRM-___SRMTile__registered___3HKr-"
+      >
+        Registered
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`Matches shallow shapshot 2`] = `
+<div
+  className="src-shared-components-Dashboard-SRM-___SRMTile__srm___3Xmy7 src-shared-components-Dashboard-SRM-___SRMTile__tile-view___3PGSy"
+>
+  <div>
+    <div
+      className="src-shared-components-Dashboard-SRM-___SRMTile__challenge-track___3phXC"
+    />
+    <header>
+      <a
+        className="src-shared-components-Dashboard-SRM-___SRMTile__noclick___2OJeG"
+      />
+    </header>
+    <div
+      className="src-shared-components-Dashboard-SRM-___SRMTile__srm-details___1faDH"
+    >
+      <p
+        className="src-shared-components-Dashboard-SRM-___SRMTile__starts-in___aKyKH"
+      >
+        Starts in 
+        <span>
+          1d
+                          1d
+        </span>
+      </p>
+      <div
+        className="src-shared-components-Dashboard-SRM-___SRMTile__srm-calendar___1v6RF"
+      >
+        <span
+          className="src-shared-components-Dashboard-SRM-___SRMTile__day___1Ls1h"
+        >
+          31
+        </span>
+        <span
+          className="src-shared-components-Dashboard-SRM-___SRMTile__month___l_ZXu"
+        >
+          Dec
+        </span>
+        <span
+          className="src-shared-components-Dashboard-SRM-___SRMTile__hour___1BSyv"
+        >
+          08:00 am
+        </span>
+        <span
+          className="src-shared-components-Dashboard-SRM-___SRMTile__time-zone___1PwD_"
+        >
+          EET
+        </span>
+      </div>
+    </div>
+    <div
+      className="src-shared-components-Dashboard-SRM-___SRMTile__phase-status___2bDr5"
+    >
+      <div>
+        <a
+          className="tc-btn tc-btn-s tc-btn-wide src-shared-components-Dashboard-SRM-___SRMTile__tc-btn___3gPxt"
+          href="https://community.topcoder-dev.com/tc?module=MatchDetails&rd=1"
+        >
+          Register
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+`;

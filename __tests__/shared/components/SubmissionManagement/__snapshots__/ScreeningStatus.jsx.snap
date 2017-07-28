@@ -109,8 +109,8 @@ exports[`Snapshot match 6`] = `
     <span
       className="src-shared-components-SubmissionManagement-ScreeningStatus-___styles__warning___6tSHD"
     >
-      0 
-      warning
+      2 
+       warnings
     </span>
   </div>
 </button>

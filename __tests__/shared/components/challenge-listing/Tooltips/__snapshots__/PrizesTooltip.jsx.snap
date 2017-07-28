@@ -1,0 +1,47 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Matches shallow shapshot 1`] = `
+<Tooltip
+  align={Object {}}
+  className=""
+  content={
+    <Tip
+      challenge={Object {}}
+      isLoaded={true}
+    />
+  }
+  defaultVisible={false}
+  onTooltipHover={[Function]}
+  placeArrow={[Function]}
+  position="top"
+>
+  <div
+    className="mock-class"
+  >
+    abcedfghik
+  </div>
+</Tooltip>
+`;
+
+exports[`Matches shallow shapshot 2`] = `
+<Tooltip
+  align={Object {}}
+  className=""
+  content={
+    <Tip
+      challenge={Object {}}
+      isLoaded={true}
+    />
+  }
+  defaultVisible={false}
+  onTooltipHover={[Function]}
+  placeArrow={[Function]}
+  position="top"
+>
+  <div
+    className="mock-class"
+  >
+    abcedfghik
+  </div>
+</Tooltip>
+`;

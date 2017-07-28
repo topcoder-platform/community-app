@@ -6,7 +6,6 @@
 import { getApiV3 } from './api';
 
 class MemberCertService {
-
   /**
    * @param {String} tokenV3 Optional. Auth token for Topcoder API v3.
    */

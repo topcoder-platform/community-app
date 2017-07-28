@@ -93,7 +93,6 @@ export function normalizeMarathonMatch(challenge, username) {
 }
 
 class ChallengesService {
-
   /**
    * @param {String} tokenV3 Optional. Auth token for Topcoder API v3.
    */
@@ -117,13 +116,13 @@ class ChallengesService {
         ...params,
       };
       return this.private.api.get(`${endpoint}?${qs.stringify(query)}`)
-      .then(res => (res.ok ? res.json() : new Error(res.statusText)))
-      .then(res => (
-        res.result.status === 200 ? {
-          challenges: res.result.content || [],
-          totalCount: res.result.metadata.totalCount,
-        } : new Error(res.result.content)
-      ));
+        .then(res => (res.ok ? res.json() : new Error(res.statusText)))
+        .then(res => (
+          res.result.status === 200 ? {
+            challenges: res.result.content || [],
+            totalCount: res.result.metadata.totalCount,
+          } : new Error(res.result.content)
+        ));
     };
 
     this.private = {
@@ -141,9 +140,9 @@ class ChallengesService {
   getChallengeSubtracks() {
     return Promise.all([
       this.private.apiV2.get('/design/challengetypes')
-      .then(res => (res.ok ? res.json() : new Error(res.statusText))),
+        .then(res => (res.ok ? res.json() : new Error(res.statusText))),
       this.private.apiV2.get('/develop/challengetypes')
-      .then(res => (res.ok ? res.json() : new Error(res.statusText))),
+        .then(res => (res.ok ? res.json() : new Error(res.statusText))),
     ]).then(([a, b]) => a.concat(b));
   }
 
@@ -153,12 +152,12 @@ class ChallengesService {
    */
   getChallengeTags() {
     return this.private.api.get('/technologies')
-    .then(res => (res.ok ? res.json() : new Error(res.statusText)))
-    .then(res => (
-      res.result.status === 200 ?
-      res.result.content :
-      new Error(res.result.content)
-    ));
+      .then(res => (res.ok ? res.json() : new Error(res.statusText)))
+      .then(res => (
+        res.result.status === 200 ?
+          res.result.content :
+          new Error(res.result.content)
+      ));
   }
 
   /**
@@ -169,10 +168,10 @@ class ChallengesService {
    */
   getChallenges(filters, params) {
     return this.private.getChallenges('/challenges/', filters, params)
-    .then((res) => {
-      res.challenges.forEach(item => normalizeChallenge(item));
-      return res;
-    });
+      .then((res) => {
+        res.challenges.forEach(item => normalizeChallenge(item));
+        return res;
+      });
   }
 
   /**
@@ -183,10 +182,10 @@ class ChallengesService {
    */
   getMarathonMatches(filters, params) {
     return this.private.getChallenges('/marathonMatches/', filters, params)
-    .then((res) => {
-      res.challenges.forEach(item => normalizeMarathonMatch(item));
-      return res;
-    });
+      .then((res) => {
+        res.challenges.forEach(item => normalizeMarathonMatch(item));
+        return res;
+      });
   }
 
   /**
@@ -199,10 +198,10 @@ class ChallengesService {
   getUserChallenges(username, filters, params) {
     const endpoint = `/members/${username.toLowerCase()}/challenges/`;
     return this.private.getChallenges(endpoint, filters, params)
-    .then((res) => {
-      res.challenges.forEach(item => normalizeChallenge(item, username));
-      return res;
-    });
+      .then((res) => {
+        res.challenges.forEach(item => normalizeChallenge(item, username));
+        return res;
+      });
   }
 
   /**
@@ -215,10 +214,10 @@ class ChallengesService {
   getUserMarathonMatches(username, filters, params) {
     const endpoint = `/members/${username.toLowerCase()}/mms/`;
     return this.private.getChallenges(endpoint, filters, params)
-    .then((res) => {
-      res.challenges.forEach(item => normalizeMarathonMatch(item, username));
-      return res;
-    });
+      .then((res) => {
+        res.challenges.forEach(item => normalizeMarathonMatch(item, username));
+        return res;
+      });
   }
 }
 

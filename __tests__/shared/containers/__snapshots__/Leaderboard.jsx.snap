@@ -9,31 +9,31 @@ exports[`Matches shapshot 1`] = `
     Array [
       Object {
         "avatarUrl": "some.fake.string",
+        "challenge_stats.count": 99999,
+        "challenge_stats.winner_handle": "overachieving.mofo",
         "project_result.final_score": 9999999999,
         "rank": 1,
-        "user.handle": "overachieving.mofo",
-        "wins": 99999,
       },
       Object {
         "avatarUrl": "some.fake.string",
+        "challenge_stats.count": 99999,
+        "challenge_stats.winner_handle": "overachieving.mofo",
         "project_result.final_score": 9999999999,
         "rank": 1,
-        "user.handle": "overachieving.mofo",
-        "wins": 99999,
       },
       Object {
         "avatarUrl": "some.fake.string",
+        "challenge_stats.count": 99999,
+        "challenge_stats.winner_handle": "overachieving.mofo",
         "project_result.final_score": 9999999999,
         "rank": 1,
-        "user.handle": "overachieving.mofo",
-        "wins": 99999,
       },
       Object {
         "avatarUrl": "some.fake.string",
+        "challenge_stats.count": 99999,
+        "challenge_stats.winner_handle": "overachieving.mofo",
         "project_result.final_score": 9999999999,
         "rank": 1,
-        "user.handle": "overachieving.mofo",
-        "wins": 99999,
       },
     ]
   }

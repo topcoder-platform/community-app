@@ -13,8 +13,9 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { BUCKETS, getBuckets } from 'utils/challenge-listing/buckets';
 
-class SidebarContainer extends React.Component {
+export const SidebarPureComponent = Sidebar;
 
+export class SidebarContainer extends React.Component {
   componentDidMount() {
     const token = this.props.tokenV2;
     if (token) this.props.getSavedFilters(token);
@@ -88,13 +89,14 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-function mapStateToProps(state) {
+function mapStateToProps(state, ownProps) {
   const activeBucket = state.challengeListing.sidebar.activeBucket;
   const pending = _.keys(state.challengeListing.pendingRequests);
   return {
     ...state.challengeListing.sidebar,
     challenges: state.challengeListing.challenges,
     disabled: (activeBucket === BUCKETS.ALL) && Boolean(pending.length),
+    hideTcLinksInFooter: ownProps.hideTcLinksInFooter,
     filterState: state.challengeListing.filter,
     isAuth: Boolean(state.auth.user),
     communityFilters: [{ communityId: '', communityName: 'All' }].concat(state.tcCommunities.list),

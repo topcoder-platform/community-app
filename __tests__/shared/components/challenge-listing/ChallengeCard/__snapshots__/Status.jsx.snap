@@ -1,0 +1,747 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Matches shallow shapshot shapshot 1 1`] = `
+<div
+  className="src-shared-components-challenge-listing-ChallengeCard-Status-___style__challenge-status___2B0m2"
+>
+  <div
+    className="src-shared-components-challenge-listing-ChallengeCard-Status-___style__challenge-progress___nYpJK src-shared-components-challenge-listing-ChallengeCard-Status-___style__with-register-button___y1FtK"
+  >
+    <span
+      className="src-shared-components-challenge-listing-ChallengeCard-Status-___style__current-phase___1znlT"
+    >
+      Submission
+    </span>
+    <span
+      className="src-shared-components-challenge-listing-ChallengeCard-Status-___style__challenge-stats___3acj8"
+    >
+      <span
+        className="src-shared-components-challenge-listing-ChallengeCard-Status-___style__num-reg___21Nvh"
+      >
+        <Tooltip
+          align={Object {}}
+          className=""
+          content={
+            <div
+              className="src-shared-components-challenge-listing-ChallengeCard-Status-___style__num-reg-tooltip___1buAj"
+            >
+              undefined total registrants
+            </div>
+          }
+          defaultVisible={false}
+          onTooltipHover={[Function]}
+          placeArrow={[Function]}
+          position="top"
+        >
+          <a
+            className="src-shared-components-challenge-listing-ChallengeCard-Status-___style__num-reg___21Nvh"
+            href="https://www.topcoder-dev.com/challenge-details/undefined/?type=develop#viewRegistrant"
+          >
+            <RegistrantsIcon />
+            <span
+              className="src-shared-components-challenge-listing-ChallengeCard-Status-___style__number___1-w-l"
+            />
+          </a>
+        </Tooltip>
+      </span>
+      <span
+        className="src-shared-components-challenge-listing-ChallengeCard-Status-___style__num-sub___2uSLf"
+      >
+        <Tooltip
+          align={Object {}}
+          className=""
+          content={
+            <div
+              className="src-shared-components-challenge-listing-ChallengeCard-Status-___style__num-reg-tooltip___1buAj"
+            >
+              undefined total submissions
+            </div>
+          }
+          defaultVisible={false}
+          onTooltipHover={[Function]}
+          placeArrow={[Function]}
+          position="top"
+        >
+          <a
+            className="src-shared-components-challenge-listing-ChallengeCard-Status-___style__num-sub___2uSLf"
+            href="https://www.topcoder-dev.com/challenge-details/undefined/?type=develop#viewRegistrant"
+          >
+            <SubmissionsIcon />
+             
+            <span
+              className="src-shared-components-challenge-listing-ChallengeCard-Status-___style__number___1-w-l"
+            />
+          </a>
+        </Tooltip>
+      </span>
+    </span>
+    <ProgressBarTooltip
+      challenge={
+        Object {
+          "allPhases": Array [
+            Object {
+              "phaseStatus": "Open",
+              "phaseType": "Registration",
+            },
+          ],
+          "currentPhases": Array [
+            Object {
+              "phaseStatus": "Open",
+              "phaseType": "Registration",
+            },
+          ],
+          "events": Array [
+            Object {
+              "eventName": "Submit",
+            },
+          ],
+          "status": "ACTIVE",
+          "subTrack": "CODE",
+          "submissionEndDate": "2019-12-31T23:00:00.000Z",
+          "technologies": "Data Science",
+          "track": "DEVELOP",
+        }
+      }
+    >
+      <div>
+        <ChallengeProgressBar
+          color="green"
+          isLate={false}
+          value={0}
+        />
+        <div
+          className="src-shared-components-challenge-listing-ChallengeCard-Status-___style__time-left___1RyL7"
+        >
+          897d 19:18h to go
+        </div>
+      </div>
+    </ProgressBarTooltip>
+    <a
+      className="src-shared-components-challenge-listing-ChallengeCard-Status-___style__register-button___3BoMk"
+      href=""
+      onClick={[Function]}
+    >
+      <span>
+        897d 19:18h
+      </span>
+      <span
+        className="src-shared-components-challenge-listing-ChallengeCard-Status-___style__to-register___17rpT"
+      >
+        to register
+      </span>
+    </a>
+  </div>
+</div>
+`;
+
+exports[`Matches shallow shapshot shapshot 1 2`] = `
+<div
+  className="src-shared-components-challenge-listing-ChallengeCard-Status-___style__challenge-status___2B0m2 src-shared-components-challenge-listing-ChallengeCard-Status-___style__completed___2nCOM"
+>
+  <div>
+    <a
+      href="https://www.topcoder-dev.com/challenge-details/undefined#winner"
+    >
+      Results
+    </a>
+    <span
+      className="src-shared-components-challenge-listing-ChallengeCard-Status-___style__challenge-stats___3acj8"
+    >
+      <span
+        className="src-shared-components-challenge-listing-ChallengeCard-Status-___style__num-reg___21Nvh"
+      >
+        <Tooltip
+          align={Object {}}
+          className=""
+          content={
+            <div
+              className="src-shared-components-challenge-listing-ChallengeCard-Status-___style__num-reg-tooltip___1buAj"
+            >
+              undefined total registrants
+            </div>
+          }
+          defaultVisible={false}
+          onTooltipHover={[Function]}
+          placeArrow={[Function]}
+          position="top"
+        >
+          <a
+            className="src-shared-components-challenge-listing-ChallengeCard-Status-___style__num-reg___21Nvh src-shared-components-challenge-listing-ChallengeCard-Status-___style__past___L0dXA"
+            href="https://www.topcoder-dev.com/challenge-details/undefined/?type=develop#viewRegistrant"
+          >
+            <RegistrantsIcon />
+             
+            <span
+              className="src-shared-components-challenge-listing-ChallengeCard-Status-___style__number___1-w-l"
+            />
+          </a>
+        </Tooltip>
+      </span>
+      <span
+        className="src-shared-components-challenge-listing-ChallengeCard-Status-___style__num-sub___2uSLf"
+      >
+        <Tooltip
+          align={Object {}}
+          className=""
+          content={
+            <div
+              className="src-shared-components-challenge-listing-ChallengeCard-Status-___style__num-reg-tooltip___1buAj"
+            >
+              undefined total submissions
+            </div>
+          }
+          defaultVisible={false}
+          onTooltipHover={[Function]}
+          placeArrow={[Function]}
+          position="top"
+        >
+          <a
+            className="src-shared-components-challenge-listing-ChallengeCard-Status-___style__num-sub___2uSLf src-shared-components-challenge-listing-ChallengeCard-Status-___style__past___L0dXA"
+            href="https://www.topcoder-dev.com/challenge-details/undefined/?type=develop#viewRegistrant"
+          >
+            <SubmissionsIcon />
+             
+            <span
+              className="src-shared-components-challenge-listing-ChallengeCard-Status-___style__number___1-w-l"
+            />
+          </a>
+        </Tooltip>
+      </span>
+      <span>
+        <a
+          className="src-shared-components-challenge-listing-ChallengeCard-Status-___style__link-forum___3C_Bn src-shared-components-challenge-listing-ChallengeCard-Status-___style__past___L0dXA"
+          href="https://apps.topcoder-dev.com/forums/?module=Category&categoryID=undefined"
+        >
+          <ForumIcon />
+        </a>
+      </span>
+    </span>
+  </div>
+</div>
+`;
+
+exports[`Matches shallow shapshot shapshot 1 3`] = `
+<div
+  className="src-shared-components-challenge-listing-ChallengeCard-Status-___style__challenge-status___2B0m2 src-shared-components-challenge-listing-ChallengeCard-Status-___style__completed___2nCOM"
+>
+  <div>
+    <div
+      className="src-shared-components-challenge-listing-ChallengeCard-Status-___style__avatar-container___1moWR"
+    >
+      <UserAvatarTooltip
+        user={
+          Object {
+            "country": "",
+            "handle": undefined,
+            "memberSince": "",
+            "photoLink": "https://www.topcoder-dev.com/i/m/undefined.jpeg",
+            "placement": undefined,
+            "ratingSummary": Array [],
+          }
+        }
+      >
+        <LeaderboardAvatar
+          domain={undefined}
+          member={
+            Object {
+              "handle": undefined,
+              "photoURL": "https://www.topcoder-dev.com/i/m/undefined.jpeg",
+              "position": undefined,
+            }
+          }
+          url=""
+        />
+      </UserAvatarTooltip>
+    </div>
+    <div
+      className="src-shared-components-challenge-listing-ChallengeCard-Status-___style__avatar-container___1moWR"
+    >
+      <UserAvatarTooltip
+        user={
+          Object {
+            "country": "",
+            "handle": undefined,
+            "memberSince": "",
+            "photoLink": "https://www.topcoder-dev.com/i/m/undefined.jpeg",
+            "placement": undefined,
+            "ratingSummary": Array [],
+          }
+        }
+      >
+        <LeaderboardAvatar
+          domain={undefined}
+          member={
+            Object {
+              "handle": undefined,
+              "photoURL": "https://www.topcoder-dev.com/i/m/undefined.jpeg",
+              "position": undefined,
+            }
+          }
+          url=""
+        />
+      </UserAvatarTooltip>
+    </div>
+    <div
+      className="src-shared-components-challenge-listing-ChallengeCard-Status-___style__avatar-container___1moWR"
+    >
+      <UserAvatarTooltip
+        user={
+          Object {
+            "country": "",
+            "handle": undefined,
+            "memberSince": "",
+            "photoLink": "https://www.topcoder-dev.com/i/m/undefined.jpeg",
+            "placement": undefined,
+            "ratingSummary": Array [],
+          }
+        }
+      >
+        <LeaderboardAvatar
+          domain={undefined}
+          member={
+            Object {
+              "handle": undefined,
+              "photoURL": "https://www.topcoder-dev.com/i/m/undefined.jpeg",
+              "position": undefined,
+            }
+          }
+          url=""
+        />
+      </UserAvatarTooltip>
+    </div>
+    <LeaderboardAvatar
+      domain={undefined}
+      member={
+        Object {
+          "handle": "+1",
+          "isLastItem": true,
+        }
+      }
+      url="#winner"
+    />
+    <span
+      className="src-shared-components-challenge-listing-ChallengeCard-Status-___style__challenge-stats___3acj8"
+    >
+      <span
+        className="src-shared-components-challenge-listing-ChallengeCard-Status-___style__num-reg___21Nvh"
+      >
+        <Tooltip
+          align={Object {}}
+          className=""
+          content={
+            <div
+              className="src-shared-components-challenge-listing-ChallengeCard-Status-___style__num-reg-tooltip___1buAj"
+            >
+              undefined total registrants
+            </div>
+          }
+          defaultVisible={false}
+          onTooltipHover={[Function]}
+          placeArrow={[Function]}
+          position="top"
+        >
+          <a
+            className="src-shared-components-challenge-listing-ChallengeCard-Status-___style__num-reg___21Nvh src-shared-components-challenge-listing-ChallengeCard-Status-___style__past___L0dXA"
+            href="https://www.topcoder-dev.com/challenge-details/undefined/?type=data_science#viewRegistrant"
+          >
+            <RegistrantsIcon />
+             
+            <span
+              className="src-shared-components-challenge-listing-ChallengeCard-Status-___style__number___1-w-l"
+            />
+          </a>
+        </Tooltip>
+      </span>
+      <span
+        className="src-shared-components-challenge-listing-ChallengeCard-Status-___style__num-sub___2uSLf"
+      >
+        <Tooltip
+          align={Object {}}
+          className=""
+          content={
+            <div
+              className="src-shared-components-challenge-listing-ChallengeCard-Status-___style__num-reg-tooltip___1buAj"
+            >
+              undefined total submissions
+            </div>
+          }
+          defaultVisible={false}
+          onTooltipHover={[Function]}
+          placeArrow={[Function]}
+          position="top"
+        >
+          <a
+            className="src-shared-components-challenge-listing-ChallengeCard-Status-___style__num-sub___2uSLf src-shared-components-challenge-listing-ChallengeCard-Status-___style__past___L0dXA"
+            href="https://www.topcoder-dev.com/challenge-details/undefined/?type=data_science#viewRegistrant"
+          >
+            <SubmissionsIcon />
+             
+            <span
+              className="src-shared-components-challenge-listing-ChallengeCard-Status-___style__number___1-w-l"
+            />
+          </a>
+        </Tooltip>
+      </span>
+      <span>
+        <a
+          className="src-shared-components-challenge-listing-ChallengeCard-Status-___style__link-forum___3C_Bn src-shared-components-challenge-listing-ChallengeCard-Status-___style__past___L0dXA"
+          href="https://apps.topcoder-dev.com/forums/?module=Category&categoryID=undefined"
+        >
+          <ForumIcon />
+        </a>
+      </span>
+    </span>
+  </div>
+</div>
+`;
+
+exports[`Matches shallow shapshot shapshot 1 4`] = `
+<div
+  className="src-shared-components-challenge-listing-ChallengeCard-Status-___style__challenge-status___2B0m2"
+>
+  <div
+    className="src-shared-components-challenge-listing-ChallengeCard-Status-___style__challenge-progress___nYpJK"
+  >
+    <span
+      className="src-shared-components-challenge-listing-ChallengeCard-Status-___style__current-phase___1znlT"
+    >
+      In Draft
+    </span>
+    <span
+      className="src-shared-components-challenge-listing-ChallengeCard-Status-___style__challenge-stats___3acj8"
+    >
+      <span
+        className="src-shared-components-challenge-listing-ChallengeCard-Status-___style__num-reg___21Nvh"
+      >
+        <Tooltip
+          align={Object {}}
+          className=""
+          content={
+            <div
+              className="src-shared-components-challenge-listing-ChallengeCard-Status-___style__num-reg-tooltip___1buAj"
+            >
+              undefined total registrants
+            </div>
+          }
+          defaultVisible={false}
+          onTooltipHover={[Function]}
+          placeArrow={[Function]}
+          position="top"
+        >
+          <a
+            className="src-shared-components-challenge-listing-ChallengeCard-Status-___style__num-reg___21Nvh"
+            href="https://www.topcoder-dev.com/challenge-details/undefined/?type=develop#viewRegistrant"
+          >
+            <RegistrantsIcon />
+            <span
+              className="src-shared-components-challenge-listing-ChallengeCard-Status-___style__number___1-w-l"
+            />
+          </a>
+        </Tooltip>
+      </span>
+      <span
+        className="src-shared-components-challenge-listing-ChallengeCard-Status-___style__num-sub___2uSLf"
+      >
+        <Tooltip
+          align={Object {}}
+          className=""
+          content={
+            <div
+              className="src-shared-components-challenge-listing-ChallengeCard-Status-___style__num-reg-tooltip___1buAj"
+            >
+              undefined total submissions
+            </div>
+          }
+          defaultVisible={false}
+          onTooltipHover={[Function]}
+          placeArrow={[Function]}
+          position="top"
+        >
+          <a
+            className="src-shared-components-challenge-listing-ChallengeCard-Status-___style__num-sub___2uSLf"
+            href="https://www.topcoder-dev.com/challenge-details/undefined/?type=develop#viewRegistrant"
+          >
+            <SubmissionsIcon />
+             
+            <span
+              className="src-shared-components-challenge-listing-ChallengeCard-Status-___style__number___1-w-l"
+            />
+          </a>
+        </Tooltip>
+      </span>
+      <span>
+        <a
+          className="src-shared-components-challenge-listing-ChallengeCard-Status-___style__link-forum___3C_Bn"
+          href="https://apps.topcoder-dev.com/forums/?module=Category&categoryID=undefined"
+        >
+          <ForumIcon />
+        </a>
+      </span>
+    </span>
+    <ProgressBarTooltip
+      challenge={
+        Object {
+          "allPhases": Array [
+            Object {
+              "phaseStatus": "DRAFT",
+              "phaseType": "Submit",
+            },
+          ],
+          "events": Array [
+            Object {
+              "eventName": "Submit",
+            },
+          ],
+          "myChallenge": true,
+          "status": "DRAFT",
+          "subTrack": "CODE",
+          "submissionEndDate": "2019-12-31T23:00:00.000Z",
+          "technologies": "Data Science",
+          "track": "DEVELOP",
+        }
+      }
+    >
+      <ChallengeProgressBar
+        color="gray"
+        isLate={false}
+        value="100"
+      />
+    </ProgressBarTooltip>
+  </div>
+</div>
+`;
+
+exports[`Matches shallow shapshot shapshot 1 5`] = `
+<div
+  className="src-shared-components-challenge-listing-ChallengeCard-Status-___style__challenge-status___2B0m2"
+>
+  <div
+    className="src-shared-components-challenge-listing-ChallengeCard-Status-___style__challenge-progress___nYpJK"
+  >
+    <span
+      className="src-shared-components-challenge-listing-ChallengeCard-Status-___style__current-phase___1znlT"
+    >
+      Stalled
+    </span>
+    <span
+      className="src-shared-components-challenge-listing-ChallengeCard-Status-___style__challenge-stats___3acj8"
+    >
+      <span
+        className="src-shared-components-challenge-listing-ChallengeCard-Status-___style__num-reg___21Nvh"
+      >
+        <Tooltip
+          align={Object {}}
+          className=""
+          content={
+            <div
+              className="src-shared-components-challenge-listing-ChallengeCard-Status-___style__num-reg-tooltip___1buAj"
+            >
+              undefined total registrants
+            </div>
+          }
+          defaultVisible={false}
+          onTooltipHover={[Function]}
+          placeArrow={[Function]}
+          position="top"
+        >
+          <a
+            className="src-shared-components-challenge-listing-ChallengeCard-Status-___style__num-reg___21Nvh"
+            href="https://www.topcoder-dev.com/challenge-details/undefined/?type=develop#viewRegistrant"
+          >
+            <RegistrantsIcon />
+            <span
+              className="src-shared-components-challenge-listing-ChallengeCard-Status-___style__number___1-w-l"
+            />
+          </a>
+        </Tooltip>
+      </span>
+      <span
+        className="src-shared-components-challenge-listing-ChallengeCard-Status-___style__num-sub___2uSLf"
+      >
+        <Tooltip
+          align={Object {}}
+          className=""
+          content={
+            <div
+              className="src-shared-components-challenge-listing-ChallengeCard-Status-___style__num-reg-tooltip___1buAj"
+            >
+              undefined total submissions
+            </div>
+          }
+          defaultVisible={false}
+          onTooltipHover={[Function]}
+          placeArrow={[Function]}
+          position="top"
+        >
+          <a
+            className="src-shared-components-challenge-listing-ChallengeCard-Status-___style__num-sub___2uSLf"
+            href="https://www.topcoder-dev.com/challenge-details/undefined/?type=develop#viewRegistrant"
+          >
+            <SubmissionsIcon />
+             
+            <span
+              className="src-shared-components-challenge-listing-ChallengeCard-Status-___style__number___1-w-l"
+            />
+          </a>
+        </Tooltip>
+      </span>
+      <span>
+        <a
+          className="src-shared-components-challenge-listing-ChallengeCard-Status-___style__link-forum___3C_Bn"
+          href="https://apps.topcoder-dev.com/forums/?module=Category&categoryID=undefined"
+        >
+          <ForumIcon />
+        </a>
+      </span>
+    </span>
+    <ProgressBarTooltip
+      challenge={
+        Object {
+          "allPhases": Array [
+            Object {
+              "phaseStatus": "DRAFT",
+              "phaseType": "Submit",
+            },
+          ],
+          "events": Array [
+            Object {
+              "eventName": "Submit",
+            },
+          ],
+          "myChallenge": true,
+          "status": "NO-DRAFT",
+          "subTrack": "CODE",
+          "submissionEndDate": "2019-12-31T23:00:00.000Z",
+          "technologies": "Data Science",
+          "track": "DEVELOP",
+        }
+      }
+    >
+      <ChallengeProgressBar
+        color="gray"
+        isLate={false}
+        value="100"
+      />
+    </ProgressBarTooltip>
+  </div>
+</div>
+`;
+
+exports[`Matches shallow shapshot shapshot 1 6`] = `
+<div
+  className="src-shared-components-challenge-listing-ChallengeCard-Status-___style__challenge-status___2B0m2"
+>
+  <div
+    className="src-shared-components-challenge-listing-ChallengeCard-Status-___style__challenge-progress___nYpJK"
+  >
+    <span
+      className="src-shared-components-challenge-listing-ChallengeCard-Status-___style__current-phase___1znlT"
+    >
+      Submission
+    </span>
+    <span
+      className="src-shared-components-challenge-listing-ChallengeCard-Status-___style__challenge-stats___3acj8"
+    >
+      <span
+        className="src-shared-components-challenge-listing-ChallengeCard-Status-___style__num-reg___21Nvh"
+      >
+        <Tooltip
+          align={Object {}}
+          className=""
+          content={
+            <div
+              className="src-shared-components-challenge-listing-ChallengeCard-Status-___style__num-reg-tooltip___1buAj"
+            >
+              undefined total registrants
+            </div>
+          }
+          defaultVisible={false}
+          onTooltipHover={[Function]}
+          placeArrow={[Function]}
+          position="top"
+        >
+          <a
+            className="src-shared-components-challenge-listing-ChallengeCard-Status-___style__num-reg___21Nvh"
+            href="https://www.topcoder-dev.com/challenge-details/undefined/?type=develop#viewRegistrant"
+          >
+            <RegistrantsIcon />
+            <span
+              className="src-shared-components-challenge-listing-ChallengeCard-Status-___style__number___1-w-l"
+            />
+          </a>
+        </Tooltip>
+      </span>
+      <span
+        className="src-shared-components-challenge-listing-ChallengeCard-Status-___style__num-sub___2uSLf"
+      >
+        <Tooltip
+          align={Object {}}
+          className=""
+          content={
+            <div
+              className="src-shared-components-challenge-listing-ChallengeCard-Status-___style__num-reg-tooltip___1buAj"
+            >
+              undefined total submissions
+            </div>
+          }
+          defaultVisible={false}
+          onTooltipHover={[Function]}
+          placeArrow={[Function]}
+          position="top"
+        >
+          <a
+            className="src-shared-components-challenge-listing-ChallengeCard-Status-___style__num-sub___2uSLf"
+            href="https://www.topcoder-dev.com/challenge-details/undefined/?type=develop#viewRegistrant"
+          >
+            <SubmissionsIcon />
+             
+            <span
+              className="src-shared-components-challenge-listing-ChallengeCard-Status-___style__number___1-w-l"
+            />
+          </a>
+        </Tooltip>
+      </span>
+    </span>
+    <ProgressBarTooltip
+      challenge={
+        Object {
+          "allPhases": Array [
+            Object {
+              "phaseStatus": "Final Fix",
+              "phaseType": "Submit",
+            },
+          ],
+          "currentPhases": Array [
+            Object {
+              "phaseStatus": "Close",
+              "phaseType": "Submission",
+            },
+          ],
+          "events": Array [
+            Object {
+              "eventName": "Submit",
+            },
+          ],
+          "status": "ACTIVE",
+          "subTrack": "CODE",
+          "technologies": "Data Science",
+          "track": "DEVELOP",
+        }
+      }
+    >
+      <div>
+        <ChallengeProgressBar
+          color="green"
+          isLate={false}
+          value={NaN}
+        />
+        <div
+          className="src-shared-components-challenge-listing-ChallengeCard-Status-___style__time-left___1RyL7"
+        >
+          min to go
+        </div>
+      </div>
+    </ProgressBarTooltip>
+  </div>
+</div>
+`;

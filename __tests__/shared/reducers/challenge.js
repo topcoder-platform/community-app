@@ -4,11 +4,24 @@ const mockChallengeActions = {
   fetchChallengeInit: mockAction('FETCH_CHALLENGE_INIT'),
   fetchChallengeDone: mockAction(
     'FETCH_CHALLENGE_DONE',
-    Promise.resolve('payload'),
+    'payload',
+  ),
+  fetchChallengeDoneError: mockAction(
+    'FETCH_CHALLENGE_DONE',
+    null,
+    'Unknown error',
+  ),
+  fetchSubmissionsInit: mockAction(
+    'FETCH_SUBMISSION_INIT',
   ),
   fetchSubmissionsDone: mockAction(
     'FETCH_SUBMISSION_DONE',
-    Promise.resolve('payload'),
+    [{ submissionId: '1' }],
+  ),
+  fetchSubmissionsDoneError: mockAction(
+    'FETCH_SUBMISSION_DONE',
+    null,
+    'Unknown error',
   ),
 };
 jest.setMock(require.resolve('actions/challenge'), mockChallengeActions);
@@ -18,6 +31,10 @@ const mockSmpActions = {
     fetchSubmissionsDone: mockAction(
       'FETCH_SUBMISSION_DONE',
       Promise.resolve('payload'),
+    ),
+    deleteSubmissionDone: mockAction(
+      'DELETE_SUBMISSION_DONE',
+      'payload',
     ),
   },
 };
@@ -48,6 +65,77 @@ function testReducer(reducer, istate) {
       details: null,
     });
   });
+
+  test('Handles fetchChallengeDone as expected', () => {
+    state = reducer(state, mockChallengeActions.fetchChallengeDone());
+    expect(state).toEqual({
+      mySubmissionsManagement: {},
+      loadingDetails: false,
+      fetchChallengeFailure: false,
+      details: 'payload',
+    });
+  });
+
+  test('Handles fetchChallengeDone with error as expected', () => {
+    state = reducer(state, mockChallengeActions.fetchChallengeDoneError());
+    expect(state).toEqual({
+      mySubmissionsManagement: {},
+      loadingDetails: false,
+      fetchChallengeFailure: 'Unknown error',
+      details: null,
+    });
+  });
+
+  test('Handles fetchSubmissionsInit as expected', () => {
+    state = reducer(state, mockChallengeActions.fetchSubmissionsInit());
+    expect(state).toEqual({
+      mySubmissionsManagement: {},
+      loadingDetails: false,
+      fetchChallengeFailure: 'Unknown error',
+      details: null,
+      loadingMySubmissions: true,
+      mySubmissions: { v2: null },
+    });
+  });
+
+  test('Handles fetchSubmissionsDone as expected', () => {
+    state = reducer(state, mockChallengeActions.fetchSubmissionsDone());
+    expect(state).toEqual({
+      mySubmissionsManagement: {},
+      loadingDetails: false,
+      fetchChallengeFailure: 'Unknown error',
+      details: null,
+      mySubmissions: { v2: [{ submissionId: '1' }] },
+      fetchMySubmissionsFailure: false,
+      loadingMySubmissions: false,
+    });
+  });
+
+  test('Handles deleteSubmissionDone as expected', () => {
+    state = reducer(state, mockSmpActions.smp.deleteSubmissionDone());
+    expect(state).toEqual({
+      mySubmissionsManagement: {},
+      loadingDetails: false,
+      fetchChallengeFailure: 'Unknown error',
+      details: null,
+      fetchMySubmissionsFailure: false,
+      loadingMySubmissions: false,
+      mySubmissions: { v2: [{ submissionId: '1' }] },
+    });
+  });
+
+  test('Handles fetchSubmissionsDoneError as expected', () => {
+    state = reducer(state, mockChallengeActions.fetchSubmissionsDoneError());
+    expect(state).toEqual({
+      mySubmissionsManagement: {},
+      loadingDetails: false,
+      fetchChallengeFailure: 'Unknown error',
+      details: null,
+      mySubmissions: { v2: [] },
+      loadingMySubmissions: false,
+      fetchMySubmissionsFailure: 'Unknown error',
+    });
+  });
 }
 
 describe('Default reducer', () =>
@@ -55,6 +143,9 @@ describe('Default reducer', () =>
     mySubmissionsManagement: {},
   }),
 );
+
+jest.clearAllMocks();
+jest.resetAllMocks();
 
 describe('Factory without http request', () =>
   reducers.factory().then(res =>

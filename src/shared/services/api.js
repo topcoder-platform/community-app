@@ -12,7 +12,6 @@ import config from 'utils/config';
  * thing we need to be different is the base URL and auth token to use.
  */
 export default class Api {
-
   /**
    * @param {String} base Base URL of the API.
    * @param {String} token Optional. Authorization token.
@@ -73,7 +72,7 @@ export default class Api {
     return this.fetch(endpoint, { body, method: 'POST' });
   }
 
-/**
+  /**
  * Sends POST request to the specified endpoint, with JSON payload.
  * @param {String} endpoint
  * @param {JSON} json

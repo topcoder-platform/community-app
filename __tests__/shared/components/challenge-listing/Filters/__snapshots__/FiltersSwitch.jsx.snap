@@ -1,0 +1,32 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Matches shallow shapshot 1`] = `
+<div
+  className="tc-outline-btn name src-shared-components-challenge-listing-Filters-FiltersSwitch-___style__FiltersSwitch___2ixiH"
+  onClick={[Function]}
+>
+  <FiltersIcon
+    className="src-shared-components-challenge-listing-Filters-FiltersSwitch-___style__FiltersIcon___OqBJh"
+    color="#5D5D66"
+  />
+  Filters
+</div>
+`;
+
+exports[`Matches shallow shapshot 2`] = `
+<div
+  className="tc-outline-btn name src-shared-components-challenge-listing-Filters-FiltersSwitch-___style__FiltersSwitch___2ixiH src-shared-components-challenge-listing-Filters-FiltersSwitch-___style__active___2wLTl"
+  onClick={[Function]}
+>
+  <FiltersIcon
+    className="src-shared-components-challenge-listing-Filters-FiltersSwitch-___style__FiltersIcon___OqBJh"
+    color="#5D5D66"
+  />
+  Filters
+  <span
+    className="src-shared-components-challenge-listing-Filters-FiltersSwitch-___style__filtersCount___2MZij"
+  >
+    5
+  </span>
+</div>
+`;

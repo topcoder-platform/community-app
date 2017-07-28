@@ -12,6 +12,9 @@ const COMMUNITY_SELECTOR = [{
   value: '1',
 }];
 
+const closeMenu = jest.fn();
+const openMenu = jest.fn();
+
 test('Snapshot match', () => {
   rnd.render((
     <Header
@@ -20,6 +23,10 @@ test('Snapshot match', () => {
       communitySelector={COMMUNITY_SELECTOR}
       registerUrl="/some/register/url"
       loginUrl="/some/login/url"
+      menuItems={[]}
+      pageId="home"
+      closeMenu={closeMenu}
+      openMenu={openMenu}
     />
   ));
   expect(rnd.getRenderOutput()).toMatchSnapshot();
@@ -39,6 +46,9 @@ test('Snapshot match', () => {
       ]}
       cssUrl="some/css/url"
       isMobileOpen
+      pageId="other"
+      closeMenu={closeMenu}
+      openMenu={openMenu}
     />
   ));
   expect(rnd.getRenderOutput()).toMatchSnapshot();
@@ -51,18 +61,21 @@ class Wrapper extends React.Component {
   }
 }
 
-const page = TU.renderIntoDocument((
-  <Wrapper
-    onMobileToggleClick={mockOnMobileToggle}
-    communityId="someId"
-    communitySelector={COMMUNITY_SELECTOR}
-    registerUrl="/some/register/url"
-    loginUrl="/some/login/url"
-  />
-));
-
 describe('Toggle mobile menu', () => {
   beforeEach(() => jest.clearAllMocks());
+
+  const page = TU.renderIntoDocument((
+    <Wrapper
+      onMobileToggleClick={mockOnMobileToggle}
+      communityId="someId"
+      communitySelector={COMMUNITY_SELECTOR}
+      registerUrl="/some/register/url"
+      loginUrl="/some/login/url"
+      pageId="other"
+      closeMenu={closeMenu}
+      openMenu={openMenu}
+    />
+  ));
 
   test('onMobileToggle', () => {
     const btn = TU.findAllInRenderedTree(page, item =>
@@ -70,5 +83,48 @@ describe('Toggle mobile menu', () => {
     expect(btn.length).toBe(1);
     TU.Simulate.click(btn[0]);
     expect(mockOnMobileToggle).toHaveBeenCalled();
+  });
+
+  test('click register', () => {
+    const matches = TU.findAllInRenderedTree(page, item =>
+      item && item.className && item.className.match('btnRegister'));
+    expect(matches).toHaveLength(1);
+    TU.Simulate.click(matches[0]);
+  });
+
+  test('click login', () => {
+    const matches = TU.findAllInRenderedTree(page, item =>
+      item && item.className && item.className.match('btnLogin'));
+    expect(matches).toHaveLength(1);
+    TU.Simulate.click(matches[0]);
+  });
+});
+
+describe('mouse event', () => {
+  const page = TU.renderIntoDocument((
+    <Wrapper
+      onMobileToggleClick={mockOnMobileToggle}
+      communityId="someId"
+      communitySelector={COMMUNITY_SELECTOR}
+      registerUrl="/some/register/url"
+      loginUrl="/some/login/url"
+      profile={{}}
+      pageId="other"
+      closeMenu={closeMenu}
+      openMenu={openMenu}
+      activeTrigger={{ bottom: 10, left: 10 }}
+    />
+  ));
+
+  test('mouse event', () => {
+    const matches = TU.findAllInRenderedTree(page, item =>
+      item && item.className && item.className.match('user-menu'));
+    expect(matches).toHaveLength(2);
+    TU.Simulate.mouseEnter(matches[0]);
+    expect(openMenu).toHaveBeenCalledTimes(1);
+    TU.Simulate.mouseLeave(matches[0], { pageY: 0 });
+    expect(closeMenu).toHaveBeenCalledTimes(1);
+    TU.Simulate.mouseLeave(matches[0], { pageY: 10 });
+    expect(closeMenu).toHaveBeenCalledTimes(1);
   });
 });

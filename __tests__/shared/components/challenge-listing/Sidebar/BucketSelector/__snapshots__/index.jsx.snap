@@ -1,0 +1,245 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Matches shallow shapshot 1`] = `
+<div>
+  <Bucket
+    active={true}
+    bucket={
+      Object {
+        "filter": Object {},
+        "name": "name",
+      }
+    }
+    challenges={
+      Array [
+        Object {
+          "id": "1",
+          "registrationOpen": "open",
+        },
+      ]
+    }
+    disabled={false}
+    onClick={[Function]}
+  />
+  <Bucket
+    active={false}
+    bucket={
+      Object {
+        "filter": Object {},
+        "name": "name",
+      }
+    }
+    challenges={
+      Array [
+        Object {
+          "id": "1",
+          "registrationOpen": "open",
+        },
+      ]
+    }
+    disabled={false}
+    onClick={[Function]}
+  />
+  <Bucket
+    active={false}
+    bucket={
+      Object {
+        "filter": Object {},
+        "name": "name",
+      }
+    }
+    challenges={
+      Array [
+        Object {
+          "id": "1",
+          "registrationOpen": "open",
+        },
+      ]
+    }
+    disabled={false}
+    onClick={[Function]}
+  />
+  <Bucket
+    active={false}
+    bucket={
+      Object {
+        "filter": Object {},
+        "name": "name",
+      }
+    }
+    challenges={
+      Array [
+        Object {
+          "id": "1",
+          "registrationOpen": "open",
+        },
+      ]
+    }
+    disabled={false}
+    onClick={[Function]}
+  />
+  <hr />
+  <a
+    className="src-shared-components-challenge-listing-Sidebar-BucketSelector-___style__openForReview___11K8O"
+    href="https://www.topcoder-dev.com/review/development-review-opportunities/"
+  >
+    Open for review
+  </a>
+  <Bucket
+    active={false}
+    bucket={
+      Object {
+        "filter": Object {},
+        "name": "name",
+      }
+    }
+    challenges={
+      Array [
+        Object {
+          "id": "1",
+          "registrationOpen": "open",
+        },
+      ]
+    }
+    disabled={false}
+    onClick={[Function]}
+  />
+  
+  <hr />
+  <div
+    className="src-shared-components-challenge-listing-Sidebar-BucketSelector-___style__get-rss___13aSq"
+  >
+    <a
+      href="http://feeds.topcoder.com/challenges/feed?list=active&contestType=all"
+    >
+      Get the RSS feed
+    </a>
+  </div>
+</div>
+`;
+
+exports[`Matches shallow shapshot 2`] = `
+<div>
+  <Bucket
+    active={false}
+    bucket={
+      Object {
+        "filter": Object {},
+        "name": "name",
+      }
+    }
+    challenges={
+      Array [
+        Object {
+          "id": "1",
+          "registrationOpen": "open",
+        },
+      ]
+    }
+    disabled={true}
+    onClick={[Function]}
+  />
+  <Bucket
+    active={false}
+    bucket={
+      Object {
+        "filter": Object {},
+        "name": "name",
+      }
+    }
+    challenges={
+      Array [
+        Object {
+          "id": "1",
+          "registrationOpen": "open",
+        },
+      ]
+    }
+    disabled={true}
+    onClick={[Function]}
+  />
+  <Bucket
+    active={false}
+    bucket={
+      Object {
+        "filter": Object {},
+        "name": "name",
+      }
+    }
+    challenges={
+      Array [
+        Object {
+          "id": "1",
+          "registrationOpen": "open",
+        },
+      ]
+    }
+    disabled={true}
+    onClick={[Function]}
+  />
+  <hr />
+  <span
+    className="src-shared-components-challenge-listing-Sidebar-BucketSelector-___style__openForReview___11K8O"
+  >
+    Open for review
+  </span>
+  <Bucket
+    active={false}
+    bucket={
+      Object {
+        "filter": Object {},
+        "name": "name",
+      }
+    }
+    challenges={
+      Array [
+        Object {
+          "id": "1",
+          "registrationOpen": "open",
+        },
+      ]
+    }
+    disabled={true}
+    onClick={[Function]}
+  />
+  <div>
+    <div
+      className="src-shared-components-challenge-listing-Sidebar-BucketSelector-___style__my-filters___1tgo3"
+    >
+      <h1>
+        My filters
+      </h1>
+      <a
+        className="src-shared-components-challenge-listing-Sidebar-BucketSelector-___style__edit-link___jsY7B"
+        onClick={[Function]}
+        role="button"
+        tabIndex={0}
+      >
+        edit
+      </a>
+    </div>
+    <Bucket
+      active={true}
+      bucket={
+        Object {
+          "hideCount": true,
+          "name": "name",
+        }
+      }
+      challenges={Array []}
+      disabled={false}
+      onClick={[Function]}
+    />
+  </div>
+  <hr />
+  <div
+    className="src-shared-components-challenge-listing-Sidebar-BucketSelector-___style__get-rss___13aSq"
+  >
+    <a
+      href="http://feeds.topcoder.com/challenges/feed?list=active&contestType=all"
+    >
+      Get the RSS feed
+    </a>
+  </div>
+</div>
+`;

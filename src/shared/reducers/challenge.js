@@ -60,8 +60,8 @@ function create(initialState) {
     [smpActions.smp.deleteSubmissionDone]: (state, { payload }) => ({
       ...state,
       mySubmissions: { v2: state.mySubmissions.v2.filter(subm => (
-          subm.submissionId !== payload
-        )) },
+        subm.submissionId !== payload
+      )) },
     }),
   }, initialState || {});
 }

@@ -8,6 +8,10 @@ const mockState = {
     profile: {},
   },
   topcoderHeader: {},
+  currentNav: {
+    menuTitle: 'title',
+    subMenuTitle: 'subtitle',
+  },
 };
 
 test('Matches shallow snapshot', () => {

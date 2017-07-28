@@ -27,8 +27,7 @@ import LoadingIndicator from 'components/LoadingIndicator';
 import './styles.scss';
 
 // The container component
-class DashboardPageContainer extends React.Component {
-
+export class DashboardPageContainer extends React.Component {
   componentDidMount() {
     const {
       auth: { tokenV2, user, tokenV3 },
@@ -37,7 +36,7 @@ class DashboardPageContainer extends React.Component {
       getCommunityStats,
     } = this.props;
     if (!tokenV2) {
-      location.href = `${config.URL.AUTH}?retUrl=${encodeURIComponent(location.href)}`;
+      location.href = `${config.URL.AUTH}/member?retUrl=${encodeURIComponent(location.href)}`;
       return false;
     }
     this.props.getBlogs();
@@ -109,7 +108,7 @@ class DashboardPageContainer extends React.Component {
       _.filter(challenges, c => c.platforms === 'iOS'),
     );
 
-  /* When we automatically reload cached challenge objects, we do not want to
+    /* When we automatically reload cached challenge objects, we do not want to
    * show the loading state, if the currently loaded challenges are not very
    * outdated (i.e. no need to show placeholders in the situations when it is
    * fine to reload silently, keeping showing the previously cached challenges,

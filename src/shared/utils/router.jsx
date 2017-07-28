@@ -39,6 +39,7 @@ function RRLinkWrapper(props) {
   return (
     <RRLink
       className={props.className}
+      onClick={props.onClick}
       replace={props.replace}
       to={props.to}
     >{props.children}</RRLink>
@@ -48,6 +49,7 @@ function RRLinkWrapper(props) {
 RRLinkWrapper.defaultProps = {
   children: null,
   className: null,
+  onClick: null,
   openExternalLinkInNewPage: false,
   replace: false,
 };
@@ -56,6 +58,7 @@ RRLinkWrapper.propTypes = {
   children: PT.node,
   className: PT.string,
   hostname: PT.string.isRequired,
+  onClick: PT.func,
   openExternalLinkInNewPage: PT.bool,
   replace: PT.bool,
   to: PT.oneOfType([PT.object, PT.string]).isRequired,

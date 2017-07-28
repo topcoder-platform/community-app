@@ -20,221 +20,45 @@ exports[`Snapshot match 1`] = `
   <ThemedSection
     anchor={null}
     composeTheme="deeply"
-    link={null}
-    mapThemrProps={[Function]}
-    theme={
-      Object {
-        "container": "src-shared-components-tc-communities-communities-wipro-Learn-___style__learnBasicsContainer___1zbhE",
-      }
-    }
-    title="Learn The Basics"
-  >
-    <ThemedAccordion
-      composeTheme="deeply"
-      defaultSelectedIndex={0}
-      mapThemrProps={[Function]}
-      theme={Object {}}
-    >
-      <ThemedAccordionItem
-        composeTheme="deeply"
-        isOpen={false}
-        mapThemrProps={[Function]}
-        onTitleClick={[Function]}
-        theme={Object {}}
-        title="Overview"
-      >
-        <ThemedText
-          composeTheme="deeply"
-          mapThemrProps={[Function]}
-          theme={Object {}}
-        >
-          <p>
-            The FULCRUM is “one stop shop” for access to a wide range of training and learning opportunities on Wipro’s Hybrid Crowd. Designed to strengthen the skills of employees, the hub offers physical and online platforms to learn skills on demand, gain hands-on experience, and be future ready.
-          </p>
-          <p>
-            Meticulously crafted comprehensive learning paths, detailed study material, engaging case studies, training projects to systematically enhance your career, development environments to practice, convenient online accessibility, opportunity to connect with mentors, peers, SMEs of various technologies – a variety of resources bringing people and technology together for an innovative and valuable learning experience.
-          </p>
-          <p>
-            Our compelling learning environment across wide range of emerging technologies helps you in mastering today’s most essential skills, that brings your knowledge to the next level, step by step, which ultimately creates a more effective learning experience.
-          </p>
-          <p>
-            Are you ready to step onto the innovative journey of learning?
-          </p>
-          <div
-            className="src-shared-components-tc-communities-communities-wipro-Learn-___style__joinnowWrap___3oU4A"
-          >
-            <a
-              className="src-shared-components-tc-communities-communities-wipro-Learn-___style__joinnow___2MIUq"
-              href="https://topgear.wipro.com"
-            >
-              Start Exploring
-            </a>
-          </div>
-        </ThemedText>
-      </ThemedAccordionItem>
-    </ThemedAccordion>
-  </ThemedSection>
-  <ThemedSection
-    anchor={null}
-    composeTheme="deeply"
     link={
       Object {
-        "title": "View All",
-        "url": "learn",
+        "title": "Continue",
+        "url": "https://topgear-app.wipro.com",
       }
     }
     mapThemrProps={[Function]}
-    theme={
-      Object {
-        "container": "src-shared-components-tc-communities-communities-wipro-Learn-___style__coursesContainer___2lfyP",
-      }
-    }
-    title="Courses and Tutorials"
-  >
-    <ThemedArticleCard
-      composeTheme="deeply"
-      imageSrc="/themes/wipro/learn/courses-01.jpg"
-      link={
-        Object {
-          "title": "Read More",
-          "url": "learn",
-        }
-      }
-      mapThemrProps={[Function]}
-      text="There are advances being made in science and technology everyday, and a good example of this is the LCD monitor. LCD monitors have"
-      theme={Object {}}
-      title="What You Need to Join a Challenge"
-    />
-    <ThemedArticleCard
-      composeTheme="deeply"
-      imageSrc="/themes/wipro/learn/courses-02.jpg"
-      link={
-        Object {
-          "title": "Read More",
-          "url": "learn",
-        }
-      }
-      mapThemrProps={[Function]}
-      text="Planning to visit Las Vegas or any other vacational resort where casinos are a major portion of their business? I have just the thing for"
-      theme={Object {}}
-      title="An Ugly Myspace Profile Will Sure Ruin Your Reputation"
-    />
-    <ThemedArticleCard
-      composeTheme="deeply"
-      imageSrc="/themes/wipro/learn/courses-03.jpg"
-      link={
-        Object {
-          "title": "Read More",
-          "url": "learn",
-        }
-      }
-      mapThemrProps={[Function]}
-      text="If you are in the market for a computer, there are a number of factors to consider. Will it be used for your home, your office or"
-      theme={Object {}}
-      title="3 Simple Ways Work Fast in Competition"
-    />
-  </ThemedSection>
-  <ThemedSection
-    anchor={null}
-    composeTheme="deeply"
-    link={null}
-    mapThemrProps={[Function]}
-    theme={
-      Object {
-        "container": "src-shared-components-tc-communities-communities-wipro-Learn-___style__resourcesContainer___38MQ9",
-        "title": "src-shared-components-tc-communities-communities-wipro-Learn-___style__resourcesTitle___3IO3e",
-      }
-    }
-    title="Resources"
-  >
-    <ThemedLinksCard
-      composeTheme="deeply"
-      links={
-        Array [
-          Object {
-            "title": "Nam dapibus nisl vitae elit fringilla",
-            "url": "learn",
-          },
-          Object {
-            "title": "Aenean sollicitudin",
-            "url": "learn",
-          },
-          Object {
-            "title": "Erat a elementum rutrum",
-            "url": "learn",
-          },
-          Object {
-            "title": "Neque sem pretium metus",
-            "url": "learn",
-          },
-        ]
-      }
-      mapThemrProps={[Function]}
-      theme={Object {}}
-      title="Documents"
-    />
-    <ThemedLinksCard
-      composeTheme="deeply"
-      links={
-        Array [
-          Object {
-            "title": "Tristique ullamcorper id vitae",
-            "url": "learn",
-          },
-          Object {
-            "title": "Nulla mollis sapien sollicitudin",
-            "url": "learn",
-          },
-          Object {
-            "title": "Vivamus facilisis dolor et massa",
-            "url": "learn",
-          },
-          Object {
-            "title": "Vestibulum nisl egestas",
-            "url": "learn",
-          },
-        ]
-      }
-      mapThemrProps={[Function]}
-      theme={Object {}}
-      title="Videos"
-    />
-    <ThemedLinksCard
-      composeTheme="deeply"
-      links={
-        Array [
-          Object {
-            "title": "Nam dapibus nisl vitae elit fringilla",
-            "url": "learn",
-          },
-          Object {
-            "title": "Aenean sollicitudin",
-            "url": "learn",
-          },
-          Object {
-            "title": "Erat a elementum rutrum",
-            "url": "learn",
-          },
-          Object {
-            "title": "Neque sem pretium metus",
-            "url": "learn",
-          },
-        ]
-      }
-      mapThemrProps={[Function]}
-      theme={Object {}}
-      title="Useful Links"
-    />
-  </ThemedSection>
-  <ThemedNewsletterSignup
-    buttonText="Sign Up"
-    composeTheme="deeply"
-    emailPlaceholder="Email address"
-    imageSrc="/themes/wipro/subscribe-bg.jpg"
-    mapThemrProps={[Function]}
-    text="Don’t miss out on the latest Topcoder IOS challenges and information!"
     theme={Object {}}
-    title="Sign up for our newsletter"
-  />
+    title={null}
+  >
+    <div
+      className="src-shared-components-tc-communities-communities-wipro-Learn-___style__message___WgkPL"
+    >
+      <p>
+        If  you are accessing TopGear Learning Platform from Wipro backbone network, click on continue to access the platform.
+      </p>
+      <p>
+        To access TopGear Learning Platform outside of Wipro network, please follow the below  instructions:
+      </p>
+      <p>
+        Send an email to 
+        <a
+          href="mailto:devenvaccessreq.topgear@wipro.com?subject=Internet%20TopGear%20portal%20access"
+        >
+          devenvaccessreq.topgear@wipro.com
+        </a>
+          with subject line 
+        <em>
+          Internet TopGear portal access
+        </em>
+        . You will receive an email within 24 hours  with details for accessing TopGear portal  through Virtual Desktop. Using Virtual Desktop you can access 
+        <a
+          href="https://topgear-app.wipro.com/"
+        >
+          https://topgear-app.wipro.com
+        </a>
+         to learn new technologies.
+      </p>
+    </div>
+  </ThemedSection>
 </main>
 `;

@@ -11,11 +11,11 @@ exports[`Matches shallow shapshot 1`] = `
       <PodiumSpot
         competitor={
           Object {
-            "challenge.count": 99999,
+            "challenge_stats.count": 99999,
+            "challenge_stats.winner_handle": "overachieving.mofo",
             "photourl": "some.fake.string",
-            "project_result.final_score": 9999999999,
+            "points": 9999999999,
             "rank": 1,
-            "user.handle": "overachieving.mofo",
           }
         }
       />
@@ -26,11 +26,11 @@ exports[`Matches shallow shapshot 1`] = `
       <PodiumSpot
         competitor={
           Object {
-            "challenge.count": 99999,
+            "challenge_stats.count": 99999,
+            "challenge_stats.winner_handle": "overachieving.mofo",
             "photourl": "some.fake.string",
-            "project_result.final_score": 9999999999,
+            "points": 9999999999,
             "rank": 1,
-            "user.handle": "overachieving.mofo",
           }
         }
       />
@@ -41,11 +41,11 @@ exports[`Matches shallow shapshot 1`] = `
       <PodiumSpot
         competitor={
           Object {
-            "challenge.count": 99999,
+            "challenge_stats.count": 99999,
+            "challenge_stats.winner_handle": "overachieving.mofo",
             "photourl": "some.fake.string",
-            "project_result.final_score": 9999999999,
+            "points": 9999999999,
             "rank": 1,
-            "user.handle": "overachieving.mofo",
           }
         }
       />

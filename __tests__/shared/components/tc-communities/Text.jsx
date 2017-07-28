@@ -1,25 +1,26 @@
 import React from 'react';
-import Rnd from 'react-test-renderer/shallow';
+import TU from 'react-dom/test-utils';
 import Text from 'components/tc-communities/Text';
 
-const rnd = new Rnd();
-
-test('Snapshot match', () => {
-  rnd.render((
-    <Text>
+class Wrapper extends React.Component {
+  componentDidMount() {}
+  render() {
+    return (<Text {...this.props}>
       <div>content</div>
-    </Text>
-  ));
-  expect(rnd.getRenderOutput()).toMatchSnapshot();
+    </Text>);
+  }
+}
 
-  rnd.render((
-    <Text
+test('Render properly', () => {
+  TU.renderIntoDocument((
+    <Wrapper />
+  ));
+
+  TU.renderIntoDocument((
+    <Wrapper
       theme={{
         container: 'container',
       }}
-    >
-      <div>content</div>
-    </Text>
+    />
   ));
-  expect(rnd.getRenderOutput()).toMatchSnapshot();
 });

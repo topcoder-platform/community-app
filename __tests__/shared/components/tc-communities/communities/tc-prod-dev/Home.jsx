@@ -6,7 +6,7 @@ import Home from 'components/tc-communities/communities/tc-prod-dev/Home';
 const rnd = new Rnd();
 */
 
-test.skip('Snapshot match', () => {
+test('Snapshot match', () => {
   /*
   rnd.render((
     <Home />

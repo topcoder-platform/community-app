@@ -16,7 +16,6 @@ import cActions from 'actions/challenge-listing';
 import CommunityStats from 'components/tc-communities/CommunityStats';
 
 class CommunityStatsContainer extends React.Component {
-
   /* When container mounts we get / update related stats. */
   componentDidMount() {
     this.props.getCommunityStats(this.props.community, this.props.challenges, this.props.token);
@@ -39,7 +38,13 @@ class CommunityStatsContainer extends React.Component {
 
   render() {
     return !this.props.loadingChallenges && (
-      <CommunityStats stats={this.props.stats} />
+      <CommunityStats
+        stats={this.props.stats}
+        theme={this.props.theme}
+        titles={this.props.titles}
+        icons={this.props.icons}
+        filter={this.props.filter}
+      />
     );
   }
 }
@@ -50,6 +55,10 @@ CommunityStatsContainer.defaultProps = {
   token: '',
   challenges: [],
   loadingChallenges: false,
+  theme: {},
+  titles: {},
+  icons: {},
+  filter: null,
 };
 
 CommunityStatsContainer.propTypes = {
@@ -60,6 +69,10 @@ CommunityStatsContainer.propTypes = {
   token: PT.string,
   challenges: PT.arrayOf(PT.shape()),
   loadingChallenges: PT.bool,
+  theme: PT.shape(),
+  titles: PT.shape(),
+  icons: PT.shape(),
+  filter: PT.shape(),
 };
 
 function mapDispatchToProps(dispatch) {

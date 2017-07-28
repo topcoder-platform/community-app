@@ -1,0 +1,259 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Matches shallow shapshot 1`] = `
+<div
+  className="src-shared-components-Dashboard-Program-___IosCard__challenge___3ZUuF src-shared-components-Dashboard-Program-___IosCard__tile-view___1rHjP"
+>
+  <div
+    className="src-shared-components-Dashboard-Program-___IosCard__challenge-track___h63e3"
+  />
+  <header>
+    <div>
+      <a
+        className="src-shared-components-Dashboard-Program-___IosCard__name___TOMHJ"
+        href="https://www.topcoder-dev.com/challenge-details/1/?type=undefined"
+      >
+        <span>
+          name
+        </span>
+      </a>
+      <p
+        className="src-shared-components-Dashboard-Program-___IosCard__subtrack-color___2axPS"
+      />
+    </div>
+    <div
+      className="src-shared-components-Dashboard-Program-___IosCard__challenge-links___2nxNN"
+    >
+      <div
+        className="src-shared-components-Dashboard-Program-___IosCard__stats___1AMfH"
+      >
+        <a
+          className="src-shared-components-Dashboard-Program-___IosCard__registrants___gN_NW"
+          href="https://www.topcoder-dev.com/challenge-details/1/?type=undefined#viewRegistrant"
+        >
+          <div
+            className="src-shared-components-Dashboard-Program-___IosCard__registrants-icon___2PTVj"
+          />
+          <p />
+        </a>
+        <a
+          className="src-shared-components-Dashboard-Program-___IosCard__submissions___2AfFz"
+          href="https://www.topcoder-dev.com/challenge-details/1/?type=undefined#submissions"
+        >
+          <div
+            className="src-shared-components-Dashboard-Program-___IosCard__submissions-icon___2xhE2"
+          />
+          <p />
+        </a>
+      </div>
+      <a
+        className="src-shared-components-Dashboard-Program-___IosCard__forum___68F-9"
+        href="https://apps.topcoder-dev.com/forums/?module=Category&categoryID=undefined"
+      >
+        <div
+          className="src-shared-components-Dashboard-Program-___IosCard__forum-icon___3_Xe5"
+        />
+        <p>
+          Posts
+        </p>
+      </a>
+    </div>
+  </header>
+  <div
+    className="src-shared-components-Dashboard-Program-___IosCard__challenge-details___26M3D"
+  >
+    <p
+      className="src-shared-components-Dashboard-Program-___IosCard__currentPhase___1ebbi"
+    />
+    <div
+      className="src-shared-components-Dashboard-Program-___IosCard__stalled-challenge___2EDQf"
+    >
+      This challenge is currently paused.
+    </div>
+    <p
+      className="src-shared-components-Dashboard-Program-___IosCard__prize-money___sw4lK"
+    >
+      $0
+    </p>
+    <p
+      className="src-shared-components-Dashboard-Program-___IosCard__technologies___YLHCt"
+    />
+  </div>
+</div>
+`;
+
+exports[`Matches shallow shapshot 2`] = `
+<div
+  className="src-shared-components-Dashboard-Program-___IosCard__challenge___3ZUuF src-shared-components-Dashboard-Program-___IosCard__tile-view___1rHjP"
+>
+  <div
+    className="src-shared-components-Dashboard-Program-___IosCard__challenge-track___h63e3"
+  />
+  <header>
+    <div>
+      <a
+        className="src-shared-components-Dashboard-Program-___IosCard__name___TOMHJ"
+        href="https://www.topcoder-dev.com/challenge-details/1/?type=undefined"
+      >
+        <span>
+          name
+        </span>
+      </a>
+      <p
+        className="src-shared-components-Dashboard-Program-___IosCard__subtrack-color___2axPS"
+      />
+    </div>
+    <div
+      className="src-shared-components-Dashboard-Program-___IosCard__challenge-links___2nxNN"
+    >
+      <div
+        className="src-shared-components-Dashboard-Program-___IosCard__stats___1AMfH"
+      >
+        <a
+          className="src-shared-components-Dashboard-Program-___IosCard__registrants___gN_NW"
+          href="https://www.topcoder-dev.com/challenge-details/1/?type=undefined#viewRegistrant"
+        >
+          <div
+            className="src-shared-components-Dashboard-Program-___IosCard__registrants-icon___2PTVj"
+          />
+          <p />
+        </a>
+        <a
+          className="src-shared-components-Dashboard-Program-___IosCard__submissions___2AfFz"
+          href="https://www.topcoder-dev.com/challenge-details/1/?type=undefined#submissions"
+        >
+          <div
+            className="src-shared-components-Dashboard-Program-___IosCard__submissions-icon___2xhE2"
+          />
+          <p />
+        </a>
+      </div>
+      <a
+        className="src-shared-components-Dashboard-Program-___IosCard__forum___68F-9"
+        href="https://apps.topcoder-dev.com/forums/?module=Category&categoryID=undefined"
+      >
+        <div
+          className="src-shared-components-Dashboard-Program-___IosCard__forum-icon___3_Xe5"
+        />
+        <p>
+          Posts
+        </p>
+      </a>
+    </div>
+  </header>
+  <div
+    className="src-shared-components-Dashboard-Program-___IosCard__challenge-details___26M3D"
+  >
+    <p
+      className="src-shared-components-Dashboard-Program-___IosCard__currentPhase___1ebbi"
+    />
+    <div
+      className="src-shared-components-Dashboard-Program-___IosCard__challenge-calendar___14oal"
+    >
+      <p>
+        Ends In
+      </p>
+      <p
+        className="src-shared-components-Dashboard-Program-___IosCard__time-remaining___1YYsW"
+      >
+        1
+      </p>
+      <p
+        className="src-shared-components-Dashboard-Program-___IosCard__unit-of-time___Tfjle"
+      >
+        2
+      </p>
+    </div>
+    <p
+      className="src-shared-components-Dashboard-Program-___IosCard__prize-money___sw4lK"
+    >
+      $0
+    </p>
+    <p
+      className="src-shared-components-Dashboard-Program-___IosCard__technologies___YLHCt"
+    />
+  </div>
+</div>
+`;
+
+exports[`Matches shallow shapshot 3`] = `
+<div
+  className="src-shared-components-Dashboard-Program-___IosCard__challenge___3ZUuF src-shared-components-Dashboard-Program-___IosCard__tile-view___1rHjP"
+>
+  <div
+    className="src-shared-components-Dashboard-Program-___IosCard__challenge-track___h63e3"
+  />
+  <header>
+    <div>
+      <a
+        className="src-shared-components-Dashboard-Program-___IosCard__name___TOMHJ"
+        href="https://www.topcoder-dev.com/challenge-details/1/?type=undefined"
+      >
+        <span>
+          name
+        </span>
+      </a>
+      <p
+        className="src-shared-components-Dashboard-Program-___IosCard__subtrack-color___2axPS"
+      />
+    </div>
+    <div
+      className="src-shared-components-Dashboard-Program-___IosCard__challenge-links___2nxNN"
+    >
+      <div
+        className="src-shared-components-Dashboard-Program-___IosCard__stats___1AMfH"
+      >
+        <a
+          className="src-shared-components-Dashboard-Program-___IosCard__registrants___gN_NW"
+          href="https://www.topcoder-dev.com/challenge-details/1/?type=undefined#viewRegistrant"
+        >
+          <div
+            className="src-shared-components-Dashboard-Program-___IosCard__registrants-icon___2PTVj"
+          />
+          <p />
+        </a>
+        <a
+          className="src-shared-components-Dashboard-Program-___IosCard__submissions___2AfFz"
+          href="https://www.topcoder-dev.com/challenge-details/1/?type=undefined#submissions"
+        >
+          <div
+            className="src-shared-components-Dashboard-Program-___IosCard__submissions-icon___2xhE2"
+          />
+          <p />
+        </a>
+      </div>
+      <a
+        className="src-shared-components-Dashboard-Program-___IosCard__forum___68F-9"
+        href="https://apps.topcoder-dev.com/forums/?module=Category&categoryID=undefined"
+      >
+        <div
+          className="src-shared-components-Dashboard-Program-___IosCard__forum-icon___3_Xe5"
+        />
+        <p>
+          Posts
+        </p>
+      </a>
+    </div>
+  </header>
+  <div
+    className="src-shared-components-Dashboard-Program-___IosCard__challenge-details___26M3D"
+  >
+    <p
+      className="src-shared-components-Dashboard-Program-___IosCard__currentPhase___1ebbi"
+    />
+    <div
+      className="src-shared-components-Dashboard-Program-___IosCard__stalled-challenge___2EDQf"
+    >
+      This challenge is currently paused.
+    </div>
+    <p
+      className="src-shared-components-Dashboard-Program-___IosCard__prize-money___sw4lK"
+    >
+      Peer Review Challenge
+    </p>
+    <p
+      className="src-shared-components-Dashboard-Program-___IosCard__technologies___YLHCt"
+    />
+  </div>
+</div>
+`;

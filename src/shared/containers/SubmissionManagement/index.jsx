@@ -21,7 +21,6 @@ import smpActions from '../../actions/smp';
 
 // The container component
 class SubmissionManagementPageContainer extends React.Component {
-
   componentDidMount() {
     if (!(this.props.challenge || this.props.isLoadingChallenge)) {
       this.props.loadChallengeDetails(this.props.authTokens, this.props.challengeId);
@@ -95,7 +94,7 @@ class SubmissionManagementPageContainer extends React.Component {
                     () => this.props.onSubmissionDeleteConfirmed(
                       this.props.authTokens.tokenV3,
                       this.props.toBeDeletedId)
-                    }
+                  }
                 >Delete Submission</Button>
               </div>
             </div>
