@@ -14,22 +14,45 @@
 $base-unit: 5px;
 $corner-radius: 2px;
 
+/* COLORS */
+
+/*
+ * NOTE: Topcoder brand colors are listed at
+ * https://www.topcoder.com/about-topcoder/brand-guidelines/
+ *
+ * According to that page, the primary colors are (of the ones defined below):
+ * $tc-dark-blue
+ * $tc-gray-90
+ * $tc-gray-30
+ * and secondary colors are:
+ * $tc-orange
+ * $tc-green
+ * $tc-yellow
+ * $tc-red
+ * $tc-purple
+ *
+ * Other colors, already present below, are fine. If you have to use a color
+ * slighly different from the colors available below, please consider to use
+ * the closest available color instead; i.g. if you need #c1c1c6 color, in
+ * most cases nobody will notice if you use $tc-gray-30 (#c3c3c7) instead.
+ */
+
 // Colors
 // 
 // Primary Brand
 $tc-light-blue: #26ade9;
-$tc-dark-blue: #0b71e6;
+$tc-dark-blue: #0a71e6;
 $tc-green: #60c700;
-$tc-orange: #fb7d22;
-$tc-yellow: #fff100;
+$tc-orange: #fb7d21;
+$tc-yellow: #fce217;
 $tc-black: #262628;
-$tc-gray-90: #37373c;
+$tc-gray-90: #37373b;
 $tc-gray-80: #47474f;
 $tc-gray-70: #5d5d66;
 $tc-gray-60: #747480;
 $tc-gray-50: #888894;
 $tc-gray-40: #a3a3ad;
-$tc-gray-30: #c3c3c8;
+$tc-gray-30: #c3c3c7;
 $tc-gray-20: #dcdce0;
 $tc-gray-10: #ededf2;
 $tc-gray-neutral-dark: #ebebeb;
@@ -54,7 +77,7 @@ $tc-orange: $tc-orange;
 $tc-orange-70: #fda464;
 $tc-orange-30: #fee3d0;
 $tc-orange-10: #fff0eb;
-$tc-red: #f22f24;
+$tc-red: #f22e24;
 $tc-red-70: #ff5b52;
 $tc-red-30: #ffd4d1;
 $tc-red-10: #fff4f4;
@@ -110,7 +133,7 @@ $tc-heading-sm: $tc-body-md;
 $tc-heading-xs: $tc-body-sm;
 
 // breakpoints
-$screen-lg: 1376px;
-$screen-md: 768px;
-$screen-sm: 640px;
 $screen-xs: 320px;
+$screen-sm: 768px;
+$screen-md: 1024px;
+$screen-lg: 1280px;

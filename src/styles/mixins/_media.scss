@@ -1,76 +1,85 @@
-// Create mixin and render the 4 sizes - lg, md, sm, xs
+/**
+ * Mixins for different layout sizes: xs, sm, md, lg.
+ * Breaking points are defined in _variables.scss
+ * The range mixins A-to-B all means "for the sizes from A to B, both
+ * inclusive", in particular it means that mixin A-to-lg is equivalent to
+ * all sizes from A (inclusive) and larger.
+ */
 
-// extra small size
-$xs-width: 320px;
-// small size - mobile
-$sm-width: 768px;
-// medium size - tablet
-$md-width: 1024px;
-// large size - desktop
-$lg-width: 1280px;
-
-@mixin xxs {
-  @media (max-width: #{$xs-width - 1px}) {
-    @content;
-  }
-}
-
-@mixin xxs-to-sm {
-  @media (max-width: #{$sm-width - 1px}) {
-    @content;
-  }
-}
-
-@mixin xxs-to-md {
-  @media (max-width: #{$md-width - 1px}) {
-    @content;
-  }
-}
-
-@mixin xxs-to-lg {
-  @media (max-width: #{$lg-width - 1px}) {
-    @content;
-  }
-}
-
-@mixin xs {
-  @media (min-width: #{$xs-width}) and (max-width: #{$sm-width - 1px}) {
-    @content;
-  }
-}
-
-@mixin sm {
-  @media (min-width: #{$sm-width}) and (max-width: #{$md-width}) {
-    @content;
-  }
-}
-
-@mixin sm-and-up {
-  @media (min-width: #{$sm-width}) {
-    @content;
-  }
-}
-
-@mixin xs-to-sm {
-  @media (min-width: #{$xs-width}) and (max-width: #{$md-width} - 1px) {
-    @content;
-  }
-}
-
-@mixin xs-to-md {
-  @media (min-width: #{$xs-width}) and (max-width: #{$lg-width - 1px}) {
+@mixin lg {
+  @media (min-width: #{$screen-lg}) {
     @content;
   }
 }
 
 @mixin md {
-  @media (min-width: #{$md-width + 1px}) and (max-width: #{$lg-width - 1px}) {
+  @media (min-width: #{$screen-md + 1px}) and (max-width: #{$screen-lg - 1px}) {
     @content;
   }
 }
 
-@mixin lg {
-  @media (min-width: #{$lg-width}) {
+@mixin md-to-lg {
+  @media (min-width: #{$screen-md}) {
+    @content;
+  }
+}
+
+@mixin sm {
+  @media (min-width: #{$screen-sm}) and (max-width: #{$screen-md - 1px}) {
+    @content;
+  }
+}
+
+@mixin sm-to-lg {
+  @media (min-width: #{$screen-sm}) {
+    @content;
+  }
+}
+
+@mixin sm-to-md {
+  @media (min-width: #{$screen-sm}) and (max-width: #{$screen-lg - 1px}) {
+    @content;
+  }
+}
+
+@mixin xs {
+  @media (min-width: #{$screen-xs}) and (max-width: #{$screen-sm - 1px}) {
+    @content;
+  }
+}
+
+@mixin xs-to-lg {
+  @media (min-width: #{$screen-xs}) {
+    @content;
+  }
+}
+
+@mixin xs-to-sm {
+  @media (min-width: #{$screen-xs}) and (max-width: #{$screen-md - 1px}) {
+    @content;
+  }
+}
+
+@mixin xxs {
+  @media (max-width: #{$screen-xs - 1px}) {
+    @content;
+  }
+}
+
+@mixin xxs-to-md {
+  @media (max-width: #{$screen-lg - 1px}) {
+    @content;
+  }
+}
+
+@mixin xxs-to-sm {
+  @media (max-width: #{$screen-md - 1px}) {
+    @content;
+  }
+}
+
+@mixin xxs-to-xs {
+  @media (max-width: #{$screen-sm - 1px}) {
     @content;
   }
 }

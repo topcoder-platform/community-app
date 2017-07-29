@@ -28,11 +28,11 @@ $challenge-radius-4: $corner-radius * 2;
 
   @include xs-to-sm {
     flex-wrap: wrap;
-    position: relative;
+    padding: $base-unit * 3;
   }
 
   @include xs {
-    padding: $base-unit * 3;
+    position: relative;
   }
 
   a,
@@ -49,7 +49,7 @@ $challenge-radius-4: $corner-radius * 2;
     justify-content: flex-start;
     width: 50%;
 
-    @include xs-to-md {
+    @include xs-to-sm {
       width: 100%;
     }
   }
@@ -59,7 +59,7 @@ $challenge-radius-4: $corner-radius * 2;
     justify-content: space-between;
     width: 50%;
 
-    @include xs-to-md {
+    @include xs-to-sm {
       width: 100%;
     }
 
@@ -151,7 +151,7 @@ $challenge-radius-4: $corner-radius * 2;
     margin-right: $challenge-space-20;
     min-width: $challenge-space-50 + 2;
 
-    @media (min-width: #{$xs-width}) and (max-width: #{$md-width - 1px}) {
+    @include xs-to-sm {
       position: absolute;
       right: 0;
       top: 20px;
@@ -168,7 +168,7 @@ $challenge-radius-4: $corner-radius * 2;
     }
 
     &.with-register-button {
-      @media (min-width: #{$sm-width}) and (max-width: #{$md-width - 1px}) {
+      @include sm {
         right: 108px;
       }
     }

@@ -10,7 +10,7 @@
   max-height: 50px;
   max-width: 50px;
 
-  @include xxs-to-sm {
+  @include xxs-to-xs {
     max-height: 30px;
     max-width: 30px;
   }
@@ -21,7 +21,7 @@
   font: 600 40px/137.5% 'Open Sans';
   margin-top: 17px;
 
-  @include xxs-to-sm {
+  @include xxs-to-xs {
     font-size: 24px;
   }
 }
@@ -31,7 +31,7 @@
   font: 15px 'Open Sans';
   text-transform: uppercase;
 
-  @include xxs-to-sm {
+  @include xxs-to-xs {
     font-size: 11px;
   }
 }

@@ -3,7 +3,7 @@
 .container {
   display: flex;
 
-  @include xxs-to-sm {
+  @include xxs-to-xs {
     display: block;
   }
 
@@ -18,7 +18,7 @@
   height: 320px;
   width: 50%;
 
-  @include xxs-to-sm {
+  @include xxs-to-xs {
     height: auto;
     min-height: 180px;
     width: 100%;
@@ -37,7 +37,7 @@
   display: flex;
   width: 50%;
 
-  @include xxs-to-sm {
+  @include xxs-to-xs {
     width: 100%;
   }
 }
@@ -49,7 +49,7 @@
     padding: 0 40px 0 20px;
   }
 
-  @include xxs-to-sm {
+  @include xxs-to-xs {
     padding: 20px 15px 40px;
     text-align: center;
 
@@ -63,7 +63,7 @@
   color: #394146;
   font: 600 36px/136.11% 'Open Sans';
 
-  @include xxs-to-md {
+  @include xxs-to-sm {
     font-size: 24px;
   }
 }
@@ -74,7 +74,7 @@
   margin-top: 19px;
   opacity: 0.7;
 
-  @include xxs-to-md {
+  @include xxs-to-sm {
     margin-top: 10px;
   }
 }
@@ -82,7 +82,7 @@
 .linkWrap {
   margin-top: 27px;
 
-  @include xxs-to-md {
+  @include xxs-to-sm {
     margin-top: 20px;
   }
 }

@@ -11,7 +11,7 @@
       margin-bottom: 0;
     }
 
-    @include xxs-to-sm {
+    @include xxs-to-xs {
       margin-bottom: 10px;
 
       &:last-child {

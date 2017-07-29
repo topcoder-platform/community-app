@@ -67,6 +67,9 @@ class ChallengeDetailPageContainer extends React.Component {
               showDeadlineDetail={this.state.showDeadlineDetail}
               onToggleDeadlines={this.onToggleDeadlines}
               onSelectorClicked={this.onSelectorClicked}
+              registerForChallenge={challengeId =>
+                this.props.registerForChallenge(this.props.tokenV2, challengeId)
+              }
               selectedView={this.state.selectedView}
             />
           }
@@ -84,17 +87,20 @@ class ChallengeDetailPageContainer extends React.Component {
 }
 
 ChallengeDetailPageContainer.defaultProps = {
+  tokenV2: null,
   tokenV3: null,
   isLoadingChallenge: false,
 };
 
 ChallengeDetailPageContainer.propTypes = {
+  tokenV2: PT.string,
   tokenV3: PT.string,
   challenge: PT.shape().isRequired,
   isLoadingChallenge: PT.bool,
   loadChallengeDetails: PT.func.isRequired,
   authTokens: PT.shape().isRequired,
   challengeId: PT.number.isRequired,
+  registerForChallenge: PT.func.isRequired,
   reloadChallengeDetails: PT.func.isRequired,
 };
 
@@ -131,18 +137,26 @@ const mapStateToProps = (state, props) => ({
   challenge: extractChallengeDetail(state.challenge.details, state.challenge.detailsV2),
   isLoadingChallenge: state.challenge.loadingDetails,
   authTokens: state.auth,
-  tokenV3: (state.auth ? state.auth.tokenV3 : null),
+  tokenV2: state.auth && state.auth.tokenV2,
+  tokenV3: state.auth && state.auth.tokenV3,
 });
 
-const mapDispatchToProps = dispatch => ({
-  loadChallengeDetails: (tokens, challengeId) => {
-    dispatch(challengeActions.fetchChallengeInit());
-    dispatch(challengeActions.fetchChallengeDone(tokens, challengeId));
-  },
-  reloadChallengeDetails: (tokens, challengeId) => {
-    dispatch(challengeActions.fetchChallengeDone(tokens, challengeId));
-  },
-});
+const mapDispatchToProps = (dispatch) => {
+  const a = challengeActions.challenge;
+  return {
+    loadChallengeDetails: (tokens, challengeId) => {
+      dispatch(challengeActions.fetchChallengeInit());
+      dispatch(challengeActions.fetchChallengeDone(tokens, challengeId));
+    },
+    registerForChallenge: (tokenV2, challengeId) => {
+      dispatch(a.registerInit());
+      dispatch(a.registerDone(tokenV2, challengeId));
+    },
+    reloadChallengeDetails: (tokens, challengeId) => {
+      dispatch(challengeActions.fetchChallengeDone(tokens, challengeId));
+    },
+  };
+};
 
 const ChallengeDetailContainer = connect(
   mapStateToProps,

@@ -22,7 +22,7 @@
   height: 364px;
   transform: none;
 
-  @include xxs-to-sm {
+  @include xxs-to-xs {
     left: 0;
     bottom: 0;
     transform: none;
@@ -35,7 +35,7 @@
   position: relative;
   z-index: 1;
 
-  @include xxs-to-sm {
+  @include xxs-to-xs {
     padding: 86px 15px 80px;
     text-align: center;
   }
@@ -48,7 +48,7 @@ h2.title {
   text-decoration: underline;
   text-transform: none;
 
-  @include xxs-to-sm {
+  @include xxs-to-xs {
     font-size: 30px;
   }
 }

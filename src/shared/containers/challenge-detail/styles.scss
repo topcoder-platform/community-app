@@ -1,17 +1,9 @@
 @import "~styles/tc-styles";
-@import "~styles/tc-includes";
-
-// Should this be added to media mixins?
-@mixin md-and-up {
-  @media (min-width: #{$md-width}) {
-    @content;
-  }
-}
 
 .outer-container {
   background: $tc-gray-10;
 
-  @include xxs-to-sm {
+  @include xxs-to-xs {
     padding: 8px 10px 20px;
   }
 
@@ -19,7 +11,7 @@
     padding: 30px 14px 30px 20px;
   }
 
-  @include md-and-up {
+  @include md-to-lg {
     padding: 30px 64px;
   }
 }

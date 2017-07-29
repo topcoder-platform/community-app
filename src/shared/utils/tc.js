@@ -10,10 +10,21 @@ import config from './config';
 /**
  * Codes of the Topcoder communities.
  */
+/* TODO: These are originally motivated by Topcoder API v2. Topcoder API v3
+ * uses upper-case literals to encode the tracks. At some point, we should
+ * update it in this code as well! */
 export const COMPETITION_TRACKS = {
   DATA_SCIENCE: 'datasci',
   DESIGN: 'design',
   DEVELOP: 'develop',
+};
+
+/**
+ * Possible user roles in a challenge (at the moment it is not a full list,
+ * just those we already have used in this repo for any purpose).
+ */
+export const USER_ROLES = {
+  SUBMITTER: 'Submitter',
 };
 
 /**

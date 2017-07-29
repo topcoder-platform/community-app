@@ -1,21 +1,4 @@
 @import "~styles/tc-styles";
-@import "~styles/tc-includes";
-$deadline-text: #c1c1c6;
-$deadline-detail-color: #4c4c53;
-$bonus-normal-color: #00002a;
-
-// Should this be added to media mixins?
-@mixin md-and-up {
-  @media (min-width: #{$md-width}) {
-    @content;
-  }
-}
-
-@mixin xs-and-up {
-  @media (min-width: #{$xs-width}) {
-    @content;
-  }
-}
 
 @mixin design-accent-bg {
   .design-accent-background {
@@ -90,7 +73,7 @@ $bonus-normal-color: #00002a;
       padding: 20px 20px 2px;
     }
 
-    @include md-and-up {
+    @include md-to-lg {
       padding: 20px 19px 2px 30px;
     }
 
@@ -110,7 +93,7 @@ $bonus-normal-color: #00002a;
         letter-spacing: 0;
       }
 
-      @include md-and-up {
+      @include md-to-lg {
         margin-right: 60px;
       }
 
@@ -188,7 +171,7 @@ $bonus-normal-color: #00002a;
           justify-content: center;
           flex-wrap: wrap;
 
-          @include xs-and-up {
+          @include xs-to-lg {
             min-width: 270px;
           }
 
@@ -249,7 +232,7 @@ $bonus-normal-color: #00002a;
           text-align: center;
           font-family: roboto;
           font-weight: 400;
-          color: $bonus-normal-color;
+          color: $tc-black;
           line-height: 25px;
           margin: 25px 15px;
 
@@ -387,7 +370,7 @@ $bonus-normal-color: #00002a;
           justify-content: flex-start;
           font-family: roboto;
           font-weight: 400;
-          color: $deadline-text;
+          color: $tc-gray-30;
           line-height: 20px;
           padding: 15px 20px;
           font-size: 15px;
@@ -433,7 +416,7 @@ $bonus-normal-color: #00002a;
       }
 
       .deadline-detailed {
-        background-color: $deadline-detail-color;
+        background-color: $tc-gray-80;
         display: flex;
         flex-wrap: wrap;
         padding: 30px 0 15px;

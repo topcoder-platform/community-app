@@ -22,7 +22,7 @@
     padding: 0 40px 0 20px;
   }
 
-  @include xxs-to-sm {
+  @include xxs-to-xs {
     padding: 20px 15px 40px;
     text-align: center;
 
@@ -51,7 +51,7 @@
     z-index: -1;
   }
 
-  @include xxs-to-md {
+  @include xxs-to-sm {
     font-size: 17px;
   }
 }
@@ -63,7 +63,7 @@
   margin-top: 19px;
   opacity: 0.7;
 
-  @include xxs-to-md {
+  @include xxs-to-sm {
     margin-top: 10px;
   }
 }
@@ -71,7 +71,7 @@
 .linkWrap {
   margin-top: 27px;
 
-  @include xxs-to-md {
+  @include xxs-to-sm {
     margin-top: 20px;
   }
 }

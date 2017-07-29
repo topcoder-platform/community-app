@@ -20,7 +20,7 @@
     width: 100%;
   }
 
-  @include xxs-to-sm {
+  @include xxs-to-xs {
     height: auto;
   }
 }
@@ -34,7 +34,7 @@
     width: 720px;
   }
 
-  @include xxs-to-sm {
+  @include xxs-to-xs {
     padding: 20px 15px 37px;
     width: auto;
   }
@@ -44,7 +44,7 @@
   color: #fff;
   font: 600 32px/134.38% 'Open Sans';
 
-  @include xxs-to-sm {
+  @include xxs-to-xs {
     font-size: 24px;
   }
 }
@@ -54,7 +54,7 @@
   font: 18px/133.33% 'Open Sans';
   margin-top: 20px;
 
-  @include xxs-to-sm {
+  @include xxs-to-xs {
     font-size: 15px;
     margin-top: 10px;
   }
@@ -66,7 +66,7 @@
   margin-top: 40px;
   overflow: hidden;
 
-  @include xxs-to-sm {
+  @include xxs-to-xs {
     display: flex;
     margin-top: 20px;
     width: 100%;
@@ -96,7 +96,7 @@ input:not([type="checkbox"]).formEmail {
     border: 0;
   }
 
-  @include xxs-to-sm {
+  @include xxs-to-xs {
     flex-grow: 1;
     width: 100%;
   }
@@ -112,7 +112,7 @@ input:not([type="checkbox"]).formEmail {
   text-transform: uppercase;
   width: 124px;
 
-  @include xxs-to-sm {
+  @include xxs-to-xs {
     width: 95px;
   }
 }

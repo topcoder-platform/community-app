@@ -95,8 +95,9 @@ export function normalizeMarathonMatch(challenge, username) {
 class ChallengesService {
   /**
    * @param {String} tokenV3 Optional. Auth token for Topcoder API v3.
+   * @param {String} tokenV2 Optional. Auth token for Topcoder API v2.
    */
-  constructor(tokenV3) {
+  constructor(tokenV3, tokenV2) {
     /**
      * Private function being re-used in all methods related to getting
      * challenges. It handles query-related arguments in the uniform way:
@@ -127,8 +128,9 @@ class ChallengesService {
 
     this.private = {
       api: getApiV3(tokenV3),
-      apiV2: getApiV2(),
+      apiV2: getApiV2(tokenV2),
       getChallenges,
+      tokenV2,
       tokenV3,
     };
   }
@@ -219,17 +221,41 @@ class ChallengesService {
         return res;
       });
   }
+
+  /**
+   * Registers user to the specified challenge.
+   * @param {String} challengeId
+   * @return {Promise}
+   */
+  register(challengeId) {
+    const endpoint = `/challenges/${challengeId}/register`;
+    return this.private.apiV2.get(endpoint)
+      .then(res => (res.ok ? res.json() : new Error(res.statusText)));
+  }
+
+  /**
+   * Unregisters user from the specified challenge.
+   * @param {String} challengeId
+   * @return {Promise}
+   */
+  unregister(challengeId) {
+    const endpoint = `/challenges/${challengeId}/unregister`;
+    return this.private.apiV2.get(endpoint)
+      .then(res => (res.ok ? res.json() : new Error(res.statusText)));
+  }
 }
 
 /**
  * Returns a new or existing challenges service.
  * @param {String} tokenV3 Optional. Auth token for Topcoder API v3.
+ * @param {String} tokenV2 Optional. Auth token for Topcoder API v2.
  * @return {Challenges} Challenges service object
  */
 let lastInstance = null;
-export function getService(tokenV3) {
-  if (!lastInstance || lastInstance.tokenV3 !== tokenV3) {
-    lastInstance = new ChallengesService(tokenV3);
+export function getService(tokenV3, tokenV2) {
+  if (!lastInstance || lastInstance.tokenV3 !== tokenV3
+  || lastInstance.tokenV2 !== tokenV2) {
+    lastInstance = new ChallengesService(tokenV3, tokenV2);
   }
   return lastInstance;
 }

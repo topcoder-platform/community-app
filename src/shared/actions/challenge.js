@@ -4,6 +4,7 @@
 
 import _ from 'lodash';
 import { createActions } from 'redux-actions';
+import { getService as getChallengesService } from 'services/challenges';
 import { getApiV2, getApiV3 } from '../services/api';
 
 const apiV2 = auth => getApiV2(auth.tokenV2);
@@ -33,10 +34,27 @@ function fetchSubmissions(tokens, challengeId) {
     .then(response => response.submissions);
 }
 
+/**
+ * Registers user for the challenge.
+ * @param {String} tokenV2 Auth token for Topcoder API v2.
+ * @param {String} challengeId
+ * @return {Promise}
+ */
+function registerDone(tokenV2, challengeId) {
+  return getChallengesService(undefined, tokenV2).register(challengeId);
+}
+
 export default createActions({
+  /* TODO: Move these actions into the CHALLENGE object below. It does not make
+   * any technical difference, but will lead to better action names displayed in
+   * Redux dev tools, which is convenient. */
   FETCH_CHALLENGE_INIT: _.noop,
   FETCH_CHALLENGE_DONE: fetchChallenge,
-
   FETCH_SUBMISSIONS_INIT: _.noop,
   FETCH_SUBMISSIONS_DONE: fetchSubmissions,
+
+  CHALLENGE: {
+    REGISTER_INIT: _.noop,
+    REGISTER_DONE: registerDone,
+  },
 });

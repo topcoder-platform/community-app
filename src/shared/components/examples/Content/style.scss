@@ -1,4 +1,8 @@
+@import "~styles/tc-styles";
+
 .Content {
+  @include roboto-light;
+
   padding: 24px;
 
   h1 {
@@ -11,7 +15,7 @@
 
   li {
     list-style-type: disc;
-    margin-left: 24px;
+    margin: 9px 24px;
 
     a {
       color: blue;

@@ -27,7 +27,7 @@ $challenge-radius-4: $corner-radius * 2;
     justify-content: flex-start;
     width: 50%;
 
-    @include xs-to-md {
+    @include xs-to-sm {
       width: 100%;
     }
   }
@@ -37,7 +37,7 @@ $challenge-radius-4: $corner-radius * 2;
     justify-content: space-between;
     width: 50%;
 
-    @include xs-to-md {
+    @include xs-to-sm {
       width: 100%;
     }
 
