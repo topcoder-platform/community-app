@@ -1,5 +1,5 @@
 /**
- * Various utils that faciliate usage of react-router.
+ * Various utils that faciliate the usage of react-router.
  */
 
 import PT from 'prop-types';
@@ -13,10 +13,18 @@ import { Link as RRLink, NavLink as RRNavLink } from 'react-router-dom';
  * Original components work properly only with URLs reffering routes within the
  * app. Our versions of <Link> and <NavLink> compare the URL hostname with the
  * hostname of the page where they are rendered:
+ *
  * 1) If the same, the hyper-reference is rendered as react-router's <Link> or
  *    <NavLink>, thus avoiding re-load of the app;
+ *
  * 2) If different, the hyper-reference is rendered as HTML <a> element, thus
  *    properly leading visitors outside of the app.
+ *
+ * 3) Additionally, the links are rendered as HTML <a> element if "openNewTab"
+ *    prop is passed in (in this case target="_blank" is passed into <a>, to
+ *    make sure that the link will be opened in a new browser tab). Also, the
+ *    link is rendered as <a> if it starts with # symbol (i.e. it is supposed
+ *    to scroll the currenty page to an ankor point).
  *
  * NOTE that assumption (1) can be wrong (i.e. we can configure our server in
  * such way that different endpoints in the same domain are served by different
@@ -24,42 +32,54 @@ import { Link as RRLink, NavLink as RRNavLink } from 'react-router-dom';
  * as it allows an elegant solution, we implement it here.
  */
 
-function RRLinkWrapper(props) {
-  const url = new URL(props.to);
-  if ((props.hostname !== url.hostname)
-  || props.to.startsWith('#')) {
+function RRLinkWrapper({
+  children,
+  className,
+  enforceA,
+  hostname,
+  onClick,
+  openNewTab,
+  replace,
+  to,
+}) {
+  const url = new URL(to);
+  if (enforceA || openNewTab || (hostname !== url.hostname)
+  || to.startsWith('#')) {
     return (
       <a
-        className={props.className}
-        href={props.to}
-        target={props.openExternalLinkInNewPage ? '_blank' : ''}
-      >{props.children}</a>
+        className={className}
+        href={to}
+        onClick={onClick}
+        target={openNewTab ? '_blank' : ''}
+      >{children}</a>
     );
   }
   return (
     <RRLink
-      className={props.className}
-      onClick={props.onClick}
-      replace={props.replace}
-      to={props.to}
-    >{props.children}</RRLink>
+      className={className}
+      onClick={onClick}
+      replace={replace}
+      to={to}
+    >{children}</RRLink>
   );
 }
 
 RRLinkWrapper.defaultProps = {
   children: null,
   className: null,
+  enforceA: false,
   onClick: null,
-  openExternalLinkInNewPage: false,
+  openNewTab: false,
   replace: false,
 };
 
 RRLinkWrapper.propTypes = {
   children: PT.node,
   className: PT.string,
+  enforceA: PT.bool,
   hostname: PT.string.isRequired,
   onClick: PT.func,
-  openExternalLinkInNewPage: PT.bool,
+  openNewTab: PT.bool,
   replace: PT.bool,
   to: PT.oneOfType([PT.object, PT.string]).isRequired,
 };
@@ -68,34 +88,51 @@ export const Link = connect(state => ({
   hostname: state.hostname,
 }))(RRLinkWrapper);
 
-function RRNavLinkWrapper(props) {
-  const url = new URL(props.to);
-  if ((props.hostname !== url.hostname)
-  || props.to.startsWith('#')) {
+function RRNavLinkWrapper({
+  activeClassName,
+  activeStyle,
+  children,
+  className,
+  enforceA,
+  exact,
+  hostname,
+  isActive,
+  location,
+  onClick,
+  openNewTab,
+  replace,
+  strict,
+  to,
+}) {
+  const url = new URL(to);
+  if (enforceA || openNewTab || (hostname !== url.hostname)
+  || to.startsWith('#')) {
     return (
       /* NOTE: Currently we don't handle isActive check here. Though, as this
        * <a> element is a fallback for URLs leading outside of the app, in
        * usual use cases it never should be rendered as active within the app.
        */
       <a
-        className={props.className}
-        href={props.to}
-        target={props.openExternalLinkInNewPage ? '_blank' : ''}
-      >{props.children}</a>
+        className={className}
+        href={to}
+        onClick={onClick}
+        target={openNewTab ? '_blank' : ''}
+      >{children}</a>
     );
   }
   return (
     <RRNavLink
-      activeClassName={props.activeClassName}
-      activeStyle={props.activeStyle}
-      className={props.className}
-      exact={props.exact}
-      isActive={props.isActive}
-      location={props.location}
-      replace={props.replace}
-      strict={props.strict}
-      to={props.to}
-    >{props.children}</RRNavLink>
+      activeClassName={activeClassName}
+      activeStyle={activeStyle}
+      className={className}
+      exact={exact}
+      isActive={isActive}
+      location={location}
+      onClick={onClick}
+      replace={replace}
+      strict={strict}
+      to={to}
+    >{children}</RRNavLink>
   );
 }
 
@@ -104,9 +141,11 @@ RRNavLinkWrapper.defaultProps = {
   activeStyle: null,
   children: null,
   className: null,
+  enforceA: false,
   exact: false,
   location: null,
-  openExternalLinkInNewPage: false,
+  onClick: null,
+  openNewTab: false,
   replace: false,
   strict: false,
 };
@@ -116,11 +155,13 @@ RRNavLinkWrapper.propTypes = {
   activeStyle: PT.shape(),
   children: PT.node,
   className: PT.string,
+  enforceA: PT.bool,
   exact: PT.bool,
   hostname: PT.string.isRequired,
   isActive: PT.func.isRequired,
   location: PT.shape(),
-  openExternalLinkInNewPage: PT.bool,
+  onClick: PT.func,
+  openNewTab: PT.bool,
   replace: PT.bool,
   strict: PT.bool,
   to: PT.string.isRequired,
