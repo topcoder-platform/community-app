@@ -23,6 +23,7 @@ module.exports = webpackMerge(defaultConfig, {
       },
     }),
     new OptimizeCssAssetsPlugin(),
+    new webpack.optimize.ModuleConcatenationPlugin(),
     new webpack.optimize.UglifyJsPlugin(),
   ],
 });

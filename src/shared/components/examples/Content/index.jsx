@@ -102,6 +102,11 @@ export default function Content() {
       <h3>Misc Examples</h3>
       <ul>
         <li>
+          <Link to="/examples/buttons/">Buttons</Link> - Demo/test of standard
+          buttons already available in the code, and customizable with help
+          of <code>react-css-themr</code>.
+        </li>
+        <li>
           <Link to="/examples/css-modules">CSS Modules</Link> - Demo/test of CSS modules in action;
         </li>
         <li>

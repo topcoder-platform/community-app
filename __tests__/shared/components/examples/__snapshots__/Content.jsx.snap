@@ -198,6 +198,19 @@ exports[`Matches shallow shapshot 1`] = `
     <li>
       <Link
         replace={false}
+        to="/examples/buttons/"
+      >
+        Buttons
+      </Link>
+       - Demo/test of standard buttons already available in the code, and customizable with help of 
+      <code>
+        react-css-themr
+      </code>
+      .
+    </li>
+    <li>
+      <Link
+        replace={false}
         to="/examples/css-modules"
       >
         CSS Modules
