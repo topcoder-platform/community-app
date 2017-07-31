@@ -21,7 +21,7 @@ $type-radius-4: $corner-radius * 2;
     display: inline-block;
     margin-right: $type-space-40;
 
-    @include xs-to-sm {
+    @include xxs-to-sm {
       font-size: 14px;
       font-weight: 400;
       height: $type-space-40;
@@ -44,7 +44,7 @@ $type-radius-4: $corner-radius * 2;
       cursor: default;
       text-decoration: none;
 
-      @include xs-to-sm {
+      @include xxs-to-sm {
         font-weight: 500;
       }
     }

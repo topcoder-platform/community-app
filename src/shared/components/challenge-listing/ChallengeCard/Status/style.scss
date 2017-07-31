@@ -14,17 +14,17 @@ $status-radius-4: $corner-radius * 2;
   text-align: right;
   width: 77.7%;
 
-  @include xs-to-sm {
+  @include xxs-to-sm {
     margin-top: $status-space-20 + 3;
     width: 100%;
   }
 
-  @include xs {
+  @include xxs-to-xs {
     margin-top: $status-space-15;
   }
 
   &.completed {
-    @include xs-to-sm {
+    @include xxs-to-sm {
       text-align: left;
       padding-left: 0;
       margin-bottom: $base-unit + 2;
@@ -35,7 +35,7 @@ $status-radius-4: $corner-radius * 2;
       align-items: center;
       height: 30px;
 
-      @include xs-to-sm {
+      @include xxs-to-sm {
         display: flex;
         align-items: center;
       }
@@ -61,7 +61,7 @@ $status-radius-4: $corner-radius * 2;
     &.with-register-button {
       padding-right: 108px;
 
-      @include xs {
+      @include xxs-to-xs {
         padding-right: 0;
         margin-bottom: 50px;
       }
@@ -101,7 +101,7 @@ $status-radius-4: $corner-radius * 2;
       font-weight: 400;
       margin-left: $status-space-20;
 
-      @include xs {
+      @include xxs-to-xs {
         margin-left: $status-space-15;
       }
     }
@@ -127,7 +127,7 @@ $status-radius-4: $corner-radius * 2;
       display: block;
     }
 
-    @include xs-to-sm {
+    @include xxs-to-sm {
       margin-left: auto;
       min-width: auto;
     }
@@ -152,7 +152,7 @@ $status-radius-4: $corner-radius * 2;
     color: $tc-black;
     line-height: $status-space-20;
 
-    @include xs {
+    @include xxs-to-xs {
       position: absolute;
       height: 50px;
       width: auto;
@@ -174,7 +174,7 @@ $status-radius-4: $corner-radius * 2;
       transform: translate(0, -50%);
       margin-top: -$status-space-10;
 
-      @include xs {
+      @include xxs-to-xs {
         display: inline-block;
         position: relative;
         margin-top: 0;
@@ -186,7 +186,7 @@ $status-radius-4: $corner-radius * 2;
       font-weight: 400;
       margin-top: $status-space-10;
 
-      @include xs {
+      @include xxs-to-xs {
         margin-top: 0;
         padding-left: 5px;
       }
