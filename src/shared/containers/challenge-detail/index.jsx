@@ -54,7 +54,6 @@ class ChallengeDetailPageContainer extends React.Component {
 
   render() {
     const isEmpty = _.isEmpty(this.props.challenge);
-
     return (
       <div styleName="outer-container">
         <div styleName="challenge-detail-container">
@@ -67,10 +66,15 @@ class ChallengeDetailPageContainer extends React.Component {
               showDeadlineDetail={this.state.showDeadlineDetail}
               onToggleDeadlines={this.onToggleDeadlines}
               onSelectorClicked={this.onSelectorClicked}
-              registerForChallenge={challengeId =>
-                this.props.registerForChallenge(this.props.tokenV2, challengeId)
+              registerForChallenge={() =>
+                this.props.registerForChallenge(this.props.authTokens, this.props.challengeId)
               }
+              registering={this.props.registering}
               selectedView={this.state.selectedView}
+              unregisterFromChallenge={() =>
+                this.props.unregisterFromChallenge(this.props.authTokens, this.props.challengeId)
+              }
+              unregistering={this.props.unregistering}
             />
           }
           {
@@ -87,13 +91,11 @@ class ChallengeDetailPageContainer extends React.Component {
 }
 
 ChallengeDetailPageContainer.defaultProps = {
-  tokenV2: null,
   tokenV3: null,
   isLoadingChallenge: false,
 };
 
 ChallengeDetailPageContainer.propTypes = {
-  tokenV2: PT.string,
   tokenV3: PT.string,
   challenge: PT.shape().isRequired,
   isLoadingChallenge: PT.bool,
@@ -101,7 +103,10 @@ ChallengeDetailPageContainer.propTypes = {
   authTokens: PT.shape().isRequired,
   challengeId: PT.number.isRequired,
   registerForChallenge: PT.func.isRequired,
+  registering: PT.bool.isRequired,
   reloadChallengeDetails: PT.func.isRequired,
+  unregisterFromChallenge: PT.func.isRequired,
+  unregistering: PT.bool.isRequired,
 };
 
 function extractChallengeDetail(v3, v2) {
@@ -139,6 +144,8 @@ const mapStateToProps = (state, props) => ({
   authTokens: state.auth,
   tokenV2: state.auth && state.auth.tokenV2,
   tokenV3: state.auth && state.auth.tokenV3,
+  registering: state.challenge.registering,
+  unregistering: state.challenge.unregistering,
 });
 
 const mapDispatchToProps = (dispatch) => {
@@ -148,12 +155,16 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(challengeActions.fetchChallengeInit());
       dispatch(challengeActions.fetchChallengeDone(tokens, challengeId));
     },
-    registerForChallenge: (tokenV2, challengeId) => {
+    registerForChallenge: (auth, challengeId) => {
       dispatch(a.registerInit());
-      dispatch(a.registerDone(tokenV2, challengeId));
+      dispatch(a.registerDone(auth, challengeId));
     },
     reloadChallengeDetails: (tokens, challengeId) => {
       dispatch(challengeActions.fetchChallengeDone(tokens, challengeId));
+    },
+    unregisterFromChallenge: (auth, challengeId) => {
+      dispatch(a.unregisterInit());
+      dispatch(a.unregisterDone(auth, challengeId));
     },
   };
 };

@@ -1,5 +1,15 @@
 @import "~styles/tc-styles";
 
+.challengeAction {
+  margin: $base-unit 0;
+  width: 100%;
+}
+
+.challenge-ops-container {
+  flex: 1;
+  padding: 3 * $base-unit 4 * $base-unit;
+}
+
 @mixin design-accent-bg {
   .design-accent-background {
     background-color: $tc-dark-blue-90;
@@ -247,108 +257,6 @@
 
             @include develop-accent-clr;
             @include datasci-accent-clr;
-          }
-        }
-      }
-
-      .challenge-ops-container {
-        flex: 1;
-
-        .challenge-ops {
-          margin: 10px 20px;
-
-          .challenge-ops-form {
-            display: flex;
-            flex-direction: column;
-            align-content: center;
-
-            .challenge-action-common {
-              margin: 10px;
-              font-family: roboto;
-              font-family: 500;
-              font-size: 15px;
-              line-height: 40px;
-              border-radius: 4px;
-              white-space: nowrap;
-              color: $tc-white;
-              border: 0 hidden;
-            }
-
-            .challenge-action-datasci {
-              background-color: $tc-orange;
-            }
-
-            .challenge-action-datasci:hover {
-              background-image: linear-gradient(-180deg, $tc-orange-70 0%, $tc-orange 100%);
-            }
-
-            .challenge-action-datasci:active {
-              background: $tc-orange;
-              box-shadow: inset 0 1px 3px 0 rgba(71, 71, 79, 0.38);
-            }
-
-            .challenge-action-datasci:focus {
-              border: 1px solid $tc-orange;
-              box-shadow: 0 0 2px 1px $tc-orange-30;
-            }
-
-            .challenge-action-develop {
-              background-color: $tc-green;
-            }
-
-            .challenge-action-develop:hover {
-              background-image: linear-gradient(-180deg, $tc-green-70 0%, $tc-green 100%);
-            }
-
-            .challenge-action-develop:active {
-              background: $tc-green;
-              box-shadow: inset 0 1px 3px 0 rgba(71, 71, 79, 0.38);
-            }
-
-            .challenge-action-develop:focus {
-              border: 1px solid $tc-green;
-              box-shadow: 0 0 2px 1px $tc-green-30;
-            }
-
-            .challenge-action-warning {
-              background-color: $tc-red-70;
-            }
-
-            .challenge-action-warning:hover {
-              background-image: linear-gradient(-180deg, #ff5b52 0%, #f22f24 100%);
-            }
-
-            .challenge-action-warning:active {
-              background: $tc-red;
-              box-shadow: inset 0 1px 3px 0 rgba(71, 71, 79, 0.38);
-            }
-
-            .challenge-action-warning:focus {
-              border: 1px solid $tc-red;
-              box-shadow: 0 0 2px 1px $tc-red-30;
-            }
-
-            .challenge-action-design {
-              background-color: $tc-dark-blue-90;
-            }
-
-            .challenge-action-design:hover {
-              background-image: linear-gradient(-180deg, #3996ff 0%, #127bf3 100%);
-            }
-
-            .challenge-action-design:active {
-              box-shadow: inset 0 1px 3px 0 rgba(71, 71, 79, 0.5);
-            }
-
-            .challenge-action-design:focus {
-              border: 1px solid $tc-dark-blue;
-              box-shadow: 0 0 2px 1px $tc-dark-blue-70;
-            }
-
-            .challenge-action-common:disabled {
-              background-color: $tc-gray-40;
-              color: $tc-gray-neutral-light;
-            }
           }
         }
       }

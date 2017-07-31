@@ -10,20 +10,20 @@ import { getApiV2, getApiV3 } from '../services/api';
 const apiV2 = auth => getApiV2(auth.tokenV2);
 const apiV3 = auth => getApiV3(auth.tokenV3);
 
-function fetchChallenge(tokens, challengeId) {
+function fetchChallenge(auth, challengeId) {
   const endpoint = `/challenges/?filter=id%3D${challengeId}`;
   let apiV3UserDetail = Promise.resolve({});
-  if (tokens && tokens.user && tokens.user.handle) {
-    const endpointWithMember = `/members/${tokens.user.handle}${endpoint}`;
-    apiV3UserDetail = apiV3(tokens).fetch(endpointWithMember)
+  if (auth && auth.user && auth.user.handle) {
+    const endpointWithMember = `/members/${auth.user.handle}${endpoint}`;
+    apiV3UserDetail = apiV3(auth).fetch(endpointWithMember)
       .then(response => response.json())
       .then(response => response.result.content[0]);
   }
   const endpointV2 = `/challenges/${challengeId}`;
-  const apiV3Promise = apiV3(tokens).fetch(endpoint)
+  const apiV3Promise = apiV3(auth).fetch(endpoint)
     .then(response => response.json())
     .then(response => response.result.content[0]);
-  const apiV2Promise = apiV2(tokens).fetch(endpointV2)
+  const apiV2Promise = apiV2(auth).fetch(endpointV2)
     .then(response => response.json());
   return Promise.all([apiV3Promise, apiV2Promise, apiV3UserDetail]);
 }
@@ -36,12 +36,30 @@ function fetchSubmissions(tokens, challengeId) {
 
 /**
  * Registers user for the challenge.
- * @param {String} tokenV2 Auth token for Topcoder API v2.
+ * @param {Object} auth Auth section of Redux state.
  * @param {String} challengeId
  * @return {Promise}
  */
-function registerDone(tokenV2, challengeId) {
-  return getChallengesService(undefined, tokenV2).register(challengeId);
+function registerDone(auth, challengeId) {
+  return getChallengesService(undefined, auth.tokenV2)
+    .register(challengeId)
+    /* As a part of registration flow we silently update challenge details,
+     * reusing for this purpose the corresponding action handler. */
+    .then(() => fetchChallenge(auth, challengeId));
+}
+
+/**
+ * Unregisters user for the challenge.
+ * @param {Object} auth Auth section of Redux state.
+ * @param {String} challengeId
+ * @return {Promise}
+ */
+function unregisterDone(auth, challengeId) {
+  return getChallengesService(undefined, auth.tokenV2)
+    .unregister(challengeId)
+    /* As a part of unregistration flow we silently update challenge details,
+     * reusing for this purpose the corresponding action handler. */
+    .then(() => fetchChallenge(auth, challengeId));
 }
 
 export default createActions({
@@ -56,5 +74,7 @@ export default createActions({
   CHALLENGE: {
     REGISTER_INIT: _.noop,
     REGISTER_DONE: registerDone,
+    UNREGISTER_INIT: _.noop,
+    UNREGISTER_DONE: unregisterDone,
   },
 });

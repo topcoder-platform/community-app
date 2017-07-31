@@ -23,6 +23,9 @@ const mockChallengeActions = {
     null,
     'Unknown error',
   ),
+  challenge: {
+
+  },
 };
 jest.setMock(require.resolve('actions/challenge'), mockChallengeActions);
 
@@ -63,6 +66,8 @@ function testReducer(reducer, istate) {
       loadingDetails: true,
       fetchChallengeFailure: false,
       details: null,
+      registering: false,
+      unregistering: false,
     });
   });
 
@@ -74,6 +79,8 @@ function testReducer(reducer, istate) {
       fetchChallengeFailure: false,
       details: 'v3-user-details',
       detailsV2: 'v2-details',
+      registering: false,
+      unregistering: false,
     });
   });
 
@@ -85,6 +92,8 @@ function testReducer(reducer, istate) {
       fetchChallengeFailure: 'Unknown error',
       details: null,
       detailsV2: null,
+      registering: false,
+      unregistering: false,
     });
   });
 
@@ -98,6 +107,8 @@ function testReducer(reducer, istate) {
       detailsV2: null,
       loadingMySubmissions: true,
       mySubmissions: { v2: null },
+      registering: false,
+      unregistering: false,
     });
   });
 
@@ -112,6 +123,8 @@ function testReducer(reducer, istate) {
       mySubmissions: { v2: [{ submissionId: '1' }] },
       fetchMySubmissionsFailure: false,
       loadingMySubmissions: false,
+      registering: false,
+      unregistering: false,
     });
   });
 
@@ -126,6 +139,8 @@ function testReducer(reducer, istate) {
       fetchMySubmissionsFailure: false,
       loadingMySubmissions: false,
       mySubmissions: { v2: [{ submissionId: '1' }] },
+      registering: false,
+      unregistering: false,
     });
   });
 
@@ -140,6 +155,8 @@ function testReducer(reducer, istate) {
       mySubmissions: { v2: [] },
       loadingMySubmissions: false,
       fetchMySubmissionsFailure: 'Unknown error',
+      registering: false,
+      unregistering: false,
     });
   });
 }
@@ -147,6 +164,8 @@ function testReducer(reducer, istate) {
 describe('Default reducer', () =>
   testReducer(reducers.default, {
     mySubmissionsManagement: {},
+    registering: false,
+    unregistering: false,
   }),
 );
 
@@ -157,6 +176,8 @@ describe('Factory without http request', () =>
   reducers.factory().then(res =>
     testReducer(res, {
       mySubmissionsManagement: {},
+      registering: false,
+      unregistering: false,
     }),
   ),
 );
@@ -171,6 +192,8 @@ describe('Factory with server-side rendering', () =>
   }).then(res =>
     testReducer(res, {
       mySubmissionsManagement: {},
+      registering: false,
+      unregistering: false,
     }),
   ),
 );
@@ -181,6 +204,8 @@ describe('Factory without server-side rendering', () =>
   }).then(res =>
     testReducer(res, {
       mySubmissionsManagement: {},
+      registering: false,
+      unregistering: false,
     }),
   ),
 );

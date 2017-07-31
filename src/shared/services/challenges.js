@@ -229,7 +229,7 @@ class ChallengesService {
    */
   register(challengeId) {
     const endpoint = `/challenges/${challengeId}/register`;
-    return this.private.apiV2.get(endpoint)
+    return this.private.apiV2.postJson(endpoint)
       .then(res => (res.ok ? res.json() : new Error(res.statusText)));
   }
 
@@ -240,7 +240,7 @@ class ChallengesService {
    */
   unregister(challengeId) {
     const endpoint = `/challenges/${challengeId}/unregister`;
-    return this.private.apiV2.get(endpoint)
+    return this.private.apiV2.post(endpoint)
       .then(res => (res.ok ? res.json() : new Error(res.statusText)));
   }
 }
