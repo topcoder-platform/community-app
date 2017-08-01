@@ -2,6 +2,7 @@
  * Reducer for state.challenge
  */
 
+import _ from 'lodash';
 import { combine, toFSA } from 'utils/redux';
 import { handleActions } from 'redux-actions';
 import actions from 'actions/challenge';
@@ -10,17 +11,62 @@ import logger from 'utils/logger';
 import mySubmissionsManagement from './my-submissions-management';
 
 /**
- * Handles challengeActions.fetchChallengeDone action.
- * @param {Object} state Previous state.
- * @param {Object} action Action.
+ * Handles CHALLENGE/GET_DETAILS_INIT action.
+ * @param {Object} state
+ * @param {Object} action
+ * @return {Object} New state
  */
-function onFetchChallengeDone(state, action) {
+function onGetDetailsInit(state, action) {
+  const challengeId = action.payload;
+  return state.details && _.toString(state.details.id) !== challengeId ? {
+    ...state,
+    fetchChallengeFailure: false,
+    loadingDetailsForChallengeId: challengeId,
+    details: null,
+    detailsV2: null,
+  } : {
+    ...state,
+    fetchChallengeFailure: false,
+    loadingDetailsForChallengeId: challengeId,
+  };
+}
+
+/**
+ * Handles CHALLENGE/GET_DETAILS_DONE action.
+ * Note, that it silently discards received details if the ID of received
+ * challenge mismatches the one stored in loadingDetailsForChallengeId field
+ * of the state.
+ * @param {Object} state
+ * @param {Object} action
+ * @return {Object} New state.
+ */
+function onGetDetailsDone(state, action) {
+  if (action.error) {
+    logger.error('Failed to get challenge details!', action.payload);
+    return {
+      ...state,
+      details: null,
+      detailsV2: null,
+      fetchChallengeFailure: action.error,
+      loadingDetailsForChallengeId: '',
+    };
+  }
+
+  /* If action was fired for authenticated visitor, payload[2] will contain
+   * details fetched specifically for the user (thus may include additional
+   * data comparing to the standard API v3 response for the challenge details,
+   * stored in payload[0]). */
+  const details = action.payload[2] || action.payload[0];
+  if (_.toString(details.id) !== state.loadingDetailsForChallengeId) {
+    return state;
+  }
+
   return {
     ...state,
-    details: action.error ? null : action.payload[2] || action.payload[0],
-    detailsV2: action.error ? null : action.payload[1],
-    fetchChallengeFailure: action.error || false,
-    loadingDetails: false,
+    details,
+    detailsV2: action.payload[1],
+    fetchChallengeFailure: false,
+    loadingDetailsForChallengeId: '',
   };
 }
 
@@ -29,7 +75,7 @@ function onFetchChallengeDone(state, action) {
  * @param {Object} state Previous state.
  * @param {Object} action Action.
  */
-function onFetchSubmissionsDone(state, action) {
+function onGetSubmissionsDone(state, action) {
   return {
     ...state,
     fetchMySubmissionsFailure: action.error || false,
@@ -52,7 +98,7 @@ function onRegisterDone(state, action) {
   /* As a part of registration flow we silently update challenge details,
    * reusing for this purpose the corresponding action handler. Thus, we
    * should also reuse corresponding reducer to generate proper state. */
-  return onFetchChallengeDone({ ...state, registering: false }, action);
+  return onGetDetailsDone({ ...state, registering: false }, action);
 }
 
 /**
@@ -69,7 +115,7 @@ function onUnregisterDone(state, action) {
   /* As a part of unregistration flow we silently update challenge details,
    * reusing for this purpose the corresponding action handler. Thus, we
    * should also reuse corresponding reducer to generate proper state. */
-  return onFetchChallengeDone({ ...state, unregistering: false }, action);
+  return onGetDetailsDone({ ...state, unregistering: false }, action);
 }
 
 /**
@@ -80,19 +126,14 @@ function onUnregisterDone(state, action) {
 function create(initialState) {
   const a = actions.challenge;
   return handleActions({
-    [actions.fetchChallengeInit]: state => ({
-      ...state,
-      loadingDetails: true,
-      fetchChallengeFailure: false,
-      details: null,
-    }),
-    [actions.fetchChallengeDone]: onFetchChallengeDone,
-    [actions.fetchSubmissionsInit]: state => ({
+    [a.getDetailsInit]: onGetDetailsInit,
+    [a.getDetailsDone]: onGetDetailsDone,
+    [a.getSubmissionsInit]: state => ({
       ...state,
       loadingMySubmissions: true,
       mySubmissions: { v2: null },
     }),
-    [actions.fetchSubmissionsDone]: onFetchSubmissionsDone,
+    [a.getSubmissionsDone]: onGetSubmissionsDone,
     [smpActions.smp.deleteSubmissionDone]: (state, { payload }) => ({
       ...state,
       mySubmissions: { v2: state.mySubmissions.v2.filter(subm => (
@@ -103,10 +144,13 @@ function create(initialState) {
     [a.registerDone]: onRegisterDone,
     [a.unregisterInit]: state => ({ ...state, unregistering: true }),
     [a.unregisterDone]: onUnregisterDone,
-  }, initialState || {
+  }, _.defaults(initialState, {
+    details: null,
+    detailsV2: null,
+    loadingDetailsForChallengeId: '',
     registering: false,
     unregistering: false,
-  });
+  }));
 }
 
 /**
@@ -125,11 +169,11 @@ export function factory(req) {
     };
     const challengeId = req.url.match(/\d+/)[0];
     return Promise.all([
-      toFSA(actions.fetchChallengeDone(tokens, challengeId)),
-      toFSA(actions.fetchSubmissionsDone(tokens, challengeId)),
+      toFSA(actions.challenge.getDetailsDone(challengeId, tokens.tokenV3, tokens.tokenV2)),
+      toFSA(actions.challenge.getSubmissionsDone(challengeId, tokens.tokenV3, tokens.tokenV2)),
     ]).then(([challenge, submissions]) => {
-      const state = onFetchChallengeDone({}, challenge);
-      return onFetchSubmissionsDone(state, submissions);
+      const state = onGetDetailsDone({}, challenge);
+      return onGetSubmissionsDone(state, submissions);
     }).then(state => combine(create(state), { mySubmissionsManagement }));
   }
   /* Otherwise this part of Redux state is initialized empty. */

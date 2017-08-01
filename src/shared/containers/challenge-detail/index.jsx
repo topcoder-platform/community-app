@@ -140,7 +140,7 @@ function extractChallengeDetail(v3, v2) {
 const mapStateToProps = (state, props) => ({
   challengeId: Number(props.match.params.challengeId),
   challenge: extractChallengeDetail(state.challenge.details, state.challenge.detailsV2),
-  isLoadingChallenge: state.challenge.loadingDetails,
+  isLoadingChallenge: Boolean(state.challenge.loadingDetailsForChallengeId),
   authTokens: state.auth,
   tokenV2: state.auth && state.auth.tokenV2,
   tokenV3: state.auth && state.auth.tokenV3,
@@ -152,15 +152,15 @@ const mapDispatchToProps = (dispatch) => {
   const a = challengeActions.challenge;
   return {
     loadChallengeDetails: (tokens, challengeId) => {
-      dispatch(challengeActions.fetchChallengeInit());
-      dispatch(challengeActions.fetchChallengeDone(tokens, challengeId));
+      dispatch(a.getDetailsInit(challengeId));
+      dispatch(a.getDetailsDone(challengeId, tokens.tokenV3, tokens.tokenV2));
     },
     registerForChallenge: (auth, challengeId) => {
       dispatch(a.registerInit());
       dispatch(a.registerDone(auth, challengeId));
     },
     reloadChallengeDetails: (tokens, challengeId) => {
-      dispatch(challengeActions.fetchChallengeDone(tokens, challengeId));
+      dispatch(a.getDetailsDone(challengeId, tokens.tokenV3, tokens.tokenV2));
     },
     unregisterFromChallenge: (auth, challengeId) => {
       dispatch(a.unregisterInit());

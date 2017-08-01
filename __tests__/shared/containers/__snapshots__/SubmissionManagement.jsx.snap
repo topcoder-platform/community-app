@@ -14,7 +14,7 @@ exports[`Matches shapshot 1`] = `
   }
   challengeId={12345}
   deleting={true}
-  isLoadingChallenge={true}
+  isLoadingChallenge={false}
   isLoadingSubmissions={false}
   loadChallengeDetails={[Function]}
   loadMySubmissions={[Function]}

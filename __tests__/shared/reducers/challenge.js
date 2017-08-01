@@ -1,30 +1,37 @@
 import { mockAction } from 'utils/mock';
 
 const mockChallengeActions = {
-  fetchChallengeInit: mockAction('FETCH_CHALLENGE_INIT'),
-  fetchChallengeDone: mockAction(
-    'FETCH_CHALLENGE_DONE',
-    ['v3-details', 'v2-details', 'v3-user-details'],
-  ),
-  fetchChallengeDoneError: mockAction(
-    'FETCH_CHALLENGE_DONE',
-    null,
-    'Unknown error',
-  ),
-  fetchSubmissionsInit: mockAction(
-    'FETCH_SUBMISSION_INIT',
-  ),
-  fetchSubmissionsDone: mockAction(
-    'FETCH_SUBMISSION_DONE',
-    [{ submissionId: '1' }],
-  ),
-  fetchSubmissionsDoneError: mockAction(
-    'FETCH_SUBMISSION_DONE',
-    null,
-    'Unknown error',
-  ),
   challenge: {
-
+    getDetailsInit: mockAction('CHALLENGE/GET_DETAILS_INIT', '12345'),
+    getDetailsDone: mockAction(
+      'CHALLENGE/GET_DETAILS_DONE', [{
+        id: 12345,
+        tag: 'v3-details',
+      }, {
+        challengeId: '12345',
+        tag: 'v2-details',
+      }, {
+        id: 12345,
+        tag: 'v3-user-details',
+      }],
+    ),
+    getDetailsDoneError: mockAction(
+      'CHALLENGE/GET_DETAILS_DONE',
+      null,
+      'Unknown error',
+    ),
+    getSubmissionsInit: mockAction(
+      'GET_SUBMISSION_INIT',
+    ),
+    getSubmissionsDone: mockAction(
+      'GET_SUBMISSION_DONE',
+      [{ submissionId: '1' }],
+    ),
+    getSubmissionsDoneError: mockAction(
+      'GET_SUBMISSION_DONE',
+      null,
+      'Unknown error',
+    ),
   },
 };
 jest.setMock(require.resolve('actions/challenge'), mockChallengeActions);
@@ -59,36 +66,43 @@ function testReducer(reducer, istate) {
     expect(state).toEqual(istate);
   });
 
-  test('Handles fetchChallengeInit as expected', () => {
-    state = reducer(state, mockChallengeActions.fetchChallengeInit());
+  test('Handles CHALLENGE/GET_DETAILS_INIT as expected', () => {
+    state = reducer(state, mockChallengeActions.challenge.getDetailsInit(12345));
     expect(state).toEqual({
       mySubmissionsManagement: {},
-      loadingDetails: true,
+      loadingDetailsForChallengeId: '12345',
       fetchChallengeFailure: false,
       details: null,
+      detailsV2: null,
       registering: false,
       unregistering: false,
     });
   });
 
-  test('Handles fetchChallengeDone as expected', () => {
-    state = reducer(state, mockChallengeActions.fetchChallengeDone());
+  test('Handles CHALLENGE/GET_DETAILS_DONE as expected', () => {
+    state = reducer(state, mockChallengeActions.challenge.getDetailsDone());
     expect(state).toEqual({
       mySubmissionsManagement: {},
-      loadingDetails: false,
+      loadingDetailsForChallengeId: '',
       fetchChallengeFailure: false,
-      details: 'v3-user-details',
-      detailsV2: 'v2-details',
+      details: {
+        id: 12345,
+        tag: 'v3-user-details',
+      },
+      detailsV2: {
+        challengeId: '12345',
+        tag: 'v2-details',
+      },
       registering: false,
       unregistering: false,
     });
   });
 
-  test('Handles fetchChallengeDone with error as expected', () => {
-    state = reducer(state, mockChallengeActions.fetchChallengeDoneError());
+  test('Handles CHALLENGE/GET_DETAILS_DONE with error as expected', () => {
+    state = reducer(state, mockChallengeActions.challenge.getDetailsDoneError());
     expect(state).toEqual({
       mySubmissionsManagement: {},
-      loadingDetails: false,
+      loadingDetailsForChallengeId: '',
       fetchChallengeFailure: 'Unknown error',
       details: null,
       detailsV2: null,
@@ -98,10 +112,10 @@ function testReducer(reducer, istate) {
   });
 
   test('Handles fetchSubmissionsInit as expected', () => {
-    state = reducer(state, mockChallengeActions.fetchSubmissionsInit());
+    state = reducer(state, mockChallengeActions.challenge.getSubmissionsInit());
     expect(state).toEqual({
       mySubmissionsManagement: {},
-      loadingDetails: false,
+      loadingDetailsForChallengeId: '',
       fetchChallengeFailure: 'Unknown error',
       details: null,
       detailsV2: null,
@@ -113,10 +127,10 @@ function testReducer(reducer, istate) {
   });
 
   test('Handles fetchSubmissionsDone as expected', () => {
-    state = reducer(state, mockChallengeActions.fetchSubmissionsDone());
+    state = reducer(state, mockChallengeActions.challenge.getSubmissionsDone());
     expect(state).toEqual({
       mySubmissionsManagement: {},
-      loadingDetails: false,
+      loadingDetailsForChallengeId: '',
       fetchChallengeFailure: 'Unknown error',
       details: null,
       detailsV2: null,
@@ -132,7 +146,7 @@ function testReducer(reducer, istate) {
     state = reducer(state, mockSmpActions.smp.deleteSubmissionDone());
     expect(state).toEqual({
       mySubmissionsManagement: {},
-      loadingDetails: false,
+      loadingDetailsForChallengeId: '',
       fetchChallengeFailure: 'Unknown error',
       details: null,
       detailsV2: null,
@@ -145,10 +159,10 @@ function testReducer(reducer, istate) {
   });
 
   test('Handles fetchSubmissionsDoneError as expected', () => {
-    state = reducer(state, mockChallengeActions.fetchSubmissionsDoneError());
+    state = reducer(state, mockChallengeActions.challenge.getSubmissionsDoneError());
     expect(state).toEqual({
       mySubmissionsManagement: {},
-      loadingDetails: false,
+      loadingDetailsForChallengeId: '',
       fetchChallengeFailure: 'Unknown error',
       details: null,
       detailsV2: null,
@@ -163,6 +177,9 @@ function testReducer(reducer, istate) {
 
 describe('Default reducer', () =>
   testReducer(reducers.default, {
+    details: null,
+    detailsV2: null,
+    loadingDetailsForChallengeId: '',
     mySubmissionsManagement: {},
     registering: false,
     unregistering: false,
@@ -175,6 +192,9 @@ jest.resetAllMocks();
 describe('Factory without http request', () =>
   reducers.factory().then(res =>
     testReducer(res, {
+      details: null,
+      detailsV2: null,
+      loadingDetailsForChallengeId: '',
       mySubmissionsManagement: {},
       registering: false,
       unregistering: false,
@@ -191,6 +211,9 @@ describe('Factory with server-side rendering', () =>
     url: '/challenge/12345/my-submissions',
   }).then(res =>
     testReducer(res, {
+      details: null,
+      detailsV2: null,
+      loadingDetailsForChallengeId: '',
       mySubmissionsManagement: {},
       registering: false,
       unregistering: false,
@@ -203,6 +226,9 @@ describe('Factory without server-side rendering', () =>
     url: '/some-random-url',
   }).then(res =>
     testReducer(res, {
+      details: null,
+      detailsV2: null,
+      loadingDetailsForChallengeId: '',
       mySubmissionsManagement: {},
       registering: false,
       unregistering: false,

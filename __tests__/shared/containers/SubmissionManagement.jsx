@@ -6,10 +6,12 @@ import TU from 'react-dom/test-utils';
 const rnd = new Rnd();
 
 const mockChallengeActions = {
-  fetchChallengeInit: jest.fn(),
-  fetchChallengeDone: jest.fn(),
-  fetchSubmissionsInit: jest.fn(),
-  fetchSubmissionsDone: jest.fn(),
+  challenge: {
+    getDetailsInit: jest.fn(),
+    getDetailsDone: jest.fn(),
+    getSubmissionsInit: jest.fn(),
+    getSubmissionsDone: jest.fn(),
+  },
 };
 jest.setMock(require.resolve('actions/challenge'), mockChallengeActions);
 
@@ -50,6 +52,7 @@ const mockState = {
 
 const mockState2 = {
   auth: {
+    tokenV2: 'Token V2',
     tokenV3: 'Token V3',
   },
   challenge: {
@@ -94,16 +97,12 @@ test('Triggers data loading, if necessary', () => {
       }}
     />
   ));
-  expect(mockChallengeActions.fetchChallengeInit).toHaveBeenCalled();
-  expect(mockChallengeActions.fetchChallengeDone)
-    .toHaveBeenCalledWith({
-      tokenV3: 'Token V3',
-    }, 12345);
-  expect(mockChallengeActions.fetchChallengeInit).toHaveBeenCalled();
-  expect(mockChallengeActions.fetchSubmissionsDone)
-    .toHaveBeenCalledWith({
-      tokenV3: 'Token V3',
-    }, 12345);
+  expect(mockChallengeActions.challenge.getDetailsInit).toHaveBeenCalledWith(12345);
+  expect(mockChallengeActions.challenge.getDetailsDone)
+    .toHaveBeenCalledWith(12345, 'Token V3', 'Token V2');
+  expect(mockChallengeActions.challenge.getSubmissionsInit).toHaveBeenCalled();
+  expect(mockChallengeActions.challenge.getSubmissionsDone)
+    .toHaveBeenCalledWith(12345, 'Token V3', 'Token V2');
 });
 
 const obj = TU.renderIntoDocument((
@@ -152,17 +151,23 @@ test('onDownloadSubmission dispatches', () => {
 });
 
 test('loadChallengeDetails dispatches', () => {
-  props.loadChallengeDetails('12345', 54321);
-  expect(mockChallengeActions.fetchChallengeInit).toHaveBeenCalled();
-  expect(mockChallengeActions.fetchChallengeDone)
-    .toHaveBeenCalledWith('12345', 54321);
+  props.loadChallengeDetails({
+    tokenV2: 'Token V2',
+    tokenV3: 'Token V3',
+  }, 54321);
+  expect(mockChallengeActions.challenge.getDetailsInit).toHaveBeenCalledWith(54321);
+  expect(mockChallengeActions.challenge.getDetailsDone)
+    .toHaveBeenCalledWith(54321, 'Token V3', 'Token V2');
 });
 
 test('loadMySubmissions dispatches', () => {
-  props.loadMySubmissions('12345', 54321);
-  expect(mockChallengeActions.fetchSubmissionsInit).toHaveBeenCalled();
-  expect(mockChallengeActions.fetchSubmissionsDone)
-    .toHaveBeenCalledWith('12345', 54321);
+  props.loadMySubmissions({
+    tokenV2: 'Token V2',
+    tokenV3: 'Token V3',
+  }, 54321);
+  expect(mockChallengeActions.challenge.getSubmissionsInit).toHaveBeenCalled();
+  expect(mockChallengeActions.challenge.getSubmissionsDone)
+    .toHaveBeenCalledWith(54321, 'Token V3', 'Token V2');
 });
 
 test('onBtnDefault', () => {

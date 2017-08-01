@@ -5,30 +5,44 @@
 import _ from 'lodash';
 import { createActions } from 'redux-actions';
 import { getService as getChallengesService } from 'services/challenges';
-import { getApiV2, getApiV3 } from '../services/api';
+import { decodeToken } from 'tc-accounts';
+import { getApiV2 } from '../services/api';
 
 const apiV2 = auth => getApiV2(auth.tokenV2);
-const apiV3 = auth => getApiV3(auth.tokenV3);
 
-function fetchChallenge(auth, challengeId) {
-  const endpoint = `/challenges/?filter=id%3D${challengeId}`;
-  let apiV3UserDetail = Promise.resolve({});
-  if (auth && auth.user && auth.user.handle) {
-    const endpointWithMember = `/members/${auth.user.handle}${endpoint}`;
-    apiV3UserDetail = apiV3(auth).fetch(endpointWithMember)
-      .then(response => response.json())
-      .then(response => response.result.content[0]);
-  }
-  const endpointV2 = `/challenges/${challengeId}`;
-  const apiV3Promise = apiV3(auth).fetch(endpoint)
-    .then(response => response.json())
-    .then(response => response.result.content[0]);
-  const apiV2Promise = apiV2(auth).fetch(endpointV2)
-    .then(response => response.json());
-  return Promise.all([apiV3Promise, apiV2Promise, apiV3UserDetail]);
+/**
+ * Payload creator for CHALLENGE/FETCH_DETAILS_INIT action,
+ * which marks that we are about to fetch details of the specified challenge.
+ * If any challenge details for another challenge are currently being fetched,
+ * they will be silently discarted.
+ * @param {Number|String} challengeId
+ * @return {String}
+ */
+function getDetailsInit(challengeId) {
+  return _.toString(challengeId);
 }
 
-function fetchSubmissions(tokens, challengeId) {
+/**
+ * Payload creator for CHALLENGE/FETCH_DETAILS_DONE action,
+ * which fetch details of the specified challenge.
+ * @param {Number|String} challengeId
+ * @param {String} tokenV3
+ * @param {String} tokenV2
+ * @return {Promise}
+ */
+function getDetailsDone(challengeId, tokenV3, tokenV2) {
+  const service = getChallengesService(tokenV3, tokenV2);
+  return Promise.all([
+    service.getChallenges({ id: challengeId }).then(res => res.challenges[0]),
+    getApiV2(tokenV2).fetch(`/challenges/${challengeId}`)
+      .then(res => res.json()),
+    tokenV3 && service.getUserChallenges(decodeToken(tokenV3).handle, {
+      id: challengeId,
+    }).then(res => res.challenges[0]),
+  ]);
+}
+
+function getSubmissionsDone(tokens, challengeId) {
   return apiV2(tokens).fetch(`/challenges/submissions/${challengeId}/mySubmissions`)
     .then(response => response.json())
     .then(response => response.submissions);
@@ -45,7 +59,7 @@ function registerDone(auth, challengeId) {
     .register(challengeId)
     /* As a part of registration flow we silently update challenge details,
      * reusing for this purpose the corresponding action handler. */
-    .then(() => fetchChallenge(auth, challengeId));
+    .then(() => getDetailsDone(challengeId, auth.tokenV3, auth.tokenV2));
 }
 
 /**
@@ -59,19 +73,15 @@ function unregisterDone(auth, challengeId) {
     .unregister(challengeId)
     /* As a part of unregistration flow we silently update challenge details,
      * reusing for this purpose the corresponding action handler. */
-    .then(() => fetchChallenge(auth, challengeId));
+    .then(() => getDetailsDone(challengeId, auth.tokenV3, auth.tokenV2));
 }
 
 export default createActions({
-  /* TODO: Move these actions into the CHALLENGE object below. It does not make
-   * any technical difference, but will lead to better action names displayed in
-   * Redux dev tools, which is convenient. */
-  FETCH_CHALLENGE_INIT: _.noop,
-  FETCH_CHALLENGE_DONE: fetchChallenge,
-  FETCH_SUBMISSIONS_INIT: _.noop,
-  FETCH_SUBMISSIONS_DONE: fetchSubmissions,
-
   CHALLENGE: {
+    GET_DETAILS_INIT: getDetailsInit,
+    GET_DETAILS_DONE: getDetailsDone,
+    GET_SUBMISSIONS_INIT: _.noop,
+    GET_SUBMISSIONS_DONE: getSubmissionsDone,
     REGISTER_INIT: _.noop,
     REGISTER_DONE: registerDone,
     UNREGISTER_INIT: _.noop,
