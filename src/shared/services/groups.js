@@ -5,7 +5,6 @@
 import { getApiV3 } from './api';
 
 class GroupService {
-
   /**
    * @param {String} tokenV3 Optional. Auth token for Topcoder API v3.
    */
@@ -27,11 +26,11 @@ class GroupService {
     return this.private.api.postJson(`/groups/${groupId}/members`, {
       param: { memberId, membershipType },
     }).then(res => (res.ok ? res.json() : new Error(res.statusText)))
-    .then(res => (
-      res.result.status === 200
-      ? res.result.content
-      : new Error(res.result.content)
-    ));
+      .then(res => (
+        res.result.status === 200
+          ? res.result.content
+          : new Error(res.result.content)
+      ));
   }
 
   /**
@@ -42,12 +41,12 @@ class GroupService {
    */
   getMembers(groupId) {
     return this.private.api.get(`/groups/${groupId}/members`)
-    .then(res => (res.ok ? res.json() : new Error(res.statusText)))
-    .then(res => (
-      res.result.status === 200
-      ? res.result.content
-      : new Error(res.result.content)
-    ));
+      .then(res => (res.ok ? res.json() : new Error(res.statusText)))
+      .then(res => (
+        res.result.status === 200
+          ? res.result.content
+          : new Error(res.result.content)
+      ));
   }
 }
 

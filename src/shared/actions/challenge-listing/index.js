@@ -44,11 +44,11 @@ function getAll(getter, page = 0, prev) {
  */
 function getChallengeSubtracksDone() {
   return getService()
-  .getChallengeSubtracks()
-  .then(res =>
-    res.map(item => item.description)
-    .sort((a, b) => a.localeCompare(b)),
-  );
+    .getChallengeSubtracks()
+    .then(res =>
+      res.map(item => item.description)
+        .sort((a, b) => a.localeCompare(b)),
+    );
 }
 
 /**
@@ -57,11 +57,11 @@ function getChallengeSubtracksDone() {
  */
 function getChallengeTagsDone() {
   return getService()
-  .getChallengeTags()
-  .then(res =>
-    res.map(item => item.name)
-    .sort((a, b) => a.localeCompare(b)),
-  );
+    .getChallengeTags()
+    .then(res =>
+      res.map(item => item.name)
+        .sort((a, b) => a.localeCompare(b)),
+    );
 }
 
 /**

@@ -15,8 +15,8 @@ import 'isomorphic-fetch';
  */
 function getNews(url) {
   return fetch(url)
-  .then(res => (res.ok ? res.text() : new Error(res.statusText)))
-  .then(res => toJson(res));
+    .then(res => (res.ok ? res.text() : new Error(res.statusText)))
+    .then(res => toJson(res));
 }
 
 export default createActions({

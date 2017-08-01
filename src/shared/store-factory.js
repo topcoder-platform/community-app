@@ -34,7 +34,7 @@ export default function storeFactory(req, initialState) {
       if (USE_DEV_TOOLS && module.hot) {
         module.hot.accept('./reducers', () => {
           require('./reducers').factory()
-          .then(newReducer => store.replaceReducer(newReducer));
+            .then(newReducer => store.replaceReducer(newReducer));
         });
       }
       resolve(store);

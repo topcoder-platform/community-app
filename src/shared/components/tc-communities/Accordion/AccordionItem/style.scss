@@ -10,7 +10,7 @@
   padding: 0 16px;
   position: relative;
 
-  @include xxs-to-sm {
+  @include xxs-to-xs {
     display: block;
   }
 
@@ -44,7 +44,7 @@
   display: none;
   padding-top: 25px;
 
-  @include xxs-to-sm {
+  @include xxs-to-xs {
     background-color: #fafafa;
     padding: 20px 15px 26px;
   }

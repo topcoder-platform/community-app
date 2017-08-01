@@ -16,7 +16,6 @@ import { BUCKETS, getBuckets } from 'utils/challenge-listing/buckets';
 export const SidebarPureComponent = Sidebar;
 
 export class SidebarContainer extends React.Component {
-
   componentDidMount() {
     const token = this.props.tokenV2;
     if (token) this.props.getSavedFilters(token);

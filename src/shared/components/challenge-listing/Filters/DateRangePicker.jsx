@@ -1,4 +1,4 @@
-/* eslint react/prop-types: 0 */  // startDate and endDate are instances of Moment
+/* eslint react/prop-types: 0 */ // startDate and endDate are instances of Moment
 
 /**
  * This is an auxiliary wrapper around the DateRangePicker from the react-dates
@@ -18,7 +18,6 @@ import 'react-dates/lib/css/_datepicker.css';
 import './_fix_DateInput__input.css';
 
 class DateRangePicker extends React.Component {
-
   constructor(props) {
     super(props);
     this.state = {

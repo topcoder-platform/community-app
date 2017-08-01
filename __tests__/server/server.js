@@ -48,23 +48,23 @@ describe('Api test', () => {
     server = require(MODULE).default;
   });
   test('post to /api/logger', () => request(server).post('/api/logger')
-      .send({ data: 'data' })
-      .then((response) => {
-        expect(response.statusCode).toBe(200);
-      }));
+    .send({ data: 'data' })
+    .then((response) => {
+      expect(response.statusCode).toBe(200);
+    }));
   test('post to /api/xml2json', () => request(server).post('/api/xml2json')
-      .send({ xml: '<xml></xml>' })
-      .then((response) => {
-        expect(response.text).toBe('{"xml":{}}');
-      }));
+    .send({ xml: '<xml></xml>' })
+    .then((response) => {
+      expect(response.text).toBe('{"xml":{}}');
+    }));
   test('status 404', () => request(server).get('/ELB-HealthChecker/2.0')
-      .then((response) => {
-        expect(response.statusCode).toBe(404);
-      }));
+    .then((response) => {
+      expect(response.statusCode).toBe(404);
+    }));
   test('status 500', () => request(server).post('/api/logger')
-      .then((response) => {
-        expect(response.statusCode).toBe(500);
-      }));
+    .then((response) => {
+      expect(response.statusCode).toBe(500);
+    }));
   test('status 500 Internal Error', () => {
     process.env.NODE_ENV = 'development';
     jest.resetModules();

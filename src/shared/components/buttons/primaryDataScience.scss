@@ -1,0 +1,44 @@
+/**
+ * Primary button, colored with colors of design track (blue).
+ */
+
+@import "./default";
+
+@mixin feedback {
+  &:active {
+    border-color: transparent;
+    box-shadow: inset 0 1px 3px 0 rgba(71, 71, 79, 0.5);
+    color: $tc-white;
+  }
+
+  &:focus {
+    border: 1px solid $tc-orange;
+    box-shadow: 0 0 2px 1px $tc-orange-30;
+    color: $tc-white;
+  }
+
+  &:hover {
+    background: linear-gradient(180deg, $tc-orange-70 0%, $tc-orange 100%);
+    border-color: transparent;
+    color: $tc-white;
+  }
+}
+
+.button {
+  background: $tc-orange;
+  border-color: transparent;
+
+  &,
+  &:visited {
+    color: $tc-white;
+  }
+}
+
+.disabled {
+  background: $tc-orange-30;
+}
+
+.link,
+.regular {
+  @include feedback;
+}

@@ -101,77 +101,62 @@ exports[`Matches shallow shapshot 1`] = `
     </li>
   </ul>
   <h3>
-    New Topcoder Pages
+    Main Topcoder website
   </h3>
   <ul>
     <li>
-      <a
-        href="/challenges/30050696/my-submissions"
+      <Link
+        replace={false}
+        to="/challenges/30058449"
       >
-        Submission Management Page
-      </a>
-       – New submission management page, is available at the endpoint 
+        Challenge Details Page
+      </Link>
+       – generally availabel at the endpoint 
       <code>
-        /challenge/:challengeId/my-submissions
+        /challenges/:challengeId
       </code>
-      . The link here leads to the test challenge.
+      ; the link here leads to a sample challenge.
+    </li>
+    <li>
+      <Link
+        replace={false}
+        to="/my-dashboard"
+      >
+        Dashboard
+      </Link>
     </li>
     <li>
       <Link
         replace={false}
         to="/challenges"
       >
-        Main Website Challenge Listing Page
+        Main Challenge Listing
       </Link>
-       – Ported Challenge Listing for the main website.
     </li>
+    <li>
+      <a
+        href="/challenges/30050696/my-submissions"
+      >
+        Submission Management Page
+      </a>
+       – generally available at the endpoint 
+      <code>
+        /challenges/:challengeId/my-submissions
+      </code>
+      ; the link here leads to a test challenge.
+    </li>
+  </ul>
+  <h3>
+    Separate Topcoder Communities
+  </h3>
+  <ul>
     <li>
       <Link
         replace={false}
-        to="/community-challenge-listing/JavaScript"
+        to="/community/community-2/home"
       >
-        Community Challenge Listing Page
+        Community 2
       </Link>
-       – An example of community challenge list apge which shows only challenges with special criteria. In this case only challenges which has JavaScript technology tag.
-    </li>
-    <li>
-      <Link
-        replace={false}
-        to="/leaderboard"
-      >
-        Leaderboard
-      </Link>
-       – Leaderboard page.
-    </li>
-    <li>
-      <Link
-        replace={false}
-        to="/community/example-theme-default/header"
-      >
-        Community header example
-      </Link>
-       – An example of cummunity header with default style. Also, there are examples of 
-      <Link
-        replace={false}
-        to="/community/example-theme-red/header"
-      >
-        custom red theme
-      </Link>
-      , 
-      <Link
-        replace={false}
-        to="/community/example-theme-green/header"
-      >
-        custom green theme
-      </Link>
-       and 
-      <Link
-        replace={false}
-        to="/community/404/header"
-      >
-        non-existent community page
-      </Link>
-      .
     </li>
     <li>
       <Link
@@ -194,68 +179,35 @@ exports[`Matches shallow shapshot 1`] = `
         replace={false}
         to="/community/tc-prod-dev/home"
       >
-        Topcoder Product Development
+        Topcoder Product Development community
       </Link>
     </li>
     <li>
       <Link
         replace={false}
-        to="/community/wipro/home"
+        to="/community/wipro/"
       >
-        Wipro Community Homepage
+        TopGear (Wipro) community
       </Link>
-       – Example of community implementation with new design. This community has three more pages: 
-      <Link
-        replace={false}
-        to="/community/wipro/learn"
-      >
-        Learn
-      </Link>
-      , 
-      <Link
-        replace={false}
-        to="/community/wipro/challenges"
-      >
-        Challenges
-      </Link>
-       and 
-      <Link
-        replace={false}
-        to="/community/wipro/leaderboard"
-      >
-        Leaderboard
-      </Link>
-      . There is also an example of 
-      <Link
-        replace={false}
-        to="/community/wipro/404"
-      >
-        non-existent community page
-      </Link>
-      .
-    </li>
-    <li>
-      <Link
-        replace={false}
-        to="/community/community-2/home"
-      >
-        Community 2
-      </Link>
-    </li>
-    <li>
-      <Link
-        replace={false}
-        to="/my-dashboard"
-      >
-        Dashboard
-      </Link>
-       – Dashboard page.
     </li>
   </ul>
   <h3>
     Misc Examples
   </h3>
   <ul>
+    <li>
+      <Link
+        replace={false}
+        to="/examples/buttons/"
+      >
+        Buttons
+      </Link>
+       - Demo/test of standard buttons already available in the code, and customizable with help of 
+      <code>
+        react-css-themr
+      </code>
+      .
+    </li>
     <li>
       <Link
         replace={false}

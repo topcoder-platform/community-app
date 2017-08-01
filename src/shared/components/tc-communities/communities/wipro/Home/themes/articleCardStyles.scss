@@ -12,7 +12,7 @@
     width: 220px;
   }
 
-  @include xxs-to-sm {
+  @include xxs-to-xs {
     height: auto;
     margin: 0 15px;
     padding-bottom: 30px;
@@ -30,7 +30,7 @@
   display: block;
   height: 150px;
 
-  @include xxs-to-sm {
+  @include xxs-to-xs {
     height: auto;
     min-height: 205px;
 

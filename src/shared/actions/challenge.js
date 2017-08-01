@@ -4,27 +4,87 @@
 
 import _ from 'lodash';
 import { createActions } from 'redux-actions';
-import { getApiV2, getApiV3 } from '../services/api';
+import { getService as getChallengesService } from 'services/challenges';
+import { decodeToken } from 'tc-accounts';
+import { getApiV2 } from '../services/api';
 
 const apiV2 = auth => getApiV2(auth.tokenV2);
-const apiV3 = auth => getApiV3(auth.tokenV3);
 
-function fetchChallenge(tokens, challengeId) {
-  return apiV3(tokens).fetch(`/challenges/?filter=id%3D${challengeId}`)
-    .then(response => response.json())
-    .then(response => response.result.content[0]);
+/**
+ * Payload creator for CHALLENGE/FETCH_DETAILS_INIT action,
+ * which marks that we are about to fetch details of the specified challenge.
+ * If any challenge details for another challenge are currently being fetched,
+ * they will be silently discarted.
+ * @param {Number|String} challengeId
+ * @return {String}
+ */
+function getDetailsInit(challengeId) {
+  return _.toString(challengeId);
 }
 
-function fetchSubmissions(tokens, challengeId) {
+/**
+ * Payload creator for CHALLENGE/FETCH_DETAILS_DONE action,
+ * which fetch details of the specified challenge.
+ * @param {Number|String} challengeId
+ * @param {String} tokenV3
+ * @param {String} tokenV2
+ * @return {Promise}
+ */
+function getDetailsDone(challengeId, tokenV3, tokenV2) {
+  const service = getChallengesService(tokenV3, tokenV2);
+  return Promise.all([
+    service.getChallenges({ id: challengeId }).then(res => res.challenges[0]),
+    getApiV2(tokenV2).fetch(`/challenges/${challengeId}`)
+      .then(res => res.json()),
+    tokenV3 && service.getUserChallenges(decodeToken(tokenV3).handle, {
+      id: challengeId,
+    }).then(res => res.challenges[0]),
+  ]);
+}
+
+function getSubmissionsDone(tokens, challengeId) {
   return apiV2(tokens).fetch(`/challenges/submissions/${challengeId}/mySubmissions`)
     .then(response => response.json())
     .then(response => response.submissions);
 }
 
-export default createActions({
-  FETCH_CHALLENGE_INIT: _.noop,
-  FETCH_CHALLENGE_DONE: fetchChallenge,
+/**
+ * Registers user for the challenge.
+ * @param {Object} auth Auth section of Redux state.
+ * @param {String} challengeId
+ * @return {Promise}
+ */
+function registerDone(auth, challengeId) {
+  return getChallengesService(undefined, auth.tokenV2)
+    .register(challengeId)
+    /* As a part of registration flow we silently update challenge details,
+     * reusing for this purpose the corresponding action handler. */
+    .then(() => getDetailsDone(challengeId, auth.tokenV3, auth.tokenV2));
+}
 
-  FETCH_SUBMISSIONS_INIT: _.noop,
-  FETCH_SUBMISSIONS_DONE: fetchSubmissions,
+/**
+ * Unregisters user for the challenge.
+ * @param {Object} auth Auth section of Redux state.
+ * @param {String} challengeId
+ * @return {Promise}
+ */
+function unregisterDone(auth, challengeId) {
+  return getChallengesService(undefined, auth.tokenV2)
+    .unregister(challengeId)
+    /* As a part of unregistration flow we silently update challenge details,
+     * reusing for this purpose the corresponding action handler. */
+    .then(() => getDetailsDone(challengeId, auth.tokenV3, auth.tokenV2));
+}
+
+export default createActions({
+  CHALLENGE: {
+    GET_DETAILS_INIT: getDetailsInit,
+    GET_DETAILS_DONE: getDetailsDone,
+    GET_SUBMISSIONS_INIT: _.noop,
+    GET_SUBMISSIONS_DONE: getSubmissionsDone,
+    REGISTER_INIT: _.noop,
+    REGISTER_DONE: registerDone,
+    UNREGISTER_INIT: _.noop,
+    UNREGISTER_DONE: unregisterDone,
+  },
 });

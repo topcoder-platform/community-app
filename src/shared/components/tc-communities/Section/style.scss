@@ -4,7 +4,7 @@
   padding: 35px 0;
   padding-bottom: 70px;
 
-  @include xxs-to-sm {
+  @include xxs-to-xs {
     padding-bottom: 42px;
   }
 }
@@ -15,7 +15,7 @@
   padding: 60px 0 30px;
   text-align: center;
 
-  @include xxs-to-sm {
+  @include xxs-to-xs {
     font-size: 24px;
     padding-top: 30px;
   }
@@ -31,7 +31,7 @@
     width: 720px;
   }
 
-  @include xxs-to-sm {
+  @include xxs-to-xs {
     display: block;
     width: 100%;
   }

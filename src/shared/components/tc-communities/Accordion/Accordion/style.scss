@@ -26,7 +26,7 @@
     width: 250px;
   }
 
-  @include xxs-to-sm {
+  @include xxs-to-xs {
     display: none;
   }
 }
@@ -66,7 +66,7 @@
     width: 430px;
   }
 
-  @include xxs-to-sm {
+  @include xxs-to-xs {
     width: 100%;
   }
 }

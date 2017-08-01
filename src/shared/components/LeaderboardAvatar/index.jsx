@@ -9,7 +9,6 @@ const VISIBLE_CHARACTERS = 3;
 const MOCK_PHOTO = 'https://acrobatusers.com/assets/images/template/author_generic.jpg';
 
 class LeaderboardAvatar extends Component {
-
   constructor(props) {
     super(props);
     this.state = {

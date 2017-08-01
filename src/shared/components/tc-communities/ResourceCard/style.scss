@@ -8,7 +8,7 @@
     width: 200px;
   }
 
-  @include xxs-to-sm {
+  @include xxs-to-xs {
     padding: 0 15px;
     width: auto;
 
@@ -23,7 +23,7 @@
   max-height: 100px;
   width: 100px;
 
-  @include xxs-to-md {
+  @include xxs-to-sm {
     max-height: 60px;
     width: 60px;
   }
@@ -34,7 +34,7 @@
   font: 600 20px/150% 'Open Sans';
   margin-top: 30px;
 
-  @include xxs-to-sm {
+  @include xxs-to-xs {
     font-size: 24px;
   }
 }

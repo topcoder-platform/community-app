@@ -1,0 +1,23 @@
+@import "~styles/tc-styles";
+
+.outer-container {
+  background: $tc-gray-10;
+
+  @include xxs-to-xs {
+    padding: 8px 10px 20px;
+  }
+
+  @include sm {
+    padding: 30px 14px 30px 20px;
+  }
+
+  @include md-to-lg {
+    padding: 30px 64px;
+  }
+}
+
+.challenge-detail-container {
+  background: $tc-white;
+  width: 100%;
+  margin: auto;
+}

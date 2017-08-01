@@ -16,7 +16,6 @@ import cActions from 'actions/challenge-listing';
 import CommunityStats from 'components/tc-communities/CommunityStats';
 
 class CommunityStatsContainer extends React.Component {
-
   /* When container mounts we get / update related stats. */
   componentDidMount() {
     this.props.getCommunityStats(this.props.community, this.props.challenges, this.props.token);

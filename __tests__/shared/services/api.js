@@ -29,31 +29,33 @@ function testRes(res, base, token, method, body, mockOps) {
 
 function testApi(api, base, token) {
   return api.fetch(ENDPOINT, MOCK_OPS)
-  .then((res) => {
-    testRes(res, base, token, undefined, undefined, true);
-    return api.delete(ENDPOINT);
-  }).then((res) => {
-    testRes(res, base, token, 'DELETE');
-    return api.get(ENDPOINT);
-  }).then((res) => {
-    testRes(res, base, token);
-    return api.post(ENDPOINT, 'BODY');
-  })
-  .then((res) => {
-    testRes(res, base, token, 'POST', 'BODY');
-    return api.postJson(ENDPOINT, { BODY: 'BODY' });
-  })
-  .then((res) => {
-    testRes(res, base, token, 'POST', JSON.stringify({ BODY: 'BODY' }));
-    return api.put(ENDPOINT, 'BODY');
-  })
-  .then((res) => {
-    testRes(res, base, token, 'PUT', 'BODY');
-    return api.putJson(ENDPOINT, { BODY: 'BODY' });
-  })
-  .then((res) => {
-    testRes(res, base, token, 'PUT', JSON.stringify({ BODY: 'BODY' }));
-  });
+    .then((res) => {
+      testRes(res, base, token, undefined, undefined, true);
+      return api.delete(ENDPOINT);
+    })
+    .then((res) => {
+      testRes(res, base, token, 'DELETE');
+      return api.get(ENDPOINT);
+    })
+    .then((res) => {
+      testRes(res, base, token);
+      return api.post(ENDPOINT, 'BODY');
+    })
+    .then((res) => {
+      testRes(res, base, token, 'POST', 'BODY');
+      return api.postJson(ENDPOINT, { BODY: 'BODY' });
+    })
+    .then((res) => {
+      testRes(res, base, token, 'POST', JSON.stringify({ BODY: 'BODY' }));
+      return api.put(ENDPOINT, 'BODY');
+    })
+    .then((res) => {
+      testRes(res, base, token, 'PUT', 'BODY');
+      return api.putJson(ENDPOINT, { BODY: 'BODY' });
+    })
+    .then((res) => {
+      testRes(res, base, token, 'PUT', JSON.stringify({ BODY: 'BODY' }));
+    });
 }
 
 let api;

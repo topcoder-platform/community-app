@@ -14,20 +14,17 @@ $status-radius-4: $corner-radius * 2;
   text-align: right;
   width: 77.7%;
 
-  @include xs-to-md {
+  @include xxs-to-sm {
+    margin-top: $status-space-20 + 3;
     width: 100%;
   }
 
-  @media (min-width: #{$xs-width}) and (max-width: #{$md-width - 1px}) {
-    margin-top: $status-space-20 + 3;
-  }
-
-  @include xs {
+  @include xxs-to-xs {
     margin-top: $status-space-15;
   }
 
   &.completed {
-    @include xs-to-md {
+    @include xxs-to-sm {
       text-align: left;
       padding-left: 0;
       margin-bottom: $base-unit + 2;
@@ -38,7 +35,7 @@ $status-radius-4: $corner-radius * 2;
       align-items: center;
       height: 30px;
 
-      @include xs-to-md {
+      @include xxs-to-sm {
         display: flex;
         align-items: center;
       }
@@ -48,7 +45,7 @@ $status-radius-4: $corner-radius * 2;
   .avatar-container {
     margin-right: $status-space-15 + 2;
 
-    @media (min-width: $lg-width - 1) and (max-width: 1440px) {
+    @include lg {
       margin-right: 14px;
     }
 
@@ -64,7 +61,7 @@ $status-radius-4: $corner-radius * 2;
     &.with-register-button {
       padding-right: 108px;
 
-      @include xs {
+      @include xxs-to-xs {
         padding-right: 0;
         margin-bottom: 50px;
       }
@@ -104,7 +101,7 @@ $status-radius-4: $corner-radius * 2;
       font-weight: 400;
       margin-left: $status-space-20;
 
-      @include xs {
+      @include xxs-to-xs {
         margin-left: $status-space-15;
       }
     }
@@ -120,17 +117,17 @@ $status-radius-4: $corner-radius * 2;
     a.num-reg.past,
     a.num-sub.past,
     a.link-forum.past {
-      @media (min-width: $lg-width - 1) and (max-width: 1380px) {
+      @include lg {
         margin-left: 10px;
       }
     }
 
-    @media (min-width: #{$md-width + 1px}) and (max-width: $base-unit * 252) {
+    @include lg {
       margin-left: auto;
       display: block;
     }
 
-    @include xs-to-md {
+    @include xxs-to-sm {
       margin-left: auto;
       min-width: auto;
     }
@@ -155,7 +152,7 @@ $status-radius-4: $corner-radius * 2;
     color: $tc-black;
     line-height: $status-space-20;
 
-    @include xs {
+    @include xxs-to-xs {
       position: absolute;
       height: 50px;
       width: auto;
@@ -177,7 +174,7 @@ $status-radius-4: $corner-radius * 2;
       transform: translate(0, -50%);
       margin-top: -$status-space-10;
 
-      @include xs {
+      @include xxs-to-xs {
         display: inline-block;
         position: relative;
         margin-top: 0;
@@ -189,7 +186,7 @@ $status-radius-4: $corner-radius * 2;
       font-weight: 400;
       margin-top: $status-space-10;
 
-      @include xs {
+      @include xxs-to-xs {
         margin-top: 0;
         padding-left: 5px;
       }

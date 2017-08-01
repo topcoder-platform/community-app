@@ -53,7 +53,7 @@ $sm-space-40: $base-unit * 8;
 .bannerContainer {
   height: 252px;
 
-  @include xxs-to-sm {
+  @include xxs-to-xs {
     height: 300px;
   }
 }
@@ -64,14 +64,14 @@ $sm-space-40: $base-unit * 8;
   transform: none;
   width: 600px;
 
-  @include xxs-to-sm {
+  @include xxs-to-xs {
     top: auto;
     width: 100%;
   }
 }
 
 .bannerContentInner {
-  @include xxs-to-sm {
+  @include xxs-to-xs {
     padding-bottom: 20px;
     padding-top: 48px;
   }

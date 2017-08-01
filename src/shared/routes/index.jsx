@@ -6,6 +6,7 @@ import Content from 'components/examples/Content';
 import Error404 from 'components/Error404';
 import SubmissionManagement from 'containers/SubmissionManagement';
 import ChallengeListing from 'containers/challenge-listing/Listing';
+import ChallengeDetail from 'containers/challenge-detail';
 import Leaderboard from 'containers/Leaderboard';
 import Dashboard from 'containers/Dashboard';
 import 'isomorphic-fetch';
@@ -75,6 +76,7 @@ function Routes({ subdomains }) {
           path="/community-challenge-listing/:keyword"
           render={props => <ChallengeListing listingOnly {...props} />}
         />
+        <Route path="/challenges/:challengeId" component={ChallengeDetail} />
         <Route
           path="/challenges"
           render={props => <ChallengeListing listingOnly {...props} />}

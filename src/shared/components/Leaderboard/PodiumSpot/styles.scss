@@ -48,7 +48,7 @@
   }
 }
 
-@media (min-width: #{$sm-width}) and (max-width: #{$lg-width - 1px}) {
+@include sm-to-md {
   .PodiumSpot--first .leaderboard-avatar {
     height: 128px;
     width: 128px;

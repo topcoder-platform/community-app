@@ -19,7 +19,7 @@ $search-input-width: '100% - 56px';
   position: relative;
   top: 1px;
 
-  @include xs-to-sm {
+  @include xxs-to-sm {
     display: none;
   }
 

@@ -13,9 +13,12 @@
  * It redirects to 404 page if content cannot be rendered by its pageId.
  */
 
+/* global window */
+
 import _ from 'lodash';
 import challengeListingActions from 'actions/challenge-listing';
 import challengeListingSidebarActions from 'actions/challenge-listing/sidebar';
+import config from 'utils/config';
 import PT from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
@@ -55,7 +58,6 @@ import AccessDenied, {
 import './style.scss';
 
 export class Page extends Component {
-
   componentDidMount() {
     const communityId = this.props.communityId;
     if ((communityId !== this.props.meta.communityId)
@@ -65,6 +67,12 @@ export class Page extends Component {
 
     if (this.props.meta.newsFeed && !this.props.news && !this.props.loadingNews) {
       this.props.loadNews(this.props.meta.newsFeed);
+    }
+
+    if (!this.props.profile && (communityId === 'wipro')) {
+      const returnUrl = encodeURIComponent(window.location.href);
+      window.location.replace(
+        `${config.URL.AUTH}/sso-login/?retUrl=${returnUrl}`);
     }
   }
 
@@ -218,20 +226,14 @@ export class Page extends Component {
         );
       }
       return <AccessDenied cause={ACCESS_DENIED_CAUSE.NOT_AUTHORIZED} />;
-    } else if (this.props.authenticating || isNotLoaded) {
+    } else if (this.props.authenticating || isNotLoaded || communityId === 'wipro') {
       return (
         <div styleName="loading">
           <LoadingIndicator />
         </div>
       );
     }
-    return (
-      <AccessDenied
-        cause={communityId === 'wipro'
-          ? ACCESS_DENIED_CAUSE.NOT_AUTHENTICATED_WIPRO : ACCESS_DENIED_CAUSE.NOT_AUTHENTICATED
-        }
-      />
-    );
+    return <AccessDenied cause={ACCESS_DENIED_CAUSE.NOT_AUTHENTICATED} />;
   }
 }
 

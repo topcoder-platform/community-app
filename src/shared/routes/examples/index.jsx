@@ -3,6 +3,7 @@
  * available in this App code.
  */
 
+import Buttons from 'components/examples/Buttons';
 import CssModules from 'components/examples/CssModules';
 import FontsTest from 'components/examples/FontsTest';
 import React from 'react';
@@ -18,6 +19,7 @@ import DataFetch from './DataFetch';
 export default function Examples() {
   return (
     <Switch>
+      <Route path="*/buttons" component={Buttons} />
       <Route path="*/css-modules" component={CssModules} />
       <Route path="*/data-fetch" component={DataFetch} />
       <Route path="*/fonts-test" component={FontsTest} />

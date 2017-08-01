@@ -37,7 +37,7 @@ export default function Header(props) {
                     <p>Earned</p>
                   </div>
                 }
-                </div>
+              </div>
             }
           </div>
         </header>

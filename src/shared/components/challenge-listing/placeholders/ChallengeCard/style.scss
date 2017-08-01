@@ -27,7 +27,7 @@ $challenge-radius-4: $corner-radius * 2;
     justify-content: flex-start;
     width: 50%;
 
-    @include xs-to-md {
+    @include xxs-to-sm {
       width: 100%;
     }
   }
@@ -37,11 +37,11 @@ $challenge-radius-4: $corner-radius * 2;
     justify-content: space-between;
     width: 50%;
 
-    @include xs-to-md {
+    @include xxs-to-sm {
       width: 100%;
     }
 
-    @include xs {
+    @include xxs-to-xs {
       display: block;
     }
   }
@@ -102,7 +102,7 @@ $challenge-radius-4: $corner-radius * 2;
       margin-right: $challenge-space-90;
     }
 
-    @include xs {
+    @include xxs-to-xs {
       margin-right: 0;
     }
 
@@ -115,7 +115,7 @@ $challenge-radius-4: $corner-radius * 2;
     a {
       line-height: $challenge-space-20;
 
-      @include xs {
+      @include xxs-to-xs {
         display: inline-block;
       }
     }

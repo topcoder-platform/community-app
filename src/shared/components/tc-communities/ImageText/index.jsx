@@ -18,7 +18,7 @@ function ImageText(props) {
       <div className={theme.linkWrap} key={item.title}>
         <Link
           className={theme.link}
-          openExternalLinkInNewPage={item.newTab}
+          openNewTab={item.newTab}
           to={item.url}
         >{item.title}</Link>
       </div>

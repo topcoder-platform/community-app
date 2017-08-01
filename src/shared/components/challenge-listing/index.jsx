@@ -56,7 +56,7 @@ export default function ChallengeListing(props) {
   let challengeCardContainer;
   if (!expanded && props.loadingChallenges && !suppressPlaceholders) {
     const challengeCards = _.range(CHALLENGE_PLACEHOLDER_COUNT)
-    .map(key => <ChallengeCardPlaceholder id={key} key={key} />);
+      .map(key => <ChallengeCardPlaceholder id={key} key={key} />);
     challengeCardContainer = (
       <div styleName="challenge-cards-container">
         <div styleName="ChallengeCardExamples">

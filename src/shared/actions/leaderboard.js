@@ -50,15 +50,15 @@ function fetchLeaderboard(auth, apiUrl) {
       'Content-Type': 'application/json',
     },
   })
-  .then(res => res.json())
-  .then((data) => {
+    .then(res => res.json())
+    .then((data) => {
     // add rank field to data
-    data.forEach((element, index) => {
-      element.rank = index + 1;
-    });
+      data.forEach((element, index) => {
+        element.rank = index + 1;
+      });
 
-    return { data, loadedApiUrl: apiUrl };
-  });
+      return { data, loadedApiUrl: apiUrl };
+    });
 }
 
 export default createActions({

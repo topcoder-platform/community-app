@@ -93,11 +93,11 @@ export function normalizeMarathonMatch(challenge, username) {
 }
 
 class ChallengesService {
-
   /**
    * @param {String} tokenV3 Optional. Auth token for Topcoder API v3.
+   * @param {String} tokenV2 Optional. Auth token for Topcoder API v2.
    */
-  constructor(tokenV3) {
+  constructor(tokenV3, tokenV2) {
     /**
      * Private function being re-used in all methods related to getting
      * challenges. It handles query-related arguments in the uniform way:
@@ -117,19 +117,20 @@ class ChallengesService {
         ...params,
       };
       return this.private.api.get(`${endpoint}?${qs.stringify(query)}`)
-      .then(res => (res.ok ? res.json() : new Error(res.statusText)))
-      .then(res => (
-        res.result.status === 200 ? {
-          challenges: res.result.content || [],
-          totalCount: res.result.metadata.totalCount,
-        } : new Error(res.result.content)
-      ));
+        .then(res => (res.ok ? res.json() : new Error(res.statusText)))
+        .then(res => (
+          res.result.status === 200 ? {
+            challenges: res.result.content || [],
+            totalCount: res.result.metadata.totalCount,
+          } : new Error(res.result.content)
+        ));
     };
 
     this.private = {
       api: getApiV3(tokenV3),
-      apiV2: getApiV2(),
+      apiV2: getApiV2(tokenV2),
       getChallenges,
+      tokenV2,
       tokenV3,
     };
   }
@@ -141,9 +142,9 @@ class ChallengesService {
   getChallengeSubtracks() {
     return Promise.all([
       this.private.apiV2.get('/design/challengetypes')
-      .then(res => (res.ok ? res.json() : new Error(res.statusText))),
+        .then(res => (res.ok ? res.json() : new Error(res.statusText))),
       this.private.apiV2.get('/develop/challengetypes')
-      .then(res => (res.ok ? res.json() : new Error(res.statusText))),
+        .then(res => (res.ok ? res.json() : new Error(res.statusText))),
     ]).then(([a, b]) => a.concat(b));
   }
 
@@ -153,12 +154,12 @@ class ChallengesService {
    */
   getChallengeTags() {
     return this.private.api.get('/technologies')
-    .then(res => (res.ok ? res.json() : new Error(res.statusText)))
-    .then(res => (
-      res.result.status === 200 ?
-      res.result.content :
-      new Error(res.result.content)
-    ));
+      .then(res => (res.ok ? res.json() : new Error(res.statusText)))
+      .then(res => (
+        res.result.status === 200 ?
+          res.result.content :
+          new Error(res.result.content)
+      ));
   }
 
   /**
@@ -169,10 +170,10 @@ class ChallengesService {
    */
   getChallenges(filters, params) {
     return this.private.getChallenges('/challenges/', filters, params)
-    .then((res) => {
-      res.challenges.forEach(item => normalizeChallenge(item));
-      return res;
-    });
+      .then((res) => {
+        res.challenges.forEach(item => normalizeChallenge(item));
+        return res;
+      });
   }
 
   /**
@@ -183,10 +184,10 @@ class ChallengesService {
    */
   getMarathonMatches(filters, params) {
     return this.private.getChallenges('/marathonMatches/', filters, params)
-    .then((res) => {
-      res.challenges.forEach(item => normalizeMarathonMatch(item));
-      return res;
-    });
+      .then((res) => {
+        res.challenges.forEach(item => normalizeMarathonMatch(item));
+        return res;
+      });
   }
 
   /**
@@ -199,10 +200,10 @@ class ChallengesService {
   getUserChallenges(username, filters, params) {
     const endpoint = `/members/${username.toLowerCase()}/challenges/`;
     return this.private.getChallenges(endpoint, filters, params)
-    .then((res) => {
-      res.challenges.forEach(item => normalizeChallenge(item, username));
-      return res;
-    });
+      .then((res) => {
+        res.challenges.forEach(item => normalizeChallenge(item, username));
+        return res;
+      });
   }
 
   /**
@@ -215,22 +216,46 @@ class ChallengesService {
   getUserMarathonMatches(username, filters, params) {
     const endpoint = `/members/${username.toLowerCase()}/mms/`;
     return this.private.getChallenges(endpoint, filters, params)
-    .then((res) => {
-      res.challenges.forEach(item => normalizeMarathonMatch(item, username));
-      return res;
-    });
+      .then((res) => {
+        res.challenges.forEach(item => normalizeMarathonMatch(item, username));
+        return res;
+      });
+  }
+
+  /**
+   * Registers user to the specified challenge.
+   * @param {String} challengeId
+   * @return {Promise}
+   */
+  register(challengeId) {
+    const endpoint = `/challenges/${challengeId}/register`;
+    return this.private.apiV2.postJson(endpoint)
+      .then(res => (res.ok ? res.json() : new Error(res.statusText)));
+  }
+
+  /**
+   * Unregisters user from the specified challenge.
+   * @param {String} challengeId
+   * @return {Promise}
+   */
+  unregister(challengeId) {
+    const endpoint = `/challenges/${challengeId}/unregister`;
+    return this.private.apiV2.post(endpoint)
+      .then(res => (res.ok ? res.json() : new Error(res.statusText)));
   }
 }
 
 /**
  * Returns a new or existing challenges service.
  * @param {String} tokenV3 Optional. Auth token for Topcoder API v3.
+ * @param {String} tokenV2 Optional. Auth token for Topcoder API v2.
  * @return {Challenges} Challenges service object
  */
 let lastInstance = null;
-export function getService(tokenV3) {
-  if (!lastInstance || lastInstance.tokenV3 !== tokenV3) {
-    lastInstance = new ChallengesService(tokenV3);
+export function getService(tokenV3, tokenV2) {
+  if (!lastInstance || lastInstance.tokenV3 !== tokenV3
+  || lastInstance.tokenV2 !== tokenV2) {
+    lastInstance = new ChallengesService(tokenV3, tokenV2);
   }
   return lastInstance;
 }

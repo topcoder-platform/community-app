@@ -56,35 +56,33 @@ export default function Content() {
         </li>
         <li>Webpack;</li>
       </ul>
-      <h3>New Topcoder Pages</h3>
+
+      <h3>Main Topcoder website</h3>
       <ul>
         <li>
+          <Link to="/challenges/30058449">Challenge Details
+            Page</Link> &ndash; generally availabel at the
+            endpoint <code>/challenges/:challengeId</code>; the link here leads
+            to a sample challenge.
+        </li>
+        <li>
+          <Link to="/my-dashboard">Dashboard</Link>
+        </li>
+        <li>
+          <Link to="/challenges">Main Challenge Listing</Link>
+        </li>
+        <li>
           <a href="/challenges/30050696/my-submissions">Submission Management
-          Page</a> &ndash; New submission management page, is available at
-          the endpoint <code>/challenge/:challengeId/my-submissions</code>.
-          The link here leads to the test challenge.
+          Page</a> &ndash; generally available at
+          the endpoint <code>/challenges/:challengeId/my-submissions</code>;
+          the link here leads to a test challenge.
         </li>
+      </ul>
+
+      <h3>Separate Topcoder Communities</h3>
+      <ul>
         <li>
-          <Link to="/challenges">Main Website Challenge Listing
-          Page</Link> &ndash; Ported Challenge Listing for the main website.
-        </li>
-        <li>
-          <Link to="/community-challenge-listing/JavaScript">Community
-          Challenge Listing Page</Link> &ndash; An example of community
-          challenge list apge which shows only challenges
-          with special criteria.
-          In this case only challenges which has JavaScript technology tag.
-        </li>
-        <li>
-          <Link to="/leaderboard">Leaderboard</Link> &ndash; Leaderboard page.
-        </li>
-        <li>
-          <Link to="/community/example-theme-default/header">Community header
-          example</Link> &ndash; An example of cummunity header with default
-          style. Also, there are examples of <Link to="/community/example-theme-red/header">
-          custom red theme</Link>, <Link to="/community/example-theme-green/header">custom
-          green theme</Link> and <Link to="/community/404/header">non-existent
-          community page</Link>.
+          <Link to="/community/community-2/home">Community 2</Link>
         </li>
         <li>
           <Link to="/community/demo-expert/home">Demo Expert Community</Link>
@@ -94,26 +92,20 @@ export default function Content() {
         </li>
         <li>
           <Link to="/community/tc-prod-dev/home">Topcoder Product
-          Development</Link>
+          Development community</Link>
         </li>
         <li>
-          <Link to="/community/wipro/home">Wipro Community Homepage</Link> &ndash;
-          Example of community implementation with new design.
-          This community has three more pages: <Link to="/community/wipro/learn">Learn
-          </Link>, <Link to="/community/wipro/challenges">Challenges
-          </Link> and <Link to="/community/wipro/leaderboard">Leaderboard</Link>.
-          There is also an example of <Link to="/community/wipro/404">non-existent community
-          page</Link>.
-        </li>
-        <li>
-          <Link to="/community/community-2/home">Community 2</Link>
-        </li>
-        <li>
-          <Link to="/my-dashboard">Dashboard</Link> &ndash; Dashboard page.
+          <Link to="/community/wipro/">TopGear (Wipro) community</Link>
         </li>
       </ul>
+
       <h3>Misc Examples</h3>
       <ul>
+        <li>
+          <Link to="/examples/buttons/">Buttons</Link> - Demo/test of standard
+          buttons already available in the code, and customizable with help
+          of <code>react-css-themr</code>.
+        </li>
         <li>
           <Link to="/examples/css-modules">CSS Modules</Link> - Demo/test of CSS modules in action;
         </li>

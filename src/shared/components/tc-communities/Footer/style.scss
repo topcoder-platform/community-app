@@ -6,7 +6,7 @@
   justify-content: center;
   height: 80px;
 
-  @include xxs-to-sm {
+  @include xxs-to-xs {
     flex-wrap: wrap;
     height: auto;
     justify-content: space-around;
@@ -18,13 +18,13 @@
 .item + .item {
   margin-left: 78px;
 
-  @include xxs-to-sm {
+  @include xxs-to-xs {
     margin-left: 15px;
   }
 }
 
 .item {
-  @include xxs-to-sm {
+  @include xxs-to-xs {
     margin-right: 15px;
     margin-left: 15px;
     line-height: 30px;
@@ -40,7 +40,7 @@ a.link:visited {
 }
 
 .itemLogo {
-  @include xxs-to-sm {
+  @include xxs-to-xs {
     left: 50%;
     line-height: normal;
     margin: 0;
@@ -54,7 +54,7 @@ a.link:visited {
   max-height: 30px;
   width: auto;
 
-  @include xxs-to-sm {
+  @include xxs-to-xs {
     max-height: 20px;
   }
 }
@@ -64,7 +64,7 @@ a.link:visited {
   padding: 13px 0 12px;
   text-align: center;
 
-  @include xxs-to-md {
+  @include xxs-to-sm {
     display: block;
   }
 }

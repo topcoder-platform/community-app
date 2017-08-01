@@ -11,7 +11,7 @@
     width: 220px;
   }
 
-  @include xxs-to-sm {
+  @include xxs-to-xs {
     height: auto;
     margin: 0 15px;
     padding-bottom: 30px;
@@ -29,7 +29,7 @@
   display: block;
   height: 200px;
 
-  @include xxs-to-sm {
+  @include xxs-to-xs {
     height: auto;
     min-height: 205px;
 
@@ -73,7 +73,7 @@
 .linkWrap {
   margin-top: 27px;
 
-  @include xxs-to-md {
+  @include xxs-to-sm {
     margin-top: 20px;
   }
 }

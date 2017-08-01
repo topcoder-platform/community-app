@@ -16,7 +16,6 @@ import style from './styles.scss';
 
 // The container component
 class LeaderboardPageContainer extends React.Component {
-
   componentDidMount() {
     if (!(this.props.apiUrl === this.props.loadedApiUrl || this.props.isLoadingLeaderboard)) {
       this.props.loadLeaderboard(this.props.auth, this.props.apiUrl);
