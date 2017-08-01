@@ -15,7 +15,7 @@ exports[`Matches shallow shapshot 1`] = `
   >
     <a
       className="tc-btn-md tc-btn-primary"
-      href="https://accounts-test.topcoder-dev.com/member?retUrl=null%2F"
+      href="http://accounts-test.topcoder-dev.com/member?retUrl=null%2F"
     >
       Log In Here
     </a>

@@ -6,13 +6,13 @@ exports[`Snapshot match 1`] = `
 >
   <a
     className="tc-btn-sm tc-btn-primary"
-    href="https://accounts-test.topcoder-dev.com/member/registration"
+    href="http://accounts-test.topcoder-dev.com/member/registration"
   >
     Join
   </a>
   <a
     className="tc-btn-sm tc-btn-default"
-    href="https://accounts-test.topcoder-dev.com/member"
+    href="http://accounts-test.topcoder-dev.com/member"
   >
     Log In
   </a>
@@ -25,13 +25,13 @@ exports[`Snapshot match 2`] = `
 >
   <a
     className="tc-btn-sm tc-btn-primary"
-    href="https://accounts-test.topcoder-dev.com/member/registration"
+    href="http://accounts-test.topcoder-dev.com/member/registration"
   >
     Join
   </a>
   <a
     className="tc-btn-sm tc-btn-default"
-    href="https://accounts-test.topcoder-dev.com/member"
+    href="http://accounts-test.topcoder-dev.com/member"
   >
     Log In
   </a>
