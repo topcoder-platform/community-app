@@ -131,15 +131,14 @@ exports[`Snapshot match 2`] = `
         <div
           className="tc-communities__header__logos src-shared-components-tc-communities-Header-___style__logos___38nqG"
         >
-          <Connect(RRLinkWrapper)
+          <span
             className="tc-communities__header__logo src-shared-components-tc-communities-Header-___style__logo___z2xG6"
-            to="pageId1"
           >
             <img
-              alt="Community logo"
+              alt="logo"
               src="some/logo/url"
             />
-          </Connect(RRLinkWrapper)>
+          </span>
         </div>
         <div
           className="tc-communities__header__challenge-dropdown src-shared-components-tc-communities-Header-___style__challenge-dropdown___3fQW9"

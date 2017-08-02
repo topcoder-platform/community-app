@@ -81,7 +81,14 @@ To add a new community with the name **demo**, we should follow the following pr
     -   `communitySelector` - *Object Array* - Specifies data for the community selection dropdown inside the community header. Each object MUST HAVE `label` and `value` string fields, and MAY HAVE `redirect` field. If `redirect` field is specified, a click on that option in the dropdown will redirect user to the specified URL.
     -   `groupId` - *String* - This value of group ID is now used to fetch community statistics. Probably, it makes sense to use this value everywhere where `authorizedGroupIds` array is used, however, at the moment, these two are independent.
     -   `leaderboardApiUrl` - *String* - Endpoint from where the leaderboard data should be loaded.
-    -   `logo` - *String Array* - Array of image URLs to insert as logos into the left corner of community's header.
+    -   `logos` - *String Array | Object Array* - Array of image URLs to insert as logos into the left corner of community's header, alternatively the array may contain JS objects of shape
+        ```
+        {
+          "img": "<SOME-IMAGE-URL>",
+          "url": "https://www.topcoder.com"
+        }
+        ```
+        For such elements `img` will be used as the image source, and `url` will be the redirection URL triggered by a click on the logo.
     -   `additionalLogos` - *String Array* - Array of image URLs to insert as logos into the right corner of community's header.
     -   `hideSearch` - *Boolean* - Hide/Show the search icon.
     -   `chevronOverAvatar` - *Boolean* - Render a *chevron-down* instead of the user avatar.

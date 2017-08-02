@@ -1,5 +1,7 @@
 import actions from 'actions/challenge';
 
+jest.mock('services/challenges');
+
 const mockFetch = resolvesTo => jest.fn(() =>
   Promise.resolve({ json: () => resolvesTo }));
 
@@ -51,13 +53,18 @@ describe('challenge.getDetailsDone', () => {
     expect(a.type).toBe('CHALLENGE/GET_DETAILS_DONE');
   });
 
-  /* TODO: This test does not work anymore, as the action was refactored to
-   * use challenges service for API v3 calls, while API v2 calls still happen
-   * the way they used to. Thus, we need a better mock of fetch to test it,
-   * or some alternative approach. */
-  test.skip('payload is a promise which resolves to the expected object', () =>
-    a.payload.then(res => expect(res).toEqual(
-      ['DUMMY DATA', { result: { content: ['DUMMY DATA'] } }, {}])));
+  const mockChallenge =
+    require('services/__mocks__/data/challenges-v3.json').result.content[0];
+
+  test('payload is a promise which resolves to the expected object', () =>
+    a.payload.then(res => expect(res).toEqual([
+      mockChallenge, {
+        result: {
+          content: ['DUMMY DATA'],
+        },
+      }, undefined,
+    ])),
+  );
 });
 
 

@@ -11,20 +11,19 @@
     "label": "TopGear Community",
     "value": "1"
   }, {
-    "label": "Cognitive Community",
-    "redirect": "http://cognitive.topcoder.com/",
+    "label": "Topcoder Public Community",
+    "redirect": "https://www.topcoder.com",
     "value": "2"
-  }, {
-    "label": "iOS Community",
-    "redirect": "https://ios.topcoder.com/",
-    "value": "3"
   }],
   "groupId": "20000000",
   "leaderboardApiUrl": "https://api.topcoder.com/v4/looks/458/run/json/",
-  "logos": [
-    "/themes/wipro/wipro-logo.png",
-    "/themes/wipro/logo_topcoder_with_name.svg"
-  ],
+  "logos": [{
+    "img": "/themes/wipro/wipro-logo.png",
+    "url": "http://www.wipro.com/"
+  }, {
+    "img": "/themes/wipro/logo_topcoder_with_name.svg",
+    "url": "https://www.topcoder.com"
+  }],
   "additionalLogos": [
     "/themes/wipro/topgear_logo.png"
   ],
