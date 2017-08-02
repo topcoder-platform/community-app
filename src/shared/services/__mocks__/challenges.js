@@ -4,7 +4,7 @@
  */
 
 import _ from 'lodash';
-import qs from 'qs';
+// import qs from 'qs';
 import { COMPETITION_TRACKS } from 'utils/tc';
 import { getApiV2, getApiV3 } from './api';
 
