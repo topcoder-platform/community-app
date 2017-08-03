@@ -8,8 +8,6 @@ import { getService as getChallengesService } from 'services/challenges';
 import { decodeToken } from 'tc-accounts';
 import { getApiV2 } from '../services/api';
 
-const apiV2 = auth => getApiV2(auth.tokenV2);
-
 /**
  * Payload creator for CHALLENGE/FETCH_DETAILS_INIT action,
  * which marks that we are about to fetch details of the specified challenge.
@@ -42,8 +40,8 @@ function getDetailsDone(challengeId, tokenV3, tokenV2) {
   ]);
 }
 
-function getSubmissionsDone(tokens, challengeId) {
-  return apiV2(tokens).fetch(`/challenges/submissions/${challengeId}/mySubmissions`)
+function getSubmissionsDone(challengeId, tokenV2) {
+  return getApiV2(tokenV2).fetch(`/challenges/submissions/${challengeId}/mySubmissions`)
     .then(response => response.json())
     .then(response => response.submissions);
 }
