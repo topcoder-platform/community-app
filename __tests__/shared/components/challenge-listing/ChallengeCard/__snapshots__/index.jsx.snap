@@ -31,6 +31,7 @@ exports[`Matches shallow shapshot shapshot 1 1`] = `
       <a
         className="src-shared-components-challenge-listing-ChallengeCard-___style__challenge-title___vir_2"
         href="https://www.topcoder-dev.com/challenge-details/undefined/?type=develop"
+        target={undefined}
       />
       <div
         className="src-shared-components-challenge-listing-ChallengeCard-___style__details-footer___3zNR-"
@@ -123,6 +124,7 @@ exports[`Matches shallow shapshot shapshot 1 1`] = `
         }
       }
       detailLink="https://www.topcoder-dev.com/challenge-details/undefined/?type=develop"
+      openChallengesInNewTabs={false}
       sampleWinnerProfile={undefined}
     />
   </div>
@@ -160,6 +162,7 @@ exports[`Matches shallow shapshot shapshot 2 1`] = `
       <a
         className="src-shared-components-challenge-listing-ChallengeCard-___style__challenge-title___vir_2"
         href="https://community.topcoder-dev.com/tc?module=MatchDetails&rd=1"
+        target={undefined}
       />
       <div
         className="src-shared-components-challenge-listing-ChallengeCard-___style__details-footer___3zNR-"
@@ -244,6 +247,7 @@ exports[`Matches shallow shapshot shapshot 2 1`] = `
         }
       }
       detailLink="https://community.topcoder-dev.com/tc?module=MatchDetails&rd=1"
+      openChallengesInNewTabs={false}
       sampleWinnerProfile={undefined}
     />
   </div>
@@ -281,6 +285,7 @@ exports[`Matches shallow shapshot shapshot 3 1`] = `
       <a
         className="src-shared-components-challenge-listing-ChallengeCard-___style__challenge-title___vir_2"
         href="https://www.topcoder-dev.com/challenge-details/long id/?type=develop"
+        target={undefined}
       />
       <div
         className="src-shared-components-challenge-listing-ChallengeCard-___style__details-footer___3zNR-"
@@ -365,6 +370,7 @@ exports[`Matches shallow shapshot shapshot 3 1`] = `
         }
       }
       detailLink="https://www.topcoder-dev.com/challenge-details/long id/?type=develop"
+      openChallengesInNewTabs={false}
       sampleWinnerProfile={undefined}
     />
   </div>

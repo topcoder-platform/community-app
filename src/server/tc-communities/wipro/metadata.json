@@ -5,6 +5,9 @@
   "challengeFilter": {
     "groupIds": ["20000000"]
   },
+  "challengeListing": {
+    "openChallengesInNewTabs": true
+  },
   "communityId": "wipro",
   "communityName": "TopGear Community",
   "communitySelector": [{

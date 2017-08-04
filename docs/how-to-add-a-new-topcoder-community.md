@@ -13,6 +13,7 @@ To add a new community with the name **demo**, we should follow the following pr
       "challengeFilter": {
         "groupIds": ["12345"]
       },
+      "challengeListing": {},
       "communityId": "demo",
       "communitySelector": [{
         "label": "Demo Community",
@@ -77,6 +78,8 @@ To add a new community with the name **demo**, we should follow the following pr
           "tags": ["JavaScript"]
         }
         ```
+    -   `challengeListing` - *Object* - Optional. When provided, it holds configuration for the challenge listing shown inside the community. This config object may have the following fields:
+        - `openChallengesInNewTabs` - *Boolean* - Optional. When set, challenge listing opens challenge details pages in new tabs. Defaults to `true`.
     -   `communityId` - *String* - Unique ID of this community.
     -   `communitySelector` - *Object Array* - Specifies data for the community selection dropdown inside the community header. Each object MUST HAVE `label` and `value` string fields, and MAY HAVE `redirect` field. If `redirect` field is specified, a click on that option in the dropdown will redirect user to the specified URL.
     -   `groupId` - *String* - This value of group ID is now used to fetch community statistics. Probably, it makes sense to use this value everywhere where `authorizedGroupIds` array is used, however, at the moment, these two are independent.

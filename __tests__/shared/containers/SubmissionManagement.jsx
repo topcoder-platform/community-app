@@ -102,7 +102,7 @@ test('Triggers data loading, if necessary', () => {
     .toHaveBeenCalledWith(12345, 'Token V3', 'Token V2');
   expect(mockChallengeActions.challenge.getSubmissionsInit).toHaveBeenCalled();
   expect(mockChallengeActions.challenge.getSubmissionsDone)
-    .toHaveBeenCalledWith(12345, 'Token V3', 'Token V2');
+    .toHaveBeenCalledWith(12345, 'Token V2');
 });
 
 const obj = TU.renderIntoDocument((
@@ -167,7 +167,7 @@ test('loadMySubmissions dispatches', () => {
   }, 54321);
   expect(mockChallengeActions.challenge.getSubmissionsInit).toHaveBeenCalled();
   expect(mockChallengeActions.challenge.getSubmissionsDone)
-    .toHaveBeenCalledWith(54321, 'Token V3', 'Token V2');
+    .toHaveBeenCalledWith(54321, 'Token V2');
 });
 
 test('onBtnDefault', () => {

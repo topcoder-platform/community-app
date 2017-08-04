@@ -1,5 +1,3 @@
-/* eslint jsx-a11y/no-static-element-interactions:0 */
-
 import _ from 'lodash';
 import config from 'utils/config';
 import moment from 'moment';
@@ -22,10 +20,16 @@ const getEndDate = date => moment(date).format('MMM DD');
 // Convert a number to string with thousands separated by comma
 const numberWithCommas = n => (n ? n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') : 0);
 
+/* TODO: Note that this component uses a dirty trick to cheat linter and to be
+ * able to modify an argument: it aliases challenge prop, then mutates it in
+ * the way it wants. Not good at all! If necessary, modification of challenge
+ * object received from the API should be done in the normalization function! */
+
 function ChallengeCard({
   challenge: passedInChallenge,
-  sampleWinnerProfile,
   onTechTagClicked,
+  openChallengesInNewTabs,
+  sampleWinnerProfile,
 }) {
   const challenge = passedInChallenge;
 
@@ -36,18 +40,21 @@ function ChallengeCard({
   challenge.prize = challenge.prizes || [];
   // challenge.totalPrize = challenge.prize.reduce((x, y) => y + x, 0)
 
-  const challengeDetailLink = () => {
+  let challengeDetailLink;
+  {
     const challengeUrl = `${config.URL.BASE}/challenge-details/`;
-    const mmDetailUrl = `${config.URL.COMMUNITY}/tc?module=MatchDetails&rd=`; // Marathon Match details
     if (challenge.track === 'DATA_SCIENCE') {
-      const id = `${challenge.id}`;
-      if (id.length < ID_LENGTH) {
-        return `${mmDetailUrl}${challenge.id}`;
-      }
-      return `${challengeUrl}${challenge.id}/?type=develop`;
+      const mmDetailUrl = `${config.URL.COMMUNITY}/tc?module=MatchDetails&rd=`;
+      /* TODO: Don't we have a better way, whether a challenge is MM or not? */
+      const isMM = _.toString(challenge.id).length < ID_LENGTH;
+      challengeDetailLink = isMM
+        ? `${mmDetailUrl}${challenge.id}`
+        : `${challengeUrl}${challenge.id}/?type=develop`;
+    } else {
+      challengeDetailLink =
+        `${challengeUrl}${challenge.id}/?type=${challenge.track.toLowerCase()}`;
     }
-    return `${challengeUrl}${challenge.id}/?type=${challenge.track.toLowerCase()}`;
-  };
+  }
 
   const registrationPhase = challenge.allPhases.filter(phase => phase.phaseType === 'Registration')[0];
   const isRegistrationOpen = registrationPhase ? registrationPhase.phaseStatus === 'Open' : false;
@@ -69,9 +76,11 @@ function ChallengeCard({
         </div>
 
         <div styleName={isRegistrationOpen ? 'challenge-details with-register-button' : 'challenge-details'}>
-          <a styleName="challenge-title" href={challengeDetailLink(challenge)}>
-            {challenge.name}
-          </a>
+          <a
+            href={challengeDetailLink}
+            styleName="challenge-title"
+            target={openChallengesInNewTabs ? '_blank' : undefined}
+          >{challenge.name}</a>
           <div styleName="details-footer">
             <span styleName="date">
               {challenge.status === 'ACTIVE' ? 'Ends ' : 'Ended '}
@@ -93,7 +102,8 @@ function ChallengeCard({
 
         <ChallengeStatus
           challenge={challenge}
-          detailLink={challengeDetailLink(challenge)}
+          detailLink={challengeDetailLink}
+          openChallengesInNewTabs={openChallengesInNewTabs}
           sampleWinnerProfile={sampleWinnerProfile}
         />
       </div>
@@ -104,12 +114,14 @@ function ChallengeCard({
 ChallengeCard.defaultProps = {
   onTechTagClicked: _.noop,
   challenge: {},
+  openChallengesInNewTabs: false,
   sampleWinnerProfile: undefined,
 };
 
 ChallengeCard.propTypes = {
   onTechTagClicked: PT.func,
   challenge: PT.shape(),
+  openChallengesInNewTabs: PT.bool,
   sampleWinnerProfile: PT.shape(),
 };
 
@@ -151,8 +163,9 @@ class Tags extends React.Component {
           /* TODO: Find out why all tags beside the first one are prepended
            * with whitespaces? */
           onClick={() => this.onClick(c.trim())}
-        >{c}
-        </a>
+          role="button"
+          tabIndex={0}
+        >{c}</a>
       ));
     }
     return '';

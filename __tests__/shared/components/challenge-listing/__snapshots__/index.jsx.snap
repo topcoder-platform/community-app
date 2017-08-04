@@ -78,6 +78,7 @@ exports[`Matches shallow shapshot 1 shapshot 1 1`] = `
       loadingPastChallenges={false}
       onExpandFilterResult={[Function]}
       onTechTagClicked={[Function]}
+      openChallengesInNewTabs={false}
       selectBucket={[Function]}
       setFilterState={[Function]}
       setSort={[Function]}

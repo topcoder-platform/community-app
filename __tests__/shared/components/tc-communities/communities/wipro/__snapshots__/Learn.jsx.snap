@@ -34,30 +34,74 @@ exports[`Snapshot match 1`] = `
       className="src-shared-components-tc-communities-communities-wipro-Learn-___style__message___WgkPL"
     >
       <p>
-        If  you are accessing TopGear Learning Platform from Wipro backbone network, click on continue to access the platform.
+        If  you are accessing TopGear 
+        <span
+          className="src-shared-components-tc-communities-communities-wipro-Learn-___style__highlighted___3U2lK"
+        >
+          Learning
+        </span>
+         Platform from 
+        <strong>
+          Wipro backbone network
+        </strong>
+        , click on “
+        <strong>
+          CONTINUE
+        </strong>
+        ” to access the platform.
       </p>
       <p>
-        To access TopGear Learning Platform outside of Wipro network, please follow the below  instructions:
-      </p>
-      <p>
-        Send an email to 
-        <a
-          href="mailto:devenvaccessreq.topgear@wipro.com?subject=Internet%20TopGear%20portal%20access"
+        To access TopGear 
+        <span
+          className="src-shared-components-tc-communities-communities-wipro-Learn-___style__highlighted___3U2lK"
         >
-          devenvaccessreq.topgear@wipro.com
-        </a>
-          with subject line 
-        <em>
-          Internet TopGear portal access
-        </em>
-        . You will receive an email within 24 hours  with details for accessing TopGear portal  through Virtual Desktop. Using Virtual Desktop you can access 
-        <a
-          href="https://topgear-app.wipro.com/"
-        >
-          https://topgear-app.wipro.com
-        </a>
-         to learn new technologies.
+          Learning
+        </span>
+         Platform 
+        <strong>
+          outside of Wipro network
+        </strong>
+        , please follow the below  instructions:
       </p>
+      <ol>
+        <li>
+          Send an email to 
+          <a
+            href="mailto:devenvaccessreq.topgear@wipro.com?subject=Internet%20TopGear%20portal%20access"
+          >
+            devenvaccessreq.topgear@wipro.com
+          </a>
+            with subject line 
+          <em>
+            Internet TopGear portal access
+          </em>
+          .
+        </li>
+        <li>
+          You will receive an email 
+          <span
+            className="src-shared-components-tc-communities-communities-wipro-Learn-___style__ddashUnderline___3gT46"
+          >
+            within 24 hours
+          </span>
+            with details for accessing TopGear portal  through Virtual Desktop.
+        </li>
+        <li>
+          Using Virtual Desktop you can access 
+          <a
+            href="https://topgear-app.wipro.com/"
+          >
+            https://topgear-app.wipro.com
+          </a>
+           to 
+          <span
+            className="src-shared-components-tc-communities-communities-wipro-Learn-___style__highlighted___3U2lK"
+          >
+            learn
+          </span>
+           new technologies.
+        </li>
+      </ol>
     </div>
   </ThemedSection>
 </main>

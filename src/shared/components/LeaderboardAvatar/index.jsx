@@ -8,6 +8,7 @@ import './style.scss';
 const VISIBLE_CHARACTERS = 3;
 const MOCK_PHOTO = 'https://acrobatusers.com/assets/images/template/author_generic.jpg';
 
+/* TODO: Should be functional component! */
 class LeaderboardAvatar extends Component {
   constructor(props) {
     super(props);
@@ -24,11 +25,15 @@ class LeaderboardAvatar extends Component {
   }
 
   render() {
-    const { domain, url } = this.props;
+    const { domain, openNewTab, url } = this.props;
     const { member } = this.state;
     const targetURL = url || `//${domain}/members/${member.handle}`;
     return (
-      <a href={targetURL} styleName={`leaderboard-avatar ${member.position || member.isSmr ? 'dark-gray' : 'light-gray'}`}>
+      <a
+        href={targetURL}
+        styleName={`leaderboard-avatar ${member.position || member.isSmr ? 'dark-gray' : 'light-gray'}`}
+        target={openNewTab ? '_blank' : undefined}
+      >
         {member.photoURL ?
           <img
             alt="avatar"
@@ -44,16 +49,18 @@ class LeaderboardAvatar extends Component {
   }
 }
 
-LeaderboardAvatar.propTypes = {
-  member: PT.shape({}),
-  domain: PT.string,
-  url: PT.string,
+LeaderboardAvatar.defaultProps = {
+  domain: process.env.domain,
+  member: {},
+  openNewTab: false,
+  url: '',
 };
 
-LeaderboardAvatar.defaultProps = {
-  member: {},
-  domain: process.env.domain,
-  url: '',
+LeaderboardAvatar.propTypes = {
+  domain: PT.string,
+  member: PT.shape({}),
+  openNewTab: PT.bool,
+  url: PT.string,
 };
 
 export default LeaderboardAvatar;
