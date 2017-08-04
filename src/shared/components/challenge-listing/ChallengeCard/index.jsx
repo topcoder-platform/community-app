@@ -5,8 +5,8 @@ import React from 'react';
 import PT from 'prop-types';
 import TrackIcon from 'components/TrackIcon';
 
+import Prize from './Prize';
 import ChallengeStatus from './Status';
-import PrizesTooltip from '../Tooltips/PrizesTooltip';
 import TrackAbbreviationTooltip from '../Tooltips/TrackAbbreviationTooltip';
 import './style.scss';
 
@@ -16,9 +16,6 @@ const ID_LENGTH = 6;
 
 // Get the End date of a challenge
 const getEndDate = date => moment(date).format('MMM DD');
-
-// Convert a number to string with thousands separated by comma
-const numberWithCommas = n => (n ? n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') : 0);
 
 /* TODO: Note that this component uses a dirty trick to cheat linter and to be
  * able to modify an argument: it aliases challenge prop, then mutates it in
@@ -59,6 +56,14 @@ function ChallengeCard({
   const registrationPhase = challenge.allPhases.filter(phase => phase.phaseType === 'Registration')[0];
   const isRegistrationOpen = registrationPhase ? registrationPhase.phaseStatus === 'Open' : false;
 
+  const bonuses = [];
+  if (challenge.reliabilityBonus) {
+    bonuses.push({
+      name: 'Reliability',
+      prize: challenge.reliabilityBonus,
+    });
+  }
+
   return (
     <div styleName="challengeCard">
       <div styleName="left-panel">
@@ -92,12 +97,12 @@ function ChallengeCard({
       </div>
       <div styleName="right-panel">
         <div styleName={isRegistrationOpen ? 'prizes with-register-button' : 'prizes'}>
-          <PrizesTooltip challenge={challenge}>
-            <div>
-              <div><span styleName="dollar">$</span>{numberWithCommas(challenge.totalPrize)}</div>
-              <div styleName="label">Purse</div>
-            </div>
-          </PrizesTooltip>
+          <Prize
+            bonuses={bonuses}
+            prizes={challenge.prizes}
+            prizeUnitSymbol="$"
+            totalPrize={challenge.totalPrize}
+          />
         </div>
 
         <ChallengeStatus

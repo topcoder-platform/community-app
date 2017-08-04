@@ -41,10 +41,18 @@ exports[`Matches shallow shapshot 1`] = `
         ],
         "id": "2",
         "isDataScience": false,
-        "prize": Array [],
+        "prize": Array [
+          1200,
+          600,
+        ],
+        "prizes": Array [
+          1200,
+          600,
+        ],
         "status": "a",
         "subTrack": "CODE",
         "technologies": "a, b, c",
+        "totalPrize": 1800,
         "track": "DEVELOP",
       }
     }
@@ -90,7 +98,12 @@ exports[`Matches shallow shapshot 2`] = `
     challenge={
       Object {
         "id": "6",
+        "prizes": Array [
+          1200,
+          600,
+        ],
         "status": "a",
+        "totalPrize": 1800,
       }
     }
     onTechTagClicked={[Function]}
@@ -101,7 +114,12 @@ exports[`Matches shallow shapshot 2`] = `
     challenge={
       Object {
         "id": "11",
+        "prizes": Array [
+          1200,
+          600,
+        ],
         "status": "a",
+        "totalPrize": 1800,
       }
     }
     onTechTagClicked={[Function]}
@@ -112,7 +130,12 @@ exports[`Matches shallow shapshot 2`] = `
     challenge={
       Object {
         "id": "3",
+        "prizes": Array [
+          1200,
+          600,
+        ],
         "status": "a",
+        "totalPrize": 1800,
       }
     }
     onTechTagClicked={[Function]}
@@ -123,7 +146,12 @@ exports[`Matches shallow shapshot 2`] = `
     challenge={
       Object {
         "id": "4",
+        "prizes": Array [
+          1200,
+          600,
+        ],
         "status": "a",
+        "totalPrize": 1800,
       }
     }
     onTechTagClicked={[Function]}
@@ -134,7 +162,12 @@ exports[`Matches shallow shapshot 2`] = `
     challenge={
       Object {
         "id": "5",
+        "prizes": Array [
+          1200,
+          600,
+        ],
         "status": "a",
+        "totalPrize": 1800,
       }
     }
     onTechTagClicked={[Function]}
@@ -145,7 +178,12 @@ exports[`Matches shallow shapshot 2`] = `
     challenge={
       Object {
         "id": "2",
+        "prizes": Array [
+          1200,
+          600,
+        ],
         "status": "a",
+        "totalPrize": 1800,
       }
     }
     onTechTagClicked={[Function]}
@@ -156,7 +194,12 @@ exports[`Matches shallow shapshot 2`] = `
     challenge={
       Object {
         "id": "7",
+        "prizes": Array [
+          1200,
+          600,
+        ],
         "status": "a",
+        "totalPrize": 1800,
       }
     }
     onTechTagClicked={[Function]}
@@ -167,7 +210,12 @@ exports[`Matches shallow shapshot 2`] = `
     challenge={
       Object {
         "id": "8",
+        "prizes": Array [
+          1200,
+          600,
+        ],
         "status": "a",
+        "totalPrize": 1800,
       }
     }
     onTechTagClicked={[Function]}
@@ -178,7 +226,12 @@ exports[`Matches shallow shapshot 2`] = `
     challenge={
       Object {
         "id": "9",
+        "prizes": Array [
+          1200,
+          600,
+        ],
         "status": "a",
+        "totalPrize": 1800,
       }
     }
     onTechTagClicked={[Function]}
@@ -189,7 +242,12 @@ exports[`Matches shallow shapshot 2`] = `
     challenge={
       Object {
         "id": "10",
+        "prizes": Array [
+          1200,
+          600,
+        ],
         "status": "a",
+        "totalPrize": 1800,
       }
     }
     onTechTagClicked={[Function]}

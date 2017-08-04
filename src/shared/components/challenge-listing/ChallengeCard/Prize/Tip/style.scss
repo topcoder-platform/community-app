@@ -1,0 +1,27 @@
+@import "~styles/tc-styles";
+$prize-space-10: $base-unit * 2;
+
+.prizes-tooltip {
+  font-family: 'Roboto';
+  max-width: 480px;
+  padding: 15px;
+  overflow: hidden;
+
+  .bonuses {
+    border-top: 1px solid $tc-gray-70;
+    clear: both;
+    padding: $prize-space-10 0 0;
+  }
+
+  h1 {
+    border: none;
+    color: $tc-white;
+    font-size: 15px;
+    line-height: 15px;
+    margin: 0 0 $prize-space-10;
+    padding: 0;
+    text-align: left;
+    text-transform: none;
+    font-weight: 700;
+  }
+}
