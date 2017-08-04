@@ -171,6 +171,9 @@ export class Page extends Component {
           history={this.props.history}
           hideTcLinksInSidebarFooter={this.props.meta.communityId === 'wipro'}
           location={this.props.location}
+          openChallengesInNewTabs={
+            _.get(this.props.meta, 'challengeListing.openChallengesInNewTabs')
+          }
         />);
         break;
       }
@@ -260,6 +263,9 @@ Page.propTypes = {
     authorizedGroupIds: PT.arrayOf(PT.string),
     challengeFilterTag: PT.string,
     groupId: PT.string,
+    challengeListing: PT.shape({
+      openChallengesInNewTabs: PT.bool,
+    }),
     communityId: PT.string,
     communityName: PT.string,
     communitySelector: PT.arrayOf(PT.shape()),
@@ -271,7 +277,13 @@ Page.propTypes = {
 
     leaderboardApiUrl: PT.string,
     loading: PT.bool,
-    logos: PT.arrayOf(PT.string).isRequired,
+    logos: PT.arrayOf(PT.oneOfType([
+      PT.string,
+      PT.shape({
+        img: PT.string.isRequired,
+        url: PT.string,
+      }),
+    ])),
     additionalLogos: PT.arrayOf(PT.string),
     stats: PT.shape(),
     hideSearch: PT.bool,

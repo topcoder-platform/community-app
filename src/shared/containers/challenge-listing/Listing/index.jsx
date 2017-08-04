@@ -31,12 +31,6 @@ import style from './styles.scss';
 let mounted = false;
 
 export class ListingContainer extends React.Component {
-  /* TODO: We should add here an automatic periodical update of the loaded
-   * challenges, say once each 5 minutes. Otherwise, it is possible that a
-   * visitor has the same challenge listing page open for too long, navigating
-   * withing it, without triggering refresh of the cached challenges - not
-   * good! */
-
   componentDidMount() {
     this.props.markHeaderMenu();
 
@@ -179,6 +173,7 @@ export class ListingContainer extends React.Component {
           loadingChallenges={Boolean(this.props.loadingActiveChallengesUUID)}
           loadingDraftChallenges={Boolean(this.props.loadingDraftChallengesUUID)}
           loadingPastChallenges={Boolean(this.props.loadingPastChallengesUUID)}
+          openChallengesInNewTabs={this.props.openChallengesInNewTabs}
           selectBucket={selectBucket}
           hideTcLinksInFooter={hideTcLinksInSidebarFooter}
 
@@ -215,6 +210,7 @@ ListingContainer.defaultProps = {
   communityId: null,
   communityName: null,
   listingOnly: false,
+  openChallengesInNewTabs: false,
 };
 
 ListingContainer.propTypes = {
@@ -248,6 +244,7 @@ ListingContainer.propTypes = {
   loadingDraftChallengesUUID: PT.string.isRequired,
   loadingPastChallengesUUID: PT.string.isRequired,
   markHeaderMenu: PT.func.isRequired,
+  openChallengesInNewTabs: PT.bool,
   selectBucket: PT.func.isRequired,
   selectCommunity: PT.func.isRequired,
   setFilter: PT.func.isRequired,
@@ -281,6 +278,7 @@ const mapStateToProps = (state, ownProps) => {
     loadingPastChallengesUUID: cl.loadingPastChallengesUUID,
     loadingChallengeSubtracks: cl.loadingChallengeSubtracks,
     loadingChallengeTags: cl.loadingChallengeTags,
+    openChallengesInNewTabs: ownProps.openChallengesInNewTabs,
     selectedCommunityId: cl.selectedCommunityId,
     sorts: cl.sorts,
     activeBucket: cl.sidebar.activeBucket,

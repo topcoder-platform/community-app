@@ -245,7 +245,13 @@ Header.propTypes = {
     title: PT.string.isRequired,
     url: PT.string.isRequired,
   })),
-  logos: PT.arrayOf(PT.string),
+  logos: PT.arrayOf(PT.oneOfType([
+    PT.string,
+    PT.shape({
+      img: PT.string.isRequired,
+      url: PT.string,
+    }),
+  ])),
   additionalLogos: PT.arrayOf(PT.string),
   hideSearch: PT.bool,
   chevronOverAvatar: PT.bool,

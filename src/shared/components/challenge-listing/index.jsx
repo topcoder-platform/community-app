@@ -74,6 +74,7 @@ export default function ChallengeListing(props) {
         loadingPastChallenges={props.loadingPastChallenges}
         loadMoreDraft={props.loadMoreDraft}
         loadMorePast={props.loadMorePast}
+        openChallengesInNewTabs={props.openChallengesInNewTabs}
         selectBucket={props.selectBucket}
         setFilterState={props.setFilterState}
         setSort={props.setSort}
@@ -137,13 +138,14 @@ export default function ChallengeListing(props) {
 }
 
 ChallengeListing.defaultProps = {
-  groupId: '',
+  auth: null,
   communityFilter: null,
   communityName: null,
+  groupId: '',
+  hideTcLinksInFooter: false,
   loadMoreDraft: null,
   loadMorePast: null,
-  hideTcLinksInFooter: false,
-  auth: null,
+  openChallengesInNewTabs: false,
 };
 
 ChallengeListing.propTypes = {
@@ -159,6 +161,7 @@ ChallengeListing.propTypes = {
   loadingPastChallenges: PT.bool.isRequired,
   loadMoreDraft: PT.func,
   loadMorePast: PT.func,
+  openChallengesInNewTabs: PT.bool,
   selectBucket: PT.func.isRequired,
   setFilterState: PT.func.isRequired,
   setSort: PT.func.isRequired,
