@@ -75,6 +75,7 @@ export default function ChallengeListing(props) {
         loadMoreDraft={props.loadMoreDraft}
         loadMorePast={props.loadMorePast}
         openChallengesInNewTabs={props.openChallengesInNewTabs}
+        prizeMode={props.prizeMode}
         selectBucket={props.selectBucket}
         setFilterState={props.setFilterState}
         setSort={props.setSort}
@@ -146,6 +147,7 @@ ChallengeListing.defaultProps = {
   loadMoreDraft: null,
   loadMorePast: null,
   openChallengesInNewTabs: false,
+  prizeMode: 'money-usd',
 };
 
 ChallengeListing.propTypes = {
@@ -162,6 +164,7 @@ ChallengeListing.propTypes = {
   loadMoreDraft: PT.func,
   loadMorePast: PT.func,
   openChallengesInNewTabs: PT.bool,
+  prizeMode: PT.string,
   selectBucket: PT.func.isRequired,
   setFilterState: PT.func.isRequired,
   setSort: PT.func.isRequired,

@@ -6,7 +6,8 @@
     "groupIds": ["20000000"]
   },
   "challengeListing": {
-    "openChallengesInNewTabs": true
+    "openChallengesInNewTabs": true,
+    "prizeMode": "money-usd"
   },
   "communityId": "wipro",
   "communityName": "TopGear Community",

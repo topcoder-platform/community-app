@@ -174,6 +174,7 @@ export class Page extends Component {
           openChallengesInNewTabs={
             _.get(this.props.meta, 'challengeListing.openChallengesInNewTabs')
           }
+          prizeMode={_.get(this.props.meta, 'challengeListing.prizeMode')}
         />);
         break;
       }
@@ -265,6 +266,7 @@ Page.propTypes = {
     groupId: PT.string,
     challengeListing: PT.shape({
       openChallengesInNewTabs: PT.bool,
+      prizeMode: PT.string,
     }),
     communityId: PT.string,
     communityName: PT.string,

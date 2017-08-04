@@ -10,6 +10,13 @@ import ChallengeStatus from './Status';
 import TrackAbbreviationTooltip from '../Tooltips/TrackAbbreviationTooltip';
 import './style.scss';
 
+export const PRIZE_MODE = {
+  HIDDEN: 'hidden',
+  MONEY_INR: 'money-inr',
+  MONEY_USD: 'money-usd',
+  POINTS: 'points',
+};
+
 // Constants
 const VISIBLE_TECHNOLOGIES = 3;
 const ID_LENGTH = 6;
@@ -26,6 +33,7 @@ function ChallengeCard({
   challenge: passedInChallenge,
   onTechTagClicked,
   openChallengesInNewTabs,
+  prizeMode,
   sampleWinnerProfile,
 }) {
   const challenge = passedInChallenge;
@@ -56,12 +64,26 @@ function ChallengeCard({
   const registrationPhase = challenge.allPhases.filter(phase => phase.phaseType === 'Registration')[0];
   const isRegistrationOpen = registrationPhase ? registrationPhase.phaseStatus === 'Open' : false;
 
+  /* Preparation of data to show in the prize component,
+   * depending on options. */
   const bonuses = [];
   if (challenge.reliabilityBonus) {
     bonuses.push({
       name: 'Reliability',
       prize: challenge.reliabilityBonus,
     });
+  }
+  let prizeUnitSymbol = '';
+  let totalPrize;
+  switch (prizeMode) {
+    case PRIZE_MODE.POINTS:
+      totalPrize = (challenge.drPoints || 0).toLocaleString();
+      break;
+    case PRIZE_MODE.MONEY_USD:
+      prizeUnitSymbol = '$';
+      totalPrize = challenge.totalPrize.toLocaleString();
+      break;
+    default: throw new Error('Unknown prize mode!');
   }
 
   return (
@@ -97,12 +119,16 @@ function ChallengeCard({
       </div>
       <div styleName="right-panel">
         <div styleName={isRegistrationOpen ? 'prizes with-register-button' : 'prizes'}>
-          <Prize
-            bonuses={bonuses}
-            prizes={challenge.prizes}
-            prizeUnitSymbol="$"
-            totalPrize={challenge.totalPrize}
-          />
+          {(prizeMode !== PRIZE_MODE.HIDDEN) && (
+            <Prize
+              bonuses={bonuses}
+              label={prizeMode === PRIZE_MODE.POINTS ? 'Points' : 'Purse'}
+              prizes={challenge.prizes}
+              prizeUnitSymbol={prizeUnitSymbol}
+              totalPrize={totalPrize}
+              withoutTooltip={prizeMode === PRIZE_MODE.POINTS}
+            />
+          )}
         </div>
 
         <ChallengeStatus
@@ -120,6 +146,7 @@ ChallengeCard.defaultProps = {
   onTechTagClicked: _.noop,
   challenge: {},
   openChallengesInNewTabs: false,
+  prizeMode: PRIZE_MODE.MONEY_USD,
   sampleWinnerProfile: undefined,
 };
 
@@ -127,6 +154,7 @@ ChallengeCard.propTypes = {
   onTechTagClicked: PT.func,
   challenge: PT.shape(),
   openChallengesInNewTabs: PT.bool,
+  prizeMode: PT.oneOf(_.toArray(PRIZE_MODE)),
   sampleWinnerProfile: PT.shape(),
 };
 
