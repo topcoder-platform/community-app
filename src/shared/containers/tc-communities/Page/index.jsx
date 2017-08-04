@@ -163,6 +163,11 @@ export class Page extends Component {
       case 'challenges': {
         const query = this.props.location.search ?
           qs.parse(this.props.location.search.slice(1)) : null;
+
+        const currencyFromUrl = _.get(query, 'currency');
+        const prizeMode = currencyFromUrl ? `money-${currencyFromUrl}`
+          : _.get(this.props.meta, 'challengeListing.prizeMode');
+
         pageContent = (<ChallengeListing
           groupId={this.props.meta.groupId}
           communityId={_.has(query, 'communityId') ? query.communityId : this.props.meta.communityId}
@@ -174,7 +179,7 @@ export class Page extends Component {
           openChallengesInNewTabs={
             _.get(this.props.meta, 'challengeListing.openChallengesInNewTabs')
           }
-          prizeMode={_.get(this.props.meta, 'challengeListing.prizeMode')}
+          prizeMode={prizeMode}
         />);
         break;
       }

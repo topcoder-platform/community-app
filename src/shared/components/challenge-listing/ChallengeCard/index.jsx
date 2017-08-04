@@ -4,6 +4,7 @@ import moment from 'moment';
 import React from 'react';
 import PT from 'prop-types';
 import TrackIcon from 'components/TrackIcon';
+import { convertNow as convertMoney } from 'services/money';
 
 import Prize from './Prize';
 import ChallengeStatus from './Status';
@@ -12,6 +13,7 @@ import './style.scss';
 
 export const PRIZE_MODE = {
   HIDDEN: 'hidden',
+  MONEY_EUR: 'money-eur',
   MONEY_INR: 'money-inr',
   MONEY_USD: 'money-usd',
   POINTS: 'points',
@@ -74,14 +76,31 @@ function ChallengeCard({
     });
   }
   let prizeUnitSymbol = '';
+  let prizes = challenge.prizes;
   let totalPrize;
   switch (prizeMode) {
     case PRIZE_MODE.POINTS:
-      totalPrize = (challenge.drPoints || 0).toLocaleString();
+      totalPrize = Math.round(challenge.drPoints || 0);
+      break;
+    case PRIZE_MODE.MONEY_EUR:
+      prizeUnitSymbol = '€';
+      bonuses.forEach((bonus) => {
+        bonus.prize = Math.round(convertMoney(bonus.prize, 'EUR')); // eslint-disable-line no-param-reassign
+      });
+      totalPrize = Math.round(convertMoney(challenge.totalPrize, 'EUR'));
+      prizes = (prizes || []).map(prize => Math.round(convertMoney(prize, 'EUR')));
+      break;
+    case PRIZE_MODE.MONEY_INR:
+      prizeUnitSymbol = '₹';
+      bonuses.forEach((bonus) => {
+        bonus.prize = Math.round(convertMoney(bonus.prize, 'INR')); // eslint-disable-line no-param-reassign
+      });
+      totalPrize = Math.round(convertMoney(challenge.totalPrize, 'INR'));
+      prizes = (prizes || []).map(prize => Math.round(convertMoney(prize, 'INR')));
       break;
     case PRIZE_MODE.MONEY_USD:
       prizeUnitSymbol = '$';
-      totalPrize = challenge.totalPrize.toLocaleString();
+      totalPrize = challenge.totalPrize;
       break;
     default: throw new Error('Unknown prize mode!');
   }
@@ -123,7 +142,7 @@ function ChallengeCard({
             <Prize
               bonuses={bonuses}
               label={prizeMode === PRIZE_MODE.POINTS ? 'Points' : 'Purse'}
-              prizes={challenge.prizes}
+              prizes={prizes}
               prizeUnitSymbol={prizeUnitSymbol}
               totalPrize={totalPrize}
               withoutTooltip={prizeMode === PRIZE_MODE.POINTS}

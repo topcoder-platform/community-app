@@ -45,6 +45,7 @@ describe('Matches shallow shapshot 2', () => {
     jest.resetModules();
     jest.mock('utils/config', () => ({
       CHALLENGE_LISTING_AUTO_REFRESH: false,
+      OPEN_EXCHANGE: {},
       URL: {},
     }));
     ChallengeListing = require('components/challenge-listing').default;

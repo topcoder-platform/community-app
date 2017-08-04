@@ -79,6 +79,7 @@ exports[`Matches shallow shapshot 1 shapshot 1 1`] = `
       onExpandFilterResult={[Function]}
       onTechTagClicked={[Function]}
       openChallengesInNewTabs={false}
+      prizeMode="money-usd"
       selectBucket={[Function]}
       setFilterState={[Function]}
       setSort={[Function]}
