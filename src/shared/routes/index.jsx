@@ -33,6 +33,7 @@ function Routes({ subdomains }) {
   else if (subdomains.includes('wipro')
     || subdomains.includes('topgear')) communityId = 'wipro';
   else if (subdomains.includes('taskforce')) communityId = 'taskforce';
+  else if (subdomains.includes('qa')) communityId = 'qa';
   else if (subdomains.includes('tc-prod-dev')) communityId = 'tc-prod-dev';
   else if (subdomains.includes('community-2')) communityId = 'community-2';
   if (communityId) {
