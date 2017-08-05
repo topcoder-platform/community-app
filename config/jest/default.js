@@ -9,7 +9,6 @@ module.exports = {
   },
   rootDir: '../..',
   testPathIgnorePatterns: [
-    '__mocks__',
     '/node_modules/',
   ],
   transformIgnorePatterns: [
