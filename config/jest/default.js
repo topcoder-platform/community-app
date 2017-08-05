@@ -14,5 +14,5 @@ module.exports = {
   transformIgnorePatterns: [
     '/node_modules/(?!appirio-tech.*|topcoder|tc-)',
   ],
-  setupTestFrameworkScriptFile: '<rootDir>/config/jest/setup.js',
+  setupFiles: ['<rootDir>/config/jest/setup.js'],
 };
