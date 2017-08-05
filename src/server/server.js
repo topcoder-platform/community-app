@@ -12,9 +12,6 @@ import stream from 'stream';
 import { getRates as getExchangeRates } from 'services/money';
 import { toJson as xmlToJson } from 'utils/xml2json';
 
-// Temporarily here to test our API service.
-// import '../shared/services/api';
-
 // Dome API for topcoder communities
 import tcCommunitiesDemoApi from './tc-communities';
 

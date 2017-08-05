@@ -10,20 +10,38 @@
 import _ from 'lodash';
 import config from 'utils/config';
 import fetch from 'isomorphic-fetch';
+import fs from 'fs';
 import fx from 'money';
-import { isClientSide } from 'utils/isomorphy';
+import logger from 'utils/logger';
+import { isClientSide, isServerSide } from 'utils/isomorphy';
 
+const DISK_CACHE = `${__dirname}/.exchange-rates.cache`;
 const OE_API = 'https://openexchangerates.org/api';
 const OE_TOKEN = config.OPEN_EXCHANGE.TOKEN;
 
+/**
+ * For optimal performance currency exchanged rates are cached and updated once
+ * per config.OPEN_EXCHANGE.MAXAGE hours.
+ *
+ * Initial cached rated are injected into client side via window.EXCHANGE_RATES
+ * during page rendering at the server-side. This way it is ensured that some
+ * cached rates are always available, thus syncroneous functions are safe.
+ *
+ * At the server side, in addition to in-memory caching, the rates are also
+ * cached at the hard-drive, and the initial cached rates are read from there,
+ * when the app is started. Otherwise, the free quota for accessing
+ * http://openexchangerates.com runs out extremely rapidly during development,
+ * due to frequent restarts of the code.
+ */
+
 let cachedRates;
 
-/* NOTE: On client-side such injection via window guarantees that we have some
- * rates cached from the very beginning, thus convertNow(..) and getRatesNow(..)
- * functions are always safe to use (i.e. they might use a bit outdated rates,
- * but they will never fail). */
-if (isClientSide()) {
-  cachedRates = window.EXCHANGE_RATES;
+if (isClientSide()) cachedRates = window.EXCHANGE_RATES;
+else if (fs.existsSync(DISK_CACHE)) {
+  cachedRates = JSON.parse(fs.readFileSync(DISK_CACHE, 'utf8'));
+}
+
+if (cachedRates) {
   fx.base = cachedRates.base;
   fx.rates = cachedRates.rates;
 }
@@ -34,9 +52,10 @@ if (isClientSide()) {
  */
 function refresh() {
   if (cachedRates) {
-    const age = (Date.now() / 1000) - cachedRates.timestamp;
-    /* 3600 = number of seconds in an hour */
-    if (age < 3600 * config.OPEN_EXCHANGE.MAXAGE) return Promise.resolve();
+    const age = Date.now() - (1000 * cachedRates.timestamp);
+    if (age < 3600000 * config.OPEN_EXCHANGE.MAXAGE) {
+      return Promise.resolve();
+    }
   }
   const url = isClientSide() ? '/api/exchange-rates'
     : `${OE_API}/latest.json?app_id=${OE_TOKEN}`;
@@ -44,6 +63,10 @@ function refresh() {
     cachedRates = res;
     fx.base = res.base;
     fx.rates = res.rates;
+    if (isServerSide()) {
+      logger.info('Exchange rates synced with https://openexchangerates.com');
+      fs.writeFile(DISK_CACHE, JSON.stringify(cachedRates));
+    }
   });
 }
 
