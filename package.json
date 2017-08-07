@@ -29,7 +29,7 @@
   },
   "homepage": "https://github.com/topcoder-platform/community-app#readme",
   "engines": {
-    "node": "^6.10.2"
+    "node": "^8.2.1"
   },
   "dependencies": {
     "atob": "^2.0.3",
