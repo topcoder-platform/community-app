@@ -74,6 +74,20 @@ function unregisterDone(auth, challengeId) {
     .then(() => getDetailsDone(challengeId, auth.tokenV3, auth.tokenV2));
 }
 
+function fetchCheckpointsDone(tokenV2, challengeId) {
+  const endpoint = `/design/challenges/checkpoint/${challengeId}`;
+  return getApiV2(tokenV2).fetch(endpoint)
+    .then((response) => {
+      if (response.status !== 200) {
+        throw response.status;
+      } else {
+        return response.json();
+      }
+    })
+    .then(response => ({ checkpoints: response, challengeId }))
+    .catch(error => ({ error, challengeId }));
+}
+
 export default createActions({
   CHALLENGE: {
     GET_DETAILS_INIT: getDetailsInit,
@@ -84,5 +98,7 @@ export default createActions({
     REGISTER_DONE: registerDone,
     UNREGISTER_INIT: _.noop,
     UNREGISTER_DONE: unregisterDone,
+    FETCH_CHECKPOINTS_INIT: _.noop,
+    FETCH_CHECKPOINTS_DONE: fetchCheckpointsDone,
   },
 });

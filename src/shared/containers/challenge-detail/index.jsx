@@ -8,7 +8,8 @@
 import _ from 'lodash';
 import LoadingIndicator from 'components/LoadingIndicator';
 import ChallengeHeader from 'components/challenge-detail/Header';
-import ChallengeDetailsView from 'components/challenge-detail/ChallengeDetailsView';
+import ChallengeDetailsView from 'components/challenge-detail/Specification';
+import ChallengeCheckpoints from 'components/challenge-detail/Checkpoints';
 import React from 'react';
 import PT from 'prop-types';
 import { connect } from 'react-redux';
@@ -75,14 +76,20 @@ class ChallengeDetailPageContainer extends React.Component {
                 this.props.unregisterFromChallenge(this.props.authTokens, this.props.challengeId)
               }
               unregistering={this.props.unregistering}
+              checkpoints={this.props.checkpoints}
             />
           }
           {
             !isEmpty && this.state.selectedView === 'DETAILS' &&
             <ChallengeDetailsView
+              challenge={this.props.challenge}
               introduction={this.props.challenge.introduction}
               detailedRequirements={this.props.challenge.detailedRequirements}
             />
+          }
+          {
+            !isEmpty && this.state.selectedView === 'CHECKPOINTS' &&
+            <ChallengeCheckpoints checkpoints={this.props.checkpoints} />
           }
         </div>
       </div>
@@ -93,6 +100,7 @@ class ChallengeDetailPageContainer extends React.Component {
 ChallengeDetailPageContainer.defaultProps = {
   tokenV3: null,
   isLoadingChallenge: false,
+  checkpoints: {},
 };
 
 ChallengeDetailPageContainer.propTypes = {
@@ -107,9 +115,10 @@ ChallengeDetailPageContainer.propTypes = {
   reloadChallengeDetails: PT.func.isRequired,
   unregisterFromChallenge: PT.func.isRequired,
   unregistering: PT.bool.isRequired,
+  checkpoints: PT.shape(),
 };
 
-function extractChallengeDetail(v3, v2) {
+function extractChallengeDetail(v3, v2, challengeId) {
   let challenge = {};
   if (!_.isEmpty(v3)) {
     challenge = _.clone(v3);
@@ -118,13 +127,42 @@ function extractChallengeDetail(v3, v2) {
       challenge.introduction = v2.introduction;
       challenge.detailedRequirements = v2.detailedRequirements;
       challenge.topCheckPointPrize = v2.topCheckPointPrize;
+      if (v2.event) {
+        challenge.mainEvent = {
+          eventName: v2.event.shortDescription,
+          eventId: v2.event.id,
+          description: v2.event.description,
+        };
+      }
+      challenge.forumLink = v2.forumLink;
+      challenge.screeningScorecardId = Number(v2.screeningScorecardId);
+      challenge.reviewScorecardId = Number(v2.reviewScorecardId);
+      challenge.submissionLimit = Number(v2.submissionLimit);
+      challenge.documents = v2.Documents;
+      challenge.fileTypes = v2.filetypes;
+      challenge.round1Introduction = v2.round1Introduction;
+      challenge.round2Introduction = v2.round2Introduction;
+      challenge.allowStockArt = v2.allowStockArt === 'true';
+      challenge.finalSubmissionGuidelines = v2.finalSubmissionGuidelines;
+      challenge.appealsEndDate = v2.appealsEndDate;
     }
   } else if (!_.isEmpty(v2)) {
     challenge = {
+      id: challengeId,
       name: v2.challengeName,
       track: v2.type,
       subTrack: v2.challengeType,
-      events: v2.event ? [{ eventName: v2.event.shortDescription, eventId: v2.event.id }] : [],
+      events: v2.event ? [
+        {
+          eventName: v2.event.shortDescription,
+          eventId: v2.event.id,
+          description: v2.event.description,
+        }] : [],
+      mainEvent: v2.event ? {
+        eventName: v2.event.shortDescription,
+        eventId: v2.event.id,
+        description: v2.event.description,
+      } : {},
       technologies: v2.technology ? v2.technology.join(', ') : '',
       platforms: v2.platforms ? v2.platforms.join(', ') : '',
       prizes: v2.prize,
@@ -132,6 +170,18 @@ function extractChallengeDetail(v3, v2) {
       numberOfCheckpointsPrizes: v2.numberOfCheckpointsPrizes,
       introduction: v2.introduction,
       detailedRequirements: v2.detailedRequirements,
+      forumLink: v2.forumLink,
+      screeningScorecardId: Number(v2.screeningScorecardId),
+      reviewScorecardId: Number(v2.reviewScorecardId),
+      submissionLimit: Number(v2.submissionLimit),
+      documents: v2.Documents,
+      reviewType: v2.reviewType,
+      fileTypes: v2.filetypes,
+      round1Introduction: v2.round1Introduction,
+      round2Introduction: v2.round2Introduction,
+      allowStockArt: v2.allowStockArt === 'true',
+      finalSubmissionGuidelines: v2.finalSubmissionGuidelines,
+      appealsEndDate: v2.appealsEndDate,
     };
   }
   return challenge;
@@ -139,13 +189,16 @@ function extractChallengeDetail(v3, v2) {
 
 const mapStateToProps = (state, props) => ({
   challengeId: Number(props.match.params.challengeId),
-  challenge: extractChallengeDetail(state.challenge.details, state.challenge.detailsV2),
+  challenge: extractChallengeDetail(state.challenge.details,
+    state.challenge.detailsV2,
+    Number(props.match.params.challengeId)),
   isLoadingChallenge: Boolean(state.challenge.loadingDetailsForChallengeId),
   authTokens: state.auth,
   tokenV2: state.auth && state.auth.tokenV2,
   tokenV3: state.auth && state.auth.tokenV3,
   registering: state.challenge.registering,
   unregistering: state.challenge.unregistering,
+  checkpoints: state.challenge.checkpoints,
 });
 
 const mapDispatchToProps = (dispatch) => {
@@ -153,18 +206,31 @@ const mapDispatchToProps = (dispatch) => {
   return {
     loadChallengeDetails: (tokens, challengeId) => {
       dispatch(a.getDetailsInit(challengeId));
-      dispatch(a.getDetailsDone(challengeId, tokens.tokenV3, tokens.tokenV2));
+      dispatch(a.getDetailsDone(challengeId, tokens.tokenV3, tokens.tokenV2))
+        .then((challengeDetails) => {
+          dispatch(a.fetchCheckpointsInit());
+          dispatch(a.fetchCheckpointsDone(tokens.tokenV2, challengeId));
+          return challengeDetails;
+        });
     },
     registerForChallenge: (auth, challengeId) => {
       dispatch(a.registerInit());
       dispatch(a.registerDone(auth, challengeId));
     },
     reloadChallengeDetails: (tokens, challengeId) => {
-      dispatch(a.getDetailsDone(challengeId, tokens.tokenV3, tokens.tokenV2));
+      dispatch(a.getDetailsDone(challengeId, tokens.tokenV3, tokens.tokenV2))
+        .then((challengeDetails) => {
+          dispatch(a.fetchCheckpointsDone(tokens.tokenV2, challengeId));
+          return challengeDetails;
+        });
     },
     unregisterFromChallenge: (auth, challengeId) => {
       dispatch(a.unregisterInit());
       dispatch(a.unregisterDone(auth, challengeId));
+    },
+    fetchCheckpoints: (tokens, challengeId) => {
+      dispatch(a.fetchCheckpointsInit());
+      dispatch(a.fetchCheckpointsDone(tokens.tokenV2, challengeId));
     },
   };
 };
