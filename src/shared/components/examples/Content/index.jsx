@@ -60,10 +60,15 @@ export default function Content() {
       <h3>Main Topcoder website</h3>
       <ul>
         <li>
-          <Link to="/challenges/30058449">Challenge Details
-            Page</Link> &ndash; generally availabel at the
-            endpoint <code>/challenges/:challengeId</code>; the link here leads
-            to a sample challenge.
+          <strong>Challenge Details Page</strong> is available at the
+          endpoint <code>/challenges/:challengeId</code>. Here are some demo
+          links valid in <strong>production</strong> environment:
+          &zwnj;<Link to="/challenges/30058637">data science challenge</Link>,
+          &zwnj;<Link to="/challenges/30058473">code challenge</Link>,
+          &zwnj;<Link to="/challenges/30058433">design challenge</Link>,
+          &zwnj;<Link to="/challenges/30058529">design challenge 2</Link>,
+          &zwnj;<Link to="/challenges/30058281">design challenge 3</Link>,
+          &zwnj;<Link to="/challenges/30057690">design challenge 4</Link>.
         </li>
         <li>
           <Link to="/my-dashboard">Dashboard</Link>
