@@ -85,6 +85,25 @@ function onGetSubmissionsDone(state, action) {
 }
 
 /**
+ * Handles challengeActions.fetchCheckpointsDone action.
+ * @param {Object} state Previous state.
+ * @param {Object} action Action.
+ */
+function onFetchCheckpointsDone(state, action) {
+  if (action.payload.error) {
+    return state;
+  }
+  if ((state.details && state.details.id === action.payload.challengeId) ||
+      (state.detailsV2 && state.detailsV2.challengeId === action.payload.challengeId)) {
+    return {
+      ...state,
+      checkpoints: action.payload.checkpoints,
+    };
+  }
+  return state;
+}
+
+/**
  * Handles CHALLENGE/REGISTER_DONE action.
  * @param {Object} state
  * @param {Object} action
@@ -144,10 +163,13 @@ function create(initialState) {
     [a.registerDone]: onRegisterDone,
     [a.unregisterInit]: state => ({ ...state, unregistering: true }),
     [a.unregisterDone]: onUnregisterDone,
+    [a.fetchCheckpointsInit]: state => ({ ...state, checkpoints: null }),
+    [a.fetchCheckpointsDone]: onFetchCheckpointsDone,
   }, _.defaults(initialState, {
     details: null,
     detailsV2: null,
     loadingDetailsForChallengeId: '',
+    checkpoints: null,
     registering: false,
     unregistering: false,
   }));

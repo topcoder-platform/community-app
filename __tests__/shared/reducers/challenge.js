@@ -74,6 +74,7 @@ function testReducer(reducer, istate) {
       fetchChallengeFailure: false,
       details: null,
       detailsV2: null,
+      checkpoints: null,
       registering: false,
       unregistering: false,
     });
@@ -93,6 +94,7 @@ function testReducer(reducer, istate) {
         challengeId: '12345',
         tag: 'v2-details',
       },
+      checkpoints: null,
       registering: false,
       unregistering: false,
     });
@@ -106,6 +108,7 @@ function testReducer(reducer, istate) {
       fetchChallengeFailure: 'Unknown error',
       details: null,
       detailsV2: null,
+      checkpoints: null,
       registering: false,
       unregistering: false,
     });
@@ -119,6 +122,7 @@ function testReducer(reducer, istate) {
       fetchChallengeFailure: 'Unknown error',
       details: null,
       detailsV2: null,
+      checkpoints: null,
       loadingMySubmissions: true,
       mySubmissions: { v2: null },
       registering: false,
@@ -134,6 +138,7 @@ function testReducer(reducer, istate) {
       fetchChallengeFailure: 'Unknown error',
       details: null,
       detailsV2: null,
+      checkpoints: null,
       mySubmissions: { v2: [{ submissionId: '1' }] },
       fetchMySubmissionsFailure: false,
       loadingMySubmissions: false,
@@ -150,6 +155,7 @@ function testReducer(reducer, istate) {
       fetchChallengeFailure: 'Unknown error',
       details: null,
       detailsV2: null,
+      checkpoints: null,
       fetchMySubmissionsFailure: false,
       loadingMySubmissions: false,
       mySubmissions: { v2: [{ submissionId: '1' }] },
@@ -166,6 +172,7 @@ function testReducer(reducer, istate) {
       fetchChallengeFailure: 'Unknown error',
       details: null,
       detailsV2: null,
+      checkpoints: null,
       mySubmissions: { v2: [] },
       loadingMySubmissions: false,
       fetchMySubmissionsFailure: 'Unknown error',
@@ -179,6 +186,7 @@ describe('Default reducer', () =>
   testReducer(reducers.default, {
     details: null,
     detailsV2: null,
+    checkpoints: null,
     loadingDetailsForChallengeId: '',
     mySubmissionsManagement: {},
     registering: false,
@@ -194,6 +202,7 @@ describe('Factory without http request', () =>
     testReducer(res, {
       details: null,
       detailsV2: null,
+      checkpoints: null,
       loadingDetailsForChallengeId: '',
       mySubmissionsManagement: {},
       registering: false,
@@ -213,6 +222,7 @@ describe('Factory with server-side rendering', () =>
     testReducer(res, {
       details: null,
       detailsV2: null,
+      checkpoints: null,
       loadingDetailsForChallengeId: '',
       mySubmissionsManagement: {},
       registering: false,
@@ -228,6 +238,7 @@ describe('Factory without server-side rendering', () =>
     testReducer(res, {
       details: null,
       detailsV2: null,
+      checkpoints: null,
       loadingDetailsForChallengeId: '',
       mySubmissionsManagement: {},
       registering: false,

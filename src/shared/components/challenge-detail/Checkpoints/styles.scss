@@ -1,0 +1,103 @@
+@import "~styles/tc-styles";
+$tc-gray-border: #aaaab5;
+
+.challenge-detail-checkpoints {
+  display: flex;
+  justify-content: center;
+
+  .challenge-checkpoint-list {
+    margin: 50px 20px 50px 10px;
+
+    .challenge-checkpoint-li {
+      background: $tc-white;
+      border: 1px solid $tc-gray-border;
+      border-radius: 2px;
+      font-family: roboto;
+      font-weight: 500;
+      font-size: 20px;
+      color: $tc-dark-blue;
+      padding: 10px 0;
+      margin-bottom: 10px;
+      width: 190px;
+      max-width: 190px;
+      line-height: 30px;
+      text-align: center;
+      cursor: pointer;
+    }
+  }
+
+  .challenge-checkpoint-detail {
+    flex: 1;
+    margin: 50px 10px 50px 20px;
+    max-width: 740px;
+
+    & > h2 {
+      font-family: roboto;
+      font-weight: 500;
+      font-size: 20px;
+      color: $tc-black;
+      line-height: 30px;
+      margin-bottom: 10px;
+    }
+
+    & > p {
+      white-space: pre-wrap;
+      font-family: roboto;
+      font-size: 400;
+      font-size: 15px;
+      color: $tc-gray-90;
+      line-height: 25px;
+      margin-bottom: 25px;
+    }
+
+    .challenge-checkpoint-winners {
+      margin-bottom: 10px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+
+      .challenge-checkpoint-submission {
+        flex: 1;
+        background: $tc-gray-neutral-light;
+        border: 1px solid $tc-gray-10;
+        border-radius: 2px;
+        font-family: roboto;
+        font-size: 20px;
+        color: $tc-dark-blue;
+        line-height: 30px;
+        text-align: left;
+        padding: 10px 0 10px 17px;
+        display: flex;
+        overflow: hidden;
+        justify-content: space-between;
+        cursor: pointer;
+
+        &:hover,
+        &:focus,
+        &:active {
+          outline: Initial;
+          border: 1px solid $tc-gray-10;
+        }
+
+        &:hover {
+          background: $tc-gray-neutral-dark;
+        }
+
+        .challenge-checkpoint-expander {
+          padding-right: 23px;
+        }
+      }
+
+      .challenge-checkpoint-feedback {
+        flex: 1;
+        white-space: pre-wrap;
+        font-family: roboto;
+        font-size: 400;
+        font-size: 15px;
+        color: $tc-gray-90;
+        line-height: 25px;
+        padding: 15px 15px 25px;
+      }
+    }
+  }
+}

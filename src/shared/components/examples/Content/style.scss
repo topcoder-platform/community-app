@@ -3,7 +3,10 @@
 .Content {
   @include roboto-light;
 
+  line-height: 150%;
+  margin: auto;
   padding: 24px;
+  width: 1024px;
 
   h1 {
     margin: 0 0 18px;
@@ -15,7 +18,7 @@
 
   li {
     list-style-type: disc;
-    margin: 9px 24px;
+    margin: 0 24px;
 
     a {
       color: blue;
@@ -24,6 +27,10 @@
 
   code {
     background: whitesmoke;
-    padding: 2px 4px;
+    padding: 0 4px;
+  }
+
+  strong {
+    font-weight: bold;
   }
 }

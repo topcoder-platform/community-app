@@ -105,17 +105,60 @@ exports[`Matches shallow shapshot 1`] = `
   </h3>
   <ul>
     <li>
-      <Link
-        replace={false}
-        to="/challenges/30058449"
-      >
+      <strong>
         Challenge Details Page
-      </Link>
-       – generally availabel at the endpoint 
+      </strong>
+       is available at the endpoint 
       <code>
         /challenges/:challengeId
       </code>
-      ; the link here leads to a sample challenge.
+      . Here are some demo links valid in 
+      <strong>
+        production
+      </strong>
+       environment: ‌
+      <Link
+        replace={false}
+        to="/challenges/30058637"
+      >
+        data science challenge
+      </Link>
+      , ‌
+      <Link
+        replace={false}
+        to="/challenges/30058473"
+      >
+        code challenge
+      </Link>
+      , ‌
+      <Link
+        replace={false}
+        to="/challenges/30058433"
+      >
+        design challenge
+      </Link>
+      , ‌
+      <Link
+        replace={false}
+        to="/challenges/30058529"
+      >
+        design challenge 2
+      </Link>
+      , ‌
+      <Link
+        replace={false}
+        to="/challenges/30058281"
+      >
+        design challenge 3
+      </Link>
+      , ‌
+      <Link
+        replace={false}
+        to="/challenges/30057690"
+      >
+        design challenge 4
+      </Link>
+      .
     </li>
     <li>
       <Link

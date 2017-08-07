@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="35px" height="35px" viewBox="0 0 35 35" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 44.1 (41455) - http://www.bohemiancoding.com/sketch -->
+    <title>icon print</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Styleguide" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g transform="translate(-1363.000000, -1475.000000)" id="Right-column">
+            <g transform="translate(1259.000000, 207.000000)">
+                <g id="Group" transform="translate(20.000000, 1243.000000)">
+                    <g id="social-icons" transform="translate(0.000000, 25.000000)">
+                        <g id="icon-print" transform="translate(84.000000, 0.000000)">
+                            <circle id="Oval-2" fill="#59A7FF" cx="17.5" cy="17.5" r="17.5"></circle>
+                            <g id="PRINT" transform="translate(8.000000, 9.000000)">
+                                <rect id="Rectangle" fill="#FFFFFF" x="4" y="0" width="11" height="17"></rect>
+                                <path d="M4,5.59354839 L15,5.59354839 L15,0.000109677419 L4,0.000109677419 L4,5.59354839 Z M4.33673469,5.26451613 L14.6632653,5.26451613 L14.6632653,0.329032258 L4.33673469,0.329032258 L4.33673469,5.26451613 Z" id="Fill-2" fill="#DCDCE0"></path>
+                                <path d="M4,17 L15,17 L15,10.2 L4,10.2 L4,17 Z M4.33673469,16.6710774 L14.6632653,16.6710774 L14.6632653,10.5290323 L4.33673469,10.5290323 L4.33673469,16.6710774 Z" id="Fill-4" fill="#DCDCE0"></path>
+                                <path d="M15,3 L15,5 L4,5 L4,3 L2,3 C0.990254237,3 4.26325641e-14,3.73670455 4.26325641e-14,5 L4.26325641e-14,11 C4.26325641e-14,12.0426136 0.990254237,13 2,13 L4,13 L4,11 L15,11 L15,13 L17,13 C18.331887,13 19,12.0426136 19,11 L19,5 C19,3.73670455 18.331887,3 17,3 L15,3 Z" id="Fill-10" fill="#47474F"></path>
+                                <polygon id="Fill-5" fill="#1A85FF" points="6 13 13 13 13 12 6 12"></polygon>
+                                <polygon id="Fill-5" fill="#1A85FF" points="6 15 10 15 10 14 6 14"></polygon>
+                            </g>
+                            <circle id="Oval-3" fill="#60C700" cx="25" cy="14" r="1"></circle>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

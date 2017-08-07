@@ -44,16 +44,22 @@ export default function ChallengeHeader(props) {
       numRegistrants,
       numSubmissions,
       allPhases,
+      appealsEndDate,
     },
     registering,
     registerForChallenge,
     unregisterFromChallenge,
     unregistering,
+    checkpoints,
   } = props;
 
-  const theme = themeFactory(track);
+  let trackLower = track ? track.toLowerCase() : 'design';
+  if (technologies.includes('Data Science')) {
+    trackLower = 'datasci';
+  }
 
-  const trackLower = track ? track.toLowerCase() : 'design';
+  const theme = themeFactory(trackLower);
+
   const stylizedSubTrack = (subTrack || '').replace('_', ' ')
     .replace(/\w\S*/g, txt => _.capitalize(txt));
   const subTrackStyle = `${trackLower}-accent-background`;
@@ -89,26 +95,39 @@ export default function ChallengeHeader(props) {
         return false;
       }
       if (phaseLowerCase.includes('registration') || phaseLowerCase.includes('checkpoint') ||
-          phaseLowerCase.includes('submission') || phaseLowerCase.includes('approval') ||
-          phaseLowerCase.includes('review')) {
+          phaseLowerCase.includes('submission') || phaseLowerCase.includes('review')) {
         return true;
       }
       return false;
     });
 
     relevantPhases.sort((a, b) => {
-      if (a.phaseType.toLowerCase().includes('registration')
-      || b.phaseType.toLowerCase().includes('approval')) {
+      if (a.phaseType.toLowerCase().includes('registration')) {
         return -1;
       }
-      if (b.phaseType.toLowerCase().includes('registration')
-      || a.phaseType.toLowerCase().includes('approval')) {
+      if (b.phaseType.toLowerCase().includes('registration')) {
         return 1;
       }
       return (new Date(a.actualEndTime || a.scheduledEndTime)).getTime() -
       (new Date(b.actualEndTime || b.scheduledEndTime)).getTime();
     });
+
+    if (relevantPhases.length > 1 && appealsEndDate) {
+      const lastPhase = relevantPhases[relevantPhases.length - 1];
+      const lastPhaseTime = (
+        new Date(lastPhase.actualEndTime || lastPhase.scheduledEndTime)
+      ).getTime();
+      const appealsEnd = (new Date(appealsEndDate).getTime());
+      if (lastPhaseTime < appealsEnd) {
+        relevantPhases.push({
+          phaseType: 'Winners',
+          scheduledEndTime: appealsEndDate,
+        });
+      }
+    }
   }
+
+  const checkpointCount = checkpoints && checkpoints.numberOfUniqueSubmitters;
 
   return (
     <ThemeProvider theme={theme} >
@@ -205,12 +224,17 @@ export default function ChallengeHeader(props) {
             selectedView={props.selectedView}
             numRegistrants={numRegistrants}
             numSubmissions={numSubmissions}
+            checkpointCount={checkpointCount}
           />
         </div>
       </div>
     </ThemeProvider>
   );
 }
+
+ChallengeHeader.defaultProps = {
+  checkpoints: {},
+};
 
 ChallengeHeader.propTypes = {
   onSelectorClicked: PT.func.isRequired,
@@ -224,4 +248,5 @@ ChallengeHeader.propTypes = {
   registering: PT.bool.isRequired,
   unregisterFromChallenge: PT.func.isRequired,
   unregistering: PT.bool.isRequired,
+  checkpoints: PT.shape(),
 };
