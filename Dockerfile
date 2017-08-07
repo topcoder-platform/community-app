@@ -1,4 +1,4 @@
-FROM node:6.10.2
+FROM node:8.2.1
 LABEL version="1.0"
 LABEL description="Community App"
 
