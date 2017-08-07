@@ -40,6 +40,9 @@ import WiproHome from 'components/tc-communities/communities/wipro/Home';
 import WiproFooter from 'components/tc-communities/communities/wipro/Footer';
 import WiproLearn from 'components/tc-communities/communities/wipro/Learn';
 
+import QaHome from 'components/tc-communities/communities/qa/Home';
+import QaLearn from 'components/tc-communities/communities/qa/Learn';
+
 import TcProdDevHome from 'components/tc-communities/communities/tc-prod-dev/Home';
 import TcProdDevLearn from 'components/tc-communities/communities/tc-prod-dev/Learn';
 
@@ -107,6 +110,12 @@ export class Page extends Component {
       switch (pageId) {
         case 'home': pageContent = <Community2Home />; break;
         case 'learn': pageContent = <Community2Learn />; break;
+        default: break;
+      }
+    } else if (communityId === 'qa') {
+      switch (pageId) {
+        case 'home': pageContent = <QaHome />; break;
+        case 'learn': pageContent = <QaLearn />; break;
         default: break;
       }
     } else if (communityId === 'tc-prod-dev') {

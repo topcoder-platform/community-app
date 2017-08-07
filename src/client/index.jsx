@@ -47,9 +47,6 @@ function authenticate(store) {
     });
   }
 
-  /* TODO: Should we schedule authomatical re-authentication with help of
-    setTimeout(), so that we don't have to worry about updates of the token
-    in any other frontend code? */
   getFreshToken().then((tctV3) => {
     const tctV2 = cookies.get('tcjwt');
     logger.log('Authenticated as:', decodeToken(tctV3));
@@ -62,11 +59,11 @@ function authenticate(store) {
     const auth = store.getState().auth;
     if (auth.tokenV3 !== (tctV3 || null)) {
       store.dispatch(actions.auth.setTcTokenV3(tctV3));
+      store.dispatch(actions.auth.loadProfile(tctV3));
     }
     if (auth.tokenV2 !== (tctV2 || null)) {
       store.dispatch(actions.auth.setTcTokenV2(tctV2));
     }
-    store.dispatch(actions.auth.loadProfile(tctV3));
 
     /* Automatic refreshment of auth tokens. */
     let time = Number.MAX_VALUE;
