@@ -19,7 +19,9 @@ const mockData1 = {
       phaseStatus: 'Open',
     }],
     currentPhases: ['Registration'],
+    prizes: [1200, 600],
     track: 'DEVELOP',
+    totalPrize: 1800,
     subTrack: 'CODE',
     events: [{ eventName: 'Submit' }],
     status: 'ACTIVE',
@@ -34,10 +36,11 @@ const mockData2 = {
       phaseStatus: 'Open',
     }],
     currentPhases: ['Registration'],
+    prizes: [1200, 600],
     track: 'DATA_SCIENCE',
     subTrack: 'CODE',
     id: '1',
-    totalPrize: 1000,
+    totalPrize: 1800,
   },
 };
 
@@ -49,10 +52,11 @@ const mockData3 = {
       phaseStatus: 'Closed',
     }],
     currentPhases: ['Registration'],
+    prizes: [1200, 600],
     track: 'DATA_SCIENCE',
     subTrack: 'CODE',
     id: 'long id',
-    totalPrize: 1000,
+    totalPrize: 1800,
   },
 };
 
@@ -64,10 +68,11 @@ const mockData4 = {
       phaseStatus: 'Closed',
     }],
     currentPhases: ['Registration'],
+    prizes: [1200, 600],
     track: 'DATA_SCIENCE',
     subTrack: 'CODE',
     id: 'long id',
-    totalPrize: 1000,
+    totalPrize: 1800,
   },
 };
 
@@ -79,10 +84,11 @@ const mockData5 = {
       phaseStatus: 'Closed',
     }],
     currentPhases: ['Registration'],
+    prizes: [1200, 600],
     track: 'DATA_SCIENCE',
     subTrack: 'CODE',
     id: 'long id',
-    totalPrize: 1000,
+    totalPrize: 1800,
   },
 };
 

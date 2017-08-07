@@ -40,6 +40,9 @@ import WiproHome from 'components/tc-communities/communities/wipro/Home';
 import WiproFooter from 'components/tc-communities/communities/wipro/Footer';
 import WiproLearn from 'components/tc-communities/communities/wipro/Learn';
 
+import QaHome from 'components/tc-communities/communities/qa/Home';
+import QaLearn from 'components/tc-communities/communities/qa/Learn';
+
 import TcProdDevHome from 'components/tc-communities/communities/tc-prod-dev/Home';
 import TcProdDevLearn from 'components/tc-communities/communities/tc-prod-dev/Learn';
 
@@ -109,6 +112,12 @@ export class Page extends Component {
         case 'learn': pageContent = <Community2Learn />; break;
         default: break;
       }
+    } else if (communityId === 'qa') {
+      switch (pageId) {
+        case 'home': pageContent = <QaHome />; break;
+        case 'learn': pageContent = <QaLearn />; break;
+        default: break;
+      }
     } else if (communityId === 'tc-prod-dev') {
       switch (pageId) {
         case 'home': pageContent = <TcProdDevHome />; break;
@@ -163,6 +172,11 @@ export class Page extends Component {
       case 'challenges': {
         const query = this.props.location.search ?
           qs.parse(this.props.location.search.slice(1)) : null;
+
+        const currencyFromUrl = _.get(query, 'currency');
+        const prizeMode = currencyFromUrl ? `money-${currencyFromUrl}`
+          : _.get(this.props.meta, 'challengeListing.prizeMode');
+
         pageContent = (<ChallengeListing
           groupId={this.props.meta.groupId}
           communityId={_.has(query, 'communityId') ? query.communityId : this.props.meta.communityId}
@@ -174,6 +188,7 @@ export class Page extends Component {
           openChallengesInNewTabs={
             _.get(this.props.meta, 'challengeListing.openChallengesInNewTabs')
           }
+          prizeMode={prizeMode}
         />);
         break;
       }
@@ -265,6 +280,7 @@ Page.propTypes = {
     groupId: PT.string,
     challengeListing: PT.shape({
       openChallengesInNewTabs: PT.bool,
+      prizeMode: PT.string,
     }),
     communityId: PT.string,
     communityName: PT.string,

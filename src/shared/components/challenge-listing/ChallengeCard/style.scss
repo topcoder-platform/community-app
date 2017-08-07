@@ -182,24 +182,6 @@ $challenge-radius-4: $corner-radius * 2;
         display: inline-block;
       }
     }
-
-    .dollar {
-      display: inline-block;
-      color: $tc-gray-50;
-      min-width: $challenge-space-10 + 1;
-    }
-
-    .label {
-      padding: 0 $challenge-space-10;
-      background: $tc-gray-neutral-light;
-      font-size: 10px;
-      color: $tc-gray-70;
-      white-space: nowrap;
-
-      @include xxs-to-xs {
-        margin-left: 10px;
-      }
-    }
   }
 
   .hidden {

@@ -6,10 +6,11 @@
 import _ from 'lodash';
 import config from 'config';
 import React from 'react';
-import ReactDOM from 'react-dom/server'; // This may cause warning of PropTypes
+import ReactDOM from 'react-dom/server';
+import serializeJs from 'serialize-javascript';
 import { StaticRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
-import serializeJs from 'serialize-javascript';
+import { getRates } from 'services/money';
 
 import App from '../shared';
 
@@ -26,7 +27,10 @@ const sanitizedConfig = serializeJs(
 );
 
 export default (req, res) => {
-  storeFactory(req).then((store) => {
+  Promise.all([
+    storeFactory(req),
+    getRates(),
+  ]).then(([store, exchangeRates]) => {
     const context = {};
     const appHtml = ReactDOM.renderToString((
       <Provider store={store}>
@@ -39,6 +43,7 @@ export default (req, res) => {
       </Provider>
     ));
     if (context.status) res.status(context.status);
+    const sanitizedExchangeRates = serializeJs(exchangeRates, { isJSON: true });
     res.send((
       `<!DOCTYPE html>
       <html>
@@ -60,6 +65,7 @@ export default (req, res) => {
           <div id="react-view">${appHtml}</div>
           <script type="application/javascript">
             window.CONFIG = ${sanitizedConfig}
+            window.EXCHANGE_RATES = ${sanitizedExchangeRates}
             window.ISTATE = ${serializeJs(store.getState(), { isJSON: true })}
           </script>
           <script type="application/javascript" src="/bundle.js"></script>

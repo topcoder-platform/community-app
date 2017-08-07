@@ -4,11 +4,20 @@ import moment from 'moment';
 import React from 'react';
 import PT from 'prop-types';
 import TrackIcon from 'components/TrackIcon';
+import { convertNow as convertMoney } from 'services/money';
 
+import Prize from './Prize';
 import ChallengeStatus from './Status';
-import PrizesTooltip from '../Tooltips/PrizesTooltip';
 import TrackAbbreviationTooltip from '../Tooltips/TrackAbbreviationTooltip';
 import './style.scss';
+
+export const PRIZE_MODE = {
+  HIDDEN: 'hidden',
+  MONEY_EUR: 'money-eur',
+  MONEY_INR: 'money-inr',
+  MONEY_USD: 'money-usd',
+  POINTS: 'points',
+};
 
 // Constants
 const VISIBLE_TECHNOLOGIES = 3;
@@ -16,9 +25,6 @@ const ID_LENGTH = 6;
 
 // Get the End date of a challenge
 const getEndDate = date => moment(date).format('MMM DD');
-
-// Convert a number to string with thousands separated by comma
-const numberWithCommas = n => (n ? n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') : 0);
 
 /* TODO: Note that this component uses a dirty trick to cheat linter and to be
  * able to modify an argument: it aliases challenge prop, then mutates it in
@@ -29,6 +35,7 @@ function ChallengeCard({
   challenge: passedInChallenge,
   onTechTagClicked,
   openChallengesInNewTabs,
+  prizeMode,
   sampleWinnerProfile,
 }) {
   const challenge = passedInChallenge;
@@ -58,6 +65,45 @@ function ChallengeCard({
 
   const registrationPhase = challenge.allPhases.filter(phase => phase.phaseType === 'Registration')[0];
   const isRegistrationOpen = registrationPhase ? registrationPhase.phaseStatus === 'Open' : false;
+
+  /* Preparation of data to show in the prize component,
+   * depending on options. */
+  const bonuses = [];
+  if (challenge.reliabilityBonus) {
+    bonuses.push({
+      name: 'Reliability',
+      prize: challenge.reliabilityBonus,
+    });
+  }
+  let prizeUnitSymbol = '';
+  let prizes = challenge.prizes;
+  let totalPrize;
+  switch (prizeMode) {
+    case PRIZE_MODE.POINTS:
+      totalPrize = Math.round(challenge.drPoints || 0);
+      break;
+    case PRIZE_MODE.MONEY_EUR:
+      prizeUnitSymbol = '€';
+      bonuses.forEach((bonus) => {
+        bonus.prize = Math.round(convertMoney(bonus.prize, 'EUR')); // eslint-disable-line no-param-reassign
+      });
+      totalPrize = Math.round(convertMoney(challenge.totalPrize, 'EUR'));
+      prizes = (prizes || []).map(prize => Math.round(convertMoney(prize, 'EUR')));
+      break;
+    case PRIZE_MODE.MONEY_INR:
+      prizeUnitSymbol = '₹';
+      bonuses.forEach((bonus) => {
+        bonus.prize = Math.round(convertMoney(bonus.prize, 'INR')); // eslint-disable-line no-param-reassign
+      });
+      totalPrize = Math.round(convertMoney(challenge.totalPrize, 'INR'));
+      prizes = (prizes || []).map(prize => Math.round(convertMoney(prize, 'INR')));
+      break;
+    case PRIZE_MODE.MONEY_USD:
+      prizeUnitSymbol = '$';
+      totalPrize = challenge.totalPrize;
+      break;
+    default: throw new Error('Unknown prize mode!');
+  }
 
   return (
     <div styleName="challengeCard">
@@ -92,12 +138,16 @@ function ChallengeCard({
       </div>
       <div styleName="right-panel">
         <div styleName={isRegistrationOpen ? 'prizes with-register-button' : 'prizes'}>
-          <PrizesTooltip challenge={challenge}>
-            <div>
-              <div><span styleName="dollar">$</span>{numberWithCommas(challenge.totalPrize)}</div>
-              <div styleName="label">Purse</div>
-            </div>
-          </PrizesTooltip>
+          {(prizeMode !== PRIZE_MODE.HIDDEN) && (
+            <Prize
+              bonuses={bonuses}
+              label={prizeMode === PRIZE_MODE.POINTS ? 'Points' : 'Purse'}
+              prizes={prizes}
+              prizeUnitSymbol={prizeUnitSymbol}
+              totalPrize={totalPrize}
+              withoutTooltip={prizeMode === PRIZE_MODE.POINTS}
+            />
+          )}
         </div>
 
         <ChallengeStatus
@@ -115,6 +165,7 @@ ChallengeCard.defaultProps = {
   onTechTagClicked: _.noop,
   challenge: {},
   openChallengesInNewTabs: false,
+  prizeMode: PRIZE_MODE.MONEY_USD,
   sampleWinnerProfile: undefined,
 };
 
@@ -122,6 +173,7 @@ ChallengeCard.propTypes = {
   onTechTagClicked: PT.func,
   challenge: PT.shape(),
   openChallengesInNewTabs: PT.bool,
+  prizeMode: PT.oneOf(_.toArray(PRIZE_MODE)),
   sampleWinnerProfile: PT.shape(),
 };
 

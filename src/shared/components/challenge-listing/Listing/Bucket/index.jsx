@@ -23,6 +23,7 @@ export default function Bucket({
   loading,
   loadMore,
   openChallengesInNewTabs,
+  prizeMode,
   setFilterState,
   setSort,
   sort,
@@ -52,6 +53,7 @@ export default function Bucket({
       challenge={item}
       onTechTagClicked={tag => setFilterState({ tags: [tag] })}
       openChallengesInNewTabs={openChallengesInNewTabs}
+      prizeMode={prizeMode}
       key={item.id}
     />
   ));
@@ -115,6 +117,7 @@ Bucket.propTypes = {
   loading: PT.bool,
   loadMore: PT.func,
   openChallengesInNewTabs: PT.bool,
+  prizeMode: PT.string.isRequired,
   setFilterState: PT.func.isRequired,
   setSort: PT.func.isRequired,
   sort: PT.string,

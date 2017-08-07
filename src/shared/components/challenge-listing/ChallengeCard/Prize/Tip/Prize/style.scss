@@ -1,0 +1,37 @@
+@import "~styles/tc-styles";
+
+$prize-space-15: $base-unit * 3;
+$prize-radius-15: $corner-radius * 7 + 1;
+
+.medal {
+  background: $tc-gray-20;
+  display: inline-block;
+  margin-right: $base-unit;
+  border-radius: $prize-radius-15;
+  width: $prize-space-15;
+  height: $prize-space-15;
+  font-weight: 900;
+  color: $tc-gray-80;
+  text-align: center;
+  line-height: $prize-space-15;
+
+  &.place-1 {
+    background: $tc-gold;
+  }
+
+  &.place-2 {
+    background: $tc-silver;
+  }
+
+  &.place-3 {
+    background: $tc-bronze;
+  }
+}
+
+.prize {
+  float: left;
+  margin: 0 $prize-space-15 $prize-space-15 0;
+  font-size: 11px;
+  font-weight: 500;
+  text-shadow: none;
+}

@@ -174,6 +174,7 @@ export class ListingContainer extends React.Component {
           loadingDraftChallenges={Boolean(this.props.loadingDraftChallengesUUID)}
           loadingPastChallenges={Boolean(this.props.loadingPastChallengesUUID)}
           openChallengesInNewTabs={this.props.openChallengesInNewTabs}
+          prizeMode={this.props.prizeMode}
           selectBucket={selectBucket}
           hideTcLinksInFooter={hideTcLinksInSidebarFooter}
 
@@ -211,6 +212,7 @@ ListingContainer.defaultProps = {
   communityName: null,
   listingOnly: false,
   openChallengesInNewTabs: false,
+  prizeMode: 'money-usd',
 };
 
 ListingContainer.propTypes = {
@@ -245,6 +247,7 @@ ListingContainer.propTypes = {
   loadingPastChallengesUUID: PT.string.isRequired,
   markHeaderMenu: PT.func.isRequired,
   openChallengesInNewTabs: PT.bool,
+  prizeMode: PT.string,
   selectBucket: PT.func.isRequired,
   selectCommunity: PT.func.isRequired,
   setFilter: PT.func.isRequired,
@@ -279,6 +282,7 @@ const mapStateToProps = (state, ownProps) => {
     loadingChallengeSubtracks: cl.loadingChallengeSubtracks,
     loadingChallengeTags: cl.loadingChallengeTags,
     openChallengesInNewTabs: ownProps.openChallengesInNewTabs,
+    prizeMode: ownProps.prizeMode,
     selectedCommunityId: cl.selectedCommunityId,
     sorts: cl.sorts,
     activeBucket: cl.sidebar.activeBucket,

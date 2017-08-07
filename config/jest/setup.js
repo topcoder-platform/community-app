@@ -1,4 +1,4 @@
-/* global Event */
+/* global Event, jest */
 
 global.window.matchMedia = global.window.matchMedia || function matchMedia() {
   return {
@@ -13,3 +13,5 @@ global.window.resizeTo = (width, height) => {
   global.window.innerHeight = height || global.window.innerHeight;
   global.window.dispatchEvent(new Event('resize'));
 };
+
+jest.mock('services/money');

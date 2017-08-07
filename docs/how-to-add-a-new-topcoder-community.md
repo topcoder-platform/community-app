@@ -80,6 +80,12 @@ To add a new community with the name **demo**, we should follow the following pr
         ```
     -   `challengeListing` - *Object* - Optional. When provided, it holds configuration for the challenge listing shown inside the community. This config object may have the following fields:
         - `openChallengesInNewTabs` - *Boolean* - Optional. When set, challenge listing opens challenge details pages in new tabs. Defaults to `true`.
+        - `prizeMode` - *String* - Optional. Modifies the way the prizes are shown in challenge cards. Valid values are:
+            - `hidden` - Prize components are just hidden;
+            - `money-eur` - Prizes are converted to EUR;
+            - `money-inr` - Prizes are converted to INR;
+            - `money-usd` - Prizes are shown in USD (no actual conversion needed);
+            - `points` - Points are shown rather than the prizes. The points are taken from `drPoints` field of challenge objects. There is no prizes tooltip in this case.
     -   `communityId` - *String* - Unique ID of this community.
     -   `communitySelector` - *Object Array* - Specifies data for the community selection dropdown inside the community header. Each object MUST HAVE `label` and `value` string fields, and MAY HAVE `redirect` field. If `redirect` field is specified, a click on that option in the dropdown will redirect user to the specified URL.
     -   `groupId` - *String* - This value of group ID is now used to fetch community statistics. Probably, it makes sense to use this value everywhere where `authorizedGroupIds` array is used, however, at the moment, these two are independent.

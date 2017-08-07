@@ -1,0 +1,15 @@
+@import "~styles/tc-styles";
+
+.bonus {
+  margin-right: 12px;
+}
+
+.name {
+  background: $tc-light-blue;
+  border-radius: 3px;
+  margin-right: $base-unit;
+  padding: 0 $base-unit;
+  font-size: 11px;
+  font-weight: 900;
+  line-height: 3 * $base-unit;
+}
