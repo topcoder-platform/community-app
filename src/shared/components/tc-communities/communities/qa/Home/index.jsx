@@ -28,8 +28,8 @@ export default function Home(props) {
   return (
     <main>
       <Banner
-        title="Topcoder Product Development Community"
-        text="This is the place where Topcoder members can come to focus on work that involves building out the Topcoder Platform."
+        title="Topcoder QA Community"
+        text="This is the place where Topcoder members can come to focus on work that involves QA."
         link={{
           title: 'Compete Now',
           url: 'challenges',
