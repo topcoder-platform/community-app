@@ -169,7 +169,7 @@ export default function Home(props) {
             }}
             theme={ImageTextStyles}
             imageSrc="/themes/wipro/home/image-text-learn.jpg"
-          />          
+          />
         </div>
       </Section>
 
