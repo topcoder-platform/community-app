@@ -1,3 +1,4 @@
+import config from 'utils/config';
 import React from 'react';
 import PT from 'prop-types';
 
@@ -16,8 +17,12 @@ export default function DevelopSideBar(props) {
     isDataScience,
     reviewType,
   } = props;
+  /* TODO: It is not good to compose the event URL like this, as in general
+   * there is not guaranteed to be correct. */
   const eventURL = `//${eventDetail.eventName}.topcoder.com`;
-  const scorecardURL = 'https://software.topcoder.com/review/actions/ViewScorecard?scid=';
+  const scorecardURL = `${config.URL.ONLINE_REVIEW}
+  /review/actions/ViewScorecard?scid=`;
+  /* TODO: This should be got from challenge terms endpoint! */
   const challengeTermsURL = (
     'https://www.topcoder.com/challenge-details/terms/detail/21193/'
   );
@@ -33,16 +38,6 @@ export default function DevelopSideBar(props) {
     reviewType === 'PEER' ?
       'Your peers performs a thorough review based on scorecards.' :
       'Community Review Board performs a thorough review based on scorecards.'
-  );
-
-  const umlGetMacTool = (
-    'https://github.com/topcoderinc/topcoder-UML-Tool/blob/master/build/dist/TopCoder%20UML%20Tool%20OS%20X%201.2.7.zip?raw=true'
-  );
-  const umlRepo = (
-    'https://github.com/topcoderinc/topcoder-UML-Tool'
-  );
-  const umlGetJava = (
-    'https://github.com/topcoderinc/topcoder-UML-Tool/blob/master/build/dist/TopCoder_UML_Tool_Installer-1.2.7.jar?raw=true'
   );
 
   return (
@@ -102,18 +97,18 @@ export default function DevelopSideBar(props) {
         <h3>GET THE UML TOOL:</h3>
         <ul>
           <li>
-            <a href={umlRepo}>
-              {'Github source code repository'}
+            <a href={config.URL.UML_TOOL.GITHUB}>
+              Github source code repository
             </a>
           </li>
           <li>
-            <a href={umlGetMacTool}>
-              {'Mac disk image'}
+            <a href={config.URL.UML_TOOL.MAC}>
+              Mac disk image
             </a>
           </li>
           <li>
-            <a href={umlGetJava}>
-              {'Java installer'}
+            <a href={config.URL.UML_TOOL.JAVA}>
+              Java installer
             </a>
           </li>
         </ul>

@@ -1,3 +1,4 @@
+import config from 'utils/config';
 import React from 'react';
 import PT from 'prop-types';
 
@@ -16,11 +17,12 @@ export default function DesignSideBar(props) {
     hasRegistered,
     fileTypes,
   } = props;
+  /* TODO: It is not good to compose the event URL like this, as in general
+   * there is not guaranteed to be correct. */
   const eventURL = `//${eventDetail.eventName}.topcoder.com`;
-  const scorecardURL = 'https://software.topcoder.com/review/actions/ViewScorecard?scid=';
-  const faqURL = (
-    'https://help.topcoder.com/hc/en-us/articles/219122667-Formatting-Your-Submission-for-Design-Challenges'
-  );
+  const scorecardURL = `${config.URL.ONLINE_REVIEW}/review/actions/ViewScorecard?scid=`;
+  const faqURL = config.URL.INFO.DESIGN_CHALLENGE_SUBMISSION;
+  /* TODO: This should be got from challenge terms endpoint! */
   const challengeTermsURL = (
     'https://www.topcoder.com/challenge-details/terms/detail/21193/'
   );
