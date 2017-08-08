@@ -20,7 +20,7 @@ $division-radius-4: $corner-radius * 2;
 .division {
   padding: $division-space-30 0 0;
 
-  @include xs {
+  @include xxs-to-xs {
     padding: $division-space-20 0 0;
   }
 
@@ -39,7 +39,7 @@ $division-radius-4: $corner-radius * 2;
       padding-right: $division-space-25;
       display: flex;
 
-      @include xs {
+      @include xxs-to-xs {
         padding-right: 0;
       }
     }
@@ -58,7 +58,7 @@ $division-radius-4: $corner-radius * 2;
       color: $tc-black;
       line-height: $division-space-20;
 
-      @include xs {
+      @include xxs-to-xs {
         width: 50%;
       }
     }

@@ -2,6 +2,7 @@
  * The top-level routing of the App.
  */
 
+import _ from 'lodash';
 import Content from 'components/examples/Content';
 import Error404 from 'components/Error404';
 import SubmissionManagement from 'containers/SubmissionManagement';
@@ -14,6 +15,7 @@ import React from 'react';
 import { Switch, Route, withRouter } from 'react-router-dom';
 import TopcoderFooter from 'components/TopcoderFooter';
 import TopcoderHeader from 'containers/TopcoderHeader';
+import qs from 'qs';
 
 import PT from 'prop-types';
 
@@ -31,6 +33,7 @@ function Routes({ subdomains }) {
   else if (subdomains.includes('wipro')
     || subdomains.includes('topgear')) communityId = 'wipro';
   else if (subdomains.includes('taskforce')) communityId = 'taskforce';
+  else if (subdomains.includes('qa')) communityId = 'qa';
   else if (subdomains.includes('tc-prod-dev')) communityId = 'tc-prod-dev';
   else if (subdomains.includes('community-2')) communityId = 'community-2';
   if (communityId) {
@@ -79,7 +82,19 @@ function Routes({ subdomains }) {
         <Route path="/challenges/:challengeId" component={ChallengeDetail} />
         <Route
           path="/challenges"
-          render={props => <ChallengeListing listingOnly {...props} />}
+          render={(props) => {
+            const query = props.location.search ?
+              qs.parse(props.location.search.slice(1)) : null;
+            const currencyFromUrl = _.get(query, 'currency');
+            const prizeMode = currencyFromUrl && `money-${currencyFromUrl}`;
+            return (
+              <ChallengeListing
+                {...props}
+                listingOnly
+                prizeMode={prizeMode}
+              />
+            );
+          }}
         />
         <Route path="/leaderboard" component={Leaderboard} />
         <Route
@@ -113,6 +128,9 @@ function Routes({ subdomains }) {
 }
 
 Routes.propTypes = {
+  location: PT.shape({
+    search: PT.string.isRequired,
+  }).isRequired,
   subdomains: PT.arrayOf(PT.string).isRequired,
 };
 

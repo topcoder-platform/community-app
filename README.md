@@ -7,7 +7,7 @@ New version of Topcoder Community website.
 
 *Disclaimer:* Current instructions are biased towards Ubuntu 16.04. Hovewer, similar recipies should work for other OS. Should you encounter and overcome any tricky issues on other OS, you are welcome to add notes/hints into this file.
 
-1.  You should have NodeJS 6.10.2 (other recent versions should also work fine);
+1.  You should have NodeJS 8.2.1 (other recent versions should also work fine);
 
 2.  Install dependencies with one of the following commands:
     -   `$ npm install` Installs all dependencies. Recommended for local development;

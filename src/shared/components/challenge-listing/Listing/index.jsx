@@ -17,6 +17,8 @@ export default function Listing({
   loadingPastChallenges,
   loadMoreDraft,
   loadMorePast,
+  openChallengesInNewTabs,
+  prizeMode,
   selectBucket,
   setFilterState,
   setSort,
@@ -47,6 +49,8 @@ export default function Listing({
           expanded
           loading={loading}
           loadMore={loadMore}
+          openChallengesInNewTabs={openChallengesInNewTabs}
+          prizeMode={prizeMode}
           setFilterState={setFilterState}
           setSort={sort => setSort(activeBucket, sort)}
           sort={sorts[activeBucket]}
@@ -76,6 +80,8 @@ export default function Listing({
         expand={() => selectBucket(bucket)}
         loading={loading}
         loadMore={loadMore}
+        openChallengesInNewTabs={openChallengesInNewTabs}
+        prizeMode={prizeMode}
         setFilterState={setFilterState}
         setSort={sort => setSort(bucket, sort)}
         sort={sorts[bucket]}
@@ -98,14 +104,15 @@ export default function Listing({
 }
 
 Listing.defaultProps = {
+  challenges: [],
+  currentFilterName: '',
+  expanded: false,
   groupId: '',
   loadMoreDraft: null,
   loadMorePast: null,
   onTechTagClicked: _.noop,
   onExpandFilterResult: _.noop,
-  currentFilterName: '',
-  challenges: [],
-  expanded: false,
+  openChallengesInNewTabs: false,
 };
 
 Listing.propTypes = {
@@ -121,6 +128,8 @@ Listing.propTypes = {
   loadingPastChallenges: PT.bool.isRequired,
   loadMoreDraft: PT.func,
   loadMorePast: PT.func,
+  openChallengesInNewTabs: PT.bool,
+  prizeMode: PT.string.isRequired,
   selectBucket: PT.func.isRequired,
   setFilterState: PT.func.isRequired,
   setSort: PT.func.isRequired,

@@ -8,10 +8,11 @@
 import _ from 'lodash';
 import LoadingIndicator from 'components/LoadingIndicator';
 import ChallengeHeader from 'components/challenge-detail/Header';
-import ChallengeDetailsView from 'components/challenge-detail/ChallengeDetailsView';
 import Registrants from 'components/challenge-detail/Registrants';
 import Submissions from 'components/challenge-detail/Submissions';
 import Winners from 'components/challenge-detail/Winners';
+import ChallengeDetailsView from 'components/challenge-detail/Specification';
+import ChallengeCheckpoints from 'components/challenge-detail/Checkpoints';
 import React from 'react';
 import PT from 'prop-types';
 import { connect } from 'react-redux';
@@ -45,7 +46,7 @@ class ChallengeDetailPageContainer extends React.Component {
     if (checkpoints && checkpoints.length > 0
       && !nextProps.loadingCheckpointResults
       && !nextProps.checkpointResults) {
-      this.props.loadCheckpointResults(this.props.authTokens, this.props.challengeId);
+      this.props.fetchCheckpoints(this.props.authTokens, this.props.challengeId);
     }
     if (nextProps.challenge.status === 'COMPLETED' &&
       !nextProps.loadingResults &&
@@ -91,11 +92,13 @@ class ChallengeDetailPageContainer extends React.Component {
                 this.props.unregisterFromChallenge(this.props.authTokens, this.props.challengeId)
               }
               unregistering={this.props.unregistering}
+              checkpoints={this.props.checkpoints}
             />
           }
           {
             !isEmpty && this.state.selectedView === 'DETAILS' &&
             <ChallengeDetailsView
+              challenge={this.props.challenge}
               introduction={this.props.challenge.introduction}
               detailedRequirements={this.props.challenge.detailedRequirements}
             />
@@ -112,6 +115,10 @@ class ChallengeDetailPageContainer extends React.Component {
               results={this.props.results}
               places={this.props.challenge.prizes.length}
             />
+          }
+          {
+            !isEmpty && this.state.selectedView === 'CHECKPOINTS' &&
+            <ChallengeCheckpoints checkpoints={this.props.checkpoints} />
           }
           {
             !isEmpty && this.state.selectedView === 'SUBMISSIONS' &&
@@ -145,6 +152,7 @@ ChallengeDetailPageContainer.defaultProps = {
   checkpointResults: null,
   loadingResults: false,
   results: null,
+  checkpoints: {},
 };
 
 ChallengeDetailPageContainer.propTypes = {
@@ -163,11 +171,12 @@ ChallengeDetailPageContainer.propTypes = {
   checkpointResults: PT.arrayOf(PT.shape()),
   loadingResults: PT.bool,
   results: PT.arrayOf(PT.shape()),
-  loadCheckpointResults: PT.func.isRequired,
+  fetchCheckpoints: PT.func.isRequired,
   loadResults: PT.func.isRequired,
+  checkpoints: PT.shape(),
 };
 
-function extractChallengeDetail(v3, v2) {
+function extractChallengeDetail(v3, v2, challengeId) {
   let challenge = {};
   if (!_.isEmpty(v3)) {
     challenge = _.clone(v3);
@@ -180,15 +189,43 @@ function extractChallengeDetail(v3, v2) {
       challenge.checkpoints = v2.checkpoints;
       challenge.submissions = v2.submissions;
       challenge.submissionsViewable = v2.submissionsViewable;
+      challenge.forumLink = v2.forumLink;
+      challenge.screeningScorecardId = Number(v2.screeningScorecardId);
+      challenge.reviewScorecardId = Number(v2.reviewScorecardId);
+      challenge.submissionLimit = Number(v2.submissionLimit);
+      challenge.documents = v2.Documents;
+      challenge.fileTypes = v2.filetypes;
+      challenge.round1Introduction = v2.round1Introduction;
+      challenge.round2Introduction = v2.round2Introduction;
+      challenge.allowStockArt = v2.allowStockArt === 'true';
+      challenge.finalSubmissionGuidelines = v2.finalSubmissionGuidelines;
+      challenge.appealsEndDate = v2.appealsEndDate;
+      if (v2.event) {
+        challenge.mainEvent = {
+          eventName: v2.event.shortDescription,
+          eventId: v2.event.id,
+          description: v2.event.description,
+        };
+      }
     }
   } else if (!_.isEmpty(v2)) {
     challenge = {
-      id: v2.challengeId,
+      id: challengeId,
       status: v2.currentStatus,
       name: v2.challengeName,
       track: v2.challengeCommunity,
       subTrack: v2.challengeType,
-      events: v2.event ? [{ eventName: v2.event.shortDescription, eventId: v2.event.id }] : [],
+      events: v2.event ? [
+        {
+          eventName: v2.event.shortDescription,
+          eventId: v2.event.id,
+          description: v2.event.description,
+        }] : [],
+      mainEvent: v2.event ? {
+        eventName: v2.event.shortDescription,
+        eventId: v2.event.id,
+        description: v2.event.description,
+      } : {},
       technologies: v2.technology ? v2.technology.join(', ') : '',
       platforms: v2.platforms ? v2.platforms.join(', ') : '',
       prizes: v2.prize,
@@ -200,6 +237,19 @@ function extractChallengeDetail(v3, v2) {
       checkpoints: v2.checkpoints,
       submissions: v2.submissions,
       submissionsViewable: v2.submissionsViewable,
+      forumLink: v2.forumLink,
+      screeningScorecardId: Number(v2.screeningScorecardId),
+      reviewScorecardId: Number(v2.reviewScorecardId),
+      submissionLimit: Number(v2.submissionLimit),
+      documents: v2.Documents,
+      reviewType: v2.reviewType,
+      fileTypes: v2.filetypes,
+      round1Introduction: v2.round1Introduction,
+      round2Introduction: v2.round2Introduction,
+      allowStockArt: v2.allowStockArt === 'true',
+      finalSubmissionGuidelines: v2.finalSubmissionGuidelines,
+      appealsEndDate: v2.appealsEndDate,
+
     };
   }
   return challenge;
@@ -207,44 +257,56 @@ function extractChallengeDetail(v3, v2) {
 
 const mapStateToProps = (state, props) => ({
   challengeId: Number(props.match.params.challengeId),
-  challenge: extractChallengeDetail(state.challenge.details, state.challenge.detailsV2),
-  isLoadingChallenge: state.challenge.loadingDetails,
+  challenge: extractChallengeDetail(state.challenge.details,
+    state.challenge.detailsV2,
+    Number(props.match.params.challengeId)),
+  isLoadingChallenge: Boolean(state.challenge.loadingDetailsForChallengeId),
   authTokens: state.auth,
   tokenV2: state.auth && state.auth.tokenV2,
   tokenV3: state.auth && state.auth.tokenV3,
   registering: state.challenge.registering,
   unregistering: state.challenge.unregistering,
-  checkpointResults: state.challenge.checkpointResults,
-  loadingCheckpointResults: state.challenge.loadingCheckpointResults,
+  checkpointResults: (state.challenge.checkpoints || {}).checkpointResults,
+  loadingCheckpointResults: state.challenge.loadingCheckpoints,
   results: state.challenge.results,
   loadingResults: state.challenge.loadingResults,
+  checkpoints: state.challenge.checkpoints,
 });
 
 const mapDispatchToProps = (dispatch) => {
   const a = challengeActions.challenge;
   return {
     loadChallengeDetails: (tokens, challengeId) => {
-      dispatch(challengeActions.fetchChallengeInit());
-      dispatch(challengeActions.fetchChallengeDone(tokens, challengeId));
+      dispatch(a.getDetailsInit(challengeId));
+      dispatch(a.getDetailsDone(challengeId, tokens.tokenV3, tokens.tokenV2))
+        .then((challengeDetails) => {
+          dispatch(a.fetchCheckpointsInit());
+          dispatch(a.fetchCheckpointsDone(tokens.tokenV2, challengeId));
+          return challengeDetails;
+        });
     },
     registerForChallenge: (auth, challengeId) => {
       dispatch(a.registerInit());
       dispatch(a.registerDone(auth, challengeId));
     },
     reloadChallengeDetails: (tokens, challengeId) => {
-      dispatch(challengeActions.fetchChallengeDone(tokens, challengeId));
+      dispatch(a.getDetailsDone(challengeId, tokens.tokenV3, tokens.tokenV2))
+        .then((challengeDetails) => {
+          dispatch(a.fetchCheckpointsDone(tokens.tokenV2, challengeId));
+          return challengeDetails;
+        });
     },
     unregisterFromChallenge: (auth, challengeId) => {
       dispatch(a.unregisterInit());
       dispatch(a.unregisterDone(auth, challengeId));
     },
-    loadCheckpointResults: (auth, challengeId) => {
-      dispatch(a.loadCheckpointResultsInit());
-      dispatch(a.loadCheckpointResultsDone(auth, challengeId));
-    },
     loadResults: (auth, challengeId, type) => {
       dispatch(a.loadResultsInit());
       dispatch(a.loadResultsDone(auth, challengeId, type));
+    },
+    fetchCheckpoints: (tokens, challengeId) => {
+      dispatch(a.fetchCheckpointsInit());
+      dispatch(a.fetchCheckpointsDone(tokens.tokenV2, challengeId));
     },
   };
 };

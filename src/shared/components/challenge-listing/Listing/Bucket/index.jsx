@@ -22,6 +22,8 @@ export default function Bucket({
   expand,
   loading,
   loadMore,
+  openChallengesInNewTabs,
+  prizeMode,
   setFilterState,
   setSort,
   sort,
@@ -50,6 +52,8 @@ export default function Bucket({
     <ChallengeCard
       challenge={item}
       onTechTagClicked={tag => setFilterState({ tags: [tag] })}
+      openChallengesInNewTabs={openChallengesInNewTabs}
+      prizeMode={prizeMode}
       key={item.id}
     />
   ));
@@ -101,6 +105,7 @@ Bucket.defaultProps = {
   expand: _.noop,
   loading: false,
   loadMore: null,
+  openChallengesInNewTabs: false,
   sort: null,
 };
 
@@ -111,6 +116,8 @@ Bucket.propTypes = {
   challenges: PT.arrayOf(PT.shape()).isRequired,
   loading: PT.bool,
   loadMore: PT.func,
+  openChallengesInNewTabs: PT.bool,
+  prizeMode: PT.string.isRequired,
   setFilterState: PT.func.isRequired,
   setSort: PT.func.isRequired,
   sort: PT.string,

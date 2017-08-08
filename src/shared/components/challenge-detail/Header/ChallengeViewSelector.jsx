@@ -21,7 +21,9 @@ export default function ChallengeViewSelector(props) {
     selectedView,
     numRegistrants,
     status,
-    hasCheckpoints,
+    // hasCheckpoints,
+    // numSubmissions,
+    checkpointCount,
   } = props;
   return (
     <div styleName="challenge-view-selector">
@@ -36,11 +38,11 @@ export default function ChallengeViewSelector(props) {
       >REGISTRANTS {numRegistrants ? `(${numRegistrants})` : ''}
       </a>
       {
-        hasCheckpoints &&
+        trackLower === 'design' && checkpointCount > 0 &&
         <a
           onClick={(e) => { e.preventDefault(); onSelectorClicked('CHECKPOINTS'); }}
           styleName={getSelectorStyle(selectedView, 'CHECKPOINTS', trackLower)}
-        >CHECKPOINTS
+        >CHECKPOINTS ({checkpointCount})
         </a>
       }
       {
@@ -71,6 +73,8 @@ export default function ChallengeViewSelector(props) {
 
 ChallengeViewSelector.defaultProps = {
   numRegistrants: 0,
+  numSubmissions: 0,
+  checkpointCount: 0,
 };
 
 ChallengeViewSelector.propTypes = {
@@ -79,5 +83,7 @@ ChallengeViewSelector.propTypes = {
   selectedView: PT.string.isRequired,
   numRegistrants: PT.number,
   status: PT.string.isRequired,
-  hasCheckpoints: PT.bool.isRequired,
+  // hasCheckpoints: PT.bool.isRequired,
+  // numSubmissions: PT.number,
+  checkpointCount: PT.number,
 };

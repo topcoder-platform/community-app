@@ -17,7 +17,7 @@ $panel-radius-4: $corner-radius * 2;
   width: 100%;
   position: relative;
 
-  @include xs-to-sm {
+  @include xxs-to-sm {
     position: fixed;
     z-index: 10;
     width: auto;
@@ -37,7 +37,7 @@ $panel-radius-4: $corner-radius * 2;
   .header {
     display: none;
 
-    @include xs-to-sm {
+    @include xxs-to-sm {
       display: flex;
       justify-content: space-between;
       padding-bottom: 25px;
@@ -47,7 +47,7 @@ $panel-radius-4: $corner-radius * 2;
   .title {
     display: none;
 
-    @include xs-to-sm {
+    @include xxs-to-sm {
       display: block;
       font-weight: 500;
       font-size: 12px;
@@ -61,7 +61,7 @@ $panel-radius-4: $corner-radius * 2;
   .close-icon {
     display: none;
 
-    @include xs-to-sm {
+    @include xxs-to-sm {
       display: block;
       cursor: pointer;
     }
@@ -75,7 +75,7 @@ $panel-radius-4: $corner-radius * 2;
     right: $panel-space-20;
     top: $panel-space-15;
 
-    @include xs-to-sm {
+    @include xxs-to-sm {
       float: none;
       display: flex;
       justify-content: center;
@@ -91,14 +91,14 @@ $panel-radius-4: $corner-radius * 2;
       width: $panel-space-100 - 3;
       margin-left: 0;
 
-      @include xs-to-sm {
+      @include xxs-to-sm {
         display: inline-block;
       }
 
       &.blue {
         color: $tc-white;
 
-        @include xs-to-sm {
+        @include xxs-to-sm {
           margin: 0 3px;
         }
       }
@@ -107,7 +107,7 @@ $panel-radius-4: $corner-radius * 2;
         color: $tc-gray-70;
         margin-bottom: $panel-space-15;
 
-        @include xs-to-sm {
+        @include xxs-to-sm {
           margin: 0 3px;
         }
       }
@@ -119,7 +119,7 @@ $panel-radius-4: $corner-radius * 2;
   display: inline-block;
   width: 100%;
 
-  @include xs-to-sm {
+  @include xxs-to-sm {
     display: block;
   }
 
@@ -128,7 +128,7 @@ $panel-radius-4: $corner-radius * 2;
     align-items: center;
     margin-right: $panel-space-100 + 17;
 
-    @include xs-to-sm {
+    @include xxs-to-sm {
       display: block;
     }
   }
@@ -174,7 +174,7 @@ $panel-radius-4: $corner-radius * 2;
 
       margin-right: $panel-space-30;
 
-      @include xs-to-sm {
+      @include xxs-to-sm {
         width: initial;
       }
     }
@@ -183,7 +183,7 @@ $panel-radius-4: $corner-radius * 2;
       display: inline-block;
       text-align: left;
 
-      @include xs-to-sm {
+      @include xxs-to-sm {
         margin-top: 20px;
       }
     }
@@ -194,7 +194,7 @@ $panel-radius-4: $corner-radius * 2;
   .filter.keywords {
     @include calc(width, '50% - 30px');
 
-    @include xs-to-sm {
+    @include xxs-to-sm {
       width: 100%;
     }
 
@@ -204,7 +204,7 @@ $panel-radius-4: $corner-radius * 2;
   .filter.community {
     @include calc(width, '50% - 30px');
 
-    @include xs-to-sm {
+    @include xxs-to-sm {
       width: 100%;
     }
 
@@ -220,7 +220,7 @@ $panel-radius-4: $corner-radius * 2;
   .filter.track {
     @include calc(width, '50% - 30px');
 
-    @include xs-to-sm {
+    @include xxs-to-sm {
       width: 100%;
     }
   }

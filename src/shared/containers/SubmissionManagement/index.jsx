@@ -22,7 +22,8 @@ import smpActions from '../../actions/smp';
 // The container component
 class SubmissionManagementPageContainer extends React.Component {
   componentDidMount() {
-    if (!(this.props.challenge || this.props.isLoadingChallenge)) {
+    if (!this.props.challenge
+      || (_.toString(this.props.challenge.id) !== _.toString(this.props.challengeId))) {
       this.props.loadChallengeDetails(this.props.authTokens, this.props.challengeId);
     }
 
@@ -142,7 +143,7 @@ const mapStateToProps = (state, props) => ({
 
   deleting: state.challenge.mySubmissionsManagement.deletingSubmission,
 
-  isLoadingChallenge: state.challenge.loadingDetails,
+  isLoadingChallenge: Boolean(state.challenge.loadingDetailsForChallengeId),
 
   mySubmissions: (state.challenge.mySubmissions || {}).v2,
   isLoadingSubmissions: state.challenge.loadingMySubmissions,
@@ -177,13 +178,15 @@ const mapDispatchToProps = dispatch => ({
   },
 
   loadChallengeDetails: (tokens, challengeId) => {
-    dispatch(challengeActions.fetchChallengeInit());
-    dispatch(challengeActions.fetchChallengeDone(tokens, challengeId));
+    const a = challengeActions.challenge;
+    dispatch(a.getDetailsInit(challengeId));
+    dispatch(a.getDetailsDone(challengeId, tokens.tokenV3, tokens.tokenV2));
   },
 
   loadMySubmissions: (tokens, challengeId) => {
-    dispatch(challengeActions.fetchSubmissionsInit());
-    dispatch(challengeActions.fetchSubmissionsDone(tokens, challengeId));
+    const a = challengeActions.challenge;
+    dispatch(a.getSubmissionsInit());
+    dispatch(a.getSubmissionsDone(challengeId, tokens.tokenV2));
   },
 });
 

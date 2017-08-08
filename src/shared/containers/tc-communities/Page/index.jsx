@@ -13,9 +13,12 @@
  * It redirects to 404 page if content cannot be rendered by its pageId.
  */
 
+/* global window */
+
 import _ from 'lodash';
 import challengeListingActions from 'actions/challenge-listing';
 import challengeListingSidebarActions from 'actions/challenge-listing/sidebar';
+import config from 'utils/config';
 import PT from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
@@ -36,6 +39,9 @@ import Leaderboard from 'containers/Leaderboard';
 import WiproHome from 'components/tc-communities/communities/wipro/Home';
 import WiproFooter from 'components/tc-communities/communities/wipro/Footer';
 import WiproLearn from 'components/tc-communities/communities/wipro/Learn';
+
+import QaHome from 'components/tc-communities/communities/qa/Home';
+import QaLearn from 'components/tc-communities/communities/qa/Learn';
 
 import TcProdDevHome from 'components/tc-communities/communities/tc-prod-dev/Home';
 import TcProdDevLearn from 'components/tc-communities/communities/tc-prod-dev/Learn';
@@ -64,6 +70,12 @@ export class Page extends Component {
 
     if (this.props.meta.newsFeed && !this.props.news && !this.props.loadingNews) {
       this.props.loadNews(this.props.meta.newsFeed);
+    }
+
+    if (!this.props.profile && (communityId === 'wipro')) {
+      const returnUrl = encodeURIComponent(window.location.href);
+      window.location.replace(
+        `${config.URL.AUTH}/sso-login/?retUrl=${returnUrl}`);
     }
   }
 
@@ -98,6 +110,12 @@ export class Page extends Component {
       switch (pageId) {
         case 'home': pageContent = <Community2Home />; break;
         case 'learn': pageContent = <Community2Learn />; break;
+        default: break;
+      }
+    } else if (communityId === 'qa') {
+      switch (pageId) {
+        case 'home': pageContent = <QaHome />; break;
+        case 'learn': pageContent = <QaLearn />; break;
         default: break;
       }
     } else if (communityId === 'tc-prod-dev') {
@@ -154,6 +172,11 @@ export class Page extends Component {
       case 'challenges': {
         const query = this.props.location.search ?
           qs.parse(this.props.location.search.slice(1)) : null;
+
+        const currencyFromUrl = _.get(query, 'currency');
+        const prizeMode = currencyFromUrl ? `money-${currencyFromUrl}`
+          : _.get(this.props.meta, 'challengeListing.prizeMode');
+
         pageContent = (<ChallengeListing
           groupId={this.props.meta.groupId}
           communityId={_.has(query, 'communityId') ? query.communityId : this.props.meta.communityId}
@@ -162,6 +185,10 @@ export class Page extends Component {
           history={this.props.history}
           hideTcLinksInSidebarFooter={this.props.meta.communityId === 'wipro'}
           location={this.props.location}
+          openChallengesInNewTabs={
+            _.get(this.props.meta, 'challengeListing.openChallengesInNewTabs')
+          }
+          prizeMode={prizeMode}
         />);
         break;
       }
@@ -217,20 +244,14 @@ export class Page extends Component {
         );
       }
       return <AccessDenied cause={ACCESS_DENIED_CAUSE.NOT_AUTHORIZED} />;
-    } else if (this.props.authenticating || isNotLoaded) {
+    } else if (this.props.authenticating || isNotLoaded || communityId === 'wipro') {
       return (
         <div styleName="loading">
           <LoadingIndicator />
         </div>
       );
     }
-    return (
-      <AccessDenied
-        cause={communityId === 'wipro'
-          ? ACCESS_DENIED_CAUSE.NOT_AUTHENTICATED_WIPRO : ACCESS_DENIED_CAUSE.NOT_AUTHENTICATED
-        }
-      />
-    );
+    return <AccessDenied cause={ACCESS_DENIED_CAUSE.NOT_AUTHENTICATED} />;
   }
 }
 
@@ -257,6 +278,10 @@ Page.propTypes = {
     authorizedGroupIds: PT.arrayOf(PT.string),
     challengeFilterTag: PT.string,
     groupId: PT.string,
+    challengeListing: PT.shape({
+      openChallengesInNewTabs: PT.bool,
+      prizeMode: PT.string,
+    }),
     communityId: PT.string,
     communityName: PT.string,
     communitySelector: PT.arrayOf(PT.shape()),
@@ -268,7 +293,13 @@ Page.propTypes = {
 
     leaderboardApiUrl: PT.string,
     loading: PT.bool,
-    logos: PT.arrayOf(PT.string).isRequired,
+    logos: PT.arrayOf(PT.oneOfType([
+      PT.string,
+      PT.shape({
+        img: PT.string.isRequired,
+        url: PT.string,
+      }),
+    ])),
     additionalLogos: PT.arrayOf(PT.string),
     stats: PT.shape(),
     hideSearch: PT.bool,

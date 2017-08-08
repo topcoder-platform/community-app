@@ -9,7 +9,7 @@
     border-bottom: 1px solid $tc-gray-30;
     padding: 0 $base-unit * 4;
 
-    @include xs-to-sm {
+    @include xxs-to-sm {
       padding: 0 $base-unit * 3;
     }
   }
@@ -18,7 +18,7 @@
     margin-top: 14.3px;
     margin-left: 0;
 
-    @include xs-to-sm {
+    @include xxs-to-sm {
       display: none;
     }
   }
@@ -27,7 +27,7 @@
     display: inline-block;
     margin-right: 10px;
 
-    @include xs-to-sm {
+    @include xxs-to-sm {
       display: none;
     }
   }
@@ -37,7 +37,7 @@
     display: inline-block;
     height: 60px;
 
-    @include xs-to-sm {
+    @include xxs-to-sm {
       height: 40px;
     }
   }
@@ -45,7 +45,7 @@
   .track-btn {
     display: none;
 
-    @include xs-to-sm {
+    @include xxs-to-sm {
       position: relative;
       cursor: pointer;
       display: inline-block;
@@ -74,7 +74,7 @@
   .filter-btn {
     display: none;
 
-    @include xs-to-sm {
+    @include xxs-to-sm {
       cursor: pointer;
       display: inline-block;
       height: 40px;

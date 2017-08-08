@@ -304,8 +304,11 @@ class ChallengeStatus extends Component {
   }
 
   renderRegisterButton() {
-    const { challenge } = this.props;
-    const { detailLink } = this.props;
+    const {
+      challenge,
+      detailLink,
+      openChallengesInNewTabs,
+    } = this.props;
     const lng = getTimeLeft(
       challenge.registrationEndDate || challenge.submissionEndDate,
       challenge.currentPhases[0] ? challenge.currentPhases[0].phaseType : '',
@@ -313,8 +316,9 @@ class ChallengeStatus extends Component {
     return (
       <a
         href={detailLink}
-        styleName="register-button"
         onClick={() => false}
+        styleName="register-button"
+        target={openChallengesInNewTabs ? '_blank' : undefined}
       >
         <span>
           {
@@ -330,7 +334,7 @@ class ChallengeStatus extends Component {
   }
 
   renderLeaderboard() {
-    const { challenge } = this.props;
+    const { challenge, openChallengesInNewTabs } = this.props;
     const { DS_CHALLENGE_URL, CHALLENGE_URL } = this.state;
     const { id, track } = challenge;
 
@@ -353,7 +357,14 @@ class ChallengeStatus extends Component {
 
     const leaderboard = winners && winners.map((winner) => {
       if (winner.isLastItem) {
-        return <LeaderboardAvatar key={winner.handle} member={winner} url={`${this.props.detailLink}#winner`} />;
+        return (
+          <LeaderboardAvatar
+            key={winner.handle}
+            member={winner}
+            openNewTab={openChallengesInNewTabs}
+            url={`${this.props.detailLink}#winner`}
+          />
+        );
       }
       const userProfile = getProfile(winner);
       return (
@@ -382,12 +393,13 @@ class ChallengeStatus extends Component {
 ChallengeStatus.defaultProps = {
   challenge: {},
   detailLink: '',
-  sampleWinnerProfile: undefined,
+  openChallengesInNewTabs: false,
 };
 
 ChallengeStatus.propTypes = {
   challenge: PT.shape(),
   detailLink: PT.string,
+  openChallengesInNewTabs: PT.bool,
 };
 
 export default ChallengeStatus;

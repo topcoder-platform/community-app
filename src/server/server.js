@@ -9,10 +9,8 @@ import path from 'path';
 import favicon from 'serve-favicon';
 import requestIp from 'request-ip';
 import stream from 'stream';
+import { getRates as getExchangeRates } from 'services/money';
 import { toJson as xmlToJson } from 'utils/xml2json';
-
-// Temporarily here to test our API service.
-// import '../shared/services/api';
 
 // Dome API for topcoder communities
 import tcCommunitiesDemoApi from './tc-communities';
@@ -97,6 +95,12 @@ app.use('/api/tc-communities', tcCommunitiesDemoApi);
  */
 app.use('/api/xml2json', (req, res) => {
   xmlToJson(req.body.xml).then(json => res.json(json));
+});
+
+/* Returns currency exchange rates, cached at the server-side (thus drastically
+ * reducing amount of calls to openexchangerates.com). */
+app.use('/api/exchange-rates', (req, res) => {
+  getExchangeRates().then(rates => res.send(rates));
 });
 
 app.use(renderer);

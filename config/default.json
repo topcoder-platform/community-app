@@ -29,6 +29,17 @@
    * the setup. To override it use LOG_ENTRIES_TOKEN environment variable. */
   "LOG_ENTRIES_TOKEN": "816f5574-0d4a-49f9-ab3b-00d791f7c1f7",
 
+  /* Configuration related to https://openexchangerates.org. This is the
+   * service which provides currency exchange rates. */
+  "OPEN_EXCHANGE": {
+    /* Once the app is running, currency rates are cached server-side and
+     * refreshed each X hours, where X is the number configured here. */
+    "MAXAGE": 12,
+
+    /* API token. */
+    "TOKEN": "3fcd4a89fca148fa9e8537550d29410f"
+  },
+
   /* Amount of time [seconds] before expiration of authentication tokens,
    * when the frontend will automatically trigger their refreshment. Once
    * ready, it will either write to the Redux store fresh token, or will
@@ -43,7 +54,7 @@
    * platform. */
   "URL": {
     "ARENA": "https://arena.topcoder-dev.com",
-    "AUTH": "https://accounts.topcoder-dev.com",
+    "AUTH": "http://accounts-test.topcoder-dev.com",
     "BASE": "https://www.topcoder-dev.com",
     "COMMUNITY": "https://community.topcoder-dev.com",
     "FORUMS": "https://apps.topcoder-dev.com/forums",

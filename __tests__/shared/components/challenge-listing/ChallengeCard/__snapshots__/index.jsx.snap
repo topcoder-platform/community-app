@@ -31,6 +31,7 @@ exports[`Matches shallow shapshot shapshot 1 1`] = `
       <a
         className="src-shared-components-challenge-listing-ChallengeCard-___style__challenge-title___vir_2"
         href="https://www.topcoder-dev.com/challenge-details/undefined/?type=develop"
+        target={undefined}
       />
       <div
         className="src-shared-components-challenge-listing-ChallengeCard-___style__details-footer___3zNR-"
@@ -54,48 +55,19 @@ exports[`Matches shallow shapshot shapshot 1 1`] = `
     <div
       className="src-shared-components-challenge-listing-ChallengeCard-___style__prizes___3Ms6o src-shared-components-challenge-listing-ChallengeCard-___style__with-register-button___1Gmjf"
     >
-      <PrizesTooltip
-        challenge={
-          Object {
-            "allPhases": Array [
-              Object {
-                "phaseStatus": "Open",
-                "phaseType": "Registration",
-              },
-            ],
-            "currentPhases": Array [
-              "Registration",
-            ],
-            "events": Array [
-              Object {
-                "eventName": "Submit",
-              },
-            ],
-            "isDataScience": true,
-            "prize": Array [],
-            "status": "ACTIVE",
-            "subTrack": "CODE",
-            "technologies": "Data Science",
-            "track": "DEVELOP",
-          }
+      <Prize
+        bonuses={Array []}
+        label="Purse"
+        prizeUnitSymbol="$"
+        prizes={
+          Array [
+            1200,
+            600,
+          ]
         }
-      >
-        <div>
-          <div>
-            <span
-              className="src-shared-components-challenge-listing-ChallengeCard-___style__dollar___8eptG"
-            >
-              $
-            </span>
-            0
-          </div>
-          <div
-            className="src-shared-components-challenge-listing-ChallengeCard-___style__label___1gJ8o"
-          >
-            Purse
-          </div>
-        </div>
-      </PrizesTooltip>
+        totalPrize={1800}
+        withoutTooltip={false}
+      />
     </div>
     <ChallengeStatus
       challenge={
@@ -115,14 +87,23 @@ exports[`Matches shallow shapshot shapshot 1 1`] = `
             },
           ],
           "isDataScience": true,
-          "prize": Array [],
+          "prize": Array [
+            1200,
+            600,
+          ],
+          "prizes": Array [
+            1200,
+            600,
+          ],
           "status": "ACTIVE",
           "subTrack": "CODE",
           "technologies": "Data Science",
+          "totalPrize": 1800,
           "track": "DEVELOP",
         }
       }
       detailLink="https://www.topcoder-dev.com/challenge-details/undefined/?type=develop"
+      openChallengesInNewTabs={false}
       sampleWinnerProfile={undefined}
     />
   </div>
@@ -160,6 +141,7 @@ exports[`Matches shallow shapshot shapshot 2 1`] = `
       <a
         className="src-shared-components-challenge-listing-ChallengeCard-___style__challenge-title___vir_2"
         href="https://community.topcoder-dev.com/tc?module=MatchDetails&rd=1"
+        target={undefined}
       />
       <div
         className="src-shared-components-challenge-listing-ChallengeCard-___style__details-footer___3zNR-"
@@ -183,44 +165,19 @@ exports[`Matches shallow shapshot shapshot 2 1`] = `
     <div
       className="src-shared-components-challenge-listing-ChallengeCard-___style__prizes___3Ms6o"
     >
-      <PrizesTooltip
-        challenge={
-          Object {
-            "allPhases": Array [
-              Object {
-                "phaseStatus": "Open",
-                "phaseType": "Submit",
-              },
-            ],
-            "currentPhases": Array [
-              "Registration",
-            ],
-            "id": "1",
-            "isDataScience": false,
-            "prize": Array [],
-            "subTrack": "CODE",
-            "technologies": "Go",
-            "totalPrize": 1000,
-            "track": "DATA_SCIENCE",
-          }
+      <Prize
+        bonuses={Array []}
+        label="Purse"
+        prizeUnitSymbol="$"
+        prizes={
+          Array [
+            1200,
+            600,
+          ]
         }
-      >
-        <div>
-          <div>
-            <span
-              className="src-shared-components-challenge-listing-ChallengeCard-___style__dollar___8eptG"
-            >
-              $
-            </span>
-            1,000
-          </div>
-          <div
-            className="src-shared-components-challenge-listing-ChallengeCard-___style__label___1gJ8o"
-          >
-            Purse
-          </div>
-        </div>
-      </PrizesTooltip>
+        totalPrize={1800}
+        withoutTooltip={false}
+      />
     </div>
     <ChallengeStatus
       challenge={
@@ -236,14 +193,22 @@ exports[`Matches shallow shapshot shapshot 2 1`] = `
           ],
           "id": "1",
           "isDataScience": false,
-          "prize": Array [],
+          "prize": Array [
+            1200,
+            600,
+          ],
+          "prizes": Array [
+            1200,
+            600,
+          ],
           "subTrack": "CODE",
           "technologies": "Go",
-          "totalPrize": 1000,
+          "totalPrize": 1800,
           "track": "DATA_SCIENCE",
         }
       }
       detailLink="https://community.topcoder-dev.com/tc?module=MatchDetails&rd=1"
+      openChallengesInNewTabs={false}
       sampleWinnerProfile={undefined}
     />
   </div>
@@ -281,6 +246,7 @@ exports[`Matches shallow shapshot shapshot 3 1`] = `
       <a
         className="src-shared-components-challenge-listing-ChallengeCard-___style__challenge-title___vir_2"
         href="https://www.topcoder-dev.com/challenge-details/long id/?type=develop"
+        target={undefined}
       />
       <div
         className="src-shared-components-challenge-listing-ChallengeCard-___style__details-footer___3zNR-"
@@ -304,44 +270,19 @@ exports[`Matches shallow shapshot shapshot 3 1`] = `
     <div
       className="src-shared-components-challenge-listing-ChallengeCard-___style__prizes___3Ms6o"
     >
-      <PrizesTooltip
-        challenge={
-          Object {
-            "allPhases": Array [
-              Object {
-                "phaseStatus": "Closed",
-                "phaseType": "Registration",
-              },
-            ],
-            "currentPhases": Array [
-              "Registration",
-            ],
-            "id": "long id",
-            "isDataScience": false,
-            "prize": Array [],
-            "subTrack": "CODE",
-            "technologies": "",
-            "totalPrize": 1000,
-            "track": "DATA_SCIENCE",
-          }
+      <Prize
+        bonuses={Array []}
+        label="Purse"
+        prizeUnitSymbol="$"
+        prizes={
+          Array [
+            1200,
+            600,
+          ]
         }
-      >
-        <div>
-          <div>
-            <span
-              className="src-shared-components-challenge-listing-ChallengeCard-___style__dollar___8eptG"
-            >
-              $
-            </span>
-            1,000
-          </div>
-          <div
-            className="src-shared-components-challenge-listing-ChallengeCard-___style__label___1gJ8o"
-          >
-            Purse
-          </div>
-        </div>
-      </PrizesTooltip>
+        totalPrize={1800}
+        withoutTooltip={false}
+      />
     </div>
     <ChallengeStatus
       challenge={
@@ -357,14 +298,22 @@ exports[`Matches shallow shapshot shapshot 3 1`] = `
           ],
           "id": "long id",
           "isDataScience": false,
-          "prize": Array [],
+          "prize": Array [
+            1200,
+            600,
+          ],
+          "prizes": Array [
+            1200,
+            600,
+          ],
           "subTrack": "CODE",
           "technologies": "",
-          "totalPrize": 1000,
+          "totalPrize": 1800,
           "track": "DATA_SCIENCE",
         }
       }
       detailLink="https://www.topcoder-dev.com/challenge-details/long id/?type=develop"
+      openChallengesInNewTabs={false}
       sampleWinnerProfile={undefined}
     />
   </div>

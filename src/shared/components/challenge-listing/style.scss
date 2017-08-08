@@ -10,7 +10,7 @@ $challenge-radius-4: $corner-radius * 2;
     width: 100%;
     padding: $challenge-space-20;
 
-    @include xs {
+    @include xxs-to-xs {
       padding: $challenge-space-10;
     }
   }
@@ -23,7 +23,7 @@ $challenge-radius-4: $corner-radius * 2;
     display: flex;
     padding: $challenge-space-10;
 
-    @include xs-to-sm {
+    @include xxs-to-sm {
       display: block;
       padding: $base-unit * 0;
     }
@@ -33,7 +33,7 @@ $challenge-radius-4: $corner-radius * 2;
     width: 70%;
     padding: $challenge-space-10;
 
-    @include xs-to-sm {
+    @include xxs-to-sm {
       width: 100%;
       padding-top: 0;
     }
@@ -43,7 +43,7 @@ $challenge-radius-4: $corner-radius * 2;
     width: 70%;
     padding: $challenge-space-10;
 
-    @include xs-to-sm {
+    @include xxs-to-sm {
       width: 100%;
       padding-top: 0;
     }
@@ -60,7 +60,7 @@ $challenge-radius-4: $corner-radius * 2;
       border-top-right-radius: $corner-radius * 2;
       margin-top: $base-unit * 4;
 
-      @include xs-to-sm {
+      @include xxs-to-sm {
         margin-top: $base-unit * 2;
       }
     }
@@ -70,7 +70,7 @@ $challenge-radius-4: $corner-radius * 2;
     margin: $challenge-space-20 $challenge-space-10 $challenge-space-10;
     display: none;
 
-    @include xs-to-sm {
+    @include xxs-to-sm {
       display: block;
       margin: 0;
       padding: $challenge-space-10;
@@ -82,7 +82,7 @@ $challenge-radius-4: $corner-radius * 2;
     margin: $challenge-space-20 $challenge-space-10 $challenge-space-10;
     width: 30%;
 
-    @include xs-to-sm {
+    @include xxs-to-sm {
       display: none;
     }
   }

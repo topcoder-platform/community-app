@@ -3,7 +3,7 @@
 .sidebar-footer {
   padding: 10px 0 24px;
 
-  @include xs-to-sm {
+  @include xxs-to-sm {
     display: none;
   }
 

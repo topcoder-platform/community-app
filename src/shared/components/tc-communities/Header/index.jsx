@@ -61,6 +61,30 @@ export default function Header(props) {
     };
   }
 
+  const renderedLogos = logos.map((item) => {
+    const img = _.isString(item) ? item : item.img;
+    let logo = <img alt="logo" src={_.isString(item) ? item : item.img} />;
+    if (_.isObject(item) && item.url) {
+      logo = (
+        <Link
+          key={img}
+          to={item.url}
+          styleName="logo"
+          className="tc-communities__header__logo"
+        >{logo}</Link>
+      );
+    } else {
+      logo = (
+        <span
+          key={img}
+          styleName="logo"
+          className="tc-communities__header__logo"
+        >{logo}</span>
+      );
+    }
+    return logo;
+  });
+
   const loginState = profile ? (
     <div
       onMouseEnter={event => openMenu(userSubMenu, event.target)}
@@ -127,26 +151,7 @@ export default function Header(props) {
           </button>
           <div styleName="logos-wrap">
             <div styleName="logos" className="tc-communities__header__logos">
-              {_.map(logos, (logoUrl, index) =>
-                (menuItems.length ? (
-                  <Link
-                    key={index}
-                    to={menuItems[0].url}
-                    styleName="logo"
-                    className="tc-communities__header__logo"
-                  >
-                    <img src={logoUrl} alt="Community logo" />
-                  </Link>
-                ) : (
-                  <span
-                    key={index}
-                    styleName="logo"
-                    className="tc-communities__header__logo"
-                  >
-                    <img src={logoUrl} alt="Community logo" />
-                  </span>
-                )),
-              )}
+              {renderedLogos}
             </div>
 
             <div
@@ -240,7 +245,13 @@ Header.propTypes = {
     title: PT.string.isRequired,
     url: PT.string.isRequired,
   })),
-  logos: PT.arrayOf(PT.string),
+  logos: PT.arrayOf(PT.oneOfType([
+    PT.string,
+    PT.shape({
+      img: PT.string.isRequired,
+      url: PT.string,
+    }),
+  ])),
   additionalLogos: PT.arrayOf(PT.string),
   hideSearch: PT.bool,
   chevronOverAvatar: PT.bool,

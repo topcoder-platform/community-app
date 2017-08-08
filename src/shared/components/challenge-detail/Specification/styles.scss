@@ -1,0 +1,368 @@
+@import "~styles/tc-styles";
+$tc-link-visited: #0c4e98;
+
+@mixin linkStyle {
+  a {
+    color: $tc-dark-blue;
+    word-wrap: break-word;
+    word-break: break-all;
+  }
+
+  a:hover {
+    text-decoration: underline;
+  }
+
+  a:active {
+    text-decoration: underline;
+    color: $tc-dark-blue-70;
+  }
+
+  a:visited {
+    color: $tc-link-visited;
+  }
+}
+
+.challenge-details-view {
+  white-space: normal;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: baseline;
+
+  .challenge-specifications {
+    flex: 4;
+    text-align: left;
+    font-family: roboto;
+    font-weight: 400;
+    display: flex;
+    flex-direction: column;
+    margin: 5px 0 50px;
+
+    @include xs-to-lg {
+      min-width: 310px;
+    }
+
+    .challenge-specs-main {
+      padding: 0 20px;
+      max-width: 720px;
+      align-self: center;
+      font-family: roboto;
+      font-weight: 400;
+      font-size: 15px;
+      color: $tc-gray-90;
+      line-height: 25px;
+      white-space: normal;
+
+      h1 {
+        font-family: roboto;
+        font-weight: 500;
+        font-size: 28px;
+        color: $tc-black;
+        letter-spacing: -0.78px;
+        line-height: 40px;
+        margin: 50px 0 10px;
+      }
+
+      h2 {
+        font-family: roboto;
+        font-weight: 700;
+        font-size: 20px;
+        color: $tc-black;
+        line-height: 30px;
+        margin: 50px 0 10px;
+      }
+
+      h3 {
+        font-family: roboto;
+        font-weight: 700;
+        font-size: 15px;
+        color: $tc-black;
+        line-height: 25px;
+        margin: 25px 0 0;
+      }
+
+      h4 {
+        font-family: roboto;
+        font-weight: 700;
+        font-size: 15px;
+        color: $tc-gray-90;
+        line-height: 25px;
+      }
+
+      p,
+      span,
+      em,
+      strong,
+      a {
+        font-family: roboto;
+        font-weight: 400;
+        font-size: 15px;
+        color: $tc-gray-90;
+        line-height: 25px;
+
+        @include linkStyle;
+      }
+
+      em {
+        font-style: italic;
+      }
+
+      strong {
+        font-weight: 700;
+      }
+
+      pre,
+      code {
+        background: $tc-gray-neutral-light;
+        border: 1px solid $tc-gray-20;
+        border-radius: 6px;
+        font-family: 'Roboto Mono', monospace;
+        font-weight: 400;
+        font-size: 13px;
+        color: $tc-black;
+        line-height: 20px;
+      }
+
+      ol {
+        margin: 0 0 5px;
+        counter-reset: item;
+        font-family: roboto;
+        font-weight: 400;
+        font-size: 15px;
+        color: $tc-gray-90;
+        line-height: 25px;
+        display: table;
+
+        li {
+          list-style-type: none;
+          font-weight: 400;
+          counter-increment: item;
+          display: table-row;
+          white-space: normal;
+
+          @include linkStyle;
+        }
+
+        li::before {
+          display: table-cell;
+          font-weight: 700;
+          text-align: right;
+          content: counter(item) ".";
+          padding: 0 10px 0 0;
+        }
+      }
+
+      ul {
+        margin: 0 0 5px 20px;
+        font-family: roboto;
+        font-weight: 400;
+        font-size: 15px;
+        color: $tc-gray-90;
+        line-height: 25px;
+        list-style: disc outside none;
+
+        li {
+          font-weight: 400;
+
+          @include linkStyle;
+        }
+      }
+
+      .note {
+        background: $tc-gold-30;
+        border: 1px solid $tc-gold-70;
+        border-radius: 6px;
+        font-family: roboto;
+        font-weight: 400;
+        font-style: italic;
+        font-size: 13px;
+        color: $tc-black;
+        line-height: 20px;
+        padding: 15px 20px;
+        margin: 25px 0;
+
+        p,
+        ul {
+          font-size: 13px;
+        }
+      }
+
+      @include linkStyle;
+    }
+
+    .challenge-specs-develop {
+      blockquote {
+        border-left: 3px solid $tc-green;
+        padding-left: 17px;
+      }
+    }
+
+    .challenge-specs-datasci {
+      blockquote {
+        border-left: 3px solid $tc-orange;
+        padding-left: 17px;
+      }
+    }
+
+    .challenge-specs-design {
+      blockquote {
+        border-left: 3px solid $tc-light-blue;
+        padding-left: 17px;
+      }
+    }
+  }
+
+  .challenge-spec-sidebar {
+    flex: 1;
+    min-width: 245px;
+    margin: 50px 0;
+    padding: 20px 0 30px 20px;
+
+    .challenge-sidebar-inner {
+      margin: 0 20px;
+
+      & > h3 {
+        font-family: roboto;
+        font-weight: 700;
+        font-size: 13px;
+        color: $tc-gray-90;
+        line-height: 20px;
+        margin: 5px 0;
+      }
+
+      & > h4 {
+        font-family: roboto;
+        font-weight: 500;
+        font-size: 13px;
+        color: $tc-gray-90;
+        line-height: 20px;
+        margin: 5px 0;
+      }
+
+      & > span,
+      & > p {
+        font-family: roboto;
+        font-weight: 400;
+        font-size: 13px;
+        color: $tc-gray-90;
+        line-height: 20px;
+        margin: 0 0 5px;
+
+        @include linkStyle;
+      }
+
+      & > ol {
+        margin: 0 0 5px;
+        counter-reset: item;
+        font-family: roboto;
+        font-size: 13px;
+        color: $tc-gray-90;
+        line-height: 20px;
+        display: table;
+
+        li {
+          list-style-type: none;
+          font-weight: 400;
+          counter-increment: item;
+          display: table-row;
+
+          @include linkStyle;
+        }
+
+        li::before {
+          display: table-cell;
+          font-weight: 700;
+          text-align: right;
+          content: counter(item) ".";
+          padding: 0 10px 0 0;
+        }
+      }
+
+      & > ul {
+        margin: 0 0 5px;
+        font-family: roboto;
+        font-size: 13px;
+        color: $tc-gray-90;
+        line-height: 20px;
+        display: table;
+
+        li {
+          list-style-type: none;
+          font-weight: 400;
+          display: table-row;
+
+          @include linkStyle;
+        }
+
+        li::before {
+          display: table-cell;
+          font-weight: 700;
+          text-align: right;
+          content: "-";
+          padding: 0 10px 0 0;
+        }
+      }
+    }
+  }
+
+  .challenge-spec-sidebar-develop {
+    background-color: $tc-green-10;
+  }
+
+  .challenge-spec-sidebar-datasci {
+    background-color: $tc-orange-10;
+  }
+
+  .challenge-spec-sidebar-design {
+    background-color: $tc-dark-blue-10;
+  }
+}
+
+.tctooltip {
+  & > p {
+    background: $tc-green;
+    font-style: roboto;
+    font-weight: 700;
+    font-size: 13px;
+    line-height: 20px;
+    color: $tc-white;
+    padding: 0 6px;
+    border-radius: 10px;
+    margin: 0 5px;
+    cursor: pointer;
+  }
+
+  .tctooltiptext {
+    background: $tc-gray-90;
+    border-radius: 6px;
+    padding: 5px;
+
+    & > h4 {
+      white-space: nowrap;
+      font-family: roboto;
+      font-weight: 700;
+      font-size: 13px;
+      line-height: 20px;
+      margin: 5px 0;
+      color: $tc-white;
+    }
+
+    & > p {
+      font-family: roboto;
+      font-weight: 400;
+      font-size: 13px;
+      color: $tc-gray-10;
+      line-height: 20px;
+      margin: 0 0 5px;
+      width: 150px;
+    }
+  }
+
+  .tooltiptextreview {
+    margin: 0 0 0 -140px;
+  }
+
+  .tooltiptextapproval {
+    margin: 0 0 0 -80px;
+  }
+}

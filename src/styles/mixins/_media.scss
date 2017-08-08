@@ -4,13 +4,78 @@
  * The range mixins A-to-B all means "for the sizes from A to B, both
  * inclusive", in particular it means that mixin A-to-lg is equivalent to
  * all sizes from A (inclusive) and larger.
+ *
+ * NOTE: For convenience, these mixins are sorted not alphabetically, but,
+ * first, by increase of the first size; second, by increase of the second size.
  */
 
-@mixin lg {
-  @media (min-width: #{$screen-lg}) {
+/* XXS */
+
+@mixin xxs {
+  @media (max-width: #{$screen-xs - 1px}) {
     @content;
   }
 }
+
+@mixin xxs-to-xs {
+  @media (max-width: #{$screen-sm - 1px}) {
+    @content;
+  }
+}
+
+@mixin xxs-to-sm {
+  @media (max-width: #{$screen-md - 1px}) {
+    @content;
+  }
+}
+
+@mixin xxs-to-md {
+  @media (max-width: #{$screen-lg - 1px}) {
+    @content;
+  }
+}
+
+/* XS */
+
+@mixin xs {
+  @media (min-width: #{$screen-xs}) and (max-width: #{$screen-sm - 1px}) {
+    @content;
+  }
+}
+
+@mixin xs-to-sm {
+  @media (min-width: #{$screen-xs}) and (max-width: #{$screen-md - 1px}) {
+    @content;
+  }
+}
+
+@mixin xs-to-lg {
+  @media (min-width: #{$screen-xs}) {
+    @content;
+  }
+}
+
+/* SM */
+
+@mixin sm {
+  @media (min-width: #{$screen-sm}) and (max-width: #{$screen-md - 1px}) {
+    @content;
+  }
+}
+
+@mixin sm-to-md {
+  @media (min-width: #{$screen-sm}) and (max-width: #{$screen-lg - 1px}) {
+    @content;
+  }
+}
+
+@mixin sm-to-lg {
+  @media (min-width: #{$screen-sm}) {
+    @content;
+  }
+}
+
+/* MD */
 
 @mixin md {
   @media (min-width: #{$screen-md + 1px}) and (max-width: #{$screen-lg - 1px}) {
@@ -24,62 +89,10 @@
   }
 }
 
-@mixin sm {
-  @media (min-width: #{$screen-sm}) and (max-width: #{$screen-md - 1px}) {
-    @content;
-  }
-}
+/* LG */
 
-@mixin sm-to-lg {
-  @media (min-width: #{$screen-sm}) {
-    @content;
-  }
-}
-
-@mixin sm-to-md {
-  @media (min-width: #{$screen-sm}) and (max-width: #{$screen-lg - 1px}) {
-    @content;
-  }
-}
-
-@mixin xs {
-  @media (min-width: #{$screen-xs}) and (max-width: #{$screen-sm - 1px}) {
-    @content;
-  }
-}
-
-@mixin xs-to-lg {
-  @media (min-width: #{$screen-xs}) {
-    @content;
-  }
-}
-
-@mixin xs-to-sm {
-  @media (min-width: #{$screen-xs}) and (max-width: #{$screen-md - 1px}) {
-    @content;
-  }
-}
-
-@mixin xxs {
-  @media (max-width: #{$screen-xs - 1px}) {
-    @content;
-  }
-}
-
-@mixin xxs-to-md {
-  @media (max-width: #{$screen-lg - 1px}) {
-    @content;
-  }
-}
-
-@mixin xxs-to-sm {
-  @media (max-width: #{$screen-md - 1px}) {
-    @content;
-  }
-}
-
-@mixin xxs-to-xs {
-  @media (max-width: #{$screen-sm - 1px}) {
+@mixin lg {
+  @media (min-width: #{$screen-lg}) {
     @content;
   }
 }

@@ -26,12 +26,12 @@ $challenge-radius-4: $corner-radius * 2;
     border-bottom: 1px solid $tc-gray-10;
   }
 
-  @include xs-to-sm {
+  @include xxs-to-sm {
     flex-wrap: wrap;
     padding: $base-unit * 3;
   }
 
-  @include xs {
+  @include xxs-to-xs {
     position: relative;
   }
 
@@ -49,7 +49,7 @@ $challenge-radius-4: $corner-radius * 2;
     justify-content: flex-start;
     width: 50%;
 
-    @include xs-to-sm {
+    @include xxs-to-sm {
       width: 100%;
     }
   }
@@ -59,11 +59,11 @@ $challenge-radius-4: $corner-radius * 2;
     justify-content: space-between;
     width: 50%;
 
-    @include xs-to-sm {
+    @include xxs-to-sm {
       width: 100%;
     }
 
-    @include xs {
+    @include xxs-to-xs {
       display: block;
     }
   }
@@ -89,7 +89,7 @@ $challenge-radius-4: $corner-radius * 2;
       margin-right: $challenge-space-90;
     }
 
-    @include xs {
+    @include xxs-to-xs {
       margin-right: 0;
     }
 
@@ -102,7 +102,7 @@ $challenge-radius-4: $corner-radius * 2;
     a {
       line-height: $challenge-space-20;
 
-      @include xs {
+      @include xxs-to-xs {
         display: inline-block;
       }
     }
@@ -151,14 +151,14 @@ $challenge-radius-4: $corner-radius * 2;
     margin-right: $challenge-space-20;
     min-width: $challenge-space-50 + 2;
 
-    @include xs-to-sm {
+    @include xxs-to-sm {
       position: absolute;
       right: 0;
       top: 20px;
       margin-right: $challenge-space-20;
     }
 
-    @include xs {
+    @include xxs-to-xs {
       position: relative;
       width: 100%;
       display: block;
@@ -178,26 +178,8 @@ $challenge-radius-4: $corner-radius * 2;
     }
 
     > span:first-child > div {
-      @include xs {
+      @include xxs-to-xs {
         display: inline-block;
-      }
-    }
-
-    .dollar {
-      display: inline-block;
-      color: $tc-gray-50;
-      min-width: $challenge-space-10 + 1;
-    }
-
-    .label {
-      padding: 0 $challenge-space-10;
-      background: $tc-gray-neutral-light;
-      font-size: 10px;
-      color: $tc-gray-70;
-      white-space: nowrap;
-
-      @include xs {
-        margin-left: 10px;
       }
     }
   }
