@@ -1,7 +1,7 @@
 @import "~styles/tc-styles";
 
 .outer-container {
-  background: $tc-gray-10;
+  background: $tc-gray-neutral-dark;
 
   @include xxs-to-xs {
     padding: 8px 10px 20px;
@@ -18,6 +18,7 @@
 
 .challenge-detail-container {
   background: $tc-white;
+  border-radius: 3 * $corner-radius;
   width: 100%;
   margin: auto;
 }

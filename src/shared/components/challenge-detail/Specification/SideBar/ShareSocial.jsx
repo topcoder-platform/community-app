@@ -13,6 +13,9 @@ import './social_media.scss';
 
 export default class ShareSocial extends React.Component {
   componentDidMount() {
+    /* TODO: This is some tooltip solution added in the related challenge,
+     * it should be replaced by the standard tooltip component employed into
+     * the repo. */
     if (window.addthis && window.addthis.init) {
       if (window.addthis.toolbox) {
         window.addthis.init();

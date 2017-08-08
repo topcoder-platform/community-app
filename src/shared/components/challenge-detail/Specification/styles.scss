@@ -212,16 +212,19 @@ $tc-link-visited: #0c4e98;
     }
   }
 
+  /* TODO: Sidebar styles should be together with the sidebar!
+   * Also this style is awful: it depends too much on the markup structure,
+   * thus small changes in the markup rise problems with styling. */
   .challenge-spec-sidebar {
-    flex: 1;
-    min-width: 245px;
+    background: $tc-dark-blue-10;
+    width: 245px;
     margin: 50px 0;
     padding: 20px 0 30px 20px;
 
     .challenge-sidebar-inner {
       margin: 0 20px;
 
-      & > h3 {
+      h3 {
         font-family: roboto;
         font-weight: 700;
         font-size: 13px;
@@ -240,7 +243,8 @@ $tc-link-visited: #0c4e98;
       }
 
       & > span,
-      & > p {
+      & > p,
+      .link-like-paragraph {
         font-family: roboto;
         font-weight: 400;
         font-size: 13px;
@@ -303,18 +307,6 @@ $tc-link-visited: #0c4e98;
         }
       }
     }
-  }
-
-  .challenge-spec-sidebar-develop {
-    background-color: $tc-green-10;
-  }
-
-  .challenge-spec-sidebar-datasci {
-    background-color: $tc-orange-10;
-  }
-
-  .challenge-spec-sidebar-design {
-    background-color: $tc-dark-blue-10;
   }
 }
 
