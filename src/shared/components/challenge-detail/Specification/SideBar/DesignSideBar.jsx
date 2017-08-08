@@ -6,20 +6,16 @@ import ShareSocial from './ShareSocial';
 
 import '../styles.scss';
 
-export default function DesignSideBar(props) {
-  const {
-    documents,
-    eventDetail,
-    screeningScorecardId,
-    reviewScorecardId,
-    forumLink,
-    submissionLimit,
-    hasRegistered,
-    fileTypes,
-  } = props;
-  /* TODO: It is not good to compose the event URL like this, as in general
-   * there is not guaranteed to be correct. */
-  const eventURL = `//${eventDetail.eventName}.topcoder.com`;
+export default function DesignSideBar({
+  documents,
+  eventDetail,
+  screeningScorecardId,
+  reviewScorecardId,
+  forumLink,
+  submissionLimit,
+  hasRegistered,
+  fileTypes,
+}) {
   const scorecardURL = `${config.URL.ONLINE_REVIEW}/review/actions/ViewScorecard?scid=`;
   const faqURL = config.URL.INFO.DESIGN_CHALLENGE_SUBMISSION;
   /* TODO: This should be got from challenge terms endpoint! */
@@ -57,8 +53,18 @@ export default function DesignSideBar(props) {
           ) :
             <p>{downloadsPlaceHolder}</p>
         }
-        <h3>ELIGIBLE EVENTS:</h3>
-        <p><a href={eventURL}>{eventDetail.description}</a></p>
+        {eventDetail && (
+          <div>
+            <h3>ELIGIBLE EVENTS:</h3>
+            <p styleName="link-like-paragraph">
+              {/* TODO: It is not good to compose the event URL like this, as
+                * in general there is not guaranteed to be correct. */}
+              <a href={`//${eventDetail.eventName}.topcoder.com`}>
+                {eventDetail.description}
+              </a>
+            </p>
+          </div>
+        )}
         <h3>CHALLENGE LINKS:</h3>
         {
           screeningScorecardId &&
@@ -86,7 +92,7 @@ export default function DesignSideBar(props) {
         </ol>
         <p>
           Trouble formatting your submission or want to learn more?
-          <a href={faqURL}>Read the FAQ.</a>
+          &zwnj;<a href={faqURL}>Read the FAQ.</a>
         </p>
         <h4>Fonts:</h4>
         <p>
@@ -134,10 +140,7 @@ export default function DesignSideBar(props) {
 }
 
 DesignSideBar.defaultProps = {
-  eventDetail: {
-    eventName: '',
-    description: '',
-  },
+  eventDetail: null,
   documents: undefined,
   screeningScorecardId: undefined,
   reviewScorecardId: undefined,

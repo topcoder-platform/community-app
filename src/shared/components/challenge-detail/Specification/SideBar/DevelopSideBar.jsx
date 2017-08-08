@@ -7,19 +7,15 @@ import Tooltip from './SimpleTooltip';
 
 import styles from '../styles.scss';
 
-export default function DevelopSideBar(props) {
-  const {
-    documents,
-    eventDetail,
-    screeningScorecardId,
-    reviewScorecardId,
-    hasRegistered,
-    isDataScience,
-    reviewType,
-  } = props;
-  /* TODO: It is not good to compose the event URL like this, as in general
-   * there is not guaranteed to be correct. */
-  const eventURL = `//${eventDetail.eventName}.topcoder.com`;
+export default function DevelopSideBar({
+  documents,
+  eventDetail,
+  screeningScorecardId,
+  reviewScorecardId,
+  hasRegistered,
+  isDataScience,
+  reviewType,
+}) {
   const scorecardURL = `${config.URL.ONLINE_REVIEW}
   /review/actions/ViewScorecard?scid=`;
   /* TODO: This should be got from challenge terms endpoint! */
@@ -56,8 +52,18 @@ export default function DevelopSideBar(props) {
           ) :
             <p>{downloadsPlaceHolder}</p>
         }
-        <h3>ELIGIBLE EVENTS:</h3>
-        <p><a href={eventURL}>{eventDetail.description}</a></p>
+        {eventDetail && (
+          <div>
+            <h3>ELIGIBLE EVENTS:</h3>
+            <p styleName="link-like-paragraph">
+              {/* TODO: It is not good to compose the event URL like this, as
+                * in general there is not guaranteed to be correct. */}
+              <a href={`//${eventDetail.eventName}.topcoder.com`}>
+                {eventDetail.description}
+              </a>
+            </p>
+          </div>
+        )}
         <h3>REVIEW STYLE:</h3>
         <h4>Final Review:</h4>
         <span>
@@ -120,10 +126,7 @@ export default function DevelopSideBar(props) {
 }
 
 DevelopSideBar.defaultProps = {
-  eventDetail: {
-    eventName: '',
-    description: '',
-  },
+  eventDetail: null,
   documents: undefined,
   screeningScorecardId: undefined,
   reviewScorecardId: undefined,

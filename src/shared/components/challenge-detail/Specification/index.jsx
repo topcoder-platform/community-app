@@ -159,8 +159,8 @@ export default function ChallengeDetailsView(props) {
                   <article>
                     <h2>Stock Photography</h2>
                     <p>
-                      {stockArtText}
-                      &zwnj;<a href={config.URL.INFO.STOCK_ART_POLICY}>
+                      {stockArtText}&nbsp;
+                      <a href={config.URL.INFO.STOCK_ART_POLICY}>
                         See this page for more details.
                       </a>
                     </p>
