@@ -29,16 +29,13 @@ export default function DesignSideBar({
     submissionLimitDisplay = `${submissionLimit} submissions`;
   }
 
-  const commonStyle = 'challenge-spec-sidebar';
-  const designStyle = 'challenge-spec-sidebar-design';
-
   let downloadsPlaceHolder = 'None';
   if (!hasRegistered) {
     downloadsPlaceHolder = 'Register to Download Files (if available)';
   }
 
   return (
-    <div styleName={`${commonStyle} ${designStyle}`}>
+    <div styleName="challenge-spec-sidebar">
       <div styleName="challenge-sidebar-inner">
         <h3>DOWNLOADS:</h3>
         {

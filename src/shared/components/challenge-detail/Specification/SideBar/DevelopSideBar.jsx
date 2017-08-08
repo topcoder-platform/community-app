@@ -13,7 +13,7 @@ export default function DevelopSideBar({
   screeningScorecardId,
   reviewScorecardId,
   hasRegistered,
-  isDataScience,
+  // isDataScience,
   reviewType,
 }) {
   const scorecardURL = `${config.URL.ONLINE_REVIEW}
@@ -22,10 +22,6 @@ export default function DevelopSideBar({
   const challengeTermsURL = (
     'https://www.topcoder.com/challenge-details/terms/detail/21193/'
   );
-  const pageAccent = isDataScience ? 'datasci' : 'develop';
-
-  const commonStyle = 'challenge-spec-sidebar';
-  const designStyle = `challenge-spec-sidebar-${pageAccent}`;
 
   const downloadsPlaceHolder = hasRegistered ? 'None' : 'Register to Download Files (if available)';
 
@@ -37,7 +33,7 @@ export default function DevelopSideBar({
   );
 
   return (
-    <div styleName={`${commonStyle} ${designStyle}`}>
+    <div styleName="challenge-spec-sidebar">
       <div styleName="challenge-sidebar-inner">
         <h3>DOWNLOADS:</h3>
         {
@@ -143,7 +139,7 @@ DevelopSideBar.propTypes = {
   documents: PT.shape(),
   screeningScorecardId: PT.number,
   reviewScorecardId: PT.number,
-  isDataScience: PT.bool,
+  // isDataScience: PT.bool,
   reviewType: PT.string,
   hasRegistered: PT.bool,
 };
