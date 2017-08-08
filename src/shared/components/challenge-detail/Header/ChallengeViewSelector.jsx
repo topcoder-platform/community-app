@@ -20,7 +20,8 @@ export default function ChallengeViewSelector(props) {
     trackLower,
     selectedView,
     numRegistrants,
-    numSubmissions,
+    status,
+    hasCheckpoints,
   } = props;
   return (
     <div styleName="challenge-view-selector">
@@ -34,22 +35,31 @@ export default function ChallengeViewSelector(props) {
         styleName={getSelectorStyle(selectedView, 'REGISTRANTS', trackLower)}
       >REGISTRANTS {numRegistrants ? `(${numRegistrants})` : ''}
       </a>
-      <a
-        onClick={(e) => { e.preventDefault(); onSelectorClicked('CHECKPOINTS'); }}
-        styleName={getSelectorStyle(selectedView, 'CHECKPOINTS', trackLower)}
-      >CHECKPOINTS
-      </a>
-      <a
-        onClick={(e) => { e.preventDefault(); onSelectorClicked('SUBMISSIONS'); }}
-        styleName={getSelectorStyle(selectedView, 'SUBMISSIONS', trackLower)}
-      >
-        SUBMISSIONS {numSubmissions ? `(${numSubmissions})` : ''}
-      </a>
-      <a
-        onClick={(e) => { e.preventDefault(); onSelectorClicked('WINNERS'); }}
-        styleName={getSelectorStyle(selectedView, 'WINNERS', trackLower)}
-      >WINNERS
-      </a>
+      {
+        hasCheckpoints &&
+        <a
+          onClick={(e) => { e.preventDefault(); onSelectorClicked('CHECKPOINTS'); }}
+          styleName={getSelectorStyle(selectedView, 'CHECKPOINTS', trackLower)}
+        >CHECKPOINTS
+        </a>
+      }
+      {
+        status === 'COMPLETED' &&
+        <a
+          onClick={(e) => { e.preventDefault(); onSelectorClicked('SUBMISSIONS'); }}
+          styleName={getSelectorStyle(selectedView, 'SUBMISSIONS', trackLower)}
+        >
+          SUBMISSIONS
+        </a>
+      }
+      {
+        status === 'COMPLETED' &&
+        <a
+          onClick={(e) => { e.preventDefault(); onSelectorClicked('WINNERS'); }}
+          styleName={getSelectorStyle(selectedView, 'WINNERS', trackLower)}
+        >WINNERS
+        </a>
+      }
       <a
         onClick={(e) => { e.preventDefault(); onSelectorClicked('CHALLENGE_FORUM'); }}
         styleName={getSelectorStyle(selectedView, 'CHALLENGE_FORUM', trackLower)}
@@ -61,7 +71,6 @@ export default function ChallengeViewSelector(props) {
 
 ChallengeViewSelector.defaultProps = {
   numRegistrants: 0,
-  numSubmissions: 0,
 };
 
 ChallengeViewSelector.propTypes = {
@@ -69,5 +78,6 @@ ChallengeViewSelector.propTypes = {
   trackLower: PT.string.isRequired,
   selectedView: PT.string.isRequired,
   numRegistrants: PT.number,
-  numSubmissions: PT.number,
+  status: PT.string.isRequired,
+  hasCheckpoints: PT.bool.isRequired,
 };

@@ -1,0 +1,183 @@
+@import "~styles/tc-styles";
+
+.container {
+  font-family: 'Roboto';
+  max-width: 1122px;
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  flex-wrap: wrap;
+  padding-bottom: 138px;
+}
+
+.winner {
+  &.place-1 {
+    width: 100%;
+
+    .flag {
+      background-color: $tc-gold;
+
+      &::after {
+        border-top: solid 20px $tc-gold;
+      }
+    }
+  }
+
+  &.place-2 {
+    .flag {
+      background-color: $tc-silver;
+
+      &::after {
+        border-top: solid 20px $tc-silver;
+      }
+    }
+  }
+
+  &.place-3 {
+    .flag {
+      background-color: $tc-bronze;
+
+      &::after {
+        border-top: solid 20px $tc-bronze;
+      }
+    }
+  }
+
+  &:nth-child(2n+3) {
+    border-left: none;
+  }
+
+  @include xxs-to-xs {
+    width: 100%;
+  }
+
+  width: 50%;
+  height: 300px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid $tc-gray-10;
+  border-top: none;
+}
+
+.thumbnail {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: $tc-gray-neutral-light;
+  border-radius: 4px;
+  border: 1px solid $tc-gray-neutral-dark;
+  width: 117px;
+  height: 117px;
+  margin-right: 23px;
+  position: relative;
+
+  .lock {
+    .image {
+      background-image: url(assets/images/lock-sm.png);
+      width: 46px;
+      height: 58px;
+      background-size: 100% 100%;
+    }
+
+    .text {
+      color: $tc-gray-50;
+    }
+  }
+
+  .preview {
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.flag {
+  color: $tc-white;
+  font-size: 36px;
+  font-weight: 500;
+  height: 50px;
+  width: 45px;
+  line-height: 50px;
+  background-color: $tc-gray-20;
+  position: absolute;
+  top: 0;
+  left: 12px;
+  text-align: center;
+
+  &::after {
+    content: ' ';
+    display: block;
+    position: absolute;
+    top: 100%;
+    border-top: solid 20px $tc-gray-20;
+    border-bottom: solid 20px transparent;
+    border-left: solid 23px transparent;
+    border-right: solid 23px transparent;
+  }
+}
+
+.info {
+  .handle {
+    color: $tc-dark-blue;
+    font-size: 36px;
+    margin-bottom: 8px;
+    font-weight: 300;
+
+    @include xxs-to-xs {
+      margin-bottom: 0;
+      font-size: 28px;
+      line-height: 35px;
+    }
+  }
+
+  .prize {
+    color: $tc-gray-90;
+    font-size: 24px;
+    font-weight: 500;
+    margin-bottom: 20px;
+
+    @include xxs-to-xs {
+      font-size: 20px;
+      line-height: 30px;
+      margin-bottom: 10px;
+    }
+  }
+
+  .id {
+    color: $tc-gray-60;
+    font-size: 15px;
+    line-height: 22px;
+
+    @include xxs-to-xs {
+      font-size: 13px;
+      line-height: 25px;
+    }
+
+    span {
+      font-weight: 500;
+    }
+  }
+
+  .download {
+    font-size: 15px;
+    line-height: 22px;
+    color: $tc-dark-blue;
+
+    @include xxs-to-xs {
+      font-size: 13px;
+    }
+  }
+
+  .date {
+    font-size: 15px;
+    line-height: 22px;
+    color: $tc-gray-60;
+    display: flex;
+
+    @include xxs-to-xs {
+      flex-direction: column;
+      font-size: 13px;
+      line-height: 20px;
+    }
+  }
+}

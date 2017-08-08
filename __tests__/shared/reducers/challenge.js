@@ -4,7 +4,7 @@ const mockChallengeActions = {
   fetchChallengeInit: mockAction('FETCH_CHALLENGE_INIT'),
   fetchChallengeDone: mockAction(
     'FETCH_CHALLENGE_DONE',
-    ['v3-details', 'v2-details', 'v3-user-details'],
+    [['v3-details', 'v2-details'], 'v3-user-details'],
   ),
   fetchChallengeDoneError: mockAction(
     'FETCH_CHALLENGE_DONE',

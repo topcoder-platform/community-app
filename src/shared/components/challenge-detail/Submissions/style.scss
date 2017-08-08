@@ -1,0 +1,135 @@
+@import "~styles/tc-styles";
+
+.container {
+  font-family: 'Roboto';
+  max-width: 1060px;
+  margin-left: auto;
+  margin-right: auto;
+
+  &.no-view {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 737px;
+
+    @include xxs-to-xs {
+      text-align: center;
+    }
+
+    .lock {
+      margin-bottom: 30px;
+      background-image: url(assets/images/lock-lg.png);
+      background-size: 100% 100%;
+      width: 110px;
+      height: 136px;
+    }
+
+    .title {
+      font-size: 42px;
+      font-weight: 300;
+      line-height: 30px;
+      color: $tc-black;
+      margin-bottom: 10px;
+
+      @include xxs-to-xs {
+        font-size: 28px;
+        line-height: 30px;
+      }
+    }
+
+    .subtitle {
+      font-size: 15px;
+      color: $tc-gray-90;
+      line-height: 25px;
+      margin-bottom: 30px;
+
+      @include xxs-to-xs {
+        margin-left: 35px;
+        margin-right: 35px;
+      }
+    }
+
+    .desc {
+      font-size: 15px;
+      color: $tc-gray-50;
+      line-height: 25px;
+      width: 500px;
+
+      @include xxs-to-xs {
+        margin-left: 28px;
+        margin-right: 28px;
+        width: auto;
+      }
+    }
+  }
+
+  &.view {
+    .title {
+      color: $tc-black;
+      margin-top: 20px;
+      margin-bottom: 6px;
+      font-size: 16px;
+      line-height: 22px;
+      font-weight: 500;
+    }
+
+    .content {
+      display: flex;
+      flex-wrap: wrap;
+    }
+
+    .submission {
+      border: 1px solid $tc-gray-10;
+      margin: 0 17px 25px;
+      width: 227px;
+      font-size: 12px;
+
+      img {
+        width: 225px;
+        height: 226px;
+      }
+    }
+
+    .bottom-info {
+      background: #f7f7f7;
+      display: flex;
+      justify-content: space-between;
+      padding: 8px;
+      line-height: 20px;
+    }
+
+    .links {
+      display: flex;
+      flex-direction: column;
+      font-weight: 500;
+    }
+
+    .handle {
+      color: $tc-orange;
+    }
+  }
+
+  &.dev {
+    padding: 30px 0;
+    line-height: 50px;
+    text-align: center;
+
+    .row {
+      display: flex;
+      border-bottom: 1px solid $tc-gray-10;
+    }
+
+    .col-1 {
+      width: 50%;
+    }
+
+    .col-2 {
+      width: 50%;
+    }
+
+    .handle {
+      color: $tc-orange;
+    }
+  }
+}

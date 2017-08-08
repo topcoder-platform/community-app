@@ -42,21 +42,6 @@ describe('challenge.fetchSubmissionsInit', () => {
     expect(a.payload).toBeUndefined());
 });
 
-describe('challenge.fetchChallengeDone', () => {
-  global.fetch = mockFetch({ result: { content: ['DUMMY DATA'] } });
-
-  const a = actions.fetchChallengeDone({});
-
-  test('has expected type', () => {
-    expect(a.type).toBe('FETCH_CHALLENGE_DONE');
-  });
-
-  test('payload is a promise which resolves to the expected object', () =>
-    a.payload.then(res => expect(res).toEqual(
-      ['DUMMY DATA', { result: { content: ['DUMMY DATA'] } }, {}])));
-});
-
-
 describe('challenge.fetchSubmissionsDone', () => {
   global.fetch = mockFetch({ submissions: 'DUMMY DATA' });
 
@@ -68,4 +53,18 @@ describe('challenge.fetchSubmissionsDone', () => {
 
   test('payload is a promise which resolves to the expected object', () =>
     a.payload.then(res => expect(res).toEqual('DUMMY DATA')));
+});
+
+describe('challenge.fetchChallengeDone', () => {
+  global.fetch = mockFetch({ result: { content: [{ track: 'DESIGN' }] } });
+
+  const a = actions.fetchChallengeDone({});
+
+  test('has expected type', () => {
+    expect(a.type).toBe('FETCH_CHALLENGE_DONE');
+  });
+
+  test('payload is a promise which resolves to the expected object', () =>
+    a.payload.then(res => expect(res).toEqual(
+      [[{ track: 'DESIGN' }, { result: { content: [{ track: 'DESIGN' }] } }], undefined])));
 });

@@ -12,20 +12,27 @@ const apiV3 = auth => getApiV3(auth.tokenV3);
 
 function fetchChallenge(auth, challengeId) {
   const endpoint = `/challenges/?filter=id%3D${challengeId}`;
-  let apiV3UserDetail = Promise.resolve({});
+  let apiV3UserDetail = Promise.resolve();
+
   if (auth && auth.user && auth.user.handle) {
     const endpointWithMember = `/members/${auth.user.handle}${endpoint}`;
     apiV3UserDetail = apiV3(auth).fetch(endpointWithMember)
       .then(response => response.json())
       .then(response => response.result.content[0]);
   }
-  const endpointV2 = `/challenges/${challengeId}`;
-  const apiV3Promise = apiV3(auth).fetch(endpoint)
+
+  const apiDetails = apiV3(auth).fetch(endpoint)
     .then(response => response.json())
-    .then(response => response.result.content[0]);
-  const apiV2Promise = apiV2(auth).fetch(endpointV2)
-    .then(response => response.json());
-  return Promise.all([apiV3Promise, apiV2Promise, apiV3UserDetail]);
+    .then(response => response.result.content[0])
+    .then((v3) => {
+      const challengeType = v3.track.toLowerCase() || 'develop';
+      const endpointV2 = `/${challengeType}/challenges/${challengeId}`;
+      return apiV2(auth).fetch(endpointV2)
+        .then(response => response.json())
+        .then(v2 => ([v3, v2]));
+    });
+
+  return Promise.all([apiDetails, apiV3UserDetail]);
 }
 
 function fetchSubmissions(tokens, challengeId) {
@@ -62,6 +69,18 @@ function unregisterDone(auth, challengeId) {
     .then(() => fetchChallenge(auth, challengeId));
 }
 
+function loadCheckpointResults(auth, challengeId) {
+  return apiV2(auth).fetch(`/design/challenges/checkpoint/${challengeId}`)
+    .then(response => response.json())
+    .then(response => response.checkpointResults);
+}
+
+function loadResults(auth, challengeId, type) {
+  return apiV2(auth).fetch(`/${type}/challenges/result/${challengeId}`)
+    .then(response => response.json())
+    .then(response => response.results);
+}
+
 export default createActions({
   /* TODO: Move these actions into the CHALLENGE object below. It does not make
    * any technical difference, but will lead to better action names displayed in
@@ -76,5 +95,9 @@ export default createActions({
     REGISTER_DONE: registerDone,
     UNREGISTER_INIT: _.noop,
     UNREGISTER_DONE: unregisterDone,
+    LOAD_CHECKPOINT_RESULTS_INIT: _.noop,
+    LOAD_CHECKPOINT_RESULTS_DONE: loadCheckpointResults,
+    LOAD_RESULTS_INIT: _.noop,
+    LOAD_RESULTS_DONE: loadResults,
   },
 });

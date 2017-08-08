@@ -17,8 +17,8 @@ import mySubmissionsManagement from './my-submissions-management';
 function onFetchChallengeDone(state, action) {
   return {
     ...state,
-    details: action.error ? null : action.payload[2] || action.payload[0],
-    detailsV2: action.error ? null : action.payload[1],
+    details: action.error ? null : action.payload[1] || action.payload[0][0],
+    detailsV2: action.error ? null : action.payload[0][1],
     fetchChallengeFailure: action.error || false,
     loadingDetails: false,
   };
@@ -103,6 +103,24 @@ function create(initialState) {
     [a.registerDone]: onRegisterDone,
     [a.unregisterInit]: state => ({ ...state, unregistering: true }),
     [a.unregisterDone]: onUnregisterDone,
+    [a.loadCheckpointResultsInit]: state => ({
+      ...state,
+      loadingCheckpointResults: true,
+    }),
+    [a.loadCheckpointResultsDone]: (state, action) => ({
+      ...state,
+      loadingCheckpointResults: false,
+      checkpointResults: action.error ? null : action.payload,
+    }),
+    [a.loadResultsInit]: state => ({
+      ...state,
+      loadingResults: true,
+    }),
+    [a.loadResultsDone]: (state, action) => ({
+      ...state,
+      loadingResults: false,
+      results: action.error ? null : action.payload,
+    }),
   }, initialState || {
     registering: false,
     unregistering: false,

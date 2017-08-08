@@ -42,8 +42,9 @@ export default function ChallengeHeader(props) {
       registrationEndDate,
       submissionEndDate,
       numRegistrants,
-      numSubmissions,
       allPhases,
+      status,
+      checkpoints,
     },
     registering,
     registerForChallenge,
@@ -204,7 +205,8 @@ export default function ChallengeHeader(props) {
             trackLower={trackLower}
             selectedView={props.selectedView}
             numRegistrants={numRegistrants}
-            numSubmissions={numSubmissions}
+            status={status}
+            hasCheckpoints={checkpoints && checkpoints.length > 0}
           />
         </div>
       </div>
