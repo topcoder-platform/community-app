@@ -44,13 +44,15 @@ export default function ChallengeHeader(props) {
       numRegistrants,
       numSubmissions,
       allPhases,
+      status,
+      checkpoints,
       appealsEndDate,
     },
     registering,
     registerForChallenge,
     unregisterFromChallenge,
     unregistering,
-    checkpoints,
+    // checkpoints,
   } = props;
 
   let trackLower = track ? track.toLowerCase() : 'design';
@@ -223,6 +225,8 @@ export default function ChallengeHeader(props) {
             trackLower={trackLower}
             selectedView={props.selectedView}
             numRegistrants={numRegistrants}
+            status={status}
+            hasCheckpoints={checkpoints && checkpoints.length > 0}
             numSubmissions={numSubmissions}
             checkpointCount={checkpointCount}
           />
@@ -248,5 +252,5 @@ ChallengeHeader.propTypes = {
   registering: PT.bool.isRequired,
   unregisterFromChallenge: PT.func.isRequired,
   unregistering: PT.bool.isRequired,
-  checkpoints: PT.shape(),
+  // checkpoints: PT.shape(),
 };

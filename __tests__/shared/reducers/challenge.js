@@ -70,6 +70,7 @@ function testReducer(reducer, istate) {
     state = reducer(state, mockChallengeActions.challenge.getDetailsInit(12345));
     expect(state).toEqual({
       mySubmissionsManagement: {},
+      loadingCheckpoints: false,
       loadingDetailsForChallengeId: '12345',
       fetchChallengeFailure: false,
       details: null,
@@ -84,6 +85,7 @@ function testReducer(reducer, istate) {
     state = reducer(state, mockChallengeActions.challenge.getDetailsDone());
     expect(state).toEqual({
       mySubmissionsManagement: {},
+      loadingCheckpoints: false,
       loadingDetailsForChallengeId: '',
       fetchChallengeFailure: false,
       details: {
@@ -104,6 +106,7 @@ function testReducer(reducer, istate) {
     state = reducer(state, mockChallengeActions.challenge.getDetailsDoneError());
     expect(state).toEqual({
       mySubmissionsManagement: {},
+      loadingCheckpoints: false,
       loadingDetailsForChallengeId: '',
       fetchChallengeFailure: 'Unknown error',
       details: null,
@@ -123,6 +126,7 @@ function testReducer(reducer, istate) {
       details: null,
       detailsV2: null,
       checkpoints: null,
+      loadingCheckpoints: false,
       loadingMySubmissions: true,
       mySubmissions: { v2: null },
       registering: false,
@@ -139,6 +143,7 @@ function testReducer(reducer, istate) {
       details: null,
       detailsV2: null,
       checkpoints: null,
+      loadingCheckpoints: false,
       mySubmissions: { v2: [{ submissionId: '1' }] },
       fetchMySubmissionsFailure: false,
       loadingMySubmissions: false,
@@ -156,6 +161,7 @@ function testReducer(reducer, istate) {
       details: null,
       detailsV2: null,
       checkpoints: null,
+      loadingCheckpoints: false,
       fetchMySubmissionsFailure: false,
       loadingMySubmissions: false,
       mySubmissions: { v2: [{ submissionId: '1' }] },
@@ -174,6 +180,7 @@ function testReducer(reducer, istate) {
       detailsV2: null,
       checkpoints: null,
       mySubmissions: { v2: [] },
+      loadingCheckpoints: false,
       loadingMySubmissions: false,
       fetchMySubmissionsFailure: 'Unknown error',
       registering: false,
@@ -187,6 +194,7 @@ describe('Default reducer', () =>
     details: null,
     detailsV2: null,
     checkpoints: null,
+    loadingCheckpoints: false,
     loadingDetailsForChallengeId: '',
     mySubmissionsManagement: {},
     registering: false,
@@ -203,6 +211,7 @@ describe('Factory without http request', () =>
       details: null,
       detailsV2: null,
       checkpoints: null,
+      loadingCheckpoints: false,
       loadingDetailsForChallengeId: '',
       mySubmissionsManagement: {},
       registering: false,
@@ -223,6 +232,7 @@ describe('Factory with server-side rendering', () =>
       details: null,
       detailsV2: null,
       checkpoints: null,
+      loadingCheckpoints: false,
       loadingDetailsForChallengeId: '',
       mySubmissionsManagement: {},
       registering: false,
@@ -239,6 +249,7 @@ describe('Factory without server-side rendering', () =>
       details: null,
       detailsV2: null,
       checkpoints: null,
+      loadingCheckpoints: false,
       loadingDetailsForChallengeId: '',
       mySubmissionsManagement: {},
       registering: false,

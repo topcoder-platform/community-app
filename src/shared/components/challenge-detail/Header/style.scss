@@ -76,15 +76,15 @@
 
   .important-detail {
     @include xxs-to-sm {
-      padding: 15px 15px 1px;
+      padding: 15px 15px 0;
     }
 
     @include sm {
-      padding: 20px 20px 2px;
+      padding: 20px 20px 0;
     }
 
     @include md-to-lg {
-      padding: 20px 19px 2px 30px;
+      padding: 20px 19px 0 30px;
     }
 
     .challenge-header {
@@ -368,12 +368,19 @@
       justify-content: center;
       margin-top: 20px;
 
+      @include xxs-to-xs {
+        flex-wrap: nowrap;
+        justify-content: flex-start;
+        overflow: auto;
+      }
+
       .challenge-selector-common {
         font-family: roboto;
         font-size: 13px;
         line-height: 30px;
         margin: 10px 20px 0;
         cursor: pointer;
+        white-space: nowrap;
       }
 
       .challenge-selected-view {

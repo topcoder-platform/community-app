@@ -59,14 +59,11 @@ describe('challenge.getDetailsDone', () => {
   test('payload is a promise which resolves to the expected object', () =>
     a.payload.then(res => expect(res).toEqual([
       mockChallenge, {
-        result: {
-          content: ['DUMMY DATA'],
-        },
+        submissions: 'DUMMY DATA',
       }, undefined,
     ])),
   );
 });
-
 
 describe('challenge.fetchSubmissionsDone', () => {
   global.fetch = mockFetch({ submissions: 'DUMMY DATA' });
@@ -78,5 +75,5 @@ describe('challenge.fetchSubmissionsDone', () => {
   });
 
   test('payload is a promise which resolves to the expected object', () =>
-    a.payload.then(res => expect(res).toEqual('DUMMY DATA')));
+    a.payload.then(res => expect(res).toBe('DUMMY DATA')));
 });

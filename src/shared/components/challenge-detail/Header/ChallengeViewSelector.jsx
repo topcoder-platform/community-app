@@ -20,7 +20,9 @@ export default function ChallengeViewSelector(props) {
     trackLower,
     selectedView,
     numRegistrants,
-    numSubmissions,
+    status,
+    // hasCheckpoints,
+    // numSubmissions,
     checkpointCount,
   } = props;
   return (
@@ -43,17 +45,23 @@ export default function ChallengeViewSelector(props) {
         >CHECKPOINTS ({checkpointCount})
         </a>
       }
-      <a
-        onClick={(e) => { e.preventDefault(); onSelectorClicked('SUBMISSIONS'); }}
-        styleName={getSelectorStyle(selectedView, 'SUBMISSIONS', trackLower)}
-      >
-        SUBMISSIONS {numSubmissions ? `(${numSubmissions})` : ''}
-      </a>
-      <a
-        onClick={(e) => { e.preventDefault(); onSelectorClicked('WINNERS'); }}
-        styleName={getSelectorStyle(selectedView, 'WINNERS', trackLower)}
-      >WINNERS
-      </a>
+      {
+        status === 'COMPLETED' &&
+        <a
+          onClick={(e) => { e.preventDefault(); onSelectorClicked('SUBMISSIONS'); }}
+          styleName={getSelectorStyle(selectedView, 'SUBMISSIONS', trackLower)}
+        >
+          SUBMISSIONS
+        </a>
+      }
+      {
+        status === 'COMPLETED' &&
+        <a
+          onClick={(e) => { e.preventDefault(); onSelectorClicked('WINNERS'); }}
+          styleName={getSelectorStyle(selectedView, 'WINNERS', trackLower)}
+        >WINNERS
+        </a>
+      }
       <a
         onClick={(e) => { e.preventDefault(); onSelectorClicked('CHALLENGE_FORUM'); }}
         styleName={getSelectorStyle(selectedView, 'CHALLENGE_FORUM', trackLower)}
@@ -74,6 +82,8 @@ ChallengeViewSelector.propTypes = {
   trackLower: PT.string.isRequired,
   selectedView: PT.string.isRequired,
   numRegistrants: PT.number,
-  numSubmissions: PT.number,
+  status: PT.string.isRequired,
+  // hasCheckpoints: PT.bool.isRequired,
+  // numSubmissions: PT.number,
   checkpointCount: PT.number,
 };

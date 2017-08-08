@@ -1,0 +1,177 @@
+@import "~styles/tc-styles";
+
+.container {
+  padding-top: 66px;
+  padding-bottom: 197px;
+  max-width: 966px;
+  margin: 0 auto;
+  font-family: 'Roboto';
+
+  @include xxs-to-xs {
+    padding: 0 30px 30px;
+  }
+}
+
+.head {
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 15px;
+  padding-bottom: 14px;
+  color: $tc-gray-50;
+  display: flex;
+  border-bottom: 1px solid $tc-gray-10;
+
+  @include xxs-to-xs {
+    display: none;
+  }
+}
+
+.body {
+  @include xxs-to-xs {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+.row {
+  display: flex;
+  line-height: 50px;
+  color: $tc-gray-70;
+  font-size: 15px;
+  border-bottom: 1px solid $tc-gray-10;
+
+  @include xxs-to-xs {
+    flex-direction: column;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    width: 100%;
+  }
+}
+
+.sm-only {
+  display: none;
+
+  @include xxs-to-xs {
+    display: block;
+  }
+}
+
+.title {
+  color: $tc-gray-50;
+  font-size: 13px;
+  line-height: 15px;
+  font-weight: 500;
+}
+
+.col-1 {
+  padding-left: 30px;
+  width: 298px;
+
+  @include xxs-to-xs {
+    padding-left: 0;
+    font-size: 15px;
+    line-height: 25px;
+    margin-bottom: 10px;
+    width: auto;
+  }
+
+  a,
+  a:hover,
+  a:visited {
+    color: $tc-dark-blue;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+.col-2 {
+  width: 317px;
+
+  @include xxs-to-xs {
+    margin-bottom: 15px;
+    line-height: 20px;
+    width: auto;
+  }
+}
+
+.col-3 {
+  display: flex;
+  align-items: center;
+
+  @include xxs-to-xs {
+    margin-bottom: 15px;
+    line-height: 20px;
+    flex-direction: column;
+    align-items: flex-start;
+    width: auto;
+  }
+}
+
+.col-4 {
+  display: flex;
+  align-items: center;
+  width: 351px;
+
+  @include xxs-to-xs {
+    line-height: 20px;
+    flex-direction: column;
+    align-items: flex-start;
+    width: auto;
+  }
+}
+
+.passed {
+  display: inline-block;
+  background-image: url(assets/images/ico-okay-check.png);
+  background-size: 100% 100%;
+  width: 22px;
+  height: 22px;
+  margin-left: 9px;
+}
+
+.placement {
+  display: inline-block;
+  width: 22px;
+  height: 22px;
+  border-radius: 100%;
+  line-height: 22px;
+  text-align: center;
+  margin-left: 6px;
+  background-color: $tc-gray-20;
+}
+
+.placement-1 {
+  background-color: $tc-gold;
+  color: $tc-black;
+}
+
+.placement-2 {
+  background-color: $tc-silver;
+  color: $tc-white;
+}
+
+.placement-3 {
+  background-color: $tc-bronze;
+  color: $tc-white;
+}
+
+.design {
+  .col-1 {
+    width: 212px;
+  }
+
+  .col-2 {
+    width: 231px;
+  }
+
+  .col-3 {
+    width: 265px;
+  }
+
+  .col-4 {
+    width: 258px;
+  }
+}

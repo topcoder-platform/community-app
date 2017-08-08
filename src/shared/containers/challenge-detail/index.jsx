@@ -8,6 +8,9 @@
 import _ from 'lodash';
 import LoadingIndicator from 'components/LoadingIndicator';
 import ChallengeHeader from 'components/challenge-detail/Header';
+import Registrants from 'components/challenge-detail/Registrants';
+import Submissions from 'components/challenge-detail/Submissions';
+import Winners from 'components/challenge-detail/Winners';
 import ChallengeDetailsView from 'components/challenge-detail/Specification';
 import ChallengeCheckpoints from 'components/challenge-detail/Checkpoints';
 import React from 'react';
@@ -37,6 +40,19 @@ class ChallengeDetailPageContainer extends React.Component {
   componentWillReceiveProps(nextProps) {
     if (this.props.tokenV3 !== nextProps.tokenV3) {
       this.props.reloadChallengeDetails(nextProps.authTokens, this.props.challengeId);
+    }
+
+    const checkpoints = nextProps.challenge.checkpoints;
+    if (checkpoints && checkpoints.length > 0
+      && !nextProps.loadingCheckpointResults
+      && !nextProps.checkpointResults) {
+      this.props.fetchCheckpoints(this.props.authTokens, this.props.challengeId);
+    }
+    if (nextProps.challenge.status === 'COMPLETED' &&
+      !nextProps.loadingResults &&
+      !nextProps.results) {
+      this.props.loadResults(this.props.authTokens, this.props.challengeId,
+        nextProps.challenge.track.toLowerCase());
     }
   }
 
@@ -88,8 +104,40 @@ class ChallengeDetailPageContainer extends React.Component {
             />
           }
           {
+            !isEmpty && this.state.selectedView === 'REGISTRANTS' &&
+            <Registrants
+              registrants={this.props.challenge.registrants}
+              isDesign={this.props.challenge.track.toLowerCase() === 'design'}
+              winners={this.props.challenge.winners}
+              checkpoints={this.props.challenge.checkpoints}
+              submissions={this.props.challenge.submissions}
+              checkpointResults={this.props.checkpointResults}
+              results={this.props.results}
+              places={this.props.challenge.prizes.length}
+            />
+          }
+          {
             !isEmpty && this.state.selectedView === 'CHECKPOINTS' &&
             <ChallengeCheckpoints checkpoints={this.props.checkpoints} />
+          }
+          {
+            !isEmpty && this.state.selectedView === 'SUBMISSIONS' &&
+            <Submissions
+              viewable={this.props.challenge.submissionsViewable === 'true'}
+              submissions={this.props.challenge.submissions}
+              checkpoints={this.props.challenge.checkpoints}
+              isDesign={this.props.challenge.track.toLowerCase() === 'design'}
+            />
+          }
+          {
+            !isEmpty && this.state.selectedView === 'WINNERS' &&
+            <Winners
+              results={this.props.results}
+              prizes={this.props.challenge.prizes}
+              submissions={this.props.challenge.submissions}
+              viewable={this.props.challenge.submissionsViewable === 'true'}
+              isDesign={this.props.challenge.track.toLowerCase() === 'design'}
+            />
           }
         </div>
       </div>
@@ -100,6 +148,10 @@ class ChallengeDetailPageContainer extends React.Component {
 ChallengeDetailPageContainer.defaultProps = {
   tokenV3: null,
   isLoadingChallenge: false,
+  loadingCheckpointResults: false,
+  checkpointResults: null,
+  loadingResults: false,
+  results: null,
   checkpoints: {},
 };
 
@@ -115,6 +167,12 @@ ChallengeDetailPageContainer.propTypes = {
   reloadChallengeDetails: PT.func.isRequired,
   unregisterFromChallenge: PT.func.isRequired,
   unregistering: PT.bool.isRequired,
+  loadingCheckpointResults: PT.bool,
+  checkpointResults: PT.arrayOf(PT.shape()),
+  loadingResults: PT.bool,
+  results: PT.arrayOf(PT.shape()),
+  fetchCheckpoints: PT.func.isRequired,
+  loadResults: PT.func.isRequired,
   checkpoints: PT.shape(),
 };
 
@@ -127,13 +185,10 @@ function extractChallengeDetail(v3, v2, challengeId) {
       challenge.introduction = v2.introduction;
       challenge.detailedRequirements = v2.detailedRequirements;
       challenge.topCheckPointPrize = v2.topCheckPointPrize;
-      if (v2.event) {
-        challenge.mainEvent = {
-          eventName: v2.event.shortDescription,
-          eventId: v2.event.id,
-          description: v2.event.description,
-        };
-      }
+      challenge.registrants = v2.registrants;
+      challenge.checkpoints = v2.checkpoints;
+      challenge.submissions = v2.submissions;
+      challenge.submissionsViewable = v2.submissionsViewable;
       challenge.forumLink = v2.forumLink;
       challenge.screeningScorecardId = Number(v2.screeningScorecardId);
       challenge.reviewScorecardId = Number(v2.reviewScorecardId);
@@ -145,12 +200,20 @@ function extractChallengeDetail(v3, v2, challengeId) {
       challenge.allowStockArt = v2.allowStockArt === 'true';
       challenge.finalSubmissionGuidelines = v2.finalSubmissionGuidelines;
       challenge.appealsEndDate = v2.appealsEndDate;
+      if (v2.event) {
+        challenge.mainEvent = {
+          eventName: v2.event.shortDescription,
+          eventId: v2.event.id,
+          description: v2.event.description,
+        };
+      }
     }
   } else if (!_.isEmpty(v2)) {
     challenge = {
       id: challengeId,
+      status: v2.currentStatus,
       name: v2.challengeName,
-      track: v2.type,
+      track: v2.challengeCommunity,
       subTrack: v2.challengeType,
       events: v2.event ? [
         {
@@ -170,6 +233,10 @@ function extractChallengeDetail(v3, v2, challengeId) {
       numberOfCheckpointsPrizes: v2.numberOfCheckpointsPrizes,
       introduction: v2.introduction,
       detailedRequirements: v2.detailedRequirements,
+      registrants: v2.registrants,
+      checkpoints: v2.checkpoints,
+      submissions: v2.submissions,
+      submissionsViewable: v2.submissionsViewable,
       forumLink: v2.forumLink,
       screeningScorecardId: Number(v2.screeningScorecardId),
       reviewScorecardId: Number(v2.reviewScorecardId),
@@ -182,6 +249,7 @@ function extractChallengeDetail(v3, v2, challengeId) {
       allowStockArt: v2.allowStockArt === 'true',
       finalSubmissionGuidelines: v2.finalSubmissionGuidelines,
       appealsEndDate: v2.appealsEndDate,
+
     };
   }
   return challenge;
@@ -198,6 +266,10 @@ const mapStateToProps = (state, props) => ({
   tokenV3: state.auth && state.auth.tokenV3,
   registering: state.challenge.registering,
   unregistering: state.challenge.unregistering,
+  checkpointResults: (state.challenge.checkpoints || {}).checkpointResults,
+  loadingCheckpointResults: state.challenge.loadingCheckpoints,
+  results: state.challenge.results,
+  loadingResults: state.challenge.loadingResults,
   checkpoints: state.challenge.checkpoints,
 });
 
@@ -227,6 +299,10 @@ const mapDispatchToProps = (dispatch) => {
     unregisterFromChallenge: (auth, challengeId) => {
       dispatch(a.unregisterInit());
       dispatch(a.unregisterDone(auth, challengeId));
+    },
+    loadResults: (auth, challengeId, type) => {
+      dispatch(a.loadResultsInit());
+      dispatch(a.loadResultsDone(auth, challengeId, type));
     },
     fetchCheckpoints: (tokens, challengeId) => {
       dispatch(a.fetchCheckpointsInit());

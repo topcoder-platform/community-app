@@ -30,10 +30,15 @@ function getDetailsInit(challengeId) {
  */
 function getDetailsDone(challengeId, tokenV3, tokenV2) {
   const service = getChallengesService(tokenV3, tokenV2);
+  const v3Promise = service.getChallenges({ id: challengeId })
+    .then(res => res.challenges[0]);
   return Promise.all([
-    service.getChallenges({ id: challengeId }).then(res => res.challenges[0]),
-    getApiV2(tokenV2).fetch(`/challenges/${challengeId}`)
-      .then(res => res.json()),
+    v3Promise,
+    v3Promise.then((v3) => {
+      const type = v3.track.toLowerCase() || 'develop';
+      return getApiV2(tokenV2).fetch(`/${type}/challenges/${challengeId}`)
+        .then(res => res.json());
+    }),
     tokenV3 && service.getUserChallenges(decodeToken(tokenV3).handle, {
       id: challengeId,
     }).then(res => res.challenges[0]),
@@ -74,6 +79,13 @@ function unregisterDone(auth, challengeId) {
     .then(() => getDetailsDone(challengeId, auth.tokenV3, auth.tokenV2));
 }
 
+function loadResults(auth, challengeId, type) {
+  return getApiV2(auth.tokenV2)
+    .fetch(`/${type}/challenges/result/${challengeId}`)
+    .then(response => response.json())
+    .then(response => response.results);
+}
+
 function fetchCheckpointsDone(tokenV2, challengeId) {
   const endpoint = `/design/challenges/checkpoint/${challengeId}`;
   return getApiV2(tokenV2).fetch(endpoint)
@@ -90,15 +102,17 @@ function fetchCheckpointsDone(tokenV2, challengeId) {
 
 export default createActions({
   CHALLENGE: {
+    FETCH_CHECKPOINTS_INIT: _.noop,
+    FETCH_CHECKPOINTS_DONE: fetchCheckpointsDone,
     GET_DETAILS_INIT: getDetailsInit,
     GET_DETAILS_DONE: getDetailsDone,
     GET_SUBMISSIONS_INIT: _.noop,
     GET_SUBMISSIONS_DONE: getSubmissionsDone,
+    LOAD_RESULTS_INIT: _.noop,
+    LOAD_RESULTS_DONE: loadResults,
     REGISTER_INIT: _.noop,
     REGISTER_DONE: registerDone,
     UNREGISTER_INIT: _.noop,
     UNREGISTER_DONE: unregisterDone,
-    FETCH_CHECKPOINTS_INIT: _.noop,
-    FETCH_CHECKPOINTS_DONE: fetchCheckpointsDone,
   },
 });
