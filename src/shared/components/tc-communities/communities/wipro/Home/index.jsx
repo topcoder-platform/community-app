@@ -160,6 +160,16 @@ export default function Home(props) {
             theme={ImageTextStyles}
             imageSrc="/themes/wipro/home/image-text-do.jpg"
           />
+          <ImageText
+            title="Leverage The Crowd"
+            text="Access your on-demand community of designers and technology experts."
+            link={{
+              title: 'Start Project',
+              url: 'https://connect.topcoder.com',
+            }}
+            theme={ImageTextStyles}
+            imageSrc="/themes/wipro/home/image-text-learn.jpg"
+          />
         </div>
       </Section>
 

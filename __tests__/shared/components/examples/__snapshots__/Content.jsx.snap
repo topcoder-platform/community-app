@@ -112,11 +112,15 @@ exports[`Matches shallow shapshot 1`] = `
       <code>
         /challenges/:challengeId
       </code>
-      . Here are some demo links valid in 
+      .
+      <br />
+      Here are some demo links valid in 
       <strong>
         production
       </strong>
-       environment: ‌
+       environment:
+      <br />
+      ‌
       <Link
         replace={false}
         to="/challenges/30058637"
@@ -159,6 +163,49 @@ exports[`Matches shallow shapshot 1`] = `
         design challenge 4
       </Link>
       .
+      <br />
+      Here are some demo links valid in 
+      <strong>
+        development
+      </strong>
+      ‌ environment:
+      <br />
+      ‌
+      <Link
+        replace={false}
+        to="/challenges/30049604"
+      >
+        data science challenge
+      </Link>
+      , ‌
+      <Link
+        replace={false}
+        to="/challenges/30050680"
+      >
+        code challenge
+      </Link>
+      , ‌
+      <Link
+        replace={false}
+        to="/challenges/30050463"
+      >
+        code challenge 2
+      </Link>
+      , ‌
+      <Link
+        replace={false}
+        to="/challenges/30049552"
+      >
+        design challenge
+      </Link>
+      , ‌
+      <Link
+        replace={false}
+        to="/challenges/30050696"
+      >
+        design challenge 2
+      </Link>
+      ,
     </li>
     <li>
       <Link

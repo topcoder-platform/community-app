@@ -1,3 +1,4 @@
+import config from 'utils/config';
 import React from 'react';
 import PT from 'prop-types';
 
@@ -5,22 +6,19 @@ import ShareSocial from './ShareSocial';
 
 import '../styles.scss';
 
-export default function DesignSideBar(props) {
-  const {
-    documents,
-    eventDetail,
-    screeningScorecardId,
-    reviewScorecardId,
-    forumLink,
-    submissionLimit,
-    hasRegistered,
-    fileTypes,
-  } = props;
-  const eventURL = `//${eventDetail.eventName}.topcoder.com`;
-  const scorecardURL = 'https://software.topcoder.com/review/actions/ViewScorecard?scid=';
-  const faqURL = (
-    'https://help.topcoder.com/hc/en-us/articles/219122667-Formatting-Your-Submission-for-Design-Challenges'
-  );
+export default function DesignSideBar({
+  documents,
+  eventDetail,
+  screeningScorecardId,
+  reviewScorecardId,
+  forumLink,
+  submissionLimit,
+  hasRegistered,
+  fileTypes,
+}) {
+  const scorecardURL = `${config.URL.ONLINE_REVIEW}/review/actions/ViewScorecard?scid=`;
+  const faqURL = config.URL.INFO.DESIGN_CHALLENGE_SUBMISSION;
+  /* TODO: This should be got from challenge terms endpoint! */
   const challengeTermsURL = (
     'https://www.topcoder.com/challenge-details/terms/detail/21193/'
   );
@@ -31,16 +29,13 @@ export default function DesignSideBar(props) {
     submissionLimitDisplay = `${submissionLimit} submissions`;
   }
 
-  const commonStyle = 'challenge-spec-sidebar';
-  const designStyle = 'challenge-spec-sidebar-design';
-
   let downloadsPlaceHolder = 'None';
   if (!hasRegistered) {
     downloadsPlaceHolder = 'Register to Download Files (if available)';
   }
 
   return (
-    <div styleName={`${commonStyle} ${designStyle}`}>
+    <div styleName="challenge-spec-sidebar">
       <div styleName="challenge-sidebar-inner">
         <h3>DOWNLOADS:</h3>
         {
@@ -55,8 +50,18 @@ export default function DesignSideBar(props) {
           ) :
             <p>{downloadsPlaceHolder}</p>
         }
-        <h3>ELIGIBLE EVENTS:</h3>
-        <p><a href={eventURL}>{eventDetail.description}</a></p>
+        {eventDetail && (
+          <div>
+            <h3>ELIGIBLE EVENTS:</h3>
+            <p styleName="link-like-paragraph">
+              {/* TODO: It is not good to compose the event URL like this, as
+                * in general there is not guaranteed to be correct. */}
+              <a href={`//${eventDetail.eventName}.topcoder.com`}>
+                {eventDetail.description}
+              </a>
+            </p>
+          </div>
+        )}
         <h3>CHALLENGE LINKS:</h3>
         {
           screeningScorecardId &&
@@ -84,7 +89,7 @@ export default function DesignSideBar(props) {
         </ol>
         <p>
           Trouble formatting your submission or want to learn more?
-          <a href={faqURL}>Read the FAQ.</a>
+          &zwnj;<a href={faqURL}>Read the FAQ.</a>
         </p>
         <h4>Fonts:</h4>
         <p>
@@ -132,10 +137,7 @@ export default function DesignSideBar(props) {
 }
 
 DesignSideBar.defaultProps = {
-  eventDetail: {
-    eventName: '',
-    description: '',
-  },
+  eventDetail: null,
   documents: undefined,
   screeningScorecardId: undefined,
   reviewScorecardId: undefined,

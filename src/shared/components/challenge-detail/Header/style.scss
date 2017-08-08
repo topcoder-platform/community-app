@@ -6,8 +6,9 @@
 }
 
 .challenge-ops-container {
-  flex: 1;
-  padding: 3 * $base-unit 4 * $base-unit;
+  margin: 0 4 * $base-unit;
+  padding: 3 * $base-unit 0;
+  width: 245px;
 }
 
 @mixin design-accent-bg {
@@ -66,7 +67,7 @@
 
 .challenge-outer-container {
   background: $tc-gray-neutral-light;
-  border-radius: 6px 6px 0 0;
+  border-radius: (3 * $corner-radius) (3 * $corner-radius) 0 0;
 
   @include xxs-to-sm {
     padding: 4px 4px 1px 0;

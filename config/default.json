@@ -53,24 +53,44 @@
   /* Various URLs. Most of them lead to different segments of Topcoder
    * platform. */
   "URL": {
+    /* Connector URL of the TC accounts App. */
+    "ACCOUNTS_APP_CONNECTOR": "https://accounts.topcoder-dev.com/connector.html",
+
     "ARENA": "https://arena.topcoder-dev.com",
     "AUTH": "http://accounts-test.topcoder-dev.com",
     "BASE": "https://www.topcoder-dev.com",
+    "BLOG": "https://www.topcoder-dev.com/feed",
+    "COGNITIVE": "https://cognitive.topcoder.com",
     "COMMUNITY": "https://community.topcoder-dev.com",
     "FORUMS": "https://apps.topcoder-dev.com/forums",
     "HELP": "https://help.topcoder-dev.com",
+
+    /* Dedicated section to group together links to various articles in
+     * Topcoder help center. */
+    "INFO": {
+      "DESIGN_CHALLENGES": "http://help.topcoder.com/hc/en-us/categories/202610437-DESIGN",
+      "DESIGN_CHALLENGE_CHECKPOINTS": "https://help.topcoder.com/hc/en-us/articles/219240807-Multi-Round-Checkpoint-Design-Challenges",
+      "DESIGN_CHALLENGE_SUBMISSION": "http://help.topcoder.com/hc/en-us/articles/219122667-Formatting-Your-Submission-for-Design-Challenges",
+      "DESIGN_CHALLENGE_TYPES": "http://help.topcoder.com/hc/en-us/articles/217481388-Choosing-a-Design-Challenge",
+      "RELIABILITY_RATINGS_AND_BONUSES": "https://help.topcoder.com/hc/en-us/articles/219240797-Development-Reliability-Ratings-and-Bonuses",
+      "STOCK_ART_POLICY": "http://help.topcoder.com/hc/en-us/articles/217481408-Policy-for-Stock-Artwork-in-Design-Submissions"
+    },
+
+    "IOS": "https://ios.topcoder-dev.com",
     "MEMBER": "https://members.topcoder-dev.com",
     "ONLINE_REVIEW": "https://software.topcoder-dev.com",
     "STUDIO": "https://studio.topcoder-dev.com",
     "TCO": "https://www.topcoder.com/tco",
+    "TCO17": "https://tco17.topcoder.com/",
+
+    "UML_TOOL": {
+      "GITHUB": "https://github.com/topcoderinc/topcoder-UML-Tool",
+      "JAVA": "https://github.com/topcoderinc/topcoder-UML-Tool/blob/master/build/dist/TopCoder_UML_Tool_Installer-1.2.7.jar?raw=true",
+      "MAC": "https://github.com/topcoderinc/topcoder-UML-Tool/blob/master/build/dist/TopCoder%20UML%20Tool%20OS%20X%201.2.7.zip?raw=true"
+    },
+
     "USER_SETTINGS": "https://lc1-user-settings-service.herokuapp.com",
-    "WIPRO": "https://wipro.topcoder.com",
-    "IOS": "https://ios.topcoder-dev.com",
-    /* Connector URL of the TC accounts App. */
-    "ACCOUNTS_APP_CONNECTOR": "https://accounts.topcoder-dev.com/connector.html",
-    "BLOG": "https://www.topcoder-dev.com/feed",
-    "COGNITIVE": "https://cognitive.topcoder.com",
-    "TCO17": "https://tco17.topcoder.com/"
+    "WIPRO": "https://wipro.topcoder.com"
   },
   "SWIFT_PROGRAM_ID": 3445
 }
