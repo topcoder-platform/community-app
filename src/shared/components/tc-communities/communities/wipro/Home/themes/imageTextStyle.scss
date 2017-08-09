@@ -16,7 +16,7 @@
 }
 
 .contentInner {
-  padding: 0 20px 0 40px;
+  padding: 24px 20px 24px 40px;
 
   .imageText:nth-child(even) & {
     padding: 0 40px 0 20px;
@@ -30,6 +30,10 @@
       padding: 20px 15px 0;
     }
   }
+}
+
+.image {
+  align-self: center;
 }
 
 .title {

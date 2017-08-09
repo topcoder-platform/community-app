@@ -28,13 +28,13 @@ export default function Home(props) {
   return (
     <main>
       <Banner
-        title="Topcoder QA Community"
+        title="Topcoder SRMX Community"
         text="This is the place where Topcoder members can come to focus on work that involves QA."
         link={{
           title: 'Compete Now',
           url: 'challenges',
         }}
-        imageSrc="/themes/tc-prod-dev/community-hero.jpg"
+        imageSrc="/themes/srmx/community-hero.jpg"
       />
 
       <CommunityStats />
@@ -54,7 +54,7 @@ export default function Home(props) {
               title: 'Start Learning',
               url: 'learn',
             }}
-            imageSrc="/themes/qa/home/image-text-learn.jpg"
+            imageSrc="/themes/srmx/home/image-text-learn.jpg"
           />
           <ImageText
             title="Get Involved"
@@ -63,7 +63,7 @@ export default function Home(props) {
               title: 'Start Contributing',
               url: 'challenges',
             }}
-            imageSrc="/themes/qa/home/image-text-do.jpg"
+            imageSrc="/themes/srmx/home/image-text-do.jpg"
           />
         </div>
       </Section>
@@ -107,7 +107,7 @@ export default function Home(props) {
       <NewsletterSignup
         title="Sign up for Topcoder Product Development Updates"
         text="Don’t miss out opportunities to work on the Topcoder Platform!"
-        imageSrc="/themes/wipro/subscribe-bg.jpg"
+        imageSrc="/themes/srmx/subscribe-bg.jpg"
       />
 
     </main>

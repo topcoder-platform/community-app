@@ -140,7 +140,7 @@ export default function Home(props) {
               url: 'learn',
             }}
             theme={ImageTextStyles}
-            imageSrc="/themes/wipro/home/image-text-learn.jpg"
+            imageSrc="/themes/wipro/home/image-text-learn.png"
           />
           <ImageText
             title="Get Involved"
@@ -158,7 +158,7 @@ export default function Home(props) {
               url: 'https://help.topcoder.com/hc/requests/new',
             }]}
             theme={ImageTextStyles}
-            imageSrc="/themes/wipro/home/image-text-do.jpg"
+            imageSrc="/themes/wipro/home/image-text-do.png"
           />
           <ImageText
             title="Leverage The Crowd"
@@ -168,7 +168,7 @@ export default function Home(props) {
               url: 'https://connect.topcoder.com',
             }}
             theme={ImageTextStyles}
-            imageSrc="/themes/wipro/home/image-text-learn.jpg"
+            imageSrc="/themes/wipro/home/image-text-leverage.png"
           />
         </div>
       </Section>
