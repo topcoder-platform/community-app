@@ -106,6 +106,9 @@ export default function Content() {
           <Link to="/community/qa/home">QA Community</Link>
         </li>
         <li>
+          <Link to="/community/srmx/home">SRMX Community</Link>
+        </li>
+        <li>
           <Link to="/community/taskforce/home">Taskforce community</Link>
         </li>
         <li>

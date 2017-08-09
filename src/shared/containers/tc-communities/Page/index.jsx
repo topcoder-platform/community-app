@@ -43,6 +43,9 @@ import WiproLearn from 'components/tc-communities/communities/wipro/Learn';
 import QaHome from 'components/tc-communities/communities/qa/Home';
 import QaLearn from 'components/tc-communities/communities/qa/Learn';
 
+import SrmxHome from 'components/tc-communities/communities/srmx/Home';
+import SrmxLearn from 'components/tc-communities/communities/srmx/Learn';
+
 import TcProdDevHome from 'components/tc-communities/communities/tc-prod-dev/Home';
 import TcProdDevLearn from 'components/tc-communities/communities/tc-prod-dev/Learn';
 
@@ -116,6 +119,12 @@ export class Page extends Component {
       switch (pageId) {
         case 'home': pageContent = <QaHome />; break;
         case 'learn': pageContent = <QaLearn />; break;
+        default: break;
+      }
+    } else if (communityId === 'srmx') {
+      switch (pageId) {
+        case 'home': pageContent = <SrmxHome />; break;
+        case 'learn': pageContent = <SrmxLearn />; break;
         default: break;
       }
     } else if (communityId === 'tc-prod-dev') {
