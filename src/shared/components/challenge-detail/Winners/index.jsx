@@ -64,7 +64,10 @@ export default function Winners(props) {
                 }
               </div>
               <div styleName="info">
-                <div styleName="handle">{w.handle}</div>
+                <a
+                  href={`${config.URL.BASE}/members/${w.handle}`}
+                  styleName="handle"
+                >{w.handle}</a>
                 <div styleName="prize">{`$${prizes[w.placement - 1].toLocaleString()}`}</div>
                 {
                   submissionId &&

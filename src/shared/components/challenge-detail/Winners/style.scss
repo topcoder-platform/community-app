@@ -16,6 +16,7 @@
 
     .flag {
       background-color: $tc-gold;
+      color: $tc-black;
 
       &::after {
         border-top: solid 20px $tc-gold;
@@ -48,6 +49,8 @@
   }
 
   @include xxs-to-xs {
+    height: auto;
+    padding: 4 * $base-unit;
     width: 100%;
   }
 
@@ -78,10 +81,13 @@
       width: 46px;
       height: 58px;
       background-size: 100% 100%;
+      margin-bottom: $base-unit;
+      margin-left: -2px;
     }
 
     .text {
       color: $tc-gray-50;
+      font-size: 12px;
     }
   }
 
@@ -119,6 +125,7 @@
 .info {
   .handle {
     color: $tc-dark-blue;
+    display: block;
     font-size: 36px;
     margin-bottom: 8px;
     font-weight: 300;
