@@ -123,7 +123,9 @@ export class Page extends Component {
       }
     } else if (communityId === 'srmx') {
       switch (pageId) {
-        case 'home': pageContent = <SrmxHome />; break;
+        case 'home':
+          pageContent = <SrmxHome tokenV2={this.props.tokenV2} />;
+          break;
         case 'learn': pageContent = <SrmxLearn />; break;
         default: break;
       }
@@ -328,6 +330,7 @@ Page.propTypes = {
   history: PT.shape().isRequired,
   location: PT.shape().isRequired,
   resetChallengeListing: PT.func.isRequired,
+  tokenV2: PT.string.isRequired,
 };
 
 const mapStateToProps = (state, props) => ({
