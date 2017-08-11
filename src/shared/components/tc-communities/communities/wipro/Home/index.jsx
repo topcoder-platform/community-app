@@ -6,6 +6,8 @@
  */
 /* eslint-disable max-len */
 
+import Accordion from 'components/tc-communities/Accordion/Accordion';
+import AccordionItem from 'components/tc-communities/Accordion/AccordionItem';
 import React from 'react';
 import Section from 'components/tc-communities/Section';
 import Banner from 'components/tc-communities/Banner';
@@ -15,8 +17,10 @@ import ResourceCard from 'components/tc-communities/ResourceCard';
 import NewsletterSignup from 'components/tc-communities/NewsletterSignup';
 import NewsSection from 'components/tc-communities/NewsSection';
 */
+import Text from 'components/tc-communities/Text';
 import { noop } from 'lodash';
 import { Link } from 'utils/router';
+
 // import Slider from 'react-slick';
 
 import PT from 'prop-types';
@@ -164,7 +168,7 @@ export default function Home(props) {
             title="Leverage The Crowd"
             text="Access your on-demand community of designers and technology experts."
             link={{
-              title: 'Start Project',
+              title: 'Initiate Project',
               url: 'https://connect.topcoder.com/new-project/generic_dev?refcode=topgear',
             }}
             theme={ImageTextStyles}
@@ -175,6 +179,7 @@ export default function Home(props) {
 
       <Section
         theme={{
+          container: style.viewAllPublicChallengesContainer,
           content: style.viewAllPublicChallenges,
         }}
       >
@@ -185,6 +190,25 @@ export default function Home(props) {
             to="challenges?communityId="
           >View All Public Challenges</Link>
         </div>
+      </Section>
+
+      <Section
+        title="Frequently Asked Questions"
+        theme={{
+          content: style.faqContent,
+        }}
+      >
+        <Accordion>
+          <AccordionItem title="How to participate in a challenge">
+            <Text><p><a href="https://help.topcoder.com/hc/en-us">Just do it!</a> (A better answer will be placed here soon)</p></Text>
+          </AccordionItem>
+          <AccordionItem title="Code submissions for a challenge">
+            <Text><p><a href="https://help.topcoder.com/hc/en-us">Just do it!</a> (A better answer will be placed here soon)</p></Text>
+          </AccordionItem>
+          <AccordionItem title="Roles, responsibilities for reviewer and copilot">
+            <Text><p><a href="https://help.topcoder.com/hc/en-us">Just do it!</a> (A better answer will be placed here soon)</p></Text>
+          </AccordionItem>
+        </Accordion>
       </Section>
 
       {/*
