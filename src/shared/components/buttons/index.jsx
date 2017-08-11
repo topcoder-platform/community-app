@@ -51,7 +51,7 @@ import secondaryButton from './secondary.scss';
 /* Generic button, not wrapped by themr, but accepting theme property.
  * In most cases you will want to use some of the themable exports below
  * instead. */
-function GenericButton({
+export function GenericButton({
   children,
   disabled,
   enforceA,
