@@ -58,6 +58,7 @@ exports[`Matches shallow shapshot shapshot 1 1`] = `
       <Prize
         bonuses={Array []}
         label="Purse"
+        points={null}
         prizeUnitSymbol="$"
         prizes={
           Array [
@@ -168,6 +169,7 @@ exports[`Matches shallow shapshot shapshot 2 1`] = `
       <Prize
         bonuses={Array []}
         label="Purse"
+        points={null}
         prizeUnitSymbol="$"
         prizes={
           Array [
@@ -273,6 +275,7 @@ exports[`Matches shallow shapshot shapshot 3 1`] = `
       <Prize
         bonuses={Array []}
         label="Purse"
+        points={null}
         prizeUnitSymbol="$"
         prizes={
           Array [
