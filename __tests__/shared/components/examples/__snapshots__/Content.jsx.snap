@@ -296,6 +296,14 @@ exports[`Matches shallow shapshot 1`] = `
         TopGear (Wipro) community
       </Link>
     </li>
+    <li>
+      <Link
+        replace={false}
+        to="/community/veterans/"
+      >
+        Veterans Community
+      </Link>
+    </li>
   </ul>
   <h3>
     Misc Examples

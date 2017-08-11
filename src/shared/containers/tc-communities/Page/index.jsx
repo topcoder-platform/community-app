@@ -49,6 +49,9 @@ import SrmxLearn from 'components/tc-communities/communities/srmx/Learn';
 import TcProdDevHome from 'components/tc-communities/communities/tc-prod-dev/Home';
 import TcProdDevLearn from 'components/tc-communities/communities/tc-prod-dev/Learn';
 
+import VeteransHome from 'components/tc-communities/communities/veterans/Home';
+import VeteransLearn from 'components/tc-communities/communities/veterans/Learn';
+
 import DemoExpertHome from 'components/tc-communities/communities/demo-expert/Home';
 import DemoExpertLearn from 'components/tc-communities/communities/demo-expert/Learn';
 
@@ -119,6 +122,12 @@ export class Page extends Component {
       switch (pageId) {
         case 'home': pageContent = <QaHome />; break;
         case 'learn': pageContent = <QaLearn />; break;
+        default: break;
+      }
+    } else if (communityId === 'veterans') {
+      switch (pageId) {
+        case 'home': pageContent = <VeteransHome />; break;
+        case 'learn': pageContent = <VeteransLearn />; break;
         default: break;
       }
     } else if (communityId === 'srmx') {

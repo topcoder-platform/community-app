@@ -118,6 +118,9 @@ export default function Content() {
         <li>
           <Link to="/community/wipro/">TopGear (Wipro) community</Link>
         </li>
+        <li>
+          <Link to="/community/veterans/">Veterans Community</Link>
+        </li>
       </ul>
 
       <h3>Misc Examples</h3>

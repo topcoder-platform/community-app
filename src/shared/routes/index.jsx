@@ -29,14 +29,15 @@ import Examples from './examples';
 
 function Routes({ subdomains }) {
   let communityId;
-  if (subdomains.includes('demo-expert')) communityId = 'demo-expert';
+  if (subdomains.includes('community-2')) communityId = 'community-2';
+  else if (subdomains.includes('demo-expert')) communityId = 'demo-expert';
   else if (subdomains.includes('wipro')
     || subdomains.includes('topgear')) communityId = 'wipro';
   else if (subdomains.includes('taskforce')) communityId = 'taskforce';
   else if (subdomains.includes('qa')) communityId = 'qa';
   else if (subdomains.includes('srmx')) communityId = 'srmx';
   else if (subdomains.includes('tc-prod-dev')) communityId = 'tc-prod-dev';
-  else if (subdomains.includes('community-2')) communityId = 'community-2';
+  else if (subdomains.includes('veterans')) communityId = 'veterans';
   if (communityId) {
     return (
       <div>
