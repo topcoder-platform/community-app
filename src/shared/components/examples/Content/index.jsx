@@ -128,6 +128,9 @@ export default function Content() {
           of <code>react-css-themr</code>.
         </li>
         <li>
+          <Link to="/examples/code-splitting">Code Splitting</Link>
+        </li>
+        <li>
           <Link to="/examples/css-modules">CSS Modules</Link> - Demo/test of CSS modules in action;
         </li>
         <li>

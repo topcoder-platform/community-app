@@ -15,6 +15,11 @@ module.exports = {
       /[\\/]node_modules[\\/]le_node/,
 
       /[\\/]node_modules[\\/]xml2json/,
+
+      /* This module is a part of requireWeak(..) implementation, it must be
+       * ignored by Webpack, so that the modules required with this function
+       * are not bundled. */
+      /utils[\\/]router[\\/]require/,
     ],
     rules: [{
       test: /\.(eot|otf|svg|ttf|woff|woff2)$/,
@@ -105,7 +110,8 @@ module.exports = {
     fs: 'empty',
   },
   output: {
-    filename: 'bundle.js',
+    filename: 'main.js',
+    chunkFilename: 'chunk-[name]-[chunkhash].js',
     path: path.resolve(__dirname, '../../build'),
     publicPath: '/',
   },
@@ -126,7 +132,6 @@ module.exports = {
         /* Some isomorphic code relies on this variable to determine, whether
          * it is executed client- or server-side. */
         FRONT_END: true,
-        DOMAIN: "'topcoder-dev.com'",
       },
     }),
   ],

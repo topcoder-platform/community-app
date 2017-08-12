@@ -8,6 +8,10 @@ import URL from 'url-parse';
 import { connect } from 'react-redux';
 import { Link as RRLink, NavLink as RRNavLink } from 'react-router-dom';
 
+import SplitRoute from './SplitRoute';
+
+export { SplitRoute };
+
 /**
  * Here are enhanced versions of react-router's <Link> and <NavLink> components.
  * Original components work properly only with URLs reffering routes within the
@@ -170,5 +174,18 @@ RRNavLinkWrapper.propTypes = {
 export const NavLink = connect(state => ({
   hostname: state.hostname,
 }))(RRNavLinkWrapper);
+
+/**
+ * Requires the specified module without including it into the bundle during
+ * Webpack build. This function should be executed only server-side. 
+ * @param {String} modulePath
+ * @return Required module.
+ */
+export function requireWeak(modulePath) {
+  /* eslint-disable global-require, import/no-dynamic-require */
+  const mod = require('./require')(modulePath);
+  /* eslint-enable global-require, import/no-dynamic-require */
+  return mod.default || mod;
+}
 
 export default undefined;
