@@ -15,7 +15,7 @@
         "./src/shared",
         "./src"
       ],
-      "transformFunctions": ["requireWeak"]
+      "transformFunctions": ["resolveWeak"]
     }],
     ["react-css-modules", {
       "filetypes": {

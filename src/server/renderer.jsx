@@ -31,7 +31,10 @@ export default (req, res) => {
     storeFactory(req),
     getRates(),
   ]).then(([store, exchangeRates]) => {
-    const context = { splits: {} };
+    const context = {
+      splits: {},
+      store,
+    };
     const appHtml = ReactDOM.renderToString((
       <Provider store={store}>
         <StaticRouter

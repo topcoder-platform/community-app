@@ -11,6 +11,7 @@
 import PT from 'prop-types';
 import React from 'react';
 import ReactDomServer from 'react-dom/server';
+import { Provider } from 'react-redux';
 import { Route } from 'react-router-dom';
 import { isServerSide } from 'utils/isomorphy';
 
@@ -49,9 +50,15 @@ export default class SplitRoute extends React.Component {
             /* Server-side rendering */
 
             /* 1. The component or its placeholder is rendered into HTML 
-             *    string. */
+             *    string. And, yes, just in case we have to wrap it into
+             *    Provider, otherwise containers in the render will break
+             *    the code. */
             const render = renderServer || renderPlaceholder || (() => <div />);
-            const html = ReactDomServer.renderToString(render(props));
+            const html = ReactDomServer.renderToString((
+              <Provider store={props.staticContext.store}>
+                {render(props)}
+              </Provider>
+            ));
 
             /* 2. The rendered HTML string is added to the router context,
              *    to be injected by server/renderer.jsx into the rendered HTML 

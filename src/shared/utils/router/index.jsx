@@ -188,4 +188,18 @@ export function requireWeak(modulePath) {
   return mod.default || mod;
 }
 
+/**
+ * Resolves provided module path with help of Babel's module resolver. As you
+ * see, the function itself just returns its argument, but Babel is configured
+ * to resolve the first argument of resolveWeak(..) function, so it works.
+ * Note that result of this resolution may be a relative path (relative to the
+ * caller module). To resolve it to an absolute path you should do
+ * path.resolve(resolveWeak(modulePath)).
+ * @param {String} modulePath 
+ * @return {String} Module path.
+ */
+export function resolveWeak(modulePath) {
+  return modulePath;
+}
+
 export default undefined;

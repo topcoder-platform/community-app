@@ -39,7 +39,8 @@ When this code is bundled by Webpack, the compiled JS and CSS code for the Compo
 
 ```
 import LoadingIndicator from 'components/LoadingIndicator';
-import { requireWeak, SplitRoute } from 'utils/router';
+import path from 'path';
+import { requireWeak, resolveWeak, SplitRoute } from 'utils/router';
 
 export default Routes() {
   return (
@@ -52,8 +53,10 @@ export default Routes() {
       }
       renderPlaceholder={(props) => <LoadingIndicator {...props} />}
       renderServer={(props) => {
-        const Component = requireWeak('components/Component');
-        return <Component {...props} />
+        let modulePath = resolveWeak('containers/challenge-detail');
+        modulePath = path.resolve(__dirname, modulePath);
+        const ChallengeDetail = requireWeak(modulePath);
+        return <ChallengeDetail {...props} />;
       }}
     />
   );
@@ -69,7 +72,13 @@ First of all, under the hood `SplitRoute` uses **react-router**'s `Route` to mak
 
 -   The component's module will be loaded from the server the first time the route is matched. It will take some time during which nothing will be rendered at this route. To work around it there is an optional `renderPlaceholder` prop. If provided, when the route is matched, this prop will be used to render a placeholder component in the route until the async component is loaded.
 
--   Finally, there is `renderServer` prop, which is executed only at the server side and it specifies how the server-side rendering of the route is done when the route is matched. To work properly, you should require your component inside this `renderServer` function, using `requireWeak('PATH/TO/THE/MODULE')` function. This function works the same as `import Component from 'PATH/TO/THE/MODULE'`, but the required module is not bundled into the main bundle by Webpack.
+-   Finally, there is `renderServer` prop, which is executed only at the server side and it specifies how the server-side rendering of the route is done when the route is matched. To work properly, you should require your component inside this `renderServer` function, using the code 
+    ```
+    let modulePath = resolveWeak('PATH/TO/THE/MODULE);
+    modulePath = path.resolve(__dirname, modulePath);
+    const Component = requireWeak(modulePath);
+    ```
+    This block of code does the same as `import Component from 'PATH/TO/THE/MODULE'`, but the required module is not bundled into the main bundle by Webpack.
 
     In general, you want to ensure that `renderServer` and `renderClientAsync` functions render exactly the same component, so that when you go directly to the route, you don't see any changes in the page during its loading, it just loads in its target form from the beginning. Though, technically, it is not obligatory to render the same in this functions. If they render different things, then the components rendered by `renderServer` will be visible until the moment when the `renderClientAsync` finishes rendering at the client side, and then the content will be switched to the result of `renderClientAsync`.
 
