@@ -29,8 +29,8 @@ export default class SplitRoute extends React.Component {
 
   render() {
     const {
+      chunkName,
       exact,
-      id,
       location,
       path,
       renderClientAsync,
@@ -54,19 +54,20 @@ export default class SplitRoute extends React.Component {
              *    Provider, otherwise containers in the render will break
              *    the code. */
             const render = renderServer || renderPlaceholder || (() => <div />);
-            const html = ReactDomServer.renderToString((
+            let html = ReactDomServer.renderToString((
               <Provider store={props.staticContext.store}>
                 {render(props)}
               </Provider>
             ));
+            html = `<link href="/${chunkName}.css" rel="stylesheet" />${html}`;
 
             /* 2. The rendered HTML string is added to the router context,
              *    to be injected by server/renderer.jsx into the rendered HTML 
              *    document as a field of window.SPLITS object. We also check
              *    that route ID is unique among all matched SplitRoutes. */
             const splits = props.staticContext.splits;
-            if (splits[id]) throw new Error('SplitRoute: IDs clash!');
-            else splits[id] = html;
+            if (splits[chunkName]) throw new Error('SplitRoute: IDs clash!');
+            else splits[chunkName] = html;
 
             /* 3. We also render the mounted component, or the placeholder,
              *    into the document, using dangerouslySetInnerHTML to inject
@@ -80,12 +81,12 @@ export default class SplitRoute extends React.Component {
             /* eslint-enable react/no-danger */
           } else {
             /* Client side rendering */
-            if (window.SPLITS[id]) {
+            if (window.SPLITS[chunkName]) {
               /* If the page has been pre-rendered at the server-side, we render
                * exactly the same until the splitted code is loaded. */
               /* eslint-disable react/no-danger */
               res = (
-                <div dangerouslySetInnerHTML={{ __html: window.SPLITS[id] }} />
+                <div dangerouslySetInnerHTML={{ __html: window.SPLITS[chunkName] }} />
               );
               /* eslint-disable react/no-danger */
 
@@ -93,7 +94,7 @@ export default class SplitRoute extends React.Component {
                * because if the vistor navigates around the app and comes back
                * to this route, we want to re-render the page from scratch in
                * that case (because the state of app has changed). */
-              delete window.SPLITS[id];
+              delete window.SPLITS[chunkName];
             } else if (renderPlaceholder) {
               /* If the page has not been pre-rendered, the best we can do prior
                * the loading of split code, is to render the placeholder, if
@@ -113,6 +114,7 @@ export default class SplitRoute extends React.Component {
               this.setState({
                 component: () => (
                   <ContentWrapper
+                    chunkName={chunkName}
                     content={component}
                     parent={this}
                   />
@@ -140,7 +142,7 @@ SplitRoute.defaultProps = {
 
 SplitRoute.propTypes = {
   exact: PT.bool,
-  id: PT.string.isRequired,
+  chunkName: PT.string.isRequired,
   location: PT.shape(),
   path: PT.string,
   renderClientAsync: PT.func.isRequired,

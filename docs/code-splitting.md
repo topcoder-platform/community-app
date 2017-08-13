@@ -22,6 +22,8 @@ In other words, we got our custom solution for code-splitting with support for s
 
 **P.S.:** At the moment, only JS code-splitting is supported. Support for CSS code-splitting will be implemented soon.
 
+**P.P.S.:** Current solution may look a bit ugly due to large amount of boilerplate code necessary to process client- and server-side imports in a correct way. The amount of such boilerplate code can be radically decreased if we write our own small Babel plugin, which will take care about these imports in the way we need.
+
 ### How To Do The Code-Splitting
 
 We use `react-router` for routing inside the app. A trivial router with just one route looks like:
@@ -45,18 +47,19 @@ import { requireWeak, resolveWeak, SplitRoute } from 'utils/router';
 export default Routes() {
   return (
     <SplitRoute
-      id="sample-split-route"
+      chunkName="sample-split-route"
       path="/endpoint"
       renderClientAsync={(props) =>
-        import('components/Component')
-          .then(({ default: Component }) => <Component {...props} />)
+        import(
+          /* webpackChunkName: "sample-split-route" */
+          'components/Component',
+        ).then(({ default: Component }) => <Component {...props} />)
       }
       renderPlaceholder={(props) => <LoadingIndicator {...props} />}
       renderServer={(props) => {
-        let modulePath = resolveWeak('containers/challenge-detail');
-        modulePath = path.resolve(__dirname, modulePath);
-        const ChallengeDetail = requireWeak(modulePath);
-        return <ChallengeDetail {...props} />;
+        const p = resolveWeak('components/Component');
+        const Component = requireWeak(path.resolve(__dirname, p));
+        return <Component {...props} />;
       }}
     />
   );
@@ -66,17 +69,16 @@ export default Routes() {
 
 First of all, under the hood `SplitRoute` uses **react-router**'s `Route` to make the actual routing, so it accepts the following `Route` props (they work exactly the same as for the `Router`): `exact`, `location`, `path`, `strict`. Instead of `children`, `component`, and `render` props you MUST provide `id`, and `renderClientAsync` props; and you MAY additionally provide `renderPlaceholder` and `renderServer` props. These work the following way:
 
--   `id` must be a string ID, unique among different instances of the `SplitRoute` in the app; but the same at the client- and server-side for the same instance of `SplitRoute`;
+-   `chunkName` must be a string ID, unique among different instances of the `SplitRoute` in the app; but the same at the client- and server-side for the same instance of `SplitRoute`. It also must match the value of `webpackChunkName` comment inside `renderClientAsync` function (if you make a misprint, the styling of the splitted code will be lost);
 
--   `renderClientAsync` must be a function, which receives Route props (`match`, `location`, `history`), performs dynamic (async) loading of the related code (if necessary), and renders the component to be mounted on the route. To work properly, you should import the module in question as `import('PATH/TO/THE/MODULE')` (you must pass the path statically, passing in a variable holding the path, won't work properly). This instruction returns a promise which resolves to the requested module, once it is loaded from the server or from the local cache (the module required this way, is not bundled into the main bundle). Because we use ES6 modules, the component exported from such module as `export default Component` will be stored in the `default` field of the resolved promise value. You should map it into the actual component to mount on the route, thus `.then(({ default: Component }) => <Component {...props }>)` (sure, you may omit `props` if your component does not need them).
+-   `renderClientAsync` must be a function, which receives Route props (`match`, `location`, `history`), performs dynamic (async) loading of the related code (if necessary), and renders the component to be mounted on the route. To work properly, you should import the module in question as `import(/* webpackChunkName: "sample-split-route" */ 'PATH/TO/THE/MODULE')` (you must pass the path statically, passing in a variable holding the path, won't work properly). This instruction returns a promise which resolves to the requested module, once it is loaded from the server or from the local cache (the module required this way, is not bundled into the main bundle). Because we use ES6 modules, the component exported from such module as `export default Component` will be stored in the `default` field of the resolved promise value. You should map it into the actual component to mount on the route, thus `.then(({ default: Component }) => <Component {...props }>)` (sure, you may omit `props` if your component does not need them).
 
 -   The component's module will be loaded from the server the first time the route is matched. It will take some time during which nothing will be rendered at this route. To work around it there is an optional `renderPlaceholder` prop. If provided, when the route is matched, this prop will be used to render a placeholder component in the route until the async component is loaded.
 
 -   Finally, there is `renderServer` prop, which is executed only at the server side and it specifies how the server-side rendering of the route is done when the route is matched. To work properly, you should require your component inside this `renderServer` function, using the code 
     ```
-    let modulePath = resolveWeak('PATH/TO/THE/MODULE);
-    modulePath = path.resolve(__dirname, modulePath);
-    const Component = requireWeak(modulePath);
+    const p = resolveWeak('PATH/TO/THE/MODULE);
+    const Component = requireWeak(path.resolve(__dirname, p));
     ```
     This block of code does the same as `import Component from 'PATH/TO/THE/MODULE'`, but the required module is not bundled into the main bundle by Webpack.
 

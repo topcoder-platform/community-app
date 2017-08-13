@@ -7,6 +7,7 @@ import Buttons from 'components/examples/Buttons';
 import CssModules from 'components/examples/CssModules';
 import FontsTest from 'components/examples/FontsTest';
 import LoadingIndicator from 'components/LoadingIndicator';
+import path from 'path';
 import React from 'react';
 import {
   Switch,
@@ -15,7 +16,7 @@ import {
 import SvgLoading from 'components/examples/SvgLoading';
 import Themr from 'components/examples/Themr';
 
-import { requireWeak, SplitRoute } from 'utils/router';
+import { requireWeak, resolveWeak, SplitRoute } from 'utils/router';
 
 import DataFetch from './DataFetch';
 
@@ -24,16 +25,18 @@ export default function Examples() {
     <Switch>
       <Route path="*/buttons" component={Buttons} />
       <SplitRoute
-        id="code-splitting-test"
+        chunkName="code-splitting"
         path="*/code-splitting"
         renderClientAsync={() =>
-          import('components/examples/CodeSplitting')
-            .then(({ default: CodeSplitting }) => <CodeSplitting />)
+          import(
+            /* webpackChunkName: "code-splitting" */
+            'components/examples/CodeSplitting',
+          ).then(({ default: CodeSplitting }) => <CodeSplitting />)
         }
         renderPlaceholder={() => <LoadingIndicator />}
         renderServer={() => {
-          const CodeSplitting
-            = requireWeak('components/examples/CodeSplitting');
+          const p = resolveWeak('components/examples/CodeSplitting');
+          const CodeSplitting = requireWeak(path.resolve(__dirname, p));
           return <CodeSplitting />;
         }}
       />

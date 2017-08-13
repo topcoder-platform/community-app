@@ -67,6 +67,20 @@ app.use(loggerMiddleware(':ip > :status :method :url :response-time ms :res[cont
 /* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable import/no-unresolved */
 if (USE_DEV_TOOLS) {
+  /* TODO: We use "extract-css-chunks-webpack-plugin" to code-split css code
+   * into separate files per chunk. That plugin works fine in production, but
+   * when NODE_ENV is "development", it attempts to take care about HMR, which
+   * just breaks our setup. As a temporary dirty solution, we can enforce
+   * NODE_ENV to be "production" in development, while keeping the original
+   * value inside NODE_ENV_REAL, which will be used by our "utils/isomorphy.js"
+   * module to deduce the real environment. Anyway, this does not affect
+   * client-side code, and at the server side it has no visible side-effects.
+   * We'll remove this hack once either "extract-css-chunks-webpack-plugin"
+   * or "extract-text-webpack-plugin" is updated to do what we need without
+   * side-effects. */
+  process.env.NODE_ENV_REAL = process.env.NODE_ENV;
+  process.env.NODE_ENV = 'production';
+
   const webpack = require('webpack');
   const webpackConfig = require('../../config/webpack/development');
   const webpackDevMiddleware = require('webpack-dev-middleware');
@@ -74,7 +88,7 @@ if (USE_DEV_TOOLS) {
   const compiler = webpack(webpackConfig);
   compiler.apply(new webpack.ProgressPlugin());
   app.use(webpackDevMiddleware(compiler, {
-    name: 'bundle.js',
+    name: 'main.js',
     publicPath: webpackConfig.output.publicPath,
     serverSideRender: true,
   }));

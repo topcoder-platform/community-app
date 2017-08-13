@@ -84,13 +84,15 @@ function Routes({ subdomains }) {
           render={props => <ChallengeListing listingOnly {...props} />}
         />
         <SplitRoute
-          id="challenge-details-route"
+          chunkName="challenge-details"
           path="/challenges/:challengeId"
           renderClientAsync={props =>
-            import('containers/challenge-detail')
-              .then(({ default: ChallengeDetail }) => (
-                <ChallengeDetail {...props} />
-              ))
+            import(
+              /* webpackChunkName: "challenge-details" */
+              'containers/challenge-detail',
+            ).then(({ default: ChallengeDetail }) => (
+              <ChallengeDetail {...props} />
+            ))
           }
           renderPlaceholder={() => <LoadingIndicator />}
           /*
@@ -102,8 +104,6 @@ function Routes({ subdomains }) {
           }}
           */
         />
-
-        {/* <Route path="/challenges/:challengeId" component={ChallengeDetail} /> */}
         <Route
           path="/challenges"
           render={(props) => {
@@ -136,11 +136,13 @@ function Routes({ subdomains }) {
           path="/community/:communityId/:pageId"
         />
         <SplitRoute
-          id="my-dashboard-route"
+          chunkName="my-dashboard"
           path="/my-dashboard"
           renderClientAsync={props =>
-            import('containers/Dashboard')
-              .then(({ default: Dashboard }) => <Dashboard {...props} />)
+            import(
+              /* webpackChunkName: "my-dashboard" */
+              'containers/Dashboard',
+            ).then(({ default: Dashboard }) => <Dashboard {...props} />)
           }
           renderPlaceholder={() => <LoadingIndicator />}
           renderServer={(props) => {
@@ -150,12 +152,6 @@ function Routes({ subdomains }) {
             return <Dashboard {...props} />;
           }}
         />
-        {/*
-        <Route
-          component={Dashboard}
-          path="/my-dashboard"
-        />
-        */}
         <Route component={Error404} />
       </Switch>
       <Route path="/challenge" component={TopcoderFooter} />

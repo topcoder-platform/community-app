@@ -12,6 +12,7 @@ jest.setMock(require.resolve('server/renderer'), (req, res, next) => next());
 afterAll(() => {
   delete process.env.DEV_TOOLS;
   delete process.env.FRONT_END;
+  delete process.env.NODE_ENV_REAL;
 });
 
 beforeEach(() => {

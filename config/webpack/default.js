@@ -1,6 +1,6 @@
 const autoprefixer = require('autoprefixer');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+const ExtractCssChunks = require('extract-css-chunks-webpack-plugin');
 const path = require('path');
 const webpack = require('webpack');
 
@@ -72,7 +72,7 @@ module.exports = {
     }, {
       test: /\.scss$/,
       exclude: /(bower_components|node_modules)/,
-      use: ExtractTextPlugin.extract({
+      use: ExtractCssChunks.extract({
         fallback: 'style-loader',
         use: [{
           loader: 'css-loader',
@@ -99,7 +99,7 @@ module.exports = {
       /* We need to support css loading for third-party plugins,
        * we are not supposed to use css files inside the project. */
       test: /\.css$/,
-      use: ExtractTextPlugin.extract({
+      use: ExtractCssChunks.extract({
         fallback: 'style-loader',
         use: ['css-loader'],
       }),
@@ -111,7 +111,7 @@ module.exports = {
   },
   output: {
     filename: 'main.js',
-    chunkFilename: 'chunk-[name]-[chunkhash].js',
+    chunkFilename: '[name].js',
     path: path.resolve(__dirname, '../../build'),
     publicPath: '/',
   },
@@ -123,9 +123,8 @@ module.exports = {
       from: path.resolve(__dirname, '../../src/assets/themes'),
       to: path.resolve(__dirname, '../../build/themes'),
     }]),
-    new ExtractTextPlugin({
-      allChunks: true,
-      filename: 'style.css',
+    new ExtractCssChunks({
+      filename: '[name].css',
     }),
     new webpack.DefinePlugin({
       'process.env': {
