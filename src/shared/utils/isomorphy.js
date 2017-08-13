@@ -17,14 +17,16 @@ export function isClientSide() {
  * Retruns true if development version of the code is running.
  */
 export function isDev() {
-  return process.env.NODE_ENV === 'development';
+  /* TODO: See the comments to HMR-related code in server/server.js for the
+   * reason behind process.env.NODE_ENV_REAL. */
+  return (process.env.NODE_ENV_REAL || process.env.NODE_ENV) === 'development';
 }
 
 /**
  * Returns true if production version of the code is running.
  */
 export function isProd() {
-  return process.env.NODE_ENV === 'production';
+  return (process.env.NODE_ENV_REAL || process.env.NODE_ENV) === 'production';
 }
 
 /**

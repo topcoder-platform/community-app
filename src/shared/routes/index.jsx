@@ -5,11 +5,13 @@
 import _ from 'lodash';
 import Content from 'components/examples/Content';
 import Error404 from 'components/Error404';
+import path from 'path';
 import SubmissionManagement from 'containers/SubmissionManagement';
 import ChallengeListing from 'containers/challenge-listing/Listing';
-import ChallengeDetail from 'containers/challenge-detail';
+// import ChallengeDetail from 'containers/challenge-detail';
 import Leaderboard from 'containers/Leaderboard';
-import Dashboard from 'containers/Dashboard';
+import LoadingIndicator from 'components/LoadingIndicator';
+// import Dashboard from 'containers/Dashboard';
 import 'isomorphic-fetch';
 import React from 'react';
 import { Switch, Route, withRouter } from 'react-router-dom';
@@ -22,6 +24,7 @@ import PT from 'prop-types';
 import TcCommunitiesPage from 'containers/tc-communities/Page';
 
 import { connect } from 'react-redux';
+import { requireWeak, resolveWeak, SplitRoute } from 'utils/router';
 
 /* TODO: As we move towards production deploy, we should add a guard which
  * will prevent addition of /examples routes into production build. */
@@ -81,7 +84,27 @@ function Routes({ subdomains }) {
           path="/community-challenge-listing/:keyword"
           render={props => <ChallengeListing listingOnly {...props} />}
         />
-        <Route path="/challenges/:challengeId" component={ChallengeDetail} />
+        <SplitRoute
+          chunkName="challenge-details"
+          path="/challenges/:challengeId"
+          renderClientAsync={props =>
+            import(
+              /* webpackChunkName: "challenge-details" */
+              'containers/challenge-detail',
+            ).then(({ default: ChallengeDetail }) => (
+              <ChallengeDetail {...props} />
+            ))
+          }
+          renderPlaceholder={() => <LoadingIndicator />}
+          /*
+          renderServer={(props) => {
+            let modulePath = resolveWeak('containers/challenge-detail');
+            modulePath = path.resolve(__dirname, modulePath);
+            const ChallengeDetail = requireWeak(modulePath);
+            return <ChallengeDetail {...props} />;
+          }}
+          */
+        />
         <Route
           path="/challenges"
           render={(props) => {
@@ -113,9 +136,22 @@ function Routes({ subdomains }) {
           component={TcCommunitiesPage}
           path="/community/:communityId/:pageId"
         />
-        <Route
-          component={Dashboard}
+        <SplitRoute
+          chunkName="my-dashboard"
           path="/my-dashboard"
+          renderClientAsync={props =>
+            import(
+              /* webpackChunkName: "my-dashboard" */
+              'containers/Dashboard',
+            ).then(({ default: Dashboard }) => <Dashboard {...props} />)
+          }
+          renderPlaceholder={() => <LoadingIndicator />}
+          renderServer={(props) => {
+            let modulePath = resolveWeak('containers/Dashboard');
+            modulePath = path.resolve(__dirname, modulePath);
+            const Dashboard = requireWeak(modulePath);
+            return <Dashboard {...props} />;
+          }}
         />
         <Route component={Error404} />
       </Switch>

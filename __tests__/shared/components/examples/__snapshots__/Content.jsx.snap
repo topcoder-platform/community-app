@@ -325,6 +325,14 @@ exports[`Matches shallow shapshot 1`] = `
     <li>
       <Link
         replace={false}
+        to="/examples/code-splitting"
+      >
+        Code Splitting
+      </Link>
+    </li>
+    <li>
+      <Link
+        replace={false}
         to="/examples/css-modules"
       >
         CSS Modules

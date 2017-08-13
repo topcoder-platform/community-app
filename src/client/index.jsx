@@ -105,7 +105,7 @@ storeFactory(undefined, window.ISTATE).then((store) => {
     const hotSuccess = hotReporter.success;
     hotReporter.success = () => {
       const link = document.querySelectorAll('link[rel=stylesheet]')[0];
-      link.href = `/style.css?v=${shortId.generate()}`;
+      link.href = `/main.css?v=${shortId.generate()}`;
       hotSuccess();
     };
   }

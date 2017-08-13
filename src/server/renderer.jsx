@@ -31,7 +31,10 @@ export default (req, res) => {
     storeFactory(req),
     getRates(),
   ]).then(([store, exchangeRates]) => {
-    const context = {};
+    const context = {
+      splits: {},
+      store,
+    };
     const appHtml = ReactDOM.renderToString((
       <Provider store={store}>
         <StaticRouter
@@ -49,7 +52,7 @@ export default (req, res) => {
       <html>
         <head>
           <title>Topcoder</title>
-          <link rel="stylesheet" href="/style.css" />
+          <link href="/main.css" rel="stylesheet" />
           <link rel="shortcut icon" href="/favicon.ico" />
           <meta charset="utf-8" />
           <meta
@@ -67,8 +70,9 @@ export default (req, res) => {
             window.CONFIG = ${sanitizedConfig}
             window.EXCHANGE_RATES = ${sanitizedExchangeRates}
             window.ISTATE = ${serializeJs(store.getState(), { isJSON: true })}
+            window.SPLITS = ${serializeJs(context.splits, { isJSON: true })}
           </script>
-          <script type="application/javascript" src="/bundle.js"></script>
+          <script src="/main.js" type="application/javascript"></script>
           <script>
             !function(){var analytics=window.analytics=window.analytics||[];if(!analytics.initialize)if(analytics.invoked)window.console&&console.error&&console.error("Segment snippet included twice.");else{analytics.invoked=!0;analytics.methods=["trackSubmit","trackClick","trackLink","trackForm","pageview","identify","reset","group","track","ready","alias","debug","page","once","off","on"];analytics.factory=function(t){return function(){var e=Array.prototype.slice.call(arguments);e.unshift(t);analytics.push(e);return analytics}};for(var t=0;t<analytics.methods.length;t++){var e=analytics.methods[t];analytics[e]=analytics.factory(e)}analytics.load=function(t){var e=document.createElement("script");e.type="text/javascript";e.async=!0;e.src=("https:"===document.location.protocol?"https://":"http://")+"cdn.segment.com/analytics.js/v1/"+t+"/analytics.min.js";var n=document.getElementsByTagName("script")[0];n.parentNode.insertBefore(e,n)};analytics.SNIPPET_VERSION="4.0.0";
             analytics.load("WEjBoGYCPGzGrNDmf7V4eQsMOsJroeyr");
