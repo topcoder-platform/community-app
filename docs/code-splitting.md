@@ -20,9 +20,7 @@ It proves the point that code-splitting with server rendering is non-trivial, an
 
 In other words, we got our custom solution for code-splitting with support for server-side rendering, and all other bells and whistles we have in our `community-app` setup.
 
-**P.S.:** At the moment, only JS code-splitting is supported. Support for CSS code-splitting will be implemented soon.
-
-**P.P.S.:** Current solution may look a bit ugly due to large amount of boilerplate code necessary to process client- and server-side imports in a correct way. The amount of such boilerplate code can be radically decreased if we write our own small Babel plugin, which will take care about these imports in the way we need.
+**P.S.:** Current solution may look a bit ugly due to large amount of boilerplate code necessary to process client- and server-side imports in a correct way. The amount of such boilerplate code can be radically decreased if we write our own small Babel plugin, which will take care about these imports in the way we need.
 
 ### How To Do The Code-Splitting
 

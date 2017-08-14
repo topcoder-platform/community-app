@@ -52,10 +52,6 @@ export default function CodeSplitting() {
         Instructions on using our implementation of code splitting are
         &zwnj;<a href="https://github.com/topcoder-platform/community-app/blob/develop/docs/code-splitting.md">available here</a>.
       </p>
-      <p>
-        <strong>P.S.:</strong> Current implementation of the code splitting
-        works for JS code only, the CSS is not split yet, but will be soon!
-      </p>
     </div>
   );
 }
