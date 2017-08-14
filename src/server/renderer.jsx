@@ -32,7 +32,12 @@ export default (req, res) => {
     getRates(),
   ]).then(([store, exchangeRates]) => {
     const context = {
+      /* Array of chunk names, to use for stylesheet links injection. */
+      chunks: [],
+
+      /* Pre-rendered HTML markup for dynamic chunks. */
       splits: {},
+
       store,
     };
     const appHtml = ReactDOM.renderToString((
@@ -47,12 +52,16 @@ export default (req, res) => {
     ));
     if (context.status) res.status(context.status);
     const sanitizedExchangeRates = serializeJs(exchangeRates, { isJSON: true });
+    const styles = context.chunks.map(chunk => (
+      `<link data-chunk=${chunk} href="/${chunk}.css" rel="stylesheet" />`
+    )).join();
     res.send((
       `<!DOCTYPE html>
       <html>
         <head>
           <title>Topcoder</title>
           <link href="/main.css" rel="stylesheet" />
+          ${styles}
           <link rel="shortcut icon" href="/favicon.ico" />
           <meta charset="utf-8" />
           <meta

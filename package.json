@@ -6,7 +6,7 @@
   "scripts": {
     "build": "./node_modules/.bin/webpack --env=production --progress --profile --colors --display-optimization-bailout",
     "build:dev": "./node_modules/.bin/webpack --env=development --progress --profile --colors --display-optimization-bailout",
-    "dev": "DEV_TOOLS=true node ./bin/www",
+    "dev": "BABEL_ENV=development DEV_TOOLS=true node ./bin/www",
     "fix:js": "eslint --fix --ext .js,.jsx .",
     "fix:styles": "stylefmt -r **/*.scss",
     "jest": "jest --maxWorkers=4 --config config/jest/default.js",
@@ -14,7 +14,7 @@
     "lint:js": "eslint --ext .js,.jsx .",
     "lint:scss": "stylelint **/*.scss --syntax scss",
     "postinstall": "npm run build",
-    "start": "node ./bin/www",
+    "start": "BABEL_ENV=production node ./bin/www",
     "test": "npm run lint && npm run jest"
   },
   "repository": {

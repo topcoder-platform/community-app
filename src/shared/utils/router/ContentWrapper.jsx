@@ -15,17 +15,11 @@ export default class ContentWrapper extends React.Component {
   }
 
   render() {
-    return (
-      <div>
-        <link href={`/${this.props.chunkName}.css`} rel="stylesheet" />
-        {this.props.content}
-      </div>
-    );
+    return this.props.content;
   }
 }
 
 ContentWrapper.propTypes = {
-  chunkName: PT.string.isRequired,
   content: PT.element.isRequired,
   parent: PT.shape({
     reset: PT.func.isRequired,

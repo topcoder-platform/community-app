@@ -6,7 +6,7 @@
  * https://github.com/topcoder-platform/community-app/blob/develop/docs/code-splitting.md
  */
 
-/* global window */
+/* global document, window */
 
 import PT from 'prop-types';
 import React from 'react';
@@ -24,6 +24,13 @@ export default class SplitRoute extends React.Component {
   }
 
   reset() {
+    /* Removing chunk's stylesheet from the DOM. */
+    const link = document.querySelector(
+      `link[data-chunk=${this.props.chunkName}]`);
+    const head = document.getElementsByTagName('head')[0];
+    head.removeChild(link);
+
+    /* Reset to the initial state. */
     this.setState({ component: null });
   }
 
@@ -54,12 +61,11 @@ export default class SplitRoute extends React.Component {
              *    Provider, otherwise containers in the render will break
              *    the code. */
             const render = renderServer || renderPlaceholder || (() => <div />);
-            let html = ReactDomServer.renderToString((
+            const html = ReactDomServer.renderToString((
               <Provider store={props.staticContext.store}>
                 {render(props)}
               </Provider>
             ));
-            html = `<link href="/${chunkName}.css" rel="stylesheet" />${html}`;
 
             /* 2. The rendered HTML string is added to the router context,
              *    to be injected by server/renderer.jsx into the rendered HTML 
@@ -69,7 +75,13 @@ export default class SplitRoute extends React.Component {
             if (splits[chunkName]) throw new Error('SplitRoute: IDs clash!');
             else splits[chunkName] = html;
 
-            /* 3. We also render the mounted component, or the placeholder,
+            /* 3. The stylesheet links are injected via links elements in the
+             *    header of the document, to have a better control over styles
+             *    (re-)loading, independent of ReactJS mechanics of
+             *    the document updates. */
+            props.staticContext.chunks.push(chunkName);
+
+            /* 4. We also render the mounted component, or the placeholder,
              *    into the document, using dangerouslySetInnerHTML to inject
              *    previously rendered HTML string into the main body of the doc.
              *    Thanks to (2) and (3), at the client side we will be able to
@@ -86,7 +98,11 @@ export default class SplitRoute extends React.Component {
                * exactly the same until the splitted code is loaded. */
               /* eslint-disable react/no-danger */
               res = (
-                <div dangerouslySetInnerHTML={{ __html: window.SPLITS[chunkName] }} />
+                <div
+                  dangerouslySetInnerHTML={{
+                    __html: window.SPLITS[chunkName],
+                  }}
+                />
               );
               /* eslint-disable react/no-danger */
 
@@ -98,8 +114,29 @@ export default class SplitRoute extends React.Component {
             } else if (renderPlaceholder) {
               /* If the page has not been pre-rendered, the best we can do prior
                * the loading of split code, is to render the placeholder, if
-               * provided. */
-              res = renderPlaceholder(props);
+               * provided.
+               *
+               * NOTE: The <div> wrappings here and in other places below may
+               * look unnecessary, but they are important: we want to be sure
+               * that all render options produce the same markup, thus helping
+               * ReactJS to be efficient.
+               */
+              res = <div>{renderPlaceholder(props)}</div>;
+            }
+
+            /* The links to stylesheets are injected into document header using
+             * browser's API, rather than ReactJS rendering mechanism, because
+             * it gives a better control over reloading of the stylesheets and
+             * helps to avoid some unnecessary flickering when the app loads a
+             * page already pre-rendered at the server side. */
+            let link = document.querySelector(`link[data-chunk=${chunkName}]`);
+            if (!link) {
+              link = document.createElement('link');
+              link.setAttribute('data-chunk', chunkName);
+              link.setAttribute('href', `/${chunkName}.css`);
+              link.setAttribute('rel', 'stylesheet');
+              const head = document.getElementsByTagName('head')[0];
+              head.appendChild(link);
             }
 
             /* Finally, we call the async renderer and once the promise it
@@ -113,11 +150,13 @@ export default class SplitRoute extends React.Component {
             renderClientAsync(props).then(component =>
               this.setState({
                 component: () => (
-                  <ContentWrapper
-                    chunkName={chunkName}
-                    content={component}
-                    parent={this}
-                  />
+                  <div>
+                    <ContentWrapper
+                      chunkName={chunkName}
+                      content={component}
+                      parent={this}
+                    />
+                  </div>
                 ),
               }),
             );

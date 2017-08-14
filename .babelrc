@@ -1,12 +1,57 @@
 // Babel config for NodeJS (server-side). Frontend Babel configuration is embed
 // inside Webpack config.
 {
+  "env": {
+    "development": {
+      "plugins": [
+        ["css-modules-transform", {
+          "extensions": [".css", ".scss"],
+          "generateScopedName": "[path]___[name]___[local]"
+        }],
+        ["react-css-modules", {
+          "filetypes": {
+            ".scss": {
+              "syntax": "postcss-scss"
+            }
+          },
+          "generateScopedName": "[path]___[name]___[local]"
+        }]
+      ]
+    },
+    "production": {
+      "plugins": [
+        ["css-modules-transform", {
+          "extensions": [".css", ".scss"],
+          "generateScopedName": "[hash:base64:6]"
+        }],
+        ["react-css-modules", {
+          "filetypes": {
+            ".scss": {
+              "syntax": "postcss-scss"
+            }
+          },
+          "generateScopedName": "[hash:base64:6]"
+        }]
+      ]
+    },
+    "test": {
+      "plugins": [
+        ["css-modules-transform", {
+          "extensions": [".css", ".scss"],
+          "generateScopedName": "[path]___[name]__[local]___[hash:base64:5]"
+        }],
+        ["react-css-modules", {
+          "filetypes": {
+            ".scss": {
+              "syntax": "postcss-scss"
+            }
+          }
+        }]
+      ]
+    }
+  },
   "presets": ["env", "react", "stage-2"],
   "plugins": [
-    ["css-modules-transform", {
-      "extensions": [".css", ".scss"],
-      "generateScopedName": "[path]___[name]__[local]___[hash:base64:5]"
-    }],
     "dynamic-import-node",
     "inline-react-svg",
     ["module-resolver", {
@@ -16,13 +61,6 @@
         "./src"
       ],
       "transformFunctions": ["resolveWeak"]
-    }],
-    ["react-css-modules", {
-      "filetypes": {
-        ".scss": {
-          "syntax": "postcss-scss"
-        }
-      }
     }],
     ["transform-assets", {
       "extensions": ["gif", "jpeg", "jpg", "png"],
