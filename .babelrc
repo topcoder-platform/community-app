@@ -6,7 +6,7 @@
       "plugins": [
         ["css-modules-transform", {
           "extensions": [".css", ".scss"],
-          "generateScopedName": "[path]___[name]___[local]"
+          "generateScopedName": "[path][name]___[local]"
         }],
         ["react-css-modules", {
           "filetypes": {
@@ -14,7 +14,7 @@
               "syntax": "postcss-scss"
             }
           },
-          "generateScopedName": "[path]___[name]___[local]"
+          "generateScopedName": "[path][name]___[local]"
         }]
       ]
     },
