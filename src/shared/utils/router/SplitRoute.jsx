@@ -25,10 +25,12 @@ export default class SplitRoute extends React.Component {
 
   reset() {
     /* Removing chunk's stylesheet from the DOM. */
-    const link = document.querySelector(
-      `link[data-chunk=${this.props.chunkName}]`);
-    const head = document.getElementsByTagName('head')[0];
-    head.removeChild(link);
+    if (!this.props.cacheCss) {
+      const link = document.querySelector(
+        `link[data-chunk=${this.props.chunkName}]`);
+      const head = document.getElementsByTagName('head')[0];
+      head.removeChild(link);
+    }
 
     /* Reset to the initial state. */
     this.setState({ component: null });
@@ -171,6 +173,7 @@ export default class SplitRoute extends React.Component {
 }
 
 SplitRoute.defaultProps = {
+  cacheCss: false,
   exact: false,
   location: null,
   path: null,
@@ -180,8 +183,9 @@ SplitRoute.defaultProps = {
 };
 
 SplitRoute.propTypes = {
-  exact: PT.bool,
+  cacheCss: PT.bool,
   chunkName: PT.string.isRequired,
+  exact: PT.bool,
   location: PT.shape(),
   path: PT.string,
   renderClientAsync: PT.func.isRequired,

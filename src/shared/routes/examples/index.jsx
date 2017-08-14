@@ -25,6 +25,7 @@ export default function Examples() {
     <Switch>
       <Route path="*/buttons" component={Buttons} />
       <SplitRoute
+        cacheCss
         chunkName="code-splitting"
         path="*/code-splitting"
         renderClientAsync={() =>
