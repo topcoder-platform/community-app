@@ -11,6 +11,7 @@ RUN npm install
 ADD . /opt/app
 
 ARG BUILD_ENV=prod
+ENV BABEL_ENV="production"
 ENV NODE_ENV=$BUILD_ENV
 RUN npm run build
 
