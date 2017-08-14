@@ -27,7 +27,7 @@ import IconMedal from '../../../../../../assets/images/tc-communities/medal.svg'
 
 import style from './style.scss';
 
-const INFO_ID = '30050730';
+const INFO_ID = '30058834';
 
 /**
  * NOTE: There is some reason to turn this component into container. This is
