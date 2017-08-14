@@ -1,3 +1,5 @@
+const autoprefixer = require('autoprefixer');
+const ExtractCssChunks = require('extract-css-chunks-webpack-plugin');
 const cssProcessorOptions = require('./dev-css-optimization');
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const webpack = require('webpack');
@@ -39,9 +41,36 @@ module.exports = webpackMerge(defaultConfig, {
                 syntax: 'postcss-scss',
               },
             },
+            generateScopedName: '[path]___[name]___[local]',
           }],
         ],
       },
+    }, {
+      test: /\.scss$/,
+      exclude: /(bower_components|node_modules)/,
+      use: ExtractCssChunks.extract({
+        fallback: 'style-loader',
+        use: [{
+          loader: 'css-loader',
+          options: {
+            importLoaders: 3,
+            localIdentName: '[path]___[name]___[local]',
+            modules: true,
+          },
+        }, {
+          loader: 'postcss-loader',
+          options: {
+            plugins: [
+              autoprefixer,
+            ],
+          },
+        }, 'resolve-url-loader', {
+          loader: 'sass-loader',
+          options: {
+            sourceMap: true,
+          },
+        }],
+      }),
     }],
   },
   plugins: [

@@ -1,4 +1,3 @@
-const autoprefixer = require('autoprefixer');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const ExtractCssChunks = require('extract-css-chunks-webpack-plugin');
 const path = require('path');
@@ -58,6 +57,7 @@ module.exports = {
                 syntax: 'postcss-scss',
               },
             },
+            generateScopedName: '[hash:base64:6]',
           }],
         ],
       },
@@ -69,32 +69,6 @@ module.exports = {
         outputPath: '/images/',
         publicPath: '',
       },
-    }, {
-      test: /\.scss$/,
-      exclude: /(bower_components|node_modules)/,
-      use: ExtractCssChunks.extract({
-        fallback: 'style-loader',
-        use: [{
-          loader: 'css-loader',
-          options: {
-            importLoaders: 3,
-            localIdentName: '[path]___[name]__[local]___[hash:base64:5]',
-            modules: true,
-          },
-        }, {
-          loader: 'postcss-loader',
-          options: {
-            plugins: [
-              autoprefixer,
-            ],
-          },
-        }, 'resolve-url-loader', {
-          loader: 'sass-loader',
-          options: {
-            sourceMap: true,
-          },
-        }],
-      }),
     }, {
       /* We need to support css loading for third-party plugins,
        * we are not supposed to use css files inside the project. */
