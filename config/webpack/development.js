@@ -39,7 +39,7 @@ module.exports = webpackMerge(defaultConfig, {
                 syntax: 'postcss-scss',
               },
             },
-            generateScopedName: '[path]___[name]___[local]',
+            generateScopedName: '[path][name]___[local]',
           }],
         ],
       },
@@ -52,7 +52,7 @@ module.exports = webpackMerge(defaultConfig, {
           loader: 'css-loader',
           options: {
             importLoaders: 3,
-            localIdentName: '[path]___[name]___[local]',
+            localIdentName: '[path][name]___[local]',
             modules: true,
           },
         }, {
