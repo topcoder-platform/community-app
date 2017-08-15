@@ -2,7 +2,7 @@ import React from 'react';
 import renderer from 'react-test-renderer';
 import { StaticRouter } from 'react-router-dom';
 
-import Examples from 'routes/examples';
+import Examples from 'routes/Examples';
 
 test('matches snapshots', () => {
   const cmp = renderer.create(

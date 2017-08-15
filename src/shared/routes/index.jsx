@@ -2,7 +2,7 @@
  * The top-level routing of the App.
  */
 
-import Content from 'components/examples/Content';
+import Content from 'components/Content';
 import React from 'react';
 import { Switch, Route, withRouter } from 'react-router-dom';
 
@@ -12,10 +12,7 @@ import TcCommunitiesPage from 'containers/tc-communities/Page';
 
 import { connect } from 'react-redux';
 
-/* TODO: As we move towards production deploy, we should add a guard which
- * will prevent addition of /examples routes into production build. */
-import Examples from './examples';
-
+import Examples from './Examples';
 import Topcoder from './Topcoder';
 
 function Routes({ subdomains }) {
@@ -58,8 +55,7 @@ function Routes({ subdomains }) {
   return (
     <Switch>
       <Route exact path="/" component={Content} />
-      <Route exact path="/examples" component={Content} />
-      <Route path="/examples" component={Examples} />
+      { Examples() }
       <Route
         exact
         path="/community/:communityId"

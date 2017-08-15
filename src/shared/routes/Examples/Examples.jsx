@@ -4,10 +4,12 @@
  */
 
 import Buttons from 'components/examples/Buttons';
+import Content from 'components/Content';
 import CssModules from 'components/examples/CssModules';
 import FontsTest from 'components/examples/FontsTest';
 import LoadingIndicator from 'components/LoadingIndicator';
 import path from 'path';
+import PT from 'prop-types';
 import React from 'react';
 import {
   Switch,
@@ -20,14 +22,15 @@ import { requireWeak, resolveWeak, SplitRoute } from 'utils/router';
 
 import DataFetch from './DataFetch';
 
-export default function Examples() {
+export default function Examples(props) {
+  const base = props.match.url;
   return (
     <Switch>
-      <Route path="*/buttons" component={Buttons} />
+      <Route path={`${base}/buttons`} component={Buttons} />
       <SplitRoute
         cacheCss
         chunkName="code-splitting"
-        path="*/code-splitting"
+        path={`${base}/code-splitting`}
         renderClientAsync={() =>
           import(
             /* webpackChunkName: "code-splitting" */
@@ -41,11 +44,18 @@ export default function Examples() {
           return <CodeSplitting />;
         }}
       />
-      <Route path="*/css-modules" component={CssModules} />
-      <Route path="*/data-fetch" component={DataFetch} />
-      <Route path="*/fonts-test" component={FontsTest} />
-      <Route path="*/svg-loading" component={SvgLoading} />
-      <Route path="*/themr" component={Themr} />
+      <Route path={`${base}/css-modules`} component={CssModules} />
+      <Route path={`${base}/data-fetch`} component={DataFetch} />
+      <Route path={`${base}/fonts-test`} component={FontsTest} />
+      <Route path={`${base}/svg-loading`} component={SvgLoading} />
+      <Route path={`${base}/themr`} component={Themr} />
+      <Content />
     </Switch>
   );
 }
+
+Examples.propTypes = {
+  match: PT.shape({
+    url: PT.string.isRequired,
+  }).isRequired,
+};
