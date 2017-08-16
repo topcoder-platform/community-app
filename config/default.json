@@ -90,8 +90,7 @@
     },
 
     "USER_SETTINGS": "https://lc1-user-settings-service.herokuapp.com",
-    "WIPRO": "https://wipro.topcoder.com",
-    "LOCAL": "http://local.topcoder-dev.com:3000",
+    "WIPRO": "https://wipro.topcoder.com"
   },
   "SWIFT_PROGRAM_ID": 3445
 }

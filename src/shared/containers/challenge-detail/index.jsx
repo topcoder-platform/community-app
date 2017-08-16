@@ -4,7 +4,7 @@
  * (thus allowing to show/hide detail panels for different submissions),
  * and it should define all necessary handlers to pass to the children.
  */
-/* global location */
+/* global location, window */
 
 import _ from 'lodash';
 import LoadingIndicator from 'components/LoadingIndicator';
@@ -200,9 +200,12 @@ class ChallengeDetailPageContainer extends React.Component {
             details={this.props.termDetails}
             loadingTermId={this.props.loadingTermId}
             docuSignUrl={this.props.docuSignUrl}
-            getDocuSignUrl={templateId => this.props.getDocuSignUrl(this.props.authTokens,
-              templateId, `${config.URL.LOCAL}/iframe-break/?dest=${config.URL.LOCAL}` +
-              `${location.pathname}?showTerms=true`)}
+            getDocuSignUrl={(templateId) => {
+              const base = window ? window.location.href.match('.*://[^/]*')[0] : '';
+              return this.props.getDocuSignUrl(this.props.authTokens,
+                templateId, `${base}/iframe-break/?dest=${base}`
+                + `${location.pathname}?showTerms=true`);
+            }}
             register={() => this.props.registerForChallenge(this.props.authTokens,
               this.props.challengeId)}
             agreeingTerm={this.props.agreeingTerm}
