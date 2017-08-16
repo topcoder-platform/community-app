@@ -9,8 +9,7 @@ import config from 'utils/config';
 import React from 'react';
 import PT from 'prop-types';
 
-import DesignSideBar from './SideBar/DesignSideBar';
-import DevelopSideBar from './SideBar/DevelopSideBar';
+import SideBar from './SideBar';
 
 import './styles.scss';
 
@@ -28,28 +27,28 @@ function setHtml(htmlString) {
 
 export default function ChallengeDetailsView(props) {
   const {
-    introduction,
-    detailedRequirements,
-    track,
-    screeningScorecardId,
-    reviewScorecardId,
-    forumLink,
-    submissionLimit,
-    mainEvent,
-    documents,
-    userDetails,
-    reviewType,
-    technologies,
-    fileTypes,
-    numberOfCheckpointsPrizes,
-    round1Introduction,
-    round2Introduction,
-    allowStockArt,
-    finalSubmissionGuidelines,
-  } = props.challenge;
-  const hasRegistered = (
-    userDetails && userDetails.roles && userDetails.roles.includes('Submitter')
-  );
+    terms,
+    hasRegistered,
+    challenge: {
+      introduction,
+      detailedRequirements,
+      track,
+      screeningScorecardId,
+      reviewScorecardId,
+      forumLink,
+      submissionLimit,
+      mainEvent,
+      documents,
+      technologies,
+      fileTypes,
+      numberOfCheckpointsPrizes,
+      round1Introduction,
+      round2Introduction,
+      allowStockArt,
+      finalSubmissionGuidelines,
+    },
+  } = props;
+
   const isDataScience = technologies.includes('Data Science');
   let accentedStyle = 'challenge-specs-design';
   if (track.toLowerCase() === 'develop') {
@@ -241,34 +240,24 @@ export default function ChallengeDetailsView(props) {
           </article>
         </div>
       </div>
-      {
-        track.toLowerCase() === 'design' ?
-          <DesignSideBar
-            screeningScorecardId={screeningScorecardId}
-            reviewScorecardId={reviewScorecardId}
-            forumLink={forumLink}
-            submissionLimit={submissionLimit}
-            eventDetail={mainEvent}
-            documents={documents}
-            hasRegistered={hasRegistered}
-            fileTypes={fileTypes}
-          /> :
-          <DevelopSideBar
-            documents={documents}
-            eventDetail={mainEvent}
-            screeningScorecardId={screeningScorecardId}
-            reviewScorecardId={reviewScorecardId}
-            forumLink={forumLink}
-            hasRegistered={hasRegistered}
-            isDataScience={isDataScience}
-            reviewType={reviewType}
-          />
-      }
+      <SideBar
+        screeningScorecardId={screeningScorecardId}
+        reviewScorecardId={reviewScorecardId}
+        forumLink={forumLink}
+        submissionLimit={submissionLimit}
+        eventDetail={mainEvent}
+        documents={documents}
+        hasRegistered={hasRegistered}
+        fileTypes={fileTypes}
+        isDesign={track.toLowerCase() === 'design'}
+        terms={terms}
+      />
     </div>
   );
 }
 
 ChallengeDetailsView.defaultProps = {
+  terms: [],
   challenge: {
     introduction: undefined,
     detailedRequirements: undefined,
@@ -290,6 +279,8 @@ ChallengeDetailsView.defaultProps = {
 };
 
 ChallengeDetailsView.propTypes = {
+  terms: PT.arrayOf(PT.shape()),
+  hasRegistered: PT.bool.isRequired,
   challenge: PT.shape({
     introduction: PT.string,
     detailedRequirements: PT.string,

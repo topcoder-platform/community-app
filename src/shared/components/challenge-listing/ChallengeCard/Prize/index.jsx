@@ -6,8 +6,8 @@
 
 import PT from 'prop-types';
 import React from 'react';
+import Tooltip from 'components/Tooltip';
 import Tip from './Tip';
-import Tooltip from '../../Tooltips/Tooltip';
 import './style.scss';
 
 export default function Prize({

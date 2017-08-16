@@ -78,6 +78,7 @@ function testReducer(reducer, istate) {
       checkpoints: null,
       registering: false,
       unregistering: false,
+      showTermsModal: false,
     });
   });
 
@@ -99,6 +100,7 @@ function testReducer(reducer, istate) {
       checkpoints: null,
       registering: false,
       unregistering: false,
+      showTermsModal: false,
     });
   });
 
@@ -114,6 +116,7 @@ function testReducer(reducer, istate) {
       checkpoints: null,
       registering: false,
       unregistering: false,
+      showTermsModal: false,
     });
   });
 
@@ -131,6 +134,7 @@ function testReducer(reducer, istate) {
       mySubmissions: { v2: null },
       registering: false,
       unregistering: false,
+      showTermsModal: false,
     });
   });
 
@@ -149,6 +153,7 @@ function testReducer(reducer, istate) {
       loadingMySubmissions: false,
       registering: false,
       unregistering: false,
+      showTermsModal: false,
     });
   });
 
@@ -167,6 +172,7 @@ function testReducer(reducer, istate) {
       mySubmissions: { v2: [{ submissionId: '1' }] },
       registering: false,
       unregistering: false,
+      showTermsModal: false,
     });
   });
 
@@ -185,6 +191,7 @@ function testReducer(reducer, istate) {
       fetchMySubmissionsFailure: 'Unknown error',
       registering: false,
       unregistering: false,
+      showTermsModal: false,
     });
   });
 }
@@ -199,6 +206,7 @@ describe('Default reducer', () =>
     mySubmissionsManagement: {},
     registering: false,
     unregistering: false,
+    showTermsModal: false,
   }),
 );
 
@@ -216,6 +224,7 @@ describe('Factory without http request', () =>
       mySubmissionsManagement: {},
       registering: false,
       unregistering: false,
+      showTermsModal: false,
     }),
   ),
 );
@@ -237,6 +246,7 @@ describe('Factory with server-side rendering', () =>
       mySubmissionsManagement: {},
       registering: false,
       unregistering: false,
+      showTermsModal: false,
     }),
   ),
 );
@@ -254,6 +264,7 @@ describe('Factory without server-side rendering', () =>
       mySubmissionsManagement: {},
       registering: false,
       unregistering: false,
+      showTermsModal: false,
     }),
   ),
 );

@@ -52,6 +52,7 @@ export default function ChallengeHeader(props) {
     registerForChallenge,
     unregisterFromChallenge,
     unregistering,
+    hasRegistered,
     // checkpoints,
   } = props;
 
@@ -77,7 +78,6 @@ export default function ChallengeHeader(props) {
   } else if (reliabilityBonus) {
     bonusType = 'Reliability Bonus';
   }
-  const hasRegistered = userDetails && userDetails.roles && userDetails.roles.includes('Submitter');
   const registrationEnded = new Date(registrationEndDate).getTime() < Date.now();
   const submissionEnded = new Date(submissionEndDate).getTime() < Date.now();
   const hasSubmissions = userDetails && userDetails.hasUserSubmittedForReview;
@@ -252,5 +252,6 @@ ChallengeHeader.propTypes = {
   registering: PT.bool.isRequired,
   unregisterFromChallenge: PT.func.isRequired,
   unregistering: PT.bool.isRequired,
+  hasRegistered: PT.bool.isRequired,
   // checkpoints: PT.shape(),
 };

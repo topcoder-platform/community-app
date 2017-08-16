@@ -103,6 +103,11 @@ app.use('/api/exchange-rates', (req, res) => {
   getExchangeRates().then(rates => res.send(rates));
 });
 
+app.use('/iframe-break', (req, res) => {
+  const url = req.query.dest;
+  res.send(`<script>window.top.location.href="${url}"</script>`);
+});
+
 app.use(renderer);
 
 /* Catches 404 and forwards it to error handler. */

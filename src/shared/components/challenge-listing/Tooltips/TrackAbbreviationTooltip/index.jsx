@@ -8,7 +8,7 @@
 
 import React from 'react';
 import PT from 'prop-types';
-import Tooltip from '../Tooltip';
+import Tooltip from 'components/Tooltip';
 import './style.scss';
 
 const DESCRIPTION = {

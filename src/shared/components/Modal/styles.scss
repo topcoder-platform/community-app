@@ -1,7 +1,7 @@
 @import '~styles/tc-styles';
 $button-space-32: $base-unit * 6 + 2;
 
-.bg-overlay {
+.overlay {
   background: $tc-gray-neutral-dark;
   border: none;
   height: 100%;
@@ -14,7 +14,7 @@ $button-space-32: $base-unit * 6 + 2;
   z-index: 99;
 }
 
-.modal-container {
+.container {
   background: #fff;
   box-shadow: 0 0 14px 1px rgba(38, 38, 40, 0.15);
   border-radius: 4px;

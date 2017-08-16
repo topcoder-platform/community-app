@@ -2,7 +2,7 @@ import PT from 'prop-types';
 import React from 'react';
 import LeaderboardAvatar from 'components/LeaderboardAvatar';
 
-import Tooltip from '../../Tooltips/Tooltip';
+import Tooltip from 'components/Tooltip';
 import RegistrantsIcon from '../../Icons/RegistrantsIcon';
 import SubmissionsIcon from '../../Icons/SubmissionsIcon';
 import './style.scss';

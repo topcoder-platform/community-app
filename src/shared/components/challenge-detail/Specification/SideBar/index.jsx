@@ -1,0 +1,251 @@
+import config from 'utils/config';
+import React from 'react';
+import PT from 'prop-types';
+
+import Tooltip from 'components/Tooltip';
+import ShareSocial from './ShareSocial';
+
+import styles from './styles.scss';
+
+export default function SideBar({
+  documents,
+  eventDetail,
+  screeningScorecardId,
+  reviewScorecardId,
+  forumLink,
+  submissionLimit,
+  hasRegistered,
+  fileTypes,
+  reviewType,
+  isDesign,
+  terms,
+}) {
+  const scorecardURL = `${config.URL.ONLINE_REVIEW}/review/actions/ViewScorecard?scid=`;
+  const faqURL = config.URL.INFO.DESIGN_CHALLENGE_SUBMISSION;
+  let submissionLimitDisplay = 'Unlimited';
+  if (submissionLimit === 1) {
+    submissionLimitDisplay = '1 submission';
+  } else if (submissionLimit > 1) {
+    submissionLimitDisplay = `${submissionLimit} submissions`;
+  }
+
+  const downloadsPlaceHolder = hasRegistered ?
+    'None' : 'Register to Download Files (if available)';
+
+  const reviewTypeTitle = reviewType === 'PEER' ? 'Peer Review' : 'Community Review Board';
+  const reviewTypeDescription = (
+    reviewType === 'PEER' ?
+      'Your peers performs a thorough review based on scorecards.' :
+      'Community Review Board performs a thorough review based on scorecards.'
+  );
+
+  const reviewTip = (<div styleName="tctooltiptext tooltiptextreview">
+    <h4>Final Review:</h4>
+    <p>{reviewTypeDescription}</p>
+  </div>);
+
+  const approvalTip = (<div styleName="tctooltiptext tooltiptextapproval">
+    <h4>Approval:</h4>
+    <p>Customer has final opportunity to sign-off on the delivered assets.</p>
+  </div>);
+
+  return (
+    <div styleName="challenge-spec-sidebar">
+      <div styleName="challenge-sidebar-inner">
+        <p styleName="link-like-paragraph">
+          {
+            'Questions? '
+          }
+          <a href={forumLink}>Ask in the Challenge Discussion Forums. </a>
+        </p>
+        <h3>DOWNLOADS:</h3>
+        {
+          hasRegistered && documents && documents.length > 0 ? (
+            <ul>
+              {
+                documents.map(doc => (
+                  <li key={doc.url}><a href={doc.url}>{doc.documentName}</a></li>
+                ))
+              }
+            </ul>
+          ) :
+            <p styleName="link-like-paragraph">{downloadsPlaceHolder}</p>
+        }
+        {eventDetail && (
+          <div>
+            <h3>ELIGIBLE EVENTS:</h3>
+            <p styleName="link-like-paragraph">
+              {/* TODO: It is not good to compose the event URL like this, as
+                * in general there is not guaranteed to be correct. */}
+              <a href={`//${eventDetail.eventName}.topcoder.com`}>
+                {eventDetail.description}
+              </a>
+            </p>
+          </div>
+        )}
+        {
+          !isDesign &&
+          <div>
+            <h3>REVIEW STYLE:</h3>
+            <h4>Final Review:</h4>
+            <span styleName="link-like-paragraph tooltip-container">
+              {reviewTypeTitle}
+              <Tooltip content={reviewTip}>
+                <div styleName="tctooltip"><p>?</p></div>
+              </Tooltip>
+            </span>
+            <h4>Approval:</h4>
+            <span styleName="link-like-paragraph tooltip-container">
+              User Sign-Off
+              <Tooltip content={approvalTip} className={styles['tooltip-overlay']}>
+                <div styleName="tctooltip"><p>?</p></div>
+              </Tooltip>
+            </span>
+          </div>
+        }
+        <h3>CHALLENGE LINKS:</h3>
+        {
+          screeningScorecardId > 0 &&
+          <p styleName="link-like-paragraph">
+            <a href={`${scorecardURL}${screeningScorecardId}`}>Screening Scorecard</a>
+          </p>
+        }
+        {
+          reviewScorecardId > 0 &&
+          <p styleName="link-like-paragraph">
+            <a href={`${scorecardURL}${reviewScorecardId}`}>Review Scorecard</a>
+          </p>
+        }
+        {
+          isDesign &&
+          <div>
+            <h3>SUBMISSION FORMAT:</h3>
+            <h4>Your Design Files:</h4>
+            <ol>
+              <li>
+                {'Look for instructions in this challenge regarding what files to provide.'}
+              </li>
+              <li>
+                {'Place your submission files into a "Submission.zip" file.'}
+              </li>
+              <li>
+                {'Place all of your source files into a "Source.zip" file.'}
+              </li>
+              <li>
+                {'Create a JPG preview file.'}
+              </li>
+            </ol>
+            <p styleName="link-like-paragraph">
+              Trouble formatting your submission or want to learn more?
+              &zwnj;<a href={faqURL}>Read the FAQ.</a>
+            </p>
+            <h4>Fonts:</h4>
+            <p styleName="link-like-paragraph">
+              All fonts within your design must be declared when you submit.
+              DO NOT include any font files in your submission or source files.
+              Read about the font policy here.
+            </p>
+            <h4>Screening:</h4>
+            <p styleName="link-like-paragraph">
+              All submissions are screened for eligibility before the challenge
+              holder picks winners. Don{"'"}t let your hard work go to waste.
+              Learn more about how to pass screening here.
+            </p>
+            <br />
+            <h3>SOURCE FILES:</h3>
+            <ul>
+              {
+                fileTypes && fileTypes.length > 0 ?
+                  fileTypes.map(fileT => <li key={fileT}>{fileT}</li>) :
+                  undefined
+              }
+            </ul>
+            <p styleName="link-like-paragraph">
+              You must include all source files with your submission.
+            </p>
+            <h3>SUBMISSION LIMIT:</h3>
+            <p styleName="link-like-paragraph">
+              {
+                submissionLimit ?
+                  submissionLimitDisplay : <strong>{submissionLimitDisplay}</strong>
+              }
+            </p>
+          </div>
+        }
+        {
+          terms.length > 0 &&
+          <div>
+            <h3>CHALLENGE TERMS:</h3>
+            <div styleName="link-like-paragraph">
+              {
+                terms.map(t => (
+                  <div styleName="term" key={t.termsOfUseId}>
+                    {t.agreed && <span styleName="agreed" />}
+                    <a href={`${config.URL.BASE}/challenge-details/terms/detail/${t.termsOfUseId}`}>
+                      {t.title}
+                    </a>
+                  </div>
+                ))
+              }
+            </div>
+          </div>
+        }
+        {
+          !isDesign &&
+          <div>
+            <h3>GET THE UML TOOL:</h3>
+            <ul>
+              <li>
+                <a href={config.URL.UML_TOOL.GITHUB}>
+                  Github source code repository
+                </a>
+              </li>
+              <li>
+                <a href={config.URL.UML_TOOL.MAC}>
+                  Mac disk image
+                </a>
+              </li>
+              <li>
+                <a href={config.URL.UML_TOOL.JAVA}>
+                  Java installer
+                </a>
+              </li>
+            </ul>
+          </div>
+        }
+        <h3>SHARE:</h3>
+        <ShareSocial />
+      </div>
+    </div>
+  );
+}
+
+SideBar.defaultProps = {
+  eventDetail: null,
+  documents: undefined,
+  screeningScorecardId: 0,
+  reviewScorecardId: 0,
+  submissionLimit: 0,
+  fileTypes: [],
+  hasRegistered: false,
+  reviewType: 'COMMUNITY',
+  isDesign: false,
+  terms: [],
+};
+
+SideBar.propTypes = {
+  eventDetail: PT.shape({
+    eventName: PT.string.isRequired,
+    description: PT.string.isRequired,
+  }),
+  documents: PT.arrayOf(PT.shape()),
+  screeningScorecardId: PT.number,
+  reviewScorecardId: PT.number,
+  forumLink: PT.string.isRequired,
+  submissionLimit: PT.number,
+  fileTypes: PT.arrayOf(PT.string),
+  hasRegistered: PT.bool,
+  reviewType: PT.string,
+  isDesign: PT.bool,
+  terms: PT.arrayOf(PT.shape()),
+};

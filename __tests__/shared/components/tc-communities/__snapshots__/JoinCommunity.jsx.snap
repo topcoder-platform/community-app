@@ -8,8 +8,11 @@ exports[`Matches shallow shapshot 1`] = `
   >
     Join Community
   </button>
-  <Modal
+  <ThemedModal
+    composeTheme="deeply"
+    mapThemrProps={[Function]}
     onCancel={[Function]}
+    theme={Object {}}
   >
     <p
       className="src-shared-components-tc-communities-JoinCommunity-___style__confirmMsg___3Urx0"
@@ -34,7 +37,7 @@ exports[`Matches shallow shapshot 1`] = `
         Cancel
       </button>
     </div>
-  </Modal>
+  </ThemedModal>
 </div>
 `;
 
@@ -76,8 +79,11 @@ exports[`Matches shallow shapshot 4`] = `
   >
     Join Community
   </button>
-  <Modal
+  <ThemedModal
+    composeTheme="deeply"
+    mapThemrProps={[Function]}
     onCancel={[Function]}
+    theme={Object {}}
   >
     <h1
       className="src-shared-components-tc-communities-JoinCommunity-___style__modalTitle___1U_iw"
@@ -97,7 +103,7 @@ exports[`Matches shallow shapshot 4`] = `
     >
       Return to the Community
     </button>
-  </Modal>
+  </ThemedModal>
 </div>
 `;
 
@@ -109,8 +115,11 @@ exports[`Matches shallow shapshot 5`] = `
   >
     Join Community
   </button>
-  <Modal
+  <ThemedModal
+    composeTheme="deeply"
+    mapThemrProps={[Function]}
     onCancel={[Function]}
+    theme={Object {}}
   >
     <p
       className="src-shared-components-tc-communities-JoinCommunity-___style__confirmMsg___3Urx0"
@@ -135,6 +144,6 @@ exports[`Matches shallow shapshot 5`] = `
         Cancel
       </button>
     </div>
-  </Modal>
+  </ThemedModal>
 </div>
 `;

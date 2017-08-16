@@ -121,7 +121,10 @@ function onRegisterDone(state, action) {
   /* As a part of registration flow we silently update challenge details,
    * reusing for this purpose the corresponding action handler. Thus, we
    * should also reuse corresponding reducer to generate proper state. */
-  return onGetDetailsDone({ ...state, registering: false }, action);
+  return onGetDetailsDone({ ...state,
+    registering: false,
+    loadingDetailsForChallengeId: _.toString(state.details.id),
+  }, action);
 }
 
 /**
@@ -138,7 +141,11 @@ function onUnregisterDone(state, action) {
   /* As a part of unregistration flow we silently update challenge details,
    * reusing for this purpose the corresponding action handler. Thus, we
    * should also reuse corresponding reducer to generate proper state. */
-  return onGetDetailsDone({ ...state, unregistering: false }, action);
+  return onGetDetailsDone({
+    ...state,
+    unregistering: false,
+    loadingDetailsForChallengeId: _.toString(state.details.id),
+  }, action);
 }
 
 /**
@@ -182,6 +189,8 @@ function create(initialState) {
       loadingCheckpoints: true,
     }),
     [a.fetchCheckpointsDone]: onFetchCheckpointsDone,
+    [a.openTermsModal]: state => ({ ...state, showTermsModal: true }),
+    [a.closeTermsModal]: state => ({ ...state, showTermsModal: false }),
   }, _.defaults(initialState, {
     details: null,
     detailsV2: null,
@@ -190,6 +199,7 @@ function create(initialState) {
     checkpoints: null,
     registering: false,
     unregistering: false,
+    showTermsModal: false,
   }));
 }
 

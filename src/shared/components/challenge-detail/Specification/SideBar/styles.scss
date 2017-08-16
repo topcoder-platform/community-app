@@ -1,0 +1,182 @@
+@import "~styles/tc-styles";
+$tc-link-visited: #0c4e98;
+
+@mixin linkStyle {
+  a {
+    color: $tc-dark-blue;
+    word-wrap: break-word;
+  }
+
+  a:hover {
+    text-decoration: underline;
+  }
+
+  a:active {
+    text-decoration: underline;
+    color: $tc-dark-blue-70;
+  }
+
+  a:visited {
+    color: $tc-link-visited;
+  }
+}
+
+.challenge-spec-sidebar {
+  background: $tc-dark-blue-10;
+  width: 245px;
+  margin: 50px 0;
+  padding: 20px 0 30px 20px;
+
+  .challenge-sidebar-inner {
+    margin: 0 20px;
+
+    h3 {
+      font-family: roboto;
+      font-weight: 700;
+      font-size: 13px;
+      color: $tc-gray-90;
+      line-height: 20px;
+      margin: 5px 0;
+    }
+
+    h4 {
+      font-family: roboto;
+      font-weight: 500;
+      font-size: 13px;
+      color: $tc-gray-90;
+      line-height: 20px;
+      margin: 5px 0;
+    }
+
+    .link-like-paragraph {
+      font-family: roboto;
+      font-weight: 400;
+      font-size: 13px;
+      color: $tc-gray-90;
+      line-height: 20px;
+      margin: 0 0 5px;
+
+      @include linkStyle;
+    }
+
+    ol {
+      margin: 0 0 5px;
+      counter-reset: item;
+      font-family: roboto;
+      font-size: 13px;
+      color: $tc-gray-90;
+      line-height: 20px;
+      display: table;
+
+      li {
+        list-style-type: none;
+        font-weight: 400;
+        counter-increment: item;
+        display: table-row;
+
+        @include linkStyle;
+      }
+
+      li::before {
+        display: table-cell;
+        font-weight: 700;
+        text-align: right;
+        content: counter(item) ".";
+        padding: 0 10px 0 0;
+      }
+    }
+
+    ul {
+      margin: 0 0 5px;
+      font-family: roboto;
+      font-size: 13px;
+      color: $tc-gray-90;
+      line-height: 20px;
+      display: table;
+
+      li {
+        list-style-type: none;
+        font-weight: 400;
+        display: table-row;
+
+        @include linkStyle;
+      }
+
+      li::before {
+        display: table-cell;
+        font-weight: 700;
+        text-align: right;
+        content: "-";
+        padding: 0 10px 0 0;
+      }
+    }
+  }
+}
+
+.term {
+  display: flex;
+  align-items: flex-start;
+}
+
+.agreed {
+  display: inline-block;
+  background-image: url(assets/images/ico-okay-check.png);
+  width: 16px;
+  height: 16px;
+  background-size: 100% 100%;
+  margin: 2px 5px 0 0;
+  flex-shrink: 0;
+}
+
+.tooltip-container {
+  display: flex;
+}
+
+.tctooltip {
+  p {
+    background: $tc-green;
+    font-style: roboto;
+    font-weight: 700;
+    font-size: 13px;
+    line-height: 20px;
+    color: $tc-white;
+    padding: 0 6px;
+    border-radius: 10px;
+    margin: 0 5px;
+    cursor: pointer;
+  }
+}
+
+.tctooltiptext {
+  background: $tc-gray-90;
+  border-radius: 6px;
+  padding: 5px;
+
+  h4 {
+    white-space: nowrap;
+    font-family: roboto;
+    font-weight: 700;
+    font-size: 13px;
+    line-height: 20px;
+    margin: 5px 0;
+    color: $tc-white;
+  }
+
+  p {
+    font-family: roboto;
+    font-weight: 400;
+    font-size: 13px;
+    color: $tc-gray-10;
+    line-height: 20px;
+    margin: 0 0 5px;
+    width: 150px;
+  }
+}
+
+.tooltiptextreview {
+  margin: 0 0 0 -140px;
+}
+
+.tooltiptextapproval {
+  margin: 0 0 0 -80px;
+}

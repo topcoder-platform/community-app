@@ -1,15 +1,13 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Snapshot match 1`] = `
-<div>
-  <div
-    className="src-shared-components-Modal-___styles__modal-container___2m4KB"
-    onWheel={[Function]}
-  />
-  <button
-    className="src-shared-components-Modal-___styles__bg-overlay___2xty_"
-    onClick={[Function]}
-    onWheel={[Function]}
-  />
-</div>
+<Modal
+  onCancel={[Function]}
+  theme={
+    Object {
+      "container": "src-shared-components-Modal-___styles__container___2HN2G",
+      "overlay": "src-shared-components-Modal-___styles__overlay___36ZAX",
+    }
+  }
+/>
 `;
