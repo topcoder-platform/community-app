@@ -104,8 +104,11 @@ storeFactory(undefined, window.ISTATE).then((store) => {
     const hotReporter = window.__webpack_hot_middleware_reporter__;
     const hotSuccess = hotReporter.success;
     hotReporter.success = () => {
-      const link = document.querySelectorAll('link[rel=stylesheet]')[0];
-      link.href = `/style.css?v=${shortId.generate()}`;
+      const stamp = shortId();
+      const links = document.querySelectorAll('link[rel=stylesheet]');
+      for (let i = 0; i < links.length; i += 1) {
+        links[i].href = `${links[i].href.match(/[^?]*/)[0]}?v=${stamp}`;
+      }
       hotSuccess();
     };
   }

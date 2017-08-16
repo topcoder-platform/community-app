@@ -6,6 +6,7 @@ import './style.scss';
 
 export default function Tip({
   bonuses,
+  points,
   prizes,
   prizeUnitSymbol,
 }) {
@@ -36,20 +37,34 @@ export default function Tip({
         <h1>Prizes</h1>
         {prizesRender}
       </div>
-      <div styleName="bonuses">
-        <h1>Bonuses</h1>
-        {bonusesRender}
-      </div>
+      {
+        points ? (
+          <div styleName="points">
+            <h1>Points</h1>
+            {points}
+          </div>
+        ) : null
+      }
+      {
+        bonuses.length ? (
+          <div styleName="bonuses">
+            <h1>Bonuses</h1>
+            {bonusesRender}
+          </div>
+        ) : null
+      }
     </div>
   );
 }
 
 Tip.defaultProps = {
   isLoaded: false,
+  points: null,
 };
 
 Tip.propTypes = {
   bonuses: PT.arrayOf(PT.object).isRequired,
+  points: PT.number,
   prizes: PT.arrayOf(PT.number).isRequired,
   prizeUnitSymbol: PT.string.isRequired,
 };

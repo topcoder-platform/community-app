@@ -1,6 +1,5 @@
-const autoprefixer = require('autoprefixer');
-const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+const ExtractCssChunks = require('extract-css-chunks-webpack-plugin');
 const path = require('path');
 const webpack = require('webpack');
 
@@ -15,6 +14,11 @@ module.exports = {
       /[\\/]node_modules[\\/]le_node/,
 
       /[\\/]node_modules[\\/]xml2json/,
+
+      /* This module is a part of requireWeak(..) implementation, it must be
+       * ignored by Webpack, so that the modules required with this function
+       * are not bundled. */
+      /utils[\\/]router[\\/]require/,
     ],
     rules: [{
       test: /\.(eot|otf|svg|ttf|woff|woff2)$/,
@@ -53,6 +57,7 @@ module.exports = {
                 syntax: 'postcss-scss',
               },
             },
+            generateScopedName: '[hash:base64:6]',
           }],
         ],
       },
@@ -65,36 +70,10 @@ module.exports = {
         publicPath: '',
       },
     }, {
-      test: /\.scss$/,
-      exclude: /(bower_components|node_modules)/,
-      use: ExtractTextPlugin.extract({
-        fallback: 'style-loader',
-        use: [{
-          loader: 'css-loader',
-          options: {
-            importLoaders: 3,
-            localIdentName: '[path]___[name]__[local]___[hash:base64:5]',
-            modules: true,
-          },
-        }, {
-          loader: 'postcss-loader',
-          options: {
-            plugins: [
-              autoprefixer,
-            ],
-          },
-        }, 'resolve-url-loader', {
-          loader: 'sass-loader',
-          options: {
-            sourceMap: true,
-          },
-        }],
-      }),
-    }, {
       /* We need to support css loading for third-party plugins,
        * we are not supposed to use css files inside the project. */
       test: /\.css$/,
-      use: ExtractTextPlugin.extract({
+      use: ExtractCssChunks.extract({
         fallback: 'style-loader',
         use: ['css-loader'],
       }),
@@ -105,7 +84,8 @@ module.exports = {
     fs: 'empty',
   },
   output: {
-    filename: 'bundle.js',
+    filename: 'main.js',
+    chunkFilename: '[name].js',
     path: path.resolve(__dirname, '../../build'),
     publicPath: '/',
   },
@@ -117,16 +97,15 @@ module.exports = {
       from: path.resolve(__dirname, '../../src/assets/themes'),
       to: path.resolve(__dirname, '../../build/themes'),
     }]),
-    new ExtractTextPlugin({
-      allChunks: true,
-      filename: 'style.css',
+    new ExtractCssChunks({
+      filename: '[name].css',
+      justExtract: true,
     }),
     new webpack.DefinePlugin({
       'process.env': {
         /* Some isomorphic code relies on this variable to determine, whether
          * it is executed client- or server-side. */
         FRONT_END: true,
-        DOMAIN: "'topcoder-dev.com'",
       },
     }),
   ],

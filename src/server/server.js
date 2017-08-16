@@ -74,7 +74,7 @@ if (USE_DEV_TOOLS) {
   const compiler = webpack(webpackConfig);
   compiler.apply(new webpack.ProgressPlugin());
   app.use(webpackDevMiddleware(compiler, {
-    name: 'bundle.js',
+    name: 'main.js',
     publicPath: webpackConfig.output.publicPath,
     serverSideRender: true,
   }));

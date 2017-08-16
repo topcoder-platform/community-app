@@ -151,6 +151,10 @@ class ChallengeStatus extends Component {
     this.registrantsLink = this.registrantsLink.bind(this);
   }
 
+  /* TODO: Here is many code common with activeChallenge (the difference is that
+   * one component renders leaderboard gallery in the place where another one
+   * renders the timeline). The code should be refactored to avoid dublicating
+   * the common code being used in both places. */
   completedChallenge() {
     const { challenge } = this.props;
     const { CHALLENGE_URL, FORUM_URL } = this.state;
@@ -166,7 +170,7 @@ class ChallengeStatus extends Component {
                 </div>
               }
             >
-              <a styleName="num-reg past" href={`${CHALLENGE_URL}${challenge.challengeId}/?type=${challenge.track.toLowerCase()}#viewRegistrant`}>
+              <a styleName="num-reg past" href={`${CHALLENGE_URL}${challenge.id}/?type=${challenge.track.toLowerCase()}#viewRegistrant`}>
                 <RegistrantsIcon /> <span styleName="number">{challenge.numRegistrants}</span>
               </a>
             </Tooltip>
@@ -179,7 +183,7 @@ class ChallengeStatus extends Component {
                 </div>
               }
             >
-              <a styleName="num-sub past" href={`${CHALLENGE_URL}${challenge.challengeId}/?type=${challenge.track.toLowerCase()}#viewRegistrant`}>
+              <a styleName="num-sub past" href={`${CHALLENGE_URL}${challenge.id}/?type=${challenge.track.toLowerCase()}#viewRegistrant`}>
                 <SubmissionsIcon /> <span styleName="number">{challenge.numSubmissions}</span>
               </a>
             </Tooltip>

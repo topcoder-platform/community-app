@@ -54,7 +54,7 @@ export default function Home(props) {
               title: 'Start Learning',
               url: 'learn',
             }}
-            imageSrc="/themes/wipro/home/image-text-learn.jpg"
+            imageSrc="/themes/demo-expert/home/image-text-learn.jpg"
           />
           <ImageText
             title="Get Involved"
@@ -63,7 +63,7 @@ export default function Home(props) {
               title: 'Start Earning',
               url: 'challenges',
             }}
-            imageSrc="/themes/wipro/home/image-text-do.jpg"
+            imageSrc="/themes/demo-expert/home/image-text-do.jpg"
           />
         </div>
       </Section>

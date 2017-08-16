@@ -34,7 +34,7 @@ export default function Home(props) {
           title: 'Compete Now',
           url: 'challenges',
         }}
-        imageSrc="/themes/tc-prod-dev/community-hero.jpg"
+        imageSrc="/themes/qa/community-hero.jpg"
       />
 
       <CommunityStats />
@@ -54,7 +54,7 @@ export default function Home(props) {
               title: 'Start Learning',
               url: 'learn',
             }}
-            imageSrc="/themes/wipro/home/image-text-learn.jpg"
+            imageSrc="/themes/qa/home/image-text-learn.jpg"
           />
           <ImageText
             title="Get Involved"
@@ -63,7 +63,7 @@ export default function Home(props) {
               title: 'Start Contributing',
               url: 'challenges',
             }}
-            imageSrc="/themes/wipro/home/image-text-do.jpg"
+            imageSrc="/themes/qa/home/image-text-do.jpg"
           />
         </div>
       </Section>
