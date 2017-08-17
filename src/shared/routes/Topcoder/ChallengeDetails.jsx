@@ -2,14 +2,12 @@ import LoadingIndicator from 'components/LoadingIndicator';
 import React from 'react';
 import { SplitRoute } from 'utils/router';
 
-export default function ChallengeDetailsRoute() {
+export default function ChallengeDetailsRoute(props) {
   return (
     <SplitRoute
       cacheCss
       chunkName="challenge-details"
-      exact
-      path="/challenges/:challengeId"
-      renderClientAsync={props =>
+      renderClientAsync={() =>
         import(
           /* webpackChunkName: "challenge-details" */
           'containers/challenge-detail',

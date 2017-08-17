@@ -10,7 +10,7 @@ import Footer from 'components/TopcoderFooter';
 import Header from 'containers/TopcoderHeader';
 
 import React from 'react';
-import { Switch } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 
 import ChallengeDetails from './ChallengeDetails';
 import ChallengeListing from './ChallengeListing';
@@ -22,10 +22,14 @@ export default function Topcoder() {
     <div>
       <Header />
       <Switch>
-        {ChallengeDetails()}
-        {ChallengeListing({ listingOnly: true })}
-        {Dashboard()}
-        {SubmissionManagement()}
+        <Route component={ChallengeDetails} exact path="/challenges/:challengeId" />
+        <Route component={ChallengeListing} exact path="/challenges" />
+        <Route component={Dashboard} exact path="/my-dashboard" />
+        <Route
+          component={SubmissionManagement}
+          exact
+          path="/challenges/:challengeId/my-submissions"
+        />
         <Error404 />
       </Switch>
       <Footer />

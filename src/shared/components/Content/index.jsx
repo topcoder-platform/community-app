@@ -78,7 +78,7 @@ export default function Content() {
           &zwnj;<Link to="/challenges/30050680">code challenge</Link>,
           &zwnj;<Link to="/challenges/30050463">code challenge 2</Link>,
           &zwnj;<Link to="/challenges/30049552">design challenge</Link>,
-          &zwnj;<Link to="/challenges/30050696">design challenge 2</Link>,
+          &zwnj;<Link to="/challenges/30050696">design challenge 2</Link>.
         </li>
         <li>
           <Link to="/my-dashboard">Dashboard</Link>

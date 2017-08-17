@@ -13,6 +13,7 @@ import SideBar from './SideBar';
 
 import './styles.scss';
 
+/* TODO: Should be set using dangerouslySetInnerHtml */
 function setHtml(htmlString) {
   return (input) => {
     if (input) {

@@ -205,7 +205,7 @@ exports[`Matches shallow shapshot 1`] = `
       >
         design challenge 2
       </Link>
-      ,
+      .
     </li>
     <li>
       <Link

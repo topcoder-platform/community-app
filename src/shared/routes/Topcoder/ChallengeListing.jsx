@@ -5,20 +5,15 @@
 
 import _ from 'lodash';
 import LoadingIndicator from 'components/LoadingIndicator';
-import PT from 'prop-types';
 import qs from 'qs';
 import React from 'react';
 import { SplitRoute } from 'utils/router';
 
-export default function ChallengeListingRoute({
-  listingOnly,
-}) {
+export default function ChallengeListingRoute() {
   return (
     <SplitRoute
       cacheCss
       chunkName="challenge-listing"
-      exact
-      path="/challenges"
       renderClientAsync={renderProps =>
         import(
           /* webpackChunkName: "challenge-listing" */
@@ -31,7 +26,7 @@ export default function ChallengeListingRoute({
           return (
             <ChallengeListing
               {...renderProps}
-              listingOnly={listingOnly}
+              listingOnly
               prizeMode={prizeMode}
             />
           );
@@ -41,11 +36,3 @@ export default function ChallengeListingRoute({
     />
   );
 }
-
-ChallengeListingRoute.defaultProps = {
-  listingOnly: false,
-};
-
-ChallengeListingRoute.propTypes = {
-  listingOnly: PT.bool,
-};

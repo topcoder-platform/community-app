@@ -37,158 +37,6 @@ $tc-link-visited: #0c4e98;
     flex-direction: column;
     margin: 5px 0 50px;
 
-    @include xs-to-lg {
-      min-width: 310px;
-    }
-
-    .challenge-specs-main {
-      padding: 0 20px;
-      max-width: 720px;
-      align-self: center;
-      font-family: roboto;
-      font-weight: 400;
-      font-size: 15px;
-      color: $tc-gray-90;
-      line-height: 25px;
-      white-space: normal;
-
-      h1 {
-        font-family: roboto;
-        font-weight: 500;
-        font-size: 28px;
-        color: $tc-black;
-        letter-spacing: -0.78px;
-        line-height: 40px;
-        margin: 50px 0 10px;
-      }
-
-      h2 {
-        font-family: roboto;
-        font-weight: 700;
-        font-size: 20px;
-        color: $tc-black;
-        line-height: 30px;
-        margin: 50px 0 10px;
-      }
-
-      h3 {
-        font-family: roboto;
-        font-weight: 700;
-        font-size: 15px;
-        color: $tc-black;
-        line-height: 25px;
-        margin: 25px 0 0;
-      }
-
-      h4 {
-        font-family: roboto;
-        font-weight: 700;
-        font-size: 15px;
-        color: $tc-gray-90;
-        line-height: 25px;
-      }
-
-      p,
-      span,
-      em,
-      strong,
-      a {
-        font-family: roboto;
-        font-weight: 400;
-        font-size: 15px;
-        color: $tc-gray-90;
-        line-height: 25px;
-
-        @include linkStyle;
-      }
-
-      em {
-        font-style: italic;
-      }
-
-      strong {
-        font-weight: 700;
-      }
-
-      pre,
-      code {
-        background: $tc-gray-neutral-light;
-        border: 1px solid $tc-gray-20;
-        border-radius: 6px;
-        font-family: 'Roboto Mono', monospace;
-        font-weight: 400;
-        font-size: 13px;
-        color: $tc-black;
-        line-height: 20px;
-      }
-
-      ol {
-        margin: 0 0 5px;
-        counter-reset: item;
-        font-family: roboto;
-        font-weight: 400;
-        font-size: 15px;
-        color: $tc-gray-90;
-        line-height: 25px;
-        display: table;
-
-        li {
-          list-style-type: none;
-          font-weight: 400;
-          counter-increment: item;
-          display: table-row;
-          white-space: normal;
-
-          @include linkStyle;
-        }
-
-        li::before {
-          display: table-cell;
-          font-weight: 700;
-          text-align: right;
-          content: counter(item) ".";
-          padding: 0 10px 0 0;
-        }
-      }
-
-      ul {
-        margin: 0 0 5px 20px;
-        font-family: roboto;
-        font-weight: 400;
-        font-size: 15px;
-        color: $tc-gray-90;
-        line-height: 25px;
-        list-style: disc outside none;
-
-        li {
-          font-weight: 400;
-
-          @include linkStyle;
-        }
-      }
-
-      .note {
-        background: $tc-gold-30;
-        border: 1px solid $tc-gold-70;
-        border-radius: 6px;
-        font-family: roboto;
-        font-weight: 400;
-        font-style: italic;
-        font-size: 13px;
-        color: $tc-black;
-        line-height: 20px;
-        padding: 15px 20px;
-        margin: 25px 0;
-
-        p,
-        ul {
-          font-size: 13px;
-        }
-      }
-
-      @include linkStyle;
-    }
-
     .challenge-specs-develop {
       blockquote {
         border-left: 3px solid $tc-green;
@@ -210,4 +58,163 @@ $tc-link-visited: #0c4e98;
       }
     }
   }
+}
+
+.challenge-specs-main {
+  padding: 0 20px;
+  max-width: 720px;
+  align-self: center;
+  font-family: roboto;
+  font-weight: 400;
+  font-size: 15px;
+  color: $tc-gray-90;
+  line-height: 25px;
+  white-space: normal;
+
+  h1 {
+    font-family: roboto;
+    font-weight: 500;
+    font-size: 28px;
+    color: $tc-black;
+    letter-spacing: -0.78px;
+    line-height: 40px;
+    margin: 50px 0 10px;
+  }
+
+  h2 {
+    font-family: roboto;
+    font-weight: 700;
+    font-size: 20px;
+    color: $tc-black;
+    line-height: 30px;
+    margin: (6 * $base-unit) 0 (2 * $base-unit);
+  }
+
+  h3 {
+    font-family: roboto;
+    font-weight: 700;
+    font-size: 15px;
+    color: $tc-black;
+    line-height: 25px;
+    margin: (5 * $base-unit) 0 0;
+    text-transform: uppercase;
+  }
+
+  h4 {
+    font-family: roboto;
+    font-weight: 700;
+    font-size: 15px;
+    color: $tc-gray-90;
+    line-height: 25px;
+  }
+
+  p,
+  span,
+  em,
+  strong,
+  a {
+    font-family: roboto;
+    font-weight: 400;
+    font-size: 15px;
+    color: $tc-gray-90;
+    line-height: 25px;
+
+    @include linkStyle;
+  }
+
+  p {
+    margin: (2 * $base-unit) 0 (3 * $base-unit);
+  }
+
+  em {
+    font-style: italic;
+  }
+
+  strong {
+    font-weight: 700;
+  }
+
+  pre,
+  code {
+    background: $tc-gray-neutral-light;
+    border: 1px solid $tc-gray-20;
+    border-radius: 6px;
+    font-family: 'Roboto Mono', monospace;
+    font-weight: 400;
+    font-size: 13px;
+    color: $tc-black;
+    line-height: 20px;
+    margin: (2 * $base-unit) 0 (3 * $base-unit);
+    padding: 3 * $base-unit;
+  }
+
+  pre {
+    overflow-x: scroll;
+  }
+
+  ol {
+    margin: 0 0 5px;
+    counter-reset: item;
+    font-family: roboto;
+    font-weight: 400;
+    font-size: 15px;
+    color: $tc-gray-90;
+    line-height: 25px;
+    display: table;
+
+    li {
+      list-style-type: none;
+      font-weight: 400;
+      counter-increment: item;
+      display: table-row;
+      white-space: normal;
+
+      @include linkStyle;
+    }
+
+    li::before {
+      display: table-cell;
+      font-weight: 700;
+      text-align: right;
+      content: counter(item) ".";
+      padding: 0 10px 0 0;
+    }
+  }
+
+  ul {
+    margin: 0 0 5px 20px;
+    font-family: roboto;
+    font-weight: 400;
+    font-size: 15px;
+    color: $tc-gray-90;
+    line-height: 25px;
+    list-style: disc outside none;
+
+    li {
+      font-weight: 400;
+
+      @include linkStyle;
+    }
+  }
+
+  .note {
+    background: $tc-gold-30;
+    border: 1px solid $tc-gold-70;
+    border-radius: 6px;
+    font-family: roboto;
+    font-weight: 400;
+    font-style: italic;
+    font-size: 13px;
+    color: $tc-black;
+    line-height: 20px;
+    padding: 15px 20px;
+    margin: 25px 0;
+
+    p,
+    ul {
+      font-size: 13px;
+    }
+  }
+
+  @include linkStyle;
 }

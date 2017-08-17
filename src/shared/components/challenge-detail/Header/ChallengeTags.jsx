@@ -8,7 +8,7 @@
 
 import React from 'react';
 import PT from 'prop-types';
-import { Link } from 'react-router-dom';
+import { Link } from 'utils/router';
 
 import './style.scss';
 
@@ -19,31 +19,37 @@ export default function ChallengeTags(props) {
     technPlatforms,
     subTrackStyle,
     eventStyle,
-    tagFilterString,
   } = props;
 
   return (
     <div styleName="tag-holder">
       {
         subTrack &&
-        <a styleName={`tag-common ${subTrackStyle}`}>{subTrack}</a>
+        <Link
+          enforceA
+          to={`/challenges?filter[subtracks][0]=${subTrack}`}
+          styleName={`tag-common ${subTrackStyle}`}
+        >{subTrack}</Link>
       }
       {
-        events.map(
-          evnt =>
-            <a key={evnt} styleName={`tag-common  ${eventStyle}`}>{evnt}</a>,
-        )
+        events.map(event => (
+          <a
+            href={`https://${event}.topcoder.com`}
+            key={event}
+            styleName={`tag-common  ${eventStyle}`}
+          >{event}</a>
+        ))
       }
       {
         technPlatforms.map(
           tag =>
             (
               <Link
+                enforceA
                 key={tag}
-                to={tagFilterString + tag}
+                to={`/challenges?filter[tags][0]=${tag}`}
                 styleName="tag-common misc-tag"
-              >{tag}
-              </Link>
+              >{tag}</Link>
             ),
         )
       }
@@ -63,5 +69,4 @@ ChallengeTags.propTypes = {
   technPlatforms: PT.arrayOf(PT.string),
   subTrackStyle: PT.string.isRequired,
   eventStyle: PT.string.isRequired,
-  tagFilterString: PT.string.isRequired,
 };

@@ -70,8 +70,6 @@ export default function ChallengeHeader(props) {
   const eventNames = (events || []).map((event => (event.eventName || '').toUpperCase()));
   const miscTags = _.union((technologies || '').split(', '), platforms.split(', '));
 
-  const tagFilterString = '/challenges?filter[tags][0]=';
-
   let bonusType = '';
   if (numberOfCheckpointsPrizes && topCheckPointPrize) {
     bonusType = 'Bonus';
@@ -142,7 +140,6 @@ export default function ChallengeHeader(props) {
             technPlatforms={miscTags}
             subTrackStyle={subTrackStyle}
             eventStyle={eventStyle}
-            tagFilterString={tagFilterString}
           />
           <div styleName="prizes-ops-container">
             <div styleName="prizes-outer-container">

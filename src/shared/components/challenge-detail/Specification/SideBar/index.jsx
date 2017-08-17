@@ -52,12 +52,6 @@ export default function SideBar({
   return (
     <div styleName="challenge-spec-sidebar">
       <div styleName="challenge-sidebar-inner">
-        <p styleName="link-like-paragraph">
-          {
-            'Questions? '
-          }
-          <a href={forumLink}>Ask in the Challenge Discussion Forums. </a>
-        </p>
         <h3>DOWNLOADS:</h3>
         {
           hasRegistered && documents && documents.length > 0 ? (
@@ -151,9 +145,14 @@ export default function SideBar({
               holder picks winners. Don{"'"}t let your hard work go to waste.
               Learn more about how to pass screening here.
             </p>
-            <br />
+            <p styleName="link-like-paragraph">
+              Questions?
+              &zwnj;<a href={forumLink}>
+                Ask in the Challenge Discussion Forums.
+              </a>
+            </p>
             <h3>SOURCE FILES:</h3>
-            <ul>
+            <ul styleName="source-files-list">
               {
                 fileTypes && fileTypes.length > 0 ?
                   fileTypes.map(fileT => <li key={fileT}>{fileT}</li>) :
