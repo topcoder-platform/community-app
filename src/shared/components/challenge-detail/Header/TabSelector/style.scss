@@ -1,0 +1,85 @@
+@import "~styles/tc-styles";
+
+@mixin design-accent-clr {
+  .design-accent-color {
+    color: $tc-dark-blue-90;
+  }
+}
+
+@mixin develop-accent-clr {
+  .develop-accent-color {
+    color: $tc-green;
+  }
+}
+
+@mixin datasci-accent-clr {
+  .datasci-accent-color {
+    color: $tc-orange;
+  }
+}
+
+@mixin design-accent-btm-border {
+  .design-accent-bottom-border {
+    border-bottom: 3px solid $tc-dark-blue-90;
+  }
+}
+
+@mixin develop-accent-btm-border {
+  .develop-accent-bottom-border {
+    border-bottom: 3px solid $tc-green;
+  }
+}
+
+@mixin datasci-accent-btm-border {
+  .datasci-accent-bottom-border {
+    border-bottom: 3px solid $tc-orange;
+  }
+}
+
+.challenge-view-selector {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 20px;
+  position: relative;
+
+  @include xxs-to-xs {
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    overflow: auto;
+  }
+
+  .challenge-selector-common {
+    font-family: roboto;
+    font-size: 13px;
+    line-height: 30px;
+    margin: 10px 20px 0;
+    cursor: pointer;
+    white-space: nowrap;
+  }
+
+  .challenge-selected-view {
+    font-weight: 700;
+  }
+
+  .challenge-unselected-view {
+    font-weight: 400;
+    color: $tc-gray-70;
+    border-bottom: 3px hidden $tc-white;
+  }
+
+  @include datasci-accent-clr;
+  @include develop-accent-clr;
+  @include design-accent-clr;
+  @include datasci-accent-btm-border;
+  @include develop-accent-btm-border;
+  @include design-accent-btm-border;
+}
+
+.mask {
+  position: absolute;
+  background: linear-gradient(90deg, rgba(250, 250, 251, 0) 3%, #fafafb 49%, #fafafb 98%);
+  width: 30px;
+  height: 100%;
+  right: 0;
+}

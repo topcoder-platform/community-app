@@ -9,6 +9,16 @@
   margin: 0 4 * $base-unit;
   padding: 3 * $base-unit 0;
   width: 245px;
+
+  @include xxs-to-xs {
+    margin: auto;
+  }
+}
+
+.challenge-ops-wrapper {
+  @include xxs-to-xs {
+    width: 100%;
+  }
 }
 
 @mixin design-accent-bg {
@@ -70,7 +80,7 @@
   border-radius: (3 * $corner-radius) (3 * $corner-radius) 0 0;
 
   @include xxs-to-sm {
-    padding: 4px 4px 1px 0;
+    padding: 4px 4px 0 0;
   }
 
   border-bottom: $tc-gray-20 solid 1px;
@@ -182,10 +192,6 @@
           justify-content: center;
           flex-wrap: wrap;
 
-          @include xs-to-lg {
-            min-width: 270px;
-          }
-
           .prize-fill {
             min-width: 75px;
             margin: 15px 15px 0 0;
@@ -245,7 +251,7 @@
           font-weight: 400;
           color: $tc-black;
           line-height: 25px;
-          margin: 25px 15px;
+          margin: 25px 15px 0;
 
           .bonus-text {
             .bonus-highlight {
@@ -361,45 +367,6 @@
           }
         }
       }
-    }
-
-    .challenge-view-selector {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      margin-top: 20px;
-
-      @include xxs-to-xs {
-        flex-wrap: nowrap;
-        justify-content: flex-start;
-        overflow: auto;
-      }
-
-      .challenge-selector-common {
-        font-family: roboto;
-        font-size: 13px;
-        line-height: 30px;
-        margin: 10px 20px 0;
-        cursor: pointer;
-        white-space: nowrap;
-      }
-
-      .challenge-selected-view {
-        font-weight: 700;
-      }
-
-      .challenge-unselected-view {
-        font-weight: 400;
-        color: $tc-gray-70;
-        border-bottom: 3px hidden $tc-white;
-      }
-
-      @include datasci-accent-clr;
-      @include develop-accent-clr;
-      @include design-accent-clr;
-      @include datasci-accent-btm-border;
-      @include develop-accent-btm-border;
-      @include design-accent-btm-border;
     }
   }
 }

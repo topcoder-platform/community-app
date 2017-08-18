@@ -4,6 +4,8 @@
   challenge detail page.
 */
 
+import _ from 'lodash';
+import config from 'utils/config';
 import React from 'react';
 import PT from 'prop-types';
 
@@ -16,17 +18,25 @@ function getSelectorStyle(selectedView, currentView, track) {
 
 export default function ChallengeViewSelector(props) {
   const {
-    onSelectorClicked,
-    trackLower,
-    selectedView,
-    numRegistrants,
-    status,
-    // hasCheckpoints,
-    // numSubmissions,
+    challenge,
     checkpointCount,
+    numRegistrants,
+    onSelectorClicked,
+    selectedView,
+    status,
+    trackLower,
   } = props;
+
+  const forumId = _.get(challenge, 'forumId', 0);
+  const roles = _.get(challenge, 'userDetails.roles', []);
+
+  const forumEndpoint = trackLower === 'design'
+    ? `/?module=ThreadList&forumID=${forumId}`
+    : `/?module=Category&categoryID=${forumId}`;
+
   return (
     <div styleName="challenge-view-selector">
+      <div styleName="mask" />
       <a
         onClick={(e) => { e.preventDefault(); onSelectorClicked('DETAILS'); }}
         styleName={getSelectorStyle(selectedView, 'DETAILS', trackLower)}
@@ -62,28 +72,36 @@ export default function ChallengeViewSelector(props) {
         >WINNERS
         </a>
       }
-      <a
-        onClick={(e) => { e.preventDefault(); onSelectorClicked('CHALLENGE_FORUM'); }}
-        styleName={getSelectorStyle(selectedView, 'CHALLENGE_FORUM', trackLower)}
-      >CHALLENGE FORUM
-      </a>
+      { Boolean(roles.length) &&
+        <a
+          href={`${config.URL.FORUMS}${forumEndpoint}`}
+          styleName={getSelectorStyle(selectedView, 'CHALLENGE_FORUM', trackLower)}
+        >CHALLENGE FORUM</a>
+      }
     </div>
   );
 }
 
 ChallengeViewSelector.defaultProps = {
+  challenge: {},
+  checkpointCount: 0,
   numRegistrants: 0,
   numSubmissions: 0,
-  checkpointCount: 0,
 };
 
 ChallengeViewSelector.propTypes = {
-  onSelectorClicked: PT.func.isRequired,
-  trackLower: PT.string.isRequired,
-  selectedView: PT.string.isRequired,
-  numRegistrants: PT.number,
-  status: PT.string.isRequired,
-  // hasCheckpoints: PT.bool.isRequired,
-  // numSubmissions: PT.number,
+  challenge: PT.shape({
+    details: PT.shape({
+      forumId: PT.number.isRequired,
+    }),
+    userDetails: PT.shape({
+      roles: PT.arrayOf(PT.string),
+    }),
+  }),
   checkpointCount: PT.number,
+  numRegistrants: PT.number,
+  onSelectorClicked: PT.func.isRequired,
+  selectedView: PT.string.isRequired,
+  status: PT.string.isRequired,
+  trackLower: PT.string.isRequired,
 };

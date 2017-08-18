@@ -11,9 +11,10 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 737px;
+    padding: 150px 0;
 
     @include xxs-to-xs {
+      padding: (10 * $base-unit) (5 * $base-unit);
       text-align: center;
     }
 
@@ -65,18 +66,29 @@
   }
 
   &.view {
+    padding: 4 * $base-unit;
+
     .title {
       color: $tc-black;
       margin-top: 20px;
       margin-bottom: 6px;
+      margin-left: 20px;
       font-size: 16px;
       line-height: 22px;
       font-weight: 500;
+
+      @include xxs-to-xs {
+        text-align: center;
+      }
     }
 
     .content {
       display: flex;
       flex-wrap: wrap;
+
+      @include xxs-to-xs {
+        justify-content: center;
+      }
     }
 
     .submission {
@@ -116,20 +128,42 @@
     text-align: center;
 
     .row {
+      color: $tc-gray-70;
       display: flex;
       border-bottom: 1px solid $tc-gray-10;
+      font-size: 15px;
     }
 
     .col-1 {
-      width: 50%;
+      padding-left: 30px;
+      text-align: left;
+      width: 33%;
     }
 
     .col-2 {
-      width: 50%;
+      width: 33%;
+    }
+
+    .col-3 {
+      width: 33%;
     }
 
     .handle {
-      color: $tc-orange;
+      color: $tc-dark-blue;
     }
+  }
+}
+
+.head {
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 15px;
+  padding-bottom: 14px;
+  color: $tc-gray-50;
+  display: flex;
+  border-bottom: 1px solid $tc-gray-10;
+
+  @include xxs-to-xs {
+    display: none;
   }
 }
