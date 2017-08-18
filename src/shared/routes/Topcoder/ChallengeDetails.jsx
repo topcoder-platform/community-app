@@ -1,6 +1,7 @@
-import LoadingIndicator from 'components/LoadingIndicator';
+import LoadingPagePlaceholder from 'components/LoadingPagePlaceholder';
+import path from 'path';
 import React from 'react';
-import { SplitRoute } from 'utils/router';
+import { requireWeak, resolveWeak, SplitRoute } from 'utils/router';
 
 export default function ChallengeDetailsRoute(props) {
   return (
@@ -15,7 +16,12 @@ export default function ChallengeDetailsRoute(props) {
           <ChallengeDetails {...props} />
         ))
       }
-      renderPlaceholder={() => <LoadingIndicator />}
+      renderPlaceholder={() => <LoadingPagePlaceholder />}
+      renderServer={() => {
+        const p = resolveWeak('containers/challenge-detail');
+        const ChallengeDetails = requireWeak(path.resolve(__dirname, p));
+        return <ChallengeDetails {...props} />;
+      }}
     />
   );
 }

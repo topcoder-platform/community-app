@@ -7,7 +7,7 @@
 /* global location, window */
 
 import _ from 'lodash';
-import LoadingIndicator from 'components/LoadingIndicator';
+import LoadingPagePlaceholder from 'components/LoadingPagePlaceholder';
 import ChallengeHeader from 'components/challenge-detail/Header';
 import Registrants from 'components/challenge-detail/Registrants';
 import Submissions from 'components/challenge-detail/Submissions';
@@ -49,12 +49,14 @@ class ChallengeDetailPageContainer extends React.Component {
   }
 
   componentDidMount() {
-    const { loadChallengeDetails, loadTerms,
+    const { challenge, loadChallengeDetails, loadTerms,
       openTermsModal, authTokens, challengeId } = this.props;
 
-    loadChallengeDetails(authTokens, challengeId);
-    loadTerms(authTokens, challengeId);
+    if (challenge.id !== challengeId) {
+      loadChallengeDetails(authTokens, challengeId);
+    }
 
+    loadTerms(authTokens, challengeId);
 
     if (authTokens.tokenV2 && location.search.indexOf('showTerms=true') > 0) {
       openTermsModal();
@@ -118,10 +120,11 @@ class ChallengeDetailPageContainer extends React.Component {
       this.props.challenge.registrants,
       (this.props.authTokens.user || {}).handle);
 
+    if (this.props.isLoadingChallenge) return <LoadingPagePlaceholder />;
+
     return (
       <div styleName="outer-container">
         <div styleName="challenge-detail-container">
-          {this.props.isLoadingChallenge && <LoadingIndicator />}
           {
             !isEmpty &&
             <ChallengeHeader
@@ -388,10 +391,12 @@ const mapDispatchToProps = (dispatch) => {
     loadChallengeDetails: (tokens, challengeId) => {
       dispatch(a.getDetailsInit(challengeId));
       dispatch(a.getDetailsDone(challengeId, tokens.tokenV3, tokens.tokenV2))
-        .then((challengeDetails) => {
-          dispatch(a.fetchCheckpointsInit());
-          dispatch(a.fetchCheckpointsDone(tokens.tokenV2, challengeId));
-          return challengeDetails;
+        .then((res) => {
+          if (res.payload[0].track === 'DESIGN') {
+            dispatch(a.fetchCheckpointsInit());
+            dispatch(a.fetchCheckpointsDone(tokens.tokenV2, challengeId));
+          }
+          return res;
         });
     },
     registerForChallenge: (auth, challengeId) => {

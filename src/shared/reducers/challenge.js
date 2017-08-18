@@ -212,6 +212,35 @@ function create(initialState) {
  */
 export function factory(req) {
   /* Server-side rendering of Submission Management Page. */
+
+  /* TODO: This shares some common logic with the next "if" block, which
+   * should be re-used there. */
+  /* TODO: For completely server-side rendering it is also necessary to load
+   * terms, results, etc. */
+  if (req && req.url.match(/^\/challenges\/\d+$/)) {
+    const tokens = {
+      tokenV2: req.cookies.tcjwt,
+      tokenV3: req.cookies.v3jwt,
+    };
+    const challengeId = req.url.match(/\d+/)[0];
+    return toFSA(actions.challenge.getDetailsDone(challengeId, tokens.tokenV3, tokens.tokenV2))
+      .then((details) => {
+        if (details.payload[0].track === 'DESIGN') {
+          return toFSA(actions.challenge.fetchCheckpointsDone(tokens.tokenV2, challengeId))
+            .then(checkpoints => ({ details, checkpoints }));
+        }
+        return { details, checkpoints: null };
+      }).then((res) => {
+        let state = {
+          loadingDetailsForChallengeId: challengeId,
+          loadingCheckpoints: true,
+        };
+        state = onGetDetailsDone(state, res.details);
+        state = onFetchCheckpointsDone(state, res.checkpoints);
+        return combine(create(state), { mySubmissionsManagement });
+      });
+  }
+
   if (req && req.url.match(/^\/challenges\/\d+\/my-submissions/)) {
     const tokens = {
       tokenV2: req.cookies.tcjwt,

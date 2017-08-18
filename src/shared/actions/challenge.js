@@ -96,8 +96,14 @@ function fetchCheckpointsDone(tokenV2, challengeId) {
         return response.json();
       }
     })
-    .then(response => ({ checkpoints: response, challengeId }))
-    .catch(error => ({ error, challengeId }));
+    .then(response => ({
+      challengeId: Number(challengeId),
+      checkpoints: response,
+    }))
+    .catch(error => ({
+      error,
+      challengeId: Number(challengeId),
+    }));
 }
 
 export default createActions({
