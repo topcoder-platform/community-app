@@ -236,7 +236,9 @@ export function factory(req) {
           loadingCheckpoints: true,
         };
         state = onGetDetailsDone(state, res.details);
-        state = onFetchCheckpointsDone(state, res.checkpoints);
+        if (res.checkpoints) {
+          state = onFetchCheckpointsDone(state, res.checkpoints);
+        }
         return combine(create(state), { mySubmissionsManagement });
       });
   }
