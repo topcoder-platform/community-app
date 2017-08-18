@@ -1,8 +1,5 @@
 /*
   Component renders challenge details and specifications
-
-  WARNING:
-  dangerouslySetInnerHTML - is used to render html string.
 */
 
 import config from 'utils/config';
@@ -12,19 +9,6 @@ import PT from 'prop-types';
 import SideBar from './SideBar';
 
 import './styles.scss';
-
-/* TODO: Should be set using dangerouslySetInnerHtml */
-function setHtml(htmlString) {
-  return (input) => {
-    if (input) {
-      input.innerHTML = htmlString;// eslint-disable-line no-param-reassign
-      // input.querySelectorAll('*').forEach(cur => {
-      //  cur.removeAttribute('style');
-      //  cur.removeAttribute('class');
-      // });
-    }
-  };
-}
 
 export default function ChallengeDetailsView(props) {
   const {
@@ -71,14 +55,26 @@ export default function ChallengeDetailsView(props) {
                     detailedRequirements &&
                     <article>
                       <h2>Challenge Overview</h2>
-                      <div ref={setHtml(detailedRequirements)} />
+                      <div
+                        /* eslint-disable react/no-danger */
+                        dangerouslySetInnerHTML={{
+                          __html: detailedRequirements,
+                        }}
+                        /* eslint-enable react/no-danger */
+                      />
                     </article>
                   }
                   {
                     finalSubmissionGuidelines &&
                     <article>
                       <h2>Final Submission Guidelines</h2>
-                      <div ref={setHtml(finalSubmissionGuidelines)} />
+                      <div
+                        /* eslint-disable react/no-danger */
+                        dangerouslySetInnerHTML={{
+                          __html: finalSubmissionGuidelines,
+                        }}
+                        /* eslint-enable react/no-danger */
+                      />
                     </article>
                   }
                 </div>
@@ -89,7 +85,13 @@ export default function ChallengeDetailsView(props) {
                     introduction &&
                     <article>
                       <h2>Challenge Summary</h2>
-                      <div ref={setHtml(introduction)} />
+                      <div
+                        /* eslint-disable react/no-danger */
+                        dangerouslySetInnerHTML={{
+                          __html: introduction,
+                        }}
+                        /* eslint-enable react/no-danger */
+                      />
                       <p />
                       <p styleName="note">
                         Please read the challenge specification carefully and
@@ -110,14 +112,26 @@ export default function ChallengeDetailsView(props) {
                         round1Introduction &&
                         <div>
                           <h3>Round 1</h3>
-                          <div ref={setHtml(round1Introduction)} />
+                          <div
+                            /* eslint-disable react/no-danger */
+                            dangerouslySetInnerHTML={{
+                              __html: round1Introduction,
+                            }}
+                            /* eslint-enable react/no-danger */
+                          />
                         </div>
                       }
                       {
                         round2Introduction &&
                         <div>
                           <h3>Round 2</h3>
-                          <div ref={setHtml(round2Introduction)} />
+                          <div
+                            /* eslint-disable react/no-danger */
+                            dangerouslySetInnerHTML={{
+                              __html: round2Introduction,
+                            }}
+                            /* eslint-enable react/no-danger */
+                          />
                         </div>
                       }
                       <div styleName="note">
@@ -153,7 +167,13 @@ export default function ChallengeDetailsView(props) {
                     detailedRequirements &&
                     <article>
                       <h2>Full Description & Project Guide</h2>
-                      <div ref={setHtml(detailedRequirements)} />
+                      <div
+                        /* eslint-disable react/no-danger */
+                        dangerouslySetInnerHTML={{
+                          __html: detailedRequirements,
+                        }}
+                        /* eslint-enable react/no-danger */
+                      />
                     </article>
                   }
                   <article>

@@ -35,49 +35,51 @@ export default function ChallengeViewSelector(props) {
     : `/?module=Category&categoryID=${forumId}`;
 
   return (
-    <div styleName="challenge-view-selector">
+    <div styleName="container">
       <div styleName="mask" />
-      <a
-        onClick={(e) => { e.preventDefault(); onSelectorClicked('DETAILS'); }}
-        styleName={getSelectorStyle(selectedView, 'DETAILS', trackLower)}
-      >DETAILS
-      </a>
-      <a
-        onClick={(e) => { e.preventDefault(); onSelectorClicked('REGISTRANTS'); }}
-        styleName={getSelectorStyle(selectedView, 'REGISTRANTS', trackLower)}
-      >REGISTRANTS {numRegistrants ? `(${numRegistrants})` : ''}
-      </a>
-      {
-        trackLower === 'design' && checkpointCount > 0 &&
+      <div styleName="challenge-view-selector">
         <a
-          onClick={(e) => { e.preventDefault(); onSelectorClicked('CHECKPOINTS'); }}
-          styleName={getSelectorStyle(selectedView, 'CHECKPOINTS', trackLower)}
-        >CHECKPOINTS ({checkpointCount})
+          onClick={(e) => { e.preventDefault(); onSelectorClicked('DETAILS'); }}
+          styleName={getSelectorStyle(selectedView, 'DETAILS', trackLower)}
+        >DETAILS
         </a>
-      }
-      {
-        status === 'COMPLETED' &&
         <a
-          onClick={(e) => { e.preventDefault(); onSelectorClicked('SUBMISSIONS'); }}
-          styleName={getSelectorStyle(selectedView, 'SUBMISSIONS', trackLower)}
-        >
-          SUBMISSIONS
+          onClick={(e) => { e.preventDefault(); onSelectorClicked('REGISTRANTS'); }}
+          styleName={getSelectorStyle(selectedView, 'REGISTRANTS', trackLower)}
+        >REGISTRANTS {numRegistrants ? `(${numRegistrants})` : ''}
         </a>
-      }
-      {
-        status === 'COMPLETED' &&
-        <a
-          onClick={(e) => { e.preventDefault(); onSelectorClicked('WINNERS'); }}
-          styleName={getSelectorStyle(selectedView, 'WINNERS', trackLower)}
-        >WINNERS
-        </a>
-      }
-      { Boolean(roles.length) &&
-        <a
-          href={`${config.URL.FORUMS}${forumEndpoint}`}
-          styleName={getSelectorStyle(selectedView, 'CHALLENGE_FORUM', trackLower)}
-        >CHALLENGE FORUM</a>
-      }
+        {
+          trackLower === 'design' && checkpointCount > 0 &&
+          <a
+            onClick={(e) => { e.preventDefault(); onSelectorClicked('CHECKPOINTS'); }}
+            styleName={getSelectorStyle(selectedView, 'CHECKPOINTS', trackLower)}
+          >CHECKPOINTS ({checkpointCount})
+          </a>
+        }
+        {
+          status === 'COMPLETED' &&
+          <a
+            onClick={(e) => { e.preventDefault(); onSelectorClicked('SUBMISSIONS'); }}
+            styleName={getSelectorStyle(selectedView, 'SUBMISSIONS', trackLower)}
+          >
+            SUBMISSIONS
+          </a>
+        }
+        {
+          status === 'COMPLETED' &&
+          <a
+            onClick={(e) => { e.preventDefault(); onSelectorClicked('WINNERS'); }}
+            styleName={getSelectorStyle(selectedView, 'WINNERS', trackLower)}
+          >WINNERS
+          </a>
+        }
+        { Boolean(roles.length) &&
+          <a
+            href={`${config.URL.FORUMS}${forumEndpoint}`}
+            styleName={getSelectorStyle(selectedView, 'CHALLENGE_FORUM', trackLower)}
+          >CHALLENGE FORUM</a>
+        }
+      </div>
     </div>
   );
 }
