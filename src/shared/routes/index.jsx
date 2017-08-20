@@ -2,8 +2,10 @@
  * The top-level routing of the App.
  */
 
+import CommunityLoader from 'containers/tc-communities/Loader';
 import Content from 'components/Content';
 import React from 'react';
+
 import { Switch, Route, withRouter } from 'react-router-dom';
 
 import PT from 'prop-types';
@@ -30,24 +32,27 @@ function Routes({ subdomains }) {
     return (
       <div>
         <Route
+          component={routeProps => (
+            <CommunityLoader
+              communityComponent={props => (
+                <TcCommunitiesPage {...props} {...routeProps} pageId="home" />
+              )}
+              communityId={communityId}
+            />
+          )}
           exact
           path="/"
-          render={props => (
-            <TcCommunitiesPage
-              communityId={communityId}
-              pageId="home"
-              {...props}
-            />
-          )}
         />
         <Route
-          path="/:pageId"
-          render={props => (
-            <TcCommunitiesPage
+          component={routeProps => (
+            <CommunityLoader
+              communityComponent={props => (
+                <TcCommunitiesPage {...props} {...routeProps} />
+              )}
               communityId={communityId}
-              {...props}
             />
           )}
+          path="/:pageId"
         />
       </div>
     );
@@ -57,17 +62,26 @@ function Routes({ subdomains }) {
       <Route exact path="/" component={Content} />
       { Examples() }
       <Route
-        exact
-        path="/community/:communityId"
-        render={props => (
-          <TcCommunitiesPage
-            pageId="home"
-            {...props}
+        component={routeProps => (
+          <CommunityLoader
+            communityComponent={props => (
+              <TcCommunitiesPage {...props} {...routeProps} pageId="home" />
+            )}
+            communityId={routeProps.match.params.communityId}
           />
         )}
+        exact
+        path="/community/:communityId"
       />
       <Route
-        component={TcCommunitiesPage}
+        component={routeProps => (
+          <CommunityLoader
+            communityComponent={props => (
+              <TcCommunitiesPage {...props} {...routeProps} />
+            )}
+            communityId={routeProps.match.params.communityId}
+          />
+        )}
         path="/community/:communityId/:pageId"
       />
       <Topcoder />

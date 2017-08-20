@@ -2,7 +2,9 @@
  * Reducer for state.tcCommunities.meta
  */
 
+import _ from 'lodash';
 import actions from 'actions/tc-communities/meta';
+import logger from 'utils/logger';
 import { handleActions } from 'redux-actions';
 import { toFSA } from 'utils/redux';
 
@@ -12,45 +14,19 @@ import { toFSA } from 'utils/redux';
  * @param {Object} action Action.
  */
 function onDone(state, action) {
-  if (!action.error) {
-    // if everything is ok, populate data from payload
-    return {
-      ...state,
-      additionalLogos: action.payload.additionalLogos,
-      authorizedGroupIds: action.payload.authorizedGroupIds,
-      challengeFilter: action.payload.challengeFilter,
-      challengeListing: action.payload.challengeListing,
-      chevronOverAvatar: action.payload.chevronOverAvatar,
-      communityId: action.payload.communityId,
-      communityName: action.payload.communityName,
-      communitySelector: action.payload.communitySelector,
-      cssUrl: action.payload.style,
-      failed: false,
-      footerText: action.payload.footerText,
-      hideSearch: action.payload.hideSearch,
-      groupId: action.payload.groupId,
-      leaderboardApiUrl: action.payload.leaderboardApiUrl,
-      loading: false,
-      logos: action.payload.logos,
-      menuItems: action.payload.menuItems,
-      newsFeed: action.payload.newsFeed,
-      stats: action.payload.stats,
-    };
+  if (action.error) {
+    logger.error('Failed to load community meta-data!', action.payload);
+    return state;
+  } else if (action.payload.communityId
+    !== state.loadingMetaDataForCommunityId) {
+    return state;
   }
-  // if community is not found or other error
   return {
     ...state,
-    authorizedGroupIds: [],
-    communityId: action.payload.error === '404' ? action.payload.communityId : null,
-    communitySelector: [],
-    groupId: '',
-    logos: [],
-    additionalLogos: [],
-    menuItems: [],
-    failed: action.payload.error === '404' ? action.payload.error : true,
-    loading: false,
-    cssUrl: null,
-    leaderboardApiUrl: null,
+    ...action.payload,
+    cssUrl: action.payload.style, /* TODO: This is a temporary alias! */
+    lastUpdateOfMetaData: Date.now(),
+    loadingMetaDataForCommunityId: '',
   };
 }
 
@@ -67,22 +43,17 @@ function create(initialState) {
         isMobileOpen: !state.isMobileOpen,
       };
     },
-    [actions.tcCommunities.meta.fetchDataInit](state) {
+    [actions.tcCommunities.meta.fetchDataInit](state, action) {
       return {
         ...state,
-        communityId: null,
-        communitySelector: [],
-        logos: [],
-        additionalLogos: [],
-        menuItems: [],
-        failed: false,
-        loading: true,
-        cssUrl: null,
-        leaderboardApiUrl: null,
+        loadingMetaDataForCommunityId: action.payload,
       };
     },
     [actions.tcCommunities.meta.fetchDataDone]: onDone,
-  }, initialState || {});
+  }, _.defaults(initialState || {}, {
+    lastUpdateOfMetaData: 0,
+    loadingMetaDataForCommunityId: '',
+  }));
 }
 
 /**
@@ -95,17 +66,16 @@ function create(initialState) {
 export function factory(req) {
   const subdomains = (req && req.subdomains) || [];
   if (subdomains.indexOf('wipro') >= 0) {
+    const state = { loadingMetaDataForCommunityId: 'wipro' };
     return toFSA(actions.tcCommunities.meta.fetchDataDone('wipro'))
-      .then(res => create(onDone({}, res)));
+      .then(res => create(onDone(state, res)));
   }
 
-  const match = req && req.url.match(/\/community\/([^/]+)\//);
-
-  if (match) {
-    const communityId = match[1];
-
+  if (req && req.url.startsWith('/community')) {
+    const communityId = req.url.split('/')[2];
+    const state = { loadingMetaDataForCommunityId: communityId };
     return toFSA(actions.tcCommunities.meta.fetchDataDone(communityId))
-      .then(res => create(onDone({}, res)));
+      .then(res => create(onDone(state, res)));
   }
   return Promise.resolve(create());
 }
