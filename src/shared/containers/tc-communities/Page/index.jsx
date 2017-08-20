@@ -23,8 +23,8 @@ import actions from 'actions/tc-communities/meta';
 import newsActions from 'actions/tc-communities/news';
 import { bindActionCreators } from 'redux';
 import standardHeaderActions from 'actions/topcoder_header';
-import Header from 'components/tc-communities/Header';
-import Footer from 'components/tc-communities/Footer';
+import Header from 'containers/tc-communities/Header';
+import Footer from 'containers/tc-communities/Footer';
 import Error404 from 'components/Error404';
 import qs from 'qs';
 import { BUCKETS } from 'utils/challenge-listing/buckets';
@@ -203,36 +203,14 @@ export class Page extends Component {
   }
 
   render() {
-    const communityId = this.props.communityId;
     return (
       <div>
-        <Header
-          activeTrigger={this.props.activeTrigger}
-          closeMenu={this.props.closeMenu}
-          logos={this.props.meta.logos}
-          additionalLogos={this.props.meta.additionalLogos}
-          hideSearch={this.props.meta.hideSearch}
-          chevronOverAvatar={this.props.meta.chevronOverAvatar}
-          pageId={this.props.pageId}
-          profile={this.props.profile}
-          menuItems={this.props.meta.menuItems}
-          openedMenu={this.props.openedMenu}
-          openMenu={this.props.openMenu}
-          isMobileOpen={this.props.meta.isMobileOpen}
-          communityId={communityId}
-          communitySelector={this.props.meta.communitySelector}
-          onMobileToggleClick={this.props.mobileToggle}
-          cssUrl={this.props.meta.cssUrl}
-        />
+        <Header pageId={this.props.pageId} />
         {this.renderPageContent()}
         {
           this.props.meta.communityId === 'wipro' ?
             <WiproFooter text={this.props.meta.footerText} /> :
-            <Footer
-              menuItems={this.props.meta.menuItems}
-              communityId={communityId}
-              isAuthorized={!!this.props.profile}
-            />
+            <Footer />
         }
       </div>
     );
@@ -240,23 +218,13 @@ export class Page extends Component {
 }
 
 Page.defaultProps = {
-  activeTrigger: null,
-  openedMenu: null,
-  profile: null,
   isMobileOpen: false,
   loadingNews: false,
   news: null,
 };
 
 Page.propTypes = {
-  activeTrigger: PT.shape({}),
-  closeMenu: PT.func.isRequired,
   communityId: PT.string.isRequired,
-  profile: PT.shape({
-    groups: PT.arrayOf(PT.shape({
-      id: PT.string.isRequired,
-    })),
-  }),
   meta: PT.shape({
     authorizedGroupIds: PT.arrayOf(PT.string),
     challengeFilterTag: PT.string,
@@ -293,8 +261,6 @@ Page.propTypes = {
   }).isRequired,
   loadingNews: PT.bool,
   news: PT.arrayOf(PT.shape),
-  openedMenu: PT.shape({}),
-  openMenu: PT.func.isRequired,
   loadNews: PT.func.isRequired,
   mobileToggle: PT.func.isRequired,
   pageId: PT.string.isRequired,
