@@ -24,8 +24,12 @@ $tc-link-visited: #0c4e98;
 .challenge-spec-sidebar {
   background: $tc-dark-blue-10;
   width: 245px;
-  margin: 50px 0;
+  margin: (11 * $base-unit) 0;
   padding: 4 * $base-unit;
+
+  @include sm {
+    margin: (8 * $base-unit) 0;
+  }
 
   @include xxs-to-xs {
     margin: 0;

@@ -2,13 +2,14 @@
 
 .challengeAction {
   margin: $base-unit 0;
+  min-width: 0;
   width: 100%;
 }
 
 .challenge-ops-container {
   margin: 0 4 * $base-unit;
   padding: 3 * $base-unit 0;
-  width: 245px;
+  max-width: 245px;
 
   @include xxs-to-xs {
     margin: auto;
