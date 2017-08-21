@@ -169,7 +169,7 @@ export default function Home(props) {
             text="Access your on-demand community of designers and technology experts."
             link={{
               title: 'Initiate Project',
-              url: 'https://connect.topcoder.com/new-project/generic_dev?refcode=topgear',
+              url: 'https://connect.topcoder.com/new-project/generic_dev?refCode=topgear',
             }}
             theme={ImageTextStyles}
             imageSrc="/themes/wipro/home/image-text-leverage.png"
