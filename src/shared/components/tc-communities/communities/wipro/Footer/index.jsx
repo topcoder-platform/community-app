@@ -7,7 +7,9 @@ import defaultStyle from './style.scss';
 function Footer(props) {
   return (
     <footer className={props.theme.footer}>
-      <div className={props.theme.footerText}>{props.text}</div>
+      <div className={props.theme.footerText}>
+        &copy; Copyright Wipro Ltd 2017
+      </div>
     </footer>
   );
 }
@@ -21,7 +23,6 @@ Footer.defaultProps = {
 };
 
 Footer.propTypes = {
-  text: PT.string.isRequired,
   theme: PT.shape({
     footer: PT.string.isRequired,
     footerText: PT.string,

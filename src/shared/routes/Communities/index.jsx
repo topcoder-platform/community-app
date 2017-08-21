@@ -1,23 +1,26 @@
 /**
- * Chunk loader for Topcoder website code.
+ * Chunk loader for communities code.
  */
 
 import LoadingIndicator from 'components/LoadingIndicator';
 import path from 'path';
+import PT from 'prop-types';
 import React from 'react';
 import { StaticRouter } from 'react-router-dom';
 import { requireWeak, resolveWeak, SplitRoute } from 'utils/router';
 
-export default function ChunkLoader() {
+export default function ChunkLoader({ base, communityId, meta }) {
   return (
     <SplitRoute
       cacheCss
-      chunkName="topcoder-website"
+      chunkName="communities"
       renderClientAsync={() =>
         import(
-          /* webpackChunkName: "topcoder-website" */
+          /* webpackChunkName: "communities" */
           './Routes',
-        ).then(({ default: Routes }) => <Routes />)
+        ).then(({ default: Routes }) => (
+          <Routes base={base} communityId={communityId} meta={meta} />
+        ))
       }
       renderPlaceholder={() => <LoadingIndicator />}
       renderServer={(routeProps) => {
@@ -27,9 +30,21 @@ export default function ChunkLoader() {
           <StaticRouter
             context={routeProps.staticContext}
             location={routeProps.location.pathname}
-          ><Routes /></StaticRouter>
+          >
+            <Routes
+              base={base}
+              communityId={communityId}
+              meta={meta}
+            />
+          </StaticRouter>
         );
       }}
     />
   );
 }
+
+ChunkLoader.propTypes = {
+  base: PT.string.isRequired,
+  communityId: PT.string.isRequired,
+  meta: PT.shape().isRequired,
+};

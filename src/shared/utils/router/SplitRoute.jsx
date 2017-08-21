@@ -23,6 +23,10 @@ export default class SplitRoute extends React.Component {
     this.state = { component: null };
   }
 
+  componentWillUnmount() {
+    this.unmounted = true;
+  }
+
   reset() {
     /* Removing chunk's stylesheet from the DOM. */
     if (!this.props.cacheCss) {
@@ -131,7 +135,8 @@ export default class SplitRoute extends React.Component {
              * it gives a better control over reloading of the stylesheets and
              * helps to avoid some unnecessary flickering when the app loads a
              * page already pre-rendered at the server side. */
-            let link = document.querySelector(`link[data-chunk=${chunkName}]`);
+            let link =
+              document.querySelector(`link[data-chunk="${chunkName}"]`);
             if (!link) {
               link = document.createElement('link');
               link.setAttribute('data-chunk', chunkName);
@@ -150,7 +155,7 @@ export default class SplitRoute extends React.Component {
              * that the next time the route is matched, its content will
              * be re-rendered from scratch. */
             renderClientAsync(props).then(component =>
-              this.setState({
+              !this.unmounted && this.setState({
                 component: () => (
                   <div>
                     <ContentWrapper
