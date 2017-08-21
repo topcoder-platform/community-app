@@ -41,6 +41,23 @@ exports[`Snapshot match 1`] = `
         className="src-shared-components-tc-communities-communities-wipro-Learn-___style__message___WgkPL"
       >
         <p>
+          If  you are accessing TopGear 
+          <span
+            className="src-shared-components-tc-communities-communities-wipro-Learn-___style__highlighted___3U2lK"
+          >
+            Learning
+          </span>
+           Platform from 
+          <strong>
+            Wipro backbone network
+          </strong>
+          , click on “
+          <strong>
+            CONTINUE
+          </strong>
+          ” to access the platform.
+        </p>
+        <p>
           <ThemedGenericButton
             composeTheme="deeply"
             disabled={false}
@@ -58,23 +75,6 @@ exports[`Snapshot match 1`] = `
           >
             Continue
           </ThemedGenericButton>
-        </p>
-        <p>
-          If  you are accessing TopGear 
-          <span
-            className="src-shared-components-tc-communities-communities-wipro-Learn-___style__highlighted___3U2lK"
-          >
-            Learning
-          </span>
-           Platform from 
-          <strong>
-            Wipro backbone network
-          </strong>
-          , click on “
-          <strong>
-            CONTINUE
-          </strong>
-          ” to access the platform.
         </p>
         <p>
           To access TopGear 

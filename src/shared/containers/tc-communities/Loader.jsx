@@ -81,7 +81,7 @@ class Loader extends React.Component {
 
     /* Visitor belongs to at least one of the groups authorized to access this
      * community. */
-    if (_.intersection(visitorGroups, meta.authorizedGroupIds)) {
+    if (_.intersection(visitorGroups.map(g => g.id), meta.authorizedGroupIds)) {
       return <Community meta={meta} />;
     }
 
@@ -104,7 +104,7 @@ Loader.propTypes = {
     authorizedGroupIds: PT.arrayOf(PT.string),
     communityId: PT.string.isRequired,
   }),
-  visitorGroups: PT.arrayOf(PT.string),
+  visitorGroups: PT.arrayOf(PT.shape({ id: PT.string.isRequired })),
 };
 
 function mapStateToProps(state, ownProps) {
@@ -114,15 +114,12 @@ function mapStateToProps(state, ownProps) {
   const loadingMetaDataForCommunityId = meta.loadingMetaDataForCommunityId;
   if (meta.communityId !== communityId) meta = null;
 
-  let visitorGroups = _.get(state, 'auth.profile.groups');
-  if (visitorGroups) visitorGroups = visitorGroups.map(g => g.id);
-
   return {
     communityId,
     Community: ownProps.communityComponent,
     loadingMetaDataForCommunityId,
     meta,
-    visitorGroups,
+    visitorGroups: _.get(state, 'auth.profile.groups'),
   };
 }
 

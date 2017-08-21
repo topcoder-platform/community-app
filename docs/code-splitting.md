@@ -84,6 +84,14 @@ First of all, under the hood `SplitRoute` uses **react-router**'s `Route` to mak
 
 -   By default, when you leave a split route, the CSS reference is removed from the document. You can pass in boolean `cacheCss` option to prevent it.
 
+### Caveats
+
+Here are some non-trivial points, that should be merged into the body of documentation above, but for now they are just mentioned here as points to remember:
+
+- Although `<SplitRoute>` is technically a route, it is not quite possible to use it inside `<Switch>`, so in many cases you just have to use it as a usual component.
+
+- If the chunk of code you split uses routing, you should use `<StaticRouter>` inside `renderServer` prop.
+
 ### Demo / Test
 
 A simple demo / test of the code splitting is available at `/examples/code-splitting` endpoint of the app.

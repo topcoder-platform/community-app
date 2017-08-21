@@ -52,7 +52,13 @@ module.exports = webpackMerge(defaultConfig, {
       },
     }),
     new OptimizeCssAssetsPlugin(),
-    new webpack.optimize.ModuleConcatenationPlugin(),
+
+    /* TODO: It tends to make problems with dynamically loaded chunks,
+     * I guess it may move some code between modules being in different
+     * chunks, thus breaking the code when they are loaded in different
+     * order. Should be further investigated. */
+    // new webpack.optimize.ModuleConcatenationPlugin(),
+
     new webpack.optimize.UglifyJsPlugin(),
   ],
 });

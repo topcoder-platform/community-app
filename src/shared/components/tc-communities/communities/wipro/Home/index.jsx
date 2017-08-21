@@ -200,13 +200,13 @@ export default function Home(props) {
       >
         <Accordion>
           <AccordionItem title="How to participate in a challenge">
-            <Text><p><a href="https://help.topcoder.com/hc/en-us">Just do it!</a> (A better answer will be placed here soon)</p></Text>
+            <Text><p>Find a challenge that interests you on the <a href="/challenges">challenge listings page</a>. You can filter by challenge types, prizes, deadlines, etc. Look for challenges that are still open for registration. If you see something that interests you, click it and then you can read the details and register for the challenge.</p></Text>
           </AccordionItem>
           <AccordionItem title="Code submissions for a challenge">
-            <Text><p><a href="https://help.topcoder.com/hc/en-us">Just do it!</a> (A better answer will be placed here soon)</p></Text>
+            <Text><p>Do all of your coding/design work offline, or as specified in the challenge spec. When you are ready to submit, come back to the challenge page and click the Submit button. The Submit page will give instructions to upload your submission.</p></Text>
           </AccordionItem>
-          <AccordionItem title="Roles, responsibilities for reviewer and copilot">
-            <Text><p><a href="https://help.topcoder.com/hc/en-us">Just do it!</a> (A better answer will be placed here soon)</p></Text>
+          <AccordionItem title="Roles and responsibilities for reviewers and copilots">
+            <Text><p>If you are a reviewer or copilot and need information about managing projects and challenges, please visit the <a href="https://help.topcoder.com/hc/en-us/sections/204971587-Copilots-Reviewers">Help Center</a>.</p></Text>
           </AccordionItem>
         </Accordion>
       </Section>

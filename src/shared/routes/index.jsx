@@ -10,10 +10,9 @@ import { Switch, Route, withRouter } from 'react-router-dom';
 
 import PT from 'prop-types';
 
-import TcCommunitiesPage from 'containers/tc-communities/Page';
-
 import { connect } from 'react-redux';
 
+import Communities from './Communities';
 import Examples from './Examples';
 import Topcoder from './Topcoder';
 
@@ -30,31 +29,12 @@ function Routes({ subdomains }) {
   else if (subdomains.includes('veterans')) communityId = 'veterans';
   if (communityId) {
     return (
-      <div>
-        <Route
-          component={routeProps => (
-            <CommunityLoader
-              communityComponent={props => (
-                <TcCommunitiesPage {...props} {...routeProps} pageId="home" />
-              )}
-              communityId={communityId}
-            />
-          )}
-          exact
-          path="/"
-        />
-        <Route
-          component={routeProps => (
-            <CommunityLoader
-              communityComponent={props => (
-                <TcCommunitiesPage {...props} {...routeProps} />
-              )}
-              communityId={communityId}
-            />
-          )}
-          path="/:pageId"
-        />
-      </div>
+      <CommunityLoader
+        communityComponent={({ meta }) => (
+          <Communities communityId={communityId} meta={meta} />
+        )}
+        communityId={communityId}
+      />
     );
   }
   return (
@@ -62,27 +42,19 @@ function Routes({ subdomains }) {
       <Route exact path="/" component={Content} />
       { Examples() }
       <Route
-        component={routeProps => (
+        component={({ match }) => (
           <CommunityLoader
-            communityComponent={props => (
-              <TcCommunitiesPage {...props} {...routeProps} pageId="home" />
+            communityComponent={({ meta }) => (
+              <Communities
+                base={match.url}
+                communityId={match.params.communityId}
+                meta={meta}
+              />
             )}
-            communityId={routeProps.match.params.communityId}
+            communityId={match.params.communityId}
           />
         )}
-        exact
         path="/community/:communityId"
-      />
-      <Route
-        component={routeProps => (
-          <CommunityLoader
-            communityComponent={props => (
-              <TcCommunitiesPage {...props} {...routeProps} />
-            )}
-            communityId={routeProps.match.params.communityId}
-          />
-        )}
-        path="/community/:communityId/:pageId"
       />
       <Topcoder />
     </Switch>
@@ -90,9 +62,6 @@ function Routes({ subdomains }) {
 }
 
 Routes.propTypes = {
-  location: PT.shape({
-    search: PT.string.isRequired,
-  }).isRequired,
   subdomains: PT.arrayOf(PT.string).isRequired,
 };
 

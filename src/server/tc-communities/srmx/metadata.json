@@ -1,9 +1,9 @@
 {
   "authorizedGroupIds": ["20000006"],
   "communityId": "srmx",
-  "communityName": "SRMX Community",
+  "communityName": "SRMX",
   "communitySelector": [{
-    "label": "SRMX Community",
+    "label": "SRMX",
     "value": "1"
   }, {
     "label": "Topcoder Public Community",
@@ -19,9 +19,6 @@
     {
       "title": "Home",
       "url": "."
-    }, {
-      "title": "Learn",
-      "url": "learn"
     }
   ],
   "newsFeed": "http://www.topcoder.com/feed",
