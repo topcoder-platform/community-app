@@ -65,7 +65,6 @@ export default class Home extends React.Component {
 
 
 Home.propTypes = {
-  news: PT.arrayOf(PT.shape()),
   tokenV2: PT.string.isRequired,
 };
 
