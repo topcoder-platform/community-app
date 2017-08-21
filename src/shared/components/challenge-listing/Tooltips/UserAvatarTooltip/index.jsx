@@ -10,7 +10,7 @@
 import React, { Component } from 'react';
 import PT from 'prop-types';
 // import moment from 'moment';
-import Tooltip from '../Tooltip';
+import Tooltip from 'components/Tooltip';
 import './style.scss';
 
 const MOCK_PHOTO = 'https://acrobatusers.com/assets/images/template/author_generic.jpg';

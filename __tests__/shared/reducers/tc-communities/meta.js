@@ -4,7 +4,7 @@ const mockMetaActions = {
   tcCommunities: {
     meta: {
       mobileToggle: mockAction('TC_COMMUNITIES/META/MOBILE_TOGGLE'),
-      fetchDataInit: mockAction('TC_COMMUNITIES/META/FETCH_DATA_INIT'),
+      fetchDataInit: mockAction('TC_COMMUNITIES/META/FETCH_DATA_INIT', 'test-community'),
       fetchDataDone: mockAction(
         'TC_COMMUNITIES/META/FETCH_DATA_DONE',
         Promise.resolve('payload'),
@@ -29,15 +29,8 @@ function testReducer(reducer, istate) {
   test('Handles fetchDataInit as expected', () => {
     state = reducer(state, mockMetaActions.tcCommunities.meta.fetchDataInit());
     expect(state).toEqual({
-      additionalLogos: [],
-      communityId: null,
-      communitySelector: [],
-      logos: [],
-      menuItems: [],
-      failed: false,
-      loading: true,
-      cssUrl: null,
-      leaderboardApiUrl: null,
+      lastUpdateOfMetaData: 0,
+      loadingMetaDataForCommunityId: 'test-community',
     });
   });
 
@@ -50,13 +43,18 @@ function testReducer(reducer, istate) {
   });
 }
 
+const INITIAL_STATE = {
+  lastUpdateOfMetaData: 0,
+  loadingMetaDataForCommunityId: '',
+};
+
 describe('Default reducer', () => {
-  testReducer(reducers.default, {});
+  testReducer(reducers.default, INITIAL_STATE);
 });
 
 describe('Factory without http request', () =>
   reducers.factory().then(res =>
-    testReducer(res, {}),
+    testReducer(res, INITIAL_STATE),
   ),
 );
 
@@ -64,7 +62,7 @@ describe('Factory with server-side rendering', () =>
   reducers.factory({
     url: '/community/communityId/header',
   }).then(res =>
-    testReducer(res, {}),
+    testReducer(res, INITIAL_STATE),
   ),
 );
 
@@ -72,6 +70,6 @@ describe('Factory without server-side rendering', () =>
   reducers.factory({
     url: '/some-random-url',
   }).then(res =>
-    testReducer(res, {}),
+    testReducer(res, INITIAL_STATE),
   ),
 );

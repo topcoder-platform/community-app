@@ -1,0 +1,48 @@
+@import "~styles/tc-styles";
+
+.author {
+  display: block;
+  text-align: right;
+}
+
+.code-splitting {
+  @include tc-body;
+
+  font-weight: 300;
+  margin: auto;
+  max-width: $screen-lg;
+  padding: 24px;
+
+  em {
+    font-style: italic;
+  }
+
+  strong {
+    font-weight: bold;
+  }
+
+  p {
+    padding: 6px 0;
+
+    a,
+    a:active,
+    a:focus,
+    a:hover,
+    a:visited {
+      color: $tc-dark-blue;
+      text-decoration: underline;
+    }
+  }
+}
+
+.quote {
+  background: $tc-gold-10;
+  border: 1px solid $tc-gold;
+  margin: 6px 0;
+  padding: 12px 24px;
+
+  ol {
+    list-style-type: disc;
+    margin-left: 24px;
+  }
+}

@@ -17,6 +17,8 @@ export function isClientSide() {
  * Retruns true if development version of the code is running.
  */
 export function isDev() {
+  /* TODO: See the comments to HMR-related code in server/server.js for the
+   * reason behind process.env.NODE_ENV_REAL. */
   return process.env.NODE_ENV === 'development';
 }
 

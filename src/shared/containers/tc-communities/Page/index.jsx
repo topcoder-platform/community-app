@@ -13,12 +13,9 @@
  * It redirects to 404 page if content cannot be rendered by its pageId.
  */
 
-/* global window */
-
 import _ from 'lodash';
 import challengeListingActions from 'actions/challenge-listing';
 import challengeListingSidebarActions from 'actions/challenge-listing/sidebar';
-import config from 'utils/config';
 import PT from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
@@ -26,9 +23,8 @@ import actions from 'actions/tc-communities/meta';
 import newsActions from 'actions/tc-communities/news';
 import { bindActionCreators } from 'redux';
 import standardHeaderActions from 'actions/topcoder_header';
-import Header from 'components/tc-communities/Header';
-import Footer from 'components/tc-communities/Footer';
-import LoadingIndicator from 'components/LoadingIndicator';
+import Header from 'containers/tc-communities/Header';
+import Footer from 'containers/tc-communities/Footer';
 import Error404 from 'components/Error404';
 import qs from 'qs';
 import { BUCKETS } from 'utils/challenge-listing/buckets';
@@ -49,6 +45,9 @@ import SrmxLearn from 'components/tc-communities/communities/srmx/Learn';
 import TcProdDevHome from 'components/tc-communities/communities/tc-prod-dev/Home';
 import TcProdDevLearn from 'components/tc-communities/communities/tc-prod-dev/Learn';
 
+import VeteransHome from 'components/tc-communities/communities/veterans/Home';
+import VeteransLearn from 'components/tc-communities/communities/veterans/Learn';
+
 import DemoExpertHome from 'components/tc-communities/communities/demo-expert/Home';
 import DemoExpertLearn from 'components/tc-communities/communities/demo-expert/Learn';
 
@@ -57,28 +56,14 @@ import Community2Learn from 'components/tc-communities/communities/community-2/L
 
 import TaskforceHome from 'components/tc-communities/communities/taskforce/Home';
 
-import AccessDenied, {
-  CAUSE as ACCESS_DENIED_CAUSE,
-} from 'components/tc-communities/AccessDenied';
-
 import './style.scss';
 
 export class Page extends Component {
   componentDidMount() {
-    const communityId = this.props.communityId;
-    if ((communityId !== this.props.meta.communityId)
-    && !this.props.meta.loading) this.props.loadMetaData(communityId);
-
     if (this.props.meta.isMobileOpen) this.props.mobileToggle();
 
     if (this.props.meta.newsFeed && !this.props.news && !this.props.loadingNews) {
       this.props.loadNews(this.props.meta.newsFeed);
-    }
-
-    if (!this.props.profile && (communityId === 'wipro')) {
-      const returnUrl = encodeURIComponent(window.location.href);
-      window.location.replace(
-        `${config.URL.AUTH}/sso-login/?retUrl=${returnUrl}`);
     }
   }
 
@@ -121,9 +106,17 @@ export class Page extends Component {
         case 'learn': pageContent = <QaLearn />; break;
         default: break;
       }
+    } else if (communityId === 'veterans') {
+      switch (pageId) {
+        case 'home': pageContent = <VeteransHome />; break;
+        case 'learn': pageContent = <VeteransLearn />; break;
+        default: break;
+      }
     } else if (communityId === 'srmx') {
       switch (pageId) {
-        case 'home': pageContent = <SrmxHome />; break;
+        case 'home':
+          pageContent = <SrmxHome tokenV2={this.props.tokenV2} />;
+          break;
         case 'learn': pageContent = <SrmxLearn />; break;
         default: break;
       }
@@ -210,79 +203,28 @@ export class Page extends Component {
   }
 
   render() {
-    const communityId = this.props.communityId;
-
-    // true, if is loading now, or if not started loading yet
-    const isNotLoaded = communityId !== this.props.meta.communityId;
-
-    if ((this.props.profile || !this.props.meta.authorizedGroupIds) && !isNotLoaded) {
-      const userGroupIds = this.props.profile ? this.props.profile.groups.map(item => item.id) : [];
-      if (!this.props.meta.authorizedGroupIds ||
-      _.intersection(userGroupIds, this.props.meta.authorizedGroupIds || []).length) {
-        return (
-          <div>
-            <Header
-              activeTrigger={this.props.activeTrigger}
-              closeMenu={this.props.closeMenu}
-              logos={this.props.meta.logos}
-              additionalLogos={this.props.meta.additionalLogos}
-              hideSearch={this.props.meta.hideSearch}
-              chevronOverAvatar={this.props.meta.chevronOverAvatar}
-              pageId={this.props.pageId}
-              profile={this.props.profile}
-              menuItems={this.props.meta.menuItems}
-              openedMenu={this.props.openedMenu}
-              openMenu={this.props.openMenu}
-              isMobileOpen={this.props.meta.isMobileOpen}
-              communityId={communityId}
-              communitySelector={this.props.meta.communitySelector}
-              onMobileToggleClick={this.props.mobileToggle}
-              cssUrl={this.props.meta.cssUrl}
-            />
-            {this.renderPageContent()}
-            {
-              this.props.meta.communityId === 'wipro' ?
-                <WiproFooter text={this.props.meta.footerText} /> :
-                <Footer
-                  menuItems={this.props.meta.menuItems}
-                  communityId={communityId}
-                  isAuthorized={!!this.props.profile}
-                />
-            }
-          </div>
-        );
-      }
-      return <AccessDenied cause={ACCESS_DENIED_CAUSE.NOT_AUTHORIZED} />;
-    } else if (this.props.authenticating || isNotLoaded || communityId === 'wipro') {
-      return (
-        <div styleName="loading">
-          <LoadingIndicator />
-        </div>
-      );
-    }
-    return <AccessDenied cause={ACCESS_DENIED_CAUSE.NOT_AUTHENTICATED} />;
+    return (
+      <div>
+        <Header pageId={this.props.pageId} />
+        {this.renderPageContent()}
+        {
+          this.props.meta.communityId === 'wipro' ?
+            <WiproFooter text={this.props.meta.footerText} /> :
+            <Footer />
+        }
+      </div>
+    );
   }
 }
 
 Page.defaultProps = {
-  activeTrigger: null,
-  openedMenu: null,
-  profile: null,
   isMobileOpen: false,
   loadingNews: false,
   news: null,
 };
 
 Page.propTypes = {
-  authenticating: PT.bool.isRequired,
-  activeTrigger: PT.shape({}),
-  closeMenu: PT.func.isRequired,
   communityId: PT.string.isRequired,
-  profile: PT.shape({
-    groups: PT.arrayOf(PT.shape({
-      id: PT.string.isRequired,
-    })),
-  }),
   meta: PT.shape({
     authorizedGroupIds: PT.arrayOf(PT.string),
     challengeFilterTag: PT.string,
@@ -319,21 +261,19 @@ Page.propTypes = {
   }).isRequired,
   loadingNews: PT.bool,
   news: PT.arrayOf(PT.shape),
-  openedMenu: PT.shape({}),
-  openMenu: PT.func.isRequired,
-  loadMetaData: PT.func.isRequired,
   loadNews: PT.func.isRequired,
   mobileToggle: PT.func.isRequired,
   pageId: PT.string.isRequired,
   history: PT.shape().isRequired,
   location: PT.shape().isRequired,
   resetChallengeListing: PT.func.isRequired,
+  tokenV2: PT.string.isRequired,
 };
 
 const mapStateToProps = (state, props) => ({
   ...state.auth,
   ...state.topcoderHeader,
-  meta: state.tcCommunities.meta,
+  meta: props.meta,
   loadingNews: state.tcCommunities.news.loading,
   news: state.tcCommunities.news.data,
   profile: state.auth ? state.auth.profile : null,
@@ -343,11 +283,6 @@ const mapStateToProps = (state, props) => ({
 
 const mapDispatchToProps = dispatch => _.merge(
   bindActionCreators(standardHeaderActions.topcoderHeader, dispatch), {
-    loadMetaData: (communityId) => {
-      dispatch(newsActions.tcCommunities.news.drop());
-      dispatch(actions.tcCommunities.meta.fetchDataInit());
-      dispatch(actions.tcCommunities.meta.fetchDataDone(communityId));
-    },
     loadNews: (url) => {
       dispatch(newsActions.tcCommunities.news.getNewsInit());
       dispatch(newsActions.tcCommunities.news.getNewsDone(url));

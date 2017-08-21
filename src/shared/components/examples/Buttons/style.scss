@@ -3,6 +3,9 @@
 .page {
   @include roboto-light;
 
+  line-height: 150%;
+  margin: auto;
+  max-width: $screen-lg;
   padding: 24px;
 
   h1 {
@@ -16,6 +19,14 @@
   code {
     background: whitesmoke;
     padding: 2px 4px;
+  }
+
+  em {
+    font-style: italic;
+  }
+
+  p {
+    margin: $base-unit 0;
   }
 }
 

@@ -2,20 +2,11 @@
  * The top-level routing of the App.
  */
 
-import _ from 'lodash';
-import Content from 'components/examples/Content';
-import Error404 from 'components/Error404';
-import SubmissionManagement from 'containers/SubmissionManagement';
-import ChallengeListing from 'containers/challenge-listing/Listing';
-import ChallengeDetail from 'containers/challenge-detail';
-import Leaderboard from 'containers/Leaderboard';
-import Dashboard from 'containers/Dashboard';
-import 'isomorphic-fetch';
+import CommunityLoader from 'containers/tc-communities/Loader';
+import Content from 'components/Content';
 import React from 'react';
+
 import { Switch, Route, withRouter } from 'react-router-dom';
-import TopcoderFooter from 'components/TopcoderFooter';
-import TopcoderHeader from 'containers/TopcoderHeader';
-import qs from 'qs';
 
 import PT from 'prop-types';
 
@@ -23,108 +14,78 @@ import TcCommunitiesPage from 'containers/tc-communities/Page';
 
 import { connect } from 'react-redux';
 
-/* TODO: As we move towards production deploy, we should add a guard which
- * will prevent addition of /examples routes into production build. */
-import Examples from './examples';
+import Examples from './Examples';
+import Topcoder from './Topcoder';
 
 function Routes({ subdomains }) {
   let communityId;
-  if (subdomains.includes('demo-expert')) communityId = 'demo-expert';
+  if (subdomains.includes('community-2')) communityId = 'community-2';
+  else if (subdomains.includes('demo-expert')) communityId = 'demo-expert';
   else if (subdomains.includes('wipro')
     || subdomains.includes('topgear')) communityId = 'wipro';
   else if (subdomains.includes('taskforce')) communityId = 'taskforce';
   else if (subdomains.includes('qa')) communityId = 'qa';
   else if (subdomains.includes('srmx')) communityId = 'srmx';
   else if (subdomains.includes('tc-prod-dev')) communityId = 'tc-prod-dev';
-  else if (subdomains.includes('community-2')) communityId = 'community-2';
+  else if (subdomains.includes('veterans')) communityId = 'veterans';
   if (communityId) {
     return (
       <div>
         <Route
+          component={routeProps => (
+            <CommunityLoader
+              communityComponent={props => (
+                <TcCommunitiesPage {...props} {...routeProps} pageId="home" />
+              )}
+              communityId={communityId}
+            />
+          )}
           exact
           path="/"
-          render={props => (
-            <TcCommunitiesPage
-              communityId={communityId}
-              pageId="home"
-              {...props}
-            />
-          )}
         />
         <Route
-          path="/:pageId"
-          render={props => (
-            <TcCommunitiesPage
+          component={routeProps => (
+            <CommunityLoader
+              communityComponent={props => (
+                <TcCommunitiesPage {...props} {...routeProps} />
+              )}
               communityId={communityId}
-              {...props}
             />
           )}
+          path="/:pageId"
         />
       </div>
     );
   }
   return (
-    <div>
-      <Route path="/challenge" component={TopcoderHeader} />
-      <Route path="/community-challenge-listing" component={TopcoderHeader} />
-      <Route path="/community-page" component={TopcoderHeader} />
-      <Route path="/leaderboard" component={TopcoderHeader} />
-      <Route path="/challenges" component={TopcoderHeader} />
-      <Route path="/my-dashboard" component={TopcoderHeader} />
-      <Switch>
-        <Route exact path="/" component={Content} />
-        <Route exact path="/examples" component={Content} />
-        <Route path="/examples" component={Examples} />
-        <Route path="/challenges/:challengeId/my-submissions" component={SubmissionManagement} />
-        <Route
-          path="/community-challenge-listing/:keyword"
-          render={props => <ChallengeListing listingOnly {...props} />}
-        />
-        <Route path="/challenges/:challengeId" component={ChallengeDetail} />
-        <Route
-          path="/challenges"
-          render={(props) => {
-            const query = props.location.search ?
-              qs.parse(props.location.search.slice(1)) : null;
-            const currencyFromUrl = _.get(query, 'currency');
-            const prizeMode = currencyFromUrl && `money-${currencyFromUrl}`;
-            return (
-              <ChallengeListing
-                {...props}
-                listingOnly
-                prizeMode={prizeMode}
-              />
-            );
-          }}
-        />
-        <Route path="/leaderboard" component={Leaderboard} />
-        <Route
-          exact
-          path="/community/:communityId"
-          render={props => (
-            <TcCommunitiesPage
-              pageId="home"
-              {...props}
-            />
-          )}
-        />
-        <Route
-          component={TcCommunitiesPage}
-          path="/community/:communityId/:pageId"
-        />
-        <Route
-          component={Dashboard}
-          path="/my-dashboard"
-        />
-        <Route component={Error404} />
-      </Switch>
-      <Route path="/challenge" component={TopcoderFooter} />
-      <Route path="/community-challenge-listing" component={TopcoderFooter} />
-      <Route path="/community-page" component={TopcoderFooter} />
-      <Route path="/leaderboard" component={TopcoderFooter} />
-      <Route path="/challenges" component={TopcoderFooter} />
-      <Route path="/my-dashboard" component={TopcoderFooter} />
-    </div>
+    <Switch>
+      <Route exact path="/" component={Content} />
+      { Examples() }
+      <Route
+        component={routeProps => (
+          <CommunityLoader
+            communityComponent={props => (
+              <TcCommunitiesPage {...props} {...routeProps} pageId="home" />
+            )}
+            communityId={routeProps.match.params.communityId}
+          />
+        )}
+        exact
+        path="/community/:communityId"
+      />
+      <Route
+        component={routeProps => (
+          <CommunityLoader
+            communityComponent={props => (
+              <TcCommunitiesPage {...props} {...routeProps} />
+            )}
+            communityId={routeProps.match.params.communityId}
+          />
+        )}
+        path="/community/:communityId/:pageId"
+      />
+      <Topcoder />
+    </Switch>
   );
 }
 

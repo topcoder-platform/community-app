@@ -1,55 +1,39 @@
 /*
   Component renders challenge details and specifications
-
-  WARNING:
-  dangerouslySetInnerHTML - is used to render html string.
 */
 
 import config from 'utils/config';
 import React from 'react';
 import PT from 'prop-types';
 
-import DesignSideBar from './SideBar/DesignSideBar';
-import DevelopSideBar from './SideBar/DevelopSideBar';
+import SideBar from './SideBar';
 
 import './styles.scss';
 
-function setHtml(htmlString) {
-  return (input) => {
-    if (input) {
-      input.innerHTML = htmlString;// eslint-disable-line no-param-reassign
-      // input.querySelectorAll('*').forEach(cur => {
-      //  cur.removeAttribute('style');
-      //  cur.removeAttribute('class');
-      // });
-    }
-  };
-}
-
 export default function ChallengeDetailsView(props) {
   const {
-    introduction,
-    detailedRequirements,
-    track,
-    screeningScorecardId,
-    reviewScorecardId,
-    forumLink,
-    submissionLimit,
-    mainEvent,
-    documents,
-    userDetails,
-    reviewType,
-    technologies,
-    fileTypes,
-    numberOfCheckpointsPrizes,
-    round1Introduction,
-    round2Introduction,
-    allowStockArt,
-    finalSubmissionGuidelines,
-  } = props.challenge;
-  const hasRegistered = (
-    userDetails && userDetails.roles && userDetails.roles.includes('Submitter')
-  );
+    terms,
+    hasRegistered,
+    challenge: {
+      introduction,
+      detailedRequirements,
+      track,
+      screeningScorecardId,
+      reviewScorecardId,
+      forumLink,
+      submissionLimit,
+      mainEvent,
+      documents,
+      technologies,
+      fileTypes,
+      numberOfCheckpointsPrizes,
+      round1Introduction,
+      round2Introduction,
+      allowStockArt,
+      finalSubmissionGuidelines,
+    },
+  } = props;
+
   const isDataScience = technologies.includes('Data Science');
   let accentedStyle = 'challenge-specs-design';
   if (track.toLowerCase() === 'develop') {
@@ -71,14 +55,26 @@ export default function ChallengeDetailsView(props) {
                     detailedRequirements &&
                     <article>
                       <h2>Challenge Overview</h2>
-                      <div ref={setHtml(detailedRequirements)} />
+                      <div
+                        /* eslint-disable react/no-danger */
+                        dangerouslySetInnerHTML={{
+                          __html: detailedRequirements,
+                        }}
+                        /* eslint-enable react/no-danger */
+                      />
                     </article>
                   }
                   {
                     finalSubmissionGuidelines &&
                     <article>
                       <h2>Final Submission Guidelines</h2>
-                      <div ref={setHtml(finalSubmissionGuidelines)} />
+                      <div
+                        /* eslint-disable react/no-danger */
+                        dangerouslySetInnerHTML={{
+                          __html: finalSubmissionGuidelines,
+                        }}
+                        /* eslint-enable react/no-danger */
+                      />
                     </article>
                   }
                 </div>
@@ -89,7 +85,13 @@ export default function ChallengeDetailsView(props) {
                     introduction &&
                     <article>
                       <h2>Challenge Summary</h2>
-                      <div ref={setHtml(introduction)} />
+                      <div
+                        /* eslint-disable react/no-danger */
+                        dangerouslySetInnerHTML={{
+                          __html: introduction,
+                        }}
+                        /* eslint-enable react/no-danger */
+                      />
                       <p />
                       <p styleName="note">
                         Please read the challenge specification carefully and
@@ -110,14 +112,26 @@ export default function ChallengeDetailsView(props) {
                         round1Introduction &&
                         <div>
                           <h3>Round 1</h3>
-                          <div ref={setHtml(round1Introduction)} />
+                          <div
+                            /* eslint-disable react/no-danger */
+                            dangerouslySetInnerHTML={{
+                              __html: round1Introduction,
+                            }}
+                            /* eslint-enable react/no-danger */
+                          />
                         </div>
                       }
                       {
                         round2Introduction &&
                         <div>
                           <h3>Round 2</h3>
-                          <div ref={setHtml(round2Introduction)} />
+                          <div
+                            /* eslint-disable react/no-danger */
+                            dangerouslySetInnerHTML={{
+                              __html: round2Introduction,
+                            }}
+                            /* eslint-enable react/no-danger */
+                          />
                         </div>
                       }
                       <div styleName="note">
@@ -153,7 +167,13 @@ export default function ChallengeDetailsView(props) {
                     detailedRequirements &&
                     <article>
                       <h2>Full Description & Project Guide</h2>
-                      <div ref={setHtml(detailedRequirements)} />
+                      <div
+                        /* eslint-disable react/no-danger */
+                        dangerouslySetInnerHTML={{
+                          __html: detailedRequirements,
+                        }}
+                        /* eslint-enable react/no-danger */
+                      />
                     </article>
                   }
                   <article>
@@ -241,34 +261,24 @@ export default function ChallengeDetailsView(props) {
           </article>
         </div>
       </div>
-      {
-        track.toLowerCase() === 'design' ?
-          <DesignSideBar
-            screeningScorecardId={screeningScorecardId}
-            reviewScorecardId={reviewScorecardId}
-            forumLink={forumLink}
-            submissionLimit={submissionLimit}
-            eventDetail={mainEvent}
-            documents={documents}
-            hasRegistered={hasRegistered}
-            fileTypes={fileTypes}
-          /> :
-          <DevelopSideBar
-            documents={documents}
-            eventDetail={mainEvent}
-            screeningScorecardId={screeningScorecardId}
-            reviewScorecardId={reviewScorecardId}
-            forumLink={forumLink}
-            hasRegistered={hasRegistered}
-            isDataScience={isDataScience}
-            reviewType={reviewType}
-          />
-      }
+      <SideBar
+        screeningScorecardId={screeningScorecardId}
+        reviewScorecardId={reviewScorecardId}
+        forumLink={forumLink}
+        submissionLimit={submissionLimit}
+        eventDetail={mainEvent}
+        documents={documents}
+        hasRegistered={hasRegistered}
+        fileTypes={fileTypes}
+        isDesign={track.toLowerCase() === 'design'}
+        terms={terms}
+      />
     </div>
   );
 }
 
 ChallengeDetailsView.defaultProps = {
+  terms: [],
   challenge: {
     introduction: undefined,
     detailedRequirements: undefined,
@@ -290,6 +300,8 @@ ChallengeDetailsView.defaultProps = {
 };
 
 ChallengeDetailsView.propTypes = {
+  terms: PT.arrayOf(PT.shape()),
+  hasRegistered: PT.bool.isRequired,
   challenge: PT.shape({
     introduction: PT.string,
     detailedRequirements: PT.string,

@@ -4,7 +4,6 @@
 
 import _ from 'lodash';
 import React from 'react';
-import PT from 'prop-types';
 import { Route } from 'react-router-dom';
 import './style.scss';
 
@@ -24,11 +23,3 @@ export default function Page404() {
     </div>
   );
 }
-
-Page404.defaultProps = {
-  children: null,
-};
-
-Page404.propTypes = {
-  children: PT.node,
-};

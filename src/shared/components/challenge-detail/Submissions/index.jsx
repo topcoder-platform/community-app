@@ -67,15 +67,25 @@ export default function Submissions(props) {
         </div>
       );
   }
+  /* TODO: Ohh... why the actual <table> was not used here?
+   * Should be re-factored to use <table> later. */
   return (
     <div styleName="container dev">
+      <div styleName="head">
+        <div styleName="col-1">Username</div>
+        <div styleName="col-2">Submission Date</div>
+        <div styleName="col-3">Initial / Final Score</div>
+      </div>
       {
         submissions.map(s => (
           <div key={s.handle + s.submissionDate} styleName="row">
             <div styleName="col-1">
               <a styleName="handle" target="_blank" href={`${config.URL.BASE}/member-profile/${s.handle}/develop`}>{s.handle}</a>
             </div>
-            <div styleName="col-2">{moment(s.submissionDate).format('MMM DD,YYYY HH:mm')} EDT</div>
+            <div styleName="col-2">{moment(s.submissionDate).format('MMM DD, YYYY HH:mm')} EDT</div>
+            <div styleName="col-3">
+              {s.initialScore.toFixed(2)} / {s.finalScore.toFixed(2)}
+            </div>
           </div>
         ))
       }

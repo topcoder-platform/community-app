@@ -1,0 +1,8 @@
+@import '~styles/tc-styles';
+
+.loading {
+  @include tc-body-large;
+
+  padding-top: 100px;
+  text-align: center;
+}

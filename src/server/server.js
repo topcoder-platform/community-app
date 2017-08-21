@@ -74,7 +74,7 @@ if (USE_DEV_TOOLS) {
   const compiler = webpack(webpackConfig);
   compiler.apply(new webpack.ProgressPlugin());
   app.use(webpackDevMiddleware(compiler, {
-    name: 'bundle.js',
+    name: 'main.js',
     publicPath: webpackConfig.output.publicPath,
     serverSideRender: true,
   }));
@@ -101,6 +101,11 @@ app.use('/api/xml2json', (req, res) => {
  * reducing amount of calls to openexchangerates.com). */
 app.use('/api/exchange-rates', (req, res) => {
   getExchangeRates().then(rates => res.send(rates));
+});
+
+app.use('/iframe-break', (req, res) => {
+  const url = req.query.dest;
+  res.send(`<script>window.top.location.href="${url}"</script>`);
 });
 
 app.use(renderer);

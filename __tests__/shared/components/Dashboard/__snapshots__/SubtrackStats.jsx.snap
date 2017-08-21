@@ -77,18 +77,8 @@ exports[`Matches shallow shapshot 1`] = `
         centerMode={true}
         dots={false}
         infinite={false}
-        nextArrow={
-          <NavButton
-            currentSlide={null}
-            slideCount={null}
-          />
-        }
-        prevArrow={
-          <NavButton
-            currentSlide={null}
-            slideCount={null}
-          />
-        }
+        nextArrow={<NavButton />}
+        prevArrow={<NavButton />}
         slidesToScroll={1}
         slidesToShow={1}
         speed={500}

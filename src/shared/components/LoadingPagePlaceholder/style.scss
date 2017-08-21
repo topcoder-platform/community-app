@@ -1,0 +1,19 @@
+@import "~styles/tc-styles";
+
+.background {
+  background: $tc-gray-neutral-dark;
+  padding: 6 * $base-unit;
+
+  @include xxs-to-xs {
+    padding: $base-unit;
+  }
+}
+
+.page {
+  background: $tc-white;
+  border-radius: 3 * $corner-radius;
+  margin: auto;
+  max-width: 1240px;
+  padding: 2 * $base-unit;
+  width: 100%;
+}

@@ -20,40 +20,43 @@ import themeFactory from '../themeFactory';
 import Prizes from './Prizes';
 import ChallengeTags from './ChallengeTags';
 import DeadlineCards from './DeadlineCards';
-import ChallengeViewSelector from './ChallengeViewSelector';
+import TabSelector from './TabSelector';
+
 import style from './style.scss';
 
 export default function ChallengeHeader(props) {
   const {
-    challenge: {
-      id: challengeId,
-      name,
-      track,
-      subTrack,
-      events,
-      technologies,
-      platforms,
-      prizes,
-      numberOfCheckpointsPrizes,
-      topCheckPointPrize,
-      reliabilityBonus,
-      userDetails,
-      currentPhases,
-      registrationEndDate,
-      submissionEndDate,
-      numRegistrants,
-      numSubmissions,
-      allPhases,
-      status,
-      checkpoints,
-      appealsEndDate,
-    },
+    challenge,
     registering,
     registerForChallenge,
     unregisterFromChallenge,
     unregistering,
-    // checkpoints,
+    hasRegistered,
+    checkpoints,
   } = props;
+
+  const {
+    id: challengeId,
+    name,
+    track,
+    subTrack,
+    events,
+    technologies,
+    platforms,
+    prizes,
+    numberOfCheckpointsPrizes,
+    topCheckPointPrize,
+    reliabilityBonus,
+    userDetails,
+    currentPhases,
+    registrationEndDate,
+    submissionEndDate,
+    numRegistrants,
+    numSubmissions,
+    allPhases,
+    status,
+    appealsEndDate,
+  } = challenge;
 
   let trackLower = track ? track.toLowerCase() : 'design';
   if (technologies.includes('Data Science')) {
@@ -69,15 +72,12 @@ export default function ChallengeHeader(props) {
   const eventNames = (events || []).map((event => (event.eventName || '').toUpperCase()));
   const miscTags = _.union((technologies || '').split(', '), platforms.split(', '));
 
-  const tagFilterString = '/challenges?filter[tags][0]=';
-
   let bonusType = '';
   if (numberOfCheckpointsPrizes && topCheckPointPrize) {
     bonusType = 'Bonus';
   } else if (reliabilityBonus) {
     bonusType = 'Reliability Bonus';
   }
-  const hasRegistered = userDetails && userDetails.roles && userDetails.roles.includes('Submitter');
   const registrationEnded = new Date(registrationEndDate).getTime() < Date.now();
   const submissionEnded = new Date(submissionEndDate).getTime() < Date.now();
   const hasSubmissions = userDetails && userDetails.hasUserSubmittedForReview;
@@ -142,7 +142,6 @@ export default function ChallengeHeader(props) {
             technPlatforms={miscTags}
             subTrackStyle={subTrackStyle}
             eventStyle={eventStyle}
-            tagFilterString={tagFilterString}
           />
           <div styleName="prizes-ops-container">
             <div styleName="prizes-outer-container">
@@ -167,33 +166,35 @@ export default function ChallengeHeader(props) {
                 </div>
               }
             </div>
-            <div styleName="challenge-ops-container">
-              {hasRegistered ? (
-                <DangerButton
-                  disabled={unregistering || registrationEnded}
-                  onClick={unregisterFromChallenge}
-                  theme={{ button: style.challengeAction }}
-                >Unregister</DangerButton>
-              ) : (
+            <div styleName="challenge-ops-wrapper">
+              <div styleName="challenge-ops-container">
+                {hasRegistered ? (
+                  <DangerButton
+                    disabled={unregistering || registrationEnded}
+                    onClick={unregisterFromChallenge}
+                    theme={{ button: style.challengeAction }}
+                  >Unregister</DangerButton>
+                ) : (
+                  <PrimaryButton
+                    disabled={registering || registrationEnded}
+                    onClick={registerForChallenge}
+                    theme={{ button: style.challengeAction }}
+                  >Register</PrimaryButton>
+                )}
                 <PrimaryButton
-                  disabled={registering || registrationEnded}
-                  onClick={registerForChallenge}
+                  disabled={!hasRegistered || unregistering || submissionEnded}
                   theme={{ button: style.challengeAction }}
-                >Register</PrimaryButton>
-              )}
-              <PrimaryButton
-                disabled={!hasRegistered || unregistering || submissionEnded}
-                theme={{ button: style.challengeAction }}
-                to={trackLower === 'design' ?
-                  `${config.URL.BASE}/challenges/${challengeId}/submit/file` :
-                  `${config.URL.BASE}/challenge-details/${challengeId}/submit/?type=develop`
-                }
-              >Submit</PrimaryButton>
-              <PrimaryButton
-                disabled={!hasRegistered || unregistering || !hasSubmissions}
-                theme={{ button: style.challengeAction }}
-                to={`/challenges/${challengeId}/my-submissions`}
-              >View Submissions</PrimaryButton>
+                  to={trackLower === 'design' ?
+                    `${config.URL.BASE}/challenges/${challengeId}/submit/file` :
+                    `${config.URL.BASE}/challenge-details/${challengeId}/submit/?type=develop`
+                  }
+                >Submit</PrimaryButton>
+                <PrimaryButton
+                  disabled={!hasRegistered || unregistering || !hasSubmissions}
+                  theme={{ button: style.challengeAction }}
+                  to={`/challenges/${challengeId}/my-submissions`}
+                >View Submissions</PrimaryButton>
+              </div>
             </div>
           </div>
           <div styleName="deadlines-view">
@@ -220,7 +221,8 @@ export default function ChallengeHeader(props) {
               <DeadlineCards relevantPhases={relevantPhases} />
             }
           </div>
-          <ChallengeViewSelector
+          <TabSelector
+            challenge={challenge}
             onSelectorClicked={props.onSelectorClicked}
             trackLower={trackLower}
             selectedView={props.selectedView}
@@ -252,5 +254,6 @@ ChallengeHeader.propTypes = {
   registering: PT.bool.isRequired,
   unregisterFromChallenge: PT.func.isRequired,
   unregistering: PT.bool.isRequired,
-  // checkpoints: PT.shape(),
+  hasRegistered: PT.bool.isRequired,
+  checkpoints: PT.shape(),
 };

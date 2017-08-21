@@ -1,0 +1,33 @@
+@import '~styles/tc-styles';
+
+.statsContainer {
+  padding: 0;
+}
+
+.statsContent {
+  border-bottom: 1px solid #ddd;
+  padding: 43px 38px 50px;
+
+  @include xxs-to-xs {
+    display: flex;
+    justify-content: space-around;
+    padding: 30px 12px 32px;
+  }
+}
+
+.resourcesContainer {
+  background-color: #fafafa;
+  padding: 70px 0;
+
+  @include xxs-to-xs {
+    padding: 40px 0;
+  }
+}
+
+.linksContainer {
+  padding: 24px 0 60px;
+
+  @include xxs-to-xs {
+    padding: 0;
+  }
+}

@@ -34,7 +34,7 @@ export default function Home(props) {
           title: 'Compete Now',
           url: 'challenges',
         }}
-        imageSrc="/themes/tc-prod-dev/community-hero.jpg"
+        imageSrc="/themes/qa/community-hero.jpg"
       />
 
       <CommunityStats />

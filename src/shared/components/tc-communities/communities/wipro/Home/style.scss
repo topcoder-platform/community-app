@@ -121,7 +121,11 @@
 .viewAllPublicChallenges {
   align-items: center;
   flex-direction: column;
-  padding-top: 0;
+  padding: 0;
+}
+
+.viewAllPublicChallengesContainer {
+  padding: 0;
 }
 
 .linkWrap {
@@ -132,5 +136,16 @@
   a {
     padding: 9px 12px 0;
     width: 360px;
+  }
+}
+
+.faqContent {
+  a,
+  a:active,
+  a:focus,
+  a:hover,
+  a:visited, {
+    color: #00a2e0 !important;
+    text-decoration: underline;
   }
 }

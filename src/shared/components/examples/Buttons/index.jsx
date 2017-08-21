@@ -9,6 +9,7 @@ import { ThemeProvider } from 'react-css-themr';
 
 import primaryDataScienceButtonStyle from '../../buttons/primaryDataScience.scss';
 import primaryDevelopButtonStyle from '../../buttons/primaryDevelop.scss';
+
 import style from './style.scss';
 
 export default function Buttons() {
@@ -42,6 +43,13 @@ export default function Buttons() {
 
       <p>Develop color scheme (underlying source code also
         demonstrates the proper context theming in action):</p>
+
+      <p><em>NOTE:</em> It turns out that it is not necessary to change colors
+        of primary buttons depending on challenge tracks. Thus, you should not
+        use the green and orange button themes. Hovewer, as they are already
+        implemented, and also show how <code>ThemeProvider</code> should be
+        used to style some elements according to the track, we keep them in
+        the repo and on this example page.</p>
       <ThemeProvider
         theme={{ PrimaryButton: primaryDevelopButtonStyle }}
       >

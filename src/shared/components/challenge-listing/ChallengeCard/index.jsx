@@ -142,6 +142,7 @@ function ChallengeCard({
             <Prize
               bonuses={bonuses}
               label={prizeMode === PRIZE_MODE.POINTS ? 'Points' : 'Purse'}
+              points={challenge.drPoints}
               prizes={prizes}
               prizeUnitSymbol={prizeUnitSymbol}
               totalPrize={totalPrize}

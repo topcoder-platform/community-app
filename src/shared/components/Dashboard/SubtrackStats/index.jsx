@@ -13,16 +13,6 @@ function NavButton() {
   return <span />;
 }
 
-NavButton.defaultProps = {
-  currentSlide: null,
-  slideCount: null,
-};
-
-NavButton.propTypes = {
-  currentSlide: PT.number,
-  slideCount: PT.number,
-};
-
 export default class SubtrackStats extends React.Component {
   constructor(props) {
     super(props);

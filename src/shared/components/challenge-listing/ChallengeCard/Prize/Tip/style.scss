@@ -25,3 +25,8 @@ $prize-space-10: $base-unit * 2;
     font-weight: 700;
   }
 }
+
+.points {
+  border-top: 1px solid $tc-gray-70;
+  padding: (3 * $base-unit) 0 (2 * $base-unit);
+}
