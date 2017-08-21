@@ -47,7 +47,7 @@ const MENU = [{
   title: 'Compete',
   items: [{
     icon: <IconNavRocket />,
-    link: `${BASE_URL}/challenges`,
+    link: '/challenges',
     title: 'All Challenges',
   }, {
     icon: <IconNavCP />,

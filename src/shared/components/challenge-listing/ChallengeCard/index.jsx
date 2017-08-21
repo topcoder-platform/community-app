@@ -33,6 +33,7 @@ const getEndDate = date => moment(date).format('MMM DD');
 
 function ChallengeCard({
   challenge: passedInChallenge,
+  newChallengeDetails,
   onTechTagClicked,
   openChallengesInNewTabs,
   prizeMode,
@@ -49,7 +50,8 @@ function ChallengeCard({
 
   let challengeDetailLink;
   {
-    const challengeUrl = `${config.URL.BASE}/challenge-details/`;
+    const challengeUrl = newChallengeDetails
+      ? '/challenges/' : `${config.URL.BASE}/challenge-details/`;
     if (challenge.track === 'DATA_SCIENCE') {
       const mmDetailUrl = `${config.URL.COMMUNITY}/tc?module=MatchDetails&rd=`;
       /* TODO: Don't we have a better way, whether a challenge is MM or not? */
@@ -163,16 +165,18 @@ function ChallengeCard({
 }
 
 ChallengeCard.defaultProps = {
-  onTechTagClicked: _.noop,
   challenge: {},
+  newChallengeDetails: false,
+  onTechTagClicked: _.noop,
   openChallengesInNewTabs: false,
   prizeMode: PRIZE_MODE.MONEY_USD,
   sampleWinnerProfile: undefined,
 };
 
 ChallengeCard.propTypes = {
-  onTechTagClicked: PT.func,
   challenge: PT.shape(),
+  newChallengeDetails: PT.bool,
+  onTechTagClicked: PT.func,
   openChallengesInNewTabs: PT.bool,
   prizeMode: PT.oneOf(_.toArray(PRIZE_MODE)),
   sampleWinnerProfile: PT.shape(),
@@ -235,13 +239,13 @@ class Tags extends React.Component {
 }
 
 Tags.defaultProps = {
-  technologies: '',
   onTechTagClicked: _.noop,
+  technologies: '',
 };
 
 Tags.propTypes = {
-  technologies: PT.string,
   onTechTagClicked: PT.func,
+  technologies: PT.string,
 };
 
 export default ChallengeCard;

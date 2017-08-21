@@ -18,6 +18,7 @@ const COLLAPSED_SIZE = 10;
 export default function Bucket({
   bucket,
   challenges,
+  communityName,
   expanded,
   expand,
   loading,
@@ -51,6 +52,7 @@ export default function Bucket({
   const cards = filteredChallenges.map(item => (
     <ChallengeCard
       challenge={item}
+      newChallengeDetails={!communityName}
       onTechTagClicked={tag => setFilterState({ tags: [tag] })}
       openChallengesInNewTabs={openChallengesInNewTabs}
       prizeMode={prizeMode}
@@ -101,6 +103,7 @@ export default function Bucket({
 }
 
 Bucket.defaultProps = {
+  communityName: null,
   expanded: false,
   expand: _.noop,
   loading: false,
@@ -114,6 +117,7 @@ Bucket.propTypes = {
   expanded: PT.bool,
   expand: PT.func,
   challenges: PT.arrayOf(PT.shape()).isRequired,
+  communityName: PT.string,
   loading: PT.bool,
   loadMore: PT.func,
   openChallengesInNewTabs: PT.bool,

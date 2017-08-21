@@ -70,6 +70,7 @@ export default function ChallengeListing(props) {
         activeBucket={props.activeBucket}
         auth={props.auth}
         challenges={challenges}
+        communityName={props.communityName}
         loadingDraftChallenges={props.loadingDraftChallenges}
         loadingPastChallenges={props.loadingPastChallenges}
         loadMoreDraft={props.loadMoreDraft}

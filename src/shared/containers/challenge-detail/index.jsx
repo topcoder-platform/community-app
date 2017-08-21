@@ -9,6 +9,8 @@
 import _ from 'lodash';
 import LoadingPagePlaceholder from 'components/LoadingPagePlaceholder';
 import ChallengeHeader from 'components/challenge-detail/Header';
+import challengeListingActions from 'actions/challenge-listing';
+import challengeListingSidebarActions from 'actions/challenge-listing/sidebar';
 import Registrants from 'components/challenge-detail/Registrants';
 import Submissions from 'components/challenge-detail/Submissions';
 import Winners from 'components/challenge-detail/Winners';
@@ -21,6 +23,8 @@ import { connect } from 'react-redux';
 import challengeActions from 'actions/challenge';
 import termsActions from 'actions/terms';
 import config from 'utils/config';
+import { BUCKETS } from 'utils/challenge-listing/buckets';
+
 import './styles.scss';
 
 function isRegistered(details, registrants, handle) {
@@ -136,6 +140,7 @@ class ChallengeDetailPageContainer extends React.Component {
               registerForChallenge={this.registerForChallenge}
               registering={this.props.registering}
               selectedView={this.state.selectedView}
+              setChallengeListingFilter={this.props.setChallengeListingFilter}
               unregisterFromChallenge={() =>
                 this.props.unregisterFromChallenge(this.props.authTokens, this.props.challengeId)
               }
@@ -276,6 +281,7 @@ ChallengeDetailPageContainer.propTypes = {
   agreeTerm: PT.func.isRequired,
   agreedTerms: PT.shape(),
   loadingDocuSignUrl: PT.string,
+  setChallengeListingFilter: PT.func.isRequired,
 };
 
 function extractChallengeDetail(v3, v2, challengeId) {
@@ -409,6 +415,12 @@ const mapDispatchToProps = (dispatch) => {
           dispatch(a.fetchCheckpointsDone(tokens.tokenV2, challengeId));
           return challengeDetails;
         });
+    },
+    setChallengeListingFilter: (filter) => {
+      const cl = challengeListingActions.challengeListing;
+      const cls = challengeListingSidebarActions.challengeListing.sidebar;
+      dispatch(cl.setFilter(filter));
+      dispatch(cls.selectBucket(BUCKETS.ALL));
     },
     unregisterFromChallenge: (auth, challengeId) => {
       dispatch(a.unregisterInit());

@@ -69,6 +69,7 @@ exports[`Matches shallow shapshot 1 shapshot 1 1`] = `
       activeBucket="abc"
       auth={Object {}}
       challenges={Array []}
+      communityName={null}
       currentFilterName=""
       expanded={false}
       groupId=""
