@@ -8,9 +8,11 @@
 
 /* global document, window */
 
+import _ from 'lodash';
 import PT from 'prop-types';
 import React from 'react';
 import ReactDomServer from 'react-dom/server';
+import shortid from 'shortid';
 import { Provider } from 'react-redux';
 import { Route } from 'react-router-dom';
 import { isServerSide } from 'utils/isomorphy';
@@ -29,12 +31,14 @@ export default class SplitRoute extends React.Component {
 
   reset() {
     /* Removing chunk's stylesheet from the DOM. */
-    if (!this.props.cacheCss) {
-      const link = document.querySelector(
-        `link[data-chunk=${this.props.chunkName}]`);
-      const head = document.getElementsByTagName('head')[0];
-      head.removeChild(link);
-    }
+    /* NOTE: It look like caching CSS makes no sense, as it starts conflicting
+     * with other stylesheets. */
+    // if (!this.props.cacheCss) {
+    const link = document.querySelector(
+      `link[data-chunk=${this.props.chunkName}]`);
+    const head = document.getElementsByTagName('head')[0];
+    head.removeChild(link);
+    // }
 
     /* Reset to the initial state. */
     this.setState({ component: null });
@@ -137,7 +141,16 @@ export default class SplitRoute extends React.Component {
              * page already pre-rendered at the server side. */
             let link =
               document.querySelector(`link[data-chunk="${chunkName}"]`);
-            if (!link) {
+            if (link) {
+              /* Even if the stylesheet is already loaded, we should move it
+               * to the end of the head, to ensure that it gets priority over
+               * anything else.
+               * On the other hand, if we drop cacheCss option, this should not
+               * be a problem, and can be more efficient.
+               */
+              // const head = document.getElementsByTagName('head')[0];
+              // head.appendChild(link);
+            } else {
               link = document.createElement('link');
               link.setAttribute('data-chunk', chunkName);
               link.setAttribute('href', `/${chunkName}.css`);
@@ -145,6 +158,24 @@ export default class SplitRoute extends React.Component {
               const head = document.getElementsByTagName('head')[0];
               head.appendChild(link);
             }
+
+            /* Checking, whether we need to trigger async rendering process,
+             * as it might be already launched before and we can end up with
+             * a deadlock. We want to re-trigger it only if some props having
+             * impact on the rendering result have been changed. */
+            let shouldReRender = !this.pendingRender;
+            if (!shouldReRender) {
+              shouldReRender = this.pendingRender !== renderClientAsync;
+              _.forIn(this.pendingRenderProps, (value, key) => {
+                shouldReRender = shouldReRender || (value !== props[key]);
+              });
+            }
+            if (!shouldReRender) return res;
+
+            const renderUUID = shortid();
+            this.pendingRenderUUID = renderUUID;
+            this.pendingRender = renderClientAsync;
+            this.pendingRenderProps = props;
 
             /* Finally, we call the async renderer and once the promise it
              * returns is resolved, we set the resulting component to the state,
@@ -154,8 +185,12 @@ export default class SplitRoute extends React.Component {
              * removing it from the state once it is unmounted, to ensure
              * that the next time the route is matched, its content will
              * be re-rendered from scratch. */
-            renderClientAsync(props).then(component =>
-              !this.unmounted && this.setState({
+            renderClientAsync(props).then((component) => {
+              if (renderUUID !== this.pendingRenderUUID) return;
+              this.pendingRenderUUID = null;
+              this.pendingRender = null;
+              this.pendingRenderProps = null;
+              this.setState({
                 component: () => (
                   <div>
                     <ContentWrapper
@@ -165,8 +200,8 @@ export default class SplitRoute extends React.Component {
                     />
                   </div>
                 ),
-              }),
-            );
+              });
+            });
           }
 
           return res;
@@ -188,7 +223,7 @@ SplitRoute.defaultProps = {
 };
 
 SplitRoute.propTypes = {
-  cacheCss: PT.bool,
+  // cacheCss: PT.bool,
   chunkName: PT.string.isRequired,
   exact: PT.bool,
   location: PT.shape(),
