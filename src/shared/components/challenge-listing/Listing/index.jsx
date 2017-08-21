@@ -13,6 +13,7 @@ export default function Listing({
   activeBucket,
   auth,
   challenges,
+  communityName,
   loadingDraftChallenges,
   loadingPastChallenges,
   loadMoreDraft,
@@ -46,6 +47,7 @@ export default function Listing({
         <Bucket
           bucket={buckets[activeBucket]}
           challenges={challenges}
+          communityName={communityName}
           expanded
           loading={loading}
           loadMore={loadMore}
@@ -77,6 +79,7 @@ export default function Listing({
       <Bucket
         bucket={buckets[bucket]}
         challenges={challenges}
+        communityName={communityName}
         expand={() => selectBucket(bucket)}
         loading={loading}
         loadMore={loadMore}
@@ -105,6 +108,7 @@ export default function Listing({
 
 Listing.defaultProps = {
   challenges: [],
+  communityName: null,
   currentFilterName: '',
   expanded: false,
   groupId: '',
@@ -124,6 +128,7 @@ Listing.propTypes = {
     }),
   }).isRequired,
   challenges: PT.arrayOf(PT.shape()),
+  communityName: PT.string,
   loadingDraftChallenges: PT.bool.isRequired,
   loadingPastChallenges: PT.bool.isRequired,
   loadMoreDraft: PT.func,

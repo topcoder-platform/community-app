@@ -92,7 +92,7 @@ exports[`Default render 1`] = `
           "items": Array [
             Object {
               "icon": <IconNavRocket />,
-              "link": "https://www.topcoder-dev.com/challenges",
+              "link": "/challenges",
               "title": "All Challenges",
             },
             Object {
@@ -286,7 +286,7 @@ exports[`Render with open menu 1`] = `
           "items": Array [
             Object {
               "icon": <IconNavRocket />,
-              "link": "https://www.topcoder-dev.com/challenges",
+              "link": "/challenges",
               "title": "All Challenges",
             },
             Object {
@@ -482,7 +482,7 @@ exports[`Render with specified profile 1`] = `
           "items": Array [
             Object {
               "icon": <IconNavRocket />,
-              "link": "https://www.topcoder-dev.com/challenges",
+              "link": "/challenges",
               "title": "All Challenges",
             },
             Object {

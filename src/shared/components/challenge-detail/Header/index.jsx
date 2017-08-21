@@ -27,12 +27,13 @@ import style from './style.scss';
 export default function ChallengeHeader(props) {
   const {
     challenge,
+    checkpoints,
+    hasRegistered,
     registering,
     registerForChallenge,
+    setChallengeListingFilter,
     unregisterFromChallenge,
     unregistering,
-    hasRegistered,
-    checkpoints,
   } = props;
 
   const {
@@ -142,6 +143,7 @@ export default function ChallengeHeader(props) {
             technPlatforms={miscTags}
             subTrackStyle={subTrackStyle}
             eventStyle={eventStyle}
+            setChallengeListingFilter={setChallengeListingFilter}
           />
           <div styleName="prizes-ops-container">
             <div styleName="prizes-outer-container">
@@ -243,17 +245,18 @@ ChallengeHeader.defaultProps = {
 };
 
 ChallengeHeader.propTypes = {
-  onSelectorClicked: PT.func.isRequired,
-  selectedView: PT.string.isRequired,
+  checkpoints: PT.shape(),
   challenge: PT.shape({
     id: PT.number.isRequired,
   }).isRequired,
-  registerForChallenge: PT.func.isRequired,
-  showDeadlineDetail: PT.bool.isRequired,
+  hasRegistered: PT.bool.isRequired,
+  onSelectorClicked: PT.func.isRequired,
   onToggleDeadlines: PT.func.isRequired,
+  registerForChallenge: PT.func.isRequired,
   registering: PT.bool.isRequired,
+  selectedView: PT.string.isRequired,
+  setChallengeListingFilter: PT.func.isRequired,
+  showDeadlineDetail: PT.bool.isRequired,
   unregisterFromChallenge: PT.func.isRequired,
   unregistering: PT.bool.isRequired,
-  hasRegistered: PT.bool.isRequired,
-  checkpoints: PT.shape(),
 };

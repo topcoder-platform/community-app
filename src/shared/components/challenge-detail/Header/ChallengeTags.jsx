@@ -19,6 +19,7 @@ export default function ChallengeTags(props) {
     technPlatforms,
     subTrackStyle,
     eventStyle,
+    setChallengeListingFilter,
   } = props;
 
   return (
@@ -26,8 +27,8 @@ export default function ChallengeTags(props) {
       {
         subTrack &&
         <Link
-          enforceA
-          to={`/challenges?filter[subtracks][0]=${subTrack}`}
+          onClick={() => setChallengeListingFilter({ subtracks: [subTrack] })}
+          to="/challenges"
           styleName={`tag-common ${subTrackStyle}`}
         >{subTrack}</Link>
       }
@@ -45,9 +46,9 @@ export default function ChallengeTags(props) {
           tag =>
             (
               <Link
-                enforceA
                 key={tag}
-                to={`/challenges?filter[tags][0]=${tag}`}
+                onClick={() => setChallengeListingFilter({ tags: [tag] })}
+                to="/challenges"
                 styleName="tag-common misc-tag"
               >{tag}</Link>
             ),
@@ -69,4 +70,5 @@ ChallengeTags.propTypes = {
   technPlatforms: PT.arrayOf(PT.string),
   subTrackStyle: PT.string.isRequired,
   eventStyle: PT.string.isRequired,
+  setChallengeListingFilter: PT.func.isRequired,
 };
