@@ -114,23 +114,12 @@ To add a new community with the name **demo**, we should follow the following pr
     - `description`: A berief description which will be displayed in dashboard.
     - `image`: A image that located at `/assets/images/tc-communities/background` will be displayed in dashboard
 3.  Custom pages of the community (anything beside `Challenges` and `Leaderboard`) should be created inside `/src/shared/components/tc-communities/communities/demo`. At the moment all communities have two custom pages: `Home` and `Learn`, you may just copy these from an existing community, and then customize to your particular needs.
-4.  Created custom pages should be registered inside `/src/shared/containers/tc-communities/Page/index.jsx`.
-    -   First, import your custom pages into the file as
-        ```js
-        import DemoHome from 'components/tc-communities/communities/demo/Home';
-        import DemoLearn from 'components/tc-communities/communities/demo/Learn';
-        ```
-    -   Second, add them into `renderCustomPage()` method. It includes a big `if-else` block, where you should add something similar to:
-        ```js
-        } else if (communityId === 'demo') {
-          switch (pageId) {
-            case 'home': pageContent = <DemoHome />; break;
-            case 'learn': pageContent = <DemoLearn />; break;
-            default: break;
-          }
-        }
-        ```
-        here the page IDs inside the switch statement should match the relative URLs you have configured inside `metadata.json` file (the address `.` is internally aliased to `home`, thus `home` pageId should be used to specify the page at the `.` route).
+
+4.  The routing inside community, and code splitting of the related code, should be set up inside `/src/shared/routes/Communities`:
+    - Copy/paste one of the existing community folders and rename it into `/src/shared/routes/Communities/Demo`;
+    - Inside `/src/shared/routes/Communities/Demo/index.jsx` you should change the name of code chunk in two places it is present (as value of `chunkName` prop, and inside `webpackChunkName` "magic comment");
+    - Inside `/src/shared/routes/Communities/Demo/Routes.jsx` you define necesary routing, as with usual `react-router` routing code;
+    - Finally, you link this routing code into `/src/shared/routes/Communities/Routes.jsx`.
 
 5.  At this point **demo** community is ready and accessible at the `/community/demo` route of the App (i.e., if we deploy dev version of the App to `community-west.topcoder-dev.com`, community will be accessible as `community-west.topcoder-dev.com/community/demo`).
 

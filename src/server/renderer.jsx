@@ -53,8 +53,8 @@ export default (req, res) => {
     if (context.status) res.status(context.status);
     const sanitizedExchangeRates = serializeJs(exchangeRates, { isJSON: true });
     const styles = context.chunks.map(chunk => (
-      `<link data-chunk=${chunk} href="/${chunk}.css" rel="stylesheet" />`
-    )).join();
+      `<link data-chunk="${chunk}" href="/${chunk}.css" rel="stylesheet" />`
+    )).join('');
     res.send((
       `<!DOCTYPE html>
       <html>
