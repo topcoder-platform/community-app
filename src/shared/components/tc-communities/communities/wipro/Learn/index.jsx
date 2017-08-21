@@ -43,13 +43,13 @@ export default function Learn() {
         />
         <Section>
           <div styleName="message">
+            <p>If  you are accessing TopGear <span styleName="highlighted">Learning</span> Platform from <strong>Wipro backbone network</strong>, click on &ldquo;<strong>CONTINUE</strong>&rdquo; to access the platform.</p>
             <p>
               <Button
                 theme={{ button: style.continueButton }}
                 to="https://topgear-app.wipro.com"
               >Continue</Button>
             </p>
-            <p>If  you are accessing TopGear <span styleName="highlighted">Learning</span> Platform from <strong>Wipro backbone network</strong>, click on &ldquo;<strong>CONTINUE</strong>&rdquo; to access the platform.</p>
             <p>To access TopGear <span styleName="highlighted">Learning</span> Platform <strong>outside of Wipro network</strong>, please follow the below  instructions:</p>
             <ol>
               <li>
