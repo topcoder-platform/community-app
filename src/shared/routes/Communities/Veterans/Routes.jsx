@@ -14,7 +14,7 @@ import { Route, Switch } from 'react-router-dom';
 import ChallengeListing from '../ChallengeListing';
 import Leaderboard from '../Leaderboard';
 
-export default function Wipro({ base, meta }) {
+export default function Routes({ base, meta }) {
   return (
     <Route
       component={({ match }) => (
@@ -56,11 +56,11 @@ export default function Wipro({ base, meta }) {
   );
 }
 
-Wipro.defaultProps = {
+Routes.defaultProps = {
   base: '',
 };
 
-Wipro.propTypes = {
+Routes.propTypes = {
   base: PT.string,
   meta: PT.shape().isRequired,
 };

@@ -42,15 +42,19 @@ function Routes({ subdomains }) {
       <Route exact path="/" component={Content} />
       { Examples() }
       <Route
-        component={({ match }) => (
+        render={({ match }) => (
           <CommunityLoader
-            communityComponent={({ meta }) => (
-              <Communities
-                base={match.url}
-                communityId={match.params.communityId}
-                meta={meta}
-              />
-            )}
+            communityComponent={({ meta }) => {
+              let base = match.url;
+              while (base.endsWith('/')) base = base.slice(0, -1);
+              return (
+                <Communities
+                  base={base}
+                  communityId={match.params.communityId}
+                  meta={meta}
+                />
+              );
+            }}
             communityId={match.params.communityId}
           />
         )}
