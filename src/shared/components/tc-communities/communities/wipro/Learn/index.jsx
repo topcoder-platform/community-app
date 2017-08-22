@@ -46,6 +46,7 @@ export default function Learn() {
             <p>If  you are accessing TopGear <span styleName="highlighted">Learning</span> Platform from <strong>Wipro backbone network</strong>, click on &ldquo;<strong>CONTINUE</strong>&rdquo; to access the platform.</p>
             <p>
               <Button
+                openNewTab
                 theme={{ button: style.continueButton }}
                 to="https://topgear-app.wipro.com"
               >Continue</Button>
