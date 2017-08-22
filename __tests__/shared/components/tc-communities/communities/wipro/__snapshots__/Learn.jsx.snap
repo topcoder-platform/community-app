@@ -64,7 +64,7 @@ exports[`Snapshot match 1`] = `
             enforceA={false}
             mapThemrProps={[Function]}
             onClick={null}
-            openNewTab={false}
+            openNewTab={true}
             replace={false}
             theme={
               Object {
