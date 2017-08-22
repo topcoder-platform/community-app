@@ -66,7 +66,7 @@ class Loader extends React.Component {
     }
 
     /* Community does not require authorization. */
-    if (!meta.authorizedGroupIds) return <Community meta={meta} />;
+    if (!meta.authorizedGroupIds) return Community({ meta });
 
     /* Visitor is not authenticated. */
     if (!visitorGroups) {
@@ -82,7 +82,7 @@ class Loader extends React.Component {
     /* Visitor belongs to at least one of the groups authorized to access this
      * community. */
     if (_.intersection(visitorGroups.map(g => g.id), meta.authorizedGroupIds)) {
-      return <Community meta={meta} />;
+      return Community({ meta });
     }
 
     /* Visitor is not authorized to access this community. */

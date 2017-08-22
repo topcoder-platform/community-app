@@ -82,8 +82,6 @@ First of all, under the hood `SplitRoute` uses **react-router**'s `Route` to mak
 
     In general, you want to ensure that `renderServer` and `renderClientAsync` functions render exactly the same component, so that when you go directly to the route, you don't see any changes in the page during its loading, it just loads in its target form from the beginning. Though, technically, it is not obligatory to render the same in this functions. If they render different things, then the components rendered by `renderServer` will be visible until the moment when the `renderClientAsync` finishes rendering at the client side, and then the content will be switched to the result of `renderClientAsync`.
 
--   By default, when you leave a split route, the CSS reference is removed from the document. You can pass in boolean `cacheCss` option to prevent it.
-
 ### Caveats
 
 Here are some non-trivial points, that should be merged into the body of documentation above, but for now they are just mentioned here as points to remember:

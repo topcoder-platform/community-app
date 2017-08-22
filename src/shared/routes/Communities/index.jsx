@@ -12,7 +12,6 @@ import { requireWeak, resolveWeak, SplitRoute } from 'utils/router';
 export default function ChunkLoader({ base, communityId, meta }) {
   return (
     <SplitRoute
-      cacheCss
       chunkName="communities"
       renderClientAsync={() =>
         import(
