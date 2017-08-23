@@ -3,6 +3,7 @@
  */
 
 import Error404 from 'components/Error404';
+import FAQ from 'components/tc-communities/communities/wipro/FAQ';
 import Footer from 'components/tc-communities/communities/wipro/Footer';
 import Header from 'containers/tc-communities/Header';
 import Home from 'containers/tc-communities/wipro/Home';
@@ -25,6 +26,11 @@ export default function Wipro({ base, meta }) {
               component={() => <ChallengeListing meta={meta} />}
               exact
               path={`${base}/challenges`}
+            />
+            <Route
+              component={FAQ}
+              exact
+              path={`${base}/faq`}
             />
             <Route
               component={() => <Leaderboard meta={meta} />}
