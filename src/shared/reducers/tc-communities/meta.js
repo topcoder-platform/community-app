@@ -24,7 +24,6 @@ function onDone(state, action) {
   return {
     ...state,
     ...action.payload,
-    cssUrl: action.payload.style, /* TODO: This is a temporary alias! */
     lastUpdateOfMetaData: Date.now(),
     loadingMetaDataForCommunityId: '',
   };
