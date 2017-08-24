@@ -97,7 +97,7 @@ function onFetchCheckpointsDone(state, action) {
     };
   }
   if ((state.details && state.details.id === action.payload.challengeId) ||
-      (state.detailsV2 && state.detailsV2.challengeId === action.payload.challengeId)) {
+    (state.detailsV2 && state.detailsV2.challengeId === action.payload.challengeId)) {
     return {
       ...state,
       checkpoints: action.payload.checkpoints,
@@ -105,6 +105,25 @@ function onFetchCheckpointsDone(state, action) {
     };
   }
   return state;
+}
+/**
+ * Handles challengeActions.toggleCheckpointFeedback action.
+ * @param {Object} state Previous state.
+ * @param {Object} action Action.
+ */
+function onToggleCheckpointFeedback(state, action) {
+  const newCheckpointResults = state.checkpoints.checkpointResults.map((result, index) => ({
+    ...result,
+    expanded: index === action.payload ? !result.expanded : result.expanded,
+  }));
+  const newCheckpoints = {
+    ...state.checkpoints,
+    checkpointResults: newCheckpointResults,
+  };
+  return {
+    ...state,
+    checkpoints: newCheckpoints,
+  };
 }
 
 /**
@@ -121,7 +140,8 @@ function onRegisterDone(state, action) {
   /* As a part of registration flow we silently update challenge details,
    * reusing for this purpose the corresponding action handler. Thus, we
    * should also reuse corresponding reducer to generate proper state. */
-  return onGetDetailsDone({ ...state,
+  return onGetDetailsDone({
+    ...state,
     registering: false,
     loadingDetailsForChallengeId: _.toString(state.details.id),
   }, action);
@@ -166,9 +186,11 @@ function create(initialState) {
     [a.getSubmissionsDone]: onGetSubmissionsDone,
     [smpActions.smp.deleteSubmissionDone]: (state, { payload }) => ({
       ...state,
-      mySubmissions: { v2: state.mySubmissions.v2.filter(subm => (
-        subm.submissionId !== payload
-      )) },
+      mySubmissions: {
+        v2: state.mySubmissions.v2.filter(subm => (
+          subm.submissionId !== payload
+        )),
+      },
     }),
     [a.registerInit]: state => ({ ...state, registering: true }),
     [a.registerDone]: onRegisterDone,
@@ -189,6 +211,7 @@ function create(initialState) {
       loadingCheckpoints: true,
     }),
     [a.fetchCheckpointsDone]: onFetchCheckpointsDone,
+    [a.toggleCheckpointFeedback]: onToggleCheckpointFeedback,
     [a.openTermsModal]: state => ({ ...state, showTermsModal: true }),
     [a.closeTermsModal]: state => ({ ...state, showTermsModal: false }),
   }, _.defaults(initialState, {

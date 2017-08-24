@@ -8,6 +8,10 @@ $tc-gray-border: #aaaab5;
   .challenge-checkpoint-list {
     margin: 50px 20px 50px 10px;
 
+    @include xxs-to-xs {
+      display: none;
+    }
+
     .challenge-checkpoint-li {
       background: $tc-white;
       border: 1px solid $tc-gray-border;
@@ -85,6 +89,12 @@ $tc-gray-border: #aaaab5;
 
         .challenge-checkpoint-expander {
           padding-right: 23px;
+        }
+
+        .feedback-text {
+          @include xxs-to-xs {
+            display: none;
+          }
         }
       }
 
