@@ -19,6 +19,7 @@ export default function Prizes({ prizes }) {
       {
         (prizes && prizes.length) ?
           prizes.map((prize, index) => {
+            if (prize === 0) return '';
             const rank = index + 1;
             return (
               <div key={rank} styleName="prize-fill">
