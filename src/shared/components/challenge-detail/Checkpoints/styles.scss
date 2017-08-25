@@ -97,6 +97,10 @@ $tc-gray-border: #aaaab5;
         color: $tc-gray-90;
         line-height: 25px;
         padding: 15px 15px 25px;
+
+        .empty {
+          color: $tc-gray-40;
+        }
       }
     }
   }
