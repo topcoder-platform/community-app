@@ -139,16 +139,10 @@
         background-color: $tc-light-blue-10;
       }
 
-      .design-accent-background {
-        background-color: $tc-light-blue;
-      }
-
-      .design-accent-color {
-        background-color: $tc-light-blue;
-      }
-
+      @include design-accent-bg;
       @include develop-accent-bg;
       @include datasci-accent-bg;
+      @include design-accent-clr;
       @include develop-accent-clr;
       @include datasci-accent-clr;
 
@@ -260,10 +254,7 @@
               font-weight: 500;
             }
 
-            .design-accent-color {
-              color: $tc-light-blue;
-            }
-
+            @include design-accent-clr;
             @include develop-accent-clr;
             @include datasci-accent-clr;
           }
