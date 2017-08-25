@@ -130,6 +130,7 @@ $panel-radius-4: $corner-radius * 2;
 
     @include xxs-to-sm {
       display: block;
+      margin-right: 0;
     }
   }
 
