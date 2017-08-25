@@ -22,6 +22,29 @@ import './style.scss';
 const CHALLENGE_PLACEHOLDER_COUNT = 8;
 
 export default function ChallengeListing(props) {
+  function CheckDateTime(str) {
+    const reg = /^(\d{4})-(\d{1,2})-(\d{1,2})T(\d{1,2}):(\d{1,2}):(\d{1,2})\.(\d{3})Z$/;
+    const r = str.match(reg);
+    if (r == null) return false;
+    r[2] -= 1;
+    const d = new Date(r[1], r[2], r[3], r[4], r[5], r[6]);
+    if (d.getFullYear() !== r[1]) return false;
+    if (d.getMonth() !== r[2]) return false;
+    if (d.getDate() !== r[3]) return false;
+    if (d.getHours() !== r[4]) return false;
+    if (d.getMinutes() !== r[5]) return false;
+    if (d.getSeconds() !== r[6]) return false;
+    return true;
+  }
+  const filterState = props.filterState;
+  if (filterState) {
+    if (!!filterState.startDate && CheckDateTime(filterState.startDate) === false) {
+      delete filterState.startDate;
+    }
+    if (!!filterState.endDate && CheckDateTime(filterState.endDate) === false) {
+      delete filterState.endDate;
+    }
+  }
   let challenges = props.challenges;
 
   if (props.communityFilter) {
