@@ -136,10 +136,10 @@ class ChallengeDetailPageContainer extends React.Component {
               challengeId={this.props.challengeId}
               showDeadlineDetail={this.state.showDeadlineDetail}
               onToggleDeadlines={this.onToggleDeadlines}
-              onSelectorClicked={this.onSelectorClicked}
+              onSelectorClicked={this.props.onSelectorClicked}
               registerForChallenge={this.registerForChallenge}
               registering={this.props.registering}
-              selectedView={this.state.selectedView}
+              selectedView={this.props.selectedTab}
               setChallengeListingFilter={this.props.setChallengeListingFilter}
               unregisterFromChallenge={() =>
                 this.props.unregisterFromChallenge(this.props.authTokens, this.props.challengeId)
@@ -150,7 +150,7 @@ class ChallengeDetailPageContainer extends React.Component {
             />
           }
           {
-            !isEmpty && this.state.selectedView === 'DETAILS' &&
+            !isEmpty && this.props.selectedTab === 'DETAILS' &&
             <ChallengeDetailsView
               challenge={this.props.challenge}
               introduction={this.props.challenge.introduction}
@@ -160,7 +160,7 @@ class ChallengeDetailPageContainer extends React.Component {
             />
           }
           {
-            !isEmpty && this.state.selectedView === 'REGISTRANTS' &&
+            !isEmpty && this.props.selectedTab === 'REGISTRANTS' &&
             <Registrants
               registrants={this.props.challenge.registrants}
               isDesign={this.props.challenge.track.toLowerCase() === 'design'}
@@ -173,11 +173,11 @@ class ChallengeDetailPageContainer extends React.Component {
             />
           }
           {
-            !isEmpty && this.state.selectedView === 'CHECKPOINTS' &&
+            !isEmpty && this.props.selectedTab === 'CHECKPOINTS' &&
             <ChallengeCheckpoints checkpoints={this.props.checkpoints} />
           }
           {
-            !isEmpty && this.state.selectedView === 'SUBMISSIONS' &&
+            !isEmpty && this.props.selectedTab === 'SUBMISSIONS' &&
             <Submissions
               viewable={this.props.challenge.submissionsViewable === 'true'}
               submissions={this.props.challenge.submissions}
@@ -186,7 +186,7 @@ class ChallengeDetailPageContainer extends React.Component {
             />
           }
           {
-            !isEmpty && this.state.selectedView === 'WINNERS' &&
+            !isEmpty && this.props.selectedTab === 'WINNERS' &&
             <Winners
               results={this.props.results}
               prizes={this.props.challenge.prizes}
@@ -282,6 +282,8 @@ ChallengeDetailPageContainer.propTypes = {
   agreedTerms: PT.shape(),
   loadingDocuSignUrl: PT.string,
   setChallengeListingFilter: PT.func.isRequired,
+  selectedTab: PT.string.isRequired,
+  onSelectorClicked: PT.func.isRequired,
 };
 
 function extractChallengeDetail(v3, v2, challengeId) {
@@ -388,6 +390,7 @@ const mapStateToProps = (state, props) => ({
   agreeingTerm: state.terms.agreeingTerm,
   agreedTerms: state.terms.agreedTerms,
   isLoadingTerms: state.terms.loadingTermsForChallengeId === props.match.params.challengeId,
+  selectedTab: state.challenge.selectedTab || 'details',
 });
 
 const mapDispatchToProps = (dispatch) => {
@@ -455,6 +458,9 @@ const mapDispatchToProps = (dispatch) => {
     agreeTerm: (tokens, termId) => {
       dispatch(t.agreeTermInit(termId));
       dispatch(t.agreeTermDone(termId, tokens.tokenV2));
+    },
+    onSelectorClicked: (tab) => {
+      dispatch(a.changeTab(tab.toUpperCase()));
     },
   };
 };

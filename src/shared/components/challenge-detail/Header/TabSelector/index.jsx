@@ -34,24 +34,35 @@ export default function ChallengeViewSelector(props) {
     ? `/?module=ThreadList&forumID=${forumId}`
     : `/?module=Category&categoryID=${forumId}`;
 
+  const handleSelectorClicked = (e, selector) => {
+    /* eslint-env browser */
+    if (window && history.pushState) {
+      e.preventDefault();
+      const newurl =
+      `${window.location.protocol}//${window.location.host}${window.location.pathname}?tab=${selector.toLowerCase()}`;
+      window.history.pushState({ path: newurl }, '', newurl);
+    }
+    onSelectorClicked(selector);
+  };
+
   return (
     <div styleName="container">
       <div styleName="mask" />
       <div styleName="challenge-view-selector">
         <a
-          onClick={(e) => { e.preventDefault(); onSelectorClicked('DETAILS'); }}
+          onClick={(e) => { handleSelectorClicked(e, 'DETAILS'); }}
           styleName={getSelectorStyle(selectedView, 'DETAILS', trackLower)}
         >DETAILS
         </a>
         <a
-          onClick={(e) => { e.preventDefault(); onSelectorClicked('REGISTRANTS'); }}
+          onClick={(e) => { handleSelectorClicked(e, 'REGISTRANTS'); }}
           styleName={getSelectorStyle(selectedView, 'REGISTRANTS', trackLower)}
         >REGISTRANTS {numRegistrants ? `(${numRegistrants})` : ''}
         </a>
         {
           trackLower === 'design' && checkpointCount > 0 &&
           <a
-            onClick={(e) => { e.preventDefault(); onSelectorClicked('CHECKPOINTS'); }}
+            onClick={(e) => { handleSelectorClicked(e, 'CHECKPOINTS'); }}
             styleName={getSelectorStyle(selectedView, 'CHECKPOINTS', trackLower)}
           >CHECKPOINTS ({checkpointCount})
           </a>
@@ -59,7 +70,7 @@ export default function ChallengeViewSelector(props) {
         {
           status === 'COMPLETED' &&
           <a
-            onClick={(e) => { e.preventDefault(); onSelectorClicked('SUBMISSIONS'); }}
+            onClick={(e) => { handleSelectorClicked(e, 'SUBMISSIONS'); }}
             styleName={getSelectorStyle(selectedView, 'SUBMISSIONS', trackLower)}
           >
             SUBMISSIONS
@@ -68,12 +79,13 @@ export default function ChallengeViewSelector(props) {
         {
           status === 'COMPLETED' &&
           <a
-            onClick={(e) => { e.preventDefault(); onSelectorClicked('WINNERS'); }}
+            onClick={(e) => { handleSelectorClicked(e, 'WINNERS'); }}
             styleName={getSelectorStyle(selectedView, 'WINNERS', trackLower)}
           >WINNERS
           </a>
         }
-        { Boolean(roles.length) &&
+        {
+          Boolean(roles.length) &&
           <a
             href={`${config.URL.FORUMS}${forumEndpoint}`}
             styleName={getSelectorStyle(selectedView, 'CHALLENGE_FORUM', trackLower)}

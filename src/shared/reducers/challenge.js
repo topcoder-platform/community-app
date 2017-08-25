@@ -149,6 +149,28 @@ function onUnregisterDone(state, action) {
 }
 
 /**
+ * Handles CHALLENGE/CHANGE_TAB action.
+ * @param {Object} state
+ * @param {Object} action
+ * @return {Object}
+ */
+function onChangeTab(state, action) {
+  const upper = action.payload.toUpperCase() || '';
+  const possibleTabs = [
+    'DETAILS',
+    'REGISTRANTS',
+    'CHECKPOINTS',
+    'SUBMISSIONS',
+    'WINNERS',
+  ];
+  const isValidTab = possibleTabs.indexOf(upper) >= 0;
+  return {
+    ...state,
+    selectedTab: isValidTab ? upper : 'DETAILS',
+  };
+}
+
+/**
  * Creates a new Auth reducer with the specified initial state.
  * @param {Object} initialState Initial state.
  * @return Auth reducer.
@@ -191,6 +213,7 @@ function create(initialState) {
     [a.fetchCheckpointsDone]: onFetchCheckpointsDone,
     [a.openTermsModal]: state => ({ ...state, showTermsModal: true }),
     [a.closeTermsModal]: state => ({ ...state, showTermsModal: false }),
+    [a.changeTab]: onChangeTab,
   }, _.defaults(initialState, {
     details: null,
     detailsV2: null,
@@ -200,6 +223,7 @@ function create(initialState) {
     registering: false,
     unregistering: false,
     showTermsModal: false,
+    selectedTab: 'DETAILS',
   }));
 }
 
@@ -217,7 +241,8 @@ export function factory(req) {
    * should be re-used there. */
   /* TODO: For completely server-side rendering it is also necessary to load
    * terms, results, etc. */
-  if (req && req.url.match(/^\/challenges\/\d+$/)) {
+  const urlWithoutQuery = req && req.url.split('?')[0];
+  if (req && urlWithoutQuery.match(/^\/challenges\/\d+$/)) {
     const tokens = {
       tokenV2: req.cookies.tcjwt,
       tokenV3: req.cookies.v3jwt,
@@ -238,6 +263,9 @@ export function factory(req) {
         state = onGetDetailsDone(state, res.details);
         if (res.checkpoints) {
           state = onFetchCheckpointsDone(state, res.checkpoints);
+        }
+        if (req.query.tab) {
+          state = onChangeTab(state, { payload: req.query.tab });
         }
         return combine(create(state), { mySubmissionsManagement });
       });

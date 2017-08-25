@@ -42,9 +42,11 @@ export default class Checkpoints extends React.Component {
   }
 
   windowResize() {
-    this.setState({
-      trimContent: window.innerWidth <= trimLimit,
-    });
+    if (window) {
+      this.setState({
+        trimContent: window.innerWidth <= trimLimit,
+      });
+    }
   }
 
   expanderClicked(key) {

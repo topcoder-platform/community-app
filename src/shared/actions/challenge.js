@@ -122,5 +122,6 @@ export default createActions({
     UNREGISTER_DONE: unregisterDone,
     OPEN_TERMS_MODAL: _.noop,
     CLOSE_TERMS_MODAL: _.noop,
+    CHANGE_TAB: _.identity,
   },
 });
