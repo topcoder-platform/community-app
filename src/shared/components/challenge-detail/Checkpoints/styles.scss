@@ -7,6 +7,8 @@ $tc-gray-border: #aaaab5;
 
   .challenge-checkpoint-list {
     margin: 50px 20px 50px 10px;
+    display: flex;
+    flex-direction: column;
 
     @include xxs-to-xs {
       display: none;

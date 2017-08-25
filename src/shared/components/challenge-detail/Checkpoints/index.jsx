@@ -18,10 +18,17 @@ const Checkpoints = (props) => {
     <div styleName="challenge-detail-checkpoints">
       <div styleName="challenge-checkpoint-list">
         {
-          checkpointResults && checkpointResults.map(item => (
-            <p key={item.submissionId} styleName="challenge-checkpoint-li">
+          checkpointResults && checkpointResults.map((item, index) => (
+            <button
+              key={item.submissionId}
+              styleName="challenge-checkpoint-li"
+              onClick={(e) => {
+                e.preventDefault();
+                props.toggleCheckpointFeedback(index);
+              }}
+            >
               #{item.submissionId}
-            </p>
+            </button>
           ))
         }
       </div>
