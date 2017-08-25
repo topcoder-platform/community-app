@@ -78,7 +78,8 @@ export default function Winners(props) {
                   <a
                     styleName="download"
                     target="_blank"
-                    href={w.submissionDownloadLink}
+                    href={`${config.URL.STUDIO}/` +
+                          `?module=DownloadSubmission&sbmid=${submissionId}`}
                   >Download</a>
                 }
                 <div styleName="date">
