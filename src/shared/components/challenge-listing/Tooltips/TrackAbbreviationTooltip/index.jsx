@@ -44,6 +44,7 @@ const HEADER = {
   UI_PROTOTYPE_COMPETITION: 'UI Prototype (Pr)',
   WEB_DESIGNS: 'Web Design (Wd)',
   WIDGET_OR_MOBILE_SCREEN_DESIGN: 'Widget or Mobile Screen Design (Wg)',
+  WIREFRAMES: 'Wireframe (Wf)',
 };
 
 const TRACK_COLOR_CLASS = {
