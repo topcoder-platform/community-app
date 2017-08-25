@@ -326,6 +326,10 @@ export function removeTrack(state, track) {
     });
   }
   delete res.tracks[track];
+  /*As was stated in the 'addTrack' function, selecting all tracks is the same as having
+   no tracks field. So selecting no tracks should also be the same. Removing this line
+   causes no challenges to be returned and flickering of the empty challenge listings.*/ 
+  if (_.isEmpty(res.tracks)) delete res.tracks;
   return res;
 }
 
