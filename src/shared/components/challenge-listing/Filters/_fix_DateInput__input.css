@@ -6,3 +6,9 @@
 .DateInput__input {
     z-index: 2;
 }
+
+.DayPickerKeyboardShortcuts__show--bottom-right .DayPickerKeyboardShortcuts__show_span {
+  bottom: -1px;
+  right: -28px;
+  font-size: 15px;
+}
