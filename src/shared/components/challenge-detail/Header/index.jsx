@@ -79,7 +79,7 @@ export default function ChallengeHeader(props) {
   } else if (reliabilityBonus) {
     bonusType = 'Reliability Bonus';
   }
-  const registrationEnded = new Date(registrationEndDate).getTime() < Date.now();
+  const registrationEnded = new Date(registrationEndDate).getTime() < Date.now() || status.toLowerCase() !== 'active';
   const submissionEnded = new Date(submissionEndDate).getTime() < Date.now();
   const hasSubmissions = userDetails && userDetails.hasUserSubmittedForReview;
   const nextDeadline = currentPhases && currentPhases.length > 0 && currentPhases[0].phaseType;
@@ -114,8 +114,17 @@ export default function ChallengeHeader(props) {
       return (new Date(a.actualEndTime || a.scheduledEndTime)).getTime() -
       (new Date(b.actualEndTime || b.scheduledEndTime)).getTime();
     });
-
-    if (relevantPhases.length > 1 && appealsEndDate) {
+    if (subTrack === 'FIRST_2_FINISH' && status === 'COMPLETED') {
+      const phases = allPhases.filter(p => p.phaseType === 'Iterative Review' && p.phaseStatus === 'Closed');
+      const endPhaseDate = Math.max(...phases.map(d => new Date(d.scheduledEndTime)));
+      relevantPhases = _.filter(relevantPhases, p => (p.phaseType.toLowerCase().includes('registration') ||
+        new Date(p.scheduledEndTime).getTime() < endPhaseDate));
+      relevantPhases.push({
+        id: -1,
+        phaseType: 'Winners',
+        scheduledEndTime: endPhaseDate,
+      });
+    } else if (relevantPhases.length > 1 && appealsEndDate) {
       const lastPhase = relevantPhases[relevantPhases.length - 1];
       const lastPhaseTime = (
         new Date(lastPhase.actualEndTime || lastPhase.scheduledEndTime)
@@ -123,6 +132,7 @@ export default function ChallengeHeader(props) {
       const appealsEnd = (new Date(appealsEndDate).getTime());
       if (lastPhaseTime < appealsEnd) {
         relevantPhases.push({
+          id: -1,
           phaseType: 'Winners',
           scheduledEndTime: appealsEndDate,
         });
@@ -202,14 +212,23 @@ export default function ChallengeHeader(props) {
           <div styleName="deadlines-view">
             <div styleName="deadlines-overview">
               <div styleName="deadlines-overview-text">
-                <div styleName="next-deadline">
-                  Next Deadline: <span styleName="deadline-highlighted">{nextDeadline || '-'}</span>
-                </div>
-                <div styleName="current-phase">
-                  <span styleName="deadline-highlighted">
-                    {timeLeft}
-                  </span> until current deadline ends
-                </div>
+                {
+                  (status || '').toLowerCase() === 'active' ?
+                    (<div styleName="next-deadline">
+                    Next Deadline: <span styleName="deadline-highlighted">{nextDeadline || '-'}</span>
+                    </div>) :
+                    (<div>
+                    Status: <span styleName="deadline-highlighted">{_.capitalize(status)}</span>
+                    </div>)
+                }
+                {
+                  (status || '').toLowerCase() === 'active' &&
+                  <div styleName="current-phase">
+                    <span styleName="deadline-highlighted">
+                      {timeLeft}
+                    </span> until current deadline ends
+                  </div>
+                }
               </div>
               <a onClick={props.onToggleDeadlines} styleName="deadlines-collapser">
                 {props.showDeadlineDetail ?
