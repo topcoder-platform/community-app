@@ -78,7 +78,10 @@ function onFilterSaved(state, action) {
   if (action.error) {
     logger.error(action.payload);
     alert('Failed to save the filter!');
-    return state;
+    return {
+      ...state,
+      isSavingFilter: false,
+    };
   }
   return {
     ...state,
@@ -88,6 +91,7 @@ function onFilterSaved(state, action) {
       ...action.payload,
       filter: JSON.parse(action.payload.filter),
     }),
+    isSavingFilter: false,
   };
 }
 
@@ -162,6 +166,10 @@ function create(initialState = {}) {
     }),
     [a.resetFilterName]: onResetFilterName,
     [a.saveFilter]: onFilterSaved,
+    [a.savingFilterBegin]: state => ({
+      ...state,
+      isSavingFilter: true,
+    }),
     [a.selectBucket]: onSelectBucket,
     [a.selectSavedFilter]: onSelectSavedFilter,
     [a.setEditSavedFiltersMode]: (state, { payload }) => ({
@@ -174,6 +182,7 @@ function create(initialState = {}) {
     activeSavedFilter: 0,
     editSavedFiltersMode: false,
     savedFilters: [],
+    isSavingFilter: false,
   }));
 }
 

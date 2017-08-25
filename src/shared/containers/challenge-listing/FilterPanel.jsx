@@ -38,6 +38,7 @@ export class Container extends React.Component {
             this.props.selectBucket(BUCKETS.ALL);
           }
         }}
+        isSavingFilter={this.props.isSavingFilter}
       />
     );
   }
@@ -91,8 +92,10 @@ function mapDispatchToProps(dispatch) {
       dispatch(cla.getChallengeTagsInit());
       dispatch(cla.getChallengeTagsDone());
     },
-    saveFilter: (...rest) =>
-      dispatch(sa.saveFilter(...rest)),
+    saveFilter: (...rest) => {
+      dispatch(sa.savingFilterBegin());
+      dispatch(sa.saveFilter(...rest));
+    },
     selectBucket: bucket => dispatch(sa.selectBucket(bucket)),
     selectCommunity: id => dispatch(cla.selectCommunity(id)),
     setFilterState: s => dispatch(cla.setFilter(s)),
@@ -115,6 +118,7 @@ function mapStateToProps(state, ownProps) {
     validSubtracks: cl.challengeSubtracks,
     selectedCommunityId: cl.selectedCommunityId,
     tokenV2: state.auth.tokenV2,
+    isSavingFilter: cl.sidebar.isSavingFilter,
   };
 }
 

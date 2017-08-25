@@ -37,6 +37,7 @@ export default function ChallengeFilters({
   trackModalShown,
   validKeywords,
   validSubtracks,
+  isSavingFilter,
 }) {
   let filterRulesCount = 0;
   if (filterState.tags) filterRulesCount += 1;
@@ -143,6 +144,7 @@ export default function ChallengeFilters({
         setSearchText={setSearchText}
         validKeywords={validKeywords}
         validSubtracks={validSubtracks}
+        isSavingFilter={isSavingFilter}
       />
 
       <EditTrackPanel

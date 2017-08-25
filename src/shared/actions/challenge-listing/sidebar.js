@@ -138,6 +138,8 @@ export default createActions({
 
       SAVE_FILTER: saveFilter,
 
+      SAVING_FILTER_BEGIN: _.noop,
+
       /* Pass in the bucket type. */
       SELECT_BUCKET: _.identity,
 

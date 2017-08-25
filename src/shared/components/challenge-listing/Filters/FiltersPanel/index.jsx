@@ -42,6 +42,7 @@ export default function FiltersPanel({
   setSearchText,
   validKeywords,
   validSubtracks,
+  isSavingFilter,
 }) {
   let className = 'FiltersPanel';
   if (hidden) className += ' hidden';
@@ -137,6 +138,7 @@ export default function FiltersPanel({
           styleName="blue"
           className="tc-blue-btn"
           onClick={onSaveFilter}
+          disabled={isSavingFilter}
         >Save filter</button>
       </div>
     </div>
