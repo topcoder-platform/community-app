@@ -82,9 +82,10 @@ export default function ChallengeHeader(props) {
   const registrationEnded = new Date(registrationEndDate).getTime() < Date.now();
   const submissionEnded = new Date(submissionEndDate).getTime() < Date.now();
   const hasSubmissions = userDetails && userDetails.hasUserSubmittedForReview;
-  const nextDeadline = currentPhases && currentPhases.length > 0 && currentPhases[0].phaseType;
+  const nextPhaseIndex = hasRegistered ? 1 : 0;
+  const nextDeadline = currentPhases.length > 0 && currentPhases[nextPhaseIndex].phaseType;
   const deadlineEnd = currentPhases && currentPhases.length > 0 ?
-    new Date(currentPhases[0].scheduledEndTime).getTime() : Date.now();
+    new Date(currentPhases[nextPhaseIndex].scheduledEndTime).getTime() : Date.now();
   const currentTime = Date.now();
   const timeDiff = deadlineEnd > currentTime ? deadlineEnd - currentTime : 0;
   const duration = moment.duration(timeDiff);
@@ -102,6 +103,11 @@ export default function ChallengeHeader(props) {
         return true;
       }
       return false;
+    });
+
+    relevantPhases.push({
+      phaseType: 'Registration',
+      scheduledEndTime: registrationEndDate,
     });
 
     relevantPhases.sort((a, b) => {
