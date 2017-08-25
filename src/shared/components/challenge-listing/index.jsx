@@ -130,7 +130,7 @@ export default function ChallengeListing(props) {
         {challengeCardContainer}
 
         <div styleName="sidebar-container-desktop">
-          <Sticky top={20}>
+          <Sticky top={20} bottomBoundary="#challengeCardContainer">
             <Sidebar hideTcLinksInFooter={props.hideTcLinksInFooter} />
           </Sticky>
         </div>

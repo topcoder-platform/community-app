@@ -93,7 +93,7 @@ export default function Listing({
   };
 
   return (
-    <div styleName="challengeCardContainer">
+    <div styleName="challengeCardContainer" id="challengeCardContainer">
       {auth.user ? getBucket(BUCKETS.MY) : null}
       {getBucket(BUCKETS.OPEN_FOR_REGISTRATION)}
       {getBucket(BUCKETS.ONGOING)}
