@@ -10,8 +10,8 @@ import React from 'react';
 import PT from 'prop-types';
 import _ from 'lodash';
 import { Link } from 'utils/router';
-
-import './style.scss';
+import style from './style.scss';
+import { TagButton } from 'components/buttons';
 
 export default function ChallengeTags(props) {
   const {
@@ -33,34 +33,34 @@ export default function ChallengeTags(props) {
   };
 
   return (
-    <div styleName="tag-holder">
+    <div>
       {
         subTrack &&
-        <Link
-          onClick={() => setChallengeListingFilter({ subtracks: [subTrack] })}
+        <TagButton
           to="/challenges"
-          styleName={`tag-common ${subTrackStyle}`}
-        >{stylizedSubTrack(subTrack)}</Link>
+          onClick={() => setChallengeListingFilter({ subtracks: [subTrack] })}
+          theme={{ button: style[subTrackStyle] }}
+        >{stylizedSubTrack(subTrack)}</TagButton>
       }
       {
         events.map(event => (
-          <a
-            href={`https://${event}.topcoder.com`}
+          <TagButton
+            to={`https://${event}.topcoder.com`}
+            theme={{ button: style[eventStyle] }}
             key={event}
-            styleName={`tag-common  ${eventStyle}`}
-          >{event}</a>
+          >{event}</TagButton>
         ))
       }
       {
         technPlatforms.map(
           tag =>
             (
-              <Link
-                key={tag}
-                onClick={() => setChallengeListingFilter({ tags: [tag] })}
+              <TagButton
                 to="/challenges"
-                styleName="tag-common misc-tag"
-              >{tag}</Link>
+                onClick={() => setChallengeListingFilter({ tags: [tag] })}
+                theme={{ button: style.miscTag }}
+                key={tag}
+              >{tag}</TagButton>
             ),
         )
       }
