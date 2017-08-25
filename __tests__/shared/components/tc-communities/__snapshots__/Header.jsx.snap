@@ -1,250 +1,137 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Snapshot match 1`] = `
-<div>
-  <header
-    className="tc-communities__header__container src-shared-components-tc-communities-Header-___style__container___2P8yC"
-  >
-    <div
-      className="tc-communities__header__header src-shared-components-tc-communities-Header-___style__header___3TwY_"
-    >
-      <button
-        className="tc-communities__header__mobile-toggle src-shared-components-tc-communities-Header-___style__mobile-toggle___FAQgn"
-        onClick={[Function]}
-      >
-        <span>
-          Toggle navigation
-        </span>
-        <i />
-        <i />
-        <i />
-      </button>
-      <div
-        className="src-shared-components-tc-communities-Header-___style__logos-wrap___1Q_GY"
-      >
-        <div
-          className="tc-communities__header__logos src-shared-components-tc-communities-Header-___style__logos___38nqG"
-        >
-          
-        </div>
-        <div
-          className="tc-communities__header__challenge-dropdown src-shared-components-tc-communities-Header-___style__challenge-dropdown___3fQW9"
-        >
-          <Dropdown
-            options={
-              Array [
-                Object {
-                  "label": "Community Name",
-                  "value": "1",
-                },
-              ]
-            }
-            value={
-              Object {
-                "label": "Community Name",
-                "value": "1",
-              }
-            }
-          />
-        </div>
-      </div>
-      <div
-        className="tc-communities__header__user-wrap-mobile src-shared-components-tc-communities-Header-___style__user-wrap-mobile___20JBH"
-      />
-    </div>
-    <div
-      className="tc-communities__header__menu-wrap src-shared-components-tc-communities-Header-___style__menu-wrap___1IGCF"
-    >
-      <ul
-        className="tc-communities__header__menu src-shared-components-tc-communities-Header-___style__menu___2jUFE"
-      >
-        
-      </ul>
-    </div>
-    <div
-      className="src-shared-components-tc-communities-Header-___style__user-wrap___1kgTa"
-    >
-      <div
-        className="tc-communities__header__login-state src-shared-components-tc-communities-Header-___style__authorize___3ARhM"
-      >
-        <button
-          className="src-shared-components-tc-communities-Header-___style__btnRegister___2mlu6"
-          onClick={[Function]}
-        >
-          Register
-        </button>
-        <button
-          className="src-shared-components-tc-communities-Header-___style__btnLogin___37sgV"
-          onClick={[Function]}
-        >
-          Login
-        </button>
-      </div>
-      <div
-        className="src-shared-components-tc-communities-Header-___style__search___3BJGl"
-      >
-        <IconSearch />
-      </div>
-      <div
-        className="tc-communities__header__logos additional-logos src-shared-components-tc-communities-Header-___style__logos___38nqG"
-      >
-        
-      </div>
-    </div>
-  </header>
-  <SubMenu
-    closeMenu={[Function]}
-    currentSubMenuTitle=""
-    menu={null}
-    trigger={null}
-  />
-</div>
+<Header
+  activeTrigger={null}
+  additionalLogos={Array []}
+  chevronOverAvatar={false}
+  closeMenu={[Function]}
+  communityId="someId"
+  communitySelector={
+    Array [
+      Object {
+        "label": "Community Name",
+        "value": "1",
+      },
+    ]
+  }
+  hideSearch={false}
+  isMobileOpen={false}
+  loginUrl="/some/login/url"
+  logos={Array []}
+  menuItems={Array []}
+  onMobileToggleClick={[Function]}
+  openMenu={[Function]}
+  openedMenu={null}
+  pageId="home"
+  profile={null}
+  registerUrl="/some/register/url"
+  theme={
+    Object {
+      "additionalLogos": "src-shared-components-tc-communities-Header-___style__additionalLogos___3q_l-",
+      "authorize": "src-shared-components-tc-communities-Header-___style__authorize___3ARhM",
+      "avatar": "src-shared-components-tc-communities-Header-___style__avatar___2my2E",
+      "avatarMobile": "src-shared-components-tc-communities-Header-___style__avatarMobile___2uNTU",
+      "btnLogin": "src-shared-components-tc-communities-Header-___style__btnLogin___37sgV",
+      "btnRegister": "src-shared-components-tc-communities-Header-___style__btnRegister___2mlu6",
+      "challengeDropdown": "src-shared-components-tc-communities-Header-___style__challengeDropdown___-JHIK",
+      "chevronDown": "src-shared-components-tc-communities-Header-___style__chevronDown___pkTgN",
+      "container": "src-shared-components-tc-communities-Header-___style__container___2P8yC",
+      "header": "src-shared-components-tc-communities-Header-___style__header___3TwY_",
+      "logo": "src-shared-components-tc-communities-Header-___style__logo___z2xG6",
+      "logos": "src-shared-components-tc-communities-Header-___style__logos___38nqG",
+      "logosWrap": "src-shared-components-tc-communities-Header-___style__logosWrap___2mFpt",
+      "menu": "src-shared-components-tc-communities-Header-___style__menu___2jUFE",
+      "menuItem": "src-shared-components-tc-communities-Header-___style__menuItem___2akRq",
+      "menuLink": "src-shared-components-tc-communities-Header-___style__menuLink___3gVFG",
+      "menuLinkActive": "src-shared-components-tc-communities-Header-___style__menuLinkActive___XHiLm",
+      "menuWrap": "src-shared-components-tc-communities-Header-___style__menuWrap___a0TMC",
+      "menuWrapOpen": "src-shared-components-tc-communities-Header-___style__menuWrapOpen___1YVvV",
+      "mobileToggle": "src-shared-components-tc-communities-Header-___style__mobileToggle___fRfj2",
+      "search": "src-shared-components-tc-communities-Header-___style__search___3BJGl",
+      "userMenu": "src-shared-components-tc-communities-Header-___style__userMenu___V4Thb",
+      "userMenuHandle": "src-shared-components-tc-communities-Header-___style__userMenuHandle___38gE0",
+      "userWrap": "src-shared-components-tc-communities-Header-___style__userWrap___NN47o",
+      "userWrapMobile": "src-shared-components-tc-communities-Header-___style__userWrapMobile___3s9lp",
+    }
+  }
+/>
 `;
 
 exports[`Snapshot match 2`] = `
-<div>
-  <link
-    href="some/css/url"
-    rel="stylesheet"
-    type="text/css"
-  />
-  <header
-    className="tc-communities__header__container src-shared-components-tc-communities-Header-___style__container___2P8yC"
-  >
-    <div
-      className="tc-communities__header__header src-shared-components-tc-communities-Header-___style__header___3TwY_"
-    >
-      <button
-        className="tc-communities__header__mobile-toggle src-shared-components-tc-communities-Header-___style__mobile-toggle___FAQgn"
-        onClick={[Function]}
-      >
-        <span>
-          Toggle navigation
-        </span>
-        <i />
-        <i />
-        <i />
-      </button>
-      <div
-        className="src-shared-components-tc-communities-Header-___style__logos-wrap___1Q_GY"
-      >
-        <div
-          className="tc-communities__header__logos src-shared-components-tc-communities-Header-___style__logos___38nqG"
-        >
-          <span
-            className="tc-communities__header__logo src-shared-components-tc-communities-Header-___style__logo___z2xG6"
-          >
-            <img
-              alt="logo"
-              src="some/logo/url"
-            />
-          </span>
-        </div>
-        <div
-          className="tc-communities__header__challenge-dropdown src-shared-components-tc-communities-Header-___style__challenge-dropdown___3fQW9"
-        >
-          <Dropdown
-            options={
-              Array [
-                Object {
-                  "label": "Community Name",
-                  "value": "1",
-                },
-              ]
-            }
-            value={
-              Object {
-                "label": "Community Name",
-                "value": "1",
-              }
-            }
-          />
-        </div>
-      </div>
-      <div
-        className="tc-communities__header__user-wrap-mobile src-shared-components-tc-communities-Header-___style__user-wrap-mobile___20JBH"
-      />
-    </div>
-    <div
-      className="tc-communities__header__menu-wrap tc-communities__header__open src-shared-components-tc-communities-Header-___style__menu-wrap___1IGCF src-shared-components-tc-communities-Header-___style__open___3Mfi_"
-    >
-      <ul
-        className="tc-communities__header__menu src-shared-components-tc-communities-Header-___style__menu___2jUFE"
-      >
-        <li
-          className="tc-communities__header__menu-item src-shared-components-tc-communities-Header-___style__menu-item___2Ead6"
-        >
-          <Connect(RRNavLinkWrapper)
-            activeClassName="menu-link_active tc-communities__header__menu-link_active"
-            className="tc-communities__header__menu-link src-shared-components-tc-communities-Header-___style__menu-link___1pPZf"
-            isActive={[Function]}
-            to="pageId1"
-          >
-            Menu Item 1
-          </Connect(RRNavLinkWrapper)>
-        </li>
-        <li
-          className="tc-communities__header__menu-item src-shared-components-tc-communities-Header-___style__menu-item___2Ead6"
-        >
-          <Connect(RRNavLinkWrapper)
-            activeClassName="menu-link_active tc-communities__header__menu-link_active"
-            className="tc-communities__header__menu-link src-shared-components-tc-communities-Header-___style__menu-link___1pPZf"
-            isActive={[Function]}
-            to="pageId2"
-          >
-            Menu Item 2
-          </Connect(RRNavLinkWrapper)>
-        </li>
-        <li
-          className="tc-communities__header__menu-item src-shared-components-tc-communities-Header-___style__menu-item___2Ead6"
-        >
-          <Connect(RRNavLinkWrapper)
-            activeClassName="menu-link_active tc-communities__header__menu-link_active"
-            className="tc-communities__header__menu-link src-shared-components-tc-communities-Header-___style__menu-link___1pPZf"
-            isActive={[Function]}
-            to="pageId3"
-          >
-            Menu Item 3
-          </Connect(RRNavLinkWrapper)>
-        </li>
-      </ul>
-    </div>
-    <div
-      className="src-shared-components-tc-communities-Header-___style__user-wrap___1kgTa"
-    >
-      <div
-        className="tc-communities__header__login-state src-shared-components-tc-communities-Header-___style__authorize___3ARhM"
-      >
-        <button
-          className="src-shared-components-tc-communities-Header-___style__btnRegister___2mlu6"
-          onClick={[Function]}
-        >
-          Register
-        </button>
-        <button
-          className="src-shared-components-tc-communities-Header-___style__btnLogin___37sgV"
-          onClick={[Function]}
-        >
-          Login
-        </button>
-      </div>
-      <div
-        className="src-shared-components-tc-communities-Header-___style__search___3BJGl"
-      >
-        <IconSearch />
-      </div>
-      <div
-        className="tc-communities__header__logos additional-logos src-shared-components-tc-communities-Header-___style__logos___38nqG"
-      >
-        
-      </div>
-    </div>
-  </header>
-  <SubMenu
-    closeMenu={[Function]}
-    currentSubMenuTitle=""
-    menu={null}
-    trigger={null}
-  />
-</div>
+<Header
+  activeTrigger={null}
+  additionalLogos={Array []}
+  chevronOverAvatar={false}
+  closeMenu={[Function]}
+  communityId="someId"
+  communitySelector={
+    Array [
+      Object {
+        "label": "Community Name",
+        "value": "1",
+      },
+    ]
+  }
+  cssUrl="some/css/url"
+  hideSearch={false}
+  isMobileOpen={true}
+  loginUrl="/some/login/url"
+  logos={
+    Array [
+      "some/logo/url",
+    ]
+  }
+  menuItems={
+    Array [
+      Object {
+        "title": "Menu Item 1",
+        "url": "pageId1",
+      },
+      Object {
+        "title": "Menu Item 2",
+        "url": "pageId2",
+      },
+      Object {
+        "title": "Menu Item 3",
+        "url": "pageId3",
+      },
+    ]
+  }
+  onMobileToggleClick={[Function]}
+  openMenu={[Function]}
+  openedMenu={null}
+  pageId="other"
+  profile={null}
+  registerUrl="/some/register/url"
+  theme={
+    Object {
+      "additionalLogos": "src-shared-components-tc-communities-Header-___style__additionalLogos___3q_l-",
+      "authorize": "src-shared-components-tc-communities-Header-___style__authorize___3ARhM",
+      "avatar": "src-shared-components-tc-communities-Header-___style__avatar___2my2E",
+      "avatarMobile": "src-shared-components-tc-communities-Header-___style__avatarMobile___2uNTU",
+      "btnLogin": "src-shared-components-tc-communities-Header-___style__btnLogin___37sgV",
+      "btnRegister": "src-shared-components-tc-communities-Header-___style__btnRegister___2mlu6",
+      "challengeDropdown": "src-shared-components-tc-communities-Header-___style__challengeDropdown___-JHIK",
+      "chevronDown": "src-shared-components-tc-communities-Header-___style__chevronDown___pkTgN",
+      "container": "src-shared-components-tc-communities-Header-___style__container___2P8yC",
+      "header": "src-shared-components-tc-communities-Header-___style__header___3TwY_",
+      "logo": "src-shared-components-tc-communities-Header-___style__logo___z2xG6",
+      "logos": "src-shared-components-tc-communities-Header-___style__logos___38nqG",
+      "logosWrap": "src-shared-components-tc-communities-Header-___style__logosWrap___2mFpt",
+      "menu": "src-shared-components-tc-communities-Header-___style__menu___2jUFE",
+      "menuItem": "src-shared-components-tc-communities-Header-___style__menuItem___2akRq",
+      "menuLink": "src-shared-components-tc-communities-Header-___style__menuLink___3gVFG",
+      "menuLinkActive": "src-shared-components-tc-communities-Header-___style__menuLinkActive___XHiLm",
+      "menuWrap": "src-shared-components-tc-communities-Header-___style__menuWrap___a0TMC",
+      "menuWrapOpen": "src-shared-components-tc-communities-Header-___style__menuWrapOpen___1YVvV",
+      "mobileToggle": "src-shared-components-tc-communities-Header-___style__mobileToggle___fRfj2",
+      "search": "src-shared-components-tc-communities-Header-___style__search___3BJGl",
+      "userMenu": "src-shared-components-tc-communities-Header-___style__userMenu___V4Thb",
+      "userMenuHandle": "src-shared-components-tc-communities-Header-___style__userMenuHandle___38gE0",
+      "userWrap": "src-shared-components-tc-communities-Header-___style__userWrap___NN47o",
+      "userWrapMobile": "src-shared-components-tc-communities-Header-___style__userWrapMobile___3s9lp",
+    }
+  }
+/>
 `;

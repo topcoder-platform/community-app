@@ -33,7 +33,7 @@
   }
 }
 
-.logos-wrap {
+.logosWrap {
   align-items: center;
   display: flex;
 
@@ -42,6 +42,7 @@
   }
 }
 
+.additionalLogos,
 .logos {
   align-items: center;
   display: flex;
@@ -76,7 +77,7 @@
   }
 }
 
-.challenge-dropdown {
+.challengeDropdown {
   align-items: center;
   border-left: 1px solid #47474f;
   color: #47474f;
@@ -99,17 +100,26 @@
   }
 }
 
-.menu-wrap {
+.menuWrap {
   flex-grow: 1;
   max-width: 700px;
   max-height: 0;
   overflow: visible;
   transition: max-height 0.3s ease-out;
 
-  &.open {
-    max-height: 1000px;
-    transition-timing-function: ease-in;
+  @include xxs-to-sm {
+    max-width: 100%;
+    overflow: hidden;
   }
+}
+
+.menuWrapOpen {
+  flex-grow: 1;
+  max-width: 700px;
+  max-height: 1000px;
+  overflow: visible;
+  transition: max-height 0.3s ease-out;
+  transition-timing-function: ease-in;
 
   @include xxs-to-sm {
     max-width: 100%;
@@ -129,7 +139,7 @@
   }
 }
 
-.menu-item {
+.menuItem {
   display: block;
 
   @include xxs-to-sm {
@@ -137,7 +147,7 @@
   }
 }
 
-.menu-link {
+.menuLink {
   color: #a3a3ae;
   display: block;
   font: 700 14px/55px 'Open Sans';
@@ -153,45 +163,27 @@
   }
 }
 
-/*
-  This is a hack for server-rendering
+.menuLinkActive,
+.menuLinkActive:visited {
+  color: #394146;
 
-  As we have to change active link style dynamically we have import styles to some variable like
-  import styles from './Header.scss' and after use it like className={styles['menu-link_active']}
-  But so far on the server when importing styles it returns empty object styles == {}
-  So when when we try to use styles['menu-link_active'] we get undefined instead of real class name
-  It breaks server rendering.
+  &::after {
+    background-color: #0092ff;
+    bottom: 0;
+    content: '';
+    display: block;
+    height: 3px;
+    left: 4px;
+    position: absolute;
+    right: 4px;
 
-  To temporary fix it, we create a global style instead so inside Header component we can use
-  a constant string instead of variable.
-
-  TODO: when importing styles on server will be fixed to return an object with style list
-        the :global has to be removed and inside Header component string "menu-link_active"
-        must be replaced with styles['menu-link_active']
- */
-:global {
-  .menu-link_active,
-  .menu-link_active:visited {
-    color: #394146;
-
-    &::after {
-      background-color: #0092ff;
-      bottom: 0;
-      content: '';
-      display: block;
-      height: 3px;
-      left: 4px;
-      position: absolute;
-      right: 4px;
-
-      @include xxs-to-sm {
-        display: none;
-      }
+    @include xxs-to-sm {
+      display: none;
     }
   }
 }
 
-.mobile-toggle {
+.mobileToggle {
   background-color: transparent;
   border: 0;
   display: block;
@@ -237,7 +229,7 @@
   margin: 11px 6px 7px 12px;
 }
 
-.avatar-mobile {
+.avatarMobile {
   float: right;
   margin-top: 12px;
 
@@ -246,14 +238,14 @@
   }
 }
 
-.user-wrap {
+.userWrap {
   display: flex;
   margin-right: 20px;
   margin-left: 20px;
   flex-shrink: 0;
 }
 
-.user-wrap-mobile {
+.userWrapMobile {
   display: none;
   margin-right: 15px;
 
@@ -262,7 +254,7 @@
   }
 }
 
-.user-menu {
+.userMenu {
   cursor: pointer;
   height: 100%;
   vertical-align: bottom;
@@ -272,7 +264,7 @@
   }
 }
 
-.user-menu-handle {
+.userMenuHandle {
   color: #a3a3ae;
   display: inline-block;
   font: 700 14px/20px 'Open Sans';
@@ -360,7 +352,7 @@
   }
 }
 
-.chevron-down::before {
+.chevronDown::before {
   border-style: solid;
   border-width: 2px 2px 0 0;
   content: '';

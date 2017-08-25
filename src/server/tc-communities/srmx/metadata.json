@@ -1,5 +1,8 @@
 {
   "authorizedGroupIds": ["20000006"],
+  "challengeFilter": {
+    "groupIds": ["20000006"]
+  },
   "communityId": "srmx",
   "communityName": "SRMX",
   "communitySelector": [{

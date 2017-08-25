@@ -16,13 +16,14 @@ import Avatar from 'components/Avatar';
 import { Link, NavLink } from 'utils/router';
 import { getRatingColor } from 'utils/tc';
 import Dropdown from 'components/tc-communities/Dropdown';
+import { themr } from 'react-css-themr';
 import IconSearch from '../../../../assets/images/tc-communities/search.svg';
 import IconNavExit from '../../../../assets/images/nav/exit.svg';
 import IconNavSettings from '../../../../assets/images/nav/settings.svg';
 
-import './style.scss';
+import style from './style.scss';
 
-export default function Header(props) {
+function Header(props) {
   const {
     activeTrigger,
     closeMenu,
@@ -35,10 +36,10 @@ export default function Header(props) {
     additionalLogos,
     menuItems,
     pageId,
-    cssUrl,
     isMobileOpen,
     onMobileToggleClick,
     profile,
+    theme,
   } = props;
 
   const BASE_URL = config.URL.BASE;
@@ -69,16 +70,14 @@ export default function Header(props) {
         <Link
           key={img}
           to={item.url}
-          styleName="logo"
-          className="tc-communities__header__logo"
+          className={theme.logo}
         >{logo}</Link>
       );
     } else {
       logo = (
         <span
           key={img}
-          styleName="logo"
-          className="tc-communities__header__logo"
+          className={theme.logo}
         >{logo}</span>
       );
     }
@@ -95,41 +94,40 @@ export default function Header(props) {
         if (1 + event.pageY < activeTrigger.bottom) closeMenu();
       }}
       /* Login state component. */
-      styleName="user-menu"
-      className="tc-communities__header__login-state"
+      className={theme.userMenu}
       key="login-state"
     >
       <div
         style={{
           color: getRatingColor(_.get(profile, 'maxRating.rating', 0)),
         }}
-        styleName="user-menu-handle"
+        className={theme.userMenuHandle}
       >
         {profile.handle}
       </div>
       {
         chevronOverAvatar ?
-          <span styleName="chevron-down" /> :
-          <div styleName="avatar">
+          <span className={theme.chevronDown} /> :
+          <div className={theme.avatar}>
             <Avatar url={profile.photoURL} />
           </div>
       }
     </div>
   ) : (
-    <div styleName="authorize" className="tc-communities__header__login-state">
+    <div className={theme.authorize}>
       <button
         onClick={() => {
           const url = encodeURIComponent(window.location.href);
           window.location = `${config.URL.AUTH}/member/registration?retUrl=${url}`;
         }}
-        styleName="btnRegister"
+        className={theme.btnRegister}
       >Register</button>
       <button
         onClick={() => {
           const url = encodeURIComponent(window.location.href);
           window.location = `${config.URL.AUTH}/member?retUrl=${url}`;
         }}
-        styleName="btnLogin"
+        className={theme.btnLogin}
       >Login</button>
     </div>
   );
@@ -138,26 +136,21 @@ export default function Header(props) {
 
   return (
     <div>
-      {cssUrl && <link rel="stylesheet" type="text/css" href={cssUrl} />}
-      <header styleName="container" className="tc-communities__header__container">
-        <div styleName="header" className="tc-communities__header__header">
+      <header className={theme.container}>
+        <div className={theme.header}>
           <button
-            styleName="mobile-toggle"
-            className="tc-communities__header__mobile-toggle"
+            className={theme.mobileToggle}
             onClick={onMobileToggleClick}
           >
             <span>Toggle navigation</span>
             <i /><i /><i />
           </button>
-          <div styleName="logos-wrap">
-            <div styleName="logos" className="tc-communities__header__logos">
+          <div className={theme.logosWrap}>
+            <div className={theme.logos}>
               {renderedLogos}
             </div>
 
-            <div
-              styleName="challenge-dropdown"
-              className="tc-communities__header__challenge-dropdown"
-            >
+            <div className={theme.challengeDropdown}>
               <Dropdown
                 options={communitySelector}
                 value={communitySelector[0]}
@@ -165,29 +158,26 @@ export default function Header(props) {
             </div>
 
           </div>
-          <div styleName="user-wrap-mobile" className="tc-communities__header__user-wrap-mobile">
+          <div className={theme.userWrapMobile}>
             {profile && (
-              <div styleName="avatar-mobile">
+              <div className={theme.avatarMobile}>
                 <Avatar url={profile ? profile.photoURL : ''} />
               </div>
             )}
           </div>
         </div>
         <div
-          styleName={`menu-wrap${isMobileOpen ? ' open' : ''}`}
-          className={`tc-communities__header__menu-wrap${isMobileOpen ? ' tc-communities__header__open' : ''}`}
+          className={isMobileOpen ? theme.menuWrapOpen : theme.menuWrap}
         >
-          <ul styleName="menu" className="tc-communities__header__menu">
+          <ul className={theme.menu}>
             {_.map(menuItems, item => (
               <li
-                styleName="menu-item"
-                className="tc-communities__header__menu-item"
+                className={theme.menuItem}
                 key={item.url}
               >
                 <NavLink
-                  styleName="menu-link"
-                  className="tc-communities__header__menu-link"
-                  activeClassName="menu-link_active tc-communities__header__menu-link_active"
+                  activeClassName={theme.menuLinkActive}
+                  className={theme.menuLink}
                   isActive={() => currentPage === item.url}
                   to={item.url}
                 >
@@ -197,16 +187,15 @@ export default function Header(props) {
             ))}
           </ul>
         </div>
-        <div styleName="user-wrap">
+        <div className={theme.userWrap}>
           {loginState}
-          { !hideSearch && <div styleName="search"><IconSearch /></div>}
-          <div styleName="logos" className="tc-communities__header__logos additional-logos">
+          { !hideSearch && <div className={theme.search}><IconSearch /></div>}
+          <div className={theme.additionalLogos}>
             {_.map(additionalLogos, (logoUrl, index) =>
               (
                 <span
                   key={index}
-                  styleName="logo"
-                  className="tc-communities__header__logo"
+                  className={theme.logo}
                 >
                   <img src={logoUrl} alt="Community logo" />
                 </span>
@@ -233,7 +222,6 @@ Header.defaultProps = {
   hideSearch: false,
   chevronOverAvatar: false,
   isMobileOpen: false,
-  cssUrl: null,
   profile: null,
 };
 
@@ -259,7 +247,9 @@ Header.propTypes = {
   openMenu: PT.func.isRequired,
   pageId: PT.string.isRequired,
   isMobileOpen: PT.bool,
-  cssUrl: PT.string,
   onMobileToggleClick: PT.func.isRequired,
   profile: PT.shape({}),
+  theme: PT.shape().isRequired,
 };
+
+export default themr('CommunityHeader', style)(Header);

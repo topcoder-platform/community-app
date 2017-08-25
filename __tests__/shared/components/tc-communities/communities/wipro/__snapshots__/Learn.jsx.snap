@@ -1,135 +1,122 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Snapshot match 1`] = `
-<ThemeProvider
-  theme={
-    Object {
-      "DefaultButton": Object {
-        "button": "src-shared-components-tc-communities-communities-wipro-theme-buttons-___default__button___1B8lv",
-        "disabled": "src-shared-components-tc-communities-communities-wipro-theme-buttons-___default__disabled___GYgZS",
-        "link": "src-shared-components-tc-communities-communities-wipro-theme-buttons-___default__link___3j070",
-        "regular": "src-shared-components-tc-communities-communities-wipro-theme-buttons-___default__regular___3tR9G",
-      },
-    }
-  }
->
-  <main>
-    <ThemedBanner
-      composeTheme="deeply"
-      imageSrc="/themes/wipro/learn/banner.jpg"
-      link={null}
-      mapThemrProps={[Function]}
-      text="Our continuously evolving structured learning paths, constantly abreast of the latest, tailored for employees to deepen your knowledge, infuses important software capabilities that are industry specific and help you get the skills you need to succeed."
-      theme={
-        Object {
-          "container": "src-shared-components-tc-communities-communities-wipro-Learn-___style__bannerContainer___1MiM0",
-          "content": "src-shared-components-tc-communities-communities-wipro-Learn-___style__bannerContent___2rbyc",
-          "contentInner": "src-shared-components-tc-communities-communities-wipro-Learn-___style__bannerContentInner___4smdO",
-        }
+<main>
+  <ThemedBanner
+    composeTheme="deeply"
+    imageSrc="/themes/wipro/learn/banner.jpg"
+    link={null}
+    mapThemrProps={[Function]}
+    text="Our continuously evolving structured learning paths, constantly abreast of the latest, tailored for employees to deepen your knowledge, infuses important software capabilities that are industry specific and help you get the skills you need to succeed."
+    theme={
+      Object {
+        "container": "src-shared-components-tc-communities-communities-wipro-Learn-___style__bannerContainer___1MiM0",
+        "content": "src-shared-components-tc-communities-communities-wipro-Learn-___style__bannerContent___2rbyc",
+        "contentInner": "src-shared-components-tc-communities-communities-wipro-Learn-___style__bannerContentInner___4smdO",
       }
-      title="Learning & Certification"
-    />
-    <ThemedSection
-      anchor={null}
-      composeTheme="deeply"
-      link={null}
-      mapThemrProps={[Function]}
-      theme={Object {}}
-      title={null}
+    }
+    title="Learning & Certification"
+  />
+  <ThemedSection
+    anchor={null}
+    composeTheme="deeply"
+    link={null}
+    mapThemrProps={[Function]}
+    theme={Object {}}
+    title={null}
+  >
+    <div
+      className="src-shared-components-tc-communities-communities-wipro-Learn-___style__message___WgkPL"
     >
-      <div
-        className="src-shared-components-tc-communities-communities-wipro-Learn-___style__message___WgkPL"
-      >
-        <p>
-          If  you are accessing TopGear 
-          <span
-            className="src-shared-components-tc-communities-communities-wipro-Learn-___style__highlighted___3U2lK"
-          >
-            Learning
-          </span>
-           Platform from 
-          <strong>
-            Wipro backbone network
-          </strong>
-          , click on “
-          <strong>
-            CONTINUE
-          </strong>
-          ” to access the platform.
-        </p>
-        <p>
-          <ThemedGenericButton
-            composeTheme="deeply"
-            disabled={false}
-            enforceA={false}
-            mapThemrProps={[Function]}
-            onClick={null}
-            openNewTab={true}
-            replace={false}
-            theme={
-              Object {
-                "button": "src-shared-components-tc-communities-communities-wipro-Learn-___style__continueButton___2UpkU",
-              }
+      <p>
+        If  you are accessing TopGear 
+        <span
+          className="src-shared-components-tc-communities-communities-wipro-Learn-___style__highlighted___3U2lK"
+        >
+          Learning
+        </span>
+         Platform from 
+        <strong>
+          Wipro backbone network
+        </strong>
+        , click on “
+        <strong>
+          CONTINUE
+        </strong>
+        ” to access the platform.
+      </p>
+      <p>
+        <ThemedGenericButton
+          composeTheme="deeply"
+          disabled={false}
+          enforceA={false}
+          mapThemrProps={[Function]}
+          onClick={null}
+          openNewTab={true}
+          replace={false}
+          theme={
+            Object {
+              "button": "src-shared-components-tc-communities-communities-wipro-Learn-___style__continueButton___2UpkU",
             }
-            to="https://topgear-app.wipro.com"
+          }
+          to="https://topgear-app.wipro.com"
+        >
+          Continue
+        </ThemedGenericButton>
+      </p>
+      <p>
+        To access TopGear 
+        <span
+          className="src-shared-components-tc-communities-communities-wipro-Learn-___style__highlighted___3U2lK"
+        >
+          Learning
+        </span>
+         Platform 
+        <strong>
+          outside of Wipro network
+        </strong>
+        , please follow the below  instructions:
+      </p>
+      <ol>
+        <li>
+          Send an email to 
+          <a
+            href="mailto:devenvaccessreq.topgear@wipro.com?subject=Internet%20TopGear%20portal%20access"
           >
-            Continue
-          </ThemedGenericButton>
-        </p>
-        <p>
-          To access TopGear 
+            devenvaccessreq.topgear@wipro.com
+          </a>
+            with subject line 
+          <em>
+            Internet TopGear portal access
+          </em>
+          .
+        </li>
+        <li>
+          You will receive an email 
+          <span
+            className="src-shared-components-tc-communities-communities-wipro-Learn-___style__ddashUnderline___3gT46"
+          >
+            within 24 hours
+          </span>
+            with details for accessing TopGear portal  through Virtual Desktop.
+        </li>
+        <li>
+          Using Virtual Desktop you can access 
+          <a
+            href="https://topgear-app.wipro.com/"
+          >
+            https://topgear-app.wipro.com
+          </a>
+           to 
           <span
             className="src-shared-components-tc-communities-communities-wipro-Learn-___style__highlighted___3U2lK"
           >
-            Learning
+            learn
           </span>
-           Platform 
-          <strong>
-            outside of Wipro network
-          </strong>
-          , please follow the below  instructions:
-        </p>
-        <ol>
-          <li>
-            Send an email to 
-            <a
-              href="mailto:devenvaccessreq.topgear@wipro.com?subject=Internet%20TopGear%20portal%20access"
-            >
-              devenvaccessreq.topgear@wipro.com
-            </a>
-              with subject line 
-            <em>
-              Internet TopGear portal access
-            </em>
-            .
-          </li>
-          <li>
-            You will receive an email 
-            <span
-              className="src-shared-components-tc-communities-communities-wipro-Learn-___style__ddashUnderline___3gT46"
-            >
-              within 24 hours
-            </span>
-              with details for accessing TopGear portal  through Virtual Desktop.
-          </li>
-          <li>
-            Using Virtual Desktop you can access 
-            <a
-              href="https://topgear-app.wipro.com/"
-            >
-              https://topgear-app.wipro.com
-            </a>
-             to 
-            <span
-              className="src-shared-components-tc-communities-communities-wipro-Learn-___style__highlighted___3U2lK"
-            >
-              learn
-            </span>
-             new technologies.
-          </li>
-        </ol>
-      </div>
-    </ThemedSection>
-  </main>
-</ThemeProvider>
+           new technologies.
+        </li>
+      </ol>
+    </div>
+  </ThemedSection>
+</main>
 `;
