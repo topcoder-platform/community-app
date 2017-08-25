@@ -50,11 +50,17 @@ export default function Learn() {
           }}
         >
           <Accordion>
-            <AccordionItem title="How to participate in a challenge">
-              <Text><p>Find a challenge that interests you on the <a href="/challenges">challenge listings page</a>. You can filter by challenge types, prizes, deadlines, etc. Look for challenges that are still open for registration. If you see something that interests you, click it and then you can read the details and register for the challenge.</p></Text>
+            <AccordionItem title="What is a challenge?">
+              <Text><p>If you are new to Topcoder challenges, learn more about the overall concepts of challenges by watching this <a href="https://www.yammer.com/wipro.com/#/files/101411706">video</a>.</p></Text>
             </AccordionItem>
-            <AccordionItem title="Code submissions for a challenge">
-              <Text><p>Do all of your coding/design work offline, or as specified in the challenge spec. When you are ready to submit, come back to the challenge page and click the Submit button. The Submit page will give instructions to upload your submission.</p></Text>
+            <AccordionItem title="How do I register for Topcoder?">
+              <Text><p>Follow the instructions in this <a href="https://www.yammer.com/wipro.com/#/files/101411768">video</a>.</p></Text>
+            </AccordionItem>
+            <AccordionItem title="How do I participate in a challenge?">
+              <Text><p>Find a challenge that interests you on the <a href="/challenges">challenge listings page</a>. You can filter by challenge types, prizes, deadlines, etc. Look for challenges that are still open for registration. If you see something that interests you, click it and then you can read the details and register for the challenge. Watch the <a href="https://www.yammer.com/wipro.com/#/files/101411899">video</a>.</p></Text>
+            </AccordionItem>
+            <AccordionItem title="How do I submit to a challenge?">
+              <Text><p>Do all of your coding/design work offline, or as specified in the challenge spec. When you are ready to submit, come back to the challenge page and click the Submit button. The Submit page will give instructions to upload your submission. Watch the <a href="https://www.yammer.com/wipro.com/#/files/101411933">video</a>.</p></Text>
             </AccordionItem>
             <AccordionItem title="Roles and responsibilities for reviewers and copilots">
               <Text><p>If you are a reviewer or copilot and need information about managing projects and challenges, please visit the <a href="https://help.topcoder.com/hc/en-us/sections/204971587-Copilots-Reviewers">Help Center</a>.</p></Text>
