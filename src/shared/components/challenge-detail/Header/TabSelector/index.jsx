@@ -62,7 +62,7 @@ export default function ChallengeViewSelector(props) {
             onClick={(e) => { e.preventDefault(); onSelectorClicked('SUBMISSIONS'); }}
             styleName={getSelectorStyle(selectedView, 'SUBMISSIONS', trackLower)}
           >
-            SUBMISSIONS
+            SUBMISSIONS {numSubmissions ? `(${numSubmissions})` : ''}
           </a>
         }
         {
@@ -102,6 +102,7 @@ ChallengeViewSelector.propTypes = {
   }),
   checkpointCount: PT.number,
   numRegistrants: PT.number,
+  numSubmissions: PT.number,
   onSelectorClicked: PT.func.isRequired,
   selectedView: PT.string.isRequired,
   status: PT.string.isRequired,
