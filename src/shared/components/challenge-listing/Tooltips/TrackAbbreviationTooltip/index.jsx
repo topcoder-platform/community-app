@@ -27,6 +27,7 @@ const DESCRIPTION = {
   WEB_DESIGNS: 'Design UI and front end experiences for web experiences',
   WIDGET_OR_MOBILE_SCREEN_DESIGN: 'Design UI and front end experiences for mobile',
   WIREFRAMES: 'Produce the information architecture for user experiences',
+  LOGO_DESIGN: 'Logo Design',
 };
 
 const HEADER = {
@@ -44,6 +45,7 @@ const HEADER = {
   UI_PROTOTYPE_COMPETITION: 'UI Prototype (Pr)',
   WEB_DESIGNS: 'Web Design (Wd)',
   WIDGET_OR_MOBILE_SCREEN_DESIGN: 'Widget or Mobile Screen Design (Wg)',
+  LOGO_DESIGN: 'Logo Design (Lg)',
 };
 
 const TRACK_COLOR_CLASS = {
