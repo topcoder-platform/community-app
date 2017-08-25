@@ -32,19 +32,29 @@ const getTimeLeft = (date, currentPhase) => {
       text: FF_TIME_LEFT_MSG,
     };
   }
-
   const duration = moment.duration(moment(date).diff(moment()));
-  const h = duration.hours();
-  const d = duration.asDays();
-  const m = duration.minutes();
-  const late = (d < 0 || h < 0 || m < 0);
-  const suffix = h !== 0 ? 'h' : 'min';
+  let late = false;
+  let h = duration.hours();
+  let d = duration.asDays();
+  let m = duration.minutes();
+  let s = duration.seconds();
+  if (duration.asMilliseconds() > 0) {
+    late = false;
+  } else {
+    late = true;
+    h *= -1;
+    d *= -1;
+    m *= -1;
+    s *= -1;
+  }
   let text = '';
-  if (d >= 1) text += `${Math.abs(parseInt(d, 10))}d `;
-  if (h !== 0) text += `${Math.abs(h)}`;
-  if (h !== 0 && m !== 0) text += ':';
-  if (m !== 0) text += `${Math.abs(m)}`;
-  text += suffix;
+  if (d >= 1) {
+    text = `${parseInt(d, 10)}d ${h}h`;
+  } else if (h >= 1) {
+    text = `${h}h ${m}min`;
+  } else {
+    text = `${m}min ${s}s`;
+  }
   if (late) {
     text = `Late by ${text}`;
   } else {
@@ -313,10 +323,14 @@ class ChallengeStatus extends Component {
       detailLink,
       openChallengesInNewTabs,
     } = this.props;
-    const lng = getTimeLeft(
+    const timeDiff = getTimeLeft(
       challenge.registrationEndDate || challenge.submissionEndDate,
       challenge.currentPhases[0] ? challenge.currentPhases[0].phaseType : '',
-    ).text.length;
+    );
+    let timeNote = timeDiff.text;
+    if (timeDiff.late === false) {
+      timeNote = timeNote.substring(0, timeNote.length - 6);
+    }
     return (
       <a
         href={detailLink}
@@ -325,12 +339,7 @@ class ChallengeStatus extends Component {
         target={openChallengesInNewTabs ? '_blank' : undefined}
       >
         <span>
-          {
-            getTimeLeft(
-              challenge.registrationEndDate || challenge.submissionEndDate,
-              challenge.currentPhases[0] ? challenge.currentPhases[0].phaseType : '',
-            ).text.substring(0, lng - 6)
-          }
+          { timeNote }
         </span>
         <span styleName="to-register">to register</span>
       </a>
