@@ -98,7 +98,7 @@ export default function ChallengeHeader(props) {
         return false;
       }
       if (phaseLowerCase.includes('registration') || phaseLowerCase.includes('checkpoint') ||
-          phaseLowerCase.includes('submission') || phaseLowerCase.includes('review')) {
+        phaseLowerCase.includes('submission') || phaseLowerCase.includes('review')) {
         return true;
       }
       return false;
@@ -112,7 +112,7 @@ export default function ChallengeHeader(props) {
         return 1;
       }
       return (new Date(a.actualEndTime || a.scheduledEndTime)).getTime() -
-      (new Date(b.actualEndTime || b.scheduledEndTime)).getTime();
+        (new Date(b.actualEndTime || b.scheduledEndTime)).getTime();
     });
 
     if (relevantPhases.length > 1 && appealsEndDate) {
@@ -177,12 +177,12 @@ export default function ChallengeHeader(props) {
                     theme={{ button: style.challengeAction }}
                   >Unregister</DangerButton>
                 ) : (
-                  <PrimaryButton
-                    disabled={registering || registrationEnded}
-                    onClick={registerForChallenge}
-                    theme={{ button: style.challengeAction }}
-                  >Register</PrimaryButton>
-                )}
+                    <PrimaryButton
+                      disabled={registering || registrationEnded}
+                      onClick={registerForChallenge}
+                      theme={{ button: style.challengeAction }}
+                    >Register</PrimaryButton>
+                  )}
                 <PrimaryButton
                   disabled={!hasRegistered || unregistering || submissionEnded}
                   theme={{ button: style.challengeAction }}
@@ -202,14 +202,20 @@ export default function ChallengeHeader(props) {
           <div styleName="deadlines-view">
             <div styleName="deadlines-overview">
               <div styleName="deadlines-overview-text">
-                <div styleName="next-deadline">
-                  Next Deadline: <span styleName="deadline-highlighted">{nextDeadline || '-'}</span>
-                </div>
-                <div styleName="current-phase">
-                  <span styleName="deadline-highlighted">
-                    {timeLeft}
-                  </span> until current deadline ends
-                </div>
+                {status === 'COMPLETED' ?
+                  <div styleName="next-deadline">The challenge is finished.</div>
+                  :
+                  <div>
+                    <div styleName="next-deadline">
+                      Next Deadline: <span styleName="deadline-highlighted">{nextDeadline || '-'}</span>
+                    </div>
+                    <div styleName="current-phase">
+                      <span styleName="deadline-highlighted">
+                        {timeLeft}
+                      </span> until current deadline ends
+                    </div>
+                  </div>
+                }
               </div>
               <a onClick={props.onToggleDeadlines} styleName="deadlines-collapser">
                 {props.showDeadlineDetail ?
