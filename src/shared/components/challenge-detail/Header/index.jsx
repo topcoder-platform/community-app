@@ -82,9 +82,14 @@ export default function ChallengeHeader(props) {
   const registrationEnded = new Date(registrationEndDate).getTime() < Date.now();
   const submissionEnded = new Date(submissionEndDate).getTime() < Date.now();
   const hasSubmissions = userDetails && userDetails.hasUserSubmittedForReview;
-  const nextDeadline = currentPhases && currentPhases.length > 0 && currentPhases[0].phaseType;
+  if ( currentPhases.length > 1){
+    const nextDeadlinePhase = moment(curretPhases[0].scheduledEndTime).isbefore(curretPhases[1].scheduledEndTime) ? currentPhases[0]: currentPhases[1];
+    const nextDeadline = nextDeadline.phaseType ;
+    }else{
+      const nextDeadline = currentPhases && currentPhases.length > 0 && currentPhases[0].phaseType;
+    };
   const deadlineEnd = currentPhases && currentPhases.length > 0 ?
-    new Date(currentPhases[0].scheduledEndTime).getTime() : Date.now();
+    new Date(nextDeadlinePhase.scheduledEndTime).getTime() : Date.now();
   const currentTime = Date.now();
   const timeDiff = deadlineEnd > currentTime ? deadlineEnd - currentTime : 0;
   const duration = moment.duration(timeDiff);
