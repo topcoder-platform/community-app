@@ -136,6 +136,7 @@ export default function FiltersPanel({
         <button
           styleName="blue"
           className="tc-blue-btn"
+          disabled={_.isEmpty(filterState)}
           onClick={onSaveFilter}
         >Save filter</button>
       </div>
