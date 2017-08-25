@@ -28,7 +28,7 @@ export default function ChallengeTags(props) {
         subTrack &&
         <Link
           onClick={() => setChallengeListingFilter({ subtracks: [subTrack] })}
-          to="/challenges"
+          to={`/challenges?filter[subtracks][0]=${subTrack}`}
           styleName={`tag-common ${subTrackStyle}`}
         >{subTrack}</Link>
       }
@@ -48,7 +48,7 @@ export default function ChallengeTags(props) {
               <Link
                 key={tag}
                 onClick={() => setChallengeListingFilter({ tags: [tag] })}
-                to="/challenges"
+                to={`/challenges?filter[tags][0]=${tag}`}
                 styleName="tag-common misc-tag"
               >{tag}</Link>
             ),
