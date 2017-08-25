@@ -1,5 +1,6 @@
 import _ from 'lodash';
 import config from 'utils/config';
+import { Link } from 'utils/router';
 import moment from 'moment';
 import React from 'react';
 import PT from 'prop-types';
@@ -124,11 +125,11 @@ function ChallengeCard({
         </div>
 
         <div styleName={isRegistrationOpen ? 'challenge-details with-register-button' : 'challenge-details'}>
-          <a
-            href={challengeDetailLink}
+          <Link
+            to={challengeDetailLink}
             styleName="challenge-title"
-            target={openChallengesInNewTabs ? '_blank' : undefined}
-          >{challenge.name}</a>
+            openNewTab={openChallengesInNewTabs ? true : false}
+          >{challenge.name}</Link>
           <div styleName="details-footer">
             <span styleName="date">
               {challenge.status === 'ACTIVE' ? 'Ends ' : 'Ended '}
