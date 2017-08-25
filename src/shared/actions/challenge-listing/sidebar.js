@@ -107,8 +107,11 @@ function saveFilter(name, filter, tokenV2) {
  */
 function updateAllSavedFilters(savedFilters, tokenV2) {
   const service = getUserSettingsService(tokenV2);
-  savedFilters.forEach(filter =>
-    service.updateFilter(filter.id, filter.name, JSON.stringify(filter.filter)));
+  savedFilters.forEach((filter) => {
+    if (filter.name.replace(/ /g, '') !== '') {
+      service.updateFilter(filter.id, filter.name, JSON.stringify(filter.filter));
+    }
+  });
 }
 
 /**
