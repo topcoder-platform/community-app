@@ -9,6 +9,7 @@
 import React from 'react';
 // import { Link } from 'react-router-dom';
 import Section from 'components/tc-communities/Section';
+import VideoCard from 'components/tc-communities/VideoCard';
 /*
 import Accordion from 'components/tc-communities/Accordion/Accordion';
 import AccordionItem from 'components/tc-communities/Accordion/AccordionItem';
@@ -66,6 +67,34 @@ export default function Learn() {
               <Text><p>If you are a reviewer or copilot and need information about managing projects and challenges, please visit the <a href="https://help.topcoder.com/hc/en-us/sections/204971587-Copilots-Reviewers">Help Center</a>.</p></Text>
             </AccordionItem>
           </Accordion>
+        </Section>
+        <Section
+          title="Tutorials"
+          theme={{
+            content: style.tutorialsContent,
+            title: style.tutorialsTitle,
+          }}
+        >
+          <VideoCard
+            title="Introduction"
+            url="https://drive.google.com/uc?id=0B3y3SEA9cIEkWmZVb2pCcFB4emM"
+          />
+          <VideoCard
+            title="Registration"
+            url="https://drive.google.com/uc?id=0B3y3SEA9cIEkNExxVlhnQ0ZNT2c"
+          />
+          <VideoCard
+            title="Challenge Navigation"
+            url="https://drive.google.com/uc?id=0B3y3SEA9cIEkcjNvUnV1ajN2clE"
+          />
+          <VideoCard
+            title="Joining a Challenge"
+            url="https://drive.google.com/uc?id=0B3y3SEA9cIEkYzA1U0RhN2Rscnc"
+          />
+          <VideoCard
+            title="Submission"
+            url="https://drive.google.com/uc?id=0B3y3SEA9cIEkdm9maXpZQ3FGa00"
+          />
         </Section>
       </main>
     </ThemeProvider>
