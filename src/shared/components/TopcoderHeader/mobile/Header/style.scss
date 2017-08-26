@@ -55,8 +55,10 @@
   top: 16px;
 }
 
-@media only screen and (min-width: 1024px) {
-  .header-wrapper {
-    display: none;
+.header-wrapper {
+  display: none;
+
+  @include xxs-to-sm {
+    display: block;
   }
 }
