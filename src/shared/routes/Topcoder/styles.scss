@@ -1,0 +1,11 @@
+.container {
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+  justify-content: space-between;
+
+  > *:nth-child(2):not(:last-child) {
+    flex: 1;
+    display: block;
+  }
+}
