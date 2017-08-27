@@ -49,13 +49,13 @@ exports[`Default render 1`] = `
       >
         <a
           className="tc-btn-sm tc-btn-primary"
-          href="http://accounts-test.topcoder-dev.com/member/registration"
+          href="http://accounts.topcoder-dev.com/member/registration"
         >
           Join
         </a>
         <a
           className="tc-btn-sm tc-btn-default"
-          href="http://accounts-test.topcoder-dev.com/member"
+          href="http://accounts.topcoder-dev.com/member"
         >
           Log In
         </a>
@@ -232,13 +232,13 @@ exports[`Render with open menu 1`] = `
       >
         <a
           className="tc-btn-sm tc-btn-primary"
-          href="http://accounts-test.topcoder-dev.com/member/registration"
+          href="http://accounts.topcoder-dev.com/member/registration"
         >
           Join
         </a>
         <a
           className="tc-btn-sm tc-btn-default"
-          href="http://accounts-test.topcoder-dev.com/member"
+          href="http://accounts.topcoder-dev.com/member"
         >
           Log In
         </a>

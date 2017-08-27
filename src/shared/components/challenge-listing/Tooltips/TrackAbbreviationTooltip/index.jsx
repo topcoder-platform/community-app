@@ -28,6 +28,7 @@ const DESCRIPTION = {
   WIDGET_OR_MOBILE_SCREEN_DESIGN: 'Design UI and front end experiences for mobile',
   WIREFRAMES: 'Produce the information architecture for user experiences',
   STUDIO_OTHER: 'Studio other',
+  BUG_HUNT: 'Quickly find Bugs in apps, websites',
 };
 
 const HEADER = {
@@ -35,6 +36,7 @@ const HEADER = {
   ARCHITECTURE: 'Architecture (Ar)',
   ASSEMBLY_COMPETITION: 'Assembly (As)',
   BANNERS_OR_ICONS: 'Banners/Icons (BI)',
+  BUG_HUNT: 'Bug Hunt (BH)',
   CODE: 'Code (Cd)',
   CONCEPTUALIZATION: 'Conceptualization (Cn)',
   DESIGN_FIRST_2_FINISH: 'Design First2Finish(DF2F)',
@@ -46,6 +48,7 @@ const HEADER = {
   WEB_DESIGNS: 'Web Design (Wd)',
   WIDGET_OR_MOBILE_SCREEN_DESIGN: 'Widget or Mobile Screen Design (Wg)',
   STUDIO_OTHER: 'Generic design challenge (D)',
+  WIREFRAMES: 'Wireframe (Wf)',
 };
 
 const TRACK_COLOR_CLASS = {
