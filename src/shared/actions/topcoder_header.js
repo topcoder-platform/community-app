@@ -9,24 +9,28 @@ import { createActions } from 'redux-actions';
  * Payload creator for OPEN_MENU action.
  * @param {Object} menu Menu to open.
  * @param {Object} triggerNode HTML node which has triggered the action.
+ * @param {Boolean} triggeredByTouch whether this action is triggered by touch event.
  *  We gonna store to the state its on-screen layout position, so that
  *  when mouse cursor moves back and forth between that node and the
  *  opened menu, we can check it and keep the menu open.
  */
-function openMenu(menu, triggerNode) {
+function openMenu(menu, triggerNode, triggeredByTouch) {
   return ({
     menu,
+    node: triggerNode.dataset.menu,
     trigger: _.toPlainObject(triggerNode.getBoundingClientRect()),
+    isMobile: triggeredByTouch,
   });
 }
 
 /**
  * Payload creator for OPEN_SEARCH action.
  * @param {Object} triggerNode HTML node which has triggered the action.
+ * @param {Boolean} triggeredByTouch whether this action is triggered by touch event.
  *  This serves the same purpose as in openMenu() function.
  */
-function openSearch(triggerNode) {
-  return openMenu(undefined, triggerNode);
+function openSearch(triggerNode, triggeredByTouch) {
+  return openMenu(undefined, triggerNode, triggeredByTouch);
 }
 
 /**
