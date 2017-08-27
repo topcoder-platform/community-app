@@ -3,7 +3,7 @@
 .auth-buttons {
   display: inline-block;
   position: relative;
-  top: -11px;
+  top: -4px;
 
   a {
     border-radius: 2 * $corner-radius;
@@ -90,7 +90,7 @@
 .right-menu {
   height: 100%;
   position: absolute;
-  right: 0;
+  right: 20px;
   top: 0;
 }
 
@@ -135,17 +135,17 @@
 .search-icon {
   cursor: pointer;
   display: inline-block;
-  height: 100%;
-  margin: 0 24px 0 6px;
+  height: 32px;
+  margin: 11px 4px 11px 6px;
+  padding-left: 12px;
   position: relative;
+  border-left: 1px solid $tc-gray-40;
   width: 36px;
 
   svg {
-    border-left: 1px solid $tc-gray-40;
-    height: 32px;
-    margin: 12px 0 0;
-    padding: 0 0 0 12px;
-    width: 32px;
+    height: 18px;
+    margin-top: 7px;
+    width: 18px;
   }
 
   /* TODO: This code for downward blue arrow is used also
@@ -165,8 +165,8 @@
       border-width: 6px 5px 0;
       border-color: $tc-dark-blue-90 transparent transparent transparent;
       position: absolute;
-      bottom: 5px;
-      left: 50%;
+      left: 60%;
+      bottom: -3px;
       margin-left: -6px;
       background-color: transparent;
     }
@@ -190,7 +190,7 @@
   position: relative;
 }
 
-@media only screen and (max-width: 1024px) {
+@include xxs-to-sm {
   .auth-buttons {
     top: 16px;
   }
