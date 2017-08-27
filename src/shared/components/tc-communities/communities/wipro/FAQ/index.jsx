@@ -77,23 +77,23 @@ export default function Learn() {
         >
           <VideoCard
             title="Introduction"
-            url="https://drive.google.com/uc?id=0B3y3SEA9cIEkWmZVb2pCcFB4emM"
+            url="https://drive.google.com/uc?id=0B3y3SEA9cIEkUk9CNXdkdExpT0k"
           />
           <VideoCard
             title="Registration"
-            url="https://drive.google.com/uc?id=0B3y3SEA9cIEkNExxVlhnQ0ZNT2c"
+            url="https://drive.google.com/uc?id=0B3y3SEA9cIEkVVVNaW4xMjh6UVk"
           />
           <VideoCard
             title="Challenge Navigation"
-            url="https://drive.google.com/uc?id=0B3y3SEA9cIEkcjNvUnV1ajN2clE"
+            url="https://drive.google.com/uc?id=0B3y3SEA9cIEkNF9SNDM3Nnhldjg"
           />
           <VideoCard
             title="Joining a Challenge"
-            url="https://drive.google.com/uc?id=0B3y3SEA9cIEkYzA1U0RhN2Rscnc"
+            url="https://drive.google.com/uc?id=0B3y3SEA9cIEkd1NzQWctNnQzOFU"
           />
           <VideoCard
             title="Submission"
-            url="https://drive.google.com/uc?id=0B3y3SEA9cIEkdm9maXpZQ3FGa00"
+            url="https://drive.google.com/uc?id=0B3y3SEA9cIEkMkdFYjF6NV9WM1E"
           />
         </Section>
       </main>
