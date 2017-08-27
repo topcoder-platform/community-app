@@ -35,6 +35,7 @@ const HEADER = {
   ARCHITECTURE: 'Architecture (Ar)',
   ASSEMBLY_COMPETITION: 'Assembly (As)',
   BANNERS_OR_ICONS: 'Banners/Icons (BI)',
+  BUG_HUNT: 'Bug Hunt (BH)',
   CODE: 'Code (Cd)',
   CONCEPTUALIZATION: 'Conceptualization (Cn)',
   DESIGN_FIRST_2_FINISH: 'Design First2Finish(DF2F)',
@@ -45,7 +46,7 @@ const HEADER = {
   UI_PROTOTYPE_COMPETITION: 'UI Prototype (Pr)',
   WEB_DESIGNS: 'Web Design (Wd)',
   WIDGET_OR_MOBILE_SCREEN_DESIGN: 'Widget or Mobile Screen Design (Wg)',
-  BUG_HUNT: 'Bug Hunt (BH)',
+  WIREFRAMES: 'Wireframe (Wf)',
 };
 
 const TRACK_COLOR_CLASS = {
