@@ -27,7 +27,7 @@ const DESCRIPTION = {
   WEB_DESIGNS: 'Design UI and front end experiences for web experiences',
   WIDGET_OR_MOBILE_SCREEN_DESIGN: 'Design UI and front end experiences for mobile',
   WIREFRAMES: 'Produce the information architecture for user experiences',
-  STUDIO_OTHER: 'Studio other'
+  STUDIO_OTHER: 'Studio other',
 };
 
 const HEADER = {
