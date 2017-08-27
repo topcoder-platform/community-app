@@ -3,7 +3,7 @@
 .icon {
   left: 18px;
   position: absolute;
-  top: 14px;
+  top: 18px;
 }
 
 .search {
@@ -26,7 +26,7 @@
     font: 16px "Sofia Pro", sans-serif;
     height: 32px;
     outline: none;
-    padding-left: 28px;
+    padding-left: 30px!important;
 
     &::placeholder {
       color: $tc-gray-60;
