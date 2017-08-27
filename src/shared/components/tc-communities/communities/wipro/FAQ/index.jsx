@@ -77,23 +77,23 @@ export default function Learn() {
         >
           <VideoCard
             title="Introduction"
-            url="https://drive.google.com/uc?id=0B3y3SEA9cIEkUk9CNXdkdExpT0k"
+            url="https://s3.amazonaws.com/topcoder-prod-media/hybrid/topgear/1.Wipro-Crowdsourcing-Challenge-Intro.mp4"
           />
           <VideoCard
             title="Registration"
-            url="https://drive.google.com/uc?id=0B3y3SEA9cIEkVVVNaW4xMjh6UVk"
+            url="https://s3.amazonaws.com/topcoder-prod-media/hybrid/topgear/2.Wipro-Crowdsourcing-Site-Registration.mp4"
           />
           <VideoCard
             title="Challenge Navigation"
-            url="https://drive.google.com/uc?id=0B3y3SEA9cIEkNF9SNDM3Nnhldjg"
+            url="https://s3.amazonaws.com/topcoder-prod-media/hybrid/topgear/3.Wipro-Crowdsourcing-Challenge-Navigation.mp4"
           />
           <VideoCard
             title="Joining a Challenge"
-            url="https://drive.google.com/uc?id=0B3y3SEA9cIEkd1NzQWctNnQzOFU"
+            url="https://s3.amazonaws.com/topcoder-prod-media/hybrid/topgear/4.Join-Challenge.mp4"
           />
           <VideoCard
             title="Submission"
-            url="https://drive.google.com/uc?id=0B3y3SEA9cIEkMkdFYjF6NV9WM1E"
+            url="https://s3.amazonaws.com/topcoder-prod-media/hybrid/topgear/5.Challenge-Submission.mp4"
           />
         </Section>
       </main>
