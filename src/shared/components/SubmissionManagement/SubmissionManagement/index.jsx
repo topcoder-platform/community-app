@@ -101,6 +101,7 @@ export default function SubmissionManagement(props) {
             submissionObjects={submissions}
             showDetails={showDetails}
             type={challenge.track}
+            status={challenge.status}
             {...componentConfig}
           />
         }
