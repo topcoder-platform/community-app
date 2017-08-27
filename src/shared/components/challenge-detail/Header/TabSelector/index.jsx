@@ -21,6 +21,7 @@ export default function ChallengeViewSelector(props) {
     challenge,
     checkpointCount,
     numRegistrants,
+    numSubmissions,
     onSelectorClicked,
     selectedView,
     status,
