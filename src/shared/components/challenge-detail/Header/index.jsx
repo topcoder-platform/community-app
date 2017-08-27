@@ -203,7 +203,7 @@ export default function ChallengeHeader(props) {
             <div styleName="deadlines-overview">
               <div styleName="deadlines-overview-text">
                 {status === 'COMPLETED' ?
-                  <div styleName="next-deadline">The challenge is finished.</div>
+                  <div styleName="completed">The challenge is finished.</div>
                   :
                   <div>
                     <div styleName="next-deadline">
