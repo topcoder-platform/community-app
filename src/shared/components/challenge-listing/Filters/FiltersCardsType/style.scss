@@ -27,6 +27,10 @@ $type-radius-4: $corner-radius * 2;
       height: $type-space-40;
       line-height: $type-space-40;
       margin-right: $type-space-20;
+
+      &:last-child {
+        margin-right: $type-space-20 - 5;
+      }
     }
 
     &:visited {

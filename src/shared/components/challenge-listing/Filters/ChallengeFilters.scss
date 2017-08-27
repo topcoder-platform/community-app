@@ -41,7 +41,7 @@
     height: 60px;
 
     @include xxs-to-sm {
-      height: 40px;
+      height: auto;
     }
   }
 

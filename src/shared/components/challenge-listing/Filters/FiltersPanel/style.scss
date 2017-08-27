@@ -80,6 +80,8 @@ $panel-radius-4: $corner-radius * 2;
       display: flex;
       justify-content: center;
       position: relative;
+      right: 0;
+      top: $panel-space-30;
       width: 100%;
       padding-left: 0;
       border-left: none;
@@ -154,6 +156,14 @@ $panel-radius-4: $corner-radius * 2;
 
       &.left-label {
         min-width: 58px;
+      }
+
+      @include xxs-to-sm {
+        text-align: left;
+
+        &.left-label {
+          min-width: 96px;
+        }
       }
     }
 
@@ -374,7 +384,7 @@ $panel-radius-4: $corner-radius * 2;
       .Select-value-icon {
         position: absolute;
         right: 0;
-        top: 0;
+        top: 4px;
         padding: 0 $panel-space-7;
         font-size: 14px;
         border: none;
