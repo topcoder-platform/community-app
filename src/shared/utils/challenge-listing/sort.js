@@ -34,7 +34,18 @@ export default {
     name: '# of submissions',
   },
   [SORTS.PHASE_END_TIME]: {
-    func: (a, b) => a.currentPhaseRemainingTime - b.currentPhaseRemainingTime,
+    func: (a, b) => {
+      function nextSubEndDate(o) {
+        if (("checkpointSubmissionEndDate" in o) && moment(o.checkpointSubmissionEndDate).isAfter()) {
+          return o.checkpointSubmissionEndDate;
+        }
+        return o.submissionEndDate;
+      }
+
+      let aDate = nextSubEndDate(a);
+      let bDate = nextSubEndDate(b);
+      return (moment(aDate).isBefore()) ? 1 : (moment(bDate).isBefore()) ? -1 : moment(aDate).diff(bDate);
+    },
     name: 'Time to submit',
   },
   [SORTS.PRIZE_HIGH_TO_LOW]: {
@@ -47,7 +58,7 @@ export default {
     name: 'Time to register',
   },
   [SORTS.TIME_TO_SUBMIT]: {
-    func: (a, b) => a.submissionEndTimestamp - b.submissionEndTimestamp,
+    func: (a, b) => moment(a.submissionEndDate).diff(b.submissionEndDate),
     name: 'Time to submit',
   },
   [SORTS.TITLE_A_TO_Z]: {

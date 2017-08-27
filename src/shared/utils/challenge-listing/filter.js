@@ -73,6 +73,9 @@ function filterByGroupIds(challenge, state) {
 function filterByRegistrationOpen(challenge, state) {
   if (_.isUndefined(state.registrationOpen)) return true;
   const isRegOpen = () => {
+    if ('registrationOpen' in challenge) {
+      return challenge.registrationOpen === 'Yes';
+    }
     if (challenge.subTrack === 'MARATHON_MATCH') {
       return challenge.status !== 'PAST';
     }
