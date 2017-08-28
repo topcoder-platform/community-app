@@ -1,19 +1,15 @@
 import React from 'react';
 import PT from 'prop-types';
 
-import jquery from 'jquery';
-
 import './styles.scss';
-
-function decodeEscaped(escaped) {
-  return jquery('<textarea />').html(escaped).text();
-}
 
 const Checkpoints = (props) => {
   const {
     checkpointResults,
     generalFeedback,
   } = props.checkpoints;
+
+  /* eslint-disable react/no-danger, no-undef */
   return (
     <div styleName="challenge-detail-checkpoints">
       <div styleName="challenge-checkpoint-list">
@@ -24,6 +20,9 @@ const Checkpoints = (props) => {
               styleName="challenge-checkpoint-li"
               onClick={(e) => {
                 e.preventDefault();
+                document
+                  .getElementsByClassName('src-shared-components-challenge-detail-Checkpoints-styles___challenge-checkpoint-winners')[index]
+                  .scrollIntoView(true);
                 props.toggleCheckpointFeedback(index);
               }}
             >
@@ -34,7 +33,11 @@ const Checkpoints = (props) => {
       </div>
       <div styleName="challenge-checkpoint-detail">
         <h2>Checkpoint Winners & General Feedback</h2>
-        <p>{decodeEscaped(generalFeedback || '')}</p>
+        <p
+          dangerouslySetInnerHTML={{
+            __html: generalFeedback || '',
+          }}
+        />
         {
           checkpointResults && checkpointResults.map((item, index) => (
             <div key={item.submissionId} styleName="challenge-checkpoint-winners">
@@ -54,9 +57,12 @@ const Checkpoints = (props) => {
               </button>
               {
                 item.expanded &&
-                <p styleName="challenge-checkpoint-feedback">
-                  {decodeEscaped(item.feedback)}
-                </p>
+                <p
+                  styleName="challenge-checkpoint-feedback"
+                  dangerouslySetInnerHTML={{
+                    __html: item.feedback,
+                  }}
+                />
               }
             </div>
           ))
