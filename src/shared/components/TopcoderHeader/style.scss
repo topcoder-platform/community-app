@@ -117,14 +117,12 @@
   input:active,
   input:focus,
   input:hover {
-    background: none;
     border: none;
     border-bottom: 1px solid $tc-white;
     box-shadow: none;
-    color: $tc-white;
     font-size: 22px;
     outline: none;
-    padding-bottom: 12px;
+    padding-bottom: 3px;
 
     &::placeholder {
       color: $tc-gray-20;
