@@ -8,6 +8,7 @@ import logger from 'utils/logger';
 import { handleActions } from 'redux-actions';
 import { combine, resolveReducers } from 'utils/redux';
 import { updateQuery } from 'utils/url';
+import moment from 'moment';
 
 import filterPanel from '../challenge-listing/filter-panel';
 import sidebar, { factory as sidebarFactory } from '../challenge-listing/sidebar';
@@ -270,6 +271,12 @@ export function factory(req) {
 
   if (req) {
     state.filter = req.query.filter;
+    if (!!state.filter.startDate && moment(state.filter.startDate).isValid() === false) {
+      delete state.filter.startDate;
+    }
+    if (!!state.filter.endDate && moment(state.filter.endDate).isValid() === false) {
+      delete state.filter.endDate;
+    }
     state.selectedCommunityId = req.query.communityId;
   }
 
