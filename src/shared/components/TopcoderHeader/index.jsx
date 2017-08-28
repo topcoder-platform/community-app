@@ -319,7 +319,18 @@ export default class TopcoderHeader extends React.Component {
     }
 
     return (
-      <div styleName="header" ref={(div) => { this.headerRoot = div; }}>
+      <div
+        styleName="header"
+        ref={(div) => { this.headerRoot = div; }}
+        onMouseLeave={() => {
+          if (openedMenu) {
+            closeMenu();
+          }
+          if (searchOpened) {
+            closeSearch();
+          }
+        }}
+      >
         <div styleName="main-desktop-header">
           <a href={BASE_URL} styleName="logo">
             <LogoTopcoderWithName height={53} width={135} />
