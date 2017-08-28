@@ -134,7 +134,11 @@ function ChallengeCard({
               {challenge.status === 'ACTIVE' ? 'Ends ' : 'Ended '}
               {getEndDate(challenge.submissionEndDate)}
             </span>
-            <Tags technologies={challenge.technologies} onTechTagClicked={onTechTagClicked} />
+            <Tags
+              technologies={challenge.technologies}
+              platforms={challenge.platforms}
+              onTechTagClicked={onTechTagClicked}
+            />
           </div>
         </div>
       </div>
@@ -205,7 +209,9 @@ class Tags extends React.Component {
   }
 
   renderTechnologies() {
-    const technologies = this.props.technologies ? this.props.technologies.split(',') : [];
+    let technologies = this.props.technologies ? this.props.technologies.split(',').map(item => item.trim()) : [];
+    const platforms = this.props.platforms ? this.props.platforms.split(',').map(item => item.trim()) : [];
+    technologies = _.union(technologies, platforms);
     if (technologies.length) {
       let technologyList = technologies;
       if (technologies.length > VISIBLE_TECHNOLOGIES && !this.state.expanded) {
@@ -241,11 +247,13 @@ class Tags extends React.Component {
 Tags.defaultProps = {
   onTechTagClicked: _.noop,
   technologies: '',
+  platforms: '',
 };
 
 Tags.propTypes = {
   onTechTagClicked: PT.func,
   technologies: PT.string,
+  platforms: PT.string,
 };
 
 export default ChallengeCard;
