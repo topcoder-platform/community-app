@@ -76,13 +76,30 @@
 }
 
 .cross-tooltip {
-  background: $tc-white;
-  border: 1px solid $tc-gray-20;
+  color: $tc-white;
+  border-radius: 3px;
+  border: 1px solid $tc-gray-80;
+  background: $tc-gray-80;
   display: none;
   line-height: 13px;
-  padding: $base-unit;
+  padding: $base-unit * 2;
   position: absolute;
   right: 0;
-  top: 30px;
+  top: -50px;
   z-index: 10;
+
+  &::before {
+    content: '';
+    position: absolute;
+    display: inline-block;
+    width: 0;
+    height: 0;
+    border-color: #000;
+    border-style: solid;
+    bottom: -6px;
+    margin-left: -5px;
+    border-width: 5px 5px 0;
+    left: 67%;
+    border-top-color: $tc-gray-80;
+  }
 }
