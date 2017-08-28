@@ -16,14 +16,12 @@ import Listing from './Listing';
 import ChallengeCardPlaceholder from './placeholders/ChallengeCard';
 import SRMCard from './SRMCard';
 
-import { updateQuery } from 'utils/url';
 import './style.scss';
 
 // Number of challenge placeholder card to display
 const CHALLENGE_PLACEHOLDER_COUNT = 8;
 
 export default function ChallengeListing(props) {
-  updateQuery({ });
   let challenges = props.challenges;
 
   if (props.communityFilter) {

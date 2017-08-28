@@ -8,6 +8,7 @@ import LoadingIndicator from 'components/LoadingIndicator';
 import qs from 'qs';
 import React from 'react';
 import { SplitRoute } from 'utils/router';
+import { updateQuery } from 'utils/url';
 
 export default function ChallengeListingRoute() {
   return (
@@ -19,6 +20,7 @@ export default function ChallengeListingRoute() {
           /* webpackChunkName: "challenge-listing" */
           'containers/challenge-listing/Listing',
         ).then(({ default: ChallengeListing }) => {
+          updateQuery({ });
           const query = renderProps.location.search ?
             qs.parse(renderProps.location.search.slice(1)) : null;
           const currencyFromUrl = _.get(query, 'currency');

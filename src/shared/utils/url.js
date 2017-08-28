@@ -29,9 +29,11 @@ export function updateQuery(update) {
     if (_.isUndefined(value)) delete query[key];
     else query[key] = value;
   });
-  if (!!query.filter.startDate && moment(query.filter.startDate).isValid() === false) {
+  if (!!query.filter && !!query.filter.startDate
+      && moment(query.filter.startDate).isValid() === false) {
     delete query.filter.startDate;
-  } else if (query.filter.endDate && moment(query.filter.endDate).isValid() === false) {
+  } else if (!!query.filter && !!query.filter.endDate
+      && moment(query.filter.endDate).isValid() === false) {
     delete query.filter.endDate;
   }
 

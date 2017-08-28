@@ -271,10 +271,12 @@ export function factory(req) {
 
   if (req) {
     state.filter = req.query.filter;
-    if (!!state.filter.startDate && moment(state.filter.startDate).isValid() === false) {
+    if (!!state.filter && !!state.filter.startDate
+        && moment(state.filter.startDate).isValid() === false) {
       delete state.filter.startDate;
     }
-    if (!!state.filter.endDate && moment(state.filter.endDate).isValid() === false) {
+    if (!!state.filter && !!state.filter.endDate
+        && moment(state.filter.endDate).isValid() === false) {
       delete state.filter.endDate;
     }
     state.selectedCommunityId = req.query.communityId;
