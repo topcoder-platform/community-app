@@ -20,13 +20,14 @@
 
 import PT from 'prop-types';
 import React from 'react';
+import _ from 'lodash';
 import { themr } from 'react-css-themr';
 import DefaultAvatar from '../../../assets/images/ico-user-default.svg';
 import defaultStyle from './style.scss';
 
-function Avatar({ theme, url }) {
+function Avatar({ theme, url, handleError }) {
   return url
-    ? <img alt="Avatar" src={url} className={theme.avatar} />
+    ? <img alt="Avatar" src={url} className={theme.avatar} onError={handleError} />
     : <DefaultAvatar className={theme.avatar} />;
 }
 
@@ -36,6 +37,7 @@ Avatar.defaultProps = {
     avatar: '',
   },
   url: null,
+  handleError: _.noop,
 };
 
 Avatar.propTypes = {
@@ -43,6 +45,7 @@ Avatar.propTypes = {
     avatar: PT.string.isRequired,
   }),
   url: PT.string,
+  handleError: PT.func,
 };
 
 export default themr('Avatar', defaultStyle)(Avatar);

@@ -11,9 +11,9 @@ import React, { Component } from 'react';
 import PT from 'prop-types';
 // import moment from 'moment';
 import Tooltip from 'components/Tooltip';
-import './style.scss';
+import Avatar from 'components/Avatar';
+import styles from './style.scss';
 
-const MOCK_PHOTO = 'https://acrobatusers.com/assets/images/template/author_generic.jpg';
 /**
  * Renders the tooltip's content.
  * It includes: user profile picture, handle, his country and the TC registration
@@ -31,15 +31,19 @@ function Tip(props) {
     </span>
   )); */
   const { photoLink } = props.user;
-  const src = photoLink.startsWith('https') ? photoLink : `${props.MAIN_URL}/${photoLink}`;
+  let src = null;
+  if (photoLink) {
+    src = photoLink.startsWith('https') ? photoLink : `${props.MAIN_URL}/${photoLink}`;
+  }
 
   return (
     <div styleName="user-avatar-tooltip">
-      <img
-        alt="User avatar"
-        styleName="avatar"
-        src={src}
-        onError={props.handleError}
+      <Avatar
+        theme={{
+          avatar: styles.avatar,
+        }}
+        url={src}
+        handleError={props.handleError}
       />
       <div styleName="handle">{props.user.handle}</div>
       {/* Below block is commented out as it's not possible to get this information
@@ -86,7 +90,7 @@ class UserAvatarTooltip extends Component {
   }
   handleError() {
     const user = this.state.user;
-    user.photoLink = MOCK_PHOTO;
+    user.photoLink = null;
     this.setState({ user });
   }
 
