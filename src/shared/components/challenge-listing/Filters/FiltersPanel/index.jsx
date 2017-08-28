@@ -128,6 +128,7 @@ export default function FiltersPanel({
         <button
           styleName="white"
           className="tc-outline-btn"
+          disabled={_.isEmpty(filterState)}
           onClick={() => {
             setFilterState({});
             setSearchText('');
