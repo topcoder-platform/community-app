@@ -30,9 +30,9 @@ export function updateQuery(update) {
     else query[key] = value;
   });
   if (!!query.filter.startDate && moment(query.filter.startDate).isValid() === false) {
-    delete query.filter.startDate; console.log('delete start date');
+    delete query.filter.startDate;
   } else if (query.filter.endDate && moment(query.filter.endDate).isValid() === false) {
-    delete query.filter.endDate; console.log('delete end date');
+    delete query.filter.endDate;
   }
 
   query = `?${qs.stringify(query, { encode: false })}`;
