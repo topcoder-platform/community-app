@@ -374,7 +374,7 @@ class ChallengeStatus extends Component {
       return (
         <div styleName="avatar-container" key={winner.handle}>
           <UserAvatarTooltip user={userProfile}>
-            <LeaderboardAvatar member={winner} />
+            <LeaderboardAvatar member={winner} domain={config.URL.BASE} />
           </UserAvatarTooltip>
         </div>);
     });

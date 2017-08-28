@@ -1,5 +1,6 @@
 // TODO: All uses of this component MUST be replaced by Avatar component!
 
+import config from 'utils/config';
 import React, { Component } from 'react';
 import PT from 'prop-types';
 import './style.scss';
@@ -27,7 +28,7 @@ class LeaderboardAvatar extends Component {
   render() {
     const { domain, openNewTab, url } = this.props;
     const { member } = this.state;
-    const targetURL = url || `//${domain}/members/${member.handle}`;
+    const targetURL = url || `${domain}/members/${member.handle}`;
     return (
       <a
         href={targetURL}
@@ -50,7 +51,7 @@ class LeaderboardAvatar extends Component {
 }
 
 LeaderboardAvatar.defaultProps = {
-  domain: process.env.domain,
+  domain: config.URL.BASE,
   member: {},
   openNewTab: false,
   url: '',
