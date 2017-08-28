@@ -19,7 +19,6 @@ function create(initialState = {}) {
       return {
         ...state,
         openedMenu: null,
-        activeNode: null,
       };
     },
     [a.closeMobileMenu](state) {
@@ -38,7 +37,6 @@ function create(initialState = {}) {
       return {
         ...state,
         openedMenu: action.payload.menu,
-        activeNode: action.payload.node,
         isMobile: state.isMobile || action.payload.isMobile,
         activeTrigger: action.payload.trigger,
       };

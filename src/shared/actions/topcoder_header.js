@@ -17,7 +17,6 @@ import { createActions } from 'redux-actions';
 function openMenu(menu, triggerNode, triggeredByTouch) {
   return ({
     menu,
-    node: triggerNode.dataset.menu,
     trigger: _.toPlainObject(triggerNode.getBoundingClientRect()),
     isMobile: triggeredByTouch,
   });

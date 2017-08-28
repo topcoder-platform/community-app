@@ -12,11 +12,12 @@ export default function Item({
   icon,
   link,
   title,
+  closeMenu,
 }) {
   let styleName = 'item';
   if (currentSubMenuTitle === title) styleName += ' current';
   return (
-    <li styleName={styleName}>
+    <li styleName={styleName} onClick={closeMenu}>
       <Link to={link}>
         {icon}
         {title}
@@ -30,4 +31,5 @@ Item.propTypes = {
   icon: PT.node.isRequired,
   link: PT.string.isRequired,
   title: PT.string.isRequired,
+  closeMenu: PT.func.isRequired,
 };

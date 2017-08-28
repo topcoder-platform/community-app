@@ -110,16 +110,6 @@ const MENU = [{
   }],
 }];
 
-function getMenuNode(node) {
-  if (!node || !node.dataset) {
-    return null;
-  }
-  if (node.dataset.menu) {
-    return node;
-  }
-  return getMenuNode(node.parentNode);
-}
-
 export default class TopcoderHeader extends React.Component {
   constructor(props) {
     super(props);
@@ -128,7 +118,7 @@ export default class TopcoderHeader extends React.Component {
     this.addGlobalTouchListener = this.addGlobalTouchListener.bind(this);
     this.removeGlobalTouchListener = this.removeGlobalTouchListener.bind(this);
     this.closeSearch = this.closeSearch.bind(this);
-    this.isChildNodeofHeader = this.isChildNodeofHeader.bind(this);
+    this.getMenuButton = this.getMenuButton.bind(this);
 
     this.listenerRegistered = false;
   }
@@ -139,27 +129,32 @@ export default class TopcoderHeader extends React.Component {
     this.removeGlobalTouchListener();
   }
 
-  globalTouchListener(event) {
-    const { closeMenu, searchOpened, openedMenu } = this.props;
-    const closeSearch = this.closeSearch;
-    const menuNode = getMenuNode(event.target);
-
-    if (!this.isChildNodeofHeader(event.target)) {
-      closeMenu();
-      closeSearch();
-      this.removeGlobalTouchListener();
-    } else if (menuNode.dataset.menu === 'search' && openedMenu) {
-      closeMenu();
-    } else if (menuNode.dataset.menu !== 'search' && searchOpened) {
-      closeSearch();
+  getMenuButton(node) {
+    if (!node || !node.dataset || node === this.headerRoot) {
+      return null;
     }
+    if (node.dataset.menu) {
+      return node;
+    }
+    return this.getMenuButton(node.parentNode);
   }
 
-  isChildNodeofHeader(node) {
-    if (!node) {
-      return false;
+  globalTouchListener({ target }) {
+    const { closeMenu, searchOpened, openedMenu } = this.props;
+    const closeSearch = this.closeSearch;
+    const menuButton = this.getMenuButton(target);
+
+    if (menuButton) {
+      if (menuButton.dataset.menu === 'search' && openedMenu) {
+        closeMenu();
+      } else if (menuButton.dataset.menu !== 'search' && searchOpened) {
+        closeSearch();
+      }
+    } else if (!this.headerRoot.contains(target) || this.mainMenu.contains(target)) {
+      closeSearch();
+      closeMenu();
+      this.removeGlobalTouchListener();
     }
-    return node === this.rootNode || this.isChildNodeofHeader(node.parentNode);
   }
 
   addGlobalTouchListener() {
@@ -181,7 +176,6 @@ export default class TopcoderHeader extends React.Component {
 
   render() {
     const {
-      activeNode,
       isMobile,
       activeTrigger,
       closeMenu,
@@ -215,12 +209,11 @@ export default class TopcoderHeader extends React.Component {
               1 + event.pageY < activeTrigger.bottom) closeMenu();
           }}
           onTouchStart={(event) => {
-            if (openedMenu && isMobile &&
-              getMenuNode(event.target).dataset.menu === activeNode) {
+            if (isMobile && openedMenu && openedMenu.title === item.title) {
               closeMenu();
               this.removeGlobalTouchListener();
             } else {
-              openMenu(item, getMenuNode(event.target), true);
+              openMenu(item, this.getMenuButton(event.target), true);
               this.addGlobalTouchListener();
             }
           }}
@@ -279,11 +272,11 @@ export default class TopcoderHeader extends React.Component {
               1 + event.pageY < activeTrigger.bottom) closeMenu();
           }}
           onTouchStart={(event) => {
-            if (openedMenu && isMobile && getMenuNode(event.target).dataset.menu === activeNode) {
+            if (isMobile && openedMenu && openedMenu.title === userSubMenu.title) {
               closeMenu();
               this.removeGlobalTouchListener();
             } else {
-              openMenu(userSubMenu, getMenuNode(event.target), true);
+              openMenu(userSubMenu, this.getMenuButton(event.target), true);
               this.addGlobalTouchListener();
             }
           }}
@@ -314,22 +307,24 @@ export default class TopcoderHeader extends React.Component {
           <a
             className="tc-btn-sm tc-btn-primary"
             href={`${config.URL.AUTH}/member/registration`}
+            onClick={closeMenu}
           >Join</a>
           <a
             className="tc-btn-sm tc-btn-default"
             href={`${config.URL.AUTH}/member`}
+            onClick={closeMenu}
           >Log In</a>
         </div>
       );
     }
 
     return (
-      <div styleName="header" ref={(root) => { this.rootNode = root; }}>
+      <div styleName="header" ref={(div) => { this.headerRoot = div; }}>
         <div styleName="main-desktop-header">
           <a href={BASE_URL} styleName="logo">
             <LogoTopcoderWithName height={53} width={135} />
           </a>
-          <ul styleName="main-menu">
+          <ul styleName="main-menu" ref={(ul) => { this.mainMenu = ul; }}>
             {mainMenu}
           </ul>
           <div styleName="right-menu">
@@ -344,11 +339,11 @@ export default class TopcoderHeader extends React.Component {
                   1 + event.pageY < activeTrigger.bottom) closeSearch();
               }}
               onTouchStart={(event) => {
-                if (searchOpened && isMobile) {
+                if (isMobile && searchOpened) {
                   closeSearch();
                   this.removeGlobalTouchListener();
                 } else {
-                  openSearch(getMenuNode(event.target), true);
+                  openSearch(this.getMenuButton(event.target), true);
                   this.addGlobalTouchListener();
                 }
               }}
@@ -407,12 +402,10 @@ TopcoderHeader.defaultProps = {
   openedMenu: null,
   profile: null,
   searchOpened: false,
-  activeNode: null,
   isMobile: false,
 };
 
 TopcoderHeader.propTypes = {
-  activeNode: PT.string,
   isMobile: PT.bool,
   activeTrigger: PT.shape({
     bottom: PT.number.isRequired,
