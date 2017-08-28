@@ -224,7 +224,7 @@ ListingContainer.propTypes = {
   allDraftChallengesLoaded: PT.bool.isRequired,
   allPastChallengesLoaded: PT.bool.isRequired,
   challenges: PT.arrayOf(PT.shape({})).isRequired,
-  challengeSubtracks: PT.arrayOf(PT.string).isRequired,
+  challengeSubtracks: PT.arrayOf(PT.shape()).isRequired,
   challengeTags: PT.arrayOf(PT.string).isRequired,
   communityFilters: PT.arrayOf(PT.shape({
     challengeFilter: PT.shape(),
