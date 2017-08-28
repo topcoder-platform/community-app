@@ -1,3 +1,4 @@
+/* global document */
 import React from 'react';
 import PT from 'prop-types';
 
@@ -9,7 +10,6 @@ const Checkpoints = (props) => {
     generalFeedback,
   } = props.checkpoints;
 
-  /* eslint-disable react/no-danger, no-undef */
   return (
     <div styleName="challenge-detail-checkpoints">
       <div styleName="challenge-checkpoint-list">
@@ -34,7 +34,7 @@ const Checkpoints = (props) => {
       <div styleName="challenge-checkpoint-detail">
         <h2>Checkpoint Winners & General Feedback</h2>
         <p
-          dangerouslySetInnerHTML={{
+          dangerouslySetInnerHTML={{ // eslint-disable-line react/no-danger
             __html: generalFeedback || '',
           }}
         />
@@ -59,7 +59,7 @@ const Checkpoints = (props) => {
                 item.expanded &&
                 <p
                   styleName="challenge-checkpoint-feedback"
-                  dangerouslySetInnerHTML={{
+                  dangerouslySetInnerHTML={{ // eslint-disable-line react/no-danger
                     __html: item.feedback,
                   }}
                 />
