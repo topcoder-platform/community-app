@@ -97,7 +97,7 @@ export default class Checkpoints extends React.Component {
                 {
                   this.state[`${item.submissionId}_exp`] &&
                   <p styleName="challenge-checkpoint-feedback">
-                    {decodeEscaped(item.feedback)}
+                    {item.feedback ? decodeEscaped(item.feedback) : <span styleName="empty">Empty Feedback</span>}
                   </p>
                 }
               </div>
