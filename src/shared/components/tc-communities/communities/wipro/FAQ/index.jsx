@@ -9,6 +9,7 @@
 import React from 'react';
 // import { Link } from 'react-router-dom';
 import Section from 'components/tc-communities/Section';
+import VideoCard from 'components/tc-communities/VideoCard';
 /*
 import Accordion from 'components/tc-communities/Accordion/Accordion';
 import AccordionItem from 'components/tc-communities/Accordion/AccordionItem';
@@ -66,6 +67,34 @@ export default function Learn() {
               <Text><p>If you are a reviewer or copilot and need information about managing projects and challenges, please visit the <a href="https://help.topcoder.com/hc/en-us/sections/204971587-Copilots-Reviewers">Help Center</a>.</p></Text>
             </AccordionItem>
           </Accordion>
+        </Section>
+        <Section
+          title="Tutorials"
+          theme={{
+            content: style.tutorialsContent,
+            title: style.tutorialsTitle,
+          }}
+        >
+          <VideoCard
+            title="Introduction"
+            url="https://s3.amazonaws.com/topcoder-prod-media/hybrid/topgear/1.Wipro-Crowdsourcing-Challenge-Intro.mp4"
+          />
+          <VideoCard
+            title="Registration"
+            url="https://s3.amazonaws.com/topcoder-prod-media/hybrid/topgear/2.Wipro-Crowdsourcing-Site-Registration.mp4"
+          />
+          <VideoCard
+            title="Challenge Navigation"
+            url="https://s3.amazonaws.com/topcoder-prod-media/hybrid/topgear/3.Wipro-Crowdsourcing-Challenge-Navigation.mp4"
+          />
+          <VideoCard
+            title="Joining a Challenge"
+            url="https://s3.amazonaws.com/topcoder-prod-media/hybrid/topgear/4.Join-Challenge.mp4"
+          />
+          <VideoCard
+            title="Submission"
+            url="https://s3.amazonaws.com/topcoder-prod-media/hybrid/topgear/5.Challenge-Submission.mp4"
+          />
         </Section>
       </main>
     </ThemeProvider>

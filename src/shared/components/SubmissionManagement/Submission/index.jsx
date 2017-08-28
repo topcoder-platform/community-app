@@ -31,6 +31,7 @@ export default function Submission(props) {
     type,
     onDelete,
     onShowDetails,
+    status,
   } = props;
   const formatDate = date => moment(+new Date(date)).format('MMM DD, YYYY hh:mm A');
 
@@ -72,10 +73,12 @@ export default function Submission(props) {
             onClick={() => onDownload(submissionObject.submissionId)}
           ><DownloadIcon /></button>
           */ }
-          <button
-            styleName="delete-icon"
-            onClick={() => onDelete(submissionObject.submissionId)}
-          ><DeleteIcon /></button>
+          {status !== 'COMPLETED' &&
+            <button
+              styleName="delete-icon"
+              onClick={() => onDelete(submissionObject.submissionId)}
+            ><DeleteIcon /></button>
+          }
           <button
             styleName={`expand-icon ${(showScreeningDetails ? 'expanded' : '')}`}
             onClick={() => onShowDetails(submissionObject.submissionId)}
@@ -108,4 +111,5 @@ Submission.propTypes = {
   type: PT.string.isRequired,
   onDelete: PT.func.isRequired,
   onShowDetails: PT.func,
+  status: PT.string.isRequired,
 };

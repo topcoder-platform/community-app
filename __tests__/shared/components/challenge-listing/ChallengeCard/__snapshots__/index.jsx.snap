@@ -44,6 +44,7 @@ exports[`Matches shallow shapshot shapshot 1 1`] = `
         </span>
         <Tags
           onTechTagClicked={[Function]}
+          platforms=""
           technologies="Data Science"
         />
       </div>
@@ -155,6 +156,7 @@ exports[`Matches shallow shapshot shapshot 2 1`] = `
         </span>
         <Tags
           onTechTagClicked={[Function]}
+          platforms=""
           technologies="Go"
         />
       </div>
@@ -261,6 +263,7 @@ exports[`Matches shallow shapshot shapshot 3 1`] = `
         </span>
         <Tags
           onTechTagClicked={[Function]}
+          platforms=""
           technologies=""
         />
       </div>

@@ -27,7 +27,9 @@ export default function Winners(props) {
     isDesign,
   } = props;
 
-  results.sort((a, b) => a.placement - b.placement);
+  const maxPlace = Number.MAX_SAFE_INTEGER;
+  results.sort((a, b) => (_.isNumber(a.placement) ? a.placement : maxPlace) -
+      (_.isNumber(b.placement) ? b.placement : maxPlace));
   const winners = results.slice(0, prizes.length);
 
   return (

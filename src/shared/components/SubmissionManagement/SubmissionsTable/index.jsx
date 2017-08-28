@@ -32,6 +32,7 @@ export default function SubmissionsTable(props) {
     helpPageUrl,
     onDownload,
     onShowDetails,
+    status,
   } = props;
 
   const submissionsWithDetails = [];
@@ -53,6 +54,7 @@ export default function SubmissionsTable(props) {
           onShowDetails={onShowDetails}
           onDelete={onDelete}
           onDownload={onDownload}
+          status={status}
           key={shortid.generate()}
         />
       );
@@ -125,4 +127,5 @@ SubmissionsTable.propTypes = {
   helpPageUrl: PT.string,
   onDownload: PT.func,
   onShowDetails: PT.func,
+  status: PT.string.isRequired,
 };
