@@ -72,16 +72,17 @@ export default function SubmissionManagement(props) {
         </div>
         <div styleName="right-col">
           <p styleName="round">{currentPhase.phaseType}</p>
-          {challenge.status !== 'COMPLETED' &&
-          <div>
-            <p styleName="time-left">
-              {days > 0 && (`${days}D`)} {hours}H {minutes}M
-            </p>
-            <p styleName="left-label">left</p>
-          </div>
-          }
-          {challenge.status === 'COMPLETED' &&
-            <p styleName="time-left">The challenge has ended</p>
+          {
+            challenge.status !== 'COMPLETED' ? (
+              <div>
+                <p styleName="time-left">
+                  {days > 0 && (`${days}D`)} {hours}H {minutes}M
+                </p>
+                <p styleName="left-label">left</p>
+              </div>
+            ) : (
+              <p styleName="time-left">The challenge has ended</p>
+            )
           }
         </div>
       </div>
