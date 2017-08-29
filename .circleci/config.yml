@@ -15,25 +15,22 @@ jobs:
       - run: sudo apt-get install libyaml-dev libpython2.7-dev
       - run: sudo pip install 'awsebcli==3.7.4' --force-reinstall
       - run: npm install
-
-    branches:
-      only: develop
-    
-    steps:
       - deploy:
-          commands:
-            - docker build --build-arg BUILD_ENV=development -t $DEV_AWS_ACCOUNT_ID.dkr.ecr.$DEV_AWS_REGION.amazonaws.com/community-app:$CIRCLE_SHA1 .
-            - ./deploy.sh DEV $CIRCLE_SHA1
-
-    tags:
-      only: /v[0-9]+(\.[0-9]+)*/
-          
-    steps:
-      - deploy:
+        branches:
+          only: develop
         commands:
-          - docker build --build-arg BUILD_ENV=production -t $PROD_AWS_ACCOUNT_ID.dkr.ecr.$PROD_AWS_REGION.amazonaws.com/community-app:$CIRCLE_TAG .
-          - ./deploy.sh PROD $CIRCLE_TAG
+          - docker build --build-arg BUILD_ENV=development -t $DEV_AWS_ACCOUNT_ID.dkr.ecr.$DEV_AWS_REGION.amazonaws.com/community-app:$CIRCLE_SHA1 .
+          - ./deploy.sh DEV $CIRCLE_SHA1
 
-    general:
-      artifacts:
-        - ./__coverage__
+#    tags:
+#      only: /v[0-9]+(\.[0-9]+)*/
+          
+#    steps:
+#      - deploy:
+#        commands:
+#          - docker build --build-arg BUILD_ENV=production -t $PROD_AWS_ACCOUNT_ID.dkr.ecr.$PROD_AWS_REGION.amazonaws.com/community-app:$CIRCLE_TAG .
+#          - ./deploy.sh PROD $CIRCLE_TAG
+
+#    general:
+#      artifacts:
+#        - ./__coverage__
