@@ -71,9 +71,9 @@ test('handle events', () => {
   expect(matches).toHaveLength(2);
 
   TU.Simulate.click(matches[0]);
-  expect(setFilterState).toHaveBeenCalledTimes(1);
-  expect(setSearchText).toHaveBeenCalledTimes(1);
+  expect(setFilterState).toHaveBeenCalledTimes(0);
+  expect(setSearchText).toHaveBeenCalledTimes(0);
 
   TU.Simulate.click(matches[1]);
-  expect(onSaveFilter).toHaveBeenCalledTimes(1);
+  expect(onSaveFilter).toHaveBeenCalledTimes(0);
 });
