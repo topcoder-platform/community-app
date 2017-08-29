@@ -65,6 +65,7 @@ exports[`Matches shallow shapshot 1`] = `
           Sub community
         </label>
         <Select
+          autoBlur={true}
           id="community-select"
           onChange={[Function]}
           options={
@@ -134,12 +135,14 @@ exports[`Matches shallow shapshot 1`] = `
   >
     <button
       className="tc-outline-btn src-shared-components-challenge-listing-Filters-FiltersPanel-___style__white___AWGFv"
+      disabled={true}
       onClick={[Function]}
     >
       Clear filters
     </button>
     <button
       className="tc-blue-btn src-shared-components-challenge-listing-Filters-FiltersPanel-___style__blue___3L4J6"
+      disabled={true}
       onClick={[Function]}
     >
       Save filter
@@ -202,6 +205,7 @@ exports[`Matches shallow shapshot 2`] = `
           Sub community
         </label>
         <Select
+          autoBlur={true}
           id="community-select"
           onChange={[Function]}
           options={
@@ -260,12 +264,14 @@ exports[`Matches shallow shapshot 2`] = `
   >
     <button
       className="tc-outline-btn src-shared-components-challenge-listing-Filters-FiltersPanel-___style__white___AWGFv"
+      disabled={true}
       onClick={[Function]}
     >
       Clear filters
     </button>
     <button
       className="tc-blue-btn src-shared-components-challenge-listing-Filters-FiltersPanel-___style__blue___3L4J6"
+      disabled={true}
       onClick={[Function]}
     >
       Save filter

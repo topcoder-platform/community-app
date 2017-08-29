@@ -19,6 +19,7 @@ export default function Prizes({ prizes }) {
       {
         (prizes && prizes.length) ?
           prizes.map((prize, index) => {
+            if (!prize) return null;
             const rank = index + 1;
             return (
               <div key={rank} styleName="prize-fill">
@@ -29,7 +30,7 @@ export default function Prizes({ prizes }) {
                   </p>
                   <p styleName="prize-money">
                     <span styleName="prize-currency">$</span>
-                    {prize}
+                    {prize.toLocaleString()}
                   </p>
                 </div>
               </div>

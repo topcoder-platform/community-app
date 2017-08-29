@@ -80,10 +80,11 @@ export default function FiltersPanel({
           <div styleName="filter community">
             <label htmlFor="community-select">Sub community</label>
             <Select
+              autoBlur
+              clearable={false}
               id="community-select"
               onChange={selectCommunity}
               options={communityOps}
-              clearable={false}
               simpleValue
               value={selectedCommunityId}
             />
@@ -129,6 +130,7 @@ export default function FiltersPanel({
         <button
           styleName="white"
           className="tc-outline-btn"
+          disabled={_.isEmpty(filterState)}
           onClick={() => {
             setFilterState({});
             setSearchText('');
@@ -137,6 +139,7 @@ export default function FiltersPanel({
         <button
           styleName="blue"
           className="tc-blue-btn"
+          disabled={_.isEmpty(filterState)}
           onClick={onSaveFilter}
         >Save filter</button>
       </div>

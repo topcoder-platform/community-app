@@ -1,22 +1,23 @@
 @import "~styles/tc-styles";
 
 .item {
-  color: $tc-white;
-  cursor: pointer;
   display: inline-block;
+  width: 150px;
+  height: 100%;
   font-family: 'Sofia Pro', sans-serif;
   font-size: 12px;
   font-weight: 300;
-  height: 100%;
   line-height: 14px;
-  padding: 30px;
   text-align: center;
   text-transform: uppercase;
   vertical-align: top;
-  width: 150px;
 
   &.current {
     background: fade-out($tc-dark-blue-90, 0.66);
+
+    a {
+      color: $tc-white;
+    }
   }
 
   svg {
@@ -28,6 +29,16 @@
 
   a {
     color: $tc-white;
+    cursor: pointer;
+    display: inline-block;
+    height: 100%;
+    padding: 30px;
+    width: 150px;
+
+    &:visited,
+    &:active {
+      color: $tc-white;
+    }
   }
 
   &:hover {
