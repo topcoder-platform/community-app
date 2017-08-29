@@ -83,6 +83,7 @@ export default function FiltersPanel({
               id="community-select"
               onChange={selectCommunity}
               options={communityOps}
+              clearable={false}
               simpleValue
               value={selectedCommunityId}
             />
