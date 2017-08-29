@@ -28,6 +28,7 @@ class DateRangePicker extends React.Component {
   render() {
     return (
       <WrappedDateRangePicker
+        numberOfMonths="1"
         focusedInput={this.state.focusedInput}
         isOutsideRange={() => false}
         onDatesChange={this.props.onDatesChange}
