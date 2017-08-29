@@ -29,9 +29,13 @@ function getDetailsInit(challengeId) {
  * @return {Promise}
  */
 function getDetailsDone(challengeId, tokenV3, tokenV2) {
+  if (_.isNaN(challengeId) || !_.inRange(challengeId, 9999999, 100000000)) {
+    return Promise.reject({ errorCode: 404 });
+  }
   const service = getChallengesService(tokenV3, tokenV2);
   const v3Promise = service.getChallenges({ id: challengeId })
-    .then(res => res.challenges[0]);
+    .then(res => (res.challenges && res.challenges.length > 0 ?
+      res.challenges[0] : Promise.reject({ errorCode: 404 })));
   return Promise.all([
     v3Promise,
     v3Promise.then((v3) => {

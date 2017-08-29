@@ -20,13 +20,13 @@ function onGetDetailsInit(state, action) {
   const challengeId = action.payload;
   return state.details && _.toString(state.details.id) !== challengeId ? {
     ...state,
-    fetchChallengeFailure: false,
+    fetchChallengeFailure: null,
     loadingDetailsForChallengeId: challengeId,
     details: null,
     detailsV2: null,
   } : {
     ...state,
-    fetchChallengeFailure: false,
+    fetchChallengeFailure: null,
     loadingDetailsForChallengeId: challengeId,
   };
 }
@@ -47,7 +47,7 @@ function onGetDetailsDone(state, action) {
       ...state,
       details: null,
       detailsV2: null,
-      fetchChallengeFailure: action.error,
+      fetchChallengeFailure: action.payload,
       loadingDetailsForChallengeId: '',
     };
   }
@@ -65,7 +65,7 @@ function onGetDetailsDone(state, action) {
     ...state,
     details,
     detailsV2: action.payload[1],
-    fetchChallengeFailure: false,
+    fetchChallengeFailure: null,
     loadingDetailsForChallengeId: '',
   };
 }

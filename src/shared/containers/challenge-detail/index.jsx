@@ -24,6 +24,7 @@ import challengeActions from 'actions/challenge';
 import termsActions from 'actions/terms';
 import config from 'utils/config';
 import { BUCKETS } from 'utils/challenge-listing/buckets';
+import Error404 from 'components/Error404';
 
 import './styles.scss';
 
@@ -125,6 +126,9 @@ class ChallengeDetailPageContainer extends React.Component {
       (this.props.authTokens.user || {}).handle);
 
     if (this.props.isLoadingChallenge) return <LoadingPagePlaceholder />;
+
+    if (this.props.fetchChallengeFailure &&
+      this.props.fetchChallengeFailure.errorCode === 404) return <Error404 />;
 
     return (
       <div styleName="outer-container">
@@ -234,6 +238,7 @@ class ChallengeDetailPageContainer extends React.Component {
 ChallengeDetailPageContainer.defaultProps = {
   tokenV3: null,
   isLoadingChallenge: false,
+  fetchChallengeFailure: null,
   loadingCheckpointResults: false,
   checkpointResults: null,
   loadingResults: false,
@@ -254,6 +259,7 @@ ChallengeDetailPageContainer.propTypes = {
   tokenV3: PT.string,
   challenge: PT.shape().isRequired,
   isLoadingChallenge: PT.bool,
+  fetchChallengeFailure: PT.shape(),
   loadChallengeDetails: PT.func.isRequired,
   authTokens: PT.shape().isRequired,
   challengeId: PT.number.isRequired,
@@ -373,6 +379,7 @@ const mapStateToProps = (state, props) => ({
     state.challenge.detailsV2,
     Number(props.match.params.challengeId)),
   isLoadingChallenge: Boolean(state.challenge.loadingDetailsForChallengeId),
+  fetchChallengeFailure: state.challenge.fetchChallengeFailure,
   authTokens: state.auth,
   tokenV2: state.auth && state.auth.tokenV2,
   tokenV3: state.auth && state.auth.tokenV3,
@@ -402,7 +409,7 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(a.getDetailsInit(challengeId));
       dispatch(a.getDetailsDone(challengeId, tokens.tokenV3, tokens.tokenV2))
         .then((res) => {
-          if (res.payload[0].track === 'DESIGN') {
+          if (res.payload[0] && res.payload[0].track === 'DESIGN') {
             dispatch(a.fetchCheckpointsInit());
             dispatch(a.fetchCheckpointsDone(tokens.tokenV2, challengeId));
           }
