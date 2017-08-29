@@ -106,16 +106,18 @@ export default function SubmissionManagement(props) {
           />
         }
       </div>
-      <div styleName="btn-wrap">
-        <a
-          href={`${config.URL.BASE}/challenges/${challenge.id}/submit/file`}
-          className="tc-btn tc-btn-primary tc-btn-md"
-          styleName="add-sub-btn"
-        >
-          {(!isDevelop || !submissions || submissions.length === 0)
-            ? 'Add Submission' : 'Update Submission'}
-        </a>
-      </div>
+      {now.isBefore(challenge.submissionEndDate) &&
+        <div styleName="btn-wrap">
+          <a
+            href={`${config.URL.BASE}/challenges/${challenge.id}/submit/file`}
+            className="tc-btn tc-btn-primary tc-btn-md"
+            styleName="add-sub-btn"
+          >
+            {(!isDevelop || !submissions || submissions.length === 0)
+              ? 'Add Submission' : 'Update Submission'}
+          </a>
+        </div>
+      }
     </div>
   );
 }
