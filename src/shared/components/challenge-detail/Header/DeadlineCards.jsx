@@ -42,7 +42,7 @@ export default function DeadlineCards(props) {
             dateStyle = 'deadline-live';
           }
           return (
-            <div key={deadlineKey} styleName="deadline-card">
+            <div key={phase.id} styleName="deadline-card">
               <p styleName="deadline-info">{deadlineKey}</p>
               <p styleName={`deadline-date ${dateStyle}`}>
                 {

@@ -295,21 +295,16 @@
             word-wrap: normal;
             border-right: $tc-gray-50 solid 1px;
             padding-right: 10px;
-
-            .deadline-highlighted {
-              color: $tc-white;
-              font-weight: 700;
-            }
           }
 
           .current-phase {
             overflow-wrap: normal;
             padding-left: 10px;
+          }
 
-            .deadline-highlighted {
-              color: $tc-white;
-              font-weight: 700;
-            }
+          .deadline-highlighted {
+            color: $tc-white;
+            font-weight: 700;
           }
         }
 
