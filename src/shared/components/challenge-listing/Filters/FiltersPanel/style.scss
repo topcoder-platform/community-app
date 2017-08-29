@@ -28,6 +28,7 @@ $panel-radius-4: $corner-radius * 2;
     right: 0;
     background: $tc-white;
     padding: 15px;
+    overflow-y: scroll;
   }
 
   &.hidden {
@@ -84,6 +85,7 @@ $panel-radius-4: $corner-radius * 2;
       top: $panel-space-30;
       width: 100%;
       padding-left: 0;
+      margin-bottom: $panel-space-100;
       border-left: none;
     }
 
