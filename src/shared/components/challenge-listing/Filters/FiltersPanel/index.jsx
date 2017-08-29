@@ -80,10 +80,11 @@ export default function FiltersPanel({
           <div styleName="filter community">
             <label htmlFor="community-select">Sub community</label>
             <Select
+              autoBlur
+              clearable={false}
               id="community-select"
               onChange={selectCommunity}
               options={communityOps}
-              autoBlur
               simpleValue
               value={selectedCommunityId}
             />
