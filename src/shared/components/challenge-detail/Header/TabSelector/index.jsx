@@ -62,7 +62,7 @@ export default function ChallengeViewSelector(props) {
           <a
             onClick={(e) => { e.preventDefault(); onSelectorClicked('SUBMISSIONS'); }}
             styleName={getSelectorStyle(selectedView, 'SUBMISSIONS', trackLower)}
-          >SUBMISSIONS {numSubmissions ? `(${numSubmissions})` : ''}
+          >SUBMISSIONS ({numSubmissions})
           </a>
         }
         {
