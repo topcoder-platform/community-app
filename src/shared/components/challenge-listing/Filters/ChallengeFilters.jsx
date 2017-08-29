@@ -118,7 +118,7 @@ export default function ChallengeFilters({
             tabIndex={0}
           >
             <FiltersIcon styleName="FiltersIcon" />
-            Filter
+            <span styleName="filtersCount">{filterRulesCount}</span>
           </span>
           <FiltersSwitch
             active={expanded}
