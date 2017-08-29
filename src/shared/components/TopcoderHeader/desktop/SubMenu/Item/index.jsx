@@ -4,7 +4,7 @@
 
 import PT from 'prop-types';
 import React from 'react';
-
+import { Link } from 'utils/router';
 import './style.scss';
 
 export default function Item({
@@ -17,10 +17,10 @@ export default function Item({
   if (currentSubMenuTitle === title) styleName += ' current';
   return (
     <li styleName={styleName}>
-      <a href={link}>
+      <Link to={link}>
         {icon}
         {title}
-      </a>
+      </Link>
     </li>
   );
 }
