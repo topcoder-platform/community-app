@@ -23,7 +23,7 @@ const Checkpoints = (props) => {
                 document
                   .getElementsByClassName('src-shared-components-challenge-detail-Checkpoints-styles___challenge-checkpoint-winners')[index]
                   .scrollIntoView(true);
-                props.toggleCheckpointFeedback(index);
+                props.toggleCheckpointFeedback(index, true);
               }}
             >
               #{item.submissionId}

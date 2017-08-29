@@ -438,8 +438,8 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(a.fetchCheckpointsInit());
       dispatch(a.fetchCheckpointsDone(tokens.tokenV2, challengeId));
     },
-    toggleCheckpointFeedback: (id) => {
-      dispatch(a.toggleCheckpointFeedback(id));
+    toggleCheckpointFeedback: (id, open) => {
+      dispatch(a.toggleCheckpointFeedback(id, open));
     },
     loadTerms: (tokens, challengeId) => {
       dispatch(t.getTermsInit(challengeId));

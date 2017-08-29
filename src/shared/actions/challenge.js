@@ -112,8 +112,16 @@ function fetchCheckpointsDone(tokenV2, challengeId) {
     }));
 }
 
-function toggleCheckpointFeedback(id) {
-  return id;
+/**
+ * Toggles checkpoint feedback. If second argument is provided, it
+ * will just open / close the checkpoint depending on its value being
+ * true or false.
+ * @param {Number} id
+ * @param {Boolean} open
+ * @return {Object}
+ */
+function toggleCheckpointFeedback(id, open) {
+  return { id, open };
 }
 
 export default createActions({

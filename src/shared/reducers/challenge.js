@@ -112,10 +112,10 @@ function onFetchCheckpointsDone(state, action) {
  * @param {Object} action Action.
  */
 function onToggleCheckpointFeedback(state, action) {
-  const newCheckpointResults = state.checkpoints.checkpointResults.map((result, index) => ({
-    ...result,
-    expanded: index === action.payload ? !result.expanded : result.expanded,
-  }));
+  const { payload: { id, open } } = action;
+  const newCheckpointResults = _.clone(state.checkpoints.checkpointResults);
+  newCheckpointResults[id].expanded = _.isUndefined(open)
+    ? !newCheckpointResults[id].expanded : open;
   const newCheckpoints = {
     ...state.checkpoints,
     checkpointResults: newCheckpointResults,
