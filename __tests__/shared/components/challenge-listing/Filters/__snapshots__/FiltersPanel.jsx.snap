@@ -66,6 +66,7 @@ exports[`Matches shallow shapshot 1`] = `
         </label>
         <Select
           autoBlur={true}
+          clearable={false}
           id="community-select"
           onChange={[Function]}
           options={
@@ -206,6 +207,7 @@ exports[`Matches shallow shapshot 2`] = `
         </label>
         <Select
           autoBlur={true}
+          clearable={false}
           id="community-select"
           onChange={[Function]}
           options={
