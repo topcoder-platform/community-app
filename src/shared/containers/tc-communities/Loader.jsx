@@ -81,7 +81,8 @@ class Loader extends React.Component {
 
     /* Visitor belongs to at least one of the groups authorized to access this
      * community. */
-    if (_.intersection(visitorGroups.map(g => g.id), meta.authorizedGroupIds)) {
+    const visitorGroupIds = visitorGroups.map(g => g.id);
+    if (_.intersection(visitorGroupIds, meta.authorizedGroupIds).length) {
       return Community({ meta });
     }
 

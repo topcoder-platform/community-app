@@ -3,6 +3,7 @@
 exports[`Matches shallow shapshot 1 shapshot 1 1`] = `
 <div
   className="src-shared-components-challenge-listing-___style__ChallengeFiltersExample___3IjeI"
+  id="challengeFilterContainer"
 >
   <Connect(Container)
     communityName={null}
@@ -91,7 +92,7 @@ exports[`Matches shallow shapshot 1 shapshot 1 1`] = `
     >
       <Sticky
         activeClass="active"
-        bottomBoundary={0}
+        bottomBoundary="#challengeFilterContainer"
         enableTransforms={true}
         enabled={true}
         onStateChange={null}
@@ -111,6 +112,7 @@ exports[`Matches shallow shapshot 1 shapshot 1 1`] = `
 exports[`Matches shallow shapshot 2 shapshot 2 1`] = `
 <div
   className="src-shared-components-challenge-listing-___style__ChallengeFiltersExample___3IjeI"
+  id="challengeFilterContainer"
 >
   <Connect(Container)
     communityName={null}
@@ -210,7 +212,7 @@ exports[`Matches shallow shapshot 2 shapshot 2 1`] = `
     >
       <Sticky
         activeClass="active"
-        bottomBoundary={0}
+        bottomBoundary="#challengeFilterContainer"
         enableTransforms={true}
         enabled={true}
         onStateChange={null}
