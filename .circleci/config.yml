@@ -16,19 +16,19 @@ jobs:
       - run: sudo pip install 'awsebcli==3.7.4' --force-reinstall
       - run: npm install
       - deploy:
-        development:
-          branch: develop
-          owner: topcoder-platform
-          commands:
-            - docker build --build-arg BUILD_ENV=development -t $DEV_AWS_ACCOUNT_ID.dkr.ecr.$DEV_AWS_REGION.amazonaws.com/community-app:$CIRCLE_SHA1 .
-            - ./deploy.sh DEV $CIRCLE_SHA1
+          development:
+            branch: develop
+            owner: topcoder-platform
+            commands:
+              - docker build --build-arg BUILD_ENV=development -t $DEV_AWS_ACCOUNT_ID.dkr.ecr.$DEV_AWS_REGION.amazonaws.com/community-app:$CIRCLE_SHA1 .
+              - ./deploy.sh DEV $CIRCLE_SHA1
 
-        production:
-          tag: /v[0-9]+(\.[0-9]+)*/
-          owner: topcoder-platform
-          commands:
-            - docker build --build-arg BUILD_ENV=production -t $PROD_AWS_ACCOUNT_ID.dkr.ecr.$PROD_AWS_REGION.amazonaws.com/community-app:$CIRCLE_TAG .
-            - ./deploy.sh PROD $CIRCLE_TAG
+          production:
+            tag: /v[0-9]+(\.[0-9]+)*/
+            owner: topcoder-platform
+            commands:
+              - docker build --build-arg BUILD_ENV=production -t $PROD_AWS_ACCOUNT_ID.dkr.ecr.$PROD_AWS_REGION.amazonaws.com/community-app:$CIRCLE_TAG .
+              - ./deploy.sh PROD $CIRCLE_TAG
 
     general:
       artifacts:
