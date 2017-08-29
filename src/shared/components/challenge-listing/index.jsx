@@ -86,7 +86,7 @@ export default function ChallengeListing(props) {
   }
 
   return (
-    <div styleName="ChallengeFiltersExample">
+    <div styleName="ChallengeFiltersExample" id="challengeFilterContainer">
       <ChallengeFilters
         groupId={props.groupId}
         communityName={props.communityName}
@@ -130,7 +130,7 @@ export default function ChallengeListing(props) {
         {challengeCardContainer}
 
         <div styleName="sidebar-container-desktop">
-          <Sticky top={20}>
+          <Sticky top={20} bottomBoundary="#challengeFilterContainer">
             <Sidebar hideTcLinksInFooter={props.hideTcLinksInFooter} />
           </Sticky>
         </div>
