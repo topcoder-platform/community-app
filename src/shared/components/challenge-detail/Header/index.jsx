@@ -214,7 +214,7 @@ export default function ChallengeHeader(props) {
               <a onClick={props.onToggleDeadlines} styleName="deadlines-collapser">
                 {props.showDeadlineDetail ?
                   <span styleName="collapse-text">Hide Deadlines <ArrowDown /></span>
-                  : <span styleName="collapse-text">View All Deadlines <ArrowUp /></span>
+                  : <span styleName="collapse-text">Show Deadlines <ArrowUp /></span>
                 }
               </a>
             </div>
