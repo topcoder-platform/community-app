@@ -3,6 +3,10 @@ import Renderer from 'react-test-renderer/shallow';
 import TU from 'react-dom/test-utils';
 import ChallengeCard from 'components/challenge-listing/ChallengeCard';
 import MockDate from 'mockdate';
+import { Provider } from 'react-redux';
+import mockReduxStore from 'redux-mock-store';
+
+const store = mockReduxStore()();
 
 beforeAll(() => {
   MockDate.set(1500350400000);
@@ -97,7 +101,9 @@ describe('Matches shallow shapshot', () => {
     const renderer = new Renderer();
 
     renderer.render((
-      <ChallengeCard {...mockData1} />
+      <Provider store={store}>
+        <ChallengeCard {...mockData1} />
+      </Provider>
     ));
     expect(renderer.getRenderOutput()).toMatchSnapshot();
   });
@@ -106,7 +112,9 @@ describe('Matches shallow shapshot', () => {
     const renderer = new Renderer();
 
     renderer.render((
-      <ChallengeCard {...mockData2} />
+      <Provider store={store}>
+        <ChallengeCard {...mockData2} />
+      </Provider>
     ));
     expect(renderer.getRenderOutput()).toMatchSnapshot();
   });
@@ -115,7 +123,9 @@ describe('Matches shallow shapshot', () => {
     const renderer = new Renderer();
 
     renderer.render((
-      <ChallengeCard {...mockData3} />
+      <Provider store={store}>
+        <ChallengeCard {...mockData3} />
+      </Provider>
     ));
     expect(renderer.getRenderOutput()).toMatchSnapshot();
   });
@@ -125,7 +135,11 @@ class Wrapper extends React.Component {
   componentDidMount() {}
 
   render() {
-    return <ChallengeCard {...this.props} />;
+    return (
+      <Provider store={store}>
+        <ChallengeCard {...this.props} />
+      </Provider>
+    );
   }
 }
 

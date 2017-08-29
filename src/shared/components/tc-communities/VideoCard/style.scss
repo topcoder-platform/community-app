@@ -1,0 +1,49 @@
+@import '~styles/tc-styles';
+
+.container {
+  display: block;
+  background: #fff;
+  border-radius: 4px;
+  box-shadow: 0 6px 20px 0 rgba(101, 101, 112, 0.2);
+  margin: 0 6px 24px;
+  padding-bottom: 24px;
+  width: 300px;
+
+  @include sm {
+    width: 220px;
+  }
+
+  @include xxs-to-xs {
+    height: auto;
+    margin: 0 15px;
+    padding-bottom: 30px;
+    width: auto;
+
+    & + & {
+      margin-top: 30px;
+    }
+  }
+}
+
+.content {
+  padding: 0 12px;
+  text-align: center;
+}
+
+.title {
+  color: #394146;
+  font: 600 20px/150% 'Open Sans';
+  margin-top: 20px;
+  max-height: 64px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  @include sm {
+    font-size: 16px;
+  }
+}
+
+.video {
+  height: auto !important;
+  width: 100% !important;
+}

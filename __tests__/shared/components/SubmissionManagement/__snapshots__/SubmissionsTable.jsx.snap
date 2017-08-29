@@ -37,6 +37,7 @@ exports[`Matches shallow shapshot 1`] = `
         onDownload={[Function]}
         onShowDetails={[Function]}
         showScreeningDetails={true}
+        status={undefined}
         submissionObject={
           Object {
             "submissionId": 12345,

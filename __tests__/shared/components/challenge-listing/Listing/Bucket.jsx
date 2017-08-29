@@ -3,6 +3,10 @@ import _ from 'lodash';
 import Renderer from 'react-test-renderer/shallow';
 import TU from 'react-dom/test-utils';
 import Bucket from 'components/challenge-listing/Listing/Bucket';
+import reduxStoreFactory from 'redux-mock-store';
+import { Provider } from 'react-redux';
+
+const store = reduxStoreFactory()();
 
 const expand = jest.fn();
 const loadMore = jest.fn();
@@ -149,7 +153,9 @@ test('Matches shallow shapshot', () => {
 
   _.forEach(mockDatas, (data) => {
     renderer.render((
-      <Bucket {...data} />
+      <Provider store={store}>
+        <Bucket {...data} />
+      </Provider>
     ));
     expect(renderer.getRenderOutput()).toMatchSnapshot();
   });
@@ -159,7 +165,11 @@ class Wrapper extends React.Component {
   componentDidMount() {}
 
   render() {
-    return <Bucket {...this.props} />;
+    return (
+      <Provider store={store}>
+        <Bucket {...this.props} />
+      </Provider>
+    );
   }
 }
 

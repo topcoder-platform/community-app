@@ -174,7 +174,10 @@ class ChallengeDetailPageContainer extends React.Component {
           }
           {
             !isEmpty && this.state.selectedView === 'CHECKPOINTS' &&
-            <ChallengeCheckpoints checkpoints={this.props.checkpoints} />
+            <ChallengeCheckpoints
+              checkpoints={this.props.checkpoints}
+              toggleCheckpointFeedback={this.props.toggleCheckpointFeedback}
+            />
           }
           {
             !isEmpty && this.state.selectedView === 'SUBMISSIONS' &&
@@ -261,6 +264,7 @@ ChallengeDetailPageContainer.propTypes = {
   unregistering: PT.bool.isRequired,
   loadingCheckpointResults: PT.bool,
   checkpointResults: PT.arrayOf(PT.shape()),
+  toggleCheckpointFeedback: PT.func.isRequired,
   loadingResults: PT.bool,
   results: PT.arrayOf(PT.shape()),
   fetchCheckpoints: PT.func.isRequired,
@@ -287,7 +291,7 @@ ChallengeDetailPageContainer.propTypes = {
 function extractChallengeDetail(v3, v2, challengeId) {
   let challenge = {};
   if (!_.isEmpty(v3)) {
-    challenge = _.clone(v3);
+    challenge = _.defaults(_.clone(v3), { prizes: [] });
     if (!_.isEmpty(v2)) {
       challenge.numberOfCheckpointsPrizes = v2.numberOfCheckpointsPrizes;
       challenge.introduction = v2.introduction;
@@ -433,6 +437,9 @@ const mapDispatchToProps = (dispatch) => {
     fetchCheckpoints: (tokens, challengeId) => {
       dispatch(a.fetchCheckpointsInit());
       dispatch(a.fetchCheckpointsDone(tokens.tokenV2, challengeId));
+    },
+    toggleCheckpointFeedback: (id, open) => {
+      dispatch(a.toggleCheckpointFeedback(id, open));
     },
     loadTerms: (tokens, challengeId) => {
       dispatch(t.getTermsInit(challengeId));
