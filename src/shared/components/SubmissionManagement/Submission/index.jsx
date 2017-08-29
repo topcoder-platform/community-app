@@ -60,7 +60,9 @@ export default function Submission(props) {
       </td>}
       <td>
         <div styleName="action-col">
-          <a href={`${config.URL.STUDIO}?module=DownloadSubmission&sbmid=${submissionObject.submissionId}&sbt=original`}>
+          <a href={type === 'DESIGN' ?
+            `${config.URL.STUDIO}?module=DownloadSubmission&sbmid=${submissionObject.submissionId}&sbt=original` :
+            submissionObject.download}>
             <DownloadIcon />
           </a>
           { /*
