@@ -16,11 +16,11 @@ jobs:
       - run: sudo pip install 'awsebcli==3.7.4' --force-reinstall
       - run: npm install
       - deploy:
-        branches:
-          only: develop
-        commands:
-          - docker build --build-arg BUILD_ENV=development -t $DEV_AWS_ACCOUNT_ID.dkr.ecr.$DEV_AWS_REGION.amazonaws.com/community-app:$CIRCLE_SHA1 .
-          - ./deploy.sh DEV $CIRCLE_SHA1
+          branches:
+            only: develop
+          commands:
+            - docker build --build-arg BUILD_ENV=development -t $DEV_AWS_ACCOUNT_ID.dkr.ecr.$DEV_AWS_REGION.amazonaws.com/community-app:$CIRCLE_SHA1 .
+            - ./deploy.sh DEV $CIRCLE_SHA1
 
 #    tags:
 #      only: /v[0-9]+(\.[0-9]+)*/
