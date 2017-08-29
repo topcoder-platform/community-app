@@ -83,7 +83,7 @@ export default function FiltersPanel({
               id="community-select"
               onChange={selectCommunity}
               options={communityOps}
-              autoBlur={true}
+              autoBlur
               simpleValue
               value={selectedCommunityId}
             />
