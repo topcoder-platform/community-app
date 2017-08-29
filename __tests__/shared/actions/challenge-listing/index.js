@@ -91,7 +91,7 @@ describe('challengeListing.getChallengeSubtracksDone', () => {
   });
 
   test('payload is a promise which resolves to the expected object', () =>
-    a.payload.then(res => expect(res).toEqual([{"description": "dummy"}])));
+    a.payload.then(res => expect(res).toEqual([{ description: 'dummy' }])));
 });
 
 describe('challengeListing.getChallengeTagsDone', () => {

@@ -53,7 +53,6 @@ export default function FiltersPanel({
 
   const mapOps = item => ({ label: item, value: item });
   const mapSubtracks = item => ({ label: item.name, value: item.subTrack });
-
   return (
     <div styleName={className}>
       <div styleName="header">

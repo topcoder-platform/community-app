@@ -67,14 +67,6 @@ export default function ChallengeHeader(props) {
 
   const theme = themeFactory(trackLower);
 
-  const stylizedSubTrack = (t) => {
-    if (challengeSubtracksMap[t]) {
-      return challengeSubtracksMap[t].name;
-    }
-    return (t || '').replace(/_/g, ' ')
-      .replace(/\w\S*/g, txt => _.capitalize(txt));
-  };
-
   const subTrackStyle = `${trackLower}-accent-background`;
   const eventStyle = `${trackLower}-accent-color`;
   const eventNames = (events || []).map((event => (event.eventName || '').toUpperCase()));
@@ -145,7 +137,8 @@ export default function ChallengeHeader(props) {
         <div styleName="important-detail">
           <h1 styleName="challenge-header">{name}</h1>
           <ChallengeTags
-            subTrack={stylizedSubTrack(subTrack)}
+            subTrack={subTrack}
+            challengeSubtracksMap={challengeSubtracksMap}
             events={eventNames}
             technPlatforms={miscTags}
             subTrackStyle={subTrackStyle}
