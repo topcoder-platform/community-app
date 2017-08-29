@@ -57,7 +57,7 @@
     "ACCOUNTS_APP_CONNECTOR": "https://accounts.topcoder-dev.com/connector.html",
 
     "ARENA": "https://arena.topcoder-dev.com",
-    "AUTH": "http://accounts-test.topcoder-dev.com",
+    "AUTH": "http://accounts.topcoder-dev.com",
     "BASE": "https://www.topcoder-dev.com",
     "BLOG": "https://www.topcoder-dev.com/feed",
     "COGNITIVE": "https://cognitive.topcoder.com",

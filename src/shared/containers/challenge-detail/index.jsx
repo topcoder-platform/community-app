@@ -291,7 +291,7 @@ ChallengeDetailPageContainer.propTypes = {
 function extractChallengeDetail(v3, v2, challengeId) {
   let challenge = {};
   if (!_.isEmpty(v3)) {
-    challenge = _.clone(v3);
+    challenge = _.defaults(_.clone(v3), { prizes: [] });
     if (!_.isEmpty(v2)) {
       challenge.numberOfCheckpointsPrizes = v2.numberOfCheckpointsPrizes;
       challenge.introduction = v2.introduction;

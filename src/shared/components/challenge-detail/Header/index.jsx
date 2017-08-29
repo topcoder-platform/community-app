@@ -161,7 +161,7 @@ export default function ChallengeHeader(props) {
                       </p> :
                       <p styleName="bonus-text">
                         <span styleName={`bonus-highlight ${trackLower}-accent-color`}>
-                          RELIABILITY BONUS: {reliabilityBonus}
+                          RELIABILITY BONUS: $ {reliabilityBonus}
                         </span>
                       </p>
                   }
