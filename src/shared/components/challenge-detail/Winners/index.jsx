@@ -43,7 +43,7 @@ export default function Winners(props) {
                 'place-1': w.placement === 1,
                 'place-2': w.placement === 2,
                 'place-3': w.placement === 3 })}
-              key={w.handle}
+              key={submissionId}
             >
               <div styleName="thumbnail">
                 <div styleName="flag">{w.placement}</div>
