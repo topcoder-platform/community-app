@@ -76,7 +76,7 @@ export default function Winners(props) {
                   <div styleName="id">ID: <span>#{getId(submissions, w)}</span></div>
                 }
                 {
-                  w.submissionDownloadLink &&
+                  (w.submissionDownloadLink && viewable) &&
                   <a
                     styleName="download"
                     target="_blank"
