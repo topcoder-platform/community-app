@@ -25,6 +25,7 @@ const DESCRIPTION = {
   MARATHON_MATCH: 'Write algorythms to solve complex problems, often for real world issues',
   PRINT_OR_PRESENTATION: 'Design print and presentation assets',
   SRM: 'Single Round Match - quickly write code to solve algorythm problems head to head against other competitors',
+  STUDIO_OTHER: 'Studio other',
   UI_PROTOTYPE_COMPETITION: 'Develop the front end of a UX',
   WEB_DESIGNS: 'Design UI and front end experiences for web experiences',
   WIDGET_OR_MOBILE_SCREEN_DESIGN: 'Design UI and front end experiences for mobile',
@@ -48,6 +49,7 @@ const HEADER = {
   UI_PROTOTYPE_COMPETITION: 'UI Prototype (Pr)',
   WEB_DESIGNS: 'Web Design (Wd)',
   WIDGET_OR_MOBILE_SCREEN_DESIGN: 'Widget or Mobile Screen Design (Wg)',
+  STUDIO_OTHER: 'Generic design challenge (D)',
   WIREFRAMES: 'Wireframe (Wf)',
 };
 
