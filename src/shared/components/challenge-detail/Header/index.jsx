@@ -98,7 +98,7 @@ export default function ChallengeHeader(props) {
         return false;
       }
       if (phaseLowerCase.includes('registration') || phaseLowerCase.includes('checkpoint') ||
-          phaseLowerCase.includes('submission') || phaseLowerCase.includes('review')) {
+        phaseLowerCase.includes('submission') || phaseLowerCase.includes('review')) {
         return true;
       }
       return false;
@@ -112,7 +112,7 @@ export default function ChallengeHeader(props) {
         return 1;
       }
       return (new Date(a.actualEndTime || a.scheduledEndTime)).getTime() -
-      (new Date(b.actualEndTime || b.scheduledEndTime)).getTime();
+        (new Date(b.actualEndTime || b.scheduledEndTime)).getTime();
     });
     if (subTrack === 'FIRST_2_FINISH' && status === 'COMPLETED') {
       const phases = allPhases.filter(p => p.phaseType === 'Iterative Review' && p.phaseStatus === 'Closed');
@@ -141,6 +141,33 @@ export default function ChallengeHeader(props) {
   }
 
   const checkpointCount = checkpoints && checkpoints.numberOfUniqueSubmitters;
+
+  let nextDeadlineMsg;
+  switch ((status || '').toLowerCase()) {
+    case 'active':
+      nextDeadlineMsg = (
+        <div styleName="next-deadline">
+          Next Deadline: <span styleName="deadline-highlighted">
+            {nextDeadline || '-'}</span>
+        </div>
+      );
+      break;
+    case 'completed':
+      nextDeadlineMsg = (
+        <div styleName="completed">
+          The challenge is finished.
+        </div>
+      );
+      break;
+    default:
+      nextDeadlineMsg = (
+        <div>
+          Status: <span styleName="deadline-highlighted">{
+            _.capitalize(status)}</span>
+        </div>
+      );
+      break;
+  }
 
   return (
     <ThemeProvider theme={theme} >
@@ -212,15 +239,7 @@ export default function ChallengeHeader(props) {
           <div styleName="deadlines-view">
             <div styleName="deadlines-overview">
               <div styleName="deadlines-overview-text">
-                {
-                  (status || '').toLowerCase() === 'active' ?
-                    (<div styleName="next-deadline">
-                    Next Deadline: <span styleName="deadline-highlighted">{nextDeadline || '-'}</span>
-                    </div>) :
-                    (<div>
-                    Status: <span styleName="deadline-highlighted">{_.capitalize(status)}</span>
-                    </div>)
-                }
+                {nextDeadlineMsg}
                 {
                   (status || '').toLowerCase() === 'active' &&
                   <div styleName="current-phase">

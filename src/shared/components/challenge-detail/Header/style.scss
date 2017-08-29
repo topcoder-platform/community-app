@@ -295,6 +295,11 @@
             word-wrap: normal;
             border-right: $tc-gray-50 solid 1px;
             padding-right: 10px;
+            display: inline;
+          }
+
+          .completed {
+            border-right: none;
           }
 
           .current-phase {
