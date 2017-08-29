@@ -82,7 +82,7 @@
   background: $tc-gray-80;
   display: none;
   line-height: 13px;
-  padding: $base-unit * 2;
+  padding: $base-unit * 3;
   position: absolute;
   right: 0;
   top: -50px;
@@ -94,7 +94,7 @@
     display: inline-block;
     width: 0;
     height: 0;
-    border-color: #000;
+    border-color: transparent;
     border-style: solid;
     bottom: -6px;
     margin-left: -5px;
