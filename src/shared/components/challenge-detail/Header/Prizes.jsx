@@ -29,7 +29,7 @@ export default function Prizes({ prizes }) {
                   </p>
                   <p styleName="prize-money">
                     <span styleName="prize-currency">$</span>
-                    {prize}
+                    {prize.toLocaleString()}
                   </p>
                 </div>
               </div>
