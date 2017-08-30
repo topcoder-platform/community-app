@@ -199,6 +199,18 @@ $panel-radius-4: $corner-radius * 2;
       @include xxs-to-sm {
         margin-top: 20px;
       }
+
+      &.hidetwomonthdatepicker {
+        @media screen and (min-width: $screen-md) {
+          display: none;
+        }
+      }
+
+      &.hideonemonthdatepicker {
+        @media screen and (max-width: $screen-md - 1px) {
+          display: none;
+        }
+      }
     }
   }
 }

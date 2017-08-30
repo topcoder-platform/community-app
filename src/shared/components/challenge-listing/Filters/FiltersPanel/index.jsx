@@ -105,9 +105,28 @@ export default function FiltersPanel({
               }
             />
           </div>
-          <div styleName="filter dates">
+          <div styleName="filter dates hidetwomonthdatepicker">
             <label htmlFor="date-range-picker">Date range</label>
             <DateRangePicker
+              numberOfMonths="1"
+              endDate={filterState.endDate && moment(filterState.endDate)}
+              id="date-range-picker"
+              onDatesChange={(dates) => {
+                let d = dates.endDate ? dates.endDate.toISOString() : null;
+                let state = Filter.setEndDate(filterState, d);
+                d = dates.startDate ? dates.startDate.toISOString() : null;
+                state = Filter.setStartDate(state, d);
+                setFilterState(state);
+              }}
+              startDate={
+                filterState.startDate && moment(filterState.startDate)
+              }
+            />
+          </div>
+          <div styleName="filter dates hideonemonthdatepicker">
+            <label htmlFor="date-range-picker">Date range</label>
+            <DateRangePicker
+              numberOfMonths="2"
               endDate={filterState.endDate && moment(filterState.endDate)}
               id="date-range-picker"
               onDatesChange={(dates) => {
