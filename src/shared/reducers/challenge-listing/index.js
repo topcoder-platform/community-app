@@ -167,10 +167,20 @@ function onSelectCommunity(state, { payload }) {
  * @return {Object}
  */
 function onSetFilter(state, { payload }) {
-  updateQuery({ filter: payload });
+  const filter = _.clone(payload);
+
+  if (filter) {
+    if (filter.tags && !_.isArray(filter.tags)) {
+      filter.tags = _.values(filter.tags);
+    }
+    if (filter.subtracks && !_.isArray(filter.subtracks)) {
+      filter.subtracks = _.values(filter.subtracks);
+    }
+  }
+  updateQuery({ filter });
   return {
     ...state,
-    filter: payload,
+    filter,
 
     /* Page numbers of past/upcoming challenges depend on the filters. To keep
      * the code simple we just reset them each time a filter is modified. */
@@ -272,7 +282,17 @@ export function factory(req) {
   const state = {};
 
   if (req) {
-    state.filter = req.query.filter;
+    let filter = {};
+    if (req.query && req.query.filter) {
+      filter = _.clone(req.query.filter);
+      if (filter.tags && !_.isArray(filter.tags)) {
+        filter.tags = _.values(filter.tags);
+      }
+      if (filter.subtracks && !_.isArray(filter.subtracks)) {
+        filter.subtracks = _.values(filter.subtracks);
+      }
+    }
+    state.filter = filter;
 
     /* TODO: OK, fine, this validation of dates does the server-side part of
      * the trick, while the frontend part (removing them from URL) is done
