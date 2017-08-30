@@ -20,7 +20,7 @@
     "type": "git",
     "url": "git+https://github.com/topcoder-platform/community-app.git"
   },
-  "author": "",
+  "author": "Topcoder Community",
   "license": "UNLICENSED",
   "private": true,
   "bugs": {
