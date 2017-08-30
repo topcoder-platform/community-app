@@ -109,18 +109,6 @@ export default function Learn() {
             <AccordionItem title="Where can I get my queries clarified?">
               <Text><p>You can use Challenge Forum to get clarifications for your queries</p></Text>
             </AccordionItem>
-            <AccordionItem title="How is the winner of a challenge determined?">
-              <Text><p>NA</p></Text>
-            </AccordionItem>
-            <AccordionItem title="I have won the challenge and how the prize money will be paid?">
-              <Text><p>NA</p></Text>
-            </AccordionItem>
-            <AccordionItem title="What is the value of currency conversion that I can get?">
-              <Text><p>NA</p></Text>
-            </AccordionItem>
-            <AccordionItem title="What is periodic contest/promotion?">
-              <Text><p>Refer to the reward policy for more details</p></Text>
-            </AccordionItem>
             <AccordionItem title="Where I can see different skills available on platform for learning?">
               <Text><p>On the Home page click on Learning; Navigate to communities to see skills available on platform.</p></Text>
             </AccordionItem>
