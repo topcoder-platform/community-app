@@ -119,10 +119,9 @@ export default function ChallengeFilters({
           >
             <FiltersIcon styleName="FiltersIcon" />
             {
-              filterRulesCount !== 0 ?
-                (
-                  <span styleName="filtersCount">{filterRulesCount}</span>
-                ) : ''
+              filterRulesCount ? (
+                <span styleName="filtersCount">{filterRulesCount}</span>
+              ) : null
             }
           </span>
           <FiltersSwitch
