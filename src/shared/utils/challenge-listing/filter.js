@@ -136,6 +136,14 @@ function filterByText(challenge, state) {
 
 function filterByTrack(challenge, state) {
   if (!state.tracks) return true;
+
+  /* Development challenges having Data Science tech tag, still should be
+   * included into data science track. */
+  if (state.tracks[COMPETITION_TRACKS.DATA_SCIENCE]
+    && _.includes(challenge.technologies, 'Data Science')) {
+    return true;
+  }
+
   return _.keys(state.tracks).some(track => challenge.communities.has(track));
 }
 
