@@ -136,11 +136,12 @@ function filterByText(challenge, state) {
 
 function filterByTrack(challenge, state) {
   if (!state.tracks) return true;
+  let flag;
   // include code challenges with 'data science' tag in datasci track
   if (_.get(state.tracks, 'datasci')) {
-    return _.includes(challenge.technologies, 'Data Science');
+    flag = _.includes(challenge.technologies, 'Data Science');
   }
-  return _.keys(state.tracks).some(track => challenge.communities.has(track));
+  return flag || _.keys(state.tracks).some(track => challenge.communities.has(track));
 }
 
 function filterByUpcoming(challenge, state) {
