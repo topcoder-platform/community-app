@@ -1,7 +1,7 @@
 /**
  * ExpressJS startup script.
  */
- :)
+
 import _ from 'lodash';
 import http from 'http';
 import logger from 'utils/logger';
