@@ -6,7 +6,6 @@
 
 import _ from 'lodash';
 import qs from 'qs';
-import moment from 'moment';
 
 /**
  * If executed client-side (determined in this case by the presence of global
@@ -29,14 +28,6 @@ export function updateQuery(update) {
     if (_.isUndefined(value)) delete query[key];
     else query[key] = value;
   });
-  if (!!query.filter && !!query.filter.startDate
-      && moment(query.filter.startDate).isValid() === false) {
-    delete query.filter.startDate;
-  } else if (!!query.filter && !!query.filter.endDate
-      && moment(query.filter.endDate).isValid() === false) {
-    delete query.filter.endDate;
-  }
-
   query = `?${qs.stringify(query, { encode: false })}`;
   window.history.replaceState(window.history.state, '', query);
 }
