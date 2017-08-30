@@ -52,6 +52,7 @@ function onGetChallengeSubtracksDone(state, action) {
   return {
     ...state,
     challengeSubtracks: action.error ? [] : action.payload,
+    challengeSubtracksMap: action.error ? {} : _.keyBy(action.payload, 'subTrack'),
     loadingChallengeSubtracks: false,
   };
 }
@@ -237,6 +238,7 @@ function create(initialState) {
 
     challenges: [],
     challengeSubtracks: [],
+    challengeSubtracksMap: {},
     challengeTags: [],
 
     filter: {},

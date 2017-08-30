@@ -34,6 +34,7 @@ export default function ChallengeHeader(props) {
     setChallengeListingFilter,
     unregisterFromChallenge,
     unregistering,
+    challengeSubtracksMap,
   } = props;
 
   const {
@@ -66,8 +67,6 @@ export default function ChallengeHeader(props) {
 
   const theme = themeFactory(trackLower);
 
-  const stylizedSubTrack = (subTrack || '').replace('_', ' ')
-    .replace(/\w\S*/g, txt => _.capitalize(txt));
   const subTrackStyle = `${trackLower}-accent-background`;
   const eventStyle = `${trackLower}-accent-color`;
   const eventNames = (events || []).map((event => (event.eventName || '').toUpperCase()));
@@ -181,7 +180,8 @@ export default function ChallengeHeader(props) {
         <div styleName="important-detail">
           <h1 styleName="challenge-header">{name}</h1>
           <ChallengeTags
-            subTrack={stylizedSubTrack}
+            subTrack={subTrack}
+            challengeSubtracksMap={challengeSubtracksMap}
             events={eventNames}
             technPlatforms={miscTags}
             subTrackStyle={subTrackStyle}
@@ -303,4 +303,5 @@ ChallengeHeader.propTypes = {
   showDeadlineDetail: PT.bool.isRequired,
   unregisterFromChallenge: PT.func.isRequired,
   unregistering: PT.bool.isRequired,
+  challengeSubtracksMap: PT.shape().isRequired,
 };

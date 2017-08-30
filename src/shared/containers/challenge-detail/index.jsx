@@ -54,7 +54,8 @@ class ChallengeDetailPageContainer extends React.Component {
 
   componentDidMount() {
     const { challenge, loadChallengeDetails, loadTerms,
-      openTermsModal, authTokens, challengeId } = this.props;
+      openTermsModal, authTokens, challengeId,
+      challengeSubtracksMap, getSubtracks } = this.props;
 
     if (challenge.id !== challengeId) {
       loadChallengeDetails(authTokens, challengeId);
@@ -64,6 +65,10 @@ class ChallengeDetailPageContainer extends React.Component {
 
     if (authTokens.tokenV2 && location.search.indexOf('showTerms=true') > 0) {
       openTermsModal();
+    }
+
+    if (_.isEmpty(challengeSubtracksMap)) {
+      getSubtracks();
     }
   }
 
@@ -147,6 +152,7 @@ class ChallengeDetailPageContainer extends React.Component {
               unregistering={this.props.unregistering}
               checkpoints={this.props.checkpoints}
               hasRegistered={hasRegistered}
+              challengeSubtracksMap={this.props.challengeSubtracksMap}
             />
           }
           {
@@ -286,6 +292,8 @@ ChallengeDetailPageContainer.propTypes = {
   agreedTerms: PT.shape(),
   loadingDocuSignUrl: PT.string,
   setChallengeListingFilter: PT.func.isRequired,
+  challengeSubtracksMap: PT.shape().isRequired,
+  getSubtracks: PT.func.isRequired,
 };
 
 function extractChallengeDetail(v3, v2, challengeId) {
@@ -392,6 +400,7 @@ const mapStateToProps = (state, props) => ({
   agreeingTerm: state.terms.agreeingTerm,
   agreedTerms: state.terms.agreedTerms,
   isLoadingTerms: state.terms.loadingTermsForChallengeId === props.match.params.challengeId,
+  challengeSubtracksMap: state.challengeListing.challengeSubtracksMap,
 });
 
 const mapDispatchToProps = (dispatch) => {
@@ -462,6 +471,11 @@ const mapDispatchToProps = (dispatch) => {
     agreeTerm: (tokens, termId) => {
       dispatch(t.agreeTermInit(termId));
       dispatch(t.agreeTermDone(termId, tokens.tokenV2));
+    },
+    getSubtracks: () => {
+      const cl = challengeListingActions.challengeListing;
+      dispatch(cl.getChallengeSubtracksInit());
+      dispatch(cl.getChallengeSubtracksDone());
     },
   };
 };

@@ -52,7 +52,7 @@ export default function FiltersPanel({
   }));
 
   const mapOps = item => ({ label: item, value: item });
-
+  const mapSubtracks = item => ({ label: item.name, value: item.subTrack });
   return (
     <div styleName={className}>
       <div styleName="header">
@@ -100,7 +100,7 @@ export default function FiltersPanel({
                 const subtracks = value ? value.split(',') : undefined;
                 setFilterState(Filter.setSubtracks(filterState, subtracks));
               }}
-              options={validSubtracks.map(mapOps)}
+              options={validSubtracks.map(mapSubtracks)}
               simpleValue
               value={
                 filterState.subtracks ? filterState.subtracks.join(',') : null
@@ -166,6 +166,6 @@ FiltersPanel.propTypes = {
   setFilterState: PT.func.isRequired,
   setSearchText: PT.func.isRequired,
   validKeywords: PT.arrayOf(PT.string).isRequired,
-  validSubtracks: PT.arrayOf(PT.string).isRequired,
+  validSubtracks: PT.arrayOf(PT.shape()).isRequired,
   onClose: PT.func,
 };
