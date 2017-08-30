@@ -136,12 +136,15 @@ function filterByText(challenge, state) {
 
 function filterByTrack(challenge, state) {
   if (!state.tracks) return true;
-  let flag;
-  // include code challenges with 'data science' tag in datasci track
-  if (_.get(state.tracks, 'datasci')) {
-    flag = _.includes(challenge.technologies, 'Data Science');
+
+  /* Development challenges having Data Science tech tag, still should be
+   * included into data science track. */
+  if (state.tracks[COMPETITION_TRACKS.DATA_SCIENCE]
+    && _.includes(challenge.technologies, 'Data Science')) {
+    return true;
   }
-  return flag || _.keys(state.tracks).some(track => challenge.communities.has(track));
+
+  return _.keys(state.tracks).some(track => challenge.communities.has(track));
 }
 
 function filterByUpcoming(challenge, state) {
