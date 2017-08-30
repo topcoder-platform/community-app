@@ -26,20 +26,22 @@ exports[`Matches shallow shapshot 1`] = `
       <p
         className="src-shared-components-SubmissionManagement-SubmissionManagement-___styles__round___3QPI9"
       />
-      <p
-        className="src-shared-components-SubmissionManagement-SubmissionManagement-___styles__time-left___1Tye2"
-      >
-         
-        0
-        H 
-        0
-        M
-      </p>
-      <p
-        className="src-shared-components-SubmissionManagement-SubmissionManagement-___styles__left-label___1eGT9"
-      >
-        left
-      </p>
+      <div>
+        <p
+          className="src-shared-components-SubmissionManagement-SubmissionManagement-___styles__time-left___1Tye2"
+        >
+           
+          0
+          H 
+          0
+          M
+        </p>
+        <p
+          className="src-shared-components-SubmissionManagement-SubmissionManagement-___styles__left-label___1eGT9"
+        >
+          left
+        </p>
+      </div>
     </div>
   </div>
   <div

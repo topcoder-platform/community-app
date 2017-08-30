@@ -21,6 +21,8 @@ export default function Auth({ column }) {
       className={column ? 'column' : ''}
       styleName="auth"
       onClick={(event) => { event.stopPropagation(); }}
+      role="button"
+      tabIndex="0"
     >
       <a
         className="tc-btn-sm tc-btn-primary"

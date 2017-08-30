@@ -50,9 +50,13 @@ export default {
         return o.submissionEndDate;
       }
 
-      let aDate = nextSubEndDate(a);
-      let bDate = nextSubEndDate(b);
-      return (moment(aDate).isBefore()) ? 1 : (moment(bDate).isBefore()) ? -1 : moment(aDate).diff(bDate);
+      const aDate = nextSubEndDate(a);
+      const bDate = nextSubEndDate(b);
+
+      if (moment(aDate).isBefore()) return 1;
+      if (moment(bDate).isBefore()) return -1;
+
+      return moment(aDate).diff(bDate);
     },
     name: 'Time to submit',
   },

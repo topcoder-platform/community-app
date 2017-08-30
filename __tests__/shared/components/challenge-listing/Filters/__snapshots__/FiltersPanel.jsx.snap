@@ -125,7 +125,7 @@ exports[`Matches shallow shapshot 1`] = `
         <DateRangePicker
           endDate={undefined}
           id="date-range-picker"
-          numberOfMonths="1"
+          numberOfMonths={1}
           onDatesChange={[Function]}
           startDate={undefined}
         />
@@ -141,7 +141,7 @@ exports[`Matches shallow shapshot 1`] = `
         <DateRangePicker
           endDate={undefined}
           id="date-range-picker"
-          numberOfMonths="2"
+          numberOfMonths={2}
           onDatesChange={[Function]}
           startDate={undefined}
         />
@@ -272,7 +272,7 @@ exports[`Matches shallow shapshot 2`] = `
         <DateRangePicker
           endDate={undefined}
           id="date-range-picker"
-          numberOfMonths="1"
+          numberOfMonths={1}
           onDatesChange={[Function]}
           startDate={undefined}
         />
@@ -288,7 +288,7 @@ exports[`Matches shallow shapshot 2`] = `
         <DateRangePicker
           endDate={undefined}
           id="date-range-picker"
-          numberOfMonths="2"
+          numberOfMonths={2}
           onDatesChange={[Function]}
           startDate={undefined}
         />

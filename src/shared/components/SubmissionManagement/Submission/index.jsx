@@ -60,11 +60,13 @@ export default function Submission(props) {
       </td>}
       <td>
         <div styleName="action-col">
-          <a href={type === 'DESIGN' ?
-            `${config.URL.STUDIO}?module=DownloadSubmission&sbmid=${submissionObject.submissionId}&sbt=original` :
-            submissionObject.download}>
-            <DownloadIcon />
-          </a>
+          <a
+            href={
+              type === 'DESIGN'
+                ? `${config.URL.STUDIO}?module=DownloadSubmission&sbmid=${submissionObject.submissionId}&sbt=original`
+                : submissionObject.download
+            }
+          ><DownloadIcon /></a>
           { /*
             TODO: At the moment we just fetch downloads from the legacy
               Topcoder Studio API, and we don't need any JS code to this.
