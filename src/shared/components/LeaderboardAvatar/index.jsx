@@ -26,9 +26,9 @@ class LeaderboardAvatar extends Component {
   }
 
   render() {
-    const { domain, openNewTab, url } = this.props;
+    const { openNewTab, url } = this.props;
     const { member } = this.state;
-    const targetURL = url || `${domain}/members/${member.handle}`;
+    const targetURL = url || `${config.URL.BASE}/members/${member.handle}`;
     return (
       <a
         href={targetURL}
@@ -51,14 +51,12 @@ class LeaderboardAvatar extends Component {
 }
 
 LeaderboardAvatar.defaultProps = {
-  domain: config.URL.BASE,
   member: {},
   openNewTab: false,
   url: '',
 };
 
 LeaderboardAvatar.propTypes = {
-  domain: PT.string,
   member: PT.shape({}),
   openNewTab: PT.bool,
   url: PT.string,
