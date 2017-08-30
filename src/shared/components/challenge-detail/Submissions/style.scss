@@ -85,10 +85,7 @@
     .content {
       display: flex;
       flex-wrap: wrap;
-
-      @include xxs-to-xs {
-        justify-content: center;
-      }
+      justify-content: center;
     }
 
     .submission {
