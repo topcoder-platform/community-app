@@ -302,6 +302,7 @@ export function combine(...filters) {
 export function mapToBackend(filter) {
   const res = {};
   if (filter.groupIds) res.groupIds = filter.groupIds.join(',');
+  if (filter.groupIds && filter.tracks !== {}) res.groupIds = '0';
 
   /* NOTE: Right now the frontend challenge filter by tag works different,
    * it looks for matches in the challenge name OR in the techs / platforms. */
