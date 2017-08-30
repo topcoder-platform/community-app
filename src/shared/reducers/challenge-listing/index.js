@@ -271,6 +271,13 @@ export function factory(req) {
 
   if (req) {
     state.filter = req.query.filter;
+
+    /* TODO: OK, fine, this validation of dates does the server-side part of
+     * the trick, while the frontend part (removing them from URL) is done
+     * elsewhere (/src/shared/routes/Topcoder/ChallengeListing), but it should
+     * be changed that everything is handled here in the reducer code (only
+     * this way we can ensure that it works all around, including community
+     * challenge listings). */
     if (!!state.filter && !!state.filter.startDate
         && moment(state.filter.startDate).isValid() === false) {
       delete state.filter.startDate;
