@@ -34,6 +34,7 @@ export default function ChallengeHeader(props) {
     setChallengeListingFilter,
     unregisterFromChallenge,
     unregistering,
+    challengeSubtracksMap,
   } = props;
 
   const {
@@ -66,8 +67,6 @@ export default function ChallengeHeader(props) {
 
   const theme = themeFactory(trackLower);
 
-  const stylizedSubTrack = (subTrack || '').replace('_', ' ')
-    .replace(/\w\S*/g, txt => _.capitalize(txt));
   const subTrackStyle = `${trackLower}-accent-background`;
   const eventStyle = `${trackLower}-accent-color`;
   const eventNames = (events || []).map((event => (event.eventName || '').toUpperCase()));
@@ -79,12 +78,13 @@ export default function ChallengeHeader(props) {
   } else if (reliabilityBonus) {
     bonusType = 'Reliability Bonus';
   }
-  const registrationEnded = new Date(registrationEndDate).getTime() < Date.now();
+  const registrationEnded = new Date(registrationEndDate).getTime() < Date.now() || status.toLowerCase() !== 'active';
   const submissionEnded = new Date(submissionEndDate).getTime() < Date.now();
   const hasSubmissions = userDetails && userDetails.hasUserSubmittedForReview;
-  const nextDeadline = currentPhases && currentPhases.length > 0 && currentPhases[0].phaseType;
+  const nextPhaseIndex = hasRegistered ? 1 : 0;
+  const nextDeadline = currentPhases.length > 0 && currentPhases[nextPhaseIndex].phaseType;
   const deadlineEnd = currentPhases && currentPhases.length > 0 ?
-    new Date(currentPhases[0].scheduledEndTime).getTime() : Date.now();
+    new Date(currentPhases[nextPhaseIndex].scheduledEndTime).getTime() : Date.now();
   const currentTime = Date.now();
   const timeDiff = deadlineEnd > currentTime ? deadlineEnd - currentTime : 0;
   const duration = moment.duration(timeDiff);
@@ -98,10 +98,15 @@ export default function ChallengeHeader(props) {
         return false;
       }
       if (phaseLowerCase.includes('registration') || phaseLowerCase.includes('checkpoint') ||
-          phaseLowerCase.includes('submission') || phaseLowerCase.includes('review')) {
+        phaseLowerCase.includes('submission') || phaseLowerCase.includes('review')) {
         return true;
       }
       return false;
+    });
+
+    relevantPhases.push({
+      phaseType: 'Registration',
+      scheduledEndTime: registrationEndDate,
     });
 
     relevantPhases.sort((a, b) => {
@@ -112,10 +117,19 @@ export default function ChallengeHeader(props) {
         return 1;
       }
       return (new Date(a.actualEndTime || a.scheduledEndTime)).getTime() -
-      (new Date(b.actualEndTime || b.scheduledEndTime)).getTime();
+        (new Date(b.actualEndTime || b.scheduledEndTime)).getTime();
     });
-
-    if (relevantPhases.length > 1 && appealsEndDate) {
+    if (subTrack === 'FIRST_2_FINISH' && status === 'COMPLETED') {
+      const phases = allPhases.filter(p => p.phaseType === 'Iterative Review' && p.phaseStatus === 'Closed');
+      const endPhaseDate = Math.max(...phases.map(d => new Date(d.scheduledEndTime)));
+      relevantPhases = _.filter(relevantPhases, p => (p.phaseType.toLowerCase().includes('registration') ||
+        new Date(p.scheduledEndTime).getTime() < endPhaseDate));
+      relevantPhases.push({
+        id: -1,
+        phaseType: 'Winners',
+        scheduledEndTime: endPhaseDate,
+      });
+    } else if (relevantPhases.length > 1 && appealsEndDate) {
       const lastPhase = relevantPhases[relevantPhases.length - 1];
       const lastPhaseTime = (
         new Date(lastPhase.actualEndTime || lastPhase.scheduledEndTime)
@@ -123,6 +137,7 @@ export default function ChallengeHeader(props) {
       const appealsEnd = (new Date(appealsEndDate).getTime());
       if (lastPhaseTime < appealsEnd) {
         relevantPhases.push({
+          id: -1,
           phaseType: 'Winners',
           scheduledEndTime: appealsEndDate,
         });
@@ -132,13 +147,41 @@ export default function ChallengeHeader(props) {
 
   const checkpointCount = checkpoints && checkpoints.numberOfUniqueSubmitters;
 
+  let nextDeadlineMsg;
+  switch ((status || '').toLowerCase()) {
+    case 'active':
+      nextDeadlineMsg = (
+        <div styleName="next-deadline">
+          Next Deadline: <span styleName="deadline-highlighted">
+            {nextDeadline || '-'}</span>
+        </div>
+      );
+      break;
+    case 'completed':
+      nextDeadlineMsg = (
+        <div styleName="completed">
+          The challenge is finished.
+        </div>
+      );
+      break;
+    default:
+      nextDeadlineMsg = (
+        <div>
+          Status: <span styleName="deadline-highlighted">{
+            _.capitalize(status)}</span>
+        </div>
+      );
+      break;
+  }
+
   return (
     <ThemeProvider theme={theme} >
       <div styleName="challenge-outer-container">
         <div styleName="important-detail">
           <h1 styleName="challenge-header">{name}</h1>
           <ChallengeTags
-            subTrack={stylizedSubTrack}
+            subTrack={subTrack}
+            challengeSubtracksMap={challengeSubtracksMap}
             events={eventNames}
             technPlatforms={miscTags}
             subTrackStyle={subTrackStyle}
@@ -161,7 +204,7 @@ export default function ChallengeHeader(props) {
                       </p> :
                       <p styleName="bonus-text">
                         <span styleName={`bonus-highlight ${trackLower}-accent-color`}>
-                          RELIABILITY BONUS: {reliabilityBonus}
+                          RELIABILITY BONUS: $ {reliabilityBonus}
                         </span>
                       </p>
                   }
@@ -202,19 +245,20 @@ export default function ChallengeHeader(props) {
           <div styleName="deadlines-view">
             <div styleName="deadlines-overview">
               <div styleName="deadlines-overview-text">
-                <div styleName="next-deadline">
-                  Next Deadline: <span styleName="deadline-highlighted">{nextDeadline || '-'}</span>
-                </div>
-                <div styleName="current-phase">
-                  <span styleName="deadline-highlighted">
-                    {timeLeft}
-                  </span> until current deadline ends
-                </div>
+                {nextDeadlineMsg}
+                {
+                  (status || '').toLowerCase() === 'active' &&
+                  <div styleName="current-phase">
+                    <span styleName="deadline-highlighted">
+                      {timeLeft}
+                    </span> until current deadline ends
+                  </div>
+                }
               </div>
               <a onClick={props.onToggleDeadlines} styleName="deadlines-collapser">
                 {props.showDeadlineDetail ?
                   <span styleName="collapse-text">Hide Deadlines <ArrowDown /></span>
-                  : <span styleName="collapse-text">View All Deadlines <ArrowUp /></span>
+                  : <span styleName="collapse-text">Show Deadlines <ArrowUp /></span>
                 }
               </a>
             </div>
@@ -259,4 +303,5 @@ ChallengeHeader.propTypes = {
   showDeadlineDetail: PT.bool.isRequired,
   unregisterFromChallenge: PT.func.isRequired,
   unregistering: PT.bool.isRequired,
+  challengeSubtracksMap: PT.shape().isRequired,
 };

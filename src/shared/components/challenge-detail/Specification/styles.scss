@@ -57,6 +57,10 @@ $tc-link-visited: #0c4e98;
         padding-left: 17px;
       }
     }
+
+    img {
+      max-width: 100%;
+    }
   }
 }
 
@@ -146,6 +150,7 @@ $tc-link-visited: #0c4e98;
     line-height: 20px;
     margin: (2 * $base-unit) 0 (3 * $base-unit);
     padding: 3 * $base-unit;
+    display: block;
   }
 
   pre {

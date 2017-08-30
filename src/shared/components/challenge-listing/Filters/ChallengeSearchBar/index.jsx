@@ -27,14 +27,14 @@ export default function ChallengeSearchBar({
     <div styleName="ChallengeSearchBar">
       <input
         onChange={event => setQuery(event.target.value)}
-        onKeyPress={event => (event.key === 'Enter' ? onSearch(encodeURIComponent(query)) : null)}
+        onKeyPress={event => (event.key === 'Enter' ? onSearch(query.trim()) : null)}
         placeholder={placeholder}
         type="text"
         value={query}
       />
       <span
         styleName={`SearchButton ${query ? 'active' : ''}`}
-        onClick={() => onSearch(encodeURIComponent(query))}
+        onClick={() => onSearch(query.trim())}
       >
         <ZoomIcon styleName="zoomIcon" />
       </span>

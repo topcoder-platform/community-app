@@ -1,29 +1,28 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Matches shallow shapshot 1`] = `
-<div
-  className="src-shared-components-challenge-listing-Listing-Bucket-___style__bucket___3jwPe"
->
-  <SortingSelectBar
-    onSelect={[Function]}
-    options={
-      Array [
-        Object {
-          "label": "Current phase",
-          "value": "current-phase",
-        },
-      ]
+<Bucket
+  bucket={
+    Object {
+      "filter": Object {
+        "status": "ac",
+      },
+      "sorts": Array [
+        "current-phase",
+      ],
     }
-    title=""
-    value={
+  }
+  challenges={
+    Array [
       Object {
-        "label": "Current phase",
-        "value": "current-phase",
-      }
-    }
-  />
-  <ChallengeCard
-    challenge={
+        "id": "1",
+        "prizes": Array [
+          1200,
+          600,
+        ],
+        "status": "b",
+        "totalPrize": 1800,
+      },
       Object {
         "allPhases": Array [
           Object {
@@ -54,140 +53,44 @@ exports[`Matches shallow shapshot 1`] = `
         "technologies": "a, b, c",
         "totalPrize": 1800,
         "track": "DEVELOP",
-      }
-    }
-    newChallengeDetails={true}
-    onTechTagClicked={[Function]}
-    openChallengesInNewTabs={false}
-    prizeMode="money-usd"
-    sampleWinnerProfile={undefined}
-  />
-  <Waypoint
-    bottomOffset="0px"
-    fireOnRapidScroll={true}
-    horizontal={false}
-    onEnter={[Function]}
-    onLeave={[Function]}
-    onPositionChange={[Function]}
-    topOffset="0px"
-  />
-</div>
+      },
+    ]
+  }
+  communityName={null}
+  expand={[Function]}
+  expanded={true}
+  loadMore={[Function]}
+  loading={false}
+  openChallengesInNewTabs={false}
+  setFilterState={[Function]}
+  setSort={[Function]}
+  sort=""
+/>
 `;
 
 exports[`Matches shallow shapshot 2`] = `
-<div
-  className="src-shared-components-challenge-listing-Listing-Bucket-___style__bucket___3jwPe"
->
-  <SortingSelectBar
-    onSelect={[Function]}
-    options={
-      Array [
-        Object {
-          "label": "Current phase",
-          "value": "current-phase",
-        },
-      ]
+<Bucket
+  bucket={
+    Object {
+      "filter": Object {
+        "status": "ac",
+      },
+      "sorts": Array [
+        "current-phase",
+      ],
     }
-    title=""
-    value={
+  }
+  challenges={
+    Array [
       Object {
-        "label": "Current phase",
-        "value": "current-phase",
-      }
-    }
-  />
-  <ChallengeCard
-    challenge={
-      Object {
-        "id": "6",
+        "id": "1",
         "prizes": Array [
           1200,
           600,
         ],
-        "status": "a",
+        "status": "b",
         "totalPrize": 1800,
-      }
-    }
-    newChallengeDetails={true}
-    onTechTagClicked={[Function]}
-    openChallengesInNewTabs={false}
-    prizeMode="money-usd"
-    sampleWinnerProfile={undefined}
-  />
-  <ChallengeCard
-    challenge={
-      Object {
-        "id": "11",
-        "prizes": Array [
-          1200,
-          600,
-        ],
-        "status": "a",
-        "totalPrize": 1800,
-      }
-    }
-    newChallengeDetails={true}
-    onTechTagClicked={[Function]}
-    openChallengesInNewTabs={false}
-    prizeMode="money-usd"
-    sampleWinnerProfile={undefined}
-  />
-  <ChallengeCard
-    challenge={
-      Object {
-        "id": "3",
-        "prizes": Array [
-          1200,
-          600,
-        ],
-        "status": "a",
-        "totalPrize": 1800,
-      }
-    }
-    newChallengeDetails={true}
-    onTechTagClicked={[Function]}
-    openChallengesInNewTabs={false}
-    prizeMode="money-usd"
-    sampleWinnerProfile={undefined}
-  />
-  <ChallengeCard
-    challenge={
-      Object {
-        "id": "4",
-        "prizes": Array [
-          1200,
-          600,
-        ],
-        "status": "a",
-        "totalPrize": 1800,
-      }
-    }
-    newChallengeDetails={true}
-    onTechTagClicked={[Function]}
-    openChallengesInNewTabs={false}
-    prizeMode="money-usd"
-    sampleWinnerProfile={undefined}
-  />
-  <ChallengeCard
-    challenge={
-      Object {
-        "id": "5",
-        "prizes": Array [
-          1200,
-          600,
-        ],
-        "status": "a",
-        "totalPrize": 1800,
-      }
-    }
-    newChallengeDetails={true}
-    onTechTagClicked={[Function]}
-    openChallengesInNewTabs={false}
-    prizeMode="money-usd"
-    sampleWinnerProfile={undefined}
-  />
-  <ChallengeCard
-    challenge={
+      },
       Object {
         "id": "2",
         "prizes": Array [
@@ -196,16 +99,43 @@ exports[`Matches shallow shapshot 2`] = `
         ],
         "status": "a",
         "totalPrize": 1800,
-      }
-    }
-    newChallengeDetails={true}
-    onTechTagClicked={[Function]}
-    openChallengesInNewTabs={false}
-    prizeMode="money-usd"
-    sampleWinnerProfile={undefined}
-  />
-  <ChallengeCard
-    challenge={
+      },
+      Object {
+        "id": "3",
+        "prizes": Array [
+          1200,
+          600,
+        ],
+        "status": "a",
+        "totalPrize": 1800,
+      },
+      Object {
+        "id": "4",
+        "prizes": Array [
+          1200,
+          600,
+        ],
+        "status": "a",
+        "totalPrize": 1800,
+      },
+      Object {
+        "id": "5",
+        "prizes": Array [
+          1200,
+          600,
+        ],
+        "status": "a",
+        "totalPrize": 1800,
+      },
+      Object {
+        "id": "6",
+        "prizes": Array [
+          1200,
+          600,
+        ],
+        "status": "a",
+        "totalPrize": 1800,
+      },
       Object {
         "id": "7",
         "prizes": Array [
@@ -214,16 +144,7 @@ exports[`Matches shallow shapshot 2`] = `
         ],
         "status": "a",
         "totalPrize": 1800,
-      }
-    }
-    newChallengeDetails={true}
-    onTechTagClicked={[Function]}
-    openChallengesInNewTabs={false}
-    prizeMode="money-usd"
-    sampleWinnerProfile={undefined}
-  />
-  <ChallengeCard
-    challenge={
+      },
       Object {
         "id": "8",
         "prizes": Array [
@@ -232,16 +153,7 @@ exports[`Matches shallow shapshot 2`] = `
         ],
         "status": "a",
         "totalPrize": 1800,
-      }
-    }
-    newChallengeDetails={true}
-    onTechTagClicked={[Function]}
-    openChallengesInNewTabs={false}
-    prizeMode="money-usd"
-    sampleWinnerProfile={undefined}
-  />
-  <ChallengeCard
-    challenge={
+      },
       Object {
         "id": "9",
         "prizes": Array [
@@ -250,16 +162,7 @@ exports[`Matches shallow shapshot 2`] = `
         ],
         "status": "a",
         "totalPrize": 1800,
-      }
-    }
-    newChallengeDetails={true}
-    onTechTagClicked={[Function]}
-    openChallengesInNewTabs={false}
-    prizeMode="money-usd"
-    sampleWinnerProfile={undefined}
-  />
-  <ChallengeCard
-    challenge={
+      },
       Object {
         "id": "10",
         "prizes": Array [
@@ -268,45 +171,51 @@ exports[`Matches shallow shapshot 2`] = `
         ],
         "status": "a",
         "totalPrize": 1800,
-      }
-    }
-    newChallengeDetails={true}
-    onTechTagClicked={[Function]}
-    openChallengesInNewTabs={false}
-    prizeMode="money-usd"
-    sampleWinnerProfile={undefined}
-  />
-  <ChallengeCardPlaceholder
-    id={0}
-  />
-  <ChallengeCardPlaceholder
-    id={1}
-  />
-  <ChallengeCardPlaceholder
-    id={2}
-  />
-  <ChallengeCardPlaceholder
-    id={3}
-  />
-  <ChallengeCardPlaceholder
-    id={4}
-  />
-  <ChallengeCardPlaceholder
-    id={5}
-  />
-  <ChallengeCardPlaceholder
-    id={6}
-  />
-  <ChallengeCardPlaceholder
-    id={7}
-  />
-  <button
-    className="src-shared-components-challenge-listing-Listing-Bucket-___style__view-more___2UekL"
-    onClick={[Function]}
-  >
-    View more challenges
-  </button>
-</div>
+      },
+      Object {
+        "id": "11",
+        "prizes": Array [
+          1200,
+          600,
+        ],
+        "status": "a",
+        "totalPrize": 1800,
+      },
+    ]
+  }
+  communityName={null}
+  expand={[Function]}
+  expanded={false}
+  loadMore={[Function]}
+  loading={true}
+  openChallengesInNewTabs={false}
+  setFilterState={[Function]}
+  setSort={[Function]}
+  sort=""
+/>
 `;
 
-exports[`Matches shallow shapshot 3`] = `null`;
+exports[`Matches shallow shapshot 3`] = `
+<Bucket
+  bucket={
+    Object {
+      "filter": Object {
+        "status": "e",
+      },
+      "sorts": Array [
+        "current-phase",
+      ],
+    }
+  }
+  challenges={Array []}
+  communityName={null}
+  expand={[Function]}
+  expanded={false}
+  loadMore={null}
+  loading={true}
+  openChallengesInNewTabs={false}
+  setFilterState={[Function]}
+  setSort={[Function]}
+  sort=""
+/>
+`;

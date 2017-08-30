@@ -253,6 +253,7 @@
           color: $tc-black;
           line-height: 25px;
           margin: 25px 15px 0;
+          padding-bottom: 20px;
 
           .bonus-text {
             .bonus-highlight {
@@ -295,21 +296,21 @@
             word-wrap: normal;
             border-right: $tc-gray-50 solid 1px;
             padding-right: 10px;
+            display: inline;
+          }
 
-            .deadline-highlighted {
-              color: $tc-white;
-              font-weight: 700;
-            }
+          .completed {
+            border-right: none;
           }
 
           .current-phase {
             overflow-wrap: normal;
             padding-left: 10px;
+          }
 
-            .deadline-highlighted {
-              color: $tc-white;
-              font-weight: 700;
-            }
+          .deadline-highlighted {
+            color: $tc-white;
+            font-weight: 700;
           }
         }
 
@@ -343,6 +344,10 @@
           border-right: 1px solid $tc-gray-10;
           font-family: roboto;
           font-weight: 400;
+
+          &:last-child {
+            border-right: none;
+          }
 
           .deadline-info {
             font-size: 13px;

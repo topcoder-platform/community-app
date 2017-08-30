@@ -114,8 +114,8 @@ function filterBySubtracks(challenge, state) {
    * why challenge subtracks in challenge objects are different from those
    * return from the API as the list of possible subtracks. */
   const filterSubtracks = state.subtracks.map(item =>
-    item.toLowerCase().replace(/ /g, ''));
-  const challengeSubtrack = challenge.subTrack.toLowerCase().replace(/_/g, '');
+    item.toLowerCase().replace(/[_ ]/g, ''));
+  const challengeSubtrack = challenge.subTrack.toLowerCase().replace(/[_ ]/g, '');
   return filterSubtracks.includes(challengeSubtrack);
 }
 

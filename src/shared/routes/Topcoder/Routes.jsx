@@ -17,9 +17,11 @@ import ChallengeListing from './ChallengeListing';
 import Dashboard from './Dashboard';
 import SubmissionManagement from './SubmissionManagement';
 
+import './styles.scss';
+
 export default function Topcoder() {
   return (
-    <div>
+    <div styleName="container">
       <Header />
       <Switch>
         <Route component={ChallengeDetails} exact path="/challenges/:challengeId" />
