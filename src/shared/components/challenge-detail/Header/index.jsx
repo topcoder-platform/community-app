@@ -276,6 +276,7 @@ export default function ChallengeHeader(props) {
             status={status}
             hasCheckpoints={checkpoints && checkpoints.length > 0}
             numSubmissions={numSubmissions}
+            hasRegistered={hasRegistered}
             checkpointCount={checkpointCount}
           />
         </div>
