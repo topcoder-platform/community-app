@@ -9,7 +9,7 @@
  * which is used to define which challenges should be listed for the certain community.
  */
 
-// import _ from 'lodash';
+import _ from 'lodash';
 import actions from 'actions/challenge-listing';
 import config from 'utils/config';
 import filterPanelActions from 'actions/challenge-listing/filter-panel';
@@ -26,6 +26,7 @@ import sidebarActions from 'actions/challenge-listing/sidebar';
 import communityActions from 'actions/tc-communities';
 import { BUCKETS } from 'utils/challenge-listing/buckets';
 import { combine, mapToBackend } from 'utils/challenge-listing/filter';
+import { updateQuery } from 'utils/url';
 import style from './styles.scss';
 
 let mounted = false;
@@ -43,6 +44,9 @@ export class ListingContainer extends React.Component {
     } else mounted = true;
 
     this.loadChallenges();
+    if (!_.isEmpty(this.props.filter)) {
+      updateQuery({ filter: this.props.filter });
+    }
   }
 
   componentDidUpdate(prevProps) {
