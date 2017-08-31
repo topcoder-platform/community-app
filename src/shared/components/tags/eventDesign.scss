@@ -1,0 +1,29 @@
+/**
+ * Event tag, colored with colors of design track (blue).
+ */
+
+ @import "./default";
+ 
+ 
+ @mixin feedback {
+    &:active, 
+    &:focus, 
+    &:hover {
+      color: $tc-dark-blue-90;
+      background-color: $tc-light-blue-10;       
+    }
+    &:visited {
+      color: $tc-dark-blue-90;
+    }
+  }
+ 
+ .tag {
+   border-radius: 3px;
+   font-size: 10px;
+   margin: 5px 5px 0 0;
+   padding: 0 5px;
+   font-weight: 700;
+   color: $tc-dark-blue-90;
+   background-color: $tc-light-blue-10;
+   @include feedback;
+ }

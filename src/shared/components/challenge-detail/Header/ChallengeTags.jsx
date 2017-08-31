@@ -11,7 +11,9 @@ import PT from 'prop-types';
 import _ from 'lodash';
 import { Link } from 'utils/router';
 import style from './style.scss';
-import { TagButton } from 'components/buttons';
+import { Tag } from 'components/tags';
+import { EventTag } from 'components/tags';
+import { PrimaryTag } from 'components/tags';
 
 export default function ChallengeTags(props) {
   const {
@@ -36,31 +38,28 @@ export default function ChallengeTags(props) {
     <div>
       {
         subTrack &&
-        <TagButton
+        <PrimaryTag
           to="/challenges"
           onClick={() => setChallengeListingFilter({ subtracks: [subTrack] })}
-          theme={{ button: style[subTrackStyle] }}
-        >{stylizedSubTrack(subTrack)}</TagButton>
+        >{stylizedSubTrack(subTrack)}</PrimaryTag>
       }
       {
         events.map(event => (
-          <TagButton
+          <EventTag
             to={`https://${event}.topcoder.com`}
-            theme={{ button: style[eventStyle] }}
             key={event}
-          >{event}</TagButton>
+          >{event}</EventTag>
         ))
       }
       {
         technPlatforms.map(
           tag =>
             (
-              <TagButton
+              <Tag
                 to="/challenges"
                 onClick={() => setChallengeListingFilter({ tags: [tag] })}
-                theme={{ button: style.miscTag }}
                 key={tag}
-              >{tag}</TagButton>
+              >{tag}</Tag>
             ),
         )
       }
