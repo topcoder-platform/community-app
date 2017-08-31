@@ -13,6 +13,7 @@ import PT from 'prop-types';
 import Tooltip from 'components/Tooltip';
 import Avatar from 'components/Avatar';
 import styles from './style.scss';
+import config from 'utils/config';
 
 /**
  * Renders the tooltip's content.
@@ -31,10 +32,7 @@ function Tip(props) {
     </span>
   )); */
   const { photoLink } = props.user;
-  let src = null;
-  if (photoLink) {
-    src = photoLink.startsWith('https') ? photoLink : `${props.MAIN_URL}/${photoLink}`;
-  }
+  const src = photoLink.startsWith('https') ? photoLink : `${config.URL.BASE}/${photoLink}`;
 
   return (
     <div styleName="user-avatar-tooltip">
@@ -43,7 +41,6 @@ function Tip(props) {
           avatar: styles.avatar,
         }}
         url={src}
-        handleError={props.handleError}
       />
       <div styleName="handle">{props.user.handle}</div>
       {/* Below block is commented out as it's not possible to get this information
@@ -62,8 +59,6 @@ function Tip(props) {
 }
 
 Tip.propTypes = {
-  handleError: PT.func.isRequired,
-  MAIN_URL: PT.string,
   user: PT.shape({
     country: PT.string,
     handle: PT.string,
@@ -71,10 +66,6 @@ Tip.propTypes = {
     photoLink: PT.string,
     ratingSummary: PT.array,
   }).isRequired,
-};
-
-Tip.defaultProps = {
-  MAIN_URL: process.env.MAIN_URL,
 };
 
 /**
@@ -86,16 +77,10 @@ class UserAvatarTooltip extends Component {
     this.state = {
       user: props.user,
     };
-    this.handleError = this.handleError.bind(this);
-  }
-  handleError() {
-    const user = this.state.user;
-    user.photoLink = null;
-    this.setState({ user });
   }
 
   render() {
-    const tip = <Tip user={this.state.user} handleError={this.handleError} />;
+    const tip = <Tip user={this.state.user} />;
     return (
       <Tooltip content={tip}>
         <div>{this.props.children}</div>
