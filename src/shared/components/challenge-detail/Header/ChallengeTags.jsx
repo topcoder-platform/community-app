@@ -9,7 +9,6 @@
 import React from 'react';
 import PT from 'prop-types';
 import _ from 'lodash';
-import { Link } from 'utils/router';
 
 import { Tag, EventTag, PrimaryTag } from 'components/tags';
 
@@ -36,7 +35,11 @@ export default function ChallengeTags(props) {
         subTrack &&
         <PrimaryTag
           to="/challenges"
-          onClick={() => setChallengeListingFilter({ subtracks: [subTrack] })}
+          onClick={() =>
+            setImmediate(() =>
+              setChallengeListingFilter({ subtracks: [subTrack] }),
+            )
+          }
         >{stylizedSubTrack(subTrack)}</PrimaryTag>
       }
       {
@@ -51,10 +54,14 @@ export default function ChallengeTags(props) {
         technPlatforms.map(
           tag =>
             (
-              tag && 
+              tag &&
               <Tag
                 to="/challenges"
-                onClick={() => setChallengeListingFilter({ tags: [tag] })}
+                onClick={() =>
+                  setImmediate(() =>
+                    setChallengeListingFilter({ tags: [tag] }),
+                  )
+                }
                 key={tag}
               >{tag}</Tag>
             ),
