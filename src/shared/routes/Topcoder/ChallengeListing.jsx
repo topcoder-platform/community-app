@@ -23,15 +23,15 @@ export default function ChallengeListingRoute() {
         ).then(({ default: ChallengeListing }) => {
           const query = renderProps.location.search ?
             qs.parse(renderProps.location.search.slice(1)) : null;
-          if (query.filter && query.filter.startDate
+          if (query && query.filter && query.filter.startDate
           && !moment(query.filter.startDate).isValid()) {
             delete query.filter.startDate;
           }
-          if (query.filter && query.filter.endDate
+          if (query && query.filter && query.filter.endDate
           && !moment(query.filter.endDate).isValid()) {
             delete query.filter.endDate;
           }
-          updateQuery({ filter: query.filter });
+          if (query) updateQuery({ filter: query.filter });
           const currencyFromUrl = _.get(query, 'currency');
           const prizeMode = currencyFromUrl && `money-${currencyFromUrl}`;
           return (
