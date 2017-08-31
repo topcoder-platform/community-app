@@ -232,6 +232,7 @@ class Tags extends React.Component {
         <Tag
           onClick={() => this.onClick(c.trim())}
           key={c}
+          role="button"
         >{c}</Tag>
       ));
     }
