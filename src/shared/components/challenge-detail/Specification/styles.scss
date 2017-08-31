@@ -1,4 +1,5 @@
 @import "~styles/tc-styles";
+$tc-link-normal: #0b71e6;
 $tc-link-visited: #0c4e98;
 
 @mixin linkStyle {
@@ -13,10 +14,21 @@ $tc-link-visited: #0c4e98;
 
   a:active {
     text-decoration: underline;
-    color: $tc-dark-blue-70;
   }
 
   a:visited {
+    color: $tc-link-visited;
+  }
+
+  article > a {
+    color: $tc-link-normal;
+  }
+
+  article > a:active {
+    color: $tc-dark-blue-70;
+  }
+
+  article > a:visited {
     color: $tc-link-visited;
   }
 }
