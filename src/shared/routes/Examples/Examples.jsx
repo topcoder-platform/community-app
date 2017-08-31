@@ -16,6 +16,7 @@ import {
   Route,
 } from 'react-router-dom';
 import SvgLoading from 'components/examples/SvgLoading';
+import Tags from 'components/examples/Tags';
 import Themr from 'components/examples/Themr';
 
 import { requireWeak, resolveWeak, SplitRoute } from 'utils/router';
@@ -48,6 +49,7 @@ export default function Examples(props) {
       <Route path={`${base}/data-fetch`} component={DataFetch} />
       <Route path={`${base}/fonts-test`} component={FontsTest} />
       <Route path={`${base}/svg-loading`} component={SvgLoading} />
+      <Route path={`${base}/tags`} component={Tags} />      
       <Route path={`${base}/themr`} component={Themr} />
       <Content />
     </Switch>

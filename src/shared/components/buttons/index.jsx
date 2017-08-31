@@ -47,7 +47,6 @@ import dangerButton from './danger.scss';
 import defaultButton from './default.scss';
 import primaryDesignButton from './primaryDesign.scss';
 import secondaryButton from './secondary.scss';
-import tagButton from './tags.scss';
 
 /* Generic button, not wrapped by themr, but accepting theme property.
  * In most cases you will want to use some of the themable exports below
@@ -123,8 +122,5 @@ export const PrimaryButton =
 
 export const SecondaryButton =
   themr('SecondaryButton', secondaryButton)(GenericButton);
-
-export const TagButton =
-  themr('TagButton', tagButton)(GenericButton);
 
   export default undefined;

@@ -11,6 +11,7 @@ import Prize from './Prize';
 import ChallengeStatus from './Status';
 import TrackAbbreviationTooltip from '../Tooltips/TrackAbbreviationTooltip';
 import './style.scss';
+import { Tag } from 'components/tags';
 
 export const PRIZE_MODE = {
   HIDDEN: 'hidden',
@@ -228,15 +229,10 @@ class Tags extends React.Component {
         technologyList.push(lastItem);
       }
       return technologyList.map(c => (
-        <a
-          key={c}
-          styleName="technology"
-          /* TODO: Find out why all tags beside the first one are prepended
-           * with whitespaces? */
+        <Tag
           onClick={() => this.onClick(c.trim())}
-          role="button"
-          tabIndex={0}
-        >{c}</a>
+          key={c}
+        >{c}</Tag>
       ));
     }
     return '';

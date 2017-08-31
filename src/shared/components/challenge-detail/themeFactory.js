@@ -10,10 +10,8 @@
 
 import { COMPETITION_TRACKS } from 'utils/tc';
 
-  import primaryDesignTagStyle from '../tags/primaryDesign.scss';
   import primaryDevelopTagStyle from '../tags/primaryDevelop.scss';
   import primaryDataScienceTagStyle from '../tags/primaryDataScience.scss';
-  import eventDesignTagStyle from '../tags/eventDesign.scss';
   import eventDevelopTagStyle from '../tags/eventDevelop.scss';
   import eventDataScienceTagStyle from '../tags/eventDataScience.scss';
 
@@ -23,19 +21,15 @@ export default function factory(track) {
    * to normalize. */
   switch (track.toLowerCase()) {
     case COMPETITION_TRACKS.DATA_SCIENCE:
-      console.log('track: ' + track);
       return {
         PrimaryTag: primaryDataScienceTagStyle,
         EventTag: eventDataScienceTagStyle,
       };
     case COMPETITION_TRACKS.DESIGN:
-    console.log('track: ' + track);
       return {
-        //PrimaryTag: primaryDesignTagStyle,
-        //EventTag: eventDesignTagStyle,
+
       };
     case COMPETITION_TRACKS.DEVELOP:
-    console.log('track: ' + track);
       return {
         PrimaryTag: primaryDevelopTagStyle,
         EventTag: eventDevelopTagStyle,

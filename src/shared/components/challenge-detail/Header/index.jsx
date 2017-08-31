@@ -66,9 +66,8 @@ export default function ChallengeHeader(props) {
   }
 
   const theme = themeFactory(trackLower);
-
-  const subTrackStyle = `${trackLower}-accent-background`;
-  const eventStyle = `${trackLower}-accent-color`;
+  const stylizedSubTrack = (subTrack || '').replace('_', ' ')
+    .replace(/\w\S*/g, txt => _.capitalize(txt));
   const eventNames = (events || []).map((event => (event.eventName || '').toUpperCase()));
   const miscTags = _.union((technologies || '').split(', '), platforms.split(', '));
 
@@ -184,8 +183,6 @@ export default function ChallengeHeader(props) {
             challengeSubtracksMap={challengeSubtracksMap}
             events={eventNames}
             technPlatforms={miscTags}
-            subTrackStyle={subTrackStyle}
-            eventStyle={eventStyle}
             setChallengeListingFilter={setChallengeListingFilter}
           />
           <div styleName="prizes-ops-container">

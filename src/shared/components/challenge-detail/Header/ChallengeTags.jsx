@@ -10,18 +10,14 @@ import React from 'react';
 import PT from 'prop-types';
 import _ from 'lodash';
 import { Link } from 'utils/router';
-import style from './style.scss';
-import { Tag } from 'components/tags';
-import { EventTag } from 'components/tags';
-import { PrimaryTag } from 'components/tags';
+
+import { Tag, EventTag, PrimaryTag } from 'components/tags';
 
 export default function ChallengeTags(props) {
   const {
     subTrack,
     events,
     technPlatforms,
-    subTrackStyle,
-    eventStyle,
     setChallengeListingFilter,
     challengeSubtracksMap,
   } = props;
@@ -55,6 +51,7 @@ export default function ChallengeTags(props) {
         technPlatforms.map(
           tag =>
             (
+              tag && 
               <Tag
                 to="/challenges"
                 onClick={() => setChallengeListingFilter({ tags: [tag] })}
@@ -77,8 +74,6 @@ ChallengeTags.propTypes = {
   subTrack: PT.string,
   events: PT.arrayOf(PT.string),
   technPlatforms: PT.arrayOf(PT.string),
-  subTrackStyle: PT.string.isRequired,
-  eventStyle: PT.string.isRequired,
   setChallengeListingFilter: PT.func.isRequired,
   challengeSubtracksMap: PT.shape().isRequired,
 };

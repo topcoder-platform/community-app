@@ -5,19 +5,21 @@
  @import "~styles/tc-styles";
  
  @mixin feedback {
-    &:active, 
-    &:focus, 
+    &:active,
+    &:focus,
     &:hover {
       color: $tc-orange;
-      background-color: $tc-light-blue-10;       
+      background-color: $tc-light-blue-10;
     }
     &:visited {
       color: $tc-orange;
     }
   }
- 
-  div .tag {
-   color: $tc-orange;
-   background-color: $tc-light-blue-10;
-   @include feedback;
- }
+
+div, span {
+  .tag, a.tag {
+    color: $tc-orange;
+    background-color: $tc-light-blue-10;
+    @include feedback;
+  }
+}

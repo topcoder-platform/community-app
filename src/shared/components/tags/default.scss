@@ -4,32 +4,32 @@
  @import "~styles/tc-styles";
  
 @mixin feedback {
-  &:active, 
-  &:focus, 
+  &:active,
+  &:focus,
   &:hover {
     color: $tc-gray-80;
-    background-color: $tc-dark-blue-30;       
+    background-color: $tc-dark-blue-30;
   }
   &:visited {
     color: $tc-gray-80;
   }
 }
 
-
-.tag {
-  display: inline-block;
-  text-align: center;
-  padding: 0 7px;
-  line-height: 20px;
-  background-color: $tc-gray-neutral-dark;
-  font-size: 11px;
-  font-family: Roboto;
-  font-weight: 500;
-  color: $tc-gray-80;
-  margin-right: 5px;
-  border-radius: 4px;
-  height: 20px;
-  margin-bottom: 2px;
-  cursor: pointer;
-  @include feedback;  
+div, span {
+  .tag, a.tag {
+    display: inline-block;
+    text-align: center;
+    padding: 0 7px;
+    line-height: 20px;
+    background-color: $tc-gray-neutral-dark;
+    font-size: 11px;
+    font-family: Roboto;
+    font-weight: 500;
+    color: $tc-gray-80;
+    margin-right: 5px;
+    border-radius: 4px;
+    margin-bottom: 2px;
+    cursor: pointer;
+    @include feedback;
+  }
 }

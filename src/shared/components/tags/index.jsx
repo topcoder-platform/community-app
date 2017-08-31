@@ -32,10 +32,12 @@ export function GenericTag({
     );
   }
   return (
-    <button
+    <a
       className={`${theme.tag}`}
       onClick={onClick}
-    >{children}</button>
+      role="button"
+      tabIndex={0}
+    >{children}</a>
   );
 }
 
@@ -66,7 +68,7 @@ export const Tag =
 export const PrimaryTag =
   themr('PrimaryTag', primaryDesignTag)(GenericTag);
 
-export const SecondaryTag =
+export const EventTag =
   themr('EventTag', eventDesignTag)(GenericTag);
 
   export default undefined;
