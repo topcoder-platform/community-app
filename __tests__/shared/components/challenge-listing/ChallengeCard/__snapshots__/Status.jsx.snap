@@ -112,7 +112,7 @@ exports[`Matches shallow shapshot shapshot 1 1`] = `
         <div
           className="src-shared-components-challenge-listing-ChallengeCard-Status-___style__time-left___1RyL7"
         >
-          897d 19:18h to go
+          897d 19h to go
         </div>
       </div>
     </ProgressBarTooltip>
@@ -123,7 +123,7 @@ exports[`Matches shallow shapshot shapshot 1 1`] = `
       target={undefined}
     >
       <span>
-        897d 19:18h
+        897d 19h
       </span>
       <span
         className="src-shared-components-challenge-listing-ChallengeCard-Status-___style__to-register___17rpT"
@@ -743,7 +743,7 @@ exports[`Matches shallow shapshot shapshot 1 6`] = `
         <div
           className="src-shared-components-challenge-listing-ChallengeCard-Status-___style__time-left___1RyL7"
         >
-          min to go
+          0min 0s to go
         </div>
       </div>
     </ProgressBarTooltip>

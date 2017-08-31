@@ -33,20 +33,11 @@ const getTimeLeft = (date, currentPhase) => {
     };
   }
   const duration = moment.duration(moment(date).diff(moment()));
-  let late = false;
-  let h = duration.hours();
-  let d = duration.asDays();
-  let m = duration.minutes();
-  let s = duration.seconds();
-  if (duration.asMilliseconds() > 0) {
-    late = false;
-  } else {
-    late = true;
-    h *= -1;
-    d *= -1;
-    m *= -1;
-    s *= -1;
-  }
+  const late = duration.asMilliseconds() < 0;
+  const h = duration.abs().hours();
+  const d = duration.abs().asDays();
+  const m = duration.abs().minutes();
+  const s = duration.abs().seconds();
   let text = '';
   if (d >= 1) {
     text = `${parseInt(d, 10)}d ${h}h`;
@@ -55,11 +46,7 @@ const getTimeLeft = (date, currentPhase) => {
   } else {
     text = `${m}min ${s}s`;
   }
-  if (late) {
-    text = `Late by ${text}`;
-  } else {
-    text = `${text} to go`;
-  }
+  text = late ? `Late by ${text}` : `${text} to go`;
   return {
     late,
     text,
