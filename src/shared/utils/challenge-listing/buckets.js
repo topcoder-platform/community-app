@@ -58,7 +58,7 @@ export function getBuckets(userHandle) {
       sorts: [
         SORTS.MOST_RECENT,
         SORTS.TIME_TO_REGISTER,
-        SORTS.PHASE_END_TIME,
+        SORTS.TIME_TO_SUBMIT,
         SORTS.NUM_REGISTRANTS,
         SORTS.NUM_SUBMISSIONS,
         SORTS.PRIZE_HIGH_TO_LOW,

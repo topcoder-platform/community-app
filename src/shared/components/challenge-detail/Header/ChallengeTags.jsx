@@ -8,6 +8,7 @@
 
 import React from 'react';
 import PT from 'prop-types';
+import _ from 'lodash';
 import { Link } from 'utils/router';
 
 import './style.scss';
@@ -20,7 +21,16 @@ export default function ChallengeTags(props) {
     subTrackStyle,
     eventStyle,
     setChallengeListingFilter,
+    challengeSubtracksMap,
   } = props;
+
+  const stylizedSubTrack = (t) => {
+    if (challengeSubtracksMap[t]) {
+      return challengeSubtracksMap[t].name;
+    }
+    return (t || '').replace(/_/g, ' ')
+      .replace(/\w\S*/g, txt => _.capitalize(txt));
+  };
 
   return (
     <div styleName="tag-holder">
@@ -30,7 +40,7 @@ export default function ChallengeTags(props) {
           onClick={() => setChallengeListingFilter({ subtracks: [subTrack] })}
           to="/challenges"
           styleName={`tag-common ${subTrackStyle}`}
-        >{subTrack}</Link>
+        >{stylizedSubTrack(subTrack)}</Link>
       }
       {
         events.map(event => (
@@ -71,4 +81,5 @@ ChallengeTags.propTypes = {
   subTrackStyle: PT.string.isRequired,
   eventStyle: PT.string.isRequired,
   setChallengeListingFilter: PT.func.isRequired,
+  challengeSubtracksMap: PT.shape().isRequired,
 };

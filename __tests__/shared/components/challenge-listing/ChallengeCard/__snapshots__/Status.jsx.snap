@@ -242,7 +242,6 @@ exports[`Matches shallow shapshot shapshot 1 3`] = `
         }
       >
         <LeaderboardAvatar
-          domain={undefined}
           member={
             Object {
               "handle": undefined,
@@ -271,7 +270,6 @@ exports[`Matches shallow shapshot shapshot 1 3`] = `
         }
       >
         <LeaderboardAvatar
-          domain={undefined}
           member={
             Object {
               "handle": undefined,
@@ -300,7 +298,6 @@ exports[`Matches shallow shapshot shapshot 1 3`] = `
         }
       >
         <LeaderboardAvatar
-          domain={undefined}
           member={
             Object {
               "handle": undefined,
@@ -314,7 +311,6 @@ exports[`Matches shallow shapshot shapshot 1 3`] = `
       </UserAvatarTooltip>
     </div>
     <LeaderboardAvatar
-      domain={undefined}
       member={
         Object {
           "handle": "+1",

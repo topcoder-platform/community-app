@@ -25,7 +25,14 @@ const VISIBLE_TECHNOLOGIES = 3;
 const ID_LENGTH = 6;
 
 // Get the End date of a challenge
-const getEndDate = date => moment(date).format('MMM DD');
+const getEndDate = (c) => {
+  let phases = c.allPhases;
+  if (c.subTrack === 'FIRST_2_FINISH' && c.status === 'COMPLETED') {
+    phases = c.allPhases.filter(p => p.phaseType === 'Iterative Review' && p.phaseStatus === 'Closed');
+  }
+  const endPhaseDate = Math.max(...phases.map(d => new Date(d.scheduledEndTime)));
+  return moment(endPhaseDate).format('MMM DD');
+};
 
 /* TODO: Note that this component uses a dirty trick to cheat linter and to be
  * able to modify an argument: it aliases challenge prop, then mutates it in
@@ -133,7 +140,7 @@ function ChallengeCard({
           <div styleName="details-footer">
             <span styleName="date">
               {challenge.status === 'ACTIVE' ? 'Ends ' : 'Ended '}
-              {getEndDate(challenge.submissionEndDate)}
+              {getEndDate(challenge)}
             </span>
             <Tags
               technologies={challenge.technologies}

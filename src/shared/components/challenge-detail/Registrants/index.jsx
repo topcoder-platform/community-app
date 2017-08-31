@@ -90,7 +90,7 @@ export default function Registrants(props) {
                   </div>
                 }
                 <div styleName="col-4">
-                  <div styleName="sm-only title">Round 2 Submitted Date</div>
+                  <div styleName="sm-only title">{isDesign ? 'Round 2 ' : ''}Submitted Date</div>
                   <div>
                     <span>
                       {formatDate(getDate(submissions, r.handle) || r.submissionDate)}

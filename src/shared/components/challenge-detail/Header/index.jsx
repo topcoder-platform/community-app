@@ -34,6 +34,7 @@ export default function ChallengeHeader(props) {
     setChallengeListingFilter,
     unregisterFromChallenge,
     unregistering,
+    challengeSubtracksMap,
   } = props;
 
   const {
@@ -66,8 +67,6 @@ export default function ChallengeHeader(props) {
 
   const theme = themeFactory(trackLower);
 
-  const stylizedSubTrack = (subTrack || '').replace('_', ' ')
-    .replace(/\w\S*/g, txt => _.capitalize(txt));
   const subTrackStyle = `${trackLower}-accent-background`;
   const eventStyle = `${trackLower}-accent-color`;
   const eventNames = (events || []).map((event => (event.eventName || '').toUpperCase()));
@@ -82,9 +81,10 @@ export default function ChallengeHeader(props) {
   const registrationEnded = new Date(registrationEndDate).getTime() < Date.now() || status.toLowerCase() !== 'active';
   const submissionEnded = new Date(submissionEndDate).getTime() < Date.now();
   const hasSubmissions = userDetails && userDetails.hasUserSubmittedForReview;
-  const nextDeadline = currentPhases && currentPhases.length > 0 && currentPhases[0].phaseType;
+  const nextPhaseIndex = hasRegistered ? 1 : 0;
+  const nextDeadline = currentPhases.length > 0 && currentPhases[nextPhaseIndex].phaseType;
   const deadlineEnd = currentPhases && currentPhases.length > 0 ?
-    new Date(currentPhases[0].scheduledEndTime).getTime() : Date.now();
+    new Date(currentPhases[nextPhaseIndex].scheduledEndTime).getTime() : Date.now();
   const currentTime = Date.now();
   const timeDiff = deadlineEnd > currentTime ? deadlineEnd - currentTime : 0;
   const duration = moment.duration(timeDiff);
@@ -102,6 +102,11 @@ export default function ChallengeHeader(props) {
         return true;
       }
       return false;
+    });
+
+    relevantPhases.push({
+      phaseType: 'Registration',
+      scheduledEndTime: registrationEndDate,
     });
 
     relevantPhases.sort((a, b) => {
@@ -175,7 +180,8 @@ export default function ChallengeHeader(props) {
         <div styleName="important-detail">
           <h1 styleName="challenge-header">{name}</h1>
           <ChallengeTags
-            subTrack={stylizedSubTrack}
+            subTrack={subTrack}
+            challengeSubtracksMap={challengeSubtracksMap}
             events={eventNames}
             technPlatforms={miscTags}
             subTrackStyle={subTrackStyle}
@@ -252,7 +258,7 @@ export default function ChallengeHeader(props) {
               <a onClick={props.onToggleDeadlines} styleName="deadlines-collapser">
                 {props.showDeadlineDetail ?
                   <span styleName="collapse-text">Hide Deadlines <ArrowDown /></span>
-                  : <span styleName="collapse-text">View All Deadlines <ArrowUp /></span>
+                  : <span styleName="collapse-text">Show Deadlines <ArrowUp /></span>
                 }
               </a>
             </div>
@@ -297,4 +303,5 @@ ChallengeHeader.propTypes = {
   showDeadlineDetail: PT.bool.isRequired,
   unregisterFromChallenge: PT.func.isRequired,
   unregistering: PT.bool.isRequired,
+  challengeSubtracksMap: PT.shape().isRequired,
 };

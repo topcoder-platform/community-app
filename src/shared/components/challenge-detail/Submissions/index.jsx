@@ -19,7 +19,7 @@ function renderSubmission(s) {
       <div styleName="bottom-info">
         <div styleName="links">
           <a target="_blank" href={`${config.URL.STUDIO}?module=DownloadSubmission&sbmid=${s.submissionId}`}>{`#${s.submissionId}`}</a>
-          <a styleName="handle" target="_blank" href={`${config.URL.BASE}/member-profile/${s.submitter}/design`}>{s.submitter}</a>
+          <a styleName="handle" target="_blank" href={`${config.URL.BASE}/members/${s.submitter}`}>{s.submitter}</a>
         </div>
         <div>{`${moment(s.submissionTime).format('MMM DD,YYYY HH:mm')} EDT`}</div>
       </div>
