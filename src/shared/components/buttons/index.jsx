@@ -123,4 +123,4 @@ export const PrimaryButton =
 export const SecondaryButton =
   themr('SecondaryButton', secondaryButton)(GenericButton);
 
-  export default undefined;
+export default undefined;

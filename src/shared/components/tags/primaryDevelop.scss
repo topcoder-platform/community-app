@@ -1,25 +1,29 @@
 /**
  * Primary tag, colored with colors of develop track (green).
  */
- 
- @import "~styles/tc-styles";
- 
- @mixin feedback {
-    &:active,
-    &:focus,
-    &:hover {
-      color: $tc-white;
-      background-color: $tc-green;
-    }
-    &:visited {
-      color: $tc-white;
-    }
-  }
- 
-div, span {
-  .tag, a.tag {
+
+@import "~styles/tc-styles";
+
+@mixin feedback {
+  &:active,
+  &:focus,
+  &:hover {
     color: $tc-white;
     background-color: $tc-green;
+  }
+
+  &:visited {
+    color: $tc-white;
+  }
+}
+
+div,
+span {
+  .tag,
+  a.tag {
+    color: $tc-white;
+    background-color: $tc-green;
+
     @include feedback;
   }
 }

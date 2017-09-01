@@ -1,24 +1,29 @@
 /**
  * Event tag, colored with colors of develop track (green).
- */ 
- @import "~styles/tc-styles";
- 
- @mixin feedback {
-    &:active,
-    &:focus,
-    &:hover {
-      color: $tc-green;
-      background-color: $tc-light-blue-10;
-    }
-    &:visited {
-      color: $tc-green;
-    }
-  }
- 
-div, span {
-  .tag, a.tag {
+ */
+
+@import "~styles/tc-styles";
+
+@mixin feedback {
+  &:active,
+  &:focus,
+  &:hover {
     color: $tc-green;
     background-color: $tc-light-blue-10;
+  }
+
+  &:visited {
+    color: $tc-green;
+  }
+}
+
+div,
+span {
+  .tag,
+  a.tag {
+    color: $tc-green;
+    background-color: $tc-light-blue-10;
+
     @include feedback;
   }
 }

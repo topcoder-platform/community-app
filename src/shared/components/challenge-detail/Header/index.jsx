@@ -66,8 +66,6 @@ export default function ChallengeHeader(props) {
   }
 
   const theme = themeFactory(trackLower);
-  const stylizedSubTrack = (subTrack || '').replace('_', ' ')
-    .replace(/\w\S*/g, txt => _.capitalize(txt));
   const eventNames = (events || []).map((event => (event.eventName || '').toUpperCase()));
   const miscTags = _.union((technologies || '').split(', '), platforms.split(', '));
 

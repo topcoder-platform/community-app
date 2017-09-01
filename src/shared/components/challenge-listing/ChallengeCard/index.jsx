@@ -5,13 +5,13 @@ import moment from 'moment';
 import React from 'react';
 import PT from 'prop-types';
 import TrackIcon from 'components/TrackIcon';
+import { Tag } from 'components/tags';
 import { convertNow as convertMoney } from 'services/money';
 
 import Prize from './Prize';
 import ChallengeStatus from './Status';
 import TrackAbbreviationTooltip from '../Tooltips/TrackAbbreviationTooltip';
 import './style.scss';
-import { Tag } from 'components/tags';
 
 export const PRIZE_MODE = {
   HIDDEN: 'hidden',

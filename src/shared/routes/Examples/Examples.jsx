@@ -49,7 +49,7 @@ export default function Examples(props) {
       <Route path={`${base}/data-fetch`} component={DataFetch} />
       <Route path={`${base}/fonts-test`} component={FontsTest} />
       <Route path={`${base}/svg-loading`} component={SvgLoading} />
-      <Route path={`${base}/tags`} component={Tags} />      
+      <Route path={`${base}/tags`} component={Tags} />
       <Route path={`${base}/themr`} component={Themr} />
       <Content />
     </Switch>

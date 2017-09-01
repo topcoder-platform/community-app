@@ -16,8 +16,6 @@ export function GenericTag({
   onClick,
   openNewTab,
   replace,
-  role,
-  tabIndex,
   theme,
   to,
 }) {
@@ -37,8 +35,8 @@ export function GenericTag({
     <a
       className={`${theme.tag}`}
       onClick={onClick}
-      role={role}
-      tabIndex={tabIndex}
+      role="button"
+      tabIndex={0}
     >{children}</a>
   );
 }
@@ -49,8 +47,6 @@ GenericTag.defaultProps = {
   onClick: null,
   openNewTab: false,
   replace: false,
-  role: "button",
-  tabIndex: 0,
   to: null,
 };
 
@@ -60,8 +56,6 @@ GenericTag.propTypes = {
   onClick: PT.func,
   openNewTab: PT.bool,
   replace: PT.bool,
-  role: PT.string,
-  tabIndex: PT.number,
   theme: PT.shape({
     tag: PT.string.isRequired,
   }).isRequired,
@@ -77,4 +71,4 @@ export const PrimaryTag =
 export const EventTag =
   themr('EventTag', eventDesignTag)(GenericTag);
 
-  export default undefined;
+export default undefined;

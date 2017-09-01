@@ -1,8 +1,9 @@
+import _ from 'lodash';
 import React from 'react';
 import {
   Tag,
   PrimaryTag,
-  EventTag
+  EventTag,
 } from 'components/tags';
 import { ThemeProvider } from 'react-css-themr';
 
@@ -12,6 +13,8 @@ import eventDevelopTagStyle from '../../tags/eventDevelop.scss';
 import eventDataScienceTagStyle from '../../tags/eventDataScience.scss';
 
 import style from './style.scss';
+
+_.noop(style);
 
 export default function Tags() {
   return (

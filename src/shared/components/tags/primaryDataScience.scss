@@ -2,24 +2,28 @@
  * Primary tag, colored with colors of data science track (orange).
  */
 
- @import "~styles/tc-styles";
- 
- @mixin feedback {
-    &:active,
-    &:focus,
-    &:hover {
-      color: $tc-white;
-      background-color: $tc-orange;
-    }
-    &:visited {
-      color: $tc-white;
-    }
-  }
- 
-div, span {
-  .tag, a.tag {
+@import "~styles/tc-styles";
+
+@mixin feedback {
+  &:active,
+  &:focus,
+  &:hover {
     color: $tc-white;
     background-color: $tc-orange;
+  }
+
+  &:visited {
+    color: $tc-white;
+  }
+}
+
+div,
+span {
+  .tag,
+  a.tag {
+    color: $tc-white;
+    background-color: $tc-orange;
+
     @include feedback;
   }
 }

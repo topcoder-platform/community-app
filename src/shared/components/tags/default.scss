@@ -1,8 +1,8 @@
 /**
  * Challenge tag button, default style with white text on light blue background.
  */
- @import "~styles/tc-styles";
- 
+@import "~styles/tc-styles";
+
 @mixin feedback {
   &:active,
   &:focus,
@@ -10,13 +10,16 @@
     color: $tc-gray-80;
     background-color: $tc-dark-blue-30;
   }
+
   &:visited {
     color: $tc-gray-80;
   }
 }
 
-div, span {
-  .tag, a.tag {
+div,
+span {
+  .tag,
+  a.tag {
     display: inline-block;
     text-align: center;
     padding: 0 7px;
@@ -30,6 +33,7 @@ div, span {
     border-radius: 4px;
     margin-bottom: 2px;
     cursor: pointer;
+
     @include feedback;
   }
 }
