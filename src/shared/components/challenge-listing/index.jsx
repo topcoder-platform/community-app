@@ -85,12 +85,6 @@ export default function ChallengeListing(props) {
     );
   }
 
-  /* eslint-env browser */
-  if (document) {
-    document.body.scrollTop = 0;
-    document.documentElement.scrollTop = 0;
-  }
-
   return (
     <div styleName="ChallengeFiltersExample">
       <ChallengeFilters
