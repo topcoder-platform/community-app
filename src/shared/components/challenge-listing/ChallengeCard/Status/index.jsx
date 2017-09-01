@@ -20,6 +20,9 @@ const DRAFT_MSG = 'In Draft';
 const STALLED_TIME_LEFT_MSG = 'Challenge is currently on hold';
 const FF_TIME_LEFT_MSG = 'Winner is working on fixes';
 
+const HOUR_MS = 60 * 60 * 1000;
+const DAY_MS = 24 * HOUR_MS;
+
 const getTimeLeft = (date, currentPhase) => {
   if (!currentPhase || currentPhase === 'Stalled') {
     return {
@@ -32,25 +35,19 @@ const getTimeLeft = (date, currentPhase) => {
       text: FF_TIME_LEFT_MSG,
     };
   }
-  const duration = moment.duration(moment(date).diff(moment()));
-  const late = duration.asMilliseconds() < 0;
-  const h = duration.abs().hours();
-  const d = duration.abs().asDays();
-  const m = duration.abs().minutes();
-  const s = duration.abs().seconds();
-  let text = '';
-  if (d >= 1) {
-    text = `${parseInt(d, 10)}d ${h}h`;
-  } else if (h >= 1) {
-    text = `${h}h ${m}min`;
-  } else {
-    text = `${m}min ${s}s`;
-  }
-  text = late ? `Late by ${text}` : `${text} to go`;
-  return {
-    late,
-    text,
-  };
+
+  let time = moment(date).diff();
+  const late = time < 0;
+  if (late) time = -time;
+
+  let format;
+  if (time > DAY_MS) format = 'DDD[d] H[h]';
+  else if (time > HOUR_MS) format = 'H[h] m[min]';
+  else format = 'm[min] s[s]';
+
+  time = moment(time).format(format);
+  time = late ? `Late by ${time}` : `${time} to go`;
+  return { late, text: time };
 };
 
 function numRegistrantsTipText(number) {
@@ -315,7 +312,11 @@ class ChallengeStatus extends Component {
       challenge.currentPhases[0] ? challenge.currentPhases[0].phaseType : '',
     );
     let timeNote = timeDiff.text;
-    if (timeDiff.late === false) {
+    /* TODO: This is goofy, makes the trick, but should be improved. The idea
+     * here is that the standard "getTimeLeft" method, for positive times,
+     * generates a string like "H MM to go"; here we want to render just
+     * H MM part, so we cut the last 6 symbols. Not a good code. */
+    if (!timeDiff.late) {
       timeNote = timeNote.substring(0, timeNote.length - 6);
     }
     return (
