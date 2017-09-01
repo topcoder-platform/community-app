@@ -27,7 +27,7 @@ jobs:
             - /caches/app.tar
 
       # Deployment.
-      - run: apk add --update bash py-pip
+      - run: apk add --update py-pip
       - run: pip install awscli --upgrade --user
       - deploy:
           command: ./deploy.sh DEV
