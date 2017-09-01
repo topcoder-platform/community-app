@@ -17,20 +17,20 @@ jobs:
       - run: set +o pipefail docker load -i /caches/app.tar | true
 
       # Building.
-      - run: docker build --build-arg ENV=development --cache-from=$DEV_AWS_ACCOUNT_ID.dkr.ecr.$DEV_AWS_REGION.amazonaws.com/community-app -t $DEV_AWS_ACCOUNT_ID.dkr.ecr.$DEV_AWS_REGION.amazonaws.com/community-app .
+      - run: docker build --build-arg ENV=development -t $DEV_AWS_ACCOUNT_ID.dkr.ecr.$DEV_AWS_REGION.amazonaws.com/community-app:$CIRCLE_SHA1 .
 
       # Updating the cache.
-      - run: mkdir -p /caches && docker save -o /caches/app.tar $DEV_AWS_ACCOUNT_ID.dkr.ecr.$DEV_AWS_REGION.amazonaws.com/community-app
+      - run: mkdir -p /caches && docker save -o /caches/app.tar $DEV_AWS_ACCOUNT_ID.dkr.ecr.$DEV_AWS_REGION.amazonaws.com/community-app:$CIRCLE_SHA1
       - save_cache:
           key: dev-docker-image-{{ checksum "package-lock.json" }}
           paths:
             - /caches/app.tar
 
       # Deployment.
-      - run: apk add --update py-pip
+      - run: apt-get install python-dev python-pip
       - run: pip install awscli --upgrade --user
       - deploy:
-          command: ./deploy.sh DEV
+          command: ./deploy.sh DEV $CIRCLE_SHA1
 
   # Test job for the cases when we do not need deployment. It just rapidly
   # installs (updates) app dependencies, and runs tests (ESLint, Stylelint,

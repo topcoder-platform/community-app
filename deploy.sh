@@ -4,7 +4,7 @@
 JQ="jq --raw-output --exit-status"
 
 ENV=$1
-
+TAG=$2
 AWS_REGION=$(eval "echo \$${ENV}_AWS_REGION")
 AWS_ECS_CLUSTER=$(eval "echo \$${ENV}_AWS_ECS_CLUSTER")
 ACCOUNT_ID=$(eval "echo \$${ENV}_AWS_ACCOUNT_ID")
@@ -75,13 +75,13 @@ make_task_def(){
 			NODE_ENV=development
 	fi
 
-	task_def=$(printf "$task_template" $ACCOUNT_ID $AWS_REGION $AWS_REPOSITORY $NODE_ENV $AWS_ECS_CLUSTER $AWS_REGION)
+	task_def=$(printf "$task_template" $ACCOUNT_ID $AWS_REGION $AWS_REPOSITORY $TAG $NODE_ENV $AWS_ECS_CLUSTER $AWS_REGION)
 }
 
 push_ecr_image() {
   echo "Pushing Docker Image..."
 	eval $(aws ecr get-login --region $AWS_REGION)
-	docker push $ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$AWS_REPOSITORY
+	docker push $ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$AWS_REPOSITORY:$TAG
   echo "Docker Image published."
 }
 
