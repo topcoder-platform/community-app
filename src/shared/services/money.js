@@ -13,9 +13,10 @@ import fetch from 'isomorphic-fetch';
 import fs from 'fs';
 import fx from 'money';
 import logger from 'utils/logger';
+import path from 'path';
 import { isClientSide, isServerSide } from 'utils/isomorphy';
 
-const DISK_CACHE = `${__dirname}/.exchange-rates.cache`;
+const DISK_CACHE = path.resolve(__dirname, '../../../.exchange-rates.cache');
 const OE_API = 'https://openexchangerates.org/api';
 const OE_TOKEN = config.OPEN_EXCHANGE.TOKEN;
 

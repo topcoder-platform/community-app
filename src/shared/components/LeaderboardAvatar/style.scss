@@ -28,14 +28,6 @@ $leader-radius-4: $corner-radius * 2;
     vertical-align: top;
   }
 
-  &.dark-gray {
-    background: $tc-gray-60;
-
-    &:hover {
-      background: $tc-gray-70;
-    }
-  }
-
   &.light-gray {
     background: $tc-gray-10;
     color: $tc-black;

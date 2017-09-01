@@ -9,7 +9,6 @@ export const SORTS = {
   MOST_RECENT: 'most-recent',
   NUM_REGISTRANTS: 'num-registrants',
   NUM_SUBMISSIONS: 'num-submissions',
-  PHASE_END_TIME: 'phase-end-time',
   PRIZE_HIGH_TO_LOW: 'prize-high-to-low',
   TIME_TO_REGISTER: 'time-to-register',
   TIME_TO_SUBMIT: 'time-to-submit',
@@ -33,10 +32,6 @@ export default {
     func: (a, b) => b.numSubmissions - a.numSubmissions,
     name: '# of submissions',
   },
-  [SORTS.PHASE_END_TIME]: {
-    func: (a, b) => a.currentPhaseRemainingTime - b.currentPhaseRemainingTime,
-    name: 'Time to submit',
-  },
   [SORTS.PRIZE_HIGH_TO_LOW]: {
     func: (a, b) => b.totalPrize - a.totalPrize,
     name: 'Prize high to low',
@@ -47,7 +42,22 @@ export default {
     name: 'Time to register',
   },
   [SORTS.TIME_TO_SUBMIT]: {
-    func: (a, b) => a.submissionEndTimestamp - b.submissionEndTimestamp,
+    func: (a, b) => {
+      function nextSubEndDate(o) {
+        if (o.checkpointSubmissionEndDate && moment(o.checkpointSubmissionEndDate).isAfter()) {
+          return o.checkpointSubmissionEndDate;
+        }
+        return o.submissionEndDate;
+      }
+
+      const aDate = nextSubEndDate(a);
+      const bDate = nextSubEndDate(b);
+
+      if (moment(aDate).isBefore()) return 1;
+      if (moment(bDate).isBefore()) return -1;
+
+      return moment(aDate).diff(bDate);
+    },
     name: 'Time to submit',
   },
   [SORTS.TITLE_A_TO_Z]: {

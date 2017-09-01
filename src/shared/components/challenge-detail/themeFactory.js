@@ -10,9 +10,10 @@
 
 import { COMPETITION_TRACKS } from 'utils/tc';
 
-// import primaryDesignButtonStyle from '../buttons/primaryDesign.scss';
-// import primaryDevelopButtonStyle from '../buttons/primaryDevelop.scss';
-// import primaryDataScienceButtonStyle from '../buttons/primaryDataScience.scss';
+import primaryDevelopTagStyle from '../tags/primaryDevelop.scss';
+import primaryDataScienceTagStyle from '../tags/primaryDataScience.scss';
+import eventDevelopTagStyle from '../tags/eventDevelop.scss';
+import eventDataScienceTagStyle from '../tags/eventDataScience.scss';
 
 export default function factory(track) {
   /* Currently track value can come either from Topcoder API v2, where it is
@@ -21,15 +22,17 @@ export default function factory(track) {
   switch (track.toLowerCase()) {
     case COMPETITION_TRACKS.DATA_SCIENCE:
       return {
-        // PrimaryButton: primaryDataScienceButtonStyle,
+        PrimaryTag: primaryDataScienceTagStyle,
+        EventTag: eventDataScienceTagStyle,
       };
     case COMPETITION_TRACKS.DESIGN:
       return {
-        // PrimaryButton: primaryDesignButtonStyle,
+
       };
     case COMPETITION_TRACKS.DEVELOP:
       return {
-        // PrimaryButton: primaryDevelopButtonStyle,
+        PrimaryTag: primaryDevelopTagStyle,
+        EventTag: eventDevelopTagStyle,
       };
     default:
       throw new Error('Wrong competition track value!');

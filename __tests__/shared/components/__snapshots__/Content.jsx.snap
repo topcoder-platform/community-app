@@ -380,6 +380,19 @@ exports[`Matches shallow shapshot 1`] = `
     <li>
       <Link
         replace={false}
+        to="/examples/tags/"
+      >
+        Tags
+      </Link>
+       - Demo/test of standard tags already available in the code, and customizable with help of 
+      <code>
+        react-css-themr
+      </code>
+      .
+    </li>
+    <li>
+      <Link
+        replace={false}
         to="/examples/themr"
       >
         Themr
