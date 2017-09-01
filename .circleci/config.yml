@@ -12,21 +12,21 @@ jobs:
       - setup_remote_docker
 
       # Loading the previous build from the cache.
-      - restore_cache:
-          key: dev-docker-image-{{ checksum "package-lock.json" }}
-          paths:
-            - /caches/app.tar
-      - run: set +o pipefail docker load -i /caches/app.tar | true
+      # - restore_cache:
+      #    key: dev-docker-image-{{ checksum "package-lock.json" }}
+      #    paths:
+      #      - /caches/app.tar
+      # - run: set +o pipefail docker load -i /caches/app.tar | true
 
       # Building.
-      - run: docker build --build-arg ENV=development --cache-from=$DEV_AWS_ACCOUNT_ID.dkr.ecr.$DEV_AWS_REGION.amazonaws.com/community-app -t $DEV_AWS_ACCOUNT_ID.dkr.ecr.$DEV_AWS_REGION.amazonaws.com/community-app:$CIRCLE_SHA1 .
+      - run: docker build --build-arg ENV=development -t $DEV_AWS_ACCOUNT_ID.dkr.ecr.$DEV_AWS_REGION.amazonaws.com/community-app:$CIRCLE_SHA1 .
 
       # Updating the cache.
-      - run: mkdir -p /caches && docker save -o /caches/app.tar $DEV_AWS_ACCOUNT_ID.dkr.ecr.$DEV_AWS_REGION.amazonaws.com/community-app
-      - save_cache:
-          key: dev-docker-image-{{ checksum "package-lock.json" }}
-          paths:
-            - /caches/app.tar
+      # - run: mkdir -p /caches && docker save -o /caches/app.tar $DEV_AWS_ACCOUNT_ID.dkr.ecr.$DEV_AWS_REGION.amazonaws.com/community-app
+      # - save_cache:
+      #    key: dev-docker-image-{{ checksum "package-lock.json" }}
+      #    paths:
+      #      - /caches/app.tar
 
       # Deployment.
       - run: apk add --update bash jq py-pip sudo
