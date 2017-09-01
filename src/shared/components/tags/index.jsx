@@ -7,6 +7,10 @@ import defaultTag from './default.scss';
 import primaryDesignTag from './primaryDesign.scss';
 import eventDesignTag from './eventDesign.scss';
 
+/* TODO: Well, this is basically a copy/paste of generic button code.
+ * We should just import and reuse that button. It will demand just some
+ * corrections of the styles. */
+
 /* Generic button, not wrapped by themr, but accepting theme property.
  * In most cases you will want to use some of the themable exports below
  * instead. */
@@ -22,7 +26,7 @@ export function GenericTag({
   if (to) {
     return (
       <Link
-        className={`${theme.tag}`}
+        className={theme.tag}
         enforceA={enforceA}
         onClick={onClick}
         openNewTab={openNewTab}
@@ -33,7 +37,7 @@ export function GenericTag({
   }
   return (
     <a
-      className={`${theme.tag}`}
+      className={theme.tag}
       onClick={onClick}
       role="button"
       tabIndex={0}

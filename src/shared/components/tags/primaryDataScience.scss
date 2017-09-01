@@ -2,13 +2,13 @@
  * Primary tag, colored with colors of data science track (orange).
  */
 
-@import "~styles/tc-styles";
+@import "./default";
 
 @mixin feedback {
   &:active,
   &:focus,
   &:hover {
-    color: $tc-white;
+    color: $tc-white !important;
     background-color: $tc-orange;
   }
 
@@ -17,13 +17,12 @@
   }
 }
 
-div,
-span {
-  .tag,
-  a.tag {
-    color: $tc-white;
-    background-color: $tc-orange;
+.tag {
+  background-color: $tc-orange;
+  border-radius: 3px;
+  color: $tc-white;
+  margin: 5px 5px 0 0;
+  padding: 0 5px;
 
-    @include feedback;
-  }
+  @include feedback;
 }

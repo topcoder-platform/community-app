@@ -8,8 +8,8 @@
   &:active,
   &:focus,
   &:hover {
-    color: $tc-green;
-    background-color: $tc-light-blue-10;
+    color: $tc-green !important;
+    background-color: $tc-green-10;
   }
 
   &:visited {
@@ -17,13 +17,9 @@
   }
 }
 
-div,
-span {
-  .tag,
-  a.tag {
-    color: $tc-green;
-    background-color: $tc-light-blue-10;
+.tag {
+  color: $tc-green;
+  background-color: $tc-green-10;
 
-    @include feedback;
-  }
+  @include feedback;
 }

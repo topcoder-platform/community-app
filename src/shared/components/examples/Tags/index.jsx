@@ -7,10 +7,10 @@ import {
 } from 'components/tags';
 import { ThemeProvider } from 'react-css-themr';
 
-import primaryDataScienceTagStyle from '../../tags/primaryDataScience.scss';
-import primaryDevelopTagStyle from '../../tags/primaryDevelop.scss';
-import eventDevelopTagStyle from '../../tags/eventDevelop.scss';
-import eventDataScienceTagStyle from '../../tags/eventDataScience.scss';
+import primaryDataScienceTagStyle from 'components/tags/primaryDataScience.scss';
+import primaryDevelopTagStyle from 'components/tags/primaryDevelop.scss';
+import eventDevelopTagStyle from 'components/tags/eventDevelop.scss';
+import eventDataScienceTagStyle from 'components/tags/eventDataScience.scss';
 
 import style from './style.scss';
 
