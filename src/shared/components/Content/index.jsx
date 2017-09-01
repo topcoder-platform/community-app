@@ -153,6 +153,11 @@ export default function Content() {
           of <code>babel-plugin-inline-react-svg</code>.
         </li>
         <li>
+          <Link to="/examples/tags/">Tags</Link> - Demo/test of standard
+          tags already available in the code, and customizable with help
+          of <code>react-css-themr</code>.
+        </li>
+        <li>
           <Link to="/examples/themr">Themr</Link> - Test/demo of
           react-css-themr.
         </li>

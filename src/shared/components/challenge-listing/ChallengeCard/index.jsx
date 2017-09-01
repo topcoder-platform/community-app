@@ -5,6 +5,7 @@ import moment from 'moment';
 import React from 'react';
 import PT from 'prop-types';
 import TrackIcon from 'components/TrackIcon';
+import { Tag } from 'components/tags';
 import { convertNow as convertMoney } from 'services/money';
 
 import Prize from './Prize';
@@ -228,15 +229,11 @@ class Tags extends React.Component {
         technologyList.push(lastItem);
       }
       return technologyList.map(c => (
-        <a
-          key={c}
-          styleName="technology"
-          /* TODO: Find out why all tags beside the first one are prepended
-           * with whitespaces? */
+        <Tag
           onClick={() => this.onClick(c.trim())}
+          key={c}
           role="button"
-          tabIndex={0}
-        >{c}</a>
+        >{c}</Tag>
       ));
     }
     return '';

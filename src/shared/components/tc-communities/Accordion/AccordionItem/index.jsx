@@ -12,13 +12,14 @@ import React from 'react';
 import PT from 'prop-types';
 import { themr } from 'react-css-themr';
 import cn from 'classnames';
+import Sticky from 'react-stickynode';
 import IconTickDown from '../../../../../assets/images/tc-communities/tick_down_big.svg';
 import defaultStyle from './style.scss';
 
 function AccordionItem(props) {
   const { title, children, onTitleClick, isOpen, theme } = props;
 
-  return (
+  const content = (
     <div className={cn(theme.container, { [theme.containerOpen]: isOpen })}>
       <h3 className={theme.title}>
         <div
@@ -34,6 +35,13 @@ function AccordionItem(props) {
       <div className={theme.content}>
         {children}
       </div>
+    </div>
+  );
+
+  return (
+    <div>
+      <Sticky styleName="desktop">{content}</Sticky>
+      <div styleName="mobile">{content}</div>
     </div>
   );
 }

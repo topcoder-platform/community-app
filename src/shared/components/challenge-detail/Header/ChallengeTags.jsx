@@ -9,17 +9,14 @@
 import React from 'react';
 import PT from 'prop-types';
 import _ from 'lodash';
-import { Link } from 'utils/router';
 
-import './style.scss';
+import { Tag, EventTag, PrimaryTag } from 'components/tags';
 
 export default function ChallengeTags(props) {
   const {
     subTrack,
     events,
     technPlatforms,
-    subTrackStyle,
-    eventStyle,
     setChallengeListingFilter,
     challengeSubtracksMap,
   } = props;
@@ -33,34 +30,40 @@ export default function ChallengeTags(props) {
   };
 
   return (
-    <div styleName="tag-holder">
+    <div>
       {
         subTrack &&
-        <Link
-          onClick={() => setChallengeListingFilter({ subtracks: [subTrack] })}
+        <PrimaryTag
           to="/challenges"
-          styleName={`tag-common ${subTrackStyle}`}
-        >{stylizedSubTrack(subTrack)}</Link>
+          onClick={() =>
+            setImmediate(() =>
+              setChallengeListingFilter({ subtracks: [subTrack] }),
+            )
+          }
+        >{stylizedSubTrack(subTrack)}</PrimaryTag>
       }
       {
         events.map(event => (
-          <a
-            href={`https://${event}.topcoder.com`}
+          <EventTag
+            to={`https://${event}.topcoder.com`}
             key={event}
-            styleName={`tag-common  ${eventStyle}`}
-          >{event}</a>
+          >{event}</EventTag>
         ))
       }
       {
         technPlatforms.map(
           tag =>
             (
-              <Link
-                key={tag}
-                onClick={() => setChallengeListingFilter({ tags: [tag] })}
+              tag &&
+              <Tag
                 to="/challenges"
-                styleName="tag-common misc-tag"
-              >{tag}</Link>
+                onClick={() =>
+                  setImmediate(() =>
+                    setChallengeListingFilter({ tags: [tag] }),
+                  )
+                }
+                key={tag}
+              >{tag}</Tag>
             ),
         )
       }
@@ -78,8 +81,6 @@ ChallengeTags.propTypes = {
   subTrack: PT.string,
   events: PT.arrayOf(PT.string),
   technPlatforms: PT.arrayOf(PT.string),
-  subTrackStyle: PT.string.isRequired,
-  eventStyle: PT.string.isRequired,
   setChallengeListingFilter: PT.func.isRequired,
   challengeSubtracksMap: PT.shape().isRequired,
 };

@@ -1,0 +1,28 @@
+/**
+ * Primary tag, colored with colors of design track (blue).
+ */
+
+@import "./default";
+
+@mixin feedback {
+  &:active,
+  &:focus,
+  &:hover {
+    color: $tc-white !important;
+    background-color: $tc-light-blue;
+  }
+
+  &:visited {
+    color: $tc-white;
+  }
+}
+
+.tag {
+  background-color: $tc-light-blue;
+  border-radius: 3px;
+  color: $tc-white;
+  margin: 5px 5px 0 0;
+  padding: 0 5px;
+
+  @include feedback;
+}

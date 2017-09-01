@@ -1,13 +1,24 @@
 @import '~styles/tc-styles';
 
+.desktop {
+  @include xxs-to-xs {
+    display: none;
+  }
+}
+
+.mobile {
+  @include sm-to-lg {
+    display: none;
+  }
+}
+
 .title {
   border-bottom: 1px solid #d1d3d4;
   display: none;
   color: #a3a3ae;
   cursor: pointer;
-  height: 60px;
-  font: 600 15px/60px 'Open Sans';
-  padding: 0 16px;
+  font: 600 15px 'Open Sans';
+  padding: 12px 16px;
   position: relative;
 
   @include xxs-to-xs {
