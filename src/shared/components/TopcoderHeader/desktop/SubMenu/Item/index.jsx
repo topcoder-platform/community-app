@@ -17,12 +17,15 @@ export default function Item({
   let styleName = 'item';
   if (currentSubMenuTitle === title) styleName += ' current';
   return (
-    <li styleName={styleName} onClick={closeMenu}>
+    /* TODO: Should be done in a clean way, witout disabling eslint rules. */
+    /* eslint-disable jsx-a11y/no-noninteractive-element-to-interactive-role */
+    <li styleName={styleName} onClick={closeMenu} role="button" tabIndex={0}>
       <Link to={link}>
         {icon}
         {title}
       </Link>
     </li>
+    /* eslint-enable jsx-a11y/no-noninteractive-element-to-interactive-role */
   );
 }
 

@@ -7,13 +7,13 @@
  * the 'user' prop.
  */
 
+import config from 'utils/config';
 import React, { Component } from 'react';
 import PT from 'prop-types';
 // import moment from 'moment';
 import Tooltip from 'components/Tooltip';
 import Avatar from 'components/Avatar';
 import styles from './style.scss';
-import config from 'utils/config';
 
 /**
  * Renders the tooltip's content.
@@ -32,7 +32,10 @@ function Tip(props) {
     </span>
   )); */
   const { photoLink } = props.user;
-  const src = photoLink.startsWith('https') ? photoLink : `${config.URL.BASE}/${photoLink}`;
+  let src = photoLink;
+  if (src && !src.startsWith('http')) {
+    src = `${config.URL.BASE}/${src}`;
+  }
 
   return (
     <div styleName="user-avatar-tooltip">

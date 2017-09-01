@@ -119,7 +119,7 @@ const getTimeToGo = (start, end) => {
  */
 function getProfile(user) {
   const { handle, placement } = user;
-  const photoLink = user.photoURL || `i/m/${handle}.jpeg`;
+  const photoLink = user.photoURL;
   return {
     handle,
     placement,
@@ -344,7 +344,7 @@ class ChallengeStatus extends Component {
       .map(winner => ({
         handle: winner.handle,
         position: winner.placement,
-        photoURL: winner.photoURL || `${config.URL.BASE}/i/m/${winner.handle}.jpeg`,
+        photoURL: winner.photoURL,
       }));
 
     if (winners && winners.length > MAX_VISIBLE_WINNERS) {
@@ -355,14 +355,16 @@ class ChallengeStatus extends Component {
       winners = winners.slice(0, MAX_VISIBLE_WINNERS);
       winners.push(lastItem);
     }
-
     const leaderboard = winners && winners.map((winner) => {
       if (winner.isLastItem) {
         return (
+          /* TODO: No, should not reuse avatar for displaying "+1" in
+           * a circle. Should be a separate component for that. */
           <LeaderboardAvatar
             key={winner.handle}
             member={winner}
             openNewTab={openChallengesInNewTabs}
+            plusOne
             url={`${this.props.detailLink}#winner`}
           />
         );

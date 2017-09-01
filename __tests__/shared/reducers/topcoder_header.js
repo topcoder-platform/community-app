@@ -30,6 +30,7 @@ function testReducer(reducer, istate) {
     const state = reducer({ FIELD }, mockActions.topcoderHeader.closeMenu());
     expect(state).toEqual({
       FIELD,
+      isMobile: false,
       openedMenu: null,
     });
   });
@@ -46,7 +47,7 @@ function testReducer(reducer, istate) {
 
   test('TOPCODER_HEADER/CLOSE_SEARCH', () => {
     const state = reducer({ FIELD }, mockActions.topcoderHeader.closeSearch());
-    expect(state).toEqual({ FIELD, searchOpened: false });
+    expect(state).toEqual({ FIELD, isMobile: false, searchOpened: false });
   });
 
   test('TOPCODER_HEADER/OPEN_MENU', () => {

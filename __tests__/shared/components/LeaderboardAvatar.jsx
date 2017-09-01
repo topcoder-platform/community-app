@@ -42,8 +42,6 @@ test('Matches shallow shapshot', () => {
 test('Render properly', () => {
   let instance = TU.renderIntoDocument((<LeaderboardAvatar {...mockData2} />));
   expect(instance.state.member).toEqual(mockData2.member);
-  instance.handleError();
-  expect(instance.state.member.photoURL).toEqual('https://acrobatusers.com/assets/images/template/author_generic.jpg');
 
   instance = TU.renderIntoDocument((<LeaderboardAvatar {...mockData3} />));
   expect(instance.state.member).toEqual(mockData3.member);
