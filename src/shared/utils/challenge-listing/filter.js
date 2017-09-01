@@ -134,7 +134,7 @@ function filterByText(challenge, state) {
   const str =
     `${challenge.name} ${challenge.platforms} ${challenge.technologies}`
       .toLowerCase();
-  return str.includes(state.text.toLowerCase());
+  return str.includes(decodeURIComponent(state.text.toLowerCase()));
 }
 
 function filterByTrack(challenge, state) {
