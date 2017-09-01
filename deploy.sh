@@ -81,7 +81,7 @@ make_task_def(){
 
 push_ecr_image() {
   echo "Pushing Docker Image..."
-	aws ecr get-login
+	eval $(aws ecr get-login)
   echo "check-point"
 	docker push $ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$AWS_REPOSITORY:$TAG
   echo "Docker Image published."
