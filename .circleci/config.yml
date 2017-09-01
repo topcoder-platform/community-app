@@ -14,6 +14,8 @@ jobs:
       # Loading the previous build from the cache.
       - restore_cache:
           key: dev-docker-image-{{ checksum "package-lock.json" }}
+          paths:
+            - /caches/app.tar
       - run: set +o pipefail docker load -i /caches/app.tar | true
 
       # Building.
