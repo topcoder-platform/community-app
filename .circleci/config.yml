@@ -17,10 +17,10 @@ jobs:
       # Building.
       - run: |
           docker build --build-arg ENV=development -t $DEV_AWS_ACCOUNT_ID.dkr.ecr.$DEV_AWS_REGION.amazonaws.com/community-app:$CIRCLE_SHA1 .
-          docker ps
-          docker cp $DEV_AWS_ACCOUNT_ID.dkr.ecr.$DEV_AWS_REGION.amazonaws.com/community-app:/opt/app/node_modules node_modules
+          docker create --name app $DEV_AWS_ACCOUNT_ID.dkr.ecr.$DEV_AWS_REGION.amazonaws.com/community-app:$CIRCLE_SHA1
+          docker app:/opt/app/package.json src
 
-      - run: ls node_modules
+      - run: src
 
       - save_cache:
           key: docker-node-modules-{{ checksum "package-lock.json" }}
