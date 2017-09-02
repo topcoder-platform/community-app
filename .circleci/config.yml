@@ -20,7 +20,7 @@ jobs:
           docker create --name app $DEV_AWS_ACCOUNT_ID.dkr.ecr.$DEV_AWS_REGION.amazonaws.com/community-app:$CIRCLE_SHA1
           docker cp app:/opt/app/package.json src
 
-      - run: src
+      - run: ls src
 
       - save_cache:
           key: docker-node-modules-{{ checksum "package-lock.json" }}
