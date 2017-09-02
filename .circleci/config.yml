@@ -17,9 +17,10 @@ jobs:
       # Building.
       - run: docker build --build-arg ENV=development -t $DEV_AWS_ACCOUNT_ID.dkr.ecr.$DEV_AWS_REGION.amazonaws.com/community-app:$CIRCLE_SHA1 .
 
+      - run: docker ps
+
       - run: |
-          docker run --name app $DEV_AWS_ACCOUNT_ID.dkr.ecr.$DEV_AWS_REGION.amazonaws.com/community-app:$CIRCLE_SHA1
-          docker cp app:/opt/app/node_modules node_modules
+          docker cp $DEV_AWS_ACCOUNT_ID.dkr.ecr.$DEV_AWS_REGION.amazonaws.com/community-app:/opt/app/node_modules node_modules
 
       - run: ls node_modules
 
