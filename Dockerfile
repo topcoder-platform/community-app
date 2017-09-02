@@ -5,8 +5,8 @@
 FROM node:8.2.1
 LABEL app="Community App" version="1.0"
 
-WORKDIR /opt/app
-COPY . .
+# WORKDIR /opt/app
+# COPY . .
 RUN npm install
 RUN npm test
 RUN npm run build
