@@ -165,8 +165,8 @@ function create(initialState = {}) {
       savedFilters: action.error ? [] : action.payload,
     }),
     [a.resetFilterName]: onResetFilterName,
-    [a.saveFilter]: onFilterSaved,
-    [a.savingFilterBegin]: state => ({
+    [a.saveFilterDone]: onFilterSaved,
+    [a.saveFilterInit]: state => ({
       ...state,
       isSavingFilter: true,
     }),

@@ -93,8 +93,8 @@ function mapDispatchToProps(dispatch) {
       dispatch(cla.getChallengeTagsDone());
     },
     saveFilter: (...rest) => {
-      dispatch(sa.savingFilterBegin());
-      dispatch(sa.saveFilter(...rest));
+      dispatch(sa.saveFilterInit());
+      dispatch(sa.saveFilterDone(...rest));
     },
     selectBucket: bucket => dispatch(sa.selectBucket(bucket)),
     selectCommunity: id => dispatch(cla.selectCommunity(id)),
