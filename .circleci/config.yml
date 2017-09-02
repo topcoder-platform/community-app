@@ -18,7 +18,7 @@ jobs:
       - run: |
           docker build --build-arg ENV=development -t $DEV_AWS_ACCOUNT_ID.dkr.ecr.$DEV_AWS_REGION.amazonaws.com/community-app:$CIRCLE_SHA1 .
           docker create --name app $DEV_AWS_ACCOUNT_ID.dkr.ecr.$DEV_AWS_REGION.amazonaws.com/community-app:$CIRCLE_SHA1
-          docker app:/opt/app/package.json src
+          docker cp app:/opt/app/package.json src
 
       - run: src
 
