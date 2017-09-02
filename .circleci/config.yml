@@ -8,11 +8,12 @@ jobs:
     steps:
       # Initialization.
       - checkout
-      - setup_remote_docker
 
       # Restoring node_modules from the previous build.
       - restore_cache:
           key: docker-node-modules-v1-{{ checksum "package-lock.json" }}
+
+      - setup_remote_docker
 
       # Install, test and build.
       - run:
