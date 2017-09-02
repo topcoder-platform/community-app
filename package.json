@@ -13,6 +13,7 @@
     "lint": "npm run lint:js && npm run lint:scss",
     "lint:js": "eslint --ext .js,.jsx .",
     "lint:scss": "stylelint **/*.scss --syntax scss",
+    "postinstall": "npm run build",
     "start": "BABEL_ENV=production node ./bin/www",
     "test": "npm run lint && npm run jest"
   },
@@ -20,7 +21,7 @@
     "type": "git",
     "url": "git+https://github.com/topcoder-platform/community-app.git"
   },
-  "author": "Topcoder Community",
+  "author": "",
   "license": "UNLICENSED",
   "private": true,
   "bugs": {
