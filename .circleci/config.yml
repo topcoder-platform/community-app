@@ -2,7 +2,7 @@ version: 2
 
 jobs:
   # Build & Deploy against development backend
-  build-dev:
+  "build-dev":
     docker:
       - image: docker:17.06.1-ce-git
     steps:
@@ -50,20 +50,21 @@ jobs:
 workflows:
   version: 2
   build:
-    # Development builds are executed on "develop" branch only.
-    - build-dev:
-        filters:
-          branches:
-            only: develop
+    jobs:
+      # Development builds are executed on "develop" branch only.
+      - "build-dev":
+          filters:
+            branches:
+              only: develop
 
-    # Simple testing is executed for any branch other than "develop" and
-    # "master".
-    - test:
-        filters:
-          branches:
-            ignore:
-              - develop
-              - master
+      # Simple testing is executed for any branch other than "develop" and
+      # "master".
+      - test:
+          filters:
+            branches:
+              ignore:
+                - develop
+                - master
 
 
 
