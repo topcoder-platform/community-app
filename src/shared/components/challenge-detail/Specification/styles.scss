@@ -8,7 +8,8 @@ $tc-link-visited: #0c4e98;
   }
 
   a:hover {
-    text-decoration: underline;
+   color: $tc-dark-blue;
+   text-decoration: underline;
   }
 
   a:active {
