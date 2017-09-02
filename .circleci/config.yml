@@ -19,8 +19,9 @@ jobs:
           name: Install, test and build
           command: |
             docker create --name app node:8.2.1
-            docker cp . app:/opt/app
             docker start -a app
+            docker cp . app:/opt/app
+            echo "Started and prepared"
             docker exec app cd /opt/app
             docker exec app npm install
             docker exec app npm test
