@@ -12,7 +12,6 @@ import './style.scss';
 export default function Content() {
   return (
     <div styleName="Content">
-      <h1>D-1</h1>
       <h1>Topcoder Community App</h1>
       <p>Isomorphic ReactJS App for new version of Topcoder community website.
         Technological stack includes:</p>
