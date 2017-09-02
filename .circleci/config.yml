@@ -17,8 +17,6 @@ jobs:
       # Building.
       - run: docker build --build-arg ENV=development -t $DEV_AWS_ACCOUNT_ID.dkr.ecr.$DEV_AWS_REGION.amazonaws.com/community-app:$CIRCLE_SHA1 .
 
-      # Saving node_modules to the cache.
-      - run: docker cp $DEV_AWS_ACCOUNT_ID.dkr.ecr.$DEV_AWS_REGION.amazonaws.com/community-app:node_modules .
       - save_cache:
           key: docker-node-modules-{{ checksum "package-lock.json" }}
           paths:
@@ -29,6 +27,33 @@ jobs:
       - run: sudo pip install awscli --upgrade
       - deploy:
           command: ./deploy.sh DEV $CIRCLE_SHA1
+
+  # Build & Deploy against production backend
+  "build-prod":
+    docker:
+      - image: docker:17.06.1-ce-git
+    steps:
+      # Initialization.
+      - checkout
+      - setup_remote_docker
+
+      # Restoring node_modules from the previous build.
+      - restore_cache:
+          key: docker-node-modules-{{ checksum "package-lock.json" }}
+
+      # Building.
+      - run: docker build --build-arg ENV=production -t $PROD_AWS_ACCOUNT_ID.dkr.ecr.$PROD_AWS_REGION.amazonaws.com/community-app:$CIRCLE_SHA1 .
+
+      - save_cache:
+          key: docker-node-modules-{{ checksum "package-lock.json" }}
+          paths:
+            - node_modules
+
+      # Deployment.
+      - run: apk add --update bash jq py-pip sudo
+      - run: sudo pip install awscli --upgrade
+      - deploy:
+          command: ./deploy.sh PROD $CIRCLE_SHA1
 
   # Test job for the cases when we do not need deployment. It just rapidly
   # installs (updates) app dependencies, and runs tests (ESLint, Stylelint,
@@ -57,6 +82,13 @@ workflows:
             branches:
               only: develop
 
+      - "build-prod":
+          filters:
+            branches:
+              only: master
+            tags:
+              only: /v[0-9]+(\.[0-9]+)*/
+
       # Simple testing is executed for any branch other than "develop" and
       # "master".
       - test:
@@ -65,52 +97,3 @@ workflows:
               ignore:
                 - develop
                 - master
-
-
-
-#    docker:
-#      - image: circleci/node:8.2.1
-#    steps:
-#      - checkout
-#      - restore_cache:
-#          key: node_modules__{{ checksum "package-lock.json" }}
-#      - run: npm install
-#      - save_cache:
-#          key: node_modules__{{ checksum "package-lock.json" }}
-#          paths:
-#            - node_modules
-#      - run: npm test
-#      - run: npm run build
-
-#    pre:
-#      - curl -sSL https://s3.amazonaws.com/circle-downloads/install-circleci-docker.sh | bash -s -- 1.10.0
-#    docker:
-#      - image: circleci/node:8.2.1
-#    services:
-#      - docker
-#    post:
-#      - docker version
-#    steps:
-#      - checkout
-#      - run: sudo apt-get install libyaml-dev libpython2.7-dev
-#      - run: sudo pip install 'awsebcli==3.7.4' --force-reinstall
-#      - run: npm install
-#      - deploy:
-#          branches:
-#            only: develop
-#          commands:
-#            - docker build --build-arg BUILD_ENV=development -t $DEV_AWS_ACCOUNT_ID.dkr.ecr.$DEV_AWS_REGION.amazonaws.com/community-app:$CIRCLE_SHA1 .
-#            - ./deploy.sh DEV $CIRCLE_SHA1
-
-#    tags:
-#      only: /v[0-9]+(\.[0-9]+)*/
-          
-#    steps:
-#      - deploy:
-#        commands:
-#          - docker build --build-arg BUILD_ENV=production -t $PROD_AWS_ACCOUNT_ID.dkr.ecr.$PROD_AWS_REGION.amazonaws.com/community-app:$CIRCLE_TAG .
-#          - ./deploy.sh PROD $CIRCLE_TAG
-
-#    general:
-#      artifacts:
-#        - ./__coverage__
