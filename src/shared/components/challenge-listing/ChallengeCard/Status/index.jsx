@@ -366,7 +366,7 @@ class ChallengeStatus extends Component {
             key={winner.handle}
             member={winner}
             openNewTab={openChallengesInNewTabs}
-            url={`${this.props.detailLink}?tab=winner`}
+            url={`${this.props.detailLink}&tab=winners`}
           />
         );
       }
@@ -379,7 +379,7 @@ class ChallengeStatus extends Component {
         </div>);
     });
     return leaderboard || (
-      <a href={`${challengeURL}${id}?tab=winner`}>Results</a>
+      <a href={`${challengeURL}${id}#tab=winner`}>Results</a>
     );
   }
 

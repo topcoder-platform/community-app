@@ -2,6 +2,7 @@
 
 import React, { Component } from 'react';
 import PT from 'prop-types';
+import { Link } from 'react-router-dom';
 import './style.scss';
 
 // Constants
@@ -29,8 +30,8 @@ class LeaderboardAvatar extends Component {
     const { member } = this.state;
     const targetURL = url || `//${domain}/members/${member.handle}`;
     return (
-      <a
-        href={targetURL}
+      <Link
+        to={targetURL}
         styleName={`leaderboard-avatar ${member.position || member.isSmr ? 'dark-gray' : 'light-gray'}`}
         target={openNewTab ? '_blank' : undefined}
       >
@@ -44,7 +45,7 @@ class LeaderboardAvatar extends Component {
         <span styleName={member.position ? `placement placement-${member.position}` : 'hidden'}>
           {member.position}
         </span>
-      </a>
+      </Link>
     );
   }
 }

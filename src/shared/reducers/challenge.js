@@ -149,24 +149,36 @@ function onUnregisterDone(state, action) {
 }
 
 /**
- * Handles CHALLENGE/CHANGE_TAB action.
+ * String values of valid tab names.
+ */
+export const CHALLENGE_DETAILS_TAB = {
+  DETAILS: 'DETAILS',
+  REGISTRANTS: 'REGISTRANTS',
+  CHECKPOINTS: 'CHECKPOINTS',
+  SUBMISSIONS: 'SUBMISSIONS',
+  WINNERS: 'WINNERS',
+};
+
+/**
+ * Handles CHALLENGE/SELECT_TAB action.
  * @param {Object} state
  * @param {Object} action
  * @return {Object}
  */
-function onChangeTab(state, action) {
+function onSelectTab(state, action) {
   const upper = action.payload.toUpperCase() || '';
-  const possibleTabs = [
-    'DETAILS',
-    'REGISTRANTS',
-    'CHECKPOINTS',
-    'SUBMISSIONS',
-    'WINNERS',
-  ];
-  const isValidTab = possibleTabs.indexOf(upper) >= 0;
+  const isValidTab = Object.keys(CHALLENGE_DETAILS_TAB).indexOf(upper) >= 0;
   return {
     ...state,
     selectedTab: isValidTab ? upper : 'DETAILS',
+  };
+}
+
+function onLoadResultsDone(state, action) {
+  return {
+    ...state,
+    loadingResults: false,
+    results: action.error ? null : action.payload,
   };
 }
 
@@ -200,11 +212,7 @@ function create(initialState) {
       ...state,
       loadingResults: true,
     }),
-    [a.loadResultsDone]: (state, action) => ({
-      ...state,
-      loadingResults: false,
-      results: action.error ? null : action.payload,
-    }),
+    [a.loadResultsDone]: onLoadResultsDone,
     [a.fetchCheckpointsInit]: state => ({
       ...state,
       checkpoints: null,
@@ -213,7 +221,7 @@ function create(initialState) {
     [a.fetchCheckpointsDone]: onFetchCheckpointsDone,
     [a.openTermsModal]: state => ({ ...state, showTermsModal: true }),
     [a.closeTermsModal]: state => ({ ...state, showTermsModal: false }),
-    [a.changeTab]: onChangeTab,
+    [a.selectTab]: onSelectTab,
   }, _.defaults(initialState, {
     details: null,
     detailsV2: null,
@@ -241,16 +249,17 @@ export function factory(req) {
    * should be re-used there. */
   /* TODO: For completely server-side rendering it is also necessary to load
    * terms, results, etc. */
-  const urlWithoutQuery = req && req.url.split('?')[0];
-  if (req && urlWithoutQuery.match(/^\/challenges\/\d+$/)) {
+  if (req && req.url.match(/^\/challenges\/\d+/)) {
     const tokens = {
       tokenV2: req.cookies.tcjwt,
       tokenV3: req.cookies.v3jwt,
     };
     const challengeId = req.url.match(/\d+/)[0];
+    let track;
     return toFSA(actions.challenge.getDetailsDone(challengeId, tokens.tokenV3, tokens.tokenV2))
       .then((details) => {
-        if (details.payload[0].track === 'DESIGN') {
+        track = details.payload[0] && details.payload[0].track;
+        if (track === 'DESIGN') {
           return toFSA(actions.challenge.fetchCheckpointsDone(tokens.tokenV2, challengeId))
             .then(checkpoints => ({ details, checkpoints }));
         }
@@ -264,11 +273,22 @@ export function factory(req) {
         if (res.checkpoints) {
           state = onFetchCheckpointsDone(state, res.checkpoints);
         }
+        return state;
+      }).then((res) => {
+        let state = res;
         if (req.query.tab) {
-          state = onChangeTab(state, { payload: req.query.tab });
+          state = onSelectTab(state, { payload: req.query.tab });
+          if (req.query.tab.toLowerCase() === 'winners') {
+            return toFSA(
+              actions.challenge.loadResultsDone(tokens, challengeId, track.toLowerCase()),
+            ).then(result => ({
+              state: onLoadResultsDone(state, result),
+            }));
+          }
         }
-        return combine(create(state), { mySubmissionsManagement });
-      });
+        return { state };
+      })
+      .then(res => combine(create(res.state), { mySubmissionsManagement }));
   }
 
   if (req && req.url.match(/^\/challenges\/\d+\/my-submissions/)) {

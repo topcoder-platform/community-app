@@ -8,6 +8,8 @@ import _ from 'lodash';
 import config from 'utils/config';
 import React from 'react';
 import PT from 'prop-types';
+import { CHALLENGE_DETAILS_TAB } from 'reducers/challenge';
+import { updateQuery } from 'utils/url';
 
 import './style.scss';
 
@@ -36,12 +38,11 @@ export default function ChallengeViewSelector(props) {
 
   const handleSelectorClicked = (e, selector) => {
     /* eslint-env browser */
-    if (window && history.pushState) {
-      e.preventDefault();
-      const newurl =
-      `${window.location.protocol}//${window.location.host}${window.location.pathname}?tab=${selector.toLowerCase()}`;
-      window.history.pushState({ path: newurl }, '', newurl);
-    }
+    e.preventDefault();
+    updateQuery({
+      tab: selector.toLowerCase(),
+    });
+
     onSelectorClicked(selector);
   };
 
@@ -50,28 +51,36 @@ export default function ChallengeViewSelector(props) {
       <div styleName="mask" />
       <div styleName="challenge-view-selector">
         <a
-          onClick={(e) => { handleSelectorClicked(e, 'DETAILS'); }}
-          styleName={getSelectorStyle(selectedView, 'DETAILS', trackLower)}
+          onClick={(e) => { handleSelectorClicked(e, CHALLENGE_DETAILS_TAB.DETAILS); }}
+          styleName={getSelectorStyle(selectedView, CHALLENGE_DETAILS_TAB.DETAILS, trackLower)}
         >DETAILS
         </a>
         <a
-          onClick={(e) => { handleSelectorClicked(e, 'REGISTRANTS'); }}
-          styleName={getSelectorStyle(selectedView, 'REGISTRANTS', trackLower)}
+          onClick={(e) => { handleSelectorClicked(e, CHALLENGE_DETAILS_TAB.REGISTRANTS); }}
+          styleName={getSelectorStyle(selectedView, CHALLENGE_DETAILS_TAB.REGISTRANTS, trackLower)}
         >REGISTRANTS {numRegistrants ? `(${numRegistrants})` : ''}
         </a>
         {
           trackLower === 'design' && checkpointCount > 0 &&
           <a
-            onClick={(e) => { handleSelectorClicked(e, 'CHECKPOINTS'); }}
-            styleName={getSelectorStyle(selectedView, 'CHECKPOINTS', trackLower)}
+            onClick={(e) => { handleSelectorClicked(e, CHALLENGE_DETAILS_TAB.CHECKPOINTS); }}
+            styleName={getSelectorStyle(
+              selectedView,
+              CHALLENGE_DETAILS_TAB.CHECKPOINTS,
+              trackLower,
+            )}
           >CHECKPOINTS ({checkpointCount})
           </a>
         }
         {
           status === 'COMPLETED' &&
           <a
-            onClick={(e) => { handleSelectorClicked(e, 'SUBMISSIONS'); }}
-            styleName={getSelectorStyle(selectedView, 'SUBMISSIONS', trackLower)}
+            onClick={(e) => { handleSelectorClicked(e, CHALLENGE_DETAILS_TAB.SUBMISSIONS); }}
+            styleName={getSelectorStyle(
+              selectedView,
+              CHALLENGE_DETAILS_TAB.SUBMISSIONS,
+              trackLower,
+            )}
           >
             SUBMISSIONS
           </a>
@@ -79,8 +88,8 @@ export default function ChallengeViewSelector(props) {
         {
           status === 'COMPLETED' &&
           <a
-            onClick={(e) => { handleSelectorClicked(e, 'WINNERS'); }}
-            styleName={getSelectorStyle(selectedView, 'WINNERS', trackLower)}
+            onClick={(e) => { handleSelectorClicked(e, CHALLENGE_DETAILS_TAB.WINNERS); }}
+            styleName={getSelectorStyle(selectedView, CHALLENGE_DETAILS_TAB.WINNERS, trackLower)}
           >WINNERS
           </a>
         }

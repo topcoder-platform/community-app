@@ -27,13 +27,16 @@ export default function Winners(props) {
     isDesign,
   } = props;
 
-  results.sort((a, b) => a.placement - b.placement);
-  const winners = results.slice(0, prizes.length);
+  if (results) {
+    results.sort((a, b) => a.placement - b.placement);
+  }
+
+  const winners = results && results.slice(0, prizes.length);
 
   return (
     <div styleName="container">
       {
-        winners.map((w) => {
+        winners && winners.map((w) => {
           const submissionId = getId(submissions, w);
           return (
             <div

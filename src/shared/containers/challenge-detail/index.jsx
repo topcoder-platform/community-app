@@ -24,6 +24,7 @@ import challengeActions from 'actions/challenge';
 import termsActions from 'actions/terms';
 import config from 'utils/config';
 import { BUCKETS } from 'utils/challenge-listing/buckets';
+import { CHALLENGE_DETAILS_TAB } from 'reducers/challenge';
 
 import './styles.scss';
 
@@ -83,6 +84,12 @@ class ChallengeDetailPageContainer extends React.Component {
       !nextProps.results) {
       this.props.loadResults(this.props.authTokens, this.props.challengeId,
         nextProps.challenge.track.toLowerCase());
+
+      // eslint-disable-next-line no-undef
+      const params = new URLSearchParams(this.props.location.search);
+      if (params.get('tab') && params.get('tab') !== this.props.selectedTab.toLowerCase()) {
+        this.props.onSelectorClicked(params.get('tab'));
+      }
     }
 
     const userDetails = this.props.challenge.userDetails;
@@ -150,7 +157,7 @@ class ChallengeDetailPageContainer extends React.Component {
             />
           }
           {
-            !isEmpty && this.props.selectedTab === 'DETAILS' &&
+            !isEmpty && this.props.selectedTab === CHALLENGE_DETAILS_TAB.DETAILS &&
             <ChallengeDetailsView
               challenge={this.props.challenge}
               introduction={this.props.challenge.introduction}
@@ -160,7 +167,7 @@ class ChallengeDetailPageContainer extends React.Component {
             />
           }
           {
-            !isEmpty && this.props.selectedTab === 'REGISTRANTS' &&
+            !isEmpty && this.props.selectedTab === CHALLENGE_DETAILS_TAB.REGISTRANTS &&
             <Registrants
               registrants={this.props.challenge.registrants}
               isDesign={this.props.challenge.track.toLowerCase() === 'design'}
@@ -173,7 +180,7 @@ class ChallengeDetailPageContainer extends React.Component {
             />
           }
           {
-            !isEmpty && this.props.selectedTab === 'CHECKPOINTS' &&
+            !isEmpty && this.props.selectedTab === CHALLENGE_DETAILS_TAB.CHECKPOINTS &&
             <ChallengeCheckpoints checkpoints={this.props.checkpoints} />
           }
           {
@@ -186,7 +193,7 @@ class ChallengeDetailPageContainer extends React.Component {
             />
           }
           {
-            !isEmpty && this.props.selectedTab === 'WINNERS' &&
+            !isEmpty && this.props.selectedTab === CHALLENGE_DETAILS_TAB.WINNERS &&
             <Winners
               results={this.props.results}
               prizes={this.props.challenge.prizes}
@@ -284,6 +291,7 @@ ChallengeDetailPageContainer.propTypes = {
   setChallengeListingFilter: PT.func.isRequired,
   selectedTab: PT.string.isRequired,
   onSelectorClicked: PT.func.isRequired,
+  location: PT.shape().isRequired,
 };
 
 function extractChallengeDetail(v3, v2, challengeId) {
@@ -460,7 +468,7 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(t.agreeTermDone(termId, tokens.tokenV2));
     },
     onSelectorClicked: (tab) => {
-      dispatch(a.changeTab(tab.toUpperCase()));
+      dispatch(a.selectTab(tab));
     },
   };
 };
