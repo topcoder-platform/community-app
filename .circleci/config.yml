@@ -8,15 +8,22 @@ jobs:
     steps:
       # Initialization.
       - checkout
+      - setup_remote_docker
 
       # Restoring node_modules from the previous build.
       - restore_cache:
           key: docker-node-modules-{{ checksum "package-lock.json" }}
 
-      - setup_remote_docker
-
       # Building.
       - run: docker build --build-arg ENV=development -t $DEV_AWS_ACCOUNT_ID.dkr.ecr.$DEV_AWS_REGION.amazonaws.com/community-app:$CIRCLE_SHA1 .
+
+      - run: ls node_modules
+
+      - run: |
+          docker run --name app $DEV_AWS_ACCOUNT_ID.dkr.ecr.$DEV_AWS_REGION.amazonaws.com/community-app:$CIRCLE_SHA1
+          docker cp app:/opt/app/node_modules node_modules
+
+      - run: ls node_modules
 
       - save_cache:
           key: docker-node-modules-{{ checksum "package-lock.json" }}
