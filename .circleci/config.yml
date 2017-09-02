@@ -20,11 +20,11 @@ jobs:
           command: |
             docker create --name app node:8.2.1
             docker cp . app:/opt/app
-            docker exec cd /opt/app
-            docker exec npm install
-            docker exec npm test
-            docker exec npm run build
-            docker exec export NODE_ENV=development
+            docker exec app cd /opt/app
+            docker exec app npm install
+            docker exec app npm test
+            docker exec app npm run build
+            docker exec app export NODE_ENV=development
 
             # This should be copied only if package-lock.json was updated
             # by npm install command. If we check it and make this command
