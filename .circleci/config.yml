@@ -2,8 +2,7 @@ version: 2
 
 jobs:
   # Build & Deploy against development backend
-  # "build-dev":
-  build:
+  "build-dev":
     docker:
       - image: docker:17.06.1-ce-git
     steps:
