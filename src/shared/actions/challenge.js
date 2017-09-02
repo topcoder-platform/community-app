@@ -96,20 +96,39 @@ function fetchCheckpointsDone(tokenV2, challengeId) {
         return response.json();
       }
     })
-    .then(response => ({
-      challengeId: Number(challengeId),
-      checkpoints: response,
-    }))
+    .then((response) => {
+      // Expanded key is used for UI expand/collapse.
+      response.checkpointResults.forEach((checkpoint, index) => {
+        response.checkpointResults[index].expanded = false;
+      });
+      return {
+        challengeId: Number(challengeId),
+        checkpoints: response,
+      };
+    })
     .catch(error => ({
       error,
       challengeId: Number(challengeId),
     }));
 }
 
+/**
+ * Toggles checkpoint feedback. If second argument is provided, it
+ * will just open / close the checkpoint depending on its value being
+ * true or false.
+ * @param {Number} id
+ * @param {Boolean} open
+ * @return {Object}
+ */
+function toggleCheckpointFeedback(id, open) {
+  return { id, open };
+}
+
 export default createActions({
   CHALLENGE: {
     FETCH_CHECKPOINTS_INIT: _.noop,
     FETCH_CHECKPOINTS_DONE: fetchCheckpointsDone,
+    TOGGLE_CHECKPOINT_FEEDBACK: toggleCheckpointFeedback,
     GET_DETAILS_INIT: getDetailsInit,
     GET_DETAILS_DONE: getDetailsDone,
     GET_SUBMISSIONS_INIT: _.noop,

@@ -3,6 +3,7 @@
 exports[`Default render 1`] = `
 <div
   className="src-shared-components-TopcoderHeader-___style__header___LwYWf"
+  onMouseLeave={[Function]}
 >
   <div
     className="src-shared-components-TopcoderHeader-___style__main-desktop-header___oqm_l"
@@ -21,22 +22,28 @@ exports[`Default render 1`] = `
     >
       <li
         className="src-shared-components-TopcoderHeader-___style__main-menu-item___2KIu6"
+        data-menu="Compete"
         onMouseEnter={[Function]}
         onMouseLeave={[Function]}
+        onTouchStart={[Function]}
       >
         Compete
       </li>
       <li
         className="src-shared-components-TopcoderHeader-___style__main-menu-item___2KIu6"
+        data-menu="Learn"
         onMouseEnter={[Function]}
         onMouseLeave={[Function]}
+        onTouchStart={[Function]}
       >
         Learn
       </li>
       <li
         className="src-shared-components-TopcoderHeader-___style__main-menu-item___2KIu6"
+        data-menu="Community"
         onMouseEnter={[Function]}
         onMouseLeave={[Function]}
+        onTouchStart={[Function]}
       >
         Community
       </li>
@@ -49,21 +56,25 @@ exports[`Default render 1`] = `
       >
         <a
           className="tc-btn-sm tc-btn-primary"
-          href="http://accounts-test.topcoder-dev.com/member/registration"
+          href="http://accounts.topcoder-dev.com/member/registration"
+          onClick={[Function]}
         >
           Join
         </a>
         <a
           className="tc-btn-sm tc-btn-default"
-          href="http://accounts-test.topcoder-dev.com/member"
+          href="http://accounts.topcoder-dev.com/member"
+          onClick={[Function]}
         >
           Log In
         </a>
       </div>
       <div
         className="src-shared-components-TopcoderHeader-___style__search-icon___3w5nA"
+        data-menu="search"
         onMouseEnter={[Function]}
         onMouseLeave={[Function]}
+        onTouchStart={[Function]}
       >
         <MagnifyingGlass />
       </div>
@@ -186,6 +197,7 @@ exports[`Default render 1`] = `
 exports[`Render with open menu 1`] = `
 <div
   className="src-shared-components-TopcoderHeader-___style__header___LwYWf"
+  onMouseLeave={[Function]}
 >
   <div
     className="src-shared-components-TopcoderHeader-___style__main-desktop-header___oqm_l"
@@ -204,22 +216,28 @@ exports[`Render with open menu 1`] = `
     >
       <li
         className="src-shared-components-TopcoderHeader-___style__main-menu-item___2KIu6 src-shared-components-TopcoderHeader-___style__opened___1WPVI src-shared-components-TopcoderHeader-___style__current___1Hk7o"
+        data-menu="Compete"
         onMouseEnter={[Function]}
         onMouseLeave={[Function]}
+        onTouchStart={[Function]}
       >
         Compete
       </li>
       <li
         className="src-shared-components-TopcoderHeader-___style__main-menu-item___2KIu6"
+        data-menu="Learn"
         onMouseEnter={[Function]}
         onMouseLeave={[Function]}
+        onTouchStart={[Function]}
       >
         Learn
       </li>
       <li
         className="src-shared-components-TopcoderHeader-___style__main-menu-item___2KIu6"
+        data-menu="Community"
         onMouseEnter={[Function]}
         onMouseLeave={[Function]}
+        onTouchStart={[Function]}
       >
         Community
       </li>
@@ -232,21 +250,25 @@ exports[`Render with open menu 1`] = `
       >
         <a
           className="tc-btn-sm tc-btn-primary"
-          href="http://accounts-test.topcoder-dev.com/member/registration"
+          href="http://accounts.topcoder-dev.com/member/registration"
+          onClick={[Function]}
         >
           Join
         </a>
         <a
           className="tc-btn-sm tc-btn-default"
-          href="http://accounts-test.topcoder-dev.com/member"
+          href="http://accounts.topcoder-dev.com/member"
+          onClick={[Function]}
         >
           Log In
         </a>
       </div>
       <div
         className="src-shared-components-TopcoderHeader-___style__search-icon___3w5nA"
+        data-menu="search"
         onMouseEnter={[Function]}
         onMouseLeave={[Function]}
+        onTouchStart={[Function]}
       >
         <MagnifyingGlass />
       </div>
@@ -380,6 +402,7 @@ exports[`Render with open menu 1`] = `
 exports[`Render with specified profile 1`] = `
 <div
   className="src-shared-components-TopcoderHeader-___style__header___LwYWf"
+  onMouseLeave={[Function]}
 >
   <div
     className="src-shared-components-TopcoderHeader-___style__main-desktop-header___oqm_l"
@@ -398,22 +421,28 @@ exports[`Render with specified profile 1`] = `
     >
       <li
         className="src-shared-components-TopcoderHeader-___style__main-menu-item___2KIu6"
+        data-menu="Compete"
         onMouseEnter={[Function]}
         onMouseLeave={[Function]}
+        onTouchStart={[Function]}
       >
         Compete
       </li>
       <li
         className="src-shared-components-TopcoderHeader-___style__main-menu-item___2KIu6"
+        data-menu="Learn"
         onMouseEnter={[Function]}
         onMouseLeave={[Function]}
+        onTouchStart={[Function]}
       >
         Learn
       </li>
       <li
         className="src-shared-components-TopcoderHeader-___style__main-menu-item___2KIu6"
+        data-menu="Community"
         onMouseEnter={[Function]}
         onMouseLeave={[Function]}
+        onTouchStart={[Function]}
       >
         Community
       </li>
@@ -423,8 +452,10 @@ exports[`Render with specified profile 1`] = `
     >
       <div
         className="src-shared-components-TopcoderHeader-___style__user-menu___3CMgb"
+        data-menu="userMenu"
         onMouseEnter={[Function]}
         onMouseLeave={[Function]}
+        onTouchStart={[Function]}
       >
         <div
           className="src-shared-components-TopcoderHeader-___style__user-menu-handle___r6kbg"
@@ -452,8 +483,10 @@ exports[`Render with specified profile 1`] = `
       </div>
       <div
         className="opened src-shared-components-TopcoderHeader-___style__search-icon___3w5nA"
+        data-menu="search"
         onMouseEnter={[Function]}
         onMouseLeave={[Function]}
+        onTouchStart={[Function]}
       >
         <MagnifyingGlass />
       </div>

@@ -20,6 +20,9 @@ const DRAFT_MSG = 'In Draft';
 const STALLED_TIME_LEFT_MSG = 'Challenge is currently on hold';
 const FF_TIME_LEFT_MSG = 'Winner is working on fixes';
 
+const HOUR_MS = 60 * 60 * 1000;
+const DAY_MS = 24 * HOUR_MS;
+
 const getTimeLeft = (date, currentPhase) => {
   if (!currentPhase || currentPhase === 'Stalled') {
     return {
@@ -33,27 +36,18 @@ const getTimeLeft = (date, currentPhase) => {
     };
   }
 
-  const duration = moment.duration(moment(date).diff(moment()));
-  const h = duration.hours();
-  const d = duration.asDays();
-  const m = duration.minutes();
-  const late = (d < 0 || h < 0 || m < 0);
-  const suffix = h !== 0 ? 'h' : 'min';
-  let text = '';
-  if (d >= 1) text += `${Math.abs(parseInt(d, 10))}d `;
-  if (h !== 0) text += `${Math.abs(h)}`;
-  if (h !== 0 && m !== 0) text += ':';
-  if (m !== 0) text += `${Math.abs(m)}`;
-  text += suffix;
-  if (late) {
-    text = `Late by ${text}`;
-  } else {
-    text = `${text} to go`;
-  }
-  return {
-    late,
-    text,
-  };
+  let time = moment(date).diff();
+  const late = time < 0;
+  if (late) time = -time;
+
+  let format;
+  if (time > DAY_MS) format = 'DDD[d] H[h]';
+  else if (time > HOUR_MS) format = 'H[h] m[min]';
+  else format = 'm[min] s[s]';
+
+  time = moment(time).format(format);
+  time = late ? `Late by ${time}` : `${time} to go`;
+  return { late, text: time };
 };
 
 function numRegistrantsTipText(number) {
@@ -125,7 +119,7 @@ const getTimeToGo = (start, end) => {
  */
 function getProfile(user) {
   const { handle, placement } = user;
-  const photoLink = user.photoURL || `i/m/${handle}.jpeg`;
+  const photoLink = user.photoURL;
   return {
     handle,
     placement,
@@ -313,10 +307,18 @@ class ChallengeStatus extends Component {
       detailLink,
       openChallengesInNewTabs,
     } = this.props;
-    const lng = getTimeLeft(
+    const timeDiff = getTimeLeft(
       challenge.registrationEndDate || challenge.submissionEndDate,
       challenge.currentPhases[0] ? challenge.currentPhases[0].phaseType : '',
-    ).text.length;
+    );
+    let timeNote = timeDiff.text;
+    /* TODO: This is goofy, makes the trick, but should be improved. The idea
+     * here is that the standard "getTimeLeft" method, for positive times,
+     * generates a string like "H MM to go"; here we want to render just
+     * H MM part, so we cut the last 6 symbols. Not a good code. */
+    if (!timeDiff.late) {
+      timeNote = timeNote.substring(0, timeNote.length - 6);
+    }
     return (
       <a
         href={detailLink}
@@ -325,12 +327,7 @@ class ChallengeStatus extends Component {
         target={openChallengesInNewTabs ? '_blank' : undefined}
       >
         <span>
-          {
-            getTimeLeft(
-              challenge.registrationEndDate || challenge.submissionEndDate,
-              challenge.currentPhases[0] ? challenge.currentPhases[0].phaseType : '',
-            ).text.substring(0, lng - 6)
-          }
+          { timeNote }
         </span>
         <span styleName="to-register">to register</span>
       </a>
@@ -347,7 +344,7 @@ class ChallengeStatus extends Component {
       .map(winner => ({
         handle: winner.handle,
         position: winner.placement,
-        photoURL: winner.photoURL || `${config.URL.BASE}/i/m/${winner.handle}.jpeg`,
+        photoURL: winner.photoURL,
       }));
 
     if (winners && winners.length > MAX_VISIBLE_WINNERS) {
@@ -358,15 +355,17 @@ class ChallengeStatus extends Component {
       winners = winners.slice(0, MAX_VISIBLE_WINNERS);
       winners.push(lastItem);
     }
-
     const leaderboard = winners && winners.map((winner) => {
       if (winner.isLastItem) {
         return (
+          /* TODO: No, should not reuse avatar for displaying "+1" in
+           * a circle. Should be a separate component for that. */
           <LeaderboardAvatar
             key={winner.handle}
             member={winner}
             openNewTab={openChallengesInNewTabs}
             url={`${this.props.detailLink}&tab=winners`}
+            plusOne
           />
         );
       }

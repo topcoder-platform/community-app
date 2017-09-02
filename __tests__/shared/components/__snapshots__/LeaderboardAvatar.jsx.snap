@@ -6,7 +6,17 @@ exports[`Matches shallow shapshot 1`] = `
   href="url"
   target={undefined}
 >
-  han
+  <ThemedAvatar
+    composeTheme="deeply"
+    customStyles={null}
+    mapThemrProps={[Function]}
+    theme={
+      Object {
+        "avatar": "",
+      }
+    }
+    url={null}
+  />
   <span
     className="src-shared-components-LeaderboardAvatar-___style__hidden___-vnvD"
   />

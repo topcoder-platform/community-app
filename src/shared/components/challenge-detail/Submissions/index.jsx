@@ -19,7 +19,7 @@ function renderSubmission(s) {
       <div styleName="bottom-info">
         <div styleName="links">
           <a target="_blank" href={`${config.URL.STUDIO}?module=DownloadSubmission&sbmid=${s.submissionId}`}>{`#${s.submissionId}`}</a>
-          <a styleName="handle" target="_blank" href={`${config.URL.BASE}/member-profile/${s.submitter}/design`}>{s.submitter}</a>
+          <a styleName="handle" target="_blank" href={`${config.URL.BASE}/members/${s.submitter}`}>{s.submitter}</a>
         </div>
         <div>{`${moment(s.submissionTime).format('MMM DD,YYYY HH:mm')} EDT`}</div>
       </div>
@@ -84,7 +84,7 @@ export default function Submissions(props) {
             </div>
             <div styleName="col-2">{moment(s.submissionDate).format('MMM DD, YYYY HH:mm')} EDT</div>
             <div styleName="col-3">
-              {s.initialScore.toFixed(2)} / {s.finalScore.toFixed(2)}
+              {(s.initialScore || 0).toFixed(2)} / {(s.finalScore || 0).toFixed(2)}
             </div>
           </div>
         ))

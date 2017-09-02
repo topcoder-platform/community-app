@@ -5,6 +5,9 @@ exports[`Matches shallow shapshot 1`] = `
   className="src-shared-components-Content-___style__Content___aJySd"
 >
   <h1>
+    D-1
+  </h1>
+  <h1>
     Topcoder Community App
   </h1>
   <p>
@@ -371,6 +374,19 @@ exports[`Matches shallow shapshot 1`] = `
        assets with use of 
       <code>
         babel-plugin-inline-react-svg
+      </code>
+      .
+    </li>
+    <li>
+      <Link
+        replace={false}
+        to="/examples/tags/"
+      >
+        Tags
+      </Link>
+       - Demo/test of standard tags already available in the code, and customizable with help of 
+      <code>
+        react-css-themr
       </code>
       .
     </li>

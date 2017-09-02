@@ -6,6 +6,7 @@ exports[`Matches shallow shapshot 1`] = `
   onMouseLeave={[Function]}
 >
   <Item
+    closeMenu={[Function]}
     currentSubMenuTitle=""
     icon="icon url"
     link="menu url"

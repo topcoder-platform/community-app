@@ -31,6 +31,7 @@ export default function Submission(props) {
     type,
     onDelete,
     onShowDetails,
+    status,
   } = props;
   const formatDate = date => moment(+new Date(date)).format('MMM DD, YYYY hh:mm A');
 
@@ -59,9 +60,13 @@ export default function Submission(props) {
       </td>}
       <td>
         <div styleName="action-col">
-          <a href={`${config.URL.STUDIO}?module=DownloadSubmission&sbmid=${submissionObject.submissionId}&sbt=original`}>
-            <DownloadIcon />
-          </a>
+          <a
+            href={
+              type === 'DESIGN'
+                ? `${config.URL.STUDIO}?module=DownloadSubmission&sbmid=${submissionObject.submissionId}&sbt=original`
+                : submissionObject.download
+            }
+          ><DownloadIcon /></a>
           { /*
             TODO: At the moment we just fetch downloads from the legacy
               Topcoder Studio API, and we don't need any JS code to this.
@@ -72,10 +77,12 @@ export default function Submission(props) {
             onClick={() => onDownload(submissionObject.submissionId)}
           ><DownloadIcon /></button>
           */ }
-          <button
-            styleName="delete-icon"
-            onClick={() => onDelete(submissionObject.submissionId)}
-          ><DeleteIcon /></button>
+          {status !== 'COMPLETED' &&
+            <button
+              styleName="delete-icon"
+              onClick={() => onDelete(submissionObject.submissionId)}
+            ><DeleteIcon /></button>
+          }
           <button
             styleName={`expand-icon ${(showScreeningDetails ? 'expanded' : '')}`}
             onClick={() => onShowDetails(submissionObject.submissionId)}
@@ -108,4 +115,5 @@ Submission.propTypes = {
   type: PT.string.isRequired,
   onDelete: PT.func.isRequired,
   onShowDetails: PT.func,
+  status: PT.string.isRequired,
 };

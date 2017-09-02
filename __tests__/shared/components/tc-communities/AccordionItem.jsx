@@ -53,7 +53,7 @@ describe('Click on title', () => {
   test('onTitleClick', () => {
     const btn = TU.findAllInRenderedTree(page, item =>
       item && item.className && item.className.match(/accordion-title-button/));
-    expect(btn.length).toBe(1);
+    expect(btn.length).toBe(2);
     TU.Simulate.click(btn[0]);
     expect(mockOnTitleClick).toHaveBeenCalled();
   });

@@ -32,6 +32,7 @@
       line-height: 30px;
       color: $tc-black;
       margin-bottom: 10px;
+      text-align: center;
 
       @include xxs-to-xs {
         font-size: 28px;
@@ -76,6 +77,7 @@
       font-size: 16px;
       line-height: 22px;
       font-weight: 500;
+      text-align: center;
 
       @include xxs-to-xs {
         text-align: center;
@@ -85,15 +87,12 @@
     .content {
       display: flex;
       flex-wrap: wrap;
-
-      @include xxs-to-xs {
-        justify-content: center;
-      }
+      justify-content: center;
     }
 
     .submission {
       border: 1px solid $tc-gray-10;
-      margin: 0 17px 25px;
+      margin: 0 14px 25px;
       width: 227px;
       font-size: 12px;
 

@@ -28,6 +28,7 @@ $panel-radius-4: $corner-radius * 2;
     right: 0;
     background: $tc-white;
     padding: 15px;
+    overflow-y: scroll;
   }
 
   &.hidden {
@@ -80,9 +81,12 @@ $panel-radius-4: $corner-radius * 2;
       display: flex;
       justify-content: center;
       position: relative;
+      right: 0;
+      top: $panel-space-30;
       width: 100%;
       padding-left: 0;
       border-left: none;
+      margin-bottom: $panel-space-100;
     }
 
     button {
@@ -130,6 +134,7 @@ $panel-radius-4: $corner-radius * 2;
 
     @include xxs-to-sm {
       display: block;
+      margin-right: 0;
     }
   }
 
@@ -153,6 +158,14 @@ $panel-radius-4: $corner-radius * 2;
 
       &.left-label {
         min-width: 58px;
+      }
+
+      @include xxs-to-sm {
+        text-align: left;
+
+        &.left-label {
+          min-width: 96px;
+        }
       }
     }
 
@@ -185,6 +198,18 @@ $panel-radius-4: $corner-radius * 2;
 
       @include xxs-to-sm {
         margin-top: 20px;
+      }
+
+      &.hidetwomonthdatepicker {
+        @media screen and (min-width: $screen-md) {
+          display: none;
+        }
+      }
+
+      &.hideonemonthdatepicker {
+        @media screen and (max-width: $screen-md - 1px) {
+          display: none;
+        }
       }
     }
   }
@@ -373,7 +398,7 @@ $panel-radius-4: $corner-radius * 2;
       .Select-value-icon {
         position: absolute;
         right: 0;
-        top: 0;
+        top: 4px;
         padding: 0 $panel-space-7;
         font-size: 14px;
         border: none;

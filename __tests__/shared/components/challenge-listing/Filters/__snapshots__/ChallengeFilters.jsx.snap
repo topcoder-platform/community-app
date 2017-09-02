@@ -31,7 +31,6 @@ exports[`Matches shallow shapshot shapshot 1`] = `
         <FiltersIcon
           className="src-shared-components-challenge-listing-Filters-___ChallengeFilters__FiltersIcon___2xL1E"
         />
-        Filter
       </span>
       <FiltersSwitch
         active={false}
@@ -161,7 +160,11 @@ exports[`Matches shallow shapshot shapshot 2`] = `
         <FiltersIcon
           className="src-shared-components-challenge-listing-Filters-___ChallengeFilters__FiltersIcon___2xL1E"
         />
-        Filter
+        <span
+          className="src-shared-components-challenge-listing-Filters-___ChallengeFilters__filtersCount___35dFo"
+        >
+          3
+        </span>
       </span>
       <FiltersSwitch
         active={false}

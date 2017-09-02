@@ -1,0 +1,28 @@
+/**
+ * Primary tag, colored with colors of develop track (green).
+ */
+
+@import "./default";
+
+@mixin feedback {
+  &:active,
+  &:focus,
+  &:hover {
+    color: $tc-white !important;
+    background-color: $tc-green;
+  }
+
+  &:visited {
+    color: $tc-white;
+  }
+}
+
+.tag {
+  background-color: $tc-green;
+  border-radius: 3px;
+  color: $tc-white;
+  margin: 5px 5px 0 0;
+  padding: 0 5px;
+
+  @include feedback;
+}

@@ -55,7 +55,8 @@ class ChallengeDetailPageContainer extends React.Component {
 
   componentDidMount() {
     const { challenge, loadChallengeDetails, loadTerms,
-      openTermsModal, authTokens, challengeId } = this.props;
+      openTermsModal, authTokens, challengeId,
+      challengeSubtracksMap, getSubtracks } = this.props;
 
     if (challenge.id !== challengeId) {
       loadChallengeDetails(authTokens, challengeId);
@@ -65,6 +66,10 @@ class ChallengeDetailPageContainer extends React.Component {
 
     if (authTokens.tokenV2 && location.search.indexOf('showTerms=true') > 0) {
       openTermsModal();
+    }
+
+    if (_.isEmpty(challengeSubtracksMap)) {
+      getSubtracks();
     }
   }
 
@@ -154,6 +159,7 @@ class ChallengeDetailPageContainer extends React.Component {
               unregistering={this.props.unregistering}
               checkpoints={this.props.checkpoints}
               hasRegistered={hasRegistered}
+              challengeSubtracksMap={this.props.challengeSubtracksMap}
             />
           }
           {
@@ -180,8 +186,11 @@ class ChallengeDetailPageContainer extends React.Component {
             />
           }
           {
-            !isEmpty && this.props.selectedTab === CHALLENGE_DETAILS_TAB.CHECKPOINTS &&
-            <ChallengeCheckpoints checkpoints={this.props.checkpoints} />
+            !isEmpty && this.state.selectedView === CHALLENGE_DETAILS_TAB.CHECKPOINTS &&
+            <ChallengeCheckpoints
+              checkpoints={this.props.checkpoints}
+              toggleCheckpointFeedback={this.props.toggleCheckpointFeedback}
+            />
           }
           {
             !isEmpty && this.props.selectedTab === 'SUBMISSIONS' &&
@@ -268,6 +277,7 @@ ChallengeDetailPageContainer.propTypes = {
   unregistering: PT.bool.isRequired,
   loadingCheckpointResults: PT.bool,
   checkpointResults: PT.arrayOf(PT.shape()),
+  toggleCheckpointFeedback: PT.func.isRequired,
   loadingResults: PT.bool,
   results: PT.arrayOf(PT.shape()),
   fetchCheckpoints: PT.func.isRequired,
@@ -292,12 +302,14 @@ ChallengeDetailPageContainer.propTypes = {
   selectedTab: PT.string.isRequired,
   onSelectorClicked: PT.func.isRequired,
   location: PT.shape().isRequired,
+  challengeSubtracksMap: PT.shape().isRequired,
+  getSubtracks: PT.func.isRequired,
 };
 
 function extractChallengeDetail(v3, v2, challengeId) {
   let challenge = {};
   if (!_.isEmpty(v3)) {
-    challenge = _.clone(v3);
+    challenge = _.defaults(_.clone(v3), { prizes: [] });
     if (!_.isEmpty(v2)) {
       challenge.numberOfCheckpointsPrizes = v2.numberOfCheckpointsPrizes;
       challenge.introduction = v2.introduction;
@@ -399,6 +411,7 @@ const mapStateToProps = (state, props) => ({
   agreedTerms: state.terms.agreedTerms,
   isLoadingTerms: state.terms.loadingTermsForChallengeId === props.match.params.challengeId,
   selectedTab: state.challenge.selectedTab || 'details',
+  challengeSubtracksMap: state.challengeListing.challengeSubtracksMap,
 });
 
 const mapDispatchToProps = (dispatch) => {
@@ -445,6 +458,9 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(a.fetchCheckpointsInit());
       dispatch(a.fetchCheckpointsDone(tokens.tokenV2, challengeId));
     },
+    toggleCheckpointFeedback: (id, open) => {
+      dispatch(a.toggleCheckpointFeedback(id, open));
+    },
     loadTerms: (tokens, challengeId) => {
       dispatch(t.getTermsInit(challengeId));
       dispatch(t.getTermsDone(challengeId, tokens.tokenV2));
@@ -469,6 +485,11 @@ const mapDispatchToProps = (dispatch) => {
     },
     onSelectorClicked: (tab) => {
       dispatch(a.selectTab(tab));
+    },
+    getSubtracks: () => {
+      const cl = challengeListingActions.challengeListing;
+      dispatch(cl.getChallengeSubtracksInit());
+      dispatch(cl.getChallengeSubtracksDone());
     },
   };
 };

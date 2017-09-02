@@ -8,6 +8,9 @@ $avatar-radius-50: $corner-radius * 25;
 $avatar-radius-4: $corner-radius * 2;
 
 .user-avatar-tooltip {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   max-width: 640px;
   font-family: 'Roboto';
   overflow: auto;
@@ -43,12 +46,13 @@ $avatar-radius-4: $corner-radius * 2;
 
   .avatar {
     border-radius: $avatar-radius-50;
-    float: left;
-    margin-right: $avatar-space-15;
     width: $base-unit * 10;
+    height: $base-unit * 10;
+    overflow: hidden;
   }
 
   .handle {
+    margin-left: $avatar-space-15;
     display: inline-block;
     font-weight: 500;
     font-size: 20px;

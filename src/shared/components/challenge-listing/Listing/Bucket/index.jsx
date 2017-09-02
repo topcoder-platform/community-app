@@ -86,7 +86,7 @@ export default function Bucket({
       {cards}
       {placeholders}
       {
-        (expandable || loadMore) && !expanded ? (
+        (expandable || loadMore) && !loading && !expanded ? (
           <button
             onClick={expand}
             styleName="view-more"

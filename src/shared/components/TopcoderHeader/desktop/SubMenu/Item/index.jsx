@@ -4,7 +4,7 @@
 
 import PT from 'prop-types';
 import React from 'react';
-
+import { Link } from 'utils/router';
 import './style.scss';
 
 export default function Item({
@@ -12,16 +12,20 @@ export default function Item({
   icon,
   link,
   title,
+  closeMenu,
 }) {
   let styleName = 'item';
   if (currentSubMenuTitle === title) styleName += ' current';
   return (
-    <li styleName={styleName}>
-      <a href={link}>
+    /* TODO: Should be done in a clean way, witout disabling eslint rules. */
+    /* eslint-disable jsx-a11y/no-noninteractive-element-to-interactive-role */
+    <li styleName={styleName} onClick={closeMenu} role="button" tabIndex={0}>
+      <Link to={link}>
         {icon}
         {title}
-      </a>
+      </Link>
     </li>
+    /* eslint-enable jsx-a11y/no-noninteractive-element-to-interactive-role */
   );
 }
 
@@ -30,4 +34,5 @@ Item.propTypes = {
   icon: PT.node.isRequired,
   link: PT.string.isRequired,
   title: PT.string.isRequired,
+  closeMenu: PT.func.isRequired,
 };

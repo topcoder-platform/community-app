@@ -18,6 +18,7 @@ export default function SubMenu({
     items = menu.items.map(item => (
       <Item
         currentSubMenuTitle={currentSubMenuTitle}
+        closeMenu={closeMenu}
         key={item.title}
         {...item}
       />
