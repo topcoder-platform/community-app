@@ -6,7 +6,7 @@
 
 NODE_ENV=$1
 
-$TAG = $PROD_AWS_ACCOUNT_ID.dkr.ecr.$PROD_AWS_REGION.amazonaws.com/community-app:$CIRCLE_SHA1
+$TAG = $DEV_AWS_ACCOUNT_ID.dkr.ecr.$DEV_AWS_REGION.amazonaws.com/community-app:$CIRCLE_SHA1
 
 if [ -d node_modules ]
 then
@@ -15,7 +15,7 @@ then
   docker commit app prebuild
   docker build --build-arg IMAGE=prebuild --build-arg NODE_ENV=$NODE_ENV -t $TAG .
 else
-  docker build --build-arg NODE_ENV=$NODE_ENV -t $TAG .
+  docker build --build-arg IMAGE=node:8.2.1 --build-arg NODE_ENV=$NODE_ENV -t $TAG .
   docker create --name app $TAG
   docker cp app:/opt/app/node_modules .
 fi
