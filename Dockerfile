@@ -2,6 +2,8 @@
 # and runs it against the specified Topcoder backend (development or
 # production) when container is executed.
 
+ARG IMAGE
+
 FROM $IMAGE
 LABEL app="Community App" version="1.0"
 
