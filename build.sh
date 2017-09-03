@@ -12,10 +12,11 @@ if [ -d node_modules ]
 then
   docker create --name app -w /opt/app node:8.2.1
   docker cp node_modules app:/opt/app
-  docker commit app prebuild
-  docker build --build-arg IMAGE=prebuild --build-arg NODE_ENV=$NODE_ENV -t $TAG .
+  docker commit app node:customized
+  docker build --build-arg NODE_ENV=$NODE_ENV -t $TAG .
 else
-  docker build --build-arg IMAGE=node:8.2.1 --build-arg NODE_ENV=$NODE_ENV -t $TAG .
+  docker tag node:8.2.1 node:custom
+  docker build --build-arg NODE_ENV=$NODE_ENV -t $TAG .
   docker create --name app $TAG
   docker cp app:/opt/app/node_modules .
 fi

@@ -2,9 +2,7 @@
 # and runs it against the specified Topcoder backend (development or
 # production) when container is executed.
 
-ARG IMAGE
-
-FROM $IMAGE
+FROM node:custom
 LABEL app="Community App" version="1.0"
 
 WORKDIR /opt/app
