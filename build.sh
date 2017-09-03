@@ -6,7 +6,7 @@
 
 NODE_ENV=$1
 
-$TAG = $DEV_AWS_ACCOUNT_ID.dkr.ecr.$DEV_AWS_REGION.amazonaws.com/community-app:$CIRCLE_SHA1
+TAG = $DEV_AWS_ACCOUNT_ID.dkr.ecr.$DEV_AWS_REGION.amazonaws.com/community-app:$CIRCLE_SHA1
 
 if [ -d node_modules ]
 then
