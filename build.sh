@@ -15,8 +15,10 @@ then
   docker commit app node:customized
   docker build --build-arg NODE_ENV=$NODE_ENV -t $TAG .
 else
-  docker tag node:8.2.1 node:custom
+  docker create --name app -w /opt/app node:8.2.1
+  docker commit app node:customized
   docker build --build-arg NODE_ENV=$NODE_ENV -t $TAG .
+  docker rm app
   docker create --name app $TAG
   docker cp app:/opt/app/node_modules .
 fi
