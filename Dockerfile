@@ -7,6 +7,9 @@ ARG IMAGE
 FROM $IMAGE
 LABEL app="Community App" version="1.0"
 
+WORKDIR /opt/app
+COPY . .
+
 RUN npm install
 RUN npm test
 RUN npm run build
