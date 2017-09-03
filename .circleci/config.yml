@@ -9,34 +9,22 @@ jobs:
       # Initialization.
       - checkout
       - setup_remote_docker
-
-      # Restoring node_modules from the previous build.
-      - restore_cache:
-          key: docker-node-modules-v1-{{ checksum "package-lock.json" }}
-
-      # Install, test and build.
       - run:
-          name: Install, test and build
-          command: |
-            docker create --name app node:8.2.1
-            docker start -a app
-            docker cp . app:/opt/app
-            echo "Started and prepared"
-            docker exec app cd /opt/app
-            docker exec app npm install
-            docker exec app npm test
-            docker exec app npm run build
-            docker exec app export NODE_ENV=development
+          name: Installation of build dependencies.
+          command: apk add --update bash
 
-            # This should be copied only if package-lock.json was updated
-            # by npm install command. If we check it and make this command
-            # conditionally, it will save a bit more time for us.
-            docker cp app:/opt/app/node_modules .
-            docker commit -c "EXPOSE 3000" -c 'CMD["npm", "start"]' app $DEV_AWS_ACCOUNT_ID.dkr.ecr.$DEV_AWS_REGION.amazonaws.com/community-app:$CIRCLE_SHA1
+      # Restoration of node_modules from cache.
+      - restore_cache:
+          key: docker-node-modules-v2-{{ checksum "package-lock.json" }}
+
+      # Build of Docker image.
+      - run:
+          name: Build of Docker image
+          command: ./build.sh development
 
       # Caching node modules.
       - save_cache:
-          key: docker-node-modules-v1-{{ checksum "package-lock.json" }}
+          key: docker-node-modules-v2-{{ checksum "package-lock.json" }}
           paths:
             - node_modules
 
@@ -44,7 +32,7 @@ jobs:
       - run:
           name: Installing AWS client
           command: |
-            apk add --update bash jq py-pip sudo
+            apk add --update jq py-pip sudo
             sudo pip install awscli --upgrade
 
       - deploy:
