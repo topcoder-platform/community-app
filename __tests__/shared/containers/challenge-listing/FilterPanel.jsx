@@ -234,7 +234,7 @@ describe('full render connnected component and dispatch actions', () => {
   test('saveFilter', () => {
     filterPanel.prop('saveFilter')();
     const actions = store.getActions();
-    expect(actions[0].type).toEqual(sActions.challengeListing.sidebar.saveFilter.toString());
+    expect(actions[0].type).toEqual(sActions.challengeListing.sidebar.saveFilterInit.toString());
   });
 
   test('selectBucket', () => {

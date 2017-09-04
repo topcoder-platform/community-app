@@ -37,6 +37,7 @@ export default function ChallengeFilters({
   trackModalShown,
   validKeywords,
   validSubtracks,
+  isSavingFilter,
 }) {
   let filterRulesCount = 0;
   if (filterState.tags) filterRulesCount += 1;
@@ -147,6 +148,7 @@ export default function ChallengeFilters({
         setSearchText={setSearchText}
         validKeywords={validKeywords}
         validSubtracks={validSubtracks}
+        isSavingFilter={isSavingFilter}
       />
 
       <EditTrackPanel
@@ -166,6 +168,7 @@ export default function ChallengeFilters({
 ChallengeFilters.defaultProps = {
   communityName: null,
   isCardTypeSet: '',
+  isSavingFilter: false,
   setCardType: _.noop,
 };
 
@@ -176,6 +179,7 @@ ChallengeFilters.propTypes = {
   expanded: PT.bool.isRequired,
   filterState: PT.shape().isRequired,
   isCardTypeSet: PT.string,
+  isSavingFilter: PT.bool,
   saveFilter: PT.func.isRequired,
   selectCommunity: PT.func.isRequired,
   selectedCommunityId: PT.string.isRequired,
