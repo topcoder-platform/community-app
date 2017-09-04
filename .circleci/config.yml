@@ -11,11 +11,11 @@ jobs:
       - setup_remote_docker
       - run:
           name: Installation of build dependencies.
-          command: apk add --update bash
+          command: apk add --no-cache bash
 
       # Restoration of node_modules from cache.
       - restore_cache:
-          key: docker-node-modules-v2-{{ checksum "package-lock.json" }}
+          key: docker-node-modules-v3-{{ checksum "package-lock.json" }}
 
       # Build of Docker image.
       - run:
@@ -24,7 +24,7 @@ jobs:
 
       # Caching node modules.
       - save_cache:
-          key: docker-node-modules-v2-{{ checksum "package-lock.json" }}
+          key: docker-node-modules-v3-{{ checksum "package-lock.json" }}
           paths:
             - node_modules
 
@@ -32,7 +32,7 @@ jobs:
       - run:
           name: Installing AWS client
           command: |
-            apk add --update jq py-pip sudo
+            apk add --no-cache jq py-pip sudo
             sudo pip install awscli --upgrade
 
       - deploy:
@@ -46,22 +46,31 @@ jobs:
       # Initialization.
       - checkout
       - setup_remote_docker
+      - run:
+          name: Installation of build dependencies.
+          command: apk add --no-cache bash
 
       # Restoring node_modules from the previous build.
       - restore_cache:
-          key: docker-node-modules-{{ checksum "package-lock.json" }}
+          key: docker-node-modules-v3-{{ checksum "package-lock.json" }}
 
       # Building.
-      - run: docker build --build-arg ENV=production -t $PROD_AWS_ACCOUNT_ID.dkr.ecr.$PROD_AWS_REGION.amazonaws.com/community-app:$CIRCLE_SHA1 .
+      - run:
+          name: Build of Docker image
+          command: ./build.sh production
 
       - save_cache:
-          key: docker-node-modules-{{ checksum "package-lock.json" }}
+          key: docker-node-modules-v3-{{ checksum "package-lock.json" }}
           paths:
             - node_modules
 
       # Deployment.
-      - run: apk add --update bash jq py-pip sudo
-      - run: sudo pip install awscli --upgrade
+      - run:
+          name: Installing AWS client
+          command: |
+            apk add --no-cache jq py-pip sudo
+            sudo pip install awscli --upgrade
+
       - deploy:
           command: ./deploy.sh PROD $CIRCLE_SHA1
 

@@ -1,24 +1,47 @@
 #!/bin/bash
 
-# Builds Docker image of Community App application. Doing it with a series of
-# docker commands rather than with Dockerfile and "docker build" allows better
-# control over build performance.
+# Builds Docker image of Community App application.
+# This script expects a single argument: NODE_ENV, which must be either
+# "development" or "production".
 
 NODE_ENV=$1
 
-TAG=$DEV_AWS_ACCOUNT_ID.dkr.ecr.$DEV_AWS_REGION.amazonaws.com/community-app:$CIRCLE_SHA1
+# Selects proper AWS_ACCOUNT_ID / AWS_REGION for dev / prod builds. Fails
+# execution, if NODE_ENV argument is missing or incorrect.
+if [ $NODE_ENV == production ]
+then
+  AWS_ACCOUNT_ID=$PROD_AWS_ACCOUNT_ID
+  AWS_REGION=$PROD_AWS_REGION
+elif [ $NODE_ENV == development ]
+then
+  AWS_ACCOUNT_ID=$DEV_AWS_ACCOUNT_ID
+  AWS_REGION=$DEV_AWS_REGION
+else
+  exit 1
+fi
+
+# Builds Docker image of the app.
+TAG=$AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/community-app:$CIRCLE_SHA1
+docker build --build-arg NODE_ENV=$NODE_ENV -t $TAG .
+
+# Copies "node_modules" from the created image, if necessary for caching.
+docker create --name app $TAG
 
 if [ -d node_modules ]
 then
-  docker create --name app -w /opt/app node:8.2.1
-  docker cp node_modules app:/opt/app
-  docker commit app node:customized
-  docker build --build-arg NODE_ENV=$NODE_ENV -t $TAG .
+  # If "node_modules" directory already exists, we should compare
+  # "package-lock.json" from the code and from the container to decide,
+  # whether we need to re-cache, and thus to copy "node_modules" from
+  # the Docker container.
+  docker cp app:/opt/app/package-lock.json new-package-lock.json
+  cmp package-lock.json new-package-lock.json
+  UPDATE_CACHE=$?
 else
-  docker create --name app -w /opt/app node:8.2.1
-  docker commit app node:customized
-  docker build --build-arg NODE_ENV=$NODE_ENV -t $TAG .
-  docker rm app
-  docker create --name app $TAG
+  # If "node_modules" does not exist, then cache must be created.
+  UPDATE_CACHE=true
+fi
+
+if [ $UPDATE_CACHE ]
+then
   docker cp app:/opt/app/node_modules .
 fi
