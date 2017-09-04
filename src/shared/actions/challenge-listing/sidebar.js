@@ -136,7 +136,9 @@ export default createActions({
 
       RESET_FILTER_NAME: resetFilterName,
 
-      SAVE_FILTER: saveFilter,
+      SAVE_FILTER_DONE: saveFilter,
+
+      SAVE_FILTER_INIT: _.noop,
 
       /* Pass in the bucket type. */
       SELECT_BUCKET: _.identity,

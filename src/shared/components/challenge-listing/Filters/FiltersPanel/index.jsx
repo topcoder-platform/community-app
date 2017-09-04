@@ -42,6 +42,7 @@ export default function FiltersPanel({
   setSearchText,
   validKeywords,
   validSubtracks,
+  isSavingFilter,
 }) {
   let className = 'FiltersPanel';
   if (hidden) className += ' hidden';
@@ -158,8 +159,8 @@ export default function FiltersPanel({
         <button
           styleName="blue"
           className="tc-blue-btn"
-          disabled={_.isEmpty(filterState)}
           onClick={onSaveFilter}
+          disabled={isSavingFilter || _.isEmpty(filterState)}
         >Save filter</button>
       </div>
     </div>
@@ -168,6 +169,7 @@ export default function FiltersPanel({
 
 FiltersPanel.defaultProps = {
   hidden: false,
+  isSavingFilter: false,
   onSaveFilter: _.noop,
   onClose: _.noop,
 };
@@ -179,6 +181,7 @@ FiltersPanel.propTypes = {
   })).isRequired,
   filterState: PT.shape().isRequired,
   hidden: PT.bool,
+  isSavingFilter: PT.bool,
   onSaveFilter: PT.func,
   selectCommunity: PT.func.isRequired,
   selectedCommunityId: PT.string.isRequired,

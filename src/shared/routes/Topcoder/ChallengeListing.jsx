@@ -27,15 +27,17 @@ export default function ChallengeListingRoute() {
           /* TODO: This validation of start and end dates from query params
            * does the trick of removing invalid dates from URL at the client
            * side, but it actually should be done in the reducer as well. */
-          if (query.filter && query.filter.startDate
-          && !moment(query.filter.startDate).isValid()) {
-            delete query.filter.startDate;
+          if (query) {
+            if (query.filter && query.filter.startDate
+            && !moment(query.filter.startDate).isValid()) {
+              delete query.filter.startDate;
+            }
+            if (query.filter && query.filter.endDate
+            && !moment(query.filter.endDate).isValid()) {
+              delete query.filter.endDate;
+            }
+            updateQuery({ filter: query.filter });
           }
-          if (query.filter && query.filter.endDate
-          && !moment(query.filter.endDate).isValid()) {
-            delete query.filter.endDate;
-          }
-          updateQuery({ filter: query.filter });
 
           const currencyFromUrl = _.get(query, 'currency');
           const prizeMode = currencyFromUrl && `money-${currencyFromUrl}`;

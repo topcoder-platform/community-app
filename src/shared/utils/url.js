@@ -28,7 +28,7 @@ export function updateQuery(update) {
     if (_.isUndefined(value)) delete query[key];
     else query[key] = value;
   });
-  query = `?${qs.stringify(query, { encode: false })}`;
+  query = `?${qs.stringify(query, { encodeValuesOnly: true })}`;
   window.history.replaceState(window.history.state, '', query);
 }
 

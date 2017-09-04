@@ -6,6 +6,7 @@ exports[`Matches shallow snapshot 1`] = `
   closeMenu={[Function]}
   closeMobileMenu={[Function]}
   closeSearch={[Function]}
+  isMobile={false}
   mobileMenuOpened={false}
   openMenu={[Function]}
   openMobileMenu={[Function]}

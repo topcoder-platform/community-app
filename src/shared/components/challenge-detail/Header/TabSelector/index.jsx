@@ -26,6 +26,7 @@ export default function ChallengeViewSelector(props) {
     selectedView,
     status,
     trackLower,
+    hasRegistered,
   } = props;
 
   const forumId = _.get(challenge, 'forumId', 0);
@@ -73,7 +74,7 @@ export default function ChallengeViewSelector(props) {
           >WINNERS
           </a>
         }
-        { Boolean(roles.length) &&
+        { (hasRegistered || Boolean(roles.length)) &&
           <a
             href={`${config.URL.FORUMS}${forumEndpoint}`}
             styleName={getSelectorStyle(selectedView, 'CHALLENGE_FORUM', trackLower)}
@@ -89,6 +90,7 @@ ChallengeViewSelector.defaultProps = {
   checkpointCount: 0,
   numRegistrants: 0,
   numSubmissions: 0,
+  hasRegistered: false,
 };
 
 ChallengeViewSelector.propTypes = {
@@ -107,4 +109,5 @@ ChallengeViewSelector.propTypes = {
   selectedView: PT.string.isRequired,
   status: PT.string.isRequired,
   trackLower: PT.string.isRequired,
+  hasRegistered: PT.bool.isRequired,
 };
