@@ -109,6 +109,7 @@ let expectedState = {
     activeBucket: 'all',
     activeSavedFilter: 0,
     editSavedFiltersMode: false,
+    isSavingFilter: false,
     savedFilters: [],
   },
 };

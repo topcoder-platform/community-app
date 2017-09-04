@@ -36,8 +36,8 @@ const mockActions = {
     payload,
     error,
   ),
-  saveFilter: (payload, error) => mockAction(
-    'CHALLENGE_LISTING/SIDEBAR/SAVE_FILTER',
+  saveFilterDone: (payload, error) => mockAction(
+    'CHALLENGE_LISTING/SIDEBAR/SAVE_FILTER_DONE',
     payload,
     error,
   ),
@@ -67,6 +67,7 @@ let expectedState = {
   activeBucket: 'all',
   activeSavedFilter: 0,
   editSavedFiltersMode: false,
+  isSavingFilter: false,
   savedFilters: [],
 };
 
@@ -79,7 +80,7 @@ function testReducer(reducer) {
   });
 
   test('properly handles saveFilter', () => {
-    state = reducer(state, mockActions.saveFilter({ name: 'name', filter: '"filter"' })());
+    state = reducer(state, mockActions.saveFilterDone({ name: 'name', filter: '"filter"' })());
     expectedState = {
       ...expectedState,
       activeBucket: 'saved-filter',

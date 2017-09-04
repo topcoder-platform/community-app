@@ -117,10 +117,10 @@ describe('challengeListing.sidebar.resetFilterName', () => {
 describe('challengeListing.sidebar.saveFilter', () => {
   global.fetch = mockFetch(true, 'dummy');
 
-  const a = actions.saveFilter('name', {}, 'token');
+  const a = actions.saveFilterDone('name', {}, 'token');
 
   test('has expected type', () => {
-    expect(a.type).toBe('CHALLENGE_LISTING/SIDEBAR/SAVE_FILTER');
+    expect(a.type).toBe('CHALLENGE_LISTING/SIDEBAR/SAVE_FILTER_DONE');
   });
 
   test('payload is a promise which resolves to the expected object', () =>

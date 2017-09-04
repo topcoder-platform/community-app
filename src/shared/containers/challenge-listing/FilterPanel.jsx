@@ -61,6 +61,7 @@ function getAvailableFilterName(state) {
 }
 
 Container.defaultProps = {
+  isSavingFilter: false,
   tokenV2: '',
 };
 
@@ -70,6 +71,7 @@ Container.propTypes = {
   getAvailableFilterName: PT.func.isRequired,
   getKeywords: PT.func.isRequired,
   getSubtracks: PT.func.isRequired,
+  isSavingFilter: PT.bool,
   loadingKeywords: PT.bool.isRequired,
   loadingSubtracks: PT.bool.isRequired,
   saveFilter: PT.func.isRequired,

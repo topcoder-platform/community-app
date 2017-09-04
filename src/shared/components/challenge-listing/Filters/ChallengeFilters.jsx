@@ -164,6 +164,7 @@ export default function ChallengeFilters({
 ChallengeFilters.defaultProps = {
   communityName: null,
   isCardTypeSet: '',
+  isSavingFilter: false,
   setCardType: _.noop,
 };
 
@@ -174,6 +175,7 @@ ChallengeFilters.propTypes = {
   expanded: PT.bool.isRequired,
   filterState: PT.shape().isRequired,
   isCardTypeSet: PT.string,
+  isSavingFilter: PT.bool,
   saveFilter: PT.func.isRequired,
   selectCommunity: PT.func.isRequired,
   selectedCommunityId: PT.string.isRequired,

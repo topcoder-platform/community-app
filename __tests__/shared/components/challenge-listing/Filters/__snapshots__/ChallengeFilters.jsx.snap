@@ -53,6 +53,7 @@ exports[`Matches shallow shapshot shapshot 1`] = `
     filterState={Object {}}
     groupId={undefined}
     hidden={true}
+    isSavingFilter={false}
     onClose={[Function]}
     onSaveFilter={[Function]}
     selectCommunity={[Function]}
@@ -197,6 +198,7 @@ exports[`Matches shallow shapshot shapshot 2`] = `
     }
     groupId={undefined}
     hidden={true}
+    isSavingFilter={false}
     onClose={[Function]}
     onSaveFilter={[Function]}
     selectCommunity={[Function]}

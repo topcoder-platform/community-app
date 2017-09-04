@@ -147,6 +147,7 @@ export default function FiltersPanel({
 
 FiltersPanel.defaultProps = {
   hidden: false,
+  isSavingFilter: false,
   onSaveFilter: _.noop,
   onClose: _.noop,
 };
@@ -158,6 +159,7 @@ FiltersPanel.propTypes = {
   })).isRequired,
   filterState: PT.shape().isRequired,
   hidden: PT.bool,
+  isSavingFilter: PT.bool,
   onSaveFilter: PT.func,
   selectCommunity: PT.func.isRequired,
   selectedCommunityId: PT.string.isRequired,
