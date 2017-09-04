@@ -38,10 +38,10 @@ then
   UPDATE_CACHE=$?
 else
   # If "node_modules" does not exist, then cache must be created.
-  UPDATE_CACHE=true
+  UPDATE_CACHE=1
 fi
 
-if [ $UPDATE_CACHE ]
+if [ $UPDATE_CACHE == 1 ]
 then
   docker cp app:/opt/app/node_modules .
 fi
