@@ -47,6 +47,8 @@
   color: $tc-gray-30;
   cursor: not-allowed;
   padding-top: 2px;
+  opacity: 0.3;
+  filter: grayscale(90%);
 }
 
 .link {

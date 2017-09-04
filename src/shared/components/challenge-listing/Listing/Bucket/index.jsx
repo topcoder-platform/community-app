@@ -88,7 +88,12 @@ export default function Bucket({
       {
         (expandable || loadMore) && !loading && !expanded ? (
           <button
-            onClick={expand}
+            onClick={() => {
+              expand();
+              /* eslint-env browser */
+              document.body.scrollTop = 0;
+              document.documentElement.scrollTop = 0;
+            }}
             styleName="view-more"
           >View more challenges</button>
         ) : null

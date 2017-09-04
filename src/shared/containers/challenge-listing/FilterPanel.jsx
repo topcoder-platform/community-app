@@ -38,6 +38,7 @@ export class Container extends React.Component {
             this.props.selectBucket(BUCKETS.ALL);
           }
         }}
+        isSavingFilter={this.props.isSavingFilter}
       />
     );
   }
@@ -60,6 +61,7 @@ function getAvailableFilterName(state) {
 }
 
 Container.defaultProps = {
+  isSavingFilter: false,
   tokenV2: '',
 };
 
@@ -69,6 +71,7 @@ Container.propTypes = {
   getAvailableFilterName: PT.func.isRequired,
   getKeywords: PT.func.isRequired,
   getSubtracks: PT.func.isRequired,
+  isSavingFilter: PT.bool,
   loadingKeywords: PT.bool.isRequired,
   loadingSubtracks: PT.bool.isRequired,
   saveFilter: PT.func.isRequired,
@@ -91,8 +94,10 @@ function mapDispatchToProps(dispatch) {
       dispatch(cla.getChallengeTagsInit());
       dispatch(cla.getChallengeTagsDone());
     },
-    saveFilter: (...rest) =>
-      dispatch(sa.saveFilter(...rest)),
+    saveFilter: (...rest) => {
+      dispatch(sa.saveFilterInit());
+      dispatch(sa.saveFilterDone(...rest));
+    },
     selectBucket: bucket => dispatch(sa.selectBucket(bucket)),
     selectCommunity: id => dispatch(cla.selectCommunity(id)),
     setFilterState: s => dispatch(cla.setFilter(s)),
@@ -115,6 +120,7 @@ function mapStateToProps(state, ownProps) {
     validSubtracks: cl.challengeSubtracks,
     selectedCommunityId: cl.selectedCommunityId,
     tokenV2: state.auth.tokenV2,
+    isSavingFilter: cl.sidebar.isSavingFilter,
   };
 }
 
