@@ -7,6 +7,10 @@ $tc-link-visited: #0c4e98;
     word-wrap: break-word;
   }
 
+  a:visited {
+    color: $tc-link-visited;
+  }
+
   a:hover {
     color: $tc-dark-blue;
     text-decoration: underline;
@@ -15,10 +19,6 @@ $tc-link-visited: #0c4e98;
   a:active {
     text-decoration: underline;
     color: $tc-dark-blue-70;
-  }
-
-  a:visited {
-    color: $tc-link-visited;
   }
 }
 
