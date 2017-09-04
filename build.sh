@@ -33,8 +33,9 @@ then
   # "package-lock.json" from the code and from the container to decide,
   # whether we need to re-cache, and thus to copy "node_modules" from
   # the Docker container.
-  docker cp app:/opt/app/package-lock.json new-package-lock.json
-  cmp package-lock.json new-package-lock.json
+  mv package-lock.json old-package-lock.json
+  docker cp app:/opt/app/package-lock.json package-lock.json
+  cmp package-lock.json old-package-lock.json
   UPDATE_CACHE=$?
 else
   # If "node_modules" does not exist, then cache must be created.
