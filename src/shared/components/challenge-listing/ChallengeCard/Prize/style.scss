@@ -9,7 +9,7 @@
   white-space: nowrap;
 
   @include xxs-to-xs {
-    margin-left: 10px;
+    display: inline-block;
   }
 }
 
@@ -20,5 +20,4 @@
 .symbol {
   display: inline-block;
   color: $tc-gray-50;
-  min-width: 2 * $base-unit + 1;
 }

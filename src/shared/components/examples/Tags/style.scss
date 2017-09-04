@@ -1,0 +1,43 @@
+@import "~styles/tc-styles";
+
+.page {
+  @include roboto-light;
+
+  line-height: 150%;
+  margin: auto;
+  max-width: $screen-lg;
+  padding: 24px;
+
+  h1 {
+    margin: 0 0 18px;
+  }
+
+  h3 {
+    margin: 24px 0 6px;
+  }
+
+  code {
+    background: whitesmoke;
+    padding: 2px 4px;
+  }
+
+  em {
+    font-style: italic;
+  }
+
+  p {
+    margin: $base-unit 0;
+  }
+}
+
+.btnXS {
+  @include btn-xs;
+}
+
+.btnSM {
+  @include btn-sm;
+}
+
+.btnLG {
+  @include btn-lg;
+}

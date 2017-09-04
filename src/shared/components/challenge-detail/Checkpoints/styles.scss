@@ -7,6 +7,12 @@ $tc-gray-border: #aaaab5;
 
   .challenge-checkpoint-list {
     margin: 50px 20px 50px 10px;
+    display: flex;
+    flex-direction: column;
+
+    @include xxs-to-xs {
+      display: none;
+    }
 
     .challenge-checkpoint-li {
       background: $tc-white;
@@ -86,6 +92,12 @@ $tc-gray-border: #aaaab5;
         .challenge-checkpoint-expander {
           padding-right: 23px;
         }
+
+        .feedback-text {
+          @include xxs-to-xs {
+            display: none;
+          }
+        }
       }
 
       .challenge-checkpoint-feedback {
@@ -97,6 +109,10 @@ $tc-gray-border: #aaaab5;
         color: $tc-gray-90;
         line-height: 25px;
         padding: 15px 15px 25px;
+
+        span {
+          color: $tc-gray-40;
+        }
       }
     }
   }

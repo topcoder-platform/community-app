@@ -3,16 +3,19 @@
 exports[`Snapshot match 1`] = `
 <div
   className="src-shared-components-TopcoderHeader-Auth-___style__auth___3X0_r"
+  onClick={[Function]}
+  role="button"
+  tabIndex="0"
 >
   <a
     className="tc-btn-sm tc-btn-primary"
-    href="http://accounts-test.topcoder-dev.com/member/registration"
+    href="http://accounts.topcoder-dev.com/member/registration"
   >
     Join
   </a>
   <a
     className="tc-btn-sm tc-btn-default"
-    href="http://accounts-test.topcoder-dev.com/member"
+    href="http://accounts.topcoder-dev.com/member"
   >
     Log In
   </a>
@@ -22,16 +25,19 @@ exports[`Snapshot match 1`] = `
 exports[`Snapshot match 2`] = `
 <div
   className="column src-shared-components-TopcoderHeader-Auth-___style__auth___3X0_r"
+  onClick={[Function]}
+  role="button"
+  tabIndex="0"
 >
   <a
     className="tc-btn-sm tc-btn-primary"
-    href="http://accounts-test.topcoder-dev.com/member/registration"
+    href="http://accounts.topcoder-dev.com/member/registration"
   >
     Join
   </a>
   <a
     className="tc-btn-sm tc-btn-default"
-    href="http://accounts-test.topcoder-dev.com/member"
+    href="http://accounts.topcoder-dev.com/member"
   >
     Log In
   </a>

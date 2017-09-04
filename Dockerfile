@@ -1,20 +1,17 @@
+# Builds production version of Community App inside Docker container,
+# and runs it against the specified Topcoder backend (development or
+# production) when container is executed.
+
 FROM node:8.2.1
-LABEL version="1.0"
-LABEL description="Community App"
+LABEL app="Community App" version="1.0"
 
-# Create app directory
-RUN mkdir -p /opt/app
-ADD package.json /opt/app/package.json
 WORKDIR /opt/app
+COPY . .
+
 RUN npm install
-
-ADD . /opt/app
-
-ARG BUILD_ENV=prod
-ENV BABEL_ENV=production
-ENV NODE_ENV=$BUILD_ENV
+RUN npm test
 RUN npm run build
+ENV NODE_ENV=$NODE_ENV
 
 EXPOSE 3000
-
 CMD ["npm", "start"]

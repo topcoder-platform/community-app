@@ -1,9 +1,11 @@
 import _ from 'lodash';
 import config from 'utils/config';
+import { Link } from 'utils/router';
 import moment from 'moment';
 import React from 'react';
 import PT from 'prop-types';
 import TrackIcon from 'components/TrackIcon';
+import { Tag } from 'components/tags';
 import { convertNow as convertMoney } from 'services/money';
 
 import Prize from './Prize';
@@ -24,7 +26,14 @@ const VISIBLE_TECHNOLOGIES = 3;
 const ID_LENGTH = 6;
 
 // Get the End date of a challenge
-const getEndDate = date => moment(date).format('MMM DD');
+const getEndDate = (c) => {
+  let phases = c.allPhases;
+  if (c.subTrack === 'FIRST_2_FINISH' && c.status === 'COMPLETED') {
+    phases = c.allPhases.filter(p => p.phaseType === 'Iterative Review' && p.phaseStatus === 'Closed');
+  }
+  const endPhaseDate = Math.max(...phases.map(d => new Date(d.scheduledEndTime)));
+  return moment(endPhaseDate).format('MMM DD');
+};
 
 /* TODO: Note that this component uses a dirty trick to cheat linter and to be
  * able to modify an argument: it aliases challenge prop, then mutates it in
@@ -124,17 +133,21 @@ function ChallengeCard({
         </div>
 
         <div styleName={isRegistrationOpen ? 'challenge-details with-register-button' : 'challenge-details'}>
-          <a
-            href={challengeDetailLink}
+          <Link
+            to={challengeDetailLink}
             styleName="challenge-title"
-            target={openChallengesInNewTabs ? '_blank' : undefined}
-          >{challenge.name}</a>
+            openNewTab={openChallengesInNewTabs}
+          >{challenge.name}</Link>
           <div styleName="details-footer">
             <span styleName="date">
               {challenge.status === 'ACTIVE' ? 'Ends ' : 'Ended '}
-              {getEndDate(challenge.submissionEndDate)}
+              {getEndDate(challenge)}
             </span>
-            <Tags technologies={challenge.technologies} onTechTagClicked={onTechTagClicked} />
+            <Tags
+              technologies={challenge.technologies}
+              platforms={challenge.platforms}
+              onTechTagClicked={onTechTagClicked}
+            />
           </div>
         </div>
       </div>
@@ -205,7 +218,9 @@ class Tags extends React.Component {
   }
 
   renderTechnologies() {
-    const technologies = this.props.technologies ? this.props.technologies.split(',') : [];
+    let technologies = this.props.technologies ? this.props.technologies.split(',').map(item => item.trim()) : [];
+    const platforms = this.props.platforms ? this.props.platforms.split(',').map(item => item.trim()) : [];
+    technologies = _.union(technologies, platforms);
     if (technologies.length) {
       let technologyList = technologies;
       if (technologies.length > VISIBLE_TECHNOLOGIES && !this.state.expanded) {
@@ -214,15 +229,11 @@ class Tags extends React.Component {
         technologyList.push(lastItem);
       }
       return technologyList.map(c => (
-        <a
-          key={c}
-          styleName="technology"
-          /* TODO: Find out why all tags beside the first one are prepended
-           * with whitespaces? */
+        <Tag
           onClick={() => this.onClick(c.trim())}
+          key={c}
           role="button"
-          tabIndex={0}
-        >{c}</a>
+        >{c}</Tag>
       ));
     }
     return '';
@@ -241,11 +252,13 @@ class Tags extends React.Component {
 Tags.defaultProps = {
   onTechTagClicked: _.noop,
   technologies: '',
+  platforms: '',
 };
 
 Tags.propTypes = {
   onTechTagClicked: PT.func,
   technologies: PT.string,
+  platforms: PT.string,
 };
 
 export default ChallengeCard;

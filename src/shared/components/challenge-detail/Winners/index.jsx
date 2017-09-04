@@ -27,7 +27,9 @@ export default function Winners(props) {
     isDesign,
   } = props;
 
-  results.sort((a, b) => a.placement - b.placement);
+  const maxPlace = Number.MAX_SAFE_INTEGER;
+  results.sort((a, b) => (_.isNumber(a.placement) ? a.placement : maxPlace) -
+      (_.isNumber(b.placement) ? b.placement : maxPlace));
   const winners = results.slice(0, prizes.length);
 
   return (
@@ -41,7 +43,7 @@ export default function Winners(props) {
                 'place-1': w.placement === 1,
                 'place-2': w.placement === 2,
                 'place-3': w.placement === 3 })}
-              key={w.handle}
+              key={submissionId}
             >
               <div styleName="thumbnail">
                 <div styleName="flag">{w.placement}</div>
@@ -74,11 +76,11 @@ export default function Winners(props) {
                   <div styleName="id">ID: <span>#{getId(submissions, w)}</span></div>
                 }
                 {
-                  w.submissionDownloadLink &&
+                  (w.submissionDownloadLink && viewable) &&
                   <a
                     styleName="download"
                     target="_blank"
-                    href={w.submissionDownloadLink}
+                    href={isDesign ? `${config.URL.STUDIO}/?module=DownloadSubmission&sbmid=${submissionId}` : w.submissionDownloadLink}
                   >Download</a>
                 }
                 <div styleName="date">

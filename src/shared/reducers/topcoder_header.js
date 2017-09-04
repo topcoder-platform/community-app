@@ -19,6 +19,7 @@ function create(initialState = {}) {
       return {
         ...state,
         openedMenu: null,
+        isMobile: false,
       };
     },
     [a.closeMobileMenu](state) {
@@ -31,12 +32,14 @@ function create(initialState = {}) {
       return {
         ...state,
         searchOpened: false,
+        isMobile: false,
       };
     },
     [a.openMenu](state, action) {
       return {
         ...state,
         openedMenu: action.payload.menu,
+        isMobile: state.isMobile || action.payload.isMobile,
         activeTrigger: action.payload.trigger,
       };
     },

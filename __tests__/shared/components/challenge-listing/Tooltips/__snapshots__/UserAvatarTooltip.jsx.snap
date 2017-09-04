@@ -6,8 +6,6 @@ exports[`Matches shallow shapshot 1`] = `
   className=""
   content={
     <Tip
-      MAIN_URL={undefined}
-      handleError={[Function]}
       user={
         Object {
           "country": "cn",
@@ -40,8 +38,6 @@ exports[`Matches shallow shapshot 2`] = `
   className=""
   content={
     <Tip
-      MAIN_URL={undefined}
-      handleError={[Function]}
       user={
         Object {
           "country": "cn",

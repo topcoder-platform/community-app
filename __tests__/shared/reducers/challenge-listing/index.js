@@ -81,6 +81,7 @@ let expectedState = {
 
   challenges: [],
   challengeSubtracks: [],
+  challengeSubtracksMap: {},
   challengeTags: [],
 
   filter: {},

@@ -9,6 +9,14 @@
   padding-bottom: 60px;
 }
 
+.faqContainer {
+  padding-top: 0;
+}
+
+.faqTitle {
+  padding-top: 0;
+}
+
 .highlighted {
   background: #ffc;
 }
@@ -131,4 +139,13 @@
   strong {
     font-weight: bold;
   }
+}
+
+.tutorialsTitle {
+  padding-top: 0;
+}
+
+.tutorialsContent {
+  flex-wrap: wrap;
+  justify-content: center;
 }

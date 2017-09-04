@@ -124,39 +124,17 @@
       }
     }
 
-    .tag-holder {
-      .tag-common {
-        border-radius: 3px;
-        font-family: roboto;
-        font-size: 10px;
-        line-height: 20px;
-        margin: 5px 5px 0 0;
-        display: inline-block;
-        text-align: center;
-        padding: 0 5px;
-        font-weight: 700;
-        color: $tc-white;
-        background-color: $tc-light-blue-10;
-      }
+    @include design-accent-bg;
+    @include develop-accent-bg;
+    @include datasci-accent-bg;
+    @include design-accent-clr;
+    @include develop-accent-clr;
+    @include datasci-accent-clr;
 
-      .design-accent-background {
-        background-color: $tc-light-blue;
-      }
-
-      .design-accent-color {
-        background-color: $tc-light-blue;
-      }
-
-      @include develop-accent-bg;
-      @include datasci-accent-bg;
-      @include develop-accent-clr;
-      @include datasci-accent-clr;
-
-      .misc-tag {
-        color: $tc-gray-80;
-        background-color: $tc-gray-neutral-dark;
-        cursor: pointer;
-      }
+    .miscTag {
+      color: $tc-gray-80;
+      background-color: $tc-gray-neutral-dark;
+      cursor: pointer;
     }
 
     .prizes-ops-container {
@@ -253,16 +231,14 @@
           color: $tc-black;
           line-height: 25px;
           margin: 25px 15px 0;
+          padding-bottom: 20px;
 
           .bonus-text {
             .bonus-highlight {
               font-weight: 500;
             }
 
-            .design-accent-color {
-              color: $tc-light-blue;
-            }
-
+            @include design-accent-clr;
             @include develop-accent-clr;
             @include datasci-accent-clr;
           }
@@ -295,21 +271,21 @@
             word-wrap: normal;
             border-right: $tc-gray-50 solid 1px;
             padding-right: 10px;
+            display: inline;
+          }
 
-            .deadline-highlighted {
-              color: $tc-white;
-              font-weight: 700;
-            }
+          .completed {
+            border-right: none;
           }
 
           .current-phase {
             overflow-wrap: normal;
             padding-left: 10px;
+          }
 
-            .deadline-highlighted {
-              color: $tc-white;
-              font-weight: 700;
-            }
+          .deadline-highlighted {
+            color: $tc-white;
+            font-weight: 700;
           }
         }
 
@@ -343,6 +319,10 @@
           border-right: 1px solid $tc-gray-10;
           font-family: roboto;
           font-weight: 400;
+
+          &:last-child {
+            border-right: none;
+          }
 
           .deadline-info {
             font-size: 13px;

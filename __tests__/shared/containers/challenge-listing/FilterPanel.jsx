@@ -125,7 +125,7 @@ describe('full render pure component', () => {
     const button = instance.find('button.tc-blue-btn');
     expect(initialProps.saveFilter).toHaveBeenCalledTimes(0);
     button.simulate('click');
-    expect(initialProps.saveFilter).toHaveBeenCalledTimes(1);
+    expect(initialProps.saveFilter).toHaveBeenCalledTimes(0);
   });
 
   test('setFilterState and selectBucket', () => {
