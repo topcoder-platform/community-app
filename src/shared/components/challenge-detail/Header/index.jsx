@@ -29,6 +29,7 @@ export default function ChallengeHeader(props) {
     challenge,
     checkpoints,
     hasRegistered,
+    numWinners,
     registering,
     registerForChallenge,
     setChallengeListingFilter,
@@ -268,6 +269,7 @@ export default function ChallengeHeader(props) {
             trackLower={trackLower}
             selectedView={props.selectedView}
             numRegistrants={numRegistrants}
+            numWinners={numWinners}
             status={status}
             hasCheckpoints={checkpoints && checkpoints.length > 0}
             numSubmissions={numSubmissions}
@@ -290,6 +292,7 @@ ChallengeHeader.propTypes = {
     id: PT.number.isRequired,
   }).isRequired,
   hasRegistered: PT.bool.isRequired,
+  numWinners: PT.number.isRequired,
   onSelectorClicked: PT.func.isRequired,
   onToggleDeadlines: PT.func.isRequired,
   registerForChallenge: PT.func.isRequired,

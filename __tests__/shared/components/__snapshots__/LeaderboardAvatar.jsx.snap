@@ -1,24 +1,36 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Matches shallow shapshot 1`] = `
-<a
-  className="src-shared-components-LeaderboardAvatar-___style__leaderboard-avatar___3GHTf src-shared-components-LeaderboardAvatar-___style__light-gray___2hXZL"
-  href="url"
-  target={undefined}
+<Router
+  history={
+    Object {
+      "action": "POP",
+      "block": [Function],
+      "createHref": [Function],
+      "go": [Function],
+      "goBack": [Function],
+      "goForward": [Function],
+      "listen": [Function],
+      "location": Object {
+        "hash": "",
+        "pathname": "/",
+        "search": "",
+      },
+      "push": [Function],
+      "replace": [Function],
+    }
+  }
 >
-  <ThemedAvatar
-    composeTheme="deeply"
-    customStyles={null}
-    mapThemrProps={[Function]}
-    theme={
+  <LeaderboardAvatar
+    domain="domain"
+    member={
       Object {
-        "avatar": "",
+        "handle": "handle",
       }
     }
-    url={null}
+    openNewTab={false}
+    plusOne={false}
+    url="url"
   />
-  <span
-    className="src-shared-components-LeaderboardAvatar-___style__hidden___-vnvD"
-  />
-</a>
+</Router>
 `;

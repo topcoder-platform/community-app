@@ -4,6 +4,8 @@ import PT from 'prop-types';
 import moment from 'moment';
 import LeaderboardAvatar from 'components/LeaderboardAvatar';
 import Tooltip from 'components/Tooltip';
+import { Link } from 'react-router-dom';
+
 import ChallengeProgressBar from '../../ChallengeProgressBar';
 import ProgressBarTooltip from '../../Tooltips/ProgressBarTooltip';
 import RegistrantsIcon from '../../Icons/RegistrantsIcon';
@@ -336,10 +338,7 @@ class ChallengeStatus extends Component {
 
   renderLeaderboard() {
     const { challenge, openChallengesInNewTabs } = this.props;
-    const { DS_CHALLENGE_URL, CHALLENGE_URL } = this.state;
-    const { id, track } = challenge;
 
-    const challengeURL = track === 'DATA_SCIENCE' ? DS_CHALLENGE_URL : CHALLENGE_URL;
     let winners = challenge.winners && challenge.winners.filter(winner => winner.type === 'final')
       .map(winner => ({
         handle: winner.handle,
@@ -378,7 +377,7 @@ class ChallengeStatus extends Component {
         </div>);
     });
     return leaderboard || (
-      <a href={`${challengeURL}${id}#tab=winner`}>Results</a>
+      <Link to={`${this.props.detailLink}&tab=submissions`}>Results</Link>
     );
   }
 

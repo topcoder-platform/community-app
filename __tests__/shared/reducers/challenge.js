@@ -77,6 +77,7 @@ function testReducer(reducer, istate) {
       detailsV2: null,
       checkpoints: null,
       registering: false,
+      selectedTab: 'DETAILS',
       unregistering: false,
       showTermsModal: false,
     });
@@ -99,6 +100,7 @@ function testReducer(reducer, istate) {
       },
       checkpoints: null,
       registering: false,
+      selectedTab: 'DETAILS',
       unregistering: false,
       showTermsModal: false,
     });
@@ -115,6 +117,7 @@ function testReducer(reducer, istate) {
       detailsV2: null,
       checkpoints: null,
       registering: false,
+      selectedTab: 'DETAILS',
       unregistering: false,
       showTermsModal: false,
     });
@@ -133,6 +136,7 @@ function testReducer(reducer, istate) {
       loadingMySubmissions: true,
       mySubmissions: { v2: null },
       registering: false,
+      selectedTab: 'DETAILS',
       unregistering: false,
       showTermsModal: false,
     });
@@ -152,6 +156,7 @@ function testReducer(reducer, istate) {
       fetchMySubmissionsFailure: false,
       loadingMySubmissions: false,
       registering: false,
+      selectedTab: 'DETAILS',
       unregistering: false,
       showTermsModal: false,
     });
@@ -171,6 +176,7 @@ function testReducer(reducer, istate) {
       loadingMySubmissions: false,
       mySubmissions: { v2: [{ submissionId: '1' }] },
       registering: false,
+      selectedTab: 'DETAILS',
       unregistering: false,
       showTermsModal: false,
     });
@@ -190,6 +196,7 @@ function testReducer(reducer, istate) {
       loadingMySubmissions: false,
       fetchMySubmissionsFailure: 'Unknown error',
       registering: false,
+      selectedTab: 'DETAILS',
       unregistering: false,
       showTermsModal: false,
     });
@@ -205,6 +212,7 @@ describe('Default reducer', () =>
     loadingDetailsForChallengeId: '',
     mySubmissionsManagement: {},
     registering: false,
+    selectedTab: 'DETAILS',
     unregistering: false,
     showTermsModal: false,
   }),

@@ -130,6 +130,10 @@ class ChallengeDetailPageContainer extends React.Component {
   }
 
   render() {
+    const {
+      challenge,
+    } = this.props;
+
     const isEmpty = _.isEmpty(this.props.challenge);
 
     const hasRegistered = isRegistered(this.props.challenge.userDetails,
@@ -138,14 +142,18 @@ class ChallengeDetailPageContainer extends React.Component {
 
     if (this.props.isLoadingChallenge) return <LoadingPagePlaceholder />;
 
+    const numWinners = (challenge.winners && challenge.winners.filter(winner =>
+      winner.type === 'final').length) || 0;
+
     return (
       <div styleName="outer-container">
         <div styleName="challenge-detail-container">
           {
             !isEmpty &&
             <ChallengeHeader
-              challenge={this.props.challenge}
+              challenge={challenge}
               challengeId={this.props.challengeId}
+              numWinners={numWinners}
               showDeadlineDetail={this.state.showDeadlineDetail}
               onToggleDeadlines={this.onToggleDeadlines}
               onSelectorClicked={this.props.onSelectorClicked}
