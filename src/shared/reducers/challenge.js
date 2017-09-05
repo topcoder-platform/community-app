@@ -109,6 +109,44 @@ function onFetchCheckpointsDone(state, action) {
   }
   return state;
 }
+
+/**
+ * Handles CHALLENGE/LOAD_RESULTS_INIT action.
+ * @param {Object} state
+ * @param {Object} action
+ * @return {Object}
+ */
+function onLoadResultsInit(state, { payload }) {
+  return { ...state, loadingResultsForChallengeId: payload };
+}
+
+/**
+ * Handles CHALLENGE/LOAD_RESULTS_DONE action.
+ * @param {Object} state
+ * @param {Object} action
+ * @return {Object}
+ */
+function onLoadResultsDone(state, action) {
+  if (action.payload.challengeId !== state.loadingResultsForChallengeId) {
+    return state;
+  }
+  if (action.error) {
+    logger.error(action.payload);
+    return {
+      ...state,
+      loadingResultsForChallengeId: '',
+      results: null,
+      resultsLoadedForChallengeId: '',
+    };
+  }
+  return {
+    ...state,
+    loadingResultsForChallengeId: '',
+    results: action.payload.results,
+    resultsLoadedForChallengeId: action.payload.challengeId,
+  };
+}
+
 /**
  * Handles challengeActions.toggleCheckpointFeedback action.
  * @param {Object} state Previous state.
@@ -182,14 +220,6 @@ function onSelectTab(state, { payload }) {
   return { ...state, selectedTab: payload };
 }
 
-function onLoadResultsDone(state, action) {
-  return {
-    ...state,
-    loadingResults: false,
-    results: action.error ? null : action.payload,
-  };
-}
-
 /**
  * Creates a new Auth reducer with the specified initial state.
  * @param {Object} initialState Initial state.
@@ -218,10 +248,7 @@ function create(initialState) {
     [a.registerDone]: onRegisterDone,
     [a.unregisterInit]: state => ({ ...state, unregistering: true }),
     [a.unregisterDone]: onUnregisterDone,
-    [a.loadResultsInit]: state => ({
-      ...state,
-      loadingResults: true,
-    }),
+    [a.loadResultsInit]: onLoadResultsInit,
     [a.loadResultsDone]: onLoadResultsDone,
     [a.fetchCheckpointsInit]: state => ({
       ...state,
@@ -238,8 +265,11 @@ function create(initialState) {
     detailsV2: null,
     loadingCheckpoints: false,
     loadingDetailsForChallengeId: '',
+    loadingResultsForChallengeId: '',
     checkpoints: null,
     registering: false,
+    results: null,
+    resultsLoadedForChallengeId: '',
     unregistering: false,
     showTermsModal: false,
     selectedTab: DETAIL_TABS.DETAILS,
@@ -279,8 +309,9 @@ export function factory(req) {
         return Promise.all([details, checkpointsPromise, resultsPromise]);
       }).then(([details, checkpoints, results]) => {
         let state = {
-          loadingDetailsForChallengeId: challengeId,
           loadingCheckpoints: true,
+          loadingDetailsForChallengeId: challengeId,
+          loadingResultsForChallengeId: challengeId,
         };
         if (req.query.tab) {
           state = onSelectTab(state, { payload: req.query.tab });
