@@ -6,6 +6,7 @@
 
 import _ from 'lodash';
 import qs from 'qs';
+import { isServerSide } from './isomorphy';
 
 /**
  * If executed client-side (determined in this case by the presence of global
@@ -18,7 +19,8 @@ import qs from 'qs';
  *  'update' as undefined.
  */
 export function updateQuery(update) {
-  if (!window) return;
+  if (isServerSide()) return;
+
   let query = qs.parse(window.location.search.slice(1));
 
   /* _.merge won't work here, because it just ignores the fields explicitely
@@ -28,8 +30,7 @@ export function updateQuery(update) {
     if (_.isUndefined(value)) delete query[key];
     else query[key] = value;
   });
-
-  query = `?${qs.stringify(query, { encode: false })}`;
+  query = `?${qs.stringify(query, { encodeValuesOnly: true })}`;
   window.history.replaceState(window.history.state, '', query);
 }
 

@@ -11,6 +11,7 @@
 
 // import _ from 'lodash';
 import actions from 'actions/challenge-listing';
+import challengeActions from 'actions/challenge';
 import config from 'utils/config';
 import filterPanelActions from 'actions/challenge-listing/filter-panel';
 import headerActions from 'actions/topcoder_header';
@@ -114,6 +115,7 @@ export class ListingContainer extends React.Component {
       lastUpdateOfActiveChallenges,
       listingOnly,
       selectBucket,
+      selectChallengeDetailsTab,
       hideTcLinksInSidebarFooter,
     } = this.props;
 
@@ -176,6 +178,7 @@ export class ListingContainer extends React.Component {
           openChallengesInNewTabs={this.props.openChallengesInNewTabs}
           prizeMode={this.props.prizeMode}
           selectBucket={selectBucket}
+          selectChallengeDetailsTab={selectChallengeDetailsTab}
           hideTcLinksInFooter={hideTcLinksInSidebarFooter}
 
           loadMoreDraft={loadMoreDraft}
@@ -224,7 +227,7 @@ ListingContainer.propTypes = {
   allDraftChallengesLoaded: PT.bool.isRequired,
   allPastChallengesLoaded: PT.bool.isRequired,
   challenges: PT.arrayOf(PT.shape({})).isRequired,
-  challengeSubtracks: PT.arrayOf(PT.string).isRequired,
+  challengeSubtracks: PT.arrayOf(PT.shape()).isRequired,
   challengeTags: PT.arrayOf(PT.string).isRequired,
   communityFilters: PT.arrayOf(PT.shape({
     challengeFilter: PT.shape(),
@@ -249,6 +252,7 @@ ListingContainer.propTypes = {
   openChallengesInNewTabs: PT.bool,
   prizeMode: PT.string,
   selectBucket: PT.func.isRequired,
+  selectChallengeDetailsTab: PT.func.isRequired,
   selectCommunity: PT.func.isRequired,
   setFilter: PT.func.isRequired,
   activeBucket: PT.string.isRequired,
@@ -314,6 +318,8 @@ function mapDispatchToProps(dispatch) {
       dispatch(a.getPastChallengesDone(uuid, page, filter, token));
     },
     selectBucket: bucket => dispatch(sa.selectBucket(bucket)),
+    selectChallengeDetailsTab: tab =>
+      dispatch(challengeActions.challenge.selectTab(tab)),
     selectCommunity: id => dispatch(a.selectCommunity(id)),
     setFilter: state => dispatch(a.setFilter(state)),
     setSearchText: text => dispatch(fpa.setSearchText(text)),

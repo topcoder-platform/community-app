@@ -43,7 +43,12 @@ export default function BucketSelector({
       bucket={buckets[bucket]}
       challenges={filteredChallenges}
       disabled={disabled}
-      onClick={() => selectBucket(bucket)}
+      onClick={() => {
+        selectBucket(bucket);
+        /* eslint-env browser */
+        document.body.scrollTop = 0;
+        document.documentElement.scrollTop = 0;
+      }}
     />
   );
 

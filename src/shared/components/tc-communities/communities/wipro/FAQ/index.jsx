@@ -75,7 +75,9 @@ export default function Learn() {
         <Section
           title="Frequently Asked Questions"
           theme={{
+            container: style.faqContainer,
             content: style.faqContent,
+            title: style.faqTitle,
           }}
         >
           <Accordion>

@@ -1,0 +1,25 @@
+/**
+ * Event tag, colored with colors of develop track (green).
+ */
+
+@import "~styles/tc-styles";
+
+@mixin feedback {
+  &:active,
+  &:focus,
+  &:hover {
+    color: $tc-green !important;
+    background-color: $tc-green-10;
+  }
+
+  &:visited {
+    color: $tc-green;
+  }
+}
+
+.tag {
+  color: $tc-green;
+  background-color: $tc-green-10;
+
+  @include feedback;
+}

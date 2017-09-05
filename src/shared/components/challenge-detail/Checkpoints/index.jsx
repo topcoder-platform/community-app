@@ -60,7 +60,7 @@ const Checkpoints = (props) => {
                 <p
                   styleName="challenge-checkpoint-feedback"
                   dangerouslySetInnerHTML={{ // eslint-disable-line react/no-danger
-                    __html: item.feedback,
+                    __html: item.feedback || '<span>Empty Feedback</span>',
                   }}
                 />
               }

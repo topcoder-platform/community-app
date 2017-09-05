@@ -21,6 +21,7 @@ export default function Listing({
   openChallengesInNewTabs,
   prizeMode,
   selectBucket,
+  selectChallengeDetailsTab,
   setFilterState,
   setSort,
   sorts,
@@ -53,6 +54,7 @@ export default function Listing({
           loadMore={loadMore}
           openChallengesInNewTabs={openChallengesInNewTabs}
           prizeMode={prizeMode}
+          selectChallengeDetailsTab={selectChallengeDetailsTab}
           setFilterState={setFilterState}
           setSort={sort => setSort(activeBucket, sort)}
           sort={sorts[activeBucket]}
@@ -85,6 +87,7 @@ export default function Listing({
         loadMore={loadMore}
         openChallengesInNewTabs={openChallengesInNewTabs}
         prizeMode={prizeMode}
+        selectChallengeDetailsTab={selectChallengeDetailsTab}
         setFilterState={setFilterState}
         setSort={sort => setSort(bucket, sort)}
         sort={sorts[bucket]}
@@ -136,6 +139,7 @@ Listing.propTypes = {
   openChallengesInNewTabs: PT.bool,
   prizeMode: PT.string.isRequired,
   selectBucket: PT.func.isRequired,
+  selectChallengeDetailsTab: PT.func.isRequired,
   setFilterState: PT.func.isRequired,
   setSort: PT.func.isRequired,
   sorts: PT.shape().isRequired,

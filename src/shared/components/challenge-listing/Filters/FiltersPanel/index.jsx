@@ -42,6 +42,7 @@ export default function FiltersPanel({
   setSearchText,
   validKeywords,
   validSubtracks,
+  isSavingFilter,
 }) {
   let className = 'FiltersPanel';
   if (hidden) className += ' hidden';
@@ -52,7 +53,7 @@ export default function FiltersPanel({
   }));
 
   const mapOps = item => ({ label: item, value: item });
-
+  const mapSubtracks = item => ({ label: item.name, value: item.subTrack });
   return (
     <div styleName={className}>
       <div styleName="header">
@@ -80,6 +81,8 @@ export default function FiltersPanel({
           <div styleName="filter community">
             <label htmlFor="community-select">Sub community</label>
             <Select
+              autoBlur
+              clearable={false}
               id="community-select"
               onChange={selectCommunity}
               options={communityOps}
@@ -98,16 +101,35 @@ export default function FiltersPanel({
                 const subtracks = value ? value.split(',') : undefined;
                 setFilterState(Filter.setSubtracks(filterState, subtracks));
               }}
-              options={validSubtracks.map(mapOps)}
+              options={validSubtracks.map(mapSubtracks)}
               simpleValue
               value={
                 filterState.subtracks ? filterState.subtracks.join(',') : null
               }
             />
           </div>
-          <div styleName="filter dates">
+          <div styleName="filter dates hidetwomonthdatepicker">
             <label htmlFor="date-range-picker">Date range</label>
             <DateRangePicker
+              numberOfMonths={1}
+              endDate={filterState.endDate && moment(filterState.endDate)}
+              id="date-range-picker"
+              onDatesChange={(dates) => {
+                let d = dates.endDate ? dates.endDate.toISOString() : null;
+                let state = Filter.setEndDate(filterState, d);
+                d = dates.startDate ? dates.startDate.toISOString() : null;
+                state = Filter.setStartDate(state, d);
+                setFilterState(state);
+              }}
+              startDate={
+                filterState.startDate && moment(filterState.startDate)
+              }
+            />
+          </div>
+          <div styleName="filter dates hideonemonthdatepicker">
+            <label htmlFor="date-range-picker">Date range</label>
+            <DateRangePicker
+              numberOfMonths={2}
               endDate={filterState.endDate && moment(filterState.endDate)}
               id="date-range-picker"
               onDatesChange={(dates) => {
@@ -137,8 +159,8 @@ export default function FiltersPanel({
         <button
           styleName="blue"
           className="tc-blue-btn"
-          disabled={_.isEmpty(filterState)}
           onClick={onSaveFilter}
+          disabled={isSavingFilter || _.isEmpty(filterState)}
         >Save filter</button>
       </div>
     </div>
@@ -147,6 +169,7 @@ export default function FiltersPanel({
 
 FiltersPanel.defaultProps = {
   hidden: false,
+  isSavingFilter: false,
   onSaveFilter: _.noop,
   onClose: _.noop,
 };
@@ -158,12 +181,13 @@ FiltersPanel.propTypes = {
   })).isRequired,
   filterState: PT.shape().isRequired,
   hidden: PT.bool,
+  isSavingFilter: PT.bool,
   onSaveFilter: PT.func,
   selectCommunity: PT.func.isRequired,
   selectedCommunityId: PT.string.isRequired,
   setFilterState: PT.func.isRequired,
   setSearchText: PT.func.isRequired,
   validKeywords: PT.arrayOf(PT.string).isRequired,
-  validSubtracks: PT.arrayOf(PT.string).isRequired,
+  validSubtracks: PT.arrayOf(PT.shape()).isRequired,
   onClose: PT.func,
 };

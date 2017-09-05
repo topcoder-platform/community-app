@@ -8,6 +8,7 @@ import logger from 'utils/logger';
 import { handleActions } from 'redux-actions';
 import { combine, resolveReducers } from 'utils/redux';
 import { updateQuery } from 'utils/url';
+import moment from 'moment';
 
 import filterPanel from '../challenge-listing/filter-panel';
 import sidebar, { factory as sidebarFactory } from '../challenge-listing/sidebar';
@@ -52,6 +53,7 @@ function onGetChallengeSubtracksDone(state, action) {
   return {
     ...state,
     challengeSubtracks: action.error ? [] : action.payload,
+    challengeSubtracksMap: action.error ? {} : _.keyBy(action.payload, 'subTrack'),
     loadingChallengeSubtracks: false,
   };
 }
@@ -165,10 +167,20 @@ function onSelectCommunity(state, { payload }) {
  * @return {Object}
  */
 function onSetFilter(state, { payload }) {
-  updateQuery({ filter: payload });
+  const filter = _.clone(payload);
+
+  if (filter) {
+    if (filter.tags && !_.isArray(filter.tags)) {
+      filter.tags = _.values(filter.tags);
+    }
+    if (filter.subtracks && !_.isArray(filter.subtracks)) {
+      filter.subtracks = _.values(filter.subtracks);
+    }
+  }
+  updateQuery({ filter });
   return {
     ...state,
-    filter: payload,
+    filter,
 
     /* Page numbers of past/upcoming challenges depend on the filters. To keep
      * the code simple we just reset them each time a filter is modified. */
@@ -237,6 +249,7 @@ function create(initialState) {
 
     challenges: [],
     challengeSubtracks: [],
+    challengeSubtracksMap: {},
     challengeTags: [],
 
     filter: {},
@@ -269,7 +282,32 @@ export function factory(req) {
   const state = {};
 
   if (req) {
-    state.filter = req.query.filter;
+    let filter = {};
+    if (req.query && req.query.filter) {
+      filter = _.clone(req.query.filter);
+      if (filter.tags && !_.isArray(filter.tags)) {
+        filter.tags = _.values(filter.tags);
+      }
+      if (filter.subtracks && !_.isArray(filter.subtracks)) {
+        filter.subtracks = _.values(filter.subtracks);
+      }
+    }
+    state.filter = filter;
+
+    /* TODO: OK, fine, this validation of dates does the server-side part of
+     * the trick, while the frontend part (removing them from URL) is done
+     * elsewhere (/src/shared/routes/Topcoder/ChallengeListing), but it should
+     * be changed that everything is handled here in the reducer code (only
+     * this way we can ensure that it works all around, including community
+     * challenge listings). */
+    if (!!state.filter && !!state.filter.startDate
+        && moment(state.filter.startDate).isValid() === false) {
+      delete state.filter.startDate;
+    }
+    if (!!state.filter && !!state.filter.endDate
+        && moment(state.filter.endDate).isValid() === false) {
+      delete state.filter.endDate;
+    }
     state.selectedCommunityId = req.query.communityId;
   }
 

@@ -47,7 +47,7 @@ const EditTrackPanel = props => (
       />
     </div>
     <div styleName="row">
-      <span styleName="track-name">Data Science</span>
+      <span>Data Science</span>
       <Switch
         enabled={props.dataScienceEnabled}
         onSwitch={props.switchDataScience}

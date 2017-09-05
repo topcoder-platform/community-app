@@ -28,6 +28,7 @@ $panel-radius-4: $corner-radius * 2;
     right: 0;
     background: $tc-white;
     padding: 15px;
+    overflow-y: scroll;
   }
 
   &.hidden {
@@ -85,6 +86,7 @@ $panel-radius-4: $corner-radius * 2;
       width: 100%;
       padding-left: 0;
       border-left: none;
+      margin-bottom: $panel-space-100;
     }
 
     button {
@@ -196,6 +198,18 @@ $panel-radius-4: $corner-radius * 2;
 
       @include xxs-to-sm {
         margin-top: 20px;
+      }
+
+      &.hidetwomonthdatepicker {
+        @media screen and (min-width: $screen-md) {
+          display: none;
+        }
+      }
+
+      &.hideonemonthdatepicker {
+        @media screen and (max-width: $screen-md - 1px) {
+          display: none;
+        }
       }
     }
   }

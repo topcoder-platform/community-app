@@ -29,11 +29,13 @@ export default function ChallengeHeader(props) {
     challenge,
     checkpoints,
     hasRegistered,
+    numWinners,
     registering,
     registerForChallenge,
     setChallengeListingFilter,
     unregisterFromChallenge,
     unregistering,
+    challengeSubtracksMap,
   } = props;
 
   const {
@@ -65,11 +67,6 @@ export default function ChallengeHeader(props) {
   }
 
   const theme = themeFactory(trackLower);
-
-  const stylizedSubTrack = (subTrack || '').replace('_', ' ')
-    .replace(/\w\S*/g, txt => _.capitalize(txt));
-  const subTrackStyle = `${trackLower}-accent-background`;
-  const eventStyle = `${trackLower}-accent-color`;
   const eventNames = (events || []).map((event => (event.eventName || '').toUpperCase()));
   const miscTags = _.union((technologies || '').split(', '), platforms.split(', '));
 
@@ -181,11 +178,10 @@ export default function ChallengeHeader(props) {
         <div styleName="important-detail">
           <h1 styleName="challenge-header">{name}</h1>
           <ChallengeTags
-            subTrack={stylizedSubTrack}
+            subTrack={subTrack}
+            challengeSubtracksMap={challengeSubtracksMap}
             events={eventNames}
             technPlatforms={miscTags}
-            subTrackStyle={subTrackStyle}
-            eventStyle={eventStyle}
             setChallengeListingFilter={setChallengeListingFilter}
           />
           <div styleName="prizes-ops-container">
@@ -258,7 +254,7 @@ export default function ChallengeHeader(props) {
               <a onClick={props.onToggleDeadlines} styleName="deadlines-collapser">
                 {props.showDeadlineDetail ?
                   <span styleName="collapse-text">Hide Deadlines <ArrowDown /></span>
-                  : <span styleName="collapse-text">View All Deadlines <ArrowUp /></span>
+                  : <span styleName="collapse-text">Show Deadlines <ArrowUp /></span>
                 }
               </a>
             </div>
@@ -273,9 +269,11 @@ export default function ChallengeHeader(props) {
             trackLower={trackLower}
             selectedView={props.selectedView}
             numRegistrants={numRegistrants}
+            numWinners={numWinners}
             status={status}
             hasCheckpoints={checkpoints && checkpoints.length > 0}
             numSubmissions={numSubmissions}
+            hasRegistered={hasRegistered}
             checkpointCount={checkpointCount}
           />
         </div>
@@ -294,6 +292,7 @@ ChallengeHeader.propTypes = {
     id: PT.number.isRequired,
   }).isRequired,
   hasRegistered: PT.bool.isRequired,
+  numWinners: PT.number.isRequired,
   onSelectorClicked: PT.func.isRequired,
   onToggleDeadlines: PT.func.isRequired,
   registerForChallenge: PT.func.isRequired,
@@ -303,4 +302,5 @@ ChallengeHeader.propTypes = {
   showDeadlineDetail: PT.bool.isRequired,
   unregisterFromChallenge: PT.func.isRequired,
   unregistering: PT.bool.isRequired,
+  challengeSubtracksMap: PT.shape().isRequired,
 };

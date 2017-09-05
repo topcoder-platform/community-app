@@ -73,6 +73,9 @@ function filterByGroupIds(challenge, state) {
 function filterByRegistrationOpen(challenge, state) {
   if (_.isUndefined(state.registrationOpen)) return true;
   const isRegOpen = () => {
+    if (challenge.registrationOpen) {
+      return challenge.registrationOpen === 'Yes';
+    }
     if (challenge.subTrack === 'MARATHON_MATCH') {
       return challenge.status !== 'PAST';
     }
@@ -114,8 +117,8 @@ function filterBySubtracks(challenge, state) {
    * why challenge subtracks in challenge objects are different from those
    * return from the API as the list of possible subtracks. */
   const filterSubtracks = state.subtracks.map(item =>
-    item.toLowerCase().replace(/ /g, ''));
-  const challengeSubtrack = challenge.subTrack.toLowerCase().replace(/_/g, '');
+    item.toLowerCase().replace(/[_ ]/g, ''));
+  const challengeSubtrack = challenge.subTrack.toLowerCase().replace(/[_ ]/g, '');
   return filterSubtracks.includes(challengeSubtrack);
 }
 
@@ -136,6 +139,14 @@ function filterByText(challenge, state) {
 
 function filterByTrack(challenge, state) {
   if (!state.tracks) return true;
+
+  /* Development challenges having Data Science tech tag, still should be
+   * included into data science track. */
+  if (state.tracks[COMPETITION_TRACKS.DATA_SCIENCE]
+    && _.includes(challenge.technologies, 'Data Science')) {
+    return true;
+  }
+
   return _.keys(state.tracks).some(track => challenge.communities.has(track));
 }
 
@@ -302,6 +313,15 @@ export function combine(...filters) {
 export function mapToBackend(filter) {
   const res = {};
   if (filter.groupIds) res.groupIds = filter.groupIds.join(',');
+
+  /* A rapid hack which prevents our code to keep on searching past challenges,
+   * for a filter without any track enabled (i.e. no challenge should match it).
+   * TODO: With this fix, the frontend still does a single round of searching,
+   * which should be prevented.
+   */
+  if (filter.tracks && _.isEmpty(filter.tracks)) {
+    res.name = 'A non existing challenge 230785';
+  }
 
   /* NOTE: Right now the frontend challenge filter by tag works different,
    * it looks for matches in the challenge name OR in the techs / platforms. */

@@ -83,6 +83,7 @@ exports[`Matches shallow shapshot 1 shapshot 1 1`] = `
       openChallengesInNewTabs={false}
       prizeMode="money-usd"
       selectBucket={[Function]}
+      selectChallengeDetailsTab={undefined}
       setFilterState={[Function]}
       setSort={[Function]}
       sorts={Object {}}

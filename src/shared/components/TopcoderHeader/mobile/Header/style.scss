@@ -4,6 +4,14 @@
   position: absolute;
   right: 0;
   top: 16px;
+
+  @media only screen and (max-width: 360px) {
+    position: static;
+    padding-top: 30px;
+    text-align: center;
+    display: block;
+    width: 100%;
+  }
 }
 
 .avatar {
@@ -17,6 +25,10 @@
   cursor: pointer;
   height: 54px;
   padding: 16px 12px;
+
+  @media only screen and (max-width: 360px) {
+    height: 99px;
+  }
 }
 
 .logo {
@@ -55,8 +67,10 @@
   top: 16px;
 }
 
-@media only screen and (min-width: 1024px) {
-  .header-wrapper {
-    display: none;
+.header-wrapper {
+  display: none;
+
+  @include xxs-to-sm {
+    display: block;
   }
 }

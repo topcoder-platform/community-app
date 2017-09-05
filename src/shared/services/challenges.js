@@ -79,7 +79,8 @@ export function normalizeMarathonMatch(challenge, username) {
     numSubmissions: challenge.userIds ? challenge.userIds.length : 0,
     platforms: '',
     prizes: [0],
-    registrationOpen: endTimestamp > Date.now() ? 'Yes' : 'No',
+    registrationOpen: endTimestamp > Date.now() &&
+      (challenge.status !== 'PAST') ? 'Yes' : 'No',
     registrationStartDate: challenge.startDate,
     submissionEndDate: challenge.endDate,
     submissionEndTimestamp: endTimestamp,
@@ -140,12 +141,13 @@ class ChallengesService {
    * @return {Promise} Resolves to the array of subtrack names.
    */
   getChallengeSubtracks() {
-    return Promise.all([
-      this.private.apiV2.get('/design/challengetypes')
-        .then(res => (res.ok ? res.json() : new Error(res.statusText))),
-      this.private.apiV2.get('/develop/challengetypes')
-        .then(res => (res.ok ? res.json() : new Error(res.statusText))),
-    ]).then(([a, b]) => a.concat(b));
+    return this.private.api.get('/challenge-types')
+      .then(res => (res.ok ? res.json() : new Error(res.statusText)))
+      .then(res => (
+        res.result.status === 200 ?
+          res.result.content :
+          new Error(res.result.content)
+      ));
   }
 
   /**

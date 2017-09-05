@@ -3,11 +3,14 @@
  */
 
 import _ from 'lodash';
-import { combine, toFSA } from 'utils/redux';
-import { handleActions } from 'redux-actions';
-import actions from 'actions/challenge';
+import actions, { DETAIL_TABS } from 'actions/challenge';
 import smpActions from 'actions/smp';
 import logger from 'utils/logger';
+
+import { handleActions } from 'redux-actions';
+import { combine, toFSA } from 'utils/redux';
+import { updateQuery } from 'utils/url';
+
 import mySubmissionsManagement from './my-submissions-management';
 
 /**
@@ -106,6 +109,44 @@ function onFetchCheckpointsDone(state, action) {
   }
   return state;
 }
+
+/**
+ * Handles CHALLENGE/LOAD_RESULTS_INIT action.
+ * @param {Object} state
+ * @param {Object} action
+ * @return {Object}
+ */
+function onLoadResultsInit(state, { payload }) {
+  return { ...state, loadingResultsForChallengeId: payload };
+}
+
+/**
+ * Handles CHALLENGE/LOAD_RESULTS_DONE action.
+ * @param {Object} state
+ * @param {Object} action
+ * @return {Object}
+ */
+function onLoadResultsDone(state, action) {
+  if (action.payload.challengeId !== state.loadingResultsForChallengeId) {
+    return state;
+  }
+  if (action.error) {
+    logger.error(action.payload);
+    return {
+      ...state,
+      loadingResultsForChallengeId: '',
+      results: null,
+      resultsLoadedForChallengeId: '',
+    };
+  }
+  return {
+    ...state,
+    loadingResultsForChallengeId: '',
+    results: action.payload.results,
+    resultsLoadedForChallengeId: action.payload.challengeId,
+  };
+}
+
 /**
  * Handles challengeActions.toggleCheckpointFeedback action.
  * @param {Object} state Previous state.
@@ -169,6 +210,17 @@ function onUnregisterDone(state, action) {
 }
 
 /**
+ * Handles CHALLENGE/SELECT_TAB action.
+ * @param {Object} state
+ * @param {Object} action
+ * @return {Object}
+ */
+function onSelectTab(state, { payload }) {
+  updateQuery({ tab: payload });
+  return { ...state, selectedTab: payload };
+}
+
+/**
  * Creates a new Auth reducer with the specified initial state.
  * @param {Object} initialState Initial state.
  * @return Auth reducer.
@@ -196,15 +248,8 @@ function create(initialState) {
     [a.registerDone]: onRegisterDone,
     [a.unregisterInit]: state => ({ ...state, unregistering: true }),
     [a.unregisterDone]: onUnregisterDone,
-    [a.loadResultsInit]: state => ({
-      ...state,
-      loadingResults: true,
-    }),
-    [a.loadResultsDone]: (state, action) => ({
-      ...state,
-      loadingResults: false,
-      results: action.error ? null : action.payload,
-    }),
+    [a.loadResultsInit]: onLoadResultsInit,
+    [a.loadResultsDone]: onLoadResultsDone,
     [a.fetchCheckpointsInit]: state => ({
       ...state,
       checkpoints: null,
@@ -214,15 +259,20 @@ function create(initialState) {
     [a.toggleCheckpointFeedback]: onToggleCheckpointFeedback,
     [a.openTermsModal]: state => ({ ...state, showTermsModal: true }),
     [a.closeTermsModal]: state => ({ ...state, showTermsModal: false }),
+    [a.selectTab]: onSelectTab,
   }, _.defaults(initialState, {
     details: null,
     detailsV2: null,
     loadingCheckpoints: false,
     loadingDetailsForChallengeId: '',
+    loadingResultsForChallengeId: '',
     checkpoints: null,
     registering: false,
+    results: null,
+    resultsLoadedForChallengeId: '',
     unregistering: false,
     showTermsModal: false,
+    selectedTab: DETAIL_TABS.DETAILS,
   }));
 }
 
@@ -239,8 +289,8 @@ export function factory(req) {
   /* TODO: This shares some common logic with the next "if" block, which
    * should be re-used there. */
   /* TODO: For completely server-side rendering it is also necessary to load
-   * terms, results, etc. */
-  if (req && req.url.match(/^\/challenges\/\d+$/)) {
+   * terms, etc. */
+  if (req && req.url.match(/^\/challenges\/\d+/)) {
     const tokens = {
       tokenV2: req.cookies.tcjwt,
       tokenV3: req.cookies.v3jwt,
@@ -248,22 +298,29 @@ export function factory(req) {
     const challengeId = req.url.match(/\d+/)[0];
     return toFSA(actions.challenge.getDetailsDone(challengeId, tokens.tokenV3, tokens.tokenV2))
       .then((details) => {
-        if (details.payload[0].track === 'DESIGN') {
-          return toFSA(actions.challenge.fetchCheckpointsDone(tokens.tokenV2, challengeId))
-            .then(checkpoints => ({ details, checkpoints }));
-        }
-        return { details, checkpoints: null };
-      }).then((res) => {
+        const track = details.payload[0].track.toLowerCase();
+        const checkpointsPromise = track === 'design' ? (
+          toFSA(actions.challenge.fetchCheckpointsDone(
+            tokens.tokenV2, challengeId))
+        ) : null;
+        const resultsPromise = details.payload[0].status === 'COMPLETED' ? (
+          toFSA(actions.challenge.loadResultsDone(tokens, challengeId, track))
+        ) : null;
+        return Promise.all([details, checkpointsPromise, resultsPromise]);
+      }).then(([details, checkpoints, results]) => {
         let state = {
-          loadingDetailsForChallengeId: challengeId,
           loadingCheckpoints: true,
+          loadingDetailsForChallengeId: challengeId,
+          loadingResultsForChallengeId: challengeId,
         };
-        state = onGetDetailsDone(state, res.details);
-        if (res.checkpoints) {
-          state = onFetchCheckpointsDone(state, res.checkpoints);
+        if (req.query.tab) {
+          state = onSelectTab(state, { payload: req.query.tab });
         }
-        return combine(create(state), { mySubmissionsManagement });
-      });
+        state = onGetDetailsDone(state, details);
+        if (checkpoints) state = onFetchCheckpointsDone(state, checkpoints);
+        if (results) state = onLoadResultsDone(state, results);
+        return state;
+      }).then(res => combine(create(res), { mySubmissionsManagement }));
   }
 
   if (req && req.url.match(/^\/challenges\/\d+\/my-submissions/)) {

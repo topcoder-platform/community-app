@@ -1,0 +1,24 @@
+@import "~styles/tc-styles";
+
+.container {
+  display: inline-block;
+  font-weight: 400;
+  margin-left: 4 * $base-unit;
+
+  @include xxs-to-xs {
+    margin-left: 3 * $base-unit;
+  }
+}
+
+.number {
+  vertical-align: top;
+  padding-left: $base-unit - 3;
+}
+
+.tooltip {
+  font-weight: 500;
+  font-size: 13px;
+  color: $tc-white;
+  letter-spacing: 0;
+  padding: 15px;
+}
