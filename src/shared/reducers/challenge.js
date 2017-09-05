@@ -3,11 +3,14 @@
  */
 
 import _ from 'lodash';
-import { combine, toFSA } from 'utils/redux';
-import { handleActions } from 'redux-actions';
-import actions from 'actions/challenge';
+import actions, { DETAIL_TABS } from 'actions/challenge';
 import smpActions from 'actions/smp';
 import logger from 'utils/logger';
+
+import { handleActions } from 'redux-actions';
+import { combine, toFSA } from 'utils/redux';
+import { updateQuery } from 'utils/url';
+
 import mySubmissionsManagement from './my-submissions-management';
 
 /**
@@ -169,29 +172,14 @@ function onUnregisterDone(state, action) {
 }
 
 /**
- * String values of valid tab names.
- */
-export const CHALLENGE_DETAILS_TAB = {
-  DETAILS: 'DETAILS',
-  REGISTRANTS: 'REGISTRANTS',
-  CHECKPOINTS: 'CHECKPOINTS',
-  SUBMISSIONS: 'SUBMISSIONS',
-  WINNERS: 'WINNERS',
-};
-
-/**
  * Handles CHALLENGE/SELECT_TAB action.
  * @param {Object} state
  * @param {Object} action
  * @return {Object}
  */
-function onSelectTab(state, action) {
-  const upper = action.payload.toUpperCase() || '';
-  const isValidTab = Object.keys(CHALLENGE_DETAILS_TAB).indexOf(upper) >= 0;
-  return {
-    ...state,
-    selectedTab: isValidTab ? upper : 'DETAILS',
-  };
+function onSelectTab(state, { payload }) {
+  updateQuery({ tab: payload });
+  return { ...state, selectedTab: payload };
 }
 
 function onLoadResultsDone(state, action) {
@@ -254,7 +242,7 @@ function create(initialState) {
     registering: false,
     unregistering: false,
     showTermsModal: false,
-    selectedTab: 'DETAILS',
+    selectedTab: DETAIL_TABS.DETAILS,
   }));
 }
 
@@ -271,47 +259,37 @@ export function factory(req) {
   /* TODO: This shares some common logic with the next "if" block, which
    * should be re-used there. */
   /* TODO: For completely server-side rendering it is also necessary to load
-   * terms, results, etc. */
+   * terms, etc. */
   if (req && req.url.match(/^\/challenges\/\d+/)) {
     const tokens = {
       tokenV2: req.cookies.tcjwt,
       tokenV3: req.cookies.v3jwt,
     };
     const challengeId = req.url.match(/\d+/)[0];
-    let track;
     return toFSA(actions.challenge.getDetailsDone(challengeId, tokens.tokenV3, tokens.tokenV2))
       .then((details) => {
-        track = details.payload[0] && details.payload[0].track;
-        if (track === 'DESIGN') {
-          return toFSA(actions.challenge.fetchCheckpointsDone(tokens.tokenV2, challengeId))
-            .then(checkpoints => ({ details, checkpoints }));
-        }
-        return { details, checkpoints: null };
-      }).then((res) => {
+        const track = details.payload[0].track.toLowerCase();
+        const checkpointsPromise = track === 'design' ? (
+          toFSA(actions.challenge.fetchCheckpointsDone(
+            tokens.tokenV2, challengeId))
+        ) : null;
+        const resultsPromise = details.payload[0].status === 'COMPLETED' ? (
+          toFSA(actions.challenge.loadResultsDone(tokens, challengeId, track))
+        ) : null;
+        return Promise.all([details, checkpointsPromise, resultsPromise]);
+      }).then(([details, checkpoints, results]) => {
         let state = {
           loadingDetailsForChallengeId: challengeId,
           loadingCheckpoints: true,
         };
-        state = onGetDetailsDone(state, res.details);
-        if (res.checkpoints) {
-          state = onFetchCheckpointsDone(state, res.checkpoints);
-        }
-        return state;
-      }).then((res) => {
-        let state = res;
         if (req.query.tab) {
           state = onSelectTab(state, { payload: req.query.tab });
-          if (req.query.tab.toLowerCase() === 'winners') {
-            return toFSA(
-              actions.challenge.loadResultsDone(tokens, challengeId, track.toLowerCase()),
-            ).then(result => ({
-              state: onLoadResultsDone(state, result),
-            }));
-          }
         }
-        return { state };
-      })
-      .then(res => combine(create(res.state), { mySubmissionsManagement }));
+        state = onGetDetailsDone(state, details);
+        if (checkpoints) state = onFetchCheckpointsDone(state, checkpoints);
+        if (results) state = onLoadResultsDone(state, results);
+        return state;
+      }).then(res => combine(create(res), { mySubmissionsManagement }));
   }
 
   if (req && req.url.match(/^\/challenges\/\d+\/my-submissions/)) {

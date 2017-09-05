@@ -5,6 +5,7 @@ import moment from 'moment';
 import React from 'react';
 import PT from 'prop-types';
 import TrackIcon from 'components/TrackIcon';
+import { DETAIL_TABS } from 'actions/challenge';
 import { Tag } from 'components/tags';
 import { convertNow as convertMoney } from 'services/money';
 
@@ -47,6 +48,7 @@ function ChallengeCard({
   openChallengesInNewTabs,
   prizeMode,
   sampleWinnerProfile,
+  selectChallengeDetailsTab,
 }) {
   const challenge = passedInChallenge;
 
@@ -134,6 +136,7 @@ function ChallengeCard({
 
         <div styleName={isRegistrationOpen ? 'challenge-details with-register-button' : 'challenge-details'}>
           <Link
+            onClick={() => selectChallengeDetailsTab(DETAIL_TABS.DETAILS)}
             to={challengeDetailLink}
             styleName="challenge-title"
             openNewTab={openChallengesInNewTabs}
@@ -171,6 +174,7 @@ function ChallengeCard({
           detailLink={challengeDetailLink}
           openChallengesInNewTabs={openChallengesInNewTabs}
           sampleWinnerProfile={sampleWinnerProfile}
+          selectChallengeDetailsTab={selectChallengeDetailsTab}
         />
       </div>
     </div>
@@ -193,6 +197,7 @@ ChallengeCard.propTypes = {
   openChallengesInNewTabs: PT.bool,
   prizeMode: PT.oneOf(_.toArray(PRIZE_MODE)),
   sampleWinnerProfile: PT.shape(),
+  selectChallengeDetailsTab: PT.func.isRequired,
 };
 
 /**

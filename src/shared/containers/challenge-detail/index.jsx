@@ -20,11 +20,10 @@ import ChallengeCheckpoints from 'components/challenge-detail/Checkpoints';
 import React from 'react';
 import PT from 'prop-types';
 import { connect } from 'react-redux';
-import challengeActions from 'actions/challenge';
+import challengeActions, { DETAIL_TABS } from 'actions/challenge';
 import termsActions from 'actions/terms';
 import config from 'utils/config';
 import { BUCKETS } from 'utils/challenge-listing/buckets';
-import { CHALLENGE_DETAILS_TAB } from 'reducers/challenge';
 
 import './styles.scss';
 
@@ -45,11 +44,9 @@ class ChallengeDetailPageContainer extends React.Component {
 
     this.state = {
       showDeadlineDetail: false,
-      selectedView: 'DETAILS',
     };
 
     this.onToggleDeadlines = this.onToggleDeadlines.bind(this);
-    this.onSelectorClicked = this.onSelectorClicked.bind(this);
     this.registerForChallenge = this.registerForChallenge.bind(this);
   }
 
@@ -89,12 +86,6 @@ class ChallengeDetailPageContainer extends React.Component {
       !nextProps.results) {
       this.props.loadResults(this.props.authTokens, this.props.challengeId,
         nextProps.challenge.track.toLowerCase());
-
-      // eslint-disable-next-line no-undef
-      const params = new URLSearchParams(this.props.location.search);
-      if (params.get('tab') && params.get('tab') !== this.props.selectedTab.toLowerCase()) {
-        this.props.onSelectorClicked(params.get('tab'));
-      }
     }
 
     const userDetails = this.props.challenge.userDetails;
@@ -110,12 +101,6 @@ class ChallengeDetailPageContainer extends React.Component {
     event.preventDefault();
     this.setState({
       showDeadlineDetail: !this.state.showDeadlineDetail,
-    });
-  }
-
-  onSelectorClicked(view) {
-    this.setState({
-      selectedView: view,
     });
   }
 
@@ -171,7 +156,7 @@ class ChallengeDetailPageContainer extends React.Component {
             />
           }
           {
-            !isEmpty && this.props.selectedTab === CHALLENGE_DETAILS_TAB.DETAILS &&
+            !isEmpty && this.props.selectedTab === DETAIL_TABS.DETAILS &&
             <ChallengeDetailsView
               challenge={this.props.challenge}
               introduction={this.props.challenge.introduction}
@@ -181,7 +166,7 @@ class ChallengeDetailPageContainer extends React.Component {
             />
           }
           {
-            !isEmpty && this.props.selectedTab === CHALLENGE_DETAILS_TAB.REGISTRANTS &&
+            !isEmpty && this.props.selectedTab === DETAIL_TABS.REGISTRANTS &&
             <Registrants
               registrants={this.props.challenge.registrants}
               isDesign={this.props.challenge.track.toLowerCase() === 'design'}
@@ -194,14 +179,14 @@ class ChallengeDetailPageContainer extends React.Component {
             />
           }
           {
-            !isEmpty && this.state.selectedView === CHALLENGE_DETAILS_TAB.CHECKPOINTS &&
+            !isEmpty && this.props.selectedTab === DETAIL_TABS.CHECKPOINTS &&
             <ChallengeCheckpoints
               checkpoints={this.props.checkpoints}
               toggleCheckpointFeedback={this.props.toggleCheckpointFeedback}
             />
           }
           {
-            !isEmpty && this.props.selectedTab === 'SUBMISSIONS' &&
+            !isEmpty && this.props.selectedTab === DETAIL_TABS.SUBMISSIONS &&
             <Submissions
               viewable={this.props.challenge.submissionsViewable === 'true'}
               submissions={this.props.challenge.submissions}
@@ -210,7 +195,7 @@ class ChallengeDetailPageContainer extends React.Component {
             />
           }
           {
-            !isEmpty && this.props.selectedTab === CHALLENGE_DETAILS_TAB.WINNERS &&
+            !isEmpty && this.props.selectedTab === DETAIL_TABS.WINNERS &&
             <Winners
               results={this.props.results}
               prizes={this.props.challenge.prizes}
@@ -309,7 +294,6 @@ ChallengeDetailPageContainer.propTypes = {
   setChallengeListingFilter: PT.func.isRequired,
   selectedTab: PT.string.isRequired,
   onSelectorClicked: PT.func.isRequired,
-  location: PT.shape().isRequired,
   challengeSubtracksMap: PT.shape().isRequired,
   getSubtracks: PT.func.isRequired,
 };

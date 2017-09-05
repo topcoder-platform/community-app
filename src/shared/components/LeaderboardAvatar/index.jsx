@@ -17,7 +17,7 @@ class LeaderboardAvatar extends Component {
   }
 
   render() {
-    const { openNewTab, plusOne, url } = this.props;
+    const { onClick, openNewTab, plusOne, url } = this.props;
     const { member } = this.state;
     const targetURL = url || `${config.URL.BASE}/members/${member.handle}`;
     let photoURL = member.photoURL;
@@ -26,6 +26,7 @@ class LeaderboardAvatar extends Component {
     }
     return (
       <Link
+        onClick={onClick}
         to={targetURL}
         styleName={`leaderboard-avatar ${member.position || member.isSmr ? '' : 'light-gray'}`}
         target={openNewTab ? '_blank' : undefined}
@@ -41,6 +42,7 @@ class LeaderboardAvatar extends Component {
 
 LeaderboardAvatar.defaultProps = {
   member: {},
+  onClick: null,
   openNewTab: false,
   plusOne: false,
   url: '',
@@ -48,6 +50,7 @@ LeaderboardAvatar.defaultProps = {
 
 LeaderboardAvatar.propTypes = {
   member: PT.shape({}),
+  onClick: PT.func,
   openNewTab: PT.bool,
   plusOne: PT.bool,
   url: PT.string,

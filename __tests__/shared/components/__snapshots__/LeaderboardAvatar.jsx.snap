@@ -28,6 +28,7 @@ exports[`Matches shallow shapshot 1`] = `
         "handle": "handle",
       }
     }
+    onClick={null}
     openNewTab={false}
     plusOne={false}
     url="url"

@@ -5,6 +5,7 @@ import moment from 'moment';
 import LeaderboardAvatar from 'components/LeaderboardAvatar';
 import Tooltip from 'components/Tooltip';
 import { Link } from 'react-router-dom';
+import { DETAIL_TABS } from 'actions/challenge';
 
 import ChallengeProgressBar from '../../ChallengeProgressBar';
 import ProgressBarTooltip from '../../Tooltips/ProgressBarTooltip';
@@ -337,7 +338,11 @@ class ChallengeStatus extends Component {
   }
 
   renderLeaderboard() {
-    const { challenge, openChallengesInNewTabs } = this.props;
+    const {
+      challenge,
+      openChallengesInNewTabs,
+      selectChallengeDetailsTab,
+    } = this.props;
 
     let winners = challenge.winners && challenge.winners.filter(winner => winner.type === 'final')
       .map(winner => ({
@@ -362,8 +367,13 @@ class ChallengeStatus extends Component {
           <LeaderboardAvatar
             key={winner.handle}
             member={winner}
+            onClick={() => (
+              setImmediate(() => selectChallengeDetailsTab(
+                DETAIL_TABS.WINNERS,
+              ))
+            )}
             openNewTab={openChallengesInNewTabs}
-            url={`${this.props.detailLink}&tab=winners`}
+            url={this.props.detailLink}
             plusOne
           />
         );
@@ -377,7 +387,12 @@ class ChallengeStatus extends Component {
         </div>);
     });
     return leaderboard || (
-      <Link to={`${this.props.detailLink}&tab=submissions`}>Results</Link>
+      <Link
+        onClick={() => (
+          setImmediate(() => selectChallengeDetailsTab(DETAIL_TABS.SUBMISSIONS))
+        )}
+        to={this.props.detailLink}
+      >Results</Link>
     );
   }
 
@@ -402,6 +417,7 @@ ChallengeStatus.propTypes = {
   challenge: PT.shape(),
   detailLink: PT.string,
   openChallengesInNewTabs: PT.bool,
+  selectChallengeDetailsTab: PT.func.isRequired,
 };
 
 export default ChallengeStatus;

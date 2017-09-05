@@ -9,6 +9,17 @@ import { decodeToken } from 'tc-accounts';
 import { getApiV2 } from '../services/api';
 
 /**
+ * String values of valid tab names.
+ */
+export const DETAIL_TABS = {
+  DETAILS: 'details',
+  REGISTRANTS: 'registrants',
+  CHECKPOINTS: 'checkpoints',
+  SUBMISSIONS: 'submissions',
+  WINNERS: 'winners',
+};
+
+/**
  * Payload creator for CHALLENGE/FETCH_DETAILS_INIT action,
  * which marks that we are about to fetch details of the specified challenge.
  * If any challenge details for another challenge are currently being fetched,
