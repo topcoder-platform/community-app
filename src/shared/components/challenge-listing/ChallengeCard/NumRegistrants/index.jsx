@@ -44,8 +44,9 @@ export default function NumRegistrants({
       >
         <Link
           onClick={() => (
-            numRegistrants
-              ? selectChallengeDetailsTab(DETAIL_TABS.REGISTRANTS) : null
+            selectChallengeDetailsTab(
+              numRegistrants ? DETAIL_TABS.REGISTRANTS : DETAIL_TABS.DETAILS,
+            )
           )}
           to={link}
         >

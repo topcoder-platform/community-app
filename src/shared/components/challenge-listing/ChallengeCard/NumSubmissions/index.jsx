@@ -44,8 +44,9 @@ export default function NumSubmissions({
       >
         <Link
           onClick={() => (
-            numSubmissions
-              ? selectChallengeDetailsTab(DETAIL_TABS.SUBMISSIONS) : null
+            selectChallengeDetailsTab(
+              numSubmissions ? DETAIL_TABS.SUBMISSIONS : DETAIL_TABS.DETAILS,
+            )
           )}
           to={link}
         >
