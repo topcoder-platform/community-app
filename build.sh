@@ -1,5 +1,8 @@
 #!/bin/bash
 
+set -e
+set -o pipefail
+
 # Builds Docker image of Community App application.
 # This script expects a single argument: NODE_ENV, which must be either
 # "development" or "production".

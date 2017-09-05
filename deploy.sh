@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+set -eo pipefail
 
 # more bash-friendly output for jq
 JQ="jq --raw-output --exit-status"
