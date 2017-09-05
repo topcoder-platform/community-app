@@ -167,6 +167,7 @@ export default function Home(props) {
             title="Leverage The Crowd"
             text="Access your on-demand community of designers and technology experts."
             link={{
+              newTab: true,
               title: 'Initiate Project',
               url: 'https://connect.topcoder.com/new-project/generic_dev?refCode=topgear',
             }}
