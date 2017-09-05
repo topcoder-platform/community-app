@@ -23,7 +23,7 @@ const MM_BASE_URL
   = `${config.URL.COMMUNITY}/longcontest/?module=ViewRegistrants&rd=`;
 
 export default function NumRegistrants({
-  challenge: { id, numRegistrants, track },
+  challenge: { id, numRegistrants, rounds, track },
   selectChallengeDetailsTab,
 }) {
   let tip;
@@ -34,7 +34,7 @@ export default function NumRegistrants({
   }
   const query = numRegistrants ? `?tab=${DETAIL_TABS.REGISTRANTS}` : '';
   const link = track === 'DATA_SCIENCE' && _.toString(id).length < ID_LENGTH
-    ? `${MM_BASE_URL}${id}` : `/challenges/${id}${query}`;
+    ? `${MM_BASE_URL}${rounds[0].id}` : `/challenges/${id}${query}`;
   return (
     <span styleName="container">
       <Tooltip
@@ -62,6 +62,7 @@ NumRegistrants.propTypes = {
   challenge: PT.shape({
     id: PT.oneOfType([PT.number, PT.string]).isRequired,
     numRegistrants: PT.number.isRequired,
+    rounds: PT.arrayOf(PT.object).isRequired,
     track: PT.string.isRequired,
   }).isRequired,
   selectChallengeDetailsTab: PT.func.isRequired,

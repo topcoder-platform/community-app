@@ -68,7 +68,7 @@ function ChallengeCard({
       /* TODO: Don't we have a better way, whether a challenge is MM or not? */
       const isMM = _.toString(challenge.id).length < ID_LENGTH;
       challengeDetailLink = isMM
-        ? `${mmDetailUrl}${challenge.id}`
+        ? `${mmDetailUrl}${challenge.rounds[0].id}`
         : `${challengeUrl}${challenge.id}/?type=develop`;
     } else {
       challengeDetailLink =

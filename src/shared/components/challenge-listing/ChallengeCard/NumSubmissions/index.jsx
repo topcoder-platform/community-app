@@ -23,7 +23,7 @@ const MM_BASE_URL
   = `${config.URL.COMMUNITY}/longcontest/?module=ViewStandings&rd=`;
 
 export default function NumSubmissions({
-  challenge: { id, numSubmissions, track },
+  challenge: { id, numSubmissions, rounds, track },
   selectChallengeDetailsTab,
 }) {
   let tip;
@@ -34,7 +34,7 @@ export default function NumSubmissions({
   }
   const query = numSubmissions ? `?tab=${DETAIL_TABS.SUBMISSIONS}` : '';
   const link = track === 'DATA_SCIENCE' && _.toString(id).length < ID_LENGTH
-    ? `${MM_BASE_URL}${id}` : `/challenges/${id}${query}`;
+    ? `${MM_BASE_URL}${rounds[0].id}` : `/challenges/${id}${query}`;
   return (
     <div styleName="container">
       <Tooltip
@@ -62,6 +62,7 @@ NumSubmissions.propTypes = {
   challenge: PT.shape({
     id: PT.oneOfType([PT.number, PT.string]).isRequired,
     numSubmissions: PT.number.isRequired,
+    rounds: PT.arrayOf(PT.object).isRequired,
     track: PT.string.isRequired,
   }).isRequired,
   selectChallengeDetailsTab: PT.func.isRequired,
