@@ -1,22 +1,21 @@
 import config from 'utils/config';
-import React, { Component } from 'react';
+import React from 'react';
 import PT from 'prop-types';
 import moment from 'moment';
 import LeaderboardAvatar from 'components/LeaderboardAvatar';
-import Tooltip from 'components/Tooltip';
 import { Link } from 'react-router-dom';
 import { DETAIL_TABS } from 'actions/challenge';
 
 import ChallengeProgressBar from '../../ChallengeProgressBar';
 import ProgressBarTooltip from '../../Tooltips/ProgressBarTooltip';
-import RegistrantsIcon from '../../Icons/RegistrantsIcon';
-import SubmissionsIcon from '../../Icons/SubmissionsIcon';
 import UserAvatarTooltip from '../../Tooltips/UserAvatarTooltip';
 import ForumIcon from '../../Icons/forum.svg';
 import './style.scss';
 
+import NumRegistrants from '../NumRegistrants';
+import NumSubmissions from '../NumSubmissions';
+
 // Constants
-const ID_LENGTH = 6;
 const MAX_VISIBLE_WINNERS = 3;
 const STALLED_MSG = 'Stalled';
 const DRAFT_MSG = 'In Draft';
@@ -52,22 +51,6 @@ const getTimeLeft = (date, currentPhase) => {
   time = late ? `Late by ${time}` : `${time} to go`;
   return { late, text: time };
 };
-
-function numRegistrantsTipText(number) {
-  switch (number) {
-    case 0: return 'No registrants';
-    case 1: return '1 total registrant';
-    default: return `${number} total registrants`;
-  }
-}
-
-function numSubmissionsTipText(number) {
-  switch (number) {
-    case 0: return 'No submissions';
-    case 1: return '1 total submission';
-    default: return `${number} total submissions`;
-  }
-}
 
 const getStatusPhase = (challenge) => {
   const { currentPhases } = challenge;
@@ -133,58 +116,124 @@ function getProfile(user) {
   };
 }
 
-class ChallengeStatus extends Component {
-  constructor(props) {
-    super(props);
-    const CHALLENGE_URL = `${config.URL.BASE}/challenge-details/`;
-    const DS_CHALLENGE_URL = `${config.URL.COMMUNITY}/longcontest/stats/?module=ViewOverview&rd=`;
-    const FORUM_URL = `${config.URL.FORUMS}/?module=Category&categoryID=`;
-    this.state = {
-      winners: '',
-      CHALLENGE_URL,
-      DS_CHALLENGE_URL,
-      FORUM_URL,
-    };
-    this.registrantsLink = this.registrantsLink.bind(this);
+export default function ChallengeStatus(props) {
+  const FORUM_URL = `${config.URL.FORUMS}/?module=Category&categoryID=`;
+
+  const {
+    selectChallengeDetailsTab,
+  } = props;
+
+  /* TODO: Split into a separate ReactJS component! */
+  function renderLeaderboard() {
+    const {
+      challenge,
+      detailLink,
+      openChallengesInNewTabs,
+    } = props;
+
+    let winners = challenge.winners && challenge.winners.filter(winner => winner.type === 'final')
+      .map(winner => ({
+        handle: winner.handle,
+        position: winner.placement,
+        photoURL: winner.photoURL,
+      }));
+
+    if (winners && winners.length > MAX_VISIBLE_WINNERS) {
+      const lastItem = {
+        handle: `+${winners.length - MAX_VISIBLE_WINNERS}`,
+        isLastItem: true,
+      };
+      winners = winners.slice(0, MAX_VISIBLE_WINNERS);
+      winners.push(lastItem);
+    }
+    const leaderboard = winners && winners.map((winner) => {
+      if (winner.isLastItem) {
+        return (
+          /* TODO: No, should not reuse avatar for displaying "+1" in
+           * a circle. Should be a separate component for that. */
+          <LeaderboardAvatar
+            key={winner.handle}
+            member={winner}
+            onClick={() => (
+              setImmediate(() => selectChallengeDetailsTab(
+                DETAIL_TABS.WINNERS,
+              ))
+            )}
+            openNewTab={openChallengesInNewTabs}
+            url={detailLink}
+            plusOne
+          />
+        );
+      }
+      const userProfile = getProfile(winner);
+      return (
+        <div styleName="avatar-container" key={winner.handle}>
+          <UserAvatarTooltip user={userProfile}>
+            <LeaderboardAvatar member={winner} />
+          </UserAvatarTooltip>
+        </div>);
+    });
+    return leaderboard || (
+      <Link
+        onClick={() => (
+          setImmediate(() => selectChallengeDetailsTab(DETAIL_TABS.SUBMISSIONS))
+        )}
+        to={detailLink}
+      >Results</Link>
+    );
+  }
+
+  function renderRegisterButton() {
+    const {
+      challenge,
+      detailLink,
+      openChallengesInNewTabs,
+    } = props;
+    const timeDiff = getTimeLeft(
+      challenge.registrationEndDate || challenge.submissionEndDate,
+      challenge.currentPhases[0] ? challenge.currentPhases[0].phaseType : '',
+    );
+    let timeNote = timeDiff.text;
+    /* TODO: This is goofy, makes the trick, but should be improved. The idea
+     * here is that the standard "getTimeLeft" method, for positive times,
+     * generates a string like "H MM to go"; here we want to render just
+     * H MM part, so we cut the last 6 symbols. Not a good code. */
+    if (!timeDiff.late) {
+      timeNote = timeNote.substring(0, timeNote.length - 6);
+    }
+    return (
+      <a
+        href={detailLink}
+        onClick={() => false}
+        styleName="register-button"
+        target={openChallengesInNewTabs ? '_blank' : undefined}
+      >
+        <span>
+          { timeNote }
+        </span>
+        <span styleName="to-register">to register</span>
+      </a>
+    );
   }
 
   /* TODO: Here is many code common with activeChallenge (the difference is that
    * one component renders leaderboard gallery in the place where another one
    * renders the timeline). The code should be refactored to avoid dublicating
    * the common code being used in both places. */
-  completedChallenge() {
-    const { challenge } = this.props;
-    const { CHALLENGE_URL, FORUM_URL } = this.state;
+  function completedChallenge() {
+    const { challenge } = props;
     return (
       <div>
-        {this.renderLeaderboard()}
+        {renderLeaderboard()}
         <span styleName="challenge-stats">
-          <span styleName="num-reg">
-            <Tooltip
-              content={
-                <div styleName="num-reg-tooltip">
-                  {numRegistrantsTipText(challenge.numRegistrants)}
-                </div>
-              }
-            >
-              <a styleName="num-reg past" href={`${CHALLENGE_URL}${challenge.id}/?type=${challenge.track.toLowerCase()}#viewRegistrant`}>
-                <RegistrantsIcon /> <span styleName="number">{challenge.numRegistrants}</span>
-              </a>
-            </Tooltip>
-          </span>
-          <span styleName="num-sub">
-            <Tooltip
-              content={
-                <div styleName="num-reg-tooltip">
-                  {numSubmissionsTipText(challenge.numSubmissions)}
-                </div>
-              }
-            >
-              <a styleName="num-sub past" href={`${CHALLENGE_URL}${challenge.id}/?type=${challenge.track.toLowerCase()}#viewRegistrant`}>
-                <SubmissionsIcon /> <span styleName="number">{challenge.numSubmissions}</span>
-              </a>
-            </Tooltip>
-          </span>
+          <NumRegistrants
+            challenge={challenge}
+            selectChallengeDetailsTab={selectChallengeDetailsTab}
+          />
+          <NumSubmissions
+            challenge={challenge}
+            selectChallengeDetailsTab={selectChallengeDetailsTab}
+          />
           {
             challenge.myChallenge &&
             <span>
@@ -196,12 +245,8 @@ class ChallengeStatus extends Component {
     );
   }
 
-  activeChallenge() {
-    const { challenge } = this.props;
-    const { FORUM_URL } = this.state;
-    const MM_LONGCONTEST = `${config.URL.COMMUNITY}/longcontest/?module`;
-    const MM_REG = `${MM_LONGCONTEST}=ViewRegistrants&rd=`;
-    const MM_SUB = `${MM_LONGCONTEST}=ViewStandings&rd=`;
+  function activeChallenge() {
+    const { challenge } = props;
 
     const registrationPhase = challenge.allPhases.filter(phase => phase.phaseType === 'Registration')[0];
     const isRegistrationOpen = registrationPhase ? registrationPhase.phaseStatus === 'Open' : false;
@@ -219,33 +264,14 @@ class ChallengeStatus extends Component {
           { phaseMessage }
         </span>
         <span styleName="challenge-stats">
-          <span styleName="num-reg">
-            <Tooltip
-              content={
-                <div styleName="num-reg-tooltip">
-                  {numRegistrantsTipText(challenge.numRegistrants)}
-                </div>
-              }
-            >
-              <a styleName="num-reg" href={this.registrantsLink(challenge, MM_REG)}>
-                <RegistrantsIcon />
-                <span styleName="number">{challenge.numRegistrants}</span>
-              </a>
-            </Tooltip>
-          </span>
-          <span styleName="num-sub">
-            <Tooltip
-              content={
-                <div styleName="num-reg-tooltip">
-                  {numSubmissionsTipText(challenge.numSubmissions)}
-                </div>
-              }
-            >
-              <a styleName="num-sub" href={this.registrantsLink(challenge, MM_SUB)}>
-                <SubmissionsIcon /> <span styleName="number">{challenge.numSubmissions}</span>
-              </a>
-            </Tooltip>
-          </span>
+          <NumRegistrants
+            challenge={challenge}
+            selectChallengeDetailsTab={selectChallengeDetailsTab}
+          />
+          <NumSubmissions
+            challenge={challenge}
+            selectChallengeDetailsTab={selectChallengeDetailsTab}
+          />
           {
             challenge.myChallenge &&
             <span>
@@ -287,124 +313,18 @@ class ChallengeStatus extends Component {
               <ChallengeProgressBar color="gray" value="100" />
           }
         </ProgressBarTooltip>
-        {isRegistrationOpen && this.renderRegisterButton()}
+        {isRegistrationOpen && renderRegisterButton()}
       </div>
     );
   }
 
-  registrantsLink(registrantsChallenge, type) {
-    const { CHALLENGE_URL } = this.state;
-    if (registrantsChallenge.track === 'DATA_SCIENCE') {
-      const id = `${registrantsChallenge.id}`;
-      if (id.length < ID_LENGTH) {
-        return `${type}${registrantsChallenge.id}`;
-      }
-      return `${CHALLENGE_URL}${registrantsChallenge.id}/?type=develop#viewRegistrant`;
-    }
-    return `${CHALLENGE_URL}${registrantsChallenge.id}/?type=${registrantsChallenge.track.toLowerCase()}#viewRegistrant`;
-  }
-
-  renderRegisterButton() {
-    const {
-      challenge,
-      detailLink,
-      openChallengesInNewTabs,
-    } = this.props;
-    const timeDiff = getTimeLeft(
-      challenge.registrationEndDate || challenge.submissionEndDate,
-      challenge.currentPhases[0] ? challenge.currentPhases[0].phaseType : '',
-    );
-    let timeNote = timeDiff.text;
-    /* TODO: This is goofy, makes the trick, but should be improved. The idea
-     * here is that the standard "getTimeLeft" method, for positive times,
-     * generates a string like "H MM to go"; here we want to render just
-     * H MM part, so we cut the last 6 symbols. Not a good code. */
-    if (!timeDiff.late) {
-      timeNote = timeNote.substring(0, timeNote.length - 6);
-    }
-    return (
-      <a
-        href={detailLink}
-        onClick={() => false}
-        styleName="register-button"
-        target={openChallengesInNewTabs ? '_blank' : undefined}
-      >
-        <span>
-          { timeNote }
-        </span>
-        <span styleName="to-register">to register</span>
-      </a>
-    );
-  }
-
-  renderLeaderboard() {
-    const {
-      challenge,
-      openChallengesInNewTabs,
-      selectChallengeDetailsTab,
-    } = this.props;
-
-    let winners = challenge.winners && challenge.winners.filter(winner => winner.type === 'final')
-      .map(winner => ({
-        handle: winner.handle,
-        position: winner.placement,
-        photoURL: winner.photoURL,
-      }));
-
-    if (winners && winners.length > MAX_VISIBLE_WINNERS) {
-      const lastItem = {
-        handle: `+${winners.length - MAX_VISIBLE_WINNERS}`,
-        isLastItem: true,
-      };
-      winners = winners.slice(0, MAX_VISIBLE_WINNERS);
-      winners.push(lastItem);
-    }
-    const leaderboard = winners && winners.map((winner) => {
-      if (winner.isLastItem) {
-        return (
-          /* TODO: No, should not reuse avatar for displaying "+1" in
-           * a circle. Should be a separate component for that. */
-          <LeaderboardAvatar
-            key={winner.handle}
-            member={winner}
-            onClick={() => (
-              setImmediate(() => selectChallengeDetailsTab(
-                DETAIL_TABS.WINNERS,
-              ))
-            )}
-            openNewTab={openChallengesInNewTabs}
-            url={this.props.detailLink}
-            plusOne
-          />
-        );
-      }
-      const userProfile = getProfile(winner);
-      return (
-        <div styleName="avatar-container" key={winner.handle}>
-          <UserAvatarTooltip user={userProfile}>
-            <LeaderboardAvatar member={winner} />
-          </UserAvatarTooltip>
-        </div>);
-    });
-    return leaderboard || (
-      <Link
-        onClick={() => (
-          setImmediate(() => selectChallengeDetailsTab(DETAIL_TABS.SUBMISSIONS))
-        )}
-        to={this.props.detailLink}
-      >Results</Link>
-    );
-  }
-
-  render() {
-    const { challenge } = this.props;
-    const status = challenge.status === 'COMPLETED' ? 'completed' : '';
-    return (
-      <div styleName={`challenge-status ${status}`}>
-        {challenge.status === 'COMPLETED' ? this.completedChallenge() : this.activeChallenge()}
-      </div>
-    );
-  }
+  const { challenge } = props;
+  const status = challenge.status === 'COMPLETED' ? 'completed' : '';
+  return (
+    <div styleName={`challenge-status ${status}`}>
+      {challenge.status === 'COMPLETED' ? completedChallenge() : activeChallenge()}
+    </div>
+  );
 }
 
 ChallengeStatus.defaultProps = {
@@ -419,5 +339,3 @@ ChallengeStatus.propTypes = {
   openChallengesInNewTabs: PT.bool,
   selectChallengeDetailsTab: PT.func.isRequired,
 };
-
-export default ChallengeStatus;
