@@ -65,7 +65,7 @@ We use [https://logentries.com](https://logentries.com) to track the logs. Log E
 -   [Challenge Listing - Notes from winning submission](docs/challenge-listing-notes.md)
 -   [**Code Splitting**](docs/code-splitting.md)
 -   [**How to Add a New Topcoder Community?**](docs/how-to-add-a-new-topcoder-community.md)
--   [**How To Deep-Link (Use URL Query Params Within The App)**](docs/how-to-deep-link.md)
+-   [**How To Deep-Link (Correct Use of URL Query Params Within The App)**](docs/how-to-deep-link.md)
 -   [Leaderboard - Notes from the winning submission](docs/leaderboard-notes.md)
 -   [**Why Reducer Factories and How to Use Them?**](docs/why-reducer-factories-and-how-to-use-them.md)
 
