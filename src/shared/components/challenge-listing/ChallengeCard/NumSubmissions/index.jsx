@@ -24,6 +24,7 @@ const MM_BASE_URL
 
 export default function NumSubmissions({
   challenge: { id, numSubmissions, rounds, track },
+  newChallengeDetails,
   selectChallengeDetailsTab,
 }) {
   let tip;
@@ -33,8 +34,11 @@ export default function NumSubmissions({
     default: tip = `${numSubmissions} total submissions`;
   }
   const query = numSubmissions ? `?tab=${DETAIL_TABS.SUBMISSIONS}` : '';
-  const link = track === 'DATA_SCIENCE' && _.toString(id).length < ID_LENGTH
+  let link = track === 'DATA_SCIENCE' && _.toString(id).length < ID_LENGTH
     ? `${MM_BASE_URL}${rounds[0].id}` : `/challenges/${id}${query}`;
+  if (!newChallengeDetails && track !== 'DATA_SCIENCE') {
+    link = `${config.URL.BASE}/challenge-details/${id}/?type=develop#viewRegistrant`;
+  }
   return (
     <div styleName="container">
       <Tooltip
@@ -62,8 +66,9 @@ NumSubmissions.propTypes = {
   challenge: PT.shape({
     id: PT.oneOfType([PT.number, PT.string]).isRequired,
     numSubmissions: PT.number.isRequired,
-    rounds: PT.arrayOf(PT.object).isRequired,
+    rounds: PT.arrayOf(PT.object),
     track: PT.string.isRequired,
   }).isRequired,
+  newChallengeDetails: PT.bool.isRequired,
   selectChallengeDetailsTab: PT.func.isRequired,
 };

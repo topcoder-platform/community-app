@@ -120,6 +120,7 @@ export default function ChallengeStatus(props) {
   const FORUM_URL = `${config.URL.FORUMS}/?module=Category&categoryID=`;
 
   const {
+    newChallengeDetails,
     selectChallengeDetailsTab,
   } = props;
 
@@ -228,10 +229,12 @@ export default function ChallengeStatus(props) {
         <span styleName="challenge-stats">
           <NumRegistrants
             challenge={challenge}
+            newChallengeDetails={newChallengeDetails}
             selectChallengeDetailsTab={selectChallengeDetailsTab}
           />
           <NumSubmissions
             challenge={challenge}
+            newChallengeDetails={newChallengeDetails}
             selectChallengeDetailsTab={selectChallengeDetailsTab}
           />
           {
@@ -266,10 +269,12 @@ export default function ChallengeStatus(props) {
         <span styleName="challenge-stats">
           <NumRegistrants
             challenge={challenge}
+            newChallengeDetails={newChallengeDetails}
             selectChallengeDetailsTab={selectChallengeDetailsTab}
           />
           <NumSubmissions
             challenge={challenge}
+            newChallengeDetails={newChallengeDetails}
             selectChallengeDetailsTab={selectChallengeDetailsTab}
           />
           {
@@ -336,6 +341,7 @@ ChallengeStatus.defaultProps = {
 ChallengeStatus.propTypes = {
   challenge: PT.shape(),
   detailLink: PT.string,
+  newChallengeDetails: PT.bool.isRequired,
   openChallengesInNewTabs: PT.bool,
   selectChallengeDetailsTab: PT.func.isRequired,
 };

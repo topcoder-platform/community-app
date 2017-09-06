@@ -172,6 +172,7 @@ function ChallengeCard({
         <ChallengeStatus
           challenge={challenge}
           detailLink={challengeDetailLink}
+          newChallengeDetails={newChallengeDetails}
           openChallengesInNewTabs={openChallengesInNewTabs}
           sampleWinnerProfile={sampleWinnerProfile}
           selectChallengeDetailsTab={selectChallengeDetailsTab}
