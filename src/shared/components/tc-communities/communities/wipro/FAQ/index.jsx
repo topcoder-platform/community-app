@@ -148,8 +148,8 @@ export default function Learn() {
               <Text><p>Send a mail to ask.topgear@wipro.com and TopGear team will get back to you with details and process.</p></Text>
             </AccordionItem>
             <AccordionItem title="I am interested to contribute as Challenge Architect / Co-Pilot / Reviewer, what is the process?">
-              <Text><p>Send a mail to ask.topgear@wipro.com and TopGear team will get back to you with details.  a.  User could also register on link 
-<a href="https://topgear-app.wipro.com/topcoder_reviewer/registration">https://topgear-app.wipro.com/topcoder_reviewer/registration</a></p></Text>
+              <Text><p>Send a mail to ask.topgear@wipro.com and TopGear team will get back to you with details.  a.  User could also register on link
+              &zwnj;<a href="https://topgear-app.wipro.com/topcoder_reviewer/registration">https://topgear-app.wipro.com/topcoder_reviewer/registration</a></p></Text>
             </AccordionItem>
             <AccordionItem title="I am interested to add/initiate a new solution project/challenges on to the platform, what is the process?">
               <Text><p>On Home Page select ‘Initiate Project’ and provide initial information about projects OR send a mail to ask.topgear@wipro.com and TopGear team will get back to you with details OR go through video.</p></Text>
