@@ -2,7 +2,7 @@
 set -eo pipefail
 
 # Skips build for tags on no-master branch.
-if [ ! -z $CIRCLE_TAG ] && [ $CIRCLE_BRANCH !== "master" ]
+if [ ! -z $CIRCLE_TAG ] && [ $CIRCLE_BRANCH != "master" ]
 then
   exit 0
 fi
