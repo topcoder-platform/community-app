@@ -1,8 +1,13 @@
-import React from 'react';
 import _ from 'lodash';
+import mockStore from 'redux-mock-store';
+import React from 'react';
 import Renderer from 'react-test-renderer/shallow';
 import TU from 'react-dom/test-utils';
 import SRMCard from 'components/challenge-listing/SRMCard';
+import { Provider } from 'react-redux';
+import { StaticRouter } from 'react-router-dom';
+
+const store = mockStore()();
 
 const mockDatas = [
   {
@@ -21,7 +26,11 @@ class Wrapper extends React.Component {
   componentDidMount() {}
 
   render() {
-    return <SRMCard {...this.props} />;
+    return (
+      <StaticRouter context={{}}>
+        <SRMCard {...this.props} />
+      </StaticRouter>
+    );
   }
 }
 
@@ -30,7 +39,11 @@ test('Matches shallow shapshot', () => {
 
   _.forEach(mockDatas, (data) => {
     renderer.render((
-      <SRMCard {...data} />
+      <Provider store={store} >
+        <StaticRouter context={{}}>
+          <SRMCard {...data} />
+        </StaticRouter>
+      </Provider>
     ));
     expect(renderer.getRenderOutput()).toMatchSnapshot();
     TU.renderIntoDocument((<Wrapper {...data} />));

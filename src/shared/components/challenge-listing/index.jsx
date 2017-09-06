@@ -78,6 +78,7 @@ export default function ChallengeListing(props) {
         openChallengesInNewTabs={props.openChallengesInNewTabs}
         prizeMode={props.prizeMode}
         selectBucket={props.selectBucket}
+        selectChallengeDetailsTab={props.selectChallengeDetailsTab}
         setFilterState={props.setFilterState}
         setSort={props.setSort}
         sorts={props.sorts}
@@ -167,6 +168,7 @@ ChallengeListing.propTypes = {
   openChallengesInNewTabs: PT.bool,
   prizeMode: PT.string,
   selectBucket: PT.func.isRequired,
+  selectChallengeDetailsTab: PT.func.isRequired,
   setFilterState: PT.func.isRequired,
   setSort: PT.func.isRequired,
   sorts: PT.shape().isRequired,

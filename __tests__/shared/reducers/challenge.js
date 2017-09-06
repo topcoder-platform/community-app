@@ -1,5 +1,6 @@
 import { mockAction } from 'utils/mock';
 
+/* TODO: challenge actions module should be properly mocked */
 const mockChallengeActions = {
   challenge: {
     getDetailsInit: mockAction('CHALLENGE/GET_DETAILS_INIT', '12345'),
@@ -32,6 +33,9 @@ const mockChallengeActions = {
       null,
       'Unknown error',
     ),
+  },
+  DETAIL_TABS: {
+    DETAILS: 'details',
   },
 };
 jest.setMock(require.resolve('actions/challenge'), mockChallengeActions);
@@ -72,11 +76,15 @@ function testReducer(reducer, istate) {
       mySubmissionsManagement: {},
       loadingCheckpoints: false,
       loadingDetailsForChallengeId: '12345',
+      loadingResultsForChallengeId: '',
       fetchChallengeFailure: false,
       details: null,
       detailsV2: null,
       checkpoints: null,
       registering: false,
+      results: null,
+      resultsLoadedForChallengeId: '',
+      selectedTab: 'details',
       unregistering: false,
       showTermsModal: false,
     });
@@ -98,7 +106,11 @@ function testReducer(reducer, istate) {
         tag: 'v2-details',
       },
       checkpoints: null,
+      loadingResultsForChallengeId: '',
       registering: false,
+      results: null,
+      resultsLoadedForChallengeId: '',
+      selectedTab: 'details',
       unregistering: false,
       showTermsModal: false,
     });
@@ -114,7 +126,11 @@ function testReducer(reducer, istate) {
       details: null,
       detailsV2: null,
       checkpoints: null,
+      loadingResultsForChallengeId: '',
       registering: false,
+      results: null,
+      resultsLoadedForChallengeId: '',
+      selectedTab: 'details',
       unregistering: false,
       showTermsModal: false,
     });
@@ -131,8 +147,12 @@ function testReducer(reducer, istate) {
       checkpoints: null,
       loadingCheckpoints: false,
       loadingMySubmissions: true,
+      loadingResultsForChallengeId: '',
       mySubmissions: { v2: null },
       registering: false,
+      results: null,
+      resultsLoadedForChallengeId: '',
+      selectedTab: 'details',
       unregistering: false,
       showTermsModal: false,
     });
@@ -151,7 +171,11 @@ function testReducer(reducer, istate) {
       mySubmissions: { v2: [{ submissionId: '1' }] },
       fetchMySubmissionsFailure: false,
       loadingMySubmissions: false,
+      loadingResultsForChallengeId: '',
       registering: false,
+      results: null,
+      resultsLoadedForChallengeId: '',
+      selectedTab: 'details',
       unregistering: false,
       showTermsModal: false,
     });
@@ -167,10 +191,14 @@ function testReducer(reducer, istate) {
       detailsV2: null,
       checkpoints: null,
       loadingCheckpoints: false,
+      loadingResultsForChallengeId: '',
       fetchMySubmissionsFailure: false,
       loadingMySubmissions: false,
       mySubmissions: { v2: [{ submissionId: '1' }] },
       registering: false,
+      results: null,
+      resultsLoadedForChallengeId: '',
+      selectedTab: 'details',
       unregistering: false,
       showTermsModal: false,
     });
@@ -188,8 +216,12 @@ function testReducer(reducer, istate) {
       mySubmissions: { v2: [] },
       loadingCheckpoints: false,
       loadingMySubmissions: false,
+      loadingResultsForChallengeId: '',
       fetchMySubmissionsFailure: 'Unknown error',
       registering: false,
+      results: null,
+      resultsLoadedForChallengeId: '',
+      selectedTab: 'details',
       unregistering: false,
       showTermsModal: false,
     });
@@ -203,8 +235,12 @@ describe('Default reducer', () =>
     checkpoints: null,
     loadingCheckpoints: false,
     loadingDetailsForChallengeId: '',
+    loadingResultsForChallengeId: '',
     mySubmissionsManagement: {},
     registering: false,
+    results: null,
+    resultsLoadedForChallengeId: '',
+    selectedTab: 'details',
     unregistering: false,
     showTermsModal: false,
   }),

@@ -8,6 +8,7 @@ import _ from 'lodash';
 import config from 'utils/config';
 import React from 'react';
 import PT from 'prop-types';
+import { DETAIL_TABS } from 'actions/challenge';
 
 import './style.scss';
 
@@ -22,10 +23,12 @@ export default function ChallengeViewSelector(props) {
     checkpointCount,
     numRegistrants,
     numSubmissions,
+    numWinners,
     onSelectorClicked,
     selectedView,
     status,
     trackLower,
+    hasRegistered,
   } = props;
 
   const forumId = _.get(challenge, 'forumId', 0);
@@ -35,45 +38,59 @@ export default function ChallengeViewSelector(props) {
     ? `/?module=ThreadList&forumID=${forumId}`
     : `/?module=Category&categoryID=${forumId}`;
 
+  const handleSelectorClicked = (e, selector) => {
+    /* eslint-env browser */
+    e.preventDefault();
+    onSelectorClicked(selector);
+  };
+
   return (
     <div styleName="container">
       <div styleName="mask" />
       <div styleName="challenge-view-selector">
         <a
-          onClick={(e) => { e.preventDefault(); onSelectorClicked('DETAILS'); }}
-          styleName={getSelectorStyle(selectedView, 'DETAILS', trackLower)}
+          onClick={(e) => { handleSelectorClicked(e, DETAIL_TABS.DETAILS); }}
+          styleName={getSelectorStyle(selectedView, DETAIL_TABS.DETAILS, trackLower)}
         >DETAILS
         </a>
         <a
-          onClick={(e) => { e.preventDefault(); onSelectorClicked('REGISTRANTS'); }}
-          styleName={getSelectorStyle(selectedView, 'REGISTRANTS', trackLower)}
+          onClick={(e) => { handleSelectorClicked(e, DETAIL_TABS.REGISTRANTS); }}
+          styleName={getSelectorStyle(selectedView, DETAIL_TABS.REGISTRANTS, trackLower)}
         >REGISTRANTS {numRegistrants ? `(${numRegistrants})` : ''}
         </a>
         {
           trackLower === 'design' && checkpointCount > 0 &&
           <a
-            onClick={(e) => { e.preventDefault(); onSelectorClicked('CHECKPOINTS'); }}
-            styleName={getSelectorStyle(selectedView, 'CHECKPOINTS', trackLower)}
+            onClick={(e) => { handleSelectorClicked(e, DETAIL_TABS.CHECKPOINTS); }}
+            styleName={getSelectorStyle(
+              selectedView,
+              DETAIL_TABS.CHECKPOINTS,
+              trackLower,
+            )}
           >CHECKPOINTS ({checkpointCount})
           </a>
         }
         {
           status === 'COMPLETED' &&
           <a
-            onClick={(e) => { e.preventDefault(); onSelectorClicked('SUBMISSIONS'); }}
-            styleName={getSelectorStyle(selectedView, 'SUBMISSIONS', trackLower)}
+            onClick={(e) => { handleSelectorClicked(e, DETAIL_TABS.SUBMISSIONS); }}
+            styleName={getSelectorStyle(
+              selectedView,
+              DETAIL_TABS.SUBMISSIONS,
+              trackLower,
+            )}
           >SUBMISSIONS ({numSubmissions})
           </a>
         }
         {
-          status === 'COMPLETED' &&
-          <a
-            onClick={(e) => { e.preventDefault(); onSelectorClicked('WINNERS'); }}
-            styleName={getSelectorStyle(selectedView, 'WINNERS', trackLower)}
-          >WINNERS
-          </a>
+          numWinners ? (
+            <a
+              onClick={(e) => { handleSelectorClicked(e, DETAIL_TABS.WINNERS); }}
+              styleName={getSelectorStyle(selectedView, DETAIL_TABS.WINNERS, trackLower)}
+            >WINNERS ({ numWinners })</a>
+          ) : null
         }
-        { Boolean(roles.length) &&
+        { (hasRegistered || Boolean(roles.length)) &&
           <a
             href={`${config.URL.FORUMS}${forumEndpoint}`}
             styleName={getSelectorStyle(selectedView, 'CHALLENGE_FORUM', trackLower)}
@@ -89,6 +106,7 @@ ChallengeViewSelector.defaultProps = {
   checkpointCount: 0,
   numRegistrants: 0,
   numSubmissions: 0,
+  hasRegistered: false,
 };
 
 ChallengeViewSelector.propTypes = {
@@ -103,8 +121,10 @@ ChallengeViewSelector.propTypes = {
   checkpointCount: PT.number,
   numRegistrants: PT.number,
   numSubmissions: PT.number,
+  numWinners: PT.number.isRequired,
   onSelectorClicked: PT.func.isRequired,
   selectedView: PT.string.isRequired,
   status: PT.string.isRequired,
   trackLower: PT.string.isRequired,
+  hasRegistered: PT.bool.isRequired,
 };

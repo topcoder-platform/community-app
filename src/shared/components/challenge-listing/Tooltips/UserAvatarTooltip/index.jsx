@@ -7,13 +7,14 @@
  * the 'user' prop.
  */
 
+import config from 'utils/config';
 import React, { Component } from 'react';
 import PT from 'prop-types';
 // import moment from 'moment';
 import Tooltip from 'components/Tooltip';
-import './style.scss';
+import Avatar from 'components/Avatar';
+import styles from './style.scss';
 
-const MOCK_PHOTO = 'https://acrobatusers.com/assets/images/template/author_generic.jpg';
 /**
  * Renders the tooltip's content.
  * It includes: user profile picture, handle, his country and the TC registration
@@ -31,15 +32,18 @@ function Tip(props) {
     </span>
   )); */
   const { photoLink } = props.user;
-  const src = photoLink.startsWith('https') ? photoLink : `${props.MAIN_URL}/${photoLink}`;
+  let src = photoLink;
+  if (src && !src.startsWith('http')) {
+    src = `${config.URL.BASE}/${src}`;
+  }
 
   return (
     <div styleName="user-avatar-tooltip">
-      <img
-        alt="User avatar"
-        styleName="avatar"
-        src={src}
-        onError={props.handleError}
+      <Avatar
+        theme={{
+          avatar: styles.avatar,
+        }}
+        url={src}
       />
       <div styleName="handle">{props.user.handle}</div>
       {/* Below block is commented out as it's not possible to get this information
@@ -58,8 +62,6 @@ function Tip(props) {
 }
 
 Tip.propTypes = {
-  handleError: PT.func.isRequired,
-  MAIN_URL: PT.string,
   user: PT.shape({
     country: PT.string,
     handle: PT.string,
@@ -67,10 +69,6 @@ Tip.propTypes = {
     photoLink: PT.string,
     ratingSummary: PT.array,
   }).isRequired,
-};
-
-Tip.defaultProps = {
-  MAIN_URL: process.env.MAIN_URL,
 };
 
 /**
@@ -82,16 +80,10 @@ class UserAvatarTooltip extends Component {
     this.state = {
       user: props.user,
     };
-    this.handleError = this.handleError.bind(this);
-  }
-  handleError() {
-    const user = this.state.user;
-    user.photoLink = MOCK_PHOTO;
-    this.setState({ user });
   }
 
   render() {
-    const tip = <Tip user={this.state.user} handleError={this.handleError} />;
+    const tip = <Tip user={this.state.user} />;
     return (
       <Tooltip content={tip}>
         <div>{this.props.children}</div>

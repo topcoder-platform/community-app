@@ -25,6 +25,7 @@ export default function Bucket({
   loadMore,
   openChallengesInNewTabs,
   prizeMode,
+  selectChallengeDetailsTab,
   setFilterState,
   setSort,
   sort,
@@ -57,6 +58,7 @@ export default function Bucket({
       openChallengesInNewTabs={openChallengesInNewTabs}
       prizeMode={prizeMode}
       key={item.id}
+      selectChallengeDetailsTab={selectChallengeDetailsTab}
     />
   ));
 
@@ -88,7 +90,12 @@ export default function Bucket({
       {
         (expandable || loadMore) && !loading && !expanded ? (
           <button
-            onClick={expand}
+            onClick={() => {
+              expand();
+              /* eslint-env browser */
+              document.body.scrollTop = 0;
+              document.documentElement.scrollTop = 0;
+            }}
             styleName="view-more"
           >View more challenges</button>
         ) : null
@@ -122,6 +129,7 @@ Bucket.propTypes = {
   loadMore: PT.func,
   openChallengesInNewTabs: PT.bool,
   prizeMode: PT.string.isRequired,
+  selectChallengeDetailsTab: PT.func.isRequired,
   setFilterState: PT.func.isRequired,
   setSort: PT.func.isRequired,
   sort: PT.string,

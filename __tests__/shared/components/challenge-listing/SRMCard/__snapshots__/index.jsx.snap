@@ -1,33 +1,40 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Matches shallow shapshot 1`] = `
-<div
-  className="SRMCard-container"
+<StaticRouter
+  basename=""
+  context={Object {}}
+  location="/"
 >
-  <HappeningNow />
-  
-  
-</div>
+  <SRMCard
+    category="now"
+    srmChallenge={Object {}}
+  />
+</StaticRouter>
 `;
 
 exports[`Matches shallow shapshot 2`] = `
-<div
-  className="SRMCard-container"
+<StaticRouter
+  basename=""
+  context={Object {}}
+  location="/"
 >
-  
-  <UpcomingSRMs
+  <SRMCard
+    category="upcoming"
     srmChallenge={Object {}}
   />
-  
-</div>
+</StaticRouter>
 `;
 
 exports[`Matches shallow shapshot 3`] = `
-<div
-  className="SRMCard-container"
+<StaticRouter
+  basename=""
+  context={Object {}}
+  location="/"
 >
-  
-  
-  <PastSRMs />
-</div>
+  <SRMCard
+    category="past"
+    srmChallenge={Object {}}
+  />
+</StaticRouter>
 `;

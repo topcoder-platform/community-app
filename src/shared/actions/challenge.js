@@ -9,6 +9,17 @@ import { decodeToken } from 'tc-accounts';
 import { getApiV2 } from '../services/api';
 
 /**
+ * String values of valid tab names.
+ */
+export const DETAIL_TABS = {
+  DETAILS: 'details',
+  REGISTRANTS: 'registrants',
+  CHECKPOINTS: 'checkpoints',
+  SUBMISSIONS: 'submissions',
+  WINNERS: 'winners',
+};
+
+/**
  * Payload creator for CHALLENGE/FETCH_DETAILS_INIT action,
  * which marks that we are about to fetch details of the specified challenge.
  * If any challenge details for another challenge are currently being fetched,
@@ -79,11 +90,32 @@ function unregisterDone(auth, challengeId) {
     .then(() => getDetailsDone(challengeId, auth.tokenV3, auth.tokenV2));
 }
 
-function loadResults(auth, challengeId, type) {
+/**
+ * Initiates loading of challenge results. Any loading of results initiated
+ * before will be silently discarted.
+ * @param {Number|String} challengeId
+ * @return {String}
+ */
+function loadResultsInit(challengeId) {
+  return _.toString(challengeId);
+}
+
+/**
+ * Loads challenge results. Challenge ID should match with the one previously
+ * passed to loadResultsInit(..), otherwise results will be silently discarted.
+ * @param {Object} auth
+ * @param {Number|String} challengeId
+ * @param {String} type
+ * @return {Object}
+ */
+function loadResultsDone(auth, challengeId, type) {
   return getApiV2(auth.tokenV2)
     .fetch(`/${type}/challenges/result/${challengeId}`)
     .then(response => response.json())
-    .then(response => response.results);
+    .then(response => ({
+      challengeId: _.toString(challengeId),
+      results: response.results,
+    }));
 }
 
 function fetchCheckpointsDone(tokenV2, challengeId) {
@@ -133,13 +165,14 @@ export default createActions({
     GET_DETAILS_DONE: getDetailsDone,
     GET_SUBMISSIONS_INIT: _.noop,
     GET_SUBMISSIONS_DONE: getSubmissionsDone,
-    LOAD_RESULTS_INIT: _.noop,
-    LOAD_RESULTS_DONE: loadResults,
+    LOAD_RESULTS_INIT: loadResultsInit,
+    LOAD_RESULTS_DONE: loadResultsDone,
     REGISTER_INIT: _.noop,
     REGISTER_DONE: registerDone,
     UNREGISTER_INIT: _.noop,
     UNREGISTER_DONE: unregisterDone,
     OPEN_TERMS_MODAL: _.noop,
     CLOSE_TERMS_MODAL: _.noop,
+    SELECT_TAB: _.identity,
   },
 });

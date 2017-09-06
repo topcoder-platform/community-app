@@ -79,7 +79,8 @@ export function normalizeMarathonMatch(challenge, username) {
     numSubmissions: challenge.userIds ? challenge.userIds.length : 0,
     platforms: '',
     prizes: [0],
-    registrationOpen: endTimestamp > Date.now() ? 'Yes' : 'No',
+    registrationOpen: endTimestamp > Date.now() &&
+      (challenge.status !== 'PAST') ? 'Yes' : 'No',
     registrationStartDate: challenge.startDate,
     submissionEndDate: challenge.endDate,
     submissionEndTimestamp: endTimestamp,
