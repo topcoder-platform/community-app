@@ -1,12 +1,6 @@
 #!/usr/bin/env bash
 set -eo pipefail
 
-# Skips deployment for tags on no-master branch.
-if [ ! -z $CIRCLE_TAG ] && [[ $CIRCLE_BRANCH != "master" ]]
-then
-  exit 0
-fi
-
 # more bash-friendly output for jq
 JQ="jq --raw-output --exit-status"
 

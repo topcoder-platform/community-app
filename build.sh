@@ -4,7 +4,8 @@ set -eo pipefail
 # Skips build for tags on no-master branch.
 if [ ! -z $CIRCLE_TAG ] && [[ $CIRCLE_BRANCH != "master" ]]
 then
-  exit 0
+  echo "Tag build for branches other than master are failed by default!"
+  exit 1
 fi
 
 # Builds Docker image of Community App application.
