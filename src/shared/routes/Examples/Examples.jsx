@@ -8,6 +8,7 @@ import Content from 'components/Content';
 import CssModules from 'components/examples/CssModules';
 import FontsTest from 'components/examples/FontsTest';
 import LoadingIndicator from 'components/LoadingIndicator';
+import LoadingIndicators from 'components/examples/LoadingIndicators';
 import path from 'path';
 import PT from 'prop-types';
 import React from 'react';
@@ -48,6 +49,10 @@ export default function Examples(props) {
       <Route path={`${base}/css-modules`} component={CssModules} />
       <Route path={`${base}/data-fetch`} component={DataFetch} />
       <Route path={`${base}/fonts-test`} component={FontsTest} />
+      <Route
+        component={LoadingIndicators}
+        path={`${base}/loading-indicators`}
+      />
       <Route path={`${base}/svg-loading`} component={SvgLoading} />
       <Route path={`${base}/tags`} component={Tags} />
       <Route path={`${base}/themr`} component={Themr} />

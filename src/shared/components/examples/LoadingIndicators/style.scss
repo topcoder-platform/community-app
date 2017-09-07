@@ -1,0 +1,53 @@
+@import "~styles/tc-styles";
+
+.black-bg {
+  background: black;
+  padding: 24px;
+}
+
+.page {
+  @include roboto-light;
+
+  line-height: 150%;
+  margin: auto;
+  max-width: $screen-lg;
+  padding: 24px;
+
+  h1 {
+    margin: 0 0 18px;
+  }
+
+  h3 {
+    margin: 24px 0 6px;
+  }
+
+  code {
+    background: whitesmoke;
+    padding: 2px 4px;
+  }
+
+  em {
+    font-style: italic;
+  }
+
+  p {
+    margin: $base-unit 0;
+  }
+}
+
+.striped-bg {
+  background:
+    repeating-linear-gradient(
+      -45deg,
+      $tc-white,
+      $tc-white 10px,
+      $tc-gray-20 10px,
+      $tc-gray-20 20px
+    );
+  margin-top: 24px;
+  padding: 24px;
+}
+
+.white-bg {
+  padding: 24px;
+}

@@ -148,6 +148,9 @@ export default function Content() {
           inclusion into the bundle;
         </li>
         <li>
+          <Link to="/examples/loading-indicators">Loading Indicators</Link>
+        </li>
+        <li>
           <Link to="/examples/svg-loading">SVG Loading</Link> - Shows how to
           load <code>.svg</code> assets with use
           of <code>babel-plugin-inline-react-svg</code>.

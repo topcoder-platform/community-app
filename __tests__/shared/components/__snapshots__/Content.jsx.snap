@@ -360,6 +360,14 @@ exports[`Matches shallow shapshot 1`] = `
     <li>
       <Link
         replace={false}
+        to="/examples/loading-indicators"
+      >
+        Loading Indicators
+      </Link>
+    </li>
+    <li>
+      <Link
+        replace={false}
         to="/examples/svg-loading"
       >
         SVG Loading
