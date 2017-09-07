@@ -9,6 +9,7 @@ import { PrimaryButton } from 'components/buttons';
 import LoadingIndicator from 'components/LoadingIndicator';
 import TermDetails from './TermDetails';
 
+import CheckMark from '../../icons/check-mark.svg';
 import styles from './styles.scss';
 
 export default class TermsModal extends React.Component {
@@ -86,7 +87,7 @@ export default class TermsModal extends React.Component {
                           }
                         </td>
                         <td>
-                          <span styleName={cn(['status-img', { required: !t.agreed }])} />
+                          <CheckMark styleName={cn(['status-img', { required: !t.agreed }])} />
                           {t.agreed ? 'Completed' : 'Required'}
                         </td>
                       </tr>

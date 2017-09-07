@@ -10,6 +10,7 @@ import moment from 'moment';
 import _ from 'lodash';
 import config from 'utils/config';
 
+import CheckMark from '../icons/check-mark.svg';
 import './style.scss';
 
 function formatDate(date) {
@@ -84,7 +85,7 @@ export default function Registrants(props) {
                       </span>
                       {
                         passedCheckpoint(checkpoints, r.handle, checkpointResults) &&
-                        <span styleName="passed" />
+                        <CheckMark styleName="passed" />
                       }
                     </div>
                   </div>
