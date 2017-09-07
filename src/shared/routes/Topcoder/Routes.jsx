@@ -24,13 +24,13 @@ export default function Topcoder() {
     <div styleName="container">
       <Header />
       <Switch>
-        <Route component={ChallengeDetails} exact path="/challenges/:challengeId" />
+        <Route component={ChallengeDetails} exact path="/challenges/:challengeId(\d{8})" />
         <Route component={ChallengeListing} exact path="/challenges" />
         <Route component={Dashboard} exact path="/my-dashboard" />
         <Route
           component={SubmissionManagement}
           exact
-          path="/challenges/:challengeId/my-submissions"
+          path="/challenges/:challengeId(\d{8})/my-submissions"
         />
         <Error404 />
       </Switch>
