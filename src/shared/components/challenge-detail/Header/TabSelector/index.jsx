@@ -10,7 +10,7 @@ import React from 'react';
 import PT from 'prop-types';
 import { DETAIL_TABS } from 'actions/challenge';
 
-import './style.scss';
+import style from './style.scss';
 
 function getSelectorStyle(selectedView, currentView, track) {
   return `challenge-selector-common ${(selectedView === currentView ?
@@ -44,9 +44,34 @@ export default function ChallengeViewSelector(props) {
     onSelectorClicked(selector);
   };
 
+  const handleScroll = (e) => {
+    const scrollElement = e.target;
+
+    const cname = style.mask;
+    /* eslint-env browser */
+    const masks = document.getElementsByClassName(cname);
+    const mask1 = masks[0];
+    const mask2 = masks[1];
+    // When the scrollbar reaches end, disable right mask.
+    if (scrollElement.scrollWidth - scrollElement.scrollLeft === scrollElement.clientWidth) {
+      mask2.style.display = 'none';
+    } else if (scrollElement.scrollLeft === 0) {
+      // At the beginning, disable left mask.
+      mask1.style.display = 'none';
+    } else {
+      // Show both masks in between.
+      mask1.style.display = 'block';
+      mask2.style.display = 'block';
+    }
+  };
+
   return (
-    <div styleName="container">
-      <div styleName="mask" />
+    <div
+      styleName="container"
+      onScroll={handleScroll}
+    >
+      <div styleName="mask left" />
+      <div styleName="mask right" />
       <div styleName="challenge-view-selector">
         <a
           onClick={(e) => { handleSelectorClicked(e, DETAIL_TABS.DETAILS); }}
