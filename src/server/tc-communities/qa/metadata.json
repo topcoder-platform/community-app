@@ -1,12 +1,11 @@
 {
   "challengeFilter": {
-    "groupIds": ["20000004"],
-    "tags": ["qa"]
+    "groupIds": ["20000004"]
   },
   "communityId": "qa",
-  "communityName": "QAAS",
+  "communityName": "QaaS",
   "communitySelector": [{
-    "label": "QAAS Community",
+    "label": "QaaS Community",
     "value": "1"
   }, {
     "label": "Topcoder Public Community",
