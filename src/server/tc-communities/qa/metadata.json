@@ -1,5 +1,6 @@
 {
   "challengeFilter": {
+    "groupIds": ["20000004"],
     "tags": ["qa"]
   },
   "communityId": "qa",
