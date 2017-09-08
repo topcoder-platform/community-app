@@ -12,6 +12,8 @@ import stream from 'stream';
 import { getRates as getExchangeRates } from 'services/money';
 import { toJson as xmlToJson } from 'utils/xml2json';
 
+import mockDocuSignFactory from './__mocks__/docu-sign-mock';
+
 // Dome API for topcoder communities
 import tcCommunitiesDemoApi from './tc-communities';
 
@@ -107,6 +109,17 @@ app.use('/iframe-break', (req, res) => {
   const url = req.query.dest;
   res.send(`<script>window.top.location.href="${url}"</script>`);
 });
+
+/* Serves a mock DocuSign page. Which is, actually, just a simple local
+ * HTML document (/src/shared/services/__mocks__/data/docu-sign-mock.html)
+ * that has two buttons, that do the same redirects, as the real DocuSign
+ * page would do on signing / rejecting a document. */
+app.use('/api/mock/docu-sign', (req, res) =>
+  /* The real DocuSign API does not return the page immediately,
+   * thus timeout to imitate this in our mock. 3 seconds just an arbitrary
+   * choice. */
+  setTimeout(() => res.send(mockDocuSignFactory(req.query.returnUrl)), 3000),
+);
 
 app.use(renderer);
 
