@@ -70,11 +70,13 @@ export default function ChallengeListing(props) {
         activeBucket={props.activeBucket}
         auth={props.auth}
         challenges={challenges}
+        challengesUrl={props.challengesUrl}
         communityName={props.communityName}
         loadingDraftChallenges={props.loadingDraftChallenges}
         loadingPastChallenges={props.loadingPastChallenges}
         loadMoreDraft={props.loadMoreDraft}
         loadMorePast={props.loadMorePast}
+        newChallengeDetails={props.newChallengeDetails}
         openChallengesInNewTabs={props.openChallengesInNewTabs}
         prizeMode={props.prizeMode}
         selectBucket={props.selectBucket}
@@ -148,6 +150,7 @@ ChallengeListing.defaultProps = {
   hideTcLinksInFooter: false,
   loadMoreDraft: null,
   loadMorePast: null,
+  newChallengeDetails: false,
   openChallengesInNewTabs: false,
   prizeMode: 'money-usd',
 };
@@ -155,6 +158,7 @@ ChallengeListing.defaultProps = {
 ChallengeListing.propTypes = {
   activeBucket: PT.string.isRequired,
   challenges: PT.arrayOf(PT.shape()).isRequired,
+  challengesUrl: PT.string.isRequired,
   communityFilter: PT.shape(),
   communityName: PT.string,
   filterState: PT.shape().isRequired,
@@ -165,6 +169,7 @@ ChallengeListing.propTypes = {
   loadingPastChallenges: PT.bool.isRequired,
   loadMoreDraft: PT.func,
   loadMorePast: PT.func,
+  newChallengeDetails: PT.bool,
   openChallengesInNewTabs: PT.bool,
   prizeMode: PT.string,
   selectBucket: PT.func.isRequired,

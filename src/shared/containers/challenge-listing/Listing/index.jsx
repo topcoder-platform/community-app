@@ -104,6 +104,7 @@ export class ListingContainer extends React.Component {
       allPastChallengesLoaded,
       activeBucket,
       challenges,
+      challengesUrl,
       challengeSubtracks,
       challengeTags,
       groupId,
@@ -114,6 +115,7 @@ export class ListingContainer extends React.Component {
       lastRequestedPageOfPastChallenges,
       lastUpdateOfActiveChallenges,
       listingOnly,
+      newChallengeDetails,
       selectBucket,
       selectChallengeDetailsTab,
       hideTcLinksInSidebarFooter,
@@ -168,18 +170,20 @@ export class ListingContainer extends React.Component {
           challenges={challenges}
           challengeSubtracks={challengeSubtracks}
           challengeTags={challengeTags}
+          challengesUrl={challengesUrl}
           communityFilter={communityFilter}
           communityName={this.props.communityName}
           filterState={filter}
+          hideTcLinksInFooter={hideTcLinksInSidebarFooter}
           lastUpdateOfActiveChallenges={lastUpdateOfActiveChallenges}
           loadingChallenges={Boolean(this.props.loadingActiveChallengesUUID)}
           loadingDraftChallenges={Boolean(this.props.loadingDraftChallengesUUID)}
           loadingPastChallenges={Boolean(this.props.loadingPastChallengesUUID)}
+          newChallengeDetails={newChallengeDetails}
           openChallengesInNewTabs={this.props.openChallengesInNewTabs}
           prizeMode={this.props.prizeMode}
           selectBucket={selectBucket}
           selectChallengeDetailsTab={selectChallengeDetailsTab}
-          hideTcLinksInFooter={hideTcLinksInSidebarFooter}
 
           loadMoreDraft={loadMoreDraft}
           loadMorePast={loadMorePast}
@@ -211,9 +215,11 @@ ListingContainer.defaultProps = {
   selectedCommunityId: '',
   groupId: '',
   hideTcLinksInSidebarFooter: false,
+  challengesUrl: '/challenges',
   communityId: null,
   communityName: null,
   listingOnly: false,
+  newChallengeDetails: false,
   openChallengesInNewTabs: false,
   prizeMode: 'money-usd',
 };
@@ -227,6 +233,7 @@ ListingContainer.propTypes = {
   allDraftChallengesLoaded: PT.bool.isRequired,
   allPastChallengesLoaded: PT.bool.isRequired,
   challenges: PT.arrayOf(PT.shape({})).isRequired,
+  challengesUrl: PT.string,
   challengeSubtracks: PT.arrayOf(PT.shape()).isRequired,
   challengeTags: PT.arrayOf(PT.string).isRequired,
   communityFilters: PT.arrayOf(PT.shape({
@@ -249,6 +256,7 @@ ListingContainer.propTypes = {
   loadingDraftChallengesUUID: PT.string.isRequired,
   loadingPastChallengesUUID: PT.string.isRequired,
   markHeaderMenu: PT.func.isRequired,
+  newChallengeDetails: PT.bool,
   openChallengesInNewTabs: PT.bool,
   prizeMode: PT.string,
   selectBucket: PT.func.isRequired,
@@ -285,6 +293,7 @@ const mapStateToProps = (state, ownProps) => {
     loadingPastChallengesUUID: cl.loadingPastChallengesUUID,
     loadingChallengeSubtracks: cl.loadingChallengeSubtracks,
     loadingChallengeTags: cl.loadingChallengeTags,
+    newChallengeDetails: ownProps.newChallengeDetails,
     openChallengesInNewTabs: ownProps.openChallengesInNewTabs,
     prizeMode: ownProps.prizeMode,
     selectedCommunityId: cl.selectedCommunityId,

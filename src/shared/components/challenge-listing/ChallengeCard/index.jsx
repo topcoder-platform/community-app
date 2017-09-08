@@ -43,6 +43,7 @@ const getEndDate = (c) => {
 
 function ChallengeCard({
   challenge: passedInChallenge,
+  challengesUrl,
   newChallengeDetails,
   onTechTagClicked,
   openChallengesInNewTabs,
@@ -62,7 +63,7 @@ function ChallengeCard({
   let challengeDetailLink;
   {
     const challengeUrl = newChallengeDetails
-      ? '/challenges/' : `${config.URL.BASE}/challenge-details/`;
+      ? `${challengesUrl}/` : `${config.URL.BASE}/challenge-details/`;
     if (challenge.track === 'DATA_SCIENCE') {
       const mmDetailUrl = `${config.URL.COMMUNITY}/tc?module=MatchDetails&rd=`;
       /* TODO: Don't we have a better way, whether a challenge is MM or not? */
@@ -171,6 +172,7 @@ function ChallengeCard({
 
         <ChallengeStatus
           challenge={challenge}
+          challengesUrl={challengesUrl}
           detailLink={challengeDetailLink}
           newChallengeDetails={newChallengeDetails}
           openChallengesInNewTabs={openChallengesInNewTabs}
@@ -193,6 +195,7 @@ ChallengeCard.defaultProps = {
 
 ChallengeCard.propTypes = {
   challenge: PT.shape(),
+  challengesUrl: PT.string.isRequired,
   newChallengeDetails: PT.bool,
   onTechTagClicked: PT.func,
   openChallengesInNewTabs: PT.bool,
@@ -205,6 +208,8 @@ ChallengeCard.propTypes = {
  * Renders the Tags
  */
 
+/* TODO: Must be moved to a separate component. And should be functional,
+ * using Redux store to expand/collapse. */
 class Tags extends React.Component {
   constructor(props) {
     super(props);

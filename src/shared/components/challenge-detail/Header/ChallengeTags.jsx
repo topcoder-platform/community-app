@@ -14,6 +14,7 @@ import { Tag, EventTag, PrimaryTag } from 'components/tags';
 
 export default function ChallengeTags(props) {
   const {
+    challengesUrl,
     subTrack,
     events,
     technPlatforms,
@@ -21,6 +22,8 @@ export default function ChallengeTags(props) {
     challengeSubtracksMap,
   } = props;
 
+  /* TODO: Probably, we don't need this anymore, if we use correct data from
+   * APIs (they should contain human-readable names, I believe). */
   const stylizedSubTrack = (t) => {
     if (challengeSubtracksMap[t]) {
       return challengeSubtracksMap[t].name;
@@ -34,12 +37,13 @@ export default function ChallengeTags(props) {
       {
         subTrack &&
         <PrimaryTag
-          to="/challenges"
           onClick={() =>
             setImmediate(() =>
               setChallengeListingFilter({ subtracks: [subTrack] }),
             )
           }
+          to={`${challengesUrl}?filter[subtracks][0]=${
+            encodeURIComponent(subTrack)}`}
         >{stylizedSubTrack(subTrack)}</PrimaryTag>
       }
       {
@@ -56,13 +60,14 @@ export default function ChallengeTags(props) {
             (
               tag &&
               <Tag
-                to="/challenges"
+                key={tag}
                 onClick={() =>
                   setImmediate(() =>
                     setChallengeListingFilter({ tags: [tag] }),
                   )
                 }
-                key={tag}
+                to={`${challengesUrl}?filter[tags][0]=${
+                  encodeURIComponent(tag)}`}
               >{tag}</Tag>
             ),
         )
@@ -78,6 +83,7 @@ ChallengeTags.defaultProps = {
 };
 
 ChallengeTags.propTypes = {
+  challengesUrl: PT.string.isRequired,
   subTrack: PT.string,
   events: PT.arrayOf(PT.string),
   technPlatforms: PT.arrayOf(PT.string),
