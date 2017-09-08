@@ -13,11 +13,13 @@ export default function Listing({
   activeBucket,
   auth,
   challenges,
+  challengesUrl,
   communityName,
   loadingDraftChallenges,
   loadingPastChallenges,
   loadMoreDraft,
   loadMorePast,
+  newChallengeDetails,
   openChallengesInNewTabs,
   prizeMode,
   selectBucket,
@@ -48,10 +50,12 @@ export default function Listing({
         <Bucket
           bucket={buckets[activeBucket]}
           challenges={challenges}
+          challengesUrl={challengesUrl}
           communityName={communityName}
           expanded
           loading={loading}
           loadMore={loadMore}
+          newChallengeDetails={newChallengeDetails}
           openChallengesInNewTabs={openChallengesInNewTabs}
           prizeMode={prizeMode}
           selectChallengeDetailsTab={selectChallengeDetailsTab}
@@ -81,10 +85,12 @@ export default function Listing({
       <Bucket
         bucket={buckets[bucket]}
         challenges={challenges}
+        challengesUrl={challengesUrl}
         communityName={communityName}
         expand={() => selectBucket(bucket)}
         loading={loading}
         loadMore={loadMore}
+        newChallengeDetails={newChallengeDetails}
         openChallengesInNewTabs={openChallengesInNewTabs}
         prizeMode={prizeMode}
         selectChallengeDetailsTab={selectChallengeDetailsTab}
@@ -131,11 +137,13 @@ Listing.propTypes = {
     }),
   }).isRequired,
   challenges: PT.arrayOf(PT.shape()),
+  challengesUrl: PT.string.isRequired,
   communityName: PT.string,
   loadingDraftChallenges: PT.bool.isRequired,
   loadingPastChallenges: PT.bool.isRequired,
   loadMoreDraft: PT.func,
   loadMorePast: PT.func,
+  newChallengeDetails: PT.bool.isRequired,
   openChallengesInNewTabs: PT.bool,
   prizeMode: PT.string.isRequired,
   selectBucket: PT.func.isRequired,

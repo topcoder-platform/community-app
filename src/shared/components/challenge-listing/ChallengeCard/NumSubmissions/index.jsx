@@ -24,6 +24,7 @@ const MM_BASE_URL
 
 export default function NumSubmissions({
   challenge: { id, numSubmissions, rounds, status, track },
+  challengesUrl,
   newChallengeDetails,
   selectChallengeDetailsTab,
 }) {
@@ -36,7 +37,7 @@ export default function NumSubmissions({
   const query = numSubmissions && status === 'COMPLETED'
     ? `?tab=${DETAIL_TABS.SUBMISSIONS}` : '';
   let link = track === 'DATA_SCIENCE' && _.toString(id).length < ID_LENGTH
-    ? `${MM_BASE_URL}${rounds[0].id}` : `/challenges/${id}${query}`;
+    ? `${MM_BASE_URL}${rounds[0].id}` : `${challengesUrl}/${id}${query}`;
   if (!newChallengeDetails && track !== 'DATA_SCIENCE') {
     link = `${config.URL.BASE}/challenge-details/${id}/?type=develop#viewRegistrant`;
   }
@@ -72,6 +73,7 @@ NumSubmissions.propTypes = {
     status: PT.string.isRequired,
     track: PT.string.isRequired,
   }).isRequired,
+  challengesUrl: PT.string.isRequired,
   newChallengeDetails: PT.bool.isRequired,
   selectChallengeDetailsTab: PT.func.isRequired,
 };

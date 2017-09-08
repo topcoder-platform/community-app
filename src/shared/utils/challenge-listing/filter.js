@@ -62,7 +62,7 @@ import { COMPETITION_TRACKS } from 'utils/tc';
 
 function filterByEndDate(challenge, state) {
   if (!state.endDate) return true;
-  return moment(state.endDate).isAfter(challenge.createdAt);
+  return moment(state.endDate).isAfter(challenge.registrationStartDate);
 }
 
 function filterByGroupIds(challenge, state) {

@@ -1,3 +1,10 @@
+/**
+ * The loader of Challenge Details Page code chunks.
+ * It is re-used both inside the Main Topcoder Community website, and inside
+ * other Topcoder Communities, as, at the moment, no difference in the loader
+ * code is necessary between these two usecases.
+ */
+
 import LoadingPagePlaceholder from 'components/LoadingPagePlaceholder';
 import path from 'path';
 import React from 'react';

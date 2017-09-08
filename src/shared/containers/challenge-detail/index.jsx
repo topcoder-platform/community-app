@@ -124,6 +124,7 @@ class ChallengeDetailPageContainer extends React.Component {
     const {
       challenge,
       challengeId,
+      challengesUrl,
       resultsLoadedForChallengeId,
     } = this.props;
 
@@ -149,6 +150,7 @@ class ChallengeDetailPageContainer extends React.Component {
             <ChallengeHeader
               challenge={challenge}
               challengeId={this.props.challengeId}
+              challengesUrl={challengesUrl}
               numWinners={numWinners}
               showDeadlineDetail={this.state.showDeadlineDetail}
               onToggleDeadlines={this.onToggleDeadlines}
@@ -219,6 +221,7 @@ class ChallengeDetailPageContainer extends React.Component {
         {
           this.props.showTermsModal &&
           <TermsModal
+            challengesUrl={challengesUrl}
             onCancel={this.props.closeTermsModal}
             title={this.props.challenge.name}
             isLoadingTerms={this.props.isLoadingTerms}
@@ -251,6 +254,7 @@ class ChallengeDetailPageContainer extends React.Component {
 ChallengeDetailPageContainer.defaultProps = {
   agreedTerms: {},
   agreeingTerm: '',
+  challengesUrl: '/challenges',
   checkpointResults: null,
   checkpoints: {},
   docuSignUrl: '',
@@ -274,6 +278,7 @@ ChallengeDetailPageContainer.propTypes = {
   challenge: PT.shape().isRequired,
   challengeId: PT.number.isRequired,
   challengeSubtracksMap: PT.shape().isRequired,
+  challengesUrl: PT.string,
   checkpointResults: PT.arrayOf(PT.shape()),
   checkpoints: PT.shape(),
   closeTermsModal: PT.func.isRequired,
@@ -394,10 +399,11 @@ const mapStateToProps = (state, props) => ({
   agreedTerms: state.terms.agreedTerms,
   agreeingTerm: state.terms.agreeingTerm,
   authTokens: state.auth,
-  challengeId: Number(props.match.params.challengeId),
   challenge: extractChallengeDetail(state.challenge.details,
     state.challenge.detailsV2,
     Number(props.match.params.challengeId)),
+  challengeId: Number(props.match.params.challengeId),
+  challengesUrl: props.challengesUrl,
   challengeSubtracksMap: state.challengeListing.challengeSubtracksMap,
   checkpointResults: (state.challenge.checkpoints || {}).checkpointResults,
   checkpoints: state.challenge.checkpoints,
