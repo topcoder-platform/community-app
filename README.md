@@ -3,6 +3,26 @@
 # Topcoder Community App
 New version of Topcoder Community website.
 
+### Knowledgebase
+-   [Challenge Terms - Mocking for Testing and Development](docs/challenge-terms.md)
+-   [Code Splitting](docs/code-splitting.md)
+-   [How to Add a New Topcoder Community?](docs/how-to-add-a-new-topcoder-community.md)
+-   [How To Deep-Link (Correct Use of URL Query Params Within The App)](docs/how-to-deep-link.md)
+-   [Why Reducer Factories and How to Use Them?](docs/why-reducer-factories-and-how-to-use-them.md)
+
+### Misc Development Notes
+
+-   [Challenge Listing - Notes from winning submission](docs/challenge-listing-notes.md)
+-   [Leaderboard - Notes from the winning submission](docs/leaderboard-notes.md)
+
+### .exchange-rates.cache
+
+Often you may note that the file named `.exchange-rates.cache`, located in the root folder of the app, got updated without you touching it. In such case, please, don't hesitate to keep and commit its updated version. It is a cache of real-world currency exchange rates. Keeping it up-to-date, and preserving between restarts of the app (no matter in which mode) saves a lot of calls to [https://openexchangerates.com](https://openexchangerates.com), thus allowing us to stay within the limits of their free plan.
+
+In case of merge conflicts, just commit the version of cache file that has a more recent `timestamp` among its data fields.
+
+If you need any operations related to currency conversions, pay attention to the `/src/shared/services/money.js` service.
+
 ### Deployment and Execution
 
 *Disclaimer:* Current instructions are biased towards Ubuntu 16.04. Hovewer, similar recipies should work for other OS. Should you encounter and overcome any tricky issues on other OS, you are welcome to add notes/hints into this file.
@@ -60,14 +80,6 @@ It is intended that Wipro community is accessed as `wipro.topcoder-dev.com` in d
 ### Configuration for *logentries.com*
 
 We use [https://logentries.com](https://logentries.com) to track the logs. Log Entries API token should be provided via the `LOG_ENTRIES_TOKEN` environment variable, which will override the default values set in `/config/default.json` (sample account for local setup testing), and in `/config/production.json` (empty token) - with empty token Log Entries will not be used.
-
-### Development Notes
--   [Challenge Listing - Notes from winning submission](docs/challenge-listing-notes.md)
--   [**Code Splitting**](docs/code-splitting.md)
--   [**How to Add a New Topcoder Community?**](docs/how-to-add-a-new-topcoder-community.md)
--   [**How To Deep-Link (Correct Use of URL Query Params Within The App)**](docs/how-to-deep-link.md)
--   [Leaderboard - Notes from the winning submission](docs/leaderboard-notes.md)
--   [**Why Reducer Factories and How to Use Them?**](docs/why-reducer-factories-and-how-to-use-them.md)
 
 ### Current Status
 

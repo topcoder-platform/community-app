@@ -2,6 +2,11 @@
  * Mock version of Terms service. To be used both for Jest testing, and for
  * manual testing inside the app (see MOCK_CHALLENGE_TERMS_SERVICE constant
  * in the app config).
+ *
+ * NOTE: At the moment this mock does not care much about authorization
+ * (i.e. the presence of auth token), as the real backend api acts a bit
+ * surprising and non-intuitive at the moment, so it is a bit difficult
+ * to imitate it exactly.
  */
 
 import _ from 'lodash';
@@ -23,15 +28,36 @@ class TermsService {
     };
   }
 
-  getTerms(challengeId) {
+  /**
+   * Mock of getTerms(..) method.
+   * The second argument is optional. If present, it should be an array of
+   * boolean values, and it will override acceptance status of terms read
+   * from the JSON data file.
+   * @param {String} challengeId
+   * @param {Array} agreed Optional.
+   */
+  getTerms(challengeId, agreed) {
     const res = _.clone(this.private.tokenV2 ? termsAuth : termsNoAuth);
     res.serverInformation.currentTime = Date.now();
     res.requesterInformation.receivedParams.challengeId
       = _.toString(challengeId);
+    if (this.private.tokenV2 && _.isArray(agreed)) {
+      for (let i = 0; i < Math.min(agreed.length, res.terms.length); i += 1) {
+        res.terms[i].agreed = agreed[i];
+      }
+    }
     return Promise.resolve(res);
   }
 
-  getTermDetails(termId) {
+  /**
+   * Mock of getTermDetails(..) method.
+   * In the case of Topcoder challenge terms there is "agreed" field in the
+   * response. If the second argument is passed into this method, it will
+   * override the value of this field from JSON file with mock data.
+   * @param {Number} termId
+   * @param {Boolean} agreed Optional.
+   */
+  getTermDetails(termId, agreed) {
     _.noop(this);
     let res;
     switch (termId) {
@@ -40,6 +66,7 @@ class TermsService {
         break;
       case 21193:
         res = _.clone(termsTopcoderDetails);
+        if (!_.isUndefined(agreed)) res.agreed = agreed;
         break;
       default: throw new Error('Unknown termId!');
     }
