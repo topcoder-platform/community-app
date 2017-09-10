@@ -1,4 +1,5 @@
 ![Dev Build Status](https://img.shields.io/circleci/project/github/topcoder-platform/community-app/develop.svg?label=develop)
+![Master Build Status](https://img.shields.io/circleci/project/github/topcoder-platform/community-app/master.svg?label=master)
 
 # Topcoder Community App
 New version of Topcoder Community website.
@@ -6,6 +7,7 @@ New version of Topcoder Community website.
 ### Knowledgebase
 -   [Challenge Terms - Mocking for Testing and Development](docs/challenge-terms.md)
 -   [Code Splitting](docs/code-splitting.md)
+-   [Coding Standards](docs/coding-standards.md)
 -   [How to Add a New Topcoder Community?](docs/how-to-add-a-new-topcoder-community.md)
 -   [How To Deep-Link (Correct Use of URL Query Params Within The App)](docs/how-to-deep-link.md)
 -   [Why Reducer Factories and How to Use Them?](docs/why-reducer-factories-and-how-to-use-them.md)
