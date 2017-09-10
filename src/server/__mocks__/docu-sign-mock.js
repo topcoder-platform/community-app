@@ -4,7 +4,7 @@ export default returnUrl =>
     <head>
       <title>Simple Mock of DocuSign page</title>
     </head>
-    <body>
+    <body style="background: whitesmoke">
       <h1>Simple Mock of DocuSign page</h1>
       <div>
         Use the buttons below to mock the signature, or rejection of the signature.
