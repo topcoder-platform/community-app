@@ -25,4 +25,12 @@ $button-space-32: $base-unit * 6 + 2;
   left: 50%;
   transform: translate(-50%, -50%);
   z-index: 999;
+
+  @include xxs-to-xs {
+    width: 92%;
+    top: 50px;
+    left: 4%;
+    transform: none;
+    padding: 40px 10px;
+  }
 }
