@@ -22,10 +22,10 @@ exports[`Snapshot match 1`] = `
   >
     Invalid date
   </td>
-  <td>
-    <div
-      className="src-shared-components-SubmissionManagement-Submission-___styles__action-col___2M1RY"
-    >
+  <td
+    className="src-shared-components-SubmissionManagement-Submission-___styles__action-col___2M1RY"
+  >
+    <div>
       <a
         href={undefined}
       >
@@ -72,10 +72,10 @@ exports[`Snapshot match 2`] = `
   >
     Invalid date
   </td>
-  <td>
-    <div
-      className="src-shared-components-SubmissionManagement-Submission-___styles__action-col___2M1RY"
-    >
+  <td
+    className="src-shared-components-SubmissionManagement-Submission-___styles__action-col___2M1RY"
+  >
+    <div>
       <a
         href={undefined}
       >

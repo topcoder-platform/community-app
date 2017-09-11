@@ -26,6 +26,14 @@ $light-gray-color: $tc-gray-neutral-light;
 .submission-management-content {
   padding: $submang-space-20 $submang-space-140;
 
+  @include sm {
+    padding: $submang-space-20 $submang-space-35;
+  }
+
+  @include xxs-to-xs {
+    padding: 0;
+  }
+
   .content-head {
     display: flex;
     justify-content: space-between;
@@ -35,6 +43,12 @@ $light-gray-color: $tc-gray-neutral-light;
     line-height: $submang-space-25;
     margin-top: $submang-space-50;
     margin-bottom: $base-unit;
+
+    @include xxs-to-xs {
+      flex-direction: column;
+      margin-top: $submang-space-20;
+      padding: 0 15px;
+    }
 
     .title {
       font-size: 20px;
@@ -47,8 +61,18 @@ $light-gray-color: $tc-gray-neutral-light;
       color: $tc-black;
       line-height: $submang-space-30;
 
+      @include xxs-to-xs {
+        margin-top: 10px;
+        margin-bottom: 15px;
+      }
+
       span.ends-label {
         color: $tc-gray-50;
+
+        @include xxs-to-xs {
+          display: block;
+          margin-bottom: -10px;
+        }
       }
     }
   }
@@ -58,6 +82,10 @@ $light-gray-color: $tc-gray-neutral-light;
     color: $tc-gray-50;
     line-height: $submang-space-25;
     margin-bottom: $submang-space-30;
+
+    @include xxs-to-xs {
+      padding: 0 15px;
+    }
   }
 }
 
@@ -66,12 +94,25 @@ $light-gray-color: $tc-gray-neutral-light;
   justify-content: space-between;
   width: 100%;
   font-weight: 400;
-  padding: 25px 50px;
+  padding: $submang-space-25 $submang-space-50;
   background: $light-gray-color;
   border-bottom: 1px solid $tc-gray-neutral-dark;
 
+  @include sm {
+    padding: $submang-space-25 $submang-space-35;
+  }
+
+  @include xxs-to-xs {
+    flex-direction: column;
+    padding: $submang-space-20 15px;
+  }
+
   .left-col {
-    padding-right: 20px;
+    padding-right: 200px;
+
+    @include xxs-to-xs {
+      padding-right: 0;
+    }
 
     .name {
       font-size: 28px;
@@ -100,7 +141,16 @@ $light-gray-color: $tc-gray-neutral-light;
   .right-col {
     @include roboto;
 
-    min-width: 8%;
+    min-width: 100px;
+
+    @include xxs-to-xs {
+      margin-top: 10px;
+
+      p,
+      div {
+        display: inline-block;
+      }
+    }
 
     .round {
       font-size: 15px;
@@ -112,12 +162,23 @@ $light-gray-color: $tc-gray-neutral-light;
       font-size: 20px;
       color: $tc-gray-80;
       line-height: $submang-space-30;
+
+      @include xxs-to-xs {
+        font-size: 15px;
+        font-weight: bold;
+        line-height: $submang-space-25;
+        margin-left: 5px;
+      }
     }
 
     .left-label {
       font-size: 13px;
       color: $tc-gray-50;
       line-height: $submang-space-20;
+
+      @include xxs-to-xs {
+        margin-left: 5px;
+      }
     }
   }
 }
