@@ -28,9 +28,8 @@ $button-space-32: $base-unit * 6 + 2;
 
   @include xxs-to-xs {
     width: 92%;
-    top: 50px;
     left: 4%;
-    transform: none;
+    transform: translate(0, -50%);
     padding: 40px 10px;
   }
 }
