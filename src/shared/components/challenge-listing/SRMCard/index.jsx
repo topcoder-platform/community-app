@@ -107,7 +107,7 @@ const UpcomingSRMs = ({ srmChallenge }) => (
 );
 
 UpcomingSRMs.propTypes = {
-  srmChallenge: PT.shape({}),
+  srmChallenge: PT.shape().isRequired,
 };
 
 // past SRMs
@@ -131,8 +131,8 @@ const SRMCard = ({ category, srmChallenge }) => (
 );
 
 SRMCard.propTypes = {
-  category: PT.string,
-  srmChallenge: PT.shape({}),
+  category: PT.string.isRequired,
+  srmChallenge: PT.shape().isRequired,
 };
 
 export default SRMCard;

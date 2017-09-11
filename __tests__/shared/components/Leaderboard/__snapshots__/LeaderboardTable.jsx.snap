@@ -80,10 +80,14 @@ exports[`Matches shallow shapshot 1`] = `
       </td>
       <td
         className="src-shared-components-Leaderboard-LeaderboardTable-___styles__col-challenges___29htm"
-      />
+      >
+        0
+      </td>
       <td
         className="src-shared-components-Leaderboard-LeaderboardTable-___styles__col-points___10Lis"
-      />
+      >
+        0
+      </td>
     </tr>
     <tr>
       <td
@@ -133,10 +137,14 @@ exports[`Matches shallow shapshot 1`] = `
       </td>
       <td
         className="src-shared-components-Leaderboard-LeaderboardTable-___styles__col-challenges___29htm"
-      />
+      >
+        0
+      </td>
       <td
         className="src-shared-components-Leaderboard-LeaderboardTable-___styles__col-points___10Lis"
-      />
+      >
+        0
+      </td>
     </tr>
     <tr>
       <td
@@ -186,10 +194,14 @@ exports[`Matches shallow shapshot 1`] = `
       </td>
       <td
         className="src-shared-components-Leaderboard-LeaderboardTable-___styles__col-challenges___29htm"
-      />
+      >
+        0
+      </td>
       <td
         className="src-shared-components-Leaderboard-LeaderboardTable-___styles__col-points___10Lis"
-      />
+      >
+        0
+      </td>
     </tr>
     <tr>
       <td
@@ -239,10 +251,14 @@ exports[`Matches shallow shapshot 1`] = `
       </td>
       <td
         className="src-shared-components-Leaderboard-LeaderboardTable-___styles__col-challenges___29htm"
-      />
+      >
+        0
+      </td>
       <td
         className="src-shared-components-Leaderboard-LeaderboardTable-___styles__col-points___10Lis"
-      />
+      >
+        0
+      </td>
     </tr>
   </tbody>
 </table>

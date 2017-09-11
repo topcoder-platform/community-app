@@ -22,7 +22,7 @@ exports[`Matches shallow shapshot 1`] = `
         Starts in 
         <span>
           1d
-                          1d
+                1d
         </span>
       </p>
       <div
@@ -85,7 +85,7 @@ exports[`Matches shallow shapshot 2`] = `
         Starts in 
         <span>
           1d
-                          1d
+                1d
         </span>
       </p>
       <div
