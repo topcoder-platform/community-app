@@ -65,8 +65,9 @@ class Loader extends React.Component {
       return <LoadingPagePlaceholder />;
     }
 
-    const visitorGroupIds = visitorGroups.map(g => g.id);
-    const member = meta.groupId && visitorGroupIds.includes(meta.groupId);
+    const visitorGroupIds = visitorGroups ? visitorGroups.map(g => g.id) : null;
+    const member = visitorGroupIds && meta.groupId
+      && visitorGroupIds.includes(meta.groupId);
 
     /* Community does not require authorization. */
     if (!meta.authorizedGroupIds) return Community({ member, meta });
