@@ -31,8 +31,12 @@ function Routes({ subdomains }) {
   if (communityId) {
     return (
       <CommunityLoader
-        communityComponent={({ meta }) => (
-          <Communities communityId={communityId} meta={meta} />
+        communityComponent={({ member, meta }) => (
+          <Communities
+            communityId={communityId}
+            member={member}
+            meta={meta}
+          />
         )}
         communityId={communityId}
       />
@@ -45,13 +49,14 @@ function Routes({ subdomains }) {
       <Route
         render={({ match }) => (
           <CommunityLoader
-            communityComponent={({ meta }) => {
+            communityComponent={({ member, meta }) => {
               let base = match.url;
               while (base.endsWith('/')) base = base.slice(0, -1);
               return (
                 <Communities
                   base={base}
                   communityId={match.params.communityId}
+                  member={member}
                   meta={meta}
                 />
               );

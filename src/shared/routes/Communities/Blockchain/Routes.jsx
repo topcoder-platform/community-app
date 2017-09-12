@@ -2,8 +2,13 @@
  * Routing of Wipro Community.
  */
 
+/* TODO: This assembly of custom challenge listing page should be split out into
+ * a separate component. But, it is good enough for now. */
 import ChallengeListingTopBanner from
   'components/tc-communities/communities/blockchain/ChallengeListing/TopBanner';
+import ChallengeListingRegisterToSee from
+  'components/tc-communities/communities/blockchain/ChallengeListing/RegisterToSee';
+
 import Error404 from 'components/Error404';
 import Footer from 'containers/tc-communities/Footer';
 import Header from 'containers/tc-communities/Header';
@@ -16,7 +21,7 @@ import { Route, Switch } from 'react-router-dom';
 import ChallengeListing from '../ChallengeListing';
 import Leaderboard from '../Leaderboard';
 
-export default function Routes({ base, meta }) {
+export default function Routes({ base, member, meta }) {
   return (
     <Route
       component={({ match }) => (
@@ -27,7 +32,9 @@ export default function Routes({ base, meta }) {
               component={() => (
                 <div>
                   <ChallengeListingTopBanner />
-                  <ChallengeListing listingOnly meta={meta} />
+                  { member ? (
+                    <ChallengeListing listingOnly meta={meta} />
+                  ) : <ChallengeListingRegisterToSee /> }
                 </div>
               )}
               exact
@@ -69,5 +76,6 @@ Routes.defaultProps = {
 
 Routes.propTypes = {
   base: PT.string,
+  member: PT.bool.isRequired,
   meta: PT.shape().isRequired,
 };
