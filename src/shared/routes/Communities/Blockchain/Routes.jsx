@@ -2,11 +2,13 @@
  * Routing of Wipro Community.
  */
 
+import ChallengeListingTopBanner from
+  'components/tc-communities/communities/blockchain/ChallengeListing/TopBanner';
 import Error404 from 'components/Error404';
-import Footer from 'components/tc-communities/communities/wipro/Footer';
+import Footer from 'containers/tc-communities/Footer';
 import Header from 'containers/tc-communities/Header';
-import Home from 'components/tc-communities/communities/qa/Home';
-import Learn from 'components/tc-communities/communities/qa/Learn';
+import Home from 'components/tc-communities/communities/blockchain/Home';
+import Learn from 'components/tc-communities/communities/blockchain/Learn';
 import PT from 'prop-types';
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
@@ -22,7 +24,12 @@ export default function Routes({ base, meta }) {
           <Header pageId={match.params.pageId || 'home'} />
           <Switch>
             <Route
-              component={() => <ChallengeListing meta={meta} />}
+              component={() => (
+                <div>
+                  <ChallengeListingTopBanner />
+                  <ChallengeListing listingOnly meta={meta} />
+                </div>
+              )}
               exact
               path={`${base}/challenges`}
             />

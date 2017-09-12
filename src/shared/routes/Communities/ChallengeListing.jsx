@@ -11,6 +11,7 @@ import { SplitRoute } from 'utils/router';
 
 export default function ChallengeListingRoute({
   challengesUrl,
+  listingOnly,
   meta,
   newChallengeDetails,
 }) {
@@ -39,6 +40,7 @@ export default function ChallengeListingRoute({
                * should be adopted. */
               hideTcLinksInSidebarFooter={meta.communityId === 'wipro'}
 
+              listingOnly={listingOnly}
               newChallengeDetails={newChallengeDetails}
               openChallengesInNewTabs={
                 _.get(meta, 'challengeListing.openChallengesInNewTabs')
@@ -55,11 +57,13 @@ export default function ChallengeListingRoute({
 
 ChallengeListingRoute.defaultProps = {
   challengesUrl: '/challenges',
+  listingOnly: false,
   newChallengeDetails: false,
 };
 
 ChallengeListingRoute.propTypes = {
   challengesUrl: PT.string,
+  listingOnly: PT.bool,
   meta: PT.shape({
     challengeListing: PT.shape({
       openChallengesInNewTabs: PT.bool,
