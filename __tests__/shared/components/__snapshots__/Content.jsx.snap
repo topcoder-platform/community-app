@@ -243,6 +243,14 @@ exports[`Matches shallow shapshot 1`] = `
     <li>
       <Link
         replace={false}
+        to="/community/blockchain/home"
+      >
+        Blockchain Community
+      </Link>
+    </li>
+    <li>
+      <Link
+        replace={false}
         to="/community/community-2/home"
       >
         Community 2

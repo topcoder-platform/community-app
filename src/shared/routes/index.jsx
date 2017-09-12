@@ -18,7 +18,8 @@ import Topcoder from './Topcoder';
 
 function Routes({ subdomains }) {
   let communityId;
-  if (subdomains.includes('community-2')) communityId = 'community-2';
+  if (subdomains.includes('blockchain')) communityId = 'blockchain';
+  else if (subdomains.includes('community-2')) communityId = 'community-2';
   else if (subdomains.includes('demo-expert')) communityId = 'demo-expert';
   else if (subdomains.includes('wipro')
     || subdomains.includes('topgear')) communityId = 'wipro';

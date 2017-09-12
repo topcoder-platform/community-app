@@ -5,6 +5,7 @@
 import PT from 'prop-types';
 import React from 'react';
 
+import Blockchain from './Blockchain';
 import Community2 from './Community2';
 import DemoExpert from './DemoExpert';
 import QA from './QA';
@@ -16,6 +17,7 @@ import Wipro from './Wipro';
 
 export default function Communities({ base, communityId, meta }) {
   switch (communityId) {
+    case 'blockchain': return <Blockchain base={base} meta={meta} />;
     case 'community-2': return <Community2 base={base} meta={meta} />;
     case 'demo-expert': return <DemoExpert base={base} meta={meta} />;
     case 'qa': return <QA base={base} meta={meta} />;
