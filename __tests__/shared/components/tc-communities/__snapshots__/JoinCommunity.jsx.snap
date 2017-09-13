@@ -8,36 +8,14 @@ exports[`Matches shallow shapshot 1`] = `
   >
     Join Community
   </button>
-  <ThemedModal
-    composeTheme="deeply"
-    mapThemrProps={[Function]}
-    onCancel={[Function]}
-    theme={Object {}}
-  >
-    <p
-      className="src-shared-components-tc-communities-JoinCommunity-___style__confirmMsg___3Urx0"
-    >
-      Are you sure you want to join 
-      ios
-      ?
-    </p>
-    <div
-      className="src-shared-components-tc-communities-JoinCommunity-___style__buttons___24jiR"
-    >
-      <button
-        className="src-shared-components-tc-communities-JoinCommunity-___style__btnConfirm___21w2M"
-        onClick={[Function]}
-      >
-        Join
-      </button>
-      <button
-        className="src-shared-components-tc-communities-JoinCommunity-___style__btnCancel___21ib7"
-        onClick={[Function]}
-      >
-        Cancel
-      </button>
-    </div>
-  </ThemedModal>
+  <ConfirmModal
+    communityName="ios"
+    groupId="1"
+    join={[Function]}
+    resetJoinButton={[Function]}
+    token="token"
+    userId="useId"
+  />
 </div>
 `;
 
@@ -115,35 +93,13 @@ exports[`Matches shallow shapshot 5`] = `
   >
     Join Community
   </button>
-  <ThemedModal
-    composeTheme="deeply"
-    mapThemrProps={[Function]}
-    onCancel={[Function]}
-    theme={Object {}}
-  >
-    <p
-      className="src-shared-components-tc-communities-JoinCommunity-___style__confirmMsg___3Urx0"
-    >
-      Are you sure you want to join 
-      ios
-      ?
-    </p>
-    <div
-      className="src-shared-components-tc-communities-JoinCommunity-___style__buttons___24jiR"
-    >
-      <button
-        className="src-shared-components-tc-communities-JoinCommunity-___style__btnConfirm___21w2M"
-        onClick={[Function]}
-      >
-        Join
-      </button>
-      <button
-        className="src-shared-components-tc-communities-JoinCommunity-___style__btnCancel___21ib7"
-        onClick={[Function]}
-      >
-        Cancel
-      </button>
-    </div>
-  </ThemedModal>
+  <ConfirmModal
+    communityName="ios"
+    groupId="1"
+    join={[Function]}
+    resetJoinButton={[Function]}
+    token={null}
+    userId="useId"
+  />
 </div>
 `;
