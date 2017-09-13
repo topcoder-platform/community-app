@@ -17,6 +17,7 @@ function Modal(props) {
     <div>
       <div
         className={props.theme.container}
+        onWheel={event => event.preventDefault()}
       >{props.children}</div>
       <button
         onClick={() => props.onCancel()}

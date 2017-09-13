@@ -1,4 +1,8 @@
 .box {
-  background: paleturquoise;
-  border: 3px dashed red;
+  background: paleturquoise !important;
+  border: 3px dashed red !important;
+}
+
+.text {
+  color: blue !important;
 }

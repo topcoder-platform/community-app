@@ -18,6 +18,7 @@ function mapStateToProps(state, ownProps) {
   return {
     activeTrigger: state.topcoderHeader.activeTrigger,
     additionalLogos: meta.additionalLogos,
+    baseUrl: ownProps.baseUrl,
     chevronOverAvatar: meta.chevronOverAvatar,
     communityId: meta.communityId,
     communitySelector: meta.communitySelector,

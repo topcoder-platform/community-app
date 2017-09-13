@@ -10,6 +10,7 @@ import moment from 'moment';
 import _ from 'lodash';
 import config from 'utils/config';
 
+import Lock from '../icons/lock.svg';
 import './style.scss';
 
 function getId(submissions, winner) {
@@ -62,7 +63,7 @@ export default function Winners(props) {
                     ) :
                     (
                       <div styleName="lock">
-                        <div styleName="image" />
+                        <Lock styleName="lock-icon" />
                         <div styleName="text">LOCKED</div>
                       </div>
                     )

@@ -7,6 +7,10 @@ $sm-space-40: $base-unit * 8;
 .outer-container {
   background: $tc-gray-10;
   padding: 24px;
+
+  @include xxs-to-xs {
+    padding: 15px;
+  }
 }
 
 .deletingIndicator {
@@ -22,7 +26,6 @@ $sm-space-40: $base-unit * 8;
 
   background: #fff;
   margin: auto;
-  width: 1242px;
 
   .modal-content {
     text-align: center;

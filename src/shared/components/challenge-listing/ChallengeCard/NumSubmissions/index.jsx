@@ -23,7 +23,8 @@ const MM_BASE_URL
   = `${config.URL.COMMUNITY}/longcontest/?module=ViewStandings&rd=`;
 
 export default function NumSubmissions({
-  challenge: { id, numSubmissions, rounds, track },
+  challenge: { id, numSubmissions, rounds, status, track },
+  challengesUrl,
   newChallengeDetails,
   selectChallengeDetailsTab,
 }) {
@@ -33,9 +34,10 @@ export default function NumSubmissions({
     case 1: tip = '1 total submission'; break;
     default: tip = `${numSubmissions} total submissions`;
   }
-  const query = numSubmissions ? `?tab=${DETAIL_TABS.SUBMISSIONS}` : '';
+  const query = numSubmissions && status === 'COMPLETED'
+    ? `?tab=${DETAIL_TABS.SUBMISSIONS}` : '';
   let link = track === 'DATA_SCIENCE' && _.toString(id).length < ID_LENGTH
-    ? `${MM_BASE_URL}${rounds[0].id}` : `/challenges/${id}${query}`;
+    ? `${MM_BASE_URL}${rounds[0].id}` : `${challengesUrl}/${id}${query}`;
   if (!newChallengeDetails && track !== 'DATA_SCIENCE') {
     link = `${config.URL.BASE}/challenge-details/${id}/?type=develop#viewRegistrant`;
   }
@@ -49,7 +51,8 @@ export default function NumSubmissions({
         <Link
           onClick={() => (
             selectChallengeDetailsTab(
-              numSubmissions ? DETAIL_TABS.SUBMISSIONS : DETAIL_TABS.DETAILS,
+              numSubmissions && status === 'COMPLETED'
+                ? DETAIL_TABS.SUBMISSIONS : DETAIL_TABS.DETAILS,
             )
           )}
           to={link}
@@ -67,8 +70,10 @@ NumSubmissions.propTypes = {
     id: PT.oneOfType([PT.number, PT.string]).isRequired,
     numSubmissions: PT.number.isRequired,
     rounds: PT.arrayOf(PT.object),
+    status: PT.string.isRequired,
     track: PT.string.isRequired,
   }).isRequired,
+  challengesUrl: PT.string.isRequired,
   newChallengeDetails: PT.bool.isRequired,
   selectChallengeDetailsTab: PT.func.isRequired,
 };

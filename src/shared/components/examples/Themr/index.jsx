@@ -37,6 +37,10 @@ export default class Themr extends React.Component {
     return (
       <div>
         <h1>react-css-themr test/demo</h1>
+        NOTE: Our setup cannot guarantee the order of different styles in the
+        extracted CSS bundle, thus it cannot guarantee proper deep merge of
+        theme sources according to their priority. You have to use !important
+        directives to ensure the proper merging.
         <h3>Default theme</h3>
         <ThemableComponent />
         <h3>Default theme + Parent-provided styling</h3>
@@ -46,6 +50,10 @@ export default class Themr extends React.Component {
         <h3>Default theme + Context styling</h3>
         <ThemeProvider theme={contextTheme}>
           <ThemableComponent />
+        </ThemeProvider>
+        <h3>Default theme + Context styling + Parent-provided styling</h3>
+        <ThemeProvider theme={contextTheme}>
+          <ThemableComponent theme={style} />
         </ThemeProvider>
         <h3>
           Default theme + Context styling, inject async with 3 sec delay

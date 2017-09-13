@@ -191,5 +191,5 @@ ChallengeFilters.propTypes = {
   showTrackModal: PT.func.isRequired,
   trackModalShown: PT.bool.isRequired,
   validKeywords: PT.arrayOf(PT.string).isRequired,
-  validSubtracks: PT.arrayOf(PT.string).isRequired,
+  validSubtracks: PT.arrayOf(PT.object).isRequired,
 };

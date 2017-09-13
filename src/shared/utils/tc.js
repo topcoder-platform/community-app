@@ -3,7 +3,6 @@
  */
 
 import _ from 'lodash';
-import jstz from 'jstimezonedetect';
 import moment from 'moment-timezone';
 import config from './config';
 
@@ -123,7 +122,7 @@ export function timeDiff(input, type) {
  * @return {string}        formated date string
  */
 export function localTime(input, format) {
-  const timezone = jstz.determine().name();
+  const timezone = moment.tz.guess();
   return moment(input).tz(timezone).format(format || 'MM/DD/YY hh:mm a z');
 }
 

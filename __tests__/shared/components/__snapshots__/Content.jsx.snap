@@ -243,6 +243,14 @@ exports[`Matches shallow shapshot 1`] = `
     <li>
       <Link
         replace={false}
+        to="/community/blockchain/home"
+      >
+        Blockchain Community
+      </Link>
+    </li>
+    <li>
+      <Link
+        replace={false}
         to="/community/community-2/home"
       >
         Community 2
@@ -356,6 +364,14 @@ exports[`Matches shallow shapshot 1`] = `
         Fonts Test
       </Link>
        - A simple showcase of the fonts included into this repo, and the test of their proper inclusion into the bundle;
+    </li>
+    <li>
+      <Link
+        replace={false}
+        to="/examples/loading-indicators"
+      >
+        Loading Indicators
+      </Link>
     </li>
     <li>
       <Link

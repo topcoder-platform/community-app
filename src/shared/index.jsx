@@ -7,6 +7,8 @@
 import React from 'react';
 import Routes from 'routes';
 
+import 'styles/global.scss';
+
 const USE_DEV_TOOLS = Boolean(process.env.DEV_TOOLS);
 const DevTools = USE_DEV_TOOLS ? require('containers/DevTools').default : undefined;
 

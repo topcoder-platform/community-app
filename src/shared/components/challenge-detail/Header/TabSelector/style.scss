@@ -81,10 +81,19 @@
 }
 
 .mask {
-  background: linear-gradient(90deg, rgba(250, 250, 251, 0) 3%, #fafafb 49%, #fafafb 98%);
   height: 100%;
   position: absolute;
-  right: 0;
   width: 30px;
   z-index: 100;
+}
+
+.mask.left {
+  display: none;
+  background: linear-gradient(-90deg, rgba(250, 250, 251, 0) 3%, #fafafb 49%, #fafafb 98%);
+  left: 0;
+}
+
+.mask.right {
+  background: linear-gradient(90deg, rgba(250, 250, 251, 0) 3%, #fafafb 49%, #fafafb 98%);
+  right: 0;
 }

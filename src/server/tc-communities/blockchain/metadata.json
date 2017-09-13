@@ -1,0 +1,36 @@
+{
+  "challengeFilter": {
+    "groupIds": ["20000010"]
+  },
+  "communityId": "blockchain",
+  "communityName": "Blockchain",
+  "communitySelector": [{
+    "label": "Blockchain Community",
+    "value": "1"
+  }, {
+    "label": "Topcoder Public Community",
+    "redirect": "https://www.topcoder.com",
+    "value": "2"
+  }],
+  "groupId": "20000010",
+  "logos": [{
+    "img": "/themes/blockchain/logo_topcoder_with_name.svg",
+    "url": "https://www.topcoder.com"
+  }],
+  "menuItems": [
+    {
+      "title": "Home",
+      "url": "."
+    }, {
+      "title": "Learn",
+      "url": "learn"
+    }, {
+      "title": "Challenges",
+      "url": "challenges"
+    }
+  ],
+  "leaderboardApiUrl": "https://api.topcoder.com/v4/looks/458/run/json/",
+  "newsFeed": "http://www.topcoder.com/feed",
+  "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore.",
+  "image":"1.jpg"
+}

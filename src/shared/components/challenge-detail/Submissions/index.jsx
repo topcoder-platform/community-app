@@ -7,6 +7,7 @@ import React from 'react';
 import PT from 'prop-types';
 import moment from 'moment';
 import config from 'utils/config';
+import Lock from '../icons/lock.svg';
 
 import './style.scss';
 
@@ -59,7 +60,7 @@ export default function Submissions(props) {
     ) :
       (
         <div styleName="container no-view">
-          <div styleName="lock" />
+          <Lock styleName="lock" />
           <div styleName="title">Private Challenge</div>
           <div styleName="subtitle">Submissions are not viewable for this challenge</div>
           <div styleName="desc">There are many reason why the submissions may not be viewable, such

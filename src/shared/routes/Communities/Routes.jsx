@@ -5,6 +5,7 @@
 import PT from 'prop-types';
 import React from 'react';
 
+import Blockchain from './Blockchain';
 import Community2 from './Community2';
 import DemoExpert from './DemoExpert';
 import QA from './QA';
@@ -14,8 +15,10 @@ import TcProdDev from './TcProdDev';
 import Veterans from './Veterans';
 import Wipro from './Wipro';
 
-export default function Communities({ base, communityId, meta }) {
+export default function Communities({ base, communityId, member, meta }) {
   switch (communityId) {
+    case 'blockchain':
+      return <Blockchain base={base} member={member} meta={meta} />;
     case 'community-2': return <Community2 base={base} meta={meta} />;
     case 'demo-expert': return <DemoExpert base={base} meta={meta} />;
     case 'qa': return <QA base={base} meta={meta} />;
@@ -35,5 +38,6 @@ Communities.defaultProps = {
 Communities.propTypes = {
   base: PT.string,
   communityId: PT.string.isRequired,
+  member: PT.bool.isRequired,
   meta: PT.shape().isRequired,
 };

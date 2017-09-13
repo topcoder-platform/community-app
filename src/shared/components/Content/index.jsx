@@ -97,6 +97,9 @@ export default function Content() {
       <h3>Separate Topcoder Communities</h3>
       <ul>
         <li>
+          <Link to="/community/blockchain/home">Blockchain Community</Link>
+        </li>
+        <li>
           <Link to="/community/community-2/home">Community 2</Link>
         </li>
         <li>
@@ -146,6 +149,9 @@ export default function Content() {
           <Link to="/examples/fonts-test">Fonts Test</Link> - A simple showcase
           of the fonts included into this repo, and the test of their proper
           inclusion into the bundle;
+        </li>
+        <li>
+          <Link to="/examples/loading-indicators">Loading Indicators</Link>
         </li>
         <li>
           <Link to="/examples/svg-loading">SVG Loading</Link> - Shows how to

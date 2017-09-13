@@ -65,8 +65,12 @@ class Loader extends React.Component {
       return <LoadingPagePlaceholder />;
     }
 
+    const visitorGroupIds = visitorGroups ? visitorGroups.map(g => g.id) : null;
+    const member = visitorGroupIds && meta.groupId
+      && visitorGroupIds.includes(meta.groupId);
+
     /* Community does not require authorization. */
-    if (!meta.authorizedGroupIds) return Community({ meta });
+    if (!meta.authorizedGroupIds) return Community({ member, meta });
 
     /* Visitor is not authenticated. */
     if (!visitorGroups) {
@@ -81,9 +85,8 @@ class Loader extends React.Component {
 
     /* Visitor belongs to at least one of the groups authorized to access this
      * community. */
-    const visitorGroupIds = visitorGroups.map(g => g.id);
     if (_.intersection(visitorGroupIds, meta.authorizedGroupIds).length) {
-      return Community({ meta });
+      return Community({ member, meta });
     }
 
     /* Visitor is not authorized to access this community. */

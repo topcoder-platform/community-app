@@ -1,0 +1,44 @@
+/**
+ * Global mixins for button styles.
+ * Whenever you need a button, you should use /src/components/buttons and the
+ * styles supported there with react-css-themr. The mixins defined here help to
+ * customize specific button instances in a consistent way, i.e. selecting the
+ * size of specific button.
+ */
+
+@mixin btn-xs {
+  font-size: 12px;
+  height: 4 * $base-unit;
+  line-height: 3 * $base-unit;
+  margin: $base-unit;
+  min-width: 11 * $base-unit;
+  padding: 0 3 * $base-unit;
+}
+
+@mixin btn-sm {
+  font-size: 13px;
+  height: 6 * $base-unit;
+  line-height: 5 * $base-unit;
+  min-width: 13 * $base-unit;
+  padding: 0 4 * $base-unit;
+}
+
+@mixin btn-md {
+  font-size: 15px;
+  height: 8 * $base-unit;
+  line-height: 7 * $base-unit;
+  min-width: 16 * $base-unit;
+  padding: 0 5 * $base-unit;
+}
+
+@mixin btn-lg {
+  font-size: 20px;
+  height: 10 * $base-unit;
+  line-height: 9 * $base-unit;
+  min-width: 20 * $base-unit;
+  padding: 0 6 * $base-unit;
+}
+
+@mixin button-transition {
+  transition: background 0.5s;
+}

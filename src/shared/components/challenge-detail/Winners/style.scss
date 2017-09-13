@@ -76,15 +76,6 @@
   position: relative;
 
   .lock {
-    .image {
-      background-image: url(assets/images/lock-sm.png);
-      width: 46px;
-      height: 58px;
-      background-size: 100% 100%;
-      margin-bottom: $base-unit;
-      margin-left: -2px;
-    }
-
     .text {
       color: $tc-gray-50;
       font-size: 12px;
@@ -187,4 +178,12 @@
       line-height: 20px;
     }
   }
+}
+
+.lock-icon {
+  fill: $tc-gray-20;
+  height: 58px;
+  margin-bottom: $base-unit;
+  margin-left: -1px;
+  width: 46px;
 }

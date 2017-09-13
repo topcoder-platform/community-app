@@ -1,0 +1,87 @@
+/**
+ * Routing of Wipro Community.
+ */
+
+import ChallengeDetails from 'routes/ChallengeDetails';
+import ChallengeListing from 'routes/Communities/ChallengeListing';
+import Error404 from 'components/Error404';
+import Footer from 'components/tc-communities/communities/wipro/Footer';
+import Header from 'containers/tc-communities/Header';
+import Home from 'components/tc-communities/communities/tc-prod-dev/Home';
+import Leaderboard from 'routes/Communities/Leaderboard';
+import Learn from 'components/tc-communities/communities/tc-prod-dev/Learn';
+import PT from 'prop-types';
+import React from 'react';
+import { Route, Switch } from 'react-router-dom';
+
+import './style.scss';
+
+export default function TcProdDev({ base, meta }) {
+  return (
+    <Route
+      component={({ match }) => (
+        <div styleName="container">
+          <Header
+            baseUrl={`${base}/`}
+            pageId={match.params.pageId || 'home'}
+          />
+          <Switch>
+            <Route
+              component={() =>
+                ChallengeListing({
+                  challengesUrl: `${base}/challenges`,
+                  meta,
+                  newChallengeDetails: true,
+                })
+              }
+              exact
+              path={`${base}/challenges`}
+            />
+            <Route
+              component={routeProps =>
+                ChallengeDetails({
+                  ...routeProps,
+                  challengesUrl: `${base}/challenges`,
+                })
+              }
+              exact
+              path={`${base}/challenges/:challengeId(\\d{8})`}
+            />
+            <Route
+              component={() => <Leaderboard meta={meta} />}
+              exact
+              path={`${base}/leaderboard`}
+            />
+            <Route
+              component={Learn}
+              exact
+              path={`${base}/learn`}
+            />
+            <Route
+              component={Home}
+              exact
+              path={`${base}/home`}
+            />
+            <Route
+              component={Home}
+              exact
+              path={base}
+            />
+            <Route component={Error404} />
+          </Switch>
+          <Footer />
+        </div>
+      )}
+      path={`${base}/:pageId?`}
+    />
+  );
+}
+
+TcProdDev.defaultProps = {
+  base: '',
+};
+
+TcProdDev.propTypes = {
+  base: PT.string,
+  meta: PT.shape().isRequired,
+};

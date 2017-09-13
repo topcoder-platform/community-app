@@ -290,7 +290,7 @@ export function factory(req) {
    * should be re-used there. */
   /* TODO: For completely server-side rendering it is also necessary to load
    * terms, etc. */
-  if (req && req.url.match(/^\/challenges\/\d+/)) {
+  if (req && req.url.match(/^\/challenges\/\d{8}([?/].*)?$/)) {
     const tokens = {
       tokenV2: req.cookies.tcjwt,
       tokenV3: req.cookies.v3jwt,
@@ -298,12 +298,12 @@ export function factory(req) {
     const challengeId = req.url.match(/\d+/)[0];
     return toFSA(actions.challenge.getDetailsDone(challengeId, tokens.tokenV3, tokens.tokenV2))
       .then((details) => {
-        const track = details.payload[0].track.toLowerCase();
+        const track = _.get(details, 'payload[0].track', '').toLowerCase();
         const checkpointsPromise = track === 'design' ? (
           toFSA(actions.challenge.fetchCheckpointsDone(
             tokens.tokenV2, challengeId))
         ) : null;
-        const resultsPromise = details.payload[0].status === 'COMPLETED' ? (
+        const resultsPromise = _.get(details, 'payload[0].status', '') === 'COMPLETED' ? (
           toFSA(actions.challenge.loadResultsDone(tokens, challengeId, track))
         ) : null;
         return Promise.all([details, checkpointsPromise, resultsPromise]);
@@ -323,7 +323,7 @@ export function factory(req) {
       }).then(res => combine(create(res), { mySubmissionsManagement }));
   }
 
-  if (req && req.url.match(/^\/challenges\/\d+\/my-submissions/)) {
+  if (req && req.url.match(/^\/challenges\/\d{8}\/my-submissions/)) {
     const tokens = {
       tokenV2: req.cookies.tcjwt,
       tokenV3: req.cookies.v3jwt,
