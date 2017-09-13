@@ -55,7 +55,7 @@ If you need any operations related to currency conversions, pay attention to the
     -   `$ npm start` To run the App in normal mode. The frontend will be served from `/build` folder. The Topcoder backend to use will be chosen depending on `NODE_ENV` value;
     -   `$ npm run dev` To run the App with development tools. In this case the frontend is build in memory by server and uses dev tools like redux-devtools. The Topcoder backend to use will be chosen depending on `NODE_ENV` value. This demands dev dependencies installed at the firts step.
 
-If you run the App locally against development Topcoder backend you should access the App as `local.topcoder-dev.com:3000`. Prior doing this you should add into your `/etc/hosts` the line `127.0.0.1 local.topcoder-dev.com:3000`. To login into development Topcoder backend use `accounts.topcoder-dev.com/members` to login. Log out at `www.topcoder-dev.com`, or just wipe out auth cookies.
+If you run the App locally against development Topcoder backend you should access the App as `local.topcoder-dev.com:3000`. Prior doing this you should add into your `/etc/hosts` the line `127.0.0.1 local.topcoder-dev.com`. To login into development Topcoder backend use `accounts.topcoder-dev.com/members` to login. Log out at `www.topcoder-dev.com`, or just wipe out auth cookies.
 
 If you run the App locally against production Topcoder backend you should run it at the port 80 and access the App as `local.topcoder.com`. Prior doing this you should add into your `/etc/hosts` the line `127.0.0.1 local.topcoder.com`. The easiest way to allow the App to listen at the port 80 on Ubuntu 16.04 is (no guarantees, how safe is it):
 - `$ sudo apt install libcap2-bin`;
