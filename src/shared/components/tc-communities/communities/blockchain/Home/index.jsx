@@ -28,15 +28,14 @@ export default function Home(props) {
     <main>
       <Banner
         title="Topcoder Blockchain Community"
-        text="This is the place where Topcoder members can come to focus on work that involves Blockchain."
-        link={{
-          title: 'Compete Now',
-          url: 'challenges',
-        }}
-        imageSrc="/themes/blockchain/community-hero.jpg"
-      />
-
-      <JoinCommunity />
+        text="Blockchain community starts here"
+        imageSrc="/themes/blockchain/home/banner.png"
+      >
+        <JoinCommunity
+          theme={{ link: style.joinNow }}
+          label="Join Now"
+        />
+      </Banner>
 
       <CommunityStats />
 

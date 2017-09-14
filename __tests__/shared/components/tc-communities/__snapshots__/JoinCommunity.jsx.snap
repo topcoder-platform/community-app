@@ -3,7 +3,7 @@
 exports[`Matches shallow shapshot 1`] = `
 <div>
   <button
-    className="src-shared-components-tc-communities-JoinCommunity-___style__link___mMDH0"
+    className="src-shared-components-tc-communities-JoinCommunity-___style__link___mMDH0 "
     onClick={[Function]}
   >
     Join Community
@@ -52,7 +52,7 @@ exports[`Matches shallow shapshot 3`] = `
 exports[`Matches shallow shapshot 4`] = `
 <div>
   <button
-    className="src-shared-components-tc-communities-JoinCommunity-___style__link___mMDH0"
+    className="src-shared-components-tc-communities-JoinCommunity-___style__link___mMDH0 "
     onClick={[Function]}
   >
     Join Community
@@ -88,7 +88,7 @@ exports[`Matches shallow shapshot 4`] = `
 exports[`Matches shallow shapshot 5`] = `
 <div>
   <button
-    className="src-shared-components-tc-communities-JoinCommunity-___style__link___mMDH0"
+    className="src-shared-components-tc-communities-JoinCommunity-___style__link___mMDH0 "
     onClick={[Function]}
   >
     Join Community

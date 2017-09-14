@@ -67,6 +67,8 @@ const generatedClassName = style['original-class-name-in-style-scss'];
 
 We have some global mixins / styles / variables defined in [`styles`](https://github.com/topcoder-platform/community-app/tree/develop/src/styles) folder. When you need to make a component responsive to the window width, you should do it purely by SCSS code, using [these media mixins](https://github.com/topcoder-platform/community-app/blob/develop/src/styles/mixins/_media.scss). All standard Topcoder colors are defined [here](https://github.com/topcoder-platform/community-app/blob/develop/src/styles/_variables.scss) along with some other useful variables. Rather than hardcoding color values directly into your stylesheets, you should just reference corresponding color variables from this file. Spacings between elements and round corners of the elements should be calculated as multiples of `$base-unit` and `$corner-radius`.
 
+Avoid using **transform** rules for components that may have arbitrary children. It makes it not possible to have among children any components opening modal windows.
+
 ### <a name="routing">Routing</a>
 
 *TO BE WRITTEN*

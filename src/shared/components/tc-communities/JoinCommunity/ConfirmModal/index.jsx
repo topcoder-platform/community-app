@@ -47,18 +47,21 @@ export default function ConfirmModal({
           <span>
             <button
               onClick={() => {
-                const url = `${
-                  encodeURIComponent(window.location.href)
-                }?join=${groupId}`;
+                const url = encodeURIComponent(
+                  `${window.location.href}?join=${groupId}`,
+                );
                 window.location = `${config.URL.AUTH}/member?retUrl=${url}`;
               }}
               styleName="btnConfirmLong"
             >Login</button>
             <button
               onClick={() => {
-                const url = `${
-                  encodeURIComponent(window.location.href)
-                }?join=${groupId}`;
+                let url = encodeURIComponent(
+                  `${window.location.href}?join=${groupId}`,
+                );
+                url = encodeURIComponent(
+                  `${config.URL.AUTH}/member?retUrl=${url}`,
+                );
                 window.location = `${config.URL.AUTH}/member/registration?retUrl=${url}`;
               }}
               styleName="btnConfirmLong"

@@ -27,9 +27,11 @@ export default function JoinCommunity({
   groupId,
   hideJoinButton,
   join,
+  label,
   resetJoinButton,
   showJoinConfirmModal,
   state,
+  theme,
   token,
   userId,
 }) {
@@ -46,14 +48,14 @@ export default function JoinCommunity({
           }
           showJoinConfirmModal();
         }}
-        styleName={`link ${state === STATE.JOINING ? 'joining' : ''}`}
+        className={`${theme.link} ${state === STATE.JOINING ? style.joining : ''}`}
       >
         { state === STATE.JOINING ? (
           <div>
             <p>Joining...</p>
             <LoadingIndicator theme={{ style: style.loadingIndicator }} />
           </div>
-        ) : 'Join Community'}
+        ) : label}
       </button>
       { state === STATE.JOINED ? (
         <Modal onCancel={hideJoinButton}>
@@ -81,6 +83,10 @@ export default function JoinCommunity({
 
 JoinCommunity.defaultProps = {
   groupId: null,
+  label: 'Join Community',
+  theme: {
+    link: style.link,
+  },
   token: null,
   userId: null,
 };
@@ -90,9 +96,11 @@ JoinCommunity.propTypes = {
   groupId: PT.string,
   hideJoinButton: PT.func.isRequired,
   join: PT.func.isRequired,
+  label: PT.string,
   resetJoinButton: PT.func.isRequired,
   showJoinConfirmModal: PT.func.isRequired,
   state: PT.oneOf(_.values(STATE)).isRequired,
+  theme: PT.shape(),
   token: PT.string,
   userId: PT.string,
 };

@@ -1,9 +1,12 @@
 @import '~styles/tc-styles';
 
 .container {
+  align-items: center;
   background: center no-repeat;
   background-size: cover;
+  display: flex;
   height: 470px;
+  justify-content: flex-end;
   overflow: hidden;
   position: relative;
 
@@ -13,11 +16,10 @@
 }
 
 .content {
+  min-height: 252px;
   overflow: hidden;
-  position: absolute;
+  position: relative;
   right: 0;
-  top: 50%;
-  transform: translateY(-50%);
   width: 538px;
 
   @include xxs-to-xs {
