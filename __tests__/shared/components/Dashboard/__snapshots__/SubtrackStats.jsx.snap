@@ -23,9 +23,7 @@ exports[`Matches shallow shapshot 1`] = `
             <p
               className="src-shared-components-Dashboard-SubtrackStats-___styles__subtrack___2TXRB"
               title=""
-            >
-              
-            </p>
+            />
             <p
               className="src-shared-components-Dashboard-SubtrackStats-___styles__rating___9uUVx"
               style={
@@ -56,9 +54,7 @@ exports[`Matches shallow shapshot 1`] = `
             <p
               className="src-shared-components-Dashboard-SubtrackStats-___styles__subtrack___2TXRB"
               title=""
-            >
-              
-            </p>
+            />
             <p
               className="src-shared-components-Dashboard-SubtrackStats-___styles__rating___9uUVx"
               style={
@@ -101,9 +97,7 @@ exports[`Matches shallow shapshot 1`] = `
                 <p
                   className="src-shared-components-Dashboard-SubtrackStats-___styles__subtrack___2TXRB"
                   title=""
-                >
-                  
-                </p>
+                />
                 <p
                   className="src-shared-components-Dashboard-SubtrackStats-___styles__rating___9uUVx"
                   style={
@@ -134,9 +128,7 @@ exports[`Matches shallow shapshot 1`] = `
                 <p
                   className="src-shared-components-Dashboard-SubtrackStats-___styles__subtrack___2TXRB"
                   title=""
-                >
-                  
-                </p>
+                />
                 <p
                   className="src-shared-components-Dashboard-SubtrackStats-___styles__rating___9uUVx"
                   style={

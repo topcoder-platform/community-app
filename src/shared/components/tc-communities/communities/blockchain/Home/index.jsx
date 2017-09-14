@@ -37,9 +37,9 @@ export default function Home(props) {
         imageSrc="/themes/blockchain/community-hero.jpg"
       />
 
-      <CommunityStats />
-
       <JoinCommunity />
+
+      <CommunityStats />
 
       <Section
         theme={{
@@ -104,12 +104,13 @@ export default function Home(props) {
 
       <NewsSection news={props.news} />
 
+/**
       <NewsletterSignup
         title="Sign up for Topcoder Product Development Updates"
         text="Don’t miss out opportunities to work on the Topcoder Platform!"
         imageSrc="/themes/wipro/subscribe-bg.jpg"
       />
-
+*/
     </main>
   );
 }

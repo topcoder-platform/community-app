@@ -27,9 +27,9 @@ export default function ConfirmModal({
     <Modal onCancel={resetJoinButton}>
       <div styleName="confirmMsg">
         { userId ? null : (
-          <p>To join you must login / register into Topcoder platform!</p>
+          <p>You must be a Topcoder member before you can join the {communityName} community.</p>
         )}
-        Are you sure you want to join {communityName}?
+        To join, login if you are already a member. If not, register first to join the {communityName} community.
       </div>
       <div styleName="buttons">
         { userId ? (
@@ -53,7 +53,7 @@ export default function ConfirmModal({
                 window.location = `${config.URL.AUTH}/member?retUrl=${url}`;
               }}
               styleName="btnConfirmLong"
-            >Log In & Join</button>
+            >Login</button>
             <button
               onClick={() => {
                 const url = `${
@@ -62,7 +62,7 @@ export default function ConfirmModal({
                 window.location = `${config.URL.AUTH}/member/registration?retUrl=${url}`;
               }}
               styleName="btnConfirmLong"
-            >Register & Join</button>
+            >Register</button>
             <button
               onClick={resetJoinButton}
               styleName="btnCancelLong"
