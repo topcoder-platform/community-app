@@ -5,15 +5,14 @@
  * modal is shown on success.
  */
 
-/* global window */
-
 import _ from 'lodash';
-import config from 'utils/config';
 import LoadingIndicator from 'components/LoadingIndicator';
 import Modal from 'components/Modal';
 import PT from 'prop-types';
 import React from 'react';
 import style from './style.scss';
+
+import ConfirmModal from './ConfirmModal';
 
 export const STATE = {
   CONFIRM_JOIN: 'confirm-join',
@@ -28,9 +27,11 @@ export default function JoinCommunity({
   groupId,
   hideJoinButton,
   join,
+  label,
   resetJoinButton,
   showJoinConfirmModal,
   state,
+  theme,
   token,
   userId,
 }) {
@@ -45,22 +46,16 @@ export default function JoinCommunity({
               return;
             default:
           }
-          if (token) showJoinConfirmModal();
-          else {
-            /* If our visitor is not authenticated, the button redirects to
-             * login page, with return URL set back to this page. */
-            const url = encodeURIComponent(window.location.href);
-            window.location = `${config.URL.AUTH}/member?retUrl=${url}`;
-          }
+          showJoinConfirmModal();
         }}
-        styleName={`link ${state === STATE.JOINING ? 'joining' : ''}`}
+        className={`${theme.link} ${state === STATE.JOINING ? style.joining : ''}`}
       >
         { state === STATE.JOINING ? (
           <div>
             <p>Joining...</p>
             <LoadingIndicator theme={{ style: style.loadingIndicator }} />
           </div>
-        ) : 'Join Community'}
+        ) : label}
       </button>
       { state === STATE.JOINED ? (
         <Modal onCancel={hideJoinButton}>
@@ -73,21 +68,14 @@ export default function JoinCommunity({
         </Modal>
       ) : null}
       { state === STATE.CONFIRM_JOIN ? (
-        <Modal onCancel={resetJoinButton}>
-          <p styleName="confirmMsg">
-            Are you sure you want to join {communityName}?
-          </p>
-          <div styleName="buttons">
-            <button
-              onClick={() => join(token, groupId, userId)}
-              styleName="btnConfirm"
-            >Join</button>
-            <button
-              onClick={resetJoinButton}
-              styleName="btnCancel"
-            >Cancel</button>
-          </div>
-        </Modal>
+        <ConfirmModal
+          communityName={communityName}
+          groupId={groupId}
+          join={join}
+          resetJoinButton={resetJoinButton}
+          token={token}
+          userId={userId}
+        />
       ) : null}
     </div>
   );
@@ -95,6 +83,10 @@ export default function JoinCommunity({
 
 JoinCommunity.defaultProps = {
   groupId: null,
+  label: 'Join Community',
+  theme: {
+    link: style.link,
+  },
   token: null,
   userId: null,
 };
@@ -104,9 +96,11 @@ JoinCommunity.propTypes = {
   groupId: PT.string,
   hideJoinButton: PT.func.isRequired,
   join: PT.func.isRequired,
+  label: PT.string,
   resetJoinButton: PT.func.isRequired,
   showJoinConfirmModal: PT.func.isRequired,
   state: PT.oneOf(_.values(STATE)).isRequired,
+  theme: PT.shape(),
   token: PT.string,
   userId: PT.string,
 };

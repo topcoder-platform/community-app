@@ -69,6 +69,11 @@ export function factory(req) {
     return toFSA(actions.tcCommunities.meta.fetchDataDone('wipro'))
       .then(res => create(onDone(state, res)));
   }
+  if (subdomains.indexOf('blockchain') >= 0) {
+    const state = { loadingMetaDataForCommunityId: 'blockchain' };
+    return toFSA(actions.tcCommunities.meta.fetchDataDone('blockchain'))
+      .then(res => create(onDone(state, res)));
+  }
 
   if (req && req.url.startsWith('/community')) {
     const communityId = req.url.split('/')[2];

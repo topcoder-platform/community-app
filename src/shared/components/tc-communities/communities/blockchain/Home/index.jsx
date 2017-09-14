@@ -11,11 +11,9 @@ import Section from 'components/tc-communities/Section';
 import Banner from 'components/tc-communities/Banner';
 import ImageText from 'components/tc-communities/ImageText';
 import ResourceCard from 'components/tc-communities/ResourceCard';
-import NewsletterSignup from 'components/tc-communities/NewsletterSignup';
 import NewsSection from 'components/tc-communities/NewsSection';
 import PT from 'prop-types';
 
-import CommunityStats from 'containers/tc-communities/CommunityStats';
 import JoinCommunity from 'containers/tc-communities/JoinCommunity';
 
 import IconRocket from '../../../../../../assets/images/tc-communities/rocket.svg';
@@ -29,17 +27,24 @@ export default function Home(props) {
     <main>
       <Banner
         title="Topcoder Blockchain Community"
-        text="This is the place where Topcoder members can come to focus on work that involves Blockchain."
-        link={{
-          title: 'Compete Now',
-          url: 'challenges',
+        text="Blockchain community starts here"
+        imageSrc="/themes/blockchain/home/banner.png"
+      >
+        <JoinCommunity
+          theme={{ link: style.joinNow }}
+          label="Join Now"
+        />
+      </Banner>
+      <Section
+        theme={{
+          container: style.introContainer,
         }}
-        imageSrc="/themes/blockchain/community-hero.jpg"
-      />
-
-      <CommunityStats />
-
-      <JoinCommunity />
+      >
+        <div>
+          <h1>Build unstoppable applications with Ethereum</h1>
+          <p>Ethereum is a  decentralized platform that runs smart contracts: applications that run exactly as programmed without any possibility of downtime, censorship, fraud or third party interference. orem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitationorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p>
+        </div>
+      </Section>
 
       <Section
         theme={{
@@ -54,7 +59,7 @@ export default function Home(props) {
               title: 'Start Learning',
               url: 'learn',
             }}
-            imageSrc="/themes/blockchain/home/image-text-learn.jpg"
+            imageSrc="/themes/blockchain/home/image-text-learn.png"
           />
           <ImageText
             title="Get Involved"
@@ -103,12 +108,6 @@ export default function Home(props) {
       </Section>
 
       <NewsSection news={props.news} />
-
-      <NewsletterSignup
-        title="Sign up for Topcoder Product Development Updates"
-        text="Don’t miss out opportunities to work on the Topcoder Platform!"
-        imageSrc="/themes/wipro/subscribe-bg.jpg"
-      />
 
     </main>
   );

@@ -9,9 +9,7 @@ import { themr } from 'react-css-themr';
 import defaultStyle from './style.scss';
 import Link from './Link';
 
-function Banner(props) {
-  const { title, text, imageSrc, link, theme } = props;
-
+function Banner({ children, imageSrc, link, theme, text, title }) {
   let links;
   if (link) {
     links = (_.isArray(link) ? link : [link]).map(item => (
@@ -32,6 +30,7 @@ function Banner(props) {
           <h2 className={theme.title}>{title}</h2>
           <p className={theme.text}>{text}</p>
           {links}
+          {children}
         </div>
       </div>
     </div>
@@ -39,6 +38,7 @@ function Banner(props) {
 }
 
 Banner.defaultProps = {
+  children: null,
   link: null,
   theme: {},
 };
@@ -49,6 +49,7 @@ const LinkShape = PT.shape({
 });
 
 Banner.propTypes = {
+  children: PT.node,
   imageSrc: PT.string.isRequired,
   title: PT.string.isRequired,
   text: PT.string.isRequired,

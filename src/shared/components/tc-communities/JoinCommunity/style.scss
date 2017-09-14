@@ -1,4 +1,4 @@
-@import "~styles/tc-styles";
+@import "~styles/mixins";
 
 @mixin button($color, $highlight-color) {
   color: $color;
@@ -126,12 +126,14 @@
 }
 
 .modalTitle {
+  color: $tc-black;
   text-align: center;
 }
 
 .modalMsg {
   @include tc-body;
 
+  color: #787d81;
   margin: 24px 0;
   text-align: center;
 }
