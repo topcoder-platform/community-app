@@ -58,8 +58,8 @@ export default function Submission(props) {
             submissionId={submissionObject.submissionId}
           />}
       </td>}
-      <td>
-        <div styleName="action-col">
+      <td styleName="action-col">
+        <div>
           <a
             href={
               type === 'DESIGN'

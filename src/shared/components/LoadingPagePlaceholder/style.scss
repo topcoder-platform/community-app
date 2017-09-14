@@ -2,7 +2,12 @@
 
 .background {
   background: $tc-gray-neutral-dark;
+  bottom: 0;
+  left: 0;
   padding: 6 * $base-unit;
+  position: absolute;
+  right: 0;
+  top: 0;
 
   @include xxs-to-xs {
     padding: $base-unit;

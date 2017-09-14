@@ -47,7 +47,9 @@ exports[`Matches shallow shapshot 2`] = `
     <div
       className="src-shared-components-Dashboard-MyChallenges-ChallengeLinks-___style__icon___3IZGz src-shared-components-Dashboard-MyChallenges-ChallengeLinks-___style__registrants-icon___tm0l6"
     />
-    <p />
+    <p>
+      0
+    </p>
   </a>
   <a
     className="src-shared-components-Dashboard-MyChallenges-ChallengeLinks-___style__submissions___3TDly"

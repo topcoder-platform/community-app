@@ -4,6 +4,7 @@
  */
 
 import _ from 'lodash';
+import config from 'utils/config';
 import { getApiV2 } from './api';
 
 class TermsService {
@@ -75,3 +76,14 @@ export function getService(tokenV2) {
 
 /* Using default export would be confusing in this case. */
 export default undefined;
+
+/* Because of Topcoder backend restrictions, it is not straightforward to test
+ * terms-related functionality in any other way than just providing an option to
+ * run the app against mock terms service. */
+if (config.MOCK_CHALLENGE_TERMS_SERVICE) {
+  /* eslint-disable global-require */
+  module.exports = require('./__mocks__/terms');
+  /* eslint-enable global-require */
+} else {
+  module.exports.getService = getService;
+}

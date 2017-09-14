@@ -27,6 +27,7 @@ import style from './style.scss';
 export default function ChallengeHeader(props) {
   const {
     challenge,
+    challengesUrl,
     checkpoints,
     hasRegistered,
     numWinners,
@@ -39,6 +40,7 @@ export default function ChallengeHeader(props) {
   } = props;
 
   const {
+    drPoints,
     id: challengeId,
     name,
     track,
@@ -179,6 +181,7 @@ export default function ChallengeHeader(props) {
           <h1 styleName="challenge-header">{name}</h1>
           <ChallengeTags
             subTrack={subTrack}
+            challengesUrl={challengesUrl}
             challengeSubtracksMap={challengeSubtracksMap}
             events={eventNames}
             technPlatforms={miscTags}
@@ -189,22 +192,32 @@ export default function ChallengeHeader(props) {
               <h3 styleName="prizes-title">PRIZES</h3>
               <Prizes prizes={prizes && prizes.length ? prizes : [0]} />
               {
-                bonusType &&
-                <div id={`bonus-${trackLower}`} styleName="bonus-div">
-                  {
-                    bonusType === 'Bonus' ?
-                      <p styleName="bonus-text">
-                        <span styleName={`bonus-highlight ${trackLower}-accent-color`}>
-                          BONUS: {numberOfCheckpointsPrizes} </span>CHECKPOINTS AWARDED
-                          WORTH <span styleName={`bonus-highlight ${trackLower}-accent-color`}>${topCheckPointPrize} </span>EACH
-                      </p> :
-                      <p styleName="bonus-text">
-                        <span styleName={`bonus-highlight ${trackLower}-accent-color`}>
-                          RELIABILITY BONUS: $ {reliabilityBonus}
-                        </span>
-                      </p>
-                  }
-                </div>
+                bonusType ? (
+                  <div id={`bonus-${trackLower}`} styleName="bonus-div">
+                    {
+                      bonusType === 'Bonus' ?
+                        <p styleName="bonus-text">
+                          <span styleName={`bonus-highlight ${trackLower}-accent-color`}>
+                            BONUS: {numberOfCheckpointsPrizes} </span>CHECKPOINTS AWARDED
+                            WORTH <span styleName={`bonus-highlight ${trackLower}-accent-color`}>${topCheckPointPrize} </span>EACH
+                        </p> :
+                        <p styleName="bonus-text">
+                          <span styleName={`bonus-highlight ${trackLower}-accent-color`}>
+                            RELIABILITY BONUS: $ {reliabilityBonus}
+                          </span>
+                        </p>
+                    }
+                  </div>
+                ) : null
+              }
+              {
+                drPoints ? (
+                  <div styleName="bonus-div">
+                    <p styleName="bonus-text">
+                      <span styleName={`bonus-highlight ${trackLower}-accent-color`}>POINTS: {drPoints}</span>
+                    </p>
+                  </div>
+                ) : null
               }
             </div>
             <div styleName="challenge-ops-wrapper">
@@ -233,7 +246,7 @@ export default function ChallengeHeader(props) {
                 <PrimaryButton
                   disabled={!hasRegistered || unregistering || !hasSubmissions}
                   theme={{ button: style.challengeAction }}
-                  to={`/challenges/${challengeId}/my-submissions`}
+                  to={`${challengesUrl}/${challengeId}/my-submissions`}
                 >View Submissions</PrimaryButton>
               </div>
             </div>
@@ -291,6 +304,7 @@ ChallengeHeader.propTypes = {
   challenge: PT.shape({
     id: PT.number.isRequired,
   }).isRequired,
+  challengesUrl: PT.string.isRequired,
   hasRegistered: PT.bool.isRequired,
   numWinners: PT.number.isRequired,
   onSelectorClicked: PT.func.isRequired,

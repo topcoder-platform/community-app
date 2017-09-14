@@ -1,0 +1,17 @@
+/**
+ * Global styles.
+ *
+ * IMPORTANT: This styles are already imported at the root of application. You
+ * should not import them explicitely into you stylesheets for components, you
+ * can just use them. This does not apply, however to mixins: to use mixins in
+ * your custom stylesheets you should import mixins.scss.
+ */
+
+@import "mixins";
+@import "_global/reset";
+@import "_global/fonts";
+@import "_global/typography";
+@import "_global/buttons";
+@import "_global/checkboxes";
+@import "_global/flexbox";
+@import "_global/forms";

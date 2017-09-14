@@ -2,7 +2,7 @@
 import React from 'react';
 import PT from 'prop-types';
 
-import './styles.scss';
+import style from './styles.scss';
 
 const Checkpoints = (props) => {
   const {
@@ -21,7 +21,7 @@ const Checkpoints = (props) => {
               onClick={(e) => {
                 e.preventDefault();
                 document
-                  .getElementsByClassName('src-shared-components-challenge-detail-Checkpoints-styles___challenge-checkpoint-winners')[index]
+                  .getElementsByClassName(style['challenge-checkpoint-winners'])[index]
                   .scrollIntoView(true);
                 props.toggleCheckpointFeedback(index, true);
               }}

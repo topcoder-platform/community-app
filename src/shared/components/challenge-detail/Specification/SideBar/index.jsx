@@ -3,6 +3,8 @@ import React from 'react';
 import PT from 'prop-types';
 
 import Tooltip from 'components/Tooltip';
+
+import CheckMark from '../../icons/check-mark.svg';
 import ShareSocial from './ShareSocial';
 
 import styles from './styles.scss';
@@ -179,7 +181,7 @@ export default function SideBar({
               {
                 terms.map(t => (
                   <div styleName="term" key={t.termsOfUseId}>
-                    {t.agreed && <span styleName="agreed" />}
+                    {t.agreed && <CheckMark styleName="agreed" />}
                     <a href={`${config.URL.BASE}/challenge-details/terms/detail/${t.termsOfUseId}`}>
                       {t.title}
                     </a>

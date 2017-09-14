@@ -4,6 +4,7 @@ exports[`Snapshot match 1`] = `
 <Header
   activeTrigger={null}
   additionalLogos={Array []}
+  baseUrl=""
   chevronOverAvatar={false}
   closeMenu={[Function]}
   communityId="someId"
@@ -62,6 +63,7 @@ exports[`Snapshot match 2`] = `
 <Header
   activeTrigger={null}
   additionalLogos={Array []}
+  baseUrl=""
   chevronOverAvatar={false}
   closeMenu={[Function]}
   communityId="someId"

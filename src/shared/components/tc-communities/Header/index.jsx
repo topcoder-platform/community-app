@@ -26,6 +26,7 @@ import style from './style.scss';
 function Header(props) {
   const {
     activeTrigger,
+    baseUrl,
     closeMenu,
     communitySelector,
     openMenu,
@@ -179,7 +180,9 @@ function Header(props) {
                   activeClassName={theme.menuLinkActive}
                   className={theme.menuLink}
                   isActive={() => currentPage === item.url}
-                  to={item.url}
+                  to={
+                    item.url === '.' ? '.' : `${baseUrl}${item.url}`
+                  }
                 >
                   {item.title}
                 </NavLink>
@@ -215,6 +218,7 @@ function Header(props) {
 
 Header.defaultProps = {
   activeTrigger: null,
+  baseUrl: '',
   menuItems: [],
   openedMenu: null,
   logos: [],
@@ -227,6 +231,7 @@ Header.defaultProps = {
 
 Header.propTypes = {
   activeTrigger: PT.shape({}),
+  baseUrl: PT.string,
   closeMenu: PT.func.isRequired,
   communitySelector: PT.arrayOf(PT.shape()).isRequired,
   menuItems: PT.arrayOf(PT.shape({

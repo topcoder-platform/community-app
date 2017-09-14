@@ -10,12 +10,27 @@ $submission-space-50: $base-unit * 10;
   color: $tc-black;
   font-weight: 400;
 
+  @include xxs-to-xs {
+    display: block;
+    position: relative;
+    padding: 10px 0;
+  }
+
   td {
     vertical-align: middle;
     padding: $submission-space-20;
     background: $tc-white;
     border-top: 1px solid $tc-gray-10;
     line-height: 12px;
+
+    @include xxs-to-md {
+      padding: $submission-space-10;
+    }
+
+    @include xxs-to-xs {
+      display: block;
+      border: none;
+    }
 
     &.no-submission {
       line-height: $submission-space-20;
@@ -29,9 +44,18 @@ $submission-space-50: $base-unit * 10;
   }
 
   .preview-col {
+    @include xxs-to-xs {
+      float: left;
+    }
+
     .design-img {
-      width: 128px;
-      height: 128px;
+      width: 90px;
+      height: 90px;
+
+      @include xxs-to-xs {
+        width: 80px;
+        height: 80px;
+      }
     }
 
     .dev-img {
@@ -48,6 +72,10 @@ $submission-space-50: $base-unit * 10;
     color: $tc-gray-50;
     font-weight: 400;
     line-height: $submission-space-20;
+
+    @include xxs-to-xs {
+      padding: 0 10px;
+    }
   }
 
   .status-col {
@@ -73,6 +101,20 @@ $submission-space-50: $base-unit * 10;
 
   .action-col {
     text-align: center;
+    min-width: 120px;
+
+    @include xxs-to-xs {
+      position: absolute;
+      right: 0;
+      top: 10px;
+      padding: 10px 0;
+      min-width: 100px;
+
+      svg {
+        width: 14px;
+        height: 14px;
+      }
+    }
 
     path {
       fill: $tc-gray-80;
@@ -80,6 +122,10 @@ $submission-space-50: $base-unit * 10;
 
     .delete-icon {
       margin: 0 0 0 24px;
+
+      @include xxs-to-xs {
+        margin-left: 15px;
+      }
     }
 
     button {
@@ -98,6 +144,10 @@ $submission-space-50: $base-unit * 10;
     .expand-icon {
       transition: all 1.5s;
       margin-left: 24px;
+
+      @include xxs-to-xs {
+        margin-left: 15px;
+      }
 
       &.expanded {
         transform: rotate(180deg);

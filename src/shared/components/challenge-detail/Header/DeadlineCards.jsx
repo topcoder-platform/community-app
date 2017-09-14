@@ -4,6 +4,7 @@
 
 import React from 'react';
 import PT from 'prop-types';
+import shortid from 'shortid';
 import { localTime } from 'utils/tc';
 
 import './style.scss';
@@ -42,7 +43,12 @@ export default function DeadlineCards(props) {
             dateStyle = 'deadline-live';
           }
           return (
-            <div key={phase.id} styleName="deadline-card">
+            /* TODO: At the moment phase objects for registration phases do not
+             * include "id", nor most of other fields expected from other phase
+             * objects. To leverage it in a simple way, we use below shortid()
+             * as the fallback for the key. It is less efficient, than using a
+             * proper key, thus should be updated. */
+            <div key={phase.id || shortid()} styleName="deadline-card">
               <p styleName="deadline-info">{deadlineKey}</p>
               <p styleName={`deadline-date ${dateStyle}`}>
                 {
