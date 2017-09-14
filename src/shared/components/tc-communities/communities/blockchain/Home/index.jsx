@@ -101,6 +101,7 @@ export default function Home(props) {
         />
       </Section>
 
+      <NewsSection news={props.news} />
 
     </main>
   );
