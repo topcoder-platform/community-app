@@ -27,7 +27,7 @@ export default function ConfirmModal({
     <Modal onCancel={resetJoinButton}>
       <div styleName="confirmMsg">
         { userId ? null : (
-          <p>You must be a Topcoder member before you can join the {communityName} community.</p>
+          <p>You must be a Topcoder member before you can join the {communityName}.</p>
         )}
         To join, login if you are already a member. If not, register first
       </div>

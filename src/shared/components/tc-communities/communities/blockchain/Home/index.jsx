@@ -36,9 +36,9 @@ export default function Home(props) {
         imageSrc="/themes/blockchain/community-hero.jpg"
       />
 
-      <CommunityStats />
-
       <JoinCommunity />
+
+      <CommunityStats />
 
       <Section
         theme={{
