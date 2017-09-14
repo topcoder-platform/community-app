@@ -11,6 +11,7 @@
   position: relative;
 
   @include xxs-to-xs {
+    align-items: flex-end;
     height: 600px;
   }
 }

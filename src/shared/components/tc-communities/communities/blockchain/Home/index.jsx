@@ -14,7 +14,6 @@ import ResourceCard from 'components/tc-communities/ResourceCard';
 import NewsSection from 'components/tc-communities/NewsSection';
 import PT from 'prop-types';
 
-import CommunityStats from 'containers/tc-communities/CommunityStats';
 import JoinCommunity from 'containers/tc-communities/JoinCommunity';
 
 import IconRocket from '../../../../../../assets/images/tc-communities/rocket.svg';
@@ -36,8 +35,16 @@ export default function Home(props) {
           label="Join Now"
         />
       </Banner>
-
-      <CommunityStats />
+      <Section
+        theme={{
+          container: style.introContainer,
+        }}
+      >
+        <div>
+          <h1>Build unstoppable applications with Ethereum</h1>
+          <p>Ethereum is a  decentralized platform that runs smart contracts: applications that run exactly as programmed without any possibility of downtime, censorship, fraud or third party interference. orem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitationorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p>
+        </div>
+      </Section>
 
       <Section
         theme={{
@@ -52,7 +59,7 @@ export default function Home(props) {
               title: 'Start Learning',
               url: 'learn',
             }}
-            imageSrc="/themes/blockchain/home/image-text-learn.jpg"
+            imageSrc="/themes/blockchain/home/image-text-learn.png"
           />
           <ImageText
             title="Get Involved"
