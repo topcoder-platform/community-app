@@ -44,6 +44,7 @@ export default function Home(/* props */) {
           <h1>Learn How to Build Next-Generation, Decentralized Applications with Ethereum Blockchain</h1>
           <p>Ethereum is a decentralized platform that runs smart contracts: applications that run exactly as programmed without any possibility of downtime, censorship, fraud or third party interference.</p>
           <p>Ethereum joins the security of blockchain technology with the expressiveness and objectivity of coded applications. With a distributed ledger on Ethereum, companies and individuals gain real-time transparency into transactions, costs, and security which in turn builds trust — and delivers enterprise-grade results.</p>
+          <p>Over the coming weeks we will be adding educational resources, fun challenges to help you hone your skills, and competitive challenges to work on real-world customer projects with Ethereum blockchain.</p>
         </div>
       </Section>
 
