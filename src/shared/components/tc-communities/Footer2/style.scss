@@ -1,0 +1,36 @@
+@mixin font {
+  color: #787d81;
+  display: inline-block;
+  font: 12px 'Open Sans';
+  line-height: 36px;
+  vertical-align: top;
+}
+
+.content {
+  margin: auto;
+  max-width: 960px;
+}
+
+.copyright {
+  @include font;
+
+  margin-left: 24px;
+}
+
+.footer {
+  background: #fafafb;
+  padding: 24px 24px 18px;
+
+  a {
+    @include font;
+
+    margin: 0 6px;
+    text-decoration: underline;
+  }
+}
+
+.right {
+  @include font;
+
+  float: right;
+}
