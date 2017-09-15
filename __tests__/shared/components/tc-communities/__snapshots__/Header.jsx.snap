@@ -16,6 +16,7 @@ exports[`Snapshot match 1`] = `
       },
     ]
   }
+  groupId=""
   hideSearch={false}
   isMobileOpen={false}
   loginUrl="/some/login/url"
@@ -76,6 +77,7 @@ exports[`Snapshot match 2`] = `
     ]
   }
   cssUrl="some/css/url"
+  groupId=""
   hideSearch={false}
   isMobileOpen={true}
   loginUrl="/some/login/url"
