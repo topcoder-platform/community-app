@@ -62,6 +62,7 @@ export default function ConfirmModal({
                 url = encodeURIComponent(
                   `${config.URL.AUTH}/member?retUrl=${url}`,
                 );
+                url = encodeURIComponent(url);
                 window.location = `${config.URL.AUTH}/member/registration?retUrl=${url}`;
               }}
               styleName="btnConfirmLong"

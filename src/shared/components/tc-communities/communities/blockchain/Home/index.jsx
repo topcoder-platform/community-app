@@ -10,24 +10,24 @@ import React from 'react';
 import Section from 'components/tc-communities/Section';
 import Banner from 'components/tc-communities/Banner';
 import ImageText from 'components/tc-communities/ImageText';
-import ResourceCard from 'components/tc-communities/ResourceCard';
-import NewsSection from 'components/tc-communities/NewsSection';
-import PT from 'prop-types';
+// import ResourceCard from 'components/tc-communities/ResourceCard';
+// import NewsSection from 'components/tc-communities/NewsSection';
+// import PT from 'prop-types';
 
 import JoinCommunity from 'containers/tc-communities/JoinCommunity';
 
-import IconRocket from '../../../../../../assets/images/tc-communities/rocket.svg';
-import IconNetwork from '../../../../../../assets/images/tc-communities/network.svg';
-import IconMedal from '../../../../../../assets/images/tc-communities/medal.svg';
+// import IconRocket from '../../../../../../assets/images/tc-communities/rocket.svg';
+// import IconNetwork from '../../../../../../assets/images/tc-communities/network.svg';
+// import IconMedal from '../../../../../../assets/images/tc-communities/medal.svg';
 
 import style from './style.scss';
 
-export default function Home(props) {
+export default function Home(/* props */) {
   return (
     <main>
       <Banner
         title="Topcoder Blockchain Community"
-        text="Blockchain community starts here"
+        text="Learn about and build the next great decentralized application on the Ethereum Blockchain."
         imageSrc="/themes/blockchain/home/banner.png"
       >
         <JoinCommunity
@@ -41,8 +41,9 @@ export default function Home(props) {
         }}
       >
         <div>
-          <h1>Build unstoppable applications with Ethereum</h1>
-          <p>Ethereum is a  decentralized platform that runs smart contracts: applications that run exactly as programmed without any possibility of downtime, censorship, fraud or third party interference. orem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitationorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p>
+          <h1>Build Trustworthy, Unstoppable, Decentralized Applications with Ethereum</h1>
+          <p>Ethereum is a decentralized platform that runs smart contracts: applications that run exactly as programmed without any possibility of downtime, censorship, fraud or third party interference.</p>
+          <p>Ethereum joins the security of blockchain technology with the expressiveness and objectivity of coded applications. With a distributed ledger on Ethereum, companies and individuals gain real-time transparency into transactions, costs, and security which in turn builds trust.</p>
         </div>
       </Section>
 
@@ -54,25 +55,18 @@ export default function Home(props) {
         <div>
           <ImageText
             title="Ramp Up"
-            text="Learn about what we're working on, our environments, procedures, etc. If you want to get involved in Topcoder projects, this is a good place to start. We run challenges and tasks constantly, so we're always looking for help."
-            link={{
-              title: 'Start Learning',
-              url: 'learn',
-            }}
+            text="Looking to get involved in Topcoder projects being built on Ethereum? Then this is the best place to start. Learn everything you need to know about mastering the Ethereum blockchain from the industry leader, ConsenSys."
             imageSrc="/themes/blockchain/home/image-text-learn.png"
           />
           <ImageText
             title="Get Involved"
-            text="Whether you're a copilot, designer, developer, or data scientist...we want you involved. Topcoder is one of the biggest customers of our own platform, so there is never a shortage of interesting things to work on."
-            link={{
-              title: 'Start Contributing',
-              url: 'challenges',
-            }}
+            text="The Ethereum blockchain is the ideal platform for businesses and developers. In partnering with ConsenSys, we have given our community the ability to be at the forefront of this cutting edge technology. So what are you waiting for? Start building on the Ethereum Blockchain today! "
             imageSrc="/themes/blockchain/home/image-text-do.jpg"
           />
         </div>
       </Section>
 
+      {/*
       <Section
         theme={{
           container: style.resourcesContainer,
@@ -108,11 +102,13 @@ export default function Home(props) {
       </Section>
 
       <NewsSection news={props.news} />
+      */}
 
     </main>
   );
 }
 
+/*
 Home.defaultProps = {
   news: [],
 };
@@ -120,4 +116,4 @@ Home.defaultProps = {
 Home.propTypes = {
   news: PT.arrayOf(PT.shape()),
 };
-
+*/

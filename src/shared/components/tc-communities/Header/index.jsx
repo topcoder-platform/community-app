@@ -29,6 +29,7 @@ function Header(props) {
     baseUrl,
     closeMenu,
     communitySelector,
+    groupId,
     openMenu,
     openedMenu,
     logos,
@@ -118,14 +119,22 @@ function Header(props) {
     <div className={theme.authorize}>
       <button
         onClick={() => {
-          const url = encodeURIComponent(window.location.href);
+          let url = encodeURIComponent(
+            `${window.location.href}?join=${groupId}`,
+          );
+          url = encodeURIComponent(
+            `${config.URL.AUTH}/member?retUrl=${url}`,
+          );
+          url = encodeURIComponent(url);
           window.location = `${config.URL.AUTH}/member/registration?retUrl=${url}`;
         }}
         className={theme.btnRegister}
-      >Register</button>
+      >Join Now</button>
       <button
         onClick={() => {
-          const url = encodeURIComponent(window.location.href);
+          const url = encodeURIComponent(
+            `${window.location.href}?join=${groupId}`,
+          );
           window.location = `${config.URL.AUTH}/member?retUrl=${url}`;
         }}
         className={theme.btnLogin}
@@ -219,6 +228,7 @@ function Header(props) {
 Header.defaultProps = {
   activeTrigger: null,
   baseUrl: '',
+  groupId: '',
   menuItems: [],
   openedMenu: null,
   logos: [],
@@ -234,6 +244,7 @@ Header.propTypes = {
   baseUrl: PT.string,
   closeMenu: PT.func.isRequired,
   communitySelector: PT.arrayOf(PT.shape()).isRequired,
+  groupId: PT.string,
   menuItems: PT.arrayOf(PT.shape({
     title: PT.string.isRequired,
     url: PT.string.isRequired,
