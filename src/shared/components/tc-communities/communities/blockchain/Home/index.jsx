@@ -26,8 +26,8 @@ export default function Home(/* props */) {
   return (
     <main>
       <Banner
-        title="Topcoder Blockchain Community"
-        text="Learn about and build the next great decentralized application on the Ethereum Blockchain."
+        title="The Topcoder Blockchain Community"
+        text="Powered By ConsenSys"
         imageSrc="/themes/blockchain/home/banner.png"
       >
         <JoinCommunity
@@ -41,9 +41,9 @@ export default function Home(/* props */) {
         }}
       >
         <div>
-          <h1>Build Trustworthy, Unstoppable, Decentralized Applications with Ethereum</h1>
+          <h1>Learn How to Build Next-Generation, Decentralized Applications with Ethereum Blockchain</h1>
           <p>Ethereum is a decentralized platform that runs smart contracts: applications that run exactly as programmed without any possibility of downtime, censorship, fraud or third party interference.</p>
-          <p>Ethereum joins the security of blockchain technology with the expressiveness and objectivity of coded applications. With a distributed ledger on Ethereum, companies and individuals gain real-time transparency into transactions, costs, and security which in turn builds trust.</p>
+          <p>Ethereum joins the security of blockchain technology with the expressiveness and objectivity of coded applications. With a distributed ledger on Ethereum, companies and individuals gain real-time transparency into transactions, costs, and security which in turn builds trust — and delivers enterprise-grade results.</p>
         </div>
       </Section>
 
@@ -54,13 +54,13 @@ export default function Home(/* props */) {
       >
         <div>
           <ImageText
-            title="Ramp Up"
-            text="Looking to get involved in Topcoder projects being built on Ethereum? Then this is the best place to start. Learn everything you need to know about mastering the Ethereum blockchain from the industry leader, ConsenSys."
+            title="Get Started"
+            text="Ready to get started with Ethereum? Topcoder and ConsenSys have partnered to give you access to tools, tutorials, and hands-on challenges to help you master Ethereum blockchain technology."
             imageSrc="/themes/blockchain/home/image-text-learn.png"
           />
           <ImageText
             title="Get Involved"
-            text="The Ethereum blockchain is the ideal platform for businesses and developers. In partnering with ConsenSys, we have given our community the ability to be at the forefront of this cutting edge technology. So what are you waiting for? Start building on the Ethereum Blockchain today! "
+            text="Meet like-minded peers from around the world, share tips and insights, and collaborate with customers to build cutting-edge solutions. The Topcoder Blockchain Community provides opportunities to learn from Ethereum blockchain experts and work with top companies that are embracing blockchain technology."
             imageSrc="/themes/blockchain/home/image-text-do.jpg"
           />
         </div>

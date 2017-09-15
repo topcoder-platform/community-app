@@ -129,7 +129,7 @@ function Header(props) {
           window.location = `${config.URL.AUTH}/member/registration?retUrl=${url}`;
         }}
         className={theme.btnRegister}
-      >Register</button>
+      >Join Now</button>
       <button
         onClick={() => {
           const url = encodeURIComponent(
