@@ -10,6 +10,7 @@ import config from 'utils/config';
 import logger from 'utils/logger';
 import { handleActions } from 'redux-actions';
 import { decodeToken, isTokenExpired } from 'tc-accounts';
+import { isClientSide } from 'utils/isomorphy';
 import { combine, resolveReducers, toFSA } from 'utils/redux';
 import { STATE as JOIN_COMMUNITY } from 'components/tc-communities/JoinCommunity';
 
@@ -23,7 +24,9 @@ function onJoinDone(state, action) {
     /* NOTE: Using alert is, probably, not a best practice, but will work just
      * fine for now. Anyway, if everything works fine, users are not supposed
      * to see it normally. */
-    alert('Failed to join the group!'); // eslint-disable-line no-alert
+    if (isClientSide()) {
+      alert('Failed to join the group!'); // eslint-disable-line no-alert
+    }
 
     return { ...state, joinCommunityButton: JOIN_COMMUNITY.DEFAULT };
   }

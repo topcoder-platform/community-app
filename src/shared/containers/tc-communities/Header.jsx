@@ -22,6 +22,7 @@ function mapStateToProps(state, ownProps) {
     chevronOverAvatar: meta.chevronOverAvatar,
     communityId: meta.communityId,
     communitySelector: meta.communitySelector,
+    groupId: meta.groupId,
     hideSearch: meta.hideSearch,
     isMobileOpen: meta.isMobileOpen,
     logos: meta.logos,
