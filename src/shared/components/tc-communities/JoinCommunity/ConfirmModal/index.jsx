@@ -29,7 +29,7 @@ export default function ConfirmModal({
         { userId ? null : (
           <p>You must be a Topcoder member before you can join the {communityName}.</p>
         )}
-        To join, login if you are already a member. If not, register first
+        To join, login if you are already a member. If not, register first.
       </div>
       <div styleName="buttons">
         { userId ? (
