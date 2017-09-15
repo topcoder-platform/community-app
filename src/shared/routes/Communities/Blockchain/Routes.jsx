@@ -26,7 +26,10 @@ export default function Routes({ base, member, meta }) {
     <Route
       component={({ match }) => (
         <div>
-          <Header pageId={match.params.pageId || 'home'} />
+          <Header
+            hideJoinNow
+            pageId={match.params.pageId || 'home'}
+          />
           <Switch>
             <Route
               component={() => (

@@ -23,6 +23,7 @@ function mapStateToProps(state, ownProps) {
     communityId: meta.communityId,
     communitySelector: meta.communitySelector,
     groupId: meta.groupId,
+    hideJoinNow: ownProps.hideJoinNow,
     hideSearch: meta.hideSearch,
     isMobileOpen: meta.isMobileOpen,
     logos: meta.logos,
