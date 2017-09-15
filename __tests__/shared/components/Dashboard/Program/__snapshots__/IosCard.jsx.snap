@@ -19,9 +19,7 @@ exports[`Matches shallow shapshot 1`] = `
       </a>
       <p
         className="src-shared-components-Dashboard-Program-___IosCard__subtrack-color___2axPS"
-      >
-        
-      </p>
+      />
     </div>
     <div
       className="src-shared-components-Dashboard-Program-___IosCard__challenge-links___2nxNN"
@@ -103,9 +101,7 @@ exports[`Matches shallow shapshot 2`] = `
       </a>
       <p
         className="src-shared-components-Dashboard-Program-___IosCard__subtrack-color___2axPS"
-      >
-        
-      </p>
+      />
     </div>
     <div
       className="src-shared-components-Dashboard-Program-___IosCard__challenge-links___2nxNN"
@@ -199,9 +195,7 @@ exports[`Matches shallow shapshot 3`] = `
       </a>
       <p
         className="src-shared-components-Dashboard-Program-___IosCard__subtrack-color___2axPS"
-      >
-        
-      </p>
+      />
     </div>
     <div
       className="src-shared-components-Dashboard-Program-___IosCard__challenge-links___2nxNN"

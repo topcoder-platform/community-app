@@ -633,9 +633,7 @@ exports[`Matches shallow shapshot 7`] = `
           <span>
             Role:
           </span>
-          <span>
-            
-          </span>
+          <span />
         </p>
       </div>
     </div>
@@ -671,9 +669,7 @@ exports[`Matches shallow shapshot 8`] = `
           <span>
             Role:
           </span>
-          <span>
-            
-          </span>
+          <span />
         </p>
       </header>
       <div
