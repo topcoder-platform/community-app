@@ -30,6 +30,7 @@ function Header(props) {
     closeMenu,
     communitySelector,
     groupId,
+    hideJoinNow,
     openMenu,
     openedMenu,
     logos,
@@ -117,19 +118,21 @@ function Header(props) {
     </div>
   ) : (
     <div className={theme.authorize}>
-      <button
-        onClick={() => {
-          let url = encodeURIComponent(
-            `${window.location.href}?join=${groupId}`,
-          );
-          url = encodeURIComponent(
-            `${config.URL.AUTH}/member?retUrl=${url}`,
-          );
-          url = encodeURIComponent(url);
-          window.location = `${config.URL.AUTH}/member/registration?retUrl=${url}`;
-        }}
-        className={theme.btnRegister}
-      >Join Now</button>
+      { hideJoinNow ? null : (
+        <button
+          onClick={() => {
+            let url = encodeURIComponent(
+              `${window.location.href}?join=${groupId}`,
+            );
+            url = encodeURIComponent(
+              `${config.URL.AUTH}/member?retUrl=${url}`,
+            );
+            url = encodeURIComponent(url);
+            window.location = `${config.URL.AUTH}/member/registration?retUrl=${url}`;
+          }}
+          className={theme.btnRegister}
+        >Join Now</button>
+      )}
       <button
         onClick={() => {
           const url = encodeURIComponent(
@@ -229,6 +232,7 @@ Header.defaultProps = {
   activeTrigger: null,
   baseUrl: '',
   groupId: '',
+  hideJoinNow: false,
   menuItems: [],
   openedMenu: null,
   logos: [],
@@ -257,6 +261,7 @@ Header.propTypes = {
     }),
   ])),
   additionalLogos: PT.arrayOf(PT.string),
+  hideJoinNow: PT.bool,
   hideSearch: PT.bool,
   chevronOverAvatar: PT.bool,
   openedMenu: PT.shape({}),
