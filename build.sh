@@ -36,8 +36,7 @@ then
   # the Docker container.
   mv package-lock.json old-package-lock.json
   docker cp app:/opt/app/package-lock.json package-lock.json
-  cmp package-lock.json old-package-lock.json
-  UPDATE_CACHE=$?
+  UPDATE_CACHE=$(cmp package-lock.json old-package-lock.json)
 else
   # If "node_modules" does not exist, then cache must be created.
   UPDATE_CACHE=1
