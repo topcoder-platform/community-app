@@ -36,7 +36,9 @@ then
   # the Docker container.
   mv package-lock.json old-package-lock.json
   docker cp app:/opt/app/package-lock.json package-lock.json
+  set +eo pipefail
   UPDATE_CACHE=$(cmp package-lock.json old-package-lock.json)
+  set -eo pipefail
 else
   # If "node_modules" does not exist, then cache must be created.
   UPDATE_CACHE=1
