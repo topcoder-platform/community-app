@@ -5,7 +5,7 @@
 import Player from 'react-player';
 import PT from 'prop-types';
 import React from 'react';
-import { themr } from 'react-css-themr';
+import { themr } from 'react-css-super-themr';
 import defaultStyle from './style.scss';
 
 function ArticleCard(props) {

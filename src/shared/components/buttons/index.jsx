@@ -6,11 +6,12 @@
  * the props passed in.
  *
  * The button uses react-css-themr for styling, and it is exported mupltiple
- * times, differently wrapped with react-css-themr decorator. The intent behind
+ * times, differently wrapped with react-css-super-themr decorator. The intent
+ * behind
  * it is to provide a standard button implementation, which can be easily styled
  * according to the context of use. E.g. in new pages of the main Topcoder site
  * the design assumes that primary buttons are colored with the colors of
- * competition track to which the page relates. react-css-themr allows to
+ * competition track to which the page relates. react-css-super-themr allows to
  * wrap entire page into ThemeProvider which overrides the styling of all
  * PrimaryButton instances in the page; it still allows to further customise
  * each of these buttons passing theme object directly into each button
@@ -40,7 +41,7 @@
 
 import PT from 'prop-types';
 import React from 'react';
-import { themr } from 'react-css-themr';
+import { themr } from 'react-css-super-themr';
 import { Link } from 'utils/router';
 
 import dangerButton from './danger.scss';

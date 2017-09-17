@@ -2,7 +2,7 @@
  * Primary button, colored with colors of design track (blue).
  */
 
-@import "./default";
+@import "default";
 
 @mixin feedback {
   &:active {

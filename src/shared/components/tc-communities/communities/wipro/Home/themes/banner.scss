@@ -1,4 +1,4 @@
-@import '~styles/tc-styles';
+@import '~styles/mixins';
 
 .container {
   @include xxs-to-xs {
@@ -7,18 +7,15 @@
 }
 
 .content {
-  position: absolute;
-  bottom: 0;
-  left: 0;
   border-radius: 100%;
-  width: 364px;
+  bottom: 0;
   height: 364px;
-  transform: none;
+  left: 0;
   overflow: visible;
-
-  @include xxs-to-xs {
-    top: 50%;
-  }
+  position: absolute;
+  top: 50%;
+  transform: none;
+  width: 364px;
 }
 
 .contentBg {
