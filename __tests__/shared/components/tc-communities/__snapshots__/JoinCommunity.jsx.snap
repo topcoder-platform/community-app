@@ -35,7 +35,7 @@ exports[`Matches shallow shapshot 2`] = `
         mapThemrProps={[Function]}
         theme={
           Object {
-            "style": "src-shared-components-tc-communities-JoinCommunity-___style__loadingIndicator___2RP1u",
+            "container": "src-shared-components-tc-communities-JoinCommunity-___style__loadingIndicator___2RP1u",
           }
         }
         themePriority="adhoc-context-default"

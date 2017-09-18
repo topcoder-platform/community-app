@@ -53,7 +53,7 @@ export default function JoinCommunity({
         { state === STATE.JOINING ? (
           <div>
             <p>Joining...</p>
-            <LoadingIndicator theme={{ style: style.loadingIndicator }} />
+            <LoadingIndicator theme={{ container: style.loadingIndicator }} />
           </div>
         ) : label}
       </button>
