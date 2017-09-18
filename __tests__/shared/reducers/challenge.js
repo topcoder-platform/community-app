@@ -86,7 +86,6 @@ function testReducer(reducer, istate) {
       resultsLoadedForChallengeId: '',
       selectedTab: 'details',
       unregistering: false,
-      showTermsModal: false,
     });
   });
 
@@ -112,7 +111,6 @@ function testReducer(reducer, istate) {
       resultsLoadedForChallengeId: '',
       selectedTab: 'details',
       unregistering: false,
-      showTermsModal: false,
     });
   });
 
@@ -132,7 +130,6 @@ function testReducer(reducer, istate) {
       resultsLoadedForChallengeId: '',
       selectedTab: 'details',
       unregistering: false,
-      showTermsModal: false,
     });
   });
 
@@ -154,7 +151,6 @@ function testReducer(reducer, istate) {
       resultsLoadedForChallengeId: '',
       selectedTab: 'details',
       unregistering: false,
-      showTermsModal: false,
     });
   });
 
@@ -177,7 +173,6 @@ function testReducer(reducer, istate) {
       resultsLoadedForChallengeId: '',
       selectedTab: 'details',
       unregistering: false,
-      showTermsModal: false,
     });
   });
 
@@ -200,7 +195,6 @@ function testReducer(reducer, istate) {
       resultsLoadedForChallengeId: '',
       selectedTab: 'details',
       unregistering: false,
-      showTermsModal: false,
     });
   });
 
@@ -223,7 +217,6 @@ function testReducer(reducer, istate) {
       resultsLoadedForChallengeId: '',
       selectedTab: 'details',
       unregistering: false,
-      showTermsModal: false,
     });
   });
 }
@@ -242,7 +235,6 @@ describe('Default reducer', () =>
     resultsLoadedForChallengeId: '',
     selectedTab: 'details',
     unregistering: false,
-    showTermsModal: false,
   }),
 );
 
@@ -260,7 +252,6 @@ describe('Factory without http request', () =>
       mySubmissionsManagement: {},
       registering: false,
       unregistering: false,
-      showTermsModal: false,
     }),
   ),
 );
@@ -282,7 +273,6 @@ describe('Factory with server-side rendering', () =>
       mySubmissionsManagement: {},
       registering: false,
       unregistering: false,
-      showTermsModal: false,
     }),
   ),
 );
@@ -300,7 +290,6 @@ describe('Factory without server-side rendering', () =>
       mySubmissionsManagement: {},
       registering: false,
       unregistering: false,
-      showTermsModal: false,
     }),
   ),
 );

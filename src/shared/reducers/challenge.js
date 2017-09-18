@@ -257,8 +257,6 @@ function create(initialState) {
     }),
     [a.fetchCheckpointsDone]: onFetchCheckpointsDone,
     [a.toggleCheckpointFeedback]: onToggleCheckpointFeedback,
-    [a.openTermsModal]: state => ({ ...state, showTermsModal: true }),
-    [a.closeTermsModal]: state => ({ ...state, showTermsModal: false }),
     [a.selectTab]: onSelectTab,
   }, _.defaults(initialState, {
     details: null,
@@ -271,7 +269,6 @@ function create(initialState) {
     results: null,
     resultsLoadedForChallengeId: '',
     unregistering: false,
-    showTermsModal: false,
     selectedTab: DETAIL_TABS.DETAILS,
   }));
 }

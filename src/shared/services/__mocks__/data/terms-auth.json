@@ -15,6 +15,14 @@
       "agreeabilityType": "Electronically-agreeable",
       "agreed": false,
       "templateId": null
+    },
+    {
+      "termsOfUseId": 21194,
+      "title": "Test Terms",
+      "url": "",
+      "agreeabilityType": "Electronically-agreeable",
+      "agreed": false,
+      "templateId": null
     }
   ],
   "serverInformation": {

@@ -1,24 +1,26 @@
 @import "~styles/tc-styles";
 
-.title {
-  height: 40px;
-  line-height: 40px;
-  font-size: 24px;
-  border-bottom: 1px solid $tc-gray-10;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
 .body {
   max-height: 480px;
   overflow: auto;
-  border-bottom: 1px solid $tc-gray-10;
+  border: 1px solid $tc-gray-30;
+  word-break: break-word;
+
+  @include xs {
+    max-height: none;
+    padding: 10px 0;
+    border: none;
+    background-color: $tc-white;
+  }
 }
 
 .frame {
   height: 480px;
   width: 100%;
+
+  &.loading {
+    display: none;
+  }
 }
 
 .buttons {
@@ -26,4 +28,11 @@
   justify-content: space-around;
   margin-top: 20px;
   padding: 0 50px;
+}
+
+.button {
+  height: 30px;
+  padding: 4px 15px;
+  font-size: 13px;
+  line-height: 20px;
 }

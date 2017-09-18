@@ -135,6 +135,10 @@ $tc-link-visited: #0c4e98;
 .term {
   display: flex;
   align-items: flex-start;
+
+  a {
+    cursor: pointer;
+  }
 }
 
 .agreed {

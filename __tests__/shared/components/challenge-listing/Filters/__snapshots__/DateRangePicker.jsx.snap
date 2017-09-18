@@ -18,6 +18,7 @@ exports[`Matches shallow shapshot 1`] = `
   hideKeyboardShortcutsPanel={false}
   horizontalMargin={0}
   initialVisibleMonth={null}
+  inputIconPosition="before"
   isDayBlocked={[Function]}
   isDayHighlighted={[Function]}
   isOutsideRange={[Function]}
@@ -33,6 +34,7 @@ exports[`Matches shallow shapshot 1`] = `
   onFocusChange={[Function]}
   onNextMonthClick={[Function]}
   onPrevMonthClick={[Function]}
+  openDirection="down"
   orientation="horizontal"
   phrases={
     Object {
@@ -77,6 +79,7 @@ exports[`Matches shallow shapshot 1`] = `
   startDate={null}
   startDateId="startDate"
   startDatePlaceholderText="Start Date"
+  weekDayFormat="dd"
   withFullScreenPortal={false}
   withPortal={false}
 />

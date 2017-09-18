@@ -18,43 +18,73 @@ class TermsService {
     };
   }
 
+  /**
+   * get all terms of specified challenge
+   * @param  {Number|String} challengeId id of the challenge
+   * @return {Promise}       promise of the request result
+   */
   getTerms(challengeId) {
-    let registered = false;
-    return this.private.api.get(`/terms/${challengeId}?role=Submitter`)
-      .then(res => res.json())
-      .then((res) => {
-        if (res.error) {
-          if (res.error.details === 'You are already registered for this challenge.') {
-            registered = true;
+    if (this.private.tokenV2) {
+      let registered = false;
+      return this.private.api.get(`/terms/${challengeId}?role=Submitter`)
+        .then(res => res.json())
+        .then((res) => {
+          if (res.error) {
+            if (res.error.details === 'You are already registered for this challenge.') {
+              registered = true;
+            }
+            return this.private.api.get(`/terms/${challengeId}?role=Submitter&noauth=true`)
+              .then((resp) => {
+                if (resp.ok) {
+                  return resp.json().then((result) => {
+                    if (registered) {
+                      // eslint-disable-next-line no-param-reassign
+                      _.forEach(result.terms, (t) => { t.agreed = true; });
+                    }
+                    return result;
+                  });
+                }
+                return new Error(resp.statusText);
+              });
           }
-          return this.private.api.get(`/terms/${challengeId}?role=Submitter&noauth=true`)
-            .then((resp) => {
-              if (resp.ok) {
-                return resp.json().then((result) => {
-                  if (registered) {
-                    // eslint-disable-next-line no-param-reassign
-                    _.forEach(result.terms, (t) => { t.agreed = true; });
-                  }
-                  return result;
-                });
-              }
-              return new Error(resp.statusText);
-            });
+          return res;
+        });
+    }
+    return this.private.api.get(`/terms/${challengeId}?role=Submitter&noauth=true`)
+      .then((resp) => {
+        if (resp.ok) {
+          return resp.json();
         }
-        return res;
+        return new Error(resp.statusText);
       });
   }
 
+  /**
+   * get details of specified term
+   * @param  {Number|String} termId id of the term
+   * @return {Promise}       promise of the request result
+   */
   getTermDetails(termId) {
     return this.private.api.get(`/terms/detail/${termId}`)
       .then(res => (res.ok ? res.json() : new Error(res.statusText)));
   }
 
+  /**
+   * generate the url of DocuSign term
+   * @param  {Number|String} templateId id of the term's template
+   * @param  {String}        returnUrl  callback url after finishing signing
+   * @return {Promise}       promise of the request result
+   */
   getDocuSignUrl(templateId, returnUrl) {
     return this.private.api.post(`/terms/docusign/viewURL?templateId=${templateId}&returnUrl=${returnUrl}`)
       .then(res => (res.ok ? res.json() : new Error(res.statusText)));
   }
 
+  /**
+   * Agree a term
+   * @param  {Number|String} termId id of the term
+   * @return {Promise}       promise of the request result
+   */
   agreeTerm(termId) {
     return this.private.api.post(`/terms/${termId}/agree`)
       .then(res => (res.ok ? res.json() : new Error(res.statusText)));
@@ -62,9 +92,9 @@ class TermsService {
 }
 
 /**
- * Returns a new or existing challenges service.
- * @param {String} tokenV3 Optional. Auth token for Topcoder API v3.
- * @return {Challenges} Challenges service object
+ * Returns a new or existing terms service.
+ * @param {String} tokenV2 Optional. Auth token for Topcoder API v2.
+ * @return {TermsService} Terms service object
  */
 let lastInstance = null;
 export function getService(tokenV2) {
