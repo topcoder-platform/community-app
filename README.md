@@ -104,7 +104,7 @@ This App already contains:
 - Node-Config;
 - React;
 - React CSS Modules (via Babel plugin);
-- [react-css-themr](https://github.com/javivelasco/react-css-themr);
+- [react-css-super-themr](https://github.com/birdofpreyru/react-css-super-themr);
 - React Router;
 - Redux with Flux Standard Actions, redux-promise middleware, support of server-side rendering, and DevTools for dev environment;
 - SCSS support;

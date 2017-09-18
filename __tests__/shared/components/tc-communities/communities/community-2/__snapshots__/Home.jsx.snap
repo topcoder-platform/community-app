@@ -3,7 +3,8 @@
 exports[`Match shadow snapshot 1`] = `
 <main>
   <ThemedBanner
-    composeTheme="deeply"
+    composeAdhocTheme="deeply"
+    composeContextTheme="softly"
     imageSrc="/themes/community-2/home/banner.jpg"
     link={
       Object {
@@ -14,13 +15,15 @@ exports[`Match shadow snapshot 1`] = `
     mapThemrProps={[Function]}
     text="BAE's Hybrid Crowd gives our vast ecosystem of customers and partners options to access new range of skills that provide new value services and efficiency options all over the world."
     theme={Object {}}
+    themePriority="adhoc-context-default"
     title="Community 2"
   />
   <Connect(CommunityStatsContainer) />
   <Connect(JoinCommunity) />
   <ThemedSection
     anchor={null}
-    composeTheme="deeply"
+    composeAdhocTheme="deeply"
+    composeContextTheme="softly"
     link={null}
     mapThemrProps={[Function]}
     theme={
@@ -28,11 +31,13 @@ exports[`Match shadow snapshot 1`] = `
         "container": "src-shared-components-tc-communities-communities-community-2-Home-___style__linksContainer___CzMMR",
       }
     }
+    themePriority="adhoc-context-default"
     title={null}
   >
     <div>
       <ThemedImageText
-        composeTheme="deeply"
+        composeAdhocTheme="deeply"
+        composeContextTheme="softly"
         imageSrc="/themes/community-2/home/image-text-learn.jpg"
         link={
           Object {
@@ -43,10 +48,12 @@ exports[`Match shadow snapshot 1`] = `
         mapThemrProps={[Function]}
         text="Our continuously evolving structured learning paths, constantly abreast of the latest, tailored for employees to deepen your knowledge, infuses important software capabilities that are industry specific and help you get the skills you need to succeed."
         theme={Object {}}
+        themePriority="adhoc-context-default"
         title="Improve Your Skills"
       />
       <ThemedImageText
-        composeTheme="deeply"
+        composeAdhocTheme="deeply"
+        composeContextTheme="softly"
         imageSrc="/themes/community-2/home/image-text-do.jpg"
         link={
           Object {
@@ -57,13 +64,15 @@ exports[`Match shadow snapshot 1`] = `
         mapThemrProps={[Function]}
         text="Rewards program is intended to celebrate and recognize your contribution. Rewards for project contributions are given using ‘Reward Points’. Points earned translate into badges. Quarterly rewards are given away to the toppers of all categories."
         theme={Object {}}
+        themePriority="adhoc-context-default"
         title="Get Involved"
       />
     </div>
   </ThemedSection>
   <ThemedSection
     anchor={null}
-    composeTheme="deeply"
+    composeAdhocTheme="deeply"
+    composeContextTheme="softly"
     link={null}
     mapThemrProps={[Function]}
     theme={
@@ -71,10 +80,12 @@ exports[`Match shadow snapshot 1`] = `
         "container": "src-shared-components-tc-communities-communities-community-2-Home-___style__resourcesContainer___1Y23p",
       }
     }
+    themePriority="adhoc-context-default"
     title={null}
   >
     <ThemedResourceCard
-      composeTheme="deeply"
+      composeAdhocTheme="deeply"
+      composeContextTheme="softly"
       icon={[Function]}
       link={
         Object {
@@ -85,10 +96,12 @@ exports[`Match shadow snapshot 1`] = `
       mapThemrProps={[Function]}
       text="Pellentesque non dignissim neque. Nunc vel rhoncus nibh, ut tincidunt turpis. Integer ac enim pellentesque, adipiscing metus id, pharetra odio."
       theme={Object {}}
+      themePriority="adhoc-context-default"
       title="Up Your iOS and Swift Development Skills"
     />
     <ThemedResourceCard
-      composeTheme="deeply"
+      composeAdhocTheme="deeply"
+      composeContextTheme="softly"
       icon={[Function]}
       link={
         Object {
@@ -99,10 +112,12 @@ exports[`Match shadow snapshot 1`] = `
       mapThemrProps={[Function]}
       text="Donec bibendum nunc sit amet tortor scelerisque luctus et sit amet mauris. Suspendisse felis sem, condimentum ullamcorper est sit amet, molestie"
       theme={Object {}}
+      themePriority="adhoc-context-default"
       title="Take the First Steps to Stand Out in the Community"
     />
     <ThemedResourceCard
-      composeTheme="deeply"
+      composeAdhocTheme="deeply"
+      composeContextTheme="softly"
       icon={[Function]}
       link={
         Object {
@@ -113,6 +128,7 @@ exports[`Match shadow snapshot 1`] = `
       mapThemrProps={[Function]}
       text="Suspendisse felis sem, condimentum ullamcorper est sit amet, molestie mollis nulla. Etiam lorem orci, consequat ac magna quis, facilisis"
       theme={Object {}}
+      themePriority="adhoc-context-default"
       title="Compete in Challenges and Win Cash"
     />
   </ThemedSection>
@@ -130,12 +146,14 @@ exports[`Match shadow snapshot 1`] = `
   />
   <ThemedNewsletterSignup
     buttonText="Sign Up"
-    composeTheme="deeply"
+    composeAdhocTheme="deeply"
+    composeContextTheme="softly"
     emailPlaceholder="Email address"
     imageSrc="/themes/community-2/subscribe-bg.jpg"
     mapThemrProps={[Function]}
     text="Don’t miss out on the latest Topcoder IOS challenges and information!"
     theme={Object {}}
+    themePriority="adhoc-context-default"
     title="Sign up for our newsletter"
   />
 </main>

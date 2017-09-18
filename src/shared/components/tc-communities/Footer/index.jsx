@@ -8,7 +8,7 @@ import _ from 'lodash';
 import config from 'utils/config';
 import React from 'react';
 import PT from 'prop-types';
-import { themr } from 'react-css-themr';
+import { themr } from 'react-css-super-themr';
 import { Link, NavLink } from 'react-router-dom';
 import defaultStyle from './style.scss';
 import TopcoderLogoGray from '../../../../assets/images/tc-communities/logo_topcoder_gray.svg';

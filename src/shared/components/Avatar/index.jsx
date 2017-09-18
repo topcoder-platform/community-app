@@ -8,7 +8,7 @@
  *
  * Styling:
  *  By default the avatar is round-shaped. Custom styling may be applied using
- *  react-css-themr.
+ *  react-css-super-themr.
  *
  * Usage:
  *   <Avatar url={imgUrl} theme={customeTheme} />
@@ -20,7 +20,7 @@
 
 import PT from 'prop-types';
 import React from 'react';
-import { themr } from 'react-css-themr';
+import { themr } from 'react-css-super-themr';
 import DefaultAvatar from '../../../assets/images/ico-user-default.svg';
 import defaultStyle from './style.scss';
 

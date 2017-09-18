@@ -67,7 +67,7 @@ exports[`Matches shallow shapshot 1`] = `
       "upArrowDownArrow": "up and down arrow keys",
     }
   }
-  readOnly={false}
+  readOnly={true}
   renderCalendarInfo={null}
   renderDay={null}
   renderMonth={null}

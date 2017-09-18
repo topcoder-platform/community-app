@@ -59,8 +59,10 @@ exports[`Matches shallow shapshot 2`] = `
   className="src-shared-components-Leaderboard-Podium-___styles__Podium___2rb4T"
 >
   <ThemedLoadingIndicator
-    composeTheme="deeply"
+    composeAdhocTheme="deeply"
+    composeContextTheme="softly"
     mapThemrProps={[Function]}
+    themePriority="adhoc-context-default"
   />
 </div>
 `;

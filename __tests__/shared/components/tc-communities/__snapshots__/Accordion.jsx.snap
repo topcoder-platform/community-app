@@ -15,11 +15,13 @@ exports[`Snapshot match 1`] = `
   }
 >
   <ThemedAccordionItem
-    composeTheme="deeply"
+    composeAdhocTheme="deeply"
+    composeContextTheme="softly"
     isOpen={false}
     mapThemrProps={[Function]}
     onTitleClick={[Function]}
     theme={Object {}}
+    themePriority="adhoc-context-default"
     title="Test title"
   >
     <div>

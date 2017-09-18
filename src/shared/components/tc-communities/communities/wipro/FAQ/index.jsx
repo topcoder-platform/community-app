@@ -25,7 +25,7 @@ import Text from 'components/tc-communities/Text';
 import Accordion from 'components/tc-communities/Accordion/Accordion';
 import AccordionItem from 'components/tc-communities/Accordion/AccordionItem';
 import Text from 'components/tc-communities/Text';
-import { ThemeProvider } from 'react-css-themr';
+import { ThemeProvider } from 'react-css-super-themr';
 
 import theme from '../theme';
 import style from './style.scss';

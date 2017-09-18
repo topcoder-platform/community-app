@@ -10,14 +10,17 @@ exports[`Matches shallow shapshot 1`] = `
     Default theme
   </h3>
   <ThemedThemableComponent
-    composeTheme="deeply"
+    composeAdhocTheme="deeply"
+    composeContextTheme="softly"
     mapThemrProps={[Function]}
+    themePriority="adhoc-context-default"
   />
   <h3>
     Default theme + Parent-provided styling
   </h3>
   <ThemedThemableComponent
-    composeTheme="deeply"
+    composeAdhocTheme="deeply"
+    composeContextTheme="softly"
     mapThemrProps={[Function]}
     theme={
       Object {
@@ -25,6 +28,7 @@ exports[`Matches shallow shapshot 1`] = `
         "text": "src-shared-components-examples-Themr-___style__text___3B1uO",
       }
     }
+    themePriority="adhoc-context-default"
   />
   <h3>
     Default theme + Context styling
@@ -40,8 +44,10 @@ exports[`Matches shallow shapshot 1`] = `
     }
   >
     <ThemedThemableComponent
-      composeTheme="deeply"
+      composeAdhocTheme="deeply"
+      composeContextTheme="softly"
       mapThemrProps={[Function]}
+      themePriority="adhoc-context-default"
     />
   </ThemeProvider>
   <h3>
@@ -58,7 +64,8 @@ exports[`Matches shallow shapshot 1`] = `
     }
   >
     <ThemedThemableComponent
-      composeTheme="deeply"
+      composeAdhocTheme="deeply"
+      composeContextTheme="softly"
       mapThemrProps={[Function]}
       theme={
         Object {
@@ -66,6 +73,7 @@ exports[`Matches shallow shapshot 1`] = `
           "text": "src-shared-components-examples-Themr-___style__text___3B1uO",
         }
       }
+      themePriority="adhoc-context-default"
     />
   </ThemeProvider>
   <h3>
@@ -78,8 +86,10 @@ exports[`Matches shallow shapshot 1`] = `
     theme={Object {}}
   >
     <ThemedThemableComponent
-      composeTheme="deeply"
+      composeAdhocTheme="deeply"
+      composeContextTheme="softly"
       mapThemrProps={[Function]}
+      themePriority="adhoc-context-default"
     />
   </ThemeProvider>
 </div>

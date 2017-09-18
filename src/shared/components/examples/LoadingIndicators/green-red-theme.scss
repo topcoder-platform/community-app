@@ -1,0 +1,22 @@
+/**
+ * A sample green / red theme for the loading indicator.
+ * It is here just to demonstrate customization of the indicator,
+ * do not use this very style inside the app (it is aesthetically ugly).
+ */
+
+.container {
+  display: inline-block !important;
+  height: 128px !important;
+  vertical-align: middle;
+  width: 128px !important;
+}
+
+.circle1 {
+  stroke: green !important;
+  stroke-width: 1 !important;
+}
+
+.circle2 {
+  stroke: red !important;
+  stroke-width: 1 !important;
+}

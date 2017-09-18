@@ -3,6 +3,7 @@
 .black-bg {
   background: black;
   padding: 24px;
+  text-align: center;
 }
 
 .page {
@@ -46,8 +47,15 @@
     );
   margin-top: 24px;
   padding: 24px;
+  text-align: center;
 }
 
 .white-bg {
   padding: 24px;
+  text-align: center;
+}
+
+.indicatorContainer {
+  display: inline-block;
+  vertical-align: middle;
 }

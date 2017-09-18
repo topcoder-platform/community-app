@@ -8,7 +8,8 @@ exports[`Matches shallow shapshot 1`] = `
     className="src-shared-components-Leaderboard-PodiumSpot-___styles__leaderboard-avatar___2Aea7"
   >
     <ThemedAvatar
-      composeTheme="deeply"
+      composeAdhocTheme="deeply"
+      composeContextTheme="softly"
       customStyles={null}
       mapThemrProps={[Function]}
       theme={
@@ -16,6 +17,7 @@ exports[`Matches shallow shapshot 1`] = `
           "avatar": "src-shared-components-Leaderboard-___avatarStyles__gold___1KUGN",
         }
       }
+      themePriority="adhoc-context-default"
       url="some.fake.string"
     />
   </span>
@@ -55,7 +57,8 @@ exports[`Matches shallow shapshot 2`] = `
     className="src-shared-components-Leaderboard-PodiumSpot-___styles__leaderboard-avatar___2Aea7"
   >
     <ThemedAvatar
-      composeTheme="deeply"
+      composeAdhocTheme="deeply"
+      composeContextTheme="softly"
       customStyles={null}
       mapThemrProps={[Function]}
       theme={
@@ -63,6 +66,7 @@ exports[`Matches shallow shapshot 2`] = `
           "avatar": "src-shared-components-Leaderboard-___avatarStyles__gold___1KUGN",
         }
       }
+      themePriority="adhoc-context-default"
       url="https://www.topcoder-dev.com/assets/a.jpg"
     />
   </span>

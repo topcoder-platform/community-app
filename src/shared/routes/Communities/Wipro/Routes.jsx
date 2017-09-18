@@ -11,7 +11,7 @@ import Learn from 'components/tc-communities/communities/wipro/Learn';
 import PT from 'prop-types';
 import React from 'react';
 import theme from 'components/tc-communities/communities/wipro/theme';
-import { ThemeProvider } from 'react-css-themr';
+import { ThemeProvider } from 'react-css-super-themr';
 import { Route, Switch } from 'react-router-dom';
 
 import ChallengeListing from '../ChallengeListing';

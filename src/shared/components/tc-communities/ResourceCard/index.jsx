@@ -4,7 +4,7 @@
 
 import React from 'react';
 import PT from 'prop-types';
-import { themr } from 'react-css-themr';
+import { themr } from 'react-css-super-themr';
 import { Link } from 'react-router-dom';
 import defaultStyle from './style.scss';
 

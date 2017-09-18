@@ -30,13 +30,15 @@ exports[`Matches shallow shapshot 2`] = `
         Joining...
       </p>
       <ThemedLoadingIndicator
-        composeTheme="deeply"
+        composeAdhocTheme="deeply"
+        composeContextTheme="softly"
         mapThemrProps={[Function]}
         theme={
           Object {
-            "style": "src-shared-components-tc-communities-JoinCommunity-___style__loadingIndicator___2RP1u",
+            "container": "src-shared-components-tc-communities-JoinCommunity-___style__loadingIndicator___2RP1u",
           }
         }
+        themePriority="adhoc-context-default"
       />
     </div>
   </button>
@@ -58,10 +60,12 @@ exports[`Matches shallow shapshot 4`] = `
     Join Community
   </button>
   <ThemedModal
-    composeTheme="deeply"
+    composeAdhocTheme="deeply"
+    composeContextTheme="softly"
     mapThemrProps={[Function]}
     onCancel={[Function]}
     theme={Object {}}
+    themePriority="adhoc-context-default"
   >
     <h1
       className="src-shared-components-tc-communities-JoinCommunity-___style__modalTitle___1U_iw"

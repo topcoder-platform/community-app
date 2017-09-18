@@ -16,7 +16,7 @@ import Avatar from 'components/Avatar';
 import { Link, NavLink } from 'utils/router';
 import { getRatingColor } from 'utils/tc';
 import Dropdown from 'components/tc-communities/Dropdown';
-import { themr } from 'react-css-themr';
+import { themr } from 'react-css-super-themr';
 import IconSearch from '../../../../assets/images/tc-communities/search.svg';
 import IconNavExit from '../../../../assets/images/nav/exit.svg';
 import IconNavSettings from '../../../../assets/images/nav/settings.svg';
