@@ -1,7 +1,7 @@
 import PT from 'prop-types';
 import Source from 'assets/images/ripple.gif';
 import React from 'react';
-import { themr } from 'react-css-themr';
+import { themr } from 'react-css-super-themr';
 import style from './styles.scss';
 
 function LoadingIndicator({ theme }) {

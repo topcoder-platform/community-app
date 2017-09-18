@@ -10,7 +10,7 @@ import ChallengeListingRegisterToSee from
   'components/tc-communities/communities/blockchain/ChallengeListing/RegisterToSee';
 
 import Error404 from 'components/Error404';
-import Footer from 'containers/tc-communities/Footer';
+import Footer from 'components/tc-communities/Footer2';
 import Header from 'containers/tc-communities/Header';
 import Home from 'components/tc-communities/communities/blockchain/Home';
 import Learn from 'components/tc-communities/communities/blockchain/Learn';
@@ -26,7 +26,10 @@ export default function Routes({ base, member, meta }) {
     <Route
       component={({ match }) => (
         <div>
-          <Header pageId={match.params.pageId || 'home'} />
+          <Header
+            hideJoinNow
+            pageId={match.params.pageId || 'home'}
+          />
           <Switch>
             <Route
               component={() => (

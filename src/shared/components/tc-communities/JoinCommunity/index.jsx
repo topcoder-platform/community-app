@@ -60,7 +60,7 @@ export default function JoinCommunity({
       { state === STATE.JOINED ? (
         <Modal onCancel={hideJoinButton}>
           <h1 styleName="modalTitle">Congratulations!</h1>
-          <p styleName="modalMsg">You have joined {communityName}!</p>
+          <p styleName="modalMsg">You have joined the {communityName}!</p>
           <button
             onClick={hideJoinButton}
             styleName="done"

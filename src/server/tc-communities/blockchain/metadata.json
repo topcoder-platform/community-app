@@ -13,6 +13,7 @@
     "value": "2"
   }],
   "groupId": "20000010",
+  "hideSearch": true,
   "logos": [{
     "img": "/themes/blockchain/logo_topcoder_with_name.svg",
     "url": "https://www.topcoder.com"

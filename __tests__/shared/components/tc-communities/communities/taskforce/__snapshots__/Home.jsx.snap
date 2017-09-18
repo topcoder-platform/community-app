@@ -3,7 +3,8 @@
 exports[`Match shadow snapshot 1`] = `
 <main>
   <ThemedBanner
-    composeTheme="deeply"
+    composeAdhocTheme="deeply"
+    composeContextTheme="softly"
     imageSrc="/themes/wipro/home/banner.jpg"
     link={
       Array [
@@ -26,6 +27,7 @@ exports[`Match shadow snapshot 1`] = `
         "linkWrap": "src-shared-components-tc-communities-communities-taskforce-Home-___style__BannerLinkWrapper___huJqJ",
       }
     }
+    themePriority="adhoc-context-default"
     title="Get work done faster with Topcoder TaskForce"
   />
   <Connect(CommunityStatsContainer)
@@ -40,7 +42,8 @@ exports[`Match shadow snapshot 1`] = `
   <Connect(JoinCommunity) />
   <ThemedSection
     anchor="why-topcoder-taskforce"
-    composeTheme="deeply"
+    composeAdhocTheme="deeply"
+    composeContextTheme="softly"
     link={null}
     mapThemrProps={[Function]}
     theme={
@@ -48,11 +51,13 @@ exports[`Match shadow snapshot 1`] = `
         "container": "src-shared-components-tc-communities-communities-taskforce-Home-___style__linksContainer___25Lds",
       }
     }
+    themePriority="adhoc-context-default"
     title="Why Topcoder TaskForce?"
   >
     <div>
       <ThemedImageText
-        composeTheme="deeply"
+        composeAdhocTheme="deeply"
+        composeContextTheme="softly"
         imageSrc="/themes/taskforce/home/image-text-do.jpg"
         link={
           Object {
@@ -67,10 +72,12 @@ exports[`Match shadow snapshot 1`] = `
             "container": "src-shared-components-tc-communities-communities-taskforce-Home-___style__ImageTextContainer___2Ua9J",
           }
         }
+        themePriority="adhoc-context-default"
         title="No Matchmaking, No Hoping"
       />
       <ThemedImageText
-        composeTheme="deeply"
+        composeAdhocTheme="deeply"
+        composeContextTheme="softly"
         imageSrc="/themes/taskforce/home/working-desk.jpg"
         link={
           Object {
@@ -81,13 +88,15 @@ exports[`Match shadow snapshot 1`] = `
         mapThemrProps={[Function]}
         text="On other sites it can feel as if you’re left on an island… a deserted island. With Topcoder not only are you paired with the right talent, but you are also provided your very own Copilot. Think of them as your task sherpa and they are all yours. They interface with you, discuss the work, make sure we’re all aligned and then work directly with the paired talent to get this executed for you. It’s like having your very own crowdsourcing concierge and it’s only available on Topcoder."
         theme={Object {}}
+        themePriority="adhoc-context-default"
         title="Never Go It Alone"
       />
     </div>
   </ThemedSection>
   <ThemedSection
     anchor={null}
-    composeTheme="deeply"
+    composeAdhocTheme="deeply"
+    composeContextTheme="softly"
     link={null}
     mapThemrProps={[Function]}
     theme={
@@ -95,12 +104,15 @@ exports[`Match shadow snapshot 1`] = `
         "container": "src-shared-components-tc-communities-communities-taskforce-Home-___style__WhatCanYouGetDone___1to7k",
       }
     }
+    themePriority="adhoc-context-default"
     title="What Can You Get Done?"
   >
     <ThemedText
-      composeTheme="deeply"
+      composeAdhocTheme="deeply"
+      composeContextTheme="softly"
       mapThemrProps={[Function]}
       theme={Object {}}
+      themePriority="adhoc-context-default"
     >
       <p>
         Through Topcoder TaskForce you can easily and quickly get quality design, development, and data tasks accomplished. No matchmaking, no searching for talent, simply tell us what you need done and we’ll take care of the rest.
@@ -109,7 +121,8 @@ exports[`Match shadow snapshot 1`] = `
   </ThemedSection>
   <ThemedSection
     anchor={null}
-    composeTheme="deeply"
+    composeAdhocTheme="deeply"
+    composeContextTheme="softly"
     link={null}
     mapThemrProps={[Function]}
     theme={
@@ -117,10 +130,12 @@ exports[`Match shadow snapshot 1`] = `
         "container": "src-shared-components-tc-communities-communities-taskforce-Home-___style__resourcesContainer___tnDQ3",
       }
     }
+    themePriority="adhoc-context-default"
     title={null}
   >
     <ThemedResourceCard
-      composeTheme="deeply"
+      composeAdhocTheme="deeply"
+      composeContextTheme="softly"
       icon={[Function]}
       link={
         Object {
@@ -131,10 +146,12 @@ exports[`Match shadow snapshot 1`] = `
       mapThemrProps={[Function]}
       text=""
       theme={Object {}}
+      themePriority="adhoc-context-default"
       title="Top designers are ready to understand your vision and help you bring it to life fast."
     />
     <ThemedResourceCard
-      composeTheme="deeply"
+      composeAdhocTheme="deeply"
+      composeContextTheme="softly"
       icon={[Function]}
       link={
         Object {
@@ -145,10 +162,12 @@ exports[`Match shadow snapshot 1`] = `
       mapThemrProps={[Function]}
       text=""
       theme={Object {}}
+      themePriority="adhoc-context-default"
       title="Get a specialized developer working on your project today."
     />
     <ThemedResourceCard
-      composeTheme="deeply"
+      composeAdhocTheme="deeply"
+      composeContextTheme="softly"
       icon={[Function]}
       link={
         Object {
@@ -159,6 +178,7 @@ exports[`Match shadow snapshot 1`] = `
       mapThemrProps={[Function]}
       text=""
       theme={Object {}}
+      themePriority="adhoc-context-default"
       title="Data scientists and algorithmists are hard to come by, but we make it easy."
     />
   </ThemedSection>
@@ -182,12 +202,14 @@ exports[`Match shadow snapshot 1`] = `
   />
   <ThemedNewsletterSignup
     buttonText="Sign Up"
-    composeTheme="deeply"
+    composeAdhocTheme="deeply"
+    composeContextTheme="softly"
     emailPlaceholder="Email address"
     imageSrc="/themes/wipro/subscribe-bg.jpg"
     mapThemrProps={[Function]}
     text="Get the Topcoder crowdsourcing newsletter, today!"
     theme={Object {}}
+    themePriority="adhoc-context-default"
     title="3 key crowdsourcing stories, 1x per month"
   />
 </main>

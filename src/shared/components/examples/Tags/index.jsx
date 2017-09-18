@@ -5,7 +5,7 @@ import {
   PrimaryTag,
   EventTag,
 } from 'components/tags';
-import { ThemeProvider } from 'react-css-themr';
+import { ThemeProvider } from 'react-css-super-themr';
 
 import primaryDataScienceTagStyle from 'components/tags/primaryDataScience.scss';
 import primaryDevelopTagStyle from 'components/tags/primaryDevelop.scss';

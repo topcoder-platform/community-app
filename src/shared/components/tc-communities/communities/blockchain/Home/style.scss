@@ -63,7 +63,7 @@
 
 .introContainer {
   background: $tc-gray-neutral-light;
-  color: #394146;
+  color: #787d81;
   padding-bottom: 48px;
   margin-bottom: 24px;
 
@@ -73,15 +73,14 @@
   }
 
   h1 {
-    @include roboto;
-
-    font-size: 36px;
+    color: #394146;
+    font: 600 36px 'Open Sans';
     margin-bottom: 12px;
   }
 
   p {
-    color: #394146;
-    font: 15px/22px 'roboto';
+    color: #787d81;
+    font: 15px/22px 'Open Sans';
     padding: 6px 0;
   }
 }

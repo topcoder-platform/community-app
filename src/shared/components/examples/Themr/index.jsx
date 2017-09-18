@@ -1,9 +1,9 @@
 /**
- * react-css-themr test/demo.
+ * react-css-super-themr test/demo.
  */
 
 import React from 'react';
-import { ThemeProvider } from 'react-css-themr';
+import { ThemeProvider } from 'react-css-super-themr';
 import ThemableComponent from './ThemableComponent';
 import contextStyle from './contextStyle.scss';
 import style from './style.scss';

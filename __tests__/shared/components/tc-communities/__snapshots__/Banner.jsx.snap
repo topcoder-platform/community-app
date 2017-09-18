@@ -31,14 +31,14 @@ exports[`Snapshot match 2`] = `
   text="You’re eager to get started, and we have a bunch of iOS/Swift challenges!"
   theme={
     Object {
-      "container": "src-shared-components-tc-communities-Banner-___style__container___2NxGp container",
-      "content": "src-shared-components-tc-communities-Banner-___style__content___21lXO content",
-      "contentBg": "src-shared-components-tc-communities-Banner-___style__contentBg___145Ln contentBg",
-      "contentInner": "src-shared-components-tc-communities-Banner-___style__contentInner___3w8VH contentInner",
+      "container": "container src-shared-components-tc-communities-Banner-___style__container___2NxGp",
+      "content": "content src-shared-components-tc-communities-Banner-___style__content___21lXO",
+      "contentBg": "contentBg src-shared-components-tc-communities-Banner-___style__contentBg___145Ln",
+      "contentInner": "contentInner src-shared-components-tc-communities-Banner-___style__contentInner___3w8VH",
       "link": "link",
       "linkWrap": "linkWrap",
-      "text": "src-shared-components-tc-communities-Banner-___style__text___-lkXi text",
-      "title": "src-shared-components-tc-communities-Banner-___style__title___GMY8V title",
+      "text": "text src-shared-components-tc-communities-Banner-___style__text___-lkXi",
+      "title": "title src-shared-components-tc-communities-Banner-___style__title___GMY8V",
     }
   }
   title="iOS"

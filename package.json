@@ -68,7 +68,7 @@
     "rc-tooltip": "^3.4.9",
     "react": "^15.6.1",
     "react-addons-shallow-compare": "^15.6.0",
-    "react-css-themr": "^2.1.2",
+    "react-css-super-themr": "^2.2.0",
     "react-dates": "^12.6.0",
     "react-dom": "^15.6.1",
     "react-dropdown": "^1.3.0",

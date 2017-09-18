@@ -5,7 +5,7 @@ import {
   PrimaryButton,
   SecondaryButton,
 } from 'components/buttons';
-import { ThemeProvider } from 'react-css-themr';
+import { ThemeProvider } from 'react-css-super-themr';
 
 import primaryDataScienceButtonStyle from '../../buttons/primaryDataScience.scss';
 import primaryDevelopButtonStyle from '../../buttons/primaryDevelop.scss';
