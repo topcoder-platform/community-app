@@ -29,7 +29,7 @@ exports[`Matches shallow shapshot 3`] = `
   customStyles={null}
   theme={
     Object {
-      "avatar": "src-shared-components-Avatar-___style__avatar___3QhkH test-style",
+      "avatar": "test-style src-shared-components-Avatar-___style__avatar___3QhkH",
     }
   }
   url={null}
@@ -41,7 +41,7 @@ exports[`Matches shallow shapshot 4`] = `
   customStyles={null}
   theme={
     Object {
-      "avatar": "src-shared-components-Avatar-___style__avatar___3QhkH test-style",
+      "avatar": "test-style src-shared-components-Avatar-___style__avatar___3QhkH",
     }
   }
   url="some-fake-string"

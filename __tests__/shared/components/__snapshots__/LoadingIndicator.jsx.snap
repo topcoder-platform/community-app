@@ -1,9 +1,21 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`renders correctly 1`] = `
-<img
-  alt="Loading..."
-  className="src-shared-components-LoadingIndicator-___styles__style___3RNHL"
-  src="/images/2f402d440d802a10b7672b75897c47a5.gif"
-/>
+<svg
+  className="src-shared-components-LoadingIndicator-___styles__container___V7JxF"
+  viewBox="0 0 64 64"
+>
+  <circle
+    className="src-shared-components-LoadingIndicator-___styles__circle1___hEgvY"
+    cx="32"
+    cy="32"
+    r="28"
+  />
+  <circle
+    className="src-shared-components-LoadingIndicator-___styles__circle2___2-o58"
+    cx="32"
+    cy="32"
+    r="6"
+  />
+</svg>
 `;

@@ -45,7 +45,8 @@ exports[`Matches shallow shapshot 1`] = `
           className="src-shared-components-Leaderboard-LeaderboardTable-___styles__leaderboard-avatar___3Ly7x"
         >
           <ThemedAvatar
-            composeTheme="deeply"
+            composeAdhocTheme="deeply"
+            composeContextTheme="softly"
             customStyles={null}
             mapThemrProps={[Function]}
             theme={
@@ -53,6 +54,7 @@ exports[`Matches shallow shapshot 1`] = `
                 "avatar": "src-shared-components-Leaderboard-___avatarStyles__default___1bHTz",
               }
             }
+            themePriority="adhoc-context-default"
             url="some.fake.string"
           />
         </span>
@@ -80,10 +82,14 @@ exports[`Matches shallow shapshot 1`] = `
       </td>
       <td
         className="src-shared-components-Leaderboard-LeaderboardTable-___styles__col-challenges___29htm"
-      />
+      >
+        0
+      </td>
       <td
         className="src-shared-components-Leaderboard-LeaderboardTable-___styles__col-points___10Lis"
-      />
+      >
+        0
+      </td>
     </tr>
     <tr>
       <td
@@ -98,7 +104,8 @@ exports[`Matches shallow shapshot 1`] = `
           className="src-shared-components-Leaderboard-LeaderboardTable-___styles__leaderboard-avatar___3Ly7x"
         >
           <ThemedAvatar
-            composeTheme="deeply"
+            composeAdhocTheme="deeply"
+            composeContextTheme="softly"
             customStyles={null}
             mapThemrProps={[Function]}
             theme={
@@ -106,6 +113,7 @@ exports[`Matches shallow shapshot 1`] = `
                 "avatar": "src-shared-components-Leaderboard-___avatarStyles__default___1bHTz",
               }
             }
+            themePriority="adhoc-context-default"
             url="some.fake.string"
           />
         </span>
@@ -133,10 +141,14 @@ exports[`Matches shallow shapshot 1`] = `
       </td>
       <td
         className="src-shared-components-Leaderboard-LeaderboardTable-___styles__col-challenges___29htm"
-      />
+      >
+        0
+      </td>
       <td
         className="src-shared-components-Leaderboard-LeaderboardTable-___styles__col-points___10Lis"
-      />
+      >
+        0
+      </td>
     </tr>
     <tr>
       <td
@@ -151,7 +163,8 @@ exports[`Matches shallow shapshot 1`] = `
           className="src-shared-components-Leaderboard-LeaderboardTable-___styles__leaderboard-avatar___3Ly7x"
         >
           <ThemedAvatar
-            composeTheme="deeply"
+            composeAdhocTheme="deeply"
+            composeContextTheme="softly"
             customStyles={null}
             mapThemrProps={[Function]}
             theme={
@@ -159,6 +172,7 @@ exports[`Matches shallow shapshot 1`] = `
                 "avatar": "src-shared-components-Leaderboard-___avatarStyles__default___1bHTz",
               }
             }
+            themePriority="adhoc-context-default"
             url="some.fake.string"
           />
         </span>
@@ -186,10 +200,14 @@ exports[`Matches shallow shapshot 1`] = `
       </td>
       <td
         className="src-shared-components-Leaderboard-LeaderboardTable-___styles__col-challenges___29htm"
-      />
+      >
+        0
+      </td>
       <td
         className="src-shared-components-Leaderboard-LeaderboardTable-___styles__col-points___10Lis"
-      />
+      >
+        0
+      </td>
     </tr>
     <tr>
       <td
@@ -204,7 +222,8 @@ exports[`Matches shallow shapshot 1`] = `
           className="src-shared-components-Leaderboard-LeaderboardTable-___styles__leaderboard-avatar___3Ly7x"
         >
           <ThemedAvatar
-            composeTheme="deeply"
+            composeAdhocTheme="deeply"
+            composeContextTheme="softly"
             customStyles={null}
             mapThemrProps={[Function]}
             theme={
@@ -212,6 +231,7 @@ exports[`Matches shallow shapshot 1`] = `
                 "avatar": "src-shared-components-Leaderboard-___avatarStyles__default___1bHTz",
               }
             }
+            themePriority="adhoc-context-default"
             url="https://www.topcoder-dev.com/assets/a.jpg"
           />
         </span>
@@ -239,10 +259,14 @@ exports[`Matches shallow shapshot 1`] = `
       </td>
       <td
         className="src-shared-components-Leaderboard-LeaderboardTable-___styles__col-challenges___29htm"
-      />
+      >
+        0
+      </td>
       <td
         className="src-shared-components-Leaderboard-LeaderboardTable-___styles__col-points___10Lis"
-      />
+      >
+        0
+      </td>
     </tr>
   </tbody>
 </table>

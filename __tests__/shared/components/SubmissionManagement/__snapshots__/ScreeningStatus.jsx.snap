@@ -105,7 +105,9 @@ exports[`Snapshot match 6`] = `
   >
     <span
       className="src-shared-components-SubmissionManagement-ScreeningStatus-___styles__status___1CCjJ"
-    />
+    >
+      
+    </span>
     <span
       className="src-shared-components-SubmissionManagement-ScreeningStatus-___styles__warning___6tSHD"
     >

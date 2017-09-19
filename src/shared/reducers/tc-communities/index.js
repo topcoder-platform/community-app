@@ -6,9 +6,12 @@
 
 import _ from 'lodash';
 import actions from 'actions/tc-communities';
+import config from 'utils/config';
 import logger from 'utils/logger';
 import { handleActions } from 'redux-actions';
-import { combine, resolveReducers } from 'utils/redux';
+import { decodeToken, isTokenExpired } from 'tc-accounts';
+import { isClientSide } from 'utils/isomorphy';
+import { combine, resolveReducers, toFSA } from 'utils/redux';
 import { STATE as JOIN_COMMUNITY } from 'components/tc-communities/JoinCommunity';
 
 import { factory as metaFactory } from './meta';
@@ -21,7 +24,9 @@ function onJoinDone(state, action) {
     /* NOTE: Using alert is, probably, not a best practice, but will work just
      * fine for now. Anyway, if everything works fine, users are not supposed
      * to see it normally. */
-    alert('Failed to join the group!'); // eslint-disable-line no-alert
+    if (isClientSide()) {
+      alert('Failed to join the group!'); // eslint-disable-line no-alert
+    }
 
     return { ...state, joinCommunityButton: JOIN_COMMUNITY.DEFAULT };
   }
@@ -55,12 +60,37 @@ function create(initialState = {}) {
 }
 
 export function factory(req) {
-  return resolveReducers({
-    meta: metaFactory(req),
-    news: newsFactory(req),
-  }).then(reducers => combine(create(), {
-    ...reducers,
-  }));
+  let joinPromise;
+  if (req) {
+    const cookies = req.cookies || {};
+    const adt = config.AUTH_DROP_TIME;
+    let tokenV3 = cookies.v3jwt;
+    if (!tokenV3 || isTokenExpired(tokenV3, adt)) tokenV3 = null;
+
+    const joinGroupId = req.query && req.query.join;
+    if (joinGroupId && tokenV3) {
+      const user = decodeToken(tokenV3);
+      joinPromise = toFSA(
+        actions.tcCommunity.joinDone(tokenV3, joinGroupId, user.userId),
+      );
+    }
+  }
+
+  return Promise.all([
+    resolveReducers({
+      meta: metaFactory(req),
+      news: newsFactory(req),
+    }),
+    joinPromise,
+  ]).then(([reducers, joinResult]) => {
+    let state;
+    if (joinResult) {
+      state = onJoinDone({}, joinResult);
+    }
+    return combine(create(state), {
+      ...reducers,
+    });
+  });
 }
 
 export default undefined;

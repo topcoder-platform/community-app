@@ -25,12 +25,13 @@ class GroupService {
   addMember(groupId, memberId, membershipType) {
     return this.private.api.postJson(`/groups/${groupId}/members`, {
       param: { memberId, membershipType },
-    }).then(res => (res.ok ? res.json() : new Error(res.statusText)))
-      .then(res => (
-        res.result.status === 200
-          ? res.result.content
-          : new Error(res.result.content)
-      ));
+    }).then((res) => {
+      if (!res.ok) throw new Error(res.statusText);
+      return res.json();
+    }).then((res) => {
+      if (res.result.status !== 200) throw new Error(res.result.content);
+      return res.result.content;
+    });
   }
 
   /**

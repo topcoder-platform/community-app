@@ -1,0 +1,28 @@
+@import "~styles/mixins";
+
+.bannerContainer {
+  height: 252px !important;
+
+  @include xxs-to-xs {
+    height: 300px !important;
+  }
+}
+
+.bannerContent {
+  bottom: 0 !important;
+  top: 0 !important;
+  transform: none !important;
+  width: 600px !important;
+
+  @include xxs-to-xs {
+    top: auto !important;
+    width: 100% !important;
+  }
+}
+
+.bannerContentInner {
+  @include xxs-to-xs {
+    padding-bottom: 20px !important;
+    padding-top: 48px !important;
+  }
+}

@@ -16,7 +16,7 @@ import Avatar from 'components/Avatar';
 import { Link, NavLink } from 'utils/router';
 import { getRatingColor } from 'utils/tc';
 import Dropdown from 'components/tc-communities/Dropdown';
-import { themr } from 'react-css-themr';
+import { themr } from 'react-css-super-themr';
 import IconSearch from '../../../../assets/images/tc-communities/search.svg';
 import IconNavExit from '../../../../assets/images/nav/exit.svg';
 import IconNavSettings from '../../../../assets/images/nav/settings.svg';
@@ -29,6 +29,8 @@ function Header(props) {
     baseUrl,
     closeMenu,
     communitySelector,
+    groupId,
+    hideJoinNow,
     openMenu,
     openedMenu,
     logos,
@@ -116,16 +118,26 @@ function Header(props) {
     </div>
   ) : (
     <div className={theme.authorize}>
+      { hideJoinNow ? null : (
+        <button
+          onClick={() => {
+            let url = encodeURIComponent(
+              `${window.location.href}?join=${groupId}`,
+            );
+            url = encodeURIComponent(
+              `${config.URL.AUTH}/member?retUrl=${url}`,
+            );
+            url = encodeURIComponent(url);
+            window.location = `${config.URL.AUTH}/member/registration?retUrl=${url}`;
+          }}
+          className={theme.btnRegister}
+        >Join Now</button>
+      )}
       <button
         onClick={() => {
-          const url = encodeURIComponent(window.location.href);
-          window.location = `${config.URL.AUTH}/member/registration?retUrl=${url}`;
-        }}
-        className={theme.btnRegister}
-      >Register</button>
-      <button
-        onClick={() => {
-          const url = encodeURIComponent(window.location.href);
+          const url = encodeURIComponent(
+            `${window.location.href}?join=${groupId}`,
+          );
           window.location = `${config.URL.AUTH}/member?retUrl=${url}`;
         }}
         className={theme.btnLogin}
@@ -219,6 +231,8 @@ function Header(props) {
 Header.defaultProps = {
   activeTrigger: null,
   baseUrl: '',
+  groupId: '',
+  hideJoinNow: false,
   menuItems: [],
   openedMenu: null,
   logos: [],
@@ -234,6 +248,7 @@ Header.propTypes = {
   baseUrl: PT.string,
   closeMenu: PT.func.isRequired,
   communitySelector: PT.arrayOf(PT.shape()).isRequired,
+  groupId: PT.string,
   menuItems: PT.arrayOf(PT.shape({
     title: PT.string.isRequired,
     url: PT.string.isRequired,
@@ -246,6 +261,7 @@ Header.propTypes = {
     }),
   ])),
   additionalLogos: PT.arrayOf(PT.string),
+  hideJoinNow: PT.bool,
   hideSearch: PT.bool,
   chevronOverAvatar: PT.bool,
   openedMenu: PT.shape({}),

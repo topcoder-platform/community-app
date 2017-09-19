@@ -9,7 +9,7 @@
 import React from 'react';
 import PT from 'prop-types';
 import _ from 'lodash';
-import { themr } from 'react-css-themr';
+import { themr } from 'react-css-super-themr';
 import defaultStyle from './styles.scss';
 
 function Modal(props) {
@@ -17,6 +17,7 @@ function Modal(props) {
     <div>
       <div
         className={props.theme.container}
+        onWheel={event => event.preventDefault()}
       >{props.children}</div>
       <button
         onClick={() => props.onCancel()}

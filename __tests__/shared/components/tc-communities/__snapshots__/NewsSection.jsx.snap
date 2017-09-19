@@ -3,10 +3,12 @@
 exports[`Matches shallow shapshot 1`] = `
 <ThemedSection
   anchor={null}
-  composeTheme="deeply"
+  composeAdhocTheme="deeply"
+  composeContextTheme="softly"
   link={null}
   mapThemrProps={[Function]}
   theme={Object {}}
+  themePriority="adhoc-context-default"
   title="Latest News"
 >
   <Slider
@@ -40,7 +42,8 @@ exports[`Matches shallow shapshot 1`] = `
       data-index={0}
     >
       <ThemedArticleCard
-        composeTheme="deeply"
+        composeAdhocTheme="deeply"
+        composeContextTheme="softly"
         imageSrc="/themes/common/NewsSection/news-01.jpg"
         link={
           Object {
@@ -51,6 +54,7 @@ exports[`Matches shallow shapshot 1`] = `
         mapThemrProps={[Function]}
         text="description"
         theme={Object {}}
+        themePriority="adhoc-context-default"
         title="title"
       />
     </div>

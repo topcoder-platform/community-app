@@ -3,7 +3,8 @@
 exports[`Match shadow snapshot 1`] = `
 <main>
   <ThemedBanner
-    composeTheme="deeply"
+    composeAdhocTheme="deeply"
+    composeContextTheme="softly"
     imageSrc="/themes/community-2/learn/banner.jpg"
     link={null}
     mapThemrProps={[Function]}
@@ -15,11 +16,13 @@ exports[`Match shadow snapshot 1`] = `
         "contentInner": "src-shared-components-tc-communities-communities-community-2-Learn-___style__bannerContentInner___1LDdS",
       }
     }
+    themePriority="adhoc-context-default"
     title="Learning & Certification"
   />
   <ThemedSection
     anchor={null}
-    composeTheme="deeply"
+    composeAdhocTheme="deeply"
+    composeContextTheme="softly"
     link={null}
     mapThemrProps={[Function]}
     theme={
@@ -27,26 +30,33 @@ exports[`Match shadow snapshot 1`] = `
         "container": "src-shared-components-tc-communities-communities-community-2-Learn-___style__learnBasicsContainer___1ZPny",
       }
     }
+    themePriority="adhoc-context-default"
     title="Learn The Basics"
   >
     <ThemedAccordion
-      composeTheme="deeply"
+      composeAdhocTheme="deeply"
+      composeContextTheme="softly"
       defaultSelectedIndex={0}
       mapThemrProps={[Function]}
       theme={Object {}}
+      themePriority="adhoc-context-default"
     >
       <ThemedAccordionItem
-        composeTheme="deeply"
+        composeAdhocTheme="deeply"
+        composeContextTheme="softly"
         isOpen={false}
         mapThemrProps={[Function]}
         onTitleClick={[Function]}
         theme={Object {}}
+        themePriority="adhoc-context-default"
         title="Overview"
       >
         <ThemedText
-          composeTheme="deeply"
+          composeAdhocTheme="deeply"
+          composeContextTheme="softly"
           mapThemrProps={[Function]}
           theme={Object {}}
+          themePriority="adhoc-context-default"
         >
           <p>
             The FULCRUM is “one stop shop” for access to a wide range of training and learning opportunities on Wipro’s Hybrid Crowd. Designed to strengthen the skills of employees, the hub offers physical and online platforms to learn skills on demand, gain hands-on experience, and be future ready.
@@ -76,7 +86,8 @@ exports[`Match shadow snapshot 1`] = `
   </ThemedSection>
   <ThemedSection
     anchor={null}
-    composeTheme="deeply"
+    composeAdhocTheme="deeply"
+    composeContextTheme="softly"
     link={
       Object {
         "title": "View All",
@@ -89,10 +100,12 @@ exports[`Match shadow snapshot 1`] = `
         "container": "src-shared-components-tc-communities-communities-community-2-Learn-___style__coursesContainer___3SRv4",
       }
     }
+    themePriority="adhoc-context-default"
     title="Courses and Tutorials"
   >
     <ThemedArticleCard
-      composeTheme="deeply"
+      composeAdhocTheme="deeply"
+      composeContextTheme="softly"
       imageSrc="/themes/community-2/learn/courses-01.jpg"
       link={
         Object {
@@ -103,10 +116,12 @@ exports[`Match shadow snapshot 1`] = `
       mapThemrProps={[Function]}
       text="There are advances being made in science and technology everyday, and a good example of this is the LCD monitor. LCD monitors have"
       theme={Object {}}
+      themePriority="adhoc-context-default"
       title="What You Need to Join a Challenge"
     />
     <ThemedArticleCard
-      composeTheme="deeply"
+      composeAdhocTheme="deeply"
+      composeContextTheme="softly"
       imageSrc="/themes/community-2/learn/courses-02.jpg"
       link={
         Object {
@@ -117,10 +132,12 @@ exports[`Match shadow snapshot 1`] = `
       mapThemrProps={[Function]}
       text="Planning to visit Las Vegas or any other vacational resort where casinos are a major portion of their business? I have just the thing for"
       theme={Object {}}
+      themePriority="adhoc-context-default"
       title="An Ugly Myspace Profile Will Sure Ruin Your Reputation"
     />
     <ThemedArticleCard
-      composeTheme="deeply"
+      composeAdhocTheme="deeply"
+      composeContextTheme="softly"
       imageSrc="/themes/community-2/learn/courses-03.jpg"
       link={
         Object {
@@ -131,12 +148,14 @@ exports[`Match shadow snapshot 1`] = `
       mapThemrProps={[Function]}
       text="If you are in the market for a computer, there are a number of factors to consider. Will it be used for your home, your office or"
       theme={Object {}}
+      themePriority="adhoc-context-default"
       title="3 Simple Ways Work Fast in Competition"
     />
   </ThemedSection>
   <ThemedSection
     anchor={null}
-    composeTheme="deeply"
+    composeAdhocTheme="deeply"
+    composeContextTheme="softly"
     link={null}
     mapThemrProps={[Function]}
     theme={
@@ -145,10 +164,12 @@ exports[`Match shadow snapshot 1`] = `
         "title": "src-shared-components-tc-communities-communities-community-2-Learn-___style__resourcesTitle___1QSSn",
       }
     }
+    themePriority="adhoc-context-default"
     title="Resources"
   >
     <ThemedLinksCard
-      composeTheme="deeply"
+      composeAdhocTheme="deeply"
+      composeContextTheme="softly"
       links={
         Array [
           Object {
@@ -171,10 +192,12 @@ exports[`Match shadow snapshot 1`] = `
       }
       mapThemrProps={[Function]}
       theme={Object {}}
+      themePriority="adhoc-context-default"
       title="Documents"
     />
     <ThemedLinksCard
-      composeTheme="deeply"
+      composeAdhocTheme="deeply"
+      composeContextTheme="softly"
       links={
         Array [
           Object {
@@ -197,10 +220,12 @@ exports[`Match shadow snapshot 1`] = `
       }
       mapThemrProps={[Function]}
       theme={Object {}}
+      themePriority="adhoc-context-default"
       title="Videos"
     />
     <ThemedLinksCard
-      composeTheme="deeply"
+      composeAdhocTheme="deeply"
+      composeContextTheme="softly"
       links={
         Array [
           Object {
@@ -223,17 +248,20 @@ exports[`Match shadow snapshot 1`] = `
       }
       mapThemrProps={[Function]}
       theme={Object {}}
+      themePriority="adhoc-context-default"
       title="Useful Links"
     />
   </ThemedSection>
   <ThemedNewsletterSignup
     buttonText="Sign Up"
-    composeTheme="deeply"
+    composeAdhocTheme="deeply"
+    composeContextTheme="softly"
     emailPlaceholder="Email address"
     imageSrc="/themes/community-2/subscribe-bg.jpg"
     mapThemrProps={[Function]}
     text="Don’t miss out on the latest Topcoder IOS challenges and information!"
     theme={Object {}}
+    themePriority="adhoc-context-default"
     title="Sign up for our newsletter"
   />
 </main>

@@ -12,7 +12,7 @@
 
 import React, { Component } from 'react';
 import PT from 'prop-types';
-import { themr } from 'react-css-themr';
+import { themr } from 'react-css-super-themr';
 import cn from 'classnames';
 import defaultStyle from './style.scss';
 

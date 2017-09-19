@@ -3,7 +3,7 @@
  * a bit rounded corners.
  */
 
-@import "~styles/tc-styles";
+@import "~styles/mixins";
 
 @mixin feedback {
   &:active {

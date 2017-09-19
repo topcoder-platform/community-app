@@ -9,7 +9,7 @@ import React from 'react';
 import { StaticRouter } from 'react-router-dom';
 import { requireWeak, resolveWeak, SplitRoute } from 'utils/router';
 
-export default function ChunkLoader({ base, communityId, meta }) {
+export default function ChunkLoader({ base, communityId, member, meta }) {
   return (
     <SplitRoute
       chunkName="communities"
@@ -18,7 +18,12 @@ export default function ChunkLoader({ base, communityId, meta }) {
           /* webpackChunkName: "communities" */
           './Routes',
         ).then(({ default: Routes }) => (
-          <Routes base={base} communityId={communityId} meta={meta} />
+          <Routes
+            base={base}
+            communityId={communityId}
+            member={member}
+            meta={meta}
+          />
         ))
       }
       renderPlaceholder={() => <LoadingIndicator />}
@@ -33,6 +38,7 @@ export default function ChunkLoader({ base, communityId, meta }) {
             <Routes
               base={base}
               communityId={communityId}
+              member={member}
               meta={meta}
             />
           </StaticRouter>
@@ -45,5 +51,6 @@ export default function ChunkLoader({ base, communityId, meta }) {
 ChunkLoader.propTypes = {
   base: PT.string.isRequired,
   communityId: PT.string.isRequired,
+  member: PT.bool.isRequired,
   meta: PT.shape().isRequired,
 };

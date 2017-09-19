@@ -11,7 +11,7 @@ import React from 'react';
 import PT from 'prop-types';
 import moment from 'moment';
 import { DangerButton, PrimaryButton } from 'components/buttons';
-import { ThemeProvider } from 'react-css-themr';
+import { ThemeProvider } from 'react-css-super-themr';
 
 import ArrowUp from '../../../../assets/images/icon-arrow-up.svg';
 import ArrowDown from '../../../../assets/images/icon-arrow-down.svg';

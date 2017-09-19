@@ -7,6 +7,10 @@ $sm-space-40: $base-unit * 8;
 .outer-container {
   background: $tc-gray-10;
   padding: 24px;
+
+  @include xxs-to-xs {
+    padding: 15px;
+  }
 }
 
 .deletingIndicator {

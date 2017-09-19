@@ -114,6 +114,7 @@ module.exports = {
       /* NOTE: Aliases related to .jsx and .jsx files are defined in Babel
        * config. */
       assets: path.resolve(__dirname, '../../src/assets'),
+      components: path.resolve(__dirname, '../../src/shared/components'),
       styles: path.resolve(__dirname, '../../src/styles'),
     },
     extensions: ['.js', '.json', '.jsx', '.scss'],

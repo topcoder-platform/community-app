@@ -3,7 +3,6 @@
  */
 
 import _ from 'lodash';
-import jstz from 'jstimezonedetect';
 import moment from 'moment-timezone';
 import config from './config';
 
@@ -81,7 +80,27 @@ export function getCommunitiesMetadata(communityId) {
         if (err) {
           reject({ error: '404', communityId });
         } else {
-          const metadata = JSON.parse(data);
+          /* NOTE: We should prevent "undefined" fields, otherwise reducers
+           * won't replace previously set fields by the new values fetched
+           * from the api (it looks like reducer should be improved, but it
+           * is easier just to set these defaults). */
+          const metadata = _.defaults(JSON.parse(data), {
+            authorizedGorupIds: null,
+            challengeFilter: null,
+            challengeListing: null,
+            communityId: '',
+            communitySelector: [],
+            groupId: null,
+            leaderboardApiUrl: null,
+            logos: [],
+            additionalLogos: null,
+            hideSearch: false,
+            chevronOverAvatar: false,
+            menuItems: [],
+            newsFeed: null,
+            description: null,
+            image: null,
+          });
           resolve(metadata);
         }
       });
@@ -123,7 +142,7 @@ export function timeDiff(input, type) {
  * @return {string}        formated date string
  */
 export function localTime(input, format) {
-  const timezone = jstz.determine().name();
+  const timezone = moment.tz.guess();
   return moment(input).tz(timezone).format(format || 'MM/DD/YY hh:mm a z');
 }
 

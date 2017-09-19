@@ -3,41 +3,19 @@
 exports[`Matches shallow shapshot 1`] = `
 <div>
   <button
-    className="src-shared-components-tc-communities-JoinCommunity-___style__link___mMDH0"
+    className="src-shared-components-tc-communities-JoinCommunity-___style__link___mMDH0 "
     onClick={[Function]}
   >
     Join Community
   </button>
-  <ThemedModal
-    composeTheme="deeply"
-    mapThemrProps={[Function]}
-    onCancel={[Function]}
-    theme={Object {}}
-  >
-    <p
-      className="src-shared-components-tc-communities-JoinCommunity-___style__confirmMsg___3Urx0"
-    >
-      Are you sure you want to join 
-      ios
-      ?
-    </p>
-    <div
-      className="src-shared-components-tc-communities-JoinCommunity-___style__buttons___24jiR"
-    >
-      <button
-        className="src-shared-components-tc-communities-JoinCommunity-___style__btnConfirm___21w2M"
-        onClick={[Function]}
-      >
-        Join
-      </button>
-      <button
-        className="src-shared-components-tc-communities-JoinCommunity-___style__btnCancel___21ib7"
-        onClick={[Function]}
-      >
-        Cancel
-      </button>
-    </div>
-  </ThemedModal>
+  <ConfirmModal
+    communityName="ios"
+    groupId="1"
+    join={[Function]}
+    resetJoinButton={[Function]}
+    token="token"
+    userId="useId"
+  />
 </div>
 `;
 
@@ -52,13 +30,15 @@ exports[`Matches shallow shapshot 2`] = `
         Joining...
       </p>
       <ThemedLoadingIndicator
-        composeTheme="deeply"
+        composeAdhocTheme="deeply"
+        composeContextTheme="softly"
         mapThemrProps={[Function]}
         theme={
           Object {
-            "style": "src-shared-components-tc-communities-JoinCommunity-___style__loadingIndicator___2RP1u",
+            "container": "src-shared-components-tc-communities-JoinCommunity-___style__loadingIndicator___2RP1u",
           }
         }
+        themePriority="adhoc-context-default"
       />
     </div>
   </button>
@@ -74,16 +54,18 @@ exports[`Matches shallow shapshot 3`] = `
 exports[`Matches shallow shapshot 4`] = `
 <div>
   <button
-    className="src-shared-components-tc-communities-JoinCommunity-___style__link___mMDH0"
+    className="src-shared-components-tc-communities-JoinCommunity-___style__link___mMDH0 "
     onClick={[Function]}
   >
     Join Community
   </button>
   <ThemedModal
-    composeTheme="deeply"
+    composeAdhocTheme="deeply"
+    composeContextTheme="softly"
     mapThemrProps={[Function]}
     onCancel={[Function]}
     theme={Object {}}
+    themePriority="adhoc-context-default"
   >
     <h1
       className="src-shared-components-tc-communities-JoinCommunity-___style__modalTitle___1U_iw"
@@ -93,7 +75,7 @@ exports[`Matches shallow shapshot 4`] = `
     <p
       className="src-shared-components-tc-communities-JoinCommunity-___style__modalMsg___25f_a"
     >
-      You have joined 
+      You have joined the 
       ios
       !
     </p>
@@ -110,40 +92,18 @@ exports[`Matches shallow shapshot 4`] = `
 exports[`Matches shallow shapshot 5`] = `
 <div>
   <button
-    className="src-shared-components-tc-communities-JoinCommunity-___style__link___mMDH0"
+    className="src-shared-components-tc-communities-JoinCommunity-___style__link___mMDH0 "
     onClick={[Function]}
   >
     Join Community
   </button>
-  <ThemedModal
-    composeTheme="deeply"
-    mapThemrProps={[Function]}
-    onCancel={[Function]}
-    theme={Object {}}
-  >
-    <p
-      className="src-shared-components-tc-communities-JoinCommunity-___style__confirmMsg___3Urx0"
-    >
-      Are you sure you want to join 
-      ios
-      ?
-    </p>
-    <div
-      className="src-shared-components-tc-communities-JoinCommunity-___style__buttons___24jiR"
-    >
-      <button
-        className="src-shared-components-tc-communities-JoinCommunity-___style__btnConfirm___21w2M"
-        onClick={[Function]}
-      >
-        Join
-      </button>
-      <button
-        className="src-shared-components-tc-communities-JoinCommunity-___style__btnCancel___21ib7"
-        onClick={[Function]}
-      >
-        Cancel
-      </button>
-    </div>
-  </ThemedModal>
+  <ConfirmModal
+    communityName="ios"
+    groupId="1"
+    join={[Function]}
+    resetJoinButton={[Function]}
+    token={null}
+    userId="useId"
+  />
 </div>
 `;

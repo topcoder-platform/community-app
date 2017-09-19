@@ -51,7 +51,13 @@ module.exports = webpackMerge(defaultConfig, {
         NODE_ENV: JSON.stringify('production'),
       },
     }),
-    new OptimizeCssAssetsPlugin(),
+    new OptimizeCssAssetsPlugin({
+      cssProcessorOptions: {
+        discardUnused: false,
+        reduceIdents: false,
+        zindex: false,
+      },
+    }),
 
     /* TODO: It tends to make problems with dynamically loaded chunks,
      * I guess it may move some code between modules being in different

@@ -97,6 +97,9 @@ export default function Content() {
       <h3>Separate Topcoder Communities</h3>
       <ul>
         <li>
+          <Link to="/community/blockchain/home">Blockchain Community</Link>
+        </li>
+        <li>
           <Link to="/community/community-2/home">Community 2</Link>
         </li>
         <li>

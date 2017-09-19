@@ -12,6 +12,13 @@ $submission-space-50: $base-unit * 10;
   overflow: hidden;
   border-radius: 4px 4px 0 0;
 
+  @include xxs-to-xs {
+    border: none;
+    border-radius: 0;
+    border-top: 1px solid $tc-gray-10;
+    border-bottom: 1px solid $tc-gray-10;
+  }
+
   table {
     width: 100%;
 
@@ -32,6 +39,10 @@ $submission-space-50: $base-unit * 10;
       &.status,
       &.actions {
         text-align: center;
+      }
+
+      @include xxs-to-xs {
+        display: none;
       }
     }
 

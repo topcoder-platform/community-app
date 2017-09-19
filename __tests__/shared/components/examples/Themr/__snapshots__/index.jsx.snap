@@ -5,24 +5,30 @@ exports[`Matches shallow shapshot 1`] = `
   <h1>
     react-css-themr test/demo
   </h1>
+  NOTE: Our setup cannot guarantee the order of different styles in the extracted CSS bundle, thus it cannot guarantee proper deep merge of theme sources according to their priority. You have to use !important directives to ensure the proper merging.
   <h3>
     Default theme
   </h3>
   <ThemedThemableComponent
-    composeTheme="deeply"
+    composeAdhocTheme="deeply"
+    composeContextTheme="softly"
     mapThemrProps={[Function]}
+    themePriority="adhoc-context-default"
   />
   <h3>
     Default theme + Parent-provided styling
   </h3>
   <ThemedThemableComponent
-    composeTheme="deeply"
+    composeAdhocTheme="deeply"
+    composeContextTheme="softly"
     mapThemrProps={[Function]}
     theme={
       Object {
+        "box": "src-shared-components-examples-Themr-___style__box___2VpH5",
         "text": "src-shared-components-examples-Themr-___style__text___3B1uO",
       }
     }
+    themePriority="adhoc-context-default"
   />
   <h3>
     Default theme + Context styling
@@ -32,13 +38,42 @@ exports[`Matches shallow shapshot 1`] = `
       Object {
         "ThemableComponent": Object {
           "box": "src-shared-components-examples-Themr-___contextStyle__box___Rvwpa",
+          "text": "src-shared-components-examples-Themr-___contextStyle__text___97Tbl",
         },
       }
     }
   >
     <ThemedThemableComponent
-      composeTheme="deeply"
+      composeAdhocTheme="deeply"
+      composeContextTheme="softly"
       mapThemrProps={[Function]}
+      themePriority="adhoc-context-default"
+    />
+  </ThemeProvider>
+  <h3>
+    Default theme + Context styling + Parent-provided styling
+  </h3>
+  <ThemeProvider
+    theme={
+      Object {
+        "ThemableComponent": Object {
+          "box": "src-shared-components-examples-Themr-___contextStyle__box___Rvwpa",
+          "text": "src-shared-components-examples-Themr-___contextStyle__text___97Tbl",
+        },
+      }
+    }
+  >
+    <ThemedThemableComponent
+      composeAdhocTheme="deeply"
+      composeContextTheme="softly"
+      mapThemrProps={[Function]}
+      theme={
+        Object {
+          "box": "src-shared-components-examples-Themr-___style__box___2VpH5",
+          "text": "src-shared-components-examples-Themr-___style__text___3B1uO",
+        }
+      }
+      themePriority="adhoc-context-default"
     />
   </ThemeProvider>
   <h3>
@@ -51,8 +86,10 @@ exports[`Matches shallow shapshot 1`] = `
     theme={Object {}}
   >
     <ThemedThemableComponent
-      composeTheme="deeply"
+      composeAdhocTheme="deeply"
+      composeContextTheme="softly"
       mapThemrProps={[Function]}
+      themePriority="adhoc-context-default"
     />
   </ThemeProvider>
 </div>

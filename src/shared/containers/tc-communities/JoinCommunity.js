@@ -5,7 +5,7 @@ import JoinCommunity, {
 } from 'components/tc-communities/JoinCommunity';
 import { connect } from 'react-redux';
 
-function mapStateToProps(state) {
+function mapStateToProps(state, ownProps) {
   /* We show Join Community button when a visitor is not authenticated, or when
    * he is authenticated and not a member of the community group. */
   let canJoin = (state.auth.profile && state.auth.profile.groups) || [];
@@ -19,6 +19,8 @@ function mapStateToProps(state) {
   return {
     communityName: state.tcCommunities.meta.communityName,
     groupId: state.tcCommunities.meta.groupId,
+    label: ownProps.label,
+    theme: ownProps.theme,
     token: state.auth.tokenV3,
     state: canJoin,
     userId: _.get(state.auth.user, 'userId'),

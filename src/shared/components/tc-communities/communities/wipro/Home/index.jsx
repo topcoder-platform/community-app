@@ -116,7 +116,7 @@ export default function Home(props) {
     <main>
       <Banner
         title="Wipro crowd"
-        text="Wipro's Hybrid Crowd gives our vast ecosystem of customers and partners options to access new range of skills that provide new value services and efficiency options all over the world."
+        text="With Wipro's Hybrid Crowd you can get just-in-time access to niche in-demand skills to provide new value services, faster delivery at speed and scale all over the world."
         link={{
           title: 'Compete Now',
           url: 'challenges',
@@ -137,7 +137,7 @@ export default function Home(props) {
         <div>
           <ImageText
             title="Improve Your Skills"
-            text="Our continuously evolving structured learning paths, constantly abreast of the latest, tailored for employees to deepen your knowledge, infuses important software capabilities that are industry specific and help you get the skills you need to succeed. Click below to visit TopGear."
+            text="Our continuously evolving structured learning paths are customized to deepen your knowledge and help you acquire industry specific software capabilities. To keep abreast of emerging new technologies and succeed in this rapidly changing technology landscape. Click below to visit TopGear."
             link={{
               title: 'Start Learning',
               url: 'learn',

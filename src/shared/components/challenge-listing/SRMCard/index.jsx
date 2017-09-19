@@ -111,7 +111,7 @@ UpcomingSRMs.defaultProps = {
 };
 
 UpcomingSRMs.propTypes = {
-  srmChallenge: PT.shape({}),
+  srmChallenge: PT.shape().isRequired,
 };
 
 // past SRMs
@@ -140,8 +140,8 @@ SRMCard.defaultProps = {
 };
 
 SRMCard.propTypes = {
-  category: PT.string,
-  srmChallenge: PT.shape({}),
+  category: PT.string.isRequired,
+  srmChallenge: PT.shape().isRequired,
 };
 
 export default SRMCard;

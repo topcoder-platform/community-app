@@ -3,7 +3,8 @@
 exports[`Snapshot match 1`] = `
 <main>
   <ThemedBanner
-    composeTheme="deeply"
+    composeAdhocTheme="deeply"
+    composeContextTheme="softly"
     imageSrc="/themes/wipro/learn/banner.jpg"
     link={null}
     mapThemrProps={[Function]}
@@ -15,14 +16,17 @@ exports[`Snapshot match 1`] = `
         "contentInner": "src-shared-components-tc-communities-communities-wipro-Learn-___style__bannerContentInner___4smdO",
       }
     }
+    themePriority="adhoc-context-default"
     title="Learning & Certification"
   />
   <ThemedSection
     anchor={null}
-    composeTheme="deeply"
+    composeAdhocTheme="deeply"
+    composeContextTheme="softly"
     link={null}
     mapThemrProps={[Function]}
     theme={Object {}}
+    themePriority="adhoc-context-default"
     title={null}
   >
     <div
@@ -47,7 +51,8 @@ exports[`Snapshot match 1`] = `
       </p>
       <p>
         <ThemedGenericButton
-          composeTheme="deeply"
+          composeAdhocTheme="deeply"
+          composeContextTheme="softly"
           disabled={false}
           enforceA={false}
           mapThemrProps={[Function]}
@@ -59,6 +64,7 @@ exports[`Snapshot match 1`] = `
               "button": "src-shared-components-tc-communities-communities-wipro-Learn-___style__continueButton___2UpkU",
             }
           }
+          themePriority="adhoc-context-default"
           to="https://topgear-app.wipro.com"
         >
           Continue

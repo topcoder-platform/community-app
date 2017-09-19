@@ -51,7 +51,7 @@ exports[`Matches shallow shapshot 1`] = `
       "jumpToNextMonth": "Move forward to switch to the next month",
       "jumpToPrevMonth": "Move backward to switch to the previous month",
       "keyboardNavigationInstructions": "Press the down arrow key to interact with the calendar and
-      select a date. Press the question mark key to get the keyboard shortcuts for changing dates.",
+  select a date. Press the question mark key to get the keyboard shortcuts for changing dates.",
       "keyboardShortcuts": "Keyboard Shortcuts",
       "leftArrowRightArrow": "Right and left arrow keys",
       "moveFocusByOneDay": "Move backward (left) and forward (right) by one day",
@@ -67,7 +67,7 @@ exports[`Matches shallow shapshot 1`] = `
       "upArrowDownArrow": "up and down arrow keys",
     }
   }
-  readOnly={false}
+  readOnly={true}
   renderCalendarInfo={null}
   renderDay={null}
   renderMonth={null}

@@ -7,7 +7,7 @@
 
 import React from 'react';
 import PT from 'prop-types';
-import { themr } from 'react-css-themr';
+import { themr } from 'react-css-super-themr';
 import Switch from '../Switch';
 import defaultStyle from './style.scss';
 

@@ -146,6 +146,11 @@ class ChallengeDetailPageContainer extends React.Component {
     return (
       <div styleName="outer-container">
         <div styleName="challenge-detail-container">
+          { Boolean(isEmpty) && (
+            <div styleName="page">
+              Challenge #{challengeId} does not exist!
+            </div>
+          )}
           {
             !isEmpty &&
             <ChallengeHeader

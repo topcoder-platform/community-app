@@ -1,13 +1,13 @@
 /**
  * Challenge tag button, default style with white text on light blue background.
  */
-@import "~styles/tc-styles";
+@import "~styles/mixins";
 
 @mixin feedback {
   &:active,
   &:focus,
   &:hover {
-    color: $tc-gray-80 !important;
+    color: $tc-gray-80;
     background-color: $tc-dark-blue-30;
   }
 
@@ -24,7 +24,7 @@
   font: bold 11px/20px Roboto;
   color: $tc-gray-80;
   margin-right: 5px;
-  border-radius: 4px;
+  border-radius: 2 * $corner-radius;
   margin-bottom: 2px;
   cursor: pointer;
 
