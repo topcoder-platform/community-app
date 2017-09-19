@@ -69,9 +69,11 @@ export function factory(req) {
     if (!communityId && req.url.startsWith('/community')) {
       communityId = req.url.split('/')[2];
     }
-    const state = { loadingMetaDataForCommunityId: communityId };
-    return toFSA(actions.tcCommunities.meta.fetchDataDone(communityId))
-      .then(res => create(onDone(state, res)));
+    if (communityId) {
+      const state = { loadingMetaDataForCommunityId: communityId };
+      return toFSA(actions.tcCommunities.meta.fetchDataDone(communityId))
+        .then(res => create(onDone(state, res)));
+    }
   }
   return Promise.resolve(create());
 }
