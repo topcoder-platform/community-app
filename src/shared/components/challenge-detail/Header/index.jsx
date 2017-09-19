@@ -54,7 +54,6 @@ export default function ChallengeHeader(props) {
     reliabilityBonus,
     userDetails,
     currentPhases,
-    registrationEndDate,
     submissionEndDate,
     numRegistrants,
     numSubmissions,
@@ -62,6 +61,10 @@ export default function ChallengeHeader(props) {
     status,
     appealsEndDate,
   } = challenge;
+
+  const registrationPhase = allPhases.find(p => p.phaseType === 'Registration');
+  const registrationEndDate = registrationPhase.actualEndTime
+    || registrationPhase.scheduledEndTime;
 
   let trackLower = track ? track.toLowerCase() : 'design';
   if (technologies.includes('Data Science')) {
@@ -93,6 +96,10 @@ export default function ChallengeHeader(props) {
 
   if (props.showDeadlineDetail) {
     relevantPhases = (allPhases || []).filter((phase) => {
+      if (phase.phaseType === 'Iterative Review') {
+        const end = phase.actualEndTime || phase.scheduledEndTime;
+        return moment(end).isAfter(moment());
+      }
       const phaseLowerCase = phase.phaseType.toLowerCase();
       if (phaseLowerCase.includes('screening') || phaseLowerCase.includes('specification')) {
         return false;
