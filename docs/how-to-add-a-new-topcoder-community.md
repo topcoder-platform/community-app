@@ -123,10 +123,6 @@ To add a new community with the name **demo**, we should follow the following pr
 
 5.  At this point **demo** community is ready and accessible at the `/community/demo` route of the App (i.e., if we deploy dev version of the App to `community-west.topcoder-dev.com`, community will be accessible as `community-west.topcoder-dev.com/community/demo`).
 
-    To make **demo** community accessible via a dedicated sub-domain, e.g. like `demo.topcoder-dev.com`, you should edit `/src/shared/routes/index.jsx`. In the first `if-else` block inside `Routes()` function add the line
-    ```js
-    else if (subdomains.indexOf('demo') >= 0) communityId = 'demo';
-    ```
-    This takes care about proper sub-domain routing from our App's side. Beside it you should:
+    To make **demo** community accessible via a dedicated sub-domain, e.g. like `demo.topcoder-dev.com`, you should edit `/src/shared/routes/subdomains.js`; add `demo: 'demo',` record (i.e. the format is `subdomain: 'communityId'`) into the `SUBDOMAIN_COMMUNITY` map. Beside it you should:
     -   Ensure that the web-server where the App is deployed allows access to the subdomain `demo.topcoder-dev`, and redirects incoming requests to the App.
     -   Ensure that Topcoder `accounts-app` allows to authenticate from the new subdomain address.
