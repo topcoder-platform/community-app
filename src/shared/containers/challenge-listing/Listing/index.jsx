@@ -148,7 +148,7 @@ export class ListingContainer extends React.Component {
     if (communityFilter) communityFilter = communityFilter.challengeFilter;
 
     return (
-      <div>
+      <div styleName="container">
         {/* For demo we hardcode banner properties so we can disable max-len linting */}
         {/* eslint-disable max-len */}
         { !listingOnly ? (
