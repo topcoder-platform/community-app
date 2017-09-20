@@ -42,7 +42,7 @@ export default function Home(/* props */) {
       >
         <div>
           <h1>Learn How to Build DApps on Ethereum</h1>
-          <p><a href="https://ethereum.org/" target="_blank">Ethereum</a> is a decentralized platform that allows for the deployment of smart contracts: applications that run exactly as programmed without downtime, censorship, fraud, or third-party interference.</p>
+          <p><a href="https://ethereum.org/" target="_blank" rel="noopener noreferrer">Ethereum</a> is a decentralized platform that allows for the deployment of smart contracts: applications that run exactly as programmed without downtime, censorship, fraud, or third-party interference.</p>
           <p>Ethereum combines the benefits of blockchain technology with the myriad possibilities of coded applications. Leveraging Ethereum, companies and individuals can exchange value and information transparently, securely, and frictionlessly, maximizing efficiency and minimizing the role of middlemen, and creating a firm basis for mutual trust.</p>
           <p>Over the coming weeks we will be adding educational resources, fun challenges to help you hone your skills, and competitive challenges to work on real-world customer projects with Ethereum blockchain.</p>
         </div>
