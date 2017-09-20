@@ -65,6 +65,7 @@ class TermsService {
         res = _.clone(termsDocuSignDetails);
         break;
       case 21193:
+      case 21194:
         res = _.clone(termsTopcoderDetails);
         if (!_.isUndefined(agreed)) res.agreed = agreed;
         break;

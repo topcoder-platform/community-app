@@ -2,36 +2,68 @@
 
 import React from 'react';
 import PT from 'prop-types';
-import { PrimaryButton } from 'components/buttons';
+import cn from 'classnames';
+import { PrimaryButton, Button } from 'components/buttons';
 import LoadingIndicator from 'components/LoadingIndicator';
 
-import './TermDetails.scss';
+import style from './TermDetails.scss';
 
 export default class TermDetails extends React.Component {
-  componentDidMount() {
+  constructor(props) {
+    super(props);
+    this.state = {
+      loadingFrame: false,
+    };
+    this.frameLoaded = this.frameLoaded.bind(this);
+  }
+
+  componentWillMount() {
     const { details } = this.props;
     if (details.agreeabilityType !== 'Electronically-agreeable' && details.docusignTemplateId) {
       this.props.getDocuSignUrl(details.docusignTemplateId);
+      this.setState({ loadingFrame: true });
     }
   }
 
+  frameLoaded() {
+    this.setState({
+      loadingFrame: false,
+    });
+  }
+
   render() {
-    const { details, docuSignUrl, agreeingTerm, agreeTerm,
-      deselectTerm, loadingDocuSignUrl } = this.props;
+    const { details, docuSignUrl, agreeingTerm, agreeTerm, closeModal,
+      loadingDocuSignUrl, viewOnly, agreed, nextTerm } = this.props;
+
     return (
       <div>
-        <div styleName="title">{details.title}</div>
         {
           details.agreeabilityType === 'Electronically-agreeable' &&
           <div>
             <div styleName="body" dangerouslySetInnerHTML={{ __html: details.text }} />
-            <div styleName="buttons">
-              <PrimaryButton onClick={deselectTerm}>Back</PrimaryButton>
-              <PrimaryButton
-                disabled={agreeingTerm === details.termsOfUseId}
-                onClick={() => agreeTerm(details.termsOfUseId)}
-              >Agree</PrimaryButton>
-            </div>
+            {
+              !viewOnly &&
+              <div styleName="buttons">
+                {
+                  agreed ?
+                    (<PrimaryButton
+                      theme={style}
+                      onClick={nextTerm}
+                    >Next</PrimaryButton>) :
+                    (<div>
+                      <PrimaryButton
+                        disabled={agreeingTerm === details.termsOfUseId}
+                        onClick={() => agreeTerm(details.termsOfUseId)}
+                        theme={style}
+                      >I Agree</PrimaryButton>
+                      <Button
+                        onClick={closeModal}
+                        theme={style}
+                      >I Disagree</Button>
+                    </div>)
+                }
+              </div>
+            }
           </div>
         }
         {
@@ -43,10 +75,11 @@ export default class TermDetails extends React.Component {
           details.agreeabilityType !== 'Electronically-agreeable' && details.docusignTemplateId &&
           !loadingDocuSignUrl && docuSignUrl &&
           <div>
-            <iframe title={details.title} src={docuSignUrl} styleName="frame" />
-            <div styleName="buttons">
-              <PrimaryButton onClick={deselectTerm}>Back</PrimaryButton>
-            </div>
+            {
+              this.state.loadingFrame &&
+              <LoadingIndicator />
+            }
+            <iframe title={details.title} src={docuSignUrl} styleName={cn(['frame', { loading: this.state.loadingFrame }])} onLoad={this.frameLoaded} />
           </div>
         }
       </div>
@@ -66,7 +99,10 @@ TermDetails.propTypes = {
   docuSignUrl: PT.string,
   agreeTerm: PT.func.isRequired,
   agreeingTerm: PT.string,
-  deselectTerm: PT.func.isRequired,
+  closeModal: PT.func.isRequired,
   loadingDocuSignUrl: PT.string,
   getDocuSignUrl: PT.func.isRequired,
+  viewOnly: PT.bool.isRequired,
+  agreed: PT.bool.isRequired,
+  nextTerm: PT.func.isRequired,
 };

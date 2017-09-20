@@ -23,6 +23,7 @@ exports[`Matches shallow shapshot 1 shapshot 1 1`] = `
       <div>
         <SRMCard
           category="now"
+          srmChallenge={null}
         />
       </div>
       <div>
@@ -40,6 +41,7 @@ exports[`Matches shallow shapshot 1 shapshot 1 1`] = `
         </div>
         <SRMCard
           category="past"
+          srmChallenge={null}
         />
       </div>
     </div>
@@ -135,6 +137,7 @@ exports[`Matches shallow shapshot 2 shapshot 2 1`] = `
       <div>
         <SRMCard
           category="now"
+          srmChallenge={null}
         />
       </div>
       <div>
@@ -152,6 +155,7 @@ exports[`Matches shallow shapshot 2 shapshot 2 1`] = `
         </div>
         <SRMCard
           category="past"
+          srmChallenge={null}
         />
       </div>
     </div>

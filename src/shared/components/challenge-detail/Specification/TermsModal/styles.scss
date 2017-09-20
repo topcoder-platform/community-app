@@ -5,75 +5,169 @@
 }
 
 .title {
-  height: 40px;
   line-height: 40px;
-  font-size: 24px;
-  border-bottom: 1px solid $tc-gray-10;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  font-size: 28px;
+  text-align: center;
+
+  @include xs {
+    text-align: left;
+  }
 }
 
 .desc {
-  padding: 27px 0 12px;
+  margin-top: 60px;
   font-size: 15px;
-}
+  line-height: 25px;
 
-.status-img {
-  display: inline-block;
-  width: 16px;
-  height: 16px;
-  vertical-align: middle;
-  margin-right: 5px;
-
-  &.required {
-    background-image: url(assets/images/terms-status-required.png);
+  @include xs {
+    margin-top: 20px;
   }
 }
 
-.terms-table {
-  width: 100%;
+.tabs-labels {
+  overflow-x: auto;
+}
 
-  th {
-    border-bottom: 1px solid $tc-gray-10;
-    height: 42px;
-    vertical-align: middle;
-    padding: 0 17px;
-    background: #f1f1f1;
-    color: $tc-orange;
-    text-align: left;
-    font-size: 15px;
-    font-weight: 400;
+.tabs-outer {
+  margin-top: 30px;
+  margin-bottom: 4px;
+  height: 10px;
+  border-radius: 5px;
+}
+
+.tabs-inner {
+  display: flex;
+  border-radius: 5px;
+  overflow: hidden;
+  background-color: $tc-gray-20;
+
+  @include xs {
+    width: auto;
+    display: inline-block;
+    white-space: nowrap;
+    height: 10px;
+    font-size: 0;
+  }
+}
+
+.tab {
+  flex: 1;
+  height: 10px;
+  position: relative;
+
+  @include xs {
+    width: 135px;
+    display: inline-block;
   }
 
-  td {
-    border-bottom: 1px solid $tc-gray-10;
-    height: 32px;
-    vertical-align: middle;
-    padding: 10px 17px;
-    font-size: 14px;
-    color: #666;
+  &.agreed,
+  &.active.view-only {
+    background-color: $tc-green-70;
   }
 
-  tr:nth-child(2n) {
-    td {
-      background-color: #f7f7f7;
+  &.agreed,
+  &.active {
+    .indicator {
+      background-color: $tc-green-70;
+    }
+  }
+
+  .indicator {
+    height: 10px;
+    width: 10px;
+    border-radius: 100%;
+    background-color: $tc-gray-30;
+  }
+}
+
+.labels {
+  margin-bottom: 40px;
+  display: flex;
+
+  .label {
+    flex: 1;
+    cursor: pointer;
+    left: 0;
+    top: 12px;
+    font-size: 13px;
+    overflow: hidden;
+
+    @include xs {
+      flex: 0 0 135px;
     }
   }
 }
 
-.view-agree {
-  color: $tc-orange;
-  cursor: pointer;
+.single {
+  padding-top: 25px;
+}
+
+.sub-title {
+  line-height: 30px;
+  font-size: 20px;
+  margin-bottom: 10px;
+
+  @include xs {
+    padding: 0 15px;
+  }
 }
 
 .modal-container {
-  width: 960px;
-  max-height: 660px;
+  width: 1167px;
+  max-height: 965px;
+  padding: 60px 64px 20px 56px;
+
+  @include md {
+    width: 960px;
+  }
+
+  @include sm {
+    width: 720px;
+    padding: 20px;
+  }
+
+  @include xs {
+    width: 300px;
+    padding: 0;
+    max-height: 80%;
+    overflow-y: auto;
+    top: calc(50% - 50px);
+  }
+}
+
+.top-section {
+  @include xs {
+    padding: 15px;
+  }
 }
 
 .button-container {
   margin-top: 20px;
   display: flex;
   justify-content: space-around;
+}
+
+.buttons {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 20px;
+  padding: 5px;
+  background-color: $tc-white;
+
+  @include xs {
+    position: fixed;
+    bottom: 0;
+    height: 50px;
+    margin-top: 0;
+    left: 0;
+    right: 0;
+    z-index: 999999;
+  }
+}
+
+.button {
+  height: 30px;
+  padding: 4px 15px;
+  font-size: 13px;
+  line-height: 20px;
 }

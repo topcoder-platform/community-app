@@ -40,6 +40,15 @@ function onGetTermsDone(state, action) {
   };
 }
 
+/**
+ * Handles TERMS/GET_TERM_DETAILS_DONE action.
+ * Note, that it silently discards received details if the termId of received
+ * mismatches the one stored in loadingDetailsForTermId field
+ * of the state.
+ * @param {Object} state
+ * @param {Object} action
+ * @return {Object} New state.
+ */
 function onGetTermDetailsDone(state, action) {
   if (action.error) {
     logger.error('Failed to get term details!', action.payload);
@@ -63,6 +72,15 @@ function onGetTermDetailsDone(state, action) {
   };
 }
 
+/**
+ * Handles TERMS/GET_DOCU_SIGN_URL_DONE action.
+ * Note, that it silently discards received url if the templateId of received
+ * mismatches the one stored in loadingDocuSignUrl field
+ * of the state.
+ * @param {Object} state
+ * @param {Object} action
+ * @return {Object} New state.
+ */
 function onGetDocuSignUrlDone(state, action) {
   if (action.error) {
     logger.error('Failed to get docu sign url!', action.payload);
@@ -85,6 +103,15 @@ function onGetDocuSignUrlDone(state, action) {
   };
 }
 
+/**
+ * Handles TERMS/AGREE_TERM_DONE action.
+ * Note, that it silently discards received result if the termId of received
+ * mismatches the one stored in agreeingTerm field
+ * of the state.
+ * @param {Object} state
+ * @param {Object} action
+ * @return {Object} New state.
+ */
 function onAgreeTermDone(state, action) {
   if (action.error) {
     logger.error('Failed to agree term!', action.payload);
@@ -98,14 +125,93 @@ function onAgreeTermDone(state, action) {
   if (_.toString(action.payload.termId) !== state.agreeingTerm) {
     return state;
   }
+  if (action.payload.success) {
+    const terms = _.cloneDeep(state.terms);
+    const term = _.find(terms, ['termsOfUseId', action.payload.termId]);
+    term.agreed = true;
+    const selectedTerm = _.find(terms, t => !t.agreed);
+    return {
+      ...state,
+      terms,
+      selectedTerm,
+      agreeTermFailure: false,
+      agreeingTerm: '',
+    };
+  }
   return {
     ...state,
-    agreedTerms: {
-      ...state.agreedTerms,
-      [action.payload.termId]: action.payload.success,
-    },
     agreeTermFailure: false,
     agreeingTerm: '',
+  };
+}
+
+/**
+ * Handles TERMS/OPEN_TERMS_MODAL action.
+ * @param {Object} state
+ * @param {Object} action
+ * @return {Object} New state.
+ */
+function onOpenTermsModal(state, action) {
+  if (action.payload) {
+    return {
+      ...state,
+      showTermsModal: true,
+      selectedTerm: action.payload,
+      viewOnly: true,
+    };
+  }
+  const selectedTerm = _.find(state.terms, t => !t.agreed);
+  return {
+    ...state,
+    showTermsModal: true,
+    selectedTerm,
+    viewOnly: false,
+  };
+}
+
+/**
+ * Handles TERMS/SIGN_DOCU action.
+ * @param {Object} state
+ * @param {Object} action
+ * @return {Object} New state.
+ */
+function onSignDocu(state, action) {
+  const terms = _.cloneDeep(state.terms);
+  const term = _.find(terms, ['termsOfUseId', action.payload]);
+  term.agreed = true;
+  const selectedTerm = _.find(terms, t => !t.agreed);
+  return {
+    ...state,
+    terms,
+    selectedTerm,
+  };
+}
+
+/**
+ * Handles TERMS/CHECK_STATUS_DONE action.
+ * @param {Object} state
+ * @param {Object} action
+ * @return {Object} New state.
+ */
+function onCheckStatusDone(state, action) {
+  if (action.error) {
+    logger.error('Check terms status failed!', action.payload);
+    return {
+      ...state,
+      checkingStatus: false,
+      checkStatusError: action.payload,
+      canRegister: false,
+    };
+  }
+  const canRegister = _.every(action.payload, 'agreed');
+  const selectedTerm = _.find(action.payload, t => !t.agreed);
+  return {
+    ...state,
+    checkingStatus: false,
+    checkStatusError: false,
+    canRegister,
+    terms: action.payload,
+    selectedTerm,
   };
 }
 
@@ -146,10 +252,24 @@ function create(initialState) {
       agreeingTerm: payload,
     }),
     [actions.terms.agreeTermDone]: onAgreeTermDone,
+    [actions.terms.openTermsModal]: onOpenTermsModal,
+    [actions.terms.closeTermsModal]: state => ({ ...state, showTermsModal: false }),
+    [actions.terms.selectTerm]: (state, { payload }) => ({ ...state, selectedTerm: payload }),
+    [actions.terms.signDocu]: onSignDocu,
+    [actions.terms.checkStatusInit]: state => ({
+      ...state,
+      checkingStatus: true,
+    }),
+    [actions.terms.checkStatusDone]: onCheckStatusDone,
   }, initialState || {
     getTermsFailure: false,
     terms: [],
-    agreedTerms: {},
+    showTermsModal: false,
+    selectedTerm: null,
+    viewOnly: false,
+    checkingStatus: false,
+    checkStatusError: false,
+    canRegister: false,
   });
 }
 

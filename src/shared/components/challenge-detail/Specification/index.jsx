@@ -14,6 +14,7 @@ export default function ChallengeDetailsView(props) {
   const {
     terms,
     hasRegistered,
+    openTermsModal,
     challenge: {
       introduction,
       detailedRequirements,
@@ -272,6 +273,7 @@ export default function ChallengeDetailsView(props) {
         fileTypes={fileTypes}
         isDesign={track.toLowerCase() === 'design'}
         terms={terms}
+        openTermsModal={openTermsModal}
       />
     </div>
   );
@@ -320,4 +322,5 @@ ChallengeDetailsView.propTypes = {
     allowStockArt: PT.bool,
     finalSubmissionGuidelines: PT.string,
   }),
+  openTermsModal: PT.func.isRequired,
 };

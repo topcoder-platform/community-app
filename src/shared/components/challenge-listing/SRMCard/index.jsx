@@ -106,6 +106,10 @@ const UpcomingSRMs = ({ srmChallenge }) => (
   </div>
 );
 
+UpcomingSRMs.defaultProps = {
+  srmChallenge: null,
+};
+
 UpcomingSRMs.propTypes = {
   srmChallenge: PT.shape().isRequired,
 };
@@ -129,6 +133,11 @@ const SRMCard = ({ category, srmChallenge }) => (
     {category === 'past' ? <PastSRMs /> : ''}
   </div>
 );
+
+SRMCard.defaultProps = {
+  category: null,
+  srmChallenge: null,
+};
 
 SRMCard.propTypes = {
   category: PT.string.isRequired,

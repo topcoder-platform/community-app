@@ -4,9 +4,8 @@ $sm-space-15: $base-unit * 3;
 $sm-space-25: $base-unit * 5;
 $sm-space-40: $base-unit * 8;
 
-.outer-container {
-  background: $tc-gray-10;
-  padding: 24px;
+.container {
+  width: 100%;
 }
 
 .submission-management-container {
