@@ -40,7 +40,10 @@ export default class TermDetails extends React.Component {
         {
           details.agreeabilityType === 'Electronically-agreeable' &&
           <div>
-            <div styleName="body" dangerouslySetInnerHTML={{ __html: details.text }} />
+            <div
+              dangerouslySetInnerHTML={{ __html: details.text }}
+              styleName="body"
+            />
             {
               !viewOnly &&
               <div styleName="buttons">

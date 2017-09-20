@@ -1,16 +1,14 @@
-@import "~styles/tc-styles";
+@import "~styles/mixins";
 
 .body {
-  max-height: 480px;
-  overflow: auto;
   border: 1px solid $tc-gray-30;
   word-break: break-word;
 
   @include xs {
-    max-height: none;
-    padding: 10px 0;
-    border: none;
-    background-color: $tc-white;
+    // max-height: none;
+    // padding: 10px 0;
+    // border: none;
+    // background-color: $tc-white;
   }
 }
 

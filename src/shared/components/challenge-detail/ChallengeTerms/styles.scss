@@ -1,21 +1,52 @@
-@import "~styles/tc-styles";
+@import "~styles/mixins";
+
+/* Fills the space in the bottom of the modal, when we do not need to render
+ * buttons there. */
+.bottom-placeholder {
+  height: 5 * $base-unit;
+
+  @include xxs-to-xs {
+    height: 3 * $base-unit;
+  }
+}
 
 .container {
   font-family: roboto;
 }
 
-.title {
-  line-height: 40px;
-  font-size: 28px;
-  text-align: center;
+.modal-container {
+  display: flex;
+  flex-direction: column;
+  height: 95vh;
+  padding: 40px 40px 0;
+  width: 100%;
 
-  @include xs {
-    text-align: left;
+  @include xxs-to-xs {
+    padding: 3 * $base-unit;
+    padding-bottom: 0;
   }
 }
 
+.modal-content {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+}
+
+.scrollable-area {
+  flex: 1;
+  overflow-y: auto;
+}
+
+.title {
+  font-size: 28px;
+  text-align: center;
+}
+
+// TODO: All classes below should be sorted alphabetically for convenience.
+
 .desc {
-  margin-top: 60px;
+  margin-top: 24px;
   font-size: 15px;
   line-height: 25px;
 
@@ -112,35 +143,6 @@
   }
 }
 
-.modal-container {
-  width: 1167px;
-  max-height: 965px;
-  padding: 60px 64px 20px 56px;
-
-  @include md {
-    width: 960px;
-  }
-
-  @include sm {
-    width: 720px;
-    padding: 20px;
-  }
-
-  @include xs {
-    width: 300px;
-    padding: 0;
-    max-height: 80%;
-    overflow-y: auto;
-    top: calc(50% - 50px);
-  }
-}
-
-.top-section {
-  @include xs {
-    padding: 15px;
-  }
-}
-
 .button-container {
   margin-top: 20px;
   display: flex;
@@ -148,26 +150,13 @@
 }
 
 .buttons {
-  display: flex;
-  justify-content: space-around;
-  margin-top: 20px;
-  padding: 5px;
-  background-color: $tc-white;
-
-  @include xs {
-    position: fixed;
-    bottom: 0;
-    height: 50px;
-    margin-top: 0;
-    left: 0;
-    right: 0;
-    z-index: 999999;
-  }
+  padding-bottom: 2 * $base-unit;
+  text-align: center;
 }
 
 .button {
   height: 30px;
-  padding: 4px 15px;
+  padding: 0 15px;
   font-size: 13px;
   line-height: 20px;
 }
