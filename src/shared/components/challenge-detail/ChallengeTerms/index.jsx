@@ -155,8 +155,10 @@ export default class ChallengeTerms extends React.Component {
                   }
                 </div> { /* The end of scrollable area */ }
                 {
-                  details && details.agreeabilityType === 'Electronically-agreeable'
-                    && !viewOnly ? (
+                  !isLoadingTerms && !checkingStatus && selectedTerm && details
+                    && !viewOnly &&
+                    loadingTermId !== _.toString(selectedTerm.termsOfUseId) &&
+                    details.agreeabilityType === 'Electronically-agreeable' ? (
                       <div styleName="buttons">
                         {
                           selectedTerm.agreed ?
@@ -182,38 +184,7 @@ export default class ChallengeTerms extends React.Component {
               </div>
             )
           }
-
         </Modal>
-        {/*
-          TODO: We better bend the desing, and use the buttons inside
-            the modal both for desktop and mobile layout of the terms
-            modal. However, I keep this commented code case here are
-            a lots more checks for displaying the buttons, comparing
-            to the buttons inside the modal. Should be double-checked.
-          !isLoadingTerms && !checkingStatus && selectedTerm && details && !viewOnly &&
-          loadingTermId !== _.toString(selectedTerm.termsOfUseId) &&
-          details.agreeabilityType === 'Electronically-agreeable' &&
-          <div styleName="buttons">
-            {
-              selectedTerm.agreed ?
-                (<PrimaryButton
-                  theme={styles}
-                  onClick={this.nextTerm}
-                >Next</PrimaryButton>) :
-                (<div>
-                  <PrimaryButton
-                    disabled={agreeingTerm === details.termsOfUseId}
-                    onClick={() => agreeTerm(details.termsOfUseId)}
-                    theme={styles}
-                  >I Agree</PrimaryButton>
-                  <Button
-                    onClick={onCancel}
-                    theme={styles}
-                  >I Disagree</Button>
-                </div>)
-            }
-          </div>
-        */}
       </div>
     );
   }

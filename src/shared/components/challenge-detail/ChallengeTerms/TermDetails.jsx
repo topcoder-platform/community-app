@@ -3,10 +3,9 @@
 import React from 'react';
 import PT from 'prop-types';
 import cn from 'classnames';
-import { PrimaryButton, Button } from 'components/buttons';
 import LoadingIndicator from 'components/LoadingIndicator';
 
-import style from './TermDetails.scss';
+import './TermDetails.scss';
 
 export default class TermDetails extends React.Component {
   constructor(props) {
@@ -32,8 +31,8 @@ export default class TermDetails extends React.Component {
   }
 
   render() {
-    const { details, docuSignUrl, agreeingTerm, agreeTerm, closeModal,
-      loadingDocuSignUrl, viewOnly, agreed, nextTerm } = this.props;
+    const { details, docuSignUrl,
+      loadingDocuSignUrl } = this.props;
 
     return (
       <div>
@@ -44,29 +43,6 @@ export default class TermDetails extends React.Component {
               dangerouslySetInnerHTML={{ __html: details.text }}
               styleName="body"
             />
-            {
-              !viewOnly &&
-              <div styleName="buttons">
-                {
-                  agreed ?
-                    (<PrimaryButton
-                      theme={style}
-                      onClick={nextTerm}
-                    >Next</PrimaryButton>) :
-                    (<div>
-                      <PrimaryButton
-                        disabled={agreeingTerm === details.termsOfUseId}
-                        onClick={() => agreeTerm(details.termsOfUseId)}
-                        theme={style}
-                      >I Agree</PrimaryButton>
-                      <Button
-                        onClick={closeModal}
-                        theme={style}
-                      >I Disagree</Button>
-                    </div>)
-                }
-              </div>
-            }
           </div>
         }
         {
@@ -93,19 +69,12 @@ export default class TermDetails extends React.Component {
 TermDetails.defaultProps = {
   details: {},
   docuSignUrl: '',
-  agreeingTerm: '',
   loadingDocuSignUrl: '',
 };
 
 TermDetails.propTypes = {
   details: PT.shape(),
   docuSignUrl: PT.string,
-  agreeTerm: PT.func.isRequired,
-  agreeingTerm: PT.string,
-  closeModal: PT.func.isRequired,
   loadingDocuSignUrl: PT.string,
   getDocuSignUrl: PT.func.isRequired,
-  viewOnly: PT.bool.isRequired,
-  agreed: PT.bool.isRequired,
-  nextTerm: PT.func.isRequired,
 };
