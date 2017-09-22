@@ -3,7 +3,7 @@ import actions from 'actions/tc-communities/index';
 describe('tcCommunity.joinDone at frontend with 404 response', () => {
   global.fetch = jest.fn(() => Promise.resolve({
     ok: true,
-    json: () => ({
+    json: () => Promise.resolve({
       result: {
         status: 200,
         content: 'dummy',
