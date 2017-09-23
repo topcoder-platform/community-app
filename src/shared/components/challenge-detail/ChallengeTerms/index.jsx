@@ -80,6 +80,50 @@ export default class ChallengeTerms extends React.Component {
       getDocuSignUrl, agreeTerm, agreeingTerm, isLoadingTerms,
       loadingDocuSignUrl, selectedTerm, viewOnly, checkingStatus } = this.props;
 
+    const handleHorizonalScroll = (e) => {
+      const scrollElement = e.target;
+
+      const cname = style['mask-h'];
+      /* eslint-env browser */
+      const masks = document.getElementsByClassName(cname);
+      const mask1 = masks[0];
+      const mask2 = masks[1];
+      // When the scrollbar reaches end, disable right mask.
+      if (scrollElement.scrollWidth - scrollElement.scrollLeft === scrollElement.clientWidth) {
+        mask2.style.display = 'none';
+      } else if (scrollElement.scrollLeft === 0) {
+        // At the beginning, disable left mask.
+        mask1.style.display = 'none';
+      } else {
+        // Show both masks in between.
+        mask1.style.display = 'block';
+        mask2.style.display = 'block';
+      }
+    };
+
+    const handleVerticalScroll = (e) => {
+      const scrollElement = e.target;
+
+      const cname = style['mask-v'];
+      /* eslint-env browser */
+      const masks = document.getElementsByClassName(cname);
+      const mask1 = masks[0];
+      const mask2 = masks[1];
+      // When the scrollbar reaches end, disable right mask.
+      if (scrollElement.scrollHeight - scrollElement.scrollTop === scrollElement.clientHeight) {
+        mask2.style.display = 'none';
+      } else if (scrollElement.scrollTop === 0) {
+        // At the beginning, disable left mask.
+        mask1.style.display = 'none';
+      } else {
+        // Show both masks in between.
+        mask1.style.display = 'block';
+        mask2.style.display = 'block';
+        mask1.style.top = `${scrollElement.scrollTop}px`;
+        mask2.style.bottom = `${-scrollElement.scrollTop}px`;
+      }
+    };
+
     return (
       <div styleName="container">
         <Modal
@@ -94,7 +138,9 @@ export default class ChallengeTerms extends React.Component {
             !isLoadingTerms && (
               <div styleName="modal-content">
                 <div styleName="title">{terms.length > 1 ? 'Terms & Conditions of Use' : terms[0].title}</div>
-                <div styleName="scrollable-area">
+                <div styleName="scrollable-area" onScroll={handleVerticalScroll}>
+                  <div styleName="mask-v top" />
+                  <div styleName="mask-v bottom" />
                   <div styleName="desc">You are seeing these Terms & Conditions because you have registered to a challenge and
                     you have to respect the terms below in order to be able to submit.</div>
                   {
@@ -103,26 +149,24 @@ export default class ChallengeTerms extends React.Component {
                   }
                   {
                     !checkingStatus && terms.length > 1 &&
-                    <div styleName="tabs-labels">
                       <div styleName="tabs-outer">
-                        <div styleName="tabs-inner">
+                        <div styleName="mask-h left" />
+                        <div styleName="mask-h right" />
+                        <div styleName="tabs-inner" onScroll={handleHorizonalScroll}>
                           {
-                            terms.map(t => (
-                              <div key={t.termsOfUseId} styleName={cn(['tab', { agreed: t.agreed && !viewOnly, active: selectedTerm === t, 'view-only': viewOnly }])}>
-                                {!viewOnly && <div styleName="indicator" />}
+                            terms.map((t, index) => (
+                              <div key={t.termsOfUseId} styleName={cn(['tab', { agreed: t.agreed && !viewOnly, active: selectedTerm === t, 'view-only': viewOnly, last: terms.length - 1 === index }])}>
+                                <div styleName="tab-index">{index + 1}</div>
+                                <div styleName="tab-title" onClick={() => this.selectTerm(t)}>{t.title}</div>
+                                {
+                                  index < terms.length - 1 &&
+                                  <div styleName="tab-bar" />
+                                }
                               </div>
                             ))
                           }
                         </div>
                       </div>
-                      <div styleName="labels">
-                        {
-                          terms.map(t => (
-                            <div styleName="label" onClick={() => this.selectTerm(t)} key={t.termsOfUseId}>{t.title}</div>
-                          ))
-                        }
-                      </div>
-                    </div>
                   }
                   {
                     !checkingStatus && selectedTerm &&

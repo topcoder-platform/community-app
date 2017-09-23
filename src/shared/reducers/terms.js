@@ -9,6 +9,15 @@ import { handleActions } from 'redux-actions';
 import { toFSA } from 'utils/redux';
 
 /**
+ * sort terms by agreed status
+ * @param  {Array} terms terms to sort
+ * @return {Array}       sorted terms
+ */
+function sortTerms(terms) {
+  return _.sortBy(terms, t => (t.agreed ? 0 : 1));
+}
+
+/**
  * Handles TERMS/GET_TERMS_DONE action.
  * Note, that it silently discards received terms if the challengeId of received
  * mismatches the one stored in loadingTermsForChallengeId field
@@ -34,7 +43,8 @@ function onGetTermsDone(state, action) {
 
   return {
     ...state,
-    ...action.payload,
+    challengeId: action.payload,
+    terms: sortTerms(action.payload.terms),
     getTermsFailure: false,
     loadingTermsForChallengeId: '',
   };
@@ -210,10 +220,11 @@ function onCheckStatusDone(state, action) {
     checkingStatus: false,
     checkStatusError: false,
     canRegister,
-    terms: action.payload,
+    terms: sortTerms(action.payload),
     selectedTerm,
   };
 }
+
 
 /**
  * Creates a new Terms reducer with the specified initial state.
