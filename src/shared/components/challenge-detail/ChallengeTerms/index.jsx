@@ -13,12 +13,42 @@ import TermDetails from './TermDetails';
 import style from './styles.scss';
 
 
+function handleScroll(scrollElement, masks, orientation) {
+  let length;
+  let base;
+  if (orientation === 'vertical') {
+    length = 'scrollHeight';
+    base = 'scrollTop';
+  } else {
+    length = 'scrollWidth';
+    base = 'scrollLeft';
+  }
+  const mask1 = masks[0];
+  const mask2 = masks[1];
+  // When the scrollbar reaches end, disable mask2.
+  if (scrollElement[length] - scrollElement[base] === scrollElement.clientWidth) {
+    mask2.style.display = 'none';
+  } else if (scrollElement[base] === 0) {
+    // At the beginning, disable mask1.
+    mask1.style.display = 'none';
+  } else {
+    // Show both masks in between.
+    mask1.style.display = 'block';
+    mask2.style.display = 'block';
+    if (orientation === 'vertical') {
+      mask1.style.top = `${scrollElement[base]}px`;
+      mask2.style.bottom = `${-scrollElement[base]}px`;
+    }
+  }
+}
+
 export default class ChallengeTerms extends React.Component {
   constructor(props) {
     super(props);
 
     this.selectTerm = this.selectTerm.bind(this);
     this.messageHandler = this.messageHandler.bind(this);
+    this.resizeHandler = this.resizeHandler.bind(this);
     this.nextTerm = this.nextTerm.bind(this);
     this.max = 0;
   }
@@ -29,6 +59,7 @@ export default class ChallengeTerms extends React.Component {
       loadDetails(selectedTerm.termsOfUseId);
     }
     window.addEventListener('message', this.messageHandler, false);
+    window.addEventListener('resize', this.resizeHandler, false);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -49,6 +80,7 @@ export default class ChallengeTerms extends React.Component {
 
   componentWillUnmount() {
     window.removeEventListener('message', this.messageHandler);
+    window.removeEventListener('resize', this.resizeHandler);
   }
 
   selectTerm(term) {
@@ -75,6 +107,18 @@ export default class ChallengeTerms extends React.Component {
     }
   }
 
+  resizeHandler() {
+    const cname = style['mask-h'];
+    const masks = document.getElementsByClassName(cname);
+    if (this.hScrollElement.scrollWidth === this.hScrollElement.clientWidth) {
+      // eslint-disable-next-line no-param-reassign
+      _.forEach(masks, (m) => { m.style.display = 'none'; });
+    } else {
+      // set the mask style if need
+      handleScroll(this.hScrollElement, masks, 'horizonal');
+    }
+  }
+
   render() {
     const { onCancel, terms, details, loadingTermId, docuSignUrl,
       getDocuSignUrl, agreeTerm, agreeingTerm, isLoadingTerms,
@@ -86,19 +130,7 @@ export default class ChallengeTerms extends React.Component {
       const cname = style['mask-h'];
       /* eslint-env browser */
       const masks = document.getElementsByClassName(cname);
-      const mask1 = masks[0];
-      const mask2 = masks[1];
-      // When the scrollbar reaches end, disable right mask.
-      if (scrollElement.scrollWidth - scrollElement.scrollLeft === scrollElement.clientWidth) {
-        mask2.style.display = 'none';
-      } else if (scrollElement.scrollLeft === 0) {
-        // At the beginning, disable left mask.
-        mask1.style.display = 'none';
-      } else {
-        // Show both masks in between.
-        mask1.style.display = 'block';
-        mask2.style.display = 'block';
-      }
+      handleScroll(scrollElement, masks, 'horizonal');
     };
 
     const handleVerticalScroll = (e) => {
@@ -107,21 +139,7 @@ export default class ChallengeTerms extends React.Component {
       const cname = style['mask-v'];
       /* eslint-env browser */
       const masks = document.getElementsByClassName(cname);
-      const mask1 = masks[0];
-      const mask2 = masks[1];
-      // When the scrollbar reaches end, disable right mask.
-      if (scrollElement.scrollHeight - scrollElement.scrollTop === scrollElement.clientHeight) {
-        mask2.style.display = 'none';
-      } else if (scrollElement.scrollTop === 0) {
-        // At the beginning, disable left mask.
-        mask1.style.display = 'none';
-      } else {
-        // Show both masks in between.
-        mask1.style.display = 'block';
-        mask2.style.display = 'block';
-        mask1.style.top = `${scrollElement.scrollTop}px`;
-        mask2.style.bottom = `${-scrollElement.scrollTop}px`;
-      }
+      handleScroll(scrollElement, masks, 'vertical');
     };
 
     return (
@@ -152,7 +170,7 @@ export default class ChallengeTerms extends React.Component {
                       <div styleName="tabs-outer">
                         <div styleName="mask-h left" />
                         <div styleName="mask-h right" />
-                        <div styleName="tabs-inner" onScroll={handleHorizonalScroll}>
+                        <div styleName="tabs-inner" onScroll={handleHorizonalScroll} ref={(e) => { this.hScrollElement = e; }}>
                           {
                             terms.map((t, index) => (
                               <div key={t.termsOfUseId} styleName={cn(['tab', { agreed: t.agreed && !viewOnly, active: selectedTerm === t, 'view-only': viewOnly, last: terms.length - 1 === index }])}>
