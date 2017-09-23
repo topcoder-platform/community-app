@@ -1,0 +1,17 @@
+version: '2.1'
+
+services:
+  api:
+    build:
+      context: .
+    ports:
+      - 3000:3000
+    environment:
+      DB_SCOREBOARD: postgres://scoreboard:p@ssword123@db:5432/scoreboard
+  db:
+    image: postgres
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_USER: scoreboard
+      POSTGRES_PASSWORD: p@ssword123

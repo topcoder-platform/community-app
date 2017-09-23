@@ -1,0 +1,24 @@
+{
+  "sortField": "codeField2",
+  "sortAscending": false,
+  "fields": [
+    {
+      "fieldName": "codeField1",
+      "fieldText": "Submission Type",
+      "type": "Joi.string().max(30)",
+      "dbType": "Sequelize.STRING(30)"
+    },
+    {
+      "fieldName": "codeField2",
+      "fieldText": "Submission State",
+      "type": "Joi.string().max(30).required()",
+      "dbType": "Sequelize.STRING(30)"
+    },
+    {
+      "fieldName": "codeField3",
+      "fieldText": "Score",
+      "type": "Joi.number().integer().required()",
+      "dbType": "Sequelize.INTEGER"
+    }
+  ]
+}
