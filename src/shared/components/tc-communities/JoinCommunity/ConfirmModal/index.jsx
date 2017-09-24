@@ -26,10 +26,14 @@ export default function ConfirmModal({
   return (
     <Modal onCancel={resetJoinButton}>
       <div styleName="confirmMsg">
-        { userId ? null : (
-          <p>You must be a Topcoder member before you can join the {communityName}.</p>
+        { !userId ? (
+          <p>Do you want to join {communityName}?</p>
+        ) : (
+          <div>
+            <p>You must be a Topcoder member before you can join the {communityName}.</p>
+            <p>To join, login if you are already a member. If not, register first.</p>
+          </div>
         )}
-        To join, login if you are already a member. If not, register first.
       </div>
       <div styleName="buttons">
         { userId ? (
