@@ -85,7 +85,7 @@ export function getCommunitiesMetadata(communityId) {
            * from the api (it looks like reducer should be improved, but it
            * is easier just to set these defaults). */
           const metadata = _.defaults(JSON.parse(data), {
-            authorizedGorupIds: null,
+            authorizedGroupIds: null,
             challengeFilter: null,
             challengeListing: null,
             communityId: '',
@@ -108,6 +108,64 @@ export function getCommunitiesMetadata(communityId) {
   }
 
   return null;
+}
+
+/**
+ * Tests whether the user belongs to the specified group(s) or their descendant
+ * groups.
+ *
+ * The following pattern of use is assumed:
+ *
+ * 1. You load user's profile ("groups" field of the profile should be passed
+ *    into "userGroups" argument);
+ *
+ * 2. You ensure that you have loaded detailed group information for each group
+ *    you are going to test against (you pass this information into "apiGroups"
+ *    argument; it should include data about all descendant groups of the groups
+ *    you gonna test against; and once you have loaded necessary data from the
+ *    API you can reuse them for multiple "isGroupMember" calls).
+ *
+ * 3. Finally, you call "isGroupMember", passing as "groupId" argument the ID
+ *    of the group to test (or the array of group IDs). This function will do
+ *    its best to make the check in the most efficient way.
+ *
+ * @param {String|String[]} groupId ID, or an array of IDs, of the groups to
+ *  test against.
+ * @param {Object[]} userGroups Array of groups the user belongs to. This is
+ *  the array we store under "auth.profile.groups" path of Redux state once
+ *  the user is authenticated and his profile is loaded.
+ * @param {Object{}} apiGroups Group detailes fetched from the API. This is
+ *  the object from "groups.groups" path of Redux state.
+ * @return {Boolean} "true" if the user belongs to some of the specified groups
+ *  or their descendant groups; "false" otherwise.
+ */
+export function isGroupMember(groupId, userGroups, apiGroups) {
+  /* Algorithmically, the group(s) we are testing against are a tree, or muliple
+   * trees of groups; "groupId" specifies their root(s) and "apiGroups" gives
+   * the structure. We want to find out, whether any of the nodes in the trees
+   * specified in such way is listed in the array of user groups. Basically,
+   * we do a breadth-first search through the tree.
+   * Just in case, we check that we don't check the same group multiple times,
+   * so if at some point we allow in the API to include the same group into
+   * multiple parent groups, this code will still work. */
+  const userGroupIds = new Set();
+  const testedGroupIds = new Set();
+  userGroups.forEach(g => userGroupIds.add(g.id));
+  const queue = _.isArray(groupId) ? groupId : [groupId];
+  let queuePosition = 0;
+  while (queuePosition < queue.length) {
+    const id = queue[queuePosition];
+    if (userGroupIds.has(id)) return true;
+    testedGroupIds.add(id);
+    const g = apiGroups[id];
+    if (g && g.subGroupIds) {
+      g.subGroupIds.forEach((sgId) => {
+        if (!testedGroupIds.has(sgId)) queue.push(sgId);
+      });
+    }
+    queuePosition += 1;
+  }
+  return false;
 }
 
 /**

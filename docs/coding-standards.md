@@ -9,6 +9,7 @@
     - [SCSS](#basics-scss)
     - [Unit Tests](#basics-unit-tests)
     - [Code Quality](#basics-code-quality)
+    - [Documentation](#basics-documentation)
     - [File Names](#basics-file-names)
 2. [React](#react)
 3. [Redux](#redux)
@@ -28,6 +29,8 @@
 <a name="basics-unit-tests">**Unit Tests:**</a> We use Jest for unit testing. Any updates you want to merge into the codebase should not break the tests (you must properly update the tests affected by your updates). `test` npm script verifies that codebase is free of lint & unit test errors, it should not detect any errors after the merge.
 
 <a name="basics-code-quality">**Code Quality:**</a> In general, you should write a neat and efficient code, covered by adequate amount of comments. Each JS module should have a brief header comment, outlining the content and purpose of that module. Comment all functions / methods, descibing what they do, how they work, what are the types and purposes of their arguments. You may omit such comments for standard React / Redux methods, small functions, etc. You should comment any non-trivial code; or trivial code that appears in strange places. If you note anything that can / should be improved in future, feel free to leave `TODO:` comments, and / or open issue tickets in the repo.
+
+<a name="basics-documentation">**Documentation:**</a> All textual documentation must be in Markdown format, and it should be located inside [`/docs`](https://github.com/topcoder-platform/community-app/tree/develop/docs) or any of its sub-folders. To document REST APIs provided by our server we maintain a Postman collection in the same folder *Does not exist in the develop or master branches yet, but will appear in both soon*.
 
 <a name="basics-file-names">**File Names:**</a> If a JSX file, or a folder containing `index.jsx`, exports a React component as the default export call it using CamelCase, i.g. `MyReactComponent.jsx`, or just `MyReactComponent` for folder. All other files an folders should be named as `yet-another-module.js`.
 

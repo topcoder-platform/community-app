@@ -88,7 +88,7 @@ To add a new community with the name **demo**, we should follow the following pr
             - `points` - Points are shown rather than the prizes. The points are taken from `drPoints` field of challenge objects. There is no prizes tooltip in this case.
     -   `communityId` - *String* - Unique ID of this community.
     -   `communitySelector` - *Object Array* - Specifies data for the community selection dropdown inside the community header. Each object MUST HAVE `label` and `value` string fields, and MAY HAVE `redirect` field. If `redirect` field is specified, a click on that option in the dropdown will redirect user to the specified URL.
-    -   `groupId` - *String* - This value of group ID is now used to fetch community statistics. Probably, it makes sense to use this value everywhere where `authorizedGroupIds` array is used, however, at the moment, these two are independent.
+    -   `groupId` - *String* - Main user group of the community. All members of this group, and its descendant groups are treated as members of this community. Also, any challenges belonging to these groups are considered to be belonging to the community.
     -   `leaderboardApiUrl` - *String* - Endpoint from where the leaderboard data should be loaded.
     -   `logos` - *String Array | Object Array* - Array of image URLs to insert as logos into the left corner of community's header, alternatively the array may contain JS objects of shape
         ```

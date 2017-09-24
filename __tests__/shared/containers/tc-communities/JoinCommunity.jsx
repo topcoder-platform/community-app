@@ -39,6 +39,9 @@ describe('full render connnected component and dispatch actions', () => {
       },
       tokenV3: 'tokenV3',
     },
+    groups: {
+      groups: {},
+    },
   };
 
   const mockStore = configureStore();
