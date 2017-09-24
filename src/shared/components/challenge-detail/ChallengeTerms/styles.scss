@@ -41,6 +41,7 @@
 
 .title {
   font-size: 28px;
+  margin-bottom: 1.5 * $base-unit;
   text-align: center;
 }
 
@@ -56,7 +57,7 @@
   }
 }
 
-.tabs-outer{
+.tabs-outer {
   position: relative;
   margin: 20px 0 25px;
 }
@@ -82,56 +83,61 @@
   @include xs {
     width: 50%;
     display: inline-block;
-    &.last{
+
+    &.last {
       width: auto;
     }
   }
 
   &.agreed,
   &.active.view-only {
-    .tab-index{
+    .tab-index {
       background-color: $tc-dark-blue-90;
     }
-    .tab-bar{
+
+    .tab-bar {
       background-color: $tc-dark-blue-90;
     }
   }
 
   &.active {
-    .tab-index{
+    .tab-index {
       background-color: $tc-green;
     }
   }
-  &.last{
+
+  &.last {
     flex-grow: 0;
     flex-shrink: 0;
   }
 }
 
-.tab-index{
+.tab-index {
   width: 26px;
   height: 26px;
   border-radius: 100%;
-  background-color: $tc-green;
   color: $tc-white;
+  cursor: pointer;
   font-size: 13px;
   font-weight: 700;
   line-height: 26px;
   text-align: center;
   background-color: $tc-gray-30;
   flex-shrink: 0;
+
   @include xs {
     display: inline-block;
     vertical-align: middle;
   }
 }
 
-.tab-title{
+.tab-title {
   margin-left: 5px;
   cursor: pointer;
   font-size: 13px;
   max-width: 95px;
   min-width: 70px;
+
   @include xs {
     display: inline-block;
     vertical-align: middle;
@@ -139,11 +145,12 @@
   }
 }
 
-.tab-bar{
+.tab-bar {
   margin: 0 10px;
   background-color: $tc-gray-20;
   height: 2px;
   flex: 1;
+
   @include xs {
     display: inline-block;
     max-width: calc(100% - 120px);
@@ -191,7 +198,7 @@
 }
 
 .buttons {
-  padding-bottom: 2 * $base-unit;
+  padding: (1.5 * $base-unit) 0 (2 * $base-unit);
   text-align: center;
 }
 
@@ -211,12 +218,12 @@
 }
 
 .mask-h.left {
-  background: linear-gradient(-90deg, transparentize($tc-white, 1), $tc-white 100%);
+  background: linear-gradient(-90deg, transparent, $tc-white 100%);
   left: 0;
 }
 
 .mask-h.right {
-  background: linear-gradient(90deg, transparentize($tc-white, 1), $tc-white 100%);
+  background: linear-gradient(90deg, transparent, $tc-white 100%);
   right: 0;
 }
 
@@ -229,11 +236,11 @@
 }
 
 .mask-v.top {
-  background: linear-gradient(0deg, transparentize($tc-white, 1), $tc-white 100%);
+  background: linear-gradient(0deg, transparent, $tc-white 100%);
   top: 0;
 }
 
 .mask-v.bottom {
-  background: linear-gradient(180deg, transparentize($tc-white, 1), $tc-white 100%);
+  background: linear-gradient(180deg, transparent, $tc-white 100%);
   bottom: 0;
 }

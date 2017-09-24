@@ -12,21 +12,23 @@ import TermDetails from './TermDetails';
 
 import style from './styles.scss';
 
-
 function handleScroll(scrollElement, masks, orientation) {
   let length;
   let base;
+  let clientSize;
   if (orientation === 'vertical') {
     length = 'scrollHeight';
     base = 'scrollTop';
+    clientSize = 'clientHeight';
   } else {
+    clientSize = 'clientWidth';
     length = 'scrollWidth';
     base = 'scrollLeft';
   }
   const mask1 = masks[0];
   const mask2 = masks[1];
   // When the scrollbar reaches end, disable mask2.
-  if (scrollElement[length] - scrollElement[base] === scrollElement.clientWidth) {
+  if (scrollElement[length] - scrollElement[base] === scrollElement[clientSize]) {
     mask2.style.display = 'none';
   } else if (scrollElement[base] === 0) {
     // At the beginning, disable mask1.
@@ -156,7 +158,11 @@ export default class ChallengeTerms extends React.Component {
             !isLoadingTerms && (
               <div styleName="modal-content">
                 <div styleName="title">{terms.length > 1 ? 'Terms & Conditions of Use' : terms[0].title}</div>
-                <div styleName="scrollable-area" onScroll={handleVerticalScroll}>
+                <div
+                  onScroll={handleVerticalScroll}
+                  ref={(node) => { this.vScrollArea = node; }}
+                  styleName="scrollable-area"
+                >
                   <div styleName="mask-v top" />
                   <div styleName="mask-v bottom" />
                   <div styleName="desc">You are seeing these Terms & Conditions because you have registered to a challenge and
@@ -174,7 +180,7 @@ export default class ChallengeTerms extends React.Component {
                           {
                             terms.map((t, index) => (
                               <div key={t.termsOfUseId} styleName={cn(['tab', { agreed: t.agreed && !viewOnly, active: selectedTerm === t, 'view-only': viewOnly, last: terms.length - 1 === index }])}>
-                                <div styleName="tab-index">{index + 1}</div>
+                                <div styleName="tab-index" onClick={() => this.selectTerm(t)}>{index + 1}</div>
                                 <div styleName="tab-title" onClick={() => this.selectTerm(t)}>{t.title}</div>
                                 {
                                   index < terms.length - 1 &&
@@ -226,12 +232,22 @@ export default class ChallengeTerms extends React.Component {
                           selectedTerm.agreed ?
                             (<PrimaryButton
                               theme={style}
-                              onClick={this.nextTerm}
+                              onClick={(e) => {
+                                this.nextTerm(e);
+                                if (this.vScrollArea) {
+                                  this.vScrollArea.scrollTop = 0;
+                                }
+                              }}
                             >Next</PrimaryButton>) :
                             (<div>
                               <PrimaryButton
                                 disabled={agreeingTerm === details.termsOfUseId}
-                                onClick={() => agreeTerm(details.termsOfUseId)}
+                                onClick={() => {
+                                  agreeTerm(details.termsOfUseId);
+                                  if (this.vScrollArea) {
+                                    this.vScrollArea.scrollTop = 0;
+                                  }
+                                }}
                                 theme={style}
                               >I Agree</PrimaryButton>
                               <Button
