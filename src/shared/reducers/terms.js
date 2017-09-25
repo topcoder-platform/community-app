@@ -7,6 +7,7 @@ import actions from 'actions/terms';
 import logger from 'utils/logger';
 import { handleActions } from 'redux-actions';
 import { toFSA } from 'utils/redux';
+import { getAuthTokens } from 'utils/tc';
 
 /**
  * sort terms by agreed status
@@ -293,7 +294,7 @@ function create(initialState) {
  */
 export function factory(req) {
   if (req && req.url.match(/^\/challenges\/\d+/)) {
-    const tokenV2 = req.cookies.tcjwt;
+    const tokenV2 = getAuthTokens(req).tokenV2;
     const challengeId = req.url.match(/\d+/)[0];
     return toFSA(actions.terms.getTermsDone(challengeId, tokenV2)).then((result) => {
       const state = onGetTermsDone({}, result);

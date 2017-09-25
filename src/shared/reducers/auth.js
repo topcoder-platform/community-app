@@ -3,10 +3,10 @@
  */
 
 import actions from 'actions/auth';
-import config from 'utils/config';
 import { handleActions } from 'redux-actions';
-import { decodeToken, isTokenExpired } from 'tc-accounts';
+import { decodeToken } from 'tc-accounts';
 import { toFSA } from 'utils/redux';
+import { getAuthTokens } from 'utils/tc';
 
 /**
  * Handles actions.auth.loadProfile action.
@@ -51,28 +51,14 @@ function create(initialState) {
  * @return Promise which resolves to the new reducer.
  */
 export function factory(req) {
-  const cookies = (req && req.cookies) || {};
-
-  /* If tokens are expired we ignore them, because there is no easy way to
-   * get fresh tokens at the server side. Not a big deal, they will be
-   * refreshed at the frontend, once the App is started. */
-
-  const adt = config.AUTH_DROP_TIME;
-
-  let tokenV2 = cookies.tcjwt;
-  if (!tokenV2 || isTokenExpired(tokenV2, adt)) tokenV2 = null;
-
-  let tokenV3 = cookies.v3jwt;
-  if (!tokenV3 || isTokenExpired(tokenV3, adt)) tokenV3 = null;
-
   const state = {
+    ...getAuthTokens(req),
     authenticating: true,
-    tokenV2,
-    tokenV3,
-    user: tokenV3 ? decodeToken(tokenV3) : null,
+    user: null,
   };
-  if (tokenV3) {
-    return toFSA(actions.auth.loadProfile(tokenV3)).then(res =>
+  if (state.tokenV3) {
+    state.user = decodeToken(state.tokenV3);
+    return toFSA(actions.auth.loadProfile(state.tokenV3)).then(res =>
       create(onProfileLoaded(state, res)),
     );
   }

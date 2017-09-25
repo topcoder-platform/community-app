@@ -3,8 +3,9 @@
  */
 
 import _ from 'lodash';
+import config from 'utils/config';
 import moment from 'moment-timezone';
-import config from './config';
+import { isTokenExpired } from 'tc-accounts';
 
 /**
  * Codes of the Topcoder communities.
@@ -108,6 +109,23 @@ export function getCommunitiesMetadata(communityId) {
   }
 
   return null;
+}
+
+/**
+ * Given ExpressJS HTTP request it extracts Topcoder auth tokens from cookies,
+ * if they are present there and are not expired.
+ * @param {Object} req ExpressJS HTTP request. For convenience, it is allowed to
+ *  call this function without "req" argument (will result in empty tokens).
+ * @return {Object} It will contain two string fields: tokenV2 and tokenV3.
+ *  These strings will be empty if corresponding cookies are absent, or expired.
+ */
+export function getAuthTokens(req = {}) {
+  const cookies = req.cookies || {};
+  let tokenV2 = cookies.tcjwt;
+  let tokenV3 = cookies.v3jwt;
+  if (!tokenV2 || isTokenExpired(tokenV2, config.AUTH_DROP_TIME)) tokenV2 = '';
+  if (!tokenV3 || isTokenExpired(tokenV3, config.AUTH_DROP_TIME)) tokenV3 = '';
+  return { tokenV2, tokenV3 };
 }
 
 /**
