@@ -5,7 +5,13 @@
 import _ from 'lodash';
 import express from 'express';
 import fs from 'fs';
-import { getCommunitiesMetadata } from 'utils/tc';
+import { getService as getGroupsService } from 'services/groups';
+import {
+  addGroup,
+  getAuthTokens,
+  getCommunitiesMetadata,
+  isGroupMember,
+} from 'utils/tc';
 
 const router = express.Router();
 
@@ -16,30 +22,47 @@ const router = express.Router();
  * should be included into the response.
  */
 router.get('/', (req, res) => {
+  let apiGroups = {};
+  const tokens = getAuthTokens(req);
+  const groupsService = getGroupsService(tokens.tokenV3);
   const list = [];
-  const groups = new Set(req.query.groups || []);
   const communities = fs.readdirSync(__dirname);
-  communities.forEach((community) => {
+  const userGroups = req.query.groups
+    ? req.query.groups.map(id => ({ id })) : [];
+  Promise.all(communities.map((community) => {
     try {
       const path = `${__dirname}/${community}/metadata.json`;
       const data = JSON.parse(fs.readFileSync(path, 'utf8'));
-      if (!data.authorizedGroupIds
-        || data.authorizedGroupIds.some(id => groups.has(id))) {
-        list.push({
-          challengeFilter: data.challengeFilter || {},
-          communityId: data.communityId,
-          communityName: data.communityName,
-          description: data.description,
-          groupId: data.groupId,
-          image: data.image,
-        });
-      }
+      const promise = data.authorizedGroupIds ? (
+        Promise.all(data.authorizedGroupIds.map((id) => {
+          if (!apiGroups[id]) {
+            return groupsService.get(id).then((group) => {
+              apiGroups = addGroup(apiGroups, group);
+            }).catch(_.noop);
+          }
+          return undefined;
+        }))
+      ) : Promise.resolve();
+      return promise.then(() => {
+        if (!data.authorizedGroupIds
+        || isGroupMember(data.authorizedGroupIds, userGroups, apiGroups)) {
+          list.push({
+            challengeFilter: data.challengeFilter || {},
+            communityId: data.communityId,
+            communityName: data.communityName,
+            description: data.description,
+            groupId: data.groupId,
+            image: data.image,
+          });
+        }
+      });
     } catch (e) {
-      _.noop();
+      return undefined;
     }
+  })).then(() => {
+    list.sort((a, b) => a.communityName.localeCompare(b.communityName));
+    res.json(list);
   });
-  list.sort((a, b) => a.communityName.localeCompare(b.communityName));
-  res.json(list);
 });
 
 /**

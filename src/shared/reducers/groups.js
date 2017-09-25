@@ -23,27 +23,7 @@ import logger from 'utils/logger';
 import { handleActions } from 'redux-actions';
 import { getCommunityId } from 'routes/subdomains';
 import { toFSA } from 'utils/redux';
-import { getAuthTokens, getCommunitiesMetadata } from 'utils/tc';
-
-/**
- * Helper function for onGetDone(..). It recursively adds "srcGroup" and its
- * sub-groups (if any) into provide "groups" map, that will be modified.
- * @param {Object} groups
- * @param {Object} srcGroup
- * @return {Object} Modified "groups" object.
- */
-function addGroup(groups, srcGroup) {
-  const group = _.clone(srcGroup);
-  if (group.subGroups) {
-    if (group.subGroups.length) {
-      group.subGroupIds = group.subGroups.map(g => g.id);
-      group.subGroups.forEach(g => addGroup(groups, g));
-    }
-    delete group.subGroups;
-  }
-  groups[group.id] = group; // eslint-disable-line no-param-reassign
-  return groups;
-}
+import { addGroup, getAuthTokens, getCommunitiesMetadata } from 'utils/tc';
 
 /**
  * Initiates the loading of data on the specified group.

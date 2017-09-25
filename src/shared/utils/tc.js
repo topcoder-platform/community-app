@@ -28,6 +28,35 @@ export const USER_ROLES = {
 };
 
 /**
+ * This function merges "srcGroup" into "groups" (without mutation of original
+ * objects) and returns the result.
+ * @param {Object} groups Map of known user groups, where:
+ *  - Group IDs are the keys;
+ *  - Group data object are the values;
+ *  - In each group data object the "subGroups" field (if it was present),
+ *    is replaced by "subGroupIds" array that holds only IDs of the immediate
+ *    child groups.
+ * @param {Object} srcGroup User group data object, as returned from the API;
+ *  i.e. it may contain the "subGroups" field, which is an array of child group
+ *  data objects, and thus it may represent a tree of related user groups.
+ * @return {Object} Resulting group map, that contains all original groups from
+ *  "groups", plus all groups from the "srcGroup" tree. If "srcGroup" contains
+ *  any groups already present in "groups" the data from "srcGroup" will
+ *  overwrite corresponding data from "groups".
+ */
+export function addGroup(groups, srcGroup) {
+  const group = _.clone(srcGroup);
+  if (group.subGroups) {
+    if (group.subGroups.length) {
+      group.subGroupIds = group.subGroups.map(g => g.id);
+      group.subGroups.forEach(g => addGroup(groups, g));
+    }
+    delete group.subGroups;
+  }
+  return { ...groups, [group.id]: group };
+}
+
+/**
  * Given a rating value, returns corresponding color.
  * @param {Number} rating Rating.
  * @return {String} Color.
@@ -158,6 +187,10 @@ export function getAuthTokens(req = {}) {
  *  or their descendant groups; "false" otherwise.
  */
 export function isGroupMember(groupId, userGroups, apiGroups) {
+  const queue = _.isArray(groupId) ? groupId : [groupId];
+  if (!queue.length) return true;
+  if (!userGroups.length) return false;
+
   /* Algorithmically, the group(s) we are testing against are a tree, or muliple
    * trees of groups; "groupId" specifies their root(s) and "apiGroups" gives
    * the structure. We want to find out, whether any of the nodes in the trees
@@ -169,7 +202,6 @@ export function isGroupMember(groupId, userGroups, apiGroups) {
   const userGroupIds = new Set();
   const testedGroupIds = new Set();
   userGroups.forEach(g => userGroupIds.add(g.id));
-  const queue = _.isArray(groupId) ? groupId : [groupId];
   let queuePosition = 0;
   while (queuePosition < queue.length) {
     const id = queue[queuePosition];
