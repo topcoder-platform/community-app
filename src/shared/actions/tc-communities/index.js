@@ -28,8 +28,9 @@ function getList(auth) {
   if (auth.profile && auth.profile.groups) {
     groups = auth.profile.groups.map(g => g.id);
   }
-  return fetch(`/api/tc-communities?${qs.stringify({ groups })}`)
-    .then(res => (res.ok ? res.json() : new Error(res.statusText)));
+  return fetch(`/api/tc-communities?${qs.stringify({ groups })}`, {
+    credentials: 'same-origin',
+  }).then(res => (res.ok ? res.json() : new Error(res.statusText)));
 }
 
 export default createActions({

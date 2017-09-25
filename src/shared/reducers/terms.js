@@ -7,6 +7,16 @@ import actions from 'actions/terms';
 import logger from 'utils/logger';
 import { handleActions } from 'redux-actions';
 import { toFSA } from 'utils/redux';
+import { getAuthTokens } from 'utils/tc';
+
+/**
+ * sort terms by agreed status
+ * @param  {Array} terms terms to sort
+ * @return {Array}       sorted terms
+ */
+function sortTerms(terms) {
+  return _.sortBy(terms, t => (t.agreed ? 0 : 1));
+}
 
 /**
  * Handles TERMS/GET_TERMS_DONE action.
@@ -34,7 +44,8 @@ function onGetTermsDone(state, action) {
 
   return {
     ...state,
-    ...action.payload,
+    challengeId: action.payload,
+    terms: sortTerms(action.payload.terms),
     getTermsFailure: false,
     loadingTermsForChallengeId: '',
   };
@@ -210,10 +221,11 @@ function onCheckStatusDone(state, action) {
     checkingStatus: false,
     checkStatusError: false,
     canRegister,
-    terms: action.payload,
+    terms: sortTerms(action.payload),
     selectedTerm,
   };
 }
+
 
 /**
  * Creates a new Terms reducer with the specified initial state.
@@ -282,7 +294,7 @@ function create(initialState) {
  */
 export function factory(req) {
   if (req && req.url.match(/^\/challenges\/\d+/)) {
-    const tokenV2 = req.cookies.tcjwt;
+    const tokenV2 = getAuthTokens(req).tokenV2;
     const challengeId = req.url.match(/\d+/)[0];
     return toFSA(actions.terms.getTermsDone(challengeId, tokenV2)).then((result) => {
       const state = onGetTermsDone({}, result);

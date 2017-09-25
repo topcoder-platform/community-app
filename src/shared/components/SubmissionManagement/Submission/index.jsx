@@ -43,7 +43,7 @@ export default function Submission(props) {
           styleName={type === 'DESIGN' ? 'design-img' : 'dev-img'}
           src={
             submissionObject.preview ||
-            `${config.URL.STUDIO}?module=DownloadSubmission&sbmid=${submissionObject.submissionId}&sbt=tiny`
+            `${config.URL.STUDIO}?module=DownloadSubmission&sbmid=${submissionObject.submissionId}&sbt=tiny&sfi=1`
           }
         />
       </td>

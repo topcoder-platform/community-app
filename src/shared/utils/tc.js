@@ -3,8 +3,9 @@
  */
 
 import _ from 'lodash';
+import config from 'utils/config';
 import moment from 'moment-timezone';
-import config from './config';
+import { isTokenExpired } from 'tc-accounts';
 
 /**
  * Codes of the Topcoder communities.
@@ -25,6 +26,43 @@ export const COMPETITION_TRACKS = {
 export const USER_ROLES = {
   SUBMITTER: 'Submitter',
 };
+
+/* This is the internal implementation of addGroup(..) function.
+ * It does exactly what is described there, but mutates its "groups" argument.
+ */
+function addGroupPrivate(groups, srcGroup) {
+  const group = _.clone(srcGroup);
+  if (group.subGroups) {
+    if (group.subGroups.length) {
+      group.subGroupIds = group.subGroups.map(g => g.id);
+      group.subGroups.forEach(g => addGroupPrivate(groups, g));
+    }
+    delete group.subGroups;
+  }
+  groups[group.id] = group; // eslint-disable-line no-param-reassign
+  return groups;
+}
+
+/**
+ * This function merges "srcGroup" into "groups" (without mutation of original
+ * objects) and returns the result.
+ * @param {Object} groups Map of known user groups, where:
+ *  - Group IDs are the keys;
+ *  - Group data object are the values;
+ *  - In each group data object the "subGroups" field (if it was present),
+ *    is replaced by "subGroupIds" array that holds only IDs of the immediate
+ *    child groups.
+ * @param {Object} srcGroup User group data object, as returned from the API;
+ *  i.e. it may contain the "subGroups" field, which is an array of child group
+ *  data objects, and thus it may represent a tree of related user groups.
+ * @return {Object} Resulting group map, that contains all original groups from
+ *  "groups", plus all groups from the "srcGroup" tree. If "srcGroup" contains
+ *  any groups already present in "groups" the data from "srcGroup" will
+ *  overwrite corresponding data from "groups".
+ */
+export function addGroup(groups, srcGroup) {
+  return addGroupPrivate(_.clone(groups), srcGroup);
+}
 
 /**
  * Given a rating value, returns corresponding color.
@@ -85,7 +123,7 @@ export function getCommunitiesMetadata(communityId) {
            * from the api (it looks like reducer should be improved, but it
            * is easier just to set these defaults). */
           const metadata = _.defaults(JSON.parse(data), {
-            authorizedGorupIds: null,
+            authorizedGroupIds: null,
             challengeFilter: null,
             challengeListing: null,
             communityId: '',
@@ -108,6 +146,84 @@ export function getCommunitiesMetadata(communityId) {
   }
 
   return null;
+}
+
+/**
+ * Given ExpressJS HTTP request it extracts Topcoder auth tokens from cookies,
+ * if they are present there and are not expired.
+ * @param {Object} req ExpressJS HTTP request. For convenience, it is allowed to
+ *  call this function without "req" argument (will result in empty tokens).
+ * @return {Object} It will contain two string fields: tokenV2 and tokenV3.
+ *  These strings will be empty if corresponding cookies are absent, or expired.
+ */
+export function getAuthTokens(req = {}) {
+  const cookies = req.cookies || {};
+  let tokenV2 = cookies.tcjwt;
+  let tokenV3 = cookies.v3jwt;
+  if (!tokenV2 || isTokenExpired(tokenV2, config.AUTH_DROP_TIME)) tokenV2 = '';
+  if (!tokenV3 || isTokenExpired(tokenV3, config.AUTH_DROP_TIME)) tokenV3 = '';
+  return { tokenV2, tokenV3 };
+}
+
+/**
+ * Tests whether the user belongs to the specified group(s) or their descendant
+ * groups.
+ *
+ * The following pattern of use is assumed:
+ *
+ * 1. You load user's profile ("groups" field of the profile should be passed
+ *    into "userGroups" argument);
+ *
+ * 2. You ensure that you have loaded detailed group information for each group
+ *    you are going to test against (you pass this information into "apiGroups"
+ *    argument; it should include data about all descendant groups of the groups
+ *    you gonna test against; and once you have loaded necessary data from the
+ *    API you can reuse them for multiple "isGroupMember" calls).
+ *
+ * 3. Finally, you call "isGroupMember", passing as "groupId" argument the ID
+ *    of the group to test (or the array of group IDs). This function will do
+ *    its best to make the check in the most efficient way.
+ *
+ * @param {String|String[]} groupId ID, or an array of IDs, of the groups to
+ *  test against.
+ * @param {Object[]} userGroups Array of groups the user belongs to. This is
+ *  the array we store under "auth.profile.groups" path of Redux state once
+ *  the user is authenticated and his profile is loaded.
+ * @param {Object{}} apiGroups Group detailes fetched from the API. This is
+ *  the object from "groups.groups" path of Redux state.
+ * @return {Boolean} "true" if the user belongs to some of the specified groups
+ *  or their descendant groups; "false" otherwise.
+ */
+export function isGroupMember(groupId, userGroups, apiGroups) {
+  const queue = _.isArray(groupId) ? groupId : [groupId];
+  if (!queue.length) return true;
+  if (!userGroups.length) return false;
+
+  /* Algorithmically, the group(s) we are testing against are a tree, or muliple
+   * trees of groups; "groupId" specifies their root(s) and "apiGroups" gives
+   * the structure. We want to find out, whether any of the nodes in the trees
+   * specified in such way is listed in the array of user groups. Basically,
+   * we do a breadth-first search through the tree.
+   * Just in case, we check that we don't check the same group multiple times,
+   * so if at some point we allow in the API to include the same group into
+   * multiple parent groups, this code will still work. */
+  const userGroupIds = new Set();
+  const testedGroupIds = new Set();
+  userGroups.forEach(g => userGroupIds.add(g.id));
+  let queuePosition = 0;
+  while (queuePosition < queue.length) {
+    const id = queue[queuePosition];
+    if (userGroupIds.has(id)) return true;
+    testedGroupIds.add(id);
+    const g = apiGroups[id];
+    if (g && g.subGroupIds) {
+      g.subGroupIds.forEach((sgId) => {
+        if (!testedGroupIds.has(sgId)) queue.push(sgId);
+      });
+    }
+    queuePosition += 1;
+  }
+  return false;
 }
 
 /**

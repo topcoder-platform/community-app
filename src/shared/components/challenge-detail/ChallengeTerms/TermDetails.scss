@@ -1,0 +1,15 @@
+@import "~styles/mixins";
+
+.body {
+  border: 1px solid $tc-gray-30;
+  word-break: break-word;
+}
+
+.frame {
+  height: 1420px;
+  width: 100%;
+
+  &.loading {
+    display: none;
+  }
+}
