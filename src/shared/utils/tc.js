@@ -27,6 +27,22 @@ export const USER_ROLES = {
   SUBMITTER: 'Submitter',
 };
 
+/* This is the internal implementation of addGroup(..) function.
+ * It does exactly what is described there, but mutates its "groups" argument.
+ */
+function addGroupPrivate(groups, srcGroup) {
+  const group = _.clone(srcGroup);
+  if (group.subGroups) {
+    if (group.subGroups.length) {
+      group.subGroupIds = group.subGroups.map(g => g.id);
+      group.subGroups.forEach(g => addGroupPrivate(groups, g));
+    }
+    delete group.subGroups;
+  }
+  groups[group.id] = group; // eslint-disable-line no-param-reassign
+  return groups;
+}
+
 /**
  * This function merges "srcGroup" into "groups" (without mutation of original
  * objects) and returns the result.
@@ -45,15 +61,7 @@ export const USER_ROLES = {
  *  overwrite corresponding data from "groups".
  */
 export function addGroup(groups, srcGroup) {
-  const group = _.clone(srcGroup);
-  if (group.subGroups) {
-    if (group.subGroups.length) {
-      group.subGroupIds = group.subGroups.map(g => g.id);
-      group.subGroups.forEach(g => addGroup(groups, g));
-    }
-    delete group.subGroups;
-  }
-  return { ...groups, [group.id]: group };
+  return addGroupPrivate(_.clone(groups), srcGroup);
 }
 
 /**
