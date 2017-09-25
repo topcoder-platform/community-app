@@ -65,17 +65,17 @@ function onGetDone(state, action) {
 
   if (!state.loading[groupId]) return state;
 
-  let groups = state.groups;
+  let groups = _.clone(state.groups);
   const loading = _.clone(state.loading);
   delete loading[groupId];
 
   if (error) {
     logger.error('Failed to load data for the group #', groupId, error);
-    if (groups[groupId]) {
-      groups = _.clone(groups);
-      delete groups[groupId];
-    }
-  } else groups = addGroup(_.clone(groups), result);
+    /* Empty group means that it is not known for API (or we failed to load it
+     * for any other reason). Its presence in the state means, however, that we
+     * have tried to load it, at least. */
+    groups[groupId] = {};
+  } else groups = addGroup(groups, result);
 
   return { ...state, groups, loading };
 }

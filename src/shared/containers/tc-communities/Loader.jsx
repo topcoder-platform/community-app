@@ -47,6 +47,7 @@ class Loader extends React.Component {
     if (!loadingCommunityData && (
       !meta || meta.communityId !== communityId
       || (Date.now() - meta.lastUpdateOfMetaData) > MAXAGE
+      || this.missingApiGroup()
     )) this.props.loadMetaData(communityId, nextProps.tokenV3);
 
     /* TODO: This is a hacky way to handle SSO authentication for TopGear
@@ -56,6 +57,20 @@ class Loader extends React.Component {
       const returnUrl = encodeURIComponent(window.location.href);
       window.location = `${config.URL.AUTH}/sso-login/?retUrl=${returnUrl}`;
     }
+  }
+
+  /**
+   * Assuming that community meta-data has been loaded, this method verifies
+   * that detailed information about all related user groups also have been
+   * loaded into.
+   */
+  missingApiGroup() {
+    const { apiGroups, meta } = this.props;
+    if (!meta) return false;
+    if (meta.groupId && !apiGroups[meta.groupId]) return true;
+    if (meta.authorizedGroupIds && meta.authorizedGroupIds.some(id =>
+      !apiGroups[id])) return true;
+    return false;
   }
 
   render() {
