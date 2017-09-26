@@ -1,0 +1,30 @@
+@import "~styles/tc-styles";
+
+.container {
+  display: flex;
+  height: 100%;
+  justify-content: center;
+  padding: 30px 0 40px;
+  background: #F6F6F6;
+
+  @include sm-to-md {
+    padding-bottom: 0;
+  }
+
+  @include xxs-to-md {
+    padding: 10px;
+  }
+
+  .content {
+    display: flex;
+    flex-direction: column;
+
+    @include sm-to-md {
+      width: 100%;
+    }
+
+    @include lg {
+      width: 1242px;
+    }
+  }
+}

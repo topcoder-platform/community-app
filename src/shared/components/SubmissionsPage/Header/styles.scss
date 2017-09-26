@@ -1,0 +1,61 @@
+@import "~styles/tc-styles";
+
+.header {
+  display: flex;
+  padding: 30px 60px;
+  background-color: #FCFCFC;
+  width: 100%;
+  display: flex;
+  font-family: 'Roboto';
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #F0F0F0;
+
+  @include xxs-to-sm {
+    padding: 30px 20px;
+  }
+
+  a {
+    font-size: 18px;
+    color: #A3A3AE;
+    font-weight: 300;
+    display: flex;
+    align-items: center;
+
+    span {
+      font-size: 54px;
+      display: block;
+      position: relative;
+      top: -3px;
+      margin-right: 6px;
+    }
+  }
+
+  h2 {
+    font-weight: 300;
+    font-size: 24px;
+    color: #3d3d3d;
+    line-height: 30px;
+
+    @include xxs-to-sm {
+      font-size: 20px;
+    }
+
+    @include xxs-to-xs {
+      font-size: 16px;
+      width: 80%;
+      line-height: 24px;
+    }
+
+    @media (max-width: 720px) {
+      font-size: 20px;
+      width: 80%;
+    }
+  }
+
+  p {
+    @include xxs-to-xs {
+      display: none;
+    }
+  }
+}

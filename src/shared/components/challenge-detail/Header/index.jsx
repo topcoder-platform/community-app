@@ -5,7 +5,6 @@
  * Any data massaging needed for a child view should be done here.
  */
 
-import config from 'utils/config';
 import _ from 'lodash';
 import React from 'react';
 import PT from 'prop-types';
@@ -238,10 +237,7 @@ export default function ChallengeHeader(props) {
                 <PrimaryButton
                   disabled={!hasRegistered || unregistering || submissionEnded}
                   theme={{ button: style.challengeAction }}
-                  to={trackLower === 'design' ?
-                    `${config.URL.BASE}/challenges/${challengeId}/submit/file` :
-                    `${config.URL.BASE}/challenge-details/${challengeId}/submit/?type=develop`
-                  }
+                  to={`/challenges/${challengeId}/submit/file`}
                 >Submit</PrimaryButton>
                 <PrimaryButton
                   disabled={!hasRegistered || unregistering || !hasSubmissions}

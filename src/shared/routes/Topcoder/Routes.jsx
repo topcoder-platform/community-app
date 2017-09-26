@@ -16,6 +16,7 @@ import ChallengeDetails from 'routes/ChallengeDetails';
 import ChallengeListing from './ChallengeListing';
 import Dashboard from './Dashboard';
 import SubmissionManagement from './SubmissionManagement';
+import SubmissionsPage from './SubmissionsPage';
 
 import './styles.scss';
 
@@ -35,6 +36,11 @@ export default function Topcoder() {
           component={SubmissionManagement}
           exact
           path="/challenges/:challengeId(\d{8})/my-submissions"
+        />
+        <Route
+          component={SubmissionsPage}
+          exact
+          path="/challenges/:challengeId(\d{8})/submit/file"
         />
         <Error404 />
       </Switch>

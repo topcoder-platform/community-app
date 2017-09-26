@@ -44,6 +44,19 @@ export default class Api {
   }
 
   /**
+   * Same as above, just don't set Content-Type header.
+   * @param {String} endpoint
+   * @param {Object} options
+   */
+  customFetch(endpoint, options) {
+    const p = this.private;
+    const headers = {};
+    if (p.token) headers.Authorization = `Bearer ${p.token}`;
+    const ops = _.merge(_.cloneDeep(options) || {}, { headers });
+    return fetch(`${p.base}${endpoint}`, ops);
+  }
+
+  /**
    * Sends DELETE request to the specified endpoint.
    * @param {String} endpoint
    * @param {Blob|BufferSource|FormData|String} body

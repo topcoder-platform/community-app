@@ -1,0 +1,68 @@
+@import "~styles/tc-styles";
+
+.container {
+  flex-grow: 1;
+  max-width: 500px;
+
+  span.desc {
+    display: flex;
+    font-size: 12px;
+    color: #37373c;
+    margin-bottom: 5px;
+  }
+
+  .inp {
+    border: 1px solid #c3c3c8;
+    border-radius: 2px;
+    background: #FFFFFF;
+    box-shadow: inset 0 0 2px 0 rgba(183,183,183,0.80);
+    padding: 8px;
+    margin-bottom: 20px;
+  }
+
+  .separator {
+    width: 500px;
+    border-bottom: 1px solid #f0f0f0;
+    margin-bottom: 20px;
+  }
+
+  input[type="text"]:disabled {
+    background: #FCFCFC;
+    border-color: #F0F0F0;
+  }
+
+  .error {
+    margin-top: -15px;
+    margin-bottom: 20px;
+    padding: 5px 13px;
+    background: #FFF4F4;
+    border: 1px solid #ffd4d1;
+    color: #f22f24;
+    font-size: 13px;
+    border-radius: 2px;
+    font-style: italic;
+    display: none;
+
+    @include xxs-to-xs {
+      max-width: 90%;
+    }
+
+    @media (max-width: 800px) and (min-width: 768px) {
+      max-width: 480px;
+    }
+  }
+
+  .error.show {
+    display: flex;
+  }
+
+  @include xxs-to-xs {
+    input, select {
+      max-width: 90%;
+    }
+
+    .separator {
+      display: none;
+    }
+  }
+}
