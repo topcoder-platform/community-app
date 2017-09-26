@@ -10,7 +10,7 @@ exports[`Snapshot match 1`] = `
     <img
       alt="preview"
       className="src-shared-components-SubmissionManagement-Submission-___styles__dev-img___rbFEF"
-      src="https://studio.topcoder-dev.com?module=DownloadSubmission&sbmid=undefined&sbt=tiny"
+      src="https://studio.topcoder-dev.com?module=DownloadSubmission&sbmid=undefined&sbt=tiny&sfi=1"
     />
   </td>
   <td
@@ -58,7 +58,7 @@ exports[`Snapshot match 2`] = `
     <img
       alt="preview"
       className="src-shared-components-SubmissionManagement-Submission-___styles__dev-img___rbFEF"
-      src="https://studio.topcoder-dev.com?module=DownloadSubmission&sbmid=12345&sbt=tiny"
+      src="https://studio.topcoder-dev.com?module=DownloadSubmission&sbmid=12345&sbt=tiny&sfi=1"
     />
   </td>
   <td

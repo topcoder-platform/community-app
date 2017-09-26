@@ -2,12 +2,7 @@
 
 .outer-container {
   background: $tc-gray-neutral-dark;
-  bottom: 0;
-  left: 0;
-  overflow-y: scroll;
-  position: absolute;
-  right: 0;
-  top: 0;
+  width: 100%;
 
   @include xxs-to-xs {
     padding: 8px 10px 20px;

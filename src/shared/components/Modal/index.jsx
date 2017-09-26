@@ -6,27 +6,48 @@
  * callback passed from the parent.
  */
 
+/* global document */
+
+import _ from 'lodash';
 import React from 'react';
 import PT from 'prop-types';
-import _ from 'lodash';
 import { themr } from 'react-css-super-themr';
 import defaultStyle from './styles.scss';
 
-function Modal(props) {
-  return (
-    <div>
-      <div
-        className={props.theme.container}
-        onWheel={event => event.preventDefault()}
-      >{props.children}</div>
-      <button
-        onClick={() => props.onCancel()}
-        onWheel={event => event.preventDefault()}
-        className={props.theme.overlay}
-      />
-    </div>
-  );
+/* NOTE: Modal component is implemented as class because we should append /
+ * remove a special class to the document's body to block its scrolling while
+ * keeping the modal's content scrollable. Unfortunately, just catching and
+ * manipulating on mouse wheel events does not help. */
+class Modal extends React.Component {
+  componentDidMount() {
+    document.body.classList.add('scrolling-disabled-by-modal');
+  }
+
+  componentWillUnmount() {
+    document.body.classList.remove('scrolling-disabled-by-modal');
+  }
+
+  render() {
+    const {
+      children,
+      onCancel,
+      theme,
+    } = this.props;
+    return (
+      <div>
+        <div
+          className={theme.container}
+          onWheel={event => event.stopPropagation()}
+        >{children}</div>
+        <button
+          onClick={() => onCancel()}
+          className={theme.overlay}
+        />
+      </div>
+    );
+  }
 }
+
 Modal.defaultProps = {
   onCancel: _.noop,
   children: null,

@@ -20,6 +20,7 @@ import { factory as authFactory } from './auth';
 import { factory as challengeFactory } from './challenge';
 import { factory as challengeListingFactory } from './challenge-listing';
 import { factory as examplesFactory } from './examples';
+import { factory as groupsFactory } from './groups';
 import { factory as statsFactory } from './stats';
 import { factory as tcCommunitiesFactory } from './tc-communities';
 import { factory as leaderboardFactory } from './leaderboard';
@@ -33,6 +34,7 @@ export function factory(req) {
     auth: authFactory(req),
     challenge: challengeFactory(req),
     challengeListing: challengeListingFactory(req),
+    groups: groupsFactory(req),
     examples: examplesFactory(req),
     stats: statsFactory(req),
     tcCommunities: tcCommunitiesFactory(req),

@@ -114,7 +114,7 @@ class ChallengesService {
       params = {},
     ) => {
       const query = {
-        filter: qs.stringify(filters),
+        filter: qs.stringify(filters, { encode: false }),
         ...params,
       };
       return this.private.api.get(`${endpoint}?${qs.stringify(query)}`)

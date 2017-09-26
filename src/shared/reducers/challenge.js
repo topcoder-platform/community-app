@@ -9,6 +9,7 @@ import logger from 'utils/logger';
 
 import { handleActions } from 'redux-actions';
 import { combine, toFSA } from 'utils/redux';
+import { getAuthTokens } from 'utils/tc';
 import { updateQuery } from 'utils/url';
 
 import mySubmissionsManagement from './my-submissions-management';
@@ -288,10 +289,7 @@ export function factory(req) {
   /* TODO: For completely server-side rendering it is also necessary to load
    * terms, etc. */
   if (req && req.url.match(/^\/challenges\/\d{8}([?/].*)?$/)) {
-    const tokens = {
-      tokenV2: req.cookies.tcjwt,
-      tokenV3: req.cookies.v3jwt,
-    };
+    const tokens = getAuthTokens(req);
     const challengeId = req.url.match(/\d+/)[0];
     return toFSA(actions.challenge.getDetailsDone(challengeId, tokens.tokenV3, tokens.tokenV2))
       .then((details) => {
@@ -321,10 +319,7 @@ export function factory(req) {
   }
 
   if (req && req.url.match(/^\/challenges\/\d{8}\/my-submissions/)) {
-    const tokens = {
-      tokenV2: req.cookies.tcjwt,
-      tokenV3: req.cookies.v3jwt,
-    };
+    const tokens = getAuthTokens(req);
     const challengeId = req.url.match(/\d+/)[0];
     return Promise.all([
       toFSA(actions.challenge.getDetailsDone(challengeId, tokens.tokenV3, tokens.tokenV2)),

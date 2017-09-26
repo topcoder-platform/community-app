@@ -15,7 +15,7 @@ import Registrants from 'components/challenge-detail/Registrants';
 import Submissions from 'components/challenge-detail/Submissions';
 import Winners from 'components/challenge-detail/Winners';
 import ChallengeDetailsView from 'components/challenge-detail/Specification';
-import TermsModal from 'components/challenge-detail/Specification/TermsModal';
+import ChallengeTerms from 'components/challenge-detail/ChallengeTerms';
 import ChallengeCheckpoints from 'components/challenge-detail/Checkpoints';
 import React from 'react';
 import PT from 'prop-types';
@@ -227,7 +227,7 @@ class ChallengeDetailPageContainer extends React.Component {
         </div>
         {
           this.props.showTermsModal &&
-          <TermsModal
+          <ChallengeTerms
             challengesUrl={challengesUrl}
             onCancel={this.props.closeTermsModal}
             title={this.props.challenge.name}
