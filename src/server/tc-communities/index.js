@@ -36,7 +36,7 @@ router.get('/', (req, res) => {
       const promise = data.authorizedGroupIds ? (
         Promise.all(data.authorizedGroupIds.map((id) => {
           if (!apiGroups[id]) {
-            return groupsService.get(id).then((group) => {
+            return groupsService.getGroup(id).then((group) => {
               apiGroups = addGroup(apiGroups, group);
             }).catch(_.noop);
           }

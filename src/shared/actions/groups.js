@@ -41,7 +41,7 @@ function getInit(groupId) {
  * @return {Object}
  */
 function getDone(groupId, tokenV3) {
-  return getService(tokenV3).get(groupId)
+  return getService(tokenV3).getGroup(groupId)
     .then(result => ({ groupId, result }))
     .catch(error => ({ groupId, error }));
 }

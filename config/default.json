@@ -56,6 +56,8 @@
    * due to caching). */
   "REAUTH_TIME": 55,
 
+  "SWIFT_PROGRAM_ID": 3445,
+
   /* Various URLs. Most of them lead to different segments of Topcoder
    * platform. */
   "URL": {
@@ -98,5 +100,9 @@
     "USER_SETTINGS": "https://lc1-user-settings-service.herokuapp.com",
     "WIPRO": "https://wipro.topcoder.com"
   },
-  "SWIFT_PROGRAM_ID": 3445
+
+  /* Information about Topcoder user groups can be cached in various places.
+   * This value [seconds] specifies the maximum age after which a group data
+   * object should be considered outdated, and updated as soon as possible. */
+  "USER_GROUP_MAXAGE": 600
 }
