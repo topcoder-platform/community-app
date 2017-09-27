@@ -2,9 +2,11 @@
  * Routes for demo API of tc-communities
  */
 
+import _ from 'lodash';
 import express from 'express';
 import fs from 'fs';
 import {
+  addDescendantGroups,
   checkGroupsStatus,
   checkUserGroups,
   getService as getGroupsService,
@@ -35,9 +37,11 @@ router.get('/', (req, res) => {
       const path = `${__dirname}/${community}/metadata.json`;
       const data = JSON.parse(fs.readFileSync(path, 'utf8'));
       return new Promise((resolve) => {
-        if (data.authorizedGroupIds) {
-          const missing = checkGroupsStatus(
-            data.authorizedGroupIds, knownGroups).missing;
+        let ids = data.authorizedGroupIds || [];
+        const fids = _.get(data, 'challengeFilter.groupIds');
+        if (fids) ids = ids.concat(fids);
+        if (ids.length) {
+          const missing = checkGroupsStatus(ids, knownGroups).missing;
           if (missing) {
             return resolve(groupsService.getGroupMap(missing)
               .then((groups) => {
@@ -50,6 +54,11 @@ router.get('/', (req, res) => {
       }).then(() => {
         if (!data.authorizedGroupIds
         || checkUserGroups(data.authorizedGroupIds, userGroups, knownGroups)) {
+          const challengeFilter = data.challengeFilter || {};
+          if (challengeFilter.groupIds) {
+            challengeFilter.groupIds =
+              addDescendantGroups(challengeFilter.groupIds, knownGroups);
+          }
           list.push({
             challengeFilter: data.challengeFilter || {},
             communityId: data.communityId,
@@ -74,8 +83,8 @@ router.get('/', (req, res) => {
  */
 router.get('/:communityId/meta', (req, res) => {
   const communityId = req.params.communityId;
-
-  getCommunitiesMetadata(communityId).then((data) => {
+  const tokenV3 = getAuthTokens(req).tokenV3;
+  getCommunitiesMetadata(communityId, tokenV3).then((data) => {
     res.json(data);
   }).catch(() => {
     res.status(404).send();

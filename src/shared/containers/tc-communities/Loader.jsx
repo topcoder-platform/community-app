@@ -45,7 +45,7 @@ class Loader extends React.Component {
 
     if (!loadingMeta && (
       !meta || (Date.now() - meta.lastUpdateOfMetaData) > MAXAGE
-    )) nextProps.loadMetaData(communityId);
+    )) nextProps.loadMetaData(communityId, tokenV3);
 
     if (missingGroups) nextProps.loadGroups(missingGroups, tokenV3);
 
@@ -166,9 +166,9 @@ function mapDispatchToProps(dispatch) {
       dispatch(ga.getGroupsInit(groupIds));
       dispatch(ga.getGroupsDone(groupIds, tokenV3));
     },
-    loadMetaData: (communityId) => {
+    loadMetaData: (communityId, tokenV3) => {
       dispatch(a.fetchDataInit(communityId));
-      dispatch(a.fetchDataDone(communityId));
+      dispatch(a.fetchDataDone(communityId, tokenV3));
     },
   };
 }

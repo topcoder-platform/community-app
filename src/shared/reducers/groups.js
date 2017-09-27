@@ -115,7 +115,7 @@ function create(state) {
  */
 function loadCommunityGroups(communityId, tokenV3, state) {
   let res = _.defaults(state, { groups: {}, loading: {} });
-  return getCommunitiesMetadata(communityId).then((data) => {
+  return getCommunitiesMetadata(communityId, tokenV3).then((data) => {
     const ids = data.authorizedGroupIds || [];
     if (data.groupId) ids.push(data.groupId);
     res = onGetGroupsInit(res, { payload: ids });

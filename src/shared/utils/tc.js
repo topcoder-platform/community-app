@@ -5,6 +5,10 @@
 import _ from 'lodash';
 import config from 'utils/config';
 import moment from 'moment-timezone';
+import {
+  addDescendantGroups,
+  getService as getGroupsService,
+} from 'services/groups';
 import { isTokenExpired } from 'tc-accounts';
 
 /**
@@ -64,9 +68,12 @@ export function getRatingColor(rating) {
  * /src/server/tc-communities/{communityId}/metadata.json
  *
  * @param  {String}  communityId  id of community
+ * @param  {String} tokenV3 Optional. Without a valid auth token, this function
+ *  may fail to load information about user groups configuration and extend the
+ *  groups configured in the community config with their descendant groups.
  * @return {Object}               meta data
  */
-export function getCommunitiesMetadata(communityId) {
+export function getCommunitiesMetadata(communityId, tokenV3) {
   // we use constant process.env.FRONT_END directly instead of isClientSide from utils/isomporphy
   // because webpack can exclude code this way from bundle on frontend
   // otherwise it will try to resolve 'fs' and 'path' modules
@@ -102,7 +109,14 @@ export function getCommunitiesMetadata(communityId) {
             description: null,
             image: null,
           });
-          resolve(metadata);
+          const groupIds = _.get(metadata, 'challengeFilter.groupIds');
+          if (groupIds) {
+            getGroupsService(tokenV3).getGroupMap(groupIds).then((map) => {
+              metadata.challengeFilter.groupIds =
+                addDescendantGroups(groupIds, map);
+              resolve(metadata);
+            });
+          } else resolve(metadata);
         }
       });
     });
