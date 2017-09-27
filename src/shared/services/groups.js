@@ -24,38 +24,27 @@ import { getApiV3 } from './api';
 const USER_GROUP_MAXAGE = config.USER_GROUP_MAXAGE * 1000;
 
 /**
- * Private. Handles given response from the groups API.
- * @param {Object} response
- * @return {Promise} On success resolves to the data fetched from the API.
+ * Given an array of IDs (or a single ID) of user groups, and a map of known
+ * user groups, it returns the array including all specified user groups, and
+ * all their known descendant groups.
+ * @param {String|String[]} groupIds
+ * @param {Object} knownGroups
+ * @return {String[]}
  */
-function handleApiResponse(response) {
-  if (!response.ok) throw new Error(response.statusText);
-  return response.json().then(({ result }) => {
-    if (result.status !== 200) throw new Error(result.content);
-    return result.content;
-  });
-}
-
-/**
- * Private. Merges given user group (possibly a tree of user groups) into
- * groups map. This function intended only for internal use inside this module,
- * as it may mutate both arguments (hence, the corresponding ESLint rule is
- * disabled within this function), thus should be used only where it is safe.
- * For external use a similar function is provided by "utils/tc" module.
- * @param {Object} groups
- * @param {Object} group
- */
-function mergeGroup(groups, group) {
-  /* eslint-disable no-param-reassign */
-  const sg = group.subGroups;
-  group.timestamp = Date.now();
-  if (sg && sg.length) {
-    group.subGroupIds = sg.map(g => g.id);
-    sg.forEach(g => mergeGroup(groups, g));
+export function addDescendantGroups(groupIds, knownGroups) {
+  let res = _.isArray(groupIds) ? groupIds : [groupIds];
+  const visitedGroupsIds = new Set();
+  let pos = 0;
+  while (pos < res.length) {
+    const id = res[pos];
+    if (!visitedGroupsIds.has(id)) {
+      visitedGroupsIds.add(id);
+      const g = knownGroups[id];
+      if (g && g.subGroupIds) res = res.concat(g.subGroupIds);
+    }
+    pos += 1;
   }
-  delete group.subGroups;
-  groups[group.id] = group;
-  /* eslint-enable no-param-reassign */
+  return res;
 }
 
 /**
@@ -138,6 +127,42 @@ export function checkUserGroups(groupIds, userGroups, knownGroups) {
     pos += 1;
   }
   return false;
+}
+
+
+/**
+ * Private. Handles given response from the groups API.
+ * @param {Object} response
+ * @return {Promise} On success resolves to the data fetched from the API.
+ */
+function handleApiResponse(response) {
+  if (!response.ok) throw new Error(response.statusText);
+  return response.json().then(({ result }) => {
+    if (result.status !== 200) throw new Error(result.content);
+    return result.content;
+  });
+}
+
+/**
+ * Private. Merges given user group (possibly a tree of user groups) into
+ * groups map. This function intended only for internal use inside this module,
+ * as it may mutate both arguments (hence, the corresponding ESLint rule is
+ * disabled within this function), thus should be used only where it is safe.
+ * For external use a similar function is provided by "utils/tc" module.
+ * @param {Object} groups
+ * @param {Object} group
+ */
+function mergeGroup(groups, group) {
+  /* eslint-disable no-param-reassign */
+  const sg = group.subGroups;
+  group.timestamp = Date.now();
+  if (sg && sg.length) {
+    group.subGroupIds = sg.map(g => g.id);
+    sg.forEach(g => mergeGroup(groups, g));
+  }
+  delete group.subGroups;
+  groups[group.id] = group;
+  /* eslint-enable no-param-reassign */
 }
 
 class GroupService {
