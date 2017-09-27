@@ -20,7 +20,7 @@ import PT from 'prop-types';
 import React from 'react';
 
 import { connect } from 'react-redux';
-import { isGroupMember } from 'utils/tc';
+import { checkGroupsStatus, checkUserGroups } from 'services/groups';
 
 /**
  * When community Loader is mounted, and when it receives new props, these are
@@ -39,16 +39,15 @@ class Loader extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const { communityId, loadingCommunityData, meta } = nextProps;
+    const {
+      communityId, loadingMeta, meta, missingGroups, tokenV3,
+    } = nextProps;
 
-    /* We reload community meta-data when:
-     * - No metadata is loaded or being loaded for the specified community;
-     * - Already loaded metadata have been loaded more than MAXAGE ago. */
-    if (!loadingCommunityData && (
-      !meta || meta.communityId !== communityId
-      || (Date.now() - meta.lastUpdateOfMetaData) > MAXAGE
-      || this.missingApiGroup()
-    )) this.props.loadMetaData(communityId, nextProps.tokenV3);
+    if (!loadingMeta && (
+      !meta || (Date.now() - meta.lastUpdateOfMetaData) > MAXAGE
+    )) nextProps.loadMetaData(communityId);
+
+    if (missingGroups) nextProps.loadGroups(missingGroups, tokenV3);
 
     /* TODO: This is a hacky way to handle SSO authentication for TopGear
      * (Wipro) community visitors. Should be re-factored, but not it is not
@@ -59,37 +58,24 @@ class Loader extends React.Component {
     }
   }
 
-  /**
-   * Assuming that community meta-data has been loaded, this method verifies
-   * that detailed information about all related user groups also have been
-   * loaded into.
-   */
-  missingApiGroup() {
-    const { apiGroups, meta } = this.props;
-    if (!meta) return false;
-    if (meta.groupId && !apiGroups[meta.groupId]) return true;
-    if (meta.authorizedGroupIds && meta.authorizedGroupIds.some(id =>
-      !apiGroups[id])) return true;
-    return false;
-  }
-
   render() {
     const {
-      apiGroups,
       Community,
       communityId,
-      loadingCommunityData,
+      knownGroups,
       meta,
       visitorGroups,
+      unknownGroups,
     } = this.props;
 
-    /* Community meta-data are still being loaded. */
-    if (loadingCommunityData || !meta) {
-      return <LoadingPagePlaceholder />;
-    }
+    /* In case we are missing meta data, or information about some user groups
+     * we need, we show loading indicator (for better user experience, we are
+     * fine to accept outdated data; such data will be silently refreshed
+     * behind the scene shortly). */
+    if (!meta || unknownGroups) return <LoadingPagePlaceholder />;
 
     const member = visitorGroups && meta.groupId
-      && isGroupMember(meta.groupId, visitorGroups, apiGroups);
+      && checkUserGroups(meta.groupId, visitorGroups, knownGroups);
 
     /* Community does not require authorization. */
     if (!meta.authorizedGroupIds) return Community({ member, meta });
@@ -107,8 +93,7 @@ class Loader extends React.Component {
 
     /* Visitor belongs to at least one of the groups authorized to access this
      * community. */
-    // if (_.intersection(visitorGroupIds, meta.authorizedGroupIds).length) {
-    if (isGroupMember(meta.authorizedGroupIds, visitorGroups, apiGroups)) {
+    if (checkUserGroups(meta.authorizedGroupIds, visitorGroups, knownGroups)) {
       return Community({ member, meta });
     }
 
@@ -119,69 +104,57 @@ class Loader extends React.Component {
 
 Loader.defaultProps = {
   meta: null,
+  missingGroups: null,
   tokenV3: '',
   visitorGroups: null,
+  unknownGroups: null,
 };
 
 Loader.propTypes = {
-  apiGroups: PT.shape().isRequired,
-  communityId: PT.string.isRequired,
   Community: PT.func.isRequired,
-  loadingCommunityData: PT.bool.isRequired,
+  communityId: PT.string.isRequired,
+  knownGroups: PT.shape().isRequired,
+  loadGroups: PT.func.isRequired,
+  loadingMeta: PT.bool.isRequired,
   loadMetaData: PT.func.isRequired,
   meta: PT.shape({
     authorizedGroupIds: PT.arrayOf(PT.string),
     communityId: PT.string.isRequired,
   }),
+  missingGroups: PT.arrayOf(PT.string),
   tokenV3: PT.string,
   visitorGroups: PT.arrayOf(PT.shape({ id: PT.string.isRequired })),
+  unknownGroups: PT.arrayOf(PT.string),
 };
-
-/**
- * Tests whether we are currently loading data for the specified community.
- * The data include:
- * - Community meta-data;
- * - Detailed information about all user groups referrenced in the meta-data.
- * @param {String} communityId Community ID to be tested.
- * @param {Object} state Redux state.
- * @return {Boolean} "true" if the data are being loaded now; "false" otherwise.
- */
-function isLoading(communityId, state) {
-  const meta = state.tcCommunities.meta;
-
-  /* Yes, we are currently loading meta data for the specified community. */
-  if (communityId === meta.loadingMetaDataForCommunityId) return true;
-
-  /* Another community is loaded, thus we surely are not loading the specified
-   * one. */
-  if (communityId !== meta.communityId) return false;
-
-  /* If we reached this point, it means that meta-data for the specified
-   * community have been loaded; but we may still be loading detailed data
-   * on the related user groups, so we should check it as well. */
-  if (meta.groupId && state.groups.loading[meta.groupId]) return true;
-  if (meta.authorizedGroupIds && meta.authorizedGroupIds.some(id =>
-    state.groups.loading[id])) return true;
-
-  /* Finally, if we are here, it means that all information relevant to the
-   * specified community is loaded into the state now. */
-  return false;
-}
 
 function mapStateToProps(state, ownProps) {
   const communityId = ownProps.communityId;
+  const knownGroups = state.groups.groups;
 
   let meta = state.tcCommunities.meta;
+  const loadingMeta = communityId === meta.loadingMetaDataForCommunityId;
   if (meta.communityId !== communityId) meta = null;
 
+  let missingGroups = null;
+  let unknownGroups = null;
+  if (meta) {
+    const ids = meta.authorizedGroupIds || [];
+    if (meta.groupId) ids.push(meta.groupId);
+    const status = checkGroupsStatus(ids, knownGroups, state.groups.loading);
+    missingGroups = status.missing;
+    unknownGroups = status.unknown;
+  }
+
   return {
-    apiGroups: state.groups.groups,
-    communityId,
     Community: ownProps.communityComponent,
-    loadingCommunityData: isLoading(communityId, state),
+    communityId,
+    knownGroups,
+    loadingMeta,
     meta,
+    missingGroups,
     tokenV3: _.get(state, 'auth.tokenV3'),
     visitorGroups: _.get(state, 'auth.profile.groups'),
+    unknownGroups,
   };
 }
 
@@ -189,21 +162,13 @@ function mapDispatchToProps(dispatch) {
   const a = actions.tcCommunities.meta;
   const ga = groupActions.groups;
   return {
-    loadMetaData: (communityId, tokenV3) => {
+    loadGroups: (groupIds, tokenV3) => {
+      dispatch(ga.getGroupsInit(groupIds));
+      dispatch(ga.getGroupsDone(groupIds, tokenV3));
+    },
+    loadMetaData: (communityId) => {
       dispatch(a.fetchDataInit(communityId));
-
-      /* From this container's point of view, loading of detailed information
-       * on all user groups referenced in the community meta-data, is also a
-       * part of meta-data loading. */
-      const action = a.fetchDataDone(communityId);
-      action.payload.then((res) => {
-        const ids = res.authorizedGroupIds || [];
-        if (res.groupId) ids.push(res.groupId);
-        dispatch(ga.getGroupsInit(ids));
-        dispatch(ga.getGroupsDone(ids, tokenV3));
-      });
-
-      dispatch(action);
+      dispatch(a.fetchDataDone(communityId));
     },
   };
 }

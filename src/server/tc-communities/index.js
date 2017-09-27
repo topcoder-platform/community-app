@@ -2,15 +2,16 @@
  * Routes for demo API of tc-communities
  */
 
-import _ from 'lodash';
 import express from 'express';
 import fs from 'fs';
-import { getService as getGroupsService } from 'services/groups';
 import {
-  addGroup,
+  checkGroupsStatus,
+  checkUserGroups,
+  getService as getGroupsService,
+} from 'services/groups';
+import {
   getAuthTokens,
   getCommunitiesMetadata,
-  isGroupMember,
 } from 'utils/tc';
 
 const router = express.Router();
@@ -22,7 +23,7 @@ const router = express.Router();
  * should be included into the response.
  */
 router.get('/', (req, res) => {
-  let apiGroups = {};
+  let knownGroups = {};
   const tokens = getAuthTokens(req);
   const groupsService = getGroupsService(tokens.tokenV3);
   const list = [];
@@ -33,19 +34,22 @@ router.get('/', (req, res) => {
     try {
       const path = `${__dirname}/${community}/metadata.json`;
       const data = JSON.parse(fs.readFileSync(path, 'utf8'));
-      const promise = data.authorizedGroupIds ? (
-        Promise.all(data.authorizedGroupIds.map((id) => {
-          if (!apiGroups[id]) {
-            return groupsService.getGroup(id).then((group) => {
-              apiGroups = addGroup(apiGroups, group);
-            }).catch(_.noop);
+      return new Promise((resolve) => {
+        if (data.authorizedGroupIds) {
+          const missing = checkGroupsStatus(
+            data.authorizedGroupIds, knownGroups).missing;
+          if (missing) {
+            return resolve(groupsService.getGroupMap(missing)
+              .then((groups) => {
+                knownGroups = { ...knownGroups, ...groups };
+              }),
+            );
           }
-          return undefined;
-        }))
-      ) : Promise.resolve();
-      return promise.then(() => {
+        }
+        return resolve(undefined);
+      }).then(() => {
         if (!data.authorizedGroupIds
-        || isGroupMember(data.authorizedGroupIds, userGroups, apiGroups)) {
+        || checkUserGroups(data.authorizedGroupIds, userGroups, knownGroups)) {
           list.push({
             challengeFilter: data.challengeFilter || {},
             communityId: data.communityId,

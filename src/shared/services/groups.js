@@ -1,10 +1,27 @@
 /**
  * Service for communication with group-related part of Topcoder API.
+ *
+ * NOTE: Through this file, and in related contexts, by loading a user group,
+ * or user groups data, we refer to loading the information about descendant
+ * user groups; i.e. given some user group(s) we speak about loading the sub-
+ * three of related child groups.
+ *
+ * By group maps we refer to the object having group IDs as the keys, and
+ * group data objects as the values. Any group object included into a group map
+ * has its "subGroups" array (if present) replaced by "subGroupIds", that lists
+ * only the IDs of immediate child groups; actual child group objects from
+ * "subGroups" are recursively added to the top level of the group map.
+ * Also each group in the group map is timestamped to keep caching of
+ * the loaded data.
  */
 
 import _ from 'lodash';
+import config from 'utils/config';
 import logger from 'utils/logger';
 import { getApiV3 } from './api';
+
+/* The value of USER_GROUP_MAXAGE constant converted to [ms]. */
+const USER_GROUP_MAXAGE = config.USER_GROUP_MAXAGE * 1000;
 
 /**
  * Private. Handles given response from the groups API.
@@ -39,6 +56,88 @@ function mergeGroup(groups, group) {
   delete group.subGroups;
   groups[group.id] = group;
   /* eslint-enable no-param-reassign */
+}
+
+/**
+ * Splits the given list of group IDs into the lists of groups being loaded,
+ * loaded, and others.
+ * @param {String|String[]} groupIds ID, or an array of IDs, of the group(s) we
+ *  are interested in.
+ * @param {Object} knownGroups Optional. The map of already known groups (some
+ *  of them may be outdated, though). This should be of the same format as the
+ *  object on "groups.groups" path of the Redux store. Defaults to empty object.
+ * @param {Object} loadingGroups Optional. Set of groups beign loaded now. This
+ *  should be of the same format as the object on "groups.loading" path of the
+ *  Redux store. Defaults to empty object.
+ * @return {Object} Resulting object may hold four arrays with group IDs from
+ *  "groupIds" (empty arrays will not be included into the result object):
+ *  - "loaded" - the groups that are present in "knownGroups" and are not
+ *    outdated;
+ *  - "loading" - the groups that are not present in "knownGroups" (or present,
+ *    but outdated); but they are already being loaded;
+ *  - "missing" - the groups that are not present in "knownGroups"
+ *    (or outdated), and are not being loaded.
+ *  - "unknown" - the groups that are absent in "knownGroups" map.
+ */
+export function checkGroupsStatus(
+  groupIds, knownGroups = {}, loadingGroups = {},
+) {
+  const loaded = [];
+  const loading = [];
+  const missing = [];
+  const unknown = [];
+  const now = Date.now();
+  const ids = _.isArray(groupIds) ? groupIds : [groupIds];
+  ids.forEach((id) => {
+    const g = knownGroups[id];
+    if (!g) unknown.push(id);
+    if (g && (now - g.timestamp || 0) < USER_GROUP_MAXAGE) loaded.push(id);
+    else if (loadingGroups[id]) loading.push(id);
+    else missing.push(id);
+  });
+  return {
+    loaded: loaded.length ? loaded : null,
+    loading: loading.length ? loading : null,
+    missing: missing.length ? missing : null,
+    unknown: unknown.length ? unknown : null,
+  };
+}
+
+/**
+ * Returns "true" if "userGroups" arrays includes any group specified by
+ * "groupIds", or any group descendant from a group specified by "groupIds".
+ * The is the map of known groups
+ * @param {String|String[]} groupIds
+ * @param {Object[]|String[]} userGroups Array of user's groups or their IDs.
+ * @param {Object} knownGroups Map of known groups.
+ * @return {Boolean}
+ */
+export function checkUserGroups(groupIds, userGroups, knownGroups) {
+  const queue = _.isArray(groupIds) ? groupIds : [groupIds];
+  if (!queue.length) return true;
+  if (!userGroups.length) return false;
+
+  /* Algorithmically, "knownGroups" stores, in compressed form, data on
+   * known trees of user groups; and we want to check whether any of groups
+   * from "userGroups" belong to sub-trees having groups from "groupIds" as
+   * their roots. So, we do a breadth-frist search through the group trees. */
+  const userGroupIds = new Set();
+  const visitedGroupIds = new Set();
+  userGroups.forEach(g => userGroupIds.add(_.isObject(g) ? g.id : g));
+  let pos = 0;
+  while (pos < queue.length) {
+    const id = queue[pos];
+    if (userGroupIds.has(id)) return true;
+    visitedGroupIds.add(id);
+    const g = knownGroups[id];
+    if (g && g.subGroupIds) {
+      g.subGroupIds.forEach(sgId => (
+        !visitedGroupIds.has(sgId) ? queue.push(sgId) : null
+      ));
+    }
+    pos += 1;
+  }
+  return false;
 }
 
 class GroupService {
