@@ -84,7 +84,6 @@ class Loader extends React.Component {
     } = this.props;
 
     /* Community meta-data are still being loaded. */
-
     if (loadingCommunityData || !meta) {
       return <LoadingPagePlaceholder />;
     }
@@ -198,16 +197,10 @@ function mapDispatchToProps(dispatch) {
        * part of meta-data loading. */
       const action = a.fetchDataDone(communityId);
       action.payload.then((res) => {
-        if (res.authorizedGroupIds) {
-          res.authorizedGroupIds.forEach((id) => {
-            dispatch(ga.getInit(id));
-            dispatch(ga.getDone(id, tokenV3));
-          });
-        }
-        if (res.groupId) {
-          dispatch(ga.getInit(res.groupId));
-          dispatch(ga.getDone(res.groupId));
-        }
+        const ids = res.authorizedGroupIds || [];
+        if (res.groupId) ids.push(res.groupId);
+        dispatch(ga.getGroupsInit(ids));
+        dispatch(ga.getGroupsDone(ids, tokenV3));
       });
 
       dispatch(action);

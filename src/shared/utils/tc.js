@@ -65,6 +65,30 @@ export function addGroup(groups, srcGroup) {
 }
 
 /**
+ * Given an ID, or an array of IDs, of groups we want to have loaded,
+ * this function returns the array of groups that should be (re-)loaded.
+ * In other words, it filters given "groupIds" to exclude already loaded,
+ * and not outdated, groups, and any groups that are currently being loaded.
+ * @param {String|String[]} groupIds ID, or an array of IDs, of the groups we
+ *  want to have loaded.
+ * @param {Object} knownGroups Optional. Map of the groups we already have
+ *  loaded. Defaults to empty object.
+ * @param {Object} loadingGroups Optional. Object specifying which groups are
+ *  being loaded currently. Defaults to empty object.
+ * @return {Array} Array of IDs of the groups that should be loaded (i.e.
+ *  we should call the service to load them, rather than just waiting).
+ */
+const USER_GROUP_MAXAGE = config.USER_GROUP_MAXAGE * 1000; /* ms */
+export function findGroupsToLoad(groupIds, knownGroups, loadingGroups) {
+  const ids = _.isArray(groupIds) ? groupIds : [groupIds];
+  const known = knownGroups || {};
+  const loading = loadingGroups || {};
+  const now = Date.now();
+  return ids.filter(id => !loading[id] &&
+    (!known[id] || (now - known[id].timestamp || 0) > USER_GROUP_MAXAGE));
+}
+
+/**
  * Given a rating value, returns corresponding color.
  * @param {Number} rating Rating.
  * @return {String} Color.

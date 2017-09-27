@@ -19,47 +19,68 @@
 
 import _ from 'lodash';
 import actions from 'actions/groups';
-import logger from 'utils/logger';
 import { handleActions } from 'redux-actions';
 import { getCommunityId } from 'routes/subdomains';
 import { toFSA } from 'utils/redux';
-import { addGroup, getAuthTokens, getCommunitiesMetadata } from 'utils/tc';
+import { getAuthTokens, getCommunitiesMetadata } from 'utils/tc';
 
 /**
- * Initiates the loading of data on the specified group.
- * @param {Object} state
- * @param {Object} action
- * @return {Object} New state.
+ * Private. Given two user group maps, it adds to "dst" the root group from
+ * "src" (specified by "rootId"), and all its descendant groups. Any groups
+ * in "src" not related to the sub-tree of the root group descendants are
+ * not added to "dst".
+ * This function mutates "dst"!
+ * @param {Object} dst
+ * @param {Object} src
+ * @param {String} rootId
  */
-function onGetInit(state, action) {
-  const groupId = action.payload;
-  if (state.loading[groupId]) return state;
-  return { ...state, loading: { ...state.loading, [groupId]: true } };
+function mergeGroupTree(dst, src, rootId) {
+  const root = src[rootId];
+  dst[rootId] = root; // eslint-disable-line no-param-reassign
+  if (root.subGroupIds) {
+    root.subGroupIds.forEach(id => mergeGroupTree(dst, src, id));
+  }
 }
 
 /**
- * Finalizes the loading of data on the specified group.
+ * Removes from the state all loaded user groups, and cancels any on-going
+ * loading of user groups.
+ * @param {Object} state
+ * @return {Object} New state.
+ */
+function onDropGroups(state) {
+  return { ...state, groups: {}, loading: {} };
+}
+
+/**
+ * Initiates the loading of data on the specified groups.
  * @param {Object} state
  * @param {Object} action
  * @return {Object} New state.
  */
-function onGetDone(state, action) {
-  const { error, groupId, result } = action.payload;
-
-  if (!state.loading[groupId]) return state;
-
-  let groups = _.clone(state.groups);
+function onGetGroupsInit(state, { payload }) {
+  const groupIds = _.isArray(payload) ? payload : [payload];
   const loading = _.clone(state.loading);
-  delete loading[groupId];
+  groupIds.forEach((id) => { loading[id] = true; });
+  return { ...state, loading };
+}
 
-  if (error) {
-    logger.error('Failed to load data for the group #', groupId, error);
-    /* Empty group means that it is not known for API (or we failed to load it
-     * for any other reason). Its presence in the state means, however, that we
-     * have tried to load it, at least. */
-    groups[groupId] = {};
-  } else groups = addGroup(groups, result);
-
+/**
+ * Finalizes the loading of data on the specified groups.
+ * @param {Object} state
+ * @param {Object} action
+ * @return {Object} New state.
+ */
+function onGetGroupsDone(state, action) {
+  const groups = _.clone(state.groups);
+  const loading = _.clone(state.loading);
+  const loaded = action.payload;
+  Object.values(loaded).forEach(({ id }) => {
+    if (loading[id]) {
+      mergeGroupTree(groups, loaded, id);
+      delete loading[id];
+    }
+  });
   return { ...state, groups, loading };
 }
 
@@ -71,8 +92,9 @@ function onGetDone(state, action) {
 function create(state) {
   const a = actions.groups;
   return handleActions({
-    [a.getInit]: onGetInit,
-    [a.getDone]: onGetDone,
+    [a.dropGroups]: onDropGroups,
+    [a.getGroupsInit]: onGetGroupsInit,
+    [a.getGroupsDone]: onGetGroupsDone,
   }, _.defaults(state ? _.clone(state) : {}, {
     groups: {},
     loading: {},
@@ -96,11 +118,10 @@ function loadCommunityGroups(communityId, tokenV3, state) {
   return getCommunitiesMetadata(communityId).then((data) => {
     const ids = data.authorizedGroupIds || [];
     if (data.groupId) ids.push(data.groupId);
-    ids.forEach((id) => { res.loading[id] = true; });
-    return Promise.all(ids.map(id =>
-      toFSA(actions.groups.getDone(id, tokenV3))
-        .then((result) => { res = onGetDone(res, result); }),
-    )).then(() => res);
+    res = onGetGroupsInit(res, { payload: ids });
+    return toFSA(actions.groups.getGroupsDone(ids, tokenV3))
+      .then((action) => { res = onGetGroupsDone(res, action); })
+      .then(() => res);
   });
 }
 
