@@ -1,15 +1,15 @@
 import _ from 'lodash';
-import qs from 'qs';
 import { createActions } from 'redux-actions';
+import { getService as getCommunitiesService } from 'services/communities';
 import { getService as getGroupService } from 'services/groups';
-
-/* global fetch */
 
 /**
  * Creates the action for joining the group.
  * @param {String} token Topcoder auth token V3.
  * @param {String} groupId
  * @param {String} memberId
+ */
+/* TODO: Should be updated to add member to all groups related to the community.
  */
 function joinDone(token, groupId, memberId) {
   const service = getGroupService(token);
@@ -28,9 +28,7 @@ function getList(auth) {
   if (auth.profile && auth.profile.groups) {
     groups = auth.profile.groups.map(g => g.id);
   }
-  return fetch(`/api/tc-communities?${qs.stringify({ groups })}`, {
-    credentials: 'same-origin',
-  }).then(res => (res.ok ? res.json() : new Error(res.statusText)));
+  return getCommunitiesService(auth.tokenV3).getList(groups);
 }
 
 export default createActions({

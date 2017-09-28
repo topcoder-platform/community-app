@@ -10,7 +10,11 @@ exports[`Matches shallow shapshot 1`] = `
   </button>
   <ConfirmModal
     communityName="ios"
-    groupId="1"
+    groupIds={
+      Array [
+        "",
+      ]
+    }
     join={[Function]}
     resetJoinButton={[Function]}
     token="token"
@@ -99,7 +103,11 @@ exports[`Matches shallow shapshot 5`] = `
   </button>
   <ConfirmModal
     communityName="ios"
-    groupId="1"
+    groupIds={
+      Array [
+        "",
+      ]
+    }
     join={[Function]}
     resetJoinButton={[Function]}
     token={null}

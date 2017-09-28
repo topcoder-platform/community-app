@@ -14,7 +14,7 @@ function mapStateToProps(state, ownProps) {
    * of Community Loader, which does not render its content until proper
    * meta data are loaded into Redux store. Thus, no need to make any checks
    * of "meta" object here, we can rely it exists and is properly loaded. */
-  const meta = state.tcCommunities.meta;
+  const meta = state.tcCommunities.meta.data;
   return {
     activeTrigger: state.topcoderHeader.activeTrigger,
     additionalLogos: meta.additionalLogos,
@@ -22,7 +22,7 @@ function mapStateToProps(state, ownProps) {
     chevronOverAvatar: meta.chevronOverAvatar,
     communityId: meta.communityId,
     communitySelector: meta.communitySelector,
-    groupId: meta.groupId,
+    groupIds: meta.groupIds,
     hideJoinNow: ownProps.hideJoinNow,
     hideSearch: meta.hideSearch,
     isMobileOpen: meta.isMobileOpen,

@@ -19,7 +19,6 @@ import FiltersCardsType from './FiltersCardsType';
 import './ChallengeFilters.scss';
 
 export default function ChallengeFilters({
-  groupId,
   communityFilters,
   communityName,
   expanded,
@@ -135,7 +134,6 @@ export default function ChallengeFilters({
       </div>
 
       <FiltersPanel
-        groupId={groupId}
         communityFilters={communityFilters}
         communityName={communityName}
         hidden={!expanded}
@@ -173,7 +171,6 @@ ChallengeFilters.defaultProps = {
 };
 
 ChallengeFilters.propTypes = {
-  groupId: PT.string.isRequired,
   communityFilters: PT.arrayOf(PT.shape()).isRequired,
   communityName: PT.string,
   expanded: PT.bool.isRequired,

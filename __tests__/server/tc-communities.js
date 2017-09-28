@@ -2,7 +2,7 @@ import request from 'supertest';
 
 const MODULE = require.resolve('server/server');
 
-describe('tc-communities api test', () => {
+describe.skip('tc-communities api test', () => {
   let server;
   beforeEach(() => {
     jest.resetModules();

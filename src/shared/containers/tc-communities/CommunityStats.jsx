@@ -87,7 +87,7 @@ function mapDispatchToProps(dispatch) {
 }
 
 function mapStateToProps(state, ownProps) {
-  const community = state.tcCommunities.meta;
+  const community = state.tcCommunities.meta.data;
   const challenges = state.challengeListing.challenges;
   return {
     community,

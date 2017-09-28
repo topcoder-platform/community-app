@@ -2,16 +2,8 @@
  * Routes for demo API of tc-communities
  */
 
-import _ from 'lodash';
+import CommunitiesService from 'server/services/communities';
 import express from 'express';
-import fs from 'fs';
-import { getService as getGroupsService } from 'services/groups';
-import {
-  addGroup,
-  getAuthTokens,
-  getCommunitiesMetadata,
-  isGroupMember,
-} from 'utils/tc';
 
 const router = express.Router();
 
@@ -22,47 +14,10 @@ const router = express.Router();
  * should be included into the response.
  */
 router.get('/', (req, res) => {
-  let apiGroups = {};
-  const tokens = getAuthTokens(req);
-  const groupsService = getGroupsService(tokens.tokenV3);
-  const list = [];
-  const communities = fs.readdirSync(__dirname);
-  const userGroups = req.query.groups
-    ? req.query.groups.map(id => ({ id })) : [];
-  Promise.all(communities.map((community) => {
-    try {
-      const path = `${__dirname}/${community}/metadata.json`;
-      const data = JSON.parse(fs.readFileSync(path, 'utf8'));
-      const promise = data.authorizedGroupIds ? (
-        Promise.all(data.authorizedGroupIds.map((id) => {
-          if (!apiGroups[id]) {
-            return groupsService.get(id).then((group) => {
-              apiGroups = addGroup(apiGroups, group);
-            }).catch(_.noop);
-          }
-          return undefined;
-        }))
-      ) : Promise.resolve();
-      return promise.then(() => {
-        if (!data.authorizedGroupIds
-        || isGroupMember(data.authorizedGroupIds, userGroups, apiGroups)) {
-          list.push({
-            challengeFilter: data.challengeFilter || {},
-            communityId: data.communityId,
-            communityName: data.communityName,
-            description: data.description,
-            groupId: data.groupId,
-            image: data.image,
-          });
-        }
-      });
-    } catch (e) {
-      return undefined;
-    }
-  })).then(() => {
-    list.sort((a, b) => a.communityName.localeCompare(b.communityName));
-    res.json(list);
-  });
+  const tokenV3 = req.headers.authorization;
+  new CommunitiesService(tokenV3).getList(req.query.groups || [])
+    .catch(err => res.status(500).send(err))
+    .then(list => res.json(list));
 });
 
 /**
@@ -70,12 +25,10 @@ router.get('/', (req, res) => {
  */
 router.get('/:communityId/meta', (req, res) => {
   const communityId = req.params.communityId;
-
-  getCommunitiesMetadata(communityId).then((data) => {
-    res.json(data);
-  }).catch(() => {
-    res.status(404).send();
-  });
+  const tokenV3 = req.headers.authorization;
+  new CommunitiesService(tokenV3).getMetadata(communityId)
+    .catch(err => res.status(404).send(err))
+    .then(data => res.json(data));
 });
 
 export default router;
