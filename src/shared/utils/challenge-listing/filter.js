@@ -249,9 +249,10 @@ export function getFilterFunction(state) {
  * are not exported outside of the module). */
 /* eslint-disable no-param-reassign */
 
-function combineArrayRules(a, b, ruleName) {
+function combineArrayRules(a, b, ruleName, or = false) {
   if (a[ruleName] && b[ruleName]) {
-    a[ruleName] = _.intersection(a[ruleName], b[ruleName]);
+    if (or) a[ruleName] = _.uniq(a[ruleName].concat(b[ruleName]));
+    else a[ruleName] = _.intersection(a[ruleName], b[ruleName]);
   } else if (b[ruleName]) a[ruleName] = b[ruleName];
 }
 
@@ -296,6 +297,7 @@ export function combine(...filters) {
     combineArrayRules(res, filter, 'groupIds');
     /* TODO: The registrationOpen rule is just ignored for now. */
     combineStartDate(res, filter);
+    combineArrayRules(res, filter, 'or', true);
     combineArrayRules(res, filter, 'status');
     combineArrayRules(res, filter, 'subtracks');
     combineArrayRules(res, filter, 'tags');
@@ -328,6 +330,8 @@ export function combine(...filters) {
  * @return {Object}
  */
 export function mapToBackend(filter) {
+  if (filter.or) return {};
+
   const res = {};
   if (filter.groupIds) res.groupIds = filter.groupIds.join(',');
 
