@@ -116,8 +116,8 @@ function create(state) {
 function loadCommunityGroups(communityId, tokenV3, state) {
   let res = _.defaults(state, { groups: {}, loading: {} });
   return getCommunitiesMetadata(communityId, tokenV3).then((data) => {
-    const ids = data.authorizedGroupIds || [];
-    if (data.groupId) ids.push(data.groupId);
+    let ids = data.authorizedGroupIds || [];
+    if (data.groupIds) ids = ids.concat(data.groupIds);
     res = onGetGroupsInit(res, { payload: ids });
     return toFSA(actions.groups.getGroupsDone(ids, tokenV3))
       .then((action) => { res = onGetGroupsDone(res, action); })

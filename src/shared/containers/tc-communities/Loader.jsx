@@ -74,8 +74,8 @@ class Loader extends React.Component {
      * behind the scene shortly). */
     if (!meta || unknownGroups) return <LoadingPagePlaceholder />;
 
-    const member = visitorGroups && meta.groupId
-      && checkUserGroups(meta.groupId, visitorGroups, knownGroups);
+    const member = visitorGroups && meta.groupIds
+      && Boolean(_.intersection(meta.groupIds, visitorGroups.map(g => g.id)).length);
 
     /* Community does not require authorization. */
     if (!meta.authorizedGroupIds) return Community({ member, meta });
@@ -138,8 +138,8 @@ function mapStateToProps(state, ownProps) {
   let missingGroups = null;
   let unknownGroups = null;
   if (meta) {
-    const ids = meta.authorizedGroupIds || [];
-    if (meta.groupId) ids.push(meta.groupId);
+    let ids = meta.authorizedGroupIds || [];
+    if (meta.groupIds) ids = ids.concat(meta.groupIds);
     const status = checkGroupsStatus(ids, knownGroups, state.groups.loading);
     missingGroups = status.missing;
     unknownGroups = status.unknown;

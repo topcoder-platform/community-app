@@ -64,7 +64,7 @@ router.get('/', (req, res) => {
             communityId: data.communityId,
             communityName: data.communityName,
             description: data.description,
-            groupId: data.groupId,
+            groupIds: data.groupIds,
             image: data.image,
           });
         }

@@ -32,8 +32,10 @@ function getCommunityStats(community, challenges, token) {
       openPrizes: `$${totalPrize.toLocaleString()}`,
     },
   };
-  if (community.groupId) {
-    return groupService.getMembers(community.groupId)
+  if (community.groupIds && community.groupIds.length) {
+    /* TODO: Should be properly updated to count members from all groups
+     * without double-counting. */
+    return groupService.getMembers(community.groupIds[0])
       .then((members) => {
         result.stats.numMembers = members.length;
         return result;

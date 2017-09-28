@@ -18,7 +18,7 @@
     "redirect": "https://www.topcoder.com",
     "value": "2"
   }],
-  "groupId": "20000000",
+  "groupIds": ["20000000"],
   "leaderboardApiUrl": "https://api.topcoder.com/v4/looks/458/run/json/",
   "logos": [{
     "img": "/themes/wipro/wipro-logo.png",

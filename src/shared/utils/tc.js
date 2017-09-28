@@ -98,7 +98,7 @@ export function getCommunitiesMetadata(communityId, tokenV3) {
             challengeListing: null,
             communityId: '',
             communitySelector: [],
-            groupId: null,
+            groupIds: null,
             leaderboardApiUrl: null,
             logos: [],
             additionalLogos: null,

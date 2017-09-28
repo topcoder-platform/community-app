@@ -48,7 +48,8 @@ export default class MyChallenges extends React.Component {
   }
 
   isCommunityRegstered(community) {
-    return _.some(this.props.groups, g => g.id === community.groupId);
+    const groups = _.intersection(this.props.groups, community.groupIds);
+    return Boolean(groups.length);
   }
 
   render() {
