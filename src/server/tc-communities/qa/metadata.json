@@ -27,9 +27,6 @@
     }, {
       "title": "Challenges",
       "url": "challenges"
-    }, {
-      "title": "Leaderboard",
-      "url": "leaderboard"
     }
   ],
   "leaderboardApiUrl": "https://api.topcoder.com/v4/looks/458/run/json/",

@@ -21,7 +21,7 @@ export default function Communities({ base, communityId, member, meta }) {
       return <Blockchain base={base} member={member} meta={meta} />;
     case 'community-2': return <Community2 base={base} meta={meta} />;
     case 'demo-expert': return <DemoExpert base={base} meta={meta} />;
-    case 'qa': return <QA base={base} meta={meta} />;
+    case 'qa': return <QA base={base} member={member} meta={meta} />;
     case 'srmx': return <SRMx base={base} meta={meta} />;
     case 'taskforce': return <TaskForce base={base} meta={meta} />;
     case 'tc-prod-dev': return <TcProdDev base={base} meta={meta} />;

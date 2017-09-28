@@ -1,4 +1,72 @@
-@import '~styles/tc-styles';
+@import '~styles/mixins';
+
+/* TODO: This style repeats the same style of the same button in Blockchain
+ * community. We should move it up in the project structure, so that the same
+ * theme is reused in both places. */
+.joinNow {
+  color: #0092ff;
+  display: inline-block;
+  background: white;
+  border: none;
+  border-radius: 20px;
+  font: 700 14px/40px 'Open Sans';
+  height: 40px;
+  margin-top: 24px;
+  text-align: center;
+  text-transform: uppercase;
+  width: 171px;
+
+  &:hover,
+  &:active,
+  &:focus,
+  &:visited {
+    color: #0092ff;
+    outline: none;
+    text-decoration: none;
+  }
+
+  p {
+    display: inline-block;
+    position: relative;
+    top: -7px;
+  }
+}
+
+.bannerText {
+  font-family: 'Open Sans';
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 24px;
+
+  @include xxs-to-xs {
+    line-height: 22px;
+  }
+}
+
+.bgBlue {
+  background: #bbd3f6 !important;
+  padding: 48px 24px !important;
+}
+
+.bgGray {
+  background: #f2f2f2 !important;
+  padding: 48px 24px !important;
+}
+
+.bgGreen {
+  background: #e2f3db !important;
+  padding: 48px 24px !important;
+}
+
+.bgYellow {
+  background: #fff8d4 !important;
+  padding: 48px 24px !important;
+}
+
+.highlighted {
+  color: $tc-gold;
+  font-weight: bold;
+}
 
 .statsContainer {
   padding: 0;
@@ -22,6 +90,11 @@
   @include xxs-to-xs {
     padding: 40px 0;
   }
+}
+
+.resourcesContainer2 {
+  background-color: #fafafa;
+  padding: 0;
 }
 
 .linksContainer {

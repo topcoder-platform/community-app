@@ -27,12 +27,10 @@ function getCommunityStats(community, challenges, token) {
   const groupService = getGroupService(token);
   const result = {
     communityId: community.communityId,
-    stats: {
-      numChallenges: filtered.length,
-      numMembers: 0,
-      openPrizes: `$${totalPrize.toLocaleString()}`,
-    },
+    stats: {},
   };
+  if (filtered.length) result.stats.numChallenges = filtered.length;
+  if (totalPrize) result.stats.openPrizes = `$${totalPrize.toLocaleString()}`;
   if (community.groupIds && community.groupIds.length) {
     const members = new Set();
     return Promise.all(
@@ -40,10 +38,10 @@ function getCommunityStats(community, challenges, token) {
         groupService.getMembers(id)
           .then(res => res.forEach((member) => {
             if (member.membershipType === 'user') members.add(member);
-          })).catch(),
+          })).catch(() => null),
       ),
     ).then(() => {
-      result.stats.numMembers = members.size;
+      if (members.size) result.stats.numMembers = members.size;
       return result;
     });
   }
