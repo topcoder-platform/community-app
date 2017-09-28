@@ -47,7 +47,7 @@ const Uploading = ({
       }
       {
         isSubmitting && !submitDone &&
-          <p styleName="submitting">Submitting...</p>
+          <p styleName="submitting">Finishing...</p>
       }
       {
         isSubmitting &&
@@ -89,7 +89,7 @@ const Uploading = ({
           <div styleName="button-container">
             <Button
               onClick={() => reset()}
-            >Add Another Design</Button>
+            >Add Another Submission</Button>
             <PrimaryButton
               to={`/challenges/${challengeId}/my-submissions`}
             >View My Submissions</PrimaryButton>
