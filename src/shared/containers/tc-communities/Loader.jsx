@@ -131,7 +131,7 @@ function mapStateToProps(state, ownProps) {
   const communityId = ownProps.communityId;
   const knownGroups = state.groups.groups;
 
-  let meta = state.tcCommunities.meta;
+  let meta = state.tcCommunities.meta.data;
   const loadingMeta = communityId === meta.loadingMetaDataForCommunityId;
   if (meta.communityId !== communityId) meta = null;
 

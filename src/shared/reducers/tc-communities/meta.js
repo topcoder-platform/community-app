@@ -24,7 +24,7 @@ function onDone(state, action) {
   }
   return {
     ...state,
-    ...action.payload,
+    data: action.payload,
     lastUpdateOfMetaData: Date.now(),
     loadingMetaDataForCommunityId: '',
   };
@@ -51,6 +51,7 @@ function create(initialState) {
     },
     [actions.tcCommunities.meta.fetchDataDone]: onDone,
   }, _.defaults(initialState || {}, {
+    data: {},
     lastUpdateOfMetaData: 0,
     loadingMetaDataForCommunityId: '',
   }));
