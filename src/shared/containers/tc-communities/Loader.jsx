@@ -13,14 +13,12 @@ import AccessDenied, {
 } from 'components/tc-communities/AccessDenied';
 import actions from 'actions/tc-communities/meta';
 import config from 'utils/config';
-import groupActions from 'actions/groups';
 import LoadingPagePlaceholder
   from 'components/tc-communities/LoadingPagePlaceholder';
 import PT from 'prop-types';
 import React from 'react';
 
 import { connect } from 'react-redux';
-import { checkGroupsStatus, checkUserGroups } from 'services/groups';
 
 /**
  * When community Loader is mounted, and when it receives new props, these are
@@ -40,14 +38,12 @@ class Loader extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     const {
-      communityId, loadingMeta, meta, missingGroups, tokenV3,
+      communityId, loadingMeta, meta, tokenV3,
     } = nextProps;
 
     if (!loadingMeta && (
       !meta || (Date.now() - meta.lastUpdateOfMetaData) > MAXAGE
     )) nextProps.loadMetaData(communityId, tokenV3);
-
-    if (missingGroups) nextProps.loadGroups(missingGroups, tokenV3);
 
     /* TODO: This is a hacky way to handle SSO authentication for TopGear
      * (Wipro) community visitors. Should be re-factored, but not it is not
@@ -62,20 +58,20 @@ class Loader extends React.Component {
     const {
       Community,
       communityId,
-      knownGroups,
       meta,
       visitorGroups,
-      unknownGroups,
     } = this.props;
 
     /* In case we are missing meta data, or information about some user groups
      * we need, we show loading indicator (for better user experience, we are
      * fine to accept outdated data; such data will be silently refreshed
      * behind the scene shortly). */
-    if (!meta || unknownGroups) return <LoadingPagePlaceholder />;
+    if (!meta) return <LoadingPagePlaceholder />;
+
+    const visitorGroupIds = visitorGroups ? visitorGroups.map(g => g.id) : [];
 
     const member = visitorGroups && meta.groupIds
-      && Boolean(_.intersection(meta.groupIds, visitorGroups.map(g => g.id)).length);
+      && Boolean(_.intersection(meta.groupIds, visitorGroupIds.length));
 
     /* Community does not require authorization. */
     if (!meta.authorizedGroupIds) return Community({ member, meta });
@@ -93,7 +89,7 @@ class Loader extends React.Component {
 
     /* Visitor belongs to at least one of the groups authorized to access this
      * community. */
-    if (checkUserGroups(meta.authorizedGroupIds, visitorGroups, knownGroups)) {
+    if (_.intersection(meta.authorizedGroupIds, visitorGroupIds).length) {
       return Community({ member, meta });
     }
 
@@ -104,68 +100,43 @@ class Loader extends React.Component {
 
 Loader.defaultProps = {
   meta: null,
-  missingGroups: null,
   tokenV3: '',
   visitorGroups: null,
-  unknownGroups: null,
 };
 
 Loader.propTypes = {
   Community: PT.func.isRequired,
   communityId: PT.string.isRequired,
-  knownGroups: PT.shape().isRequired,
-  loadGroups: PT.func.isRequired,
   loadingMeta: PT.bool.isRequired,
   loadMetaData: PT.func.isRequired,
   meta: PT.shape({
     authorizedGroupIds: PT.arrayOf(PT.string),
     communityId: PT.string.isRequired,
   }),
-  missingGroups: PT.arrayOf(PT.string),
   tokenV3: PT.string,
   visitorGroups: PT.arrayOf(PT.shape({ id: PT.string.isRequired })),
-  unknownGroups: PT.arrayOf(PT.string),
 };
 
 function mapStateToProps(state, ownProps) {
   const communityId = ownProps.communityId;
-  const knownGroups = state.groups.groups;
 
   let meta = state.tcCommunities.meta.data;
   const loadingMeta = communityId === meta.loadingMetaDataForCommunityId;
   if (meta.communityId !== communityId) meta = null;
 
-  let missingGroups = null;
-  let unknownGroups = null;
-  if (meta) {
-    let ids = meta.authorizedGroupIds || [];
-    if (meta.groupIds) ids = ids.concat(meta.groupIds);
-    const status = checkGroupsStatus(ids, knownGroups, state.groups.loading);
-    missingGroups = status.missing;
-    unknownGroups = status.unknown;
-  }
-
   return {
     Community: ownProps.communityComponent,
     communityId,
-    knownGroups,
     loadingMeta,
     meta,
-    missingGroups,
     tokenV3: _.get(state, 'auth.tokenV3'),
     visitorGroups: _.get(state, 'auth.profile.groups'),
-    unknownGroups,
   };
 }
 
 function mapDispatchToProps(dispatch) {
   const a = actions.tcCommunities.meta;
-  const ga = groupActions.groups;
   return {
-    loadGroups: (groupIds, tokenV3) => {
-      dispatch(ga.getGroupsInit(groupIds));
-      dispatch(ga.getGroupsDone(groupIds, tokenV3));
-    },
     loadMetaData: (communityId, tokenV3) => {
       dispatch(a.fetchDataInit(communityId));
       dispatch(a.fetchDataDone(communityId, tokenV3));

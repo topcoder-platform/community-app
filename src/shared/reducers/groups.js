@@ -19,10 +19,11 @@
 
 import _ from 'lodash';
 import actions from 'actions/groups';
+import { getService as getCommunitiesService } from 'services/communities';
 import { handleActions } from 'redux-actions';
 import { getCommunityId } from 'routes/subdomains';
 import { toFSA } from 'utils/redux';
-import { getAuthTokens, getCommunitiesMetadata } from 'utils/tc';
+import { getAuthTokens } from 'utils/tc';
 
 /**
  * Private. Given two user group maps, it adds to "dst" the root group from
@@ -115,7 +116,7 @@ function create(state) {
  */
 function loadCommunityGroups(communityId, tokenV3, state) {
   let res = _.defaults(state, { groups: {}, loading: {} });
-  return getCommunitiesMetadata(communityId, tokenV3).then((data) => {
+  return getCommunitiesService(tokenV3).getMetadata(communityId).then((data) => {
     let ids = data.authorizedGroupIds || [];
     if (data.groupIds) ids = ids.concat(data.groupIds);
     res = onGetGroupsInit(res, { payload: ids });

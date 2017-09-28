@@ -44,7 +44,7 @@ export function addDescendantGroups(groupIds, knownGroups) {
     }
     pos += 1;
   }
-  return res;
+  return _.uniq(res);
 }
 
 /**
@@ -76,8 +76,11 @@ export function checkGroupsStatus(
   const missing = [];
   const unknown = [];
   const now = Date.now();
+  const tested = new Set();
   const ids = _.isArray(groupIds) ? groupIds : [groupIds];
   ids.forEach((id) => {
+    if (tested.has(id)) return;
+    tested.add(id);
     const g = knownGroups[id];
     if (!g) unknown.push(id);
     if (g && (now - g.timestamp || 0) < USER_GROUP_MAXAGE) loaded.push(id);
@@ -224,25 +227,28 @@ class GroupService {
    */
   getGroupMap(groupIds) {
     const res = {};
+    const seen = new Set();
     const query = _.isArray(groupIds) ? groupIds : [groupIds];
-    return Promise.all(query.map(id =>
-      this.getGroup(id)
+    const promises = query.map((id) => {
+      if (seen.has(id)) return null;
+      seen.add(id);
+      return this.getGroup(id)
         .then(group => mergeGroup(res, group))
         .catch((err) => {
           /* In case we have failed to get some of the requested groups,
-           * we just send error message to logs, and serve the result with
-           * those groups that we managed to get. Otherwise it will be to
-           * easy to break our code by minor mistakes in the group-related
-           * configuration in the API and in the App. */
-          logger.error(`Failed to get user group #${id}`);
-          logger.error(err);
+          * we just send error message to logs, and serve the result with
+          * those groups that we managed to get. Otherwise it will be to
+          * easy to break our code by minor mistakes in the group-related
+          * configuration in the API and in the App. */
+          logger.error(`Failed to get user group #${id}`, err);
 
           /* Empty group with timestamp is added to the result, as we still
-           * want to cache the result, even if the result is that we cannot
-           * load this group, at least for this visitor. */
+          * want to cache the result, even if the result is that we cannot
+          * load this group, at least for this visitor. */
           res[id] = { id, timestamp: Date.now() };
-        }),
-    )).then(() => res);
+        });
+    });
+    return Promise.all(promises).then(() => res);
   }
 
   /**

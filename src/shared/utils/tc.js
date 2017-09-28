@@ -5,10 +5,6 @@
 import _ from 'lodash';
 import config from 'utils/config';
 import moment from 'moment-timezone';
-import {
-  addDescendantGroups,
-  getService as getGroupsService,
-} from 'services/groups';
 import { isTokenExpired } from 'tc-accounts';
 
 /**
@@ -58,71 +54,6 @@ export function getRatingColor(rating) {
   let i = 0; const r = Number(rating);
   while (RATING_COLORS[i].limit <= r) i += 1;
   return RATING_COLORS[i].color || 'black';
-}
-
-/**
- * Returns community meta data on server side
- *
- * This is used to mock API.
- * Basically it returns json files form directory
- * /src/server/tc-communities/{communityId}/metadata.json
- *
- * @param  {String}  communityId  id of community
- * @param  {String} tokenV3 Optional. Without a valid auth token, this function
- *  may fail to load information about user groups configuration and extend the
- *  groups configured in the community config with their descendant groups.
- * @return {Object}               meta data
- */
-export function getCommunitiesMetadata(communityId, tokenV3) {
-  // we use constant process.env.FRONT_END directly instead of isClientSide from utils/isomporphy
-  // because webpack can exclude code this way from bundle on frontend
-  // otherwise it will try to resolve 'fs' and 'path' modules
-  if (!process.env.FRONT_END) {
-    /* eslint-disable global-require */
-    const fs = require('fs');
-    const path = require('path');
-    /* eslint-enable global-require */
-
-    return new Promise((resolve, reject) => {
-      fs.readFile(path.resolve(__dirname, `../../server/tc-communities/${communityId}/metadata.json`), 'utf8', (err, data) => {
-        if (err) {
-          reject({ error: '404', communityId });
-        } else {
-          /* NOTE: We should prevent "undefined" fields, otherwise reducers
-           * won't replace previously set fields by the new values fetched
-           * from the api (it looks like reducer should be improved, but it
-           * is easier just to set these defaults). */
-          const metadata = _.defaults(JSON.parse(data), {
-            authorizedGroupIds: null,
-            challengeFilter: null,
-            challengeListing: null,
-            communityId: '',
-            communitySelector: [],
-            groupIds: null,
-            leaderboardApiUrl: null,
-            logos: [],
-            additionalLogos: null,
-            hideSearch: false,
-            chevronOverAvatar: false,
-            menuItems: [],
-            newsFeed: null,
-            description: null,
-            image: null,
-          });
-          const groupIds = _.get(metadata, 'challengeFilter.groupIds');
-          if (groupIds) {
-            getGroupsService(tokenV3).getGroupMap(groupIds).then((map) => {
-              metadata.challengeFilter.groupIds =
-                addDescendantGroups(groupIds, map);
-              resolve(metadata);
-            });
-          } else resolve(metadata);
-        }
-      });
-    });
-  }
-
-  return null;
 }
 
 /**

@@ -8,6 +8,7 @@ import logger from 'utils/logger';
 import { handleActions } from 'redux-actions';
 import { getCommunityId } from 'routes/subdomains';
 import { toFSA } from 'utils/redux';
+import { getAuthTokens } from 'utils/tc';
 
 /**
  * Handles tcCommunities.meta.fetchDataDone action.
@@ -72,8 +73,10 @@ export function factory(req) {
     }
     if (communityId) {
       const state = { loadingMetaDataForCommunityId: communityId };
-      return toFSA(actions.tcCommunities.meta.fetchDataDone(communityId))
-        .then(res => create(onDone(state, res)));
+      const tokenV3 = getAuthTokens(req).tokenV3;
+      return toFSA(
+        actions.tcCommunities.meta.fetchDataDone(communityId, tokenV3),
+      ).then(res => create(onDone(state, res)));
     }
   }
   return Promise.resolve(create());

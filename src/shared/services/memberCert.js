@@ -52,7 +52,7 @@ class MemberCertService {
  */
 let lastInstance = null;
 export function getService(tokenV3) {
-  if (!lastInstance || (tokenV3 && lastInstance.private.tokenV3 !== tokenV3)) {
+  if (!lastInstance || tokenV3 !== lastInstance.private.tokenV3) {
     lastInstance = new MemberCertService(tokenV3);
   }
   return lastInstance;

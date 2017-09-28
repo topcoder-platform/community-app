@@ -1,9 +1,7 @@
 import _ from 'lodash';
-import qs from 'qs';
 import { createActions } from 'redux-actions';
+import { getService as getCommunitiesService } from 'services/communities';
 import { getService as getGroupService } from 'services/groups';
-
-/* global fetch */
 
 /**
  * Creates the action for joining the group.
@@ -30,9 +28,7 @@ function getList(auth) {
   if (auth.profile && auth.profile.groups) {
     groups = auth.profile.groups.map(g => g.id);
   }
-  return fetch(`/api/tc-communities?${qs.stringify({ groups })}`, {
-    credentials: 'same-origin',
-  }).then(res => (res.ok ? res.json() : new Error(res.statusText)));
+  return getCommunitiesService(auth.tokenV3).getList(groups);
 }
 
 export default createActions({

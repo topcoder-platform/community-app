@@ -16,7 +16,11 @@ exports[`Snapshot match 1`] = `
       },
     ]
   }
-  groupId=""
+  groupIds={
+    Array [
+      "",
+    ]
+  }
   hideJoinNow={false}
   hideSearch={false}
   isMobileOpen={false}
@@ -78,7 +82,11 @@ exports[`Snapshot match 2`] = `
     ]
   }
   cssUrl="some/css/url"
-  groupId=""
+  groupIds={
+    Array [
+      "",
+    ]
+  }
   hideJoinNow={false}
   hideSearch={false}
   isMobileOpen={true}
