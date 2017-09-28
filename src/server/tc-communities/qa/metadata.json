@@ -1,6 +1,6 @@
 {
   "challengeFilter": {
-    "groupIds": ["20000004"]
+    "groupIds": ["20000001","20000004"]
   },
   "communityId": "qa",
   "communityName": "QaaS",
@@ -12,7 +12,7 @@
     "redirect": "https://www.topcoder.com",
     "value": "2"
   }],
-  "groupIds": ["20000004"],
+  "groupIds": ["20000001","20000004"],
   "logos": [{
     "img": "/themes/qa/logo_topcoder_with_name.svg",
     "url": "https://www.topcoder.com"
