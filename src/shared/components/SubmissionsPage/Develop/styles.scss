@@ -27,13 +27,13 @@
   }
 
   a {
-    color: #1F7BE7;
+    color: #1f7be7;
     cursor: pointer;
   }
 
   .left {
     padding-right: 33px;
-    border-right: 6px solid #F6F6F6;
+    border-right: 6px solid #f6f6f6;
     max-width: 310px;
 
     @include sm-to-md {
@@ -45,9 +45,10 @@
       max-width: 100%;
     }
 
-    p, a {
+    p,
+    a {
       font-size: 13px;
-      color: #A3A3AE;
+      color: #a3a3ae;
       font-style: italic;
       max-width: 270px;
       width: 270px;
@@ -93,9 +94,9 @@
       margin-left: 0;
     }
 
-    &>p {
+    & > p {
       font-size: 15px;
-      color: #37373C;
+      color: #37373c;
       margin-bottom: 10px;
     }
 
@@ -114,7 +115,7 @@
       margin-bottom: 25px;
     }
 
-    &>div {
+    & > div {
       margin-right: 16px;
     }
   }
@@ -144,7 +145,7 @@
     }
 
     a {
-      color: #1A85FF;
+      color: #1a85ff;
     }
 
     .tc-checkbox-label {

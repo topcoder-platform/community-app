@@ -1,10 +1,10 @@
+import actions from 'actions/challenge';
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Header from 'components/SubmissionsPage/Header';
 import Design from 'components/SubmissionsPage/Design';
 import Develop from 'components/SubmissionsPage/Develop';
-import actions from 'actions/submit';
 import './styles.scss';
 
 /**
@@ -76,25 +76,28 @@ const mapStateToProps = (state) => {
   return {
     tokenV2: state.auth.tokenV2,
     tokenV3: state.auth.tokenV3,
-    isSubmitting: state.submit.isSubmitting,
-    submitDone: state.submit.submitDone,
+    isSubmitting: state.challenge.isSubmitting,
+    submitDone: state.challenge.submitDone,
     challengeId: detailsV2 && detailsV2.challengeId,
     challengeName: detailsV2 && detailsV2.challengeName,
-    errorMsg: state.submit.errorMsg,
+    errorMsg: state.challenge.submitErrorMsg,
     track: state.challenge.details.track,
     status: state.challenge.details.status,
   };
 };
 
-const mapDispatchToProps = dispatch => ({
-  onSubmit: (tokenV3, tokenV2, submissionId, body, track) => {
-    dispatch(actions.submit.submitInit());
-    dispatch(actions.submit.submitDone(tokenV3, tokenV2, submissionId, body, track));
-  },
-  resetForm: () => {
-    dispatch(actions.submit.reset());
-  },
-});
+function mapDispatchToProps(dispatch) {
+  const a = actions.challenge;
+  return {
+    onSubmit: (tokenV3, tokenV2, submissionId, body, track) => {
+      dispatch(a.submitInit());
+      dispatch(a.submitDone(tokenV3, tokenV2, submissionId, body, track));
+    },
+    resetForm: () => {
+      dispatch(a.submitReset());
+    },
+  };
+}
 
 const Container = connect(
   mapStateToProps,

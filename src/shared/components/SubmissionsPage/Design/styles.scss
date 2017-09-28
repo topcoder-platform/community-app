@@ -1,4 +1,4 @@
-@import "~styles/tc-styles";
+@import "~styles/mixins";
 
 .design-content {
   display: flex;
@@ -15,7 +15,7 @@
   .row {
     display: flex;
     padding: 30px 0;
-    border-bottom: 1px solid #F0F0F0;
+    border-bottom: 1px solid #f0f0f0;
 
     @include xs-to-sm {
       margin: 0 20px;
@@ -28,7 +28,7 @@
 
   .left {
     padding-right: 33px;
-    border-right: 6px solid #F6F6F6;
+    border-right: 6px solid #f6f6f6;
     max-width: 310px;
 
     @include sm-to-md {
@@ -52,9 +52,10 @@
       }
     }
 
-    p, a {
+    p,
+    a {
       font-size: 13px;
-      color: #A3A3AE;
+      color: #a3a3ae;
       font-style: italic;
       max-width: 250px;
       width: 250px;
@@ -82,7 +83,7 @@
     }
 
     a {
-      color: #1F7BE7;
+      color: #1f7be7;
       cursor: pointer;
     }
 
@@ -96,7 +97,6 @@
   .right {
     width: 100%;
     margin-left: 60px;
-
 
     @media (min-width: 768px) and (max-width: 1280px) {
       margin-left: 30px;
@@ -122,8 +122,8 @@
     .inp {
       border: 1px solid #c3c3c8;
       border-radius: 2px;
-      background: #FFFFFF;
-      box-shadow: inset 0 0 2px 0 rgba(183,183,183,0.80);
+      background: #fff;
+      box-shadow: inset 0 0 2px 0 rgba(183, 183, 183, 0.8);
       padding: 8px;
       margin-bottom: 20px;
     }
@@ -136,9 +136,9 @@
       display: flex;
       justify-content: space-between;
 
-      &>span:nth-child(2) {
+      & > span:nth-child(2) {
         font-size: 11px;
-        color: #A3A3AE;
+        color: #a3a3ae;
       }
     }
 
@@ -146,7 +146,8 @@
       height: 92px;
     }
 
-    input, select {
+    input,
+    select {
       margin-bottom: 20px;
     }
 
@@ -163,7 +164,8 @@
     }
 
     @media (min-width: 768px) and (max-width: 800px) {
-      input, select {
+      input,
+      select {
         max-width: 480px;
       }
     }
@@ -175,7 +177,8 @@
     }
 
     @include xxs-to-xs {
-      input, select {
+      input,
+      select {
         max-width: 90%;
       }
 
@@ -193,16 +196,16 @@
     @media (max-width: 540px) {
       flex-direction: column;
 
-      &>div {
+      & > div {
         margin-bottom: 20px;
       }
 
-      &>:last-child {
+      & > :last-child {
         margin: 0;
       }
     }
 
-    &>:last-child {
+    & > :last-child {
       margin: 0;
     }
   }
@@ -232,7 +235,7 @@
     }
 
     a {
-      color: #1A85FF;
+      color: #1a85ff;
     }
 
     .tc-checkbox-label {

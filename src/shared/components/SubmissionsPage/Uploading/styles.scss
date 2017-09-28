@@ -1,4 +1,5 @@
 .container {
+  align-items: center;
   position: absolute;
   width: 100%;
   height: calc(100vh);
@@ -7,10 +8,8 @@
   left: 0;
   z-index: 100000;
   font-family: 'Roboto';
-  align-items: center;
   display: flex;
   justify-content: center;
-  align-items: center;
 }
 
 .uploading {
@@ -28,7 +27,7 @@
   a {
     font-size: 20px;
     line-height: 30px;
-    color: #1A85FF;
+    color: #1a85ff;
   }
 
   svg {
@@ -37,7 +36,7 @@
 
   p {
     font-size: 15px;
-    color: #A3A3AD;
+    color: #a3a3ad;
     width: 80%;
     text-align: center;
     line-height: 18px;
@@ -73,8 +72,7 @@
     margin-top: -40px;
     margin-bottom: 45px;
     padding: 5px 13px;
-    color: red;
-    background: #FFF4F4;
+    background: #fff4f4;
     border: 1px solid #ffd4d1;
     color: #f22f24;
     font-size: 13px;

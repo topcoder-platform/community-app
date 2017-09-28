@@ -222,6 +222,58 @@ function onSelectTab(state, { payload }) {
 }
 
 /**
+ * Handles results of CHALLENGE/SUBMIT_DONE action.
+ * @param {Object} state
+ * @param {Object} action
+ * @return {Object} New state.
+ */
+function onSubmitDone(state, action) {
+  /* TODO: Double-check, this error-handling looks a bit weird. */
+  if (action.payload.error) {
+    return {
+      ...state,
+      submitErrorMsg: action.payload.error.details || action.payload.error.name,
+      isSubmitting: false,
+      submitDone: false,
+    };
+  }
+
+  return {
+    ...state,
+    ...action.payload,
+    isSubmitting: false,
+    submitDone: true,
+  };
+}
+
+/**
+ * Handles results of CHALLENGE/SUBMIT_INIT action.
+ * @param {Object} state
+ * @param {Object} action
+ * @return {Object} New state.
+ */
+function onSubmitInit(state) {
+  return {
+    ...state,
+    isSubmitting: true,
+    submitDone: false,
+    submitErrorMsg: '',
+  };
+}
+
+/**
+ * Handles results of CHALLENGE/SUBMIT_RESET action.
+ */
+function onSubmitReset(state) {
+  return {
+    ...state,
+    isSubmitting: false,
+    submitDone: false,
+    submitErrorMsg: '',
+  };
+}
+
+/**
  * Creates a new Auth reducer with the specified initial state.
  * @param {Object} initialState Initial state.
  * @return Auth reducer.
@@ -247,6 +299,9 @@ function create(initialState) {
     }),
     [a.registerInit]: state => ({ ...state, registering: true }),
     [a.registerDone]: onRegisterDone,
+    [a.submitDone]: onSubmitDone,
+    [a.submitInit]: onSubmitInit,
+    [a.submitReset]: onSubmitReset,
     [a.unregisterInit]: state => ({ ...state, unregistering: true }),
     [a.unregisterDone]: onUnregisterDone,
     [a.loadResultsInit]: onLoadResultsInit,
@@ -262,6 +317,14 @@ function create(initialState) {
   }, _.defaults(initialState, {
     details: null,
     detailsV2: null,
+
+    /* TODO: This is not good. Instead of boolean loading flags we use
+     * some IDs related to the ongoing process, so that we can both check
+     * the status, and also to know, what exactly is pending. */
+    isSubmitting: false,
+
+    submitDone: false,
+    submitErrorMsg: '',
     loadingCheckpoints: false,
     loadingDetailsForChallengeId: '',
     loadingResultsForChallengeId: '',

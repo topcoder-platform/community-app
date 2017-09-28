@@ -11,14 +11,14 @@
     flex-direction: column;
     align-items: center;
     padding: 20px;
-    background-color: #FCFCFC;
+    background-color: #fcfcfc;
     border-radius: 6px;
-    border: 1px dashed #C3C3C8;
+    border: 1px dashed #c3c3c8;
     min-height: 190px;
     position: relative;
 
     @include xxs-to-xs {
-      main-height: 150px;
+      min-height: 150px;
     }
 
     p {
@@ -57,17 +57,17 @@
   }
 
   .file-picker.error {
-    border-color: #F22F24;
+    border-color: #f22f24;
   }
 
   .file-picker.drag {
-    background-color: rgba(0, 0, 0, .1);
-    border-color: rgba(0, 0, 0, .4);
+    background-color: rgba(0, 0, 0, 0.1);
+    border-color: rgba(0, 0, 0, 0.4);
   }
 
   .desc {
     font-size: 12px;
-    color: #37373C;
+    color: #37373c;
     display: flex;
     justify-content: space-between;
     margin-bottom: 4px;
@@ -87,7 +87,7 @@
   .error-container {
     margin-top: 5px;
     padding: 5px 13px;
-    background: #FFF4F4;
+    background: #fff4f4;
     border: 1px solid #ffd4d1;
     color: #f22f24;
     font-size: 13px;

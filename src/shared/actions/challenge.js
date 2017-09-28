@@ -145,6 +145,32 @@ function fetchCheckpointsDone(tokenV2, challengeId) {
 }
 
 /**
+ * Payload creator for the action that actually performs submission operation.
+ * @param {String} tokenV3
+ * @param {String} tokenV2
+ * @param {String} submissionId
+ * @param {Object} body Data to submit.
+ * @param {String} track Competition track of the challenge where we submit.
+ * @return
+ */
+function submitDone(tokenV3, tokenV2, submissionId, body, track) {
+  return getChallengesService(tokenV3, tokenV2)
+    .submit(body, submissionId, track);
+}
+
+/**
+ * Payload creator for the action that initializes submission operation.
+ */
+function submitInit() {
+}
+
+/**
+ * Payload creator for the action that resets submission operation.
+ */
+function submitReset() {
+}
+
+/**
  * Toggles checkpoint feedback. If second argument is provided, it
  * will just open / close the checkpoint depending on its value being
  * true or false.
@@ -160,7 +186,6 @@ export default createActions({
   CHALLENGE: {
     FETCH_CHECKPOINTS_INIT: _.noop,
     FETCH_CHECKPOINTS_DONE: fetchCheckpointsDone,
-    TOGGLE_CHECKPOINT_FEEDBACK: toggleCheckpointFeedback,
     GET_DETAILS_INIT: getDetailsInit,
     GET_DETAILS_DONE: getDetailsDone,
     GET_SUBMISSIONS_INIT: _.noop,
@@ -169,8 +194,12 @@ export default createActions({
     LOAD_RESULTS_DONE: loadResultsDone,
     REGISTER_INIT: _.noop,
     REGISTER_DONE: registerDone,
+    SELECT_TAB: _.identity,
+    SUBMIT_DONE: submitDone,
+    SUBMIT_INIT: submitInit,
+    SUBMIT_RESET: submitReset,
+    TOGGLE_CHECKPOINT_FEEDBACK: toggleCheckpointFeedback,
     UNREGISTER_INIT: _.noop,
     UNREGISTER_DONE: unregisterDone,
-    SELECT_TAB: _.identity,
   },
 });

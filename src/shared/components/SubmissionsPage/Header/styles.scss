@@ -3,13 +3,12 @@
 .header {
   display: flex;
   padding: 30px 60px;
-  background-color: #FCFCFC;
+  background-color: #fcfcfc;
   width: 100%;
-  display: flex;
   font-family: 'Roboto';
   justify-content: space-between;
   align-items: center;
-  border-bottom: 1px solid #F0F0F0;
+  border-bottom: 1px solid #f0f0f0;
 
   @include xxs-to-sm {
     padding: 30px 20px;
@@ -17,7 +16,7 @@
 
   a {
     font-size: 18px;
-    color: #A3A3AE;
+    color: #a3a3ae;
     font-weight: 300;
     display: flex;
     align-items: center;
