@@ -16,6 +16,7 @@ export default function ChallengeDetailsView(props) {
     hasRegistered,
     openTermsModal,
     challenge: {
+      groupIds,
       introduction,
       detailedRequirements,
       track,
@@ -279,6 +280,7 @@ export default function ChallengeDetailsView(props) {
         isDesign={track.toLowerCase() === 'design'}
         terms={terms}
         openTermsModal={openTermsModal}
+        shareable={!groupIds}
       />
     </div>
   );
@@ -313,6 +315,7 @@ ChallengeDetailsView.propTypes = {
     introduction: PT.string,
     detailedRequirements: PT.string,
     track: PT.string.isRequired,
+    groupIds: PT.arrayOf(PT.string),
     screeningScorecardId: PT.number,
     reviewScorecardId: PT.number,
     forumLink: PT.string,
