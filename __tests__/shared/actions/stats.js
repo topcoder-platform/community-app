@@ -52,11 +52,7 @@ const response2 = {
 
 const result = {
   communityId: undefined,
-  stats: {
-    numChallenges: 0,
-    numMembers: 0,
-    openPrizes: '$0',
-  },
+  stats: {},
 };
 
 describe('stats.getGroupStats fetch all', () => {

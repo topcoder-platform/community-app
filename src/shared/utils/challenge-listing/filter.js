@@ -18,6 +18,13 @@
  * groupIds {Array} - Permits only the challenges belonging to at least one
  * of the groups which IDs are presented as keys in this object.
  *
+ * or {Object[]} - All other filter fields applied to the challenge with AND
+ * logic, i.e. a challenge must satisfy each specified filter rule to match the
+ * filter as whole. In some cases we want to have OR logic between filter rules,
+ * and this array allows to achieve it: each object in this array is treated as
+ * an additional filter (these object may have all the same fields as the root
+ * filter state object), to be tested with OR logic.
+ *
  * registrationOpen {Boolean} - Permits only the challenges with open or closed
  * registration.
  *
@@ -190,18 +197,28 @@ export function addTrack(state, track) {
  * @return {Function}
  */
 export function getFilterFunction(state) {
-  return challenge => filterByStatus(challenge, state)
-  && filterByTrack(challenge, state)
-  && filterByUpcoming(challenge, state)
-  && filterByGroupIds(challenge, state)
-  && filterByText(challenge, state)
-  && filterByTags(challenge, state)
-  && filterBySubtracks(challenge, state)
-  && filterByUsers(challenge, state)
-  && filterByEndDate(challenge, state)
-  && filterByStartDate(challenge, state)
-  && filterByStarted(challenge, state)
-  && filterByRegistrationOpen(challenge, state);
+  return (challenge) => {
+    let test = filterByStatus(challenge, state)
+      && filterByTrack(challenge, state)
+      && filterByUpcoming(challenge, state)
+      && filterByGroupIds(challenge, state)
+      && filterByText(challenge, state)
+      && filterByTags(challenge, state)
+      && filterBySubtracks(challenge, state)
+      && filterByUsers(challenge, state)
+      && filterByEndDate(challenge, state)
+      && filterByStartDate(challenge, state)
+      && filterByStarted(challenge, state)
+      && filterByRegistrationOpen(challenge, state);
+    if (!test && state.or) {
+      let pos = 0;
+      while (!test && pos < state.or.length) {
+        test = getFilterFunction(state.or[pos])(challenge);
+        pos += 1;
+      }
+    }
+    return test;
+  };
 }
 
 /* ************************************************************************** */
@@ -232,9 +249,10 @@ export function getFilterFunction(state) {
  * are not exported outside of the module). */
 /* eslint-disable no-param-reassign */
 
-function combineArrayRules(a, b, ruleName) {
+function combineArrayRules(a, b, ruleName, or = false) {
   if (a[ruleName] && b[ruleName]) {
-    a[ruleName] = _.intersection(a[ruleName], b[ruleName]);
+    if (or) a[ruleName] = _.uniq(a[ruleName].concat(b[ruleName]));
+    else a[ruleName] = _.intersection(a[ruleName], b[ruleName]);
   } else if (b[ruleName]) a[ruleName] = b[ruleName];
 }
 
@@ -279,6 +297,7 @@ export function combine(...filters) {
     combineArrayRules(res, filter, 'groupIds');
     /* TODO: The registrationOpen rule is just ignored for now. */
     combineStartDate(res, filter);
+    combineArrayRules(res, filter, 'or', true);
     combineArrayRules(res, filter, 'status');
     combineArrayRules(res, filter, 'subtracks');
     combineArrayRules(res, filter, 'tags');
@@ -311,6 +330,8 @@ export function combine(...filters) {
  * @return {Object}
  */
 export function mapToBackend(filter) {
+  if (filter.or) return {};
+
   const res = {};
   if (filter.groupIds) res.groupIds = filter.groupIds.join(',');
 

@@ -107,7 +107,7 @@ export class ListingContainer extends React.Component {
       challengesUrl,
       challengeSubtracks,
       challengeTags,
-      groupId,
+      groupIds,
       filter,
       getDraftChallenges,
       getPastChallenges,
@@ -196,7 +196,7 @@ export class ListingContainer extends React.Component {
           }}
           setSort={this.props.setSort}
           sorts={this.props.sorts}
-          groupId={groupId}
+          groupIds={groupIds}
           auth={this.props.auth}
         />
         { !listingOnly ? (
@@ -213,7 +213,7 @@ export class ListingContainer extends React.Component {
 
 ListingContainer.defaultProps = {
   selectedCommunityId: '',
-  groupId: '',
+  groupIds: [''],
   hideTcLinksInSidebarFooter: false,
   challengesUrl: '/challenges',
   communityId: null,
@@ -269,7 +269,7 @@ ListingContainer.propTypes = {
   setSearchText: PT.func.isRequired,
   setSort: PT.func.isRequired,
   listingOnly: PT.bool,
-  groupId: PT.string,
+  groupIds: PT.arrayOf(PT.string),
 };
 
 const mapStateToProps = (state, ownProps) => {

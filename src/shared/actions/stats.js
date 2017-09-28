@@ -17,6 +17,7 @@ import { getService as getGroupService } from 'services/groups';
  *  related to private groups.
  * @return {Promise} Resolves to the loaded data.
  */
+/* TODO: This code should be moved to a dedicated service. */
 function getCommunityStats(community, challenges, token) {
   /* TODO: At the moment, this component loads challenge objects to calculate
    * the number of challenges and the total prize. Probably in future, we'll
@@ -26,18 +27,23 @@ function getCommunityStats(community, challenges, token) {
   const groupService = getGroupService(token);
   const result = {
     communityId: community.communityId,
-    stats: {
-      numChallenges: filtered.length,
-      numMembers: 0,
-      openPrizes: `$${totalPrize.toLocaleString()}`,
-    },
+    stats: {},
   };
-  if (community.groupId) {
-    return groupService.getMembers(community.groupId)
-      .then((members) => {
-        result.stats.numMembers = members.length;
-        return result;
-      }).catch(() => result);
+  if (filtered.length) result.stats.numChallenges = filtered.length;
+  if (totalPrize) result.stats.openPrizes = `$${totalPrize.toLocaleString()}`;
+  if (community.groupIds && community.groupIds.length) {
+    const members = new Set();
+    return Promise.all(
+      community.groupIds.map(id =>
+        groupService.getMembers(id)
+          .then(res => res.forEach((member) => {
+            if (member.membershipType === 'user') members.add(member);
+          })).catch(() => null),
+      ),
+    ).then(() => {
+      if (members.size) result.stats.numMembers = members.size;
+      return result;
+    });
   }
   return result;
 }

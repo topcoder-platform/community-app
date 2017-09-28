@@ -4,15 +4,15 @@ import JoinCommunity, {
   STATE as JOIN_COMMUNITY,
 } from 'components/tc-communities/JoinCommunity';
 import { connect } from 'react-redux';
-import { isGroupMember } from 'utils/tc';
 
 function mapStateToProps(state, ownProps) {
   /* We show Join Community button when a visitor is not authenticated, or when
    * he is authenticated and not a member of the community group. */
   let canJoin = !state.auth.profile || !state.auth.profile.groups;
   if (!canJoin) {
-    canJoin = !isGroupMember(state.tcCommunities.meta.groupId,
-      state.auth.profile.groups, state.groups.groups);
+    const int = _.intersection(state.tcCommunities.meta.data.groupIds,
+      state.auth.profile.groups.map(g => g.id));
+    canJoin = !int.length;
   }
   if (state.tcCommunities.hideJoinButton) canJoin = false;
 
@@ -20,8 +20,8 @@ function mapStateToProps(state, ownProps) {
   else canJoin = JOIN_COMMUNITY.HIDDEN;
 
   return {
-    communityName: state.tcCommunities.meta.communityName,
-    groupId: state.tcCommunities.meta.groupId,
+    communityName: state.tcCommunities.meta.data.communityName,
+    groupIds: state.tcCommunities.meta.data.groupIds,
     label: ownProps.label,
     theme: ownProps.theme,
     token: state.auth.tokenV3,

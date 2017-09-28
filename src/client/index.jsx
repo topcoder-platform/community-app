@@ -3,6 +3,7 @@
  */
 
 import actions from 'actions/auth';
+import userGroupsActions from 'actions/groups';
 import cookies from 'browser-cookies';
 import { BrowserRouter, browserHistory } from 'react-router-dom';
 import React from 'react';
@@ -63,6 +64,12 @@ function authenticate(store) {
     }
     if (auth.tokenV2 !== (tctV2 || null)) {
       store.dispatch(actions.auth.setTcTokenV2(tctV2));
+    }
+
+    /* User group data demands proper authorization to be accessed,
+     * thus they should be dropped if authentication fails. */
+    if (!tctV3) {
+      store.dispatch(userGroupsActions.groups.dropGroups());
     }
 
     /* Automatic refreshment of auth tokens. */

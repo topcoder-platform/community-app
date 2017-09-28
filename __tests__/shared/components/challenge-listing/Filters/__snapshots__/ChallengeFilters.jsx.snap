@@ -50,7 +50,6 @@ exports[`Matches shallow shapshot shapshot 1`] = `
     }
     communityName="name"
     filterState={Object {}}
-    groupId={undefined}
     hidden={true}
     isSavingFilter={false}
     onClose={[Function]}
@@ -205,7 +204,6 @@ exports[`Matches shallow shapshot shapshot 2`] = `
         ],
       }
     }
-    groupId={undefined}
     hidden={true}
     isSavingFilter={false}
     onClose={[Function]}

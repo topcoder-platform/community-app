@@ -29,6 +29,7 @@ function testReducer(reducer, istate) {
   test('Handles fetchDataInit as expected', () => {
     state = reducer(state, mockMetaActions.tcCommunities.meta.fetchDataInit());
     expect(state).toEqual({
+      data: {},
       lastUpdateOfMetaData: 0,
       loadingMetaDataForCommunityId: 'test-community',
     });
@@ -44,6 +45,7 @@ function testReducer(reducer, istate) {
 }
 
 const INITIAL_STATE = {
+  data: {},
   lastUpdateOfMetaData: 0,
   loadingMetaDataForCommunityId: '',
 };

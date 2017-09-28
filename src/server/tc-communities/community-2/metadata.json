@@ -19,7 +19,7 @@
     "redirect": "https://ios.topcoder.com/",
     "value": "3"
   }],
-  "groupId": "20000002",
+  "groupIds": ["20000002"],
   "leaderboardApiUrl": "https://api.topcoder.com/v4/looks/458/run/json/",
   "logos": [{
     "img": "/themes/community-2/logo_topcoder_with_name.svg",
