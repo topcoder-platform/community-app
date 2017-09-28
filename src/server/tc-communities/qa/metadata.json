@@ -1,6 +1,6 @@
 {
   "challengeFilter": {
-    "groupIds": ["20000004", "20000000"]
+    "groupIds": ["20000004"]
   },
   "communityId": "qa",
   "communityName": "QaaS",
