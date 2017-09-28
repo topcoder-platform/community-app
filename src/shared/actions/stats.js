@@ -17,6 +17,7 @@ import { getService as getGroupService } from 'services/groups';
  *  related to private groups.
  * @return {Promise} Resolves to the loaded data.
  */
+/* TODO: This code should be moved to a dedicated service. */
 function getCommunityStats(community, challenges, token) {
   /* TODO: At the moment, this component loads challenge objects to calculate
    * the number of challenges and the total prize. Probably in future, we'll
@@ -33,13 +34,18 @@ function getCommunityStats(community, challenges, token) {
     },
   };
   if (community.groupIds && community.groupIds.length) {
-    /* TODO: Should be properly updated to count members from all groups
-     * without double-counting. */
-    return groupService.getMembers(community.groupIds[0])
-      .then((members) => {
-        result.stats.numMembers = members.length;
-        return result;
-      }).catch(() => result);
+    const members = new Set();
+    return Promise.all(
+      community.groupIds.map(id =>
+        groupService.getMembers(id)
+          .then(res => res.forEach((member) => {
+            if (member.membershipType === 'user') members.add(member);
+          })).catch(),
+      ),
+    ).then(() => {
+      result.stats.numMembers = members.size;
+      return result;
+    });
   }
   return result;
 }

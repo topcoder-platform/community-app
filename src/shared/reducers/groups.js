@@ -19,11 +19,7 @@
 
 import _ from 'lodash';
 import actions from 'actions/groups';
-import { getService as getCommunitiesService } from 'services/communities';
 import { handleActions } from 'redux-actions';
-import { getCommunityId } from 'routes/subdomains';
-import { toFSA } from 'utils/redux';
-import { getAuthTokens } from 'utils/tc';
 
 /**
  * Private. Given two user group maps, it adds to "dst" the root group from
@@ -103,49 +99,12 @@ function create(state) {
 }
 
 /**
- * Loads into the state detailed information on the groups related to the
- * specified community.
- *
- * NOTE: This function is intended for the internal use only, it modifies
- * "state" argument!
- *
- * @param {String} communityId
- * @param {String} tokenV3
- * @param {Object} state
- * @return {Promise} Resolves to the resulting state.
- */
-function loadCommunityGroups(communityId, tokenV3, state) {
-  let res = _.defaults(state, { groups: {}, loading: {} });
-  return getCommunitiesService(tokenV3).getMetadata(communityId).then((data) => {
-    let ids = data.authorizedGroupIds || [];
-    if (data.groupIds) ids = ids.concat(data.groupIds);
-    res = onGetGroupsInit(res, { payload: ids });
-    return toFSA(actions.groups.getGroupsDone(ids, tokenV3))
-      .then((action) => { res = onGetGroupsDone(res, action); })
-      .then(() => res);
-  });
-}
-
-/**
  * Reducer factory.
  * @param {Object} req Optional. ExpressJS HTTP request. If provided, the
  *  intial state of the reducer will be tailored to the request.
  * @return {Promise} Resolves to the reducer.
  */
-export function factory(req) {
-  if (req) {
-    /* For any location within any TC community we should load detailed
-     * information about any related user groups. */
-    let communityId = getCommunityId(req.subdomains);
-    if (!communityId && req.url.startsWith('/community')) {
-      communityId = req.url.split('/')[2];
-    }
-    if (communityId) {
-      const tokenV3 = getAuthTokens(req).tokenV3;
-      return loadCommunityGroups(communityId, tokenV3, {})
-        .then(res => create(res));
-    }
-  }
+export function factory(/* req */) {
   return Promise.resolve(create());
 }
 
