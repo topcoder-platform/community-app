@@ -1,6 +1,9 @@
 {
   "challengeFilter": {
-    "groupIds": ["20000001","20000004"]
+    "groupIds": ["20000001","20000004"],
+    "or": [{
+      "tags": ["JavaScript"]
+    }]
   },
   "communityId": "qa",
   "communityName": "QaaS",
