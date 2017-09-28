@@ -236,12 +236,17 @@ export default function ChallengeDetailsView(props) {
           <article>
             <h2>Payments</h2>
             <p>
-              Topcoder will compensate members in accordance with the payment
-              structure of this challenge. Initial payment for the winning
-              member will be distributed in two installments. The first payment
-              will be made at the closure of the approval phase. The second
-              payment will be made at the completion of the
-              support period.
+              Topcoder will compensate members in accordance with the our
+              standard payment policies, unless otherwise specified in this
+              challenge. For information on payment policies, setting up your
+              profile to receive payments, and general payment questions,
+              please refer to
+              &zwnj;<a
+                href="https://help.topcoder.com/hc/en-us/articles/217482038-Payment-Policies-and-Instructions"
+                rel="noopener noreferrer"
+                target="_blank"
+              >https://help.topcoder.com/hc/en-us/articles/217482038-Payment-Policies-and-Instructions
+              </a>.
             </p>
           </article>
           <article>
