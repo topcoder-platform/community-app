@@ -201,7 +201,7 @@ class Design extends React.Component {
               <h4>DID YOU USE CUSTOM FONTS?</h4>
               <p>Check to see if your MultiInput is on the Studio Standard MultiInputs list..
                 If it is, leave the URL field <a>Read Studio MultiInputs Policy</a>
-                <br />If your MultiInput is not on the list, you must provide the URL to the
+              </p><p>If your MultiInput is not on the list, you must provide the URL to the
                 MultiInput page (not file) from one of the approved MultiInput websites in the
                 dropdown box.
               </p>
