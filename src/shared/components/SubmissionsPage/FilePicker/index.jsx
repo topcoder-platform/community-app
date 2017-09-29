@@ -92,7 +92,7 @@ class FilePicker extends React.Component {
           id={`drop-zone-${id}`}
         >
           {
-            !fileName && <p>Drag and drop your {fileExtensions.join(' or ')} file here.</p>
+            !fileName && <p>Drag and drop your submission{fileExtensions.join(' or ')} file here.</p>
           }
           {
             !fileName && <span>or</span>
