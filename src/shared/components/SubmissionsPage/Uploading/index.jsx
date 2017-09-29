@@ -31,11 +31,11 @@ const Uploading = ({
       }
       {
         isSubmitting &&
-          <h3>{challengeName}</h3>
+          <h3>{'"'}{challengeName }{'"'}</h3>
       }
       {
         (submitDone || error) &&
-          <Link to={`/challenges/${challengeId}`}>{challengeName}</Link>
+          <Link to={`/challenges/${challengeId}`}>{challengeName }</Link>
       }
       {
         (isSubmitting || submitDone) &&
