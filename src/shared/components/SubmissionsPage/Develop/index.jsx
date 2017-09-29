@@ -1,4 +1,10 @@
-/* eslint-env browser */
+/**
+ * Submission page for development challenges.
+ */
+
+/* global document, FormData */
+
+import config from 'utils/config';
 import React from 'react';
 import PropTypes from 'prop-types';
 import { PrimaryButton } from 'components/buttons';
@@ -81,8 +87,13 @@ class Develop extends React.Component {
                     cb={this.fileCb}
                   />
                 </div>
-                <p>If you have trouble uploading your file, please submit
-                  <a href=";javascript"> here</a>
+                <p>
+                  If you have trouble uploading your file, please submit
+                  &zwnj;<a
+                    href={`${config.URL.ONLINE_REVIEW}/review/actions/UploadContestSubmission?pid=${challengeId}`}
+                    rel="noreferrer noopener"
+                    target="_blank"
+                  >here</a>
                 </p>
               </div>
             </div>

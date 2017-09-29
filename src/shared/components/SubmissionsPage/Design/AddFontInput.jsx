@@ -56,8 +56,19 @@ class AddFont extends React.Component {
           defaultValue=""
           onChange={this.onChangeFontSelect}
         >
-          <option value="">Select a provider from the list</option>
-          <option value="Font 1">Font 1</option>
+          <option disabled hidden value="">Select a provider from the list</option>
+          <option value="STUDIO_STANDARD_FONTS_LIST">
+            Studio Standard Fonts List
+          </option>
+          <option value="FONTS_DOT_COM">Fonts.com</option>
+          <option value="MYFONTS">MyFonts</option>
+          <option value="ADOBE_FONTS>">Adobe Fonts</option>
+          <option value="FONT_SHOP">Font Shop</option>
+          <option value="T26_DIGITAL_TYPE_FOUNDRY">
+            T.26 Digital Type Foundry
+          </option>
+          <option value="FONT_SQUIRREL">Font Squirrel</option>
+          <option value="TYPOGRAPHY_DOT_COM">Typography.com</option>
         </select>
         <span styleName="desc">FONT NAME</span>
         <input

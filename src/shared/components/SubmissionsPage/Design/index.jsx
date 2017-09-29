@@ -7,6 +7,9 @@ import MultiInput from './MultiInput';
 import Uploading from '../Uploading';
 import './styles.scss';
 
+/* The maximum number of symbols allowed in the Notes textarea. */
+const MAX_NOTES_LENGTH = 500;
+
 /**
  * Submissions Page shown to design challengers.
  */
@@ -18,6 +21,7 @@ class Design extends React.Component {
       errorSubmissionFile: true,
       errorSourceFile: true,
       errorPreviewFile: true,
+      notesLength: 0,
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.fileCb = this.fileCb.bind(this);
@@ -186,10 +190,17 @@ class Design extends React.Component {
                   COMMENTS
                 </span>
                 <span>
-                  0 / 500
+                  { this.state.notesLength } / { MAX_NOTES_LENGTH }
                 </span>
               </div>
               <textarea
+                onChange={(event) => {
+                  const target = event.target;
+                  if (target.value.length > MAX_NOTES_LENGTH) {
+                    target.value = target.value.slice(0, MAX_NOTES_LENGTH);
+                  }
+                  this.setState({ notesLength: target.value.length });
+                }}
                 styleName="big-input"
                 placeholder="Example: My design tries to solve the problem with a particular idea in mind. The use of color is based on the provided brand guideline. The flows are included in the sub folder. I followed all revisions as per the directions provided."
                 name="comment"
