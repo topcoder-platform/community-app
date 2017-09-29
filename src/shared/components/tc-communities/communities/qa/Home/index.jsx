@@ -32,7 +32,7 @@ export default function Home({
     <main>
       <Banner
         title="Topcoder QA Community"
-        imageSrc="/themes/qa/community-hero.jpg"
+        imageSrc="/themes/qa/home/header.jpg"
       >
         <div styleName="bannerText">
           {member ? (
