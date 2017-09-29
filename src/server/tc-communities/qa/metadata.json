@@ -1,8 +1,8 @@
 {
   "challengeFilter": {
-    "groupIds": ["20000001","20000004"],
+    "groupIds": ["20000012","20000004"],
     "or": [{
-      "tags": ["JavaScript"]
+      "tags": ["QA"]
     }]
   },
   "communityId": "qa",
@@ -15,7 +15,7 @@
     "redirect": "https://www.topcoder.com",
     "value": "2"
   }],
-  "groupIds": ["20000001","20000004"],
+  "groupIds": ["20000012","20000004"],
   "logos": [{
     "img": "/themes/qa/logo_topcoder_with_name.svg",
     "url": "https://www.topcoder.com"
