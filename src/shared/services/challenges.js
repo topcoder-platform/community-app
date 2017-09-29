@@ -240,9 +240,10 @@ class ChallengesService {
     const url = track !== 'DESIGN' ?
       `/develop/challenges/${challengeId}/upload` :
       `/design/challenges/${challengeId}/submit`;
-    return this.private.apiV2.customFetch(url, {
-      method: 'POST',
+    return this.private.apiV2.fetch(url, {
       body,
+      headers: { 'Content-Type': null },
+      method: 'POST',
     }).then(
       res => res.json(),
       (err) => {

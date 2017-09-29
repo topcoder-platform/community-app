@@ -21,10 +21,16 @@ export default class Api {
   }
 
   /**
-   * Sends a request to the specified endpoint of the API. This method just
-   * wraps fetch() in a convenient way. If this object was created with the
-   * auth token, it will be automatically added to auth header of all
-   * requests.
+   * Sends HTTP request to the specified API endpoint. This method is just
+   * a convenient wrapper around isomorphic fetch(..):
+   *
+   *  - If API service has auth token, Authorization header is automatically
+   *    added to the request;
+   *
+   *  - If no Content-Type header set in options, it is automatically set to
+   *    "application/json". In case you want to avoid it, pass null into
+   *    Content-Type header option.
+   *
    * For additional details see https://github.github.io/fetch/
    * @param {String} enpoint Should start with slash, like /endpoint.
    * @param {Object} options Optional. Fetch options.
@@ -35,25 +41,18 @@ export default class Api {
    *  and you should check .status or .ok fields of the response object
    *  to find out the response status.
    */
-  fetch(endpoint, options) {
-    const p = this.private;
-    const headers = { 'Content-Type': 'application/json' };
-    if (p.token) headers.Authorization = `Bearer ${p.token}`;
-    const ops = _.merge(_.cloneDeep(options) || {}, { headers });
-    return fetch(`${p.base}${endpoint}`, ops);
-  }
+  fetch(endpoint, options = {}) {
+    const { base, token } = this.private;
+    const headers = options.headers ? _.clone(options.headers) : {};
+    if (token) headers.Authorization = `Bearer ${token}`;
 
-  /**
-   * Same as above, just don't set Content-Type header.
-   * @param {String} endpoint
-   * @param {Object} options
-   */
-  customFetch(endpoint, options) {
-    const p = this.private;
-    const headers = {};
-    if (p.token) headers.Authorization = `Bearer ${p.token}`;
-    const ops = _.merge(_.cloneDeep(options) || {}, { headers });
-    return fetch(`${p.base}${endpoint}`, ops);
+    switch (headers['Content-Type']) {
+      case null: delete headers['Content-Type']; break;
+      case undefined: headers['Content-Type'] = 'application/json'; break;
+      default:
+    }
+
+    return fetch(`${base}${endpoint}`, { ...options, headers });
   }
 
   /**
