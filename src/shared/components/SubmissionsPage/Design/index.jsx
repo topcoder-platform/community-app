@@ -136,13 +136,12 @@ class Design extends React.Component {
               <h4>FILES</h4>
               <p>Please follow the instructions on the Challenge Details page
                 regarding what your submission, source and preview files should
-                contain. <br />Do not name any of your files &quot;declaration.txt&quot;
-                as this is added by our system.<br />
+                contain.</p><p> Do not name any of your files &quot;declaration.txt&quot;
+                as this is added by our system.</p><p>
                 Please be sure to double-check that you have submitted the
                 correct files and that your JPG files (if applicable) are in
-                RGB color mode.<br /><a href=";javascript">Learn more about formatting
-                your submission file.</a>
-              </p>
+                RGB color mode.</p><p><a href=";javascript">Learn more about formatting
+                your submission file.</a></p>
             </div>
             <div styleName="right">
               <div styleName="file-picker-container">
