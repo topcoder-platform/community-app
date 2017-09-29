@@ -136,13 +136,12 @@ class Design extends React.Component {
               <h4>FILES</h4>
               <p>Please follow the instructions on the Challenge Details page
                 regarding what your submission, source and preview files should
-                contain. <br />Do not name any of your files &quot;declaration.txt&quot;
-                as this is added by our system.<br />
+                contain.</p><p> Do not name any of your files &quot;declaration.txt&quot;
+                as this is added by our system.</p><p>
                 Please be sure to double-check that you have submitted the
                 correct files and that your JPG files (if applicable) are in
-                RGB color mode.<br /><a href=";javascript">Learn more about formatting
-                your submission file.</a>
-              </p>
+                RGB color mode.</p><p><a href=";javascript">Learn more about formatting
+                your submission file.</a></p>
             </div>
             <div styleName="right">
               <div styleName="file-picker-container">
@@ -202,7 +201,7 @@ class Design extends React.Component {
               <h4>DID YOU USE CUSTOM FONTS?</h4>
               <p>Check to see if your MultiInput is on the Studio Standard MultiInputs list..
                 If it is, leave the URL field <a>Read Studio MultiInputs Policy</a>
-                <br />If your MultiInput is not on the list, you must provide the URL to the
+              </p><p>If your MultiInput is not on the list, you must provide the URL to the
                 MultiInput page (not file) from one of the approved MultiInput websites in the
                 dropdown box.
               </p>
