@@ -5,7 +5,7 @@
 import React from 'react';
 import PT from 'prop-types';
 import { themr } from 'react-css-super-themr';
-import { Link } from 'react-router-dom';
+import { Link } from 'utils/router';
 import defaultStyle from './style.scss';
 
 function ResourceCard(props) {
@@ -13,12 +13,16 @@ function ResourceCard(props) {
 
   return (
     <div className={theme.container}>
-      <Icon className={theme.icon} />
+      {Boolean(Icon) && <Icon className={theme.icon} />}
       <h3 className={theme.title}>{title}</h3>
       <p className={theme.text}>{text}</p>
       {link &&
         <div className={theme.linkWrap}>
-          <Link className={theme.link} to={link.url}>{link.title}</Link>
+          <Link
+            className={theme.link}
+            openNewTab={link.openNewTab}
+            to={link.url}
+          >{link.title}</Link>
         </div>
       }
     </div>
@@ -26,16 +30,18 @@ function ResourceCard(props) {
 }
 
 ResourceCard.defaultProps = {
+  icon: null,
   link: null,
   text: '',
   theme: {},
 };
 
 ResourceCard.propTypes = {
-  icon: PT.func.isRequired,
+  icon: PT.func,
   title: PT.string.isRequired,
   text: PT.string,
   link: PT.shape({
+    openNewTab: PT.bool,
     title: PT.string.isRequired,
     url: PT.string.isRequired,
   }),

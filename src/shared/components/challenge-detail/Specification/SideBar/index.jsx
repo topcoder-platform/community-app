@@ -14,8 +14,9 @@ import styles from './styles.scss';
 export default function SideBar({
   documents,
   eventDetail,
-  screeningScorecardId,
   reviewScorecardId,
+  screeningScorecardId,
+  shareable,
   forumLink,
   submissionLimit,
   hasRegistered,
@@ -213,8 +214,12 @@ export default function SideBar({
             </ul>
           </div>
         }
-        <h3>SHARE:</h3>
-        <ShareSocial />
+        { shareable && (
+          <span>
+            <h3>SHARE:</h3>
+            <ShareSocial />
+          </span>
+        )}
       </div>
     </div>
   );
@@ -240,6 +245,7 @@ SideBar.propTypes = {
   }),
   documents: PT.arrayOf(PT.shape()),
   screeningScorecardId: PT.number,
+  shareable: PT.bool.isRequired,
   reviewScorecardId: PT.number,
   forumLink: PT.string.isRequired,
   submissionLimit: PT.number,

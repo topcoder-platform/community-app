@@ -12,9 +12,8 @@ import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 
 import ChallengeListing from '../ChallengeListing';
-import Leaderboard from '../Leaderboard';
 
-export default function Wipro({ base, meta }) {
+export default function QA({ base, member, meta }) {
   return (
     <Route
       component={({ match }) => (
@@ -27,22 +26,17 @@ export default function Wipro({ base, meta }) {
               path={`${base}/challenges`}
             />
             <Route
-              component={() => <Leaderboard meta={meta} />}
-              exact
-              path={`${base}/leaderboard`}
-            />
-            <Route
               component={Learn}
               exact
               path={`${base}/learn`}
             />
             <Route
-              component={Home}
+              component={() => <Home member={member} />}
               exact
               path={`${base}/home`}
             />
             <Route
-              component={Home}
+              component={() => <Home member={member} />}
               exact
               path={`${base}`}
             />
@@ -56,11 +50,12 @@ export default function Wipro({ base, meta }) {
   );
 }
 
-Wipro.defaultProps = {
+QA.defaultProps = {
   base: '',
 };
 
-Wipro.propTypes = {
+QA.propTypes = {
   base: PT.string,
+  member: PT.bool.isRequired,
   meta: PT.shape().isRequired,
 };

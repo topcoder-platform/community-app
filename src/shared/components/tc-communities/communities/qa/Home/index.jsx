@@ -11,35 +11,43 @@ import Section from 'components/tc-communities/Section';
 import Banner from 'components/tc-communities/Banner';
 import ImageText from 'components/tc-communities/ImageText';
 import ResourceCard from 'components/tc-communities/ResourceCard';
-import NewsletterSignup from 'components/tc-communities/NewsletterSignup';
 import NewsSection from 'components/tc-communities/NewsSection';
 import PT from 'prop-types';
 
 import CommunityStats from 'containers/tc-communities/CommunityStats';
 import JoinCommunity from 'containers/tc-communities/JoinCommunity';
 
-import IconRocket from '../../../../../../assets/images/tc-communities/rocket.svg';
-import IconNetwork from '../../../../../../assets/images/tc-communities/network.svg';
-import IconMedal from '../../../../../../assets/images/tc-communities/medal.svg';
-
 import style from './style.scss';
 
-export default function Home(props) {
+export default function Home({
+  member,
+  news,
+}) {
   return (
     <main>
       <Banner
         title="Topcoder QA Community"
-        text="This is the place where Topcoder members can come to focus on work that involves QA."
-        link={{
-          title: 'Compete Now',
-          url: 'challenges',
-        }}
-        imageSrc="/themes/qa/community-hero.jpg"
-      />
+        imageSrc="/themes/qa/home/header.jpg"
+      >
+        <div styleName="bannerText">
+          {member ? (
+            'This is the place where Topcoder members can come to focus on work that involves QA.'
+          ) : (
+            <span>
+              Sign up. &laquo;Test&raquo; your skills. Get Rewarded.
+              &zwnj;<span styleName="highlighted">It&apos;s that simple!</span>
+            </span>
+          )}
+        </div>
+        { !member && (
+          <JoinCommunity
+            theme={{ link: style.joinNow }}
+            label="Join Now"
+          />
+        )}
+      </Banner>
 
       <CommunityStats />
-
-      <JoinCommunity />
 
       <Section
         theme={{
@@ -54,62 +62,75 @@ export default function Home(props) {
               title: 'Start Learning',
               url: 'learn',
             }}
-            imageSrc="/themes/qa/home/image-text-learn.jpg"
+            imageSrc="/themes/qa/home/image-ramp-up.jpg"
           />
           <ImageText
             title="Get Involved"
-            text="Whether you're a copilot, designer, developer, or data scientist...we want you involved. Topcoder is one of the biggest customers of our own platform, so there is never a shortage of interesting things to work on."
+            text="Whether you're a QA specialists, copilot, designer, developer, or data scientist... we want you involved. Topcoder is one of the biggest customers of our own platform, so there is never a shortage of interesting things to work on."
             link={{
               title: 'Start Contributing',
               url: 'challenges',
             }}
-            imageSrc="/themes/qa/home/image-text-do.jpg"
+            imageSrc="/themes/qa/home/image-get-involved.jpg"
           />
         </div>
       </Section>
 
       <Section
         theme={{
-          container: style.resourcesContainer,
+          container: style.resourcesContainer2,
         }}
       >
         <ResourceCard
-          icon={IconNetwork}
-          title="Learn about our platform"
-          text="There are many aspects to our platform...something for everyone."
+          theme={{
+            container: style.bgGray,
+          }}
+          title="Why QA Needs to be Invisible and Why Engineering Quality should be Your Ultimate Goal"
+          text="&laquo;Isn't Software Testing dead?&raquo; Over the last couple of years, this though (or something similar to it) seems to be the most debated, commented and argued over."
           link={{
-            title: 'Browse resources',
-            url: 'learn',
+            openNewTab: true,
+            title: 'Learn More',
+            url: 'http://www.dqindia.com/why-qa-needs-to-be-invisible-and-why-engineering-quality-should-be-your-ultimate-goal/',
           }}
         />
         <ResourceCard
-          icon={IconMedal}
-          title="What's in it for me?"
-          text="Topcoder rewards participants with cash. The more deliverables you produce, the more you can make."
+          theme={{
+            container: style.bgBlue,
+          }}
+          title="State of Quality Edition 1"
+          text="An investigative report into the current state of Testing, and its evolution into Quality Engineering and Assurance."
           link={{
-            title: 'Learn about rewards',
-            url: 'leaderboard',
+            openNewTab: true,
+            title: 'Learn More',
+            url: 'http://www.wipro.com/microsite/state-of-quality-2016/index.php',
           }}
         />
         <ResourceCard
-          icon={IconRocket}
-          title="Participate in many ways"
-          text="We're always running challenges and tasks.  Check back every day to see what's new."
+          theme={{
+            container: style.bgYellow,
+          }}
+          title="Digital Assurance Perspectives"
+          text="Digital Assurance has moved focus from functional validation of &laquo;commerce&raquo; on multiple channels in silos towards an omni-channel experience."
           link={{
-            title: 'Browse challenges',
-            url: 'challenges',
+            openNewTab: true,
+            title: 'Learn More',
+            url: 'http://www.wipro.com/blogs/digital-assurance-perspectives/',
+          }}
+        />
+        <ResourceCard
+          theme={{
+            container: style.bgGreen,
+          }}
+          title="Assuring a mobile future"
+          text="Traditional QA methodologies unfortunately tend to fail in the mobility landscape due to various factors due to which organizations need to adapt and transform the way QA is carried out."
+          link={{
+            openNewTab: true,
+            title: 'Learn More',
+            url: 'http://www.wipro.com/blogs/assuring-a-mobile-future-part-i/',
           }}
         />
       </Section>
-
-      <NewsSection news={props.news} />
-
-      <NewsletterSignup
-        title="Sign up for Topcoder Product Development Updates"
-        text="Don’t miss out opportunities to work on the Topcoder Platform!"
-        imageSrc="/themes/wipro/subscribe-bg.jpg"
-      />
-
+      <NewsSection news={news} />
     </main>
   );
 }
@@ -119,6 +140,7 @@ Home.defaultProps = {
 };
 
 Home.propTypes = {
+  member: PT.bool.isRequired,
   news: PT.arrayOf(PT.shape()),
 };
 

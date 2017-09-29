@@ -1,8 +1,12 @@
-import React from 'react';
-import PT from 'prop-types';
 import _ from 'lodash';
-import TU from 'react-dom/test-utils';
+import mockReduxStore from 'redux-mock-store';
+import PT from 'prop-types';
+import React from 'react';
 import ResourceCard from 'components/tc-communities/ResourceCard';
+import TU from 'react-dom/test-utils';
+import { Provider } from 'react-redux';
+
+const store = mockReduxStore()();
 
 class Wrapper extends React.Component {
   getChildContext() {
@@ -19,7 +23,11 @@ class Wrapper extends React.Component {
   componentDidMount() {}
 
   render() {
-    return <ResourceCard {...this.props} />;
+    return (
+      <Provider store={store}>
+        <ResourceCard {...this.props} />
+      </Provider>
+    );
   }
 }
 
