@@ -1,12 +1,12 @@
-/* eslint jsx-a11y/no-static-element-interactions:0 */
 /**
  * Challenge header component.
  * This component renders all other child components part of the header.
  * Any data massaging needed for a child view should be done here.
  */
 
-import config from 'utils/config';
 import _ from 'lodash';
+import camelcase from 'camelcase';
+import config from 'utils/config';
 import React from 'react';
 import PT from 'prop-types';
 import moment from 'moment';
@@ -54,13 +54,20 @@ export default function ChallengeHeader(props) {
     reliabilityBonus,
     userDetails,
     currentPhases,
-    submissionEndDate,
     numRegistrants,
     numSubmissions,
     allPhases,
     status,
     appealsEndDate,
   } = challenge;
+
+  const phases = {};
+  allPhases.forEach((phase) => { phases[camelcase(phase.phaseType)] = phase; });
+  const registrationEnded =
+    _.get(phases, 'registration.phaseStatus') !== 'Open';
+  const submissionEnded =
+    _.get(phases, 'submission.phaseStatus') !== 'Open' &&
+    _.get(phases, 'checkpointSubmission.phaseStatus') !== 'Open';
 
   const registrationPhase = allPhases.find(p => p.phaseType === 'Registration');
   const registrationEndDate = registrationPhase.actualEndTime
@@ -81,8 +88,7 @@ export default function ChallengeHeader(props) {
   } else if (reliabilityBonus) {
     bonusType = 'Reliability Bonus';
   }
-  const registrationEnded = new Date(registrationEndDate).getTime() < Date.now() || status.toLowerCase() !== 'active';
-  const submissionEnded = new Date(submissionEndDate).getTime() < Date.now();
+
   const hasSubmissions = userDetails && userDetails.hasUserSubmittedForReview;
   const nextPhaseIndex = hasRegistered ? 1 : 0;
   const nextDeadline = currentPhases.length > 0 && currentPhases[nextPhaseIndex].phaseType;
@@ -127,8 +133,8 @@ export default function ChallengeHeader(props) {
         (new Date(b.actualEndTime || b.scheduledEndTime)).getTime();
     });
     if (subTrack === 'FIRST_2_FINISH' && status === 'COMPLETED') {
-      const phases = allPhases.filter(p => p.phaseType === 'Iterative Review' && p.phaseStatus === 'Closed');
-      const endPhaseDate = Math.max(...phases.map(d => new Date(d.scheduledEndTime)));
+      const phases2 = allPhases.filter(p => p.phaseType === 'Iterative Review' && p.phaseStatus === 'Closed');
+      const endPhaseDate = Math.max(...phases2.map(d => new Date(d.scheduledEndTime)));
       relevantPhases = _.filter(relevantPhases, p => (p.phaseType.toLowerCase().includes('registration') ||
         new Date(p.scheduledEndTime).getTime() < endPhaseDate));
       relevantPhases.push({
@@ -271,7 +277,12 @@ export default function ChallengeHeader(props) {
                   </div>
                 }
               </div>
-              <a onClick={props.onToggleDeadlines} styleName="deadlines-collapser">
+              <a
+                onClick={props.onToggleDeadlines}
+                role="button"
+                styleName="deadlines-collapser"
+                tabIndex={0}
+              >
                 {props.showDeadlineDetail ?
                   <span styleName="collapse-text">Hide Deadlines <ArrowDown /></span>
                   : <span styleName="collapse-text">Show Deadlines <ArrowUp /></span>
