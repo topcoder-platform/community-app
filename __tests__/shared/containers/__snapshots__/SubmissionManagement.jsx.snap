@@ -13,6 +13,7 @@ exports[`Matches shapshot 1`] = `
     }
   }
   challengeId={12345}
+  challengesUrl="/challenges"
   deleting={true}
   isLoadingChallenge={false}
   isLoadingSubmissions={false}
