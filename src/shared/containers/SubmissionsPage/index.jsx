@@ -1,6 +1,6 @@
 import actions from 'actions/challenge';
 import React from 'react';
-import PropTypes from 'prop-types';
+import PT from 'prop-types';
 import { connect } from 'react-redux';
 import Header from 'components/SubmissionsPage/Header';
 import Design from 'components/SubmissionsPage/Design';
@@ -28,12 +28,18 @@ class SubmissionsPage extends React.Component {
   }
 
   render() {
+    const {
+      challengeId,
+      challengeName,
+      challengesUrl,
+    } = this.props;
     return (
       <div styleName="container">
         <div styleName="content">
           <Header
-            title={this.props.challengeName}
-            challengeId={this.props.challengeId}
+            challengeId={challengeId}
+            challengesUrl={challengesUrl}
+            title={challengeName}
           />
           {
             this.props.track === 'DEVELOP' &&
@@ -57,29 +63,35 @@ class SubmissionsPage extends React.Component {
   }
 }
 
-SubmissionsPage.propTypes = {
-  tokenV2: PropTypes.string.isRequired,
-  tokenV3: PropTypes.string.isRequired,
-  onSubmit: PropTypes.func.isRequired,
-  challengeId: PropTypes.number.isRequired,
-  track: PropTypes.string.isRequired,
-  status: PropTypes.string.isRequired,
-  errorMsg: PropTypes.string.isRequired,
-  isSubmitting: PropTypes.bool.isRequired,
-  submitDone: PropTypes.bool.isRequired,
-  resetForm: PropTypes.func.isRequired,
-  challengeName: PropTypes.string.isRequired,
+SubmissionsPage.defaultProps = {
+  challengesUrl: '/challenges',
 };
 
-const mapStateToProps = (state) => {
+SubmissionsPage.propTypes = {
+  challengesUrl: PT.string,
+  tokenV2: PT.string.isRequired,
+  tokenV3: PT.string.isRequired,
+  onSubmit: PT.func.isRequired,
+  challengeId: PT.number.isRequired,
+  track: PT.string.isRequired,
+  status: PT.string.isRequired,
+  errorMsg: PT.string.isRequired,
+  isSubmitting: PT.bool.isRequired,
+  submitDone: PT.bool.isRequired,
+  resetForm: PT.func.isRequired,
+  challengeName: PT.string.isRequired,
+};
+
+const mapStateToProps = (state, ownProps) => {
   const detailsV2 = state.challenge.detailsV2;
   return {
+    challengeId: detailsV2 && detailsV2.challengeId,
+    challengeName: detailsV2 && detailsV2.challengeName,
+    challengesUrl: ownProps.challengesUrl,
     tokenV2: state.auth.tokenV2,
     tokenV3: state.auth.tokenV3,
     isSubmitting: state.challenge.isSubmitting,
     submitDone: state.challenge.submitDone,
-    challengeId: detailsV2 && detailsV2.challengeId,
-    challengeName: detailsV2 && detailsV2.challengeName,
     errorMsg: state.challenge.submitErrorMsg,
     track: state.challenge.details.track,
     status: state.challenge.details.status,

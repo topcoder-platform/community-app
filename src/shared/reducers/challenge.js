@@ -351,7 +351,7 @@ export function factory(req) {
    * should be re-used there. */
   /* TODO: For completely server-side rendering it is also necessary to load
    * terms, etc. */
-  if (req && req.url.match(/^\/challenges\/\d{8}([?/].*)?$/)) {
+  if (req && req.url.match(/\/challenges\/\d{8}([?/].*)?$/)) {
     const tokens = getAuthTokens(req);
     const challengeId = req.url.match(/\d+/)[0];
     return toFSA(actions.challenge.getDetailsDone(challengeId, tokens.tokenV3, tokens.tokenV2))

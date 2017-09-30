@@ -12,10 +12,11 @@ import Home from 'containers/tc-communities/wipro/Home';
 import Learn from 'components/tc-communities/communities/wipro/Learn';
 import PT from 'prop-types';
 import React from 'react';
+import Submission from 'routes/Submission';
+import SubmissionManagement from 'routes/SubmissionManagement';
 import theme from 'components/tc-communities/communities/wipro/theme';
 import { ThemeProvider } from 'react-css-super-themr';
 import { Route, Switch } from 'react-router-dom';
-
 
 import Leaderboard from '../Leaderboard';
 
@@ -43,6 +44,22 @@ export default function Wipro({ base, meta }) {
                 })}
                 exact
                 path={`${base}/challenges/:challengeId(\\d{8})`}
+              />
+              <Route
+                component={routeProps => Submission({
+                  ...routeProps,
+                  challengesUrl: `${base}/challenges`,
+                })}
+                exact
+                path={`${base}/challenges/:challengeId(\\d{8})/submit`}
+              />
+              <Route
+                component={routeProps => SubmissionManagement({
+                  ...routeProps,
+                  challengesUrl: `${base}/challenges`,
+                })}
+                exact
+                path={`${base}/challenges/:challengeId(\\d{8})/my-submissions`}
               />
               <Route
                 component={FAQ}

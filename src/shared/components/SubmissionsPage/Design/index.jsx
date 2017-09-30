@@ -2,8 +2,9 @@
 
 import config from 'utils/config';
 import React from 'react';
-import PropTypes from 'prop-types';
+import PT from 'prop-types';
 import { PrimaryButton } from 'components/buttons';
+
 import FilePicker from '../FilePicker';
 import MultiInput from './MultiInput';
 import Uploading from '../Uploading';
@@ -122,11 +123,12 @@ class Design extends React.Component {
 
   render() {
     const {
+      challengeId,
+      challengeName,
+      challengesUrl,
       isSubmitting,
       submitDone,
       errorMsg,
-      challengeId,
-      challengeName,
     } = this.props;
     return (!isSubmitting && !submitDone && !errorMsg) ? (
       <div styleName="design-content">
@@ -307,10 +309,11 @@ class Design extends React.Component {
       </div>
     ) :
       <Uploading
-        isSubmitting={isSubmitting}
-        submitDone={submitDone}
         challengeId={challengeId}
         challengeName={challengeName}
+        challengesUrl={challengesUrl}
+        isSubmitting={isSubmitting}
+        submitDone={submitDone}
         reset={this.reset}
         error={errorMsg}
         retry={this.retry}
@@ -319,13 +322,14 @@ class Design extends React.Component {
 }
 
 Design.propTypes = {
-  isSubmitting: PropTypes.bool.isRequired,
-  submitDone: PropTypes.bool.isRequired,
-  errorMsg: PropTypes.string.isRequired,
-  challengeId: PropTypes.number.isRequired,
-  challengeName: PropTypes.string.isRequired,
-  submitForm: PropTypes.func.isRequired,
-  resetForm: PropTypes.func.isRequired,
+  challengeId: PT.number.isRequired,
+  challengeName: PT.string.isRequired,
+  challengesUrl: PT.string.isRequired,
+  isSubmitting: PT.bool.isRequired,
+  submitDone: PT.bool.isRequired,
+  errorMsg: PT.string.isRequired,
+  submitForm: PT.func.isRequired,
+  resetForm: PT.func.isRequired,
 };
 
 export default Design;

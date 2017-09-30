@@ -250,7 +250,7 @@ export default function ChallengeHeader(props) {
                 <PrimaryButton
                   disabled={!hasRegistered || unregistering || submissionEnded}
                   theme={{ button: style.challengeAction }}
-                  to={`/challenges/${challengeId}/submit/file`}
+                  to={`${challengesUrl}/${challengeId}/submit`}
                 >Submit</PrimaryButton>
                 <PrimaryButton
                   disabled={!hasRegistered || unregistering || !hasSubmissions}

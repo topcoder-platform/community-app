@@ -33,16 +33,19 @@ class SubmissionManagementPageContainer extends React.Component {
   }
 
   render() {
+    const {
+      challengesUrl,
+    } = this.props;
+
     const isEmpty = _.isEmpty(this.props.challenge);
-    const challengeType = ((this.props.challenge || {}).track || '').toLowerCase();
 
     const smConfig = {
       onShowDetails: this.props.onShowDetails,
       onDelete: this.props.onSubmissionDelete,
       onDownload: () => this.props.onDownloadSubmission(0, this.props.authTokens),
       onlineReviewUrl: `${config.URL.ONLINE_REVIEW}/review/actions/ViewProjectDetails?pid=${this.props.challengeId}`,
-      challengeUrl: `${config.URL.BASE}/challenge-details/${this.props.challengeId}/?type=${challengeType}`,
-      addSumissionUrl: `${config.URL.BASE}/challenges/${this.props.challengeId}/submit/file/`,
+      challengeUrl: `${challengesUrl}/${this.props.challengeId}`,
+      addSumissionUrl: `${config.URL.BASE}/challenges/${this.props.challengeId}/submit`,
       helpPageUrl: config.URL.HELP,
     };
 
@@ -52,6 +55,7 @@ class SubmissionManagementPageContainer extends React.Component {
           {!isEmpty &&
             <SubmissionManagement
               challenge={this.props.challenge}
+              challengesUrl={challengesUrl}
               loadingSubmissions={this.props.isLoadingSubmissions}
               submissions={this.props.mySubmissions}
               showDetails={this.props.showDetails}
@@ -107,6 +111,7 @@ class SubmissionManagementPageContainer extends React.Component {
 }
 
 SubmissionManagementPageContainer.defaultProps = {
+  challengesUrl: '/challenges',
   deleting: false,
   isLoadingChallenge: false,
   mySubmissions: [],
@@ -118,6 +123,7 @@ SubmissionManagementPageContainer.defaultProps = {
 
 SubmissionManagementPageContainer.propTypes = {
   challenge: PT.shape(),
+  challengesUrl: PT.string,
   deleting: PT.bool,
   isLoadingChallenge: PT.bool,
   loadChallengeDetails: PT.func.isRequired,
@@ -140,6 +146,7 @@ SubmissionManagementPageContainer.propTypes = {
 const mapStateToProps = (state, props) => ({
   challengeId: Number(props.match.params.challengeId),
   challenge: state.challenge.details,
+  challengesUrl: props.challengesUrl,
 
   deleting: state.challenge.mySubmissionsManagement.deletingSubmission,
 

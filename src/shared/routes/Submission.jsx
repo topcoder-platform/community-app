@@ -5,10 +5,7 @@ import { SplitRoute } from 'utils/router';
 export default function SubmissionsPageRoute(props) {
   return (
     <SplitRoute
-      cacheCss
       chunkName="submissions-page"
-      exact
-      path="/challenges/:challengeId/submit/file"
       renderClientAsync={() =>
         import(
           /* webpackChunkName: "submissions-page" */

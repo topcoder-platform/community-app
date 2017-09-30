@@ -1,5 +1,5 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import PT from 'prop-types';
 import { Link } from 'react-router-dom';
 import RobotHappy from 'assets/images/robot-happy.svg';
 import RobotSad from 'assets/images/robot-embarassed.svg';
@@ -7,10 +7,11 @@ import { PrimaryButton, Button } from 'components/buttons';
 import './styles.scss';
 
 const Uploading = ({
+  challengeId,
+  challengeName,
+  challengesUrl,
   isSubmitting,
   submitDone,
-  challengeName,
-  challengeId,
   reset,
   error,
   retry,
@@ -35,7 +36,7 @@ const Uploading = ({
       }
       {
         (submitDone || error) &&
-          <Link to={`/challenges/${challengeId}`}>{challengeName }</Link>
+          <Link to={`${challengesUrl}/${challengeId}`}>{challengeName }</Link>
       }
       {
         (isSubmitting || submitDone) &&
@@ -91,7 +92,7 @@ const Uploading = ({
               onClick={() => reset()}
             >Add Another Submission</Button>
             <PrimaryButton
-              to={`/challenges/${challengeId}/my-submissions`}
+              to={`${challengesUrl}/${challengeId}/my-submissions`}
             >View My Submissions</PrimaryButton>
           </div>
       }
@@ -100,13 +101,14 @@ const Uploading = ({
 );
 
 Uploading.propTypes = {
-  isSubmitting: PropTypes.bool.isRequired,
-  submitDone: PropTypes.bool.isRequired,
-  challengeName: PropTypes.string.isRequired,
-  challengeId: PropTypes.number.isRequired,
-  reset: PropTypes.func.isRequired,
-  error: PropTypes.string.isRequired,
-  retry: PropTypes.func.isRequired,
+  challengeId: PT.number.isRequired,
+  challengeName: PT.string.isRequired,
+  challengesUrl: PT.string.isRequired,
+  isSubmitting: PT.bool.isRequired,
+  submitDone: PT.bool.isRequired,
+  reset: PT.func.isRequired,
+  error: PT.string.isRequired,
+  retry: PT.func.isRequired,
 };
 
 export default Uploading;
