@@ -5,7 +5,7 @@
  */
 
 import _ from 'lodash';
-import camelcase from 'camelcase';
+import camelcase from 'camel-case';
 import React from 'react';
 import PT from 'prop-types';
 import moment from 'moment';
