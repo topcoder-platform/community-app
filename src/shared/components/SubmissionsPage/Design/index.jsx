@@ -1,4 +1,6 @@
-/* eslint-env browser */
+/* global document, FormData */
+
+import config from 'utils/config';
 import React from 'react';
 import PropTypes from 'prop-types';
 import { PrimaryButton } from 'components/buttons';
@@ -138,14 +140,27 @@ class Design extends React.Component {
           <div styleName="row">
             <div styleName="left">
               <h4>FILES</h4>
-              <p>Please follow the instructions on the Challenge Details page
+              <p>
+                Please follow the instructions on the Challenge Details page
                 regarding what your submission, source and preview files should
-                contain.</p><p> Do not name any of your files &quot;declaration.txt&quot;
-                as this is added by our system.</p><p>
+                contain.
+              </p>
+              <p>
+                Do not name any of your files &quot;declaration.txt&quot;
+                as this is added by our system.
+              </p>
+              <p>
                 Please be sure to double-check that you have submitted the
                 correct files and that your JPG files (if applicable) are in
-                RGB color mode.</p><p><a href=";javascript">Learn more about formatting
-                your submission file.</a></p>
+                RGB color mode.
+              </p>
+              <p>
+                <a
+                  href={config.URL.INFO.DESIGN_CHALLENGE_SUBMISSION}
+                  rel="noreferrer noopener"
+                  target="_blank"
+                >Learn more about formatting your submission file.</a>
+              </p>
             </div>
             <div styleName="right">
               <div styleName="file-picker-container">
@@ -210,11 +225,22 @@ class Design extends React.Component {
           <div styleName="row">
             <div styleName="left">
               <h4>DID YOU USE CUSTOM FONTS?</h4>
-              <p>Check to see if your MultiInput is on the Studio Standard MultiInputs list..
-                If it is, leave the URL field <a>Read Studio MultiInputs Policy</a>
-              </p><p>If your MultiInput is not on the list, you must provide the URL to the
-                MultiInput page (not file) from one of the approved MultiInput websites in the
-                dropdown box.
+              <p>
+                Check to see if your font is on the Studio Standard Fonts list.
+                If it is, leave the URL field
+              </p>
+              <p>
+                Read the
+                &zwnj;<a
+                  href={config.URL.INFO.STUDIO_FONTS_POLICY}
+                  rel="norefferer noopener"
+                  target="_blank"
+                >Studio Fonts Policy</a>
+              </p>
+              <p>
+                If your fonts is not on the list, you must provide the URL
+                to the font page (not file) from one of the approved
+                font websites in the dropdown box.
               </p>
             </div>
             <div styleName="right">
@@ -227,9 +253,15 @@ class Design extends React.Component {
           <div styleName="row">
             <div styleName="left">
               <h4>DID YOU USE STOCK ART?</h4>
-              <p>If you used any stock photos in your design mocks, please provide
-                the location and details so that the client can obtain them. Follow
-                the guidelines at our <a>Studio Stock Art Policy</a>.
+              <p>
+                If you used any stock photos in your design mocks, please
+                provide the location and details so that the client can obtain
+                them. Follow the guidelines at our
+                &zwnj;<a
+                  href={config.URL.INFO.STOCK_ART_POLICY}
+                  rel="norefferer noopener"
+                  target="_blank"
+                >Studio Stock Art Policy</a>.
               </p>
             </div>
             <div styleName="right">
@@ -240,8 +272,13 @@ class Design extends React.Component {
             </div>
           </div>
           <div styleName="row agree">
-            <p>Submitting your files means you hereby agree to the
-              <a href=";javascript"> Topcoder terms of use </a>
+            <p>
+              Submitting your files means you hereby agree to the
+              &zwnj;<a
+                href={config.URL.INFO.TOPCODER_TERMS}
+                rel="norefferer noopener"
+                target="_blank"
+              >Topcoder terms of use</a>&zwnj;
               and to the extent your uploaded file wins a topcoder Competition,
               you hereby assign, grant and transfer and agree to assign, grant and
               transfer to topcoder all right and challengeName in and to the Winning Submission

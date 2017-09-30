@@ -6,7 +6,6 @@
 
 import _ from 'lodash';
 import camelcase from 'camelcase';
-import config from 'utils/config';
 import React from 'react';
 import PT from 'prop-types';
 import moment from 'moment';

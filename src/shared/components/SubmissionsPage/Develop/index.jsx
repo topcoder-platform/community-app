@@ -98,8 +98,16 @@ class Develop extends React.Component {
               </div>
             </div>
             <div styleName="row agree">
-              <p>Submitting your files means you hereby agree to the
-                <a href=";javascript"> Topcoder terms of use </a>
+              {/* TODO: This block is mostly the same as on the design
+              submission page, thus it should be split into a separate
+              component that can be re-used in both places! */}
+              <p>
+                Submitting your files means you hereby agree to the
+                &zwnj;<a
+                  href={config.URL.INFO.TOPCODER_TERMS}
+                  rel="noreferrer noopener"
+                  target="_blank"
+                >Topcoder terms of use</a>&zwnj;
                 and to the extent your uploaded file wins a topcoder Competition,
                 you hereby assign, grant and transfer and agree to assign, grant and
                 transfer to topcoder all right and title in and to the Winning Submission
