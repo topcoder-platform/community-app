@@ -22,9 +22,10 @@ import config from 'utils/config';
 import React from 'react';
 import PT from 'prop-types';
 
-import styles from './styles.scss'; // eslint-disable-line
-import codeFields from '/server/tco/scoreboard/config/submissionCodeFields.json';
-import designFields from '/server/tco/scoreboard/config/submissionDesignFields.json';
+import codeFields from 'server/tco/scoreboard/config/submissionCodeFields.json';
+import designFields from 'server/tco/scoreboard/config/submissionDesignFields.json';
+
+import styles from './styles.scss'; // eslint-disable-line no-unused-vars
 
 export default function ScoreboardTable(props) {
   const {
@@ -32,6 +33,16 @@ export default function ScoreboardTable(props) {
   } = props;
 
   const fields = challenge.type === 'Code' ? codeFields.fields : designFields.fields;
+
+  const getTemplateValues = (fields2, submission) => (
+    /* eslint-disable react/no-array-index-key */
+    fields2.map((field, index) => (
+      <td key={index}>
+        {submission ? submission[field.fieldName] : 'test'}
+      </td>
+    ))
+    /* eslint-enable react/no-array-index-key */
+  );
 
   const renderTableRows = subs => (
     subs.map((submission, index) => { // eslint-disable-line
@@ -47,17 +58,13 @@ export default function ScoreboardTable(props) {
     })
   );
 
-  const getTemplateHeader = fields => (
-    fields.map((field, index) => (
+  /* eslint-disable react/no-array-index-key */
+  const getTemplateHeader = fields2 => (
+    fields2.map((field, index) => (
       <th key={index}>{field.fieldText}</th>
     ))
   );
-
-  const getTemplateValues = (fields, submission) => (
-    fields.map((field, index) => {
-        return (<td key={index}>{submission ? submission[field.fieldName]: 'test'}</td>)
-    })
-  );
+  /* eslint-enable react/no-array-index-key */
 
   return (
     <table styleName="styles.LeaderboardTable">

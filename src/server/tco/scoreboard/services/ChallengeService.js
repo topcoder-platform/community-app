@@ -31,6 +31,31 @@ const ChallengeSchema = Joi.object().keys({
 });
 
 /**
+ * creates the competitors for a challenge.
+ * @param {Integer} challengeId the challenge id
+ * @param {Array} competitors the list of competitors
+ */
+async function handleChallengeCompetitors(challengeId, competitors) {
+  if (competitors) {
+    // Remove any potential connection from the challenge to competitors
+    // This is neeeded in case competitors are updated.
+    await ChallengeCompetitor.destroy({ where: { challengeId } });
+
+    _.each(competitors, async (competitor) => {
+      let existingCompetitor = await Competitor.findOne({ where: { handle: competitor.handle } });
+      if (!existingCompetitor) {
+        existingCompetitor = await Competitor.create(competitor);
+      }
+
+      await ChallengeCompetitor.create({
+        challengeId,
+        handle: existingCompetitor.handle,
+      });
+    });
+  }
+}
+
+/**
  * Create a Challenge
  * @param {Object} challenge the challenge
  * @returns {Object} the saved challenge
@@ -57,7 +82,7 @@ create.schema = { challenge: ChallengeSchema };
 function get(id) {
   return helper.ensureExists(Challenge, {
     where: { id },
-    include: [{ model: models.Submission, include : [{ all: true }] }, {
+    include: [{ model: models.Submission, include: [{ all: true }] }, {
       model: Competitor, through: { attributes: [] },
     }],
   }, true);
@@ -96,31 +121,6 @@ update.schema = {
   id: Joi.number().integer().min(1),
   challenge: ChallengeSchema,
 };
-
-/**
- * creates the competitors for a challenge.
- * @param {Integer} challengeId the challenge id
- * @param {Array} competitors the list of competitors
- */
-async function handleChallengeCompetitors(challengeId, competitors) {
-  if (competitors) {
-    // Remove any potential connection from the challenge to competitors
-    // This is neeeded in case competitors are updated.
-    await ChallengeCompetitor.destroy({ where: { challengeId: challengeId } });
-
-    _.each(competitors, async (competitor) => {
-      let existingCompetitor = await Competitor.findOne({ where: { handle: competitor.handle } });
-      if (!existingCompetitor) {
-        existingCompetitor = await Competitor.create(competitor);
-      }
-
-      await ChallengeCompetitor.create({
-        challengeId: challengeId,
-        handle: existingCompetitor.handle
-      });
-    });
-  }
-}
 
 module.exports = {
   create,

@@ -48,8 +48,8 @@ async function init() {
       submissionCode: {
         codeField1: 'Best',
         codeField2: 'Done',
-        codeField3: 40
-      }
+        codeField3: 40,
+      },
     });
 
     await SubmissionService.create({
@@ -58,8 +58,8 @@ async function init() {
       submissionCode: {
         codeField1: 'Good',
         codeField2: 'Final Submission',
-        codeField3: 30
-      }
+        codeField3: 30,
+      },
     });
 
     // create submissions
@@ -69,8 +69,8 @@ async function init() {
       submissionDesign: {
         designField1: 'RUX',
         designField2: '48h',
-        designField3: 40
-      }
+        designField3: 40,
+      },
     });
 
     // create submissions
@@ -80,8 +80,8 @@ async function init() {
       submissionDesign: {
         designField1: 'FAST',
         designField2: '24h',
-        designField3: 30
-      }
+        designField3: 30,
+      },
     });
 
     // clear challenge competitors

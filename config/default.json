@@ -101,7 +101,7 @@
   "SWIFT_PROGRAM_ID": 3445,
 
   "SCOREBOARD":{
-    "DB": "postgres://scoreboard:p@ssword123@localhost:5432/scoreboard",
+    "DB": "postgres://postgres:postgres@localhost:5432/scoreboard",
     "ADMIN_ROLE": "administrator"
   }
 }

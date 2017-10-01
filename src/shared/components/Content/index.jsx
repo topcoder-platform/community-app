@@ -94,6 +94,18 @@ export default function Content() {
         </li>
       </ul>
 
+      <h3>TCO Assets</h3>
+      <ul>
+        <li>
+          TCO Scoreboard demo is mounted on <code>/scoreboard/:id</code>,
+          where <code>:id</code> is the competition ID, not related to the
+          regular challenge IDs. Here are two demo links for the scoreboards
+          for the competitions created by the scoreboard init script:
+          &zwnj;<Link to="/scoreboard/123">ID = 123</Link>,
+          &zwnj;<Link to="/scoreboard/1234">ID = 1234</Link>.
+        </li>
+      </ul>
+
       <h3>Separate Topcoder Communities</h3>
       <ul>
         <li>

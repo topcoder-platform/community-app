@@ -7,7 +7,6 @@
  * @author TCSCODER
  * @version 1.0
  */
-import Sequelize from 'sequelize';
 import helper from '../common/helper';
 import designFields from '../config/submissionDesignFields.json';
 
