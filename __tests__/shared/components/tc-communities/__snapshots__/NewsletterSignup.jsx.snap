@@ -29,13 +29,13 @@ exports[`Snapshot match 2`] = `
   text="Don’t miss out on the latest Topcoder IOS challenges and information!"
   theme={
     Object {
-      "container": "src-shared-components-tc-communities-NewsletterSignup-___style__container___3FbuD container",
-      "content": "src-shared-components-tc-communities-NewsletterSignup-___style__content___3QiYz content",
-      "form": "src-shared-components-tc-communities-NewsletterSignup-___style__form___3yW86 form",
-      "formButton": "src-shared-components-tc-communities-NewsletterSignup-___style__formButton___Jve55 formButton",
-      "formEmail": "src-shared-components-tc-communities-NewsletterSignup-___style__formEmail___3N_Uv formEmail",
-      "text": "src-shared-components-tc-communities-NewsletterSignup-___style__text___1bA_y text",
-      "title": "src-shared-components-tc-communities-NewsletterSignup-___style__title___ErlHl title",
+      "container": "container src-shared-components-tc-communities-NewsletterSignup-___style__container___3FbuD",
+      "content": "content src-shared-components-tc-communities-NewsletterSignup-___style__content___3QiYz",
+      "form": "form src-shared-components-tc-communities-NewsletterSignup-___style__form___3yW86",
+      "formButton": "formButton src-shared-components-tc-communities-NewsletterSignup-___style__formButton___Jve55",
+      "formEmail": "formEmail src-shared-components-tc-communities-NewsletterSignup-___style__formEmail___3N_Uv",
+      "text": "text src-shared-components-tc-communities-NewsletterSignup-___style__text___1bA_y",
+      "title": "title src-shared-components-tc-communities-NewsletterSignup-___style__title___ErlHl",
     }
   }
   title="Sign up for our newsletter"

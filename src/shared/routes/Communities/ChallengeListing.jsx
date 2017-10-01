@@ -34,7 +34,7 @@ export default function ChallengeListingRoute({
               challengesUrl={challengesUrl}
               communityId={query.communityId || meta.communityId}
               communityName={meta.communityName}
-              groupId={meta.groupId}
+              groupIds={meta.groupIds}
 
               /* TODO: This is hacky! A better, generic way to achieve it
                * should be adopted. */
@@ -70,7 +70,7 @@ ChallengeListingRoute.propTypes = {
     }),
     communityId: PT.string.isRequired,
     communityName: PT.string.isRequired,
-    groupId: PT.string.isRequired,
+    groupIds: PT.arrayOf(PT.string).isRequired,
   }).isRequired,
   newChallengeDetails: PT.bool,
 };

@@ -3,7 +3,8 @@
 exports[`Snapshot match 1`] = `
 <main>
   <ThemedBanner
-    composeTheme="deeply"
+    composeAdhocTheme="deeply"
+    composeContextTheme="softly"
     imageSrc="/themes/wipro/learn/banner.jpg"
     link={null}
     mapThemrProps={[Function]}
@@ -15,11 +16,13 @@ exports[`Snapshot match 1`] = `
         "contentInner": "src-shared-components-tc-communities-communities-tc-prod-dev-Learn-___style__bannerContentInner___Q6kQG",
       }
     }
+    themePriority="adhoc-context-default"
     title="Learning & Certification"
   />
   <ThemedSection
     anchor={null}
-    composeTheme="deeply"
+    composeAdhocTheme="deeply"
+    composeContextTheme="softly"
     link={null}
     mapThemrProps={[Function]}
     theme={
@@ -27,26 +30,33 @@ exports[`Snapshot match 1`] = `
         "container": "src-shared-components-tc-communities-communities-tc-prod-dev-Learn-___style__learnBasicsContainer___1iYDC",
       }
     }
+    themePriority="adhoc-context-default"
     title="Learn The Basics"
   >
     <ThemedAccordion
-      composeTheme="deeply"
+      composeAdhocTheme="deeply"
+      composeContextTheme="softly"
       defaultSelectedIndex={0}
       mapThemrProps={[Function]}
       theme={Object {}}
+      themePriority="adhoc-context-default"
     >
       <ThemedAccordionItem
-        composeTheme="deeply"
+        composeAdhocTheme="deeply"
+        composeContextTheme="softly"
         isOpen={false}
         mapThemrProps={[Function]}
         onTitleClick={[Function]}
         theme={Object {}}
+        themePriority="adhoc-context-default"
         title="Joining the  Community"
       >
         <ThemedText
-          composeTheme="deeply"
+          composeAdhocTheme="deeply"
+          composeContextTheme="softly"
           mapThemrProps={[Function]}
           theme={Object {}}
+          themePriority="adhoc-context-default"
         >
           <p>
             First things first, ...make sure you sign up for Topcoder. It's quick and painless and opens the door to a whole new world.
@@ -65,17 +75,21 @@ exports[`Snapshot match 1`] = `
         </ThemedText>
       </ThemedAccordionItem>
       <ThemedAccordionItem
-        composeTheme="deeply"
+        composeAdhocTheme="deeply"
+        composeContextTheme="softly"
         isOpen={false}
         mapThemrProps={[Function]}
         onTitleClick={[Function]}
         theme={Object {}}
+        themePriority="adhoc-context-default"
         title="How to sign up for work"
       >
         <ThemedText
-          composeTheme="deeply"
+          composeAdhocTheme="deeply"
+          composeContextTheme="softly"
           mapThemrProps={[Function]}
           theme={Object {}}
+          themePriority="adhoc-context-default"
         >
           <p>
             It's likely that you'll be working on code in a specific git repo. We have many of them, so be sure to ask if you're not sure which one you shoudl be looking at.
@@ -86,17 +100,21 @@ exports[`Snapshot match 1`] = `
         </ThemedText>
       </ThemedAccordionItem>
       <ThemedAccordionItem
-        composeTheme="deeply"
+        composeAdhocTheme="deeply"
+        composeContextTheme="softly"
         isOpen={false}
         mapThemrProps={[Function]}
         onTitleClick={[Function]}
         theme={Object {}}
+        themePriority="adhoc-context-default"
         title="How to compete for work"
       >
         <ThemedText
-          composeTheme="deeply"
+          composeAdhocTheme="deeply"
+          composeContextTheme="softly"
           mapThemrProps={[Function]}
           theme={Object {}}
+          themePriority="adhoc-context-default"
         >
           <p>
             Nam dapibus nisl vitae elit fringilla rutrum. Aenean sollicitudin, erat a elementum rutrum, neque sem pretium metus, quis mollis nisl nunc et massa. Vestibulum sed metus in lorem tristique ullamcorper id vitae erat. Nulla mollis sapien sollicitudin lacinia lacinia. Vivamus facilisis dolor et massa placerat, at vestibulum nisl egestas. Nullam rhoncus lacus non odio luctus, eu condimentum mauris ultrices. Praesent blandit, augue a posuere aliquam, arcu tortor feugiat turpis,
@@ -118,17 +136,21 @@ exports[`Snapshot match 1`] = `
         </ThemedText>
       </ThemedAccordionItem>
       <ThemedAccordionItem
-        composeTheme="deeply"
+        composeAdhocTheme="deeply"
+        composeContextTheme="softly"
         isOpen={false}
         mapThemrProps={[Function]}
         onTitleClick={[Function]}
         theme={Object {}}
+        themePriority="adhoc-context-default"
         title="Payment & Rewards"
       >
         <ThemedText
-          composeTheme="deeply"
+          composeAdhocTheme="deeply"
+          composeContextTheme="softly"
           mapThemrProps={[Function]}
           theme={Object {}}
+          themePriority="adhoc-context-default"
         >
           <p>
             If you'd like to be a copilot for Topcoder projects, send an email to support@topcoder.com and tell us a little about yourself.
@@ -156,17 +178,21 @@ exports[`Snapshot match 1`] = `
         </ThemedText>
       </ThemedAccordionItem>
       <ThemedAccordionItem
-        composeTheme="deeply"
+        composeAdhocTheme="deeply"
+        composeContextTheme="softly"
         isOpen={false}
         mapThemrProps={[Function]}
         onTitleClick={[Function]}
         theme={Object {}}
+        themePriority="adhoc-context-default"
         title="Managing your Badges"
       >
         <ThemedText
-          composeTheme="deeply"
+          composeAdhocTheme="deeply"
+          composeContextTheme="softly"
           mapThemrProps={[Function]}
           theme={Object {}}
+          themePriority="adhoc-context-default"
         >
           <p>
             Make sure you've setup your payment preferences at https://community.topcoder.com/tc?module=EditPaymentPreferences.  When you've earned some money and want to withdraw it, you can do that at https://community.topcoder.com/PactsMemberServlet?module=PaymentHistory&full_list=false
@@ -174,17 +200,21 @@ exports[`Snapshot match 1`] = `
         </ThemedText>
       </ThemedAccordionItem>
       <ThemedAccordionItem
-        composeTheme="deeply"
+        composeAdhocTheme="deeply"
+        composeContextTheme="softly"
         isOpen={false}
         mapThemrProps={[Function]}
         onTitleClick={[Function]}
         theme={Object {}}
+        themePriority="adhoc-context-default"
         title="Updating your Profile"
       >
         <ThemedText
-          composeTheme="deeply"
+          composeAdhocTheme="deeply"
+          composeContextTheme="softly"
           mapThemrProps={[Function]}
           theme={Object {}}
+          themePriority="adhoc-context-default"
         >
           <p>
             Everything to do with managing your profile and preferences can be found at https://www.topcoder.com/settings/account/.  If you can't find what you're looking for, send us a note at support@topcoder.com.
@@ -195,7 +225,8 @@ exports[`Snapshot match 1`] = `
   </ThemedSection>
   <ThemedSection
     anchor={null}
-    composeTheme="deeply"
+    composeAdhocTheme="deeply"
+    composeContextTheme="softly"
     link={
       Object {
         "title": "View All",
@@ -208,10 +239,12 @@ exports[`Snapshot match 1`] = `
         "container": "src-shared-components-tc-communities-communities-tc-prod-dev-Learn-___style__coursesContainer____PCRk",
       }
     }
+    themePriority="adhoc-context-default"
     title="Courses and Tutorials"
   >
     <ThemedArticleCard
-      composeTheme="deeply"
+      composeAdhocTheme="deeply"
+      composeContextTheme="softly"
       imageSrc="/themes/wipro/learn/courses-01.jpg"
       link={
         Object {
@@ -222,10 +255,12 @@ exports[`Snapshot match 1`] = `
       mapThemrProps={[Function]}
       text="There are advances being made in science and technology everyday, and a good example of this is the LCD monitor. LCD monitors have"
       theme={Object {}}
+      themePriority="adhoc-context-default"
       title="What You Need to Join a Challenge"
     />
     <ThemedArticleCard
-      composeTheme="deeply"
+      composeAdhocTheme="deeply"
+      composeContextTheme="softly"
       imageSrc="/themes/wipro/learn/courses-02.jpg"
       link={
         Object {
@@ -236,10 +271,12 @@ exports[`Snapshot match 1`] = `
       mapThemrProps={[Function]}
       text="Planning to visit Las Vegas or any other vacational resort where casinos are a major portion of their business? I have just the thing for"
       theme={Object {}}
+      themePriority="adhoc-context-default"
       title="An Ugly Myspace Profile Will Sure Ruin Your Reputation"
     />
     <ThemedArticleCard
-      composeTheme="deeply"
+      composeAdhocTheme="deeply"
+      composeContextTheme="softly"
       imageSrc="/themes/wipro/learn/courses-03.jpg"
       link={
         Object {
@@ -250,12 +287,14 @@ exports[`Snapshot match 1`] = `
       mapThemrProps={[Function]}
       text="If you are in the market for a computer, there are a number of factors to consider. Will it be used for your home, your office or"
       theme={Object {}}
+      themePriority="adhoc-context-default"
       title="3 Simple Ways Work Fast in Competition"
     />
   </ThemedSection>
   <ThemedSection
     anchor={null}
-    composeTheme="deeply"
+    composeAdhocTheme="deeply"
+    composeContextTheme="softly"
     link={null}
     mapThemrProps={[Function]}
     theme={
@@ -264,10 +303,12 @@ exports[`Snapshot match 1`] = `
         "title": "src-shared-components-tc-communities-communities-tc-prod-dev-Learn-___style__resourcesTitle___1JW2C",
       }
     }
+    themePriority="adhoc-context-default"
     title="Resources"
   >
     <ThemedLinksCard
-      composeTheme="deeply"
+      composeAdhocTheme="deeply"
+      composeContextTheme="softly"
       links={
         Array [
           Object {
@@ -290,10 +331,12 @@ exports[`Snapshot match 1`] = `
       }
       mapThemrProps={[Function]}
       theme={Object {}}
+      themePriority="adhoc-context-default"
       title="Documents"
     />
     <ThemedLinksCard
-      composeTheme="deeply"
+      composeAdhocTheme="deeply"
+      composeContextTheme="softly"
       links={
         Array [
           Object {
@@ -316,10 +359,12 @@ exports[`Snapshot match 1`] = `
       }
       mapThemrProps={[Function]}
       theme={Object {}}
+      themePriority="adhoc-context-default"
       title="Videos"
     />
     <ThemedLinksCard
-      composeTheme="deeply"
+      composeAdhocTheme="deeply"
+      composeContextTheme="softly"
       links={
         Array [
           Object {
@@ -342,17 +387,20 @@ exports[`Snapshot match 1`] = `
       }
       mapThemrProps={[Function]}
       theme={Object {}}
+      themePriority="adhoc-context-default"
       title="Useful Links"
     />
   </ThemedSection>
   <ThemedNewsletterSignup
     buttonText="Sign Up"
-    composeTheme="deeply"
+    composeAdhocTheme="deeply"
+    composeContextTheme="softly"
     emailPlaceholder="Email address"
     imageSrc="/themes/wipro/subscribe-bg.jpg"
     mapThemrProps={[Function]}
     text="Don’t miss out on the latest Topcoder IOS challenges and information!"
     theme={Object {}}
+    themePriority="adhoc-context-default"
     title="Sign up for our newsletter"
   />
 </main>

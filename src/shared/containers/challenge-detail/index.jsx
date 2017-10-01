@@ -15,7 +15,7 @@ import Registrants from 'components/challenge-detail/Registrants';
 import Submissions from 'components/challenge-detail/Submissions';
 import Winners from 'components/challenge-detail/Winners';
 import ChallengeDetailsView from 'components/challenge-detail/Specification';
-import TermsModal from 'components/challenge-detail/Specification/TermsModal';
+import ChallengeTerms from 'components/challenge-detail/ChallengeTerms';
 import ChallengeCheckpoints from 'components/challenge-detail/Checkpoints';
 import React from 'react';
 import PT from 'prop-types';
@@ -126,6 +126,7 @@ class ChallengeDetailPageContainer extends React.Component {
       challengeId,
       challengesUrl,
       resultsLoadedForChallengeId,
+      openTermsModal,
     } = this.props;
 
     const results = resultsLoadedForChallengeId === _.toString(challengeId)
@@ -145,6 +146,11 @@ class ChallengeDetailPageContainer extends React.Component {
     return (
       <div styleName="outer-container">
         <div styleName="challenge-detail-container">
+          { Boolean(isEmpty) && (
+            <div styleName="page">
+              Challenge #{challengeId} does not exist!
+            </div>
+          )}
           {
             !isEmpty &&
             <ChallengeHeader
@@ -176,6 +182,7 @@ class ChallengeDetailPageContainer extends React.Component {
               detailedRequirements={this.props.challenge.detailedRequirements}
               terms={this.props.terms}
               hasRegistered={hasRegistered}
+              openTermsModal={openTermsModal}
             />
           }
           {
@@ -220,12 +227,15 @@ class ChallengeDetailPageContainer extends React.Component {
         </div>
         {
           this.props.showTermsModal &&
-          <TermsModal
+          <ChallengeTerms
             challengesUrl={challengesUrl}
             onCancel={this.props.closeTermsModal}
             title={this.props.challenge.name}
             isLoadingTerms={this.props.isLoadingTerms}
             terms={this.props.terms}
+            selectedTerm={this.props.selectedTerm}
+            viewOnly={this.props.viewOnly}
+            selectTerm={this.props.selectTerm}
             loadTerms={() => this.props.loadTerms(this.props.authTokens, this.props.challengeId)}
             loadDetails={termId => this.props.loadTermDetails(this.props.authTokens, termId)}
             details={this.props.termDetails}
@@ -234,16 +244,19 @@ class ChallengeDetailPageContainer extends React.Component {
             getDocuSignUrl={(templateId) => {
               const base = window ? window.location.href.match('.*://[^/]*')[0] : '';
               return this.props.getDocuSignUrl(this.props.authTokens,
-                templateId, `${base}/iframe-break/?dest=${base}`
-                + `${location.pathname}?showTerms=true`);
+                templateId, `${base}/iframe-break`);
             }}
             register={() => this.props.registerForChallenge(this.props.authTokens,
               this.props.challengeId)}
             agreeingTerm={this.props.agreeingTerm}
             agreeTerm={termId => this.props.agreeTerm(this.props.authTokens, termId)}
-            agreedTerms={this.props.agreedTerms}
             registering={this.props.registering}
             loadingDocuSignUrl={this.props.loadingDocuSignUrl}
+            signDocu={this.props.signDocu}
+            checkStatus={() => this.props.checkStatus(this.props.authTokens,
+              this.props.challengeId)}
+            canRegister={this.props.canRegister}
+            checkingStatus={this.props.checkingStatus}
           />
         }
       </div>
@@ -252,7 +265,6 @@ class ChallengeDetailPageContainer extends React.Component {
 }
 
 ChallengeDetailPageContainer.defaultProps = {
-  agreedTerms: {},
   agreeingTerm: '',
   challengesUrl: '/challenges',
   checkpointResults: null,
@@ -265,13 +277,16 @@ ChallengeDetailPageContainer.defaultProps = {
   loadingTermId: '',
   results: null,
   showTermsModal: false,
+  selectedTerm: null,
   terms: [],
   termDetails: {},
   tokenV3: null,
+  viewOnly: false,
+  canRegister: false,
+  checkingStatus: false,
 };
 
 ChallengeDetailPageContainer.propTypes = {
-  agreedTerms: PT.shape(),
   agreeingTerm: PT.string,
   agreeTerm: PT.func.isRequired,
   authTokens: PT.shape().isRequired,
@@ -306,12 +321,19 @@ ChallengeDetailPageContainer.propTypes = {
   selectedTab: PT.string.isRequired,
   setChallengeListingFilter: PT.func.isRequired,
   showTermsModal: PT.bool,
+  selectedTerm: PT.shape(),
+  viewOnly: PT.bool,
+  signDocu: PT.func.isRequired,
+  selectTerm: PT.func.isRequired,
   termDetails: PT.shape(),
   terms: PT.arrayOf(PT.shape()),
   toggleCheckpointFeedback: PT.func.isRequired,
   tokenV3: PT.string,
   unregisterFromChallenge: PT.func.isRequired,
   unregistering: PT.bool.isRequired,
+  checkStatus: PT.func.isRequired,
+  canRegister: PT.bool,
+  checkingStatus: PT.bool,
 };
 
 /* TODO: This function is ugly. We should do all this logic within normalization
@@ -396,7 +418,6 @@ function extractChallengeDetail(v3, v2, challengeId) {
 }
 
 const mapStateToProps = (state, props) => ({
-  agreedTerms: state.terms.agreedTerms,
   agreeingTerm: state.terms.agreeingTerm,
   authTokens: state.auth,
   challenge: extractChallengeDetail(state.challenge.details,
@@ -419,9 +440,13 @@ const mapStateToProps = (state, props) => ({
   results: state.challenge.results,
   resultsLoadedForChallengeId: state.challenge.resultsLoadedForChallengeId,
   selectedTab: state.challenge.selectedTab || 'details',
-  showTermsModal: state.challenge.showTermsModal,
+  showTermsModal: state.terms.showTermsModal,
+  selectedTerm: state.terms.selectedTerm,
+  viewOnly: state.terms.viewOnly,
   termDetails: state.terms.details,
   terms: state.terms.terms,
+  canRegister: state.terms.canRegister,
+  checkingStatus: state.terms.checkingStatus,
   tokenV2: state.auth && state.auth.tokenV2,
   tokenV3: state.auth && state.auth.tokenV3,
   unregistering: state.challenge.unregistering,
@@ -478,11 +503,14 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(t.getTermsInit(challengeId));
       dispatch(t.getTermsDone(challengeId, tokens.tokenV2));
     },
-    openTermsModal: () => {
-      dispatch(a.openTermsModal());
+    openTermsModal: (term) => {
+      dispatch(t.openTermsModal(term));
     },
     closeTermsModal: () => {
-      dispatch(a.closeTermsModal());
+      dispatch(t.closeTermsModal());
+    },
+    selectTerm: (term) => {
+      dispatch(t.selectTerm(term));
     },
     loadTermDetails: (tokens, termId) => {
       dispatch(t.getTermDetailsInit(termId));
@@ -495,6 +523,13 @@ const mapDispatchToProps = (dispatch) => {
     agreeTerm: (tokens, termId) => {
       dispatch(t.agreeTermInit(termId));
       dispatch(t.agreeTermDone(termId, tokens.tokenV2));
+    },
+    signDocu: (id) => {
+      dispatch(t.signDocu(id));
+    },
+    checkStatus: (tokens, challengeId) => {
+      dispatch(t.checkStatusInit());
+      dispatch(t.checkStatusDone(challengeId, tokens.tokenV2));
     },
     onSelectorClicked: (tab) => {
       dispatch(a.selectTab(tab));

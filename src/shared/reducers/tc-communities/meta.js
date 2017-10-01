@@ -6,7 +6,9 @@ import _ from 'lodash';
 import actions from 'actions/tc-communities/meta';
 import logger from 'utils/logger';
 import { handleActions } from 'redux-actions';
+import { getCommunityId } from 'routes/subdomains';
 import { toFSA } from 'utils/redux';
+import { getAuthTokens } from 'utils/tc';
 
 /**
  * Handles tcCommunities.meta.fetchDataDone action.
@@ -23,7 +25,7 @@ function onDone(state, action) {
   }
   return {
     ...state,
-    ...action.payload,
+    data: action.payload,
     lastUpdateOfMetaData: Date.now(),
     loadingMetaDataForCommunityId: '',
   };
@@ -50,6 +52,7 @@ function create(initialState) {
     },
     [actions.tcCommunities.meta.fetchDataDone]: onDone,
   }, _.defaults(initialState || {}, {
+    data: {},
     lastUpdateOfMetaData: 0,
     loadingMetaDataForCommunityId: '',
   }));
@@ -63,23 +66,18 @@ function create(initialState) {
  * @return Promise which resolves to the new reducer.
  */
 export function factory(req) {
-  const subdomains = (req && req.subdomains) || [];
-  if (subdomains.indexOf('wipro') >= 0) {
-    const state = { loadingMetaDataForCommunityId: 'wipro' };
-    return toFSA(actions.tcCommunities.meta.fetchDataDone('wipro'))
-      .then(res => create(onDone(state, res)));
-  }
-  if (subdomains.indexOf('blockchain') >= 0) {
-    const state = { loadingMetaDataForCommunityId: 'blockchain' };
-    return toFSA(actions.tcCommunities.meta.fetchDataDone('blockchain'))
-      .then(res => create(onDone(state, res)));
-  }
-
-  if (req && req.url.startsWith('/community')) {
-    const communityId = req.url.split('/')[2];
-    const state = { loadingMetaDataForCommunityId: communityId };
-    return toFSA(actions.tcCommunities.meta.fetchDataDone(communityId))
-      .then(res => create(onDone(state, res)));
+  if (req) {
+    let communityId = getCommunityId(req.subdomains);
+    if (!communityId && req.url.startsWith('/community')) {
+      communityId = req.url.split('/')[2];
+    }
+    if (communityId) {
+      const state = { loadingMetaDataForCommunityId: communityId };
+      const tokenV3 = getAuthTokens(req).tokenV3;
+      return toFSA(
+        actions.tcCommunities.meta.fetchDataDone(communityId, tokenV3),
+      ).then(res => create(onDone(state, res)));
+    }
   }
   return Promise.resolve(create());
 }

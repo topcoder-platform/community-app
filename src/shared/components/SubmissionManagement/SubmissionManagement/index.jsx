@@ -117,7 +117,7 @@ export default function SubmissionManagement(props) {
       {now.isBefore(challenge.submissionEndDate) &&
         <div styleName="btn-wrap">
           <a
-            href={`${config.URL.BASE}/challenges/${challenge.id}/submit/file`}
+            href={`${config.URL.BASE}/challenges/${challenge.id}/submit`}
             className="tc-btn tc-btn-primary tc-btn-md"
             styleName="add-sub-btn"
           >

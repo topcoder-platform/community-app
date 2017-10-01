@@ -21,7 +21,9 @@ describe('full render connnected component and dispatch actions', () => {
   const initialState = {
     tcCommunities: {
       meta: {
-        communityId: '1',
+        data: {
+          communityId: '1',
+        },
       },
     },
     icon: 'lorem',

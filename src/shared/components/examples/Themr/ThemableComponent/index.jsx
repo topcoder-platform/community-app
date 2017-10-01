@@ -5,7 +5,7 @@
 
 import PT from 'prop-types';
 import React from 'react';
-import { themr } from 'react-css-themr';
+import { themr } from 'react-css-super-themr';
 import style from './style.scss';
 
 function ThemableComponent({ theme }) {

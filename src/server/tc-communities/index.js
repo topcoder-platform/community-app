@@ -2,10 +2,8 @@
  * Routes for demo API of tc-communities
  */
 
-import _ from 'lodash';
+import CommunitiesService from 'server/services/communities';
 import express from 'express';
-import fs from 'fs';
-import { getCommunitiesMetadata } from 'utils/tc';
 
 const router = express.Router();
 
@@ -16,30 +14,10 @@ const router = express.Router();
  * should be included into the response.
  */
 router.get('/', (req, res) => {
-  const list = [];
-  const groups = new Set(req.query.groups || []);
-  const communities = fs.readdirSync(__dirname);
-  communities.forEach((community) => {
-    try {
-      const path = `${__dirname}/${community}/metadata.json`;
-      const data = JSON.parse(fs.readFileSync(path, 'utf8'));
-      if (!data.authorizedGroupIds
-        || data.authorizedGroupIds.some(id => groups.has(id))) {
-        list.push({
-          challengeFilter: data.challengeFilter || {},
-          communityId: data.communityId,
-          communityName: data.communityName,
-          description: data.description,
-          groupId: data.groupId,
-          image: data.image,
-        });
-      }
-    } catch (e) {
-      _.noop();
-    }
-  });
-  list.sort((a, b) => a.communityName.localeCompare(b.communityName));
-  res.json(list);
+  const tokenV3 = req.headers.authorization;
+  new CommunitiesService(tokenV3).getList(req.query.groups || [])
+    .catch(err => res.status(500).send(err))
+    .then(list => res.json(list));
 });
 
 /**
@@ -47,12 +25,10 @@ router.get('/', (req, res) => {
  */
 router.get('/:communityId/meta', (req, res) => {
   const communityId = req.params.communityId;
-
-  getCommunitiesMetadata(communityId).then((data) => {
-    res.json(data);
-  }).catch(() => {
-    res.status(404).send();
-  });
+  const tokenV3 = req.headers.authorization;
+  new CommunitiesService(tokenV3).getMetadata(communityId)
+    .catch(err => res.status(404).send(err))
+    .then(data => res.json(data));
 });
 
 export default router;

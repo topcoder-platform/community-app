@@ -1,3 +1,5 @@
+/* eslint jsx-a11y/no-static-element-interactions:0 */
+
 import config from 'utils/config';
 import React from 'react';
 import PT from 'prop-types';
@@ -12,8 +14,9 @@ import styles from './styles.scss';
 export default function SideBar({
   documents,
   eventDetail,
-  screeningScorecardId,
   reviewScorecardId,
+  screeningScorecardId,
+  shareable,
   forumLink,
   submissionLimit,
   hasRegistered,
@@ -21,6 +24,7 @@ export default function SideBar({
   reviewType,
   isDesign,
   terms,
+  openTermsModal,
 }) {
   const scorecardURL = `${config.URL.ONLINE_REVIEW}/review/actions/ViewScorecard?scid=`;
   const faqURL = config.URL.INFO.DESIGN_CHALLENGE_SUBMISSION;
@@ -30,9 +34,6 @@ export default function SideBar({
   } else if (submissionLimit > 1) {
     submissionLimitDisplay = `${submissionLimit} submissions`;
   }
-
-  const downloadsPlaceHolder = hasRegistered ?
-    'None' : 'Register to Download Files (if available)';
 
   const reviewTypeTitle = reviewType === 'PEER' ? 'Peer Review' : 'Community Review Board';
   const reviewTypeDescription = (
@@ -56,7 +57,7 @@ export default function SideBar({
       <div styleName="challenge-sidebar-inner">
         <h3>DOWNLOADS:</h3>
         {
-          hasRegistered && documents && documents.length > 0 ? (
+          hasRegistered && documents && documents.length > 0 && (
             <ul>
               {
                 documents.map(doc => (
@@ -64,8 +65,7 @@ export default function SideBar({
                 ))
               }
             </ul>
-          ) :
-            <p styleName="link-like-paragraph">{downloadsPlaceHolder}</p>
+          )
         }
         {eventDetail && (
           <div>
@@ -182,7 +182,7 @@ export default function SideBar({
                 terms.map(t => (
                   <div styleName="term" key={t.termsOfUseId}>
                     {t.agreed && <CheckMark styleName="agreed" />}
-                    <a href={`${config.URL.BASE}/challenge-details/terms/detail/${t.termsOfUseId}`}>
+                    <a onClick={() => openTermsModal(t)}>
                       {t.title}
                     </a>
                   </div>
@@ -214,8 +214,12 @@ export default function SideBar({
             </ul>
           </div>
         }
-        <h3>SHARE:</h3>
-        <ShareSocial />
+        { shareable && (
+          <span>
+            <h3>SHARE:</h3>
+            <ShareSocial />
+          </span>
+        )}
       </div>
     </div>
   );
@@ -241,6 +245,7 @@ SideBar.propTypes = {
   }),
   documents: PT.arrayOf(PT.shape()),
   screeningScorecardId: PT.number,
+  shareable: PT.bool.isRequired,
   reviewScorecardId: PT.number,
   forumLink: PT.string.isRequired,
   submissionLimit: PT.number,
@@ -249,4 +254,5 @@ SideBar.propTypes = {
   reviewType: PT.string,
   isDesign: PT.bool,
   terms: PT.arrayOf(PT.shape()),
+  openTermsModal: PT.func.isRequired,
 };

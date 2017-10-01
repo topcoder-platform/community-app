@@ -3,6 +3,7 @@
 .black-bg {
   background: black;
   padding: 24px;
+  text-align: center;
 }
 
 .page {
@@ -36,18 +37,18 @@
 }
 
 .striped-bg {
-  background:
-    repeating-linear-gradient(
-      -45deg,
-      $tc-white,
-      $tc-white 10px,
-      $tc-gray-20 10px,
-      $tc-gray-20 20px
-    );
+  background: repeating-linear-gradient(-45deg, $tc-white, $tc-white 10px, $tc-gray-20 10px, $tc-gray-20 20px);
   margin-top: 24px;
   padding: 24px;
+  text-align: center;
 }
 
 .white-bg {
   padding: 24px;
+  text-align: center;
+}
+
+.indicatorContainer {
+  display: inline-block;
+  vertical-align: middle;
 }

@@ -9,6 +9,7 @@ import path from 'path';
 import favicon from 'serve-favicon';
 import requestIp from 'request-ip';
 import stream from 'stream';
+import serializeJs from 'serialize-javascript';
 import { getRates as getExchangeRates } from 'services/money';
 import { toJson as xmlToJson } from 'utils/xml2json';
 
@@ -111,9 +112,10 @@ app.use('/api/exchange-rates', (req, res) => {
   getExchangeRates().then(rates => res.send(rates));
 });
 
+/* Receive the signing result from DocuSign server, and then send result to client
+ */
 app.use('/iframe-break', (req, res) => {
-  const url = req.query.dest;
-  res.send(`<script>window.top.location.href="${url}"</script>`);
+  res.send(`<script>parent.postMessage(${serializeJs({ ...req.query, type: 'DocuSign' })}, '*')</script>`);
 });
 
 /* Serves a mock DocuSign page. Which is, actually, just a simple local

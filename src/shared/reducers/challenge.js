@@ -9,6 +9,7 @@ import logger from 'utils/logger';
 
 import { handleActions } from 'redux-actions';
 import { combine, toFSA } from 'utils/redux';
+import { getAuthTokens } from 'utils/tc';
 import { updateQuery } from 'utils/url';
 
 import mySubmissionsManagement from './my-submissions-management';
@@ -74,16 +75,42 @@ function onGetDetailsDone(state, action) {
 }
 
 /**
+ * Handles CHALLENGE/GET_SUBMISSION_INIT action.
+ * @param {Object} state
+ * @param {Object} action
+ * @return {Object} New state.
+ */
+function onGetSubmissionsInit(state, action) {
+  return {
+    ...state,
+    loadingSubmissionsForChallengeId: action.payload,
+    mySubmissions: { challengeId: '', v2: null },
+  };
+}
+
+/**
  * Handles challengeActions.fetchSubmissionsDone action.
  * @param {Object} state Previous state.
  * @param {Object} action Action.
  */
 function onGetSubmissionsDone(state, action) {
+  const { challengeId, error, submissions } = action.payload;
+  if (challengeId !== state.loadingSubmissionsForChallengeId) return state;
+
+  if (error) {
+    logger.error(`Failed to get user's submissions for the challenge #${
+      challengeId}`, error);
+    return {
+      ...state,
+      loadingSubmissionsForChallengeId: '',
+      mySubmissions: { challengeId: '', v2: null },
+    };
+  }
+
   return {
     ...state,
-    fetchMySubmissionsFailure: action.error || false,
-    loadingMySubmissions: false,
-    mySubmissions: { v2: action.error ? [] : action.payload },
+    loadingSubmissionsForChallengeId: '',
+    mySubmissions: { challengeId, v2: submissions },
   };
 }
 
@@ -221,6 +248,58 @@ function onSelectTab(state, { payload }) {
 }
 
 /**
+ * Handles results of CHALLENGE/SUBMIT_DONE action.
+ * @param {Object} state
+ * @param {Object} action
+ * @return {Object} New state.
+ */
+function onSubmitDone(state, action) {
+  /* TODO: Double-check, this error-handling looks a bit weird. */
+  if (action.payload.error) {
+    return {
+      ...state,
+      submitErrorMsg: action.payload.error.details || action.payload.error.name,
+      isSubmitting: false,
+      submitDone: false,
+    };
+  }
+
+  return {
+    ...state,
+    ...action.payload,
+    isSubmitting: false,
+    submitDone: true,
+  };
+}
+
+/**
+ * Handles results of CHALLENGE/SUBMIT_INIT action.
+ * @param {Object} state
+ * @param {Object} action
+ * @return {Object} New state.
+ */
+function onSubmitInit(state) {
+  return {
+    ...state,
+    isSubmitting: true,
+    submitDone: false,
+    submitErrorMsg: '',
+  };
+}
+
+/**
+ * Handles results of CHALLENGE/SUBMIT_RESET action.
+ */
+function onSubmitReset(state) {
+  return {
+    ...state,
+    isSubmitting: false,
+    submitDone: false,
+    submitErrorMsg: '',
+  };
+}
+
+/**
  * Creates a new Auth reducer with the specified initial state.
  * @param {Object} initialState Initial state.
  * @return Auth reducer.
@@ -230,11 +309,7 @@ function create(initialState) {
   return handleActions({
     [a.getDetailsInit]: onGetDetailsInit,
     [a.getDetailsDone]: onGetDetailsDone,
-    [a.getSubmissionsInit]: state => ({
-      ...state,
-      loadingMySubmissions: true,
-      mySubmissions: { v2: null },
-    }),
+    [a.getSubmissionsInit]: onGetSubmissionsInit,
     [a.getSubmissionsDone]: onGetSubmissionsDone,
     [smpActions.smp.deleteSubmissionDone]: (state, { payload }) => ({
       ...state,
@@ -246,6 +321,9 @@ function create(initialState) {
     }),
     [a.registerInit]: state => ({ ...state, registering: true }),
     [a.registerDone]: onRegisterDone,
+    [a.submitDone]: onSubmitDone,
+    [a.submitInit]: onSubmitInit,
+    [a.submitReset]: onSubmitReset,
     [a.unregisterInit]: state => ({ ...state, unregistering: true }),
     [a.unregisterDone]: onUnregisterDone,
     [a.loadResultsInit]: onLoadResultsInit,
@@ -257,21 +335,27 @@ function create(initialState) {
     }),
     [a.fetchCheckpointsDone]: onFetchCheckpointsDone,
     [a.toggleCheckpointFeedback]: onToggleCheckpointFeedback,
-    [a.openTermsModal]: state => ({ ...state, showTermsModal: true }),
-    [a.closeTermsModal]: state => ({ ...state, showTermsModal: false }),
     [a.selectTab]: onSelectTab,
   }, _.defaults(initialState, {
     details: null,
     detailsV2: null,
+
+    /* TODO: This is not good. Instead of boolean loading flags we use
+     * some IDs related to the ongoing process, so that we can both check
+     * the status, and also to know, what exactly is pending. */
+    isSubmitting: false,
+
+    submitDone: false,
+    submitErrorMsg: '',
     loadingCheckpoints: false,
     loadingDetailsForChallengeId: '',
     loadingResultsForChallengeId: '',
+    mySubmissions: {},
     checkpoints: null,
     registering: false,
     results: null,
     resultsLoadedForChallengeId: '',
     unregistering: false,
-    showTermsModal: false,
     selectedTab: DETAIL_TABS.DETAILS,
   }));
 }
@@ -290,11 +374,8 @@ export function factory(req) {
    * should be re-used there. */
   /* TODO: For completely server-side rendering it is also necessary to load
    * terms, etc. */
-  if (req && req.url.match(/^\/challenges\/\d{8}([?/].*)?$/)) {
-    const tokens = {
-      tokenV2: req.cookies.tcjwt,
-      tokenV3: req.cookies.v3jwt,
-    };
+  if (req && req.url.match(/\/challenges\/\d{8}([?/].*)?$/)) {
+    const tokens = getAuthTokens(req);
     const challengeId = req.url.match(/\d+/)[0];
     return toFSA(actions.challenge.getDetailsDone(challengeId, tokens.tokenV3, tokens.tokenV2))
       .then((details) => {
@@ -324,10 +405,7 @@ export function factory(req) {
   }
 
   if (req && req.url.match(/^\/challenges\/\d{8}\/my-submissions/)) {
-    const tokens = {
-      tokenV2: req.cookies.tcjwt,
-      tokenV3: req.cookies.v3jwt,
-    };
+    const tokens = getAuthTokens(req);
     const challengeId = req.url.match(/\d+/)[0];
     return Promise.all([
       toFSA(actions.challenge.getDetailsDone(challengeId, tokens.tokenV3, tokens.tokenV2)),

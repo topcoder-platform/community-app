@@ -7,9 +7,7 @@ To add a new community with the name **demo**, we should follow the following pr
 2.  Community meta-data file should be created under the path `/src/server/tc-communities/demo/metadata.json`:
     ```json
     {
-      "authorizedGroupIds": [
-        "12345"
-      ],
+      "authorizedGroupIds": ["12345"],
       "challengeFilter": {
         "groupIds": ["12345"]
       },
@@ -27,7 +25,7 @@ To add a new community with the name **demo**, we should follow the following pr
         "redirect": "https://ios.topcoder.com/",
         "value": "3"
       }],
-      "groupId": "12345",
+      "groupIds": ["12345"],
       "leaderboardApiUrl": "https://api.topcoder.com/v4/looks/0/run/json/",
       "logos": [
         "/themes/demo/logo_topcoder_with_name.svg"
@@ -58,7 +56,12 @@ To add a new community with the name **demo**, we should follow the following pr
     }
     ```
     Its fields serve the following purposes:
-    -   `authorizedGroupIds` - *String Array* - Optional. Array of group IDs. If specified, access to the community will be restricted only to authenticated visitors, included into, at least, one of the groups listed in this array. If undefined, community will be accessible to any visitors (including non-authenticated ones).
+
+    > Note that we have three places where user groups can be mentioned in this config: `authorizedGroupIds` (Optional) controls authorizations necessary to access community; `groupIds` controls who is considered to be a member of community; and `groupIds` (Optional) inside `challengeFilter` allows to filter challenges included into community by their user group affinity.
+    >
+    > Technically, when application server serves configuration object for a specified community, it extends each of these arrays by descendant groups (it helps to significantly simply a lot of related code).
+
+    -   `authorizedGroupIds` - *String Array* - Optional. Array of group IDs. If specified, access to the community will be restricted only to authenticated visitors, included into any of these groups, or any of their descendant groups. If undefined, community will be accessible to any visitors (including non-authenticated ones).
     -   `challengeFilter` - *Object* - Challenge filter matching challenges related to the community. This object can include any options known to the `/src/utils/challenge-listing/filter.js` module, though in many cases you want to use just one of these:
         ```js
         /* Matches challenges belonging to any of the groups listed by ID. */
@@ -88,7 +91,7 @@ To add a new community with the name **demo**, we should follow the following pr
             - `points` - Points are shown rather than the prizes. The points are taken from `drPoints` field of challenge objects. There is no prizes tooltip in this case.
     -   `communityId` - *String* - Unique ID of this community.
     -   `communitySelector` - *Object Array* - Specifies data for the community selection dropdown inside the community header. Each object MUST HAVE `label` and `value` string fields, and MAY HAVE `redirect` field. If `redirect` field is specified, a click on that option in the dropdown will redirect user to the specified URL.
-    -   `groupId` - *String* - This value of group ID is now used to fetch community statistics. Probably, it makes sense to use this value everywhere where `authorizedGroupIds` array is used, however, at the moment, these two are independent.
+    -   `groupIds` - *String Array* - Community user groups. All members of these groups, or their descendants, will be treated as members of the community. ***Join Community functionality, where available, adds user to the first group from this array. Most probably, this behavior will be updated soon.***
     -   `leaderboardApiUrl` - *String* - Endpoint from where the leaderboard data should be loaded.
     -   `logos` - *String Array | Object Array* - Array of image URLs to insert as logos into the left corner of community's header, alternatively the array may contain JS objects of shape
         ```
@@ -123,10 +126,6 @@ To add a new community with the name **demo**, we should follow the following pr
 
 5.  At this point **demo** community is ready and accessible at the `/community/demo` route of the App (i.e., if we deploy dev version of the App to `community-west.topcoder-dev.com`, community will be accessible as `community-west.topcoder-dev.com/community/demo`).
 
-    To make **demo** community accessible via a dedicated sub-domain, e.g. like `demo.topcoder-dev.com`, you should edit `/src/shared/routes/index.jsx`. In the first `if-else` block inside `Routes()` function add the line
-    ```js
-    else if (subdomains.indexOf('demo') >= 0) communityId = 'demo';
-    ```
-    This takes care about proper sub-domain routing from our App's side. Beside it you should:
+    To make **demo** community accessible via a dedicated sub-domain, e.g. like `demo.topcoder-dev.com`, you should edit `/src/shared/routes/subdomains.js`; add `demo: 'demo',` record (i.e. the format is `subdomain: 'communityId'`) into the `SUBDOMAIN_COMMUNITY` map. Beside it you should:
     -   Ensure that the web-server where the App is deployed allows access to the subdomain `demo.topcoder-dev`, and redirects incoming requests to the App.
     -   Ensure that Topcoder `accounts-app` allows to authenticate from the new subdomain address.

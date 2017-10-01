@@ -167,16 +167,24 @@ function onSelectCommunity(state, { payload }) {
  * @return {Object}
  */
 function onSetFilter(state, { payload }) {
+  /* Validation of filter parameters: they may come from URL query, thus
+   * validation is not a bad idea. As you may note, at the moment we do not
+   * do it very carefuly (many params are not validated). */
   const filter = _.clone(payload);
-
-  if (filter) {
-    if (filter.tags && !_.isArray(filter.tags)) {
-      filter.tags = _.values(filter.tags);
-    }
-    if (filter.subtracks && !_.isArray(filter.subtracks)) {
-      filter.subtracks = _.values(filter.subtracks);
-    }
+  if (_.isPlainObject(filter.tags)) {
+    filter.tags = _.values(filter.tags);
   }
+  if (_.isPlainObject(filter.subtracks)) {
+    filter.subtracks = _.values(filter.subtracks);
+  }
+  if (filter.startDate && !moment(filter.startDate).isValid()) {
+    delete filter.startDate;
+  }
+  if (filter.endDate && !moment(filter.endDate).isValid()) {
+    delete filter.endDate;
+  }
+
+  /* Update of URL and generation of the state. */
   updateQuery({ filter });
   return {
     ...state,
@@ -279,41 +287,22 @@ function create(initialState) {
  * @return {Promise} Resolves to the new reducer.
  */
 export function factory(req) {
-  const state = {};
+  if (req && req.url.match(/challenges\/?$/)) {
+    let state = {};
 
-  if (req) {
-    let filter = {};
-    if (req.query && req.query.filter) {
-      filter = _.clone(req.query.filter);
-      if (filter.tags && !_.isArray(filter.tags)) {
-        filter.tags = _.values(filter.tags);
-      }
-      if (filter.subtracks && !_.isArray(filter.subtracks)) {
-        filter.subtracks = _.values(filter.subtracks);
-      }
-    }
-    state.filter = filter;
-
-    /* TODO: OK, fine, this validation of dates does the server-side part of
-     * the trick, while the frontend part (removing them from URL) is done
-     * elsewhere (/src/shared/routes/Topcoder/ChallengeListing), but it should
-     * be changed that everything is handled here in the reducer code (only
-     * this way we can ensure that it works all around, including community
-     * challenge listings). */
-    if (!!state.filter && !!state.filter.startDate
-        && moment(state.filter.startDate).isValid() === false) {
-      delete state.filter.startDate;
-    }
-    if (!!state.filter && !!state.filter.endDate
-        && moment(state.filter.endDate).isValid() === false) {
-      delete state.filter.endDate;
+    if (req.query.filter) {
+      state = onSetFilter(state, { payload: req.query.filter });
     }
     state.selectedCommunityId = req.query.communityId;
+
+    return resolveReducers({
+      sidebar: sidebarFactory(req),
+    }).then(reducers => combine(create(state), { ...reducers, filterPanel }));
   }
 
   return resolveReducers({
     sidebar: sidebarFactory(req),
-  }).then(reducers => combine(create(state), { ...reducers, filterPanel }));
+  }).then(reducers => combine(create(), { ...reducers, filterPanel }));
 }
 
 /* Default reducer with empty initial state. */

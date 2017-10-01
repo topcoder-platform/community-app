@@ -50,7 +50,6 @@ exports[`Matches shallow shapshot shapshot 1`] = `
     }
     communityName="name"
     filterState={Object {}}
-    groupId={undefined}
     hidden={true}
     isSavingFilter={false}
     onClose={[Function]}
@@ -105,36 +104,42 @@ exports[`Matches shallow shapshot shapshot 2`] = `
         className="src-shared-components-challenge-listing-Filters-___ChallengeFilters__filter-switch-with-label___21Ups"
       >
         <ThemedSwitchWithLabel
-          composeTheme="deeply"
+          composeAdhocTheme="deeply"
+          composeContextTheme="softly"
           enabled={false}
           labelAfter=""
           labelBefore="Design"
           mapThemrProps={[Function]}
           onSwitch={[Function]}
+          themePriority="adhoc-context-default"
         />
       </span>
       <span
         className="src-shared-components-challenge-listing-Filters-___ChallengeFilters__filter-switch-with-label___21Ups"
       >
         <ThemedSwitchWithLabel
-          composeTheme="deeply"
+          composeAdhocTheme="deeply"
+          composeContextTheme="softly"
           enabled={false}
           labelAfter=""
           labelBefore="Development"
           mapThemrProps={[Function]}
           onSwitch={[Function]}
+          themePriority="adhoc-context-default"
         />
       </span>
       <span
         className="src-shared-components-challenge-listing-Filters-___ChallengeFilters__filter-switch-with-label___21Ups"
       >
         <ThemedSwitchWithLabel
-          composeTheme="deeply"
+          composeAdhocTheme="deeply"
+          composeContextTheme="softly"
           enabled={false}
           labelAfter=""
           labelBefore="Data Science"
           mapThemrProps={[Function]}
           onSwitch={[Function]}
+          themePriority="adhoc-context-default"
         />
       </span>
     </span>
@@ -199,7 +204,6 @@ exports[`Matches shallow shapshot shapshot 2`] = `
         ],
       }
     }
-    groupId={undefined}
     hidden={true}
     isSavingFilter={false}
     onClose={[Function]}

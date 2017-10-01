@@ -24,7 +24,7 @@ export const STATE = {
 
 export default function JoinCommunity({
   communityName,
-  groupId,
+  groupIds,
   hideJoinButton,
   join,
   label,
@@ -53,7 +53,7 @@ export default function JoinCommunity({
         { state === STATE.JOINING ? (
           <div>
             <p>Joining...</p>
-            <LoadingIndicator theme={{ style: style.loadingIndicator }} />
+            <LoadingIndicator theme={{ container: style.loadingIndicator }} />
           </div>
         ) : label}
       </button>
@@ -70,7 +70,7 @@ export default function JoinCommunity({
       { state === STATE.CONFIRM_JOIN ? (
         <ConfirmModal
           communityName={communityName}
-          groupId={groupId}
+          groupIds={groupIds}
           join={join}
           resetJoinButton={resetJoinButton}
           token={token}
@@ -82,7 +82,7 @@ export default function JoinCommunity({
 }
 
 JoinCommunity.defaultProps = {
-  groupId: null,
+  groupIds: [''],
   label: 'Join Community',
   theme: {
     link: style.link,
@@ -93,7 +93,7 @@ JoinCommunity.defaultProps = {
 
 JoinCommunity.propTypes = {
   communityName: PT.string.isRequired,
-  groupId: PT.string,
+  groupIds: PT.arrayOf(PT.string),
   hideJoinButton: PT.func.isRequired,
   join: PT.func.isRequired,
   label: PT.string,

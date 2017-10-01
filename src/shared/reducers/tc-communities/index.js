@@ -6,12 +6,12 @@
 
 import _ from 'lodash';
 import actions from 'actions/tc-communities';
-import config from 'utils/config';
 import logger from 'utils/logger';
 import { handleActions } from 'redux-actions';
-import { decodeToken, isTokenExpired } from 'tc-accounts';
+import { decodeToken } from 'tc-accounts';
 import { isClientSide } from 'utils/isomorphy';
 import { combine, resolveReducers, toFSA } from 'utils/redux';
+import { getAuthTokens } from 'utils/tc';
 import { STATE as JOIN_COMMUNITY } from 'components/tc-communities/JoinCommunity';
 
 import { factory as metaFactory } from './meta';
@@ -62,11 +62,7 @@ function create(initialState = {}) {
 export function factory(req) {
   let joinPromise;
   if (req) {
-    const cookies = req.cookies || {};
-    const adt = config.AUTH_DROP_TIME;
-    let tokenV3 = cookies.v3jwt;
-    if (!tokenV3 || isTokenExpired(tokenV3, adt)) tokenV3 = null;
-
+    const tokenV3 = getAuthTokens(req).tokenV3;
     const joinGroupId = req.query && req.query.join;
     if (joinGroupId && tokenV3) {
       const user = decodeToken(tokenV3);

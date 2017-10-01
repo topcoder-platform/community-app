@@ -6,6 +6,7 @@ import actions from 'actions/leaderboard';
 import metaActions from 'actions/tc-communities/meta';
 import { handleActions } from 'redux-actions';
 import { toFSA } from 'utils/redux';
+import { getAuthTokens } from 'utils/tc';
 
 /**
  * Handles leaderboard.fetchLeaderboard action.
@@ -54,10 +55,7 @@ export function factory(req) {
   const match = req && req.url.match(/community\/([^/]+)\/leaderboard/);
 
   if (match) {
-    const tokens = {
-      tokenV2: req.cookies.tcjwt,
-      tokenV3: req.cookies.v3jwt,
-    };
+    const tokens = getAuthTokens(req);
     const communityId = match[1];
     // as every community can has its own leaderboard page url
     // we are trying to get leadeboard page url from community meta data api

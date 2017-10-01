@@ -10,7 +10,7 @@
 import _ from 'lodash';
 import React from 'react';
 import PT from 'prop-types';
-import { themr } from 'react-css-themr';
+import { themr } from 'react-css-super-themr';
 import cn from 'classnames';
 import Sticky from 'react-stickynode';
 import IconTickDown from '../../../../../assets/images/tc-communities/tick_down_big.svg';

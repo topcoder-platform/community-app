@@ -37,6 +37,7 @@ class DateRangePicker extends React.Component {
         endDate={this.props.endDate}
         anchorDirection={'right'}
         displayFormat={'MMM DD, YYYY'}
+        readOnly={this.props.readOnly}
       />
     );
   }
@@ -44,6 +45,7 @@ class DateRangePicker extends React.Component {
 
 DateRangePicker.defaultProps = {
   onDatesChange: () => true,
+  readOnly: true,
 };
 
 DateRangePicker.propTypes = {

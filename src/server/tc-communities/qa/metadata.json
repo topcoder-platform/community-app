@@ -1,6 +1,9 @@
 {
   "challengeFilter": {
-    "groupIds": ["20000004"]
+    "groupIds": ["20000012","20000004"],
+    "or": [{
+      "tags": ["QA"]
+    }]
   },
   "communityId": "qa",
   "communityName": "QaaS",
@@ -12,7 +15,7 @@
     "redirect": "https://www.topcoder.com",
     "value": "2"
   }],
-  "groupId": "20000004",
+  "groupIds": ["20000012","20000004"],
   "logos": [{
     "img": "/themes/qa/logo_topcoder_with_name.svg",
     "url": "https://www.topcoder.com"
@@ -27,9 +30,6 @@
     }, {
       "title": "Challenges",
       "url": "challenges"
-    }, {
-      "title": "Leaderboard",
-      "url": "leaderboard"
     }
   ],
   "leaderboardApiUrl": "https://api.topcoder.com/v4/looks/458/run/json/",

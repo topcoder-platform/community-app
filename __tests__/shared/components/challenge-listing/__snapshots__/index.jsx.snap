@@ -7,7 +7,6 @@ exports[`Matches shallow shapshot 1 shapshot 1 1`] = `
 >
   <Connect(Container)
     communityName={null}
-    groupId=""
     isCardTypeSet="Challenges"
     setCardType={[Function]}
   />
@@ -23,6 +22,7 @@ exports[`Matches shallow shapshot 1 shapshot 1 1`] = `
       <div>
         <SRMCard
           category="now"
+          srmChallenge={null}
         />
       </div>
       <div>
@@ -40,6 +40,7 @@ exports[`Matches shallow shapshot 1 shapshot 1 1`] = `
         </div>
         <SRMCard
           category="past"
+          srmChallenge={null}
         />
       </div>
     </div>
@@ -74,7 +75,6 @@ exports[`Matches shallow shapshot 1 shapshot 1 1`] = `
       communityName={null}
       currentFilterName=""
       expanded={false}
-      groupId=""
       loadMoreDraft={null}
       loadMorePast={null}
       loadingDraftChallenges={false}
@@ -119,7 +119,6 @@ exports[`Matches shallow shapshot 2 shapshot 2 1`] = `
 >
   <Connect(Container)
     communityName={null}
-    groupId=""
     isCardTypeSet="Challenges"
     setCardType={[Function]}
   />
@@ -135,6 +134,7 @@ exports[`Matches shallow shapshot 2 shapshot 2 1`] = `
       <div>
         <SRMCard
           category="now"
+          srmChallenge={null}
         />
       </div>
       <div>
@@ -152,6 +152,7 @@ exports[`Matches shallow shapshot 2 shapshot 2 1`] = `
         </div>
         <SRMCard
           category="past"
+          srmChallenge={null}
         />
       </div>
     </div>

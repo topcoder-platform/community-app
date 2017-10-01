@@ -120,7 +120,6 @@ Listing.defaultProps = {
   communityName: null,
   currentFilterName: '',
   expanded: false,
-  groupId: '',
   loadMoreDraft: null,
   loadMorePast: null,
   onTechTagClicked: _.noop,

@@ -56,6 +56,7 @@ const mockState2 = {
     tokenV3: 'Token V3',
   },
   challenge: {
+    mySubmissions: {},
     mySubmissionsManagement: {},
   },
 };

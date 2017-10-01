@@ -22,8 +22,10 @@ describe('full render connnected component and dispatch actions', () => {
   const initialState = {
     tcCommunities: {
       meta: {
-        challengeGroupId: '1',
-        communityName: 'name',
+        data: {
+          challengeGroupId: '1',
+          communityName: 'name',
+        },
       },
       hideJoinButton: true,
       joinCommunityButton: 'joined',
@@ -38,6 +40,9 @@ describe('full render connnected component and dispatch actions', () => {
         groups: [{ id: '1' }],
       },
       tokenV3: 'tokenV3',
+    },
+    groups: {
+      groups: {},
     },
   };
 

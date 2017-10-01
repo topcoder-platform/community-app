@@ -37,15 +37,13 @@ class Loader extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const { communityId, loadingMetaDataForCommunityId, meta } = nextProps;
+    const {
+      communityId, loadingMeta, meta, tokenV3,
+    } = nextProps;
 
-    /* We reload community meta-data when:
-     * - No metadata is loaded or being loaded for the specified community;
-     * - Already loaded metadata have been loaded more than MAXAGE ago. */
-    if ((communityId !== loadingMetaDataForCommunityId) && (
-      !meta || meta.communityId !== communityId
-      || (Date.now() - meta.lastUpdateOfMetaData) > MAXAGE
-    )) this.props.loadMetaData(communityId);
+    if (!loadingMeta && (
+      !meta || (Date.now() - meta.lastUpdateOfMetaData) > MAXAGE
+    )) nextProps.loadMetaData(communityId, tokenV3);
 
     /* TODO: This is a hacky way to handle SSO authentication for TopGear
      * (Wipro) community visitors. Should be re-factored, but not it is not
@@ -57,17 +55,23 @@ class Loader extends React.Component {
   }
 
   render() {
-    const { Community, communityId, meta, visitorGroups } = this.props;
+    const {
+      Community,
+      communityId,
+      meta,
+      visitorGroups,
+    } = this.props;
 
-    /* Community meta-data are still being loaded. */
+    /* In case we are missing meta data, or information about some user groups
+     * we need, we show loading indicator (for better user experience, we are
+     * fine to accept outdated data; such data will be silently refreshed
+     * behind the scene shortly). */
+    if (!meta) return <LoadingPagePlaceholder />;
 
-    if (!meta) {
-      return <LoadingPagePlaceholder />;
-    }
+    const visitorGroupIds = visitorGroups ? visitorGroups.map(g => g.id) : [];
 
-    const visitorGroupIds = visitorGroups ? visitorGroups.map(g => g.id) : null;
-    const member = visitorGroupIds && meta.groupId
-      && visitorGroupIds.includes(meta.groupId);
+    const member = visitorGroups && meta.groupIds
+      && Boolean(_.intersection(meta.groupIds, visitorGroupIds.length));
 
     /* Community does not require authorization. */
     if (!meta.authorizedGroupIds) return Community({ member, meta });
@@ -85,7 +89,7 @@ class Loader extends React.Component {
 
     /* Visitor belongs to at least one of the groups authorized to access this
      * community. */
-    if (_.intersection(visitorGroupIds, meta.authorizedGroupIds).length) {
+    if (_.intersection(meta.authorizedGroupIds, visitorGroupIds).length) {
       return Community({ member, meta });
     }
 
@@ -96,33 +100,36 @@ class Loader extends React.Component {
 
 Loader.defaultProps = {
   meta: null,
+  tokenV3: '',
   visitorGroups: null,
 };
 
 Loader.propTypes = {
-  communityId: PT.string.isRequired,
   Community: PT.func.isRequired,
-  loadingMetaDataForCommunityId: PT.string.isRequired,
+  communityId: PT.string.isRequired,
+  loadingMeta: PT.bool.isRequired,
   loadMetaData: PT.func.isRequired,
   meta: PT.shape({
     authorizedGroupIds: PT.arrayOf(PT.string),
     communityId: PT.string.isRequired,
   }),
+  tokenV3: PT.string,
   visitorGroups: PT.arrayOf(PT.shape({ id: PT.string.isRequired })),
 };
 
 function mapStateToProps(state, ownProps) {
   const communityId = ownProps.communityId;
 
-  let meta = state.tcCommunities.meta;
-  const loadingMetaDataForCommunityId = meta.loadingMetaDataForCommunityId;
+  let meta = state.tcCommunities.meta.data;
+  const loadingMeta = communityId === meta.loadingMetaDataForCommunityId;
   if (meta.communityId !== communityId) meta = null;
 
   return {
-    communityId,
     Community: ownProps.communityComponent,
-    loadingMetaDataForCommunityId,
+    communityId,
+    loadingMeta,
     meta,
+    tokenV3: _.get(state, 'auth.tokenV3'),
     visitorGroups: _.get(state, 'auth.profile.groups'),
   };
 }
@@ -130,9 +137,9 @@ function mapStateToProps(state, ownProps) {
 function mapDispatchToProps(dispatch) {
   const a = actions.tcCommunities.meta;
   return {
-    loadMetaData: (communityId) => {
+    loadMetaData: (communityId, tokenV3) => {
       dispatch(a.fetchDataInit(communityId));
-      dispatch(a.fetchDataDone(communityId));
+      dispatch(a.fetchDataDone(communityId, tokenV3));
     },
   };
 }

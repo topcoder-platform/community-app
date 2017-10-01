@@ -47,7 +47,7 @@ If you need any operations related to currency conversions, pay attention to the
     -   `PORT` Specifies the port to run the App at. Defaults to 3000;
     -   `NODE_ENV` Specifies Topcoder backend to use. Should be either `development` either `production`. Defaults to `production`.
 
-5.  To rebuild the App's frontend (initially, it is automatically build as a part of the install step) run one of (the result of build will be output into `/build` folder in both cases):
+5.  To build the App's frontend run one of (the result of build will be output into `/build` folder in both cases):
     -   `$ npm run build` To rebuild production frontend;
     -   `$ npm run build:dev` This command should only be used to test whether development build of the front end works. You don't have to execute this command to run development version of the App (the server will automatically build frontend in memory anyway). You can't successfully execute this command without installing dev dependencies.
 
@@ -112,7 +112,7 @@ This App already contains:
 - Node-Config;
 - React;
 - React CSS Modules (via Babel plugin);
-- [react-css-themr](https://github.com/javivelasco/react-css-themr);
+- [react-css-super-themr](https://github.com/birdofpreyru/react-css-super-themr);
 - React Router;
 - Redux with Flux Standard Actions, redux-promise middleware, support of server-side rendering, and DevTools for dev environment;
 - SCSS support;

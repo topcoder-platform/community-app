@@ -13,6 +13,14 @@
       "title": "Standard Terms for TopCoder Competitions v2.1",
       "url": "",
       "agreeabilityType": "Electronically-agreeable",
+      "agreed": true,
+      "templateId": null
+    },
+    {
+      "termsOfUseId": 21194,
+      "title": "Test Terms",
+      "url": "",
+      "agreeabilityType": "Electronically-agreeable",
       "agreed": false,
       "templateId": null
     }

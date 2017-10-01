@@ -3,8 +3,9 @@
  */
 
 import _ from 'lodash';
+import config from 'utils/config';
 import moment from 'moment-timezone';
-import config from './config';
+import { isTokenExpired } from 'tc-accounts';
 
 /**
  * Codes of the Topcoder communities.
@@ -56,38 +57,20 @@ export function getRatingColor(rating) {
 }
 
 /**
- * Returns community meta data on server side
- *
- * This is used to mock API.
- * Basically it returns json files form directory
- * /src/server/tc-communities/{communityId}/metadata.json
- *
- * @param  {String}  communityId  id of community
- * @return {Object}               meta data
+ * Given ExpressJS HTTP request it extracts Topcoder auth tokens from cookies,
+ * if they are present there and are not expired.
+ * @param {Object} req ExpressJS HTTP request. For convenience, it is allowed to
+ *  call this function without "req" argument (will result in empty tokens).
+ * @return {Object} It will contain two string fields: tokenV2 and tokenV3.
+ *  These strings will be empty if corresponding cookies are absent, or expired.
  */
-export function getCommunitiesMetadata(communityId) {
-  // we use constant process.env.FRONT_END directly instead of isClientSide from utils/isomporphy
-  // because webpack can exclude code this way from bundle on frontend
-  // otherwise it will try to resolve 'fs' and 'path' modules
-  if (!process.env.FRONT_END) {
-    /* eslint-disable global-require */
-    const fs = require('fs');
-    const path = require('path');
-    /* eslint-enable global-require */
-
-    return new Promise((resolve, reject) => {
-      fs.readFile(path.resolve(__dirname, `../../server/tc-communities/${communityId}/metadata.json`), 'utf8', (err, data) => {
-        if (err) {
-          reject({ error: '404', communityId });
-        } else {
-          const metadata = JSON.parse(data);
-          resolve(metadata);
-        }
-      });
-    });
-  }
-
-  return null;
+export function getAuthTokens(req = {}) {
+  const cookies = req.cookies || {};
+  let tokenV2 = cookies.tcjwt;
+  let tokenV3 = cookies.v3jwt;
+  if (!tokenV2 || isTokenExpired(tokenV2, config.AUTH_DROP_TIME)) tokenV2 = '';
+  if (!tokenV3 || isTokenExpired(tokenV3, config.AUTH_DROP_TIME)) tokenV3 = '';
+  return { tokenV2, tokenV3 };
 }
 
 /**

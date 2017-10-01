@@ -1,7 +1,8 @@
-@import "~styles/tc-styles";
+@import "~styles/mixins";
 
 .outer-container {
   background: $tc-gray-neutral-dark;
+  width: 100%;
 
   @include xxs-to-xs {
     padding: 8px 10px 20px;
@@ -22,4 +23,16 @@
   max-width: 1240px;
   width: 100%;
   margin: auto;
+}
+
+.page {
+  @include roboto;
+
+  background: $tc-white;
+  border-radius: 3 * $corner-radius;
+  margin: auto;
+  max-width: 1240px;
+  padding: 4 * $base-unit;
+  text-align: center;
+  width: 100%;
 }

@@ -1,0 +1,22 @@
+/**
+ * A sample yellow / pink theme for the loading indicator.
+ * It is here just to demonstrate customization of the indicator,
+ * do not use this very style inside the app (it is aesthetically ugly).
+ */
+
+.container {
+  display: inline-block !important;
+  height: 72px !important;
+  vertical-align: middle;
+  width: 72px !important;
+}
+
+.circle1 {
+  stroke: yellow !important;
+  stroke-width: 6 !important;
+}
+
+.circle2 {
+  stroke: pink !important;
+  stroke-width: 6 !important;
+}

@@ -1,7 +1,21 @@
-@import '~styles/tc-styles';
+@import '~styles/mixins';
 
-.style {
+.container {
   display: block;
+  height: 64px;
   margin: 0 auto;
   text-align: center;
+  width: 64px;
+}
+
+.circle1 {
+  fill: none;
+  stroke: #149efe;
+  stroke-width: 2;
+}
+
+.circle2 {
+  fill: none;
+  stroke: #e3e4e5;
+  stroke-width: 2;
 }

@@ -13,11 +13,13 @@ exports[`Matches shapshot 1`] = `
     }
   }
   challengeId={12345}
+  challengesUrl="/challenges"
   deleting={true}
   isLoadingChallenge={false}
   isLoadingSubmissions={false}
   loadChallengeDetails={[Function]}
   loadMySubmissions={[Function]}
+  loadingSubmissionsForChallengeId={undefined}
   match={
     Object {
       "params": Object {
@@ -25,13 +27,7 @@ exports[`Matches shapshot 1`] = `
       },
     }
   }
-  mySubmissions={
-    Array [
-      Object {
-        "submissionId": 12345,
-      },
-    ]
-  }
+  mySubmissions={null}
   onCancelSubmissionDelete={[Function]}
   onDownloadSubmission={[Function]}
   onShowDetails={[Function]}

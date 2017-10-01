@@ -16,7 +16,7 @@ import Avatar from 'components/Avatar';
 import { Link, NavLink } from 'utils/router';
 import { getRatingColor } from 'utils/tc';
 import Dropdown from 'components/tc-communities/Dropdown';
-import { themr } from 'react-css-themr';
+import { themr } from 'react-css-super-themr';
 import IconSearch from '../../../../assets/images/tc-communities/search.svg';
 import IconNavExit from '../../../../assets/images/nav/exit.svg';
 import IconNavSettings from '../../../../assets/images/nav/settings.svg';
@@ -29,7 +29,7 @@ function Header(props) {
     baseUrl,
     closeMenu,
     communitySelector,
-    groupId,
+    groupIds,
     hideJoinNow,
     openMenu,
     openedMenu,
@@ -122,7 +122,7 @@ function Header(props) {
         <button
           onClick={() => {
             let url = encodeURIComponent(
-              `${window.location.href}?join=${groupId}`,
+              `${window.location.href}?join=${groupIds[0]}`,
             );
             url = encodeURIComponent(
               `${config.URL.AUTH}/member?retUrl=${url}`,
@@ -136,7 +136,7 @@ function Header(props) {
       <button
         onClick={() => {
           const url = encodeURIComponent(
-            `${window.location.href}?join=${groupId}`,
+            `${window.location.href}?join=${groupIds[0]}`,
           );
           window.location = `${config.URL.AUTH}/member?retUrl=${url}`;
         }}
@@ -231,7 +231,7 @@ function Header(props) {
 Header.defaultProps = {
   activeTrigger: null,
   baseUrl: '',
-  groupId: '',
+  groupIds: [''],
   hideJoinNow: false,
   menuItems: [],
   openedMenu: null,
@@ -248,7 +248,7 @@ Header.propTypes = {
   baseUrl: PT.string,
   closeMenu: PT.func.isRequired,
   communitySelector: PT.arrayOf(PT.shape()).isRequired,
-  groupId: PT.string,
+  groupIds: PT.arrayOf[PT.string],
   menuItems: PT.arrayOf(PT.shape({
     title: PT.string.isRequired,
     url: PT.string.isRequired,

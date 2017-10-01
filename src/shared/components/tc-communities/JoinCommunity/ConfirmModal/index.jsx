@@ -17,7 +17,7 @@ import './style.scss';
 
 export default function ConfirmModal({
   communityName,
-  groupId,
+  groupIds,
   join,
   resetJoinButton,
   token,
@@ -26,16 +26,20 @@ export default function ConfirmModal({
   return (
     <Modal onCancel={resetJoinButton}>
       <div styleName="confirmMsg">
-        { userId ? null : (
-          <p>You must be a Topcoder member before you can join the {communityName}.</p>
+        { userId ? (
+          <p>Do you want to join {communityName}?</p>
+        ) : (
+          <div>
+            <p>You must be a Topcoder member before you can join the {communityName}.</p>
+            <p>To join, login if you are already a member. If not, register first.</p>
+          </div>
         )}
-        To join, login if you are already a member. If not, register first.
       </div>
       <div styleName="buttons">
         { userId ? (
           <span>
             <button
-              onClick={() => join(token, groupId, userId)}
+              onClick={() => join(token, groupIds[0], userId)}
               styleName="btnConfirm"
             >Join</button>
             <button
@@ -48,7 +52,7 @@ export default function ConfirmModal({
             <button
               onClick={() => {
                 const url = encodeURIComponent(
-                  `${window.location.href}?join=${groupId}`,
+                  `${window.location.href}?join=${groupIds[0]}`,
                 );
                 window.location = `${config.URL.AUTH}/member?retUrl=${url}`;
               }}
@@ -57,7 +61,7 @@ export default function ConfirmModal({
             <button
               onClick={() => {
                 let url = encodeURIComponent(
-                  `${window.location.href}?join=${groupId}`,
+                  `${window.location.href}?join=${groupIds[0]}`,
                 );
                 url = encodeURIComponent(
                   `${config.URL.AUTH}/member?retUrl=${url}`,
@@ -85,7 +89,7 @@ ConfirmModal.defaultProps = {
 
 ConfirmModal.propTypes = {
   communityName: PT.string.isRequired,
-  groupId: PT.string.isRequired,
+  groupIds: PT.arrayOf(PT.string).isRequired,
   join: PT.func.isRequired,
   resetJoinButton: PT.func.isRequired,
   token: PT.string,
