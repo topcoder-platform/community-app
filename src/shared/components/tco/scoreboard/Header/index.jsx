@@ -7,7 +7,7 @@
 
 import React from 'react';
 import PT from 'prop-types';
-import { ThemeProvider } from 'react-css-themr';
+import { ThemeProvider } from 'react-css-super-themr';
 
 import './style.scss';
 
