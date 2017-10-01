@@ -75,16 +75,42 @@ function onGetDetailsDone(state, action) {
 }
 
 /**
+ * Handles CHALLENGE/GET_SUBMISSION_INIT action.
+ * @param {Object} state
+ * @param {Object} action
+ * @return {Object} New state.
+ */
+function onGetSubmissionsInit(state, action) {
+  return {
+    ...state,
+    loadingSubmissionsForChallengeId: action.payload,
+    mySubmissions: { challengeId: '', v2: null },
+  };
+}
+
+/**
  * Handles challengeActions.fetchSubmissionsDone action.
  * @param {Object} state Previous state.
  * @param {Object} action Action.
  */
 function onGetSubmissionsDone(state, action) {
+  const { challengeId, error, submissions } = action.payload;
+  if (challengeId !== state.loadingSubmissionsForChallengeId) return state;
+
+  if (error) {
+    logger.error(`Failed to get user's submissions for the challenge #${
+      challengeId}`, error);
+    return {
+      ...state,
+      loadingSubmissionsForChallengeId: '',
+      mySubmissions: { challengeId: '', v2: null },
+    };
+  }
+
   return {
     ...state,
-    fetchMySubmissionsFailure: action.error || false,
-    loadingMySubmissions: false,
-    mySubmissions: { v2: action.error ? [] : action.payload },
+    loadingSubmissionsForChallengeId: '',
+    mySubmissions: { challengeId, v2: submissions },
   };
 }
 
@@ -283,11 +309,7 @@ function create(initialState) {
   return handleActions({
     [a.getDetailsInit]: onGetDetailsInit,
     [a.getDetailsDone]: onGetDetailsDone,
-    [a.getSubmissionsInit]: state => ({
-      ...state,
-      loadingMySubmissions: true,
-      mySubmissions: { v2: null },
-    }),
+    [a.getSubmissionsInit]: onGetSubmissionsInit,
     [a.getSubmissionsDone]: onGetSubmissionsDone,
     [smpActions.smp.deleteSubmissionDone]: (state, { payload }) => ({
       ...state,
@@ -328,6 +350,7 @@ function create(initialState) {
     loadingCheckpoints: false,
     loadingDetailsForChallengeId: '',
     loadingResultsForChallengeId: '',
+    mySubmissions: {},
     checkpoints: null,
     registering: false,
     results: null,

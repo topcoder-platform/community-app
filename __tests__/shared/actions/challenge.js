@@ -34,14 +34,14 @@ describe('challenge.fetchChallengeInit', () => {
 });
 
 describe('challenge.fetchSubmissionsInit', () => {
-  const a = actions.challenge.getSubmissionsInit();
+  const a = actions.challenge.getSubmissionsInit(12345);
 
   test('has expected type', () => {
     expect(a.type).toBe('CHALLENGE/GET_SUBMISSIONS_INIT');
   });
 
-  test('payload is undefined', () =>
-    expect(a.payload).toBeUndefined());
+  test('payload is challengeId', () =>
+    expect(a.payload).toBe('12345'));
 });
 
 describe('challenge.getDetailsDone', () => {
@@ -59,6 +59,7 @@ describe('challenge.getDetailsDone', () => {
   test('payload is a promise which resolves to the expected object', () =>
     a.payload.then(res => expect(res).toEqual([
       mockChallenge, {
+        challengeId: '12345',
         submissions: 'DUMMY DATA',
       }, undefined,
     ])),
@@ -66,14 +67,20 @@ describe('challenge.getDetailsDone', () => {
 });
 
 describe('challenge.fetchSubmissionsDone', () => {
-  global.fetch = mockFetch({ submissions: 'DUMMY DATA' });
+  global.fetch = mockFetch({
+    challengeId: '12345',
+    submissions: 'DUMMY DATA',
+  });
 
-  const a = actions.challenge.getSubmissionsDone({});
+  const a = actions.challenge.getSubmissionsDone(12345, {});
 
   test('has expected type', () => {
     expect(a.type).toBe('CHALLENGE/GET_SUBMISSIONS_DONE');
   });
 
   test('payload is a promise which resolves to the expected object', () =>
-    a.payload.then(res => expect(res).toBe('DUMMY DATA')));
+    a.payload.then(res => expect(res).toEqual({
+      challengeId: '12345',
+      submissions: 'DUMMY DATA',
+    })));
 });

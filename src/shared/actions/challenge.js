@@ -56,10 +56,37 @@ function getDetailsDone(challengeId, tokenV3, tokenV2) {
   ]);
 }
 
+/**
+ * Payload creator for the action that initializes loading of user's submissions
+ * to the specified challenges. This action also cancels any previous unfinished
+ * fetching of submissions.
+ * @param {String} challengeId
+ * @return {String}
+ */
+function getSubmissionsInit(challengeId) {
+  /* As a safeguard, we enforce challengeId to be string (in case somebody
+   * passes in a number, by mistake). */
+  return _.toString(challengeId);
+}
+
+/**
+ * Payload creator for the action that actually pulls from API user's
+ * submissions to the specified challenge.
+ * @param {String} challengeId
+ * @param {String} tokenV2
+ */
 function getSubmissionsDone(challengeId, tokenV2) {
-  return getApiV2(tokenV2).fetch(`/challenges/submissions/${challengeId}/mySubmissions`)
+  return getApiV2(tokenV2)
+    .fetch(`/challenges/submissions/${challengeId}/mySubmissions`)
     .then(response => response.json())
-    .then(response => response.submissions);
+    .then(response => ({
+      challengeId: _.toString(challengeId),
+      submissions: response.submissions,
+    }))
+    .catch((error) => {
+      const err = { challengeId: _.toString(challengeId), error };
+      throw err;
+    });
 }
 
 /**
@@ -188,7 +215,7 @@ export default createActions({
     FETCH_CHECKPOINTS_DONE: fetchCheckpointsDone,
     GET_DETAILS_INIT: getDetailsInit,
     GET_DETAILS_DONE: getDetailsDone,
-    GET_SUBMISSIONS_INIT: _.noop,
+    GET_SUBMISSIONS_INIT: getSubmissionsInit,
     GET_SUBMISSIONS_DONE: getSubmissionsDone,
     LOAD_RESULTS_INIT: loadResultsInit,
     LOAD_RESULTS_DONE: loadResultsDone,

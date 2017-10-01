@@ -22,19 +22,31 @@ import smpActions from '../../actions/smp';
 // The container component
 class SubmissionManagementPageContainer extends React.Component {
   componentDidMount() {
-    if (!this.props.challenge
-      || (_.toString(this.props.challenge.id) !== _.toString(this.props.challengeId))) {
-      this.props.loadChallengeDetails(this.props.authTokens, this.props.challengeId);
+    const {
+      authTokens,
+      challenge,
+      challengeId,
+      mySubmissions,
+      loadChallengeDetails,
+      loadingSubmissionsForChallengeId,
+      loadMySubmissions,
+    } = this.props;
+
+
+    if (!challenge
+      || (_.toString(challenge.id) !== _.toString(challengeId))) {
+      loadChallengeDetails(authTokens, challengeId);
     }
 
-    if (!(this.props.mySubmissions.length || this.props.isLoadingSubmissions)) {
-      this.props.loadMySubmissions(this.props.authTokens, this.props.challengeId);
+    if (!mySubmissions && challengeId !== loadingSubmissionsForChallengeId) {
+      loadMySubmissions(authTokens, challengeId);
     }
   }
 
   render() {
     const {
       challengesUrl,
+      loadingSubmissionsForChallengeId,
     } = this.props;
 
     const isEmpty = _.isEmpty(this.props.challenge);
@@ -56,7 +68,7 @@ class SubmissionManagementPageContainer extends React.Component {
             <SubmissionManagement
               challenge={this.props.challenge}
               challengesUrl={challengesUrl}
-              loadingSubmissions={this.props.isLoadingSubmissions}
+              loadingSubmissions={Boolean(loadingSubmissionsForChallengeId)}
               submissions={this.props.mySubmissions}
               showDetails={this.props.showDetails}
               {...smConfig}
@@ -130,7 +142,7 @@ SubmissionManagementPageContainer.propTypes = {
   authTokens: PT.shape().isRequired,
   challengeId: PT.number.isRequired,
   mySubmissions: PT.arrayOf(PT.shape()),
-  isLoadingSubmissions: PT.bool,
+  loadingSubmissionsForChallengeId: PT.string.isRequired,
   loadMySubmissions: PT.func.isRequired,
   onShowDetails: PT.func.isRequired,
   onSubmissionDelete: PT.func.isRequired,
@@ -142,25 +154,34 @@ SubmissionManagementPageContainer.propTypes = {
   onSubmissionDeleteConfirmed: PT.func.isRequired,
 };
 
+function mapStateToProps(state, props) {
+  const challengeId = props.match.params.challengeId;
 
-const mapStateToProps = (state, props) => ({
-  challengeId: Number(props.match.params.challengeId),
-  challenge: state.challenge.details,
-  challengesUrl: props.challengesUrl,
+  let mySubmissions = state.challenge.mySubmissions;
+  mySubmissions = challengeId === mySubmissions.challengeId
+    ? mySubmissions.v2 : null;
 
-  deleting: state.challenge.mySubmissionsManagement.deletingSubmission,
+  return {
+    challengeId: Number(challengeId),
+    challenge: state.challenge.details,
+    challengesUrl: props.challengesUrl,
 
-  isLoadingChallenge: Boolean(state.challenge.loadingDetailsForChallengeId),
+    deleting: state.challenge.mySubmissionsManagement.deletingSubmission,
 
-  mySubmissions: (state.challenge.mySubmissions || {}).v2,
-  isLoadingSubmissions: state.challenge.loadingMySubmissions,
-  showDetails: new Set(state.challenge.mySubmissionsManagement.showDetails),
+    isLoadingChallenge: Boolean(state.challenge.loadingDetailsForChallengeId),
 
-  showModal: state.challenge.mySubmissionsManagement.showModal,
-  toBeDeletedId: state.challenge.mySubmissionsManagement.toBeDeletedId,
+    loadingSubmissionsForChallengeId:
+      state.challenge.loadingSubmissionsForChallengeId,
+    mySubmissions,
 
-  authTokens: state.auth,
-});
+    showDetails: new Set(state.challenge.mySubmissionsManagement.showDetails),
+
+    showModal: state.challenge.mySubmissionsManagement.showModal,
+    toBeDeletedId: state.challenge.mySubmissionsManagement.toBeDeletedId,
+
+    authTokens: state.auth,
+  };
+}
 
 const mapDispatchToProps = dispatch => ({
   onShowDetails: (submissionId) => {
@@ -192,7 +213,7 @@ const mapDispatchToProps = dispatch => ({
 
   loadMySubmissions: (tokens, challengeId) => {
     const a = challengeActions.challenge;
-    dispatch(a.getSubmissionsInit());
+    dispatch(a.getSubmissionsInit(challengeId));
     dispatch(a.getSubmissionsDone(challengeId, tokens.tokenV2));
   },
 });
