@@ -36,11 +36,14 @@ export default function QA({ base, member, meta }) {
               path={`${base}/home`}
             />
             <Route
+              component={Error404}
+              path={`${base}/:any`}
+            />
+            <Route
               component={() => <Home member={member} />}
               exact
               path={`${base}`}
             />
-            <Route component={Error404} />
           </Switch>
           <Footer />
         </div>

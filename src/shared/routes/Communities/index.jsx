@@ -48,8 +48,12 @@ export default function ChunkLoader({ base, communityId, member, meta }) {
   );
 }
 
+ChunkLoader.defaultProps = {
+  base: '',
+};
+
 ChunkLoader.propTypes = {
-  base: PT.string.isRequired,
+  base: PT.string,
   communityId: PT.string.isRequired,
   member: PT.bool.isRequired,
   meta: PT.shape().isRequired,

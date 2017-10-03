@@ -42,11 +42,14 @@ export default function Wipro({ base, meta }) {
               path={`${base}/home`}
             />
             <Route
+              component={Error404}
+              path={`${base}/:any`}
+            />
+            <Route
               component={Home}
               exact
               path={`${base}`}
             />
-            <Route component={Error404} />
           </Switch>
           <Footer />
         </div>
