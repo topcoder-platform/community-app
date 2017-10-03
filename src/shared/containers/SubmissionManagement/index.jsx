@@ -51,7 +51,7 @@ class SubmissionManagementPageContainer extends React.Component {
       loadingSubmissionsForChallengeId,
     } = this.props;
 
-    if (challenge.type !== 'DESIGN') return <Error404 />;
+    if (challenge.track !== 'DESIGN') return <Error404 />;
 
     const isEmpty = _.isEmpty(this.props.challenge);
 
