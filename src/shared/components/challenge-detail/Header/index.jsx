@@ -62,15 +62,18 @@ export default function ChallengeHeader(props) {
 
   const phases = {};
   allPhases.forEach((phase) => { phases[camelcase(phase.phaseType)] = phase; });
-  const registrationEnded =
-    _.get(phases, 'registration.phaseStatus') !== 'Open';
+
+  let registrationEndDate;
+  let registrationEnded = true;
+  const regPhase = phases.registration;
+  if (regPhase) {
+    registrationEndDate = regPhase.actualEndTime || regPhase.scheduledEndTime;
+    registrationEnded = regPhase.phaseStatus !== 'Open';
+  }
+
   const submissionEnded =
     _.get(phases, 'submission.phaseStatus') !== 'Open' &&
     _.get(phases, 'checkpointSubmission.phaseStatus') !== 'Open';
-
-  const registrationPhase = allPhases.find(p => p.phaseType === 'Registration');
-  const registrationEndDate = registrationPhase.actualEndTime
-    || registrationPhase.scheduledEndTime;
 
   let trackLower = track ? track.toLowerCase() : 'design';
   if (technologies.includes('Data Science')) {
@@ -89,10 +92,11 @@ export default function ChallengeHeader(props) {
   }
 
   const hasSubmissions = userDetails && userDetails.hasUserSubmittedForReview;
-  const nextPhaseIndex = hasRegistered ? 1 : 0;
-  const nextDeadline = currentPhases.length > 0 && currentPhases[nextPhaseIndex].phaseType;
-  const deadlineEnd = currentPhases && currentPhases.length > 0 ?
-    new Date(currentPhases[nextPhaseIndex].scheduledEndTime).getTime() : Date.now();
+  const nextPhase =
+    (currentPhases && currentPhases[hasRegistered ? 1 : 0]) || {};
+  const nextDeadline = nextPhase.phaseType;
+  const deadlineEnd = nextPhase ?
+    new Date(nextPhase.scheduledEndTime).getTime() : Date.now();
   const currentTime = Date.now();
   const timeDiff = deadlineEnd > currentTime ? deadlineEnd - currentTime : 0;
   const duration = moment.duration(timeDiff);
