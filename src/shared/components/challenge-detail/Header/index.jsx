@@ -42,8 +42,9 @@ export default function ChallengeHeader(props) {
     drPoints,
     id: challengeId,
     name,
-    track,
     subTrack,
+    track,
+
     events,
     technologies,
     platforms,
@@ -240,7 +241,8 @@ export default function ChallengeHeader(props) {
               <div styleName="challenge-ops-container">
                 {hasRegistered ? (
                   <DangerButton
-                    disabled={unregistering || registrationEnded}
+                    disabled={unregistering || registrationEnded
+                      || hasSubmissions}
                     onClick={unregisterFromChallenge}
                     theme={{ button: style.challengeAction }}
                   >Unregister</DangerButton>
@@ -256,11 +258,14 @@ export default function ChallengeHeader(props) {
                   theme={{ button: style.challengeAction }}
                   to={`${challengesUrl}/${challengeId}/submit`}
                 >Submit</PrimaryButton>
-                <PrimaryButton
-                  disabled={!hasRegistered || unregistering || !hasSubmissions}
-                  theme={{ button: style.challengeAction }}
-                  to={`${challengesUrl}/${challengeId}/my-submissions`}
-                >View Submissions</PrimaryButton>
+                { track === 'DESIGN' && hasRegistered && !unregistering
+                  && hasSubmissions && (
+                    <PrimaryButton
+                      theme={{ button: style.challengeAction }}
+                      to={`${challengesUrl}/${challengeId}/my-submissions`}
+                    >View Submissions</PrimaryButton>
+                  )
+                }
               </div>
             </div>
           </div>
