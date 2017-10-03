@@ -27,6 +27,7 @@ export default function Routes({ base, member, meta }) {
       component={({ match }) => (
         <div>
           <Header
+            baseUrl={base}
             hideJoinNow
             pageId={match.params.pageId || 'home'}
           />

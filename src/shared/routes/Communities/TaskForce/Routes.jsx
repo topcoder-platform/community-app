@@ -18,7 +18,10 @@ export default function Wipro({ base, meta }) {
     <Route
       component={({ match }) => (
         <div>
-          <Header pageId={match.params.pageId || 'home'} />
+          <Header
+            baseUrl={base}
+            pageId={match.params.pageId || 'home'}
+          />
           <Switch>
             <Route
               component={() => <ChallengeListing meta={meta} />}

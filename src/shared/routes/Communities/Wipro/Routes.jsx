@@ -26,7 +26,10 @@ export default function Wipro({ base, meta }) {
       component={({ match }) => (
         <ThemeProvider theme={theme} >
           <div>
-            <Header pageId={match.params.pageId || 'home'} />
+            <Header
+              baseUrl={base}
+              pageId={match.params.pageId || 'home'}
+            />
             <Switch>
               <Route
                 component={() => ChallengeListing({

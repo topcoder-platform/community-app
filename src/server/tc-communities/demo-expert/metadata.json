@@ -25,16 +25,16 @@
   "menuItems": [
     {
       "title": "Home",
-      "url": "."
+      "url": "/"
     }, {
       "title": "Learn",
-      "url": "learn"
+      "url": "/learn"
     }, {
       "title": "Challenges",
-      "url": "challenges"
+      "url": "/challenges"
     }, {
       "title": "Leaderboard",
-      "url": "leaderboard"
+      "url": "/leaderboard"
     }
   ],
   "leaderboardApiUrl": "https://api.topcoder.com/v4/looks/458/run/json/",

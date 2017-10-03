@@ -24,7 +24,7 @@ export default function TcProdDev({ base, meta }) {
       component={({ match }) => (
         <div styleName="container">
           <Header
-            baseUrl={`${base}/`}
+            baseUrl={base}
             pageId={match.params.pageId || 'home'}
           />
           <Switch>

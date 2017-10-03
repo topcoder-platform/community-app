@@ -21,7 +21,7 @@
   "menuItems": [
     {
       "title": "Home",
-      "url": "."
+      "url": "/"
     }
   ],
   "newsFeed": "http://www.topcoder.com/feed",
