@@ -1,8 +1,9 @@
-@import '~styles/tc-styles';
+@import '~styles/mixins';
 
 .container {
   @include roboto;
 
+  flex-direction: column;
   min-height: 400px;
   text-align: center;
   padding: 150px 0;
