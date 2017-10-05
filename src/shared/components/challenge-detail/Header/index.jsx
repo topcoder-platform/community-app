@@ -89,7 +89,7 @@ export default function ChallengeHeader(props) {
   let bonusType = '';
   if (numberOfCheckpointsPrizes && topCheckPointPrize) {
     bonusType = 'Bonus';
-  } else if (reliabilityBonus) {
+  } else if (reliabilityBonus && reliabilityBonus.toFixed() !== '0') {
     bonusType = 'Reliability Bonus';
   }
 
@@ -221,7 +221,7 @@ export default function ChallengeHeader(props) {
                         </p> :
                         <p styleName="bonus-text">
                           <span styleName={`bonus-highlight ${trackLower}-accent-color`}>
-                            RELIABILITY BONUS: $ {reliabilityBonus}
+                            RELIABILITY BONUS: ${reliabilityBonus.toFixed()}
                           </span>
                         </p>
                     }
