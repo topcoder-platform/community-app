@@ -60,6 +60,7 @@ class Develop extends React.Component {
       isSubmitting,
       submitDone,
       errorMsg,
+      track,
     } = this.props;
 
     return (
@@ -89,12 +90,11 @@ class Develop extends React.Component {
                   />
                 </div>
                 <p>
-                  If you have trouble uploading your file, please submit
+                  If you are having trouble uploading your file, please send
+                  your submission to
                   &zwnj;<a
-                    href={`${config.URL.ONLINE_REVIEW}/review/actions/UploadContestSubmission?pid=${challengeId}`}
-                    rel="noreferrer noopener"
-                    target="_blank"
-                  >here</a>
+                    href="mailto://support@topcoder.com"
+                  >support@topcoder.com</a>
                 </p>
               </div>
             </div>
@@ -141,6 +141,7 @@ class Develop extends React.Component {
           reset={this.reset}
           error={errorMsg}
           retry={this.retry}
+          track={track}
         />
     );
   }
@@ -155,6 +156,7 @@ Develop.propTypes = {
   errorMsg: PT.string.isRequired,
   submitForm: PT.func.isRequired,
   resetForm: PT.func.isRequired,
+  track: PT.string.isRequired,
 };
 
 export default Develop;

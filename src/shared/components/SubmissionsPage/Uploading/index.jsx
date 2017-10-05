@@ -15,6 +15,7 @@ const Uploading = ({
   reset,
   error,
   retry,
+  track,
 }) => (
   <div styleName="container">
     <div styleName="uploading">
@@ -91,9 +92,11 @@ const Uploading = ({
             <Button
               onClick={() => reset()}
             >Add Another Submission</Button>
-            <PrimaryButton
-              to={`${challengesUrl}/${challengeId}/my-submissions`}
-            >View My Submissions</PrimaryButton>
+            { track === 'DESIGN' && (
+              <PrimaryButton
+                to={`${challengesUrl}/${challengeId}/my-submissions`}
+              >View My Submissions</PrimaryButton>
+            )}
           </div>
       }
     </div>
@@ -108,6 +111,7 @@ Uploading.propTypes = {
   submitDone: PT.bool.isRequired,
   reset: PT.func.isRequired,
   error: PT.string.isRequired,
+  track: PT.string.isRequired,
   retry: PT.func.isRequired,
 };
 
