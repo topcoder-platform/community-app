@@ -89,13 +89,24 @@ const Uploading = ({
       {
         submitDone && !error &&
           <div styleName="button-container">
-            <Button
-              onClick={() => reset()}
-            >Add Another Submission</Button>
-            { track === 'DESIGN' && (
-              <PrimaryButton
-                to={`${challengesUrl}/${challengeId}/my-submissions`}
-              >View My Submissions</PrimaryButton>
+            { track === 'DESIGN' ? (
+              <span>
+                <Button
+                  onClick={() => reset()}
+                >Add Another Submission</Button>
+                <PrimaryButton
+                  to={`${challengesUrl}/${challengeId}/my-submissions`}
+                >View My Submissions</PrimaryButton>
+              </span>
+            ) : (
+              <span>
+                <Button
+                  onClick={() => reset()}
+                >Submit Again</Button>
+                <PrimaryButton
+                  to={`${challengesUrl}/${challengeId}`}
+                >Back to Challenge</PrimaryButton>
+              </span>
             )}
           </div>
       }

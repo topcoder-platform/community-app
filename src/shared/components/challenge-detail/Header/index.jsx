@@ -5,6 +5,7 @@
  */
 
 import _ from 'lodash';
+import config from 'utils/config';
 import camelcase from 'camel-case';
 import React from 'react';
 import PT from 'prop-types';
@@ -255,8 +256,12 @@ export default function ChallengeHeader(props) {
                 )}
                 <PrimaryButton
                   disabled={!hasRegistered || unregistering || submissionEnded}
+                  openNewTab={trackLower === 'design'}
                   theme={{ button: style.challengeAction }}
-                  to={`${challengesUrl}/${challengeId}/submit`}
+                  to={trackLower === 'design'
+                    ? `${config.URL.BASE}/challenges/${challengeId}/submit/file`
+                    : `${challengesUrl}/${challengeId}/submit`
+                  }
                 >Submit</PrimaryButton>
                 { track === 'DESIGN' && hasRegistered && !unregistering
                   && hasSubmissions && (
