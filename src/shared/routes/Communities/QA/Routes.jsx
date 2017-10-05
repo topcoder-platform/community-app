@@ -18,7 +18,10 @@ export default function QA({ base, member, meta }) {
     <Route
       component={({ match }) => (
         <div>
-          <Header pageId={match.params.pageId || 'home'} />
+          <Header
+            baseUrl={base}
+            pageId={match.params.pageId || 'home'}
+          />
           <Switch>
             <Route
               component={() => <ChallengeListing meta={meta} />}
@@ -36,11 +39,14 @@ export default function QA({ base, member, meta }) {
               path={`${base}/home`}
             />
             <Route
+              component={Error404}
+              path={`${base}/:any`}
+            />
+            <Route
               component={() => <Home member={member} />}
               exact
               path={`${base}`}
             />
-            <Route component={Error404} />
           </Switch>
           <Footer />
         </div>

@@ -12,6 +12,8 @@ import Leaderboard from 'routes/Communities/Leaderboard';
 import Learn from 'components/tc-communities/communities/tc-prod-dev/Learn';
 import PT from 'prop-types';
 import React from 'react';
+import Submission from 'routes/Submission';
+import SubmissionManagement from 'routes/SubmissionManagement';
 import { Route, Switch } from 'react-router-dom';
 
 import './style.scss';
@@ -22,7 +24,7 @@ export default function TcProdDev({ base, meta }) {
       component={({ match }) => (
         <div styleName="container">
           <Header
-            baseUrl={`${base}/`}
+            baseUrl={base}
             pageId={match.params.pageId || 'home'}
           />
           <Switch>
@@ -48,6 +50,22 @@ export default function TcProdDev({ base, meta }) {
               path={`${base}/challenges/:challengeId(\\d{8})`}
             />
             <Route
+              component={routeProps => Submission({
+                ...routeProps,
+                challengesUrl: `${base}/challenges`,
+              })}
+              exact
+              path={`${base}/challenges/:challengeId(\\d{8})/submit`}
+            />
+            <Route
+              component={routeProps => SubmissionManagement({
+                ...routeProps,
+                challengesUrl: `${base}/challenges`,
+              })}
+              exact
+              path={`${base}/challenges/:challengeId(\\d{8})/my-submissions`}
+            />
+            <Route
               component={() => <Leaderboard meta={meta} />}
               exact
               path={`${base}/leaderboard`}
@@ -63,11 +81,14 @@ export default function TcProdDev({ base, meta }) {
               path={`${base}/home`}
             />
             <Route
+              component={Error404}
+              path={`${base}/:any`}
+            />
+            <Route
               component={Home}
               exact
               path={base}
             />
-            <Route component={Error404} />
           </Switch>
           <Footer />
         </div>

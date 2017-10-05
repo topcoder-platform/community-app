@@ -17,7 +17,8 @@ import mockDocuSignFactory from './__mocks__/docu-sign-mock';
 
 // Dome API for topcoder communities
 import tcCommunitiesDemoApi from './tc-communities';
-
+import scoreboardApi from './tco/scoreboard';
+import scoreboardModels from './tco/scoreboard/models';
 import renderer from './renderer';
 
 /* Isomorphic code may rely on this environment variable to check whether it is
@@ -92,6 +93,11 @@ app.use(express.static(path.resolve(__dirname, '../../build')));
 // serve demo api
 app.use('/api/tc-communities', tcCommunitiesDemoApi);
 
+// serve scoreboard api
+scoreboardApi(app, '/api/scoreboard');
+// init scoreboard models/DB
+scoreboardModels.init();
+
 /**
  * Auxiliary endpoint for xml -> json conversion (the most popular npm library
  * for such conversion works only in the node :(
@@ -134,6 +140,22 @@ app.use((req, res, next) => {
 
 /* Error handler. */
 app.use((err, req, res, next) => { // eslint-disable-line no-unused-vars
+  let errorResponse = null;
+  const status = err.isJoi ? 400 : err.httpStatus || err.status || 500;
+
+  if (err.isJoi && _.isArray(err.details)) {
+    _.map(err.details, (e) => {
+      if (e.message) {
+        if (!errorResponse) {
+          errorResponse = e.message;
+        } else {
+          errorResponse += `, ${e.message}`;
+        }
+      }
+    });
+  }
+  errorResponse = errorResponse || err.message || 'Internal Server Error';
+
   /* Sets locals. Errors are provided only in dev. */
   _.assign(res, {
     locals: {
@@ -143,7 +165,7 @@ app.use((err, req, res, next) => { // eslint-disable-line no-unused-vars
   });
 
   /* Returns the error page. */
-  res.status(err.status || 500).send(err.message || 'Internal Server Error');
+  res.status(status).send(errorResponse);
 });
 
 export default app;

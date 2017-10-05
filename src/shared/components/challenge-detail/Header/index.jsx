@@ -1,12 +1,12 @@
-/* eslint jsx-a11y/no-static-element-interactions:0 */
 /**
  * Challenge header component.
  * This component renders all other child components part of the header.
  * Any data massaging needed for a child view should be done here.
  */
 
-import config from 'utils/config';
 import _ from 'lodash';
+import config from 'utils/config';
+import camelcase from 'camel-case';
 import React from 'react';
 import PT from 'prop-types';
 import moment from 'moment';
@@ -43,8 +43,9 @@ export default function ChallengeHeader(props) {
     drPoints,
     id: challengeId,
     name,
-    track,
     subTrack,
+    track,
+
     events,
     technologies,
     platforms,
@@ -54,7 +55,6 @@ export default function ChallengeHeader(props) {
     reliabilityBonus,
     userDetails,
     currentPhases,
-    submissionEndDate,
     numRegistrants,
     numSubmissions,
     allPhases,
@@ -62,9 +62,20 @@ export default function ChallengeHeader(props) {
     appealsEndDate,
   } = challenge;
 
-  const registrationPhase = allPhases.find(p => p.phaseType === 'Registration');
-  const registrationEndDate = registrationPhase.actualEndTime
-    || registrationPhase.scheduledEndTime;
+  const phases = {};
+  allPhases.forEach((phase) => { phases[camelcase(phase.phaseType)] = phase; });
+
+  let registrationEndDate;
+  let registrationEnded = true;
+  const regPhase = phases.registration;
+  if (regPhase) {
+    registrationEndDate = regPhase.actualEndTime || regPhase.scheduledEndTime;
+    registrationEnded = regPhase.phaseStatus !== 'Open';
+  }
+
+  const submissionEnded =
+    _.get(phases, 'submission.phaseStatus') !== 'Open' &&
+    _.get(phases, 'checkpointSubmission.phaseStatus') !== 'Open';
 
   let trackLower = track ? track.toLowerCase() : 'design';
   if (technologies.includes('Data Science')) {
@@ -81,13 +92,13 @@ export default function ChallengeHeader(props) {
   } else if (reliabilityBonus) {
     bonusType = 'Reliability Bonus';
   }
-  const registrationEnded = new Date(registrationEndDate).getTime() < Date.now() || status.toLowerCase() !== 'active';
-  const submissionEnded = new Date(submissionEndDate).getTime() < Date.now();
+
   const hasSubmissions = userDetails && userDetails.hasUserSubmittedForReview;
-  const nextPhaseIndex = hasRegistered ? 1 : 0;
-  const nextDeadline = currentPhases.length > 0 && currentPhases[nextPhaseIndex].phaseType;
-  const deadlineEnd = currentPhases && currentPhases.length > 0 ?
-    new Date(currentPhases[nextPhaseIndex].scheduledEndTime).getTime() : Date.now();
+  const nextPhase =
+    (currentPhases && currentPhases[hasRegistered ? 1 : 0]) || {};
+  const nextDeadline = nextPhase.phaseType;
+  const deadlineEnd = nextPhase ?
+    new Date(nextPhase.scheduledEndTime).getTime() : Date.now();
   const currentTime = Date.now();
   const timeDiff = deadlineEnd > currentTime ? deadlineEnd - currentTime : 0;
   const duration = moment.duration(timeDiff);
@@ -127,8 +138,8 @@ export default function ChallengeHeader(props) {
         (new Date(b.actualEndTime || b.scheduledEndTime)).getTime();
     });
     if (subTrack === 'FIRST_2_FINISH' && status === 'COMPLETED') {
-      const phases = allPhases.filter(p => p.phaseType === 'Iterative Review' && p.phaseStatus === 'Closed');
-      const endPhaseDate = Math.max(...phases.map(d => new Date(d.scheduledEndTime)));
+      const phases2 = allPhases.filter(p => p.phaseType === 'Iterative Review' && p.phaseStatus === 'Closed');
+      const endPhaseDate = Math.max(...phases2.map(d => new Date(d.scheduledEndTime)));
       relevantPhases = _.filter(relevantPhases, p => (p.phaseType.toLowerCase().includes('registration') ||
         new Date(p.scheduledEndTime).getTime() < endPhaseDate));
       relevantPhases.push({
@@ -231,7 +242,8 @@ export default function ChallengeHeader(props) {
               <div styleName="challenge-ops-container">
                 {hasRegistered ? (
                   <DangerButton
-                    disabled={unregistering || registrationEnded}
+                    disabled={unregistering || registrationEnded
+                      || hasSubmissions}
                     onClick={unregisterFromChallenge}
                     theme={{ button: style.challengeAction }}
                   >Unregister</DangerButton>
@@ -244,17 +256,21 @@ export default function ChallengeHeader(props) {
                 )}
                 <PrimaryButton
                   disabled={!hasRegistered || unregistering || submissionEnded}
+                  openNewTab={trackLower === 'design'}
                   theme={{ button: style.challengeAction }}
-                  to={trackLower === 'design' ?
-                    `${config.URL.BASE}/challenges/${challengeId}/submit/file` :
-                    `${config.URL.BASE}/challenge-details/${challengeId}/submit/?type=develop`
+                  to={trackLower === 'design'
+                    ? `${config.URL.BASE}/challenges/${challengeId}/submit/file`
+                    : `${challengesUrl}/${challengeId}/submit`
                   }
                 >Submit</PrimaryButton>
-                <PrimaryButton
-                  disabled={!hasRegistered || unregistering || !hasSubmissions}
-                  theme={{ button: style.challengeAction }}
-                  to={`${challengesUrl}/${challengeId}/my-submissions`}
-                >View Submissions</PrimaryButton>
+                { track === 'DESIGN' && hasRegistered && !unregistering
+                  && hasSubmissions && (
+                    <PrimaryButton
+                      theme={{ button: style.challengeAction }}
+                      to={`${challengesUrl}/${challengeId}/my-submissions`}
+                    >View Submissions</PrimaryButton>
+                  )
+                }
               </div>
             </div>
           </div>
@@ -271,7 +287,12 @@ export default function ChallengeHeader(props) {
                   </div>
                 }
               </div>
-              <a onClick={props.onToggleDeadlines} styleName="deadlines-collapser">
+              <a
+                onClick={props.onToggleDeadlines}
+                role="button"
+                styleName="deadlines-collapser"
+                tabIndex={0}
+              >
                 {props.showDeadlineDetail ?
                   <span styleName="collapse-text">Hide Deadlines <ArrowDown /></span>
                   : <span styleName="collapse-text">Show Deadlines <ArrowUp /></span>

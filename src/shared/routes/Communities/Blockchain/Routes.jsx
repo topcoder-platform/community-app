@@ -27,6 +27,7 @@ export default function Routes({ base, member, meta }) {
       component={({ match }) => (
         <div>
           <Header
+            baseUrl={base}
             hideJoinNow
             pageId={match.params.pageId || 'home'}
           />
@@ -59,11 +60,14 @@ export default function Routes({ base, member, meta }) {
               path={`${base}/home`}
             />
             <Route
+              component={Error404}
+              path={`${base}/:any`}
+            />
+            <Route
               component={Home}
               exact
               path={`${base}`}
             />
-            <Route component={Error404} />
           </Switch>
           <Footer />
         </div>

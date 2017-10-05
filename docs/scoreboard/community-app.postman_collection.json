@@ -1,0 +1,330 @@
+{
+	"variables": [],
+	"info": {
+		"name": "community-app",
+		"_postman_id": "9237315e-f7b9-89c5-c7b9-03cc4474d6d5",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "scoreboard",
+			"description": "",
+			"item": [
+				{
+					"name": "challenge",
+					"description": "",
+					"item": [
+						{
+							"name": "Get challenge",
+							"request": {
+								"url": "{{URL}}/scoreboard/challenges/123",
+								"method": "GET",
+								"header": [
+									{
+										"key": "",
+										"value": "",
+										"description": "",
+										"disabled": true
+									}
+								],
+								"body": {},
+								"description": ""
+							},
+							"response": []
+						},
+						{
+							"name": "Create challenge",
+							"request": {
+								"url": "{{URL}}/scoreboard/challenges",
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"description": ""
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer {{token}}",
+										"description": ""
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"id\": 149,\n    \"type\": \"Code\",\n    \"title\": \"New TCO Design\",\n    \"description\": \"Create New design for TCO Page\",\n    \"competitors\": [{\"handle\":\"jamesd\"},{\"handle\":\"alexad\"}]\n}"
+								},
+								"description": ""
+							},
+							"response": []
+						},
+						{
+							"name": "Update challenge",
+							"request": {
+								"url": "{{URL}}/scoreboard/challenges/149",
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"description": ""
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer {{token}}",
+										"description": ""
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"id\": 149,\n    \"type\": \"Design\",\n    \"title\": \"New TCO Design 1\",\n    \"description\": \"Create New design for TCO Page 1\",\n    \"competitors\": [{\"handle\":\"jamesd\"},{\"handle\":\"bend\"}]\n}"
+								},
+								"description": ""
+							},
+							"response": []
+						},
+						{
+							"name": "Delete challenge",
+							"request": {
+								"url": "{{URL}}/scoreboard/challenges/149",
+								"method": "DELETE",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"description": ""
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer {{token}}",
+										"description": ""
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"id\": 149,\n    \"type\": \"Design\",\n    \"title\": \"New TCO Design\",\n    \"description\": \"Create New design for TCO Page\",\n    \"competitors\": [\"jamesd\", \"alexad\"]\n}"
+								},
+								"description": ""
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				},
+				{
+					"name": "submission",
+					"description": "",
+					"item": [
+						{
+							"name": "Get submission",
+							"request": {
+								"url": "{{URL}}/scoreboard/submissions/2",
+								"method": "GET",
+								"header": [],
+								"body": {},
+								"description": ""
+							},
+							"response": []
+						},
+						{
+							"name": "Create submission - [Base]",
+							"request": {
+								"url": "{{URL}}/scoreboard/submissions",
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"description": ""
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer {{token}}",
+										"description": ""
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"challengeId\": 123,\n    \"handle\": \"johnd\"\n}"
+								},
+								"description": ""
+							},
+							"response": []
+						},
+						{
+							"name": "Create submission [Code]",
+							"request": {
+								"url": "{{URL}}/scoreboard/submissions",
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"description": ""
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer {{token}}",
+										"description": ""
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"challengeId\": 149,\n    \"handle\": \"janed\",\n     \"submissionCode\":{\n     \t\"codeField1\": \"Best\",\n    \t\"codeField2\": \"Done\",\n    \t\"codeField3\": 30\n    }\n}"
+								},
+								"description": ""
+							},
+							"response": []
+						},
+						{
+							"name": "Create submission [Code] - field required validation",
+							"request": {
+								"url": "{{URL}}/scoreboard/submissions",
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"description": ""
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer {{token}}",
+										"description": ""
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"challengeId\": 123,\n    \"handle\": \"johnd\",\n    \"submissionCode\":{\n    \n    }\n}"
+								},
+								"description": ""
+							},
+							"response": []
+						},
+						{
+							"name": "Create submission [Code] - field length validation",
+							"request": {
+								"url": "{{URL}}/scoreboard/submissions",
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"description": ""
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer {{token}}",
+										"description": ""
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"challengeId\": 123,\n    \"handle\": \"johnd\",\n     \"submissionCode\":{\n    \t\"codeField2\": \"value1khjbkhbjhbjhbjhbjhbkbjhjvjhbkbbhbjhbjhbhjhbjhbhjbhbjhb\"\n    }\n}"
+								},
+								"description": ""
+							},
+							"response": []
+						},
+						{
+							"name": "Create submission [Code] - field type (number) validation",
+							"request": {
+								"url": "{{URL}}/scoreboard/submissions",
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"description": ""
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer {{token}}",
+										"description": ""
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"challengeId\": 123,\n    \"handle\": \"johnd\",\n     \"submissionCode\":{\n    \t\"codeField2\": \"value1\",\n    \t\"codeField3\": \"a string\"\n    }\n}"
+								},
+								"description": ""
+							},
+							"response": []
+						},
+						{
+							"name": "Create submission [Design]",
+							"request": {
+								"url": "{{URL}}/scoreboard/submissions",
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"description": ""
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer {{token}}",
+										"description": ""
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"challengeId\": 148,\n    \"handle\": \"janed\",\n     \"submissionDesign\":{\n     \t\"designField1\": \"Complete\",\n    \t\"designField2\": \"Partial Submission\",\n    \t\"designField3\": 30\n    }\n}"
+								},
+								"description": ""
+							},
+							"response": []
+						},
+						{
+							"name": "Edit submission [Code]",
+							"request": {
+								"url": "{{URL}}/scoreboard/submissions/4",
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"description": ""
+									},
+									{
+										"key": "Authorization",
+										"value": "Bearer {{token}}",
+										"description": ""
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"challengeId\": 123,\n    \"handle\": \"johnd\",\n     \"submissionCode\":{\n     \t\"codeField1\": \"Good Competitor12\",\n    \t\"codeField2\": \"Final Submission1\",\n    \t\"codeField3\": \"2012\"\n    }\n}"
+								},
+								"description": ""
+							},
+							"response": []
+						},
+						{
+							"name": "Delete submission",
+							"request": {
+								"url": "{{URL}}/scoreboard/submissions/7",
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "Authorization",
+											"value": "Bearer {{token}}",
+											"description": ""
+										}
+									]
+								},
+								"description": ""
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				}
+			]
+		}
+	]
+}

@@ -120,6 +120,8 @@ export default function SubmissionManagement(props) {
             href={`${config.URL.BASE}/challenges/${challenge.id}/submit/file`}
             className="tc-btn tc-btn-primary tc-btn-md"
             styleName="add-sub-btn"
+            rel="noreferrer noopener"
+            target="_blank"
           >
             {(!isDevelop || !submissions || submissions.length === 0)
               ? 'Add Submission' : 'Update Submission'}

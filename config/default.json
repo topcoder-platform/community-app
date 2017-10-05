@@ -56,6 +56,11 @@
    * due to caching). */
   "REAUTH_TIME": 55,
 
+  "SCOREBOARD":{
+    "DB": "postgres://postgres:postgres@localhost:5432/scoreboard",
+    "ADMIN_ROLE": "administrator"
+  },
+
   "SWIFT_PROGRAM_ID": 3445,
 
   /* Various URLs. Most of them lead to different segments of Topcoder
@@ -81,7 +86,10 @@
       "DESIGN_CHALLENGE_SUBMISSION": "http://help.topcoder.com/hc/en-us/articles/219122667-Formatting-Your-Submission-for-Design-Challenges",
       "DESIGN_CHALLENGE_TYPES": "http://help.topcoder.com/hc/en-us/articles/217481388-Choosing-a-Design-Challenge",
       "RELIABILITY_RATINGS_AND_BONUSES": "https://help.topcoder.com/hc/en-us/articles/219240797-Development-Reliability-Ratings-and-Bonuses",
-      "STOCK_ART_POLICY": "http://help.topcoder.com/hc/en-us/articles/217481408-Policy-for-Stock-Artwork-in-Design-Submissions"
+      "STOCK_ART_POLICY": "http://help.topcoder.com/hc/en-us/articles/217481408-Policy-for-Stock-Artwork-in-Design-Submissions",
+      "STUDIO_FONTS_POLICY":
+      "http://help.topcoder.com/hc/en-us/articles/217959447-Font-Policy-for-Design-Challenges",
+      "TOPCODER_TERMS": "https://www.topcoder.com/community/how-it-works/terms/"
     },
 
     "IOS": "https://ios.topcoder-dev.com",

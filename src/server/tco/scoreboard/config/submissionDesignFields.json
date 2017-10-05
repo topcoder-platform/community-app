@@ -1,0 +1,24 @@
+{
+  "sortField": "designField2",
+  "sortAscending": false,
+  "fields": [
+    {
+      "fieldName": "designField1",
+      "fieldText": "Design Type",
+      "type": "Joi.string().max(30)",
+      "dbType": "Sequelize.STRING(30)"
+    },
+    {
+      "fieldName": "designField2",
+      "fieldText": "Description",
+      "type": "Joi.string().max(30).required()",
+      "dbType": "Sequelize.STRING(30)"
+    },
+    {
+      "fieldName": "designField3",
+      "fieldText": "Design Score",
+      "type": "Joi.number().integer().required()",
+      "dbType": "Sequelize.INTEGER"
+    }
+  ]
+}

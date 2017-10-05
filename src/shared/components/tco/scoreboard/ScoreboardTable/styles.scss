@@ -1,0 +1,116 @@
+@import '~styles/tc-styles';
+$table-cell-padding: 8px;
+$table-border-color: #ddd;
+$table-bg-hover: #f5f5f5;
+
+.LeaderboardTable {
+  /* Table basic styling (heavily 'inspired' by Bootstrap) */
+  @include roboto;
+
+  background-color: transparent;
+  width: 100%;
+  max-width: 100%;
+  margin-bottom: 20px;
+
+  th {
+    @include roboto-bold;
+
+    text-align: left;
+  }
+  // Table cell sizing
+  td,
+  th {
+    &[class*="col-"] {
+      position: static;
+      float: none;
+      display: table-cell;
+    }
+  }
+  // Cells
+  > thead,
+  > tbody,
+  > tfoot {
+    > tr {
+      > th,
+      > td {
+        padding: $table-cell-padding;
+        line-height: 1.428571429;
+        vertical-align: top;
+        border-top: 1px solid $table-border-color;
+      }
+    }
+  }
+  // Bottom align for column headings
+  > thead > tr > th {
+    vertical-align: bottom;
+    border-bottom: 2px solid $table-border-color;
+  }
+  // Remove top border from thead by default
+  > thead:first-child {
+    > tr:first-child {
+      > th,
+      > td {
+        border-top: 0;
+      }
+    }
+  }
+  // Hover effect
+  > tbody > tr:hover {
+    background-color: $table-bg-hover;
+  }
+  // hide the table head on extra-small devices
+  > thead {
+    @include xs {
+      display: none;
+    }
+  }
+  // cell alignment
+  > tbody tr td,
+  > thead tr th {
+    vertical-align: middle;
+    text-align: center;
+  }
+
+  /* Column specific styling */
+  .col-rank {
+    text-align: center;
+    width: 30px;
+  }
+
+  .col-avatar {
+    text-align: center;
+    width: 70px;
+  }
+
+  .col-avatar .leaderboard-avatar {
+    display: inline-block;
+    height: 64px;
+    width: 64px;
+    overflow: hidden;
+  }
+
+  .col-handle {
+    text-align: left;
+  }
+
+  .col-handle a {
+    color: $tc-light-blue;
+
+    &:hover {
+      color: $tc-dark-blue;
+    }
+  }
+
+  .col-points {
+    @include roboto-bold;
+  }
+
+  /* Table responsiveness */
+  // Hide 'Challenges' and 'Points' columns on small screens
+  .col-challenges,
+  .col-points {
+    @include xs {
+      display: none !important;
+    }
+  }
+}

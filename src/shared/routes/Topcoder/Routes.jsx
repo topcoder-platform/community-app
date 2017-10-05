@@ -5,17 +5,18 @@
  * content of the route, or the HTTP 404 page.
  */
 
+import ChallengeDetails from 'routes/ChallengeDetails';
 import Error404 from 'components/Error404';
 import Footer from 'components/TopcoderFooter';
 import Header from 'containers/TopcoderHeader';
-
 import React from 'react';
+import Submission from 'routes/Submission';
+import SubmissionManagement from 'routes/SubmissionManagement';
 import { Route, Switch } from 'react-router-dom';
 
-import ChallengeDetails from 'routes/ChallengeDetails';
 import ChallengeListing from './ChallengeListing';
 import Dashboard from './Dashboard';
-import SubmissionManagement from './SubmissionManagement';
+import Scoreboard from '../tco/scoreboard';
 
 import './styles.scss';
 
@@ -31,10 +32,16 @@ export default function Topcoder() {
         />
         <Route component={ChallengeListing} exact path="/challenges" />
         <Route component={Dashboard} exact path="/my-dashboard" />
+        <Route component={Scoreboard} exact path="/scoreboard/:challengeId(\d+)" />
         <Route
           component={SubmissionManagement}
           exact
           path="/challenges/:challengeId(\d{8})/my-submissions"
+        />
+        <Route
+          component={Submission}
+          exact
+          path="/challenges/:challengeId(\d{8})/submit"
         />
         <Error404 />
       </Switch>

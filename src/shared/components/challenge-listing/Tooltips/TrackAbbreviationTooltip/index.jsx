@@ -47,7 +47,7 @@ const HEADER = {
   PRINT_OR_PRESENTATION: 'Print/Presentation (PP)',
   SRM: 'Single Round Match (SRM)',
   UI_PROTOTYPE_COMPETITION: 'UI Prototype (Pr)',
-  WEB_DESIGNS: 'Web Design (Wd)',
+  WEB_DESIGNS: 'Web Design (Wb)',
   WIDGET_OR_MOBILE_SCREEN_DESIGN: 'Widget or Mobile Screen Design (Wg)',
   STUDIO_OTHER: 'Generic design challenge (D)',
   WIREFRAMES: 'Wireframe (Wf)',

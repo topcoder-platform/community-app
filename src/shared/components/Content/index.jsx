@@ -94,35 +94,47 @@ export default function Content() {
         </li>
       </ul>
 
+      <h3>TCO Assets</h3>
+      <ul>
+        <li>
+          TCO Scoreboard demo is mounted on <code>/scoreboard/:id</code>,
+          where <code>:id</code> is the competition ID, not related to the
+          regular challenge IDs. Here are two demo links for the scoreboards
+          for the competitions created by the scoreboard init script:
+          &zwnj;<Link to="/scoreboard/123">ID = 123</Link>,
+          &zwnj;<Link to="/scoreboard/1234">ID = 1234</Link>.
+        </li>
+      </ul>
+
       <h3>Separate Topcoder Communities</h3>
       <ul>
         <li>
-          <Link to="/community/blockchain/home">Blockchain Community</Link>
+          <Link to="/community/blockchain">Blockchain Community</Link>
         </li>
         <li>
-          <Link to="/community/community-2/home">Community 2</Link>
+          <Link to="/community/community-2">Community 2</Link>
         </li>
         <li>
-          <Link to="/community/demo-expert/home">Demo Expert Community</Link>
+          <Link to="/community/demo-expert">Demo Expert Community</Link>
         </li>
         <li>
-          <Link to="/community/qa/home">QA Community</Link>
+          <Link to="/community/qa">QA Community</Link>
         </li>
         <li>
-          <Link to="/community/srmx/home">SRMX Community</Link>
+          <Link to="/community/srmx">SRMX Community</Link>
         </li>
         <li>
-          <Link to="/community/taskforce/home">Taskforce community</Link>
+          <Link to="/community/taskforce">Taskforce community</Link>
         </li>
         <li>
-          <Link to="/community/tc-prod-dev/home">Topcoder Product
+          <Link to="/community/tc-prod-dev">Topcoder Product
           Development community</Link>
         </li>
         <li>
-          <Link to="/community/wipro/">TopGear (Wipro) community</Link>
+          <Link to="/community/wipro">TopGear (Wipro) community</Link>
         </li>
         <li>
-          <Link to="/community/veterans/">Veterans Community</Link>
+          <Link to="/community/veterans">Veterans Community</Link>
         </li>
       </ul>
 

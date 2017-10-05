@@ -237,13 +237,43 @@ exports[`Matches shallow shapshot 1`] = `
     </li>
   </ul>
   <h3>
+    TCO Assets
+  </h3>
+  <ul>
+    <li>
+      TCO Scoreboard demo is mounted on 
+      <code>
+        /scoreboard/:id
+      </code>
+      , where 
+      <code>
+        :id
+      </code>
+       is the competition ID, not related to the regular challenge IDs. Here are two demo links for the scoreboards for the competitions created by the scoreboard init script: ‌
+      <Link
+        replace={false}
+        to="/scoreboard/123"
+      >
+        ID = 123
+      </Link>
+      , ‌
+      <Link
+        replace={false}
+        to="/scoreboard/1234"
+      >
+        ID = 1234
+      </Link>
+      .
+    </li>
+  </ul>
+  <h3>
     Separate Topcoder Communities
   </h3>
   <ul>
     <li>
       <Link
         replace={false}
-        to="/community/blockchain/home"
+        to="/community/blockchain"
       >
         Blockchain Community
       </Link>
@@ -251,7 +281,7 @@ exports[`Matches shallow shapshot 1`] = `
     <li>
       <Link
         replace={false}
-        to="/community/community-2/home"
+        to="/community/community-2"
       >
         Community 2
       </Link>
@@ -259,7 +289,7 @@ exports[`Matches shallow shapshot 1`] = `
     <li>
       <Link
         replace={false}
-        to="/community/demo-expert/home"
+        to="/community/demo-expert"
       >
         Demo Expert Community
       </Link>
@@ -267,7 +297,7 @@ exports[`Matches shallow shapshot 1`] = `
     <li>
       <Link
         replace={false}
-        to="/community/qa/home"
+        to="/community/qa"
       >
         QA Community
       </Link>
@@ -275,7 +305,7 @@ exports[`Matches shallow shapshot 1`] = `
     <li>
       <Link
         replace={false}
-        to="/community/srmx/home"
+        to="/community/srmx"
       >
         SRMX Community
       </Link>
@@ -283,7 +313,7 @@ exports[`Matches shallow shapshot 1`] = `
     <li>
       <Link
         replace={false}
-        to="/community/taskforce/home"
+        to="/community/taskforce"
       >
         Taskforce community
       </Link>
@@ -291,7 +321,7 @@ exports[`Matches shallow shapshot 1`] = `
     <li>
       <Link
         replace={false}
-        to="/community/tc-prod-dev/home"
+        to="/community/tc-prod-dev"
       >
         Topcoder Product Development community
       </Link>
@@ -299,7 +329,7 @@ exports[`Matches shallow shapshot 1`] = `
     <li>
       <Link
         replace={false}
-        to="/community/wipro/"
+        to="/community/wipro"
       >
         TopGear (Wipro) community
       </Link>
@@ -307,7 +337,7 @@ exports[`Matches shallow shapshot 1`] = `
     <li>
       <Link
         replace={false}
-        to="/community/veterans/"
+        to="/community/veterans"
       >
         Veterans Community
       </Link>

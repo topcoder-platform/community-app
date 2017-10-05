@@ -65,6 +65,10 @@
     ["transform-assets", {
       "extensions": ["gif", "jpeg", "jpg", "png"],
       "name": "/images/[hash].[ext]"
+    }],
+    ["transform-runtime", {
+      "polyfill": false,
+      "regenerator": true
     }]
   ]
 }

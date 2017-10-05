@@ -6,7 +6,7 @@
     "groupIds": ["20000000"]
   },
   "challengeListing": {
-    "openChallengesInNewTabs": true
+    "openChallengesInNewTabs": false
   },
   "communityId": "wipro",
   "communityName": "TopGear Community",
@@ -36,19 +36,19 @@
   "menuItems": [
     {
       "title": "Home",
-      "url": "."
+      "url": "/"
     }, {
       "title": "Learn",
-      "url": "learn"
+      "url": "/learn"
     }, {
       "title": "Challenges",
-      "url": "challenges"
+      "url": "/challenges"
     }, {
       "title": "Leaderboard",
-      "url": "leaderboard"
+      "url": "/leaderboard"
     }, {
       "title": "FAQ",
-      "url": "faq"
+      "url": "/faq"
     }
   ],
   "newsFeed": "http://www.topcoder.com/feed",

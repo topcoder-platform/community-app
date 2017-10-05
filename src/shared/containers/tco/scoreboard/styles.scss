@@ -1,0 +1,26 @@
+@import "~styles/mixins";
+
+.outer-container {
+  background: $tc-gray-neutral-dark;
+  flex: 1;
+
+  @include xxs-to-xs {
+    padding: 8px 10px 20px;
+  }
+
+  @include sm {
+    padding: 30px 14px 30px 20px;
+  }
+
+  @include md-to-lg {
+    padding: 30px 64px;
+  }
+}
+
+.challenge-detail-container {
+  background: $tc-white;
+  border-radius: 3 * $corner-radius;
+  max-width: 1240px;
+  width: 100%;
+  margin: auto;
+}

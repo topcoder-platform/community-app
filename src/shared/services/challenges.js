@@ -4,6 +4,7 @@
  */
 
 import _ from 'lodash';
+import logger from 'utils/logger';
 import qs from 'qs';
 import { COMPETITION_TRACKS } from 'utils/tc';
 import { getApiV2, getApiV3 } from './api';
@@ -233,6 +234,23 @@ class ChallengesService {
     const endpoint = `/challenges/${challengeId}/register`;
     return this.private.apiV2.postJson(endpoint)
       .then(res => (res.ok ? res.json() : new Error(res.statusText)));
+  }
+
+  submit(body, challengeId, track) {
+    const url = track !== 'DESIGN' ?
+      `/develop/challenges/${challengeId}/upload` :
+      `/design/challenges/${challengeId}/submit`;
+    return this.private.apiV2.fetch(url, {
+      body,
+      headers: { 'Content-Type': null },
+      method: 'POST',
+    }).then(
+      res => res.json(),
+      (err) => {
+        logger.error(`Failed to submit to the challenge #${challengeId}`, err);
+        throw err;
+      },
+    );
   }
 
   /**
