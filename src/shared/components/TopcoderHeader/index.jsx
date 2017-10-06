@@ -4,6 +4,7 @@ import config from 'utils/config';
 import { getRatingColor } from 'utils/tc';
 import PT from 'prop-types';
 import React from 'react';
+import { isClientSide } from 'utils/isomorphy';
 
 import IconNavBlog from '../../../assets/images/nav/blog.svg';
 import IconNavBookCP from '../../../assets/images/nav/book-cp.svg';
@@ -302,6 +303,8 @@ export default class TopcoderHeader extends React.Component {
        redirection). Most probably, we should use here buttons instead
        of hyperlinks, and compose the target url once the user clicks
        them. */
+      const origin = isClientSide() ? window.location.origin : '';
+      const returnUrl = encodeURIComponent(`${origin}/`);
       authButtons = (
         <div styleName="auth-buttons">
           <a
@@ -311,7 +314,7 @@ export default class TopcoderHeader extends React.Component {
           >Join</a>
           <a
             className="tc-btn-sm tc-btn-default"
-            href={`${config.URL.AUTH}/member`}
+            href={`${config.URL.AUTH}/member?retUrl=${returnUrl}`}
             onClick={closeMenu}
           >Log In</a>
         </div>
