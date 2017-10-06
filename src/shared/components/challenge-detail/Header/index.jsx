@@ -5,7 +5,6 @@
  */
 
 import _ from 'lodash';
-import camelcase from 'camel-case';
 import React from 'react';
 import PT from 'prop-types';
 import moment from 'moment';
@@ -61,7 +60,7 @@ export default function ChallengeHeader(props) {
   } = challenge;
 
   const phases = {};
-  allPhases.forEach((phase) => { phases[camelcase(phase.phaseType)] = phase; });
+  allPhases.forEach((phase) => { phases[_.camelCase(phase.phaseType)] = phase; });
   const registrationEnded =
     _.get(phases, 'registration.phaseStatus') !== 'Open';
   const submissionEnded =

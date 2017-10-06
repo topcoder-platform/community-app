@@ -45,7 +45,6 @@
     "babel-register": "^6.26.0",
     "body-parser": "^1.18.2",
     "browser-cookies": "^1.1.0",
-    "camel-case": "^3.0.0",
     "classnames": "^2.2.5",
     "config": "^1.25.1",
     "cookie-parser": "^1.4.3",
