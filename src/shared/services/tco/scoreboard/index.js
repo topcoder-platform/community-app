@@ -2,6 +2,7 @@
  * This module provides a service to manage scoreboards via API.
  */
 import Api from 'services/api';
+import config from 'utils/config';
 
 class ScoreboardService {
   /**
@@ -9,7 +10,7 @@ class ScoreboardService {
    */
   constructor() {
     this.private = {
-      api: new Api('/api'),
+      api: new Api(config.URL.COMMUNITY_API),
     };
   }
 

@@ -17,8 +17,7 @@ import mockDocuSignFactory from './__mocks__/docu-sign-mock';
 
 // Dome API for topcoder communities
 import tcCommunitiesDemoApi from './tc-communities';
-import scoreboardApi from './tco/scoreboard';
-import scoreboardModels from './tco/scoreboard/models';
+
 import renderer from './renderer';
 
 /* Isomorphic code may rely on this environment variable to check whether it is
@@ -92,11 +91,6 @@ app.use(express.static(path.resolve(__dirname, '../../build')));
 
 // serve demo api
 app.use('/api/tc-communities', tcCommunitiesDemoApi);
-
-// serve scoreboard api
-scoreboardApi(app, '/api/scoreboard');
-// init scoreboard models/DB
-scoreboardModels.init();
 
 /**
  * Auxiliary endpoint for xml -> json conversion (the most popular npm library

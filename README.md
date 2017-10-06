@@ -83,13 +83,9 @@ It is intended that Wipro community is accessed as `wipro.topcoder-dev.com` in d
 
 We use [https://logentries.com](https://logentries.com) to track the logs. Log Entries API token should be provided via the `LOG_ENTRIES_TOKEN` environment variable, which will override the default values set in `/config/default.json` (sample account for local setup testing), and in `/config/production.json` (empty token) - with empty token Log Entries will not be used.
 
-### Configuration for Scoreboard
-1. Setup a postgres DB
-    - Run `docker-compose up db` to setup only the DB (note that `docker-compose up` would also install/build the application besides the DB).
-2. Challenge type configuration can be done for `Code` (`server/tco/scoreboard/config/submissionCodeFields.json`)  and `Design`             (`server/tco/scoreboard/config/submissionCodeDesign.json`)
-Upon changing these json files, `npm run init-scoreboard-data` and  `npm start` need to be run again to have the latest changes.
-3.  Run `npm run init-scoreboard-data`. Creates the database and populates the Scoreboard DB with test data (make sure `config.SCOREBOARD.DB` is filled in).
-4. The role that has write access to the API is configured using `config.SCOREBOARD.ADMIN_ROLE`
+### Configuration for Scoreboard API
+
+Change the property in `URL.COMMUNITY_API` in config.
 
 ### Current Status
 

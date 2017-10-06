@@ -14,8 +14,7 @@
     "lint:js": "eslint --ext .js,.jsx .",
     "lint:scss": "stylelint **/*.scss --syntax scss",
     "start": "cross-env BABEL_ENV=production node ./bin/www",
-    "test": "npm run lint && npm run jest",
-    "init-scoreboard-data": "node ./bin/init-scoreboard-data"
+    "test": "npm run lint && npm run jest"
   },
   "repository": {
     "type": "git",
