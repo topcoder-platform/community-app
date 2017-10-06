@@ -32,6 +32,7 @@ class SubmissionsPage extends React.Component {
       challengeId,
       challengeName,
       challengesUrl,
+      track,
     } = this.props;
     return (
       <div styleName="container">
@@ -42,7 +43,7 @@ class SubmissionsPage extends React.Component {
             title={challengeName}
           />
           {
-            this.props.track === 'DEVELOP' &&
+            track === 'DEVELOP' &&
             this.props.status === 'ACTIVE' &&
             <Develop
               submitForm={this.handleSubmit}
@@ -50,7 +51,7 @@ class SubmissionsPage extends React.Component {
             />
           }
           {
-            this.props.track === 'DESIGN' &&
+            track === 'DESIGN' &&
             this.props.status === 'ACTIVE' &&
             <Design
               submitForm={this.handleSubmit}

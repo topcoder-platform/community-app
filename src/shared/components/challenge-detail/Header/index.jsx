@@ -5,6 +5,7 @@
  */
 
 import _ from 'lodash';
+import config from 'utils/config';
 import camelcase from 'camel-case';
 import React from 'react';
 import PT from 'prop-types';
@@ -88,7 +89,7 @@ export default function ChallengeHeader(props) {
   let bonusType = '';
   if (numberOfCheckpointsPrizes && topCheckPointPrize) {
     bonusType = 'Bonus';
-  } else if (reliabilityBonus) {
+  } else if (reliabilityBonus && reliabilityBonus.toFixed() !== '0') {
     bonusType = 'Reliability Bonus';
   }
 
@@ -220,7 +221,7 @@ export default function ChallengeHeader(props) {
                         </p> :
                         <p styleName="bonus-text">
                           <span styleName={`bonus-highlight ${trackLower}-accent-color`}>
-                            RELIABILITY BONUS: $ {reliabilityBonus}
+                            RELIABILITY BONUS: ${reliabilityBonus.toFixed()}
                           </span>
                         </p>
                     }
@@ -255,8 +256,12 @@ export default function ChallengeHeader(props) {
                 )}
                 <PrimaryButton
                   disabled={!hasRegistered || unregistering || submissionEnded}
+                  openNewTab={trackLower === 'design'}
                   theme={{ button: style.challengeAction }}
-                  to={`${challengesUrl}/${challengeId}/submit`}
+                  to={trackLower === 'design'
+                    ? `${config.URL.BASE}/challenges/${challengeId}/submit/file`
+                    : `${challengesUrl}/${challengeId}/submit`
+                  }
                 >Submit</PrimaryButton>
                 { track === 'DESIGN' && hasRegistered && !unregistering
                   && hasSubmissions && (
