@@ -63,7 +63,7 @@ exports[`Default render 1`] = `
         </a>
         <a
           className="tc-btn-sm tc-btn-default"
-          href="http://accounts.topcoder-dev.com/member"
+          href="http://accounts.topcoder-dev.com/member?retUrl=%2F"
           onClick={[Function]}
         >
           Log In
@@ -257,7 +257,7 @@ exports[`Render with open menu 1`] = `
         </a>
         <a
           className="tc-btn-sm tc-btn-default"
-          href="http://accounts.topcoder-dev.com/member"
+          href="http://accounts.topcoder-dev.com/member?retUrl=%2F"
           onClick={[Function]}
         >
           Log In
