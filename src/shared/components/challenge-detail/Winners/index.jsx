@@ -5,7 +5,6 @@
 
 import React from 'react';
 import PT from 'prop-types';
-import cn from 'classnames';
 import moment from 'moment';
 import _ from 'lodash';
 import config from 'utils/config';
@@ -40,13 +39,12 @@ export default function Winners(props) {
     <div styleName="container">
       {
         winners && winners.map((w) => {
+          const placeStyle = w.placement > 0 && w.placement < 4 ?
+            `place-${w.placement}` : '';
           const submissionId = getId(submissions, w);
           return (
             <div
-              styleName={cn('winner', {
-                'place-1': w.placement === 1,
-                'place-2': w.placement === 2,
-                'place-3': w.placement === 3 })}
+              styleName={`winner ${placeStyle}`}
               key={submissionId}
             >
               <div styleName="thumbnail">

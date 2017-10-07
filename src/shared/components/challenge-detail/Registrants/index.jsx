@@ -5,7 +5,6 @@
 
 import React from 'react';
 import PT from 'prop-types';
-import cn from 'classnames';
 import moment from 'moment';
 import _ from 'lodash';
 import config from 'utils/config';
@@ -55,7 +54,7 @@ export default function Registrants(props) {
     - new Date(b.registrationDate).getTime());
 
   return (
-    <div styleName={cn(['container', { design: isDesign }])}>
+    <div styleName={`container ${isDesign ? 'design' : ''}`}>
       <div styleName="head">
         <div styleName="col-1">Username</div>
         <div styleName="col-2">Registration Date</div>
@@ -96,11 +95,7 @@ export default function Registrants(props) {
                     <span>
                       {formatDate(getDate(submissions, r.handle) || r.submissionDate)}
                     </span>
-                    {placement > 0 && <span styleName={cn(['placement', {
-                      'placement-1': placement === 1,
-                      'placement-2': placement === 2,
-                      'placement-3': placement === 3 }])}
-                    >{placement}</span>}
+                    {placement > 0 && <span styleName={`placement ${placement < 4 ? `placement-${placement}` : ''}`}>{placement}</span>}
                   </div>
                 </div>
               </div>
