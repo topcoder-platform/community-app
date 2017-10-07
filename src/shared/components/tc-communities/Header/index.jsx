@@ -145,7 +145,7 @@ function Header(props) {
     </div>
   );
 
-  const currentPage = pageId === 'home' ? '.' : pageId;
+  const currentPage = pageId === 'home' ? '' : pageId;
 
   return (
     <div>
@@ -191,10 +191,8 @@ function Header(props) {
                 <NavLink
                   activeClassName={theme.menuLinkActive}
                   className={theme.menuLink}
-                  isActive={() => currentPage === item.url}
-                  to={
-                    item.url === '.' ? '.' : `${baseUrl}${item.url}`
-                  }
+                  isActive={() => `/${currentPage}` === item.url}
+                  to={`${baseUrl}${item.url}`}
                 >
                   {item.title}
                 </NavLink>

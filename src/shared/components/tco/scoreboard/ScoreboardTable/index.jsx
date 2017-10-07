@@ -22,8 +22,8 @@ import config from 'utils/config';
 import React from 'react';
 import PT from 'prop-types';
 
-import codeFields from 'server/tco/scoreboard/config/submissionCodeFields.json';
-import designFields from 'server/tco/scoreboard/config/submissionDesignFields.json';
+import codeFields from 'shared/fields/submissionCodeFields.json';
+import designFields from 'shared/fields/submissionDesignFields.json';
 
 import styles from './styles.scss'; // eslint-disable-line no-unused-vars
 

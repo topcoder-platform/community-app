@@ -28,10 +28,10 @@
   "menuItems": [
     {
       "title": "Home",
-      "url": "."
+      "url": "/"
     }, {
       "title": "Challenges",
-      "url": "challenges"
+      "url": "/challenges"
     }
   ],
   "newsFeed": "http://www.topcoder.com/feed",

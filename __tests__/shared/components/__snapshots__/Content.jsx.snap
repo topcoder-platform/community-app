@@ -273,7 +273,7 @@ exports[`Matches shallow shapshot 1`] = `
     <li>
       <Link
         replace={false}
-        to="/community/blockchain/home"
+        to="/community/blockchain"
       >
         Blockchain Community
       </Link>
@@ -281,7 +281,7 @@ exports[`Matches shallow shapshot 1`] = `
     <li>
       <Link
         replace={false}
-        to="/community/community-2/home"
+        to="/community/community-2"
       >
         Community 2
       </Link>
@@ -289,7 +289,7 @@ exports[`Matches shallow shapshot 1`] = `
     <li>
       <Link
         replace={false}
-        to="/community/demo-expert/home"
+        to="/community/demo-expert"
       >
         Demo Expert Community
       </Link>
@@ -297,7 +297,7 @@ exports[`Matches shallow shapshot 1`] = `
     <li>
       <Link
         replace={false}
-        to="/community/qa/home"
+        to="/community/qa"
       >
         QA Community
       </Link>
@@ -305,7 +305,7 @@ exports[`Matches shallow shapshot 1`] = `
     <li>
       <Link
         replace={false}
-        to="/community/srmx/home"
+        to="/community/srmx"
       >
         SRMX Community
       </Link>
@@ -313,7 +313,7 @@ exports[`Matches shallow shapshot 1`] = `
     <li>
       <Link
         replace={false}
-        to="/community/taskforce/home"
+        to="/community/taskforce"
       >
         Taskforce community
       </Link>
@@ -321,7 +321,7 @@ exports[`Matches shallow shapshot 1`] = `
     <li>
       <Link
         replace={false}
-        to="/community/tc-prod-dev/home"
+        to="/community/tc-prod-dev"
       >
         Topcoder Product Development community
       </Link>
@@ -329,7 +329,7 @@ exports[`Matches shallow shapshot 1`] = `
     <li>
       <Link
         replace={false}
-        to="/community/wipro/"
+        to="/community/wipro"
       >
         TopGear (Wipro) community
       </Link>
@@ -337,7 +337,7 @@ exports[`Matches shallow shapshot 1`] = `
     <li>
       <Link
         replace={false}
-        to="/community/veterans/"
+        to="/community/veterans"
       >
         Veterans Community
       </Link>

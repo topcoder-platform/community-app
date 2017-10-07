@@ -5,6 +5,7 @@
  */
 
 import _ from 'lodash';
+import config from 'utils/config';
 import React from 'react';
 import PT from 'prop-types';
 import moment from 'moment';
@@ -41,8 +42,9 @@ export default function ChallengeHeader(props) {
     drPoints,
     id: challengeId,
     name,
-    track,
     subTrack,
+    track,
+
     events,
     technologies,
     platforms,
@@ -60,16 +62,21 @@ export default function ChallengeHeader(props) {
   } = challenge;
 
   const phases = {};
-  allPhases.forEach((phase) => { phases[_.camelCase(phase.phaseType)] = phase; });
-  const registrationEnded =
-    _.get(phases, 'registration.phaseStatus') !== 'Open';
+  allPhases.forEach((phase) => {
+    phases[_.camelCase(phase.phaseType)] = phase;
+  });
+
+  let registrationEndDate;
+  let registrationEnded = true;
+  const regPhase = phases.registration;
+  if (regPhase) {
+    registrationEndDate = regPhase.actualEndTime || regPhase.scheduledEndTime;
+    registrationEnded = regPhase.phaseStatus !== 'Open';
+  }
+
   const submissionEnded =
     _.get(phases, 'submission.phaseStatus') !== 'Open' &&
     _.get(phases, 'checkpointSubmission.phaseStatus') !== 'Open';
-
-  const registrationPhase = allPhases.find(p => p.phaseType === 'Registration');
-  const registrationEndDate = registrationPhase.actualEndTime
-    || registrationPhase.scheduledEndTime;
 
   let trackLower = track ? track.toLowerCase() : 'design';
   if (technologies.includes('Data Science')) {
@@ -83,15 +90,16 @@ export default function ChallengeHeader(props) {
   let bonusType = '';
   if (numberOfCheckpointsPrizes && topCheckPointPrize) {
     bonusType = 'Bonus';
-  } else if (reliabilityBonus) {
+  } else if (reliabilityBonus && reliabilityBonus.toFixed() !== '0') {
     bonusType = 'Reliability Bonus';
   }
 
   const hasSubmissions = userDetails && userDetails.hasUserSubmittedForReview;
-  const nextPhaseIndex = hasRegistered ? 1 : 0;
-  const nextDeadline = currentPhases.length > 0 && currentPhases[nextPhaseIndex].phaseType;
-  const deadlineEnd = currentPhases && currentPhases.length > 0 ?
-    new Date(currentPhases[nextPhaseIndex].scheduledEndTime).getTime() : Date.now();
+  const nextPhase =
+    (currentPhases && currentPhases[hasRegistered ? 1 : 0]) || {};
+  const nextDeadline = nextPhase.phaseType;
+  const deadlineEnd = nextPhase ?
+    new Date(nextPhase.scheduledEndTime).getTime() : Date.now();
   const currentTime = Date.now();
   const timeDiff = deadlineEnd > currentTime ? deadlineEnd - currentTime : 0;
   const duration = moment.duration(timeDiff);
@@ -214,7 +222,7 @@ export default function ChallengeHeader(props) {
                         </p> :
                         <p styleName="bonus-text">
                           <span styleName={`bonus-highlight ${trackLower}-accent-color`}>
-                            RELIABILITY BONUS: $ {reliabilityBonus}
+                            RELIABILITY BONUS: ${reliabilityBonus.toFixed()}
                           </span>
                         </p>
                     }
@@ -235,7 +243,8 @@ export default function ChallengeHeader(props) {
               <div styleName="challenge-ops-container">
                 {hasRegistered ? (
                   <DangerButton
-                    disabled={unregistering || registrationEnded}
+                    disabled={unregistering || registrationEnded
+                      || hasSubmissions}
                     onClick={unregisterFromChallenge}
                     theme={{ button: style.challengeAction }}
                   >Unregister</DangerButton>
@@ -248,14 +257,21 @@ export default function ChallengeHeader(props) {
                 )}
                 <PrimaryButton
                   disabled={!hasRegistered || unregistering || submissionEnded}
+                  openNewTab={trackLower === 'design'}
                   theme={{ button: style.challengeAction }}
-                  to={`${challengesUrl}/${challengeId}/submit`}
+                  to={trackLower === 'design'
+                    ? `${config.URL.BASE}/challenges/${challengeId}/submit/file`
+                    : `${challengesUrl}/${challengeId}/submit`
+                  }
                 >Submit</PrimaryButton>
-                <PrimaryButton
-                  disabled={!hasRegistered || unregistering || !hasSubmissions}
-                  theme={{ button: style.challengeAction }}
-                  to={`${challengesUrl}/${challengeId}/my-submissions`}
-                >View Submissions</PrimaryButton>
+                { track === 'DESIGN' && hasRegistered && !unregistering
+                  && hasSubmissions && (
+                    <PrimaryButton
+                      theme={{ button: style.challengeAction }}
+                      to={`${challengesUrl}/${challengeId}/my-submissions`}
+                    >View Submissions</PrimaryButton>
+                  )
+                }
               </div>
             </div>
           </div>

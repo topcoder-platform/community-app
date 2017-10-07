@@ -6,6 +6,7 @@
  */
 
 import _ from 'lodash';
+import Error404 from 'components/Error404';
 import Modal from 'components/Modal';
 import Button from 'components/Button';
 import LoadingIndicator from 'components/LoadingIndicator';
@@ -45,9 +46,12 @@ class SubmissionManagementPageContainer extends React.Component {
 
   render() {
     const {
+      challenge,
       challengesUrl,
       loadingSubmissionsForChallengeId,
     } = this.props;
+
+    if (challenge.track !== 'DESIGN') return <Error404 />;
 
     const isEmpty = _.isEmpty(this.props.challenge);
 

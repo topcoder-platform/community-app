@@ -129,6 +129,7 @@ class Design extends React.Component {
       isSubmitting,
       submitDone,
       errorMsg,
+      track,
     } = this.props;
     return (!isSubmitting && !submitDone && !errorMsg) ? (
       <div styleName="design-content">
@@ -315,6 +316,7 @@ class Design extends React.Component {
         isSubmitting={isSubmitting}
         submitDone={submitDone}
         reset={this.reset}
+        track={track}
         error={errorMsg}
         retry={this.retry}
       />;
@@ -330,6 +332,7 @@ Design.propTypes = {
   errorMsg: PT.string.isRequired,
   submitForm: PT.func.isRequired,
   resetForm: PT.func.isRequired,
+  track: PT.string.isRequired,
 };
 
 export default Design;

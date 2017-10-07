@@ -3,6 +3,7 @@
 .container {
   @include roboto;
 
+  flex: 1;
   flex-direction: column;
   min-height: 400px;
   text-align: center;
