@@ -15,7 +15,8 @@ exports[`Matches shallow shapshot 1`] = `
   >
     <a
       className="tc-btn-md tc-btn-primary"
-      href="http://accounts.topcoder-dev.com/member?retUrl=%2F"
+      href="http://accounts.topcoder-dev.com/member"
+      onClick={[Function]}
     >
       Log In Here
     </a>

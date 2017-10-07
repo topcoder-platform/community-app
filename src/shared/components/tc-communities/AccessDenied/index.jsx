@@ -5,8 +5,6 @@ import config from 'utils/config';
 import PT from 'prop-types';
 import React from 'react';
 
-import { isClientSide } from 'utils/isomorphy';
-
 import TopcoderLogo from '../../../../assets/images/logo_topcoder.svg';
 import './style.scss';
 
@@ -16,10 +14,8 @@ export const CAUSE = {
 };
 
 export default function AccessDenied({ cause }) {
-  const origin = isClientSide() ? window.location.origin : '';
   switch (cause) {
     case CAUSE.NOT_AUTHENTICATED: {
-      const returnUrl = encodeURIComponent(`${origin}/`);
       return (
         <div styleName="access-denied">
           <TopcoderLogo />
@@ -27,7 +23,12 @@ export default function AccessDenied({ cause }) {
           <div styleName="msg">
             <a
               className="tc-btn-md tc-btn-primary"
-              href={`${config.URL.AUTH}/member?retUrl=${returnUrl}`}
+              href={`${config.URL.AUTH}/member`}
+              onClick={(event) => {
+                const retUrl = encodeURIComponent(window.location.href);
+                window.location = `${config.URL.AUTH}/member?retUrl=${retUrl}`;
+                event.preventDefault();
+              }}
             >Log In Here</a>
           </div>
         </div>
