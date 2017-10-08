@@ -186,8 +186,10 @@ export default function ChallengeHeader(props) {
     default:
       nextDeadlineMsg = (
         <div>
-          Status: <span styleName="deadline-highlighted">{
-            _.capitalize(status)}</span>
+          Status:
+          &zwnj;<span styleName="deadline-highlighted">
+            {_.upperFirst(_.lowerCase(status))}
+          </span>
         </div>
       );
       break;
