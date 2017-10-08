@@ -294,14 +294,6 @@ export default class TopcoderHeader extends React.Component {
         </div>
       );
     } else {
-      /* TODO: These registration and login links should be appended with
-       ?next=... specifying the url encoded URL, where the user should be
-       redirected after successful login / registration. Can't just append
-       them, though, as it will break the server-side rendering (during
-       server side rendering we don't know yet the correct url for the
-       redirection). Most probably, we should use here buttons instead
-       of hyperlinks, and compose the target url once the user clicks
-       them. */
       authButtons = (
         <div styleName="auth-buttons">
           <a
@@ -312,7 +304,11 @@ export default class TopcoderHeader extends React.Component {
           <a
             className="tc-btn-sm tc-btn-default"
             href={`${config.URL.AUTH}/member`}
-            onClick={closeMenu}
+            onClick={(event) => {
+              const retUrl = encodeURIComponent(window.location.href);
+              window.location = `${config.URL.AUTH}/member?retUrl=${retUrl}`;
+              event.preventDefault();
+            }}
           >Log In</a>
         </div>
       );

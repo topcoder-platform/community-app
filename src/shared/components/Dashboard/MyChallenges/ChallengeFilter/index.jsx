@@ -2,7 +2,6 @@
 
 import React from 'react';
 import PT from 'prop-types';
-import cn from 'classnames';
 
 import './style.scss';
 
@@ -15,7 +14,7 @@ const ChallengeFilter = (props) => {
           <div
             key={community.communityId}
             onClick={() => selectCommunity(community.communityId)}
-            styleName={cn(['row', { selected: community.communityId === selectedCommunityId }])}
+            styleName={`row ${community.communityId === selectedCommunityId ? 'selected' : ''}`}
           >
             <span>{community.communityName}</span>
             <span>{community.number}</span>

@@ -11,7 +11,6 @@ import _ from 'lodash';
 import React from 'react';
 import PT from 'prop-types';
 import { themr } from 'react-css-super-themr';
-import cn from 'classnames';
 import Sticky from 'react-stickynode';
 import IconTickDown from '../../../../../assets/images/tc-communities/tick_down_big.svg';
 import defaultStyle from './style.scss';
@@ -20,7 +19,7 @@ function AccordionItem(props) {
   const { title, children, onTitleClick, isOpen, theme } = props;
 
   const content = (
-    <div className={cn(theme.container, { [theme.containerOpen]: isOpen })}>
+    <div className={`${theme.container} ${isOpen ? theme.containerOpen : ''}`}>
       <h3 className={theme.title}>
         <div
           className="accordion-title-button"

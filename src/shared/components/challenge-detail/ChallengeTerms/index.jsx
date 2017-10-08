@@ -4,7 +4,6 @@
 import _ from 'lodash';
 import React from 'react';
 import PT from 'prop-types';
-import cn from 'classnames';
 import Modal from 'components/Modal';
 import { PrimaryButton, Button } from 'components/buttons';
 import LoadingIndicator from 'components/LoadingIndicator';
@@ -179,7 +178,24 @@ export default class ChallengeTerms extends React.Component {
                         <div styleName="tabs-inner" onScroll={handleHorizonalScroll} ref={(e) => { this.hScrollElement = e; }}>
                           {
                             terms.map((t, index) => (
-                              <div key={t.termsOfUseId} styleName={cn(['tab', { agreed: t.agreed && !viewOnly, active: selectedTerm === t, 'view-only': viewOnly, last: terms.length - 1 === index }])}>
+                              <div
+                                key={t.termsOfUseId}
+                                /* TODO: No need to use so much style names and
+                                 * related logic here. It can be simplified:
+                                 * "view-only" style should move to the root
+                                 * level, other conditions should be merged
+                                 * into "tab" style ID, and correctly handled
+                                 * at SCSS side. */
+                                styleName={
+                                  `tab ${
+                                    t.agreed && !viewOnly ? 'agreed' : ''
+                                  } ${
+                                    selectedTerm === t ? 'active' : ''
+                                  } ${
+                                    viewOnly ? 'view-only' : ''
+                                  }`
+                                }
+                              >
                                 <div styleName="tab-index" onClick={() => this.selectTerm(t)}>{index + 1}</div>
                                 <div styleName="tab-title" onClick={() => this.selectTerm(t)}>{t.title}</div>
                                 {
@@ -195,7 +211,9 @@ export default class ChallengeTerms extends React.Component {
                   {
                     !checkingStatus && selectedTerm &&
                     <div
-                      styleName={cn({ single: terms.length === 1 })}
+                      /* TODO: Most probably, can be replaced with
+                       * :only-child selector. */
+                      styleName={terms.length === 1 ? 'single' : ''}
                     >
                       {
                         terms.length > 1 && <div styleName="sub-title">{selectedTerm.title}</div>

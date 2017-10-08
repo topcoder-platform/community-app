@@ -5,7 +5,7 @@
  */
 
 import _ from 'lodash';
-import camelcase from 'camel-case';
+import config from 'utils/config';
 import React from 'react';
 import PT from 'prop-types';
 import moment from 'moment';
@@ -62,7 +62,9 @@ export default function ChallengeHeader(props) {
   } = challenge;
 
   const phases = {};
-  allPhases.forEach((phase) => { phases[camelcase(phase.phaseType)] = phase; });
+  allPhases.forEach((phase) => {
+    phases[_.camelCase(phase.phaseType)] = phase;
+  });
 
   let registrationEndDate;
   let registrationEnded = true;
@@ -88,7 +90,7 @@ export default function ChallengeHeader(props) {
   let bonusType = '';
   if (numberOfCheckpointsPrizes && topCheckPointPrize) {
     bonusType = 'Bonus';
-  } else if (reliabilityBonus) {
+  } else if (reliabilityBonus && reliabilityBonus.toFixed() !== '0') {
     bonusType = 'Reliability Bonus';
   }
 
@@ -220,7 +222,7 @@ export default function ChallengeHeader(props) {
                         </p> :
                         <p styleName="bonus-text">
                           <span styleName={`bonus-highlight ${trackLower}-accent-color`}>
-                            RELIABILITY BONUS: $ {reliabilityBonus}
+                            RELIABILITY BONUS: ${reliabilityBonus.toFixed()}
                           </span>
                         </p>
                     }
@@ -255,8 +257,12 @@ export default function ChallengeHeader(props) {
                 )}
                 <PrimaryButton
                   disabled={!hasRegistered || unregistering || submissionEnded}
+                  openNewTab={trackLower === 'design'}
                   theme={{ button: style.challengeAction }}
-                  to={`${challengesUrl}/${challengeId}/submit`}
+                  to={trackLower === 'design'
+                    ? `${config.URL.BASE}/challenges/${challengeId}/submit/file`
+                    : `${challengesUrl}/${challengeId}/submit`
+                  }
                 >Submit</PrimaryButton>
                 { track === 'DESIGN' && hasRegistered && !unregistering
                   && hasSubmissions && (

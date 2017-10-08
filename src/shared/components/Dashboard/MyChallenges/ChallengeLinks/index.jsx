@@ -1,6 +1,5 @@
 import React from 'react';
 import PT from 'prop-types';
-import cn from 'classnames';
 
 import { challengeLinks as getLink } from 'utils/tc';
 import './style.scss';
@@ -8,7 +7,7 @@ import './style.scss';
 const ChallengeLinks = (props) => {
   const { viewMode, challenge } = props;
   return (
-    <div styleName={cn(['challenge-links', `${viewMode}-view`])}>
+    <div styleName={`challenge-links ${viewMode}-view`}>
       <a href={getLink(challenge, 'registrants')} styleName="registrants">
         <div styleName="icon registrants-icon" />
         {challenge.subTrack === 'MARATHON_MATCH' && <p>{challenge.numRegistrants[0]}</p>}

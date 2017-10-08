@@ -1,6 +1,5 @@
 import React from 'react';
 import PT from 'prop-types';
-import cn from 'classnames';
 
 import { stripUnderscore, challengeLinks as getLink } from 'utils/tc';
 import ChallengeLinks from '../ChallengeLinks';
@@ -22,10 +21,10 @@ function listRoles(roles) {
 const ChallengeTile = (props) => {
   const { challenge, viewMode } = props;
   return (
-    <div styleName={cn(['challenge-tile', `${viewMode}-view`])}>
+    <div styleName={`challenge-tile ${viewMode}-view`}>
       {
         viewMode === 'tile' &&
-        <div styleName={cn(['challenge', 'tile-view', challenge.track])}>
+        <div styleName={`challenge tile-view ${challenge.track}`}>
           {
             challenge.status === 'ACTIVE' &&
             <div styleName="active-challenge">
@@ -52,10 +51,10 @@ const ChallengeTile = (props) => {
                   <p styleName="currentPhase">{challenge.userCurrentPhase}</p>
                   {
                     challenge.userCurrentPhaseEndTime &&
-                      <div styleName={cn({
-                        'challenge-calendar': true,
-                        'challenge-late': challenge.isLate,
-                      })}
+                      <div
+                        styleName={
+                          `challenge-calendar ${challenge.isLate ? 'challenge-late' : ''}`
+                        }
                       >
                         <p styleName="ends-in">{challenge.isLate ? 'Late for' : 'Ends In'}</p>
                         <p styleName="time-remaining">{challenge.userCurrentPhaseEndTime[0]}</p>
@@ -128,7 +127,7 @@ const ChallengeTile = (props) => {
       }
       {
         viewMode === 'list' &&
-        <div styleName={cn(['challenge', 'list-view', challenge.track])}>
+        <div styleName={`challenge list-view ${challenge.track}`}>
           {
             challenge.status === 'ACTIVE' &&
             <div styleName="active-challenge">
@@ -148,10 +147,10 @@ const ChallengeTile = (props) => {
                 </p>
               </header>
               <div styleName="challenge-details">
-                <div styleName={cn({
-                  'challenge-info': true,
-                  'challenge-late': challenge.isLate,
-                })}
+                <div
+                  styleName={
+                    `challenge-info ${challenge.isLate ? 'challenge-late' : ''}`
+                  }
                 >
                   <p styleName="currentPhase">{challenge.userCurrentPhase}</p>
                   {

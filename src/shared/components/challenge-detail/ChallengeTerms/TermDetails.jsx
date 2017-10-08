@@ -2,7 +2,6 @@
 
 import React from 'react';
 import PT from 'prop-types';
-import cn from 'classnames';
 import LoadingIndicator from 'components/LoadingIndicator';
 
 import './TermDetails.scss';
@@ -58,7 +57,12 @@ export default class TermDetails extends React.Component {
               this.state.loadingFrame &&
               <LoadingIndicator />
             }
-            <iframe title={details.title} src={docuSignUrl} styleName={cn(['frame', { loading: this.state.loadingFrame }])} onLoad={this.frameLoaded} />
+            <iframe
+              onLoad={this.frameLoaded}
+              src={docuSignUrl}
+              styleName={this.state.loadingFrame ? 'hidden' : 'frame'}
+              title={details.title}
+            />
           </div>
         }
       </div>
