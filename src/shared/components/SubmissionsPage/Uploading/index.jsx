@@ -15,7 +15,7 @@ const Uploading = ({
   reset,
   error,
   retry,
-  percentUploaded,
+  uploadProgress,
 }) => (
   <div styleName="container">
     <div styleName="uploading">
@@ -49,7 +49,7 @@ const Uploading = ({
       }
       {
         isSubmitting && !submitDone &&
-          <p styleName="submitting">Uploaded: {percentUploaded}%</p>
+          <p styleName="submitting">Uploaded: {(100 * uploadProgress).toFixed()}%</p>
       }
       {
         isSubmitting &&
@@ -110,7 +110,7 @@ Uploading.propTypes = {
   reset: PT.func.isRequired,
   error: PT.string.isRequired,
   retry: PT.func.isRequired,
-  percentUploaded: PT.number.isRequired,
+  uploadProgress: PT.number.isRequired,
 };
 
 export default Uploading;

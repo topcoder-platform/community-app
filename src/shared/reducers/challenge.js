@@ -284,7 +284,7 @@ function onSubmitInit(state) {
     isSubmitting: true,
     submitDone: false,
     submitErrorMsg: '',
-    percentUploaded: 0,
+    uploadProgress: 0.0,
   };
 }
 

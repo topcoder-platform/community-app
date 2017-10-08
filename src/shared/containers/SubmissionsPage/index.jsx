@@ -65,7 +65,6 @@ class SubmissionsPage extends React.Component {
 
 SubmissionsPage.defaultProps = {
   challengesUrl: '/challenges',
-  percentUploaded: 0,
 };
 
 SubmissionsPage.propTypes = {
@@ -81,7 +80,7 @@ SubmissionsPage.propTypes = {
   submitDone: PT.bool.isRequired,
   resetForm: PT.func.isRequired,
   challengeName: PT.string.isRequired,
-  percentUploaded: PT.string.isRequired,
+  uploadProgress: PT.number.isRequired,
 };
 
 const mapStateToProps = (state, ownProps) => {
@@ -94,7 +93,7 @@ const mapStateToProps = (state, ownProps) => {
     tokenV3: state.auth.tokenV3,
     isSubmitting: state.challenge.isSubmitting,
     submitDone: state.challenge.submitDone,
-    percentUploaded: state.challenge.uploadProgress,
+    uploadProgress: state.challenge.uploadProgress,
     errorMsg: state.challenge.submitErrorMsg,
     track: state.challenge.details.track,
     status: state.challenge.details.status,

@@ -160,10 +160,7 @@ export default class Api {
         xhr.onerror = rej;
         if (xhr.upload && onProgress) {
           xhr.upload.onprogress = (evt) => {
-            if (evt.lengthComputable) {
-              const percentComplete = parseInt((evt.loaded / evt.total) * 100, 10);
-              onProgress(percentComplete);
-            }
+            if (evt.lengthComputable) onProgress(evt.loaded / evt.total);
           };
         }
         xhr.send(options.body);
