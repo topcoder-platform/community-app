@@ -5,6 +5,7 @@ import moment from 'moment';
 import LeaderboardAvatar from 'components/LeaderboardAvatar';
 import { Link } from 'react-router-dom';
 import { DETAIL_TABS } from 'actions/challenge';
+import 'moment-duration-format';
 
 import ChallengeProgressBar from '../../ChallengeProgressBar';
 import ProgressBarTooltip from '../../Tooltips/ProgressBarTooltip';
@@ -25,79 +26,41 @@ const FF_TIME_LEFT_MSG = 'Winner is working on fixes';
 const HOUR_MS = 60 * 60 * 1000;
 const DAY_MS = 24 * HOUR_MS;
 
-const getTimeLeft = (date, currentPhase) => {
-  if (!currentPhase || currentPhase === 'Stalled') {
-    return {
-      late: false,
-      text: STALLED_TIME_LEFT_MSG,
-    };
-  } else if (currentPhase === 'Final Fix') {
-    return {
-      late: false,
-      text: FF_TIME_LEFT_MSG,
-    };
+/**
+ * Generates human-readable string containing time till the phase end.
+ * @param {Object} phase
+ * @return {String}
+ */
+const getTimeLeft = (phase) => {
+  if (!phase) return { late: false, text: STALLED_TIME_LEFT_MSG };
+  if (phase.phaseType === 'Final Fix') {
+    return { late: false, text: FF_TIME_LEFT_MSG };
   }
 
-  let time = moment(date).diff();
+  let time = moment(phase.scheduledEndTime).diff();
   const late = time < 0;
   if (late) time = -time;
 
   let format;
-  if (time > DAY_MS) format = 'DDD[d] H[h]';
+  if (time > DAY_MS) format = 'D[d] H[h]';
   else if (time > HOUR_MS) format = 'H[h] m[min]';
   else format = 'm[min] s[s]';
 
-  time = moment(time).format(format);
+  time = moment.duration(time).format(format);
   time = late ? `Late by ${time}` : `${time} to go`;
   return { late, text: time };
 };
 
-const getStatusPhase = (challenge) => {
-  const { currentPhases } = challenge;
-  const currentPhase = currentPhases.length > 0 ? currentPhases[0] : '';
-  const currentPhaseName = currentPhase ? currentPhase.phaseType : '';
-  switch (currentPhaseName) {
-    case 'Registration': {
-      if (challenge.checkpointSubmissionEndDate && !getTimeLeft(challenge.checkpointSubmissionEndDate, 'Checkpoint').late) {
-        return {
-          currentPhaseName: 'Checkpoint',
-          currentPhaseEndDate: challenge.checkpointSubmissionEndDate,
-        };
-      }
-
-      return {
-        currentPhaseName: 'Submission',
-        currentPhaseEndDate: challenge.submissionEndDate,
-      };
-    }
-    case 'Submission': {
-      if (challenge.checkpointSubmissionEndDate && !getTimeLeft(challenge.checkpointSubmissionEndDate, 'Checkpoint').late) {
-        return {
-          currentPhaseName: 'Checkpoint',
-          currentPhaseEndDate: challenge.checkpointSubmissionEndDate,
-        };
-      }
-
-      return {
-        currentPhaseName: 'Submission',
-        currentPhaseEndDate: challenge.submissionEndDate,
-      };
-    }
-    default:
-      return {
-        currentPhaseName,
-        currentPhaseEndDate: currentPhase.scheduledEndTime,
-      };
-  }
-};
-
-const getTimeToGo = (start, end) => {
-  const percentageComplete = (
-    (moment() - moment(start)) / (moment(end) - moment(start))
-  ) * 100;
-  return (Math.round(percentageComplete * 100) / 100);
-};
-
+/**
+ * Calculates progress of the specified phase (as a percentage).
+ * @param {Object} phase
+ * @return {Number}
+ */
+function getPhaseProgress(phase) {
+  const end = moment(phase.scheduledEndTime);
+  const start = moment(phase.actualStartTime);
+  return 100 * (moment().diff(start) / end.diff(start));
+}
 
 /**
  * Returns an user profile object as expected by the UserAvatarTooltip
@@ -252,16 +215,27 @@ export default function ChallengeStatus(props) {
   }
 
   function activeChallenge() {
-    const { challenge } = props;
+    const {
+      allPhases,
+      currentPhases,
+      forumId,
+      myChallenge,
+      status,
+    } = props.challenge;
 
-    const registrationPhase = challenge.allPhases.filter(phase => phase.phaseType === 'Registration')[0];
-    const isRegistrationOpen = registrationPhase ? registrationPhase.phaseStatus === 'Open' : false;
-    const currentPhaseName = challenge.currentPhases && challenge.currentPhases.length > 0;
+    const statusPhase = currentPhases
+      .filter(p => p.phaseType !== 'Registration')
+      .sort((a, b) => moment(a.scheduledEndTime).diff(b.scheduledEndTime))[0];
+
+    const registrationPhase = allPhases
+      .find(p => p.phaseType === 'Registration');
+    const isRegistrationOpen = registrationPhase
+      && registrationPhase.phaseStatus === 'Open';
 
     let phaseMessage = STALLED_MSG;
-    if (currentPhaseName) {
-      phaseMessage = getStatusPhase(challenge).currentPhaseName;
-    } else if (challenge.status === 'DRAFT') {
+    if (currentPhases.length) {
+      phaseMessage = statusPhase.phaseType;
+    } else if (status === 'DRAFT') {
       phaseMessage = DRAFT_MSG;
     }
     return (
@@ -271,56 +245,40 @@ export default function ChallengeStatus(props) {
         </span>
         <span styleName="challenge-stats">
           <NumRegistrants
-            challenge={challenge}
+            challenge={props.challenge}
             challengesUrl={challengesUrl}
             newChallengeDetails={newChallengeDetails}
             selectChallengeDetailsTab={selectChallengeDetailsTab}
           />
           <NumSubmissions
-            challenge={challenge}
+            challenge={props.challenge}
             challengesUrl={challengesUrl}
             newChallengeDetails={newChallengeDetails}
             selectChallengeDetailsTab={selectChallengeDetailsTab}
           />
           {
-            challenge.myChallenge &&
+            myChallenge &&
             <span>
-              <a styleName="link-forum" href={`${FORUM_URL}${challenge.forumId}`}>
+              <a styleName="link-forum" href={`${FORUM_URL}${forumId}`}>
                 <ForumIcon />
               </a>
             </span>
           }
         </span>
-        <ProgressBarTooltip challenge={challenge}>
+        <ProgressBarTooltip challenge={props.challenge}>
           {
-            challenge.status === 'ACTIVE' && challenge.currentPhases.length > 0 ?
+            status === 'ACTIVE' && currentPhases.length ? (
               <div>
                 <ChallengeProgressBar
                   color="green"
-                  value={
-                    getTimeToGo(
-                      challenge.registrationStartDate,
-                      getStatusPhase(challenge).currentPhaseEndDate,
-                    )
-                  }
-                  isLate={
-                    getTimeLeft(
-                      getStatusPhase(challenge).currentPhaseEndDate,
-                      getStatusPhase(challenge).currentPhaseName,
-                    ).late
-                  }
+                  value={getPhaseProgress(statusPhase)}
+                  isLate={moment().isAfter(statusPhase.scheduledEndTime)}
                 />
                 <div styleName="time-left">
-                  {
-                    getTimeLeft(
-                      getStatusPhase(challenge).currentPhaseEndDate,
-                      getStatusPhase(challenge).currentPhaseName,
-                    ).text
-                  }
+                  {getTimeLeft(statusPhase).text}
                 </div>
               </div>
-              :
-              <ChallengeProgressBar color="gray" value="100" />
+            ) : <ChallengeProgressBar color="gray" value="100" />
           }
         </ProgressBarTooltip>
         {isRegistrationOpen && renderRegisterButton()}
