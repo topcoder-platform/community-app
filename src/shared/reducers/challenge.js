@@ -284,6 +284,7 @@ function onSubmitInit(state) {
     isSubmitting: true,
     submitDone: false,
     submitErrorMsg: '',
+    percentUploaded: 0,
   };
 }
 
@@ -299,6 +300,12 @@ function onSubmitReset(state) {
   };
 }
 
+function onUploadProgress(state, { payload }) {
+  return {
+    ...state,
+    uploadProgress: payload,
+  };
+}
 /**
  * Creates a new Auth reducer with the specified initial state.
  * @param {Object} initialState Initial state.
@@ -324,6 +331,7 @@ function create(initialState) {
     [a.submitDone]: onSubmitDone,
     [a.submitInit]: onSubmitInit,
     [a.submitReset]: onSubmitReset,
+    [a.uploadProgress]: onUploadProgress,
     [a.unregisterInit]: state => ({ ...state, unregistering: true }),
     [a.unregisterDone]: onUnregisterDone,
     [a.loadResultsInit]: onLoadResultsInit,

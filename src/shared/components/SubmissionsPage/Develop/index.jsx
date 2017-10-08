@@ -60,6 +60,7 @@ class Develop extends React.Component {
       isSubmitting,
       submitDone,
       errorMsg,
+      percentUploaded,
     } = this.props;
 
     return (
@@ -141,6 +142,7 @@ class Develop extends React.Component {
           reset={this.reset}
           error={errorMsg}
           retry={this.retry}
+          percentUploaded={percentUploaded}
         />
     );
   }
@@ -155,6 +157,7 @@ Develop.propTypes = {
   errorMsg: PT.string.isRequired,
   submitForm: PT.func.isRequired,
   resetForm: PT.func.isRequired,
+  percentUploaded: PT.string.isRequired,
 };
 
 export default Develop;
