@@ -15,6 +15,7 @@ export default function Listing({
   challenges,
   challengesUrl,
   communityName,
+  filterState,
   loadingDraftChallenges,
   loadingPastChallenges,
   loadMoreDraft,
@@ -24,6 +25,7 @@ export default function Listing({
   prizeMode,
   selectBucket,
   selectChallengeDetailsTab,
+  selectedCommunityId,
   setFilterState,
   setSort,
   sorts,
@@ -49,16 +51,19 @@ export default function Listing({
       <div styleName="challengeCardContainer">
         <Bucket
           bucket={buckets[activeBucket]}
+          bucketId={activeBucket}
           challenges={challenges}
           challengesUrl={challengesUrl}
           communityName={communityName}
           expanded
+          filterState={filterState}
           loading={loading}
           loadMore={loadMore}
           newChallengeDetails={newChallengeDetails}
           openChallengesInNewTabs={openChallengesInNewTabs}
           prizeMode={prizeMode}
           selectChallengeDetailsTab={selectChallengeDetailsTab}
+          selectedCommunityId={selectedCommunityId}
           setFilterState={setFilterState}
           setSort={sort => setSort(activeBucket, sort)}
           sort={sorts[activeBucket]}
@@ -84,16 +89,19 @@ export default function Listing({
     return (
       <Bucket
         bucket={buckets[bucket]}
+        bucketId={bucket}
         challenges={challenges}
         challengesUrl={challengesUrl}
         communityName={communityName}
         expand={() => selectBucket(bucket)}
+        filterState={filterState}
         loading={loading}
         loadMore={loadMore}
         newChallengeDetails={newChallengeDetails}
         openChallengesInNewTabs={openChallengesInNewTabs}
         prizeMode={prizeMode}
         selectChallengeDetailsTab={selectChallengeDetailsTab}
+        selectedCommunityId={selectedCommunityId}
         setFilterState={setFilterState}
         setSort={sort => setSort(bucket, sort)}
         sort={sorts[bucket]}
@@ -138,6 +146,7 @@ Listing.propTypes = {
   challenges: PT.arrayOf(PT.shape()),
   challengesUrl: PT.string.isRequired,
   communityName: PT.string,
+  filterState: PT.shape().isRequired,
   loadingDraftChallenges: PT.bool.isRequired,
   loadingPastChallenges: PT.bool.isRequired,
   loadMoreDraft: PT.func,
@@ -147,6 +156,7 @@ Listing.propTypes = {
   prizeMode: PT.string.isRequired,
   selectBucket: PT.func.isRequired,
   selectChallengeDetailsTab: PT.func.isRequired,
+  selectedCommunityId: PT.string.isRequired,
   setFilterState: PT.func.isRequired,
   setSort: PT.func.isRequired,
   sorts: PT.shape().isRequired,

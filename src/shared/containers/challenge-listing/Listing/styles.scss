@@ -1,10 +1,12 @@
-@import '~styles/tc-styles';
+@import '~styles/mixins';
 $sm-space-10: $base-unit * 2;
 $sm-space-15: $base-unit * 3;
 $sm-space-25: $base-unit * 5;
 $sm-space-40: $base-unit * 8;
 
 .container {
+  display: flex;
+  flex: 1;
   width: 100%;
 }
 

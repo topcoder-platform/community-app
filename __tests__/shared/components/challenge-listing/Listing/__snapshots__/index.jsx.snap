@@ -6,68 +6,80 @@ exports[`Matches shallow shapshot 1`] = `
 >
   <Bucket
     bucket={Object {}}
+    bucketId="MY"
     challenges={Array []}
     challengesUrl={undefined}
     communityName={null}
     expand={[Function]}
     expanded={false}
+    filterState={undefined}
     loadMore={null}
     loading={false}
     newChallengeDetails={false}
     openChallengesInNewTabs={false}
     prizeMode={undefined}
     selectChallengeDetailsTab={undefined}
+    selectedCommunityId={undefined}
     setFilterState={[Function]}
     setSort={[Function]}
     sort={null}
   />
   <Bucket
     bucket={Object {}}
+    bucketId="OPEN_FOR_REGISTRATION"
     challenges={Array []}
     challengesUrl={undefined}
     communityName={null}
     expand={[Function]}
     expanded={false}
+    filterState={undefined}
     loadMore={null}
     loading={false}
     newChallengeDetails={false}
     openChallengesInNewTabs={false}
     prizeMode={undefined}
     selectChallengeDetailsTab={undefined}
+    selectedCommunityId={undefined}
     setFilterState={[Function]}
     setSort={[Function]}
     sort={null}
   />
   <Bucket
     bucket={Object {}}
+    bucketId="ONGOING"
     challenges={Array []}
     challengesUrl={undefined}
     communityName={null}
     expand={[Function]}
     expanded={false}
+    filterState={undefined}
     loadMore={null}
     loading={false}
     newChallengeDetails={false}
     openChallengesInNewTabs={false}
     prizeMode={undefined}
     selectChallengeDetailsTab={undefined}
+    selectedCommunityId={undefined}
     setFilterState={[Function]}
     setSort={[Function]}
     sort={null}
   />
   <Bucket
     bucket={Object {}}
+    bucketId="PAST"
     challenges={Array []}
     challengesUrl={undefined}
     communityName={null}
     expand={[Function]}
     expanded={false}
+    filterState={undefined}
     loadMore={[Function]}
     loading={false}
     newChallengeDetails={false}
     openChallengesInNewTabs={false}
     prizeMode={undefined}
     selectChallengeDetailsTab={undefined}
+    selectedCommunityId={undefined}
     setFilterState={[Function]}
     setSort={[Function]}
     sort={null}
@@ -81,17 +93,20 @@ exports[`Matches shallow shapshot 2`] = `
 >
   <Bucket
     bucket={Object {}}
+    bucketId="PAST"
     challenges={Array []}
     challengesUrl={undefined}
     communityName={null}
     expand={[Function]}
     expanded={true}
+    filterState={undefined}
     loadMore={[Function]}
     loading={false}
     newChallengeDetails={false}
     openChallengesInNewTabs={false}
     prizeMode={undefined}
     selectChallengeDetailsTab={undefined}
+    selectedCommunityId={undefined}
     setFilterState={[Function]}
     setSort={[Function]}
     sort={null}
@@ -105,17 +120,20 @@ exports[`Matches shallow shapshot 3`] = `
 >
   <Bucket
     bucket={Object {}}
+    bucketId="UPCOMING"
     challenges={Array []}
     challengesUrl={undefined}
     communityName={null}
     expand={[Function]}
     expanded={true}
+    filterState={undefined}
     loadMore={[Function]}
     loading={false}
     newChallengeDetails={false}
     openChallengesInNewTabs={false}
     prizeMode={undefined}
     selectChallengeDetailsTab={undefined}
+    selectedCommunityId={undefined}
     setFilterState={[Function]}
     setSort={[Function]}
     sort={null}
@@ -129,51 +147,60 @@ exports[`Matches shallow shapshot 4`] = `
 >
   <Bucket
     bucket={Object {}}
+    bucketId="OPEN_FOR_REGISTRATION"
     challenges={Array []}
     challengesUrl={undefined}
     communityName={null}
     expand={[Function]}
     expanded={false}
+    filterState={undefined}
     loadMore={null}
     loading={false}
     newChallengeDetails={false}
     openChallengesInNewTabs={false}
     prizeMode={undefined}
     selectChallengeDetailsTab={undefined}
+    selectedCommunityId={undefined}
     setFilterState={[Function]}
     setSort={[Function]}
     sort={null}
   />
   <Bucket
     bucket={Object {}}
+    bucketId="ONGOING"
     challenges={Array []}
     challengesUrl={undefined}
     communityName={null}
     expand={[Function]}
     expanded={false}
+    filterState={undefined}
     loadMore={null}
     loading={false}
     newChallengeDetails={false}
     openChallengesInNewTabs={false}
     prizeMode={undefined}
     selectChallengeDetailsTab={undefined}
+    selectedCommunityId={undefined}
     setFilterState={[Function]}
     setSort={[Function]}
     sort={null}
   />
   <Bucket
     bucket={Object {}}
+    bucketId="PAST"
     challenges={Array []}
     challengesUrl={undefined}
     communityName={null}
     expand={[Function]}
     expanded={false}
+    filterState={undefined}
     loadMore={[Function]}
     loading={false}
     newChallengeDetails={false}
     openChallengesInNewTabs={false}
     prizeMode={undefined}
     selectChallengeDetailsTab={undefined}
+    selectedCommunityId={undefined}
     setFilterState={[Function]}
     setSort={[Function]}
     sort={null}
@@ -187,17 +214,20 @@ exports[`Matches shallow shapshot 5`] = `
 >
   <Bucket
     bucket={Object {}}
+    bucketId="ONGOING"
     challenges={Array []}
     challengesUrl={undefined}
     communityName={null}
     expand={[Function]}
     expanded={true}
+    filterState={undefined}
     loadMore={null}
     loading={false}
     newChallengeDetails={false}
     openChallengesInNewTabs={false}
     prizeMode={undefined}
     selectChallengeDetailsTab={undefined}
+    selectedCommunityId={undefined}
     setFilterState={[Function]}
     setSort={[Function]}
     sort={null}

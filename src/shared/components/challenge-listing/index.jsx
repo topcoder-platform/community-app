@@ -72,6 +72,7 @@ export default function ChallengeListing(props) {
         challenges={challenges}
         challengesUrl={props.challengesUrl}
         communityName={props.communityName}
+        filterState={props.filterState}
         loadingDraftChallenges={props.loadingDraftChallenges}
         loadingPastChallenges={props.loadingPastChallenges}
         loadMoreDraft={props.loadMoreDraft}
@@ -81,6 +82,7 @@ export default function ChallengeListing(props) {
         prizeMode={props.prizeMode}
         selectBucket={props.selectBucket}
         selectChallengeDetailsTab={props.selectChallengeDetailsTab}
+        selectedCommunityId={props.selectedCommunityId}
         setFilterState={props.setFilterState}
         setSort={props.setSort}
         sorts={props.sorts}
@@ -172,6 +174,7 @@ ChallengeListing.propTypes = {
   prizeMode: PT.string,
   selectBucket: PT.func.isRequired,
   selectChallengeDetailsTab: PT.func.isRequired,
+  selectedCommunityId: PT.string.isRequired,
   setFilterState: PT.func.isRequired,
   setSort: PT.func.isRequired,
   sorts: PT.shape().isRequired,
