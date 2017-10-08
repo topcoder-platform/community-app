@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import config from 'utils/config';
 import React from 'react';
 import PT from 'prop-types';
@@ -221,11 +222,17 @@ export default function ChallengeStatus(props) {
       forumId,
       myChallenge,
       status,
+      subTrack,
     } = props.challenge;
 
-    const statusPhase = currentPhases
+    let statusPhase = currentPhases
       .filter(p => p.phaseType !== 'Registration')
       .sort((a, b) => moment(a.scheduledEndTime).diff(b.scheduledEndTime))[0];
+
+    if (!statusPhase && subTrack === 'FIRST_2_FINISH' && currentPhases.length) {
+      statusPhase = _.clone(currentPhases[0]);
+      statusPhase.phaseType = 'Submission';
+    }
 
     const registrationPhase = allPhases
       .find(p => p.phaseType === 'Registration');
@@ -233,11 +240,9 @@ export default function ChallengeStatus(props) {
       && registrationPhase.phaseStatus === 'Open';
 
     let phaseMessage = STALLED_MSG;
-    if (currentPhases.length) {
-      phaseMessage = statusPhase.phaseType;
-    } else if (status === 'DRAFT') {
-      phaseMessage = DRAFT_MSG;
-    }
+    if (statusPhase) phaseMessage = statusPhase.phaseType;
+    else if (status === 'DRAFT') phaseMessage = DRAFT_MSG;
+
     return (
       <div styleName={isRegistrationOpen ? 'challenge-progress with-register-button' : 'challenge-progress'}>
         <span styleName="current-phase">
@@ -267,7 +272,7 @@ export default function ChallengeStatus(props) {
         </span>
         <ProgressBarTooltip challenge={props.challenge}>
           {
-            status === 'ACTIVE' && currentPhases.length ? (
+            status === 'ACTIVE' && statusPhase ? (
               <div>
                 <ChallengeProgressBar
                   color="green"
