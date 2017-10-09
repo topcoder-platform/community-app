@@ -1,4 +1,4 @@
-@import "~styles/tc-styles";
+@import "~styles/mixins";
 
 .ActiveFilterItem {
   cursor: pointer;
@@ -17,9 +17,12 @@
     outline: none;
     width: 270px;
 
+    &.error {
+      border: 1px solid $tc-red;
+    }
+
     &:hover {
       box-shadow: inset 0 0 2px 0 #b7b7b7;
-      border: 0;
     }
   }
 
@@ -58,6 +61,12 @@
       fill: $tc-white;
     }
   }
+}
+
+.errorMsg {
+  color: $tc-red;
+  line-height: 13px;
+  margin-bottom: 6px;
 }
 
 .icon-arrows-v {

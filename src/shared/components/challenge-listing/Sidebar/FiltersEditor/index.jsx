@@ -5,9 +5,10 @@
 
 import PT from 'prop-types';
 import React from 'react';
+import { PrimaryButton } from 'components/buttons';
 
 import Item from './Item';
-import './style.scss';
+import style from './style.scss';
 
 export default function FiltersEditor({
   changeFilterName,
@@ -27,6 +28,7 @@ export default function FiltersEditor({
       deleteSavedFilter={() => deleteSavedFilter(item.id)}
       dragSavedFilterMove={e => dragSavedFilterMove(e, dragState)}
       dragSavedFilterStart={e => dragSavedFilterStart(index, e)}
+      error={item.error}
       resetFilterName={() => resetFilterName(index)}
       key={item.id}
       name={item.name}
@@ -39,17 +41,14 @@ export default function FiltersEditor({
       <h1>
         My filters
       </h1>
-      <div
+      <PrimaryButton
+        disabled={savedFilters.some(f => f.error)}
         onClick={() => {
           updateAllSavedFilters();
           setEditSavedFiltersMode(false);
         }}
-        role="button"
-        styleName="done-button"
-        tabIndex={0}
-      >
-        Done
-      </div>
+        theme={{ button: style.doneButton }}
+      >Done</PrimaryButton>
       { savedFilterItems }
       <div styleName="note">
         Drag the filters to set the order you prefer;
