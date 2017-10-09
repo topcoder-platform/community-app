@@ -25,10 +25,11 @@ import React from 'react';
 import PT from 'prop-types';
 import Select from 'components/Select';
 import moment from 'moment';
-import UiSimpleRemove from '../../Icons/ui-simple-remove.svg';
+import { Button, PrimaryButton } from 'components/buttons';
 
-import './style.scss';
 import DateRangePicker from '../DateRangePicker';
+import style from './style.scss';
+import UiSimpleRemove from '../../Icons/ui-simple-remove.svg';
 
 export default function FiltersPanel({
   communityFilters,
@@ -147,21 +148,19 @@ export default function FiltersPanel({
         </div>
       </div>
       <div styleName="buttons">
-        <button
-          styleName="white"
-          className="tc-outline-btn"
+        <Button
           disabled={_.isEmpty(filterState)}
           onClick={() => {
             setFilterState({});
             setSearchText('');
           }}
-        >Clear filters</button>
-        <button
-          styleName="blue"
-          className="tc-blue-btn"
-          onClick={onSaveFilter}
+          theme={{ button: style.button, disabled: style.buttonDisabled }}
+        >Clear filters</Button>
+        <PrimaryButton
           disabled={isSavingFilter || _.isEmpty(filterState)}
-        >Save filter</button>
+          onClick={onSaveFilter}
+          theme={{ button: style.button, disabled: style.buttonDisabled }}
+        >Save filter</PrimaryButton>
       </div>
     </div>
   );
