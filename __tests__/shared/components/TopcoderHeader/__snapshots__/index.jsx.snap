@@ -51,24 +51,13 @@ exports[`Default render 1`] = `
     <div
       className="src-shared-components-TopcoderHeader-___style__right-menu___34OkD"
     >
-      <div
-        className="src-shared-components-TopcoderHeader-___style__auth-buttons___164uC"
+      <span
+        className="src-shared-components-TopcoderHeader-___style__auth-align___29jCN"
       >
-        <a
-          className="tc-btn-sm tc-btn-primary"
-          href="http://accounts.topcoder-dev.com/member/registration"
-          onClick={[Function]}
-        >
-          Join
-        </a>
-        <a
-          className="tc-btn-sm tc-btn-default"
-          href="http://accounts.topcoder-dev.com/member"
-          onClick={[Function]}
-        >
-          Log In
-        </a>
-      </div>
+        <Auth
+          column={false}
+        />
+      </span>
       <div
         className="src-shared-components-TopcoderHeader-___style__search-icon___3w5nA"
         data-menu="search"
@@ -245,24 +234,13 @@ exports[`Render with open menu 1`] = `
     <div
       className="src-shared-components-TopcoderHeader-___style__right-menu___34OkD"
     >
-      <div
-        className="src-shared-components-TopcoderHeader-___style__auth-buttons___164uC"
+      <span
+        className="src-shared-components-TopcoderHeader-___style__auth-align___29jCN"
       >
-        <a
-          className="tc-btn-sm tc-btn-primary"
-          href="http://accounts.topcoder-dev.com/member/registration"
-          onClick={[Function]}
-        >
-          Join
-        </a>
-        <a
-          className="tc-btn-sm tc-btn-default"
-          href="http://accounts.topcoder-dev.com/member"
-          onClick={[Function]}
-        >
-          Log In
-        </a>
-      </div>
+        <Auth
+          column={false}
+        />
+      </span>
       <div
         className="src-shared-components-TopcoderHeader-___style__search-icon___3w5nA"
         data-menu="search"

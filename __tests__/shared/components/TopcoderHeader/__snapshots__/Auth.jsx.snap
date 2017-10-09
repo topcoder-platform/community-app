@@ -16,6 +16,7 @@ exports[`Snapshot match 1`] = `
   <a
     className="tc-btn-sm tc-btn-default"
     href="http://accounts.topcoder-dev.com/member"
+    onClick={[Function]}
   >
     Log In
   </a>
@@ -38,6 +39,7 @@ exports[`Snapshot match 2`] = `
   <a
     className="tc-btn-sm tc-btn-default"
     href="http://accounts.topcoder-dev.com/member"
+    onClick={[Function]}
   >
     Log In
   </a>
