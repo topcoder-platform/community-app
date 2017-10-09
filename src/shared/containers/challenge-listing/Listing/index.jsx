@@ -284,7 +284,7 @@ const mapStateToProps = (state, ownProps) => {
     challenges: cl.challenges,
     challengeSubtracks: cl.challengeSubtracks,
     challengeTags: cl.challengeTags,
-    communityFilters: [{ communityId: '', communityName: 'All' }].concat(tc.list),
+    communityFilters: tc.list,
     hideTcLinksInSidebarFooter: ownProps.hideTcLinksInSidebarFooter,
     lastRequestedPageOfDraftChallenges: cl.lastRequestedPageOfDraftChallenges,
     lastRequestedPageOfPastChallenges: cl.lastRequestedPageOfPastChallenges,
