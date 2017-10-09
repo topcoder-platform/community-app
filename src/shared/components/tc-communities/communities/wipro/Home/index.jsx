@@ -166,11 +166,15 @@ export default function Home(props) {
           <ImageText
             title="Leverage The Crowd"
             text="Access your on-demand community of designers and technology experts."
-            link={{
+            link={[{
               newTab: true,
               title: 'Initiate Project',
               url: 'https://connect.topcoder.com/new-project/generic_dev?refCode=topgear',
-            }}
+            }, {
+              newTab: true,
+              title: 'Request Group',
+              url: 'https://help.topcoder.com/hc/en-us/requests/new?ticket_form_id=779747',              
+            }]}
             theme={ImageTextStyles}
             imageSrc="/themes/wipro/home/image-text-leverage.png"
           />
