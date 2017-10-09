@@ -154,6 +154,9 @@ export default function Learn() {
             <AccordionItem title="I am interested to add/initiate a new solution project/challenges on to the platform, what is the process?">
               <Text><p>On Home Page select ‘Initiate Project’ and provide initial information about projects OR send a mail to ask.topgear@wipro.com and TopGear team will get back to you with details OR go through video.</p></Text>
             </AccordionItem>
+            <AccordionItem title="I would like to create a new group that I can post challenges and tasks to. How do I get that setup?">
+              <Text><p>Submit a request at https://help.topcoder.com/hc/en-us/requests/new?ticket_form_id=779747 and a TopGear team member will help get it setup.</p></Text>
+            </AccordionItem>
             <AccordionItem title="I have more queries, whom should I contact?">
               <Text><p>Please write to ask.topgear@wipro.com</p></Text>
             </AccordionItem>
