@@ -81,6 +81,7 @@ SubmissionsPage.propTypes = {
   submitDone: PT.bool.isRequired,
   resetForm: PT.func.isRequired,
   challengeName: PT.string.isRequired,
+  uploadProgress: PT.number.isRequired,
 };
 
 const mapStateToProps = (state, ownProps) => {
@@ -93,6 +94,7 @@ const mapStateToProps = (state, ownProps) => {
     tokenV3: state.auth.tokenV3,
     isSubmitting: state.challenge.isSubmitting,
     submitDone: state.challenge.submitDone,
+    uploadProgress: state.challenge.uploadProgress,
     errorMsg: state.challenge.submitErrorMsg,
     track: state.challenge.details.track,
     status: state.challenge.details.status,
@@ -101,10 +103,11 @@ const mapStateToProps = (state, ownProps) => {
 
 function mapDispatchToProps(dispatch) {
   const a = actions.challenge;
+  const progress = (data) => { dispatch(a.uploadProgress(data)); };
   return {
     onSubmit: (tokenV3, tokenV2, submissionId, body, track) => {
       dispatch(a.submitInit());
-      dispatch(a.submitDone(tokenV3, tokenV2, submissionId, body, track));
+      dispatch(a.submitDone(tokenV3, tokenV2, submissionId, body, track, progress));
     },
     resetForm: () => {
       dispatch(a.submitReset());

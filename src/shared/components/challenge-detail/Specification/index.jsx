@@ -315,7 +315,7 @@ ChallengeDetailsView.propTypes = {
     introduction: PT.string,
     detailedRequirements: PT.string,
     track: PT.string.isRequired,
-    groupIds: PT.arrayOf(PT.string),
+    groupIds: PT.arrayOf(PT.number),
     screeningScorecardId: PT.number,
     reviewScorecardId: PT.number,
     forumLink: PT.string,

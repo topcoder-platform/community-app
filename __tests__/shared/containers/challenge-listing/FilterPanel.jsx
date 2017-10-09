@@ -254,8 +254,4 @@ describe('full render connnected component and dispatch actions', () => {
     const actions = store.getActions();
     expect(actions[0].type).toEqual(cActions.challengeListing.setFilter.toString());
   });
-
-  test('getAvailableFilterName', () => {
-    filterPanel.prop('getAvailableFilterName')();
-  });
 });

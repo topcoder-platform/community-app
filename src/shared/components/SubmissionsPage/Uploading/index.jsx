@@ -10,12 +10,13 @@ const Uploading = ({
   challengeId,
   challengeName,
   challengesUrl,
+  error,
   isSubmitting,
   submitDone,
   reset,
-  error,
   retry,
   track,
+  uploadProgress,
 }) => (
   <div styleName="container">
     <div styleName="uploading">
@@ -49,7 +50,7 @@ const Uploading = ({
       }
       {
         isSubmitting && !submitDone &&
-          <p styleName="submitting">Finishing...</p>
+          <p styleName="submitting">Uploaded: {(100 * uploadProgress).toFixed()}%</p>
       }
       {
         isSubmitting &&
@@ -124,6 +125,7 @@ Uploading.propTypes = {
   error: PT.string.isRequired,
   track: PT.string.isRequired,
   retry: PT.func.isRequired,
+  uploadProgress: PT.number.isRequired,
 };
 
 export default Uploading;

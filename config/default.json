@@ -56,11 +56,6 @@
    * due to caching). */
   "REAUTH_TIME": 55,
 
-  "SCOREBOARD":{
-    "DB": "postgres://postgres:postgres@localhost:5432/scoreboard",
-    "ADMIN_ROLE": "administrator"
-  },
-
   "SWIFT_PROGRAM_ID": 3445,
 
   /* Various URLs. Most of them lead to different segments of Topcoder
@@ -106,7 +101,8 @@
     },
 
     "USER_SETTINGS": "https://lc1-user-settings-service.herokuapp.com",
-    "WIPRO": "https://wipro.topcoder.com"
+    "WIPRO": "https://wipro.topcoder.com",
+    "COMMUNITY_API": "http://localhost:8000"
   },
 
   /* Information about Topcoder user groups can be cached in various places.

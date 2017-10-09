@@ -2,7 +2,6 @@
 
 import React from 'react';
 import PT from 'prop-types';
-import cn from 'classnames';
 import _ from 'lodash';
 import Sticky from 'react-stickynode';
 
@@ -85,13 +84,13 @@ export default class MyChallenges extends React.Component {
         <header>
           <div styleName="section-title">
             <h1
-              styleName={cn({ active: this.state.activeTab === 0 })}
+              styleName={this.state.activeTab === 0 ? 'active' : ''}
               onClick={() => this.setTab(0)}
             >
               My Challenges
             </h1>
             <h1
-              styleName={cn({ active: this.state.activeTab === 1 })}
+              styleName={this.state.activeTab === 1 ? 'active' : ''}
               onClick={() => this.setTab(1)}
             >
               My Communities
@@ -101,13 +100,17 @@ export default class MyChallenges extends React.Component {
             this.state.activeTab === 0 &&
             <div styleName="challenge-view-toggle">
               <button
-                styleName={cn({ tile: true, disabled: this.state.viewMode === 'tile' })}
+                styleName={
+                  `tile ${this.state.viewMode === 'tile' ? 'disabled' : ''}`
+                }
                 onClick={() => this.setViewMode('tile')}
               >
                 Grid
               </button>
               <button
-                styleName={cn({ list: true, disabled: this.state.viewMode === 'list' })}
+                styleName={
+                  `list ${this.state.viewMode === 'list' ? 'disabled' : ''}`
+                }
                 onClick={() => this.setViewMode('list')}
               >
                 List
@@ -127,8 +130,8 @@ export default class MyChallenges extends React.Component {
         </header>
         {
           this.state.activeTab === 0 && this.props.challenges && this.props.challenges.length > 0 &&
-          <section styleName={cn('hasChallenges', { 'list-view-active': this.state.viewMode === 'list' })}>
-            <div styleName={cn('challenges', `${this.state.viewMode}-view`)}>
+          <section styleName={`hasChallenges ${this.state.viewMode === 'list' ? 'list-view-active' : ''}`}>
+            <div styleName={`challenges ${this.state.viewMode}-view`}>
               <div styleName="items">
                 {
                   challenges.length === 0 &&

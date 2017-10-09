@@ -57,10 +57,11 @@ class Develop extends React.Component {
       challengeId,
       challengeName,
       challengesUrl,
+      errorMsg,
       isSubmitting,
       submitDone,
-      errorMsg,
       track,
+      uploadProgress,
     } = this.props;
 
     return (
@@ -136,12 +137,13 @@ class Develop extends React.Component {
           challengeId={challengeId}
           challengeName={challengeName}
           challengesUrl={challengesUrl}
+          error={errorMsg}
           isSubmitting={isSubmitting}
           submitDone={submitDone}
           reset={this.reset}
-          error={errorMsg}
           retry={this.retry}
           track={track}
+          uploadProgress={uploadProgress}
         />
     );
   }
@@ -157,6 +159,7 @@ Develop.propTypes = {
   submitForm: PT.func.isRequired,
   resetForm: PT.func.isRequired,
   track: PT.string.isRequired,
+  uploadProgress: PT.number.isRequired,
 };
 
 export default Develop;

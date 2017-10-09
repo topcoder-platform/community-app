@@ -7,19 +7,31 @@ exports[`Matches shallow shapshot 1`] = `
   <h1>
     My filters
   </h1>
-  <div
-    className="src-shared-components-challenge-listing-Sidebar-FiltersEditor-___style__done-button___3Z310"
+  <ThemedGenericButton
+    composeAdhocTheme="deeply"
+    composeContextTheme="softly"
+    disabled={false}
+    enforceA={false}
+    mapThemrProps={[Function]}
     onClick={[Function]}
-    role="button"
-    tabIndex={0}
+    openNewTab={false}
+    replace={false}
+    theme={
+      Object {
+        "button": "src-shared-components-challenge-listing-Sidebar-FiltersEditor-___style__doneButton___-qp1P",
+      }
+    }
+    themePriority="adhoc-context-default"
+    to={null}
   >
     Done
-  </div>
+  </ThemedGenericButton>
   <Item
     changeFilterName={[Function]}
     deleteSavedFilter={[Function]}
     dragSavedFilterMove={[Function]}
     dragSavedFilterStart={[Function]}
+    error=""
     name="name"
     resetFilterName={[Function]}
     updateSavedFilter={[Function]}

@@ -41,6 +41,7 @@ module.exports = webpackMerge(defaultConfig, {
             },
             generateScopedName: '[path][name]___[local]',
           }],
+          'transform-runtime',
         ],
       },
     }, {

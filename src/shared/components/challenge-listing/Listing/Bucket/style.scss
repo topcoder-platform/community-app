@@ -1,22 +1,28 @@
-@import "~styles/tc-styles";
+@import "~styles/mixins";
 
 .bucket {
   background: $tc-gray-neutral-light;
   margin: 20px 0;
 }
 
-.view-more {
-  width: 100%;
+.view-more,
+.view-more:active,
+.view-more:focus,
+.view-more:hover,
+.view-more:visited {
   background: $tc-gray-neutral-light;
   border-top: 1px solid $tc-gray-10;
   border-bottom: 1px solid $tc-gray-10;
   border-left: 0;
+  border-radius: 0;
   border-right: 0;
   color: $tc-gray-50;
-  font-weight: 300;
-  text-transform: none;
-  border-radius: 0;
+  cursor: pointer;
+  display: block;
+  font: 300 13px Arial;
   outline: none;
-  font-size: 13px;
   padding: 12px 0;
+  text-align: center;
+  text-transform: none;
+  width: 100%;
 }

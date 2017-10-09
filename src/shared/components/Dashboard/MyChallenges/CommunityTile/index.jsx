@@ -2,7 +2,6 @@
 
 import React from 'react';
 import PT from 'prop-types';
-import cn from 'classnames';
 
 import './style.scss';
 
@@ -31,7 +30,7 @@ const CommunityTile = (props) => {
         </div>
       </div>
       <div styleName="actions">
-        <a styleName={cn({ reg: !registered, unreg: registered })}>{registered ? 'Unregister' : 'Register'}</a>
+        <a styleName={registered ? 'unreg' : 'reg'}>{registered ? 'Unregister' : 'Register'}</a>
         <a rel="noopener noreferrer" styleName="link" target="_blank" href={`/community/${community.communityId}/challenges`}>View All Challenges</a>
         <div styleName="pipe" />
         <a rel="noopener noreferrer" styleName="link" target="_blank" href={`/community/${community.communityId}/leaderboard`}>Leaderboard</a>

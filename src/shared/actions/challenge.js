@@ -172,6 +172,15 @@ function fetchCheckpointsDone(tokenV2, challengeId) {
 }
 
 /**
+ * Payload creator for the action that updates progress percent
+ * @param {Number} percent content uploaded
+ * @return {Number} percent uploaded
+ */
+function uploadProgress(percent) {
+  return percent;
+}
+
+/**
  * Payload creator for the action that actually performs submission operation.
  * @param {String} tokenV3
  * @param {String} tokenV2
@@ -180,10 +189,11 @@ function fetchCheckpointsDone(tokenV2, challengeId) {
  * @param {String} track Competition track of the challenge where we submit.
  * @return
  */
-function submitDone(tokenV3, tokenV2, submissionId, body, track) {
+function submitDone(tokenV3, tokenV2, submissionId, body, track, progress) {
   return getChallengesService(tokenV3, tokenV2)
-    .submit(body, submissionId, track);
+    .submit(body, submissionId, track, progress);
 }
+
 
 /**
  * Payload creator for the action that initializes submission operation.
@@ -224,6 +234,7 @@ export default createActions({
     SELECT_TAB: _.identity,
     SUBMIT_DONE: submitDone,
     SUBMIT_INIT: submitInit,
+    UPLOAD_PROGRESS: uploadProgress,
     SUBMIT_RESET: submitReset,
     TOGGLE_CHECKPOINT_FEEDBACK: toggleCheckpointFeedback,
     UNREGISTER_INIT: _.noop,

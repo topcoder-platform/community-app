@@ -17,33 +17,6 @@ import { connect } from 'react-redux';
  * names unique. */
 const DEFAULT_SAVED_FILTER_NAME = 'My Filter';
 
-export class Container extends React.Component {
-  componentDidMount() {
-    if (!this.props.loadingSubtracks) this.props.getSubtracks();
-    if (!this.props.loadingKeywords) this.props.getKeywords();
-  }
-
-  render() {
-    return (
-      <FilterPanel
-        {...this.props}
-        saveFilter={() => {
-          const name = this.props.getAvailableFilterName();
-          this.props.saveFilter(
-            name, this.props.filterState, this.props.tokenV2);
-        }}
-        setFilterState={(state) => {
-          this.props.setFilterState(state);
-          if (this.props.activeBucket === BUCKETS.SAVED_FILTER) {
-            this.props.selectBucket(BUCKETS.ALL);
-          }
-        }}
-        isSavingFilter={this.props.isSavingFilter}
-      />
-    );
-  }
-}
-
 /**
  * Returns a vacant name for the user saved filter.
  * @param {Object} state Redux state.
@@ -60,6 +33,39 @@ function getAvailableFilterName(state) {
   return res;
 }
 
+export class Container extends React.Component {
+  componentDidMount() {
+    if (!this.props.loadingSubtracks) this.props.getSubtracks();
+    if (!this.props.loadingKeywords) this.props.getKeywords();
+  }
+
+  render() {
+    const communityFilters = [{
+      communityId: '',
+      communityName: 'All',
+    }].concat(this.props.communityFilters);
+
+    return (
+      <FilterPanel
+        {...this.props}
+        communityFilters={communityFilters}
+        saveFilter={() => {
+          const name = getAvailableFilterName();
+          this.props.saveFilter(
+            name, this.props.filterState, this.props.tokenV2);
+        }}
+        setFilterState={(state) => {
+          this.props.setFilterState(state);
+          if (this.props.activeBucket === BUCKETS.SAVED_FILTER) {
+            this.props.selectBucket(BUCKETS.ALL);
+          }
+        }}
+        isSavingFilter={this.props.isSavingFilter}
+      />
+    );
+  }
+}
+
 Container.defaultProps = {
   isSavingFilter: false,
   tokenV2: '',
@@ -67,8 +73,8 @@ Container.defaultProps = {
 
 Container.propTypes = {
   activeBucket: PT.string.isRequired,
+  communityFilters: PT.arrayOf(PT.object).isRequired,
   filterState: PT.shape().isRequired,
-  getAvailableFilterName: PT.func.isRequired,
   getKeywords: PT.func.isRequired,
   getSubtracks: PT.func.isRequired,
   isSavingFilter: PT.bool,
@@ -111,9 +117,8 @@ function mapStateToProps(state, ownProps) {
     ...ownProps,
     ...state.challengeListing.filterPanel,
     activeBucket: cl.sidebar.activeBucket,
-    communityFilters: [{ communityId: '', communityName: 'All' }].concat(tc.list),
+    communityFilters: tc.list,
     filterState: cl.filter,
-    getAvailableFilterName: () => getAvailableFilterName(state),
     loadingKeywords: cl.loadingChallengeTags,
     loadingSubtracks: cl.loadingChallengeSubtracks,
     validKeywords: cl.challengeTags,

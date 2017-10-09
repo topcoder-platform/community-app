@@ -5,6 +5,7 @@
 import _ from 'lodash';
 import 'isomorphic-fetch'; /* global fetch */
 import config from 'utils/config';
+import { isClientSide } from 'utils/isomorphy';
 
 /**
  * API service object. It is reused for both Topcoder API v2 and v3,
@@ -17,7 +18,10 @@ export default class Api {
    * @param {String} token Optional. Authorization token.
    */
   constructor(base, token) {
-    this.private = { base, token };
+    this.private = {
+      base,
+      token,
+    };
   }
 
   /**
@@ -42,17 +46,25 @@ export default class Api {
    *  to find out the response status.
    */
   fetch(endpoint, options = {}) {
-    const { base, token } = this.private;
+    const {
+      base,
+      token,
+    } = this.private;
     const headers = options.headers ? _.clone(options.headers) : {};
     if (token) headers.Authorization = `Bearer ${token}`;
 
     switch (headers['Content-Type']) {
-      case null: delete headers['Content-Type']; break;
-      case undefined: headers['Content-Type'] = 'application/json'; break;
+      case null:
+        delete headers['Content-Type'];
+        break;
+      case undefined:
+        headers['Content-Type'] = 'application/json';
+        break;
       default:
     }
-
-    return fetch(`${base}${endpoint}`, { ...options, headers });
+    return fetch(`${base}${endpoint}`, { ...options,
+      headers,
+    });
   }
 
   /**
@@ -62,7 +74,10 @@ export default class Api {
    * @return {Promise}
    */
   delete(endpoint, body) {
-    return this.fetch(endpoint, { body, method: 'DELETE' });
+    return this.fetch(endpoint, {
+      body,
+      method: 'DELETE',
+    });
   }
 
   /**
@@ -81,15 +96,18 @@ export default class Api {
    * @return {Promise}
    */
   post(endpoint, body) {
-    return this.fetch(endpoint, { body, method: 'POST' });
+    return this.fetch(endpoint, {
+      body,
+      method: 'POST',
+    });
   }
 
   /**
- * Sends POST request to the specified endpoint, with JSON payload.
- * @param {String} endpoint
- * @param {JSON} json
- * @return {Promise}
- */
+   * Sends POST request to the specified endpoint, with JSON payload.
+   * @param {String} endpoint
+   * @param {JSON} json
+   * @return {Promise}
+   */
   postJson(endpoint, json) {
     return this.post(endpoint, JSON.stringify(json));
   }
@@ -101,7 +119,10 @@ export default class Api {
    * @return {Promise}
    */
   put(endpoint, body) {
-    return this.fetch(endpoint, { body, method: 'PUT' });
+    return this.fetch(endpoint, {
+      body,
+      method: 'PUT',
+    });
   }
 
   /**
@@ -113,7 +134,42 @@ export default class Api {
   putJson(endpoint, json) {
     return this.put(endpoint, JSON.stringify(json));
   }
+  /**
+   * Upload with progress
+   * @param {String} endpoint
+   * @param {Object} body and headers
+   * @param {Function} callback handler for update progress only works for client side for now
+   * @return {Promise}
+   */
+  upload(endpoint, options, onProgress) {
+    const {
+      base,
+      token,
+    } = this.private;
+    const headers = options.headers ? _.clone(options.headers) : {};
+    if (token) headers.Authorization = `Bearer ${token}`;
+    if (isClientSide()) {
+      delete headers['Content-Type'];
+      return new Promise((res, rej) => {
+        const xhr = new XMLHttpRequest(); //eslint-disable-line
+        xhr.open(options.method, `${base}${endpoint}`);
+        Object.keys(headers).forEach((key) => {
+          xhr.setRequestHeader(key, headers[key]);
+        });
+        xhr.onload = e => res(e.target.responseText);
+        xhr.onerror = rej;
+        if (xhr.upload && onProgress) {
+          xhr.upload.onprogress = (evt) => {
+            if (evt.lengthComputable) onProgress(evt.loaded / evt.total);
+          };
+        }
+        xhr.send(options.body);
+      });
+    }
+    return this.fetch(endpoint, options);
+  }
 }
+
 
 /**
  * Topcoder API v2.

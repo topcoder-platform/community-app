@@ -118,6 +118,7 @@ export class ListingContainer extends React.Component {
       newChallengeDetails,
       selectBucket,
       selectChallengeDetailsTab,
+      selectedCommunityId,
       hideTcLinksInSidebarFooter,
     } = this.props;
 
@@ -184,7 +185,7 @@ export class ListingContainer extends React.Component {
           prizeMode={this.props.prizeMode}
           selectBucket={selectBucket}
           selectChallengeDetailsTab={selectChallengeDetailsTab}
-
+          selectedCommunityId={selectedCommunityId}
           loadMoreDraft={loadMoreDraft}
           loadMorePast={loadMorePast}
           setFilterState={(state) => {
@@ -283,7 +284,7 @@ const mapStateToProps = (state, ownProps) => {
     challenges: cl.challenges,
     challengeSubtracks: cl.challengeSubtracks,
     challengeTags: cl.challengeTags,
-    communityFilters: [{ communityId: '', communityName: 'All' }].concat(tc.list),
+    communityFilters: tc.list,
     hideTcLinksInSidebarFooter: ownProps.hideTcLinksInSidebarFooter,
     lastRequestedPageOfDraftChallenges: cl.lastRequestedPageOfDraftChallenges,
     lastRequestedPageOfPastChallenges: cl.lastRequestedPageOfPastChallenges,

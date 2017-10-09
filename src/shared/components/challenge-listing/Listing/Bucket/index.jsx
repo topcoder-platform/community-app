@@ -2,8 +2,11 @@
  * A single bucket of challenges.
  */
 
+/* global document */
+
 import _ from 'lodash';
 import PT from 'prop-types';
+import qs from 'qs';
 import React from 'react';
 import Sort from 'utils/challenge-listing/sort';
 import SortingSelectBar from 'components/SortingSelectBar';
@@ -17,17 +20,20 @@ const COLLAPSED_SIZE = 10;
 
 export default function Bucket({
   bucket,
+  bucketId,
   challenges,
   challengesUrl,
   communityName,
   expanded,
   expand,
+  filterState,
   loading,
   loadMore,
   newChallengeDetails,
   openChallengesInNewTabs,
   prizeMode,
   selectChallengeDetailsTab,
+  selectedCommunityId,
   setFilterState,
   setSort,
   sort,
@@ -37,6 +43,12 @@ export default function Bucket({
 
   const sortedChallenges = _.clone(challenges);
   sortedChallenges.sort(Sort[activeSort].func);
+
+  const bucketQuery = qs.stringify({
+    bucket: bucketId,
+    communityId: selectedCommunityId || undefined,
+    filter: filterState,
+  }, { encodeValuesOnly: true });
 
   let expandable = false;
   const filteredChallenges = [];
@@ -92,15 +104,18 @@ export default function Bucket({
       {placeholders}
       {
         (expandable || loadMore) && !loading && !expanded ? (
-          <button
-            onClick={() => {
+          <a
+            href={`${challengesUrl}?${bucketQuery}`}
+            onClick={(event) => {
               expand();
-              /* eslint-env browser */
               document.body.scrollTop = 0;
               document.documentElement.scrollTop = 0;
+              event.preventDefault();
             }}
+            role="button"
             styleName="view-more"
-          >View more challenges</button>
+            tabIndex={0}
+          >View more challenges</a>
         ) : null
       }
       {
@@ -125,17 +140,20 @@ Bucket.defaultProps = {
 
 Bucket.propTypes = {
   bucket: PT.shape().isRequired,
+  bucketId: PT.string.isRequired,
   expanded: PT.bool,
   expand: PT.func,
   challenges: PT.arrayOf(PT.shape()).isRequired,
   challengesUrl: PT.string.isRequired,
   communityName: PT.string,
+  filterState: PT.shape().isRequired,
   loading: PT.bool,
   loadMore: PT.func,
   newChallengeDetails: PT.bool,
   openChallengesInNewTabs: PT.bool,
   prizeMode: PT.string.isRequired,
   selectChallengeDetailsTab: PT.func.isRequired,
+  selectedCommunityId: PT.string.isRequired,
   setFilterState: PT.func.isRequired,
   setSort: PT.func.isRequired,
   sort: PT.string,

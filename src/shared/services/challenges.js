@@ -236,15 +236,15 @@ class ChallengesService {
       .then(res => (res.ok ? res.json() : new Error(res.statusText)));
   }
 
-  submit(body, challengeId, track) {
+  submit(body, challengeId, track, onProgress) {
     const url = track !== 'DESIGN' ?
       `/develop/challenges/${challengeId}/upload` :
       `/design/challenges/${challengeId}/submit`;
-    return this.private.apiV2.fetch(url, {
+    return this.private.apiV2.upload(url, {
       body,
       headers: { 'Content-Type': null },
       method: 'POST',
-    }).then(
+    }, onProgress).then(
       res => res.json(),
       (err) => {
         logger.error(`Failed to submit to the challenge #${challengeId}`, err);

@@ -1,4 +1,4 @@
-@import '~styles/tc-styles';
+@import '~styles/mixins';
 
 .auth {
   position: absolute;
@@ -23,12 +23,8 @@
 .header {
   border-bottom: 1px solid $tc-gray-20;
   cursor: pointer;
-  height: 54px;
+  min-height: 54px;
   padding: 16px 12px;
-
-  @media only screen and (max-width: 360px) {
-    height: 99px;
-  }
 }
 
 .logo {

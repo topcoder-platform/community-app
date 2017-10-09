@@ -11,6 +11,7 @@
     - [Code Quality](#basics-code-quality)
     - [Documentation](#basics-documentation)
     - [File Names](#basics-file-names)
+    - [Banned Dependencies](#banned-dependencies)
 2. [React](#react)
 3. [Redux](#redux)
 4. [Styling](#styling)
@@ -35,6 +36,9 @@ Everywhere where it makes sense, sort code elements alphabetically (fields in ob
 <a name="basics-documentation">**Documentation:**</a> All textual documentation must be in Markdown format, and it should be located inside [`/docs`](https://github.com/topcoder-platform/community-app/tree/develop/docs) or any of its sub-folders. To document REST APIs provided by our server we maintain a Postman collection in the same folder *Does not exist in the develop or master branches yet, but will appear in both soon*.
 
 <a name="basics-file-names">**File Names:**</a> If a JSX file, or a folder containing `index.jsx`, exports a React component as the default export call it using CamelCase, i.g. `MyReactComponent.jsx`, or just `MyReactComponent` for folder. All other files an folders should be named as `yet-another-module.js`.
+
+<a name="banned-dependencies">**Banned Dependencies:**</a> The following npm packages must not be used in the app (if you feel you need any of them, do not hesitate to ask what is the alternative approach we prefer in our code):
+- [`classnames`](https://www.npmjs.com/package/classnames);
 
 ### <a name="react-redux">React</a>
 Split code into components, don't put multiple components into the same file. If a component is styled, put its `index.jsx` and `style.scss` files into a separate folder, named after the component name. You can further put into such folder any related sub-components; but in general use your best judgement to keep a good balance between not too deep folder structure, and not having too much staff on the same level in the same folder. The goal here is to ensure that it is convenient to locate necessary things in our codebase.

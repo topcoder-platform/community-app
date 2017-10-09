@@ -13,7 +13,6 @@
 import React, { Component } from 'react';
 import PT from 'prop-types';
 import { themr } from 'react-css-super-themr';
-import cn from 'classnames';
 import defaultStyle from './style.scss';
 
 class Accordion extends Component {
@@ -39,9 +38,9 @@ class Accordion extends Component {
           {React.Children.map(children, (child, index) => (
             <li
               key={index}
-              className={cn(theme.titleListItem, {
-                [theme.titleListItemSelected]: index === selectedIndex,
-              })}
+              className={
+                `${theme.titleListItem} ${index === selectedIndex ? theme.titleListItemSelected : ''}`
+              }
             >
               <div
                 onClick={() => this.selectItem(index)}

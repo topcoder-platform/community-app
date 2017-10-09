@@ -6,7 +6,6 @@
 
 import _ from 'lodash';
 import config from 'utils/config';
-import camelcase from 'camel-case';
 import React from 'react';
 import PT from 'prop-types';
 import moment from 'moment';
@@ -63,7 +62,9 @@ export default function ChallengeHeader(props) {
   } = challenge;
 
   const phases = {};
-  allPhases.forEach((phase) => { phases[camelcase(phase.phaseType)] = phase; });
+  allPhases.forEach((phase) => {
+    phases[_.camelCase(phase.phaseType)] = phase;
+  });
 
   let registrationEndDate;
   let registrationEnded = true;
@@ -89,7 +90,7 @@ export default function ChallengeHeader(props) {
   let bonusType = '';
   if (numberOfCheckpointsPrizes && topCheckPointPrize) {
     bonusType = 'Bonus';
-  } else if (reliabilityBonus) {
+  } else if (reliabilityBonus && reliabilityBonus.toFixed() !== '0') {
     bonusType = 'Reliability Bonus';
   }
 
@@ -185,8 +186,10 @@ export default function ChallengeHeader(props) {
     default:
       nextDeadlineMsg = (
         <div>
-          Status: <span styleName="deadline-highlighted">{
-            _.capitalize(status)}</span>
+          Status:
+          &zwnj;<span styleName="deadline-highlighted">
+            {_.upperFirst(_.lowerCase(status))}
+          </span>
         </div>
       );
       break;
@@ -221,7 +224,7 @@ export default function ChallengeHeader(props) {
                         </p> :
                         <p styleName="bonus-text">
                           <span styleName={`bonus-highlight ${trackLower}-accent-color`}>
-                            RELIABILITY BONUS: $ {reliabilityBonus}
+                            RELIABILITY BONUS: ${reliabilityBonus.toFixed()}
                           </span>
                         </p>
                     }

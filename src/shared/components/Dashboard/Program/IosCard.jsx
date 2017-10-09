@@ -1,6 +1,5 @@
 import React from 'react';
 import PT from 'prop-types';
-import cn from 'classnames';
 
 import config from 'utils/config';
 import { stripUnderscore } from 'utils/tc';
@@ -9,7 +8,7 @@ import './IosCard.scss';
 const IosCard = (props) => {
   const { challenge } = props;
   return (
-    <div styleName={cn(['challenge', 'tile-view', challenge.track])}>
+    <div styleName={`challenge tile-view ${challenge.track}`}>
       <div styleName="challenge-track" />
       <header>
         <div>

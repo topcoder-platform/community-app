@@ -141,7 +141,7 @@ SRMCard.defaultProps = {
 
 SRMCard.propTypes = {
   category: PT.string.isRequired,
-  srmChallenge: PT.shape().isRequired,
+  srmChallenge: PT.shape(),
 };
 
 export default SRMCard;
