@@ -173,7 +173,7 @@ export default function Home(props) {
             }, {
               newTab: true,
               title: 'Request Group',
-              url: 'https://help.topcoder.com/hc/en-us/requests/new?ticket_form_id=779747',              
+              url: 'https://help.topcoder.com/hc/en-us/requests/new?ticket_form_id=779747',
             }]}
             theme={ImageTextStyles}
             imageSrc="/themes/wipro/home/image-text-leverage.png"
