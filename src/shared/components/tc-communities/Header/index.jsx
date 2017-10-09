@@ -237,7 +237,6 @@ Header.defaultProps = {
   additionalLogos: [],
   hideSearch: false,
   chevronOverAvatar: false,
-  isMobileOpen: false,
   profile: null,
 };
 
@@ -247,6 +246,8 @@ Header.propTypes = {
   closeMenu: PT.func.isRequired,
   communitySelector: PT.arrayOf(PT.shape()).isRequired,
   groupIds: PT.arrayOf[PT.string],
+  isMobileOpen: PT.bool.isRequired,
+
   menuItems: PT.arrayOf(PT.shape({
     title: PT.string.isRequired,
     url: PT.string.isRequired,
@@ -265,7 +266,6 @@ Header.propTypes = {
   openedMenu: PT.shape({}),
   openMenu: PT.func.isRequired,
   pageId: PT.string.isRequired,
-  isMobileOpen: PT.bool,
   onMobileToggleClick: PT.func.isRequired,
   profile: PT.shape({}),
   theme: PT.shape().isRequired,
