@@ -145,6 +145,9 @@
       display: flex;
       flex-wrap: wrap;
       align-items: stretch;
+      @include xxs-to-xs {
+        flex-direction: column;
+      }
 
       .prizes-outer-container {
         flex: 4;
