@@ -9,7 +9,6 @@
  * which is used to define which challenges should be listed for the certain community.
  */
 
-// import _ from 'lodash';
 import actions from 'actions/challenge-listing';
 import challengeActions from 'actions/challenge';
 import config from 'utils/config';
@@ -333,7 +332,7 @@ function mapDispatchToProps(dispatch) {
     },
     getPastChallenges: (page, filter, token, frontFilter) => {
       const uuid = shortid();
-      dispatch(a.getPastChallengesInit(uuid, page));
+      dispatch(a.getPastChallengesInit(uuid, page, frontFilter));
       dispatch(a.getPastChallengesDone(uuid, page, filter, token, frontFilter));
     },
     selectBucket: bucket => dispatch(sa.selectBucket(bucket)),

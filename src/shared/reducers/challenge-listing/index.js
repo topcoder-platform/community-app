@@ -110,7 +110,17 @@ function onGetDraftChallengesDone(state, { error, payload }) {
   };
 }
 
-function onGetPastChallengesInit(state, { payload: { uuid, page } }) {
+function onGetPastChallengesInit(state, action) {
+  const { frontFilter, page, uuid } = action.payload;
+  const tracks = frontFilter && frontFilter.tracks;
+  if (tracks && _.isEmpty(tracks)) {
+    return {
+      ...state,
+      allPastChallengesLoaded: true,
+      loadingPastChallengesUUID: '',
+    };
+  }
+
   return {
     ...state,
     lastRequestedPageOfPastChallenges: page,

@@ -167,11 +167,13 @@ function getDraftChallengesDone(uuid, page, filter, tokenV3) {
 /**
  * Notifies the state that we are about to load the specified page of past
  * challenges.
+ * @param {String} uuid
  * @param {Number} page
+ * @param {Object} frontFilter
  * @return {Object}
  */
-function getPastChallengesInit(uuid, page) {
-  return { uuid, page };
+function getPastChallengesInit(uuid, page, frontFilter) {
+  return { uuid, page, frontFilter };
 }
 
 /**
