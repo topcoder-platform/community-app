@@ -1,4 +1,4 @@
-@import "~styles/tc-styles";
+@import "~styles/mixins";
 $tc-link-visited: #0c4e98;
 
 @mixin linkStyle {
@@ -42,13 +42,17 @@ $tc-link-visited: #0c4e98;
     margin-top: 0;
   }
 
+  > div {
+    margin-top: 6 * $base-unit;
+  }
+
   h3 {
     font-family: roboto;
     font-weight: 700;
     font-size: 13px;
     color: $tc-gray-90;
     line-height: 20px;
-    margin-top: 6 * $base-unit;
+    // margin-top: 6 * $base-unit;
   }
 
   h4 {
@@ -135,10 +139,16 @@ $tc-link-visited: #0c4e98;
 .term {
   display: flex;
   align-items: flex-start;
+  position: relative;
 
   a {
     cursor: pointer;
   }
+}
+
+.not-agreed {
+  height: 16px;
+  width: 23px;
 }
 
 .agreed {
