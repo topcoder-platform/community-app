@@ -2,7 +2,7 @@ import React from 'react';
 import PT from 'prop-types';
 
 import Handle from 'components/Handle';
-import DefaultUserIcon from '../../../../assets/images/ico-user-default.svg';
+import Badge from './Badge';
 import './styles.scss';
 
 export default function Header(props) {
@@ -15,18 +15,6 @@ export default function Header(props) {
             <h1>{title}</h1>
           </div>
           <div styleName="info">
-            <div styleName="pic">
-              <a>
-                {
-                  (!profile || !profile.photoURL) &&
-                  <DefaultUserIcon width={60} height={60} />
-                }
-                {
-                  profile && profile.photoURL &&
-                  <img alt="" src={profile.photoURL} styleName="profile-circle" />
-                }
-              </a>
-            </div>
             {
               profile && <div styleName="user-metrics">
                 <Handle handle={profile.handle} size={24} rating={profile.maxRating.rating} />
@@ -39,6 +27,7 @@ export default function Header(props) {
                 }
               </div>
             }
+            <Badge />
           </div>
         </header>
       </div>
