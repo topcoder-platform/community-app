@@ -34,7 +34,7 @@ export default function Home(props) {
           title: 'Compete Now',
           url: 'challenges',
         }}
-        imageSrc="/themes/wipro/home/banner.jpg"
+        imageSrc="/themes/demo-expert/home/banner.jpg"
       />
 
       <CommunityStats />
@@ -107,7 +107,7 @@ export default function Home(props) {
       <NewsletterSignup
         title="Sign up for our newsletter"
         text="Don’t miss out on the latest Topcoder IOS challenges and information!"
-        imageSrc="/themes/wipro/subscribe-bg.jpg"
+        imageSrc="/themes/demo-expert/subscribe-bg.jpg"
       />
 
     </main>

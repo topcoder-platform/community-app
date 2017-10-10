@@ -5,7 +5,7 @@ exports[`Match shadow snapshot 1`] = `
   <ThemedBanner
     composeAdhocTheme="deeply"
     composeContextTheme="softly"
-    imageSrc="/themes/wipro/home/banner.jpg"
+    imageSrc="/themes/taskforce/home/banner.jpg"
     link={
       Array [
         Object {
@@ -205,7 +205,7 @@ exports[`Match shadow snapshot 1`] = `
     composeAdhocTheme="deeply"
     composeContextTheme="softly"
     emailPlaceholder="Email address"
-    imageSrc="/themes/wipro/subscribe-bg.jpg"
+    imageSrc="/themes/taskforce/subscribe-bg.jpg"
     mapThemrProps={[Function]}
     text="Get the Topcoder crowdsourcing newsletter, today!"
     theme={Object {}}
