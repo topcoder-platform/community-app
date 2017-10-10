@@ -74,11 +74,14 @@ export class ListingContainer extends React.Component {
       item.communityId === this.props.selectedCommunityId);
     if (communityFilter) communityFilter = communityFilter.challengeFilter;
     if (communityFilter) filter = combine(filter, communityFilter);
-    return mapToBackend(filter);
+    return {
+      back: mapToBackend(filter),
+      front: filter,
+    };
   }
 
   loadChallenges() {
-    const backendFilter = this.getBackendFilter();
+    const f = this.getBackendFilter();
     this.props.getCommunityFilters(this.props.auth);
     this.props.getAllActiveChallenges(this.props.auth.tokenV3);
 
@@ -86,7 +89,7 @@ export class ListingContainer extends React.Component {
      * Upcoming Challenges bucket, for now. */
     // this.props.getDraftChallenges(0, backendFilter, this.props.auth.tokenV3);
 
-    this.props.getPastChallenges(0, backendFilter, this.props.auth.tokenV3);
+    this.props.getPastChallenges(0, f.back, this.props.auth.tokenV3, f.front);
 
     if (config.CHALLENGE_LISTING_AUTO_REFRESH) {
       if (this.autoRefreshTimerId) clearTimeout(this.autoRefreshTimerId);
@@ -111,6 +114,7 @@ export class ListingContainer extends React.Component {
       filter,
       getDraftChallenges,
       getPastChallenges,
+      keepPastPlaceholders,
       lastRequestedPageOfDraftChallenges,
       lastRequestedPageOfPastChallenges,
       lastUpdateOfActiveChallenges,
@@ -127,7 +131,7 @@ export class ListingContainer extends React.Component {
       loadMoreDraft = () => {
         getDraftChallenges(
           1 + lastRequestedPageOfDraftChallenges,
-          this.getBackendFilter(),
+          this.getBackendFilter().back,
           tokenV3,
         );
       };
@@ -136,10 +140,12 @@ export class ListingContainer extends React.Component {
     let loadMorePast;
     if (!allPastChallengesLoaded) {
       loadMorePast = () => {
+        const f = this.getBackendFilter();
         getPastChallenges(
           1 + lastRequestedPageOfPastChallenges,
-          this.getBackendFilter(),
+          f.back,
           tokenV3,
+          f.front,
         );
       };
     }
@@ -176,6 +182,7 @@ export class ListingContainer extends React.Component {
           communityName={this.props.communityName}
           filterState={filter}
           hideTcLinksInFooter={hideTcLinksInSidebarFooter}
+          keepPastPlaceholders={keepPastPlaceholders}
           lastUpdateOfActiveChallenges={lastUpdateOfActiveChallenges}
           loadingChallenges={Boolean(this.props.loadingActiveChallengesUUID)}
           loadingDraftChallenges={Boolean(this.props.loadingDraftChallengesUUID)}
@@ -250,6 +257,7 @@ ListingContainer.propTypes = {
   getCommunityFilters: PT.func.isRequired,
   getDraftChallenges: PT.func.isRequired,
   getPastChallenges: PT.func.isRequired,
+  keepPastPlaceholders: PT.bool.isRequired,
   lastRequestedPageOfDraftChallenges: PT.number.isRequired,
   lastRequestedPageOfPastChallenges: PT.number.isRequired,
   lastUpdateOfActiveChallenges: PT.number.isRequired,
@@ -286,6 +294,7 @@ const mapStateToProps = (state, ownProps) => {
     challengeTags: cl.challengeTags,
     communityFilters: tc.list,
     hideTcLinksInSidebarFooter: ownProps.hideTcLinksInSidebarFooter,
+    keepPastPlaceholders: cl.keepPastPlaceholders,
     lastRequestedPageOfDraftChallenges: cl.lastRequestedPageOfDraftChallenges,
     lastRequestedPageOfPastChallenges: cl.lastRequestedPageOfPastChallenges,
     lastUpdateOfActiveChallenges: cl.lastUpdateOfActiveChallenges,
@@ -322,10 +331,10 @@ function mapDispatchToProps(dispatch) {
       dispatch(a.getDraftChallengesInit(uuid, page));
       dispatch(a.getDraftChallengesDone(uuid, page, filter, token));
     },
-    getPastChallenges: (page, filter, token) => {
+    getPastChallenges: (page, filter, token, frontFilter) => {
       const uuid = shortid();
       dispatch(a.getPastChallengesInit(uuid, page));
-      dispatch(a.getPastChallengesDone(uuid, page, filter, token));
+      dispatch(a.getPastChallengesDone(uuid, page, filter, token, frontFilter));
     },
     selectBucket: bucket => dispatch(sa.selectBucket(bucket)),
     selectChallengeDetailsTab: tab =>

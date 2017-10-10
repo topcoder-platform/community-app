@@ -16,6 +16,7 @@ export default function Listing({
   challengesUrl,
   communityName,
   filterState,
+  keepPastPlaceholders,
   loadingDraftChallenges,
   loadingPastChallenges,
   loadMoreDraft,
@@ -34,10 +35,12 @@ export default function Listing({
 
   if ((activeBucket !== BUCKETS.ALL)
   && (activeBucket !== BUCKETS.SAVED_FILTER)) {
+    let keepPlaceholders = false;
     let loading;
     let loadMore;
     switch (activeBucket) {
       case BUCKETS.PAST:
+        keepPlaceholders = keepPastPlaceholders;
         loading = loadingPastChallenges;
         loadMore = loadMorePast;
         break;
@@ -57,6 +60,7 @@ export default function Listing({
           communityName={communityName}
           expanded
           filterState={filterState}
+          keepPlaceholders={keepPlaceholders}
           loading={loading}
           loadMore={loadMore}
           newChallengeDetails={newChallengeDetails}
@@ -72,11 +76,15 @@ export default function Listing({
     );
   }
 
+  /* TODO: Isn't it exactly the same piece of code as above? In case yes,
+   * we should move this function up and re-use in both places. */
   const getBucket = (bucket) => {
+    let keepPlaceholders = false;
     let loading;
     let loadMore;
     switch (bucket) {
       case BUCKETS.PAST:
+        keepPlaceholders = keepPastPlaceholders;
         loading = loadingPastChallenges;
         loadMore = loadMorePast;
         break;
@@ -95,6 +103,7 @@ export default function Listing({
         communityName={communityName}
         expand={() => selectBucket(bucket)}
         filterState={filterState}
+        keepPlaceholders={keepPlaceholders}
         loading={loading}
         loadMore={loadMore}
         newChallengeDetails={newChallengeDetails}
@@ -147,6 +156,7 @@ Listing.propTypes = {
   challengesUrl: PT.string.isRequired,
   communityName: PT.string,
   filterState: PT.shape().isRequired,
+  keepPastPlaceholders: PT.bool.isRequired,
   loadingDraftChallenges: PT.bool.isRequired,
   loadingPastChallenges: PT.bool.isRequired,
   loadMoreDraft: PT.func,

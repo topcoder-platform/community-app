@@ -22,6 +22,10 @@ import './style.scss';
 const CHALLENGE_PLACEHOLDER_COUNT = 8;
 
 export default function ChallengeListing(props) {
+  const {
+    keepPastPlaceholders,
+  } = props;
+
   let challenges = props.challenges;
 
   if (props.communityFilter) {
@@ -73,6 +77,7 @@ export default function ChallengeListing(props) {
         challengesUrl={props.challengesUrl}
         communityName={props.communityName}
         filterState={props.filterState}
+        keepPastPlaceholders={keepPastPlaceholders}
         loadingDraftChallenges={props.loadingDraftChallenges}
         loadingPastChallenges={props.loadingPastChallenges}
         loadMoreDraft={props.loadMoreDraft}
@@ -163,6 +168,7 @@ ChallengeListing.propTypes = {
   communityName: PT.string,
   filterState: PT.shape().isRequired,
   hideTcLinksInFooter: PT.bool,
+  keepPastPlaceholders: PT.bool.isRequired,
   lastUpdateOfActiveChallenges: PT.number.isRequired,
   loadingChallenges: PT.bool.isRequired,
   loadingDraftChallenges: PT.bool.isRequired,

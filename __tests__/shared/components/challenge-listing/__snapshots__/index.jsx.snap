@@ -76,6 +76,7 @@ exports[`Matches shallow shapshot 1 shapshot 1 1`] = `
       currentFilterName=""
       expanded={false}
       filterState={Object {}}
+      keepPastPlaceholders={undefined}
       loadMoreDraft={null}
       loadMorePast={null}
       loadingDraftChallenges={false}

@@ -27,6 +27,7 @@ export default function Bucket({
   expanded,
   expand,
   filterState,
+  keepPlaceholders,
   loading,
   loadMore,
   newChallengeDetails,
@@ -78,7 +79,7 @@ export default function Bucket({
   ));
 
   const placeholders = [];
-  if (loading) {
+  if (loading || keepPlaceholders) {
     for (let i = 0; i < 8; i += 1) {
       placeholders.push(<CardPlaceholder id={i} key={i} />);
     }
@@ -101,9 +102,14 @@ export default function Bucket({
         }}
       />
       {cards}
+      {
+        !expandable && loadMore && !loading ? (
+          <Waypoint onEnter={loadMore} />
+        ) : null
+      }
       {placeholders}
       {
-        (expandable || loadMore) && !loading && !expanded ? (
+        (expandable || loadMore) && !keepPlaceholders && !loading && !expanded ? (
           <a
             href={`${challengesUrl}?${bucketQuery}`}
             onClick={(event) => {
@@ -118,11 +124,6 @@ export default function Bucket({
           >View more challenges</a>
         ) : null
       }
-      {
-        !expandable && loadMore && !loading ? (
-          <Waypoint onEnter={loadMore} />
-        ) : null
-      }
     </div>
   );
 }
@@ -131,6 +132,7 @@ Bucket.defaultProps = {
   communityName: null,
   expanded: false,
   expand: _.noop,
+  keepPlaceholders: false,
   loading: false,
   loadMore: null,
   newChallengeDetails: false,
@@ -147,6 +149,7 @@ Bucket.propTypes = {
   challengesUrl: PT.string.isRequired,
   communityName: PT.string,
   filterState: PT.shape().isRequired,
+  keepPlaceholders: PT.bool,
   loading: PT.bool,
   loadMore: PT.func,
   newChallengeDetails: PT.bool,
