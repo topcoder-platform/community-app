@@ -30,6 +30,10 @@ $tc-link-visited: #0c4e98;
   align-items: baseline;
   word-break: break-word;
 
+  @include xxs-to-xs {
+    flex-direction: column;
+  }
+
   .challenge-specifications {
     flex: 4;
     text-align: left;
