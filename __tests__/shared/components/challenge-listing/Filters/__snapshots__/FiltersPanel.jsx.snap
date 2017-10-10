@@ -168,7 +168,7 @@ exports[`Matches shallow shapshot 1`] = `
           "disabled": "src-shared-components-challenge-listing-Filters-FiltersPanel-___style__buttonDisabled___dIkxB",
         }
       }
-      themePriority="adhoc-context-default"
+      themePriority="adhoc-default-context"
       to={null}
     >
       Clear filters
@@ -343,7 +343,7 @@ exports[`Matches shallow shapshot 2`] = `
           "disabled": "src-shared-components-challenge-listing-Filters-FiltersPanel-___style__buttonDisabled___dIkxB",
         }
       }
-      themePriority="adhoc-context-default"
+      themePriority="adhoc-default-context"
       to={null}
     >
       Clear filters

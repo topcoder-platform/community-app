@@ -26,6 +26,7 @@ import PT from 'prop-types';
 import Select from 'components/Select';
 import moment from 'moment';
 import { Button, PrimaryButton } from 'components/buttons';
+import { COMPOSE, PRIORITY } from 'react-css-super-themr';
 
 import DateRangePicker from '../DateRangePicker';
 import style from './style.scss';
@@ -149,12 +150,14 @@ export default function FiltersPanel({
       </div>
       <div styleName="buttons">
         <Button
+          composeContextTheme={COMPOSE.SOFT}
           disabled={_.isEmpty(filterState)}
           onClick={() => {
             setFilterState({});
             setSearchText('');
           }}
           theme={{ button: style.button, disabled: style.buttonDisabled }}
+          themePriority={PRIORITY.ADHOC_DEFAULT_CONTEXT}
         >Clear filters</Button>
         <PrimaryButton
           disabled={isSavingFilter || _.isEmpty(filterState)}
