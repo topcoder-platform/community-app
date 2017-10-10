@@ -1,4 +1,4 @@
-@import "~styles/tc-styles";
+@import "~styles/mixins";
 $tc-link-visited: #0c4e98;
 
 @mixin linkStyle {
@@ -29,9 +29,11 @@ $tc-link-visited: #0c4e98;
   justify-content: center;
   align-items: baseline;
   word-break: break-word;
+
   @include xxs-to-xs {
     flex-direction: column;
   }
+
   .challenge-specifications {
     flex: 4;
     text-align: left;
