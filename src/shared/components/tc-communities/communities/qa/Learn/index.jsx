@@ -72,15 +72,19 @@ export default function Learn() {
         <LinksCard
           title="Documents"
           links={[{
+            openNewTab: true,
             title: 'State of Quality Edition 1',
             url: 'http://www.wipro.com/microsite/state-of-quality-2016/index.php',
           }, {
+            openNewTab: true,
             title: 'Burgeoning need for Big Data Assurance',
             url: 'http://www.wipro.com/documents/the-burgeoning-need-for-Big-Data-assurance.pdf',
           }, {
+            openNewTab: true,
             title: 'How to provision the right test data for business events?',
             url: 'http://www.wipro.com/documents/how-to-provision-the-right-test-data-for-business-events.pdf',
           }, {
+            openNewTab: true,
             title: 'Automation Checkerboard- what moves my benefits?',
             url: 'http://www.wipro.com/documents/automation-checkerboard-what-moves-my-benefits.pdf',
           }]}
@@ -88,12 +92,15 @@ export default function Learn() {
         <LinksCard
           title="Videos"
           links={[{
+            openNewTab: true,
             title: 'Accessibility Assurance',
             url: 'http://www.wipro.com/services/applications/services/testing-services/insights/research/',
           }, {
+            openNewTab: true,
             title: 'Drivers for Test Environment Management',
             url: 'http://www.wipro.com/services/applications/services/testing-services/insights/research/',
           }, {
+            openNewTab: true,
             title: 'Digital Assurance',
             url: 'http://www.wipro.com/services/applications/services/testing-services/insights/research/',
           }]}
@@ -101,15 +108,19 @@ export default function Learn() {
         <LinksCard
           title="Useful Links"
           links={[{
+            openNewTab: true,
             title: 'Assuring Quality for Internet of Things',
             url: 'http://www.wipro.com/blogs/assuring-quality-for-internet-of-things/',
           }, {
+            openNewTab: true,
             title: 'Assuring Holistic Quality: Move beyond the software testing paradigm',
             url: 'http://www.wipro.com/blogs/assuring-holistic-quality-move-beyond-the-software-testing-paradigm/',
           }, {
+            openNewTab: true,
             title: 'Use Experience (UX) Assurance Demystified',
             url: 'http://www.wipro.com/blogs/user-experience-ux-assurance-demystified/',
           }, {
+            openNewTab: true,
             title: 'Cognitive Computing: A reality in Quality Engineering (QE)',
             url: 'http://www.wipro.com/blogs/cognitive-computing-a-reality-in-quality-engineering-qe/',
           }]}
