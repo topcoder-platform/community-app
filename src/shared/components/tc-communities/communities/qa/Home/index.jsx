@@ -99,7 +99,7 @@ export default function Home({
           text="Topcoder rewards participants with cash. The more deliverables you produce, the more you can make."
           link={{
             title: 'Learn about rewards',
-            url: 'leaderboard',
+            url: 'learn',
           }}
         />
         <ResourceCard
