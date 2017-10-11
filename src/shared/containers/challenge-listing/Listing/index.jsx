@@ -109,6 +109,7 @@ export class ListingContainer extends React.Component {
       challengesUrl,
       challengeSubtracks,
       challengeTags,
+      defaultCommunityId,
       groupIds,
       filter,
       getDraftChallenges,
@@ -155,8 +156,7 @@ export class ListingContainer extends React.Component {
 
     return (
       <div styleName="container">
-        {/* For demo we hardcode banner properties so we can disable max-len linting */}
-        {/* eslint-disable max-len */}
+        { /* TODO: This banner should be moved out of here! */ }
         { !listingOnly ? (
           <Banner
             title="Challenges"
@@ -170,7 +170,6 @@ export class ListingContainer extends React.Component {
           />
         ) : null
         }
-        {/* eslint-enable max-len */}
         <ChallengeListing
           activeBucket={activeBucket}
           challenges={challenges}
@@ -179,6 +178,7 @@ export class ListingContainer extends React.Component {
           challengesUrl={challengesUrl}
           communityFilter={communityFilter}
           communityName={this.props.communityName}
+          defaultCommunityId={defaultCommunityId}
           filterState={filter}
           hideTcLinksInFooter={hideTcLinksInSidebarFooter}
           keepPastPlaceholders={keepPastPlaceholders}
@@ -219,6 +219,8 @@ export class ListingContainer extends React.Component {
 }
 
 ListingContainer.defaultProps = {
+  defaultCommunityId: '',
+
   selectedCommunityId: '',
   groupIds: [''],
   hideTcLinksInSidebarFooter: false,
@@ -247,6 +249,7 @@ ListingContainer.propTypes = {
     challengeFilter: PT.shape(),
     communityId: PT.string.isRequired,
   })).isRequired,
+  defaultCommunityId: PT.string,
   dropChallenges: PT.func.isRequired,
   filter: PT.shape().isRequired,
   hideTcLinksInSidebarFooter: PT.bool,

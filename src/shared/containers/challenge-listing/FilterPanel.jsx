@@ -74,6 +74,7 @@ Container.defaultProps = {
 Container.propTypes = {
   activeBucket: PT.string.isRequired,
   communityFilters: PT.arrayOf(PT.object).isRequired,
+  defaultCommunityId: PT.string.isRequired,
   filterState: PT.shape().isRequired,
   getKeywords: PT.func.isRequired,
   getSubtracks: PT.func.isRequired,
@@ -118,6 +119,7 @@ function mapStateToProps(state, ownProps) {
     ...state.challengeListing.filterPanel,
     activeBucket: cl.sidebar.activeBucket,
     communityFilters: tc.list,
+    defaultCommunityId: ownProps.defaultCommunityId,
     filterState: cl.filter,
     loadingKeywords: cl.loadingChallengeTags,
     loadingSubtracks: cl.loadingChallengeSubtracks,

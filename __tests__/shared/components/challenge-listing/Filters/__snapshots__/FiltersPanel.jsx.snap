@@ -156,7 +156,7 @@ exports[`Matches shallow shapshot 1`] = `
     <ThemedGenericButton
       composeAdhocTheme="deeply"
       composeContextTheme="softly"
-      disabled={true}
+      disabled={false}
       enforceA={false}
       mapThemrProps={[Function]}
       onClick={[Function]}
@@ -176,7 +176,7 @@ exports[`Matches shallow shapshot 1`] = `
     <ThemedGenericButton
       composeAdhocTheme="deeply"
       composeContextTheme="softly"
-      disabled={true}
+      disabled={false}
       enforceA={false}
       mapThemrProps={[Function]}
       onClick={[Function]}
@@ -331,7 +331,7 @@ exports[`Matches shallow shapshot 2`] = `
     <ThemedGenericButton
       composeAdhocTheme="deeply"
       composeContextTheme="softly"
-      disabled={true}
+      disabled={false}
       enforceA={false}
       mapThemrProps={[Function]}
       onClick={[Function]}
@@ -351,7 +351,7 @@ exports[`Matches shallow shapshot 2`] = `
     <ThemedGenericButton
       composeAdhocTheme="deeply"
       composeContextTheme="softly"
-      disabled={true}
+      disabled={false}
       enforceA={false}
       mapThemrProps={[Function]}
       onClick={[Function]}

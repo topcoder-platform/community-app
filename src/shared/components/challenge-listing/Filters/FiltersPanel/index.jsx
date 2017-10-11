@@ -34,6 +34,7 @@ import UiSimpleRemove from '../../Icons/ui-simple-remove.svg';
 
 export default function FiltersPanel({
   communityFilters,
+  defaultCommunityId,
   filterState,
   hidden,
   onClose,
@@ -53,6 +54,11 @@ export default function FiltersPanel({
     label: item.communityName,
     value: item.communityId,
   }));
+
+  const disableClearSaveFilterButtons = isSavingFilter || (
+    selectedCommunityId === defaultCommunityId
+    && _.isEmpty(filterState)
+  );
 
   const mapOps = item => ({ label: item, value: item });
   const mapSubtracks = item => ({ label: item.name, value: item.subTrack });
@@ -151,16 +157,17 @@ export default function FiltersPanel({
       <div styleName="buttons">
         <Button
           composeContextTheme={COMPOSE.SOFT}
-          disabled={_.isEmpty(filterState)}
+          disabled={disableClearSaveFilterButtons}
           onClick={() => {
             setFilterState({});
+            selectCommunity(defaultCommunityId);
             setSearchText('');
           }}
           theme={{ button: style.button, disabled: style.buttonDisabled }}
           themePriority={PRIORITY.ADHOC_DEFAULT_CONTEXT}
         >Clear filters</Button>
         <PrimaryButton
-          disabled={isSavingFilter || _.isEmpty(filterState)}
+          disabled={disableClearSaveFilterButtons}
           onClick={onSaveFilter}
           theme={{ button: style.button, disabled: style.buttonDisabled }}
         >Save filter</PrimaryButton>
@@ -181,6 +188,7 @@ FiltersPanel.propTypes = {
     communityId: PT.string.isRequired,
     communityName: PT.string.isRequired,
   })).isRequired,
+  defaultCommunityId: PT.string.isRequired,
   filterState: PT.shape().isRequired,
   hidden: PT.bool,
   isSavingFilter: PT.bool,
