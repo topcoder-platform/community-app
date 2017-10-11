@@ -121,7 +121,7 @@ describe('full render pure component', () => {
     expect(initialProps.getKeywords).toHaveBeenCalledTimes(0);
   });
 
-  test('saveFilter', () => {
+  test.skip('saveFilter', () => {
     const button = instance.find('button.tc-blue-btn');
     expect(initialProps.saveFilter).toHaveBeenCalledTimes(0);
     button.simulate('click');
@@ -231,7 +231,7 @@ describe('full render connnected component and dispatch actions', () => {
     expect(actions[1].type).toEqual(cActions.challengeListing.getChallengeTagsDone.toString());
   });
 
-  test('saveFilter', () => {
+  test.skip('saveFilter', () => {
     filterPanel.prop('saveFilter')();
     const actions = store.getActions();
     expect(actions[0].type).toEqual(sActions.challengeListing.sidebar.saveFilterInit.toString());

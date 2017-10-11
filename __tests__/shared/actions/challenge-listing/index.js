@@ -218,5 +218,9 @@ describe('challengeListing.getPastChallengesDone', () => {
   });
 
   test('payload is a promise which resolves to the expected object', () =>
-    a.payload.then(res => expect(res).toEqual({ challenges: [], uuid: 'uuid' })));
+    a.payload.then(res => expect(res).toEqual({
+      challenges: [],
+      frontFilter: {},
+      uuid: 'uuid',
+    })));
 });

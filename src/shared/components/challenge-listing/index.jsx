@@ -22,6 +22,11 @@ import './style.scss';
 const CHALLENGE_PLACEHOLDER_COUNT = 8;
 
 export default function ChallengeListing(props) {
+  const {
+    defaultCommunityId,
+    keepPastPlaceholders,
+  } = props;
+
   let challenges = props.challenges;
 
   if (props.communityFilter) {
@@ -73,6 +78,7 @@ export default function ChallengeListing(props) {
         challengesUrl={props.challengesUrl}
         communityName={props.communityName}
         filterState={props.filterState}
+        keepPastPlaceholders={keepPastPlaceholders}
         loadingDraftChallenges={props.loadingDraftChallenges}
         loadingPastChallenges={props.loadingPastChallenges}
         loadMoreDraft={props.loadMoreDraft}
@@ -94,6 +100,7 @@ export default function ChallengeListing(props) {
     <div styleName="ChallengeFiltersExample" id="challengeFilterContainer">
       <ChallengeFilters
         communityName={props.communityName}
+        defaultCommunityId={defaultCommunityId}
         setCardType={_.noop/* cardType => this.setCardType(cardType) */}
         isCardTypeSet={'Challenges' /* this.state.currentCardType */}
       />
@@ -161,8 +168,10 @@ ChallengeListing.propTypes = {
   challengesUrl: PT.string.isRequired,
   communityFilter: PT.shape(),
   communityName: PT.string,
+  defaultCommunityId: PT.string.isRequired,
   filterState: PT.shape().isRequired,
   hideTcLinksInFooter: PT.bool,
+  keepPastPlaceholders: PT.bool.isRequired,
   lastUpdateOfActiveChallenges: PT.number.isRequired,
   loadingChallenges: PT.bool.isRequired,
   loadingDraftChallenges: PT.bool.isRequired,

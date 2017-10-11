@@ -38,7 +38,7 @@ export default function Home(props) {
           title: 'Create a Task Right Now',
           url: '.',
         }]}
-        imageSrc="/themes/wipro/home/banner.jpg"
+        imageSrc="/themes/taskforce/home/banner.jpg"
         theme={{
           content: style.BannerContent,
           link: style.BannerLink,
@@ -135,7 +135,7 @@ export default function Home(props) {
       <NewsletterSignup
         title="3 key crowdsourcing stories, 1x per month"
         text="Get the Topcoder crowdsourcing newsletter, today!"
-        imageSrc="/themes/wipro/subscribe-bg.jpg"
+        imageSrc="/themes/taskforce/subscribe-bg.jpg"
       />
 
     </main>

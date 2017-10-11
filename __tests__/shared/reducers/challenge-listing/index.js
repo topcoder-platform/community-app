@@ -92,6 +92,8 @@ let expectedState = {
     trackModalShown: false,
   },
 
+  keepPastPlaceholders: false,
+
   lastRequestedPageOfDraftChallenges: -1,
   lastRequestedPageOfPastChallenges: -1,
   lastUpdateOfActiveChallenges: 0,

@@ -23,7 +23,6 @@ exports[`Snapshot match 1`] = `
   }
   hideJoinNow={false}
   hideSearch={false}
-  isMobileOpen={false}
   loginUrl="/some/login/url"
   logos={Array []}
   menuItems={Array []}

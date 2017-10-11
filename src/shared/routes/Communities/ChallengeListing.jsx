@@ -34,6 +34,9 @@ export default function ChallengeListingRoute({
               challengesUrl={challengesUrl}
               communityId={query.communityId || meta.communityId}
               communityName={meta.communityName}
+
+              defaultCommunityId={meta.communityId}
+
               groupIds={meta.groupIds}
 
               /* TODO: This is hacky! A better, generic way to achieve it

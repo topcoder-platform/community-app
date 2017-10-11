@@ -9,6 +9,7 @@ import { handleActions } from 'redux-actions';
 import { combine, resolveReducers } from 'utils/redux';
 import { updateQuery } from 'utils/url';
 import moment from 'moment';
+import { getFilterFunction } from 'utils/challenge-listing/filter';
 
 import filterPanel from '../challenge-listing/filter-panel';
 import sidebar, { factory as sidebarFactory } from '../challenge-listing/sidebar';
@@ -109,7 +110,17 @@ function onGetDraftChallengesDone(state, { error, payload }) {
   };
 }
 
-function onGetPastChallengesInit(state, { payload: { uuid, page } }) {
+function onGetPastChallengesInit(state, action) {
+  const { frontFilter, page, uuid } = action.payload;
+  const tracks = frontFilter && frontFilter.tracks;
+  if (tracks && _.isEmpty(tracks)) {
+    return {
+      ...state,
+      allPastChallengesLoaded: true,
+      loadingPastChallengesUUID: '',
+    };
+  }
+
   return {
     ...state,
     lastRequestedPageOfPastChallenges: page,
@@ -122,7 +133,7 @@ function onGetPastChallengesDone(state, { error, payload }) {
     logger.error(payload);
     return state;
   }
-  const { uuid, challenges: loaded } = payload;
+  const { uuid, challenges: loaded, frontFilter } = payload;
   if (uuid !== state.loadingPastChallengesUUID) return state;
 
   const ids = new Set();
@@ -136,10 +147,18 @@ function onGetPastChallengesDone(state, { error, payload }) {
 
   const challenges = state.challenges.filter(filter).concat(loaded);
 
+  let keepPastPlaceholders = false;
+  if (loaded.length) {
+    const ff = getFilterFunction(frontFilter);
+    keepPastPlaceholders =
+      challenges.filter(ff).length - state.challenges.filter(ff).length < 10;
+  }
+
   return {
     ...state,
     allPastChallengesLoaded: loaded.length === 0,
     challenges,
+    keepPastPlaceholders,
     loadingPastChallengesUUID: '',
   };
 }
@@ -261,6 +280,8 @@ function create(initialState) {
     challengeTags: [],
 
     filter: {},
+
+    keepPastPlaceholders: false,
 
     lastRequestedPageOfDraftChallenges: -1,
     lastRequestedPageOfPastChallenges: -1,

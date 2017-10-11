@@ -167,11 +167,13 @@ function getDraftChallengesDone(uuid, page, filter, tokenV3) {
 /**
  * Notifies the state that we are about to load the specified page of past
  * challenges.
+ * @param {String} uuid
  * @param {Number} page
+ * @param {Object} frontFilter
  * @return {Object}
  */
-function getPastChallengesInit(uuid, page) {
-  return { uuid, page };
+function getPastChallengesInit(uuid, page, frontFilter) {
+  return { uuid, page, frontFilter };
 }
 
 /**
@@ -179,9 +181,10 @@ function getPastChallengesInit(uuid, page) {
  * @param {Number} page Page of challenges to fetch.
  * @param {Object} filter Backend filter to use.
  * @param {String} tokenV3 Optional. Topcoder auth token v3.
+ * @param {Object} frontFilter Optional. Original frontend filter.
  * @param {Object}
  */
-function getPastChallengesDone(uuid, page, filter, tokenV3) {
+function getPastChallengesDone(uuid, page, filter, tokenV3, frontFilter = {}) {
   const service = getService(tokenV3);
   return Promise.all([
     service.getChallenges({
@@ -199,7 +202,7 @@ function getPastChallengesDone(uuid, page, filter, tokenV3) {
       offset: page * PAGE_SIZE,
     }),
   ]).then(([{ challenges: chunkA }, { challenges: chunkB }]) =>
-    ({ uuid, challenges: chunkA.concat(chunkB) }));
+    ({ uuid, challenges: chunkA.concat(chunkB), frontFilter }));
 }
 
 export default createActions({

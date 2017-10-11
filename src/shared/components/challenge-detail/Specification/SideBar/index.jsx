@@ -55,16 +55,18 @@ export default function SideBar({
   return (
     <div styleName="challenge-spec-sidebar">
       <div styleName="challenge-sidebar-inner">
-        <h3>DOWNLOADS:</h3>
         {
           hasRegistered && documents && documents.length > 0 && (
-            <ul>
-              {
-                documents.map(doc => (
-                  <li key={doc.url}><a href={doc.url}>{doc.documentName}</a></li>
-                ))
-              }
-            </ul>
+            <div>
+              <h3>DOWNLOADS:</h3>
+              <ul>
+                {
+                  documents.map(doc => (
+                    <li key={doc.url}><a href={doc.url}>{doc.documentName}</a></li>
+                  ))
+                }
+              </ul>
+            </div>
           )
         }
         {eventDetail && (
@@ -99,19 +101,21 @@ export default function SideBar({
             </span>
           </div>
         }
-        <h3>CHALLENGE LINKS:</h3>
-        {
-          screeningScorecardId > 0 &&
-          <p styleName="link-like-paragraph">
-            <a href={`${scorecardURL}${screeningScorecardId}`}>Screening Scorecard</a>
-          </p>
-        }
-        {
-          reviewScorecardId > 0 &&
-          <p styleName="link-like-paragraph">
-            <a href={`${scorecardURL}${reviewScorecardId}`}>Review Scorecard</a>
-          </p>
-        }
+        <div>
+          <h3>CHALLENGE LINKS:</h3>
+          {
+            screeningScorecardId > 0 &&
+            <p styleName="link-like-paragraph">
+              <a href={`${scorecardURL}${screeningScorecardId}`}>Screening Scorecard</a>
+            </p>
+          }
+          {
+            reviewScorecardId > 0 &&
+            <p styleName="link-like-paragraph">
+              <a href={`${scorecardURL}${reviewScorecardId}`}>Review Scorecard</a>
+            </p>
+          }
+        </div>
         {
           isDesign &&
           <div>
@@ -181,10 +185,12 @@ export default function SideBar({
               {
                 terms.map(t => (
                   <div styleName="term" key={t.termsOfUseId}>
-                    {t.agreed && <CheckMark styleName="agreed" />}
-                    <a onClick={() => openTermsModal(t)}>
-                      {t.title}
-                    </a>
+                    {t.agreed ? (
+                      <CheckMark styleName="agreed" />
+                    ) : <div styleName="not-agreed" />}
+                    <a
+                      onClick={() => openTermsModal(t)}
+                    >{t.title}</a>
                   </div>
                 ))
               }
@@ -215,10 +221,10 @@ export default function SideBar({
           </div>
         }
         { shareable && (
-          <span>
+          <div>
             <h3>SHARE:</h3>
             <ShareSocial />
-          </span>
+          </div>
         )}
       </div>
     </div>

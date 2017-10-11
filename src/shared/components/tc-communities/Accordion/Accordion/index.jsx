@@ -33,7 +33,7 @@ class Accordion extends Component {
     const { selectedIndex } = this.state;
 
     return (
-      <div className={theme.container}>
+      <div className={theme.container} id="accordion">
         <ul className={theme.titleList}>
           {React.Children.map(children, (child, index) => (
             <li

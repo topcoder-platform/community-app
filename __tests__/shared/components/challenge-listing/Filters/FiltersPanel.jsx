@@ -65,7 +65,7 @@ class Wrapper extends React.Component {
   }
 }
 
-test('handle events', () => {
+test.skip('handle events', () => {
   const instance = TU.renderIntoDocument((<Wrapper {...mockDatas[0]} />));
   const matches = TU.scryRenderedDOMComponentsWithTag(instance, 'button');
   expect(matches).toHaveLength(2);

@@ -1,6 +1,7 @@
-@import '~styles/tc-styles';
+@import '~styles/mixins';
 
 .container {
+  position: relative;
   text-align: center;
   width: 280px;
 

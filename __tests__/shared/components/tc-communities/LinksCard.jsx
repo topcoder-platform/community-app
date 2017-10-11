@@ -1,8 +1,12 @@
-import React from 'react';
-import PT from 'prop-types';
 import _ from 'lodash';
-import TU from 'react-dom/test-utils';
 import LinksCard from 'components/tc-communities/LinksCard';
+import mockStore from 'redux-mock-store';
+import PT from 'prop-types';
+import React from 'react';
+import TU from 'react-dom/test-utils';
+import { Provider } from 'react-redux';
+
+const store = mockStore()();
 
 class Wrapper extends React.Component {
   getChildContext() {
@@ -31,47 +35,51 @@ Wrapper.childContextTypes = {
 
 test('render properly', () => {
   TU.renderIntoDocument((
-    <Wrapper
-      title="Videos"
-      links={[{
-        title: 'Tristique ullamcorper id vitae',
-        url: '#',
-      }, {
-        title: 'Nulla mollis sapien sollicitudin',
-        url: '#',
-      }, {
-        title: 'Vivamus facilisis dolor et massa',
-        url: '#',
-      }, {
-        title: 'Vestibulum nisl egestas',
-        url: '#',
-      }]}
-    />
+    <Provider store={store}>
+      <Wrapper
+        title="Videos"
+        links={[{
+          title: 'Tristique ullamcorper id vitae',
+          url: '#',
+        }, {
+          title: 'Nulla mollis sapien sollicitudin',
+          url: '#',
+        }, {
+          title: 'Vivamus facilisis dolor et massa',
+          url: '#',
+        }, {
+          title: 'Vestibulum nisl egestas',
+          url: '#',
+        }]}
+      />
+    </Provider>
   ));
 
   TU.renderIntoDocument((
-    <Wrapper
-      title="Videos"
-      links={[{
-        title: 'Tristique ullamcorper id vitae',
-        url: '#',
-      }, {
-        title: 'Nulla mollis sapien sollicitudin',
-        url: '#',
-      }, {
-        title: 'Vivamus facilisis dolor et massa',
-        url: '#',
-      }, {
-        title: 'Vestibulum nisl egestas',
-        url: '#',
-      }]}
-      theme={{
-        container: 'container',
-        title: 'title',
-        list: 'list',
-        item: 'item',
-        link: 'link',
-      }}
-    />
+    <Provider store={store}>
+      <Wrapper
+        title="Videos"
+        links={[{
+          title: 'Tristique ullamcorper id vitae',
+          url: '#',
+        }, {
+          title: 'Nulla mollis sapien sollicitudin',
+          url: '#',
+        }, {
+          title: 'Vivamus facilisis dolor et massa',
+          url: '#',
+        }, {
+          title: 'Vestibulum nisl egestas',
+          url: '#',
+        }]}
+        theme={{
+          container: 'container',
+          title: 'title',
+          list: 'list',
+          item: 'item',
+          link: 'link',
+        }}
+      />
+    </Provider>
   ));
 });

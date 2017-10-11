@@ -25,7 +25,7 @@ function mapStateToProps(state, ownProps) {
     groupIds: meta.groupIds,
     hideJoinNow: ownProps.hideJoinNow,
     hideSearch: meta.hideSearch,
-    isMobileOpen: meta.isMobileOpen,
+    isMobileOpen: state.tcCommunities.meta.isMobileOpen,
     logos: meta.logos,
     menuItems: meta.menuItems,
     openedMenu: state.topcoderHeader.openedMenu,

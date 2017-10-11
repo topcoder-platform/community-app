@@ -1,4 +1,4 @@
-@import '~styles/tc-styles';
+@import '~styles/mixins';
 $panel-space-7: $base-unit + 2;
 $panel-space-10: $base-unit * 2;
 $panel-space-15: $base-unit * 3;
@@ -10,6 +10,25 @@ $panel-space-100: $base-unit * 20;
 $panel-space-110: $base-unit * 22;
 $panel-radius-1: $corner-radius / 2;
 $panel-radius-4: $corner-radius * 2;
+
+.button {
+  @include btn-sm;
+
+  display: block !important;
+  font: 400 12px Arial !important;
+  height: 6 * $base-unit !important;
+  line-height: 28px !important;
+  margin-bottom: 15px !important;
+  padding: 0 !important;
+}
+
+.buttonDisabled {
+  background: $tc-gray-20 !important;
+  border: none !important;
+  color: $tc-black !important;
+  padding-left: 20px !important;
+  padding-right: 20px !important;
+}
 
 .FiltersPanel {
   background: white;
@@ -97,23 +116,6 @@ $panel-radius-4: $corner-radius * 2;
 
       @include xxs-to-sm {
         display: inline-block;
-      }
-
-      &.blue {
-        color: $tc-white;
-
-        @include xxs-to-sm {
-          margin: 0 3px;
-        }
-      }
-
-      &.white {
-        color: $tc-gray-70;
-        margin-bottom: $panel-space-15;
-
-        @include xxs-to-sm {
-          margin: 0 3px;
-        }
       }
     }
   }
@@ -364,7 +366,6 @@ $panel-radius-4: $corner-radius * 2;
 
       input {
         font-size: 15px;
-        padding: 0;
       }
     }
 

@@ -107,7 +107,7 @@ export default function Home(props) {
       <NewsletterSignup
         title="Sign up for Topcoder Product Development Updates"
         text="Don’t miss out opportunities to work on the Topcoder Platform!"
-        imageSrc="/themes/wipro/subscribe-bg.jpg"
+        imageSrc="/themes/tc-prod-dev/subscribe-bg.jpg"
       />
 
     </main>
