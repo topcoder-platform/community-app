@@ -63,48 +63,7 @@ export default function Learn() {
           </AccordionItem>
         </Accordion>
       </Section>
-/*
-      <Section
-        title="Courses and Tutorials"
-        /*
-        link={{
-          title: 'View All',
-          url: 'learn',
-        }}
-        */
-        theme={{
-          container: style.coursesContainer,
-        }}
-      >
-        <ArticleCard
-          title="What You Need to Join a Challenge"
-          text="There are advances being made in science and technology everyday, and a good example of this is the LCD monitor. LCD monitors have"
-          link={{
-            title: 'Read More',
-            url: 'learn',
-          }}
-          imageSrc="/themes/qa/learn/courses-01.jpg"
-        />
-        <ArticleCard
-          title="An Ugly Myspace Profile Will Sure Ruin Your Reputation"
-          text="Planning to visit Las Vegas or any other vacational resort where casinos are a major portion of their business? I have just the thing for"
-          link={{
-            title: 'Read More',
-            url: 'learn',
-          }}
-          imageSrc="/themes/qa/learn/courses-02.jpg"
-        />
-        <ArticleCard
-          title="3 Simple Ways Work Fast in Competition"
-          text="If you are in the market for a computer, there are a number of factors to consider. Will it be used for your home, your office or"
-          link={{
-            title: 'Read More',
-            url: 'learn',
-          }}
-          imageSrc="/themes/qa/learn/courses-03.jpg"
-        />
-      </Section>
-*/
+
       <Section
         title="Resources"
         theme={{
