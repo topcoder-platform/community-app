@@ -41,6 +41,7 @@ function AccordionItem(props) {
     <div>
       <Sticky
         bottomBoundary="#accordion"
+        enableTransforms={false}
         styleName="desktop"
       >{content}</Sticky>
       <div styleName="mobile">{content}</div>
