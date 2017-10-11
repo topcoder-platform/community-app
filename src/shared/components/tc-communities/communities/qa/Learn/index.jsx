@@ -47,39 +47,23 @@ export default function Learn() {
               <JoinCommunity />
             </Text>
           </AccordionItem>
-          <AccordionItem title="How to sign up for work">
-            <Text>
-              <p>It&apos;s likely that you&apos;ll be working on code in a specific git repo. We have many of them, so be sure to ask if you&apos;re not sure which one you shoudl be looking at.</p>
-              <p>In general, you&apos;ll typically find them at https://github.com/topcoder-platform</p>
-            </Text>
+          <AccordionItem title="How do I participate in a challenge?">
+            <Text><p>Find a challenge that interests you on the <a href="/challenges">challenge listings page</a>. You can filter by challenge types, prizes, deadlines, etc. Look for challenges that are still open for registration. If you see something that interests you, click it and then you can read the details and register for the challenge. Watch the <a href="https://www.yammer.com/wipro.com/#/files/101411899">video</a>.</p></Text>
           </AccordionItem>
-          <AccordionItem title="How to compete for work">
-            <Text>
-              <p>Nam dapibus nisl vitae elit fringilla rutrum. Aenean sollicitudin, erat a elementum rutrum, neque sem pretium metus, quis mollis nisl nunc et massa. Vestibulum sed metus in lorem tristique ullamcorper id vitae erat. Nulla mollis sapien sollicitudin lacinia lacinia. Vivamus facilisis dolor et massa placerat, at vestibulum nisl egestas. Nullam rhoncus lacus non odio luctus, eu condimentum mauris ultrices. Praesent blandit, augue a posuere aliquam, arcu tortor feugiat turpis,</p>
-              <p>Nam dapibus nisl vitae elit fringilla rutrum. Aenean sollicitudin, erat a elementum rutrum, neque sem pretium metus, quis mollis nisl nunc et massa. Vestibulum sed metus in lorem tristique ullamcorper id vitae erat. Nulla mollis sapien sollicitudin lacinia lacinia. Vivamus facilisis dolor et massa placerat, at vestibulum nisl egestas. Nullam rhoncus lacus non odio luctus, eu condimentum mauris ultrices. Praesent blandit, augue a posuere aliquam, arcu tortor feugiat turpis,</p>
-              <JoinCommunity />
-            </Text>
-          </AccordionItem>
-          <AccordionItem title="Payment & Rewards">
-            <Text>
-              <p>If you&apos;d like to be a copilot for Topcoder projects, send an email to support@topcoder.com and tell us a little about yourself.</p>
-              <p>If  you&apos;d like to work on challenges, check out what&apos;s active on the <a href="challenges">challenges</a> page.  If there is nothing active, send us a note and tell us to stop slacking! :)</p>
-              <JoinCommunity />
-            </Text>
-          </AccordionItem>
-          <AccordionItem title="Managing your Badges">
-            <Text>
-              <p>Make sure you&apos;ve setup your payment preferences at https://community.topcoder.com/tc?module=EditPaymentPreferences.  When you&apos;ve earned some money and want to withdraw it, you can do that at https://community.topcoder.com/PactsMemberServlet?module=PaymentHistory&full_list=false</p>
-            </Text>
+          <AccordionItem title="How do I submit to a challenge?">
+            <Text><p>Do all of your coding/design work offline, or as specified in the challenge spec. When you are ready to submit, come back to the challenge page and click the Submit button. The Submit page will give instructions to upload your submission. Watch the <a href="https://www.yammer.com/wipro.com/#/files/101411933">video</a>.</p></Text>
           </AccordionItem>
           <AccordionItem title="Updating your Profile">
             <Text>
-              <p>Everything to do with managing your profile and preferences can be found at https://www.topcoder.com/settings/account/.  If you can&apos;t find what you&apos;re looking for, send us a note at support@topcoder.com.</p>
+              <p>Everything to do with managing your profile and preferences can be found at <a href="https://www.topcoder.com/settings/account/">https://www.topcoder.com/settings/account/</a>.  If you can&apos;t find what you&apos;re looking for, send us a note at support@topcoder.com.</p>
             </Text>
+          </AccordionItem>
+          <AccordionItem title="I have more question. Who should I contact?">
+            <Text><p>Please write to support@topcoder.com</p></Text>
           </AccordionItem>
         </Accordion>
       </Section>
-
+/*
       <Section
         title="Courses and Tutorials"
         /*
@@ -120,7 +104,7 @@ export default function Learn() {
           imageSrc="/themes/qa/learn/courses-03.jpg"
         />
       </Section>
-
+*/
       <Section
         title="Resources"
         theme={{
