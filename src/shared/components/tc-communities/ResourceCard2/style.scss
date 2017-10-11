@@ -1,6 +1,9 @@
 @import '~styles/mixins';
 
 .container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   position: relative;
   text-align: center;
   width: 280px;
@@ -48,6 +51,7 @@
 }
 
 .linkWrap {
+  align-self: flex-end;
   margin-top: 30px;
 }
 

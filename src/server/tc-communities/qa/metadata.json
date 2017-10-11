@@ -6,9 +6,9 @@
     }]
   },
   "communityId": "qa",
-  "communityName": "QaaS",
+  "communityName": "QA Community",
   "communitySelector": [{
-    "label": "QaaS Community",
+    "label": "QA Community",
     "value": "1"
   }, {
     "label": "Topcoder Public Community",

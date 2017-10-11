@@ -11,13 +11,20 @@ import Section from 'components/tc-communities/Section';
 import Banner from 'components/tc-communities/Banner';
 import ImageText from 'components/tc-communities/ImageText';
 import ResourceCard from 'components/tc-communities/ResourceCard';
+import ResourceCard2 from 'components/tc-communities/ResourceCard2';
 import NewsSection from 'components/tc-communities/NewsSection';
 import PT from 'prop-types';
 
 import CommunityStats from 'containers/tc-communities/CommunityStats';
 import JoinCommunity from 'containers/tc-communities/JoinCommunity';
 
+import IconRocket from '../../../../../../assets/images/tc-communities/rocket.svg';
+import IconNetwork from '../../../../../../assets/images/tc-communities/network.svg';
+import IconMedal from '../../../../../../assets/images/tc-communities/medal.svg';
+
+import resourceCardStyle from '../themes/resource-card.scss';
 import style from './style.scss';
+import textSectionStyle from '../themes/text-section.scss';
 
 export default function Home({
   member,
@@ -29,13 +36,13 @@ export default function Home({
         title="Topcoder QA Community"
         imageSrc="/themes/qa/home/header.jpg"
       >
-        <div styleName="bannerText">
+        <div styleName="style.bannerText">
           {member ? (
             'This is the place where Topcoder members can come to focus on work that involves QA.'
           ) : (
             <span>
               Sign up. &laquo;Test&raquo; your skills. Get Rewarded.
-              &zwnj;<span styleName="highlighted">It&apos;s that simple!</span>
+              &zwnj;<span styleName="style.highlighted">It&apos;s that simple!</span>
             </span>
           )}
         </div>
@@ -46,6 +53,65 @@ export default function Home({
           />
         )}
       </Banner>
+
+      <Section theme={textSectionStyle}>
+        <p>
+          One of the key drivers of Digital Transformation within large
+          organizations is the mass consumerization of technology. In the brave
+          new ‘connected’ world, organizations are forced to adopt new
+          technologies to keep pace with the digitalization.
+        </p>
+        <p>
+          Testing is also part of this transformation and plays a critical role
+          in the organization’s business strategy. It bears striking similarity
+          to the ‘pit stop’ paradigm in Formula One racing. The modern pit stop
+          is a fascinating choreography of technology execution and efficiency
+          that separates the winners from the crowd. This is very similar to
+          how we see Quality Engineering in the new world. The nirvana state of
+          driving ‘Zero Cost of Quality’ which was the primary goal of
+          Enterprise IT of yesteryear, has progressively transformed to drive
+          ‘Quality at zero impedance’.
+        </p>
+        <p>
+          We are on the look-out for individuals who can run our ‘pit stops’ as
+          we move to our next orbits of growth. So what are you waiting for?
+          Come join us, the world’s best QA community!
+        </p>
+      </Section>
+
+      <Section
+        theme={{
+          container: style.resourcesContainer,
+        }}
+      >
+        <ResourceCard
+          icon={IconNetwork}
+          title="Learn about our platform"
+          text="There are many aspects to our platform...something for everyone."
+          link={{
+            title: 'Browse resources',
+            url: 'learn',
+          }}
+        />
+        <ResourceCard
+          icon={IconMedal}
+          title="What's in it for me?"
+          text="Topcoder rewards participants with cash. The more deliverables you produce, the more you can make."
+          link={{
+            title: 'Learn about rewards',
+            url: 'leaderboard',
+          }}
+        />
+        <ResourceCard
+          icon={IconRocket}
+          title="Participate in many ways"
+          text="We're always running challenges and tasks.  Check back every day to see what's new."
+          link={{
+            title: 'Browse challenges',
+            url: 'challenges',
+          }}
+        />
+      </Section>
 
       <CommunityStats />
 
@@ -66,7 +132,7 @@ export default function Home({
           />
           <ImageText
             title="Get Involved"
-            text="Whether you're a QA specialists, copilot, designer, developer, or data scientist... we want you involved. Topcoder is one of the biggest customers of our own platform, so there is never a shortage of interesting things to work on."
+            text="Whether you're a QA specialist, copilot, designer, developer, or data scientist... we want you involved. Topcoder is one of the biggest customers of our own platform, so there is never a shortage of interesting things to work on."
             link={{
               title: 'Start Contributing',
               url: 'challenges',
@@ -81,20 +147,9 @@ export default function Home({
           container: style.resourcesContainer2,
         }}
       >
-        <ResourceCard
+        <ResourceCard2
           theme={{
-            container: style.bgGray,
-          }}
-          title="Why QA Needs to be Invisible and Why Engineering Quality should be Your Ultimate Goal"
-          text="&laquo;Isn't Software Testing dead?&raquo; Over the last couple of years, this though (or something similar to it) seems to be the most debated, commented and argued over."
-          link={{
-            openNewTab: true,
-            title: 'Learn More',
-            url: 'http://www.dqindia.com/why-qa-needs-to-be-invisible-and-why-engineering-quality-should-be-your-ultimate-goal/',
-          }}
-        />
-        <ResourceCard
-          theme={{
+            ...resourceCardStyle,
             container: style.bgBlue,
           }}
           title="State of Quality Edition 1"
@@ -105,8 +160,22 @@ export default function Home({
             url: 'http://www.wipro.com/microsite/state-of-quality-2016/index.php',
           }}
         />
-        <ResourceCard
+        <ResourceCard2
           theme={{
+            ...resourceCardStyle,
+            container: style.bgGray,
+          }}
+          title="Why QA Needs to be Invisible and Why Engineering Quality should be Your Ultimate Goal"
+          text="&laquo;Isn't Software Testing dead?&raquo; Over the last couple of years, this though (or something similar to it) seems to be the most debated, commented and argued over."
+          link={{
+            openNewTab: true,
+            title: 'Learn More',
+            url: 'http://www.dqindia.com/why-qa-needs-to-be-invisible-and-why-engineering-quality-should-be-your-ultimate-goal/',
+          }}
+        />
+        <ResourceCard2
+          theme={{
+            ...resourceCardStyle,
             container: style.bgYellow,
           }}
           title="Digital Assurance Perspectives"
@@ -117,8 +186,9 @@ export default function Home({
             url: 'http://www.wipro.com/blogs/digital-assurance-perspectives/',
           }}
         />
-        <ResourceCard
+        <ResourceCard2
           theme={{
+            ...resourceCardStyle,
             container: style.bgGreen,
           }}
           title="Assuring a mobile future"
