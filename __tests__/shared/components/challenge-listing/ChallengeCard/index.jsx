@@ -31,6 +31,7 @@ const mockData1 = {
     subTrack: 'CODE',
     events: [{ eventName: 'Submit' }],
     status: 'ACTIVE',
+    users: {},
   },
 };
 
@@ -47,6 +48,7 @@ const mockData2 = {
     subTrack: 'CODE',
     id: '1',
     totalPrize: 1800,
+    users: {},
   },
 };
 
@@ -63,6 +65,7 @@ const mockData3 = {
     subTrack: 'CODE',
     id: 'long id',
     totalPrize: 1800,
+    users: {},
   },
 };
 
@@ -79,6 +82,7 @@ const mockData4 = {
     subTrack: 'CODE',
     id: 'long id',
     totalPrize: 1800,
+    users: {},
   },
 };
 
@@ -95,6 +99,7 @@ const mockData5 = {
     subTrack: 'CODE',
     id: 'long id',
     totalPrize: 1800,
+    users: {},
   },
 };
 
