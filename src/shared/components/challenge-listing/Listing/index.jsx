@@ -71,6 +71,7 @@ export default function Listing({
           setFilterState={setFilterState}
           setSort={sort => setSort(activeBucket, sort)}
           sort={sorts[activeBucket]}
+          userHandle={_.get(auth, 'user.handle')}
         />
       </div>
     );
@@ -114,6 +115,7 @@ export default function Listing({
         setFilterState={setFilterState}
         setSort={sort => setSort(bucket, sort)}
         sort={sorts[bucket]}
+        userHandle={_.get(auth, 'user.handle')}
       />
     );
   };

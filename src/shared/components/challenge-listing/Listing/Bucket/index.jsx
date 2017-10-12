@@ -38,6 +38,7 @@ export default function Bucket({
   setFilterState,
   setSort,
   sort,
+  userHandle,
 }) {
   const filter = getFilterFunction(bucket.filter);
   const activeSort = sort || bucket.sorts[0];
@@ -75,6 +76,7 @@ export default function Bucket({
       prizeMode={prizeMode}
       key={item.id}
       selectChallengeDetailsTab={selectChallengeDetailsTab}
+      userHandle={userHandle}
     />
   ));
 
@@ -138,6 +140,7 @@ Bucket.defaultProps = {
   newChallengeDetails: false,
   openChallengesInNewTabs: false,
   sort: null,
+  userHandle: '',
 };
 
 Bucket.propTypes = {
@@ -160,4 +163,5 @@ Bucket.propTypes = {
   setFilterState: PT.func.isRequired,
   setSort: PT.func.isRequired,
   sort: PT.string,
+  userHandle: PT.string,
 };

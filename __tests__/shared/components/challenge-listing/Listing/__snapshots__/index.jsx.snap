@@ -24,6 +24,7 @@ exports[`Matches shallow shapshot 1`] = `
     setFilterState={[Function]}
     setSort={[Function]}
     sort={null}
+    userHandle="handle"
   />
   <Bucket
     bucket={Object {}}
@@ -45,6 +46,7 @@ exports[`Matches shallow shapshot 1`] = `
     setFilterState={[Function]}
     setSort={[Function]}
     sort={null}
+    userHandle="handle"
   />
   <Bucket
     bucket={Object {}}
@@ -66,6 +68,7 @@ exports[`Matches shallow shapshot 1`] = `
     setFilterState={[Function]}
     setSort={[Function]}
     sort={null}
+    userHandle="handle"
   />
   <Bucket
     bucket={Object {}}
@@ -87,6 +90,7 @@ exports[`Matches shallow shapshot 1`] = `
     setFilterState={[Function]}
     setSort={[Function]}
     sort={null}
+    userHandle="handle"
   />
 </div>
 `;
@@ -115,6 +119,7 @@ exports[`Matches shallow shapshot 2`] = `
     setFilterState={[Function]}
     setSort={[Function]}
     sort={null}
+    userHandle="handle"
   />
 </div>
 `;
@@ -143,6 +148,7 @@ exports[`Matches shallow shapshot 3`] = `
     setFilterState={[Function]}
     setSort={[Function]}
     sort={null}
+    userHandle="handle"
   />
 </div>
 `;
@@ -171,6 +177,7 @@ exports[`Matches shallow shapshot 4`] = `
     setFilterState={[Function]}
     setSort={[Function]}
     sort={null}
+    userHandle=""
   />
   <Bucket
     bucket={Object {}}
@@ -192,6 +199,7 @@ exports[`Matches shallow shapshot 4`] = `
     setFilterState={[Function]}
     setSort={[Function]}
     sort={null}
+    userHandle=""
   />
   <Bucket
     bucket={Object {}}
@@ -213,6 +221,7 @@ exports[`Matches shallow shapshot 4`] = `
     setFilterState={[Function]}
     setSort={[Function]}
     sort={null}
+    userHandle=""
   />
 </div>
 `;
@@ -241,6 +250,7 @@ exports[`Matches shallow shapshot 5`] = `
     setFilterState={[Function]}
     setSort={[Function]}
     sort={null}
+    userHandle=""
   />
 </div>
 `;
