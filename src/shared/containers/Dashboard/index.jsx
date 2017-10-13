@@ -47,6 +47,7 @@ export class DashboardPageContainer extends React.Component {
       this.props.getSRMs(tokenV3, user.handle);
       this.props.getIosRegistration(tokenV3, user.userId);
       this.props.getUserFinancials(tokenV3, user.handle);
+      this.props.getUserAchievements(user.handle);
       _.forEach(communityList, c => getCommunityStats(c, challenges, tokenV3));
     }
     return true;
@@ -67,6 +68,7 @@ export class DashboardPageContainer extends React.Component {
         this.props.getSRMs(tokenV3, user.handle);
         this.props.getIosRegistration(tokenV3, user.userId);
         this.props.getUserFinancials(tokenV3, user.handle);
+        this.props.getUserAchievements(user.handle);
         _.forEach(communityList, c => getCommunityStats(c, challenges, tokenV3));
       });
     }
@@ -93,7 +95,7 @@ export class DashboardPageContainer extends React.Component {
       auth: { profile, user, tokenV3 },
       dashboard: {
         subtrackRanks, srms, iosRegistered, blogs, financials,
-        loadingSubtrackRanks, loadingSRMs, loadingBlogs,
+        loadingSubtrackRanks, loadingSRMs, loadingBlogs, achievements,
       },
       challengeListing: { challenges },
       lastUpdateOfActiveChallenges,
@@ -130,7 +132,7 @@ export class DashboardPageContainer extends React.Component {
     return (
       <div styleName="dashboard-container">
         <div styleName="page-container">
-          <Header title={'Dashboard'} profile={profile} financials={financials} />
+          <Header title={'Dashboard'} profile={profile} financials={financials} achievements={achievements} myChallenges={myChallenges.length} />
           <div styleName="my-dashboard-container">
             <div styleName="subtrack-stats">
               {
@@ -241,6 +243,7 @@ DashboardPageContainer.propTypes = {
   registerIos: PT.func.isRequired,
   getBlogs: PT.func.isRequired,
   getUserFinancials: PT.func.isRequired,
+  getUserAchievements: PT.func.isRequired,
   getCommunityStats: PT.func.isRequired,
   getCommunityList: PT.func.isRequired,
   lastUpdateOfActiveChallenges: PT.number.isRequired,
@@ -293,6 +296,9 @@ const mapDispatchToProps = dispatch => ({
   },
   getUserFinancials: (tokenV3, handle) => {
     dispatch(actions.dashboard.getUserFinancials(tokenV3, handle));
+  },
+  getUserAchievements: (handle) => {
+    dispatch(actions.dashboard.getUserAchievements(handle));
   },
   getCommunityList: auth => dispatch(communityActions.tcCommunity.getList(auth)),
   getCommunityStats: (community, challenges, token) =>

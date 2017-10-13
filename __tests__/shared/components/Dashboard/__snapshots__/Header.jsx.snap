@@ -17,18 +17,7 @@ exports[`Matches shallow shapshot 1`] = `
       </div>
       <div
         className="src-shared-components-Dashboard-Header-___styles__info___36a-O"
-      >
-        <div
-          className="src-shared-components-Dashboard-Header-___styles__user-metrics___1lGBa"
-        >
-          <Handle
-            handle=""
-            rating={0}
-            size={24}
-          />
-        </div>
-        <Badge />
-      </div>
+      />
     </header>
   </div>
 </div>
