@@ -16,6 +16,8 @@
 
 import { combine, resolveReducers } from 'utils/redux';
 
+import memberTasks from './member-tasks';
+import topcoderHeader from './topcoder_header';
 import { factory as authFactory } from './auth';
 import { factory as challengeFactory } from './challenge';
 import { factory as challengeListingFactory } from './challenge-listing';
@@ -27,7 +29,6 @@ import { factory as leaderboardFactory } from './leaderboard';
 import { factory as dashboardFactory } from './dashboard';
 import { factory as termsFactory } from './terms';
 import { factory as scoreboardFactory } from './tco/scoreboard';
-import topcoderHeader from './topcoder_header';
 
 export function factory(req) {
   return resolveReducers({
@@ -51,6 +52,7 @@ export function factory(req) {
     return res;
   }, {
     ...reducers,
+    memberTasks,
     topcoderHeader,
   }));
 }
