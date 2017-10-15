@@ -14,6 +14,7 @@ import { connect } from 'react-redux';
 
 import Communities from './Communities';
 import Examples from './Examples';
+import Sandbox from './Sandbox';
 import Topcoder from './Topcoder';
 import { getCommunityId } from './subdomains';
 
@@ -56,6 +57,10 @@ function Routes({ subdomains }) {
           />
         )}
         path="/community/:communityId"
+      />
+      <Route
+        component={() => <Sandbox base="/sandbox" />}
+        path="/sandbox"
       />
       <Topcoder />
     </Switch>

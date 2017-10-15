@@ -138,6 +138,17 @@ export default function Content() {
         </li>
       </ul>
 
+      <h3>Sandbox</h3>
+      <p>
+        The right place to put any experimental and proof-of-concept
+        stuff.
+      </p>
+      <ul>
+        <li>
+          <Link to="/sandbox/payments">Payments PoC</Link>
+        </li>
+      </ul>
+
       <h3>Misc Examples</h3>
       <ul>
         <li>
