@@ -273,7 +273,7 @@ class ChallengesService {
  */
 let lastInstance = null;
 export function getService(tokenV3, tokenV2) {
-  if (!lastInstance || lastInstance.tokenV3 !== tokenV3
+  if (!lastInstance || lastInstance.private.tokenV3 !== tokenV3
   || lastInstance.tokenV2 !== tokenV2) {
     lastInstance = new ChallengesService(tokenV3, tokenV2);
   }

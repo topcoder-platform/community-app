@@ -54,6 +54,7 @@ function getInit(uuid, pageNum) {
  */
 function getDone(uuid, projectId, pageNum, tokenV3) {
   return getService(tokenV3).getChallenges({
+    isTask: 1,
     projectId,
   }, {
     limit: PAGE_SIZE,

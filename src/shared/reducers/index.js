@@ -16,7 +16,9 @@
 
 import { combine, resolveReducers } from 'utils/redux';
 
+import direct from './direct';
 import memberTasks from './member-tasks';
+import page from './page';
 import topcoderHeader from './topcoder_header';
 import { factory as authFactory } from './auth';
 import { factory as challengeFactory } from './challenge';
@@ -52,7 +54,9 @@ export function factory(req) {
     return res;
   }, {
     ...reducers,
+    direct,
     memberTasks,
+    page,
     topcoderHeader,
   }));
 }

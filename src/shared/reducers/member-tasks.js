@@ -65,12 +65,12 @@ function onGetDone(state, { error, payload }) {
    * the specified project. */
   const taskMap = {};
   state.tasks.forEach((task) => {
-    taskMap[task.challengeId] = task;
+    taskMap[task.id] = task;
   });
 
   /* Merges newly loaded tasks into the map of old ones. */
   tasks.forEach((task) => {
-    taskMap[task.challengeId] = task;
+    taskMap[task.id] = task;
   });
 
   /* If the first page of tasks has been loaded, updates its timestamp. */
