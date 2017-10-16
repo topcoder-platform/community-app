@@ -5,8 +5,10 @@
 */
 import React from 'react';
 import PT from 'prop-types';
+import badge from 'assets/images/dashboard/badge.png';
 
 import './styles.scss';
+
 
 export default function Header(props) {
   const { title, financials, achievements, myChallenges } = props;
@@ -39,7 +41,9 @@ export default function Header(props) {
             {
               achievements && achievements.length > 0 &&
               <div styleName="badgeItem">
-                <div title={achievements[0].description} styleName="dashboardBadge" />
+                <div styleName="dashboardBadge">
+                  <img alt={achievements[0].description} src={badge} width="200" height="200" />
+                </div>
               </div>
             }
           </div>

@@ -87,6 +87,22 @@
           background-size: 70px 70px;
           width: 70px;
           height: 70px;
+
+          img {
+            display: none;
+          }
+        }
+
+        .dashboardBadge:hover img {
+          display: block;
+          position: absolute;
+          top: 55px;
+          left: -110px;
+          z-index: 1000;
+          width: auto;
+          overflow: hidden;
+          padding: 8px;
+          background: transparent;
         }
       }
     }
