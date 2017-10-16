@@ -13,26 +13,6 @@ import Background from '../Background';
 
 import './style.scss';
 
-const mockData = [{
-  id: '123',
-  amount: 50,
-  member: 'coder',
-  name: '[Common] "wins" must display in-line to the number of wins',
-  status: 'scheduled',
-}, {
-  amount: 75,
-  id: '124',
-  member: 'mike',
-  name: '[Common] Long usernames won\'t display in landscape mode',
-  status: 'paid',
-}, {
-  amount: 100,
-  id: '125',
-  member: 'tom',
-  name: 'After clicking "Load more button" everything crushes',
-  status: 'paid',
-}];
-
 export default function Listing({
   loadingMemberTasks,
   memberTasks,
