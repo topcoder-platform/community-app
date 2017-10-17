@@ -11,10 +11,10 @@ import { SplitRoute } from 'utils/router';
 export default function Sandbox({ base }) {
   return (
     <SplitRoute
-      chunkName="sandbox"
+      chunkName="sandbox/chunk"
       renderClientAsync={() =>
         import(
-          /* webpackChunkName: "sandbox" */
+          /* webpackChunkName: "sandbox/chunk" */
           './Router',
         ).then(({ default: Router }) => <Router base={base} />)
       }

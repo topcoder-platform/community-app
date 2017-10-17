@@ -12,10 +12,10 @@ export default function ChunkLoader() {
   return (
     <SplitRoute
       cacheCss
-      chunkName="topcoder-website"
+      chunkName="topcoder-website/chunk"
       renderClientAsync={() =>
         import(
-          /* webpackChunkName: "topcoder-website" */
+          /* webpackChunkName: "topcoder-website/chunk" */
           './Routes',
         ).then(({ default: Routes }) => <Routes />)
       }

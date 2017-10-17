@@ -6,12 +6,12 @@ export default function DashboardRoute(props) {
   return (
     <SplitRoute
       cacheCss
-      chunkName="dashboard"
+      chunkName="dashboard/chunk"
       exact
       path="/my-dashboard"
       renderClientAsync={() =>
         import(
-          /* webpackChunkName: "dashboard" */
+          /* webpackChunkName: "dashboard/chunk" */
           'containers/Dashboard',
         ).then(({ default: Dashboard }) => (
           <Dashboard {...props} />
