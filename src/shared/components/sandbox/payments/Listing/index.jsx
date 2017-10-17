@@ -6,11 +6,9 @@ import LoadingIndicator from 'components/LoadingIndicator';
 import PT from 'prop-types';
 import React from 'react';
 import Select from 'components/Select';
-import { Link } from 'react-router-dom';
 import { PrimaryButton } from 'components/buttons';
-
 import Background from '../Background';
-
+import PaymentRow from './PaymentRow';
 import './style.scss';
 
 export default function Listing({
@@ -23,34 +21,33 @@ export default function Listing({
   const selectedProjectIdNum = Number(selectedProjectId);
   const content = memberTasks
     .filter(item => item.projectId === selectedProjectIdNum)
-    .map(item => (
-      <tr key={item.id}>
-        <td><Link to="/sandbox/payments/123">{item.name}</Link></td>
-        <td>{`$${item.prizes[0]}`}</td>
-        <td>{item.member || 'topcoder'}</td>
-        <td>{item.status}</td>
-      </tr>
-    ));
+    .map(challenge => <PaymentRow challenge={challenge} />);
   return (
     <Background>
       <div styleName="container">
         <h1 styleName="title">Member Payments</h1>
-        Project
-        <Select
-          clearable={false}
-          labelKey="name"
-          onChange={project => selectProject(project.id)}
-          options={projects}
-          value={Number(selectedProjectId)}
-          valueKey="id"
-        />
-        <PrimaryButton
-          to="/sandbox/payments/new"
-        >New payment</PrimaryButton>
+        <div styleName="actionBar">
+          <span styleName="text">Project</span>
+          <Select
+            autoBlur
+            clearable={false}
+            labelKey="name"
+            onChange={project => selectProject(project.id)}
+            options={projects}
+            value={Number(selectedProjectId)}
+            valueKey="id"
+          />
+          <div styleName="button">
+            <PrimaryButton
+              to="/sandbox/payments/new"
+            >New payment</PrimaryButton>
+          </div>
+        </div>
         <table styleName="table">
           <thead>
             <tr>
-              <th>Payment</th>
+              <th />
+              <th styleName="name">Payment</th>
               <th>Amount</th>
               <th>Member</th>
               <th>Status</th>
@@ -61,7 +58,7 @@ export default function Listing({
             {
               loadingMemberTasks ? (
                 <tr>
-                  <td>
+                  <td colSpan={5}>
                     <LoadingIndicator />
                   </td>
                 </tr>

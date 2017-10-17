@@ -1,10 +1,89 @@
+@import "~styles/tc-styles";
+
 .container {
   display: block;
   margin: auto;
   padding-top: 50px;
   width: 80%;
+  font-family: Roboto, sans-serif;
 }
 
 .title {
+  font-weight: 300;
+  font-size: 36px;
+  color: $tc-black;
+  line-height: 40px;
+  text-align: center;
+}
+
+.card {
+  box-sizing: border-box;
+  padding: 50px;
+  background: #fff;
+  box-shadow: 0 2px 9px 0 rgba(38, 38, 40, 0.06);
+  border-radius: 7px;
+  margin: 120px auto;
+  overflow: hidden;
+  height: 450px;
+  max-width: 540px;
+}
+
+.description {
+  max-width: 440px;
+  margin: 30px auto;
+  font-size: 15px;
+  color: $tc-gray-80;
+  line-height: 25px;
+}
+
+.paycheck {
+  background-color: $tc-green-10;
+  background-image: url('assets/images/sandbox/payments/pattern-waves-green.png');
+  margin-top: 30px;
+  padding: 15px;
+  border: 1px solid $tc-green;
+  border-radius: 10px;
+
+  .info {
+    box-sizing: border-box;
+    background: rgba(255, 255, 255, 0.9);
+    border-radius: 6px;
+    height: 100px;
+    padding: 15px;
+
+    .user {
+      text-align: center;
+      font-size: 20px;
+      color: $tc-gray-50;
+      font-weight: 300;
+      line-height: 30px;
+
+      > strong {
+        color: #202a36;
+        font-weight: 700;
+      }
+
+      .name {
+        display: inline-block;
+        max-width: 200px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        vertical-align: top;
+      }
+    }
+
+    .task {
+      margin-top: 15px;
+      text-align: center;
+      font-size: 13px;
+      color: $tc-black;
+      line-height: 20px;
+    }
+  }
+}
+
+.actions {
+  margin-top: 15px;
   text-align: center;
 }
