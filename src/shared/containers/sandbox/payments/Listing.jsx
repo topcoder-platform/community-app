@@ -6,8 +6,6 @@ import _ from 'lodash';
 import actions from 'actions';
 import Listing from 'components/sandbox/payments/Listing';
 import LoadingIndicator from 'components/LoadingIndicator';
-import memberTaskActions from 'actions/member-tasks';
-import pageActions from 'actions/page/sandbox/payments/listing';
 import PT from 'prop-types';
 import React from 'react';
 import shortid from 'shortid';
