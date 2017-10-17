@@ -45,7 +45,7 @@ export default function Listing({
           valueKey="id"
         />
         <PrimaryButton
-          to="/sandbox/payments/123"
+          to="/sandbox/payments/new"
         >New payment</PrimaryButton>
         <table styleName="table">
           <thead>

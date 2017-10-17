@@ -2,6 +2,7 @@
  * Payment editor.
  */
 
+import PT from 'prop-types';
 import React from 'react';
 import Select from 'components/Select';
 import { PrimaryButton } from 'components/buttons';
@@ -10,13 +11,23 @@ import Background from '../Background';
 
 import './style.scss';
 
-export default function Editor() {
+export default function Editor({
+  projects,
+  selectedProjectId,
+  selectProject,
+}) {
   return (
     <Background>
       <div styleName="container">
         <h1 styleName="title">New Member Payment</h1>
         Project
-        <Select />
+        <Select
+          labelKey="name"
+          onChange={project => selectProject(project.id)}
+          options={projects}
+          valueKey="id"
+          value={Number(selectedProjectId)}
+        />
         Billing account
         <Select />
         Title
@@ -34,3 +45,9 @@ export default function Editor() {
     </Background>
   );
 }
+
+Editor.propTypes = {
+  projects: PT.arrayOf(PT.object).isRequired,
+  selectedProjectId: PT.string.isRequired,
+  selectProject: PT.func.isRequired,
+};

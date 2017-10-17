@@ -3,7 +3,7 @@
  */
 
 import _ from 'lodash';
-import actions from 'actions/direct';
+import actions from 'actions';
 import Listing from 'components/sandbox/payments/Listing';
 import LoadingIndicator from 'components/LoadingIndicator';
 import memberTaskActions from 'actions/member-tasks';
@@ -106,23 +106,25 @@ function mapStateToProps(state) {
  * @return {Object} Listing container props.
  */
 function mapDispatchToProps(dispatch) {
-  const a = actions.direct;
-  const mta = memberTaskActions.memberTasks;
-  const pa = pageActions.page.sandbox.payments.listing;
+  const { direct, memberTasks } = actions;
+  const payments = actions.page.sandbox.payments;
   return {
     loadMemberTasks: (projectId, pageNum, tokenV3) => {
       const uuid = shortid();
-      dispatch(mta.getInit(uuid, pageNum));
-      dispatch(mta.getDone(uuid, projectId, pageNum, tokenV3));
+      dispatch(memberTasks.getInit(uuid, pageNum));
+      dispatch(memberTasks.getDone(uuid, projectId, pageNum, tokenV3));
     },
     loadProjects: (props) => {
       const { username, tokenV3 } = props;
       if (username && username !== props.loadingProjectsForUsername) {
-        dispatch(a.getUserProjectsInit(tokenV3));
-        dispatch(a.getUserProjectsDone(tokenV3));
+        dispatch(direct.getUserProjectsInit(tokenV3));
+        dispatch(direct.getUserProjectsDone(tokenV3));
       }
     },
-    selectProject: projectId => dispatch(pa.selectProject(projectId)),
+    selectProject: (projectId) => {
+      dispatch(payments.editor.selectProject(projectId));
+      dispatch(payments.listing.selectProject(projectId));
+    },
   };
 }
 
