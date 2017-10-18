@@ -19,9 +19,45 @@ export default function Listing({
   selectProject,
 }) {
   const selectedProjectIdNum = Number(selectedProjectId);
-  const content = memberTasks
+  let content = memberTasks
     .filter(item => item.projectId === selectedProjectIdNum)
-    .map(challenge => <PaymentRow challenge={challenge} />);
+    .map(challenge => (
+      <PaymentRow
+        challenge={challenge}
+        key={challenge.id}
+      />
+    ));
+
+  if (content.length) {
+    content = (
+      <table styleName="table">
+        <thead>
+          <tr>
+            <th />
+            <th styleName="name">Payment</th>
+            <th>Amount</th>
+            <th>Member</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          {content}
+          {
+            loadingMemberTasks ? (
+              <tr>
+                <td colSpan={5}>
+                  <LoadingIndicator />
+                </td>
+              </tr>
+            ) : null
+          }
+        </tbody>
+      </table>
+    );
+  } else if (loadingMemberTasks) {
+    content = <LoadingIndicator />;
+  } else content = 'No member payments associated with this project so far';
+
   return (
     <Background>
       <div styleName="container">
@@ -43,29 +79,7 @@ export default function Listing({
             >New payment</PrimaryButton>
           </div>
         </div>
-        <table styleName="table">
-          <thead>
-            <tr>
-              <th />
-              <th styleName="name">Payment</th>
-              <th>Amount</th>
-              <th>Member</th>
-              <th>Status</th>
-            </tr>
-          </thead>
-          <tbody>
-            {content}
-            {
-              loadingMemberTasks ? (
-                <tr>
-                  <td colSpan={5}>
-                    <LoadingIndicator />
-                  </td>
-                </tr>
-              ) : null
-            }
-          </tbody>
-        </table>
+        {content}
       </div>
     </Background>
   );
@@ -75,6 +89,6 @@ Listing.propTypes = {
   loadingMemberTasks: PT.bool.isRequired,
   memberTasks: PT.arrayOf(PT.shape()).isRequired,
   projects: PT.arrayOf(PT.shape()).isRequired,
-  selectedProjectId: PT.string.isRequired,
+  selectedProjectId: PT.number.isRequired,
   selectProject: PT.func.isRequired,
 };

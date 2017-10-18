@@ -18,7 +18,7 @@ export default function Editor({
   selectProject,
 }) {
   return (
-    <Background>
+    <Background escapeButton>
       <div styleName="container">
         <h1 styleName="title">New Member Payment</h1>
         <div styleName="form">
@@ -79,6 +79,6 @@ export default function Editor({
 
 Editor.propTypes = {
   projects: PT.arrayOf(PT.object).isRequired,
-  selectedProjectId: PT.string.isRequired,
+  selectedProjectId: PT.number.isRequired,
   selectProject: PT.func.isRequired,
 };

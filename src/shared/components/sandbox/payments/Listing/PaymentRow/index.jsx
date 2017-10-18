@@ -13,7 +13,7 @@ import './style.scss';
 
 export default function PaymentRow({ challenge }) {
   return (
-    <tr styleName="paymentRow" key={challenge.id}>
+    <tr styleName="paymentRow">
       <td styleName="icon">
         <TrackAbbreviationTooltip track={challenge.track} subTrack={challenge.subTrack}>
           <span>

@@ -25,8 +25,21 @@ class Direct {
   }
 
   /**
+   * Gets details of the specified project.
+   * @param {Number} projectId
+   * @return {Promise} Resolves to the project details object.
+   */
+  async getProjectDetails(projectId) {
+    let res = await this.private.api.get(`/direct/projects/${projectId}`);
+    if (!res.ok) throw new Error(res.statusText);
+    res = (await res.json()).result;
+    if (res.status !== 200) throw new Error(res.content);
+    return res.content;
+  }
+
+  /**
    * Gets all projects the user can see.
-   * @return {Array} An array of project objects.
+   * @return {Promise} Resolves to an array of project objects.
    */
   async getUserProjects() {
     let res = await this.private.api.get('/direct/projects/user');

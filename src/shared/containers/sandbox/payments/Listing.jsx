@@ -10,6 +10,7 @@ import PT from 'prop-types';
 import React from 'react';
 import shortid from 'shortid';
 import { connect } from 'react-redux';
+import { goToLogin } from 'utils/tc';
 
 function selectProjectAndLoadMemberTasks(projectId, props) {
   props.selectProject(projectId);
@@ -18,21 +19,37 @@ function selectProjectAndLoadMemberTasks(projectId, props) {
 
 class ListingContainer extends React.Component {
   componentDidMount() {
-    this.props.loadProjects(this.props);
+    const {
+      loadingProjectsForUsername,
+      loadProjects,
+      tokenV3,
+      username,
+    } = this.props;
+    if (!tokenV3) return goToLogin();
+    if (username && username !== loadingProjectsForUsername) {
+      loadProjects(tokenV3);
+    }
+    return undefined;
   }
 
   componentWillReceiveProps(nextProps) {
     const {
+      loadingProjectsForUsername,
+      loadProjects,
       projects,
       selectedProjectId,
+      tokenV3,
       username,
     } = nextProps;
+    if (!tokenV3) return goToLogin();
+    if (username !== this.props.username && username
+    && username !== loadingProjectsForUsername) {
+      loadProjects(tokenV3);
+    }
     if (!selectedProjectId && projects.length) {
       selectProjectAndLoadMemberTasks(projects[0].id, nextProps);
     }
-    if (username !== this.props.username) {
-      nextProps.loadProjects(nextProps);
-    }
+    return undefined;
   }
 
   render() {
@@ -42,9 +59,10 @@ class ListingContainer extends React.Component {
       memberTasks,
       projects,
       selectedProjectId,
+      tokenV3,
     } = this.props;
 
-    if (loadingProjectsForUsername) {
+    if ((loadingProjectsForUsername && !projects.length) || !tokenV3) {
       return <LoadingIndicator />;
     }
 
@@ -67,15 +85,9 @@ ListingContainer.propTypes = {
   loadingProjectsForUsername: PT.string.isRequired,
   memberTasks: PT.arrayOf(PT.object).isRequired,
   projects: PT.arrayOf(PT.object).isRequired,
-  selectedProjectId: PT.string.isRequired,
+  selectedProjectId: PT.number.isRequired,
   // selectProject: PT.func.isRequired,
-
-  /* NOTE: tokenV3 is used inside the "loadProjects" function, but it cannot
-   * be detected by ESLint. */
-  /* eslint-disable react/no-unused-prop-types */
   tokenV3: PT.string.isRequired,
-  /* eslint-disable react/no-unused-prop-types */
-
   username: PT.string.isRequired,
 };
 
@@ -112,12 +124,9 @@ function mapDispatchToProps(dispatch) {
       dispatch(memberTasks.getInit(uuid, pageNum));
       dispatch(memberTasks.getDone(uuid, projectId, pageNum, tokenV3));
     },
-    loadProjects: (props) => {
-      const { username, tokenV3 } = props;
-      if (username && username !== props.loadingProjectsForUsername) {
-        dispatch(direct.getUserProjectsInit(tokenV3));
-        dispatch(direct.getUserProjectsDone(tokenV3));
-      }
+    loadProjects: (tokenV3) => {
+      dispatch(direct.getUserProjectsInit(tokenV3));
+      dispatch(direct.getUserProjectsDone(tokenV3));
     },
     selectProject: (projectId) => {
       dispatch(payments.editor.selectProject(projectId));

@@ -27,7 +27,7 @@ function create(state = {}) {
   return handleActions({
     [a.selectProject]: onSelectProject,
   }, _.defaults(state, {
-    selectedProjectId: '',
+    selectedProjectId: 0,
   }));
 }
 

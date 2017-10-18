@@ -2,7 +2,6 @@
  * Actions related to the UI state of payment editor page.
  */
 
-import _ from 'lodash';
 import { createActions } from 'redux-actions';
 
 /**
@@ -11,7 +10,7 @@ import { createActions } from 'redux-actions';
  * @return {String} Action payload.
  */
 function selectProject(projectId) {
-  return _.toString(projectId);
+  return projectId;
 }
 
 export default createActions({

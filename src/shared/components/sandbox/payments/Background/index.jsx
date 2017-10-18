@@ -30,7 +30,7 @@ export default function Background({ children, onExit, escapeButton }) {
 
 Background.defaultProps = {
   children: null,
-  escapeButton: true,
+  escapeButton: false,
   onExit: () => {},
 };
 

@@ -12,16 +12,53 @@ const ERROR_MSG_GET_USER_PROJECTS_WITHOUT_AUTH_TOKEN
   = 'Cannot get user projects without auth token';
 
 /**
- * Drops out from the state all loaded projects; and cancels the ongoing project
- * loading, if any.
+ * Drops out all data and cancels any ongoing data loading related to this
+ * reducer.
  * @param {Object} state
  * @return {Object} New state.
  */
 function onDropAll(state) {
   return {
     ...state,
+    loadingProjectDetailsForId: 0,
     loadingProjectsForUsername: '',
+    projectDetails: {},
     projects: [],
+  };
+}
+
+/**
+ * Inits loading of the specified project, cancelling the ongoing loading of
+ * project details, if any.
+ * @param {Object} state
+ * @param {Object} action Its payload is the projectId.
+ * @return {Object} New state.
+ */
+function onGetProjectDetailsInit(state, { payload }) {
+  return {
+    ...state,
+    loadingProjectDetailsForId: payload,
+  };
+}
+
+/**
+ * Stores loaded project details to the state.
+ * @param {Object} state
+ * @param {Object} action Its payload is the project details object.
+ * @return {Object} New state.
+ */
+function onGetProjectDetailsDone(state, { error, payload }) {
+  if (error) {
+    logger.error('Failed to load project details', payload);
+    throw payload;
+  }
+  if (payload.project.projectId !== state.loadingProjectDetailsForId) {
+    return state;
+  }
+  return {
+    ...state,
+    loadingProjectDetailsForId: 0,
+    projectDetails: payload,
   };
 }
 
@@ -77,12 +114,21 @@ function create(state = {}) {
   const a = actions.direct;
   return handleActions({
     [a.dropAll]: onDropAll,
+    [a.getProjectDetailsInit]: onGetProjectDetailsInit,
+    [a.getProjectDetailsDone]: onGetProjectDetailsDone,
     [a.getUserProjectsInit]: onGetUserProjectsInit,
     [a.getUserProjectsDone]: onGetUserProjectsDone,
   }, _.defaults(state, {
+    /* If we are loading details of some project, this field holds the project
+     * ID; zero otherwise. */
+    loadingProjectDetailsForId: 0,
+
     /* Holds username of the user which projects are being loaded; empty
      * string if nothing is being loaded at the moment. */
     loadingProjectsForUsername: '',
+
+    /* Holds details of some project, or an empty object. */
+    projectDetails: {},
 
     /* Holds the array of loaded projects. */
     projects: [],
