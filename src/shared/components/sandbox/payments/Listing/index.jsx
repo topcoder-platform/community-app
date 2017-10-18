@@ -21,7 +21,11 @@ export default function Listing({
   const selectedProjectIdNum = Number(selectedProjectId);
   let content = memberTasks
     .filter(item => item.projectId === selectedProjectIdNum)
-    .map(challenge => (
+    .sort((a, b) => {
+      const aDate = a.updatedAt || a.createdAt;
+      const bDate = b.updatedAt || b.createdAt;
+      return bDate.localeCompare(aDate);
+    }).map(challenge => (
       <PaymentRow
         challenge={challenge}
         key={challenge.id}

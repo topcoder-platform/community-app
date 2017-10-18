@@ -12,6 +12,7 @@ import './style.scss';
 export default function Confirmation({
   amount,
   assignee,
+  resetPaymentData,
 }) {
   return (
     <Background>
@@ -30,8 +31,7 @@ export default function Confirmation({
           </div>
           <div styleName="actions">
             <Button
-              // TODO: Demands some more logic here.
-              to="/sandbox/payments/new"
+              onClick={resetPaymentData}
             >Make another payment</Button>
             <PrimaryButton
               to="/sandbox/payments"
@@ -46,4 +46,5 @@ export default function Confirmation({
 Confirmation.propTypes = {
   amount: PT.number.isRequired,
   assignee: PT.string.isRequired,
+  resetPaymentData: PT.func.isRequired,
 };

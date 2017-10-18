@@ -156,14 +156,15 @@ class ChallengesService {
   /**
    * Closes the specified challenge.
    * @param {Number} challengeId
-   * @param {Number} winnerId
+   * @param {Number} winnerId Optional. ID of the assignee to declare the
+   *  winner.
    * @return {Promise} Resolves to null value in case of success; otherwise it
    *  is rejected.
    */
-  async close(challengeId) {
-    // let url = `/challenges/${challengeId}/close`;
-    let res = await this.private.api.post(
-      `/challenges/${challengeId}/close`);
+  async close(challengeId, winnerId) {
+    let url = `/challenges/${challengeId}/close`;
+    if (winnerId) url = `${url}?winnerId=${winnerId}`;
+    let res = await this.private.api.post(url);
     if (!res.ok) throw new Error(res.statusText);
     res = (await res.json()).result;
     if (res.status !== 200) throw new Error(res.content);

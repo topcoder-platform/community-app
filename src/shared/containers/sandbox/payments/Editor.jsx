@@ -7,6 +7,7 @@
 
 import _ from 'lodash';
 import actions from 'actions';
+import Background from 'components/sandbox/payments/Background';
 import Confirmation from 'components/sandbox/payments/Confirmation';
 import Editor from 'components/sandbox/payments/Editor';
 import LoadingIndicator from 'components/LoadingIndicator';
@@ -15,6 +16,7 @@ import React from 'react';
 import { STATE as PAGE_STATE } from 'actions/page/sandbox/payments/editor';
 import { connect } from 'react-redux';
 import { getService as getChallengeService } from 'services/challenges';
+import { getService as getUserService } from 'services/user';
 import { goToLogin } from 'utils/tc';
 
 /**
@@ -129,8 +131,9 @@ class EditorContainer extends React.Component {
       tokenV3,
     } = this.props;
     setPageState(PAGE_STATE.WAITING);
-    const service = getChallengeService(tokenV3);
-    const challenge = await service.createTask(
+    const challengeService = getChallengeService(tokenV3);
+    const userService = getUserService(tokenV3);
+    const challenge = await challengeService.createTask(
       selectedProjectId,
       selectedBillingAccountId,
       paymentTitle,
@@ -138,8 +141,20 @@ class EditorContainer extends React.Component {
       paymentAssignee,
       paymentAmount,
     );
-    await service.activate(challenge.id);
+    const user = await userService.getUser(paymentAssignee);
+    await challengeService.activate(challenge.id);
+    if (user) {
+      await challengeService.close(challenge.id, user.id);
+    }
     setPageState(PAGE_STATE.PAID);
+  }
+
+  resetPaymentData() {
+    this.props.setPageState(PAGE_STATE.NEW_PAYMENT);
+    this.props.setPaymentAmount(0);
+    this.props.setPaymentAssignee('');
+    this.props.setPaymentDescription('');
+    this.props.setPaymentTitle('');
   }
 
   render() {
@@ -161,12 +176,19 @@ class EditorContainer extends React.Component {
       tokenV3,
     } = this.props;
     if (!tokenV3 || !projects.length
-    || pageState === PAGE_STATE.WAITING) return <LoadingIndicator />;
+    || pageState === PAGE_STATE.WAITING) {
+      return (
+        <Background>
+          <LoadingIndicator />
+        </Background>
+      );
+    }
     if (pageState === PAGE_STATE.PAID) {
       return (
         <Confirmation
           amount={paymentAmount}
           assignee={paymentAssignee}
+          resetPaymentData={() => this.resetPaymentData()}
         />
       );
     }
