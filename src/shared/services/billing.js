@@ -21,7 +21,7 @@ export default class Billing {
    * @return {Promise} Resolves to the list of billing account objects.
    */
   getUserBillingAccounts() {
-
+    return this.private.api.fetch();
   }
 }
 

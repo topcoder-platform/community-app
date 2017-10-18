@@ -5,6 +5,7 @@
 
 import _ from 'lodash';
 import logger from 'utils/logger';
+import moment from 'moment';
 import qs from 'qs';
 import { COMPETITION_TRACKS } from 'utils/tc';
 import { getApiV2, getApiV3 } from './api';
@@ -135,6 +136,78 @@ class ChallengesService {
       tokenV2,
       tokenV3,
     };
+  }
+
+  /**
+   * Activates closes specified challenge.
+   * @param {Number} challengeId
+   * @return {Promise} Resolves to null value in case of success; otherwise it
+   *  is rejected.
+   */
+  async activate(challengeId) {
+    let res = await this.private.api.post(
+      `/challenges/${challengeId}/activate`);
+    if (!res.ok) throw new Error(res.statusText);
+    res = (await res.json()).result;
+    if (res.status !== 200) throw new Error(res.content);
+    return res.content;
+  }
+
+  /**
+   * Closes the specified challenge.
+   * @param {Number} challengeId
+   * @param {Number} winnerId
+   * @return {Promise} Resolves to null value in case of success; otherwise it
+   *  is rejected.
+   */
+  async close(challengeId) {
+    // let url = `/challenges/${challengeId}/close`;
+    let res = await this.private.api.post(
+      `/challenges/${challengeId}/close`);
+    if (!res.ok) throw new Error(res.statusText);
+    res = (await res.json()).result;
+    if (res.status !== 200) throw new Error(res.content);
+    return res.content;
+  }
+
+  /**
+   * Creates a new payment task.
+   * @param {Number} projectId
+   * @param {Number} accountId Billing account ID.
+   * @param {String} title
+   * @param {String} description
+   * @param {String} assignee
+   * @param {Number} payment
+   * @return {Promise} Resolves to the created challenge object (payment task).
+   */
+  async createTask(
+    projectId,
+    accountId,
+    title,
+    description,
+    assignee,
+    payment,
+  ) {
+    const payload = {
+      param: {
+        assignees: [assignee],
+        billingAccountId: accountId,
+        confidentialityType: 'public',
+        milestoneId: 1,
+        name: title,
+        prizes: payment ? [payment] : [],
+        projectId,
+        registrationStartsAt: moment().toISOString(),
+        reviewType: 'INTERNAL',
+        subTrack: 'FIRST_2_FINISH',
+        task: true,
+      },
+    };
+    let res = await this.private.api.postJson('/challenges', payload);
+    if (!res.ok) throw new Error(res.statusText);
+    res = (await res.json()).result;
+    if (res.status !== 200) throw new Error(res.content);
+    return res.content;
   }
 
   /**

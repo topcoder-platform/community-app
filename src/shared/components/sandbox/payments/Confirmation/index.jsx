@@ -2,13 +2,17 @@
  * Payment confirmation.
  */
 
+import PT from 'prop-types';
 import React from 'react';
 import { Button, PrimaryButton } from 'components/buttons';
 import Background from '../Background';
 
 import './style.scss';
 
-export default function Confirmation() {
+export default function Confirmation({
+  amount,
+  assignee,
+}) {
   return (
     <Background>
       <div styleName="container">
@@ -20,13 +24,14 @@ export default function Confirmation() {
           </p>
           <div styleName="paycheck">
             <div styleName="info">
-              <p styleName="user"><strong>$200</strong> paid to <strong styleName="name">Sky</strong></p>
+              <p styleName="user"><strong>${amount}</strong> paid to <strong styleName="name">{assignee}</strong></p>
               <p styleName="task">Develop a new project submit button logic for the main page.</p>
             </div>
           </div>
           <div styleName="actions">
             <Button
-              to="/sandbox/payments/123"
+              // TODO: Demands some more logic here.
+              to="/sandbox/payments/new"
             >Make another payment</Button>
             <PrimaryButton
               to="/sandbox/payments"
@@ -37,3 +42,8 @@ export default function Confirmation() {
     </Background>
   );
 }
+
+Confirmation.propTypes = {
+  amount: PT.number.isRequired,
+  assignee: PT.string.isRequired,
+};

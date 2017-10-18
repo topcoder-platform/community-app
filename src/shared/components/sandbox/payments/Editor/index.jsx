@@ -2,6 +2,8 @@
  * Payment editor.
  */
 
+import _ from 'lodash';
+import LoadingIndicator from 'components/LoadingIndicator';
 import PT from 'prop-types';
 import React from 'react';
 import Select from 'components/Select';
@@ -13,10 +15,103 @@ import Background from '../Background';
 import './style.scss';
 
 export default function Editor({
+  makePayment,
+  paymentAmount,
+  paymentAssignee,
+  paymentDescription,
+  paymentTitle,
+  projectDetails,
   projects,
+  selectedBillingAccountId,
   selectedProjectId,
   selectProject,
+  setPaymentAmount,
+  setPaymentAssignee,
+  setPaymentDescription,
+  setPaymentTitle,
 }) {
+  let content;
+  if (!projectDetails) content = <LoadingIndicator />;
+  else {
+    const billingAccounts = _.get(projectDetails, 'billingAccountIds', [])
+      .map(id => ({ label: id, value: id }));
+    content = billingAccounts.length ? (
+      <div styleName="field">
+        <div styleName="field">
+          <span styleName="label">Billing account</span>
+          <Select
+            autoBlur
+            options={billingAccounts}
+            value={selectedBillingAccountId}
+          />
+        </div>
+        <div styleName="fieldGap" />
+        <div styleName="field">
+          <span styleName="label">Title</span>
+          <input
+            onChange={e => setPaymentTitle(e.target.value)}
+            placeholder="Topcoder payment"
+            value={paymentTitle}
+          />
+        </div>
+        <div styleName="field">
+          <span styleName="label">Description</span>
+          <textarea
+            onChange={e => setPaymentDescription(e.target.value)}
+            placeholder="payment is for ..."
+            rows={3}
+            value={paymentDescription}
+          />
+        </div>
+        <div styleName="field">
+          <span styleName="label">Assign to</span>
+          <div styleName="withPrefix">
+            <div styleName="prefix">
+              <div styleName="avatarPrefix" >
+                <Avatar />
+              </div>
+            </div>
+            <input
+              onChange={e => setPaymentAssignee(e.target.value)}
+              placeholder="Type handle to assign member"
+              value={paymentAssignee}
+            />
+          </div>
+        </div>
+        <div styleName="field">
+          <span styleName="label">Amount</span>
+          <div styleName="withPrefix">
+            <div styleName="prefix">
+              <div styleName="textPrefix">$</div>
+            </div>
+            <input
+              onChange={e => setPaymentAmount(Number(e.target.value))}
+              placeholder="0"
+              type="number"
+              value={String(paymentAmount)}
+            />
+          </div>
+        </div>
+        <div styleName="action">
+          { paymentAmount
+            && paymentAssignee
+            && paymentDescription
+            && paymentTitle ? (
+              <PrimaryButton
+                onClick={makePayment}
+                // to="/sandbox/payments/123/done"
+              >Pay now</PrimaryButton>
+            ) : null
+          }
+        </div>
+      </div>
+    ) : (
+      <div styleName="field">
+        This project has no associated billing accounts yet
+      </div>
+    );
+  }
+
   return (
     <Background escapeButton>
       <div styleName="container">
@@ -33,52 +128,30 @@ export default function Editor({
               value={Number(selectedProjectId)}
             />
           </div>
-          <div styleName="field">
-            <span styleName="label">Billing account</span>
-            <Select autoBlur />
-          </div>
-          <div styleName="fieldGap" />
-          <div styleName="field">
-            <span styleName="label">Title</span>
-            <input placeholder="Topcoder payment" />
-          </div>
-          <div styleName="field">
-            <span styleName="label">Description</span>
-            <textarea rows={3} placeholder="payment is for ..." />
-          </div>
-          <div styleName="field">
-            <span styleName="label">Assign to</span>
-            <div styleName="withPrefix">
-              <div styleName="prefix">
-                <div styleName="avatarPrefix" >
-                  <Avatar />
-                </div>
-              </div>
-              <input placeholder="Type handle to assign member" />
-            </div>
-          </div>
-          <div styleName="field">
-            <span styleName="label">Amount</span>
-            <div styleName="withPrefix">
-              <div styleName="prefix">
-                <div styleName="textPrefix">$</div>
-              </div>
-              <input placeholder="0" />
-            </div>
-          </div>
-          <div styleName="action">
-            <PrimaryButton
-              to="/sandbox/payments/123/done"
-            >Pay now</PrimaryButton>
-          </div>
+          {content}
         </div>
       </div>
     </Background>
   );
 }
 
+Editor.defaultProps = {
+  projectDetails: null,
+};
+
 Editor.propTypes = {
+  makePayment: PT.func.isRequired,
+  paymentAmount: PT.number.isRequired,
+  paymentAssignee: PT.string.isRequired,
+  paymentDescription: PT.string.isRequired,
+  paymentTitle: PT.string.isRequired,
+  projectDetails: PT.shape(),
   projects: PT.arrayOf(PT.object).isRequired,
+  selectedBillingAccountId: PT.number.isRequired,
   selectedProjectId: PT.number.isRequired,
   selectProject: PT.func.isRequired,
+  setPaymentAmount: PT.func.isRequired,
+  setPaymentAssignee: PT.func.isRequired,
+  setPaymentDescription: PT.func.isRequired,
+  setPaymentTitle: PT.func.isRequired,
 };

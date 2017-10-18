@@ -2,6 +2,7 @@
  * Payment row in payments listing.
  */
 
+import _ from 'lodash';
 import PT from 'prop-types';
 import React from 'react';
 import { Link } from 'react-router-dom';
@@ -27,7 +28,7 @@ export default function PaymentRow({ challenge }) {
         </TrackAbbreviationTooltip>
       </td>
       <td styleName="name"><Link to="/sandbox/payments/123">{challenge.name}</Link></td>
-      <td styleName="price">{`$${challenge.prizes[0]}`}</td>
+      <td styleName="price">{`$${_.get(challenge, 'prizes[0]', '-')}`}</td>
       <td><Avatar styleName="memberAvatar" /><span styleName="memberName">{challenge.member || 'TOPCODER'}</span></td>
       <td><PaymentStatus status={challenge.status} text={challenge.status} /></td>
     </tr>
