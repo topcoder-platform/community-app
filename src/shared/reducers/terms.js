@@ -4,6 +4,7 @@
 
 import _ from 'lodash';
 import actions from 'actions/terms';
+import { getCommunityId } from 'routes/subdomains';
 import logger from 'utils/logger';
 import { handleActions } from 'redux-actions';
 import { toFSA } from 'utils/redux';
@@ -20,8 +21,8 @@ function sortTerms(terms) {
 
 /**
  * Handles TERMS/GET_TERMS_DONE action.
- * Note, that it silently discards received terms if the challengeId of received
- * mismatches the one stored in loadingTermsForChallengeId field
+ * Note, that it silently discards received terms if the entity of received data
+ * mismatches the one stored in loadingTermsForEntity
  * of the state.
  * @param {Object} state
  * @param {Object} action
@@ -29,25 +30,41 @@ function sortTerms(terms) {
  */
 function onGetTermsDone(state, action) {
   if (action.error) {
-    logger.error('Failed to get challenge terms!', action.payload);
+    logger.error('Failed to get terms!', action.payload);
     return {
       ...state,
       terms: [],
       getTermsFailure: action.error,
-      loadingTermsForChallengeId: '',
+      loadingTermsForEntity: null,
     };
   }
 
-  if (_.toString(action.payload.challengeId) !== state.loadingTermsForChallengeId) {
+  if (!_.isEqual(action.payload.entity, state.loadingTermsForEntity)) {
     return state;
   }
 
   return {
     ...state,
-    challengeId: action.payload,
+    entity: action.payload.entity,
     terms: sortTerms(action.payload.terms),
     getTermsFailure: false,
-    loadingTermsForChallengeId: '',
+    loadingTermsForEntity: null,
+  };
+}
+
+/**
+ * Handles TERMS/GET_TERMS_INIT action.
+ * @param {Object} state
+ * @param {Object} action
+ * @return {Object} New state.
+ */
+function onGetTermsInit(state, action) {
+  return {
+    ...state,
+    getTermsFailure: false,
+    loadingTermsForEntity: action.payload,
+    terms: [],
+    entity: action.payload,
   };
 }
 
@@ -171,7 +188,7 @@ function onOpenTermsModal(state, action) {
       viewOnly: true,
     };
   }
-  const selectedTerm = _.find(state.terms, t => !t.agreed);
+  const selectedTerm = _.find(state.terms, t => !t.agreed) || state.terms[0];
   return {
     ...state,
     showTermsModal: true,
@@ -234,13 +251,7 @@ function onCheckStatusDone(state, action) {
  */
 function create(initialState) {
   return handleActions({
-    [actions.terms.getTermsInit]: (state, { payload }) => ({
-      ...state,
-      getTermsFailure: false,
-      loadingTermsForChallengeId: payload,
-      terms: [],
-      challengeId: payload,
-    }),
+    [actions.terms.getTermsInit]: onGetTermsInit,
     [actions.terms.getTermsDone]: onGetTermsDone,
     [actions.terms.getTermDetailsInit]: (state, { payload }) => ({
       ...state,
@@ -293,13 +304,44 @@ function create(initialState) {
  * @return Promise which resolves to the new reducer.
  */
 export function factory(req) {
-  if (req && req.url.match(/^\/challenges\/\d+/)) {
-    const tokenV2 = getAuthTokens(req).tokenV2;
-    const challengeId = req.url.match(/\d+/)[0];
-    return toFSA(actions.terms.getTermsDone(challengeId, tokenV2)).then((result) => {
-      const state = onGetTermsDone({}, result);
-      return create(state);
-    });
+  if (req) {
+    const tokens = getAuthTokens(req);
+    let entity;
+
+    // if it's challenge details page
+    if (req.url.match(/^\/challenges\/\d+/)) {
+      const challengeId = req.url.match(/\d+/)[0];
+      entity = { type: 'challenge', id: challengeId };
+    }
+
+    // if it's commynity page
+    let communityId = getCommunityId(req.subdomains);
+    if (!communityId && req.url.startsWith('/community')) {
+      communityId = req.url.split('/')[2];
+      // remove possible params like ?join=<communityId>
+      communityId = communityId ? communityId.replace(/\?.*/, '') : communityId;
+
+      if (communityId) {
+        entity = { type: 'community', id: communityId };
+      }
+    }
+
+    // load terms for the entity
+    if (entity) {
+      return toFSA(actions.terms.getTermsDone(entity, tokens)).then((termsDoneAction) => {
+        // we have to init first, otherwise results will be ignored by onGetTermsDone
+        let state = onGetTermsInit({}, actions.terms.getTermsInit(entity));
+        state = onGetTermsDone(state, termsDoneAction);
+
+        // if we try to join community automatically, but not all terms are agreed,
+        // then we show terms modal (also we make sure is logged in before open)
+        if (tokens.tokenV3 && req.query.join && !_.every(termsDoneAction.payload.terms, 'agreed')) {
+          state = onOpenTermsModal(state, actions.terms.openTermsModal());
+        }
+
+        return create(state);
+      });
+    }
   }
   /* Otherwise this part of Redux state is initialized empty. */
   return Promise.resolve(create());

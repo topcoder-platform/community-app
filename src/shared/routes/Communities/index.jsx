@@ -12,10 +12,10 @@ import { requireWeak, resolveWeak, SplitRoute } from 'utils/router';
 export default function ChunkLoader({ base, communityId, member, meta }) {
   return (
     <SplitRoute
-      chunkName="communities"
+      chunkName="communities/chunk"
       renderClientAsync={() =>
         import(
-          /* webpackChunkName: "communities" */
+          /* webpackChunkName: "communities/chunk" */
           './Routes',
         ).then(({ default: Routes }) => (
           <Routes

@@ -4,7 +4,7 @@
  * (thus allowing to show/hide detail panels for different submissions),
  * and it should define all necessary handlers to pass to the children.
  */
-/* global location, window */
+/* global location */
 
 import _ from 'lodash';
 import LoadingPagePlaceholder from 'components/LoadingPagePlaceholder';
@@ -15,13 +15,13 @@ import Registrants from 'components/challenge-detail/Registrants';
 import Submissions from 'components/challenge-detail/Submissions';
 import Winners from 'components/challenge-detail/Winners';
 import ChallengeDetailsView from 'components/challenge-detail/Specification';
-import ChallengeTerms from 'components/challenge-detail/ChallengeTerms';
+import Terms from 'containers/Terms';
+import termsActions from 'actions/terms';
 import ChallengeCheckpoints from 'components/challenge-detail/Checkpoints';
 import React from 'react';
 import PT from 'prop-types';
 import { connect } from 'react-redux';
 import challengeActions, { DETAIL_TABS } from 'actions/challenge';
-import termsActions from 'actions/terms';
 import config from 'utils/config';
 import { BUCKETS } from 'utils/challenge-listing/buckets';
 
@@ -51,18 +51,12 @@ class ChallengeDetailPageContainer extends React.Component {
   }
 
   componentDidMount() {
-    const { challenge, loadChallengeDetails, loadTerms,
-      openTermsModal, authTokens, challengeId,
+    const { challenge, loadChallengeDetails,
+      authTokens, challengeId,
       challengeSubtracksMap, getSubtracks } = this.props;
 
     if (challenge.id !== challengeId) {
       loadChallengeDetails(authTokens, challengeId);
-    }
-
-    loadTerms(authTokens, challengeId);
-
-    if (authTokens.tokenV2 && location.search.indexOf('showTerms=true') > 0) {
-      openTermsModal();
     }
 
     if (_.isEmpty(challengeSubtracksMap)) {
@@ -92,14 +86,6 @@ class ChallengeDetailPageContainer extends React.Component {
         this.props.challengeId,
         nextProps.challenge.track.toLowerCase(),
       );
-    }
-
-    const userDetails = this.props.challenge.userDetails;
-    const hasRegistered = isRegistered(userDetails, this.props.challenge.registrants,
-      (this.props.authTokens.user || {}).handle);
-
-    if (location.search.indexOf('showTerms=true') > 0 && hasRegistered) {
-      location.href = location.href.replace(location.search, '');
     }
   }
 
@@ -138,7 +124,9 @@ class ChallengeDetailPageContainer extends React.Component {
       this.props.challenge.registrants,
       (this.props.authTokens.user || {}).handle);
 
-    if (this.props.isLoadingChallenge) return <LoadingPagePlaceholder />;
+    if (this.props.isLoadingChallenge || this.props.isLoadingTerms) {
+      return <LoadingPagePlaceholder />;
+    }
 
     const numWinners = (challenge.winners && challenge.winners.filter(winner =>
       winner.type === 'final').length) || 0;
@@ -225,70 +213,33 @@ class ChallengeDetailPageContainer extends React.Component {
             />
           }
         </div>
-        {
-          this.props.showTermsModal &&
-          <ChallengeTerms
-            challengesUrl={challengesUrl}
-            onCancel={this.props.closeTermsModal}
-            title={this.props.challenge.name}
-            isLoadingTerms={this.props.isLoadingTerms}
-            terms={this.props.terms}
-            selectedTerm={this.props.selectedTerm}
-            viewOnly={this.props.viewOnly}
-            selectTerm={this.props.selectTerm}
-            loadTerms={() => this.props.loadTerms(this.props.authTokens, this.props.challengeId)}
-            loadDetails={termId => this.props.loadTermDetails(this.props.authTokens, termId)}
-            details={this.props.termDetails}
-            loadingTermId={this.props.loadingTermId}
-            docuSignUrl={this.props.docuSignUrl}
-            getDocuSignUrl={(templateId) => {
-              const base = window ? window.location.href.match('.*://[^/]*')[0] : '';
-              return this.props.getDocuSignUrl(this.props.authTokens,
-                templateId, `${base}/iframe-break`);
-            }}
-            register={() => this.props.registerForChallenge(this.props.authTokens,
-              this.props.challengeId)}
-            agreeingTerm={this.props.agreeingTerm}
-            agreeTerm={termId => this.props.agreeTerm(this.props.authTokens, termId)}
-            registering={this.props.registering}
-            loadingDocuSignUrl={this.props.loadingDocuSignUrl}
-            signDocu={this.props.signDocu}
-            checkStatus={() => this.props.checkStatus(this.props.authTokens,
-              this.props.challengeId)}
-            canRegister={this.props.canRegister}
-            checkingStatus={this.props.checkingStatus}
-          />
-        }
+        <Terms
+          entity={{ type: 'challenge', id: challengeId.toString() }}
+          description="You are seeing these Terms & Conditions because you have
+            registered to a challenge and you have to respect the terms below in
+            order to be able to submit."
+          register={() => {
+            this.props.registerForChallenge(this.props.authTokens, this.props.challengeId);
+          }}
+        />
       </div>
     );
   }
 }
 
 ChallengeDetailPageContainer.defaultProps = {
-  agreeingTerm: '',
   challengesUrl: '/challenges',
   checkpointResults: null,
   checkpoints: {},
-  docuSignUrl: '',
   isLoadingChallenge: false,
   isLoadingTerms: false,
   loadingCheckpointResults: false,
-  loadingDocuSignUrl: '',
-  loadingTermId: '',
   results: null,
-  showTermsModal: false,
-  selectedTerm: null,
   terms: [],
-  termDetails: {},
   tokenV3: null,
-  viewOnly: false,
-  canRegister: false,
-  checkingStatus: false,
 };
 
 ChallengeDetailPageContainer.propTypes = {
-  agreeingTerm: PT.string,
-  agreeTerm: PT.func.isRequired,
   authTokens: PT.shape().isRequired,
   challenge: PT.shape().isRequired,
   challengeId: PT.number.isRequired,
@@ -296,23 +247,16 @@ ChallengeDetailPageContainer.propTypes = {
   challengesUrl: PT.string,
   checkpointResults: PT.arrayOf(PT.shape()),
   checkpoints: PT.shape(),
-  closeTermsModal: PT.func.isRequired,
-  docuSignUrl: PT.string,
   fetchCheckpoints: PT.func.isRequired,
-  getDocuSignUrl: PT.func.isRequired,
   getSubtracks: PT.func.isRequired,
   isLoadingChallenge: PT.bool,
   isLoadingTerms: PT.bool,
   loadChallengeDetails: PT.func.isRequired,
   loadResults: PT.func.isRequired,
-  loadTerms: PT.func.isRequired,
-  loadTermDetails: PT.func.isRequired,
   loadingCheckpointResults: PT.bool,
-  loadingDocuSignUrl: PT.string,
   loadingResultsForChallengeId: PT.string.isRequired,
-  loadingTermId: PT.string,
-  onSelectorClicked: PT.func.isRequired,
   openTermsModal: PT.func.isRequired,
+  onSelectorClicked: PT.func.isRequired,
   registerForChallenge: PT.func.isRequired,
   registering: PT.bool.isRequired,
   reloadChallengeDetails: PT.func.isRequired,
@@ -320,20 +264,11 @@ ChallengeDetailPageContainer.propTypes = {
   resultsLoadedForChallengeId: PT.string.isRequired,
   selectedTab: PT.string.isRequired,
   setChallengeListingFilter: PT.func.isRequired,
-  showTermsModal: PT.bool,
-  selectedTerm: PT.shape(),
-  viewOnly: PT.bool,
-  signDocu: PT.func.isRequired,
-  selectTerm: PT.func.isRequired,
-  termDetails: PT.shape(),
   terms: PT.arrayOf(PT.shape()),
   toggleCheckpointFeedback: PT.func.isRequired,
   tokenV3: PT.string,
   unregisterFromChallenge: PT.func.isRequired,
   unregistering: PT.bool.isRequired,
-  checkStatus: PT.func.isRequired,
-  canRegister: PT.bool,
-  checkingStatus: PT.bool,
 };
 
 /* TODO: This function is ugly. We should do all this logic within normalization
@@ -411,14 +346,12 @@ function extractChallengeDetail(v3, v2, challengeId) {
       allowStockArt: v2.allowStockArt === 'true',
       finalSubmissionGuidelines: v2.finalSubmissionGuidelines,
       appealsEndDate: v2.appealsEndDate,
-
     };
   }
   return challenge;
 }
 
 const mapStateToProps = (state, props) => ({
-  agreeingTerm: state.terms.agreeingTerm,
   authTokens: state.auth,
   challenge: extractChallengeDetail(state.challenge.details,
     state.challenge.detailsV2,
@@ -428,25 +361,18 @@ const mapStateToProps = (state, props) => ({
   challengeSubtracksMap: state.challengeListing.challengeSubtracksMap,
   checkpointResults: (state.challenge.checkpoints || {}).checkpointResults,
   checkpoints: state.challenge.checkpoints,
-  docuSignUrl: state.terms.docuSignUrl,
   isLoadingChallenge: Boolean(state.challenge.loadingDetailsForChallengeId),
-  isLoadingTerms: state.terms.loadingTermsForChallengeId
-    === props.match.params.challengeId,
+  isLoadingTerms: _.isEqual(state.terms.loadingTermsForEntity, {
+    type: 'challenge',
+    id: props.match.params.challengeId,
+  }),
   loadingCheckpointResults: state.challenge.loadingCheckpoints,
-  loadingDocuSignUrl: state.terms.loadingDocuSignUrl,
   loadingResultsForChallengeId: state.challenge.loadingResultsForChallengeId,
-  loadingTermId: state.terms.loadingDetailsForTermId,
   registering: state.challenge.registering,
   results: state.challenge.results,
   resultsLoadedForChallengeId: state.challenge.resultsLoadedForChallengeId,
   selectedTab: state.challenge.selectedTab || 'details',
-  showTermsModal: state.terms.showTermsModal,
-  selectedTerm: state.terms.selectedTerm,
-  viewOnly: state.terms.viewOnly,
-  termDetails: state.terms.details,
   terms: state.terms.terms,
-  canRegister: state.terms.canRegister,
-  checkingStatus: state.terms.checkingStatus,
   tokenV2: state.auth && state.auth.tokenV2,
   tokenV3: state.auth && state.auth.tokenV3,
   unregistering: state.challenge.unregistering,
@@ -499,38 +425,6 @@ const mapDispatchToProps = (dispatch) => {
     toggleCheckpointFeedback: (id, open) => {
       dispatch(a.toggleCheckpointFeedback(id, open));
     },
-    loadTerms: (tokens, challengeId) => {
-      dispatch(t.getTermsInit(challengeId));
-      dispatch(t.getTermsDone(challengeId, tokens.tokenV2));
-    },
-    openTermsModal: (term) => {
-      dispatch(t.openTermsModal(term));
-    },
-    closeTermsModal: () => {
-      dispatch(t.closeTermsModal());
-    },
-    selectTerm: (term) => {
-      dispatch(t.selectTerm(term));
-    },
-    loadTermDetails: (tokens, termId) => {
-      dispatch(t.getTermDetailsInit(termId));
-      dispatch(t.getTermDetailsDone(termId, tokens.tokenV2));
-    },
-    getDocuSignUrl: (tokens, templateId, returnUrl) => {
-      dispatch(t.getDocuSignUrlInit(templateId));
-      dispatch(t.getDocuSignUrlDone(templateId, returnUrl, tokens.tokenV2));
-    },
-    agreeTerm: (tokens, termId) => {
-      dispatch(t.agreeTermInit(termId));
-      dispatch(t.agreeTermDone(termId, tokens.tokenV2));
-    },
-    signDocu: (id) => {
-      dispatch(t.signDocu(id));
-    },
-    checkStatus: (tokens, challengeId) => {
-      dispatch(t.checkStatusInit());
-      dispatch(t.checkStatusDone(challengeId, tokens.tokenV2));
-    },
     onSelectorClicked: (tab) => {
       dispatch(a.selectTab(tab));
     },
@@ -538,6 +432,9 @@ const mapDispatchToProps = (dispatch) => {
       const cl = challengeListingActions.challengeListing;
       dispatch(cl.getChallengeSubtracksInit());
       dispatch(cl.getChallengeSubtracksDone());
+    },
+    openTermsModal: (term) => {
+      dispatch(t.openTermsModal(term));
     },
   };
 };

@@ -4,6 +4,7 @@
   "url": "http://community.topcoder.com/tc?module=Terms&tuid=21153",
   "agreeabilityType": "DocuSignable",
   "text": "<p>\r\nTo agree to the Appirio NDA, please electronically sign the document by following this link:\r\n<a href=\"https://community.topcoder.com/tc?module=SignDocument&templateId=fake-template-id\">\r\nhttps://community.topcoder.com/tc?module=SignDocument&templateId=fake-template-id</a>\r\n</p>\r\n\r\n<p>\r\nOnce signed, you will be automatically added to the NDA terms of use and notified by email. \r\n</p>",
+  "agreed": false,
   "docusignTemplateId": "fake-template-id",
   "serverInformation": {
     "serverName": "TopCoder API",

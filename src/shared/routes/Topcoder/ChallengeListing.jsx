@@ -15,10 +15,10 @@ export default function ChallengeListingRoute() {
   return (
     <SplitRoute
       cacheCss
-      chunkName="challenge-listing"
+      chunkName="challenge-listing/chunk"
       renderClientAsync={renderProps =>
         import(
-          /* webpackChunkName: "challenge-listing" */
+          /* webpackChunkName: "challenge-listing/chunk" */
           'containers/challenge-listing/Listing',
         ).then(({ default: ChallengeListing }) => {
           /* TODO: Choice of currency and prize mode should be moved to

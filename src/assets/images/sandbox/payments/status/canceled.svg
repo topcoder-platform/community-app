@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="16px" height="16px" viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 46.2 (44496) - http://www.bohemiancoding.com/sketch -->
+    <title>status icon/canceled</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Symbols" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="status-icon/canceled" fill-rule="nonzero" fill="#5D5D66">
+            <g id="ban">
+                <path d="M8,0 C3.6,0 0,3.6 0,8 C0,12.4 3.6,16 8,16 C12.4,16 16,12.4 16,8 C16,3.6 12.4,0 8,0 Z M8,2 C9.3,2 10.5,2.4 11.5,3.1 L3.1,11.5 C2.4,10.5 2,9.3 2,8 C2,4.7 4.7,2 8,2 Z M8,14 C6.7,14 5.5,13.6 4.5,12.9 L12.9,4.5 C13.6,5.5 14,6.7 14,8 C14,11.3 11.3,14 8,14 Z" id="Shape"></path>
+            </g>
+        </g>
+    </g>
+</svg>

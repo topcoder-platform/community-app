@@ -60,13 +60,17 @@ class Loader extends React.Component {
       communityId,
       meta,
       visitorGroups,
+      isLoadingTerms,
     } = this.props;
+
+    // if community has terms and they are not loaded yet, then this is true
+    const hasNotLoadedTerms = meta && meta.terms && (meta.terms.length > 0) && isLoadingTerms;
 
     /* In case we are missing meta data, or information about some user groups
      * we need, we show loading indicator (for better user experience, we are
      * fine to accept outdated data; such data will be silently refreshed
      * behind the scene shortly). */
-    if (!meta) return <LoadingPagePlaceholder />;
+    if (!meta || hasNotLoadedTerms) return <LoadingPagePlaceholder />;
 
     const visitorGroupIds = visitorGroups ? visitorGroups.map(g => g.id) : [];
 
@@ -100,6 +104,7 @@ class Loader extends React.Component {
 
 Loader.defaultProps = {
   meta: null,
+  isLoadingTerms: false,
   tokenV3: '',
   visitorGroups: null,
 };
@@ -109,6 +114,7 @@ Loader.propTypes = {
   communityId: PT.string.isRequired,
   loadingMeta: PT.bool.isRequired,
   loadMetaData: PT.func.isRequired,
+  isLoadingTerms: PT.bool,
   meta: PT.shape({
     authorizedGroupIds: PT.arrayOf(PT.string),
     communityId: PT.string.isRequired,
@@ -131,6 +137,10 @@ function mapStateToProps(state, ownProps) {
     meta,
     tokenV3: _.get(state, 'auth.tokenV3'),
     visitorGroups: _.get(state, 'auth.profile.groups'),
+    isLoadingTerms: _.isEqual(state.terms.loadingTermsForEntity, {
+      type: 'community',
+      id: communityId,
+    }),
   };
 }
 

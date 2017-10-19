@@ -1,3 +1,6 @@
+/**
+ * Terms details component which display text of an agreement
+ */
 /* eslint react/no-danger:0 */
 
 import React from 'react';

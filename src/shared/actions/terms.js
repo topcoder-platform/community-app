@@ -3,31 +3,47 @@
  */
 
 import _ from 'lodash';
+import config from 'utils/config';
 import { createActions } from 'redux-actions';
 import { getService } from 'services/terms';
 
 /**
- * Payload creator for TERMS/GET_TERMS_INIT action,
- * which marks that we are about to fetch terms of the specified challenge.
- * If any challenge terms for another challenge are currently being fetched,
- * they will be silently discarded.
- * @param {Number|String} challengeId
- * @return {String}
- */
-function getTermsInit(challengeId) {
-  return _.toString(challengeId);
-}
-
-/**
  * Payload creator for TERMS/GET_TERMS_DONE action,
- * which fetch terms of the specified challenge.
- * @param {Number|String} challengeId
- * @param {String} tokenV2
+ * which fetch terms of the specified entity.
+ * @param {Object}  entity       entity object
+ * @param {String}  entity.type  entity type ['challenge'||'community']
+ * @param {String}  entity.id    entity id
+ * @param {Object}  tokens       object with tokenV2 and tokenV3 properties
+ * @param {Boolean} mockAgreed   if true, then all terms will be mocked as agreed
+ *                               this only makes effect if MOCK_TERMS_SERVICE is true
+ *                               and the only purpose of this param is testing terms
  * @return {Promise}
  */
-function getTermsDone(challengeId, tokenV2) {
-  const service = getService(tokenV2);
-  return service.getTerms(challengeId).then(res => ({ challengeId, terms: res.terms }));
+function getTermsDone(entity, tokens, mockAgreed) {
+  const service = getService(tokens.tokenV2);
+  let termsPromise;
+
+  // if mockAgreed=true passed, then we create an array of 10 true which we pass to the
+  // terms service methods.
+  // when terms service is mocked by setting MOCK_TERMS_SERVICE=true
+  // it will make all terms to have agreed status (actually only first 10 will be agreed,
+  // but we will hardly have even more then 3 terms per entity)
+  const mockAgreedArray = mockAgreed ? Array(10 + 1).join('1').split('').map(() => true) : [];
+
+  switch (entity.type) {
+    case 'challenge': {
+      termsPromise = service.getChallengeTerms(entity.id, mockAgreedArray);
+      break;
+    }
+    case 'community': {
+      termsPromise = service.getCommunityTerms(entity.id, tokens.tokenV3, mockAgreedArray);
+      break;
+    }
+    default:
+      throw new Error(`Entity type '${entity.type}' is not supported by getTermsDone.`);
+  }
+
+  return termsPromise.then(res => ({ entity, terms: res.terms }));
 }
 
 /**
@@ -99,7 +115,7 @@ function agreeTermDone(termId, tokenV2) {
 
 /**
  * Payload creator for TERMS/CHECK_STATUS_DONE
- * which will check if all terms of specified challenge have been agreed,
+ * which will check if all terms of specified entity have been agreed,
  *
  * NOTE:
  * As in some reason backend does not saves immediately that DocuSign term has been agreed
@@ -107,19 +123,35 @@ function agreeTermDone(termId, tokenV2) {
  * Maximum quantity attempts and delay between attempts are configured in
  * MAX_ATTEMPTS and TIME_OUT
  *
- * @param  {Number|String} challengeId id of challenge to check
- * @param  {String} tokenV2    auth token
+ * TODO:
+ * Looks like the bug described above was caused by server caching responses
+ * at least for getTermDetails which is used by getCommunityTerms.
+ * To fix it I've added nocache random value param in the terms service
+ * for getTermDetails and it looks like works so we get results immediately.
+ * This still have to be tested for challenges as they use another endpoint
+ * in method getChallengeTerms.
+ * Also terms which use third part service DocuSign has to be also tested prior
+ * to removing multiple checks.
+ * In case their agreed status is updated immediately, this code
+ * has to simplified and don't make several attempts, only one.
+ *
+ * @param {Object} entity       entity object
+ * @param {String} entity.type  entity type ['challenge'||'community']
+ * @param {String} entity.id    entity id
+ * @param {Object} tokens       object with tokenV2 and tokenV3 properties
  *
  * @return {Promise}           promise of request result
  */
-function checkStatusDone(challengeId, tokenV2) {
+function checkStatusDone(entity, tokens) {
   // timeout between checking status attempts
   const TIME_OUT = 5000;
 
   // maximum attempts to check status
   const MAX_ATTEMPTS = 5;
 
-  const service = getService(tokenV2);
+  // we set this flag for getTermsDone when MOCK_TERMS_SERVICE is true
+  // so that checkStatusDone resolves to all terms agreed when mocking
+  const mockAgreed = config.MOCK_TERMS_SERVICE;
 
   /**
    * Promisified setTimeout
@@ -137,7 +169,7 @@ function checkStatusDone(challengeId, tokenV2) {
    * @param  {Number} maxAttempts maximum number of attempts to perform
    * @return {Promise}            resolves to the list of term objects
    */
-  const checkStatus = maxAttempts => service.getTerms(challengeId).then((res) => {
+  const checkStatus = maxAttempts => getTermsDone(entity, tokens, mockAgreed).then((res) => {
     const allAgreed = _.every(res.terms, 'agreed');
 
     // if not all terms are agreed and we still have some attempts to try
@@ -153,7 +185,7 @@ function checkStatusDone(challengeId, tokenV2) {
 
 export default createActions({
   TERMS: {
-    GET_TERMS_INIT: getTermsInit,
+    GET_TERMS_INIT: _.identity,
     GET_TERMS_DONE: getTermsDone,
     GET_TERM_DETAILS_INIT: getTermDetailsInit,
     GET_TERM_DETAILS_DONE: getTermDetailsDone,
