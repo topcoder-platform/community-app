@@ -11,10 +11,10 @@ export default function LeaderboardRoute({ meta }) {
   return (
     <SplitRoute
       cacheCss
-      chunkName="leaderboard"
+      chunkName="leaderboard/chunk"
       renderClientAsync={() =>
         import(
-          /* webpackChunkName: "leaderboard" */
+          /* webpackChunkName: "leaderboard/chunk" */
           'containers/Leaderboard',
         ).then(({ default: Leaderboard }) => (
           <Leaderboard apiUrl={meta.leaderboardApiUrl} />

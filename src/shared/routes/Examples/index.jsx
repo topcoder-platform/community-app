@@ -8,10 +8,10 @@ export default function ExamplesRoute() {
   return (
     <SplitRoute
       cacheCss
-      chunkName="examples"
+      chunkName="examples/chunk"
       path="/examples"
       renderClientAsync={props =>
-        import(/* webpackChunkName: "examples" */ './Examples')
+        import(/* webpackChunkName: "examples/chunk" */ './Examples')
           .then(({ default: Examples }) => <Examples {...props} />)
       }
       renderPlaceholder={() => <LoadingIndicator />}

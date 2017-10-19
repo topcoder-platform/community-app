@@ -6,12 +6,12 @@ export default function ScoreboardRoute(props) {
   return (
     <SplitRoute
       cacheCss
-      chunkName="scoreboard"
+      chunkName="scoreboard/chunk"
       exact
       path="/scoreboard/:challengeId"
       renderClientAsync={() =>
         import(
-          /* webpackChunkName: "scoreboard" */
+          /* webpackChunkName: "scoreboard/chunk" */
           'containers/tco/scoreboard',
         ).then(({ default: Scoreboard }) => (
           <Scoreboard {...props} />
