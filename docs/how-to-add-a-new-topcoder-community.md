@@ -52,7 +52,8 @@ To add a new community with the name **demo**, we should follow the following pr
       ],
       "newsFeed": "http://www.topcoder.com/feed",
       "description": "A berief description which will be displayed in dashboard",
-      "image": "1.jpg"
+      "image": "1.jpg",
+      "terms": [21153]
     }
     ```
     Its fields serve the following purposes:
@@ -116,6 +117,8 @@ To add a new community with the name **demo**, we should follow the following pr
         The `<NewsSection />` component does not render anything, if its `news` property is *null* or an empty array, thus it can be kept inside the page code even when there is no news feed configured for a community.
     - `description`: A berief description which will be displayed in dashboard.
     - `image`: A image that located at `/assets/images/tc-communities/background` will be displayed in dashboard
+    - `terms` - *Array of Numbers* - Optional. If provided, it should hold an array of Topcoder term of use IDs; agreement to all these terms will be necessary to self-join the community. Beside this, it has no other effects at the moment.
+
 3.  Custom pages of the community (anything beside `Challenges` and `Leaderboard`) should be created inside `/src/shared/components/tc-communities/communities/demo`. At the moment all communities have two custom pages: `Home` and `Learn`, you may just copy these from an existing community, and then customize to your particular needs.
 
 4.  The routing inside community, and code splitting of the related code, should be set up inside `/src/shared/routes/Communities`:
