@@ -27,7 +27,11 @@ export default function PaymentRow({ challenge }) {
           </span>
         </TrackAbbreviationTooltip>
       </td>
-      <td styleName="name"><Link to="/sandbox/payments/123">{challenge.name}</Link></td>
+      <td styleName="name">
+        <Link
+          to={`/sandbox/payments/${challenge.id}`}
+        >{challenge.name}</Link>
+      </td>
       <td styleName="price">{`$${_.get(challenge, 'prizes[0]', '-')}`}</td>
       <td><Avatar styleName="memberAvatar" /><span styleName="memberName">{challenge.member || 'TOPCODER'}</span></td>
       <td><PaymentStatus status={challenge.status} text={challenge.status} /></td>

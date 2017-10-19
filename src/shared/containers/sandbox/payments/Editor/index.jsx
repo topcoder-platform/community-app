@@ -19,6 +19,8 @@ import { getService as getChallengeService } from 'services/challenges';
 import { getService as getUserService } from 'services/user';
 import { goToLogin } from 'utils/tc';
 
+import './style.scss';
+
 /**
  * If given props have loaded project details with some billing accounts, this
  * function ensures that at least some (first) billing account is selected.
@@ -61,11 +63,15 @@ function handleProjectDetailsLoading(props) {
 class EditorContainer extends React.Component {
   componentDidMount() {
     const {
+      challenge,
+      getChallenge,
       loadingProjectsForUsername,
       loadProjects,
+      paymentId,
       projects,
       selectedProjectId,
       selectProject,
+      tokenV2,
       tokenV3,
       username,
     } = this.props;
@@ -78,16 +84,29 @@ class EditorContainer extends React.Component {
     }
     handleProjectDetailsLoading(this.props);
     selectFirstBillingAccountIfNecessary(this.props);
+    if (!challenge && paymentId !== 'new') {
+      getChallenge(paymentId, tokenV3, tokenV2);
+    }
     return undefined;
   }
 
   componentWillReceiveProps(nextProps) {
     const {
+      challenge,
       loadingProjectsForUsername,
       loadProjects,
+      paymentAmount,
+      // paymentAssignee,
+      // paymentDescription,
+      paymentTitle,
       projects,
       selectedProjectId,
       selectProject,
+      setPageState,
+      setPaymentAmount,
+      setPaymentAssignee,
+      setPaymentDescription,
+      setPaymentTitle,
       tokenV3,
       username,
     } = nextProps;
@@ -113,6 +132,20 @@ class EditorContainer extends React.Component {
     }
     handleProjectDetailsLoading(nextProps);
     selectFirstBillingAccountIfNecessary(nextProps);
+    if (challenge) {
+      setPageState(PAGE_STATE.NEW_PAYMENT);
+      if (selectedProjectId !== challenge.projectId) {
+        selectProject(challenge.projectId);
+      }
+      if (paymentAmount !== challenge.prizes[0]) {
+        setPaymentAmount(challenge.prizes[0] || 0);
+      }
+      if (paymentTitle !== challenge.name) {
+        setPaymentTitle(challenge.name);
+      }
+      setPaymentDescription('N/A');
+      setPaymentAssignee('N/A');
+    }
     return undefined;
   }
 
@@ -130,9 +163,8 @@ class EditorContainer extends React.Component {
       selectedProjectId,
       tokenV3,
     } = this.props;
-    setPageState(PAGE_STATE.WAITING);
+    setPageState(PAGE_STATE.WAITING_PAYMENT_DRAFT);
     const challengeService = getChallengeService(tokenV3);
-    const userService = getUserService(tokenV3);
     const challenge = await challengeService.createTask(
       selectedProjectId,
       selectedBillingAccountId,
@@ -141,8 +173,11 @@ class EditorContainer extends React.Component {
       paymentAssignee,
       paymentAmount,
     );
-    const user = await userService.getUser(paymentAssignee);
+    setPageState(PAGE_STATE.WAITING_PAYMENT_ACTIVATION);
     await challengeService.activate(challenge.id);
+    const userService = getUserService(tokenV3);
+    setPageState(PAGE_STATE.WAITING_PAYMENT_CLOSURE);
+    const user = await userService.getUser(paymentAssignee);
     if (user) {
       await challengeService.close(challenge.id, user.id);
     }
@@ -162,6 +197,7 @@ class EditorContainer extends React.Component {
       pageState,
       paymentAmount,
       paymentAssignee,
+      paymentId,
       paymentDescription,
       paymentTitle,
       projectDetails,
@@ -175,10 +211,29 @@ class EditorContainer extends React.Component {
       setPaymentTitle,
       tokenV3,
     } = this.props;
+    /* TODO: This render function becomes too complex for a container,
+     * most of this should be moved to the Editor component itself. */
     if (!tokenV3 || !projects.length
-    || pageState === PAGE_STATE.WAITING) {
+    || pageState === PAGE_STATE.WAITING_PAYMENT_ACTIVATION
+    || pageState === PAGE_STATE.WAITING_PAYMENT_CLOSURE
+    || pageState === PAGE_STATE.WAITING_PAYMENT_DRAFT) {
+      let msg;
+      switch (pageState) {
+        case PAGE_STATE.WAITING_PAYMENT_ACTIVATION:
+          msg = 'Activating the payment...';
+          break;
+        case PAGE_STATE.WAITING_PAYMENT_CLOSURE:
+          msg = 'Closing (finalizing) the payment...';
+          break;
+        case PAGE_STATE.WAITING_PAYMENT_DRAFT:
+          msg = 'Drafting the payment...';
+          break;
+        default:
+          msg = 'Loading data...';
+      }
       return (
         <Background>
+          <div styleName="statusMsg">{msg}</div>
           <LoadingIndicator />
         </Background>
       );
@@ -195,6 +250,7 @@ class EditorContainer extends React.Component {
     return (
       <Editor
         makePayment={() => this.pay()}
+        neu={paymentId === 'new'}
         paymentAmount={paymentAmount}
         paymentAssignee={paymentAssignee}
         paymentDescription={paymentDescription}
@@ -214,10 +270,13 @@ class EditorContainer extends React.Component {
 }
 
 EditorContainer.defaultProps = {
+  challenge: null,
   projectDetails: null,
 };
 
 EditorContainer.propTypes = {
+  challenge: PT.shape(),
+  getChallenge: PT.func.isRequired,
   loadingProjectDetailsForId: PT.number.isRequired,
   loadingProjectsForUsername: PT.string.isRequired,
   loadProjectDetails: PT.func.isRequired,
@@ -225,6 +284,7 @@ EditorContainer.propTypes = {
   pageState: PT.oneOf(_.values(PAGE_STATE)).isRequired,
   paymentAmount: PT.number.isRequired,
   paymentAssignee: PT.string.isRequired,
+  paymentId: PT.string.isRequired,
   paymentDescription: PT.string.isRequired,
   paymentTitle: PT.string.isRequired,
   projectDetails: PT.shape({
@@ -240,13 +300,20 @@ EditorContainer.propTypes = {
   setPaymentAssignee: PT.func.isRequired,
   setPaymentDescription: PT.func.isRequired,
   setPaymentTitle: PT.func.isRequired,
+  tokenV2: PT.string.isRequired,
   tokenV3: PT.string.isRequired,
   username: PT.string.isRequired,
 };
 
-function mapStateToProps(state) {
+function mapStateToProps(state, ownProps) {
   const { auth, direct } = state;
   const page = state.page.sandbox.payments.editor;
+
+  let challenge;
+  const paymentId = ownProps.paymentId;
+  if (Number(paymentId) === _.get(state, 'challenge.details.id')) {
+    challenge = state.challenge.details;
+  }
 
   let projectDetails = direct.projectDetails;
   if (_.get(projectDetails, 'project.projectId') !== page.selectedProjectId) {
@@ -254,26 +321,33 @@ function mapStateToProps(state) {
   }
 
   return {
+    challenge,
     loadingProjectDetailsForId: direct.loadingProjectDetailsForId,
     loadingProjectsForUsername: direct.loadingProjectsForUsername,
     pageState: page.pageState,
     paymentAmount: page.paymentAmount,
     paymentAssignee: page.paymentAssignee,
+    paymentId,
     paymentDescription: page.paymentDescription,
     paymentTitle: page.paymentTitle,
     projectDetails,
     projects: direct.projects,
     selectedBillingAccountId: page.selectedBillingAccountId,
     selectedProjectId: page.selectedProjectId,
+    tokenV2: auth.tokenV2,
     tokenV3: auth.tokenV3,
     username: _.get(auth, 'user.handle', ''),
   };
 }
 
 function mapDispatchToProps(dispatch) {
-  const { direct } = actions;
+  const { challenge, direct } = actions;
   const page = actions.page.sandbox.payments.editor;
   return {
+    getChallenge: (id, tokenV3, tokenV2) => {
+      dispatch(challenge.getDetailsInit(id));
+      dispatch(challenge.getDetailsDone(id, tokenV3, tokenV2));
+    },
     loadProjectDetails: (projectId, tokenV3) => {
       dispatch(direct.getProjectDetailsInit(projectId));
       dispatch(direct.getProjectDetailsDone(projectId, tokenV3));

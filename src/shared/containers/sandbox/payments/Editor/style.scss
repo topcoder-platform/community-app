@@ -1,0 +1,8 @@
+@import "~styles/mixins";
+
+.statusMsg {
+  @include roboto;
+
+  padding: 64px;
+  text-align: center;
+}
