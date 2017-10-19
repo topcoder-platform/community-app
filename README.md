@@ -5,7 +5,7 @@
 New version of Topcoder Community website.
 
 ### Knowledgebase
--   [Challenge Terms - Mocking for Testing and Development](docs/challenge-terms.md)
+-   [Mocking Terms for Testing and Development](docs/mocking-terms.md)
 -   [Code Splitting](docs/code-splitting.md)
 -   [Coding Standards](docs/coding-standards.md)
 -   [How to Add a New Topcoder Community?](docs/how-to-add-a-new-topcoder-community.md)

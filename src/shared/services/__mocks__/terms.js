@@ -1,6 +1,6 @@
 /**
  * Mock version of Terms service. To be used both for Jest testing, and for
- * manual testing inside the app (see MOCK_CHALLENGE_TERMS_SERVICE constant
+ * manual testing inside the app (see MOCK_TERMS_SERVICE constant
  * in the app config).
  *
  * NOTE: At the moment this mock does not care much about authorization
@@ -29,14 +29,14 @@ class TermsService {
   }
 
   /**
-   * Mock of getTerms(..) method.
+   * Mock of getChallengeTerms(..) method.
    * The second argument is optional. If present, it should be an array of
    * boolean values, and it will override acceptance status of terms read
    * from the JSON data file.
    * @param {String} challengeId
    * @param {Array} agreed Optional.
    */
-  getTerms(challengeId, agreed) {
+  getChallengeTerms(challengeId, agreed) {
     const res = _.clone(this.private.tokenV2 ? termsAuth : termsNoAuth);
     res.serverInformation.currentTime = Date.now();
     res.requesterInformation.receivedParams.challengeId
@@ -44,6 +44,29 @@ class TermsService {
     if (this.private.tokenV2 && _.isArray(agreed)) {
       for (let i = 0; i < Math.min(agreed.length, res.terms.length); i += 1) {
         res.terms[i].agreed = agreed[i];
+      }
+    }
+    return Promise.resolve(res);
+  }
+
+  /**
+   * Mock of getCommunityTerms(..) method.
+   *
+   * @param {String} communityId community id
+   * @param {String} tokenV3     auth token V3
+   * @param {Array}  agreed      Optional. If present, it should be an array of
+   *                             boolean values, and it will override acceptance
+   *                             status of terms read from the JSON data file.
+   *
+   * @return {Promise} resolves to the list of mocked terms
+   */
+  getCommunityTerms(challengeId, tokenV3, agreed) {
+    const res = _.clone(this.private.tokenV2 ? termsAuth : termsNoAuth);
+    res.serverInformation.currentTime = Date.now();
+    if (this.private.tokenV2 && _.isArray(agreed)) {
+      for (let i = 0; i < Math.min(agreed.length, res.terms.length); i += 1) {
+        res.terms[i].agreed = agreed[i];
+        delete res.terms[i].text;
       }
     }
     return Promise.resolve(res);
@@ -67,10 +90,10 @@ class TermsService {
       case 21193:
       case 21194:
         res = _.clone(termsTopcoderDetails);
-        if (!_.isUndefined(agreed)) res.agreed = agreed;
         break;
-      default: throw new Error('Unknown termId!');
+      default: throw new Error(`Unknown termId '${termId}'!`);
     }
+    if (!_.isUndefined(agreed)) res.agreed = agreed;
     res.serverInformation.currentTime = Date.now();
     res.termsOfUseId = termId;
     res.requesterInformation.receivedParams.termsOfUseId =
@@ -102,9 +125,9 @@ class TermsService {
 }
 
 /**
- * Returns a new or existing challenges service.
- * @param {String} tokenV3 Optional. Auth token for Topcoder API v3.
- * @return {Challenges} Challenges service object
+ * Returns a new or existing terms service.
+ * @param  {String} tokenV3 Optional. Auth token for Topcoder API v3.
+ * @return {Object} Terms service object
  */
 let lastInstance = null;
 export function getService(tokenV2) {

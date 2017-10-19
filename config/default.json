@@ -29,11 +29,11 @@
    * the setup. To override it use LOG_ENTRIES_TOKEN environment variable. */
   "LOG_ENTRIES_TOKEN": "816f5574-0d4a-49f9-ab3b-00d791f7c1f7",
 
-  /* When set to true, challenge terms service is short-cut so that each time
-   * a user goes to challenge details page, it tells that none of challenge
+  /* When set to true, terms service is short-cut so that each time
+   * a user goes to challenge details page or community page, it tells that none of
    * terms is agrees, and takes care that user is taken through the terms
    * agreement flow. */
-  "MOCK_CHALLENGE_TERMS_SERVICE": false,
+  "MOCK_TERMS_SERVICE": false,
 
   /* Configuration related to https://openexchangerates.org. This is the
    * service which provides currency exchange rates. */

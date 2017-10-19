@@ -1,3 +1,6 @@
+/**
+ * Terms component which displays modal window with term details
+ */
 /* eslint jsx-a11y/no-static-element-interactions:0 */
 /* global window */
 
@@ -43,7 +46,7 @@ function handleScroll(scrollElement, masks, orientation) {
   }
 }
 
-export default class ChallengeTerms extends React.Component {
+export default class Terms extends React.Component {
   constructor(props) {
     super(props);
 
@@ -123,7 +126,8 @@ export default class ChallengeTerms extends React.Component {
   render() {
     const { onCancel, terms, details, loadingTermId, docuSignUrl,
       getDocuSignUrl, agreeTerm, agreeingTerm, isLoadingTerms,
-      loadingDocuSignUrl, selectedTerm, viewOnly, checkingStatus } = this.props;
+      loadingDocuSignUrl, selectedTerm, viewOnly, checkingStatus,
+      description } = this.props;
 
     const handleHorizonalScroll = (e) => {
       const scrollElement = e.target;
@@ -164,8 +168,7 @@ export default class ChallengeTerms extends React.Component {
                 >
                   <div styleName="mask-v top" />
                   <div styleName="mask-v bottom" />
-                  <div styleName="desc">You are seeing these Terms & Conditions because you have registered to a challenge and
-                    you have to respect the terms below in order to be able to submit.</div>
+                  <div styleName="desc">{description}</div>
                   {
                     checkingStatus &&
                     <LoadingIndicator />
@@ -286,21 +289,21 @@ export default class ChallengeTerms extends React.Component {
   }
 }
 
-ChallengeTerms.defaultProps = {
+Terms.defaultProps = {
   terms: [],
-  title: '',
+  description: '',
   details: {},
   loadingTermId: '',
   docuSignUrl: '',
   agreeingTerm: '',
   isLoadingTerms: false,
-  registering: false,
   loadingDocuSignUrl: '',
   selectedTerm: null,
   viewOnly: false,
 };
 
-ChallengeTerms.propTypes = {
+Terms.propTypes = {
+  description: PT.string,
   onCancel: PT.func.isRequired,
   terms: PT.arrayOf(PT.shape()),
   loadDetails: PT.func.isRequired,

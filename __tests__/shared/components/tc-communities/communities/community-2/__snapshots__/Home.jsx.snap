@@ -19,7 +19,7 @@ exports[`Match shadow snapshot 1`] = `
     title="Community 2"
   />
   <Connect(CommunityStatsContainer) />
-  <Connect(JoinCommunity) />
+  <Connect(JoinCommunityContainer) />
   <ThemedSection
     anchor={null}
     composeAdhocTheme="deeply"
