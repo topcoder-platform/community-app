@@ -25,6 +25,7 @@ exports[`Match shadow snapshot 1`] = `
     composeContextTheme="softly"
     link={null}
     mapThemrProps={[Function]}
+    subTitle=""
     theme={
       Object {
         "container": "src-shared-components-tc-communities-communities-community-2-Learn-___style__learnBasicsContainer___1ZPny",
@@ -95,6 +96,7 @@ exports[`Match shadow snapshot 1`] = `
       }
     }
     mapThemrProps={[Function]}
+    subTitle=""
     theme={
       Object {
         "container": "src-shared-components-tc-communities-communities-community-2-Learn-___style__coursesContainer___3SRv4",
@@ -158,6 +160,7 @@ exports[`Match shadow snapshot 1`] = `
     composeContextTheme="softly"
     link={null}
     mapThemrProps={[Function]}
+    subTitle=""
     theme={
       Object {
         "container": "src-shared-components-tc-communities-communities-community-2-Learn-___style__resourcesContainer___dzJCp",
