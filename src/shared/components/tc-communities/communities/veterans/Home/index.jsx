@@ -101,8 +101,8 @@ export default function Home() {
             text={
               <div styleName="bottomMargin paragraph">
                 <p>
-                  We’ve partnered with OperationCode, a 503(c) advocacy group 
-                  dedicated to helping veterans learn to code, to assist in 
+                  We’ve partnered with OperationCode, a 503(c) advocacy group
+                  dedicated to helping veterans learn to code, to assist in
                   bridging the gap between real-world skills and a career
                   in technology as well as promote this platform.
                 </p>
