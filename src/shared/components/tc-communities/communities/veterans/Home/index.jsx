@@ -42,6 +42,8 @@ export default function Home() {
         }}
       />
 
+      <CommunityStats />
+
       <Section
         theme={{
           container: style.linksContainer,
@@ -220,8 +222,6 @@ export default function Home() {
         </div>
       </Section>
 
-      <CommunityStats />
-
       <Section
         subTitle="Find Out."
         title="What Can You Do?"
@@ -240,7 +240,7 @@ export default function Home() {
         theme={{
           content: style.joinSectionContent,
         }}
-        title="Getting Started"
+        title="Get Started"
       >
         <JoinCommunity
           label="Join"
@@ -270,7 +270,7 @@ export default function Home() {
           text="Explore the features and functionality to see how it can work for you."
           link={{
             title: 'Browse Resources',
-            url: 'leaderboard',
+            url: 'learn',
           }}
         />
         <ResourceCard
