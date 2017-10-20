@@ -26,6 +26,7 @@ exports[`Match shadow snapshot 1`] = `
     composeContextTheme="softly"
     link={null}
     mapThemrProps={[Function]}
+    subTitle=""
     theme={
       Object {
         "container": "src-shared-components-tc-communities-communities-community-2-Home-___style__linksContainer___CzMMR",
@@ -75,6 +76,7 @@ exports[`Match shadow snapshot 1`] = `
     composeContextTheme="softly"
     link={null}
     mapThemrProps={[Function]}
+    subTitle=""
     theme={
       Object {
         "container": "src-shared-components-tc-communities-communities-community-2-Home-___style__resourcesContainer___1Y23p",

@@ -1,4 +1,4 @@
-@import '~styles/tc-styles';
+@import '~styles/mixins';
 
 .container {
   padding: 35px 0;
@@ -6,6 +6,18 @@
 
   @include xxs-to-xs {
     padding-bottom: 42px;
+  }
+}
+
+.subTitle {
+  color: #394146;
+  font: 18px 'Open Sans';
+  padding: 0 0 30px;
+  text-align: center;
+
+  @include xxs-to-xs {
+    font-size: 24px;
+    padding-top: 30px;
   }
 }
 

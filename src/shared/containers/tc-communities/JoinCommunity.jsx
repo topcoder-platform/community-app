@@ -24,11 +24,10 @@ const JoinCommunityContainer = (props) => {
 
   return (
     <div>
-      <JoinCommunity {...{ ...props, join: onJoinClick }} />
+      <JoinCommunity {...props} join={onJoinClick} />
       <Terms
         entity={{ type: 'community', id: communityId }}
-        description="You are seeing these Terms & Conditions because you are going to join a community
-         and you have to respect the terms below in order to be able to be a member."
+        description="You are seeing these Terms & Conditions because you are going to join a community and you have to respect the terms below in order to be able to be a member."
         register={() => join(token, groupIds[0], userId)}
       />
     </div>
