@@ -43,7 +43,7 @@ export default function Home() {
       />
 
       <CommunityStats />
-      
+
       <Section
         theme={{
           container: style.linksContainer,
