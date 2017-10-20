@@ -84,7 +84,7 @@ export default function Home() {
                 </p>
                 <p>
                   Yet, there’s often a gap that exists in translating this
-                  experience to civilian employment without a college degree.
+                  experience to civilian employment.
                 </p>
                 <p>
                   A study by the nonprofit research group, Center for New
@@ -101,9 +101,10 @@ export default function Home() {
             text={
               <div styleName="bottomMargin paragraph">
                 <p>
-                  We’ve partnered with the Department of Veterans Affairs to
-                  assist in bridging the gap between real-world skills and a
-                  career in technology as well as promote this platform.
+                  We’ve partnered with OperationCode, a 503(c) advocacy group
+                  dedicated to helping veterans learn to code, to assist in
+                  bridging the gap between real-world skills and a career
+                  in technology as well as promote this platform.
                 </p>
                 <p>
                   Together, we’ve developed a coalition of companies that share
@@ -126,12 +127,14 @@ export default function Home() {
                   The Veterans.Topcoder program was designed to assist
                   military service members and veterans who want to pursue
                   a career in technology into viable job opportunities, which
-                  can be difficult to obtain without a college degree.
+                  can be difficult to obtain without showing direct experience
+                  with private sector toolsets.
                 </p>
                 <p>
                   Joining The Veterans.Topcoder community is free and
-                  enables you to compete on projects, earn money and
-                  continue to enhance your skills.
+                  enables you to compete on projects, earn money,
+                  enhance your skills, and apply them to common commercial
+                  solutions for paying customers.
                 </p>
                 <p>
                   It also places you in the spotlight with some of the top
