@@ -23,7 +23,6 @@ export default function Bucket({
   bucketId,
   challenges,
   challengesUrl,
-  communityName,
   expanded,
   expand,
   filterState,
@@ -70,7 +69,7 @@ export default function Bucket({
     <ChallengeCard
       challenge={item}
       challengesUrl={challengesUrl}
-      newChallengeDetails={newChallengeDetails || !communityName}
+      newChallengeDetails={newChallengeDetails}
       onTechTagClicked={tag => setFilterState({ tags: [tag] })}
       openChallengesInNewTabs={openChallengesInNewTabs}
       prizeMode={prizeMode}
@@ -131,7 +130,6 @@ export default function Bucket({
 }
 
 Bucket.defaultProps = {
-  communityName: null,
   expanded: false,
   expand: _.noop,
   keepPlaceholders: false,
@@ -150,7 +148,6 @@ Bucket.propTypes = {
   expand: PT.func,
   challenges: PT.arrayOf(PT.shape()).isRequired,
   challengesUrl: PT.string.isRequired,
-  communityName: PT.string,
   filterState: PT.shape().isRequired,
   keepPlaceholders: PT.bool,
   loading: PT.bool,
