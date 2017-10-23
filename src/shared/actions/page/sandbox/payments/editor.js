@@ -3,12 +3,58 @@
  */
 
 import { createActions } from 'redux-actions';
+import { getMembersService } from 'services/members';
 
 export const STATE = {
   NEW_PAYMENT: 'NEW_PAYMENT',
   PAID: 'PAID',
   WAITING: 'WAITING',
 };
+
+/**
+ * Payload creator for the action that starts member suggestion API call
+ * @param {String} keyword Partial name/keyword
+ * @return {String} Payload.
+ */
+function getMemberSuggestionsInit(keyword) {
+  return keyword;
+}
+
+/**
+ * Payload creator for the action that finishes member suggestion API call
+ * @param {String} keyword Partial name/keyword
+ * @return {Promise} Payload.
+ */
+function getMemberSuggestionsDone(keyword, tokenV3) {
+  return getMembersService(tokenV3).getMemberSuggestions(keyword);
+}
+
+/**
+ * Payload creator for the action that sets the member input search popup to visible
+ * @param {Boolean} Visible
+ * @return {Boolean} Payload.
+ */
+function setMemberInputPopupVisible(visible) {
+  return visible;
+}
+
+/**
+ * Payload creator for the action that sets the keyword/partial name that the user is typing
+ * @param {String} keyword Partial member name
+ * @return {String} Payload.
+ */
+function setMemberInputKeyword(keyword) {
+  return keyword;
+}
+
+/**
+ * Payload creator for the action that sets the currently selected member on the MemberInput
+ * @param {String} keyword Partial member name
+ * @return {String} Payload.
+ */
+function setMemberInputSelected(member) {
+  return member;
+}
 
 /**
  * Payload creator for the action that selects the specified billing account.
@@ -78,6 +124,11 @@ export default createActions({
     SANDBOX: {
       PAYMENTS: {
         EDITOR: {
+          GET_MEMBER_SUGGESTIONS_INIT: getMemberSuggestionsInit,
+          GET_MEMBER_SUGGESTIONS_DONE: getMemberSuggestionsDone,
+          SET_MEMBER_INPUT_POPUP_VISIBLE: setMemberInputPopupVisible,
+          SET_MEMBER_INPUT_KEYWORD: setMemberInputKeyword,
+          SET_MEMBER_INPUT_SELECTED: setMemberInputSelected,
           SELECT_BILLING_ACCOUNT: selectBillingAccount,
           SELECT_PROJECT: selectProject,
           SET_PAGE_STATE: setPageState,

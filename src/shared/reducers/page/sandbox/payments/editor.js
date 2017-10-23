@@ -7,6 +7,56 @@ import actions, { STATE } from 'actions/page/sandbox/payments/editor';
 import { handleActions } from 'redux-actions';
 
 /**
+ * Initialize API request for member suggestions
+ * @param {Object} state
+ * @param {Array} action.payload Partial name
+ * @return {Object} New state.
+ */
+function onGetMemberSuggestionsInit(state, { payload }) {
+  return { ...state, getMemberSuggestionsForKeyword: payload };
+}
+
+/**
+ * Finish API request for member suggestions
+ * @param {Object} state
+ * @param {Array} action.payload Array of potential member matches
+ * @return {Object} New state.
+ */
+function onGetMemberSuggestionsDone(state, { payload }) {
+  return { ...state, memberSuggestions: payload, getMemberSuggestionsForKeyword: '' };
+}
+
+/**
+ * Sets visibility of member input search popup
+ * @param {Object} state
+ * @param {Boolean} action.payload If the popup is visible
+ * @return {Object} New state.
+ */
+function onSetMemberInputPopupVisible(state, { payload }) {
+  return { ...state, memberInputPopupVisible: payload };
+}
+
+/**
+ * Sets the keyword/partial name that user has typed for Member
+ * @param {Object} state
+ * @param {String} action.payload Keyword/partial member name that user is typing
+ * @return {Object} New state.
+ */
+function onSetMemberInputKeyword(state, { payload }) {
+  return { ...state, memberInputKeyword: payload };
+}
+
+/**
+ * Finish API request for member suggestions
+ * @param {Object} state
+ * @param {Object} action.payload Member that the user has selected
+ * @return {Object} New state.
+ */
+function onSetMemberInputSelected(state, { payload }) {
+  return { ...state, memberInputSelected: payload, memberInputKeyword: payload.handle };
+}
+
+/**
  * Selects the specified billing account.
  * @param {Object} state
  * @param {Number} action.payload Billing account ID.
@@ -85,6 +135,11 @@ function onSetPaymentTitle(state, { payload }) {
 function create(state = {}) {
   const a = actions.page.sandbox.payments.editor;
   return handleActions({
+    [a.getMemberSuggestionsInit]: onGetMemberSuggestionsInit,
+    [a.getMemberSuggestionsDone]: onGetMemberSuggestionsDone,
+    [a.setMemberInputPopupVisible]: onSetMemberInputPopupVisible,
+    [a.setMemberInputKeyword]: onSetMemberInputKeyword,
+    [a.setMemberInputSelected]: onSetMemberInputSelected,
     [a.selectBillingAccount]: onSelectBillingAccount,
     [a.selectProject]: onSelectProject,
     [a.setPageState]: onSetPageState,
@@ -93,6 +148,11 @@ function create(state = {}) {
     [a.setPaymentDescription]: onSetPaymentDescription,
     [a.setPaymentTitle]: onSetPaymentTitle,
   }, _.defaults(state, {
+    getMemberSuggestionsForKeyword: '',
+    memberSuggestions: [],
+    memberInputPopupVisible: false,
+    memberInputKeyword: '',
+    memberInputSelected: {},
     pageState: STATE.NEW_PAYMENT,
     paymentAmount: 0,
     paymentAssignee: '',

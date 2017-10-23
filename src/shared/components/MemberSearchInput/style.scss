@@ -1,0 +1,65 @@
+@import "~styles/tc-styles";
+
+.container {
+  display: inline-block;
+  position: relative;
+  width: 450px;
+  // flex-grow: 1;
+
+  input {
+    flex-grow: 1;
+    display: inline-block;
+    padding-left: 50px;
+    width: 450px;
+    border-radius: 4px;
+  }
+
+  .avatarPrefix {
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 1;
+    width: 40px;
+    height: 40px;
+    display: block;
+    margin: 4px;
+  }
+
+  .member-dropdown {
+    @include roboto;
+    transform: translateY(-100%);
+    position: absolute;
+    top: -3px;
+    left: 0px;
+    width: 100%;
+    margin: 0 auto;
+    background: $tc-white;
+    border: 1px solid $tc-gray-30;
+    border-radius: 2px;
+    padding: 10px 0 10px 0;
+    max-height: 210px;
+    overflow: auto;
+
+    .Avatar {
+      height: 30px;
+      width: 30px;
+      margin: 5px 10px 5px 9px;
+      flex-shrink: 0;
+    }
+
+    .dropdown-cell {
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+
+      &:hover {
+        background: $tc-dark-blue-10;
+      }
+
+      .handle {
+        font-size: $tc-label-lg;
+        color: $tc-gray-80;
+      }
+    }
+  }
+}

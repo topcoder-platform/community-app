@@ -9,12 +9,21 @@ import React from 'react';
 import Select from 'components/Select';
 import { PrimaryButton } from 'components/buttons';
 
-import Avatar from '../../../Avatar';
+import MemberSearchInput from 'components/MemberSearchInput';
+
 import Background from '../Background';
 
 import './style.scss';
 
 export default function Editor({
+  memberSuggestions,
+  getMemberSuggestions,
+  memberInputPopupVisible,
+  setMemberInputPopupVisible,
+  memberInputKeyword,
+  setMemberInputKeyword,
+  memberInputSelected,
+  setMemberInputSelected,
   makePayment,
   paymentAmount,
   paymentAssignee,
@@ -65,18 +74,22 @@ export default function Editor({
         </div>
         <div styleName="field">
           <span styleName="label">Assign to</span>
-          <div styleName="withPrefix">
-            <div styleName="prefix">
-              <div styleName="avatarPrefix" >
-                <Avatar />
-              </div>
-            </div>
-            <input
-              onChange={e => setPaymentAssignee(e.target.value)}
-              placeholder="Type handle to assign member"
-              value={paymentAssignee}
-            />
-          </div>
+          <MemberSearchInput
+            placeholder="Type handle to assign member"
+            searchMembers={memberSuggestions}
+            isPopupVisible={memberInputPopupVisible}
+            keyword={memberInputKeyword}
+            selectedNewMember={memberInputSelected}
+            onToggleSearchPopup={setMemberInputPopupVisible}
+            onSelectNewMember={(member) => {
+              setMemberInputSelected(member);
+              setPaymentAssignee(member.handle);
+            }}
+            onKeywordChange={(keyword) => {
+              setMemberInputKeyword(keyword);
+              getMemberSuggestions(keyword);
+            }}
+          />
         </div>
         <div styleName="field">
           <span styleName="label">Amount</span>
@@ -141,6 +154,14 @@ Editor.defaultProps = {
 
 Editor.propTypes = {
   makePayment: PT.func.isRequired,
+  memberSuggestions: PT.arrayOf(PT.shape()).isRequired,
+  getMemberSuggestions: PT.func.isRequired,
+  memberInputPopupVisible: PT.bool.isRequired,
+  setMemberInputPopupVisible: PT.func.isRequired,
+  memberInputKeyword: PT.string.isRequired,
+  setMemberInputKeyword: PT.func.isRequired,
+  memberInputSelected: PT.shape().isRequired,
+  setMemberInputSelected: PT.func.isRequired,
   paymentAmount: PT.number.isRequired,
   paymentAssignee: PT.string.isRequired,
   paymentDescription: PT.string.isRequired,
