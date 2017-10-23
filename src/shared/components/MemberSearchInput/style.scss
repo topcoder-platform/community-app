@@ -1,4 +1,4 @@
-@import "~styles/tc-styles";
+@import "~styles/mixins";
 
 .container {
   display: inline-block;
@@ -27,16 +27,17 @@
 
   .member-dropdown {
     @include roboto;
+
     transform: translateY(-100%);
     position: absolute;
     top: -3px;
-    left: 0px;
+    left: 0;
     width: 100%;
     margin: 0 auto;
     background: $tc-white;
     border: 1px solid $tc-gray-30;
     border-radius: 2px;
-    padding: 10px 0 10px 0;
+    padding: 10px 0;
     max-height: 210px;
     overflow: auto;
 
