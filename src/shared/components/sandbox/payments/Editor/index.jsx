@@ -1,6 +1,7 @@
 /**
  * Payment editor.
  */
+/* global window */
 
 import _ from 'lodash';
 import LoadingIndicator from 'components/LoadingIndicator';
@@ -25,6 +26,7 @@ export default function Editor({
   memberInputSelected,
   setMemberInputSelected,
   makePayment,
+  neu,
   paymentAmount,
   paymentAssignee,
   paymentDescription,
@@ -50,6 +52,7 @@ export default function Editor({
           <span styleName="label">Billing account</span>
           <Select
             autoBlur
+            disabled={!neu}
             options={billingAccounts}
             value={selectedBillingAccountId}
           />
@@ -58,6 +61,7 @@ export default function Editor({
         <div styleName="field">
           <span styleName="label">Title</span>
           <input
+            disabled={!neu}
             onChange={e => setPaymentTitle(e.target.value)}
             placeholder="Topcoder payment"
             value={paymentTitle}
@@ -66,6 +70,7 @@ export default function Editor({
         <div styleName="field">
           <span styleName="label">Description</span>
           <textarea
+            disabled={!neu}
             onChange={e => setPaymentDescription(e.target.value)}
             placeholder="payment is for ..."
             rows={3}
@@ -98,6 +103,7 @@ export default function Editor({
               <div styleName="textPrefix">$</div>
             </div>
             <input
+              disabled={!neu}
               onChange={e => setPaymentAmount(Number(e.target.value))}
               placeholder="0"
               type="number"
@@ -107,6 +113,7 @@ export default function Editor({
         </div>
         <div styleName="action">
           { paymentAmount
+            && neu
             && paymentAssignee
             && paymentDescription
             && paymentTitle ? (
@@ -126,14 +133,19 @@ export default function Editor({
   }
 
   return (
-    <Background escapeButton>
+    <Background
+      escapeButton
+      // TODO: This is wrong, as it reloads the app, but fine for now.
+      onExit={() => { window.location = '/sandbox/payments'; }}
+    >
       <div styleName="container">
-        <h1 styleName="title">New Member Payment</h1>
+        <h1 styleName="title">{`${neu ? 'New ' : ''}Member Payment`}</h1>
         <div styleName="form">
           <div styleName="field">
             <span styleName="label">Project</span>
             <Select
               autoBlur
+              disabled={!neu}
               labelKey="name"
               onChange={project => selectProject(project.id)}
               options={projects}
@@ -149,10 +161,12 @@ export default function Editor({
 }
 
 Editor.defaultProps = {
+  neu: true,
   projectDetails: null,
 };
 
 Editor.propTypes = {
+  neu: PT.bool,
   makePayment: PT.func.isRequired,
   memberSuggestions: PT.arrayOf(PT.shape()).isRequired,
   getMemberSuggestions: PT.func.isRequired,

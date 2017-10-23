@@ -212,6 +212,19 @@ class ChallengesService {
   }
 
   /**
+   * Gets challenge details from Topcoder API v3.
+   * @param {Number|String} challengeId
+   * @return {Promise} Resolves to the api response.
+   */
+  async getChallengeDetails(challengeId) {
+    let res = await this.private.api.get(`/challenges/${challengeId}`);
+    if (!res.ok) throw new Error(res.statusText);
+    res = (await res.json()).result;
+    if (res.status !== 200) throw new Error(res.content);
+    return normalizeChallenge(res.content);
+  }
+
+  /**
    * Gets possible challenge subtracks.
    * @return {Promise} Resolves to the array of subtrack names.
    */

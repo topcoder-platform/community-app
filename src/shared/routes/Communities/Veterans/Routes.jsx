@@ -1,9 +1,9 @@
 /**
- * Routing of Wipro Community.
+ * Routing of Veterans Community.
  */
 
 import Error404 from 'components/Error404';
-import Footer from 'components/tc-communities/communities/wipro/Footer';
+import Footer from 'components/tc-communities/communities/veterans/Footer';
 import Header from 'containers/tc-communities/Header';
 import Home from 'components/tc-communities/communities/veterans/Home';
 import Learn from 'components/tc-communities/communities/veterans/Learn';

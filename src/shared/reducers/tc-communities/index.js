@@ -13,6 +13,8 @@ import { isClientSide } from 'utils/isomorphy';
 import { combine, resolveReducers, toFSA } from 'utils/redux';
 import { getAuthTokens } from 'utils/tc';
 import { STATE as JOIN_COMMUNITY } from 'components/tc-communities/JoinCommunity';
+import { getService as getTermsService } from 'services/terms';
+import { getCommunityId } from 'routes/subdomains';
 
 import { factory as metaFactory } from './meta';
 import { factory as newsFactory } from './news';
@@ -62,13 +64,33 @@ function create(initialState = {}) {
 export function factory(req) {
   let joinPromise;
   if (req) {
+    const tokenV2 = getAuthTokens(req).tokenV2;
     const tokenV3 = getAuthTokens(req).tokenV3;
     const joinGroupId = req.query && req.query.join;
-    if (joinGroupId && tokenV3) {
+
+    // get community id
+    let communityId = getCommunityId(req.subdomains);
+    if (!communityId && req.url.startsWith('/community')) {
+      communityId = req.url.split('/')[2];
+      // remove possible params like ?join=<communityId>
+      communityId = communityId ? communityId.replace(/\?.*/, '') : communityId;
+    }
+
+    if (communityId && joinGroupId && tokenV3) {
       const user = decodeToken(tokenV3);
-      joinPromise = toFSA(
-        actions.tcCommunity.joinDone(tokenV3, joinGroupId, user.userId),
-      );
+
+      // as server doesn't check if user agreed with all community terms make it manually for now
+      const termsService = getTermsService(tokenV2);
+      joinPromise = termsService.getCommunityTerms(communityId, tokenV3).then((result) => {
+        // if all terms agreed we can perform join action
+        if (_.every(result.terms, 'agreed')) {
+          return toFSA(
+            actions.tcCommunity.joinDone(tokenV3, joinGroupId, user.userId),
+          );
+        }
+
+        return false;
+      });
     }
   }
 

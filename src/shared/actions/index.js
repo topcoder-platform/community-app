@@ -4,11 +4,13 @@
  * groups of actions.
  */
 
+import challengeActions from './challenge';
 import directActions from './direct';
 import memberTasks from './member-tasks';
 import pageActions from './page';
 
 export default {
+  ...challengeActions,
   ...directActions,
   ...memberTasks,
   ...pageActions,

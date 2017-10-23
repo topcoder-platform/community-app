@@ -11,35 +11,38 @@ import Section from 'components/tc-communities/Section';
 import Banner from 'components/tc-communities/Banner';
 import ImageText from 'components/tc-communities/ImageText';
 import ResourceCard from 'components/tc-communities/ResourceCard';
-import NewsletterSignup from 'components/tc-communities/NewsletterSignup';
-import NewsSection from 'components/tc-communities/NewsSection';
-import PT from 'prop-types';
 
 import CommunityStats from 'containers/tc-communities/CommunityStats';
 import JoinCommunity from 'containers/tc-communities/JoinCommunity';
 
-import IconRocket from '../../../../../../assets/images/tc-communities/rocket.svg';
-import IconNetwork from '../../../../../../assets/images/tc-communities/network.svg';
-import IconMedal from '../../../../../../assets/images/tc-communities/medal.svg';
-
 import style from './style.scss';
 
-export default function Home(props) {
+export default function Home() {
   return (
     <main>
       <Banner
         title="Topcoder Veterans Community"
-        text="This is the place where Topcoder members can come to focus on work that involves QA."
+        text={
+          <div>
+            <p styleName="paragraph2">
+              Transition to a career in technology with our unique platform for military service members and veterans.
+            </p>
+            <p styleName="paragraph2">
+              We help connect talented coders with organizations across the globe in need of your specialized skills.
+            </p>
+          </div>
+        }
         link={{
           title: 'Compete Now',
           url: 'challenges',
         }}
-        imageSrc="/themes/veterans/community-hero.jpg"
+        imageSrc="/themes/veterans/home/banner.jpg"
+        theme={{
+          container: style.bannerContainer,
+        }}
       />
 
       <CommunityStats />
-
-      <JoinCommunity />
 
       <Section
         theme={{
@@ -48,24 +51,204 @@ export default function Home(props) {
       >
         <div>
           <ImageText
-            title="Ramp Up"
-            text="Learn about what we're working on, our environments, procedures, etc. If you want to get involved in Topcoder projects, this is a good place to start. We run challenges and tasks constantly, so we're always looking for help."
-            link={{
-              title: 'Start Learning',
-              url: 'learn',
-            }}
-            imageSrc="/themes/veterans/home/image-text-learn.jpg"
+            title="Why We Started"
+            text={
+              <div styleName="bottomMargin paragraph">
+                <p>
+                  Some of the most talented and qualified coders in the world
+                  are veterans and active military personnel. The US military
+                  has some of the most sophisticated technology platforms and
+                  equipment on the planet, which demand the brightest minds
+                  available.
+                </p>
+                <p>
+                  Their training and skills help them protect our country from
+                  threats. Now, organizations and businesses can benefit from
+                  their experience and expertise.
+                </p>
+                <p>
+                  With 250,000 service members exiting the military annually,
+                  they need to find opportunities in civilian employment.
+                </p>
+              </div>
+            }
+            imageSrc="/themes/veterans/home/image-01.jpg"
           />
           <ImageText
-            title="Get Involved"
-            text="Whether you're a copilot, designer, developer, or data scientist...we want you involved. Topcoder is one of the biggest customers of our own platform, so there is never a shortage of interesting things to work on."
-            link={{
-              title: 'Start Contributing',
-              url: 'challenges',
-            }}
-            imageSrc="/themes/veterans/home/image-text-do.jpg"
+            title="Translating Military Experience into Civilian Employment"
+            text={
+              <div styleName="bottomMargin paragraph">
+                <p>
+                  Topcoder recognizes the invaluable experience our veterans
+                  and military service members gain during their service.
+                </p>
+                <p>
+                  Yet, there’s often a gap that exists in translating this
+                  experience to civilian employment.
+                </p>
+                <p>
+                  A study by the nonprofit research group, Center for New
+                  American Security, reports that 60% of employers see the
+                  translation gap as the biggest obstacle to bringing more vets
+                  on board.
+                </p>
+              </div>
+            }
+            imageSrc="/themes/veterans/home/image-02.jpg"
+          />
+          <ImageText
+            title="Real-World Experience Counts"
+            text={
+              <div styleName="bottomMargin paragraph">
+                <p>
+                  We’ve partnered with OperationCode, a 503(c) advocacy group
+                  dedicated to helping veterans learn to code, to assist in
+                  bridging the gap between real-world skills and a career
+                  in technology as well as promote this platform.
+                </p>
+                <p>
+                  Together, we’ve developed a coalition of companies that share
+                  our vision and are committed to providing job opportunities to
+                  members of The <strong>Veterans.Topcoder</strong> community.
+                </p>
+                <p>
+                  If you’ve got what it takes and want to put your experience to
+                  work right now, let’s get started.
+                </p>
+              </div>
+            }
+            imageSrc="/themes/veterans/home/image-03.jpg"
+          />
+          <ImageText
+            title="How Topcoder.Veterans Works"
+            text={
+              <div styleName="bottomMargin paragraph">
+                <p>
+                  The Veterans.Topcoder program was designed to assist
+                  military service members and veterans who want to pursue
+                  a career in technology into viable job opportunities, which
+                  can be difficult to obtain without showing direct experience
+                  with private sector toolsets.
+                </p>
+                <p>
+                  Joining The Veterans.Topcoder community is free and
+                  enables you to compete on projects, earn money,
+                  enhance your skills, and apply them to common commercial
+                  solutions for paying customers.
+                </p>
+                <p>
+                  It also places you in the spotlight with some of the top
+                  technology companies in the world, which also believe in
+                  your background and capabilities.
+                </p>
+              </div>
+            }
+            imageSrc="/themes/veterans/home/image-05.jpg"
+          />
+          <ImageText
+            title="Tech Talent Is Desperately Needed"
+            text={
+              <div styleName="bottomMargin paragraph">
+                <p>
+                  The technology sector will only continue grow. Technology
+                  changes rapidly and is a key component of any industry from
+                  banking to manufacturing to retail.
+                </p>
+                <p>
+                  Software developers aren’t just needed for companies whose
+                  main focus is software, they’re needed to keep many industries
+                  on pace with competitors, delivering the options and
+                  experiences their clients needs - but there’s a major talent
+                  gap.
+                </p>
+                <p>
+                  More than half of global IT leaders predict they will face a
+                  lack of IT talent in the next year, as new technology demands
+                  outpace the talent supply, according to a new study from
+                  Brocade, which surveyed 630 IT leaders in the U.S., U.K.,
+                  France, Germany, Australia and Singapore.
+                </p>
+                <p>
+                  Understanding this great need, Veterans.Topcoder seeks to help
+                  connect vets with the expertise and skill with the industries that need them most.
+                </p>
+              </div>
+            }
+            imageSrc="/themes/veterans/home/image-06.jpg"
           />
         </div>
+      </Section>
+      <Section
+        title="From Our Community"
+      >
+        <ImageText
+          text={
+            <div styleName="bottomMargin paragraph">
+              <p>
+                <em>&ldquo;The Topcoder for Veterans Community
+                has provided me with an opportunity to
+                further my career for free while applying
+                my current knowledge to highly-technical
+                and complex projects while making
+                money, all under the microscope for some
+                of the largest companies in the world. It’s
+                been an incredible resource!&rdquo;</em>
+              </p>
+              <p>
+                <strong>Master Sergeant, Tim Clark, USAF</strong>
+              </p>
+            </div>
+          }
+          theme={{
+            container: style.grayBack,
+          }}
+          imageSrc="/themes/veterans/home/image-04.jpg"
+        />
+      </Section>
+
+      <Section
+        theme={{
+          container: style.hiringSection,
+        }}
+      >
+        <div>
+          <p styleName="paragraph">
+            Companies Hiring on <strong>Veterans.Topcoder</strong>
+          </p>
+          <div styleName="logos">
+            <img alt="logo-01" src="/themes/veterans/home/logo-01.jpg" />
+            <img alt="logo-02" src="/themes/veterans/home/logo-02.jpg" />
+            <img alt="logo-03" src="/themes/veterans/home/logo-03.jpg" />
+            <img alt="logo-04" src="/themes/veterans/home/logo-04.jpg" />
+            <img alt="logo-05" src="/themes/veterans/home/logo-05.jpg" />
+          </div>
+        </div>
+      </Section>
+
+      <Section
+        subTitle="Find Out."
+        title="What Can You Do?"
+      >
+        <img alt="card" src="/themes/veterans/home/card-01.jpg" />
+        <img alt="card" src="/themes/veterans/home/card-02.jpg" />
+        <img alt="card" src="/themes/veterans/home/card-03.jpg" />
+        <img alt="card" src="/themes/veterans/home/card-04.jpg" />
+        <img alt="card" src="/themes/veterans/home/card-05.jpg" />
+        <img alt="card" src="/themes/veterans/home/card-06.jpg" />
+        <img alt="card" src="/themes/veterans/home/card-07.jpg" />
+      </Section>
+
+      <Section
+        subTitle="Create Your Account Today, Start Competing, Learning & Making Money Tomorrow."
+        theme={{
+          content: style.joinSectionContent,
+        }}
+        title="Get Started"
+      >
+        <JoinCommunity
+          label="Join"
+          theme={{ link: style.primaryButton }}
+        />
       </Section>
 
       <Section
@@ -74,51 +257,58 @@ export default function Home(props) {
         }}
       >
         <ResourceCard
-          icon={IconNetwork}
-          title="Learn about our platform"
-          text="There are many aspects to our platform...something for everyone."
+          icon={() => <img alt="icon" src="/themes/veterans/home/icon-01.jpg" />}
+          theme={{ link: style.primaryButton }}
+          title="Learning & Certification"
+          text="Grow your knowledge-base and get Topcoder certified, all for free."
           link={{
-            title: 'Browse resources',
+            title: 'Learn More',
             url: 'learn',
           }}
         />
         <ResourceCard
-          icon={IconMedal}
-          title="What's in it for me?"
-          text="Topcoder rewards participants with cash. The more deliverables you produce, the more you can make."
+          icon={() => <img alt="icon" src="/themes/veterans/home/icon-02.jpg" />}
+          theme={{ link: style.primaryButton }}
+          title="Explore The Platform"
+          text="Explore the features and functionality to see how it can work for you."
           link={{
-            title: 'Learn about rewards',
-            url: 'leaderboard',
+            title: 'Browse Resources',
+            url: 'learn',
           }}
         />
         <ResourceCard
-          icon={IconRocket}
-          title="Participate in many ways"
-          text="We're always running challenges and tasks.  Check back every day to see what's new."
+          icon={() => <img alt="icon" src="/themes/veterans/home/icon-03.jpg" />}
+          theme={{ link: style.primaryButton }}
+          title="Make money"
+          text="We reward participants with cash. Produce deliverables as required and make money."
           link={{
-            title: 'Browse challenges',
+            title: 'Learn About Rewards',
+            url: 'challenges',
+          }}
+        />
+        <ResourceCard
+          icon={() => <img alt="icon" src="/themes/veterans/home/icon-04.jpg" />}
+          theme={{ link: style.primaryButton }}
+          title="Join Challenges"
+          text="We add new challenges and tasks daily. Find projects that fit your skill set."
+          link={{
+            title: 'View Challenges & Tasks',
             url: 'challenges',
           }}
         />
       </Section>
 
-      <NewsSection news={props.news} />
-
-      <NewsletterSignup
-        title="Sign up for Topcoder Product Development Updates"
-        text="Don’t miss out opportunities to work on the Topcoder Platform!"
-        imageSrc="/themes/veterans/subscribe-bg.jpg"
-      />
-
+      <Section
+        subTitle="Explore other features and resources on the site."
+        title="More Ways to Learn and Connect"
+      >
+        <img alt="card" src="/themes/veterans/home/card-b-01.jpg" />
+        <img alt="card" src="/themes/veterans/home/card-b-02.jpg" />
+        <img alt="card" src="/themes/veterans/home/card-b-03.jpg" />
+        <img alt="card" src="/themes/veterans/home/card-b-04.jpg" />
+        <img alt="card" src="/themes/veterans/home/card-b-05.jpg" />
+        <img alt="card" src="/themes/veterans/home/card-b-06.jpg" />
+      </Section>
     </main>
   );
 }
-
-Home.defaultProps = {
-  news: [],
-};
-
-Home.propTypes = {
-  news: PT.arrayOf(PT.shape()),
-};
-

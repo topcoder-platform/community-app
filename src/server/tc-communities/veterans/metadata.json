@@ -13,6 +13,7 @@
     "value": "2"
   }],
   "groupIds": ["20000007"],
+  "terms": [21193],
   "logos": [{
     "img": "/themes/veterans/logo_topcoder_with_name.svg",
     "url": "https://www.topcoder.com"
@@ -27,11 +28,9 @@
     }, {
       "title": "Challenges",
       "url": "/challenges"
-    }, {
-      "title": "Leaderboard",
-      "url": "/leaderboard"
     }
   ],
+  "footerText": "© Copyright Topcoder Inc 2017",
   "leaderboardApiUrl": "https://api.topcoder.com/v4/looks/458/run/json/",
   "newsFeed": "http://www.topcoder.com/feed",
   "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore.",
