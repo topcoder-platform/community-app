@@ -25,6 +25,9 @@ export default function SideBar({
   isDesign,
   terms,
   openTermsModal,
+  isDevelop,
+  envURL,
+  codeRepoURL,
 }) {
   const scorecardURL = `${config.URL.ONLINE_REVIEW}/review/actions/ViewScorecard?scid=`;
   const faqURL = config.URL.INFO.DESIGN_CHALLENGE_SUBMISSION;
@@ -103,6 +106,18 @@ export default function SideBar({
         }
         <div>
           <h3>CHALLENGE LINKS:</h3>
+          {
+            isDevelop && envURL && envURL.length > 0 &&
+            <p styleName="link-like-paragraph">
+              <a href={`${envURL}`}>Environment</a>
+            </p>
+          }
+          {
+            isDevelop && codeRepoURL && codeRepoURL.length > 0 &&
+            <p styleName="link-like-paragraph">
+              <a href={`${codeRepoURL}`}>Code Repository</a>
+            </p>
+          }
           {
             screeningScorecardId > 0 &&
             <p styleName="link-like-paragraph">
@@ -242,6 +257,9 @@ SideBar.defaultProps = {
   reviewType: 'COMMUNITY',
   isDesign: false,
   terms: [],
+  isDevelop: false,
+  envURL: '',
+  codeRepoURL: '',
 };
 
 SideBar.propTypes = {
@@ -261,4 +279,7 @@ SideBar.propTypes = {
   isDesign: PT.bool,
   terms: PT.arrayOf(PT.shape()),
   openTermsModal: PT.func.isRequired,
+  isDevelop: PT.bool,
+  envURL: PT.string,
+  codeRepoURL: PT.string,
 };

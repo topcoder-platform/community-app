@@ -297,6 +297,8 @@ function extractChallengeDetail(v3, v2, challengeId) {
       challenge.allowStockArt = v2.allowStockArt === 'true';
       challenge.finalSubmissionGuidelines = v2.finalSubmissionGuidelines;
       challenge.appealsEndDate = v2.appealsEndDate;
+      challenge.envURL = 'https://github.com';
+      challenge.codeRepoURL = 'https://github.com';
       if (v2.event) {
         challenge.mainEvent = {
           eventName: v2.event.shortDescription,
@@ -346,6 +348,8 @@ function extractChallengeDetail(v3, v2, challengeId) {
       allowStockArt: v2.allowStockArt === 'true',
       finalSubmissionGuidelines: v2.finalSubmissionGuidelines,
       appealsEndDate: v2.appealsEndDate,
+      envURL: 'https://github.com',
+      codeRepoURL: 'https://github.com',
     };
   }
   return challenge;

@@ -33,6 +33,8 @@ export default function ChallengeDetailsView(props) {
       round2Introduction,
       allowStockArt,
       finalSubmissionGuidelines,
+      envURL,
+      codeRepoURL,
     },
   } = props;
 
@@ -278,9 +280,12 @@ export default function ChallengeDetailsView(props) {
         hasRegistered={hasRegistered}
         fileTypes={fileTypes}
         isDesign={track.toLowerCase() === 'design'}
+        isDevelop={track.toLowerCase() === 'develop'}
         terms={terms}
         openTermsModal={openTermsModal}
         shareable={!groupIds}
+        envURL={envURL}
+        codeRepoURL={codeRepoURL}
       />
     </div>
   );
@@ -305,6 +310,8 @@ ChallengeDetailsView.defaultProps = {
     round2Introduction: '',
     allowStockArt: false,
     finalSubmissionGuidelines: '',
+    envURL: '',
+    codeRepoURL: '',
   },
 };
 
@@ -329,6 +336,8 @@ ChallengeDetailsView.propTypes = {
     round2Introduction: PT.string,
     allowStockArt: PT.bool,
     finalSubmissionGuidelines: PT.string,
+    envURL: PT.string,
+    codeRepoURL: PT.string,
   }),
   openTermsModal: PT.func.isRequired,
 };
