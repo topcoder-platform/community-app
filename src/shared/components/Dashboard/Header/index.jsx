@@ -1,12 +1,17 @@
+/** 
+ * Child component of Dashboard/Header renders summary of user achievements, 
+ * money earned and number of active challenges. Also renders special badges
+ * based of acheivement data.  
+*/
 import React from 'react';
 import PT from 'prop-types';
+import badge from 'assets/images/dashboard/badge.png';
 
-import Handle from 'components/Handle';
-import DefaultUserIcon from '../../../../assets/images/ico-user-default.svg';
 import './styles.scss';
 
+
 export default function Header(props) {
-  const { title, profile, financials } = props;
+  const { title, financials, achievements, myChallenges } = props;
   return (
     <div styleName="header-dashboard">
       <div styleName="page-state-header">
@@ -15,28 +20,30 @@ export default function Header(props) {
             <h1>{title}</h1>
           </div>
           <div styleName="info">
-            <div styleName="pic">
-              <a>
-                {
-                  (!profile || !profile.photoURL) &&
-                  <DefaultUserIcon width={60} height={60} />
-                }
-                {
-                  profile && profile.photoURL &&
-                  <img alt="" src={profile.photoURL} styleName="profile-circle" />
-                }
-              </a>
-            </div>
             {
-              profile && <div styleName="user-metrics">
-                <Handle handle={profile.handle} size={24} rating={profile.maxRating.rating} />
-                {
-                  financials > 0 &&
-                  <div styleName="money-earned">
-                    <p styleName="number">${financials.toLocaleString()}</p>
-                    <p>Earned</p>
-                  </div>
-                }
+              myChallenges > 0 &&
+              <div styleName="item">
+                <div styleName="value">
+                  <p>{myChallenges}</p>
+                </div>
+                <div styleName="title"><p>Active Challenges</p></div>
+              </div>
+            }
+            {
+              financials > 0 &&
+              <div styleName="item">
+                <div styleName="value">
+                  <p styleName="number">${financials.toLocaleString()}</p>
+                </div>
+                <div styleName="title"><p>Won in Prizes</p></div>
+              </div>
+            }
+            {
+              achievements && achievements.length > 0 &&
+              <div styleName="badgeItem">
+                <div styleName="dashboardBadge">
+                  <img alt={achievements[0].description} src={badge} width="200" height="200" />
+                </div>
               </div>
             }
           </div>
@@ -48,14 +55,14 @@ export default function Header(props) {
 
 Header.propTypes = {
   title: PT.string,
-  profile: PT.shape(),
   financials: PT.number,
+  achievements: React.PropTypes.arrayOf(React.PropTypes.object),
+  myChallenges: PT.number,
 };
 
 Header.defaultProps = {
   title: '',
-  profile: {
-    maxRating: {},
-  },
   financials: 0,
+  achievements: [],
+  myChallenges: 0,
 };
