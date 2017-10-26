@@ -58,7 +58,6 @@ exports[`Matches shallow shapshot 1`] = `
       },
     ]
   }
-  communityName={null}
   expand={[Function]}
   expanded={true}
   keepPlaceholders={false}
@@ -199,7 +198,6 @@ exports[`Matches shallow shapshot 2`] = `
       },
     ]
   }
-  communityName={null}
   expand={[Function]}
   expanded={false}
   keepPlaceholders={false}
@@ -227,7 +225,6 @@ exports[`Matches shallow shapshot 3`] = `
     }
   }
   challenges={Array []}
-  communityName={null}
   expand={[Function]}
   expanded={false}
   keepPlaceholders={false}

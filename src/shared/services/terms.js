@@ -5,6 +5,7 @@
 
 import _ from 'lodash';
 import config from 'utils/config';
+import { getService as getCommunityService } from 'services/communities';
 import { getApiV2 } from './api';
 
 class TermsService {
@@ -23,7 +24,7 @@ class TermsService {
    * @param  {Number|String} challengeId id of the challenge
    * @return {Promise}       promise of the request result
    */
-  getTerms(challengeId) {
+  getChallengeTerms(challengeId) {
     if (this.private.tokenV2) {
       let registered = false;
       return this.private.api.get(`/terms/${challengeId}?role=Submitter`)
@@ -60,12 +61,42 @@ class TermsService {
   }
 
   /**
+   * get all terms for community
+   *
+   * NOTE: As there is no specific endpoint to get community terms by one call
+   *       currently we get community term ids from community service and after
+   *       we get community terms using term ids list one by one
+   *
+   * @param {String} communityId community id
+   * @param {String} tokenV3     auth token V3 - we need to get community meta data
+   *
+   * @return {Promise} resolves to the list of community terms
+   */
+  getCommunityTerms(communityId, tokenV3) {
+    const communityService = getCommunityService(tokenV3);
+
+    return communityService.getMetadata(communityId).then((meta) => {
+      if (meta.terms && meta.terms.length) {
+        return Promise.all(meta.terms.map(termId => this.getTermDetails(termId))).then(terms => (
+          terms.map(term => _.omit(term, 'text')) // don't include text as it's big and we need it for list
+        ));
+      }
+
+      return [];
+    }).then(terms => ({
+      terms,
+    }));
+  }
+
+  /**
    * get details of specified term
    * @param  {Number|String} termId id of the term
    * @return {Promise}       promise of the request result
    */
   getTermDetails(termId) {
-    return this.private.api.get(`/terms/detail/${termId}`)
+    // looks like server cache responses, to prevent it we add nocache param with always new value
+    const nocache = (new Date()).getTime();
+    return this.private.api.get(`/terms/detail/${termId}?nocache=${nocache}`)
       .then(res => (res.ok ? res.json() : new Error(res.statusText)));
   }
 
@@ -110,7 +141,7 @@ export default undefined;
 /* Because of Topcoder backend restrictions, it is not straightforward to test
  * terms-related functionality in any other way than just providing an option to
  * run the app against mock terms service. */
-if (config.MOCK_CHALLENGE_TERMS_SERVICE) {
+if (config.MOCK_TERMS_SERVICE) {
   /* eslint-disable global-require */
   module.exports = require('./__mocks__/terms');
   /* eslint-enable global-require */

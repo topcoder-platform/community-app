@@ -53,6 +53,10 @@ function create(initialState) {
       ...state,
       financials: action.error ? 0 : action.payload,
     }),
+    [a.getUserAchievements]: (state, action) => ({
+      ...state,
+      achievements: action.error ? 0 : action.payload,
+    }),
   }, _.defaults(_.clone(initialState) || {}, {
     subtrackRanks: [],
     loadingSubtrackRanks: false,
@@ -62,6 +66,7 @@ function create(initialState) {
     loadingBlogs: false,
     blogs: [],
     financials: 0,
+    achievements: [],
   }));
 }
 

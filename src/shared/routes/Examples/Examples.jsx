@@ -31,11 +31,11 @@ export default function Examples(props) {
       <Route path={`${base}/buttons`} component={Buttons} />
       <SplitRoute
         cacheCss
-        chunkName="code-splitting"
+        chunkName="code-splitting/chunk"
         path={`${base}/code-splitting`}
         renderClientAsync={() =>
           import(
-            /* webpackChunkName: "code-splitting" */
+            /* webpackChunkName: "code-splitting/chunk" */
             'components/examples/CodeSplitting',
           ).then(({ default: CodeSplitting }) => <CodeSplitting />)
         }

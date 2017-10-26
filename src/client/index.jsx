@@ -2,7 +2,8 @@
  * Client-side rendering of the App.
  */
 
-import actions from 'actions/auth';
+import authActions from 'actions/auth';
+import directActions from 'actions/direct';
 import userGroupsActions from 'actions/groups';
 import cookies from 'browser-cookies';
 import { BrowserRouter, browserHistory } from 'react-router-dom';
@@ -19,6 +20,12 @@ import logger from 'utils/logger';
 
 import storeFactory from '../shared/store-factory';
 import './styles.scss';
+
+const actions = {
+  ...authActions,
+  ...directActions,
+  ...userGroupsActions,
+};
 
 /* Isomorphic code may rely on this environment variable to check whether it is
  * executed client- or server-side. */
@@ -66,16 +73,22 @@ function authenticate(store) {
       store.dispatch(actions.auth.setTcTokenV2(tctV2));
     }
 
-    /* User group data demands proper authorization to be accessed,
-     * thus they should be dropped if authentication fails. */
-    if (!tctV3) {
-      store.dispatch(userGroupsActions.groups.dropGroups());
+    const userV3 = tctV3 ? decodeToken(tctV3) : {};
+    const prevUserV3 = auth.tokenV3 ? decodeToken(auth.tokenV3) : {};
+
+    /* If we enter the following "if" block, it means that our visitor used
+     * to be authenticated before, but now he has lost his authentication;
+     * or he has authenticated as a different user. In both cases, we must drop
+     * from the state all sensitive data, accessible only to specific users. */
+    if (prevUserV3.handle && prevUserV3.handle !== userV3.handle) {
+      store.dispatch(actions.direct.dropAll());
+      store.dispatch(actions.groups.dropGroups());
     }
 
     /* Automatic refreshment of auth tokens. */
     let time = Number.MAX_VALUE;
     if (tctV2) time = decodeToken(tctV2).exp;
-    if (tctV3) time = Math.min(time, decodeToken(tctV3).exp);
+    if (userV3) time = Math.min(time, userV3.exp);
     if (time < Number.MAX_VALUE) {
       time = 1000 * (time - config.REAUTH_TIME);
       time = Math.max(0, time - Date.now());

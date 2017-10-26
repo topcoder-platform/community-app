@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="16px" height="16px" viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 46.2 (44496) - http://www.bohemiancoding.com/sketch -->
+    <title>status icon/draft</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Symbols" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="status-icon/draft" fill-rule="nonzero" fill="#5D5D66">
+            <path d="M15,4 L1,4 C0.448,4 0,3.552 0,3 C0,2.448 0.448,2 1,2 L15,2 C15.552,2 16,2.448 16,3 C16,3.552 15.552,4 15,4 Z M7,9 L1,9 C0.448,9 0,8.552 0,8 C0,7.448 0.448,7 1,7 L7,7 C7.552,7 8,7.448 8,8 C8,8.552 7.552,9 7,9 Z M9.99375,14 L1,14 C0.448,14 0,13.552 0,13 C0,12.448 0.448,12 1,12 L9.99375,12 C10.54575,12 10.99375,12.448 10.99375,13 C10.99375,13.552 10.54575,14 9.99375,14 Z" id="Combined-Shape"></path>
+        </g>
+    </g>
+</svg>

@@ -13,10 +13,10 @@ export default function ChunkLoader({ base, meta }) {
   return (
     <SplitRoute
       cacheCss
-      chunkName="srmx-community"
+      chunkName="srmx-community/chunk"
       renderClientAsync={() =>
         import(
-          /* webpackChunkName: "srmx-community" */
+          /* webpackChunkName: "srmx-community/chunk" */
           './Routes',
         ).then(({ default: Routes }) => <Routes base={base} meta={meta} />)
       }

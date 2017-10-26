@@ -1,4 +1,66 @@
-@import '~styles/tc-styles';
+@import '~styles/mixins';
+
+@mixin bodyText {
+  color: #787d81;
+  font: 15px/22px 'Open Sans';
+  padding: 6px 0;
+}
+
+.paragraph2 {
+  padding: 6px 0;
+}
+
+.bannerContainer {
+  background-position: 0% 20% !important;
+}
+
+.bottomMargin {
+  margin-bottom: 12px;
+}
+
+.hiringSection {
+  @include bodyText;
+
+  background: whitesmoke;
+  padding: 24px 0;
+
+  div {
+    text-align: center;
+    width: 100%;
+  }
+
+  p {
+    font-size: 18px;
+  }
+}
+
+.logos {
+  padding: 32px 0 0;
+
+  img {
+    margin: 0 6px;
+  }
+}
+
+.grayBack {
+  background: whitesmoke;
+}
+
+.paragraph {
+  @include bodyText;
+
+  em {
+    font-style: italic !important;
+  }
+
+  p {
+    padding: 6px 0;
+  }
+
+  strong {
+    font-weight: bold;
+  }
+}
 
 .statsContainer {
   padding: 0;
@@ -25,9 +87,51 @@
 }
 
 .linksContainer {
-  padding: 24px 0 60px;
+  padding: 24px 0 0;
 
   @include xxs-to-xs {
     padding: 0;
+  }
+}
+
+.joinSectionContent {
+  justify-content: center;
+}
+
+.primaryButton {
+  color: $tc-white;
+  display: block;
+  background: #85bc3f;
+  border: none;
+  border-radius: 6px;
+  font: 14px/40px 'Open Sans';
+  margin: 24px auto;
+  height: 40px;
+  text-align: center;
+  text-transform: none;
+  width: 171px;
+
+  &:hover,
+  &:active,
+  &:focus,
+  &:visited {
+    color: $tc-white;
+    outline: none;
+    text-decoration: none;
+  }
+
+  &:hover {
+    background: #85bc3f;
+  }
+
+  &.joining:hover {
+    background: #85bc3f;
+    cursor: default;
+  }
+
+  &.joining div p {
+    display: inline-block;
+    margin-right: 12px;
+    vertical-align: top;
   }
 }

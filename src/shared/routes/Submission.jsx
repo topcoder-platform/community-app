@@ -5,10 +5,10 @@ import { SplitRoute } from 'utils/router';
 export default function SubmissionsPageRoute(props) {
   return (
     <SplitRoute
-      chunkName="submissions-page"
+      chunkName="submissions-page/chunk"
       renderClientAsync={() =>
         import(
-          /* webpackChunkName: "submissions-page" */
+          /* webpackChunkName: "submissions-page/chunk" */
           'containers/page/challenge-details/submission',
         ).then(({ default: SubmissionsPageContainer }) => (
           <SubmissionsPageContainer {...props} />

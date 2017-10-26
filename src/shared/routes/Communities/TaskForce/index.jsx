@@ -13,10 +13,10 @@ export default function ChunkLoader({ base, meta }) {
   return (
     <SplitRoute
       cacheCss
-      chunkName="taskforce-community"
+      chunkName="taskforce-community/chunk"
       renderClientAsync={() =>
         import(
-          /* webpackChunkName: "taskforce-community" */
+          /* webpackChunkName: "taskforce-community/chunk" */
           './Routes',
         ).then(({ default: Routes }) => <Routes base={base} meta={meta} />)
       }

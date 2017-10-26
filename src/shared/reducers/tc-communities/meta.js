@@ -70,6 +70,8 @@ export function factory(req) {
     let communityId = getCommunityId(req.subdomains);
     if (!communityId && req.url.startsWith('/community')) {
       communityId = req.url.split('/')[2];
+      // remove possible params like ?join=<communityId>
+      communityId = communityId ? communityId.replace(/\?.*/, '') : communityId;
     }
     if (communityId) {
       const state = { loadingMetaDataForCommunityId: communityId };

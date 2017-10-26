@@ -21,7 +21,6 @@ exports[`Matches shallow shapshot 1`] = `
   ignoreAccents={true}
   ignoreCase={true}
   inputProps={Object {}}
-  instanceId="id"
   isLoading={false}
   joinValues={false}
   labelKey="label"
