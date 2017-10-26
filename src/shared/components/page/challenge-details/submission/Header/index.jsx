@@ -1,3 +1,10 @@
+/**
+ * components.page.challenge-details.submission.header.index Header Component
+ *
+ * Description:
+ *   Header for the submission page.  Displays title and allows navigation
+ *   back to challenge details.
+ */
 import PT from 'prop-types';
 import React from 'react';
 import { Link } from 'react-router-dom';
@@ -20,6 +27,9 @@ const Header = ({
   </div>
 );
 
+/**
+ * Prop Validation
+ */
 Header.propTypes = {
   challengeId: PT.number.isRequired,
   challengesUrl: PT.string.isRequired,

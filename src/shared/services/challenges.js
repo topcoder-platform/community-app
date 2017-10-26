@@ -236,23 +236,6 @@ class ChallengesService {
       .then(res => (res.ok ? res.json() : new Error(res.statusText)));
   }
 
-  submit(body, challengeId, track, onProgress) {
-    const url = track !== 'DESIGN' ?
-      `/develop/challenges/${challengeId}/upload` :
-      `/design/challenges/${challengeId}/submit`;
-    return this.private.apiV2.upload(url, {
-      body,
-      headers: { 'Content-Type': null },
-      method: 'POST',
-    }, onProgress).then(
-      res => res.json(),
-      (err) => {
-        logger.error(`Failed to submit to the challenge #${challengeId}`, err);
-        throw err;
-      },
-    );
-  }
-
   /**
    * Unregisters user from the specified challenge.
    * @param {String} challengeId
@@ -262,6 +245,55 @@ class ChallengesService {
     const endpoint = `/challenges/${challengeId}/unregister`;
     return this.private.apiV2.post(endpoint)
       .then(res => (res.ok ? res.json() : new Error(res.statusText)));
+  }
+
+  /**
+   * Submits a challenge submission.  Uses APIV2 for Development submission
+   * and APIV3 for Design submisisons.
+   * @param {Object} body
+   * @param {String} challengeId
+   * @param {String} track Either DESIGN or DEVELOP
+   * @return {Promise}
+  */
+  submit(body, challengeId, track, onProgress) {
+    let api;
+    let contentType;
+    let url;
+
+    if (track === 'DESIGN') {
+      api = this.private.api;
+      contentType = 'application/json';
+      url = '/submissions/'; // The submission info is contained entirely in the JSON body
+    } else {
+      api = this.private.apiV2;
+      // contentType = 'multipart/form-data';
+      contentType = null;
+      url = `/develop/challenges/${challengeId}/upload`;
+    }
+
+    return api.upload(url, {
+      body,
+      headers: { 'Content-Type': contentType },
+      method: 'POST',
+    }, onProgress).then((res) => {
+      const jres = JSON.parse(res);
+      // Return result for Develop submission
+      if (track === 'DEVELOP') {
+        return jres;
+      }
+      // Design Submission requires an extra "Processing" POST
+      const procId = jres.result.content.id;
+      return api.upload(`/submissions/${procId}/process/`, {
+        body: JSON.stringify({ param: jres.result.content }),
+        headers: { 'Content-Type': contentType },
+        method: 'POST',
+      }, onProgress).then(procres => JSON.parse(procres));
+    },
+    (err) => {
+      logger.error(`Failed to submit to the challenge #${challengeId}`, err);
+      throw err;
+    },
+    );
   }
 }
 

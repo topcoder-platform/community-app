@@ -1,9 +1,15 @@
 /**
- * Submission page for development challenges.
+ * components.page.challenge-details.Develop
+ * <Develop> Component
+ *
+ * Description:
+ *   Page that is shown when a user is trying to submit a Development Submission.
+ *   Allows user to upload Submission.zip file using a conventional
+ *   file input form.
  */
+/* eslint-env browser */
 
-/* global document, FormData */
-
+import _ from 'lodash';
 import config from 'utils/config';
 import React from 'react';
 import PT from 'prop-types';
@@ -18,38 +24,33 @@ import './styles.scss';
 class Develop extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      agreed: false,
-      errorFile: true,
-    };
-    this.fileCb = this.fileCb.bind(this);
+
     this.reset = this.reset.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.retry = this.retry.bind(this);
-  }
-
-  fileCb(val) {
-    this.setState({
-      errorFile: val,
-    });
+    this.back = this.back.bind(this);
   }
 
   reset() {
-    this.setState({
-      agreed: false,
-      errorFile: true,
-    });
+    this.props.setAgreed(false);
     this.props.resetForm();
   }
 
+  /* User has clicked submit, prepare formData for the V2 API and start upload */
   handleSubmit(e) {
     e.preventDefault();
     this.formData = new FormData(document.getElementById('submit-form'));
     this.props.submitForm(this.formData);
   }
 
+  /* User has clicked to go retry the submission after an error */
   retry() {
     this.props.submitForm(this.formData);
+  }
+
+  /* User has clicked to go back to a new submission after a successful submit */
+  back() {
+    this.props.resetForm();
   }
 
   render() {
@@ -62,7 +63,23 @@ class Develop extends React.Component {
       submitDone,
       track,
       uploadProgress,
+      agreed,
+      setAgreed,
+      filePickers,
+      setFilePickerError,
+      setFilePickerFileName,
+      setFilePickerDragged,
     } = this.props;
+
+    const id = '1';
+
+    // Find the state for FilePicker with id of 1 or assign default values
+    const fpState = filePickers.find(fp => fp.id === id) || ({
+      id,
+      error: '',
+      fileName: '',
+      dragged: false,
+    });
 
     return (
       (!isSubmitting && !submitDone && !errorMsg) ? (
@@ -85,9 +102,16 @@ class Develop extends React.Component {
                 <div styleName="file-picker-container">
                   <FilePicker
                     mandatory
+                    id={id}
                     title="SUBMISSION"
                     fileExtensions={['.zip']}
-                    cb={this.fileCb}
+                    error={fpState.error}
+                    // Bind the set functions to the FilePicker's ID
+                    setError={_.partial(setFilePickerError, id)}
+                    fileName={fpState.fileName}
+                    setFileName={_.partial(setFilePickerFileName, id)}
+                    dragged={fpState.dragged}
+                    setDragged={_.partial(setFilePickerDragged, id)}
                   />
                 </div>
                 <p>
@@ -100,9 +124,6 @@ class Develop extends React.Component {
               </div>
             </div>
             <div styleName="row agree">
-              {/* TODO: This block is mostly the same as on the design
-              submission page, thus it should be split into a separate
-              component that can be re-used in both places! */}
               <p>
                 Submitting your files means you hereby agree to the
                 &zwnj;<a
@@ -119,7 +140,7 @@ class Develop extends React.Component {
                 <input
                   type="checkbox"
                   id="agree"
-                  onChange={e => this.setState({ agreed: e.target.checked })}
+                  onChange={e => setAgreed(e.target.checked)}
                 />
                 <label htmlFor="agree">
                   <div styleName="tc-checkbox-label">I UNDERSTAND AND AGREE</div>
@@ -127,7 +148,7 @@ class Develop extends React.Component {
               </div>
               <PrimaryButton
                 type="submit"
-                disabled={!this.state.agreed || this.state.errorFile}
+                disabled={!agreed || !!fpState.error || !fpState.fileName}
               >Submit</PrimaryButton>
             </div>
           </form>
@@ -144,11 +165,15 @@ class Develop extends React.Component {
           retry={this.retry}
           track={track}
           uploadProgress={uploadProgress}
+          back={this.back}
         />
     );
   }
 }
 
+/**
+ * Prop Validation
+ */
 Develop.propTypes = {
   challengeId: PT.number.isRequired,
   challengeName: PT.string.isRequired,
@@ -160,6 +185,16 @@ Develop.propTypes = {
   resetForm: PT.func.isRequired,
   track: PT.string.isRequired,
   uploadProgress: PT.number.isRequired,
+  setAgreed: PT.func.isRequired,
+  agreed: PT.bool.isRequired,
+  filePickers: PT.arrayOf(PT.shape({
+    id: PT.string.isRequired,
+    error: PT.string.isRequired,
+    fileName: PT.string.isRequired,
+  }).isRequired).isRequired,
+  setFilePickerError: PT.func.isRequired,
+  setFilePickerFileName: PT.func.isRequired,
+  setFilePickerDragged: PT.func.isRequired,
 };
 
 export default Develop;

@@ -27,6 +27,7 @@ import { factory as leaderboardFactory } from './leaderboard';
 import { factory as dashboardFactory } from './dashboard';
 import { factory as termsFactory } from './terms';
 import { factory as scoreboardFactory } from './tco/scoreboard';
+import { factory as pageFactory } from './page';
 import topcoderHeader from './topcoder_header';
 
 export function factory(req) {
@@ -42,6 +43,7 @@ export function factory(req) {
     dashboard: dashboardFactory(req),
     terms: termsFactory(req),
     scoreboard: scoreboardFactory(req),
+    page: pageFactory(req),
   }).then(reducers => combine((state) => {
     const res = { ...state };
     if (req) {

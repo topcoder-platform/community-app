@@ -5,7 +5,6 @@
  */
 
 import _ from 'lodash';
-import config from 'utils/config';
 import React from 'react';
 import PT from 'prop-types';
 import moment from 'moment';
@@ -44,7 +43,6 @@ export default function ChallengeHeader(props) {
     name,
     subTrack,
     track,
-
     events,
     technologies,
     platforms,
@@ -259,12 +257,8 @@ export default function ChallengeHeader(props) {
                 )}
                 <PrimaryButton
                   disabled={!hasRegistered || unregistering || submissionEnded}
-                  openNewTab={trackLower === 'design'}
                   theme={{ button: style.challengeAction }}
-                  to={trackLower === 'design'
-                    ? `${config.URL.BASE}/challenges/${challengeId}/submit/file`
-                    : `${challengesUrl}/${challengeId}/submit`
-                  }
+                  to={`${challengesUrl}/${challengeId}/submit`}
                 >Submit</PrimaryButton>
                 { track === 'DESIGN' && hasRegistered && !unregistering
                   && hasSubmissions && (

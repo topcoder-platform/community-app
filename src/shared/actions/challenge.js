@@ -172,42 +172,6 @@ function fetchCheckpointsDone(tokenV2, challengeId) {
 }
 
 /**
- * Payload creator for the action that updates progress percent
- * @param {Number} percent content uploaded
- * @return {Number} percent uploaded
- */
-function uploadProgress(percent) {
-  return percent;
-}
-
-/**
- * Payload creator for the action that actually performs submission operation.
- * @param {String} tokenV3
- * @param {String} tokenV2
- * @param {String} submissionId
- * @param {Object} body Data to submit.
- * @param {String} track Competition track of the challenge where we submit.
- * @return
- */
-function submitDone(tokenV3, tokenV2, submissionId, body, track, progress) {
-  return getChallengesService(tokenV3, tokenV2)
-    .submit(body, submissionId, track, progress);
-}
-
-
-/**
- * Payload creator for the action that initializes submission operation.
- */
-function submitInit() {
-}
-
-/**
- * Payload creator for the action that resets submission operation.
- */
-function submitReset() {
-}
-
-/**
  * Toggles checkpoint feedback. If second argument is provided, it
  * will just open / close the checkpoint depending on its value being
  * true or false.
@@ -232,10 +196,6 @@ export default createActions({
     REGISTER_INIT: _.noop,
     REGISTER_DONE: registerDone,
     SELECT_TAB: _.identity,
-    SUBMIT_DONE: submitDone,
-    SUBMIT_INIT: submitInit,
-    UPLOAD_PROGRESS: uploadProgress,
-    SUBMIT_RESET: submitReset,
     TOGGLE_CHECKPOINT_FEEDBACK: toggleCheckpointFeedback,
     UNREGISTER_INIT: _.noop,
     UNREGISTER_DONE: unregisterDone,
