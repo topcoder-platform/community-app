@@ -28,7 +28,7 @@ module.exports = {
       ],
       loader: 'file-loader',
       options: {
-        outputPath: '/fonts/',
+        outputPath: '/community-app-fonts/',
         publicPath: '',
       },
     }, {
@@ -59,6 +59,7 @@ module.exports = {
             },
             generateScopedName: '[hash:base64:6]',
           }],
+          'transform-runtime',
         ],
       },
     }, {

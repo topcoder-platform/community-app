@@ -335,15 +335,6 @@ export function mapToBackend(filter) {
   const res = {};
   if (filter.groupIds) res.groupIds = filter.groupIds.join(',');
 
-  /* A rapid hack which prevents our code to keep on searching past challenges,
-   * for a filter without any track enabled (i.e. no challenge should match it).
-   * TODO: With this fix, the frontend still does a single round of searching,
-   * which should be prevented.
-   */
-  if (filter.tracks && _.isEmpty(filter.tracks)) {
-    res.name = 'A non existing challenge 230785';
-  }
-
   /* NOTE: Right now the frontend challenge filter by tag works different,
    * it looks for matches in the challenge name OR in the techs / platforms. */
   // if (filter.tags) res.technologies = filter.tags.join(',');

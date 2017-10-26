@@ -1,11 +1,13 @@
 /**
  * Collection of small Topcoder-related functions.
  */
+/* global window */
 
 import _ from 'lodash';
 import config from 'utils/config';
 import moment from 'moment-timezone';
 import { isTokenExpired } from 'tc-accounts';
+import { isClientSide } from 'utils/isomorphy';
 
 /**
  * Codes of the Topcoder communities.
@@ -71,6 +73,17 @@ export function getAuthTokens(req = {}) {
   if (!tokenV2 || isTokenExpired(tokenV2, config.AUTH_DROP_TIME)) tokenV2 = '';
   if (!tokenV3 || isTokenExpired(tokenV3, config.AUTH_DROP_TIME)) tokenV3 = '';
   return { tokenV2, tokenV3 };
+}
+
+/**
+ * At the client side it redirects to Topcoder login, with the current URL used
+ * as the return address. Does nothing at the server side.
+ */
+export function goToLogin() {
+  if (isClientSide()) {
+    const retUrl = encodeURIComponent(window.location.href);
+    window.location = `${config.URL.AUTH}/member?retUrl=${retUrl}`;
+  }
 }
 
 /**

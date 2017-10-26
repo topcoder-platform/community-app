@@ -6,7 +6,7 @@ import _ from 'lodash';
 import React from 'react';
 import PT from 'prop-types';
 import { themr } from 'react-css-super-themr';
-import { Link } from 'react-router-dom';
+import { Link } from 'utils/router';
 import defaultStyle from './style.scss';
 
 function LinksCard(props) {
@@ -18,7 +18,11 @@ function LinksCard(props) {
       <ul className={theme.list}>
         {_.map(links, (link, index) => (
           <li className={theme.item} key={index}>
-            <Link className={theme.link} to={link.url}>{link.title}</Link>
+            <Link
+              className={theme.link}
+              openNewTab={link.openNewTab}
+              to={link.url}
+            >{link.title}</Link>
           </li>
         ))}
       </ul>
@@ -33,6 +37,7 @@ LinksCard.defaultProps = {
 LinksCard.propTypes = {
   title: PT.string.isRequired,
   links: PT.arrayOf(PT.shape({
+    openNewTab: PT.bool,
     title: PT.string.isRequired,
     url: PT.string.isRequired,
   })).isRequired,

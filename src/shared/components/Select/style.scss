@@ -1,0 +1,12 @@
+.select {
+  :global {
+    input.Select-input {
+      margin-left: 0 !important;
+      padding-right: 6px !important;
+    }
+
+    .Select-multi-value-wrapper {
+      width: 100% !important;
+    }
+  }
+}

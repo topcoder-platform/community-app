@@ -13,10 +13,10 @@ export default function ChunkLoader({ base, meta }) {
   return (
     <SplitRoute
       cacheCss
-      chunkName="tc-prod-dev-community"
+      chunkName="tc-prod-dev-community/chunk"
       renderClientAsync={() =>
         import(
-          /* webpackChunkName: "tc-prod-dev-community" */
+          /* webpackChunkName: "tc-prod-dev-community/chunk" */
           './Routes',
         ).then(({ default: Routes }) => <Routes base={base} meta={meta} />)
       }

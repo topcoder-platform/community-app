@@ -22,6 +22,7 @@ exports[`Matches shallow shapshot 1`] = `
         ],
         "status": "b",
         "totalPrize": 1800,
+        "users": Object {},
       },
       Object {
         "allPhases": Array [
@@ -53,12 +54,13 @@ exports[`Matches shallow shapshot 1`] = `
         "technologies": "a, b, c",
         "totalPrize": 1800,
         "track": "DEVELOP",
+        "users": Object {},
       },
     ]
   }
-  communityName={null}
   expand={[Function]}
   expanded={true}
+  keepPlaceholders={false}
   loadMore={[Function]}
   loading={false}
   newChallengeDetails={false}
@@ -66,6 +68,7 @@ exports[`Matches shallow shapshot 1`] = `
   setFilterState={[Function]}
   setSort={[Function]}
   sort=""
+  userHandle=""
 />
 `;
 
@@ -91,6 +94,7 @@ exports[`Matches shallow shapshot 2`] = `
         ],
         "status": "b",
         "totalPrize": 1800,
+        "users": Object {},
       },
       Object {
         "id": "2",
@@ -100,6 +104,7 @@ exports[`Matches shallow shapshot 2`] = `
         ],
         "status": "a",
         "totalPrize": 1800,
+        "users": Object {},
       },
       Object {
         "id": "3",
@@ -109,6 +114,7 @@ exports[`Matches shallow shapshot 2`] = `
         ],
         "status": "a",
         "totalPrize": 1800,
+        "users": Object {},
       },
       Object {
         "id": "4",
@@ -118,6 +124,7 @@ exports[`Matches shallow shapshot 2`] = `
         ],
         "status": "a",
         "totalPrize": 1800,
+        "users": Object {},
       },
       Object {
         "id": "5",
@@ -127,6 +134,7 @@ exports[`Matches shallow shapshot 2`] = `
         ],
         "status": "a",
         "totalPrize": 1800,
+        "users": Object {},
       },
       Object {
         "id": "6",
@@ -136,6 +144,7 @@ exports[`Matches shallow shapshot 2`] = `
         ],
         "status": "a",
         "totalPrize": 1800,
+        "users": Object {},
       },
       Object {
         "id": "7",
@@ -145,6 +154,7 @@ exports[`Matches shallow shapshot 2`] = `
         ],
         "status": "a",
         "totalPrize": 1800,
+        "users": Object {},
       },
       Object {
         "id": "8",
@@ -154,6 +164,7 @@ exports[`Matches shallow shapshot 2`] = `
         ],
         "status": "a",
         "totalPrize": 1800,
+        "users": Object {},
       },
       Object {
         "id": "9",
@@ -163,6 +174,7 @@ exports[`Matches shallow shapshot 2`] = `
         ],
         "status": "a",
         "totalPrize": 1800,
+        "users": Object {},
       },
       Object {
         "id": "10",
@@ -172,6 +184,7 @@ exports[`Matches shallow shapshot 2`] = `
         ],
         "status": "a",
         "totalPrize": 1800,
+        "users": Object {},
       },
       Object {
         "id": "11",
@@ -181,12 +194,13 @@ exports[`Matches shallow shapshot 2`] = `
         ],
         "status": "a",
         "totalPrize": 1800,
+        "users": Object {},
       },
     ]
   }
-  communityName={null}
   expand={[Function]}
   expanded={false}
+  keepPlaceholders={false}
   loadMore={[Function]}
   loading={true}
   newChallengeDetails={false}
@@ -194,6 +208,7 @@ exports[`Matches shallow shapshot 2`] = `
   setFilterState={[Function]}
   setSort={[Function]}
   sort=""
+  userHandle=""
 />
 `;
 
@@ -210,9 +225,9 @@ exports[`Matches shallow shapshot 3`] = `
     }
   }
   challenges={Array []}
-  communityName={null}
   expand={[Function]}
   expanded={false}
+  keepPlaceholders={false}
   loadMore={null}
   loading={true}
   newChallengeDetails={false}
@@ -220,5 +235,6 @@ exports[`Matches shallow shapshot 3`] = `
   setFilterState={[Function]}
   setSort={[Function]}
   sort=""
+  userHandle=""
 />
 `;

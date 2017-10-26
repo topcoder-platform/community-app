@@ -1,0 +1,122 @@
+@import "~styles/mixins";
+
+.container {
+  display: block;
+  margin: auto;
+  padding-top: 50px;
+  width: 80%;
+  font-family: Roboto, sans-serif;
+}
+
+.title {
+  font-weight: 300;
+  font-size: 36px;
+  color: $tc-black;
+  line-height: 40px;
+  text-align: center;
+}
+
+.form {
+  position: relative;
+  left: -65px;
+  margin: 40px auto;
+  width: 580px;
+}
+
+.fieldGap {
+  height: 30px;
+}
+
+.field {
+  + .field {
+    margin-top: 10px;
+  }
+
+  .label {
+    box-sizing: border-box;
+    display: inline-block;
+    width: 130px;
+    line-height: 40px;
+    text-align: right;
+    padding-right: 10px;
+    vertical-align: top;
+    font-size: 15px;
+    color: $tc-gray-80;
+    letter-spacing: 0;
+  }
+
+  :global(.Select) {
+    display: inline-block;
+    vertical-align: top;
+    width: 450px;
+  }
+
+  :global(.Select-control) {
+    width: 450px;
+    height: 40px;
+  }
+
+  input::placeholder,
+  textarea::placeholder,
+  :global(.Select-placeholder) {
+    font-family: Roboto, sans-serif;
+    font-size: 15px;
+    text-transform: none;
+    font-weight: 400;
+    color: $tc-gray-50 !important;
+  }
+
+  > input {
+    width: 450px;
+    border-radius: 4px;
+  }
+
+  > textarea {
+    width: 450px;
+    min-height: 80px;
+    border-radius: 4px;
+    resize: vertical;
+  }
+}
+
+.withPrefix {
+  display: inline-block;
+  position: relative;
+  width: 450px;
+
+  .prefix {
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 1;
+    width: 40px;
+    height: 40px;
+
+    .avatarPrefix {
+      display: block;
+      margin: 4px;
+    }
+
+    .textPrefix {
+      margin: 1px;
+      line-height: 38px;
+      text-align: center;
+      font-size: 15px;
+      color: $tc-gray-50;
+      background: $tc-gray-neutral-dark;
+      border-radius: 3px 0 0 3px;
+    }
+  }
+
+  > input {
+    padding-left: 50px;
+    width: 450px;
+    border-radius: 4px;
+  }
+}
+
+.action {
+  margin-top: 30px;
+  padding-left: 130px;
+  text-align: center;
+}

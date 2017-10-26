@@ -50,6 +50,7 @@ function ChallengeCard({
   prizeMode,
   sampleWinnerProfile,
   selectChallengeDetailsTab,
+  userHandle,
 }) {
   const challenge = passedInChallenge;
 
@@ -178,6 +179,7 @@ function ChallengeCard({
           openChallengesInNewTabs={openChallengesInNewTabs}
           sampleWinnerProfile={sampleWinnerProfile}
           selectChallengeDetailsTab={selectChallengeDetailsTab}
+          userHandle={userHandle}
         />
       </div>
     </div>
@@ -191,6 +193,7 @@ ChallengeCard.defaultProps = {
   openChallengesInNewTabs: false,
   prizeMode: PRIZE_MODE.MONEY_USD,
   sampleWinnerProfile: undefined,
+  userHandle: '',
 };
 
 ChallengeCard.propTypes = {
@@ -202,6 +205,7 @@ ChallengeCard.propTypes = {
   prizeMode: PT.oneOf(_.toArray(PRIZE_MODE)),
   sampleWinnerProfile: PT.shape(),
   selectChallengeDetailsTab: PT.func.isRequired,
+  userHandle: PT.string,
 };
 
 /**

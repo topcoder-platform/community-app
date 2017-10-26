@@ -1,6 +1,6 @@
 {
   "challengeFilter": {
-    "groupIds": ["20000001"]
+    "groupIds": ["20000013"]
   },
   "communityId": "tc-prod-dev",
   "communityName": "Topcoder Product Development",
@@ -16,9 +16,10 @@
     "redirect": "https://ios.topcoder.com/",
     "value": "3"
   }],
-  "groupIds": ["20000001"],
+  "groupIds": ["20000013"],
+  "terms": [21193,21153],
   "logos": [{
-    "img": "/themes/wipro/logo_topcoder_with_name.svg",
+    "img": "/themes/tc-prod-dev/logo_topcoder_with_name.svg",
     "url": "https://www.topcoder.com"
   }],
   "menuItems": [

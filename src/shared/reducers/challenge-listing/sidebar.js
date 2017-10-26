@@ -23,6 +23,7 @@ function onChangeFilterName(state, { payload: { index, name } }) {
   const savedFilters = _.clone(state.savedFilters);
   savedFilters[index] = {
     ...savedFilters[index],
+    error: name.trim() ? '' : 'Filter name must not be empty',
     name: name.slice(0, MAX_FILTER_NAME_LENGTH),
   };
   if (_.isUndefined(savedFilters[index].savedName)) {
@@ -107,6 +108,7 @@ function onResetFilterName(state, action) {
   const savedFilters = _.clone(state.savedFilters);
   savedFilters[index] = {
     ...savedFilters[index],
+    error: '',
     name: savedFilters[index].savedName,
   };
   delete savedFilters[index].savedName;

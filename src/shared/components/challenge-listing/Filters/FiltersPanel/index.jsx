@@ -25,13 +25,16 @@ import React from 'react';
 import PT from 'prop-types';
 import Select from 'components/Select';
 import moment from 'moment';
-import UiSimpleRemove from '../../Icons/ui-simple-remove.svg';
+import { Button, PrimaryButton } from 'components/buttons';
+import { COMPOSE, PRIORITY } from 'react-css-super-themr';
 
-import './style.scss';
 import DateRangePicker from '../DateRangePicker';
+import style from './style.scss';
+import UiSimpleRemove from '../../Icons/ui-simple-remove.svg';
 
 export default function FiltersPanel({
   communityFilters,
+  defaultCommunityId,
   filterState,
   hidden,
   onClose,
@@ -51,6 +54,11 @@ export default function FiltersPanel({
     label: item.communityName,
     value: item.communityId,
   }));
+
+  const disableClearSaveFilterButtons = isSavingFilter || (
+    selectedCommunityId === defaultCommunityId
+    && _.isEmpty(filterState)
+  );
 
   const mapOps = item => ({ label: item, value: item });
   const mapSubtracks = item => ({ label: item.name, value: item.subTrack });
@@ -147,21 +155,22 @@ export default function FiltersPanel({
         </div>
       </div>
       <div styleName="buttons">
-        <button
-          styleName="white"
-          className="tc-outline-btn"
-          disabled={_.isEmpty(filterState)}
+        <Button
+          composeContextTheme={COMPOSE.SOFT}
+          disabled={disableClearSaveFilterButtons}
           onClick={() => {
             setFilterState({});
+            selectCommunity(defaultCommunityId);
             setSearchText('');
           }}
-        >Clear filters</button>
-        <button
-          styleName="blue"
-          className="tc-blue-btn"
+          theme={{ button: style.button, disabled: style.buttonDisabled }}
+          themePriority={PRIORITY.ADHOC_DEFAULT_CONTEXT}
+        >Clear filters</Button>
+        <PrimaryButton
+          disabled={disableClearSaveFilterButtons}
           onClick={onSaveFilter}
-          disabled={isSavingFilter || _.isEmpty(filterState)}
-        >Save filter</button>
+          theme={{ button: style.button, disabled: style.buttonDisabled }}
+        >Save filter</PrimaryButton>
       </div>
     </div>
   );
@@ -179,6 +188,7 @@ FiltersPanel.propTypes = {
     communityId: PT.string.isRequired,
     communityName: PT.string.isRequired,
   })).isRequired,
+  defaultCommunityId: PT.string.isRequired,
   filterState: PT.shape().isRequired,
   hidden: PT.bool,
   isSavingFilter: PT.bool,

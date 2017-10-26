@@ -49,6 +49,7 @@ exports[`Matches shallow shapshot shapshot 1`] = `
       ]
     }
     communityName="name"
+    defaultCommunityId={undefined}
     filterState={Object {}}
     hidden={true}
     isSavingFilter={false}
@@ -189,6 +190,7 @@ exports[`Matches shallow shapshot shapshot 2`] = `
       ]
     }
     communityName="name"
+    defaultCommunityId={undefined}
     filterState={
       Object {
         "endDate": "2019-12-31T23:00:00.000Z",

@@ -18,10 +18,10 @@ export default function ChallengeListingRoute({
   return (
     <SplitRoute
       cacheCss
-      chunkName="challenge-listing"
+      chunkName="challenge-listing/chunk"
       renderClientAsync={routeProps =>
         import(
-          /* webpackChunkName: "challenge-listing" */
+          /* webpackChunkName: "challenge-listing/chunk" */
           'containers/challenge-listing/Listing',
         ).then(({ default: ChallengeListing }) => {
           let query = routeProps.location.search;
@@ -34,6 +34,9 @@ export default function ChallengeListingRoute({
               challengesUrl={challengesUrl}
               communityId={query.communityId || meta.communityId}
               communityName={meta.communityName}
+
+              defaultCommunityId={meta.communityId}
+
               groupIds={meta.groupIds}
 
               /* TODO: This is hacky! A better, generic way to achieve it

@@ -1,5 +1,6 @@
 import { mount } from 'enzyme';
 import React from 'react';
+import { Provider } from 'react-redux';
 import configureStore from 'redux-mock-store';
 import tActions from 'actions/tc-communities';
 import JoinCommunity from 'components/tc-communities/JoinCommunity';
@@ -25,6 +26,7 @@ describe('full render connnected component and dispatch actions', () => {
         data: {
           challengeGroupId: '1',
           communityName: 'name',
+          communityId: '1',
         },
       },
       hideJoinButton: true,
@@ -44,6 +46,9 @@ describe('full render connnected component and dispatch actions', () => {
     groups: {
       groups: {},
     },
+    terms: {
+      terms: [],
+    },
   };
 
   const mockStore = configureStore();
@@ -56,7 +61,7 @@ describe('full render connnected component and dispatch actions', () => {
       json: () => ({ result: { status: 200, metadata: {}, content: [] } }),
     });
     store = mockStore(initialState);
-    instance = mount(<ConnectedJoinCommunity store={store} />);
+    instance = mount(<Provider store={store}><ConnectedJoinCommunity /></Provider>);
     joinCommunity = instance.find(JoinCommunity);
     store.clearActions();
   });
@@ -74,7 +79,7 @@ describe('full render connnected component and dispatch actions', () => {
       },
     };
     store = mockStore(newStore);
-    instance = mount(<ConnectedJoinCommunity store={store} />);
+    instance = mount(<Provider store={store}><ConnectedJoinCommunity /></Provider>);
   });
 
   test('hideJoinButton', () => {

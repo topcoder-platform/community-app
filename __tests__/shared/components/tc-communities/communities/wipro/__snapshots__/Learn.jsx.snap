@@ -25,6 +25,7 @@ exports[`Snapshot match 1`] = `
     composeContextTheme="softly"
     link={null}
     mapThemrProps={[Function]}
+    subTitle=""
     theme={Object {}}
     themePriority="adhoc-context-default"
     title={null}

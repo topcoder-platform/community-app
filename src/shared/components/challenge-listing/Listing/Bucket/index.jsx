@@ -23,10 +23,10 @@ export default function Bucket({
   bucketId,
   challenges,
   challengesUrl,
-  communityName,
   expanded,
   expand,
   filterState,
+  keepPlaceholders,
   loading,
   loadMore,
   newChallengeDetails,
@@ -37,6 +37,7 @@ export default function Bucket({
   setFilterState,
   setSort,
   sort,
+  userHandle,
 }) {
   const filter = getFilterFunction(bucket.filter);
   const activeSort = sort || bucket.sorts[0];
@@ -68,17 +69,18 @@ export default function Bucket({
     <ChallengeCard
       challenge={item}
       challengesUrl={challengesUrl}
-      newChallengeDetails={newChallengeDetails || !communityName}
+      newChallengeDetails={newChallengeDetails}
       onTechTagClicked={tag => setFilterState({ tags: [tag] })}
       openChallengesInNewTabs={openChallengesInNewTabs}
       prizeMode={prizeMode}
       key={item.id}
       selectChallengeDetailsTab={selectChallengeDetailsTab}
+      userHandle={userHandle}
     />
   ));
 
   const placeholders = [];
-  if (loading) {
+  if (loading || keepPlaceholders) {
     for (let i = 0; i < 8; i += 1) {
       placeholders.push(<CardPlaceholder id={i} key={i} />);
     }
@@ -101,9 +103,14 @@ export default function Bucket({
         }}
       />
       {cards}
+      {
+        !expandable && loadMore && !loading ? (
+          <Waypoint onEnter={loadMore} />
+        ) : null
+      }
       {placeholders}
       {
-        (expandable || loadMore) && !loading && !expanded ? (
+        (expandable || loadMore) && !keepPlaceholders && !loading && !expanded ? (
           <a
             href={`${challengesUrl}?${bucketQuery}`}
             onClick={(event) => {
@@ -118,24 +125,20 @@ export default function Bucket({
           >View more challenges</a>
         ) : null
       }
-      {
-        !expandable && loadMore && !loading ? (
-          <Waypoint onEnter={loadMore} />
-        ) : null
-      }
     </div>
   );
 }
 
 Bucket.defaultProps = {
-  communityName: null,
   expanded: false,
   expand: _.noop,
+  keepPlaceholders: false,
   loading: false,
   loadMore: null,
   newChallengeDetails: false,
   openChallengesInNewTabs: false,
   sort: null,
+  userHandle: '',
 };
 
 Bucket.propTypes = {
@@ -145,8 +148,8 @@ Bucket.propTypes = {
   expand: PT.func,
   challenges: PT.arrayOf(PT.shape()).isRequired,
   challengesUrl: PT.string.isRequired,
-  communityName: PT.string,
   filterState: PT.shape().isRequired,
+  keepPlaceholders: PT.bool,
   loading: PT.bool,
   loadMore: PT.func,
   newChallengeDetails: PT.bool,
@@ -157,4 +160,5 @@ Bucket.propTypes = {
   setFilterState: PT.func.isRequired,
   setSort: PT.func.isRequired,
   sort: PT.string,
+  userHandle: PT.string,
 };

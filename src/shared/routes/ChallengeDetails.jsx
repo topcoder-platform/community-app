@@ -14,10 +14,10 @@ export default function ChallengeDetailsRoute(props) {
   return (
     <SplitRoute
       cacheCss
-      chunkName="challenge-details"
+      chunkName="challenge-details/chunk"
       renderClientAsync={() =>
         import(
-          /* webpackChunkName: "challenge-details" */
+          /* webpackChunkName: "challenge-details/chunk" */
           'containers/challenge-detail',
         ).then(({ default: ChallengeDetails }) => (
           <ChallengeDetails {...props} />

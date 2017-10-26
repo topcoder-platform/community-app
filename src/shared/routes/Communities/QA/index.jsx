@@ -13,10 +13,10 @@ export default function ChunkLoader({ base, member, meta }) {
   return (
     <SplitRoute
       cacheCss
-      chunkName="qa-community"
+      chunkName="qa-community/chunk"
       renderClientAsync={() =>
         import(
-          /* webpackChunkName: "qa-community" */
+          /* webpackChunkName: "qa-community/chunk" */
           './Routes',
         ).then(({ default: Routes }) => (
           <Routes base={base} member={member} meta={meta} />

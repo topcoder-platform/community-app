@@ -13,10 +13,10 @@ export default function ChunkLoader({ base, meta }) {
   return (
     <SplitRoute
       cacheCss
-      chunkName="wipro-community"
+      chunkName="wipro-community/chunk"
       renderClientAsync={() =>
         import(
-          /* webpackChunkName: "wipro-community" */
+          /* webpackChunkName: "wipro-community/chunk" */
           './Routes',
         ).then(({ default: Routes }) => <Routes base={base} meta={meta} />)
       }

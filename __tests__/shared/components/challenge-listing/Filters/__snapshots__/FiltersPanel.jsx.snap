@@ -153,20 +153,46 @@ exports[`Matches shallow shapshot 1`] = `
   <div
     className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__buttons___2r3xW"
   >
-    <button
-      className="tc-outline-btn src-shared-components-challenge-listing-Filters-FiltersPanel-___style__white___AWGFv"
-      disabled={true}
+    <ThemedGenericButton
+      composeAdhocTheme="deeply"
+      composeContextTheme="softly"
+      disabled={false}
+      enforceA={false}
+      mapThemrProps={[Function]}
       onClick={[Function]}
+      openNewTab={false}
+      replace={false}
+      theme={
+        Object {
+          "button": "src-shared-components-challenge-listing-Filters-FiltersPanel-___style__button___22bzJ",
+          "disabled": "src-shared-components-challenge-listing-Filters-FiltersPanel-___style__buttonDisabled___dIkxB",
+        }
+      }
+      themePriority="adhoc-default-context"
+      to={null}
     >
       Clear filters
-    </button>
-    <button
-      className="tc-blue-btn src-shared-components-challenge-listing-Filters-FiltersPanel-___style__blue___3L4J6"
-      disabled={true}
+    </ThemedGenericButton>
+    <ThemedGenericButton
+      composeAdhocTheme="deeply"
+      composeContextTheme="softly"
+      disabled={false}
+      enforceA={false}
+      mapThemrProps={[Function]}
       onClick={[Function]}
+      openNewTab={false}
+      replace={false}
+      theme={
+        Object {
+          "button": "src-shared-components-challenge-listing-Filters-FiltersPanel-___style__button___22bzJ",
+          "disabled": "src-shared-components-challenge-listing-Filters-FiltersPanel-___style__buttonDisabled___dIkxB",
+        }
+      }
+      themePriority="adhoc-context-default"
+      to={null}
     >
       Save filter
-    </button>
+    </ThemedGenericButton>
   </div>
 </div>
 `;
@@ -302,20 +328,46 @@ exports[`Matches shallow shapshot 2`] = `
   <div
     className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__buttons___2r3xW"
   >
-    <button
-      className="tc-outline-btn src-shared-components-challenge-listing-Filters-FiltersPanel-___style__white___AWGFv"
-      disabled={true}
+    <ThemedGenericButton
+      composeAdhocTheme="deeply"
+      composeContextTheme="softly"
+      disabled={false}
+      enforceA={false}
+      mapThemrProps={[Function]}
       onClick={[Function]}
+      openNewTab={false}
+      replace={false}
+      theme={
+        Object {
+          "button": "src-shared-components-challenge-listing-Filters-FiltersPanel-___style__button___22bzJ",
+          "disabled": "src-shared-components-challenge-listing-Filters-FiltersPanel-___style__buttonDisabled___dIkxB",
+        }
+      }
+      themePriority="adhoc-default-context"
+      to={null}
     >
       Clear filters
-    </button>
-    <button
-      className="tc-blue-btn src-shared-components-challenge-listing-Filters-FiltersPanel-___style__blue___3L4J6"
-      disabled={true}
+    </ThemedGenericButton>
+    <ThemedGenericButton
+      composeAdhocTheme="deeply"
+      composeContextTheme="softly"
+      disabled={false}
+      enforceA={false}
+      mapThemrProps={[Function]}
       onClick={[Function]}
+      openNewTab={false}
+      replace={false}
+      theme={
+        Object {
+          "button": "src-shared-components-challenge-listing-Filters-FiltersPanel-___style__button___22bzJ",
+          "disabled": "src-shared-components-challenge-listing-Filters-FiltersPanel-___style__buttonDisabled___dIkxB",
+        }
+      }
+      themePriority="adhoc-context-default"
+      to={null}
     >
       Save filter
-    </button>
+    </ThemedGenericButton>
   </div>
 </div>
 `;

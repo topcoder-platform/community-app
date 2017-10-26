@@ -39,7 +39,11 @@ function AccordionItem(props) {
 
   return (
     <div>
-      <Sticky styleName="desktop">{content}</Sticky>
+      <Sticky
+        bottomBoundary="#accordion"
+        enableTransforms={false}
+        styleName="desktop"
+      >{content}</Sticky>
       <div styleName="mobile">{content}</div>
     </div>
   );

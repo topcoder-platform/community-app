@@ -1,4 +1,11 @@
-@import "~styles/tc-styles";
+@import "~styles/mixins";
+
+.doneButton {
+  @include btn-xs;
+
+  float: right !important;
+  margin-bottom: 0 !important;
+}
 
 .EditMyFilters {
   h1 {
@@ -16,18 +23,6 @@
 
   input {
     font-size: 13px;
-  }
-
-  .done-button {
-    font-size: 12px;
-    background: $tc-dark-blue-90;
-    border-radius: 2 * $corner-radius;
-    color: $tc-white;
-    cursor: pointer;
-    float: right;
-    line-height: 13px;
-    padding: $base-unit 11px;
-    margin: 10px;
   }
 
   .note {

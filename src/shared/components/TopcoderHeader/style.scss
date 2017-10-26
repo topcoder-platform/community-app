@@ -1,25 +1,8 @@
 @import '~styles/tc-styles';
 
-.auth-buttons {
-  display: inline-block;
+.auth-align {
   position: relative;
   top: -4px;
-
-  a {
-    border-radius: 2 * $corner-radius;
-    margin: 0 6px;
-    text-transform: uppercase;
-    top: 0;
-
-    &:global.tc-btn-primary {
-      color: $tc-white;
-    }
-
-    &:global.tc-btn-default:hover {
-      background: $tc-dark-blue-90;
-      color: $tc-white;
-    }
-  }
 }
 
 .avatar {

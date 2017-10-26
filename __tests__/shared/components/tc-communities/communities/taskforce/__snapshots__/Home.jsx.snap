@@ -5,7 +5,7 @@ exports[`Match shadow snapshot 1`] = `
   <ThemedBanner
     composeAdhocTheme="deeply"
     composeContextTheme="softly"
-    imageSrc="/themes/wipro/home/banner.jpg"
+    imageSrc="/themes/taskforce/home/banner.jpg"
     link={
       Array [
         Object {
@@ -39,13 +39,14 @@ exports[`Match shadow snapshot 1`] = `
       }
     }
   />
-  <Connect(JoinCommunity) />
+  <Connect(JoinCommunityContainer) />
   <ThemedSection
     anchor="why-topcoder-taskforce"
     composeAdhocTheme="deeply"
     composeContextTheme="softly"
     link={null}
     mapThemrProps={[Function]}
+    subTitle=""
     theme={
       Object {
         "container": "src-shared-components-tc-communities-communities-taskforce-Home-___style__linksContainer___25Lds",
@@ -99,6 +100,7 @@ exports[`Match shadow snapshot 1`] = `
     composeContextTheme="softly"
     link={null}
     mapThemrProps={[Function]}
+    subTitle=""
     theme={
       Object {
         "container": "src-shared-components-tc-communities-communities-taskforce-Home-___style__WhatCanYouGetDone___1to7k",
@@ -125,6 +127,7 @@ exports[`Match shadow snapshot 1`] = `
     composeContextTheme="softly"
     link={null}
     mapThemrProps={[Function]}
+    subTitle=""
     theme={
       Object {
         "container": "src-shared-components-tc-communities-communities-taskforce-Home-___style__resourcesContainer___tnDQ3",
@@ -205,7 +208,7 @@ exports[`Match shadow snapshot 1`] = `
     composeAdhocTheme="deeply"
     composeContextTheme="softly"
     emailPlaceholder="Email address"
-    imageSrc="/themes/wipro/subscribe-bg.jpg"
+    imageSrc="/themes/taskforce/subscribe-bg.jpg"
     mapThemrProps={[Function]}
     text="Get the Topcoder crowdsourcing newsletter, today!"
     theme={Object {}}

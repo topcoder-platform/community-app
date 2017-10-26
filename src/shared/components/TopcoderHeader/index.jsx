@@ -5,6 +5,7 @@ import { getRatingColor } from 'utils/tc';
 import PT from 'prop-types';
 import React from 'react';
 
+import Auth from './Auth';
 import IconNavBlog from '../../../assets/images/nav/blog.svg';
 import IconNavBookCP from '../../../assets/images/nav/book-cp.svg';
 import IconNavBookData from '../../../assets/images/nav/book-data.svg';
@@ -293,26 +294,7 @@ export default class TopcoderHeader extends React.Component {
           {userAvatar}
         </div>
       );
-    } else {
-      authButtons = (
-        <div styleName="auth-buttons">
-          <a
-            className="tc-btn-sm tc-btn-primary"
-            href={`${config.URL.AUTH}/member/registration`}
-            onClick={closeMenu}
-          >Join</a>
-          <a
-            className="tc-btn-sm tc-btn-default"
-            href={`${config.URL.AUTH}/member`}
-            onClick={(event) => {
-              const retUrl = encodeURIComponent(window.location.href);
-              window.location = `${config.URL.AUTH}/member?retUrl=${retUrl}`;
-              event.preventDefault();
-            }}
-          >Log In</a>
-        </div>
-      );
-    }
+    } else authButtons = <span styleName="auth-align"><Auth /></span>;
 
     return (
       <div

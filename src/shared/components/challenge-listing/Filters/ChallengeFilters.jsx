@@ -21,6 +21,7 @@ import './ChallengeFilters.scss';
 export default function ChallengeFilters({
   communityFilters,
   communityName,
+  defaultCommunityId,
   expanded,
   filterState,
   isCardTypeSet,
@@ -136,6 +137,7 @@ export default function ChallengeFilters({
       <FiltersPanel
         communityFilters={communityFilters}
         communityName={communityName}
+        defaultCommunityId={defaultCommunityId}
         hidden={!expanded}
         filterState={filterState}
         onClose={() => setExpanded(false)}
@@ -173,6 +175,7 @@ ChallengeFilters.defaultProps = {
 ChallengeFilters.propTypes = {
   communityFilters: PT.arrayOf(PT.shape()).isRequired,
   communityName: PT.string,
+  defaultCommunityId: PT.string.isRequired,
   expanded: PT.bool.isRequired,
   filterState: PT.shape().isRequired,
   isCardTypeSet: PT.string,

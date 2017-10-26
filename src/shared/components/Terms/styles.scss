@@ -1,0 +1,247 @@
+@import "~styles/mixins";
+
+/* Fills the space in the bottom of the modal, when we do not need to render
+ * buttons there. */
+.bottom-placeholder {
+  height: 5 * $base-unit;
+
+  @include xxs-to-xs {
+    height: 3 * $base-unit;
+  }
+}
+
+.container {
+  color: #000;
+  font-family: roboto;
+}
+
+.modal-container {
+  display: flex;
+  flex-direction: column;
+  height: 95vh;
+  padding: 40px 40px 0;
+  width: 100%;
+
+  @include xxs-to-xs {
+    padding: 3 * $base-unit;
+    padding-bottom: 0;
+  }
+}
+
+.modal-content {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+}
+
+.scrollable-area {
+  flex: 1;
+  overflow-y: auto;
+  position: relative;
+}
+
+.title {
+  font-size: 28px;
+  margin-bottom: 1.5 * $base-unit;
+  text-align: center;
+}
+
+// TODO: All classes below should be sorted alphabetically for convenience.
+
+.desc {
+  margin-top: 24px;
+  font-size: 15px;
+  line-height: 25px;
+
+  @include xs {
+    margin-top: 20px;
+  }
+}
+
+.tabs-outer {
+  position: relative;
+  margin: 20px 0 25px;
+}
+
+.tabs-inner {
+  display: flex;
+
+  @include xs {
+    width: 100%;
+    display: inline-block;
+    white-space: nowrap;
+    font-size: 0;
+    overflow-x: auto;
+    overflow-y: hidden;
+  }
+}
+
+.tab {
+  display: flex;
+  align-items: center;
+  flex: 1;
+
+  @include xs {
+    width: 50%;
+    display: inline-block;
+
+    &.last {
+      width: auto;
+    }
+  }
+
+  &.agreed,
+  &.active.view-only {
+    .tab-index {
+      background-color: $tc-dark-blue-90;
+    }
+
+    .tab-bar {
+      background-color: $tc-dark-blue-90;
+    }
+  }
+
+  &.active {
+    .tab-index {
+      background-color: $tc-green;
+    }
+  }
+
+  &:last-of-type {
+    flex-grow: 0;
+    flex-shrink: 0;
+  }
+}
+
+.tab-index {
+  width: 26px;
+  height: 26px;
+  border-radius: 100%;
+  color: $tc-white;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 26px;
+  text-align: center;
+  background-color: $tc-gray-30;
+  flex-shrink: 0;
+
+  @include xs {
+    display: inline-block;
+    vertical-align: middle;
+  }
+}
+
+.tab-title {
+  margin-left: 5px;
+  cursor: pointer;
+  font-size: 13px;
+  max-width: 95px;
+  min-width: 70px;
+
+  @include xs {
+    display: inline-block;
+    vertical-align: middle;
+    white-space: normal;
+  }
+}
+
+.tab-bar {
+  margin: 0 10px;
+  background-color: $tc-gray-20;
+  height: 2px;
+  flex: 1;
+
+  @include xs {
+    display: inline-block;
+    max-width: calc(100% - 120px);
+    min-width: calc(100% - 145px);
+    vertical-align: middle;
+  }
+}
+
+.labels {
+  margin-bottom: 40px;
+  display: flex;
+
+  .label {
+    flex: 1;
+    cursor: pointer;
+    left: 0;
+    top: 12px;
+    font-size: 13px;
+    overflow: hidden;
+
+    @include xs {
+      flex: 0 0 135px;
+    }
+  }
+}
+
+.single {
+  padding-top: 25px;
+}
+
+.sub-title {
+  line-height: 30px;
+  font-size: 20px;
+  margin-bottom: 10px;
+
+  @include xs {
+    padding: 0 15px;
+  }
+}
+
+.button-container {
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-around;
+}
+
+.buttons {
+  padding: (1.5 * $base-unit) 0 (2 * $base-unit);
+  text-align: center;
+}
+
+.button {
+  height: 30px;
+  padding: 0 15px;
+  font-size: 13px;
+  line-height: 20px;
+}
+
+.mask-h {
+  height: 100%;
+  position: absolute;
+  width: 30px;
+  z-index: 100;
+  display: none;
+}
+
+.mask-h.left {
+  background: linear-gradient(-90deg, transparent, $tc-white 100%);
+  left: 0;
+}
+
+.mask-h.right {
+  background: linear-gradient(90deg, transparent, $tc-white 100%);
+  right: 0;
+}
+
+.mask-v {
+  width: 100%;
+  position: absolute;
+  height: 30px;
+  z-index: 100;
+  display: none;
+}
+
+.mask-v.top {
+  background: linear-gradient(0deg, transparent, $tc-white 100%);
+  top: 0;
+}
+
+.mask-v.bottom {
+  background: linear-gradient(180deg, transparent, $tc-white 100%);
+  bottom: 0;
+}

@@ -87,6 +87,7 @@ export default function ChallengeStatus(props) {
     challengesUrl,
     newChallengeDetails,
     selectChallengeDetailsTab,
+    userHandle,
   } = props;
 
   /* TODO: Split into a separate ReactJS component! */
@@ -156,8 +157,7 @@ export default function ChallengeStatus(props) {
       openChallengesInNewTabs,
     } = props;
     const timeDiff = getTimeLeft(
-      challenge.registrationEndDate || challenge.submissionEndDate,
-      challenge.currentPhases[0] ? challenge.currentPhases[0].phaseType : '',
+      challenge.allPhases.find(p => p.phaseType === 'Registration'),
     );
     let timeNote = timeDiff.text;
     /* TODO: This is goofy, makes the trick, but should be improved. The idea
@@ -216,6 +216,7 @@ export default function ChallengeStatus(props) {
   }
 
   function activeChallenge() {
+    const { challenge } = props;
     const {
       allPhases,
       currentPhases,
@@ -243,8 +244,10 @@ export default function ChallengeStatus(props) {
     if (statusPhase) phaseMessage = statusPhase.phaseType;
     else if (status === 'DRAFT') phaseMessage = DRAFT_MSG;
 
+    const showRegisterInfo = isRegistrationOpen && !challenge.users[userHandle];
+
     return (
-      <div styleName={isRegistrationOpen ? 'challenge-progress with-register-button' : 'challenge-progress'}>
+      <div styleName={showRegisterInfo ? 'challenge-progress with-register-button' : 'challenge-progress'}>
         <span styleName="current-phase">
           { phaseMessage }
         </span>
@@ -286,7 +289,7 @@ export default function ChallengeStatus(props) {
             ) : <ChallengeProgressBar color="gray" value="100" />
           }
         </ProgressBarTooltip>
-        {isRegistrationOpen && renderRegisterButton()}
+        {showRegisterInfo && renderRegisterButton()}
       </div>
     );
   }
@@ -304,6 +307,7 @@ ChallengeStatus.defaultProps = {
   challenge: {},
   detailLink: '',
   openChallengesInNewTabs: false,
+  userHandle: '',
 };
 
 ChallengeStatus.propTypes = {
@@ -313,4 +317,5 @@ ChallengeStatus.propTypes = {
   newChallengeDetails: PT.bool.isRequired,
   openChallengesInNewTabs: PT.bool,
   selectChallengeDetailsTab: PT.func.isRequired,
+  userHandle: PT.string,
 };

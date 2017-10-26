@@ -95,6 +95,7 @@ function testReducer(reducer) {
     expectedState = {
       ...expectedState,
       savedFilters: [{
+        error: '',
         name: 'other',
         savedName: 'name',
         filter: 'filter',
@@ -142,7 +143,6 @@ function testReducer(reducer) {
     expect(state).toEqual(expectedState);
   });
 
-
   test('properly handles resetFilterName', () => {
     state = reducer(state, mockActions.resetFilterName(1)());
     expect(state).toEqual(expectedState);
@@ -150,7 +150,12 @@ function testReducer(reducer) {
     state = reducer(state, mockActions.resetFilterName(0)());
     expectedState = {
       ...expectedState,
-      savedFilters: [{ filter: 'filter', name: 'savedName', id: '1' }, { name: 'name2', filter: 'filter2' }],
+      savedFilters: [{
+        error: '',
+        filter: 'filter',
+        name: 'savedName',
+        id: '1',
+      }, { name: 'name2', filter: 'filter2' }],
     };
     expect(state).toEqual(expectedState);
   });

@@ -35,7 +35,7 @@ export default class SplitRoute extends React.Component {
      * with other stylesheets. */
     // if (!this.props.cacheCss) {
     const link = document.querySelector(
-      `link[data-chunk=${this.props.chunkName}]`);
+      `link[data-chunk="${this.props.chunkName}"]`);
     const head = document.getElementsByTagName('head')[0];
     head.removeChild(link);
     // }
