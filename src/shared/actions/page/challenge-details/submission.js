@@ -16,6 +16,8 @@ import { getService as getChallengesService } from 'services/challenges';
  * @param {String} submissionId
  * @param {Object} body Data to submit.
  * @param {String} track Competition track of the challenge where we submit.
+ * @param {Function} progress The callback to trigger with updates on the
+ *  submission progress.
  * @return Promise
  */
 function submitDone(tokenV3, tokenV2, submissionId, body, track, progress) {
