@@ -29,7 +29,7 @@ export default function Learn() {
           content: style.bannerContent,
           contentInner: style.bannerContentInner,
         }}
-        imageSrc="/themes/qa/learn/banner.jpg"
+        imageSrc="/community-app-assets/themes/qa/learn/banner.jpg"
       />
 
       <Section

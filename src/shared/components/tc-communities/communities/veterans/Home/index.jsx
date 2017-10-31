@@ -36,7 +36,7 @@ export default function Home() {
           title: 'Compete Now',
           url: 'challenges',
         }}
-        imageSrc="/themes/veterans/home/banner.jpg"
+        imageSrc="/community-app-assets/themes/veterans/home/banner.jpg"
         theme={{
           container: style.bannerContainer,
         }}
@@ -72,7 +72,7 @@ export default function Home() {
                 </p>
               </div>
             }
-            imageSrc="/themes/veterans/home/image-01.jpg"
+            imageSrc="/community-app-assets/themes/veterans/home/image-01.jpg"
           />
           <ImageText
             title="Translating Military Experience into Civilian Employment"
@@ -94,7 +94,7 @@ export default function Home() {
                 </p>
               </div>
             }
-            imageSrc="/themes/veterans/home/image-02.jpg"
+            imageSrc="/community-app-assets/themes/veterans/home/image-02.jpg"
           />
           <ImageText
             title="Real-World Experience Counts"
@@ -117,7 +117,7 @@ export default function Home() {
                 </p>
               </div>
             }
-            imageSrc="/themes/veterans/home/image-03.jpg"
+            imageSrc="/community-app-assets/themes/veterans/home/image-03.jpg"
           />
           <ImageText
             title="How Topcoder.Veterans Works"
@@ -143,7 +143,7 @@ export default function Home() {
                 </p>
               </div>
             }
-            imageSrc="/themes/veterans/home/image-05.jpg"
+            imageSrc="/community-app-assets/themes/veterans/home/image-05.jpg"
           />
           <ImageText
             title="Tech Talent Is Desperately Needed"
@@ -174,7 +174,7 @@ export default function Home() {
                 </p>
               </div>
             }
-            imageSrc="/themes/veterans/home/image-06.jpg"
+            imageSrc="/community-app-assets/themes/veterans/home/image-06.jpg"
           />
         </div>
       </Section>
@@ -202,7 +202,7 @@ export default function Home() {
           theme={{
             container: style.grayBack,
           }}
-          imageSrc="/themes/veterans/home/image-04.jpg"
+          imageSrc="/community-app-assets/themes/veterans/home/image-04.jpg"
         />
       </Section>
 
@@ -216,11 +216,11 @@ export default function Home() {
             Companies Hiring on <strong>Veterans.Topcoder</strong>
           </p>
           <div styleName="logos">
-            <img alt="logo-01" src="/themes/veterans/home/logo-01.jpg" />
-            <img alt="logo-02" src="/themes/veterans/home/logo-02.jpg" />
-            <img alt="logo-03" src="/themes/veterans/home/logo-03.jpg" />
-            <img alt="logo-04" src="/themes/veterans/home/logo-04.jpg" />
-            <img alt="logo-05" src="/themes/veterans/home/logo-05.jpg" />
+            <img alt="logo-01" src="/community-app-assets/themes/veterans/home/logo-01.jpg" />
+            <img alt="logo-02" src="/community-app-assets/themes/veterans/home/logo-02.jpg" />
+            <img alt="logo-03" src="/community-app-assets/themes/veterans/home/logo-03.jpg" />
+            <img alt="logo-04" src="/community-app-assets/themes/veterans/home/logo-04.jpg" />
+            <img alt="logo-05" src="/community-app-assets/themes/veterans/home/logo-05.jpg" />
           </div>
         </div>
       </Section>
@@ -229,13 +229,13 @@ export default function Home() {
         subTitle="Find Out."
         title="What Can You Do?"
       >
-        <img alt="card" src="/themes/veterans/home/card-01.jpg" />
-        <img alt="card" src="/themes/veterans/home/card-02.jpg" />
-        <img alt="card" src="/themes/veterans/home/card-03.jpg" />
-        <img alt="card" src="/themes/veterans/home/card-04.jpg" />
-        <img alt="card" src="/themes/veterans/home/card-05.jpg" />
-        <img alt="card" src="/themes/veterans/home/card-06.jpg" />
-        <img alt="card" src="/themes/veterans/home/card-07.jpg" />
+        <img alt="card" src="/community-app-assets/themes/veterans/home/card-01.jpg" />
+        <img alt="card" src="/community-app-assets/themes/veterans/home/card-02.jpg" />
+        <img alt="card" src="/community-app-assets/themes/veterans/home/card-03.jpg" />
+        <img alt="card" src="/community-app-assets/themes/veterans/home/card-04.jpg" />
+        <img alt="card" src="/community-app-assets/themes/veterans/home/card-05.jpg" />
+        <img alt="card" src="/community-app-assets/themes/veterans/home/card-06.jpg" />
+        <img alt="card" src="/community-app-assets/themes/veterans/home/card-07.jpg" />
       </Section>
 
       <Section
@@ -257,7 +257,7 @@ export default function Home() {
         }}
       >
         <ResourceCard
-          icon={() => <img alt="icon" src="/themes/veterans/home/icon-01.jpg" />}
+          icon={() => <img alt="icon" src="/community-app-assets/themes/veterans/home/icon-01.jpg" />}
           theme={{ link: style.primaryButton }}
           title="Learning & Certification"
           text="Grow your knowledge-base and get Topcoder certified, all for free."
@@ -267,7 +267,7 @@ export default function Home() {
           }}
         />
         <ResourceCard
-          icon={() => <img alt="icon" src="/themes/veterans/home/icon-02.jpg" />}
+          icon={() => <img alt="icon" src="/community-app-assets/themes/veterans/home/icon-02.jpg" />}
           theme={{ link: style.primaryButton }}
           title="Explore The Platform"
           text="Explore the features and functionality to see how it can work for you."
@@ -277,7 +277,7 @@ export default function Home() {
           }}
         />
         <ResourceCard
-          icon={() => <img alt="icon" src="/themes/veterans/home/icon-03.jpg" />}
+          icon={() => <img alt="icon" src="/community-app-assets/themes/veterans/home/icon-03.jpg" />}
           theme={{ link: style.primaryButton }}
           title="Make money"
           text="We reward participants with cash. Produce deliverables as required and make money."
@@ -287,7 +287,7 @@ export default function Home() {
           }}
         />
         <ResourceCard
-          icon={() => <img alt="icon" src="/themes/veterans/home/icon-04.jpg" />}
+          icon={() => <img alt="icon" src="/community-app-assets/themes/veterans/home/icon-04.jpg" />}
           theme={{ link: style.primaryButton }}
           title="Join Challenges"
           text="We add new challenges and tasks daily. Find projects that fit your skill set."
@@ -302,12 +302,12 @@ export default function Home() {
         subTitle="Explore other features and resources on the site."
         title="More Ways to Learn and Connect"
       >
-        <img alt="card" src="/themes/veterans/home/card-b-01.jpg" />
-        <img alt="card" src="/themes/veterans/home/card-b-02.jpg" />
-        <img alt="card" src="/themes/veterans/home/card-b-03.jpg" />
-        <img alt="card" src="/themes/veterans/home/card-b-04.jpg" />
-        <img alt="card" src="/themes/veterans/home/card-b-05.jpg" />
-        <img alt="card" src="/themes/veterans/home/card-b-06.jpg" />
+        <img alt="card" src="/community-app-assets/themes/veterans/home/card-b-01.jpg" />
+        <img alt="card" src="/community-app-assets/themes/veterans/home/card-b-02.jpg" />
+        <img alt="card" src="/community-app-assets/themes/veterans/home/card-b-03.jpg" />
+        <img alt="card" src="/community-app-assets/themes/veterans/home/card-b-04.jpg" />
+        <img alt="card" src="/community-app-assets/themes/veterans/home/card-b-05.jpg" />
+        <img alt="card" src="/community-app-assets/themes/veterans/home/card-b-06.jpg" />
       </Section>
     </main>
   );

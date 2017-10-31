@@ -35,7 +35,7 @@ class LeaderboardPageContainer extends React.Component {
             content: style.bannerContent,
             contentInner: style.bannerContentInner,
           }}
-          imageSrc="/themes/wipro/leaderboard/banner.jpg"
+          imageSrc="/community-app-assets/themes/wipro/leaderboard/banner.jpg"
         />
         {/* eslint-enable max-len */}
         <div styleName="Leaderboard">
@@ -46,7 +46,7 @@ class LeaderboardPageContainer extends React.Component {
         <NewsletterSignup
           title="Sign up for our newsletter"
           text="Don’t miss out on the latest Topcoder IOS challenges and information!"
-          imageSrc="/themes/wipro/subscribe-bg.jpg"
+          imageSrc="/community-app-assets/themes/wipro/subscribe-bg.jpg"
         />
       </div>
     );

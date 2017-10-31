@@ -34,7 +34,7 @@ export default function Home(props) {
           title: 'Compete Now',
           url: 'challenges',
         }}
-        imageSrc="/themes/demo-expert/home/banner.jpg"
+        imageSrc="/community-app-assets/themes/demo-expert/home/banner.jpg"
       />
 
       <CommunityStats />
@@ -54,7 +54,7 @@ export default function Home(props) {
               title: 'Start Learning',
               url: 'learn',
             }}
-            imageSrc="/themes/demo-expert/home/image-text-learn.jpg"
+            imageSrc="/community-app-assets/themes/demo-expert/home/image-text-learn.jpg"
           />
           <ImageText
             title="Get Involved"
@@ -63,7 +63,7 @@ export default function Home(props) {
               title: 'Start Earning',
               url: 'challenges',
             }}
-            imageSrc="/themes/demo-expert/home/image-text-do.jpg"
+            imageSrc="/community-app-assets/themes/demo-expert/home/image-text-do.jpg"
           />
         </div>
       </Section>
@@ -107,7 +107,7 @@ export default function Home(props) {
       <NewsletterSignup
         title="Sign up for our newsletter"
         text="Don’t miss out on the latest Topcoder IOS challenges and information!"
-        imageSrc="/themes/demo-expert/subscribe-bg.jpg"
+        imageSrc="/community-app-assets/themes/demo-expert/subscribe-bg.jpg"
       />
 
     </main>

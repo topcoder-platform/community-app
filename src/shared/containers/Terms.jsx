@@ -47,7 +47,7 @@ class TermsPageContainer extends React.Component {
             getDocuSignUrl={(templateId) => {
               const base = window ? window.location.href.match('.*://[^/]*')[0] : '';
               return this.props.getDocuSignUrl(this.props.authTokens,
-                templateId, `${base}/iframe-break`);
+                templateId, `${base}/community-app-assets/iframe-break`);
             }}
             isLoadingTerms={this.props.isLoadingTerms}
             loadDetails={termId => this.props.loadTermDetails(this.props.authTokens, termId)}

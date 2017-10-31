@@ -16,7 +16,7 @@ const xml2json = isServerSide() ? require('xml2json') : null;
  */
 export function toJson(xml) {
   if (xml2json) return Promise.resolve(xml2json.toJson(xml, { object: true }));
-  return fetch('/api/xml2json', {
+  return fetch('/community-app-assets/api/xml2json', {
     body: JSON.stringify({ xml }),
     headers: {
       'Content-Type': 'application/json',

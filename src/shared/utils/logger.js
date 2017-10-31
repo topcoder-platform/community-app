@@ -40,7 +40,7 @@ if (isServerSide()) {
   }
 } else {
   const log = (type, ...rest) => {
-    fetch('/api/logger', {
+    fetch('/community-app-assets/api/logger', {
       body: JSON.stringify({
         data: rest,
         type,

@@ -3,6 +3,8 @@ const ExtractCssChunks = require('extract-css-chunks-webpack-plugin');
 const path = require('path');
 const webpack = require('webpack');
 
+const PUBLIC_PATH = '/community-app-assets';
+
 const context = path.resolve(__dirname, '../..');
 
 module.exports = {
@@ -28,8 +30,8 @@ module.exports = {
       ],
       loader: 'file-loader',
       options: {
-        outputPath: '/community-app-fonts/',
-        publicPath: '',
+        outputPath: '/fonts/',
+        publicPath: PUBLIC_PATH,
       },
     }, {
       test: /\.(jsx?|svg)$/,
@@ -68,7 +70,7 @@ module.exports = {
       loader: 'file-loader',
       options: {
         outputPath: '/images/',
-        publicPath: '',
+        publicPath: PUBLIC_PATH,
       },
     }, {
       /* We need to support css loading for third-party plugins,
@@ -88,7 +90,7 @@ module.exports = {
     filename: 'main.js',
     chunkFilename: '[name].js',
     path: path.resolve(__dirname, '../../build'),
-    publicPath: '/',
+    publicPath: `${PUBLIC_PATH}/`,
   },
   plugins: [
     new CopyWebpackPlugin([{

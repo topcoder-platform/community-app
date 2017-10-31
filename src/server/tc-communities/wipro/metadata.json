@@ -21,14 +21,14 @@
   "groupIds": ["20000000"],
   "leaderboardApiUrl": "https://api.topcoder.com/v4/looks/458/run/json/",
   "logos": [{
-    "img": "/themes/wipro/wipro-logo.png",
+    "img": "/community-app-assets/themes/wipro/wipro-logo.png",
     "url": "http://www.wipro.com/"
   }, {
-    "img": "/themes/wipro/logo_topcoder_with_name.svg",
+    "img": "/community-app-assets/themes/wipro/logo_topcoder_with_name.svg",
     "url": "https://www.topcoder.com"
   }],
   "additionalLogos": [
-    "/themes/wipro/topgear_logo.png"
+    "/community-app-assets/themes/wipro/topgear_logo.png"
   ],
   "hideSearch": true,
   "chevronOverAvatar": true,

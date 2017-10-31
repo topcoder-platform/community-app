@@ -31,7 +31,7 @@ export default function Learn() {
           content: style.bannerContent,
           contentInner: style.bannerContentInner,
         }}
-        imageSrc="/themes/demo-expert/learn/banner.jpg"
+        imageSrc="/community-app-assets/themes/demo-expert/learn/banner.jpg"
       />
 
       <Section
@@ -108,7 +108,7 @@ export default function Learn() {
             title: 'Read More',
             url: 'learn',
           }}
-          imageSrc="/themes/demo-expert/learn/courses-01.jpg"
+          imageSrc="/community-app-assets/themes/demo-expert/learn/courses-01.jpg"
         />
         <ArticleCard
           title="An Ugly Myspace Profile Will Sure Ruin Your Reputation"
@@ -117,7 +117,7 @@ export default function Learn() {
             title: 'Read More',
             url: 'learn',
           }}
-          imageSrc="/themes/demo-expert/learn/courses-02.jpg"
+          imageSrc="/community-app-assets/themes/demo-expert/learn/courses-02.jpg"
         />
         <ArticleCard
           title="3 Simple Ways Work Fast in Competition"
@@ -126,7 +126,7 @@ export default function Learn() {
             title: 'Read More',
             url: 'learn',
           }}
-          imageSrc="/themes/demo-expert/learn/courses-03.jpg"
+          imageSrc="/community-app-assets/themes/demo-expert/learn/courses-03.jpg"
         />
       </Section>
 
@@ -190,7 +190,7 @@ export default function Learn() {
       <NewsletterSignup
         title="Sign up for our newsletter"
         text="Don’t miss out on the latest Topcoder IOS challenges and information!"
-        imageSrc="/themes/demo-expert/subscribe-bg.jpg"
+        imageSrc="/community-app-assets/themes/demo-expert/subscribe-bg.jpg"
       />
     </main>
   );
