@@ -5,7 +5,7 @@ exports[`Match shadow snapshot 1`] = `
   <ThemedBanner
     composeAdhocTheme="deeply"
     composeContextTheme="softly"
-    imageSrc="/themes/community-2/home/banner.jpg"
+    imageSrc="/community-app-assets/themes/community-2/home/banner.jpg"
     link={
       Object {
         "title": "Compete Now",
@@ -39,7 +39,7 @@ exports[`Match shadow snapshot 1`] = `
       <ThemedImageText
         composeAdhocTheme="deeply"
         composeContextTheme="softly"
-        imageSrc="/themes/community-2/home/image-text-learn.jpg"
+        imageSrc="/community-app-assets/themes/community-2/home/image-text-learn.jpg"
         link={
           Object {
             "title": "Start Learning",
@@ -55,7 +55,7 @@ exports[`Match shadow snapshot 1`] = `
       <ThemedImageText
         composeAdhocTheme="deeply"
         composeContextTheme="softly"
-        imageSrc="/themes/community-2/home/image-text-do.jpg"
+        imageSrc="/community-app-assets/themes/community-2/home/image-text-do.jpg"
         link={
           Object {
             "title": "Start Earning",
@@ -151,7 +151,7 @@ exports[`Match shadow snapshot 1`] = `
     composeAdhocTheme="deeply"
     composeContextTheme="softly"
     emailPlaceholder="Email address"
-    imageSrc="/themes/community-2/subscribe-bg.jpg"
+    imageSrc="/community-app-assets/themes/community-2/subscribe-bg.jpg"
     mapThemrProps={[Function]}
     text="Don’t miss out on the latest Topcoder IOS challenges and information!"
     theme={Object {}}
