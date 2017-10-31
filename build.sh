@@ -27,7 +27,7 @@ fi
 
 # Builds Docker image of the app.
 TAG=$AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/community-app:$CIRCLE_SHA1
-docker build --build-arg FILESTACK_API_KEY=$FILESTACK_API_KEY FILESTACK_SUBMISSION_CONTAINER=$FILESTACK_SUBMISSION_CONTAINER NODE_ENV=$NODE_ENV -t $TAG .
+docker build --build-arg FILESTACK_API_KEY=$FILESTACK_API_KEY --build-arg FILESTACK_SUBMISSION_CONTAINER=$FILESTACK_SUBMISSION_CONTAINER --build-arg NODE_ENV=$NODE_ENV -t $TAG .
 
 # Copies "node_modules" from the created image, if necessary for caching.
 docker create --name app $TAG
