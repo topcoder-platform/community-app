@@ -11,6 +11,8 @@ COPY . .
 RUN npm install
 RUN npm test
 RUN npm run build
+
+ARG NODE_ENV
 ENV NODE_ENV=$NODE_ENV
 
 EXPOSE 3000
