@@ -5,7 +5,7 @@ exports[`Snapshot match 1`] = `
   <ThemedBanner
     composeAdhocTheme="deeply"
     composeContextTheme="softly"
-    imageSrc="/themes/demo-expert/learn/banner.jpg"
+    imageSrc="/community-app-assets/themes/demo-expert/learn/banner.jpg"
     link={null}
     mapThemrProps={[Function]}
     text="Our continuously evolving structured learning paths, constantly abreast of the latest, tailored for employees to deepen your knowledge, infuses important software capabilities that are industry specific and help you get the skills you need to succeed."
@@ -263,7 +263,7 @@ exports[`Snapshot match 1`] = `
     <ThemedArticleCard
       composeAdhocTheme="deeply"
       composeContextTheme="softly"
-      imageSrc="/themes/demo-expert/learn/courses-01.jpg"
+      imageSrc="/community-app-assets/themes/demo-expert/learn/courses-01.jpg"
       link={
         Object {
           "title": "Read More",
@@ -279,7 +279,7 @@ exports[`Snapshot match 1`] = `
     <ThemedArticleCard
       composeAdhocTheme="deeply"
       composeContextTheme="softly"
-      imageSrc="/themes/demo-expert/learn/courses-02.jpg"
+      imageSrc="/community-app-assets/themes/demo-expert/learn/courses-02.jpg"
       link={
         Object {
           "title": "Read More",
@@ -295,7 +295,7 @@ exports[`Snapshot match 1`] = `
     <ThemedArticleCard
       composeAdhocTheme="deeply"
       composeContextTheme="softly"
-      imageSrc="/themes/demo-expert/learn/courses-03.jpg"
+      imageSrc="/community-app-assets/themes/demo-expert/learn/courses-03.jpg"
       link={
         Object {
           "title": "Read More",
@@ -415,7 +415,7 @@ exports[`Snapshot match 1`] = `
     composeAdhocTheme="deeply"
     composeContextTheme="softly"
     emailPlaceholder="Email address"
-    imageSrc="/themes/demo-expert/subscribe-bg.jpg"
+    imageSrc="/community-app-assets/themes/demo-expert/subscribe-bg.jpg"
     mapThemrProps={[Function]}
     text="Don’t miss out on the latest Topcoder IOS challenges and information!"
     theme={Object {}}

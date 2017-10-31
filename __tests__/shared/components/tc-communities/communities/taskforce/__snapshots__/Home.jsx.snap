@@ -5,7 +5,7 @@ exports[`Match shadow snapshot 1`] = `
   <ThemedBanner
     composeAdhocTheme="deeply"
     composeContextTheme="softly"
-    imageSrc="/themes/taskforce/home/banner.jpg"
+    imageSrc="/community-app-assets/themes/taskforce/home/banner.jpg"
     link={
       Array [
         Object {
@@ -59,7 +59,7 @@ exports[`Match shadow snapshot 1`] = `
       <ThemedImageText
         composeAdhocTheme="deeply"
         composeContextTheme="softly"
-        imageSrc="/themes/taskforce/home/image-text-do.jpg"
+        imageSrc="/community-app-assets/themes/taskforce/home/image-text-do.jpg"
         link={
           Object {
             "title": "Launch a Task",
@@ -79,7 +79,7 @@ exports[`Match shadow snapshot 1`] = `
       <ThemedImageText
         composeAdhocTheme="deeply"
         composeContextTheme="softly"
-        imageSrc="/themes/taskforce/home/working-desk.jpg"
+        imageSrc="/community-app-assets/themes/taskforce/home/working-desk.jpg"
         link={
           Object {
             "title": "Launch a Task",
@@ -208,7 +208,7 @@ exports[`Match shadow snapshot 1`] = `
     composeAdhocTheme="deeply"
     composeContextTheme="softly"
     emailPlaceholder="Email address"
-    imageSrc="/themes/taskforce/subscribe-bg.jpg"
+    imageSrc="/community-app-assets/themes/taskforce/subscribe-bg.jpg"
     mapThemrProps={[Function]}
     text="Get the Topcoder crowdsourcing newsletter, today!"
     theme={Object {}}

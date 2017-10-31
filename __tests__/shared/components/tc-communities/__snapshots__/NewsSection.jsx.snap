@@ -45,7 +45,7 @@ exports[`Matches shallow shapshot 1`] = `
       <ThemedArticleCard
         composeAdhocTheme="deeply"
         composeContextTheme="softly"
-        imageSrc="/themes/common/NewsSection/news-01.jpg"
+        imageSrc="/community-app-assets/themes/common/NewsSection/news-01.jpg"
         link={
           Object {
             "title": "Read More",

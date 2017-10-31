@@ -86,7 +86,7 @@
   }
 
   .PrevArrow {
-    background: url(/themes/wipro/active_previous_icon.png);
+    background: url(/community-app-assets/themes/wipro/active_previous_icon.png);
     background-repeat: no-repeat;
     background-size: 100% 100%;
     top: 50%;
@@ -94,20 +94,20 @@
     transform: translateY(-50%);
 
     &.disabled {
-      background: url(/themes/wipro/inactive_previous_icon.png);
+      background: url(/community-app-assets/themes/wipro/inactive_previous_icon.png);
       background-repeat: no-repeat;
       background-size: 100% 100%;
     }
   }
 
   .NextArrow {
-    background: url(/themes/wipro/active_next_arrow.png);
+    background: url(/community-app-assets/themes/wipro/active_next_arrow.png);
     top: 50%;
     right: -80px;
     transform: translateY(-50%);
 
     &.disabled {
-      background: url(/themes/wipro/inactive_next_icon.png);
+      background: url(/community-app-assets/themes/wipro/inactive_next_icon.png);
       background-repeat: no-repeat;
       background-size: 100% 100%;
     }

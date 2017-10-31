@@ -109,7 +109,7 @@ class TermsService {
      * the only thing we need for our purposes now. However, it might also
      * have another useful datafields. This should be explored. */
     return Promise.resolve({
-      recipientViewUrl: `/api/mock/docu-sign?returnUrl=${returnUrl}`,
+      recipientViewUrl: `/community-app-assets/api/mock/docu-sign?returnUrl=${returnUrl}`,
     });
   }
 

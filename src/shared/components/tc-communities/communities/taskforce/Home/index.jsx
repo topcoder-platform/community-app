@@ -38,7 +38,7 @@ export default function Home(props) {
           title: 'Create a Task Right Now',
           url: '.',
         }]}
-        imageSrc="/themes/taskforce/home/banner.jpg"
+        imageSrc="/community-app-assets/themes/taskforce/home/banner.jpg"
         theme={{
           content: style.BannerContent,
           link: style.BannerLink,
@@ -73,7 +73,7 @@ export default function Home(props) {
               title: 'Launch a Task',
               url: '.',
             }}
-            imageSrc="/themes/taskforce/home/image-text-do.jpg"
+            imageSrc="/community-app-assets/themes/taskforce/home/image-text-do.jpg"
             theme={{
               container: style.ImageTextContainer,
             }}
@@ -85,7 +85,7 @@ export default function Home(props) {
               title: 'Launch a Task',
               url: '.',
             }}
-            imageSrc="/themes/taskforce/home/working-desk.jpg"
+            imageSrc="/community-app-assets/themes/taskforce/home/working-desk.jpg"
           />
         </div>
       </Section>
@@ -135,7 +135,7 @@ export default function Home(props) {
       <NewsletterSignup
         title="3 key crowdsourcing stories, 1x per month"
         text="Get the Topcoder crowdsourcing newsletter, today!"
-        imageSrc="/themes/taskforce/subscribe-bg.jpg"
+        imageSrc="/community-app-assets/themes/taskforce/subscribe-bg.jpg"
       />
 
     </main>

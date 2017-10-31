@@ -42,7 +42,7 @@ export default function Learn() {
             content: style.bannerContent,
             contentInner: style.bannerContentInner,
           }}
-          imageSrc="/themes/wipro/learn/banner.jpg"
+          imageSrc="/community-app-assets/themes/wipro/learn/banner.jpg"
         />
         <Section
           title="Tutorials"

@@ -44,9 +44,9 @@ import ImageTextStyles from './themes/imageTextStyle.scss';
 
 // Custom icons for community stats
 const COMMUNITY_STATS_ICONS = {
-  numChallenges: '../../../../../themes/wipro/challenges.png',
-  numMembers: '../../../../../themes/wipro/members.png',
-  openPrizes: '../../../../../themes/wipro/prizes.png',
+  numChallenges: '../../../../../community-app-assets/themes/wipro/challenges.png',
+  numMembers: '../../../../../community-app-assets/themes/wipro/members.png',
+  openPrizes: '../../../../../community-app-assets/themes/wipro/prizes.png',
 };
 
 function PrevArrow(props) {
@@ -121,7 +121,7 @@ export default function Home(props) {
           title: 'Compete Now',
           url: 'challenges',
         }}
-        imageSrc="/themes/wipro/home/top_image.png"
+        imageSrc="/community-app-assets/themes/wipro/home/top_image.png"
         theme={bannerStyle}
       />
 
@@ -143,7 +143,7 @@ export default function Home(props) {
               url: 'learn',
             }}
             theme={ImageTextStyles}
-            imageSrc="/themes/wipro/home/image-text-learn.png"
+            imageSrc="/community-app-assets/themes/wipro/home/image-text-learn.png"
           />
           <ImageText
             title="Get Involved"
@@ -161,7 +161,7 @@ export default function Home(props) {
               url: 'https://help.topcoder.com/hc/requests/new',
             }]}
             theme={ImageTextStyles}
-            imageSrc="/themes/wipro/home/image-text-do.png"
+            imageSrc="/community-app-assets/themes/wipro/home/image-text-do.png"
           />
           <ImageText
             title="Leverage The Crowd"
@@ -176,7 +176,7 @@ export default function Home(props) {
               url: 'https://help.topcoder.com/hc/en-us/requests/new?ticket_form_id=779747',
             }]}
             theme={ImageTextStyles}
-            imageSrc="/themes/wipro/home/image-text-leverage.png"
+            imageSrc="/community-app-assets/themes/wipro/home/image-text-leverage.png"
           />
         </div>
       </Section>
@@ -258,7 +258,7 @@ export default function Home(props) {
       <NewsletterSignup
         title="Sign up for our newsletter"
         text="Don’t miss out on the latest challenges and information!"
-        imageSrc="/themes/wipro/subscribe-bg.jpg"
+        imageSrc="/community-app-assets/themes/wipro/subscribe-bg.jpg"
         theme={NewsletterSignupStyle}
       />
       */}
