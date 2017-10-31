@@ -50,6 +50,14 @@ export default (req, res) => {
         </StaticRouter>
       </Provider>
     ));
+
+    /* Removes TC auth tokens from intial Redux state to avoid passing them to
+     * the client as a plain text inside HTML markup. */
+    let sanitizedReduxState = store.getState();
+    sanitizedReduxState.auth.tokenV2 = null;
+    sanitizedReduxState.auth.tokenV3 = null;
+    sanitizedReduxState = serializeJs(store.getState(), { isJSON: true });
+
     if (context.status) res.status(context.status);
     const sanitizedExchangeRates = serializeJs(exchangeRates, { isJSON: true });
     const styles = context.chunks.map(chunk => (
@@ -78,7 +86,7 @@ export default (req, res) => {
           <script type="application/javascript">
             window.CONFIG = ${sanitizedConfig}
             window.EXCHANGE_RATES = ${sanitizedExchangeRates}
-            window.ISTATE = ${serializeJs(store.getState(), { isJSON: true })}
+            window.ISTATE = ${sanitizedReduxState}
             window.SPLITS = ${serializeJs(context.splits, { isJSON: true })}
           </script>
           <script src="/community-app-assets/main.js" type="application/javascript"></script>
