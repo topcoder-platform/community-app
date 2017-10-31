@@ -34,7 +34,7 @@ export default function Home(props) {
           title: 'Compete Now',
           url: 'challenges',
         }}
-        imageSrc="/themes/tc-prod-dev/community-hero.jpg"
+        imageSrc="/community-app-assets/themes/tc-prod-dev/community-hero.jpg"
       />
 
       <CommunityStats />
@@ -54,7 +54,7 @@ export default function Home(props) {
               title: 'Start Learning',
               url: 'learn',
             }}
-            imageSrc="/themes/tc-prod-dev/home/image-text-learn.jpg"
+            imageSrc="/community-app-assets/themes/tc-prod-dev/home/image-text-learn.jpg"
           />
           <ImageText
             title="Get Involved"
@@ -63,7 +63,7 @@ export default function Home(props) {
               title: 'Start Contributing',
               url: 'challenges',
             }}
-            imageSrc="/themes/tc-prod-dev/home/image-text-do.jpg"
+            imageSrc="/community-app-assets/themes/tc-prod-dev/home/image-text-do.jpg"
           />
         </div>
       </Section>
@@ -107,7 +107,7 @@ export default function Home(props) {
       <NewsletterSignup
         title="Sign up for Topcoder Product Development Updates"
         text="Don’t miss out opportunities to work on the Topcoder Platform!"
-        imageSrc="/themes/tc-prod-dev/subscribe-bg.jpg"
+        imageSrc="/community-app-assets/themes/tc-prod-dev/subscribe-bg.jpg"
       />
 
     </main>

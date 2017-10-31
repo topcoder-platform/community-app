@@ -19,7 +19,7 @@ class Communities {
    *  the objects indludes only the most important data on the community.
    */
   getList(userGroupIds) {
-    const url = `/api/tc-communities?${qs.stringify({ groups: userGroupIds })}`;
+    const url = `/community-app-assets/api/tc-communities?${qs.stringify({ groups: userGroupIds })}`;
     return fetch(url, {
       headers: {
         authorization: this.private.tokenV3,
@@ -33,7 +33,7 @@ class Communities {
    * @return {Promise} Resolves to the community metadata.
    */
   getMetadata(communityId) {
-    return fetch(`/api/tc-communities/${communityId}/meta`, {
+    return fetch(`/community-app-assets/api/tc-communities/${communityId}/meta`, {
       headers: {
         authorization: this.private.tokenV3,
       },

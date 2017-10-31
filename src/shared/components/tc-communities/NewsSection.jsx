@@ -43,7 +43,7 @@ export default function NewsSection(props) {
             <div data-index={i} key={item.title} className={props.theme.carouselParent}>
               <ArticleCard
                 theme={props.theme.card}
-                imageSrc={`/themes/common/NewsSection/news-0${1 + i}.jpg`}
+                imageSrc={`/community-app-assets/themes/common/NewsSection/news-0${1 + i}.jpg`}
                 link={{
                   title: 'Read More',
                   url: item.link,

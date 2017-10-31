@@ -44,7 +44,7 @@ app.use(cookieParser());
 app.use(requestIp.mw());
 
 /* Log Entries service proxy. */
-app.use('/api/logger', (req, res) => {
+app.use('/community-app-assets/api/logger', (req, res) => {
   logger.log(`${req.clientIp} > `, ...req.body.data);
   res.end();
 });
@@ -87,28 +87,29 @@ if (USE_DEV_TOOLS) {
 /* eslint-enable import/no-extraneous-dependencies */
 /* eslint-enable import/no-unresolved */
 
-app.use(express.static(path.resolve(__dirname, '../../build')));
+// app.use(express.static(path.resolve(__dirname, '../../build')));
+app.use('/community-app-assets', express.static(path.resolve(__dirname, '../../build')));
 
 // serve demo api
-app.use('/api/tc-communities', tcCommunitiesDemoApi);
+app.use('/community-app-assets/api/tc-communities', tcCommunitiesDemoApi);
 
 /**
  * Auxiliary endpoint for xml -> json conversion (the most popular npm library
  * for such conversion works only in the node :(
  */
-app.use('/api/xml2json', (req, res) => {
+app.use('/community-app-assets/api/xml2json', (req, res) => {
   xmlToJson(req.body.xml).then(json => res.json(json));
 });
 
 /* Returns currency exchange rates, cached at the server-side (thus drastically
  * reducing amount of calls to openexchangerates.com). */
-app.use('/api/exchange-rates', (req, res) => {
+app.use('/community-app-assets/api/exchange-rates', (req, res) => {
   getExchangeRates().then(rates => res.send(rates));
 });
 
 /* Receive the signing result from DocuSign server, and then send result to client
  */
-app.use('/iframe-break', (req, res) => {
+app.use('/community-app-assets/iframe-break', (req, res) => {
   res.send(`<script>parent.postMessage(${serializeJs({ ...req.query, type: 'DocuSign' })}, '*')</script>`);
 });
 
@@ -116,7 +117,7 @@ app.use('/iframe-break', (req, res) => {
  * HTML document (/src/shared/services/__mocks__/data/docu-sign-mock.html)
  * that has two buttons, that do the same redirects, as the real DocuSign
  * page would do on signing / rejecting a document. */
-app.use('/api/mock/docu-sign', (req, res) =>
+app.use('/community-app-assets/api/mock/docu-sign', (req, res) =>
   /* The real DocuSign API does not return the page immediately,
    * thus timeout to imitate this in our mock. 3 seconds just an arbitrary
    * choice. */
