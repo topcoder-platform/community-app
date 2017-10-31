@@ -31,7 +31,7 @@ export default function ChallengeListingRoute() {
             <ChallengeListing
               {...renderProps}
               listingOnly
-              newChallengeDetails
+              newChallengeDetails={false}
               prizeMode={prizeMode}
             />
           );
