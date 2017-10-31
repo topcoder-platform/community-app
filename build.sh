@@ -25,6 +25,9 @@ else
   exit 1
 fi
 
+echo $FILESTACK_API_KEY
+echo $FILESTACK_SUBMISSION_CONTAINER
+
 # Builds Docker image of the app.
 TAG=$AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/community-app:$CIRCLE_SHA1
 docker build --build-arg FILESTACK_API_KEY=$FILESTACK_API_KEY --build-arg FILESTACK_SUBMISSION_CONTAINER=$FILESTACK_SUBMISSION_CONTAINER --build-arg NODE_ENV=$NODE_ENV -t $TAG .
