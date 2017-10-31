@@ -5,7 +5,7 @@ exports[`Snapshot match 1`] = `
   <ThemedBanner
     composeAdhocTheme="deeply"
     composeContextTheme="softly"
-    imageSrc="/themes/wipro/learn/banner.jpg"
+    imageSrc="/community-app-assets/themes/wipro/learn/banner.jpg"
     link={null}
     mapThemrProps={[Function]}
     text="Our continuously evolving structured learning paths, constantly abreast of the latest, tailored for employees to deepen your knowledge, infuses important software capabilities that are industry specific and help you get the skills you need to succeed."

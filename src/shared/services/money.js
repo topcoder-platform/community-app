@@ -58,7 +58,7 @@ function refresh() {
       return Promise.resolve();
     }
   }
-  const url = isClientSide() ? '/api/exchange-rates'
+  const url = isClientSide() ? '/community-app-assets/api/exchange-rates'
     : `${OE_API}/latest.json?app_id=${OE_TOKEN}`;
   return fetch(url).then(res => res.json()).then((res) => {
     cachedRates = res;

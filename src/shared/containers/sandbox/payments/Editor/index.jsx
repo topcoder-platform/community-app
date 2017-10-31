@@ -18,6 +18,7 @@ import { connect } from 'react-redux';
 import { getService as getChallengeService } from 'services/challenges';
 import { getService as getUserService } from 'services/user';
 import { goToLogin } from 'utils/tc';
+import { AUTOCOMPLETE_TRIGGER_LENGTH } from 'components/MemberSearchInput';
 
 import './style.scss';
 
@@ -190,10 +191,20 @@ class EditorContainer extends React.Component {
     this.props.setPaymentAssignee('');
     this.props.setPaymentDescription('');
     this.props.setPaymentTitle('');
+    this.props.setMemberInputKeyword('');
+    this.props.setMemberInputPopupVisible(false);
   }
 
   render() {
     const {
+      memberSuggestions,
+      getMemberSuggestions,
+      memberInputPopupVisible,
+      setMemberInputPopupVisible,
+      memberInputKeyword,
+      setMemberInputKeyword,
+      memberInputSelected,
+      setMemberInputSelected,
       pageState,
       paymentAmount,
       paymentAssignee,
@@ -250,6 +261,14 @@ class EditorContainer extends React.Component {
     return (
       <Editor
         makePayment={() => this.pay()}
+        memberSuggestions={memberSuggestions}
+        getMemberSuggestions={getMemberSuggestions}
+        memberInputPopupVisible={memberInputPopupVisible}
+        setMemberInputPopupVisible={setMemberInputPopupVisible}
+        memberInputKeyword={memberInputKeyword}
+        setMemberInputKeyword={setMemberInputKeyword}
+        memberInputSelected={memberInputSelected}
+        setMemberInputSelected={setMemberInputSelected}
         neu={paymentId === 'new'}
         paymentAmount={paymentAmount}
         paymentAssignee={paymentAssignee}
@@ -281,6 +300,14 @@ EditorContainer.propTypes = {
   loadingProjectsForUsername: PT.string.isRequired,
   loadProjectDetails: PT.func.isRequired,
   loadProjects: PT.func.isRequired,
+  memberSuggestions: PT.arrayOf(PT.shape()).isRequired,
+  getMemberSuggestions: PT.func.isRequired,
+  memberInputPopupVisible: PT.bool.isRequired,
+  setMemberInputPopupVisible: PT.func.isRequired,
+  memberInputKeyword: PT.string.isRequired,
+  setMemberInputKeyword: PT.func.isRequired,
+  memberInputSelected: PT.shape().isRequired,
+  setMemberInputSelected: PT.func.isRequired,
   pageState: PT.oneOf(_.values(PAGE_STATE)).isRequired,
   paymentAmount: PT.number.isRequired,
   paymentAssignee: PT.string.isRequired,
@@ -324,6 +351,10 @@ function mapStateToProps(state, ownProps) {
     challenge,
     loadingProjectDetailsForId: direct.loadingProjectDetailsForId,
     loadingProjectsForUsername: direct.loadingProjectsForUsername,
+    memberSuggestions: page.memberSuggestions,
+    memberInputPopupVisible: page.memberInputPopupVisible,
+    memberInputKeyword: page.memberInputKeyword,
+    memberInputSelected: page.memberInputSelected,
     pageState: page.pageState,
     paymentAmount: page.paymentAmount,
     paymentAssignee: page.paymentAssignee,
@@ -356,6 +387,15 @@ function mapDispatchToProps(dispatch) {
       dispatch(direct.getUserProjectsInit(tokenV3));
       dispatch(direct.getUserProjectsDone(tokenV3));
     },
+    getMemberSuggestions: (keyword, tokenV3) => {
+      if (keyword.length >= AUTOCOMPLETE_TRIGGER_LENGTH) {
+        dispatch(page.getMemberSuggestionsInit(keyword));
+        dispatch(page.getMemberSuggestionsDone(keyword, tokenV3));
+      }
+    },
+    setMemberInputPopupVisible: visible => dispatch(page.setMemberInputPopupVisible(visible)),
+    setMemberInputKeyword: keyword => dispatch(page.setMemberInputKeyword(keyword)),
+    setMemberInputSelected: member => dispatch(page.setMemberInputSelected(member)),
     selectBillingAccount: accountId =>
       dispatch(page.selectBillingAccount(accountId)),
     selectProject: projectId => dispatch(page.selectProject(projectId)),

@@ -18,13 +18,13 @@ import { combine, resolveReducers } from 'utils/redux';
 
 import direct from './direct';
 import memberTasks from './member-tasks';
-import page from './page';
 import topcoderHeader from './topcoder_header';
 import { factory as authFactory } from './auth';
 import { factory as challengeFactory } from './challenge';
 import { factory as challengeListingFactory } from './challenge-listing';
 import { factory as examplesFactory } from './examples';
 import { factory as groupsFactory } from './groups';
+import { factory as pageFactory } from './page';
 import { factory as statsFactory } from './stats';
 import { factory as tcCommunitiesFactory } from './tc-communities';
 import { factory as leaderboardFactory } from './leaderboard';
@@ -45,6 +45,7 @@ export function factory(req) {
     dashboard: dashboardFactory(req),
     terms: termsFactory(req),
     scoreboard: scoreboardFactory(req),
+    page: pageFactory(req),
   }).then(reducers => combine((state) => {
     const res = { ...state };
     if (req) {
@@ -56,7 +57,6 @@ export function factory(req) {
     ...reducers,
     direct,
     memberTasks,
-    page,
     topcoderHeader,
   }));
 }

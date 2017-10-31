@@ -48,12 +48,12 @@ describe('Api test', () => {
     jest.resetModules();
     server = require(MODULE).default;
   });
-  test('post to /api/logger', () => request(server).post('/api/logger')
+  test('post to /community-app-assets/api/logger', () => request(server).post('/community-app-assets/api/logger')
     .send({ data: 'data' })
     .then((response) => {
       expect(response.statusCode).toBe(200);
     }));
-  test('post to /api/xml2json', () => request(server).post('/api/xml2json')
+  test('post to /community-app-assets/api/xml2json', () => request(server).post('/community-app-assets/api/xml2json')
     .send({ xml: '<xml></xml>' })
     .then((response) => {
       expect(response.text).toBe('{"xml":{}}');
@@ -62,7 +62,7 @@ describe('Api test', () => {
     .then((response) => {
       expect(response.statusCode).toBe(404);
     }));
-  test('status 500', () => request(server).post('/api/logger')
+  test('status 500', () => request(server).post('/community-app-assets/api/logger')
     .then((response) => {
       expect(response.statusCode).toBe(500);
     }));

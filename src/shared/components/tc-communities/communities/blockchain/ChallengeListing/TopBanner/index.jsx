@@ -16,7 +16,7 @@ export default function TopBanner() {
         content: style.bannerContent,
         contentInner: style.bannerContentInner,
       }}
-      imageSrc="/themes/blockchain/challenges/banner.jpg"
+      imageSrc="/community-app-assets/themes/blockchain/challenges/banner.jpg"
     />
   );
 }

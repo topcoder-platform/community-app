@@ -28,12 +28,81 @@
       display: flex;
       flex-direction: row;
 
-      .pic {
-        img.profile-circle {
-          border-radius: 50%;
-          display: inline;
-          width: 60px;
-          height: 60px;
+      .item {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: flex-end;
+        height: 39px;
+        position: relative;
+        margin-left: 40px;
+        margin-right: 20px;
+        font-family: 'Sofia Pro', Arial, Helvetica, sans-serif;
+        font-weight: 400;
+
+        .value {
+          font-size: 24px;
+          margin-bottom: 15px;
+        }
+
+        .title {
+          color: #a3a3ae;
+          font-size: 12px;
+          text-transform: uppercase;
+        }
+      }
+
+      .item:not(:first-child)::before {
+        content: '';
+        display: block;
+        position: absolute;
+        top: -5px;
+        left: -30px;
+        width: 1px;
+        height: 60px;
+        -ms-transform: translateX(0) translateY(2px) rotate(30deg);
+        -webkit-transform: translateX(0) translateY(2px) rotate(30deg);
+        transform: translateX(0) translateY(2px) rotate(30deg);
+        background-color: #d1d3d4;
+      }
+
+      .badgeItem {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: flex-end;
+        position: relative;
+        margin-left: 20px;
+        margin-right: 20px;
+        font-family: 'Sofia Pro', Arial, Helvetica, sans-serif;
+        font-weight: 400;
+
+        .value {
+          font-size: 24px;
+          margin-bottom: 15px;
+        }
+
+        .dashboardBadge {
+          background: url(assets/images/dashboard/badge.png) no-repeat;
+          background-size: 70px 70px;
+          width: 70px;
+          height: 70px;
+
+          img {
+            display: none;
+          }
+        }
+
+        .dashboardBadge:hover img {
+          display: block;
+          position: absolute;
+          top: 55px;
+          left: -110px;
+          z-index: 1000;
+          width: auto;
+          overflow: hidden;
+          padding: 8px;
+          background: transparent;
         }
       }
     }
@@ -88,7 +157,7 @@
       justify-content: space-between;
 
       .page-info {
-        order: 2;
+        order: 1;
         display: flex;
         flex-direction: row;
 
@@ -99,7 +168,7 @@
       }
 
       .info {
-        order: 1;
+        order: 2;
       }
 
       .user-metrics {

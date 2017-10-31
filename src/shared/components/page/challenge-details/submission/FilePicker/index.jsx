@@ -1,6 +1,14 @@
+/**
+ * components.page.challenge-details.FilePicker
+ * <FilePicker> Component
+ *
+ * Description:
+ *   Component for uploading a file using conventional html form file input
+ *   Validates the file extension, and displays filename on success
+ */
 /* eslint-env browser */
 import React from 'react';
-import PropTypes from 'prop-types';
+import PT from 'prop-types';
 import { PrimaryButton } from 'components/buttons';
 import './styles.scss';
 
@@ -10,45 +18,37 @@ import './styles.scss';
 class FilePicker extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      fileName: '',
-      error: '',
-      dragged: false,
-    };
+
     this.handleChangeFile = this.handleChangeFile.bind(this);
   }
 
   componentDidMount() {
+    this.props.setFileName('');
+    this.props.setError('');
+    this.props.setDragged(false);
     const id = this.props.id || 1;
     const ele = document.getElementById(`drop-zone-${id}`);
-    ele.addEventListener('dragover', (e) => {
-      this.setState({
-        dragged: true,
-      });
-      e.preventDefault();
-    });
     ele.addEventListener('dragenter', (e) => {
-      this.setState({
-        dragged: true,
-      });
+      this.props.setDragged(true);
       e.preventDefault();
     });
     ele.addEventListener('dragleave', (e) => {
-      this.setState({
-        dragged: false,
-      });
+      this.props.setDragged(false);
+      e.preventDefault();
+    });
+    ele.addEventListener('dragover', (e) => {
       e.preventDefault();
     });
     ele.ondrop = (e) => {
       const inputEle = document.getElementById(`submission-input-${id}`);
       inputEle.files = e.dataTransfer.files;
-      this.setState({
-        dragged: false,
-      });
+      this.props.setDragged(false);
       e.preventDefault();
+      e.stopPropagation();
     };
   }
 
+  /* User has selected a new file, verify the filename and extensions */
   handleChangeFile() {
     const id = this.props.id || 1;
     const element = document.getElementById(`submission-input-${id}`);
@@ -57,17 +57,11 @@ class FilePicker extends React.Component {
     const extension = `.${splitFileName[splitFileName.length - 1]}`;
     const allowedExtensions = this.props.fileExtensions;
     if (allowedExtensions.indexOf(extension) < 0) {
-      this.setState({
-        error: `Invalid ${allowedExtensions.join(' or ')} file.`,
-        fileName: '',
-      });
-      this.props.cb(true);
+      this.props.setError(`Invalid ${allowedExtensions.join(' or ')} file.`);
+      this.props.setFileName('');
     } else {
-      this.setState({
-        fileName,
-        error: '',
-      });
-      this.props.cb(false);
+      this.props.setError('');
+      this.props.setFileName(fileName);
     }
   }
 
@@ -76,9 +70,12 @@ class FilePicker extends React.Component {
       fileExtensions,
       title,
       mandatory,
+      fileName,
+      error,
+      dragged,
     } = this.props;
     const id = this.props.id || 1;
-    const fileName = this.state.fileName;
+
     return (
       <div styleName="container">
         <div styleName="desc">
@@ -88,7 +85,7 @@ class FilePicker extends React.Component {
           }
         </div>
         <div
-          styleName={`file-picker ${this.state.error ? 'error' : ''} ${this.state.dragged && 'drag'}`}
+          styleName={`file-picker ${error ? 'error' : ''} ${dragged && 'drag'}`}
           id={`drop-zone-${id}`}
         >
           {
@@ -98,7 +95,7 @@ class FilePicker extends React.Component {
             !fileName && <span>or</span>
           }
           {
-            fileName && <p styleName="file-name">{this.state.fileName}</p>
+            fileName && <p styleName="file-name">{fileName}</p>
           }
           <input
             data-type="zip"
@@ -121,20 +118,28 @@ class FilePicker extends React.Component {
           >Pick a File</PrimaryButton>
         </div>
         {
-          this.state.error &&
-          <div styleName="error-container">{this.state.error}</div>
+          error &&
+          <div styleName="error-container">{error}</div>
         }
       </div>
     );
   }
 }
 
+/**
+ * Prop Validation
+ */
 FilePicker.propTypes = {
-  fileExtensions: PropTypes.arrayOf(PropTypes.string).isRequired,
-  title: PropTypes.string.isRequired,
-  mandatory: PropTypes.bool.isRequired,
-  cb: PropTypes.func.isRequired,
-  id: PropTypes.string.isRequired,
+  fileExtensions: PT.arrayOf(PT.string).isRequired,
+  title: PT.string.isRequired,
+  mandatory: PT.bool.isRequired,
+  id: PT.string.isRequired,
+  setError: PT.func.isRequired,
+  setFileName: PT.func.isRequired,
+  error: PT.string.isRequired,
+  fileName: PT.string.isRequired,
+  setDragged: PT.func.isRequired,
+  dragged: PT.bool.isRequired,
 };
 
 export default FilePicker;

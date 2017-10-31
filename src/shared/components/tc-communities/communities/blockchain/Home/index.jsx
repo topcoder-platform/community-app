@@ -28,7 +28,7 @@ export default function Home(/* props */) {
       <Banner
         title="The Topcoder Blockchain Community"
         text="Learn about and build the next great decentralized application (DApp) on the Ethereum platform."
-        imageSrc="/themes/blockchain/home/banner.png"
+        imageSrc="/community-app-assets/themes/blockchain/home/banner.png"
       >
         <JoinCommunity
           theme={{ link: style.joinNow }}
@@ -57,12 +57,12 @@ export default function Home(/* props */) {
           <ImageText
             title="Get Started"
             text="Ready to get started with Ethereum? Topcoder and ConsenSys have partnered to give you access to tools, tutorials, and hands-on challenges to help you master the Ethereum platform."
-            imageSrc="/themes/blockchain/home/image-text-learn.png"
+            imageSrc="/community-app-assets/themes/blockchain/home/image-text-learn.png"
           />
           <ImageText
             title="Get Involved"
             text="Meet like-minded peers from around the world, share tips and insights, and collaborate with customers to build cutting-edge solutions. The Topcoder Blockchain Community provides opportunities to learn from Ethereum experts and work with top companies that are embracing blockchain technology."
-            imageSrc="/themes/blockchain/home/image-text-do.jpg"
+            imageSrc="/community-app-assets/themes/blockchain/home/image-text-do.jpg"
           />
         </div>
       </Section>

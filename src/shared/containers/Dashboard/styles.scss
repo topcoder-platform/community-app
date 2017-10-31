@@ -1,7 +1,8 @@
-@import '~styles/tc-styles';
+@import '~styles/mixins';
 
 .dashboard-container {
   background-color: #f6f6f6;
+  flex: 1;
 }
 
 .page-container {

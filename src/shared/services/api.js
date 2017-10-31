@@ -149,12 +149,13 @@ export default class Api {
     const headers = options.headers ? _.clone(options.headers) : {};
     if (token) headers.Authorization = `Bearer ${token}`;
     if (isClientSide()) {
-      delete headers['Content-Type'];
       return new Promise((res, rej) => {
         const xhr = new XMLHttpRequest(); //eslint-disable-line
         xhr.open(options.method, `${base}${endpoint}`);
         Object.keys(headers).forEach((key) => {
-          xhr.setRequestHeader(key, headers[key]);
+          if (headers[key] != null) {
+            xhr.setRequestHeader(key, headers[key]);
+          }
         });
         xhr.onload = e => res(e.target.responseText);
         xhr.onerror = rej;

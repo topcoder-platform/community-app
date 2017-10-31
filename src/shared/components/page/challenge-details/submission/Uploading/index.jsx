@@ -1,3 +1,11 @@
+/**
+ * components.page.challenge-details.Uploading
+ * <Uploading> Component
+ *
+ * Description:
+ *   Full-page component that shows upload progress and informs the user
+ *   if there were errors, or that the submission was completed successfully.
+ */
 import React from 'react';
 import PT from 'prop-types';
 import { Link } from 'react-router-dom';
@@ -17,6 +25,7 @@ const Uploading = ({
   retry,
   track,
   uploadProgress,
+  back,
 }) => (
   <div styleName="container">
     <div styleName="uploading">
@@ -97,6 +106,7 @@ const Uploading = ({
                 >Add Another Submission</Button>
                 <PrimaryButton
                   to={`${challengesUrl}/${challengeId}/my-submissions`}
+                  onClick={() => back()}
                 >View My Submissions</PrimaryButton>
               </span>
             ) : (
@@ -106,6 +116,7 @@ const Uploading = ({
                 >Submit Again</Button>
                 <PrimaryButton
                   to={`${challengesUrl}/${challengeId}`}
+                  onClick={() => back()}
                 >Back to Challenge</PrimaryButton>
               </span>
             )}
@@ -115,6 +126,9 @@ const Uploading = ({
   </div>
 );
 
+/**
+ * Prop Validation
+ */
 Uploading.propTypes = {
   challengeId: PT.number.isRequired,
   challengeName: PT.string.isRequired,
@@ -126,6 +140,7 @@ Uploading.propTypes = {
   track: PT.string.isRequired,
   retry: PT.func.isRequired,
   uploadProgress: PT.number.isRequired,
+  back: PT.func.isRequired,
 };
 
 export default Uploading;

@@ -34,7 +34,7 @@ export default function Home({
     <main>
       <Banner
         title="Topcoder QA Community"
-        imageSrc="/themes/qa/home/header.jpg"
+        imageSrc="/community-app-assets/themes/qa/home/header.jpg"
       >
         <div styleName="style.bannerText">
           {member ? (
@@ -128,7 +128,7 @@ export default function Home({
               title: 'Start Learning',
               url: 'learn',
             }}
-            imageSrc="/themes/qa/home/image-ramp-up.jpg"
+            imageSrc="/community-app-assets/themes/qa/home/image-ramp-up.jpg"
           />
           <ImageText
             title="Get Involved"
@@ -137,7 +137,7 @@ export default function Home({
               title: 'Start Contributing',
               url: 'challenges',
             }}
-            imageSrc="/themes/qa/home/image-get-involved.jpg"
+            imageSrc="/community-app-assets/themes/qa/home/image-get-involved.jpg"
           />
         </div>
       </Section>

@@ -1,3 +1,7 @@
+/* TODO: This reducer and corresponding actions control the UI state and logic
+ * for the specific page (Submission Management Page). They should be moved to
+ * page/challenge/submissions-management */
+
 import { handleActions } from 'redux-actions';
 
 import actions from 'actions/smp';
