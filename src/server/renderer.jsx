@@ -5,6 +5,9 @@
 
 import _ from 'lodash';
 import config from 'config';
+import forge from 'node-forge';
+import fs from 'fs';
+import path from 'path';
 import React from 'react';
 import ReactDOM from 'react-dom/server';
 import serializeJs from 'serialize-javascript';
@@ -18,19 +21,38 @@ import App from '../shared';
  * to put the store into correct state depending on the demanded route. */
 import storeFactory from '../shared/store-factory';
 
-const sanitizedConfig = serializeJs(
+const configKeyUrl = path.resolve(__dirname, '../../.injkey');
+
+const sanitizedConfig =
   _.omit(config, [
     'LOG_ENTRIES_TOKEN',
-  ]), {
-    isJSON: true,
-  },
-);
+    'SECRET',
+  ]);
+
+/**
+ * Prepares a new Cipher for injected data encryption.
+ * @return {Promise} Resolves to the object with two fields:
+ *  1. cipher - a new Cipher ready for encryption;
+ *  2. iv - initial vector used by the cipher.
+ */
+function prepareCipher() {
+  return new Promise(resolve =>
+    fs.readFile(configKeyUrl, (err1, key) =>
+      forge.random.getBytes(32, (err2, iv) => {
+        const cipher = forge.cipher.createCipher('AES-CBC', key.toString());
+        cipher.start({ iv });
+        resolve({ cipher, iv });
+      }),
+    ),
+  );
+}
 
 export default (req, res) => {
   Promise.all([
     storeFactory(req),
     getRates(),
-  ]).then(([store, exchangeRates]) => {
+    prepareCipher(),
+  ]).then(([store, exchangeRates, { cipher, iv }]) => {
     const context = {
       /* Array of chunk names, to use for stylesheet links injection. */
       chunks: [],
@@ -51,12 +73,13 @@ export default (req, res) => {
       </Provider>
     ));
 
-    /* Removes TC auth tokens from intial Redux state to avoid passing them to
-     * the client as a plain text inside HTML markup. */
-    let sanitizedReduxState = store.getState();
-    sanitizedReduxState.auth.tokenV2 = null;
-    sanitizedReduxState.auth.tokenV3 = null;
-    sanitizedReduxState = serializeJs(store.getState(), { isJSON: true });
+    /* Prepares sensitive data for injection. */
+    cipher.update(forge.util.createBuffer(JSON.stringify({
+      CONFIG: sanitizedConfig,
+      ISTATE: store.getState(),
+    })));
+    cipher.finish();
+    const INJ = forge.util.encode64(`${iv}${cipher.output.data}`);
 
     if (context.status) res.status(context.status);
     const sanitizedExchangeRates = serializeJs(exchangeRates, { isJSON: true });
@@ -83,11 +106,10 @@ export default (req, res) => {
         </head>
         <body>
           <div id="react-view">${appHtml}</div>
-          <script type="application/javascript">
-            window.CONFIG = ${sanitizedConfig}
+          <script id="inj" type="application/javascript">
             window.EXCHANGE_RATES = ${sanitizedExchangeRates}
-            window.ISTATE = ${sanitizedReduxState}
             window.SPLITS = ${serializeJs(context.splits, { isJSON: true })}
+            window.INJ=${serializeJs(INJ)}
           </script>
           <script src="/community-app-assets/main.js" type="application/javascript"></script>
           <script>
