@@ -115,5 +115,10 @@
   "FILESTACK": {
     "API_KEY": "DUMMY_API_KEY",
     "SUBMISSION_CONTAINER": "DUMMY_VALUE"
+  },
+
+  /* Secret part of the configuration. Nest into this section any sensitive
+   * parameters that should never be send to the client side. */
+  "SECRET": {
   }
 }
