@@ -6,7 +6,7 @@ import React from 'react';
 import renderer from 'react-test-renderer';
 
 const SRC = '../../src';
-const MODULE = `${SRC}/client`;
+const MODULE = `${SRC}/client/client`;
 
 document.getElementById = id =>
   (id === 'react-view' ? 'REACT-VIEW' : undefined);
