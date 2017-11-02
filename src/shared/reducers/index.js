@@ -31,6 +31,7 @@ import { factory as leaderboardFactory } from './leaderboard';
 import { factory as dashboardFactory } from './dashboard';
 import { factory as termsFactory } from './terms';
 import { factory as scoreboardFactory } from './tco/scoreboard';
+import { factory as errorAlertFactory } from './ErrorAlert';
 
 export function factory(req) {
   return resolveReducers({
@@ -46,6 +47,7 @@ export function factory(req) {
     terms: termsFactory(req),
     scoreboard: scoreboardFactory(req),
     page: pageFactory(req),
+    errorAlert: errorAlertFactory(req),
   }).then(reducers => combine((state) => {
     const res = { ...state };
     if (req) {

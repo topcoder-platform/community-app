@@ -18,6 +18,8 @@ import {
 } from 'tc-accounts';
 import logger from 'utils/logger';
 
+import { setErrorAlertStore } from 'utils/errorAlert';
+
 import storeFactory from '../shared/store-factory';
 import './styles.scss';
 
@@ -26,6 +28,9 @@ const actions = {
   ...directActions,
   ...userGroupsActions,
 };
+
+/* Global JS to animate loading indicators */
+require('./loading-indicator-animation.js');
 
 /* Isomorphic code may rely on this environment variable to check whether it is
  * executed client- or server-side. */
@@ -100,6 +105,8 @@ function authenticate(store) {
 
 storeFactory(undefined, window.ISTATE).then((store) => {
   authenticate(store);
+
+  setErrorAlertStore(store);
 
   function render() {
     const App = require('../shared').default; // eslint-disable-line global-require

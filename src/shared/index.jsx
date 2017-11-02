@@ -6,6 +6,7 @@
 
 import React from 'react';
 import Routes from 'routes';
+import ErrorAlertContainer from 'containers/ErrorAlert';
 
 import 'styles/global.scss';
 
@@ -16,6 +17,7 @@ export default function App() {
   return (
     <div>
       <Routes />
+      <ErrorAlertContainer />
       { USE_DEV_TOOLS ? <DevTools /> : undefined }
     </div>
   );
