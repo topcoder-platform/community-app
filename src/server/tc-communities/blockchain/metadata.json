@@ -1,6 +1,9 @@
 {
   "challengeFilter": {
-    "groupIds": ["20000010"]
+    "groupIds": ["20000010"],
+    "or": [{
+      "tags": ["Blockchain", "Ethereum"]
+    }]
   },
   "communityId": "blockchain",
   "communityName": "Blockchain Community",
@@ -21,6 +24,9 @@
   "menuItems": [{
     "title": "Home",
     "url": "/"
+  }, {
+    "title": "Challenges",
+    "url": "/challenges"
   }],
   "leaderboardApiUrl": "https://api.topcoder.com/v4/looks/458/run/json/",
   "newsFeed": "http://www.topcoder.com/feed",
