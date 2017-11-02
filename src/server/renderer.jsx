@@ -77,7 +77,7 @@ export default (req, res) => {
     cipher.update(forge.util.createBuffer(JSON.stringify({
       CONFIG: sanitizedConfig,
       ISTATE: store.getState(),
-    })));
+    }), 'utf8'));
     cipher.finish();
     const INJ = forge.util.encode64(`${iv}${cipher.output.data}`);
 
