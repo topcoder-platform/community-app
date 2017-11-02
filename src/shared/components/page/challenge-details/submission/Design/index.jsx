@@ -96,6 +96,10 @@ class Design extends React.Component {
 
     const stockArts = [];
 
+    /* TODO: This is awful code! Submission should be handled using the
+     * proper ReactJS/Redux mechanics. Probably, we can keep it as it is
+     * for some time, though, at it does work and we want to release it faster.
+     */
     const photoUrl = document.querySelectorAll('[data-type="photoUrl"]');
     if (photoUrl[0].value) { // Only add if not the default blank StockArt input
       // This would also contain code for the Photo Description and Photo File Number
@@ -103,6 +107,10 @@ class Design extends React.Component {
       photoUrl.forEach((url) => {
         stockArts.push({ sourceUrl: url.value });
       });
+      const photoDesc = document.querySelectorAll('[data-type="photoDesc"]');
+      photoDesc.forEach((x, id) => { stockArts[id].description = x.value; });
+      const photoNumber = document.querySelectorAll('[data-type="photoNumber"');
+      photoNumber.forEach((x, id) => { stockArts[id].fileNumber = x.value; });
     }
 
     const formData = new FormData(document.getElementById('submit-form'));
