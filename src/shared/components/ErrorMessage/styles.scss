@@ -1,15 +1,9 @@
-@import '~styles/tc-styles';
+@import '~styles/mixins';
 $sm-space-10: $base-unit * 2;
 $sm-space-15: $base-unit * 3;
 $sm-space-25: $base-unit * 5;
 $sm-space-40: $base-unit * 8;
 $button-space-32: 6 * $base-unit;
-
-:global {
-  #error-alert-container {
-    display: none;
-  }
-}
 
 :global {
   body.scrolling-disabled-by-modal {
@@ -18,7 +12,7 @@ $button-space-32: 6 * $base-unit;
 }
 
 .overlay {
-  background: rgba($tc-gray-neutral-dark, .8);
+  background: rgba($tc-gray-neutral-dark, 0.8);
   border: none;
   height: 100%;
   left: 0;
@@ -48,40 +42,12 @@ $button-space-32: 6 * $base-unit;
   text-align: center;
   opacity: 1;
 
-
   @include xxs-to-md {
     max-width: 95vw;
   }
 
   @include xxs-to-xs {
     padding: 40px 10px;
-  }
-
- .title {
-    font-weight: 400;
-    font-size: 15px;
-    color: $tc-gray-80;
-    line-height: $sm-space-25;
-    margin-bottom: $sm-space-10;
-    padding: 0 $sm-space-15;
-
-    .id {
-      color: #000;
-      font-weight: 500;
-    }
-  }
-
-  .details {
-    font-weight: 400;
-    font-size: 13px;
-    color: $tc-gray-60;
-    line-height: $sm-space-25;
-    padding: 0 $sm-space-15;
-    margin-bottom: $sm-space-40;
-  }
-
-  a {
-    color: $tc-purple;
   }
 
   .action-btns {
@@ -92,5 +58,34 @@ $button-space-32: 6 * $base-unit;
     &:global.hidden {
       display: none;
     }
+  }
+}
+
+.details {
+  font-weight: 400;
+  font-size: 13px;
+  color: $tc-gray-60;
+  line-height: $sm-space-25;
+  padding: 0 $sm-space-15;
+  margin-bottom: $sm-space-10;
+  text-align: justify;
+
+  a {
+    color: $tc-dark-blue;
+    text-decoration: underline;
+  }
+}
+
+.title {
+  color: $tc-red;
+  font-size: 15px;
+  font-weight: bold;
+  line-height: $sm-space-25;
+  margin-bottom: $sm-space-10;
+  padding: 0 $sm-space-15;
+
+  .id {
+    color: #000;
+    font-weight: 500;
   }
 }

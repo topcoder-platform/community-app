@@ -22,6 +22,7 @@ import topcoderHeader from './topcoder_header';
 import { factory as authFactory } from './auth';
 import { factory as challengeFactory } from './challenge';
 import { factory as challengeListingFactory } from './challenge-listing';
+import { factory as errorsFactory } from './errors';
 import { factory as examplesFactory } from './examples';
 import { factory as groupsFactory } from './groups';
 import { factory as pageFactory } from './page';
@@ -31,7 +32,6 @@ import { factory as leaderboardFactory } from './leaderboard';
 import { factory as dashboardFactory } from './dashboard';
 import { factory as termsFactory } from './terms';
 import { factory as scoreboardFactory } from './tco/scoreboard';
-import { factory as errorAlertFactory } from './ErrorAlert';
 
 export function factory(req) {
   return resolveReducers({
@@ -47,7 +47,7 @@ export function factory(req) {
     terms: termsFactory(req),
     scoreboard: scoreboardFactory(req),
     page: pageFactory(req),
-    errorAlert: errorAlertFactory(req),
+    errors: errorsFactory(req),
   }).then(reducers => combine((state) => {
     const res = { ...state };
     if (req) {

@@ -169,6 +169,10 @@ export default function Content() {
           promise;
         </li>
         <li>
+          <Link to="examples/error-message">Error Message</Link> - Demonstrates
+          UI component for errors messaging;
+        </li>
+        <li>
           <Link to="/examples/fonts-test">Fonts Test</Link> - A simple showcase
           of the fonts included into this repo, and the test of their proper
           inclusion into the bundle;

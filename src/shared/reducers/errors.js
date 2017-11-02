@@ -1,20 +1,20 @@
 /**
- * Redux Reducer for ErrorAlert
+ * Redux Reducer for application-wide error handling.
  *
  * Description:
- *   Implements state reducers for the ErrorAlert
+ *   Implements state reducers for application-wide error handling.
  */
 import { handleActions } from 'redux-actions';
 
-import actions from 'actions/ErrorAlert';
+import actions from 'actions/errors';
 
 /**
- * Creates an ErrorAlert reducer with the specified initial state.
+ * Creates an Errors reducer with the specified initial state.
  * @param {Array} initialState Initial state.
  * @return submission reducer.
  */
 function create(initialState) {
-  const a = actions.errorAlert;
+  const a = actions.errors;
 
   return handleActions({
     [a.clearError]: state => state.slice(1), // Remove the first element (oldest error)

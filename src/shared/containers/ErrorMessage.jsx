@@ -1,43 +1,41 @@
 /**
- * ErrorAlert Container
- * <ErrorAlert>
+ * ErrorMessage Container
  *
  * Description:
- *   Connects the Redux store to the modal ErrorAlert container.
- *   NOTE: This is created and managed by utils/errorAlert and should not
+ *   Connects the Redux store to the modal ErrorMessageContainer container.
+ *   NOTE: This is created and managed by utils/errors and should not
  *   be used directly.
  */
-import actions from 'actions/ErrorAlert';
+import actions from 'actions/errors';
 import React from 'react';
 import PT from 'prop-types';
 import { connect } from 'react-redux';
-import ErrorAlert from 'components/ErrorAlert';
+import ErrorMessage from 'components/ErrorMessage';
 
-/**
- * ErrorAlert Container
- */
-const ErrorAlertContainer = ({ error, clearError }) => (
-  <div>
-    { error ?
-      <ErrorAlert
-        title={error.title}
-        details={error.details}
-        onOk={() => clearError()}
-      /> : undefined }
-  </div>
-);
+function ErrorMessageContainer({ error, clearError }) {
+  return (
+    <div>
+      { error ?
+        <ErrorMessage
+          title={error.title}
+          details={error.details}
+          onOk={() => clearError()}
+        /> : undefined }
+    </div>
+  );
+}
 
 /**
  * Default values for Props
  */
-ErrorAlertContainer.defaultProps = {
+ErrorMessageContainer.defaultProps = {
   error: null,
 };
 
 /**
  * Prop Validation
  */
-ErrorAlertContainer.propTypes = {
+ErrorMessageContainer.propTypes = {
   clearError: PT.func.isRequired,
   error: PT.shape({
     title: PT.string.isRequired,
@@ -52,7 +50,7 @@ ErrorAlertContainer.propTypes = {
  * @return {Object}
  */
 const mapStateToProps = state => ({
-  error: state.errorAlert[0],
+  error: state.errors[0],
 });
 
 /**
@@ -63,13 +61,11 @@ const mapStateToProps = state => ({
  */
 const mapDispatchToProps = dispatch => ({
   clearError: () => {
-    dispatch(actions.errorAlert.clearError());
+    dispatch(actions.errors.clearError());
   },
 });
 
-const Container = connect(
+export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(ErrorAlertContainer);
-
-export default Container;
+)(ErrorMessageContainer);
