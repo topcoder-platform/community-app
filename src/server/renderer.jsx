@@ -109,7 +109,7 @@ export default (req, res) => {
           <script id="inj" type="application/javascript">
             window.EXCHANGE_RATES = ${sanitizedExchangeRates}
             window.SPLITS = ${serializeJs(context.splits, { isJSON: true })}
-            window.INJ=${serializeJs(INJ)}
+            window.INJ="${INJ}"
           </script>
           <script src="/community-app-assets/main.js" type="application/javascript"></script>
           <script>
