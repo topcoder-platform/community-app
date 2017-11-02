@@ -5,9 +5,7 @@ const block = document.querySelector('script[id="inj"]');
 document.getElementsByTagName('body')[0].removeChild(block);
 
 /* Receives sensitive data injected by the server. */
-/* eslint-disable no-eval */
-let injectedData = forge.util.decode64(eval(`"${window.INJ}"`));
-/* eslint-enable no-eval */
+let injectedData = forge.util.decode64(window.INJ);
 const iv = injectedData.slice(0, 32);
 injectedData = injectedData.slice(32);
 /* eslint-disable no-undef */
@@ -17,7 +15,7 @@ decipher.start({ iv });
 decipher.update(forge.util.createBuffer(injectedData));
 decipher.finish();
 
-const data = JSON.parse(decipher.output.data);
+const data = JSON.parse(forge.util.decodeUtf8(decipher.output.data));
 
 window.CONFIG = data.CONFIG;
 window.ISTATE = data.ISTATE;
