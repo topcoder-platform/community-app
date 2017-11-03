@@ -3,12 +3,14 @@
 exports[`Snapshot match 1`] = `
 <div>
   <withRouter(Connect(Routes)) />
+  <Connect(ErrorMessageContainer) />
 </div>
 `;
 
 exports[`Snapshot match 2`] = `
 <div>
   <withRouter(Connect(Routes)) />
+  <Connect(ErrorMessageContainer) />
   <res />
 </div>
 `;

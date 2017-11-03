@@ -88,7 +88,8 @@ Avoid using **transform** rules for components that may have arbitrary children.
 - We have [money service](https://github.com/topcoder-platform/community-app/blob/develop/src/shared/services/money.js), which allows to make conversions between currencies, using real up-to-date rates from [https://openexchangerates.org](https://openexchangerates.org).
 - We have standard [buttons](https://github.com/topcoder-platform/community-app/tree/develop/src/shared/components/buttons) and [tags](https://github.com/topcoder-platform/community-app/tree/develop/src/shared/components/tags) (it is also a good example of react-css-super-themr use). Depending on props these components act either as real buttons, or as button-like links (they are implemented in such way, that switching between these options does not demand any efforts to keep the style).
 - [Modal](https://github.com/topcoder-platform/community-app/tree/develop/src/shared/components/Modal) is the base for all modal windows in our app.
-- [LoadingIndicator](https://github.com/topcoder-platform/community-app/tree/develop/src/shared/components/LoadingIndicator) says for itself (at the moment it works correctly only against a solid white background).
+- [LoadingIndicator](https://github.com/topcoder-platform/community-app/tree/develop/src/shared/components/LoadingIndicator) says for itself (at the moment it works correctly only against a solid white background);
+- Use [`/src/shared/utils/errors.js`](../src/shared/utils/errors.js) to deal with errors and error messaging to the website visitors.
 
 ### <a name="advanced">Advanced</a>
 

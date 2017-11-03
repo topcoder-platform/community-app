@@ -6,6 +6,7 @@
 import Buttons from 'components/examples/Buttons';
 import Content from 'components/Content';
 import CssModules from 'components/examples/CssModules';
+import ErrorMessage from 'components/examples/ErrorMessage';
 import FontsTest from 'components/examples/FontsTest';
 import LoadingIndicator from 'components/LoadingIndicator';
 import LoadingIndicators from 'components/examples/LoadingIndicators';
@@ -49,6 +50,10 @@ export default function Examples(props) {
       <Route path={`${base}/css-modules`} component={CssModules} />
       <Route path={`${base}/data-fetch`} component={DataFetch} />
       <Route path={`${base}/fonts-test`} component={FontsTest} />
+      <Route
+        component={() => <ErrorMessage />}
+        path={`${base}/error-message`}
+      />
       <Route
         component={LoadingIndicators}
         path={`${base}/loading-indicators`}

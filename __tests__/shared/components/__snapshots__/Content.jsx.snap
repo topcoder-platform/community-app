@@ -405,6 +405,15 @@ exports[`Matches shallow shapshot 1`] = `
     <li>
       <Link
         replace={false}
+        to="examples/error-message"
+      >
+        Error Message
+      </Link>
+       - Demonstrates UI component for errors messaging;
+    </li>
+    <li>
+      <Link
+        replace={false}
         to="/examples/fonts-test"
       >
         Fonts Test

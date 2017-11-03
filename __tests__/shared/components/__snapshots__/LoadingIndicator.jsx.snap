@@ -9,12 +9,14 @@ exports[`renders correctly 1`] = `
     className="src-shared-components-LoadingIndicator-___styles__circle1___hEgvY"
     cx="32"
     cy="32"
+    id="loading-indicator-circle1"
     r="28"
   />
   <circle
     className="src-shared-components-LoadingIndicator-___styles__circle2___2-o58"
     cx="32"
     cy="32"
+    id="loading-indicator-circle2"
     r="6"
   />
 </svg>

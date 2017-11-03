@@ -3,6 +3,7 @@ import atob from 'atob';
 import bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser';
 import express from 'express';
+import helmet from 'helmet';
 import logger from 'utils/logger';
 import loggerMiddleware from 'morgan';
 import path from 'path';
@@ -30,6 +31,7 @@ if (process.env.FRONT_END) {
 const USE_DEV_TOOLS = Boolean(process.env.DEV_TOOLS);
 
 const app = express();
+app.use(helmet());
 
 /* tc-accounts App was designed for browser environment, and its decodeToken()
  * function (which we would like to use server-side as well) depends on global
