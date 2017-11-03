@@ -17,6 +17,7 @@ import {
   getFreshToken,
 } from 'tc-accounts';
 import logger from 'utils/logger';
+import { setErrorsStore } from 'utils/errors';
 
 import storeFactory from '../shared/store-factory';
 import './styles.scss';
@@ -100,6 +101,7 @@ function authenticate(store) {
 
 storeFactory(undefined, window.ISTATE).then((store) => {
   authenticate(store);
+  setErrorsStore(store);
 
   function render() {
     const App = require('../shared').default; // eslint-disable-line global-require

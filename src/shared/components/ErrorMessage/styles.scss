@@ -20,7 +20,7 @@ $button-space-32: 6 * $base-unit;
   position: fixed;
   top: 0;
   width: 100%;
-  z-index: 998;
+  z-index: 2147483647;
 }
 
 .container {
