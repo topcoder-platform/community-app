@@ -1,11 +1,18 @@
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const ExtractCssChunks = require('extract-css-chunks-webpack-plugin');
+const forge = require('node-forge');
+const fs = require('fs');
 const path = require('path');
 const webpack = require('webpack');
 
 const PUBLIC_PATH = '/community-app-assets';
 
 const context = path.resolve(__dirname, '../..');
+
+/* Generates a random key which will be used to encrypt/decrypt data injected
+ * into HTML markup by the server. */
+const INJKEY = forge.random.getBytesSync(32);
+fs.writeFileSync(path.resolve(context, '.injkey'), INJKEY);
 
 module.exports = {
   context,
@@ -108,6 +115,7 @@ module.exports = {
       justExtract: true,
     }),
     new webpack.DefinePlugin({
+      INJKEY: JSON.stringify(INJKEY),
       'process.env': {
         /* Some isomorphic code relies on this variable to determine, whether
          * it is executed client- or server-side. */
