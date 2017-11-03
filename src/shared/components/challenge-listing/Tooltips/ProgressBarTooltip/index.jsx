@@ -104,25 +104,32 @@ function Tip(props) {
       name: 'Checkpoint',
     });
   }
-  steps.push({
-    date: new Date(c.submissionEndDate),
-    name: 'Submission',
-  });
+  const iterativeReviewPhase = c.currentPhases.find(phase => phase.phaseStatus === 'Open' && phase.phaseType === 'Iterative Review');
+  if (iterativeReviewPhase) {
+    steps.push({
+      date: new Date(iterativeReviewPhase.scheduledEndTime),
+      name: 'Iterative Review',
+    });
+  } else {
+    steps.push({
+      date: new Date(c.submissionEndDate),
+      name: 'Submission',
+    });
+  }
   steps.push({
     date: new Date(endPhaseDate),
     name: 'End',
   });
 
   steps = steps.sort((a, b) => a.date.getTime() - b.date.getTime());
-  const currentPhaseEnd = c.currentPhases[0] ? new Date(c.currentPhases[0].scheduledEndTime) :
-    new Date();
+  const currentPhaseEnd = new Date();
   steps = steps.map((step, index) => {
     let progress = 0;
     if (index < steps.length - 1) {
       if (steps[1 + index].date.getTime() < currentPhaseEnd.getTime()) progress = 100;
       else if (step.date.getTime() > currentPhaseEnd.getTime()) progress = 0;
       else {
-        const left = 1000 * c.currentPhaseRemainingTime;
+        const left = (currentPhaseEnd.getTime() - step.date.getTime());
         if (left < 0) progress = -1;
         else {
           progress = 100 * (left / (steps[1 + index].date.getTime() - steps[index].date.getTime()));
