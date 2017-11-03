@@ -8,7 +8,9 @@
 
 import _ from 'lodash';
 import actions from 'actions/page/challenge-details/submission';
+import logger from 'utils/logger';
 
+import { fireErrorMessage } from 'utils/errors';
 import { handleActions } from 'redux-actions';
 
 /**
@@ -17,11 +19,30 @@ import { handleActions } from 'redux-actions';
  * @param {Object} action
  * @return {Object} New state.
  */
-function onSubmitDone(state, action) {
-  if (action.payload.error) {
+function onSubmitDone(state, { error, payload }) {
+  if (error) {
+    /* TODO: Some more details for the log will be handy, but no time to care
+     * about right now. */
+    logger.error('Failed to submit for the challenge');
+    fireErrorMessage(
+      'ERROR: Failed to submit!',
+      'Please, try to submit from https://software.topcoder.com or email you submission to support@topcoder.com',
+    );
     return {
       ...state,
-      submitErrorMsg: action.payload.error.details || action.payload.error.name,
+      submitErrorMsg: 'Failed to submit',
+      isSubmitting: false,
+      submitDone: false,
+    };
+  }
+
+  /* TODO: I am not sure, whether this code is just wrong, or does it handle
+   * only specific errors, returned from API for design submissions? I am
+   * adding a more generic failure handling code just above. */
+  if (payload.error) {
+    return {
+      ...state,
+      submitErrorMsg: payload.error.details || payload.error.name,
       isSubmitting: false,
       submitDone: false,
     };
@@ -29,7 +50,7 @@ function onSubmitDone(state, action) {
 
   return {
     ...state,
-    ...action.payload,
+    ...payload,
     isSubmitting: false,
     submitDone: true,
   };
