@@ -68,6 +68,10 @@ export default (req, res) => {
       <html>
         <head>
           <title>Topcoder</title>
+          <script
+            src="/community-app-assets/loading-indicator-animation.js"
+            type="application/javascript"
+          ></script>
           <link href="/community-app-assets/main.css" rel="stylesheet" />
           ${styles}
           <link rel="shortcut icon" href="/favicon.ico" />

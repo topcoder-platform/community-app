@@ -9,7 +9,10 @@ const context = path.resolve(__dirname, '../..');
 
 module.exports = {
   context,
-  entry: './src/client',
+  entry: {
+    'loading-indicator-animation': './src/client/loading-indicator-animation',
+    main: './src/client',
+  },
   module: {
     noParse: [
       /* NodeJS library for https://logentries.com. It is server-side only. */
@@ -87,7 +90,7 @@ module.exports = {
     fs: 'empty',
   },
   output: {
-    filename: 'main.js',
+    filename: '[name].js',
     chunkFilename: '[name].js',
     path: path.resolve(__dirname, '../../build'),
     publicPath: `${PUBLIC_PATH}/`,

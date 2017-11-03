@@ -1,3 +1,4 @@
+const _ = require('lodash');
 const autoprefixer = require('autoprefixer');
 const ExtractCssChunks = require('extract-css-chunks-webpack-plugin');
 const webpack = require('webpack');
@@ -5,12 +6,15 @@ const webpackMerge = require('webpack-merge');
 
 const defaultConfig = require('./default');
 
+const entry = _.clone(defaultConfig.entry);
+entry.main = [
+  'react-hot-loader/patch',
+  'webpack-hot-middleware/client?reload=true',
+  entry.main,
+];
+
 module.exports = webpackMerge(defaultConfig, {
-  entry: [
-    'react-hot-loader/patch',
-    'webpack-hot-middleware/client?reload=true',
-    defaultConfig.entry,
-  ],
+  entry,
   module: {
     rules: [{
       test: /\.(jsx?|svg)$/,

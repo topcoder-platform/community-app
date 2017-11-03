@@ -29,9 +29,6 @@ const actions = {
   ...userGroupsActions,
 };
 
-/* Global JS to animate loading indicators */
-require('./loading-indicator-animation.js');
-
 /* Isomorphic code may rely on this environment variable to check whether it is
  * executed client- or server-side. */
 if (!process.env.FRONT_END) {
