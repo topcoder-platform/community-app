@@ -78,8 +78,8 @@ SubmissionsPage.propTypes = {
   multiInputs: PT.arrayOf(PT.shape({
     id: PT.string.isRequired,
     inputs: PT.arrayOf(PT.shape({
-      urlValid: PT.bool.isRequired,
-      nameValid: PT.bool.isRequired,
+      urlValid: PT.bool,
+      nameValid: PT.bool,
       sourceValid: PT.bool.isRequired,
       active: PT.bool.isRequired,
     }).isRequired).isRequired,

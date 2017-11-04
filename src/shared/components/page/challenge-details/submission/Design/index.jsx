@@ -100,17 +100,16 @@ class Design extends React.Component {
      * proper ReactJS/Redux mechanics. Probably, we can keep it as it is
      * for some time, though, at it does work and we want to release it faster.
      */
-    const photoUrl = document.querySelectorAll('[data-type="photoUrl"]');
-    if (photoUrl[0].value) { // Only add if not the default blank StockArt input
-      // This would also contain code for the Photo Description and Photo File Number
-      // which aren't accepted by the API, but are present in design ui docs
-      photoUrl.forEach((url) => {
-        stockArts.push({ sourceUrl: url.value });
-      });
-      const photoDesc = document.querySelectorAll('[data-type="photoDesc"]');
-      photoDesc.forEach((x, id) => { stockArts[id].description = x.value; });
-      const photoNumber = document.querySelectorAll('[data-type="photoNumber"');
-      photoNumber.forEach((x, id) => { stockArts[id].fileNumber = x.value; });
+    const photoNumber = document.querySelectorAll('[data-type="photoNumber"]');
+    /* TODO: This if block prevents from sending stock art data if the first
+     * input is left blank, but actually, it does not work correctly when
+     * the first input is left blank while other are filled. */
+    if (photoNumber[0].value) {
+      photoNumber.forEach(({ value }) =>
+        stockArts.push({
+          fileNumber: value,
+          sourceUrl: 'dummy.url',
+        }));
     }
 
     const formData = new FormData(document.getElementById('submit-form'));
@@ -492,8 +491,8 @@ Design.propTypes = {
   multiInputs: PT.arrayOf(PT.shape({
     id: PT.string.isRequired,
     inputs: PT.arrayOf(PT.shape({
-      urlValid: PT.bool.isRequired,
-      nameValid: PT.bool.isRequired,
+      urlValid: PT.bool,
+      nameValid: PT.bool,
       sourceValid: PT.bool.isRequired,
       active: PT.bool.isRequired,
     }).isRequired).isRequired,

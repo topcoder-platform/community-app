@@ -27,7 +27,7 @@ export function checkValidationError(inputs) {
   let error = false;
   inputs.forEach((input) => {
     if (input.active) {
-      if (!input.urlValid || !input.nameValid || !input.sourceValid) {
+      if (input.urlValid === false || input.nameValid === false || input.sourceValid === false) {
         error = true;
       }
     }
@@ -45,9 +45,11 @@ class MultiInput extends React.Component {
 
   /* Set the default redux state for a newly added Input when user clicks Add Font/StockArt */
   setInputDefaults(index) {
-    this.props.setInputUrlValid(index, false);
+    if (this.props.type === 'ADDFONT') {
+      this.props.setInputUrlValid(index, false);
+      this.props.setInputNameValid(index, false);
+    }
     this.props.setInputSourceValid(index, false);
-    this.props.setInputNameValid(index, false);
     this.props.setInputActive(index, false);
   }
 
@@ -114,8 +116,8 @@ MultiInput.propTypes = {
   type: PT.string.isRequired,
   id: PT.string.isRequired,
   inputs: PT.arrayOf(PT.shape({
-    urlValid: PT.bool.isRequired,
-    nameValid: PT.bool.isRequired,
+    urlValid: PT.bool,
+    nameValid: PT.bool,
     sourceValid: PT.bool.isRequired,
     active: PT.bool.isRequired,
   }).isRequired).isRequired,
