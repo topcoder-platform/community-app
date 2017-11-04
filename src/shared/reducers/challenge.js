@@ -49,8 +49,6 @@ function onGetDetailsDone(state, action) {
     logger.error('Failed to get challenge details!', action.payload);
     return {
       ...state,
-      details: null,
-      detailsV2: null,
       fetchChallengeFailure: action.error,
       loadingDetailsForChallengeId: '',
     };
@@ -120,7 +118,7 @@ function onGetSubmissionsDone(state, action) {
  * @param {Object} action Action.
  */
 function onFetchCheckpointsDone(state, action) {
-  if (action.payload.error) {
+  if (action.error) {
     return {
       ...state,
       loadingCheckpoints: false,

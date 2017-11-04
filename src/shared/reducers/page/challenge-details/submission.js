@@ -244,8 +244,6 @@ function create(initialState) {
         id: 'multi-input-stock-art',
         inputs: [{
           active: false,
-          urlValid: false,
-          nameValid: false,
           sourceValid: false,
         }],
       },
