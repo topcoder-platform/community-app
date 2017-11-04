@@ -9,13 +9,12 @@
  *   S3 storage details to Redux store for submission.
  */
 /* eslint-env browser */
+import filepicker from 'filepicker-js';
 import React from 'react';
 import PT from 'prop-types';
 import { PrimaryButton } from 'components/buttons';
 import config from 'utils/config';
 import './styles.scss';
-
-const filepicker = require('filepicker-js');
 
 /**
  * FilestackFilePicker component

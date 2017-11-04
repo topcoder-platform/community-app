@@ -10,7 +10,7 @@ import actions from 'actions/page/challenge-details/submission';
 import React from 'react';
 import PT from 'prop-types';
 import { connect } from 'react-redux';
-import SubmissionsPage from 'components/page/challenge-details/submission';
+import SubmissionsPage from 'components/SubmissionPage';
 
 /**
  * SubmissionsPage Container

@@ -1,11 +1,10 @@
-@import "~styles/tc-styles";
+@import "~styles/mixins";
 
 .container {
   display: flex;
   flex-direction: column;
-  flex-grow: 1;
-  width: 33%;
   margin-right: 2%;
+  flex-grow: 1;
 
   .file-picker {
     display: flex;

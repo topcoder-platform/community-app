@@ -9,7 +9,7 @@ export default function SubmissionsPageRoute(props) {
       renderClientAsync={() =>
         import(
           /* webpackChunkName: "submissions-page/chunk" */
-          'containers/page/challenge-details/submission',
+          'containers/SubmissionPage',
         ).then(({ default: SubmissionsPageContainer }) => (
           <SubmissionsPageContainer {...props} />
         ))
