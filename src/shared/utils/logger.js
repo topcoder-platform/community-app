@@ -49,6 +49,9 @@ if (isServerSide()) {
         'Content-Type': 'application/json',
       },
       method: 'POST',
+    }).catch(() => {
+      /* TODO: Network or server are down. We should msg it to the user somehow
+       */
     });
   };
   leLogger = {
