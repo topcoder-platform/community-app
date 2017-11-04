@@ -124,8 +124,14 @@ function testReducer(reducer, istate) {
       mySubmissionsManagement: {},
       loadingCheckpoints: false,
       loadingDetailsForChallengeId: '',
-      details: null,
-      detailsV2: null,
+      details: {
+        id: 12345,
+        tag: 'v3-user-details',
+      },
+      detailsV2: {
+        challengeId: '12345',
+        tag: 'v2-details',
+      },
       checkpoints: null,
       loadingResultsForChallengeId: '',
       registering: false,
@@ -144,8 +150,14 @@ function testReducer(reducer, istate) {
       mySubmissions: { challengeId: '', v2: null },
       mySubmissionsManagement: {},
       loadingDetailsForChallengeId: '',
-      details: null,
-      detailsV2: null,
+      details: {
+        id: 12345,
+        tag: 'v3-user-details',
+      },
+      detailsV2: {
+        challengeId: '12345',
+        tag: 'v2-details',
+      },
       checkpoints: null,
       loadingCheckpoints: false,
       loadingResultsForChallengeId: '',
@@ -166,8 +178,14 @@ function testReducer(reducer, istate) {
       mySubmissionsManagement: {},
 
       loadingDetailsForChallengeId: '',
-      details: null,
-      detailsV2: null,
+      details: {
+        id: 12345,
+        tag: 'v3-user-details',
+      },
+      detailsV2: {
+        challengeId: '12345',
+        tag: 'v2-details',
+      },
       checkpoints: null,
       loadingCheckpoints: false,
       loadingResultsForChallengeId: '',
