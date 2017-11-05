@@ -6,7 +6,7 @@
  *   Connects the Redux store to the Challenge Submissions display components.
  *   Passes the relevent state and setters as properties to the UI components.
  */
-import actions from 'actions/page/challenge-details/submission';
+import actions from 'actions/page/submission';
 import React from 'react';
 import PT from 'prop-types';
 import { connect } from 'react-redux';
@@ -126,7 +126,7 @@ SubmissionsPageContainer.propTypes = {
  */
 const mapStateToProps = (state, ownProps) => {
   const detailsV2 = state.challenge.detailsV2;
-  const submission = state.page.challengeDetails.submission;
+  const submission = state.page.submission;
   // The current phase will be the last element of this array
   const phase = state.challenge.details.currentPhases.slice(-1)[0];
 
@@ -162,7 +162,7 @@ const mapStateToProps = (state, ownProps) => {
  * @return {Object}
  */
 function mapDispatchToProps(dispatch) {
-  const a = actions.page.challengeDetails.submission;
+  const a = actions.page.submission;
   const progress = data => dispatch(a.uploadProgress(data));
 
   return {

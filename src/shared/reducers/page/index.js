@@ -9,9 +9,9 @@
 import { combineReducers } from 'redux';
 import { resolveReducers } from 'utils/redux';
 
-import challengeDetails, {
+import submission, {
   factory as challengeDetailsFactory,
-} from './challenge-details';
+} from './submission';
 
 import sandbox from './sandbox';
 
@@ -22,7 +22,7 @@ import sandbox from './sandbox';
  */
 export function factory(req) {
   return resolveReducers({
-    challengeDetails: challengeDetailsFactory(req),
+    submission: challengeDetailsFactory(req),
   }).then(reducers => combineReducers({
     ...reducers,
     sandbox,
@@ -30,6 +30,6 @@ export function factory(req) {
 }
 
 export default combineReducers({
-  challengeDetails,
+  submission,
   sandbox,
 });

@@ -7,7 +7,7 @@
  */
 
 import _ from 'lodash';
-import actions from 'actions/page/challenge-details/submission';
+import actions from 'actions/page/submission';
 import logger from 'utils/logger';
 
 import { fireErrorMessage } from 'utils/errors';
@@ -193,7 +193,7 @@ function onRemoveMultiInput(state, action) {
  * @return submission reducer.
  */
 function create(initialState) {
-  const a = actions.page.challengeDetails.submission;
+  const a = actions.page.submission;
 
   return handleActions({
     [a.submitDone]: onSubmitDone,
