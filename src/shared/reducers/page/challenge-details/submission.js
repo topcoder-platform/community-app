@@ -205,6 +205,8 @@ function create(initialState) {
       (state, { payload }) => fpSet(state, payload.id, { error: payload.error }),
     [a.setFilePickerFileName]:
       (state, { payload }) => fpSet(state, payload.id, { fileName: payload.fileName }),
+    [a.setFilePickerUploadProgress]:
+      (state, { payload }) => fpSet(state, payload.id, { uploadProgress: payload.progress }),
     [a.setFilePickerDragged]:
       (state, { payload }) => fpSet(state, payload.id, { dragged: payload.dragged }),
     [a.updateNotesLength]: (state, action) => ({ ...state, notesLength: action.payload }),

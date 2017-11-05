@@ -87,9 +87,11 @@ SubmissionsPageContainer.propTypes = {
     id: PT.string.isRequired,
     error: PT.string.isRequired,
     fileName: PT.string.isRequired,
+    uploadProgress: PT.number,
   }).isRequired).isRequired,
   setFilePickerError: PT.func.isRequired,
   setFilePickerFileName: PT.func.isRequired,
+  setFilePickerUploadProgress: PT.func.isRequired,
   setFilePickerDragged: PT.func.isRequired,
   notesLength: PT.number.isRequired,
   updateNotesLength: PT.func.isRequired,
@@ -175,6 +177,8 @@ function mapDispatchToProps(dispatch) {
     setFilePickerError: (id, error) => dispatch(a.setFilePickerError(id, error)),
     setFilePickerFileName: (id, fileName) => dispatch(a.setFilePickerFileName(id, fileName)),
     setFilePickerDragged: (id, dragged) => dispatch(a.setFilePickerDragged(id, dragged)),
+    setFilePickerUploadProgress: (id, p) =>
+      dispatch(a.setFilePickerUploadProgress(id, p)),
     updateNotesLength: length => dispatch(a.updateNotesLength(length)),
     removeMultiInput: (id, index) => dispatch(a.removeMultiInput(id, index)),
     setMultiInputUrlValid: (id, index, valid) =>

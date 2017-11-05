@@ -9,11 +9,15 @@
  *   S3 storage details to Redux store for submission.
  */
 /* eslint-env browser */
-import filepicker from 'filepicker-js';
+
+import _ from 'lodash';
+import config from 'utils/config';
 import React from 'react';
 import PT from 'prop-types';
+import { client as filestack } from 'filestack-react';
 import { PrimaryButton } from 'components/buttons';
-import config from 'utils/config';
+import { fireErrorMessage } from 'utils/errors';
+
 import './styles.scss';
 
 /**
@@ -22,9 +26,7 @@ import './styles.scss';
 class FilestackFilePicker extends React.Component {
   constructor(props) {
     super(props);
-
     this.onSuccess = this.onSuccess.bind(this);
-    this.onClickPick = this.onClickPick.bind(this);
   }
 
   componentDidMount() {
@@ -32,43 +34,24 @@ class FilestackFilePicker extends React.Component {
       setFileName,
       setError,
       setDragged,
-      id,
     } = this.props;
+
+    this.filestack = filestack.init(config.FILESTACK.API_KEY);
 
     setFileName('');
     setError('');
     setDragged(false);
-
-    const ele = document.getElementById(`drop-zone-${id}`);
-
-    filepicker.setKey(config.FILESTACK.API_KEY);
-
-    const { pickerOptions, storeOptions } = this.getOptions();
-
-    filepicker.makeDropPane(ele, {
-      ...pickerOptions,
-      ...storeOptions,
-      dragEnter: () => setDragged(true),
-      dragLeave: () => setDragged(false),
-      onSuccess: (blobs) => {
-        setDragged(false);
-        this.onSuccess(blobs);
-      },
-      onError: () => {
-        setDragged(false);
-      },
-    });
   }
 
   /* Called when a file is successfully stored in the S3 container */
-  onSuccess(blobs) {
+  onSuccess(file) {
     const {
       filename,
       mimetype,
       size,
       key,
       container,
-    } = blobs[0];
+    } = file;
 
     this.props.setFileName(filename);
 
@@ -82,55 +65,20 @@ class FilestackFilePicker extends React.Component {
     });
   }
 
-  /* Callback for when clicks Pick a File */
-  onClickPick(e) {
-    e.stopPropagation();
-    e.preventDefault();
-
-    filepicker.setKey(config.FILESTACK.API_KEY);
-
-    const { pickerOptions, storeOptions } = this.getOptions();
-
-    filepicker.pickAndStore(pickerOptions, storeOptions, this.onSuccess);
-  }
-
   /**
-   * Generate Filestack configuration options, will be reused for Picker and Drag + Drop
-   * @return {Object} The options split into {pickerOptions, storeOptions} objects
+   * Returns the path where the picked up file should be stored.
+   * @return {String}
    */
-  getOptions() {
-    const {
-      title,
-      userId,
-      fileExtensions,
-    } = this.props;
-
-    let path = '';
-
-    // Formats the filename according to the type of submission
-    if (title === 'PREVIEW') {
-      path = 'DESIGN_COVER/';
-    } else if (title === 'SUBMISSION') {
-      path = `SUBMISSION_ZIP/${userId}-SUBMISSION_ZIP-${new Date().valueOf()}.zip`;
-    } else if (title === 'SOURCE') {
-      path = `SOURCE_ZIP/${userId}-SOURCE_ZIP-${new Date().valueOf()}.zip`;
+  getPath() {
+    const { title, userId } = this.props;
+    switch (title) {
+      case 'PREVIEW': return 'DESIGN_COVER/';
+      case 'SUBMISSION':
+        return `SUBMISSION_ZIP/${userId}-SUBMISSION_ZIP-${Date.now()}.zip`;
+      case 'SOURCE':
+        return `SOURCE_ZIP/${userId}-SOURCE_ZIP-${Date.now()}.zip`;
+      default: throw new Error('Unknown file type');
     }
-
-    return ({
-      pickerOptions: {
-        extensions: fileExtensions,
-        services: ['COMPUTER', 'GOOGLE_DRIVE', 'BOX', 'DROPBOX', 'SKYDRIVE'],
-        maxSize: 500 * 1024 * 1024,
-      },
-      storeOptions: {
-        multiple: false,
-        location: 'S3',
-        path,
-        // Inconsistent keys between Drag + Drop and Pick
-        container: config.FILESTACK.SUBMISSION_CONTAINER,
-        storeContainer: config.FILESTACK.SUBMISSION_CONTAINER,
-      },
-    });
   }
 
   render() {
@@ -141,7 +89,10 @@ class FilestackFilePicker extends React.Component {
       mandatory,
       error,
       dragged,
-      id,
+      setDragged,
+      setFileName,
+      setUploadProgress,
+      uploadProgress,
     } = this.props;
 
     return (
@@ -154,7 +105,6 @@ class FilestackFilePicker extends React.Component {
         </div>
         <div
           styleName={`file-picker ${error ? 'error' : ''} ${dragged && 'drag'}`}
-          id={`drop-zone-${id}`}
         >
           {
             !fileName && <p>Drag and drop your {fileExtensions.join(' or ')} file here.</p>
@@ -165,7 +115,63 @@ class FilestackFilePicker extends React.Component {
           {
             fileName && <p styleName="file-name">{fileName}</p>
           }
+          {
+            _.isNumber(uploadProgress) && uploadProgress < 100 ? (
+              <p styleName="file-name">Uploading: {uploadProgress}%</p>
+            ) : null
+          }
           <PrimaryButton onClick={this.onClickPick}>Pick a File</PrimaryButton>
+          <div
+            onClick={() => this.filestack.pick({
+              accept: fileExtensions,
+              fromSources: [
+                'local_file_system',
+                'googledrive',
+                'box',
+                'dropbox',
+                'onedrive',
+              ],
+              maxSize: 500 * 1024 * 1024,
+              onFileUploadFailed: () => setDragged(false),
+              onFileUploadFinished: (file) => {
+                setDragged(false);
+                this.onSuccess(file);
+              },
+              startUploadingWhenMaxFilesReached: true,
+              storeTo: {
+                container: config.FILESTACK.SUBMISSION_CONTAINER,
+                path: this.getPath(),
+                region: config.FILESTACK.REGION,
+              },
+            })}
+            onDragEnter={() => setDragged(true)}
+            onDragLeave={() => setDragged(false)}
+            onDragOver={e => e.preventDefault()}
+            onDrop={(e) => {
+              setDragged(false);
+              e.preventDefault();
+              const filename = e.dataTransfer.files[0].name;
+              if (!fileExtensions.some(ext => filename.endsWith(ext))) {
+                return fireErrorMessage('Wrong file type!', '');
+              }
+              setFileName(e.dataTransfer.files[0].name);
+              setUploadProgress(0);
+              this.filestack.upload(e.dataTransfer.files[0], {
+                onProgress: ({ totalPercent }) => {
+                  setUploadProgress(totalPercent);
+                },
+                progressInterval: 1000,
+              }, {
+                container: config.FILESTACK.SUBMISSION_CONTAINER,
+                path: this.getPath(),
+                region: config.FILESTACK.REGION,
+              }).then(file => this.onSuccess(file));
+              return undefined;
+            }}
+            role="button"
+            styleName="drop-zone-mask"
+            tabIndex={0}
+          />
         </div>
         {
           error &&
@@ -176,22 +182,29 @@ class FilestackFilePicker extends React.Component {
   }
 }
 
+FilestackFilePicker.defaultProps = {
+  error: '',
+  fileName: '',
+  uploadProgress: null,
+};
+
 /**
  * Prop Validation
  */
 FilestackFilePicker.propTypes = {
+  error: PT.string,
   userId: PT.string.isRequired,
+  fileName: PT.string,
   fileExtensions: PT.arrayOf(PT.string).isRequired,
   title: PT.string.isRequired,
   mandatory: PT.bool.isRequired,
-  id: PT.string.isRequired,
   setError: PT.func.isRequired,
   setFileName: PT.func.isRequired,
-  error: PT.string.isRequired,
-  fileName: PT.string.isRequired,
-  setDragged: PT.func.isRequired,
+  setUploadProgress: PT.func.isRequired,
   dragged: PT.bool.isRequired,
+  setDragged: PT.func.isRequired,
   setFilestackData: PT.func.isRequired,
+  uploadProgress: PT.number,
 };
 
 export default FilestackFilePicker;

@@ -96,3 +96,12 @@
     font-style: italic;
   }
 }
+
+.drop-zone-mask {
+  bottom: 0;
+  cursor: pointer;
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+}

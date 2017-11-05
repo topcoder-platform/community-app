@@ -39,6 +39,7 @@ export default createActions({
         SET_AGREED: agreed => agreed,
         SET_FILE_PICKER_ERROR: (id, error) => ({ id, error }),
         SET_FILE_PICKER_FILE_NAME: (id, fileName) => ({ id, fileName }),
+        SET_FILE_PICKER_UPLOAD_PROGRESS: (id, progress) => ({ id, progress }),
         SET_FILE_PICKER_DRAGGED: (id, dragged) => ({ id, dragged }),
         UPDATE_NOTES_LENGTH: length => length,
         REMOVE_MULTI_INPUT: (id, index) => ({ id, index }),

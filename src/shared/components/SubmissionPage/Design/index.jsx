@@ -185,6 +185,7 @@ class Design extends React.Component {
       filePickers,
       setFilePickerError,
       setFilePickerFileName,
+      setFilePickerUploadProgress,
       setFilePickerDragged,
       notesLength,
       updateNotesLength,
@@ -264,7 +265,9 @@ class Design extends React.Component {
                   // Bind the set functions to the FilePicker's ID
                   setError={_.partial(setFilePickerError, 'file-picker-submission')}
                   fileName={fpSubmission.fileName}
+                  uploadProgress={fpSubmission.uploadProgress}
                   setFileName={_.partial(setFilePickerFileName, 'file-picker-submission')}
+                  setUploadProgress={_.partial(setFilePickerUploadProgress, 'file-picker-submission')}
                   dragged={fpSubmission.dragged}
                   setDragged={_.partial(setFilePickerDragged, 'file-picker-submission')}
                   setFilestackData={setSubmissionFilestackData}
@@ -278,7 +281,9 @@ class Design extends React.Component {
                   error={fpSource.error}
                   setError={_.partial(setFilePickerError, 'file-picker-source')}
                   fileName={fpSource.fileName}
+                  uploadProgress={fpSource.uploadProgress}
                   setFileName={_.partial(setFilePickerFileName, 'file-picker-source')}
+                  setUploadProgress={_.partial(setFilePickerUploadProgress, 'file-picker-source')}
                   dragged={fpSource.dragged}
                   setDragged={_.partial(setFilePickerDragged, 'file-picker-source')}
                   setFilestackData={setSourceFilestackData}
@@ -292,7 +297,9 @@ class Design extends React.Component {
                   error={fpPreview.error}
                   setError={_.partial(setFilePickerError, 'file-picker-preview')}
                   fileName={fpPreview.fileName}
+                  uploadProgress={fpPreview.uploadProgress}
                   setFileName={_.partial(setFilePickerFileName, 'file-picker-preview')}
+                  setUploadProgress={_.partial(setFilePickerUploadProgress, 'file-picker-preview')}
                   dragged={fpPreview.dragged}
                   setDragged={_.partial(setFilePickerDragged, 'file-picker-preview')}
                   setFilestackData={setPreviewFilestackData}
@@ -482,9 +489,11 @@ Design.propTypes = {
     id: PT.string.isRequired,
     error: PT.string.isRequired,
     fileName: PT.string.isRequired,
+    uploadProgress: PT.number,
   }).isRequired).isRequired,
   setFilePickerError: PT.func.isRequired,
   setFilePickerFileName: PT.func.isRequired,
+  setFilePickerUploadProgress: PT.func.isRequired,
   setFilePickerDragged: PT.func.isRequired,
   notesLength: PT.number.isRequired,
   updateNotesLength: PT.func.isRequired,
