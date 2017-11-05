@@ -85,7 +85,9 @@ export default function Submissions(props) {
             </div>
             <div styleName="col-2">{moment(s.submissionDate).format('MMM DD, YYYY HH:mm')} EDT</div>
             <div styleName="col-3">
-              {(s.initialScore || 0).toFixed(2)} / {(s.finalScore || 0).toFixed(2)}
+              {s.initialScore ? s.initialScore.toFixed(2) : 'N/A'}&zwnj;
+              &zwnj;/
+              &zwnj;{s.finalScore ? s.finalScore.toFixed(2) : 'N/A'}
             </div>
           </div>
         ))

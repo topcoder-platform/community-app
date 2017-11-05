@@ -308,7 +308,6 @@ export default function ChallengeHeader(props) {
             selectedView={props.selectedView}
             numRegistrants={numRegistrants}
             numWinners={numWinners}
-            status={status}
             hasCheckpoints={checkpoints && checkpoints.length > 0}
             numSubmissions={numSubmissions}
             hasRegistered={hasRegistered}
