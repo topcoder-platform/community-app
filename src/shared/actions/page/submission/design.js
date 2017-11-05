@@ -2,8 +2,8 @@
  * Actions relevant to the design submission page only.
  */
 
-import urlRegex from 'url-regex';
 import { createActions } from 'redux-actions';
+import { isWebUri } from 'valid-url';
 
 /**
  * Holds a set of validation errors for a stock art record.
@@ -20,7 +20,7 @@ export const STOCK_ART_RECORD_ERROR = {
  */
 export function isValidStockArtRecord(record) {
   const res = {};
-  if (!urlRegex().test(record.url)) {
+  if (!isWebUri(record.url) && !isWebUri(`http://${record.url}`)) {
     res[STOCK_ART_RECORD_ERROR.INVALID_URL] = true;
   }
   return res;
