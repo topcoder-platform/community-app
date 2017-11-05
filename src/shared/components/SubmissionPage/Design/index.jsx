@@ -17,6 +17,7 @@ import { PrimaryButton } from 'components/buttons';
 
 import FilestackFilePicker from '../FilestackFilePicker';
 import MultiInput, { checkValidationError } from './MultiInput';
+import StockArtInput from './StockArtInput';
 import Uploading from '../Uploading';
 import './styles.scss';
 
@@ -73,6 +74,7 @@ class Design extends React.Component {
       challengeId,
       phaseId,
       phaseType,
+      stockArtRecords,
     } = this.props;
 
     const fonts = [];
@@ -94,23 +96,9 @@ class Design extends React.Component {
       });
     }
 
-    const stockArts = [];
-
-    /* TODO: This is awful code! Submission should be handled using the
-     * proper ReactJS/Redux mechanics. Probably, we can keep it as it is
-     * for some time, though, at it does work and we want to release it faster.
-     */
-    const photoNumber = document.querySelectorAll('[data-type="photoNumber"]');
-    /* TODO: This if block prevents from sending stock art data if the first
-     * input is left blank, but actually, it does not work correctly when
-     * the first input is left blank while other are filled. */
-    if (photoNumber[0].value) {
-      photoNumber.forEach(({ value }) =>
-        stockArts.push({
-          fileNumber: value,
-          sourceUrl: 'dummy.url',
-        }));
-    }
+    const stockArts = stockArtRecords.map(x => ({
+      sourceUrl: x.url,
+    }));
 
     const formData = new FormData(document.getElementById('submit-form'));
 
@@ -174,7 +162,10 @@ class Design extends React.Component {
       challengeId,
       challengeName,
       challengesUrl,
+      setStockArtRecord,
+      stockArtRecords,
       userId,
+
       isSubmitting,
       submitDone,
       errorMsg,
@@ -218,7 +209,6 @@ class Design extends React.Component {
     const fpPreview = fpLookup('file-picker-preview');
 
     const multiFonts = multiLookup('multi-input-fonts');
-    const multiStockArt = multiLookup('multi-input-stock-art');
 
     return (!isSubmitting && !submitDone && !errorMsg) ? (
       <div styleName="design-content">
@@ -377,34 +367,10 @@ class Design extends React.Component {
               />
             </div>
           </div>
-          <div styleName="row">
-            <div styleName="left">
-              <h4>DID YOU USE STOCK ART?</h4>
-              <p>
-                If you used any stock photos in your design mocks, please
-                provide the location and details so that the client can obtain
-                them. Follow the guidelines at our
-                &zwnj;<a
-                  href={config.URL.INFO.STOCK_ART_POLICY}
-                  rel="norefferer noopener"
-                  target="_blank"
-                >Studio Stock Art Policy</a>.
-              </p>
-            </div>
-            <div styleName="right">
-              <MultiInput
-                type="ADDSTOCK"
-                buttonName="+ Add Stock"
-                id="multi-input-fonts"
-                inputs={multiStockArt.inputs}
-                removeInput={_.partial(removeMultiInput, 'multi-input-stock-art')}
-                setInputUrlValid={_.partial(setMultiInputUrlValid, 'multi-input-stock-art')}
-                setInputNameValid={_.partial(setMultiInputNameValid, 'multi-input-stock-art')}
-                setInputSourceValid={_.partial(setMultiInputSourceValid, 'multi-input-stock-art')}
-                setInputActive={_.partial(setMultiInputActive, 'multi-input-stock-art')}
-              />
-            </div>
-          </div>
+          <StockArtInput
+            setStockArtRecord={setStockArtRecord}
+            stockArtRecords={stockArtRecords}
+          />
           <div styleName="row agree">
             <p>
               Submitting your files means you hereby agree to the
@@ -434,7 +400,8 @@ class Design extends React.Component {
                 !!fpPreview.error || !fpPreview.fileName ||
                 !!fpSource.error || !fpSource.fileName ||
                 !!fpSubmission.error || !fpSubmission.fileName ||
-                this.checkMultiInputError()
+                this.checkMultiInputError() ||
+                stockArtRecords.some(x => !_.isEmpty(x.errors))
               }
             >Submit</PrimaryButton>
           </div>
@@ -470,6 +437,10 @@ const filestackDataProp = PT.shape({
  * Prop Validation
  */
 Design.propTypes = {
+  stockArtRecords: PT.arrayOf(PT.object).isRequired,
+  setStockArtRecord: PT.func.isRequired,
+
+  /* Older stuff */
   userId: PT.string.isRequired,
   challengeId: PT.number.isRequired,
   challengeName: PT.string.isRequired,

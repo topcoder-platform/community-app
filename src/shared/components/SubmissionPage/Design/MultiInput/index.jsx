@@ -12,7 +12,6 @@ import React from 'react';
 import PT from 'prop-types';
 import { PrimaryButton } from 'components/buttons';
 import AddFontInput from '../AddFontInput';
-import AddStockArtInput from '../AddStockArtInput';
 import './styles.scss';
 
 /**
@@ -80,13 +79,9 @@ class MultiInput extends React.Component {
             // eslint-disable-next-line react/no-array-index-key
             <div key={`multi-${this.props.id}-input-${index}`} styleName="container">
               {
-                this.props.type === 'ADDFONT' ?
-                  <AddFontInput
-                    {...commonProps(index)}
-                  /> :
-                  <AddStockArtInput
-                    {...commonProps(index)}
-                  />
+                <AddFontInput
+                  {...commonProps(index)}
+                />
               }
               {
                 <button

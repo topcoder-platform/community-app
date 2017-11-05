@@ -9,6 +9,8 @@ import _ from 'lodash';
 import { createActions } from 'redux-actions';
 import { getService as getChallengesService } from 'services/challenges';
 
+import design from './design';
+
 /**
  * Payload creator for the action that actually performs submission operation.
  * @param {String} tokenV3
@@ -28,7 +30,7 @@ function submitDone(tokenV3, tokenV2, submissionId, body, track, progress) {
 /**
  * Export Actions for usage by Redux
  */
-export default createActions({
+export default _.merge(createActions({
   PAGE: {
     SUBMISSION: {
       SUBMIT_INIT: _.noop,
@@ -51,4 +53,4 @@ export default createActions({
       SET_PREVIEW_FILESTACK_DATA: data => data,
     },
   },
-});
+}), design);

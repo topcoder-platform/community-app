@@ -12,6 +12,9 @@ import logger from 'utils/logger';
 
 import { fireErrorMessage } from 'utils/errors';
 import { handleActions } from 'redux-actions';
+import { combine } from 'utils/redux';
+
+import design from './design';
 
 /**
  * Handles results of PAGE/CHALLENGE_DETAILS/SUBMISSION/SUBMIT_DONE action.
@@ -242,13 +245,6 @@ function create(initialState) {
           sourceValid: false,
         }],
       },
-      {
-        id: 'multi-input-stock-art',
-        inputs: [{
-          active: false,
-          sourceValid: false,
-        }],
-      },
     ],
     filePickers: [],
     submissionFilestackData: {
@@ -276,8 +272,10 @@ function create(initialState) {
 }
 
 export function factory() {
-  // Server-side not implemented yet
-  return Promise.resolve(create());
+  // Server-side rendering not implemented yet
+  return Promise.resolve(combine(create(), { design }));
 }
 
-export default create();
+export default combine(create(), {
+  design,
+});

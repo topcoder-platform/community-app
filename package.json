@@ -99,6 +99,7 @@
     "supertest": "^3.0.0",
     "tc-accounts": "https://github.com/appirio-tech/accounts-app.git#dev",
     "url-parse": "^1.1.9",
+    "url-regex": "^4.1.1",
     "uuid": "^3.0.1",
     "webpack-merge": "^4.0.0",
     "xml2json": "^0.11.0"

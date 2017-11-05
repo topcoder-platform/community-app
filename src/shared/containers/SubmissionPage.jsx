@@ -21,6 +21,10 @@ class SubmissionsPageContainer extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
+  componentDidMount() {
+    this.props.resetDesignStoreSegment();
+  }
+
   /* A child component has called their submitForm() prop, prepare the passed
      form data for submission and create a submit action */
   handleSubmit(body) {
@@ -65,6 +69,10 @@ const filestackDataProp = PT.shape({
  * Prop Validation
  */
 SubmissionsPageContainer.propTypes = {
+  stockArtRecords: PT.arrayOf(PT.object).isRequired,
+  setStockArtRecord: PT.func.isRequired,
+
+  /* Older stuff */
   userId: PT.string.isRequired,
   challengesUrl: PT.string,
   phaseId: PT.number.isRequired,
@@ -105,6 +113,7 @@ SubmissionsPageContainer.propTypes = {
     }).isRequired).isRequired,
   }).isRequired).isRequired,
   removeMultiInput: PT.func.isRequired,
+  resetDesignStoreSegment: PT.func.isRequired,
   setMultiInputUrlValid: PT.func.isRequired,
   setMultiInputNameValid: PT.func.isRequired,
   setMultiInputSourceValid: PT.func.isRequired,
@@ -131,6 +140,8 @@ const mapStateToProps = (state, ownProps) => {
   const phase = state.challenge.details.currentPhases.slice(-1)[0];
 
   return {
+    stockArtRecords: submission.design.stockArtRecords,
+    /* Older stuff below. */
     userId: state.auth.user.userId,
     challengeId: detailsV2 && detailsV2.challengeId,
     challengeName: detailsV2 && detailsV2.challengeName,
@@ -181,6 +192,9 @@ function mapDispatchToProps(dispatch) {
       dispatch(a.setFilePickerUploadProgress(id, p)),
     updateNotesLength: length => dispatch(a.updateNotesLength(length)),
     removeMultiInput: (id, index) => dispatch(a.removeMultiInput(id, index)),
+    resetDesignStoreSegment: () => dispatch(a.design.reset()),
+    setStockArtRecord: (index, record) =>
+      dispatch(a.design.setStockArtRecord(index, record)),
     setMultiInputUrlValid: (id, index, valid) =>
       dispatch(a.setMultiInputUrlValid(id, index, valid)),
     setMultiInputNameValid: (id, index, valid) =>

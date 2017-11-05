@@ -1,6 +1,19 @@
 @import "~styles/mixins";
 
+.close {
+  background: none;
+  border: none;
+  vertical-align: top;
+
+  span {
+    color: #a3a3ae;
+    font-size: 16px;
+    font-weight: 300;
+  }
+}
+
 .container {
+  display: inline-block;
   flex-grow: 1;
   max-width: 500px;
 
