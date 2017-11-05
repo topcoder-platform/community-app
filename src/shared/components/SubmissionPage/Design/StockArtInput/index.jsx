@@ -24,11 +24,16 @@ export default function StockArtInput({
             target="_blank"
           >Studio Stock Art Policy</a>.
         </p>
+        <p>
+          Note that you can paste a list of URL separated by any space-likes
+          characters to rapidly add multiple stock art references.
+        </p>
       </div>
       <div styleName="right">
         {
           stockArtRecords.map((rec, id) => (
             <InputBlock
+              add={newRec => setStockArtRecord(null, newRec)}
               key={rec.key}
               record={rec}
               set={newRec => setStockArtRecord(id, newRec)}

@@ -8,6 +8,7 @@ import React from 'react';
 import './style.scss';
 
 export default function InputBlock({
+  add,
   record,
   set,
 }) {
@@ -18,6 +19,17 @@ export default function InputBlock({
         <input
           data-type="photoNumber"
           onChange={e => set({ ...record, url: e.target.value })}
+          onPaste={(e) => {
+            const str = e.clipboardData.getData('text/plain');
+            const urls = str.match(/\S+/g);
+            if (urls) {
+              set({ ...record, url: urls[0] });
+              for (let i = 1; i < urls.length; i += 1) {
+                add({ url: urls[i] });
+              }
+            } else set({ ...record, url: '' });
+            e.preventDefault();
+          }}
           type="text"
           value={record.url}
         />
@@ -36,6 +48,7 @@ export default function InputBlock({
 }
 
 InputBlock.propTypes = {
+  add: PT.func.isRequired,
   record: PT.shape({
     url: PT.string.isRequired,
     errors: PT.shape().isRequired,
