@@ -115,6 +115,7 @@
    * These are for the development back end */
   "FILESTACK": {
     "API_KEY": "AzFINuQoqTmqw0QEoaw9az",
+    "REGION": "us-east-1",
     "SUBMISSION_CONTAINER": "submission-staging-dev"
   },
 

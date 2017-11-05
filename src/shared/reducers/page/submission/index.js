@@ -7,11 +7,14 @@
  */
 
 import _ from 'lodash';
-import actions from 'actions/page/challenge-details/submission';
+import actions from 'actions/page/submission';
 import logger from 'utils/logger';
 
 import { fireErrorMessage } from 'utils/errors';
 import { handleActions } from 'redux-actions';
+import { combine } from 'utils/redux';
+
+import design from './design';
 
 /**
  * Handles results of PAGE/CHALLENGE_DETAILS/SUBMISSION/SUBMIT_DONE action.
@@ -193,7 +196,7 @@ function onRemoveMultiInput(state, action) {
  * @return submission reducer.
  */
 function create(initialState) {
-  const a = actions.page.challengeDetails.submission;
+  const a = actions.page.submission;
 
   return handleActions({
     [a.submitDone]: onSubmitDone,
@@ -205,6 +208,8 @@ function create(initialState) {
       (state, { payload }) => fpSet(state, payload.id, { error: payload.error }),
     [a.setFilePickerFileName]:
       (state, { payload }) => fpSet(state, payload.id, { fileName: payload.fileName }),
+    [a.setFilePickerUploadProgress]:
+      (state, { payload }) => fpSet(state, payload.id, { uploadProgress: payload.progress }),
     [a.setFilePickerDragged]:
       (state, { payload }) => fpSet(state, payload.id, { dragged: payload.dragged }),
     [a.updateNotesLength]: (state, action) => ({ ...state, notesLength: action.payload }),
@@ -240,13 +245,6 @@ function create(initialState) {
           sourceValid: false,
         }],
       },
-      {
-        id: 'multi-input-stock-art',
-        inputs: [{
-          active: false,
-          sourceValid: false,
-        }],
-      },
     ],
     filePickers: [],
     submissionFilestackData: {
@@ -274,8 +272,10 @@ function create(initialState) {
 }
 
 export function factory() {
-  // Server-side not implemented yet
-  return Promise.resolve(create());
+  // Server-side rendering not implemented yet
+  return Promise.resolve(combine(create(), { design }));
 }
 
-export default create();
+export default combine(create(), {
+  design,
+});

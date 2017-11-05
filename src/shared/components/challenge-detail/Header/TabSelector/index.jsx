@@ -26,7 +26,6 @@ export default function ChallengeViewSelector(props) {
     numWinners,
     onSelectorClicked,
     selectedView,
-    status,
     trackLower,
     hasRegistered,
   } = props;
@@ -95,18 +94,14 @@ export default function ChallengeViewSelector(props) {
           >CHECKPOINTS ({checkpointCount})
           </a>
         }
-        {
-          status === 'COMPLETED' &&
-          <a
-            onClick={(e) => { handleSelectorClicked(e, DETAIL_TABS.SUBMISSIONS); }}
-            styleName={getSelectorStyle(
-              selectedView,
-              DETAIL_TABS.SUBMISSIONS,
-              trackLower,
-            )}
-          >SUBMISSIONS ({numSubmissions})
-          </a>
-        }
+        <a
+          onClick={(e) => { handleSelectorClicked(e, DETAIL_TABS.SUBMISSIONS); }}
+          styleName={getSelectorStyle(
+            selectedView,
+            DETAIL_TABS.SUBMISSIONS,
+            trackLower,
+          )}
+        >SUBMISSIONS ({numSubmissions})</a>
         {
           numWinners ? (
             <a
@@ -149,7 +144,6 @@ ChallengeViewSelector.propTypes = {
   numWinners: PT.number.isRequired,
   onSelectorClicked: PT.func.isRequired,
   selectedView: PT.string.isRequired,
-  status: PT.string.isRequired,
   trackLower: PT.string.isRequired,
   hasRegistered: PT.bool.isRequired,
 };

@@ -1,0 +1,59 @@
+import config from 'utils/config';
+import PT from 'prop-types';
+import React from 'react';
+import { PrimaryButton } from 'components/buttons';
+
+import InputBlock from './InputBlock';
+import './style.scss';
+
+export default function StockArtInput({
+  setStockArtRecord,
+  stockArtRecords,
+}) {
+  return (
+    <div styleName="row">
+      <div styleName="left">
+        <h4>DID YOU USE STOCK ART?</h4>
+        <p>
+          If you used any stock photos in your design mocks, please
+          provide the location and details so that the client can obtain
+          them. Follow the guidelines at our
+          &zwnj;<a
+            href={config.URL.INFO.STOCK_ART_POLICY}
+            rel="norefferer noopener"
+            target="_blank"
+          >Studio Stock Art Policy</a>.
+        </p>
+      </div>
+      <div styleName="right">
+        {
+          stockArtRecords.map((rec, id) => (
+            <InputBlock
+              key={rec.key}
+              record={rec}
+              set={newRec => setStockArtRecord(id, newRec)}
+            />
+          ))
+        }
+        <PrimaryButton
+          onClick={(e) => {
+            setStockArtRecord(null, { url: '' });
+
+            /* TODO: We need these at the moment just because somebody though
+             * that wrapping everything in a form is a good idea, which was not.
+             */
+            e.stopPropagation();
+            e.preventDefault();
+          }}
+        >+ Add Stock Art Record</PrimaryButton>
+      </div>
+    </div>
+  );
+}
+
+StockArtInput.propTypes = {
+  setStockArtRecord: PT.func.isRequired,
+  stockArtRecords: PT.arrayOf(PT.shape({
+    key: PT.string.isRequired,
+  })).isRequired,
+};

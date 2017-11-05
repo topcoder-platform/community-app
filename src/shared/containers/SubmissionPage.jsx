@@ -6,11 +6,11 @@
  *   Connects the Redux store to the Challenge Submissions display components.
  *   Passes the relevent state and setters as properties to the UI components.
  */
-import actions from 'actions/page/challenge-details/submission';
+import actions from 'actions/page/submission';
 import React from 'react';
 import PT from 'prop-types';
 import { connect } from 'react-redux';
-import SubmissionsPage from 'components/page/challenge-details/submission';
+import SubmissionsPage from 'components/SubmissionPage';
 
 /**
  * SubmissionsPage Container
@@ -19,6 +19,10 @@ class SubmissionsPageContainer extends React.Component {
   constructor(props) {
     super(props);
     this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  componentDidMount() {
+    this.props.resetDesignStoreSegment();
   }
 
   /* A child component has called their submitForm() prop, prepare the passed
@@ -65,6 +69,10 @@ const filestackDataProp = PT.shape({
  * Prop Validation
  */
 SubmissionsPageContainer.propTypes = {
+  stockArtRecords: PT.arrayOf(PT.object).isRequired,
+  setStockArtRecord: PT.func.isRequired,
+
+  /* Older stuff */
   userId: PT.string.isRequired,
   challengesUrl: PT.string,
   phaseId: PT.number.isRequired,
@@ -87,9 +95,11 @@ SubmissionsPageContainer.propTypes = {
     id: PT.string.isRequired,
     error: PT.string.isRequired,
     fileName: PT.string.isRequired,
+    uploadProgress: PT.number,
   }).isRequired).isRequired,
   setFilePickerError: PT.func.isRequired,
   setFilePickerFileName: PT.func.isRequired,
+  setFilePickerUploadProgress: PT.func.isRequired,
   setFilePickerDragged: PT.func.isRequired,
   notesLength: PT.number.isRequired,
   updateNotesLength: PT.func.isRequired,
@@ -103,6 +113,7 @@ SubmissionsPageContainer.propTypes = {
     }).isRequired).isRequired,
   }).isRequired).isRequired,
   removeMultiInput: PT.func.isRequired,
+  resetDesignStoreSegment: PT.func.isRequired,
   setMultiInputUrlValid: PT.func.isRequired,
   setMultiInputNameValid: PT.func.isRequired,
   setMultiInputSourceValid: PT.func.isRequired,
@@ -124,11 +135,13 @@ SubmissionsPageContainer.propTypes = {
  */
 const mapStateToProps = (state, ownProps) => {
   const detailsV2 = state.challenge.detailsV2;
-  const submission = state.page.challengeDetails.submission;
+  const submission = state.page.submission;
   // The current phase will be the last element of this array
   const phase = state.challenge.details.currentPhases.slice(-1)[0];
 
   return {
+    stockArtRecords: submission.design.stockArtRecords,
+    /* Older stuff below. */
     userId: state.auth.user.userId,
     challengeId: detailsV2 && detailsV2.challengeId,
     challengeName: detailsV2 && detailsV2.challengeName,
@@ -160,7 +173,7 @@ const mapStateToProps = (state, ownProps) => {
  * @return {Object}
  */
 function mapDispatchToProps(dispatch) {
-  const a = actions.page.challengeDetails.submission;
+  const a = actions.page.submission;
   const progress = data => dispatch(a.uploadProgress(data));
 
   return {
@@ -175,8 +188,13 @@ function mapDispatchToProps(dispatch) {
     setFilePickerError: (id, error) => dispatch(a.setFilePickerError(id, error)),
     setFilePickerFileName: (id, fileName) => dispatch(a.setFilePickerFileName(id, fileName)),
     setFilePickerDragged: (id, dragged) => dispatch(a.setFilePickerDragged(id, dragged)),
+    setFilePickerUploadProgress: (id, p) =>
+      dispatch(a.setFilePickerUploadProgress(id, p)),
     updateNotesLength: length => dispatch(a.updateNotesLength(length)),
     removeMultiInput: (id, index) => dispatch(a.removeMultiInput(id, index)),
+    resetDesignStoreSegment: () => dispatch(a.design.reset()),
+    setStockArtRecord: (index, record) =>
+      dispatch(a.design.setStockArtRecord(index, record)),
     setMultiInputUrlValid: (id, index, valid) =>
       dispatch(a.setMultiInputUrlValid(id, index, valid)),
     setMultiInputNameValid: (id, index, valid) =>

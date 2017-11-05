@@ -14,7 +14,6 @@
  */
 
 import _ from 'lodash';
-import config from 'utils/config';
 import LoadingIndicator from 'components/LoadingIndicator';
 import React from 'react';
 import PT from 'prop-types';
@@ -60,7 +59,6 @@ export default function SubmissionManagement(props) {
     onlineReviewUrl,
     onShowDetails,
   };
-
   return (
     <div styleName="submission-management">
       <div styleName="submission-management-header">
@@ -117,11 +115,9 @@ export default function SubmissionManagement(props) {
       {now.isBefore(challenge.submissionEndDate) &&
         <div styleName="btn-wrap">
           <a
-            href={`${config.URL.BASE}/challenges/${challenge.id}/submit/file`}
+            href={`${challengeUrl}/submit`}
             className="tc-btn tc-btn-primary tc-btn-md"
             styleName="add-sub-btn"
-            rel="noreferrer noopener"
-            target="_blank"
           >
             {(!isDevelop || !submissions || submissions.length === 0)
               ? 'Add Submission' : 'Update Submission'}
