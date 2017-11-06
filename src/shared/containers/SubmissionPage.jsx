@@ -69,6 +69,7 @@ const filestackDataProp = PT.shape({
  * Prop Validation
  */
 SubmissionsPageContainer.propTypes = {
+  currentPhases: PT.arrayOf(PT.object).isRequired,
   stockArtRecords: PT.arrayOf(PT.object).isRequired,
   setStockArtRecord: PT.func.isRequired,
 
@@ -76,7 +77,6 @@ SubmissionsPageContainer.propTypes = {
   userId: PT.string.isRequired,
   challengesUrl: PT.string,
   phaseId: PT.number.isRequired,
-  phaseType: PT.string.isRequired,
   tokenV2: PT.string.isRequired,
   tokenV3: PT.string.isRequired,
   submit: PT.func.isRequired,
@@ -136,18 +136,15 @@ SubmissionsPageContainer.propTypes = {
 const mapStateToProps = (state, ownProps) => {
   const detailsV2 = state.challenge.detailsV2;
   const submission = state.page.submission;
-  // The current phase will be the last element of this array
-  const phase = state.challenge.details.currentPhases.slice(-1)[0];
-
   return {
+    currentPhases: state.challenge.details.currentPhases,
     stockArtRecords: submission.design.stockArtRecords,
+
     /* Older stuff below. */
     userId: state.auth.user.userId,
     challengeId: detailsV2 && detailsV2.challengeId,
     challengeName: detailsV2 && detailsV2.challengeName,
     challengesUrl: ownProps.challengesUrl,
-    phaseId: phase && phase.id,
-    phaseType: phase && phase.phaseType,
     tokenV2: state.auth.tokenV2,
     tokenV3: state.auth.tokenV3,
     track: state.challenge.details.track,

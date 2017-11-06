@@ -55,8 +55,6 @@ SubmissionsPage.propTypes = {
   challengesUrl: PT.string.isRequired,
   challengeId: PT.number.isRequired,
   challengeName: PT.string.isRequired,
-  phaseId: PT.number.isRequired,
-  phaseType: PT.string.isRequired,
   track: PT.string.isRequired,
   status: PT.string.isRequired,
   submitForm: PT.func.isRequired,

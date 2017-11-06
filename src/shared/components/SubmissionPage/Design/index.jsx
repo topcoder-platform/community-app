@@ -14,6 +14,8 @@ import config from 'utils/config';
 import React from 'react';
 import PT from 'prop-types';
 import { PrimaryButton } from 'components/buttons';
+import { fireErrorMessage } from 'utils/errors';
+import { CHALLENGE_PHASE_TYPES as PHASE_TYPES } from 'utils/tc';
 
 import FilestackFilePicker from '../FilestackFilePicker';
 import MultiInput, { checkValidationError } from './MultiInput';
@@ -70,10 +72,9 @@ class Design extends React.Component {
     e.preventDefault();
 
     const {
+      currentPhases,
       userId,
       challengeId,
-      phaseId,
-      phaseType,
       stockArtRecords,
     } = this.props;
 
@@ -106,12 +107,18 @@ class Design extends React.Component {
     const source = this.props.sourceFilestackData;
     const preview = this.props.previewFilestackData;
 
+    const phases = {};
+    currentPhases.forEach((p) => { phases[p.phaseType] = p; });
+    const phase = phases[PHASE_TYPES.CHECKPOINT_SUBMISSION]
+      || phases[PHASE_TYPES.SUBMISSION];
+    if (!phase) fireErrorMessage('ERROR: Failed to Submit!');
+
     const body = {
       param: {
         reference: {
           id: challengeId.toString(), // Back-end expects this as string
-          phaseId,
-          phaseType: phaseType.toUpperCase(),
+          phaseId: phase.id,
+          phaseType: phase.phaseType.toUpperCase().replace(/ /g, '_'),
           type: 'CHALLENGE',
         },
         userId: parseInt(userId, 10),
@@ -437,6 +444,10 @@ const filestackDataProp = PT.shape({
  * Prop Validation
  */
 Design.propTypes = {
+  currentPhases: PT.arrayOf(PT.shape({
+    id: PT.number.isRequired,
+    phaseType: PT.string.isRequired,
+  })).isRequired,
   stockArtRecords: PT.arrayOf(PT.object).isRequired,
   setStockArtRecord: PT.func.isRequired,
 
@@ -445,8 +456,6 @@ Design.propTypes = {
   challengeId: PT.number.isRequired,
   challengeName: PT.string.isRequired,
   challengesUrl: PT.string.isRequired,
-  phaseId: PT.number.isRequired,
-  phaseType: PT.string.isRequired,
   isSubmitting: PT.bool.isRequired,
   submitDone: PT.bool.isRequired,
   errorMsg: PT.string.isRequired,
