@@ -310,48 +310,6 @@
           }
         }
       }
-
-      .deadline-detailed {
-        background-color: $tc-gray-80;
-        display: flex;
-        flex-wrap: wrap;
-        padding: 30px 0 15px;
-
-        .deadline-card {
-          margin-bottom: 10px;
-          padding: 0 20px;
-          border-right: 1px solid $tc-gray-10;
-          font-family: roboto;
-          font-weight: 400;
-
-          &:last-child {
-            border-right: none;
-          }
-
-          .deadline-info {
-            font-size: 13px;
-            color: $tc-gray-40;
-            letter-spacing: 0;
-            line-height: 15px;
-            margin-bottom: 5px;
-          }
-
-          .deadline-date {
-            min-width: 150px;
-            font-size: 20px;
-            letter-spacing: -0.5px;
-            line-height: 25px;
-          }
-
-          .deadline-crossed {
-            color: $tc-green;
-          }
-
-          .deadline-live {
-            color: $tc-white;
-          }
-        }
-      }
     }
   }
 }

@@ -5,9 +5,9 @@
  */
 
 import _ from 'lodash';
-import React from 'react';
-import PT from 'prop-types';
 import moment from 'moment';
+import PT from 'prop-types';
+import React from 'react';
 import { DangerButton, PrimaryButton } from 'components/buttons';
 import { ThemeProvider } from 'react-css-super-themr';
 
@@ -17,7 +17,7 @@ import themeFactory from '../themeFactory';
 
 import Prizes from './Prizes';
 import ChallengeTags from './ChallengeTags';
-import DeadlineCards from './DeadlineCards';
+import DeadlinesPanel from './DeadlinesPanel';
 import TabSelector from './TabSelector';
 
 import style from './style.scss';
@@ -64,11 +64,9 @@ export default function ChallengeHeader(props) {
     phases[_.camelCase(phase.phaseType)] = phase;
   });
 
-  let registrationEndDate;
   let registrationEnded = true;
   const regPhase = phases.registration;
   if (regPhase) {
-    registrationEndDate = regPhase.actualEndTime || regPhase.scheduledEndTime;
     registrationEnded = regPhase.phaseStatus !== 'Open';
   }
 
@@ -119,11 +117,6 @@ export default function ChallengeHeader(props) {
         return true;
       }
       return false;
-    });
-
-    relevantPhases.push({
-      phaseType: 'Registration',
-      scheduledEndTime: registrationEndDate,
     });
 
     relevantPhases.sort((a, b) => {
@@ -298,7 +291,7 @@ export default function ChallengeHeader(props) {
             </div>
             {
               props.showDeadlineDetail &&
-              <DeadlineCards relevantPhases={relevantPhases} />
+              <DeadlinesPanel deadlines={relevantPhases} />
             }
           </div>
           <TabSelector
