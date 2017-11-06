@@ -348,6 +348,13 @@ function extractChallengeDetail(v3, v2, challengeId) {
       appealsEndDate: v2.appealsEndDate,
     };
   }
+  /* A hot fix to show submissions for on-going challenges. */
+  if ((!challenge.submissions || !challenge.submissions.length) &&
+    !_.isEmpty(v2)) {
+    challenge.submissions = v2.registrants
+      .filter(r => r.submissionDate)
+      .sort((a, b) => a.submissionDate.localeCompare(b.submissionDate));
+  }
   return challenge;
 }
 
