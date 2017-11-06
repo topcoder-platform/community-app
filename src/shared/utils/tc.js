@@ -10,6 +10,15 @@ import { isTokenExpired } from 'tc-accounts';
 import { isClientSide } from 'utils/isomorphy';
 
 /**
+ * Possible phase types (at the moment, this map does not cover all
+ * possibilities).
+ */
+export const CHALLENGE_PHASE_TYPES = {
+  CHECKPOINT_SUBMISSION: 'Checkpoint Submission',
+  SUBMISSION: 'Submission',
+};
+
+/**
  * Codes of the Topcoder communities.
  */
 /* TODO: These are originally motivated by Topcoder API v2. Topcoder API v3
