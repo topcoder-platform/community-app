@@ -1,0 +1,32 @@
+@import "~styles/mixins";
+
+.open,
+.past {
+  margin-bottom: 10px;
+  padding: 0 20px;
+  border-right: 1px solid $tc-gray-10;
+  font-family: roboto;
+  font-weight: 400;
+
+  &:last-child {
+    border-right: none;
+  }
+}
+
+.date {
+  min-width: 150px;
+  font-size: 20px;
+  letter-spacing: -0.5px;
+  line-height: 25px;
+}
+
+.open .date { color: $tc-white; }
+.past .date { color: $tc-green; }
+
+.title {
+  font-size: 13px;
+  color: $tc-gray-40;
+  letter-spacing: 0;
+  line-height: 15px;
+  margin-bottom: 5px;
+}

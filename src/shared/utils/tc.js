@@ -118,8 +118,7 @@ export function timeDiff(input, type) {
  * @return {string}        formated date string
  */
 export function localTime(input, format) {
-  const timezone = moment.tz.guess();
-  return moment(input).tz(timezone).format(format || 'MM/DD/YY hh:mm a z');
+  return moment(input).local().format(format || 'MM/DD/YY hh:mm a z');
 }
 
 /**

@@ -1,0 +1,17 @@
+@import "~styles/mixins";
+
+.panel {
+  background-color: $tc-gray-80;
+  display: flex;
+  flex-wrap: wrap;
+  padding: 30px 0 15px;
+  position: relative;
+}
+
+.timezone {
+  color: $tc-gray-40;
+  font: 400 12px roboto;
+  position: absolute;
+  right: 12px;
+  bottom: 6px;
+}
