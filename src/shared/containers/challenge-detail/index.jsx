@@ -24,7 +24,8 @@ import { connect } from 'react-redux';
 import challengeActions, { DETAIL_TABS } from 'actions/challenge';
 import config from 'utils/config';
 import { BUCKETS } from 'utils/challenge-listing/buckets';
-
+import { Helmet } from 'react-helmet';
+import ogImage from '../../../assets/images/og_image.png';
 import './styles.scss';
 
 function isRegistered(details, registrants, handle) {
@@ -139,6 +140,21 @@ class ChallengeDetailPageContainer extends React.Component {
               Challenge #{challengeId} does not exist!
             </div>
           )}
+          {
+            !isEmpty &&
+            <Helmet>
+              <title>{challenge.name} - Topcoder</title>
+              <meta property="og:title" content={`${challenge.name} - Topcoder`} />
+              <meta property="og:description" content="Join Topcoder and compete in these challenges, to learn and earn!" />
+              <meta property="og:image:url" content={ogImage} />
+              <meta property="og:image:type" content="images/png" />
+              <meta property="og:image:width" content="600" />
+              <meta property="og:image:height" content="256" />
+              <meta property="og:image:alt" content="Topcoder" />
+              <meta name="twitter:label1" value="Technologies" />
+              <meta name="twitter:data1" value={challenge.technologies} />
+            </Helmet>
+          }
           {
             !isEmpty &&
             <ChallengeHeader

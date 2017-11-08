@@ -14,6 +14,7 @@ import serializeJs from 'serialize-javascript';
 import { StaticRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { getRates } from 'services/money';
+import { Helmet } from 'react-helmet';
 
 import App from '../shared';
 
@@ -72,6 +73,7 @@ export default (req, res) => {
         </StaticRouter>
       </Provider>
     ));
+    const helmet = Helmet.renderStatic();
 
     /* Prepares sensitive data for injection. */
     cipher.update(forge.util.createBuffer(JSON.stringify({
@@ -91,6 +93,8 @@ export default (req, res) => {
       <html>
         <head>
           <title>Topcoder</title>
+            ${helmet.title.toString()}
+            ${helmet.meta.toString()}
           <script
             src="/community-app-assets/loading-indicator-animation.js"
             type="application/javascript"

@@ -26,9 +26,13 @@ import sidebarActions from 'actions/challenge-listing/sidebar';
 import communityActions from 'actions/tc-communities';
 import { BUCKETS } from 'utils/challenge-listing/buckets';
 import { combine, mapToBackend } from 'utils/challenge-listing/filter';
+import { Helmet } from 'react-helmet';
+import ogImage from '../../../../assets/images/og_image.png';
 import style from './styles.scss';
 
 let mounted = false;
+
+const SEO_PAGE_TITLE = 'Topcoder Challenges';
 
 export class ListingContainer extends React.Component {
   componentDidMount() {
@@ -156,6 +160,16 @@ export class ListingContainer extends React.Component {
 
     return (
       <div styleName="container">
+        <Helmet>
+          <title>{this.props.communityId ? `${this.props.communityName} Challenges` : SEO_PAGE_TITLE}</title>
+          <meta property="og:title" content={this.props.communityId ? `${this.props.communityName} Challenges` : SEO_PAGE_TITLE} />
+          <meta property="og:description" content="Join Topcoder and compete in these challenges, to learn and earn!" />
+          <meta property="og:image:url" content={ogImage} />
+          <meta property="og:image:type" content="images/png" />
+          <meta property="og:image:width" content="600" />
+          <meta property="og:image:height" content="256" />
+          <meta property="og:image:alt" content="Topcoder" />
+        </Helmet>
         { /* TODO: This banner should be moved out of here! */ }
         { !listingOnly ? (
           <Banner
