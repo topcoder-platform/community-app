@@ -19,13 +19,14 @@ import Terms from 'containers/Terms';
 import termsActions from 'actions/terms';
 import ChallengeCheckpoints from 'components/challenge-detail/Checkpoints';
 import React from 'react';
+import striptags from 'striptags';
 import PT from 'prop-types';
 import { connect } from 'react-redux';
 import challengeActions, { DETAIL_TABS } from 'actions/challenge';
 import config from 'utils/config';
 import { BUCKETS } from 'utils/challenge-listing/buckets';
 import { Helmet } from 'react-helmet';
-import ogImage from '../../../assets/images/og_image.png';
+import ogImage from '../../../assets/images/og_image.jpg';
 import './styles.scss';
 
 function isRegistered(details, registrants, handle) {
@@ -123,7 +124,7 @@ class ChallengeDetailPageContainer extends React.Component {
       prizesStr = `[${prizesStr}] - `;
     }
 
-    const description = (challenge.detailedRequirements || '').slice(0, 150);
+    const description = striptags((challenge.introduction || challenge.detailedRequirements || '').slice(0, 160)).slice(0, 150);
 
     const results = resultsLoadedForChallengeId === _.toString(challengeId)
       ? this.props.results : null;
@@ -163,9 +164,9 @@ class ChallengeDetailPageContainer extends React.Component {
               <meta property="og:title" content={`${prizesStr}${challenge.name} - Topcoder`} />
               <meta property="og:description" content={description} />
               <meta property="og:image" content={`${domain}${ogImageFixed}`} />
-              <meta property="og:image:type" content="images/png" />
-              <meta property="og:image:width" content="600" />
-              <meta property="og:image:height" content="256" />
+              <meta property="og:image:type" content="images/jpg" />
+              <meta property="og:image:width" content="640" />
+              <meta property="og:image:height" content="480" />
               <meta property="og:image:alt" content="Topcoder" />
 
               <meta name="twitter:label1" value="Technologies" />
