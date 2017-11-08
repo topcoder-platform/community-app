@@ -1,7 +1,12 @@
 @import '~styles/mixins';
+@import '../themes/mixins';
 
 .coursesContainer {
   padding-bottom: 60px;
+}
+
+.coursesContent {
+  flex-wrap: wrap;
 }
 
 .resourcesTitle {
@@ -64,6 +69,7 @@
 
 .joinnow {
   color: #0092ff;
+  background: white;
   display: inline-block;
   border: 1px solid #0092ff;
   border-radius: 20px;
@@ -81,4 +87,20 @@
     outline: none;
     text-decoration: none;
   }
+}
+
+.linksList {
+  @include body-text;
+
+  a {
+    @include link;
+
+    display: block;
+  }
+}
+
+.historyOfBlockchainVideo {
+  height: 40vw;
+  margin-bottom: 24px;
+  width: 100%;
 }

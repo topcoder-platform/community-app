@@ -1,0 +1,9 @@
+@mixin body-text {
+  color: #73787c;
+  font: 15px/180% 'Open Sans';
+  text-align: left;
+}
+
+@mixin link {
+  color: #0092ff;
+}
