@@ -174,7 +174,7 @@ export class ListingContainer extends React.Component {
 
           <meta property="og:title" content={this.props.communityId ? `${this.props.communityName} Challenges` : SEO_PAGE_TITLE} />
           <meta property="og:description" content={description} />
-          <meta property="og:image:url" content={`${domain}${ogImageFixed}`} />
+          <meta property="og:image" content={`${domain}${ogImageFixed}`} />
           <meta property="og:image:type" content="images/png" />
           <meta property="og:image:width" content="600" />
           <meta property="og:image:height" content="256" />
