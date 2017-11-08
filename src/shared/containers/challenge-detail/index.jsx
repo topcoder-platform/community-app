@@ -123,7 +123,7 @@ class ChallengeDetailPageContainer extends React.Component {
       prizesStr = `[${prizesStr}] - `;
     }
 
-    const description = challenge.detailedRequirements.slice(0, 150);
+    const description = (challenge.detailedRequirements || '').slice(0, 150);
 
     const results = resultsLoadedForChallengeId === _.toString(challengeId)
       ? this.props.results : null;
