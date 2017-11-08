@@ -114,6 +114,7 @@ export class ListingContainer extends React.Component {
       challengeSubtracks,
       challengeTags,
       defaultCommunityId,
+      domain,
       groupIds,
       filter,
       getDraftChallenges,
@@ -158,13 +159,17 @@ export class ListingContainer extends React.Component {
       item.communityId === this.props.selectedCommunityId);
     if (communityFilter) communityFilter = communityFilter.challengeFilter;
 
+    const description = 'Join Topcoder and compete in these challenges, to learn and earn!';
+
     return (
       <div styleName="container">
         <Helmet>
           <title>{this.props.communityId ? `${this.props.communityName} Challenges` : SEO_PAGE_TITLE}</title>
+          <meta name="description" content={description} />
+
           <meta property="og:title" content={this.props.communityId ? `${this.props.communityName} Challenges` : SEO_PAGE_TITLE} />
-          <meta property="og:description" content="Join Topcoder and compete in these challenges, to learn and earn!" />
-          <meta property="og:image:url" content={ogImage} />
+          <meta property="og:description" content={description} />
+          <meta property="og:image:url" content={`${domain}${ogImage}`} />
           <meta property="og:image:type" content="images/png" />
           <meta property="og:image:width" content="600" />
           <meta property="og:image:height" content="256" />
@@ -264,6 +269,7 @@ ListingContainer.propTypes = {
     communityId: PT.string.isRequired,
   })).isRequired,
   defaultCommunityId: PT.string,
+  domain: PT.string.isRequired,
   dropChallenges: PT.func.isRequired,
   filter: PT.shape().isRequired,
   hideTcLinksInSidebarFooter: PT.bool,
@@ -309,6 +315,7 @@ const mapStateToProps = (state, ownProps) => {
     challengeSubtracks: cl.challengeSubtracks,
     challengeTags: cl.challengeTags,
     communityFilters: tc.list,
+    domain: state.domain,
     hideTcLinksInSidebarFooter: ownProps.hideTcLinksInSidebarFooter,
     keepPastPlaceholders: cl.keepPastPlaceholders,
     lastRequestedPageOfDraftChallenges: cl.lastRequestedPageOfDraftChallenges,

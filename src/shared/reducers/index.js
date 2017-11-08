@@ -51,6 +51,7 @@ export function factory(req) {
   }).then(reducers => combine((state) => {
     const res = { ...state };
     if (req) {
+      res.domain = `${req.protocol}://${req.headers.host || req.hostname}`;
       res.hostname = req.hostname;
       res.subdomains = req.subdomains;
     }

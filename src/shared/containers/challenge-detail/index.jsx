@@ -112,9 +112,18 @@ class ChallengeDetailPageContainer extends React.Component {
       challenge,
       challengeId,
       challengesUrl,
+      domain,
       resultsLoadedForChallengeId,
       openTermsModal,
     } = this.props;
+
+    let prizesStr;
+    if (challenge.prizes && challenge.prizes.length) {
+      prizesStr = challenge.prizes.map(p => `$${p}`).join('/');
+      prizesStr = `[${prizesStr}] - `;
+    }
+
+    const description = challenge.detailedRequirements.slice(0, 150);
 
     const results = resultsLoadedForChallengeId === _.toString(challengeId)
       ? this.props.results : null;
@@ -143,14 +152,17 @@ class ChallengeDetailPageContainer extends React.Component {
           {
             !isEmpty &&
             <Helmet>
-              <title>{challenge.name} - Topcoder</title>
-              <meta property="og:title" content={`${challenge.name} - Topcoder`} />
-              <meta property="og:description" content="Join Topcoder and compete in these challenges, to learn and earn!" />
-              <meta property="og:image:url" content={ogImage} />
+              <title>{prizesStr}{challenge.name} - Topcoder</title>
+              <meta name="description" content={description} />
+
+              <meta property="og:title" content={`${prizesStr}${challenge.name} - Topcoder`} />
+              <meta property="og:description" content={description} />
+              <meta property="og:image:url" content={`${domain}${ogImage}`} />
               <meta property="og:image:type" content="images/png" />
               <meta property="og:image:width" content="600" />
               <meta property="og:image:height" content="256" />
               <meta property="og:image:alt" content="Topcoder" />
+
               <meta name="twitter:label1" value="Technologies" />
               <meta name="twitter:data1" value={challenge.technologies} />
             </Helmet>
@@ -263,6 +275,7 @@ ChallengeDetailPageContainer.propTypes = {
   challengesUrl: PT.string,
   checkpointResults: PT.arrayOf(PT.shape()),
   checkpoints: PT.shape(),
+  domain: PT.string.isRequired,
   fetchCheckpoints: PT.func.isRequired,
   getSubtracks: PT.func.isRequired,
   isLoadingChallenge: PT.bool,
@@ -384,6 +397,7 @@ const mapStateToProps = (state, props) => ({
   challengeSubtracksMap: state.challengeListing.challengeSubtracksMap,
   checkpointResults: (state.challenge.checkpoints || {}).checkpointResults,
   checkpoints: state.challenge.checkpoints,
+  domain: state.domain,
   isLoadingChallenge: Boolean(state.challenge.loadingDetailsForChallengeId),
   isLoadingTerms: _.isEqual(state.terms.loadingTermsForEntity, {
     type: 'challenge',
