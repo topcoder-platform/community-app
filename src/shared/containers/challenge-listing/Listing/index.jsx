@@ -26,9 +26,13 @@ import sidebarActions from 'actions/challenge-listing/sidebar';
 import communityActions from 'actions/tc-communities';
 import { BUCKETS } from 'utils/challenge-listing/buckets';
 import { combine, mapToBackend } from 'utils/challenge-listing/filter';
+import { Helmet } from 'react-helmet';
+import ogImage from '../../../../assets/images/og_image.jpg';
 import style from './styles.scss';
 
 let mounted = false;
+
+const SEO_PAGE_TITLE = 'Topcoder Challenges';
 
 export class ListingContainer extends React.Component {
   componentDidMount() {
@@ -110,6 +114,7 @@ export class ListingContainer extends React.Component {
       challengeSubtracks,
       challengeTags,
       defaultCommunityId,
+      domain,
       groupIds,
       filter,
       getDraftChallenges,
@@ -154,8 +159,27 @@ export class ListingContainer extends React.Component {
       item.communityId === this.props.selectedCommunityId);
     if (communityFilter) communityFilter = communityFilter.challengeFilter;
 
+    const description = 'Join Topcoder and compete in these challenges, to learn and earn!';
+
+    let ogImageFixed = ogImage;
+    if (!ogImage.startsWith('/community-app-assets')) {
+      ogImageFixed = `/community-app-assets${ogImage}`;
+    }
+
     return (
       <div styleName="container">
+        <Helmet>
+          <title>{this.props.communityId ? `${this.props.communityName} Challenges` : SEO_PAGE_TITLE}</title>
+          <meta name="description" content={description} />
+
+          <meta property="og:title" content={this.props.communityId ? `${this.props.communityName} Challenges` : SEO_PAGE_TITLE} />
+          <meta property="og:description" content={description} />
+          <meta property="og:image" content={`${domain}${ogImageFixed}`} />
+          <meta property="og:image:type" content="images/jpg" />
+          <meta property="og:image:width" content="640" />
+          <meta property="og:image:height" content="480" />
+          <meta property="og:image:alt" content="Topcoder" />
+        </Helmet>
         { /* TODO: This banner should be moved out of here! */ }
         { !listingOnly ? (
           <Banner
@@ -250,6 +274,7 @@ ListingContainer.propTypes = {
     communityId: PT.string.isRequired,
   })).isRequired,
   defaultCommunityId: PT.string,
+  domain: PT.string.isRequired,
   dropChallenges: PT.func.isRequired,
   filter: PT.shape().isRequired,
   hideTcLinksInSidebarFooter: PT.bool,
@@ -295,6 +320,7 @@ const mapStateToProps = (state, ownProps) => {
     challengeSubtracks: cl.challengeSubtracks,
     challengeTags: cl.challengeTags,
     communityFilters: tc.list,
+    domain: state.domain,
     hideTcLinksInSidebarFooter: ownProps.hideTcLinksInSidebarFooter,
     keepPastPlaceholders: cl.keepPastPlaceholders,
     lastRequestedPageOfDraftChallenges: cl.lastRequestedPageOfDraftChallenges,

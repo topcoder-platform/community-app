@@ -19,12 +19,14 @@ import Terms from 'containers/Terms';
 import termsActions from 'actions/terms';
 import ChallengeCheckpoints from 'components/challenge-detail/Checkpoints';
 import React from 'react';
+import htmlToText from 'html-to-text';
 import PT from 'prop-types';
 import { connect } from 'react-redux';
 import challengeActions, { DETAIL_TABS } from 'actions/challenge';
 import config from 'utils/config';
 import { BUCKETS } from 'utils/challenge-listing/buckets';
-
+import { Helmet } from 'react-helmet';
+import ogImage from '../../../assets/images/og_image.jpg';
 import './styles.scss';
 
 function isRegistered(details, registrants, handle) {
@@ -111,9 +113,21 @@ class ChallengeDetailPageContainer extends React.Component {
       challenge,
       challengeId,
       challengesUrl,
+      domain,
       resultsLoadedForChallengeId,
       openTermsModal,
     } = this.props;
+
+    let prizesStr;
+    if (challenge.prizes && challenge.prizes.length) {
+      prizesStr = challenge.prizes.map(p => `$${p}`).join('/');
+      prizesStr = `[${prizesStr}] - `;
+    }
+
+    let description = htmlToText.fromString((challenge.introduction || challenge.detailedRequirements || '').slice(0, 160), {
+      wordwrap: false,
+    }).slice(0, 150);
+    description = `${description}...`;
 
     const results = resultsLoadedForChallengeId === _.toString(challengeId)
       ? this.props.results : null;
@@ -131,6 +145,11 @@ class ChallengeDetailPageContainer extends React.Component {
     const numWinners = (challenge.winners && challenge.winners.filter(winner =>
       winner.type === 'final').length) || 0;
 
+    let ogImageFixed = ogImage;
+    if (!ogImage.startsWith('/community-app-assets')) {
+      ogImageFixed = `/community-app-assets${ogImage}`;
+    }
+
     return (
       <div styleName="outer-container">
         <div styleName="challenge-detail-container">
@@ -139,6 +158,24 @@ class ChallengeDetailPageContainer extends React.Component {
               Challenge #{challengeId} does not exist!
             </div>
           )}
+          {
+            !isEmpty &&
+            <Helmet>
+              <title>{prizesStr}{challenge.name} - Topcoder</title>
+              <meta name="description" content={description} />
+
+              <meta property="og:title" content={`${prizesStr}${challenge.name} - Topcoder`} />
+              <meta property="og:description" content={description} />
+              <meta property="og:image" content={`${domain}${ogImageFixed}`} />
+              <meta property="og:image:type" content="images/jpg" />
+              <meta property="og:image:width" content="640" />
+              <meta property="og:image:height" content="480" />
+              <meta property="og:image:alt" content="Topcoder" />
+
+              <meta name="twitter:label1" value="Technologies" />
+              <meta name="twitter:data1" value={challenge.technologies} />
+            </Helmet>
+          }
           {
             !isEmpty &&
             <ChallengeHeader
@@ -215,9 +252,7 @@ class ChallengeDetailPageContainer extends React.Component {
         </div>
         <Terms
           entity={{ type: 'challenge', id: challengeId.toString() }}
-          description="You are seeing these Terms & Conditions because you have
-            registered to a challenge and you have to respect the terms below in
-            order to be able to submit."
+          description="You are seeing these Terms & Conditions because you have registered to a challenge and you have to respect the terms below in order to be able to submit."
           register={() => {
             this.props.registerForChallenge(this.props.authTokens, this.props.challengeId);
           }}
@@ -247,6 +282,7 @@ ChallengeDetailPageContainer.propTypes = {
   challengesUrl: PT.string,
   checkpointResults: PT.arrayOf(PT.shape()),
   checkpoints: PT.shape(),
+  domain: PT.string.isRequired,
   fetchCheckpoints: PT.func.isRequired,
   getSubtracks: PT.func.isRequired,
   isLoadingChallenge: PT.bool,
@@ -368,6 +404,7 @@ const mapStateToProps = (state, props) => ({
   challengeSubtracksMap: state.challengeListing.challengeSubtracksMap,
   checkpointResults: (state.challenge.checkpoints || {}).checkpointResults,
   checkpoints: state.challenge.checkpoints,
+  domain: state.domain,
   isLoadingChallenge: Boolean(state.challenge.loadingDetailsForChallengeId),
   isLoadingTerms: _.isEqual(state.terms.loadingTermsForEntity, {
     type: 'challenge',
