@@ -141,6 +141,11 @@ class ChallengeDetailPageContainer extends React.Component {
     const numWinners = (challenge.winners && challenge.winners.filter(winner =>
       winner.type === 'final').length) || 0;
 
+    let ogImageFixed = ogImage;
+    if (!ogImage.startsWith('/community-app-assets')) {
+      ogImageFixed = `/community-app-assets${ogImage}`;
+    }
+
     return (
       <div styleName="outer-container">
         <div styleName="challenge-detail-container">
@@ -157,7 +162,7 @@ class ChallengeDetailPageContainer extends React.Component {
 
               <meta property="og:title" content={`${prizesStr}${challenge.name} - Topcoder`} />
               <meta property="og:description" content={description} />
-              <meta property="og:image:url" content={`${domain}${ogImage}`} />
+              <meta property="og:image:url" content={`${domain}${ogImageFixed}`} />
               <meta property="og:image:type" content="images/png" />
               <meta property="og:image:width" content="600" />
               <meta property="og:image:height" content="256" />

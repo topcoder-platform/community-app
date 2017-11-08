@@ -161,6 +161,11 @@ export class ListingContainer extends React.Component {
 
     const description = 'Join Topcoder and compete in these challenges, to learn and earn!';
 
+    let ogImageFixed = ogImage;
+    if (!ogImage.startsWith('/community-app-assets')) {
+      ogImageFixed = `/community-app-assets${ogImage}`;
+    }
+
     return (
       <div styleName="container">
         <Helmet>
@@ -169,7 +174,7 @@ export class ListingContainer extends React.Component {
 
           <meta property="og:title" content={this.props.communityId ? `${this.props.communityName} Challenges` : SEO_PAGE_TITLE} />
           <meta property="og:description" content={description} />
-          <meta property="og:image:url" content={`${domain}${ogImage}`} />
+          <meta property="og:image:url" content={`${domain}${ogImageFixed}`} />
           <meta property="og:image:type" content="images/png" />
           <meta property="og:image:width" content="600" />
           <meta property="og:image:height" content="256" />
