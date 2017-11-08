@@ -19,7 +19,7 @@ import Terms from 'containers/Terms';
 import termsActions from 'actions/terms';
 import ChallengeCheckpoints from 'components/challenge-detail/Checkpoints';
 import React from 'react';
-import striptags from 'striptags';
+import htmlToText from 'html-to-text';
 import PT from 'prop-types';
 import { connect } from 'react-redux';
 import challengeActions, { DETAIL_TABS } from 'actions/challenge';
@@ -124,7 +124,7 @@ class ChallengeDetailPageContainer extends React.Component {
       prizesStr = `[${prizesStr}] - `;
     }
 
-    const description = striptags((challenge.introduction || challenge.detailedRequirements || '').slice(0, 160)).slice(0, 150);
+    const description = htmlToText.fromString((challenge.introduction || challenge.detailedRequirements || '').slice(0, 160)).slice(0, 150);
 
     const results = resultsLoadedForChallengeId === _.toString(challengeId)
       ? this.props.results : null;
@@ -249,9 +249,7 @@ class ChallengeDetailPageContainer extends React.Component {
         </div>
         <Terms
           entity={{ type: 'challenge', id: challengeId.toString() }}
-          description="You are seeing these Terms & Conditions because you have
-            registered to a challenge and you have to respect the terms below in
-            order to be able to submit."
+          description="You are seeing these Terms & Conditions because you have registered to a challenge and you have to respect the terms below in order to be able to submit."
           register={() => {
             this.props.registerForChallenge(this.props.authTokens, this.props.challengeId);
           }}
