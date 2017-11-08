@@ -60,7 +60,7 @@ function ChallengeCard({
   }
   challenge.prize = challenge.prizes || [];
   // challenge.totalPrize = challenge.prize.reduce((x, y) => y + x, 0)
-
+  const isMM = _.toString(challenge.id).length < ID_LENGTH;
   let challengeDetailLink;
   {
     const challengeUrl = newChallengeDetails
@@ -68,7 +68,6 @@ function ChallengeCard({
     if (challenge.track === 'DATA_SCIENCE') {
       const mmDetailUrl = `${config.URL.COMMUNITY}/tc?module=MatchDetails&rd=`;
       /* TODO: Don't we have a better way, whether a challenge is MM or not? */
-      const isMM = _.toString(challenge.id).length < ID_LENGTH;
       challengeDetailLink = isMM
         ? `${mmDetailUrl}${challenge.rounds[0].id}`
         : `${challengeUrl}${challenge.id}/?type=develop`;
@@ -167,6 +166,7 @@ function ChallengeCard({
               prizeUnitSymbol={prizeUnitSymbol}
               totalPrize={totalPrize}
               withoutTooltip={prizeMode === PRIZE_MODE.POINTS}
+              isMM={isMM}
             />
           )}
         </div>
