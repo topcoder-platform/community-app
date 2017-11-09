@@ -24,7 +24,7 @@ export default function MetaTags({
       <meta property="description" content={description} />
 
       {/* Twitter cards. */}
-      <meta name="twitter:card" content="summary" />
+      <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:title" content={socTitle} />
       <meta name="twitter:description" content={socDesc} />
       <meta name="twitter:image" content={image} />
@@ -36,11 +36,8 @@ export default function MetaTags({
 
       {/* Open Graph data. */}
       <meta property="og:title" content={socialTitle} />
-      <meta property="og:type" content="article" />
       <meta property="og:image" content={image} />
       <meta property="og:image:alt" content={socialTitle} />
-      <meta property="og:image:width" content="640" />
-      <meta property="og:image:height" content="480" />
       <meta property="og:description" content={socialDescription} />
       {
         siteName ? (<meta property="og:sitename" content={siteName} />) : null
