@@ -119,12 +119,20 @@ $tc-link-visited: #0c4e98;
   }
 
   p,
-  span,
   em,
   strong,
   a {
     font-family: roboto;
     font-weight: 400;
+    font-size: 15px;
+    color: $tc-gray-90;
+    line-height: 25px;
+
+    @include linkStyle;
+  }
+
+  span {
+    font-family: roboto;
     font-size: 15px;
     color: $tc-gray-90;
     line-height: 25px;
