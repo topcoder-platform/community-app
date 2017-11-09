@@ -128,7 +128,11 @@ class ChallengeDetailPageContainer extends React.Component {
 
     let description = challenge.introduction || challenge.detailedRequirements;
     description = description ? description.slice(0, 256) : '';
-    description = htmlToText.fromString(description, { wordwrap: false });
+    description = htmlToText.fromString(description, {
+      singleNewLineParagraphs: true,
+      wordwrap: false,
+    });
+    description = description.replace(/\n/g, ' ');
 
     const results = resultsLoadedForChallengeId === _.toString(challengeId)
       ? this.props.results : null;
