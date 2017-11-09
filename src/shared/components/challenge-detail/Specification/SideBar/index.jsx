@@ -212,29 +212,6 @@ export default function SideBar({
             </div>
           </div>
         }
-        {
-          !isDesign &&
-          <div>
-            <h3>GET THE UML TOOL:</h3>
-            <ul>
-              <li>
-                <a href={config.URL.UML_TOOL.GITHUB}>
-                  Github source code repository
-                </a>
-              </li>
-              <li>
-                <a href={config.URL.UML_TOOL.MAC}>
-                  Mac disk image
-                </a>
-              </li>
-              <li>
-                <a href={config.URL.UML_TOOL.JAVA}>
-                  Java installer
-                </a>
-              </li>
-            </ul>
-          </div>
-        }
         { shareable && (
           <div>
             <h3>SHARE:</h3>
