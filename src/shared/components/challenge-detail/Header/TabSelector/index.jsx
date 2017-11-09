@@ -94,14 +94,18 @@ export default function ChallengeViewSelector(props) {
           >CHECKPOINTS ({checkpointCount})
           </a>
         }
-        <a
-          onClick={(e) => { handleSelectorClicked(e, DETAIL_TABS.SUBMISSIONS); }}
-          styleName={getSelectorStyle(
-            selectedView,
-            DETAIL_TABS.SUBMISSIONS,
-            trackLower,
-          )}
-        >SUBMISSIONS ({numSubmissions})</a>
+        {
+          numSubmissions ? (
+            <a
+              onClick={(e) => { handleSelectorClicked(e, DETAIL_TABS.SUBMISSIONS); }}
+              styleName={getSelectorStyle(
+                selectedView,
+                DETAIL_TABS.SUBMISSIONS,
+                trackLower,
+              )}
+            >SUBMISSIONS ({numSubmissions})</a>
+          ) : null
+        }
         {
           numWinners ? (
             <a
