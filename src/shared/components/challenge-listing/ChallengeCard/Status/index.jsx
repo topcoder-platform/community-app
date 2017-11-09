@@ -140,12 +140,17 @@ export default function ChallengeStatus(props) {
           </UserAvatarTooltip>
         </div>);
     });
+    let resultsLink = detailLink;
+    if (challenge.challengeType === 'Marathon') {
+      resultsLink = `${config.URL.COMMUNITY}/longcontest/?module=ViewStandings&rd=${_.get(challenge, 'rounds[0].id')}`;
+    }
+
     return leaderboard || (
       <Link
         onClick={() => (
           setImmediate(() => selectChallengeDetailsTab(DETAIL_TABS.SUBMISSIONS))
         )}
-        to={detailLink}
+        to={resultsLink}
       >Results</Link>
     );
   }

@@ -56,15 +56,18 @@ export function normalizeChallenge(challenge, username) {
  * @return {Object} Normalized challenge.
  */
 export function normalizeMarathonMatch(challenge, username) {
+  const startDate = _.get(challenge, 'rounds[0].codingStartAt') || challenge.startDate;
   const endDate = _.get(challenge, 'rounds[0].codingEndAt') || challenge.endDate;
   const endTimestamp = new Date(endDate).getTime();
   const status = endTimestamp > Date.now() ? 'Open' : 'Close';
   const allPhases = [{
+    actualStartTime: startDate,
     challengeId: challenge.id,
     phaseType: 'Registration',
     phaseStatus: status,
     scheduledEndTime: endDate,
   }, {
+    actualStartTime: startDate,
     challengeId: challenge.id,
     phaseType: 'Submission',
     phaseStatus: status,
@@ -102,6 +105,7 @@ export function normalizeMarathonMatch(challenge, username) {
   });
   /* eslint-disable no-param-reassign */
   challenge.endDate = endDate;
+  challenge.startDate = startDate;
   if (challenge.status === 'PAST') challenge.status = 'COMPLETED';
   /* eslint-enable no-param-reassign */
 }
