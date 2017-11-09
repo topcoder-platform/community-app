@@ -87,8 +87,8 @@ export function normalizeMarathonMatch(challenge, username) {
     communities: new Set([COMPETITION_TRACKS.DATA_SCIENCE]),
     currentPhaseName: endTimestamp > Date.now() ? 'Registration' : '',
     groups,
-    numRegistrants: challenge.numRegistrants ? challenge.numRegistrants[0] : 0,
-    numSubmissions: challenge.userIds ? challenge.userIds.length : 0,
+    numRegistrants: challenge.userIds ? challenge.userIds.length : 0,
+    numSubmissions: 0, // currently challenge doesn't return submission value
     platforms: '',
     prizes: [0],
     registrationOpen: endTimestamp > Date.now() &&
