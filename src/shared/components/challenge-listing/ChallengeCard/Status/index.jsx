@@ -4,7 +4,7 @@ import React from 'react';
 import PT from 'prop-types';
 import moment from 'moment';
 import LeaderboardAvatar from 'components/LeaderboardAvatar';
-import { Link } from 'react-router-dom';
+import { Link } from 'utils/router';
 import { DETAIL_TABS } from 'actions/challenge';
 import 'moment-duration-format';
 
@@ -295,10 +295,11 @@ export default function ChallengeStatus(props) {
   }
 
   const { challenge } = props;
-  const status = challenge.status === 'COMPLETED' ? 'completed' : '';
+  const completed = challenge.status === 'COMPLETED';
+  const status = completed ? 'completed' : '';
   return (
     <div styleName={`challenge-status ${status}`}>
-      {challenge.status === 'COMPLETED' ? completedChallenge() : activeChallenge()}
+      {completed ? completedChallenge() : activeChallenge()}
     </div>
   );
 }

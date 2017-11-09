@@ -56,12 +56,19 @@ export function normalizeChallenge(challenge, username) {
  * @return {Object} Normalized challenge.
  */
 export function normalizeMarathonMatch(challenge, username) {
-  const endTimestamp = new Date(challenge.endDate).getTime();
-  const allphases = [{
+  const endDate = _.get(challenge, 'rounds[0].codingEndAt') || challenge.endDate;
+  const endTimestamp = new Date(endDate).getTime();
+  const status = endTimestamp > Date.now() ? 'Open' : 'Close';
+  const allPhases = [{
     challengeId: challenge.id,
     phaseType: 'Registration',
-    phaseStatus: endTimestamp > Date.now() ? 'Open' : 'Close',
-    scheduledEndTime: challenge.endDate,
+    phaseStatus: status,
+    scheduledEndTime: endDate,
+  }, {
+    challengeId: challenge.id,
+    phaseType: 'Submission',
+    phaseStatus: status,
+    scheduledEndTime: endDate,
   }];
   const groups = {};
   if (challenge.groupIds) {
@@ -72,8 +79,8 @@ export function normalizeMarathonMatch(challenge, username) {
   _.defaults(challenge, {
     challengeCommunity: 'Data',
     challengeType: 'Marathon',
-    allPhases: allphases,
-    currentPhases: allphases.filter(phase => phase.phaseStatus === 'Open'),
+    allPhases,
+    currentPhases: allPhases.filter(phase => phase.phaseStatus === 'Open'),
     communities: new Set([COMPETITION_TRACKS.DATA_SCIENCE]),
     currentPhaseName: endTimestamp > Date.now() ? 'Registration' : '',
     groups,
@@ -93,6 +100,10 @@ export function normalizeMarathonMatch(challenge, username) {
     subTrack: 'MARATHON_MATCH',
     users: username ? { username: true } : {},
   });
+  /* eslint-disable no-param-reassign */
+  challenge.endDate = endDate;
+  if (challenge.status === 'PAST') challenge.status = 'COMPLETED';
+  /* eslint-enable no-param-reassign */
 }
 
 class ChallengesService {
