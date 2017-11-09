@@ -26,7 +26,7 @@ import sidebarActions from 'actions/challenge-listing/sidebar';
 import communityActions from 'actions/tc-communities';
 import { BUCKETS } from 'utils/challenge-listing/buckets';
 import { combine, mapToBackend } from 'utils/challenge-listing/filter';
-import { Helmet } from 'react-helmet';
+import MetaTags from 'utils/MetaTags';
 import ogImage from '../../../../assets/images/og_image.jpg';
 import style from './styles.scss';
 
@@ -161,25 +161,14 @@ export class ListingContainer extends React.Component {
 
     const description = 'Join Topcoder and compete in these challenges, to learn and earn!';
 
-    let ogImageFixed = ogImage;
-    if (!ogImage.startsWith('/community-app-assets')) {
-      ogImageFixed = `/community-app-assets${ogImage}`;
-    }
-
     return (
       <div styleName="container">
-        <Helmet>
-          <title>{this.props.communityId ? `${this.props.communityName} Challenges` : SEO_PAGE_TITLE}</title>
-          <meta name="description" content={description} />
-
-          <meta property="og:title" content={this.props.communityId ? `${this.props.communityName} Challenges` : SEO_PAGE_TITLE} />
-          <meta property="og:description" content={description} />
-          <meta property="og:image" content={`${domain}${ogImageFixed}`} />
-          <meta property="og:image:type" content="images/jpg" />
-          <meta property="og:image:width" content="640" />
-          <meta property="og:image:height" content="480" />
-          <meta property="og:image:alt" content="Topcoder" />
-        </Helmet>
+        <MetaTags
+          description={description}
+          image={`${domain}${ogImage}`}
+          siteName="Topcoder"
+          title={this.props.communityId ? `${this.props.communityName} Challenges` : SEO_PAGE_TITLE}
+        />
         { /* TODO: This banner should be moved out of here! */ }
         { !listingOnly ? (
           <Banner

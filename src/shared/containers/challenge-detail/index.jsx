@@ -24,8 +24,8 @@ import PT from 'prop-types';
 import { connect } from 'react-redux';
 import challengeActions, { DETAIL_TABS } from 'actions/challenge';
 import config from 'utils/config';
+import MetaTags from 'utils/MetaTags';
 import { BUCKETS } from 'utils/challenge-listing/buckets';
-import { Helmet } from 'react-helmet';
 import ogImage from '../../../assets/images/og_image.jpg';
 import './styles.scss';
 
@@ -118,16 +118,17 @@ class ChallengeDetailPageContainer extends React.Component {
       openTermsModal,
     } = this.props;
 
+    /* Generation of data for SEO meta-tags. */
     let prizesStr;
     if (challenge.prizes && challenge.prizes.length) {
       prizesStr = challenge.prizes.map(p => `$${p}`).join('/');
       prizesStr = `[${prizesStr}] - `;
     }
+    const title = challenge.name;
 
-    let description = htmlToText.fromString((challenge.introduction || challenge.detailedRequirements || '').slice(0, 160), {
-      wordwrap: false,
-    }).slice(0, 150);
-    description = `${description}...`;
+    let description = challenge.introduction || challenge.detailedRequirements;
+    description = description ? description.slice(0, 256) : '';
+    description = htmlToText.fromString(description, { wordwrap: false });
 
     const results = resultsLoadedForChallengeId === _.toString(challengeId)
       ? this.props.results : null;
@@ -145,11 +146,6 @@ class ChallengeDetailPageContainer extends React.Component {
     const numWinners = (challenge.winners && challenge.winners.filter(winner =>
       winner.type === 'final').length) || 0;
 
-    let ogImageFixed = ogImage;
-    if (!ogImage.startsWith('/community-app-assets')) {
-      ogImageFixed = `/community-app-assets${ogImage}`;
-    }
-
     return (
       <div styleName="outer-container">
         <div styleName="challenge-detail-container">
@@ -160,21 +156,14 @@ class ChallengeDetailPageContainer extends React.Component {
           )}
           {
             !isEmpty &&
-            <Helmet>
-              <title>{prizesStr}{challenge.name} - Topcoder</title>
-              <meta name="description" content={description} />
-
-              <meta property="og:title" content={`${prizesStr}${challenge.name} - Topcoder`} />
-              <meta property="og:description" content={description} />
-              <meta property="og:image" content={`${domain}${ogImageFixed}`} />
-              <meta property="og:image:type" content="images/jpg" />
-              <meta property="og:image:width" content="640" />
-              <meta property="og:image:height" content="480" />
-              <meta property="og:image:alt" content="Topcoder" />
-
-              <meta name="twitter:label1" value="Technologies" />
-              <meta name="twitter:data1" value={challenge.technologies} />
-            </Helmet>
+            <MetaTags
+              description={description.slice(0, 155)}
+              image={`${domain}${ogImage}`}
+              siteName="Topcoder"
+              socialDescription={description.slice(0, 200)}
+              socialTitle={`${prizesStr}${title}`}
+              title={title}
+            />
           }
           {
             !isEmpty &&

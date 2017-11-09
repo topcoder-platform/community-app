@@ -64,7 +64,7 @@
     }],
     ["transform-assets", {
       "extensions": ["gif", "jpeg", "jpg", "png"],
-      "name": "/images/[hash].[ext]"
+      "name": "/community-app-assets/images/[hash].[ext]"
     }],
     "transform-runtime"
   ]
