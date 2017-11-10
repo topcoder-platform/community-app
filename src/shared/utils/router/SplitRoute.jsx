@@ -19,7 +19,13 @@ import { isServerSide } from 'utils/isomorphy';
 
 import ContentWrapper from './ContentWrapper';
 
+/* Specifies the maximal number of unused CSS stylesheets to be kept in memory.
+ */
+const MAX_UNUSED_STYLESHEETS = 10;
+
 const TMP_CHUNK_PREFIX = 'community-app-assets';
+
+let unusedCssStamp = 0;
 
 export default class SplitRoute extends React.Component {
   constructor(props) {
@@ -32,15 +38,12 @@ export default class SplitRoute extends React.Component {
   }
 
   reset() {
-    /* Removing chunk's stylesheet from the DOM. */
-    /* NOTE: It look like caching CSS makes no sense, as it starts conflicting
-     * with other stylesheets. */
-    // if (!this.props.cacheCss) {
+    /* Marking chunk's stylesheet as unused.
+     * This works properly only when styling does not depend on the ordering
+     * of loaded stylesheets, which is how our CSS should be written. */
     const link = document.querySelector(
       `link[data-chunk="${TMP_CHUNK_PREFIX}/${this.props.chunkName}"]`);
-    const head = document.getElementsByTagName('head')[0];
-    head.removeChild(link);
-    // }
+    link.setAttribute('data-chunk-unused', unusedCssStamp += 1);
 
     /* Reset to the initial state. */
     this.setState({ component: null });
@@ -144,14 +147,8 @@ export default class SplitRoute extends React.Component {
             let link =
               document.querySelector(`link[data-chunk="${TMP_CHUNK_PREFIX}/${chunkName}"]`);
             if (link) {
-              /* Even if the stylesheet is already loaded, we should move it
-               * to the end of the head, to ensure that it gets priority over
-               * anything else.
-               * On the other hand, if we drop cacheCss option, this should not
-               * be a problem, and can be more efficient.
-               */
-              // const head = document.getElementsByTagName('head')[0];
-              // head.appendChild(link);
+              /* Marking the chunk being used again. */
+              link.removeAttribute('data-chunk-unused');
             } else {
               link = document.createElement('link');
               link.setAttribute('data-chunk', `${TMP_CHUNK_PREFIX}/${chunkName}`);
@@ -159,6 +156,22 @@ export default class SplitRoute extends React.Component {
               link.setAttribute('rel', 'stylesheet');
               const head = document.getElementsByTagName('head')[0];
               head.appendChild(link);
+
+              /* Unloads unused CSS stylesheets, if too many of them are
+               * loaded. */
+              const unused = head.querySelectorAll('link[data-chunk-unused]');
+              if (unused.length > MAX_UNUSED_STYLESHEETS) {
+                const arr = [];
+                unused.forEach((x) => {
+                  /* eslint-disable no-param-reassign */
+                  x.chunkOrder = Number(x.getAttribute('data-chunk-unused'));
+                  /* eslint-enable no-param-reassign */
+                  arr.push(x);
+                });
+                arr.sort((a, b) => a.chunkOrder - b.chunkOrder);
+                arr.slice(0, unused.length - MAX_UNUSED_STYLESHEETS)
+                  .forEach(x => head.removeChild(x));
+              }
             }
 
             /* Checking, whether we need to trigger async rendering process,
