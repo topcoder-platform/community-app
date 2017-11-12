@@ -38,9 +38,9 @@ Card.defaultProps = {
 
 Card.propTypes = {
   fullWidth: PT.bool,
-  item: {
+  item: PT.shape({
     'content:encoded': PT.string.isRequired,
     link: PT.string.isRequired,
     title: PT.string.isRequired,
-  }.isRequired,
+  }).isRequired,
 };

@@ -6,7 +6,6 @@
  */
 /* eslint-disable max-len */
 
-import LoadingIndicator from 'components/LoadingIndicator';
 import PT from 'prop-types';
 import React from 'react';
 
@@ -225,13 +224,7 @@ export default function Learn({
           </ul>
         </ArticleCard>
       </Section>
-
-      {
-        consenSysRss && consenSysRss.data ? (
-          <ConsenSysAtMedium consenSysRss={consenSysRss} />
-        ) : <LoadingIndicator />
-      }
-
+      <ConsenSysAtMedium consenSysRss={consenSysRss} />
       <Section
         title="More Resources"
         theme={{
