@@ -6,6 +6,7 @@
  */
 /* eslint-disable max-len */
 
+import PT from 'prop-types';
 import React from 'react';
 import JoinCommunity from 'containers/tc-communities/JoinCommunity';
 import Section from 'components/tc-communities/Section';
@@ -17,9 +18,12 @@ import ArticleCard from 'components/tc-communities/ArticleCard2';
 import LinksCard from 'components/tc-communities/LinksCard';
 import Text from 'components/tc-communities/Text';
 
+import ConsenSysAtMedium from './ConsenSysAtMedium';
 import style from './style.scss';
 
-export default function Learn() {
+export default function Learn({
+  consenSysRss,
+}) {
   return (
     <main>
 
@@ -85,36 +89,6 @@ export default function Learn() {
               </p>
             </Text>
           </AccordionItem>
-          <AccordionItem title="Managing your Certifications">
-            <Text>
-              <p>
-                Nam dapibus nisl vitae elit fringilla rutrum. Aenean sollicitudin, erat a elementum rutrum, neque sem pretium metus, quis mollis nisl nunc et massa. Vestibulum sed metus in lorem tristique ullamcorper id vitae erat. Nulla mollis sapien sollicitudin lacinia lacinia. Vivamus facilisis dolor et massa placerat, at vestibulum nisl egestas. Nullam rhoncus lacus non odio luctus, eu condimentum mauris ultrices. Praesent blandit, augue a posuere aliquam, arcu tortor feugiat turpis,
-              </p>
-              <p>
-                Nam dapibus nisl vitae elit fringilla rutrum. Aenean sollicitudin, erat a elementum rutrum, neque sem pretium metus, quis mollis nisl nunc et massa. Vestibulum sed metus in lorem tristique ullamcorper id vitae erat. Nulla mollis sapien sollicitudin lacinia lacinia. Vivamus facilisis dolor et massa placerat, at vestibulum nisl egestas. Nullam rhoncus lacus non odio luctus, eu condimentum mauris ultrices. Praesent blandit, augue a posuere aliquam, arcu tortor feugiat turpis,
-              </p>
-            </Text>
-          </AccordionItem>
-          <AccordionItem title="Managing your Badges">
-            <Text>
-              <p>
-                Nam dapibus nisl vitae elit fringilla rutrum. Aenean sollicitudin, erat a elementum rutrum, neque sem pretium metus, quis mollis nisl nunc et massa. Vestibulum sed metus in lorem tristique ullamcorper id vitae erat. Nulla mollis sapien sollicitudin lacinia lacinia. Vivamus facilisis dolor et massa placerat, at vestibulum nisl egestas. Nullam rhoncus lacus non odio luctus, eu condimentum mauris ultrices. Praesent blandit, augue a posuere aliquam, arcu tortor feugiat turpis,
-              </p>
-              <p>
-                Nam dapibus nisl vitae elit fringilla rutrum. Aenean sollicitudin, erat a elementum rutrum, neque sem pretium metus, quis mollis nisl nunc et massa. Vestibulum sed metus in lorem tristique ullamcorper id vitae erat. Nulla mollis sapien sollicitudin lacinia lacinia. Vivamus facilisis dolor et massa placerat, at vestibulum nisl egestas. Nullam rhoncus lacus non odio luctus, eu condimentum mauris ultrices. Praesent blandit, augue a posuere aliquam, arcu tortor feugiat turpis,
-              </p>
-            </Text>
-          </AccordionItem>
-          <AccordionItem title="Updating your Profile">
-            <Text>
-              <p>
-                Nam dapibus nisl vitae elit fringilla rutrum. Aenean sollicitudin, erat a elementum rutrum, neque sem pretium metus, quis mollis nisl nunc et massa. Vestibulum sed metus in lorem tristique ullamcorper id vitae erat. Nulla mollis sapien sollicitudin lacinia lacinia. Vivamus facilisis dolor et massa placerat, at vestibulum nisl egestas. Nullam rhoncus lacus non odio luctus, eu condimentum mauris ultrices. Praesent blandit, augue a posuere aliquam, arcu tortor feugiat turpis,
-              </p>
-              <p>
-                Nam dapibus nisl vitae elit fringilla rutrum. Aenean sollicitudin, erat a elementum rutrum, neque sem pretium metus, quis mollis nisl nunc et massa. Vestibulum sed metus in lorem tristique ullamcorper id vitae erat. Nulla mollis sapien sollicitudin lacinia lacinia. Vivamus facilisis dolor et massa placerat, at vestibulum nisl egestas. Nullam rhoncus lacus non odio luctus, eu condimentum mauris ultrices. Praesent blandit, augue a posuere aliquam, arcu tortor feugiat turpis,
-              </p>
-            </Text>
-          </AccordionItem>
         </Accordion>
       </Section>
       <Section
@@ -127,15 +101,15 @@ export default function Learn() {
         <div styleName="historyOfBlockchainVideoWrapper">
           <iframe
             styleName="historyOfBlockchainVideo"
-            src="https://www.youtube.com/embed/TDGq4aeevgY"
-            title="Vitalik Buterin explains Ethereum"
+            src="https://www.youtube.com/embed/j23HnORQXvs"
+            title="Ethereum: the World Computer"
           />
         </div>
         <div styleName="historyOfBlockchainVideoWrapper">
           <iframe
             styleName="historyOfBlockchainVideo"
-            src="https://www.youtube.com/embed/j23HnORQXvs"
-            title="Ethereum: the World Computer"
+            src="https://www.youtube.com/embed/TDGq4aeevgY"
+            title="Vitalik Buterin explains Ethereum"
           />
         </div>
         <ArticleCard
@@ -250,6 +224,12 @@ export default function Learn() {
         </ArticleCard>
       </Section>
 
+      {
+        consenSysRss && consenSysRss.data ? (
+          <ConsenSysAtMedium consenSysRss={consenSysRss} />
+        ) : null
+      }
+
       <Section
         title="More Resources"
         theme={{
@@ -307,3 +287,11 @@ export default function Learn() {
     </main>
   );
 }
+
+Learn.defaultProps = {
+  consenSysRss: null,
+};
+
+Learn.propTypes = {
+  consenSysRss: PT.shape(),
+};
