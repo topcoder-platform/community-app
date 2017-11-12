@@ -6,8 +6,10 @@
  */
 /* eslint-disable max-len */
 
+import LoadingIndicator from 'components/LoadingIndicator';
 import PT from 'prop-types';
 import React from 'react';
+
 import JoinCommunity from 'containers/tc-communities/JoinCommunity';
 import Section from 'components/tc-communities/Section';
 import Accordion from 'components/tc-communities/Accordion/Accordion';
@@ -227,7 +229,7 @@ export default function Learn({
       {
         consenSysRss && consenSysRss.data ? (
           <ConsenSysAtMedium consenSysRss={consenSysRss} />
-        ) : null
+        ) : <LoadingIndicator />
       }
 
       <Section
