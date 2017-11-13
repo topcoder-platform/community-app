@@ -33,6 +33,7 @@ export default function SubmissionManagement(props) {
     onShowDetails,
     challengeUrl,
     onlineReviewUrl,
+    submissionPhaseStartDate,
   } = props;
 
   const challengeType = challenge.track.toLowerCase();
@@ -108,6 +109,7 @@ export default function SubmissionManagement(props) {
             showDetails={showDetails}
             type={challenge.track}
             status={challenge.status}
+            submissionPhaseStartDate={submissionPhaseStartDate}
             {...componentConfig}
           />
         }
@@ -150,4 +152,5 @@ SubmissionManagement.propTypes = {
   submissions: PT.arrayOf(PT.shape()).isRequired,
   loadingSubmissions: PT.bool,
   challengeUrl: PT.string,
+  submissionPhaseStartDate: PT.string.isRequired,
 };

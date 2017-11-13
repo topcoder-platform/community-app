@@ -90,7 +90,14 @@ export default function ChallengeHeader(props) {
     bonusType = 'Reliability Bonus';
   }
 
-  const hasSubmissions = userDetails && userDetails.hasUserSubmittedForReview;
+  /* userDetails.hasUserSubmittedForReview does not reset to false
+   * if the user has deleted all of their submissions, so we have to
+   * iterate through all their submissions and ensure that all of them
+   * are Deleted
+  */
+  const hasSubmissions = userDetails && userDetails.submissions.reduce(
+    (acc, submission) => acc || submission.status !== 'Deleted', false);
+
   const nextPhase =
     (currentPhases && currentPhases[hasRegistered ? 1 : 0]) || {};
   const nextDeadline = nextPhase.phaseType;

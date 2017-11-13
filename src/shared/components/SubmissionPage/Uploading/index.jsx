@@ -58,14 +58,20 @@ const Uploading = ({
           <RobotSad />
       }
       {
-        isSubmitting && !submitDone &&
-          <p styleName="submitting">Uploaded: {(100 * uploadProgress).toFixed()}%</p>
-      }
-      {
         isSubmitting &&
           <p>Hey, your work is AWESOME! Please don&#39;t close this window while I&#39;m
             working, you&#39;ll lose all files!
           </p>
+      }
+      {
+        isSubmitting && !submitDone &&
+        <div styleName="progress-container">
+          <div styleName="progress-bar" style={{ width: `${(100 * uploadProgress).toFixed()}%` }} />
+        </div>
+      }
+      {
+        isSubmitting && !submitDone &&
+          <p styleName="submitting">Uploaded: {(100 * uploadProgress).toFixed()}%</p>
       }
       {
         error &&

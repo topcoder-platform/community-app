@@ -33,7 +33,6 @@ class SubmissionManagementPageContainer extends React.Component {
       loadMySubmissions,
     } = this.props;
 
-
     if (!challenge
       || (_.toString(challenge.id) !== _.toString(challengeId))) {
       loadChallengeDetails(authTokens, challengeId);
@@ -49,6 +48,7 @@ class SubmissionManagementPageContainer extends React.Component {
       challenge,
       challengesUrl,
       loadingSubmissionsForChallengeId,
+      submissionPhaseStartDate,
     } = this.props;
 
     if (challenge.track !== 'DESIGN') return <Error404 />;
@@ -75,6 +75,7 @@ class SubmissionManagementPageContainer extends React.Component {
               loadingSubmissions={Boolean(loadingSubmissionsForChallengeId)}
               submissions={this.props.mySubmissions}
               showDetails={this.props.showDetails}
+              submissionPhaseStartDate={submissionPhaseStartDate}
               {...smConfig}
             />}
           {this.props.isLoadingChallenge && <LoadingIndicator />}
@@ -156,6 +157,7 @@ SubmissionManagementPageContainer.propTypes = {
   onCancelSubmissionDelete: PT.func.isRequired,
   toBeDeletedId: PT.number,
   onSubmissionDeleteConfirmed: PT.func.isRequired,
+  submissionPhaseStartDate: PT.string.isRequired,
 };
 
 function mapStateToProps(state, props) {
@@ -164,6 +166,9 @@ function mapStateToProps(state, props) {
   let mySubmissions = state.challenge.mySubmissions;
   mySubmissions = challengeId === mySubmissions.challengeId
     ? mySubmissions.v2 : null;
+
+  const submissionPhase = state.challenge.details.allPhases.find(phase =>
+    ['Submission', 'Checkpoint Submission'].includes(phase.phaseType) && phase.phaseStatus === 'Open');
 
   return {
     challengeId: Number(challengeId),
@@ -177,6 +182,8 @@ function mapStateToProps(state, props) {
     loadingSubmissionsForChallengeId:
       state.challenge.loadingSubmissionsForChallengeId,
     mySubmissions,
+
+    submissionPhaseStartDate: submissionPhase.actualStartTime || submissionPhase.scheduledStartTime || '',
 
     showDetails: new Set(state.challenge.mySubmissionsManagement.showDetails),
 
