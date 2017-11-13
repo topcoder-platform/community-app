@@ -5,7 +5,7 @@ import React from 'react';
 import Section from 'components/tc-communities/Section';
 import Text from 'components/tc-communities/Text';
 
-import style from './style.scss'
+import style from './style.scss';
 
 export default function LearnTheBasics() {
   return (
@@ -36,30 +36,72 @@ export default function LearnTheBasics() {
         <AccordionItem title="How to sign up for work">
           <Text>
             <p>
-              Nam dapibus nisl vitae elit fringilla rutrum. Aenean sollicitudin, erat a elementum rutrum, neque sem pretium metus, quis mollis nisl nunc et massa. Vestibulum sed metus in lorem tristique ullamcorper id vitae erat. Nulla mollis sapien sollicitudin lacinia lacinia. Vivamus facilisis dolor et massa placerat, at vestibulum nisl egestas. Nullam rhoncus lacus non odio luctus, eu condimentum mauris ultrices. Praesent blandit, augue a posuere aliquam, arcu tortor feugiat turpis,
+              Nam dapibus nisl vitae elit fringilla rutrum. Aenean sollicitudin,
+              erat a elementum rutrum, neque sem pretium metus, quis mollis
+              nisl nunc et massa. Vestibulum sed metus in lorem tristique
+              ullamcorper id vitae erat. Nulla mollis sapien sollicitudin
+              lacinia lacinia. Vivamus facilisis dolor et massa placerat, at
+              vestibulum nisl egestas. Nullam rhoncus lacus non odio luctus, eu
+              condimentum mauris ultrices. Praesent blandit, augue a posuere
+              aliquam, arcu tortor feugiat turpis,
             </p>
             <p>
-              Nam dapibus nisl vitae elit fringilla rutrum. Aenean sollicitudin, erat a elementum rutrum, neque sem pretium metus, quis mollis nisl nunc et massa. Vestibulum sed metus in lorem tristique ullamcorper id vitae erat. Nulla mollis sapien sollicitudin lacinia lacinia. Vivamus facilisis dolor et massa placerat, at vestibulum nisl egestas. Nullam rhoncus lacus non odio luctus, eu condimentum mauris ultrices. Praesent blandit, augue a posuere aliquam, arcu tortor feugiat turpis,
+              Nam dapibus nisl vitae elit fringilla rutrum. Aenean sollicitudin,
+              erat a elementum rutrum, neque sem pretium metus, quis mollis
+              nisl nunc et massa. Vestibulum sed metus in lorem tristique
+              ullamcorper id vitae erat. Nulla mollis sapien sollicitudin
+              lacinia lacinia. Vivamus facilisis dolor et massa placerat, at
+              vestibulum nisl egestas. Nullam rhoncus lacus non odio luctus, eu
+              condimentum mauris ultrices. Praesent blandit, augue a posuere
+              aliquam, arcu tortor feugiat turpis,
             </p>
           </Text>
         </AccordionItem>
         <AccordionItem title="How to compete for work">
           <Text>
             <p>
-              Nam dapibus nisl vitae elit fringilla rutrum. Aenean sollicitudin, erat a elementum rutrum, neque sem pretium metus, quis mollis nisl nunc et massa. Vestibulum sed metus in lorem tristique ullamcorper id vitae erat. Nulla mollis sapien sollicitudin lacinia lacinia. Vivamus facilisis dolor et massa placerat, at vestibulum nisl egestas. Nullam rhoncus lacus non odio luctus, eu condimentum mauris ultrices. Praesent blandit, augue a posuere aliquam, arcu tortor feugiat turpis,
+              Nam dapibus nisl vitae elit fringilla rutrum. Aenean sollicitudin,
+              erat a elementum rutrum, neque sem pretium metus, quis mollis
+              nisl nunc et massa. Vestibulum sed metus in lorem tristique
+              ullamcorper id vitae erat. Nulla mollis sapien sollicitudin
+              lacinia lacinia. Vivamus facilisis dolor et massa placerat, at
+              vestibulum nisl egestas. Nullam rhoncus lacus non odio luctus, eu
+              condimentum mauris ultrices. Praesent blandit, augue a posuere
+              aliquam, arcu tortor feugiat turpis,
             </p>
             <p>
-              Nam dapibus nisl vitae elit fringilla rutrum. Aenean sollicitudin, erat a elementum rutrum, neque sem pretium metus, quis mollis nisl nunc et massa. Vestibulum sed metus in lorem tristique ullamcorper id vitae erat. Nulla mollis sapien sollicitudin lacinia lacinia. Vivamus facilisis dolor et massa placerat, at vestibulum nisl egestas. Nullam rhoncus lacus non odio luctus, eu condimentum mauris ultrices. Praesent blandit, augue a posuere aliquam, arcu tortor feugiat turpis,
+              Nam dapibus nisl vitae elit fringilla rutrum. Aenean sollicitudin,
+              erat a elementum rutrum, neque sem pretium metus, quis mollis
+              nisl nunc et massa. Vestibulum sed metus in lorem tristique
+              ullamcorper id vitae erat. Nulla mollis sapien sollicitudin
+              lacinia lacinia. Vivamus facilisis dolor et massa placerat, at
+              vestibulum nisl egestas. Nullam rhoncus lacus non odio luctus, eu
+              condimentum mauris ultrices. Praesent blandit, augue a posuere
+              aliquam, arcu tortor feugiat turpis,
             </p>
           </Text>
         </AccordionItem>
         <AccordionItem title="Payment & Rewards">
           <Text>
             <p>
-              Nam dapibus nisl vitae elit fringilla rutrum. Aenean sollicitudin, erat a elementum rutrum, neque sem pretium metus, quis mollis nisl nunc et massa. Vestibulum sed metus in lorem tristique ullamcorper id vitae erat. Nulla mollis sapien sollicitudin lacinia lacinia. Vivamus facilisis dolor et massa placerat, at vestibulum nisl egestas. Nullam rhoncus lacus non odio luctus, eu condimentum mauris ultrices. Praesent blandit, augue a posuere aliquam, arcu tortor feugiat turpis,
+              Nam dapibus nisl vitae elit fringilla rutrum. Aenean sollicitudin,
+              erat a elementum rutrum, neque sem pretium metus, quis mollis
+              nisl nunc et massa. Vestibulum sed metus in lorem tristique
+              ullamcorper id vitae erat. Nulla mollis sapien sollicitudin
+              lacinia lacinia. Vivamus facilisis dolor et massa placerat, at
+              vestibulum nisl egestas. Nullam rhoncus lacus non odio luctus, eu
+              condimentum mauris ultrices. Praesent blandit, augue a posuere
+              aliquam, arcu tortor feugiat turpis,
             </p>
             <p>
-              Nam dapibus nisl vitae elit fringilla rutrum. Aenean sollicitudin, erat a elementum rutrum, neque sem pretium metus, quis mollis nisl nunc et massa. Vestibulum sed metus in lorem tristique ullamcorper id vitae erat. Nulla mollis sapien sollicitudin lacinia lacinia. Vivamus facilisis dolor et massa placerat, at vestibulum nisl egestas. Nullam rhoncus lacus non odio luctus, eu condimentum mauris ultrices. Praesent blandit, augue a posuere aliquam, arcu tortor feugiat turpis,
+              Nam dapibus nisl vitae elit fringilla rutrum. Aenean sollicitudin,
+              erat a elementum rutrum, neque sem pretium metus, quis mollis
+              nisl nunc et massa. Vestibulum sed metus in lorem tristique
+              ullamcorper id vitae erat. Nulla mollis sapien sollicitudin
+              lacinia lacinia. Vivamus facilisis dolor et massa placerat, at
+              vestibulum nisl egestas. Nullam rhoncus lacus non odio luctus, eu
+              condimentum mauris ultrices. Praesent blandit, augue a posuere
+              aliquam, arcu tortor feugiat turpis,
             </p>
           </Text>
         </AccordionItem>

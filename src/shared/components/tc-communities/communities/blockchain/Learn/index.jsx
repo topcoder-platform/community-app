@@ -4,7 +4,6 @@
  * It hardcodes data which is passed to dummy components,
  * thus we disable max-len eslint rule for this file
  */
-/* eslint-disable max-len */
 
 import PT from 'prop-types';
 import React from 'react';
