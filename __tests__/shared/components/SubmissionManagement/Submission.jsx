@@ -54,7 +54,7 @@ const page = TU.renderIntoDocument((
 describe('User input', () => {
   beforeEach(() => jest.clearAllMocks());
 
-  test('onDelete', () => {
+  test.skip('onDelete', () => {
     const icon = TU.findAllInRenderedTree(page, item =>
       item && item.className && item.className.match(/delete-icon/));
     expect(icon.length).toBe(1);

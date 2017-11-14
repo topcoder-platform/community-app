@@ -25,9 +25,5 @@
     "COGNITIVE": "https://cognitive.topcoder.com",
     "TCO17": "https://tco17.topcoder.com/",
     "COMMUNITY_API": "http://localhost:8000"
-  },
-    "FILESTACK": {
-      "API_KEY": "",
-      "SUBMISSION_CONTAINER": "",
-    },
+  }
 }

@@ -65,6 +65,7 @@ exports[`Matches shallow shapshot 1`] = `
       showDetails={Array []}
       status={undefined}
       submissionObjects={Array []}
+      submissionPhaseStartDate={undefined}
       type="Challenge Track"
     />
   </div>
