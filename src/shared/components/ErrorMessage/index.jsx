@@ -50,12 +50,13 @@ class ErrorMessage extends React.Component {
   }
 }
 
-/**
- * Prop Validation
- */
+ErrorMessage.defaultProps = {
+  details: '',
+};
+
 ErrorMessage.propTypes = {
   title: PT.string.isRequired,
-  details: PT.string.isRequired,
+  details: PT.string,
   onOk: PT.func.isRequired,
 };
 

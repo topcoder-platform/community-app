@@ -74,8 +74,8 @@ class Loader extends React.Component {
 
     const visitorGroupIds = visitorGroups ? visitorGroups.map(g => g.id) : [];
 
-    const member = visitorGroups && meta.groupIds
-      && Boolean(_.intersection(meta.groupIds, visitorGroupIds.length));
+    const member = Boolean(visitorGroups && meta.groupIds
+      && _.intersection(meta.groupIds, visitorGroupIds).length);
 
     /* Community does not require authorization. */
     if (!meta.authorizedGroupIds) return Community({ member, meta });

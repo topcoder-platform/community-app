@@ -12,6 +12,8 @@ import { combine, toFSA } from 'utils/redux';
 import { getAuthTokens } from 'utils/tc';
 import { updateQuery } from 'utils/url';
 
+import { fireErrorMessage } from 'utils/errors';
+
 import mySubmissionsManagement from './my-submissions-management';
 
 /**
@@ -201,6 +203,7 @@ function onToggleCheckpointFeedback(state, action) {
 function onRegisterDone(state, action) {
   if (action.error) {
     logger.error('Failed to register for the challenge!', action.payload);
+    fireErrorMessage('ERROR: Failed to register for the challenge!');
     return { ...state, registering: false };
   }
   /* As a part of registration flow we silently update challenge details,
@@ -222,6 +225,7 @@ function onRegisterDone(state, action) {
 function onUnregisterDone(state, action) {
   if (action.error) {
     logger.error('Failed to register for the challenge!', action.payload);
+    fireErrorMessage('ERROR: Failed to unregister for the challenge!');
     return { ...state, unregistering: false };
   }
   /* As a part of unregistration flow we silently update challenge details,
