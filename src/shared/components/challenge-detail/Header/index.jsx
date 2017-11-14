@@ -95,7 +95,7 @@ export default function ChallengeHeader(props) {
    * iterate through all their submissions and ensure that all of them
    * are Deleted
   */
-  const hasSubmissions = userDetails && userDetails.submissions.reduce(
+  const hasSubmissions = userDetails && (userDetails.submissions || []).reduce(
     (acc, submission) => acc || submission.status !== 'Deleted', false);
 
   const nextPhase =
