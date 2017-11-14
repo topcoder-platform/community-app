@@ -3,6 +3,7 @@
  */
 
 import actions from 'actions/auth';
+import communityActions from 'actions/tc-communities';
 import { handleActions } from 'redux-actions';
 import { decodeToken } from 'tc-accounts';
 import { toFSA } from 'utils/redux';
@@ -37,6 +38,13 @@ function create(initialState) {
       ...state,
       tokenV3: payload,
       user: payload ? decodeToken(payload) : null,
+    }),
+    [communityActions.tcCommunity.joinDone]: (state, { payload }) => ({
+      ...state,
+      profile: {
+        ...state.profile,
+        groups: state.profile.groups.concat({ id: payload.groupId.toString() }),
+      },
     }),
   }, initialState || {
     authenticating: true,

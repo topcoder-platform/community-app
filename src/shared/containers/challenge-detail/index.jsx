@@ -146,9 +146,7 @@ class ChallengeDetailPageContainer extends React.Component {
     if (this.props.isLoadingChallenge || this.props.isLoadingTerms) {
       return <LoadingPagePlaceholder />;
     }
-
-    const numWinners = (challenge.winners && challenge.winners.filter(winner =>
-      winner.type === 'final').length) || 0;
+    const winners = challenge.winners || [];
 
     return (
       <div styleName="outer-container">
@@ -175,7 +173,7 @@ class ChallengeDetailPageContainer extends React.Component {
               challenge={challenge}
               challengeId={this.props.challengeId}
               challengesUrl={challengesUrl}
-              numWinners={numWinners}
+              numWinners={winners.length}
               showDeadlineDetail={this.state.showDeadlineDetail}
               onToggleDeadlines={this.onToggleDeadlines}
               onSelectorClicked={this.props.onSelectorClicked}
@@ -235,7 +233,7 @@ class ChallengeDetailPageContainer extends React.Component {
           {
             !isEmpty && this.props.selectedTab === DETAIL_TABS.WINNERS &&
             <Winners
-              results={results}
+              winners={winners}
               prizes={this.props.challenge.prizes}
               submissions={this.props.challenge.submissions}
               viewable={this.props.challenge.submissionsViewable === 'true'}

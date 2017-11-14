@@ -13,27 +13,18 @@ import Lock from '../icons/lock.svg';
 import './style.scss';
 
 function getId(submissions, winner) {
-  const found = _.find(submissions, s => ((s.submitter || s.handle) === winner.handle &&
-    (s.submissionTime || s.submissionDate) === winner.submissionDate)) || {};
+  const found = _.find(submissions, s => (s.placement === winner.placement)) || {};
   return found.submissionId;
 }
 
 export default function Winners(props) {
   const {
-    results,
+    winners,
     prizes,
     submissions,
     viewable,
     isDesign,
   } = props;
-
-  const maxPlace = Number.MAX_SAFE_INTEGER;
-  if (results) {
-    results.sort((a, b) => (_.isNumber(a.placement) ? a.placement : maxPlace) -
-      (_.isNumber(b.placement) ? b.placement : maxPlace));
-  }
-
-  const winners = results && results.slice(0, prizes.length);
 
   return (
     <div styleName="container">
@@ -99,7 +90,7 @@ export default function Winners(props) {
 }
 
 Winners.defaultProps = {
-  results: [],
+  winners: [],
   prizes: [],
   submissions: [],
   viewable: false,
@@ -107,7 +98,7 @@ Winners.defaultProps = {
 };
 
 Winners.propTypes = {
-  results: PT.arrayOf(PT.shape()),
+  winners: PT.arrayOf(PT.shape()),
   prizes: PT.arrayOf(PT.number),
   submissions: PT.arrayOf(PT.shape()),
   viewable: PT.bool,

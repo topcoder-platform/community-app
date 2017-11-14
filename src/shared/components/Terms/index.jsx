@@ -148,7 +148,7 @@ export default class Terms extends React.Component {
     };
 
     return (
-      <div styleName="container">
+      <div styleName="container" key={(selectedTerm || {}).termsOfUseId}>
         <Modal
           onCancel={onCancel}
           theme={{ container: style['modal-container'] }}

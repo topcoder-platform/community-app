@@ -12,6 +12,7 @@ import { requireWeak, resolveWeak, SplitRoute } from 'utils/router';
 export default function ChunkLoader({ base, communityId, member, meta }) {
   return (
     <SplitRoute
+      key={member}
       chunkName="communities/chunk"
       renderClientAsync={() =>
         import(
