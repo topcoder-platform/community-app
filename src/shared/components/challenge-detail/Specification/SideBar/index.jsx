@@ -6,7 +6,6 @@ import PT from 'prop-types';
 
 import Tooltip from 'components/Tooltip';
 
-import CheckMark from '../../icons/check-mark.svg';
 import ShareSocial from './ShareSocial';
 
 import styles from './styles.scss';
@@ -125,7 +124,7 @@ export default function SideBar({
             </p>
           }
           {
-            reviewScorecardId > 0 &&
+            reviewScorecardId > 0 && !isDesign &&
             <p styleName="link-like-paragraph">
               <a href={`${scorecardURL}${reviewScorecardId}`}>Review Scorecard</a>
             </p>
@@ -200,9 +199,6 @@ export default function SideBar({
               {
                 terms.map(t => (
                   <div styleName="term" key={t.termsOfUseId}>
-                    {t.agreed ? (
-                      <CheckMark styleName="agreed" />
-                    ) : <div styleName="not-agreed" />}
                     <a
                       onClick={() => openTermsModal(t)}
                     >{t.title}</a>

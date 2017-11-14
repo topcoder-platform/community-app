@@ -139,6 +139,10 @@ $submission-space-50: $base-unit * 10;
       &:focus {
         outline: none;
       }
+
+      &:disabled {
+        opacity: 0.5;
+      }
     }
 
     .expand-icon {

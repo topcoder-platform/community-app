@@ -30,8 +30,13 @@ export default function Winners(props) {
     <div styleName="container">
       {
         winners && winners.map((w) => {
-          const placeStyle = w.placement > 0 && w.placement < 4 ?
-            `place-${w.placement}` : '';
+          let placeStyle;
+          if (winners.length === 2 && w.placement === 2) {
+            placeStyle = 'place-2-alt';
+          } else {
+            placeStyle = w.placement > 0 && w.placement < 4 ?
+              `place-${w.placement}` : '';
+          }
           const submissionId = getId(submissions, w);
           return (
             <div

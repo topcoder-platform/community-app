@@ -333,10 +333,11 @@ class ChallengesService {
    * @param {String} challengeId
    * @return {Promise}
    */
-  register(challengeId) {
+  async register(challengeId) {
     const endpoint = `/challenges/${challengeId}/register`;
-    return this.private.apiV2.postJson(endpoint)
-      .then(res => (res.ok ? res.json() : new Error(res.statusText)));
+    const res = await this.private.apiV2.postJson(endpoint);
+    if (!res.ok) throw new Error(res.statusText);
+    return res.json();
   }
 
   /**
@@ -344,10 +345,11 @@ class ChallengesService {
    * @param {String} challengeId
    * @return {Promise}
    */
-  unregister(challengeId) {
+  async unregister(challengeId) {
     const endpoint = `/challenges/${challengeId}/unregister`;
-    return this.private.apiV2.post(endpoint)
-      .then(res => (res.ok ? res.json() : new Error(res.statusText)));
+    const res = await this.private.apiV2.post(endpoint);
+    if (!res.ok) throw new Error(res.statusText);
+    return res.json();
   }
 
   /**

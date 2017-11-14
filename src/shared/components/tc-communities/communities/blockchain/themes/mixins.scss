@@ -1,7 +1,34 @@
+@import "~styles/mixins";
+
 @mixin body-text {
   color: #73787c;
   font: 15px/180% 'Open Sans';
   text-align: left;
+}
+
+@mixin h3 {
+  color: #394146;
+  font: 600 20px/150% 'Open Sans';
+  margin-bottom: 12px;
+  max-height: 64px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  @include sm {
+    font-size: 16px;
+  }
+}
+
+@mixin h4 {
+  color: #394146;
+  font: 600 16px/150% 'Open Sans';
+  max-height: 64px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  @include sm {
+    font-size: 16px;
+  }
 }
 
 @mixin link {

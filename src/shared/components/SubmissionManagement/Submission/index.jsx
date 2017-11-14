@@ -32,6 +32,7 @@ export default function Submission(props) {
     onDelete,
     onShowDetails,
     status,
+    allowDelete,
   } = props;
   const formatDate = date => moment(+new Date(date)).format('MMM DD, YYYY hh:mm A');
 
@@ -81,6 +82,7 @@ export default function Submission(props) {
             <button
               styleName="delete-icon"
               onClick={() => onDelete(submissionObject.submissionId)}
+              disabled={!allowDelete}
             ><DeleteIcon /></button>
           }
           <button
@@ -116,4 +118,5 @@ Submission.propTypes = {
   onDelete: PT.func.isRequired,
   onShowDetails: PT.func,
   status: PT.string.isRequired,
+  allowDelete: PT.bool.isRequired,
 };

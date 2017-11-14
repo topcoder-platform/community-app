@@ -46,18 +46,23 @@ $tc-link-visited: #0c4e98;
     margin-top: 6 * $base-unit;
   }
 
+  p {
+    padding-top: 2px;
+    padding-bottom: 7px;
+  }
+
   h3 {
     font-family: roboto;
     font-weight: 700;
     font-size: 13px;
     color: $tc-gray-90;
     line-height: 20px;
-    // margin-top: 6 * $base-unit;
+    padding-bottom: 2px;
   }
 
   h4 {
     font-family: roboto;
-    font-weight: 500;
+    font-weight: bold;
     font-size: 13px;
     color: $tc-gray-90;
     line-height: 20px;
@@ -74,7 +79,7 @@ $tc-link-visited: #0c4e98;
     font-size: 13px;
     color: $tc-gray-90;
     line-height: 20px;
-    margin: 0 0 5px;
+    margin: 0 0 20px;
 
     @include linkStyle;
   }
@@ -87,6 +92,7 @@ $tc-link-visited: #0c4e98;
     color: $tc-gray-90;
     line-height: 20px;
     display: table;
+    padding-top: 8px;
 
     li {
       list-style-type: none;
@@ -113,6 +119,7 @@ $tc-link-visited: #0c4e98;
     color: $tc-gray-90;
     line-height: 20px;
     display: table;
+    padding-top: 8px;
 
     li {
       list-style-type: none;
@@ -144,19 +151,6 @@ $tc-link-visited: #0c4e98;
   a {
     cursor: pointer;
   }
-}
-
-.not-agreed {
-  height: 16px;
-  width: 23px;
-}
-
-.agreed {
-  display: inline-block;
-  width: 18px;
-  height: 18px;
-  margin: 2px 5px 0 0;
-  flex-shrink: 0;
 }
 
 .tooltip-container {

@@ -13,7 +13,7 @@ import Error404 from 'components/Error404';
 import Footer from 'components/tc-communities/Footer2';
 import Header from 'containers/tc-communities/Header';
 import Home from 'components/tc-communities/communities/blockchain/Home';
-import Learn from 'components/tc-communities/communities/blockchain/Learn';
+import Learn from 'containers/tc-communities/blockchain/Learn';
 import PT from 'prop-types';
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';

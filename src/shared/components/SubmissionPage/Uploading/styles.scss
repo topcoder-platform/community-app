@@ -1,3 +1,5 @@
+@import "~styles/mixins";
+
 .container {
   align-items: center;
   position: absolute;
@@ -17,6 +19,33 @@
   flex-direction: column;
   align-items: center;
   width: 100%;
+
+  .error-msg {
+    width: 500px;
+    margin-bottom: 45px;
+    padding: 5px 13px;
+    background: #fff4f4;
+    border: 1px solid #ffd4d1;
+    color: #f22f24;
+    font-size: 13px;
+    border-radius: 2px;
+    font-style: italic;
+    text-align: center;
+  }
+
+  .progress-container {
+    width: 650px;
+    height: 10px;
+    background-color: $tc-gray-10;
+    border-radius: 12px;
+
+    .progress-bar {
+      width: 0%;
+      height: 10px;
+      background-color: $tc-dark-blue;
+      border-radius: 12px;
+    }
+  }
 
   h3 {
     font-size: 20px;
@@ -40,13 +69,14 @@
     width: 80%;
     text-align: center;
     line-height: 18px;
-    margin-bottom: 70px;
+    margin-bottom: 30px;
     margin-top: 30px;
   }
 
-  p.submitting {
-    margin-top: 60px;
-    margin-bottom: 40px;
+  .submitting {
+    margin-top: 20px;
+    font-size: 13px;
+    color: $tc-black;
   }
 
   .button-container {
@@ -66,19 +96,5 @@
     a:first-child {
       color: #37373c;
     }
-  }
-
-  .error-msg {
-    margin-top: -40px;
-    margin-bottom: 45px;
-    padding: 5px 13px;
-    background: #fff4f4;
-    border: 1px solid #ffd4d1;
-    color: #f22f24;
-    font-size: 13px;
-    border-radius: 2px;
-    font-style: italic;
-    display: flex;
-    align-items: center;
   }
 }

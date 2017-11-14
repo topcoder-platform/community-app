@@ -3,6 +3,7 @@ import atob from 'atob';
 import bodyParser from 'body-parser';
 import cookieParser from 'cookie-parser';
 import express from 'express';
+import fetch from 'isomorphic-fetch';
 import helmet from 'helmet';
 import logger from 'utils/logger';
 import loggerMiddleware from 'morgan';
@@ -101,6 +102,14 @@ app.use('/community-app-assets/api/tc-communities', tcCommunitiesDemoApi);
  */
 app.use('/community-app-assets/api/xml2json', (req, res) => {
   xmlToJson(req.body.xml).then(json => res.json(json));
+});
+
+/* Proxy endpoint for GET requests (to fetch data from resources prohibiting
+ * cross-origin requests). */
+app.use('/community-app-assets/api/proxy-get', (req, res) => {
+  fetch(req.query.url)
+    .then(x => x.text())
+    .then(x => res.send(x));
 });
 
 /* Returns currency exchange rates, cached at the server-side (thus drastically

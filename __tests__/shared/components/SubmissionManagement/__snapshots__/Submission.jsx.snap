@@ -33,6 +33,7 @@ exports[`Snapshot match 1`] = `
       </a>
       <button
         className="src-shared-components-SubmissionManagement-Submission-___styles__delete-icon___2M67z"
+        disabled={true}
         onClick={[Function]}
       >
         <DeleteIcon />
@@ -83,6 +84,7 @@ exports[`Snapshot match 2`] = `
       </a>
       <button
         className="src-shared-components-SubmissionManagement-Submission-___styles__delete-icon___2M67z"
+        disabled={true}
         onClick={[Function]}
       >
         <DeleteIcon />

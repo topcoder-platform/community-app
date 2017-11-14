@@ -34,6 +34,18 @@
     }
   }
 
+  &.place-2-alt {
+    width: 100%;
+
+    .flag {
+      background-color: $tc-silver;
+
+      &::after {
+        border-top: solid 20px $tc-silver;
+      }
+    }
+  }
+
   &.place-3 {
     .flag {
       background-color: $tc-bronze;

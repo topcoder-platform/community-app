@@ -18,6 +18,7 @@ import _ from 'lodash';
 import React from 'react';
 import PT from 'prop-types';
 import shortid from 'shortid';
+import moment from 'moment';
 import Submission from '../Submission';
 import ScreeningDetails from '../ScreeningDetails';
 import './styles.scss';
@@ -33,6 +34,7 @@ export default function SubmissionsTable(props) {
     onDownload,
     onShowDetails,
     status,
+    submissionPhaseStartDate,
   } = props;
 
   const submissionsWithDetails = [];
@@ -46,6 +48,11 @@ export default function SubmissionsTable(props) {
     );
   } else {
     submissionObjects.forEach((subObject) => {
+      // submissionPhaseStartDate will be the start date of
+      // the current submission/checkpoint or empty string if any other phase
+      const allowDelete = submissionPhaseStartDate &&
+        moment(subObject.submissionDate).isAfter(submissionPhaseStartDate);
+
       const submission = (
         <Submission
           submissionObject={subObject}
@@ -56,6 +63,7 @@ export default function SubmissionsTable(props) {
           onDownload={onDownload}
           status={status}
           key={shortid.generate()}
+          allowDelete={allowDelete}
         />
       );
       submissionsWithDetails.push(submission);
@@ -128,4 +136,5 @@ SubmissionsTable.propTypes = {
   onDownload: PT.func,
   onShowDetails: PT.func,
   status: PT.string.isRequired,
+  submissionPhaseStartDate: PT.string.isRequired,
 };

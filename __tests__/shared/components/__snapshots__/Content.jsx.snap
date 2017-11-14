@@ -405,7 +405,7 @@ exports[`Matches shallow shapshot 1`] = `
     <li>
       <Link
         replace={false}
-        to="examples/error-message"
+        to="/examples/error-message"
       >
         Error Message
       </Link>
