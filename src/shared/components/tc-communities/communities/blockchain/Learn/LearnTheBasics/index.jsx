@@ -5,8 +5,6 @@ import React from 'react';
 import Section from 'components/tc-communities/Section';
 import Text from 'components/tc-communities/Text';
 
-import { PrimaryButton } from 'components/buttons';
-
 import style from './style.scss';
 
 export default function LearnTheBasics() {
