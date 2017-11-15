@@ -5,6 +5,8 @@ import React from 'react';
 import Section from 'components/tc-communities/Section';
 import Text from 'components/tc-communities/Text';
 
+import { PrimaryButton } from 'components/buttons';
+
 import style from './style.scss';
 
 export default function LearnTheBasics() {
@@ -36,72 +38,63 @@ export default function LearnTheBasics() {
         <AccordionItem title="How to sign up for work">
           <Text>
             <p>
-              Nam dapibus nisl vitae elit fringilla rutrum. Aenean sollicitudin,
-              erat a elementum rutrum, neque sem pretium metus, quis mollis
-              nisl nunc et massa. Vestibulum sed metus in lorem tristique
-              ullamcorper id vitae erat. Nulla mollis sapien sollicitudin
-              lacinia lacinia. Vivamus facilisis dolor et massa placerat, at
-              vestibulum nisl egestas. Nullam rhoncus lacus non odio luctus, eu
-              condimentum mauris ultrices. Praesent blandit, augue a posuere
-              aliquam, arcu tortor feugiat turpis,
-            </p>
-            <p>
-              Nam dapibus nisl vitae elit fringilla rutrum. Aenean sollicitudin,
-              erat a elementum rutrum, neque sem pretium metus, quis mollis
-              nisl nunc et massa. Vestibulum sed metus in lorem tristique
-              ullamcorper id vitae erat. Nulla mollis sapien sollicitudin
-              lacinia lacinia. Vivamus facilisis dolor et massa placerat, at
-              vestibulum nisl egestas. Nullam rhoncus lacus non odio luctus, eu
-              condimentum mauris ultrices. Praesent blandit, augue a posuere
-              aliquam, arcu tortor feugiat turpis,
+              If you are new to Topcoder, you can register through the
+              Blockchain Community by clicking the Join Now button on the
+              homepage. For more information on getting started with Topcoder,
+              visit
+              &zwnj;<a
+                href="https://www.topcoder.com/getting-started/"
+                rel="noopener noreferrer"
+                target="_blank"
+              >https://www.topcoder.com/getting-started</a>
             </p>
           </Text>
         </AccordionItem>
         <AccordionItem title="How to compete for work">
           <Text>
             <p>
-              Nam dapibus nisl vitae elit fringilla rutrum. Aenean sollicitudin,
-              erat a elementum rutrum, neque sem pretium metus, quis mollis
-              nisl nunc et massa. Vestibulum sed metus in lorem tristique
-              ullamcorper id vitae erat. Nulla mollis sapien sollicitudin
-              lacinia lacinia. Vivamus facilisis dolor et massa placerat, at
-              vestibulum nisl egestas. Nullam rhoncus lacus non odio luctus, eu
-              condimentum mauris ultrices. Praesent blandit, augue a posuere
-              aliquam, arcu tortor feugiat turpis,
+              Once you are registered for the Blockchain community, head to the
+              Challenges tab and look for challenges that are still open for
+              registration. If you see something that interests you, click on
+              it and then you can read the details and register for the challenge.
             </p>
-            <p>
-              Nam dapibus nisl vitae elit fringilla rutrum. Aenean sollicitudin,
-              erat a elementum rutrum, neque sem pretium metus, quis mollis
-              nisl nunc et massa. Vestibulum sed metus in lorem tristique
-              ullamcorper id vitae erat. Nulla mollis sapien sollicitudin
-              lacinia lacinia. Vivamus facilisis dolor et massa placerat, at
-              vestibulum nisl egestas. Nullam rhoncus lacus non odio luctus, eu
-              condimentum mauris ultrices. Praesent blandit, augue a posuere
-              aliquam, arcu tortor feugiat turpis,
-            </p>
+            <a
+              className={style.joinnow}
+              href="https://www.topcoder.com/member-onboarding/choosing-your-first-competition-whats-right-for-you/"
+              rel="noopener noreferrer"
+              target="_blank"
+            >Learn more</a>
           </Text>
         </AccordionItem>
         <AccordionItem title="Payment & Rewards">
           <Text>
             <p>
-              Nam dapibus nisl vitae elit fringilla rutrum. Aenean sollicitudin,
-              erat a elementum rutrum, neque sem pretium metus, quis mollis
-              nisl nunc et massa. Vestibulum sed metus in lorem tristique
-              ullamcorper id vitae erat. Nulla mollis sapien sollicitudin
-              lacinia lacinia. Vivamus facilisis dolor et massa placerat, at
-              vestibulum nisl egestas. Nullam rhoncus lacus non odio luctus, eu
-              condimentum mauris ultrices. Praesent blandit, augue a posuere
-              aliquam, arcu tortor feugiat turpis,
+              Win prize money when you deliver the best solution to a challenge.
+              You could also earn more as a copilot or reviewer or even win a
+              large cash prize in our yearly tournament, Topcoder Open.
             </p>
+            <a
+              className={style.joinnow}
+              href="https://www.topcoder.com/member-onboarding/winning-getting-paid/"
+              rel="noopener noreferrer"
+              target="_blank"
+            >Learn more</a>
+          </Text>
+        </AccordionItem>
+        <AccordionItem title="Managing your Profile">
+          <Text>
             <p>
-              Nam dapibus nisl vitae elit fringilla rutrum. Aenean sollicitudin,
-              erat a elementum rutrum, neque sem pretium metus, quis mollis
-              nisl nunc et massa. Vestibulum sed metus in lorem tristique
-              ullamcorper id vitae erat. Nulla mollis sapien sollicitudin
-              lacinia lacinia. Vivamus facilisis dolor et massa placerat, at
-              vestibulum nisl egestas. Nullam rhoncus lacus non odio luctus, eu
-              condimentum mauris ultrices. Praesent blandit, augue a posuere
-              aliquam, arcu tortor feugiat turpis,
+              Everything to do with managing your profile and preferences can
+              be found at
+              &zwnj;<a
+                href="https://www.topcoder.com/settings/account/"
+                rel="noopener noreferrer"
+                target="_blank"
+              >https://www.topcoder.com/settings/account</a>. If you
+              can’t find what you’re looking for, send us a note at
+              &zwnj;<a
+                href="mailto:support@topcoder.com"
+              >support@topcoder.com</a>.
             </p>
           </Text>
         </AccordionItem>

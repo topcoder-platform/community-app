@@ -56,6 +56,12 @@
 
 .learnBasicsContainer {
   padding-bottom: 0;
+
+  p a {
+    @include link;
+
+    text-decoration: underline;
+  }
 }
 
 .joinnowWrap {
@@ -79,6 +85,7 @@
   text-transform: uppercase;
   width: 171px;
 
+  a,
   &:hover,
   &:active,
   &:focus,
