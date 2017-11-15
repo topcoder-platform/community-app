@@ -53,6 +53,7 @@ export function Link({
         className={className}
         href={to}
         onClick={onClick}
+        rel={openNewTab ? 'noopener noreferrer' : ''}
         target={openNewTab ? '_blank' : ''}
       >{children}</a>
     );
@@ -118,6 +119,7 @@ export function NavLink({
         className={className}
         href={to}
         onClick={onClick}
+        rel={openNewTab ? 'noopener noreferrer' : ''}
         target={openNewTab ? '_blank' : ''}
       >{children}</a>
     );
