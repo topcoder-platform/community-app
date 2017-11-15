@@ -1,0 +1,72 @@
+@import '~styles/mixins';
+
+.container {
+  @include xxs-to-xs {
+    height: 100vh;
+
+  }
+  position: relative;
+  top: -70px;
+}
+
+.content {
+  background-color: transparent;
+  top: 70px;
+  left: 0;
+  position: absolute;
+  width: 50%;
+  text-align: left;
+
+  @include xxs-to-xs {
+    background-color: transparent;
+    width: 100%;
+    text-align: left;
+  }
+
+}
+
+.contentBg {
+  transform: none;
+  background-color: transparent;
+
+  @include xxs-to-xs {
+    background: none;
+    background-color: transparent;
+    left: -30px;
+    transform: none;
+  }
+}
+
+.contentInner {
+  padding: 30px 0 0 30px;
+  // z-index: 1;
+
+  @include xxs-to-xs {
+    background-color: transparent;
+    width: 100%;
+    text-align: left;
+  }
+}
+
+h2.title {
+  font-family: "Proxima Nova", Arial, "Helvetica Neue", Helvetica, sans-serif;
+  text-transform: none;
+  font-size: 60px;
+  line-height: 60px;
+}
+
+.text {
+  font-family: "Proxima Nova", Arial, "Helvetica Neue", Helvetica, sans-serif;
+  font-size: 24px;
+  line-height: 36px;
+}
+
+.linkWrap {
+  left: 50%;
+  top: 50px;
+}
+
+.link {
+  border-radius: 23px;
+  height: 46px;
+}

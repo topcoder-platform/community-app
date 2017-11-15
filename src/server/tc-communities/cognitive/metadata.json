@@ -1,0 +1,54 @@
+{
+  "challengeFilter": {
+    "tags": ["Cognitive"]
+  },
+  "challengeListing": {
+    "openChallengesInNewTabs": false
+  },
+  "communityId": "cognitive",
+  "communityName": "Topcoder Cognitive Community",
+  "communitySelector": [
+    {
+      "label": "Cognitive Community",
+      "value": "1"
+    },
+    {
+      "label": "Topcoder Public Community",
+      "redirect": "https://www.topcoder.com",
+      "value": "2"
+    }
+  ],
+  "groupIds": ["20000000"],
+  "leaderboardApiUrl": "https://api.topcoder.com/v4/looks/458/run/json/",
+  "logos": [{
+    "img": "/community-app-assets/themes/cognitive/cognitive-logo.png",
+    "url": "http://cognitive.topcoder.com/"
+  }],
+  "hideSearch": true,
+  "footerText": "",
+  "menuItems": [
+    {
+      "title": "Home",
+      "url": "/"
+    },
+    {
+      "title": "Get Started",
+      "url": "/getstarted"
+    },
+    {
+      "title": "Learn",
+      "url": "/learn"
+    },
+    {
+      "title": "Resources",
+      "url": "/resources"
+    },
+    {
+      "title": "Compete",
+      "url": "/challenges"
+    }
+  ],
+  "newsFeed": "http://www.topcoder.com/feed",
+  "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore.",
+  "image":"2.jpg"
+}
