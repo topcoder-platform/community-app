@@ -8,6 +8,7 @@
 import LoadingPagePlaceholder from 'components/LoadingPagePlaceholder';
 import path from 'path';
 import React from 'react';
+import { StaticRouter } from 'react-router-dom';
 import { requireWeak, resolveWeak, SplitRoute } from 'utils/router';
 
 export default function ChallengeDetailsRoute(props) {
@@ -27,7 +28,11 @@ export default function ChallengeDetailsRoute(props) {
       renderServer={() => {
         const p = resolveWeak('containers/challenge-detail');
         const ChallengeDetails = requireWeak(path.resolve(__dirname, p));
-        return <ChallengeDetails {...props} />;
+        return (
+          <StaticRouter context={{}}>
+            <ChallengeDetails {...props} />
+          </StaticRouter>
+        );
       }}
     />
   );
