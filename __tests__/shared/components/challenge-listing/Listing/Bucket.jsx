@@ -6,6 +6,7 @@ import TU from 'react-dom/test-utils';
 import Bucket from 'components/challenge-listing/Listing/Bucket';
 import reduxStoreFactory from 'redux-mock-store';
 import { Provider } from 'react-redux';
+import { StaticRouter } from 'react-router-dom';
 import { Tag } from 'components/tags';
 
 const store = reduxStoreFactory()();
@@ -169,7 +170,9 @@ test('Matches shallow shapshot', () => {
   _.forEach(mockDatas, (data) => {
     renderer.render((
       <Provider store={store}>
-        <Bucket {...data} />
+        <StaticRouter context={{}}>
+          <Bucket {...data} />
+        </StaticRouter>
       </Provider>
     ));
     expect(renderer.getRenderOutput()).toMatchSnapshot();
@@ -182,7 +185,9 @@ class Wrapper extends React.Component {
   render() {
     return (
       <Provider store={store}>
-        <Bucket {...this.props} />
+        <StaticRouter context={{}}>
+          <Bucket {...this.props} />
+        </StaticRouter>
       </Provider>
     );
   }

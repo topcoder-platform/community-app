@@ -7,12 +7,17 @@ exports[`Matches shallow shapshot 1`] = `
   role="button"
   tabIndex={0}
 >
-  <Connect(RRLinkWrapper)
+  <Link
+    className={null}
+    enforceA={false}
+    onClick={null}
+    openNewTab={false}
+    replace={false}
     to="menu url"
   >
     icon url
     title
-  </Connect(RRLinkWrapper)>
+  </Link>
 </li>
 `;
 
@@ -23,11 +28,16 @@ exports[`Matches shallow shapshot 2`] = `
   role="button"
   tabIndex={0}
 >
-  <Connect(RRLinkWrapper)
+  <Link
+    className={null}
+    enforceA={false}
+    onClick={null}
+    openNewTab={false}
+    replace={false}
     to="menu url"
   >
     icon url
     title
-  </Connect(RRLinkWrapper)>
+  </Link>
 </li>
 `;

@@ -423,6 +423,14 @@ exports[`Matches shallow shapshot 1`] = `
     <li>
       <Link
         replace={false}
+        to="/examples/link-test"
+      >
+        Link Test
+      </Link>
+    </li>
+    <li>
+      <Link
+        replace={false}
         to="/examples/loading-indicators"
       >
         Loading Indicators

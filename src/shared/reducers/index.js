@@ -53,7 +53,6 @@ export function factory(req) {
     const res = { ...state };
     if (req) {
       res.domain = `${req.protocol}://${req.headers.host || req.hostname}`;
-      res.hostname = req.hostname;
       res.subdomains = req.subdomains;
     }
     return res;

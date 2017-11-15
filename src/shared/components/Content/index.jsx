@@ -178,6 +178,11 @@ export default function Content() {
           inclusion into the bundle;
         </li>
         <li>
+          <Link
+            to="/examples/link-test"
+          >Link Test</Link>
+        </li>
+        <li>
           <Link to="/examples/loading-indicators">Loading Indicators</Link>
         </li>
         <li>

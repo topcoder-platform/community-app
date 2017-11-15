@@ -7,6 +7,7 @@ import MockDate from 'mockdate';
 import { Provider } from 'react-redux';
 import mockReduxStore from 'redux-mock-store';
 import { Tag } from 'components/tags';
+import { StaticRouter } from 'react-router-dom';
 
 const store = mockReduxStore()();
 
@@ -144,7 +145,9 @@ class Wrapper extends React.Component {
   render() {
     return (
       <Provider store={store}>
-        <ChallengeCard {...this.props} />
+        <StaticRouter context={{}}>
+          <ChallengeCard {...this.props} />
+        </StaticRouter>
       </Provider>
     );
   }

@@ -1,240 +1,258 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Matches shallow shapshot 1`] = `
-<Bucket
-  bucket={
-    Object {
-      "filter": Object {
-        "status": "ac",
-      },
-      "sorts": Array [
-        "current-phase",
-      ],
+<StaticRouter
+  basename=""
+  context={Object {}}
+  location="/"
+>
+  <Bucket
+    bucket={
+      Object {
+        "filter": Object {
+          "status": "ac",
+        },
+        "sorts": Array [
+          "current-phase",
+        ],
+      }
     }
-  }
-  challenges={
-    Array [
-      Object {
-        "id": "1",
-        "prizes": Array [
-          1200,
-          600,
-        ],
-        "status": "b",
-        "totalPrize": 1800,
-        "users": Object {},
-      },
-      Object {
-        "allPhases": Array [
-          Object {
-            "phaseStatus": "Open",
-            "phaseType": "Registration",
-          },
-        ],
-        "currentPhases": Array [
-          "Registration",
-        ],
-        "events": Array [
-          Object {
-            "eventName": "Submit",
-          },
-        ],
-        "id": "2",
-        "isDataScience": false,
-        "prize": Array [
-          1200,
-          600,
-        ],
-        "prizes": Array [
-          1200,
-          600,
-        ],
-        "status": "a",
-        "subTrack": "CODE",
-        "technologies": "a, b, c",
-        "totalPrize": 1800,
-        "track": "DEVELOP",
-        "users": Object {},
-      },
-    ]
-  }
-  expand={[Function]}
-  expanded={true}
-  keepPlaceholders={false}
-  loadMore={[Function]}
-  loading={false}
-  newChallengeDetails={false}
-  openChallengesInNewTabs={false}
-  setFilterState={[Function]}
-  setSort={[Function]}
-  sort=""
-  userHandle=""
-/>
+    challenges={
+      Array [
+        Object {
+          "id": "1",
+          "prizes": Array [
+            1200,
+            600,
+          ],
+          "status": "b",
+          "totalPrize": 1800,
+          "users": Object {},
+        },
+        Object {
+          "allPhases": Array [
+            Object {
+              "phaseStatus": "Open",
+              "phaseType": "Registration",
+            },
+          ],
+          "currentPhases": Array [
+            "Registration",
+          ],
+          "events": Array [
+            Object {
+              "eventName": "Submit",
+            },
+          ],
+          "id": "2",
+          "isDataScience": false,
+          "prize": Array [
+            1200,
+            600,
+          ],
+          "prizes": Array [
+            1200,
+            600,
+          ],
+          "status": "a",
+          "subTrack": "CODE",
+          "technologies": "a, b, c",
+          "totalPrize": 1800,
+          "track": "DEVELOP",
+          "users": Object {},
+        },
+      ]
+    }
+    expand={[Function]}
+    expanded={true}
+    keepPlaceholders={false}
+    loadMore={[Function]}
+    loading={false}
+    newChallengeDetails={false}
+    openChallengesInNewTabs={false}
+    setFilterState={[Function]}
+    setSort={[Function]}
+    sort=""
+    userHandle=""
+  />
+</StaticRouter>
 `;
 
 exports[`Matches shallow shapshot 2`] = `
-<Bucket
-  bucket={
-    Object {
-      "filter": Object {
-        "status": "ac",
-      },
-      "sorts": Array [
-        "current-phase",
-      ],
+<StaticRouter
+  basename=""
+  context={Object {}}
+  location="/"
+>
+  <Bucket
+    bucket={
+      Object {
+        "filter": Object {
+          "status": "ac",
+        },
+        "sorts": Array [
+          "current-phase",
+        ],
+      }
     }
-  }
-  challenges={
-    Array [
-      Object {
-        "id": "1",
-        "prizes": Array [
-          1200,
-          600,
-        ],
-        "status": "b",
-        "totalPrize": 1800,
-        "users": Object {},
-      },
-      Object {
-        "id": "2",
-        "prizes": Array [
-          1200,
-          600,
-        ],
-        "status": "a",
-        "totalPrize": 1800,
-        "users": Object {},
-      },
-      Object {
-        "id": "3",
-        "prizes": Array [
-          1200,
-          600,
-        ],
-        "status": "a",
-        "totalPrize": 1800,
-        "users": Object {},
-      },
-      Object {
-        "id": "4",
-        "prizes": Array [
-          1200,
-          600,
-        ],
-        "status": "a",
-        "totalPrize": 1800,
-        "users": Object {},
-      },
-      Object {
-        "id": "5",
-        "prizes": Array [
-          1200,
-          600,
-        ],
-        "status": "a",
-        "totalPrize": 1800,
-        "users": Object {},
-      },
-      Object {
-        "id": "6",
-        "prizes": Array [
-          1200,
-          600,
-        ],
-        "status": "a",
-        "totalPrize": 1800,
-        "users": Object {},
-      },
-      Object {
-        "id": "7",
-        "prizes": Array [
-          1200,
-          600,
-        ],
-        "status": "a",
-        "totalPrize": 1800,
-        "users": Object {},
-      },
-      Object {
-        "id": "8",
-        "prizes": Array [
-          1200,
-          600,
-        ],
-        "status": "a",
-        "totalPrize": 1800,
-        "users": Object {},
-      },
-      Object {
-        "id": "9",
-        "prizes": Array [
-          1200,
-          600,
-        ],
-        "status": "a",
-        "totalPrize": 1800,
-        "users": Object {},
-      },
-      Object {
-        "id": "10",
-        "prizes": Array [
-          1200,
-          600,
-        ],
-        "status": "a",
-        "totalPrize": 1800,
-        "users": Object {},
-      },
-      Object {
-        "id": "11",
-        "prizes": Array [
-          1200,
-          600,
-        ],
-        "status": "a",
-        "totalPrize": 1800,
-        "users": Object {},
-      },
-    ]
-  }
-  expand={[Function]}
-  expanded={false}
-  keepPlaceholders={false}
-  loadMore={[Function]}
-  loading={true}
-  newChallengeDetails={false}
-  openChallengesInNewTabs={false}
-  setFilterState={[Function]}
-  setSort={[Function]}
-  sort=""
-  userHandle=""
-/>
+    challenges={
+      Array [
+        Object {
+          "id": "1",
+          "prizes": Array [
+            1200,
+            600,
+          ],
+          "status": "b",
+          "totalPrize": 1800,
+          "users": Object {},
+        },
+        Object {
+          "id": "2",
+          "prizes": Array [
+            1200,
+            600,
+          ],
+          "status": "a",
+          "totalPrize": 1800,
+          "users": Object {},
+        },
+        Object {
+          "id": "3",
+          "prizes": Array [
+            1200,
+            600,
+          ],
+          "status": "a",
+          "totalPrize": 1800,
+          "users": Object {},
+        },
+        Object {
+          "id": "4",
+          "prizes": Array [
+            1200,
+            600,
+          ],
+          "status": "a",
+          "totalPrize": 1800,
+          "users": Object {},
+        },
+        Object {
+          "id": "5",
+          "prizes": Array [
+            1200,
+            600,
+          ],
+          "status": "a",
+          "totalPrize": 1800,
+          "users": Object {},
+        },
+        Object {
+          "id": "6",
+          "prizes": Array [
+            1200,
+            600,
+          ],
+          "status": "a",
+          "totalPrize": 1800,
+          "users": Object {},
+        },
+        Object {
+          "id": "7",
+          "prizes": Array [
+            1200,
+            600,
+          ],
+          "status": "a",
+          "totalPrize": 1800,
+          "users": Object {},
+        },
+        Object {
+          "id": "8",
+          "prizes": Array [
+            1200,
+            600,
+          ],
+          "status": "a",
+          "totalPrize": 1800,
+          "users": Object {},
+        },
+        Object {
+          "id": "9",
+          "prizes": Array [
+            1200,
+            600,
+          ],
+          "status": "a",
+          "totalPrize": 1800,
+          "users": Object {},
+        },
+        Object {
+          "id": "10",
+          "prizes": Array [
+            1200,
+            600,
+          ],
+          "status": "a",
+          "totalPrize": 1800,
+          "users": Object {},
+        },
+        Object {
+          "id": "11",
+          "prizes": Array [
+            1200,
+            600,
+          ],
+          "status": "a",
+          "totalPrize": 1800,
+          "users": Object {},
+        },
+      ]
+    }
+    expand={[Function]}
+    expanded={false}
+    keepPlaceholders={false}
+    loadMore={[Function]}
+    loading={true}
+    newChallengeDetails={false}
+    openChallengesInNewTabs={false}
+    setFilterState={[Function]}
+    setSort={[Function]}
+    sort=""
+    userHandle=""
+  />
+</StaticRouter>
 `;
 
 exports[`Matches shallow shapshot 3`] = `
-<Bucket
-  bucket={
-    Object {
-      "filter": Object {
-        "status": "e",
-      },
-      "sorts": Array [
-        "current-phase",
-      ],
+<StaticRouter
+  basename=""
+  context={Object {}}
+  location="/"
+>
+  <Bucket
+    bucket={
+      Object {
+        "filter": Object {
+          "status": "e",
+        },
+        "sorts": Array [
+          "current-phase",
+        ],
+      }
     }
-  }
-  challenges={Array []}
-  expand={[Function]}
-  expanded={false}
-  keepPlaceholders={false}
-  loadMore={null}
-  loading={true}
-  newChallengeDetails={false}
-  openChallengesInNewTabs={false}
-  setFilterState={[Function]}
-  setSort={[Function]}
-  sort=""
-  userHandle=""
-/>
+    challenges={Array []}
+    expand={[Function]}
+    expanded={false}
+    keepPlaceholders={false}
+    loadMore={null}
+    loading={true}
+    newChallengeDetails={false}
+    openChallengesInNewTabs={false}
+    setFilterState={[Function]}
+    setSort={[Function]}
+    sort=""
+    userHandle=""
+  />
+</StaticRouter>
 `;

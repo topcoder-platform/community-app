@@ -2,10 +2,11 @@
  * Various utils that faciliate the usage of react-router.
  */
 
+/* global document */
+
 import PT from 'prop-types';
 import React from 'react';
 import URL from 'url-parse';
-import { connect } from 'react-redux';
 import { Link as RRLink, NavLink as RRNavLink } from 'react-router-dom';
 
 import SplitRoute from './SplitRoute';
@@ -36,19 +37,17 @@ export { SplitRoute };
  * as it allows an elegant solution, we implement it here.
  */
 
-function RRLinkWrapper({
+export function Link({
   children,
   className,
   enforceA,
-  hostname,
   onClick,
   openNewTab,
   replace,
   to,
 }) {
   const url = new URL(to);
-  if (enforceA || openNewTab || (hostname !== url.hostname)
-  || to.startsWith('#')) {
+  if (enforceA || openNewTab || to.startsWith('#')) {
     return (
       <a
         className={className}
@@ -61,14 +60,20 @@ function RRLinkWrapper({
   return (
     <RRLink
       className={className}
-      onClick={onClick}
+      onClick={(e) => {
+        if (onClick) onClick(e);
+        if (url.origin !== document.location.origin) {
+          document.location = to;
+          e.preventDefault();
+        }
+      }}
       replace={replace}
       to={to}
     >{children}</RRLink>
   );
 }
 
-RRLinkWrapper.defaultProps = {
+Link.defaultProps = {
   children: null,
   className: null,
   enforceA: false,
@@ -77,29 +82,23 @@ RRLinkWrapper.defaultProps = {
   replace: false,
 };
 
-RRLinkWrapper.propTypes = {
+Link.propTypes = {
   children: PT.node,
   className: PT.string,
   enforceA: PT.bool,
-  hostname: PT.string.isRequired,
   onClick: PT.func,
   openNewTab: PT.bool,
   replace: PT.bool,
   to: PT.oneOfType([PT.object, PT.string]).isRequired,
 };
 
-export const Link = connect(state => ({
-  hostname: state.hostname,
-}))(RRLinkWrapper);
-
-function RRNavLinkWrapper({
+export function NavLink({
   activeClassName,
   activeStyle,
   children,
   className,
   enforceA,
   exact,
-  hostname,
   isActive,
   location,
   onClick,
@@ -109,8 +108,7 @@ function RRNavLinkWrapper({
   to,
 }) {
   const url = new URL(to);
-  if (enforceA || openNewTab || (hostname !== url.hostname)
-  || to.startsWith('#')) {
+  if (enforceA || openNewTab || to.startsWith('#')) {
     return (
       /* NOTE: Currently we don't handle isActive check here. Though, as this
        * <a> element is a fallback for URLs leading outside of the app, in
@@ -132,7 +130,13 @@ function RRNavLinkWrapper({
       exact={exact}
       isActive={isActive}
       location={location}
-      onClick={onClick}
+      onClick={(e) => {
+        if (onClick) onClick(e);
+        if (url.origin !== document.location.origin) {
+          document.location = to;
+          e.preventDefault();
+        }
+      }}
       replace={replace}
       strict={strict}
       to={to}
@@ -140,7 +144,7 @@ function RRNavLinkWrapper({
   );
 }
 
-RRNavLinkWrapper.defaultProps = {
+NavLink.defaultProps = {
   activeClassName: null,
   activeStyle: null,
   children: null,
@@ -154,14 +158,13 @@ RRNavLinkWrapper.defaultProps = {
   strict: false,
 };
 
-RRNavLinkWrapper.propTypes = {
+NavLink.propTypes = {
   activeClassName: PT.string,
   activeStyle: PT.shape(),
   children: PT.node,
   className: PT.string,
   enforceA: PT.bool,
   exact: PT.bool,
-  hostname: PT.string.isRequired,
   isActive: PT.func.isRequired,
   location: PT.shape(),
   onClick: PT.func,
@@ -170,10 +173,6 @@ RRNavLinkWrapper.propTypes = {
   strict: PT.bool,
   to: PT.string.isRequired,
 };
-
-export const NavLink = connect(state => ({
-  hostname: state.hostname,
-}))(RRNavLinkWrapper);
 
 /**
  * Requires the specified module without including it into the bundle during

@@ -8,6 +8,7 @@ import Content from 'components/Content';
 import CssModules from 'components/examples/CssModules';
 import ErrorMessage from 'components/examples/ErrorMessage';
 import FontsTest from 'components/examples/FontsTest';
+import LinkTest from 'components/examples/LinkTest';
 import LoadingIndicator from 'components/LoadingIndicator';
 import LoadingIndicators from 'components/examples/LoadingIndicators';
 import path from 'path';
@@ -53,6 +54,10 @@ export default function Examples(props) {
       <Route
         component={() => <ErrorMessage />}
         path={`${base}/error-message`}
+      />
+      <Route
+        component={LinkTest}
+        path={`${base}/link-test`}
       />
       <Route
         component={LoadingIndicators}
