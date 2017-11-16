@@ -4,7 +4,7 @@ import Avatar from 'components/Avatar';
 import config from 'utils/config';
 import React, { Component } from 'react';
 import PT from 'prop-types';
-import { Link } from 'react-router-dom';
+import { Link } from 'utils/router';
 import './style.scss';
 
 /* TODO: Should be functional component! */

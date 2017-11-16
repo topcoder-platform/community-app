@@ -25,6 +25,9 @@
     "title": "Home",
     "url": "/"
   }, {
+    "title": "Learn",
+    "url": "/learn"
+  }, {
     "title": "Challenges",
     "url": "/challenges"
   }],
