@@ -6,167 +6,72 @@
  */
 /* eslint-disable max-len */
 
-
 import React from 'react';
-import Section from 'components/tc-communities/Section';
+// import PT from 'prop-types';
 import Banner from 'components/tc-communities/Banner';
-import ImageText from 'components/tc-communities/ImageText';
-/*
-import ResourceCard from 'components/tc-communities/ResourceCard';
 import NewsletterSignup from 'components/tc-communities/NewsletterSignup';
-import NewsSection from 'components/tc-communities/NewsSection';
-*/
+import JoinCommunity from 'containers/tc-communities/JoinCommunity';
 
-import { noop } from 'lodash';
-import { Link } from 'utils/router';
+import primaryBannerStyle from './themes/primaryBanner.scss';
+import secondaryBannerStyle from './themes/secondaryBanner.scss';
+import QuickLinks from './QuickLinks';
 
-// import Slider from 'react-slick';
+import './style.scss';
 
-import PT from 'prop-types';
 
-// import JoinCommunity from 'containers/tc-communities/JoinCommunity';
-// import CommunityStats from 'containers/tc-communities/CommunityStats';
-
-/*
-import IconRocket from '../../../../../../assets/images/tc-communities/rocket.svg';
-import IconNetwork from '../../../../../../assets/images/tc-communities/network.svg';
-import IconMedal from '../../../../../../assets/images/tc-communities/medal.svg';
-*/
-
-import style from './style.scss';
-import bannerStyle from './themes/banner.scss';
-// import IconStatStyles from './themes/IconStatStyles.scss';
-// import NewsletterSignupStyle from './themes/newsletter_signup.scss';
-import ImageTextStyles from './themes/imageTextStyle.scss';
-// import ResourceCardStyles from './themes/resourceCardStyles.scss';
-// import ArticleCardStyles from './themes/articleCardStyles.scss';
-// import NewsSectionStyles from './themes/newsSectionStyles.scss';
-
-// Custom icons for community stats
-// const COMMUNITY_STATS_ICONS = {
-//   numChallenges: '../../../../../community-app-assets/themes/wipro/challenges.png',
-//   numMembers: '../../../../../community-app-assets/themes/wipro/members.png',
-//   openPrizes: '../../../../../community-app-assets/themes/wipro/prizes.png',
-// };
-
-function PrevArrow(props) {
-  return (
-    <button
-      onClick={props.onClick}
-      className={`${style.PrevArrow} ${props.className.indexOf('slick-disabled') > -1 ? style.disabled : ''}`}
-    />);
-}
-
-function NextArrow(props) {
-  return (
-    <button
-      onClick={props.onClick}
-      className={`${style.NextArrow} ${props.className.indexOf('slick-disabled') > -1 ? style.disabled : ''}`}
-    />);
-}
-
-PrevArrow.defaultProps = {
-  className: '',
-  onClick: noop,
-};
-
-PrevArrow.propTypes = {
-  className: PT.string,
-  onClick: PT.func,
-};
-
-NextArrow.defaultProps = {
-  className: '',
-  onClick: noop,
-};
-
-NextArrow.propTypes = {
-  className: PT.string,
-  onClick: PT.func,
-};
-
-export default function Home(props) {
+export default function Home() {
   return (
     <main>
       <Banner
         title="Topcoder Cognitive Community"
         text="Learn about Cognitive technologies and get hands on experience as a member of the Topcoder Cognitive Community."
-        link={{
-          title: 'Sign Up Now',
-          url: 'register',
-        }}
         imageSrc="/community-app-assets/themes/cognitive/home/banner.jpg"
-        theme={bannerStyle}
+        theme={primaryBannerStyle}
+      ><JoinCommunity theme={{ link: primaryBannerStyle.link }} label="Sign up now" /></Banner>
+      <Banner
+        title="Compete on Cognitive challenges for a chance to win a trip to the Topcoder Open"
+        text=""
+        link={{
+          title: 'Learn More',
+          url: 'learn',
+        }}
+        theme={secondaryBannerStyle}
+        imageSrc="/community-app-assets/themes/cognitive/home/learn-more.jpg"
       />
-
-      { /* <JoinCommunity /> */ }
-
-      <Section
-        theme={{
-          container: style.linksContainer,
-        }}
-      >
-        <div>
-          <ImageText
-            title="Improve Your Skills"
-            text="Our continuously evolving structured learning paths are customized to deepen your knowledge and help you acquire industry specific software capabilities. To keep abreast of emerging new technologies and succeed in this rapidly changing technology landscape. Click below to visit TopGear."
-            link={{
-              title: 'Start Learning',
-              url: 'learn',
-            }}
-            theme={ImageTextStyles}
-            imageSrc="/community-app-assets/themes/wipro/home/image-text-learn.png"
-          />
-          <ImageText
-            title="Get Involved"
-            text="Rewards program is intended to celebrate and recognize your contribution. Rewards for project contributions are given using ‘Reward Points’. Points earned translate into badges. Quarterly rewards are given away to the toppers of all categories."
-            link={[{
-              title: 'Start Earning',
-              url: 'challenges',
-            }, {
-              newTab: true,
-              title: 'Become a Reviewer',
-              url: 'https://help.topcoder.com/hc/requests/new',
-            }, {
-              newTab: true,
-              title: 'Become a Copilot',
-              url: 'https://help.topcoder.com/hc/requests/new',
-            }]}
-            theme={ImageTextStyles}
-            imageSrc="/community-app-assets/themes/wipro/home/image-text-do.png"
-          />
-          <ImageText
-            title="Leverage The Crowd"
-            text="Access your on-demand community of designers and technology experts."
-            link={[{
-              newTab: true,
-              title: 'Initiate Project',
-              url: 'https://connect.topcoder.com/new-project/generic_dev?refCode=topgear',
-            }, {
-              newTab: true,
-              title: 'Request Group',
-              url: 'https://help.topcoder.com/hc/en-us/requests/new?ticket_form_id=779747',
-            }]}
-            theme={ImageTextStyles}
-            imageSrc="/community-app-assets/themes/wipro/home/image-text-leverage.png"
-          />
-        </div>
-      </Section>
-
-      <Section
-        theme={{
-          container: style.viewAllPublicChallengesContainer,
-          content: style.viewAllPublicChallenges,
-        }}
-      >
-        <div styleName="ImageTextStyles.linkWrap style.linkWrap">
-          <Link
-            onClick={() => props.resetChallengeListing()}
-            styleName="ImageTextStyles.link"
-            to="challenges?communityId="
-          >View All Public Challenges</Link>
-        </div>
-      </Section>
+      <QuickLinks
+        title="Are you ready to learn?"
+        buttonText="Sign up now"
+        buttonUrl="register"
+        education={[
+          {
+            text: 'Sign up for a Free Cloud Trial',
+            url: 'https://developer.ibm.com/sso/bmregistration?ca=dw-_-cognitive-_-TPC2017-_-community',
+          },
+          {
+            text: 'Explore IBM developerWorks',
+            url: 'https://www.ibm.com/developerworks/learn/cognitive/',
+          },
+          {
+            text: 'Take part in a developerWorks Event',
+            url: 'https://developer.ibm.com/events/',
+          },
+        ]}
+        challenges={[
+          {
+            text: '2017 Humblefool Charity Hackathon',
+            url: 'https://www.topcoder.com/challenges/30059771/?type=develop',
+          },
+          {
+            text: 'IBM Cognitive – Image Recognition Training with PowerAI Notebooks',
+            url: 'https://www.topcoder.com/challenges/30058628/?type=develop',
+          },
+        ]}
+      />
+      <NewsletterSignup
+        title="Sign up for our newsletter"
+        text="Don’t miss out on the latest Topcoder Cognitive challenges and information!"
+        imageSrc="/community-app-assets/themes/cognitive/home/newsletter.jpg"
+      />
     </main>
   );
 }
@@ -177,5 +82,5 @@ Home.defaultProps = {
 
 Home.propTypes = {
   // news: PT.arrayOf(PT.shape()),
-  resetChallengeListing: PT.func.isRequired,
+  // resetChallengeListing: PT.func.isRequired,
 };

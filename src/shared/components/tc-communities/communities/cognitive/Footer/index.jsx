@@ -8,7 +8,7 @@ function Footer(props) {
   return (
     <footer className={props.theme.footer}>
       <div className={props.theme.footerText}>
-        &copy; Copyright Wipro Ltd 2017
+        <img src="/community-app-assets/themes/cognitive/logo-footer.png" alt="TopCoder Logo" />
       </div>
     </footer>
   );

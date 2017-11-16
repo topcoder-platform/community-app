@@ -1,11 +1,20 @@
 @import "../../../Header/style.scss";
 
+.logos {
+  @include xxs-to-xs {
+    margin-top: 0;
+  }
+}
+
 .logos img {
   max-height: 23px;
 }
 
 .logosWrap {
   display: flex;
+  @include xxs-to-xs {
+    height: 50px;
+  }
 }
 
 .container {
@@ -15,6 +24,10 @@
   align-items: center;
   z-index: 99999;
   position: relative;
+
+  @include xxs-to-xs {
+    height: 50px;
+  }
 }
 
 .chevronDown::before {
@@ -54,6 +67,10 @@
 
   a {
     color: #fff;
+  }
+
+  @include xxs-to-xs {
+    height: 50px;
   }
 
 }
