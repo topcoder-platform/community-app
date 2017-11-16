@@ -26,6 +26,7 @@ class LeaderboardAvatar extends Component {
     }
     return (
       <Link
+        enforceA
         onClick={onClick}
         to={targetURL}
         styleName={`leaderboard-avatar ${member.position || member.isSmr ? '' : 'light-gray'}`}

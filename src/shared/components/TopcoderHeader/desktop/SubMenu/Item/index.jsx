@@ -9,6 +9,7 @@ import './style.scss';
 
 export default function Item({
   currentSubMenuTitle,
+  enforceA,
   icon,
   link,
   title,
@@ -20,7 +21,7 @@ export default function Item({
     /* TODO: Should be done in a clean way, witout disabling eslint rules. */
     /* eslint-disable jsx-a11y/no-noninteractive-element-to-interactive-role */
     <li styleName={styleName} onClick={closeMenu} role="button" tabIndex={0}>
-      <Link to={link}>
+      <Link enforceA={enforceA} to={link}>
         {icon}
         {title}
       </Link>
@@ -29,7 +30,12 @@ export default function Item({
   );
 }
 
+Item.defaultProps = {
+  enforceA: false,
+};
+
 Item.propTypes = {
+  enforceA: PT.bool,
   currentSubMenuTitle: PT.string.isRequired,
   icon: PT.node.isRequired,
   link: PT.string.isRequired,
