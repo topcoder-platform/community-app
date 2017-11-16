@@ -58,22 +58,27 @@ const MENU = [{
 }, {
   title: 'Learn',
   items: [{
+    enforceA: true,
     icon: <IconNavRocket />,
     link: `${BASE_URL}/getting-started`,
     title: 'Getting Started',
   }, {
+    enforceA: true,
     icon: <IconNavBookDesign />,
     link: `${BASE_URL}/community/design`,
     title: 'Design',
   }, {
+    enforceA: true,
     icon: <IconNavBoolDevelop />,
     link: `${BASE_URL}/community/development`,
     title: 'Development',
   }, {
+    enforceA: true,
     icon: <IconNavBookData />,
     link: `${BASE_URL}/community/data-science/`,
     title: 'Data Science',
   }, {
+    enforceA: true,
     icon: <IconNavBookCP />,
     link: `${BASE_URL}/community/competitive-programming`,
     title: 'Competitive Programming',
@@ -81,14 +86,17 @@ const MENU = [{
 }, {
   title: 'Community',
   items: [{
+    enforceA: true,
     icon: <IconNavMembers />,
     link: `${BASE_URL}/community/members`,
     title: 'Overview',
   }, {
+    enforceA: true,
     icon: <IconNavTcoGeneric />,
     link: config.URL.TCO,
     title: 'TCO',
   }, {
+    enforceA: true,
     icon: <IconNavPrograms />,
     link: `${BASE_URL}/community/member-programs`,
     title: 'Programs',
@@ -97,14 +105,17 @@ const MENU = [{
     link: config.URL.FORUMS,
     title: 'Forums',
   }, {
+    enforceA: true,
     icon: <IconNavStatistics />,
     link: `${BASE_URL}/community/statistics`,
     title: 'Statistics',
   }, {
+    enforceA: true,
     icon: <IconNavEvents />,
     link: `${BASE_URL}/community/events`,
     title: 'Events',
   }, {
+    enforceA: true,
     icon: <IconNavBlog />,
     link: `${BASE_URL}/blog`,
     title: 'Blog',
@@ -238,10 +249,12 @@ export default class TopcoderHeader extends React.Component {
       userSubMenu = {
         title: 'User',
         items: [{
+          enforceA: true,
           icon: <IconNavDashboard />,
           link: `${BASE_URL}/my-dashboard`,
           title: 'Dashboard',
         }, {
+          enforceA: true,
           icon: <IconNavProfile />,
           link: `${BASE_URL}/members/${profile.handle}`,
           title: 'My Profile',
@@ -250,10 +263,12 @@ export default class TopcoderHeader extends React.Component {
           link: `${config.URL.COMMUNITY}/PactsMemberServlet?module=PaymentHistory&full_list=false`,
           title: 'Payments',
         }, {
+          enforceA: true,
           icon: <IconNavSettings />,
           link: `${BASE_URL}/settings/profile`,
           title: 'Settings',
         }, {
+          enforceA: true,
           icon: <IconNavExit />,
           // TODO: In addition to hitting ${BASE_URL}/logout, which logs out
           // from the accounts-app, we should wipe out auth cookies!

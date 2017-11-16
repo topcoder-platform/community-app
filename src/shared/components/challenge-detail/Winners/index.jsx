@@ -29,7 +29,7 @@ export default function Winners(props) {
   return (
     <div styleName="container">
       {
-        winners && winners.map((w) => {
+        winners && winners.filter(w => w.type === 'final').map((w) => {
           let placeStyle;
           if (winners.length === 2 && w.placement === 2) {
             placeStyle = 'place-2-alt';
