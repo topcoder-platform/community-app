@@ -8,6 +8,7 @@ exports[`Matches shallow shapshot 1`] = `
   <Item
     closeMenu={[Function]}
     currentSubMenuTitle=""
+    enforceA={false}
     icon="icon url"
     link="menu url"
     title="title"
