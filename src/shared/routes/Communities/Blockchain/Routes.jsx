@@ -50,7 +50,7 @@ export default function Routes({ base, member, meta }) {
               path={`${base}/leaderboard`}
             />
             <Route
-              component={Learn}
+              component={() => <Learn baseUrl={base} />}
               exact
               path={`${base}/learn`}
             />

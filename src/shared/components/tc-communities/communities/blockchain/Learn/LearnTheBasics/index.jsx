@@ -1,13 +1,16 @@
 import Accordion from 'components/tc-communities/Accordion/Accordion';
 import AccordionItem from 'components/tc-communities/Accordion/AccordionItem';
 import JoinCommunity from 'containers/tc-communities/JoinCommunity';
+import PT from 'prop-types';
 import React from 'react';
 import Section from 'components/tc-communities/Section';
 import Text from 'components/tc-communities/Text';
 
+import { Link } from 'react-router-dom';
+
 import style from './style.scss';
 
-export default function LearnTheBasics() {
+export default function LearnTheBasics({ baseUrl }) {
   return (
     <Section
       title="Learn The Basics"
@@ -37,8 +40,9 @@ export default function LearnTheBasics() {
           <Text>
             <p>
               If you are new to Topcoder, you can register through the
-              Blockchain Community by clicking the Join Now button on the
-              homepage. For more information on getting started with Topcoder,
+              Blockchain Community by clicking the Join Now button on
+              &zwnj;<Link to={baseUrl}>the homepage</Link>.
+              For more information on getting started with Topcoder,
               visit
               &zwnj;<a
                 href="https://www.topcoder.com/getting-started/"
@@ -69,7 +73,7 @@ export default function LearnTheBasics() {
             <p>
               Win prize money when you deliver the best solution to a challenge.
               You could also earn more as a copilot or reviewer or even win a
-              large cash prize in our yearly tournament, Topcoder Open.
+              large cash prize in our yearly tournament, the Topcoder Open.
             </p>
             <a
               className={style.joinnow}
@@ -100,3 +104,7 @@ export default function LearnTheBasics() {
     </Section>
   );
 }
+
+LearnTheBasics.propTypes = {
+  baseUrl: PT.string.isRequired,
+};

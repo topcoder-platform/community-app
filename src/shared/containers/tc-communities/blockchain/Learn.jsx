@@ -34,10 +34,12 @@ class LearnPageContainer extends React.Component {
 
   render() {
     const {
+      baseUrl,
       consenSysRss,
     } = this.props;
     return (
       <LearnPage
+        baseUrl={baseUrl}
         consenSysRss={consenSysRss}
       />
     );
@@ -49,6 +51,7 @@ LearnPageContainer.defaultProps = {
 };
 
 LearnPageContainer.propTypes = {
+  baseUrl: PT.string.isRequired,
   consenSysRss: PT.shape({
     data: PT.object,
     loadingUuid: PT.string.isRequired,
@@ -57,8 +60,9 @@ LearnPageContainer.propTypes = {
   loadConsenSysRss: PT.func.isRequired,
 };
 
-function mapStateToProps(state) {
+function mapStateToProps(state, ownProps) {
   return {
+    baseUrl: ownProps.baseUrl,
     consenSysRss: state.rss.ConsenSys,
   };
 }

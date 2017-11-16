@@ -20,6 +20,7 @@ import LearnTheBasics from './LearnTheBasics';
 import style from './style.scss';
 
 export default function Learn({
+  baseUrl,
   consenSysRss,
 }) {
   return (
@@ -34,7 +35,7 @@ export default function Learn({
         }}
         imageSrc="/community-app-assets/themes/blockchain/learn/banner.jpg"
       />
-      <LearnTheBasics />
+      <LearnTheBasics baseUrl={baseUrl} />
       <Section
         title="Learn More About Ethereum and Blockchain"
         theme={{
@@ -177,6 +178,7 @@ export default function Learn({
           container: style.resourcesContainer,
         }}
       >
+        {/*
         <LinksCard
           title="From Topcoder Blog"
           links={[]}
@@ -185,8 +187,12 @@ export default function Learn({
           title="Bits on Blocks"
           links={[]}
         />
+        */}
         <LinksCard
           title="Useful Information"
+          theme={{
+            container: style.linksCardContainer,
+          }}
           links={[{
             openNewTab: true,
             title: 'reddit - Ethereum • r/ethereum',
@@ -233,5 +239,6 @@ Learn.defaultProps = {
 };
 
 Learn.propTypes = {
+  baseUrl: PT.string.isRequired,
   consenSysRss: PT.shape(),
 };
