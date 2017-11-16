@@ -259,6 +259,8 @@ function onSelectTab(state, { payload }) {
 function create(initialState) {
   const a = actions.challenge;
   return handleActions({
+    [a.dropCheckpoints]: state => ({ ...state, checkpoints: null }),
+    [a.dropResults]: state => ({ ...state, results: null }),
     [a.getDetailsInit]: onGetDetailsInit,
     [a.getDetailsDone]: onGetDetailsDone,
     [a.getSubmissionsInit]: onGetSubmissionsInit,
