@@ -102,6 +102,12 @@
   }
 }
 
+.loadingVideo {
+  position: absolute;
+  top: 40%;
+  width: 100%;
+}
+
 .historyOfBlockchainVideo {
   position: absolute;
   width: 100%;
@@ -113,6 +119,7 @@
 }
 
 .historyOfBlockchainVideoWrapper {
+  background: whitesmoke;
   margin-bottom: 24px;
   padding-bottom: 33%;
   position: relative;

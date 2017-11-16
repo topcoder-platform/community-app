@@ -13,6 +13,7 @@ import Banner from 'components/tc-communities/Banner';
 import NewsletterSignup from 'components/tc-communities/NewsletterSignup';
 import ArticleCard from 'components/tc-communities/ArticleCard2';
 import LinksCard from 'components/tc-communities/LinksCard';
+import LoadingIndicator from 'components/LoadingIndicator';
 
 import ConsenSysAtMedium from './ConsenSysAtMedium';
 import LearnTheBasics from './LearnTheBasics';
@@ -42,6 +43,7 @@ export default function Learn({
         }}
       >
         <div styleName="historyOfBlockchainVideoWrapper">
+          <LoadingIndicator theme={{ container: style.loadingVideo }} />
           <iframe
             styleName="historyOfBlockchainVideo"
             src="https://www.youtube.com/embed/j23HnORQXvs"
@@ -49,6 +51,7 @@ export default function Learn({
           />
         </div>
         <div styleName="historyOfBlockchainVideoWrapper">
+          <LoadingIndicator theme={{ container: style.loadingVideo }} />
           <iframe
             styleName="historyOfBlockchainVideo"
             src="https://www.youtube.com/embed/TDGq4aeevgY"
