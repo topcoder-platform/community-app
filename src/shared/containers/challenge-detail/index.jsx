@@ -70,25 +70,6 @@ class ChallengeDetailPageContainer extends React.Component {
     if (this.props.tokenV3 !== nextProps.tokenV3) {
       this.props.reloadChallengeDetails(nextProps.authTokens, this.props.challengeId);
     }
-
-    const checkpoints = nextProps.challenge.checkpoints;
-    if (checkpoints && checkpoints.length > 0
-      && !nextProps.loadingCheckpointResults
-      && !nextProps.checkpointResults) {
-      this.props.fetchCheckpoints(this.props.authTokens, this.props.challengeId);
-    }
-
-    if (nextProps.challenge.status === 'COMPLETED'
-      && _.toString(nextProps.challengeId)
-        !== nextProps.resultsLoadedForChallengeId
-      && _.toString(nextProps.challengeId)
-        !== nextProps.loadingResultsForChallengeId) {
-      this.props.loadResults(
-        this.props.authTokens,
-        this.props.challengeId,
-        nextProps.challenge.track.toLowerCase(),
-      );
-    }
   }
 
   onToggleDeadlines(event) {
@@ -274,14 +255,14 @@ ChallengeDetailPageContainer.propTypes = {
   checkpointResults: PT.arrayOf(PT.shape()),
   checkpoints: PT.shape(),
   domain: PT.string.isRequired,
-  fetchCheckpoints: PT.func.isRequired,
+  // fetchCheckpoints: PT.func.isRequired,
   getSubtracks: PT.func.isRequired,
   isLoadingChallenge: PT.bool,
   isLoadingTerms: PT.bool,
   loadChallengeDetails: PT.func.isRequired,
-  loadResults: PT.func.isRequired,
-  loadingCheckpointResults: PT.bool,
-  loadingResultsForChallengeId: PT.string.isRequired,
+  // loadResults: PT.func.isRequired,
+  // loadingCheckpointResults: PT.bool,
+  // loadingResultsForChallengeId: PT.string.isRequired,
   openTermsModal: PT.func.isRequired,
   onSelectorClicked: PT.func.isRequired,
   registerForChallenge: PT.func.isRequired,
@@ -421,10 +402,19 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(a.getDetailsInit(challengeId));
       dispatch(a.getDetailsDone(challengeId, tokens.tokenV3, tokens.tokenV2))
         .then((res) => {
-          if (res.payload[0].track === 'DESIGN') {
-            dispatch(a.fetchCheckpointsInit());
-            dispatch(a.fetchCheckpointsDone(tokens.tokenV2, challengeId));
-          }
+          const ch = res.payload[0];
+          if (ch.track === 'DESIGN') {
+            const p = ch.allPhases
+              .filter(x => x.phaseType === 'Checkpoint Review');
+            if (p.length && p[0].phaseStatus === 'Closed') {
+              dispatch(a.fetchCheckpointsInit());
+              dispatch(a.fetchCheckpointsDone(tokens.tokenV2, challengeId));
+            } else dispatch(a.dropCheckpoints());
+          } else dispatch(a.dropCheckpoints());
+          if (res.payload[0].status === 'COMPLETED') {
+            dispatch(a.loadResultsInit(challengeId));
+            dispatch(a.loadResultsDone(tokens, challengeId, res.payload[0].track.toLowerCase()));
+          } else dispatch(a.dropResults());
           return res;
         });
     },

@@ -185,6 +185,8 @@ function toggleCheckpointFeedback(id, open) {
 
 export default createActions({
   CHALLENGE: {
+    DROP_CHECKPOINTS: _.noop,
+    DROP_RESULTS: _.noop,
     FETCH_CHECKPOINTS_INIT: _.noop,
     FETCH_CHECKPOINTS_DONE: fetchCheckpointsDone,
     GET_DETAILS_INIT: getDetailsInit,
