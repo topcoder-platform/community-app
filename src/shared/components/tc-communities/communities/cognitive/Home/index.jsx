@@ -7,7 +7,6 @@
 /* eslint-disable max-len */
 
 import React from 'react';
-// import PT from 'prop-types';
 import Banner from 'components/tc-communities/Banner';
 import NewsletterSignup from 'components/tc-communities/NewsletterSignup';
 import JoinCommunity from 'containers/tc-communities/JoinCommunity';
@@ -75,10 +74,7 @@ export default function Home() {
 }
 
 Home.defaultProps = {
-  news: [],
 };
 
 Home.propTypes = {
-  // news: PT.arrayOf(PT.shape()),
-  // resetChallengeListing: PT.func.isRequired,
 };

@@ -80,6 +80,7 @@ export default function GetStarted() {
         <div className={style.compete}>
           <Link
             to={'challenges/'}
+            className={style.competeLink}
           >Compete Now</Link>
         </div>
       </ImageText>

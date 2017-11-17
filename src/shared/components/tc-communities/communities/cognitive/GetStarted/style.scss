@@ -18,6 +18,7 @@
   -webkit-font-smoothing: antialiased;
   -webkit-backface-visibility: hidden;
   text-align: center;
+  color: $tc-white;
 
   &:hover,
   &:active,
@@ -25,4 +26,9 @@
     opacity: 0.8;
     color: #fff;
   }
+}
+
+.competeLink,
+.competeLink:visited {
+  color: $tc-white;
 }

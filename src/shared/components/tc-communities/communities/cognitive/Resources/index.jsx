@@ -79,16 +79,16 @@ export default function Resources() {
             <Text>
               <p>The best way to start is by exploring the IBM Watson and Cognitive sites. Here you will find videos, demos, APIs, and helpful resources for starting your Cognitive journey.  Sites:</p>
               <p>
-                <a href="https://www.ibm.com/developerworks/learn/cognitive/">developerWorks</a>
+                <a href="https://www.ibm.com/developerworks/learn/cognitive/" target="_blank" rel="noopener noreferrer">developerWorks</a>
               </p>
               <p>
-                <a href="https://www.ibm.com/watson/">Watson</a>
+                <a href="https://www.ibm.com/watson/" target="_blank" rel="noopener noreferrer">Watson</a>
               </p>
               <p>
-                <a href="https://www.ibm.com/cognitive/">IBM Cognitive</a>
+                <a href="https://www.ibm.com/cognitive/" target="_blank" rel="noopener noreferrer">IBM Cognitive</a>
               </p>
               <p>
-                <a href="http://research.ibm.com/cognitive-computing/">IBM Research</a>
+                <a href="http://research.ibm.com/cognitive-computing/" target="_blank" rel="noopener noreferrer">IBM Research</a>
               </p>
               <p>
                 Next, check out the fun educational challenges here in the Topcoder Cognitive Community. These challenges are designed to help you learn everything you need to compete in future Cognitive development challenges. New educational challenges launch every few weeks, so be sure to check back often.

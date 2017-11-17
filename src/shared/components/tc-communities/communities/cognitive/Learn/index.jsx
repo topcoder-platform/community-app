@@ -1,5 +1,5 @@
 /**
- * Static implementation of Learn page for Wipro 2 community
+ * Static implementation of Learn page for Cognitive community
  *
  * It hardcodes data which is passed to dummy components,
  * thus we disable max-len eslint rule for this file
@@ -7,21 +7,11 @@
 /* eslint-disable max-len */
 
 import React from 'react';
-// import { Link } from 'react-router-dom';
-import Section from 'components/tc-communities/Section';
-/*
-import Accordion from 'components/tc-communities/Accordion/Accordion';
-import AccordionItem from 'components/tc-communities/Accordion/AccordionItem';
-*/
 import Banner from 'components/tc-communities/Banner';
-/*
-import NewsletterSignup from 'components/tc-communities/NewsletterSignup';
-import ArticleCard from 'components/tc-communities/ArticleCard';
-import LinksCard from 'components/tc-communities/LinksCard';
-import Text from 'components/tc-communities/Text';
-*/
+import Section from 'components/tc-communities/Section';
+import JoinCommunity from 'containers/tc-communities/JoinCommunity';
 
-import { Button } from 'components/buttons';
+import bannerStyle from './banner.scss';
 
 import style from './style.scss';
 
@@ -29,165 +19,56 @@ export default function Learn() {
   return (
     <main>
       <Banner
-        title="Learning & Certification"
-        text="Our continuously evolving structured learning paths, constantly abreast of the latest, tailored for employees to deepen your knowledge, infuses important software capabilities that are industry specific and help you get the skills you need to succeed."
-        theme={{
-          container: style.bannerContainer,
-          content: style.bannerContent,
-          contentInner: style.bannerContentInner,
-        }}
-        imageSrc="/community-app-assets/themes/wipro/learn/banner.jpg"
-      />
-      <Section>
-        <div styleName="message">
-          <p>If  you are accessing TopGear <span styleName="highlighted">Learning</span> Platform from <strong>Wipro backbone network</strong>, click on &ldquo;<strong>CONTINUE</strong>&rdquo; to access the platform.</p>
-          <p>
-            <Button
-              openNewTab
-              theme={{ button: style.continueButton }}
-              to="https://topgear-app.wipro.com"
-            >Continue</Button>
-          </p>
-          <p>To access TopGear <span styleName="highlighted">Learning</span> Platform <strong>outside of Wipro network</strong>, please follow the below  instructions:</p>
-          <ol>
-            <li>
-              Send an email to <a href="mailto:devenvaccessreq.topgear@wipro.com?subject=Internet%20TopGear%20portal%20access">devenvaccessreq.topgear@wipro.com</a>  with subject line <em>Internet TopGear portal access</em>.
-            </li>
-            <li>
-              You will receive an email <span styleName="ddashUnderline">within 24 hours</span>  with details for accessing TopGear portal  through Virtual Desktop.
-            </li>
-            <li>
-              Using Virtual Desktop you can access <a href="https://topgear-app.wipro.com/">https://topgear-app.wipro.com</a> to <span styleName="highlighted">learn</span> new technologies.
-            </li>
-          </ol>
-        </div>
-      </Section>
-
-      {/*
-
+        title="Learning Cognitive on Topcoder"
+        text="Data, in all forms, is an exponentially expanding resource that remains largely untapped. The data explosion is outstripping the human capacity to understand hidden meanings and gain useful insights. That’s where Cognitive comes in."
+        imageSrc="/community-app-assets/themes/cognitive/learn/banner.jpg"
+        theme={bannerStyle}
+      ><JoinCommunity theme={{ link: bannerStyle.link }} label="Sign up now" /></Banner>
       <Section
-        title="Learn The Basics"
         theme={{
-          container: style.learnBasicsContainer,
+          content: style.logoContent,
+          container: style.logoContainer,
         }}
       >
-        <Accordion>
-          <AccordionItem title="Overview">
-            <Text>
-              <p>The FULCRUM is &ldquo;one stop shop&rdquo; for access to a wide range of training and learning opportunities on Wipro’s Hybrid Crowd. Designed to strengthen the skills of employees, the hub offers physical and online platforms to learn skills on demand, gain hands-on experience, and be future ready.</p>
-              <p>Meticulously crafted comprehensive learning paths, detailed study material, engaging case studies, training projects to systematically enhance your career, development environments to practice, convenient online accessibility, opportunity to connect with mentors, peers, SMEs of various technologies – a variety of resources bringing people and technology together for an innovative and valuable learning experience.</p>
-              <p>Our compelling learning environment across wide range of emerging technologies helps you in mastering today’s most essential skills, that brings your knowledge to the next level, step by step, which ultimately creates a more effective learning experience.</p>
-              <p>Are you ready to step onto the innovative journey of learning?</p>
-              <div styleName="joinnowWrap">
-                <a styleName="joinnow" href="https://topgear-app.wipro.com">Start Exploring</a>
-              </div>
-            </Text>
-          </AccordionItem>
-        </Accordion>
+        <img src="/community-app-assets/themes/cognitive/learn/logo.png" alt="IBM Logo" className={style.logo} />
       </Section>
-
       <Section
-        title="Courses and Tutorials"
-        link={{
-          title: 'View All',
-          url: 'learn',
-        }}
         theme={{
-          container: style.coursesContainer,
+          content: style.introContent,
+          container: style.introContainer,
+          title: style.introTitle,
         }}
+        title="Outthink your biggest challenges with IBM Watson and IBM Cloud."
       >
-        <ArticleCard
-          title="What You Need to Join a Challenge"
-          text="There are advances being made in science and technology everyday, and a good example of this is the LCD monitor. LCD monitors have"
-          link={{
-            title: 'Read More',
-            url: 'learn',
-          }}
-          imageSrc="/community-app-assets/themes/wipro/learn/courses-01.jpg"
-        />
-        <ArticleCard
-          title="An Ugly Myspace Profile Will Sure Ruin Your Reputation"
-          text="Planning to visit Las Vegas or any other vacational resort where casinos are a major portion of their business? I have just the thing for"
-          link={{
-            title: 'Read More',
-            url: 'learn',
-          }}
-          imageSrc="/community-app-assets/themes/wipro/learn/courses-02.jpg"
-        />
-        <ArticleCard
-          title="3 Simple Ways Work Fast in Competition"
-          text="If you are in the market for a computer, there are a number of factors to consider. Will it be used for your home, your office or"
-          link={{
-            title: 'Read More',
-            url: 'learn',
-          }}
-          imageSrc="/community-app-assets/themes/wipro/learn/courses-03.jpg"
-        />
+        <p>
+        With the ability to understand, reason, learn, and interact, IBM Watson can help you transform your apps and business. Combined with the IBM cloud platform you’ll have the ability to solve real problems and drive business value with applications, infrastructure, and services.
+        </p>
+        <p>
+        As a developer, you have a lot of information at your fingertips. Allow IBM developerWorks to help you sort through it! Visit <a href="http://www.ibm.com/developerworks/learn/cognitive" target="_blank" rel="noopener noreferrer">www.ibm.com/developerworks/learn/cognitive</a> for tutorials, training, courses, tools, and code to help you create apps that accelerate, enhance, and scale the human experience.
+        </p>
+        <p>
+        Staying current is hard work. The developerWorks editors can make it a little easier. Each month, we bundle up the best technical info on Cognitive Computing and deliver it to your inbox. <a href="https://www.pages03.net/ibmdeveloperworks/developerWorks-CognitiveComputingNewsletterSubscriptionPage/" target="_blank" rel="noopener noreferrer">Subscribe today.</a>
+        </p>
+        <p>
+        We would like to thank IBM for sponsoring the Topcoder Cognitive Community. All of this wouldn’t be possible without the awesome support of the Watson, developerWorks and Cloud teams.
+        </p>
       </Section>
-
       <Section
-        title="Resources"
         theme={{
-          title: style.resourcesTitle,
-          container: style.resourcesContainer,
+          content: style.videoContent,
+          container: style.videoContainer,
+          title: style.videoTitle,
         }}
+        title="Outthink your biggest challenges with IBM Watson and IBM Cloud."
       >
-        <LinksCard
-          title="Documents"
-          links={[{
-            title: 'Nam dapibus nisl vitae elit fringilla',
-            url: 'learn',
-          }, {
-            title: 'Aenean sollicitudin',
-            url: 'learn',
-          }, {
-            title: 'Erat a elementum rutrum',
-            url: 'learn',
-          }, {
-            title: 'Neque sem pretium metus',
-            url: 'learn',
-          }]}
-        />
-        <LinksCard
-          title="Videos"
-          links={[{
-            title: 'Tristique ullamcorper id vitae',
-            url: 'learn',
-          }, {
-            title: 'Nulla mollis sapien sollicitudin',
-            url: 'learn',
-          }, {
-            title: 'Vivamus facilisis dolor et massa',
-            url: 'learn',
-          }, {
-            title: 'Vestibulum nisl egestas',
-            url: 'learn',
-          }]}
-        />
-        <LinksCard
-          title="Useful Links"
-          links={[{
-            title: 'Nam dapibus nisl vitae elit fringilla',
-            url: 'learn',
-          }, {
-            title: 'Aenean sollicitudin',
-            url: 'learn',
-          }, {
-            title: 'Erat a elementum rutrum',
-            url: 'learn',
-          }, {
-            title: 'Neque sem pretium metus',
-            url: 'learn',
-          }]}
-        />
+        <iframe width="1280" height="720" src="https://www.youtube.com/embed/eJ9ed63qFBE" frameBorder="0" gesture="media" allowFullscreen title="Youtube Video" />
       </Section>
-
-      <NewsletterSignup
-        title="Sign up for our newsletter"
-        text="Don’t miss out on the latest Topcoder IOS challenges and information!"
-        imageSrc="/community-app-assets/themes/wipro/subscribe-bg.jpg"
-      />
-      */}
     </main>
   );
 }
+
+Learn.defaultProps = {
+};
+
+Learn.propTypes = {
+};
