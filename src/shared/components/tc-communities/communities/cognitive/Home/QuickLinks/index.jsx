@@ -19,14 +19,14 @@ function QuickLinks({ theme, education, challenges, buttonText, title }) {
     </li>
   ));
 
-  const challengeLinks = challenges.map(({ url, text }) => (
+  const challengeLinks = challenges.map(({ name, id }) => (
     <li className={theme.challengeItem}>
       <Link
         className={theme.challengeLink}
-        to={url}
-        key={text}
+        to={`challenges/${id}/`}
+        key={name}
         openNewTab
-      >{text}</Link>
+      >{name}</Link>
     </li>
   ));
 
@@ -74,8 +74,8 @@ QuickLinks.propTypes = {
     url: PT.string.isRequired,
   })).isRequired,
   challenges: PT.arrayOf(PT.shape({
-    text: PT.string.isRequired,
-    url: PT.string.isRequired,
+    name: PT.string.isRequired,
+    id: PT.number.isRequired,
   })).isRequired,
   buttonText: PT.string.isRequired,
   title: PT.string.isRequired,

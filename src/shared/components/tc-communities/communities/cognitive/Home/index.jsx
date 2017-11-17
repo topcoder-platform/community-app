@@ -12,12 +12,10 @@ import Banner from 'components/tc-communities/Banner';
 import NewsletterSignup from 'components/tc-communities/NewsletterSignup';
 import JoinCommunity from 'containers/tc-communities/JoinCommunity';
 
-import primaryBannerStyle from './themes/primaryBanner.scss';
-import secondaryBannerStyle from './themes/secondaryBanner.scss';
 import QuickLinks from './QuickLinks';
 
-import './style.scss';
-
+import primaryBannerStyle from './primaryBanner.scss';
+import secondaryBannerStyle from './secondaryBanner.scss';
 
 export default function Home() {
   return (
@@ -58,12 +56,12 @@ export default function Home() {
         ]}
         challenges={[
           {
-            text: '2017 Humblefool Charity Hackathon',
-            url: 'https://www.topcoder.com/challenges/30059771/?type=develop',
+            name: '2017 Humblefool Charity Hackathon',
+            id: 30059771,
           },
           {
-            text: 'IBM Cognitive – Image Recognition Training with PowerAI Notebooks',
-            url: 'https://www.topcoder.com/challenges/30058628/?type=develop',
+            name: 'IBM Cognitive – Image Recognition Training with PowerAI Notebooks',
+            id: 30058628,
           },
         ]}
       />

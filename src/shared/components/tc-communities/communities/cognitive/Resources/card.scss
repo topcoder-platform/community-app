@@ -1,0 +1,58 @@
+@import '~styles/mixins';
+
+.containerIBM {
+  background: url("https://cognitive.topcoder.com/wp-content/uploads/sites/8/2017/01/resources-ibm.jpg");
+}
+
+.containerSupport {
+  background: url("/community-app-assets/themes/cognitive/resources/support-back.jpg");
+}
+
+.containerForum {
+  background: url("/community-app-assets/themes/cognitive/resources/forum-back.jpg");
+}
+
+.containerIBM,
+.containerSupport,
+.containerForum {
+  background-size: cover;
+  width: 33.33%;
+  height: 224px;
+  padding-top: 50px;
+  margin: 0 0 0 0;
+}
+
+.icon {
+  max-height: 64px;
+  height: auto;
+  width: auto;
+}
+
+.linkWrap {
+  margin-top: 3px;
+}
+
+.title {
+  margin-top: 0;
+}
+
+.link,
+.link:visited {
+  font-family: "Proxima Nova", Arial, "Helvetica Neue", Helvetica, sans-serif;
+  transition: opacity 0.6s;
+  font-size: 24px;
+  font-weight: 400;
+  line-height: 46px;
+  color: $tc-white;
+  -webkit-font-smoothing: antialiased;
+  -webkit-backface-visibility: hidden;
+  border: none;
+  text-transform: none;
+
+  &:hover,
+  &:active,
+  &:focus {
+    color: $tc-white;
+    opacity: 0.6;
+  }
+}

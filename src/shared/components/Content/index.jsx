@@ -136,6 +136,9 @@ export default function Content() {
         <li>
           <Link to="/community/veterans">Veterans Community</Link>
         </li>
+        <li>
+          <Link to="/community/cognitive">Cognitive Community</Link>
+        </li>
       </ul>
 
       <h3>Sandbox</h3>

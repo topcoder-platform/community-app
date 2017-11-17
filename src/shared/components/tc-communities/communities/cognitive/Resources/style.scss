@@ -1,0 +1,29 @@
+@import '~styles/mixins';
+
+.cardSectionContainer {
+  top: -70px;
+  height: auto;
+  padding: 0 0 0 0;
+  position: relative;
+}
+
+.cardSectionContent {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  margin: 0 0 0 0;
+  width: 100%
+}
+
+.faqSectionContainer {
+  padding: 0 0 0 0;
+  margin-bottom: 40px;
+  padding-bottom: 40px;
+}
+
+.faqSectionContent {
+}
+
+.faqTitle {
+  padding-top: 0px;
+}

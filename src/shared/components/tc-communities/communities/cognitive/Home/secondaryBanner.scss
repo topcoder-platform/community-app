@@ -1,15 +1,15 @@
 @import '~styles/mixins';
 
 .container {
+  display: block;
   position: relative;
+  height: 323px;
   top: -70px;
-  background-size: cover;
 
   @include xxs-to-xs {
-    height: 100vh;
-    background-position-y: 0%;
-    background-position-x: 70%;
-    background-size: auto;
+    background-position-y: 50%;
+    background-position-x: 50%;
+    background-size: cover;
     top: -50px;
   }
 
@@ -20,14 +20,11 @@
   top: 70px;
   left: 0;
   position: absolute;
-  width: 50%;
-  text-align: left;
+  width: 100%;
 
   @include xxs-to-xs {
-    background: linear-gradient(to bottom, rgba(30, 87, 153, 0) 60%, #25ade8 90%);
     width: 100%;
     text-align: left;
-    top: 50px;
   }
 
 }
@@ -45,13 +42,13 @@
 }
 
 .contentInner {
-  padding: 30px 0 0 30px;
+  padding: 30px 0 0 0;
 
   @include xxs-to-xs {
+    padding: 10px 0 0 0;
     background-color: transparent;
     width: 100%;
     height: 98%;
-    text-align: left;
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
@@ -61,12 +58,13 @@
 h2.title {
   font-family: "Proxima Nova", Arial, "Helvetica Neue", Helvetica, sans-serif;
   text-transform: none;
-  font-size: 60px;
-  line-height: 60px;
+  font-size: 25px;
+  line-height: 27.5px;
+  text-align: center;
 
   @include xxs-to-xs {
-    font-size: 36px;
-    line-height:30px;
+    font-size: 25px;
+    line-height:27.5px;
   }
 }
 
@@ -74,7 +72,6 @@ h2.title {
   font-family: "Proxima Nova", Arial, "Helvetica Neue", Helvetica, sans-serif;
   font-size: 24px;
   line-height: 36px;
-  padding-bottom: 35px;
 
   @include xxs-to-xs {
     font-size: 18px;
@@ -82,29 +79,32 @@ h2.title {
   }
 }
 
-// .linkWrap {
-//   left: 50%;
-//   top: 50px;
-// }
+.linkWrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 
-.link {
+.link,
+.link:visited {
   font-family: "Proxima Nova", Arial, "Helvetica Neue", Helvetica, sans-serif;
   border-radius: 23px;
-  width: 160px;
   height: 46px;
+  width: 171px;
+  background-color: $tc-dark-blue;
+  color: #fff;
   text-transform: none;
   transition: opacity 0.6s;
   font-size: 18px;
   font-weight: 600;
   line-height: 46px;
-  color: $tc-dark-blue;
-  left: 50%;
   -webkit-font-smoothing: antialiased;
   -webkit-backface-visibility: hidden;
 
   &:hover,
   &:active,
   &:focus {
-    opacity: 0.6;
+    opacity: 0.8;
+    color: #fff;
   }
 }
