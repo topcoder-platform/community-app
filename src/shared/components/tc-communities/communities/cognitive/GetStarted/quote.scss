@@ -1,0 +1,36 @@
+@import '~styles/mixins';
+
+.container {
+  display: flex;
+  flex-direction: row;
+
+  &:nth-child(odd) {
+    flex-direction: row;
+  }
+}
+
+.image {
+  width: 72px;
+  height: 72px;
+}
+
+.title {
+  color: $tc-white;
+  font-family: "Proxima Nova", Arial, "Helvetica Neue", Helvetica, sans-serif;
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 26px;
+}
+
+.text {
+  color: $tc-white;
+  font-family: "Proxima Nova", Arial, "Helvetica Neue", Helvetica, sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 20px;
+  opacity: 1;
+}
+
+.contentInner {
+  padding-left: 15px;
+}

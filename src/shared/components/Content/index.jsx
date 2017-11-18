@@ -112,6 +112,9 @@ export default function Content() {
           <Link to="/community/blockchain">Blockchain Community</Link>
         </li>
         <li>
+          <Link to="/community/cognitive">Cognitive Community</Link>
+        </li>
+        <li>
           <Link to="/community/community-2">Community 2</Link>
         </li>
         <li>

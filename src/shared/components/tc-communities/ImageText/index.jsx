@@ -10,7 +10,7 @@ import { Link } from 'utils/router';
 import defaultStyle from './style.scss';
 
 function ImageText(props) {
-  const { imageSrc, title, text, link, theme } = props;
+  const { imageSrc, title, text, link, theme, children } = props;
 
   let links;
   if (link) {
@@ -33,6 +33,7 @@ function ImageText(props) {
           <h3 className={theme.title}>{title}</h3>
           <p className={theme.text}>{text}</p>
           {links}
+          {children}
         </div>
       </div>
     </div>
@@ -42,6 +43,7 @@ function ImageText(props) {
 ImageText.defaultProps = {
   link: null,
   theme: {},
+  children: null,
 };
 
 const LinkShape = PT.shape({
@@ -68,6 +70,7 @@ ImageText.propTypes = {
     linkWrap: PT.string,
     link: PT.string,
   }),
+  children: PT.node,
 };
 
 export default themr('tcCommunities-ImageText', defaultStyle)(ImageText);

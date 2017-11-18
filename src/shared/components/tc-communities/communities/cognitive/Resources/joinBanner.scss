@@ -1,0 +1,112 @@
+@import '~styles/mixins';
+
+.container {
+  display: block;
+  position: relative;
+  height: 323px;
+
+  @include xxs-to-xs {
+    background-position-y: 50%;
+    background-position-x: 50%;
+    background-size: cover;
+    top: -50px;
+  }
+}
+
+.content {
+  background-color: transparent;
+  top: 70px;
+  left: 0;
+  position: absolute;
+  width: 100%;
+
+  @include xxs-to-xs {
+    width: 100%;
+    text-align: left;
+  }
+}
+
+.contentBg {
+  transform: none;
+  background-color: transparent;
+
+  @include xxs-to-xs {
+    background: none;
+    background-color: transparent;
+    left: -30px;
+    transform: none;
+  }
+}
+
+.contentInner {
+  padding: 30px 0 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  @include xxs-to-xs {
+    padding: 10px 0 0;
+    background-color: transparent;
+    width: 100%;
+    height: 98%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+  }
+}
+
+h2.title {
+  font-family: "Proxima Nova", Arial, "Helvetica Neue", Helvetica, sans-serif;
+  text-transform: none;
+  font-size: 25px;
+  line-height: 27.5px;
+  text-align: center;
+
+  @include xxs-to-xs {
+    font-size: 25px;
+    line-height: 27.5px;
+  }
+}
+
+.text {
+  font-family: "Proxima Nova", Arial, "Helvetica Neue", Helvetica, sans-serif;
+  font-size: 24px;
+  line-height: 36px;
+  padding-bottom: 20px;
+
+  @include xxs-to-xs {
+    font-size: 18px;
+    line-height: 27px;
+  }
+}
+
+.linkWrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.link,
+.link:visited {
+  border: none;
+  font-family: "Proxima Nova", Arial, "Helvetica Neue", Helvetica, sans-serif;
+  border-radius: 23px;
+  height: 46px;
+  width: 171px;
+  background-color: $tc-dark-blue;
+  color: #fff;
+  text-transform: none;
+  transition: opacity 0.6s;
+  font-size: 18px;
+  font-weight: 600;
+  line-height: 46px;
+  -webkit-font-smoothing: antialiased;
+  -webkit-backface-visibility: hidden;
+
+  &:hover,
+  &:active,
+  &:focus {
+    opacity: 0.8;
+    color: #fff;
+  }
+}
