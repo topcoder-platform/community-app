@@ -19,11 +19,14 @@ import { Route, Switch } from 'react-router-dom';
 
 import headerTheme from 'components/tc-communities/communities/cognitive/header.scss';
 
+import style from './style.scss';
+
 export default function Cognitive({ base, member, meta }) {
   return (
     <Route
       component={({ match }) => (
         <div>
+          <div className={style.back} />
           <Header
             baseUrl={base}
             pageId={match.params.pageId || 'home'}
@@ -31,11 +34,18 @@ export default function Cognitive({ base, member, meta }) {
           />
           <Switch>
             <Route
-              component={() => (<div>{ChallengeListing({
-                challengesUrl: `${base}/challenges`,
-                meta,
-                newChallengeDetails: true,
-              })}</div>)}
+              component={() => (
+                <div>
+                  {
+                    ChallengeListing({
+                      challengesUrl: `${base}/challenges`,
+                      meta,
+                      listingOnly: true,
+                      newChallengeDetails: true,
+                    })
+                  }
+                </div>
+              )}
               exact
               path={`${base}/challenges`}
             />
