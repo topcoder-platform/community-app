@@ -3,7 +3,7 @@
 .cardSectionContainer {
   top: -70px;
   height: auto;
-  padding: 0 0 0 0;
+  padding: 0;
   position: relative;
 }
 
@@ -11,21 +11,23 @@
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
-  margin: 0 0 0 0;
-  width: 100%
+  margin: 0;
+  width: 100%;
 }
 
 .faqSectionContainer {
-  padding: 0 0 0 0;
+  padding: 0;
   margin-bottom: 40px;
   padding-bottom: 40px;
 }
 
+/* stylelint-disable */
 .faqSectionContent {
 }
+/* stylelint-enable */
 
 .faqTitle {
-  padding-top: 0px;
+  padding-top: 0;
 }
 
 a,

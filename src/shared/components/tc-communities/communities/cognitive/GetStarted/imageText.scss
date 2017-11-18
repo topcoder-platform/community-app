@@ -4,6 +4,7 @@
   position: relative;
   top: -70px;
   color: $tc-gray-90;
+
   &:nth-child(4) {
     background: #252527;
     color: $tc-white;
@@ -35,7 +36,7 @@
 .contentInner {
   text-align: left;
   width: 100%;
-  padding: 60px 60px 60px 60px;
+  padding: 60px;
 }
 
 .linkWrap {

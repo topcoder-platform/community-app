@@ -281,6 +281,14 @@ exports[`Matches shallow shapshot 1`] = `
     <li>
       <Link
         replace={false}
+        to="/community/cognitive"
+      >
+        Cognitive Community
+      </Link>
+    </li>
+    <li>
+      <Link
+        replace={false}
         to="/community/community-2"
       >
         Community 2

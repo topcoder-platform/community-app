@@ -1,6 +1,6 @@
 {
   "challengeFilter": {
-    "groupIds": ["1234"],
+    "groupIds": ["20000015"],
     "tags": ["Cognitive"]
   },
   "challengeListing": {
@@ -19,7 +19,7 @@
       "value": "2"
     }
   ],
-  "groupIds": ["1234"],
+  "groupIds": ["20000015"],
   "logos": [{
     "img": "/community-app-assets/themes/cognitive/cognitive-logo.png",
     "url": "http://cognitive.topcoder.com/"

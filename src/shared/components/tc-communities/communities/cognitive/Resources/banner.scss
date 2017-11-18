@@ -3,7 +3,6 @@
 .container {
   position: relative;
   top: -70px;
-  background-size: cover;
   background-position-y: 0%;
   background-position-x: 80%;
   background-size: cover;
@@ -12,7 +11,6 @@
   @include xxs-to-xs {
     top: -50px;
   }
-
 }
 
 .content {
@@ -29,7 +27,6 @@
     text-align: left;
     top: 50px;
   }
-
 }
 
 .contentBg {
@@ -66,7 +63,7 @@ h2.title {
 
   @include xxs-to-xs {
     font-size: 36px;
-    line-height:30px;
+    line-height: 30px;
   }
 }
 

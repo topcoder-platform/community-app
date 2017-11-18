@@ -28,7 +28,7 @@ export default function Communities({ base, communityId, member, meta }) {
     case 'tc-prod-dev': return <TcProdDev base={base} meta={meta} />;
     case 'veterans': return <Veterans base={base} meta={meta} />;
     case 'wipro': return <Wipro base={base} meta={meta} />;
-    case 'cognitive': return <Cognitive base={base} meta={meta} />;
+    case 'cognitive': return <Cognitive base={base} member={member} meta={meta} />;
     default: throw new Error('Unknown community ID!');
   }
 }

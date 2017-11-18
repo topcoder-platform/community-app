@@ -12,6 +12,7 @@
 
 .logosWrap {
   display: flex;
+
   @include xxs-to-xs {
     height: 50px;
   }
@@ -53,7 +54,6 @@
   @include xxs-to-xs {
     max-height: 0;
   }
-
 }
 
 .mobileToggle i {
@@ -72,7 +72,6 @@
   @include xxs-to-xs {
     height: 50px;
   }
-
 }
 
 .challengeDropdown {
@@ -91,9 +90,10 @@
   flex-grow: 0;
 }
 
+/* stylelint-disable */
 .menuWrapOpen {
-
 }
+/* stylelint-enable */
 
 .menuLink,
 .menuLink:visited,

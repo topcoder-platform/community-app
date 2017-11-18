@@ -19,7 +19,7 @@ import { Route, Switch } from 'react-router-dom';
 
 import headerTheme from 'components/tc-communities/communities/cognitive/header.scss';
 
-export default function Cognitive({ base, meta }) {
+export default function Cognitive({ base, member, meta }) {
   return (
     <Route
       component={({ match }) => (
@@ -69,7 +69,7 @@ export default function Cognitive({ base, meta }) {
               path={`${base}/challenges/:challengeId(\\d{8})/my-submissions`}
             />
             <Route
-              component={Resources}
+              component={() => <Resources member={member} />}
               exact
               path={`${base}/resources`}
             />
@@ -107,5 +107,6 @@ Cognitive.defaultProps = {
 
 Cognitive.propTypes = {
   base: PT.string,
+  member: PT.bool.isRequired,
   meta: PT.shape().isRequired,
 };

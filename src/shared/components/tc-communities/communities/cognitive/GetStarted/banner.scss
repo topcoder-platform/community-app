@@ -13,7 +13,6 @@
     background-size: auto;
     top: -50px;
   }
-
 }
 
 .content {
@@ -30,7 +29,6 @@
     text-align: left;
     top: 50px;
   }
-
 }
 
 .contentBg {
@@ -67,7 +65,7 @@ h2.title {
 
   @include xxs-to-xs {
     font-size: 36px;
-    line-height:30px;
+    line-height: 30px;
   }
 }
 
