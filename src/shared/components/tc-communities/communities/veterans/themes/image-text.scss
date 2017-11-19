@@ -1,0 +1,52 @@
+/**
+ * Theme for the image & text block.
+ */
+
+@import './mixins.scss';
+@import '~components/tc-communities/ImageText2/style.scss';
+
+.container {
+  border-radius: 6px;
+  margin: 20px 0;
+  overflow: hidden;
+
+  &:nth-child(even) {
+    background: #25c089;
+    flex-direction: row-reverse;
+  }
+
+  &:nth-child(odd) {
+    background: #bd731e;
+    flex-direction: row;
+  }
+}
+
+.content {
+  @include regular-text;
+
+  color: white;
+  padding: 40px;
+  width: 50.9%;
+
+  h1 {
+    @include h2;
+
+    color: white;
+  }
+
+  p {
+    margin: 20px 0;
+
+    &:first-of-type {
+      margin-top: 0;
+    }
+
+    &:last-of-type {
+      margin-bottom: 0;
+    }
+  }
+}
+
+.image {
+  width: 49.1%;
+}

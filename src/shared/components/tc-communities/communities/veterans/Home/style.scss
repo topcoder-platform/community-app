@@ -1,137 +1,128 @@
-@import '~styles/mixins';
+@import '../themes/mixins';
 
-@mixin bodyText {
-  color: #787d81;
-  font: 15px/22px 'Open Sans';
-  padding: 6px 0;
-}
+.card {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: center;
+  margin: 0 2px;
+  min-height: 281px;
+  text-align: center;
 
-.paragraph2 {
-  padding: 6px 0;
-}
+  h1 {
+    @include h2;
 
-.bannerContainer {
-  background-position: 0% 20% !important;
-}
-
-.bottomMargin {
-  margin-bottom: 12px;
-}
-
-.hiringSection {
-  @include bodyText;
-
-  background: whitesmoke;
-  padding: 24px 0;
-
-  div {
-    text-align: center;
-    width: 100%;
+    color: $white;
   }
 
   p {
-    font-size: 18px;
+    @include regular-text;
+
+    color: $white;
+    margin-bottom: 40px;
   }
 }
 
-.logos {
-  padding: 32px 0 0;
-
-  img {
-    margin: 0 6px;
-  }
+.card-01 {
+  background: url('images/card-image-01.jpg');
 }
 
-.grayBack {
-  background: whitesmoke;
+.card-02 {
+  background: url('images/card-image-02.jpg');
 }
 
-.paragraph {
-  @include bodyText;
+.cardsBlock {
+  display: flex;
+  margin: 0 auto;
+  max-width: $screen-lg;
+}
 
-  em {
-    font-style: italic !important;
+.header {
+  background: url('./images/header.jpg') 50% 50% / cover;
+  box-shadow: inset 0 0 0 500px rgba(49, 100, 1, 0.75);
+  display: flex;
+  flex-direction: column;
+  height: 500px;
+  justify-content: center;
+  text-align: center;
+  width: 100%;
+
+  h1 {
+    @include h1;
+
+    color: $white;
   }
 
   p {
-    padding: 6px 0;
+    @include large-text;
+
+    color: $white;
+    margin: 0 auto;
+    max-width: 720px;
   }
+}
+
+.imageTextBlock {
+  margin: 0 auto;
+  max-width: $screen-lg;
+}
+
+.joinButtonInHeader {
+  margin-top: 40px;
+}
+
+.ourMission {
+  @include h2;
+
+  color: $black;
+  margin: 100px auto;
+  max-width: 890px;
+  padding: 0 24px;
+  text-align: center;
+}
+
+.qouteAvatar {
+  height: 150px;
+  margin-right: 40px;
+  width: 150px;
+}
+
+.quoteBlock {
+  display: flex;
+  margin: 200px auto;
+  max-width: $screen-lg;
+}
+
+.qouteCommas {
+  color: #cfe6ff;
+  font: italic 500 82px Roboto;
+  position: absolute;
+  margin-top: -30px;
+  z-index: -1;
+
+  &.left {
+    margin-left: -20px;
+  }
+
+  &.right {
+    margin-left: -10px;
+  }
+}
+
+.qouteNote {
+  @include regular-text;
+
+  font-weight: normal;
 
   strong {
     font-weight: bold;
   }
 }
 
-.statsContainer {
-  padding: 0;
-}
+.qouteText {
+  @include h3;
 
-.statsContent {
-  border-bottom: 1px solid #ddd;
-  padding: 43px 38px 50px;
-
-  @include xxs-to-xs {
-    display: flex;
-    justify-content: space-around;
-    padding: 30px 12px 32px;
-  }
-}
-
-.resourcesContainer {
-  background-color: #fafafa;
-  padding: 70px 0;
-
-  @include xxs-to-xs {
-    padding: 40px 0;
-  }
-}
-
-.linksContainer {
-  padding: 24px 0 0;
-
-  @include xxs-to-xs {
-    padding: 0;
-  }
-}
-
-.joinSectionContent {
-  justify-content: center;
-}
-
-.primaryButton {
-  color: $tc-white;
-  display: block;
-  background: #85bc3f;
-  border: none;
-  border-radius: 6px;
-  font: 14px/40px 'Open Sans';
-  margin: 24px auto;
-  height: 40px;
-  text-align: center;
-  text-transform: none;
-  width: 171px;
-
-  &:hover,
-  &:active,
-  &:focus,
-  &:visited {
-    color: $tc-white;
-    outline: none;
-    text-decoration: none;
-  }
-
-  &:hover {
-    background: #85bc3f;
-  }
-
-  &.joining:hover {
-    background: #85bc3f;
-    cursor: default;
-  }
-
-  &.joining div p {
-    display: inline-block;
-    margin-right: 12px;
-    vertical-align: top;
-  }
+  font-style: italic;
+  margin-bottom: 20px;
+  max-width: 740px;
 }
