@@ -9,7 +9,7 @@ import React from 'react';
 import { StaticRouter } from 'react-router-dom';
 import { requireWeak, resolveWeak, SplitRoute } from 'utils/router';
 
-export default function ChunkLoader({ base, meta }) {
+export default function ChunkLoader({ base, member, meta }) {
   return (
     <SplitRoute
       cacheCss
@@ -18,7 +18,9 @@ export default function ChunkLoader({ base, meta }) {
         import(
           /* webpackChunkName: "veterans-community/chunk" */
           './Routes',
-        ).then(({ default: Routes }) => <Routes base={base} meta={meta} />)
+        ).then(({ default: Routes }) => (
+          <Routes base={base} member={member} meta={meta} />
+        ))
       }
       renderPlaceholder={() => <LoadingIndicator />}
       renderServer={(routeProps) => {
@@ -28,7 +30,7 @@ export default function ChunkLoader({ base, meta }) {
           <StaticRouter
             context={routeProps.staticContext}
             location={routeProps.location.pathname}
-          ><Routes base={base} meta={meta} /></StaticRouter>
+          ><Routes base={base} member={member} meta={meta} /></StaticRouter>
         );
       }}
     />
@@ -37,5 +39,6 @@ export default function ChunkLoader({ base, meta }) {
 
 ChunkLoader.propTypes = {
   base: PT.string.isRequired,
+  member: PT.bool.isRequired,
   meta: PT.shape().isRequired,
 };

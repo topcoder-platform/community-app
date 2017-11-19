@@ -2,7 +2,7 @@
  * Various utils that faciliate the usage of react-router.
  */
 
-/* global document */
+/* global document, window */
 
 import PT from 'prop-types';
 import React from 'react';
@@ -66,7 +66,7 @@ export function Link({
         if (url.origin !== document.location.origin) {
           document.location = to;
           e.preventDefault();
-        }
+        } else window.scroll(0, 0);
       }}
       replace={replace}
       to={to}
@@ -137,7 +137,7 @@ export function NavLink({
         if (url.origin !== document.location.origin) {
           document.location = to;
           e.preventDefault();
-        }
+        } else window.scroll(0, 0);
       }}
       replace={replace}
       strict={strict}

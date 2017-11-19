@@ -10,10 +10,10 @@
 @import './mixins.scss';
 
 .link {
-  background: white;
-  border: 1px solid #c3c3c8;
+  background: #1a85ff;
+  border: none;
   border-radius: 4px;
-  color: #47474f;
+  color: $white;
   display: block;
   font: 500 15px Roboto;
   height: 40px;
@@ -25,21 +25,22 @@
   &:active,
   &:focus,
   &:visited {
-    color: #47474f;
+    color: $white;
     outline: none;
     text-decoration: none;
   }
 
   &:hover {
-    background: $tc-gray-10;
+    background: linear-gradient(180deg, #3996ff 0%, #127bf3 100%);
   }
 
   &.joining:hover {
-    background: white;
+    background: #1a85ff;
     cursor: default;
   }
 
   p {
+    color: $white;
     display: inline-block;
     margin-right: 12px;
     padding-top: 8px;

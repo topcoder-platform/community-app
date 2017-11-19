@@ -28,6 +28,7 @@ export default function Home({ baseUrl }) {
           in technology on the world’s premier crowdsourcing platform.
         </p>
         <JoinCommunity
+          label="Join Now"
           theme={{
             ...joinButtonStyle,
             container: style.joinButtonInHeader,

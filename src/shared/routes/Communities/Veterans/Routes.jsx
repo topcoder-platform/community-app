@@ -16,7 +16,7 @@ import { Route, Switch } from 'react-router-dom';
 import ChallengeListing from '../ChallengeListing';
 import Leaderboard from '../Leaderboard';
 
-export default function Routes({ base, meta }) {
+export default function Routes({ base, member, meta }) {
   return (
     <Route
       component={({ match }) => (
@@ -32,7 +32,12 @@ export default function Routes({ base, meta }) {
             />
             <Switch>
               <Route
-                component={() => <ChallengeListing meta={meta} />}
+                component={() => (
+                  <ChallengeListing
+                    meta={meta}
+                    listingOnly
+                  />
+                )}
                 exact
                 path={`${base}/challenges`}
               />
@@ -42,7 +47,9 @@ export default function Routes({ base, meta }) {
                 path={`${base}/leaderboard`}
               />
               <Route
-                component={Learn}
+                component={() => (
+                  <Learn baseUrl={base} member={member} />
+                )}
                 exact
                 path={`${base}/learn`}
               />
@@ -76,5 +83,6 @@ Routes.defaultProps = {
 
 Routes.propTypes = {
   base: PT.string,
+  member: PT.bool.isRequired,
   meta: PT.shape().isRequired,
 };

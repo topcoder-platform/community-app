@@ -47,33 +47,9 @@
 }
 
 .header {
-  background: url('./images/header.jpg') 50% 50% / cover;
-  box-shadow: inset 0 0 0 500px rgba(49, 100, 1, 0.75);
-  display: flex;
-  flex-direction: column;
-  height: 500px;
-  justify-content: center;
-  padding: 40px 24px 16px;
-  text-align: center;
-  width: 100%;
+  @include header-block;
 
-  h1 {
-    @include h1;
-
-    color: $white;
-  }
-
-  p {
-    @include large-text;
-
-    color: $white;
-    margin: 0 auto;
-    max-width: 720px;
-  }
-
-  @include xxs-to-xs {
-    height: auto;
-  }
+  background-image: url('./images/header.jpg');
 }
 
 .imageTextBlock {
