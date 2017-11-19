@@ -15,22 +15,38 @@ $white: white;
   font: 300 42px/1.19 Roboto;
   margin-bottom: 10px;
   text-transform: uppercase;
+
+  @include xxs-to-xs {
+    font: 300 36px/1.25 Roboto;
+  }
 }
 
 @mixin h2 {
   color: $black;
   font: 300 36px/1.25 Roboto;
   margin-bottom: 10px;
+
+  @include xxs-to-xs {
+    font: 300 28px/1.25 Roboto;
+  }
 }
 
 @mixin h3 {
   color: $black;
   font: 300 28px/1.25 Roboto;
+
+  @include xxs-to-xs {
+    font: 300 20px/1.5 Roboto;
+  }
 }
 
 @mixin large-text {
   color: $black;
   font: 20px/1.25 Roboto;
+
+  @include xxs-to-xs {
+    font: 15px/1.67 Roboto;
+  }
 }
 
 @mixin regular-text {

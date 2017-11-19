@@ -90,11 +90,13 @@ export default function Home({ baseUrl }) {
       </div>
 
       <div styleName="style.quoteBlock">
-        <img
-          alt="Qoute avatar"
-          src={qouteAvatar}
-          styleName="style.qouteAvatar"
-        />
+        <div styleName="style.qouteAvatar">
+          <img alt="Qoute avatar" src={qouteAvatar} />
+          <div styleName="style.qouteNote">
+            <strong>Jarah Meador</strong> Innovation Crowdsourcing Lead at the
+            VA
+          </div>
+        </div>
         <div>
           <div styleName="style.qouteText">
             <span styleName="style.qouteCommas style.left">&ldquo;</span>
@@ -117,7 +119,8 @@ export default function Home({ baseUrl }) {
           <div>
             <h1>Learn & Explore</h1>
             <p>
-              Grow your skills and get Topcoder-certified &mdash; all for free
+              Grow your skills and get Topcoder-certified&nbsp;&mdash; all for
+              free
             </p>
             <Button to={`${baseUrl}/learn`}>Learn More</Button>
           </div>

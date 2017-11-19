@@ -31,7 +31,13 @@
   h1 {
     @include h2;
 
-    color: white;
+    color: $white;
+
+    @include xxs-to-xs {
+      @include h3;
+
+      color: $white;
+    }
   }
 
   p {
@@ -45,8 +51,17 @@
       margin-bottom: 0;
     }
   }
+
+  @include xxs-to-xs {
+    padding: 25px 30px;
+    width: 100%;
+  }
 }
 
 .image {
   width: 49.1%;
+
+  @include xxs-to-xs {
+    width: 100%;
+  }
 }
