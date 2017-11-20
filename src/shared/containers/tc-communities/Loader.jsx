@@ -29,7 +29,7 @@ import { connect } from 'react-redux';
  * It is not exposed to the general config to avoid polluting it. Most probably,
  * nobody will ever touch this constant.
  */
-const MAXAGE = 60 * 1000; /* ms */
+// const MAXAGE = 60 * 1000; /* ms */
 
 class Loader extends React.Component {
   componentDidMount() {
@@ -42,7 +42,7 @@ class Loader extends React.Component {
     } = nextProps;
 
     if (!loadingMeta && (
-      !meta || (Date.now() - meta.lastUpdateOfMetaData) > MAXAGE
+      !meta /* || (Date.now() - meta.lastUpdateOfMetaData) > MAXAGE */
     )) nextProps.loadMetaData(communityId, tokenV3);
 
     /* TODO: This is a hacky way to handle SSO authentication for TopGear
