@@ -8,6 +8,7 @@
  * "subdomain": "communityId" format. */
 const SUBDOMAIN_COMMUNITY = {
   blockchain: 'blockchain',
+  cognitive: 'cognitive',
   'community-2': 'community-2',
   'demo-expert': 'demo-expert',
   qa: 'qa',
