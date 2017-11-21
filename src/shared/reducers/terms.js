@@ -320,10 +320,9 @@ export function factory(req) {
       communityId = req.url.split('/')[2];
       // remove possible params like ?join=<communityId>
       communityId = communityId ? communityId.replace(/\?.*/, '') : communityId;
-
-      if (communityId) {
-        entity = { type: 'community', id: communityId };
-      }
+    }
+    if (!entity && communityId) {
+      entity = { type: 'community', id: communityId };
     }
 
     // load terms for the entity
