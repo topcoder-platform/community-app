@@ -2,20 +2,17 @@ import React from 'react';
 import {
   Button,
   DangerButton,
+  GhostButton,
   PrimaryButton,
   SecondaryButton,
 } from 'components/buttons';
-import { ThemeProvider } from 'react-css-super-themr';
 
-import primaryDataScienceButtonStyle from '../../buttons/primaryDataScience.scss';
-import primaryDevelopButtonStyle from '../../buttons/primaryDevelop.scss';
-
-import style from './style.scss';
+import style from './style.scss'; // eslint-disable-line no-unused-vars
 
 export default function Buttons() {
   return (
-    <div styleName="style.page">
-      <h1>Buttons</h1>
+    <div styleName="style.container">
+      <h1 styleName="style.title">Buttons</h1>
       <p>
         All buttons in this page are instances of the generic button,
         implemented in <code>/src/components/buttons</code> and wrapped
@@ -24,62 +21,159 @@ export default function Buttons() {
       </p>
 
       <h3>Default Button</h3>
-      <Button>Button</Button>
-      <Button to=".">Link Button</Button>
-      <Button disabled>Disabled Button</Button>
+      <div>
+        <Button>Button</Button>
+        <Button to=".">Link Button</Button>
+        <Button disabled>Disabled Button</Button>
+      </div>
 
-      <h3>Button Dimensions</h3>
-      <Button theme={{ button: style.btnXS }}>Extra-Small Button</Button>
-      <Button theme={{ button: style.btnSM }}>Small Button</Button>
-      <Button>Medium Button (default)</Button>
-      <Button theme={{ button: style.btnLG }}>Large Button</Button>
+      <div>
+        <Button size="xs">Extra-Small Button</Button>
+        <Button size="sm">Small Button</Button>
+        <Button size="md">Medium Button (default)</Button>
+        <Button size="lg">Large Button</Button>
+      </div>
+
+      <div>
+        <Button size="xs" to=".">Extra-Small Link Button</Button>
+        <Button size="sm" to=".">Small Link Button</Button>
+        <Button size="md" to=".">Medium Link Button (default)</Button>
+        <Button size="lg" to=".">Large Link Button</Button>
+      </div>
+
+      <div>
+        <Button disabled size="xs">Extra-Small Button</Button>
+        <Button disabled size="sm">Small Button</Button>
+        <Button disabled size="md">Medium Button (default)</Button>
+        <Button disabled size="lg">Large Button</Button>
+      </div>
 
       <h3>Primary Button</h3>
 
-      <p>Default &mdash; design color sheme:</p>
       <PrimaryButton>Button</PrimaryButton>
       <PrimaryButton to=".">Link Button</PrimaryButton>
       <PrimaryButton disabled>Disabled Button</PrimaryButton>
 
-      <p>Develop color scheme (underlying source code also
-        demonstrates the proper context theming in action):</p>
+      <div>
+        <PrimaryButton size="xs">Extra-Small Button</PrimaryButton>
+        <PrimaryButton size="sm">Small Button</PrimaryButton>
+        <PrimaryButton size="md">Medium Button (default)</PrimaryButton>
+        <PrimaryButton size="lg">Large Button</PrimaryButton>
+      </div>
 
-      <p><em>NOTE:</em> It turns out that it is not necessary to change colors
-        of primary buttons depending on challenge tracks. Thus, you should not
-        use the green and orange button themes. Hovewer, as they are already
-        implemented, and also show how <code>ThemeProvider</code> should be
-        used to style some elements according to the track, we keep them in
-        the repo and on this example page.</p>
-      <ThemeProvider
-        theme={{ PrimaryButton: primaryDevelopButtonStyle }}
-      >
-        <div>
-          <PrimaryButton>Button</PrimaryButton>
-          <PrimaryButton to=".">Link Button</PrimaryButton>
-          <PrimaryButton disabled>Disabled Button</PrimaryButton>
-        </div>
-      </ThemeProvider>
+      <div>
+        <PrimaryButton size="xs" to=".">Extra-Small Link Button</PrimaryButton>
+        <PrimaryButton size="sm" to=".">Small Link Button</PrimaryButton>
+        <PrimaryButton size="md" to=".">
+          Medium Link Button (default)
+        </PrimaryButton>
+        <PrimaryButton size="lg" to=".">Large Link Button</PrimaryButton>
+      </div>
 
-      <p>Data science color scheme:</p>
-      <ThemeProvider
-        theme={{ PrimaryButton: primaryDataScienceButtonStyle }}
-      >
-        <div>
-          <PrimaryButton>Button</PrimaryButton>
-          <PrimaryButton to=".">Link Button</PrimaryButton>
-          <PrimaryButton disabled>Disabled Button</PrimaryButton>
-        </div>
-      </ThemeProvider>
+      <div>
+        <PrimaryButton disabled size="xs">Extra-Small Button</PrimaryButton>
+        <PrimaryButton disabled size="sm">Small Button</PrimaryButton>
+        <PrimaryButton disabled size="md">
+          Medium Button (default)
+        </PrimaryButton>
+        <PrimaryButton disabled size="lg">Large Button</PrimaryButton>
+      </div>
 
       <h3>Secondary Button</h3>
       <SecondaryButton>Button</SecondaryButton>
       <SecondaryButton to=".">Link Button</SecondaryButton>
       <SecondaryButton disabled>Disabled Button</SecondaryButton>
 
+      <div>
+        <SecondaryButton size="xs">Extra-Small Button</SecondaryButton>
+        <SecondaryButton size="sm">Small Button</SecondaryButton>
+        <SecondaryButton size="md">Medium Button (default)</SecondaryButton>
+        <SecondaryButton size="lg">Large Button</SecondaryButton>
+      </div>
+
+      <div>
+        <SecondaryButton size="xs" to=".">
+          Extra-Small Link Button
+        </SecondaryButton>
+        <SecondaryButton size="sm" to=".">Small Link Button</SecondaryButton>
+        <SecondaryButton size="md" to=".">
+          Medium Link Button (default)
+        </SecondaryButton>
+        <SecondaryButton size="lg" to=".">Large Link Button</SecondaryButton>
+      </div>
+
+      <div>
+        <SecondaryButton disabled size="xs">Extra-Small Button</SecondaryButton>
+        <SecondaryButton disabled size="sm">Small Button</SecondaryButton>
+        <SecondaryButton disabled size="md">
+          Medium Button (default)
+        </SecondaryButton>
+        <SecondaryButton disabled size="lg">Large Button</SecondaryButton>
+      </div>
+
       <h3>Danger Button</h3>
       <DangerButton>Button</DangerButton>
       <DangerButton to=".">Link Button</DangerButton>
       <DangerButton disabled>Disabled Button</DangerButton>
+
+      <div>
+        <DangerButton size="xs">Extra-Small Button</DangerButton>
+        <DangerButton size="sm">Small Button</DangerButton>
+        <DangerButton size="md">Medium Button (default)</DangerButton>
+        <DangerButton size="lg">Large Button</DangerButton>
+      </div>
+
+      <div>
+        <DangerButton size="xs" to=".">
+          Extra-Small Link Button
+        </DangerButton>
+        <DangerButton size="sm" to=".">Small Link Button</DangerButton>
+        <DangerButton size="md" to=".">
+          Medium Link Button (default)
+        </DangerButton>
+        <DangerButton size="lg" to=".">Large Link Button</DangerButton>
+      </div>
+
+      <div>
+        <DangerButton disabled size="xs">Extra-Small Button</DangerButton>
+        <DangerButton disabled size="sm">Small Button</DangerButton>
+        <DangerButton disabled size="md">
+          Medium Button (default)
+        </DangerButton>
+        <DangerButton disabled size="lg">Large Button</DangerButton>
+      </div>
+
+      <h3>Ghost Button</h3>
+      <GhostButton>Button</GhostButton>
+      <GhostButton to=".">Link Button</GhostButton>
+      <GhostButton disabled>Disabled Button</GhostButton>
+
+      <div>
+        <GhostButton size="xs">Extra-Small Button</GhostButton>
+        <GhostButton size="sm">Small Button</GhostButton>
+        <GhostButton size="md">Medium Button (default)</GhostButton>
+        <GhostButton size="lg">Large Button</GhostButton>
+      </div>
+
+      <div>
+        <GhostButton size="xs" to=".">
+          Extra-Small Link Button
+        </GhostButton>
+        <GhostButton size="sm" to=".">Small Link Button</GhostButton>
+        <GhostButton size="md" to=".">
+          Medium Link Button (default)
+        </GhostButton>
+        <GhostButton size="lg" to=".">Large Link Button</GhostButton>
+      </div>
+
+      <div>
+        <GhostButton disabled size="xs">Extra-Small Button</GhostButton>
+        <GhostButton disabled size="sm">Small Button</GhostButton>
+        <GhostButton disabled size="md">
+          Medium Button (default)
+        </GhostButton>
+        <GhostButton disabled size="lg">Large Button</GhostButton>
+      </div>
     </div>
   );
 }

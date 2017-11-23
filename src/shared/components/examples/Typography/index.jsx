@@ -15,23 +15,27 @@ export default function Typography() {
       <div styleName="panels">
         <div styleName="panel">
           <h3 styleName="panel-title">Labels</h3>
+          <p styleName="label-xl">
+            20/25px &mdash; Extra Large Label &mdash; <code>@mixin tc-label-xl;</code>
+          </p>
           <p styleName="label-lg">
-            Large Label &mdash; <code>@mixin tc-label-lg;</code>
+            15/20px &mdash; Large Label &mdash; <code>@mixin tc-label-lg;</code>
           </p>
           <p styleName="label-md">
-            Medium Label &mdash; <code>@mixin tc-label-md;</code>
+            13/20px &mdash; Medium Label &mdash; <code>@mixin tc-label-md;</code>
           </p>
           <p styleName="label-sm">
-            Small Label &mdash; <code>@mixin tc-label-sm;</code>
+            12/15px &mdash; Small Label &mdash; <code>@mixin tc-label-sm;</code>
           </p>
           <p styleName="label-xs">
-            Extra Small Label &mdash; <code>@mixin tc-label-xs;</code>
+            11/15px &mdash; Extra Small Label &mdash; <code>@mixin tc-label-xs;</code>
           </p>
         </div>
         <div styleName="panel">
           <h3 styleName="panel-title">Regular Text (Body)</h3>
           <p styleName="body-lg">
-            Large body text &mdash; <code>@mixin tc-body-lg;</code><br />
+            20/25px &mdash; Large body text &mdash;
+            &zwnj;<code>@mixin tc-body-lg;</code><br />
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce id
             nunc nec risus ullamcorper tristique sed vel dolor. Vestibulum
             justo ligula, finibus eget felis ut, tempor viverra risus. Fusce
@@ -46,7 +50,8 @@ export default function Typography() {
             massa. Donec luctus augue ut facilisis sagittis.
           </p>
           <p styleName="body-md">
-            Main body text &mdash; <code>@mixin tc-body-md;</code><br />
+            15/25px &mdash; Main body text &mdash;
+            &zwnj;<code>@mixin tc-body-md;</code><br />
             Quisque sodales ipsum ut mauris auctor, in placerat purus
             pellentesque. Etiam ultrices lacus luctus imperdiet luctus. Mauris
             ante dui, hendrerit at erat id, posuere dapibus lorem. Aenean
@@ -57,7 +62,8 @@ export default function Typography() {
             lacus. Quisque tempor gravida turpis.
           </p>
           <p styleName="body-sm">
-            Small body text &mdash; <code>@mixin tc-body-sm;</code><br />
+            13/25px &mdash; Small body text &mdash;
+            &zwnj;<code>@mixin tc-body-sm;</code><br />
             In quis vestibulum ipsum, in ultrices velit. Integer suscipit mi
             non est rutrum pharetra ut quis tellus. Morbi imperdiet rutrum eros
             a varius. Donec placerat nibh ut justo interdum rutrum. Nam luctus
@@ -71,7 +77,8 @@ export default function Typography() {
             faucibus orci luctus et ultrices posuere cubilia Curae;
           </p>
           <p styleName="body-xs">
-            Extra small body text &mdash; <code>@mixin tc-body-xs;</code><br />
+            11/20px &mdash; Extra small body text &mdash;
+            &zwnj;<code>@mixin tc-body-xs;</code><br />
             In tempor vitae risus nec sodales. Sed tempus diam mi, quis
             fermentum enim fringilla ut. Sed vitae neque accumsan, fermentum
             justo non, pellentesque eros. Pellentesque euismod velit erat, sit
@@ -88,25 +95,31 @@ export default function Typography() {
         <div styleName="panel">
           <h3 styleName="panel-title">Headings</h3>
           <h1 styleName="h-xl">
-            XL - Heading &mdash; <code>@mixin tc-heading-xl;</code>
+            36/45px &mdash; XL - Heading &mdash;
+            &zwnj;<code>@mixin tc-heading-xl;</code>
           </h1>
           <h2 styleName="h-lg">
-            LG - Heading &mdash; <code>@mixin tc-heading-lg;</code>
+            28/35px &mdash; LG - Heading &mdash;
+            &zwnj;<code>@mixin tc-heading-lg;</code>
           </h2>
           <h3 styleName="h-md">
-            MD - Heading (level 3) &mdash; <code>@mixin tc-heading-md;</code>
+            20/30px &mdash; MD - Heading (level 3) &mdash;
+            &zwnj;<code>@mixin tc-heading-md;</code>
           </h3>
           <h4 styleName="h-sm">
-            SM - Heading (level 4) &mdash; <code>@mixin tc-heading-sm;</code>
+            15/25px &mdash; SM - Heading (level 4) &mdash;
+            &zwnj;<code>@mixin tc-heading-sm;</code>
           </h4>
           <h5 styleName="h-xs">
-            XS - Heading (level 5) &mdash; <code>@mixin tc-heading-xs;</code>
+            13/25px &mdash; XS - Heading (level 5) &mdash;
+            &zwnj;<code>@mixin tc-heading-xs;</code>
           </h5>
         </div>
         <div styleName="panel">
           <h3 styleName="panel-title">Titles</h3>
           <h1 styleName="title">
-            XXL - Heading (level 1) &mdash; <code>@mixin tc-title;</code>
+            42/50px &mdash; XXL - Heading (level 1) &mdash;
+            &zwnj;<code>@mixin tc-title;</code>
           </h1>
         </div>
       </div>

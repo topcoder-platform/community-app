@@ -162,6 +162,7 @@ exports[`Matches shallow shapshot 1`] = `
       onClick={[Function]}
       openNewTab={false}
       replace={false}
+      size={null}
       theme={
         Object {
           "button": "src-shared-components-challenge-listing-Filters-FiltersPanel-___style__button___22bzJ",
@@ -182,6 +183,7 @@ exports[`Matches shallow shapshot 1`] = `
       onClick={[Function]}
       openNewTab={false}
       replace={false}
+      size={null}
       theme={
         Object {
           "button": "src-shared-components-challenge-listing-Filters-FiltersPanel-___style__button___22bzJ",
@@ -337,6 +339,7 @@ exports[`Matches shallow shapshot 2`] = `
       onClick={[Function]}
       openNewTab={false}
       replace={false}
+      size={null}
       theme={
         Object {
           "button": "src-shared-components-challenge-listing-Filters-FiltersPanel-___style__button___22bzJ",
@@ -357,6 +360,7 @@ exports[`Matches shallow shapshot 2`] = `
       onClick={[Function]}
       openNewTab={false}
       replace={false}
+      size={null}
       theme={
         Object {
           "button": "src-shared-components-challenge-listing-Filters-FiltersPanel-___style__button___22bzJ",

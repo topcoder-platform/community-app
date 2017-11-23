@@ -16,6 +16,7 @@ exports[`Matches shallow shapshot 1`] = `
     onClick={[Function]}
     openNewTab={false}
     replace={false}
+    size={null}
     theme={
       Object {
         "button": "src-shared-components-challenge-listing-Sidebar-FiltersEditor-___style__doneButton___-qp1P",

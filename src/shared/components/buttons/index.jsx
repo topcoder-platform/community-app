@@ -47,7 +47,8 @@ import { Link } from 'utils/router';
 
 import dangerButton from './danger.scss';
 import defaultButton from './default.scss';
-import primaryDesignButton from './primaryDesign.scss';
+import ghostButton from './ghost.scss';
+import primaryButton from './primary.scss';
 import secondaryButton from './secondary.scss';
 
 /* Generic button, not wrapped by themr, but accepting theme property.
@@ -60,17 +61,21 @@ export function GenericButton({
   onClick,
   openNewTab,
   replace,
+  size,
   theme,
   to,
 }) {
+  const sizeClass = theme[size] || '';
   if (disabled) {
     return (
-      <span className={`${theme.button} ${theme.disabled}`}>{children}</span>
+      <span
+        className={`${theme.button} ${theme.disabled} ${sizeClass}`}
+      >{children}</span>
     );
   } else if (to) {
     return (
       <Link
-        className={`${theme.button} ${theme.link}`}
+        className={`${theme.button} ${theme.link || ''} ${sizeClass}`}
         enforceA={enforceA}
         onClick={onClick}
         openNewTab={openNewTab}
@@ -81,7 +86,7 @@ export function GenericButton({
   }
   return (
     <button
-      className={`${theme.button} ${theme.regular}`}
+      className={`${theme.button} ${theme.regular || ''} ${sizeClass}`}
       onClick={onClick}
     >{children}</button>
   );
@@ -94,6 +99,7 @@ GenericButton.defaultProps = {
   onClick: null,
   openNewTab: false,
   replace: false,
+  size: null,
   to: null,
 };
 
@@ -104,11 +110,12 @@ GenericButton.propTypes = {
   onClick: PT.func,
   openNewTab: PT.bool,
   replace: PT.bool,
+  size: PT.string,
   theme: PT.shape({
     button: PT.string.isRequired,
     disabled: PT.string.isRequired,
-    link: PT.string.isRequired,
-    regular: PT.string.isRequired,
+    link: PT.string,
+    regular: PT.string,
   }).isRequired,
   to: PT.oneOfType([PT.object, PT.string]),
 };
@@ -119,10 +126,13 @@ export const Button =
 export const DangerButton =
   themr('DangerButton', dangerButton)(GenericButton);
 
+export const GhostButton =
+  themr('GhostButton', ghostButton)(GenericButton);
+
 export const PrimaryButton =
-  themr('PrimaryButton', primaryDesignButton)(GenericButton);
+  themr('PrimaryButton', primaryButton)(GenericButton);
 
 export const SecondaryButton =
   themr('SecondaryButton', secondaryButton)(GenericButton);
 
-export default undefined;
+export default Button;
