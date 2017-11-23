@@ -5,7 +5,7 @@
   font-weight: 400;
   margin-left: 4 * $base-unit;
 
-  @include xxs-to-xs {
+  @include xs-to-sm {
     margin-left: 3 * $base-unit;
   }
 }

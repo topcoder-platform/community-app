@@ -106,7 +106,15 @@ $tc-level-3: #666eff;
 $tc-level-4: #fcb816;
 $tc-level-5: #e6175c;
 
-// breakpoints
+/**
+ * The standard design break points. xs, sm, md, and lg in their names mean
+ * extra-small, small, medium, and large; it assumes that the extra-small screen
+ * size is anything from zero to $tc-screen-xs; the small screen size is
+ * anything from $tc-screen-xs to $tc-screen-sm, and so on. If you are about
+ * to write any style rules depending on the screen size; be sure to check,
+ * and use our media mixins.
+ */
+
 $tc-screen-xs: 320px;
 $tc-screen-sm: 768px;
 $tc-screen-md: 1024px;

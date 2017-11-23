@@ -10,7 +10,7 @@ $submission-space-50: $base-unit * 10;
   color: $tc-black;
   font-weight: 400;
 
-  @include xxs-to-xs {
+  @include xs-to-sm {
     display: block;
     position: relative;
     padding: 10px 0;
@@ -23,11 +23,11 @@ $submission-space-50: $base-unit * 10;
     border-top: 1px solid $tc-gray-10;
     line-height: 12px;
 
-    @include xxs-to-md {
+    @include xs-to-lg {
       padding: $submission-space-10;
     }
 
-    @include xxs-to-xs {
+    @include xs-to-sm {
       display: block;
       border: none;
     }
@@ -44,7 +44,7 @@ $submission-space-50: $base-unit * 10;
   }
 
   .preview-col {
-    @include xxs-to-xs {
+    @include xs-to-sm {
       float: left;
     }
 
@@ -52,7 +52,7 @@ $submission-space-50: $base-unit * 10;
       width: 90px;
       height: 90px;
 
-      @include xxs-to-xs {
+      @include xs-to-sm {
         width: 80px;
         height: 80px;
       }
@@ -73,7 +73,7 @@ $submission-space-50: $base-unit * 10;
     font-weight: 400;
     line-height: $submission-space-20;
 
-    @include xxs-to-xs {
+    @include xs-to-sm {
       padding: 0 10px;
     }
   }
@@ -103,7 +103,7 @@ $submission-space-50: $base-unit * 10;
     text-align: center;
     min-width: 120px;
 
-    @include xxs-to-xs {
+    @include xs-to-sm {
       position: absolute;
       right: 0;
       top: 10px;
@@ -123,7 +123,7 @@ $submission-space-50: $base-unit * 10;
     .delete-icon {
       margin: 0 0 0 24px;
 
-      @include xxs-to-xs {
+      @include xs-to-sm {
         margin-left: 15px;
       }
     }
@@ -149,7 +149,7 @@ $submission-space-50: $base-unit * 10;
       transition: all 1.5s;
       margin-left: 24px;
 
-      @include xxs-to-xs {
+      @include xs-to-sm {
         margin-left: 15px;
       }
 

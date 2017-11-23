@@ -29,7 +29,7 @@
   padding-bottom: 50px;
   padding-top: 0;
 
-  @include xxs-to-xs {
+  @include xs-to-sm {
     font-size: 36px;
     padding-bottom: 30px;
   }
@@ -38,7 +38,7 @@
 .resourcesContainer {
   padding-bottom: 60px;
 
-  @include xxs-to-xs {
+  @include xs-to-sm {
     padding-bottom: 50px;
   }
 }
@@ -46,7 +46,7 @@
 .bannerContainer {
   height: 252px;
 
-  @include xxs-to-xs {
+  @include xs-to-sm {
     height: 300px;
   }
 }
@@ -57,14 +57,14 @@
   transform: none;
   width: 600px;
 
-  @include xxs-to-xs {
+  @include xs-to-sm {
     top: auto;
     width: 100%;
   }
 }
 
 .bannerContentInner {
-  @include xxs-to-xs {
+  @include xs-to-sm {
     padding-bottom: 20px;
     padding-top: 48px;
   }
@@ -77,7 +77,7 @@
 .joinnowWrap {
   margin-top: 10px;
 
-  @include xxs-to-xs {
+  @include xs-to-sm {
     margin-top: 20px;
     text-align: center;
   }

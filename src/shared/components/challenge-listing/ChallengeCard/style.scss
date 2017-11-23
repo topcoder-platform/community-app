@@ -26,12 +26,12 @@ $challenge-radius-4: $corner-radius * 2;
     border-bottom: 1px solid $tc-gray-10;
   }
 
-  @include xxs-to-sm {
+  @include xs-to-md {
     flex-wrap: wrap;
     padding: $base-unit * 3;
   }
 
-  @include xxs-to-xs {
+  @include xs-to-sm {
     position: relative;
   }
 
@@ -49,7 +49,7 @@ $challenge-radius-4: $corner-radius * 2;
     justify-content: flex-start;
     width: 50%;
 
-    @include xxs-to-sm {
+    @include xs-to-md {
       width: 100%;
     }
   }
@@ -59,11 +59,11 @@ $challenge-radius-4: $corner-radius * 2;
     justify-content: space-between;
     width: 50%;
 
-    @include xxs-to-sm {
+    @include xs-to-md {
       width: 100%;
     }
 
-    @include xxs-to-xs {
+    @include xs-to-sm {
       display: block;
     }
   }
@@ -85,16 +85,16 @@ $challenge-radius-4: $corner-radius * 2;
     width: 82%;
     margin-right: $challenge-space-30;
 
-    @include sm {
+    @include md {
       margin-right: $challenge-space-90;
     }
 
-    @include xxs-to-xs {
+    @include xs-to-sm {
       margin-right: 0;
     }
 
     &.with-register-button {
-      @include sm {
+      @include md {
         margin-right: 180px;
       }
     }
@@ -102,7 +102,7 @@ $challenge-radius-4: $corner-radius * 2;
     a {
       line-height: $challenge-space-20;
 
-      @include xxs-to-xs {
+      @include xs-to-sm {
         display: inline-block;
       }
     }
@@ -151,14 +151,14 @@ $challenge-radius-4: $corner-radius * 2;
     margin-right: $challenge-space-20;
     min-width: $challenge-space-50 + 2;
 
-    @include xxs-to-sm {
+    @include xs-to-md {
       position: absolute;
       right: 0;
       top: 20px;
       margin-right: $challenge-space-20;
     }
 
-    @include xxs-to-xs {
+    @include xs-to-sm {
       position: relative;
       width: 100%;
       display: block;
@@ -168,7 +168,7 @@ $challenge-radius-4: $corner-radius * 2;
     }
 
     &.with-register-button {
-      @include sm {
+      @include md {
         right: 108px;
       }
     }
@@ -178,7 +178,7 @@ $challenge-radius-4: $corner-radius * 2;
     }
 
     > span:first-child > div {
-      @include xxs-to-xs {
+      @include xs-to-sm {
         display: inline-block;
       }
     }

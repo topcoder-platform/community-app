@@ -17,7 +17,7 @@
   font-family: 'Akkurat bold', sans-serif;
   font-size: 21px;
 
-  @include xxs-to-xs {
+  @include xs-to-sm {
     font-size: 18px;
   }
 }
@@ -47,7 +47,7 @@ input:not([type="checkbox"]).formEmail {
   line-height: 40px;
   height: 40px;
 
-  @include xxs-to-xs {
+  @include xs-to-sm {
     width: 50%;
   }
 
@@ -80,7 +80,7 @@ input:not([type="checkbox"]).formEmail {
   width: auto;
   padding: 0 30px 0 20px;
 
-  @include xxs-to-xs {
+  @include xs-to-sm {
     width: 135px;
   }
 }

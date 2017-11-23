@@ -27,11 +27,11 @@ $tc-link-visited: #0c4e98;
   margin: (11 * $base-unit) 0;
   padding: 4 * $base-unit;
 
-  @include sm {
+  @include md {
     margin: (8 * $base-unit) 0;
   }
 
-  @include xxs-to-xs {
+  @include xs-to-sm {
     margin: 0;
     width: 100%;
   }

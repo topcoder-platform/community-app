@@ -4,17 +4,17 @@
   padding: 0 15px;
   margin: 20px auto;
 
-  @include sm {
+  @include md {
     margin: 30px auto;
     width: 750px;
   }
 
-  @include md {
+  @include lg {
     margin: 40px auto;
     width: 970px;
   }
 
-  @include lg {
+  @include xl {
     margin: 40px auto;
     width: 1170px;
   }
@@ -32,7 +32,7 @@
 .bannerContainer {
   height: 252px;
 
-  @include xxs-to-xs {
+  @include xs-to-sm {
     height: 300px;
   }
 }
@@ -43,14 +43,14 @@
   transform: none;
   width: 600px;
 
-  @include xxs-to-xs {
+  @include xs-to-sm {
     top: auto;
     width: 100%;
   }
 }
 
 .bannerContentInner {
-  @include xxs-to-xs {
+  @include xs-to-sm {
     padding-bottom: 20px;
     padding-top: 48px;
   }

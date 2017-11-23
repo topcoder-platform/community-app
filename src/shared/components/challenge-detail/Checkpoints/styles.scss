@@ -10,7 +10,7 @@ $tc-gray-border: #aaaab5;
     display: flex;
     flex-direction: column;
 
-    @include xxs-to-xs {
+    @include xs-to-sm {
       display: none;
     }
 
@@ -94,7 +94,7 @@ $tc-gray-border: #aaaab5;
         }
 
         .feedback-text {
-          @include xxs-to-xs {
+          @include xs-to-sm {
             display: none;
           }
         }

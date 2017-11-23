@@ -12,7 +12,7 @@
 
     font-weight: normal;
 
-    @include xxs-to-xs {
+    @include xs-to-sm {
       font-weight: normal;
     }
   }
@@ -22,12 +22,12 @@
 
     margin-bottom: 40px;
 
-    @include xxs-to-xs {
+    @include xs-to-sm {
       margin-bottom: 20px;
     }
   }
 
-  @include xxs-to-xs {
+  @include xs-to-sm {
     flex: none;
     margin: 10px 0;
     width: 100%;
@@ -59,7 +59,7 @@
   max-width: $tc-screen-lg;
   padding: 0 15px;
 
-  @include xxs-to-xs {
+  @include xs-to-sm {
     flex-wrap: wrap;
   }
 }
@@ -87,7 +87,7 @@
     max-width: 740px;
   }
 
-  @include xxs-to-xs {
+  @include xs-to-sm {
     margin: 50px 0;
   }
 }

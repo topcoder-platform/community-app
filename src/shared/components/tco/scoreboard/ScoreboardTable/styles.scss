@@ -60,7 +60,7 @@ $table-bg-hover: #f5f5f5;
   }
   // hide the table head on extra-small devices
   > thead {
-    @include xs {
+    @include sm {
       display: none;
     }
   }
@@ -109,7 +109,7 @@ $table-bg-hover: #f5f5f5;
   // Hide 'Challenges' and 'Points' columns on small screens
   .col-challenges,
   .col-points {
-    @include xs {
+    @include sm {
       display: none !important;
     }
   }

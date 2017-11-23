@@ -10,7 +10,7 @@
     cursor: pointer;
   }
 
-  @include xxs-to-sm {
+  @include xs-to-md {
     display: block;
   }
 }
@@ -22,13 +22,13 @@
   margin-left: 30px;
   margin-right: 30px;
 
-  @include xxs-to-sm {
+  @include xs-to-md {
     justify-content: space-between;
     margin-left: 0;
     margin-right: 0;
   }
 
-  @include xxs-to-xs {
+  @include xs-to-sm {
     height: 64px;
   }
 }
@@ -37,7 +37,7 @@
   align-items: center;
   display: flex;
 
-  @include xxs-to-xs {
+  @include xs-to-sm {
     display: block;
   }
 }
@@ -49,7 +49,7 @@
   flex-shrink: 0;
   height: 100%;
 
-  @include xxs-to-xs {
+  @include xs-to-sm {
     height: auto;
     margin-top: 12px;
     justify-content: center;
@@ -66,7 +66,7 @@
     max-height: 40px;
   }
 
-  @include xxs-to-xs {
+  @include xs-to-sm {
     & + .logo {
       margin-left: 10px;
     }
@@ -90,7 +90,7 @@
   padding-left: 13px;
   text-transform: uppercase;
 
-  @include xxs-to-xs {
+  @include xs-to-sm {
     border-left: 0;
     font-size: 12px;
     height: 17px;
@@ -107,7 +107,7 @@
   overflow: visible;
   transition: max-height 0.3s ease-out;
 
-  @include xxs-to-sm {
+  @include xs-to-md {
     max-width: 100%;
     overflow: hidden;
   }
@@ -121,7 +121,7 @@
   transition: max-height 0.3s ease-out;
   transition-timing-function: ease-in;
 
-  @include xxs-to-sm {
+  @include xs-to-md {
     max-width: 100%;
     overflow: hidden;
   }
@@ -133,7 +133,7 @@
   white-space: nowrap;
   text-align: center;
 
-  @include xxs-to-sm {
+  @include xs-to-md {
     display: block;
     text-align: left;
   }
@@ -142,7 +142,7 @@
 .menuItem {
   display: block;
 
-  @include xxs-to-sm {
+  @include xs-to-md {
     padding: 0 15px;
   }
 }
@@ -177,7 +177,7 @@
     position: absolute;
     right: 4px;
 
-    @include xxs-to-sm {
+    @include xs-to-md {
       display: none;
     }
   }
@@ -219,7 +219,7 @@
     }
   }
 
-  @include md-to-lg {
+  @include lg-to-xl {
     display: none;
   }
 }
@@ -233,7 +233,7 @@
   float: right;
   margin-top: 12px;
 
-  @include xxs-to-xs {
+  @include xs-to-sm {
     margin-top: 16px;
   }
 }
@@ -249,7 +249,7 @@
   display: none;
   margin-right: 15px;
 
-  @include xxs-to-sm {
+  @include xs-to-md {
     display: block;
   }
 }
@@ -259,7 +259,7 @@
   height: 100%;
   vertical-align: bottom;
 
-  @include xxs-to-sm {
+  @include xs-to-md {
     display: none;
   }
 }
@@ -272,7 +272,7 @@
   padding: 18px 0 17px;
   vertical-align: bottom;
 
-  @include xxs-to-md {
+  @include xs-to-lg {
     display: none;
   }
 }
@@ -280,7 +280,7 @@
 .authorize {
   padding-top: 12px;
 
-  @include xxs-to-sm {
+  @include xs-to-md {
     display: none;
   }
 }
@@ -347,7 +347,7 @@
     width: 1px;
   }
 
-  @include xxs-to-sm {
+  @include xs-to-md {
     display: none;
   }
 }

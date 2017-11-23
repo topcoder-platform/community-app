@@ -36,11 +36,11 @@ $button-space-32: 6 * $base-unit;
   transform: translate(-50%, -50%);
   z-index: 999;
 
-  @include xxs-to-md {
+  @include xs-to-lg {
     max-width: 95vw;
   }
 
-  @include xxs-to-xs {
+  @include xs-to-sm {
     padding: 40px 10px;
   }
 }

@@ -12,7 +12,7 @@ $track-radius-4: $corner-radius * 2;
   height: $base-unit * 6;
   margin-right: $track-space-20;
 
-  @include xs {
+  @include sm {
     margin-right: $track-space-15;
   }
 

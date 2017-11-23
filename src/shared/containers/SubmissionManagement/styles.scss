@@ -8,7 +8,7 @@ $sm-space-40: $base-unit * 8;
   background: $tc-gray-10;
   padding: 24px;
 
-  @include xxs-to-xs {
+  @include xs-to-sm {
     padding: 15px;
   }
 }

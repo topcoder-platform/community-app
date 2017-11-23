@@ -48,7 +48,7 @@
   }
 }
 
-@include sm-to-md {
+@include md-to-lg {
   .PodiumSpot--first .leaderboard-avatar {
     height: 128px;
     width: 128px;
@@ -61,7 +61,7 @@
   }
 }
 
-@include lg {
+@include xl {
   .PodiumSpot--first .leaderboard-avatar {
     height: 160px;
     width: 160px;

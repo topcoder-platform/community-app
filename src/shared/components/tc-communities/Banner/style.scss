@@ -10,7 +10,7 @@
   overflow: hidden;
   position: relative;
 
-  @include xxs-to-xs {
+  @include xs-to-sm {
     align-items: flex-end;
     height: 600px;
   }
@@ -23,7 +23,7 @@
   right: 0;
   width: 538px;
 
-  @include xxs-to-xs {
+  @include xs-to-sm {
     bottom: 0;
     max-height: 100%;
     min-width: 0;
@@ -43,7 +43,7 @@
   top: 0;
   width: 100%;
 
-  @include xxs-to-xs {
+  @include xs-to-sm {
     background: linear-gradient(to bottom, rgba(#0c53a6, 0) 0%, rgba(#0c53a6, 0.8) 61%, rgba(#0c53a6, 0.8) 100%);
     transform: none;
   }
@@ -55,7 +55,7 @@
   position: relative;
   z-index: 1;
 
-  @include xxs-to-xs {
+  @include xs-to-sm {
     padding: 86px 15px 80px;
     text-align: center;
   }
@@ -67,7 +67,7 @@ h2.title {
   line-height: 136.11%;
   text-transform: uppercase;
 
-  @include xxs-to-xs {
+  @include xs-to-sm {
     font-size: 30px;
   }
 }
@@ -79,7 +79,7 @@ h2.title {
   line-height: 24px;
   margin-top: 10px;
 
-  @include xxs-to-xs {
+  @include xs-to-sm {
     line-height: 22px;
   }
 }

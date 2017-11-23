@@ -17,7 +17,7 @@ $white: white;
   margin-bottom: 10px;
   text-transform: uppercase;
 
-  @include xxs-to-xs {
+  @include xs-to-sm {
     font: 300 36px/1.25 Roboto;
   }
 }
@@ -27,7 +27,7 @@ $white: white;
   font: 300 36px/1.25 Roboto;
   margin-bottom: 10px;
 
-  @include xxs-to-xs {
+  @include xs-to-sm {
     font: 300 28px/1.25 Roboto;
   }
 }
@@ -37,7 +37,7 @@ $white: white;
   font: 300 28px/1.25 Roboto;
   margin-bottom: 10px;
 
-  @include xxs-to-xs {
+  @include xs-to-sm {
     font: 300 20px/1.5 Roboto;
   }
 }
@@ -46,7 +46,7 @@ $white: white;
   color: $black;
   font: 20px/1.25 Roboto;
 
-  @include xxs-to-xs {
+  @include xs-to-sm {
     font: 15px/1.67 Roboto;
   }
 }
@@ -84,7 +84,7 @@ $white: white;
     max-width: 720px;
   }
 
-  @include xxs-to-xs {
+  @include xs-to-sm {
     height: auto;
   }
 }

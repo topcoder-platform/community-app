@@ -30,7 +30,7 @@ $tc-link-visited: #0c4e98;
   align-items: baseline;
   word-break: break-word;
 
-  @include xxs-to-xs {
+  @include xs-to-sm {
     flex-direction: column;
   }
 

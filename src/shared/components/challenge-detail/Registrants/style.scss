@@ -7,7 +7,7 @@
   margin: 0 auto;
   font-family: 'Roboto';
 
-  @include xxs-to-xs {
+  @include xs-to-sm {
     padding: 0 30px 30px;
   }
 }
@@ -21,13 +21,13 @@
   display: flex;
   border-bottom: 1px solid $tc-gray-10;
 
-  @include xxs-to-xs {
+  @include xs-to-sm {
     display: none;
   }
 }
 
 .body {
-  @include xxs-to-xs {
+  @include xs-to-sm {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -41,7 +41,7 @@
   font-size: 15px;
   border-bottom: 1px solid $tc-gray-10;
 
-  @include xxs-to-xs {
+  @include xs-to-sm {
     flex-direction: column;
     padding-top: 15px;
     padding-bottom: 15px;
@@ -52,7 +52,7 @@
 .sm-only {
   display: none;
 
-  @include xxs-to-xs {
+  @include xs-to-sm {
     display: block;
   }
 }
@@ -68,7 +68,7 @@
   padding-left: 30px;
   width: 298px;
 
-  @include xxs-to-xs {
+  @include xs-to-sm {
     padding-left: 0;
     font-size: 15px;
     line-height: 25px;
@@ -90,7 +90,7 @@
 .col-2 {
   width: 317px;
 
-  @include xxs-to-xs {
+  @include xs-to-sm {
     margin-bottom: 15px;
     line-height: 20px;
     width: auto;
@@ -101,7 +101,7 @@
   display: flex;
   align-items: center;
 
-  @include xxs-to-xs {
+  @include xs-to-sm {
     margin-bottom: 15px;
     line-height: 20px;
     flex-direction: column;
@@ -115,7 +115,7 @@
   align-items: center;
   width: 351px;
 
-  @include xxs-to-xs {
+  @include xs-to-sm {
     line-height: 20px;
     flex-direction: column;
     align-items: flex-start;
