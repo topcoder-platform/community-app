@@ -6,11 +6,11 @@
 }
 
 .code-splitting {
-  @include tc-body;
+  @include tc-body-md;
 
   font-weight: 300;
   margin: auto;
-  max-width: $screen-lg;
+  max-width: $tc-screen-lg;
   padding: 24px;
 
   em {

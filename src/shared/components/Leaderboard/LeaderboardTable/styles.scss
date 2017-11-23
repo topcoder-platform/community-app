@@ -5,7 +5,7 @@ $table-bg-hover: #f5f5f5;
 
 .LeaderboardTable {
   /* Table basic styling (heavily 'inspired' by Bootstrap) */
-  @include roboto;
+  @include roboto-normal;
 
   background-color: transparent;
   width: 100%;

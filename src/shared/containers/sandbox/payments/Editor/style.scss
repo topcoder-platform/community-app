@@ -1,7 +1,7 @@
 @import "~styles/mixins";
 
 .statusMsg {
-  @include roboto;
+  @include roboto-normal;
 
   padding: 64px;
   text-align: center;

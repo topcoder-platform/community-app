@@ -56,7 +56,7 @@
 .cardsBlock {
   display: flex;
   margin: 40px auto;
-  max-width: $screen-lg;
+  max-width: $tc-screen-lg;
   padding: 0 15px;
 
   @include xxs-to-xs {
@@ -72,7 +72,7 @@
 
 .joinBlock {
   margin: 100px auto;
-  max-width: $screen-lg;
+  max-width: $tc-screen-lg;
   padding: 0 40px;
   text-align: center;
 

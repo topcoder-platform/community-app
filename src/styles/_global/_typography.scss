@@ -4,22 +4,33 @@ body {
 }
 
 // Headings
+
 h1 {
-  @include tc-heading-extra-large;
+  @include tc-heading-xl;
+
+  color: inherit;
 }
 
 h2 {
-  @include tc-heading-large;
+  @include tc-heading-lg;
+
+  color: inherit;
 }
 
 h3 {
-  @include tc-heading;
+  @include tc-heading-md;
+
+  color: inherit;
 }
 
 h4 {
-  @include tc-heading-small;
+  @include tc-heading-sm;
+
+  color: inherit;
 }
 
 h5 {
-  @include tc-heading-extra-small;
+  @include tc-heading-xs;
+
+  color: inherit;
 }

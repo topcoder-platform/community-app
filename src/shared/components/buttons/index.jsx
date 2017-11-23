@@ -5,7 +5,8 @@
  * <button> element, either as react-router <Link>, or as HTML <a>, depending on
  * the props passed in.
  *
- * The button uses react-css-themr for styling, and it is exported mupltiple
+ * The button uses react-css-super-themr for styling, and it is exported
+ * mupltiple
  * times, differently wrapped with react-css-super-themr decorator. The intent
  * behind
  * it is to provide a standard button implementation, which can be easily styled

@@ -11,7 +11,7 @@ import './style.scss';
 
 export default function Content() {
   return (
-    <div styleName="Content">
+    <div styleName="container">
       <h1>Topcoder Community App</h1>
       <p>Isomorphic ReactJS App for new version of Topcoder community website.
         Technological stack includes:</p>
@@ -201,6 +201,13 @@ export default function Content() {
         <li>
           <Link to="/examples/themr">Themr</Link> - Test/demo of
           react-css-themr.
+        </li>
+        <li>
+          <Link to="/examples/typography">Typography</Link> - Most of Topcoder
+          websites use the same styleguide for the design. In particular, all
+          typography is supposed to use the set of styles from this example.
+          For all these styles we have global mixins, which should be used
+          whenever possible (but never modified without explicit approval).
         </li>
       </ul>
     </div>

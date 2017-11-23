@@ -42,7 +42,7 @@
   display: flex;
   flex-wrap: wrap;
   margin: 0 auto;
-  max-width: $screen-lg;
+  max-width: $tc-screen-lg;
   padding: 0 15px;
 }
 
@@ -54,7 +54,7 @@
 
 .imageTextBlock {
   margin: 0 auto;
-  max-width: $screen-lg;
+  max-width: $tc-screen-lg;
   padding: 0 15px;
 }
 
@@ -107,7 +107,7 @@
 .quoteBlock {
   display: flex;
   margin: 200px auto;
-  max-width: $screen-lg;
+  max-width: $tc-screen-lg;
   padding: 0 40px;
 
   @include xxs-to-xs {

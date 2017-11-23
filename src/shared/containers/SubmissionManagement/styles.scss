@@ -22,7 +22,7 @@ $sm-space-40: $base-unit * 8;
 }
 
 .submission-management-container {
-  @include roboto;
+  @include roboto-normal;
 
   background: #fff;
   margin: auto;

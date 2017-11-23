@@ -20,7 +20,7 @@ export default function Buttons() {
         All buttons in this page are instances of the generic button,
         implemented in <code>/src/components/buttons</code> and wrapped
         into different style themes with help
-        of <code>react-css-themr</code>.
+        of <code>react-css-super-themr</code>.
       </p>
 
       <h3>Default Button</h3>

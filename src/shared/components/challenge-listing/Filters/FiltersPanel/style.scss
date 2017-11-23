@@ -210,13 +210,13 @@ $panel-radius-4: $corner-radius * 2;
       }
 
       &.hidetwomonthdatepicker {
-        @media screen and (min-width: $screen-md) {
+        @media screen and (min-width: $tc-screen-md) {
           display: none;
         }
       }
 
       &.hideonemonthdatepicker {
-        @media screen and (max-width: $screen-md - 1px) {
+        @media screen and (max-width: $tc-screen-md - 1px) {
           display: none;
         }
       }

@@ -139,7 +139,7 @@ $light-gray-color: $tc-gray-neutral-light;
   }
 
   .right-col {
-    @include roboto;
+    @include roboto-normal;
 
     min-width: 100px;
 

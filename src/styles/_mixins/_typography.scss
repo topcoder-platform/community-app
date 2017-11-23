@@ -1,14 +1,12 @@
-// Mixins
+/**
+ * Typography-related mixins:
+ *  - Font styles;
+ *  - Label text styles;
+ *  - Body text styles;
+ *  - Heading text styles.
+ */
 
-// Table of Contents
-//
-// Font families
-// Labels
-// Body
-// Headings
-// Common
-
-// Font families and weights
+/* Font styles. */
 
 @mixin roboto-thin {
   font-family: 'Roboto', Helvetica, Arial, sans-serif;
@@ -20,7 +18,7 @@
   font-weight: 300;
 }
 
-@mixin roboto {
+@mixin roboto-normal {
   font-family: 'Roboto', Helvetica, Arial, sans-serif;
   font-weight: 400;
 }
@@ -40,96 +38,122 @@
   font-weight: 900;
 }
 
-// Labels
-@mixin tc-label-lg {
-  @include roboto;
+/* Label text styles. */
 
-  font-size: $tc-label-lg;
-  line-height: $base-unit * 4;
+@mixin tc-label-lg {
+  @include roboto-medium;
+
+  color: $tc-black;
+  font-size: 15px;
+  line-height: 20px;
 }
 
 @mixin tc-label-md {
-  @include roboto;
+  @include roboto-medium;
 
-  font-size: $tc-label-md;
-  line-height: $base-unit * 4;
+  color: $tc-black;
+  font-size: 13px;
+  line-height: 20px;
 }
 
 @mixin tc-label-sm {
-  @include roboto;
+  @include roboto-normal;
 
-  font-size: $tc-label-sm;
-  line-height: $base-unit * 3;
+  color: $tc-black;
+  font-size: 12px;
+  line-height: 15px;
 }
 
 @mixin tc-label-xs {
-  @include roboto;
+  @include roboto-normal;
 
-  font-size: $tc-label-xs;
-  line-height: $base-unit * 3;
+  color: $tc-black;
+  font-size: 11px;
+  line-height: 15px;
 }
 
-// Body
-@mixin tc-body-large {
-  @include roboto;
+/* Body text styles. */
 
-  font-size: $tc-body-lg;
-  line-height: $base-unit * 5;
+@mixin tc-body-lg {
+  @include roboto-normal;
+
+  color: $tc-gray-80;
+  font-size: 20px;
+  line-height: 25px;
 }
 
-@mixin tc-body {
-  @include roboto;
+@mixin tc-body-md {
+  @include roboto-normal;
 
-  font-size: $tc-body-md;
-  line-height: $base-unit * 5;
+  color: $tc-gray-80;
+  font-size: 15px;
+  line-height: 25px;
 }
 
-@mixin tc-body-small {
-  @include roboto;
+@mixin tc-body-sm {
+  @include roboto-normal;
 
-  font-size: $tc-body-sm;
-  line-height: $base-unit * 5;
+  color: $tc-gray-80;
+  font-size: 13px;
+  line-height: 25px;
 }
 
-@mixin tc-body-extra-small {
-  @include roboto;
+@mixin tc-body-xs {
+  @include roboto-normal;
 
-  font-size: $tc-body-xs;
-  line-height: $base-unit * 4;
+  color: $tc-gray-80;
+  font-size: 11px;
+  line-height: 20px;
 }
 
-// Headings
-@mixin tc-heading-extra-large {
-  @include roboto;
+/* Heading text styles. */
 
-  font-size: $tc-heading-xl;
-  line-height: $base-unit * 10;
+@mixin tc-heading-xl {
+  @include roboto-light;
+
+  color: $tc-black;
+  font-size: 36px;
+  line-height: 45px;
 }
 
-@mixin tc-heading-large {
-  @include roboto;
+@mixin tc-heading-lg {
+  @include roboto-normal;
 
-  font-size: $tc-heading-lg;
-  line-height: $base-unit * 7;
+  color: $tc-black;
+  font-size: 28px;
+  line-height: 35px;
 }
 
-@mixin tc-heading {
-  @include roboto;
+@mixin tc-heading-md {
+  @include roboto-normal;
 
-  font-size: $tc-heading-md;
-  line-height: $base-unit * 6;
+  color: $tc-black;
+  font-size: 20px;
+  line-height: 30px;
 }
 
-@mixin tc-heading-small {
-  @include roboto;
+@mixin tc-heading-sm {
+  @include roboto-normal;
 
-  font-size: $tc-heading-sm;
-  line-height: $base-unit * 5;
+  color: $tc-black;
+  font-size: 15px;
+  line-height: 25px;
 }
 
-@mixin tc-heading-extra-small {
-  @include roboto;
+@mixin tc-heading-xs {
+  @include roboto-normal;
 
-  font-size: $tc-heading-xs;
-  line-height: $base-unit * 5;
+  color: $tc-black;
+  font-size: 13px;
+  line-height: 25px;
+}
+
+/* Titles text styles. */
+
+@mixin tc-title {
+  @include roboto-light;
+
+  color: $tc-black;
+  font-size: 42px;
+  line-height: 50px;
 }

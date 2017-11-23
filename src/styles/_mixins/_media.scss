@@ -12,25 +12,25 @@
 /* XXS */
 
 @mixin xxs {
-  @media (max-width: #{$screen-xs - 1px}) {
+  @media (max-width: #{$tc-screen-xs - 1px}) {
     @content;
   }
 }
 
 @mixin xxs-to-xs {
-  @media (max-width: #{$screen-sm - 1px}) {
+  @media (max-width: #{$tc-screen-sm - 1px}) {
     @content;
   }
 }
 
 @mixin xxs-to-sm {
-  @media (max-width: #{$screen-md - 1px}) {
+  @media (max-width: #{$tc-screen-md - 1px}) {
     @content;
   }
 }
 
 @mixin xxs-to-md {
-  @media (max-width: #{$screen-lg - 1px}) {
+  @media (max-width: #{$tc-screen-lg - 1px}) {
     @content;
   }
 }
@@ -38,19 +38,19 @@
 /* XS */
 
 @mixin xs {
-  @media (min-width: #{$screen-xs}) and (max-width: #{$screen-sm - 1px}) {
+  @media (min-width: #{$tc-screen-xs}) and (max-width: #{$tc-screen-sm - 1px}) {
     @content;
   }
 }
 
 @mixin xs-to-sm {
-  @media (min-width: #{$screen-xs}) and (max-width: #{$screen-md - 1px}) {
+  @media (min-width: #{$tc-screen-xs}) and (max-width: #{$tc-screen-md - 1px}) {
     @content;
   }
 }
 
 @mixin xs-to-lg {
-  @media (min-width: #{$screen-xs}) {
+  @media (min-width: #{$tc-screen-xs}) {
     @content;
   }
 }
@@ -58,19 +58,19 @@
 /* SM */
 
 @mixin sm {
-  @media (min-width: #{$screen-sm}) and (max-width: #{$screen-md - 1px}) {
+  @media (min-width: #{$tc-screen-sm}) and (max-width: #{$tc-screen-md - 1px}) {
     @content;
   }
 }
 
 @mixin sm-to-md {
-  @media (min-width: #{$screen-sm}) and (max-width: #{$screen-lg - 1px}) {
+  @media (min-width: #{$tc-screen-sm}) and (max-width: #{$tc-screen-lg - 1px}) {
     @content;
   }
 }
 
 @mixin sm-to-lg {
-  @media (min-width: #{$screen-sm}) {
+  @media (min-width: #{$tc-screen-sm}) {
     @content;
   }
 }
@@ -78,13 +78,13 @@
 /* MD */
 
 @mixin md {
-  @media (min-width: #{$screen-md + 1px}) and (max-width: #{$screen-lg - 1px}) {
+  @media (min-width: #{$tc-screen-md + 1px}) and (max-width: #{$tc-screen-lg - 1px}) {
     @content;
   }
 }
 
 @mixin md-to-lg {
-  @media (min-width: #{$screen-md}) {
+  @media (min-width: #{$tc-screen-md}) {
     @content;
   }
 }
@@ -92,7 +92,7 @@
 /* LG */
 
 @mixin lg {
-  @media (min-width: #{$screen-lg}) {
+  @media (min-width: #{$tc-screen-lg}) {
     @content;
   }
 }

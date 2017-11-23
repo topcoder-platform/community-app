@@ -2,7 +2,7 @@
 
 exports[`Matches shallow shapshot 1`] = `
 <div
-  className="src-shared-components-Content-___style__Content___aJySd"
+  className="src-shared-components-Content-___style__container___kZF98"
 >
   <h1>
     Topcoder Community App
@@ -482,6 +482,15 @@ exports[`Matches shallow shapshot 1`] = `
         Themr
       </Link>
        - Test/demo of react-css-themr.
+    </li>
+    <li>
+      <Link
+        replace={false}
+        to="/examples/typography"
+      >
+        Typography
+      </Link>
+       - Most of Topcoder websites use the same styleguide for the design. In particular, all typography is supposed to use the set of styles from this example. For all these styles we have global mixins, which should be used whenever possible (but never modified without explicit approval).
     </li>
   </ul>
 </div>

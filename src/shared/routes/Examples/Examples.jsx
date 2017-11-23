@@ -21,6 +21,7 @@ import {
 import SvgLoading from 'components/examples/SvgLoading';
 import Tags from 'components/examples/Tags';
 import Themr from 'components/examples/Themr';
+import Typography from 'components/examples/Typography';
 
 import { requireWeak, resolveWeak, SplitRoute } from 'utils/router';
 
@@ -66,6 +67,7 @@ export default function Examples(props) {
       <Route path={`${base}/svg-loading`} component={SvgLoading} />
       <Route path={`${base}/tags`} component={Tags} />
       <Route path={`${base}/themr`} component={Themr} />
+      <Route path={`${base}/typography`} component={Typography} />
       <Content />
     </Switch>
   );
