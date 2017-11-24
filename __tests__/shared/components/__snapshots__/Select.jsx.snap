@@ -2,7 +2,6 @@
 
 exports[`Matches shallow shapshot 1`] = `
 <Select
-  addLabelText="Add \\"{label}\\"?"
   arrowRenderer={[Function]}
   autosize={false}
   backspaceRemoves={true}
@@ -12,6 +11,7 @@ exports[`Matches shallow shapshot 1`] = `
   clearRenderer={[Function]}
   clearValueText="Clear value"
   clearable={true}
+  closeOnSelect={true}
   deleteRemoves={true}
   delimiter=","
   disabled={false}
@@ -32,15 +32,19 @@ exports[`Matches shallow shapshot 1`] = `
   noResultsText="No results found"
   onBlurResetsInput={true}
   onCloseResetsInput={true}
-  openAfterFocus={false}
+  onSelectResetsInput={true}
+  openOnClick={true}
   optionComponent={[Function]}
   pageSize={5}
   placeholder="Select..."
+  removeSelected={true}
   required={false}
+  rtl={false}
   scrollMenuIntoView={true}
   searchable={true}
   simpleValue={false}
   tabSelectsValue={true}
+  trimFilter={true}
   valueComponent={[Function]}
   valueKey="value"
 />

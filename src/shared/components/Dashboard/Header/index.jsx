@@ -9,7 +9,6 @@ import badge from 'assets/images/dashboard/badge.png';
 
 import './styles.scss';
 
-
 export default function Header(props) {
   const { title, financials, achievements, myChallenges } = props;
   return (
@@ -56,7 +55,7 @@ export default function Header(props) {
 Header.propTypes = {
   title: PT.string,
   financials: PT.number,
-  achievements: React.PropTypes.arrayOf(React.PropTypes.object),
+  achievements: PT.arrayOf(PT.object),
   myChallenges: PT.number,
 };
 
