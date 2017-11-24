@@ -45,11 +45,11 @@ import React from 'react';
 import { themr } from 'react-css-super-themr';
 import { Link } from 'utils/router';
 
-import dangerButton from './danger.scss';
-import defaultButton from './default.scss';
-import ghostButton from './ghost.scss';
-import primaryButton from './primary.scss';
-import secondaryButton from './secondary.scss';
+import dangerButton from './standard/danger.scss';
+import defaultButton from './standard/default.scss';
+import ghostButton from './standard/ghost.scss';
+import primaryButton from './standard/primary.scss';
+import secondaryButton from './standard/secondary.scss';
 
 /* Generic button, not wrapped by themr, but accepting theme property.
  * In most cases you will want to use some of the themable exports below

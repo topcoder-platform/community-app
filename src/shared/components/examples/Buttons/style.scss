@@ -5,26 +5,22 @@
   max-width: $tc-screen-md;
   padding: 24px;
 
-  & > h3 {
-    @include tc-heading-md;
-
-    margin: 18px 0 6px;
-  }
-
-  & > p {
-    @include tc-body-md;
-
-    margin: 6px 0;
-  }
-
   code {
     background: whitesmoke;
     padding: 2px 4px;
   }
+}
 
-  em {
-    font-style: italic;
-  }
+.subsection {
+  @include tc-heading-lg;
+
+  margin: 18px 0 0;
+}
+
+.text {
+  @include tc-body-md;
+
+  margin: 6px 0;
 }
 
 .title {
