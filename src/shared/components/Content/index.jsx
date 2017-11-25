@@ -199,8 +199,8 @@ export default function Content() {
           of <code>react-css-themr</code>.
         </li>
         <li>
-          <Link to="/examples/themr">Themr</Link> - Test/demo of
-          react-css-themr.
+          <Link to="/examples/themr">Super Themr</Link> - Test/demo of
+          <code>react-css-super-themr</code>.
         </li>
         <li>
           <Link to="/examples/typography">Typography</Link> - Most of Topcoder

@@ -479,9 +479,13 @@ exports[`Matches shallow shapshot 1`] = `
         replace={false}
         to="/examples/themr"
       >
-        Themr
+        Super Themr
       </Link>
-       - Test/demo of react-css-themr.
+       - Test/demo of
+      <code>
+        react-css-super-themr
+      </code>
+      .
     </li>
     <li>
       <Link
