@@ -10,23 +10,33 @@
     border-radius: 20px;
     color: $color;
     display: inline-block;
-    font: 700 14px/40px 'Open Sans';
-    height: 40px;
+    font: 700 14px/1 'Open Sans';
+    min-height: 40px;
     margin: 5px;
-    padding: 0 25px;
-    line-height: 38px;
+    padding: 5px 25px;
     text-align: center;
+    vertical-align: middle;
+  }
+
+  .buttonContent {
+    display: table-cell;
+    vertical-align: middle;
   }
 
   /* Additional styling for a disabled button. */
   .disabled {
+    display: inline-table;
     opacity: 0.3;
   }
 
   /* To prevent different styling of the button-like link once it has been
    * visited. */
-  .link:visited {
-    color: $color;
+  .link {
+    display: inline-table;
+
+    &:visited {
+      color: $color;
+    }
   }
 
   /* .link and .regular classes are applied only to active button-like links,
@@ -56,24 +66,21 @@
   .xs {
     border-radius: 20px;
     font-size: 10px;
-    height: 20px;
-    line-height: 18px;
-    padding: 0 15px;
+    min-height: 20px;
+    padding: 1.5px 15px;
   }
 
   .sm {
     border-radius: 30px;
     font-size: 12px;
-    height: 30px;
-    line-height: 28px;
-    padding: 0 20px;
+    min-height: 30px;
+    padding: 4px 20px;
   }
 
   .lg {
     border-radius: 50px;
     font-size: 18px;
-    height: 50px;
-    line-height: 48px;
-    padding: 0 30px;
+    min-height: 50px;
+    padding: 5px 30px;
   }
 }
