@@ -447,6 +447,15 @@ exports[`Matches shallow shapshot 1`] = `
     <li>
       <Link
         replace={false}
+        to="/examples/scalable-rect"
+      >
+        ScalableRect
+      </Link>
+       component makes it easy to create dynamically scaled components with fixed side ratio.
+    </li>
+    <li>
+      <Link
+        replace={false}
         to="/examples/svg-loading"
       >
         SVG Loading

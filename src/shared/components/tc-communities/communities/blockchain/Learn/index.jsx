@@ -7,6 +7,7 @@
 
 import PT from 'prop-types';
 import React from 'react';
+import ScalableRect from 'components/ScalableRect';
 
 import Section from 'components/tc-communities/Section';
 import Banner from 'components/tc-communities/Banner';
@@ -43,22 +44,22 @@ export default function Learn({
           content: style.coursesContent,
         }}
       >
-        <div styleName="historyOfBlockchainVideoWrapper">
+        <ScalableRect ratio="16:9" styleName="videoContainer">
           <LoadingIndicator theme={{ container: style.loadingVideo }} />
           <iframe
-            styleName="historyOfBlockchainVideo"
+            styleName="video"
             src="https://www.youtube.com/embed/j23HnORQXvs"
             title="Ethereum: the World Computer"
           />
-        </div>
-        <div styleName="historyOfBlockchainVideoWrapper">
+        </ScalableRect>
+        <ScalableRect ratio="16:9" styleName="videoContainer">
           <LoadingIndicator theme={{ container: style.loadingVideo }} />
           <iframe
-            styleName="historyOfBlockchainVideo"
+            styleName="video"
             src="https://www.youtube.com/embed/TDGq4aeevgY"
             title="Vitalik Buterin explains Ethereum"
           />
-        </div>
+        </ScalableRect>
         <ArticleCard
           title="History and Promise of Blockchain"
           imageSrc="/community-app-assets/themes/blockchain/learn/courses-01.jpg"

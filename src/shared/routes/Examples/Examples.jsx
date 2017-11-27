@@ -14,15 +14,16 @@ import LoadingIndicators from 'components/examples/LoadingIndicators';
 import path from 'path';
 import PT from 'prop-types';
 import React from 'react';
-import {
-  Switch,
-  Route,
-} from 'react-router-dom';
+import ScalableRect from 'components/examples/ScalableRect';
 import SvgLoading from 'components/examples/SvgLoading';
 import Tags from 'components/examples/Tags';
 import Themr from 'components/examples/Themr';
 import Typography from 'components/examples/Typography';
 
+import {
+  Switch,
+  Route,
+} from 'react-router-dom';
 import { requireWeak, resolveWeak, SplitRoute } from 'utils/router';
 
 import DataFetch from './DataFetch';
@@ -64,6 +65,7 @@ export default function Examples(props) {
         component={LoadingIndicators}
         path={`${base}/loading-indicators`}
       />
+      <Route path={`${base}/scalable-rect`} component={ScalableRect} />
       <Route path={`${base}/svg-loading`} component={SvgLoading} />
       <Route path={`${base}/tags`} component={Tags} />
       <Route path={`${base}/themr`} component={Themr} />

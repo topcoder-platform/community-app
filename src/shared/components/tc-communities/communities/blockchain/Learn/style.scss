@@ -112,25 +112,19 @@
   width: 100%;
 }
 
-.historyOfBlockchainVideo {
-  position: absolute;
-  width: 100%;
+.video {
   height: 100%;
-
-  @include xs-to-md {
-    padding: 0 18px;
-  }
+  position: relative;
+  width: 100%;
 }
 
-.historyOfBlockchainVideoWrapper {
+.videoContainer {
   background: whitesmoke;
   margin-bottom: 24px;
-  padding-bottom: 33%;
-  position: relative;
   width: 49%;
 
-  @include xs-to-md {
-    padding-bottom: 66%;
-    width: 100%;
+  @include xs-to-sm {
+    margin: 0 15px 24px;
+    width: calc(100% - 30px);
   }
 }

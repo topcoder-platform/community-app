@@ -189,6 +189,10 @@ export default function Content() {
           <Link to="/examples/loading-indicators">Loading Indicators</Link>
         </li>
         <li>
+          <Link to="/examples/scalable-rect">ScalableRect</Link> component makes
+          it easy to create dynamically scaled components with fixed side ratio.
+        </li>
+        <li>
           <Link to="/examples/svg-loading">SVG Loading</Link> - Shows how to
           load <code>.svg</code> assets with use
           of <code>babel-plugin-inline-react-svg</code>.
