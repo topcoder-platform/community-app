@@ -141,7 +141,7 @@
 }
 
 @mixin tc-heading-sm {
-  @include roboto-normal;
+  @include roboto-bold;
 
   color: $tc-black;
   font-size: 15px;
@@ -149,7 +149,7 @@
 }
 
 @mixin tc-heading-xs {
-  @include roboto-normal;
+  @include roboto-bold;
 
   color: $tc-black;
   font-size: 13px;

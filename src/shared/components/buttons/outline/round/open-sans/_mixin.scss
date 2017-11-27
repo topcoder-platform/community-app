@@ -5,38 +5,31 @@
 
 @mixin button($color, $shade-1, $shade-2, $shade-3) {
   .button {
+    align-items: center;
     background: white;
     border: 1px solid $color;
     border-radius: 20px;
     color: $color;
-    display: inline-block;
-    font: 700 14px/1 'Open Sans';
+    display: inline-flex;
+    font: 700 14px 'Open Sans';
+    line-height: 14px;
     min-height: 40px;
     margin: 5px;
-    padding: 5px 25px;
+    padding: 5px 23px;
     text-align: center;
-    vertical-align: middle;
-  }
-
-  .buttonContent {
-    display: table-cell;
     vertical-align: middle;
   }
 
   /* Additional styling for a disabled button. */
   .disabled {
-    display: inline-table;
+    cursor: not-allowed;
     opacity: 0.3;
   }
 
   /* To prevent different styling of the button-like link once it has been
    * visited. */
-  .link {
-    display: inline-table;
-
-    &:visited {
-      color: $color;
-    }
+  .link:visited {
+    color: $color;
   }
 
   /* .link and .regular classes are applied only to active button-like links,
@@ -66,21 +59,24 @@
   .xs {
     border-radius: 20px;
     font-size: 10px;
+    line-height: 11px;
     min-height: 20px;
-    padding: 1px 15px;
+    padding: 1px 13px;
   }
 
   .sm {
     border-radius: 30px;
     font-size: 12px;
+    line-height: 12px;
     min-height: 30px;
-    padding: 4px 20px;
+    padding: 2px 18px;
   }
 
   .lg {
     border-radius: 50px;
     font-size: 18px;
+    line-height: 19px;
     min-height: 50px;
-    padding: 5px 30px;
+    padding: 5px 28px;
   }
 }

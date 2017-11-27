@@ -69,21 +69,19 @@ export function GenericButton({
   if (disabled) {
     return (
       <div className={`${theme.button} ${theme.disabled} ${sizeClass}`}>
-        <span className={theme.buttonContent}>{children}</span>
+        {children}
       </div>
     );
   } else if (to) {
     return (
-      <div className={`${theme.button} ${theme.link || ''} ${sizeClass}`}>
-        <Link
-          className={theme.buttonContent}
-          enforceA={enforceA}
-          onClick={onClick}
-          openNewTab={openNewTab}
-          replace={replace}
-          to={to}
-        >{children}</Link>
-      </div>
+      <Link
+        className={`${theme.button} ${theme.link || ''} ${sizeClass}`}
+        enforceA={enforceA}
+        onClick={onClick}
+        openNewTab={openNewTab}
+        replace={replace}
+        to={to}
+      >{children}</Link>
     );
   }
   return (

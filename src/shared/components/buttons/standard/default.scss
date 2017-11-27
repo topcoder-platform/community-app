@@ -15,33 +15,27 @@
   background: $tc-white;
   border: solid 1px $tc-gray-30;
   border-radius: 4px;
-  display: inline-block;
+  color: $tc-gray-80;
+  display: inline-flex;
   min-height: 40px;
   margin: 5px;
-  padding: 5px 25px;
+  padding: 5px 23px;
   text-align: center;
-  vertical-align: middle;
-}
-
-.buttonContent {
-  display: table-cell;
   vertical-align: middle;
 }
 
 /* Additional styling for a disabled button. */
 .disabled {
-  display: inline-table;
+  cursor: not-allowed;
   opacity: 0.3;
 }
 
-.link {
-  display: inline-table;
+/* To prevent different styling of the button-like link once it has been
+ * visited. */
+.link:visited {
+  @include tc-label-lg;
 
-  /* To prevent different styling of the button-like link once it has been
-   * visited. */
-  &:visited {
-    @include tc-label-lg;
-  }
+  color: $tc-gray-80;
 }
 
 /* .link and .regular classes are applied only to active button-like links,
@@ -72,20 +66,23 @@
   @include tc-label-sm;
 
   border-radius: 2px;
+  color: $tc-gray-80;
   min-height: 20px;
-  padding: 1px 15px;
+  padding: 1px 13px;
 }
 
 .sm {
   @include tc-label-md;
 
+  color: $tc-gray-80;
   min-height: 30px;
-  padding: 4px 20px;
+  padding: 4px 18px;
 }
 
 .lg {
   @include tc-label-xl;
 
+  color: $tc-gray-80;
   min-height: 50px;
-  padding: 5px 30px;
+  padding: 5px 28px;
 }
