@@ -192,14 +192,6 @@ export default function Learn({
           }}
           links={[{
             openNewTab: true,
-            title: 'reddit - Ethereum • r/ethereum',
-            url: 'https://www.reddit.com/r/ethereum/',
-          }, {
-            openNewTab: true,
-            title: 'Week in Ethereum News',
-            url: 'http://www.weekinethereum.com/',
-          }, {
-            openNewTab: true,
             title: 'Blockchain, Accounting, Audit and Tax Conference',
             url: 'https://www.accountingblockchain.net/#home-hero',
           }, {
@@ -208,16 +200,28 @@ export default function Learn({
             url: 'https://www.blockchainforsocialimpact.com/',
           }, {
             openNewTab: true,
-            title: 'Program - Ethereal SF',
-            url: 'https://etherealsummit.com/program/',
+            title: 'Ethereum Aliance',
+            url: 'https://entethalliance.org/about/',
+          }, {
+            openNewTab: true,
+            title: 'Ethereum Blockchain Education: ConsenSys Academy',
+            url: 'https://consensys.net/academy/',
           }, {
             openNewTab: true,
             title: 'Ethereum Foundation',
             url: 'https://www.ethereum.org/foundation',
           }, {
             openNewTab: true,
-            title: 'Ethereum Aliance',
-            url: 'https://entethalliance.org/about/',
+            title: 'Ethereum Meetups',
+            url: 'https://www.meetup.com/topics/ethereum/',
+          }, {
+            openNewTab: true,
+            title: 'reddit - Ethereum • r/ethereum',
+            url: 'https://www.reddit.com/r/ethereum/',
+          }, {
+            openNewTab: true,
+            title: 'Week in Ethereum News',
+            url: 'http://www.weekinethereum.com/',
           }]}
         />
       </Section>
