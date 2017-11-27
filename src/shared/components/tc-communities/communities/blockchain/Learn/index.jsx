@@ -7,14 +7,13 @@
 
 import PT from 'prop-types';
 import React from 'react';
-import ScalableRect from 'components/ScalableRect';
-
 import Section from 'components/tc-communities/Section';
+import YouTubeVideo from 'components/YouTubeVideo';
+
 import Banner from 'components/tc-communities/Banner';
 import NewsletterSignup from 'components/tc-communities/NewsletterSignup';
 import ArticleCard from 'components/tc-communities/ArticleCard2';
 import LinksCard from 'components/tc-communities/LinksCard';
-import LoadingIndicator from 'components/LoadingIndicator';
 
 import ConsenSysAtMedium from './ConsenSysAtMedium';
 import LearnTheBasics from './LearnTheBasics';
@@ -44,22 +43,16 @@ export default function Learn({
           content: style.coursesContent,
         }}
       >
-        <ScalableRect ratio="16:9" styleName="videoContainer">
-          <LoadingIndicator theme={{ container: style.loadingVideo }} />
-          <iframe
-            styleName="video"
-            src="https://www.youtube.com/embed/j23HnORQXvs"
-            title="Ethereum: the World Computer"
-          />
-        </ScalableRect>
-        <ScalableRect ratio="16:9" styleName="videoContainer">
-          <LoadingIndicator theme={{ container: style.loadingVideo }} />
-          <iframe
-            styleName="video"
-            src="https://www.youtube.com/embed/TDGq4aeevgY"
-            title="Vitalik Buterin explains Ethereum"
-          />
-        </ScalableRect>
+        <YouTubeVideo
+          src="https://www.youtube.com/embed/j23HnORQXvs"
+          styleName="videoContainer"
+          title="Ethereum: the World Computer"
+        />
+        <YouTubeVideo
+          src="https://www.youtube.com/embed/TDGq4aeevgY"
+          styleName="videoContainer"
+          title="Vitalik Buterin explains Ethereum"
+        />
         <ArticleCard
           title="History and Promise of Blockchain"
           imageSrc="/community-app-assets/themes/blockchain/learn/courses-01.jpg"
