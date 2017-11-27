@@ -1,19 +1,18 @@
 @import "~styles/mixins";
 
 .page {
-  @include roboto-light;
+  @include tc-body-md;
 
-  line-height: 150%;
   margin: auto;
-  max-width: $tc-screen-lg;
+  max-width: $tc-screen-md;
   padding: 24px;
 
   h1 {
-    margin: 0 0 18px;
+    margin: 18px 0 6px;
   }
 
   h3 {
-    margin: 24px 0 6px;
+    margin: 18px 0 6px;
   }
 
   code {

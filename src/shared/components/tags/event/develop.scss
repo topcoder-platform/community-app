@@ -2,9 +2,12 @@
  * Event tag, colored with colors of develop track (green).
  */
 
-@import "default";
+@import "../default";
 
-@mixin feedback {
+.button {
+  color: $tc-green;
+  background-color: $tc-green-10;
+
   &:active,
   &:focus,
   &:hover {
@@ -15,11 +18,4 @@
   &:visited {
     color: $tc-green;
   }
-}
-
-.tag {
-  color: $tc-green;
-  background-color: $tc-green-10;
-
-  @include feedback;
 }
