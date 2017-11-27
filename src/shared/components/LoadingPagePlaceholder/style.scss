@@ -9,7 +9,7 @@
   right: 0;
   top: 0;
 
-  @include xxs-to-xs {
+  @include xs-to-sm {
     padding: $base-unit;
   }
 }

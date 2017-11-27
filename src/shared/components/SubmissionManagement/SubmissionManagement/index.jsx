@@ -18,8 +18,10 @@ import LoadingIndicator from 'components/LoadingIndicator';
 import React from 'react';
 import PT from 'prop-types';
 import moment from 'moment';
+import { PrimaryButton } from 'components/buttons';
 import SubmissionsTable from '../SubmissionsTable';
-import './styles.scss';
+
+import style from './styles.scss';
 
 export default function SubmissionManagement(props) {
   const {
@@ -114,18 +116,21 @@ export default function SubmissionManagement(props) {
           />
         }
       </div>
-      {now.isBefore(challenge.submissionEndDate) &&
+      {now.isBefore(challenge.submissionEndDate) && (
         <div styleName="btn-wrap">
-          <a
-            href={`${challengeUrl}/submit`}
-            className="tc-btn tc-btn-primary tc-btn-md"
-            styleName="add-sub-btn"
+          <PrimaryButton
+            theme={{
+              button: style['add-sub-btn'],
+            }}
+            to={`${challengeUrl}/submit`}
           >
-            {(!isDevelop || !submissions || submissions.length === 0)
-              ? 'Add Submission' : 'Update Submission'}
-          </a>
+            {
+              (!isDevelop || !submissions || submissions.length === 0)
+                ? 'Add Submission' : 'Update Submission'
+            }
+          </PrimaryButton>
         </div>
-      }
+      )}
     </div>
   );
 }

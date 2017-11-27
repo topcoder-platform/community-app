@@ -4,15 +4,15 @@
   background: $tc-gray-neutral-dark;
   width: 100%;
 
-  @include xxs-to-xs {
+  @include xs-to-sm {
     padding: 8px 10px 20px;
   }
 
-  @include sm {
+  @include md {
     padding: 30px 14px 30px 20px;
   }
 
-  @include md-to-lg {
+  @include lg-to-xl {
     padding: 30px 64px;
   }
 }
@@ -26,7 +26,7 @@
 }
 
 .page {
-  @include roboto;
+  @include roboto-normal;
 
   background: $tc-white;
   border-radius: 3 * $corner-radius;

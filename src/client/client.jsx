@@ -105,7 +105,7 @@ storeFactory(undefined, window.ISTATE).then((store) => {
 
   function render() {
     const App = require('../shared').default; // eslint-disable-line global-require
-    ReactDOM.render(
+    ReactDOM.hydrate(
       <Provider store={store}>
         <BrowserRouter history={browserHistory}>
           <App />

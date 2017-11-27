@@ -1,84 +1,99 @@
-@import '~styles/mixins';
+@import "../themes/mixins.scss";
 
-.coursesContainer {
-  padding-bottom: 60px;
-}
+.card {
+  border-radius: 6px;
+  box-shadow: 0 2px 9px 0 rgba(38, 38, 40, 0.15);
+  flex: 1;
+  overflow: hidden;
+  margin: 0 10px;
 
-.resourcesTitle {
-  padding-bottom: 50px;
-  padding-top: 0;
+  h1 {
+    @include h3;
 
-  @include xxs-to-xs {
-    font-size: 36px;
-    padding-bottom: 30px;
+    font-weight: normal;
+
+    @include xs-to-sm {
+      font-weight: normal;
+    }
   }
-}
 
-.resourcesContainer {
-  padding-bottom: 60px;
+  p {
+    @include regular-text;
 
-  @include xxs-to-xs {
-    padding-bottom: 50px;
+    margin-bottom: 40px;
+
+    @include xs-to-sm {
+      margin-bottom: 20px;
+    }
   }
-}
 
-.bannerContainer {
-  height: 252px;
-
-  @include xxs-to-xs {
-    height: 300px;
-  }
-}
-
-.bannerContent {
-  bottom: 0;
-  top: 0;
-  transform: none;
-  width: 600px;
-
-  @include xxs-to-xs {
-    top: auto;
+  @include xs-to-sm {
+    flex: none;
+    margin: 10px 0;
     width: 100%;
   }
 }
 
-.bannerContentInner {
-  @include xxs-to-xs {
-    padding-bottom: 20px;
-    padding-top: 48px;
+.card-01 .cardImage {
+  background-image: url('./images/card-image-01.jpg');
+}
+
+.card-02 .cardImage {
+  background-image: url('./images/card-image-02.jpg');
+}
+
+.cardContent {
+  padding: 30px;
+}
+
+.cardImage {
+  background-position: 50% 50%;
+  background-size: cover;
+  height: 200px;
+  width: 100%;
+}
+
+.cardsBlock {
+  display: flex;
+  margin: 40px auto;
+  max-width: $tc-screen-lg;
+  padding: 0 15px;
+
+  @include xs-to-sm {
+    flex-wrap: wrap;
   }
 }
 
-.learnBasicsContainer {
-  padding-bottom: 0;
+.headerBlock {
+  @include header-block;
+
+  background-image: url('images/header.jpg');
 }
 
-.joinnowWrap {
-  margin-top: 10px;
-
-  @include xxs-to-xs {
-    margin-top: 20px;
-    text-align: center;
-  }
-}
-
-.joinnow {
-  color: #0092ff;
-  display: inline-block;
-  border: 1px solid #0092ff;
-  border-radius: 20px;
-  font: 700 14px/40px 'OpenSans';
-  height: 40px;
+.joinBlock {
+  margin: 100px auto;
+  max-width: $tc-screen-lg;
+  padding: 0 40px;
   text-align: center;
-  text-transform: uppercase;
-  width: 171px;
 
-  &:hover,
-  &:active,
-  &:focus,
-  &:visited {
-    color: #0092ff;
-    outline: none;
-    text-decoration: none;
+  h1 {
+    @include h2;
   }
+
+  & > p {
+    @include regular-text;
+
+    margin: 0 auto 40px;
+    max-width: 740px;
+  }
+
+  @include xs-to-sm {
+    margin: 50px 0;
+  }
+}
+
+.readMoreButton {
+  @include btn-sm;
+
+  margin: 0 !important;
 }

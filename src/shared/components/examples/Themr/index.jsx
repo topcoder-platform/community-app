@@ -35,12 +35,10 @@ export default class Themr extends React.Component {
 
   render() {
     return (
-      <div>
-        <h1>react-css-themr test/demo</h1>
-        NOTE: Our setup cannot guarantee the order of different styles in the
-        extracted CSS bundle, thus it cannot guarantee proper deep merge of
-        theme sources according to their priority. You have to use !important
-        directives to ensure the proper merging.
+      <div styleName="style.container">
+        <h1 styleName="style.title">
+          <code>react-css-super-themr</code> test/demo
+        </h1>
         <h3>Default theme</h3>
         <ThemableComponent />
         <h3>Default theme + Parent-provided styling</h3>
@@ -71,6 +69,20 @@ export default class Themr extends React.Component {
         */}
         <ThemeProvider key={this.state.key} theme={this.state.style}>
           <ThemableComponent />
+        </ThemeProvider>
+
+        <h3>Test of nested theme providers.</h3>
+        <p>
+          The external theme provider tries to set the same theme as in the
+          &zwnj;<em>Default theme + Parent-provided styling</em> example, and
+          the innter one tries to set the same theme as in the <em>Default
+          theme + Context styling</em> example. The question is, which will win
+          with the current version of react-css-super-themr?
+        </p>
+        <ThemeProvider theme={style}>
+          <ThemeProvider theme={contextTheme}>
+            <ThemableComponent />
+          </ThemeProvider>
         </ThemeProvider>
       </div>
     );

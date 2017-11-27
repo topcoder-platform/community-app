@@ -22,11 +22,11 @@
     width: 1px;
   }
 
-  @include sm {
+  @include md {
     width: 250px;
   }
 
-  @include xxs-to-xs {
+  @include xs-to-sm {
     display: none;
   }
 }
@@ -62,11 +62,11 @@
 .content {
   width: 600px;
 
-  @include sm {
+  @include md {
     width: 430px;
   }
 
-  @include xxs-to-xs {
+  @include xs-to-sm {
     width: 100%;
   }
 }

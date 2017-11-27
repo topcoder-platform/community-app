@@ -11,13 +11,13 @@
   padding: 3 * $base-unit 0;
   max-width: 245px;
 
-  @include xxs-to-xs {
+  @include xs-to-sm {
     margin: auto;
   }
 }
 
 .challenge-ops-wrapper {
-  @include xxs-to-xs {
+  @include xs-to-sm {
     width: 100%;
   }
 }
@@ -80,22 +80,22 @@
   background: $tc-gray-neutral-light;
   border-radius: (3 * $corner-radius) (3 * $corner-radius) 0 0;
 
-  @include xxs-to-sm {
+  @include xs-to-md {
     padding: 4px 4px 0 0;
   }
 
   border-bottom: $tc-gray-20 solid 1px;
 
   .important-detail {
-    @include xxs-to-sm {
+    @include xs-to-md {
       padding: 15px 15px 0;
     }
 
-    @include sm {
+    @include md {
       padding: 20px 20px 0;
     }
 
-    @include md-to-lg {
+    @include lg-to-xl {
       padding: 20px 19px 0 30px;
     }
 
@@ -108,18 +108,18 @@
       font-weight: 500;
       margin-bottom: 5px;
 
-      @include xxs-to-sm {
+      @include xs-to-md {
         font-size: 20px;
         line-height: 25px;
         margin-right: 43px;
         letter-spacing: 0;
       }
 
-      @include md-to-lg {
+      @include lg-to-xl {
         margin-right: 60px;
       }
 
-      @include sm {
+      @include md {
         margin-right: -4px;
       }
     }
@@ -146,7 +146,7 @@
       flex-wrap: wrap;
       align-items: stretch;
 
-      @include xxs-to-xs {
+      @include xs-to-sm {
         flex-direction: column;
       }
 
@@ -156,7 +156,7 @@
         .prizes-title {
           margin-left: 20px;
 
-          @include xxs-to-sm {
+          @include xs-to-md {
             margin-left: 10px;
           }
 

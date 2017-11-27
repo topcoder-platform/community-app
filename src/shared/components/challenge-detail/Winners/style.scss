@@ -60,7 +60,7 @@
     border-left: none;
   }
 
-  @include xxs-to-xs {
+  @include xs-to-sm {
     height: auto;
     padding: 4 * $base-unit;
     width: 100%;
@@ -133,7 +133,7 @@
     margin-bottom: 8px;
     font-weight: 300;
 
-    @include xxs-to-xs {
+    @include xs-to-sm {
       margin-bottom: 0;
       font-size: 28px;
       line-height: 35px;
@@ -146,7 +146,7 @@
     font-weight: 500;
     margin-bottom: 20px;
 
-    @include xxs-to-xs {
+    @include xs-to-sm {
       font-size: 20px;
       line-height: 30px;
       margin-bottom: 10px;
@@ -158,7 +158,7 @@
     font-size: 15px;
     line-height: 22px;
 
-    @include xxs-to-xs {
+    @include xs-to-sm {
       font-size: 13px;
       line-height: 25px;
     }
@@ -173,7 +173,7 @@
     line-height: 22px;
     color: $tc-dark-blue;
 
-    @include xxs-to-xs {
+    @include xs-to-sm {
       font-size: 13px;
     }
   }
@@ -184,7 +184,7 @@
     color: $tc-gray-60;
     display: flex;
 
-    @include xxs-to-xs {
+    @include xs-to-sm {
       flex-direction: column;
       font-size: 13px;
       line-height: 20px;

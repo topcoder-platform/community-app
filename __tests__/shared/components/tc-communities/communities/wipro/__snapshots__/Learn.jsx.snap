@@ -60,6 +60,7 @@ exports[`Snapshot match 1`] = `
           onClick={null}
           openNewTab={true}
           replace={false}
+          size={null}
           theme={
             Object {
               "button": "src-shared-components-tc-communities-communities-wipro-Learn-___style__continueButton___2UpkU",

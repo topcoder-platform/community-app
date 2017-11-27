@@ -9,7 +9,7 @@
   position: relative;
   width: 48%;
 
-  @include xxs-to-sm {
+  @include xs-to-md {
     padding: 0 24px;
     width: 100%;
   }

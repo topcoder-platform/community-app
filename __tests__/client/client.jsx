@@ -140,6 +140,7 @@ test('Fails to start with process.env.FRONT_END evaluating false', () => {
 describe('Properly starts with process.env.FRONT_ENV evaluating true', () => {
   /* NOTE: Before each test a promise is stored into this variable, which will
    * resolve once the page is rendered. */
+
   let rendered;
 
   afterAll(() => delete process.env.FRONT_END);
@@ -152,7 +153,7 @@ describe('Properly starts with process.env.FRONT_ENV evaluating true', () => {
     let resolve;
     rendered = new Promise((r) => { resolve = r; });
     jest.setMock('react-dom', {
-      render: (code, target) => resolve({ code, target }),
+      hydrate: (code, target) => resolve({ code, target }),
     });
   });
 
@@ -221,4 +222,3 @@ describe('Properly starts with process.env.FRONT_ENV evaluating true', () => {
     }),
   );
 });
-

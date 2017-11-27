@@ -1,4 +1,9 @@
 /**
+ * DEPRECATED! Don't use these mixins in any new code, they will be removed from
+ * the codebase soon. Instead, use the themeable buttons properly.
+ */
+
+/**
  * Global mixins for button styles.
  * Whenever you need a button, you should use /src/components/buttons and the
  * styles supported there with react-css-themr. The mixins defined here help to
@@ -17,7 +22,7 @@
 
 @mixin btn-sm {
   font-size: 13px;
-  height: 6 * $base-unit;
+  height: 5.6 * $base-unit;
   line-height: 5 * $base-unit;
   min-width: 13 * $base-unit;
   padding: 0 4 * $base-unit;

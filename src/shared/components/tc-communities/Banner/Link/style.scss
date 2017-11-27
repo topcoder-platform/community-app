@@ -3,7 +3,7 @@
 .linkWrap {
   margin-top: 30px;
 
-  @include xxs-to-xs {
+  @include xs-to-sm {
     margin-top: 20px;
   }
 }

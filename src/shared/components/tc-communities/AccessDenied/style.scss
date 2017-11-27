@@ -1,7 +1,7 @@
 @import '~styles/mixins';
 
 .access-denied {
-  @include tc-body-large;
+  @include tc-body-lg;
 
   padding-top: 100px;
   text-align: center;
@@ -37,7 +37,7 @@
 }
 
 .copyright {
-  @include roboto;
+  @include roboto-normal;
 
   color: $tc-gray-60;
   font-size: 12pt;

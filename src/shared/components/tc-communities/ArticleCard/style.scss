@@ -7,11 +7,11 @@
   height: 450px;
   width: 300px;
 
-  @include sm {
+  @include md {
     width: 220px;
   }
 
-  @include xxs-to-xs {
+  @include xs-to-sm {
     height: auto;
     margin: 0 15px;
     padding-bottom: 30px;
@@ -29,7 +29,7 @@
   display: block;
   height: 200px;
 
-  @include xxs-to-xs {
+  @include xs-to-sm {
     height: auto;
     min-height: 205px;
 
@@ -55,7 +55,7 @@
   overflow: hidden;
   text-overflow: ellipsis;
 
-  @include sm {
+  @include md {
     font-size: 16px;
   }
 }
@@ -73,7 +73,7 @@
 .linkWrap {
   margin-top: 27px;
 
-  @include xxs-to-sm {
+  @include xs-to-md {
     margin-top: 20px;
   }
 }

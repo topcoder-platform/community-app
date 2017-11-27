@@ -23,19 +23,19 @@ $srm-radius-4: $corner-radius * 2;
   font-family: 'Roboto';
   font-weight: 500;
 
-  @include xxs-to-xs {
+  @include xs-to-sm {
     padding: $srm-space-15;
     display: block;
   }
 
   &.now {
-    @include xxs-to-xs {
+    @include xs-to-sm {
       padding-bottom: 65px;
     }
   }
 
   &.upcoming {
-    @include xxs-to-xs {
+    @include xs-to-sm {
       padding-bottom: 65px;
     }
   }
@@ -44,7 +44,7 @@ $srm-radius-4: $corner-radius * 2;
     display: flex;
     width: 100%;
 
-    @include xxs-to-xs {
+    @include xs-to-sm {
       display: block;
     }
   }
@@ -54,14 +54,14 @@ $srm-radius-4: $corner-radius * 2;
     width: 50%;
     display: flex;
 
-    @include xxs-to-xs {
+    @include xs-to-sm {
       width: 100%;
     }
 
     &.upcoming {
       width: 70%;
 
-      @include xxs-to-xs {
+      @include xs-to-sm {
         width: 100%;
       }
     }
@@ -81,7 +81,7 @@ $srm-radius-4: $corner-radius * 2;
       color: $tc-black;
       line-height: $srm-space-30;
 
-      @include xxs-to-xs {
+      @include xs-to-sm {
         font-size: 20px;
         font-weight: 400;
         line-height: $srm-space-20;
@@ -103,7 +103,7 @@ $srm-radius-4: $corner-radius * 2;
     .SRM-date {
       display: none;
 
-      @include xxs-to-xs {
+      @include xs-to-sm {
         margin-top: $srm-space-10;
         display: block;
         font-weight: 400;
@@ -117,7 +117,7 @@ $srm-radius-4: $corner-radius * 2;
   .SRM-open-info {
     display: flex;
 
-    @include xxs-to-xs {
+    @include xs-to-sm {
       display: block;
     }
 
@@ -128,7 +128,7 @@ $srm-radius-4: $corner-radius * 2;
       letter-spacing: 0;
       line-height: $srm-space-20;
 
-      @include xxs-to-xs {
+      @include xs-to-sm {
         padding-top: 5px;
         line-height: $srm-space-15;
       }
@@ -140,7 +140,7 @@ $srm-radius-4: $corner-radius * 2;
       color: $tc-gray-50;
       padding-left: $srm-space-10;
 
-      @include xxs-to-xs {
+      @include xs-to-sm {
         padding-left: 0;
       }
     }
@@ -151,7 +151,7 @@ $srm-radius-4: $corner-radius * 2;
     width: 50%;
     position: relative;
 
-    @include xxs-to-xs {
+    @include xs-to-sm {
       width: 100%;
     }
 
@@ -163,7 +163,7 @@ $srm-radius-4: $corner-radius * 2;
       text-align: right;
       width: 30%;
 
-      @include xxs-to-xs {
+      @include xs-to-sm {
         display: none;
       }
     }
@@ -183,7 +183,7 @@ $srm-radius-4: $corner-radius * 2;
       margin-top: $base-unit;
       display: block;
 
-      @include xxs-to-xs {
+      @include xs-to-sm {
         margin-top: 0;
         margin-left: auto;
       }
@@ -195,7 +195,7 @@ $srm-radius-4: $corner-radius * 2;
     justify-content: flex-end;
     padding-right: $srm-space-10;
 
-    @include xxs-to-xs {
+    @include xs-to-sm {
       justify-content: flex-start;
       padding: $srm-space-20 $srm-space-15 0 $srm-space-45;
     }
@@ -227,7 +227,7 @@ $srm-radius-4: $corner-radius * 2;
     color: $tc-black;
     line-height: $srm-space-20;
 
-    @include xxs-to-xs {
+    @include xs-to-sm {
       position: absolute;
       height: 50px;
       width: auto;
@@ -249,7 +249,7 @@ $srm-radius-4: $corner-radius * 2;
       transform: translate(0, -50%);
       margin-top: 0;
 
-      @include xxs-to-xs {
+      @include xs-to-sm {
         display: inline-block;
         position: relative;
         margin-top: 0;
@@ -273,7 +273,7 @@ $srm-radius-4: $corner-radius * 2;
 
     display: none;
 
-    @include xxs-to-xs {
+    @include xs-to-sm {
       display: block;
     }
 
@@ -327,7 +327,7 @@ $srm-radius-4: $corner-radius * 2;
       margin: 0 $srm-space-20 0 $base-unit * 10;
       width: 94%;
 
-      @include xxs-to-xs {
+      @include xs-to-sm {
         margin: 0 $srm-space-10 0;
       }
     }
@@ -337,7 +337,7 @@ $srm-radius-4: $corner-radius * 2;
     display: flex;
     width: 100%;
 
-    @include xxs-to-xs {
+    @include xs-to-sm {
       display: block;
     }
 
@@ -345,7 +345,7 @@ $srm-radius-4: $corner-radius * 2;
       width: 50%;
       padding-right: $srm-space-10;
 
-      @include xxs-to-xs {
+      @include xs-to-sm {
         width: 100%;
         padding-right: 0;
       }
@@ -355,7 +355,7 @@ $srm-radius-4: $corner-radius * 2;
       width: 50%;
       padding-left: $srm-space-10;
 
-      @include xxs-to-xs {
+      @include xs-to-sm {
         width: 100%;
         padding-left: 0;
       }

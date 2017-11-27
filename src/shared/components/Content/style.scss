@@ -1,18 +1,27 @@
 @import "~styles/mixins";
 
-.Content {
-  @include roboto-light;
+.container {
+  @include tc-body-md;
 
-  line-height: 150%;
   margin: auto;
   padding: 24px;
-  width: 1024px;
+  max-width: $tc-screen-md;
+
+  code {
+    background: whitesmoke;
+    font-family: monospace;
+    padding: 0 4px;
+  }
 
   h1 {
-    margin: 0 0 18px;
+    @include tc-title;
+
+    margin: 18px 0 6px;
   }
 
   h3 {
+    @include tc-heading-md;
+
     margin: 24px 0 6px;
   }
 
@@ -21,13 +30,8 @@
     margin: 0 24px;
 
     a {
-      color: blue;
+      color: $tc-dark-blue;
     }
-  }
-
-  code {
-    background: whitesmoke;
-    padding: 0 4px;
   }
 
   strong {

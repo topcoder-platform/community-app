@@ -37,7 +37,7 @@ $panel-radius-4: $corner-radius * 2;
   width: 100%;
   position: relative;
 
-  @include xxs-to-sm {
+  @include xs-to-md {
     position: fixed;
     z-index: 10;
     width: auto;
@@ -58,7 +58,7 @@ $panel-radius-4: $corner-radius * 2;
   .header {
     display: none;
 
-    @include xxs-to-sm {
+    @include xs-to-md {
       display: flex;
       justify-content: space-between;
       padding-bottom: 25px;
@@ -68,7 +68,7 @@ $panel-radius-4: $corner-radius * 2;
   .title {
     display: none;
 
-    @include xxs-to-sm {
+    @include xs-to-md {
       display: block;
       font-weight: 500;
       font-size: 12px;
@@ -82,7 +82,7 @@ $panel-radius-4: $corner-radius * 2;
   .close-icon {
     display: none;
 
-    @include xxs-to-sm {
+    @include xs-to-md {
       display: block;
       cursor: pointer;
     }
@@ -96,7 +96,7 @@ $panel-radius-4: $corner-radius * 2;
     right: $panel-space-20;
     top: $panel-space-15;
 
-    @include xxs-to-sm {
+    @include xs-to-md {
       float: none;
       display: flex;
       justify-content: center;
@@ -115,7 +115,7 @@ $panel-radius-4: $corner-radius * 2;
       width: $panel-space-100 - 3;
       margin-left: 0;
 
-      @include xxs-to-sm {
+      @include xs-to-md {
         display: inline-block;
       }
     }
@@ -126,7 +126,7 @@ $panel-radius-4: $corner-radius * 2;
   display: inline-block;
   width: 100%;
 
-  @include xxs-to-sm {
+  @include xs-to-md {
     display: block;
   }
 
@@ -135,7 +135,7 @@ $panel-radius-4: $corner-radius * 2;
     align-items: center;
     margin-right: $panel-space-100 + 17;
 
-    @include xxs-to-sm {
+    @include xs-to-md {
       display: block;
       margin-right: 0;
     }
@@ -165,7 +165,7 @@ $panel-radius-4: $corner-radius * 2;
         min-width: 58px;
       }
 
-      @include xxs-to-sm {
+      @include xs-to-md {
         text-align: left;
 
         &.left-label {
@@ -194,7 +194,7 @@ $panel-radius-4: $corner-radius * 2;
 
       margin-right: $panel-space-30;
 
-      @include xxs-to-sm {
+      @include xs-to-md {
         width: initial;
       }
     }
@@ -205,18 +205,18 @@ $panel-radius-4: $corner-radius * 2;
       display: inline-block;
       text-align: left;
 
-      @include xxs-to-sm {
+      @include xs-to-md {
         margin-top: 20px;
       }
 
       &.hidetwomonthdatepicker {
-        @media screen and (min-width: $screen-md) {
+        @media screen and (min-width: $tc-screen-md) {
           display: none;
         }
       }
 
       &.hideonemonthdatepicker {
-        @media screen and (max-width: $screen-md - 1px) {
+        @media screen and (max-width: $tc-screen-md - 1px) {
           display: none;
         }
       }
@@ -228,7 +228,7 @@ $panel-radius-4: $corner-radius * 2;
   .filter.keywords {
     @include calc(width, '50% - 30px');
 
-    @include xxs-to-sm {
+    @include xs-to-md {
       width: 100%;
     }
 
@@ -238,7 +238,7 @@ $panel-radius-4: $corner-radius * 2;
   .filter.community {
     @include calc(width, '50% - 30px');
 
-    @include xxs-to-sm {
+    @include xs-to-md {
       width: 100%;
     }
 
@@ -258,7 +258,7 @@ $panel-radius-4: $corner-radius * 2;
   .filter.track {
     @include calc(width, '50% - 30px');
 
-    @include xxs-to-sm {
+    @include xs-to-md {
       width: 100%;
     }
   }

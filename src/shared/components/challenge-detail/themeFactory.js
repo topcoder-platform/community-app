@@ -10,10 +10,10 @@
 
 import { COMPETITION_TRACKS } from 'utils/tc';
 
-import primaryDevelopTagStyle from '../tags/primaryDevelop.scss';
-import primaryDataScienceTagStyle from '../tags/primaryDataScience.scss';
-import eventDevelopTagStyle from '../tags/eventDevelop.scss';
-import eventDataScienceTagStyle from '../tags/eventDataScience.scss';
+import primaryDevelopTagStyle from '../tags/primary/develop.scss';
+import primaryDataScienceTagStyle from '../tags/primary/data-science.scss';
+import eventDevelopTagStyle from '../tags/event/develop.scss';
+import eventDataScienceTagStyle from '../tags/event/data-science.scss';
 
 export default function factory(track) {
   /* Currently track value can come either from Topcoder API v2, where it is

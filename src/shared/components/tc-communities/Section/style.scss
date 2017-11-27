@@ -4,7 +4,7 @@
   padding: 35px 0;
   padding-bottom: 70px;
 
-  @include xxs-to-xs {
+  @include xs-to-sm {
     padding-bottom: 42px;
   }
 }
@@ -15,7 +15,7 @@
   padding: 0 0 30px;
   text-align: center;
 
-  @include xxs-to-xs {
+  @include xs-to-sm {
     font-size: 24px;
     padding-top: 30px;
   }
@@ -27,7 +27,7 @@
   padding: 60px 0 30px;
   text-align: center;
 
-  @include xxs-to-xs {
+  @include xs-to-sm {
     font-size: 24px;
     padding-top: 30px;
   }
@@ -39,11 +39,11 @@
   margin: 0 auto;
   width: 960px;
 
-  @include sm {
+  @include md {
     width: 720px;
   }
 
-  @include xxs-to-xs {
+  @include xs-to-sm {
     display: block;
     width: 100%;
   }

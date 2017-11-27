@@ -2,6 +2,13 @@
 
 import _ from 'lodash';
 
+/* eslint-disable import/no-extraneous-dependencies */
+import Adapter from 'enzyme-adapter-react-16';
+import Enzyme from 'enzyme';
+/* eslint-enable import/no-extraneous-dependencies */
+
+Enzyme.configure({ adapter: new Adapter() });
+
 global.window.matchMedia = global.window.matchMedia || function matchMedia() {
   return {
     matches: false,

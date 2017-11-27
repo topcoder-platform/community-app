@@ -8,11 +8,11 @@
   height: 400px;
   width: 300px;
 
-  @include sm {
+  @include md {
     width: 220px;
   }
 
-  @include xxs-to-xs {
+  @include xs-to-sm {
     height: auto;
     margin: 0 15px;
     padding-bottom: 30px;
@@ -30,7 +30,7 @@
   display: block;
   height: 150px;
 
-  @include xxs-to-xs {
+  @include xs-to-sm {
     height: auto;
     min-height: 205px;
 
@@ -59,7 +59,7 @@
   overflow: hidden;
   text-overflow: ellipsis;
 
-  @include sm {
+  @include md {
     font-size: 16px;
   }
 }

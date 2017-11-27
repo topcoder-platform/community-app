@@ -76,7 +76,6 @@ module.exports = {
       },
     }, {
       test: /\.(gif|jpeg|jpg|png|svg)$/,
-      include: /src[\\/]assets[\\/]images/,
       loader: 'file-loader',
       options: {
         outputPath: '/images/',

@@ -1,13 +1,13 @@
 @import '~styles/mixins';
 
 .desktop {
-  @include xxs-to-xs {
+  @include xs-to-sm {
     display: none;
   }
 }
 
 .mobile {
-  @include sm-to-lg {
+  @include md-to-xl {
     display: none;
   }
 }
@@ -21,7 +21,7 @@
   padding: 12px 16px;
   position: relative;
 
-  @include xxs-to-xs {
+  @include xs-to-sm {
     display: block;
   }
 
@@ -56,7 +56,7 @@
   padding-bottom: 25px;
   padding-top: 25px;
 
-  @include xxs-to-xs {
+  @include xs-to-sm {
     background-color: #fafafa;
     padding: 20px 15px 26px;
   }

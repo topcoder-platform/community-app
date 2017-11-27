@@ -1,0 +1,16 @@
+.footer {
+  position: absolute;
+  left: 10px;
+  padding: 20px;
+
+  .footerText {
+    font-family: 'Akkurat light', sans-serif;
+    font-size: 12px;
+    color: #646363;
+    text-align: center;
+  }
+
+  img {
+    max-height: 23px;
+  }
+}

@@ -1,0 +1,90 @@
+/**
+ * General style mixins specific to the Veterans community.
+ */
+
+@import "~styles/mixins";
+
+/* Color variables. */
+
+$black: #262628;
+$white: white;
+
+/* Typography mixins. */
+
+@mixin h1 {
+  color: $black;
+  font: 300 42px/1.19 Roboto;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+
+  @include xs-to-sm {
+    font: 300 36px/1.25 Roboto;
+  }
+}
+
+@mixin h2 {
+  color: $black;
+  font: 300 36px/1.25 Roboto;
+  margin-bottom: 10px;
+
+  @include xs-to-sm {
+    font: 300 28px/1.25 Roboto;
+  }
+}
+
+@mixin h3 {
+  color: $black;
+  font: 300 28px/1.25 Roboto;
+  margin-bottom: 10px;
+
+  @include xs-to-sm {
+    font: 300 20px/1.5 Roboto;
+  }
+}
+
+@mixin large-text {
+  color: $black;
+  font: 20px/1.25 Roboto;
+
+  @include xs-to-sm {
+    font: 15px/1.67 Roboto;
+  }
+}
+
+@mixin regular-text {
+  color: $black;
+  font: 15px/1.73 Roboto;
+}
+
+/* Styling blocks reusable between pages. */
+
+@mixin header-block {
+  background-position: 50% 50%;
+  background-size: cover;
+  box-shadow: inset 0 0 0 500px rgba(49, 100, 1, 0.75);
+  display: flex;
+  flex-direction: column;
+  height: 500px;
+  justify-content: center;
+  padding: 40px 24px;
+  text-align: center;
+  width: 100%;
+
+  & > h1 {
+    @include h1;
+
+    color: $white;
+  }
+
+  & > p {
+    @include large-text;
+
+    color: $white;
+    margin: 0 auto;
+    max-width: 720px;
+  }
+
+  @include xs-to-sm {
+    height: auto;
+  }
+}

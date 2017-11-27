@@ -10,7 +10,7 @@
   align-items: center;
   border-bottom: 1px solid #f0f0f0;
 
-  @include xxs-to-sm {
+  @include xs-to-md {
     padding: 30px 20px;
   }
 
@@ -36,11 +36,11 @@
     color: #3d3d3d;
     line-height: 30px;
 
-    @include xxs-to-sm {
+    @include xs-to-md {
       font-size: 20px;
     }
 
-    @include xxs-to-xs {
+    @include xs-to-sm {
       font-size: 16px;
       width: 80%;
       line-height: 24px;
@@ -54,7 +54,7 @@
   }
 
   p {
-    @include xxs-to-xs {
+    @include xs-to-sm {
       display: none;
     }
   }

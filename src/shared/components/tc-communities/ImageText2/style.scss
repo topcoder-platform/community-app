@@ -1,0 +1,42 @@
+@import '~styles/mixins';
+
+.container {
+  display: flex;
+  width: 100%;
+
+  @include xs-to-sm {
+    display: block;
+  }
+
+  &:nth-child(odd) {
+    flex-direction: row-reverse;
+  }
+}
+
+.image {
+  background-position: 50% 50%;
+  background-size: cover;
+  width: 50%;
+
+  @include xs-to-sm {
+    height: auto;
+    min-height: 180px;
+    width: 100%;
+
+    &::after {
+      content: '';
+      display: block;
+      height: 0;
+      padding-bottom: 48%; /* fixed aspect ration 180 / 375 */
+    }
+  }
+}
+
+.content {
+  padding: 24px;
+  width: 50%;
+
+  @include xs-to-sm {
+    width: 100%;
+  }
+}

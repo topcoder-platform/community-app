@@ -21,11 +21,11 @@
 }
 
 .roboto-regular {
-  @include roboto;
+  @include roboto-normal;
 }
 
 .roboto-regular-italic {
-  @include roboto;
+  @include roboto-normal;
 
   font-style: italic;
 }

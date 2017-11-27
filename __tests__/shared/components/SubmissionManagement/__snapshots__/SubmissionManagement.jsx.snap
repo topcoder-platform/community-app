@@ -72,12 +72,26 @@ exports[`Matches shallow shapshot 1`] = `
   <div
     className="src-shared-components-SubmissionManagement-SubmissionManagement-___styles__btn-wrap___2G2IK"
   >
-    <a
-      className="tc-btn tc-btn-primary tc-btn-md src-shared-components-SubmissionManagement-SubmissionManagement-___styles__add-sub-btn___1ZToV"
-      href="/submit"
+    <ThemedGenericButton
+      composeAdhocTheme="deeply"
+      composeContextTheme="softly"
+      disabled={false}
+      enforceA={false}
+      mapThemrProps={[Function]}
+      onClick={null}
+      openNewTab={false}
+      replace={false}
+      size={null}
+      theme={
+        Object {
+          "button": "src-shared-components-SubmissionManagement-SubmissionManagement-___styles__add-sub-btn___1ZToV",
+        }
+      }
+      themePriority="adhoc-context-default"
+      to="/submit"
     >
       Add Submission
-    </a>
+    </ThemedGenericButton>
   </div>
 </div>
 `;

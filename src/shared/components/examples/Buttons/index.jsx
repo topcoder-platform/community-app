@@ -2,84 +2,73 @@ import React from 'react';
 import {
   Button,
   DangerButton,
+  GenericButton,
+  GhostButton,
   PrimaryButton,
   SecondaryButton,
 } from 'components/buttons';
-import { ThemeProvider } from 'react-css-super-themr';
 
-import primaryDataScienceButtonStyle from '../../buttons/primaryDataScience.scss';
-import primaryDevelopButtonStyle from '../../buttons/primaryDevelop.scss';
+import outlineRoundOpenSansDefault from
+  'components/buttons/outline/round/open-sans/default.scss';
+import outlineRoundOpenSansBlueUppercase from
+  'components/buttons/outline/round/open-sans/blue-uppercase.scss';
+import outlineRoundOpenSansGreenUppercase from
+  'components/buttons/outline/round/open-sans/green-uppercase.scss';
+import outlineRoundOpenSansRedUppercase from
+  'components/buttons/outline/round/open-sans/red-uppercase.scss';
 
-import style from './style.scss';
+import Sample from './Sample';
+import style from './style.scss'; // eslint-disable-line no-unused-vars
 
 export default function Buttons() {
   return (
-    <div styleName="style.page">
-      <h1>Buttons</h1>
-      <p>
+    <div styleName="style.container">
+      <h1 styleName="style.title">Buttons</h1>
+
+      <p styleName="style.text">
         All buttons in this page are instances of the generic button,
         implemented in <code>/src/components/buttons</code> and wrapped
         into different style themes with help
-        of <code>react-css-themr</code>.
+        of <code>react-css-super-themr</code>.
       </p>
 
-      <h3>Default Button</h3>
-      <Button>Button</Button>
-      <Button to=".">Link Button</Button>
-      <Button disabled>Disabled Button</Button>
+      <h2 styleName="style.subsection">Standard Buttons from TC UI Kit</h2>
 
-      <h3>Button Dimensions</h3>
-      <Button theme={{ button: style.btnXS }}>Extra-Small Button</Button>
-      <Button theme={{ button: style.btnSM }}>Small Button</Button>
-      <Button>Medium Button (default)</Button>
-      <Button theme={{ button: style.btnLG }}>Large Button</Button>
+      <Sample Button={Button} title="Default Button" />
+      <Sample Button={PrimaryButton} title="Primary Button" />
+      <Sample Button={SecondaryButton} title="Secondary Button" />
+      <Sample Button={DangerButton} title="Danger Button" />
+      <Sample Button={GhostButton} title="Ghost Button" />
 
-      <h3>Primary Button</h3>
+      <h2 styleName="style.subsection">Outline Buttons</h2>
 
-      <p>Default &mdash; design color sheme:</p>
-      <PrimaryButton>Button</PrimaryButton>
-      <PrimaryButton to=".">Link Button</PrimaryButton>
-      <PrimaryButton disabled>Disabled Button</PrimaryButton>
+      <p styleName="style.text">
+        Various styles of outline buttons, that are not a part of the official
+        TC UI Kit, but they are used in some TC sub-communities, so we have them
+        globally available to not re-invent a wheel, if we want a similar style
+        elsewhere.
+      </p>
 
-      <p>Develop color scheme (underlying source code also
-        demonstrates the proper context theming in action):</p>
-
-      <p><em>NOTE:</em> It turns out that it is not necessary to change colors
-        of primary buttons depending on challenge tracks. Thus, you should not
-        use the green and orange button themes. Hovewer, as they are already
-        implemented, and also show how <code>ThemeProvider</code> should be
-        used to style some elements according to the track, we keep them in
-        the repo and on this example page.</p>
-      <ThemeProvider
-        theme={{ PrimaryButton: primaryDevelopButtonStyle }}
-      >
-        <div>
-          <PrimaryButton>Button</PrimaryButton>
-          <PrimaryButton to=".">Link Button</PrimaryButton>
-          <PrimaryButton disabled>Disabled Button</PrimaryButton>
-        </div>
-      </ThemeProvider>
-
-      <p>Data science color scheme:</p>
-      <ThemeProvider
-        theme={{ PrimaryButton: primaryDataScienceButtonStyle }}
-      >
-        <div>
-          <PrimaryButton>Button</PrimaryButton>
-          <PrimaryButton to=".">Link Button</PrimaryButton>
-          <PrimaryButton disabled>Disabled Button</PrimaryButton>
-        </div>
-      </ThemeProvider>
-
-      <h3>Secondary Button</h3>
-      <SecondaryButton>Button</SecondaryButton>
-      <SecondaryButton to=".">Link Button</SecondaryButton>
-      <SecondaryButton disabled>Disabled Button</SecondaryButton>
-
-      <h3>Danger Button</h3>
-      <DangerButton>Button</DangerButton>
-      <DangerButton to=".">Link Button</DangerButton>
-      <DangerButton disabled>Disabled Button</DangerButton>
+      <Sample
+        Button={GenericButton}
+        theme={outlineRoundOpenSansDefault}
+        title="outline/round/open-sans/default"
+      />
+      <Sample
+        Button={GenericButton}
+        theme={outlineRoundOpenSansBlueUppercase}
+        title="outline/round/open-sans/blue-uppercase"
+      />
+      <Sample
+        Button={GenericButton}
+        theme={outlineRoundOpenSansGreenUppercase}
+        title="outline/round/open-sans/green-uppercase"
+      />
+      <Sample
+        Button={GenericButton}
+        theme={outlineRoundOpenSansRedUppercase}
+        title="outline/round/open-sans/red-uppercase"
+      />
     </div>
   );
 }

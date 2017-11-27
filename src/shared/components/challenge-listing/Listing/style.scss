@@ -5,7 +5,7 @@
   width: 70%;
   padding: 0 $base-unit;
 
-  @include xxs-to-sm {
+  @include xs-to-md {
     width: 100%;
     padding: 0 $base-unit + 5;
   }

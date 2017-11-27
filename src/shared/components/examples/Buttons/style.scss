@@ -1,43 +1,30 @@
 @import "~styles/mixins";
 
-.page {
-  @include roboto-light;
-
-  line-height: 150%;
+.container {
   margin: auto;
-  max-width: $screen-lg;
+  max-width: $tc-screen-md;
   padding: 24px;
-
-  h1 {
-    margin: 0 0 18px;
-  }
-
-  h3 {
-    margin: 24px 0 6px;
-  }
 
   code {
     background: whitesmoke;
     padding: 2px 4px;
   }
-
-  em {
-    font-style: italic;
-  }
-
-  p {
-    margin: $base-unit 0;
-  }
 }
 
-.btnXS {
-  @include btn-xs;
+.subsection {
+  @include tc-heading-lg;
+
+  margin: 18px 0 0;
 }
 
-.btnSM {
-  @include btn-sm;
+.text {
+  @include tc-body-md;
+
+  margin: 6px 0;
 }
 
-.btnLG {
-  @include btn-lg;
+.title {
+  @include tc-title;
+
+  margin: 18px 0 6px;
 }

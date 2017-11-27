@@ -1,0 +1,54 @@
+@import '~styles/mixins';
+
+.logo {
+  max-height: 100px;
+  width: auto;
+}
+
+.introContainer {
+  width: 88%;
+  padding: 0;
+}
+
+.introContent {
+  font-family: "Proxima Nova", Arial, "Helvetica Neue", Helvetica, sans-serif;
+  color: $tc-gray-90;
+  font-size: 20px;
+  line-height: 28px;
+  flex-direction: column;
+  text-align: left;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  padding-left: 12%;
+
+  p {
+    margin-bottom: 30px;
+  }
+}
+
+.videoContent {
+  width: 80%;
+}
+
+.introTitle,
+.videoTitle {
+  font-family: "Proxima Nova", Arial, "Helvetica Neue", Helvetica, sans-serif;
+  color: $tc-gray-90;
+  font-size: 20px;
+  line-height: 28px;
+  font-weight: 800;
+  text-align: left;
+  padding-left: 10%;
+  padding-top: 20px;
+}
+
+.introTitle {
+  padding-left: 12%;
+}
+
+a,
+a:visited {
+  color: $tc-dark-blue;
+  font-weight: 700;
+}

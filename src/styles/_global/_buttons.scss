@@ -29,7 +29,7 @@
   }
 
   .tc-btn {
-    @include roboto;
+    @include roboto-normal;
 
     border-radius: $corner-radius;
     cursor: pointer;
@@ -54,7 +54,7 @@
     height: 50px;
     padding: 10px 30px;
 
-    @include tc-heading;
+    @include tc-heading-md;
   }
 
   a.tc-btn-md,

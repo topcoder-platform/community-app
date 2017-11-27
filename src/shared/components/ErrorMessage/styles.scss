@@ -24,13 +24,13 @@ $button-space-32: 6 * $base-unit;
 }
 
 .container {
-  @include roboto;
+  @include roboto-normal;
 
   background: #fff;
   box-shadow: 0 0 14px 1px rgba(38, 38, 40, 0.15);
   border-radius: 2 * $corner-radius;
   max-height: 95vh;
-  max-width: $screen-md;
+  max-width: $tc-screen-md;
   overflow: hidden;
   padding: 8 * $base-unit;
   width: 480px;
@@ -42,11 +42,11 @@ $button-space-32: 6 * $base-unit;
   text-align: center;
   opacity: 1;
 
-  @include xxs-to-md {
+  @include xs-to-lg {
     max-width: 95vw;
   }
 
-  @include xxs-to-xs {
+  @include xs-to-sm {
     padding: 40px 10px;
   }
 

@@ -37,7 +37,9 @@ export default function JoinCommunity({
 }) {
   if (state === STATE.HIDDEN) return <div styleName="placeholder" />;
   return (
-    <div>
+    <div
+      className={theme.container}
+    >
       <button
         onClick={() => {
           switch (state) {

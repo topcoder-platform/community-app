@@ -1,0 +1,46 @@
+@import "~styles/mixins";
+
+.body-lg { @include tc-body-lg; }
+.body-md { @include tc-body-md; }
+.body-sm { @include tc-body-sm; }
+.body-xs { @include tc-body-xs; }
+
+.container {
+  margin: 24px auto;
+  max-width: $tc-screen-md;
+
+  code {
+    background: whitesmoke;
+    font-family: monospace;
+  }
+}
+
+.h-xl { @include tc-heading-xl; }
+.h-lg { @include tc-heading-lg; }
+.h-md { @include tc-heading-md; }
+.h-sm { @include tc-heading-sm; }
+.h-xs { @include tc-heading-xs; }
+
+.label-xl { @include tc-label-xl; }
+.label-lg { @include tc-label-lg; }
+.label-md { @include tc-label-md; }
+.label-sm { @include tc-label-sm; }
+.label-xs { @include tc-label-xs; }
+
+.panel {
+  border: 1px solid $tc-purple;
+  margin: 6px 12px 6px 0;
+  padding: 12px;
+}
+
+.panel-title {
+  color: $tc-purple;
+}
+
+.panels {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.text { @include tc-body-md; }
+.title { @include tc-title; }
