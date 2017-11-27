@@ -17,6 +17,8 @@ import LinksCard from 'components/tc-communities/LinksCard';
 
 import ConsenSysAtMedium from './ConsenSysAtMedium';
 import LearnTheBasics from './LearnTheBasics';
+import Tutorials from './Tutorials';
+
 import style from './style.scss';
 
 export default function Learn({
@@ -164,6 +166,7 @@ export default function Learn({
           </ul>
         </ArticleCard>
       </Section>
+      <Tutorials />
       <ConsenSysAtMedium consenSysRss={consenSysRss} />
       <Section
         title="More Resources"
