@@ -2,20 +2,24 @@
 
 .container {
   :global {
-    .Dropdown-root {
+    .Select {
       position: relative;
     }
 
-    .Dropdown-control {
+    .Select-value {
       cursor: pointer;
     }
 
-    .Dropdown-placeholder {
+    .Select-multi-value-wrapper {
       display: inline-block;
       vertical-align: middle;
     }
 
-    .Dropdown-arrow {
+    .Select-input {
+      display: none !important;
+    }
+
+    .Select-arrow-zone {
       background: url('assets/images/tc-communities/tick_down.png') center no-repeat;
       display: inline-block;
       height: 6px;
@@ -24,11 +28,11 @@
       width: 10px;
     }
 
-    .is-open .Dropdown-arrow {
+    .is-open .Select-arrow-zone {
       transform: rotate(180deg);
     }
 
-    .Dropdown-menu {
+    .Select-menu-outer {
       background: #fff;
       border: 1px solid #ddd;
       box-shadow: 0 6px 12px 0 rgba(155, 155, 155, 0.5);
@@ -67,7 +71,7 @@
       }
     }
 
-    .Dropdown-option {
+    .Select-option {
       color: #4a4a4a;
       cursor: pointer;
       display: block;
@@ -75,11 +79,11 @@
       text-transform: none;
     }
 
-    .Dropdown-option:hover {
+    .Select-option:hover {
       color: #a3a3ae;
     }
 
-    .Dropdown-option.is-selected {
+    .Select-option.is-selected {
       color: #a3a3ae;
       cursor: default;
     }
