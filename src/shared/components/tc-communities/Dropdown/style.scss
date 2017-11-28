@@ -16,7 +16,8 @@
     }
 
     .Select-input {
-      display: none !important;
+      opacity: 0;
+      position: absolute;
     }
 
     .Select-arrow-zone {

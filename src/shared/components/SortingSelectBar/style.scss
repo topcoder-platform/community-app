@@ -115,7 +115,11 @@ $down-arrow-size: $base-unit;
     }
 
     .Select-input {
-      display: none !important;
+      width: 100% !important;
+      height: 0;
+      padding: 0;
+      opacity: 0;
+      position: absolute;
     }
 
     .Select--single > .Select-control .Select-value {
@@ -126,9 +130,6 @@ $down-arrow-size: $base-unit;
     }
 
     .Select-arrow-zone {
-      //border-color: $tc-gray-50 transparent transparent;
-      //border-style: solid;
-      //border-width: 5px 5px 0;
       content: ' ';
       display: block;
       height: 0;
