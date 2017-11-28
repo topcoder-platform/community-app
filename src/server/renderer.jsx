@@ -1,4 +1,4 @@
-/**
+﻿/**
  * This module implements ExpressJS middleware for server-side rendering of
  * the App.
  */
@@ -95,6 +95,10 @@ export default (req, res) => {
           <title>Topcoder</title>
             ${helmet.title.toString()}
             ${helmet.meta.toString()}
+          <script
+            src="/community-app-assets/polyfills.js"
+            type="application/javascript"
+          ></script>
           <script
             src="/community-app-assets/loading-indicator-animation.js"
             type="application/javascript"

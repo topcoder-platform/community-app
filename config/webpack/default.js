@@ -25,6 +25,13 @@ module.exports = {
   entry: {
     'loading-indicator-animation': './src/client/loading-indicator-animation',
     main: './src/client',
+
+    /* A package of selected polyfills. Without them our lovely code will
+     * crush on weird browsers like IE11, Microsoft Edge 40, etc. */
+    polyfills: [
+      'babel-polyfill',
+      'nodelist-foreach-polyfill',
+    ],
   },
   module: {
     noParse: [
