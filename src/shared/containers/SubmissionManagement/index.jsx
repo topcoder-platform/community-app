@@ -55,9 +55,10 @@ class SubmissionManagementPageContainer extends React.Component {
       handle,
       registrants,
     } = this.props;
+
+    if (challenge.track !== 'DESIGN') return <Error404 />;
     const isRegistered = registrants.find(r => r.handle === handle);
     if (!isRegistered) return <AccessDenied cause={ACCESS_DENIED_REASON.NOT_AUTHORIZED} />;
-    if (challenge.track !== 'DESIGN') return <Error404 />;
 
     const isEmpty = _.isEmpty(this.props.challenge);
 
