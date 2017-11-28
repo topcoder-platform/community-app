@@ -200,7 +200,7 @@ function mapStateToProps(state, props) {
 
     authTokens: state.auth,
     registrants: state.challenge.detailsV2.registrants,
-    handle: state.auth.user.handle,
+    handle: state.auth.user ? state.auth.user.handle : '',
   };
 }
 

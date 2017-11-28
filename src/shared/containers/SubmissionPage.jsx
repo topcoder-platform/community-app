@@ -170,7 +170,7 @@ const mapStateToProps = (state, ownProps) => {
     sourceFilestackData: submission.sourceFilestackData,
     previewFilestackData: submission.previewFilestackData,
     registrants: state.challenge.detailsV2.registrants,
-    handle: state.auth.user.handle,
+    handle: state.auth.user ? state.auth.user.handle : '',
   };
 };
 
