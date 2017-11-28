@@ -9,7 +9,7 @@
     "dev": "cross-env BABEL_ENV=development DEV_TOOLS=true node ./bin/www",
     "fix:js": "eslint --fix --ext .js,.jsx .",
     "fix:styles": "stylelint **/*.scss --syntax scss --fix",
-    "jest": "cross-env BABEL_ENV=test jest --no-cache --maxWorkers=4 --config config/jest/default.js",
+    "jest": "cross-env BABEL_ENV=test NODE_ENV=test jest --no-cache --maxWorkers=4 --config config/jest/default.js",
     "lint": "npm run lint:js && npm run lint:scss",
     "lint:js": "eslint --ext .js,.jsx .",
     "lint:scss": "stylelint **/*.scss --syntax scss",
