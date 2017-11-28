@@ -7,6 +7,9 @@
 
 import _ from 'lodash';
 import Error404 from 'components/Error404';
+import AccessDenied, {
+  CAUSE as ACCESS_DENIED_REASON,
+} from 'components/tc-communities/AccessDenied';
 import Modal from 'components/Modal';
 import Button from 'components/Button';
 import LoadingIndicator from 'components/LoadingIndicator';
@@ -49,8 +52,11 @@ class SubmissionManagementPageContainer extends React.Component {
       challengesUrl,
       loadingSubmissionsForChallengeId,
       submissionPhaseStartDate,
+      handle,
+      registrants,
     } = this.props;
-
+    const isRegistered = registrants.find(r => r.handle === handle);
+    if (!isRegistered) return <AccessDenied cause={ACCESS_DENIED_REASON.NOT_AUTHORIZED} />;
     if (challenge.track !== 'DESIGN') return <Error404 />;
 
     const isEmpty = _.isEmpty(this.props.challenge);
@@ -158,6 +164,8 @@ SubmissionManagementPageContainer.propTypes = {
   toBeDeletedId: PT.number,
   onSubmissionDeleteConfirmed: PT.func.isRequired,
   submissionPhaseStartDate: PT.string.isRequired,
+  registrants: PT.arrayOf(PT.object).isRequired,
+  handle: PT.string.isRequired,
 };
 
 function mapStateToProps(state, props) {
@@ -191,6 +199,8 @@ function mapStateToProps(state, props) {
     toBeDeletedId: state.challenge.mySubmissionsManagement.toBeDeletedId,
 
     authTokens: state.auth,
+    registrants: state.challenge.detailsV2.registrants,
+    handle: state.auth.user.handle,
   };
 }
 

@@ -11,6 +11,9 @@ import React from 'react';
 import PT from 'prop-types';
 import { connect } from 'react-redux';
 import SubmissionsPage from 'components/SubmissionPage';
+import AccessDenied, {
+  CAUSE as ACCESS_DENIED_REASON,
+} from 'components/tc-communities/AccessDenied';
 
 /**
  * SubmissionsPage Container
@@ -39,6 +42,10 @@ class SubmissionsPageContainer extends React.Component {
   }
 
   render() {
+    const { registrants, handle } = this.props;
+    const isRegistered = registrants.find(r => r.handle === handle);
+
+    if (!isRegistered) return <AccessDenied cause={ACCESS_DENIED_REASON.NOT_AUTHORIZED} />;
     return (
       <SubmissionsPage
         {...this.props}
@@ -124,6 +131,8 @@ SubmissionsPageContainer.propTypes = {
   submissionFilestackData: filestackDataProp.isRequired,
   sourceFilestackData: filestackDataProp.isRequired,
   previewFilestackData: filestackDataProp.isRequired,
+  registrants: PT.arrayOf(PT.object).isRequired,
+  handle: PT.string.isRequired,
 };
 
 /**
@@ -160,6 +169,8 @@ const mapStateToProps = (state, ownProps) => {
     submissionFilestackData: submission.submissionFilestackData,
     sourceFilestackData: submission.sourceFilestackData,
     previewFilestackData: submission.previewFilestackData,
+    registrants: state.challenge.detailsV2.registrants,
+    handle: state.auth.user.handle,
   };
 };
 
