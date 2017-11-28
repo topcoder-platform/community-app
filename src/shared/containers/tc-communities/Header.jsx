@@ -15,13 +15,23 @@ function mapStateToProps(state, ownProps) {
    * meta data are loaded into Redux store. Thus, no need to make any checks
    * of "meta" object here, we can rely it exists and is properly loaded. */
   const meta = state.tcCommunities.meta.data;
+  const selectorLabels = meta.communitySelector.map(({ label }) => label);
+  const communitySelector = meta.communitySelector.concat(
+    state.tcCommunities.list.filter(({ communityId, communityName }) =>
+      communityId !== meta.communityId && selectorLabels.indexOf(communityName) < 0)
+      .map(({ communityId, communityName }, i) => ({
+        value: (i + (meta.communitySelector || []).length).toString(),
+        label: communityName,
+        redirect: `/community/${communityId}`,
+      })),
+  );
   return {
     activeTrigger: state.topcoderHeader.activeTrigger,
     additionalLogos: meta.additionalLogos,
     baseUrl: ownProps.baseUrl,
     chevronOverAvatar: meta.chevronOverAvatar,
     communityId: meta.communityId,
-    communitySelector: meta.communitySelector,
+    communitySelector,
     groupIds: meta.groupIds,
     hideJoinNow: ownProps.hideJoinNow,
     hideSearch: meta.hideSearch,
