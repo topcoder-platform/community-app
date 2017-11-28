@@ -4,6 +4,12 @@ exports[`Matches shallow shapshot 1`] = `
 <div
   className="src-shared-components-Content-___style__container___kZF98"
 >
+  <div
+    className="src-shared-components-Content-___style__build-timestamp___2PJGW"
+  >
+    Build Timestamp: 
+    Tue, 28 Nov 2017 14:27:52 GMT
+  </div>
   <h1>
     Topcoder Community App
   </h1>

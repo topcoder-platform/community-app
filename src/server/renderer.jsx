@@ -1,4 +1,4 @@
-﻿/**
+/**
  * This module implements ExpressJS middleware for server-side rendering of
  * the App.
  */
