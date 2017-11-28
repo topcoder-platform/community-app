@@ -96,6 +96,10 @@ export default (req, res) => {
             ${helmet.title.toString()}
             ${helmet.meta.toString()}
           <script
+            src="/community-app-assets/polyfills.js"
+            type="application/javascript"
+          ></script>
+          <script
             src="/community-app-assets/loading-indicator-animation.js"
             type="application/javascript"
           ></script>
