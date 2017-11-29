@@ -13,13 +13,11 @@ import shortid from 'shortid';
 
 import actions from 'actions/stats';
 import cActions from 'actions/challenge-listing';
-import communityActions from 'actions/tc-communities';
 import CommunityStats from 'components/tc-communities/CommunityStats';
 
 class CommunityStatsContainer extends React.Component {
   /* When container mounts we get / update related stats. */
   componentDidMount() {
-    this.props.getCommunityList(this.props.auth);
     this.props.getCommunityStats(this.props.community, this.props.challenges, this.props.token);
     this.props.getAllActiveChallenges(this.props.token);
   }
@@ -52,7 +50,6 @@ class CommunityStatsContainer extends React.Component {
 }
 
 CommunityStatsContainer.defaultProps = {
-  auth: {},
   community: {},
   stats: {},
   token: '',
@@ -65,9 +62,7 @@ CommunityStatsContainer.defaultProps = {
 };
 
 CommunityStatsContainer.propTypes = {
-  auth: PT.shape(),
   getAllActiveChallenges: PT.func.isRequired,
-  getCommunityList: PT.func.isRequired,
   getCommunityStats: PT.func.isRequired,
   community: PT.shape(),
   stats: PT.shape(),
@@ -82,7 +77,6 @@ CommunityStatsContainer.propTypes = {
 
 function mapDispatchToProps(dispatch) {
   return {
-    getCommunityList: auth => dispatch(communityActions.tcCommunity.getList(auth)),
     getCommunityStats: (...args) => dispatch(actions.stats.getCommunityStats(...args)),
     getAllActiveChallenges: (token) => {
       const uuid = shortid();
@@ -96,7 +90,6 @@ function mapStateToProps(state, ownProps) {
   const community = state.tcCommunities.meta.data;
   const challenges = state.challengeListing.challenges;
   return {
-    auth: state.auth,
     community,
     challenges,
     loadingChallenges: Boolean(state.challengeListing.loadingActiveChallengesUUID),
