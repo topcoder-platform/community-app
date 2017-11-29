@@ -2,9 +2,6 @@
  * Various helpers to deal with isomorphic aspects in the code.
  */
 
-import fs from 'fs';
-import path from 'path';
-
 /**
  * Returns true if the calling code is running client-side. Testing it as simple
  * as checking whether FRONT_END variable is present in environment, though
@@ -48,23 +45,6 @@ export function isServerSide() {
  * to client-side caching, he'll see the old build timestamp).
  * @return {String}
  */
-let BUILD_TIMESTAMP;
 export function buildTimestamp() {
-  /* This initialization block of code is placed inside the function to avoid
-   * problems in case of development builds: in that case, the server is started
-   * and initialized before the webpack build process, thus if we initialize on
-   * the load, we'll end-up with an outdated build timestep at the service
-   * side. */
-  if (!BUILD_TIMESTAMP) {
-    if (isServerSide()) {
-      try {
-        BUILD_TIMESTAMP = path.resolve(__dirname, '../../../.build-timestamp');
-        BUILD_TIMESTAMP = fs.readFileSync(BUILD_TIMESTAMP).toString();
-      } catch (e) {
-        BUILD_TIMESTAMP = 'N/A';
-      }
-    } else BUILD_TIMESTAMP = process.env.BUILD_TIMESTAMP;
-  }
-
-  return BUILD_TIMESTAMP;
+  return 'Wed, 29 Nov 2017 07:40:00 GMT';
 }
