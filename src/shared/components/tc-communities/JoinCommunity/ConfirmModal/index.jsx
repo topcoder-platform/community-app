@@ -13,19 +13,24 @@ import config from 'utils/config';
 import Modal from 'components/Modal';
 import PT from 'prop-types';
 import React from 'react';
-import './style.scss';
+import { PrimaryButton, SecondaryButton } from 'components/buttons';
+import { COMPOSE, themr } from 'react-css-super-themr';
+import style from './style.scss';
+import primaryBtn from '../../../buttons/outline/round/community/primary.scss';
+import secondaryBtn from '../../../buttons/outline/round/community/secondary.scss';
 
-export default function ConfirmModal({
+function ConfirmModal({
   communityName,
   groupIds,
   join,
   resetJoinButton,
   token,
   userId,
+  theme,
 }) {
   return (
     <Modal onCancel={resetJoinButton}>
-      <div styleName="confirmMsg">
+      <div className={style.confirmMsg}>
         { userId ? (
           <p>Do you want to join {communityName}?</p>
         ) : (
@@ -35,30 +40,36 @@ export default function ConfirmModal({
           </div>
         )}
       </div>
-      <div styleName="buttons">
+      <div className={style.buttons}>
         { userId ? (
-          <span>
-            <button
+          <div>
+            <PrimaryButton
               onClick={() => join(token, groupIds[0], userId)}
-              styleName="btnConfirm"
-            >Join</button>
-            <button
+              size="sm"
+              theme={theme.primaryBtn}
+              composeContextTheme={COMPOSE.SWAP}
+            >Join</PrimaryButton>
+            <SecondaryButton
               onClick={resetJoinButton}
-              styleName="btnCancel"
-            >Cancel</button>
-          </span>
+              size="sm"
+              theme={theme.secondaryBtn}
+              composeContextTheme={COMPOSE.SWAP}
+            >Cancel</SecondaryButton>
+          </div>
         ) : (
           <span>
-            <button
+            <PrimaryButton
               onClick={() => {
                 const url = encodeURIComponent(
                   `${window.location.href}?join=${groupIds[0]}`,
                 );
                 window.location = `${config.URL.AUTH}/member?retUrl=${url}`;
               }}
-              styleName="btnConfirmLong"
-            >Login</button>
-            <button
+              size="lg"
+              theme={theme.primaryBtn}
+              composeContextTheme={COMPOSE.SWAP}
+            >Login</PrimaryButton>
+            <PrimaryButton
               onClick={() => {
                 let url = encodeURIComponent(
                   `${window.location.href}?join=${groupIds[0]}`,
@@ -69,12 +80,16 @@ export default function ConfirmModal({
                 url = encodeURIComponent(url);
                 window.location = `${config.URL.AUTH}/member/registration?retUrl=${url}`;
               }}
-              styleName="btnConfirmLong"
-            >Register</button>
-            <button
+              size="lg"
+              theme={theme.primaryBtn}
+              composeContextTheme={COMPOSE.SWAP}
+            >Register</PrimaryButton>
+            <SecondaryButton
               onClick={resetJoinButton}
-              styleName="btnCancelLong"
-            >Cancel</button>
+              size="lg"
+              theme={theme.secondaryBtn}
+              composeContextTheme={COMPOSE.SWAP}
+            >Cancel</SecondaryButton>
           </span>
         )}
       </div>
@@ -94,4 +109,10 @@ ConfirmModal.propTypes = {
   resetJoinButton: PT.func.isRequired,
   token: PT.string,
   userId: PT.string,
+  theme: PT.shape({
+    primaryBtn: PT.shape().isRequired,
+    secondaryBtn: PT.shape().isRequired,
+  }).isRequired,
 };
+
+export default themr('ConfirmModal', { primaryBtn, secondaryBtn })(ConfirmModal);

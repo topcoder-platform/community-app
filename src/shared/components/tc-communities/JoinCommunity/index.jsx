@@ -10,6 +10,7 @@ import LoadingIndicator from 'components/LoadingIndicator';
 import Modal from 'components/Modal';
 import PT from 'prop-types';
 import React from 'react';
+import { GenericButton } from 'components/buttons';
 import style from './style.scss';
 
 import ConfirmModal from './ConfirmModal';
@@ -40,7 +41,7 @@ export default function JoinCommunity({
     <div
       className={theme.container}
     >
-      <button
+      <GenericButton
         onClick={() => {
           switch (state) {
             case STATE.JOINED:
@@ -50,7 +51,8 @@ export default function JoinCommunity({
           }
           showJoinConfirmModal();
         }}
-        className={`${theme.link} ${state === STATE.JOINING ? style.joining : ''}`}
+        className={state === STATE.JOINING ? style.joining : ''}
+        theme={{ button: theme.link, disabled: style.disabled }}
       >
         { state === STATE.JOINING ? (
           <div>
@@ -58,15 +60,15 @@ export default function JoinCommunity({
             <LoadingIndicator theme={{ container: style.loadingIndicator }} />
           </div>
         ) : label}
-      </button>
+      </GenericButton>
       { state === STATE.JOINED ? (
         <Modal onCancel={hideJoinButton}>
           <h1 styleName="modalTitle">Congratulations!</h1>
           <p styleName="modalMsg">You have joined the {communityName}!</p>
-          <button
+          <GenericButton
             onClick={hideJoinButton}
-            styleName="done"
-          >Return to the Community</button>
+            theme={{ button: style.done, disabled: style.disabled }}
+          >Return to the Community</GenericButton>
         </Modal>
       ) : null}
       { state === STATE.CONFIRM_JOIN ? (

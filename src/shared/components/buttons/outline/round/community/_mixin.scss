@@ -1,0 +1,49 @@
+@import "~styles/mixins";
+
+/**
+ * Button style for community pages
+ */
+@mixin button($color,  $highlight-color) {
+  .button {
+    color: $color;
+    display: inline-block;
+    background: $tc-white;
+    border: 1px solid $color;
+    border-radius: 20px;
+    font: 700 14px/40px 'Open Sans';
+    margin: 24px 12px 0;
+    height: 40px;
+    text-align: center;
+    text-transform: uppercase;
+    width: 171px;
+
+    &:hover,
+    &:active,
+    &:focus,
+    &:visited {
+      color: $color;
+      outline: none;
+      text-decoration: none;
+    }
+
+    &:hover {
+      background: $highlight-color;
+    }
+  }
+
+  /* Additional styling for a disabled button. */
+  .disabled {
+    cursor: not-allowed;
+    opacity: 0.3;
+  }
+
+  /* And a few extra classes to support XS, SM and LG sizes. */
+
+  .sm {
+    width: 100px;
+  }
+
+  .lg {
+    width: 200px;
+  }
+}
