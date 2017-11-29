@@ -1,5 +1,7 @@
 @import "~styles/mixins";
 
+.build-timestamp { @include tc-label-sm; }
+
 .container {
   @include tc-body-md;
 

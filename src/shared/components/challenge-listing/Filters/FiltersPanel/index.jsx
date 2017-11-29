@@ -163,13 +163,15 @@ export default function FiltersPanel({
             selectCommunity(defaultCommunityId);
             setSearchText('');
           }}
-          theme={{ button: style.button, disabled: style.buttonDisabled }}
+          size="sm"
+          theme={{ button: style.button }}
           themePriority={PRIORITY.ADHOC_DEFAULT_CONTEXT}
         >Clear filters</Button>
         <PrimaryButton
           disabled={disableClearSaveFilterButtons}
           onClick={onSaveFilter}
-          theme={{ button: style.button, disabled: style.buttonDisabled }}
+          size="sm"
+          theme={{ button: style.button }}
         >Save filter</PrimaryButton>
       </div>
     </div>
