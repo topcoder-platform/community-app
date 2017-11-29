@@ -29,23 +29,19 @@ export default function TcProdDev({ base, meta }) {
           />
           <Switch>
             <Route
-              component={() =>
-                ChallengeListing({
-                  challengesUrl: `${base}/challenges`,
-                  meta,
-                  newChallengeDetails: true,
-                })
-              }
+              component={() => ChallengeListing({
+                challengesUrl: `${base}/challenges`,
+                meta,
+                newChallengeDetails: true,
+              })}
               exact
               path={`${base}/challenges`}
             />
             <Route
-              component={routeProps =>
-                ChallengeDetails({
-                  ...routeProps,
-                  challengesUrl: `${base}/challenges`,
-                })
-              }
+              component={routeProps => ChallengeDetails({
+                ...routeProps,
+                challengesUrl: `${base}/challenges`,
+              })}
               exact
               path={`${base}/challenges/:challengeId(\\d{8})`}
             />

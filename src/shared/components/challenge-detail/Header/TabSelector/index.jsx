@@ -84,7 +84,7 @@ export default function ChallengeViewSelector(props) {
                 handleSelectorClicked(e, DETAIL_TABS.REGISTRANTS);
               }}
               styleName={getSelectorStyle(selectedView, DETAIL_TABS.REGISTRANTS, trackLower)}
-            >REGISTRANTS {`(${numRegistrants})`}
+            >REGISTRANTS ({numRegistrants})
             </a>
           ) : null
         }

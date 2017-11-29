@@ -90,12 +90,13 @@ $down-arrow-size: $base-unit;
 
   :global {
     // 'Sort by' dropdown
-    .Dropdown-root {
+    .Select {
       font-family: 'Roboto';
       position: relative;
     }
 
-    .Dropdown-control {
+    .Select-control {
+      height: 12px;
       line-height: 12px;
       border-radius: 20px;
       padding: 4px 35px 4px 10px;
@@ -113,25 +114,36 @@ $down-arrow-size: $base-unit;
       transition: all 200ms ease;
     }
 
-    .Dropdown-arrow {
-      border-color: $tc-gray-50 transparent transparent;
-      border-style: solid;
-      border-width: 5px 5px 0;
+    .Select-input {
+      width: 100% !important;
+      height: 0;
+      padding: 0;
+      opacity: 0;
+      position: absolute;
+    }
+
+    .Select--single > .Select-control .Select-value {
+      position: static;
+      line-height: 12px;
+      padding: 0;
+      overflow: visible;
+    }
+
+    .Select-arrow-zone {
       content: ' ';
       display: block;
       height: 0;
       position: absolute;
-      right: 10px;
-      top: 8px;
+      right: 15px;
+      top: 4px;
       width: 0;
     }
 
-    .is-open .Dropdown-arrow {
-      border-color: transparent transparent $tc-gray-50;
-      border-width: 0 5px 5px;
+    .is-open > .Select-control {
+      border-radius: 12px;
     }
 
-    .Dropdown-menu {
+    .Select-menu-outer {
       color: $tc-gray-90;
       font-weight: 400;
       font-size: 12px;
@@ -142,7 +154,6 @@ $down-arrow-size: $base-unit;
       box-sizing: border-box;
       margin-top: 5px;
       padding: 8px 0;
-      overflow-y: auto;
       position: absolute;
       top: 100%;
       right: 0;
@@ -151,14 +162,12 @@ $down-arrow-size: $base-unit;
       -webkit-overflow-scrolling: touch;
     }
 
-    .Dropdown-menu .Dropdown-group > .Dropdown-title {
-      padding: 8px 20px;
-      color: rgba(51, 51, 51, 1);
-      font-weight: bold;
-      text-transform: capitalize;
+    .Select-menu {
+      max-height: none;
+      overflow-y: visible;
     }
 
-    .Dropdown-option {
+    .Select-option {
       box-sizing: border-box;
       color: rgba(51, 51, 51, 0.8);
       cursor: pointer;
@@ -166,21 +175,26 @@ $down-arrow-size: $base-unit;
       padding: 8px 20px;
     }
 
-    .Dropdown-option:last-child {
+    .Select-option:last-child {
       border-bottom-right-radius: 2px;
       border-bottom-left-radius: 2px;
     }
 
-    .Dropdown-option:hover {
+    .Select-option:hover {
       color: $tc-black;
     }
 
-    .Dropdown-option.is-selected {
+    .Select-option.is-selected {
       color: $tc-black;
       font-weight: 500;
+      background: transparent;
     }
 
-    .Dropdown-noresults {
+    .Select-option.is-focused {
+      background: transparent;
+    }
+
+    .Select-noresults {
       box-sizing: border-box;
       color: $tc-gray-90;
       cursor: default;
