@@ -9,6 +9,12 @@ const PUBLIC_PATH = '/community-app-assets';
 
 const context = path.resolve(__dirname, '../..');
 
+/* This way we can inject the build timestamp both into JS bundle and into the
+ * the server-side rendering flow. */
+let BUILD_TIMESTAMP = new Date();
+BUILD_TIMESTAMP = BUILD_TIMESTAMP.toUTCString();
+fs.writeFileSync(path.resolve(context, '.build-timestamp'), BUILD_TIMESTAMP);
+
 /* Generates a random key which will be used to encrypt/decrypt data injected
  * into HTML markup by the server. */
 const INJKEY = forge.random.getBytesSync(32);
@@ -19,6 +25,13 @@ module.exports = {
   entry: {
     'loading-indicator-animation': './src/client/loading-indicator-animation',
     main: './src/client',
+
+    /* A package of selected polyfills. Without them our lovely code will
+     * crush on weird browsers like IE11, Microsoft Edge 40, etc. */
+    polyfills: [
+      'babel-polyfill',
+      'nodelist-foreach-polyfill',
+    ],
   },
   module: {
     noParse: [
@@ -116,6 +129,8 @@ module.exports = {
     new webpack.DefinePlugin({
       INJKEY: JSON.stringify(INJKEY),
       'process.env': {
+        BUILD_TIMESTAMP: JSON.stringify(BUILD_TIMESTAMP),
+
         /* Some isomorphic code relies on this variable to determine, whether
          * it is executed client- or server-side. */
         FRONT_END: true,
