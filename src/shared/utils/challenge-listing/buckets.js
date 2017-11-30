@@ -12,6 +12,7 @@ export const BUCKETS = {
   PAST: 'past',
   SAVED_FILTER: 'saved-filter',
   UPCOMING: 'upcoming',
+  REVIEW_OPPORTUNITIES: 'reviewOpportunities',
 };
 
 /**
@@ -100,6 +101,15 @@ export function getBuckets(userHandle) {
         SORTS.MOST_RECENT,
         SORTS.PRIZE_HIGH_TO_LOW,
         SORTS.TITLE_A_TO_Z,
+      ],
+    },
+    [BUCKETS.REVIEW_OPPORTUNITIES]: {
+      hideCount: true,
+      name: 'Open for review',
+      sorts: [
+        SORTS.REVIEW_OPPORTUNITIES_START_DATE,
+        SORTS.REVIEW_OPPORTUNITIES_PAYMENT,
+        SORTS.REVIEW_OPPORTUNITIES_TITLE_A_TO_Z,
       ],
     },
   };

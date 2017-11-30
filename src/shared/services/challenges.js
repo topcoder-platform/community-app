@@ -4,6 +4,7 @@
  */
 
 import _ from 'lodash';
+import 'isomorphic-fetch'; /* global fetch */
 import logger from 'utils/logger';
 import moment from 'moment';
 import qs from 'qs';
@@ -400,6 +401,31 @@ class ChallengesService {
     },
     );
   }
+
+  /**
+   * Gets a list of currently open Review Opportunities.
+   * @param {Number} limit The max number to return in one call.
+   * @param {Number} offset Offset, used with limit to lazy load.
+   * @return {Promise} Resolves to the api response in JSON.
+   */
+  // This rule modification can be removed when mock api call is replaced
+  /* eslint-disable class-methods-use-this */
+  getReviewOpportunities(limit, offset) {
+    const endpoint = `/reviewOpportunities?limit=${limit}&offset=${offset}`;
+    // NOTE: Because this will need to use Auth via servives/api when implemented in V3
+    // the URL can't be an ENV variable and the mock needs to be hard coded using
+    // a non-API fetch.
+
+    // return this.private.api.get(endpoint)
+    // Temporary use of mock server instead of V3 api call above
+    return fetch(`https://review-opportunities-mock-api.herokuapp.com/v3${endpoint}`)
+      .then(res => res.json())
+      .then((json) => {
+        if (json.code === 400) return Promise.reject(json.message);
+        return Promise.resolve(json);
+      });
+  }
+  /* eslint-enable class-methods-use-this */
 }
 
 /**
