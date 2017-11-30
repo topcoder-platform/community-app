@@ -20,9 +20,12 @@ export const ORDER_BY = {
  * NOTE: It is possible, that this normalization is not necessary after we
  * have moved to Topcoder API v3, but it is kept for now to minimize a risk of
  * breaking anything.
- * @param {Object} v3 Challenge object received from the /v3/challenges/{id} endpoint.
- * @param {Object} v3_filtered Challenge object received from the /v3/challenges?filter=id={id} endpoint.
- * @param {Object} v3_user Challenge object received from the /v3//members/{username}/challenges?filter=id={id} endpoint.
+ * @param {Object} v3 Challenge object received from the /v3/challenges/{id}
+ *  endpoint.
+ * @param {Object} v3Filtered Challenge object received from the
+ *  /v3/challenges?filter=id={id} endpoint.
+ * @param {Object} v3User Challenge object received from the
+ *  /v3//members/{username}/challenges?filter=id={id} endpoint.
  * If action was fired for authenticated visitor, v3_user will contain
  * details fetched specifically for the user (thus may include additional
  * data comparing to the standard API v3 response for the challenge details,
@@ -31,7 +34,7 @@ export const ORDER_BY = {
  * @param {String} username Optional.
  * @return {Object} Normalized challenge object.
  */
-export function normalizeChallengeDetails(v3, v3_filtered, v3_user, v2, username) {
+export function normalizeChallengeDetails(v3, v3Filtered, v3User, v2, username) {
   // Normalize exising data to make it consistent with the rest of the code
   const challenge = {
     id: v3.challengeId,
@@ -80,30 +83,38 @@ export function normalizeChallengeDetails(v3, v3_filtered, v3_user, v2, username
   };
 
   // Fill missing data from v3_filtered
-  if (v3_filtered) {
+  if (v3Filtered) {
     const groups = {};
-    if (v3_filtered.groupIds) {
-      v3_filtered.groupIds.forEach((id) => {
+    if (v3Filtered.groupIds) {
+      v3Filtered.groupIds.forEach((id) => {
         groups[id] = true;
       });
     }
     _.defaults(challenge, {
-      track: v3_filtered.track,
-      subTrack: v3_filtered.subTrack,
-      submissionEndDate: v3_filtered.submissionEndDate, // Dates are not correct in v3
-      submissionEndTimestamp: v3_filtered.submissionEndDate, // Dates are not correct in v3
-      allPhases: v3_filtered.allPhases || [], // Taking phases from v3_filtered, because dates are not correct in v3
-      currentPhases: v3_filtered.currentPhases || [], // Taking phases from v3_filtered, because dates are not correct in v3
-      winners: v3_filtered.winners || [], // Taking winners from v3_filtered, because winners are returned empty in v3
-      numSubmissions: v3_filtered.numSubmissions, // v3 returns incorrect value for numberOfSubmissions for some reason
+      track: v3Filtered.track,
+      subTrack: v3Filtered.subTrack,
+      submissionEndDate: v3Filtered.submissionEndDate, // Dates are not correct in v3
+      submissionEndTimestamp: v3Filtered.submissionEndDate, // Dates are not correct in v3
+
+      /* Taking phases from v3_filtered, because dates are not correct in v3 */
+      allPhases: v3Filtered.allPhases || [],
+
+      /* Taking phases from v3_filtered, because dates are not correct in v3 */
+      currentPhases: v3Filtered.currentPhases || [],
+
+      /* Taking winners from v3_filtered, because winners are returned empty in v3 */
+      winners: v3Filtered.winners || [],
+
+      /* v3 returns incorrect value for numberOfSubmissions for some reason */
+      numSubmissions: v3Filtered.numSubmissions,
       groups,
     });
   }
 
   // Fill missing data from v3_user
-  if (v3_user) {
+  if (v3User) {
     _.defaults(challenge, {
-      userDetails: v3_user.userDetails,
+      userDetails: v3User.userDetails,
     });
   }
 
@@ -113,7 +124,10 @@ export function normalizeChallengeDetails(v3, v3_filtered, v3_user, v2, username
       round1Introduction: v2.round1Introduction, // This is always null in v3 for some reason
       round2Introduction: v2.round2Introduction, // This is always null in v3 for some reason
       registrants: v2.registrants || [], // Registrants are now only returned by v2
-      appealsEndDate: v2.appealsEndDate, // Although v3 does return appealsEndDate, it causes incorrect 'Winners' phase time for some reason
+
+      /* Although v3 does return appealsEndDate, it causes incorrect 'Winners'
+       * phase time for some reason */
+      appealsEndDate: v2.appealsEndDate,
     });
   }
 
@@ -137,12 +151,11 @@ export function normalizeChallengeDetails(v3, v3_filtered, v3_user, v2, username
   _.defaults(challenge, {
     raw: {
       v3,
-      v3_filtered,
-      v3_user,
+      v3Filtered,
+      v3User,
       v2,
     },
   });
-    
   return challenge;
 }
 
@@ -252,8 +265,7 @@ async function checkError(res) {
   const jsonRes = (await res.json()).result;
   if (jsonRes.status !== 200) throw new Error(jsonRes.content);
   return jsonRes;
-};
-
+}
 
 class ChallengesService {
   /**
@@ -371,7 +383,8 @@ class ChallengesService {
 
   /**
    * Gets challenge details from Topcoder API v3.
-   * NOTE: This function also uses API v2 and other v3 endpoints for now, due to some information is missing or
+   * NOTE: This function also uses API v2 and other v3 endpoints for now, due
+   * to some information is missing or
    * incorrect in the main v3 endpoint. This may change in the future.
    * @param {Number|String} challengeId
    * @return {Promise} Resolves to the challenge object.
@@ -380,19 +393,21 @@ class ChallengesService {
     const challengeV3 = await this.private.api.get(`/challenges/${challengeId}`)
       .then(checkError).then(res => res.content);
 
-    const challengeV3_filtered = await this.private.getChallenges('/challenges/', {id: challengeId})
-      .then(res => res.challenges[0]);
+    const challengeV3Filtered =
+      await this.private.getChallenges('/challenges/', { id: challengeId })
+        .then(res => res.challenges[0]);
 
     const username = this.private.tokenV3 && decodeToken(this.private.tokenV3).handle;
-    const challengeV3_user = username && await this.getUserChallenges(username, {id: challengeId})
+    const challengeV3User = username && await this.getUserChallenges(username, { id: challengeId })
       .then(res => res.challenges[0]);
 
-    const track = challengeV3_filtered.track.toLowerCase() || 'develop';
+    const track = challengeV3Filtered.track.toLowerCase() || 'develop';
     const challengeV2 = await this.private.apiV2.fetch(`/${track}/challenges/${challengeId}`)
       .then(res => res.json());
 
-    const challenge = normalizeChallengeDetails(challengeV3, challengeV3_filtered, challengeV3_user, challengeV2, username);
-    
+    const challenge = normalizeChallengeDetails(
+      challengeV3, challengeV3Filtered, challengeV3User, challengeV2, username);
+
     return challenge;
   }
 
