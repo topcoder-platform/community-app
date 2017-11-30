@@ -17,6 +17,7 @@ export const DETAIL_TABS = {
   CHECKPOINTS: 'checkpoints',
   SUBMISSIONS: 'submissions',
   WINNERS: 'winners',
+  CHALLENGE_FORUM: 'challenge_forum',
 };
 
 /**
