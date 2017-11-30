@@ -2,9 +2,12 @@
  * Event tag, colored with colors of data science track (orange).
  */
 
-@import "default";
+@import "../default";
 
-@mixin feedback {
+.button {
+  color: $tc-orange;
+  background-color: $tc-orange-10;
+
   &:active,
   &:focus,
   &:hover {
@@ -15,11 +18,4 @@
   &:visited {
     color: $tc-orange;
   }
-}
-
-.tag {
-  color: $tc-orange;
-  background-color: $tc-orange-10;
-
-  @include feedback;
 }

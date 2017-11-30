@@ -16,7 +16,7 @@
   padding: 0 3 * $base-unit;
   margin-top: 7 * $base-unit;
 
-  @include xxs-to-xs {
+  @include xs-to-sm {
     padding: 0;
   }
 
@@ -32,7 +32,7 @@
     border: none;
     text-transform: uppercase;
 
-    @include xxs-to-xs {
+    @include xs-to-sm {
       font-size: 15px;
     }
   }
@@ -45,7 +45,7 @@
     line-height: $base-unit * 4;
     cursor: pointer;
 
-    @include xxs-to-xs {
+    @include xs-to-sm {
       font-size: 13px;
     }
   }
@@ -58,7 +58,7 @@
   display: block;
   padding: 0 2 * $base-unit 0 3 * $base-unit;
 
-  @include xxs-to-xs {
+  @include xs-to-sm {
     font-size: 15px;
     padding: 2px 0;
   }

@@ -3,7 +3,26 @@
  */
 @import "~styles/mixins";
 
-@mixin feedback {
+.button {
+  @include roboto-bold;
+
+  align-items: center;
+  background-color: $tc-gray-neutral-dark;
+  border: none;
+  border-radius: 3px;
+  color: $tc-gray-80;
+  cursor: pointer;
+  display: inline-flex;
+  font-size: 10px;
+  font-weight: bold;
+  line-height: 100%;
+  margin-bottom: 2px;
+  margin-right: 5px;
+  min-height: 20px;
+  outline: none;
+  padding: 0 7px;
+  text-align: center;
+
   &:active,
   &:focus,
   &:hover {
@@ -14,19 +33,4 @@
   &:visited {
     color: $tc-gray-80;
   }
-}
-
-.tag {
-  display: inline-block;
-  text-align: center;
-  padding: 0 7px;
-  background-color: $tc-gray-neutral-dark;
-  font: bold 11px/20px Roboto;
-  color: $tc-gray-80;
-  margin-right: 5px;
-  border-radius: 2 * $corner-radius;
-  margin-bottom: 2px;
-  cursor: pointer;
-
-  @include feedback;
 }

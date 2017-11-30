@@ -33,7 +33,7 @@
 
     color: $white;
 
-    @include xxs-to-xs {
+    @include xs-to-sm {
       @include h3;
 
       color: $white;
@@ -53,7 +53,7 @@
     }
   }
 
-  @include xxs-to-xs {
+  @include xs-to-sm {
     padding: 25px 30px;
     width: 100%;
   }
@@ -62,7 +62,7 @@
 .image {
   width: 49.1%;
 
-  @include xxs-to-xs {
+  @include xs-to-sm {
     width: 100%;
   }
 }

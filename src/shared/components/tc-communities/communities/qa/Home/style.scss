@@ -38,7 +38,7 @@
   font-weight: 400;
   line-height: 24px;
 
-  @include xxs-to-xs {
+  @include xs-to-sm {
     line-height: 22px;
   }
 }
@@ -76,7 +76,7 @@
   border-bottom: 1px solid #ddd;
   padding: 43px 38px 50px;
 
-  @include xxs-to-xs {
+  @include xs-to-sm {
     display: flex;
     justify-content: space-around;
     padding: 30px 12px 32px;
@@ -87,7 +87,7 @@
   background-color: #fafafa;
   padding: 70px 0;
 
-  @include xxs-to-xs {
+  @include xs-to-sm {
     padding: 40px 0;
   }
 }
@@ -100,7 +100,7 @@
 .linksContainer {
   padding: 24px 0 60px;
 
-  @include xxs-to-xs {
+  @include xs-to-sm {
     padding: 0;
   }
 }

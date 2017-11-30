@@ -5,7 +5,7 @@
 .bottom-placeholder {
   height: 5 * $base-unit;
 
-  @include xxs-to-xs {
+  @include xs-to-sm {
     height: 3 * $base-unit;
   }
 }
@@ -22,7 +22,7 @@
   padding: 40px 40px 0;
   width: 100%;
 
-  @include xxs-to-xs {
+  @include xs-to-sm {
     padding: 3 * $base-unit;
     padding-bottom: 0;
   }
@@ -53,7 +53,7 @@
   font-size: 15px;
   line-height: 25px;
 
-  @include xs {
+  @include sm {
     margin-top: 20px;
   }
 }
@@ -66,7 +66,7 @@
 .tabs-inner {
   display: flex;
 
-  @include xs {
+  @include sm {
     width: 100%;
     display: inline-block;
     white-space: nowrap;
@@ -81,7 +81,7 @@
   align-items: center;
   flex: 1;
 
-  @include xs {
+  @include sm {
     width: 50%;
     display: inline-block;
 
@@ -126,7 +126,7 @@
   background-color: $tc-gray-30;
   flex-shrink: 0;
 
-  @include xs {
+  @include sm {
     display: inline-block;
     vertical-align: middle;
   }
@@ -139,7 +139,7 @@
   max-width: 95px;
   min-width: 70px;
 
-  @include xs {
+  @include sm {
     display: inline-block;
     vertical-align: middle;
     white-space: normal;
@@ -152,7 +152,7 @@
   height: 2px;
   flex: 1;
 
-  @include xs {
+  @include sm {
     display: inline-block;
     max-width: calc(100% - 120px);
     min-width: calc(100% - 145px);
@@ -172,7 +172,7 @@
     font-size: 13px;
     overflow: hidden;
 
-    @include xs {
+    @include sm {
       flex: 0 0 135px;
     }
   }
@@ -187,7 +187,7 @@
   font-size: 20px;
   margin-bottom: 10px;
 
-  @include xs {
+  @include sm {
     padding: 0 15px;
   }
 }

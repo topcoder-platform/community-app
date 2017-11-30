@@ -1,11 +1,17 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Matches shallow shapshot 1`] = `
-<div>
-  <h1>
-    react-css-themr test/demo
+<div
+  className="src-shared-components-examples-Themr-___style__container___2Ztre"
+>
+  <h1
+    className="src-shared-components-examples-Themr-___style__title___3op29"
+  >
+    <code>
+      react-css-super-themr
+    </code>
+     test/demo
   </h1>
-  NOTE: Our setup cannot guarantee the order of different styles in the extracted CSS bundle, thus it cannot guarantee proper deep merge of theme sources according to their priority. You have to use !important directives to ensure the proper merging.
   <h3>
     Default theme
   </h3>
@@ -25,7 +31,9 @@ exports[`Matches shallow shapshot 1`] = `
     theme={
       Object {
         "box": "src-shared-components-examples-Themr-___style__box___2VpH5",
+        "container": "src-shared-components-examples-Themr-___style__container___2Ztre",
         "text": "src-shared-components-examples-Themr-___style__text___3B1uO",
+        "title": "src-shared-components-examples-Themr-___style__title___3op29",
       }
     }
     themePriority="adhoc-context-default"
@@ -70,7 +78,9 @@ exports[`Matches shallow shapshot 1`] = `
       theme={
         Object {
           "box": "src-shared-components-examples-Themr-___style__box___2VpH5",
+          "container": "src-shared-components-examples-Themr-___style__container___2Ztre",
           "text": "src-shared-components-examples-Themr-___style__text___3B1uO",
+          "title": "src-shared-components-examples-Themr-___style__title___3op29",
         }
       }
       themePriority="adhoc-context-default"
@@ -91,6 +101,48 @@ exports[`Matches shallow shapshot 1`] = `
       mapThemrProps={[Function]}
       themePriority="adhoc-context-default"
     />
+  </ThemeProvider>
+  <h3>
+    Test of nested theme providers.
+  </h3>
+  <p>
+    The external theme provider tries to set the same theme as in the ‌
+    <em>
+      Default theme + Parent-provided styling
+    </em>
+     example, and the innter one tries to set the same theme as in the 
+    <em>
+      Default theme + Context styling
+    </em>
+     example. The question is, which will win with the current version of react-css-super-themr?
+  </p>
+  <ThemeProvider
+    theme={
+      Object {
+        "box": "src-shared-components-examples-Themr-___style__box___2VpH5",
+        "container": "src-shared-components-examples-Themr-___style__container___2Ztre",
+        "text": "src-shared-components-examples-Themr-___style__text___3B1uO",
+        "title": "src-shared-components-examples-Themr-___style__title___3op29",
+      }
+    }
+  >
+    <ThemeProvider
+      theme={
+        Object {
+          "ThemableComponent": Object {
+            "box": "src-shared-components-examples-Themr-___contextStyle__box___Rvwpa",
+            "text": "src-shared-components-examples-Themr-___contextStyle__text___97Tbl",
+          },
+        }
+      }
+    >
+      <ThemedThemableComponent
+        composeAdhocTheme="deeply"
+        composeContextTheme="softly"
+        mapThemrProps={[Function]}
+        themePriority="adhoc-context-default"
+      />
+    </ThemeProvider>
   </ThemeProvider>
 </div>
 `;

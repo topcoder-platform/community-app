@@ -1,7 +1,7 @@
 @import "../../Header/style.scss";
 
 .logos {
-  @include xxs-to-xs {
+  @include xs-to-sm {
     margin-top: 0;
   }
 }
@@ -13,7 +13,7 @@
 .logosWrap {
   display: flex;
 
-  @include xxs-to-xs {
+  @include xs-to-sm {
     height: 50px;
   }
 }
@@ -26,7 +26,7 @@
   z-index: 99999;
   position: relative;
 
-  @include xxs-to-xs {
+  @include xs-to-sm {
     height: 50px;
   }
 }
@@ -42,7 +42,7 @@
   justify-content: flex-end;
   align-items: center;
 
-  @include xxs-to-xs {
+  @include xs-to-sm {
     height: 100%;
     background-color: #fff;
   }
@@ -51,7 +51,7 @@
 .menuWrap {
   max-height: none;
 
-  @include xxs-to-xs {
+  @include xs-to-sm {
     max-height: 0;
   }
 }
@@ -69,7 +69,7 @@
     color: #fff;
   }
 
-  @include xxs-to-xs {
+  @include xs-to-sm {
     height: 50px;
   }
 }
@@ -113,7 +113,7 @@
     color: #ddd;
   }
 
-  @include xxs-to-xs {
+  @include xs-to-sm {
     color: #999;
   }
 }
@@ -127,7 +127,7 @@
   transform: translate(-50%, -15px);
   border-radius: none;
 
-  @include xxs-to-xs {
+  @include xs-to-sm {
     color: #999;
   }
 }

@@ -5,7 +5,7 @@
   position: relative;
   height: 323px;
 
-  @include xxs-to-xs {
+  @include xs-to-sm {
     background-position-y: 50%;
     background-position-x: 50%;
     background-size: cover;
@@ -20,7 +20,7 @@
   position: absolute;
   width: 100%;
 
-  @include xxs-to-xs {
+  @include xs-to-sm {
     width: 100%;
     text-align: left;
   }
@@ -30,7 +30,7 @@
   transform: none;
   background-color: transparent;
 
-  @include xxs-to-xs {
+  @include xs-to-sm {
     background: none;
     background-color: transparent;
     left: -30px;
@@ -44,7 +44,7 @@
   flex-direction: column;
   align-items: center;
 
-  @include xxs-to-xs {
+  @include xs-to-sm {
     padding: 10px 0 0;
     background-color: transparent;
     width: 100%;
@@ -62,7 +62,7 @@ h2.title {
   line-height: 27.5px;
   text-align: center;
 
-  @include xxs-to-xs {
+  @include xs-to-sm {
     font-size: 25px;
     line-height: 27.5px;
   }
@@ -74,7 +74,7 @@ h2.title {
   line-height: 36px;
   padding-bottom: 20px;
 
-  @include xxs-to-xs {
+  @include xs-to-sm {
     font-size: 18px;
     line-height: 27px;
   }

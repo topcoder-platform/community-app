@@ -26,11 +26,11 @@ $light-gray-color: $tc-gray-neutral-light;
 .submission-management-content {
   padding: $submang-space-20 $submang-space-140;
 
-  @include sm {
+  @include md {
     padding: $submang-space-20 $submang-space-35;
   }
 
-  @include xxs-to-xs {
+  @include xs-to-sm {
     padding: 0;
   }
 
@@ -44,7 +44,7 @@ $light-gray-color: $tc-gray-neutral-light;
     margin-top: $submang-space-50;
     margin-bottom: $base-unit;
 
-    @include xxs-to-xs {
+    @include xs-to-sm {
       flex-direction: column;
       margin-top: $submang-space-20;
       padding: 0 15px;
@@ -61,7 +61,7 @@ $light-gray-color: $tc-gray-neutral-light;
       color: $tc-black;
       line-height: $submang-space-30;
 
-      @include xxs-to-xs {
+      @include xs-to-sm {
         margin-top: 10px;
         margin-bottom: 15px;
       }
@@ -69,7 +69,7 @@ $light-gray-color: $tc-gray-neutral-light;
       span.ends-label {
         color: $tc-gray-50;
 
-        @include xxs-to-xs {
+        @include xs-to-sm {
           display: block;
           margin-bottom: -10px;
         }
@@ -83,7 +83,7 @@ $light-gray-color: $tc-gray-neutral-light;
     line-height: $submang-space-25;
     margin-bottom: $submang-space-30;
 
-    @include xxs-to-xs {
+    @include xs-to-sm {
       padding: 0 15px;
     }
   }
@@ -98,11 +98,11 @@ $light-gray-color: $tc-gray-neutral-light;
   background: $light-gray-color;
   border-bottom: 1px solid $tc-gray-neutral-dark;
 
-  @include sm {
+  @include md {
     padding: $submang-space-25 $submang-space-35;
   }
 
-  @include xxs-to-xs {
+  @include xs-to-sm {
     flex-direction: column;
     padding: $submang-space-20 15px;
   }
@@ -110,7 +110,7 @@ $light-gray-color: $tc-gray-neutral-light;
   .left-col {
     padding-right: 200px;
 
-    @include xxs-to-xs {
+    @include xs-to-sm {
       padding-right: 0;
     }
 
@@ -139,11 +139,11 @@ $light-gray-color: $tc-gray-neutral-light;
   }
 
   .right-col {
-    @include roboto;
+    @include roboto-normal;
 
     min-width: 100px;
 
-    @include xxs-to-xs {
+    @include xs-to-sm {
       margin-top: 10px;
 
       p,
@@ -163,7 +163,7 @@ $light-gray-color: $tc-gray-neutral-light;
       color: $tc-gray-80;
       line-height: $submang-space-30;
 
-      @include xxs-to-xs {
+      @include xs-to-sm {
         font-size: 15px;
         font-weight: bold;
         line-height: $submang-space-25;
@@ -176,7 +176,7 @@ $light-gray-color: $tc-gray-neutral-light;
       color: $tc-gray-50;
       line-height: $submang-space-20;
 
-      @include xxs-to-xs {
+      @include xs-to-sm {
         margin-left: 5px;
       }
     }

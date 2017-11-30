@@ -7,10 +7,10 @@ import {
 } from 'components/tags';
 import { ThemeProvider } from 'react-css-super-themr';
 
-import primaryDataScienceTagStyle from 'components/tags/primaryDataScience.scss';
-import primaryDevelopTagStyle from 'components/tags/primaryDevelop.scss';
-import eventDevelopTagStyle from 'components/tags/eventDevelop.scss';
-import eventDataScienceTagStyle from 'components/tags/eventDataScience.scss';
+import primaryDataScienceTagStyle from 'components/tags/primary/data-science.scss';
+import primaryDevelopTagStyle from 'components/tags/primary/develop.scss';
+import eventDevelopTagStyle from 'components/tags/event/develop.scss';
+import eventDataScienceTagStyle from 'components/tags/event/data-science.scss';
 
 import style from './style.scss';
 
@@ -27,9 +27,9 @@ export default function Tags() {
         of <code>react-css-themr</code>.
       </p>
 
-      <h3>Default Tag</h3>
+      <h3><a name="default-tag">Default Tag</a></h3>
       <Tag>Tag</Tag>
-      <Tag to=".">Link Tag</Tag>
+      <Tag to="#default-tag">Link Tag</Tag>
 
       <h3>Primary Tag</h3>
 

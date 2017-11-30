@@ -12,7 +12,7 @@ $sm-space-40: $base-unit * 8;
 }
 
 .submission-management-container {
-  @include roboto;
+  @include roboto-normal;
 
   background: #fff;
   margin: auto;
@@ -55,7 +55,7 @@ $sm-space-40: $base-unit * 8;
 .bannerContainer {
   height: 252px;
 
-  @include xxs-to-xs {
+  @include xs-to-sm {
     height: 300px;
   }
 }
@@ -66,14 +66,14 @@ $sm-space-40: $base-unit * 8;
   transform: none;
   width: 600px;
 
-  @include xxs-to-xs {
+  @include xs-to-sm {
     top: auto;
     width: 100%;
   }
 }
 
 .bannerContentInner {
-  @include xxs-to-xs {
+  @include xs-to-sm {
     padding-bottom: 20px;
     padding-top: 48px;
   }

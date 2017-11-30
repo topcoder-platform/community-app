@@ -12,7 +12,7 @@ $submission-space-50: $base-unit * 10;
   overflow: hidden;
   border-radius: 4px 4px 0 0;
 
-  @include xxs-to-xs {
+  @include xs-to-sm {
     border: none;
     border-radius: 0;
     border-top: 1px solid $tc-gray-10;
@@ -41,7 +41,7 @@ $submission-space-50: $base-unit * 10;
         text-align: center;
       }
 
-      @include xxs-to-xs {
+      @include xs-to-sm {
         display: none;
       }
     }

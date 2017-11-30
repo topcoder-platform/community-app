@@ -1,0 +1,17 @@
+/**
+ * Theme for a blue outline button with Open Sans label font.
+ */
+
+@import "_mixin";
+
+$color: #0092ff;
+
+@include button(
+  $color,
+  lighten($color, 10%),
+  lighten($color, 40%),
+  lighten($color, 47%));
+
+.button {
+  text-transform: uppercase;
+}

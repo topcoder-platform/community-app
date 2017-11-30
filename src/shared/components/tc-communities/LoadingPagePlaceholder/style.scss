@@ -1,7 +1,7 @@
 @import '~styles/mixins';
 
 .loading {
-  @include tc-body-large;
+  @include tc-body-lg;
 
   padding-top: 100px;
   text-align: center;

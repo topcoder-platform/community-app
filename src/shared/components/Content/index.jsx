@@ -6,12 +6,14 @@
 
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { buildTimestamp } from 'utils/isomorphy';
 
 import './style.scss';
 
 export default function Content() {
   return (
-    <div styleName="Content">
+    <div styleName="container">
+      <div styleName="build-timestamp">Build Timestamp: {buildTimestamp()}</div>
       <h1>Topcoder Community App</h1>
       <p>Isomorphic ReactJS App for new version of Topcoder community website.
         Technological stack includes:</p>
@@ -189,6 +191,10 @@ export default function Content() {
           <Link to="/examples/loading-indicators">Loading Indicators</Link>
         </li>
         <li>
+          <Link to="/examples/scalable-rect">ScalableRect</Link> component makes
+          it easy to create dynamically scaled components with fixed side ratio.
+        </li>
+        <li>
           <Link to="/examples/svg-loading">SVG Loading</Link> - Shows how to
           load <code>.svg</code> assets with use
           of <code>babel-plugin-inline-react-svg</code>.
@@ -199,8 +205,15 @@ export default function Content() {
           of <code>react-css-themr</code>.
         </li>
         <li>
-          <Link to="/examples/themr">Themr</Link> - Test/demo of
-          react-css-themr.
+          <Link to="/examples/themr">Super Themr</Link> - Test/demo of
+          <code>react-css-super-themr</code>.
+        </li>
+        <li>
+          <Link to="/examples/typography">Typography</Link> - Most of Topcoder
+          websites use the same styleguide for the design. In particular, all
+          typography is supposed to use the set of styles from this example.
+          For all these styles we have global mixins, which should be used
+          whenever possible (but never modified without explicit approval).
         </li>
       </ul>
     </div>

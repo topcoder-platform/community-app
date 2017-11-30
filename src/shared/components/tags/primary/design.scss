@@ -2,9 +2,12 @@
  * Primary tag, colored with colors of design track (blue).
  */
 
-@import "default";
+@import "../default";
 
-@mixin feedback {
+.button {
+  background-color: $tc-light-blue;
+  color: $tc-white;
+
   &:active,
   &:focus,
   &:hover {
@@ -15,11 +18,4 @@
   &:visited {
     color: $tc-white;
   }
-}
-
-.tag {
-  background-color: $tc-light-blue;
-  color: $tc-white;
-
-  @include feedback;
 }

@@ -42,9 +42,9 @@ class Wrapper extends React.Component {
 const instance = TU.renderIntoDocument((<Wrapper {...mockData} />));
 
 test('Render properly', () => {
-  const dropdown = TU.findAllInRenderedTree(instance, item => item && item.className && item.className.match('Dropdown-control'));
+  const dropdown = TU.findAllInRenderedTree(instance, item => item && item.className && item.className.match('Select-control'));
   TU.Simulate.touchEnd(dropdown[0]);
-  const options = TU.findAllInRenderedTree(instance, item => item && item.className && item.className.match('Dropdown-option'));
+  const options = TU.findAllInRenderedTree(instance, item => item && item.className && item.className.match('Select-option'));
   expect(options).toHaveLength(1);
   TU.Simulate.click(options[0]);
 });

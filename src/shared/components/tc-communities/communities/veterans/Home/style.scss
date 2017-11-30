@@ -23,7 +23,7 @@
     margin-bottom: 40px;
   }
 
-  @include xxs-to-xs {
+  @include xs-to-sm {
     flex: none;
     margin: 5px 0;
     width: 100%;
@@ -42,7 +42,7 @@
   display: flex;
   flex-wrap: wrap;
   margin: 0 auto;
-  max-width: $screen-lg;
+  max-width: $tc-screen-lg;
   padding: 0 15px;
 }
 
@@ -54,7 +54,7 @@
 
 .imageTextBlock {
   margin: 0 auto;
-  max-width: $screen-lg;
+  max-width: $tc-screen-lg;
   padding: 0 15px;
 }
 
@@ -71,7 +71,7 @@
   padding: 0 40px;
   text-align: center;
 
-  @include xxs-to-xs {
+  @include xs-to-sm {
     margin: 50px auto;
   }
 }
@@ -84,7 +84,7 @@
     margin-right: 40px;
     width: 150px;
 
-    @include xxs-to-xs {
+    @include xs-to-sm {
       height: 50px;
       margin-right: 15px;
       width: 50px;
@@ -98,7 +98,7 @@
       display: block;
     }
 
-    @include xxs-to-xs {
+    @include xs-to-sm {
       display: block;
     }
   }
@@ -107,10 +107,10 @@
 .quoteBlock {
   display: flex;
   margin: 200px auto;
-  max-width: $screen-lg;
+  max-width: $tc-screen-lg;
   padding: 0 40px;
 
-  @include xxs-to-xs {
+  @include xs-to-sm {
     flex-direction: column-reverse;
     margin: 50px auto;
     padding: 0 25px;
@@ -142,7 +142,7 @@
     font-weight: bold;
   }
 
-  @include xxs-to-xs {
+  @include xs-to-sm {
     display: none;
   }
 }

@@ -13,6 +13,8 @@ entry.main = [
   entry.main,
 ];
 
+delete defaultConfig.entry;
+
 module.exports = webpackMerge(defaultConfig, {
   entry,
   module: {

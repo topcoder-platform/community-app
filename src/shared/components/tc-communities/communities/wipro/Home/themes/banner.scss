@@ -1,7 +1,7 @@
 @import '~styles/mixins';
 
 .container {
-  @include xxs-to-xs {
+  @include xs-to-sm {
     height: 470px;
   }
 }
@@ -28,7 +28,7 @@
   height: 364px;
   transform: none;
 
-  @include xxs-to-xs {
+  @include xs-to-sm {
     left: -30px;
     transform: none;
   }
@@ -40,7 +40,7 @@
   position: relative;
   z-index: 1;
 
-  @include xxs-to-xs {
+  @include xs-to-sm {
     padding: 76px 0;
     text-align: left;
   }

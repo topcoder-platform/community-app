@@ -5,7 +5,8 @@
  * <button> element, either as react-router <Link>, or as HTML <a>, depending on
  * the props passed in.
  *
- * The button uses react-css-themr for styling, and it is exported mupltiple
+ * The button uses react-css-super-themr for styling, and it is exported
+ * mupltiple
  * times, differently wrapped with react-css-super-themr decorator. The intent
  * behind
  * it is to provide a standard button implementation, which can be easily styled
@@ -44,10 +45,11 @@ import React from 'react';
 import { themr } from 'react-css-super-themr';
 import { Link } from 'utils/router';
 
-import dangerButton from './danger.scss';
-import defaultButton from './default.scss';
-import primaryDesignButton from './primaryDesign.scss';
-import secondaryButton from './secondary.scss';
+import dangerButton from './standard/danger.scss';
+import defaultButton from './standard/default.scss';
+import ghostButton from './standard/ghost.scss';
+import primaryButton from './standard/primary.scss';
+import secondaryButton from './standard/secondary.scss';
 
 /* Generic button, not wrapped by themr, but accepting theme property.
  * In most cases you will want to use some of the themable exports below
@@ -59,17 +61,21 @@ export function GenericButton({
   onClick,
   openNewTab,
   replace,
+  size,
   theme,
   to,
 }) {
+  const sizeClass = theme[size] || '';
   if (disabled) {
     return (
-      <span className={`${theme.button} ${theme.disabled}`}>{children}</span>
+      <div className={`${theme.button} ${theme.disabled} ${sizeClass}`}>
+        {children}
+      </div>
     );
   } else if (to) {
     return (
       <Link
-        className={`${theme.button} ${theme.link}`}
+        className={`${theme.button} ${theme.link || ''} ${sizeClass}`}
         enforceA={enforceA}
         onClick={onClick}
         openNewTab={openNewTab}
@@ -80,7 +86,7 @@ export function GenericButton({
   }
   return (
     <button
-      className={`${theme.button} ${theme.regular}`}
+      className={`${theme.button} ${theme.regular || ''} ${sizeClass}`}
       onClick={onClick}
     >{children}</button>
   );
@@ -93,6 +99,7 @@ GenericButton.defaultProps = {
   onClick: null,
   openNewTab: false,
   replace: false,
+  size: null,
   to: null,
 };
 
@@ -103,11 +110,12 @@ GenericButton.propTypes = {
   onClick: PT.func,
   openNewTab: PT.bool,
   replace: PT.bool,
+  size: PT.string,
   theme: PT.shape({
     button: PT.string.isRequired,
     disabled: PT.string.isRequired,
-    link: PT.string.isRequired,
-    regular: PT.string.isRequired,
+    link: PT.string,
+    regular: PT.string,
   }).isRequired,
   to: PT.oneOfType([PT.object, PT.string]),
 };
@@ -118,10 +126,13 @@ export const Button =
 export const DangerButton =
   themr('DangerButton', dangerButton)(GenericButton);
 
+export const GhostButton =
+  themr('GhostButton', ghostButton)(GenericButton);
+
 export const PrimaryButton =
-  themr('PrimaryButton', primaryDesignButton)(GenericButton);
+  themr('PrimaryButton', primaryButton)(GenericButton);
 
 export const SecondaryButton =
   themr('SecondaryButton', secondaryButton)(GenericButton);
 
-export default undefined;
+export default Button;

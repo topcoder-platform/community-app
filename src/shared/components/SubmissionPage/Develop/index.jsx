@@ -31,6 +31,10 @@ class Develop extends React.Component {
     this.back = this.back.bind(this);
   }
 
+  componentWillUnmount() {
+    this.props.resetForm();
+  }
+
   reset() {
     this.props.setAgreed(false);
     this.props.resetForm();

@@ -11,7 +11,7 @@
   font-size: 21px;
   padding-top: 0;
 
-  @include xxs-to-xs {
+  @include xs-to-sm {
     font-size: 18px;
     padding-top: 0;
   }

@@ -17,7 +17,7 @@
     min-height: 190px;
     position: relative;
 
-    @include xxs-to-xs {
+    @include xs-to-sm {
       min-height: 150px;
     }
 
@@ -29,7 +29,7 @@
       flex-grow: 1;
       text-align: center;
 
-      @include xxs-to-xs {
+      @include xs-to-sm {
         font-size: 13px;
         line-height: 15px;
       }
@@ -78,7 +78,7 @@
     color: #0b71e6;
   }
 
-  @include xxs-to-sm {
+  @include xs-to-md {
     button {
       padding: 10px;
     }

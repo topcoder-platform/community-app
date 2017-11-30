@@ -66,13 +66,14 @@ export default function ChallengeHeader(props) {
 
   let registrationEnded = true;
   const regPhase = phases.registration;
-  if (regPhase) {
+  if (status !== 'COMPLETED' && regPhase) {
     registrationEnded = regPhase.phaseStatus !== 'Open';
   }
 
   const submissionEnded =
-    _.get(phases, 'submission.phaseStatus') !== 'Open' &&
-    _.get(phases, 'checkpointSubmission.phaseStatus') !== 'Open';
+    status === 'COMPLETED' ||
+    (_.get(phases, 'submission.phaseStatus') !== 'Open' &&
+      _.get(phases, 'checkpointSubmission.phaseStatus') !== 'Open');
 
   let trackLower = track ? track.toLowerCase() : 'design';
   if (technologies.includes('Data Science')) {

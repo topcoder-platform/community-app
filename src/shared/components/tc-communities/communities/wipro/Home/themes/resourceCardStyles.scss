@@ -4,11 +4,11 @@
   text-align: left;
   width: 280px;
 
-  @include sm {
+  @include md {
     width: 200px;
   }
 
-  @include xxs-to-xs {
+  @include xs-to-sm {
     padding: 0 15px;
     width: auto;
 
@@ -40,7 +40,7 @@
     top: 0;
   }
 
-  @include xxs-to-xs {
+  @include xs-to-sm {
     font-size: 16px;
   }
 }
@@ -78,7 +78,7 @@
     text-decoration: none;
   }
 
-  @include sm {
+  @include md {
     width: 200px;
   }
 }

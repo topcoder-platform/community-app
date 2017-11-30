@@ -4,7 +4,7 @@
   display: flex;
   width: 100%;
 
-  @include xxs-to-xs {
+  @include xs-to-sm {
     display: block;
   }
 
@@ -18,7 +18,7 @@
   background-size: cover;
   width: 50%;
 
-  @include xxs-to-xs {
+  @include xs-to-sm {
     height: auto;
     min-height: 180px;
     width: 100%;
@@ -36,7 +36,7 @@
   padding: 24px;
   width: 50%;
 
-  @include xxs-to-xs {
+  @include xs-to-sm {
     width: 100%;
   }
 }

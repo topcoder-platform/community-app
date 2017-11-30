@@ -9,11 +9,11 @@
   padding-bottom: 24px;
   width: 300px;
 
-  @include sm {
+  @include md {
     width: 220px;
   }
 
-  @include xxs-to-xs {
+  @include xs-to-sm {
     height: auto;
     margin: 0 15px;
     padding-bottom: 30px;
@@ -38,7 +38,7 @@
   overflow: hidden;
   text-overflow: ellipsis;
 
-  @include sm {
+  @include md {
     font-size: 16px;
   }
 }

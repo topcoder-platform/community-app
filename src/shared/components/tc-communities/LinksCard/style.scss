@@ -9,11 +9,11 @@
     border-right: 0;
   }
 
-  @include sm {
+  @include md {
     width: 220px;
   }
 
-  @include xxs-to-xs {
+  @include xs-to-sm {
     border-bottom: 1px solid #ddd;
     border-right: 0;
     margin: 0 15px 30px;

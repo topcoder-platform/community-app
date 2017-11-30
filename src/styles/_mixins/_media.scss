@@ -11,66 +11,46 @@
 
 /* XXS */
 
-@mixin xxs {
-  @media (max-width: #{$screen-xs - 1px}) {
+@mixin xs {
+  @media (max-width: #{$tc-screen-xs}) {
     @content;
   }
 }
 
-@mixin xxs-to-xs {
-  @media (max-width: #{$screen-sm - 1px}) {
+@mixin xs-to-sm {
+  @media (max-width: #{$tc-screen-sm}) {
     @content;
   }
 }
 
-@mixin xxs-to-sm {
-  @media (max-width: #{$screen-md - 1px}) {
+@mixin xs-to-md {
+  @media (max-width: #{$tc-screen-md}) {
     @content;
   }
 }
 
-@mixin xxs-to-md {
-  @media (max-width: #{$screen-lg - 1px}) {
+@mixin xs-to-lg {
+  @media (max-width: #{$tc-screen-lg}) {
     @content;
   }
 }
 
 /* XS */
 
-@mixin xs {
-  @media (min-width: #{$screen-xs}) and (max-width: #{$screen-sm - 1px}) {
-    @content;
-  }
-}
-
-@mixin xs-to-sm {
-  @media (min-width: #{$screen-xs}) and (max-width: #{$screen-md - 1px}) {
-    @content;
-  }
-}
-
-@mixin xs-to-lg {
-  @media (min-width: #{$screen-xs}) {
-    @content;
-  }
-}
-
-/* SM */
-
 @mixin sm {
-  @media (min-width: #{$screen-sm}) and (max-width: #{$screen-md - 1px}) {
+  @media (min-width: #{$tc-screen-xs + 1px}) and (max-width: #{$tc-screen-sm}) {
     @content;
   }
 }
 
 @mixin sm-to-md {
-  @media (min-width: #{$screen-sm}) and (max-width: #{$screen-lg - 1px}) {
+  @media (min-width: #{$tc-screen-xs + 1px}) and (max-width: #{$tc-screen-md}) {
     @content;
   }
 }
 
-@mixin sm-to-lg {
-  @media (min-width: #{$screen-sm}) {
+@mixin sm-to-xl {
+  @media (min-width: #{$tc-screen-xs + 1px}) {
     @content;
   }
 }
@@ -78,13 +58,19 @@
 /* MD */
 
 @mixin md {
-  @media (min-width: #{$screen-md + 1px}) and (max-width: #{$screen-lg - 1px}) {
+  @media (min-width: #{$tc-screen-sm + 1px}) and (max-width: #{$tc-screen-md}) {
     @content;
   }
 }
 
 @mixin md-to-lg {
-  @media (min-width: #{$screen-md}) {
+  @media (min-width: #{$tc-screen-sm + 1px}) and (max-width: #{$tc-screen-lg}) {
+    @content;
+  }
+}
+
+@mixin md-to-xl {
+  @media (min-width: #{$tc-screen-sm + 1px}) {
     @content;
   }
 }
@@ -92,7 +78,21 @@
 /* LG */
 
 @mixin lg {
-  @media (min-width: #{$screen-lg}) {
+  @media (min-width: #{$tc-screen-md + 1px}) and (max-width: #{$tc-screen-lg}) {
+    @content;
+  }
+}
+
+@mixin lg-to-xl {
+  @media (min-width: #{$tc-screen-md + 1px}) {
+    @content;
+  }
+}
+
+/* LG */
+
+@mixin xl {
+  @media (min-width: #{$tc-screen-lg + 1px}) {
     @content;
   }
 }

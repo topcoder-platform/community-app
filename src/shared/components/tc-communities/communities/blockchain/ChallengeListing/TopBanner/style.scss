@@ -3,7 +3,7 @@
 .bannerContainer {
   height: 252px !important;
 
-  @include xxs-to-xs {
+  @include xs-to-sm {
     height: 300px !important;
   }
 }
@@ -14,14 +14,14 @@
   transform: none !important;
   width: 600px !important;
 
-  @include xxs-to-xs {
+  @include xs-to-sm {
     top: auto !important;
     width: 100% !important;
   }
 }
 
 .bannerContentInner {
-  @include xxs-to-xs {
+  @include xs-to-sm {
     padding-bottom: 20px !important;
     padding-top: 48px !important;
   }

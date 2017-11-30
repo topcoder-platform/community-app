@@ -1,0 +1,57 @@
+@import "../../themes/mixins.scss";
+
+.sectionContainer {
+  padding: 0;
+}
+
+.sectionContent {
+  @include body-text;
+
+  padding: 0 15px;
+
+  a {
+    @include link;
+  }
+
+  em {
+    font-style: italic;
+  }
+
+  li {
+    list-style: disc;
+    margin-left: 24px;
+  }
+
+  p {
+    margin: 6px 0;
+  }
+}
+
+.videos {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.video-block {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin-bottom: 24px;
+  width: 49%;
+
+  @include xs-to-sm {
+    width: 100%;
+  }
+}
+
+a.OB3LISK {
+  color: $tc-green;
+  font-weight: bold;
+}
+
+a.Khadoos {
+  color: $tc-gray-40;
+  font-weight: bold;
+}

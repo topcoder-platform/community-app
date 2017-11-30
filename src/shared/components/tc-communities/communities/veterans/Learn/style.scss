@@ -12,7 +12,7 @@
 
     font-weight: normal;
 
-    @include xxs-to-xs {
+    @include xs-to-sm {
       font-weight: normal;
     }
   }
@@ -22,12 +22,12 @@
 
     margin-bottom: 40px;
 
-    @include xxs-to-xs {
+    @include xs-to-sm {
       margin-bottom: 20px;
     }
   }
 
-  @include xxs-to-xs {
+  @include xs-to-sm {
     flex: none;
     margin: 10px 0;
     width: 100%;
@@ -56,10 +56,10 @@
 .cardsBlock {
   display: flex;
   margin: 40px auto;
-  max-width: $screen-lg;
+  max-width: $tc-screen-lg;
   padding: 0 15px;
 
-  @include xxs-to-xs {
+  @include xs-to-sm {
     flex-wrap: wrap;
   }
 }
@@ -72,7 +72,7 @@
 
 .joinBlock {
   margin: 100px auto;
-  max-width: $screen-lg;
+  max-width: $tc-screen-lg;
   padding: 0 40px;
   text-align: center;
 
@@ -87,7 +87,7 @@
     max-width: 740px;
   }
 
-  @include xxs-to-xs {
+  @include xs-to-sm {
     margin: 50px 0;
   }
 }

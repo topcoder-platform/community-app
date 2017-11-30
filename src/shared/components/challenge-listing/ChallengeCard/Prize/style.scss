@@ -8,7 +8,7 @@
   color: $tc-gray-70;
   white-space: nowrap;
 
-  @include xxs-to-xs {
+  @include xs-to-sm {
     display: inline-block;
   }
 }
