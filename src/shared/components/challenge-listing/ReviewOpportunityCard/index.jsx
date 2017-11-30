@@ -113,7 +113,7 @@ function ReviewOpportunityCard({
           <span>
             { start.isAfter() ? _.capitalize(start.toNow(true)) : `Late by ${start.fromNow(true)}` }
           </span>
-          <span styleName="to-register">to register</span>
+          <span styleName="to-register">to apply</span>
         </Link>
       </div>
     </div>
