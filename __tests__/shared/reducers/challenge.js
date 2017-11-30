@@ -80,7 +80,6 @@ function testReducer(reducer, istate) {
       loadingResultsForChallengeId: '',
       fetchChallengeFailure: false,
       details: null,
-      detailsV2: null,
       checkpoints: null,
       registering: false,
       results: null,
@@ -101,10 +100,6 @@ function testReducer(reducer, istate) {
       details: {
         id: 12345,
         tag: 'v3-user-details',
-      },
-      detailsV2: {
-        challengeId: '12345',
-        tag: 'v2-details',
       },
       checkpoints: null,
       loadingResultsForChallengeId: '',
@@ -128,10 +123,6 @@ function testReducer(reducer, istate) {
         id: 12345,
         tag: 'v3-user-details',
       },
-      detailsV2: {
-        challengeId: '12345',
-        tag: 'v2-details',
-      },
       checkpoints: null,
       loadingResultsForChallengeId: '',
       registering: false,
@@ -153,10 +144,6 @@ function testReducer(reducer, istate) {
       details: {
         id: 12345,
         tag: 'v3-user-details',
-      },
-      detailsV2: {
-        challengeId: '12345',
-        tag: 'v2-details',
       },
       checkpoints: null,
       loadingCheckpoints: false,
@@ -182,10 +169,6 @@ function testReducer(reducer, istate) {
         id: 12345,
         tag: 'v3-user-details',
       },
-      detailsV2: {
-        challengeId: '12345',
-        tag: 'v2-details',
-      },
       checkpoints: null,
       loadingCheckpoints: false,
       loadingResultsForChallengeId: '',
@@ -204,7 +187,6 @@ function testReducer(reducer, istate) {
       loadingDetailsForChallengeId: '',
       fetchChallengeFailure: 'Unknown error',
       details: null,
-      detailsV2: null,
       checkpoints: null,
       loadingCheckpoints: false,
       loadingResultsForChallengeId: '',
@@ -226,7 +208,6 @@ function testReducer(reducer, istate) {
       loadingDetailsForChallengeId: '',
       fetchChallengeFailure: 'Unknown error',
       details: null,
-      detailsV2: null,
       checkpoints: null,
       mySubmissions: { v2: [] },
       loadingCheckpoints: false,
@@ -245,7 +226,6 @@ function testReducer(reducer, istate) {
 describe('Default reducer', () =>
   testReducer(reducers.default, {
     details: null,
-    detailsV2: null,
     checkpoints: null,
     loadingCheckpoints: false,
     loadingDetailsForChallengeId: '',
@@ -267,7 +247,6 @@ describe('Factory without http request', () =>
   reducers.factory().then(res =>
     testReducer(res, {
       details: null,
-      detailsV2: null,
       checkpoints: null,
       loadingCheckpoints: false,
       loadingDetailsForChallengeId: '',
@@ -288,7 +267,6 @@ describe('Factory with server-side rendering', () =>
   }).then(res =>
     testReducer(res, {
       details: null,
-      detailsV2: null,
       checkpoints: null,
       loadingCheckpoints: false,
       loadingDetailsForChallengeId: '',
@@ -305,7 +283,6 @@ describe('Factory without server-side rendering', () =>
   }).then(res =>
     testReducer(res, {
       details: null,
-      detailsV2: null,
       checkpoints: null,
       loadingCheckpoints: false,
       loadingDetailsForChallengeId: '',

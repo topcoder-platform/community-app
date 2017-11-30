@@ -279,103 +279,14 @@ ChallengeDetailPageContainer.propTypes = {
   unregistering: PT.bool.isRequired,
 };
 
-/* TODO: This function is ugly. We should do all this logic within normalization
- * function inside the challenge service. */
-function extractChallengeDetail(v3, v2, challengeId) {
-  let challenge = {};
-  if (!_.isEmpty(v3)) {
-    challenge = _.defaults(_.clone(v3), { prizes: [] });
-    if (!_.isEmpty(v2)) {
-      challenge.numberOfCheckpointsPrizes = v2.numberOfCheckpointsPrizes;
-      challenge.introduction = v2.introduction;
-      challenge.detailedRequirements = v2.detailedRequirements;
-      challenge.topCheckPointPrize = v2.topCheckPointPrize;
-      challenge.registrants = v2.registrants;
-      challenge.checkpoints = v2.checkpoints;
-      challenge.submissions = v2.submissions;
-      challenge.submissionsViewable = v2.submissionsViewable;
-      challenge.forumLink = v2.forumLink;
-      challenge.screeningScorecardId = Number(v2.screeningScorecardId);
-      challenge.reviewScorecardId = Number(v2.reviewScorecardId);
-      challenge.submissionLimit = Number(v2.submissionLimit);
-      challenge.documents = v2.Documents;
-      challenge.fileTypes = v2.filetypes;
-      challenge.round1Introduction = v2.round1Introduction;
-      challenge.round2Introduction = v2.round2Introduction;
-      challenge.allowStockArt = v2.allowStockArt === 'true';
-      challenge.finalSubmissionGuidelines = v2.finalSubmissionGuidelines;
-      challenge.appealsEndDate = v2.appealsEndDate;
-      if (v2.event) {
-        challenge.mainEvent = {
-          eventName: v2.event.shortDescription,
-          eventId: v2.event.id,
-          description: v2.event.description,
-        };
-      }
-    }
-  } else if (!_.isEmpty(v2)) {
-    challenge = {
-      id: challengeId,
-      status: v2.currentStatus,
-      name: v2.challengeName,
-      track: v2.challengeCommunity,
-      subTrack: v2.challengeType,
-      events: v2.event ? [
-        {
-          eventName: v2.event.shortDescription,
-          eventId: v2.event.id,
-          description: v2.event.description,
-        }] : [],
-      mainEvent: v2.event ? {
-        eventName: v2.event.shortDescription,
-        eventId: v2.event.id,
-        description: v2.event.description,
-      } : {},
-      technologies: v2.technology ? v2.technology.join(', ') : '',
-      platforms: v2.platforms ? v2.platforms.join(', ') : '',
-      prizes: v2.prize,
-      topCheckPointPrize: v2.topCheckPointPrize,
-      numberOfCheckpointsPrizes: v2.numberOfCheckpointsPrizes,
-      introduction: v2.introduction,
-      detailedRequirements: v2.detailedRequirements,
-      registrants: v2.registrants,
-      checkpoints: v2.checkpoints,
-      submissions: v2.submissions,
-      submissionsViewable: v2.submissionsViewable,
-      forumLink: v2.forumLink,
-      screeningScorecardId: Number(v2.screeningScorecardId),
-      reviewScorecardId: Number(v2.reviewScorecardId),
-      submissionLimit: Number(v2.submissionLimit),
-      documents: v2.Documents,
-      reviewType: v2.reviewType,
-      fileTypes: v2.filetypes,
-      round1Introduction: v2.round1Introduction,
-      round2Introduction: v2.round2Introduction,
-      allowStockArt: v2.allowStockArt === 'true',
-      finalSubmissionGuidelines: v2.finalSubmissionGuidelines,
-      appealsEndDate: v2.appealsEndDate,
-    };
-  }
-  /* A hot fix to show submissions for on-going challenges. */
-  if ((!challenge.submissions || !challenge.submissions.length) &&
-    !_.isEmpty(v2)) {
-    challenge.submissions = v2.registrants
-      .filter(r => r.submissionDate)
-      .sort((a, b) => a.submissionDate.localeCompare(b.submissionDate));
-  }
-  return challenge;
-}
-
 const mapStateToProps = (state, props) => ({
   authTokens: state.auth,
-  challenge: extractChallengeDetail(state.challenge.details,
-    state.challenge.detailsV2,
-    Number(props.match.params.challengeId)),
+  challenge: state.challenge.details || {},
   challengeId: Number(props.match.params.challengeId),
   challengesUrl: props.challengesUrl,
   challengeSubtracksMap: state.challengeListing.challengeSubtracksMap,
   checkpointResults: (state.challenge.checkpoints || {}).checkpointResults,
-  checkpoints: state.challenge.checkpoints,
+  checkpoints: state.challenge.checkpoints || {},
   domain: state.domain,
   isLoadingChallenge: Boolean(state.challenge.loadingDetailsForChallengeId),
   isLoadingTerms: _.isEqual(state.terms.loadingTermsForEntity, {
@@ -402,7 +313,7 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(a.getDetailsInit(challengeId));
       dispatch(a.getDetailsDone(challengeId, tokens.tokenV3, tokens.tokenV2))
         .then((res) => {
-          const ch = res.payload[0];
+          const ch = res.payload;
           if (ch.track === 'DESIGN') {
             const p = ch.allPhases
               .filter(x => x.phaseType === 'Checkpoint Review');
@@ -411,9 +322,9 @@ const mapDispatchToProps = (dispatch) => {
               dispatch(a.fetchCheckpointsDone(tokens.tokenV2, challengeId));
             } else dispatch(a.dropCheckpoints());
           } else dispatch(a.dropCheckpoints());
-          if (res.payload[0].status === 'COMPLETED') {
+          if (ch.status === 'COMPLETED') {
             dispatch(a.loadResultsInit(challengeId));
-            dispatch(a.loadResultsDone(tokens, challengeId, res.payload[0].track.toLowerCase()));
+            dispatch(a.loadResultsDone(tokens, challengeId, ch.track.toLowerCase()));
           } else dispatch(a.dropResults());
           return res;
         });

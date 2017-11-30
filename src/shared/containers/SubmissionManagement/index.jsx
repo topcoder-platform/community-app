@@ -200,7 +200,7 @@ function mapStateToProps(state, props) {
     toBeDeletedId: state.challenge.mySubmissionsManagement.toBeDeletedId,
 
     authTokens: state.auth,
-    registrants: state.challenge.detailsV2.registrants,
+    registrants: state.challenge.details.registrants,
     handle: state.auth.user ? state.auth.user.handle : '',
   };
 }
