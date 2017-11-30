@@ -19,6 +19,7 @@ const mockDatas = [
       ONGOING: { name: 'name', filter: {} },
       MY: { name: 'name', filter: {} },
       UPCOMING: { name: 'name', filter: {} },
+      REVIEW_OPPORTUNITIES: { name: 'name', filter: {} },
     },
     challenges: [{ id: '1', registrationOpen: 'open' }],
     communityFilter: {},
@@ -40,6 +41,7 @@ const mockDatas = [
       ONGOING: { name: 'name', filter: {} },
       MY: { name: 'name', filter: {} },
       UPCOMING: { name: 'name', filter: {} },
+      REVIEW_OPPORTUNITIES: { name: 'name', filter: {} },
     },
     challenges: [{ id: '1', registrationOpen: 'open' }],
     disabled: true,
@@ -61,6 +63,7 @@ jest.mock('utils/challenge-listing/buckets', () => ({
     ONGOING: 'ONGOING',
     MY: 'MY',
     UPCOMING: 'UPCOMING',
+    REVIEW_OPPORTUNITIES: 'REVIEW_OPPORTUNITIES',
   },
 }),
 );
@@ -100,4 +103,3 @@ test('handle clicks', () => {
   expect(selectSavedFilter).toHaveBeenCalledWith(0);
   expect(selectBucket).toHaveBeenCalled();
 });
-

@@ -1,0 +1,306 @@
+@import '~styles/mixins';
+
+$challenge-space-10: $base-unit * 2;
+$challenge-space-15: $base-unit * 3;
+$challenge-space-20: $base-unit * 4;
+$challenge-space-30: $base-unit * 6;
+$challenge-space-40: $base-unit * 8;
+$challenge-space-45: $base-unit * 9;
+$challenge-space-50: $base-unit * 10;
+$challenge-space-90: $base-unit * 18;
+
+.reviewOpportunityCard {
+  display: flex;
+  justify-content: flex-start;
+  position: relative;
+  background: $tc-white;
+  padding: $challenge-space-20;
+  border-top: 1px solid $tc-gray-10;
+  color: $tc-black;
+  font-size: 15px;
+  font-family: 'Roboto';
+  font-weight: 500;
+
+  &:last-child {
+    border-bottom: 1px solid $tc-gray-10;
+  }
+
+  @include xxs-to-sm {
+    flex-wrap: wrap;
+    padding: $base-unit * 3;
+  }
+
+  @include xxs-to-xs {
+    position: relative;
+  }
+
+  a,
+  a:visited {
+    color: $tc-black;
+  }
+
+  a:hover {
+    color: $tc-dark-blue;
+  }
+
+  .left-panel {
+    display: flex;
+    justify-content: flex-start;
+    width: 50%;
+
+    @include xxs-to-sm {
+      width: 100%;
+    }
+  }
+
+  .right-panel {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 50%;
+
+    @include xxs-to-sm {
+      width: 100%;
+    }
+
+    @include xxs-to-xs {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+
+  // Challenge track icon
+  .challenge-track {
+    display: inline-block;
+    vertical-align: top;
+
+    > span:first-child {
+      display: inline-block;
+    }
+  }
+
+  // Challenge title, end date & technologies
+  .challenge-details {
+    display: inline-block;
+    vertical-align: baseline;
+    width: 82%;
+    margin-right: $challenge-space-30;
+
+    @include sm {
+      margin-right: 180px;
+    }
+
+    @include xxs-to-xs {
+      margin-right: 0;
+    }
+
+    a {
+      line-height: $challenge-space-20;
+
+      @include xxs-to-xs {
+        display: inline-block;
+      }
+    }
+  }
+
+  // Start date and technologies
+  .details-footer {
+    margin-top: $challenge-space-10;
+
+    .date {
+      font-size: 12px;
+      color: $tc-gray-60;
+      margin-right: $challenge-space-10;
+      line-height: ($challenge-space-10) + 2;
+      font-weight: normal;
+    }
+
+    .technology {
+      display: inline-block;
+      text-align: center;
+      padding: 0 $base-unit + 2;
+      line-height: $challenge-space-20;
+      background: $tc-gray-neutral-dark;
+      font-size: 11px;
+      font-family: 'Roboto';
+      font-weight: 500;
+      color: $tc-gray-80;
+      margin-right: $base-unit;
+      border-radius: $corner-radius + 2;
+      height: $challenge-space-20;
+      margin-bottom: 2px;
+      cursor: pointer;
+    }
+
+    .technology:hover {
+      background: $tc-dark-blue-30;
+    }
+  }
+
+  // Review payment
+  .payment {
+    display: inline-block;
+    font-size: 13px;
+    font-weight: 700;
+    color: $tc-black;
+    line-height: $challenge-space-20;
+    margin-right: $challenge-space-20;
+    min-width: $challenge-space-50 + 2;
+
+    @include xxs-to-sm {
+      position: absolute;
+      right: 0;
+      top: 20px;
+      margin-right: $challenge-space-20;
+      margin-bottom: $challenge-space-20;
+    }
+
+    @include xxs-to-xs {
+      position: relative;
+      display: block;
+      margin-top: $challenge-space-20;
+      top: 0;
+    }
+
+    @include sm {
+      right: 108px;
+    }
+
+    // $ Symbol
+    span {
+      color: $tc-gray-50;
+    }
+
+    .payment-type {
+      text-align: center;
+      background-color: $tc-gray-neutral-light;
+      font-size: 10px;
+      color: $tc-gray-70;
+      width: 50px;
+    }
+  }
+
+  a.register-button {
+    display: block;
+    position: absolute;
+    height: 100%;
+    background: $tc-gray-neutral-light;
+    top: 0;
+    right: 0;
+    width: 108px;
+    padding-left: $challenge-space-20;
+    text-align: left;
+    font-size: 13px;
+    color: $tc-black;
+    line-height: $challenge-space-20;
+
+    @include xxs-to-xs {
+      height: 50px;
+      width: 100%;
+      left: 0;
+      right: 0;
+      top: auto;
+      bottom: 0;
+      padding-left: 0;
+      text-align: center;
+      background: $tc-dark-blue-10;
+    }
+
+    span {
+      font-size: 12px;
+      line-height: $challenge-space-15;
+      font-weight: 500;
+      display: block;
+      position: absolute;
+      top: 50%;
+      transform: translate(0, -50%);
+      margin-top: -$challenge-space-10;
+
+      @include xxs-to-xs {
+        display: inline-block;
+        position: relative;
+        margin-top: 0;
+        color: $tc-dark-blue;
+      }
+    }
+
+    .to-register {
+      font-weight: 400;
+      margin-top: $challenge-space-10;
+
+      @include xxs-to-xs {
+        margin-top: 0;
+        padding-left: 5px;
+      }
+    }
+
+    &:hover {
+      background: $tc-dark-blue-10;
+      color: $tc-dark-blue;
+    }
+  }
+
+  .review-type {
+    line-height: $challenge-space-20;
+    white-space: nowrap;
+    width: 140px;
+    text-align: center;
+    background-color: #fafafb;
+    font-size: 12px;
+    color: #5d5d66;
+
+    @include sm {
+      margin-left: 50px;
+      margin-top: 8px;
+    }
+
+    @include xxs-to-xs {
+      display: block;
+      vertical-align: top;
+      margin-bottom: $challenge-space-20;
+      width: 66%;
+    }
+  }
+
+  .review-stats {
+    display: inline-block;
+    width: $challenge-space-90;
+    vertical-align: middle;
+    white-space: nowrap;
+    margin-right: $challenge-space-90;
+
+    @include xxs-to-xs {
+      padding-bottom: $challenge-space-30 * 2;
+      margin-right: 0;
+    }
+
+    // Tooltip component adds this div before its children
+    div {
+      display: inline-block;
+
+      // Icons
+      svg {
+        margin-left: $challenge-space-15;
+        vertical-align: middle;
+        margin-right: 2px;
+      }
+    }
+
+    .number {
+      font-size: 13px;
+      vertical-align: middle;
+      font-weight: 400;
+    }
+  }
+}
+
+.tooltip {
+  font-weight: 500;
+  font-size: 13px;
+  color: $tc-white;
+  letter-spacing: 0;
+  padding: $challenge-space-15;
+}

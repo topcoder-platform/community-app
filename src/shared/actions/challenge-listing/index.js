@@ -7,6 +7,7 @@ import { createActions } from 'redux-actions';
 import { decodeToken } from 'tc-accounts';
 import { getService } from 'services/challenges';
 import 'isomorphic-fetch';
+import { fireErrorMessage } from 'utils/errors';
 
 /**
  * The maximum number of challenges to fetch in a single API call. Currently,
@@ -15,6 +16,11 @@ import 'isomorphic-fetch';
  * 50 (otherwise the frontend code will miss to load some challenges).
  */
 const PAGE_SIZE = 50;
+
+/**
+ * The maximum number of review opportunities to fetch in a single API call.
+ */
+const REVIEW_OPPORTUNITY_PAGE_SIZE = 10;
 
 /**
  * Private. Loads from the backend all challenges matching some conditions.
@@ -205,6 +211,20 @@ function getPastChallengesDone(uuid, page, filter, tokenV3, frontFilter = {}) {
     ({ uuid, challenges: chunkA.concat(chunkB), frontFilter }));
 }
 
+/**
+ * Action to get a list of currently open Review Opportunities using V3 API
+ * @param {String} uuid Unique identifier for init/donen instance from shortid module
+ * @param {Number} page Page of review opportunities to fetch.
+ * @param {String} tokenV3 Optional. Topcoder auth token v3.
+ * @return {Object} Action object
+ */
+function getReviewOpportunitiesDone(uuid, page, tokenV3) {
+  return getService(tokenV3)
+    .getReviewOpportunities(REVIEW_OPPORTUNITY_PAGE_SIZE, page * REVIEW_OPPORTUNITY_PAGE_SIZE)
+    .then(loaded => ({ uuid, loaded }))
+    .catch(error => fireErrorMessage('Error Getting Review Opportunities', error));
+}
+
 export default createActions({
   CHALLENGE_LISTING: {
     DROP_CHALLENGES: _.noop,
@@ -223,6 +243,11 @@ export default createActions({
 
     GET_PAST_CHALLENGES_INIT: getPastChallengesInit,
     GET_PAST_CHALLENGES_DONE: getPastChallengesDone,
+
+    GET_REVIEW_OPPORTUNITIES_INIT: (uuid, page) => ({ uuid, page }),
+    GET_REVIEW_OPPORTUNITIES_DONE: getReviewOpportunitiesDone,
+
+    EXPAND_TAG: id => id,
 
     /* Pass in community ID. */
     SELECT_COMMUNITY: _.identity,

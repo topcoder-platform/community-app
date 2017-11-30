@@ -77,15 +77,20 @@ export default function ChallengeListing(props) {
         challenges={challenges}
         challengesUrl={props.challengesUrl}
         communityName={props.communityName}
+        expandedTags={props.expandedTags}
+        expandTag={props.expandTag}
         filterState={props.filterState}
         keepPastPlaceholders={keepPastPlaceholders}
         loadingDraftChallenges={props.loadingDraftChallenges}
         loadingPastChallenges={props.loadingPastChallenges}
+        loadingReviewOpportunities={props.loadingReviewOpportunities}
         loadMoreDraft={props.loadMoreDraft}
         loadMorePast={props.loadMorePast}
+        loadMoreReviewOpportunities={props.loadMoreReviewOpportunities}
         newChallengeDetails={props.newChallengeDetails}
         openChallengesInNewTabs={props.openChallengesInNewTabs}
         prizeMode={props.prizeMode}
+        reviewOpportunities={props.reviewOpportunities}
         selectBucket={props.selectBucket}
         selectChallengeDetailsTab={props.selectChallengeDetailsTab}
         selectedCommunityId={props.selectedCommunityId}
@@ -157,9 +162,13 @@ ChallengeListing.defaultProps = {
   hideTcLinksInFooter: false,
   loadMoreDraft: null,
   loadMorePast: null,
+  loadMoreReviewOpportunities: null,
   newChallengeDetails: false,
   openChallengesInNewTabs: false,
+  reviewOpportunities: [],
   prizeMode: 'money-usd',
+  expandedTags: [],
+  expandTag: null,
 };
 
 ChallengeListing.propTypes = {
@@ -169,6 +178,8 @@ ChallengeListing.propTypes = {
   communityFilter: PT.shape(),
   communityName: PT.string,
   defaultCommunityId: PT.string.isRequired,
+  expandedTags: PT.arrayOf(PT.number),
+  expandTag: PT.func,
   filterState: PT.shape().isRequired,
   hideTcLinksInFooter: PT.bool,
   keepPastPlaceholders: PT.bool.isRequired,
@@ -176,11 +187,14 @@ ChallengeListing.propTypes = {
   loadingChallenges: PT.bool.isRequired,
   loadingDraftChallenges: PT.bool.isRequired,
   loadingPastChallenges: PT.bool.isRequired,
+  loadingReviewOpportunities: PT.bool.isRequired,
   loadMoreDraft: PT.func,
   loadMorePast: PT.func,
+  loadMoreReviewOpportunities: PT.func,
   newChallengeDetails: PT.bool,
   openChallengesInNewTabs: PT.bool,
   prizeMode: PT.string,
+  reviewOpportunities: PT.arrayOf(PT.shape()),
   selectBucket: PT.func.isRequired,
   selectChallengeDetailsTab: PT.func.isRequired,
   selectedCommunityId: PT.string.isRequired,

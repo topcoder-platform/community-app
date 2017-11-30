@@ -13,6 +13,9 @@ export const SORTS = {
   TIME_TO_REGISTER: 'time-to-register',
   TIME_TO_SUBMIT: 'time-to-submit',
   TITLE_A_TO_Z: 'title-a-to-z',
+  REVIEW_OPPORTUNITIES_TITLE_A_TO_Z: 'review-opportunities-title-a-to-z',
+  REVIEW_OPPORTUNITIES_PAYMENT: 'review-opportunities-payment',
+  REVIEW_OPPORTUNITIES_START_DATE: 'review-opportunities-start-date',
 };
 
 export default {
@@ -63,5 +66,18 @@ export default {
   [SORTS.TITLE_A_TO_Z]: {
     func: (a, b) => a.name.localeCompare(b.name),
     name: 'Title A-Z',
+  },
+  [SORTS.REVIEW_OPPORTUNITIES_TITLE_A_TO_Z]: {
+    func: (a, b) => a.challenge.title.localeCompare(b.challenge.title),
+    name: 'Title A-Z',
+  },
+  [SORTS.REVIEW_OPPORTUNITIES_PAYMENT]: {
+    func: (a, b) => b.payment - a.payment,
+    name: 'Payment',
+  },
+  [SORTS.REVIEW_OPPORTUNITIES_START_DATE]: {
+    // This will implicitly use moment#valueOf
+    func: (a, b) => moment(a.startDate) - moment(b.startDate),
+    name: 'Review start date',
   },
 };
