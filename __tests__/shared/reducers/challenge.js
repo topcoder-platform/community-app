@@ -5,16 +5,10 @@ const mockChallengeActions = {
   challenge: {
     getDetailsInit: mockAction('CHALLENGE/GET_DETAILS_INIT', '12345'),
     getDetailsDone: mockAction(
-      'CHALLENGE/GET_DETAILS_DONE', [{
+      'CHALLENGE/GET_DETAILS_DONE', {
         id: 12345,
-        tag: 'v3-details',
-      }, {
-        challengeId: '12345',
-        tag: 'v2-details',
-      }, {
-        id: 12345,
-        tag: 'v3-user-details',
-      }],
+        tag: 'v3-normalized-details',
+      },
     ),
     getDetailsDoneError: mockAction(
       'CHALLENGE/GET_DETAILS_DONE',
@@ -99,7 +93,7 @@ function testReducer(reducer, istate) {
       loadingDetailsForChallengeId: '',
       details: {
         id: 12345,
-        tag: 'v3-user-details',
+        tag: 'v3-normalized-details',
       },
       checkpoints: null,
       loadingResultsForChallengeId: '',
@@ -121,7 +115,7 @@ function testReducer(reducer, istate) {
       loadingDetailsForChallengeId: '',
       details: {
         id: 12345,
-        tag: 'v3-user-details',
+        tag: 'v3-normalized-details',
       },
       checkpoints: null,
       loadingResultsForChallengeId: '',
@@ -143,7 +137,7 @@ function testReducer(reducer, istate) {
       loadingDetailsForChallengeId: '',
       details: {
         id: 12345,
-        tag: 'v3-user-details',
+        tag: 'v3-normalized-details',
       },
       checkpoints: null,
       loadingCheckpoints: false,
@@ -167,7 +161,7 @@ function testReducer(reducer, istate) {
       loadingDetailsForChallengeId: '',
       details: {
         id: 12345,
-        tag: 'v3-user-details',
+        tag: 'v3-normalized-details',
       },
       checkpoints: null,
       loadingCheckpoints: false,

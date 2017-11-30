@@ -42,21 +42,21 @@ export function normalizeChallengeDetails(v3, v3Filtered, v3User, v2, username) 
     name: v3.challengeName,
     projectId: Number(v3.projectId),
     forumId: Number(v3.forumId),
-    introduction: v3.introduction,
+    introduction: v3.introduction || '',
     detailedRequirements: v3.detailedRequirements,
     finalSubmissionGuidelines: v3.finalSubmissionGuidelines,
     screeningScorecardId: Number(v3.screeningScorecardId),
     reviewScorecardId: Number(v3.reviewScorecardId),
     numberOfCheckpointsPrizes: v3.numberOfCheckpointsPrizes,
     topCheckPointPrize: v3.topCheckPointPrize,
-    submissionsViewable: v3.submissionsViewable,
+    submissionsViewable: v3.submissionsViewable || 'false',
     reviewType: v3.reviewType,
     allowStockArt: v3.allowStockArt === 'true',
     fileTypes: v3.filetypes || [],
     environment: v3.environment,
     codeRepo: v3.codeRepo,
     forumLink: v3.forumLink,
-    submissionLimit: Number(v3.submissionLimit),
+    submissionLimit: Number(v3.submissionLimit) || 0,
     drPoints: v3.digitalRunPoints,
     directUrl: v3.directUrl,
     technologies: _.isArray(v3.technology) ? v3.technology.join(', ') : '',
@@ -76,10 +76,10 @@ export function normalizeChallengeDetails(v3, v3Filtered, v3User, v2, username) 
     terms: v3.terms,
     submissions: v3.submissions,
     checkpoints: v3.checkpoints,
-    documents: v3.Documents,
+    documents: v3.Documents || [],
     numRegistrants: v3.numberOfRegistrants,
     numberOfCheckpointSubmissions: v3.numberOfCheckpointSubmissions,
-    reliabilityBonus: v3.reliabilityBonus,
+    reliabilityBonus: v3.reliabilityBonus || 0,
   };
 
   // Fill missing data from v3_filtered
@@ -121,8 +121,8 @@ export function normalizeChallengeDetails(v3, v3Filtered, v3User, v2, username) 
   // Fill missing data from v2
   if (v2) {
     _.defaults(challenge, {
-      round1Introduction: v2.round1Introduction, // This is always null in v3 for some reason
-      round2Introduction: v2.round2Introduction, // This is always null in v3 for some reason
+      round1Introduction: v2.round1Introduction || '', // This is always null in v3 for some reason
+      round2Introduction: v2.round2Introduction || '', // This is always null in v3 for some reason
       registrants: v2.registrants || [], // Registrants are now only returned by v2
 
       /* Although v3 does return appealsEndDate, it causes incorrect 'Winners'
@@ -135,7 +135,7 @@ export function normalizeChallengeDetails(v3, v3Filtered, v3User, v2, username) 
   const registrationOpen = _.some(challenge.allPhases,
     phase => phase.phaseType === 'Registration' && phase.phaseStatus === 'Open') ? 'Yes' : 'No';
   _.defaults(challenge, {
-    communities: new Set([COMPETITION_TRACKS[v3.track]]),
+    communities: new Set([COMPETITION_TRACKS[challenge.track]]),
     registrationOpen,
     users: username ? { [username]: true } : {},
   });
@@ -147,15 +147,6 @@ export function normalizeChallengeDetails(v3, v3Filtered, v3User, v2, username) 
       .sort((a, b) => a.submissionDate.localeCompare(b.submissionDate));
   }
 
-  // Add raw response data for debug
-  _.defaults(challenge, {
-    raw: {
-      v3,
-      v3Filtered,
-      v3User,
-      v2,
-    },
-  });
   return challenge;
 }
 
