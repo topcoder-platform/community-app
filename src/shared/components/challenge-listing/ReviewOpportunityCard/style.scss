@@ -25,12 +25,12 @@ $challenge-space-90: $base-unit * 18;
     border-bottom: 1px solid $tc-gray-10;
   }
 
-  @include xxs-to-sm {
+  @include xs-to-md {
     flex-wrap: wrap;
     padding: $base-unit * 3;
   }
 
-  @include xxs-to-xs {
+  @include xs-to-sm {
     position: relative;
   }
 
@@ -48,7 +48,7 @@ $challenge-space-90: $base-unit * 18;
     justify-content: flex-start;
     width: 50%;
 
-    @include xxs-to-sm {
+    @include xs-to-md {
       width: 100%;
     }
   }
@@ -60,11 +60,11 @@ $challenge-space-90: $base-unit * 18;
     align-items: center;
     width: 50%;
 
-    @include xxs-to-sm {
+    @include xs-to-md {
       width: 100%;
     }
 
-    @include xxs-to-xs {
+    @include xs-to-sm {
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -89,18 +89,18 @@ $challenge-space-90: $base-unit * 18;
     width: 82%;
     margin-right: $challenge-space-30;
 
-    @include sm {
+    @include md {
       margin-right: 180px;
     }
 
-    @include xxs-to-xs {
+    @include xs-to-sm {
       margin-right: 0;
     }
 
     a {
       line-height: $challenge-space-20;
 
-      @include xxs-to-xs {
+      @include xs-to-sm {
         display: inline-block;
       }
     }
@@ -150,7 +150,7 @@ $challenge-space-90: $base-unit * 18;
     margin-right: $challenge-space-20;
     min-width: $challenge-space-50 + 2;
 
-    @include xxs-to-sm {
+    @include xs-to-md {
       position: absolute;
       right: 0;
       top: 20px;
@@ -158,14 +158,14 @@ $challenge-space-90: $base-unit * 18;
       margin-bottom: $challenge-space-20;
     }
 
-    @include xxs-to-xs {
+    @include xs-to-sm {
       position: relative;
       display: block;
       margin-top: $challenge-space-20;
       top: 0;
     }
 
-    @include sm {
+    @include md {
       right: 108px;
     }
 
@@ -197,7 +197,7 @@ $challenge-space-90: $base-unit * 18;
     color: $tc-black;
     line-height: $challenge-space-20;
 
-    @include xxs-to-xs {
+    @include xs-to-sm {
       height: 50px;
       width: 100%;
       left: 0;
@@ -219,7 +219,7 @@ $challenge-space-90: $base-unit * 18;
       transform: translate(0, -50%);
       margin-top: -$challenge-space-10;
 
-      @include xxs-to-xs {
+      @include xs-to-sm {
         display: inline-block;
         position: relative;
         margin-top: 0;
@@ -231,7 +231,7 @@ $challenge-space-90: $base-unit * 18;
       font-weight: 400;
       margin-top: $challenge-space-10;
 
-      @include xxs-to-xs {
+      @include xs-to-sm {
         margin-top: 0;
         padding-left: 5px;
       }
@@ -252,12 +252,12 @@ $challenge-space-90: $base-unit * 18;
     font-size: 12px;
     color: #5d5d66;
 
-    @include sm {
+    @include md {
       margin-left: 50px;
       margin-top: 8px;
     }
 
-    @include xxs-to-xs {
+    @include xs-to-sm {
       display: block;
       vertical-align: top;
       margin-bottom: $challenge-space-20;
@@ -272,7 +272,7 @@ $challenge-space-90: $base-unit * 18;
     white-space: nowrap;
     margin-right: $challenge-space-90;
 
-    @include xxs-to-xs {
+    @include xs-to-sm {
       padding-bottom: $challenge-space-30 * 2;
       margin-right: 0;
     }
