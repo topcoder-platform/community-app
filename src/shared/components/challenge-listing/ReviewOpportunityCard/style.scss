@@ -57,6 +57,7 @@ $challenge-space-90: $base-unit * 18;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    align-items: center;
     width: 50%;
 
     @include xxs-to-sm {
