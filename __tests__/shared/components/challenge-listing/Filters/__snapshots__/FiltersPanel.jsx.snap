@@ -162,11 +162,10 @@ exports[`Matches shallow shapshot 1`] = `
       onClick={[Function]}
       openNewTab={false}
       replace={false}
-      size={null}
+      size="sm"
       theme={
         Object {
           "button": "src-shared-components-challenge-listing-Filters-FiltersPanel-___style__button___22bzJ",
-          "disabled": "src-shared-components-challenge-listing-Filters-FiltersPanel-___style__buttonDisabled___dIkxB",
         }
       }
       themePriority="adhoc-default-context"
@@ -183,11 +182,10 @@ exports[`Matches shallow shapshot 1`] = `
       onClick={[Function]}
       openNewTab={false}
       replace={false}
-      size={null}
+      size="sm"
       theme={
         Object {
           "button": "src-shared-components-challenge-listing-Filters-FiltersPanel-___style__button___22bzJ",
-          "disabled": "src-shared-components-challenge-listing-Filters-FiltersPanel-___style__buttonDisabled___dIkxB",
         }
       }
       themePriority="adhoc-context-default"
@@ -339,11 +337,10 @@ exports[`Matches shallow shapshot 2`] = `
       onClick={[Function]}
       openNewTab={false}
       replace={false}
-      size={null}
+      size="sm"
       theme={
         Object {
           "button": "src-shared-components-challenge-listing-Filters-FiltersPanel-___style__button___22bzJ",
-          "disabled": "src-shared-components-challenge-listing-Filters-FiltersPanel-___style__buttonDisabled___dIkxB",
         }
       }
       themePriority="adhoc-default-context"
@@ -360,11 +357,10 @@ exports[`Matches shallow shapshot 2`] = `
       onClick={[Function]}
       openNewTab={false}
       replace={false}
-      size={null}
+      size="sm"
       theme={
         Object {
           "button": "src-shared-components-challenge-listing-Filters-FiltersPanel-___style__button___22bzJ",
-          "disabled": "src-shared-components-challenge-listing-Filters-FiltersPanel-___style__buttonDisabled___dIkxB",
         }
       }
       themePriority="adhoc-context-default"

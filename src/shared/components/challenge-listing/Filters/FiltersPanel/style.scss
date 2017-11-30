@@ -13,22 +13,10 @@ $panel-radius-1: $corner-radius / 2;
 $panel-radius-4: $corner-radius * 2;
 
 .button {
-  @include btn-sm;
-
-  display: block !important;
+  display: flex;
   font: 400 12px Arial !important;
-  height: 6 * $base-unit !important;
-  line-height: 28px !important;
   margin-bottom: 15px !important;
   padding: 0 !important;
-}
-
-.buttonDisabled {
-  background: $tc-gray-20 !important;
-  border: none !important;
-  color: $tc-black !important;
-  padding-left: 20px !important;
-  padding-right: 20px !important;
 }
 
 .FiltersPanel {

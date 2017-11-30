@@ -77,11 +77,17 @@ export default function ChallengeViewSelector(props) {
           styleName={getSelectorStyle(selectedView, DETAIL_TABS.DETAILS, trackLower)}
         >DETAILS
         </a>
-        <a
-          onClick={(e) => { handleSelectorClicked(e, DETAIL_TABS.REGISTRANTS); }}
-          styleName={getSelectorStyle(selectedView, DETAIL_TABS.REGISTRANTS, trackLower)}
-        >REGISTRANTS {numRegistrants ? `(${numRegistrants})` : ''}
-        </a>
+        {
+          numRegistrants ? (
+            <a
+              onClick={(e) => {
+                handleSelectorClicked(e, DETAIL_TABS.REGISTRANTS);
+              }}
+              styleName={getSelectorStyle(selectedView, DETAIL_TABS.REGISTRANTS, trackLower)}
+            >REGISTRANTS ({numRegistrants})
+            </a>
+          ) : null
+        }
         {
           trackLower === 'design' && checkpointCount > 0 &&
           <a
