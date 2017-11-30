@@ -1,41 +1,5 @@
 @import "~styles/mixins";
 
-@mixin design-accent-clr {
-  .design-accent-color {
-    color: $tc-dark-blue-90;
-  }
-}
-
-@mixin develop-accent-clr {
-  .develop-accent-color {
-    color: $tc-green;
-  }
-}
-
-@mixin datasci-accent-clr {
-  .datasci-accent-color {
-    color: $tc-orange;
-  }
-}
-
-@mixin design-accent-btm-border {
-  .design-accent-bottom-border {
-    border-bottom: 3px solid $tc-dark-blue-90;
-  }
-}
-
-@mixin develop-accent-btm-border {
-  .develop-accent-bottom-border {
-    border-bottom: 3px solid $tc-green;
-  }
-}
-
-@mixin datasci-accent-btm-border {
-  .datasci-accent-bottom-border {
-    border-bottom: 3px solid $tc-orange;
-  }
-}
-
 .challenge-view-selector {
   display: flex;
   flex-wrap: wrap;
@@ -49,7 +13,7 @@
   }
 
   .challenge-selector-common {
-    font-family: roboto;
+    font-family: roboto, sans-serif;
     font-size: 13px;
     line-height: 30px;
     margin: 10px 20px 0;
@@ -59,6 +23,8 @@
 
   .challenge-selected-view {
     font-weight: 700;
+    color: $tc-dark-blue-90;
+    border-bottom: 3px solid $tc-dark-blue-90;
   }
 
   .challenge-unselected-view {
@@ -66,13 +32,6 @@
     color: $tc-gray-70;
     border-bottom: 3px hidden $tc-white;
   }
-
-  @include datasci-accent-clr;
-  @include develop-accent-clr;
-  @include design-accent-clr;
-  @include datasci-accent-btm-border;
-  @include develop-accent-btm-border;
-  @include design-accent-btm-border;
 }
 
 .container {
