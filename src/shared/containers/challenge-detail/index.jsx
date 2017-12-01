@@ -336,7 +336,13 @@ const mapDispatchToProps = (dispatch) => {
     reloadChallengeDetails: (tokens, challengeId) => {
       dispatch(a.getDetailsDone(challengeId, tokens.tokenV3, tokens.tokenV2))
         .then((challengeDetails) => {
-          dispatch(a.fetchCheckpointsDone(tokens.tokenV2, challengeId));
+          if (challengeDetails.track === 'DESIGN') {
+            const p = challengeDetails.allPhases
+              .filter(x => x.phaseType === 'Checkpoint Review');
+            if (p.length && p[0].phaseStatus === 'Closed') {
+              dispatch(a.fetchCheckpointsDone(tokens.tokenV2, challengeId));
+            }
+          }
           return challengeDetails;
         });
     },
