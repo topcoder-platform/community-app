@@ -58,6 +58,7 @@ export default function BucketSelector({
       bucket={{
         hideCount: true,
         name: item.name,
+        error: item.filterError,
       }}
       challenges={[]}
       key={item.id}
