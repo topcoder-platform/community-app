@@ -214,6 +214,7 @@ class ChallengeDetailPageContainer extends React.Component {
           {
             !isEmpty && this.props.selectedTab === DETAIL_TABS.WINNERS &&
             <Winners
+              checkpointPrize={this.props.challenge.topCheckPointPrize}
               winners={winners}
               prizes={this.props.challenge.prizes}
               submissions={this.props.challenge.submissions}

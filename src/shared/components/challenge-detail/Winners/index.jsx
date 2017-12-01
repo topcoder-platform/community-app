@@ -5,96 +5,73 @@
 
 import React from 'react';
 import PT from 'prop-types';
-import moment from 'moment';
-import _ from 'lodash';
-import config from 'utils/config';
-
-import Lock from '../icons/lock.svg';
+import Winner from './Winner';
 import './style.scss';
 
-function getId(submissions, winner) {
-  const found = _.find(submissions, s => (s.placement === winner.placement)) || {};
-  return found.submissionId;
-}
-
-export default function Winners(props) {
-  const {
-    winners,
-    prizes,
-    submissions,
-    viewable,
-    isDesign,
-  } = props;
+export default function Winners({
+  checkpointPrize,
+  winners,
+  prizes,
+  submissions,
+  viewable,
+  isDesign,
+}) {
+  const checkpointWinners = [];
+  const finalWinners = [];
+  if (winners) {
+    winners.forEach(w => (
+      w.type === 'checkpoint'
+        ? checkpointWinners.push(w)
+        : finalWinners.push(w)
+    ));
+  }
 
   return (
     <div styleName="container">
       {
-        winners && winners.filter(w => !w.type || w.type === 'final').map((w) => {
-          let placeStyle;
-          if (winners.length === 2 && w.placement === 2) {
-            placeStyle = 'place-2-alt';
-          } else {
-            placeStyle = w.placement > 0 && w.placement < 4 ?
-              `place-${w.placement}` : '';
-          }
-          const submissionId = getId(submissions, w);
-          return (
-            <div
-              styleName={`winner ${placeStyle}`}
-              key={submissionId}
-            >
-              <div styleName="thumbnail">
-                <div styleName="flag">{w.placement}</div>
-                {
-                  (submissionId && viewable && isDesign) ?
-                    (
-                      <img
-                        styleName="preview"
-                        alt=""
-                        src={`${config.URL.STUDIO}/studio.jpg` +
-                          `?module=DownloadSubmission&sbmid=${submissionId}&sbt=small&sfi=1`}
-                      />
-                    ) :
-                    (
-                      <div styleName="lock">
-                        <Lock styleName="lock-icon" />
-                        <div styleName="text">LOCKED</div>
-                      </div>
-                    )
-                }
-              </div>
-              <div styleName="info">
-                <a
-                  href={`${config.URL.BASE}/members/${w.handle}`}
-                  styleName="handle"
-                >{w.handle}</a>
-                <div styleName="prize">{`$${prizes[w.placement - 1].toLocaleString()}`}</div>
-                {
-                  submissionId &&
-                  <div styleName="id">ID: <span>#{getId(submissions, w)}</span></div>
-                }
-                {
-                  (w.submissionDownloadLink && viewable) &&
-                  <a
-                    styleName="download"
-                    target="_blank"
-                    href={isDesign ? `${config.URL.STUDIO}/?module=DownloadSubmission&sbmid=${submissionId}` : w.submissionDownloadLink}
-                  >Download</a>
-                }
-                <div styleName="date">
-                  <span>Submitted on: </span>
-                  <span>{moment(w.submissionDate).format('MMM DD, YYYY HH:mm')} EDT</span>
-                </div>
-              </div>
-            </div>
-          );
-        })
+        checkpointWinners.length && finalWinners.length ? (
+          <h1 styleName="section-title">Final Winners</h1>
+        ) : null
+      }
+      {
+        finalWinners.length ?
+          finalWinners.map(w => (
+            <Winner
+              isDesign={isDesign}
+              key={`${w.handle}-${w.placement}`}
+              prizes={prizes}
+              submissions={submissions}
+              viewable={viewable}
+              winner={w}
+            />
+          )) : null
+      }
+      {
+        checkpointWinners.length ? (
+          <h1 styleName="section-title">Checkpoint Winners</h1>
+        ) : null
+      }
+      {
+        checkpointWinners.length ? (
+          checkpointWinners.map(w => (
+            <Winner
+              checkpointPrize={checkpointPrize}
+              isDesign={isDesign}
+              key={`${w.handle}-${w.placement}`}
+              prizes={prizes}
+              submissions={submissions}
+              viewable={viewable}
+              winner={w}
+            />
+          ))
+        ) : null
       }
     </div>
   );
 }
 
 Winners.defaultProps = {
+  checkpointPrize: 0,
   winners: [],
   prizes: [],
   submissions: [],
@@ -103,6 +80,7 @@ Winners.defaultProps = {
 };
 
 Winners.propTypes = {
+  checkpointPrize: PT.number,
   winners: PT.arrayOf(PT.shape()),
   prizes: PT.arrayOf(PT.number),
   submissions: PT.arrayOf(PT.shape()),
