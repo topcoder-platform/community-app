@@ -14,7 +14,7 @@ import { combine, resolveReducers, toFSA } from 'utils/redux';
 import { getAuthTokens } from 'utils/tc';
 import { STATE as JOIN_COMMUNITY } from 'components/tc-communities/JoinCommunity';
 import { getService as getTermsService } from 'services/terms';
-import { getCommunityId } from 'routes/subdomains';
+import { getCommunityId } from 'server/services/communities';
 
 import { factory as metaFactory } from './meta';
 import { factory as newsFactory } from './news';

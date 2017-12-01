@@ -54,15 +54,11 @@ describe('challenge.getDetailsDone', () => {
   });
 
   const mockChallenge =
-    require('services/__mocks__/data/challenges-v3.json').result.content[0];
+    require('services/__mocks__/data/challenge-normalized.json');
+  mockChallenge.communities = new Set(mockChallenge.communities);
 
   test('payload is a promise which resolves to the expected object', () =>
-    a.payload.then(res => expect(res).toEqual([
-      mockChallenge, {
-        challengeId: '12345',
-        submissions: 'DUMMY DATA',
-      }, undefined,
-    ])),
+    a.payload.then(res => expect(res).toEqual(mockChallenge)),
   );
 });
 

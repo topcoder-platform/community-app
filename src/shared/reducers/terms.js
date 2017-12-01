@@ -4,7 +4,7 @@
 
 import _ from 'lodash';
 import actions from 'actions/terms';
-import { getCommunityId } from 'routes/subdomains';
+import { getCommunityId } from 'server/services/communities';
 import logger from 'utils/logger';
 import { handleActions } from 'redux-actions';
 import { toFSA } from 'utils/redux';

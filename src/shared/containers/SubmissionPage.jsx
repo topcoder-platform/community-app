@@ -143,7 +143,6 @@ SubmissionsPageContainer.propTypes = {
  * @return {Object}
  */
 const mapStateToProps = (state, ownProps) => {
-  const detailsV2 = state.challenge.detailsV2;
   const submission = state.page.submission;
   return {
     currentPhases: state.challenge.details.currentPhases,
@@ -151,8 +150,8 @@ const mapStateToProps = (state, ownProps) => {
 
     /* Older stuff below. */
     userId: state.auth.user.userId,
-    challengeId: detailsV2 && detailsV2.challengeId,
-    challengeName: detailsV2 && detailsV2.challengeName,
+    challengeId: state.challenge.details.id,
+    challengeName: state.challenge.details.name,
     challengesUrl: ownProps.challengesUrl,
     tokenV2: state.auth.tokenV2,
     tokenV3: state.auth.tokenV3,
@@ -169,7 +168,7 @@ const mapStateToProps = (state, ownProps) => {
     submissionFilestackData: submission.submissionFilestackData,
     sourceFilestackData: submission.sourceFilestackData,
     previewFilestackData: submission.previewFilestackData,
-    registrants: state.challenge.detailsV2.registrants,
+    registrants: state.challenge.details.registrants,
     handle: state.auth.user ? state.auth.user.handle : '',
   };
 };
