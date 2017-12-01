@@ -16,10 +16,8 @@ import Communities from './Communities';
 import Examples from './Examples';
 import Sandbox from './Sandbox';
 import Topcoder from './Topcoder';
-import { getCommunityId } from './subdomains';
 
-function Routes({ subdomains }) {
-  const communityId = getCommunityId(subdomains);
+function Routes({ communityId }) {
   if (communityId) {
     return (
       <CommunityLoader
@@ -68,9 +66,9 @@ function Routes({ subdomains }) {
 }
 
 Routes.propTypes = {
-  subdomains: PT.arrayOf(PT.string).isRequired,
+  communityId: PT.string.isRequired,
 };
 
 export default withRouter(connect(state => ({
-  subdomains: state.subdomains,
+  communityId: state.subdomainCommunity,
 }))(Routes));
