@@ -1,13 +1,14 @@
 @import '~styles/mixins';
 
-
-.compete,
-.compete:visited {
+.button,
+.button:visited {
+  border: none;
   font-family: "Proxima Nova", Arial, "Helvetica Neue", Helvetica, sans-serif;
   border-radius: 23px;
   height: 46px;
   width: 171px;
   background-color: $tc-dark-blue;
+  color: $tc-white;
   text-transform: none;
   transition: opacity 0.6s;
   font-size: 18px;
@@ -15,8 +16,6 @@
   line-height: 46px;
   -webkit-font-smoothing: antialiased;
   -webkit-backface-visibility: hidden;
-  text-align: center;
-  color: $tc-white;
 
   &:hover,
   &:active,
@@ -24,9 +23,9 @@
     opacity: 0.8;
     color: #fff;
   }
-}
 
-.competeLink,
-.competeLink:visited {
-  color: $tc-white;
+  &.disabled {
+    cursor: not-allowed;
+    opacity: 0.3;
+  }
 }

@@ -50,6 +50,8 @@ import defaultButton from './standard/default.scss';
 import ghostButton from './standard/ghost.scss';
 import primaryButton from './standard/primary.scss';
 import secondaryButton from './standard/secondary.scss';
+import primaryOutlineButton from './outline/round/open-sans/green-uppercase.scss';
+import secondaryOutlineButton from './outline/round/open-sans/blue-uppercase.scss';
 
 /* Generic button, not wrapped by themr, but accepting theme property.
  * In most cases you will want to use some of the themable exports below
@@ -134,5 +136,11 @@ export const PrimaryButton =
 
 export const SecondaryButton =
   themr('SecondaryButton', secondaryButton)(GenericButton);
+
+export const PrimaryOutlineButton =
+  themr('PrimaryOutlineButton', primaryOutlineButton)(GenericButton);
+
+export const SecondaryOutlineButton =
+  themr('SecondaryOutlineButton', secondaryOutlineButton)(GenericButton);
 
 export default Button;

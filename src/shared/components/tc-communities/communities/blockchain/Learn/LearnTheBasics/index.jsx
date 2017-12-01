@@ -9,6 +9,7 @@ import Text from 'components/tc-communities/Text';
 import { Link } from 'react-router-dom';
 
 import style from './style.scss';
+import joinButtonStyle from '../../themes/join-button-learn.scss';
 
 export default function LearnTheBasics({ baseUrl }) {
   return (
@@ -32,7 +33,7 @@ export default function LearnTheBasics({ baseUrl }) {
             </p>
             <JoinCommunity
               label="Join Now"
-              theme={{ link: style.joinnow }}
+              theme={{ link: joinButtonStyle }}
             />
           </Text>
         </AccordionItem>

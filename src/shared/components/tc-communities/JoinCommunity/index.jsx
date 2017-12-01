@@ -10,8 +10,10 @@ import LoadingIndicator from 'components/LoadingIndicator';
 import Modal from 'components/Modal';
 import PT from 'prop-types';
 import React from 'react';
-import { GenericButton } from 'components/buttons';
+import { GenericButton, Button } from 'components/buttons';
+import { COMPOSE } from 'react-css-super-themr';
 import style from './style.scss';
+import doneButtonStyle from './themes/done-button.scss';
 
 import ConfirmModal from './ConfirmModal';
 
@@ -36,12 +38,12 @@ export default function JoinCommunity({
   token,
   userId,
 }) {
-  if (state === STATE.HIDDEN) return <div styleName="placeholder" />;
+  if (state === STATE.HIDDEN) return <div className={style.placeholder} />;
   return (
     <div
       className={theme.container}
     >
-      <GenericButton
+      <Button
         onClick={() => {
           switch (state) {
             case STATE.JOINED:
@@ -52,7 +54,7 @@ export default function JoinCommunity({
           showJoinConfirmModal();
         }}
         className={state === STATE.JOINING ? style.joining : ''}
-        theme={{ button: theme.link, disabled: style.disabled }}
+        {...(theme.link ? { theme: theme.link, composeContextTheme: COMPOSE.SWAP } : {})}
       >
         { state === STATE.JOINING ? (
           <div>
@@ -60,14 +62,14 @@ export default function JoinCommunity({
             <LoadingIndicator theme={{ container: style.loadingIndicator }} />
           </div>
         ) : label}
-      </GenericButton>
+      </Button>
       { state === STATE.JOINED ? (
         <Modal onCancel={hideJoinButton}>
-          <h1 styleName="modalTitle">Congratulations!</h1>
-          <p styleName="modalMsg">You have joined the {communityName}!</p>
+          <h1 className={style.modalTitle}>Congratulations!</h1>
+          <p className={style.modalMsg}>You have joined the {communityName}!</p>
           <GenericButton
             onClick={hideJoinButton}
-            theme={{ button: style.done, disabled: style.disabled }}
+            theme={doneButtonStyle}
           >Return to the Community</GenericButton>
         </Modal>
       ) : null}
@@ -88,9 +90,7 @@ export default function JoinCommunity({
 JoinCommunity.defaultProps = {
   groupIds: [''],
   label: 'Join Community',
-  theme: {
-    link: style.link,
-  },
+  theme: {},
   token: null,
   userId: null,
 };

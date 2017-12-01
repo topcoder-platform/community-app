@@ -21,6 +21,7 @@ import JoinCommunity from 'containers/tc-communities/JoinCommunity';
 // import IconMedal from '../../../../../../assets/images/tc-communities/medal.svg';
 
 import style from './style.scss';
+import joinButtonStyle from '../themes/join-button.scss';
 
 export default function Home(/* props */) {
   return (
@@ -31,7 +32,7 @@ export default function Home(/* props */) {
         imageSrc="/community-app-assets/themes/blockchain/home/banner.png"
       >
         <JoinCommunity
-          theme={{ link: style.joinNow }}
+          theme={{ link: joinButtonStyle }}
           label="Join Now"
         />
       </Banner>

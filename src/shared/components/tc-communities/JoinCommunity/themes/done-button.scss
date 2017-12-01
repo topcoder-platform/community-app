@@ -1,0 +1,33 @@
+@import "~styles/mixins";
+
+.button {
+  color: $tc-light-blue;
+  display: block;
+  background: $tc-white;
+  border: 1px solid $tc-light-blue;
+  border-radius: 20px;
+  font: 700 14px/40px 'Open Sans';
+  margin: 0 auto;
+  height: 40px;
+  text-align: center;
+  text-transform: uppercase;
+  width: 300px;
+
+  &:hover,
+  &:active,
+  &:focus,
+  &:visited {
+    color: $tc-light-blue;
+    outline: none;
+    text-decoration: none;
+  }
+
+  &.disabled {
+    cursor: not-allowed;
+    opacity: 0.3;
+  }
+
+  &:hover {
+    background: $tc-light-blue-10;
+  }
+}

@@ -7,6 +7,23 @@
   text-align: center;
 }
 
-.buttons {
+.joinButtons,
+.loginButtons {
   text-align: center;
+
+  button {
+    margin: 24px 12px 0;
+  }
+}
+
+.joinButtons {
+  button {
+    width: 100px;
+  }
+}
+
+.loginButtons {
+  button {
+    width: 200px;
+  }
 }

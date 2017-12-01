@@ -1,0 +1,27 @@
+.button {
+  color: #0092ff;
+  background: white;
+  display: inline-block;
+  border: 1px solid #0092ff;
+  border-radius: 20px;
+  font: 700 14px/40px 'Open Sans';
+  height: 40px;
+  text-align: center;
+  text-transform: uppercase;
+  width: 171px;
+
+  a,
+  &:hover,
+  &:active,
+  &:focus,
+  &:visited {
+    color: #0092ff;
+    outline: none;
+    text-decoration: none;
+  }
+
+  &.disabled {
+    cursor: not-allowed;
+    opacity: 0.3;
+  }
+}

@@ -32,35 +32,6 @@
   }
 }
 
-.joinNow {
-  color: #0092ff;
-  display: inline-block;
-  background: white;
-  border: none;
-  border-radius: 20px;
-  font: 700 14px/40px 'Open Sans';
-  height: 40px;
-  margin-top: 24px;
-  text-align: center;
-  text-transform: uppercase;
-  width: 171px;
-
-  &:hover,
-  &:active,
-  &:focus,
-  &:visited {
-    color: #0092ff;
-    outline: none;
-    text-decoration: none;
-  }
-
-  p {
-    display: inline-block;
-    position: relative;
-    top: -7px;
-  }
-}
-
 .introContainer {
   background: $tc-gray-neutral-light;
   color: #787d81;
