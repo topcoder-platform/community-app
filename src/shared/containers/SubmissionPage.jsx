@@ -11,6 +11,9 @@ import React from 'react';
 import PT from 'prop-types';
 import { connect } from 'react-redux';
 import SubmissionsPage from 'components/SubmissionPage';
+import AccessDenied, {
+  CAUSE as ACCESS_DENIED_REASON,
+} from 'components/tc-communities/AccessDenied';
 
 /**
  * SubmissionsPage Container
@@ -39,6 +42,10 @@ class SubmissionsPageContainer extends React.Component {
   }
 
   render() {
+    const { registrants, handle } = this.props;
+    const isRegistered = registrants.find(r => r.handle === handle);
+
+    if (!isRegistered) return <AccessDenied cause={ACCESS_DENIED_REASON.NOT_AUTHORIZED} />;
     return (
       <SubmissionsPage
         {...this.props}
@@ -124,6 +131,8 @@ SubmissionsPageContainer.propTypes = {
   submissionFilestackData: filestackDataProp.isRequired,
   sourceFilestackData: filestackDataProp.isRequired,
   previewFilestackData: filestackDataProp.isRequired,
+  registrants: PT.arrayOf(PT.object).isRequired,
+  handle: PT.string.isRequired,
 };
 
 /**
@@ -134,7 +143,6 @@ SubmissionsPageContainer.propTypes = {
  * @return {Object}
  */
 const mapStateToProps = (state, ownProps) => {
-  const detailsV2 = state.challenge.detailsV2;
   const submission = state.page.submission;
   return {
     currentPhases: state.challenge.details.currentPhases,
@@ -142,8 +150,8 @@ const mapStateToProps = (state, ownProps) => {
 
     /* Older stuff below. */
     userId: state.auth.user.userId,
-    challengeId: detailsV2 && detailsV2.challengeId,
-    challengeName: detailsV2 && detailsV2.challengeName,
+    challengeId: state.challenge.details.id,
+    challengeName: state.challenge.details.name,
     challengesUrl: ownProps.challengesUrl,
     tokenV2: state.auth.tokenV2,
     tokenV3: state.auth.tokenV3,
@@ -160,6 +168,8 @@ const mapStateToProps = (state, ownProps) => {
     submissionFilestackData: submission.submissionFilestackData,
     sourceFilestackData: submission.sourceFilestackData,
     previewFilestackData: submission.previewFilestackData,
+    registrants: state.challenge.details.registrants,
+    handle: state.auth.user ? state.auth.user.handle : '',
   };
 };
 

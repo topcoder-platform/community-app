@@ -12,9 +12,9 @@ import { DETAIL_TABS } from 'actions/challenge';
 
 import style from './style.scss';
 
-function getSelectorStyle(selectedView, currentView, track) {
+function getSelectorStyle(selectedView, currentView) {
   return `challenge-selector-common ${(selectedView === currentView ?
-    `${track}-accent-color ${track}-accent-bottom-border` : 'challenge-unselected-view')}`;
+    'challenge-selected-view' : 'challenge-unselected-view')}`;
 }
 
 export default function ChallengeViewSelector(props) {
@@ -74,23 +74,25 @@ export default function ChallengeViewSelector(props) {
       <div styleName="challenge-view-selector">
         <a
           onClick={(e) => { handleSelectorClicked(e, DETAIL_TABS.DETAILS); }}
-          styleName={getSelectorStyle(selectedView, DETAIL_TABS.DETAILS, trackLower)}
+          styleName={getSelectorStyle(selectedView, DETAIL_TABS.DETAILS)}
         >DETAILS
         </a>
-        <a
-          onClick={(e) => { handleSelectorClicked(e, DETAIL_TABS.REGISTRANTS); }}
-          styleName={getSelectorStyle(selectedView, DETAIL_TABS.REGISTRANTS, trackLower)}
-        >REGISTRANTS {numRegistrants ? `(${numRegistrants})` : ''}
-        </a>
+        {
+          numRegistrants ? (
+            <a
+              onClick={(e) => {
+                handleSelectorClicked(e, DETAIL_TABS.REGISTRANTS);
+              }}
+              styleName={getSelectorStyle(selectedView, DETAIL_TABS.REGISTRANTS)}
+            >REGISTRANTS ({numRegistrants})
+            </a>
+          ) : null
+        }
         {
           trackLower === 'design' && checkpointCount > 0 &&
           <a
             onClick={(e) => { handleSelectorClicked(e, DETAIL_TABS.CHECKPOINTS); }}
-            styleName={getSelectorStyle(
-              selectedView,
-              DETAIL_TABS.CHECKPOINTS,
-              trackLower,
-            )}
+            styleName={getSelectorStyle(selectedView, DETAIL_TABS.CHECKPOINTS)}
           >CHECKPOINTS ({checkpointCount})
           </a>
         }
@@ -98,11 +100,7 @@ export default function ChallengeViewSelector(props) {
           numSubmissions ? (
             <a
               onClick={(e) => { handleSelectorClicked(e, DETAIL_TABS.SUBMISSIONS); }}
-              styleName={getSelectorStyle(
-                selectedView,
-                DETAIL_TABS.SUBMISSIONS,
-                trackLower,
-              )}
+              styleName={getSelectorStyle(selectedView, DETAIL_TABS.SUBMISSIONS)}
             >SUBMISSIONS ({numSubmissions})</a>
           ) : null
         }
@@ -110,14 +108,14 @@ export default function ChallengeViewSelector(props) {
           numWinners ? (
             <a
               onClick={(e) => { handleSelectorClicked(e, DETAIL_TABS.WINNERS); }}
-              styleName={getSelectorStyle(selectedView, DETAIL_TABS.WINNERS, trackLower)}
+              styleName={getSelectorStyle(selectedView, DETAIL_TABS.WINNERS)}
             >WINNERS ({ numWinners })</a>
           ) : null
         }
         { (hasRegistered || Boolean(roles.length)) &&
           <a
             href={`${config.URL.FORUMS}${forumEndpoint}`}
-            styleName={getSelectorStyle(selectedView, 'CHALLENGE_FORUM', trackLower)}
+            styleName={getSelectorStyle(selectedView, DETAIL_TABS.CHALLENGE_FORUM)}
           >CHALLENGE FORUM</a>
         }
       </div>

@@ -166,7 +166,7 @@ function Header(props) {
             <div className={theme.challengeDropdown}>
               <Dropdown
                 options={communitySelector}
-                value={communitySelector[0]}
+                value="-1"
               />
             </div>
 

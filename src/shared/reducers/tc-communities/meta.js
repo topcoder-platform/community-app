@@ -6,7 +6,7 @@ import _ from 'lodash';
 import actions from 'actions/tc-communities/meta';
 import logger from 'utils/logger';
 import { handleActions } from 'redux-actions';
-import { getCommunityId } from 'routes/subdomains';
+import { getCommunityId } from 'server/services/communities';
 import { toFSA } from 'utils/redux';
 import { getAuthTokens } from 'utils/tc';
 

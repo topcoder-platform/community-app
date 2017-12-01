@@ -5,16 +5,10 @@ const mockChallengeActions = {
   challenge: {
     getDetailsInit: mockAction('CHALLENGE/GET_DETAILS_INIT', '12345'),
     getDetailsDone: mockAction(
-      'CHALLENGE/GET_DETAILS_DONE', [{
+      'CHALLENGE/GET_DETAILS_DONE', {
         id: 12345,
-        tag: 'v3-details',
-      }, {
-        challengeId: '12345',
-        tag: 'v2-details',
-      }, {
-        id: 12345,
-        tag: 'v3-user-details',
-      }],
+        tag: 'v3-normalized-details',
+      },
     ),
     getDetailsDoneError: mockAction(
       'CHALLENGE/GET_DETAILS_DONE',
@@ -80,7 +74,6 @@ function testReducer(reducer, istate) {
       loadingResultsForChallengeId: '',
       fetchChallengeFailure: false,
       details: null,
-      detailsV2: null,
       checkpoints: null,
       registering: false,
       results: null,
@@ -100,11 +93,7 @@ function testReducer(reducer, istate) {
       loadingDetailsForChallengeId: '',
       details: {
         id: 12345,
-        tag: 'v3-user-details',
-      },
-      detailsV2: {
-        challengeId: '12345',
-        tag: 'v2-details',
+        tag: 'v3-normalized-details',
       },
       checkpoints: null,
       loadingResultsForChallengeId: '',
@@ -126,11 +115,7 @@ function testReducer(reducer, istate) {
       loadingDetailsForChallengeId: '',
       details: {
         id: 12345,
-        tag: 'v3-user-details',
-      },
-      detailsV2: {
-        challengeId: '12345',
-        tag: 'v2-details',
+        tag: 'v3-normalized-details',
       },
       checkpoints: null,
       loadingResultsForChallengeId: '',
@@ -152,11 +137,7 @@ function testReducer(reducer, istate) {
       loadingDetailsForChallengeId: '',
       details: {
         id: 12345,
-        tag: 'v3-user-details',
-      },
-      detailsV2: {
-        challengeId: '12345',
-        tag: 'v2-details',
+        tag: 'v3-normalized-details',
       },
       checkpoints: null,
       loadingCheckpoints: false,
@@ -180,11 +161,7 @@ function testReducer(reducer, istate) {
       loadingDetailsForChallengeId: '',
       details: {
         id: 12345,
-        tag: 'v3-user-details',
-      },
-      detailsV2: {
-        challengeId: '12345',
-        tag: 'v2-details',
+        tag: 'v3-normalized-details',
       },
       checkpoints: null,
       loadingCheckpoints: false,
@@ -204,7 +181,6 @@ function testReducer(reducer, istate) {
       loadingDetailsForChallengeId: '',
       fetchChallengeFailure: 'Unknown error',
       details: null,
-      detailsV2: null,
       checkpoints: null,
       loadingCheckpoints: false,
       loadingResultsForChallengeId: '',
@@ -226,7 +202,6 @@ function testReducer(reducer, istate) {
       loadingDetailsForChallengeId: '',
       fetchChallengeFailure: 'Unknown error',
       details: null,
-      detailsV2: null,
       checkpoints: null,
       mySubmissions: { v2: [] },
       loadingCheckpoints: false,
@@ -245,7 +220,6 @@ function testReducer(reducer, istate) {
 describe('Default reducer', () =>
   testReducer(reducers.default, {
     details: null,
-    detailsV2: null,
     checkpoints: null,
     loadingCheckpoints: false,
     loadingDetailsForChallengeId: '',
@@ -267,7 +241,6 @@ describe('Factory without http request', () =>
   reducers.factory().then(res =>
     testReducer(res, {
       details: null,
-      detailsV2: null,
       checkpoints: null,
       loadingCheckpoints: false,
       loadingDetailsForChallengeId: '',
@@ -288,7 +261,6 @@ describe('Factory with server-side rendering', () =>
   }).then(res =>
     testReducer(res, {
       details: null,
-      detailsV2: null,
       checkpoints: null,
       loadingCheckpoints: false,
       loadingDetailsForChallengeId: '',
@@ -305,7 +277,6 @@ describe('Factory without server-side rendering', () =>
   }).then(res =>
     testReducer(res, {
       details: null,
-      detailsV2: null,
       checkpoints: null,
       loadingCheckpoints: false,
       loadingDetailsForChallengeId: '',
