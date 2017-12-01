@@ -7,14 +7,6 @@
   },
   "communityId": "qa",
   "communityName": "QA Community",
-  "communitySelector": [{
-    "label": "QA Community",
-    "value": "1"
-  }, {
-    "label": "Topcoder Public Community",
-    "redirect": "https://www.topcoder.com",
-    "value": "2"
-  }],
   "groupIds": ["20000012","20000004"],
   "logos": [{
     "img": "/community-app-assets/themes/qa/logo_topcoder_with_name.svg",

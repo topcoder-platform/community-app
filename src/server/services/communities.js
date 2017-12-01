@@ -130,6 +130,7 @@ export default class Communities {
               description: data.description,
               groupIds: data.groupIds,
               image: data.image,
+              mainSubdomain: _.get(data, 'subdomains[0]', ''),
             });
           }
         }).catch(() => null),

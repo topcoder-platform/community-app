@@ -13,18 +13,6 @@ To add a new community with the name **demo**, we should follow the following pr
       },
       "challengeListing": {},
       "communityId": "demo",
-      "communitySelector": [{
-        "label": "Demo Community",
-        "value": "1"
-      }, {
-        "label": "Cognitive Community",
-        "redirect": "http://cognitive.topcoder.com/",
-        "value": "2"
-      }, {
-        "label": "iOS Community",
-        "redirect": "https://ios.topcoder.com/",
-        "value": "3"
-      }],
       "groupIds": ["12345"],
       "leaderboardApiUrl": "https://api.topcoder.com/v4/looks/0/run/json/",
       "logos": [
@@ -92,7 +80,6 @@ To add a new community with the name **demo**, we should follow the following pr
             - `money-usd` - Prizes are shown in USD (no actual conversion needed);
             - `points` - Points are shown rather than the prizes. The points are taken from `drPoints` field of challenge objects. There is no prizes tooltip in this case.
     -   `communityId` - *String* - Unique ID of this community.
-    -   `communitySelector` - *Object Array* - Specifies data for the community selection dropdown inside the community header. Each object MUST HAVE `label` and `value` string fields, and MAY HAVE `redirect` field. If `redirect` field is specified, a click on that option in the dropdown will redirect user to the specified URL.
     -   `groupIds` - *String Array* - Community user groups. All members of these groups, or their descendants, will be treated as members of the community. ***Join Community functionality, where available, adds user to the first group from this array. Most probably, this behavior will be updated soon.***
     -   `leaderboardApiUrl` - *String* - Endpoint from where the leaderboard data should be loaded.
     -   `logos` - *String Array | Object Array* - Array of image URLs to insert as logos into the left corner of community's header, alternatively the array may contain JS objects of shape

@@ -7,14 +7,6 @@
   },
   "communityId": "blockchain",
   "communityName": "Blockchain Community",
-  "communitySelector": [{
-    "label": "Blockchain Community",
-    "value": "1"
-  }, {
-    "label": "Topcoder Public Community",
-    "redirect": "https://www.topcoder.com",
-    "value": "2"
-  }],
   "groupIds": ["20000010"],
   "hideSearch": true,
   "logos": [{

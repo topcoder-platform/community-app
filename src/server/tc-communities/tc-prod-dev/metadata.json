@@ -4,18 +4,6 @@
   },
   "communityId": "tc-prod-dev",
   "communityName": "Topcoder Product Development",
-  "communitySelector": [{
-    "label": "Topcoder Product Development",
-    "value": "1"
-  }, {
-    "label": "Cognitive Community",
-    "redirect": "http://cognitive.topcoder.com/",
-    "value": "2"
-  }, {
-    "label": "iOS Community",
-    "redirect": "https://ios.topcoder.com/",
-    "value": "3"
-  }],
   "groupIds": ["20000013"],
   "terms": [21193,21153],
   "logos": [{

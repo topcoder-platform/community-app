@@ -3,6 +3,7 @@
  */
 
 import _ from 'lodash';
+import config from 'utils/config';
 import PT from 'prop-types';
 import React from 'react';
 import actions from 'actions/topcoder_header';
@@ -18,18 +19,27 @@ class HeaderContainer extends React.Component {
   }
 
   render() {
-    const { communityId, communitySelector, communityList } = this.props;
-    const selectorLabels = communitySelector.map(({ label }) => label);
-    const newCommunitySelector = communitySelector.concat(
-      communityList.filter(({ communityId: id, communityName }) =>
-        id !== communityId && selectorLabels.indexOf(communityName) < 0)
-        .map(({ communityId: id, communityName }, i) => ({
-          value: (i + (communitySelector || []).length).toString(),
+    const { communityId, communityList } = this.props;
+    const communitySelector =
+      [{
+        label: 'Topcoder Public Community',
+        value: '0',
+        redirect: config.URL.BASE,
+      }].concat(
+        communityList.map(({
+          communityId: id,
+          communityName,
+          mainSubdomain,
+        },
+        i,
+        ) => ({
+          value: communityId === id ? '-1' : (1 + i).toString(),
           label: communityName,
-          redirect: `/community/${id}`,
-        })),
-    );
-    return <Header {...this.props} communitySelector={newCommunitySelector} />;
+          redirect: mainSubdomain ? (
+            config.URL.BASE.replace('www', mainSubdomain)
+          ) : `/community/${id}`,
+        }))).sort((a, b) => a.label.localeCompare(b.label));
+    return <Header {...this.props} communitySelector={communitySelector} />;
   }
 }
 
@@ -46,7 +56,6 @@ HeaderContainer.propTypes = {
     communityName: PT.string.isRequired,
   })),
   communityId: PT.string.isRequired,
-  communitySelector: PT.arrayOf(PT.shape()).isRequired,
 };
 
 function mapStateToProps(state, ownProps) {
@@ -63,7 +72,6 @@ function mapStateToProps(state, ownProps) {
     chevronOverAvatar: meta.chevronOverAvatar,
     communityId: meta.communityId,
     communityList: state.tcCommunities.list,
-    communitySelector: meta.communitySelector,
     groupIds: meta.groupIds,
     hideJoinNow: ownProps.hideJoinNow,
     hideSearch: meta.hideSearch,

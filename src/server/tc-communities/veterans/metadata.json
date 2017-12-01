@@ -4,14 +4,6 @@
   },
   "communityId": "veterans",
   "communityName": "Veterans Community",
-  "communitySelector": [{
-    "label": "Veterans Community",
-    "value": "1"
-  }, {
-    "label": "Topcoder Public Community",
-    "redirect": "https://www.topcoder.com",
-    "value": "2"
-  }],
   "groupIds": ["20000013"],
   "terms": [21193],
   "logos": [{

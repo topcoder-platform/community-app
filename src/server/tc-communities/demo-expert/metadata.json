@@ -5,18 +5,6 @@
   },
   "communityId": "demo-expert",
   "communityName": "Demo Expert Community",
-  "communitySelector": [{
-    "label": "Demo Expert Community",
-    "value": "1"
-  }, {
-    "label": "Cognitive Community",
-    "redirect": "http://cognitive.topcoder.com/",
-    "value": "2"
-  }, {
-    "label": "iOS Community",
-    "redirect": "https://ios.topcoder.com/",
-    "value": "3"
-  }],
   "groupIds": ["1001"],
   "logos": [{
     "img": "/community-app-assets/themes/demo-expert/logo_topcoder_with_name.svg",
