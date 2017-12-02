@@ -67,8 +67,8 @@ const DAY = 24 * 60 * 60 * 1000;
 function getOgImage(challenge) {
   if (challenge.name.startsWith('LUX -')) return ogLuxChallenge;
   if (challenge.name.startsWith('RUX -')) return ogRuxChallenge;
-  if (challenge.prize) {
-    const totalPrize = challenge.prize.reduce((p, sum) => p + sum, 0);
+  if (challenge.prizes) {
+    const totalPrize = challenge.prizes.reduce((p, sum) => p + sum, 0);
     if (totalPrize > 3000) return ogBigPrizesChallenge;
   }
   switch (challenge.subTrack) {
