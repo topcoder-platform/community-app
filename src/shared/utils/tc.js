@@ -30,6 +30,13 @@ export const COMPETITION_TRACKS = {
   DEVELOP: 'develop',
 };
 
+/* Holds valid subtracks (only some of possible values are included into this
+ * map at the moment). */
+export const SUBTRACKS = {
+  UI_PROTOTYPE_COMPETITION: 'UI_PROTOTYPE_COMPETITION',
+  WIREFRAMES: 'WIREFRAMES',
+};
+
 /**
  * Possible user roles in a challenge (at the moment it is not a full list,
  * just those we already have used in this repo for any purpose).
