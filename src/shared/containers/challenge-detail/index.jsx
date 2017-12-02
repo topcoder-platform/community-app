@@ -26,8 +26,71 @@ import challengeActions, { DETAIL_TABS } from 'actions/challenge';
 import config from 'utils/config';
 import MetaTags from 'utils/MetaTags';
 import { BUCKETS } from 'utils/challenge-listing/buckets';
-import ogImage from '../../../assets/images/og_image.jpg';
+import { CHALLENGE_PHASE_TYPES, COMPETITION_TRACKS_V3, SUBTRACKS } from 'utils/tc';
+
+import ogWireframe from
+  '../../../assets/images/open-graph/challenges/01-wireframe.jpg';
+import ogUiDesign from
+  '../../../assets/images/open-graph/challenges/02-ui-design.jpg';
+import ogUiPrototype from
+  '../../../assets/images/open-graph/challenges/03-ui-prototype.jpg';
+import ogFirst2Finish from
+  '../../../assets/images/open-graph/challenges/04-first-2-finish.jpg';
+import ogDevelopment from
+  '../../../assets/images/open-graph/challenges/05-development.jpg';
+import ogBigPrizesChallenge from
+  '../../../assets/images/open-graph/challenges/09-big-prizes-challenge.jpg';
+import ogLuxChallenge from
+  '../../../assets/images/open-graph/challenges/10-lux-challenge.jpg';
+import ogRuxChallenge from
+  '../../../assets/images/open-graph/challenges/11-rux-challenge.jpg';
+import og24hUiPrototype from
+  '../../../assets/images/open-graph/challenges/12-24h-ui-prototype-challenge.jpg';
+import og48hUiPrototype from
+  '../../../assets/images/open-graph/challenges/13-48h-ui-prototype-challenge.jpg';
+
+/* A fallback image, just in case we missed some corner case. */
+import ogImage from
+  '../../../assets/images/og_image.jpg';
+
 import './styles.scss';
+
+/* Holds one day in milliseconds. */
+const DAY = 24 * 60 * 60 * 1000;
+
+/**
+ * Given challenge details object, it returns the URL of the image to be used in
+ * OpenGraph (i.e. in social sharing posts).
+ * @param {Object} challenge
+ * @return {String}
+ */
+function getOgImage(challenge) {
+  if (challenge.name.startsWith('LUX -')) return ogLuxChallenge;
+  if (challenge.name.startsWith('RUX -')) return ogRuxChallenge;
+  if (challenge.prize) {
+    const totalPrize = challenge.prize.reduce((p, sum) => p + sum, 0);
+    if (totalPrize > 3000) return ogBigPrizesChallenge;
+  }
+  switch (challenge.subTrack) {
+    case SUBTRACKS.FIRST_2_FINISH: return ogFirst2Finish;
+    case SUBTRACKS.UI_PROTOTYPE_COMPETITION: {
+      const submission = challenge.allPhases
+        .find(p => p.phaseType === CHALLENGE_PHASE_TYPES.SUBMISSION);
+      if (submission) {
+        if (submission.duration < 1.1 * DAY) return og24hUiPrototype;
+        if (submission.duration < 2.1 * DAY) return og48hUiPrototype;
+      }
+      return ogUiPrototype;
+    }
+    case SUBTRACKS.WIREFRAMES: return ogWireframe;
+    default:
+  }
+  switch (challenge.track) {
+    case COMPETITION_TRACKS_V3.DEVELOP: return ogDevelopment;
+    case COMPETITION_TRACKS_V3.DESIGN: return ogUiDesign;
+    default: return ogImage;
+  }
+}
 
 function isRegistered(details, registrants, handle) {
   if (details && details.roles && details.roles.includes('Submitter')) {
@@ -141,7 +204,7 @@ class ChallengeDetailPageContainer extends React.Component {
             !isEmpty &&
             <MetaTags
               description={description.slice(0, 155)}
-              image={`${domain}${ogImage}`}
+              image={`${domain}${getOgImage(challenge)}`}
               siteName="Topcoder"
               socialDescription={description.slice(0, 200)}
               socialTitle={`${prizesStr}${title}`}
