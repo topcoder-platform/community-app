@@ -26,7 +26,7 @@ import challengeActions, { DETAIL_TABS } from 'actions/challenge';
 import config from 'utils/config';
 import MetaTags from 'utils/MetaTags';
 import { BUCKETS } from 'utils/challenge-listing/buckets';
-import { CHALLENGE_PHASE_TYPES, COMPETITION_TRACKS, SUBTRACKS } from 'utils/tc';
+import { CHALLENGE_PHASE_TYPES, COMPETITION_TRACKS_V3, SUBTRACKS } from 'utils/tc';
 
 import ogWireframe from
   '../../../assets/images/open-graph/challenges/01-wireframe.jpg';
@@ -86,8 +86,8 @@ function getOgImage(challenge) {
     default:
   }
   switch (challenge.track) {
-    case COMPETITION_TRACKS.DEVELOP: return ogDevelopment;
-    case COMPETITION_TRACKS.DESIGN: return ogUiDesign;
+    case COMPETITION_TRACKS_V3.DEVELOP: return ogDevelopment;
+    case COMPETITION_TRACKS_V3.DESIGN: return ogUiDesign;
     default: return ogImage;
   }
 }
