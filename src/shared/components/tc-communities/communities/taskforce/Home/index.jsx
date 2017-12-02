@@ -18,6 +18,7 @@ import Text from 'components/tc-communities/Text';
 
 import CommunityStats from 'containers/tc-communities/CommunityStats';
 import JoinCommunity from 'containers/tc-communities/JoinCommunity';
+import joinButtonStyle from 'components/buttons/outline/round/open-sans/green-uppercase.scss';
 
 import IconRocket from '../../../../../../assets/images/tc-communities/rocket.svg';
 import IconNetwork from '../../../../../../assets/images/tc-communities/network.svg';
@@ -56,7 +57,7 @@ export default function Home(props) {
         }}
       />
 
-      <JoinCommunity />
+      <JoinCommunity theme={{ link: joinButtonStyle, container: style.joinContainer }} />
 
       <Section
         anchor="why-topcoder-taskforce"

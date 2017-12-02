@@ -13,7 +13,7 @@ import config from 'utils/config';
 import Modal from 'components/Modal';
 import PT from 'prop-types';
 import React from 'react';
-import { PrimaryOutlineButton, SecondaryOutlineButton } from 'components/buttons';
+import { PrimaryButton, SecondaryButton } from 'components/buttons';
 import style from './style.scss';
 
 export default function ConfirmModal({
@@ -38,24 +38,24 @@ export default function ConfirmModal({
       </div>
       { userId ? (
         <div className={style.joinButtons}>
-          <PrimaryOutlineButton
+          <PrimaryButton
             onClick={() => join(token, groupIds[0], userId)}
-          >Join</PrimaryOutlineButton>
-          <SecondaryOutlineButton
+          >Join</PrimaryButton>
+          <SecondaryButton
             onClick={resetJoinButton}
-          >Cancel</SecondaryOutlineButton>
+          >Cancel</SecondaryButton>
         </div>
       ) : (
         <div className={style.loginButtons}>
-          <PrimaryOutlineButton
+          <PrimaryButton
             onClick={() => {
               const url = encodeURIComponent(
                 `${window.location.href}?join=${groupIds[0]}`,
               );
               window.location = `${config.URL.AUTH}/member?retUrl=${url}`;
             }}
-          >Login</PrimaryOutlineButton>
-          <PrimaryOutlineButton
+          >Login</PrimaryButton>
+          <PrimaryButton
             onClick={() => {
               let url = encodeURIComponent(
                 `${window.location.href}?join=${groupIds[0]}`,
@@ -66,10 +66,10 @@ export default function ConfirmModal({
               url = encodeURIComponent(url);
               window.location = `${config.URL.AUTH}/member/registration?retUrl=${url}`;
             }}
-          >Register</PrimaryOutlineButton>
-          <SecondaryOutlineButton
+          >Register</PrimaryButton>
+          <SecondaryButton
             onClick={resetJoinButton}
-          >Cancel</SecondaryOutlineButton>
+          >Cancel</SecondaryButton>
         </div>
       )}
     </Modal>

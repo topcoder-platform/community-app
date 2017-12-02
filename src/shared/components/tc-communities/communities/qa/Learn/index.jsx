@@ -15,6 +15,7 @@ import Banner from 'components/tc-communities/Banner';
 import LinksCard from 'components/tc-communities/LinksCard';
 import Text from 'components/tc-communities/Text';
 
+import joinButtonStyle from 'components/buttons/outline/round/open-sans/green-uppercase.scss';
 import style from './style.scss';
 
 export default function Learn() {
@@ -42,7 +43,7 @@ export default function Learn() {
           <AccordionItem title="Joining the  Community">
             <Text>
               <p>First things first, ...make sure you sign up for Topcoder. It&apos;s quick and painless and opens the door to a whole new world.</p>
-              <JoinCommunity />
+              <JoinCommunity theme={{ link: joinButtonStyle, container: style.joinContainer }} />
             </Text>
           </AccordionItem>
           <AccordionItem title="How do I participate in a challenge?">

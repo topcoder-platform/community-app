@@ -10,7 +10,7 @@ import LoadingIndicator from 'components/LoadingIndicator';
 import Modal from 'components/Modal';
 import PT from 'prop-types';
 import React from 'react';
-import { GenericButton, Button } from 'components/buttons';
+import { Button } from 'components/buttons';
 import { COMPOSE } from 'react-css-super-themr';
 import style from './style.scss';
 import doneButtonStyle from './themes/done-button.scss';
@@ -67,10 +67,11 @@ export default function JoinCommunity({
         <Modal onCancel={hideJoinButton}>
           <h1 className={style.modalTitle}>Congratulations!</h1>
           <p className={style.modalMsg}>You have joined the {communityName}!</p>
-          <GenericButton
+          <Button
             onClick={hideJoinButton}
             theme={doneButtonStyle}
-          >Return to the Community</GenericButton>
+            composeContextTheme={COMPOSE.SWAP}
+          >Return to the Community</Button>
         </Modal>
       ) : null}
       { state === STATE.CONFIRM_JOIN ? (
