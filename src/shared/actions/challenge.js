@@ -5,7 +5,6 @@
 import _ from 'lodash';
 import { createActions } from 'redux-actions';
 import { getService as getChallengesService } from 'services/challenges';
-import { decodeToken } from 'tc-accounts';
 import { getApiV2 } from '../services/api';
 
 /**
@@ -42,19 +41,8 @@ function getDetailsInit(challengeId) {
  */
 function getDetailsDone(challengeId, tokenV3, tokenV2) {
   const service = getChallengesService(tokenV3, tokenV2);
-  const v3Promise = service.getChallenges({ id: challengeId })
-    .then(res => res.challenges[0]);
-  return Promise.all([
-    v3Promise,
-    v3Promise.then((v3) => {
-      const type = v3.track.toLowerCase() || 'develop';
-      return getApiV2(tokenV2).fetch(`/${type}/challenges/${challengeId}`)
-        .then(res => res.json());
-    }),
-    tokenV3 && service.getUserChallenges(decodeToken(tokenV3).handle, {
-      id: challengeId,
-    }).then(res => res.challenges[0]),
-  ]);
+  const v3Promise = service.getChallengeDetails(challengeId);
+  return v3Promise;
 }
 
 /**
@@ -120,7 +108,7 @@ function unregisterDone(auth, challengeId) {
 
 /**
  * Initiates loading of challenge results. Any loading of results initiated
- * before will be silently discarted.
+ * before will be silently discarded.
  * @param {Number|String} challengeId
  * @return {String}
  */

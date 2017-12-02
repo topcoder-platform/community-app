@@ -1,0 +1,222 @@
+@import "~styles/mixins";
+
+.avatar-prize {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+
+  @include xs-to-sm {
+    margin-bottom: 10px;
+  }
+}
+
+.avatar {
+  border-radius: 65px !important;
+  height: 65px !important;
+  margin: 5px 15px 0 0 !important;
+  width: 65px !important;
+}
+
+.winner {
+  &.place-1 {
+    min-width: 100%;
+
+    .flag {
+      background-color: $tc-gold;
+      color: $tc-black;
+
+      &::after {
+        border-top: solid 20px $tc-gold;
+      }
+    }
+  }
+
+  &.place-2 {
+    .flag {
+      background-color: $tc-silver;
+
+      &::after {
+        border-top: solid 20px $tc-silver;
+      }
+    }
+  }
+
+  &.place-2-alt {
+    width: 100%;
+
+    .flag {
+      background-color: $tc-silver;
+
+      &::after {
+        border-top: solid 20px $tc-silver;
+      }
+    }
+  }
+
+  &.place-3 {
+    .flag {
+      background-color: $tc-bronze;
+
+      &::after {
+        border-top: solid 20px $tc-bronze;
+      }
+    }
+  }
+
+  &:nth-child(2n+3) {
+    // border-left: none;
+  }
+
+  @include xs-to-sm {
+    height: auto;
+    min-width: 100%;
+  }
+
+  flex: 1;
+  height: 300px;
+  min-width: 50%;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid $tc-gray-10;
+  // border-top: none;
+  padding: 4 * $base-unit;
+}
+
+.thumbnail {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: $tc-gray-neutral-light;
+  border-radius: 4px;
+  border: 1px solid $tc-gray-neutral-dark;
+  width: 117px;
+  height: 117px;
+  margin-bottom: 25px;
+  margin-right: 23px;
+  position: relative;
+
+  .lock {
+    .text {
+      color: $tc-gray-50;
+      font-size: 12px;
+    }
+  }
+
+  .preview {
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.thumbnail-wrapper {
+  display: flex;
+  flex: 1;
+  justify-content: flex-end;
+}
+
+.flag {
+  color: $tc-white;
+  font-size: 36px;
+  font-weight: 500;
+  height: 50px;
+  width: 45px;
+  line-height: 50px;
+  background-color: $tc-gray-20;
+  position: absolute;
+  top: 0;
+  left: 12px;
+  text-align: center;
+
+  &::after {
+    content: ' ';
+    display: block;
+    position: absolute;
+    top: 100%;
+    border-top: solid 20px $tc-gray-20;
+    border-bottom: solid 20px transparent;
+    border-left: solid 23px transparent;
+    border-right: solid 23px transparent;
+  }
+}
+
+.info {
+  align-self: center;
+  flex: 1;
+
+  .handle {
+    color: $tc-dark-blue;
+    display: block;
+    font-size: 36px;
+    margin-bottom: 8px;
+    font-weight: 300;
+
+    @include xs-to-sm {
+      margin-bottom: 0;
+      font-size: 28px;
+      line-height: 35px;
+    }
+  }
+
+  .prize {
+    color: $tc-gray-90;
+    font-size: 24px;
+    font-weight: 500;
+
+    @include xs-to-sm {
+      font-size: 20px;
+      line-height: 30px;
+    }
+  }
+
+  .id {
+    color: $tc-gray-60;
+    font-size: 15px;
+    line-height: 22px;
+
+    @include xs-to-sm {
+      font-size: 13px;
+      line-height: 25px;
+    }
+
+    span {
+      font-weight: 500;
+    }
+  }
+
+  .download {
+    font-size: 15px;
+    line-height: 22px;
+    color: $tc-dark-blue;
+
+    @include xs-to-sm {
+      font-size: 13px;
+    }
+  }
+
+  .date {
+    font-size: 15px;
+    line-height: 22px;
+    color: $tc-gray-60;
+    display: flex;
+
+    @include xs-to-sm {
+      flex-direction: column;
+      font-size: 13px;
+      line-height: 20px;
+    }
+  }
+}
+
+.lock-icon {
+  fill: $tc-gray-20;
+  height: 58px;
+  margin-bottom: $base-unit;
+  margin-left: -1px;
+  width: 46px;
+}
+
+.checkpoint {
+  flex: none;
+}

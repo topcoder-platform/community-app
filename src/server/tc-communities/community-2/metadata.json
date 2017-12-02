@@ -7,18 +7,6 @@
   },
   "communityId": "community-2",
   "communityName": "Community 2",
-  "communitySelector": [{
-    "label": "Community 2",
-    "value": "1"
-  }, {
-    "label": "Cognitive Community",
-    "redirect": "http://cognitive.topcoder.com/",
-    "value": "2"
-  }, {
-    "label": "iOS Community",
-    "redirect": "https://ios.topcoder.com/",
-    "value": "3"
-  }],
   "groupIds": ["20000002"],
   "leaderboardApiUrl": "https://api.topcoder.com/v4/looks/458/run/json/",
   "logos": [{
@@ -41,6 +29,8 @@
     }
   ],
   "newsFeed": "http://www.topcoder.com/feed",
+  "subdomains": ["community-2"],
+
   "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore.",
   "image":"1.jpg"
 }

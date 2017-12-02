@@ -14,6 +14,7 @@
  * To understand reducers read http://redux.js.org/docs/basics/Reducers.html.
  */
 
+import { getCommunityId } from 'server/services//communities';
 import { combine, resolveReducers } from 'utils/redux';
 
 import direct from './direct';
@@ -53,7 +54,7 @@ export function factory(req) {
     const res = { ...state };
     if (req) {
       res.domain = `${req.protocol}://${req.headers.host || req.hostname}`;
-      res.subdomains = req.subdomains;
+      res.subdomainCommunity = getCommunityId(req.subdomains);
     }
     return res;
   }, {

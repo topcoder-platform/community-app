@@ -20,6 +20,7 @@ function Dropdown(props) {
         searchable={false}
         clearable={false}
         onChange={(option) => {
+          if (value === option.value) return;
           const op = options.find(item => item.value === option.value) || {};
           if (op.redirect) window.location = op.redirect;
         }}

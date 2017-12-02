@@ -68,12 +68,13 @@ export default class UserSettings {
   /**
    * Updates filter.
    * @param {String} id
+   * @param {String} name
    * @param {Object} filter
    * @return {Promise}
    */
   updateFilter(id, name, filter) {
     return this.private.api.putJson(`/saved-searches/${id}`, {
-      filter: JSON.stringify(filter.filter),
+      filter: JSON.stringify(filter),
       name,
       type: 'develop',
     }).then(res => (res.ok ? res.json() : new Error(res.statusText)));

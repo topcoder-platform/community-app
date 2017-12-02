@@ -5,14 +5,6 @@
   },
   "communityId": "srmx",
   "communityName": "SRMX",
-  "communitySelector": [{
-    "label": "SRMX",
-    "value": "1"
-  }, {
-    "label": "Topcoder Public Community",
-    "redirect": "https://www.topcoder.com",
-    "value": "2"
-  }],
   "groupIds": ["20000006"],
   "logos": [{
     "img": "/community-app-assets/themes/srmx/logo_topcoder_with_name.svg",
@@ -25,6 +17,8 @@
     }
   ],
   "newsFeed": "http://www.topcoder.com/feed",
+  "subdomains": ["srmx"],
+
   "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore.",
   "image":"1.jpg"
 }
