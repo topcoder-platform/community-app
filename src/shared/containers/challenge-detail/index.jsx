@@ -65,9 +65,11 @@ const DAY = 24 * 60 * 60 * 1000;
  * @return {String}
  */
 function getOgImage(challenge) {
+  if (challenge.name.startsWith('LUX -')) return ogLuxChallenge;
+  if (challenge.name.startsWith('RUX -')) return ogRuxChallenge;
   if (challenge.prize) {
     const totalPrize = challenge.prize.reduce((p, sum) => p + sum, 0);
-    if (totalPrize > 2500) return ogBigPrizesChallenge;
+    if (totalPrize > 3000) return ogBigPrizesChallenge;
   }
   switch (challenge.subTrack) {
     case SUBTRACKS.FIRST_2_FINISH: return ogFirst2Finish;
@@ -85,11 +87,7 @@ function getOgImage(challenge) {
   }
   switch (challenge.track) {
     case COMPETITION_TRACKS.DEVELOP: return ogDevelopment;
-    case COMPETITION_TRACKS.DESIGN: {
-      if (challenge.name.startsWith('LUX -')) return ogLuxChallenge;
-      if (challenge.name.startsWith('RUX -')) return ogRuxChallenge;
-      return ogUiDesign;
-    }
+    case COMPETITION_TRACKS.DESIGN: return ogUiDesign;
     default: return ogImage;
   }
 }
