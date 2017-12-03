@@ -1,5 +1,16 @@
 @import "~styles/mixins";
 
+.joining:hover {
+  background: $tc-white;
+  cursor: default;
+}
+
+.joining div p {
+  display: inline-block;
+  margin-right: 12px;
+  vertical-align: top;
+}
+
 .loadingIndicator {
   display: inline-block;
   height: 32px;

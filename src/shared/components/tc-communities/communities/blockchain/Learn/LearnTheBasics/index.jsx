@@ -5,11 +5,10 @@ import PT from 'prop-types';
 import React from 'react';
 import Section from 'components/tc-communities/Section';
 import Text from 'components/tc-communities/Text';
-
+import joinButtonStyle from 'components/buttons/outline/round/open-sans/blue-uppercase.scss';
 import { Link } from 'react-router-dom';
 
 import style from './style.scss';
-import joinButtonStyle from '../../themes/join-button-learn.scss';
 
 export default function LearnTheBasics({ baseUrl }) {
   return (

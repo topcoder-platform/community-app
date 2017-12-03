@@ -26,7 +26,7 @@ export default function ConfirmModal({
 }) {
   return (
     <Modal onCancel={resetJoinButton}>
-      <div className={style.confirmMsg}>
+      <div styleName="style.confirmMsg">
         { userId ? (
           <p>Do you want to join {communityName}?</p>
         ) : (

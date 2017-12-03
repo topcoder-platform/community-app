@@ -38,7 +38,7 @@ export default function JoinCommunity({
   token,
   userId,
 }) {
-  if (state === STATE.HIDDEN) return <div className={style.placeholder} />;
+  if (state === STATE.HIDDEN) return <div styleName="style.placeholder" />;
   return (
     <div
       className={theme.container}
@@ -65,8 +65,8 @@ export default function JoinCommunity({
       </Button>
       { state === STATE.JOINED ? (
         <Modal onCancel={hideJoinButton}>
-          <h1 className={style.modalTitle}>Congratulations!</h1>
-          <p className={style.modalMsg}>You have joined the {communityName}!</p>
+          <h1 styleName="style.modalTitle">Congratulations!</h1>
+          <p styleName="style.modalMsg">You have joined the {communityName}!</p>
           <Button
             onClick={hideJoinButton}
             theme={doneButtonStyle}

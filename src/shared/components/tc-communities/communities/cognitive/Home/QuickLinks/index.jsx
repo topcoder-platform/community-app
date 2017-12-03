@@ -6,6 +6,7 @@ import { Link } from 'utils/router';
 import JoinCommunity from 'containers/tc-communities/JoinCommunity';
 
 import defaultStyle from './style.scss';
+import joinButtonStyle from '../../themes/joinButtonBlue.scss';
 
 function QuickLinks({ theme, education, challenges, buttonText, title }) {
   const educationLinks = education.map(({ url, text }) => (
@@ -45,7 +46,7 @@ function QuickLinks({ theme, education, challenges, buttonText, title }) {
         </ul>
       </div>
       <JoinCommunity
-        theme={{ link: { button: theme.button, disabled: theme.disabled } }}
+        theme={{ link: joinButtonStyle }}
         label={buttonText}
       />
     </div>
