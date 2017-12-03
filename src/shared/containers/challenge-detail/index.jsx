@@ -299,7 +299,7 @@ const mapStateToProps = (state, props) => ({
   results: state.challenge.results,
   resultsLoadedForChallengeId: state.challenge.resultsLoadedForChallengeId,
   selectedTab: state.challenge.selectedTab || 'details',
-  terms: state.terms.terms,
+  terms: ((state.challenge.details || {}).terms || []).filter(t => t.role === 'Submitter'),
   tokenV2: state.auth && state.auth.tokenV2,
   tokenV3: state.auth && state.auth.tokenV3,
   unregistering: state.challenge.unregistering,
