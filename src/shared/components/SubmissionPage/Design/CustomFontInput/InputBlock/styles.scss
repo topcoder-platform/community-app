@@ -1,6 +1,7 @@
 @import "~styles/mixins";
 
 .container {
+  position: relative;
   flex-grow: 1;
   max-width: 500px;
 
@@ -64,6 +65,20 @@
 
     .separator {
       display: none;
+    }
+  }
+
+  button.close {
+    position: absolute;
+    top: 0;
+    right: -22px;
+    background: none;
+    border: none;
+
+    span {
+      color: #a3a3ae;
+      font-size: 16px;
+      font-weight: 300;
     }
   }
 }

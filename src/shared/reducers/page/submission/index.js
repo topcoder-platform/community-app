@@ -137,60 +137,6 @@ function fpSet(state, id, map) {
 }
 
 /**
- * Returns a new state with the Input at index updated according to map.
- * @param {Object} state Current state
- * @param {String} id ID of the <MultiInput>
- * @param {Number} index Index of the <AddFontInput> or <AddStockInput>
- * @param {Object} map Key value pairs for the new state
- * @return New state
- */
-function multiInputSet(state, id, index, map) {
-  const newMultiInputs = state.multiInputs.map((multi) => {
-    if (multi.id === id) {
-      return ({
-        ...multi,
-        inputs: [
-          ...multi.inputs.slice(0, index),
-          { ...(multi.inputs[index] || {}), ...map },
-          ...multi.inputs.slice(index + 1),
-        ],
-      });
-    }
-    return multi;
-  });
-
-  return ({ ...state, multiInputs: newMultiInputs });
-}
-
-/**
- * Handles results of PAGE/CHALLENGE_DETAILS/SUBMISSION/REMOVE_MULTI_INPUT action.
- * @param {Object} state
- * @param {Object} action
- * @return {Object} New state.
- */
-function onRemoveMultiInput(state, action) {
-  const {
-    id,
-    index,
-  } = action.payload;
-
-  const newMultiInputs = state.multiInputs.map((multi) => {
-    if (multi.id === id) {
-      return ({
-        ...multi,
-        inputs: [
-          ...multi.inputs.slice(0, index),
-          ...multi.inputs.slice(index + 1),
-        ],
-      });
-    }
-    return multi;
-  });
-
-  return ({ ...state, multiInputs: newMultiInputs });
-}
-
-/**
  * Creates a new submission reducer with the specified initial state.
  * @param {Object} initialState Initial state.
  * @return submission reducer.
@@ -213,15 +159,6 @@ function create(initialState) {
     [a.setFilePickerDragged]:
       (state, { payload }) => fpSet(state, payload.id, { dragged: payload.dragged }),
     [a.updateNotesLength]: (state, action) => ({ ...state, notesLength: action.payload }),
-    [a.removeMultiInput]: onRemoveMultiInput,
-    [a.setMultiInputUrlValid]: (state, { payload }) =>
-      multiInputSet(state, payload.id, payload.index, { urlValid: payload.valid }),
-    [a.setMultiInputNameValid]: (state, { payload }) =>
-      multiInputSet(state, payload.id, payload.index, { nameValid: payload.valid }),
-    [a.setMultiInputSourceValid]: (state, { payload }) =>
-      multiInputSet(state, payload.id, payload.index, { sourceValid: payload.valid }),
-    [a.setMultiInputActive]: (state, { payload }) =>
-      multiInputSet(state, payload.id, payload.index, { active: payload.active }),
     [a.setSubmissionFilestackData]:
       (state, { payload }) => ({ ...state, submissionFilestackData: payload }),
     [a.setSourceFilestackData]:
@@ -235,17 +172,6 @@ function create(initialState) {
     agreed: false,
     notesLength: 0,
     uploadProgress: 0,
-    multiInputs: [ // Page defaults are one inactive FontInput and one inactive StockArtInput
-      {
-        id: 'multi-input-fonts',
-        inputs: [{
-          active: false,
-          urlValid: false,
-          nameValid: false,
-          sourceValid: false,
-        }],
-      },
-    ],
     filePickers: [],
     submissionFilestackData: {
       filename: '',
