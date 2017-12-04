@@ -29,3 +29,14 @@
   position: static;
   font-weight: 700;
 }
+
+.errorMsg {
+  color: $tc-red;
+  line-height: 13px;
+  padding-bottom: 6px;
+  display: none;
+}
+
+.active .errorMsg {
+  display: block;
+}

@@ -15,6 +15,27 @@ import { BUCKETS, getBuckets } from 'utils/challenge-listing/buckets';
 
 export const SidebarPureComponent = Sidebar;
 
+/**
+ * Checks for errors in saved filters
+ * @param {Array} savedFilters
+ * @param {Array} communityFilters
+ * @return {Array} cloned savedFilters with errors set if any detected
+ */
+function checkFilterErrors(savedFilters, communityFilters) {
+  const communityIds = _.keyBy(communityFilters, f => f.communityId);
+
+  const savedFiltersClone = _.clone(savedFilters);
+  savedFilters.forEach((f, index) => {
+    if (f.filter.communityId && !communityIds[f.filter.communityId]) {
+      savedFiltersClone[index] = {
+        ...f,
+        filterError: `Filter uses unknown community '${f.filter.communityId}'`,
+      };
+    }
+  });
+  return savedFiltersClone;
+}
+
 export class SidebarContainer extends React.Component {
   componentDidMount() {
     const token = this.props.tokenV2;
@@ -29,17 +50,21 @@ export class SidebarContainer extends React.Component {
       item.communityId === this.props.selectedCommunityId);
     if (communityFilter) communityFilter = communityFilter.challengeFilter;
 
+    const savedFilters = checkFilterErrors(this.props.savedFilters, this.props.communityFilters);
+
     return (
       <Sidebar
         {...this.props}
         buckets={buckets}
+        savedFilters={savedFilters}
         communityFilter={communityFilter}
         deleteSavedFilter={id => this.props.deleteSavedFilter(id, tokenV2)}
         selectSavedFilter={(index) => {
           const filter = this.props.savedFilters[index].filter;
           this.props.selectSavedFilter(index);
-          this.props.setFilter(filter);
+          this.props.setFilter(_.omit(filter, 'communityId'));
           this.props.setSearchText(filter.text || '');
+          this.props.selectCommunity(filter.communityId || '');
         }}
         updateAllSavedFilters={() =>
           this.props.updateAllSavedFilters(
@@ -71,6 +96,7 @@ SidebarContainer.propTypes = {
   selectedCommunityId: PT.string,
   selectSavedFilter: PT.func.isRequired,
   setFilter: PT.func.isRequired,
+  selectCommunity: PT.func.isRequired,
   setSearchText: PT.func.isRequired,
   tokenV2: PT.string,
   updateAllSavedFilters: PT.func.isRequired,
@@ -85,6 +111,7 @@ function mapDispatchToProps(dispatch) {
   return {
     ...bindActionCreators(a, dispatch),
     setFilter: filter => dispatch(cla.setFilter(filter)),
+    selectCommunity: communityId => dispatch(cla.selectCommunity(communityId)),
     setSearchText: text => dispatch(fpa.setSearchText(text)),
   };
 }

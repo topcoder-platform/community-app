@@ -2,7 +2,7 @@
   "challengeFilter": {
     "groupIds": ["20000010"],
     "or": [{
-      "tags": ["ConsenSys"]
+      "tags": ["Blockchain"]
     }]
   },
   "communityId": "blockchain",

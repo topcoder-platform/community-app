@@ -22,10 +22,10 @@ const DEFAULT_SAVED_FILTER_NAME = 'My Filter';
  * @param {Object} state Redux state.
  * @return {String}
  */
-function getAvailableFilterName(state) {
+function getAvailableFilterName(savedFilters) {
   let res = DEFAULT_SAVED_FILTER_NAME;
   let id = 0;
-  state.challengeListing.sidebar.savedFilters.forEach((f) => {
+  savedFilters.forEach((f) => {
     while (res === f.name) {
       res = `${DEFAULT_SAVED_FILTER_NAME} ${id += 1}`;
     }
@@ -50,9 +50,12 @@ export class Container extends React.Component {
         {...this.props}
         communityFilters={communityFilters}
         saveFilter={() => {
-          const name = getAvailableFilterName();
+          const name = getAvailableFilterName(this.props.savedFilters);
           this.props.saveFilter(
-            name, this.props.filterState, this.props.tokenV2);
+            name, {
+              ...this.props.filterState,
+              communityId: this.props.selectedCommunityId,
+            }, this.props.tokenV2);
         }}
         setFilterState={(state) => {
           this.props.setFilterState(state);
@@ -76,9 +79,11 @@ Container.propTypes = {
   communityFilters: PT.arrayOf(PT.object).isRequired,
   defaultCommunityId: PT.string.isRequired,
   filterState: PT.shape().isRequired,
+  selectedCommunityId: PT.string.isRequired,
   getKeywords: PT.func.isRequired,
   getSubtracks: PT.func.isRequired,
   isSavingFilter: PT.bool,
+  savedFilters: PT.arrayOf(PT.shape()).isRequired,
   loadingKeywords: PT.bool.isRequired,
   loadingSubtracks: PT.bool.isRequired,
   saveFilter: PT.func.isRequired,
@@ -128,6 +133,7 @@ function mapStateToProps(state, ownProps) {
     selectedCommunityId: cl.selectedCommunityId,
     tokenV2: state.auth.tokenV2,
     isSavingFilter: cl.sidebar.isSavingFilter,
+    savedFilters: cl.sidebar.savedFilters,
   };
 }
 

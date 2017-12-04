@@ -13,7 +13,6 @@ function getId(submissions, placement) {
 }
 
 export default function Winner({
-  checkpointPrize,
   isDesign,
   prizes,
   submissions,
@@ -26,35 +25,34 @@ export default function Winner({
   let avatarUrl = winner.photoURL || '';
   if (avatarUrl.startsWith('/')) avatarUrl = `${config.URL.BASE}${avatarUrl}`;
 
+  const prize = winner.placement <= prizes.length
+    ? `${prizes[winner.placement - 1].toLocaleString()}` : 'N/A';
+
   return (
-    <div styleName={`winner ${winner.type === 'checkpoint' ? '' : placeStyle}`}>
+    <div styleName={`winner ${placeStyle}`}>
       {
-        winner.type !== 'checkpoint' ? (
-          <div styleName="thumbnail-wrapper">
-            <div styleName="thumbnail">
-              <div styleName="flag">{winner.placement}</div>
-              {
-                (viewable && isDesign) ?
-                  (
-                    <img
-                      styleName="preview"
-                      alt=""
-                      src={`${config.URL.STUDIO}/studio.jpg` +
-                        `?module=DownloadSubmission&sbmid=${submissionId}&sbt=small&sfi=1`}
-                    />
-                  ) :
-                  (
-                    <div styleName="lock">
-                      <Lock styleName="lock-icon" />
-                      <div styleName="text">LOCKED</div>
-                    </div>
-                  )
-              }
-            </div>
-          </div>
-        ) : null
+        <div styleName="thumbnail">
+          <div styleName="flag">{winner.placement}</div>
+          {
+            (viewable && isDesign) ?
+              (
+                <img
+                  styleName="preview"
+                  alt=""
+                  src={`${config.URL.STUDIO}/studio.jpg` +
+                    `?module=DownloadSubmission&sbmid=${submissionId}&sbt=small&sfi=1`}
+                />
+              ) :
+              (
+                <div styleName="lock">
+                  <Lock styleName="lock-icon" />
+                  <div styleName="text">LOCKED</div>
+                </div>
+              )
+          }
+        </div>
       }
-      <div styleName={`info ${winner.type === 'checkpoint' ? 'checkpoint' : ''}`}>
+      <div styleName="info">
         <div styleName="avatar-prize">
           <Avatar
             theme={{ avatar: style.avatar }}
@@ -65,11 +63,7 @@ export default function Winner({
               href={`${config.URL.BASE}/members/${winner.handle}`}
               styleName="handle"
             >{winner.handle}</a>
-            {
-              winner.type !== 'checkpoint' ? (
-                <div styleName="prize">{`$${prizes[winner.placement - 1].toLocaleString()}`}</div>
-              ) : <div styleName="prize">{`$${checkpointPrize.toLocaleString()}`}</div>
-            }
+            <div styleName="prize">{prize}</div>
           </div>
         </div>
         {
@@ -94,7 +88,6 @@ export default function Winner({
 }
 
 Winner.propTypes = {
-  checkpointPrize: PT.number.isRequired,
   isDesign: PT.bool.isRequired,
   prizes: PT.arrayOf(PT.number).isRequired,
   submissions: PT.arrayOf(PT.object).isRequired,

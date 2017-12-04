@@ -22,7 +22,11 @@ export default function Bucket({
     count = <span styleName="right">{count}</span>;
   }
 
-  if (active) return <div styleName="active bucket">{bucket.name}{count}</div>;
+  const error = Boolean(bucket.error) && (
+    <div styleName="errorMsg">{bucket.error}</div>
+  );
+
+  if (active) return <div styleName="active bucket">{bucket.name}{count}{error}</div>;
 
   return (
     <div
@@ -31,7 +35,7 @@ export default function Bucket({
       role="button"
       styleName="bucket"
       tabIndex={0}
-    >{bucket.name}{count}</div>
+    >{bucket.name}{count}{error}</div>
   );
 }
 
@@ -46,6 +50,7 @@ Bucket.propTypes = {
   bucket: PT.shape({
     hideCount: PT.bool,
     name: PT.string.isRequired,
+    error: PT.string,
   }).isRequired,
   challenges: PT.arrayOf(PT.shape).isRequired,
   disabled: PT.bool,
