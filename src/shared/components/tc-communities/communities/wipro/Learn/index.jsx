@@ -29,8 +29,8 @@ export default function Learn() {
   return (
     <main>
       <Banner
-        title="Learning & Certification"
-        text="Our continuously evolving structured learning paths, constantly abreast of the latest, tailored for employees to deepen your knowledge, infuses important software capabilities that are industry specific and help you get the skills you need to succeed."
+        title="Learn and earn rewards"
+        text="Our continuously evolving structured learning paths are customized to deepen your knowledge and help you acquire industry specific software capabilities. Master the in-demand technologies to succeed in this rapidly changing technology landscape."
         theme={{
           container: style.bannerContainer,
           content: style.bannerContent,
