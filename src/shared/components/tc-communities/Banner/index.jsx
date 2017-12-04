@@ -40,6 +40,7 @@ function Banner({ children, imageSrc, link, theme, text, title }) {
 Banner.defaultProps = {
   children: null,
   link: null,
+  text: '',
   theme: {},
 };
 
@@ -52,7 +53,7 @@ Banner.propTypes = {
   children: PT.node,
   imageSrc: PT.string.isRequired,
   title: PT.string.isRequired,
-  text: PT.string.isRequired,
+  text: PT.string,
   link: PT.oneOfType([
     PT.arrayOf(LinkShape),
     LinkShape,

@@ -19,7 +19,7 @@ import { Route, Switch } from 'react-router-dom';
 
 import Leaderboard from '../Leaderboard';
 
-export default function Routes({ base, member, meta }) {
+export default function Veterans({ base, member, meta }) {
   return (
     <Route
       component={({ match }) => (
@@ -103,11 +103,11 @@ export default function Routes({ base, member, meta }) {
   );
 }
 
-Routes.defaultProps = {
+Veterans.defaultProps = {
   base: '',
 };
 
-Routes.propTypes = {
+Veterans.propTypes = {
   base: PT.string,
   member: PT.bool.isRequired,
   meta: PT.shape().isRequired,

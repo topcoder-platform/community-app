@@ -15,6 +15,7 @@ import QuickLinks from './QuickLinks';
 
 import primaryBannerStyle from './primaryBanner.scss';
 import secondaryBannerStyle from './secondaryBanner.scss';
+import joinButtonStyle from '../themes/joinButtonWhite.scss';
 
 export default function Home() {
   return (
@@ -24,7 +25,7 @@ export default function Home() {
         text="Learn about Cognitive technologies and get hands on experience as a member of the Topcoder Cognitive Community."
         imageSrc="/community-app-assets/themes/cognitive/home/banner.jpg"
         theme={primaryBannerStyle}
-      ><JoinCommunity theme={{ link: primaryBannerStyle.link }} label="Sign up now" /></Banner>
+      ><JoinCommunity theme={{ link: joinButtonStyle }} label="Sign up now" /></Banner>
       <Banner
         title="Compete on Cognitive challenges for a chance to win a trip to the Topcoder Open"
         text=""

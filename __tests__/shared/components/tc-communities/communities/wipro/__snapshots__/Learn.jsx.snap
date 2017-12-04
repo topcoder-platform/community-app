@@ -8,7 +8,7 @@ exports[`Snapshot match 1`] = `
     imageSrc="/community-app-assets/themes/wipro/learn/banner.jpg"
     link={null}
     mapThemrProps={[Function]}
-    text="Our continuously evolving structured learning paths, constantly abreast of the latest, tailored for employees to deepen your knowledge, infuses important software capabilities that are industry specific and help you get the skills you need to succeed."
+    text="Our continuously evolving structured learning paths are customized to deepen your knowledge and help you acquire industry specific software capabilities. Master the in-demand technologies to succeed in this rapidly changing technology landscape."
     theme={
       Object {
         "container": "src-shared-components-tc-communities-communities-wipro-Learn-___style__bannerContainer___1MiM0",
@@ -17,7 +17,7 @@ exports[`Snapshot match 1`] = `
       }
     }
     themePriority="adhoc-context-default"
-    title="Learning & Certification"
+    title="Learn and earn rewards"
   />
   <ThemedSection
     anchor={null}

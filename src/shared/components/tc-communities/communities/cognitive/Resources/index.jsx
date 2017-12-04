@@ -16,7 +16,7 @@ import JoinCommunity from 'containers/tc-communities/JoinCommunity';
 import bannerStyle from './banner.scss';
 import joinBannerStyle from './joinBanner.scss';
 import cardStyle from './card.scss';
-
+import joinButtonStyle from '../themes/joinButtonBlue.scss';
 import style from './style.scss';
 
 export default function Resources({ member }) {
@@ -241,7 +241,7 @@ export default function Resources({ member }) {
             title="Haven't joined our community yet?"
             imageSrc="/community-app-assets/themes/cognitive/resources/join-banner.jpg"
             theme={joinBannerStyle}
-          ><JoinCommunity theme={{ link: joinBannerStyle.link }} label="Sign up now" /></Banner>
+          ><JoinCommunity theme={{ link: joinButtonStyle }} label="Sign up now" /></Banner>
         )
       }
     </main>
