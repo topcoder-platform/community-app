@@ -7,6 +7,7 @@
 import React from 'react';
 import Routes from 'routes';
 import ErrorMessage from 'containers/ErrorMessage';
+import Status from 'containers/Status';
 
 import 'styles/global.scss';
 
@@ -18,6 +19,7 @@ export default function App() {
     <div>
       <Routes />
       <ErrorMessage />
+      <Status />
       { USE_DEV_TOOLS ? <DevTools /> : undefined }
     </div>
   );

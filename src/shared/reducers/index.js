@@ -25,6 +25,7 @@ import { factory as authFactory } from './auth';
 import { factory as challengeFactory } from './challenge';
 import { factory as challengeListingFactory } from './challenge-listing';
 import { factory as errorsFactory } from './errors';
+import { factory as statusFactory } from './status';
 import { factory as examplesFactory } from './examples';
 import { factory as groupsFactory } from './groups';
 import { factory as pageFactory } from './page';
@@ -50,6 +51,7 @@ export function factory(req) {
     scoreboard: scoreboardFactory(req),
     page: pageFactory(req),
     errors: errorsFactory(req),
+    status: statusFactory(req),
   }).then(reducers => combine((state) => {
     const res = { ...state };
     if (req) {
