@@ -10,10 +10,9 @@ import LoadingIndicator from 'components/LoadingIndicator';
 import Modal from 'components/Modal';
 import PT from 'prop-types';
 import React from 'react';
-import { Button } from 'components/buttons';
+import { Button, PrimaryButton } from 'components/buttons';
 import { COMPOSE } from 'react-css-super-themr';
 import style from './style.scss';
-import doneButtonStyle from './themes/done-button.scss';
 
 import ConfirmModal from './ConfirmModal';
 
@@ -67,11 +66,12 @@ export default function JoinCommunity({
         <Modal onCancel={hideJoinButton}>
           <h1 styleName="style.modalTitle">Congratulations!</h1>
           <p styleName="style.modalMsg">You have joined the {communityName}!</p>
-          <Button
+          <PrimaryButton
             onClick={hideJoinButton}
-            theme={doneButtonStyle}
-            composeContextTheme={COMPOSE.SWAP}
-          >Return to the Community</Button>
+            theme={{
+              button: style.returnToCommunityButton,
+            }}
+          >Return to the Community</PrimaryButton>
         </Modal>
       ) : null}
       { state === STATE.CONFIRM_JOIN ? (
