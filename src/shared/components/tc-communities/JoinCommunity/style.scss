@@ -1,121 +1,14 @@
 @import "~styles/mixins";
 
-@mixin button($color, $highlight-color) {
-  color: $color;
-  display: block;
+.joining:hover {
   background: $tc-white;
-  border: 1px solid $color;
-  border-radius: 20px;
-  font: 700 14px/40px 'Open Sans';
-  margin: 24px auto;
-  height: 40px;
-  text-align: center;
-  text-transform: uppercase;
-  width: 171px;
-
-  &:hover,
-  &:active,
-  &:focus,
-  &:visited {
-    color: $color;
-    outline: none;
-    text-decoration: none;
-  }
-
-  &:hover {
-    background: $highlight-color;
-  }
+  cursor: default;
 }
 
-.confirmMsg {
-  @include tc-body-md;
-
-  text-align: center;
-}
-
-.btnCancel {
-  @include button($tc-light-blue, $tc-light-blue-10);
-
+.joining div p {
   display: inline-block;
-  margin: 24px 0 0 12px;
-  width: 100px;
-}
-
-.btnConfirm {
-  @include button($tc-green, $tc-green-10);
-
-  display: inline-block;
-  margin: 24px 12px 0 0;
-  width: 100px;
-}
-
-.buttons {
-  text-align: center;
-}
-
-.done {
-  color: $tc-light-blue;
-  display: block;
-  background: $tc-white;
-  border: 1px solid $tc-light-blue;
-  border-radius: 20px;
-  font: 700 14px/40px 'Open Sans';
-  margin: 0 auto;
-  height: 40px;
-  text-align: center;
-  text-transform: uppercase;
-  width: 300px;
-
-  &:hover,
-  &:active,
-  &:focus,
-  &:visited {
-    color: $tc-light-blue;
-    outline: none;
-    text-decoration: none;
-  }
-
-  &:hover {
-    background: $tc-light-blue-10;
-  }
-}
-
-.link {
-  color: $tc-green;
-  display: block;
-  background: $tc-white;
-  border: 1px solid $tc-green;
-  border-radius: 20px;
-  font: 700 14px/40px 'Open Sans';
-  margin: 24px auto;
-  height: 40px;
-  text-align: center;
-  text-transform: uppercase;
-  width: 171px;
-
-  &:hover,
-  &:active,
-  &:focus,
-  &:visited {
-    color: $tc-green;
-    outline: none;
-    text-decoration: none;
-  }
-
-  &:hover {
-    background: $tc-green-10;
-  }
-
-  &.joining:hover {
-    background: $tc-white;
-    cursor: default;
-  }
-
-  &.joining div p {
-    display: inline-block;
-    margin-right: 12px;
-    vertical-align: top;
-  }
+  margin-right: 12px;
+  vertical-align: top;
 }
 
 .loadingIndicator {
@@ -140,4 +33,9 @@
 
 .placeholder {
   height: 24px;
+}
+
+.returnToCommunityButton {
+  display: block !important;
+  margin: auto !important;
 }

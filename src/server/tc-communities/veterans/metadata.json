@@ -5,7 +5,7 @@
   "communityId": "veterans",
   "communityName": "Veterans Community",
   "groupIds": ["20000013"],
-  "terms": [21193],
+  "terms": [21193, 21153],
   "logos": [{
     "img": "/community-app-assets/themes/veterans/logo_topcoder_with_name.svg",
     "url": "https://www.topcoder.com"

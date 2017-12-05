@@ -5,7 +5,7 @@ import PT from 'prop-types';
 import React from 'react';
 import Section from 'components/tc-communities/Section';
 import Text from 'components/tc-communities/Text';
-
+import joinButtonStyle from 'components/buttons/outline/round/open-sans/blue-uppercase.scss';
 import { Link } from 'react-router-dom';
 
 import style from './style.scss';
@@ -32,7 +32,7 @@ export default function LearnTheBasics({ baseUrl }) {
             </p>
             <JoinCommunity
               label="Join Now"
-              theme={{ link: style.joinnow }}
+              theme={{ link: joinButtonStyle }}
             />
           </Text>
         </AccordionItem>

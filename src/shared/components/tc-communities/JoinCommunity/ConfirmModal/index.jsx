@@ -13,7 +13,8 @@ import config from 'utils/config';
 import Modal from 'components/Modal';
 import PT from 'prop-types';
 import React from 'react';
-import './style.scss';
+import { PrimaryButton, SecondaryButton } from 'components/buttons';
+import style from './style.scss';
 
 export default function ConfirmModal({
   communityName,
@@ -25,7 +26,7 @@ export default function ConfirmModal({
 }) {
   return (
     <Modal onCancel={resetJoinButton}>
-      <div styleName="confirmMsg">
+      <div styleName="style.confirmMsg">
         { userId ? (
           <p>Do you want to join {communityName}?</p>
         ) : (
@@ -35,49 +36,42 @@ export default function ConfirmModal({
           </div>
         )}
       </div>
-      <div styleName="buttons">
-        { userId ? (
-          <span>
-            <button
-              onClick={() => join(token, groupIds[0], userId)}
-              styleName="btnConfirm"
-            >Join</button>
-            <button
-              onClick={resetJoinButton}
-              styleName="btnCancel"
-            >Cancel</button>
-          </span>
-        ) : (
-          <span>
-            <button
-              onClick={() => {
-                const url = encodeURIComponent(
-                  `${window.location.href}?join=${groupIds[0]}`,
-                );
-                window.location = `${config.URL.AUTH}/member?retUrl=${url}`;
-              }}
-              styleName="btnConfirmLong"
-            >Login</button>
-            <button
-              onClick={() => {
-                let url = encodeURIComponent(
-                  `${window.location.href}?join=${groupIds[0]}`,
-                );
-                url = encodeURIComponent(
-                  `${config.URL.AUTH}/member?retUrl=${url}`,
-                );
-                url = encodeURIComponent(url);
-                window.location = `${config.URL.AUTH}/member/registration?retUrl=${url}`;
-              }}
-              styleName="btnConfirmLong"
-            >Register</button>
-            <button
-              onClick={resetJoinButton}
-              styleName="btnCancelLong"
-            >Cancel</button>
-          </span>
-        )}
-      </div>
+      { userId ? (
+        <div className={style.joinButtons}>
+          <PrimaryButton
+            onClick={() => join(token, groupIds[0], userId)}
+          >Join</PrimaryButton>
+          <SecondaryButton
+            onClick={resetJoinButton}
+          >Cancel</SecondaryButton>
+        </div>
+      ) : (
+        <div className={style.loginButtons}>
+          <PrimaryButton
+            onClick={() => {
+              const url = encodeURIComponent(
+                `${window.location.href}?join=${groupIds[0]}`,
+              );
+              window.location = `${config.URL.AUTH}/member?retUrl=${url}`;
+            }}
+          >Login</PrimaryButton>
+          <PrimaryButton
+            onClick={() => {
+              let url = encodeURIComponent(
+                `${window.location.href}?join=${groupIds[0]}`,
+              );
+              url = encodeURIComponent(
+                `${config.URL.AUTH}/member?retUrl=${url}`,
+              );
+              url = encodeURIComponent(url);
+              window.location = `${config.URL.AUTH}/member/registration?retUrl=${url}`;
+            }}
+          >Register</PrimaryButton>
+          <SecondaryButton
+            onClick={resetJoinButton}
+          >Cancel</SecondaryButton>
+        </div>
+      )}
     </Modal>
   );
 }

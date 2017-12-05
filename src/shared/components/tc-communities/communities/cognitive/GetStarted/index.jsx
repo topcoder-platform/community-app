@@ -15,7 +15,7 @@ import ImageText from 'components/tc-communities/ImageText';
 import bannerStyle from './banner.scss';
 import quoteStyle from './quote.scss';
 import imageTextStyle from './imageText.scss';
-
+import joinButtonStyle from '../themes/joinButtonBlue.scss';
 import style from './style.scss';
 
 export default function GetStarted() {
@@ -61,7 +61,7 @@ export default function GetStarted() {
           },
         ]}
       >
-        <JoinCommunity theme={{ link: style.signUp }} label="Sign up now" />
+        <JoinCommunity theme={{ link: joinButtonStyle }} label="Sign up now" />
       </ImageText>
       <ImageText
         title="Start Your Cognitive Journey"
@@ -69,7 +69,7 @@ export default function GetStarted() {
         imageSrc="/community-app-assets/themes/cognitive/getstarted/image2.jpg"
         theme={imageTextStyle}
       >
-        <JoinCommunity theme={{ link: style.signUp }} label="Sign up now" />
+        <JoinCommunity theme={{ link: joinButtonStyle }} label="Sign up now" />
       </ImageText>
       <ImageText
         title="Topcoder Cognitive Challenge"

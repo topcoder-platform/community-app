@@ -6,10 +6,11 @@ import { Link } from 'utils/router';
 import JoinCommunity from 'containers/tc-communities/JoinCommunity';
 
 import defaultStyle from './style.scss';
+import joinButtonStyle from '../../themes/joinButtonBlue.scss';
 
 function QuickLinks({ theme, education, challenges, buttonText, title }) {
   const educationLinks = education.map(({ url, text }) => (
-    <li className={theme.educationItem}>
+    <li className={theme.educationItem} key={url}>
       <Link
         className={theme.educationLink}
         to={url}
@@ -20,7 +21,7 @@ function QuickLinks({ theme, education, challenges, buttonText, title }) {
   ));
 
   const challengeLinks = challenges.map(({ name, id }) => (
-    <li className={theme.challengeItem}>
+    <li className={theme.challengeItem} key={id}>
       <Link
         className={theme.challengeLink}
         to={`challenges/${id}/`}
@@ -45,7 +46,7 @@ function QuickLinks({ theme, education, challenges, buttonText, title }) {
         </ul>
       </div>
       <JoinCommunity
-        theme={{ link: theme.button }}
+        theme={{ link: joinButtonStyle }}
         label={buttonText}
       />
     </div>
@@ -61,6 +62,7 @@ QuickLinks.propTypes = {
     icon: PT.string.isRequired,
     title: PT.string.isRequired,
     button: PT.string.isRequired,
+    disabled: PT.string,
     linksContainer: PT.string.isRequired,
     educationList: PT.string.isRequired,
     educationItem: PT.string.isRequired,
