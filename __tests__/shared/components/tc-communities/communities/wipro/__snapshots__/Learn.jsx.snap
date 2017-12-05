@@ -50,7 +50,9 @@ exports[`Snapshot match 1`] = `
         </strong>
         ” to access the platform.
       </p>
-      <p>
+      <p
+        className="src-shared-components-tc-communities-communities-wipro-Learn-___style__button-container___10Uat"
+      >
         <ThemedGenericButton
           composeAdhocTheme="deeply"
           composeContextTheme="softly"
@@ -61,11 +63,6 @@ exports[`Snapshot match 1`] = `
           openNewTab={true}
           replace={false}
           size={null}
-          theme={
-            Object {
-              "button": "src-shared-components-tc-communities-communities-wipro-Learn-___style__continueButton___2UpkU",
-            }
-          }
           themePriority="adhoc-context-default"
           to="https://topgear-app.wipro.com"
         >
@@ -89,6 +86,7 @@ exports[`Snapshot match 1`] = `
         <li>
           Send an email to 
           <a
+            className="src-shared-components-tc-communities-communities-wipro-Learn-___style__link___2Nxko"
             href="mailto:devenvaccessreq.topgear@wipro.com?subject=Internet%20TopGear%20portal%20access"
           >
             devenvaccessreq.topgear@wipro.com
@@ -111,6 +109,7 @@ exports[`Snapshot match 1`] = `
         <li>
           Using Virtual Desktop you can access 
           <a
+            className="src-shared-components-tc-communities-communities-wipro-Learn-___style__link___2Nxko"
             href="https://topgear-app.wipro.com/"
           >
             https://topgear-app.wipro.com
