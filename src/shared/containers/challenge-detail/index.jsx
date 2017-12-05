@@ -79,10 +79,14 @@ class ChallengeDetailPageContainer extends React.Component {
     });
   }
 
+  getSubmitterTerms() {
+    return (this.props.challenge.terms || []).filter(t => t.role === 'Submitter');
+  }
+
   registerForChallenge() {
     if (!this.props.authTokens.tokenV2) {
       location.href = `${config.URL.AUTH}/member?retUrl=${encodeURIComponent(location.href)}`;
-    } else if (_.every(this.props.terms, 'agreed')) {
+    } else if (_.every(this.getSubmitterTerms(), 'agreed')) {
       this.props.registerForChallenge(this.props.authTokens, this.props.challengeId);
     } else {
       this.props.openTermsModal();
@@ -177,7 +181,7 @@ class ChallengeDetailPageContainer extends React.Component {
               challenge={this.props.challenge}
               introduction={this.props.challenge.introduction}
               detailedRequirements={this.props.challenge.detailedRequirements}
-              terms={this.props.terms}
+              terms={this.getSubmitterTerms()}
               hasRegistered={hasRegistered}
               openTermsModal={openTermsModal}
             />
@@ -242,7 +246,6 @@ ChallengeDetailPageContainer.defaultProps = {
   isLoadingTerms: false,
   loadingCheckpointResults: false,
   results: null,
-  terms: [],
   tokenV3: null,
 };
 
@@ -272,7 +275,6 @@ ChallengeDetailPageContainer.propTypes = {
   resultsLoadedForChallengeId: PT.string.isRequired,
   selectedTab: PT.string.isRequired,
   setChallengeListingFilter: PT.func.isRequired,
-  terms: PT.arrayOf(PT.shape()),
   toggleCheckpointFeedback: PT.func.isRequired,
   tokenV3: PT.string,
   unregisterFromChallenge: PT.func.isRequired,
@@ -299,7 +301,6 @@ const mapStateToProps = (state, props) => ({
   results: state.challenge.results,
   resultsLoadedForChallengeId: state.challenge.resultsLoadedForChallengeId,
   selectedTab: state.challenge.selectedTab || 'details',
-  terms: ((state.challenge.details || {}).terms || []).filter(t => t.role === 'Submitter'),
   tokenV2: state.auth && state.auth.tokenV2,
   tokenV3: state.auth && state.auth.tokenV3,
   unregistering: state.challenge.unregistering,
