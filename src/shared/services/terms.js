@@ -56,7 +56,7 @@ class TermsService {
         if (resp.ok) {
           return resp.json();
         }
-        return new Error(resp.statusText);
+        throw new Error(resp.statusText);
       });
   }
 
@@ -97,7 +97,7 @@ class TermsService {
     // looks like server cache responses, to prevent it we add nocache param with always new value
     const nocache = (new Date()).getTime();
     return this.private.api.get(`/terms/detail/${termId}?nocache=${nocache}`)
-      .then(res => (res.ok ? res.json() : new Error(res.statusText)));
+      .then(res => (res.ok ? res.json() : Promise.reject(res.json())));
   }
 
   /**
@@ -108,7 +108,7 @@ class TermsService {
    */
   getDocuSignUrl(templateId, returnUrl) {
     return this.private.api.post(`/terms/docusign/viewURL?templateId=${templateId}&returnUrl=${returnUrl}`)
-      .then(res => (res.ok ? res.json() : new Error(res.statusText)));
+      .then(res => (res.ok ? res.json() : Promise.reject(res.json())));
   }
 
   /**
@@ -118,7 +118,7 @@ class TermsService {
    */
   agreeTerm(termId) {
     return this.private.api.post(`/terms/${termId}/agree`)
-      .then(res => (res.ok ? res.json() : new Error(res.statusText)));
+      .then(res => (res.ok ? res.json() : Promise.reject(res.json())));
   }
 }
 

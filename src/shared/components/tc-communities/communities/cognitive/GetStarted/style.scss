@@ -1,13 +1,11 @@
 @import '~styles/mixins';
 
-.signUp,
-.signUp:visited,
 .compete,
 .compete:visited {
   font-family: "Proxima Nova", Arial, "Helvetica Neue", Helvetica, sans-serif;
   border-radius: 23px;
   height: 46px;
-  width: 161px;
+  width: 171px;
   background-color: $tc-dark-blue;
   text-transform: none;
   transition: opacity 0.6s;

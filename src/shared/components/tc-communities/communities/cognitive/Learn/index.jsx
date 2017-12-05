@@ -12,7 +12,7 @@ import Section from 'components/tc-communities/Section';
 import JoinCommunity from 'containers/tc-communities/JoinCommunity';
 
 import bannerStyle from './banner.scss';
-
+import joinButtonStyle from '../themes/joinButtonWhite.scss';
 import style from './style.scss';
 
 export default function Learn() {
@@ -23,7 +23,7 @@ export default function Learn() {
         text="Data, in all forms, is an exponentially expanding resource that remains largely untapped. The data explosion is outstripping the human capacity to understand hidden meanings and gain useful insights. That’s where Cognitive comes in."
         imageSrc="/community-app-assets/themes/cognitive/learn/banner.jpg"
         theme={bannerStyle}
-      ><JoinCommunity theme={{ link: bannerStyle.link }} label="Sign up now" /></Banner>
+      ><JoinCommunity theme={{ link: joinButtonStyle }} label="Sign up now" /></Banner>
       <Section
         theme={{
           content: style.logoContent,

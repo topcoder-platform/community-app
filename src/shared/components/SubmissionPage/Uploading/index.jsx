@@ -43,11 +43,14 @@ const Uploading = ({
       }
       {
         isSubmitting &&
-          <h3>{'"'}{challengeName }{'"'}</h3>
+          <h3>&ldquo;{challengeName }&rdquo;</h3>
       }
       {
         (submitDone || error) &&
-          <Link to={`${challengesUrl}/${challengeId}`}>{challengeName }</Link>
+          <Link
+            styleName="link"
+            to={`${challengesUrl}/${challengeId}`}
+          >{challengeName}</Link>
       }
       {
         (isSubmitting || submitDone) &&
