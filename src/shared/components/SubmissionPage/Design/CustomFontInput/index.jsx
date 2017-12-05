@@ -45,7 +45,12 @@ export default function CustomFontInput({
         }
         <PrimaryButton
           onClick={(e) => {
-            setCustomFontRecord(null, { active: true, name: '', url: '', source: '' });
+            setCustomFontRecord(null, {
+              active: true,
+              name: '',
+              url: '',
+              source: 'STUDIO_STANDARD_FONTS_LIST',
+            });
             e.stopPropagation();
             e.preventDefault();
           }}
