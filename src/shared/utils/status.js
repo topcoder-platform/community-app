@@ -4,7 +4,6 @@
 
 /* eslint-env browser */
 
-import _ from 'lodash';
 import actions from 'actions/status';
 import { isClientSide } from 'utils/isomorphy';
 

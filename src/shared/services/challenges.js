@@ -8,7 +8,7 @@ import logger from 'utils/logger';
 import moment from 'moment';
 import qs from 'qs';
 import { decodeToken } from 'tc-accounts';
-import { setApiErrorsStatus, clearApiErrorsStatus } from 'utils/status';
+import { setApiErrorsStatus } from 'utils/status';
 import { COMPETITION_TRACKS } from 'utils/tc';
 import { getApiV2, getApiV3 } from './api';
 
