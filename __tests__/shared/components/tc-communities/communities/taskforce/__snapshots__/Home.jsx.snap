@@ -39,7 +39,16 @@ exports[`Match shadow snapshot 1`] = `
       }
     }
   />
-  <Connect(JoinCommunityContainer) />
+  <Connect(JoinCommunityContainer)
+    theme={
+      Object {
+        "container": "src-shared-components-tc-communities-communities-taskforce-Home-___style__joinContainer___MooC8",
+        "link": Object {
+          "button": "src-shared-components-buttons-outline-round-open-sans-___green-uppercase__button___3hG4e",
+        },
+      }
+    }
+  />
   <ThemedSection
     anchor="why-topcoder-taskforce"
     composeAdhocTheme="deeply"

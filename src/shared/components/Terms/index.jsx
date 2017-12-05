@@ -231,7 +231,13 @@ export default class Terms extends React.Component {
                           details={details}
                           docuSignUrl={docuSignUrl}
                           getDocuSignUrl={getDocuSignUrl}
+                          agreeTerm={agreeTerm}
+                          agreeingTerm={agreeingTerm}
+                          closeModal={onCancel}
                           loadingDocuSignUrl={loadingDocuSignUrl}
+                          viewOnly={viewOnly}
+                          agreed={selectedTerm.agreed}
+                          nextTerm={this.nextTerm}
                         />
                       }
                     </div>
