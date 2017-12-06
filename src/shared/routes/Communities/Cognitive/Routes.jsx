@@ -9,7 +9,6 @@ import Resources from 'components/tc-communities/communities/cognitive/Resources
 import Footer from 'components/tc-communities/communities/cognitive/Footer';
 import Header from 'containers/tc-communities/Header';
 import Home from 'components/tc-communities/communities/cognitive/Home';
-import Learn from 'components/tc-communities/communities/cognitive/Learn';
 import GetStarted from 'components/tc-communities/communities/cognitive/GetStarted';
 import PT from 'prop-types';
 import React from 'react';
@@ -76,11 +75,6 @@ export default function Cognitive({ base, member, meta }) {
               component={() => <Resources member={member} />}
               exact
               path={`${base}/resources`}
-            />
-            <Route
-              component={Learn}
-              exact
-              path={`${base}/learn`}
             />
             <Route
               component={() => <Home baseUrl={base} member={member} />}
