@@ -6,7 +6,7 @@ import _ from 'lodash';
 import 'isomorphic-fetch'; /* global fetch */
 import config from 'utils/config';
 import { isClientSide } from 'utils/isomorphy';
-import { setNetworkErrorsStatus } from 'utils/status';
+import { setErrorIcon, ERROR_ICON_TYPES } from 'utils/errors';
 
 /**
  * API service object. It is reused for both Topcoder API v2 and v3,
@@ -67,7 +67,7 @@ export default class Api {
       headers,
     })
       .catch((e) => {
-        setNetworkErrorsStatus(`${base}${endpoint}`, e.message);
+        setErrorIcon(ERROR_ICON_TYPES.NETWORK, `${base}${endpoint}`, e.message);
         throw e;
       });
   }
