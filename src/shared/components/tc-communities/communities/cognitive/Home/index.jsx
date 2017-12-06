@@ -7,12 +7,13 @@
 
 import config from 'utils/config';
 import JoinCommunity from 'containers/tc-communities/JoinCommunity';
-import NewsletterSignup from 'components/tc-communities/NewsletterSignup';
 import PT from 'prop-types';
 import React from 'react';
 
 import { PrimaryButton } from 'components/buttons';
 import { Link } from 'utils/router';
+
+import NewsletterSignup from '../NewsSignup';
 
 import style from './style.scss';
 
@@ -212,14 +213,7 @@ export default function Home({ baseUrl, member }) {
         </div>
       </div>
 
-      <NewsletterSignup
-        theme={{
-          container: style['newsletter-signup-container'],
-        }}
-        title="Sign up for our newsletter"
-        text="Don’t miss out on the latest Topcoder Cognitive challenges and information!"
-        imageSrc="/community-app-assets/themes/cognitive/home/newsletter.jpg"
-      />
+      <NewsletterSignup />
     </main>
   );
 }

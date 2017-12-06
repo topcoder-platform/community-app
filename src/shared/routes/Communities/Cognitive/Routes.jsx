@@ -44,7 +44,7 @@ export default function Cognitive({ base, member, meta }) {
               path={`${base}/challenges`}
             />
             <Route
-              component={GetStarted}
+              component={() => <GetStarted baseUrl={base} />}
               exact
               path={`${base}/get-started`}
             />

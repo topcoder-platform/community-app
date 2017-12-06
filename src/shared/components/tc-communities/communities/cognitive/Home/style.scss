@@ -14,7 +14,7 @@
 
 .head-banner {
   background-color: #247fc8;
-  background-image: url('assets/themes/cognitive/home/banner.jpg');
+  background-image: url('assets/images/communities/cognitive/home/banner.jpg');
   background-position: 50% 50%;
   background-repeat: no-repeat;
   background-size: cover;
@@ -103,7 +103,7 @@
 /* Qoute. */
 
 .quote {
-  background-image: url('assets/themes/cognitive/home/dave.jpg');
+  background-image: url('assets/images/communities/cognitive/home/dave.jpg');
   background-repeat: no-repeat;
   background-size: contain;
   height: 450px;
@@ -315,11 +315,11 @@
 }
 
 .card-01 .cardImage {
-  background-image: url('assets/themes/cognitive/home/card-01.jpg');
+  background-image: url('assets/images/communities/cognitive/home/card-01.jpg');
 }
 
 .card-02 .cardImage {
-  background-image: url('assets/themes/cognitive/home/card-01.jpg');
+  background-image: url('assets/images/communities/cognitive/home/card-01.jpg');
 }
 
 .cardContent {
@@ -357,13 +357,5 @@
 
   &:visited {
     color: royalblue;
-  }
-}
-
-/* Newsletter */
-
-.newsletter-signup-container {
-  &::before {
-    background: none;
   }
 }

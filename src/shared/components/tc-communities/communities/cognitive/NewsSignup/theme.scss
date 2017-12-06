@@ -1,0 +1,41 @@
+@import "../themes/mixins";
+
+.container {
+  @include container;
+
+  &::before {
+    background: none !important;
+  }
+}
+
+.content {
+  align-items: flex-end;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  margin: auto !important;
+  max-width: $tc-screen-lg !important;
+  width: 100%;
+}
+
+.form {
+  border-radius: 0 !important;
+  height: 40px !important;
+}
+
+.formEmail {
+  border-radius: 4px !important;
+  margin-right: 10px !important;
+}
+
+.text {
+  @include tc-body-md;
+
+  color: white !important;
+}
+
+.title {
+  @include tc-heading-lg;
+
+  color: white !important;
+}
