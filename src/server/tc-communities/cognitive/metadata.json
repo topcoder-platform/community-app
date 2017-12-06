@@ -10,8 +10,8 @@
   "communityName": "Topcoder Cognitive Community",
   "groupIds": ["20000015"],
   "logos": [{
-    "img": "/community-app-assets/themes/cognitive/cognitive-logo.png",
-    "url": "http://cognitive.topcoder.com/"
+    "img": "/community-app-assets/themes/cognitive/logo_topcoder_with_name.svg",
+    "url": "https://www.topcoder.com"
   }],
   "hideSearch": true,
   "menuItems": [
@@ -21,7 +21,7 @@
     },
     {
       "title": "Get Started",
-      "url": "/getstarted"
+      "url": "/get-started"
     },
     {
       "title": "Learn",

@@ -17,20 +17,14 @@ import Submission from 'routes/Submission';
 import SubmissionManagement from 'routes/SubmissionManagement';
 import { Route, Switch } from 'react-router-dom';
 
-import headerTheme from 'components/tc-communities/communities/cognitive/header.scss';
-
-import style from './style.scss';
-
 export default function Cognitive({ base, member, meta }) {
   return (
     <Route
       component={({ match }) => (
         <div>
-          <div className={style.back} />
           <Header
             baseUrl={base}
             pageId={match.params.pageId || 'home'}
-            theme={headerTheme}
           />
           <Switch>
             <Route
@@ -52,7 +46,7 @@ export default function Cognitive({ base, member, meta }) {
             <Route
               component={GetStarted}
               exact
-              path={`${base}/getstarted`}
+              path={`${base}/get-started`}
             />
             <Route
               component={routeProps => ChallengeDetails({
@@ -89,7 +83,7 @@ export default function Cognitive({ base, member, meta }) {
               path={`${base}/learn`}
             />
             <Route
-              component={Home}
+              component={() => <Home baseUrl={base} member={member} />}
               exact
               path={`${base}/home`}
             />
@@ -98,7 +92,7 @@ export default function Cognitive({ base, member, meta }) {
               path={`${base}/:any`}
             />
             <Route
-              component={Home}
+              component={() => <Home baseUrl={base} member={member} />}
               exact
               path={`${base}`}
             />
