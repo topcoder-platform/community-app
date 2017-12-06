@@ -4,92 +4,86 @@
  * It hardcodes data which is passed to dummy components,
  * thus we disable max-len eslint rule for this file
  */
-/* eslint-disable max-len */
 
-import React from 'react';
-import { Link } from 'utils/router';
-import Banner from 'components/tc-communities/Banner';
+import ImageText from 'components/tc-communities/ImageText2';
 import JoinCommunity from 'containers/tc-communities/JoinCommunity';
-import ImageText from 'components/tc-communities/ImageText';
+import PT from 'prop-types';
+import React from 'react';
+import { PrimaryButton } from 'components/buttons';
 
-import bannerStyle from './banner.scss';
-import quoteStyle from './quote.scss';
-import imageTextStyle from './imageText.scss';
-import joinButtonStyle from '../themes/joinButtonBlue.scss';
+import primaryButtonTheme from 'components/buttons/standard/primary.scss';
+
+import cardImg01 from
+  'assets/images/communities/cognitive/get-started/card-01.jpg';
+import cardImg02 from
+  'assets/images/communities/cognitive/get-started/card-02.jpg';
+
+import NewsSignup from '../NewsSignup';
+
 import style from './style.scss';
 
-export default function GetStarted() {
+export default function GetStarted({ baseUrl }) {
   return (
     <main>
-      <Banner
-        title="Welcome to the Topcoder Cognitive Community"
-        text="Cognitive computing is the next hot area in software development and for good reason! The mantra of mobile first is now being replaced by AI First and consumer dependency on their smart phone will soon be replaced by a dependency on cognitive computing ranging from voice controls, natural language parsing to AI bots. Developers with this skill set will be in high demand!"
-        imageSrc="/community-app-assets/themes/cognitive/getstarted/banner.jpg"
-        theme={bannerStyle}
-      >
+      <h1 styleName="style.pageTitle">
+        Getting Started in the Topcoder Cognitive Community
+      </h1>
+      <div styleName="style.cardsContainer">
         <ImageText
-          title="Dave Messinger"
-          text="Topcoder VP of Product Architecture & Global Developer Community Director"
-          imageSrc="/community-app-assets/themes/cognitive/getstarted/dave.png"
-          theme={quoteStyle}
-        />
-      </Banner>
-      <ImageText
-        title="Get Started"
-        imageSrc="/community-app-assets/themes/cognitive/getstarted/image1.jpg"
-        theme={imageTextStyle}
-        link={[
-          {
-            title: 'developerWorks',
-            url: 'https://www.ibm.com/developerworks/learn/cognitive/',
-          },
-          {
-            title: 'Watson',
-            url: 'https://www.ibm.com/watson/',
-          },
-          {
-            title: 'IBM Cognitive',
-            url: 'https://www.ibm.com/cognitive/',
-          },
-          {
-            title: 'IBM Research',
-            url: 'http://research.ibm.com/cognitive-computing/',
-          },
-          {
-            title: 'Join the Cloud community',
-            url: 'http://cognitive.topcoder.com/register/',
-          },
-        ]}
-      >
-        <JoinCommunity theme={{ link: joinButtonStyle }} label="Sign up now" />
-      </ImageText>
-      <ImageText
-        title="Start Your Cognitive Journey"
-        text="Ready to get started with Cognitive? The Topcoder Cognitive Community is free to join, and there are no obligations of any kind. All you need is a passion for technology and learning."
-        imageSrc="/community-app-assets/themes/cognitive/getstarted/image2.jpg"
-        theme={imageTextStyle}
-      >
-        <JoinCommunity theme={{ link: joinButtonStyle }} label="Sign up now" />
-      </ImageText>
-      <ImageText
-        title="Topcoder Cognitive Challenge"
-        text="Topcoder and IBM Cognitive have partnered to roll out a series of educational challenges that will help you learn everything you need to compete in development challenges for Cognitive technologies. Once you join the Topcoder Cognitive Community we’ll notify you of the latest challenges as they are released."
-        imageSrc="/community-app-assets/themes/cognitive/getstarted/image3.jpg"
-        theme={imageTextStyle}
-      >
-        <div className={style.compete}>
-          <Link
-            to={'challenges/'}
-            className={style.competeLink}
-          >Compete Now</Link>
-        </div>
-      </ImageText>
+          imageUrl={cardImg01}
+          theme={{
+            container: style.cardContainer,
+            content: style.cardContent,
+            image: style.cardImage,
+          }}
+        >
+          <h1 styleName="style.cardHeading">Current Cognitive Challenges</h1>
+          <p styleName="style.cardText">
+            Topcoder and IBM have partnered to roll out a series of educational
+            challenges that will help you learn everything you need to know to
+            excel with cognitive technologies. Once you join the Topcoder
+            Cognitive Community, we’ll notify you of the latest challenges as
+            they’re released.
+          </p>
+          <PrimaryButton
+            theme={{ button: style.cardButton }}
+            to={`${baseUrl}/challenges`}
+          >View Challenges</PrimaryButton>
+        </ImageText>
+        <ImageText
+          imageUrl={cardImg02}
+          theme={{
+            container: style.cardContainer,
+            content: style.cardContent,
+            image: style.cardImage,
+          }}
+        >
+          <h1 styleName="style.cardHeading">Perks and Prizes</h1>
+          <p styleName="style.cardText">
+            The Topcoder Cognitive Community is free to join — no strings
+            attached. Winning submissions receive financial prizes, which vary
+            by challenge. Leading challenge winners are also eligible to win a
+            trip to the Topcoder Open to compete live. All that, and some of
+            our most talented developers have gone on to work for companies
+            like IBM and Google or even start their own businesses. What are
+            you waiting for?
+          </p>
+          <JoinCommunity
+            theme={{
+              link: {
+                ...primaryButtonTheme,
+                button: `${primaryButtonTheme.button} ${style.cardButton}`,
+              },
+            }}
+            label="Join The Cognitive Community"
+          />
+        </ImageText>
+      </div>
+      <NewsSignup />
     </main>
   );
 }
 
-GetStarted.defaultProps = {
-};
-
 GetStarted.propTypes = {
+  baseUrl: PT.string.isRequired,
 };
