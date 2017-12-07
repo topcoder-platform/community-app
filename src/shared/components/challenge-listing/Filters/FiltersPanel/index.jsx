@@ -50,10 +50,15 @@ export default function FiltersPanel({
   let className = 'FiltersPanel';
   if (hidden) className += ' hidden';
 
-  const communityOps = communityFilters.map(item => ({
-    label: item.communityName,
-    value: item.communityId,
-  }));
+  const communityOps = [];
+  communityFilters.forEach((community) => {
+    if (!community.hidden) {
+      communityOps.push({
+        label: community.communityName,
+        value: community.communityId,
+      });
+    }
+  });
 
   const disableClearSaveFilterButtons = isSavingFilter || (
     selectedCommunityId === defaultCommunityId
