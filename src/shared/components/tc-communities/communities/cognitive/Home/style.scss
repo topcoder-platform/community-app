@@ -1,0 +1,361 @@
+@import "../themes/mixins";
+
+.container { @include container; }
+
+.link {
+  color: #1a85ff;
+
+  &:visited {
+    color: royalblue;
+  }
+}
+
+/* Head banner. */
+
+.head-banner {
+  background-color: #247fc8;
+  background-image: url('assets/images/communities/cognitive/home/banner.jpg');
+  background-position: 50% 50%;
+  background-repeat: no-repeat;
+  background-size: cover;
+  min-height: 530px;
+  padding: 163px 80px 0;
+  position: relative;
+
+  @include xs-to-sm {
+    background-position: 70% 50%;
+    padding: 40px 40px 0;
+  }
+}
+
+.head-banner-overlay {
+  background: rgba(0, 0, 0, 0.4);
+  bottom: 0;
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+.head-banner-text-content {
+  margin: auto;
+  max-width: $tc-screen-lg;
+}
+
+.head-banner-title {
+  @include tc-title;
+
+  color: white;
+  max-width: 550px;
+  position: relative;
+  text-transform: uppercase;
+}
+
+.head-banner-text {
+  @include tc-body-lg;
+
+  color: white;
+  margin: 10px 0;
+  max-width: 487px;
+  position: relative;
+}
+
+.head-banner-join-button-wrap {
+  margin: 25px -5px;
+  position: relative;
+}
+
+/* Mission */
+
+.mission {
+  display: flex;
+  margin: 100px auto;
+  max-width: $tc-screen-lg;
+
+  @include xs-to-sm {
+    flex-direction: column;
+    margin: 40px 0;
+  }
+}
+
+.mission-details {
+  @include tc-body-md;
+
+  flex: 1;
+}
+
+.mission-details-button {
+  display: flex !important;
+  margin: 40px 0 0 !important;
+}
+
+.mission-main {
+  @include tc-heading-xl;
+
+  flex: 2;
+  margin-right: 80px;
+
+  @include xs-to-sm {
+    margin: 0 0 40px;
+  }
+}
+
+/* Qoute. */
+
+.quoteContainer {
+  align-items: flex-start;
+  display: flex;
+  margin: auto;
+  max-width: $tc-screen-lg;
+  padding: 100px 0;
+
+  @include xs-to-md {
+    flex-direction: column-reverse;
+    padding: 40px 0 100px;
+  }
+}
+
+.quote {
+  height: 450px;
+
+  @include xs-to-md {
+    height: auto;
+    width: 100%;
+  }
+}
+
+.quote-author-name {
+  @include tc-label-sm;
+
+  font-weight: bold;
+  margin-top: 30px;
+
+  @include md {
+    margin-top: 20px;
+  }
+}
+
+.qoute-author-who {
+  @include tc-label-sm;
+
+  margin-top: 10px;
+}
+
+.qoute-box {
+  background: white;
+  border-radius: 4px;
+  box-shadow: 0 2px 9px 0 rgba(38, 38, 40, 0.15);
+  margin: 60px 0 0 -80px;
+  padding: 30px;
+
+  @include lg {
+    margin: 40px 0 0 -250px;
+  }
+
+  @include xs-to-md {
+    margin: 0 auto -40px;
+    width: 80%;
+  }
+}
+
+.qoute-text {
+  @include tc-body-lg;
+
+  font-style: italic;
+  font-weight: 300;
+
+  @include xs-to-sm {
+    @include tc-label-sm;
+  }
+}
+
+/* Joining is simple */
+
+.joining-is-simple-container {
+  background: $tc-gray-10;
+  padding: 60px 80px;
+
+  @include xs-to-sm {
+    padding: 40px;
+  }
+}
+
+.joining-is-simple-content {
+  margin: auto;
+  max-width: $tc-screen-lg;
+}
+
+.joining-is-simple-title {
+  @include tc-heading-xl;
+
+  margin-bottom: 40px;
+  text-align: center;
+}
+
+.joining-is-simple-text {
+  @include tc-body-md;
+
+  margin-bottom: 20px;
+}
+
+.joining-flex {
+  display: flex;
+
+  @include xs-to-sm {
+    flex-direction: column;
+  }
+}
+
+.joining-howto {
+  background: white;
+  box-shadow: 0 2px 9px 0 rgba(38, 38, 40, 0.15);
+  border-radius: 6px;
+  height: min-content;
+  margin-left: 40px;
+  padding: 20px 30px;
+  min-width: 360px;
+
+  @include xs-to-sm {
+    margin-left: 0;
+    min-width: 0;
+  }
+}
+
+.joining-h2 {
+  @include tc-heading-lg;
+
+  margin-bottom: 10px;
+}
+
+.joining-point-container {
+  display: flex;
+  margin: 10px 0;
+}
+
+.joining-point {
+  @include tc-label-lg;
+
+  background: $tc-green;
+  border-radius: 30px;
+  color: white;
+  display: inline-block;
+  height: 30px;
+  line-height: 28px;
+  margin-right: 10px;
+  text-align: center;
+  min-width: 30px;
+}
+
+.joining-point-text {
+  @include tc-label-lg;
+
+  display: inline-block;
+  padding-top: 5px;
+
+  div {
+    display: inline-block;
+  }
+}
+
+.joining-join-button {
+  @include tc-label-lg;
+
+  background: white;
+  border: none;
+  color: #1a85ff;
+  padding: 0;
+}
+
+/* Learn and compete */
+
+.learn-container {
+  @include container;
+
+  margin-top: 100px;
+
+  @include xs-to-sm {
+    margin-top: 40px;
+  }
+}
+
+.learn-content {
+  margin: auto;
+  max-width: $tc-screen-lg;
+}
+
+.learn-title {
+  @include tc-heading-xl;
+
+  margin-bottom: 40px;
+  text-align: center;
+}
+
+.card {
+  border-radius: 6px;
+  box-shadow: 0 2px 9px 0 rgba(38, 38, 40, 0.15);
+  flex: 1;
+  overflow: hidden;
+  margin: 0 10px;
+
+  h1 {
+    @include tc-heading-lg;
+
+    font-weight: normal;
+
+    @include xs-to-sm {
+      font-weight: normal;
+    }
+  }
+
+  @include xs-to-sm {
+    flex: none;
+    margin: 10px 0;
+    width: 100%;
+  }
+}
+
+.card-01 .cardImage {
+  background-image: url('assets/images/communities/cognitive/home/card-01.jpg');
+}
+
+.card-02 .cardImage {
+  background-image: url('assets/images/communities/cognitive/home/card-02.jpg');
+}
+
+.cardContent {
+  padding: 30px;
+}
+
+.cardImage {
+  background-position: 50% 50%;
+  background-size: cover;
+  height: 300px;
+  width: 100%;
+}
+
+.cardsBlock {
+  display: flex;
+  margin: 40px auto;
+  max-width: $tc-screen-lg;
+  padding: 0 15px;
+
+  @include xs-to-sm {
+    flex-wrap: wrap;
+  }
+}
+
+.readMoreButton {
+  margin: 20px 0 0 !important;
+}
+
+.card-link {
+  @include tc-body-md;
+
+  color: #1a85ff;
+  display: block;
+  margin: 10px 0;
+
+  &:visited {
+    color: royalblue;
+  }
+}

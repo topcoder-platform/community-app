@@ -1,0 +1,25 @@
+@import "~styles/mixins";
+
+.answer {
+  @include tc-body-md;
+
+  background: $tc-gray-neutral-light;
+  padding: 20px;
+}
+
+.container {
+  margin: 10px 0;
+}
+
+.question {
+  @include tc-body-lg;
+
+  align-items: center;
+  background: $tc-dark-blue-90;
+  color: white;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  padding: 15px 20px;
+  position: relative;
+}
