@@ -102,23 +102,25 @@
 
 /* Qoute. */
 
-.quote {
-  background-image: url('assets/images/communities/cognitive/home/dave.jpg');
-  background-repeat: no-repeat;
-  background-size: contain;
-  height: 450px;
-  margin: 100px auto;
+.quoteContainer {
+  align-items: flex-start;
+  display: flex;
+  margin: auto;
   max-width: $tc-screen-lg;
-  position: relative;
+  padding: 100px 0;
 
-  @include xs-to-sm {
-    background-position-y: 100%;
-    background-size: auto 66%;
-    margin: 40px 0;
+  @include xs-to-md {
+    flex-direction: column-reverse;
+    padding: 40px 0 100px;
   }
+}
 
-  @include xs {
-    background-size: auto 50%;
+.quote {
+  height: 450px;
+
+  @include xs-to-md {
+    height: auto;
+    width: 100%;
   }
 }
 
@@ -143,19 +145,16 @@
   background: white;
   border-radius: 4px;
   box-shadow: 0 2px 9px 0 rgba(38, 38, 40, 0.15);
+  margin: 60px 0 0 -80px;
   padding: 30px;
-  position: absolute;
-  right: 0;
-  top: 60px;
-  width: 55%;
 
-  @include xs-to-md {
-    padding: 20px;
-    top: 20px;
+  @include lg {
+    margin: 40px 0 0 -250px;
   }
 
-  @include sm {
-    width: 50%;
+  @include xs-to-md {
+    margin: 0 auto -40px;
+    width: 80%;
   }
 }
 
@@ -218,6 +217,7 @@
 
   @include xs-to-sm {
     margin-left: 0;
+    min-width: 0;
   }
 }
 
@@ -243,7 +243,7 @@
   line-height: 28px;
   margin-right: 10px;
   text-align: center;
-  width: 30px;
+  min-width: 30px;
 }
 
 .joining-point-text {
@@ -319,7 +319,7 @@
 }
 
 .card-02 .cardImage {
-  background-image: url('assets/images/communities/cognitive/home/card-01.jpg');
+  background-image: url('assets/images/communities/cognitive/home/card-02.jpg');
 }
 
 .cardContent {
