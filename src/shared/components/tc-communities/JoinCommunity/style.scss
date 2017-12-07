@@ -5,16 +5,15 @@
   cursor: default;
 }
 
-.joining div p {
-  display: inline-block;
-  margin-right: 12px;
-  vertical-align: top;
+.joiningContainer {
+  align-items: center;
+  display: flex;
 }
 
 .loadingIndicator {
   display: inline-block;
   height: 32px;
-  padding-top: 4px;
+  padding-left: 10px;
   width: 32px;
 }
 

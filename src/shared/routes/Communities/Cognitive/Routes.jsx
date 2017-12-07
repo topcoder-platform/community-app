@@ -8,7 +8,7 @@ import Error404 from 'components/Error404';
 import Resources from 'containers/tc-communities/cognitive/resources';
 import Footer from 'components/tc-communities/communities/cognitive/Footer';
 import Header from 'containers/tc-communities/Header';
-import Home from 'components/tc-communities/communities/cognitive/Home';
+import Home from 'containers/tc-communities/cognitive/home';
 import GetStarted from 'components/tc-communities/communities/cognitive/GetStarted';
 import PT from 'prop-types';
 import React from 'react';
@@ -72,7 +72,7 @@ export default function Cognitive({ base, member, meta }) {
               path={`${base}/challenges/:challengeId(\\d{8})/my-submissions`}
             />
             <Route
-              component={() => <Resources member={member} />}
+              component={() => <Resources baseUrl={base} member={member} />}
               exact
               path={`${base}/resources`}
             />

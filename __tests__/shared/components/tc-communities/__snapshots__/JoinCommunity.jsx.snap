@@ -53,10 +53,12 @@ exports[`Matches shallow shapshot 2`] = `
     themePriority="adhoc-context-default"
     to={null}
   >
-    <div>
-      <p>
+    <div
+      className="src-shared-components-tc-communities-JoinCommunity-___style__joiningContainer___2P4Cv"
+    >
+      <span>
         Joining...
-      </p>
+      </span>
       <ThemedLoadingIndicator
         composeAdhocTheme="deeply"
         composeContextTheme="softly"

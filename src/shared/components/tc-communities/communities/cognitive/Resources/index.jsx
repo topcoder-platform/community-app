@@ -19,14 +19,19 @@ import LaptopSvg from
 import MsgsSvg from
   'assets/images/communities/cognitive/resources/msgs.svg';
 
-import { Button } from 'components/buttons';
+import { Button, PrimaryButton } from 'components/buttons';
 
 import FaqItem from './FaqItem';
 import NewsSignup from '../NewsSignup';
 
 import style from './style.scss';
 
-export default function Resources({ member, shownFaqItems, toggleFaqItem }) {
+export default function Resources({
+  baseUrl,
+  member,
+  shownFaqItems,
+  toggleFaqItem,
+}) {
   return (
     <main>
       <div styleName="style.container">
@@ -111,34 +116,50 @@ export default function Resources({ member, shownFaqItems, toggleFaqItem }) {
               toggle={show => toggleFaqItem('tco18Rules', show)}
             />
           </div>
-          {
-            member ? null : (
-              <div styleName="style.joinBox">
-                <img
-                  alt="Join Community"
-                  src={joinImage}
-                  styleName="style.joinImage"
-                />
-                <h1 styleName="style.joinHeading">
-                  Join the Topcoder Cognitive Community
-                </h1>
-                <p styleName="style.joinText">
-                  Learn about Cognitive technologies and get hands on experience
-                  as a member of the Topcoder Cognitive Community.
-                </p>
-                <JoinCommunity
-                  label="Join The Cognitive Community"
-                  theme={{
-                    link: {
-                      ...standardPrimaryButtonTheme,
-                      button: `${standardPrimaryButtonTheme.button} ${
-                        style.joinButton}`,
-                    },
-                  }}
-                />
-              </div>
-            )
-          }
+          <div styleName="style.joinBox">
+            <img
+              alt="Join Community"
+              src={joinImage}
+              styleName="style.joinImage"
+            />
+            {
+              member ? (
+                <div>
+                  <h1 styleName="style.joinHeading">
+                    Welcome to the Topcoder Cognitive Community
+                  </h1>
+                  <p styleName="style.joinText">
+                    You are now a part of the Topcoder Cognitive Community.
+                    Get started by competing in challenges using IBM Cloud.
+                  </p>
+                  <PrimaryButton
+                    theme={{ button: style.joinButton }}
+                    to={`${baseUrl}/challenges`}
+                  >View Challenges</PrimaryButton>
+                </div>
+              ) : (
+                <div>
+                  <h1 styleName="style.joinHeading">
+                    Join the Topcoder Cognitive Community
+                  </h1>
+                  <p styleName="style.joinText">
+                    Learn about Cognitive technologies and get hands on
+                    experience as a member of the Topcoder Cognitive Community.
+                  </p>
+                  <JoinCommunity
+                    label="Join The Cognitive Community"
+                    theme={{
+                      link: {
+                        ...standardPrimaryButtonTheme,
+                        button: `${standardPrimaryButtonTheme.button} ${
+                          style.joinButton}`,
+                      },
+                    }}
+                  />
+                </div>
+              )
+            }
+          </div>
         </div>
       </div>
       <div styleName="style.moreQContainer">
@@ -176,6 +197,7 @@ export default function Resources({ member, shownFaqItems, toggleFaqItem }) {
 }
 
 Resources.propTypes = {
+  baseUrl: PT.string.isRequired,
   member: PT.bool.isRequired,
   shownFaqItems: PT.shape().isRequired,
   toggleFaqItem: PT.func.isRequired,
