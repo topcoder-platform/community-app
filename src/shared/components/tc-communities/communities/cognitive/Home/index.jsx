@@ -13,6 +13,8 @@ import React from 'react';
 import { PrimaryButton } from 'components/buttons';
 import { Link } from 'utils/router';
 
+import davePhotoUrl from 'assets/images/communities/cognitive/home/dave.jpg';
+
 import NewsletterSignup from '../NewsSignup';
 
 import style from './style.scss';
@@ -65,7 +67,8 @@ export default function Home({ baseUrl, member }) {
             >Get Started</PrimaryButton>
           </div>
         </div>
-        <div styleName="quote">
+        <div styleName="quoteContainer">
+          <img alt="Dave" src={davePhotoUrl} styleName="quote" />
           <div styleName="qoute-box">
             <p styleName="qoute-text">
               “Cognitive computing is the next wave of software development,
