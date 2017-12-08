@@ -14,9 +14,20 @@ import Header from 'components/tc-communities/Header';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
+/* Holds one minute in milliseconds. */
+const MIN = 60 * 1000;
+
 class HeaderContainer extends React.Component {
   componentWillMount() {
-    this.props.getCommunityList(this.props.auth);
+    const {
+      auth,
+      communityList,
+      getCommunityList,
+    } = this.props;
+    if (!communityList.loadingUuid
+    && (Date.now() - communityList.timestamp > 5 * MIN)) {
+      getCommunityList(auth);
+    }
   }
 
   render() {

@@ -29,6 +29,10 @@ import './styles.scss';
 // The container component
 export class DashboardPageContainer extends React.Component {
   componentDidMount() {
+    /* TODO: They way communities list is loaded should be re-worked:
+     * now there are timestamps of the last loading, thus it can be optimized
+     *  */
+
     const {
       auth: { tokenV2, user, tokenV3 },
       challengeListing: { challenges },

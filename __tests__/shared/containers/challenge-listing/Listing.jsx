@@ -15,27 +15,26 @@ describe('full render pure component', () => {
       tokenV3: 'tokenV3',
       user: {},
     },
-    tcCommunities: {
-      list: {
-        loadingUuid: '',
-        data: [
-          {
-            communityId: '',
-            communityName: 'name',
-          },
-          {
-            communityId: '',
-            communityName: 'name',
-          },
-        ],
-        timestamp: 0,
-      },
+    communitiesList: {
+      loadingUuid: '',
+      data: [
+        {
+          communityId: '',
+          communityName: 'name',
+        },
+        {
+          communityId: '',
+          communityName: 'name',
+        },
+      ],
+      timestamp: 0,
     },
     allDraftChallengesLoaded: false,
     allPastChallengesLoaded: false,
     challenges: [],
     challengeSubtracks: [],
     challengeTags: [],
+    getCommunitiesList: () => {},
     communityFilters: [{ communityId: '1', name: 'My Filter', filter: {} }],
     dropChallenges: jest.fn(),
     filter: {},
