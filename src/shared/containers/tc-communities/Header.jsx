@@ -15,7 +15,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
 class HeaderContainer extends React.Component {
-  componentWillMount() {
+  componentDidMount() {
     this.props.getCommunityList(this.props.auth);
   }
 
