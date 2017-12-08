@@ -249,6 +249,7 @@ exports[`Matches shallow shapshot 2`] = `
       active={true}
       bucket={
         Object {
+          "error": undefined,
           "hideCount": true,
           "name": "name",
         }

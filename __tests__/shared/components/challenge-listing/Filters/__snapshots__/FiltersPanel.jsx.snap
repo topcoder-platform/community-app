@@ -165,7 +165,7 @@ exports[`Matches shallow shapshot 1`] = `
       size="sm"
       theme={
         Object {
-          "button": "src-shared-components-challenge-listing-Filters-FiltersPanel-___style__button___22bzJ",
+          "button": undefined,
         }
       }
       themePriority="adhoc-default-context"
@@ -176,7 +176,7 @@ exports[`Matches shallow shapshot 1`] = `
     <ThemedGenericButton
       composeAdhocTheme="deeply"
       composeContextTheme="softly"
-      disabled={false}
+      disabled={true}
       enforceA={false}
       mapThemrProps={[Function]}
       onClick={[Function]}
@@ -185,7 +185,7 @@ exports[`Matches shallow shapshot 1`] = `
       size="sm"
       theme={
         Object {
-          "button": "src-shared-components-challenge-listing-Filters-FiltersPanel-___style__button___22bzJ",
+          "button": undefined,
         }
       }
       themePriority="adhoc-context-default"
@@ -340,7 +340,7 @@ exports[`Matches shallow shapshot 2`] = `
       size="sm"
       theme={
         Object {
-          "button": "src-shared-components-challenge-listing-Filters-FiltersPanel-___style__button___22bzJ",
+          "button": undefined,
         }
       }
       themePriority="adhoc-default-context"
@@ -351,7 +351,7 @@ exports[`Matches shallow shapshot 2`] = `
     <ThemedGenericButton
       composeAdhocTheme="deeply"
       composeContextTheme="softly"
-      disabled={false}
+      disabled={true}
       enforceA={false}
       mapThemrProps={[Function]}
       onClick={[Function]}
@@ -360,7 +360,7 @@ exports[`Matches shallow shapshot 2`] = `
       size="sm"
       theme={
         Object {
-          "button": "src-shared-components-challenge-listing-Filters-FiltersPanel-___style__button___22bzJ",
+          "button": undefined,
         }
       }
       themePriority="adhoc-context-default"

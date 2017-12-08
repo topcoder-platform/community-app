@@ -24,7 +24,9 @@ export default function ChallengeFilters({
   defaultCommunityId,
   expanded,
   filterState,
+  isAuth,
   isCardTypeSet,
+  isReviewOpportunitiesBucket,
   saveFilter,
   searchText,
   selectCommunity,
@@ -61,7 +63,7 @@ export default function ChallengeFilters({
         />
         <ChallengeSearchBar
           onSearch={text => setFilterState(Filter.setText(filterState, text))}
-          placeholder="Search Challenges"
+          placeholder={isReviewOpportunitiesBucket ? 'Search Review Opportunities' : 'Search Challenges'}
           query={searchText}
           setQuery={setSearchText}
         />
@@ -139,6 +141,8 @@ export default function ChallengeFilters({
         communityName={communityName}
         defaultCommunityId={defaultCommunityId}
         hidden={!expanded}
+        isAuth={isAuth}
+        isReviewOpportunitiesBucket={isReviewOpportunitiesBucket}
         filterState={filterState}
         onClose={() => setExpanded(false)}
         onSaveFilter={saveFilter}
@@ -167,7 +171,9 @@ export default function ChallengeFilters({
 
 ChallengeFilters.defaultProps = {
   communityName: null,
+  isAuth: false,
   isCardTypeSet: '',
+  isReviewOpportunitiesBucket: false,
   isSavingFilter: false,
   setCardType: _.noop,
 };
@@ -178,8 +184,10 @@ ChallengeFilters.propTypes = {
   defaultCommunityId: PT.string.isRequired,
   expanded: PT.bool.isRequired,
   filterState: PT.shape().isRequired,
+  isAuth: PT.bool,
   isCardTypeSet: PT.string,
   isSavingFilter: PT.bool,
+  isReviewOpportunitiesBucket: PT.bool,
   saveFilter: PT.func.isRequired,
   selectCommunity: PT.func.isRequired,
   selectedCommunityId: PT.string.isRequired,

@@ -11,6 +11,7 @@ import PT from 'prop-types';
 import Sticky from 'react-stickynode';
 import * as Filter from 'utils/challenge-listing/filter';
 import Sidebar from 'containers/challenge-listing/Sidebar';
+import { isReviewOpportunitiesBucket } from 'utils/challenge-listing/buckets';
 
 import Listing from './Listing';
 import ChallengeCardPlaceholder from './placeholders/ChallengeCard';
@@ -23,6 +24,7 @@ const CHALLENGE_PLACEHOLDER_COUNT = 8;
 
 export default function ChallengeListing(props) {
   const {
+    activeBucket,
     defaultCommunityId,
     keepPastPlaceholders,
   } = props;
@@ -59,7 +61,8 @@ export default function ChallengeListing(props) {
   }
 
   let challengeCardContainer;
-  if (!expanded && props.loadingChallenges && !suppressPlaceholders) {
+  if (!expanded && props.loadingChallenges && !suppressPlaceholders
+    && !isReviewOpportunitiesBucket(activeBucket)) { // Skip, Review Opps are not auto-refreshed
     const challengeCards = _.range(CHALLENGE_PLACEHOLDER_COUNT)
       .map(key => <ChallengeCardPlaceholder id={key} key={key} />);
     challengeCardContainer = (
@@ -72,7 +75,7 @@ export default function ChallengeListing(props) {
   } else {
     challengeCardContainer = (
       <Listing
-        activeBucket={props.activeBucket}
+        activeBucket={activeBucket}
         auth={props.auth}
         challenges={challenges}
         challengesUrl={props.challengesUrl}
@@ -108,6 +111,7 @@ export default function ChallengeListing(props) {
         defaultCommunityId={defaultCommunityId}
         setCardType={_.noop/* cardType => this.setCardType(cardType) */}
         isCardTypeSet={'Challenges' /* this.state.currentCardType */}
+        isAuth={Boolean(props.auth.user)}
       />
       <div styleName={`tc-content-wrapper ${/* this.state.currentCardType === 'SRMs' ? '' : */'hidden'}`}>
         <div styleName="sidebar-container-mobile">

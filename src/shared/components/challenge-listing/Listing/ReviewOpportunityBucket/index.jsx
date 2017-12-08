@@ -7,6 +7,7 @@ import React from 'react';
 import Sort from 'utils/challenge-listing/sort';
 import SortingSelectBar from 'components/SortingSelectBar';
 import Waypoint from 'react-waypoint';
+import { getReviewOpportunitiesFilterFunction } from 'utils/challenge-listing/filter';
 import CardPlaceholder from '../../placeholders/ChallengeCard';
 import ReviewOpportunityCard from '../../ReviewOpportunityCard';
 
@@ -18,12 +19,14 @@ export default function ReviewOpportunityBucket({
   challengesUrl,
   expandedTags,
   expandTag,
+  filterState,
   keepPlaceholders,
   loading,
   loadMore,
   opportunities,
-  sort,
+  setFilterState,
   setSort,
+  sort,
 }) {
   if (!opportunities.length && !loadMore) return null;
 
@@ -32,11 +35,21 @@ export default function ReviewOpportunityBucket({
   const sortedOpportunities = _.clone(opportunities);
   sortedOpportunities.sort(Sort[activeSort].func);
 
-  const cards = sortedOpportunities.map(item => (
+  /* Filtering for Review Opportunities will be done entirely in the front-end
+   * which means it can be done at render, rather than in the reducer,
+   * which avoids reloading the review opportunities from server every time
+   * a filter is changed.  */
+  const filteredOpportunities = sortedOpportunities.filter(getReviewOpportunitiesFilterFunction({
+    ...bucket.filter, // Default bucket filters from utils/buckets.js
+    ...filterState, // User selected filters
+  }));
+
+  const cards = filteredOpportunities.map(item => (
     <ReviewOpportunityCard
       challengesUrl={challengesUrl}
       expandedTags={expandedTags}
       expandTag={expandTag}
+      onTechTagClicked={tag => setFilterState({ tags: [tag] })}
       opportunity={item}
       key={item.id}
     />
@@ -92,10 +105,12 @@ ReviewOpportunityBucket.propTypes = {
   challengesUrl: PT.string.isRequired,
   expandedTags: PT.arrayOf(PT.number),
   expandTag: PT.func,
+  filterState: PT.shape().isRequired,
   opportunities: PT.arrayOf(PT.shape()).isRequired,
   keepPlaceholders: PT.bool,
   loading: PT.bool,
   loadMore: PT.func,
+  setFilterState: PT.func.isRequired,
   setSort: PT.func.isRequired,
   sort: PT.string,
 };

@@ -225,8 +225,10 @@ export class ListingContainer extends React.Component {
           setFilterState={(state) => {
             this.props.setFilter(state);
             this.props.setSearchText(state.text || '');
-            if (activeBucket === BUCKETS.SAVED_FILTER) {
+            if (this.props.activeBucket === BUCKETS.SAVED_FILTER) {
               this.props.selectBucket(BUCKETS.ALL);
+            } else if (this.props.activeBucket === BUCKETS.SAVED_REVIEW_OPPORTUNITIES_FILTER) {
+              this.props.selectBucket(BUCKETS.REVIEW_OPPORTUNITIES);
             }
           }}
           setSort={this.props.setSort}

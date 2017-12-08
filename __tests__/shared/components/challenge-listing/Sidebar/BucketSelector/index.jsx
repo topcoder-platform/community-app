@@ -47,7 +47,7 @@ const mockDatas = [
     disabled: true,
     filterState: {},
     isAuth: false,
-    savedFilters: [{ id: '1', name: 'name' }],
+    savedFilters: [{ id: '1', name: 'name', filter: {} }],
     selectBucket,
     selectSavedFilter,
     setEditSavedFiltersMode,

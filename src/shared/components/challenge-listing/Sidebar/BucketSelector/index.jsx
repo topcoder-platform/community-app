@@ -53,10 +53,15 @@ export default function BucketSelector({
 
   const savedFiltersRender = savedFilters.map((item, index) => (
     <Bucket
-      active={activeBucket === BUCKETS.SAVED_FILTER && index === activeSavedFilter}
+      active={
+        (activeBucket === BUCKETS.SAVED_FILTER
+          || activeBucket === BUCKETS.SAVED_REVIEW_OPPORTUNITIES_FILTER)
+          && index === activeSavedFilter
+      }
       bucket={{
         hideCount: true,
-        name: item.name,
+        name: item.filter.isForReviewOpportunities ?
+          `${item.name} (Review Opportunities)` : item.name,
         error: item.filterError,
       }}
       challenges={[]}

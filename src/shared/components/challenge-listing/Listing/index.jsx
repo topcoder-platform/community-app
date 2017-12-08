@@ -5,7 +5,7 @@
 import _ from 'lodash';
 import React from 'react';
 import PT from 'prop-types';
-import { BUCKETS, getBuckets } from 'utils/challenge-listing/buckets';
+import { BUCKETS, getBuckets, isReviewOpportunitiesBucket } from 'utils/challenge-listing/buckets';
 import Bucket from './Bucket';
 import ReviewOpportunityBucket from './ReviewOpportunityBucket';
 import './style.scss';
@@ -58,16 +58,18 @@ export default function Listing({
     return (
       /* Review Opportunities use a different Bucket, Card and data source than normal challenges
        * and are only shown when explicitly chosen from the sidebar */
-      bucket === BUCKETS.REVIEW_OPPORTUNITIES ?
+      isReviewOpportunitiesBucket(bucket) ?
         <ReviewOpportunityBucket
           bucket={buckets[bucket]}
           challengesUrl={challengesUrl}
           expandedTags={expandedTags}
           expandTag={expandTag}
+          filterState={filterState}
           keepPlaceholders={keepPlaceholders}
           loading={loadingReviewOpportunities}
           loadMore={loadMoreReviewOpportunities}
           opportunities={reviewOpportunities}
+          setFilterState={setFilterState}
           setSort={sort => setSort(bucket, sort)}
           sort={sorts[bucket]}
         />

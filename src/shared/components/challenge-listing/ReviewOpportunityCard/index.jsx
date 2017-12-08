@@ -10,6 +10,8 @@ import PT from 'prop-types';
 import TrackIcon from 'components/TrackIcon';
 import Tooltip from 'components/Tooltip';
 
+import { REVIEW_OPPORTUNITY_TYPES } from 'utils/tc';
+
 import Tags from '../Tags';
 import TrackAbbreviationTooltip from '../Tooltips/TrackAbbreviationTooltip';
 
@@ -17,13 +19,6 @@ import SubmissionsIcon from '../Icons/SubmissionsIcon';
 import OpenPositionsIcon from '../Icons/RegistrantsIcon';
 
 import './style.scss';
-
-// Maps the review type to a human readable form
-const REVIEW_TYPE_TEXT = {
-  SPEC_REVIEW: 'Specification Review',
-  ITERATIVE_REVIEW: 'Iterative Review',
-  REVIEW: 'Review',
-};
 
 /**
  * Generates text for the tooltip that describes the number of submissions or
@@ -86,7 +81,7 @@ function ReviewOpportunityCard({
           <span>$</span>{opportunity.payment}
           <div styleName="payment-type">Payment</div>
         </div>
-        <span styleName="review-type">{REVIEW_TYPE_TEXT[opportunity.type]}</span>
+        <span styleName="review-type">{REVIEW_OPPORTUNITY_TYPES[opportunity.type]}</span>
         <div styleName="review-stats">
           <Tooltip
             content={

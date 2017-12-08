@@ -34,3 +34,8 @@
     color: $tc-gray-80;
   }
 }
+
+.disabled {
+  cursor: not-allowed;
+  opacity: 0.3;
+}

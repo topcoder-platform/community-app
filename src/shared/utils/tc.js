@@ -81,6 +81,15 @@ export function getRatingColor(rating) {
 }
 
 /**
+ * Review Opportunity types
+ */
+export const REVIEW_OPPORTUNITY_TYPES = {
+  REVIEW: 'Review',
+  SPEC_REVIEW: 'Specification Review',
+  ITERATIVE_REVIEW: 'Iterative Review',
+};
+
+/**
  * Given ExpressJS HTTP request it extracts Topcoder auth tokens from cookies,
  * if they are present there and are not expired.
  * @param {Object} req ExpressJS HTTP request. For convenience, it is allowed to
