@@ -19,7 +19,13 @@ import NewsletterSignup from '../NewsSignup';
 
 import style from './style.scss';
 
-export default function Home({ baseUrl, member }) {
+export default function Home({
+  allFaqItemsClosedInResourcesPage,
+  baseUrl,
+  closeAllFaqItemsInResourcesPage,
+  member,
+  toggleFaqItemInResourcesPage,
+}) {
   return (
     <main>
       <div styleName="head-banner">
@@ -100,7 +106,7 @@ export default function Home({ baseUrl, member }) {
                     you need to excel with today’s cognitive technologies, like IBM
                     Watson, AI, and chatbots. And in order to participate in
                     cognitive challenges on Topcoder, you’ll need to deploy your
-                    code in IBM Cloud Lite.
+                    code to IBM Cloud.
                   </p>
                   <p styleName="joining-is-simple-text">
                     Also, be sure to check out the cognitive computing zone on
@@ -146,11 +152,11 @@ export default function Home({ baseUrl, member }) {
                     <p styleName="joining-point-text">
                       Compete using
                       &zwnj;<a
-                        href="https://www.ibm.com/cloud/lite-account"
+                        href="https://console.bluemix.net/registration/?cm_sp=dw-cognitive-_-TPC2017-_-community"
                         rel="noopener noreferrer"
                         styleName="link"
                         target="_blank"
-                      >IBM Cloud Lite</a>
+                      >IBM Cloud</a>
                     </p>
                   </div>
                 </div>
@@ -167,12 +173,19 @@ export default function Home({ baseUrl, member }) {
               <div styleName="style.cardImage" />
               <div styleName="style.cardContent">
                 <h1>Resources</h1>
-                <a
-                  href="https://www.ibm.com/cloud/lite-account"
-                  rel="noopener noreferrer"
+                <Link
+                  onClick={() => {
+                    if (!allFaqItemsClosedInResourcesPage) {
+                      closeAllFaqItemsInResourcesPage();
+                    }
+                    toggleFaqItemInResourcesPage(
+                      'whyDoINeedIbmCloudAccount',
+                      true,
+                    );
+                  }}
                   styleName="card-link"
-                  target="_blank"
-                >What is IBM Cloud Lite?</a>
+                  to={`${baseUrl}/resources`}
+                >What is IBM Cloud?</Link>
                 <a
                   href="https://www.ibm.com/developerworks/"
                   rel="noopener noreferrer"
@@ -225,6 +238,9 @@ Home.defaultProps = {
 };
 
 Home.propTypes = {
+  allFaqItemsClosedInResourcesPage: PT.bool.isRequired,
   baseUrl: PT.string.isRequired,
+  closeAllFaqItemsInResourcesPage: PT.func.isRequired,
   member: PT.bool.isRequired,
+  toggleFaqItemInResourcesPage: PT.func.isRequired,
 };

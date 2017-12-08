@@ -2,6 +2,7 @@
  * Client-side rendering of the App.
  */
 
+import analytics from 'analytics.js';
 import authActions from 'actions/auth';
 import directActions from 'actions/direct';
 import userGroupsActions from 'actions/groups';
@@ -10,7 +11,6 @@ import { BrowserRouter, browserHistory } from 'react-router-dom';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import shortId from 'shortid';
 import {
   configureConnector,
   decodeToken,
@@ -42,6 +42,7 @@ const config = window.CONFIG;
  * Results will be storted in the Redux store, inside state.auth.
  * @param {Object} store Redux store.
  */
+let analyticsIdentitySet = false;
 let firstAuth = true;
 function authenticate(store) {
   /* TODO: The iframe injected into the page by this call turns out to be
@@ -76,6 +77,15 @@ function authenticate(store) {
 
     const userV3 = tctV3 ? decodeToken(tctV3) : {};
     const prevUserV3 = auth.tokenV3 ? decodeToken(auth.tokenV3) : {};
+
+    if (userV3.userId
+    && (!analyticsIdentitySet || userV3.userId !== prevUserV3.userId)) {
+      analyticsIdentitySet = true;
+      analytics.identify(userV3.userId, {
+        name: userV3.userId,
+        email: userV3.email,
+      });
+    }
 
     /* If we enter the following "if" block, it means that our visitor used
      * to be authenticated before, but now he has lost his authentication;
@@ -119,19 +129,5 @@ storeFactory(undefined, window.ISTATE).then((store) => {
 
   if (module.hot) {
     module.hot.accept('../shared', render);
-
-    /* This block of code forces reloading of style.css file each time
-     * webpack hot middleware reports about update of the code. */
-    /* eslint-disable no-underscore-dangle */
-    const hotReporter = window.__webpack_hot_middleware_reporter__;
-    const hotSuccess = hotReporter.success;
-    hotReporter.success = () => {
-      const stamp = shortId();
-      const links = document.querySelectorAll('link[rel=stylesheet]');
-      for (let i = 0; i < links.length; i += 1) {
-        links[i].href = `${links[i].href.match(/[^?]*/)[0]}?v=${stamp}`;
-      }
-      hotSuccess();
-    };
   }
 });

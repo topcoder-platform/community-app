@@ -15,8 +15,9 @@ describe('full render pure component', () => {
       tokenV3: 'tokenV3',
       user: {},
     },
-    tcCommunities: {
-      list: [
+    communitiesList: {
+      loadingUuid: '',
+      data: [
         {
           communityId: '',
           communityName: 'name',
@@ -26,12 +27,14 @@ describe('full render pure component', () => {
           communityName: 'name',
         },
       ],
+      timestamp: 0,
     },
     allDraftChallengesLoaded: false,
     allPastChallengesLoaded: false,
     challenges: [],
     challengeSubtracks: [],
     challengeTags: [],
+    getCommunitiesList: () => {},
     communityFilters: [{ communityId: '1', name: 'My Filter', filter: {} }],
     dropChallenges: jest.fn(),
     filter: {},
@@ -184,16 +187,18 @@ describe('full render connnected component and dispatch actions', () => {
       sorts: {},
     },
     tcCommunities: {
-      list: [
-        {
-          communityId: '',
-          communityName: 'name',
-        },
-        {
-          communityId: '',
-          communityName: 'name',
-        },
-      ],
+      list: {
+        data: [
+          {
+            communityId: '',
+            communityName: 'name',
+          },
+          {
+            communityId: '',
+            communityName: 'name',
+          },
+        ],
+      },
     },
     auth: {
       tokenV2: '',

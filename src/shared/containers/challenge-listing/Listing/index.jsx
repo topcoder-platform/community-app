@@ -9,6 +9,7 @@
  * which is used to define which challenges should be listed for the certain community.
  */
 
+import _ from 'lodash';
 import actions from 'actions/challenge-listing';
 import challengeActions from 'actions/challenge';
 import config from 'utils/config';
@@ -17,7 +18,7 @@ import headerActions from 'actions/topcoder_header';
 import logger from 'utils/logger';
 import React from 'react';
 import PT from 'prop-types';
-import shortid from 'shortid';
+import shortId from 'shortid';
 import { connect } from 'react-redux';
 import ChallengeListing from 'components/challenge-listing';
 import Banner from 'components/tc-communities/Banner';
@@ -32,11 +33,25 @@ import style from './styles.scss';
 
 let mounted = false;
 
+/* Holds one minute value in ms. */
+const MIN = 60 * 1000;
+
 const SEO_PAGE_TITLE = 'Topcoder Challenges';
 
 export class ListingContainer extends React.Component {
   componentDidMount() {
+    const {
+      auth,
+      communitiesList,
+      getCommunitiesList,
+    } = this.props;
+
     this.props.markHeaderMenu();
+
+    if (!communitiesList.loadingUuid
+    && (Date.now() - communitiesList.timestamp > 10 * MIN)) {
+      getCommunitiesList(auth);
+    }
 
     if (this.props.communityId) {
       this.props.selectCommunity(this.props.communityId);
@@ -50,6 +65,12 @@ export class ListingContainer extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
+    const oldUserId = _.get(prevProps, 'auth.user.userId');
+    const userId = _.get(this.props, 'auth.user.userId');
+    if (userId !== oldUserId) {
+      this.props.getCommunitiesList(this.props.auth);
+    }
+
     const profile = this.props.auth.profile;
     if (profile) {
       if (!prevProps.auth.profile) setImmediate(() => this.loadChallenges());
@@ -73,7 +94,7 @@ export class ListingContainer extends React.Component {
    * of the active frontend filters. */
   getBackendFilter() {
     let filter = this.props.filter;
-    let communityFilter = this.props.communityFilters.find(item =>
+    let communityFilter = this.props.communitiesList.data.find(item =>
       item.communityId === this.props.selectedCommunityId);
     if (communityFilter) communityFilter = communityFilter.challengeFilter;
     if (communityFilter) filter = combine(filter, communityFilter);
@@ -85,7 +106,6 @@ export class ListingContainer extends React.Component {
 
   loadChallenges() {
     const f = this.getBackendFilter();
-    this.props.getCommunityFilters(this.props.auth);
     this.props.getAllActiveChallenges(this.props.auth.tokenV3);
 
     /* No need to fetch draft challenges for now: we are not showing the
@@ -113,6 +133,7 @@ export class ListingContainer extends React.Component {
       challengesUrl,
       challengeSubtracks,
       challengeTags,
+      communitiesList,
       defaultCommunityId,
       domain,
       groupIds,
@@ -155,7 +176,7 @@ export class ListingContainer extends React.Component {
       };
     }
 
-    let communityFilter = this.props.communityFilters.find(item =>
+    let communityFilter = communitiesList.data.find(item =>
       item.communityId === this.props.selectedCommunityId);
     if (communityFilter) communityFilter = communityFilter.challengeFilter;
 
@@ -258,10 +279,14 @@ ListingContainer.propTypes = {
   challengesUrl: PT.string,
   challengeSubtracks: PT.arrayOf(PT.shape()).isRequired,
   challengeTags: PT.arrayOf(PT.string).isRequired,
-  communityFilters: PT.arrayOf(PT.shape({
-    challengeFilter: PT.shape(),
-    communityId: PT.string.isRequired,
-  })).isRequired,
+  communitiesList: PT.shape({
+    data: PT.arrayOf(PT.shape({
+      challengeFilter: PT.shape(),
+      communityId: PT.string.isRequired,
+    })).isRequired,
+    loadingUuid: PT.string.isRequired,
+    timestamp: PT.number.isRequired,
+  }).isRequired,
   defaultCommunityId: PT.string,
   domain: PT.string.isRequired,
   dropChallenges: PT.func.isRequired,
@@ -270,7 +295,7 @@ ListingContainer.propTypes = {
   communityId: PT.string,
   communityName: PT.string,
   getAllActiveChallenges: PT.func.isRequired,
-  getCommunityFilters: PT.func.isRequired,
+  getCommunitiesList: PT.func.isRequired,
   getDraftChallenges: PT.func.isRequired,
   getPastChallenges: PT.func.isRequired,
   keepPastPlaceholders: PT.bool.isRequired,
@@ -308,7 +333,8 @@ const mapStateToProps = (state, ownProps) => {
     challenges: cl.challenges,
     challengeSubtracks: cl.challengeSubtracks,
     challengeTags: cl.challengeTags,
-    communityFilters: tc.list,
+    communitiesList: tc.list,
+    // communityFilters: tc.list.data,
     domain: state.domain,
     hideTcLinksInSidebarFooter: ownProps.hideTcLinksInSidebarFooter,
     keepPastPlaceholders: cl.keepPastPlaceholders,
@@ -338,18 +364,22 @@ function mapDispatchToProps(dispatch) {
   return {
     dropChallenges: () => dispatch(a.dropChallenges()),
     getAllActiveChallenges: (token) => {
-      const uuid = shortid();
+      const uuid = shortId();
       dispatch(a.getAllActiveChallengesInit(uuid));
       dispatch(a.getAllActiveChallengesDone(uuid, token));
     },
-    getCommunityFilters: auth => dispatch(ca.getList(auth)),
+    getCommunitiesList: (auth) => {
+      const uuid = shortId();
+      dispatch(ca.getListInit(uuid));
+      dispatch(ca.getListDone(uuid, auth));
+    },
     getDraftChallenges: (page, filter, token) => {
-      const uuid = shortid();
+      const uuid = shortId();
       dispatch(a.getDraftChallengesInit(uuid, page));
       dispatch(a.getDraftChallengesDone(uuid, page, filter, token));
     },
     getPastChallenges: (page, filter, token, frontFilter) => {
-      const uuid = shortid();
+      const uuid = shortId();
       dispatch(a.getPastChallengesInit(uuid, page, frontFilter));
       dispatch(a.getPastChallengesDone(uuid, page, filter, token, frontFilter));
     },

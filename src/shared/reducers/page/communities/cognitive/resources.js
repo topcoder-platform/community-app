@@ -7,16 +7,29 @@ import actions from 'actions/page/communities/cognitive/resources';
 import { handleActions } from 'redux-actions';
 
 /**
- * Handler for TOGGLE_FAQ_ITEM action.
+ * Handler for the CLOSE_ALL_FAQ_ITEMS action.
+ * @param {Object} state
+ * @return {Object} New state.
+ */
+function onCloseAllFaqItems(state) {
+  return { ...state, shownFaqItems: {} };
+}
+
+/**
+ * Handler for the TOGGLE_FAQ_ITEM action.
  * @param {Object} state Previous state.
  * @param {Object} action
  * @return {Object} New state.
  */
-function onToggleFaqItem(state, { payload: { index, show } }) {
+function onToggleFaqItem(state, { payload: { closeOthers, index, show } }) {
   if (Boolean(state.shownFaqItems[index]) === show) return state;
-  const shownFaqItems = _.clone(state.shownFaqItems);
-  if (show) shownFaqItems[index] = true;
-  else delete shownFaqItems[index];
+  let shownFaqItems;
+  if (closeOthers) shownFaqItems = show ? { [index]: true } : {};
+  else {
+    shownFaqItems = _.clone(state.shownFaqItems);
+    if (show) shownFaqItems[index] = true;
+    else delete shownFaqItems[index];
+  }
   return { ...state, shownFaqItems };
 }
 
@@ -28,6 +41,7 @@ function onToggleFaqItem(state, { payload: { index, show } }) {
 function create(state = {}) {
   const a = actions.page.communities.cognitive.resources;
   return handleActions({
+    [a.closeAllFaqItems]: onCloseAllFaqItems,
     [a.toggleFaqItem]: onToggleFaqItem,
   }, _.defaults(state, {
     shownFaqItems: {},

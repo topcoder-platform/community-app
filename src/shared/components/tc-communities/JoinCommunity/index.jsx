@@ -56,8 +56,8 @@ export default function JoinCommunity({
         {...(theme.link ? { theme: theme.link, composeContextTheme: COMPOSE.SWAP } : {})}
       >
         { state === STATE.JOINING ? (
-          <div>
-            <p>Joining...</p>
+          <div className={style.joiningContainer}>
+            <span>Joining...</span>
             <LoadingIndicator theme={{ container: style.loadingIndicator }} />
           </div>
         ) : label}

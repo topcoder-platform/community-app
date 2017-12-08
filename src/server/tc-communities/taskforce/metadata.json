@@ -8,6 +8,7 @@
   "communityId": "taskforce",
   "communityName": "Taskforce",
   "groupIds": ["20000003"],
+  "hidden": true,
   "leaderboardApiUrl": "https://api.topcoder.com/v4/looks/458/run/json/",
   "logos": [{
     "img": "/community-app-assets/themes/taskforce/logo_topcoder_with_name.svg",

@@ -4,7 +4,27 @@
   @include tc-body-md;
 
   background: $tc-gray-neutral-light;
-  padding: 20px;
+  padding: 10px 20px;
+
+  a {
+    color: $tc-dark-blue-90;
+
+    &:visited {
+      color: $tc-purple;
+    }
+  }
+
+  h3 {
+    margin: 20px 0 0;
+  }
+
+  p {
+    margin: 10px 0;
+  }
+
+  strong {
+    font-weight: bold;
+  }
 }
 
 .container {

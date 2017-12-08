@@ -19,14 +19,19 @@ import LaptopSvg from
 import MsgsSvg from
   'assets/images/communities/cognitive/resources/msgs.svg';
 
-import { Button } from 'components/buttons';
+import { Button, PrimaryButton } from 'components/buttons';
 
 import FaqItem from './FaqItem';
 import NewsSignup from '../NewsSignup';
 
 import style from './style.scss';
 
-export default function Resources({ member, shownFaqItems, toggleFaqItem }) {
+export default function Resources({
+  baseUrl,
+  member,
+  shownFaqItems,
+  toggleFaqItem,
+}) {
   return (
     <main>
       <div styleName="style.container">
@@ -38,28 +43,71 @@ export default function Resources({ member, shownFaqItems, toggleFaqItem }) {
             <FaqItem
               open={shownFaqItems.howDoIGetStarted}
               toggle={show => toggleFaqItem('howDoIGetStarted', show)}
-              question="How do I get started with cognitive?"
+              question="How do I get started with Cognitive?"
             >
+              {
+                member ? null : (
+                  <div>
+                    <p>
+                      Start by simply signing up for the Topcoder Cognitive
+                      Community. It’s free and easy, and will give you access to
+                      exclusive educational resources.
+                    </p>
+                    <JoinCommunity
+                      label="Join the Cognitive Community"
+                      open={shownFaqItems.joinCommunity}
+                      theme={{
+                        link: {
+                          button: style.faqJoinButton,
+                        },
+                      }}
+                    />
+                  </div>
+                )
+              }
               <p>
-                Start by simply signing up for the Topcoder Cognitive
-                Community. It’s free and easy, and will give you access to
-                exclusive educational resources.
+                Be sure to explore the IBM Watson and Cognitive sites. There you
+                will find videos, demos, APIs, and helpful resources for
+                starting your Cognitive journey:
               </p>
-              <JoinCommunity
-                label="Join the Cognitive Community"
-                open={shownFaqItems.joinCommunity}
-                theme={{
-                  link: {
-                    button: style.faqJoinButton,
-                  },
-                }}
-              />
               <p>
-                Next, check out our fun educational challenges. These
-                challenges are designed to help you learn everything you need
-                to compete in future cognitive development challenges. New
-                educational challenges launch every few weeks, so be sure to
-                check back often.
+                <strong>developerWorks</strong><br />
+                <a
+                  href="https://www.ibm.com/developerworks/learn/cognitive"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >https://www.ibm.com/developerworks/learn/cognitive</a>
+              </p>
+              <p>
+                <strong>Watson</strong><br />
+                <a
+                  href="https://www.ibm.com/watson"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >https://www.ibm.com/watson</a>
+              </p>
+              <p>
+                <strong>IBM Cognitive</strong><br />
+                <a
+                  href="https://www.ibm.com/cognitive"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >https://www.ibm.com/cognitive</a>
+              </p>
+              <p>
+                <strong>IBM Research</strong><br />
+                <a
+                  href="http://research.ibm.com/cognitive-computing"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >http://research.ibm.com/cognitive-computing</a>
+              </p>
+              <p>
+                Next, check out the fun educational challenges here in the
+                Topcoder Cognitive Community. These challenges are designed to
+                help you learn everything you need to compete in future
+                Cognitive development challenges. New educational challenges
+                launch every few weeks, so be sure to check back often.
               </p>
             </FaqItem>
             <FaqItem
@@ -97,48 +145,139 @@ export default function Resources({ member, shownFaqItems, toggleFaqItem }) {
             </FaqItem>
             <FaqItem
               open={shownFaqItems.prerequisites}
-              question="Are there any prerequisites required to learn cognitive computing?"
+              question="Are there any prerequisites required to learn Cognitive computing?"
               toggle={show => toggleFaqItem('prerequisites', show)}
-            />
+            >
+              No, there are no prerequisites to get started! All you need is a
+              passion for technology and learning.
+            </FaqItem>
             <FaqItem
               open={shownFaqItems.incentives}
               question="Are there incentives to participate in the Cognitive challenges?"
               toggle={show => toggleFaqItem('incentives', show)}
-            />
+            >
+              Yes! In addition to learning Cognitive, you will earn Cognitive
+              Points for every challenge that you successfully complete and
+              your Cognitive Points are always reflected on the leaderboard.
+              The Topcoder Cognitive Community member with the most Cognitive
+              Points at the end of August will win an all-expenses paid trip to
+              the Topcoder Open 2018 (TCO18) finals!
+            </FaqItem>
             <FaqItem
               open={shownFaqItems.tco18Rules}
               question="What are the official rules for the Topcoder Open 2018 (TCO18) trip competition?"
               toggle={show => toggleFaqItem('tco18Rules', show)}
-            />
+            >
+              <h3>Cognitive Points</h3>
+              <p>
+                Every educational Cognitive challenge gives you an opportunity
+                to earn Cognitive Points. Note that you can only earn Cognitive
+                Points once for every educational challenge and paid challenges
+                tagged with “IBM Cognitive” or “IBM Watson”.
+              </p>
+              <p>
+                All successful submissions for the educational / fun challenges
+                will be awarded 500 cognitive points.
+              </p>
+              <p>
+                You may also earn Cognitive points by competing in prize-backed
+                challenges that are tagged with “IBM Cognitive” or
+                “IBM Watson&rdquo;. The placement you earn in these challenges
+                (non-F2F)
+                will determine how many Cognitive points will be added to your
+                total on the leaderboard:
+              </p>
+              <p>
+                1st place: 500pts<br />
+                2nd place: 350pts<br />
+                3rd place+: 100pts<br />
+              </p>
+              <p>
+                For challenges tagged with “IBM Cognitive” or “IBM Watson” that
+                are First 2 Finish challenges:
+              </p>
+              <p>Winner: 250pts</p>
+              <h3>Cognitive Leaderboard and Prize Schedule</h3>
+              <p>
+                All Cognitive Points earned between January 2018 and August 31,
+                2018 are eligible for the TCO18 trip. All challenges that start
+                in August 2018 are counted.
+              </p>
+              <p>
+                After August 2018, the leaderboard will reset. All Cognitive
+                Points earned between September 2018 and August 31, 2019 are
+                eligible for the TCO19 trip prize.
+              </p>
+              <h3>TCO Trip Prizes</h3>
+              <p>
+                The Topcoder Cognitive Community member with the most
+                leaderboard points (on the “All” Leaderboard) at the conclusion
+                of each prize period will win an all-expenses paid trip to the
+                Topcoder Open, including airfare, lodging, ground
+                transportation, and certain meals. More prize details will be
+                presented to the winner upon confirmation. Winner must have
+                participated and earned points in at least one fun/educational
+                challenge.
+              </p>
+              <p>
+                Members may only win one trip to the TCO each year. If the
+                Cognitive leaderboard winner has already won a trip to TCO
+                through other Topcoder competitions, the Cognitive TCO trip
+                prize will be offered to the next highest point scorer in line.
+              </p>
+              <h3>Tiebreaker</h3>
+              <p>
+                If there is a tie for first place, all tied members will
+                compete in a final challenge. This challenge will be
+                Cognitive-specific and reviewed to determine the winner, who
+                will be awarded the TCO trip.
+              </p>
+            </FaqItem>
           </div>
-          {
-            member ? null : (
-              <div styleName="style.joinBox">
-                <img
-                  alt="Join Community"
-                  src={joinImage}
-                  styleName="style.joinImage"
-                />
-                <h1 styleName="style.joinHeading">
-                  Join the Topcoder Cognitive Community
-                </h1>
-                <p styleName="style.joinText">
-                  Learn about Cognitive technologies and get hands on experience
-                  as a member of the Topcoder Cognitive Community.
-                </p>
-                <JoinCommunity
-                  label="Join The Cognitive Community"
-                  theme={{
-                    link: {
-                      ...standardPrimaryButtonTheme,
-                      button: `${standardPrimaryButtonTheme.button} ${
-                        style.joinButton}`,
-                    },
-                  }}
-                />
-              </div>
-            )
-          }
+          <div styleName="style.joinBox">
+            <img
+              alt="Join Community"
+              src={joinImage}
+              styleName="style.joinImage"
+            />
+            {
+              member ? (
+                <div>
+                  <h1 styleName="style.joinHeading">
+                    Welcome to the Topcoder Cognitive Community
+                  </h1>
+                  <p styleName="style.joinText">
+                    You are now a part of the Topcoder Cognitive Community.
+                    Get started by competing in challenges using IBM Cloud.
+                  </p>
+                  <PrimaryButton
+                    theme={{ button: style.joinButton }}
+                    to={`${baseUrl}/challenges`}
+                  >View Challenges</PrimaryButton>
+                </div>
+              ) : (
+                <div>
+                  <h1 styleName="style.joinHeading">
+                    Join the Topcoder Cognitive Community
+                  </h1>
+                  <p styleName="style.joinText">
+                    Learn about Cognitive technologies and get hands on
+                    experience as a member of the Topcoder Cognitive Community.
+                  </p>
+                  <JoinCommunity
+                    label="Join The Cognitive Community"
+                    theme={{
+                      link: {
+                        ...standardPrimaryButtonTheme,
+                        button: `${standardPrimaryButtonTheme.button} ${
+                          style.joinButton}`,
+                      },
+                    }}
+                  />
+                </div>
+              )
+            }
+          </div>
         </div>
       </div>
       <div styleName="style.moreQContainer">
@@ -176,6 +315,7 @@ export default function Resources({ member, shownFaqItems, toggleFaqItem }) {
 }
 
 Resources.propTypes = {
+  baseUrl: PT.string.isRequired,
   member: PT.bool.isRequired,
   shownFaqItems: PT.shape().isRequired,
   toggleFaqItem: PT.func.isRequired,

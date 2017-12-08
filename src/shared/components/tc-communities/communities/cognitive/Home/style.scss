@@ -87,6 +87,7 @@
 .mission-details-button {
   display: flex !important;
   margin: 40px 0 0 !important;
+  width: fit-content;
 }
 
 .mission-main {
@@ -295,7 +296,11 @@
   box-shadow: 0 2px 9px 0 rgba(38, 38, 40, 0.15);
   flex: 1;
   overflow: hidden;
-  margin: 0 10px;
+  margin: 0 20px 0 0;
+
+  &:last-child {
+    margin-right: 0;
+  }
 
   h1 {
     @include tc-heading-lg;
@@ -337,7 +342,7 @@
   display: flex;
   margin: 40px auto;
   max-width: $tc-screen-lg;
-  padding: 0 15px;
+  padding: 0;
 
   @include xs-to-sm {
     flex-wrap: wrap;

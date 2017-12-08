@@ -53,6 +53,11 @@ describe('full render connnected component and dispatch actions', () => {
       iosRegistered: false,
     },
     challengeListing: {},
+    tcCommunities: {
+      list: {
+        data: [],
+      },
+    },
   };
   const mockStore = configureStore();
   let store;

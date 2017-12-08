@@ -126,7 +126,7 @@ function mapStateToProps(state, ownProps) {
     hideTcLinksInFooter: ownProps.hideTcLinksInFooter,
     filterState: state.challengeListing.filter,
     isAuth: Boolean(state.auth.user),
-    communityFilters: [{ communityId: '', communityName: 'All' }].concat(state.tcCommunities.list),
+    communityFilters: [{ communityId: '', communityName: 'All' }].concat(state.tcCommunities.list.data),
     selectedCommunityId: state.challengeListing.selectedCommunityId,
     tokenV2: state.auth.tokenV2,
     user: state.auth.user,

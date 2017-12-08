@@ -30,16 +30,18 @@ describe('shallow render connnected component', () => {
       tokenV2: 'tokenV2',
     },
     tcCommunities: {
-      list: [
-        {
-          communityId: '',
-          communityName: 'name',
-        },
-        {
-          communityId: '',
-          communityName: 'name',
-        },
-      ],
+      list: {
+        data: [
+          {
+            communityId: '',
+            communityName: 'name',
+          },
+          {
+            communityId: '',
+            communityName: 'name',
+          },
+        ],
+      },
     },
   };
   const mockStore = configureStore();
@@ -83,16 +85,18 @@ describe('full render pure component', () => {
     setQuery: jest.fn(),
     onSwitch: jest.fn(),
     tcCommunities: {
-      list: [
-        {
-          communityId: '',
-          communityName: 'name',
-        },
-        {
-          communityId: '',
-          communityName: 'name',
-        },
-      ],
+      list: {
+        data: [
+          {
+            communityId: '',
+            communityName: 'name',
+          },
+          {
+            communityId: '',
+            communityName: 'name',
+          },
+        ],
+      },
     },
   };
 
@@ -186,16 +190,18 @@ describe('full render connnected component and dispatch actions', () => {
       tokenV2: 'tokenV2',
     },
     tcCommunities: {
-      list: [
-        {
-          communityId: '',
-          communityName: 'name',
-        },
-        {
-          communityId: '',
-          communityName: 'name',
-        },
-      ],
+      list: {
+        data: [
+          {
+            communityId: '',
+            communityName: 'name',
+          },
+          {
+            communityId: '',
+            communityName: 'name',
+          },
+        ],
+      },
     },
   };
   const mockStore = configureStore();

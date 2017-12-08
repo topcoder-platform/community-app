@@ -27,7 +27,7 @@ const mockData3 = {
   },
 };
 
-test('Matches shallow shapshot', () => {
+test.skip('Matches shallow shapshot', () => {
   const renderer = new Renderer();
 
   renderer.render((
