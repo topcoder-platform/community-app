@@ -1,0 +1,65 @@
+@import '../../../themes/mixins';
+
+@mixin container {
+  @include body-text;
+
+  height: 360px;
+  margin-bottom: 48px;
+  overflow: hidden;
+  position: relative;
+  width: 48%;
+
+  @include xs-to-md {
+    padding: 0 24px;
+    width: 100%;
+  }
+
+  a {
+    @include link;
+
+    text-decoration: underline;
+  }
+
+  h3 {
+    @include h3;
+  }
+
+  h4 {
+    @include h4;
+  }
+
+  iframe {
+    height: 280px;
+    width: 100%;
+  }
+
+  img {
+    width: 100%;
+  }
+}
+
+.container {
+  @include container;
+}
+
+.full-width-container {
+  @include container;
+
+  width: 100%;
+  height: 360px;
+}
+
+.mask {
+  background: linear-gradient(180deg, transparent, rgba(255, 255, 255, 0.5) 50%, white 80%);
+  bottom: 0;
+  height: 128px;
+  left: 0;
+  position: absolute;
+  right: 0;
+}
+
+.readMore {
+  bottom: 0;
+  position: absolute;
+  z-index: 2;
+}
