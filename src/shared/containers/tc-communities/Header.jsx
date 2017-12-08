@@ -6,6 +6,7 @@ import _ from 'lodash';
 import config from 'utils/config';
 import PT from 'prop-types';
 import React from 'react';
+import shortId from 'shortid';
 import actions from 'actions/topcoder_header';
 import metaActions from 'actions/tc-communities/meta';
 import communityActions from 'actions/tc-communities';
@@ -71,7 +72,7 @@ function mapStateToProps(state, ownProps) {
     baseUrl: ownProps.baseUrl,
     chevronOverAvatar: meta.chevronOverAvatar,
     communityId: meta.communityId,
-    communityList: state.tcCommunities.list,
+    communityList: state.tcCommunities.list.data,
     groupIds: meta.groupIds,
     hideJoinNow: ownProps.hideJoinNow,
     hideSearch: meta.hideSearch,
@@ -86,7 +87,11 @@ function mapStateToProps(state, ownProps) {
 
 function mapDispatchToProps(dispatch) {
   return _.merge(bindActionCreators(actions.topcoderHeader, dispatch), {
-    getCommunityList: auth => dispatch(communityActions.tcCommunity.getList(auth)),
+    getCommunityList: (auth) => {
+      const uuid = shortId();
+      dispatch(communityActions.tcCommunity.getListInit(uuid));
+      dispatch(communityActions.tcCommunity.getListDone(uuid, auth));
+    },
     onMobileToggleClick: () =>
       dispatch(metaActions.tcCommunities.meta.mobileToggle()),
   });

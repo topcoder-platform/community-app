@@ -2,6 +2,7 @@
   Component renders challenge details and specifications
 */
 
+import _ from 'lodash';
 import config from 'utils/config';
 import React from 'react';
 import PT from 'prop-types';
@@ -12,11 +13,12 @@ import './styles.scss';
 
 export default function ChallengeDetailsView(props) {
   const {
+    communitiesList,
     terms,
     hasRegistered,
     openTermsModal,
     challenge: {
-      groupIds,
+      groups,
       introduction,
       detailedRequirements,
       track,
@@ -37,6 +39,12 @@ export default function ChallengeDetailsView(props) {
       codeRepo,
     },
   } = props;
+
+  let isWipro = false;
+  const wiproCommunity = communitiesList.find(x => x.communityId === 'wipro');
+  if (wiproCommunity) {
+    isWipro = wiproCommunity.groupIds.some(id => groups[id]);
+  }
 
   const isDataScience = technologies.includes('Data Science');
   let accentedStyle = 'challenge-specs-design';
@@ -238,19 +246,44 @@ export default function ChallengeDetailsView(props) {
           }
           <article>
             <h2>Payments</h2>
-            <p>
-              Topcoder will compensate members in accordance with the our
-              standard payment policies, unless otherwise specified in this
-              challenge. For information on payment policies, setting up your
-              profile to receive payments, and general payment questions,
-              please refer to
-              &zwnj;<a
-                href="https://help.topcoder.com/hc/en-us/articles/217482038-Payment-Policies-and-Instructions"
-                rel="noopener noreferrer"
-                target="_blank"
-              >https://help.topcoder.com/hc/en-us/articles/217482038-Payment-Policies-and-Instructions
-              </a>.
-            </p>
+            {
+              isWipro ? (
+                <div>
+                  <p>
+                    For employees of Wipro Technologies, following are the
+                    payment terms. Winner/s would be awarded the prize money on
+                    successful completion and acceptance of the submission by
+                    the stakeholder. Accumulated prize money for the month will
+                    be paid through Wipro payroll as part of subsequent month’s
+                    salary (eg. Aug month challenge winners payment will be
+                    credited as part Sept month salary). For payment of prize
+                    money, respective country currency conversion shall be
+                    considered as per Wipro standard currency conversion
+                    guidelines. Please refer to policy document at
+                    &zwnj;<a
+                      href="https://wipro365.sharepoint.com/sites/wipro-people-policies/wipro%20policies/TopGear-RewardPoints-Policy.pdf"
+                      rel="noopener noreferrer"
+                      target="_blank"
+                    >https://wipro365.sharepoint.com/sites/wipro-people-policies/wipro%20policies/TopGear-RewardPoints-Policy.pdf</a>&zwnj;
+                    for details regarding the policy.
+                  </p>
+                </div>
+              ) : (
+                <p>
+                  Topcoder will compensate members in accordance with the our
+                  standard payment policies, unless otherwise specified in this
+                  challenge. For information on payment policies, setting up your
+                  profile to receive payments, and general payment questions,
+                  please refer to
+                  &zwnj;<a
+                    href="https://help.topcoder.com/hc/en-us/articles/217482038-Payment-Policies-and-Instructions"
+                    rel="noopener noreferrer"
+                    target="_blank"
+                  >https://help.topcoder.com/hc/en-us/articles/217482038-Payment-Policies-and-Instructions
+                  </a>.
+                </p>
+              )
+            }
           </article>
           <article>
             <h2>Reliability Rating and Bonus</h2>
@@ -283,7 +316,7 @@ export default function ChallengeDetailsView(props) {
         isDevelop={track.toLowerCase() === 'develop'}
         terms={terms}
         openTermsModal={openTermsModal}
-        shareable={!groupIds}
+        shareable={_.isEmpty(groups)}
         environment={environment}
         codeRepo={codeRepo}
       />
@@ -322,7 +355,7 @@ ChallengeDetailsView.propTypes = {
     introduction: PT.string,
     detailedRequirements: PT.string,
     track: PT.string.isRequired,
-    groupIds: PT.arrayOf(PT.number),
+    groups: PT.shape().isRequired,
     screeningScorecardId: PT.number,
     reviewScorecardId: PT.number,
     forumLink: PT.string,
@@ -339,5 +372,9 @@ ChallengeDetailsView.propTypes = {
     environment: PT.string,
     codeRepo: PT.string,
   }),
+  communitiesList: PT.shape({
+    communityId: PT.string.isRequired,
+    groupIds: PT.arrayOf(PT.number).isRequired,
+  }).isRequired,
   openTermsModal: PT.func.isRequired,
 };

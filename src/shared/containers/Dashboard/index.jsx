@@ -7,7 +7,7 @@
 import React from 'react';
 import PT from 'prop-types';
 import { connect } from 'react-redux';
-import shortid from 'shortid';
+import shortId from 'shortid';
 import _ from 'lodash';
 
 import config from 'utils/config';
@@ -32,7 +32,11 @@ export class DashboardPageContainer extends React.Component {
     const {
       auth: { tokenV2, user, tokenV3 },
       challengeListing: { challenges },
-      tcCommunities: { list: communityList },
+      tcCommunities: {
+        list: {
+          data: communityList,
+        },
+      },
       getCommunityStats,
     } = this.props;
     if (!tokenV2) {
@@ -57,7 +61,11 @@ export class DashboardPageContainer extends React.Component {
     const {
       auth: { user, tokenV3, profile },
       challengeListing: { challenges },
-      tcCommunities: { list: communityList },
+      tcCommunities: {
+        list: {
+          data: communityList,
+        },
+      },
       getCommunityStats,
     } = this.props;
 
@@ -76,7 +84,7 @@ export class DashboardPageContainer extends React.Component {
       setImmediate(() => this.props.getCommunityList(this.props.auth));
     }
     if ((challenges !== prevProps.challengeListing.challenges
-      || communityList !== prevProps.tcCommunities.list) && tokenV3) {
+      || communityList !== prevProps.tcCommunities.list.data) && tokenV3) {
       _.forEach(communityList, c => getCommunityStats(c, challenges, tokenV3));
     }
   }
@@ -99,7 +107,11 @@ export class DashboardPageContainer extends React.Component {
       },
       challengeListing: { challenges },
       lastUpdateOfActiveChallenges,
-      tcCommunities: { list: communityList },
+      tcCommunities: {
+        list: {
+          data: communityList,
+        },
+      },
       registerIos,
       stats,
     } = this.props;
@@ -233,7 +245,9 @@ DashboardPageContainer.propTypes = {
   dashboard: PT.shape(),
   challengeListing: PT.shape(),
   tcCommunities: PT.shape({
-    list: PT.arrayOf(PT.shape()).isRequired,
+    list: PT.shape({
+      data: PT.arrayOf(PT.shape()).isRequired,
+    }).isRequired,
   }),
   stats: PT.shape(),
   getAllActiveChallenges: PT.func.isRequired,
@@ -272,7 +286,7 @@ const mapDispatchToProps = dispatch => ({
     dispatch(actions.dashboard.getSubtrackRanksDone(tokenV3, handle));
   },
   getAllActiveChallenges: (tokenV3) => {
-    const uuid = shortid();
+    const uuid = shortId();
     dispatch(cActions.challengeListing.getAllActiveChallengesInit(uuid));
     dispatch(cActions.challengeListing.getAllActiveChallengesDone(uuid, tokenV3));
   },
@@ -300,7 +314,11 @@ const mapDispatchToProps = dispatch => ({
   getUserAchievements: (handle) => {
     dispatch(actions.dashboard.getUserAchievements(handle));
   },
-  getCommunityList: auth => dispatch(communityActions.tcCommunity.getList(auth)),
+  getCommunityList: (auth) => {
+    const uuid = shortId();
+    dispatch(communityActions.tcCommunity.getListInit(uuid));
+    dispatch(communityActions.tcCommunity.getListDone(uuid, auth));
+  },
   getCommunityStats: (community, challenges, token) =>
     dispatch(statsActions.stats.getCommunityStats(community, challenges, token)),
 });

@@ -17,7 +17,7 @@ import headerActions from 'actions/topcoder_header';
 import logger from 'utils/logger';
 import React from 'react';
 import PT from 'prop-types';
-import shortid from 'shortid';
+import shortId from 'shortid';
 import { connect } from 'react-redux';
 import ChallengeListing from 'components/challenge-listing';
 import Banner from 'components/tc-communities/Banner';
@@ -308,7 +308,7 @@ const mapStateToProps = (state, ownProps) => {
     challenges: cl.challenges,
     challengeSubtracks: cl.challengeSubtracks,
     challengeTags: cl.challengeTags,
-    communityFilters: tc.list,
+    communityFilters: tc.list.data,
     domain: state.domain,
     hideTcLinksInSidebarFooter: ownProps.hideTcLinksInSidebarFooter,
     keepPastPlaceholders: cl.keepPastPlaceholders,
@@ -338,18 +338,22 @@ function mapDispatchToProps(dispatch) {
   return {
     dropChallenges: () => dispatch(a.dropChallenges()),
     getAllActiveChallenges: (token) => {
-      const uuid = shortid();
+      const uuid = shortId();
       dispatch(a.getAllActiveChallengesInit(uuid));
       dispatch(a.getAllActiveChallengesDone(uuid, token));
     },
-    getCommunityFilters: auth => dispatch(ca.getList(auth)),
+    getCommunityFilters: (auth) => {
+      const uuid = shortId();
+      dispatch(ca.getListInit(uuid));
+      dispatch(ca.getListDone(uuid, auth));
+    },
     getDraftChallenges: (page, filter, token) => {
-      const uuid = shortid();
+      const uuid = shortId();
       dispatch(a.getDraftChallengesInit(uuid, page));
       dispatch(a.getDraftChallengesDone(uuid, page, filter, token));
     },
     getPastChallenges: (page, filter, token, frontFilter) => {
-      const uuid = shortid();
+      const uuid = shortId();
       dispatch(a.getPastChallengesInit(uuid, page, frontFilter));
       dispatch(a.getPastChallengesDone(uuid, page, filter, token, frontFilter));
     },

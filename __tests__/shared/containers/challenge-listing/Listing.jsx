@@ -16,16 +16,20 @@ describe('full render pure component', () => {
       user: {},
     },
     tcCommunities: {
-      list: [
-        {
-          communityId: '',
-          communityName: 'name',
-        },
-        {
-          communityId: '',
-          communityName: 'name',
-        },
-      ],
+      list: {
+        loadingUuid: '',
+        data: [
+          {
+            communityId: '',
+            communityName: 'name',
+          },
+          {
+            communityId: '',
+            communityName: 'name',
+          },
+        ],
+        timestamp: 0,
+      },
     },
     allDraftChallengesLoaded: false,
     allPastChallengesLoaded: false,
@@ -184,16 +188,18 @@ describe('full render connnected component and dispatch actions', () => {
       sorts: {},
     },
     tcCommunities: {
-      list: [
-        {
-          communityId: '',
-          communityName: 'name',
-        },
-        {
-          communityId: '',
-          communityName: 'name',
-        },
-      ],
+      list: {
+        data: [
+          {
+            communityId: '',
+            communityName: 'name',
+          },
+          {
+            communityId: '',
+            communityName: 'name',
+          },
+        ],
+      },
     },
     auth: {
       tokenV2: '',

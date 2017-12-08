@@ -17,23 +17,34 @@ function joinDone(token, groupId, memberId) {
 }
 
 /**
- * Gets the listing of communities visible to the vistor: (1) all public
- * communities; (2) if the visitor is an authenticated user, then also
- * communities he is member of.
- * @param {Object} auth
+ * Payload creator for the action that inits the loading of the list of
+ * communities visible to the user.
+ * @param {String} uuid Operation UUID. Only results of the matching
+ *  getListDone() request will be stored to the Redux state.
+ * @return {String}
+ */
+function getListInit(uuid) {
+  return uuid;
+}
+
+/**
+ * Payload creator for the action that fetches the list of communities visible
+ * to the user.
+ * @param {String} uuid Operation UUID. Should match with the one passed to
+ *  getListInit().
+ * @param {Object} auth Authorization data object.
  * @return {Promise}
  */
-function getList(auth) {
-  let groups = [];
-  if (auth.profile && auth.profile.groups) {
-    groups = auth.profile.groups.map(g => g.id);
-  }
-  return getCommunitiesService(auth.tokenV3).getList(groups);
+function getListDone(uuid, auth) {
+  const groups = _.get(auth, 'profile.groups', []).map(g => g.id);
+  return getCommunitiesService(auth.tokenV3)
+    .getList(groups).then(list => ({ list, uuid }));
 }
 
 export default createActions({
   TC_COMMUNITY: {
-    GET_LIST: getList,
+    GET_LIST_INIT: getListInit,
+    GET_LIST_DONE: getListDone,
     HIDE_JOIN_BUTTON: _.noop,
     JOIN_INIT: _.noop,
     JOIN_DONE: joinDone,

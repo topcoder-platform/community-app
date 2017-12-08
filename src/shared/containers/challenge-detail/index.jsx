@@ -7,11 +7,13 @@
 /* global location */
 
 import _ from 'lodash';
+import communityActions from 'actions/tc-communities';
 import LoadingPagePlaceholder from 'components/LoadingPagePlaceholder';
 import ChallengeHeader from 'components/challenge-detail/Header';
 import challengeListingActions from 'actions/challenge-listing';
 import challengeListingSidebarActions from 'actions/challenge-listing/sidebar';
 import Registrants from 'components/challenge-detail/Registrants';
+import shortId from 'shortid';
 import Submissions from 'components/challenge-detail/Submissions';
 import Winners from 'components/challenge-detail/Winners';
 import ChallengeDetailsView from 'components/challenge-detail/Specification';
@@ -55,8 +57,9 @@ import ogImage from
 
 import './styles.scss';
 
-/* Holds one day in milliseconds. */
-const DAY = 24 * 60 * 60 * 1000;
+/* Holds various time ranges in milliseconds. */
+const MIN = 60 * 1000;
+const DAY = 24 * 60 * MIN;
 
 /**
  * Given challenge details object, it returns the URL of the image to be used in
@@ -116,12 +119,24 @@ class ChallengeDetailPageContainer extends React.Component {
   }
 
   componentDidMount() {
-    const { challenge, loadChallengeDetails,
-      authTokens, challengeId,
-      challengeSubtracksMap, getSubtracks } = this.props;
+    const {
+      authTokens,
+      challenge,
+      communitiesList,
+      getCommunitiesList,
+      loadChallengeDetails,
+      challengeId,
+      challengeSubtracksMap,
+      getSubtracks,
+    } = this.props;
 
     if (challenge.id !== challengeId) {
       loadChallengeDetails(authTokens, challengeId);
+    }
+
+    if (!communitiesList.loadingUuid
+    && (Date.now() - communitiesList.timestamp > 10 * MIN)) {
+      getCommunitiesList(authTokens);
     }
 
     if (_.isEmpty(challengeSubtracksMap)) {
@@ -130,6 +145,12 @@ class ChallengeDetailPageContainer extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
+    const userId = _.get(this, 'props.authTokens.user.userId');
+    const nextUserId = _.get(nextProps, 'authTokens.user.userId');
+    if (userId !== nextUserId) {
+      nextProps.getCommunitiesList(nextProps.authTokens);
+    }
+
     if (this.props.tokenV3 !== nextProps.tokenV3) {
       this.props.reloadChallengeDetails(nextProps.authTokens, this.props.challengeId);
     }
@@ -240,6 +261,7 @@ class ChallengeDetailPageContainer extends React.Component {
             !isEmpty && this.props.selectedTab === DETAIL_TABS.DETAILS &&
             <ChallengeDetailsView
               challenge={this.props.challenge}
+              communitiesList={this.props.communitiesList.data}
               introduction={this.props.challenge.introduction}
               detailedRequirements={this.props.challenge.detailedRequirements}
               terms={this.props.terms}
@@ -319,8 +341,13 @@ ChallengeDetailPageContainer.propTypes = {
   challengesUrl: PT.string,
   checkpointResults: PT.arrayOf(PT.shape()),
   checkpoints: PT.shape(),
+  communitiesList: PT.shape({
+    data: PT.arrayOf(PT.object).isRequired,
+    loadingUuid: PT.string.isRequired,
+    timestamp: PT.number.isRequired,
+  }).isRequired,
   domain: PT.string.isRequired,
-  // fetchCheckpoints: PT.func.isRequired,
+  getCommunitiesList: PT.func.isRequired,
   getSubtracks: PT.func.isRequired,
   isLoadingChallenge: PT.bool,
   isLoadingTerms: PT.bool,
@@ -352,6 +379,7 @@ const mapStateToProps = (state, props) => ({
   challengeSubtracksMap: state.challengeListing.challengeSubtracksMap,
   checkpointResults: (state.challenge.checkpoints || {}).checkpointResults,
   checkpoints: state.challenge.checkpoints || {},
+  communitiesList: state.tcCommunities.list,
   domain: state.domain,
   isLoadingChallenge: Boolean(state.challenge.loadingDetailsForChallengeId),
   isLoadingTerms: _.isEqual(state.terms.loadingTermsForEntity, {
@@ -371,9 +399,15 @@ const mapStateToProps = (state, props) => ({
 });
 
 const mapDispatchToProps = (dispatch) => {
+  const ca = communityActions.tcCommunity;
   const a = challengeActions.challenge;
   const t = termsActions.terms;
   return {
+    getCommunitiesList: (auth) => {
+      const uuid = shortId();
+      dispatch(ca.getListInit(uuid));
+      dispatch(ca.getListDone(uuid, auth));
+    },
     loadChallengeDetails: (tokens, challengeId) => {
       dispatch(a.getDetailsInit(challengeId));
       dispatch(a.getDetailsDone(challengeId, tokens.tokenV3, tokens.tokenV2))
