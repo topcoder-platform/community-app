@@ -9,6 +9,7 @@
 
 import React from 'react';
 import PT from 'prop-types';
+import { PrimaryButton } from 'components/buttons';
 import { themr } from 'react-css-super-themr';
 import defaultStyle from './style.scss';
 
@@ -22,7 +23,12 @@ function NewsletterSignup(props) {
         <p className={theme.text}>{text}</p>
         <div className={theme.form}>
           <input className={theme.formEmail} type="email" placeholder={emailPlaceholder} />
-          <button className={theme.formButton} onClick={() => alert('NewsletterSignup logic is not implemented yet.')}>{buttonText}</button>
+          <PrimaryButton
+            onClick={() =>
+              alert('NewsletterSignup logic is not implemented yet.')}
+            size="md"
+            theme={{ button: theme.formButton }}
+          >{buttonText}</PrimaryButton>
         </div>
       </div>
     </div>

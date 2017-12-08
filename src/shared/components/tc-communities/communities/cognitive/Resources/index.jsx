@@ -43,28 +43,71 @@ export default function Resources({
             <FaqItem
               open={shownFaqItems.howDoIGetStarted}
               toggle={show => toggleFaqItem('howDoIGetStarted', show)}
-              question="How do I get started with cognitive?"
+              question="How do I get started with Cognitive?"
             >
+              {
+                member ? null : (
+                  <div>
+                    <p>
+                      Start by simply signing up for the Topcoder Cognitive
+                      Community. It’s free and easy, and will give you access to
+                      exclusive educational resources.
+                    </p>
+                    <JoinCommunity
+                      label="Join the Cognitive Community"
+                      open={shownFaqItems.joinCommunity}
+                      theme={{
+                        link: {
+                          button: style.faqJoinButton,
+                        },
+                      }}
+                    />
+                  </div>
+                )
+              }
               <p>
-                Start by simply signing up for the Topcoder Cognitive
-                Community. It’s free and easy, and will give you access to
-                exclusive educational resources.
+                Be sure to explore the IBM Watson and Cognitive sites. There you
+                will find videos, demos, APIs, and helpful resources for
+                starting your Cognitive journey:
               </p>
-              <JoinCommunity
-                label="Join the Cognitive Community"
-                open={shownFaqItems.joinCommunity}
-                theme={{
-                  link: {
-                    button: style.faqJoinButton,
-                  },
-                }}
-              />
               <p>
-                Next, check out our fun educational challenges. These
-                challenges are designed to help you learn everything you need
-                to compete in future cognitive development challenges. New
-                educational challenges launch every few weeks, so be sure to
-                check back often.
+                <strong>developerWorks</strong><br />
+                <a
+                  href="https://www.ibm.com/developerworks/learn/cognitive"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >https://www.ibm.com/developerworks/learn/cognitive</a>
+              </p>
+              <p>
+                <strong>Watson</strong><br />
+                <a
+                  href="https://www.ibm.com/watson"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >https://www.ibm.com/watson</a>
+              </p>
+              <p>
+                <strong>IBM Cognitive</strong><br />
+                <a
+                  href="https://www.ibm.com/cognitive"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >https://www.ibm.com/cognitive</a>
+              </p>
+              <p>
+                <strong>IBM Research</strong><br />
+                <a
+                  href="http://research.ibm.com/cognitive-computing"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >http://research.ibm.com/cognitive-computing</a>
+              </p>
+              <p>
+                Next, check out the fun educational challenges here in the
+                Topcoder Cognitive Community. These challenges are designed to
+                help you learn everything you need to compete in future
+                Cognitive development challenges. New educational challenges
+                launch every few weeks, so be sure to check back often.
               </p>
             </FaqItem>
             <FaqItem
@@ -102,9 +145,12 @@ export default function Resources({
             </FaqItem>
             <FaqItem
               open={shownFaqItems.prerequisites}
-              question="Are there any prerequisites required to learn cognitive computing?"
+              question="Are there any prerequisites required to learn Cognitive computing?"
               toggle={show => toggleFaqItem('prerequisites', show)}
-            />
+            >
+              No, there are no prerequisites to get started! All you need is a
+              passion for technology and learning.
+            </FaqItem>
             <FaqItem
               open={shownFaqItems.incentives}
               question="Are there incentives to participate in the Cognitive challenges?"
