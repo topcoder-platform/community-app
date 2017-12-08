@@ -155,12 +155,84 @@ export default function Resources({
               open={shownFaqItems.incentives}
               question="Are there incentives to participate in the Cognitive challenges?"
               toggle={show => toggleFaqItem('incentives', show)}
-            />
+            >
+              Yes! In addition to learning Cognitive, you will earn Cognitive
+              Points for every challenge that you successfully complete and
+              your Cognitive Points are always reflected on the leaderboard.
+              The Topcoder Cognitive Community member with the most Cognitive
+              Points at the end of August will win an all-expenses paid trip to
+              the Topcoder Open 2018 (TCO18) finals!
+            </FaqItem>
             <FaqItem
               open={shownFaqItems.tco18Rules}
               question="What are the official rules for the Topcoder Open 2018 (TCO18) trip competition?"
               toggle={show => toggleFaqItem('tco18Rules', show)}
-            />
+            >
+              <h3>Cognitive Points</h3>
+              <p>
+                Every educational Cognitive challenge gives you an opportunity
+                to earn Cognitive Points. Note that you can only earn Cognitive
+                Points once for every educational challenge and paid challenges
+                tagged with “IBM Cognitive” or “IBM Watson”.
+              </p>
+              <p>
+                All successful submissions for the educational / fun challenges
+                will be awarded 500 cognitive points.
+              </p>
+              <p>
+                You may also earn Cognitive points by competing in prize-backed
+                challenges that are tagged with “IBM Cognitive” or
+                “IBM Watson&rdquo;. The placement you earn in these challenges
+                (non-F2F)
+                will determine how many Cognitive points will be added to your
+                total on the leaderboard:
+              </p>
+              <p>
+                1st place: 500pts<br />
+                2nd place: 350pts<br />
+                3rd place+: 100pts<br />
+              </p>
+              <p>
+                For challenges tagged with “IBM Cognitive” or “IBM Watson” that
+                are First 2 Finish challenges:
+              </p>
+              <p>Winner: 250pts</p>
+              <h3>Cognitive Leaderboard and Prize Schedule</h3>
+              <p>
+                All Cognitive Points earned between January 2018 and August 31,
+                2018 are eligible for the TCO18 trip. All challenges that start
+                in August 2018 are counted.
+              </p>
+              <p>
+                After August 2018, the leaderboard will reset. All Cognitive
+                Points earned between September 2018 and August 31, 2019 are
+                eligible for the TCO19 trip prize.
+              </p>
+              <h3>TCO Trip Prizes</h3>
+              <p>
+                The Topcoder Cognitive Community member with the most
+                leaderboard points (on the “All” Leaderboard) at the conclusion
+                of each prize period will win an all-expenses paid trip to the
+                Topcoder Open, including airfare, lodging, ground
+                transportation, and certain meals. More prize details will be
+                presented to the winner upon confirmation. Winner must have
+                participated and earned points in at least one fun/educational
+                challenge.
+              </p>
+              <p>
+                Members may only win one trip to the TCO each year. If the
+                Cognitive leaderboard winner has already won a trip to TCO
+                through other Topcoder competitions, the Cognitive TCO trip
+                prize will be offered to the next highest point scorer in line.
+              </p>
+              <h3>Tiebreaker</h3>
+              <p>
+                If there is a tie for first place, all tied members will
+                compete in a final challenge. This challenge will be
+                Cognitive-specific and reviewed to determine the winner, who
+                will be awarded the TCO trip.
+              </p>
+            </FaqItem>
           </div>
           <div styleName="style.joinBox">
             <img

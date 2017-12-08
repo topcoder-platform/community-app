@@ -37,7 +37,7 @@ class HeaderContainer extends React.Component {
       value: '0',
       redirect: config.URL.BASE,
     }];
-    communityList.forEach((item, index) => {
+    communityList.data.forEach((item, index) => {
       if (!item.hidden) {
         const value = communityId === item.communityId
           ? '-1' : (1 + index).toString();
@@ -57,16 +57,19 @@ class HeaderContainer extends React.Component {
 
 HeaderContainer.defaultProps = {
   auth: {},
-  communityList: [],
 };
 
 HeaderContainer.propTypes = {
   auth: PT.shape(),
   getCommunityList: PT.func.isRequired,
-  communityList: PT.arrayOf(PT.shape({
-    communityId: PT.string.isRequired,
-    communityName: PT.string.isRequired,
-  })),
+  communityList: PT.shape({
+    data: PT.arrayOf(PT.shape({
+      communityId: PT.string.isRequired,
+      communityName: PT.string.isRequired,
+    })).isRequired,
+    loadingUuid: PT.string.isRequired,
+    timestamp: PT.number.isRequired,
+  }).isRequired,
   communityId: PT.string.isRequired,
 };
 
@@ -83,7 +86,7 @@ function mapStateToProps(state, ownProps) {
     baseUrl: ownProps.baseUrl,
     chevronOverAvatar: meta.chevronOverAvatar,
     communityId: meta.communityId,
-    communityList: state.tcCommunities.list.data,
+    communityList: state.tcCommunities.list,
     groupIds: meta.groupIds,
     hideJoinNow: ownProps.hideJoinNow,
     hideSearch: meta.hideSearch,
