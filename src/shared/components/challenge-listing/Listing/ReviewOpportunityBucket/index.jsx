@@ -13,6 +13,8 @@ import ReviewOpportunityCard from '../../ReviewOpportunityCard';
 
 import './style.scss';
 
+const NO_RESULTS_MESSAGE = 'There are no review opportunities available';
+
 // Functional implementation of ReviewOpportunityBucket component
 export default function ReviewOpportunityBucket({
   bucket,
@@ -79,6 +81,11 @@ export default function ReviewOpportunityBucket({
         }}
       />
       {cards}
+      {
+        !loading && filteredOpportunities.length === 0 && (
+          <div styleName="no-results">{NO_RESULTS_MESSAGE}</div>
+        )
+      }
       {
         loadMore && !loading ? (
           <Waypoint onEnter={loadMore} />

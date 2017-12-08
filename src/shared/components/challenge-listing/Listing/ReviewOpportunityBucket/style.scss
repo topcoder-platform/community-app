@@ -3,4 +3,13 @@
 .review-opportunity-bucket {
   background: $tc-gray-neutral-light;
   margin: 20px 0;
+
+  .no-results {
+    @include tc-label-lg;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: $base-unit * 5;
+    background-color: $tc-white;
+  }
 }

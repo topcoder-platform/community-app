@@ -57,7 +57,7 @@ export class Container extends React.Component {
             ...this.props.filterState,
             communityId: this.props.selectedCommunityId,
           };
-          // Don't set if false
+
           if (isForReviewOpportunities) filter.isForReviewOpportunities = true;
 
           this.props.saveFilter(name, filter, this.props.tokenV2);
