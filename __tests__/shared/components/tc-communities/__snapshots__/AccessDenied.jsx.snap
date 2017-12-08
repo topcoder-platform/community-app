@@ -4,7 +4,12 @@ exports[`Matches shallow shapshot 1`] = `
 <div
   className="src-shared-components-tc-communities-AccessDenied-___style__access-denied___T1_sq"
 >
-  <TopcoderLogo />
+  <TopcoderLogo
+    height="18"
+    viewBox="0 0 51 18"
+    width="51"
+    xmlns="http://www.w3.org/2000/svg"
+  />
   <div
     className="src-shared-components-tc-communities-AccessDenied-___style__msg___33_hS"
   >
@@ -28,7 +33,12 @@ exports[`Matches shallow shapshot 2`] = `
 <div
   className="src-shared-components-tc-communities-AccessDenied-___style__access-denied___T1_sq"
 >
-  <TopcoderLogo />
+  <TopcoderLogo
+    height="18"
+    viewBox="0 0 51 18"
+    width="51"
+    xmlns="http://www.w3.org/2000/svg"
+  />
   <div
     className="src-shared-components-tc-communities-AccessDenied-___style__msg___33_hS"
   >

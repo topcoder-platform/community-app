@@ -11,7 +11,6 @@ import { BrowserRouter, browserHistory } from 'react-router-dom';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import shortId from 'shortid';
 import {
   configureConnector,
   decodeToken,
@@ -130,19 +129,5 @@ storeFactory(undefined, window.ISTATE).then((store) => {
 
   if (module.hot) {
     module.hot.accept('../shared', render);
-
-    /* This block of code forces reloading of style.css file each time
-     * webpack hot middleware reports about update of the code. */
-    /* eslint-disable no-underscore-dangle */
-    const hotReporter = window.__webpack_hot_middleware_reporter__;
-    const hotSuccess = hotReporter.success;
-    hotReporter.success = () => {
-      const stamp = shortId();
-      const links = document.querySelectorAll('link[rel=stylesheet]');
-      for (let i = 0; i < links.length; i += 1) {
-        links[i].href = `${links[i].href.match(/[^?]*/)[0]}?v=${stamp}`;
-      }
-      hotSuccess();
-    };
   }
 });

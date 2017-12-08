@@ -8,6 +8,9 @@ exports[`Matches shallow shapshot 1`] = `
   <FiltersIcon
     className="src-shared-components-challenge-listing-Filters-FiltersSwitch-___style__FiltersIcon___OqBJh"
     color="#5D5D66"
+    height="16"
+    viewBox="0 0 16 16"
+    width="16"
   />
   Filters
 </div>
@@ -21,6 +24,9 @@ exports[`Matches shallow shapshot 2`] = `
   <FiltersIcon
     className="src-shared-components-challenge-listing-Filters-FiltersSwitch-___style__FiltersIcon___OqBJh"
     color="#5D5D66"
+    height="16"
+    viewBox="0 0 16 16"
+    width="16"
   />
   Filters
   <span
