@@ -190,7 +190,9 @@ class ChallengeDetailPageContainer extends React.Component {
     if (this.props.isLoadingChallenge || this.props.isLoadingTerms) {
       return <LoadingPagePlaceholder />;
     }
-    const winners = challenge.winners || [];
+
+    let winners = challenge.winners || [];
+    winners = winners.filter(w => !w.type || w.type === 'final');
 
     return (
       <div styleName="outer-container">
@@ -277,7 +279,6 @@ class ChallengeDetailPageContainer extends React.Component {
           {
             !isEmpty && this.props.selectedTab === DETAIL_TABS.WINNERS &&
             <Winners
-              checkpointPrize={this.props.challenge.topCheckPointPrize}
               winners={winners}
               prizes={this.props.challenge.prizes}
               submissions={this.props.challenge.submissions}

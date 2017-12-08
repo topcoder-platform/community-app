@@ -15,7 +15,6 @@ import image01 from './images/image-01.jpg';
 import image02 from './images/image-02.jpg';
 import qouteAvatar from './images/qoute-avatar.jpg';
 
-import joinButtonStyle from '../themes/join-button.scss';
 import style from './style.scss';
 
 export default function Home({ baseUrl }) {
@@ -30,7 +29,6 @@ export default function Home({ baseUrl }) {
         <JoinCommunity
           label="Join Now"
           theme={{
-            ...joinButtonStyle,
             container: style.joinButtonInHeader,
           }}
         />

@@ -1,0 +1,36 @@
+/* TODO: This style repeats the same style of the same button in Blockchain
+ * community. We should move it up in the project structure, so that the same
+ * theme is reused in both places. */
+.button {
+  color: #0092ff;
+  display: inline-block;
+  background: white;
+  border: none;
+  border-radius: 20px;
+  font: 700 14px/40px 'Open Sans';
+  height: 40px;
+  margin-top: 24px;
+  text-align: center;
+  text-transform: uppercase;
+  width: 171px;
+
+  &:hover,
+  &:active,
+  &:focus,
+  &:visited {
+    color: #0092ff;
+    outline: none;
+    text-decoration: none;
+  }
+
+  &.disabled {
+    cursor: not-allowed;
+    opacity: 0.3;
+  }
+
+  p {
+    display: inline-block;
+    position: relative;
+    top: -7px;
+  }
+}

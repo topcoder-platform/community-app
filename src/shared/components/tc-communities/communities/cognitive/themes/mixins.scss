@@ -1,0 +1,9 @@
+@import "~styles/mixins";
+
+@mixin container {
+  padding: 0 80px;
+
+  @include xs-to-sm {
+    padding: 0 40px;
+  }
+}

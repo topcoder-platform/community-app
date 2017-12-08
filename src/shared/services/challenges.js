@@ -77,7 +77,7 @@ export function normalizeChallengeDetails(v3, v3Filtered, v3User, v2, username) 
     terms: v3.terms,
     submissions: v3.submissions,
     checkpoints: v3.checkpoints,
-    documents: v3.Documents || [],
+    documents: v3.documents || [],
     numRegistrants: v3.numberOfRegistrants,
     numberOfCheckpointSubmissions: v3.numberOfCheckpointSubmissions,
     reliabilityBonus: v3.reliabilityBonus || 0,

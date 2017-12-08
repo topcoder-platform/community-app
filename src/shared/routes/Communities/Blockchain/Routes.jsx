@@ -1,5 +1,5 @@
 /**
- * Routing of Wipro Community.
+ * Routing of Blockchain Community.
  */
 
 /* TODO: This assembly of custom challenge listing page should be split out into
@@ -20,99 +20,108 @@ import React from 'react';
 import Submission from 'routes/Submission';
 import SubmissionManagement from 'routes/SubmissionManagement';
 import { Route, Switch } from 'react-router-dom';
+import { ThemeProvider } from 'react-css-super-themr';
+import primaryButtonStyle from 'components/buttons/outline/round/open-sans/green-uppercase.scss';
+import secondaryButtonStyle from 'components/buttons/outline/round/open-sans/blue-uppercase.scss';
 
 import Leaderboard from '../Leaderboard';
 
-export default function Routes({ base, member, meta }) {
+export default function Blockchain({ base, member, meta }) {
   return (
     <Route
       component={({ match }) => (
-        <div>
-          <Header
-            baseUrl={base}
-            hideJoinNow
-            pageId={match.params.pageId || 'home'}
-          />
-          <Switch>
-            <Route
-              component={() => (
-                <div>
-                  <ChallengeListingTopBanner />
-                  { member ? (
-                    ChallengeListing({
-                      challengesUrl: `${base}/challenges`,
-                      meta,
-                      listingOnly: true,
-                      newChallengeDetails: true,
-                    })
-                  ) : <ChallengeListingRegisterToSee /> }
-                </div>
-              )}
-              exact
-              path={`${base}/challenges`}
+        <ThemeProvider theme={{
+          PrimaryButton: primaryButtonStyle,
+          SecondaryButton: secondaryButtonStyle,
+        }}
+        >
+          <div>
+            <Header
+              baseUrl={base}
+              hideJoinNow
+              pageId={match.params.pageId || 'home'}
             />
-            <Route
-              component={routeProps => ChallengeDetails({
-                ...routeProps,
-                challengesUrl: `${base}/challenges`,
-              })}
-              exact
-              path={`${base}/challenges/:challengeId(\\d{8})`}
-            />
-            <Route
-              component={routeProps => Submission({
-                ...routeProps,
-                challengesUrl: `${base}/challenges`,
-              })}
-              exact
-              path={`${base}/challenges/:challengeId(\\d{8})/submit`}
-            />
-            <Route
-              component={routeProps => SubmissionManagement({
-                ...routeProps,
-                challengesUrl: `${base}/challenges`,
-              })}
-              exact
-              path={`${base}/challenges/:challengeId(\\d{8})/my-submissions`}
-            />
-            <Route
-              component={() => <Leaderboard meta={meta} />}
-              exact
-              path={`${base}/leaderboard`}
-            />
-            <Route
-              component={() => <Learn baseUrl={base} />}
-              exact
-              path={`${base}/learn`}
-            />
-            <Route
-              component={Home}
-              exact
-              path={`${base}/home`}
-            />
-            <Route
-              component={Error404}
-              path={`${base}/:any`}
-            />
-            <Route
-              component={Home}
-              exact
-              path={`${base}`}
-            />
-          </Switch>
-          <Footer />
-        </div>
+            <Switch>
+              <Route
+                component={() => (
+                  <div>
+                    <ChallengeListingTopBanner />
+                    { member ? (
+                      ChallengeListing({
+                        challengesUrl: `${base}/challenges`,
+                        meta,
+                        listingOnly: true,
+                        newChallengeDetails: true,
+                      })
+                    ) : <ChallengeListingRegisterToSee /> }
+                  </div>
+                )}
+                exact
+                path={`${base}/challenges`}
+              />
+              <Route
+                component={routeProps => ChallengeDetails({
+                  ...routeProps,
+                  challengesUrl: `${base}/challenges`,
+                })}
+                exact
+                path={`${base}/challenges/:challengeId(\\d{8})`}
+              />
+              <Route
+                component={routeProps => Submission({
+                  ...routeProps,
+                  challengesUrl: `${base}/challenges`,
+                })}
+                exact
+                path={`${base}/challenges/:challengeId(\\d{8})/submit`}
+              />
+              <Route
+                component={routeProps => SubmissionManagement({
+                  ...routeProps,
+                  challengesUrl: `${base}/challenges`,
+                })}
+                exact
+                path={`${base}/challenges/:challengeId(\\d{8})/my-submissions`}
+              />
+              <Route
+                component={() => <Leaderboard meta={meta} />}
+                exact
+                path={`${base}/leaderboard`}
+              />
+              <Route
+                component={() => <Learn baseUrl={base} />}
+                exact
+                path={`${base}/learn`}
+              />
+              <Route
+                component={Home}
+                exact
+                path={`${base}/home`}
+              />
+              <Route
+                component={Error404}
+                path={`${base}/:any`}
+              />
+              <Route
+                component={Home}
+                exact
+                path={`${base}`}
+              />
+            </Switch>
+            <Footer />
+          </div>
+        </ThemeProvider>
       )}
       path={`${base}/:pageId?`}
     />
   );
 }
 
-Routes.defaultProps = {
+Blockchain.defaultProps = {
   base: '',
 };
 
-Routes.propTypes = {
+Blockchain.propTypes = {
   base: PT.string,
   member: PT.bool.isRequired,
   meta: PT.shape().isRequired,

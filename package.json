@@ -31,6 +31,7 @@
     "node": "^8.2.1"
   },
   "dependencies": {
+    "analytics.js": "^2.9.1",
     "atob": "^2.0.3",
     "babel-plugin-css-modules-transform": "^1.2.7",
     "babel-plugin-inline-react-svg": "^0.4.0",

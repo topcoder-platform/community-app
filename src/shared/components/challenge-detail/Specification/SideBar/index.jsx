@@ -63,9 +63,14 @@ export default function SideBar({
               <h3>DOWNLOADS:</h3>
               <ul>
                 {
-                  documents.map(doc => (
-                    <li key={doc.url}><a href={doc.url}>{doc.documentName}</a></li>
-                  ))
+                  documents.map((doc) => {
+                    const url = `${config.URL.COMMUNITY}/tc?module=DownloadDocument&docid=${doc.documentid}`;
+                    return (
+                      <li key={url}>
+                        <a href={url}>{doc.documentname}</a>
+                      </li>
+                    );
+                  })
                 }
               </ul>
             </div>

@@ -20,25 +20,25 @@ class HeaderContainer extends React.Component {
 
   render() {
     const { communityId, communityList } = this.props;
-    const communitySelector =
-      [{
-        label: 'Topcoder Public Community',
-        value: '0',
-        redirect: config.URL.BASE,
-      }].concat(
-        communityList.map(({
-          communityId: id,
-          communityName,
-          mainSubdomain,
-        },
-        i,
-        ) => ({
-          value: communityId === id ? '-1' : (1 + i).toString(),
-          label: communityName,
-          redirect: mainSubdomain ? (
-            config.URL.BASE.replace('www', mainSubdomain)
-          ) : `/community/${id}`,
-        }))).sort((a, b) => a.label.localeCompare(b.label));
+    const communitySelector = [{
+      label: 'Topcoder Public Community',
+      value: '0',
+      redirect: config.URL.BASE,
+    }];
+    communityList.forEach((item, index) => {
+      if (!item.hidden) {
+        const value = communityId === item.communityId
+          ? '-1' : (1 + index).toString();
+        communitySelector.push({
+          value,
+          label: item.communityName,
+          redirect: item.mainSubdomain ? (
+            config.URL.BASE.replace('www', item.mainSubdomain)
+          ) : `/community/${item.communityId}`,
+        });
+      }
+    });
+    communitySelector.sort((a, b) => a.label.localeCompare(b.label));
     return <Header {...this.props} communitySelector={communitySelector} />;
   }
 }

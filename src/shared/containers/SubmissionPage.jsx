@@ -79,11 +79,12 @@ SubmissionsPageContainer.propTypes = {
   currentPhases: PT.arrayOf(PT.object).isRequired,
   stockArtRecords: PT.arrayOf(PT.object).isRequired,
   setStockArtRecord: PT.func.isRequired,
+  customFontRecords: PT.arrayOf(PT.object).isRequired,
+  setCustomFontRecord: PT.func.isRequired,
 
   /* Older stuff */
   userId: PT.string.isRequired,
   challengesUrl: PT.string,
-  phaseId: PT.number.isRequired,
   tokenV2: PT.string.isRequired,
   tokenV3: PT.string.isRequired,
   submit: PT.func.isRequired,
@@ -110,21 +111,7 @@ SubmissionsPageContainer.propTypes = {
   setFilePickerDragged: PT.func.isRequired,
   notesLength: PT.number.isRequired,
   updateNotesLength: PT.func.isRequired,
-  multiInputs: PT.arrayOf(PT.shape({
-    id: PT.string.isRequired,
-    inputs: PT.arrayOf(PT.shape({
-      urlValid: PT.bool,
-      nameValid: PT.bool,
-      sourceValid: PT.bool.isRequired,
-      active: PT.bool.isRequired,
-    }).isRequired).isRequired,
-  }).isRequired).isRequired,
-  removeMultiInput: PT.func.isRequired,
   resetDesignStoreSegment: PT.func.isRequired,
-  setMultiInputUrlValid: PT.func.isRequired,
-  setMultiInputNameValid: PT.func.isRequired,
-  setMultiInputSourceValid: PT.func.isRequired,
-  setMultiInputActive: PT.func.isRequired,
   setSubmissionFilestackData: PT.func.isRequired,
   setSourceFilestackData: PT.func.isRequired,
   setPreviewFilestackData: PT.func.isRequired,
@@ -147,6 +134,7 @@ const mapStateToProps = (state, ownProps) => {
   return {
     currentPhases: state.challenge.details.currentPhases,
     stockArtRecords: submission.design.stockArtRecords,
+    customFontRecords: submission.design.customFontRecords,
 
     /* Older stuff below. */
     userId: state.auth.user.userId,
@@ -164,7 +152,6 @@ const mapStateToProps = (state, ownProps) => {
     agreed: submission.agreed,
     filePickers: submission.filePickers,
     notesLength: submission.notesLength,
-    multiInputs: submission.multiInputs,
     submissionFilestackData: submission.submissionFilestackData,
     sourceFilestackData: submission.sourceFilestackData,
     previewFilestackData: submission.previewFilestackData,
@@ -198,18 +185,11 @@ function mapDispatchToProps(dispatch) {
     setFilePickerUploadProgress: (id, p) =>
       dispatch(a.setFilePickerUploadProgress(id, p)),
     updateNotesLength: length => dispatch(a.updateNotesLength(length)),
-    removeMultiInput: (id, index) => dispatch(a.removeMultiInput(id, index)),
     resetDesignStoreSegment: () => dispatch(a.design.reset()),
     setStockArtRecord: (index, record) =>
       dispatch(a.design.setStockArtRecord(index, record)),
-    setMultiInputUrlValid: (id, index, valid) =>
-      dispatch(a.setMultiInputUrlValid(id, index, valid)),
-    setMultiInputNameValid: (id, index, valid) =>
-      dispatch(a.setMultiInputNameValid(id, index, valid)),
-    setMultiInputSourceValid: (id, index, valid) =>
-      dispatch(a.setMultiInputSourceValid(id, index, valid)),
-    setMultiInputActive: (id, index, active) =>
-      dispatch(a.setMultiInputActive(id, index, active)),
+    setCustomFontRecord: (index, record) =>
+      dispatch(a.design.setCustomFontRecord(index, record)),
     setSubmissionFilestackData: (id, data) => dispatch(a.setSubmissionFilestackData(id, data)),
     setSourceFilestackData: (id, data) => dispatch(a.setSourceFilestackData(id, data)),
     setPreviewFilestackData: (id, data) => dispatch(a.setPreviewFilestackData(id, data)),
