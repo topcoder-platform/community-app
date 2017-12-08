@@ -18,7 +18,7 @@ import { bindActionCreators } from 'redux';
 const MIN = 60 * 1000;
 
 class HeaderContainer extends React.Component {
-  componentWillMount() {
+  componentDidMount() {
     const {
       auth,
       communityList,
