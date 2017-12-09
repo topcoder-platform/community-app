@@ -35,10 +35,10 @@ export default function MetaTags({
       }
 
       {/* Open Graph data. */}
-      <meta property="og:title" content={socialTitle} />
+      <meta property="og:title" content={socTitle} />
       <meta property="og:image" content={image} />
-      <meta property="og:image:alt" content={socialTitle} />
-      <meta property="og:description" content={socialDescription} />
+      <meta property="og:image:alt" content={socTitle} />
+      <meta property="og:description" content={socDesc} />
       {
         siteName ? (<meta property="og:sitename" content={siteName} />) : null
       }
