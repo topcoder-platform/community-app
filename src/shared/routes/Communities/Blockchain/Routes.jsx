@@ -10,11 +10,13 @@ import ChallengeListingRegisterToSee from
   'components/tc-communities/communities/blockchain/ChallengeListing/RegisterToSee';
 import ChallengeDetails from 'routes/ChallengeDetails';
 import ChallengeListing from 'routes/Communities/ChallengeListing';
+import config from 'utils/config';
 import Error404 from 'components/Error404';
 import Footer from 'components/tc-communities/Footer2';
 import Header from 'containers/tc-communities/Header';
 import Home from 'components/tc-communities/communities/blockchain/Home';
 import Learn from 'containers/tc-communities/blockchain/Learn';
+import MetaTags from 'utils/MetaTags';
 import PT from 'prop-types';
 import React from 'react';
 import Submission from 'routes/Submission';
@@ -24,9 +26,13 @@ import { ThemeProvider } from 'react-css-super-themr';
 import primaryButtonStyle from 'components/buttons/outline/round/open-sans/green-uppercase.scss';
 import secondaryButtonStyle from 'components/buttons/outline/round/open-sans/blue-uppercase.scss';
 
+import socialImage from 'assets/images/communities/blockchain/social.jpg';
+
+import { connect } from 'react-redux';
+
 import Leaderboard from '../Leaderboard';
 
-export default function Blockchain({ base, member, meta }) {
+function Blockchain({ base, domain, member, meta }) {
   return (
     <Route
       component={({ match }) => (
@@ -36,6 +42,13 @@ export default function Blockchain({ base, member, meta }) {
         }}
         >
           <div>
+            <MetaTags
+              description="Learn about and build the next great decentralized application (DApp) on Ethereum platform"
+              image={`${domain}${socialImage}`}
+              siteName="Topcoder Blockchain Community"
+              title="Topcoder Blockchain Community"
+              url={config.URL.COMMUNITIES.BLOCKCHAIN}
+            />
             <Header
               baseUrl={base}
               hideJoinNow
@@ -123,6 +136,9 @@ Blockchain.defaultProps = {
 
 Blockchain.propTypes = {
   base: PT.string,
+  domain: PT.string.isRequired,
   member: PT.bool.isRequired,
   meta: PT.shape().isRequired,
 };
+
+export default connect(state => ({ domain: state.domain }))(Blockchain);
