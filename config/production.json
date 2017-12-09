@@ -12,7 +12,6 @@
     "ARENA": "https://arena.topcoder.com",
     "AUTH": "https://accounts.topcoder.com",
     "BASE": "https://www.topcoder.com",
-    "COGNITIVE": "https://cognitive.topcoder.com",
     "COMMUNITY": "https://community.topcoder.com",
     "FORUMS": "https://apps.topcoder.com/forums",
     "HELP": "https://help.topcoder.com",
@@ -24,6 +23,11 @@
     "ACCOUNTS_APP_CONNECTOR": "https://accounts.topcoder.com/connector.html",
     "BLOG": "https://www.topcoder.com/feed",
     "TCO17": "https://tco17.topcoder.com/",
-    "COMMUNITY_API": "http://localhost:8000"
+    "COMMUNITY_API": "http://localhost:8000",
+
+    "COMMUNITIES": {
+      "BLOCKCHAIN": "https://blockchain.topcoder.com",
+      "COGNITIVE": "https://cognitive.topcoder.com"
+    }
   }
 }

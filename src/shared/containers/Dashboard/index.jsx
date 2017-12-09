@@ -184,7 +184,7 @@ export class DashboardPageContainer extends React.Component {
                     experience as a member of the Topcoder Cognitive Community.
                   </div>
                   <a
-                    href={config.URL.COGNITIVE}
+                    href={config.URL.COMMUNITIES.COGNITIVE}
                     styleName="cta tc-btn-white tc-btn-radius"
                   >Learn More</a>
                 </div>

@@ -32,7 +32,7 @@ function Cognitive({ base, domain, member, meta }) {
             image={`${domain}${socialImage}`}
             siteName="Topcoder Cognitive Community"
             title="Topcoder Cognitive Community"
-            url={config.URL.COGNITIVE}
+            url={config.URL.COMMUNITIES.COGNITIVE}
           />
           <Header
             baseUrl={base}

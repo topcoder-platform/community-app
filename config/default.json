@@ -68,10 +68,14 @@
     "AUTH": "http://accounts.topcoder-dev.com",
     "BASE": "https://www.topcoder-dev.com",
     "BLOG": "https://www.topcoder-dev.com/feed",
-    "COGNITIVE": "https://cognitive.topcoder-dev.com",
     "COMMUNITY": "https://community.topcoder-dev.com",
     "FORUMS": "https://apps.topcoder-dev.com/forums",
     "HELP": "https://help.topcoder-dev.com",
+
+    "COMMUNITIES": {
+      "BLOCKCHAIN": "https://blockchain.topcoder-dev.com",
+      "COGNITIVE": "https://cognitive.topcoder-dev.com"
+    },
 
     /* Dedicated section to group together links to various articles in
      * Topcoder help center. */
@@ -93,13 +97,6 @@
     "STUDIO": "https://studio.topcoder-dev.com",
     "TCO": "https://www.topcoder.com/tco",
     "TCO17": "https://tco17.topcoder.com/",
-
-    "UML_TOOL": {
-      "GITHUB": "https://github.com/topcoderinc/topcoder-UML-Tool",
-      "JAVA": "https://github.com/topcoderinc/topcoder-UML-Tool/blob/master/build/dist/TopCoder_UML_Tool_Installer-1.2.7.jar?raw=true",
-      "MAC": "https://github.com/topcoderinc/topcoder-UML-Tool/blob/master/build/dist/TopCoder%20UML%20Tool%20OS%20X%201.2.7.zip?raw=true"
-    },
-
     "USER_SETTINGS": "https://lc1-user-settings-service.herokuapp.com",
     "WIPRO": "https://wipro.topcoder.com",
     "COMMUNITY_API": "http://localhost:8000",
