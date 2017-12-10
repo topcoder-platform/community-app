@@ -2,7 +2,6 @@
  * The top-level routing of the App.
  */
 
-import config from 'utils/config';
 import CommunityLoader from 'containers/tc-communities/Loader';
 import Content from 'components/Content';
 import MetaTags from 'utils//MetaTags';
