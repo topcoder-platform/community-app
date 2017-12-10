@@ -28,7 +28,6 @@ function Routes({ communityId, domain }) {
       image={`${domain}${socialImage}`}
       siteName="Topcoder"
       title="Topcoder"
-      url={config.URL.BASE}
     />
   );
   if (communityId) {
