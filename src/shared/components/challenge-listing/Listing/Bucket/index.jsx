@@ -80,7 +80,7 @@ export default function Bucket({
   ));
 
   const placeholders = [];
-  if (loading || keepPlaceholders) {
+  if ((loading || keepPlaceholders) && (!expandable || expanded)) {
     for (let i = 0; i < 8; i += 1) {
       placeholders.push(<CardPlaceholder id={i} key={i} />);
     }
@@ -110,7 +110,7 @@ export default function Bucket({
       }
       {placeholders}
       {
-        (expandable || loadMore) && !keepPlaceholders && !loading && !expanded ? (
+        (expandable || loadMore) && (expandable || !keepPlaceholders) && !loading && !expanded ? (
           <a
             href={`${challengesUrl}?${bucketQuery}`}
             onClick={(event) => {
