@@ -28,11 +28,9 @@ import secondaryButtonStyle from 'components/buttons/outline/round/open-sans/blu
 
 import socialImage from 'assets/images/communities/blockchain/social.jpg';
 
-import { connect } from 'react-redux';
-
 import Leaderboard from '../Leaderboard';
 
-function Blockchain({ base, domain, member, meta }) {
+export default function Blockchain({ base, member, meta }) {
   return (
     <Route
       component={({ match }) => (
@@ -44,7 +42,7 @@ function Blockchain({ base, domain, member, meta }) {
           <div>
             <MetaTags
               description="Learn about and build the next great decentralized application (DApp) on Ethereum platform"
-              image={`${domain}${socialImage}`}
+              image={socialImage}
               siteName="Topcoder Blockchain Community"
               title="Topcoder Blockchain Community"
               url={config.URL.COMMUNITIES.BLOCKCHAIN}
@@ -136,9 +134,6 @@ Blockchain.defaultProps = {
 
 Blockchain.propTypes = {
   base: PT.string,
-  domain: PT.string.isRequired,
   member: PT.bool.isRequired,
   meta: PT.shape().isRequired,
 };
-
-export default connect(state => ({ domain: state.domain }))(Blockchain);

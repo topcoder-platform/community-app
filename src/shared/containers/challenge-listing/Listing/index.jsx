@@ -135,7 +135,6 @@ export class ListingContainer extends React.Component {
       challengeTags,
       communitiesList,
       defaultCommunityId,
-      domain,
       groupIds,
       filter,
       getDraftChallenges,
@@ -186,7 +185,7 @@ export class ListingContainer extends React.Component {
       <div styleName="container">
         <MetaTags
           description={description}
-          image={`${domain}${ogImage}`}
+          image={ogImage}
           siteName="Topcoder"
           title={this.props.communityId ? `${this.props.communityName} Challenges` : SEO_PAGE_TITLE}
         />
@@ -288,7 +287,6 @@ ListingContainer.propTypes = {
     timestamp: PT.number.isRequired,
   }).isRequired,
   defaultCommunityId: PT.string,
-  domain: PT.string.isRequired,
   dropChallenges: PT.func.isRequired,
   filter: PT.shape().isRequired,
   hideTcLinksInSidebarFooter: PT.bool,
