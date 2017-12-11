@@ -92,40 +92,40 @@ export default function Home({
           </div>
         </div>
       </div>
-      {
-        member ? null : (
-          <div styleName="joining-is-simple-container">
-            <div styleName="joining-is-simple-content">
-              <h1 styleName="joining-is-simple-title">
-                Joining the Cognitive Community is Simple
-              </h1>
-              <div styleName="joining-flex">
-                <div>
-                  <p styleName="joining-is-simple-text">
-                    Topcoder and IBM have partnered to bring you all the resources
-                    you need to excel with today’s cognitive technologies, like IBM
-                    Watson, AI, and chatbots. And in order to participate in
-                    cognitive challenges on Topcoder, you’ll need to deploy your
-                    code to IBM Cloud.
-                  </p>
-                  <p styleName="joining-is-simple-text">
-                    Also, be sure to check out the cognitive computing zone on
-                    &zwnj;<a
-                      href="https://www.ibm.com/developerworks/"
-                      rel="noopener noreferrer"
-                      styleName="link"
-                      target="_blank"
-                    >IBM developerWorks</a>.
-                    There you’ll find how-to content and community
-                    expertise to help you succeed with your own cognitive apps and
-                    solutions, and get more information on machine learning and AI.
-                  </p>
-                </div>
-                <div styleName="joining-howto">
-                  <h2 styleName="joining-h2">Get Started Today</h2>
-                  <div styleName="joining-point-container">
-                    <div styleName="joining-point">1</div>
-                    <p styleName="joining-point-text">
+      <div styleName="joining-is-simple-container">
+        <div styleName="joining-is-simple-content">
+          <h1 styleName="joining-is-simple-title">
+            Joining the Cognitive Community is Simple
+          </h1>
+          <div styleName="joining-flex">
+            <div>
+              <p styleName="joining-is-simple-text">
+                Topcoder and IBM have partnered to bring you all the resources
+                you need to excel with today’s cognitive technologies, like IBM
+                Watson, AI, and chatbots. And in order to participate in
+                cognitive challenges on Topcoder, you’ll need to deploy your
+                code to IBM Cloud.
+              </p>
+              <p styleName="joining-is-simple-text">
+                Also, be sure to check out the cognitive computing zone on
+                &zwnj;<a
+                  href="https://www.ibm.com/developerworks/"
+                  rel="noopener noreferrer"
+                  styleName="link"
+                  target="_blank"
+                >IBM developerWorks</a>.
+                There you’ll find how-to content and community
+                expertise to help you succeed with your own cognitive apps and
+                solutions, and get more information on machine learning and AI.
+              </p>
+            </div>
+            <div styleName="joining-howto">
+              <h2 styleName="joining-h2">Get Started Today</h2>
+              <div styleName="joining-point-container">
+                <div styleName="joining-point">1</div>
+                <p styleName="joining-point-text">
+                  {
+                    member ? 'Join' : (
                       <JoinCommunity
                         label="Join"
                         theme={{
@@ -133,38 +133,38 @@ export default function Home({
                             button: style['joining-join-button'],
                           },
                         }}
-                      /> the Topcoder Cognitive Community
-                    </p>
-                  </div>
-                  <div styleName="joining-point-container">
-                    <div styleName="joining-point">2</div>
-                    <p styleName="joining-point-text">
-                      Register for
-                      &zwnj;<Link
-                        openNewTab
-                        styleName="link"
-                        to={`${baseUrl}/challenges`}
-                      >cognitive challenges</Link>
-                    </p>
-                  </div>
-                  <div styleName="joining-point-container">
-                    <div styleName="joining-point">3</div>
-                    <p styleName="joining-point-text">
-                      Compete using
-                      &zwnj;<a
-                        href="https://console.bluemix.net/registration/?cm_sp=dw-cognitive-_-TPC2017-_-community"
-                        rel="noopener noreferrer"
-                        styleName="link"
-                        target="_blank"
-                      >IBM Cloud</a>
-                    </p>
-                  </div>
-                </div>
+                      />
+                    )
+                  } the Topcoder Cognitive Community
+                </p>
+              </div>
+              <div styleName="joining-point-container">
+                <div styleName="joining-point">2</div>
+                <p styleName="joining-point-text">
+                  Register for
+                  &zwnj;<Link
+                    openNewTab
+                    styleName="link"
+                    to={`${baseUrl}/challenges`}
+                  >cognitive challenges</Link>
+                </p>
+              </div>
+              <div styleName="joining-point-container">
+                <div styleName="joining-point">3</div>
+                <p styleName="joining-point-text">
+                  Compete using
+                  &zwnj;<a
+                    href="https://console.bluemix.net/registration/?cm_sp=dw-cognitive-_-TPC2017-_-community"
+                    rel="noopener noreferrer"
+                    styleName="link"
+                    target="_blank"
+                  >IBM Cloud</a>
+                </p>
               </div>
             </div>
           </div>
-        )
-      }
+        </div>
+      </div>
       <div styleName="learn-container">
         <div styleName="learn-content">
           <h1 styleName="learn-title">Learn and Compete</h1>

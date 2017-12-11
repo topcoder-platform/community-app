@@ -92,11 +92,9 @@ $down-arrow-size: $base-unit;
     // 'Sort by' dropdown
     .Select {
       font-family: 'Roboto';
-      position: relative;
     }
 
     .Select-control {
-      height: 12px;
       line-height: 12px;
       border-radius: 20px;
       padding: 4px 35px 4px 10px;
@@ -109,8 +107,6 @@ $down-arrow-size: $base-unit;
       position: relative;
       overflow: hidden;
       box-sizing: border-box;
-      cursor: default;
-      outline: none;
       transition: all 200ms ease;
     }
 

@@ -112,14 +112,28 @@ export default function Resources({
             </FaqItem>
             <FaqItem
               open={shownFaqItems.whyDoINeedIbmCloudAccount}
-              question="Why do I need an IBM Cloud Lite account?"
+              question="What is IBM Cloud and why do I need it?"
               toggle={show => toggleFaqItem('whyDoINeedIbmCloudAccount', show)}
             >
               <p styleName="style.faqPSpacing">
                 Once you’ve signed up for the Topcoder Cognitive Community,
-                it’s time to get an IBM Cloud Lite account — entirely free to
-                you. In order to participate in cognitive challenges on
-                Topcoder, you’ll need to deploy your code in IBM Cloud Lite.
+                it’s time to get a trial account of IBM Cloud&nbsp;—
+                entirely free to you. IBM Cloud helps you continuously develop
+                and deliver solutions. You can put data to work&nbsp;— protect
+                it, move it, integrate it, and unlock intelligence from it.
+              </p>
+              <p>
+                <a
+                  href="https://www.ibm.com/cloud/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  styleName="style.link"
+                >Learn more about IBM Cloud</a>
+              </p>
+              <p styleName="style.faqPSpacing">
+                Signing up for an IBM Cloud trial account is an important
+                step because in order to participate in cognitive challenges on
+                Topcoder, you’ll need to deploy your code to IBM Cloud.
               </p>
               <p>
                 <a
@@ -127,7 +141,7 @@ export default function Resources({
                   target="_blank"
                   rel="noopener noreferrer"
                   styleName="style.link"
-                >Register for IBM Cloud Lite</a>
+                >Sign up for IBM Cloud</a>
               </p>
             </FaqItem>
             <FaqItem
@@ -141,7 +155,7 @@ export default function Resources({
                 target="_blank"
                 rel="noopener noreferrer"
                 styleName="style.link"
-              >Click here</a> to get an IBM Cloud Lite account.
+              >Click here</a> to get an IBM Cloud account.
             </FaqItem>
             <FaqItem
               open={shownFaqItems.prerequisites}
