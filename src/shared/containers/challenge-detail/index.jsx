@@ -178,7 +178,6 @@ class ChallengeDetailPageContainer extends React.Component {
       challenge,
       challengeId,
       challengesUrl,
-      domain,
       resultsLoadedForChallengeId,
       openTermsModal,
     } = this.props;
@@ -227,7 +226,7 @@ class ChallengeDetailPageContainer extends React.Component {
             !isEmpty &&
             <MetaTags
               description={description.slice(0, 155)}
-              image={`${domain}${getOgImage(challenge)}`}
+              image={getOgImage(challenge)}
               siteName="Topcoder"
               socialDescription={description.slice(0, 200)}
               socialTitle={`${prizesStr}${title}`}
@@ -346,7 +345,6 @@ ChallengeDetailPageContainer.propTypes = {
     loadingUuid: PT.string.isRequired,
     timestamp: PT.number.isRequired,
   }).isRequired,
-  domain: PT.string.isRequired,
   getCommunitiesList: PT.func.isRequired,
   getSubtracks: PT.func.isRequired,
   isLoadingChallenge: PT.bool,

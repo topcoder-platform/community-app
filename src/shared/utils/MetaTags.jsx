@@ -4,10 +4,12 @@
 
 import PT from 'prop-types';
 import React from 'react';
+import { connect } from 'react-redux';
 import { Helmet } from 'react-helmet';
 
-export default function MetaTags({
+function MetaTags({
   description,
+  domain,
   image,
   siteName,
   socialDescription,
@@ -15,6 +17,7 @@ export default function MetaTags({
   title,
   url,
 }) {
+  const img = `${domain}${image}`;
   const socTitle = socialTitle || title;
   const socDesc = socialDescription || description;
   return (
@@ -27,7 +30,7 @@ export default function MetaTags({
       <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:title" content={socTitle} />
       <meta name="twitter:description" content={socDesc} />
-      <meta name="twitter:image" content={image} />
+      <meta name="twitter:image" content={img} />
       {
         siteName ? (
           <meta name="twitter:site" content={`@${siteName}`} />
@@ -36,7 +39,7 @@ export default function MetaTags({
 
       {/* Open Graph data. */}
       <meta property="og:title" content={socTitle} />
-      <meta property="og:image" content={image} />
+      <meta property="og:image" content={img} />
       <meta property="og:image:alt" content={socTitle} />
       <meta property="og:description" content={socDesc} />
       {
@@ -57,6 +60,7 @@ MetaTags.defaultProps = {
 
 MetaTags.propTypes = {
   description: PT.string.isRequired,
+  domain: PT.string.isRequired,
   image: PT.string,
   siteName: PT.string,
   socialDescription: PT.string,
@@ -64,3 +68,5 @@ MetaTags.propTypes = {
   title: PT.string.isRequired,
   url: PT.string,
 };
+
+export default connect(state => ({ domain: state.domain }))(MetaTags);

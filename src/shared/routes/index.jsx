@@ -20,11 +20,11 @@ import Examples from './Examples';
 import Sandbox from './Sandbox';
 import Topcoder from './Topcoder';
 
-function Routes({ communityId, domain }) {
+function Routes({ communityId }) {
   const metaTags = (
     <MetaTags
       description="Topcoder is a crowdsourcing marketplace that connects businesses with hard-to-find expertise. The Topcoder Community includes more than one million of the world’s top designers, developers, data scientists, and algorithmists. Global enterprises and startups alike use Topcoder to accelerate innovation, solve challenging problems, and tap into specialized skills on demand."
-      image={`${domain}${socialImage}`}
+      image={socialImage}
       siteName="Topcoder"
       title="Topcoder"
     />
@@ -84,10 +84,8 @@ function Routes({ communityId, domain }) {
 
 Routes.propTypes = {
   communityId: PT.string.isRequired,
-  domain: PT.string.isRequired,
 };
 
 export default withRouter(connect(state => ({
   communityId: state.subdomainCommunity,
-  domain: state.domain,
 }))(Routes));
