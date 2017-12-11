@@ -1,0 +1,23 @@
+@import "~styles/mixins";
+
+:global {
+  .public-DraftStyleDefault-block {
+    margin: 0 0 25px;
+  }
+}
+
+.container {
+  @include tc-body-md;
+
+  border: 1px solid $tc-gray-10;
+  margin: 10px 0;
+  padding: 10px;
+
+  &:hover { border: 1px solid $tc-gray-40; }
+}
+
+.focused {
+  border: 1px solid $tc-dark-blue-90;
+
+  &:hover { border: 1px solid $tc-dark-blue-90; }
+}

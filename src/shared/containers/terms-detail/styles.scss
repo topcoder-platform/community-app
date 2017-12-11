@@ -42,7 +42,7 @@
 }
 
 .error {
-  @include roboto-normal;
+  @include roboto-regular;
 
   background: $tc-white;
   border-radius: 4px;

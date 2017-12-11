@@ -46,6 +46,7 @@
     "config": "^1.28.1",
     "cookie-parser": "^1.4.3",
     "css-loader": "^0.28.7",
+    "draft-js": "^0.10.4",
     "express": "^4.16.2",
     "filestack-react": "^1.3.8",
     "helmet": "^3.9.0",

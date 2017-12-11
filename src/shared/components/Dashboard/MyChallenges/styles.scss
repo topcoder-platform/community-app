@@ -107,7 +107,7 @@
   }
 
   .show-only {
-    @include roboto-normal;
+    @include roboto-regular;
 
     color: $tc-gray-80;
     position: absolute;

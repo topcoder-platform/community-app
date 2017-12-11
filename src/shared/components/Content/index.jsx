@@ -179,6 +179,9 @@ export default function Content() {
           promise;
         </li>
         <li>
+          <Link to="/examples/editor">Editor</Link>
+        </li>
+        <li>
           <Link to="/examples/error-message">Error Message</Link> - Demonstrates
           UI component for errors messaging;
         </li>
