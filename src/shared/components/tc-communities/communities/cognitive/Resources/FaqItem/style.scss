@@ -36,10 +36,12 @@
 
   align-items: center;
   background: $tc-dark-blue-90;
+  border: none;
   color: white;
   cursor: pointer;
   display: flex;
   justify-content: space-between;
+  outline: none;
   padding: 15px 20px;
   position: relative;
 }
