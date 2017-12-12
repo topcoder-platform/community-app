@@ -22,10 +22,18 @@ import style from './style.scss';
 export default function Home({
   allFaqItemsClosedInResourcesPage,
   baseUrl,
+  challenges,
   closeAllFaqItemsInResourcesPage,
   member,
   toggleFaqItemInResourcesPage,
 }) {
+  const challengeLinks = challenges.slice(0, 3).map(item => (
+    <Link
+      key={item.id}
+      styleName="card-link"
+      to={`${baseUrl}/challenges/${item.id}`}
+    >{item.name}</Link>
+  ));
   return (
     <main>
       <div styleName="head-banner">
@@ -209,15 +217,7 @@ export default function Home({
               <div styleName="style.cardImage" />
               <div styleName="style.cardContent">
                 <h1>Challenges</h1>
-                {/* TODO: This should be dynamically populated from the listing. */}
-                <Link
-                  to={`${baseUrl}/challenges`}
-                  styleName="card-link"
-                >2017 Humblefool Charity Hackathon</Link>
-                <Link
-                  to={`${baseUrl}/challenges`}
-                  styleName="card-link"
-                >IBM Cognitive – Image Recognition Training with PowerAI Notebooks</Link>
+                {challengeLinks}
                 <PrimaryButton
                   theme={{ button: style.readMoreButton }}
                   to={`${baseUrl}/challenges`}
@@ -235,11 +235,16 @@ export default function Home({
 }
 
 Home.defaultProps = {
+  challenges: [],
 };
 
 Home.propTypes = {
   allFaqItemsClosedInResourcesPage: PT.bool.isRequired,
   baseUrl: PT.string.isRequired,
+  challenges: PT.shape({
+    id: PT.number.isRequired,
+    name: PT.string.isRequired,
+  }),
   closeAllFaqItemsInResourcesPage: PT.func.isRequired,
   member: PT.bool.isRequired,
   toggleFaqItemInResourcesPage: PT.func.isRequired,

@@ -1,0 +1,119 @@
+import _ from 'lodash';
+import challengeListingActions from 'actions/challenge-listing';
+import communityActions from 'actions/tc-communities';
+import Home from 'components/tc-communities/communities/cognitive/Home';
+import PT from 'prop-types';
+import React from 'react';
+import resourcesActions from 'actions/page/communities/cognitive/resources';
+import shortId from 'shortid';
+
+import { connect } from 'react-redux';
+import { getFilterFunction } from 'utils/challenge-listing/filter';
+
+/* Holds cache time [ms] for the data demanded by this container. */
+const MAXAGE = 30 * 60 * 1000;
+
+class HomeContainer extends React.Component {
+  componentDidMount() {
+    const {
+      activeChallengesTimestamp,
+      auth,
+      communitiesList,
+      getAllActiveChallenges,
+      getCommunitiesList,
+      loadingActiveChallenges,
+    } = this.props;
+    if (Date.now() - activeChallengesTimestamp > MAXAGE
+    && !loadingActiveChallenges) {
+      getAllActiveChallenges(auth.tokenV3);
+    }
+    if (Date.now() - communitiesList.timestamp > MAXAGE
+    && !communitiesList.loadingUuid) {
+      getCommunitiesList(auth);
+    }
+  }
+
+  render() {
+    const {
+      activeChallenges,
+      allFaqItemsClosedInResourcesPage,
+      closeAllFaqItemsInResourcesPage,
+      communitiesList,
+      toggleFaqItemInResourcesPage,
+    } = this.props;
+
+    let challenges;
+    let filter = communitiesList.data.find(x => x.communityId === 'cognitive');
+    if (filter) {
+      filter = getFilterFunction(filter.challengeFilter);
+      challenges = activeChallenges.filter(filter);
+    }
+
+    return (
+      <Home
+        allFaqItemsClosedInResourcesPage={allFaqItemsClosedInResourcesPage}
+        challenges={challenges}
+        closeAllFaqItemsInResourcesPage={closeAllFaqItemsInResourcesPage}
+        toggleFaqItemInResourcesPage={toggleFaqItemInResourcesPage}
+      />
+    );
+  }
+}
+
+HomeContainer.propTypes = {
+  activeChallenges: PT.arrayOf(PT.object).isRequired,
+  activeChallengesTimestamp: PT.number.isRequired,
+  auth: PT.shape({
+    tokenV3: PT.string,
+  }).isRequired,
+  allFaqItemsClosedInResourcesPage: PT.bool.isRequired,
+  closeAllFaqItemsInResourcesPage: PT.func.isRequired,
+  communitiesList: PT.shape({
+    data: PT.arrayOf(PT.object).isRequired,
+    timestamp: PT.number.isRequired,
+  }).isRequired,
+  getAllActiveChallenges: PT.func.isRequired,
+  getCommunitiesList: PT.func.isRequired,
+  loadingActiveChallenges: PT.bool.isRequired,
+  toggleFaqItemInResourcesPage: PT.func.isRequired,
+};
+
+function mapStateToProps(state) {
+  return {
+    auth: state.auth,
+    activeChallenges: state.challengeListing.challenges,
+    activeChallengesTimestamp:
+      state.challengeListing.lastUpdateOfActiveChallenges,
+    allFaqItemsClosedInResourcesPage:
+      _.isEmpty(state.page.communities.cognitive.resources.shownFaqItems),
+    communitiesList: state.tcCommunities.list,
+    loadingActiveChallenges:
+      Boolean(state.challengeListing.loadingActiveChallengesUUID),
+  };
+}
+
+function mapDispatchToActions(dispatch) {
+  const ca = communityActions.tcCommunity;
+  const cla = challengeListingActions.challengeListing;
+  const ra = resourcesActions.page.communities.cognitive.resources;
+  return {
+    closeAllFaqItemsInResourcesPage: () => dispatch(ra.closeAllFaqItems()),
+    getAllActiveChallenges: (tokenV3) => {
+      const uuid = shortId();
+      dispatch(cla.getAllActiveChallengesInit(uuid));
+      dispatch(cla.getAllActiveChallengesDone(uuid, tokenV3));
+    },
+    getCommunitiesList: (auth) => {
+      const uuid = shortId();
+      dispatch(ca.getListInit(uuid));
+      dispatch(ca.getListDone(uuid, auth));
+    },
+    toggleFaqItemInResourcesPage:
+      (index, show) => dispatch(ra.toggleFaqItem(index, show)),
+  };
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToActions,
+)(HomeContainer);
