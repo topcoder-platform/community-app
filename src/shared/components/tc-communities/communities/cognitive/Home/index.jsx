@@ -151,7 +151,6 @@ export default function Home({
                 <p styleName="joining-point-text">
                   Register for
                   &zwnj;<Link
-                    openNewTab
                     styleName="link"
                     to={`${baseUrl}/challenges`}
                   >cognitive challenges</Link>
@@ -241,10 +240,12 @@ Home.defaultProps = {
 Home.propTypes = {
   allFaqItemsClosedInResourcesPage: PT.bool.isRequired,
   baseUrl: PT.string.isRequired,
-  challenges: PT.shape({
-    id: PT.number.isRequired,
-    name: PT.string.isRequired,
-  }),
+  challenges: PT.arrayOf(
+    PT.shape({
+      id: PT.number.isRequired,
+      name: PT.string.isRequired,
+    }),
+  ),
   closeAllFaqItemsInResourcesPage: PT.func.isRequired,
   member: PT.bool.isRequired,
   toggleFaqItemInResourcesPage: PT.func.isRequired,

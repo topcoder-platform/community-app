@@ -37,8 +37,10 @@ class HomeContainer extends React.Component {
     const {
       activeChallenges,
       allFaqItemsClosedInResourcesPage,
+      baseUrl,
       closeAllFaqItemsInResourcesPage,
       communitiesList,
+      member,
       toggleFaqItemInResourcesPage,
     } = this.props;
 
@@ -52,8 +54,10 @@ class HomeContainer extends React.Component {
     return (
       <Home
         allFaqItemsClosedInResourcesPage={allFaqItemsClosedInResourcesPage}
+        baseUrl={baseUrl}
         challenges={challenges}
         closeAllFaqItemsInResourcesPage={closeAllFaqItemsInResourcesPage}
+        member={member}
         toggleFaqItemInResourcesPage={toggleFaqItemInResourcesPage}
       />
     );
@@ -67,6 +71,7 @@ HomeContainer.propTypes = {
     tokenV3: PT.string,
   }).isRequired,
   allFaqItemsClosedInResourcesPage: PT.bool.isRequired,
+  baseUrl: PT.string.isRequired,
   closeAllFaqItemsInResourcesPage: PT.func.isRequired,
   communitiesList: PT.shape({
     data: PT.arrayOf(PT.object).isRequired,
@@ -75,6 +80,7 @@ HomeContainer.propTypes = {
   getAllActiveChallenges: PT.func.isRequired,
   getCommunitiesList: PT.func.isRequired,
   loadingActiveChallenges: PT.bool.isRequired,
+  member: PT.bool.isRequired,
   toggleFaqItemInResourcesPage: PT.func.isRequired,
 };
 
