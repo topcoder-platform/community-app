@@ -562,6 +562,37 @@ class ChallengesService {
     },
     );
   }
+
+  /**
+   * Updates the challenge (saves the give challenge to the API).
+   * @param {Object} challenge
+   * @param {String} tokenV3
+   * @return {Promise}
+   */
+  async updateChallenge(challenge) {
+    const URL = `/challenges/${challenge.id}`;
+    const body = {
+      param: _.pick(challenge, [
+        // 'technologies',
+        // 'platforms',
+        // 'milestoneId',
+        'detailedRequirements',
+        // 'submissionGuidelines',
+        // 'subTrack',
+        // 'name',
+        'reviewType',
+        // 'confidentialityType',
+        // 'registrationStartsAt',
+        // 'submissionEndsAt',
+        // 'prizes',
+        // 'projectId',
+      ]),
+    };
+    body.param.reviewType = 'COMMUNITY';
+    const res = await this.private.api.putJson(URL, body);
+    if (!res.ok) throw new Error(res.statusText);
+    return res.json();
+  }
 }
 
 /**

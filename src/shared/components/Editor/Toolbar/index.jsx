@@ -112,6 +112,12 @@ export default class Toolbar extends React.Component {
       <Sticky innerZ={2}>
         <div styleName="container">
           <Button
+            onClick={() => this.props.onSave()}
+            size="sm"
+            theme={{ button: style.save }}
+          >Save</Button>
+          <div styleName="separator" />
+          <Button
             active={st.BOLD}
             onMouseDown={(e) => {
               e.preventDefault();
@@ -164,8 +170,10 @@ export default class Toolbar extends React.Component {
 
 Toolbar.defaultProps = {
   connector: new Connector(),
+  onSave: _.noop,
 };
 
 Toolbar.propTypes = {
   connector: PT.instanceOf(Connector),
+  onSave: PT.func,
 };

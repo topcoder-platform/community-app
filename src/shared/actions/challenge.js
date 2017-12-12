@@ -6,6 +6,7 @@ import _ from 'lodash';
 import { createActions } from 'redux-actions';
 import { getService as getChallengesService } from 'services/challenges';
 import { getApiV2 } from '../services/api';
+import { getService } from '../services/challenges';
 
 /**
  * String values of valid tab names.
@@ -172,6 +173,27 @@ function toggleCheckpointFeedback(id, open) {
   return { id, open };
 }
 
+/**
+ * Payload creator for the action that inits update of a challenge.
+ * @param {String} uuid UUID of the operation (the same should be passed into
+ *  the corresponding UPDATE_CHALLENGE_DONE action).
+ * @return {String} UUID.
+ */
+function updateChallengeInit(uuid) {
+  return uuid;
+}
+
+/**
+ * Payload creator for the action that finalizes update of a challenge.
+ * @param {String} uuid
+ * @param {Object} challenge
+ * @param {String} tokenV3
+ */
+function updateChallengeDone(uuid, challenge, tokenV3) {
+  return getService(tokenV3).updateChallenge(challenge)
+    .then(res => ({ uuid, res }));
+}
+
 export default createActions({
   CHALLENGE: {
     DROP_CHECKPOINTS: _.noop,
@@ -190,5 +212,7 @@ export default createActions({
     TOGGLE_CHECKPOINT_FEEDBACK: toggleCheckpointFeedback,
     UNREGISTER_INIT: _.noop,
     UNREGISTER_DONE: unregisterDone,
+    UPDATE_CHALLENGE_INIT: updateChallengeInit,
+    UPDATE_CHALLENGE_DONE: updateChallengeDone,
   },
 });

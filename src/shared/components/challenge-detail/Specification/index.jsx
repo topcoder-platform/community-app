@@ -11,10 +11,11 @@ import Sticky from 'react-stickynode';
 import PT from 'prop-types';
 import { Button } from 'components/buttons';
 import { SPECS_TAB_STATES } from 'actions/page/challenge-details';
+import { stateToHTML } from 'draft-js-export-html';
 
 import SideBar from './SideBar';
 
-import style from './styles.scss';
+import './styles.scss';
 
 export default function ChallengeDetailsView(props) {
   const {
@@ -22,31 +23,34 @@ export default function ChallengeDetailsView(props) {
     terms,
     hasRegistered,
     openTermsModal,
-    challenge: {
-      groups,
-      introduction,
-      detailedRequirements,
-      track,
-      screeningScorecardId,
-      reviewScorecardId,
-      forumLink,
-      submissionLimit,
-      mainEvent,
-      documents,
-      technologies,
-      fileTypes,
-      numberOfCheckpointsPrizes,
-      round1Introduction,
-      round2Introduction,
-      allowStockArt,
-      finalSubmissionGuidelines,
-      environment,
-      codeRepo,
-      userDetails,
-    },
+    challenge,
     setSpecsTabState,
     specsTabState,
+    updateChallenge,
   } = props;
+
+  const {
+    groups,
+    introduction,
+    detailedRequirements,
+    track,
+    screeningScorecardId,
+    reviewScorecardId,
+    forumLink,
+    submissionLimit,
+    mainEvent,
+    documents,
+    technologies,
+    fileTypes,
+    numberOfCheckpointsPrizes,
+    round1Introduction,
+    round2Introduction,
+    allowStockArt,
+    finalSubmissionGuidelines,
+    environment,
+    codeRepo,
+    userDetails,
+  } = challenge;
 
   const roles = (userDetails || {}).roles || [];
 
@@ -69,6 +73,21 @@ export default function ChallengeDetailsView(props) {
   const stockArtText = allowStockArt ?
     'Stock photography is allowed in this challenge.' :
     'Stock photography is not allowed in this challenge. All submitted elements must be designed solely by you.';
+
+  /**
+   * Saves updated challenge into API.
+   */
+  const saveChallenge = () => {
+    console.log(challenge);
+    const updatedChallenge = _.clone(challenge);
+    _.forIn(toolbarConnector.editors, (x) => {
+      const html = stateToHTML(x.state.editorState.getCurrentContent());
+      updatedChallenge[x.id] = html;
+    });
+    updateChallenge(updatedChallenge);
+  };
+
+  /* TODO: This render markup is monstrous - should be refactored. */
   return (
     <div styleName="container">
       {
@@ -85,9 +104,10 @@ export default function ChallengeDetailsView(props) {
         editMode ? (
           <EditorToolbar
             connector={toolbarConnector}
+            onSave={saveChallenge}
           />
         ) : null
-      }  
+      }
       <div styleName="challenge-details-view">
         <div styleName="challenge-specifications">
           <div styleName={`challenge-specs-main ${accentedStyle}`}>
@@ -101,7 +121,11 @@ export default function ChallengeDetailsView(props) {
                         <h2>Challenge Overview</h2>
                         {
                           editMode ? (
-                            <Editor connector={toolbarConnector} />
+                            <Editor
+                              connector={toolbarConnector}
+                              id="detailedRequirements"
+                              initialContent={detailedRequirements}
+                            />
                           ) : (
                             <div
                               /* eslint-disable react/no-danger */
@@ -119,8 +143,12 @@ export default function ChallengeDetailsView(props) {
                       <article>
                         <h2>Final Submission Guidelines</h2>
                         {
-                          editMode ? (
-                            <Editor connector={toolbarConnector} />
+                          editMode && false ? (
+                            <Editor
+                              connector={toolbarConnector}
+                              id="finalSubmissionGuidelines"
+                              initialContent={finalSubmissionGuidelines}
+                            />
                           ) : (
                             <div
                               /* eslint-disable react/no-danger */
@@ -143,7 +171,11 @@ export default function ChallengeDetailsView(props) {
                         <h2>Challenge Summary</h2>
                         {
                           editMode ? (
-                            <Editor connector={toolbarConnector} />
+                            <Editor
+                              connector={toolbarConnector}
+                              id="introduction"
+                              initialContent={introduction}
+                            />
                           ) : (
                             <div
                               /* eslint-disable react/no-danger */
@@ -176,7 +208,11 @@ export default function ChallengeDetailsView(props) {
                             <h3>Round 1</h3>
                             {
                               editMode ? (
-                                <Editor connector={toolbarConnector} />
+                                <Editor
+                                  connector={toolbarConnector}
+                                  id="round1Introduction"
+                                  initialContent={round1Introduction}
+                                />
                               ) : (
                                 <div
                                   /* eslint-disable react/no-danger */
@@ -195,7 +231,11 @@ export default function ChallengeDetailsView(props) {
                             <h3>Round 2</h3>
                             {
                               editMode ? (
-                                <Editor connector={toolbarConnector} />
+                                <Editor
+                                  connector={toolbarConnector}
+                                  id="round2Introduction"
+                                  initialContent={round2Introduction}
+                                />
                               ) : (
                                 <div
                                   /* eslint-disable react/no-danger */
@@ -243,7 +283,11 @@ export default function ChallengeDetailsView(props) {
                         <h2>Full Description & Project Guide</h2>
                         {
                           editMode ? (
-                            <Editor connector={toolbarConnector} />
+                            <Editor
+                              connector={toolbarConnector}
+                              id="detailedRequirements"
+                              initialContent={detailedRequirements}
+                            />
                           ) : (
                             <div
                               /* eslint-disable react/no-danger */
@@ -451,4 +495,5 @@ ChallengeDetailsView.propTypes = {
   openTermsModal: PT.func.isRequired,
   setSpecsTabState: PT.func.isRequired,
   specsTabState: PT.string.isRequired,
+  updateChallenge: PT.func.isRequired,
 };

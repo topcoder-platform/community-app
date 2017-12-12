@@ -176,12 +176,14 @@ class ChallengeDetailPageContainer extends React.Component {
 
   render() {
     const {
+      authTokens,
       challenge,
       challengeId,
       challengesUrl,
       domain,
       resultsLoadedForChallengeId,
       openTermsModal,
+      updateChallenge,
     } = this.props;
 
     /* Generation of data for SEO meta-tags. */
@@ -270,6 +272,7 @@ class ChallengeDetailPageContainer extends React.Component {
               openTermsModal={openTermsModal}
               setSpecsTabState={this.props.setSpecsTabState}
               specsTabState={this.props.specsTabState}
+              updateChallenge={x => updateChallenge(x, authTokens.tokenV3)}
             />
           }
           {
@@ -374,6 +377,7 @@ ChallengeDetailPageContainer.propTypes = {
   tokenV3: PT.string,
   unregisterFromChallenge: PT.func.isRequired,
   unregistering: PT.bool.isRequired,
+  updateChallenge: PT.func.isRequired,
 };
 
 function mapStateToProps(state, props) {
@@ -486,6 +490,11 @@ const mapDispatchToProps = (dispatch) => {
     },
     openTermsModal: (term) => {
       dispatch(t.openTermsModal(term));
+    },
+    updateChallenge: (challenge, tokenV3) => {
+      const uuid = shortId();
+      dispatch(a.updateChallengeInit(uuid));
+      dispatch(a.updateChallengeDone(uuid, challenge, tokenV3));
     },
   };
 };

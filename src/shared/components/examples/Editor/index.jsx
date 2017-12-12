@@ -14,7 +14,10 @@ export default function EditorExample() {
           <p styleName="text">
             Demo/test of content editing system based on DraftJS.
           </p>
-          <Editor connector={connector} />
+          <Editor
+            connector={connector}
+            initialContent="<p>Initial Content</p><p>Will it work?</p>"
+          />
           <Editor connector={connector} />
           <Editor connector={connector} />
         </div>

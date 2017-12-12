@@ -10,7 +10,13 @@
 import PT from 'prop-types';
 import React from 'react';
 
-import { Editor, EditorState, RichUtils } from 'draft-js';
+import {
+  ContentState,
+  convertFromHTML,
+  Editor,
+  EditorState,
+  RichUtils,
+} from 'draft-js';
 
 import 'draft-js/dist/Draft.css';
 
@@ -28,17 +34,27 @@ const INLINE_STYLE_MAP = {
 export default class EditorWrapper extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      editorState: EditorState.createEmpty(),
-    };
+    this.id = props.id;
+    this.state = { editorState: EditorState.createEmpty() };
   }
 
   componentDidMount() {
-    this.props.connector.addEditor(this);
+    const { connector, initialContent } = this.props;
+    connector.addEditor(this);
+    if (initialContent) {
+      let editorState = convertFromHTML(initialContent);
+      editorState = ContentState.createFromBlockArray(
+        editorState.contentBlocks,
+        editorState.entityMap,
+      );
+      editorState = EditorState.createWithContent(editorState);
+      setImmediate(() => this.setState({ editorState }));
+    }
   }
 
-  componentWillReceiveProps({ connector }) {
+  componentWillReceiveProps({ connector, id }) {
     const prevConnector = this.props.connector;
+    this.id = id;
     if (connector !== prevConnector) {
       if (prevConnector) prevConnector.removeEditor(this);
       if (connector) connector.addEditor(this);
@@ -99,8 +115,12 @@ export default class EditorWrapper extends React.Component {
 
 EditorWrapper.defaultProps = {
   connector: new Connector(),
+  id: null,
+  initialContent: null,
 };
 
 EditorWrapper.propTypes = {
   connector: PT.instanceOf(Connector),
+  id: PT.string,
+  initialContent: PT.string,
 };

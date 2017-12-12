@@ -12,7 +12,7 @@
 }
 
 .container {
-  background: whitesmoke;
+  background: $tc-gray-10;
   padding: 10px;
   width: 100%;
 }
@@ -26,6 +26,18 @@
   @include button;
 
   font-style: italic;
+}
+
+.save {
+  @include button;
+}
+
+.separator {
+  display: inline-block;
+  height: 30px;
+  margin: 0 5px;
+  vertical-align: middle;
+  width: 1px;
 }
 
 .strikethrough {
