@@ -45,69 +45,30 @@ export default function Resources({
               toggle={show => toggleFaqItem('howDoIGetStarted', show)}
               question="How do I get started with Cognitive?"
             >
+              <p>
+                Start by simply signing up for the Topcoder Cognitive
+                Community. It’s free and easy, and will give you access to
+                exclusive educational resources.
+              </p>
               {
                 member ? null : (
-                  <div>
-                    <p>
-                      Start by simply signing up for the Topcoder Cognitive
-                      Community. It’s free and easy, and will give you access to
-                      exclusive educational resources.
-                    </p>
-                    <JoinCommunity
-                      label="Join the Cognitive Community"
-                      open={shownFaqItems.joinCommunity}
-                      theme={{
-                        link: {
-                          button: style.faqJoinButton,
-                        },
-                      }}
-                    />
-                  </div>
+                  <JoinCommunity
+                    label="Join the Cognitive Community"
+                    open={shownFaqItems.joinCommunity}
+                    theme={{
+                      link: {
+                        button: style.faqJoinButton,
+                      },
+                    }}
+                  />
                 )
               }
               <p>
-                Be sure to explore the IBM Watson and Cognitive sites. There you
-                will find videos, demos, APIs, and helpful resources for
-                starting your Cognitive journey:
-              </p>
-              <p>
-                <strong>developerWorks</strong><br />
-                <a
-                  href="https://www.ibm.com/developerworks/learn/cognitive"
-                  rel="noopener noreferrer"
-                  target="_blank"
-                >https://www.ibm.com/developerworks/learn/cognitive</a>
-              </p>
-              <p>
-                <strong>Watson</strong><br />
-                <a
-                  href="https://www.ibm.com/watson"
-                  rel="noopener noreferrer"
-                  target="_blank"
-                >https://www.ibm.com/watson</a>
-              </p>
-              <p>
-                <strong>IBM Cognitive</strong><br />
-                <a
-                  href="https://www.ibm.com/cognitive"
-                  rel="noopener noreferrer"
-                  target="_blank"
-                >https://www.ibm.com/cognitive</a>
-              </p>
-              <p>
-                <strong>IBM Research</strong><br />
-                <a
-                  href="http://research.ibm.com/cognitive-computing"
-                  rel="noopener noreferrer"
-                  target="_blank"
-                >http://research.ibm.com/cognitive-computing</a>
-              </p>
-              <p>
-                Next, check out the fun educational challenges here in the
-                Topcoder Cognitive Community. These challenges are designed to
-                help you learn everything you need to compete in future
-                Cognitive development challenges. New educational challenges
-                launch every few weeks, so be sure to check back often.
+                Next, check out our fun educational challenges. These
+                challenges are designed to help you learn everything you need
+                to compete in future cognitive development challenges. New
+                educational challenges launch every few weeks, so be sure to
+                check back often.
               </p>
             </FaqItem>
             <FaqItem
