@@ -22,11 +22,16 @@ $tc-link-visited: #0c4e98;
   }
 }
 
+.container {
+
+}
+
 .challenge-details-view {
   white-space: normal;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  position: relative;
   align-items: baseline;
   word-break: break-word;
 
