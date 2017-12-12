@@ -24,6 +24,7 @@ export default function ChallengeFilters({
   defaultCommunityId,
   expanded,
   filterState,
+  hideSrm,
   isCardTypeSet,
   saveFilter,
   searchText,
@@ -56,6 +57,7 @@ export default function ChallengeFilters({
     <div styleName="challenge-filters">
       <div styleName="filter-header">
         <FiltersCardsType
+          hideSrm={hideSrm}
           isCardTypeSet={isCardTypeSet}
           setCardType={setCardType}
         />
@@ -178,6 +180,7 @@ ChallengeFilters.propTypes = {
   defaultCommunityId: PT.string.isRequired,
   expanded: PT.bool.isRequired,
   filterState: PT.shape().isRequired,
+  hideSrm: PT.bool.isRequired,
   isCardTypeSet: PT.string,
   isSavingFilter: PT.bool,
   saveFilter: PT.func.isRequired,
