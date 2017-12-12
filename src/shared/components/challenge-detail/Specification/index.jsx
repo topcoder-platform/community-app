@@ -19,12 +19,12 @@ export default function ChallengeDetailsView(props) {
     openTermsModal,
     challenge: {
       groups,
+      forumId,
       introduction,
       detailedRequirements,
       track,
       screeningScorecardId,
       reviewScorecardId,
-      forumLink,
       submissionLimit,
       mainEvent,
       documents,
@@ -39,6 +39,11 @@ export default function ChallengeDetailsView(props) {
       codeRepo,
     },
   } = props;
+
+  let forumLink = track.toLowerCase() === 'design'
+    ? `/?module=ThreadList&forumID=${forumId}`
+    : `/?module=Category&categoryID=${forumId}`;
+  forumLink = `${config.URL.FORUMS}${forumLink}`;
 
   let isWipro = false;
   const wiproCommunity = communitiesList.find(x => x.communityId === 'wipro');
@@ -334,7 +339,6 @@ ChallengeDetailsView.defaultProps = {
     reviewScorecardId: undefined,
     submissionLimit: 0,
     mainEvent: undefined,
-    forumLink: '',
     reviewType: undefined,
     technologies: '',
     fileTypes: [],
@@ -358,7 +362,7 @@ ChallengeDetailsView.propTypes = {
     groups: PT.shape().isRequired,
     screeningScorecardId: PT.number,
     reviewScorecardId: PT.number,
-    forumLink: PT.string,
+    forumId: PT.number.isRequired,
     submissionLimit: PT.number,
     mainEvent: PT.shape(),
     reviewType: PT.string,
