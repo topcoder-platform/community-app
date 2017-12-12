@@ -256,6 +256,7 @@ exports[`Match shadow snapshot 1`] = `
     />
   </ThemedSection>
   <ThemedNewsletterSignup
+    apikey=""
     buttonText="Sign Up"
     composeAdhocTheme="deeply"
     composeContextTheme="softly"
@@ -266,6 +267,7 @@ exports[`Match shadow snapshot 1`] = `
     theme={Object {}}
     themePriority="adhoc-context-default"
     title="Sign up for our newsletter"
+    url=""
   />
 </main>
 `;

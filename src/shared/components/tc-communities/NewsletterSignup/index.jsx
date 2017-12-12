@@ -1,47 +1,88 @@
 /**
  * NewsletterSignup component
- *
- * TODO: it's logic is not implemented yet, only design
- *       for now we add global alert and disable no-alert rule
  */
-/* global alert */
-/* eslint-disable no-alert */
 
+/* global window */
+
+import fetch from 'isomorphic-fetch';
 import React from 'react';
 import PT from 'prop-types';
 import { PrimaryButton } from 'components/buttons';
 import { themr } from 'react-css-super-themr';
+import { fireErrorMessage } from 'utils/errors';
+import qs from 'qs';
 import defaultStyle from './style.scss';
 
-function NewsletterSignup(props) {
-  const { imageSrc, title, text, buttonText, emailPlaceholder, theme } = props;
+class NewsletterSignup extends React.Component {
+  subscribe() {
+    const { apikey, url } = this.props;
+    if (!apikey || !url) {
+      fireErrorMessage('NewsletterSignup logic is not implemented yet!', '');
+    } else {
+      const formData = qs.stringify({
+        [apikey]: '',
+        EMAIL: this.email.value,
+      });
+      fetch(`/community-app-assets/api/proxy-post?url=${encodeURIComponent(url)}`, {
+        body: formData,
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        method: 'POST',
+      }).then(res => res.text())
+        .then((res) => { window.document.write(res); });
+    }
+  }
 
-  return (
-    <div className={theme.container} style={{ backgroundImage: `url(${imageSrc})` }}>
-      <div className={theme.content}>
-        <h2 className={theme.title}>{title}</h2>
-        <p className={theme.text}>{text}</p>
-        <div className={theme.form}>
-          <input className={theme.formEmail} type="email" placeholder={emailPlaceholder} />
-          <PrimaryButton
-            onClick={() =>
-              alert('NewsletterSignup logic is not implemented yet.')}
-            size="md"
-            theme={{ button: theme.formButton }}
-          >{buttonText}</PrimaryButton>
+  render() {
+    const {
+      imageSrc,
+      title,
+      text,
+      buttonText,
+      emailPlaceholder,
+      theme,
+    } = this.props;
+    return (
+      <div
+        className={theme.container}
+        style={{ backgroundImage: `url(${imageSrc})` }}
+      >
+        <div className={theme.content}>
+          <h2 className={theme.title}>{title}</h2>
+          <p className={theme.text}>{text}</p>
+          <div className={theme.form}>
+            <input
+              className={theme.formEmail}
+              placeholder={emailPlaceholder}
+              ref={(node) => { this.email = node; }}
+              onKeyPress={(e) => {
+                if (e.key === 'Enter') this.subscribe();
+              }}
+              type="email"
+            />
+            <PrimaryButton
+              onClick={() => this.subscribe()}
+              size="md"
+              theme={{ button: theme.formButton }}
+            >{buttonText}</PrimaryButton>
+          </div>
         </div>
       </div>
-    </div>
-  );
+    );
+  }
 }
 
 NewsletterSignup.defaultProps = {
+  apikey: '',
   emailPlaceholder: 'Email address',
   buttonText: 'Sign Up',
   theme: {},
+  url: '',
 };
 
 NewsletterSignup.propTypes = {
+  apikey: PT.string,
   imageSrc: PT.string.isRequired,
   title: PT.string.isRequired,
   text: PT.string.isRequired,
@@ -56,6 +97,7 @@ NewsletterSignup.propTypes = {
     formEmail: PT.string,
     formButton: PT.string,
   }),
+  url: PT.string,
 };
 
 export default themr('tcCommunities-NewsletterSignup', defaultStyle)(NewsletterSignup);
