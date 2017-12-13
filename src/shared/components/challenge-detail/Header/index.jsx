@@ -82,7 +82,11 @@ export default function ChallengeHeader(props) {
 
   const theme = themeFactory(trackLower);
   const eventNames = (events || []).map((event => (event.eventName || '').toUpperCase()));
-  const miscTags = _.union((technologies || '').split(', '), platforms.split(', '));
+
+  const miscTags = _.union(
+    _.isArray(technologies) ? technologies : (technologies || '').split(', '),
+    _.isArray(platforms) ? platforms : (platforms || '').split(', '),
+  );
 
   let bonusType = '';
   if (numberOfCheckpointsPrizes && topCheckPointPrize) {

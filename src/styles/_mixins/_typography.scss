@@ -18,7 +18,7 @@
   font-weight: 300;
 }
 
-@mixin roboto-normal {
+@mixin roboto-regular {
   font-family: 'Roboto', Helvetica, Arial, sans-serif;
   font-weight: 400;
 }
@@ -36,6 +36,13 @@
 @mixin roboto-black {
   font-family: 'Roboto', Helvetica, Arial, sans-serif;
   font-weight: 900;
+}
+
+/* Mono version of the roboto font. */
+
+@mixin roboto-mono-regular {
+  font-family: 'Roboto Mono', monospace;
+  font-weight: 400;
 }
 
 /* Label text styles. */
@@ -65,7 +72,7 @@
 }
 
 @mixin tc-label-sm {
-  @include roboto-normal;
+  @include roboto-regular;
 
   color: $tc-black;
   font-size: 12px;
@@ -73,7 +80,7 @@
 }
 
 @mixin tc-label-xs {
-  @include roboto-normal;
+  @include roboto-regular;
 
   color: $tc-black;
   font-size: 11px;
@@ -83,7 +90,7 @@
 /* Body text styles. */
 
 @mixin tc-body-lg {
-  @include roboto-normal;
+  @include roboto-regular;
 
   color: $tc-gray-80;
   font-size: 20px;
@@ -91,7 +98,7 @@
 }
 
 @mixin tc-body-md {
-  @include roboto-normal;
+  @include roboto-regular;
 
   color: $tc-gray-80;
   font-size: 15px;
@@ -99,7 +106,7 @@
 }
 
 @mixin tc-body-sm {
-  @include roboto-normal;
+  @include roboto-regular;
 
   color: $tc-gray-80;
   font-size: 13px;
@@ -107,7 +114,7 @@
 }
 
 @mixin tc-body-xs {
-  @include roboto-normal;
+  @include roboto-regular;
 
   color: $tc-gray-80;
   font-size: 11px;
@@ -125,7 +132,7 @@
 }
 
 @mixin tc-heading-lg {
-  @include roboto-normal;
+  @include roboto-regular;
 
   color: $tc-black;
   font-size: 28px;
@@ -133,7 +140,7 @@
 }
 
 @mixin tc-heading-md {
-  @include roboto-normal;
+  @include roboto-regular;
 
   color: $tc-black;
   font-size: 20px;

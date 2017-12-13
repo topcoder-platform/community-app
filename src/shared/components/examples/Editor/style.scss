@@ -1,0 +1,16 @@
+@import "~styles/mixins";
+
+.container {
+  padding: 25px;
+}
+
+.content {
+  margin: auto;
+  max-width: $tc-screen-lg;
+}
+
+.text {
+  @include tc-body-md;
+}
+
+.title { @include tc-title; }

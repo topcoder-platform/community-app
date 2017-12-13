@@ -3,6 +3,7 @@
  * similar stuff should be handled here, at least for now.
  */
 
+import _ from 'lodash';
 import { createActions } from 'redux-actions';
 import { getService } from 'services/direct';
 
@@ -36,6 +37,26 @@ function getProjectDetailsDone(projectId, tokenV3) {
 }
 
 /**
+ * Payload creator for the action that inits the loading of project permissions.
+ * @param {Number|String} projectId
+ * @return {Number} projectId
+ */
+function getProjectPermissionsInit(projectId) {
+  return _.toNumber(projectId);
+}
+
+/**
+ * Payload creator for the actions that actually loads project permissions.
+ * @param {Number|String} projectId
+ * @param {String} tokenV3
+ * @return {Promise}
+ */
+function getProjectPermissionsDone(projectId, tokenV3) {
+  return getService(tokenV3).getProjectPermissions(projectId)
+    .then(permissions => ({ permissions, projectId }));
+}
+
+/**
  * Payload creator for the action that inits the loading of projects related to
  * the user.
  * @param {String} tokenV3 Topcoder auth token v3.
@@ -61,6 +82,8 @@ export default createActions({
     DROP_ALL: dropAll,
     GET_PROJECT_DETAILS_INIT: getProjectDetailsInit,
     GET_PROJECT_DETAILS_DONE: getProjectDetailsDone,
+    GET_PROJECT_PERMISSIONS_INIT: getProjectPermissionsInit,
+    GET_PROJECT_PERMISSIONS_DONE: getProjectPermissionsDone,
     GET_USER_PROJECTS_INIT: getUserProjectsInit,
     GET_USER_PROJECTS_DONE: getUserProjectsDone,
   },
