@@ -166,7 +166,7 @@ export default function Home({
                         closeAllFaqItemsInResourcesPage();
                       }
                       toggleFaqItemInResourcesPage(
-                        'howDoIGetIbmCloudAccount',
+                        'whyDoINeedIbmCloudAccount',
                         true,
                       );
                     }}
