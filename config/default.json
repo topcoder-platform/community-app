@@ -35,6 +35,14 @@
    * agreement flow. */
   "MOCK_TERMS_SERVICE": false,
 
+  /* Holds params to signup for different newsletters. */
+  "NEWSLETTER_SIGNUP": {
+    "COGNITIVE": {
+      "APIKEY": "",
+      "URL": ""
+    }
+  },
+
   /* Configuration related to https://openexchangerates.org. This is the
    * service which provides currency exchange rates. */
   "OPEN_EXCHANGE": {

@@ -14,6 +14,7 @@ import stream from 'stream';
 import serializeJs from 'serialize-javascript';
 import { getRates as getExchangeRates } from 'services/money';
 import { toJson as xmlToJson } from 'utils/xml2json';
+import qs from 'qs';
 
 import mockDocuSignFactory from './__mocks__/docu-sign-mock';
 
@@ -109,6 +110,19 @@ app.use('/community-app-assets/api/xml2json', (req, res) => {
 app.use('/community-app-assets/api/proxy-get', (req, res) => {
   fetch(req.query.url)
     .then(x => x.text())
+    .then(x => res.send(x));
+});
+
+/* Proxy endpoint for POST requests (to fetch data from resources prohibiting
+ * cross-origin requests). */
+app.use('/community-app-assets/api/proxy-post', (req, res) => {
+  fetch(req.query.url, {
+    body: qs.stringify(req.body),
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded',
+    },
+    method: 'POST',
+  }).then(x => x.text())
     .then(x => res.send(x));
 });
 

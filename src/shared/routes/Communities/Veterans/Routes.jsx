@@ -37,6 +37,8 @@ export default function Veterans({ base, member, meta }) {
               <Route
                 component={() => ChallengeListing({
                   challengesUrl: `${base}/challenges`,
+                  hideSrm: true,
+                  listingOnly: true,
                   meta,
                   newChallengeDetails: true,
                 })}

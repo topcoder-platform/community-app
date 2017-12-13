@@ -8,6 +8,7 @@ exports[`Matches shallow shapshot shapshot 1`] = `
     className="src-shared-components-challenge-listing-Filters-___ChallengeFilters__filter-header___2l3Jh"
   >
     <FiltersCardsType
+      hideSrm={undefined}
       isCardTypeSet="type"
       setCardType={[Function]}
     />
@@ -94,6 +95,7 @@ exports[`Matches shallow shapshot shapshot 2`] = `
     className="src-shared-components-challenge-listing-Filters-___ChallengeFilters__filter-header___2l3Jh"
   >
     <FiltersCardsType
+      hideSrm={undefined}
       isCardTypeSet="Challenges"
       setCardType={[Function]}
     />

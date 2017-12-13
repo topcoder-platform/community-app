@@ -24,6 +24,7 @@ const CHALLENGE_PLACEHOLDER_COUNT = 8;
 export default function ChallengeListing(props) {
   const {
     defaultCommunityId,
+    hideSrm,
     keepPastPlaceholders,
   } = props;
 
@@ -101,6 +102,7 @@ export default function ChallengeListing(props) {
       <ChallengeFilters
         communityName={props.communityName}
         defaultCommunityId={defaultCommunityId}
+        hideSrm={hideSrm}
         setCardType={_.noop/* cardType => this.setCardType(cardType) */}
         isCardTypeSet={'Challenges' /* this.state.currentCardType */}
       />
@@ -170,6 +172,7 @@ ChallengeListing.propTypes = {
   communityName: PT.string,
   defaultCommunityId: PT.string.isRequired,
   filterState: PT.shape().isRequired,
+  hideSrm: PT.bool.isRequired,
   hideTcLinksInFooter: PT.bool,
   keepPastPlaceholders: PT.bool.isRequired,
   lastUpdateOfActiveChallenges: PT.number.isRequired,
