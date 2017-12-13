@@ -8,12 +8,14 @@ exports[`Matches shallow shapshot 1`] = `
     My filters
   </h1>
   <ThemedGenericButton
+    active={false}
     composeAdhocTheme="deeply"
     composeContextTheme="softly"
     disabled={false}
     enforceA={false}
     mapThemrProps={[Function]}
     onClick={[Function]}
+    onMouseDown={null}
     openNewTab={false}
     replace={false}
     size={null}

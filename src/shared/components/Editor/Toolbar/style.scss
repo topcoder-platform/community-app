@@ -1,0 +1,54 @@
+@import "~styles/mixins";
+
+@mixin button {
+  margin: 0 1px;
+  padding: 0 10px;
+}
+
+.bold {
+  @include button;
+
+  font-weight: bold;
+}
+
+.container {
+  background: $tc-gray-10;
+  padding: 10px;
+  width: 100%;
+}
+
+.inlineCode {
+  @include button;
+  @include roboto-mono-regular;
+}
+
+.italic {
+  @include button;
+
+  font-style: italic;
+}
+
+.save {
+  @include button;
+}
+
+.separator {
+  display: inline-block;
+  height: 30px;
+  margin: 0 5px;
+  vertical-align: middle;
+  width: 1px;
+}
+
+.strikethrough {
+  @include button;
+
+  text-decoration: line-through;
+}
+
+.underline {
+  @include button;
+
+  text-decoration: underline;
+}
+

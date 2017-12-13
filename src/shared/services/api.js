@@ -134,6 +134,7 @@ export default class Api {
   putJson(endpoint, json) {
     return this.put(endpoint, JSON.stringify(json));
   }
+
   /**
    * Upload with progress
    * @param {String} endpoint

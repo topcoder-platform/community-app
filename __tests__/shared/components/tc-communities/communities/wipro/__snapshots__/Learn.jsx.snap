@@ -54,12 +54,14 @@ exports[`Snapshot match 1`] = `
         className="src-shared-components-tc-communities-communities-wipro-Learn-___style__button-container___10Uat"
       >
         <ThemedGenericButton
+          active={false}
           composeAdhocTheme="deeply"
           composeContextTheme="softly"
           disabled={false}
           enforceA={false}
           mapThemrProps={[Function]}
           onClick={null}
+          onMouseDown={null}
           openNewTab={true}
           replace={false}
           size={null}

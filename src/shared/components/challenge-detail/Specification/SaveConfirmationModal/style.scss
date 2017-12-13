@@ -1,0 +1,12 @@
+@import "~styles/mixins";
+
+.container {
+  text-align: center;
+}
+
+.title {
+  @include tc-heading-md;
+
+  margin-bottom: 25px;
+  text-align: center;
+}

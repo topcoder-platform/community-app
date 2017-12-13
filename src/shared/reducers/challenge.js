@@ -245,6 +245,39 @@ function onSelectTab(state, { payload }) {
 }
 
 /**
+ * Handles CHALLENGE/UPDATE_CHALLENGE_INIT.
+ * @param {Object} state Old state.
+ * @param {Object} actions Action.
+ * @return {Object} New state.
+ */
+function onUpdateChallengeInit(state, { payload }) {
+  return { ...state, updatingChallengeUuid: payload };
+}
+
+/**
+ * Handles CHALLENGE/UPDATE_CHALLENGE_DONE.
+ * @param {Object} state Old state.
+ * @param {Object} actions Action.
+ * @return {Object} New state.
+ */
+function onUpdateChallengeDone(state, { error, payload }) {
+  if (error) {
+    fireErrorMessage('Failed to save the challenge!', '');
+    logger.error('Failed to save the challenge', payload);
+    return state;
+  }
+  if (payload.uuid !== state.updatingChallengeUuid) return state;
+  return {
+    ...state,
+    details: {
+      ...state.details,
+      ...payload.res,
+    },
+    updatingChallengeUuid: '',
+  };
+}
+
+/**
  * Creates a new Auth reducer with the specified initial state.
  * @param {Object} initialState Initial state.
  * @return Auth reducer.
@@ -281,6 +314,8 @@ function create(initialState) {
     [a.fetchCheckpointsDone]: onFetchCheckpointsDone,
     [a.toggleCheckpointFeedback]: onToggleCheckpointFeedback,
     [a.selectTab]: onSelectTab,
+    [a.updateChallengeInit]: onUpdateChallengeInit,
+    [a.updateChallengeDone]: onUpdateChallengeDone,
   }, _.defaults(initialState, {
     details: null,
     loadingCheckpoints: false,
@@ -293,6 +328,7 @@ function create(initialState) {
     resultsLoadedForChallengeId: '',
     unregistering: false,
     selectedTab: DETAIL_TABS.DETAILS,
+    updatingChallengeUuid: '',
   }));
 }
 
