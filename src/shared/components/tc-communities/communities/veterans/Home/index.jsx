@@ -107,7 +107,7 @@ export default function Home({ baseUrl }) {
             <span styleName="style.qouteCommas style.right">&rdquo;</span>
           </div>
           <div styleName="style.qouteNote">
-            <strong>Jarah Meador</strong> Innovation Crowdsourcing Lead, U.S. Department 
+            <strong>Jarah Meador</strong> Innovation Crowdsourcing Lead, U.S. Department
             of Veterans Affairs
           </div>
         </div>
