@@ -160,12 +160,19 @@ export default function Home({
                 <div styleName="joining-point">3</div>
                 <p styleName="joining-point-text">
                   Compete using
-                  &zwnj;<a
-                    href="https://console.bluemix.net/registration/?cm_sp=dw-cognitive-_-TPC2017-_-community"
-                    rel="noopener noreferrer"
+                  &nbsp;<Link
+                    onClick={() => {
+                      if (!allFaqItemsClosedInResourcesPage) {
+                        closeAllFaqItemsInResourcesPage();
+                      }
+                      toggleFaqItemInResourcesPage(
+                        'howDoIGetIbmCloudAccount',
+                        true,
+                      );
+                    }}
                     styleName="link"
-                    target="_blank"
-                  >IBM Cloud</a>
+                    to={`${baseUrl}/resources`}
+                  >IBM Cloud</Link>
                 </p>
               </div>
             </div>
