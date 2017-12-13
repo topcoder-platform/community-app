@@ -571,27 +571,12 @@ class ChallengesService {
    */
   async updateChallenge(challenge) {
     const URL = `/challenges/${challenge.id}`;
-    const body = {
-      param: _.pick(challenge, [
-        // 'technologies',
-        // 'platforms',
-        // 'milestoneId',
-        'detailedRequirements',
-        // 'submissionGuidelines',
-        // 'subTrack',
-        // 'name',
-        'reviewType',
-        // 'confidentialityType',
-        // 'registrationStartsAt',
-        // 'submissionEndsAt',
-        // 'prizes',
-        // 'projectId',
-      ]),
-    };
-    body.param.reviewType = 'COMMUNITY';
-    const res = await this.private.api.putJson(URL, body);
+    const body = { param: challenge };
+    let res = await this.private.api.putJson(URL, body);
     if (!res.ok) throw new Error(res.statusText);
-    return res.json();
+    res = (await res.json()).result;
+    if (res.status !== 200) throw new Error(res.content);
+    return res.content;
   }
 }
 

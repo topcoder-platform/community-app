@@ -5,6 +5,7 @@ exports[`Matches shallow shapshot 1`] = `
   className={undefined}
 >
   <ThemedGenericButton
+    active={false}
     className=""
     composeAdhocTheme="deeply"
     composeContextTheme="softly"
@@ -12,6 +13,7 @@ exports[`Matches shallow shapshot 1`] = `
     enforceA={false}
     mapThemrProps={[Function]}
     onClick={[Function]}
+    onMouseDown={null}
     openNewTab={false}
     replace={false}
     size={null}
@@ -40,6 +42,7 @@ exports[`Matches shallow shapshot 2`] = `
   className={undefined}
 >
   <ThemedGenericButton
+    active={false}
     className="src-shared-components-tc-communities-JoinCommunity-___style__joining___rq-m2"
     composeAdhocTheme="deeply"
     composeContextTheme="softly"
@@ -47,6 +50,7 @@ exports[`Matches shallow shapshot 2`] = `
     enforceA={false}
     mapThemrProps={[Function]}
     onClick={[Function]}
+    onMouseDown={null}
     openNewTab={false}
     replace={false}
     size={null}
@@ -86,6 +90,7 @@ exports[`Matches shallow shapshot 4`] = `
   className={undefined}
 >
   <ThemedGenericButton
+    active={false}
     className=""
     composeAdhocTheme="deeply"
     composeContextTheme="softly"
@@ -93,6 +98,7 @@ exports[`Matches shallow shapshot 4`] = `
     enforceA={false}
     mapThemrProps={[Function]}
     onClick={[Function]}
+    onMouseDown={null}
     openNewTab={false}
     replace={false}
     size={null}
@@ -122,12 +128,14 @@ exports[`Matches shallow shapshot 4`] = `
       !
     </p>
     <ThemedGenericButton
+      active={false}
       composeAdhocTheme="deeply"
       composeContextTheme="softly"
       disabled={false}
       enforceA={false}
       mapThemrProps={[Function]}
       onClick={[Function]}
+      onMouseDown={null}
       openNewTab={false}
       replace={false}
       size={null}
@@ -150,6 +158,7 @@ exports[`Matches shallow shapshot 5`] = `
   className={undefined}
 >
   <ThemedGenericButton
+    active={false}
     className=""
     composeAdhocTheme="deeply"
     composeContextTheme="softly"
@@ -157,6 +166,7 @@ exports[`Matches shallow shapshot 5`] = `
     enforceA={false}
     mapThemrProps={[Function]}
     onClick={[Function]}
+    onMouseDown={null}
     openNewTab={false}
     replace={false}
     size={null}

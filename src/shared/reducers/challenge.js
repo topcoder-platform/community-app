@@ -266,8 +266,15 @@ function onUpdateChallengeDone(state, { error, payload }) {
     logger.error('Failed to save the challenge', payload);
     return state;
   }
-  if (payload !== state.updatingChallengeUuid) return state;
-  return { ...state, updatingChallengeUuid: '' };
+  if (payload.uuid !== state.updatingChallengeUuid) return state;
+  return {
+    ...state,
+    details: {
+      ...state.details,
+      ...payload.res,
+    },
+    updatingChallengeUuid: '',
+  };
 }
 
 /**

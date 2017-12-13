@@ -6,7 +6,6 @@ import _ from 'lodash';
 import { createActions } from 'redux-actions';
 import { getService as getChallengesService } from 'services/challenges';
 import { getApiV2 } from '../services/api';
-import { getService } from '../services/challenges';
 
 /**
  * String values of valid tab names.
@@ -190,7 +189,7 @@ function updateChallengeInit(uuid) {
  * @param {String} tokenV3
  */
 function updateChallengeDone(uuid, challenge, tokenV3) {
-  return getService(tokenV3).updateChallenge(challenge)
+  return getChallengesService(tokenV3).updateChallenge(challenge)
     .then(res => ({ uuid, res }));
 }
 

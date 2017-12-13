@@ -182,6 +182,7 @@ class ChallengeDetailPageContainer extends React.Component {
       challengesUrl,
       domain,
       resultsLoadedForChallengeId,
+      savingChallenge,
       openTermsModal,
       updateChallenge,
     } = this.props;
@@ -270,6 +271,7 @@ class ChallengeDetailPageContainer extends React.Component {
               terms={this.props.terms}
               hasRegistered={hasRegistered}
               openTermsModal={openTermsModal}
+              savingChallenge={savingChallenge}
               setSpecsTabState={this.props.setSpecsTabState}
               specsTabState={this.props.specsTabState}
               updateChallenge={x => updateChallenge(x, authTokens.tokenV3)}
@@ -368,6 +370,7 @@ ChallengeDetailPageContainer.propTypes = {
   reloadChallengeDetails: PT.func.isRequired,
   results: PT.arrayOf(PT.shape()),
   resultsLoadedForChallengeId: PT.string.isRequired,
+  savingChallenge: PT.bool.isRequired,
   selectedTab: PT.string.isRequired,
   setChallengeListingFilter: PT.func.isRequired,
   setSpecsTabState: PT.func.isRequired,
@@ -401,6 +404,7 @@ function mapStateToProps(state, props) {
     registering: state.challenge.registering,
     results: state.challenge.results,
     resultsLoadedForChallengeId: state.challenge.resultsLoadedForChallengeId,
+    savingChallenge: Boolean(state.challenge.updatingChallengeUuid),
     selectedTab: state.challenge.selectedTab || 'details',
     specsTabState: state.page.challengeDetails.specsTabState,
     terms: state.terms.terms,

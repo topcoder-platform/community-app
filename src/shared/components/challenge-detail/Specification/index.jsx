@@ -9,10 +9,11 @@ import EditorToolbar, { Connector as ToolbarConnector } from 'components/Editor/
 import React from 'react';
 import Sticky from 'react-stickynode';
 import PT from 'prop-types';
-import { Button } from 'components/buttons';
+import { DangerButton } from 'components/buttons';
 import { SPECS_TAB_STATES } from 'actions/page/challenge-details';
 import { stateToHTML } from 'draft-js-export-html';
 
+import SaveConfirmationModal from './SaveConfirmationModal';
 import SideBar from './SideBar';
 
 import './styles.scss';
@@ -24,6 +25,7 @@ export default function ChallengeDetailsView(props) {
     hasRegistered,
     openTermsModal,
     challenge,
+    savingChallenge,
     setSpecsTabState,
     specsTabState,
     updateChallenge,
@@ -69,6 +71,7 @@ export default function ChallengeDetailsView(props) {
   const canEdit = roles.some(x => x === 'Copilot' || x === 'Manager');
   const editMode = specsTabState === SPECS_TAB_STATES.EDIT;
   const toolbarConnector = new ToolbarConnector();
+  const isSaving = specsTabState === SPECS_TAB_STATES.SAVING;
 
   const stockArtText = allowStockArt ?
     'Stock photography is allowed in this challenge.' :
@@ -78,8 +81,10 @@ export default function ChallengeDetailsView(props) {
    * Saves updated challenge into API.
    */
   const saveChallenge = () => {
-    console.log(challenge);
-    const updatedChallenge = _.clone(challenge);
+    setSpecsTabState(SPECS_TAB_STATES.SAVING);
+    const updatedChallenge = {};
+    updatedChallenge.id = challenge.id;
+    updatedChallenge.reviewType = challenge.reviewType;
     _.forIn(toolbarConnector.editors, (x) => {
       const html = stateToHTML(x.state.editorState.getCurrentContent());
       updatedChallenge[x.id] = html;
@@ -89,14 +94,21 @@ export default function ChallengeDetailsView(props) {
 
   /* TODO: This render markup is monstrous - should be refactored. */
   return (
-    <div styleName="container">
+    <div>
+      {
+        isSaving ? (
+          <SaveConfirmationModal
+            onDone={() => setSpecsTabState(SPECS_TAB_STATES.VIEW)}
+            saving={savingChallenge}
+          />
+        ) : null
+      }
       {
         canEdit && !editMode ? (
           <Sticky innerZ={100}>
-            <Button onClick={() => setSpecsTabState(SPECS_TAB_STATES.EDIT)} >
-              Edit (Experimental - Use at your own risk - It may destroy the
-              specs)
-            </Button>
+            <DangerButton
+              onClick={() => setSpecsTabState(SPECS_TAB_STATES.EDIT)}
+            >Don&apos;t press it!</DangerButton>
           </Sticky>
         ) : null
       }
@@ -143,10 +155,10 @@ export default function ChallengeDetailsView(props) {
                       <article>
                         <h2>Final Submission Guidelines</h2>
                         {
-                          editMode && false ? (
+                          editMode ? (
                             <Editor
                               connector={toolbarConnector}
-                              id="finalSubmissionGuidelines"
+                              id="submissionGuidelines"
                               initialContent={finalSubmissionGuidelines}
                             />
                           ) : (
@@ -493,6 +505,7 @@ ChallengeDetailsView.propTypes = {
     groupIds: PT.arrayOf(PT.number).isRequired,
   }).isRequired,
   openTermsModal: PT.func.isRequired,
+  savingChallenge: PT.bool.isRequired,
   setSpecsTabState: PT.func.isRequired,
   specsTabState: PT.string.isRequired,
   updateChallenge: PT.func.isRequired,

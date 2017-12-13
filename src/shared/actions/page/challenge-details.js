@@ -8,6 +8,7 @@ import { createActions } from 'redux-actions';
 export const SPECS_TAB_STATES = {
   EDIT: 'EDIT',
   VIEW: 'VIEW',
+  SAVING: 'SAVING',
 };
 
 /**
