@@ -16,7 +16,7 @@ import { stateToHTML } from 'draft-js-export-html';
 import SaveConfirmationModal from './SaveConfirmationModal';
 import SideBar from './SideBar';
 
-import './styles.scss';
+import style from './styles.scss';
 
 export default function ChallengeDetailsView(props) {
   const {
@@ -113,6 +113,7 @@ export default function ChallengeDetailsView(props) {
           <Sticky innerZ={100}>
             <DangerButton
               onClick={() => setSpecsTabState(SPECS_TAB_STATES.EDIT)}
+              theme={{ button: style.hiddenSaveButton }}
             >Don&apos;t press it!</DangerButton>
           </Sticky>
         ) : null

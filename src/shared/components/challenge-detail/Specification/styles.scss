@@ -22,6 +22,21 @@ $tc-link-visited: #0c4e98;
   }
 }
 
+.hiddenSaveButton,
+.hiddenSaveButton:active,
+.hiddenSaveButton:focus,
+.hiddenSaveButton:hover {
+  background: white;
+  border: none;
+  max-height: 10px;
+  min-height: 10px;
+  margin: 0 !important;
+  padding: 0 !important;
+  overflow: hidden;
+  outline: none;
+  max-width: 10px;
+}
+
 .challenge-details-view {
   white-space: normal;
   display: flex;
