@@ -40,25 +40,13 @@ export default function Learn() {
       />
       <Section>
         <div styleName="message">
-          <p>If  you are accessing TopGear <span styleName="highlighted">Learning</span> Platform from <strong>Wipro backbone network</strong>, click on &ldquo;<strong>CONTINUE</strong>&rdquo; to access the platform.</p>
+          <p>To access the TopGear <span styleName="highlighted">Learning</span> Platform, click on &ldquo;<strong>CONTINUE</strong>&rdquo;.</p>
           <p styleName="button-container">
             <PrimaryButton
               openNewTab
               to="https://topgear-app.wipro.com"
             >Continue</PrimaryButton>
           </p>
-          <p>To access TopGear <span styleName="highlighted">Learning</span> Platform <strong>outside of Wipro network</strong>, please follow the below  instructions:</p>
-          <ol>
-            <li>
-              Send an email to <a href="mailto:devenvaccessreq.topgear@wipro.com?subject=Internet%20TopGear%20portal%20access" styleName="link">devenvaccessreq.topgear@wipro.com</a>  with subject line <em>Internet TopGear portal access</em>.
-            </li>
-            <li>
-              You will receive an email <span styleName="ddashUnderline">within 24 hours</span>  with details for accessing TopGear portal  through Virtual Desktop.
-            </li>
-            <li>
-              Using Virtual Desktop you can access <a href="https://topgear-app.wipro.com/" styleName="link">https://topgear-app.wipro.com</a> to <span styleName="highlighted">learn</span> new technologies.
-            </li>
-          </ol>
         </div>
       </Section>
 
