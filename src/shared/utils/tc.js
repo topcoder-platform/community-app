@@ -84,9 +84,9 @@ export function getRatingColor(rating) {
  * Review Opportunity types
  */
 export const REVIEW_OPPORTUNITY_TYPES = {
-  REVIEW: 'Review',
-  SPEC_REVIEW: 'Specification Review',
-  ITERATIVE_REVIEW: 'Iterative Review',
+  'Contest Review': 'Review',
+  'Spec Review': 'Specification Review',
+  'Iterative Review': 'Iterative Review',
 };
 
 /**

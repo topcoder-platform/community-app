@@ -4,9 +4,11 @@
 
 import ChallengeDetails from 'routes/ChallengeDetails';
 import ChallengeListing from 'routes/Communities/ChallengeListing';
+import config from 'utils/config';
 import Error404 from 'components/Error404';
+import MetaTags from 'utils/MetaTags';
 import Resources from 'containers/tc-communities/cognitive/resources';
-import Footer from 'components/tc-communities/communities/cognitive/Footer';
+import Footer from 'components/tc-communities/Footer2';
 import Header from 'containers/tc-communities/Header';
 import Home from 'containers/tc-communities/cognitive/home';
 import GetStarted from 'components/tc-communities/communities/cognitive/GetStarted';
@@ -14,6 +16,9 @@ import PT from 'prop-types';
 import React from 'react';
 import Submission from 'routes/Submission';
 import SubmissionManagement from 'routes/SubmissionManagement';
+
+import socialImage from 'assets/images/communities/cognitive/social.jpg';
+
 import { Route, Switch } from 'react-router-dom';
 
 export default function Cognitive({ base, member, meta }) {
@@ -21,6 +26,13 @@ export default function Cognitive({ base, member, meta }) {
     <Route
       component={({ match }) => (
         <div>
+          <MetaTags
+            description="Join the world's premier Cognitive community and get hands-on experience with today's most cutting-edge technologies and business challenges."
+            image={socialImage}
+            siteName="Topcoder Cognitive Community"
+            title="Topcoder Cognitive Community"
+            url={config.URL.COMMUNITIES.COGNITIVE}
+          />
           <Header
             baseUrl={base}
             pageId={match.params.pageId || 'home'}

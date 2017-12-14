@@ -24,12 +24,14 @@ describe('shallow render connnected component', () => {
       selectedCommunityId: '1',
     },
     tcCommunities: {
-      list: [
-        {
-          communityId: '',
-          communityName: 'name',
-        },
-      ],
+      list: {
+        data: [
+          {
+            communityId: '',
+            communityName: 'name',
+          },
+        ],
+      },
     },
     auth: {
       tokenV2: 'tokenV2',
@@ -81,12 +83,14 @@ describe('full render connnected component and dispatch actions', () => {
       selectedCommunityId: '1',
     },
     tcCommunities: {
-      list: [
-        {
-          communityId: '',
-          communityName: 'name',
-        },
-      ],
+      list: {
+        data: [
+          {
+            communityId: '',
+            communityName: 'name',
+          },
+        ],
+      },
     },
     auth: {
       tokenV2: '',

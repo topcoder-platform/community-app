@@ -1,7 +1,9 @@
 {
   "challengeFilter": {
     "groupIds": ["20000015"],
-    "tags": ["Cognitive", "IBM Cognitive", "IBM Watson"]
+    "or": [{
+      "tags": ["Cognitive", "IBM Cognitive", "IBM Watson"]
+    }]
   },
   "challengeListing": {
     "openChallengesInNewTabs": false

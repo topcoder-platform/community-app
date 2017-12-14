@@ -574,18 +574,13 @@ class ChallengesService {
   /* eslint-disable class-methods-use-this */
   getReviewOpportunities(limit, offset) {
     const endpoint = `/reviewOpportunities?limit=${limit}&offset=${offset}`;
-    // NOTE: Because this will need to use Auth via servives/api when implemented in V3
-    // the URL can't be an ENV variable and the mock needs to be hard coded using
-    // a non-API fetch.
-
-    // return this.private.api.get(endpoint)
-    // Temporary use of mock server instead of V3 api call above
-    return fetch(`https://review-opportunities-mock-api.herokuapp.com/v3${endpoint}`)
-      .then(res => res.json())
-      .then((json) => {
-        if (json.code === 400) return Promise.reject(json.message);
-        return Promise.resolve(json);
-      });
+    return this.private.api.get(endpoint)
+      .then(res => (res.ok ? res.json() : new Error(res.statusText)))
+      .then(res => (
+        res.result.status === 200 ?
+          res.result.content :
+          new Error(res.result.content)
+      ));
   }
   /* eslint-enable class-methods-use-this */
 }

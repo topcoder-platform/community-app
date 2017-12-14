@@ -219,7 +219,8 @@ function getPastChallengesDone(uuid, page, filter, tokenV3, frontFilter = {}) {
  * @return {Object} Action object
  */
 function getReviewOpportunitiesDone(uuid, page, tokenV3) {
-  return getService(tokenV3)
+  // TODO: Pass tokenV3 to fetch review opportunities for private challenges
+  return getService()
     .getReviewOpportunities(REVIEW_OPPORTUNITY_PAGE_SIZE, page * REVIEW_OPPORTUNITY_PAGE_SIZE)
     .then(loaded => ({ uuid, loaded }))
     .catch(error => fireErrorMessage('Error Getting Review Opportunities', error));

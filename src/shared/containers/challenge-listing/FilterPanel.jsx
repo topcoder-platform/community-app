@@ -131,7 +131,7 @@ function mapStateToProps(state, ownProps) {
     ...ownProps,
     ...state.challengeListing.filterPanel,
     activeBucket: cl.sidebar.activeBucket,
-    communityFilters: tc.list,
+    communityFilters: tc.list.data,
     defaultCommunityId: ownProps.defaultCommunityId,
     filterState: cl.filter,
     loadingKeywords: cl.loadingChallengeTags,

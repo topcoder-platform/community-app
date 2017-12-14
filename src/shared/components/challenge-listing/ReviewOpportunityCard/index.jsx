@@ -43,7 +43,11 @@ function ReviewOpportunityCard({
 }) {
   const challenge = opportunity.challenge;
   const start = moment(opportunity.startDate);
-
+  // TODO: Remove the hardcoded values
+  challenge.track = 'DEVELOP';
+  challenge.subTrack = 'CODE';
+  challenge.technologies = 'Node.Js';
+  challenge.platforms = 'Linux';
   return (
     <div styleName="reviewOpportunityCard">
       <div styleName="left-panel">
@@ -77,10 +81,20 @@ function ReviewOpportunityCard({
         </div>
       </div>
       <div styleName="right-panel">
-        <div styleName="payment">
-          <span>$</span>{opportunity.payment}
-          <div styleName="payment-type">Payment</div>
-        </div>
+        <Tooltip
+          content={
+            <div styleName="tooltip">
+              {opportunity.payments.map(payment => (
+                <div key={payment.role}>{payment.role} - ${payment.payment}</div>
+              ))}
+            </div>
+          }
+        >
+          <div styleName="payment">
+            <span>$</span>{_.sumBy(opportunity.payments, 'payment')}
+            <div styleName="payment-type">Payment</div>
+          </div>
+        </Tooltip>
         <span styleName="review-type">{REVIEW_OPPORTUNITY_TYPES[opportunity.type]}</span>
         <div styleName="review-stats">
           <Tooltip

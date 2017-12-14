@@ -30,6 +30,9 @@ exports[`Matches shallow shapshot shapshot 1`] = `
       >
         <FiltersIcon
           className="src-shared-components-challenge-listing-Filters-___ChallengeFilters__FiltersIcon___2xL1E"
+          height="16"
+          viewBox="0 0 16 16"
+          width="16"
         />
       </span>
       <FiltersSwitch
@@ -168,6 +171,9 @@ exports[`Matches shallow shapshot shapshot 2`] = `
       >
         <FiltersIcon
           className="src-shared-components-challenge-listing-Filters-___ChallengeFilters__FiltersIcon___2xL1E"
+          height="16"
+          viewBox="0 0 16 16"
+          width="16"
         />
         <span
           className="src-shared-components-challenge-listing-Filters-___ChallengeFilters__filtersCount___35dFo"

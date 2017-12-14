@@ -6,6 +6,7 @@ import _ from 'lodash';
 import config from 'utils/config';
 import PT from 'prop-types';
 import React from 'react';
+import shortId from 'shortid';
 import actions from 'actions/topcoder_header';
 import metaActions from 'actions/tc-communities/meta';
 import communityActions from 'actions/tc-communities';
@@ -13,9 +14,20 @@ import Header from 'components/tc-communities/Header';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
+/* Holds one minute in milliseconds. */
+const MIN = 60 * 1000;
+
 class HeaderContainer extends React.Component {
-  componentWillMount() {
-    this.props.getCommunityList(this.props.auth);
+  componentDidMount() {
+    const {
+      auth,
+      communityList,
+      getCommunityList,
+    } = this.props;
+    if (!communityList.loadingUuid
+    && (Date.now() - communityList.timestamp > 5 * MIN)) {
+      getCommunityList(auth);
+    }
   }
 
   render() {
@@ -25,7 +37,7 @@ class HeaderContainer extends React.Component {
       value: '0',
       redirect: config.URL.BASE,
     }];
-    communityList.forEach((item, index) => {
+    communityList.data.forEach((item, index) => {
       if (!item.hidden) {
         const value = communityId === item.communityId
           ? '-1' : (1 + index).toString();
@@ -45,16 +57,19 @@ class HeaderContainer extends React.Component {
 
 HeaderContainer.defaultProps = {
   auth: {},
-  communityList: [],
 };
 
 HeaderContainer.propTypes = {
   auth: PT.shape(),
   getCommunityList: PT.func.isRequired,
-  communityList: PT.arrayOf(PT.shape({
-    communityId: PT.string.isRequired,
-    communityName: PT.string.isRequired,
-  })),
+  communityList: PT.shape({
+    data: PT.arrayOf(PT.shape({
+      communityId: PT.string.isRequired,
+      communityName: PT.string.isRequired,
+    })).isRequired,
+    loadingUuid: PT.string.isRequired,
+    timestamp: PT.number.isRequired,
+  }).isRequired,
   communityId: PT.string.isRequired,
 };
 
@@ -86,7 +101,11 @@ function mapStateToProps(state, ownProps) {
 
 function mapDispatchToProps(dispatch) {
   return _.merge(bindActionCreators(actions.topcoderHeader, dispatch), {
-    getCommunityList: auth => dispatch(communityActions.tcCommunity.getList(auth)),
+    getCommunityList: (auth) => {
+      const uuid = shortId();
+      dispatch(communityActions.tcCommunity.getListInit(uuid));
+      dispatch(communityActions.tcCommunity.getListDone(uuid, auth));
+    },
     onMobileToggleClick: () =>
       dispatch(metaActions.tcCommunities.meta.mobileToggle()),
   });
