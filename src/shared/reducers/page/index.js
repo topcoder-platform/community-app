@@ -13,6 +13,7 @@ import submission, {
   factory as challengeDetailsFactory,
 } from './submission';
 
+import challengeDetails from './challenge-details';
 import communities from './communities';
 import sandbox from './sandbox';
 
@@ -26,12 +27,14 @@ export function factory(req) {
     submission: challengeDetailsFactory(req),
   }).then(reducers => combineReducers({
     ...reducers,
+    challengeDetails,
     communities,
     sandbox,
   }));
 }
 
 export default combineReducers({
+  challengeDetails,
   communities,
   submission,
   sandbox,

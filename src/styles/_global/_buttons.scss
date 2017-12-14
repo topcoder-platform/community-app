@@ -29,7 +29,7 @@
   }
 
   .tc-btn {
-    @include roboto-normal;
+    @include roboto-regular;
 
     border-radius: $corner-radius;
     cursor: pointer;

@@ -2,6 +2,7 @@
 
 exports[`Snapshot match 1`] = `
 <NewsletterSignup
+  apikey=""
   buttonText="Sign Up"
   emailPlaceholder="Email address"
   imageSrc="/themes/wipro/subscribe-bg.jpg"
@@ -18,11 +19,13 @@ exports[`Snapshot match 1`] = `
     }
   }
   title="Sign up for our newsletter"
+  url=""
 />
 `;
 
 exports[`Snapshot match 2`] = `
 <NewsletterSignup
+  apikey=""
   buttonText="Sign Up"
   emailPlaceholder="Email address"
   imageSrc="/themes/wipro/subscribe-bg.jpg"
@@ -39,5 +42,6 @@ exports[`Snapshot match 2`] = `
     }
   }
   title="Sign up for our newsletter"
+  url=""
 />
 `;

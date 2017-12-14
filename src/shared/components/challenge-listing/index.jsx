@@ -26,6 +26,7 @@ export default function ChallengeListing(props) {
   const {
     activeBucket,
     defaultCommunityId,
+    hideSrm,
     keepPastPlaceholders,
   } = props;
 
@@ -109,6 +110,7 @@ export default function ChallengeListing(props) {
       <ChallengeFilters
         communityName={props.communityName}
         defaultCommunityId={defaultCommunityId}
+        hideSrm={hideSrm}
         setCardType={_.noop/* cardType => this.setCardType(cardType) */}
         isCardTypeSet={'Challenges' /* this.state.currentCardType */}
         isAuth={Boolean(props.auth.user)}
@@ -185,6 +187,7 @@ ChallengeListing.propTypes = {
   expandedTags: PT.arrayOf(PT.number),
   expandTag: PT.func,
   filterState: PT.shape().isRequired,
+  hideSrm: PT.bool.isRequired,
   hideTcLinksInFooter: PT.bool,
   keepPastPlaceholders: PT.bool.isRequired,
   lastUpdateOfActiveChallenges: PT.number.isRequired,

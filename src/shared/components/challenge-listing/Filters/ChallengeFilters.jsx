@@ -25,6 +25,7 @@ export default function ChallengeFilters({
   expanded,
   filterState,
   isAuth,
+  hideSrm,
   isCardTypeSet,
   isReviewOpportunitiesBucket,
   saveFilter,
@@ -58,6 +59,7 @@ export default function ChallengeFilters({
     <div styleName="challenge-filters">
       <div styleName="filter-header">
         <FiltersCardsType
+          hideSrm={hideSrm}
           isCardTypeSet={isCardTypeSet}
           setCardType={setCardType}
         />
@@ -185,6 +187,7 @@ ChallengeFilters.propTypes = {
   expanded: PT.bool.isRequired,
   filterState: PT.shape().isRequired,
   isAuth: PT.bool,
+  hideSrm: PT.bool.isRequired,
   isCardTypeSet: PT.string,
   isSavingFilter: PT.bool,
   isReviewOpportunitiesBucket: PT.bool,

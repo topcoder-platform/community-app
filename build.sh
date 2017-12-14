@@ -30,7 +30,9 @@ TAG=$AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/community-app:$CIRCLE_SHA1
 docker build -t $TAG \
   --build-arg NODE_ENV=$NODE_ENV \
   --build-arg FILESTACK_API_KEY=$FILESTACK_API_KEY \
-  --build-arg FILESTACK_SUBMISSION_CONTAINER=$FILESTACK_SUBMISSION_CONTAINER .
+  --build-arg FILESTACK_SUBMISSION_CONTAINER=$FILESTACK_SUBMISSION_CONTAINER \
+  --build-arg COGNITIVE_NEWSLETTER_SIGNUP_APIKEY=$COGNITIVE_NEWSLETTER_SIGNUP_APIKEY \
+  --build-arg COGNITIVE_NEWSLETTER_SIGNUP_URL=$COGNITIVE_NEWSLETTER_SIGNUP_URL .
 
 # Copies "node_modules" from the created image, if necessary for caching.
 docker create --name app $TAG

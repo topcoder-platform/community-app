@@ -136,11 +136,12 @@ export class ListingContainer extends React.Component {
       challengeTags,
       communitiesList,
       defaultCommunityId,
-      groupIds,
       filter,
+      groupIds,
       getDraftChallenges,
       getPastChallenges,
       getReviewOpportunities,
+      hideSrm,
       keepPastPlaceholders,
       lastRequestedPageOfDraftChallenges,
       lastRequestedPageOfPastChallenges,
@@ -225,6 +226,7 @@ export class ListingContainer extends React.Component {
           expandedTags={this.props.expandedTags}
           expandTag={this.props.expandTag}
           filterState={filter}
+          hideSrm={hideSrm}
           hideTcLinksInFooter={hideTcLinksInSidebarFooter}
           keepPastPlaceholders={keepPastPlaceholders}
           lastUpdateOfActiveChallenges={lastUpdateOfActiveChallenges}
@@ -270,7 +272,7 @@ export class ListingContainer extends React.Component {
 
 ListingContainer.defaultProps = {
   defaultCommunityId: '',
-
+  hideSrm: false,
   selectedCommunityId: '',
   groupIds: [''],
   hideTcLinksInSidebarFooter: false,
@@ -307,6 +309,7 @@ ListingContainer.propTypes = {
   defaultCommunityId: PT.string,
   dropChallenges: PT.func.isRequired,
   filter: PT.shape().isRequired,
+  hideSrm: PT.bool,
   hideTcLinksInSidebarFooter: PT.bool,
   communityId: PT.string,
   communityName: PT.string,

@@ -8,7 +8,7 @@ exports[`Matches shallow shapshot 1 shapshot 1 1`] = `
   <Connect(Container)
     communityName={null}
     defaultCommunityId={undefined}
-    isAuth={false}
+    hideSrm={undefined}
     isCardTypeSet="Challenges"
     setCardType={[Function]}
   />
@@ -130,7 +130,7 @@ exports[`Matches shallow shapshot 2 shapshot 2 1`] = `
   <Connect(Container)
     communityName={null}
     defaultCommunityId={undefined}
-    isAuth={false}
+    hideSrm={undefined}
     isCardTypeSet="Challenges"
     setCardType={[Function]}
   />

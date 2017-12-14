@@ -9,6 +9,7 @@
 import _ from 'lodash';
 import communityActions from 'actions/tc-communities';
 import LoadingPagePlaceholder from 'components/LoadingPagePlaceholder';
+import pageActions from 'actions/page';
 import ChallengeHeader from 'components/challenge-detail/Header';
 import challengeListingActions from 'actions/challenge-listing';
 import challengeListingSidebarActions from 'actions/challenge-listing/sidebar';
@@ -175,11 +176,14 @@ class ChallengeDetailPageContainer extends React.Component {
 
   render() {
     const {
+      authTokens,
       challenge,
       challengeId,
       challengesUrl,
       resultsLoadedForChallengeId,
+      savingChallenge,
       openTermsModal,
+      updateChallenge,
     } = this.props;
 
     /* Generation of data for SEO meta-tags. */
@@ -266,6 +270,10 @@ class ChallengeDetailPageContainer extends React.Component {
               terms={this.props.terms}
               hasRegistered={hasRegistered}
               openTermsModal={openTermsModal}
+              savingChallenge={savingChallenge}
+              setSpecsTabState={this.props.setSpecsTabState}
+              specsTabState={this.props.specsTabState}
+              updateChallenge={x => updateChallenge(x, authTokens.tokenV3)}
             />
           }
           {
@@ -360,41 +368,49 @@ ChallengeDetailPageContainer.propTypes = {
   reloadChallengeDetails: PT.func.isRequired,
   results: PT.arrayOf(PT.shape()),
   resultsLoadedForChallengeId: PT.string.isRequired,
+  savingChallenge: PT.bool.isRequired,
   selectedTab: PT.string.isRequired,
   setChallengeListingFilter: PT.func.isRequired,
+  setSpecsTabState: PT.func.isRequired,
+  specsTabState: PT.string.isRequired,
   terms: PT.arrayOf(PT.shape()),
   toggleCheckpointFeedback: PT.func.isRequired,
   tokenV3: PT.string,
   unregisterFromChallenge: PT.func.isRequired,
   unregistering: PT.bool.isRequired,
+  updateChallenge: PT.func.isRequired,
 };
 
-const mapStateToProps = (state, props) => ({
-  authTokens: state.auth,
-  challenge: state.challenge.details || {},
-  challengeId: Number(props.match.params.challengeId),
-  challengesUrl: props.challengesUrl,
-  challengeSubtracksMap: state.challengeListing.challengeSubtracksMap,
-  checkpointResults: (state.challenge.checkpoints || {}).checkpointResults,
-  checkpoints: state.challenge.checkpoints || {},
-  communitiesList: state.tcCommunities.list,
-  domain: state.domain,
-  isLoadingChallenge: Boolean(state.challenge.loadingDetailsForChallengeId),
-  isLoadingTerms: _.isEqual(state.terms.loadingTermsForEntity, {
-    type: 'challenge',
-    id: props.match.params.challengeId,
-  }),
-  loadingCheckpointResults: state.challenge.loadingCheckpoints,
-  loadingResultsForChallengeId: state.challenge.loadingResultsForChallengeId,
-  registering: state.challenge.registering,
-  results: state.challenge.results,
-  resultsLoadedForChallengeId: state.challenge.resultsLoadedForChallengeId,
-  selectedTab: state.challenge.selectedTab || 'details',
-  terms: state.terms.terms,
-  tokenV2: state.auth && state.auth.tokenV2,
-  tokenV3: state.auth && state.auth.tokenV3,
-  unregistering: state.challenge.unregistering,
-});
+function mapStateToProps(state, props) {
+  return {
+    authTokens: state.auth,
+    challenge: state.challenge.details || {},
+    challengeId: Number(props.match.params.challengeId),
+    challengesUrl: props.challengesUrl,
+    challengeSubtracksMap: state.challengeListing.challengeSubtracksMap,
+    checkpointResults: (state.challenge.checkpoints || {}).checkpointResults,
+    checkpoints: state.challenge.checkpoints || {},
+    communitiesList: state.tcCommunities.list,
+    domain: state.domain,
+    isLoadingChallenge: Boolean(state.challenge.loadingDetailsForChallengeId),
+    isLoadingTerms: _.isEqual(state.terms.loadingTermsForEntity, {
+      type: 'challenge',
+      id: props.match.params.challengeId,
+    }),
+    loadingCheckpointResults: state.challenge.loadingCheckpoints,
+    loadingResultsForChallengeId: state.challenge.loadingResultsForChallengeId,
+    registering: state.challenge.registering,
+    results: state.challenge.results,
+    resultsLoadedForChallengeId: state.challenge.resultsLoadedForChallengeId,
+    savingChallenge: Boolean(state.challenge.updatingChallengeUuid),
+    selectedTab: state.challenge.selectedTab || 'details',
+    specsTabState: state.page.challengeDetails.specsTabState,
+    terms: state.terms.terms,
+    tokenV2: state.auth && state.auth.tokenV2,
+    tokenV3: state.auth && state.auth.tokenV3,
+    unregistering: state.challenge.unregistering,
+  };
+}
 
 const mapDispatchToProps = (dispatch) => {
   const ca = communityActions.tcCommunity;
@@ -449,6 +465,8 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(cl.setFilter(filter));
       dispatch(cls.selectBucket(BUCKETS.ALL));
     },
+    setSpecsTabState: state =>
+      dispatch(pageActions.page.challengeDetails.setSpecsTabState(state)),
     unregisterFromChallenge: (auth, challengeId) => {
       dispatch(a.unregisterInit());
       dispatch(a.unregisterDone(auth, challengeId));
@@ -474,6 +492,11 @@ const mapDispatchToProps = (dispatch) => {
     },
     openTermsModal: (term) => {
       dispatch(t.openTermsModal(term));
+    },
+    updateChallenge: (challenge, tokenV3) => {
+      const uuid = shortId();
+      dispatch(a.updateChallengeInit(uuid));
+      dispatch(a.updateChallengeDone(uuid, challenge, tokenV3));
     },
   };
 };

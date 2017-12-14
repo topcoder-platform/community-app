@@ -565,6 +565,22 @@ class ChallengesService {
   }
 
   /**
+   * Updates the challenge (saves the give challenge to the API).
+   * @param {Object} challenge
+   * @param {String} tokenV3
+   * @return {Promise}
+   */
+  async updateChallenge(challenge) {
+    const URL = `/challenges/${challenge.id}`;
+    const body = { param: challenge };
+    let res = await this.private.api.putJson(URL, body);
+    if (!res.ok) throw new Error(res.statusText);
+    res = (await res.json()).result;
+    if (res.status !== 200) throw new Error(res.content);
+    return res.content;
+  }
+
+  /**
    * Gets a list of currently open Review Opportunities.
    * @param {Number} limit The max number to return in one call.
    * @param {Number} offset Offset, used with limit to lazy load.
@@ -582,7 +598,6 @@ class ChallengesService {
           new Error(res.result.content)
       ));
   }
-  /* eslint-enable class-methods-use-this */
 }
 
 /**
