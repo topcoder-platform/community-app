@@ -45,7 +45,7 @@ function ReviewOpportunityCard({
   const start = moment(opportunity.startDate);
   // TODO: Remove the hardcoded values
   challenge.track = 'DEVELOP';
-  challenge.subTrack = 'CODE';
+  challenge.subTrack = 'REVIEW_OPPORTUNITY';
   challenge.technologies = 'Node.Js';
   challenge.platforms = 'Linux';
   return (
@@ -64,19 +64,19 @@ function ReviewOpportunityCard({
         </div>
         <div styleName={'challenge-details'}>
           <Link
-            to={`${challengesUrl}/${challenge.id}/?type=${challenge.track.toLowerCase()}`}
+            to={`${challengesUrl}/${challenge.id}`}
           >{challenge.title}</Link>
           <div styleName="details-footer">
             <span styleName="date">
               Starts {start.format('MMM DD')}
             </span>
-            <Tags
+            {/* TODO: Enable this once the API is ready. <Tags
               technologies={challenge.technologies}
               platforms={challenge.platforms}
               isExpanded={expandedTags.includes(challenge.id)}
               expand={() => expandTag(challenge.id)}
               onTechTagClicked={onTechTagClicked}
-            />
+            /> */}
           </div>
         </div>
       </div>
@@ -85,13 +85,13 @@ function ReviewOpportunityCard({
           content={
             <div styleName="tooltip">
               {opportunity.payments.map(payment => (
-                <div key={payment.role}>{payment.role} - ${payment.payment}</div>
+                <div key={payment.role}>{payment.role} - ${payment.payment.toLocaleString()}</div>
               ))}
             </div>
           }
         >
           <div styleName="payment">
-            <span>$</span>{_.sumBy(opportunity.payments, 'payment')}
+            <span>$</span>{_.sumBy(opportunity.payments, 'payment').toLocaleString()}
             <div styleName="payment-type">Payment</div>
           </div>
         </Tooltip>

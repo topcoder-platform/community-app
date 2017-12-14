@@ -3,6 +3,7 @@
  */
 
 import moment from 'moment';
+import { sumBy } from 'lodash';
 
 export const SORTS = {
   CURRENT_PHASE: 'current-phase',
@@ -72,7 +73,7 @@ export default {
     name: 'Title A-Z',
   },
   [SORTS.REVIEW_OPPORTUNITIES_PAYMENT]: {
-    func: (a, b) => b.payment - a.payment,
+    func: (a, b) => sumBy(b.payments, 'payment') - sumBy(a.payments, 'payment'),
     name: 'Payment',
   },
   [SORTS.REVIEW_OPPORTUNITIES_START_DATE]: {
