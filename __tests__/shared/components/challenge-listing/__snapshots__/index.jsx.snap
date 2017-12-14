@@ -9,6 +9,7 @@ exports[`Matches shallow shapshot 1 shapshot 1 1`] = `
     communityName={null}
     defaultCommunityId={undefined}
     hideSrm={undefined}
+    isAuth={false}
     isCardTypeSet="Challenges"
     setCardType={[Function]}
   />
@@ -131,6 +132,7 @@ exports[`Matches shallow shapshot 2 shapshot 2 1`] = `
     communityName={null}
     defaultCommunityId={undefined}
     hideSrm={undefined}
+    isAuth={false}
     isCardTypeSet="Challenges"
     setCardType={[Function]}
   />

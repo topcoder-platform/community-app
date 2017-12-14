@@ -4,7 +4,6 @@
  */
 
 import _ from 'lodash';
-import 'isomorphic-fetch'; /* global fetch */
 import logger from 'utils/logger';
 import moment from 'moment';
 import qs from 'qs';

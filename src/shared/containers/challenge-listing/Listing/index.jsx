@@ -134,7 +134,6 @@ export class ListingContainer extends React.Component {
       challengesUrl,
       challengeSubtracks,
       challengeTags,
-      communitiesList,
       defaultCommunityId,
       filter,
       groupIds,

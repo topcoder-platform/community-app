@@ -7,7 +7,7 @@ import React from 'react';
 import Sort from 'utils/challenge-listing/sort';
 import SortingSelectBar from 'components/SortingSelectBar';
 import Waypoint from 'react-waypoint';
-import { getReviewOpportunitiesFilterFunction } from 'utils/challenge-listing/filter';
+// import { getReviewOpportunitiesFilterFunction } from 'utils/challenge-listing/filter';
 import CardPlaceholder from '../../placeholders/ChallengeCard';
 import ReviewOpportunityCard from '../../ReviewOpportunityCard';
 
@@ -21,7 +21,7 @@ export default function ReviewOpportunityBucket({
   challengesUrl,
   expandedTags,
   expandTag,
-  filterState,
+  /* filterState, */
   keepPlaceholders,
   loading,
   loadMore,
@@ -115,7 +115,7 @@ ReviewOpportunityBucket.propTypes = {
   challengesUrl: PT.string.isRequired,
   expandedTags: PT.arrayOf(PT.number),
   expandTag: PT.func,
-  filterState: PT.shape().isRequired,
+  // filterState: PT.shape().isRequired,
   opportunities: PT.arrayOf(PT.shape()).isRequired,
   keepPlaceholders: PT.bool,
   loading: PT.bool,
