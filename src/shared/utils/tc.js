@@ -109,11 +109,12 @@ export function getAuthTokens(req = {}) {
 /**
  * At the client side it redirects to Topcoder login, with the current URL used
  * as the return address. Does nothing at the server side.
+ * @param {String} utmSource
  */
-export function goToLogin() {
+export function goToLogin(utmSource = '') {
   if (isClientSide()) {
     const retUrl = encodeURIComponent(window.location.href);
-    window.location = `${config.URL.AUTH}/member?retUrl=${retUrl}`;
+    window.location = `${config.URL.AUTH}/member?retUrl=${retUrl}&utm_source=${utmSource}`;
   }
 }
 

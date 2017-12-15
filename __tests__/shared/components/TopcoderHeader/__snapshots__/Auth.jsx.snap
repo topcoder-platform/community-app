@@ -9,13 +9,13 @@ exports[`Snapshot match 1`] = `
 >
   <a
     className="tc-btn-sm tc-btn-primary"
-    href="http://accounts.topcoder-dev.com/member/registration"
+    href="http://accounts.topcoder-dev.com/member/registration?utm_source=community-app-main"
   >
     Join
   </a>
   <a
     className="tc-btn-sm tc-btn-default"
-    href="http://accounts.topcoder-dev.com/member"
+    href="http://accounts.topcoder-dev.com/member?utm_source=community-app-main"
     onClick={[Function]}
   >
     Log In
@@ -32,13 +32,13 @@ exports[`Snapshot match 2`] = `
 >
   <a
     className="tc-btn-sm tc-btn-primary"
-    href="http://accounts.topcoder-dev.com/member/registration"
+    href="http://accounts.topcoder-dev.com/member/registration?utm_source=community-app-main"
   >
     Join
   </a>
   <a
     className="tc-btn-sm tc-btn-default"
-    href="http://accounts.topcoder-dev.com/member"
+    href="http://accounts.topcoder-dev.com/member?utm_source=community-app-main"
     onClick={[Function]}
   >
     Log In

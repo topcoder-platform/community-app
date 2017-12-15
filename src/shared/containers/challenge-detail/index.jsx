@@ -166,7 +166,8 @@ class ChallengeDetailPageContainer extends React.Component {
 
   registerForChallenge() {
     if (!this.props.authTokens.tokenV2) {
-      location.href = `${config.URL.AUTH}/member?retUrl=${encodeURIComponent(location.href)}`;
+      const utmSource = this.props.communityId || 'community-app-main';
+      location.href = `${config.URL.AUTH}/member?retUrl=${encodeURIComponent(location.href)}&utm_source=${utmSource}`;
     } else if (_.every(this.props.terms, 'agreed')) {
       this.props.registerForChallenge(this.props.authTokens, this.props.challengeId);
     } else {
@@ -332,6 +333,7 @@ ChallengeDetailPageContainer.defaultProps = {
   challengesUrl: '/challenges',
   checkpointResults: null,
   checkpoints: {},
+  communityId: null,
   isLoadingChallenge: false,
   isLoadingTerms: false,
   loadingCheckpointResults: false,
@@ -348,6 +350,7 @@ ChallengeDetailPageContainer.propTypes = {
   challengesUrl: PT.string,
   checkpointResults: PT.arrayOf(PT.shape()),
   checkpoints: PT.shape(),
+  communityId: PT.string,
   communitiesList: PT.shape({
     data: PT.arrayOf(PT.object).isRequired,
     loadingUuid: PT.string.isRequired,
@@ -390,6 +393,7 @@ function mapStateToProps(state, props) {
     challengeSubtracksMap: state.challengeListing.challengeSubtracksMap,
     checkpointResults: (state.challenge.checkpoints || {}).checkpointResults,
     checkpoints: state.challenge.checkpoints || {},
+    communityId: props.communityId,
     communitiesList: state.tcCommunities.list,
     domain: state.domain,
     isLoadingChallenge: Boolean(state.challenge.loadingDetailsForChallengeId),
