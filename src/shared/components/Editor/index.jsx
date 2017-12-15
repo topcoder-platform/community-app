@@ -31,6 +31,16 @@ const INLINE_STYLE_MAP = {
   },
 };
 
+const blockStyleFn = (block) => {
+  const type = block.getType();
+
+  if (type === 'note') {
+    return style.note;
+  }
+
+  return null;
+};
+
 export default class EditorWrapper extends React.Component {
   constructor(props) {
     super(props);
@@ -91,6 +101,7 @@ export default class EditorWrapper extends React.Component {
         tabIndex={0}
       >
         <Editor
+          blockStyleFn={blockStyleFn}
           customStyleMap={INLINE_STYLE_MAP}
           editorState={st.editorState}
           handleKeyCommand={(command, state) => {

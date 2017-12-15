@@ -29,3 +29,23 @@
 
   &:hover { border: 1px solid $tc-dark-blue-90; }
 }
+
+.note {
+  background: $tc-gold-30;
+  border: 1px solid $tc-gold-70;
+  border-radius: 6px;
+  font-family: roboto;
+  font-weight: 400;
+  font-style: italic;
+  font-size: 13px;
+  color: $tc-black;
+  line-height: 20px;
+  padding: 15px 20px;
+  margin: 25px 0;
+
+  a,
+  p,
+  ul {
+    font-size: 13px;
+  }
+}
