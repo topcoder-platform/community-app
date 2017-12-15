@@ -28,6 +28,7 @@ function Header(props) {
     activeTrigger,
     baseUrl,
     closeMenu,
+    communityId,
     communitySelector,
     groupIds,
     hideJoinNow,
@@ -125,10 +126,10 @@ function Header(props) {
               `${window.location.href}?join=${groupIds[0]}`,
             );
             url = encodeURIComponent(
-              `${config.URL.AUTH}/member?retUrl=${url}`,
+              `${config.URL.AUTH}/member?retUrl=${url}&utm_source=${communityId}`,
             );
             url = encodeURIComponent(url);
-            window.location = `${config.URL.AUTH}/member/registration?retUrl=${url}`;
+            window.location = `${config.URL.AUTH}/member/registration?retUrl=${url}&utm_source=${communityId}`;
           }}
           className={theme.btnRegister}
         >Join Now</button>
@@ -138,7 +139,7 @@ function Header(props) {
           const url = encodeURIComponent(
             `${window.location.href}?join=${groupIds[0]}`,
           );
-          window.location = `${config.URL.AUTH}/member?retUrl=${url}`;
+          window.location = `${config.URL.AUTH}/member?retUrl=${url}&utm_source=${communityId}`;
         }}
         className={theme.btnLogin}
       >Login</button>
@@ -245,6 +246,7 @@ Header.propTypes = {
   activeTrigger: PT.shape({}),
   baseUrl: PT.string,
   closeMenu: PT.func.isRequired,
+  communityId: PT.string.isRequired,
   communitySelector: PT.arrayOf(PT.shape()).isRequired,
   groupIds: PT.arrayOf[PT.string],
   isMobileOpen: PT.bool.isRequired,
