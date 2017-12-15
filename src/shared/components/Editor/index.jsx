@@ -35,7 +35,10 @@ export default class EditorWrapper extends React.Component {
   constructor(props) {
     super(props);
     this.id = props.id;
-    this.state = { editorState: EditorState.createEmpty() };
+    this.state = {
+      editorState: EditorState.createEmpty(),
+      markdown: '',
+    };
   }
 
   componentDidMount() {

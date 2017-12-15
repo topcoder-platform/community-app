@@ -1,8 +1,16 @@
 @import "~styles/mixins";
 
+/* Draft.js sets some list-related globals that need to be undone,
+ * these can't be changed using the blockStylefn mechanism */
 :global {
-  .public-DraftStyleDefault-block {
-    margin: 0 0 25px;
+  .public-DraftStyleDefault-orderedListItem.public-DraftStyleDefault-listLTR::before {
+    width: auto;
+    position: relative;
+    left: 0;
+  }
+
+  .public-DraftStyleDefault-depth0.public-DraftStyleDefault-listLTR {
+    margin-left: 0;
   }
 }
 

@@ -52,3 +52,14 @@
   text-decoration: underline;
 }
 
+.select-wrapper {
+  @include button;
+
+  display: inline-block;
+  vertical-align: middle;
+  width: 250px;
+}
+
+.select {
+  @include tc-label-md;
+}

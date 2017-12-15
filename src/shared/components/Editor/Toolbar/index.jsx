@@ -3,6 +3,7 @@ import PT from 'prop-types';
 import React from 'react';
 import Sticky from 'react-stickynode';
 
+import Select from 'components/Select';
 import { Button } from 'components/buttons';
 import { RichUtils } from 'draft-js';
 
@@ -52,6 +53,8 @@ export default class Toolbar extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      block: null,
+      editor: null,
       BOLD: false,
       ITALIC: false,
     };
@@ -77,7 +80,10 @@ export default class Toolbar extends React.Component {
     const editor = this.props.connector.focusedEditor;
     if (editor) {
       const inlineStyle = newState.getCurrentInlineStyle();
+      const block = RichUtils.getCurrentBlockType(newState);
       this.setState({
+        editor,
+        block,
         BOLD: inlineStyle.has('BOLD'),
         INLINE_CODE: inlineStyle.has('CODE'),
         ITALIC: inlineStyle.has('ITALIC'),
@@ -86,6 +92,8 @@ export default class Toolbar extends React.Component {
       });
     } else {
       this.setState({
+        block: 'unstyled',
+        editor: null,
         BOLD: false,
         INLINE_CODE: false,
         ITALIC: false,
@@ -95,8 +103,17 @@ export default class Toolbar extends React.Component {
     }
   }
 
+  setBlockType(newType) {
+    let editorState = this.state.editor ? this.state.editor.state.editorState : null;
+    if (editorState) {
+      editorState = RichUtils.toggleBlockType(editorState, newType);
+      this.setState({ block: newType });
+      this.state.editor.setState({ editorState });
+    }
+  }
+
   toggleInlineStyle(styleName) {
-    const editor = this.props.connector.focusedEditor;
+    const editor = this.state.editor;
     if (editor) {
       const editorState = RichUtils.toggleInlineStyle(
         editor.state.editorState, styleName);
@@ -108,6 +125,20 @@ export default class Toolbar extends React.Component {
 
   render() {
     const st = this.state;
+
+    const createStyleButton = (label, name, active, theme) => (
+      <Button
+        active={active}
+        disabled={!st.editor}
+        onMouseDown={(e) => {
+          e.preventDefault();
+          this.toggleInlineStyle(name);
+        }}
+        size="sm"
+        theme={{ button: theme }}
+      >{label}</Button>
+    );
+
     return (
       <Sticky innerZ={2}>
         <div styleName="container">
@@ -117,51 +148,57 @@ export default class Toolbar extends React.Component {
             theme={{ button: style.save }}
           >Save</Button>
           <div styleName="separator" />
-          <Button
-            active={st.BOLD}
-            onMouseDown={(e) => {
-              e.preventDefault();
-              this.toggleInlineStyle('BOLD');
-            }}
-            size="sm"
-            theme={{ button: style.bold }}
-          >B</Button>
-          <Button
-            active={st.ITALIC}
-            onMouseDown={(e) => {
-              e.preventDefault();
-              this.toggleInlineStyle('ITALIC');
-            }}
-            size="sm"
-            theme={{ button: style.italic }}
-          >I</Button>
-          <Button
-            active={st.UNDERLINE}
-            onMouseDown={(e) => {
-              e.preventDefault();
-              this.toggleInlineStyle('UNDERLINE');
-            }}
-            size="sm"
-            theme={{ button: style.underline }}
-          >U</Button>
-          <Button
-            active={st.STRIKETHROUGH}
-            onMouseDown={(e) => {
-              e.preventDefault();
-              this.toggleInlineStyle('STRIKETHROUGH');
-            }}
-            size="sm"
-            theme={{ button: style.strikethrough }}
-          >S</Button>
-          <Button
-            active={st.INLINE_CODE}
-            onMouseDown={(e) => {
-              e.preventDefault();
-              this.toggleInlineStyle('CODE');
-            }}
-            size="sm"
-            theme={{ button: style.inlineCode }}
-          >Monospace</Button>
+          { createStyleButton('B', 'BOLD', st.BOLD, style.bold) }
+          { createStyleButton('I', 'ITALIC', st.ITALIC, style.italic) }
+          { createStyleButton('U', 'UNDERLINE', st.UNDERLINE, style.underline) }
+          { createStyleButton('S', 'STRIKETHROUGH', st.STRIKETHROUGH, style.strikethrough) }
+          { createStyleButton('Monospace', 'CODE', st.CODE, style.inlineCode) }
+          <div styleName="select-wrapper">
+            <Select
+              autoBlur
+              clearable={false}
+              className={style.select}
+              disabled={!st.editor}
+              onChange={option => this.setBlockType(option.value)}
+              onFocus={e => e.preventDefault()}
+              options={[
+                {
+                  label: 'Default',
+                  value: 'unstyled',
+                },
+                {
+                  label: 'Section Title',
+                  value: 'header-two',
+                },
+                {
+                  label: 'Subsection Title',
+                  value: 'header-three',
+                },
+                {
+                  label: 'List Title',
+                  value: 'header-four',
+                },
+                {
+                  label: 'Ordered List',
+                  value: 'ordered-list-item',
+                },
+                {
+                  label: 'Unordered List',
+                  value: 'unordered-list-item',
+                },
+                {
+                  label: 'Blockquote',
+                  value: 'blockquote',
+                },
+                {
+                  label: 'Note',
+                  value: 'note',
+                },
+              ]}
+              placeholder="Block Style"
+              value={st.editor ? st.block : null}
+            />
+          </div>
         </div>
       </Sticky>
     );
