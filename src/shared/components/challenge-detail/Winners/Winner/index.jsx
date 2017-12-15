@@ -1,6 +1,6 @@
 import Avatar from 'components/Avatar';
 import config from 'utils/config';
-import moment from 'moment';
+// import moment from 'moment';
 import PT from 'prop-types';
 import React from 'react';
 
@@ -63,7 +63,7 @@ export default function Winner({
               href={`${config.URL.BASE}/members/${winner.handle}`}
               styleName="handle"
             >{winner.handle}</a>
-            <div styleName="prize">{prize}</div>
+            <div styleName="prize">${prize}</div>
           </div>
         </div>
         {
@@ -78,10 +78,14 @@ export default function Winner({
             href={isDesign ? `${config.URL.STUDIO}/?module=DownloadSubmission&sbmid=${submissionId}` : winner.submissionDownloadLink}
           >Download</a>
         }
-        <div styleName="date">
-          <span>Submitted&nbsp;on:</span>&zwnj;
-          &zwnj;<span>{moment(winner.submissionDate).format('MMM DD, YYYY HH:mm')} EDT</span>
-        </div>
+        {
+          /*
+          <div styleName="date">
+            <span>Submitted&nbsp;on:</span>&zwnj;
+            &zwnj;<span>{moment(winner.submissionDate).format('MMM DD, YYYY HH:mm')} EDT</span>
+          </div>
+          */
+        }
       </div>
     </div>
   );
