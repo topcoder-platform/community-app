@@ -191,8 +191,9 @@ function Header(props) {
                 <NavLink
                   activeClassName={theme.menuLinkActive}
                   className={theme.menuLink}
+                  openNewTab={item.openNewTab}
                   isActive={() => `/${currentPage}` === item.url}
-                  to={`${baseUrl}${item.url}`}
+                  to={item.url.startsWith('http') ? item.url : `${baseUrl}${item.url}`}
                 >
                   {item.title}
                 </NavLink>
