@@ -28,6 +28,22 @@
   font-style: italic;
 }
 
+.markdown {
+  @include button;
+}
+
+.select {
+  @include tc-label-md;
+}
+
+.select-wrapper {
+  @include button;
+
+  display: inline-block;
+  vertical-align: middle;
+  width: 250px;
+}
+
 .save {
   @include button;
 }
@@ -50,16 +66,4 @@
   @include button;
 
   text-decoration: underline;
-}
-
-.select-wrapper {
-  @include button;
-
-  display: inline-block;
-  vertical-align: middle;
-  width: 250px;
-}
-
-.select {
-  @include tc-label-md;
 }

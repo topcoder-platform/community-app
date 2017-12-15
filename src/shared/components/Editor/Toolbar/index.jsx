@@ -32,6 +32,10 @@ export class Connector {
     if (this.toolbar) this.toolbar.onFocusedEditorChanged(newState);
   }
 
+  toggleInlineMarkdown(markdown) {
+    this.editors.forEach(editor => editor.setState({ markdown }));
+  }
+
   /**
    * Sets the Toolbar.
    * @param {Toolbar} toolbar
@@ -55,6 +59,7 @@ export default class Toolbar extends React.Component {
     this.state = {
       block: null,
       editor: null,
+      markdown: false,
       BOLD: false,
       ITALIC: false,
     };
@@ -148,6 +153,18 @@ export default class Toolbar extends React.Component {
             theme={{ button: style.save }}
           >Save</Button>
           <div styleName="separator" />
+          <Button
+            active={this.state.markdown}
+            onMouseDown={(e) => {
+              e.preventDefault();
+              const active = !this.state.markdown;
+              this.setState({ markdown: active });
+              this.props.connector.toggleInlineMarkdown(active);
+            }}
+            size="sm"
+            theme={{ button: style.markdown }}
+          >Inline Markdown</Button>
+          <div styleName="separator" />
           { createStyleButton('B', 'BOLD', st.BOLD, style.bold) }
           { createStyleButton('I', 'ITALIC', st.ITALIC, style.italic) }
           { createStyleButton('U', 'UNDERLINE', st.UNDERLINE, style.underline) }
@@ -185,6 +202,10 @@ export default class Toolbar extends React.Component {
                 {
                   label: 'Unordered List',
                   value: 'unordered-list-item',
+                },
+                {
+                  label: 'Code',
+                  value: 'code-block',
                 },
                 {
                   label: 'Blockquote',

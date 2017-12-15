@@ -13,33 +13,23 @@ import React from 'react';
 import {
   ContentState,
   convertFromHTML,
-  Editor,
   EditorState,
   RichUtils,
 } from 'draft-js';
-
 import 'draft-js/dist/Draft.css';
 
+import Editor from 'draft-js-plugins-editor';
+import createMarkdownShortcutsPlugin from 'draft-js-markdown-shortcuts-plugin';
+
 import { Connector } from './Toolbar';
+import createCustomPlugin from './plugin';
 
 import style from './style.scss';
 
-const INLINE_STYLE_MAP = {
-  CODE: {
-    background: '#fafafb',
-    fontFamily: '"Roboto Mono", monospace',
-  },
-};
-
-const blockStyleFn = (block) => {
-  const type = block.getType();
-
-  if (type === 'note') {
-    return style.note;
-  }
-
-  return null;
-};
+const markdownPlugin = createMarkdownShortcutsPlugin();
+const customPlugin = createCustomPlugin({
+  noteStyle: style.note,
+});
 
 export default class EditorWrapper extends React.Component {
   constructor(props) {
@@ -47,7 +37,7 @@ export default class EditorWrapper extends React.Component {
     this.id = props.id;
     this.state = {
       editorState: EditorState.createEmpty(),
-      markdown: '',
+      markdown: false,
     };
   }
 
@@ -101,8 +91,6 @@ export default class EditorWrapper extends React.Component {
         tabIndex={0}
       >
         <Editor
-          blockStyleFn={blockStyleFn}
-          customStyleMap={INLINE_STYLE_MAP}
           editorState={st.editorState}
           handleKeyCommand={(command, state) => {
             const editorState = RichUtils.handleKeyCommand(
@@ -119,6 +107,10 @@ export default class EditorWrapper extends React.Component {
             connector.setFocusedEditor(hasFocus ? this : null, newState);
             this.setState({ editorState: newState });
           }}
+          plugins={[
+            this.state.markdown ? markdownPlugin : {},
+            customPlugin,
+          ]}
           ref={(node) => { this.node = node; }}
           spellCheck
         />

@@ -1,7 +1,7 @@
 @import "~styles/mixins";
 
-/* Draft.js sets some list-related globals that need to be undone,
- * these can't be changed using the blockStylefn mechanism */
+// Draft.js sets some list-related globals that need to be undone,
+// and these can't be changed using the blockStyleFn mechanism
 :global {
   .public-DraftStyleDefault-orderedListItem.public-DraftStyleDefault-listLTR::before {
     width: auto;
@@ -22,6 +22,18 @@
   padding: 10px;
 
   &:hover { border: 1px solid $tc-gray-40; }
+
+  // Draft.js will render code-blocks like <pre><code></code></pre>
+  // This will prevent the code/pre styles from being applied twice
+  pre {
+    code {
+      background: none;
+      border: 0;
+      border-radius: none;
+      margin: 0;
+      padding: 0;
+    }
+  }
 }
 
 .focused {
