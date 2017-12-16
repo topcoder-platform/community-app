@@ -22,6 +22,13 @@ const createStrategy = type =>
     }, callback);
   };
 
+export const decorators = [
+  {
+    strategy: createStrategy('LINK'),
+    component: Link,
+  },
+];
+
 export default ({ noteStyle }) => ({
   // Provides custom html element rendering for block types
   blockRenderMap: Map({

@@ -94,53 +94,46 @@ export default class Toolbar extends React.Component {
    * Inserts a new link at current cursor selection.
    * @param {String} title The initial title to display for the link
    * @param {String} href The <a> href
-   * @return {String} Returns the entity key, which can be stored and used to update this link
    */
   insertLink(title, href) {
-    let editorState = this.state.editor ? this.state.editor.state.editorState : null;
+    const editor = this.state.editor;
+    let editorState = editor ? editor.state.editorState : null;
     if (editorState) {
       let contentState = editorState.getCurrentContent();
 
-      // If the user has a range selected, it needs to be collapsed before insertText will work
-      // This sets the starting and ending range to the same position,
-      // which is equivalent to just a cursor/caret
-      let sel = editorState.getSelection();
-      const startKey = sel.getStartKey();
-      const startOffset = sel.getStartOffset();
-      sel = sel.merge({
-        anchorKey: startKey,
-        anchorOffset: startOffset,
-        focusKey: startKey,
-        focusOffset: startOffset,
-      });
+      const sel = editorState.getSelection();
 
-      // Inserts a space at the cursor
-      contentState = Modifier.insertText(
-        contentState,
-        sel,
-        ' ',
-        null,
-        null,
-      );
-
-      // Cursor will not have been updated, so this will insert before the space
-      contentState = contentState.createEntity('LINK', 'MUTABLE', { title, href });
+      contentState = contentState.createEntity('LINK', 'MUTABLE', { href, insertedFromToolbar: true });
       const key = contentState.getLastCreatedEntityKey();
-      contentState = Modifier.insertText(
-        contentState,
-        sel,
-        title,
-        null,
-        key,
-      );
 
-      editorState = EditorState.push(editorState, contentState, 'insert-characters');
+      // Selection is a just the cursor, insert new link
+      if (sel.isCollapsed()) {
+        // Inserts a space at the cursor, needed so that the user can 'escape'
+        // from the link entity by clicking after the link, or pressing right arrow
+        contentState = Modifier.insertText(
+          contentState,
+          sel,
+          ' ',
+          null,
+          null,
+        );
+        // Because selection hasn't been updated, this will insert the link *before*
+        // the newly created space.
+        contentState = Modifier.insertText(
+          contentState,
+          sel,
+          title,
+          null,
+          key,
+        );
 
-      this.state.editor.setState({ editorState });
+        editorState = EditorState.push(editorState, contentState, 'insert-characters');
+      } else { // Selection is a range, keep the text but make it a link
+        editorState = RichUtils.toggleLink(editorState, sel, key);
+      }
 
-      return key;
+      editor.setState({ editorState });
     }
-    return null;
   }
 
   /**

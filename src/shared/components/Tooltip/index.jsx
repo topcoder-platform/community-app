@@ -19,6 +19,8 @@ function Tooltip({
   placeArrow,
   align,
   suppressDiv,
+  trigger,
+  defaultVisible,
 }) {
   return (
     <RCTooltip
@@ -28,6 +30,8 @@ function Tooltip({
       onPopupAlign={placeArrow}
       align={align}
       onVisibleChange={_.once(onTooltipHover)}
+      trigger={trigger}
+      defaultVisible={defaultVisible}
     >
       {
         suppressDiv ? children : (<div>{children}</div>)
@@ -41,10 +45,11 @@ Tooltip.defaultProps = {
   position: 'top',
   className: '',
   content: '',
-  defaultVisible: false,
   onTooltipHover: _.noop,
   placeArrow: _.noop,
   suppressDiv: false,
+  trigger: ['hover'],
+  defaultVisible: false,
 };
 
 Tooltip.propTypes = {
@@ -56,6 +61,8 @@ Tooltip.propTypes = {
   onTooltipHover: PT.func,
   placeArrow: PT.func,
   suppressDiv: PT.bool,
+  trigger: PT.arrayOf(PT.string),
+  defaultVisible: PT.bool,
 };
 
 export default Tooltip;

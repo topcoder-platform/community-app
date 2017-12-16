@@ -13,6 +13,7 @@ import PT from 'prop-types';
 import { DangerButton } from 'components/buttons';
 import { SPECS_TAB_STATES } from 'actions/page/challenge-details';
 import { stateToHTML } from 'draft-js-export-html';
+// import { decorators } from 'components/Editor/plugin';
 
 import SaveConfirmationModal from './SaveConfirmationModal';
 import SideBar from './SideBar';
@@ -93,9 +94,10 @@ export default function ChallengeDetailsView(props) {
     updatedChallenge.reviewType = challenge.reviewType;
     _.forIn(toolbarConnector.editors, (x) => {
       const html = stateToHTML(x.state.editorState.getCurrentContent());
+      console.log(html);
       updatedChallenge[x.id] = html;
     });
-    updateChallenge(updatedChallenge);
+    // updateChallenge(updatedChallenge);
   };
 
   /* TODO: This render markup is monstrous - should be refactored. */

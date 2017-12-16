@@ -1,40 +1,65 @@
 import PT from 'prop-types';
 import React from 'react';
 
-import Tooltip from '../../Tooltip';
+import Tooltip from 'components/Tooltip';
 
 import Popup from './Popup';
 
-import style from './style.scss';
+export default class Link extends React.Component {
+  constructor(props) {
+    super(props);
 
-const Link = ({ contentState, children, entityKey }) => {
-  const {
-    href,
-    title,
-  } = contentState.getEntity(entityKey).getData();
+    const {
+      contentState,
+      entityKey,
+    } = this.props;
 
-  const popup = (
-    <Popup
-      href={href}
-      style={style.edit}
-    />
-  );
+    const { href } = contentState.getEntity(entityKey).getData();
 
-  return (
-    <span>
-      <Tooltip
-        align={{
-          offset: [0, 5],
-        }}
-        content={popup}
-        className={style.popup}
-        suppressDiv
-      >
-        <a href={href} title={title} target="_blank" rel="noopener noreferrer">{children}</a>
-      </Tooltip>
-    </span>
-  );
-};
+    this.state = {
+      href,
+    };
+  }
+
+  render() {
+    const {
+      entityKey,
+      children,
+      contentState,
+    } = this.props;
+
+    const {
+      insertedFromToolbar,
+    } = contentState.getEntity(entityKey).getData();
+
+    const data = contentState.getEntity(entityKey).getData();
+
+    data.href = 'Testing Mutability';
+
+    const popup = (
+      <Popup
+        href={this.state.href}
+        onEdit={href => this.setState({ href })}
+      />
+    );
+
+    return (
+      <span>
+        <Tooltip
+          align={{
+            offset: [0, 5],
+          }}
+          content={popup}
+          suppressDiv
+          trigger={['click', 'hover']}
+          defaultVisible={insertedFromToolbar}
+        >
+          <a href={data.href} target="_blank" rel="noopener noreferrer">{children}</a>
+        </Tooltip>
+      </span>
+    );
+  }
+}
 
 Link.defaultProps = {
   children: null,
@@ -45,5 +70,3 @@ Link.propTypes = {
   children: PT.node,
   entityKey: PT.string.isRequired,
 };
-
-export default Link;
