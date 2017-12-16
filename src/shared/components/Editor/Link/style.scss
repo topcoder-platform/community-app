@@ -1,0 +1,13 @@
+@import "~styles/mixins";
+
+.edit {
+  height: $base-unit * 4;
+  width: $base-unit * 4;
+}
+
+.popup {
+  a {
+    padding-left: $base-unit * 6;
+    vertical-align: middle;
+  }
+}

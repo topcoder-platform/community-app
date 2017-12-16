@@ -21,7 +21,7 @@ import 'draft-js/dist/Draft.css';
 import Editor from 'draft-js-plugins-editor';
 import createMarkdownShortcutsPlugin from 'draft-js-markdown-shortcuts-plugin';
 
-import { Connector } from './Toolbar';
+import Connector from './Connector';
 import createCustomPlugin from './plugin';
 
 import style from './style.scss';

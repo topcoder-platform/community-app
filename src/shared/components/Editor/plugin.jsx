@@ -10,6 +10,18 @@
 import React from 'react';
 import { Map } from 'immutable';
 
+import Link from './Link';
+
+// This is based on the strategy that draft-js-markdown-shortcuts-plugin uses
+// so it will work on images and links created with markdown
+const createStrategy = type =>
+  (contentBlock, callback, contentState) => {
+    contentBlock.findEntityRanges((metadata) => {
+      const key = metadata.getEntity();
+      return key !== null && contentState.getEntity(key).getType() === type;
+    }, callback);
+  };
+
 export default ({ noteStyle }) => ({
   // Provides custom html element rendering for block types
   blockRenderMap: Map({
@@ -21,15 +33,7 @@ export default ({ noteStyle }) => ({
     },
   }),
   // Provides custom styling for block types
-  blockStyleFn: (block) => {
-    const type = block.getType();
-
-    if (type === 'note') {
-      return noteStyle;
-    }
-
-    return null;
-  },
+  blockStyleFn: block => (block.getType() === 'note' ? noteStyle : null),
   // Provides custom styling for inline elements (mainly text)
   customStyleMap: {
     CODE: {
@@ -37,4 +41,11 @@ export default ({ noteStyle }) => ({
       fontFamily: '"Roboto Mono", monospace',
     },
   },
+  // Provides custom component rendering for images and links
+  decorators: [
+    {
+      strategy: createStrategy('LINK'),
+      component: Link,
+    },
+  ],
 });

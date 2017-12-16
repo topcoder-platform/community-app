@@ -5,7 +5,8 @@
 import _ from 'lodash';
 import config from 'utils/config';
 import Editor from 'components/Editor';
-import EditorToolbar, { Connector as ToolbarConnector } from 'components/Editor/Toolbar';
+import EditorToolbar from 'components/Editor/Toolbar';
+import ToolbarConnector from 'components/Editor/Connector';
 import React from 'react';
 import Sticky from 'react-stickynode';
 import PT from 'prop-types';
