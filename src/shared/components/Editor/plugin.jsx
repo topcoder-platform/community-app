@@ -7,8 +7,10 @@
  * In the future, it should also be possible to validate allowed block elements here,
  * and also substitute them for the nearest available option when HTML is rendered.
  */
+import _ from 'lodash';
 import React from 'react';
 import { Map } from 'immutable';
+import { EDITOR_COLOR_MAP } from 'utils/editor';
 
 import Link from './Link';
 
@@ -22,37 +24,40 @@ const createStrategy = type =>
     }, callback);
   };
 
-export const decorators = [
-  {
-    strategy: createStrategy('LINK'),
-    component: Link,
-  },
-];
+export default ({ noteStyle }) => {
+  const inlineStyles = {};
 
-export default ({ noteStyle }) => ({
-  // Provides custom html element rendering for block types
-  blockRenderMap: Map({
-    // draft-js and draft-js-markdown-shortcuts-plugin use inconsistent rendering of
-    // code-blocks, so we override both of them
-    'code-block': {
-      element: 'code',
-      wrapper: <pre />,
+  _.forIn(EDITOR_COLOR_MAP, (value, name) => {
+    inlineStyles[`TEXT_${name}`] = { color: value };
+    inlineStyles[`HIGHLIGHT_${name}`] = { background: value };
+  });
+
+  return ({
+    // Provides custom html element rendering for block types
+    blockRenderMap: Map({
+      // draft-js and draft-js-markdown-shortcuts-plugin use inconsistent rendering of
+      // code-blocks, so we override both of them
+      'code-block': {
+        element: 'code',
+        wrapper: <pre />,
+      },
+    }),
+    // Provides custom styling for block types
+    blockStyleFn: block => (block.getType() === 'note' ? noteStyle : null),
+    // Provides custom styling for inline elements (mainly text)
+    customStyleMap: {
+      CODE: {
+        background: '#fafafb',
+        fontFamily: '"Roboto Mono", monospace',
+      },
+      ...inlineStyles,
     },
-  }),
-  // Provides custom styling for block types
-  blockStyleFn: block => (block.getType() === 'note' ? noteStyle : null),
-  // Provides custom styling for inline elements (mainly text)
-  customStyleMap: {
-    CODE: {
-      background: '#fafafb',
-      fontFamily: '"Roboto Mono", monospace',
-    },
-  },
-  // Provides custom component rendering for images and links
-  decorators: [
-    {
-      strategy: createStrategy('LINK'),
-      component: Link,
-    },
-  ],
-});
+    // Provides custom component rendering for images and links
+    decorators: [
+      {
+        strategy: createStrategy('LINK'),
+        component: Link,
+      },
+    ],
+  });
+};

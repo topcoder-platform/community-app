@@ -12,8 +12,7 @@ import Sticky from 'react-stickynode';
 import PT from 'prop-types';
 import { DangerButton } from 'components/buttons';
 import { SPECS_TAB_STATES } from 'actions/page/challenge-details';
-import { stateToHTML } from 'draft-js-export-html';
-// import { decorators } from 'components/Editor/plugin';
+import { editorStateToHTML } from 'utils/editor';
 
 import SaveConfirmationModal from './SaveConfirmationModal';
 import SideBar from './SideBar';
@@ -93,7 +92,7 @@ export default function ChallengeDetailsView(props) {
     updatedChallenge.id = challenge.id;
     updatedChallenge.reviewType = challenge.reviewType;
     _.forIn(toolbarConnector.editors, (x) => {
-      const html = stateToHTML(x.state.editorState.getCurrentContent());
+      const html = editorStateToHTML(x.state.editorState.getCurrentContent());
       console.log(html);
       updatedChallenge[x.id] = html;
     });

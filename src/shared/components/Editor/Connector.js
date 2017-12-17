@@ -7,6 +7,7 @@ export default class Connector {
   constructor() {
     this.editors = [];
     this.focusedEditor = null;
+    this.previousEditor = null;
     this.toolbar = null;
   }
 
@@ -19,6 +20,7 @@ export default class Connector {
   }
 
   setFocusedEditor(editor, newState) {
+    this.previousEditor = this.focusedEditor;
     this.focusedEditor = editor;
     if (this.toolbar) this.toolbar.onFocusedEditorChanged(newState);
   }

@@ -5,6 +5,10 @@
   padding: 0 10px;
 }
 
+.basic {
+  @include button;
+}
+
 .bold {
   @include button;
 
@@ -17,6 +21,12 @@
   width: 100%;
 }
 
+.highlight-color-picker {
+  display: inline;
+  position: absolute;
+  transform: translate(-56px, 44px);
+}
+
 .inlineCode {
   @include button;
   @include roboto-mono-regular;
@@ -26,10 +36,6 @@
   @include button;
 
   font-style: italic;
-}
-
-.markdown {
-  @include button;
 }
 
 .select {
@@ -60,6 +66,12 @@
   @include button;
 
   text-decoration: line-through;
+}
+
+.text-color-picker {
+  display: inline;
+  position: absolute;
+  transform: translate(-44px, 44px);
 }
 
 .underline {
