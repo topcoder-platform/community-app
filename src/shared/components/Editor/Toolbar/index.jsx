@@ -9,7 +9,6 @@ import Sticky from 'react-stickynode';
 
 import { Button } from 'components/buttons';
 import Select from 'components/Select';
-// import Modal from 'components/Modal';
 import { EDITOR_BLOCK_STYLE_MAP } from 'utils/editor';
 
 import {
@@ -194,6 +193,7 @@ export default class Toolbar extends React.Component {
             disabled={disableStyling}
             onMouseDown={(e) => {
               e.preventDefault();
+              st.editor.insertImage('Test Image', 'http://local.topcoder-dev.com:3000/community-app-assets/images/f5f11390a4f466cf68bfebd59658748d.jpg', true);
             }}
             size="sm"
             theme={{ button: style.basic }}

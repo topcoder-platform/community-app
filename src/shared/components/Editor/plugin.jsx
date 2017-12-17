@@ -13,6 +13,7 @@ import { Map } from 'immutable';
 import { EditorState } from 'draft-js';
 import { EDITOR_COLOR_MAP } from 'utils/editor';
 
+import Image from './Image';
 import Link from './Link';
 
 /**
@@ -83,6 +84,11 @@ export default ({ editor }) => {
       {
         strategy: createStrategy('LINK'),
         component: Link,
+        props: { updateEntityData },
+      },
+      {
+        strategy: createStrategy('IMG'),
+        component: Image,
         props: { updateEntityData },
       },
     ],

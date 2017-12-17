@@ -1,6 +1,6 @@
 /**
- * <Link> Draft Decorator Component
- * Renders links within the draft component including a popup Tooltip to edit
+ * <Image> Draft Decorator Component
+ * Renders images within the draft component including a popup edit button and modal
  */
 import PT from 'prop-types';
 import React from 'react';
@@ -9,16 +9,17 @@ import Tooltip from 'components/Tooltip';
 
 import Popup from './Popup';
 
-const Link = ({ children, contentState, entityKey, updateEntityData }) => {
+const Image = ({ children, contentState, entityKey, updateEntityData }) => {
   const {
-    href,
+    description,
+    size,
+    src,
     triggerPopup,
   } = contentState.getEntity(entityKey).getData();
 
   const popup = (
     <Popup
-      href={href}
-      onEdit={updated => updateEntityData(entityKey, { href: updated })}
+      onEdit={() => {}}
     />
   );
 
@@ -33,21 +34,18 @@ const Link = ({ children, contentState, entityKey, updateEntityData }) => {
         trigger={['click', 'hover']}
         defaultVisible={triggerPopup}
       >
-        <a href={href} target="_blank" rel="noopener noreferrer">{children}</a>
+        <img src={src} alt={description} height={size} width={size} />
       </Tooltip>
+      {children}
     </span>
   );
 };
 
-Link.defaultProps = {
-  children: null,
-};
-
-Link.propTypes = {
-  children: PT.node,
+Image.propTypes = {
   contentState: PT.shape().isRequired,
+  children: PT.node.isRequired,
   entityKey: PT.string.isRequired,
   updateEntityData: PT.func.isRequired,
 };
 
-export default Link;
+export default Image;

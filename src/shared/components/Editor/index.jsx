@@ -116,17 +116,51 @@ export default class EditorWrapper extends React.Component {
   }
 
   /**
-   * Inserts a new link at current cursor selection.
+   * Inserts a new image at current cursor selection.
    * @param {String} title Default title to display for the link, if no text is selected in range
-   * @param {String} href The <a> href
+   * @param {String} src The default <img> src
+   * @param {Boolean} triggerModal Whether to trigger the img selection/resize modal on creation
    */
-  insertLink(title, href) {
+  insertImage(title, src, triggerModal) {
     let editorState = this.state.editorState;
     let contentState = editorState.getCurrentContent();
 
     const sel = editorState.getSelection();
 
-    contentState = contentState.createEntity('LINK', 'MUTABLE', { href, insertedFromToolbar: true });
+    contentState = contentState.createEntity('IMG', 'SEGMENTED', { src, triggerModal });
+    const key = contentState.getLastCreatedEntityKey();
+
+    // Selection is a just the cursor, insert new link
+    if (sel.isCollapsed()) {
+      contentState = Modifier.insertText(
+        contentState,
+        sel,
+        ' ',
+        null,
+        key,
+      );
+
+      editorState = EditorState.push(editorState, contentState, 'insert-characters');
+    // } else { // Selection is a range, keep the text but make it a link
+    // editorState = RichUtils.toggleLink(editorState, sel, key);
+    }
+
+    this.setState({ editorState });
+  }
+
+  /**
+   * Inserts a new link at current cursor, or applies to selected text
+   * @param {String} title Default title to display for the link, if no text is selected in range
+   * @param {String} href The <a> href
+   * @param {Boolean} triggerPopup Whether to trigger the popup on creation
+   */
+  insertLink(title, href, triggerPopup) {
+    let editorState = this.state.editorState;
+    let contentState = editorState.getCurrentContent();
+
+    const sel = editorState.getSelection();
+
+    contentState = contentState.createEntity('LINK', 'MUTABLE', { href, triggerPopup });
     const key = contentState.getLastCreatedEntityKey();
 
     // Selection is a just the cursor, insert new link
