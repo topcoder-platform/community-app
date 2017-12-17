@@ -6,7 +6,7 @@
  * but it will have performance drawback, as it will demand constant conversions
  * between the Redux state segment and the internal state of the editor.
  */
-
+import _ from 'lodash';
 import PT from 'prop-types';
 import React from 'react';
 
@@ -14,12 +14,15 @@ import {
   ContentState,
   convertFromHTML,
   EditorState,
+  Modifier,
   RichUtils,
 } from 'draft-js';
 import 'draft-js/dist/Draft.css';
 
 import Editor from 'draft-js-plugins-editor';
 import createMarkdownShortcutsPlugin from 'draft-js-markdown-shortcuts-plugin';
+
+import { EDITOR_COLOR_MAP } from 'utils/editor';
 
 import Connector from './Connector';
 import createCustomPlugin from './plugin';
@@ -74,6 +77,96 @@ export default class EditorWrapper extends React.Component {
 
   focus() {
     if (this.node) this.node.focus();
+  }
+
+  /**
+   * Sets the block type/style at the current selection.  Type map can be found in utils/editor.
+   * Only one block type/style can be applied, this will replace the previous.
+   * @param {String} type The new block style
+   */
+  applyBlockStyle(type) {
+    let editorState = this.state.editorState;
+    editorState = RichUtils.toggleBlockType(editorState, type);
+    this.setState({ editorState });
+  }
+
+  /**
+   * Sets the color at the current selection for the specified category.
+   * Type map can be found in utils/editor.
+   * @param {String} type Category, TEXT or HIGHLIGHT
+   * @param {String} color The new color name
+   */
+  applyColorStyle(type, color) {
+    let editorState = this.state.editorState;
+    let contentState = editorState.getCurrentContent();
+
+    const sel = editorState.getSelection();
+
+    // Clear any existing colors
+    contentState = _.reduce(
+      EDITOR_COLOR_MAP,
+      (state, value, name) => Modifier.removeInlineStyle(state, sel, `${type}_${name}`),
+      contentState);
+
+    // Apply new color
+    contentState = Modifier.applyInlineStyle(contentState, sel, `${type}_${color}`);
+
+    editorState = EditorState.push(editorState, contentState, 'change-inline-style');
+    this.setState({ editorState });
+  }
+
+  /**
+   * Inserts a new link at current cursor selection.
+   * @param {String} title Default title to display for the link, if no text is selected in range
+   * @param {String} href The <a> href
+   */
+  insertLink(title, href) {
+    let editorState = this.state.editorState;
+    let contentState = editorState.getCurrentContent();
+
+    const sel = editorState.getSelection();
+
+    contentState = contentState.createEntity('LINK', 'MUTABLE', { href, insertedFromToolbar: true });
+    const key = contentState.getLastCreatedEntityKey();
+
+    // Selection is a just the cursor, insert new link
+    if (sel.isCollapsed()) {
+      // Inserts a space at the cursor, needed so that the user can 'escape'
+      // from the link entity by clicking after the link, or pressing right arrow
+      contentState = Modifier.insertText(
+        contentState,
+        sel,
+        ' ',
+        null,
+        null,
+      );
+      // Because selection hasn't been updated, this will insert the link *before*
+      // the newly created space.
+      contentState = Modifier.insertText(
+        contentState,
+        sel,
+        title,
+        null,
+        key,
+      );
+
+      editorState = EditorState.push(editorState, contentState, 'insert-characters');
+    } else { // Selection is a range, keep the text but make it a link
+      editorState = RichUtils.toggleLink(editorState, sel, key);
+    }
+
+    this.setState({ editorState });
+  }
+
+  /**
+   * Toggle an inline text style on/off
+   * @param {String} styleName Name of the style
+   * @return {String} The resulting style of the selection
+   */
+  toggleInlineStyle(styleName) {
+    const editorState = RichUtils.toggleInlineStyle(this.state.editorState, styleName);
+    this.setState({ editorState });
+    return editorState.getCurrentInlineStyle();
   }
 
   render() {

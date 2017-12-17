@@ -1,3 +1,6 @@
+/**
+ * Popup Component for Link Decorators
+ */
 import _ from 'lodash';
 import PT from 'prop-types';
 import React from 'react';

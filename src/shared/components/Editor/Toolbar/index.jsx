@@ -10,11 +10,9 @@ import Sticky from 'react-stickynode';
 import { Button } from 'components/buttons';
 import Select from 'components/Select';
 // import Modal from 'components/Modal';
-import { EDITOR_BLOCK_STYLE_MAP, EDITOR_COLOR_MAP } from 'utils/editor';
+import { EDITOR_BLOCK_STYLE_MAP } from 'utils/editor';
 
 import {
-  EditorState,
-  Modifier,
   RichUtils,
 } from 'draft-js';
 
@@ -85,109 +83,6 @@ export default class Toolbar extends React.Component {
     }
   }
 
-  /**
-   * Sets the block type at the current selection.  Type map can be found in utils/editor.
-   * @param {String} newType The new block type
-   */
-  setBlockType(newType) {
-    let editorState = this.state.editor ? this.state.editor.state.editorState : null;
-    if (editorState) {
-      editorState = RichUtils.toggleBlockType(editorState, newType);
-      this.setState({ block: newType });
-      this.state.editor.setState({ editorState });
-    }
-  }
-
-  /**
-   * Sets the color at the current selection for the specified category.
-   * Type map can be found in utils/editor.
-   * @param {String} type Category, TEXT or HIGHLIGHT
-   * @param {String} color The new color name
-   */
-  setColorStyle(type, color) {
-    const editor = this.state.editor;
-
-    let editorState = editor ? editor.state.editorState : null;
-    if (editorState) {
-      let contentState = editorState.getCurrentContent();
-
-      const sel = editorState.getSelection();
-
-      // Clear any existing colors
-      contentState = _.reduce(
-        EDITOR_COLOR_MAP,
-        (state, value, name) => Modifier.removeInlineStyle(state, sel, `${type}_${name}`),
-        contentState);
-
-      // Apply new color
-      contentState = Modifier.applyInlineStyle(contentState, sel, `${type}_${color}`);
-
-      editorState = EditorState.push(editorState, contentState, 'change-inline-style');
-      editor.setState({ editorState });
-    }
-  }
-
-  /**
-   * Inserts a new link at current cursor selection.
-   * @param {String} title Default title to display for the link, if no text is selected in range
-   * @param {String} href The <a> href
-   */
-  insertLink(title, href) {
-    const editor = this.state.editor;
-    let editorState = editor ? editor.state.editorState : null;
-    if (editorState) {
-      let contentState = editorState.getCurrentContent();
-
-      const sel = editorState.getSelection();
-
-      contentState = contentState.createEntity('LINK', 'MUTABLE', { href, insertedFromToolbar: true });
-      const key = contentState.getLastCreatedEntityKey();
-
-      // Selection is a just the cursor, insert new link
-      if (sel.isCollapsed()) {
-        // Inserts a space at the cursor, needed so that the user can 'escape'
-        // from the link entity by clicking after the link, or pressing right arrow
-        contentState = Modifier.insertText(
-          contentState,
-          sel,
-          ' ',
-          null,
-          null,
-        );
-        // Because selection hasn't been updated, this will insert the link *before*
-        // the newly created space.
-        contentState = Modifier.insertText(
-          contentState,
-          sel,
-          title,
-          null,
-          key,
-        );
-
-        editorState = EditorState.push(editorState, contentState, 'insert-characters');
-      } else { // Selection is a range, keep the text but make it a link
-        editorState = RichUtils.toggleLink(editorState, sel, key);
-      }
-
-      editor.setState({ editorState });
-    }
-  }
-
-  /**
-   * Toggle an inline text style
-   * @param {String} styleName Name of the style
-   */
-  toggleInlineStyle(styleName) {
-    const editor = this.state.editor;
-    if (editor) {
-      const editorState = RichUtils.toggleInlineStyle(
-        editor.state.editorState, styleName);
-      const inlineStyle = editorState.getCurrentInlineStyle();
-      this.setState({ [styleName]: inlineStyle.has(styleName) });
-      editor.setState({ editorState });
-    }
-  }
-
   render() {
     const st = this.state;
     const disableStyling = !st.editor;
@@ -198,7 +93,8 @@ export default class Toolbar extends React.Component {
         disabled={disableStyling}
         onMouseDown={(e) => {
           e.preventDefault();
-          this.toggleInlineStyle(name);
+          const newStyle = st.editor.toggleInlineStyle(name);
+          this.setState({ [name]: newStyle.has(name) });
         }}
         size="sm"
         theme={{ button: theme }}
@@ -217,10 +113,10 @@ export default class Toolbar extends React.Component {
           <div styleName="separator" />
 
           <Button
-            active={this.state.markdown}
+            active={st.markdown}
             onMouseDown={(e) => {
               e.preventDefault();
-              const active = !this.state.markdown;
+              const active = !st.markdown;
               this.setState({ markdown: active });
               this.props.connector.toggleInlineMarkdown(active);
             }}
@@ -242,44 +138,44 @@ export default class Toolbar extends React.Component {
             disabled={disableStyling}
             onMouseDown={(e) => {
               e.preventDefault();
-              this.setState({ pickingTextColor: !this.state.pickingTextColor });
+              this.setState({ pickingTextColor: !st.pickingTextColor });
             }}
             size="sm"
             theme={{ button: style.basic }}
           >Color</Button>
           <ColorPicker
             onChange={(color) => {
-              const editor = this.state.editor || this.props.connector.previousEditor;
+              const editor = st.editor || this.props.connector.previousEditor;
               editor.node.focus();
               setImmediate(() => {
-                this.setColorStyle('TEXT', color);
+                editor.applyColorStyle('TEXT', color);
                 this.setState({ pickingTextColor: false });
               });
             }}
             style={style['text-color-picker']}
-            visible={this.state.pickingTextColor}
+            visible={st.pickingTextColor}
           />
 
           <Button
             disabled={disableStyling}
             onMouseDown={(e) => {
               e.preventDefault();
-              this.setState({ pickingHighlightColor: !this.state.pickingHighlightColor });
+              this.setState({ pickingHighlightColor: !st.pickingHighlightColor });
             }}
             size="sm"
             theme={{ button: style.basic }}
           >Highlight</Button>
           <ColorPicker
             onChange={(color) => {
-              const editor = this.state.editor || this.props.connector.previousEditor;
+              const editor = st.editor || this.props.connector.previousEditor;
               editor.node.focus();
               setImmediate(() => {
-                this.setColorStyle('HIGHLIGHT', color);
+                editor.applyColorStyle('HIGHLIGHT', color);
                 this.setState({ pickingHighlightColor: false });
               });
             }}
             style={style['highlight-color-picker']}
-            visible={this.state.pickingHighlightColor}
+            visible={st.pickingHighlightColor}
           />
 
           <div styleName="separator" />
@@ -288,7 +184,7 @@ export default class Toolbar extends React.Component {
             disabled={disableStyling}
             onMouseDown={(e) => {
               e.preventDefault();
-              this.insertLink('New Link', 'http://');
+              st.editor.insertLink('New Link', 'http://');
             }}
             size="sm"
             theme={{ button: style.basic }}
@@ -309,7 +205,10 @@ export default class Toolbar extends React.Component {
               clearable={false}
               className={style.select}
               disabled={disableStyling}
-              onChange={option => this.setBlockType(option.value)}
+              onChange={({ value }) => {
+                st.editor.applyBlockStyle(value);
+                this.setState({ block: value });
+              }}
               onFocus={e => e.preventDefault()}
               options={_.map(EDITOR_BLOCK_STYLE_MAP, (label, value) => ({ label, value }))}
               placeholder="Block Style"

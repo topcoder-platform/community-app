@@ -1,3 +1,7 @@
+/**
+ * <Link> Draft Decorator Component
+ * Renders links within the draft component including a popup Tooltip to edit
+ */
 import PT from 'prop-types';
 import React from 'react';
 
