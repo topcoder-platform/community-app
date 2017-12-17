@@ -10,12 +10,18 @@
 import _ from 'lodash';
 import React from 'react';
 import { Map } from 'immutable';
+import { EditorState } from 'draft-js';
 import { EDITOR_COLOR_MAP } from 'utils/editor';
 
 import Link from './Link';
 
-// This is based on the strategy that draft-js-markdown-shortcuts-plugin uses
-// so it will work on images and links created with markdown
+/**
+ * This is based on the strategy that draft-js-markdown-shortcuts-plugin uses
+ * so it will work on images and links created with markdown
+ *
+ * @param {String} type The block type to create the strategy for, ex. 'IMG', 'LINK'
+ * @return {Function} The strategy function
+ */
 const createStrategy = type =>
   (contentBlock, callback, contentState) => {
     contentBlock.findEntityRanges((metadata) => {
@@ -24,7 +30,26 @@ const createStrategy = type =>
     }, callback);
   };
 
-export default ({ noteStyle }) => {
+/**
+ * Creates a custom plugin instance
+ *
+ * @param {Object} config Config object, standard interface for Draft JS plugins
+ * @return {Object} Object representing the Custom Plugin instance, is passed to the <Editor>
+ */
+export default ({ editor }) => {
+  // Store the editor in the closure
+  const updateEntityData = (key, data) => {
+    let editorState = editor.state.editorState;
+
+    editorState = EditorState.push(
+      editorState,
+      editorState.getCurrentContent().replaceEntityData(key, data),
+      'change-block-data',
+    );
+
+    editor.setState({ editorState });
+  };
+
   const inlineStyles = {};
 
   _.forIn(EDITOR_COLOR_MAP, (value, name) => {
@@ -43,7 +68,8 @@ export default ({ noteStyle }) => {
       },
     }),
     // Provides custom styling for block types
-    blockStyleFn: block => (block.getType() === 'note' ? noteStyle : null),
+    // Note block needs a global style for the draftStatetoHTML mechanism to work correctly
+    blockStyleFn: block => (block.getType() === 'note' ? 'editor-note-global' : null),
     // Provides custom styling for inline elements (mainly text)
     customStyleMap: {
       CODE: {
@@ -57,6 +83,7 @@ export default ({ noteStyle }) => {
       {
         strategy: createStrategy('LINK'),
         component: Link,
+        props: { updateEntityData },
       },
     ],
   });

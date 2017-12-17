@@ -26,19 +26,23 @@ import createCustomPlugin from './plugin';
 
 import style from './style.scss';
 
-const markdownPlugin = createMarkdownShortcutsPlugin();
-const customPlugin = createCustomPlugin({
-  noteStyle: style.note,
-});
-
 export default class EditorWrapper extends React.Component {
   constructor(props) {
     super(props);
     this.id = props.id;
+
     this.state = {
       editorState: EditorState.createEmpty(),
       markdown: false,
     };
+
+    // Each Editor needs its own instance of plugins
+    this.markdownPlugin = createMarkdownShortcutsPlugin();
+    // We need to inject the EditorWrapper into the plugin so that it can
+    // modify state.editorState for new Entity Data (Image/Link)
+    this.customPlugin = createCustomPlugin({
+      editor: this,
+    });
   }
 
   componentDidMount() {
@@ -108,8 +112,8 @@ export default class EditorWrapper extends React.Component {
             this.setState({ editorState: newState });
           }}
           plugins={[
-            this.state.markdown ? markdownPlugin : {},
-            customPlugin,
+            this.state.markdown ? this.markdownPlugin : {},
+            this.customPlugin,
           ]}
           ref={(node) => { this.node = node; }}
           spellCheck

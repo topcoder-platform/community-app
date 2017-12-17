@@ -49,7 +49,7 @@ export const editorStateToHTML = (state) => {
   });
 
   const options = {
-    blockStyleFn: block => (block === 'NOTE' ? ({ attributes: { class: 'global-note' } }) : null),
+    blockStyleFn: block => (block === 'NOTE' ? ({ attributes: { class: 'editor-note-global' } }) : null),
     inlineStyles,
   };
 
