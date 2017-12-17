@@ -440,7 +440,7 @@ export default function ChallengeDetailsView(props) {
           reviewScorecardId={reviewScorecardId}
           forumLink={forumLink}
           submissionLimit={submissionLimit}
-          eventDetail={mainEvent}
+          eventDetail={_.isEmpty(mainEvent) ? null : mainEvent}
           documents={documents}
           hasRegistered={hasRegistered}
           fileTypes={fileTypes}
@@ -507,10 +507,10 @@ ChallengeDetailsView.propTypes = {
       roles: PT.arrayOf(PT.string).isRequired,
     }).isRequired,
   }),
-  communitiesList: PT.shape({
+  communitiesList: PT.arrayOf(PT.shape({
     communityId: PT.string.isRequired,
-    groupIds: PT.arrayOf(PT.number).isRequired,
-  }).isRequired,
+    groupIds: PT.arrayOf(PT.string).isRequired,
+  })).isRequired,
   openTermsModal: PT.func.isRequired,
   savingChallenge: PT.bool.isRequired,
   setSpecsTabState: PT.func.isRequired,
