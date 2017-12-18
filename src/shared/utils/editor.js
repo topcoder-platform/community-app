@@ -49,7 +49,32 @@ export const editorStateToHTML = (state) => {
   });
 
   const options = {
-    blockStyleFn: block => (block === 'NOTE' ? ({ attributes: { class: 'editor-note-global' } }) : null),
+    entityStyleFn: (entity) => {
+      const data = entity.getData();
+      switch (entity.get('type')) {
+        case 'IMG':
+          return {
+            element: 'img',
+            attributes: {
+              src: data.src,
+              width: `${data.size}%`,
+              height: `${data.size}%`,
+            },
+          };
+        case 'LINK':
+          return {
+            element: 'a',
+            attributes: {
+              href: data.href,
+              target: '_blank',
+              rel: 'noopener noreferrer',
+            },
+          };
+        default:
+          return null;
+      }
+    },
+    blockStyleFn: block => (block.getType() === 'note' ? ({ element: 'div', attributes: { class: 'editor-note-global' } }) : null),
     inlineStyles,
   };
 

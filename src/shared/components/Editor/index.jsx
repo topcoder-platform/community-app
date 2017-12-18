@@ -109,10 +109,11 @@ export default class EditorWrapper extends React.Component {
       (state, value, name) => Modifier.removeInlineStyle(state, sel, `${type}_${name}`),
       contentState);
 
-    // Apply new color
-    contentState = Modifier.applyInlineStyle(contentState, sel, `${type}_${color}`);
-
     editorState = EditorState.push(editorState, contentState, 'change-inline-style');
+
+    // Apply new color
+    editorState = RichUtils.toggleInlineStyle(editorState, `${type}_${color}`);
+
     this.setState({ editorState });
   }
 

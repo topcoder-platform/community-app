@@ -93,10 +93,9 @@ export default function ChallengeDetailsView(props) {
     updatedChallenge.reviewType = challenge.reviewType;
     _.forIn(toolbarConnector.editors, (x) => {
       const html = editorStateToHTML(x.state.editorState.getCurrentContent());
-      console.log(html);
       updatedChallenge[x.id] = html;
     });
-    // updateChallenge(updatedChallenge);
+    updateChallenge(updatedChallenge);
   };
 
   /* TODO: This render markup is monstrous - should be refactored. */

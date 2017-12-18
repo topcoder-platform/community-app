@@ -1,6 +1,26 @@
 @import "~styles/mixins";
 $tc-link-visited: #0c4e98;
 
+@mixin noteStyle {
+  background: $tc-gold-30;
+  border: 1px solid $tc-gold-70;
+  border-radius: 6px;
+  font-family: roboto;
+  font-weight: 400;
+  font-style: italic;
+  font-size: 13px;
+  color: $tc-black;
+  line-height: 20px;
+  padding: 15px 20px;
+  margin: 25px 0;
+
+  a,
+  p,
+  ul {
+    font-size: 13px;
+  }
+}
+
 @mixin linkStyle {
   a {
     color: $tc-dark-blue;
@@ -19,6 +39,12 @@ $tc-link-visited: #0c4e98;
   a:active {
     text-decoration: underline;
     color: $tc-dark-blue-70;
+  }
+}
+
+:global {
+  .editor-note-global {
+    @include noteStyle;
   }
 }
 
@@ -159,7 +185,6 @@ $tc-link-visited: #0c4e98;
     font-weight: 700;
   }
 
-  pre,
   code {
     background: $tc-gray-neutral-light;
     border: 1px solid $tc-gray-20;
@@ -224,23 +249,7 @@ $tc-link-visited: #0c4e98;
   }
 
   .note {
-    background: $tc-gold-30;
-    border: 1px solid $tc-gold-70;
-    border-radius: 6px;
-    font-family: roboto;
-    font-weight: 400;
-    font-style: italic;
-    font-size: 13px;
-    color: $tc-black;
-    line-height: 20px;
-    padding: 15px 20px;
-    margin: 25px 0;
-
-    a,
-    p,
-    ul {
-      font-size: 13px;
-    }
+    @include noteStyle;
   }
 
   @include linkStyle;

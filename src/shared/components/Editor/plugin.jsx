@@ -67,13 +67,14 @@ export default ({ editor }) => {
       // draft-js and draft-js-markdown-shortcuts-plugin use inconsistent rendering of
       // code-blocks, so we override both of them
       'code-block': {
-        element: 'code',
-        wrapper: <pre />,
+        element: 'span',
+        wrapper: <code />,
+      },
+      note: {
+        element: 'span',
+        wrapper: <div className="editor-note-global" />,
       },
     }),
-    // Provides custom styling for block types
-    // Note block needs a global style for the draftStatetoHTML mechanism to work correctly
-    blockStyleFn: block => (block.getType() === 'note' ? 'editor-note-global' : null),
     // Provides custom styling for inline elements (mainly text)
     customStyleMap: {
       CODE: {
