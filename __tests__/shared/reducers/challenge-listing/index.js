@@ -78,11 +78,14 @@ const mockActions = {
 let expectedState = {
   allDraftChallengesLoaded: false,
   allPastChallengesLoaded: false,
+  allReviewOpportunitiesLoaded: false,
 
   challenges: [],
   challengeSubtracks: [],
   challengeSubtracksMap: {},
   challengeTags: [],
+
+  expandedTags: [],
 
   filter: {},
 
@@ -96,14 +99,18 @@ let expectedState = {
 
   lastRequestedPageOfDraftChallenges: -1,
   lastRequestedPageOfPastChallenges: -1,
+  lastRequestedPageOfReviewOpportunities: -1,
   lastUpdateOfActiveChallenges: 0,
 
   loadingActiveChallengesUUID: '',
   loadingDraftChallengesUUID: '',
   loadingPastChallengesUUID: '',
+  loadingReviewOpportunitiesUUID: '',
 
   loadingChallengeSubtracks: false,
   loadingChallengeTags: false,
+
+  reviewOpportunities: [],
 
   selectedCommunityId: '',
 
@@ -131,13 +138,17 @@ function testReducer(reducer) {
       ...expectedState,
       allDraftChallengesLoaded: false,
       allPastChallengesLoaded: false,
+      allReviewOpportunitiesLoaded: false,
       challenges: [],
       lastRequestedPageOfDraftChallenges: -1,
       lastRequestedPageOfPastChallenges: -1,
+      lastRequestedPageOfReviewOpportunities: -1,
       lastUpdateOfActiveChallenges: 0,
       loadingActiveChallengesUUID: '',
       loadingDraftChallengesUUID: '',
       loadingPastChallengesUUID: '',
+      loadingReviewOpportunitiesUUID: '',
+      reviewOpportunities: [],
     };
 
     expect(state).toEqual(expectedState);

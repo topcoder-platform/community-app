@@ -12,6 +12,8 @@ import Tooltip from 'components/Tooltip';
 import './style.scss';
 
 const DESCRIPTION = {
+  // TODO: [Review Opps] This is temporary
+  REVIEW_OPPORTUNITY: 'As a topcoder member, you can participate in review boards that review work submitted into challenges by other members.',
   APPLICATION_FRONT_END_DESIGN: 'Design UI and front end experiences for apps',
   ARCHITECTURE: 'Architect modules, components, or full applications',
   ASSEMBLY_COMPETITION: 'Develop code for a variety of use cases. Rigorous review and final fix process is included.',
@@ -33,6 +35,7 @@ const DESCRIPTION = {
 };
 
 const HEADER = {
+  REVIEW_OPPORTUNITY: 'Review Opportunity', // TODO: [Review Opps] this is temporary
   APPLICATION_FRONT_END_DESIGN: 'Application Front-End Design (AFED)',
   ARCHITECTURE: 'Architecture (Ar)',
   ASSEMBLY_COMPETITION: 'Assembly (As)',

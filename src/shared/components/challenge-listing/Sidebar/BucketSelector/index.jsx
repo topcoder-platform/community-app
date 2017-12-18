@@ -4,7 +4,6 @@
  * has a link switching the sidebar into filters editor mode.
  */
 
-import config from 'utils/config';
 import PT from 'prop-types';
 import React from 'react';
 import { BUCKETS } from 'utils/challenge-listing/buckets';
@@ -54,10 +53,15 @@ export default function BucketSelector({
 
   const savedFiltersRender = savedFilters.map((item, index) => (
     <Bucket
-      active={activeBucket === BUCKETS.SAVED_FILTER && index === activeSavedFilter}
+      active={
+        (activeBucket === BUCKETS.SAVED_FILTER
+          || activeBucket === BUCKETS.SAVED_REVIEW_OPPORTUNITIES_FILTER)
+          && index === activeSavedFilter
+      }
       bucket={{
         hideCount: true,
-        name: item.name,
+        name: item.filter.isForReviewOpportunities ?
+          `${item.name} (Review Opportunities)` : item.name,
         error: item.filterError,
       }}
       challenges={[]}
@@ -73,14 +77,7 @@ export default function BucketSelector({
       {getBucket(BUCKETS.OPEN_FOR_REGISTRATION)}
       {getBucket(BUCKETS.ONGOING)}
       <hr />
-      {
-        disabled ? <span styleName="openForReview">Open for review</span> : (
-          <a
-            href={`${config.URL.BASE}/review/development-review-opportunities/`}
-            styleName="openForReview"
-          >Open for review</a>
-        )
-      }
+      {getBucket(BUCKETS.REVIEW_OPPORTUNITIES)}
       {getBucket(BUCKETS.PAST)}
       {/* NOTE: We do not show upcoming challenges for now, for various reasons,
         * more political than technical ;)
