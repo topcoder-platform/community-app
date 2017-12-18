@@ -193,7 +193,7 @@ export default class Toolbar extends React.Component {
             disabled={disableStyling}
             onMouseDown={(e) => {
               e.preventDefault();
-              st.editor.insertImage('Test Image', 'http://local.topcoder-dev.com:3000/community-app-assets/images/f5f11390a4f466cf68bfebd59658748d.jpg', true);
+              st.editor.insertImage('http://', true);
             }}
             size="sm"
             theme={{ button: style.basic }}

@@ -69,7 +69,6 @@ export default class Popup extends React.Component {
 Popup.defaultProps = {
   href: '',
   onEdit: _.noop,
-  title: '',
 };
 
 Popup.propTypes = {

@@ -42,7 +42,7 @@ export default class EditorWrapper extends React.Component {
     // Each Editor needs its own instance of plugins
     this.markdownPlugin = createMarkdownShortcutsPlugin();
     // We need to inject the EditorWrapper into the plugin so that it can
-    // modify state.editorState for new Entity Data (Image/Link)
+    // modify state.editorState
     this.customPlugin = createCustomPlugin({
       editor: this,
     });
@@ -117,33 +117,38 @@ export default class EditorWrapper extends React.Component {
 
   /**
    * Inserts a new image at current cursor selection.
-   * @param {String} title Default title to display for the link, if no text is selected in range
    * @param {String} src The default <img> src
    * @param {Boolean} triggerModal Whether to trigger the img selection/resize modal on creation
    */
-  insertImage(title, src, triggerModal) {
+  insertImage(src, triggerModal) {
     let editorState = this.state.editorState;
     let contentState = editorState.getCurrentContent();
 
-    const sel = editorState.getSelection();
+    // If the user has a range selected, it needs to be collapsed before insertText will work
+    // This sets the starting and ending range to the same position,
+    // which is equivalent to just a cursor/caret
+    let sel = editorState.getSelection();
+    const startKey = sel.getStartKey();
+    const startOffset = sel.getStartOffset();
+    sel = sel.merge({
+      anchorKey: startKey,
+      anchorOffset: startOffset,
+      focusKey: startKey,
+      focusOffset: startOffset,
+    });
 
     contentState = contentState.createEntity('IMG', 'SEGMENTED', { src, triggerModal });
     const key = contentState.getLastCreatedEntityKey();
 
-    // Selection is a just the cursor, insert new link
-    if (sel.isCollapsed()) {
-      contentState = Modifier.insertText(
-        contentState,
-        sel,
-        ' ',
-        null,
-        key,
-      );
+    // Using insertText so that images behave in an inline fashion
+    contentState = Modifier.insertText(
+      contentState,
+      sel,
+      ' ',
+      null,
+      key);
 
-      editorState = EditorState.push(editorState, contentState, 'insert-characters');
-    // } else { // Selection is a range, keep the text but make it a link
-    // editorState = RichUtils.toggleLink(editorState, sel, key);
-    }
+    editorState = EditorState.push(editorState, contentState, 'insert-characters');
 
     this.setState({ editorState });
   }

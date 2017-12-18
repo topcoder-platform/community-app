@@ -1,8 +1,13 @@
 @import "~styles/mixins";
 
-// Draft.js sets some list-related globals that need to be undone,
-// and these can't be changed using the blockStyleFn mechanism
 :global {
+  // Has a default z-index of 0 which interferes with <Modal> component
+  .DraftEditor-editorContainer {
+    z-index: auto;
+  }
+
+  // Draft.js sets some list-related globals that need to be undone,
+  // and these can't be changed using the blockStyleFn mechanism
   .public-DraftStyleDefault-orderedListItem.public-DraftStyleDefault-listLTR::before {
     width: auto;
     position: relative;
