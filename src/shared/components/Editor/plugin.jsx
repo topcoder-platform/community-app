@@ -48,6 +48,9 @@ export default ({ editor }) => {
       'change-block-data',
     );
 
+    // Force re-render for new data
+    editorState = EditorState.forceSelection(editorState, editorState.getSelection());
+
     editor.setState({ editorState });
   };
 

@@ -9,6 +9,7 @@ export default class Connector {
     this.focusedEditor = null;
     this.previousEditor = null;
     this.toolbar = null;
+    this.modified = false;
   }
 
   /**

@@ -105,6 +105,7 @@ export default class Toolbar extends React.Component {
         <div styleName="container">
 
           <Button
+            disabled={!this.props.connector.modified}
             onClick={() => this.props.onSave()}
             size="sm"
             theme={{ button: style.basic }}
@@ -183,7 +184,7 @@ export default class Toolbar extends React.Component {
             disabled={disableStyling}
             onMouseDown={(e) => {
               e.preventDefault();
-              st.editor.insertLink('New Link', 'http://');
+              st.editor.insertLink(' Link', 'http://', true);
             }}
             size="sm"
             theme={{ button: style.basic }}

@@ -8,6 +8,8 @@
 
 // Competing against some globals
 .container {
+  @include tc-body-md;
+
   input {
     display: inline-block;
     height: $base-unit * 6;

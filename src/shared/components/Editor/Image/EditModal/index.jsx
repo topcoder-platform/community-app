@@ -42,36 +42,6 @@ export default class EditModal extends React.Component {
               <input
                 type="text"
                 onChange={() => this.setState({ editURL: this.inputURL.value })}
-                onBlur={(e) => {
-                  e.preventDefault();
-                  e.stopPropagation();
-                }}
-                onClick={e => e.stopPropagation()}
-                onDoubleClick={e => e.stopPropagation()}
-                onCompositionStart={e => e.stopPropagation()}
-                onCompositionUpdate={e => e.stopPropagation()}
-                onCompositionEnd={e => e.stopPropagation()}
-                onCopy={e => e.stopPropagation()}
-                onCut={e => e.stopPropagation()}
-                onContextMenu={e => e.stopPropagation()}
-                onFocus={(e) => {
-                  e.stopPropagation();
-                  this.inputURL.focus();
-                }}
-                onInput={e => e.stopPropagation()}
-                onKeyDown={e => e.stopPropagation()}
-                onKeyPress={e => e.stopPropagation()}
-                onKeyUp={e => e.stopPropagation()}
-                onMouseDown={e => e.stopPropagation()}
-                onMouseEnter={e => e.stopPropagation()}
-                onMouseLeave={e => e.stopPropagation()}
-                onMouseMove={e => e.stopPropagation()}
-                onMouseOut={e => e.stopPropagation()}
-                onMouseOver={e => e.stopPropagation()}
-                onPaste={e => e.stopPropagation()}
-                onSelect={e => e.stopPropagation()}
-                onSubmit={e => e.stopPropagation()}
-                onTouchStart={e => e.stopPropagation()}
                 ref={(node) => { this.inputURL = node; }}
                 styleName="url"
                 tabIndex="0"

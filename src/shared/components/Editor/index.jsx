@@ -58,6 +58,7 @@ export default class EditorWrapper extends React.Component {
         editorState.entityMap,
       );
       editorState = EditorState.createWithContent(editorState);
+      this.initialContent = editorState.getCurrentContent();
       setImmediate(() => this.setState({ editorState }));
     }
   }
@@ -240,6 +241,12 @@ export default class EditorWrapper extends React.Component {
           }}
           onChange={(newState) => {
             const hasFocus = newState.getSelection().getHasFocus();
+            if (!connector.modified
+              && this.initialContent
+              && this.initialContent !== newState.getCurrentContent()
+            ) {
+              connector.modified = true;
+            }
             connector.setFocusedEditor(hasFocus ? this : null, newState);
             this.setState({ editorState: newState });
           }}
