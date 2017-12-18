@@ -23,6 +23,7 @@ exports[`Matches shallow shapshot 1`] = `
     Join Community
   </ThemedGenericButton>
   <ConfirmModal
+    communityId={undefined}
     communityName="ios"
     groupIds={
       Array [
@@ -176,6 +177,7 @@ exports[`Matches shallow shapshot 5`] = `
     Join Community
   </ThemedGenericButton>
   <ConfirmModal
+    communityId={undefined}
     communityName="ios"
     groupIds={
       Array [

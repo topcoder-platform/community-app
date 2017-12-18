@@ -128,24 +128,27 @@ export class ListingContainer extends React.Component {
       },
       allDraftChallengesLoaded,
       allPastChallengesLoaded,
+      allReviewOpportunitiesLoaded,
       activeBucket,
       challenges,
       challengesUrl,
       challengeSubtracks,
       challengeTags,
-      communitiesList,
       defaultCommunityId,
       filter,
       groupIds,
       getDraftChallenges,
       getPastChallenges,
+      getReviewOpportunities,
       hideSrm,
       keepPastPlaceholders,
       lastRequestedPageOfDraftChallenges,
       lastRequestedPageOfPastChallenges,
+      lastRequestedPageOfReviewOpportunities,
       lastUpdateOfActiveChallenges,
       listingOnly,
       newChallengeDetails,
+      reviewOpportunities,
       selectBucket,
       selectChallengeDetailsTab,
       selectedCommunityId,
@@ -176,7 +179,13 @@ export class ListingContainer extends React.Component {
       };
     }
 
-    let communityFilter = communitiesList.data.find(item =>
+    let loadMoreReviewOpportunities;
+    if (!allReviewOpportunitiesLoaded) {
+      loadMoreReviewOpportunities = () =>
+        getReviewOpportunities(1 + lastRequestedPageOfReviewOpportunities, tokenV3);
+    }
+
+    let communityFilter = this.props.communityFilters.find(item =>
       item.communityId === this.props.selectedCommunityId);
     if (communityFilter) communityFilter = communityFilter.challengeFilter;
 
@@ -213,6 +222,8 @@ export class ListingContainer extends React.Component {
           communityFilter={communityFilter}
           communityName={this.props.communityName}
           defaultCommunityId={defaultCommunityId}
+          expandedTags={this.props.expandedTags}
+          expandTag={this.props.expandTag}
           filterState={filter}
           hideSrm={hideSrm}
           hideTcLinksInFooter={hideTcLinksInSidebarFooter}
@@ -221,6 +232,7 @@ export class ListingContainer extends React.Component {
           loadingChallenges={Boolean(this.props.loadingActiveChallengesUUID)}
           loadingDraftChallenges={Boolean(this.props.loadingDraftChallengesUUID)}
           loadingPastChallenges={Boolean(this.props.loadingPastChallengesUUID)}
+          loadingReviewOpportunities={Boolean(this.props.loadingReviewOpportunitiesUUID)}
           newChallengeDetails={newChallengeDetails}
           openChallengesInNewTabs={this.props.openChallengesInNewTabs}
           prizeMode={this.props.prizeMode}
@@ -229,11 +241,15 @@ export class ListingContainer extends React.Component {
           selectedCommunityId={selectedCommunityId}
           loadMoreDraft={loadMoreDraft}
           loadMorePast={loadMorePast}
+          loadMoreReviewOpportunities={loadMoreReviewOpportunities}
+          reviewOpportunities={reviewOpportunities}
           setFilterState={(state) => {
             this.props.setFilter(state);
             this.props.setSearchText(state.text || '');
-            if (activeBucket === BUCKETS.SAVED_FILTER) {
+            if (this.props.activeBucket === BUCKETS.SAVED_FILTER) {
               this.props.selectBucket(BUCKETS.ALL);
+            } else if (this.props.activeBucket === BUCKETS.SAVED_REVIEW_OPPORTUNITIES_FILTER) {
+              this.props.selectBucket(BUCKETS.REVIEW_OPPORTUNITIES);
             }
           }}
           setSort={this.props.setSort}
@@ -276,6 +292,7 @@ ListingContainer.propTypes = {
   }).isRequired,
   allDraftChallengesLoaded: PT.bool.isRequired,
   allPastChallengesLoaded: PT.bool.isRequired,
+  allReviewOpportunitiesLoaded: PT.bool.isRequired,
   challenges: PT.arrayOf(PT.shape({})).isRequired,
   challengesUrl: PT.string,
   challengeSubtracks: PT.arrayOf(PT.shape()).isRequired,
@@ -295,21 +312,26 @@ ListingContainer.propTypes = {
   hideTcLinksInSidebarFooter: PT.bool,
   communityId: PT.string,
   communityName: PT.string,
+  communityFilters: PT.func.isRequired,
   getAllActiveChallenges: PT.func.isRequired,
   getCommunitiesList: PT.func.isRequired,
   getDraftChallenges: PT.func.isRequired,
   getPastChallenges: PT.func.isRequired,
+  getReviewOpportunities: PT.func.isRequired,
   keepPastPlaceholders: PT.bool.isRequired,
   lastRequestedPageOfDraftChallenges: PT.number.isRequired,
   lastRequestedPageOfPastChallenges: PT.number.isRequired,
+  lastRequestedPageOfReviewOpportunities: PT.number.isRequired,
   lastUpdateOfActiveChallenges: PT.number.isRequired,
   loadingActiveChallengesUUID: PT.string.isRequired,
   loadingDraftChallengesUUID: PT.string.isRequired,
   loadingPastChallengesUUID: PT.string.isRequired,
+  loadingReviewOpportunitiesUUID: PT.string.isRequired,
   markHeaderMenu: PT.func.isRequired,
   newChallengeDetails: PT.bool,
   openChallengesInNewTabs: PT.bool,
   prizeMode: PT.string,
+  reviewOpportunities: PT.arrayOf(PT.shape()).isRequired,
   selectBucket: PT.func.isRequired,
   selectChallengeDetailsTab: PT.func.isRequired,
   selectCommunity: PT.func.isRequired,
@@ -321,6 +343,8 @@ ListingContainer.propTypes = {
   setSort: PT.func.isRequired,
   listingOnly: PT.bool,
   groupIds: PT.arrayOf(PT.string),
+  expandedTags: PT.arrayOf(PT.number).isRequired,
+  expandTag: PT.func.isRequired,
 };
 
 const mapStateToProps = (state, ownProps) => {
@@ -330,29 +354,34 @@ const mapStateToProps = (state, ownProps) => {
     auth: state.auth,
     allDraftChallengesLoaded: cl.allDraftChallengesLoaded,
     allPastChallengesLoaded: cl.allPastChallengesLoaded,
+    allReviewOpportunitiesLoaded: cl.allReviewOpportunitiesLoaded,
     filter: cl.filter,
     challenges: cl.challenges,
     challengeSubtracks: cl.challengeSubtracks,
     challengeTags: cl.challengeTags,
     communitiesList: tc.list,
-    // communityFilters: tc.list.data,
+    communityFilters: tc.list.data,
     domain: state.domain,
     hideTcLinksInSidebarFooter: ownProps.hideTcLinksInSidebarFooter,
     keepPastPlaceholders: cl.keepPastPlaceholders,
     lastRequestedPageOfDraftChallenges: cl.lastRequestedPageOfDraftChallenges,
     lastRequestedPageOfPastChallenges: cl.lastRequestedPageOfPastChallenges,
+    lastRequestedPageOfReviewOpportunities: cl.lastRequestedPageOfReviewOpportunities,
     lastUpdateOfActiveChallenges: cl.lastUpdateOfActiveChallenges,
     loadingActiveChallengesUUID: cl.loadingActiveChallengesUUID,
     loadingDraftChallengesUUID: cl.loadingDraftChallengesUUID,
     loadingPastChallengesUUID: cl.loadingPastChallengesUUID,
+    loadingReviewOpportunitiesUUID: cl.loadingReviewOpportunitiesUUID,
     loadingChallengeSubtracks: cl.loadingChallengeSubtracks,
     loadingChallengeTags: cl.loadingChallengeTags,
     newChallengeDetails: ownProps.newChallengeDetails,
     openChallengesInNewTabs: ownProps.openChallengesInNewTabs,
     prizeMode: ownProps.prizeMode,
+    reviewOpportunities: cl.reviewOpportunities,
     selectedCommunityId: cl.selectedCommunityId,
     sorts: cl.sorts,
     activeBucket: cl.sidebar.activeBucket,
+    expandedTags: cl.expandedTags,
   };
 };
 
@@ -384,6 +413,11 @@ function mapDispatchToProps(dispatch) {
       dispatch(a.getPastChallengesInit(uuid, page, frontFilter));
       dispatch(a.getPastChallengesDone(uuid, page, filter, token, frontFilter));
     },
+    getReviewOpportunities: (page, token) => {
+      const uuid = shortId();
+      dispatch(a.getReviewOpportunitiesInit(uuid, page));
+      dispatch(a.getReviewOpportunitiesDone(uuid, page, token));
+    },
     selectBucket: bucket => dispatch(sa.selectBucket(bucket)),
     selectChallengeDetailsTab: tab =>
       dispatch(challengeActions.challenge.selectTab(tab)),
@@ -393,6 +427,7 @@ function mapDispatchToProps(dispatch) {
     setSort: (bucket, sort) => dispatch(a.setSort(bucket, sort)),
     markHeaderMenu: () =>
       dispatch(ah.setCurrentNav('Compete', 'All Challenges')),
+    expandTag: id => dispatch(a.expandTag(id)),
   };
 }
 

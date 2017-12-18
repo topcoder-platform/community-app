@@ -25,6 +25,7 @@ export const STATE = {
 };
 
 export default function JoinCommunity({
+  communityId,
   communityName,
   groupIds,
   hideJoinButton,
@@ -76,6 +77,7 @@ export default function JoinCommunity({
       ) : null}
       { state === STATE.CONFIRM_JOIN ? (
         <ConfirmModal
+          communityId={communityId}
           communityName={communityName}
           groupIds={groupIds}
           join={join}
@@ -97,6 +99,7 @@ JoinCommunity.defaultProps = {
 };
 
 JoinCommunity.propTypes = {
+  communityId: PT.string.isRequired,
   communityName: PT.string.isRequired,
   groupIds: PT.arrayOf(PT.string),
   hideJoinButton: PT.func.isRequired,

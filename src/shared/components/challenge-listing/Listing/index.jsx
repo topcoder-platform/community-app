@@ -5,8 +5,9 @@
 import _ from 'lodash';
 import React from 'react';
 import PT from 'prop-types';
-import { BUCKETS, getBuckets } from 'utils/challenge-listing/buckets';
+import { BUCKETS, getBuckets, isReviewOpportunitiesBucket } from 'utils/challenge-listing/buckets';
 import Bucket from './Bucket';
+import ReviewOpportunityBucket from './ReviewOpportunityBucket';
 import './style.scss';
 
 export default function Listing({
@@ -19,66 +20,25 @@ export default function Listing({
   keepPastPlaceholders,
   loadingDraftChallenges,
   loadingPastChallenges,
+  loadingReviewOpportunities,
   loadMoreDraft,
   loadMorePast,
+  loadMoreReviewOpportunities,
   newChallengeDetails,
   openChallengesInNewTabs,
   prizeMode,
+  reviewOpportunities,
   selectBucket,
   selectChallengeDetailsTab,
   selectedCommunityId,
   setFilterState,
   setSort,
   sorts,
+  expandedTags,
+  expandTag,
 }) {
   const buckets = getBuckets(_.get(auth.user, 'handle'));
 
-  if ((activeBucket !== BUCKETS.ALL)
-  && (activeBucket !== BUCKETS.SAVED_FILTER)) {
-    let keepPlaceholders = false;
-    let loading;
-    let loadMore;
-    switch (activeBucket) {
-      case BUCKETS.PAST:
-        keepPlaceholders = keepPastPlaceholders;
-        loading = loadingPastChallenges;
-        loadMore = loadMorePast;
-        break;
-      case BUCKETS.UPCOMING:
-        loading = loadingDraftChallenges;
-        loadMore = loadMoreDraft;
-        break;
-      default: break;
-    }
-    return (
-      <div styleName="challengeCardContainer">
-        <Bucket
-          bucket={buckets[activeBucket]}
-          bucketId={activeBucket}
-          challenges={challenges}
-          challengesUrl={challengesUrl}
-          communityName={communityName}
-          expanded
-          filterState={filterState}
-          keepPlaceholders={keepPlaceholders}
-          loading={loading}
-          loadMore={loadMore}
-          newChallengeDetails={newChallengeDetails}
-          openChallengesInNewTabs={openChallengesInNewTabs}
-          prizeMode={prizeMode}
-          selectChallengeDetailsTab={selectChallengeDetailsTab}
-          selectedCommunityId={selectedCommunityId}
-          setFilterState={setFilterState}
-          setSort={sort => setSort(activeBucket, sort)}
-          sort={sorts[activeBucket]}
-          userHandle={_.get(auth, 'user.handle')}
-        />
-      </div>
-    );
-  }
-
-  /* TODO: Isn't it exactly the same piece of code as above? In case yes,
-   * we should move this function up and re-use in both places. */
   const getBucket = (bucket) => {
     let keepPlaceholders = false;
     let loading;
@@ -96,29 +56,58 @@ export default function Listing({
       default: break;
     }
     return (
-      <Bucket
-        bucket={buckets[bucket]}
-        bucketId={bucket}
-        challenges={challenges}
-        challengesUrl={challengesUrl}
-        communityName={communityName}
-        expand={() => selectBucket(bucket)}
-        filterState={filterState}
-        keepPlaceholders={keepPlaceholders}
-        loading={loading}
-        loadMore={loadMore}
-        newChallengeDetails={newChallengeDetails}
-        openChallengesInNewTabs={openChallengesInNewTabs}
-        prizeMode={prizeMode}
-        selectChallengeDetailsTab={selectChallengeDetailsTab}
-        selectedCommunityId={selectedCommunityId}
-        setFilterState={setFilterState}
-        setSort={sort => setSort(bucket, sort)}
-        sort={sorts[bucket]}
-        userHandle={_.get(auth, 'user.handle')}
-      />
+      /* Review Opportunities use a different Bucket, Card and data source than normal challenges
+       * and are only shown when explicitly chosen from the sidebar */
+      isReviewOpportunitiesBucket(bucket) ?
+        <ReviewOpportunityBucket
+          bucket={buckets[bucket]}
+          challengesUrl={challengesUrl}
+          expandedTags={expandedTags}
+          expandTag={expandTag}
+          filterState={filterState}
+          keepPlaceholders={keepPlaceholders}
+          loading={loadingReviewOpportunities}
+          loadMore={loadMoreReviewOpportunities}
+          opportunities={reviewOpportunities}
+          setFilterState={setFilterState}
+          setSort={sort => setSort(bucket, sort)}
+          sort={sorts[bucket]}
+        />
+        :
+        <Bucket
+          bucket={buckets[bucket]}
+          bucketId={bucket}
+          challenges={challenges}
+          challengesUrl={challengesUrl}
+          communityName={communityName}
+          expand={() => selectBucket(bucket)}
+          expandedTags={expandedTags}
+          expandTag={expandTag}
+          filterState={filterState}
+          keepPlaceholders={keepPlaceholders}
+          loading={loading}
+          loadMore={loadMore}
+          newChallengeDetails={newChallengeDetails}
+          openChallengesInNewTabs={openChallengesInNewTabs}
+          prizeMode={prizeMode}
+          selectChallengeDetailsTab={selectChallengeDetailsTab}
+          selectedCommunityId={selectedCommunityId}
+          setFilterState={setFilterState}
+          setSort={sort => setSort(bucket, sort)}
+          sort={sorts[bucket]}
+          userHandle={_.get(auth, 'user.handle')}
+        />
     );
   };
+
+  if ((activeBucket !== BUCKETS.ALL)
+  && (activeBucket !== BUCKETS.SAVED_FILTER)) {
+    return (
+      <div styleName="challengeCardContainer">
+        {getBucket(activeBucket)}
+      </div>
+    );
+  }
 
   return (
     <div styleName="challengeCardContainer">
@@ -139,8 +128,12 @@ Listing.defaultProps = {
   communityName: null,
   currentFilterName: '',
   expanded: false,
+  expandedTags: [],
+  expandTag: null,
   loadMoreDraft: null,
   loadMorePast: null,
+  loadMoreReviewOpportunities: null,
+  reviewOpportunities: [],
   onTechTagClicked: _.noop,
   onExpandFilterResult: _.noop,
   openChallengesInNewTabs: false,
@@ -157,15 +150,20 @@ Listing.propTypes = {
   challenges: PT.arrayOf(PT.shape()),
   challengesUrl: PT.string.isRequired,
   communityName: PT.string,
+  expandedTags: PT.arrayOf(PT.number),
+  expandTag: PT.func,
   filterState: PT.shape().isRequired,
   keepPastPlaceholders: PT.bool.isRequired,
   loadingDraftChallenges: PT.bool.isRequired,
   loadingPastChallenges: PT.bool.isRequired,
+  loadingReviewOpportunities: PT.bool.isRequired,
   loadMoreDraft: PT.func,
   loadMorePast: PT.func,
+  loadMoreReviewOpportunities: PT.func,
   newChallengeDetails: PT.bool.isRequired,
   openChallengesInNewTabs: PT.bool,
   prizeMode: PT.string.isRequired,
+  reviewOpportunities: PT.arrayOf(PT.shape()),
   selectBucket: PT.func.isRequired,
   selectChallengeDetailsTab: PT.func.isRequired,
   selectedCommunityId: PT.string.isRequired,

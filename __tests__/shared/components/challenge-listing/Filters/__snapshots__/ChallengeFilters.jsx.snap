@@ -56,6 +56,8 @@ exports[`Matches shallow shapshot shapshot 1`] = `
     defaultCommunityId={undefined}
     filterState={Object {}}
     hidden={true}
+    isAuth={false}
+    isReviewOpportunitiesBucket={false}
     isSavingFilter={false}
     onClose={[Function]}
     onSaveFilter={[Function]}
@@ -215,6 +217,8 @@ exports[`Matches shallow shapshot shapshot 2`] = `
       }
     }
     hidden={true}
+    isAuth={false}
+    isReviewOpportunitiesBucket={false}
     isSavingFilter={false}
     onClose={[Function]}
     onSaveFilter={[Function]}

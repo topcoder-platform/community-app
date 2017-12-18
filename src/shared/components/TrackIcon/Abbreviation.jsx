@@ -1,5 +1,6 @@
 const Abbreviation = {
   DEVELOP: {
+    REVIEW_OPPORTUNITY: 'Rv', // TODO: [Review Opps] This is temporary
     DESIGN: 'Ds',
     DEVELOPMENT: 'Dv',
     SECURITY: 'Sc',

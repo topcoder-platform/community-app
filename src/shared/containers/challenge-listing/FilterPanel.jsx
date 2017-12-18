@@ -8,7 +8,7 @@ import FilterPanel from 'components/challenge-listing/Filters/ChallengeFilters';
 import PT from 'prop-types';
 import React from 'react';
 import sidebarActions from 'actions/challenge-listing/sidebar';
-import { BUCKETS } from 'utils/challenge-listing/buckets';
+import { BUCKETS, isReviewOpportunitiesBucket } from 'utils/challenge-listing/buckets';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
@@ -45,25 +45,33 @@ export class Container extends React.Component {
       communityName: 'All',
     }].concat(this.props.communityFilters);
 
+    const isForReviewOpportunities = isReviewOpportunitiesBucket(this.props.activeBucket);
+
     return (
       <FilterPanel
         {...this.props}
         communityFilters={communityFilters}
         saveFilter={() => {
           const name = getAvailableFilterName(this.props.savedFilters);
-          this.props.saveFilter(
-            name, {
-              ...this.props.filterState,
-              communityId: this.props.selectedCommunityId,
-            }, this.props.tokenV2);
+          const filter = {
+            ...this.props.filterState,
+            communityId: this.props.selectedCommunityId,
+          };
+
+          if (isForReviewOpportunities) filter.isForReviewOpportunities = true;
+
+          this.props.saveFilter(name, filter, this.props.tokenV2);
         }}
         setFilterState={(state) => {
           this.props.setFilterState(state);
           if (this.props.activeBucket === BUCKETS.SAVED_FILTER) {
             this.props.selectBucket(BUCKETS.ALL);
+          } else if (this.props.activeBucket === BUCKETS.SAVED_REVIEW_OPPORTUNITIES_FILTER) {
+            this.props.selectBucket(BUCKETS.REVIEW_OPPORTUNITIES);
           }
         }}
         isSavingFilter={this.props.isSavingFilter}
+        isReviewOpportunitiesBucket={isForReviewOpportunities}
       />
     );
   }

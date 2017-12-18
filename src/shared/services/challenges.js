@@ -578,6 +578,25 @@ class ChallengesService {
     if (res.status !== 200) throw new Error(res.content);
     return res.content;
   }
+
+  /**
+   * Gets a list of currently open Review Opportunities.
+   * @param {Number} limit The max number to return in one call.
+   * @param {Number} offset Offset, used with limit to lazy load.
+   * @return {Promise} Resolves to the api response in JSON.
+   */
+  // This rule modification can be removed when mock api call is replaced
+  /* eslint-disable class-methods-use-this */
+  getReviewOpportunities(limit, offset) {
+    const endpoint = `/reviewOpportunities?limit=${limit}&offset=${offset}`;
+    return this.private.api.get(endpoint)
+      .then(res => (res.ok ? res.json() : new Error(res.statusText)))
+      .then(res => (
+        res.result.status === 200 ?
+          res.result.content :
+          new Error(res.result.content)
+      ));
+  }
 }
 
 /**

@@ -14,7 +14,7 @@ import defaultStyle from './style.scss';
 import TopcoderLogoGray from '../../../../assets/images/tc-communities/logo_topcoder_gray.svg';
 
 function Footer(props) {
-  const { menuItems, theme } = props;
+  const { communityId, menuItems, theme } = props;
 
   const items = _.map(menuItems, (item, index) => (
     <li key={index} className={theme.item}>
@@ -51,14 +51,14 @@ function Footer(props) {
             className={theme.btnRegister}
             onClick={() => {
               const url = encodeURIComponent(window.location.href);
-              window.location = `${config.URL.AUTH}/member/registration?retUrl=${url}`;
+              window.location = `${config.URL.AUTH}/member/registration?retUrl=${url}&utm_source=${communityId}`;
             }}
           >Register</button>
           <button
             className={theme.btnLogin}
             onClick={() => {
               const url = encodeURIComponent(window.location.href);
-              window.location = `${config.URL.AUTH}/member?retUrl=${url}`;
+              window.location = `${config.URL.AUTH}/member?retUrl=${url}&utm_source=${communityId}`;
             }}
           >Login</button>
         </div>
@@ -72,6 +72,7 @@ Footer.defaultProps = {
 };
 
 Footer.propTypes = {
+  communityId: PT.string.isRequired,
   menuItems: PT.arrayOf(PT.shape({
     title: PT.string.isRequired,
     url: PT.string.isRequired,
