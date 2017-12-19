@@ -1,5 +1,6 @@
+import Connector from 'components/Editor/Connector';
 import Editor from 'components/Editor';
-import EditorToolbar, { Connector } from 'components/Editor/Toolbar';
+import EditorToolbar from 'components/Editor/Toolbar';
 import React from 'react';
 import './style.scss';
 
