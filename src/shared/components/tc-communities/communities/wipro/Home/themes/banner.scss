@@ -1,7 +1,10 @@
 @import '~styles/mixins';
 
 .container {
+  background-position: 60% 0;
+
   @include xs-to-sm {
+    background-position: 30% 0;
     height: 470px;
   }
 }
@@ -9,23 +12,23 @@
 .content {
   border-radius: 100%;
   bottom: 0;
-  height: 364px;
+  height: 450px;
   left: 0;
   overflow: visible;
   position: absolute;
-  top: 50%;
+  top: 55%;
   transform: none;
-  width: 364px;
+  width: 450px;
 }
 
 .contentBg {
-  background: #00a2e0;
+  background: #eb3747;
   position: absolute;
   bottom: -135px;
   left: -30px;
   border-radius: 100%;
-  width: 364px;
-  height: 364px;
+  width: 450px;
+  height: 450px;
   transform: none;
 
   @include xs-to-sm {
@@ -52,17 +55,17 @@ h2.title {
   font-family: 'Akkurat mono';
   font-size: 20px;
   line-height: 100%;
-  padding-left: 18px;
+  padding-left: 30px;
   padding-top: 5px;
   text-transform: none;
   width: 167px;
 }
 
+.contentInner p,
 .text {
   font-family: 'Akkurat regular';
   line-height: 20px;
-  margin-left: 18px;
-  margin-right: 30px;
+  margin: 12px 60px 12px 30px;
 }
 
 .linkWrap {
