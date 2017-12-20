@@ -93,13 +93,11 @@ class TermsService {
    * @param  {Number|String} termId id of the term
    * @return {Promise}       promise of the request result
    */
-  async getTermDetails(termId) {
-    /* looks like server cache responses, to prevent it we add nocache param
-     * with always new value */
-    const URL = `/terms/detail/${termId}?nocache=${Date.now()}`;
-    const res = this.private.api.get(URL);
-    if (!res.ok) throw new Error(res.statusText);
-    return res.json();
+  getTermDetails(termId) {
+    // looks like server cache responses, to prevent it we add nocache param with always new value
+    const nocache = (new Date()).getTime();
+    return this.private.api.get(`/terms/detail/${termId}?nocache=${nocache}`)
+      .then(res => (res.ok ? res.json() : Promise.reject(res.json())));
   }
 
   /**
