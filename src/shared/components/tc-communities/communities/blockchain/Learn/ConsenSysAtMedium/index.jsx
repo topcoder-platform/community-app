@@ -8,6 +8,8 @@ import PT from 'prop-types';
 import React from 'react';
 import Section from 'components/tc-communities/Section';
 
+import Newsletter from './Newsletter';
+
 import Card from './Card';
 import style from './style.scss';
 
@@ -28,6 +30,7 @@ export default function ConsenSysAtMedium({ consenSysRss }) {
       title="ConsenSys @ Medium"
     >
       {cards || <LoadingIndicator />}
+      <Newsletter />
     </Section>
   );
 }
