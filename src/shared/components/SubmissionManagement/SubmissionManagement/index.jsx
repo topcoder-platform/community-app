@@ -91,7 +91,7 @@ export default function SubmissionManagement(props) {
         <div styleName="content-head">
           <p styleName="title">Manage your submissions</p>
           {isDesign && <p styleName="round-ends">
-            <span styleName="ends-label">{currentPhase.phaseType} Ends:</span> {end.format('dddd MM/DD/YY hh:mm A')} EDT</p>}
+            <span styleName="ends-label">{currentPhase.phaseType} Ends:</span> {end.format('dddd MM/DD/YY hh:mm A')}</p>}
         </div>
         {isDesign && <p styleName="recommend-info">
           We always recommend to download your submission to check you uploaded the correct

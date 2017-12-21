@@ -82,7 +82,7 @@ export default function Winner({
           /*
           <div styleName="date">
             <span>Submitted&nbsp;on:</span>&zwnj;
-            &zwnj;<span>{moment(winner.submissionDate).format('MMM DD, YYYY HH:mm')} EDT</span>
+            &zwnj;<span>{moment(winner.submissionDate).format('MMM DD, YYYY HH:mm')}</span>
           </div>
           */
         }
