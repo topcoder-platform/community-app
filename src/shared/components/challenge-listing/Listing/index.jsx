@@ -39,7 +39,7 @@ export default function Listing({
 }) {
   const buckets = getBuckets(_.get(auth.user, 'handle'));
 
-  const getBucket = (bucket) => {
+  const getBucket = (bucket, expanded = false) => {
     let keepPlaceholders = false;
     let loading;
     let loadMore;
@@ -81,6 +81,7 @@ export default function Listing({
           challengesUrl={challengesUrl}
           communityName={communityName}
           expand={() => selectBucket(bucket)}
+          expanded={expanded}
           expandedTags={expandedTags}
           expandTag={expandTag}
           filterState={filterState}
@@ -104,7 +105,7 @@ export default function Listing({
   && (activeBucket !== BUCKETS.SAVED_FILTER)) {
     return (
       <div styleName="challengeCardContainer">
-        {getBucket(activeBucket)}
+        {getBucket(activeBucket, true)}
       </div>
     );
   }
