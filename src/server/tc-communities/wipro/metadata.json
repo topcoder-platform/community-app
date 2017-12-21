@@ -31,7 +31,8 @@
       "url": "/"
     }, {
       "title": "Learn",
-      "url": "/learn"
+      "openNewTab": true,
+      "url": "https://topgear-app.wipro.com"
     }, {
       "title": "Challenges",
       "url": "/challenges"

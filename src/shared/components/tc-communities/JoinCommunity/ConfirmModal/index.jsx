@@ -17,6 +17,7 @@ import { PrimaryButton, SecondaryButton } from 'components/buttons';
 import style from './style.scss';
 
 export default function ConfirmModal({
+  communityId,
   communityName,
   groupIds,
   join,
@@ -52,7 +53,7 @@ export default function ConfirmModal({
               const url = encodeURIComponent(
                 `${window.location.href}?join=${groupIds[0]}`,
               );
-              window.location = `${config.URL.AUTH}/member?retUrl=${url}`;
+              window.location = `${config.URL.AUTH}/member?retUrl=${url}&utm_source=${communityId}`;
             }}
           >Login</PrimaryButton>
           <PrimaryButton
@@ -61,10 +62,10 @@ export default function ConfirmModal({
                 `${window.location.href}?join=${groupIds[0]}`,
               );
               url = encodeURIComponent(
-                `${config.URL.AUTH}/member?retUrl=${url}`,
+                `${config.URL.AUTH}/member?retUrl=${url}&utm_source=${communityId}`,
               );
               url = encodeURIComponent(url);
-              window.location = `${config.URL.AUTH}/member/registration?retUrl=${url}`;
+              window.location = `${config.URL.AUTH}/member/registration?retUrl=${url}&utm_source=${communityId}`;
             }}
           >Register</PrimaryButton>
           <SecondaryButton
@@ -82,6 +83,7 @@ ConfirmModal.defaultProps = {
 };
 
 ConfirmModal.propTypes = {
+  communityId: PT.string.isRequired,
   communityName: PT.string.isRequired,
   groupIds: PT.arrayOf(PT.string).isRequired,
   join: PT.func.isRequired,

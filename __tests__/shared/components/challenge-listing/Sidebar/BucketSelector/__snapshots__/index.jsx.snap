@@ -178,11 +178,12 @@ exports[`Matches shallow shapshot 2`] = `
     onClick={[Function]}
   />
   <hr />
-  <span
+  <a
     className="src-shared-components-challenge-listing-Sidebar-BucketSelector-___style__openForReview___11K8O"
+    href="https://www.topcoder-dev.com/review/development-review-opportunities/"
   >
     Open for review
-  </span>
+  </a>
   <Bucket
     active={false}
     bucket={

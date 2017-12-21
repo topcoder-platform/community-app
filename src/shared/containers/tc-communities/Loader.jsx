@@ -50,7 +50,7 @@ class Loader extends React.Component {
      * clear, what exactly do we need to support it in general. */
     if (communityId === 'wipro' && !this.props.visitorGroups) {
       const returnUrl = encodeURIComponent(window.location.href);
-      window.location = `${config.URL.AUTH}/sso-login/?retUrl=${returnUrl}`;
+      window.location = `${config.URL.AUTH}/sso-login/?retUrl=${returnUrl}&utm_source=wipro`;
     }
   }
 
@@ -88,7 +88,12 @@ class Loader extends React.Component {
        * placeholder rather than access denied message. In future a more
        * generic implementation of this should be put here. */
       if (communityId === 'wipro') return <LoadingPagePlaceholder />;
-      return <AccessDenied cause={ACCESS_DENIED_REASON.NOT_AUTHENTICATED} />;
+      return (
+        <AccessDenied
+          cause={ACCESS_DENIED_REASON.NOT_AUTHENTICATED}
+          communityId={communityId}
+        />
+      );
     }
 
     /* Visitor belongs to at least one of the groups authorized to access this

@@ -14,7 +14,7 @@ import './style.scss';
 
 function formatDate(date) {
   if (!date) return '-';
-  return `${moment(date).format('MMM DD, YYYY HH:mm')} EDT`;
+  return moment(date).format('MMM DD, YYYY HH:mm');
 }
 
 function getDate(arr, handle) {

@@ -48,6 +48,7 @@ export default function QA({ base, member, meta }) {
                 component={routeProps => ChallengeDetails({
                   ...routeProps,
                   challengesUrl: `${base}/challenges`,
+                  communityId: meta.communityId,
                 })}
                 exact
                 path={`${base}/challenges/:challengeId(\\d{8})`}

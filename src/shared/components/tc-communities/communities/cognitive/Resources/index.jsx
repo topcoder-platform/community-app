@@ -98,7 +98,7 @@ export default function Resources({
               </p>
               <p>
                 <a
-                  href="https://console.bluemix.net/registration/free?"
+                  href="https://console.bluemix.net/registration/free?cm_mmc=dw-_-cognitive-_-topcoder-_-community"
                   target="_blank"
                   rel="noopener noreferrer"
                   styleName="style.link"
@@ -112,7 +112,7 @@ export default function Resources({
             >
               It’s easy!
               &zwnj;<a
-                href="https://console.bluemix.net/registration/free?"
+                href="https://console.bluemix.net/registration/free?cm_mmc=dw-_-cognitive-_-topcoder-_-community"
                 target="_blank"
                 rel="noopener noreferrer"
                 styleName="style.link"
