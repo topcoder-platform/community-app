@@ -35,7 +35,7 @@ export default class EditorWrapper extends React.Component {
     this.id = props.id;
 
     this.state = {
-      editorState: EditorState.createEmpty(),
+      editor: EditorState.createEmpty(),
       markdown: false,
     };
 
@@ -86,7 +86,7 @@ export default class EditorWrapper extends React.Component {
    * @param {String} type The new block style
    */
   applyBlockStyle(type) {
-    let editorState = this.state.editorState;
+    let editorState = this.state.editor;
     editorState = RichUtils.toggleBlockType(editorState, type);
     this.setState({ editorState });
   }
@@ -98,7 +98,7 @@ export default class EditorWrapper extends React.Component {
    * @param {String} color The new color name
    */
   applyColorStyle(type, color) {
-    let editorState = this.state.editorState;
+    let editorState = this.state.editor;
     let contentState = editorState.getCurrentContent();
 
     const sel = editorState.getSelection();
@@ -123,7 +123,7 @@ export default class EditorWrapper extends React.Component {
    * @param {Boolean} triggerModal Whether to trigger the img selection/resize modal on creation
    */
   insertImage(src, triggerModal) {
-    let editorState = this.state.editorState;
+    let editorState = this.state.editor;
     let contentState = editorState.getCurrentContent();
 
     // If the user has a range selected, it needs to be collapsed before insertText will work
@@ -162,7 +162,7 @@ export default class EditorWrapper extends React.Component {
    * @param {Boolean} triggerPopup Whether to trigger the popup on creation
    */
   insertLink(title, href, triggerPopup) {
-    let editorState = this.state.editorState;
+    let editorState = this.state.editor;
     let contentState = editorState.getCurrentContent();
 
     const sel = editorState.getSelection();
@@ -205,7 +205,7 @@ export default class EditorWrapper extends React.Component {
    * @return {String} The resulting style of the selection
    */
   toggleInlineStyle(styleName) {
-    const editorState = RichUtils.toggleInlineStyle(this.state.editorState, styleName);
+    const editorState = RichUtils.toggleInlineStyle(this.state.editor, styleName);
     this.setState({ editorState });
     return editorState.getCurrentInlineStyle();
   }
@@ -216,7 +216,7 @@ export default class EditorWrapper extends React.Component {
     const st = this.state;
 
     let containerStyles = style.container;
-    if (st.editorState.getSelection().getHasFocus()) {
+    if (st.editor.getSelection().getHasFocus()) {
       containerStyles += ` ${style.focused}`;
     }
 
@@ -229,7 +229,7 @@ export default class EditorWrapper extends React.Component {
         tabIndex={0}
       >
         <Editor
-          editorState={st.editorState}
+          editorState={st.editor}
           handleKeyCommand={(command, state) => {
             const editorState = RichUtils.handleKeyCommand(
               state, command);

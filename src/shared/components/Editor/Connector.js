@@ -6,6 +6,7 @@ import _ from 'lodash';
 export default class Connector {
   constructor() {
     this.editors = [];
+    this.markdownMonitor = null;
     this.focusedEditor = null;
     this.previousEditor = null;
     this.toolbar = null;
@@ -28,6 +29,10 @@ export default class Connector {
 
   toggleInlineMarkdown(markdown) {
     this.editors.forEach(editor => editor.setState({ markdown }));
+  }
+
+  setMarkdownMonitor(monitor) {
+    this.markdownMonitor = monitor;
   }
 
   /**
