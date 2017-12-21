@@ -103,8 +103,10 @@ export default function ChallengeHeader(props) {
   const hasSubmissions = userDetails && (userDetails.submissions || []).reduce(
     (acc, submission) => acc || submission.status !== 'Deleted', false);
 
-  const nextPhase =
-    (currentPhases && currentPhases[hasRegistered ? 1 : 0]) || {};
+  let nextPhase = (currentPhases && currentPhases[0]) || {};
+  if (hasRegistered && nextPhase.phaseType === 'Registration') {
+    nextPhase = currentPhases[1] || {};
+  }
   const nextDeadline = nextPhase.phaseType;
   const deadlineEnd = nextPhase ?
     new Date(nextPhase.scheduledEndTime).getTime() : Date.now();
