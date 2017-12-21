@@ -17,7 +17,7 @@ export default function Card({ past, time, title }) {
   return (
     <div styleName={past2 ? 'past' : 'open'}>
       <p styleName="title">{title}</p>
-      <p styleName="date">{time2.local().format(FORMAT)}</p>
+      <p styleName="date">{time2.format(FORMAT)}</p>
     </div>
   );
 }
