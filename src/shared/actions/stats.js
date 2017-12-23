@@ -22,7 +22,11 @@ async function getCommunityStats(community, challenges, token) {
   /* TODO: At the moment, this component loads challenge objects to calculate
    * the number of challenges and the total prize. Probably in future, we'll
    * have a special API to get these data. */
-  const filtered = _.filter(challenges, Filter.getFilterFunction(community.challengeFilter || {}));
+  let filtered = challenges.filter(x => x.status === 'ACTIVE');
+  if (community.challengeFilter) {
+    const filterFunction = Filter.getFilterFunction(community.challengeFilter);
+    filtered = filtered.filter(filterFunction);
+  }
   const totalPrize = filtered.reduce((total, challenge) => total + (challenge.totalPrize || 0), 0);
   const groupService = getGroupService(token);
   const result = {
