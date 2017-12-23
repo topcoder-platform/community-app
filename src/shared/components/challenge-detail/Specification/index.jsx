@@ -5,13 +5,14 @@
 import _ from 'lodash';
 import config from 'utils/config';
 import Editor from 'components/Editor';
-import EditorToolbar, { Connector as ToolbarConnector } from 'components/Editor/Toolbar';
+import EditorToolbar from 'components/Editor/Toolbar';
+import ToolbarConnector from 'components/Editor/Connector';
 import React from 'react';
 import Sticky from 'react-stickynode';
 import PT from 'prop-types';
 import { DangerButton } from 'components/buttons';
 import { SPECS_TAB_STATES } from 'actions/page/challenge-details';
-import { stateToHTML } from 'draft-js-export-html';
+import { editorStateToHTML } from 'utils/editor';
 
 import SaveConfirmationModal from './SaveConfirmationModal';
 import SideBar from './SideBar';
@@ -91,7 +92,7 @@ export default function ChallengeDetailsView(props) {
     updatedChallenge.id = challenge.id;
     updatedChallenge.reviewType = challenge.reviewType;
     _.forIn(toolbarConnector.editors, (x) => {
-      const html = stateToHTML(x.state.editorState.getCurrentContent());
+      const html = editorStateToHTML(x.state.editorState.getCurrentContent());
       updatedChallenge[x.id] = html;
     });
     updateChallenge(updatedChallenge);
@@ -438,7 +439,7 @@ export default function ChallengeDetailsView(props) {
           reviewScorecardId={reviewScorecardId}
           forumLink={forumLink}
           submissionLimit={submissionLimit}
-          eventDetail={mainEvent}
+          eventDetail={_.isEmpty(mainEvent) ? null : mainEvent}
           documents={documents}
           hasRegistered={hasRegistered}
           fileTypes={fileTypes}
@@ -505,10 +506,10 @@ ChallengeDetailsView.propTypes = {
       roles: PT.arrayOf(PT.string).isRequired,
     }).isRequired,
   }),
-  communitiesList: PT.shape({
+  communitiesList: PT.arrayOf(PT.shape({
     communityId: PT.string.isRequired,
-    groupIds: PT.arrayOf(PT.number).isRequired,
-  }).isRequired,
+    groupIds: PT.arrayOf(PT.string).isRequired,
+  })).isRequired,
   openTermsModal: PT.func.isRequired,
   savingChallenge: PT.bool.isRequired,
   setSpecsTabState: PT.func.isRequired,

@@ -6,36 +6,46 @@
  * but it will have performance drawback, as it will demand constant conversions
  * between the Redux state segment and the internal state of the editor.
  */
-
+import _ from 'lodash';
 import PT from 'prop-types';
 import React from 'react';
 
 import {
   ContentState,
   convertFromHTML,
-  Editor,
   EditorState,
+  Modifier,
   RichUtils,
 } from 'draft-js';
-
 import 'draft-js/dist/Draft.css';
 
-import { Connector } from './Toolbar';
+import Editor from 'draft-js-plugins-editor';
+import createMarkdownShortcutsPlugin from 'draft-js-markdown-shortcuts-plugin';
+
+import { EDITOR_COLOR_MAP } from 'utils/editor';
+
+import Connector from './Connector';
+import createCustomPlugin from './plugin';
 
 import style from './style.scss';
-
-const INLINE_STYLE_MAP = {
-  CODE: {
-    background: '#fafafb',
-    fontFamily: '"Roboto Mono", monospace',
-  },
-};
 
 export default class EditorWrapper extends React.Component {
   constructor(props) {
     super(props);
     this.id = props.id;
-    this.state = { editorState: EditorState.createEmpty() };
+
+    this.state = {
+      editorState: EditorState.createEmpty(),
+      markdown: false,
+    };
+
+    // Each Editor needs its own instance of plugins
+    this.markdownPlugin = createMarkdownShortcutsPlugin();
+    // We need to inject the EditorWrapper into the plugin so that it can
+    // modify state.editorState
+    this.customPlugin = createCustomPlugin({
+      editor: this,
+    });
   }
 
   componentDidMount() {
@@ -48,6 +58,7 @@ export default class EditorWrapper extends React.Component {
         editorState.entityMap,
       );
       editorState = EditorState.createWithContent(editorState);
+      this.initialContent = editorState.getCurrentContent();
       setImmediate(() => this.setState({ editorState }));
     }
   }
@@ -69,6 +80,136 @@ export default class EditorWrapper extends React.Component {
     if (this.node) this.node.focus();
   }
 
+  /**
+   * Sets the block type/style at the current selection.  Type map can be found in utils/editor.
+   * Only one block type/style can be applied, this will replace the previous.
+   * @param {String} type The new block style
+   */
+  applyBlockStyle(type) {
+    let editorState = this.state.editorState;
+    editorState = RichUtils.toggleBlockType(editorState, type);
+    this.setState({ editorState });
+  }
+
+  /**
+   * Sets the color at the current selection for the specified category.
+   * Type map can be found in utils/editor.
+   * @param {String} type Category, TEXT or HIGHLIGHT
+   * @param {String} color The new color name
+   */
+  applyColorStyle(type, color) {
+    let editorState = this.state.editorState;
+    let contentState = editorState.getCurrentContent();
+
+    const sel = editorState.getSelection();
+
+    // Clear any existing colors
+    contentState = _.reduce(
+      EDITOR_COLOR_MAP,
+      (state, value, name) => Modifier.removeInlineStyle(state, sel, `${type}_${name}`),
+      contentState);
+
+    editorState = EditorState.push(editorState, contentState, 'change-inline-style');
+
+    // Apply new color
+    editorState = RichUtils.toggleInlineStyle(editorState, `${type}_${color}`);
+
+    this.setState({ editorState });
+  }
+
+  /**
+   * Inserts a new image at current cursor selection.
+   * @param {String} src The default <img> src
+   * @param {Boolean} triggerModal Whether to trigger the img selection/resize modal on creation
+   */
+  insertImage(src, triggerModal) {
+    let editorState = this.state.editorState;
+    let contentState = editorState.getCurrentContent();
+
+    // If the user has a range selected, it needs to be collapsed before insertText will work
+    // This sets the starting and ending range to the same position,
+    // which is equivalent to just a cursor/caret
+    let sel = editorState.getSelection();
+    const startKey = sel.getStartKey();
+    const startOffset = sel.getStartOffset();
+    sel = sel.merge({
+      anchorKey: startKey,
+      anchorOffset: startOffset,
+      focusKey: startKey,
+      focusOffset: startOffset,
+    });
+
+    contentState = contentState.createEntity('IMG', 'SEGMENTED', { src, triggerModal });
+    const key = contentState.getLastCreatedEntityKey();
+
+    // Using insertText so that images behave in an inline fashion
+    contentState = Modifier.insertText(
+      contentState,
+      sel,
+      ' ',
+      null,
+      key);
+
+    editorState = EditorState.push(editorState, contentState, 'insert-characters');
+
+    this.setState({ editorState });
+  }
+
+  /**
+   * Inserts a new link at current cursor, or applies to selected text
+   * @param {String} title Default title to display for the link, if no text is selected in range
+   * @param {String} href The <a> href
+   * @param {Boolean} triggerPopup Whether to trigger the popup on creation
+   */
+  insertLink(title, href, triggerPopup) {
+    let editorState = this.state.editorState;
+    let contentState = editorState.getCurrentContent();
+
+    const sel = editorState.getSelection();
+
+    contentState = contentState.createEntity('LINK', 'MUTABLE', { href, triggerPopup });
+    const key = contentState.getLastCreatedEntityKey();
+
+    // Selection is a just the cursor, insert new link
+    if (sel.isCollapsed()) {
+      // Inserts a space at the cursor, needed so that the user can 'escape'
+      // from the link entity by clicking after the link, or pressing right arrow
+      contentState = Modifier.insertText(
+        contentState,
+        sel,
+        ' ',
+        null,
+        null,
+      );
+      // Because selection hasn't been updated, this will insert the link *before*
+      // the newly created space.
+      contentState = Modifier.insertText(
+        contentState,
+        sel,
+        title,
+        null,
+        key,
+      );
+
+      editorState = EditorState.push(editorState, contentState, 'insert-characters');
+    } else { // Selection is a range, keep the text but make it a link
+      editorState = RichUtils.toggleLink(editorState, sel, key);
+    }
+
+    this.setState({ editorState });
+  }
+
+  /**
+   * Toggle an inline text style on/off
+   * @param {String} styleName Name of the style
+   * @return {String} The resulting style of the selection
+   */
+  toggleInlineStyle(styleName) {
+    const editorState = RichUtils.toggleInlineStyle(this.state.editorState, styleName);
+    this.setState({ editorState });
+    return editorState.getCurrentInlineStyle();
+  }
+
   render() {
     const { connector } = this.props;
 
@@ -88,7 +229,6 @@ export default class EditorWrapper extends React.Component {
         tabIndex={0}
       >
         <Editor
-          customStyleMap={INLINE_STYLE_MAP}
           editorState={st.editorState}
           handleKeyCommand={(command, state) => {
             const editorState = RichUtils.handleKeyCommand(
@@ -102,9 +242,19 @@ export default class EditorWrapper extends React.Component {
           }}
           onChange={(newState) => {
             const hasFocus = newState.getSelection().getHasFocus();
+            if (!connector.modified
+              && this.initialContent
+              && this.initialContent !== newState.getCurrentContent()
+            ) {
+              connector.modified = true;
+            }
             connector.setFocusedEditor(hasFocus ? this : null, newState);
             this.setState({ editorState: newState });
           }}
+          plugins={[
+            this.state.markdown ? this.markdownPlugin : {},
+            this.customPlugin,
+          ]}
           ref={(node) => { this.node = node; }}
           spellCheck
         />

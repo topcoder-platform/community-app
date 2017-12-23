@@ -6,6 +6,7 @@
  * the container. It is useful for demo mock-ups of UI.
  */
 
+import _ from 'lodash';
 import PT from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
@@ -15,11 +16,21 @@ import actions from 'actions/stats';
 import cActions from 'actions/challenge-listing';
 import CommunityStats from 'components/tc-communities/CommunityStats';
 
+/* Various time ranges in ms. */
+const MIN = 60 * 1000;
+
 class CommunityStatsContainer extends React.Component {
   /* When container mounts we get / update related stats. */
   componentDidMount() {
+    const {
+      lastUpdateOfActiveChallenges,
+    } = this.props;
+
     this.props.getCommunityStats(this.props.community, this.props.challenges, this.props.token);
-    this.props.getAllActiveChallenges(this.props.token);
+
+    if (Date.now() - lastUpdateOfActiveChallenges > 10 * MIN) {
+      this.props.getAllActiveChallenges(this.props.token);
+    }
   }
 
   /* When group or auth token is changed we get / update related stats. */
@@ -31,7 +42,7 @@ class CommunityStatsContainer extends React.Component {
       this.props.getCommunityStats(nextProps.community, nextProps.challenges, nextProps.token);
     }
 
-    if (nextProps.token && nextProps.token !== this.props.token) {
+    if (nextProps.userId !== this.props.userId) {
       this.props.getAllActiveChallenges(nextProps.token);
     }
   }
@@ -59,6 +70,7 @@ CommunityStatsContainer.defaultProps = {
   titles: {},
   icons: {},
   filter: null,
+  userId: null,
 };
 
 CommunityStatsContainer.propTypes = {
@@ -68,11 +80,13 @@ CommunityStatsContainer.propTypes = {
   stats: PT.shape(),
   token: PT.string,
   challenges: PT.arrayOf(PT.shape()),
+  lastUpdateOfActiveChallenges: PT.number.isRequired,
   loadingChallenges: PT.bool,
   theme: PT.shape(),
   titles: PT.shape(),
   icons: PT.shape(),
   filter: PT.shape(),
+  userId: PT.string,
 };
 
 function mapDispatchToProps(dispatch) {
@@ -89,12 +103,16 @@ function mapDispatchToProps(dispatch) {
 function mapStateToProps(state, ownProps) {
   const community = state.tcCommunities.meta.data;
   const challenges = state.challengeListing.challenges;
+  const lastUpdateOfActiveChallenges =
+    state.challengeListing.lastUpdateOfActiveChallenges;
   return {
     community,
     challenges,
+    lastUpdateOfActiveChallenges,
     loadingChallenges: Boolean(state.challengeListing.loadingActiveChallengesUUID),
     stats: ownProps.stats || state.stats.communities[community.communityId],
     token: state.auth.tokenV3,
+    userId: _.get(state, 'auth.user.userId'),
   };
 }
 

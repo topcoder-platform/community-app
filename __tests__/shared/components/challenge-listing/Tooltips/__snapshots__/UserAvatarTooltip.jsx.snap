@@ -21,6 +21,12 @@ exports[`Matches shallow shapshot 1`] = `
   onTooltipHover={[Function]}
   placeArrow={[Function]}
   position="top"
+  suppressDiv={false}
+  trigger={
+    Array [
+      "hover",
+    ]
+  }
 >
   <div>
     <div
@@ -53,6 +59,12 @@ exports[`Matches shallow shapshot 2`] = `
   onTooltipHover={[Function]}
   placeArrow={[Function]}
   position="top"
+  suppressDiv={false}
+  trigger={
+    Array [
+      "hover",
+    ]
+  }
 >
   <div>
     <div

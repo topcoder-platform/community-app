@@ -1,84 +1,22 @@
 import actions from 'actions/stats';
 
-let originalFetch;
-
-beforeAll(() => {
-  originalFetch = global.fetch;
-});
-
-afterAll(() => {
-  global.fetch = originalFetch;
-});
-
-const response1 = {
-  ok: true,
-  json: () => ({
-    result: {
-      status: 200,
-      content: [{
-        allPhases: [{
-          phaseType: 'Registration',
-          phaseStatus: 'Open',
-        }],
-        groupIds: [],
-        totalPrize: 0,
-      }, {
-        allPhases: [{
-          phaseType: 'Registration',
-          phaseStatus: 'Open',
-        }],
-        groupIds: [],
-        totalPrize: 0,
-      }],
-      metadata: {
-        totalCount: 2,
-      },
-    },
-  }),
-};
-
-const response2 = {
-  ok: true,
-  json: () => ({
-    result: {
-      status: 200,
-      content: [],
-      metadata: {
-        totalCount: 10,
-      },
-    },
-  }),
-};
+jest.mock('services/groups.js');
 
 const result = {
   communityId: undefined,
-  stats: {},
+  stats: {
+    numMembers: 500,
+  },
 };
 
-describe('stats.getGroupStats fetch all', () => {
-  global.fetch = jest.fn(() => Promise.resolve(response1));
-
-  const a = actions.stats.getCommunityStats('1');
+describe('stats.getGroupStats fetch all', async () => {
+  const a = actions.stats.getCommunityStats({ groupIds: [1] }, [], 'TOKEN');
 
   test('has expected type', () => {
     expect(a.type).toBe('STATS/GET_COMMUNITY_STATS');
   });
 
-  test('payload is a promise which resolves to the expected object', () => {
-    expect(a.payload).toEqual(result);
-  });
-});
-
-describe('stats.getGroupStats fetch partial', () => {
-  global.fetch = jest.fn(() => Promise.resolve(response2));
-
-  const a = actions.stats.getCommunityStats('1');
-
-  test('has expected type', () => {
-    expect(a.type).toBe('STATS/GET_COMMUNITY_STATS');
-  });
-
-  test('payload is a promise which resolves to the expected object', () => {
-    expect(a.payload).toEqual(result);
+  test('payload is a promise which resolves to the expected object', async () => {
+    await expect(a.payload).resolves.toEqual(result);
   });
 });

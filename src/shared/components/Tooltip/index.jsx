@@ -10,7 +10,18 @@ import RCTooltip from 'rc-tooltip';
 import 'rc-tooltip/assets/bootstrap.css';
 import './style.scss';
 
-function Tooltip({ position, content, className, onTooltipHover, children, placeArrow, align }) {
+function Tooltip({
+  position,
+  content,
+  className,
+  onTooltipHover,
+  children,
+  placeArrow,
+  align,
+  suppressDiv,
+  trigger,
+  defaultVisible,
+}) {
   return (
     <RCTooltip
       placement={position}
@@ -19,10 +30,12 @@ function Tooltip({ position, content, className, onTooltipHover, children, place
       onPopupAlign={placeArrow}
       align={align}
       onVisibleChange={_.once(onTooltipHover)}
+      trigger={trigger}
+      defaultVisible={defaultVisible}
     >
-      <div>
-        { children }
-      </div>
+      {
+        suppressDiv ? children : (<div>{children}</div>)
+      }
     </RCTooltip>
   );
 }
@@ -32,9 +45,11 @@ Tooltip.defaultProps = {
   position: 'top',
   className: '',
   content: '',
-  defaultVisible: false,
   onTooltipHover: _.noop,
   placeArrow: _.noop,
+  suppressDiv: false,
+  trigger: ['hover'],
+  defaultVisible: false,
 };
 
 Tooltip.propTypes = {
@@ -45,6 +60,9 @@ Tooltip.propTypes = {
   content: PT.node,
   onTooltipHover: PT.func,
   placeArrow: PT.func,
+  suppressDiv: PT.bool,
+  trigger: PT.arrayOf(PT.string),
+  defaultVisible: PT.bool,
 };
 
 export default Tooltip;

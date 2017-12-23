@@ -1,57 +1,39 @@
+/**
+ * <Toolbar> Component
+ * Implements a Toolbar that can control multiple <Editor> components
+ */
 import _ from 'lodash';
 import PT from 'prop-types';
 import React from 'react';
 import Sticky from 'react-stickynode';
 
 import { Button } from 'components/buttons';
-import { RichUtils } from 'draft-js';
+import Select from 'components/Select';
+import { EDITOR_BLOCK_STYLE_MAP } from 'utils/editor';
+
+import {
+  RichUtils,
+} from 'draft-js';
+
+import ColorPicker from './ColorPicker';
+import Connector from '../Connector';
 
 import style from './style.scss';
 
 /**
- * Auxiliary class that helps to connect Toolbar to multiple Editor instances.
+ * Component class, provides a Toolbar that can control multiple Editor components
+ * connected to it via the Connector class
  */
-export class Connector {
-  constructor() {
-    this.editors = [];
-    this.focusedEditor = null;
-    this.toolbar = null;
-  }
-
-  /**
-   * Adds a new Editor instance.
-   * @param {Editor} editor
-   */
-  addEditor(editor) {
-    this.editors.push(editor);
-  }
-
-  setFocusedEditor(editor, newState) {
-    this.focusedEditor = editor;
-    if (this.toolbar) this.toolbar.onFocusedEditorChanged(newState);
-  }
-
-  /**
-   * Sets the Toolbar.
-   * @param {Toolbar} toolbar
-   */
-  setToolbar(toolbar) {
-    this.toolbar = toolbar;
-  }
-
-  /**
-   * Removes the editor.
-   * @param {Editor} editor
-   */
-  removeEditor(editor) {
-    _.pull(this.editor, editor);
-  }
-}
-
 export default class Toolbar extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      block: null,
+      editor: null,
+      markdown: false,
+      pickingTextColor: false,
+      pickingHighlightColor: false,
+
       BOLD: false,
       ITALIC: false,
     };
@@ -77,7 +59,10 @@ export default class Toolbar extends React.Component {
     const editor = this.props.connector.focusedEditor;
     if (editor) {
       const inlineStyle = newState.getCurrentInlineStyle();
+      const block = RichUtils.getCurrentBlockType(newState);
       this.setState({
+        editor,
+        block,
         BOLD: inlineStyle.has('BOLD'),
         INLINE_CODE: inlineStyle.has('CODE'),
         ITALIC: inlineStyle.has('ITALIC'),
@@ -86,6 +71,8 @@ export default class Toolbar extends React.Component {
       });
     } else {
       this.setState({
+        block: 'unstyled',
+        editor: null,
         BOLD: false,
         INLINE_CODE: false,
         ITALIC: false,
@@ -95,73 +82,141 @@ export default class Toolbar extends React.Component {
     }
   }
 
-  toggleInlineStyle(styleName) {
-    const editor = this.props.connector.focusedEditor;
-    if (editor) {
-      const editorState = RichUtils.toggleInlineStyle(
-        editor.state.editorState, styleName);
-      const inlineStyle = editorState.getCurrentInlineStyle();
-      this.setState({ [styleName]: inlineStyle.has(styleName) });
-      editor.setState({ editorState });
-    }
-  }
-
   render() {
     const st = this.state;
+    const disableStyling = !st.editor;
+
+    const createStyleButton = (label, name, active, theme) => (
+      <Button
+        active={active}
+        disabled={disableStyling}
+        onMouseDown={(e) => {
+          e.preventDefault();
+          const newStyle = st.editor.toggleInlineStyle(name);
+          this.setState({ [name]: newStyle.has(name) });
+        }}
+        size="sm"
+        theme={{ button: theme }}
+      >{label}</Button>
+    );
+
     return (
       <Sticky innerZ={2}>
         <div styleName="container">
+
           <Button
+            disabled={!this.props.connector.modified}
             onClick={() => this.props.onSave()}
             size="sm"
-            theme={{ button: style.save }}
+            theme={{ button: style.basic }}
           >Save</Button>
           <div styleName="separator" />
+
           <Button
-            active={st.BOLD}
+            active={st.markdown}
             onMouseDown={(e) => {
               e.preventDefault();
-              this.toggleInlineStyle('BOLD');
+              const active = !st.markdown;
+              this.setState({ markdown: active });
+              this.props.connector.toggleInlineMarkdown(active);
             }}
             size="sm"
-            theme={{ button: style.bold }}
-          >B</Button>
+            theme={{ button: style.basic }}
+          >Inline Markdown</Button>
+
+          <div styleName="separator" />
+
+          { createStyleButton('B', 'BOLD', st.BOLD, style.bold) }
+          { createStyleButton('I', 'ITALIC', st.ITALIC, style.italic) }
+          { createStyleButton('U', 'UNDERLINE', st.UNDERLINE, style.underline) }
+          { createStyleButton('S', 'STRIKETHROUGH', st.STRIKETHROUGH, style.strikethrough) }
+          { createStyleButton('Monospace', 'CODE', st.CODE, style.inlineCode) }
+
+          <div styleName="separator" />
+
           <Button
-            active={st.ITALIC}
+            disabled={disableStyling}
             onMouseDown={(e) => {
               e.preventDefault();
-              this.toggleInlineStyle('ITALIC');
+              this.setState({ pickingTextColor: !st.pickingTextColor });
             }}
             size="sm"
-            theme={{ button: style.italic }}
-          >I</Button>
+            theme={{ button: style.basic }}
+          >Color</Button>
+          <ColorPicker
+            onChange={(color) => {
+              const editor = st.editor || this.props.connector.previousEditor;
+              editor.node.focus();
+              setImmediate(() => {
+                editor.applyColorStyle('TEXT', color);
+                this.setState({ pickingTextColor: false });
+              });
+            }}
+            style={style['text-color-picker']}
+            visible={st.pickingTextColor}
+          />
+
           <Button
-            active={st.UNDERLINE}
+            disabled={disableStyling}
             onMouseDown={(e) => {
               e.preventDefault();
-              this.toggleInlineStyle('UNDERLINE');
+              this.setState({ pickingHighlightColor: !st.pickingHighlightColor });
             }}
             size="sm"
-            theme={{ button: style.underline }}
-          >U</Button>
+            theme={{ button: style.basic }}
+          >Highlight</Button>
+          <ColorPicker
+            onChange={(color) => {
+              const editor = st.editor || this.props.connector.previousEditor;
+              editor.node.focus();
+              setImmediate(() => {
+                editor.applyColorStyle('HIGHLIGHT', color);
+                this.setState({ pickingHighlightColor: false });
+              });
+            }}
+            style={style['highlight-color-picker']}
+            visible={st.pickingHighlightColor}
+          />
+
+          <div styleName="separator" />
+
           <Button
-            active={st.STRIKETHROUGH}
+            disabled={disableStyling}
             onMouseDown={(e) => {
               e.preventDefault();
-              this.toggleInlineStyle('STRIKETHROUGH');
+              st.editor.insertLink(' Link', 'http://', true);
             }}
             size="sm"
-            theme={{ button: style.strikethrough }}
-          >S</Button>
+            theme={{ button: style.basic }}
+          >Insert Link</Button>
+
           <Button
-            active={st.INLINE_CODE}
+            disabled={disableStyling}
             onMouseDown={(e) => {
               e.preventDefault();
-              this.toggleInlineStyle('CODE');
+              st.editor.insertImage('http://', true);
             }}
             size="sm"
-            theme={{ button: style.inlineCode }}
-          >Monospace</Button>
+            theme={{ button: style.basic }}
+          >Insert Image</Button>
+
+          <div styleName="select-wrapper">
+            <Select
+              autoBlur
+              clearable={false}
+              className={style.select}
+              disabled={disableStyling}
+              onChange={({ value }) => {
+                st.editor.applyBlockStyle(value);
+                this.setState({ block: value });
+              }}
+              onFocus={e => e.preventDefault()}
+              options={_.map(EDITOR_BLOCK_STYLE_MAP, (label, value) => ({ label, value }))}
+              placeholder="Block Style"
+              value={st.editor ? st.block : null}
+            />
+
+          </div>
         </div>
       </Sticky>
     );

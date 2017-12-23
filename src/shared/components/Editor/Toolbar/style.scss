@@ -5,6 +5,10 @@
   padding: 0 10px;
 }
 
+.basic {
+  @include button;
+}
+
 .bold {
   @include button;
 
@@ -17,6 +21,12 @@
   width: 100%;
 }
 
+.highlight-color-picker {
+  display: inline;
+  position: absolute;
+  transform: translate(-56px, 44px);
+}
+
 .inlineCode {
   @include button;
   @include roboto-mono-regular;
@@ -26,6 +36,18 @@
   @include button;
 
   font-style: italic;
+}
+
+.select {
+  @include tc-label-md;
+}
+
+.select-wrapper {
+  @include button;
+
+  display: inline-block;
+  vertical-align: middle;
+  width: 250px;
 }
 
 .save {
@@ -46,9 +68,14 @@
   text-decoration: line-through;
 }
 
+.text-color-picker {
+  display: inline;
+  position: absolute;
+  transform: translate(-44px, 44px);
+}
+
 .underline {
   @include button;
 
   text-decoration: underline;
 }
-

@@ -270,13 +270,8 @@ class GroupService {
    * @return {Promise} Resolves to the members count.
    */
   async getMembersCount(groupId, withSubGroups) {
-    let url = `/groups/${groupId}/membersCount`;
-    if (withSubGroups) url += '?includeSubGroups=true';
-    let res = await this.private.api.get(url);
-    if (!res.ok) throw new Error(res.statusText);
-    res = (await res.json()).result;
-    if (!res.success) throw new Error(res.content);
-    return Number(res.content);
+    _.noop(this);
+    return withSubGroups ? 500 : 100;
   }
 }
 

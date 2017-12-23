@@ -16,6 +16,8 @@ import { Provider } from 'react-redux';
 import { getRates } from 'services/money';
 import { Helmet } from 'react-helmet';
 
+import 'raf/polyfill';
+
 import App from '../shared';
 
 /* This is always initial state of the store. Later we'll have to provide a way
@@ -92,9 +94,8 @@ export default (req, res) => {
       `<!DOCTYPE html>
       <html>
         <head>
-          <title>Topcoder</title>
-            ${helmet.title.toString()}
-            ${helmet.meta.toString()}
+          ${helmet.title.toString()}
+          ${helmet.meta.toString()}
           <script
             src="/community-app-assets/polyfills.js"
             type="application/javascript"
