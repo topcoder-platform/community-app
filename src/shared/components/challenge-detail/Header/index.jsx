@@ -6,6 +6,8 @@
 
 import _ from 'lodash';
 import moment from 'moment';
+import 'moment-duration-format';
+
 import PT from 'prop-types';
 import React from 'react';
 import { DangerButton, PrimaryButton } from 'components/buttons';
@@ -21,6 +23,10 @@ import DeadlinesPanel from './DeadlinesPanel';
 import TabSelector from './TabSelector';
 
 import style from './style.scss';
+
+/* Holds day and hour range in ms. */
+const HOUR_MS = 60 * 60 * 1000;
+const DAY_MS = 24 * HOUR_MS;
 
 export default function ChallengeHeader(props) {
   const {
@@ -111,9 +117,16 @@ export default function ChallengeHeader(props) {
   const deadlineEnd = nextPhase ?
     new Date(nextPhase.scheduledEndTime).getTime() : Date.now();
   const currentTime = Date.now();
-  const timeDiff = deadlineEnd > currentTime ? deadlineEnd - currentTime : 0;
-  const duration = moment.duration(timeDiff);
-  const timeLeft = `${duration.days()}d ${duration.hours()}:${duration.minutes()}h`;
+
+  let timeLeft = deadlineEnd > currentTime ? deadlineEnd - currentTime : 0;
+
+  let format;
+  if (timeLeft > DAY_MS) format = 'D[d] H[h]';
+  else if (timeLeft > HOUR_MS) format = 'H[h] m[min]';
+  else format = 'm[min] s[s]';
+
+  timeLeft = moment.duration(timeLeft).format(format);
+
   let relevantPhases = [];
 
   if (props.showDeadlineDetail) {
