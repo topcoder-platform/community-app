@@ -102,7 +102,7 @@ export default class Toolbar extends React.Component {
 
     return (
       <Sticky innerZ={2}>
-        <div styleName="container">
+        <div id={this.props.nodeId} styleName="container">
 
           <Button
             disabled={!this.props.connector.modified}
@@ -226,9 +226,11 @@ export default class Toolbar extends React.Component {
 Toolbar.defaultProps = {
   connector: new Connector(),
   onSave: _.noop,
+  nodeId: null,
 };
 
 Toolbar.propTypes = {
   connector: PT.instanceOf(Connector),
   onSave: PT.func,
+  nodeId: PT.string,
 };

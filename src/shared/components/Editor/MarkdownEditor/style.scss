@@ -1,3 +1,211 @@
-@import "../themes/mixins";
+@import "~styles/mixins";
 
-.container { @include editorContainer; }
+/* Styling of Markdown syntax highlighting. */
+.container {
+  @include tc-body-md;
+
+  :global blockquote {
+    &.blockquote {
+      border-left: 3px solid $tc-light-blue;
+      padding-left: 17px;
+      text-indent: -12px;
+    }
+  }
+
+  code {
+    background: $tc-gray-neutral-light;
+    border: 1px solid $tc-gray-20;
+    border-radius: 6px;
+    display: block;
+    font-family: 'Roboto Mono', monospace;
+    padding: 15px 20px;
+  }
+
+  :global .hr {
+    width: 100%;
+
+    > div > span > span {
+      border-top: 1px solid $tc-gray-40;
+      display: inline-block;
+      height: 0;
+      line-height: 0;
+      width: 100%;
+    }
+  }
+
+  ol {
+    //padding-left: 20px;
+
+    li {
+      // padding-left: 15px;
+      text-indent: -15px;
+    }
+  }
+
+  ul {
+    list-style-type: disc;
+    padding-left: 20px;
+
+    li {
+      // padding-left: 15px;
+      // text-indent: -9px;
+    }
+  }
+
+  :global .prism-token.token {
+    /* Code. */
+    &.code {
+      background: $tc-gray-10;
+      font-family: 'Roboto Mono', monospace;
+    }
+
+    /* Headings */
+    &.h1 {
+      @include tc-heading-xl;
+
+      display: inline-block;
+      margin-top: 25px;
+    }
+
+    &.h2 {
+      @include tc-heading-lg;
+
+      display: inline-block;
+      margin-top: 20px;
+    }
+
+    &.h3 {
+      @include tc-heading-md;
+
+      display: inline-block;
+      margin-top: 15px;
+    }
+
+    &.h4 {
+      @include tc-heading-sm;
+
+      display: inline-block;
+      margin-top: 10px;
+    }
+
+    &.h5,
+    &.h6 {
+      @include tc-heading-xs;
+
+      display: inline-block;
+      margin-top: 5px;
+    }
+
+    /* Thematic break. */
+    &.thematicBreak {
+      border-bottom: 2px solid $tc-gray-10;
+      display: inline-block;
+      line-height: 0;
+      width: 100%;
+    }
+
+    /* Any markup symbols. */
+    &.markup {
+      color: $tc-gray-40;
+      font-family: 'Roboto Mono', monospace;
+    }
+  }
+
+  :global .public-DraftEditor-content {
+    /* All these elements have an extra spacing added between them, which does
+     * not look nice, when they are the first element in the editor field. Thus,
+     * for the first elements we suppress these. */
+    & > div > div:first-child > div {
+      & > .h1,
+      & > .h2,
+      & > .h3,
+      & > .h4,
+      & > .h5,
+      & > .h6 {
+        margin-top: 0;
+      }
+    }
+  }
+}
+
+/*
+@mixin markupHl {
+  color: $tc-gray-40;
+  display: inline-block;
+  width: 60px;
+}
+
+@mixin markupHr { color: $tc-gray-40; }
+
+.container {
+  /* All this nested global styling related to the Markdown syntax
+   * highlighting in the best possible way. */
+   /*
+  :global .prism-token {
+    /* Headings. */
+    /*
+    &.h1 { @include tc-heading-xl; }
+
+    &.markupH1l {
+      @include tc-heading-xl;
+      @include markupHl;
+    }
+
+    &.markupH1r {
+      @include tc-heading-xl;
+      @include markupHr;
+    }
+
+    &.h2 { @include tc-heading-lg; }
+
+    &.markupH2l {
+      @include tc-heading-lg;
+      @include markupHl;
+    }
+
+    &.markupH2r {
+      @include tc-heading-lg;
+      @include markupHr;
+    }
+
+    &.h3 { @include tc-heading-md; }
+
+    &.markupH3l {
+      @include tc-heading-md;
+      @include markupHl;
+    }
+
+    &.markupH3r {
+      @include tc-heading-md;
+      @include markupHr;
+    }
+
+    &.h4 { @include tc-heading-sm; }
+
+    &.markupH4l {
+      @include tc-heading-sm;
+      @include markupHl;
+    }
+
+    &.markupH4r {
+      @include tc-heading-sm;
+      @include markupHr;
+    }
+
+    &.h5,
+    &.h6 { @include tc-heading-xs; }
+
+    &.markupH5l,
+    &.markupH6l {
+      @include tc-heading-xs;
+      @include markupHl;
+    }
+
+    &.markupH5r,
+    &.markupH6r {
+      @include tc-heading-xs;
+      @include markupHr;
+    }
+  }
+}
+*/

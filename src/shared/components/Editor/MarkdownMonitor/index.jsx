@@ -2,17 +2,18 @@ import PT from 'prop-types';
 import React from 'react';
 
 import Editor from '..';
-import './style.scss';
+import style from './style.scss';
 
 export default function MarkdownMonitor({ connector }) {
   return (
-    <div>
-      MARKDOWN Monitor
+    <div styleName="container">
+      <div styleName="title">Markdown Rendering Preview</div>
       <Editor
         ref={(node) => {
           if (connector) connector.setMarkdownMonitor(node);
         }}
         styleName="editor"
+        theme={{ container: style.editor }}
       />
     </div>
   );

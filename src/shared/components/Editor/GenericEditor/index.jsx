@@ -5,7 +5,7 @@
 import PT from 'prop-types';
 import React from 'react';
 
-import { Editor, EditorState } from 'draft-js';
+import { ContentState, DefaultDraftBlockRenderMap, Editor, EditorState, convertFromHTML } from 'draft-js';
 
 import 'draft-js/dist/Draft.css';
 import style from './style.scss';
@@ -14,7 +14,17 @@ export default class GenericEditor extends React.Component {
   constructor(props) {
     super(props);
     this.id = props.id;
+/*
+    let a = convertFromHTML('<ul><li><blockquote><p>wedwedw</p></blockquote><p>wedwedwed</p></li></ul>');
+    a = ContentState.createFromBlockArray(a.contentBlocks, a.entityMap);
+    */
+
     this.state = { editor: EditorState.createEmpty(props.decorator) };
+//    this.state = { editor: EditorState.createWithContent(a) };
+  }
+
+  setEditorState(state) {
+    setImmediate(() => this.setState({ editor: state }));
   }
 
   focus() {
@@ -23,6 +33,9 @@ export default class GenericEditor extends React.Component {
 
   render() {
     const {
+      blockRendererFn,
+      blockRenderMap,
+      blockStyleFn,
       onChange,
     } = this.props;
 
@@ -40,6 +53,9 @@ export default class GenericEditor extends React.Component {
         tabIndex={0}
       >
         <Editor
+          blockRendererFn={blockRendererFn}
+          blockRenderMap={DefaultDraftBlockRenderMap.merge(blockRenderMap)}
+          blockStyleFn={blockStyleFn}
           editorState={this.state.editor}
           onChange={(newState) => {
             this.setState({ editor: newState });
@@ -54,12 +70,18 @@ export default class GenericEditor extends React.Component {
 }
 
 GenericEditor.defaultProps = {
+  blockRendererFn: () => null,
+  blockRenderMap: null,
+  blockStyleFn: () => null,
   decorator: null,
   id: '',
   onChange: null,
 };
 
 GenericEditor.propTypes = {
+  blockRendererFn: PT.func,
+  blockRenderMap: PT.shape(),
+  blockStyleFn: PT.func,
   decorator: PT.shape(),
   id: PT.string,
   onChange: PT.func,

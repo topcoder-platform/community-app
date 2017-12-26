@@ -6,7 +6,7 @@ import _ from 'lodash';
 export default class Connector {
   constructor() {
     this.editors = [];
-    this.markdownMonitor = null;
+    this.previewer = null;
     this.focusedEditor = null;
     this.previousEditor = null;
     this.toolbar = null;
@@ -27,12 +27,12 @@ export default class Connector {
     if (this.toolbar) this.toolbar.onFocusedEditorChanged(newState);
   }
 
-  toggleInlineMarkdown(markdown) {
-    this.editors.forEach(editor => editor.setState({ markdown }));
+  setPreviewer(previewer) {
+    this.previewer = previewer;
   }
 
-  setMarkdownMonitor(monitor) {
-    this.markdownMonitor = monitor;
+  toggleInlineMarkdown(markdown) {
+    this.editors.forEach(editor => editor.setState({ markdown }));
   }
 
   /**

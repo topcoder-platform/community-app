@@ -211,13 +211,16 @@ export default class EditorWrapper extends React.Component {
   }
 
   render() {
-    const { connector } = this.props;
+    const { connector, theme } = this.props;
 
     const st = this.state;
 
     let containerStyles = style.container;
     if (st.editor.getSelection().getHasFocus()) {
       containerStyles += ` ${style.focused}`;
+    }
+    if (theme.container) {
+      containerStyles += ` ${theme.container}`;
     }
 
     return (
@@ -267,10 +270,12 @@ EditorWrapper.defaultProps = {
   connector: new Connector(),
   id: null,
   initialContent: null,
+  theme: {},
 };
 
 EditorWrapper.propTypes = {
   connector: PT.instanceOf(Connector),
   id: PT.string,
   initialContent: PT.string,
+  theme: PT.shape(),
 };
