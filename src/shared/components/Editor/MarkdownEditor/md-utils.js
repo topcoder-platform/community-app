@@ -15,6 +15,10 @@ import {
   Modifier,
 } from 'draft-js';
 
+import { List } from 'immutable';
+
+import inlineWrapperFactory from './inlineWrapperFactory';
+
 import './style.scss';
 
 /* Regular experssion to capture pure reference blocks. */
@@ -65,7 +69,7 @@ function findNth(string, char, n) {
 }
 
 /* Internal. */
-function newSelector(key, pos, end, endKey) {
+function newSelector(key, pos = 0, end, endKey) {
   return SelectionState.createEmpty(key).merge({
     anchorOffset: pos,
     focusKey: endKey === undefined ? key : endKey,
@@ -76,6 +80,12 @@ function newSelector(key, pos, end, endKey) {
 /* Internal. */
 function insertChar(content, key, pos, char) {
   return Modifier.insertText(content, newSelector(key, pos), char);
+}
+
+
+/* Internal. */
+function mergeBlockData(content, key, data) {
+  return Modifier.mergeBlockData(content, newSelector(key), data);
 }
 
 /* Internal. */
@@ -273,6 +283,62 @@ function decorateBlock(context, token) {
   return { ...context, content };
 }
 
+function generateDecorations(context, token) {
+  let pos = 0;
+  const { content, key } = context;
+  const text = content.getBlockForKey(key).getText();
+  let res = new Array(text.length);
+  res.fill('mdSyntax');
+
+  let children = token.children || [];
+  switch (token.type) {
+    case 'fence':
+      children = [{ type: 'text', content: token.content }];
+      break;
+    default:
+  }
+
+  const styles = [];
+  children.forEach((st) => {
+    switch (st.type) {
+      case 'em_open':
+      case 'strong_open':
+        styles.push(st.tag);
+        break;
+
+      case 'em_close':
+      case 'strong_close':
+        styles.pop();
+        break;
+
+      case 'text': {
+        if (!st.content.length) break;
+        pos = text.indexOf(st.content, pos);
+        const end = pos + st.content.length;
+        const style = styles.join('-') || null;
+        while (pos < end) {
+          res[pos] = style;
+          pos += 1;
+        }
+        break;
+      }
+
+      default:
+    }
+  });
+
+  res = List(res);
+
+  const block = context.content.getBlockForKey(context.key);
+  const prev = block.getData().get('decorations');
+  if (prev && res.equals(prev)) return context;
+
+  return {
+    ...context,
+    content: mergeBlockData(context.content, context.key, { decorations: res }),
+  };
+}
+
 export default class MdUtils {
   /**
    * Constructs a new MdUtils instance.
@@ -284,6 +350,22 @@ export default class MdUtils {
     this.markdown.disable(['table']);
     this.tokens = [];
     if (contentState) this.parse(contentState);
+  }
+
+  getDecorations(block) {
+    _.noop(this);
+    const res = block.getData().get('decorations') || List();
+    return res.setSize(block.getLength());
+  }
+
+  getComponentForKey(key) {
+    _.noop(this);
+    return inlineWrapperFactory(key);
+  }
+
+  getPropsForKey() {
+    _.noop(this);
+    return {};
   }
 
   /**
@@ -300,6 +382,7 @@ export default class MdUtils {
     let context = {
       blockTypes: [],
       content: state.getCurrentContent(),
+      decorations: {},
       maxLine: Number.MAX_VALUE,
       prevTokenType: '',
       selection: state.getSelection(),
@@ -312,11 +395,11 @@ export default class MdUtils {
       while ((j < this.tokens.length) && !this.tokens[j].map) j += 1;
       if (j >= this.tokens.length) context.maxLine = Number.MAX_VALUE;
       else context.maxLine = this.tokens[j].map[0];
-
       context = adjustBlock(context, token);
       context = decorateBlock(context, token);
       context.prevTokenType = token.type;
       if (context.styled.has(context.key)) {
+        context = generateDecorations(context, token);
         context.key = context.content.getKeyAfter(context.key);
       }
     });
@@ -326,6 +409,7 @@ export default class MdUtils {
       context.content = setBlockType(context.content, key, 'div');
     });
     const res = EditorState.push(state, context.content, 'custom');
+    // res = EditorState.set(res, { decorator: this });
     return EditorState.acceptSelection(res, context.selection);
   }
 

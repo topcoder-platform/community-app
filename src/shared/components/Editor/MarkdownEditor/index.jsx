@@ -71,59 +71,48 @@ const blockRenderMap = Immutable.Map({
   p: { element: 'p' },
 });
 
-export default function MarkdownEditor({ connector }) {
-  const decorator = new PrismDecorator({
-    defaultSyntax: 'markdown',
-    filter: () => true,
-    prism: Prism,
-    render,
-  });
+export default class MarkdownEditor extends React.Component {
+  constructor(props) {
+    super(props);
+    this.mdUtils = new MdUtils();
+  }
 
-  const onChange = (newState) => {
-    const mdUtils = new MdUtils(newState.getCurrentContent());
+  onChange(newState) {
+    const { connector } = this.props;
+    this.mdUtils.parse(newState.getCurrentContent());
     if (connector && connector.previewer) {
-      connector.previewer.setContent(mdUtils.getHtml());
+      connector.previewer.setContent(this.mdUtils.getHtml());
       // console.log(mdUtils.getHtml());
     }
     if (this.editor) {
-      const selfState = mdUtils.highlightBlocks(newState);
+      const selfState = this.mdUtils.highlightBlocks(newState);
       // console.log(selfState);
-      if (selfState !== newState) this.editor.setEditorState(selfState);
+      if (selfState !== newState) {
+        this.editor.setEditorState(selfState);
+      }
     }
-  };
+  }
 
-  const dec = new CompositeDecorator([{
-    strategy: (block, cb, contentState) => {
-      const text = block.getText();
-      cb(0, text.length);
-    },
-    component: props => <span className="A">{props.children}</span>,
-  }, {
-    strategy: (block, cb, contentState) => {
-      const text = block.getText();
-      cb(text.length / 3, text.length / 2);
-    },
-    component: props => <span className="B">{props.children}</span>,
-  }]);
-
-  return (
-    <div styleName="style.container">
-      <GenericEditor
-        blockRendererFn={(block) => {
-          return {
-            component: BlockWrapper,
-            editable: true,
-            props: { type: block.getType() },
-          };
-        }}
-        // blockRenderMap={blockRenderMap}
-        blockStyleFn={blockStyleFn}
-        // decorator={dec}
-        onChange={onChange}
-        ref={(node) => { this.editor = node; }}
-      />
-    </div>
-  );
+  render() {
+    return (
+      <div styleName="style.container">
+        <GenericEditor
+          blockRendererFn={(block) => {
+            return {
+              component: BlockWrapper,
+              editable: true,
+              props: { type: block.getType() },
+            };
+          }}
+          // blockRenderMap={blockRenderMap}
+          blockStyleFn={blockStyleFn}
+          decorator={this.mdUtils}
+          onChange={state => this.onChange(state)}
+          ref={(node) => { this.editor = node; }}
+        />
+      </div>
+    );
+  }
 }
 
 MarkdownEditor.defaultProps = {

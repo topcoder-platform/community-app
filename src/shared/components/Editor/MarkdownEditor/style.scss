@@ -21,6 +21,9 @@
     padding: 15px 20px;
   }
 
+  em { font-style: italic; }
+  strong { font-weight: bold; }
+
   :global .hr {
     width: 100%;
 
@@ -31,6 +34,12 @@
       line-height: 0;
       width: 100%;
     }
+  }
+
+  :global .mdSyntax {
+    color: firebrick;
+    font-family: 'Roboto Mono', monospace;
+    font-weight: bold;
   }
 
   ol {

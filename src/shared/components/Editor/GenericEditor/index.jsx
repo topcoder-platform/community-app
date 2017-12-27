@@ -14,6 +14,7 @@ export default class GenericEditor extends React.Component {
   constructor(props) {
     super(props);
     this.id = props.id;
+    console.log('WEFWEDWDQWEDQWEDQWEDQ');
 /*
     let a = convertFromHTML('<ul><li><blockquote><p>wedwedw</p></blockquote><p>wedwedwed</p></li></ul>');
     a = ContentState.createFromBlockArray(a.contentBlocks, a.entityMap);
@@ -62,7 +63,7 @@ export default class GenericEditor extends React.Component {
             if (onChange) onChange(newState);
           }}
           ref={(node) => { this.editor = node; }}
-          spellCheck
+          // spellCheck
         />
       </div>
     );
