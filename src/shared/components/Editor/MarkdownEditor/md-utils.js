@@ -21,18 +21,6 @@ import inlineWrapperFactory from './inlineWrapperFactory';
 
 import './style.scss';
 
-/* Regular experssion to capture pure reference blocks. */
-/* This captures ref key (mind that \\ in this string turns into just \ in the
- * regex code; thus, for example, \\\\ turns into \\ which means just a single
- * escaped \ when the match is done; similarly \\\] means just an escaped ]
- * character during the match. */
-let REF_REGEX = '([^\\\\\\]]|\\\\\\\\|\\\\\\])+';
-/* This caputres ref key, decorated with brackets, semi-column, and leading
- * spaces. */
-REF_REGEX = `^\\s{0,3}\\[${REF_REGEX}\\]:\\s*`;
-/* And here we add the valid link match. */
-REF_REGEX = new RegExp(`${REF_REGEX}[^\\s]+\\s*$`);
-
 /**
  * Counts the specified characters in the given string.
  * @param {String} string
@@ -111,234 +99,6 @@ function setBlockType(content, key, type) {
   return Modifier.setBlockType(content, newSelector(key, 0), type);
 }
 
-/* Internal. */
-function adjustBlock(context, token) {
-  const { maxLine, prevTokenType } = context;
-  let { content, key, selection } = context;
-  let numLinesInToken = 1 + count(token.content, '\n');
-  switch (token.type) {
-    case 'blockquote_close':
-      if (prevTokenType === 'blockquote_open') break;
-      return context;
-
-    case 'code_block':
-      if (token.content.endsWith('\n')) numLinesInToken -= 1;
-      break;
-
-    case 'fence':
-      if (token.map[0] + numLinesInToken < maxLine) {
-        numLinesInToken += 1;
-      }
-      break;
-
-    case 'heading_close':
-      if (token.markup === '=' || token.markup === '-') break;
-      return context;
-
-    case 'hr':
-    case 'inline': break;
-
-    case 'list_item_close':
-      if (prevTokenType === 'list_item_open') break;
-      return context;
-
-    default: return context;
-  }
-  for (;;) {
-    const text = content.getBlockForKey(key).getText();
-    if (!text.length || text.match(REF_REGEX)) {
-      key = content.getKeyAfter(key);
-    } else if (text[0] === '\n') {
-      content = splitBlock(content, key, 0);
-      const oldKey = key;
-      key = content.getKeyAfter(key);
-      content = removeChar(content, key, 0);
-      if (selection.getAnchorKey() === oldKey
-      && selection.getAnchorOffset()) {
-        selection = selection.merge({
-          anchorKey: key,
-          anchorOffset: selection.getAnchorOffset() - 1,
-        });
-      }
-      if (selection.getFocusKey() === oldKey
-      && selection.getFocusOffset()) {
-        selection = selection.merge({
-          focusKey: key,
-          focusOffset: selection.getFocusOffset() - 1,
-        });
-      }
-    } else {
-      const numLinesInBlock = 1 + count(text, '\n');
-      if (numLinesInBlock < numLinesInToken) {
-        const goneKey = content.getKeyAfter(key);
-        if (!goneKey) return { ...context, content, key, selection };
-        content = removeLastChar(content, key, text.length);
-        content = insertChar(content, key, text.length, '\n');
-        if (selection.getAnchorKey() === goneKey) {
-          selection = selection.merge({
-            anchorKey: key,
-            anchorOffset: selection.getAnchorOffset() + text.length + 1,
-          });
-        }
-        if (selection.getFocusKey() === goneKey) {
-          selection = selection.merge({
-            focusKey: key,
-            focusOffset: selection.getFocusOffset() + text.length + 1,
-          });
-        }
-      } else {
-        if (numLinesInBlock > numLinesInToken) {
-          const splitPoint = findNth(text, '\n', numLinesInToken);
-          content = removeChar(content, key, splitPoint);
-          content = splitBlock(content, key, splitPoint);
-          if (selection.getAnchorKey() === key
-          && selection.getAnchorOffset() > splitPoint) {
-            selection = selection.merge({
-              anchorKey: content.getKeyAfter(key),
-              anchorOffset: selection.getAnchorOffset() - 1 - splitPoint,
-            });
-          }
-          if (selection.getFocusKey() === key
-          && selection.getFocusOffset() > splitPoint) {
-            selection = selection.merge({
-              focusKey: content.getKeyAfter(key),
-              focusOffset: selection.getFocusOffset() - 1 - splitPoint,
-            });
-          }
-        }
-        return {
-          ...context,
-          content,
-          key,
-          selection,
-        };
-      }
-    }
-  }
-}
-
-/* Internal. */
-function decorateBlock(context, token) {
-  const { blockTypes, key, prevTokenType, styled } = context;
-  let { content } = context;
-  switch (token.type) {
-    case 'code_block':
-    case 'fence':
-    case 'hr': {
-      blockTypes.push(token.tag);
-      content = setBlockType(content, key, blockTypes.join('-'));
-      blockTypes.pop();
-      styled.add(key);
-      break;
-    }
-
-    case 'inline': {
-      content = setBlockType(content, key, blockTypes.join('-'));
-      styled.add(key);
-      break;
-    }
-
-    case 'blockquote_open':
-    case 'bullet_list_open':
-    case 'heading_open':
-    case 'list_item_open':
-    case 'ordered_list_open':
-    case 'paragraph_open':
-      blockTypes.push(token.tag);
-      break;
-
-    case 'blockquote_close':
-      if (prevTokenType === 'blockquote_open') {
-        content = setBlockType(content, key, blockTypes.join('-'));
-        styled.add(key);
-      }
-      blockTypes.pop();
-      break;
-
-    case 'heading_close':
-      if (token.markup === '=' || token.markup === '-') {
-        content = setBlockType(content, key, blockTypes.join('-'));
-        styled.add(key);
-      }
-      blockTypes.pop();
-      break;
-
-    case 'list_item_close':
-      if (prevTokenType === 'list_item_open') {
-        content = setBlockType(content, key, blockTypes.join('-'));
-        styled.add(key);
-      }
-      blockTypes.pop();
-      break;
-
-    case 'bullet_list_close':
-    case 'ordered_list_close':
-    case 'paragraph_close':
-      blockTypes.pop();
-      break;
-
-    default:
-  }
-
-  return { ...context, content };
-}
-
-function generateDecorations(context, token) {
-  let pos = 0;
-  const { content, key } = context;
-  const text = content.getBlockForKey(key).getText();
-  let res = new Array(text.length);
-  res.fill('mdSyntax');
-
-  let children = token.children || [];
-  switch (token.type) {
-    case 'fence':
-      children = [{ type: 'text', content: token.content }];
-      break;
-    default:
-  }
-
-  const styles = [];
-  children.forEach((st) => {
-    switch (st.type) {
-      case 'em_open':
-      case 'strong_open':
-        styles.push(st.tag);
-        break;
-
-      case 'em_close':
-      case 'strong_close':
-        styles.pop();
-        break;
-
-      case 'text': {
-        if (!st.content.length) break;
-        pos = text.indexOf(st.content, pos);
-        const end = pos + st.content.length;
-        const style = styles.join('-') || null;
-        while (pos < end) {
-          res[pos] = style;
-          pos += 1;
-        }
-        break;
-      }
-
-      default:
-    }
-  });
-
-  res = List(res);
-
-  const block = context.content.getBlockForKey(context.key);
-  const prev = block.getData().get('decorations');
-  if (prev && res.equals(prev)) return context;
-
-  return {
-    ...context,
-    content: mergeBlockData(context.content, context.key, { decorations: res }),
-  };
-}
-
 export default class MdUtils {
   /**
    * Constructs a new MdUtils instance.
@@ -350,6 +110,61 @@ export default class MdUtils {
     this.markdown.disable(['table']);
     this.tokens = [];
     if (contentState) this.parse(contentState);
+  }
+
+  /**
+   * Private.
+   *
+   * Merges and/or splits DraftJS blocks to ensure that the current block
+   * contains exactly the specified number of lines.
+   *
+   * @param {Number} numLines
+   */
+  alignLines(numLines) {
+    for (;;) {
+      const text = this.content.getBlockForKey(this.key).getText();
+      const numLinesInBlock = 1 + count(text, '\n');
+      if (numLinesInBlock < numLines) {
+        const nextKey = this.content.getKeyAfter(this.key);
+        if (!nextKey) return;
+        this.content = removeLastChar(this.content, this.key, text.length);
+        this.content = insertChar(this.content, this.key, text.length, '\n');
+        if (this.selection.getAnchorKey() === nextKey) {
+          this.selection = this.selection.merge({
+            anchorKey: this.key,
+            anchorOffset: this.selection.getAnchorOffset() + text.length + 1,
+          });
+        }
+        if (this.selection.getFocusKey() === nextKey) {
+          this.selection = this.selection.merge({
+            focusKey: this.key,
+            focusOffset: this.selection.getFocusOffset() + text.length + 1,
+          });
+        }
+      } else if (numLinesInBlock > numLines) {
+        const splitPoint = findNth(text, '\n', numLines);
+        this.content = removeChar(this.content, this.key, splitPoint);
+        this.content = splitBlock(this.content, this.key, splitPoint);
+        if (this.selection.getAnchorKey() === this.key
+        && this.selection.getAnchorOffset() > splitPoint) {
+          this.selection = this.selection.merge({
+            anchorKey: this.content.getKeyAfter(this.key),
+            anchorOffset: this.selection.getAnchorOffset() - splitPoint - 1,
+          });
+        }
+        if (this.selection.getFocusKey() === this.key
+        && this.selection.getFocusOffset() > splitPoint) {
+          this.selection = this.selection.merge({
+            focusKey: this.content.getKeyAfter(this.key),
+            focusOffset: this.selection.getFocusOffset() - splitPoint - 1,
+          });
+        }
+      } else return;
+    }
+  }
+
+  decorateBlocks(numLines) {
+
   }
 
   getDecorations(block) {
@@ -369,48 +184,187 @@ export default class MdUtils {
   }
 
   /**
-   * Highlights Markdown block syntax in the given DraftJS state.
+   * Highlights Markdown syntax in the given DraftJS state.
    * @param {EditorState} state DraftJS EditorState that holds a plain text with
-   *  the valid Mardown markup, previously loaded into this MdUtils instance via
+   *  a valid Markdown markup, previously loaded into this MdUtils instance via
    *  parse(..) method.
-   * @return {EditorState} DraftJS EditorState that holds the same plain text
-   *  with Markdown markup, but with the block structure updated to match the
-   *  Mardown content, and with the block-level styling set to mimin Markdown
-   *  rendering output.
+   * @return {EditorState} Resulting state with the proper formatting and
+   *  styling of the markup.
    */
-  highlightBlocks(state) {
-    let context = {
-      blockTypes: [],
-      content: state.getCurrentContent(),
-      decorations: {},
-      maxLine: Number.MAX_VALUE,
-      prevTokenType: '',
-      selection: state.getSelection(),
-      styled: new Set(),
-    };
-    context.key = context.content.getFirstBlock().getKey();
-    console.log(context.content.getBlocksAsArray().length);
-    this.tokens.forEach((token, i) => {
-      let j = 1 + i;
-      while ((j < this.tokens.length) && !this.tokens[j].map) j += 1;
-      if (j >= this.tokens.length) context.maxLine = Number.MAX_VALUE;
-      else context.maxLine = this.tokens[j].map[0];
-      context = adjustBlock(context, token);
-      context = decorateBlock(context, token);
-      context.prevTokenType = token.type;
-      if (context.styled.has(context.key)) {
-        context = generateDecorations(context, token);
-        context.key = context.content.getKeyAfter(context.key);
+  highlight(state) {
+    this.blockTypes = [];
+    this.content = state.getCurrentContent();
+    this.decorations = {};
+    this.endLines = [];
+    this.key = this.content.getFirstBlock().getKey();
+    this.selection = state.getSelection();
+    this.styleLine = 0;
+    this.tokenId = 0;
+    this.tokens.forEach(() => this.highlightNextToken());
+    while (this.key) {
+      this.content = setBlockType(this.content, this.key, 'unstyled');
+      this.highlightInline();
+      this.key = this.content.getKeyAfter(this.key);
+    }
+    const res = EditorState.push(state, this.content, 'custom');
+    return EditorState.acceptSelection(res, this.selection);
+  }
+
+  /**
+   * Private.
+   *
+   * Highlights inline Markdown syntax in the current DraftJS block.
+   */
+  highlightInline(subTokens) {
+    let pos = 0;
+    const text = this.content.getBlockForKey(this.key).getText();
+    const res = new Array(text.length);
+    res.fill('mdSyntax');
+
+    if (subTokens) {
+      const styles = [];
+      subTokens.forEach((st) => {
+        switch (st.type) {
+          case 'em_open':
+          case 'strong_open':
+            styles.push(st.tag);
+            break;
+
+          case 'em_close':
+          case 'strong_close':
+            styles.pop();
+            break;
+
+          case 'text': {
+            if (!st.content.length) break;
+            pos = text.indexOf(st.content, pos);
+            const end = pos + st.content.length;
+            const style = styles.join('-') || null;
+            while (pos < end) {
+              res[pos] = style;
+              pos += 1;
+            }
+            break;
+          }
+
+          default:
+        }
+      });
+    }
+
+    const decorations = List(res);
+    this.content = mergeBlockData(this.content, this.key, { decorations });
+  }
+
+  /**
+   * Private.
+   *
+   * Highlights Markdown syntax in the specified number of lines, starting from
+   * the first non-styled line.
+   *
+   * @param {Number} numLines
+   */
+  highlightLines(numLines) {
+    this.alignLines(numLines);
+    const type = this.blockTypes.join('-') || 'unstyled';
+    this.content = setBlockType(this.content, this.key, type);
+  }
+
+  /**
+   * Private.
+   *
+   * Highlights all Markdown syntax between the last highlighted DraftJS block
+   * and the current MarkdownIt token.
+   */
+  highlightNextToken() {
+    const token = this.tokens[this.tokenId];
+
+    /* If token opens a new range, we:
+     * -  Style any block before this token line;
+     * -  Remember the range of this token, and the line of the first non-styled
+     *    block. */
+    if (token.map) {
+      const linesBefore = token.map[0] - this.styleLine;
+      if (linesBefore) {
+        this.highlightLines(linesBefore);
+        this.highlightInline();
+        this.styleLine = token.map[0];
+        this.key = this.content.getKeyAfter(this.key);
       }
-    });
-    context.content.getBlocksAsArray().forEach((block) => {
-      const key = block.getKey();
-      if (context.styled.has(key)) return;
-      context.content = setBlockType(context.content, key, 'div');
-    });
-    const res = EditorState.push(state, context.content, 'custom');
-    // res = EditorState.set(res, { decorator: this });
-    return EditorState.acceptSelection(res, context.selection);
+    }
+
+    switch (token.type) {
+      case 'blockquote_open':
+      case 'bullet_list_open':
+      case 'heading_open':
+      case 'list_item_open':
+      case 'ordered_list_open':
+      case 'paragraph_open':
+        this.blockTypes.push(token.tag);
+        this.endLines.push(token.map[1]);
+        break;
+
+      case 'blockquote_close':
+      case 'bullet_list_close':
+      case 'heading_close':
+      case 'list_item_close':
+      case 'ordered_list_close':
+      case 'paragraph_close': {
+        const linesBefore = _.last(this.endLines) - this.styleLine;
+        if (linesBefore) {
+          this.highlightLines(linesBefore);
+          this.highlightInline();
+          this.key = this.content.getKeyAfter(this.key);
+          this.styleLine = _.last(this.endLines);
+        }
+        this.blockTypes.pop();
+        this.endLines.pop();
+        break;
+      }
+
+      case 'fence': {
+        this.blockTypes.push(token.tag);
+        let numLines = token.map[1] - token.map[0];
+        const subTokens = [{ type: 'text', content: token.content }];
+        const isClosed = 1 + count(token.content, '\n') < numLines;
+        if (!isClosed) {
+          let i = 1 + this.tokenId;
+          while (i < this.tokens.length && !this.tokens[i].map) i += 1;
+          if (i === this.tokens.length
+          || this.tokens[i].map[0] > token.map[1]) {
+            numLines += 1;
+          }
+        }
+        this.highlightLines(numLines);
+        this.highlightInline(subTokens);
+        this.key = this.content.getKeyAfter(this.key);
+        this.styleLine = token.map[1];
+        this.blockTypes.pop();
+        break;
+      }
+
+      case 'code_block':
+      case 'hr': {
+        this.blockTypes.push(token.tag);
+        this.highlightLines(token.map[1] - token.map[0]);
+        this.highlightInline(token.children);
+        this.key = this.content.getKeyAfter(this.key);
+        this.styleLine = token.map[1];
+        this.blockTypes.pop();
+        break;
+      }
+
+      case 'inline':
+        this.highlightLines(token.map[1] - token.map[0]);
+        this.highlightInline(token.children);
+        this.key = this.content.getKeyAfter(this.key);
+        this.styleLine = token.map[1];
+        break;
+
+      default:
+    }
+
+    this.tokenId += 1;
   }
 
   /**

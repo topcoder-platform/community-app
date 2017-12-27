@@ -8,7 +8,6 @@
     &.blockquote {
       border-left: 3px solid $tc-light-blue;
       padding-left: 17px;
-      text-indent: -12px;
     }
   }
 
@@ -28,7 +27,7 @@
     width: 100%;
 
     > div > span > span {
-      border-top: 1px solid $tc-gray-40;
+      border-top: 1px solid firebrick;
       display: inline-block;
       height: 0;
       line-height: 0;
