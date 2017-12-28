@@ -44,12 +44,31 @@
   }
 
   :global {
+    blockquote {
+      border: none !important;
+      margin: 0 !important;
+      padding: 0 !important;
+    }
+
+    li,
+    ul {
+      list-style: none !important;
+      margin: 0 !important;
+    }
+
+    div,
     .h1,
     .h2,
     .h3,
     .h4,
     .h5,
-    .h6 { @include tc-body-md; }
+    .h6,
+    p {
+      @include tc-body-md;
+
+      margin: 0 !important;
+      text-transform: none;
+    }
 
     .h1 .text { @include tc-heading-xl; }
     .h2 .text { @include tc-heading-lg; }

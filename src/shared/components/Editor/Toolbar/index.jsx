@@ -105,7 +105,7 @@ export default class Toolbar extends React.Component {
         <div id={this.props.nodeId} styleName="container">
 
           <Button
-            disabled={!this.props.connector.modified}
+            // disabled={!this.props.connector.modified}
             onClick={() => this.props.onSave()}
             size="sm"
             theme={{ button: style.basic }}
@@ -114,6 +114,7 @@ export default class Toolbar extends React.Component {
 
           <Button
             active={st.markdown}
+            disabled
             onMouseDown={(e) => {
               e.preventDefault();
               const active = !st.markdown;

@@ -4,15 +4,17 @@
 
 import _ from 'lodash';
 import config from 'utils/config';
-import Editor from 'components/Editor';
+import Editor from 'components/Editor/MarkdownEditor';
 import EditorToolbar from 'components/Editor/Toolbar';
 import ToolbarConnector from 'components/Editor/Connector';
 import React from 'react';
 import Sticky from 'react-stickynode';
+import Turndown from 'turndown';
+
 import PT from 'prop-types';
 import { DangerButton } from 'components/buttons';
 import { SPECS_TAB_STATES } from 'actions/page/challenge-details';
-import { editorStateToHTML } from 'utils/editor';
+// import { editorStateToHTML } from 'utils/editor';
 
 import SaveConfirmationModal from './SaveConfirmationModal';
 import SideBar from './SideBar';
@@ -55,6 +57,13 @@ export default function ChallengeDetailsView(props) {
     userDetails,
   } = challenge;
 
+  const turndown = new Turndown();
+  const td = (html) => {
+    const res = turndown.turndown(html);
+    // console.log(html, res);
+    return res;
+  };
+
   const roles = (userDetails || {}).roles || [];
 
   let forumLink = track.toLowerCase() === 'design'
@@ -92,9 +101,10 @@ export default function ChallengeDetailsView(props) {
     updatedChallenge.id = challenge.id;
     updatedChallenge.reviewType = challenge.reviewType;
     _.forIn(toolbarConnector.editors, (x) => {
-      const html = editorStateToHTML(x.state.editorState.getCurrentContent());
-      updatedChallenge[x.id] = html;
+      // const html = editorStateToHTML(x.state.editorState.getCurrentContent());
+      updatedChallenge[x.id] = x.getHtml();
     });
+    // console.log(updatedChallenge);
     updateChallenge(updatedChallenge);
   };
 
@@ -137,13 +147,13 @@ export default function ChallengeDetailsView(props) {
                     {
                       detailedRequirements &&
                       <article>
-                        <h2>Challenge Overview</h2>
+                        <h2 styleName="h2">Challenge Overview</h2>
                         {
                           editMode ? (
                             <Editor
                               connector={toolbarConnector}
                               id="detailedRequirements"
-                              initialContent={detailedRequirements}
+                              initialContent={td(detailedRequirements)}
                             />
                           ) : (
                             <div
@@ -152,6 +162,7 @@ export default function ChallengeDetailsView(props) {
                                 __html: detailedRequirements,
                               }}
                               /* eslint-enable react/no-danger */
+                              styleName="rawHtml"
                             />
                           )
                         }
@@ -160,13 +171,13 @@ export default function ChallengeDetailsView(props) {
                     {
                       finalSubmissionGuidelines &&
                       <article>
-                        <h2>Final Submission Guidelines</h2>
+                        <h2 styleName="h2">Final Submission Guidelines</h2>
                         {
                           editMode ? (
                             <Editor
                               connector={toolbarConnector}
                               id="submissionGuidelines"
-                              initialContent={finalSubmissionGuidelines}
+                              initialContent={td(finalSubmissionGuidelines)}
                             />
                           ) : (
                             <div
@@ -175,6 +186,7 @@ export default function ChallengeDetailsView(props) {
                                 __html: finalSubmissionGuidelines,
                               }}
                               /* eslint-enable react/no-danger */
+                              styleName="rawHtml"
                             />
                           )
                         }
@@ -187,13 +199,13 @@ export default function ChallengeDetailsView(props) {
                     {
                       introduction &&
                       <article>
-                        <h2>Challenge Summary</h2>
+                        <h2 styleName="h2">Challenge Summary</h2>
                         {
                           editMode ? (
                             <Editor
                               connector={toolbarConnector}
                               id="introduction"
-                              initialContent={introduction}
+                              initialContent={td(introduction)}
                             />
                           ) : (
                             <div
@@ -202,11 +214,12 @@ export default function ChallengeDetailsView(props) {
                                 __html: introduction,
                               }}
                               /* eslint-enable react/no-danger */
+                              styleName="rawHtml"
                             />
                           )
                         }
-                        <p />
-                        <p styleName="note">
+                        <p styleName="p" />
+                        <p styleName="p note">
                           Please read the challenge specification carefully and
                           watch the forums for any questions or feedback
                           concerning this challenge. It is important that you
@@ -219,18 +232,18 @@ export default function ChallengeDetailsView(props) {
                     {
                       numberOfCheckpointsPrizes > 0 &&
                       <article>
-                        <h2>Challenge Format</h2>
-                        <p>This competition will be run as a two-round challenge.</p>
+                        <h2 styleName="h2">Challenge Format</h2>
+                        <p styleName="p">This competition will be run as a two-round challenge.</p>
                         {
                           round1Introduction &&
                           <div>
-                            <h3>Round 1</h3>
+                            <h3 styleName="h3">Round 1</h3>
                             {
                               editMode ? (
                                 <Editor
                                   connector={toolbarConnector}
                                   id="round1Introduction"
-                                  initialContent={round1Introduction}
+                                  initialContent={td(round1Introduction)}
                                 />
                               ) : (
                                 <div
@@ -239,6 +252,7 @@ export default function ChallengeDetailsView(props) {
                                     __html: round1Introduction,
                                   }}
                                   /* eslint-enable react/no-danger */
+                                  styleName="rawHtml"
                                 />
                               )
                             }
@@ -247,13 +261,13 @@ export default function ChallengeDetailsView(props) {
                         {
                           round2Introduction &&
                           <div>
-                            <h3>Round 2</h3>
+                            <h3 styleName="h3">Round 2</h3>
                             {
                               editMode ? (
                                 <Editor
                                   connector={toolbarConnector}
                                   id="round2Introduction"
-                                  initialContent={round2Introduction}
+                                  initialContent={td(round2Introduction)}
                                 />
                               ) : (
                                 <div
@@ -262,14 +276,15 @@ export default function ChallengeDetailsView(props) {
                                     __html: round2Introduction,
                                   }}
                                   /* eslint-enable react/no-danger */
+                                  styleName="rawHtml"
                                 />
                               )
                             }
                           </div>
                         }
                         <div styleName="note">
-                          <p>Regarding the Rounds:</p>
-                          <ul>
+                          <p styleName="p">Regarding the Rounds:</p>
+                          <ul styleName="ul">
                             <li>To be eligible for Round 1 prizes and design feedback,
                               you must submit before the Checkpoint deadline.
                             </li>
@@ -299,13 +314,13 @@ export default function ChallengeDetailsView(props) {
                     {
                       detailedRequirements &&
                       <article>
-                        <h2>Full Description & Project Guide</h2>
+                        <h2 styleName="h2">Full Description & Project Guide</h2>
                         {
                           editMode ? (
                             <Editor
                               connector={toolbarConnector}
                               id="detailedRequirements"
-                              initialContent={detailedRequirements}
+                              initialContent={td(detailedRequirements)}
                             />
                           ) : (
                             <div
@@ -314,14 +329,15 @@ export default function ChallengeDetailsView(props) {
                                 __html: detailedRequirements,
                               }}
                               /* eslint-enable react/no-danger */
+                              styleName="rawHtml"
                             />
                           )
                         }
                       </article>
                     }
                     <article>
-                      <h2>Stock Photography</h2>
-                      <p>
+                      <h2 styleName="h2">Stock Photography</h2>
+                      <p styleName="p">
                         {stockArtText}&nbsp;
                         <a href={config.URL.INFO.STOCK_ART_POLICY}>
                           See this page for more details.
@@ -329,8 +345,8 @@ export default function ChallengeDetailsView(props) {
                       </p>
                     </article>
                     <article>
-                      <h2>How To Submit</h2>
-                      <ul>
+                      <h2 styleName="h2">How To Submit</h2>
+                      <ul styleName="ul">
                         <li>
                           New to Studio?
                           &zwnj;<a href={config.URL.INFO.DESIGN_CHALLENGE_TYPES}>
@@ -365,8 +381,8 @@ export default function ChallengeDetailsView(props) {
                     </article>
 
                     <article>
-                      <h2>Winner Selection</h2>
-                      <p>
+                      <h2 styleName="h2">Winner Selection</h2>
+                      <p styleName="p">
                         Submissions are viewable to the client as they are entered
                         into the challenge. Winners are selected by the client and
                         are chosen solely at the Client&apos;s discretion.
@@ -376,11 +392,11 @@ export default function ChallengeDetailsView(props) {
                 )
             }
             <article>
-              <h2>Payments</h2>
+              <h2 styleName="h2">Payments</h2>
               {
                 isWipro ? (
                   <div>
-                    <p>
+                    <p styleName="p">
                       For employees of Wipro Technologies, following are the
                       payment terms. Winner/s would be awarded the prize money on
                       successful completion and acceptance of the submission by
@@ -400,7 +416,7 @@ export default function ChallengeDetailsView(props) {
                     </p>
                   </div>
                 ) : (
-                  <p>
+                  <p styleName="p">
                     Topcoder will compensate members in accordance with the our
                     standard payment policies, unless otherwise specified in this
                     challenge. For information on payment policies, setting up your
@@ -417,8 +433,8 @@ export default function ChallengeDetailsView(props) {
               }
             </article>
             <article>
-              <h2>Reliability Rating and Bonus</h2>
-              <p>
+              <h2 styleName="h2">Reliability Rating and Bonus</h2>
+              <p styleName="p">
                 For challenges that have a reliability bonus, the bonus depends
                 on the reliability rating at the moment of registration for that
                 project. A participant with no previous projects is considered to
