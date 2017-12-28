@@ -31,6 +31,7 @@
   em { font-style: italic; }
   strong { font-weight: bold; }
 
+  /* This styling leads to some artefacts :( */
   :global .hr {
     width: 100%;
 
@@ -44,16 +45,49 @@
   }
 
   :global {
-    blockquote {
-      border: none !important;
-      margin: 0 !important;
-      padding: 0 !important;
+    li {
+      display: inline-block;
+      position: relative;
+
+      &.leadingLi {
+        margin-top: 10px;
+      }
+
+      &::before {
+        border-left: 3px solid $tc-gray-40;
+        content: "";
+        height: 100%;
+        position: absolute;
+      }
     }
 
-    li,
-    ul {
-      list-style: none !important;
-      margin: 0 !important;
+    $offset: -15;
+    @for $level from 0 to 10 {
+      ol.md-syntax-level-#{$level} > li::before { left: #{$offset}px; }
+      $offset: $offset + 18;
+    }
+
+    $offset: -5;
+    @for $level from 0 to 10 {
+      ul.md-syntax-level-#{$level} > li::before { left: #{$offset}px; }
+      $offset: $offset + 18;
+    }
+
+    .blockquote {
+      position: relative;
+
+      &::before {
+        border-left: 3px solid $tc-light-blue;
+        content: "";
+        height: 100%;
+        position: absolute;
+      }
+    }
+
+    $offset: -15;
+    @for $level from 0 to 10 {
+      .blockquote.md-syntax-level-#{$level}::before { left: #{$offset}px; }
+      $offset: $offset + 18;
     }
 
     div,

@@ -22,6 +22,7 @@ import shortId from 'shortid';
 import inlineWrapperFactory from './inlineWrapperFactory';
 
 import './style.scss';
+import tc from 'utils/tc';
 
 /**
  * Counts the specified characters in the given string.
@@ -193,6 +194,7 @@ export default class MdUtils {
     this.blockTypes = [];
     this.content = state.getCurrentContent();
     this.decorations = {};
+    this.decoreLevel = 0;
     this.endLines = [];
     this.hrefs = {};
     this.key = this.content.getFirstBlock().getKey();
@@ -286,6 +288,7 @@ export default class MdUtils {
       res[i] = 'text';
       i -= 1;
     }
+    while (i >= 0 && res[i] === 'mdSyntax') i -= 1;
     if (i < 0) res.fill('mdSyntax');
 
     const decorations = List(res);
@@ -332,9 +335,19 @@ export default class MdUtils {
     switch (token.type) {
       case 'blockquote_open':
       case 'bullet_list_open':
+        this.decoreLevel += 1;
+        this.blockTypes.push(`${token.tag}:${this.decoreLevel}`);
+        this.endLines.push(token.map[1]);
+        break;
+
+      case 'ordered_list_open':
+        this.decoreLevel += 2;
+        this.blockTypes.push(`${token.tag}:${this.decoreLevel}`);
+        this.endLines.push(token.map[1]);
+        break;
+
       case 'heading_open':
       case 'list_item_open':
-      case 'ordered_list_open':
       case 'paragraph_open':
         this.blockTypes.push(token.tag);
         this.endLines.push(token.map[1]);
@@ -355,6 +368,18 @@ export default class MdUtils {
         }
         this.blockTypes.pop();
         this.endLines.pop();
+
+        switch (token.type) {
+          case 'blockquote_close':
+          case 'bullet_list_close':
+            this.decoreLevel -= 1;
+            break;
+          case 'ordered_list_close':
+            this.decoreLevel -= 2;
+            break;
+          default:
+        }
+
         break;
       }
 
@@ -428,6 +453,6 @@ export default class MdUtils {
     this.env = {};
     this.tokens = this.markdown.parse(
       contentState.getPlainText(), this.env);
-    // console.log(this.tokens, this.env);
+    console.log(this.tokens, this.env);
   }
 }
