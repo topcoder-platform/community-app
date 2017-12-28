@@ -17,6 +17,8 @@ import {
 
 import { List } from 'immutable';
 
+import shortId from 'shortid';
+
 import inlineWrapperFactory from './inlineWrapperFactory';
 
 import './style.scss';
@@ -163,10 +165,6 @@ export default class MdUtils {
     }
   }
 
-  decorateBlocks(numLines) {
-
-  }
-
   getDecorations(block) {
     _.noop(this);
     const res = block.getData().get('decorations') || List();
@@ -175,7 +173,7 @@ export default class MdUtils {
 
   getComponentForKey(key) {
     _.noop(this);
-    return inlineWrapperFactory(key);
+    return inlineWrapperFactory(key, this.hrefs);
   }
 
   getPropsForKey() {
@@ -196,6 +194,7 @@ export default class MdUtils {
     this.content = state.getCurrentContent();
     this.decorations = {};
     this.endLines = [];
+    this.hrefs = {};
     this.key = this.content.getFirstBlock().getKey();
     this.selection = state.getSelection();
     this.styleLine = 0;
@@ -225,15 +224,42 @@ export default class MdUtils {
       const styles = [];
       subTokens.forEach((st) => {
         switch (st.type) {
+          case 'link_open': {
+            const id = shortId().replace(/-/g, ':');
+            this.hrefs[id] = st.attrs[0][1];
+            styles.push(`a:${id}`);
+            break;
+          }
+
           case 'em_open':
           case 'strong_open':
             styles.push(st.tag);
             break;
 
+          case 's_open':
+            styles.push('strike');
+            break;
+
           case 'em_close':
+          case 'link_close':
+          case 's_close':
           case 'strong_close':
             styles.pop();
             break;
+
+          case 'code_inline': {
+            if (!st.content.length) break;
+            let style = styles.join('-');
+            if (!style) style = 'inlineCode';
+            else style = `${style}-inlineCode`;
+            pos = text.indexOf(st.content, pos);
+            const end = pos + st.content.length;
+            while (pos < end) {
+              res[pos] = style;
+              pos += 1;
+            }
+            break;
+          }
 
           case 'text': {
             if (!st.content.length) break;
@@ -243,6 +269,9 @@ export default class MdUtils {
             while (pos < end) {
               res[pos] = style;
               pos += 1;
+            }
+            if (styles.length && _.last(styles).startsWith('a:')) {
+              pos += 3 + _.last(styles).slice(2).length;
             }
             break;
           }
