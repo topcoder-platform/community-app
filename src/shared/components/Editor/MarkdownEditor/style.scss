@@ -43,84 +43,27 @@
     }
   }
 
-  :global .mdSyntax {
-    color: firebrick;
-    font-family: 'Roboto Mono', monospace;
-    font-weight: bold;
-  }
+  :global {
+    .h1,
+    .h2,
+    .h3,
+    .h4,
+    .h5,
+    .h6 { @include tc-body-md; }
 
-  :global .prism-token.token {
-    /* Code. */
-    &.code {
-      background: $tc-gray-10;
+    .h1 .text { @include tc-heading-xl; }
+    .h2 .text { @include tc-heading-lg; }
+    .h3 .text { @include tc-heading-md; }
+    .h4 .text { @include tc-heading-sm; }
+    .h5 .text { @include tc-heading-xs; }
+    .h6 .text { @include tc-heading-xs; }
+
+    .mdSyntax {
+      @include tc-body-md;
+
+      color: firebrick;
       font-family: 'Roboto Mono', monospace;
-    }
-
-    /* Headings */
-    &.h1 {
-      @include tc-heading-xl;
-
-      display: inline-block;
-      margin-top: 25px;
-    }
-
-    &.h2 {
-      @include tc-heading-lg;
-
-      display: inline-block;
-      margin-top: 20px;
-    }
-
-    &.h3 {
-      @include tc-heading-md;
-
-      display: inline-block;
-      margin-top: 15px;
-    }
-
-    &.h4 {
-      @include tc-heading-sm;
-
-      display: inline-block;
-      margin-top: 10px;
-    }
-
-    &.h5,
-    &.h6 {
-      @include tc-heading-xs;
-
-      display: inline-block;
-      margin-top: 5px;
-    }
-
-    /* Thematic break. */
-    &.thematicBreak {
-      border-bottom: 2px solid $tc-gray-10;
-      display: inline-block;
-      line-height: 0;
-      width: 100%;
-    }
-
-    /* Any markup symbols. */
-    &.markup {
-      color: $tc-gray-40;
-      font-family: 'Roboto Mono', monospace;
-    }
-  }
-
-  :global .public-DraftEditor-content {
-    /* All these elements have an extra spacing added between them, which does
-     * not look nice, when they are the first element in the editor field. Thus,
-     * for the first elements we suppress these. */
-    & > div > div:first-child > div {
-      & > .h1,
-      & > .h2,
-      & > .h3,
-      & > .h4,
-      & > .h5,
-      & > .h6 {
-        margin-top: 0;
-      }
+      font-weight: bold;
     }
   }
 }

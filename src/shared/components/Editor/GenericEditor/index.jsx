@@ -5,7 +5,7 @@
 import PT from 'prop-types';
 import React from 'react';
 
-import { ContentState, DefaultDraftBlockRenderMap, Editor, EditorState, convertFromHTML } from 'draft-js';
+import { DefaultDraftBlockRenderMap, Editor, EditorState } from 'draft-js';
 
 import 'draft-js/dist/Draft.css';
 import style from './style.scss';
@@ -14,14 +14,7 @@ export default class GenericEditor extends React.Component {
   constructor(props) {
     super(props);
     this.id = props.id;
-    console.log('WEFWEDWDQWEDQWEDQWEDQ');
-/*
-    let a = convertFromHTML('<ul><li><blockquote><p>wedwedw</p></blockquote><p>wedwedwed</p></li></ul>');
-    a = ContentState.createFromBlockArray(a.contentBlocks, a.entityMap);
-    */
-
     this.state = { editor: EditorState.createEmpty(props.decorator) };
-//    this.state = { editor: EditorState.createWithContent(a) };
   }
 
   setEditorState(state) {

@@ -2,7 +2,7 @@ import PT from 'prop-types';
 import React from 'react';
 
 function InlineWrapper({ children, hrefs, key }) {
-  if (!key) return children;
+  if (!key || key === 'text') return <span className="text">{children}</span>;
   if (key === 'mdSyntax') {
     return <span className="mdSyntax">{children}</span>;
   } else if (key === 'inlineCode') {

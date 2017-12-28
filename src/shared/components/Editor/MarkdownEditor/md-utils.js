@@ -265,7 +265,7 @@ export default class MdUtils {
             if (!st.content.length) break;
             pos = text.indexOf(st.content, pos);
             const end = pos + st.content.length;
-            const style = styles.join('-') || null;
+            const style = styles.join('-') || 'text';
             while (pos < end) {
               res[pos] = style;
               pos += 1;
@@ -280,6 +280,13 @@ export default class MdUtils {
         }
       });
     }
+
+    let i = text.length - 1;
+    while (i >= 0 && text[i] === ' ') {
+      res[i] = 'text';
+      i -= 1;
+    }
+    if (i < 0) res.fill('mdSyntax');
 
     const decorations = List(res);
     this.content = mergeBlockData(this.content, this.key, { decorations });
@@ -421,6 +428,6 @@ export default class MdUtils {
     this.env = {};
     this.tokens = this.markdown.parse(
       contentState.getPlainText(), this.env);
-    console.log(this.tokens, this.env);
+    // console.log(this.tokens, this.env);
   }
 }
