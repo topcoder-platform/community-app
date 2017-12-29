@@ -1,5 +1,5 @@
 /**
- * General-purpose wrapper around DraftJS editor.
+ * General-purpose DraftJS editor, wrapped in an auxiliary component.
  */
 
 import PT from 'prop-types';
@@ -8,6 +8,8 @@ import React from 'react';
 import { DefaultDraftBlockRenderMap, Editor, EditorState } from 'draft-js';
 
 import 'draft-js/dist/Draft.css';
+
+import Connector from '../Connector';
 import style from './style.scss';
 
 export default class GenericEditor extends React.Component {
@@ -17,8 +19,23 @@ export default class GenericEditor extends React.Component {
     this.state = { editor: EditorState.createEmpty(props.decorator) };
   }
 
-  setEditorState(state) {
-    setImmediate(() => this.setState({ editor: state }));
+  componentDidMount() {
+    const { connector } = this.props;
+    if (connector) connector.addEditor(this);
+  }
+
+  componentWillReceiveProps({ connector, id }) {
+    const prevConnector = this.props.connector;
+    this.id = id;
+    if (connector !== prevConnector) {
+      if (prevConnector) prevConnector.removeEditor(this);
+      if (connector) connector.addEditor(this);
+    }
+  }
+
+  componentWillUnmount() {
+    const { connector } = this.props;
+    if (connector) connector.removeEditor(this);
   }
 
   focus() {
@@ -30,6 +47,8 @@ export default class GenericEditor extends React.Component {
       blockRendererFn,
       blockRenderMap,
       blockStyleFn,
+      connector,
+      editorState,
       onChange,
     } = this.props;
 
@@ -50,13 +69,13 @@ export default class GenericEditor extends React.Component {
           blockRendererFn={blockRendererFn}
           blockRenderMap={DefaultDraftBlockRenderMap.merge(blockRenderMap)}
           blockStyleFn={blockStyleFn}
-          editorState={this.state.editor}
-          onChange={(newState) => {
-            this.setState({ editor: newState });
-            if (onChange) onChange(newState);
+          editorState={editorState || this.state.editor}
+          onChange={(state) => {
+            if (connector) connector.setFocusedEditor(this, state);
+            if (onChange) onChange(state);
+            else this.setState({ editor: state });
           }}
           ref={(node) => { this.editor = node; }}
-          // spellCheck
         />
       </div>
     );
@@ -67,7 +86,9 @@ GenericEditor.defaultProps = {
   blockRendererFn: () => null,
   blockRenderMap: null,
   blockStyleFn: () => null,
+  connector: null,
   decorator: null,
+  editorState: null,
   id: '',
   onChange: null,
 };
@@ -76,7 +97,17 @@ GenericEditor.propTypes = {
   blockRendererFn: PT.func,
   blockRenderMap: PT.shape(),
   blockStyleFn: PT.func,
-  decorator: PT.shape(),
+  connector: PT.instanceOf(Connector),
   id: PT.string,
+
+  /* If you want to use GenericEditor as a controlled component, pass in its
+   * current state and the onChange callback. Otherwise a local editor state
+   * will be used automatically. */
+  editorState: PT.instanceOf(EditorState),
   onChange: PT.func,
+
+  /* The following props have the effect only when GenericEditor is not a
+   * controlled component (otherwise you should apply them to your EditorState
+   * as you need (before passing it in as a prop). */
+  decorator: PT.shape(),
 };

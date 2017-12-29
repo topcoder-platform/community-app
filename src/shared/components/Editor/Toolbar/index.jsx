@@ -17,6 +17,7 @@ import {
 
 import ColorPicker from './ColorPicker';
 import Connector from '../Connector';
+import MultiEditor, { MODES } from '../MultiEditor';
 
 import style from './style.scss';
 
@@ -85,6 +86,7 @@ export default class Toolbar extends React.Component {
   render() {
     const st = this.state;
     const disableStyling = !st.editor;
+    const { connector } = this.props;
 
     const createStyleButton = (label, name, active, theme) => (
       <Button
@@ -103,6 +105,31 @@ export default class Toolbar extends React.Component {
     return (
       <Sticky innerZ={2}>
         <div id={this.props.nodeId} styleName="container">
+          {
+            connector.focusedEditor instanceof MultiEditor ? (
+              <div styleName="select-wrapper">
+                <Select
+                  autoBlur
+                  clearable={false}
+                  className={style.select}
+                  disabled={disableStyling}
+                  onChange={({ value }) => {
+                    connector.focusedEditor.setMode(value);
+                  }}
+                  onFocus={e => e.preventDefault()}
+                  options={[{
+                    label: 'Mode: WYSIWYG',
+                    value: MODES.WYSIWYG,
+                  }, {
+                    label: 'Mode: Markdown',
+                    value: MODES.MARKDOWN,
+                  }]}
+                  placeholder="Block Style"
+                  value={connector.focusedEditor.state.mode}
+                />
+              </div>
+            ) : null
+          }
 
           <Button
             // disabled={!this.props.connector.modified}
@@ -111,19 +138,6 @@ export default class Toolbar extends React.Component {
             theme={{ button: style.basic }}
           >Save</Button>
           <div styleName="separator" />
-
-          <Button
-            active={st.markdown}
-            disabled
-            onMouseDown={(e) => {
-              e.preventDefault();
-              const active = !st.markdown;
-              this.setState({ markdown: active });
-              this.props.connector.toggleInlineMarkdown(active);
-            }}
-            size="sm"
-            theme={{ button: style.basic }}
-          >Inline Markdown</Button>
 
           <div styleName="separator" />
 
@@ -147,7 +161,7 @@ export default class Toolbar extends React.Component {
           <ColorPicker
             onChange={(color) => {
               const editor = st.editor || this.props.connector.previousEditor;
-              editor.node.focus();
+              editor.focus();
               setImmediate(() => {
                 editor.applyColorStyle('TEXT', color);
                 this.setState({ pickingTextColor: false });
@@ -169,7 +183,7 @@ export default class Toolbar extends React.Component {
           <ColorPicker
             onChange={(color) => {
               const editor = st.editor || this.props.connector.previousEditor;
-              editor.node.focus();
+              editor.focus();
               setImmediate(() => {
                 editor.applyColorStyle('HIGHLIGHT', color);
                 this.setState({ pickingHighlightColor: false });
@@ -218,6 +232,19 @@ export default class Toolbar extends React.Component {
             />
 
           </div>
+
+          <Button
+            active={st.markdown}
+            disabled
+            onMouseDown={(e) => {
+              e.preventDefault();
+              const active = !st.markdown;
+              this.setState({ markdown: active });
+              this.props.connector.toggleInlineMarkdown(active);
+            }}
+            size="sm"
+            theme={{ button: style.basic }}
+          >Inline Markdown</Button>
         </div>
       </Sticky>
     );

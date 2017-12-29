@@ -267,6 +267,7 @@ function onUpdateChallengeDone(state, { error, payload }) {
     return state;
   }
   if (payload.uuid !== state.updatingChallengeUuid) return state;
+  console.log(payload);
   return {
     ...state,
     details: {

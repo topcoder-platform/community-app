@@ -4,12 +4,11 @@
 
 import _ from 'lodash';
 import config from 'utils/config';
-import Editor from 'components/Editor/MarkdownEditor';
+import Editor from 'components/Editor/MultiEditor';
 import EditorToolbar from 'components/Editor/Toolbar';
 import ToolbarConnector from 'components/Editor/Connector';
 import React from 'react';
 import Sticky from 'react-stickynode';
-import Turndown from 'turndown';
 
 import PT from 'prop-types';
 import { DangerButton } from 'components/buttons';
@@ -57,13 +56,6 @@ export default function ChallengeDetailsView(props) {
     userDetails,
   } = challenge;
 
-  const turndown = new Turndown();
-  const td = (html) => {
-    const res = turndown.turndown(html);
-    // console.log(html, res);
-    return res;
-  };
-
   const roles = (userDetails || {}).roles || [];
 
   let forumLink = track.toLowerCase() === 'design'
@@ -104,7 +96,7 @@ export default function ChallengeDetailsView(props) {
       // const html = editorStateToHTML(x.state.editorState.getCurrentContent());
       updatedChallenge[x.id] = x.getHtml();
     });
-    // console.log(updatedChallenge);
+    console.log(updatedChallenge);
     updateChallenge(updatedChallenge);
   };
 
@@ -153,7 +145,7 @@ export default function ChallengeDetailsView(props) {
                             <Editor
                               connector={toolbarConnector}
                               id="detailedRequirements"
-                              initialContent={td(detailedRequirements)}
+                              ref={n => n && n.setHtml(detailedRequirements)}
                             />
                           ) : (
                             <div
@@ -177,7 +169,7 @@ export default function ChallengeDetailsView(props) {
                             <Editor
                               connector={toolbarConnector}
                               id="submissionGuidelines"
-                              initialContent={td(finalSubmissionGuidelines)}
+                              ref={n => n && n.setHtml(finalSubmissionGuidelines)}
                             />
                           ) : (
                             <div
@@ -205,7 +197,7 @@ export default function ChallengeDetailsView(props) {
                             <Editor
                               connector={toolbarConnector}
                               id="introduction"
-                              initialContent={td(introduction)}
+                              ref={n => n && n.setHtml(introduction)}
                             />
                           ) : (
                             <div
@@ -243,7 +235,7 @@ export default function ChallengeDetailsView(props) {
                                 <Editor
                                   connector={toolbarConnector}
                                   id="round1Introduction"
-                                  initialContent={td(round1Introduction)}
+                                  ref={n => n.setHtml(round1Introduction)}
                                 />
                               ) : (
                                 <div
@@ -267,7 +259,7 @@ export default function ChallengeDetailsView(props) {
                                 <Editor
                                   connector={toolbarConnector}
                                   id="round2Introduction"
-                                  initialContent={td(round2Introduction)}
+                                  ref={n => n.setHtml(round2Introduction)}
                                 />
                               ) : (
                                 <div
@@ -320,7 +312,7 @@ export default function ChallengeDetailsView(props) {
                             <Editor
                               connector={toolbarConnector}
                               id="detailedRequirements"
-                              initialContent={td(detailedRequirements)}
+                              ref={n => n && n.setHtml(detailedRequirements)}
                             />
                           ) : (
                             <div

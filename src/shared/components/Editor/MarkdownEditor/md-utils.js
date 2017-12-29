@@ -22,7 +22,6 @@ import shortId from 'shortid';
 import inlineWrapperFactory from './inlineWrapperFactory';
 
 import './style.scss';
-import tc from 'utils/tc';
 
 /**
  * Counts the specified characters in the given string.

@@ -22,7 +22,7 @@ import 'draft-js/dist/Draft.css';
 import Editor from 'draft-js-plugins-editor';
 import createMarkdownShortcutsPlugin from 'draft-js-markdown-shortcuts-plugin';
 
-import { EDITOR_COLOR_MAP } from 'utils/editor';
+import { EDITOR_COLOR_MAP, editorStateToHTML } from 'utils/editor';
 
 import Connector from './Connector';
 import createCustomPlugin from './plugin';
@@ -59,7 +59,7 @@ export default class EditorWrapper extends React.Component {
       );
       editorState = EditorState.createWithContent(editorState);
       this.initialContent = editorState.getCurrentContent();
-      setImmediate(() => this.setState({ editorState }));
+      setImmediate(() => this.setState({ editor: editorState }));
     }
   }
 
@@ -76,8 +76,18 @@ export default class EditorWrapper extends React.Component {
     this.props.connector.removeEditor(this);
   }
 
-  focus() {
-    if (this.node) this.node.focus();
+  getHtml() {
+    return editorStateToHTML(this.state.editor.getCurrentContent());
+  }
+
+  setHtml(html) {
+    let state = convertFromHTML(html);
+    state = ContentState.createFromBlockArray(
+      state.contentBlocks,
+      state.entityMap,
+    );
+    state = EditorState.createWithContent(state);
+    this.setState({ editor: state });
   }
 
   /**
@@ -114,7 +124,11 @@ export default class EditorWrapper extends React.Component {
     // Apply new color
     editorState = RichUtils.toggleInlineStyle(editorState, `${type}_${color}`);
 
-    this.setState({ editorState });
+    this.setState({ editor: editorState });
+  }
+
+  focus() {
+    if (this.node) this.node.focus();
   }
 
   /**
@@ -152,7 +166,7 @@ export default class EditorWrapper extends React.Component {
 
     editorState = EditorState.push(editorState, contentState, 'insert-characters');
 
-    this.setState({ editorState });
+    this.setState({ editor: editorState });
   }
 
   /**
@@ -196,7 +210,7 @@ export default class EditorWrapper extends React.Component {
       editorState = RichUtils.toggleLink(editorState, sel, key);
     }
 
-    this.setState({ editorState });
+    this.setState({ editor: editorState });
   }
 
   /**
@@ -206,7 +220,8 @@ export default class EditorWrapper extends React.Component {
    */
   toggleInlineStyle(styleName) {
     const editorState = RichUtils.toggleInlineStyle(this.state.editor, styleName);
-    this.setState({ editorState });
+    this.setState({ editor: editorState });
+    console.log('!');
     return editorState.getCurrentInlineStyle();
   }
 
@@ -238,7 +253,7 @@ export default class EditorWrapper extends React.Component {
               state, command);
             if (editorState) {
               connector.setFocusedEditor(this, editorState);
-              this.setState({ editorState });
+              this.setState({ editor: editorState });
               return true;
             }
             return false;
@@ -252,7 +267,7 @@ export default class EditorWrapper extends React.Component {
               connector.modified = true;
             }
             connector.setFocusedEditor(hasFocus ? this : null, newState);
-            this.setState({ editorState: newState });
+            this.setState({ editor: newState });
           }}
           plugins={[
             this.state.markdown ? this.markdownPlugin : {},
