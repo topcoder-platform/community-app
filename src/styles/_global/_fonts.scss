@@ -55,11 +55,35 @@
 /* TODO: At the moment I have only ttf version of the font around, thus using
  * font-face directly, should be updated later. */
 @include font-family-ttf(
+  'Roboto Mono', 100, normal,
+  'assets/fonts/roboto-mono/RobotoMono-Thin');
+@include font-family-ttf(
+  'Roboto Mono', 100, italic,
+  'assets/fonts/roboto-mono/RobotoMono-ThinItalic');
+@include font-family-ttf(
+  'Roboto Mono', 300, normal,
+  'assets/fonts/roboto-mono/RobotoMono-Light');
+@include font-family-ttf(
+  'Roboto Mono', 300, italic,
+  'assets/fonts/roboto-mono/RobotoMono-LightItalic');
+@include font-family-ttf(
   'Roboto Mono', 400, normal,
   'assets/fonts/roboto-mono/RobotoMono-Regular');
 @include font-family-ttf(
   'Roboto Mono', 400, italic,
   'assets/fonts/roboto-mono/RobotoMono-Italic');
+@include font-family-ttf(
+  'Roboto Mono', 500, normal,
+  'assets/fonts/roboto-mono/RobotoMono-Medium');
+@include font-family-ttf(
+  'Roboto Mono', 500, italic,
+  'assets/fonts/roboto-mono/RobotoMono-MediumItalic');
+@include font-family-ttf(
+  'Roboto Mono', 700, normal,
+  'assets/fonts/roboto-mono/RobotoMono-Bold');
+@include font-family-ttf(
+  'Roboto Mono', 700, italic,
+  'assets/fonts/roboto-mono/RobotoMono-BoldItalic');
 
 /* Sofia Pro font is currently used in the Topcoder footer
   and header. */

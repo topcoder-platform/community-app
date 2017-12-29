@@ -40,7 +40,7 @@ const createStrategy = type =>
 export default ({ editor }) => {
   // Store the editor in the closure
   const updateEntityData = (key, data) => {
-    let editorState = editor.state.editorState;
+    let editorState = editor.state.editor;
 
     editorState = EditorState.push(
       editorState,
