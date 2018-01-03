@@ -37,6 +37,11 @@ if (!process.env.FRONT_END) {
 }
 
 const config = window.CONFIG;
+analytics.initialize({
+  segmentio: {
+    apiKey: config.SEGMENT_IO_API_KEY,
+  },
+});
 
 /**
  * Uses Topcoder accounts-app to fetch / refresh authentication tokens.
