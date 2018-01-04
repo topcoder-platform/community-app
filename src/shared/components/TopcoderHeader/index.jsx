@@ -88,7 +88,7 @@ const MENU = [{
   items: [{
     enforceA: true,
     icon: <IconNavMembers />,
-    link: `${BASE_URL}/community/members`,
+    link: `${BASE_URL}/community/members/`,
     title: 'Overview',
   }, {
     enforceA: true,
