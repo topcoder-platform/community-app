@@ -69,31 +69,5 @@ exports[`Matches shallow shapshot 1`] = `
       type="Challenge Track"
     />
   </div>
-  <div
-    className="src-shared-components-SubmissionManagement-SubmissionManagement-___styles__btn-wrap___2G2IK"
-  >
-    <ThemedGenericButton
-      active={false}
-      composeAdhocTheme="deeply"
-      composeContextTheme="softly"
-      disabled={false}
-      enforceA={false}
-      mapThemrProps={[Function]}
-      onClick={null}
-      onMouseDown={null}
-      openNewTab={false}
-      replace={false}
-      size={null}
-      theme={
-        Object {
-          "button": "src-shared-components-SubmissionManagement-SubmissionManagement-___styles__add-sub-btn___1ZToV",
-        }
-      }
-      themePriority="adhoc-context-default"
-      to="/submit"
-    >
-      Add Submission
-    </ThemedGenericButton>
-  </div>
 </div>
 `;
