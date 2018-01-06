@@ -87,7 +87,7 @@ export default class EditorWrapper extends React.Component {
       state.entityMap,
     );
     state = EditorState.createWithContent(state);
-    this.setState({ editor: state });
+    setImmediate(() => this.setState({ editor: state }));
   }
 
   /**
@@ -221,7 +221,6 @@ export default class EditorWrapper extends React.Component {
   toggleInlineStyle(styleName) {
     const editorState = RichUtils.toggleInlineStyle(this.state.editor, styleName);
     this.setState({ editor: editorState });
-    console.log('!');
     return editorState.getCurrentInlineStyle();
   }
 
