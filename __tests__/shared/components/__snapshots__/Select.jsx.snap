@@ -1,51 +1,54 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Matches shallow shapshot 1`] = `
-<Select
-  arrowRenderer={[Function]}
-  autosize={false}
-  backspaceRemoves={true}
-  backspaceToRemoveMessage="Press backspace to remove {label}"
+<div
   className="src-shared-components-Select-___style__select___oXBnl"
-  clearAllText="Clear all"
-  clearRenderer={[Function]}
-  clearValueText="Clear value"
-  clearable={true}
-  closeOnSelect={true}
-  deleteRemoves={true}
-  delimiter=","
-  disabled={false}
-  escapeClearsValue={true}
-  filterOptions={[Function]}
-  id="id"
-  ignoreAccents={true}
-  ignoreCase={true}
-  inputProps={Object {}}
-  isLoading={false}
-  joinValues={false}
-  labelKey="label"
-  matchPos="any"
-  matchProp="any"
-  menuBuffer={0}
-  menuRenderer={[Function]}
-  multi={false}
-  noResultsText="No results found"
-  onBlurResetsInput={true}
-  onCloseResetsInput={true}
-  onSelectResetsInput={true}
-  openOnClick={true}
-  optionComponent={[Function]}
-  pageSize={5}
-  placeholder="Select..."
-  removeSelected={true}
-  required={false}
-  rtl={false}
-  scrollMenuIntoView={true}
-  searchable={true}
-  simpleValue={false}
-  tabSelectsValue={true}
-  trimFilter={true}
-  valueComponent={[Function]}
-  valueKey="value"
-/>
+>
+  <Select
+    arrowRenderer={[Function]}
+    autosize={false}
+    backspaceRemoves={true}
+    backspaceToRemoveMessage="Press backspace to remove {label}"
+    clearAllText="Clear all"
+    clearRenderer={[Function]}
+    clearValueText="Clear value"
+    clearable={true}
+    closeOnSelect={true}
+    deleteRemoves={true}
+    delimiter=","
+    disabled={false}
+    escapeClearsValue={true}
+    filterOptions={[Function]}
+    id="id"
+    ignoreAccents={true}
+    ignoreCase={true}
+    inputProps={Object {}}
+    isLoading={false}
+    joinValues={false}
+    labelKey="label"
+    matchPos="any"
+    matchProp="any"
+    menuBuffer={0}
+    menuRenderer={[Function]}
+    multi={false}
+    noResultsText="No results found"
+    onBlurResetsInput={true}
+    onCloseResetsInput={true}
+    onSelectResetsInput={true}
+    openOnClick={true}
+    optionComponent={[Function]}
+    pageSize={5}
+    placeholder="Select..."
+    removeSelected={true}
+    required={false}
+    rtl={false}
+    scrollMenuIntoView={true}
+    searchable={true}
+    simpleValue={false}
+    tabSelectsValue={true}
+    trimFilter={true}
+    valueComponent={[Function]}
+    valueKey="value"
+  />
+</div>
 `;

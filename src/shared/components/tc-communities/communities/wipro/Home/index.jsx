@@ -4,8 +4,6 @@
  * It hardcodes data which is passed to dummy components,
  * thus we disable max-len eslint rule for this file
  */
-/* eslint-disable max-len */
-
 
 import React from 'react';
 import Section from 'components/tc-communities/Section';
@@ -26,6 +24,8 @@ import PT from 'prop-types';
 
 import JoinCommunity from 'containers/tc-communities/JoinCommunity';
 import CommunityStats from 'containers/tc-communities/CommunityStats';
+
+import bannerImage from 'assets/images/communities/wipro/home/banner.jpg';
 
 /*
 import IconRocket from '../../../../../../assets/images/tc-communities/rocket.svg';
@@ -116,14 +116,21 @@ export default function Home(props) {
     <main>
       <Banner
         title="Wipro crowd"
-        text="With Wipro's Hybrid Crowd you can get just-in-time access to niche in-demand skills to provide new value services, faster delivery at speed and scale all over the world."
         link={{
           title: 'Compete Now',
           url: 'challenges',
         }}
-        imageSrc="/community-app-assets/themes/wipro/home/top_image.png"
+        imageSrc={bannerImage}
         theme={bannerStyle}
-      />
+      >
+        <p>
+          Compete & win in fun and exciting challenges and join the community
+          of winners!
+        </p>
+        <p styleName="style.banner-highlighted-text">
+          Nova Challenge Series on <span styleName="style.banner-highlighted-text-2">topgear.topcoder.com</span>
+        </p>
+      </Banner>
 
       <CommunityStats theme={IconStatStyles} icons={COMMUNITY_STATS_ICONS} />
 
@@ -139,8 +146,9 @@ export default function Home(props) {
             title="Improve Your Skills"
             text="Our continuously evolving structured learning paths are customized to deepen your knowledge and help you acquire industry specific software capabilities. To keep abreast of emerging new technologies and succeed in this rapidly changing technology landscape. Click below to visit TopGear."
             link={{
+              newTab: true,
               title: 'Start Learning',
-              url: 'learn',
+              url: 'https://topgear-app.wipro.com/',
             }}
             theme={ImageTextStyles}
             imageSrc="/community-app-assets/themes/wipro/home/image-text-learn.png"
@@ -210,7 +218,9 @@ export default function Home(props) {
               theme={ResourceCardStyles}
               icon={IconNetwork}
               title="Up Your iOS and Swift Development Skills"
-              text="Pellentesque non dignissim neque. Nunc vel rhoncus nibh, ut tincidunt turpis. Integer ac enim pellentesque, adipiscing metus id, pharetra odio."
+              text="Pellentesque non dignissim neque. Nunc vel rhoncus nibh, ut
+              tincidunt turpis. Integer ac enim pellentesque, adipiscing metus
+              id, pharetra odio."
               link={{
                 title: 'Browse resources',
                 url: 'https://topgear-app.wipro.com',
@@ -222,7 +232,9 @@ export default function Home(props) {
               theme={ResourceCardStyles}
               icon={IconMedal}
               title="Take the First Steps to Stand Out in the Community"
-              text="Donec bibendum nunc sit amet tortor scelerisque luctus et sit amet mauris. Suspendisse felis sem, condimentum ullamcorper est sit amet, molestie"
+              text="Donec bibendum nunc sit amet tortor scelerisque luctus et
+              sit amet mauris. Suspendisse felis sem, condimentum ullamcorper
+              est sit amet, molestie"
               link={{
                 title: 'Learn about badges',
                 url: 'leaderboard',
@@ -234,7 +246,9 @@ export default function Home(props) {
               theme={ResourceCardStyles}
               icon={IconRocket}
               title="Compete in Challenges and Win Cash"
-              text="Suspendisse felis sem, condimentum ullamcorper est sit amet, molestie mollis nulla. Etiam lorem orci, consequat ac magna quis, facilisis"
+              text="Suspendisse felis sem, condimentum ullamcorper est sit amet,
+              molestie mollis nulla. Etiam lorem orci, consequat ac magna quis,
+              facilisis"
               link={{
                 title: 'Browse challenges',
                 url: 'challenges',

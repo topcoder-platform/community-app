@@ -5,6 +5,7 @@
 import _ from 'lodash';
 import actions from 'actions/direct';
 import logger from 'utils/logger';
+import { fireErrorMessage } from 'utils/errors';
 import { handleActions } from 'redux-actions';
 import { decodeToken } from 'tc-accounts';
 
@@ -63,6 +64,42 @@ function onGetProjectDetailsDone(state, { error, payload }) {
 }
 
 /**
+ * Handler for the GET_PROJECT_PERMISSIONS_INIT action.
+ * @param {Object} state
+ * @param {Object} action
+ * @return {Object} New state.
+ */
+function onGetProjectPermissionsInit(state, { payload }) {
+  const projectPermissions = {
+    ...state.projectPermissions,
+    loadingForProjectId: payload,
+  };
+  return { ...state, projectPermissions };
+}
+
+/**
+ * Handler for the GET_PROJECT_PERMISSIONS_DONE action.
+ * @param {Object} state
+ * @param {Object} action
+ * @return {Object} New state.
+ */
+function onGetProjectPermissionsDone(state, { error, payload }) {
+  if (error) {
+    fireErrorMessage('Failed to load project permissions', '');
+    logger.error('Failed to load project permissions', payload);
+  }
+  const { permissions, projectId } = payload;
+  if (projectId !== state.projectPermissions.loadingForProjectId) return state;
+  const projectPermissions = {
+    loadingForProjectId: 0,
+    permissions,
+    projectId,
+    timestamp: Date.now(),
+  };
+  return { ...state, projectPermissions };
+}
+
+/**
  * Handles initialization of projects loading.
  * @param {Object} state
  * @param {Object} action
@@ -116,6 +153,8 @@ function create(state = {}) {
     [a.dropAll]: onDropAll,
     [a.getProjectDetailsInit]: onGetProjectDetailsInit,
     [a.getProjectDetailsDone]: onGetProjectDetailsDone,
+    [a.getProjectPermissionsInit]: onGetProjectPermissionsInit,
+    [a.getProjectPermissionsDone]: onGetProjectPermissionsDone,
     [a.getUserProjectsInit]: onGetUserProjectsInit,
     [a.getUserProjectsDone]: onGetUserProjectsDone,
   }, _.defaults(state, {
@@ -129,6 +168,13 @@ function create(state = {}) {
 
     /* Holds details of some project, or an empty object. */
     projectDetails: {},
+
+    projectPermissions: {
+      loadingForProjectId: 0,
+      permissions: [],
+      projectId: 0,
+      timestamp: 0,
+    },
 
     /* Holds the array of loaded projects. */
     projects: [],

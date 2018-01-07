@@ -9,7 +9,7 @@
  * first, by increase of the first size; second, by increase of the second size.
  */
 
-/* XXS */
+/* XS */
 
 @mixin xs {
   @media (max-width: #{$tc-screen-xs}) {
@@ -89,7 +89,7 @@
   }
 }
 
-/* LG */
+/* XL */
 
 @mixin xl {
   @media (min-width: #{$tc-screen-lg + 1px}) {

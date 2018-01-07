@@ -108,6 +108,7 @@ jest.mock('utils/challenge-listing/buckets', () => ({
     MY: 'MY',
     UPCOMING: 'UPCOMING',
   },
+  isReviewOpportunitiesBucket: () => false,
 }),
 );
 
@@ -127,4 +128,3 @@ test('Matches shallow shapshot', () => {
     expect(renderer.getRenderOutput()).toMatchSnapshot();
   });
 });
-

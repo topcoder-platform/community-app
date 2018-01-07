@@ -80,6 +80,7 @@ function testReducer(reducer, istate) {
       resultsLoadedForChallengeId: '',
       selectedTab: 'details',
       unregistering: false,
+      updatingChallengeUuid: '',
     });
   });
 
@@ -102,6 +103,7 @@ function testReducer(reducer, istate) {
       resultsLoadedForChallengeId: '',
       selectedTab: 'details',
       unregistering: false,
+      updatingChallengeUuid: '',
     });
   });
 
@@ -124,6 +126,7 @@ function testReducer(reducer, istate) {
       resultsLoadedForChallengeId: '',
       selectedTab: 'details',
       unregistering: false,
+      updatingChallengeUuid: '',
     });
   });
 
@@ -147,6 +150,7 @@ function testReducer(reducer, istate) {
       resultsLoadedForChallengeId: '',
       selectedTab: 'details',
       unregistering: false,
+      updatingChallengeUuid: '',
     });
   });
 
@@ -171,6 +175,7 @@ function testReducer(reducer, istate) {
       resultsLoadedForChallengeId: '',
       selectedTab: 'details',
       unregistering: false,
+      updatingChallengeUuid: '',
     });
   });
 
@@ -192,6 +197,7 @@ function testReducer(reducer, istate) {
       resultsLoadedForChallengeId: '',
       selectedTab: 'details',
       unregistering: false,
+      updatingChallengeUuid: '',
     });
   });
 
@@ -213,6 +219,7 @@ function testReducer(reducer, istate) {
       resultsLoadedForChallengeId: '',
       selectedTab: 'details',
       unregistering: false,
+      updatingChallengeUuid: '',
     });
   });
 }
@@ -231,6 +238,7 @@ describe('Default reducer', () =>
     resultsLoadedForChallengeId: '',
     selectedTab: 'details',
     unregistering: false,
+    updatingChallengeUuid: '',
   }),
 );
 
@@ -247,6 +255,7 @@ describe('Factory without http request', () =>
       mySubmissionsManagement: {},
       registering: false,
       unregistering: false,
+      updatingChallengeUuid: '',
     }),
   ),
 );
@@ -267,6 +276,7 @@ describe('Factory with server-side rendering', () =>
       mySubmissionsManagement: {},
       registering: false,
       unregistering: false,
+      updatingChallengeUuid: '',
     }),
   ),
 );
@@ -283,6 +293,7 @@ describe('Factory without server-side rendering', () =>
       mySubmissionsManagement: {},
       registering: false,
       unregistering: false,
+      updatingChallengeUuid: '',
     }),
   ),
 );

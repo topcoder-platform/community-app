@@ -1,0 +1,13 @@
+/**
+ * Theme for a gray outline button with Open Sans label font.
+ */
+
+@import "_mixin";
+
+$color: gray;
+
+@include button(
+  $color,
+  lighten($color, 10%),
+  lighten($color, 40%),
+  lighten($color, 47%));

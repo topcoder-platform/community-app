@@ -5,6 +5,7 @@
  * thus we disable max-len eslint rule for this file
  */
 
+import _ from 'lodash';
 import PT from 'prop-types';
 import React from 'react';
 import Section from 'components/tc-communities/Section';
@@ -16,6 +17,7 @@ import ArticleCard from 'components/tc-communities/ArticleCard2';
 import LinksCard from 'components/tc-communities/LinksCard';
 
 import ConsenSysAtMedium from './ConsenSysAtMedium';
+import TopcoderBlockchainBlog from './TopcoderBlockchainBlog';
 import LearnTheBasics from './LearnTheBasics';
 import Tutorials from './Tutorials';
 
@@ -24,6 +26,7 @@ import style from './style.scss';
 export default function Learn({
   baseUrl,
   consenSysRss,
+  topcoderBlockchainBlogRss,
 }) {
   return (
     <main>
@@ -168,6 +171,9 @@ export default function Learn({
       </Section>
       <Tutorials />
       <ConsenSysAtMedium consenSysRss={consenSysRss} />
+      <TopcoderBlockchainBlog
+        topcoderBlockchainBlogRss={topcoderBlockchainBlogRss}
+      />
       <Section
         title="More Resources"
         theme={{
@@ -175,16 +181,6 @@ export default function Learn({
           container: style.resourcesContainer,
         }}
       >
-        {/*
-        <LinksCard
-          title="From Topcoder Blog"
-          links={[]}
-        />
-        <LinksCard
-          title="Bits on Blocks"
-          links={[]}
-        />
-        */}
         <LinksCard
           title="Useful Information"
           theme={{
@@ -224,6 +220,21 @@ export default function Learn({
             url: 'http://www.weekinethereum.com/',
           }]}
         />
+        {
+          topcoderBlockchainBlogRss ? (
+            <LinksCard
+              theme={{
+                container: style.linksCardContainer,
+              }}
+              title="More From Topcoder Blog"
+              links={_.get(topcoderBlockchainBlogRss, 'data.item', []).slice(3).map(it => ({
+                openNewTab: true,
+                title: it.title,
+                url: it.link,
+              }))}
+            />
+          ) : null
+        }
       </Section>
 
       <NewsletterSignup
@@ -237,9 +248,11 @@ export default function Learn({
 
 Learn.defaultProps = {
   consenSysRss: null,
+  topcoderBlockchainBlogRss: null,
 };
 
 Learn.propTypes = {
   baseUrl: PT.string.isRequired,
   consenSysRss: PT.shape(),
+  topcoderBlockchainBlogRss: PT.shape(),
 };

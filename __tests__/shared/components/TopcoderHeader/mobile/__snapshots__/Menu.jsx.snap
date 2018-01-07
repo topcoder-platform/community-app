@@ -9,6 +9,10 @@ exports[`Matches snapshot 1`] = `
   >
     <LogoTopcoder
       className="src-shared-components-TopcoderHeader-mobile-Menu-___style__tc-logo___2ebQz"
+      height="18"
+      viewBox="0 0 51 18"
+      width="51"
+      xmlns="http://www.w3.org/2000/svg"
     />
     [ topcoder ]
     <span

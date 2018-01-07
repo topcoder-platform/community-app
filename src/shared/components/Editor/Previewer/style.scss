@@ -1,0 +1,25 @@
+@import "~styles/mixins";
+
+.container {
+  background: white;
+  overflow: hidden;
+  position: relative;
+}
+
+.content {
+  border: 1px solid $tc-gray-40;
+  height: 33vh;
+  margin: 0 0 10px;
+  padding-top: 25px;
+}
+
+.title {
+  @include tc-label-xs;
+
+  background: $tc-gray-neutral-dark;
+  color: $tc-gray-40;
+  left: 1px;
+  position: absolute;
+  padding: 5px 10px;
+  top: 1px;
+}

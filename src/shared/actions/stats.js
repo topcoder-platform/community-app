@@ -18,11 +18,15 @@ import { getService as getGroupService } from 'services/groups';
  * @return {Promise} Resolves to the loaded data.
  */
 /* TODO: This code should be moved to a dedicated service. */
-function getCommunityStats(community, challenges, token) {
+async function getCommunityStats(community, challenges, token) {
   /* TODO: At the moment, this component loads challenge objects to calculate
    * the number of challenges and the total prize. Probably in future, we'll
    * have a special API to get these data. */
-  const filtered = _.filter(challenges, Filter.getFilterFunction(community.challengeFilter || {}));
+  let filtered = challenges.filter(x => x.status === 'ACTIVE');
+  if (community.challengeFilter) {
+    const filterFunction = Filter.getFilterFunction(community.challengeFilter);
+    filtered = filtered.filter(filterFunction);
+  }
   const totalPrize = filtered.reduce((total, challenge) => total + (challenge.totalPrize || 0), 0);
   const groupService = getGroupService(token);
   const result = {
@@ -31,19 +35,10 @@ function getCommunityStats(community, challenges, token) {
   };
   if (filtered.length) result.stats.numChallenges = filtered.length;
   if (totalPrize) result.stats.openPrizes = `$${totalPrize.toLocaleString()}`;
-  if (community.groupIds && community.groupIds.length) {
-    const members = new Set();
-    return Promise.all(
-      community.groupIds.map(id =>
-        groupService.getMembers(id)
-          .then(res => res.forEach((member) => {
-            if (member.membershipType === 'user') members.add(member);
-          })).catch(() => null),
-      ),
-    ).then(() => {
-      if (members.size) result.stats.numMembers = members.size;
-      return result;
-    });
+
+  const groupId = _.get(community, 'groupIds[0]');
+  if (groupId) {
+    result.stats.numMembers = await groupService.getMembersCount(groupId, true);
   }
   return result;
 }

@@ -35,6 +35,8 @@ exports[`Matches shallow shapshot shapshot 1 1`] = `
       "users": Object {},
     }
   }
+  expandTag={null}
+  expandedTags={Array []}
   newChallengeDetails={false}
   onTechTagClicked={[Function]}
   openChallengesInNewTabs={false}
@@ -69,6 +71,8 @@ exports[`Matches shallow shapshot shapshot 2 1`] = `
       "users": Object {},
     }
   }
+  expandTag={null}
+  expandedTags={Array []}
   newChallengeDetails={false}
   onTechTagClicked={[Function]}
   openChallengesInNewTabs={false}
@@ -103,6 +107,8 @@ exports[`Matches shallow shapshot shapshot 3 1`] = `
       "users": Object {},
     }
   }
+  expandTag={null}
+  expandedTags={Array []}
   newChallengeDetails={false}
   onTechTagClicked={[Function]}
   openChallengesInNewTabs={false}

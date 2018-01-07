@@ -38,6 +38,8 @@ export default function Bucket({
   setSort,
   sort,
   userHandle,
+  expandedTags,
+  expandTag,
 }) {
   const filter = getFilterFunction(bucket.filter);
   const activeSort = sort || bucket.sorts[0];
@@ -76,11 +78,13 @@ export default function Bucket({
       key={item.id}
       selectChallengeDetailsTab={selectChallengeDetailsTab}
       userHandle={userHandle}
+      expandedTags={expandedTags}
+      expandTag={expandTag}
     />
   ));
 
   const placeholders = [];
-  if (loading || keepPlaceholders) {
+  if ((loading || keepPlaceholders) && (!expandable || expanded)) {
     for (let i = 0; i < 8; i += 1) {
       placeholders.push(<CardPlaceholder id={i} key={i} />);
     }
@@ -110,7 +114,7 @@ export default function Bucket({
       }
       {placeholders}
       {
-        (expandable || loadMore) && !keepPlaceholders && !loading && !expanded ? (
+        (expandable || loadMore) && (expandable || !keepPlaceholders) && !loading && !expanded ? (
           <a
             href={`${challengesUrl}?${bucketQuery}`}
             onClick={(event) => {
@@ -139,6 +143,8 @@ Bucket.defaultProps = {
   openChallengesInNewTabs: false,
   sort: null,
   userHandle: '',
+  expandedTags: [],
+  expandTag: null,
 };
 
 Bucket.propTypes = {
@@ -161,4 +167,6 @@ Bucket.propTypes = {
   setSort: PT.func.isRequired,
   sort: PT.string,
   userHandle: PT.string,
+  expandedTags: PT.arrayOf(PT.number),
+  expandTag: PT.func,
 };

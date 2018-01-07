@@ -38,6 +38,21 @@ class Direct {
   }
 
   /**
+   * Gets user permissions on the specified project.
+   * @param {Number|String} projectId
+   * @param {String} tokenV3 Auth token for API v3.
+   * @return {Promise} Resolves to the user permissions data.
+   */
+  async getProjectPermissions(projectId) {
+    const URL = `/direct/projects/${projectId}/permissions`;
+    let res = await this.private.api.get(URL);
+    if (!res.ok) throw new Error(res.statusText);
+    res = (await res.json()).result;
+    if (res.status !== 200) throw new Error(res.content);
+    return res.content;
+  }
+
+  /**
    * Gets all projects the user can see.
    * @return {Promise} Resolves to an array of project objects.
    */

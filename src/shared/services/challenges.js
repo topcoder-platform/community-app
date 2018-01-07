@@ -76,7 +76,7 @@ export function normalizeChallengeDetails(v3, v3Filtered, v3User, v2, username) 
     terms: v3.terms,
     submissions: v3.submissions,
     checkpoints: v3.checkpoints,
-    documents: v3.Documents || [],
+    documents: v3.documents || [],
     numRegistrants: v3.numberOfRegistrants,
     numberOfCheckpointSubmissions: v3.numberOfCheckpointSubmissions,
     reliabilityBonus: v3.reliabilityBonus || 0,
@@ -561,6 +561,41 @@ class ChallengesService {
       throw err;
     },
     );
+  }
+
+  /**
+   * Updates the challenge (saves the give challenge to the API).
+   * @param {Object} challenge
+   * @param {String} tokenV3
+   * @return {Promise}
+   */
+  async updateChallenge(challenge) {
+    const URL = `/challenges/${challenge.id}`;
+    const body = { param: challenge };
+    let res = await this.private.api.putJson(URL, body);
+    if (!res.ok) throw new Error(res.statusText);
+    res = (await res.json()).result;
+    if (res.status !== 200) throw new Error(res.content);
+    return res.content;
+  }
+
+  /**
+   * Gets a list of currently open Review Opportunities.
+   * @param {Number} limit The max number to return in one call.
+   * @param {Number} offset Offset, used with limit to lazy load.
+   * @return {Promise} Resolves to the api response in JSON.
+   */
+  // This rule modification can be removed when mock api call is replaced
+  /* eslint-disable class-methods-use-this */
+  getReviewOpportunities(limit, offset) {
+    const endpoint = `/reviewOpportunities?limit=${limit}&offset=${offset}`;
+    return this.private.api.get(endpoint)
+      .then(res => (res.ok ? res.json() : new Error(res.statusText)))
+      .then(res => (
+        res.result.status === 200 ?
+          res.result.content :
+          new Error(res.result.content)
+      ));
   }
 }
 

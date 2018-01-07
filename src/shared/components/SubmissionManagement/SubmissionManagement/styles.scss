@@ -15,8 +15,6 @@ $light-gray-color: $tc-gray-neutral-light;
 
 .add-sub-btn {
   margin: 10px auto;
-  text-transform: capitalize;
-  display: inline-block;
 }
 
 .submission-management {
@@ -139,7 +137,7 @@ $light-gray-color: $tc-gray-neutral-light;
   }
 
   .right-col {
-    @include roboto-normal;
+    @include roboto-regular;
 
     min-width: 100px;
 

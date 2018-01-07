@@ -4,13 +4,26 @@ exports[`Matches shallow shapshot 1`] = `
 <div
   className={undefined}
 >
-  <button
-    className="src-shared-components-tc-communities-JoinCommunity-___style__link___mMDH0 "
+  <ThemedGenericButton
+    active={false}
+    className=""
+    composeAdhocTheme="deeply"
+    composeContextTheme="softly"
+    disabled={false}
+    enforceA={false}
+    mapThemrProps={[Function]}
     onClick={[Function]}
+    onMouseDown={null}
+    openNewTab={false}
+    replace={false}
+    size={null}
+    themePriority="adhoc-context-default"
+    to={null}
   >
     Join Community
-  </button>
+  </ThemedGenericButton>
   <ConfirmModal
+    communityId={undefined}
     communityName="ios"
     groupIds={
       Array [
@@ -29,14 +42,28 @@ exports[`Matches shallow shapshot 2`] = `
 <div
   className={undefined}
 >
-  <button
-    className="src-shared-components-tc-communities-JoinCommunity-___style__link___mMDH0 src-shared-components-tc-communities-JoinCommunity-___style__joining___rq-m2"
+  <ThemedGenericButton
+    active={false}
+    className="src-shared-components-tc-communities-JoinCommunity-___style__joining___rq-m2"
+    composeAdhocTheme="deeply"
+    composeContextTheme="softly"
+    disabled={false}
+    enforceA={false}
+    mapThemrProps={[Function]}
     onClick={[Function]}
+    onMouseDown={null}
+    openNewTab={false}
+    replace={false}
+    size={null}
+    themePriority="adhoc-context-default"
+    to={null}
   >
-    <div>
-      <p>
+    <div
+      className="src-shared-components-tc-communities-JoinCommunity-___style__joiningContainer___2P4Cv"
+    >
+      <span>
         Joining...
-      </p>
+      </span>
       <ThemedLoadingIndicator
         composeAdhocTheme="deeply"
         composeContextTheme="softly"
@@ -49,7 +76,7 @@ exports[`Matches shallow shapshot 2`] = `
         themePriority="adhoc-context-default"
       />
     </div>
-  </button>
+  </ThemedGenericButton>
 </div>
 `;
 
@@ -63,12 +90,24 @@ exports[`Matches shallow shapshot 4`] = `
 <div
   className={undefined}
 >
-  <button
-    className="src-shared-components-tc-communities-JoinCommunity-___style__link___mMDH0 "
+  <ThemedGenericButton
+    active={false}
+    className=""
+    composeAdhocTheme="deeply"
+    composeContextTheme="softly"
+    disabled={false}
+    enforceA={false}
+    mapThemrProps={[Function]}
     onClick={[Function]}
+    onMouseDown={null}
+    openNewTab={false}
+    replace={false}
+    size={null}
+    themePriority="adhoc-context-default"
+    to={null}
   >
     Join Community
-  </button>
+  </ThemedGenericButton>
   <ThemedModal
     composeAdhocTheme="deeply"
     composeContextTheme="softly"
@@ -89,12 +128,28 @@ exports[`Matches shallow shapshot 4`] = `
       ios
       !
     </p>
-    <button
-      className="src-shared-components-tc-communities-JoinCommunity-___style__done___2m1SD"
+    <ThemedGenericButton
+      active={false}
+      composeAdhocTheme="deeply"
+      composeContextTheme="softly"
+      disabled={false}
+      enforceA={false}
+      mapThemrProps={[Function]}
       onClick={[Function]}
+      onMouseDown={null}
+      openNewTab={false}
+      replace={false}
+      size={null}
+      theme={
+        Object {
+          "button": "src-shared-components-tc-communities-JoinCommunity-___style__returnToCommunityButton___1YlEi",
+        }
+      }
+      themePriority="adhoc-context-default"
+      to={null}
     >
       Return to the Community
-    </button>
+    </ThemedGenericButton>
   </ThemedModal>
 </div>
 `;
@@ -103,13 +158,26 @@ exports[`Matches shallow shapshot 5`] = `
 <div
   className={undefined}
 >
-  <button
-    className="src-shared-components-tc-communities-JoinCommunity-___style__link___mMDH0 "
+  <ThemedGenericButton
+    active={false}
+    className=""
+    composeAdhocTheme="deeply"
+    composeContextTheme="softly"
+    disabled={false}
+    enforceA={false}
+    mapThemrProps={[Function]}
     onClick={[Function]}
+    onMouseDown={null}
+    openNewTab={false}
+    replace={false}
+    size={null}
+    themePriority="adhoc-context-default"
+    to={null}
   >
     Join Community
-  </button>
+  </ThemedGenericButton>
   <ConfirmModal
+    communityId={undefined}
     communityName="ios"
     groupIds={
       Array [

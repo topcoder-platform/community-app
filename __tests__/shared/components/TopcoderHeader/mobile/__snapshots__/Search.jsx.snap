@@ -6,6 +6,10 @@ exports[`Matches shallow shapshot 1`] = `
 >
   <IconMagnifyingGlass
     className="src-shared-components-TopcoderHeader-mobile-Search-___style__icon___aCkZk"
+    height="18"
+    viewBox="0 0 18 18"
+    width="18"
+    xmlns="http://www.w3.org/2000/svg"
   />
   <input
     onKeyPress={[Function]}

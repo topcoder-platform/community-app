@@ -20,14 +20,14 @@ export default function Auth({ column }) {
     >
       <a
         className="tc-btn-sm tc-btn-primary"
-        href={`${config.URL.AUTH}/member/registration`}
+        href={`${config.URL.AUTH}/member/registration?utm_source=community-app-main`}
       >Join</a>
       <a
         className="tc-btn-sm tc-btn-default"
-        href={`${config.URL.AUTH}/member`}
+        href={`${config.URL.AUTH}/member?utm_source=community-app-main`}
         onClick={(event) => {
           const retUrl = encodeURIComponent(window.location.href);
-          window.location = `${config.URL.AUTH}/member?retUrl=${retUrl}`;
+          window.location = `${config.URL.AUTH}/member?retUrl=${retUrl}&utm_source=community-app-main`;
           event.preventDefault();
         }}
       >Log In</a>

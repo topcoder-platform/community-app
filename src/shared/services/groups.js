@@ -261,6 +261,23 @@ class GroupService {
     return this.private.api.get(`/groups/${groupId}/members`)
       .then(handleApiResponse);
   }
+
+  /**
+   * Gets the number of members in the group.
+   * @param {Number|String} groupId ID of the group.
+   * @param {Boolean} withSubGroups Optional. When this flag is set, the count
+   *  will include members of sub-groups of the specified group.
+   * @return {Promise} Resolves to the members count.
+   */
+  async getMembersCount(groupId, withSubGroups) {
+    let url = `/groups/${groupId}/membersCount`;
+    if (withSubGroups) url += '?includeSubGroups=true';
+    let res = await this.private.api.get(url);
+    if (!res.ok) throw new Error(res.statusText);
+    res = (await res.json()).result;
+    if (!res.success) throw new Error(res.content);
+    return Number(res.content);
+  }
 }
 
 /**

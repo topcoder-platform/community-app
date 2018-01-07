@@ -1,0 +1,47 @@
+@import "~styles/mixins";
+
+.answer {
+  @include tc-body-md;
+
+  background: $tc-gray-neutral-light;
+  padding: 10px 20px;
+
+  a {
+    color: $tc-dark-blue-90;
+
+    &:visited {
+      color: $tc-purple;
+    }
+  }
+
+  h3 {
+    margin: 20px 0 0;
+  }
+
+  p {
+    margin: 10px 0;
+  }
+
+  strong {
+    font-weight: bold;
+  }
+}
+
+.container {
+  margin: 10px 0;
+}
+
+.question {
+  @include tc-body-lg;
+
+  align-items: center;
+  background: $tc-dark-blue-90;
+  border: none;
+  color: white;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  outline: none;
+  padding: 15px 20px;
+  position: relative;
+}

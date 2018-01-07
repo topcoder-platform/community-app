@@ -1,0 +1,7 @@
+// The react-color component has inline styles which we need to overwrite
+.color-picker {
+  display: inline-flex !important;
+  flex-wrap: nowrap !important;
+  position: absolute !important;
+  width: auto !important;
+}
