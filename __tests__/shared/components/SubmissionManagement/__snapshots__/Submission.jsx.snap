@@ -29,20 +29,35 @@ exports[`Snapshot match 1`] = `
       <a
         href={undefined}
       >
-        <DownloadIcon />
+        <DownloadIcon
+          height="16"
+          viewBox="0 0 16 16"
+          width="16"
+          xmlns="http://www.w3.org/2000/svg"
+        />
       </a>
       <button
         className="src-shared-components-SubmissionManagement-Submission-___styles__delete-icon___2M67z"
         disabled={true}
         onClick={[Function]}
       >
-        <DeleteIcon />
+        <DeleteIcon
+          height="16"
+          viewBox="0 0 16 16"
+          width="16"
+          xmlns="http://www.w3.org/2000/svg"
+        />
       </button>
       <button
         className="src-shared-components-SubmissionManagement-Submission-___styles__expand-icon___TDY6Y src-shared-components-SubmissionManagement-Submission-___styles__expanded___8pRX_"
         onClick={[Function]}
       >
-        <ExpandIcon />
+        <ExpandIcon
+          height="16"
+          viewBox="0 0 16 16"
+          width="16"
+          xmlns="http://www.w3.org/2000/svg"
+        />
       </button>
     </div>
   </td>
@@ -80,20 +95,35 @@ exports[`Snapshot match 2`] = `
       <a
         href={undefined}
       >
-        <DownloadIcon />
+        <DownloadIcon
+          height="16"
+          viewBox="0 0 16 16"
+          width="16"
+          xmlns="http://www.w3.org/2000/svg"
+        />
       </a>
       <button
         className="src-shared-components-SubmissionManagement-Submission-___styles__delete-icon___2M67z"
         disabled={true}
         onClick={[Function]}
       >
-        <DeleteIcon />
+        <DeleteIcon
+          height="16"
+          viewBox="0 0 16 16"
+          width="16"
+          xmlns="http://www.w3.org/2000/svg"
+        />
       </button>
       <button
         className="src-shared-components-SubmissionManagement-Submission-___styles__expand-icon___TDY6Y"
         onClick={[Function]}
       >
-        <ExpandIcon />
+        <ExpandIcon
+          height="16"
+          viewBox="0 0 16 16"
+          width="16"
+          xmlns="http://www.w3.org/2000/svg"
+        />
       </button>
     </div>
   </td>

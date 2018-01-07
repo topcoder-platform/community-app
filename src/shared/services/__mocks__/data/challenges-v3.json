@@ -8,6 +8,146 @@
     },
     "content": [
       {
+        "updatedAt": "2017-11-29T06:07Z",
+        "createdAt": "2017-11-23T05:24Z",
+        "createdBy": "8544935",
+        "updatedBy": "22841596",
+        "technologies": "Java",
+        "status": "ACTIVE",
+        "track": "DEVELOP",
+        "subTrack": "CODE",
+        "name": "Quartz Energy Geosteer Assist - Formation Interpolation",
+        "reviewType": "COMMUNITY",
+        "id": 30060651,
+        "forumId": 38854,
+        "numSubmissions": 4,
+        "numRegistrants": 40,
+        "registrationStartDate": "2017-11-23T06:03:26.123Z",
+        "registrationEndDate": "2017-11-25T06:04:02.977Z",
+        "submissionEndDate": "2017-11-29T06:07:43.413Z",
+        "platforms": "Other",
+        "totalPrize": 1500,
+        "isPrivate": false,
+        "upcomingPhase": {
+            "challengeId": 30060651,
+            "id": 875368,
+            "phaseType": "Appeals",
+            "phaseStatus": "Scheduled",
+            "scheduledStartTime": "2017-11-30T06:07Z",
+            "scheduledEndTime": "2017-11-30T18:07Z",
+            "duration": 43200000,
+            "updatedAt": "2017-11-29T01:07Z",
+            "createdAt": "2017-11-23T00:24Z",
+            "createdBy": "8544935",
+            "updatedBy": "22841596"
+        },
+        "projectId": 15399,
+        "currentPhases": [
+            {
+                "challengeId": 30060651,
+                "id": 875367,
+                "phaseType": "Review",
+                "phaseStatus": "Open",
+                "scheduledStartTime": "2017-11-29T06:07Z",
+                "scheduledEndTime": "2017-11-30T06:07Z",
+                "actualStartTime": "2017-11-29T06:07Z",
+                "duration": 86400000,
+                "updatedAt": "2017-11-29T01:07Z",
+                "createdAt": "2017-11-23T00:24Z",
+                "createdBy": "8544935",
+                "updatedBy": "22841596"
+            }
+        ],
+        "submissionViewable": false,
+        "allPhases": [
+            {
+                "challengeId": 30060651,
+                "id": 875365,
+                "phaseType": "Registration",
+                "phaseStatus": "Closed",
+                "scheduledStartTime": "2017-11-23T06:03Z",
+                "scheduledEndTime": "2017-11-25T06:04Z",
+                "actualStartTime": "2017-11-23T06:03Z",
+                "actualEndTime": "2017-11-25T06:04Z",
+                "fixedStartTime": "2017-11-23T06:00Z",
+                "duration": 172800000,
+                "updatedAt": "2017-11-29T01:07Z",
+                "createdAt": "2017-11-23T00:24Z",
+                "createdBy": "8544935",
+                "updatedBy": "22841596"
+            },
+            {
+                "challengeId": 30060651,
+                "id": 875366,
+                "phaseType": "Submission",
+                "phaseStatus": "Closed",
+                "scheduledStartTime": "2017-11-23T06:11Z",
+                "scheduledEndTime": "2017-11-29T06:07Z",
+                "actualStartTime": "2017-11-23T06:11Z",
+                "actualEndTime": "2017-11-29T06:07Z",
+                "duration": 518100000,
+                "updatedAt": "2017-11-29T01:07Z",
+                "createdAt": "2017-11-23T00:24Z",
+                "createdBy": "8544935",
+                "updatedBy": "22841596"
+            },
+            {
+                "challengeId": 30060651,
+                "id": 875367,
+                "phaseType": "Review",
+                "phaseStatus": "Open",
+                "scheduledStartTime": "2017-11-29T06:07Z",
+                "scheduledEndTime": "2017-11-30T06:07Z",
+                "actualStartTime": "2017-11-29T06:07Z",
+                "duration": 86400000,
+                "updatedAt": "2017-11-29T01:07Z",
+                "createdAt": "2017-11-23T00:24Z",
+                "createdBy": "8544935",
+                "updatedBy": "22841596"
+            },
+            {
+                "challengeId": 30060651,
+                "id": 875368,
+                "phaseType": "Appeals",
+                "phaseStatus": "Scheduled",
+                "scheduledStartTime": "2017-11-30T06:07Z",
+                "scheduledEndTime": "2017-11-30T18:07Z",
+                "duration": 43200000,
+                "updatedAt": "2017-11-29T01:07Z",
+                "createdAt": "2017-11-23T00:24Z",
+                "createdBy": "8544935",
+                "updatedBy": "22841596"
+            },
+            {
+                "challengeId": 30060651,
+                "id": 875369,
+                "phaseType": "Appeals Response",
+                "phaseStatus": "Scheduled",
+                "scheduledStartTime": "2017-11-30T18:07Z",
+                "scheduledEndTime": "2017-12-01T06:07Z",
+                "duration": 43200000,
+                "updatedAt": "2017-11-29T01:07Z",
+                "createdAt": "2017-11-23T00:24Z",
+                "createdBy": "8544935",
+                "updatedBy": "22841596"
+            }
+        ],
+        "prizes": [
+            1000,
+            500
+        ],
+        "events": [
+            {
+                "eventId": 3450,
+                "eventName": "tco18",
+                "projectId": 30060651
+            }
+        ],
+        "isTask": false,
+        "environment": "",
+        "codeRepo": ""
+      },
+      {
         "updatedAt": "2016-09-15T11:20Z",
         "createdAt": "2016-09-15T11:18Z",
         "createdBy": "40152643",

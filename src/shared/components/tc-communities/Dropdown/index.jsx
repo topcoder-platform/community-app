@@ -8,7 +8,7 @@
 
 import React from 'react';
 import PT from 'prop-types';
-import ReactDropdown from 'react-dropdown';
+import Select from 'react-select';
 import './style.scss';
 
 function Dropdown(props) {
@@ -16,8 +16,11 @@ function Dropdown(props) {
 
   return (
     <div styleName="container">
-      <ReactDropdown
+      <Select
+        searchable={false}
+        clearable={false}
         onChange={(option) => {
+          if (value === option.value) return;
           const op = options.find(item => item.value === option.value) || {};
           if (op.redirect) window.location = op.redirect;
         }}

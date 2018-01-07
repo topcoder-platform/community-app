@@ -219,6 +219,52 @@ function onSetFilter(state, { payload }) {
 }
 
 /**
+ * Handles CHALLENGE_LISTING/GET_REVIEW_OPPORTUNITIES_INIT action.
+ * @param {Object} state
+ * @param {Object} action Payload will be page, uuid
+ * @return {Object} New state
+ */
+function onGetReviewOpportunitiesInit(state, { payload }) {
+  return {
+    ...state,
+    lastRequestedPageOfReviewOpportunities: payload.page,
+    loadingReviewOpportunitiesUUID: payload.uuid,
+  };
+}
+
+/**
+ * Handles CHALLENGE_LISTING/GET_REVIEW_OPPORTUNITIES_DONE action.
+ * @param {Object} state
+ * @param {Object} action Payload will be JSON from api call and UUID
+ * @return {Object} New state
+ */
+function onGetReviewOpportunitiesDone(state, { payload, error }) {
+  if (error) {
+    return state;
+  }
+
+  const {
+    uuid,
+    loaded,
+  } = payload;
+
+  if (uuid !== state.loadingReviewOpportunitiesUUID) return state;
+
+  const ids = new Set();
+  loaded.forEach(item => ids.add(item.id));
+  const reviewOpportunities = state.reviewOpportunities
+    .filter(item => !ids.has(item.id))
+    .concat(loaded);
+
+  return {
+    ...state,
+    reviewOpportunities,
+    loadingReviewOpportunitiesUUID: '',
+    allReviewOpportunitiesLoaded: loaded.length === 0,
+  };
+}
+
+/**
  * Creates a new Challenge Listing reducer with the specified initial state.
  * @param {Object} initialState Optional. Initial state.
  * @return Challenge Listing reducer.
@@ -230,14 +276,21 @@ function create(initialState) {
       ...state,
       allDraftChallengesLoaded: false,
       allPastChallengesLoaded: false,
+      allReviewOpportunitiesLoaded: false,
       challenges: [],
       lastRequestedPageOfDraftChallenges: -1,
       lastRequestedPageOfPastChallenges: -1,
+      lastRequestedPageOfReviewOpportunities: -1,
       lastUpdateOfActiveChallenges: 0,
       loadingActiveChallengesUUID: '',
       loadingDraftChallengesUUID: '',
       loadingPastChallengesUUID: '',
+      loadingReviewOpportunitiesUUID: '',
+      reviewOpportunities: [],
     }),
+
+    [a.expandTag]: (state, { payload }) =>
+      ({ ...state, expandedTags: [...state.expandedTags, payload] }),
 
     [a.getAllActiveChallengesInit]: onGetAllActiveChallengesInit,
     [a.getAllActiveChallengesDone]: onGetAllActiveChallengesDone,
@@ -260,6 +313,9 @@ function create(initialState) {
     [a.getPastChallengesInit]: onGetPastChallengesInit,
     [a.getPastChallengesDone]: onGetPastChallengesDone,
 
+    [a.getReviewOpportunitiesInit]: onGetReviewOpportunitiesInit,
+    [a.getReviewOpportunitiesDone]: onGetReviewOpportunitiesDone,
+
     [a.selectCommunity]: onSelectCommunity,
 
     [a.setFilter]: onSetFilter,
@@ -273,11 +329,14 @@ function create(initialState) {
   }, _.defaults(_.clone(initialState) || {}, {
     allDraftChallengesLoaded: false,
     allPastChallengesLoaded: false,
+    allReviewOpportunitiesLoaded: false,
 
     challenges: [],
     challengeSubtracks: [],
     challengeSubtracksMap: {},
     challengeTags: [],
+
+    expandedTags: [],
 
     filter: {},
 
@@ -285,14 +344,18 @@ function create(initialState) {
 
     lastRequestedPageOfDraftChallenges: -1,
     lastRequestedPageOfPastChallenges: -1,
+    lastRequestedPageOfReviewOpportunities: -1,
     lastUpdateOfActiveChallenges: 0,
 
     loadingActiveChallengesUUID: '',
     loadingDraftChallengesUUID: '',
     loadingPastChallengesUUID: '',
+    loadingReviewOpportunitiesUUID: '',
 
     loadingChallengeSubtracks: false,
     loadingChallengeTags: false,
+
+    reviewOpportunities: [],
 
     selectedCommunityId: '',
 

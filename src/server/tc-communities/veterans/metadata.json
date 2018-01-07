@@ -4,16 +4,8 @@
   },
   "communityId": "veterans",
   "communityName": "Veterans Community",
-  "communitySelector": [{
-    "label": "Veterans Community",
-    "value": "1"
-  }, {
-    "label": "Topcoder Public Community",
-    "redirect": "https://www.topcoder.com",
-    "value": "2"
-  }],
   "groupIds": ["20000013"],
-  "terms": [21193],
+  "terms": [21193, 21263],
   "logos": [{
     "img": "/community-app-assets/themes/veterans/logo_topcoder_with_name.svg",
     "url": "https://www.topcoder.com"
@@ -33,6 +25,8 @@
   "footerText": "© Copyright Topcoder Inc 2017",
   "leaderboardApiUrl": "https://api.topcoder.com/v4/looks/458/run/json/",
   "newsFeed": "http://www.topcoder.com/feed",
+  "subdomains": ["veterans"],
+
   "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore.",
   "image":"1.jpg"
 }

@@ -1,5 +1,5 @@
 /**
- * components.page.challenge-details.Design
+ * components.SubmissionPage.Design
  * <Design> Component
  *
  * Description:
@@ -18,7 +18,7 @@ import { fireErrorMessage } from 'utils/errors';
 import { CHALLENGE_PHASE_TYPES as PHASE_TYPES } from 'utils/tc';
 
 import FilestackFilePicker from '../FilestackFilePicker';
-import MultiInput, { checkValidationError } from './MultiInput';
+import CustomFontInput from './CustomFontInput';
 import StockArtInput from './StockArtInput';
 import Uploading from '../Uploading';
 import './styles.scss';
@@ -39,6 +39,10 @@ class Design extends React.Component {
     this.back = this.back.bind(this);
   }
 
+  componentWillUnmount() {
+    this.props.resetForm();
+  }
+
   reset() {
     this.props.setAgreed(false);
     this.props.updateNotesLength(0);
@@ -55,15 +59,6 @@ class Design extends React.Component {
     this.props.resetForm();
   }
 
-  /* Check to see if either of the MultiInputs had validation errors */
-  checkMultiInputError() {
-    let error = false;
-    this.props.multiInputs.forEach((multi) => {
-      error = error || checkValidationError(multi.inputs);
-    });
-    return error;
-  }
-
   /**
    * Call for Submit button.  Constructs a V3 API JSON object for the submission based
    * on form data and redux state.
@@ -76,26 +71,11 @@ class Design extends React.Component {
       userId,
       challengeId,
       stockArtRecords,
+      customFontRecords,
     } = this.props;
 
-    const fonts = [];
-
-    const fontSource = document.querySelectorAll('[data-type="fontSource"]');
-    if (fontSource[0].value) { // Only add if it's not the default blank font input
-      fontSource.forEach((source) => {
-        fonts.push({ source: source.value });
-      });
-
-      const fontNames = document.querySelectorAll('[data-type="fontName"]');
-      fontNames.forEach((name, index) => {
-        fonts[index].name = name.value;
-      });
-
-      const fontUrls = document.querySelectorAll('[data-type="fontUrl"]');
-      fontUrls.forEach((url, index) => {
-        fonts[index].sourceUrl = url.value;
-      });
-    }
+    const fonts = customFontRecords.map(({ source, name, url }) =>
+      ({ source, name, sourceUrl: url }));
 
     const stockArts = stockArtRecords.map(x => ({
       sourceUrl: x.url,
@@ -171,6 +151,8 @@ class Design extends React.Component {
       challengesUrl,
       setStockArtRecord,
       stockArtRecords,
+      setCustomFontRecord,
+      customFontRecords,
       userId,
 
       isSubmitting,
@@ -187,12 +169,6 @@ class Design extends React.Component {
       setFilePickerDragged,
       notesLength,
       updateNotesLength,
-      multiInputs,
-      removeMultiInput,
-      setMultiInputUrlValid,
-      setMultiInputNameValid,
-      setMultiInputSourceValid,
-      setMultiInputActive,
       setSubmissionFilestackData,
       setSourceFilestackData,
       setPreviewFilestackData,
@@ -206,16 +182,9 @@ class Design extends React.Component {
       dragged: false,
     }));
 
-    // Find the state for the MultiInputs
-    const multiLookup = id => (multiInputs.find(fp => fp.id === id) || ({
-      id,
-    }));
-
     const fpSubmission = fpLookup('file-picker-submission');
     const fpSource = fpLookup('file-picker-source');
     const fpPreview = fpLookup('file-picker-preview');
-
-    const multiFonts = multiLookup('multi-input-fonts');
 
     return (!isSubmitting && !submitDone && !errorMsg) ? (
       <div styleName="design-content">
@@ -339,41 +308,10 @@ class Design extends React.Component {
               />
             </div>
           </div>
-          <div styleName="row">
-            <div styleName="left">
-              <h4>DID YOU USE CUSTOM FONTS?</h4>
-              <p>
-                Check to see if your font is on the Studio Standard Fonts list.
-                If it is, leave the URL field
-              </p>
-              <p>
-                Read the
-                &zwnj;<a
-                  href={config.URL.INFO.STUDIO_FONTS_POLICY}
-                  rel="norefferer noopener"
-                  target="_blank"
-                >Studio Fonts Policy</a>
-              </p>
-              <p>
-                If your fonts is not on the list, you must provide the URL
-                to the font page (not file) from one of the approved
-                font websites in the dropdown box.
-              </p>
-            </div>
-            <div styleName="right">
-              <MultiInput
-                buttonName="+ Add Font"
-                type="ADDFONT"
-                id="multi-input-stock-art"
-                inputs={multiFonts.inputs}
-                removeInput={_.partial(removeMultiInput, 'multi-input-fonts')}
-                setInputUrlValid={_.partial(setMultiInputUrlValid, 'multi-input-fonts')}
-                setInputNameValid={_.partial(setMultiInputNameValid, 'multi-input-fonts')}
-                setInputSourceValid={_.partial(setMultiInputSourceValid, 'multi-input-fonts')}
-                setInputActive={_.partial(setMultiInputActive, 'multi-input-fonts')}
-              />
-            </div>
-          </div>
+          <CustomFontInput
+            customFontRecords={customFontRecords}
+            setCustomFontRecord={setCustomFontRecord}
+          />
           <StockArtInput
             setStockArtRecord={setStockArtRecord}
             stockArtRecords={stockArtRecords}
@@ -407,7 +345,7 @@ class Design extends React.Component {
                 !!fpPreview.error || !fpPreview.fileName ||
                 !!fpSource.error || !fpSource.fileName ||
                 !!fpSubmission.error || !fpSubmission.fileName ||
-                this.checkMultiInputError() ||
+                customFontRecords.some(x => !_.isEmpty(x.errors)) ||
                 stockArtRecords.some(x => !_.isEmpty(x.errors))
               }
             >Submit</PrimaryButton>
@@ -450,6 +388,8 @@ Design.propTypes = {
   })).isRequired,
   stockArtRecords: PT.arrayOf(PT.object).isRequired,
   setStockArtRecord: PT.func.isRequired,
+  customFontRecords: PT.arrayOf(PT.object).isRequired,
+  setCustomFontRecord: PT.func.isRequired,
 
   /* Older stuff */
   userId: PT.string.isRequired,
@@ -477,20 +417,6 @@ Design.propTypes = {
   setFilePickerDragged: PT.func.isRequired,
   notesLength: PT.number.isRequired,
   updateNotesLength: PT.func.isRequired,
-  multiInputs: PT.arrayOf(PT.shape({
-    id: PT.string.isRequired,
-    inputs: PT.arrayOf(PT.shape({
-      urlValid: PT.bool,
-      nameValid: PT.bool,
-      sourceValid: PT.bool.isRequired,
-      active: PT.bool.isRequired,
-    }).isRequired).isRequired,
-  }).isRequired).isRequired,
-  removeMultiInput: PT.func.isRequired,
-  setMultiInputUrlValid: PT.func.isRequired,
-  setMultiInputNameValid: PT.func.isRequired,
-  setMultiInputSourceValid: PT.func.isRequired,
-  setMultiInputActive: PT.func.isRequired,
   setSubmissionFilestackData: PT.func.isRequired,
   setSourceFilestackData: PT.func.isRequired,
   setPreviewFilestackData: PT.func.isRequired,

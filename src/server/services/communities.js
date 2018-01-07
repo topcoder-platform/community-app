@@ -13,6 +13,34 @@ import {
   addDescendantGroups,
   getService as getGroupsService,
 } from 'services/groups';
+import { isServerSide } from 'utils//isomorphy';
+
+/* Holds the mapping between subdomains and communities. It is automatically
+ * generated at startup, using "subdomains" property from community configs */
+const SUBDOMAIN_COMMUNITY = {};
+
+/**
+ * Community metadata are currently read from config files. Here we lookup all
+ * of them at startup to reuse later in the service.
+ */
+const METADATA_PATH = path.resolve(__dirname, '../tc-communities');
+const VALID_IDS = isServerSide()
+&& fs.readdirSync(METADATA_PATH).filter((id) => {
+  /* Here we check which ids are correct, and also popuate SUBDOMAIN_COMMUNITY
+   * map. */
+  const uri = path.resolve(METADATA_PATH, id, 'metadata.json');
+  try {
+    const meta = JSON.parse(fs.readFileSync(uri, 'utf8'));
+    if (meta.subdomains) {
+      meta.subdomains.forEach((subdomain) => {
+        SUBDOMAIN_COMMUNITY[subdomain] = id;
+      });
+    }
+    return true;
+  } catch (e) {
+    return false;
+  }
+});
 
 /**
  * Private. Pushes into "unknown" array all element of "ids" array that are not
@@ -90,18 +118,8 @@ export default class Communities {
   getList(userGroupIds) {
     const list = [];
     const knownGroups = {};
-    const uri = path.resolve(__dirname, '../tc-communities');
-    return new Promise((resolve, reject) =>
-      fs.readdir(uri, (err, res) => {
-        if (err) {
-          const msg = 'Failed to get communities list';
-          logger.error(msg, err);
-          return reject({ error: msg });
-        }
-        return resolve(res);
-      }),
-    ).then(ids => Promise.all(
-      ids.map(id =>
+    return Promise.all(
+      VALID_IDS.map(id =>
         this.private.getMetadata(id, knownGroups).then((data) => {
           if (!data.authorizedGroupIds ||
           _.intersection(data.authorizedGroupIds, userGroupIds).length) {
@@ -111,12 +129,14 @@ export default class Communities {
               communityName: data.communityName,
               description: data.description,
               groupIds: data.groupIds,
+              hidden: data.hidden || false,
               image: data.image,
+              mainSubdomain: _.get(data, 'subdomains[0]', ''),
             });
           }
         }).catch(() => null),
       ),
-    )).then(() =>
+    ).then(() =>
       list.sort((a, b) => a.communityName.localeCompare(b.communityName)),
     );
   }
@@ -129,4 +149,19 @@ export default class Communities {
   getMetadata(communityId) {
     return this.private.getMetadata(communityId);
   }
+}
+
+/**
+ * Given an array of URL subdomains it returns TC community ID, if some
+ * community is mounted on these subdomains, or an empty string otherwise.
+ * @param {String Array} subdomains
+ * @return {String}
+ */
+export function getCommunityId(subdomains) {
+  if (!subdomains) return '';
+  for (let i = 0; i < subdomains.length; i += 1) {
+    const communityId = SUBDOMAIN_COMMUNITY[subdomains[i]];
+    if (communityId) return communityId;
+  }
+  return '';
 }

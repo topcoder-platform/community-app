@@ -14,7 +14,9 @@ import { combine, resolveReducers, toFSA } from 'utils/redux';
 import { getAuthTokens } from 'utils/tc';
 import { STATE as JOIN_COMMUNITY } from 'components/tc-communities/JoinCommunity';
 import { getService as getTermsService } from 'services/terms';
-import { getCommunityId } from 'routes/subdomains';
+import { getCommunityId } from 'server/services/communities';
+
+import { fireErrorMessage } from 'utils/errors';
 
 import { factory as metaFactory } from './meta';
 import { factory as newsFactory } from './news';
@@ -35,6 +37,41 @@ function onJoinDone(state, action) {
   return { ...state, joinCommunityButton: JOIN_COMMUNITY.JOINED };
 }
 
+/**
+ * Handler for GET_LIST_INIT action.
+ * @param {Object} state Old state.
+ * @param {Object} action Action result.
+ * @return {Object} New state.
+ */
+function onGetListInit(state, { payload }) {
+  const list = { ...state.list, loadingUuid: payload };
+  return { ...state, list };
+}
+
+/**
+ * Handler for GET_LIST_DONE action.
+ * @param {Object} state Old state.
+ * @param {Object} action Action result.
+ * @return {Object} New state.
+ */
+function onGetListDone(state, { error, payload }) {
+  if (error) {
+    fireErrorMessage('Failed to fetch sub-communities listing', '');
+    logger.error(payload);
+    return state;
+  }
+  const { list, uuid } = payload;
+  if (uuid !== state.list.loadingUuid) return state;
+  return {
+    ...state,
+    list: {
+      data: list,
+      loadingUuid: '',
+      timestamp: Date.now(),
+    },
+  };
+}
+
 function create(initialState = {}) {
   const a = actions.tcCommunity;
   return handleActions({
@@ -51,13 +88,15 @@ function create(initialState = {}) {
     [a.showJoinConfirmModal]: state => ({
       ...state, joinCommunityButton: JOIN_COMMUNITY.CONFIRM_JOIN,
     }),
-    [a.getList]: (state, action) => ({
-      ...state,
-      list: action.error ? [] : action.payload,
-    }),
+    [a.getListInit]: onGetListInit,
+    [a.getListDone]: onGetListDone,
   }, _.defaults(_.clone(initialState), {
     joinCommunityButton: JOIN_COMMUNITY.DEFAULT,
-    list: [],
+    list: {
+      data: [],
+      loadingUuid: '',
+      timestamp: 0,
+    },
   }));
 }
 

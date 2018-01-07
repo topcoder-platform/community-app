@@ -8,7 +8,7 @@ import FilterPanel from 'components/challenge-listing/Filters/ChallengeFilters';
 import PT from 'prop-types';
 import React from 'react';
 import sidebarActions from 'actions/challenge-listing/sidebar';
-import { BUCKETS } from 'utils/challenge-listing/buckets';
+import { BUCKETS, isReviewOpportunitiesBucket } from 'utils/challenge-listing/buckets';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
@@ -22,10 +22,10 @@ const DEFAULT_SAVED_FILTER_NAME = 'My Filter';
  * @param {Object} state Redux state.
  * @return {String}
  */
-function getAvailableFilterName(state) {
+function getAvailableFilterName(savedFilters) {
   let res = DEFAULT_SAVED_FILTER_NAME;
   let id = 0;
-  state.challengeListing.sidebar.savedFilters.forEach((f) => {
+  savedFilters.forEach((f) => {
     while (res === f.name) {
       res = `${DEFAULT_SAVED_FILTER_NAME} ${id += 1}`;
     }
@@ -45,22 +45,33 @@ export class Container extends React.Component {
       communityName: 'All',
     }].concat(this.props.communityFilters);
 
+    const isForReviewOpportunities = isReviewOpportunitiesBucket(this.props.activeBucket);
+
     return (
       <FilterPanel
         {...this.props}
         communityFilters={communityFilters}
         saveFilter={() => {
-          const name = getAvailableFilterName();
-          this.props.saveFilter(
-            name, this.props.filterState, this.props.tokenV2);
+          const name = getAvailableFilterName(this.props.savedFilters);
+          const filter = {
+            ...this.props.filterState,
+            communityId: this.props.selectedCommunityId,
+          };
+
+          if (isForReviewOpportunities) filter.isForReviewOpportunities = true;
+
+          this.props.saveFilter(name, filter, this.props.tokenV2);
         }}
         setFilterState={(state) => {
           this.props.setFilterState(state);
           if (this.props.activeBucket === BUCKETS.SAVED_FILTER) {
             this.props.selectBucket(BUCKETS.ALL);
+          } else if (this.props.activeBucket === BUCKETS.SAVED_REVIEW_OPPORTUNITIES_FILTER) {
+            this.props.selectBucket(BUCKETS.REVIEW_OPPORTUNITIES);
           }
         }}
         isSavingFilter={this.props.isSavingFilter}
+        isReviewOpportunitiesBucket={isForReviewOpportunities}
       />
     );
   }
@@ -76,9 +87,11 @@ Container.propTypes = {
   communityFilters: PT.arrayOf(PT.object).isRequired,
   defaultCommunityId: PT.string.isRequired,
   filterState: PT.shape().isRequired,
+  selectedCommunityId: PT.string.isRequired,
   getKeywords: PT.func.isRequired,
   getSubtracks: PT.func.isRequired,
   isSavingFilter: PT.bool,
+  savedFilters: PT.arrayOf(PT.shape()).isRequired,
   loadingKeywords: PT.bool.isRequired,
   loadingSubtracks: PT.bool.isRequired,
   saveFilter: PT.func.isRequired,
@@ -118,7 +131,7 @@ function mapStateToProps(state, ownProps) {
     ...ownProps,
     ...state.challengeListing.filterPanel,
     activeBucket: cl.sidebar.activeBucket,
-    communityFilters: tc.list,
+    communityFilters: tc.list.data,
     defaultCommunityId: ownProps.defaultCommunityId,
     filterState: cl.filter,
     loadingKeywords: cl.loadingChallengeTags,
@@ -128,6 +141,7 @@ function mapStateToProps(state, ownProps) {
     selectedCommunityId: cl.selectedCommunityId,
     tokenV2: state.auth.tokenV2,
     isSavingFilter: cl.sidebar.isSavingFilter,
+    savedFilters: cl.sidebar.savedFilters,
   };
 }
 

@@ -7,11 +7,14 @@
 /* global location */
 
 import _ from 'lodash';
+import communityActions from 'actions/tc-communities';
 import LoadingPagePlaceholder from 'components/LoadingPagePlaceholder';
+import pageActions from 'actions/page';
 import ChallengeHeader from 'components/challenge-detail/Header';
 import challengeListingActions from 'actions/challenge-listing';
 import challengeListingSidebarActions from 'actions/challenge-listing/sidebar';
 import Registrants from 'components/challenge-detail/Registrants';
+import shortId from 'shortid';
 import Submissions from 'components/challenge-detail/Submissions';
 import Winners from 'components/challenge-detail/Winners';
 import ChallengeDetailsView from 'components/challenge-detail/Specification';
@@ -26,8 +29,72 @@ import challengeActions, { DETAIL_TABS } from 'actions/challenge';
 import config from 'utils/config';
 import MetaTags from 'utils/MetaTags';
 import { BUCKETS } from 'utils/challenge-listing/buckets';
-import ogImage from '../../../assets/images/og_image.jpg';
+import { CHALLENGE_PHASE_TYPES, COMPETITION_TRACKS_V3, SUBTRACKS } from 'utils/tc';
+
+import ogWireframe from
+  '../../../assets/images/open-graph/challenges/01-wireframe.jpg';
+import ogUiDesign from
+  '../../../assets/images/open-graph/challenges/02-ui-design.jpg';
+import ogUiPrototype from
+  '../../../assets/images/open-graph/challenges/03-ui-prototype.jpg';
+import ogFirst2Finish from
+  '../../../assets/images/open-graph/challenges/04-first-2-finish.jpg';
+import ogDevelopment from
+  '../../../assets/images/open-graph/challenges/05-development.jpg';
+import ogBigPrizesChallenge from
+  '../../../assets/images/open-graph/challenges/09-big-prizes-challenge.jpg';
+import ogLuxChallenge from
+  '../../../assets/images/open-graph/challenges/10-lux-challenge.jpg';
+import ogRuxChallenge from
+  '../../../assets/images/open-graph/challenges/11-rux-challenge.jpg';
+import og24hUiPrototype from
+  '../../../assets/images/open-graph/challenges/12-24h-ui-prototype-challenge.jpg';
+import og48hUiPrototype from
+  '../../../assets/images/open-graph/challenges/13-48h-ui-prototype-challenge.jpg';
+
+/* A fallback image, just in case we missed some corner case. */
+import ogImage from
+  '../../../assets/images/og_image.jpg';
+
 import './styles.scss';
+
+/* Holds various time ranges in milliseconds. */
+const MIN = 60 * 1000;
+const DAY = 24 * 60 * MIN;
+
+/**
+ * Given challenge details object, it returns the URL of the image to be used in
+ * OpenGraph (i.e. in social sharing posts).
+ * @param {Object} challenge
+ * @return {String}
+ */
+function getOgImage(challenge) {
+  if (challenge.name.startsWith('LUX -')) return ogLuxChallenge;
+  if (challenge.name.startsWith('RUX -')) return ogRuxChallenge;
+  if (challenge.prizes) {
+    const totalPrize = challenge.prizes.reduce((p, sum) => p + sum, 0);
+    if (totalPrize > 3000) return ogBigPrizesChallenge;
+  }
+  switch (challenge.subTrack) {
+    case SUBTRACKS.FIRST_2_FINISH: return ogFirst2Finish;
+    case SUBTRACKS.UI_PROTOTYPE_COMPETITION: {
+      const submission = challenge.allPhases
+        .find(p => p.phaseType === CHALLENGE_PHASE_TYPES.SUBMISSION);
+      if (submission) {
+        if (submission.duration < 1.1 * DAY) return og24hUiPrototype;
+        if (submission.duration < 2.1 * DAY) return og48hUiPrototype;
+      }
+      return ogUiPrototype;
+    }
+    case SUBTRACKS.WIREFRAMES: return ogWireframe;
+    default:
+  }
+  switch (challenge.track) {
+    case COMPETITION_TRACKS_V3.DEVELOP: return ogDevelopment;
+    case COMPETITION_TRACKS_V3.DESIGN: return ogUiDesign;
+    default: return ogImage;
+  }
+}
 
 function isRegistered(details, registrants, handle) {
   if (details && details.roles && details.roles.includes('Submitter')) {
@@ -53,12 +120,24 @@ class ChallengeDetailPageContainer extends React.Component {
   }
 
   componentDidMount() {
-    const { challenge, loadChallengeDetails,
-      authTokens, challengeId,
-      challengeSubtracksMap, getSubtracks } = this.props;
+    const {
+      authTokens,
+      challenge,
+      communitiesList,
+      getCommunitiesList,
+      loadChallengeDetails,
+      challengeId,
+      challengeSubtracksMap,
+      getSubtracks,
+    } = this.props;
 
     if (challenge.id !== challengeId) {
       loadChallengeDetails(authTokens, challengeId);
+    }
+
+    if (!communitiesList.loadingUuid
+    && (Date.now() - communitiesList.timestamp > 10 * MIN)) {
+      getCommunitiesList(authTokens);
     }
 
     if (_.isEmpty(challengeSubtracksMap)) {
@@ -67,6 +146,12 @@ class ChallengeDetailPageContainer extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
+    const userId = _.get(this, 'props.authTokens.user.userId');
+    const nextUserId = _.get(nextProps, 'authTokens.user.userId');
+    if (userId !== nextUserId) {
+      nextProps.getCommunitiesList(nextProps.authTokens);
+    }
+
     if (this.props.tokenV3 !== nextProps.tokenV3) {
       this.props.reloadChallengeDetails(nextProps.authTokens, this.props.challengeId);
     }
@@ -81,7 +166,8 @@ class ChallengeDetailPageContainer extends React.Component {
 
   registerForChallenge() {
     if (!this.props.authTokens.tokenV2) {
-      location.href = `${config.URL.AUTH}/member?retUrl=${encodeURIComponent(location.href)}`;
+      const utmSource = this.props.communityId || 'community-app-main';
+      location.href = `${config.URL.AUTH}/member?retUrl=${encodeURIComponent(location.href)}&utm_source=${utmSource}`;
     } else if (_.every(this.props.terms, 'agreed')) {
       this.props.registerForChallenge(this.props.authTokens, this.props.challengeId);
     } else {
@@ -91,12 +177,14 @@ class ChallengeDetailPageContainer extends React.Component {
 
   render() {
     const {
+      authTokens,
       challenge,
       challengeId,
       challengesUrl,
-      domain,
       resultsLoadedForChallengeId,
+      savingChallenge,
       openTermsModal,
+      updateChallenge,
     } = this.props;
 
     /* Generation of data for SEO meta-tags. */
@@ -127,7 +215,9 @@ class ChallengeDetailPageContainer extends React.Component {
     if (this.props.isLoadingChallenge || this.props.isLoadingTerms) {
       return <LoadingPagePlaceholder />;
     }
-    const winners = challenge.winners || [];
+
+    let winners = challenge.winners || [];
+    winners = winners.filter(w => !w.type || w.type === 'final');
 
     return (
       <div styleName="outer-container">
@@ -141,7 +231,7 @@ class ChallengeDetailPageContainer extends React.Component {
             !isEmpty &&
             <MetaTags
               description={description.slice(0, 155)}
-              image={`${domain}${ogImage}`}
+              image={getOgImage(challenge)}
               siteName="Topcoder"
               socialDescription={description.slice(0, 200)}
               socialTitle={`${prizesStr}${title}`}
@@ -175,24 +265,24 @@ class ChallengeDetailPageContainer extends React.Component {
             !isEmpty && this.props.selectedTab === DETAIL_TABS.DETAILS &&
             <ChallengeDetailsView
               challenge={this.props.challenge}
+              communitiesList={this.props.communitiesList.data}
               introduction={this.props.challenge.introduction}
               detailedRequirements={this.props.challenge.detailedRequirements}
               terms={this.props.terms}
               hasRegistered={hasRegistered}
               openTermsModal={openTermsModal}
+              savingChallenge={savingChallenge}
+              setSpecsTabState={this.props.setSpecsTabState}
+              specsTabState={this.props.specsTabState}
+              updateChallenge={x => updateChallenge(x, authTokens.tokenV3)}
             />
           }
           {
             !isEmpty && this.props.selectedTab === DETAIL_TABS.REGISTRANTS &&
             <Registrants
-              registrants={this.props.challenge.registrants}
-              isDesign={this.props.challenge.track.toLowerCase() === 'design'}
-              winners={this.props.challenge.winners}
-              checkpoints={this.props.challenge.checkpoints}
-              submissions={this.props.challenge.submissions}
+              challenge={this.props.challenge}
               checkpointResults={this.props.checkpointResults}
               results={results}
-              places={this.props.challenge.prizes.length}
             />
           }
           {
@@ -238,6 +328,7 @@ ChallengeDetailPageContainer.defaultProps = {
   challengesUrl: '/challenges',
   checkpointResults: null,
   checkpoints: {},
+  communityId: null,
   isLoadingChallenge: false,
   isLoadingTerms: false,
   loadingCheckpointResults: false,
@@ -254,8 +345,13 @@ ChallengeDetailPageContainer.propTypes = {
   challengesUrl: PT.string,
   checkpointResults: PT.arrayOf(PT.shape()),
   checkpoints: PT.shape(),
-  domain: PT.string.isRequired,
-  // fetchCheckpoints: PT.func.isRequired,
+  communityId: PT.string,
+  communitiesList: PT.shape({
+    data: PT.arrayOf(PT.object).isRequired,
+    loadingUuid: PT.string.isRequired,
+    timestamp: PT.number.isRequired,
+  }).isRequired,
+  getCommunitiesList: PT.func.isRequired,
   getSubtracks: PT.func.isRequired,
   isLoadingChallenge: PT.bool,
   isLoadingTerms: PT.bool,
@@ -270,139 +366,66 @@ ChallengeDetailPageContainer.propTypes = {
   reloadChallengeDetails: PT.func.isRequired,
   results: PT.arrayOf(PT.shape()),
   resultsLoadedForChallengeId: PT.string.isRequired,
+  savingChallenge: PT.bool.isRequired,
   selectedTab: PT.string.isRequired,
   setChallengeListingFilter: PT.func.isRequired,
+  setSpecsTabState: PT.func.isRequired,
+  specsTabState: PT.string.isRequired,
   terms: PT.arrayOf(PT.shape()),
   toggleCheckpointFeedback: PT.func.isRequired,
   tokenV3: PT.string,
   unregisterFromChallenge: PT.func.isRequired,
   unregistering: PT.bool.isRequired,
+  updateChallenge: PT.func.isRequired,
 };
 
-/* TODO: This function is ugly. We should do all this logic within normalization
- * function inside the challenge service. */
-function extractChallengeDetail(v3, v2, challengeId) {
-  let challenge = {};
-  if (!_.isEmpty(v3)) {
-    challenge = _.defaults(_.clone(v3), { prizes: [] });
-    if (!_.isEmpty(v2)) {
-      challenge.numberOfCheckpointsPrizes = v2.numberOfCheckpointsPrizes;
-      challenge.introduction = v2.introduction;
-      challenge.detailedRequirements = v2.detailedRequirements;
-      challenge.topCheckPointPrize = v2.topCheckPointPrize;
-      challenge.registrants = v2.registrants;
-      challenge.checkpoints = v2.checkpoints;
-      challenge.submissions = v2.submissions;
-      challenge.submissionsViewable = v2.submissionsViewable;
-      challenge.forumLink = v2.forumLink;
-      challenge.screeningScorecardId = Number(v2.screeningScorecardId);
-      challenge.reviewScorecardId = Number(v2.reviewScorecardId);
-      challenge.submissionLimit = Number(v2.submissionLimit);
-      challenge.documents = v2.Documents;
-      challenge.fileTypes = v2.filetypes;
-      challenge.round1Introduction = v2.round1Introduction;
-      challenge.round2Introduction = v2.round2Introduction;
-      challenge.allowStockArt = v2.allowStockArt === 'true';
-      challenge.finalSubmissionGuidelines = v2.finalSubmissionGuidelines;
-      challenge.appealsEndDate = v2.appealsEndDate;
-      if (v2.event) {
-        challenge.mainEvent = {
-          eventName: v2.event.shortDescription,
-          eventId: v2.event.id,
-          description: v2.event.description,
-        };
-      }
-    }
-  } else if (!_.isEmpty(v2)) {
-    challenge = {
-      id: challengeId,
-      status: v2.currentStatus,
-      name: v2.challengeName,
-      track: v2.challengeCommunity,
-      subTrack: v2.challengeType,
-      events: v2.event ? [
-        {
-          eventName: v2.event.shortDescription,
-          eventId: v2.event.id,
-          description: v2.event.description,
-        }] : [],
-      mainEvent: v2.event ? {
-        eventName: v2.event.shortDescription,
-        eventId: v2.event.id,
-        description: v2.event.description,
-      } : {},
-      technologies: v2.technology ? v2.technology.join(', ') : '',
-      platforms: v2.platforms ? v2.platforms.join(', ') : '',
-      prizes: v2.prize,
-      topCheckPointPrize: v2.topCheckPointPrize,
-      numberOfCheckpointsPrizes: v2.numberOfCheckpointsPrizes,
-      introduction: v2.introduction,
-      detailedRequirements: v2.detailedRequirements,
-      registrants: v2.registrants,
-      checkpoints: v2.checkpoints,
-      submissions: v2.submissions,
-      submissionsViewable: v2.submissionsViewable,
-      forumLink: v2.forumLink,
-      screeningScorecardId: Number(v2.screeningScorecardId),
-      reviewScorecardId: Number(v2.reviewScorecardId),
-      submissionLimit: Number(v2.submissionLimit),
-      documents: v2.Documents,
-      reviewType: v2.reviewType,
-      fileTypes: v2.filetypes,
-      round1Introduction: v2.round1Introduction,
-      round2Introduction: v2.round2Introduction,
-      allowStockArt: v2.allowStockArt === 'true',
-      finalSubmissionGuidelines: v2.finalSubmissionGuidelines,
-      appealsEndDate: v2.appealsEndDate,
-    };
-  }
-  /* A hot fix to show submissions for on-going challenges. */
-  if ((!challenge.submissions || !challenge.submissions.length) &&
-    !_.isEmpty(v2)) {
-    challenge.submissions = v2.registrants
-      .filter(r => r.submissionDate)
-      .sort((a, b) => a.submissionDate.localeCompare(b.submissionDate));
-  }
-  return challenge;
+function mapStateToProps(state, props) {
+  return {
+    authTokens: state.auth,
+    challenge: state.challenge.details || {},
+    challengeId: Number(props.match.params.challengeId),
+    challengesUrl: props.challengesUrl,
+    challengeSubtracksMap: state.challengeListing.challengeSubtracksMap,
+    checkpointResults: (state.challenge.checkpoints || {}).checkpointResults,
+    checkpoints: state.challenge.checkpoints || {},
+    communityId: props.communityId,
+    communitiesList: state.tcCommunities.list,
+    domain: state.domain,
+    isLoadingChallenge: Boolean(state.challenge.loadingDetailsForChallengeId),
+    isLoadingTerms: _.isEqual(state.terms.loadingTermsForEntity, {
+      type: 'challenge',
+      id: props.match.params.challengeId,
+    }),
+    loadingCheckpointResults: state.challenge.loadingCheckpoints,
+    loadingResultsForChallengeId: state.challenge.loadingResultsForChallengeId,
+    registering: state.challenge.registering,
+    results: state.challenge.results,
+    resultsLoadedForChallengeId: state.challenge.resultsLoadedForChallengeId,
+    savingChallenge: Boolean(state.challenge.updatingChallengeUuid),
+    selectedTab: state.challenge.selectedTab || 'details',
+    specsTabState: state.page.challengeDetails.specsTabState,
+    terms: state.terms.terms,
+    tokenV2: state.auth && state.auth.tokenV2,
+    tokenV3: state.auth && state.auth.tokenV3,
+    unregistering: state.challenge.unregistering,
+  };
 }
 
-const mapStateToProps = (state, props) => ({
-  authTokens: state.auth,
-  challenge: extractChallengeDetail(state.challenge.details,
-    state.challenge.detailsV2,
-    Number(props.match.params.challengeId)),
-  challengeId: Number(props.match.params.challengeId),
-  challengesUrl: props.challengesUrl,
-  challengeSubtracksMap: state.challengeListing.challengeSubtracksMap,
-  checkpointResults: (state.challenge.checkpoints || {}).checkpointResults,
-  checkpoints: state.challenge.checkpoints,
-  domain: state.domain,
-  isLoadingChallenge: Boolean(state.challenge.loadingDetailsForChallengeId),
-  isLoadingTerms: _.isEqual(state.terms.loadingTermsForEntity, {
-    type: 'challenge',
-    id: props.match.params.challengeId,
-  }),
-  loadingCheckpointResults: state.challenge.loadingCheckpoints,
-  loadingResultsForChallengeId: state.challenge.loadingResultsForChallengeId,
-  registering: state.challenge.registering,
-  results: state.challenge.results,
-  resultsLoadedForChallengeId: state.challenge.resultsLoadedForChallengeId,
-  selectedTab: state.challenge.selectedTab || 'details',
-  terms: state.terms.terms,
-  tokenV2: state.auth && state.auth.tokenV2,
-  tokenV3: state.auth && state.auth.tokenV3,
-  unregistering: state.challenge.unregistering,
-});
-
 const mapDispatchToProps = (dispatch) => {
+  const ca = communityActions.tcCommunity;
   const a = challengeActions.challenge;
   const t = termsActions.terms;
   return {
+    getCommunitiesList: (auth) => {
+      const uuid = shortId();
+      dispatch(ca.getListInit(uuid));
+      dispatch(ca.getListDone(uuid, auth));
+    },
     loadChallengeDetails: (tokens, challengeId) => {
       dispatch(a.getDetailsInit(challengeId));
       dispatch(a.getDetailsDone(challengeId, tokens.tokenV3, tokens.tokenV2))
         .then((res) => {
-          const ch = res.payload[0];
+          const ch = res.payload;
           if (ch.track === 'DESIGN') {
             const p = ch.allPhases
               .filter(x => x.phaseType === 'Checkpoint Review');
@@ -411,9 +434,9 @@ const mapDispatchToProps = (dispatch) => {
               dispatch(a.fetchCheckpointsDone(tokens.tokenV2, challengeId));
             } else dispatch(a.dropCheckpoints());
           } else dispatch(a.dropCheckpoints());
-          if (res.payload[0].status === 'COMPLETED') {
+          if (ch.status === 'COMPLETED') {
             dispatch(a.loadResultsInit(challengeId));
-            dispatch(a.loadResultsDone(tokens, challengeId, res.payload[0].track.toLowerCase()));
+            dispatch(a.loadResultsDone(tokens, challengeId, ch.track.toLowerCase()));
           } else dispatch(a.dropResults());
           return res;
         });
@@ -425,7 +448,13 @@ const mapDispatchToProps = (dispatch) => {
     reloadChallengeDetails: (tokens, challengeId) => {
       dispatch(a.getDetailsDone(challengeId, tokens.tokenV3, tokens.tokenV2))
         .then((challengeDetails) => {
-          dispatch(a.fetchCheckpointsDone(tokens.tokenV2, challengeId));
+          if (challengeDetails.track === 'DESIGN') {
+            const p = challengeDetails.allPhases
+              .filter(x => x.phaseType === 'Checkpoint Review');
+            if (p.length && p[0].phaseStatus === 'Closed') {
+              dispatch(a.fetchCheckpointsDone(tokens.tokenV2, challengeId));
+            }
+          }
           return challengeDetails;
         });
     },
@@ -435,6 +464,8 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(cl.setFilter(filter));
       dispatch(cls.selectBucket(BUCKETS.ALL));
     },
+    setSpecsTabState: state =>
+      dispatch(pageActions.page.challengeDetails.setSpecsTabState(state)),
     unregisterFromChallenge: (auth, challengeId) => {
       dispatch(a.unregisterInit());
       dispatch(a.unregisterDone(auth, challengeId));
@@ -460,6 +491,11 @@ const mapDispatchToProps = (dispatch) => {
     },
     openTermsModal: (term) => {
       dispatch(t.openTermsModal(term));
+    },
+    updateChallenge: (challenge, tokenV3) => {
+      const uuid = shortId();
+      dispatch(a.updateChallengeInit(uuid));
+      dispatch(a.updateChallengeDone(uuid, challenge, tokenV3));
     },
   };
 };

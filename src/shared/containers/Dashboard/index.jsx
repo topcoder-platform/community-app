@@ -7,7 +7,7 @@
 import React from 'react';
 import PT from 'prop-types';
 import { connect } from 'react-redux';
-import shortid from 'shortid';
+import shortId from 'shortid';
 import _ from 'lodash';
 
 import config from 'utils/config';
@@ -29,14 +29,22 @@ import './styles.scss';
 // The container component
 export class DashboardPageContainer extends React.Component {
   componentDidMount() {
+    /* TODO: They way communities list is loaded should be re-worked:
+     * now there are timestamps of the last loading, thus it can be optimized
+     *  */
+
     const {
       auth: { tokenV2, user, tokenV3 },
       challengeListing: { challenges },
-      tcCommunities: { list: communityList },
+      tcCommunities: {
+        list: {
+          data: communityList,
+        },
+      },
       getCommunityStats,
     } = this.props;
     if (!tokenV2) {
-      location.href = `${config.URL.AUTH}/member?retUrl=${encodeURIComponent(location.href)}`;
+      location.href = `${config.URL.AUTH}/member?retUrl=${encodeURIComponent(location.href)}&utm_source=community-app-main`;
       return false;
     }
     this.props.getBlogs();
@@ -57,7 +65,11 @@ export class DashboardPageContainer extends React.Component {
     const {
       auth: { user, tokenV3, profile },
       challengeListing: { challenges },
-      tcCommunities: { list: communityList },
+      tcCommunities: {
+        list: {
+          data: communityList,
+        },
+      },
       getCommunityStats,
     } = this.props;
 
@@ -76,7 +88,7 @@ export class DashboardPageContainer extends React.Component {
       setImmediate(() => this.props.getCommunityList(this.props.auth));
     }
     if ((challenges !== prevProps.challengeListing.challenges
-      || communityList !== prevProps.tcCommunities.list) && tokenV3) {
+      || communityList !== prevProps.tcCommunities.list.data) && tokenV3) {
       _.forEach(communityList, c => getCommunityStats(c, challenges, tokenV3));
     }
   }
@@ -99,7 +111,11 @@ export class DashboardPageContainer extends React.Component {
       },
       challengeListing: { challenges },
       lastUpdateOfActiveChallenges,
-      tcCommunities: { list: communityList },
+      tcCommunities: {
+        list: {
+          data: communityList,
+        },
+      },
       registerIos,
       stats,
     } = this.props;
@@ -168,7 +184,7 @@ export class DashboardPageContainer extends React.Component {
                     experience as a member of the Topcoder Cognitive Community.
                   </div>
                   <a
-                    href={config.URL.COGNITIVE}
+                    href={config.URL.COMMUNITIES.COGNITIVE}
                     styleName="cta tc-btn-white tc-btn-radius"
                   >Learn More</a>
                 </div>
@@ -233,7 +249,9 @@ DashboardPageContainer.propTypes = {
   dashboard: PT.shape(),
   challengeListing: PT.shape(),
   tcCommunities: PT.shape({
-    list: PT.arrayOf(PT.shape()).isRequired,
+    list: PT.shape({
+      data: PT.arrayOf(PT.shape()).isRequired,
+    }).isRequired,
   }),
   stats: PT.shape(),
   getAllActiveChallenges: PT.func.isRequired,
@@ -272,7 +290,7 @@ const mapDispatchToProps = dispatch => ({
     dispatch(actions.dashboard.getSubtrackRanksDone(tokenV3, handle));
   },
   getAllActiveChallenges: (tokenV3) => {
-    const uuid = shortid();
+    const uuid = shortId();
     dispatch(cActions.challengeListing.getAllActiveChallengesInit(uuid));
     dispatch(cActions.challengeListing.getAllActiveChallengesDone(uuid, tokenV3));
   },
@@ -300,7 +318,11 @@ const mapDispatchToProps = dispatch => ({
   getUserAchievements: (handle) => {
     dispatch(actions.dashboard.getUserAchievements(handle));
   },
-  getCommunityList: auth => dispatch(communityActions.tcCommunity.getList(auth)),
+  getCommunityList: (auth) => {
+    const uuid = shortId();
+    dispatch(communityActions.tcCommunity.getListInit(uuid));
+    dispatch(communityActions.tcCommunity.getListDone(uuid, auth));
+  },
   getCommunityStats: (community, challenges, token) =>
     dispatch(statsActions.stats.getCommunityStats(community, challenges, token)),
 });

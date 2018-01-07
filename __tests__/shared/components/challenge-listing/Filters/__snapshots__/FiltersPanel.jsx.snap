@@ -18,6 +18,10 @@ exports[`Matches shallow shapshot 1`] = `
     >
       <UiSimpleRemove
         className="cross"
+        height="16"
+        viewBox="0 0 16 16"
+        width="16"
+        xmlns="http://www.w3.org/2000/svg"
       />
     </span>
   </div>
@@ -154,18 +158,20 @@ exports[`Matches shallow shapshot 1`] = `
     className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__buttons___2r3xW"
   >
     <ThemedGenericButton
+      active={false}
       composeAdhocTheme="deeply"
       composeContextTheme="softly"
       disabled={false}
       enforceA={false}
       mapThemrProps={[Function]}
       onClick={[Function]}
+      onMouseDown={null}
       openNewTab={false}
       replace={false}
       size="sm"
       theme={
         Object {
-          "button": "src-shared-components-challenge-listing-Filters-FiltersPanel-___style__button___22bzJ",
+          "button": undefined,
         }
       }
       themePriority="adhoc-default-context"
@@ -174,18 +180,20 @@ exports[`Matches shallow shapshot 1`] = `
       Clear filters
     </ThemedGenericButton>
     <ThemedGenericButton
+      active={false}
       composeAdhocTheme="deeply"
       composeContextTheme="softly"
-      disabled={false}
+      disabled={true}
       enforceA={false}
       mapThemrProps={[Function]}
       onClick={[Function]}
+      onMouseDown={null}
       openNewTab={false}
       replace={false}
       size="sm"
       theme={
         Object {
-          "button": "src-shared-components-challenge-listing-Filters-FiltersPanel-___style__button___22bzJ",
+          "button": undefined,
         }
       }
       themePriority="adhoc-context-default"
@@ -215,6 +223,10 @@ exports[`Matches shallow shapshot 2`] = `
     >
       <UiSimpleRemove
         className="cross"
+        height="16"
+        viewBox="0 0 16 16"
+        width="16"
+        xmlns="http://www.w3.org/2000/svg"
       />
     </span>
   </div>
@@ -329,18 +341,20 @@ exports[`Matches shallow shapshot 2`] = `
     className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__buttons___2r3xW"
   >
     <ThemedGenericButton
+      active={false}
       composeAdhocTheme="deeply"
       composeContextTheme="softly"
       disabled={false}
       enforceA={false}
       mapThemrProps={[Function]}
       onClick={[Function]}
+      onMouseDown={null}
       openNewTab={false}
       replace={false}
       size="sm"
       theme={
         Object {
-          "button": "src-shared-components-challenge-listing-Filters-FiltersPanel-___style__button___22bzJ",
+          "button": undefined,
         }
       }
       themePriority="adhoc-default-context"
@@ -349,18 +363,20 @@ exports[`Matches shallow shapshot 2`] = `
       Clear filters
     </ThemedGenericButton>
     <ThemedGenericButton
+      active={false}
       composeAdhocTheme="deeply"
       composeContextTheme="softly"
-      disabled={false}
+      disabled={true}
       enforceA={false}
       mapThemrProps={[Function]}
       onClick={[Function]}
+      onMouseDown={null}
       openNewTab={false}
       replace={false}
       size="sm"
       theme={
         Object {
-          "button": "src-shared-components-challenge-listing-Filters-FiltersPanel-___style__button___22bzJ",
+          "button": undefined,
         }
       }
       themePriority="adhoc-context-default"

@@ -2,6 +2,8 @@
  * Routing of Veterans Community.
  */
 
+import ChallengeDetails from 'routes/ChallengeDetails';
+import ChallengeListing from 'routes/Communities/ChallengeListing';
 import Error404 from 'components/Error404';
 import Footer from 'components/tc-communities/communities/veterans/Footer';
 import Header from 'containers/tc-communities/Header';
@@ -10,13 +12,14 @@ import imageTextStyle from 'components/tc-communities/communities/veterans/theme
 import Learn from 'components/tc-communities/communities/veterans/Learn';
 import PT from 'prop-types';
 import React from 'react';
+import Submission from 'routes/Submission';
+import SubmissionManagement from 'routes/SubmissionManagement';
 import { ThemeProvider } from 'react-css-super-themr';
 import { Route, Switch } from 'react-router-dom';
 
-import ChallengeListing from '../ChallengeListing';
 import Leaderboard from '../Leaderboard';
 
-export default function Routes({ base, member, meta }) {
+export default function Veterans({ base, member, meta }) {
   return (
     <Route
       component={({ match }) => (
@@ -32,14 +35,40 @@ export default function Routes({ base, member, meta }) {
             />
             <Switch>
               <Route
-                component={() => (
-                  <ChallengeListing
-                    meta={meta}
-                    listingOnly
-                  />
-                )}
+                component={() => ChallengeListing({
+                  challengesUrl: `${base}/challenges`,
+                  hideSrm: true,
+                  listingOnly: true,
+                  meta,
+                  newChallengeDetails: true,
+                })}
                 exact
                 path={`${base}/challenges`}
+              />
+              <Route
+                component={routeProps => ChallengeDetails({
+                  ...routeProps,
+                  challengesUrl: `${base}/challenges`,
+                  communityId: meta.communityId,
+                })}
+                exact
+                path={`${base}/challenges/:challengeId(\\d{8})`}
+              />
+              <Route
+                component={routeProps => Submission({
+                  ...routeProps,
+                  challengesUrl: `${base}/challenges`,
+                })}
+                exact
+                path={`${base}/challenges/:challengeId(\\d{8})/submit`}
+              />
+              <Route
+                component={routeProps => SubmissionManagement({
+                  ...routeProps,
+                  challengesUrl: `${base}/challenges`,
+                })}
+                exact
+                path={`${base}/challenges/:challengeId(\\d{8})/my-submissions`}
               />
               <Route
                 component={() => <Leaderboard meta={meta} />}
@@ -77,11 +106,11 @@ export default function Routes({ base, member, meta }) {
   );
 }
 
-Routes.defaultProps = {
+Veterans.defaultProps = {
   base: '',
 };
 
-Routes.propTypes = {
+Veterans.propTypes = {
   base: PT.string,
   member: PT.bool.isRequired,
   meta: PT.shape().isRequired,

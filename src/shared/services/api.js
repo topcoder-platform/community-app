@@ -6,6 +6,7 @@ import _ from 'lodash';
 import 'isomorphic-fetch'; /* global fetch */
 import config from 'utils/config';
 import { isClientSide } from 'utils/isomorphy';
+import { setErrorIcon, ERROR_ICON_TYPES } from 'utils/errors';
 
 /**
  * API service object. It is reused for both Topcoder API v2 and v3,
@@ -64,7 +65,11 @@ export default class Api {
     }
     return fetch(`${base}${endpoint}`, { ...options,
       headers,
-    });
+    })
+      .catch((e) => {
+        setErrorIcon(ERROR_ICON_TYPES.NETWORK, `${base}${endpoint}`, e.message);
+        throw e;
+      });
   }
 
   /**
@@ -134,6 +139,7 @@ export default class Api {
   putJson(endpoint, json) {
     return this.put(endpoint, JSON.stringify(json));
   }
+
   /**
    * Upload with progress
    * @param {String} endpoint

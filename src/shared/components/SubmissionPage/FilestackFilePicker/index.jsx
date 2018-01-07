@@ -104,7 +104,7 @@ class FilestackFilePicker extends React.Component {
           }
         </div>
         <div
-          styleName={`file-picker ${error ? 'error' : ''} ${dragged && 'drag'}`}
+          styleName={`file-picker ${error ? 'error' : ''} ${dragged ? 'drag' : ''}`}
         >
           {
             !fileName && <p>Drag and drop your {fileExtensions.join(' or ')} file here.</p>

@@ -13,18 +13,6 @@ To add a new community with the name **demo**, we should follow the following pr
       },
       "challengeListing": {},
       "communityId": "demo",
-      "communitySelector": [{
-        "label": "Demo Community",
-        "value": "1"
-      }, {
-        "label": "Cognitive Community",
-        "redirect": "http://cognitive.topcoder.com/",
-        "value": "2"
-      }, {
-        "label": "iOS Community",
-        "redirect": "https://ios.topcoder.com/",
-        "value": "3"
-      }],
       "groupIds": ["12345"],
       "leaderboardApiUrl": "https://api.topcoder.com/v4/looks/0/run/json/",
       "logos": [
@@ -51,6 +39,7 @@ To add a new community with the name **demo**, we should follow the following pr
         }
       ],
       "newsFeed": "http://www.topcoder.com/feed",
+      "subdomains": ["demo"],
       "description": "A berief description which will be displayed in dashboard",
       "image": "1.jpg",
       "terms": [21153]
@@ -91,8 +80,8 @@ To add a new community with the name **demo**, we should follow the following pr
             - `money-usd` - Prizes are shown in USD (no actual conversion needed);
             - `points` - Points are shown rather than the prizes. The points are taken from `drPoints` field of challenge objects. There is no prizes tooltip in this case.
     -   `communityId` - *String* - Unique ID of this community.
-    -   `communitySelector` - *Object Array* - Specifies data for the community selection dropdown inside the community header. Each object MUST HAVE `label` and `value` string fields, and MAY HAVE `redirect` field. If `redirect` field is specified, a click on that option in the dropdown will redirect user to the specified URL.
     -   `groupIds` - *String Array* - Community user groups. All members of these groups, or their descendants, will be treated as members of the community. ***Join Community functionality, where available, adds user to the first group from this array. Most probably, this behavior will be updated soon.***
+    -   `hidden` - *Boolean* - Optional. If set to `true`, the community won't be visible in community selection dropdowns in the challenge listing and communities header navigation. Still will be accessible via a direct link.
     -   `leaderboardApiUrl` - *String* - Endpoint from where the leaderboard data should be loaded.
     -   `logos` - *String Array | Object Array* - Array of image URLs to insert as logos into the left corner of community's header, alternatively the array may contain JS objects of shape
         ```
@@ -115,6 +104,7 @@ To add a new community with the name **demo**, we should follow the following pr
         <NewsSection news={props.news} />
         ```
         The `<NewsSection />` component does not render anything, if its `news` property is *null* or an empty array, thus it can be kept inside the page code even when there is no news feed configured for a community.
+    - `subdomains`: Optional. Array of sub-domains where this sub-community should be served. If provided, the first sub-domain in the array will be considered as the main one, i.e. when we need to land a visitor to the community we'll redirect him to that sub-domain.
     - `description`: A berief description which will be displayed in dashboard.
     - `image`: A image that located at `/assets/images/tc-communities/background` will be displayed in dashboard
     - `terms` - *Array of Numbers* - Optional. If provided, it should hold an array of Topcoder term of use IDs; agreement to all these terms will be necessary to self-join the community. Beside this, it has no other effects at the moment.
@@ -129,6 +119,6 @@ To add a new community with the name **demo**, we should follow the following pr
 
 5.  At this point **demo** community is ready and accessible at the `/community/demo` route of the App (i.e., if we deploy dev version of the App to `community-west.topcoder-dev.com`, community will be accessible as `community-west.topcoder-dev.com/community/demo`).
 
-    To make **demo** community accessible via a dedicated sub-domain, e.g. like `demo.topcoder-dev.com`, you should edit `/src/shared/routes/subdomains.js`; add `demo: 'demo',` record (i.e. the format is `subdomain: 'communityId'`) into the `SUBDOMAIN_COMMUNITY` map. Beside it you should:
+    To make **demo** community accessible via a dedicated sub-domain, e.g. like `demo.topcoder-dev.com`, you should use the `subdomains` property of community configuration. Beside it you should:
     -   Ensure that the web-server where the App is deployed allows access to the subdomain `demo.topcoder-dev`, and redirects incoming requests to the App.
     -   Ensure that Topcoder `accounts-app` allows to authenticate from the new subdomain address.

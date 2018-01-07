@@ -6,6 +6,7 @@
  */
 
 import ChallengeDetails from 'routes/ChallengeDetails';
+import TermsDetail from 'routes/TermsDetail';
 import Error404 from 'components/Error404';
 import Footer from 'components/TopcoderFooter';
 import Header from 'containers/TopcoderHeader';
@@ -25,6 +26,11 @@ export default function Topcoder() {
     <div styleName="container">
       <Header />
       <Switch>
+        <Route
+          component={TermsDetail}
+          exact
+          path="/challenges/terms/detail/:termId"
+        />
         <Route
           component={ChallengeDetails}
           exact

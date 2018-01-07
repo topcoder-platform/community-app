@@ -1,6 +1,6 @@
 {
   "authorizedGroupIds": [
-    "20000000", "20000005", "200000011"
+    "20000000", "20000005", "200000011", "20000016"
   ],
   "challengeFilter": {
     "groupIds": ["20000000"]
@@ -10,14 +10,6 @@
   },
   "communityId": "wipro",
   "communityName": "TopGear Community",
-  "communitySelector": [{
-    "label": "TopGear Community",
-    "value": "1"
-  }, {
-    "label": "Topcoder Public Community",
-    "redirect": "https://www.topcoder.com",
-    "value": "2"
-  }],
   "groupIds": ["20000000"],
   "leaderboardApiUrl": "https://api.topcoder.com/v4/looks/458/run/json/",
   "logos": [{
@@ -39,7 +31,8 @@
       "url": "/"
     }, {
       "title": "Learn",
-      "url": "/learn"
+      "openNewTab": true,
+      "url": "https://topgear-app.wipro.com"
     }, {
       "title": "Challenges",
       "url": "/challenges"
@@ -52,6 +45,8 @@
     }
   ],
   "newsFeed": "http://www.topcoder.com/feed",
+  "subdomains": ["topgear", "wipro"],
+
   "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore.",
   "image":"2.jpg"
 }

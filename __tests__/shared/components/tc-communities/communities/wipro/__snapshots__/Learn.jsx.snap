@@ -8,7 +8,7 @@ exports[`Snapshot match 1`] = `
     imageSrc="/community-app-assets/themes/wipro/learn/banner.jpg"
     link={null}
     mapThemrProps={[Function]}
-    text="Our continuously evolving structured learning paths, constantly abreast of the latest, tailored for employees to deepen your knowledge, infuses important software capabilities that are industry specific and help you get the skills you need to succeed."
+    text="Our continuously evolving structured learning paths are customized to deepen your knowledge and help you acquire industry specific software capabilities. Master the in-demand technologies to succeed in this rapidly changing technology landscape."
     theme={
       Object {
         "container": "src-shared-components-tc-communities-communities-wipro-Learn-___style__bannerContainer___1MiM0",
@@ -17,7 +17,7 @@ exports[`Snapshot match 1`] = `
       }
     }
     themePriority="adhoc-context-default"
-    title="Learning & Certification"
+    title="Learn and earn rewards"
   />
   <ThemedSection
     anchor={null}
@@ -34,96 +34,39 @@ exports[`Snapshot match 1`] = `
       className="src-shared-components-tc-communities-communities-wipro-Learn-___style__message___WgkPL"
     >
       <p>
-        If  you are accessing TopGear 
+        To access the TopGear 
         <span
           className="src-shared-components-tc-communities-communities-wipro-Learn-___style__highlighted___3U2lK"
         >
           Learning
         </span>
-         Platform from 
-        <strong>
-          Wipro backbone network
-        </strong>
-        , click on “
+         Platform, click on “
         <strong>
           CONTINUE
         </strong>
-        ” to access the platform.
+        ”.
       </p>
-      <p>
+      <p
+        className="src-shared-components-tc-communities-communities-wipro-Learn-___style__button-container___10Uat"
+      >
         <ThemedGenericButton
+          active={false}
           composeAdhocTheme="deeply"
           composeContextTheme="softly"
           disabled={false}
           enforceA={false}
           mapThemrProps={[Function]}
           onClick={null}
+          onMouseDown={null}
           openNewTab={true}
           replace={false}
           size={null}
-          theme={
-            Object {
-              "button": "src-shared-components-tc-communities-communities-wipro-Learn-___style__continueButton___2UpkU",
-            }
-          }
           themePriority="adhoc-context-default"
           to="https://topgear-app.wipro.com"
         >
           Continue
         </ThemedGenericButton>
       </p>
-      <p>
-        To access TopGear 
-        <span
-          className="src-shared-components-tc-communities-communities-wipro-Learn-___style__highlighted___3U2lK"
-        >
-          Learning
-        </span>
-         Platform 
-        <strong>
-          outside of Wipro network
-        </strong>
-        , please follow the below  instructions:
-      </p>
-      <ol>
-        <li>
-          Send an email to 
-          <a
-            href="mailto:devenvaccessreq.topgear@wipro.com?subject=Internet%20TopGear%20portal%20access"
-          >
-            devenvaccessreq.topgear@wipro.com
-          </a>
-            with subject line 
-          <em>
-            Internet TopGear portal access
-          </em>
-          .
-        </li>
-        <li>
-          You will receive an email 
-          <span
-            className="src-shared-components-tc-communities-communities-wipro-Learn-___style__ddashUnderline___3gT46"
-          >
-            within 24 hours
-          </span>
-            with details for accessing TopGear portal  through Virtual Desktop.
-        </li>
-        <li>
-          Using Virtual Desktop you can access 
-          <a
-            href="https://topgear-app.wipro.com/"
-          >
-            https://topgear-app.wipro.com
-          </a>
-           to 
-          <span
-            className="src-shared-components-tc-communities-communities-wipro-Learn-___style__highlighted___3U2lK"
-          >
-            learn
-          </span>
-           new technologies.
-        </li>
-      </ol>
     </div>
   </ThemedSection>
 </main>

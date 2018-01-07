@@ -24,7 +24,7 @@ $button-space-32: 6 * $base-unit;
 }
 
 .container {
-  @include roboto-normal;
+  @include roboto-regular;
 
   background: #fff;
   box-shadow: 0 0 14px 1px rgba(38, 38, 40, 0.15);

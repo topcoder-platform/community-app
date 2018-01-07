@@ -1,7 +1,7 @@
 @import '~styles/mixins';
 
 .container {
-  @include roboto-normal;
+  @include roboto-regular;
 
   flex: 1;
   flex-direction: column;

@@ -13,7 +13,7 @@ export const CAUSE = {
   NOT_AUTHORIZED: 'Not authorized',
 };
 
-export default function AccessDenied({ cause }) {
+export default function AccessDenied({ cause, communityId }) {
   switch (cause) {
     case CAUSE.NOT_AUTHENTICATED: {
       return (
@@ -23,10 +23,10 @@ export default function AccessDenied({ cause }) {
           <div styleName="msg">
             <a
               className="tc-btn-md tc-btn-primary"
-              href={`${config.URL.AUTH}/member`}
+              href={`${config.URL.AUTH}/member?utm_source=${communityId}`}
               onClick={(event) => {
                 const retUrl = encodeURIComponent(window.location.href);
-                window.location = `${config.URL.AUTH}/member?retUrl=${retUrl}`;
+                window.location = `${config.URL.AUTH}/member?retUrl=${retUrl}&utm_source=${communityId}`;
                 event.preventDefault();
               }}
             >Log In Here</a>
@@ -45,6 +45,11 @@ export default function AccessDenied({ cause }) {
   }
 }
 
+AccessDenied.defaultProps = {
+  communityId: '',
+};
+
 AccessDenied.propTypes = {
   cause: PT.oneOf(_.toArray(CAUSE)).isRequired,
+  communityId: PT.string,
 };

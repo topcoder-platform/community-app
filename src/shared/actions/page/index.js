@@ -1,3 +1,5 @@
+import _ from 'lodash';
+import challengeDetails from './challenge-details';
 import sandboxActions from './sandbox';
 
-export default sandboxActions;
+export default _.merge({}, challengeDetails, sandboxActions);

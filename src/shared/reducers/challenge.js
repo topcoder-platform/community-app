@@ -29,7 +29,6 @@ function onGetDetailsInit(state, action) {
     fetchChallengeFailure: false,
     loadingDetailsForChallengeId: challengeId,
     details: null,
-    detailsV2: null,
   } : {
     ...state,
     fetchChallengeFailure: false,
@@ -58,11 +57,7 @@ function onGetDetailsDone(state, action) {
     };
   }
 
-  /* If action was fired for authenticated visitor, payload[2] will contain
-   * details fetched specifically for the user (thus may include additional
-   * data comparing to the standard API v3 response for the challenge details,
-   * stored in payload[0]). */
-  const details = action.payload[2] || action.payload[0];
+  const details = action.payload;
   if (_.toString(details.id) !== state.loadingDetailsForChallengeId) {
     return state;
   }
@@ -70,7 +65,6 @@ function onGetDetailsDone(state, action) {
   return {
     ...state,
     details,
-    detailsV2: action.payload[1],
     fetchChallengeFailure: false,
     loadingDetailsForChallengeId: '',
   };
@@ -128,8 +122,7 @@ function onFetchCheckpointsDone(state, action) {
       loadingCheckpoints: false,
     };
   }
-  if ((state.details && state.details.id === action.payload.challengeId) ||
-    (state.detailsV2 && state.detailsV2.challengeId === action.payload.challengeId)) {
+  if (state.details && state.details.id === action.payload.challengeId) {
     return {
       ...state,
       checkpoints: action.payload.checkpoints,
@@ -252,6 +245,40 @@ function onSelectTab(state, { payload }) {
 }
 
 /**
+ * Handles CHALLENGE/UPDATE_CHALLENGE_INIT.
+ * @param {Object} state Old state.
+ * @param {Object} actions Action.
+ * @return {Object} New state.
+ */
+function onUpdateChallengeInit(state, { payload }) {
+  return { ...state, updatingChallengeUuid: payload };
+}
+
+/**
+ * Handles CHALLENGE/UPDATE_CHALLENGE_DONE.
+ * @param {Object} state Old state.
+ * @param {Object} actions Action.
+ * @return {Object} New state.
+ */
+function onUpdateChallengeDone(state, { error, payload }) {
+  if (error) {
+    fireErrorMessage('Failed to save the challenge!', '');
+    logger.error('Failed to save the challenge', payload);
+    return state;
+  }
+  if (payload.uuid !== state.updatingChallengeUuid) return state;
+  console.log(payload);
+  return {
+    ...state,
+    details: {
+      ...state.details,
+      ...payload.res,
+    },
+    updatingChallengeUuid: '',
+  };
+}
+
+/**
  * Creates a new Auth reducer with the specified initial state.
  * @param {Object} initialState Initial state.
  * @return Auth reducer.
@@ -288,9 +315,10 @@ function create(initialState) {
     [a.fetchCheckpointsDone]: onFetchCheckpointsDone,
     [a.toggleCheckpointFeedback]: onToggleCheckpointFeedback,
     [a.selectTab]: onSelectTab,
+    [a.updateChallengeInit]: onUpdateChallengeInit,
+    [a.updateChallengeDone]: onUpdateChallengeDone,
   }, _.defaults(initialState, {
     details: null,
-    detailsV2: null,
     loadingCheckpoints: false,
     loadingDetailsForChallengeId: '',
     loadingResultsForChallengeId: '',
@@ -301,6 +329,7 @@ function create(initialState) {
     resultsLoadedForChallengeId: '',
     unregistering: false,
     selectedTab: DETAIL_TABS.DETAILS,
+    updatingChallengeUuid: '',
   }));
 }
 
@@ -323,12 +352,12 @@ export function factory(req) {
     const challengeId = req.url.match(/\d+/)[0];
     return toFSA(actions.challenge.getDetailsDone(challengeId, tokens.tokenV3, tokens.tokenV2))
       .then((details) => {
-        const track = _.get(details, 'payload[0].track', '').toLowerCase();
+        const track = _.get(details, 'payload.track', '').toLowerCase();
         const checkpointsPromise = track === 'design' ? (
           toFSA(actions.challenge.fetchCheckpointsDone(
             tokens.tokenV2, challengeId))
         ) : null;
-        const resultsPromise = _.get(details, 'payload[0].status', '') === 'COMPLETED' ? (
+        const resultsPromise = _.get(details, 'payload.status', '') === 'COMPLETED' ? (
           toFSA(actions.challenge.loadResultsDone(tokens, challengeId, track))
         ) : null;
         return Promise.all([details, checkpointsPromise, resultsPromise]);

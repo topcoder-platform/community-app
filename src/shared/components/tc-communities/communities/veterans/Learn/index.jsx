@@ -10,7 +10,7 @@ import PT from 'prop-types';
 import React from 'react';
 import { PrimaryButton } from 'components/buttons';
 
-import joinButtonStyle from '../themes/join-button-primary.scss';
+import joinButtonStyle from 'components/buttons/standard/primary.scss';
 import style from './style.scss'; // eslint-disable-line no-unused-vars
 
 export default function Learn({ member }) {
@@ -38,7 +38,7 @@ export default function Learn({ member }) {
             <JoinCommunity
               label="Join Now"
               theme={{
-                ...joinButtonStyle,
+                link: joinButtonStyle,
               }}
             />
           </div>

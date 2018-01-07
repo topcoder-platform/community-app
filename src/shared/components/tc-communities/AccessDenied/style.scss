@@ -5,6 +5,7 @@
 
   padding-top: 100px;
   text-align: center;
+  width: 100%;
 }
 
 .msg {
@@ -37,7 +38,7 @@
 }
 
 .copyright {
-  @include roboto-normal;
+  @include roboto-regular;
 
   color: $tc-gray-60;
   font-size: 12pt;

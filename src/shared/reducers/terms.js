@@ -4,7 +4,7 @@
 
 import _ from 'lodash';
 import actions from 'actions/terms';
-import { getCommunityId } from 'routes/subdomains';
+import { getCommunityId } from 'server/services/communities';
 import logger from 'utils/logger';
 import { handleActions } from 'redux-actions';
 import { toFSA } from 'utils/redux';
@@ -83,7 +83,7 @@ function onGetTermDetailsDone(state, action) {
     return {
       ...state,
       details: null,
-      getTermDetailsFailure: action.error,
+      getTermDetailsFailure: action.payload,
       loadingDetailsForTermId: '',
     };
   }
@@ -115,7 +115,7 @@ function onGetDocuSignUrlDone(state, action) {
     return {
       ...state,
       docuSignUrl: '',
-      getDocuSignUrlFailure: action.error,
+      getDocuSignUrlFailure: action.payload,
       loadingDocuSignUrl: '',
     };
   }
@@ -145,7 +145,7 @@ function onAgreeTermDone(state, action) {
     logger.error('Failed to agree term!', action.payload);
     return {
       ...state,
-      agreeTermFailure: action.error,
+      agreeTermFailure: action.payload,
       agreeingTerm: '',
     };
   }

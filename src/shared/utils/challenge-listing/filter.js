@@ -59,7 +59,7 @@
 
 import _ from 'lodash';
 import moment from 'moment';
-import { COMPETITION_TRACKS } from 'utils/tc';
+import { COMPETITION_TRACKS, REVIEW_OPPORTUNITY_TYPES } from 'utils/tc';
 
 /**
  * Here are many similiar filerBy..(challenge, state) functions. Each of them
@@ -99,6 +99,17 @@ function filterByRegistrationOpen(challenge, state) {
     return true;
   };
   return isRegOpen() === state.registrationOpen;
+}
+
+/**
+ * Filter function for Review Opportunity Type, will be used internally in filter.js
+ * @param {Object} opp Review Opportunity object
+ * @param {Object} state Filter state
+ * @return {Boolean} True if opp satifies the filter
+ */
+function filterByReviewOpportunityType(opp, state) {
+  if (!state.reviewOpportunityType) return true;
+  return opp.type === state.reviewOpportunityType;
 }
 
 function filterByStartDate(challenge, state) {
@@ -218,6 +229,40 @@ export function getFilterFunction(state) {
       }
     }
     return test;
+  };
+}
+
+/**
+ * Generates a Review Opportunities filter function for the provided filter state.
+ * @param {Object} state
+ * @return {Function}
+ */
+export function getReviewOpportunitiesFilterFunction(state) {
+  return (opp) => {
+    // Review Opportunity objects have a challenge field which
+    // is largely compatible with many of the existing filter functions
+    // especially after a few normalization tweaks
+    const challenge = {
+      ...opp.challenge,
+      // This allows filterByText to search for Review Types and Challenge Titles
+      name: `${opp.challenge.title} ${REVIEW_OPPORTUNITY_TYPES[opp.type]}`,
+      registrationStartDate: opp.startDate, // startDate of Review, not Challenge
+      submissionEndDate: opp.startDate, // Currently uses startDate for both date comparisons
+      platforms: '', // Platforms are already concatenated to Technologies list by back-end
+      communities: new Set([ // Used to filter by Track, and communities at a future date
+        opp.challenge.track.toLowerCase(),
+      ]),
+    };
+
+    return (
+      filterByTrack(challenge, state)
+      && filterByText(challenge, state)
+      && filterByTags(challenge, state)
+      && filterBySubtracks(challenge, state)
+      && filterByEndDate(challenge, state)
+      && filterByStartDate(challenge, state)
+      && filterByReviewOpportunityType(opp, state)
+    );
   };
 }
 
@@ -372,6 +417,20 @@ export function setEndDate(state, date) {
   if (!state.endDate) return state;
   const res = _.clone(state);
   delete res.endDate;
+  return res;
+}
+
+/**
+ * Clones the state and sets the review opportunity type.
+ * @param {Object} state
+ * @param {Array} reviewOpportunityType Possible values found in utils/tc REVIEW_OPPORTUNITY_TYPES
+ * @return {Object}
+ */
+export function setReviewOpportunityType(state, reviewOpportunityType) {
+  if (reviewOpportunityType) return { ...state, reviewOpportunityType };
+  if (!state.reviewOpportunityType) return state;
+  const res = _.clone(state);
+  delete res.reviewOpportunityType;
   return res;
 }
 

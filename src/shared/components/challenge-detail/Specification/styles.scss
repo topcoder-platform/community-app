@@ -1,6 +1,26 @@
 @import "~styles/mixins";
 $tc-link-visited: #0c4e98;
 
+@mixin noteStyle {
+  background: $tc-gold-30;
+  border: 1px solid $tc-gold-70;
+  border-radius: 6px;
+  font-family: roboto;
+  font-weight: 400;
+  font-style: italic;
+  font-size: 13px;
+  color: $tc-black;
+  line-height: 20px;
+  padding: 15px 20px;
+  margin: 25px 0;
+
+  a,
+  p,
+  ul {
+    font-size: 13px;
+  }
+}
+
 @mixin linkStyle {
   a {
     color: $tc-dark-blue;
@@ -22,11 +42,33 @@ $tc-link-visited: #0c4e98;
   }
 }
 
+:global {
+  .editor-note-global {
+    @include noteStyle;
+  }
+}
+
+.hiddenSaveButton,
+.hiddenSaveButton:active,
+.hiddenSaveButton:focus,
+.hiddenSaveButton:hover {
+  background: white;
+  border: none;
+  max-height: 10px;
+  min-height: 10px;
+  margin: 0 !important;
+  padding: 0 !important;
+  overflow: hidden;
+  outline: none;
+  max-width: 10px;
+}
+
 .challenge-details-view {
   white-space: normal;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  position: relative;
   align-items: baseline;
   word-break: break-word;
 
@@ -70,17 +112,54 @@ $tc-link-visited: #0c4e98;
   }
 }
 
-.challenge-specs-main {
-  padding: 0 20px;
-  max-width: 720px;
-  align-self: center;
+.h2 {
+  font-family: roboto;
+  font-weight: 700;
+  font-size: 20px;
+  color: $tc-black;
+  line-height: 30px;
+  margin: (6 * $base-unit) 0 (2 * $base-unit);
+}
+
+.h3 {
+  font-family: roboto;
+  font-weight: 700;
+  font-size: 15px;
+  color: $tc-black;
+  line-height: 25px;
+  margin: (5 * $base-unit) 0 0;
+  text-transform: uppercase;
+}
+
+.p {
   font-family: roboto;
   font-weight: 400;
   font-size: 15px;
   color: $tc-gray-90;
   line-height: 25px;
-  white-space: normal;
 
+  @include linkStyle;
+
+  margin: (2 * $base-unit) 0 (3 * $base-unit);
+}
+
+.ul {
+  margin: 0 0 5px 20px;
+  font-family: roboto;
+  font-weight: 400;
+  font-size: 15px;
+  color: $tc-gray-90;
+  line-height: 25px;
+  list-style: disc outside none;
+
+  li {
+    font-weight: 400;
+
+    @include linkStyle;
+  }
+}
+
+.rawHtml {
   h1 {
     font-family: roboto;
     font-weight: 500;
@@ -131,15 +210,6 @@ $tc-link-visited: #0c4e98;
     @include linkStyle;
   }
 
-  span {
-    font-family: roboto;
-    font-size: 15px;
-    color: $tc-gray-90;
-    line-height: 25px;
-
-    @include linkStyle;
-  }
-
   p {
     margin: (2 * $base-unit) 0 (3 * $base-unit);
   }
@@ -152,7 +222,6 @@ $tc-link-visited: #0c4e98;
     font-weight: 700;
   }
 
-  pre,
   code {
     background: $tc-gray-neutral-light;
     border: 1px solid $tc-gray-20;
@@ -216,25 +285,21 @@ $tc-link-visited: #0c4e98;
     }
   }
 
-  .note {
-    background: $tc-gold-30;
-    border: 1px solid $tc-gold-70;
-    border-radius: 6px;
-    font-family: roboto;
-    font-weight: 400;
-    font-style: italic;
-    font-size: 13px;
-    color: $tc-black;
-    line-height: 20px;
-    padding: 15px 20px;
-    margin: 25px 0;
-
-    a,
-    p,
-    ul {
-      font-size: 13px;
-    }
-  }
-
   @include linkStyle;
+}
+
+.challenge-specs-main {
+  padding: 0 20px;
+  max-width: 720px;
+  align-self: center;
+  font-family: roboto;
+  font-weight: 400;
+  font-size: 15px;
+  color: $tc-gray-90;
+  line-height: 25px;
+  white-space: normal;
+
+  .note {
+    @include noteStyle;
+  }
 }

@@ -85,7 +85,7 @@ class FilePicker extends React.Component {
           }
         </div>
         <div
-          styleName={`file-picker ${error ? 'error' : ''} ${dragged && 'drag'}`}
+          styleName={`file-picker ${error ? 'error' : ''} ${dragged ? 'drag' : ''}`}
           id={`drop-zone-${id}`}
         >
           {

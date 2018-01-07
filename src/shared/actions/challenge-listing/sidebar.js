@@ -108,7 +108,7 @@ function saveFilter(name, filter, tokenV2) {
 function updateAllSavedFilters(savedFilters, tokenV2) {
   const service = getUserSettingsService(tokenV2);
   savedFilters.forEach(filter =>
-    service.updateFilter(filter.id, filter.name, JSON.stringify(filter.filter)));
+    service.updateFilter(filter.id, filter.name, filter.filter));
 }
 
 /**
@@ -119,7 +119,7 @@ function updateAllSavedFilters(savedFilters, tokenV2) {
  */
 function updateSavedFilter(filter, tokenV2) {
   return getUserSettingsService(tokenV2)
-    .updateFilter(filter.id, filter.name, filter);
+    .updateFilter(filter.id, filter.name, filter.filter);
 }
 
 export default createActions({

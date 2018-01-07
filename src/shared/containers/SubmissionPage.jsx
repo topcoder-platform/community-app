@@ -11,6 +11,9 @@ import React from 'react';
 import PT from 'prop-types';
 import { connect } from 'react-redux';
 import SubmissionsPage from 'components/SubmissionPage';
+import AccessDenied, {
+  CAUSE as ACCESS_DENIED_REASON,
+} from 'components/tc-communities/AccessDenied';
 
 /**
  * SubmissionsPage Container
@@ -39,6 +42,10 @@ class SubmissionsPageContainer extends React.Component {
   }
 
   render() {
+    const { registrants, handle } = this.props;
+    const isRegistered = registrants.find(r => r.handle === handle);
+
+    if (!isRegistered) return <AccessDenied cause={ACCESS_DENIED_REASON.NOT_AUTHORIZED} />;
     return (
       <SubmissionsPage
         {...this.props}
@@ -72,11 +79,12 @@ SubmissionsPageContainer.propTypes = {
   currentPhases: PT.arrayOf(PT.object).isRequired,
   stockArtRecords: PT.arrayOf(PT.object).isRequired,
   setStockArtRecord: PT.func.isRequired,
+  customFontRecords: PT.arrayOf(PT.object).isRequired,
+  setCustomFontRecord: PT.func.isRequired,
 
   /* Older stuff */
   userId: PT.string.isRequired,
   challengesUrl: PT.string,
-  phaseId: PT.number.isRequired,
   tokenV2: PT.string.isRequired,
   tokenV3: PT.string.isRequired,
   submit: PT.func.isRequired,
@@ -103,27 +111,15 @@ SubmissionsPageContainer.propTypes = {
   setFilePickerDragged: PT.func.isRequired,
   notesLength: PT.number.isRequired,
   updateNotesLength: PT.func.isRequired,
-  multiInputs: PT.arrayOf(PT.shape({
-    id: PT.string.isRequired,
-    inputs: PT.arrayOf(PT.shape({
-      urlValid: PT.bool,
-      nameValid: PT.bool,
-      sourceValid: PT.bool.isRequired,
-      active: PT.bool.isRequired,
-    }).isRequired).isRequired,
-  }).isRequired).isRequired,
-  removeMultiInput: PT.func.isRequired,
   resetDesignStoreSegment: PT.func.isRequired,
-  setMultiInputUrlValid: PT.func.isRequired,
-  setMultiInputNameValid: PT.func.isRequired,
-  setMultiInputSourceValid: PT.func.isRequired,
-  setMultiInputActive: PT.func.isRequired,
   setSubmissionFilestackData: PT.func.isRequired,
   setSourceFilestackData: PT.func.isRequired,
   setPreviewFilestackData: PT.func.isRequired,
   submissionFilestackData: filestackDataProp.isRequired,
   sourceFilestackData: filestackDataProp.isRequired,
   previewFilestackData: filestackDataProp.isRequired,
+  registrants: PT.arrayOf(PT.object).isRequired,
+  handle: PT.string.isRequired,
 };
 
 /**
@@ -134,16 +130,16 @@ SubmissionsPageContainer.propTypes = {
  * @return {Object}
  */
 const mapStateToProps = (state, ownProps) => {
-  const detailsV2 = state.challenge.detailsV2;
   const submission = state.page.submission;
   return {
     currentPhases: state.challenge.details.currentPhases,
     stockArtRecords: submission.design.stockArtRecords,
+    customFontRecords: submission.design.customFontRecords,
 
     /* Older stuff below. */
     userId: state.auth.user.userId,
-    challengeId: detailsV2 && detailsV2.challengeId,
-    challengeName: detailsV2 && detailsV2.challengeName,
+    challengeId: state.challenge.details.id,
+    challengeName: state.challenge.details.name,
     challengesUrl: ownProps.challengesUrl,
     tokenV2: state.auth.tokenV2,
     tokenV3: state.auth.tokenV3,
@@ -156,10 +152,11 @@ const mapStateToProps = (state, ownProps) => {
     agreed: submission.agreed,
     filePickers: submission.filePickers,
     notesLength: submission.notesLength,
-    multiInputs: submission.multiInputs,
     submissionFilestackData: submission.submissionFilestackData,
     sourceFilestackData: submission.sourceFilestackData,
     previewFilestackData: submission.previewFilestackData,
+    registrants: state.challenge.details.registrants,
+    handle: state.auth.user ? state.auth.user.handle : '',
   };
 };
 
@@ -188,18 +185,11 @@ function mapDispatchToProps(dispatch) {
     setFilePickerUploadProgress: (id, p) =>
       dispatch(a.setFilePickerUploadProgress(id, p)),
     updateNotesLength: length => dispatch(a.updateNotesLength(length)),
-    removeMultiInput: (id, index) => dispatch(a.removeMultiInput(id, index)),
     resetDesignStoreSegment: () => dispatch(a.design.reset()),
     setStockArtRecord: (index, record) =>
       dispatch(a.design.setStockArtRecord(index, record)),
-    setMultiInputUrlValid: (id, index, valid) =>
-      dispatch(a.setMultiInputUrlValid(id, index, valid)),
-    setMultiInputNameValid: (id, index, valid) =>
-      dispatch(a.setMultiInputNameValid(id, index, valid)),
-    setMultiInputSourceValid: (id, index, valid) =>
-      dispatch(a.setMultiInputSourceValid(id, index, valid)),
-    setMultiInputActive: (id, index, active) =>
-      dispatch(a.setMultiInputActive(id, index, active)),
+    setCustomFontRecord: (index, record) =>
+      dispatch(a.design.setCustomFontRecord(index, record)),
     setSubmissionFilestackData: (id, data) => dispatch(a.setSubmissionFilestackData(id, data)),
     setSourceFilestackData: (id, data) => dispatch(a.setSourceFilestackData(id, data)),
     setPreviewFilestackData: (id, data) => dispatch(a.setPreviewFilestackData(id, data)),

@@ -1,7 +1,7 @@
 import _ from 'lodash';
-import Dropdown from 'react-dropdown';
 import PT from 'prop-types';
 import React from 'react';
+import Select from 'react-select';
 import './style.scss';
 
 export default function SortingSelectBar({ onSelect, options, title, value }) {
@@ -14,7 +14,9 @@ export default function SortingSelectBar({ onSelect, options, title, value }) {
             <p styleName="view-options-toggle-container-label">
               Sort by:
             </p>
-            <Dropdown
+            <Select
+              searchable={false}
+              clearable={false}
               options={options}
               onChange={item => onSelect(item.value)}
               value={value}

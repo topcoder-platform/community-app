@@ -6,8 +6,8 @@ import React from 'react';
 import PT from 'prop-types';
 import TrackIcon from 'components/TrackIcon';
 import { DETAIL_TABS } from 'actions/challenge';
-import { Tag } from 'components/tags';
 import { convertNow as convertMoney } from 'services/money';
+import Tags from '../Tags';
 
 import Prize from './Prize';
 import ChallengeStatus from './Status';
@@ -23,7 +23,6 @@ export const PRIZE_MODE = {
 };
 
 // Constants
-const VISIBLE_TECHNOLOGIES = 3;
 const ID_LENGTH = 6;
 
 // Get the End date of a challenge
@@ -44,6 +43,8 @@ const getEndDate = (c) => {
 function ChallengeCard({
   challenge: passedInChallenge,
   challengesUrl,
+  expandedTags,
+  expandTag,
   newChallengeDetails,
   onTechTagClicked,
   openChallengesInNewTabs,
@@ -151,6 +152,8 @@ function ChallengeCard({
               technologies={challenge.technologies}
               platforms={challenge.platforms}
               onTechTagClicked={onTechTagClicked}
+              isExpanded={expandedTags.includes(challenge.id)}
+              expand={() => expandTag(challenge.id)}
             />
           </div>
         </div>
@@ -194,6 +197,8 @@ ChallengeCard.defaultProps = {
   prizeMode: PRIZE_MODE.MONEY_USD,
   sampleWinnerProfile: undefined,
   userHandle: '',
+  expandedTags: [],
+  expandTag: null,
 };
 
 ChallengeCard.propTypes = {
@@ -206,74 +211,8 @@ ChallengeCard.propTypes = {
   sampleWinnerProfile: PT.shape(),
   selectChallengeDetailsTab: PT.func.isRequired,
   userHandle: PT.string,
-};
-
-/**
- * Renders the Tags
- */
-
-/* TODO: Must be moved to a separate component. And should be functional,
- * using Redux store to expand/collapse. */
-class Tags extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      expanded: false,
-    };
-    this.onClick = this.onClick.bind(this);
-  }
-
-  onClick(c) {
-    // resolved conflict with c++ tag
-    if (c.indexOf('+') === 0) {
-      this.setState({ expanded: true });
-    } else {
-      this.props.onTechTagClicked(c);
-    }
-  }
-
-  renderTechnologies() {
-    let technologies = this.props.technologies ? this.props.technologies.split(',').map(item => item.trim()) : [];
-    const platforms = this.props.platforms ? this.props.platforms.split(',').map(item => item.trim()) : [];
-    technologies = _.union(technologies, platforms);
-    if (technologies.length) {
-      let technologyList = technologies;
-      if (technologies.length > VISIBLE_TECHNOLOGIES && !this.state.expanded) {
-        const lastItem = `+${technologyList.length - VISIBLE_TECHNOLOGIES}`;
-        technologyList = technologies.slice(0, VISIBLE_TECHNOLOGIES);
-        technologyList.push(lastItem);
-      }
-      return technologyList.map(c => (
-        <Tag
-          onClick={() => this.onClick(c.trim())}
-          key={c}
-          role="button"
-        >{c}</Tag>
-      ));
-    }
-    return '';
-  }
-
-  render() {
-    const technologies = this.renderTechnologies();
-    return (
-      <span>
-        { technologies }
-      </span>
-    );
-  }
-}
-
-Tags.defaultProps = {
-  onTechTagClicked: _.noop,
-  technologies: '',
-  platforms: '',
-};
-
-Tags.propTypes = {
-  onTechTagClicked: PT.func,
-  technologies: PT.string,
-  platforms: PT.string,
+  expandedTags: PT.arrayOf(PT.number),
+  expandTag: PT.func,
 };
 
 export default ChallengeCard;

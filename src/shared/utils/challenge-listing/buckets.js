@@ -12,6 +12,8 @@ export const BUCKETS = {
   PAST: 'past',
   SAVED_FILTER: 'saved-filter',
   UPCOMING: 'upcoming',
+  REVIEW_OPPORTUNITIES: 'reviewOpportunities',
+  SAVED_REVIEW_OPPORTUNITIES_FILTER: 'savedReviewOpportunitiesFilter',
 };
 
 /**
@@ -102,7 +104,33 @@ export function getBuckets(userHandle) {
         SORTS.TITLE_A_TO_Z,
       ],
     },
+    [BUCKETS.REVIEW_OPPORTUNITIES]: {
+      filter: {},
+      hideCount: true,
+      name: 'Open for review',
+      sorts: [
+        SORTS.REVIEW_OPPORTUNITIES_START_DATE,
+        SORTS.REVIEW_OPPORTUNITIES_PAYMENT,
+        SORTS.REVIEW_OPPORTUNITIES_TITLE_A_TO_Z,
+      ],
+    },
+    [BUCKETS.SAVED_REVIEW_OPPORTUNITIES_FILTER]: {
+      filter: {},
+      sorts: [
+        SORTS.REVIEW_OPPORTUNITIES_START_DATE,
+        SORTS.REVIEW_OPPORTUNITIES_PAYMENT,
+        SORTS.REVIEW_OPPORTUNITIES_TITLE_A_TO_Z,
+      ],
+    },
   };
 }
+
+/**
+ * Tests if a given bucket is of any of the Review Opportunities types
+ * @param {String} bucket The bucket in question
+ * @return {Boolean} True if the bucket contains Review Opportunities
+ */
+export const isReviewOpportunitiesBucket = bucket =>
+  (bucket === BUCKETS.REVIEW_OPPORTUNITIES || bucket === BUCKETS.SAVED_REVIEW_OPPORTUNITIES_FILTER);
 
 export default undefined;

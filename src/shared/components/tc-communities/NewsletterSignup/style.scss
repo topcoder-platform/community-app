@@ -103,16 +103,6 @@ input:not([type="checkbox"]).formEmail {
 }
 
 .formButton {
-  background: #0092ff;
-  color: #fff;
-  border: 0;
-  font: 700 14px/50px 'Open Sans';
-  outline: none;
-  padding: 0;
+  margin: 0 !important;
   text-transform: uppercase;
-  width: 124px;
-
-  @include xs-to-sm {
-    width: 95px;
-  }
 }
