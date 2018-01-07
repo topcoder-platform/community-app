@@ -55,13 +55,11 @@ class SubmissionManagementPageContainer extends React.Component {
       handle,
       registrants,
     } = this.props;
-
-    if (challenge.track !== 'DESIGN') return <Error404 />;
     const isRegistered = registrants.find(r => r.handle === handle);
-    if (!isRegistered) return <AccessDenied cause={ACCESS_DENIED_REASON.NOT_AUTHORIZED} />;
+    if (!isRegistered) return <AccessDenied cause={ACCESS_DENIED_REASON.NOT_REGISTERED_FOR_CHALLENGE} />;
+    if (challenge.track !== 'DESIGN') return <Error404 />;
 
     const isEmpty = _.isEmpty(this.props.challenge);
-
     const smConfig = {
       onShowDetails: this.props.onShowDetails,
       onDelete: this.props.onSubmissionDelete,
@@ -170,15 +168,19 @@ SubmissionManagementPageContainer.propTypes = {
 };
 
 function mapStateToProps(state, props) {
+  let submissionPhaseStartDate;
+  const submissionPhase = state.challenge.details.allPhases.find(phase =>
+    ['Submission', 'Checkpoint Submission'].includes(phase.phaseType) && phase.phaseStatus === 'Open');
   const challengeId = props.match.params.challengeId;
-
+  if (submissionPhase) {
+    const { actualStartTime, scheduledStartTime } = submissionPhase;
+    submissionPhaseStartDate = actualStartTime || scheduledStartTime || '';
+  } else {
+    submissionPhaseStartDate = '';
+  }
   let mySubmissions = state.challenge.mySubmissions;
   mySubmissions = challengeId === mySubmissions.challengeId
     ? mySubmissions.v2 : null;
-
-  const submissionPhase = state.challenge.details.allPhases.find(phase =>
-    ['Submission', 'Checkpoint Submission'].includes(phase.phaseType) && phase.phaseStatus === 'Open');
-
   return {
     challengeId: Number(challengeId),
     challenge: state.challenge.details,
@@ -189,10 +191,10 @@ function mapStateToProps(state, props) {
     isLoadingChallenge: Boolean(state.challenge.loadingDetailsForChallengeId),
 
     loadingSubmissionsForChallengeId:
-      state.challenge.loadingSubmissionsForChallengeId,
+      state.challenge.loadingSubmissionsForChallengeId || '',
     mySubmissions,
 
-    submissionPhaseStartDate: submissionPhase.actualStartTime || submissionPhase.scheduledStartTime || '',
+    submissionPhaseStartDate,
 
     showDetails: new Set(state.challenge.mySubmissionsManagement.showDetails),
 

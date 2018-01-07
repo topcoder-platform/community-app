@@ -2,6 +2,7 @@
 
 import _ from 'lodash';
 import config from 'utils/config';
+import { Link } from 'utils/router';
 import PT from 'prop-types';
 import React from 'react';
 
@@ -11,6 +12,7 @@ import './style.scss';
 export const CAUSE = {
   NOT_AUTHENTICATED: 'Not authenticated',
   NOT_AUTHORIZED: 'Not authorized',
+  NOT_REGISTERED_FOR_CHALLENGE: 'Not registered for challenge',
 };
 
 export default function AccessDenied({ cause, communityId }) {
@@ -39,6 +41,19 @@ export default function AccessDenied({ cause, communityId }) {
         <div styleName="access-denied">
           <TopcoderLogo />
           <div styleName="msg">You are not authorized to access this page.</div>
+        </div>
+      );
+    case CAUSE.NOT_REGISTERED_FOR_CHALLENGE:
+      return (
+        <div styleName="access-denied">
+          <TopcoderLogo />
+          <div styleName="msg">You have not registered for this challenge.</div>
+          <div styleName="msg">
+            <Link
+              className="tc-btn-md tc-btn-primary"
+              to={`${config.BASE.URL}/challenges`}
+            >Visit here to register for challenge</Link>
+          </div>
         </div>
       );
     default: return <div />;
