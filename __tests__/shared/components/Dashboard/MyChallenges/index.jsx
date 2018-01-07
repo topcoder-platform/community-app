@@ -27,7 +27,7 @@ test('Matches shallow shapshot', () => {
   expect(renderer.getRenderOutput()).toMatchSnapshot();
 });
 
-describe('handler clicks', () => {
+describe.skip('handler clicks', () => {
   let view;
 
   beforeEach(() => {

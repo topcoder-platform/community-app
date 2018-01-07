@@ -27,6 +27,7 @@ import Select from 'components/Select';
 import moment from 'moment';
 import { Button, PrimaryButton } from 'components/buttons';
 import { COMPOSE, PRIORITY } from 'react-css-super-themr';
+import { REVIEW_OPPORTUNITY_TYPES } from 'utils/tc';
 
 import DateRangePicker from '../DateRangePicker';
 import style from './style.scss';
@@ -37,6 +38,8 @@ export default function FiltersPanel({
   defaultCommunityId,
   filterState,
   hidden,
+  isAuth,
+  isReviewOpportunitiesBucket,
   onClose,
   onSaveFilter,
   selectCommunity,
@@ -50,10 +53,15 @@ export default function FiltersPanel({
   let className = 'FiltersPanel';
   if (hidden) className += ' hidden';
 
-  const communityOps = communityFilters.map(item => ({
-    label: item.communityName,
-    value: item.communityId,
-  }));
+  const communityOps = [];
+  communityFilters.forEach((community) => {
+    if (!community.hidden) {
+      communityOps.push({
+        label: community.communityName,
+        value: community.communityId,
+      });
+    }
+  });
 
   const disableClearSaveFilterButtons = isSavingFilter || (
     selectedCommunityId === defaultCommunityId
@@ -116,6 +124,27 @@ export default function FiltersPanel({
               }
             />
           </div>
+          {/* Only shown when the Review Opportunity bucket is selected */}
+          { isReviewOpportunitiesBucket ?
+            <div styleName="filter review-type">
+              <label htmlFor="review-type-select">Review Type</label>
+              <Select
+                autoBlur
+                clearable={false}
+                id="review-type-select"
+                onChange={value =>
+                  setFilterState(Filter.setReviewOpportunityType(filterState, value))
+                }
+                options={[
+                  { label: 'All', value: 0 }, // 0 value deactivates above filter
+                  ...Object.entries(REVIEW_OPPORTUNITY_TYPES)
+                    .map(([value, label]) => ({ value, label })),
+                ]}
+                simpleValue
+                value={filterState.reviewOpportunityType || 0} // Default: All
+              />
+            </div> : null
+          }
           <div styleName="filter dates hidetwomonthdatepicker">
             <label htmlFor="date-range-picker">Date range</label>
             <DateRangePicker
@@ -168,7 +197,7 @@ export default function FiltersPanel({
           themePriority={PRIORITY.ADHOC_DEFAULT_CONTEXT}
         >Clear filters</Button>
         <PrimaryButton
-          disabled={disableClearSaveFilterButtons}
+          disabled={disableClearSaveFilterButtons || !isAuth}
           onClick={onSaveFilter}
           size="sm"
           theme={{ button: style.button }}
@@ -180,7 +209,9 @@ export default function FiltersPanel({
 
 FiltersPanel.defaultProps = {
   hidden: false,
+  isAuth: false,
   isSavingFilter: false,
+  isReviewOpportunitiesBucket: false,
   onSaveFilter: _.noop,
   onClose: _.noop,
 };
@@ -193,7 +224,9 @@ FiltersPanel.propTypes = {
   defaultCommunityId: PT.string.isRequired,
   filterState: PT.shape().isRequired,
   hidden: PT.bool,
+  isAuth: PT.bool,
   isSavingFilter: PT.bool,
+  isReviewOpportunitiesBucket: PT.bool,
   onSaveFilter: PT.func,
   selectCommunity: PT.func.isRequired,
   selectedCommunityId: PT.string.isRequired,

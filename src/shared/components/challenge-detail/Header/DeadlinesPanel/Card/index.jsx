@@ -9,7 +9,7 @@ import React from 'react';
 import './style.scss';
 
 /* Date/time format to use in the card. */
-const FORMAT = 'MMM DD, hh:mm a';
+const FORMAT = 'MMM DD, HH:MM';
 
 export default function Card({ past, time, title }) {
   const time2 = moment(time);
@@ -17,7 +17,7 @@ export default function Card({ past, time, title }) {
   return (
     <div styleName={past2 ? 'past' : 'open'}>
       <p styleName="title">{title}</p>
-      <p styleName="date">{time2.local().format(FORMAT)}</p>
+      <p styleName="date">{time2.format(FORMAT)}</p>
     </div>
   );
 }

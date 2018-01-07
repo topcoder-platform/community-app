@@ -230,6 +230,23 @@ exports[`Matches shallow shapshot 1`] = `
       </Link>
     </li>
     <li>
+      Stand-alone terms of use page: ‌
+      <Link
+        replace={false}
+        to="/challenges/terms/detail/21193"
+      >
+        simple
+      </Link>
+      , ‌
+      <Link
+        replace={false}
+        to="/challenges/terms/detail/21153"
+      >
+        DocuSign
+      </Link>
+      .
+    </li>
+    <li>
       <a
         href="/challenges/30050696/my-submissions"
       >
@@ -415,6 +432,14 @@ exports[`Matches shallow shapshot 1`] = `
         Data Fetch
       </Link>
        - Demonstrates how data fetching should be implemented in isomorphic way, using Redux with Flux Standard Actions and promise;
+    </li>
+    <li>
+      <Link
+        replace={false}
+        to="/examples/editor"
+      >
+        Editor
+      </Link>
     </li>
     <li>
       <Link

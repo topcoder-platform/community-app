@@ -1,0 +1,65 @@
+@import "~styles/mixins";
+
+.buttons-container {
+  display: inline-block;
+  margin-left: 31px;
+  margin-top: $base-unit * 2;
+}
+
+// Competing against some globals
+.container {
+  @include tc-body-md;
+
+  input {
+    display: inline-block;
+    height: $base-unit * 6;
+    margin: 0;
+    padding: 0;
+    margin-left: $base-unit * 1;
+    vertical-align: middle;
+
+    &.size {
+      width: 50px;
+    }
+
+    &.url {
+      width: 500px;
+    }
+  }
+
+  z-index: 1000;
+}
+
+.modalContainer {
+  top: 30%;
+  left: 50%;
+  transform: translate(-50%);
+  height: auto;
+  width: 720px;
+}
+
+.modalOverlay {
+  pointer-events: bounding-box;
+}
+
+.fields-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.field {
+  display: inline-block;
+}
+
+.preview {
+  display: block;
+}
+
+.size {
+  width: 50px;
+}
+
+.url {
+  width: 100%;
+}

@@ -8,6 +8,13 @@ import {
   SecondaryButton,
 } from 'components/buttons';
 
+import outlineRoundAkkuratDanger from
+  'components/buttons/outline/round/akkurat/danger.scss';
+import outlineRoundAkkuratDefault from
+  'components/buttons/outline/round/akkurat/default.scss';
+import outlineRoundAkkuratPrimary from
+  'components/buttons/outline/round/akkurat/primary.scss';
+
 import outlineRoundOpenSansDefault from
   'components/buttons/outline/round/open-sans/default.scss';
 import outlineRoundOpenSansBlueUppercase from
@@ -48,6 +55,22 @@ export default function Buttons() {
         globally available to not re-invent a wheel, if we want a similar style
         elsewhere.
       </p>
+
+      <Sample
+        Button={GenericButton}
+        theme={outlineRoundAkkuratDefault}
+        title="outline/round/akkurat/default"
+      />
+      <Sample
+        Button={GenericButton}
+        theme={outlineRoundAkkuratDanger}
+        title="outline/round/akkurat/danger"
+      />
+      <Sample
+        Button={GenericButton}
+        theme={outlineRoundAkkuratPrimary}
+        title="outline/round/akkurat/primary"
+      />
 
       <Sample
         Button={GenericButton}

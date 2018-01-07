@@ -18,9 +18,16 @@ const CONSENSYS_RSS_URL = `/community-app-assets/api/proxy-get?url=${
   encodeURIComponent('https://medium.com/feed/@ConsenSys')
 }`;
 
+const TOPCODER_BLOCKCHAIN_BLOG_RSS_ID = 'TopcoderBlockchainBlog';
+const TOPCODER_BLOCKCHAIN_BLOG_RSS_URL =
+`/community-app-assets/api/proxy-get?url=${
+  encodeURIComponent('https://www.topcoder.com/blog/tag/blockchain/feed/')
+}`;
+
 class LearnPageContainer extends React.Component {
   componentDidMount() {
     this.updateConsenSysRss();
+    this.updateTopcoderBlockchainBlogRss();
   }
 
   /**
@@ -32,15 +39,30 @@ class LearnPageContainer extends React.Component {
     loadConsenSysRss();
   }
 
+  /**
+   * Updates Topcoder Blog feed, if necessary.
+   */
+  updateTopcoderBlockchainBlogRss() {
+    const {
+      topcoderBlockchainBlogRss,
+      loadTopcoderBlockchainBlogRss,
+    } = this.props;
+    if (topcoderBlockchainBlogRss
+    && Date.now() - topcoderBlockchainBlogRss.timestamp < 5 * MIN) return;
+    loadTopcoderBlockchainBlogRss();
+  }
+
   render() {
     const {
       baseUrl,
       consenSysRss,
+      topcoderBlockchainBlogRss,
     } = this.props;
     return (
       <LearnPage
         baseUrl={baseUrl}
         consenSysRss={consenSysRss}
+        topcoderBlockchainBlogRss={topcoderBlockchainBlogRss}
       />
     );
   }
@@ -48,6 +70,7 @@ class LearnPageContainer extends React.Component {
 
 LearnPageContainer.defaultProps = {
   consenSysRss: null,
+  topcoderBlockchainBlogRss: null,
 };
 
 LearnPageContainer.propTypes = {
@@ -58,12 +81,19 @@ LearnPageContainer.propTypes = {
     timestamp: PT.number.isRequired,
   }),
   loadConsenSysRss: PT.func.isRequired,
+  loadTopcoderBlockchainBlogRss: PT.func.isRequired,
+  topcoderBlockchainBlogRss: PT.shape({
+    data: PT.object,
+    loadingUuid: PT.string.isRequired,
+    timestamp: PT.number.isRequired,
+  }),
 };
 
 function mapStateToProps(state, ownProps) {
   return {
     baseUrl: ownProps.baseUrl,
     consenSysRss: state.rss.ConsenSys,
+    topcoderBlockchainBlogRss: state.rss.TopcoderBlockchainBlog,
   };
 }
 
@@ -74,6 +104,11 @@ function mapDispatchToProps(dispatch) {
       const uuid = shortId();
       dispatch(a.getInit(CONSENSYS_RSS_ID, uuid));
       dispatch(a.getDone(CONSENSYS_RSS_ID, uuid, CONSENSYS_RSS_URL));
+    },
+    loadTopcoderBlockchainBlogRss: () => {
+      const uuid = shortId();
+      dispatch(a.getInit(TOPCODER_BLOCKCHAIN_BLOG_RSS_ID, uuid));
+      dispatch(a.getDone(TOPCODER_BLOCKCHAIN_BLOG_RSS_ID, uuid, TOPCODER_BLOCKCHAIN_BLOG_RSS_URL));
     },
   };
 }

@@ -8,6 +8,8 @@ exports[`Matches shallow shapshot 1 shapshot 1 1`] = `
   <Connect(Container)
     communityName={null}
     defaultCommunityId={undefined}
+    hideSrm={undefined}
+    isAuth={false}
     isCardTypeSet="Challenges"
     setCardType={[Function]}
   />
@@ -75,18 +77,23 @@ exports[`Matches shallow shapshot 1 shapshot 1 1`] = `
       challengesUrl={undefined}
       communityName={null}
       currentFilterName=""
+      expandTag={null}
       expanded={false}
+      expandedTags={Array []}
       filterState={Object {}}
       keepPastPlaceholders={undefined}
       loadMoreDraft={null}
       loadMorePast={null}
+      loadMoreReviewOpportunities={null}
       loadingDraftChallenges={false}
       loadingPastChallenges={false}
+      loadingReviewOpportunities={undefined}
       newChallengeDetails={false}
       onExpandFilterResult={[Function]}
       onTechTagClicked={[Function]}
       openChallengesInNewTabs={false}
       prizeMode="money-usd"
+      reviewOpportunities={Array []}
       selectBucket={[Function]}
       selectChallengeDetailsTab={undefined}
       selectedCommunityId={undefined}
@@ -124,6 +131,8 @@ exports[`Matches shallow shapshot 2 shapshot 2 1`] = `
   <Connect(Container)
     communityName={null}
     defaultCommunityId={undefined}
+    hideSrm={undefined}
+    isAuth={false}
     isCardTypeSet="Challenges"
     setCardType={[Function]}
   />

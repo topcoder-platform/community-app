@@ -135,7 +135,7 @@ $panel-radius-4: $corner-radius * 2;
 
     &.keywords {
       position: relative;
-      z-index: 4;
+      z-index: 6;
       width: 100%;
       margin-bottom: $panel-space-15;
       margin-right: $panel-space-15;
@@ -174,7 +174,7 @@ $panel-radius-4: $corner-radius * 2;
 
     &.track {
       position: relative;
-      z-index: 2;
+      z-index: 4;
       display: flex;
       align-items: center;
 
@@ -231,7 +231,7 @@ $panel-radius-4: $corner-radius * 2;
     }
 
     :global(.Select) {
-      z-index: 3;
+      z-index: 5;
     }
 
     :global(.Select-value) {
@@ -240,6 +240,29 @@ $panel-radius-4: $corner-radius * 2;
     }
 
     margin-bottom: $panel-space-15;
+    margin-right: $panel-space-30;
+  }
+
+  .filter.review-type {
+    // margin - (.date.input width + .date.text width) * 2 - filters.label width
+    @include calc(width, '50% - 30px - (14px + 114px) * 2 - 96px');
+
+    order: 3; // Show after Date Picker when in lg screen mode
+
+    @include xs-to-sm {
+      margin-top: $panel-space-15;
+      width: 100%;
+    }
+
+    :global(.Select) {
+      z-index: 3;
+    }
+
+    :global(.Select-value) {
+      line-height: 28px;
+      top: inherit;
+    }
+
     margin-right: $panel-space-30;
   }
 

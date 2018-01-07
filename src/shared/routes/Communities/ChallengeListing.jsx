@@ -11,6 +11,7 @@ import { SplitRoute } from 'utils/router';
 
 export default function ChallengeListingRoute({
   challengesUrl,
+  hideSrm,
   listingOnly,
   meta,
   newChallengeDetails,
@@ -34,10 +35,9 @@ export default function ChallengeListingRoute({
               challengesUrl={challengesUrl}
               communityId={query.communityId || meta.communityId}
               communityName={meta.communityName}
-
               defaultCommunityId={meta.communityId}
-
               groupIds={meta.groupIds}
+              hideSrm={hideSrm}
 
               /* TODO: This is hacky! A better, generic way to achieve it
                * should be adopted. */
@@ -60,12 +60,14 @@ export default function ChallengeListingRoute({
 
 ChallengeListingRoute.defaultProps = {
   challengesUrl: '/challenges',
+  hideSrm: false,
   listingOnly: false,
   newChallengeDetails: false,
 };
 
 ChallengeListingRoute.propTypes = {
   challengesUrl: PT.string,
+  hideSrm: PT.bool,
   listingOnly: PT.bool,
   meta: PT.shape({
     challengeListing: PT.shape({

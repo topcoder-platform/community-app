@@ -6,6 +6,7 @@
 import Buttons from 'components/examples/Buttons';
 import Content from 'components/Content';
 import CssModules from 'components/examples/CssModules';
+import Editor from 'components/examples/Editor';
 import ErrorMessage from 'components/examples/ErrorMessage';
 import FontsTest from 'components/examples/FontsTest';
 import LinkTest from 'components/examples/LinkTest';
@@ -52,11 +53,12 @@ export default function Examples(props) {
       />
       <Route path={`${base}/css-modules`} component={CssModules} />
       <Route path={`${base}/data-fetch`} component={DataFetch} />
-      <Route path={`${base}/fonts-test`} component={FontsTest} />
+      <Route path={`${base}/editor`} component={Editor} />
       <Route
         component={() => <ErrorMessage />}
         path={`${base}/error-message`}
       />
+      <Route path={`${base}/fonts-test`} component={FontsTest} />
       <Route
         component={LinkTest}
         path={`${base}/link-test`}

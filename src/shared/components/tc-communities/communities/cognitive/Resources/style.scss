@@ -1,37 +1,144 @@
-@import '~styles/mixins';
+@import '../themes/mixins';
 
-.cardSectionContainer {
-  top: -70px;
-  height: auto;
-  padding: 0;
-  position: relative;
+.container { @include container; }
+
+.content {
+  align-items: flex-start;
+  display: flex;
+  margin: auto;
+  max-width: $tc-screen-lg;
+  padding: 100px 0;
+
+  @include xs-to-sm {
+    flex-direction: column-reverse;
+    padding-top: 40px;
+  }
 }
 
-.cardSectionContent {
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  margin: 0;
+.faqContainer {
+  flex: 1;
+}
+
+.faqContainerTitle {
+  @include tc-heading-xl;
+
+  margin-bottom: 30px;
+}
+
+.faqPSpacing {
+  margin-bottom: 20px;
+}
+
+.link {
+  color: $tc-dark-blue-90;
+
+  &:visited {
+    color: royalblue;
+  }
+}
+
+.faqJoinButton {
+  @include tc-body-md;
+
+  background: none !important;
+  border: none !important;
+  color: $tc-dark-blue-90;
+  margin: 0 !important;
+  outline: none !important;
+  padding: 0 !important;
+}
+
+.joinBox {
+  border-radius: 6px;
+  box-shadow: 0 2px 9px 0 rgba(38, 38, 40, 0.15);
+  margin-left: 20px;
+  max-width: 360px;
+
+  @include xs-to-sm {
+    margin: 0 0 80px;
+    max-width: none;
+    width: 100%;
+  }
+}
+
+.joinHeading {
+  @include tc-heading-lg;
+
+  margin: 20px 30px 0;
+}
+
+.joinImage {
   width: 100%;
 }
 
-.faqSectionContainer {
-  padding: 0;
-  margin-bottom: 40px;
-  padding-bottom: 40px;
+.joinButton {
+  margin: 30px !important;
 }
 
-/* stylelint-disable */
-.faqSectionContent {
-}
-/* stylelint-enable */
+.joinText {
+  @include tc-body-md;
 
-.faqTitle {
-  padding-top: 0;
+  margin: 10px 30px;
 }
 
-a,
-a:visited {
-  color: $tc-dark-blue;
-  font-weight: 700;
+/* More questions. */
+
+.moreQCard {
+  align-items: center;
+  background-size: cover;
+  border-radius: 6px;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  height: 250px;
+  justify-content: center;
+  margin-right: 20px;
+
+  &:last-child {
+    margin-right: 0;
+  }
+
+  @include xs-to-sm {
+    margin: 0 0 20px;
+  }
+}
+
+.moreQCard1 {
+  background-image: url('assets/images/communities/cognitive/resources/card-01.jpg');
+}
+
+.moreQCard2 {
+  background-image: url('assets/images/communities/cognitive/resources/card-02.jpg');
+}
+
+.moreQCard3 {
+  background-image: url('assets/images/communities/cognitive/resources/card-03.jpg');
+}
+
+.moreQCardButton {
+  border: transparent;
+}
+
+.moreQContainer {
+  @include container;
+
+  background: $tc-gray-10;
+}
+
+.moreQContent {
+  display: flex;
+  margin: auto;
+  padding-bottom: 60px;
+  max-width: $tc-screen-lg;
+
+  @include xs-to-sm {
+    flex-direction: column;
+  }
+}
+
+.moreQTitle {
+  @include tc-heading-xl;
+
+  padding: 60px 0 40px;
+  text-align: center;
 }

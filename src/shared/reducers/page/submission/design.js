@@ -3,7 +3,7 @@
  */
 
 import _ from 'lodash';
-import actions, { isValidStockArtRecord } from 'actions/page/submission/design';
+import actions, { isValidStockArtRecord, isValidCustomFontRecord } from 'actions/page/submission/design';
 import shortId from 'shortid';
 import { handleActions } from 'redux-actions';
 
@@ -16,6 +16,7 @@ function onReset(state) {
   return {
     ...state,
     stockArtRecords: [],
+    customFontRecords: [],
   };
 }
 
@@ -42,6 +43,28 @@ function onSetStockArtRecord(state, action) {
 }
 
 /**
+ * Adds/edits/removes custom font records.
+ * @param {Object} state
+ * @param {Number} action.payload.index
+ * @param {Object} action.payload.record
+ * @return {Object} New state.
+ */
+function onSetCustomFontRecord(state, action) {
+  const { index, record } = action.payload;
+  const customFontRecords = _.clone(state.customFontRecords);
+  if (!record) customFontRecords.splice(index, 1);
+  else {
+    const r = _.clone(record);
+    r.errors = isValidCustomFontRecord(r);
+    if (!r.key) r.key = shortId();
+    if (!_.isNumber(index) || index >= customFontRecords.length) {
+      customFontRecords.push(r);
+    } customFontRecords[index] = r;
+  }
+  return { ...state, customFontRecords };
+}
+
+/**
  * Creates a new reducer.
  * @param {Object} state Optional. Initial state.
  * @return {Function} Reducer.
@@ -51,8 +74,10 @@ function create(state) {
   return handleActions({
     [a.reset]: onReset,
     [a.setStockArtRecord]: onSetStockArtRecord,
+    [a.setCustomFontRecord]: onSetCustomFontRecord,
   }, _.defaults(state, {
     stockArtRecords: [],
+    customFontRecords: [],
   }));
 }
 

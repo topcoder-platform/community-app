@@ -1,0 +1,26 @@
+@import "~styles/mixins";
+
+.edit {
+  height: $base-unit * 4;
+  width: $base-unit * 4;
+}
+
+// Competing against some globals
+.container {
+  a {
+    display: inline-block;
+    min-width: $base-unit * 24;
+    padding-left: $base-unit * 4;
+    vertical-align: middle;
+  }
+
+  input[type="text"] {
+    display: inline-block;
+    height: $base-unit * 6;
+    margin: 0;
+    padding: 0;
+    margin-left: $base-unit * 1;
+    width: $base-unit * 48;
+    vertical-align: middle;
+  }
+}

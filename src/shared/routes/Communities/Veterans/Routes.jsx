@@ -19,7 +19,7 @@ import { Route, Switch } from 'react-router-dom';
 
 import Leaderboard from '../Leaderboard';
 
-export default function Routes({ base, member, meta }) {
+export default function Veterans({ base, member, meta }) {
   return (
     <Route
       component={({ match }) => (
@@ -37,6 +37,8 @@ export default function Routes({ base, member, meta }) {
               <Route
                 component={() => ChallengeListing({
                   challengesUrl: `${base}/challenges`,
+                  hideSrm: true,
+                  listingOnly: true,
                   meta,
                   newChallengeDetails: true,
                 })}
@@ -47,6 +49,7 @@ export default function Routes({ base, member, meta }) {
                 component={routeProps => ChallengeDetails({
                   ...routeProps,
                   challengesUrl: `${base}/challenges`,
+                  communityId: meta.communityId,
                 })}
                 exact
                 path={`${base}/challenges/:challengeId(\\d{8})`}
@@ -103,11 +106,11 @@ export default function Routes({ base, member, meta }) {
   );
 }
 
-Routes.defaultProps = {
+Veterans.defaultProps = {
   base: '',
 };
 
-Routes.propTypes = {
+Veterans.propTypes = {
   base: PT.string,
   member: PT.bool.isRequired,
   meta: PT.shape().isRequired,

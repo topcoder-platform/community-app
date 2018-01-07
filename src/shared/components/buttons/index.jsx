@@ -55,48 +55,59 @@ import secondaryButton from './standard/secondary.scss';
  * In most cases you will want to use some of the themable exports below
  * instead. */
 export function GenericButton({
+  active,
   children,
   disabled,
   enforceA,
   onClick,
+  onMouseDown,
   openNewTab,
   replace,
   size,
   theme,
   to,
 }) {
-  const sizeClass = theme[size] || '';
+  let className = theme.button;
+  if (theme[size]) className += ` ${theme[size]}`;
+  if (active && theme.active) className += ` ${theme.active}`;
   if (disabled) {
+    if (theme.disabled) className += ` ${theme.disabled}`;
     return (
-      <div className={`${theme.button} ${theme.disabled} ${sizeClass}`}>
+      <div className={className}>
         {children}
       </div>
     );
   } else if (to) {
+    if (theme.link) className += ` ${theme.link}`;
     return (
       <Link
-        className={`${theme.button} ${theme.link || ''} ${sizeClass}`}
+        className={className}
         enforceA={enforceA}
         onClick={onClick}
+        onMouseDown={onMouseDown}
         openNewTab={openNewTab}
         replace={replace}
         to={to}
       >{children}</Link>
     );
   }
+  if (theme.regular) className += ` ${theme.regular}`;
   return (
     <button
-      className={`${theme.button} ${theme.regular || ''} ${sizeClass}`}
+      className={className}
       onClick={onClick}
+      onMouseDown={onMouseDown}
     >{children}</button>
   );
 }
 
 GenericButton.defaultProps = {
+  active: false,
   children: null,
   disabled: false,
   enforceA: false,
   onClick: null,
+  onMouseDown: null,
   openNewTab: false,
   replace: false,
   size: null,
@@ -104,10 +115,12 @@ GenericButton.defaultProps = {
 };
 
 GenericButton.propTypes = {
+  active: PT.bool,
   children: PT.node,
   disabled: PT.bool,
   enforceA: PT.bool,
   onClick: PT.func,
+  onMouseDown: PT.func,
   openNewTab: PT.bool,
   replace: PT.bool,
   size: PT.string,

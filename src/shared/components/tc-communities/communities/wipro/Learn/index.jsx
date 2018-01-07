@@ -21,7 +21,7 @@ import LinksCard from 'components/tc-communities/LinksCard';
 import Text from 'components/tc-communities/Text';
 */
 
-import { Button } from 'components/buttons';
+import { PrimaryButton } from 'components/buttons';
 
 import style from './style.scss';
 
@@ -29,8 +29,8 @@ export default function Learn() {
   return (
     <main>
       <Banner
-        title="Learning & Certification"
-        text="Our continuously evolving structured learning paths, constantly abreast of the latest, tailored for employees to deepen your knowledge, infuses important software capabilities that are industry specific and help you get the skills you need to succeed."
+        title="Learn and earn rewards"
+        text="Our continuously evolving structured learning paths are customized to deepen your knowledge and help you acquire industry specific software capabilities. Master the in-demand technologies to succeed in this rapidly changing technology landscape."
         theme={{
           container: style.bannerContainer,
           content: style.bannerContent,
@@ -40,26 +40,13 @@ export default function Learn() {
       />
       <Section>
         <div styleName="message">
-          <p>If  you are accessing TopGear <span styleName="highlighted">Learning</span> Platform from <strong>Wipro backbone network</strong>, click on &ldquo;<strong>CONTINUE</strong>&rdquo; to access the platform.</p>
-          <p>
-            <Button
+          <p>To access the TopGear <span styleName="highlighted">Learning</span> Platform, click on &ldquo;<strong>CONTINUE</strong>&rdquo;.</p>
+          <p styleName="button-container">
+            <PrimaryButton
               openNewTab
-              theme={{ button: style.continueButton }}
               to="https://topgear-app.wipro.com"
-            >Continue</Button>
+            >Continue</PrimaryButton>
           </p>
-          <p>To access TopGear <span styleName="highlighted">Learning</span> Platform <strong>outside of Wipro network</strong>, please follow the below  instructions:</p>
-          <ol>
-            <li>
-              Send an email to <a href="mailto:devenvaccessreq.topgear@wipro.com?subject=Internet%20TopGear%20portal%20access">devenvaccessreq.topgear@wipro.com</a>  with subject line <em>Internet TopGear portal access</em>.
-            </li>
-            <li>
-              You will receive an email <span styleName="ddashUnderline">within 24 hours</span>  with details for accessing TopGear portal  through Virtual Desktop.
-            </li>
-            <li>
-              Using Virtual Desktop you can access <a href="https://topgear-app.wipro.com/">https://topgear-app.wipro.com</a> to <span styleName="highlighted">learn</span> new technologies.
-            </li>
-          </ol>
         </div>
       </Section>
 

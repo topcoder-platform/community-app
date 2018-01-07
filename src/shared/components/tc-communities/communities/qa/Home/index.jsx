@@ -24,6 +24,7 @@ import IconMedal from '../../../../../../assets/images/tc-communities/medal.svg'
 
 import resourceCardStyle from '../themes/resource-card.scss';
 import style from './style.scss';
+import joinButtonStyle from '../themes/join-button.scss';
 import textSectionStyle from '../themes/text-section.scss';
 
 export default function Home({
@@ -36,19 +37,19 @@ export default function Home({
         title="Topcoder QA Community"
         imageSrc="/community-app-assets/themes/qa/home/header.jpg"
       >
-        <div styleName="style.bannerText">
+        <div className={style.bannerText}>
           {member ? (
             'This is the place where Topcoder members can come to focus on work that involves QA.'
           ) : (
             <span>
               Sign up. &laquo;Test&raquo; your skills. Get Rewarded.
-              &zwnj;<span styleName="style.highlighted">It&apos;s that simple!</span>
+              &zwnj;<span className={style.highlighted}>It&apos;s that simple!</span>
             </span>
           )}
         </div>
         { !member && (
           <JoinCommunity
-            theme={{ link: style.joinNow }}
+            theme={{ link: joinButtonStyle }}
             label="Join Now"
           />
         )}

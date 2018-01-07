@@ -81,6 +81,15 @@ export function getRatingColor(rating) {
 }
 
 /**
+ * Review Opportunity types
+ */
+export const REVIEW_OPPORTUNITY_TYPES = {
+  'Contest Review': 'Review',
+  'Spec Review': 'Specification Review',
+  'Iterative Review': 'Iterative Review',
+};
+
+/**
  * Given ExpressJS HTTP request it extracts Topcoder auth tokens from cookies,
  * if they are present there and are not expired.
  * @param {Object} req ExpressJS HTTP request. For convenience, it is allowed to
@@ -100,11 +109,12 @@ export function getAuthTokens(req = {}) {
 /**
  * At the client side it redirects to Topcoder login, with the current URL used
  * as the return address. Does nothing at the server side.
+ * @param {String} utmSource
  */
-export function goToLogin() {
+export function goToLogin(utmSource = '') {
   if (isClientSide()) {
     const retUrl = encodeURIComponent(window.location.href);
-    window.location = `${config.URL.AUTH}/member?retUrl=${retUrl}`;
+    window.location = `${config.URL.AUTH}/member?retUrl=${retUrl}&utm_source=${utmSource}`;
   }
 }
 

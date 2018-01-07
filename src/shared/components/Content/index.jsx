@@ -89,6 +89,11 @@ export default function Content() {
           <Link to="/challenges">Main Challenge Listing</Link>
         </li>
         <li>
+          Stand-alone terms of use page:
+          &zwnj;<Link to="/challenges/terms/detail/21193">simple</Link>,
+          &zwnj;<Link to="/challenges/terms/detail/21153">DocuSign</Link>.
+        </li>
+        <li>
           <a href="/challenges/30050696/my-submissions">Submission Management
           Page</a> &ndash; generally available at
           the endpoint <code>/challenges/:challengeId/my-submissions</code>;
@@ -172,6 +177,9 @@ export default function Content() {
           data fetching should be implemented in
           isomorphic way, using Redux with Flux Standard Actions and
           promise;
+        </li>
+        <li>
+          <Link to="/examples/editor">Editor</Link>
         </li>
         <li>
           <Link to="/examples/error-message">Error Message</Link> - Demonstrates

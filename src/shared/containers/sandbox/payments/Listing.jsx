@@ -25,7 +25,7 @@ class ListingContainer extends React.Component {
       tokenV3,
       username,
     } = this.props;
-    if (!tokenV3) return goToLogin();
+    if (!tokenV3) return goToLogin('payments-tool');
     if (username && username !== loadingProjectsForUsername) {
       loadProjects(tokenV3);
     }
@@ -41,7 +41,7 @@ class ListingContainer extends React.Component {
       tokenV3,
       username,
     } = nextProps;
-    if (!tokenV3) return goToLogin();
+    if (!tokenV3) return goToLogin('payments-tool');
     if (username !== this.props.username && username
     && username !== loadingProjectsForUsername) {
       loadProjects(tokenV3);

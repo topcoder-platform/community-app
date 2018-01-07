@@ -15,7 +15,6 @@ import image01 from './images/image-01.jpg';
 import image02 from './images/image-02.jpg';
 import qouteAvatar from './images/qoute-avatar.jpg';
 
-import joinButtonStyle from '../themes/join-button.scss';
 import style from './style.scss';
 
 export default function Home({ baseUrl }) {
@@ -30,7 +29,6 @@ export default function Home({ baseUrl }) {
         <JoinCommunity
           label="Join Now"
           theme={{
-            ...joinButtonStyle,
             container: style.joinButtonInHeader,
           }}
         />
@@ -101,17 +99,16 @@ export default function Home({ baseUrl }) {
         <div>
           <div styleName="style.qouteText">
             <span styleName="style.qouteCommas style.left">&ldquo;</span>
-            The launch of the Topcoder Veterans Community represents
-            a&nbsp;major milestone in our ongoing mission to help veterans
-            develop new skills and successfully transition to meaningful
-            civilian jobs. This community helps the VA, as well as other
-            organizations, accelerate product and technology development
-            initiatives while supporting our veteran workforce developments.
+            The launch of the Topcoder Veterans Community represents a major milestone
+            in our ongoing mission to help veterans develop new skills and successfully
+            transition to meaningful civilian jobs.  This community is helping the VA, as
+            well as other organizations, accelerate technology innovation development
+            while supporting important workforce development for Veterans.
             <span styleName="style.qouteCommas style.right">&rdquo;</span>
           </div>
           <div styleName="style.qouteNote">
-            <strong>Jarah Meador</strong> Innovation Crowdsourcing Lead at the
-            VA
+            <strong>Jarah Meador</strong> Innovation Crowdsourcing Lead, U.S. Department
+            of Veterans Affairs
           </div>
         </div>
       </div>

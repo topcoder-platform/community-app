@@ -12,6 +12,16 @@
   }
 }
 
+@mixin font-family-ttf(
+  $font-name, $font-weight, $font-style, $font-url) {
+  @font-face {
+    font-family: $font-name;
+    font-style: $font-style;
+    font-weight: $font-weight;
+    src: url('#{$font-url}.ttf') format('truetype');
+  }
+}
+
 // FONT WEIGHTS
 // --------------------------------------------------------------------------------------------
 // Use the numerical value instead of the weight name.
@@ -39,6 +49,41 @@
 @include font-family('Roboto', 300, italic, '../assets/fonts/roboto/', 'roboto-lightitalic');
 @include font-family('Roboto', 100, normal, '../assets/fonts/roboto/', 'roboto-thin');
 @include font-family('Roboto', 100, italic, '../assets/fonts/roboto/', 'roboto-thinitalic');
+
+/* Roboto mono. */
+
+/* TODO: At the moment I have only ttf version of the font around, thus using
+ * font-face directly, should be updated later. */
+@include font-family-ttf(
+  'Roboto Mono', 100, normal,
+  'assets/fonts/roboto-mono/RobotoMono-Thin');
+@include font-family-ttf(
+  'Roboto Mono', 100, italic,
+  'assets/fonts/roboto-mono/RobotoMono-ThinItalic');
+@include font-family-ttf(
+  'Roboto Mono', 300, normal,
+  'assets/fonts/roboto-mono/RobotoMono-Light');
+@include font-family-ttf(
+  'Roboto Mono', 300, italic,
+  'assets/fonts/roboto-mono/RobotoMono-LightItalic');
+@include font-family-ttf(
+  'Roboto Mono', 400, normal,
+  'assets/fonts/roboto-mono/RobotoMono-Regular');
+@include font-family-ttf(
+  'Roboto Mono', 400, italic,
+  'assets/fonts/roboto-mono/RobotoMono-Italic');
+@include font-family-ttf(
+  'Roboto Mono', 500, normal,
+  'assets/fonts/roboto-mono/RobotoMono-Medium');
+@include font-family-ttf(
+  'Roboto Mono', 500, italic,
+  'assets/fonts/roboto-mono/RobotoMono-MediumItalic');
+@include font-family-ttf(
+  'Roboto Mono', 700, normal,
+  'assets/fonts/roboto-mono/RobotoMono-Bold');
+@include font-family-ttf(
+  'Roboto Mono', 700, italic,
+  'assets/fonts/roboto-mono/RobotoMono-BoldItalic');
 
 /* Sofia Pro font is currently used in the Topcoder footer
   and header. */

@@ -1,5 +1,15 @@
 @import '~styles/mixins';
 
+.banner-highlighted-text {
+  color: #fed940;
+}
+
+.banner-highlighted-text-2 {
+  color: #fed940;
+  font-weight: bold;
+  text-decoration: underline;
+}
+
 .statsContainer {
   padding: 0;
 }

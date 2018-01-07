@@ -2,6 +2,7 @@
  * Client-side rendering of the App.
  */
 
+import analytics from 'analytics.js';
 import authActions from 'actions/auth';
 import directActions from 'actions/direct';
 import userGroupsActions from 'actions/groups';
@@ -36,12 +37,18 @@ if (!process.env.FRONT_END) {
 }
 
 const config = window.CONFIG;
+analytics.initialize({
+  segmentio: {
+    apiKey: config.SEGMENT_IO_API_KEY,
+  },
+});
 
 /**
  * Uses Topcoder accounts-app to fetch / refresh authentication tokens.
  * Results will be storted in the Redux store, inside state.auth.
  * @param {Object} store Redux store.
  */
+let analyticsIdentitySet = false;
 let firstAuth = true;
 function authenticate(store) {
   /* TODO: The iframe injected into the page by this call turns out to be
@@ -76,6 +83,15 @@ function authenticate(store) {
 
     const userV3 = tctV3 ? decodeToken(tctV3) : {};
     const prevUserV3 = auth.tokenV3 ? decodeToken(auth.tokenV3) : {};
+
+    if (userV3.userId
+    && (!analyticsIdentitySet || userV3.userId !== prevUserV3.userId)) {
+      analyticsIdentitySet = true;
+      analytics.identify(userV3.userId, {
+        name: userV3.userId,
+        email: userV3.email,
+      });
+    }
 
     /* If we enter the following "if" block, it means that our visitor used
      * to be authenticated before, but now he has lost his authentication;
@@ -121,7 +137,7 @@ storeFactory(undefined, window.ISTATE).then((store) => {
     module.hot.accept('../shared', render);
 
     /* This block of code forces reloading of style.css file each time
-     * webpack hot middleware reports about update of the code. */
+      * webpack hot middleware reports about update of the code. */
     /* eslint-disable no-underscore-dangle */
     const hotReporter = window.__webpack_hot_middleware_reporter__;
     const hotSuccess = hotReporter.success;

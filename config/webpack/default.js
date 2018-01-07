@@ -124,7 +124,6 @@ module.exports = {
     }]),
     new ExtractCssChunks({
       filename: '[name].css',
-      justExtract: true,
     }),
     new webpack.DefinePlugin({
       INJKEY: JSON.stringify(INJKEY),
