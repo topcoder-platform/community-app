@@ -1,1 +1,14 @@
-<?xml version="1.0" ?><!DOCTYPE svg  PUBLIC '-//W3C//DTD SVG 1.0//EN'  'http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd'><svg enable-background="new 0 0 32 32" height="32px" id="Layer_1" version="1.0" viewBox="0 0 32 32" width="32px" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><g><rect fill="#007BB5" height="23" width="7" y="9"/><path d="M24.003,9C20,9,18.89,10.312,18,12V9h-7v23h7V19c0-2,0-4,3.5-4s3.5,2,3.5,4v13h7V19C32,13,31,9,24.003,9z" fill="#007BB5"/><circle cx="3.5" cy="3.5" fill="#007BB5" r="3.5"/></g><g/><g/><g/><g/><g/><g/></svg>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="27px" height="28px" viewBox="0 0 27 28" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 47.1 (45422) - http://www.bohemiancoding.com/sketch -->
+    <title>icon linkedln</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Prize-Variaton-V7" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="01-Challenge-Details-" transform="translate(-699.000000, -790.000000)" fill="#A3A3AD">
+            <g id="footer" transform="translate(1.000000, 668.000000)">
+                <path d="M704,125.5 C704,127.15 702.95,128.5 701,128.5 C699.2,128.5 698,127.15 698,125.65 C698,124 699.2,122.5 701,122.5 C702.8,122.5 704,123.85 704,125.5 L704,125.5 Z M698,149.5 L704,149.5 L704,130 L698,130 L698,149.5 L698,149.5 Z M718.4,130.3 C715.25,130.3 713.45,132.1 712.7,133.3 L712.55,133.3 L712.25,130.75 L706.85,130.75 C706.85,132.4 707,134.35 707,136.6 L707,149.5 L713,149.5 L713,138.85 C713,138.25 713,137.8 713.15,137.35 C713.6,136.3 714.35,134.95 716,134.95 C718.1,134.95 719,136.75 719,139.15 L719,149.5 L725,149.5 L725,138.4 C725,132.85 722.15,130.3 718.4,130.3 L718.4,130.3 Z" id="icon-linkedln"></path>
+            </g>
+        </g>
+    </g>
+</svg>
