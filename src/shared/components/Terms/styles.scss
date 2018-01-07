@@ -41,6 +41,7 @@
 }
 
 .title {
+  color: $tc-gray-80;
   font-size: 28px;
   margin-bottom: 1.5 * $base-unit;
   text-align: center;
@@ -133,9 +134,11 @@
 }
 
 .tab-title {
-  margin-left: 5px;
   cursor: pointer;
+  color: $tc-gray-80;
   font-size: 13px;
+  line-height: 15px;
+  margin-left: 5px;
   max-width: 95px;
   min-width: 70px;
 
@@ -183,8 +186,9 @@
 }
 
 .sub-title {
-  line-height: 30px;
+  color: $tc-gray-80;
   font-size: 20px;
+  line-height: 30px;
   margin-bottom: 10px;
 
   @include sm {
