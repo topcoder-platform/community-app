@@ -11,7 +11,7 @@
 }
 
 .container {
-  color: #000;
+  color: $tc-black;
   font-family: roboto;
 }
 
@@ -189,6 +189,7 @@
   line-height: 30px;
   font-size: 20px;
   margin-bottom: 10px;
+  color: $tc-gray-80;
 
   @include sm {
     padding: 0 15px;

@@ -3,6 +3,27 @@
 .body {
   border: 1px solid $tc-gray-30;
   word-break: break-word;
+  padding: 20px;
+  color: $tc-gray-80;
+  font-size: 15px;
+  line-height: 25px;
+
+  h2 {
+    line-height: 30px;
+    font-size: 20px;
+    margin-bottom: 10px;
+    color: $tc-gray-80;
+
+    @include sm {
+      padding: 0 15px;
+    }
+  }
+
+  h3 {
+    font-weight: 500;
+    padding: 20px 0;
+    color: $tc-black;
+  }
 }
 
 .frame {
