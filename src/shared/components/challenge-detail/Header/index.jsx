@@ -120,12 +120,14 @@ export default function ChallengeHeader(props) {
 
   let timeLeft = deadlineEnd > currentTime ? deadlineEnd - currentTime : 0;
 
-  let format;
-  if (timeLeft > DAY_MS) format = 'D[d] H[h]';
-  else if (timeLeft > HOUR_MS) format = 'H[h] m[min]';
-  else format = 'm[min] s[s]';
+  if (timeLeft !== 0) {
+    let format;
+    if (timeLeft > DAY_MS) format = 'D[d] H[h]';
+    else if (timeLeft > HOUR_MS) format = 'H[h] m[min]';
+    else format = 'm[min] s[s]';
 
-  timeLeft = moment.duration(timeLeft).format(format);
+    timeLeft = moment.duration(timeLeft).format(format);
+  }
 
   let relevantPhases = [];
 
@@ -187,12 +189,20 @@ export default function ChallengeHeader(props) {
   let nextDeadlineMsg;
   switch ((status || '').toLowerCase()) {
     case 'active':
-      nextDeadlineMsg = (
-        <div styleName="next-deadline">
-          Next Deadline: <span styleName="deadline-highlighted">
-            {nextDeadline || '-'}</span>
-        </div>
-      );
+      if (timeLeft === 0) {
+        nextDeadlineMsg = (
+          <div styleName="completed">
+            The challenge is stalled.
+          </div>
+        );
+      } else {
+        nextDeadlineMsg = (
+          <div styleName="next-deadline">
+            Next Deadline: <span styleName="deadline-highlighted">
+              {nextDeadline || '-'}</span>
+          </div>
+        );
+      }
       break;
     case 'completed':
       nextDeadlineMsg = (
@@ -296,7 +306,7 @@ export default function ChallengeHeader(props) {
               <div styleName="deadlines-overview-text">
                 {nextDeadlineMsg}
                 {
-                  (status || '').toLowerCase() === 'active' &&
+                  (status || '').toLowerCase() === 'active' && (timeLeft > 0) &&
                   <div styleName="current-phase">
                     <span styleName="deadline-highlighted">
                       {timeLeft}
