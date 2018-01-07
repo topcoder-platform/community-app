@@ -44,6 +44,7 @@
   font-size: 28px;
   margin-bottom: 1.5 * $base-unit;
   text-align: center;
+  color: $tc-gray-80;
 }
 
 // TODO: All classes below should be sorted alphabetically for convenience.
@@ -136,8 +137,10 @@
   margin-left: 5px;
   cursor: pointer;
   font-size: 13px;
+  line-height: 15px;
   max-width: 95px;
   min-width: 70px;
+  color: $tc-gray-80;
 
   @include sm {
     display: inline-block;
