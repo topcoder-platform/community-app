@@ -286,6 +286,7 @@ export default class Terms extends React.Component {
 Terms.defaultProps = {
   terms: [],
   description: '',
+  defaultTitle: 'Terms & Conditions of Use',
   details: {},
   loadingTermId: '',
   docuSignUrl: '',
@@ -298,6 +299,7 @@ Terms.defaultProps = {
 
 Terms.propTypes = {
   description: PT.string,
+  defaultTitle: PT.string,
   onCancel: PT.func.isRequired,
   terms: PT.arrayOf(PT.shape()),
   loadDetails: PT.func.isRequired,
