@@ -23,6 +23,8 @@ const SUBDOMAIN_COMMUNITY = {};
  * Community metadata are currently read from config files. Here we lookup all
  * of them at startup to reuse later in the service.
  */
+const COMMUNITY_META_DATA = {};
+
 const METADATA_PATH = path.resolve(__dirname, '../tc-communities');
 const VALID_IDS = isServerSide()
 && fs.readdirSync(METADATA_PATH).filter((id) => {
@@ -66,45 +68,53 @@ export default class Communities {
      * groups, assuming they are up-to-date. */
     this.private.getMetadata = (communityId, knownGroups = {}) =>
       new Promise((resolve, reject) => {
-        const uri = path.resolve(__dirname, '../tc-communities',
-          communityId, 'metadata.json');
+        /* Metadata itself, at the moment, are read from configuration files.
+         * And in-memory data will be used if already exists */
 
-        /* Metadata itself, at the moment, are read from configuration files. */
-        fs.readFile(uri, 'utf8', (err, res) => {
-          if (err) {
+        let metadata;
+        if (COMMUNITY_META_DATA[communityId]) {
+          metadata = COMMUNITY_META_DATA[communityId];
+        } else {
+          const uri = path.resolve(__dirname, '../tc-communities',
+            communityId, 'metadata.json');
+
+          metadata = fs.readFileSync(uri, 'utf8');
+          if (!metadata) {
             const msg = `Failed to get metadata for ${communityId} community`;
-            logger.error(msg, err);
+            logger.error(msg, metadata);
             return reject({ error: msg });
           }
 
-          /* Once we have loaded metadata, we extend all fields that hold user
-           * group IDs with IDs of their descendant groups. This simplifies
-           * a lot of code depending on community metadata, as then there is
-           * no need to handle user groups data in each place where we rely on
-           * group IDs from metadata. */
-          const unknownGroups = [];
-          const data = JSON.parse(res);
-          const challengeGroupIds = _.get(data, 'challengeFilter.groupIds');
-          addUnknown(data.authorizedGroupIds, knownGroups, unknownGroups);
-          addUnknown(challengeGroupIds, knownGroups, unknownGroups);
-          addUnknown(data.groupIds, knownGroups, unknownGroups);
-          return Promise.resolve(unknownGroups.length ? (
-            this.private.groupsService.getGroupMap(unknownGroups)
-              .then(map => _.assign(knownGroups, map))
-          ) : null).then(() => {
-            if (data.authorizedGroupIds) {
-              data.authorizedGroupIds = addDescendantGroups(
-                data.authorizedGroupIds, knownGroups);
-            }
-            if (data.groupIds) {
-              data.groupIds = addDescendantGroups(data.groupIds, knownGroups);
-            }
-            if (challengeGroupIds) {
-              data.challengeFilter.groupIds = addDescendantGroups(
-                challengeGroupIds, knownGroups);
-            }
-            resolve(data);
-          });
+          COMMUNITY_META_DATA[communityId] = JSON.parse(metadata);
+        }
+
+        /* Once we have loaded metadata, we extend all fields that hold user
+         * group IDs with IDs of their descendant groups. This simplifies
+         * a lot of code depending on community metadata, as then there is
+         * no need to handle user groups data in each place where we rely on
+         * group IDs from metadata. */
+        const unknownGroups = [];
+        const data = metadata;
+        const challengeGroupIds = _.get(data, 'challengeFilter.groupIds');
+        addUnknown(data.authorizedGroupIds, knownGroups, unknownGroups);
+        addUnknown(challengeGroupIds, knownGroups, unknownGroups);
+        addUnknown(data.groupIds, knownGroups, unknownGroups);
+        return Promise.resolve(unknownGroups.length ? (
+          this.private.groupsService.getGroupMap(unknownGroups)
+            .then(map => _.assign(knownGroups, map))
+        ) : null).then(() => {
+          if (data.authorizedGroupIds) {
+            data.authorizedGroupIds = addDescendantGroups(
+              data.authorizedGroupIds, knownGroups);
+          }
+          if (data.groupIds) {
+            data.groupIds = addDescendantGroups(data.groupIds, knownGroups);
+          }
+          if (challengeGroupIds) {
+            data.challengeFilter.groupIds = addDescendantGroups(
+              challengeGroupIds, knownGroups);
+          }
+          resolve(data);
         });
       });
   }
