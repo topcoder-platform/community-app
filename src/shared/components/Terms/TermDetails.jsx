@@ -36,6 +36,12 @@ export default class TermDetails extends React.Component {
     const { details, docuSignUrl,
       loadingDocuSignUrl } = this.props;
 
+    if (details.text !== undefined) {
+      details.text = details.text.replace('<h3>Competitions</h3>', '<br><br><h3>Competitions</h3>');
+      details.text = details.text.replace('<h3>Ownership Rights of Submissions</h3>', '<br><br><h3>Ownership Rights of Submissions</h3>');
+      details.text = details.text.replace('<h3>Copyright, Trademark and Other Intellectual Property</h3>', '<br><br><h3>Copyright, Trademark and Other Intellectual Property</h3>');
+    }
+
     return (
       <div>
         {
