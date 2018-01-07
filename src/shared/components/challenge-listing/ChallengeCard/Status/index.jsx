@@ -4,6 +4,7 @@ import React from 'react';
 import PT from 'prop-types';
 import moment from 'moment';
 import LeaderboardAvatar from 'components/LeaderboardAvatar';
+import LeaderboardAvatarPlusOnes from 'components/LeaderboardAvatarPlusOnes';
 import { Link } from 'utils/router';
 import { DETAIL_TABS } from 'actions/challenge';
 import 'moment-duration-format';
@@ -107,7 +108,7 @@ export default function ChallengeStatus(props) {
 
     if (winners && winners.length > MAX_VISIBLE_WINNERS) {
       const lastItem = {
-        handle: `+${winners.length - MAX_VISIBLE_WINNERS}`,
+        plusCount: `+${winners.length - MAX_VISIBLE_WINNERS}`,
         isLastItem: true,
       };
       winners = winners.slice(0, MAX_VISIBLE_WINNERS);
@@ -116,11 +117,7 @@ export default function ChallengeStatus(props) {
     const leaderboard = winners && winners.map((winner) => {
       if (winner.isLastItem) {
         return (
-          /* TODO: No, should not reuse avatar for displaying "+1" in
-           * a circle. Should be a separate component for that. */
-          <LeaderboardAvatar
-            key={winner.handle}
-            member={winner}
+          <LeaderboardAvatarPlusOnes
             onClick={() => (
               setImmediate(() => selectChallengeDetailsTab(
                 DETAIL_TABS.WINNERS,
@@ -128,7 +125,8 @@ export default function ChallengeStatus(props) {
             )}
             openNewTab={openChallengesInNewTabs}
             url={detailLink}
-            plusOne
+            plusCount={winner.plusCount}
+            plusOnes
           />
         );
       }

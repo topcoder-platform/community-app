@@ -1,0 +1,36 @@
+@import '~styles/mixins';
+$leader-space-10: $base-unit * 2;
+$leader-space-15: $base-unit * 3;
+$leader-space-20: $base-unit * 4;
+$leader-space-25: $base-unit * 5;
+$leader-space-30: $base-unit * 6;
+$leader-space-40: $base-unit * 8;
+$leader-space-50: $base-unit * 10;
+$leader-radius-50: $corner-radius * 25;
+$leader-radius-4: $corner-radius * 2;
+
+.leaderboard-avatar {
+  position: relative;
+  text-align: center;
+  font-size: 12px;
+  color: $tc-white;
+  line-height: $leader-space-30;
+  display: inline-block;
+  width: $leader-space-30;
+  height: $leader-space-30;
+  border-radius: $leader-radius-50;
+  vertical-align: text-bottom;
+
+  &.light-gray {
+    background: $tc-gray-10;
+    color: $tc-black;
+
+    &:hover {
+      background: $tc-gray-20;
+    }
+  }
+
+  .hidden {
+    display: none;
+  }
+}
