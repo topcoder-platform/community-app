@@ -11,6 +11,7 @@
   background-color: $tc-gray-90;
   font-family: "Roboto", Helvetica, Arial, sans-serif;
   padding: 45px;
+  padding-bottom: 30px;
   text-align: center;
 }
 
@@ -39,7 +40,7 @@
 
 .social-links {
   text-align: center;
-  margin: 36px auto 24px;
+  margin: 50px auto 0px;
   display: inline-block;
   color: $tc-gray-30;
 
@@ -47,11 +48,14 @@
     border: none;
     border-top: solid thin $tc-gray-70;
     opacity: 0.2;
+    margin: 0;
   }
 
   a {
     display: inline-block;
-    margin: 12px;
+    margin: 15px;
+    margin-bottom: 28px;
+    margin-top: 10px;
   }
 }
 
