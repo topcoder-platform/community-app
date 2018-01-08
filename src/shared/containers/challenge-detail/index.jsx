@@ -148,11 +148,16 @@ class ChallengeDetailPageContainer extends React.Component {
   componentWillReceiveProps(nextProps) {
     const userId = _.get(this, 'props.authTokens.user.userId');
     const nextUserId = _.get(nextProps, 'authTokens.user.userId');
+    const {
+      tokenV3,
+      authTokens,
+    } = this.props;
     if (userId !== nextUserId) {
       nextProps.getCommunitiesList(nextProps.authTokens);
     }
 
-    if (this.props.tokenV3 !== nextProps.tokenV3) {
+    if (tokenV3 !== nextProps.tokenV3
+      || authTokens.user.userId !== nextProps.authTokens.user.userId) {
       this.props.reloadChallengeDetails(nextProps.authTokens, this.props.challengeId);
     }
   }
