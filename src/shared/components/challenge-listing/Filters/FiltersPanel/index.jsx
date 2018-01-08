@@ -39,6 +39,7 @@ export default function FiltersPanel({
   filterState,
   hidden,
   isAuth,
+  auth,
   isReviewOpportunitiesBucket,
   onClose,
   onSaveFilter,
@@ -53,9 +54,32 @@ export default function FiltersPanel({
   let className = 'FiltersPanel';
   if (hidden) className += ' hidden';
 
+  const isVisitorRegisteredToCommunity = (visitorGroupIds, communityGroupIds) =>
+    Boolean(_.intersection(visitorGroupIds, communityGroupIds).length);
+
+  const getLabel = (community) => {
+    const { communityName } = community;
+    if (!isAuth || communityName === 'All') {
+      return <div>{communityName}</div>;
+    }
+
+    const visitorGroupIds = auth.profile.groups.map(g => g.id);
+    const registrationStatus = isVisitorRegisteredToCommunity(
+      visitorGroupIds,
+      community.groupIds,
+    ) ? <p>Registered</p>
+      : <p>You are <span styleName="bold uppercase">not</span> registered</p>;
+    return (
+      <div>
+        <p>{communityName}</p>
+        <p styleName="registration-status">{registrationStatus}</p>
+      </div>
+    );
+  };
+
   const communityOps = communityFilters.filter(community => !community.hidden)
     .map(community => ({
-      label: community.communityName,
+      label: getLabel(community),
       value: community.communityId,
     }));
 
@@ -206,6 +230,7 @@ export default function FiltersPanel({
 FiltersPanel.defaultProps = {
   hidden: false,
   isAuth: false,
+  auth: null,
   isSavingFilter: false,
   isReviewOpportunitiesBucket: false,
   onSaveFilter: _.noop,
@@ -221,6 +246,7 @@ FiltersPanel.propTypes = {
   filterState: PT.shape().isRequired,
   hidden: PT.bool,
   isAuth: PT.bool,
+  auth: PT.shape(),
   isSavingFilter: PT.bool,
   isReviewOpportunitiesBucket: PT.bool,
   onSaveFilter: PT.func,

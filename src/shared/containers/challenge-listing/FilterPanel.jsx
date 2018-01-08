@@ -79,6 +79,7 @@ export class Container extends React.Component {
 
 Container.defaultProps = {
   isSavingFilter: false,
+  auth: null,
   tokenV2: '',
 };
 
@@ -97,6 +98,7 @@ Container.propTypes = {
   saveFilter: PT.func.isRequired,
   selectBucket: PT.func.isRequired,
   setFilterState: PT.func.isRequired,
+  auth: PT.shape(),
   tokenV2: PT.string,
 };
 
@@ -139,6 +141,7 @@ function mapStateToProps(state, ownProps) {
     validKeywords: cl.challengeTags,
     validSubtracks: cl.challengeSubtracks,
     selectedCommunityId: cl.selectedCommunityId,
+    auth: state.auth,
     tokenV2: state.auth.tokenV2,
     isSavingFilter: cl.sidebar.isSavingFilter,
     savedFilters: cl.sidebar.savedFilters,

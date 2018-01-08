@@ -19,6 +19,14 @@ $panel-radius-4: $corner-radius * 2;
   width: 100px !important;
 }
 
+.uppercase {
+  text-transform: uppercase;
+}
+
+.bold {
+  font-weight: bold;
+}
+
 .FiltersPanel {
   background: white;
   padding: $panel-space-15 $panel-space-20;
@@ -232,6 +240,11 @@ $panel-radius-4: $corner-radius * 2;
 
     :global(.Select) {
       z-index: 5;
+    }
+
+    .registration-status {
+      color: #888894;
+      font-size: 0.7rem;
     }
 
     :global(.Select-value) {
