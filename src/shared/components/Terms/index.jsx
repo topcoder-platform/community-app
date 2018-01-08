@@ -160,7 +160,7 @@ export default class Terms extends React.Component {
           {
             !isLoadingTerms && (
               <div styleName="modal-content">
-                <div styleName="title">{terms.length > 1 ? 'Challenge Prerequisites' : terms[0].title}</div>
+                <div styleName="title">{terms.length > 1 ? 'Terms & Conditions of Use' : terms[0].title}</div>
                 <div
                   onScroll={handleVerticalScroll}
                   ref={(node) => { this.vScrollArea = node; }}
