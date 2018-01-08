@@ -193,7 +193,7 @@ export default class Terms extends React.Component {
                                   `tab ${
                                     t.agreed && !viewOnly ? 'agreed' : ''
                                   } ${
-                                    selectedTerm === t ? 'active' : ''
+                                    selectedTerm === t ? 'active' : 'active2'
                                   } ${
                                     viewOnly ? 'view-only' : ''
                                   }`

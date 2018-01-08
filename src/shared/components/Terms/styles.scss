@@ -98,6 +98,12 @@
     }
 
     .tab-bar {
+      background-color: $tc-gray-20;
+    }
+  }
+
+  &.active2 {
+    .tab-bar {
       background-color: $tc-dark-blue-90;
     }
   }
