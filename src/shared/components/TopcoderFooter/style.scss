@@ -2,16 +2,15 @@
 
 .copyright-notice {
   text-align: center;
-  font-size: 16px;
-  color: $tc-white;
+  font-family: "Roboto", Helvetica, Arial, sans-serif;
+  font-size: 12px;
+  color: $tc-gray-60;
 }
 
 .footer {
   background-color: $tc-gray-90;
-  font-family: "Sofia Pro", Helvetica, Arial, sans-serif;
-  font-weight: 500;
-  height: auto;
-  padding: 36px;
+  font-family: "Roboto", Helvetica, Arial, sans-serif;
+  padding: 45px;
   text-align: center;
 }
 
@@ -26,7 +25,10 @@
   a:visited,
   a:focus,
   a:hover {
-    color: $tc-white;
+    color: $tc-gray-30;
+    font-family: "Roboto", Helvetica, Arial, sans-serif;
+    font-weight: normal;
+    font-size: 14px;
     text-decoration: none;
 
     &:hover {
@@ -37,9 +39,15 @@
 
 .social-links {
   text-align: center;
-  font-weight: normal;
-  margin: 36px 0 24px;
-  color: $tc-white;
+  margin: 36px auto 24px;
+  display: inline-block;
+  color: $tc-gray-30;
+
+  hr {
+    border: none;
+    border-top: solid thin $tc-gray-70;
+    opacity: 0.2;
+  }
 
   a {
     display: inline-block;
