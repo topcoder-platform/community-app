@@ -6,6 +6,7 @@ exports[`Matches shallow shapshot 1 shapshot 1 1`] = `
   id="challengeFilterContainer"
 >
   <Connect(Container)
+    challenges={Array []}
     communityName={null}
     defaultCommunityId={undefined}
     hideSrm={undefined}
@@ -129,6 +130,7 @@ exports[`Matches shallow shapshot 2 shapshot 2 1`] = `
   id="challengeFilterContainer"
 >
   <Connect(Container)
+    challenges={Array []}
     communityName={null}
     defaultCommunityId={undefined}
     hideSrm={undefined}
