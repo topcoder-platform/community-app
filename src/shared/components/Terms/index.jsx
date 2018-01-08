@@ -127,7 +127,7 @@ export default class Terms extends React.Component {
     const { onCancel, terms, details, loadingTermId, docuSignUrl,
       getDocuSignUrl, agreeTerm, agreeingTerm, isLoadingTerms,
       loadingDocuSignUrl, selectedTerm, viewOnly, checkingStatus,
-      description } = this.props;
+      description, defaultTitle } = this.props;
 
     const handleHorizonalScroll = (e) => {
       const scrollElement = e.target;
@@ -160,7 +160,7 @@ export default class Terms extends React.Component {
           {
             !isLoadingTerms && (
               <div styleName="modal-content">
-                <div styleName="title">{terms.length > 1 ? 'Terms & Conditions of Use' : terms[0].title}</div>
+                <div styleName="title">{terms.length > 1 ? defaultTitle : terms[0].title}</div>
                 <div
                   onScroll={handleVerticalScroll}
                   ref={(node) => { this.vScrollArea = node; }}
@@ -193,7 +193,7 @@ export default class Terms extends React.Component {
                                   `tab ${
                                     t.agreed && !viewOnly ? 'agreed' : ''
                                   } ${
-                                    selectedTerm === t ? 'active' : ''
+                                    selectedTerm === t ? 'active' : 'active2'
                                   } ${
                                     viewOnly ? 'view-only' : ''
                                   }`
@@ -219,7 +219,7 @@ export default class Terms extends React.Component {
                       styleName={terms.length === 1 ? 'single' : ''}
                     >
                       {
-                        terms.length > 1 && <div styleName="sub-title">{selectedTerm.title}</div>
+                        terms.length > 1 && <div styleName="sub-title">Topcoder Terms & Conditions</div>
                       }
                       {
                         loadingTermId === _.toString(selectedTerm.termsOfUseId) &&
@@ -285,6 +285,7 @@ export default class Terms extends React.Component {
 
 Terms.defaultProps = {
   terms: [],
+  defaultTitle: 'Terms & Conditions of Use',
   description: '',
   details: {},
   loadingTermId: '',

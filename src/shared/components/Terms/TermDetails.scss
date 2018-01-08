@@ -2,6 +2,10 @@
 
 .body {
   border: 1px solid $tc-gray-30;
+  color: $tc-gray-80;
+  font-size: 15px;
+  line-height: 25px;
+  padding-left: 30px;
   word-break: break-word;
 }
 
@@ -12,4 +16,16 @@
 
 .hidden {
   display: none;
+}
+
+h2 {
+  padding: 20px 0px;
+}
+
+h3 {
+  color: $tc-black;
+  font-size: 20px;
+  font-weight: 500 !important;
+  line-height: 30px;
+  padding-bottom: 20px;
 }

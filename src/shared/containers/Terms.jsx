@@ -42,6 +42,7 @@ class TermsPageContainer extends React.Component {
             checkingStatus={this.props.checkingStatus}
             checkStatus={() => this.props.checkStatus(this.props.authTokens, this.props.entity)}
             description={this.props.description}
+            defaultTitle={this.props.defaultTitle}
             details={this.props.termDetails}
             docuSignUrl={this.props.docuSignUrl}
             getDocuSignUrl={(templateId) => {
@@ -77,6 +78,7 @@ TermsPageContainer.defaultProps = {
   loadingTermId: '',
   selectedTerm: null,
   showTermsModal: false,
+  defaultTitle: 'Terms & Conditions of User',
   description: '',
   termDetails: {},
   terms: [],
@@ -97,6 +99,7 @@ TermsPageContainer.propTypes = {
   checkingStatus: PT.bool,
   checkStatus: PT.func.isRequired,
   closeTermsModal: PT.func.isRequired,
+  defaultTitle: PT.string,
   description: PT.string,
   docuSignUrl: PT.string,
   entity: enitytType.isRequired,
