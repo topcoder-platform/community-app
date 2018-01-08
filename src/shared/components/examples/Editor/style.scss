@@ -13,4 +13,10 @@
   @include tc-body-md;
 }
 
+.section {
+  @include tc-heading-md;
+
+  margin-top: 25px;
+}
+
 .title { @include tc-title; }

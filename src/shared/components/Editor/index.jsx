@@ -22,7 +22,7 @@ import 'draft-js/dist/Draft.css';
 import Editor from 'draft-js-plugins-editor';
 import createMarkdownShortcutsPlugin from 'draft-js-markdown-shortcuts-plugin';
 
-import { EDITOR_COLOR_MAP } from 'utils/editor';
+import { EDITOR_COLOR_MAP, editorStateToHTML } from 'utils/editor';
 
 import Connector from './Connector';
 import createCustomPlugin from './plugin';
@@ -35,7 +35,7 @@ export default class EditorWrapper extends React.Component {
     this.id = props.id;
 
     this.state = {
-      editorState: EditorState.createEmpty(),
+      editor: EditorState.createEmpty(),
       markdown: false,
     };
 
@@ -59,7 +59,7 @@ export default class EditorWrapper extends React.Component {
       );
       editorState = EditorState.createWithContent(editorState);
       this.initialContent = editorState.getCurrentContent();
-      setImmediate(() => this.setState({ editorState }));
+      setImmediate(() => this.setState({ editor: editorState }));
     }
   }
 
@@ -76,8 +76,18 @@ export default class EditorWrapper extends React.Component {
     this.props.connector.removeEditor(this);
   }
 
-  focus() {
-    if (this.node) this.node.focus();
+  getHtml() {
+    return editorStateToHTML(this.state.editor.getCurrentContent());
+  }
+
+  setHtml(html) {
+    let state = convertFromHTML(html);
+    state = ContentState.createFromBlockArray(
+      state.contentBlocks,
+      state.entityMap,
+    );
+    state = EditorState.createWithContent(state);
+    setImmediate(() => this.setState({ editor: state }));
   }
 
   /**
@@ -86,7 +96,7 @@ export default class EditorWrapper extends React.Component {
    * @param {String} type The new block style
    */
   applyBlockStyle(type) {
-    let editorState = this.state.editorState;
+    let editorState = this.state.editor;
     editorState = RichUtils.toggleBlockType(editorState, type);
     this.setState({ editorState });
   }
@@ -98,7 +108,7 @@ export default class EditorWrapper extends React.Component {
    * @param {String} color The new color name
    */
   applyColorStyle(type, color) {
-    let editorState = this.state.editorState;
+    let editorState = this.state.editor;
     let contentState = editorState.getCurrentContent();
 
     const sel = editorState.getSelection();
@@ -114,7 +124,11 @@ export default class EditorWrapper extends React.Component {
     // Apply new color
     editorState = RichUtils.toggleInlineStyle(editorState, `${type}_${color}`);
 
-    this.setState({ editorState });
+    this.setState({ editor: editorState });
+  }
+
+  focus() {
+    if (this.node) this.node.focus();
   }
 
   /**
@@ -123,7 +137,7 @@ export default class EditorWrapper extends React.Component {
    * @param {Boolean} triggerModal Whether to trigger the img selection/resize modal on creation
    */
   insertImage(src, triggerModal) {
-    let editorState = this.state.editorState;
+    let editorState = this.state.editor;
     let contentState = editorState.getCurrentContent();
 
     // If the user has a range selected, it needs to be collapsed before insertText will work
@@ -152,7 +166,7 @@ export default class EditorWrapper extends React.Component {
 
     editorState = EditorState.push(editorState, contentState, 'insert-characters');
 
-    this.setState({ editorState });
+    this.setState({ editor: editorState });
   }
 
   /**
@@ -162,7 +176,7 @@ export default class EditorWrapper extends React.Component {
    * @param {Boolean} triggerPopup Whether to trigger the popup on creation
    */
   insertLink(title, href, triggerPopup) {
-    let editorState = this.state.editorState;
+    let editorState = this.state.editor;
     let contentState = editorState.getCurrentContent();
 
     const sel = editorState.getSelection();
@@ -196,7 +210,7 @@ export default class EditorWrapper extends React.Component {
       editorState = RichUtils.toggleLink(editorState, sel, key);
     }
 
-    this.setState({ editorState });
+    this.setState({ editor: editorState });
   }
 
   /**
@@ -205,19 +219,22 @@ export default class EditorWrapper extends React.Component {
    * @return {String} The resulting style of the selection
    */
   toggleInlineStyle(styleName) {
-    const editorState = RichUtils.toggleInlineStyle(this.state.editorState, styleName);
-    this.setState({ editorState });
+    const editorState = RichUtils.toggleInlineStyle(this.state.editor, styleName);
+    this.setState({ editor: editorState });
     return editorState.getCurrentInlineStyle();
   }
 
   render() {
-    const { connector } = this.props;
+    const { connector, theme } = this.props;
 
     const st = this.state;
 
     let containerStyles = style.container;
-    if (st.editorState.getSelection().getHasFocus()) {
+    if (st.editor.getSelection().getHasFocus()) {
       containerStyles += ` ${style.focused}`;
+    }
+    if (theme.container) {
+      containerStyles += ` ${theme.container}`;
     }
 
     return (
@@ -229,13 +246,13 @@ export default class EditorWrapper extends React.Component {
         tabIndex={0}
       >
         <Editor
-          editorState={st.editorState}
+          editorState={st.editor}
           handleKeyCommand={(command, state) => {
             const editorState = RichUtils.handleKeyCommand(
               state, command);
             if (editorState) {
               connector.setFocusedEditor(this, editorState);
-              this.setState({ editorState });
+              this.setState({ editor: editorState });
               return true;
             }
             return false;
@@ -249,7 +266,7 @@ export default class EditorWrapper extends React.Component {
               connector.modified = true;
             }
             connector.setFocusedEditor(hasFocus ? this : null, newState);
-            this.setState({ editorState: newState });
+            this.setState({ editor: newState });
           }}
           plugins={[
             this.state.markdown ? this.markdownPlugin : {},
@@ -267,10 +284,12 @@ EditorWrapper.defaultProps = {
   connector: new Connector(),
   id: null,
   initialContent: null,
+  theme: {},
 };
 
 EditorWrapper.propTypes = {
   connector: PT.instanceOf(Connector),
   id: PT.string,
   initialContent: PT.string,
+  theme: PT.shape(),
 };

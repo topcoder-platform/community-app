@@ -190,7 +190,7 @@ exports[`Default render 1`] = `
                 width="32"
                 xmlns="http://www.w3.org/2000/svg"
               />,
-              "link": "https://www.topcoder-dev.com/community/members",
+              "link": "https://www.topcoder-dev.com/community/members/",
               "title": "Overview",
             },
             Object {
@@ -472,7 +472,7 @@ exports[`Render with open menu 1`] = `
                 width="32"
                 xmlns="http://www.w3.org/2000/svg"
               />,
-              "link": "https://www.topcoder-dev.com/community/members",
+              "link": "https://www.topcoder-dev.com/community/members/",
               "title": "Overview",
             },
             Object {
@@ -769,7 +769,7 @@ exports[`Render with specified profile 1`] = `
                 width="32"
                 xmlns="http://www.w3.org/2000/svg"
               />,
-              "link": "https://www.topcoder-dev.com/community/members",
+              "link": "https://www.topcoder-dev.com/community/members/",
               "title": "Overview",
             },
             Object {
