@@ -247,6 +247,18 @@ $panel-radius-4: $corner-radius * 2;
       font-size: 0.7rem;
     }
 
+    .community-select-item {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .subcommunity-tooltip {
+      font-weight: 500;
+      font-size: 13px;
+      letter-spacing: 0;
+      padding: $panel-space-15;
+    }
+
     :global(.Select-value) {
       line-height: 28px;
       top: inherit;

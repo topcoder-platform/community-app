@@ -81,6 +81,7 @@ Container.defaultProps = {
   isSavingFilter: false,
   auth: null,
   tokenV2: '',
+  challenges: [],
 };
 
 Container.propTypes = {
@@ -88,6 +89,7 @@ Container.propTypes = {
   communityFilters: PT.arrayOf(PT.object).isRequired,
   defaultCommunityId: PT.string.isRequired,
   filterState: PT.shape().isRequired,
+  challenges: PT.arrayOf(PT.shape()),
   selectedCommunityId: PT.string.isRequired,
   getKeywords: PT.func.isRequired,
   getSubtracks: PT.func.isRequired,

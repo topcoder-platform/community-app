@@ -72,7 +72,7 @@ function filterByEndDate(challenge, state) {
   return moment(state.endDate).isAfter(challenge.registrationStartDate);
 }
 
-function filterByGroupIds(challenge, state) {
+export function filterByGroupIds(challenge, state) {
   if (!state.groupIds) return true;
   return state.groupIds.some(id => challenge.groups[id]);
 }

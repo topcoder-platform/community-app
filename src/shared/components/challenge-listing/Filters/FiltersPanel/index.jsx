@@ -26,9 +26,9 @@ import PT from 'prop-types';
 import Select from 'components/Select';
 import moment from 'moment';
 import { Button, PrimaryButton } from 'components/buttons';
+import Tooltip from 'components/Tooltip';
 import { COMPOSE, PRIORITY } from 'react-css-super-themr';
 import { REVIEW_OPPORTUNITY_TYPES } from 'utils/tc';
-
 import DateRangePicker from '../DateRangePicker';
 import style from './style.scss';
 import UiSimpleRemove from '../../Icons/ui-simple-remove.svg';
@@ -37,6 +37,7 @@ export default function FiltersPanel({
   communityFilters,
   defaultCommunityId,
   filterState,
+  challenges,
   hidden,
   isAuth,
   auth,
@@ -63,17 +64,51 @@ export default function FiltersPanel({
       return <div>{communityName}</div>;
     }
 
-    const visitorGroupIds = auth.profile.groups.map(g => g.id);
-    const registrationStatus = isVisitorRegisteredToCommunity(
+    const visitorGroupIds = auth.profile ? auth.profile.groups.map(g => g.id) : [];
+    const visitorBelongsToCommunity = isVisitorRegisteredToCommunity(
       visitorGroupIds,
       community.groupIds,
-    ) ? <p>Registered</p>
-      : <p>You are <span styleName="bold uppercase">not</span> registered</p>;
-    return (
-      <div>
-        <p>{communityName}</p>
-        <p styleName="registration-status">{registrationStatus}</p>
+    );
+
+    const registrationStatus = visitorBelongsToCommunity
+      ? <div>Registered</div>
+      : <div>You are <span styleName="bold uppercase">not</span> registered</div>;
+
+    const challengesInCommunity = challenges.filter(challenge =>
+      Filter.filterByGroupIds(challenge, community)).length;
+
+    const selectItem = (
+      <div styleName="community-select-item">
+        <div>
+          <div>{communityName}</div>
+          <div styleName="registration-status">{registrationStatus}</div>
+        </div>
+        <div>{challengesInCommunity}</div>
       </div>
+    );
+
+    if (!visitorBelongsToCommunity) {
+      return (
+        <div>
+          <Tooltip
+            position="bottomRight"
+            className="subcommunity-tooltip"
+            trigger={['hover']}
+            content={
+              <div>
+                <p>You are NOT registered for this sub community.</p>
+                <p>There are {challengesInCommunity} challenges in this sub community</p>
+              </div>
+            }
+          >
+            {selectItem}
+          </Tooltip>
+        </div>
+      );
+    }
+
+    return (
+      <div>{selectItem}</div>
     );
   };
 
@@ -228,6 +263,7 @@ export default function FiltersPanel({
 }
 
 FiltersPanel.defaultProps = {
+  challenges: [],
   hidden: false,
   isAuth: false,
   auth: null,
@@ -244,6 +280,7 @@ FiltersPanel.propTypes = {
   })).isRequired,
   defaultCommunityId: PT.string.isRequired,
   filterState: PT.shape().isRequired,
+  challenges: PT.arrayOf(PT.shape()),
   hidden: PT.bool,
   isAuth: PT.bool,
   auth: PT.shape(),
