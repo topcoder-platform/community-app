@@ -38,7 +38,7 @@ if (!process.env.FRONT_END) {
 
 const config = window.CONFIG;
 analytics.initialize({
-  segmentio: {
+  'Segment.io': {
     apiKey: config.SEGMENT_IO_API_KEY,
   },
 });
