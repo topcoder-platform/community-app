@@ -32,7 +32,7 @@ class LeaderboardAvatar extends Component {
         styleName={`leaderboard-avatar ${member.position || member.isSmr ? '' : 'light-gray'}`}
         target={openNewTab ? '_blank' : undefined}
       >
-        { plusOne ? '+1' : <Avatar url={photoURL} />}
+        { plusOne ? member.handle : <Avatar url={photoURL} />}
         <span styleName={member.position ? `placement placement-${member.position}` : 'hidden'}>
           {member.position}
         </span>
