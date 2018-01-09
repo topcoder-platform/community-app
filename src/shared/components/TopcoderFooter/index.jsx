@@ -39,7 +39,7 @@ export default function TopcoderFooter() {
         </ul>
       </nav>
       <div styleName="social-links">
-        <p>Topcoder is also on</p>
+        <hr />
         <a href="https://www.facebook.com/topcoder" target="fbwindow">
           <FacebookIcon />
         </a>

@@ -7,6 +7,7 @@
 import React from 'react';
 import Routes from 'routes';
 import ErrorMessage from 'containers/ErrorMessage';
+import ErrorIcons from 'containers/ErrorIcons';
 
 import 'styles/global.scss';
 
@@ -18,6 +19,7 @@ export default function App() {
     <div>
       <Routes />
       <ErrorMessage />
+      <ErrorIcons />
       { USE_DEV_TOOLS ? <DevTools /> : undefined }
     </div>
   );
