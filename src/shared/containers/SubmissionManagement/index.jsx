@@ -181,6 +181,10 @@ function mapStateToProps(state, props) {
   let mySubmissions = state.challenge.mySubmissions;
   mySubmissions = challengeId === mySubmissions.challengeId
     ? mySubmissions.v2 : null;
+
+  const submissionPhase = state.challenge.details.allPhases.find(phase =>
+    ['Submission', 'Checkpoint Submission'].includes(phase.phaseType) && phase.phaseStatus === 'Open') || {};
+
   return {
     challengeId: Number(challengeId),
     challenge: state.challenge.details,
