@@ -35,8 +35,13 @@ const LoadingIndicator = ({ theme }) => (
   </svg>
 );
 
+LoadingIndicator.defaultProps = {
+  suppressHydrationWarning: true,
+}
+
 LoadingIndicator.propTypes = {
   theme: PT.shape().isRequired,
+  suppressHydrationWarning: PT.bool,
 };
 
 export default themr('LoadingIndicator', style)(LoadingIndicator);
