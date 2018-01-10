@@ -58,7 +58,6 @@ class SubmissionManagementPageContainer extends React.Component {
     if (!isRegistered) return <AccessDenied redirectLink={`${challengesUrl}/${challenge.id}`} cause={ACCESS_DENIED_REASON.HAVE_NOT_SUBMITTED_TO_THE_CHALLENGE} />;
 
     const isEmpty = _.isEmpty(this.props.challenge);
-
     const smConfig = {
       onShowDetails: this.props.onShowDetails,
       onDelete: this.props.onSubmissionDelete,
