@@ -13,6 +13,7 @@
   padding: 45px;
   padding-bottom: 30px;
   text-align: center;
+  height: 220px;
 }
 
 .link {
@@ -29,26 +30,27 @@
     color: $tc-gray-30;
     font-family: "Roboto", Helvetica, Arial, sans-serif;
     font-weight: normal;
-    font-size: 14px;
+    font-size: 15px;
     text-decoration: none;
 
     &:hover {
-      color: $tc-dark-blue-90;
+      color: $tc-white;
     }
   }
 }
 
 .social-links {
   text-align: center;
-  margin: 50px auto 0px;
+  margin: 40px auto 0px;
   display: inline-block;
   color: $tc-gray-30;
 
   hr {
     border: none;
-    border-top: solid thin $tc-gray-70;
+    border-top: solid 2px $tc-gray-70;
     opacity: 0.2;
-    margin: 0;
+    margin: 0 auto;
+    width: 205px;
   }
 
   a {
@@ -60,7 +62,10 @@
 }
 
 @include xs-to-md {
-  .link {
-    display: block;
+  .footer{
+    height: auto;
+    .link {
+      display: inline-block;
+    }
   }
 }
