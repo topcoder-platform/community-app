@@ -47,6 +47,7 @@ if (isServerSide()) {
       }),
       headers: {
         'Content-Type': 'application/json',
+        'Authorization': process.env.SERVER_API_KEY
       },
       method: 'POST',
     }).catch(() => {
