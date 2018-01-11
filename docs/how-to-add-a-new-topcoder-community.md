@@ -72,6 +72,7 @@ To add a new community with the name **demo**, we should follow the following pr
         }
         ```
     -   `challengeListing` - *Object* - Optional. When provided, it holds configuration for the challenge listing shown inside the community. This config object may have the following fields:
+        - `ignoreCommunityFilterByDefault` - *Boolean* - Optional. When set, the community challenge filter won't be selected by default when the user enters community challenge listing page. Defaults to `false` (the filter will be automatically selected when a visitor enters the listing).
         - `openChallengesInNewTabs` - *Boolean* - Optional. When set, challenge listing opens challenge details pages in new tabs. Defaults to `true`.
         - `prizeMode` - *String* - Optional. Modifies the way the prizes are shown in challenge cards. Valid values are:
             - `hidden` - Prize components are just hidden;
