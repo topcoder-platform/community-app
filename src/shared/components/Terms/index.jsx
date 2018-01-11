@@ -127,7 +127,7 @@ export default class Terms extends React.Component {
     const { onCancel, terms, details, loadingTermId, docuSignUrl,
       getDocuSignUrl, agreeTerm, agreeingTerm, isLoadingTerms,
       loadingDocuSignUrl, selectedTerm, viewOnly, checkingStatus,
-      description } = this.props;
+      description, defaultTitle } = this.props;
 
     const handleHorizonalScroll = (e) => {
       const scrollElement = e.target;
@@ -160,7 +160,7 @@ export default class Terms extends React.Component {
           {
             !isLoadingTerms && (
               <div styleName="modal-content">
-                <div styleName="title">{terms.length > 1 ? 'Terms & Conditions of Use' : terms[0].title}</div>
+                <div styleName="title">{terms.length > 1 ? defaultTitle : terms[0].title}</div>
                 <div
                   onScroll={handleVerticalScroll}
                   ref={(node) => { this.vScrollArea = node; }}
@@ -286,6 +286,7 @@ export default class Terms extends React.Component {
 Terms.defaultProps = {
   terms: [],
   description: '',
+  defaultTitle: 'Terms & Conditions of Use',
   details: {},
   loadingTermId: '',
   docuSignUrl: '',
@@ -298,6 +299,7 @@ Terms.defaultProps = {
 
 Terms.propTypes = {
   description: PT.string,
+  defaultTitle: PT.string,
   onCancel: PT.func.isRequired,
   terms: PT.arrayOf(PT.shape()),
   loadDetails: PT.func.isRequired,
