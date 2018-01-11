@@ -103,7 +103,6 @@ function create(initialState = {}) {
 export function factory(req) {
   let joinPromise;
   if (req) {
-    const tokenV2 = getAuthTokens(req).tokenV2;
     const tokenV3 = getAuthTokens(req).tokenV3;
     const joinGroupId = req.query && req.query.join;
 
@@ -119,8 +118,8 @@ export function factory(req) {
       const user = decodeToken(tokenV3);
 
       // as server doesn't check if user agreed with all community terms make it manually for now
-      const termsService = getTermsService(tokenV2);
-      joinPromise = termsService.getCommunityTerms(communityId, tokenV3).then((result) => {
+      const termsService = getTermsService(tokenV3);
+      joinPromise = termsService.getCommunityTerms(communityId).then((result) => {
         // if all terms agreed we can perform join action
         if (_.every(result.terms, 'agreed')) {
           return toFSA(

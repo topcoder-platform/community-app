@@ -175,7 +175,7 @@ class ChallengeDetailPageContainer extends React.Component {
     } else if (_.every(this.getSubmitterTerms(), 'agreed')) {
       this.props.registerForChallenge(this.props.authTokens, this.props.challengeId);
     } else {
-      this.props.openTermsModal();
+      this.props.openTermsModal(this.getSubmitterTerms());
     }
   }
 
@@ -482,8 +482,8 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(cl.getChallengeSubtracksInit());
       dispatch(cl.getChallengeSubtracksDone());
     },
-    openTermsModal: (term) => {
-      dispatch(t.openTermsModal(term));
+    openTermsModal: (terms, selectedTerm) => {
+      dispatch(t.openTermsModal(terms, selectedTerm));
     },
     updateChallenge: (challenge, tokenV3) => {
       const uuid = shortId();
