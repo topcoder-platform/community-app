@@ -216,6 +216,7 @@ export default function ChallengeHeader(props) {
         <h1 styleName="challenge-header">{name}</h1>
         <ChallengeTags
           subTrack={subTrack}
+          track={trackLower}
           challengesUrl={challengesUrl}
           challengeSubtracksMap={challengeSubtracksMap}
           events={eventNames}
