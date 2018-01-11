@@ -111,11 +111,12 @@ export default function ChallengeHeader(props) {
     nextPhase = currentPhases[1] || {};
   }
   const nextDeadline = nextPhase.phaseType;
-  const deadlineEnd = nextPhase ?
-    new Date(nextPhase.scheduledEndTime).getTime() : Date.now();
-  const currentTime = Date.now();
 
-  let timeLeft = deadlineEnd > currentTime ? deadlineEnd - currentTime : 0;
+  const deadlineEnd = moment(nextPhase && nextPhase.scheduledEndTime);
+  const currentTime = moment();
+
+  let timeLeft = deadlineEnd.isAfter(currentTime)
+    ? deadlineEnd.diff(currentTime) : 0;
 
   let format;
   if (timeLeft > DAY_MS) format = 'D[d] H[h]';
@@ -216,6 +217,7 @@ export default function ChallengeHeader(props) {
         <h1 styleName="challenge-header">{name}</h1>
         <ChallengeTags
           subTrack={subTrack}
+          track={trackLower}
           challengesUrl={challengesUrl}
           challengeSubtracksMap={challengeSubtracksMap}
           events={eventNames}

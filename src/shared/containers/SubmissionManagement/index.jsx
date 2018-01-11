@@ -6,7 +6,6 @@
  */
 
 import _ from 'lodash';
-import Error404 from 'components/Error404';
 import AccessDenied, {
   CAUSE as ACCESS_DENIED_REASON,
 } from 'components/tc-communities/AccessDenied';
@@ -55,13 +54,10 @@ class SubmissionManagementPageContainer extends React.Component {
       handle,
       registrants,
     } = this.props;
-
-    if (challenge.track !== 'DESIGN') return <Error404 />;
     const isRegistered = registrants.find(r => r.handle === handle);
-    if (!isRegistered) return <AccessDenied cause={ACCESS_DENIED_REASON.NOT_AUTHORIZED} />;
+    if (!isRegistered) return <AccessDenied redirectLink={`${challengesUrl}/${challenge.id}`} cause={ACCESS_DENIED_REASON.HAVE_NOT_SUBMITTED_TO_THE_CHALLENGE} />;
 
     const isEmpty = _.isEmpty(this.props.challenge);
-
     const smConfig = {
       onShowDetails: this.props.onShowDetails,
       onDelete: this.props.onSubmissionDelete,
@@ -189,7 +185,7 @@ function mapStateToProps(state, props) {
     isLoadingChallenge: Boolean(state.challenge.loadingDetailsForChallengeId),
 
     loadingSubmissionsForChallengeId:
-      state.challenge.loadingSubmissionsForChallengeId,
+      state.challenge.loadingSubmissionsForChallengeId || '',
     mySubmissions,
 
     submissionPhaseStartDate: submissionPhase.actualStartTime || submissionPhase.scheduledStartTime || '',
