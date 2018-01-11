@@ -1,0 +1,125 @@
+@import "~styles/mixins";
+
+/* Styling of Markdown syntax highlighting. */
+.container {
+  @include tc-body-md;
+
+  overflow: hidden;
+
+  a {
+    color: $tc-dark-blue-90;
+    text-decoration: underline;
+  }
+
+  code {
+    background: $tc-gray-neutral-light;
+    border: 1px solid $tc-gray-20;
+    border-radius: 6px;
+    display: block;
+    font-family: 'Roboto Mono', monospace;
+    padding: 15px 20px;
+
+    &:global.inline {
+      background: $tc-gray-10;
+      border: none;
+      border-radius: 0;
+      display: inline;
+      padding: 0 5px;
+    }
+  }
+
+  em { font-style: italic; }
+  strong { font-weight: bold; }
+
+  /* This styling leads to some artefacts :( */
+  :global .hr {
+    width: 100%;
+
+    > div > span > span {
+      border-top: 1px solid firebrick;
+      display: inline-block;
+      height: 0;
+      line-height: 0;
+      width: 100%;
+    }
+  }
+
+  :global {
+    li {
+      display: inline-block;
+      position: relative;
+
+      &.leadingLi {
+        margin-top: 10px;
+      }
+
+      &::before {
+        border-left: 3px solid $tc-gray-40;
+        content: "";
+        height: 100%;
+        position: absolute;
+      }
+    }
+
+    $offset: -15;
+
+    @for $level from 0 to 10 {
+      ol.md-syntax-level-#{$level} > li::before { left: #{$offset}px; }
+      $offset: $offset + 18;
+    }
+
+    $offset: -5;
+
+    @for $level from 0 to 10 {
+      ul.md-syntax-level-#{$level} > li::before { left: #{$offset}px; }
+      $offset: $offset + 18;
+    }
+
+    .blockquote {
+      position: relative;
+
+      &::before {
+        border-left: 3px solid $tc-light-blue;
+        content: "";
+        height: 100%;
+        position: absolute;
+      }
+    }
+
+    $offset: -15;
+
+    @for $level from 0 to 10 {
+      .blockquote.md-syntax-level-#{$level}::before { left: #{$offset}px; }
+      $offset: $offset + 18;
+    }
+
+    div,
+    .h1,
+    .h2,
+    .h3,
+    .h4,
+    .h5,
+    .h6,
+    p {
+      @include tc-body-md;
+
+      margin: 0 !important;
+      text-transform: none;
+    }
+
+    .h1 .text { @include tc-heading-xl; }
+    .h2 .text { @include tc-heading-lg; }
+    .h3 .text { @include tc-heading-md; }
+    .h4 .text { @include tc-heading-sm; }
+    .h5 .text { @include tc-heading-xs; }
+    .h6 .text { @include tc-heading-xs; }
+
+    .mdSyntax {
+      @include tc-body-md;
+
+      color: firebrick;
+      font-family: 'Roboto Mono', monospace;
+      font-weight: bold;
+    }
+  }
+}

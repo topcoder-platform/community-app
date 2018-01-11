@@ -64,6 +64,11 @@
    * due to caching). */
   "REAUTH_TIME": 55,
 
+  /* API key for Segment.io. For development environment the value is set inside
+   * development.json, for production environment it is set via CircleCI
+   * variables. */
+  "SEGMENT_IO_API_KEY": "",
+
   "SWIFT_PROGRAM_ID": 3445,
 
   /* Various URLs. Most of them lead to different segments of Topcoder
