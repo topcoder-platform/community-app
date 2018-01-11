@@ -313,6 +313,7 @@ class ChallengeDetailPageContainer extends React.Component {
           }
         </div>
         <Terms
+          defaultTitle="Challenge Prerequisites"
           entity={{ type: 'challenge', id: challengeId.toString() }}
           description="You are seeing these Terms & Conditions because you have registered to a challenge and you have to respect the terms below in order to be able to submit."
           register={() => {
