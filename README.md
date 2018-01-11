@@ -29,7 +29,9 @@ If you need any operations related to currency conversions, pay attention to the
 
 *Disclaimer:* Current instructions are biased towards Ubuntu 16.04. Hovewer, similar recipies should work for other OS. Should you encounter and overcome any tricky issues on other OS, you are welcome to add notes/hints into this file.
 
-1.  You should have NodeJS 8.2.1 (other recent versions should also work fine);
+1.  You should have the following prerequisites:
+    - NodeJS 8.2.1 (other recent versions should also work fine);
+    - Python 2.7.
 
 2.  Install dependencies with one of the following commands:
     -   `$ npm install` Installs all dependencies. Recommended for local development;
@@ -45,7 +47,7 @@ If you need any operations related to currency conversions, pay attention to the
 
 4.  Set environment variables:
     -   `PORT` Specifies the port to run the App at. Defaults to 3000;
-    -   `NODE_ENV` Specifies Topcoder backend to use. Should be either `development` either `production`. Defaults to `production`.
+    -   `NODE_ENV` Specifies Topcoder backend to use. Should be either `development` or `production`. Defaults to `production`.
 
 5.  To build the App's frontend run one of (the result of build will be output into `/build` folder in both cases):
     -   `$ npm run build` To rebuild production frontend;
