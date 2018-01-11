@@ -45,7 +45,7 @@ If you need any operations related to currency conversions, pay attention to the
 
 4.  Set environment variables:
     -   `PORT` Specifies the port to run the App at. Defaults to 3000;
-    -   `NODE_ENV` Specifies Topcoder backend to use. Should be either `development` either `production`. Defaults to `production`.
+    -   `NODE_ENV` Specifies Topcoder backend to use. Should be either `development` or `production`. Defaults to `production`.
 
 5.  To build the App's frontend run one of (the result of build will be output into `/build` folder in both cases):
     -   `$ npm run build` To rebuild production frontend;
@@ -53,7 +53,7 @@ If you need any operations related to currency conversions, pay attention to the
 
 6. To run the App use:
     -   `$ npm start` To run the App in normal mode. The frontend will be served from `/build` folder. The Topcoder backend to use will be chosen depending on `NODE_ENV` value;
-    -   `$ npm run dev` To run the App with development tools. In this case the frontend is build in memory by server and uses dev tools like redux-devtools. The Topcoder backend to use will be chosen depending on `NODE_ENV` value. This demands dev dependencies installed at the firts step.
+    -   `$ npm run dev` To run the App with development tools. In this case the frontend is build in memory by server and uses dev tools like redux-devtools. The Topcoder backend to use will be chosen depending on `NODE_ENV` value. This demands dev dependencies installed at the first step.
 
 If you run the App locally against development Topcoder backend you should access the App as `local.topcoder-dev.com:3000`. Prior doing this you should add into your `/etc/hosts` the line `127.0.0.1 local.topcoder-dev.com`. To login into development Topcoder backend use `accounts.topcoder-dev.com/members` to login. Log out at `www.topcoder-dev.com`, or just wipe out auth cookies.
 

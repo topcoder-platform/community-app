@@ -8,6 +8,7 @@ import logger from 'utils/logger';
 import moment from 'moment';
 import qs from 'qs';
 import { decodeToken } from 'tc-accounts';
+import { setErrorIcon, ERROR_ICON_TYPES } from 'utils/errors';
 import { COMPETITION_TRACKS } from 'utils/tc';
 import { getApiV2, getApiV3 } from './api';
 
@@ -252,7 +253,12 @@ export function normalizeMarathonMatch(challenge, username) {
  * @private
  */
 async function checkError(res) {
-  if (!res.ok) throw new Error(res.statusText);
+  if (!res.ok) {
+    if (res.status >= 500) {
+      setErrorIcon(ERROR_ICON_TYPES.API, '/challenges', res.statusText);
+    }
+    throw new Error(res.statusText);
+  }
   const jsonRes = (await res.json()).result;
   if (jsonRes.status !== 200) throw new Error(jsonRes.content);
   return jsonRes;
