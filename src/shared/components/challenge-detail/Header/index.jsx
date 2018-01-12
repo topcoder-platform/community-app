@@ -118,7 +118,9 @@ export default function ChallengeHeader(props) {
     new Date(nextPhase.scheduledEndTime).getTime() : Date.now();
   const currentTime = Date.now();
 
-  let timeLeft = deadlineEnd > currentTime ? deadlineEnd - currentTime : 0;
+  let timeLeft = deadlineEnd - currentTime;
+  let behindSchedule = (timeLeft < 0);
+  timeLeft = Math.abs(timeLeft);
 
   let format;
   if (timeLeft > DAY_MS) format = 'D[d] H[h]';
@@ -306,9 +308,11 @@ export default function ChallengeHeader(props) {
                 {
                   (status || '').toLowerCase() === 'active' && (currentPhases && currentPhases.length > 0) &&
                   <div styleName="current-phase">
+                    { behindSchedule && 'Late by '}
                     <span styleName="deadline-highlighted">
                       {timeLeft}
-                    </span> until current deadline ends
+                    </span>
+                    { !behindSchedule && ' until current deadline ends'}
                   </div>
                 }
               </div>
