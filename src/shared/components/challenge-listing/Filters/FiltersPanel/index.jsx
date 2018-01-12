@@ -61,7 +61,7 @@ export default function FiltersPanel({
 
   const getLabel = (community) => {
     const { communityName } = community;
-    if (!isAuth || communityName === 'All') {
+    if (!isAuth) {
       return <div>{communityName}</div>;
     }
 
@@ -89,11 +89,19 @@ export default function FiltersPanel({
               </div>
             )}
           </div>
-          <div styleName="registration-status">{registrationStatus}</div>
+          <div styleName="registration-status">
+            {communityName === 'All'
+              ? 'Select to see all challenges'
+              : registrationStatus}
+          </div>
         </div>
         <div>{challengesInCommunity}</div>
       </div>
     );
+
+    if (communityName === 'All') {
+      return selectItem;
+    }
 
     if (!visitorRegisteredToCommunity) {
       return (
@@ -167,6 +175,7 @@ export default function FiltersPanel({
               options={communityOps}
               simpleValue
               value={selectedCommunityId}
+              valueRenderer={getLabel}
             />
           </div>
         </div>
