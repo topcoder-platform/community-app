@@ -29,6 +29,7 @@ import { Button, PrimaryButton } from 'components/buttons';
 import Tooltip from 'components/Tooltip';
 import { COMPOSE, PRIORITY } from 'react-css-super-themr';
 import { REVIEW_OPPORTUNITY_TYPES } from 'utils/tc';
+import CheckmarkIcon from './CheckmarkIcon';
 import DateRangePicker from '../DateRangePicker';
 import style from './style.scss';
 import UiSimpleRemove from '../../Icons/ui-simple-remove.svg';
@@ -65,12 +66,12 @@ export default function FiltersPanel({
     }
 
     const visitorGroupIds = auth.profile ? auth.profile.groups.map(g => g.id) : [];
-    const visitorBelongsToCommunity = isVisitorRegisteredToCommunity(
+    const visitorRegisteredToCommunity = isVisitorRegisteredToCommunity(
       visitorGroupIds,
       community.groupIds,
     );
 
-    const registrationStatus = visitorBelongsToCommunity
+    const registrationStatus = visitorRegisteredToCommunity
       ? <div>Registered</div>
       : <div>You are <span styleName="bold uppercase">not</span> registered</div>;
 
@@ -80,19 +81,26 @@ export default function FiltersPanel({
     const selectItem = (
       <div styleName="community-select-item">
         <div>
-          <div>{communityName}</div>
+          <div styleName="community-name">
+            <div>{communityName}</div>
+            {visitorRegisteredToCommunity && (
+              <div styleName="checkmark-icon-container">
+                <CheckmarkIcon color="#fff" />
+              </div>
+            )}
+          </div>
           <div styleName="registration-status">{registrationStatus}</div>
         </div>
         <div>{challengesInCommunity}</div>
       </div>
     );
 
-    if (!visitorBelongsToCommunity) {
+    if (!visitorRegisteredToCommunity) {
       return (
         <div>
           <Tooltip
             position="bottomRight"
-            className="subcommunity-tooltip"
+            className="community-tooltip"
             trigger={['hover']}
             content={
               <div>

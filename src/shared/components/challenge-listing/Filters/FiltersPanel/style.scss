@@ -247,12 +247,31 @@ $panel-radius-4: $corner-radius * 2;
       font-size: 0.7rem;
     }
 
+    .community-name {
+      display: flex;
+    }
+
+    .checkmark-icon-container {
+      width: 16px;
+      height: 16px;
+      line-height: 16px;
+      text-align: center;
+      margin-left: 5px;
+      background: #5dca03;
+      border-radius: 50%;
+
+      svg {
+        width: 10px;
+        height: 10px;
+      }
+    }
+
     .community-select-item {
       display: flex;
       justify-content: space-between;
     }
 
-    .subcommunity-tooltip {
+    .community-tooltip {
       font-weight: 500;
       font-size: 13px;
       letter-spacing: 0;
