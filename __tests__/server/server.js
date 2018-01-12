@@ -7,6 +7,7 @@ jest.setMock('../../config/webpack/development', {
     publicPath: '',
   },
 });
+
 jest.setMock(require.resolve('server/renderer'), (req, res, next) => next());
 
 afterAll(() => {
@@ -46,6 +47,8 @@ describe('Api test', () => {
   beforeEach(() => {
     process.env.NODE_ENV = 'test';
     jest.resetModules();
+    jest.mock('morgan');
+    jest.mock('utils/logger');
     server = require(MODULE).default;
   });
   test('post to /community-app-assets/api/logger', () => request(server).post('/community-app-assets/api/logger')
