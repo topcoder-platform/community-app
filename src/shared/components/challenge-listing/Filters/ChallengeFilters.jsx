@@ -178,7 +178,6 @@ export default function ChallengeFilters({
 ChallengeFilters.defaultProps = {
   communityName: null,
   isAuth: false,
-  auth: null,
   isCardTypeSet: '',
   isReviewOpportunitiesBucket: false,
   isSavingFilter: false,
@@ -194,7 +193,7 @@ ChallengeFilters.propTypes = {
   expanded: PT.bool.isRequired,
   filterState: PT.shape().isRequired,
   isAuth: PT.bool,
-  auth: PT.shape(),
+  auth: PT.shape().isRequired,
   hideSrm: PT.bool.isRequired,
   isCardTypeSet: PT.string,
   isSavingFilter: PT.bool,

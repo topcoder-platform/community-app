@@ -79,7 +79,6 @@ export class Container extends React.Component {
 
 Container.defaultProps = {
   isSavingFilter: false,
-  auth: null,
   tokenV2: '',
   challenges: [],
 };
@@ -100,7 +99,7 @@ Container.propTypes = {
   saveFilter: PT.func.isRequired,
   selectBucket: PT.func.isRequired,
   setFilterState: PT.func.isRequired,
-  auth: PT.shape(),
+  auth: PT.shape().isRequired,
   tokenV2: PT.string,
 };
 
