@@ -73,7 +73,7 @@ export default class Communities {
         let metadata;
         if (COMMUNITY_META_DATA[communityId]) {
           metadata = COMMUNITY_META_DATA[communityId];
-          resolve(metadata);
+          resolve(metadata, knownGroups);
         } else {
           const uri = path.resolve(__dirname, '../tc-communities',
             communityId, 'metadata.json');
@@ -85,40 +85,44 @@ export default class Communities {
             }
             COMMUNITY_META_DATA[communityId] = JSON.parse(res);
             metadata = COMMUNITY_META_DATA[communityId];
-            resolve(metadata);
+            return resolve(metadata, knownGroups);
           });
         }
       });
 
+      return promise.then((metadata) => {
+        this.private.getGroomedMetadata(metadata, knownGroups);
+      });
+    };
+
+    this.private.getGroomedMetadata = (metadata, knownGroups) => {
       /* Once we have loaded metadata, we extend all fields that hold user
       * group IDs with IDs of their descendant groups. This simplifies
       * a lot of code depending on community metadata, as then there is
       * no need to handle user groups data in each place where we rely on
       * group IDs from metadata. */
-      return promise.then((metadata) => {
-        const unknownGroups = [];
-        const groomedMetadata = metadata;
-        const challengeGroupIds = _.get(groomedMetadata, 'challengeFilter.groupIds');
-        addUnknown(groomedMetadata.authorizedGroupIds, knownGroups, unknownGroups);
-        addUnknown(challengeGroupIds, knownGroups, unknownGroups);
-        addUnknown(groomedMetadata.groupIds, knownGroups, unknownGroups);
-        return Promise.resolve(unknownGroups.length ? (
-          this.private.groupsService.getGroupMap(unknownGroups)
-            .then(map => _.assign(knownGroups, map))
-        ) : null).then(() => {
-          if (groomedMetadata.authorizedGroupIds) {
-            groomedMetadata.authorizedGroupIds = addDescendantGroups(
-              groomedMetadata.authorizedGroupIds, knownGroups);
-          }
-          if (groomedMetadata.groupIds) {
-            groomedMetadata.groupIds = addDescendantGroups(groomedMetadata.groupIds, knownGroups);
-          }
-          if (challengeGroupIds) {
-            groomedMetadata.challengeFilter.groupIds = addDescendantGroups(
-              challengeGroupIds, knownGroups);
-          }
-          return groomedMetadata;
-        });
+      const unknownGroups = [];
+      const groomedMetadata = metadata;
+      const challengeGroupIds = _.get(groomedMetadata, 'challengeFilter.groupIds');
+      addUnknown(groomedMetadata.authorizedGroupIds, knownGroups, unknownGroups);
+      addUnknown(challengeGroupIds, knownGroups, unknownGroups);
+      addUnknown(groomedMetadata.groupIds, knownGroups, unknownGroups);
+      return Promise.resolve(unknownGroups.length ? (
+        this.private.groupsService.getGroupMap(unknownGroups)
+          .then(map => _.assign(knownGroups, map))
+      ) : null).then(() => {
+        if (groomedMetadata.authorizedGroupIds) {
+          groomedMetadata.authorizedGroupIds = addDescendantGroups(
+            groomedMetadata.authorizedGroupIds, knownGroups);
+        }
+        if (groomedMetadata.groupIds) {
+          groomedMetadata.groupIds = addDescendantGroups(groomedMetadata.groupIds, knownGroups);
+        }
+        if (challengeGroupIds) {
+          groomedMetadata.challengeFilter.groupIds = addDescendantGroups(
+            challengeGroupIds, knownGroups);
+        }
+        return groomedMetadata;
       });
     };
   }
