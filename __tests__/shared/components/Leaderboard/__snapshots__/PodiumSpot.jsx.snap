@@ -14,7 +14,7 @@ exports[`Matches shallow shapshot 1`] = `
       mapThemrProps={[Function]}
       theme={
         Object {
-          "avatar": "src-shared-components-Leaderboard-___avatarStyles__gold___1KUGN",
+          "avatar": "src-shared-components-Leaderboard-avatarStyles___gold",
         }
       }
       themePriority="adhoc-context-default"
@@ -63,7 +63,7 @@ exports[`Matches shallow shapshot 2`] = `
       mapThemrProps={[Function]}
       theme={
         Object {
-          "avatar": "src-shared-components-Leaderboard-___avatarStyles__gold___1KUGN",
+          "avatar": "src-shared-components-Leaderboard-avatarStyles___gold",
         }
       }
       themePriority="adhoc-context-default"

@@ -1,9 +1,3 @@
 {
-  "extends": "airbnb",
-  "parser": "babel-eslint",
-  "settings": {
-    "import/resolver": {
-      "babel-module": {}
-    }
-  }
+  "extends": "./node_modules/topcoder-react-utils/config/eslint/default.json"
 }

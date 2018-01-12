@@ -445,7 +445,7 @@ export default class MdUtils {
    * generate corresponding HTML markup, or DraftJS state for rendered Markdown
    * representation, or DraftJS decorator for Markdown syntax highlighting in
    * the original state.
-   * @param {ContentState} state 
+   * @param {ContentState} state
    */
   parse(contentState) {
     delete this.html;

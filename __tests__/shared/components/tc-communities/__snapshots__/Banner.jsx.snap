@@ -7,12 +7,12 @@ exports[`Snapshot match 1`] = `
   text="You’re eager to get started, and we have a bunch of iOS/Swift challenges!"
   theme={
     Object {
-      "container": "src-shared-components-tc-communities-Banner-___style__container___2NxGp",
-      "content": "src-shared-components-tc-communities-Banner-___style__content___21lXO",
-      "contentBg": "src-shared-components-tc-communities-Banner-___style__contentBg___145Ln",
-      "contentInner": "src-shared-components-tc-communities-Banner-___style__contentInner___3w8VH",
-      "text": "src-shared-components-tc-communities-Banner-___style__text___-lkXi",
-      "title": "src-shared-components-tc-communities-Banner-___style__title___GMY8V",
+      "container": "src-shared-components-tc-communities-Banner-style___container",
+      "content": "src-shared-components-tc-communities-Banner-style___content",
+      "contentBg": "src-shared-components-tc-communities-Banner-style___contentBg",
+      "contentInner": "src-shared-components-tc-communities-Banner-style___contentInner",
+      "text": "src-shared-components-tc-communities-Banner-style___text",
+      "title": "src-shared-components-tc-communities-Banner-style___title",
     }
   }
   title="iOS"
@@ -31,14 +31,14 @@ exports[`Snapshot match 2`] = `
   text="You’re eager to get started, and we have a bunch of iOS/Swift challenges!"
   theme={
     Object {
-      "container": "container src-shared-components-tc-communities-Banner-___style__container___2NxGp",
-      "content": "content src-shared-components-tc-communities-Banner-___style__content___21lXO",
-      "contentBg": "contentBg src-shared-components-tc-communities-Banner-___style__contentBg___145Ln",
-      "contentInner": "contentInner src-shared-components-tc-communities-Banner-___style__contentInner___3w8VH",
+      "container": "container src-shared-components-tc-communities-Banner-style___container",
+      "content": "content src-shared-components-tc-communities-Banner-style___content",
+      "contentBg": "contentBg src-shared-components-tc-communities-Banner-style___contentBg",
+      "contentInner": "contentInner src-shared-components-tc-communities-Banner-style___contentInner",
       "link": "link",
       "linkWrap": "linkWrap",
-      "text": "text src-shared-components-tc-communities-Banner-___style__text___-lkXi",
-      "title": "title src-shared-components-tc-communities-Banner-___style__title___GMY8V",
+      "text": "text src-shared-components-tc-communities-Banner-style___text",
+      "title": "title src-shared-components-tc-communities-Banner-style___title",
     }
   }
   title="iOS"

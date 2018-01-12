@@ -66,26 +66,8 @@ module.exports = {
       loader: 'babel-loader',
       options: {
         babelrc: false,
-        presets: ['env', 'react', 'stage-2'],
-        plugins: [
-          'inline-react-svg',
-          ['module-resolver', {
-            extensions: ['.js', '.jsx'],
-            root: [
-              './src/shared',
-              './src',
-            ],
-          }],
-          ['react-css-modules', {
-            filetypes: {
-              '.scss': {
-                syntax: 'postcss-scss',
-              },
-            },
-            generateScopedName: '[hash:base64:6]',
-          }],
-          'transform-runtime',
-        ],
+        presets: ['topcoder-react-utils/config/babel/webpack'],
+        forceEnv: 'production',
       },
     }, {
       test: /\.(gif|jpeg|jpg|png|svg)$/,

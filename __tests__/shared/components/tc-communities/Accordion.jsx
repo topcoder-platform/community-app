@@ -44,7 +44,7 @@ describe('Rendered title list', () => {
 
   test('Rendered title list', () => {
     const titleListItem = TU.findAllInRenderedTree(page, item =>
-      item && item.className && item.className.match(/__titleListItem___/));
+      item && item.className && item.className.match(/titleListItem/));
     expect(titleListItem.length).toBe(2);
   });
 });

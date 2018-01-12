@@ -11,9 +11,9 @@ exports[`Snapshot match 1`] = `
     text="Our continuously evolving structured learning paths are customized to deepen your knowledge and help you acquire industry specific software capabilities. Master the in-demand technologies to succeed in this rapidly changing technology landscape."
     theme={
       Object {
-        "container": "src-shared-components-tc-communities-communities-wipro-Learn-___style__bannerContainer___1MiM0",
-        "content": "src-shared-components-tc-communities-communities-wipro-Learn-___style__bannerContent___2rbyc",
-        "contentInner": "src-shared-components-tc-communities-communities-wipro-Learn-___style__bannerContentInner___4smdO",
+        "container": "src-shared-components-tc-communities-communities-wipro-Learn-style___bannerContainer",
+        "content": "src-shared-components-tc-communities-communities-wipro-Learn-style___bannerContent",
+        "contentInner": "src-shared-components-tc-communities-communities-wipro-Learn-style___bannerContentInner",
       }
     }
     themePriority="adhoc-context-default"

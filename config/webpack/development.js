@@ -28,27 +28,8 @@ module.exports = webpackMerge(defaultConfig, {
       loader: 'babel-loader',
       options: {
         babelrc: false,
-        presets: [['env', { modules: false }], 'react', 'stage-2'],
-        plugins: [
-          'inline-react-svg',
-          ['module-resolver', {
-            extensions: ['.js', '.jsx'],
-            root: [
-              './src/shared',
-              './src',
-            ],
-          }],
-          'react-hot-loader/babel',
-          ['react-css-modules', {
-            filetypes: {
-              '.scss': {
-                syntax: 'postcss-scss',
-              },
-            },
-            generateScopedName: '[path][name]___[local]',
-          }],
-          'transform-runtime',
-        ],
+        presets: ['topcoder-react-utils/config/babel/webpack'],
+        forceEnv: 'development',
       },
     }, {
       test: /\.scss$/,
