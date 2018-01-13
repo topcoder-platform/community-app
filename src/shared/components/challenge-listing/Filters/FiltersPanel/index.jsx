@@ -121,7 +121,7 @@ export default function FiltersPanel({
           position="bottomRight"
           trigger={['hover']}
           content={
-            <div style={{ padding: '15px', borderRadius: '5px' }}>
+            <div style={{ padding: '15px', fontSize: '13px', borderRadius: '5px' }}>
               <p>You are { !visitorRegisteredToCommunity && <span styleName="bold">NOT</span>} registered for this sub community.</p>
               <p>There are {challengesInCommunity} challenges in this sub community</p>
             </div>
