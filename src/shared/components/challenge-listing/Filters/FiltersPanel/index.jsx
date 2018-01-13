@@ -123,15 +123,14 @@ export default function FiltersPanel({
       );
     }
 
-    return (
-      <div>{selectItem}</div>
-    );
+    return selectItem;
   };
 
   const communityOps = communityFilters.filter(community => !community.hidden)
     .map(community => ({
       label: getLabel(community),
       value: community.communityId,
+      name: community.communityName,
     }));
 
   const disableClearSaveFilterButtons = isSavingFilter || (
@@ -175,6 +174,7 @@ export default function FiltersPanel({
               options={communityOps}
               simpleValue
               value={selectedCommunityId}
+              valueRenderer={option => <span>{option.name}</span>}
             />
           </div>
         </div>
