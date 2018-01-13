@@ -75,8 +75,8 @@ export default function FiltersPanel({
       ? <div>Registered</div>
       : <div>You are <span styleName="bold uppercase">not</span> registered</div>;
 
-    const challengesInCommunity = challenges.filter(challenge =>
-      Filter.filterByGroupIds(challenge, community)).length;
+    const filterFunction = Filter.getFilterFunction(community.challengeFilter);
+    const challengesInCommunity = challenges.filter(filterFunction).length;
 
     const selectItem = (
       <div styleName="community-select-item">
@@ -175,7 +175,6 @@ export default function FiltersPanel({
               options={communityOps}
               simpleValue
               value={selectedCommunityId}
-              valueRenderer={getLabel}
             />
           </div>
         </div>

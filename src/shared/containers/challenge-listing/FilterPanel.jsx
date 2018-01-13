@@ -40,10 +40,14 @@ export class Container extends React.Component {
   }
 
   render() {
-    const communityFilters = [{
-      communityId: '',
-      communityName: 'All',
-    }].concat(this.props.communityFilters);
+    const communityFilters = [
+      {
+        communityId: '',
+        communityName: 'All',
+        challengeFilter: {},
+      },
+      ...this.props.communityFilters,
+    ];
 
     const isForReviewOpportunities = isReviewOpportunitiesBucket(this.props.activeBucket);
 
