@@ -118,7 +118,7 @@ export default function FiltersPanel({
     return (
       <div>
         <Tooltip
-          position="bottomRight"
+          position="bottom"
           trigger={['hover']}
           content={
             <div style={{ padding: '15px', fontSize: '13px', borderRadius: '5px' }}>
