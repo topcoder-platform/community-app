@@ -40,10 +40,14 @@ export class Container extends React.Component {
   }
 
   render() {
-    const communityFilters = [{
-      communityId: '',
-      communityName: 'All',
-    }].concat(this.props.communityFilters);
+    const communityFilters = [
+      {
+        communityId: '',
+        communityName: 'All',
+        challengeFilter: {},
+      },
+      ...this.props.communityFilters,
+    ];
 
     const isForReviewOpportunities = isReviewOpportunitiesBucket(this.props.activeBucket);
 
@@ -80,6 +84,7 @@ export class Container extends React.Component {
 Container.defaultProps = {
   isSavingFilter: false,
   tokenV2: '',
+  challenges: [],
 };
 
 Container.propTypes = {
@@ -87,6 +92,7 @@ Container.propTypes = {
   communityFilters: PT.arrayOf(PT.object).isRequired,
   defaultCommunityId: PT.string.isRequired,
   filterState: PT.shape().isRequired,
+  challenges: PT.arrayOf(PT.shape()),
   selectedCommunityId: PT.string.isRequired,
   getKeywords: PT.func.isRequired,
   getSubtracks: PT.func.isRequired,
@@ -97,6 +103,7 @@ Container.propTypes = {
   saveFilter: PT.func.isRequired,
   selectBucket: PT.func.isRequired,
   setFilterState: PT.func.isRequired,
+  auth: PT.shape().isRequired,
   tokenV2: PT.string,
 };
 
@@ -139,6 +146,7 @@ function mapStateToProps(state, ownProps) {
     validKeywords: cl.challengeTags,
     validSubtracks: cl.challengeSubtracks,
     selectedCommunityId: cl.selectedCommunityId,
+    auth: state.auth,
     tokenV2: state.auth.tokenV2,
     isSavingFilter: cl.sidebar.isSavingFilter,
     savedFilters: cl.sidebar.savedFilters,

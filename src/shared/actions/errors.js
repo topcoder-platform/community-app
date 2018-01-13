@@ -11,5 +11,8 @@ export default createActions({
   ERRORS: {
     CLEAR_ERROR: _.noop,
     NEW_ERROR: (title, details) => ({ title, details }),
+    CLEAR_ALL_ERROR_ICONS: _.noop,
+    SET_ERROR_ICON: (id, title, message) => ({ id, title, message }),
+    CLEAR_ERROR_ICON: id => ({ id }),
   },
 });

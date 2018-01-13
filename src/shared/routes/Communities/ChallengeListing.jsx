@@ -29,11 +29,18 @@ export default function ChallengeListingRoute({
           query = query ? qs.parse(query.slice(1)) : {};
           const currencyFromUrl = query ? query.currency : undefined;
           const prizeMode = currencyFromUrl && `money-${currencyFromUrl}`;
+
+          let communityId = query.communityId;
+          if (!communityId
+          && !_.get(meta, 'challengeListing.ignoreCommunityFilterByDefault')) {
+            communityId = meta.communityId;
+          }
+
           return (
             <ChallengeListing
               {...routeProps}
               challengesUrl={challengesUrl}
-              communityId={query.communityId || meta.communityId}
+              communityId={communityId}
               communityName={meta.communityName}
               defaultCommunityId={meta.communityId}
               groupIds={meta.groupIds}

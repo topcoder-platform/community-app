@@ -108,6 +108,7 @@ export default function ChallengeListing(props) {
   return (
     <div styleName="ChallengeFiltersExample" id="challengeFilterContainer">
       <ChallengeFilters
+        challenges={props.challenges}
         communityName={props.communityName}
         defaultCommunityId={defaultCommunityId}
         hideSrm={hideSrm}
