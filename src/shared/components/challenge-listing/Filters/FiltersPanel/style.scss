@@ -242,6 +242,11 @@ $panel-radius-4: $corner-radius * 2;
       z-index: 5;
     }
 
+    .active-community {
+      font-size: 12px;
+      font-weight: normal;
+    }
+
     .registration-status {
       color: #888894;
       font-size: 0.7rem;
@@ -282,10 +287,8 @@ $panel-radius-4: $corner-radius * 2;
     }
 
     .community-tooltip {
-      font-weight: 500;
       font-size: 13px;
-      letter-spacing: 0;
-      padding: $panel-space-15;
+      padding: 20px;
     }
 
     :global(.Select-value) {

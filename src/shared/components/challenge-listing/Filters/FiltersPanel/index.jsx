@@ -115,27 +115,23 @@ export default function FiltersPanel({
       return selectItem;
     }
 
-    if (!visitorRegisteredToCommunity) {
-      return (
-        <div>
-          <Tooltip
-            position="bottomRight"
-            className="community-tooltip"
-            trigger={['hover']}
-            content={
-              <div>
-                <p>You are NOT registered for this sub community.</p>
-                <p>There are {challengesInCommunity} challenges in this sub community</p>
-              </div>
-            }
-          >
-            {selectItem}
-          </Tooltip>
-        </div>
-      );
-    }
-
-    return selectItem;
+    return (
+      <div>
+        <Tooltip
+          position="bottomRight"
+          className="community-tooltip"
+          trigger={['hover']}
+          content={
+            <div>
+              <p>You are { !visitorRegisteredToCommunity && 'NOT'} registered for this sub community.</p>
+              <p>There are {challengesInCommunity} challenges in this sub community</p>
+            </div>
+          }
+        >
+          {selectItem}
+        </Tooltip>
+      </div>
+    );
   };
 
   const communityOps = communityFilters.filter(community => !community.hidden)
@@ -186,7 +182,7 @@ export default function FiltersPanel({
               options={communityOps}
               simpleValue
               value={selectedCommunityId}
-              valueRenderer={option => <span>{option.name}</span>}
+              valueRenderer={option => <span styleName="active-community">{option.name}</span>}
             />
           </div>
         </div>
