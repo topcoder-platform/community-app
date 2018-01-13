@@ -27,6 +27,7 @@ import Select from 'components/Select';
 import moment from 'moment';
 import { Button, PrimaryButton } from 'components/buttons';
 import Tooltip from 'components/Tooltip';
+import { Link } from 'utils/router';
 import { COMPOSE, PRIORITY } from 'react-css-super-themr';
 import { REVIEW_OPPORTUNITY_TYPES } from 'utils/tc';
 import CheckmarkIcon from './CheckmarkIcon';
@@ -73,7 +74,18 @@ export default function FiltersPanel({
 
     const registrationStatus = visitorRegisteredToCommunity
       ? <div>Registered</div>
-      : <div>You are <span styleName="bold uppercase">not</span> registered</div>;
+      : (
+        <div>
+          You are <span styleName="bold uppercase">not</span> registered.
+          <Link
+            to={`/community/${community.communityId}/home`}
+            styleName="learn-more-link"
+            openInNewTab
+          >
+            Learn more
+          </Link>
+        </div>
+      );
 
     const filterFunction = Filter.getFilterFunction(community.challengeFilter);
     const challengesInCommunity = challenges.filter(filterFunction).length;

@@ -271,6 +271,16 @@ $panel-radius-4: $corner-radius * 2;
       justify-content: space-between;
     }
 
+    .learn-more-link {
+      color: $tc-light-blue;
+      margin-left: 5px;
+
+      &:hover,
+      &:visited {
+        color: $tc-dark-blue;
+      }
+    }
+
     .community-tooltip {
       font-weight: 500;
       font-size: 13px;
