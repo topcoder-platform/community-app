@@ -62,8 +62,8 @@ function refresh() {
     : `${OE_API}/latest.json?app_id=${OE_TOKEN}`;
   return fetch(url, {
     headers: {
-      authorization: process.env.SERVER_API_KEY
-    }
+      Authorization: `ApiKey ${process.env.SERVER_API_KEY}`,
+    },
   }).then(res => res.json()).then((res) => {
     cachedRates = res;
     fx.base = res.base;

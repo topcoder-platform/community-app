@@ -49,11 +49,11 @@ app.use(requestIp.mw());
 
 const checkAuthorizationHeader = (req, res, next) => {
   const { authorization } = req.headers;
-  if (authorization !== process.env.SERVER_API_KEY) {
-    return res.status(500).send({ message: 'Invalid API key' });
+  if (authorization !== `ApiKey ${process.env.SERVER_API_KEY}`) {
+    return res.status(403).end();
   }
-  next();
-}
+  return next();
+};
 
 /* Log Entries service proxy. */
 app.use('/community-app-assets/api/logger', checkAuthorizationHeader, (req, res) => {
@@ -154,8 +154,7 @@ app.use('/community-app-assets/api/mock/docu-sign', checkAuthorizationHeader, (r
   /* The real DocuSign API does not return the page immediately,
    * thus timeout to imitate this in our mock. 3 seconds just an arbitrary
    * choice. */
-  setTimeout(() => res.send(mockDocuSignFactory(req.query.returnUrl)), 3000),
-);
+  setTimeout(() => res.send(mockDocuSignFactory(req.query.returnUrl)), 3000));
 
 app.use(renderer);
 
