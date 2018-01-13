@@ -49,7 +49,6 @@ app.use(requestIp.mw());
 
 const checkAuthorizationHeader = (req, res, next) => {
   const { authorization } = req.headers;
-  console.log('req', req.path, 'Authorization', authorization);
   if (authorization !== process.env.SERVER_API_KEY) {
     return res.status(500).send({ message: 'Invalid API key' });
   }
