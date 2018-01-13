@@ -10,7 +10,7 @@
     },
     {
       "termsOfUseId": 21193,
-      "title": "Standard Terms for TopCoder Competitions v2.1",
+      "title": "Standard Terms for Topcoder Competitions v2.1",
       "url": "",
       "agreeabilityType": "Electronically-agreeable",
       "agreed": true,
@@ -26,7 +26,7 @@
     }
   ],
   "serverInformation": {
-    "serverName": "TopCoder API",
+    "serverName": "Topcoder API",
     "apiVersion": "0.0.1",
     "requestDuration": 29,
     "currentTime": 1504878884618
