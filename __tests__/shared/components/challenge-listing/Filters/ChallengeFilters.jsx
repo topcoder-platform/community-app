@@ -25,6 +25,7 @@ const showTrackModal = jest.fn();
 const mockDatas = [{
   challengeGroupId: '1',
   communityFilters: [{ filter: {} }],
+  challenges: [],
   communityName: 'name',
   expanded: false,
   filterState: {},

@@ -54,7 +54,6 @@ function ChallengeCard({
   userHandle,
 }) {
   const challenge = passedInChallenge;
-
   challenge.isDataScience = false;
   if (challenge.technologies.includes('Data Science')) {
     challenge.isDataScience = true;

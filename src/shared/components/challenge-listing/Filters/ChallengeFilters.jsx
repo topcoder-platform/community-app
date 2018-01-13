@@ -22,9 +22,11 @@ export default function ChallengeFilters({
   communityFilters,
   communityName,
   defaultCommunityId,
+  challenges,
   expanded,
   filterState,
   isAuth,
+  auth,
   hideSrm,
   isCardTypeSet,
   isReviewOpportunitiesBucket,
@@ -142,8 +144,10 @@ export default function ChallengeFilters({
         communityFilters={communityFilters}
         communityName={communityName}
         defaultCommunityId={defaultCommunityId}
+        challenges={challenges}
         hidden={!expanded}
         isAuth={isAuth}
+        auth={auth}
         isReviewOpportunitiesBucket={isReviewOpportunitiesBucket}
         filterState={filterState}
         onClose={() => setExpanded(false)}
@@ -178,15 +182,18 @@ ChallengeFilters.defaultProps = {
   isReviewOpportunitiesBucket: false,
   isSavingFilter: false,
   setCardType: _.noop,
+  challenges: [],
 };
 
 ChallengeFilters.propTypes = {
   communityFilters: PT.arrayOf(PT.shape()).isRequired,
   communityName: PT.string,
   defaultCommunityId: PT.string.isRequired,
+  challenges: PT.arrayOf(PT.shape()),
   expanded: PT.bool.isRequired,
   filterState: PT.shape().isRequired,
   isAuth: PT.bool,
+  auth: PT.shape().isRequired,
   hideSrm: PT.bool.isRequired,
   isCardTypeSet: PT.string,
   isSavingFilter: PT.bool,
