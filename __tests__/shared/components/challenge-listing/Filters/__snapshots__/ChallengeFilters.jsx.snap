@@ -45,7 +45,7 @@ exports[`Matches shallow shapshot shapshot 1`] = `
     </span>
   </div>
   <FiltersPanel
-    auth={null}
+    auth={undefined}
     challenges={Array []}
     communityFilters={
       Array [
@@ -194,7 +194,7 @@ exports[`Matches shallow shapshot shapshot 2`] = `
     </span>
   </div>
   <FiltersPanel
-    auth={null}
+    auth={undefined}
     challenges={Array []}
     communityFilters={
       Array [

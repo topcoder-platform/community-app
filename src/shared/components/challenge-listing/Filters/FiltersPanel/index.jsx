@@ -1,4 +1,5 @@
 /* eslint jsx-a11y/no-static-element-interactions:0 */
+/* global window */
 
 /**
  * Challenge filters panel.
@@ -20,6 +21,7 @@
  */
 
 import _ from 'lodash';
+import config from 'utils/config';
 import * as Filter from 'utils/challenge-listing/filter';
 import React from 'react';
 import PT from 'prop-types';
@@ -78,8 +80,16 @@ export default function FiltersPanel({
         <div>
           You are <span styleName="bold uppercase">not</span> registered.
           <Link
-            to={`/community/${community.communityId}/home`}
+            onMouseDown={(e) => {
+              const url = community.mainSubdomain ? (
+                config.URL.BASE.replace(/www/, community.mainSubdomain)
+              ) : `/community/${community.communityId}`;
+              window.open(url);
+              e.stopPropagation();
+              e.preventDefault();
+            }}
             styleName="learn-more-link"
+            to=""
             openInNewTab
           >
             Learn more

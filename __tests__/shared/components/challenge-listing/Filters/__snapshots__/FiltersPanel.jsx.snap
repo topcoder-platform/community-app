@@ -79,12 +79,14 @@ exports[`Matches shallow shapshot 1`] = `
                 "label": <div>
                   Sample community
                 </div>,
+                "name": "Sample community",
                 "value": "123",
               },
             ]
           }
           simpleValue={true}
           value="1"
+          valueRenderer={[Function]}
         />
       </div>
     </div>
@@ -275,12 +277,14 @@ exports[`Matches shallow shapshot 2`] = `
                 "label": <div>
                   Sample community
                 </div>,
+                "name": "Sample community",
                 "value": "123",
               },
             ]
           }
           simpleValue={true}
           value="1"
+          valueRenderer={[Function]}
         />
       </div>
     </div>
