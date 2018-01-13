@@ -31,18 +31,18 @@
         {
             "eventName": "tco18",
             "eventId": 3450,
-            "description": "2018 TopCoder(R) Open"
+            "description": "2018 Topcoder(R) Open"
         }
     ],
     "mainEvent": {
         "eventName": "tco18",
         "eventId": 3450,
-        "description": "2018 TopCoder(R) Open"
+        "description": "2018 Topcoder(R) Open"
     },
     "terms": [
         {
             "termsOfUseId": 21193,
-            "title": "Standard Terms for TopCoder Competitions v2.1",
+            "title": "Standard Terms for Topcoder Competitions v2.1",
             "url": "",
             "agreeabilityType": "Electronically-agreeable",
             "role": "Submitter"

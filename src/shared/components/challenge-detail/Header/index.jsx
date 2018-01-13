@@ -11,11 +11,9 @@ import 'moment-duration-format';
 import PT from 'prop-types';
 import React from 'react';
 import { DangerButton, PrimaryButton } from 'components/buttons';
-import { ThemeProvider } from 'react-css-super-themr';
 
 import ArrowUp from '../../../../assets/images/icon-arrow-up.svg';
 import ArrowDown from '../../../../assets/images/icon-arrow-down.svg';
-import themeFactory from '../themeFactory';
 
 import Prizes from './Prizes';
 import ChallengeTags from './ChallengeTags';
@@ -86,7 +84,6 @@ export default function ChallengeHeader(props) {
     trackLower = 'datasci';
   }
 
-  const theme = themeFactory(trackLower);
   const eventNames = (events || []).map((event => (event.eventName || '').toUpperCase()));
 
   const miscTags = _.union(
@@ -114,11 +111,12 @@ export default function ChallengeHeader(props) {
     nextPhase = currentPhases[1] || {};
   }
   const nextDeadline = nextPhase.phaseType;
-  const deadlineEnd = nextPhase ?
-    new Date(nextPhase.scheduledEndTime).getTime() : Date.now();
-  const currentTime = Date.now();
 
-  let timeLeft = deadlineEnd > currentTime ? deadlineEnd - currentTime : 0;
+  const deadlineEnd = moment(nextPhase && nextPhase.scheduledEndTime);
+  const currentTime = moment();
+
+  let timeLeft = deadlineEnd.isAfter(currentTime)
+    ? deadlineEnd.diff(currentTime) : 0;
 
   let format;
   if (timeLeft > DAY_MS) format = 'D[d] H[h]';
@@ -214,128 +212,127 @@ export default function ChallengeHeader(props) {
   }
 
   return (
-    <ThemeProvider theme={theme} >
-      <div styleName="challenge-outer-container">
-        <div styleName="important-detail">
-          <h1 styleName="challenge-header">{name}</h1>
-          <ChallengeTags
-            subTrack={subTrack}
-            challengesUrl={challengesUrl}
-            challengeSubtracksMap={challengeSubtracksMap}
-            events={eventNames}
-            technPlatforms={miscTags}
-            setChallengeListingFilter={setChallengeListingFilter}
-          />
-          <div styleName="prizes-ops-container">
-            <div styleName="prizes-outer-container">
-              <h3 styleName="prizes-title">PRIZES</h3>
-              <Prizes prizes={prizes && prizes.length ? prizes : [0]} />
-              {
-                bonusType ? (
-                  <div id={`bonus-${trackLower}`} styleName="bonus-div">
-                    {
-                      bonusType === 'Bonus' ?
-                        <p styleName="bonus-text">
-                          <span styleName={`bonus-highlight ${trackLower}-accent-color`}>
-                            BONUS: {numberOfCheckpointsPrizes} </span>CHECKPOINTS AWARDED
-                            WORTH <span styleName={`bonus-highlight ${trackLower}-accent-color`}>${topCheckPointPrize} </span>EACH
-                        </p> :
-                        <p styleName="bonus-text">
-                          <span styleName={`bonus-highlight ${trackLower}-accent-color`}>
-                            RELIABILITY BONUS: ${reliabilityBonus.toFixed()}
-                          </span>
-                        </p>
-                    }
-                  </div>
-                ) : null
-              }
-              {
-                drPoints ? (
-                  <div styleName="bonus-div">
-                    <p styleName="bonus-text">
-                      <span styleName={`bonus-highlight ${trackLower}-accent-color`}>POINTS: {drPoints}</span>
-                    </p>
-                  </div>
-                ) : null
-              }
-            </div>
-            <div styleName="challenge-ops-wrapper">
-              <div styleName="challenge-ops-container">
-                {hasRegistered ? (
-                  <DangerButton
-                    disabled={unregistering || registrationEnded
-                      || hasSubmissions}
-                    onClick={unregisterFromChallenge}
-                    theme={{ button: style.challengeAction }}
-                  >Unregister</DangerButton>
-                ) : (
-                  <PrimaryButton
-                    disabled={registering || registrationEnded}
-                    onClick={registerForChallenge}
-                    theme={{ button: style.challengeAction }}
-                  >Register</PrimaryButton>
-                )}
-                <PrimaryButton
-                  disabled={!hasRegistered || unregistering || submissionEnded}
-                  theme={{ button: style.challengeAction }}
-                  to={`${challengesUrl}/${challengeId}/submit`}
-                >Submit</PrimaryButton>
-                { track === 'DESIGN' && hasRegistered && !unregistering
-                  && hasSubmissions && (
-                    <PrimaryButton
-                      theme={{ button: style.challengeAction }}
-                      to={`${challengesUrl}/${challengeId}/my-submissions`}
-                    >View Submissions</PrimaryButton>
-                  )
-                }
-              </div>
-            </div>
-          </div>
-          <div styleName="deadlines-view">
-            <div styleName="deadlines-overview">
-              <div styleName="deadlines-overview-text">
-                {nextDeadlineMsg}
-                {
-                  (status || '').toLowerCase() === 'active' &&
-                  <div styleName="current-phase">
-                    <span styleName="deadline-highlighted">
-                      {timeLeft}
-                    </span> until current deadline ends
-                  </div>
-                }
-              </div>
-              <a
-                onClick={props.onToggleDeadlines}
-                role="button"
-                styleName="deadlines-collapser"
-                tabIndex={0}
-              >
-                {props.showDeadlineDetail ?
-                  <span styleName="collapse-text">Hide Deadlines <ArrowDown /></span>
-                  : <span styleName="collapse-text">Show Deadlines <ArrowUp /></span>
-                }
-              </a>
-            </div>
+    <div styleName="challenge-outer-container">
+      <div styleName="important-detail">
+        <h1 styleName="challenge-header">{name}</h1>
+        <ChallengeTags
+          subTrack={subTrack}
+          track={trackLower}
+          challengesUrl={challengesUrl}
+          challengeSubtracksMap={challengeSubtracksMap}
+          events={eventNames}
+          technPlatforms={miscTags}
+          setChallengeListingFilter={setChallengeListingFilter}
+        />
+        <div styleName="prizes-ops-container">
+          <div styleName="prizes-outer-container">
+            <h3 styleName="prizes-title">PRIZES</h3>
+            <Prizes prizes={prizes && prizes.length ? prizes : [0]} />
             {
-              props.showDeadlineDetail &&
-              <DeadlinesPanel deadlines={relevantPhases} />
+              bonusType ? (
+                <div id={`bonus-${trackLower}`} styleName="bonus-div">
+                  {
+                    bonusType === 'Bonus' ?
+                      <p styleName="bonus-text">
+                        <span styleName={`bonus-highlight ${trackLower}-accent-color`}>
+                          BONUS: {numberOfCheckpointsPrizes} </span>CHECKPOINTS AWARDED
+                          WORTH <span styleName={`bonus-highlight ${trackLower}-accent-color`}>${topCheckPointPrize} </span>EACH
+                      </p> :
+                      <p styleName="bonus-text">
+                        <span styleName={`bonus-highlight ${trackLower}-accent-color`}>
+                          RELIABILITY BONUS: ${reliabilityBonus.toFixed()}
+                        </span>
+                      </p>
+                  }
+                </div>
+              ) : null
+            }
+            {
+              drPoints ? (
+                <div styleName="bonus-div">
+                  <p styleName="bonus-text">
+                    <span styleName={`bonus-highlight ${trackLower}-accent-color`}>POINTS: {drPoints}</span>
+                  </p>
+                </div>
+              ) : null
             }
           </div>
-          <TabSelector
-            challenge={challenge}
-            onSelectorClicked={props.onSelectorClicked}
-            trackLower={trackLower}
-            selectedView={props.selectedView}
-            numRegistrants={numRegistrants}
-            numWinners={numWinners}
-            hasCheckpoints={checkpoints && checkpoints.length > 0}
-            numSubmissions={numSubmissions}
-            hasRegistered={hasRegistered}
-            checkpointCount={checkpointCount}
-          />
+          <div styleName="challenge-ops-wrapper">
+            <div styleName="challenge-ops-container">
+              {hasRegistered ? (
+                <DangerButton
+                  disabled={unregistering || registrationEnded
+                    || hasSubmissions}
+                  onClick={unregisterFromChallenge}
+                  theme={{ button: style.challengeAction }}
+                >Unregister</DangerButton>
+              ) : (
+                <PrimaryButton
+                  disabled={registering || registrationEnded}
+                  onClick={registerForChallenge}
+                  theme={{ button: style.challengeAction }}
+                >Register</PrimaryButton>
+              )}
+              <PrimaryButton
+                disabled={!hasRegistered || unregistering || submissionEnded}
+                theme={{ button: style.challengeAction }}
+                to={`${challengesUrl}/${challengeId}/submit`}
+              >Submit</PrimaryButton>
+              { track === 'DESIGN' && hasRegistered && !unregistering
+                && hasSubmissions && (
+                  <PrimaryButton
+                    theme={{ button: style.challengeAction }}
+                    to={`${challengesUrl}/${challengeId}/my-submissions`}
+                  >View Submissions</PrimaryButton>
+                )
+              }
+            </div>
+          </div>
         </div>
+        <div styleName="deadlines-view">
+          <div styleName="deadlines-overview">
+            <div styleName="deadlines-overview-text">
+              {nextDeadlineMsg}
+              {
+                (status || '').toLowerCase() === 'active' &&
+                <div styleName="current-phase">
+                  <span styleName="deadline-highlighted">
+                    {timeLeft}
+                  </span> until current deadline ends
+                </div>
+              }
+            </div>
+            <a
+              onClick={props.onToggleDeadlines}
+              role="button"
+              styleName="deadlines-collapser"
+              tabIndex={0}
+            >
+              {props.showDeadlineDetail ?
+                <span styleName="collapse-text">Hide Deadlines <ArrowDown /></span>
+                : <span styleName="collapse-text">Show Deadlines <ArrowUp /></span>
+              }
+            </a>
+          </div>
+          {
+            props.showDeadlineDetail &&
+            <DeadlinesPanel deadlines={relevantPhases} />
+          }
+        </div>
+        <TabSelector
+          challenge={challenge}
+          onSelectorClicked={props.onSelectorClicked}
+          trackLower={trackLower}
+          selectedView={props.selectedView}
+          numRegistrants={numRegistrants}
+          numWinners={numWinners}
+          hasCheckpoints={checkpoints && checkpoints.length > 0}
+          numSubmissions={numSubmissions}
+          hasRegistered={hasRegistered}
+          checkpointCount={checkpointCount}
+        />
       </div>
-    </ThemeProvider>
+    </div>
   );
 }
 

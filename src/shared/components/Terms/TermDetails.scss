@@ -3,6 +3,43 @@
 .body {
   border: 1px solid $tc-gray-30;
   word-break: break-word;
+  padding: 20px;
+  color: $tc-gray-80;
+  font-size: 15px;
+  line-height: 25px;
+
+  h2 {
+    line-height: 30px;
+    font-size: 20px;
+    color: $tc-gray-80;
+
+    &:first-child {
+      display: none;
+    }
+
+    @include sm {
+      padding: 0 15px;
+    }
+  }
+
+  h3 {
+    font-weight: 700;
+    padding: 20px 0;
+    color: $tc-black;
+
+    &:nth-child(2) {
+      padding: 0 0 30px;
+    }
+  }
+
+  h4 {
+    color: $tc-red;
+    padding: 20px 0;
+  }
+
+  br + br {
+    display: none;
+  }
 }
 
 .frame {
