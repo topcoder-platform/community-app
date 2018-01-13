@@ -12,6 +12,7 @@ exports[`Matches shallow shapshot 1`] = `
     xmlns="http://www.w3.org/2000/svg"
   />
   <input
+    aria-label="Find members by username or skill"
     onKeyPress={[Function]}
     placeholder="Find members by username or skill"
   />
