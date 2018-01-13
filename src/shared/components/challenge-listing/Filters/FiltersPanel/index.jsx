@@ -119,10 +119,9 @@ export default function FiltersPanel({
       <div>
         <Tooltip
           position="bottomRight"
-          className="community-tooltip"
           trigger={['hover']}
           content={
-            <div>
+            <div style={{ padding: '15px', borderRadius: '5px' }}>
               <p>You are { !visitorRegisteredToCommunity && 'NOT'} registered for this sub community.</p>
               <p>There are {challengesInCommunity} challenges in this sub community</p>
             </div>
