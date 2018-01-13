@@ -32,7 +32,10 @@ export default class MultiEditor extends React.Component {
 
   componentDidMount() {
     const { connector } = this.props;
-    if (connector) connector.addEditor(this);
+    if (connector) {
+      connector.addEditor(this);
+      this.fakeConnector.setPreviewer(connector.previewer);
+    }
   }
 
   componentWillReceiveProps({ connector, id }) {
@@ -40,7 +43,10 @@ export default class MultiEditor extends React.Component {
     this.id = id;
     if (connector !== prevConnector) {
       if (prevConnector) prevConnector.removeEditor(this);
-      if (connector) connector.addEditor(this);
+      if (connector) {
+        connector.addEditor(this);
+        this.fakeConnector.setPreviewer(connector.previewer);
+      }
     }
   }
 
@@ -116,7 +122,7 @@ export default class MultiEditor extends React.Component {
             }}
           />
         );
-      case MODES.WYSIWYG:
+      case MODES.WYSIWYG: {
         return (
           <WysiwygEditor
             connector={this.fakeConnector}
@@ -125,6 +131,7 @@ export default class MultiEditor extends React.Component {
             }}
           />
         );
+      }
       default: throw new Error('Unknown mode');
     }
   }
