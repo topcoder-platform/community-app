@@ -90,7 +90,7 @@ class TermsService {
    * @return {Promise}       promise of the request result
    */
   getDocuSignUrl(templateId, returnUrl) {
-    return this.private.api.post('/terms/docusign/viewURL', {
+    return this.private.api.postJson('/terms/docusign/viewURL', {
       param: {
         templateId,
         returnUrl,
