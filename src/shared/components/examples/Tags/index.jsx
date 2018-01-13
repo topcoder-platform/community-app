@@ -2,15 +2,13 @@ import _ from 'lodash';
 import React from 'react';
 import {
   Tag,
-  PrimaryTag,
-  EventTag,
+  DataScienceTrackEventTag,
+  DataScienceTrackTag,
+  DesignTrackEventTag,
+  DesignTrackTag,
+  DevelopmentTrackEventTag,
+  DevelopmentTrackTag,
 } from 'components/tags';
-import { ThemeProvider } from 'react-css-super-themr';
-
-import primaryDataScienceTagStyle from 'components/tags/primary/data-science.scss';
-import primaryDevelopTagStyle from 'components/tags/primary/develop.scss';
-import eventDevelopTagStyle from 'components/tags/event/develop.scss';
-import eventDataScienceTagStyle from 'components/tags/event/data-science.scss';
 
 import style from './style.scss';
 
@@ -31,56 +29,18 @@ export default function Tags() {
       <Tag>Tag</Tag>
       <Tag to="#default-tag">Link Tag</Tag>
 
-      <h3>Primary Tag</h3>
+      <h3>Track-specific tags</h3>
 
-      <p>Default &mdash; design color scheme:</p>
-      <PrimaryTag>Tag</PrimaryTag>
-      <PrimaryTag to=".">Link Tag</PrimaryTag>
-
-      <p>Develop color scheme (underlying source code also
-        demonstrates the proper context theming in action):</p>
-
-      <ThemeProvider
-        theme={{ PrimaryTag: primaryDevelopTagStyle }}
-      >
-        <div>
-          <PrimaryTag>Tag</PrimaryTag>
-          <PrimaryTag to=".">Link Tag</PrimaryTag>
-        </div>
-      </ThemeProvider>
-
-      <p>Data science color scheme:</p>
-      <ThemeProvider
-        theme={{ PrimaryTag: primaryDataScienceTagStyle }}
-      >
-        <div>
-          <PrimaryTag>Tag</PrimaryTag>
-          <PrimaryTag to=".">Link Tag</PrimaryTag>
-        </div>
-      </ThemeProvider>
-
-      <h3>Event Tag</h3>
-      <p>Default &mdash; design color scheme:</p>
-      <EventTag>Tag</EventTag>
-      <EventTag to=".">Link Tag</EventTag>
-      <p>Develop color scheme:</p>
-      <ThemeProvider
-        theme={{ EventTag: eventDevelopTagStyle }}
-      >
-        <div>
-          <EventTag>Tag</EventTag>
-          <EventTag to=".">Link Tag</EventTag>
-        </div>
-      </ThemeProvider>
-      <p>Data Science color scheme:</p>
-      <ThemeProvider
-        theme={{ EventTag: eventDataScienceTagStyle }}
-      >
-        <div>
-          <EventTag>Tag</EventTag>
-          <EventTag to=".">Link Tag</EventTag>
-        </div>
-      </ThemeProvider>
+      <DataScienceTrackTag>Data science track tag</DataScienceTrackTag>
+      <DataScienceTrackEventTag>
+        Data science track event tag
+      </DataScienceTrackEventTag>
+      <DesignTrackTag>Design track tag</DesignTrackTag>
+      <DesignTrackEventTag>Design track event tag</DesignTrackEventTag>
+      <DevelopmentTrackTag>Development track tag</DevelopmentTrackTag>
+      <DevelopmentTrackEventTag>
+        Development track event tag
+      </DevelopmentTrackEventTag>
     </div>
   );
 }
