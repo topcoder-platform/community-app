@@ -73,7 +73,7 @@ export default class Communities {
         let metadata;
         if (COMMUNITY_META_DATA[communityId]) {
           metadata = COMMUNITY_META_DATA[communityId];
-          resolve(metadata, knownGroups);
+          resolve(metadata);
         } else {
           const uri = path.resolve(__dirname, '../tc-communities',
             communityId, 'metadata.json');
@@ -85,14 +85,13 @@ export default class Communities {
             }
             COMMUNITY_META_DATA[communityId] = JSON.parse(res);
             metadata = COMMUNITY_META_DATA[communityId];
-            return resolve(metadata, knownGroups);
+            return resolve(metadata);
           });
         }
       });
 
-      return promise.then((metadata) => {
-        this.private.getGroomedMetadata(metadata, knownGroups);
-      });
+      return promise.then(metadata =>
+        this.private.getGroomedMetadata(metadata, knownGroups));
     };
 
     this.private.getGroomedMetadata = (metadata, knownGroups) => {
