@@ -150,7 +150,7 @@ app.use('/community-app-assets/iframe-break', checkAuthorizationHeader, (req, re
  * HTML document (/src/shared/services/__mocks__/data/docu-sign-mock.html)
  * that has two buttons, that do the same redirects, as the real DocuSign
  * page would do on signing / rejecting a document. */
-app.use('/community-app-assets/api/mock/docu-sign', checkAuthorizationHeader, (req, res) =>
+app.use('/community-app-assets/api/mock/docu-sign', (req, res) =>
   /* The real DocuSign API does not return the page immediately,
    * thus timeout to imitate this in our mock. 3 seconds just an arbitrary
    * choice. */
