@@ -20,6 +20,7 @@ export function toJson(xml) {
     body: JSON.stringify({ xml }),
     headers: {
       'Content-Type': 'application/json',
+      Authorization: `ApiKey ${process.env.SERVER_API_KEY}`,
     },
     method: 'POST',
   }).then(res => res.json());
