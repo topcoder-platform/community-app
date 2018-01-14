@@ -142,7 +142,7 @@ app.use('/community-app-assets/api/exchange-rates', checkAuthorizationHeader, (r
 
 /* Receive the signing result from DocuSign server, and then send result to client
  */
-app.use('/community-app-assets/iframe-break', checkAuthorizationHeader, (req, res) => {
+app.use('/community-app-assets/iframe-break', (req, res) => {
   res.send(`<script>parent.postMessage(${serializeJs({ ...req.query, type: 'DocuSign' })}, '*')</script>`);
 });
 
