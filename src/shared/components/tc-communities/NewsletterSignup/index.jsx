@@ -13,6 +13,8 @@ import { fireErrorMessage } from 'utils/errors';
 import qs from 'qs';
 import defaultStyle from './style.scss';
 
+const config = window.CONFIG;
+
 class NewsletterSignup extends React.Component {
   subscribe() {
     const { apikey, url } = this.props;
@@ -27,6 +29,7 @@ class NewsletterSignup extends React.Component {
         body: formData,
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded',
+          Authorization: `ApiKey ${config.SERVER_API_KEY}`,
         },
         method: 'POST',
       }).then(res => res.text())
