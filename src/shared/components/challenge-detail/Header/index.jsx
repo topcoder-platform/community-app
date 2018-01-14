@@ -274,12 +274,12 @@ export default function ChallengeHeader(props) {
                   theme={{ button: style.challengeAction }}
                 >Unregister</DangerButton>
               ) : (
-                  <PrimaryButton
-                    disabled={registering || registrationEnded}
-                    onClick={registerForChallenge}
-                    theme={{ button: style.challengeAction }}
-                  >Register</PrimaryButton>
-                )}
+                <PrimaryButton
+                  disabled={registering || registrationEnded}
+                  onClick={registerForChallenge}
+                  theme={{ button: style.challengeAction }}
+                >Register</PrimaryButton>
+              )}
               <PrimaryButton
                 disabled={!hasRegistered || unregistering || submissionEnded}
                 theme={{ button: style.challengeAction }}
