@@ -114,11 +114,10 @@ export default function ChallengeHeader(props) {
     nextPhase = currentPhases[1] || {};
   }
   const nextDeadline = nextPhase.phaseType;
-  const deadlineEnd = nextPhase ?
-    new Date(nextPhase.scheduledEndTime).getTime() : Date.now();
-  const currentTime = Date.now();
+  const deadlineEnd = moment(nextPhase && nextPhase.scheduledEndTime);
+  const currentTime = moment();
 
-  let timeLeft = deadlineEnd - currentTime;
+  let timeLeft = deadlineEnd.diff(currentTime);
   let behindSchedule = (timeLeft < 0);
   timeLeft = Math.abs(timeLeft);
 
