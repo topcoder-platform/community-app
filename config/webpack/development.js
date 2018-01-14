@@ -15,7 +15,7 @@ entry.main = [
 
 delete defaultConfig.entry;
 
-module.exports = webpackMerge(defaultConfig, {
+module.exports = webpackMerge.smart(defaultConfig, {
   entry,
   module: {
     rules: [{

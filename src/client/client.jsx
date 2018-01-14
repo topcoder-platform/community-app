@@ -7,7 +7,7 @@ import authActions from 'actions/auth';
 import directActions from 'actions/direct';
 import userGroupsActions from 'actions/groups';
 import cookies from 'browser-cookies';
-import { BrowserRouter, browserHistory } from 'react-router-dom';
+import { BrowserRouter } from 'react-router-dom';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
@@ -125,7 +125,7 @@ storeFactory(undefined, window.ISTATE).then((store) => {
     const App = require('../shared').default; // eslint-disable-line global-require
     ReactDOM.hydrate(
       <Provider store={store}>
-        <BrowserRouter history={browserHistory}>
+        <BrowserRouter>
           <App />
         </BrowserRouter>
       </Provider>,

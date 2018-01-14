@@ -6,7 +6,7 @@ const webpackMerge = require('webpack-merge'); // eslint-disable-line import/no-
 
 const defaultConfig = require('./default');
 
-module.exports = webpackMerge(defaultConfig, {
+module.exports = webpackMerge.smart(defaultConfig, {
   module: {
     noParse: [
       /* NodeJS library for https://logentries.com. It is server-side only. */
