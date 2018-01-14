@@ -11,7 +11,7 @@
 }
 
 .container {
-  color: #000;
+  color: $tc-black;
   font-family: roboto;
 }
 
@@ -44,6 +44,7 @@
   font-size: 28px;
   margin-bottom: 1.5 * $base-unit;
   text-align: center;
+  color: $tc-gray-80;
 }
 
 // TODO: All classes below should be sorted alphabetically for convenience.
@@ -52,6 +53,7 @@
   margin-top: 24px;
   font-size: 15px;
   line-height: 25px;
+  color: $tc-gray-85;
 
   @include sm {
     margin-top: 20px;
@@ -60,7 +62,7 @@
 
 .tabs-outer {
   position: relative;
-  margin: 20px 0 25px;
+  margin: 20px 0;
 }
 
 .tabs-inner {
@@ -136,8 +138,18 @@
   margin-left: 5px;
   cursor: pointer;
   font-size: 13px;
-  max-width: 95px;
-  min-width: 70px;
+  line-height: 15px;
+  max-width: 175px;
+  min-width: 110px;
+  color: $tc-gray-80;
+
+  &:first-child {
+    margin-left: 0;
+  }
+
+  &:last-child {
+    margin-right: 0;
+  }
 
   @include sm {
     display: inline-block;
@@ -186,6 +198,7 @@
   line-height: 30px;
   font-size: 20px;
   margin-bottom: 10px;
+  color: $tc-gray-80;
 
   @include sm {
     padding: 0 15px;

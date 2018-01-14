@@ -6,6 +6,7 @@ import _ from 'lodash';
 import config from 'utils/config';
 import Editor from 'components/Editor/MultiEditor';
 import EditorToolbar from 'components/Editor/Toolbar';
+import Previewer from 'components/Editor/Previewer';
 import ToolbarConnector from 'components/Editor/Connector';
 import React from 'react';
 import Sticky from 'react-stickynode';
@@ -123,10 +124,16 @@ export default function ChallengeDetailsView(props) {
       }
       {
         editMode ? (
-          <EditorToolbar
-            connector={toolbarConnector}
-            onSave={saveChallenge}
-          />
+          <div>
+            <EditorToolbar
+              connector={toolbarConnector}
+              nodeId="editor-toolbar"
+              onSave={saveChallenge}
+            />
+            <Sticky innerZ={1} top="#editor-toolbar">
+              <Previewer connector={toolbarConnector} />
+            </Sticky>
+          </div>
         ) : null
       }
       <div styleName="challenge-details-view">

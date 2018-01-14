@@ -285,7 +285,7 @@ export default function ChallengeHeader(props) {
                 theme={{ button: style.challengeAction }}
                 to={`${challengesUrl}/${challengeId}/submit`}
               >Submit</PrimaryButton>
-              {track === 'DESIGN' && hasRegistered && !unregistering
+              { track === 'DESIGN' && hasRegistered && !unregistering
                 && hasSubmissions && (
                   <PrimaryButton
                     theme={{ button: style.challengeAction }}

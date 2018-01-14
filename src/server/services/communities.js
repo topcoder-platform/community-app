@@ -23,6 +23,8 @@ const SUBDOMAIN_COMMUNITY = {};
  * Community metadata are currently read from config files. Here we lookup all
  * of them at startup to reuse later in the service.
  */
+const COMMUNITY_META_DATA = {};
+
 const METADATA_PATH = path.resolve(__dirname, '../tc-communities');
 const VALID_IDS = isServerSide()
 && fs.readdirSync(METADATA_PATH).filter((id) => {
@@ -64,49 +66,64 @@ export default class Communities {
      * a map of known user groups as the second argument. This method can mutate
      * its second argument; and it does not care about timestamps of known
      * groups, assuming they are up-to-date. */
-    this.private.getMetadata = (communityId, knownGroups = {}) =>
-      new Promise((resolve, reject) => {
-        const uri = path.resolve(__dirname, '../tc-communities',
-          communityId, 'metadata.json');
-
-        /* Metadata itself, at the moment, are read from configuration files. */
-        fs.readFile(uri, 'utf8', (err, res) => {
-          if (err) {
-            const msg = `Failed to get metadata for ${communityId} community`;
-            logger.error(msg, err);
-            return reject({ error: msg });
-          }
-
-          /* Once we have loaded metadata, we extend all fields that hold user
-           * group IDs with IDs of their descendant groups. This simplifies
-           * a lot of code depending on community metadata, as then there is
-           * no need to handle user groups data in each place where we rely on
-           * group IDs from metadata. */
-          const unknownGroups = [];
-          const data = JSON.parse(res);
-          const challengeGroupIds = _.get(data, 'challengeFilter.groupIds');
-          addUnknown(data.authorizedGroupIds, knownGroups, unknownGroups);
-          addUnknown(challengeGroupIds, knownGroups, unknownGroups);
-          addUnknown(data.groupIds, knownGroups, unknownGroups);
-          return Promise.resolve(unknownGroups.length ? (
-            this.private.groupsService.getGroupMap(unknownGroups)
-              .then(map => _.assign(knownGroups, map))
-          ) : null).then(() => {
-            if (data.authorizedGroupIds) {
-              data.authorizedGroupIds = addDescendantGroups(
-                data.authorizedGroupIds, knownGroups);
+    this.private.getMetadata = (communityId, knownGroups = {}) => {
+      const promise = new Promise((resolve, reject) => {
+        /* Metadata itself, at the moment, are read from configuration files.
+        * And in-memory data will be used if already exists */
+        let metadata;
+        if (COMMUNITY_META_DATA[communityId]) {
+          metadata = COMMUNITY_META_DATA[communityId];
+          resolve(metadata);
+        } else {
+          const uri = path.resolve(__dirname, '../tc-communities',
+            communityId, 'metadata.json');
+          fs.readFile(uri, 'utf8', (err, res) => {
+            if (err) {
+              const msg = `Failed to get metadata for ${communityId} community`;
+              logger.error(msg, err);
+              return reject({ error: msg });
             }
-            if (data.groupIds) {
-              data.groupIds = addDescendantGroups(data.groupIds, knownGroups);
-            }
-            if (challengeGroupIds) {
-              data.challengeFilter.groupIds = addDescendantGroups(
-                challengeGroupIds, knownGroups);
-            }
-            resolve(data);
+            COMMUNITY_META_DATA[communityId] = JSON.parse(res);
+            metadata = COMMUNITY_META_DATA[communityId];
+            return resolve(metadata);
           });
-        });
+        }
       });
+
+      return promise.then(metadata =>
+        this.private.getGroomedMetadata(metadata, knownGroups));
+    };
+
+    this.private.getGroomedMetadata = (metadata, knownGroups) => {
+      /* Once we have loaded metadata, we extend all fields that hold user
+      * group IDs with IDs of their descendant groups. This simplifies
+      * a lot of code depending on community metadata, as then there is
+      * no need to handle user groups data in each place where we rely on
+      * group IDs from metadata. */
+      const unknownGroups = [];
+      const groomedMetadata = metadata;
+      const challengeGroupIds = _.get(groomedMetadata, 'challengeFilter.groupIds');
+      addUnknown(groomedMetadata.authorizedGroupIds, knownGroups, unknownGroups);
+      addUnknown(challengeGroupIds, knownGroups, unknownGroups);
+      addUnknown(groomedMetadata.groupIds, knownGroups, unknownGroups);
+      return Promise.resolve(unknownGroups.length ? (
+        this.private.groupsService.getGroupMap(unknownGroups)
+          .then(map => _.assign(knownGroups, map))
+      ) : null).then(() => {
+        if (groomedMetadata.authorizedGroupIds) {
+          groomedMetadata.authorizedGroupIds = addDescendantGroups(
+            groomedMetadata.authorizedGroupIds, knownGroups);
+        }
+        if (groomedMetadata.groupIds) {
+          groomedMetadata.groupIds = addDescendantGroups(groomedMetadata.groupIds, knownGroups);
+        }
+        if (challengeGroupIds) {
+          groomedMetadata.challengeFilter.groupIds = addDescendantGroups(
+            challengeGroupIds, knownGroups);
+        }
+        return groomedMetadata;
+      });
+    };
   }
 
   /**

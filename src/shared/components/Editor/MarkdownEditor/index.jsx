@@ -41,6 +41,7 @@ export default class MarkdownEditor extends React.Component {
     const { connector } = this.props;
     this.mdUtils.parse(newState.getCurrentContent());
     if (connector && connector.previewer) {
+      connector.previewer.setVisible(true);
       connector.previewer.setContent(this.mdUtils.getHtml());
     }
     if (this.editor) {

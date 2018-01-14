@@ -10,12 +10,23 @@ import React from 'react';
 import PT from 'prop-types';
 import _ from 'lodash';
 
-import { Tag, EventTag, PrimaryTag } from 'components/tags';
+import {
+  Tag,
+  DataScienceTrackTag,
+  DataScienceTrackEventTag,
+  DesignTrackTag,
+  DesignTrackEventTag,
+  DevelopmentTrackTag,
+  DevelopmentTrackEventTag,
+} from 'components/tags';
+
+import { COMPETITION_TRACKS } from 'utils/tc';
 
 export default function ChallengeTags(props) {
   const {
     challengesUrl,
     subTrack,
+    track,
     events,
     technPlatforms,
     setChallengeListingFilter,
@@ -32,11 +43,30 @@ export default function ChallengeTags(props) {
       .replace(/\w\S*/g, txt => _.capitalize(txt));
   };
 
+  let EventTag;
+  let TrackTag;
+  switch (track) {
+    case COMPETITION_TRACKS.DATA_SCIENCE:
+      EventTag = DataScienceTrackEventTag;
+      TrackTag = DataScienceTrackTag;
+      break;
+    case COMPETITION_TRACKS.DESIGN:
+      EventTag = DesignTrackEventTag;
+      TrackTag = DesignTrackTag;
+      break;
+    case COMPETITION_TRACKS.DEVELOP:
+      EventTag = DevelopmentTrackEventTag;
+      TrackTag = DevelopmentTrackTag;
+      break;
+    default:
+      throw new Error('Wrong competition track value');
+  }
+
   return (
     <div>
       {
         subTrack &&
-        <PrimaryTag
+        <TrackTag
           onClick={() =>
             setImmediate(() =>
               setChallengeListingFilter({ subtracks: [subTrack] }),
@@ -44,7 +74,7 @@ export default function ChallengeTags(props) {
           }
           to={`${challengesUrl}?filter[subtracks][0]=${
             encodeURIComponent(subTrack)}`}
-        >{stylizedSubTrack(subTrack)}</PrimaryTag>
+        >{stylizedSubTrack(subTrack)}</TrackTag>
       }
       {
         events.map(event => (
@@ -85,6 +115,7 @@ ChallengeTags.defaultProps = {
 ChallengeTags.propTypes = {
   challengesUrl: PT.string.isRequired,
   subTrack: PT.string,
+  track: PT.string.isRequired,
   events: PT.arrayOf(PT.string),
   technPlatforms: PT.arrayOf(PT.string),
   setChallengeListingFilter: PT.func.isRequired,
