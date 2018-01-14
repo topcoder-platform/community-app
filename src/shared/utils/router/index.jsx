@@ -42,6 +42,7 @@ export function Link({
   className,
   enforceA,
   onClick,
+  onMouseDown,
   openNewTab,
   replace,
   to,
@@ -68,6 +69,7 @@ export function Link({
           e.preventDefault();
         } else window.scroll(0, 0);
       }}
+      onMouseDown={onMouseDown}
       replace={replace}
       to={to}
     >{children}</RRLink>
@@ -79,6 +81,7 @@ Link.defaultProps = {
   className: null,
   enforceA: false,
   onClick: null,
+  onMouseDown: null,
   openNewTab: false,
   replace: false,
 };
@@ -88,6 +91,7 @@ Link.propTypes = {
   className: PT.string,
   enforceA: PT.bool,
   onClick: PT.func,
+  onMouseDown: PT.func,
   openNewTab: PT.bool,
   replace: PT.bool,
   to: PT.oneOfType([PT.object, PT.string]).isRequired,

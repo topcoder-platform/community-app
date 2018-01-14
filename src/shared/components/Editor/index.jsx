@@ -258,6 +258,9 @@ export default class EditorWrapper extends React.Component {
             return false;
           }}
           onChange={(newState) => {
+            const p = _.get(this, 'props.connector.previewer');
+            if (p) p.setVisible(false);
+
             const hasFocus = newState.getSelection().getHasFocus();
             if (!connector.modified
               && this.initialContent

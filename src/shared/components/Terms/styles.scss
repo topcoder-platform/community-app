@@ -53,6 +53,7 @@
   margin-top: 24px;
   font-size: 15px;
   line-height: 25px;
+  color: $tc-gray-85;
 
   @include sm {
     margin-top: 20px;
@@ -61,7 +62,7 @@
 
 .tabs-outer {
   position: relative;
-  margin: 20px 0 25px;
+  margin: 20px 0;
 }
 
 .tabs-inner {
@@ -138,9 +139,17 @@
   cursor: pointer;
   font-size: 13px;
   line-height: 15px;
-  max-width: 95px;
-  min-width: 70px;
+  max-width: 175px;
+  min-width: 110px;
   color: $tc-gray-80;
+
+  &:first-child {
+    margin-left: 0;
+  }
+
+  &:last-child {
+    margin-right: 0;
+  }
 
   @include sm {
     display: inline-block;

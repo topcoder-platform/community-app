@@ -27,7 +27,7 @@ If you need any operations related to currency conversions, pay attention to the
 
 ### Deployment and Execution
 
-*Disclaimer:* Current instructions are biased towards Ubuntu 16.04. Hovewer, similar recipies should work for other OS. Should you encounter and overcome any tricky issues on other OS, you are welcome to add notes/hints into this file.
+*Disclaimer:* Current instructions are biased towards Ubuntu 16.04. Hovewer, similar recipes should work for other OS. Should you encounter and overcome any tricky issues on other OS, you are welcome to add notes/hints into this file.
 
 1.  You should have the following prerequisites:
     - NodeJS 8.2.1 (other recent versions should also work fine);

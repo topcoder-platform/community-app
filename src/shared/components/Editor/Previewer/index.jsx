@@ -9,6 +9,7 @@ export default class Previewer extends React.Component {
     if (props.connector) props.connector.setPreviewer(this);
     this.state = {
       content: props.initialContent,
+      visible: false,
     };
   }
 
@@ -16,16 +17,27 @@ export default class Previewer extends React.Component {
     setImmediate(() => this.setState({ content }));
   }
 
+  setVisible(visible) {
+    if (visible === this.state.visible) return;
+    setImmediate(() => this.setState({ visible }));
+  }
+
   render() {
     return (
       <div styleName="container">
-        <div styleName="title">Rendering Preview</div>
-        <div
-          /* eslint-disable react/no-danger */
-          dangerouslySetInnerHTML={{ __html: this.state.content }}
-          /* eslint-enable react/no-danger */
-          styleName="content"
-        />
+        {
+          this.state.visible ? (
+            <div>
+              <div styleName="title">Rendering Preview</div>
+              <div
+                /* eslint-disable react/no-danger */
+                dangerouslySetInnerHTML={{ __html: this.state.content }}
+                /* eslint-enable react/no-danger */
+                styleName="content"
+              />
+            </div>
+          ) : null
+        }
       </div>
     );
   }
