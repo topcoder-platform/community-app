@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import config from 'utils/config';
-import { Link } from 'utils/router';
+import { Link } from 'topcoder-react-utils';
 import moment from 'moment';
 import React from 'react';
 import PT from 'prop-types';
