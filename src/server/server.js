@@ -103,7 +103,7 @@ if (USE_DEV_TOOLS) {
 app.use('/community-app-assets', express.static(path.resolve(__dirname, '../../build')));
 
 // serve demo api
-app.use('/community-app-assets/api/tc-communities', checkAuthorizationHeader, tcCommunitiesDemoApi);
+app.use('/community-app-assets/api/tc-communities', tcCommunitiesDemoApi);
 
 /**
  * Auxiliary endpoint for xml -> json conversion (the most popular npm library
