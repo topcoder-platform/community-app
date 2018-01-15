@@ -117,6 +117,7 @@ export default class SplitRoute extends React.Component {
                   dangerouslySetInnerHTML={{
                     __html: window.SPLITS[`${TMP_CHUNK_PREFIX}/${chunkName}`],
                   }}
+                  suppressHydrationWarning
                 />
               );
               /* eslint-disable react/no-danger */
