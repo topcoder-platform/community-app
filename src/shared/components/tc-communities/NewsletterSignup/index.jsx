@@ -10,10 +10,9 @@ import PT from 'prop-types';
 import { PrimaryButton } from 'components/buttons';
 import { themr } from 'react-css-super-themr';
 import { fireErrorMessage } from 'utils/errors';
+import config from 'utils/config';
 import qs from 'qs';
 import defaultStyle from './style.scss';
-
-const config = window.CONFIG;
 
 class NewsletterSignup extends React.Component {
   subscribe() {

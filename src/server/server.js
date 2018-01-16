@@ -1,6 +1,7 @@
 import _ from 'lodash';
 import atob from 'atob';
 import bodyParser from 'body-parser';
+import config from 'config';
 import cookieParser from 'cookie-parser';
 import express from 'express';
 import fetch from 'isomorphic-fetch';
@@ -48,8 +49,7 @@ app.use(cookieParser());
 app.use(requestIp.mw());
 
 const checkAuthorizationHeader = (req, res, next) => {
-  const { authorization } = req.headers;
-  if (authorization !== `ApiKey ${process.env.SERVER_API_KEY}`) {
+  if (req.headers.authorization !== `ApiKey ${config.SERVER_API_KEY}`) {
     return res.status(403).end();
   }
   return next();

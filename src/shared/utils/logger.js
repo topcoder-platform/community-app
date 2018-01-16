@@ -47,7 +47,7 @@ if (isServerSide()) {
       }),
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `ApiKey ${process.env.SERVER_API_KEY}`,
+        Authorization: `ApiKey ${config.SERVER_API_KEY}`,
       },
       method: 'POST',
     }).catch(() => {
