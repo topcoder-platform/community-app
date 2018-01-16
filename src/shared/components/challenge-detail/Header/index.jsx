@@ -114,11 +114,11 @@ export default function ChallengeHeader(props) {
     nextPhase = currentPhases[1] || {};
   }
   const nextDeadline = nextPhase.phaseType;
-  const deadlineEnd = nextPhase ?
-    new Date(nextPhase.scheduledEndTime).getTime() : Date.now();
-  const currentTime = Date.now();
+  const deadlineEnd = moment(nextPhase && nextPhase.scheduledEndTime);
+  const currentTime = moment();
 
-  let timeLeft = deadlineEnd > currentTime ? deadlineEnd - currentTime : 0;
+  let timeLeft = Math.abs(deadlineEnd.diff(currentTime));
+  const behindSchedule = deadlineEnd.isBefore(currentTime);
 
   let format;
   if (timeLeft > DAY_MS) format = 'D[d] H[h]';
@@ -187,12 +187,20 @@ export default function ChallengeHeader(props) {
   let nextDeadlineMsg;
   switch ((status || '').toLowerCase()) {
     case 'active':
-      nextDeadlineMsg = (
-        <div styleName="next-deadline">
-          Next Deadline: <span styleName="deadline-highlighted">
-            {nextDeadline || '-'}</span>
-        </div>
-      );
+      if (currentPhases && currentPhases.length === 0) {
+        nextDeadlineMsg = (
+          <div styleName="completed">
+            The challenge is stalled.
+          </div>
+        );
+      } else {
+        nextDeadlineMsg = (
+          <div styleName="next-deadline">
+            Next Deadline: <span styleName="deadline-highlighted">
+              {nextDeadline || '-'}</span>
+          </div>
+        );
+      }
       break;
     case 'completed':
       nextDeadlineMsg = (
@@ -296,11 +304,13 @@ export default function ChallengeHeader(props) {
               <div styleName="deadlines-overview-text">
                 {nextDeadlineMsg}
                 {
-                  (status || '').toLowerCase() === 'active' &&
+                  (status || '').toLowerCase() === 'active' && (currentPhases && currentPhases.length > 0) &&
                   <div styleName="current-phase">
+                    {behindSchedule && 'Late by '}
                     <span styleName="deadline-highlighted">
                       {timeLeft}
-                    </span> until current deadline ends
+                    </span>
+                    {!behindSchedule && ' until current deadline ends'}
                   </div>
                 }
               </div>
