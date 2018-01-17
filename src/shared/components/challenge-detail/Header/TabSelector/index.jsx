@@ -30,8 +30,8 @@ export default function ChallengeViewSelector(props) {
     hasRegistered,
   } = props;
 
-  const forumId = _.get(challenge, 'forumId', 0);
-  const roles = _.get(challenge, 'userDetails.roles', []);
+  const forumId = _.get(challenge, 'forumId') || 0;
+  const roles = _.get(challenge, 'userDetails.roles') || [];
 
   const forumEndpoint = trackLower === 'design'
     ? `/?module=ThreadList&forumID=${forumId}`
