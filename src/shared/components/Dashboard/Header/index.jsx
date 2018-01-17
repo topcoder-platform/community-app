@@ -1,7 +1,7 @@
-/** 
- * Child component of Dashboard/Header renders summary of user achievements, 
+/**
+ * Child component of Dashboard/Header renders summary of user achievements,
  * money earned and number of active challenges. Also renders special badges
- * based of acheivement data.  
+ * based of acheivement data.
 */
 import React from 'react';
 import PT from 'prop-types';
