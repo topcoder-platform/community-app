@@ -26,8 +26,8 @@ export default function ChallengeDetailsView(props) {
     communitiesList,
     terms,
     hasRegistered,
-    openTermsModal,
     challenge,
+    challengesUrl,
     savingChallenge,
     setSpecsTabState,
     specsTabState,
@@ -450,6 +450,7 @@ export default function ChallengeDetailsView(props) {
           </div>
         </div>
         <SideBar
+          challengesUrl={challengesUrl}
           screeningScorecardId={screeningScorecardId}
           reviewScorecardId={reviewScorecardId}
           forumLink={forumLink}
@@ -461,7 +462,6 @@ export default function ChallengeDetailsView(props) {
           isDesign={track.toLowerCase() === 'design'}
           isDevelop={track.toLowerCase() === 'develop'}
           terms={terms}
-          openTermsModal={openTermsModal}
           shareable={_.isEmpty(groups)}
           environment={environment}
           codeRepo={codeRepo}
@@ -521,11 +521,11 @@ ChallengeDetailsView.propTypes = {
       roles: PT.arrayOf(PT.string).isRequired,
     }).isRequired,
   }),
+  challengesUrl: PT.string.isRequired,
   communitiesList: PT.arrayOf(PT.shape({
     communityId: PT.string.isRequired,
     groupIds: PT.arrayOf(PT.string).isRequired,
   })).isRequired,
-  openTermsModal: PT.func.isRequired,
   savingChallenge: PT.bool.isRequired,
   setSpecsTabState: PT.func.isRequired,
   specsTabState: PT.string.isRequired,

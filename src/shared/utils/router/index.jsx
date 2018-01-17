@@ -182,7 +182,7 @@ NavLink.propTypes = {
 
 /**
  * Requires the specified module without including it into the bundle during
- * Webpack build. This function should be executed only server-side. 
+ * Webpack build. This function should be executed only server-side.
  * @param {String} modulePath
  * @return Required module.
  */
@@ -200,7 +200,7 @@ export function requireWeak(modulePath) {
  * Note that result of this resolution may be a relative path (relative to the
  * caller module). To resolve it to an absolute path you should do
  * path.resolve(resolveWeak(modulePath)).
- * @param {String} modulePath 
+ * @param {String} modulePath
  * @return {String} Module path.
  */
 export function resolveWeak(modulePath) {

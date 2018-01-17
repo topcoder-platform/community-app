@@ -60,7 +60,11 @@ function refresh() {
   }
   const url = isClientSide() ? '/community-app-assets/api/exchange-rates'
     : `${OE_API}/latest.json?app_id=${OE_TOKEN}`;
-  return fetch(url).then(res => res.json()).then((res) => {
+  return fetch(url, {
+    headers: {
+      Authorization: `ApiKey ${config.SERVER_API_KEY}`,
+    },
+  }).then(res => res.json()).then((res) => {
     cachedRates = res;
     fx.base = res.base;
     fx.rates = res.rates;

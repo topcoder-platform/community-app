@@ -2,7 +2,7 @@
  * A custom component for code splitting support, with react-router routes
  * serving as the split points. Because it is quite complex, here are only
  * some technical comments in the code. For instructions on how to use it
- * refer to 
+ * refer to
  * https://github.com/topcoder-platform/community-app/blob/develop/docs/code-splitting.md
  */
 
@@ -71,7 +71,7 @@ export default class SplitRoute extends React.Component {
           if (isServerSide()) {
             /* Server-side rendering */
 
-            /* 1. The component or its placeholder is rendered into HTML 
+            /* 1. The component or its placeholder is rendered into HTML
              *    string. And, yes, just in case we have to wrap it into
              *    Provider, otherwise containers in the render will break
              *    the code. */
@@ -83,7 +83,7 @@ export default class SplitRoute extends React.Component {
             ));
 
             /* 2. The rendered HTML string is added to the router context,
-             *    to be injected by server/renderer.jsx into the rendered HTML 
+             *    to be injected by server/renderer.jsx into the rendered HTML
              *    document as a field of window.SPLITS object. We also check
              *    that route ID is unique among all matched SplitRoutes. */
             const splits = props.staticContext.splits;
