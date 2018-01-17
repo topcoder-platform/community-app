@@ -180,18 +180,22 @@ function onAgreeTermDone(state, action) {
  * @return {Object} New state.
  */
 function onOpenTermsModal(state, action) {
-  if (action.payload) {
+  const terms = action.payload.terms ?
+    sortTerms(action.payload.terms) : state.terms;
+  if (action.payload.selectedTerm) {
     return {
       ...state,
       showTermsModal: true,
-      selectedTerm: action.payload,
+      terms,
+      selectedTerm: action.payload.selectedTerm,
       viewOnly: true,
     };
   }
-  const selectedTerm = _.find(state.terms, t => !t.agreed) || state.terms[0];
+  const selectedTerm = _.find(terms, t => !t.agreed) || terms[0];
   return {
     ...state,
     showTermsModal: true,
+    terms,
     selectedTerm,
     viewOnly: false,
   };
@@ -326,7 +330,9 @@ export function factory(req) {
     }
 
     // load terms for the entity
-    if (entity) {
+    if (entity && entity.type !== 'challenge') {
+      // skip getting terms for challenge entities as they are
+      // received as part of challenge details now
       return toFSA(actions.terms.getTermsDone(entity, tokens)).then((termsDoneAction) => {
         // we have to init first, otherwise results will be ignored by onGetTermsDone
         let state = onGetTermsInit({}, actions.terms.getTermsInit(entity));

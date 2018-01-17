@@ -205,7 +205,7 @@ export default function SideBar({
                 terms.map(t => (
                   <div styleName="term" key={t.termsOfUseId}>
                     <a
-                      onClick={() => openTermsModal(t)}
+                      onClick={() => openTermsModal(terms, t)}
                     >{t.title}</a>
                   </div>
                 ))

@@ -148,15 +148,15 @@ const mapDispatchToProps = (dispatch) => {
     },
     loadTermDetails: (tokens, termId) => {
       dispatch(t.getTermDetailsInit(termId));
-      dispatch(t.getTermDetailsDone(termId, tokens.tokenV2));
+      dispatch(t.getTermDetailsDone(termId, tokens.tokenV3));
     },
     getDocuSignUrl: (tokens, templateId, returnUrl) => {
       dispatch(t.getDocuSignUrlInit(templateId));
-      dispatch(t.getDocuSignUrlDone(templateId, returnUrl, tokens.tokenV2));
+      dispatch(t.getDocuSignUrlDone(templateId, returnUrl, tokens.tokenV3));
     },
     agreeTerm: (tokens, termId) => {
       dispatch(t.agreeTermInit(termId));
-      dispatch(t.agreeTermDone(termId, tokens.tokenV2));
+      dispatch(t.agreeTermDone(termId, tokens.tokenV3));
     },
     signDocu: (id) => {
       dispatch(t.signDocu(id));
@@ -166,6 +166,11 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(t.checkStatusDone(entity, tokens));
     },
     loadTerms: (tokens, entity) => {
+      if (entity.type === 'challenge') {
+        // skip getting terms for challenge entities as they are
+        // received as part of challenge details now
+        return;
+      }
       dispatch(t.getTermsInit(entity));
       dispatch(t.getTermsDone(entity, tokens));
     },

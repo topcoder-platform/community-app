@@ -107,11 +107,11 @@ const mapDispatchToProps = (dispatch) => {
   return {
     loadTermDetails: (tokens, termId) => {
       dispatch(t.getTermDetailsInit(termId));
-      dispatch(t.getTermDetailsDone(termId, tokens.tokenV2));
+      dispatch(t.getTermDetailsDone(termId, tokens.tokenV3));
     },
     getDocuSignUrl: (tokens, templateId, returnUrl) => {
       dispatch(t.getDocuSignUrlInit(templateId));
-      dispatch(t.getDocuSignUrlDone(templateId, returnUrl, tokens.tokenV2));
+      dispatch(t.getDocuSignUrlDone(templateId, returnUrl, tokens.tokenV3));
     },
   };
 };

@@ -164,14 +164,18 @@ class ChallengeDetailPageContainer extends React.Component {
     });
   }
 
+  getSubmitterTerms() {
+    return (this.props.challenge.terms || []).filter(t => t.role === 'Submitter');
+  }
+
   registerForChallenge() {
     if (!this.props.authTokens.tokenV2) {
       const utmSource = this.props.communityId || 'community-app-main';
       location.href = `${config.URL.AUTH}/member?retUrl=${encodeURIComponent(location.href)}&utm_source=${utmSource}`;
-    } else if (_.every(this.props.terms, 'agreed')) {
+    } else if (_.every(this.getSubmitterTerms(), 'agreed')) {
       this.props.registerForChallenge(this.props.authTokens, this.props.challengeId);
     } else {
-      this.props.openTermsModal();
+      this.props.openTermsModal(this.getSubmitterTerms());
     }
   }
 
@@ -212,9 +216,7 @@ class ChallengeDetailPageContainer extends React.Component {
       this.props.challenge.registrants,
       (this.props.authTokens.user || {}).handle);
 
-    if (this.props.isLoadingChallenge || this.props.isLoadingTerms) {
-      return <LoadingPagePlaceholder />;
-    }
+    if (this.props.isLoadingChallenge) return <LoadingPagePlaceholder />;
 
     let winners = challenge.winners || [];
     winners = winners.filter(w => !w.type || w.type === 'final');
@@ -268,7 +270,7 @@ class ChallengeDetailPageContainer extends React.Component {
               communitiesList={this.props.communitiesList.data}
               introduction={this.props.challenge.introduction}
               detailedRequirements={this.props.challenge.detailedRequirements}
-              terms={this.props.terms}
+              terms={this.getSubmitterTerms()}
               hasRegistered={hasRegistered}
               openTermsModal={openTermsModal}
               savingChallenge={savingChallenge}
@@ -331,10 +333,8 @@ ChallengeDetailPageContainer.defaultProps = {
   checkpoints: {},
   communityId: null,
   isLoadingChallenge: false,
-  isLoadingTerms: false,
   loadingCheckpointResults: false,
   results: null,
-  terms: [],
   tokenV3: null,
 };
 
@@ -355,7 +355,6 @@ ChallengeDetailPageContainer.propTypes = {
   getCommunitiesList: PT.func.isRequired,
   getSubtracks: PT.func.isRequired,
   isLoadingChallenge: PT.bool,
-  isLoadingTerms: PT.bool,
   loadChallengeDetails: PT.func.isRequired,
   // loadResults: PT.func.isRequired,
   // loadingCheckpointResults: PT.bool,
@@ -372,7 +371,6 @@ ChallengeDetailPageContainer.propTypes = {
   setChallengeListingFilter: PT.func.isRequired,
   setSpecsTabState: PT.func.isRequired,
   specsTabState: PT.string.isRequired,
-  terms: PT.arrayOf(PT.shape()),
   toggleCheckpointFeedback: PT.func.isRequired,
   tokenV3: PT.string,
   unregisterFromChallenge: PT.func.isRequired,
@@ -393,10 +391,6 @@ function mapStateToProps(state, props) {
     communitiesList: state.tcCommunities.list,
     domain: state.domain,
     isLoadingChallenge: Boolean(state.challenge.loadingDetailsForChallengeId),
-    isLoadingTerms: _.isEqual(state.terms.loadingTermsForEntity, {
-      type: 'challenge',
-      id: props.match.params.challengeId,
-    }),
     loadingCheckpointResults: state.challenge.loadingCheckpoints,
     loadingResultsForChallengeId: state.challenge.loadingResultsForChallengeId,
     registering: state.challenge.registering,
@@ -405,7 +399,6 @@ function mapStateToProps(state, props) {
     savingChallenge: Boolean(state.challenge.updatingChallengeUuid),
     selectedTab: state.challenge.selectedTab || 'details',
     specsTabState: state.page.challengeDetails.specsTabState,
-    terms: state.terms.terms,
     tokenV2: state.auth && state.auth.tokenV2,
     tokenV3: state.auth && state.auth.tokenV3,
     unregistering: state.challenge.unregistering,
@@ -490,8 +483,8 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(cl.getChallengeSubtracksInit());
       dispatch(cl.getChallengeSubtracksDone());
     },
-    openTermsModal: (term) => {
-      dispatch(t.openTermsModal(term));
+    openTermsModal: (terms, selectedTerm) => {
+      dispatch(t.openTermsModal(terms, selectedTerm));
     },
     updateChallenge: (challenge, tokenV3) => {
       const uuid = shortId();

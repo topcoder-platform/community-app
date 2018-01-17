@@ -10,7 +10,7 @@
  */
 
 import _ from 'lodash';
-import { getApiV2 } from 'services/api';
+import { getApiV3 } from 'services/api';
 
 import termsAuth from './data/terms-auth.json';
 import termsDocuSignDetails from './data/terms-docu-sign-details.json';
@@ -19,12 +19,12 @@ import termsTopcoderDetails from './data/terms-topcoder-details.json';
 
 class TermsService {
   /**
-   * @param {String} tokenV2 Optional. Auth token for Topcoder API v2.
+   * @param {String} tokenV3 Optional. Auth token for Topcoder API v3.
    */
-  constructor(tokenV2) {
+  constructor(tokenV3) {
     this.private = {
-      api: getApiV2(tokenV2),
-      tokenV2,
+      api: getApiV3(tokenV3),
+      tokenV3,
     };
   }
 
@@ -37,13 +37,11 @@ class TermsService {
    * @param {Array} agreed Optional.
    */
   getChallengeTerms(challengeId, agreed) {
-    const res = _.clone(this.private.tokenV2 ? termsAuth : termsNoAuth);
-    res.serverInformation.currentTime = Date.now();
-    res.requesterInformation.receivedParams.challengeId
-      = _.toString(challengeId);
-    if (this.private.tokenV2 && _.isArray(agreed)) {
+    const res = _.clone(this.private.tokenV3 ? termsAuth : termsNoAuth);
+    if (this.private.tokenV3 && _.isArray(agreed)) {
       for (let i = 0; i < Math.min(agreed.length, res.terms.length); i += 1) {
         res.terms[i].agreed = agreed[i];
+        delete res.terms[i].text;
       }
     }
     return Promise.resolve(res);
@@ -53,17 +51,15 @@ class TermsService {
    * Mock of getCommunityTerms(..) method.
    *
    * @param {String} communityId community id
-   * @param {String} tokenV3     auth token V3
    * @param {Array}  agreed      Optional. If present, it should be an array of
    *                             boolean values, and it will override acceptance
    *                             status of terms read from the JSON data file.
    *
    * @return {Promise} resolves to the list of mocked terms
    */
-  getCommunityTerms(challengeId, tokenV3, agreed) {
-    const res = _.clone(this.private.tokenV2 ? termsAuth : termsNoAuth);
-    res.serverInformation.currentTime = Date.now();
-    if (this.private.tokenV2 && _.isArray(agreed)) {
+  getCommunityTerms(challengeId, agreed) {
+    const res = _.clone(this.private.tokenV3 ? termsAuth : termsNoAuth);
+    if (this.private.tokenV3 && _.isArray(agreed)) {
       for (let i = 0; i < Math.min(agreed.length, res.terms.length); i += 1) {
         res.terms[i].agreed = agreed[i];
         delete res.terms[i].text;
@@ -94,10 +90,7 @@ class TermsService {
       default: throw new Error(`Unknown termId '${termId}'!`);
     }
     if (!_.isUndefined(agreed)) res.agreed = agreed;
-    res.serverInformation.currentTime = Date.now();
     res.termsOfUseId = termId;
-    res.requesterInformation.receivedParams.termsOfUseId =
-      _.toString(termId);
     return Promise.resolve(res);
   }
 
@@ -120,7 +113,7 @@ class TermsService {
      * the real api here. It sure contains "success" field, and this is
      * the only thing we need for our purposes now. However, it might also
      * have another useful datafields. This should be explored. */
-    return Promise.resolve({ success: true });
+    return Promise.resolve();
   }
 }
 
@@ -130,14 +123,14 @@ class TermsService {
  * @return {Object} Terms service object
  */
 let lastInstance = null;
-export function getService(tokenV2) {
+export function getService(tokenV3) {
   /* eslint-disable no-console */
   console.error(`WARNING:
     Mock version of DocuSign service is used! Should you see this message in
     production, contact support as soon as possible!`);
   /* eslint-enable no-console */
-  if (!lastInstance || (tokenV2 && lastInstance.private.tokenV2 !== tokenV2)) {
-    lastInstance = new TermsService(tokenV2);
+  if (!lastInstance || (tokenV3 && lastInstance.private.tokenV3 !== tokenV3)) {
+    lastInstance = new TermsService(tokenV3);
   }
   return lastInstance;
 }

@@ -6,57 +6,43 @@
 import _ from 'lodash';
 import config from 'utils/config';
 import { getService as getCommunityService } from 'services/communities';
-import { getApiV2 } from './api';
+import { getApiV3 } from './api';
+
+/**
+ * Private. Handles response from the API.
+ * @param {Object} response
+ * @return {Promise} On success resolves to the content fetched from the API.
+ */
+function handleApiResponse(response) {
+  if (!response.ok) throw new Error(response.statusText);
+  return response.json().then(({ result }) => {
+    if (result.status !== 200) throw new Error(result.content);
+    return result.content;
+  });
+}
 
 class TermsService {
   /**
-   * @param {String} tokenV2 Optional. Auth token for Topcoder API v2.
+   * @param {String} tokenV3 Optional. Auth token for Topcoder API v3.
    */
-  constructor(tokenV2) {
+  constructor(tokenV3) {
     this.private = {
-      api: getApiV2(tokenV2),
-      tokenV2,
+      api: getApiV3(tokenV3),
+      tokenV3,
     };
   }
 
   /**
-   * get all terms of specified challenge
+   * get Submitter terms of specified challenge
    * @param  {Number|String} challengeId id of the challenge
-   * @return {Promise}       promise of the request result
+   * @return {Promise} resolves to the list of challenge terms
    */
   getChallengeTerms(challengeId) {
-    if (this.private.tokenV2) {
-      let registered = false;
-      return this.private.api.get(`/terms/${challengeId}?role=Submitter`)
-        .then(res => res.json())
-        .then((res) => {
-          if (res.error) {
-            if (res.error.details === 'You are already registered for this challenge.') {
-              registered = true;
-            }
-            return this.private.api.get(`/terms/${challengeId}?role=Submitter&noauth=true`)
-              .then((resp) => {
-                if (resp.ok) {
-                  return resp.json().then((result) => {
-                    if (registered) {
-                      // eslint-disable-next-line no-param-reassign
-                      _.forEach(result.terms, (t) => { t.agreed = true; });
-                    }
-                    return result;
-                  });
-                }
-                return new Error(resp.statusText);
-              });
-          }
-          return res;
-        });
-    }
-    return this.private.api.get(`/terms/${challengeId}?role=Submitter&noauth=true`)
-      .then((resp) => {
-        if (resp.ok) {
-          return resp.json();
-        }
-        throw new Error(resp.statusText);
+    return this.private.api.get(`/challenges/${challengeId}`)
+      .then(handleApiResponse)
+      .then((content) => {
+        const terms = (content.terms || []).filter(term => term.role === 'Submitter');
+        return { terms };
       });
   }
 
@@ -68,24 +54,21 @@ class TermsService {
    *       we get community terms using term ids list one by one
    *
    * @param {String} communityId community id
-   * @param {String} tokenV3     auth token V3 - we need to get community meta data
    *
    * @return {Promise} resolves to the list of community terms
    */
-  getCommunityTerms(communityId, tokenV3) {
-    const communityService = getCommunityService(tokenV3);
+  getCommunityTerms(communityId) {
+    const communityService = getCommunityService(this.private.tokenV3);
 
     return communityService.getMetadata(communityId).then((meta) => {
       if (meta.terms && meta.terms.length) {
         return Promise.all(meta.terms.map(termId => this.getTermDetails(termId))).then(terms => (
-          terms.map(term => _.omit(term, 'text')) // don't include text as it's big and we need it for list
+          terms.map(term => _.omit(term, 'text')) // don't include text as it's big and we don't need it for list
         ));
       }
 
       return [];
-    }).then(terms => ({
-      terms,
-    }));
+    }).then(terms => ({ terms }));
   }
 
   /**
@@ -97,7 +80,7 @@ class TermsService {
     // looks like server cache responses, to prevent it we add nocache param with always new value
     const nocache = (new Date()).getTime();
     return this.private.api.get(`/terms/detail/${termId}?nocache=${nocache}`)
-      .then(res => (res.ok ? res.json() : Promise.reject(res.json())));
+      .then(handleApiResponse);
   }
 
   /**
@@ -107,8 +90,12 @@ class TermsService {
    * @return {Promise}       promise of the request result
    */
   getDocuSignUrl(templateId, returnUrl) {
-    return this.private.api.post(`/terms/docusign/viewURL?templateId=${templateId}&returnUrl=${returnUrl}`)
-      .then(res => (res.ok ? res.json() : Promise.reject(res.json())));
+    return this.private.api.postJson('/terms/docusign/viewURL', {
+      param: {
+        templateId,
+        returnUrl,
+      },
+    }).then(handleApiResponse);
   }
 
   /**
@@ -118,19 +105,19 @@ class TermsService {
    */
   agreeTerm(termId) {
     return this.private.api.post(`/terms/${termId}/agree`)
-      .then(res => (res.ok ? res.json() : Promise.reject(res.json())));
+      .then(handleApiResponse);
   }
 }
 
 /**
  * Returns a new or existing terms service.
- * @param {String} tokenV2 Optional. Auth token for Topcoder API v2.
+ * @param {String} tokenV3 Optional. Auth token for Topcoder API v3.
  * @return {TermsService} Terms service object
  */
 let lastInstance = null;
-export function getService(tokenV2) {
-  if (!lastInstance || (tokenV2 && lastInstance.private.tokenV2 !== tokenV2)) {
-    lastInstance = new TermsService(tokenV2);
+export function getService(tokenV3) {
+  if (!lastInstance || (tokenV3 && lastInstance.private.tokenV3 !== tokenV3)) {
+    lastInstance = new TermsService(tokenV3);
   }
   return lastInstance;
 }
