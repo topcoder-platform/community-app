@@ -2,6 +2,7 @@
 
 import _ from 'lodash';
 import config from 'utils/config';
+import { PrimaryButton } from 'components/buttons';
 import PT from 'prop-types';
 import React from 'react';
 
@@ -11,9 +12,10 @@ import './style.scss';
 export const CAUSE = {
   NOT_AUTHENTICATED: 'Not authenticated',
   NOT_AUTHORIZED: 'Not authorized',
+  HAVE_NOT_SUBMITTED_TO_THE_CHALLENGE: 'You have not submitted to this challenge',
 };
 
-export default function AccessDenied({ cause, communityId }) {
+export default function AccessDenied({ cause, communityId, redirectLink }) {
   switch (cause) {
     case CAUSE.NOT_AUTHENTICATED: {
       return (
@@ -41,15 +43,27 @@ export default function AccessDenied({ cause, communityId }) {
           <div styleName="msg">You are not authorized to access this page.</div>
         </div>
       );
+    case CAUSE.HAVE_NOT_SUBMITTED_TO_THE_CHALLENGE:
+      return (
+        <div styleName="access-denied">
+          <TopcoderLogo />
+          <div styleName="msg">You have not submitted to this challenge</div>
+          <PrimaryButton
+            to={redirectLink}
+          >Back to the challenge</PrimaryButton>
+        </div>
+      );
     default: return <div />;
   }
 }
 
 AccessDenied.defaultProps = {
   communityId: '',
+  redirectLink: '',
 };
 
 AccessDenied.propTypes = {
   cause: PT.oneOf(_.toArray(CAUSE)).isRequired,
   communityId: PT.string,
+  redirectLink: PT.string,
 };

@@ -4,9 +4,9 @@ import EditorToolbar from 'components/Editor/Toolbar';
 import GenericEditor from 'components/Editor/GenericEditor';
 import MarkdownEditor from 'components/Editor/MarkdownEditor';
 import MultiEditor from 'components/Editor/MultiEditor';
-// import Previewer from 'components/Editor/Previewer';
+import Previewer from 'components/Editor/Previewer';
 import React from 'react';
-// import Sticky from 'react-stickynode';
+import Sticky from 'react-stickynode';
 import './style.scss';
 
 export default function EditorExample() {
@@ -17,11 +17,11 @@ export default function EditorExample() {
         connector={connector}
         nodeId="editor-toolbar"
       />
-      {/*
-          <Sticky innerZ={2} top="#editor-toolbar">
-            <Previewer connector={connector} />
-          </Sticky>
-      */}
+      {
+        <Sticky innerZ={1} top="#editor-toolbar">
+          <Previewer connector={connector} />
+        </Sticky>
+      }
       <div styleName="container">
         <div styleName="content">
           <h1 styleName="title">Editor</h1>

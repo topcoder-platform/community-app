@@ -50,7 +50,7 @@ ErrorMessageContainer.propTypes = {
  * @return {Object}
  */
 const mapStateToProps = state => ({
-  error: state.errors[0],
+  error: state.errors.alerts[0],
 });
 
 /**

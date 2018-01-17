@@ -45,12 +45,21 @@ export class SidebarContainer extends React.Component {
   render() {
     const buckets = getBuckets(this.props.user && this.props.user.handle);
     const tokenV2 = this.props.tokenV2;
+    const { communityFilters } = this.props;
+    const updatedCommunityFilters = [
+      {
+        communityId: '',
+        communityName: 'All',
+        challengeFilter: {},
+      },
+      ...communityFilters,
+    ];
 
-    let communityFilter = this.props.communityFilters.find(item =>
+    let communityFilter = updatedCommunityFilters.find(item =>
       item.communityId === this.props.selectedCommunityId);
     if (communityFilter) communityFilter = communityFilter.challengeFilter;
 
-    const savedFilters = checkFilterErrors(this.props.savedFilters, this.props.communityFilters);
+    const savedFilters = checkFilterErrors(this.props.savedFilters, updatedCommunityFilters);
 
     return (
       <Sidebar
@@ -126,7 +135,7 @@ function mapStateToProps(state, ownProps) {
     hideTcLinksInFooter: ownProps.hideTcLinksInFooter,
     filterState: state.challengeListing.filter,
     isAuth: Boolean(state.auth.user),
-    communityFilters: [{ communityId: '', communityName: 'All' }].concat(state.tcCommunities.list.data),
+    communityFilters: state.tcCommunities.list.data,
     selectedCommunityId: state.challengeListing.selectedCommunityId,
     tokenV2: state.auth.tokenV2,
     user: state.auth.user,

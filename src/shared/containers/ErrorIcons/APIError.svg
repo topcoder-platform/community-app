@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="27px" height="21px" viewBox="0 0 27 21" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 47.1 (45422) - http://www.bohemiancoding.com/sketch -->
+    <title>API Alert</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Prize-Variaton-V5" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="01-Challenge-Details-" transform="translate(-1322.000000, -70.000000)">
+            <g id="API-Alert" transform="translate(1323.000000, 71.000000)">
+                <g id="32px_widget" stroke="#444444" stroke-width="2" stroke-linecap="square">
+                    <path d="M3.33333333,3.46153846 L4.66666667,3.46153846" id="Shape"></path>
+                    <path d="M7.33333333,3.46153846 L8.66666667,3.46153846" id="Shape"></path>
+                    <path d="M14,3.46153846 L16.6666667,3.46153846" id="Shape"></path>
+                    <path d="M0,6.92307692 L20,6.92307692" id="Shape"></path>
+                    <path d="M11.6692708,18 L0,18 L0,0 L20,0 L20,6.45203576" id="Shape"></path>
+                </g>
+                <g id="32px_alert" transform="translate(16.000000, 12.000000)">
+                    <polygon id="Shape" stroke="#F22F24" stroke-width="2" fill="#F22F24" stroke-linecap="square" points="0 7 4 0 8 7"></polygon>
+                    <path d="M3.3335333,1.90909091 L4.66666667,1.90909091 L4.66666667,4.69318182 L3.3335333,4.69318182 L3.3335333,1.90909091 Z M3.99990001,5.25 C4.36784482,5.25 4.6664667,5.49945455 4.6664667,5.80681818 C4.6664667,6.11418182 4.36784482,6.36363636 3.99990001,6.36363636 C3.63195521,6.36363636 3.33333333,6.11418182 3.33333333,5.80681818 C3.33333333,5.49945455 3.63195521,5.25 3.99990001,5.25 Z" id="Combined-Shape" fill="#FFFFFF"></path>
+                </g>
+                <text id="API" font-family="Roboto-Black, Roboto" font-size="7" font-weight="700" fill="#37373C">
+                    <tspan x="3" y="15">API</tspan>
+                </text>
+            </g>
+        </g>
+    </g>
+</svg>

@@ -1,4 +1,5 @@
 /* eslint jsx-a11y/no-static-element-interactions:0 */
+/* global window */
 
 /**
  * Challenge filters panel.
@@ -20,15 +21,18 @@
  */
 
 import _ from 'lodash';
+import config from 'utils/config';
 import * as Filter from 'utils/challenge-listing/filter';
 import React from 'react';
 import PT from 'prop-types';
 import Select from 'components/Select';
 import moment from 'moment';
 import { Button, PrimaryButton } from 'components/buttons';
+import Tooltip from 'components/Tooltip';
+import { Link } from 'utils/router';
 import { COMPOSE, PRIORITY } from 'react-css-super-themr';
 import { REVIEW_OPPORTUNITY_TYPES } from 'utils/tc';
-
+import CheckmarkIcon from './CheckmarkIcon';
 import DateRangePicker from '../DateRangePicker';
 import style from './style.scss';
 import UiSimpleRemove from '../../Icons/ui-simple-remove.svg';
@@ -37,8 +41,10 @@ export default function FiltersPanel({
   communityFilters,
   defaultCommunityId,
   filterState,
+  challenges,
   hidden,
   isAuth,
+  auth,
   isReviewOpportunitiesBucket,
   onClose,
   onSaveFilter,
@@ -53,15 +59,96 @@ export default function FiltersPanel({
   let className = 'FiltersPanel';
   if (hidden) className += ' hidden';
 
-  const communityOps = [];
-  communityFilters.forEach((community) => {
-    if (!community.hidden) {
-      communityOps.push({
-        label: community.communityName,
-        value: community.communityId,
-      });
+  const isVisitorRegisteredToCommunity = (visitorGroupIds, communityGroupIds) =>
+    Boolean(_.intersection(visitorGroupIds, communityGroupIds).length);
+
+  const getLabel = (community) => {
+    const { communityName } = community;
+    if (!isAuth) {
+      return <div>{communityName}</div>;
     }
-  });
+
+    const visitorGroupIds = auth.profile ? auth.profile.groups.map(g => g.id) : [];
+    const visitorRegisteredToCommunity = isVisitorRegisteredToCommunity(
+      visitorGroupIds,
+      community.groupIds,
+    );
+
+    const registrationStatus = visitorRegisteredToCommunity
+      ? <div>Registered</div>
+      : (
+        <div>
+          You are <span styleName="bold uppercase">not</span> registered.
+          <Link
+            onMouseDown={(e) => {
+              const url = community.mainSubdomain ? (
+                config.URL.BASE.replace(/www/, community.mainSubdomain)
+              ) : `/community/${community.communityId}`;
+              window.open(url);
+              e.stopPropagation();
+              e.preventDefault();
+            }}
+            styleName="learn-more-link"
+            to=""
+            openInNewTab
+          >
+            Learn more
+          </Link>
+        </div>
+      );
+
+    const filterFunction = Filter.getFilterFunction(community.challengeFilter);
+    const challengesInCommunity = challenges.filter(filterFunction).length;
+
+    const selectItem = (
+      <div styleName="community-select-item">
+        <div>
+          <div styleName="community-name">
+            <div>{communityName}</div>
+            {visitorRegisteredToCommunity && (
+              <div styleName="checkmark-icon-container">
+                <CheckmarkIcon color="#fff" />
+              </div>
+            )}
+          </div>
+          <div styleName="registration-status">
+            {communityName === 'All'
+              ? 'Select to see all challenges'
+              : registrationStatus}
+          </div>
+        </div>
+        <div>{challengesInCommunity}</div>
+      </div>
+    );
+
+    if (communityName === 'All') {
+      return selectItem;
+    }
+
+    return (
+      <div>
+        <Tooltip
+          position="bottom"
+          trigger={['hover']}
+          content={
+            <div style={{ padding: '15px', fontSize: '13px', borderRadius: '5px' }}>
+              <p>You are { !visitorRegisteredToCommunity && <span styleName="bold">NOT</span>} registered for this sub community.</p>
+              <p>There are {challengesInCommunity} challenges in this sub community</p>
+            </div>
+          }
+        >
+          {selectItem}
+        </Tooltip>
+      </div>
+    );
+  };
+
+  const communityOps = communityFilters.filter(community => !community.hidden)
+    .map(community => ({
+      label: getLabel(community),
+      value: community.communityId,
+      name: community.communityName,
+    }));
 
   const disableClearSaveFilterButtons = isSavingFilter || (
     selectedCommunityId === defaultCommunityId
@@ -104,6 +191,7 @@ export default function FiltersPanel({
               options={communityOps}
               simpleValue
               value={selectedCommunityId}
+              valueRenderer={option => <span styleName="active-community">{option.name}</span>}
             />
           </div>
         </div>
@@ -208,6 +296,7 @@ export default function FiltersPanel({
 }
 
 FiltersPanel.defaultProps = {
+  challenges: [],
   hidden: false,
   isAuth: false,
   isSavingFilter: false,
@@ -223,8 +312,10 @@ FiltersPanel.propTypes = {
   })).isRequired,
   defaultCommunityId: PT.string.isRequired,
   filterState: PT.shape().isRequired,
+  challenges: PT.arrayOf(PT.shape()),
   hidden: PT.bool,
   isAuth: PT.bool,
+  auth: PT.shape().isRequired,
   isSavingFilter: PT.bool,
   isReviewOpportunitiesBucket: PT.bool,
   onSaveFilter: PT.func,
