@@ -1,4 +1,5 @@
 import request from 'supertest';
+import config from 'config';
 
 const MODULE = require.resolve('server/server');
 
@@ -46,17 +47,25 @@ describe('Api test', () => {
   let server;
   beforeEach(() => {
     process.env.NODE_ENV = 'test';
+    process.env.SERVER_API_KEY = config.SERVER_API_KEY;
     jest.resetModules();
     jest.mock('morgan');
     jest.mock('utils/logger');
     server = require(MODULE).default;
   });
   test('post to /community-app-assets/api/logger', () => request(server).post('/community-app-assets/api/logger')
+    .set('Authorization', `ApiKey ${config.SERVER_API_KEY}`)
     .send({ data: 'data' })
     .then((response) => {
       expect(response.statusCode).toBe(200);
     }));
+  test('post to /community-app-assets/api/logger without api key', () => request(server).post('/community-app-assets/api/logger')
+    .send({ data: 'data' })
+    .then((response) => {
+      expect(response.statusCode).toBe(403);
+    }));
   test('post to /community-app-assets/api/xml2json', () => request(server).post('/community-app-assets/api/xml2json')
+    .set('Authorization', `ApiKey ${config.SERVER_API_KEY}`)
     .send({ xml: '<xml></xml>' })
     .then((response) => {
       expect(response.text).toBe('{"xml":{}}');
@@ -66,6 +75,7 @@ describe('Api test', () => {
       expect(response.statusCode).toBe(404);
     }));
   test('status 500', () => request(server).post('/community-app-assets/api/logger')
+    .set('Authorization', `ApiKey ${config.SERVER_API_KEY}`)
     .then((response) => {
       expect(response.statusCode).toBe(500);
     }));

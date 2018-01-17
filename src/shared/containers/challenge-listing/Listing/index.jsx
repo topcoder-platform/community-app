@@ -312,7 +312,7 @@ ListingContainer.propTypes = {
   hideTcLinksInSidebarFooter: PT.bool,
   communityId: PT.string,
   communityName: PT.string,
-  communityFilters: PT.func.isRequired,
+  communityFilters: PT.arrayOf(PT.object).isRequired,
   getAllActiveChallenges: PT.func.isRequired,
   getCommunitiesList: PT.func.isRequired,
   getDraftChallenges: PT.func.isRequired,

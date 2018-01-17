@@ -27,7 +27,7 @@ If you need any operations related to currency conversions, pay attention to the
 
 ### Deployment and Execution
 
-*Disclaimer:* Current instructions are biased towards Ubuntu 16.04. Hovewer, similar recipies should work for other OS. Should you encounter and overcome any tricky issues on other OS, you are welcome to add notes/hints into this file.
+*Disclaimer:* Current instructions are biased towards Ubuntu 16.04. Hovewer, similar recipes should work for other OS. Should you encounter and overcome any tricky issues on other OS, you are welcome to add notes/hints into this file.
 
 1.  You should have the following prerequisites:
     - NodeJS 8.2.1 (other recent versions should also work fine);
@@ -133,8 +133,10 @@ Deploy scripts are setup to use AWS ECS + CircleCI. Make sure the following envi
 * DEV_AWS_ECS_CLUSTER
 * DEV_AWS_REGION
 * DEV_AWS_SECRET_ACCESS_KEY
+* DEV_SERVER_API_KEY
 * PROD_AWS_ACCESS_KEY_ID
 * PROD_AWS_ACCOUNT_ID
 * PROD_AWS_ECS_CLUSTER
 * PROD_AWS_REGION
 * PROD_AWS_SECRET_ACCESS_KEY
+* PROD_SERVER_API_KEY

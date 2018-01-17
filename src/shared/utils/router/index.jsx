@@ -42,6 +42,7 @@ export function Link({
   className,
   enforceA,
   onClick,
+  onMouseDown,
   openNewTab,
   replace,
   to,
@@ -68,6 +69,7 @@ export function Link({
           e.preventDefault();
         } else window.scroll(0, 0);
       }}
+      onMouseDown={onMouseDown}
       replace={replace}
       to={to}
     >{children}</RRLink>
@@ -79,6 +81,7 @@ Link.defaultProps = {
   className: null,
   enforceA: false,
   onClick: null,
+  onMouseDown: null,
   openNewTab: false,
   replace: false,
 };
@@ -88,6 +91,7 @@ Link.propTypes = {
   className: PT.string,
   enforceA: PT.bool,
   onClick: PT.func,
+  onMouseDown: PT.func,
   openNewTab: PT.bool,
   replace: PT.bool,
   to: PT.oneOfType([PT.object, PT.string]).isRequired,
@@ -178,7 +182,7 @@ NavLink.propTypes = {
 
 /**
  * Requires the specified module without including it into the bundle during
- * Webpack build. This function should be executed only server-side. 
+ * Webpack build. This function should be executed only server-side.
  * @param {String} modulePath
  * @return Required module.
  */
@@ -196,7 +200,7 @@ export function requireWeak(modulePath) {
  * Note that result of this resolution may be a relative path (relative to the
  * caller module). To resolve it to an absolute path you should do
  * path.resolve(resolveWeak(modulePath)).
- * @param {String} modulePath 
+ * @param {String} modulePath
  * @return {String} Module path.
  */
 export function resolveWeak(modulePath) {

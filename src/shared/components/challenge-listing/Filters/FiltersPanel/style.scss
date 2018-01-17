@@ -19,6 +19,14 @@ $panel-radius-4: $corner-radius * 2;
   width: 100px !important;
 }
 
+.uppercase {
+  text-transform: uppercase;
+}
+
+.bold {
+  font-weight: bold;
+}
+
 .FiltersPanel {
   background: white;
   padding: $panel-space-15 $panel-space-20;
@@ -232,6 +240,50 @@ $panel-radius-4: $corner-radius * 2;
 
     :global(.Select) {
       z-index: 5;
+    }
+
+    .active-community {
+      font-size: 12px;
+      font-weight: normal;
+    }
+
+    .registration-status {
+      color: #888894;
+      font-size: 0.7rem;
+    }
+
+    .community-name {
+      display: flex;
+    }
+
+    .checkmark-icon-container {
+      width: 16px;
+      height: 16px;
+      line-height: 16px;
+      text-align: center;
+      margin-left: 5px;
+      background: #5dca03;
+      border-radius: 50%;
+
+      svg {
+        width: 10px;
+        height: 10px;
+      }
+    }
+
+    .community-select-item {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .learn-more-link {
+      color: $tc-light-blue;
+      margin-left: 5px;
+
+      &:hover,
+      &:visited {
+        color: $tc-dark-blue;
+      }
     }
 
     :global(.Select-value) {

@@ -1,6 +1,7 @@
 import _ from 'lodash';
 import atob from 'atob';
 import bodyParser from 'body-parser';
+import config from 'config';
 import cookieParser from 'cookie-parser';
 import express from 'express';
 import fetch from 'isomorphic-fetch';
@@ -47,8 +48,15 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(requestIp.mw());
 
+const checkAuthorizationHeader = (req, res, next) => {
+  if (req.headers.authorization !== `ApiKey ${config.SERVER_API_KEY}`) {
+    return res.status(403).end();
+  }
+  return next();
+};
+
 /* Log Entries service proxy. */
-app.use('/community-app-assets/api/logger', (req, res) => {
+app.use('/community-app-assets/api/logger', checkAuthorizationHeader, (req, res) => {
   logger.log(`${req.clientIp} > `, ...req.body.data);
   res.end();
 });
@@ -101,13 +109,13 @@ app.use('/community-app-assets/api/tc-communities', tcCommunitiesDemoApi);
  * Auxiliary endpoint for xml -> json conversion (the most popular npm library
  * for such conversion works only in the node :(
  */
-app.use('/community-app-assets/api/xml2json', (req, res) => {
+app.use('/community-app-assets/api/xml2json', checkAuthorizationHeader, (req, res) => {
   xmlToJson(req.body.xml).then(json => res.json(json));
 });
 
 /* Proxy endpoint for GET requests (to fetch data from resources prohibiting
  * cross-origin requests). */
-app.use('/community-app-assets/api/proxy-get', (req, res) => {
+app.use('/community-app-assets/api/proxy-get', checkAuthorizationHeader, (req, res) => {
   fetch(req.query.url)
     .then(x => x.text())
     .then(x => res.send(x));
@@ -115,7 +123,7 @@ app.use('/community-app-assets/api/proxy-get', (req, res) => {
 
 /* Proxy endpoint for POST requests (to fetch data from resources prohibiting
  * cross-origin requests). */
-app.use('/community-app-assets/api/proxy-post', (req, res) => {
+app.use('/community-app-assets/api/proxy-post', checkAuthorizationHeader, (req, res) => {
   fetch(req.query.url, {
     body: qs.stringify(req.body),
     headers: {
@@ -128,7 +136,7 @@ app.use('/community-app-assets/api/proxy-post', (req, res) => {
 
 /* Returns currency exchange rates, cached at the server-side (thus drastically
  * reducing amount of calls to openexchangerates.com). */
-app.use('/community-app-assets/api/exchange-rates', (req, res) => {
+app.use('/community-app-assets/api/exchange-rates', checkAuthorizationHeader, (req, res) => {
   getExchangeRates().then(rates => res.send(rates));
 });
 
@@ -146,8 +154,7 @@ app.use('/community-app-assets/api/mock/docu-sign', (req, res) =>
   /* The real DocuSign API does not return the page immediately,
    * thus timeout to imitate this in our mock. 3 seconds just an arbitrary
    * choice. */
-  setTimeout(() => res.send(mockDocuSignFactory(req.query.returnUrl)), 3000),
-);
+  setTimeout(() => res.send(mockDocuSignFactory(req.query.returnUrl)), 3000));
 
 app.use(renderer);
 
