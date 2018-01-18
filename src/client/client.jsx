@@ -99,10 +99,12 @@ function authenticate(store) {
     if (auth.tokenV3 !== (tctV3 || null)) {
       const action = actions.auth.loadProfile(tctV3);
       action.payload.then((profile) => {
+        if (!profile) return;
+        const user = decodeToken(tctV3);
         const userId = profile && profile.userId;
         const prevUserId = _.get(store.getState(), 'auth.profile.userId');
         if (userId && userId !== prevUserId) {
-          identify(auth.profile, _.get(auth, 'user.roles'));
+          identify(profile, _.get(auth, user.roles));
           analyticsIdentitySet = true;
         }
       });
