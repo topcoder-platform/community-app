@@ -9,7 +9,7 @@ import React from 'react';
 import './style.scss';
 
 /* Date/time format to use in the card. */
-const FORMAT = 'MMM DD, HH:MM';
+const FORMAT = 'MMM DD, HH:mm';
 
 export default function Card({ past, time, title }) {
   const time2 = moment(time);
