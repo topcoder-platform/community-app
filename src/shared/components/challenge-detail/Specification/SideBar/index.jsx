@@ -5,12 +5,14 @@ import React from 'react';
 import PT from 'prop-types';
 
 import Tooltip from 'components/Tooltip';
+import { Link } from 'react-router-dom';
 
 import ShareSocial from './ShareSocial';
 
 import styles from './styles.scss';
 
 export default function SideBar({
+  challengesUrl,
   documents,
   eventDetail,
   reviewScorecardId,
@@ -23,7 +25,6 @@ export default function SideBar({
   reviewType,
   isDesign,
   terms,
-  openTermsModal,
   isDevelop,
   environment,
   codeRepo,
@@ -204,9 +205,9 @@ export default function SideBar({
               {
                 terms.map(t => (
                   <div styleName="term" key={t.termsOfUseId}>
-                    <a
-                      onClick={() => openTermsModal(t)}
-                    >{t.title}</a>
+                    <Link
+                      to={`${challengesUrl}/terms/detail/${t.termsOfUseId}`}
+                    >{t.title}</Link>
                   </div>
                 ))
               }
@@ -241,6 +242,7 @@ SideBar.defaultProps = {
 };
 
 SideBar.propTypes = {
+  challengesUrl: PT.string.isRequired,
   eventDetail: PT.shape({
     eventName: PT.string.isRequired,
     description: PT.string.isRequired,
@@ -256,7 +258,6 @@ SideBar.propTypes = {
   reviewType: PT.string,
   isDesign: PT.bool,
   terms: PT.arrayOf(PT.shape()),
-  openTermsModal: PT.func.isRequired,
   isDevelop: PT.bool,
   environment: PT.string,
   codeRepo: PT.string,

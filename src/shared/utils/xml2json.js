@@ -4,7 +4,7 @@
 
 /* global fetch */
 import 'isomorphic-fetch';
-
+import config from 'utils/config';
 import { isServerSide } from './isomorphy';
 
 const xml2json = isServerSide() ? require('xml2json') : null;
@@ -20,6 +20,7 @@ export function toJson(xml) {
     body: JSON.stringify({ xml }),
     headers: {
       'Content-Type': 'application/json',
+      Authorization: `ApiKey ${config.SERVER_API_KEY}`,
     },
     method: 'POST',
   }).then(res => res.json());

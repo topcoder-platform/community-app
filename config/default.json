@@ -69,6 +69,8 @@
    * variables. */
   "SEGMENT_IO_API_KEY": "",
 
+  "SERVER_API_KEY": "",
+
   "SWIFT_PROGRAM_ID": 3445,
 
   /* Various URLs. Most of them lead to different segments of Topcoder

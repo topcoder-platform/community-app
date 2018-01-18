@@ -15,6 +15,7 @@ import React from 'react';
 import { ThemeProvider } from 'react-css-super-themr';
 import Submission from 'routes/Submission';
 import SubmissionManagement from 'routes/SubmissionManagement';
+import TermsDetail from 'routes/TermsDetail';
 import { Route, Switch } from 'react-router-dom';
 
 import primaryButtonStyle from 'components/buttons/outline/round/open-sans/green-uppercase.scss';
@@ -61,6 +62,11 @@ export default function TcProdDev({ base, meta }) {
                 })}
                 exact
                 path={`${base}/challenges/:challengeId(\\d{8})/submit`}
+              />
+              <Route
+                component={TermsDetail}
+                exact
+                path={`${base}/challenges/terms/detail/:termId`}
               />
               <Route
                 component={routeProps => SubmissionManagement({

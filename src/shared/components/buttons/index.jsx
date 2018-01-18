@@ -19,7 +19,7 @@
  * (the theme passed this way is merged with the one provided by ThemeProvider).
  * Standard button themes are provided as separate SCSS stylesheets along with
  * this JSX file.
- * 
+ *
  * Decision between <button>, <Link>, and <a> is done in the following way:
  *
  * 1. If "to" prop is passed into button, then either <Link> or <a> is used,
@@ -27,9 +27,9 @@
  *    is used for links within the same domain, assuming we are not leaving the
  *    app, and do not want to reload it, <a> is used otherwise; also <a> can be
  *    enforced by "enforceA" and "openNewTab" props);
- * 
+ *
  * 2. Otherwise <button> is used.
- * 
+ *
  * NOTE: As our <Link> implementation is, technically, a container, Button
  * needs access to Redux store. It is automatically handled behind the scene
  * in the main code, though in the snapshot tests you should take care about
