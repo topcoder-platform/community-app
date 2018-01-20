@@ -13,6 +13,7 @@
 .header {
   position: relative;
   font-family: 'Sofia Pro', sans-serif;
+  flex: none;
 }
 
 .main-desktop-header {
@@ -86,7 +87,6 @@
   padding: 0 48px;
   position: absolute;
   text-align: center;
-  visibility: false;
   width: 100%;
   transition: all 0.25s ease-in-out;
   z-index: 10;

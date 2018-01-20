@@ -12,6 +12,7 @@ import PT from 'prop-types';
 import React from 'react';
 import Submission from 'routes/Submission';
 import SubmissionManagement from 'routes/SubmissionManagement';
+import TermsDetail from 'routes/TermsDetail';
 import { Route, Switch } from 'react-router-dom';
 import { ThemeProvider } from 'react-css-super-themr';
 import primaryButtonStyle from 'components/buttons/outline/round/open-sans/green-uppercase.scss';
@@ -67,6 +68,11 @@ export default function TaskForce({ base, meta }) {
                 })}
                 exact
                 path={`${base}/challenges/:challengeId(\\d{8})/my-submissions`}
+              />
+              <Route
+                component={TermsDetail}
+                exact
+                path={`${base}/challenges/terms/detail/:termId`}
               />
               <Route
                 component={() => <Leaderboard meta={meta} />}

@@ -2,9 +2,6 @@
  * Waiting indicator: two co-centric circles periodically increasing their
  * radiuses till maximum value, then resetting it to zero.
  *
- * NOTE: It is implemented as class component because stand-alone animated SVG
- * images are not well supported across all browsers yet.
-
  * Animation is done via a client-side script found in client/loading-indicator-animation
  */
 

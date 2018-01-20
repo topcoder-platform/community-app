@@ -6,6 +6,8 @@ import fetch from 'isomorphic-fetch';
 import { toJson } from 'utils/xml2json';
 import { createActions } from 'redux-actions';
 
+const config = require('utils/config');
+
 /**
  * Payload creator for the action that drops data loaded from the specified
  * RSS feed. Also cancels any pending loading of data for that feed.
@@ -41,7 +43,9 @@ function getInit(feed, uuid) {
  * @return {Object} Action payload.
  */
 async function getDone(feed, uuid, url) {
-  let res = await fetch(url);
+  let res = await fetch(url, {
+    headers: { Authorization: `ApiKey ${config.SERVER_API_KEY}` },
+  });
   if (!res.ok) throw new Error(res.statusText);
   res = await res.text();
   res = await toJson(res);

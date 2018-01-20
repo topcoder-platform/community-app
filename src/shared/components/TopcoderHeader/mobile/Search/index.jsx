@@ -20,6 +20,7 @@ export default function Search() {
           }
         }}
         placeholder="Find members by username or skill"
+        aria-label="Find members by username or skill"
       />
     </div>
   );

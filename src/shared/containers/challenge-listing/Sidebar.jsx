@@ -46,7 +46,15 @@ export class SidebarContainer extends React.Component {
     const buckets = getBuckets(this.props.user && this.props.user.handle);
     const tokenV2 = this.props.tokenV2;
     const { communityFilters } = this.props;
-    const updatedCommunityFilters = [{ communityId: '', communityName: 'All' }].concat(communityFilters);
+    const updatedCommunityFilters = [
+      {
+        communityId: '',
+        communityName: 'All',
+        challengeFilter: {},
+      },
+      ...communityFilters,
+    ];
+
     let communityFilter = updatedCommunityFilters.find(item =>
       item.communityId === this.props.selectedCommunityId);
     if (communityFilter) communityFilter = communityFilter.challengeFilter;

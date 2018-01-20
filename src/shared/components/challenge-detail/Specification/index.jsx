@@ -6,6 +6,7 @@ import _ from 'lodash';
 import config from 'utils/config';
 import Editor from 'components/Editor/MultiEditor';
 import EditorToolbar from 'components/Editor/Toolbar';
+import Previewer from 'components/Editor/Previewer';
 import ToolbarConnector from 'components/Editor/Connector';
 import React from 'react';
 import Sticky from 'react-stickynode';
@@ -25,8 +26,8 @@ export default function ChallengeDetailsView(props) {
     communitiesList,
     terms,
     hasRegistered,
-    openTermsModal,
     challenge,
+    challengesUrl,
     savingChallenge,
     setSpecsTabState,
     specsTabState,
@@ -123,10 +124,16 @@ export default function ChallengeDetailsView(props) {
       }
       {
         editMode ? (
-          <EditorToolbar
-            connector={toolbarConnector}
-            onSave={saveChallenge}
-          />
+          <div>
+            <EditorToolbar
+              connector={toolbarConnector}
+              nodeId="editor-toolbar"
+              onSave={saveChallenge}
+            />
+            <Sticky innerZ={1} top="#editor-toolbar">
+              <Previewer connector={toolbarConnector} />
+            </Sticky>
+          </div>
         ) : null
       }
       <div styleName="challenge-details-view">
@@ -443,6 +450,7 @@ export default function ChallengeDetailsView(props) {
           </div>
         </div>
         <SideBar
+          challengesUrl={challengesUrl}
           screeningScorecardId={screeningScorecardId}
           reviewScorecardId={reviewScorecardId}
           forumLink={forumLink}
@@ -454,7 +462,6 @@ export default function ChallengeDetailsView(props) {
           isDesign={track.toLowerCase() === 'design'}
           isDevelop={track.toLowerCase() === 'develop'}
           terms={terms}
-          openTermsModal={openTermsModal}
           shareable={_.isEmpty(groups)}
           environment={environment}
           codeRepo={codeRepo}
@@ -514,11 +521,11 @@ ChallengeDetailsView.propTypes = {
       roles: PT.arrayOf(PT.string).isRequired,
     }).isRequired,
   }),
+  challengesUrl: PT.string.isRequired,
   communitiesList: PT.arrayOf(PT.shape({
     communityId: PT.string.isRequired,
     groupIds: PT.arrayOf(PT.string).isRequired,
   })).isRequired,
-  openTermsModal: PT.func.isRequired,
   savingChallenge: PT.bool.isRequired,
   setSpecsTabState: PT.func.isRequired,
   specsTabState: PT.string.isRequired,

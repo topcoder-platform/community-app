@@ -14,6 +14,7 @@ import PT from 'prop-types';
 import React from 'react';
 import Submission from 'routes/Submission';
 import SubmissionManagement from 'routes/SubmissionManagement';
+import TermsDetail from 'routes/TermsDetail';
 import theme from 'components/tc-communities/communities/wipro/theme';
 import { ThemeProvider } from 'react-css-super-themr';
 import { Route, Switch } from 'react-router-dom';
@@ -64,6 +65,11 @@ export default function Wipro({ base, meta }) {
                 })}
                 exact
                 path={`${base}/challenges/:challengeId(\\d{8})/my-submissions`}
+              />
+              <Route
+                component={TermsDetail}
+                exact
+                path={`${base}/challenges/terms/detail/:termId`}
               />
               <Route
                 component={FAQ}
