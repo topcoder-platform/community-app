@@ -44,7 +44,7 @@ exports[`Matches shallow shapshot 2`] = `
 >
   <ThemedGenericButton
     active={false}
-    className="src-shared-components-tc-communities-JoinCommunity-style___joining"
+    className="src-shared-components-tc-communities-JoinCommunity-style___joining___rq-m2x"
     composeAdhocTheme="deeply"
     composeContextTheme="softly"
     disabled={false}
@@ -59,7 +59,7 @@ exports[`Matches shallow shapshot 2`] = `
     to={null}
   >
     <div
-      className="src-shared-components-tc-communities-JoinCommunity-style___joiningContainer"
+      className="src-shared-components-tc-communities-JoinCommunity-style___joiningContainer___2P4Cvw"
     >
       <span>
         Joining...
@@ -70,7 +70,7 @@ exports[`Matches shallow shapshot 2`] = `
         mapThemrProps={[Function]}
         theme={
           Object {
-            "container": "src-shared-components-tc-communities-JoinCommunity-style___loadingIndicator",
+            "container": "src-shared-components-tc-communities-JoinCommunity-style___loadingIndicator___2RP1uY",
           }
         }
         themePriority="adhoc-context-default"
@@ -142,7 +142,7 @@ exports[`Matches shallow shapshot 4`] = `
       size={null}
       theme={
         Object {
-          "button": "src-shared-components-tc-communities-JoinCommunity-style___returnToCommunityButton",
+          "button": "src-shared-components-tc-communities-JoinCommunity-style___returnToCommunityButton___1YlEiP",
         }
       }
       themePriority="adhoc-context-default"

@@ -51,7 +51,7 @@ exports[`Matches shallow shapshot 1`] = `
             mapThemrProps={[Function]}
             theme={
               Object {
-                "avatar": "src-shared-components-Leaderboard-avatarStyles___default",
+                "avatar": "src-shared-components-Leaderboard-avatarStyles___default___1bHTzy",
               }
             }
             themePriority="adhoc-context-default"
@@ -110,7 +110,7 @@ exports[`Matches shallow shapshot 1`] = `
             mapThemrProps={[Function]}
             theme={
               Object {
-                "avatar": "src-shared-components-Leaderboard-avatarStyles___default",
+                "avatar": "src-shared-components-Leaderboard-avatarStyles___default___1bHTzy",
               }
             }
             themePriority="adhoc-context-default"
@@ -169,7 +169,7 @@ exports[`Matches shallow shapshot 1`] = `
             mapThemrProps={[Function]}
             theme={
               Object {
-                "avatar": "src-shared-components-Leaderboard-avatarStyles___default",
+                "avatar": "src-shared-components-Leaderboard-avatarStyles___default___1bHTzy",
               }
             }
             themePriority="adhoc-context-default"
@@ -228,7 +228,7 @@ exports[`Matches shallow shapshot 1`] = `
             mapThemrProps={[Function]}
             theme={
               Object {
-                "avatar": "src-shared-components-Leaderboard-avatarStyles___default",
+                "avatar": "src-shared-components-Leaderboard-avatarStyles___default___1bHTzy",
               }
             }
             themePriority="adhoc-context-default"

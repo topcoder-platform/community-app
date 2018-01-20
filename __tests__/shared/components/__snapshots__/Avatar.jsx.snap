@@ -5,7 +5,7 @@ exports[`Matches shallow shapshot 1`] = `
   customStyles={null}
   theme={
     Object {
-      "avatar": "src-shared-components-Avatar-style___avatar",
+      "avatar": "src-shared-components-Avatar-style___avatar___3QhkHA",
     }
   }
   url={null}
@@ -17,7 +17,7 @@ exports[`Matches shallow shapshot 2`] = `
   customStyles={null}
   theme={
     Object {
-      "avatar": "src-shared-components-Avatar-style___avatar",
+      "avatar": "src-shared-components-Avatar-style___avatar___3QhkHA",
     }
   }
   url="some-fake-string"
@@ -29,7 +29,7 @@ exports[`Matches shallow shapshot 3`] = `
   customStyles={null}
   theme={
     Object {
-      "avatar": "test-style src-shared-components-Avatar-style___avatar",
+      "avatar": "test-style src-shared-components-Avatar-style___avatar___3QhkHA",
     }
   }
   url={null}
@@ -41,7 +41,7 @@ exports[`Matches shallow shapshot 4`] = `
   customStyles={null}
   theme={
     Object {
-      "avatar": "test-style src-shared-components-Avatar-style___avatar",
+      "avatar": "test-style src-shared-components-Avatar-style___avatar___3QhkHA",
     }
   }
   url="some-fake-string"
