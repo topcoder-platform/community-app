@@ -267,12 +267,26 @@ function onUpdateChallengeDone(state, { error, payload }) {
     return state;
   }
   if (payload.uuid !== state.updatingChallengeUuid) return state;
-  console.log(payload);
+
+  /* Due to the normalization of challenge APIs responses done when a challenge
+   * is loaded, many pieces of our code expect different information in a format
+   * different from API v3 response, thus if we just save entire payload.res
+   * into the Redux state segment, it will break our app. As a rapid fix, let's
+   * just save only the data which are really supposed to be updated in the
+   * current use case (editing of challenge specs). */
+  const res = _.pick(payload.res, [
+    'detailedRequirements',
+    'introduction',
+    'round1Introduction',
+    'round2Introduction',
+    'submissionGuidelines',
+  ]);
+
   return {
     ...state,
     details: {
       ...state.details,
-      ...payload.res,
+      ...res,
     },
     updatingChallengeUuid: '',
   };
