@@ -6,6 +6,7 @@ import _ from 'lodash';
 import { createActions } from 'redux-actions';
 import { decodeToken } from 'tc-accounts';
 import { getService } from 'services/challenges';
+import { getReviewOpportunitiesService } from 'services/reviewOpportunities';
 import 'isomorphic-fetch';
 import { fireErrorMessage } from 'utils/errors';
 
@@ -220,7 +221,7 @@ function getPastChallengesDone(uuid, page, filter, tokenV3, frontFilter = {}) {
  */
 function getReviewOpportunitiesDone(uuid, page /* , tokenV3 */) {
   // TODO: Pass tokenV3 to fetch review opportunities for private challenges
-  return getService()
+  return getReviewOpportunitiesService()
     .getReviewOpportunities(REVIEW_OPPORTUNITY_PAGE_SIZE, page * REVIEW_OPPORTUNITY_PAGE_SIZE)
     .then(loaded => ({ uuid, loaded }))
     .catch(error => fireErrorMessage('Error Getting Review Opportunities', error));
