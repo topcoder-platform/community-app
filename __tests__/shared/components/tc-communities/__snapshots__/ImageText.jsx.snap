@@ -7,15 +7,15 @@ exports[`Matches shallow snapshot 1`] = `
   text="You can learn and get certified donec facilisis tortor ut augue lacinia"
   theme={
     Object {
-      "container": "src-shared-components-tc-communities-ImageText-___style__container___sFB20",
-      "content": "src-shared-components-tc-communities-ImageText-___style__content___u-VBC",
-      "contentInner": "src-shared-components-tc-communities-ImageText-___style__contentInner___3bVcG",
-      "image": "src-shared-components-tc-communities-ImageText-___style__image___25fY3",
-      "imageText": "src-shared-components-tc-communities-ImageText-___style__imageText___3Yfl8",
-      "link": "src-shared-components-tc-communities-ImageText-___style__link___XUXfr",
-      "linkWrap": "src-shared-components-tc-communities-ImageText-___style__linkWrap___YjoyB",
-      "text": "src-shared-components-tc-communities-ImageText-___style__text___HypPk",
-      "title": "src-shared-components-tc-communities-ImageText-___style__title___COlJG",
+      "container": "src-shared-components-tc-communities-ImageText-style___container___sFB20c",
+      "content": "src-shared-components-tc-communities-ImageText-style___content___u-VBCd",
+      "contentInner": "src-shared-components-tc-communities-ImageText-style___contentInner___3bVcG-",
+      "image": "src-shared-components-tc-communities-ImageText-style___image___25fY3u",
+      "imageText": "src-shared-components-tc-communities-ImageText-style___imageText___3Yfl8h",
+      "link": "src-shared-components-tc-communities-ImageText-style___link___XUXfrv",
+      "linkWrap": "src-shared-components-tc-communities-ImageText-style___linkWrap___YjoyB-",
+      "text": "src-shared-components-tc-communities-ImageText-style___text___HypPk9",
+      "title": "src-shared-components-tc-communities-ImageText-style___title___COlJG2",
     }
   }
   title="Learn"

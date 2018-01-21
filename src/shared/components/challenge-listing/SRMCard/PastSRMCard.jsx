@@ -77,4 +77,4 @@ const PastSRMCard = () => (
   </div>
 );
 
-module.exports = PastSRMCard;
+export default PastSRMCard;

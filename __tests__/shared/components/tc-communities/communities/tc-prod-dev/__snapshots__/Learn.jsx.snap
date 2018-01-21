@@ -11,9 +11,9 @@ exports[`Snapshot match 1`] = `
     text="Our continuously evolving structured learning paths, constantly abreast of the latest, tailored for employees to deepen your knowledge, infuses important software capabilities that are industry specific and help you get the skills you need to succeed."
     theme={
       Object {
-        "container": "src-shared-components-tc-communities-communities-tc-prod-dev-Learn-___style__bannerContainer___URpFK",
-        "content": "src-shared-components-tc-communities-communities-tc-prod-dev-Learn-___style__bannerContent___2VUWX",
-        "contentInner": "src-shared-components-tc-communities-communities-tc-prod-dev-Learn-___style__bannerContentInner___Q6kQG",
+        "container": "src-shared-components-tc-communities-communities-tc-prod-dev-Learn-style___bannerContainer___URpFK9",
+        "content": "src-shared-components-tc-communities-communities-tc-prod-dev-Learn-style___bannerContent___2VUWXS",
+        "contentInner": "src-shared-components-tc-communities-communities-tc-prod-dev-Learn-style___bannerContentInner___Q6kQGV",
       }
     }
     themePriority="adhoc-context-default"
@@ -28,7 +28,7 @@ exports[`Snapshot match 1`] = `
     subTitle=""
     theme={
       Object {
-        "container": "src-shared-components-tc-communities-communities-tc-prod-dev-Learn-___style__learnBasicsContainer___1iYDC",
+        "container": "src-shared-components-tc-communities-communities-tc-prod-dev-Learn-style___learnBasicsContainer___1iYDCB",
       }
     }
     themePriority="adhoc-context-default"
@@ -238,7 +238,7 @@ exports[`Snapshot match 1`] = `
     subTitle=""
     theme={
       Object {
-        "container": "src-shared-components-tc-communities-communities-tc-prod-dev-Learn-___style__coursesContainer____PCRk",
+        "container": "src-shared-components-tc-communities-communities-tc-prod-dev-Learn-style___coursesContainer____PCRkh",
       }
     }
     themePriority="adhoc-context-default"
@@ -302,8 +302,8 @@ exports[`Snapshot match 1`] = `
     subTitle=""
     theme={
       Object {
-        "container": "src-shared-components-tc-communities-communities-tc-prod-dev-Learn-___style__resourcesContainer___1uPkY",
-        "title": "src-shared-components-tc-communities-communities-tc-prod-dev-Learn-___style__resourcesTitle___1JW2C",
+        "container": "src-shared-components-tc-communities-communities-tc-prod-dev-Learn-style___resourcesContainer___1uPkYN",
+        "title": "src-shared-components-tc-communities-communities-tc-prod-dev-Learn-style___resourcesTitle___1JW2CI",
       }
     }
     themePriority="adhoc-context-default"

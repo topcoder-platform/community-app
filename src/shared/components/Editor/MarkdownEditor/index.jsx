@@ -13,13 +13,23 @@ import Connector from '../Connector';
 import GenericEditor from '../GenericEditor';
 import MdUtils from './md-utils';
 
+import ImageEditor from '../Image/EditModal';
+
 import style from './style.scss'; // eslint-disable-line no-unused-vars
+
+const GUI_STATES = {
+  IMAGE_EDIT_MODAL: 'IMAGE_EDIT_MODAL',
+  REGULAR: 'REGULAR',
+};
 
 export default class MarkdownEditor extends React.Component {
   constructor(props) {
     super(props);
     this.mdUtils = new MdUtils();
-    this.state = { editor: EditorState.createEmpty(this.mdUtils) };
+    this.state = {
+      editor: EditorState.createEmpty(this.mdUtils),
+      gui: GUI_STATES.REGULAR,
+    };
     this.turndown = new Turndown();
   }
 
@@ -68,10 +78,22 @@ export default class MarkdownEditor extends React.Component {
     this.onChange(state);
   }
 
+  insertImage() {
+    setImmediate(() => this.setState({ gui: GUI_STATES.IMAGE_EDIT_MODAL }));
+  }
+
   render() {
     const { connector, id } = this.props;
+    const st = this.state;
     return (
       <div styleName="style.container">
+        {
+          st.gui === GUI_STATES.IMAGE_EDIT_MODAL ? (
+            <ImageEditor
+              onCancel={() => this.setState({ gui: GUI_STATES.REGULAR })}
+            />
+          ) : null
+        }
         <GenericEditor
           blockRendererFn={block => ({
             component: BlockWrapper,

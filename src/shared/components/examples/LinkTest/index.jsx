@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'utils/router';
+import { Link } from 'topcoder-react-utils';
 
 import './style.scss';
 

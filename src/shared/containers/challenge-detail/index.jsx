@@ -293,12 +293,7 @@ class ChallengeDetailPageContainer extends React.Component {
           }
           {
             !isEmpty && this.props.selectedTab === DETAIL_TABS.SUBMISSIONS &&
-            <Submissions
-              viewable={this.props.challenge.submissionsViewable === 'true'}
-              submissions={this.props.challenge.submissions}
-              checkpoints={this.props.challenge.checkpoints}
-              isDesign={this.props.challenge.track.toLowerCase() === 'design'}
-            />
+            <Submissions challenge={challenge} />
           }
           {
             !isEmpty && this.props.selectedTab === DETAIL_TABS.WINNERS &&

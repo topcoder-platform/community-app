@@ -86,7 +86,7 @@ exports[`Matches shallow shapshot 1`] = `
       size={null}
       theme={
         Object {
-          "button": "src-shared-components-SubmissionManagement-SubmissionManagement-___styles__add-sub-btn___1ZToV",
+          "button": "src-shared-components-SubmissionManagement-SubmissionManagement-styles___add-sub-btn___1ZToVR",
         }
       }
       themePriority="adhoc-context-default"

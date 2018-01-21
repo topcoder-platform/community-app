@@ -43,7 +43,7 @@
 import PT from 'prop-types';
 import React from 'react';
 import { themr } from 'react-css-super-themr';
-import { Link } from 'utils/router';
+import { Link } from 'topcoder-react-utils';
 
 import dangerButton from './standard/danger.scss';
 import defaultButton from './standard/default.scss';

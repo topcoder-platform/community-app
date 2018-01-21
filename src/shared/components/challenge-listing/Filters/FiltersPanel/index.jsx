@@ -29,7 +29,7 @@ import Select from 'components/Select';
 import moment from 'moment';
 import { Button, PrimaryButton } from 'components/buttons';
 import Tooltip from 'components/Tooltip';
-import { Link } from 'utils/router';
+import { Link } from 'topcoder-react-utils';
 import { COMPOSE, PRIORITY } from 'react-css-super-themr';
 import { REVIEW_OPPORTUNITY_TYPES } from 'utils/tc';
 import CheckmarkIcon from './CheckmarkIcon';

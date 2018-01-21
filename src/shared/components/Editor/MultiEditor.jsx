@@ -24,8 +24,9 @@ export default class MultiEditor extends React.Component {
     this.fakeConnector = new Connector();
     this.fakeConnector.setToolbar(this);
     this.id = props.id;
+    console.log(props);
     this.state = {
-      mode: MODES.WYSIWYG,
+      mode: props.initialMode,
     };
     this.turndown = new Turndown();
   }
@@ -93,8 +94,10 @@ export default class MultiEditor extends React.Component {
   }
 
   insertImage(src, triggerModal) {
-    if (this.state.mode === MODES.WYSIWYG) {
-      this.editor.insertImage(src, triggerModal);
+    switch (this.state.mode) {
+      case MODES.WYSIWYG: return this.editor.insertImage(src, triggerModal);
+      case MODES.MARKDOWN: return this.editor.insertImage();
+      default: return undefined;
     }
   }
 
@@ -140,9 +143,11 @@ export default class MultiEditor extends React.Component {
 MultiEditor.defaultProps = {
   connector: null,
   id: null,
+  initialMode: MODES.WYSIWYG,
 };
 
 MultiEditor.propTypes = {
   connector: PT.shape(),
   id: PT.string,
+  initialMode: PT.oneOf(Object.values(MODES)),
 };

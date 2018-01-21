@@ -4,7 +4,7 @@
 
 import _ from 'lodash';
 import config from 'utils/config';
-import Editor from 'components/Editor/MultiEditor';
+import Editor, { MODES as EDITOR_MODES } from 'components/Editor/MultiEditor';
 import EditorToolbar from 'components/Editor/Toolbar';
 import Previewer from 'components/Editor/Previewer';
 import ToolbarConnector from 'components/Editor/Connector';
@@ -152,6 +152,7 @@ export default function ChallengeDetailsView(props) {
                             <Editor
                               connector={toolbarConnector}
                               id="detailedRequirements"
+                              initialMode={EDITOR_MODES.WYSIWYG}
                               ref={n => n && n.setHtml(detailedRequirements)}
                             />
                           ) : (
@@ -176,6 +177,7 @@ export default function ChallengeDetailsView(props) {
                             <Editor
                               connector={toolbarConnector}
                               id="submissionGuidelines"
+                              initialMode={EDITOR_MODES.WYSIWYG}
                               ref={n => n && n.setHtml(finalSubmissionGuidelines)}
                             />
                           ) : (
@@ -204,6 +206,7 @@ export default function ChallengeDetailsView(props) {
                             <Editor
                               connector={toolbarConnector}
                               id="introduction"
+                              initialMode={EDITOR_MODES.WYSIWYG}
                               ref={n => n && n.setHtml(introduction)}
                             />
                           ) : (
@@ -242,6 +245,7 @@ export default function ChallengeDetailsView(props) {
                                 <Editor
                                   connector={toolbarConnector}
                                   id="round1Introduction"
+                                  initialMode={EDITOR_MODES.WYSIWYG}
                                   ref={n => n.setHtml(round1Introduction)}
                                 />
                               ) : (
@@ -266,6 +270,7 @@ export default function ChallengeDetailsView(props) {
                                 <Editor
                                   connector={toolbarConnector}
                                   id="round2Introduction"
+                                  initialMode={EDITOR_MODES.WYSIWYG}
                                   ref={n => n.setHtml(round2Introduction)}
                                 />
                               ) : (
@@ -319,6 +324,7 @@ export default function ChallengeDetailsView(props) {
                             <Editor
                               connector={toolbarConnector}
                               id="detailedRequirements"
+                              initialMode={EDITOR_MODES.WYSIWYG}
                               ref={n => n && n.setHtml(detailedRequirements)}
                             />
                           ) : (
