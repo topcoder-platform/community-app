@@ -88,6 +88,13 @@
   }
 }
 
+.tab-container {
+  background: $tc-white;
+  display: flex;
+  padding-top: 4 * $base-unit;
+  width: 100%;
+}
+
 .tags {
   display: flex;
   font-size: 10px;

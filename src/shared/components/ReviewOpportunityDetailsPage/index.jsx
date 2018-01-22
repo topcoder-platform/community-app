@@ -8,6 +8,7 @@ import PT from 'prop-types';
 import { TABS } from 'actions/page/review-opportunity-details';
 
 import ChallengeSpecTab from './ChallengeSpecTab';
+import Sidebar from './Sidebar';
 
 import './styles.scss';
 
@@ -26,7 +27,7 @@ const ReviewOpportunityDetailsPage = ({ details, selectTab, selectedTab }) => (
         </div>
         <div styleName="tabs">
           <div styleName={`tab ${selectedTab === TABS.APPLICATIONS ? 'selected-tab' : ''}`}>
-            <a onClick={() => selectTab(TABS.APPLICATIONS)} role="link" tabIndex="0">REVIEW APPLICATIONS</a>
+            <a onClick={() => selectTab(TABS.APPLICATIONS)} role="link" tabIndex="0">REVIEW APPLICATIONS {`(${details.applications ? details.applications.length : 0})`}</a>
           </div>
           <div styleName={`tab ${selectedTab === TABS.CHALLENGE_SPEC ? 'selected-tab' : ''}`}>
             <a onClick={() => selectTab(TABS.CHALLENGE_SPEC)} role="link" tabIndex="-1">CHALLENGE SPEC</a>
@@ -37,8 +38,11 @@ const ReviewOpportunityDetailsPage = ({ details, selectTab, selectedTab }) => (
         </div>
       </div>
 
-      { selectedTab === TABS.CHALLENGE_SPEC ?
-        <ChallengeSpecTab challenge={details.challenge} /> : null }
+      <div styleName="tab-container">
+        { selectedTab === TABS.CHALLENGE_SPEC ?
+          <ChallengeSpecTab challenge={details.challenge} /> : null }
+        <Sidebar />
+      </div>
 
     </div>
   </div>
