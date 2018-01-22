@@ -1,0 +1,30 @@
+@import "~styles/mixins";
+
+.container {
+  display: flex;
+  flex: 1;
+  justify-content: center;
+  padding: 30px 0 40px;
+  background: #f6f6f6;
+
+  @include md-to-lg {
+    padding-bottom: 0;
+  }
+
+  @include xs-to-lg {
+    padding: 10px;
+  }
+
+  .content {
+    display: flex;
+    flex-direction: column;
+
+    @include md-to-lg {
+      width: 100%;
+    }
+
+    @include xl {
+      width: 1242px;
+    }
+  }
+}

@@ -11,6 +11,7 @@ import Error404 from 'components/Error404';
 import Footer from 'components/TopcoderFooter';
 import Header from 'containers/TopcoderHeader';
 import React from 'react';
+import ReviewOpportunityDetails from 'routes/ReviewOpportunityDetails';
 import Submission from 'routes/Submission';
 import SubmissionManagement from 'routes/SubmissionManagement';
 import { Route, Switch } from 'react-router-dom';
@@ -38,6 +39,11 @@ export default function Topcoder() {
         />
         <Route component={ChallengeListing} exact path="/challenges" />
         <Route component={Dashboard} exact path="/my-dashboard" />
+        <Route
+          component={ReviewOpportunityDetails}
+          exact
+          path="/review-opportunities/:challengeId(\d{8})"
+        />
         <Route component={Scoreboard} exact path="/scoreboard/:challengeId(\d+)" />
         <Route
           component={SubmissionManagement}
