@@ -8,6 +8,7 @@ import PT from 'prop-types';
 import { connect } from 'react-redux';
 
 import apiActions from 'actions/reviewOpportunity';
+import LoadingIndicator from 'components/LoadingIndicator';
 import pageActions from 'actions/page/review-opportunity-details';
 import ReviewOpportunityDetailsPage from 'components/ReviewOpportunityDetailsPage';
 
@@ -16,15 +17,21 @@ import ReviewOpportunityDetailsPage from 'components/ReviewOpportunityDetailsPag
  */
 class ReviewOpportunityDetailsContainer extends React.Component {
   componentDidMount() {
-    // Load API here
+    const {
+      challengeId,
+      details,
+      isLoadingDetails,
+      loadDetails,
+      tokenV3,
+    } = this.props;
+    if (!isLoadingDetails && !details) {
+      loadDetails(challengeId, tokenV3);
+    }
   }
 
   render() {
-    return (
-      <ReviewOpportunityDetailsPage
-        {...this.props}
-      />
-    );
+    return this.props.details ?
+      <ReviewOpportunityDetailsPage {...this.props} /> : <LoadingIndicator />;
   }
 }
 
@@ -32,6 +39,9 @@ class ReviewOpportunityDetailsContainer extends React.Component {
  * Default values for Props
  */
 ReviewOpportunityDetailsContainer.defaultProps = {
+  details: null,
+  isLoadingDetails: false,
+  tokenV3: null,
 };
 
 /**
@@ -39,9 +49,11 @@ ReviewOpportunityDetailsContainer.defaultProps = {
  */
 ReviewOpportunityDetailsContainer.propTypes = {
   challengeId: PT.number.isRequired,
-  details: PT.shape().isRequired,
+  details: PT.shape(),
+  isLoadingDetails: PT.bool,
   loadDetails: PT.func.isRequired,
   selectTab: PT.func.isRequired,
+  tokenV3: PT.string,
 };
 
 /**
@@ -57,6 +69,7 @@ const mapStateToProps = (state, ownProps) => {
   return {
     challengeId: Number(ownProps.match.params.challengeId),
     details: api.details,
+    isLoadingDetails: api.isLoadingDetails,
     selectedTab: page.selectedTab,
     tokenV3: state.auth.tokenV3,
   };
