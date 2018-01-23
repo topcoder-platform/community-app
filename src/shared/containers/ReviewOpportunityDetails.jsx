@@ -41,6 +41,7 @@ class ReviewOpportunityDetailsContainer extends React.Component {
 ReviewOpportunityDetailsContainer.defaultProps = {
   details: null,
   isLoadingDetails: false,
+  phasesExpanded: false,
   tokenV3: null,
 };
 
@@ -50,9 +51,12 @@ ReviewOpportunityDetailsContainer.defaultProps = {
 ReviewOpportunityDetailsContainer.propTypes = {
   challengeId: PT.number.isRequired,
   details: PT.shape(),
+  handle: PT.string.isRequired,
   isLoadingDetails: PT.bool,
   loadDetails: PT.func.isRequired,
+  phasesExpanded: PT.bool,
   selectTab: PT.func.isRequired,
+  togglePhasesExpand: PT.func.isRequired,
   tokenV3: PT.string,
 };
 
@@ -69,7 +73,9 @@ const mapStateToProps = (state, ownProps) => {
   return {
     challengeId: Number(ownProps.match.params.challengeId),
     details: api.details,
+    handle: state.auth.user ? state.auth.user.handle : '',
     isLoadingDetails: api.isLoadingDetails,
+    phasesExpanded: page.phasesExpanded,
     selectedTab: page.selectedTab,
     tokenV3: state.auth.tokenV3,
   };
@@ -85,6 +91,7 @@ function mapDispatchToProps(dispatch) {
   const api = apiActions.reviewOpportunity;
   const page = pageActions.page.reviewOpportunityDetails;
   return {
+    togglePhasesExpand: () => dispatch(page.togglePhasesExpand()),
     loadDetails: (challengeId, tokenV3) => {
       dispatch(api.getReviewOpportunityDetailsInit());
       dispatch(api.getReviewOpportunityDetailsDone(challengeId, tokenV3));

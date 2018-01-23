@@ -62,7 +62,6 @@
   border-radius: 3 * $corner-radius;
   margin: auto;
   max-width: 1240px;
-  // padding: 4 * $base-unit;
   text-align: left;
   width: 100%;
 }
@@ -99,6 +98,7 @@
   display: flex;
   font-size: 10px;
   margin-top: 2 * $base-unit;
+  margin-bottom: 4 * $base-unit;
   text-align: center;
 
   .review-opportunity-tag {

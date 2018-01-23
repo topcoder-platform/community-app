@@ -7,7 +7,7 @@ import PT from 'prop-types';
 import './styles.scss';
 
 /**
- * ReviewOpportunityDetailsPage Component
+ * ChallengeSpecTab Component
  */
 const ChallengeSpecTab = ({ challenge }) => (
   <div styleName="container">

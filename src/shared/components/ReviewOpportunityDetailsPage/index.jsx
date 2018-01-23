@@ -8,6 +8,7 @@ import PT from 'prop-types';
 import { TABS } from 'actions/page/review-opportunity-details';
 
 import ChallengeSpecTab from './ChallengeSpecTab';
+import Header from './Header';
 import Sidebar from './Sidebar';
 
 import './styles.scss';
@@ -15,7 +16,14 @@ import './styles.scss';
 /**
  * ReviewOpportunityDetailsPage Component
  */
-const ReviewOpportunityDetailsPage = ({ details, selectTab, selectedTab }) => (
+const ReviewOpportunityDetailsPage = ({
+  details,
+  handle,
+  phasesExpanded,
+  selectTab,
+  selectedTab,
+  togglePhasesExpand,
+}) => (
   <div styleName="outer-container">
     <div styleName="page">
 
@@ -25,6 +33,14 @@ const ReviewOpportunityDetailsPage = ({ details, selectTab, selectedTab }) => (
           <div styleName="review-opportunity-tag">Review Opportunities</div>
           <div styleName="subtrack-tag">{details.challenge.subTrack}</div>
         </div>
+
+        <Header
+          details={details}
+          handle={handle}
+          phasesExpanded={phasesExpanded}
+          togglePhasesExpand={togglePhasesExpand}
+        />
+
         <div styleName="tabs">
           <div styleName={`tab ${selectedTab === TABS.APPLICATIONS ? 'selected-tab' : ''}`}>
             <a onClick={() => selectTab(TABS.APPLICATIONS)} role="link" tabIndex="0">REVIEW APPLICATIONS {`(${details.applications ? details.applications.length : 0})`}</a>
@@ -39,8 +55,10 @@ const ReviewOpportunityDetailsPage = ({ details, selectTab, selectedTab }) => (
       </div>
 
       <div styleName="tab-container">
-        { selectedTab === TABS.CHALLENGE_SPEC ?
-          <ChallengeSpecTab challenge={details.challenge} /> : null }
+        {
+          selectedTab === TABS.CHALLENGE_SPEC ?
+            <ChallengeSpecTab challenge={details.challenge} /> : null
+        }
         <Sidebar />
       </div>
 
@@ -60,8 +78,11 @@ ReviewOpportunityDetailsPage.defaultProps = {
  */
 ReviewOpportunityDetailsPage.propTypes = {
   details: PT.shape().isRequired,
+  handle: PT.string.isRequired,
+  phasesExpanded: PT.bool.isRequired,
   selectTab: PT.func.isRequired,
   selectedTab: PT.string,
+  togglePhasesExpand: PT.func.isRequired,
 };
 
 export default ReviewOpportunityDetailsPage;

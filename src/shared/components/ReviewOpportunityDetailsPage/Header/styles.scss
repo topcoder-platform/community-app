@@ -1,0 +1,17 @@
+@import "~styles/mixins";
+
+.container {
+  @include roboto-regular;
+
+  background: $tc-white;
+  border-color: $tc-gray-neutral-dark;
+  border-width: 2px;
+  border-radius: 3 * $corner-radius;
+  border-style: solid;
+  display: flex;
+  flex-direction: row-reverse;
+  height: 180px;
+  margin-bottom: 6 * $base-unit;
+  padding: 0;
+  width: 100%;
+}

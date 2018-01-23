@@ -14,6 +14,7 @@ export default createActions({
   PAGE: {
     REVIEW_OPPORTUNITY_DETAILS: {
       SELECT_TAB: _.identity,
+      TOGGLE_PHASES_EXPAND: _.noop,
     },
   },
 });

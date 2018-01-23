@@ -12,7 +12,9 @@ function create(defaultState = {}) {
   const a = actions.page.reviewOpportunityDetails;
   return handleActions({
     [a.selectTab]: (state, { payload }) => ({ ...state, selectedTab: payload }),
+    [a.togglePhasesExpand]: state => ({ ...state, phasesExpanded: !state.phasesExpanded }),
   }, _.defaults(defaultState, {
+    phasesExpanded: false,
     selectedTab: TABS.APPLICATIONS,
   }));
 }

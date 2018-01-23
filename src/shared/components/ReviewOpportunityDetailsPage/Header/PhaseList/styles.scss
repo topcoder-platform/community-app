@@ -1,0 +1,81 @@
+@import "~styles/mixins";
+
+@mixin phase($bullet-color) {
+  display: block;
+  width: 100%;
+
+  .type {
+    display: inline-block;
+    width: 50%;
+
+    &::before {
+      content: "\2022";
+      color: $bullet-color;
+      font-size: 26px;
+      margin-right: 2 * $base-unit;
+      vertical-align: middle;
+    }
+  }
+
+  .date {
+    display: inline-block;
+    width: 50%;
+  }
+}
+
+.active-phase {
+  @include phase($tc-green);
+
+  color: $tc-gray-90;
+  background: rgb(244, 249, 255);
+  font-weight: 700;
+}
+
+.button {
+  border-radius: $corner-radius * 12;
+  font-size: 13px;
+  font-weight: 400;
+  height: 25px;
+  padding: 0 10px;
+  max-width: 120px;
+}
+
+.container {
+  @include roboto-regular;
+
+  align-items: center;
+  background: $tc-white;
+  display: flex;
+  color: $tc-gray-90;
+  font-size: 13px;
+  flex-direction: column;
+  height: 100%;
+  justify-content: space-between;
+  padding-bottom: 2 * $base-unit;
+  padding-top: 2 * $base-unit;
+  text-align: left;
+  width: 30%;
+}
+
+.expanded {
+  border-radius: $corner-radius * 4;
+  box-shadow: 0 0 16px $tc-gray-20;
+  height: 325px;
+  position: relative;
+}
+
+.inactive-phase {
+  @include phase($tc-gray-50);
+
+  color: $tc-gray-50;
+  font-weight: 300;
+
+  strong {
+    font-weight: 400;
+  }
+}
+
+.phases {
+  padding-left: 8 * $base-unit;
+  width: 100%;
+}
