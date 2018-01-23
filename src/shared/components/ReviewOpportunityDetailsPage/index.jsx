@@ -7,6 +7,7 @@ import PT from 'prop-types';
 
 import { TABS } from 'actions/page/review-opportunity-details';
 
+import ApplicationsTab from './ApplicationsTab';
 import ChallengeSpecTab from './ChallengeSpecTab';
 import Header from './Header';
 import Sidebar from './Sidebar';
@@ -55,6 +56,10 @@ const ReviewOpportunityDetailsPage = ({
       </div>
 
       <div styleName="tab-container">
+        {
+          selectedTab === TABS.APPLICATIONS ?
+            <ApplicationsTab applications={details.applications} /> : null
+        }
         {
           selectedTab === TABS.CHALLENGE_SPEC ?
             <ChallengeSpecTab challenge={details.challenge} /> : null

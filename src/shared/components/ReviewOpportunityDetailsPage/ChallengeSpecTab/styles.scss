@@ -55,8 +55,7 @@ $tc-link-visited: #0c4e98;
   border-radius: 0 0 3 * $corner-radius 3 * $corner-radius;
   margin-bottom: 2 * $base-unit;
   max-width: 1240px;
-  padding: 4 * $base-unit;
-  // text-align: left;
+  padding: 16 * $base-unit;
   width: 100%;
 }
 
@@ -66,7 +65,7 @@ $tc-link-visited: #0c4e98;
   font-size: 20px;
   color: $tc-black;
   line-height: 30px;
-  margin: (6 * $base-unit) 0 (2 * $base-unit);
+  // margin: (6 * $base-unit) 0 (2 * $base-unit);
 }
 
 .rawHtml {
