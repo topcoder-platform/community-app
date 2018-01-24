@@ -1,0 +1,50 @@
+@import "~styles/mixins";
+
+.container {
+  @include roboto-regular;
+
+  background: $tc-white;
+  color: $tc-gray-40;
+  font-size: 13px;
+  height: 100%;
+  padding-bottom: 2 * $base-unit;
+  padding-left: 18 * $base-unit;
+  padding-top: 2 * $base-unit;
+  text-align: left;
+  width: 45%;
+}
+
+.roles {
+  display: inline-block;
+}
+
+.payment {
+  border-bottom: solid 3px $tc-light-blue;
+  display: inline-block;
+  font-weight: 400;
+  margin: 4 * $base-unit;
+  padding-bottom: 2 * $base-unit;
+  padding-left: 2 * $base-unit;
+  width: 130px;
+
+  h2 {
+    color: $tc-gray-90;
+    margin-top: $base-unit;
+  }
+
+  &:first-child {
+    border-bottom-color: $tc-gold;
+  }
+}
+
+.positions {
+  font-weight: 300;
+  line-height: 16px;
+  padding-left: 5 * $base-unit;
+  text-transform: uppercase;
+
+  .accent {
+    color: $tc-light-blue;
+    font-weight: 500;
+  }
+}

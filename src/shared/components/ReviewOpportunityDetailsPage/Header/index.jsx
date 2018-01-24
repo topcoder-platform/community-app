@@ -5,7 +5,10 @@ import _ from 'lodash';
 import React from 'react';
 import PT from 'prop-types';
 
+import { openPositionsByRole } from 'utils/reviewOpportunities';
+
 import ApplyTime from './ApplyTime';
+import PaymentInfo from './PaymentInfo';
 import PhaseList from './PhaseList';
 
 import './styles.scss';
@@ -15,24 +18,21 @@ import './styles.scss';
  */
 const Header = ({ details, handle, phasesExpanded, togglePhasesExpand }) => (
   <div styleName="container">
-    <ApplyTime
-      openPositions={details.openPositions}
-      hasApplied={Boolean(_.find(details.applications, app => app.handle === handle))}
-      startDate={details.startDate}
+    <PaymentInfo
+      positions={openPositionsByRole(details)}
     />
     <PhaseList
       isExpanded={phasesExpanded}
       phases={details.challenge.phases}
       toggleExpand={togglePhasesExpand}
     />
+    <ApplyTime
+      openPositions={details.openPositions}
+      hasApplied={Boolean(_.find(details.applications, app => app.handle === handle))}
+      startDate={details.startDate}
+    />
   </div>
 );
-
-/**
- * Default values for Props
- */
-Header.defaultProps = {
-};
 
 /**
  * Prop Validation
