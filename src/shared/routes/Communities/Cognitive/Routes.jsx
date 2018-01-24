@@ -19,6 +19,7 @@ import SubmissionManagement from 'routes/SubmissionManagement';
 
 import socialImage from 'assets/images/communities/cognitive/social.jpg';
 
+import TermsDetail from 'routes/TermsDetail';
 import { Route, Switch } from 'react-router-dom';
 
 export default function Cognitive({ base, member, meta }) {
@@ -83,6 +84,11 @@ export default function Cognitive({ base, member, meta }) {
               })}
               exact
               path={`${base}/challenges/:challengeId(\\d{8})/my-submissions`}
+            />
+            <Route
+              component={TermsDetail}
+              exact
+              path={`${base}/challenges/terms/detail/:termId`}
             />
             <Route
               component={() => <Resources baseUrl={base} member={member} />}

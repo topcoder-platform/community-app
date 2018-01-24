@@ -22,4 +22,4 @@ Loader.propTypes = {
   type: PT.oneOf(['small', '']),
 };
 
-module.exports = Loader;
+export default Loader;

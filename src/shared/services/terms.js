@@ -129,6 +129,14 @@ class TermsService {
  */
 let lastInstance = null;
 export function getService(tokenV2) {
+  /* Because of Topcoder backend restrictions, it is not straightforward to test
+   * terms-related functionality in any other way than just providing an option
+   * to run the app against mock terms service. */
+  if (config.MOCK_TERMS_SERVICE) {
+    /* eslint-disable global-require */
+    return require('./__mocks__/terms').getService(tokenV2);
+    /* eslint-enable global-require */
+  }
   if (!lastInstance || (tokenV2 && lastInstance.private.tokenV2 !== tokenV2)) {
     lastInstance = new TermsService(tokenV2);
   }
@@ -137,14 +145,3 @@ export function getService(tokenV2) {
 
 /* Using default export would be confusing in this case. */
 export default undefined;
-
-/* Because of Topcoder backend restrictions, it is not straightforward to test
- * terms-related functionality in any other way than just providing an option to
- * run the app against mock terms service. */
-if (config.MOCK_TERMS_SERVICE) {
-  /* eslint-disable global-require */
-  module.exports = require('./__mocks__/terms');
-  /* eslint-enable global-require */
-} else {
-  module.exports.getService = getService;
-}

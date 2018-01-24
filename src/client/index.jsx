@@ -9,7 +9,7 @@ let injectedData = forge.util.decode64(window.INJ);
 const iv = injectedData.slice(0, 32);
 injectedData = injectedData.slice(32);
 /* eslint-disable no-undef */
-const decipher = forge.cipher.createDecipher('AES-CBC', INJKEY);
+const decipher = forge.cipher.createDecipher('AES-CBC', BUILD_RNDKEY);
 /* eslint-enable no-undef */
 decipher.start({ iv });
 decipher.update(forge.util.createBuffer(injectedData));

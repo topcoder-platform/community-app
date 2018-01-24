@@ -8,7 +8,7 @@
 import PT from 'prop-types';
 import React from 'react';
 import { themr } from 'react-css-super-themr';
-import { Link as RouterLink } from 'utils/router';
+import { Link as RouterLink } from 'topcoder-react-utils';
 import defaultStyle from './style.scss';
 
 function Link({ theme, title, url }) {

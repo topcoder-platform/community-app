@@ -118,4 +118,4 @@ Division.propTypes = {
   division: PT.string.isRequired,
 };
 
-module.exports = Division;
+export default Division;

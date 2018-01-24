@@ -22,9 +22,9 @@ exports[`Match shadow snapshot 1`] = `
   <Connect(JoinCommunityContainer)
     theme={
       Object {
-        "container": "src-shared-components-tc-communities-communities-community-2-Home-___style__joinContainer___rbxVd",
+        "container": "src-shared-components-tc-communities-communities-community-2-Home-style___joinContainer___rbxVdk",
         "link": Object {
-          "button": "src-shared-components-buttons-outline-round-open-sans-___green-uppercase__button___3hG4e",
+          "button": "src-shared-components-buttons-outline-round-open-sans-green-uppercase___button___3hG4e1",
         },
       }
     }
@@ -38,7 +38,7 @@ exports[`Match shadow snapshot 1`] = `
     subTitle=""
     theme={
       Object {
-        "container": "src-shared-components-tc-communities-communities-community-2-Home-___style__linksContainer___CzMMR",
+        "container": "src-shared-components-tc-communities-communities-community-2-Home-style___linksContainer___CzMMR0",
       }
     }
     themePriority="adhoc-context-default"
@@ -88,7 +88,7 @@ exports[`Match shadow snapshot 1`] = `
     subTitle=""
     theme={
       Object {
-        "container": "src-shared-components-tc-communities-communities-community-2-Home-___style__resourcesContainer___1Y23p",
+        "container": "src-shared-components-tc-communities-communities-community-2-Home-style___resourcesContainer___1Y23pV",
       }
     }
     themePriority="adhoc-context-default"

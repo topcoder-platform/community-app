@@ -21,7 +21,7 @@ exports[`Matches shallow shapshot 1`] = `
     size={null}
     theme={
       Object {
-        "button": "src-shared-components-challenge-listing-Sidebar-FiltersEditor-___style__doneButton___-qp1P",
+        "button": "src-shared-components-challenge-listing-Sidebar-FiltersEditor-style___doneButton___-qp1P-",
       }
     }
     themePriority="adhoc-context-default"

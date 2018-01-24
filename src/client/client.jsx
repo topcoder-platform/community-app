@@ -2,12 +2,13 @@
  * Client-side rendering of the App.
  */
 
+import _ from 'lodash';
 import analytics from 'analytics.js';
 import authActions from 'actions/auth';
 import directActions from 'actions/direct';
 import userGroupsActions from 'actions/groups';
 import cookies from 'browser-cookies';
-import { BrowserRouter, browserHistory } from 'react-router-dom';
+import { BrowserRouter, Route } from 'react-router-dom';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
@@ -43,7 +44,23 @@ analytics.initialize({
   },
 });
 
-analytics.page();
+/**
+ * Performs AnalyticsJS identification of the user.
+ * @param {Object} profile TC user profile.
+ * @param {Array} roles User roles.
+ */
+function identify(profile, roles) {
+  analytics.identify(profile.userId, {
+    avatar: profile.photoURL,
+    createdAt: profile.createdAt,
+    email: profile.email,
+    firstName: profile.firstName,
+    id: profile.userId,
+    lastName: profile.lastName,
+    roles,
+    username: profile.handle,
+  });
+}
 
 /**
  * Uses Topcoder accounts-app to fetch / refresh authentication tokens.
@@ -75,9 +92,24 @@ function authenticate(store) {
     return ({});
   }).then(({ tctV2, tctV3 }) => {
     const auth = store.getState().auth;
+    if (auth.profile && !analyticsIdentitySet) {
+      identify(auth.profile, _.get(auth, 'user.roles'));
+      analyticsIdentitySet = true;
+    }
     if (auth.tokenV3 !== (tctV3 || null)) {
+      const action = actions.auth.loadProfile(tctV3);
+      action.payload.then((profile) => {
+        if (!profile) return;
+        const user = decodeToken(tctV3);
+        const userId = profile && profile.userId;
+        const prevUserId = _.get(store.getState(), 'auth.profile.userId');
+        if (userId && userId !== prevUserId) {
+          identify(profile, _.get(auth, user.roles));
+          analyticsIdentitySet = true;
+        }
+      });
       store.dispatch(actions.auth.setTcTokenV3(tctV3));
-      store.dispatch(actions.auth.loadProfile(tctV3));
+      store.dispatch(action);
     }
     if (auth.tokenV2 !== (tctV2 || null)) {
       store.dispatch(actions.auth.setTcTokenV2(tctV2));
@@ -85,15 +117,6 @@ function authenticate(store) {
 
     const userV3 = tctV3 ? decodeToken(tctV3) : {};
     const prevUserV3 = auth.tokenV3 ? decodeToken(auth.tokenV3) : {};
-
-    if (userV3.userId
-    && (!analyticsIdentitySet || userV3.userId !== prevUserV3.userId)) {
-      analyticsIdentitySet = true;
-      analytics.identify(userV3.userId, {
-        name: userV3.userId,
-        email: userV3.email,
-      });
-    }
 
     /* If we enter the following "if" block, it means that our visitor used
      * to be authenticated before, but now he has lost his authentication;
@@ -117,16 +140,26 @@ function authenticate(store) {
   });
 }
 
+let prevLocation;
 storeFactory(undefined, window.ISTATE).then((store) => {
   authenticate(store);
   setErrorsStore(store);
 
   function render() {
     const App = require('../shared').default; // eslint-disable-line global-require
+
     ReactDOM.hydrate(
       <Provider store={store}>
-        <BrowserRouter history={browserHistory}>
-          <App />
+        <BrowserRouter>
+          <Route
+            component={({ location }) => {
+              if (prevLocation !== location) {
+                prevLocation = location;
+                analytics.page();
+              }
+              return <App />;
+            }}
+          />
         </BrowserRouter>
       </Provider>,
       document.getElementById('react-view'),

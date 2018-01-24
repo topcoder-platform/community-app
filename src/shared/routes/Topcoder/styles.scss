@@ -6,7 +6,7 @@
 
   > *:nth-child(2):not(:last-child) {
     display: flex;
-    flex: 1;
+    flex: 1 0 auto;
     position: relative;
   }
 }

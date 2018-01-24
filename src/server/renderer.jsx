@@ -24,7 +24,7 @@ import App from '../shared';
  * to put the store into correct state depending on the demanded route. */
 import storeFactory from '../shared/store-factory';
 
-const configKeyUrl = path.resolve(__dirname, '../../.injkey');
+const buildInfoUrl = path.resolve(__dirname, '../../.build-info');
 
 const sanitizedConfig =
   _.omit(config, [
@@ -40,8 +40,9 @@ const sanitizedConfig =
  */
 function prepareCipher() {
   return new Promise(resolve =>
-    fs.readFile(configKeyUrl, (err1, key) =>
+    fs.readFile(buildInfoUrl, (err1, buildInfo) =>
       forge.random.getBytes(32, (err2, iv) => {
+        const key = JSON.parse(buildInfo).rndkey;
         const cipher = forge.cipher.createCipher('AES-CBC', key.toString());
         cipher.start({ iv });
         resolve({ cipher, iv });

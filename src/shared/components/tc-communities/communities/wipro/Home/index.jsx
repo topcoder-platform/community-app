@@ -16,7 +16,7 @@ import NewsSection from 'components/tc-communities/NewsSection';
 */
 
 import { noop } from 'lodash';
-import { Link } from 'utils/router';
+import { Link } from 'topcoder-react-utils';
 
 // import Slider from 'react-slick';
 

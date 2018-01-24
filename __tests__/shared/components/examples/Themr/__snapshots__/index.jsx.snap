@@ -30,10 +30,10 @@ exports[`Matches shallow shapshot 1`] = `
     mapThemrProps={[Function]}
     theme={
       Object {
-        "box": "src-shared-components-examples-Themr-___style__box___2VpH5",
-        "container": "src-shared-components-examples-Themr-___style__container___2Ztre",
-        "text": "src-shared-components-examples-Themr-___style__text___3B1uO",
-        "title": "src-shared-components-examples-Themr-___style__title___3op29",
+        "box": "src-shared-components-examples-Themr-style___box___2VpH5M",
+        "container": "src-shared-components-examples-Themr-style___container___2Ztres",
+        "text": "src-shared-components-examples-Themr-style___text___3B1uOg",
+        "title": "src-shared-components-examples-Themr-style___title___3op293",
       }
     }
     themePriority="adhoc-context-default"
@@ -45,8 +45,8 @@ exports[`Matches shallow shapshot 1`] = `
     theme={
       Object {
         "ThemableComponent": Object {
-          "box": "src-shared-components-examples-Themr-___contextStyle__box___Rvwpa",
-          "text": "src-shared-components-examples-Themr-___contextStyle__text___97Tbl",
+          "box": "src-shared-components-examples-Themr-contextStyle___box___Rvwpa3",
+          "text": "src-shared-components-examples-Themr-contextStyle___text___97Tblp",
         },
       }
     }
@@ -65,8 +65,8 @@ exports[`Matches shallow shapshot 1`] = `
     theme={
       Object {
         "ThemableComponent": Object {
-          "box": "src-shared-components-examples-Themr-___contextStyle__box___Rvwpa",
-          "text": "src-shared-components-examples-Themr-___contextStyle__text___97Tbl",
+          "box": "src-shared-components-examples-Themr-contextStyle___box___Rvwpa3",
+          "text": "src-shared-components-examples-Themr-contextStyle___text___97Tblp",
         },
       }
     }
@@ -77,10 +77,10 @@ exports[`Matches shallow shapshot 1`] = `
       mapThemrProps={[Function]}
       theme={
         Object {
-          "box": "src-shared-components-examples-Themr-___style__box___2VpH5",
-          "container": "src-shared-components-examples-Themr-___style__container___2Ztre",
-          "text": "src-shared-components-examples-Themr-___style__text___3B1uO",
-          "title": "src-shared-components-examples-Themr-___style__title___3op29",
+          "box": "src-shared-components-examples-Themr-style___box___2VpH5M",
+          "container": "src-shared-components-examples-Themr-style___container___2Ztres",
+          "text": "src-shared-components-examples-Themr-style___text___3B1uOg",
+          "title": "src-shared-components-examples-Themr-style___title___3op293",
         }
       }
       themePriority="adhoc-context-default"
@@ -119,10 +119,10 @@ exports[`Matches shallow shapshot 1`] = `
   <ThemeProvider
     theme={
       Object {
-        "box": "src-shared-components-examples-Themr-___style__box___2VpH5",
-        "container": "src-shared-components-examples-Themr-___style__container___2Ztre",
-        "text": "src-shared-components-examples-Themr-___style__text___3B1uO",
-        "title": "src-shared-components-examples-Themr-___style__title___3op29",
+        "box": "src-shared-components-examples-Themr-style___box___2VpH5M",
+        "container": "src-shared-components-examples-Themr-style___container___2Ztres",
+        "text": "src-shared-components-examples-Themr-style___text___3B1uOg",
+        "title": "src-shared-components-examples-Themr-style___title___3op293",
       }
     }
   >
@@ -130,8 +130,8 @@ exports[`Matches shallow shapshot 1`] = `
       theme={
         Object {
           "ThemableComponent": Object {
-            "box": "src-shared-components-examples-Themr-___contextStyle__box___Rvwpa",
-            "text": "src-shared-components-examples-Themr-___contextStyle__text___97Tbl",
+            "box": "src-shared-components-examples-Themr-contextStyle___box___Rvwpa3",
+            "text": "src-shared-components-examples-Themr-contextStyle___text___97Tblp",
           },
         }
       }

@@ -58,8 +58,9 @@ export function buildTimestamp() {
   if (!BUILD_TIMESTAMP) {
     if (isServerSide()) {
       try {
-        BUILD_TIMESTAMP = path.resolve(__dirname, '../../../.build-timestamp');
-        BUILD_TIMESTAMP = fs.readFileSync(BUILD_TIMESTAMP).toString();
+        BUILD_TIMESTAMP = path.resolve(__dirname, '../../../.build-info');
+        BUILD_TIMESTAMP = fs.readFileSync(BUILD_TIMESTAMP);
+        BUILD_TIMESTAMP = JSON.parse(BUILD_TIMESTAMP).timestamp;
       } catch (e) {
         BUILD_TIMESTAMP = 'N/A';
       }

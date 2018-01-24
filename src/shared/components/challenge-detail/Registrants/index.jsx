@@ -44,10 +44,10 @@ export default function Registrants({ challenge, checkpointResults, results }) {
     checkpoints,
     prizes,
     registrants,
-    track,
   } = challenge;
 
-  const isDesign = track.toLowerCase() === 'design';
+  const twoRounds = challenge.round1Introduction
+    && challenge.round2Introduction;
   const places = prizes.length;
 
   const checkpointPhase = challenge.allPhases.find(x =>
@@ -60,12 +60,12 @@ export default function Registrants({ challenge, checkpointResults, results }) {
     - new Date(b.registrationDate).getTime());
 
   return (
-    <div styleName={`container ${isDesign ? 'design' : ''}`}>
+    <div styleName={`container ${twoRounds ? 'design' : ''}`}>
       <div styleName="head">
         <div styleName="col-1">Username</div>
         <div styleName="col-2">Registration Date</div>
-        {isDesign && <div styleName="col-3">Round 1 Submitted Date</div>}
-        <div styleName="col-4">{isDesign ? 'Round 2 Submitted Date' : 'Submitted Date'}</div>
+        {twoRounds && <div styleName="col-3">Round 1 Submitted Date</div>}
+        <div styleName="col-4">{twoRounds ? 'Round 2 Submitted Date' : 'Submitted Date'}</div>
       </div>
       <div styleName="body">
         {
@@ -73,7 +73,7 @@ export default function Registrants({ challenge, checkpointResults, results }) {
             const placement = getPlace(results, r.handle, places);
 
             let checkpoint;
-            if (isDesign) {
+            if (twoRounds) {
               checkpoint = getDate(checkpoints, r.handle);
               if (!checkpoint
               && moment(r.submissionDate).isBefore(checkpointDate)) {
@@ -97,7 +97,7 @@ export default function Registrants({ challenge, checkpointResults, results }) {
                   {formatDate(r.registrationDate)}
                 </div>
                 {
-                  isDesign &&
+                  twoRounds &&
                   <div styleName="col-3">
                     <div styleName="sm-only title">Round 1 Submitted Date</div>
                     <div>
@@ -110,7 +110,7 @@ export default function Registrants({ challenge, checkpointResults, results }) {
                   </div>
                 }
                 <div styleName="col-4">
-                  <div styleName="sm-only title">{isDesign ? 'Round 2 ' : ''}Submitted Date</div>
+                  <div styleName="sm-only title">{twoRounds ? 'Round 2 ' : ''}Submitted Date</div>
                   <div>
                     <span>{final}</span>
                     {placement > 0 && <span styleName={`placement ${placement < 4 ? `placement-${placement}` : ''}`}>{placement}</span>}
@@ -140,7 +140,8 @@ Registrants.propTypes = {
     checkpoints: PT.arrayOf(PT.shape()).isRequired,
     prizes: PT.arrayOf(PT.number).isRequired,
     registrants: PT.arrayOf(PT.shape()).isRequired,
-    track: PT.string.isRequired,
+    round1Introduction: PT.string,
+    round2Introduction: PT.string,
   }).isRequired,
   results: PT.arrayOf(PT.shape()),
   checkpointResults: PT.arrayOf(PT.shape()),
