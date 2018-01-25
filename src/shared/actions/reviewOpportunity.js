@@ -16,7 +16,12 @@ import { fireErrorMessage } from 'utils/errors';
 function getReviewOpportunityDetailsDone(challengeId, tokenV3) {
   return getReviewOpportunitiesService(tokenV3)
     .getReviewOpportunityDetails(challengeId)
-    .catch(error => fireErrorMessage('Error Getting Review Opportunity Details', error));
+    .catch((error) => {
+      if (error.status !== 401) {
+        fireErrorMessage('Error Getting Review Opportunity Details', error.content || error);
+      }
+      return Promise.reject(error.status);
+    });
 }
 
 export default createActions({

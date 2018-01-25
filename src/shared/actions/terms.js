@@ -40,7 +40,7 @@ function getTermsDone(entity, tokens, mockAgreed) {
       break;
     }
     case 'reviewOpportunity': {
-      termsPromise = service.getTermDetails(entity.id)
+      termsPromise = service.getTermDetails(_.parseInt(entity.id))
         .then(res => ({
           terms: [
             _.pick(res, ['termsOfUseId', 'title', 'url', 'agreeabilityType', 'agreed', 'templateId']),

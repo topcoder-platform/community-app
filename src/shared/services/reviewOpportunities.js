@@ -41,11 +41,11 @@ class ReviewOpportunitiesService {
   getReviewOpportunityDetails(challengeId) {
     const endpoint = `/reviewOpportunities/${challengeId}`;
     return this.private.api.get(endpoint)
-      .then(res => (res.ok ? res.json() : new Error(res.statusText)))
+      .then(res => res.json())
       .then(res => (
         res.result.status === 200 ?
           res.result.content :
-          new Error(res.result.content)
+          Promise.reject(res.result)
       ));
   }
 

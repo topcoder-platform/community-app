@@ -24,9 +24,9 @@ const ReviewOpportunityDetailsPage = ({
   details,
   handle,
   phasesExpanded,
-  onApply,
+  onHeaderApply,
+  onModalApply,
   onPhaseExpand,
-  openTermsModal,
   selectedRoles,
   selectTab,
   selectedTab,
@@ -47,7 +47,7 @@ const ReviewOpportunityDetailsPage = ({
         <Header
           details={details}
           handle={handle}
-          onApply={toggleApplyModal}
+          onApply={onHeaderApply}
           onPhaseExpand={onPhaseExpand}
           phasesExpanded={phasesExpanded}
         />
@@ -91,7 +91,7 @@ const ReviewOpportunityDetailsPage = ({
       <ApplyModal
         details={details}
         handle={handle}
-        onApply={onApply}
+        onApply={onModalApply}
         onCancel={toggleApplyModal}
         selectedRoles={selectedRoles}
         setRoles={setRoles}
@@ -116,10 +116,10 @@ ReviewOpportunityDetailsPage.propTypes = {
   applyModalOpened: PT.bool,
   details: PT.shape().isRequired,
   handle: PT.string.isRequired,
-  onApply: PT.func.isRequired,
+  onHeaderApply: PT.func.isRequired,
+  onModalApply: PT.func.isRequired,
   onPhaseExpand: PT.func.isRequired,
   toggleApplyModal: PT.func.isRequired,
-  openTermsModal: PT.func.isRequired,
   phasesExpanded: PT.bool.isRequired,
   selectedRoles: PT.arrayOf(PT.number).isRequired,
   selectTab: PT.func.isRequired,

@@ -30,17 +30,25 @@ class ReviewOpportunityDetailsContainer extends React.Component {
     }
   }
 
-  handleOnApply() {
-    this.props.toggleApplyModal();
+  handleOnHeaderApply() {
+    this.props.openTermsModal();
+  }
+
+  handleOnModalApply() {
+    this.props.openTermsModal();
   }
 
   render() {
+    if (this.props.authError) {
+      return <div>You are not authorized to access this page.</div>;
+    }
+
     return this.props.details ?
       <ReviewOpportunityDetailsPage
-        onApply={() => this.handleOnApply()}
+        onHeaderApply={() => this.handleOnHeaderApply()}
+        onModalApply={() => this.handleOnModalApply()}
         {...this.props}
-      />
-      : <LoadingIndicator />;
+      /> : <LoadingIndicator />;
   }
 }
 
@@ -49,6 +57,7 @@ class ReviewOpportunityDetailsContainer extends React.Component {
  */
 ReviewOpportunityDetailsContainer.defaultProps = {
   applyModalOpened: false,
+  authError: false,
   details: null,
   isLoadingDetails: false,
   selectedRoles: [],
@@ -61,6 +70,7 @@ ReviewOpportunityDetailsContainer.defaultProps = {
  */
 ReviewOpportunityDetailsContainer.propTypes = {
   applyModalOpened: PT.bool,
+  authError: PT.bool,
   challengeId: PT.number.isRequired,
   details: PT.shape(),
   handle: PT.string.isRequired,
@@ -88,6 +98,7 @@ const mapStateToProps = (state, ownProps) => {
   const api = state.reviewOpportunity;
   const page = state.page.reviewOpportunityDetails;
   return {
+    authError: api.authError,
     applyModalOpened: page.applyModalOpened,
     challengeId: Number(ownProps.match.params.challengeId),
     details: api.details,

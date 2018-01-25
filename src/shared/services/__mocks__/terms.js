@@ -15,7 +15,10 @@ import { getApiV2 } from 'services/api';
 import termsAuth from './data/terms-auth.json';
 import termsDocuSignDetails from './data/terms-docu-sign-details.json';
 import termsNoAuth from './data/terms-noauth.json';
+import termsReviewerDetails from './data/terms-reviewer-details.json';
 import termsTopcoderDetails from './data/terms-topcoder-details.json';
+
+let reviewTermsAgreed;
 
 class TermsService {
   /**
@@ -84,6 +87,11 @@ class TermsService {
     _.noop(this);
     let res;
     switch (termId) {
+      case 20704:
+        // eslint-disable-next-line
+        agreed = reviewTermsAgreed;
+        res = _.clone(termsReviewerDetails);
+        break;
       case 21153:
         res = _.clone(termsDocuSignDetails);
         break;
@@ -115,6 +123,10 @@ class TermsService {
 
   agreeTerm(termId) {
     _.noop(termId, this);
+
+    if (termId === 20704) {
+      reviewTermsAgreed = true;
+    }
 
     /* TODO: It has not been tracked explicitely, what is the response of
      * the real api here. It sure contains "success" field, and this is

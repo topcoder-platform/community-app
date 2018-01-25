@@ -16,7 +16,11 @@ import { getAuthTokens } from 'utils/tc';
  */
 function onGetReviewOpportunityDetailsDone(state, { payload, error }) {
   if (error) {
-    return state;
+    return {
+      ...state,
+      authError: true,
+      isLoadingDetails: false,
+    };
   }
 
   return {
@@ -37,6 +41,7 @@ function create(initialState) {
     [a.getReviewOpportunityDetailsInit]: state => ({ ...state, isLoadingDetails: true }),
     [a.getReviewOpportunityDetailsDone]: onGetReviewOpportunityDetailsDone,
   }, _.defaults(initialState, {
+    authError: false,
     details: null,
     isLoadingDetails: false,
   }));
