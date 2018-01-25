@@ -39,6 +39,15 @@ function getTermsDone(entity, tokens, mockAgreed) {
       termsPromise = service.getCommunityTerms(entity.id, tokens.tokenV3, mockAgreedArray);
       break;
     }
+    case 'reviewOpportunity': {
+      termsPromise = service.getTermDetails(entity.id)
+        .then(res => ({
+          terms: [
+            _.pick(res, ['termsOfUseId', 'title', 'url', 'agreeabilityType', 'agreed', 'templateId']),
+          ],
+        }));
+      break;
+    }
     default:
       throw new Error(`Entity type '${entity.type}' is not supported by getTermsDone.`);
   }

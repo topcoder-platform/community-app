@@ -87,7 +87,7 @@ TermsPageContainer.defaultProps = {
 };
 
 const enitytType = PT.shape({
-  type: PT.oneOf(['challenge', 'community']).isRequired,
+  type: PT.oneOf(['challenge', 'community', 'reviewOpportunity']).isRequired,
   id: PT.string.isRequired,
 });
 

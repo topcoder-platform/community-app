@@ -6,7 +6,9 @@ import React from 'react';
 import PT from 'prop-types';
 
 import { TABS } from 'actions/page/review-opportunity-details';
+import Terms from 'containers/Terms';
 
+import ApplyModal from './ApplyModal';
 import ApplicationsTab from './ApplicationsTab';
 import ChallengeSpecTab from './ChallengeSpecTab';
 import Header from './Header';
@@ -18,12 +20,19 @@ import './styles.scss';
  * ReviewOpportunityDetailsPage Component
  */
 const ReviewOpportunityDetailsPage = ({
+  applyModalOpened,
   details,
   handle,
   phasesExpanded,
+  onApply,
+  onPhaseExpand,
+  openTermsModal,
+  selectedRoles,
   selectTab,
   selectedTab,
-  togglePhasesExpand,
+  toggleApplyModal,
+  setRoles,
+  toggleRole,
 }) => (
   <div styleName="outer-container">
     <div styleName="page">
@@ -38,13 +47,14 @@ const ReviewOpportunityDetailsPage = ({
         <Header
           details={details}
           handle={handle}
+          onApply={toggleApplyModal}
+          onPhaseExpand={onPhaseExpand}
           phasesExpanded={phasesExpanded}
-          togglePhasesExpand={togglePhasesExpand}
         />
 
         <div styleName="tabs">
           <div styleName={`tab ${selectedTab === TABS.APPLICATIONS ? 'selected-tab' : ''}`}>
-            <a onClick={() => selectTab(TABS.APPLICATIONS)} role="link" tabIndex="0">REVIEW APPLICATIONS {`(${details.applications ? details.applications.length : 0})`}</a>
+            <a onClick={() => selectTab(TABS.APPLICATIONS)} role="link" tabIndex="0">REVIEW APPLICATIONS {`(${details.applications ? details.applications.filter(app => app.status !== 'Cancelled').length : 0})`}</a>
           </div>
           <div styleName={`tab ${selectedTab === TABS.CHALLENGE_SPEC ? 'selected-tab' : ''}`}>
             <a onClick={() => selectTab(TABS.CHALLENGE_SPEC)} role="link" tabIndex="-1">CHALLENGE SPEC</a>
@@ -68,6 +78,26 @@ const ReviewOpportunityDetailsPage = ({
       </div>
 
     </div>
+    <Terms
+      defaultTitle="Topcoder Reviewer Terms & Conditions"
+      entity={{ type: 'reviewOpportunity', id: '20704' }}
+      description="You are seeing these Terms & Conditions of Use because you have registered to a challenge and you have to respect the terms below in order to be able to submit."
+      register={() => {
+        console.log('Register Pressed');
+      }}
+    />
+    {
+      applyModalOpened &&
+      <ApplyModal
+        details={details}
+        handle={handle}
+        onApply={onApply}
+        onCancel={toggleApplyModal}
+        selectedRoles={selectedRoles}
+        setRoles={setRoles}
+        toggleRole={toggleRole}
+      />
+    }
   </div>
 );
 
@@ -75,6 +105,7 @@ const ReviewOpportunityDetailsPage = ({
  * Default values for Props
  */
 ReviewOpportunityDetailsPage.defaultProps = {
+  applyModalOpened: false,
   selectedTab: TABS.APPLICATIONS,
 };
 
@@ -82,12 +113,19 @@ ReviewOpportunityDetailsPage.defaultProps = {
  * Prop Validation
  */
 ReviewOpportunityDetailsPage.propTypes = {
+  applyModalOpened: PT.bool,
   details: PT.shape().isRequired,
   handle: PT.string.isRequired,
+  onApply: PT.func.isRequired,
+  onPhaseExpand: PT.func.isRequired,
+  toggleApplyModal: PT.func.isRequired,
+  openTermsModal: PT.func.isRequired,
   phasesExpanded: PT.bool.isRequired,
+  selectedRoles: PT.arrayOf(PT.number).isRequired,
   selectTab: PT.func.isRequired,
   selectedTab: PT.string,
-  togglePhasesExpand: PT.func.isRequired,
+  setRoles: PT.func.isRequired,
+  toggleRole: PT.func.isRequired,
 };
 
 export default ReviewOpportunityDetailsPage;

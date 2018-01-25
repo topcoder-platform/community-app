@@ -14,7 +14,10 @@ export default createActions({
   PAGE: {
     REVIEW_OPPORTUNITY_DETAILS: {
       SELECT_TAB: _.identity,
+      SET_ROLES: _.identity,
+      TOGGLE_APPLY_MODAL: _.identity,
       TOGGLE_PHASES_EXPAND: _.noop,
+      TOGGLE_ROLE: _.identity,
     },
   },
 });

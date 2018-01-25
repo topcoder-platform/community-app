@@ -76,10 +76,10 @@ $tip-radius-4: $corner-radius * 2;
   @include phase($tc-gray-50);
 
   color: $tc-gray-50;
-  font-weight: 300;
+  font-weight: 350;
 
   strong {
-    font-weight: 400;
+    font-weight: 500;
   }
 }
 

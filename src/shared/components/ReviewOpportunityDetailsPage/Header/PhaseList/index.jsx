@@ -69,8 +69,8 @@ const renderTooltip = (phase) => {
  * @return {Object} The rendered React element
  */
 const renderPhase = phase => (
-  <Tooltip className="tooltip-container" content={renderTooltip(phase)}>
-    <div key={phase.type} styleName={moment().isBetween(phase.scheduledStartTime, phase.scheduledEndTime) ? 'active-phase' : 'inactive-phase'}>
+  <Tooltip key={phase.type} className="tooltip-container" content={renderTooltip(phase)}>
+    <div styleName={moment().isBetween(phase.scheduledStartTime, phase.scheduledEndTime) ? 'active-phase' : 'inactive-phase'}>
       <div styleName="type">
         {phase.type}
       </div>
@@ -84,14 +84,14 @@ const renderPhase = phase => (
 /**
  * PhaseList Component
  */
-const PhaseList = ({ isExpanded, phases, toggleExpand }) => (
+const PhaseList = ({ isExpanded, phases, onExpand }) => (
   <div styleName={`container ${isExpanded ? 'expanded' : ''}`}>
     <div styleName="phases">
       {
         isExpanded ? phases.map(renderPhase) : phases.slice(0, 4).map(renderPhase)
       }
     </div>
-    <Button onClick={toggleExpand} theme={style}>{isExpanded ? 'Hide Phase' : 'View All Phase \u2228'}</Button>
+    <Button onClick={onExpand} theme={style}>{isExpanded ? 'Hide Phase' : 'View All Phase \u2228'}</Button>
   </div>
 );
 
@@ -100,8 +100,8 @@ const PhaseList = ({ isExpanded, phases, toggleExpand }) => (
  */
 PhaseList.propTypes = {
   isExpanded: PT.bool.isRequired,
+  onExpand: PT.func.isRequired,
   phases: PT.arrayOf(PT.shape()).isRequired,
-  toggleExpand: PT.func.isRequired,
 };
 
 export default PhaseList;

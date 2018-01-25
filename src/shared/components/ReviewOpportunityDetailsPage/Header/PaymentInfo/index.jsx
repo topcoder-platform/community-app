@@ -14,7 +14,7 @@ const PaymentInfo = ({ positions }) => (
     <div styleName="roles">
       {
         positions.map(position => (
-          <div key={position.role} styleName="payment">
+          <div key={`${position.role} payment`} styleName="payment">
             <p>{position.role}</p>
             <h2>${position.payment}</h2>
           </div>
@@ -25,7 +25,7 @@ const PaymentInfo = ({ positions }) => (
         <p>
           {
             positions.map((position, index) => (
-              <span>
+              <span key={`${position.role} openings`}>
                 {index !== 0 ? ' & ' : ''}<span styleName="accent">{position.openPositions}</span> {position.role}
               </span>
             ))
