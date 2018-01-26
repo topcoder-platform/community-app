@@ -9,12 +9,12 @@ import { toFSA } from 'utils/redux';
 import { getAuthTokens } from 'utils/tc';
 
 /**
- * Handles REVIEW_OPPORTUNITY/GET_REVIEW_OPPORTUNITY_DETAILS_DONE action.
+ * Handles REVIEW_OPPORTUNITY/GET__DETAILS_DONE action.
  * @param {Object} state
  * @param {Object} action Payload will be JSON from api call
  * @return {Object} New state
  */
-function onGetReviewOpportunityDetailsDone(state, { payload, error }) {
+function onGetDetailsDone(state, { payload, error }) {
   if (error) {
     return {
       ...state,
@@ -38,8 +38,12 @@ function onGetReviewOpportunityDetailsDone(state, { payload, error }) {
 function create(initialState) {
   const a = actions.reviewOpportunity;
   return handleActions({
-    [a.getReviewOpportunityDetailsInit]: state => ({ ...state, isLoadingDetails: true }),
-    [a.getReviewOpportunityDetailsDone]: onGetReviewOpportunityDetailsDone,
+    [a.cancelApplicationsInit]: state => state,
+    [a.cancelApplicationsDone]: state => state,
+    [a.getDetailsInit]: state => ({ ...state, isLoadingDetails: true }),
+    [a.getDetailsDone]: onGetDetailsDone,
+    [a.submitApplicationsInit]: state => state,
+    [a.submitApplicationsDone]: state => state,
   }, _.defaults(initialState, {
     authError: false,
     details: null,

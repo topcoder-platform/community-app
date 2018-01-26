@@ -82,9 +82,7 @@ const ReviewOpportunityDetailsPage = ({
       defaultTitle="Topcoder Reviewer Terms & Conditions"
       entity={{ type: 'reviewOpportunity', id: '20704' }}
       description="You are seeing these Terms & Conditions of Use because you have registered to a challenge and you have to respect the terms below in order to be able to submit."
-      register={() => {
-        console.log('Register Pressed');
-      }}
+      register={onHeaderApply}
     />
     {
       applyModalOpened &&

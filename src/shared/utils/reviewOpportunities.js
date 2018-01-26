@@ -1,7 +1,7 @@
 /**
 * Utility functions for Review Opportunities
 */
-// import _ from 'lodash';
+
 /**
  * Infers open positions using review opportunity details and organizes them by role
  *
@@ -32,23 +32,20 @@ export const openPositionsByRole = (details) => {
     termsOfUseId: '20704',
     openPositions: calcOpenPositions(role),
   }));
+};
 
-  // return [
-  //   {
-  //     role: 'Primary Reviewer',
-  //     roleId: 1,
-  //     payment: 250,
-  //     termsOfUseId: '20704',
-  //     openPositions: 1,
-  //   },
-  //   {
-  //     role: 'Secondary Reviewer',
-  //     roleId: 2,
-  //     payment: 125,
-  //     termsOfUseId: '20704',
-  //     openPositions: 2,
-  //   },
-  // ];
+/**
+ * Builds a list of roleIds of existing applications for user
+ *
+ * @param {Object} details Review Opportunity details from API
+ * @param {String} handle Handle of the user
+ * @return {Array} List of rolesIds
+ */
+export const activeRoleIds = (details, handle) => {
+  const positions = openPositionsByRole(details);
+  const apps = details.applications ?
+    details.applications.filter(app => app.handle === handle && app.status !== 'Cancelled') : [];
+  return apps.map(app => positions.find(p => p.role === app.role).roleId);
 };
 
 export default null;

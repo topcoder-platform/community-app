@@ -38,7 +38,7 @@ class ReviewOpportunitiesService {
    * @param {Number} challengeId The ID of the challenge (not the opportunity id)
    * @return {Promise} Resolves to the api response in JSON.
    */
-  getReviewOpportunityDetails(challengeId) {
+  getDetails(challengeId) {
     const endpoint = `/reviewOpportunities/${challengeId}`;
     return this.private.api.get(endpoint)
       .then(res => res.json())
@@ -55,7 +55,7 @@ class ReviewOpportunitiesService {
    * @param {Array} roleIds List of review role IDs to apply for
    * @return {Promise} Resolves to the api response in JSON.
    */
-  submitReviewOpportunityApplication(challengeId, roleIds) {
+  submitApplications(challengeId, roleIds) {
     const endpoint = `/reviewOpportunities/${challengeId}/applications?reviewApplicationRoleIds=${roleIds.join(',')}`;
     return this.private.api.post(endpoint, {})
       .then(res => JSON.parse(res));
@@ -67,7 +67,7 @@ class ReviewOpportunitiesService {
    * @param {Array} roleIds List of review role IDs to cancel applications for
    * @return {Promise} Resolves to the api response in JSON.
    */
-  cancelReviewOpportunityApplication(challengeId, roleIds) {
+  cancelApplications(challengeId, roleIds) {
     const endpoint = `/reviewOpportunities/${challengeId}/applications?reviewApplicationRoleIds=${roleIds.join(',')}`;
     return this.private.api.delete(endpoint, {})
       .then(res => JSON.parse(res));

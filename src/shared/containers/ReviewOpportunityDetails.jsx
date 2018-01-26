@@ -3,12 +3,14 @@
  *   Connects the Redux store to the Review Opportunites display components.
  *   Passes the relevent state and setters as properties to the UI components.
  */
+import _ from 'lodash';
 import React from 'react';
 import PT from 'prop-types';
 import { connect } from 'react-redux';
 
 import apiActions from 'actions/reviewOpportunity';
 import LoadingIndicator from 'components/LoadingIndicator';
+import { activeRoleIds } from 'utils/reviewOpportunities';
 import pageActions from 'actions/page/review-opportunity-details';
 import ReviewOpportunityDetailsPage from 'components/ReviewOpportunityDetailsPage';
 import termsActions from 'actions/terms';
@@ -31,11 +33,52 @@ class ReviewOpportunityDetailsContainer extends React.Component {
   }
 
   handleOnHeaderApply() {
-    this.props.openTermsModal();
+    if (this.props.terms.find(term => !term.agreed)) {
+      this.props.openTermsModal();
+    } else {
+      this.props.toggleApplyModal();
+    }
   }
 
   handleOnModalApply() {
-    this.props.openTermsModal();
+    const {
+      cancelApplications,
+      challengeId,
+      details,
+      handle,
+      loadDetails,
+      selectedRoles,
+      submitApplications,
+      toggleApplyModal,
+      tokenV3,
+    } = this.props;
+
+    const rolesToApply = [];
+    const rolesToCancel = [];
+
+    const previousRoles = activeRoleIds(details, handle);
+
+    previousRoles.forEach((id) => {
+      if (!_.includes(selectedRoles, id)) {
+        rolesToCancel.push(id);
+      }
+    });
+
+    selectedRoles.forEach((id) => {
+      if (!_.includes(previousRoles, id)) {
+        rolesToApply.push(id);
+      }
+    });
+
+    if (rolesToApply.length) {
+      submitApplications(challengeId, rolesToApply, tokenV3);
+    }
+    if (rolesToCancel.length) {
+      cancelApplications(challengeId, rolesToCancel, tokenV3);
+    }
+
+    toggleApplyModal();
+    loadDetails(challengeId, tokenV3);
   }
 
   render() {
@@ -61,6 +104,7 @@ ReviewOpportunityDetailsContainer.defaultProps = {
   details: null,
   isLoadingDetails: false,
   selectedRoles: [],
+  terms: [],
   phasesExpanded: false,
   tokenV3: null,
 };
@@ -71,6 +115,7 @@ ReviewOpportunityDetailsContainer.defaultProps = {
 ReviewOpportunityDetailsContainer.propTypes = {
   applyModalOpened: PT.bool,
   authError: PT.bool,
+  cancelApplications: PT.func.isRequired,
   challengeId: PT.number.isRequired,
   details: PT.shape(),
   handle: PT.string.isRequired,
@@ -81,6 +126,8 @@ ReviewOpportunityDetailsContainer.propTypes = {
   selectedRoles: PT.arrayOf(PT.number),
   selectTab: PT.func.isRequired,
   setRoles: PT.func.isRequired,
+  submitApplications: PT.func.isRequired,
+  terms: PT.arrayOf(PT.shape()),
   toggleApplyModal: PT.func.isRequired,
   toggleRole: PT.func.isRequired,
   onPhaseExpand: PT.func.isRequired,
@@ -97,6 +144,7 @@ ReviewOpportunityDetailsContainer.propTypes = {
 const mapStateToProps = (state, ownProps) => {
   const api = state.reviewOpportunity;
   const page = state.page.reviewOpportunityDetails;
+  const terms = state.terms;
   return {
     authError: api.authError,
     applyModalOpened: page.applyModalOpened,
@@ -107,6 +155,7 @@ const mapStateToProps = (state, ownProps) => {
     phasesExpanded: page.phasesExpanded,
     selectedRoles: page.selectedRoles,
     selectedTab: page.selectedTab,
+    terms: terms.terms,
     tokenV3: state.auth.tokenV3,
   };
 };
@@ -122,9 +171,13 @@ function mapDispatchToProps(dispatch) {
   const page = pageActions.page.reviewOpportunityDetails;
   const terms = termsActions.terms;
   return {
+    cancelApplications: (challengeId, roleIds, tokenV3) => {
+      dispatch(api.cancelApplicationsInit());
+      dispatch(api.cancelApplicationsDone(challengeId, roleIds, tokenV3));
+    },
     loadDetails: (challengeId, tokenV3) => {
-      dispatch(api.getReviewOpportunityDetailsInit());
-      dispatch(api.getReviewOpportunityDetailsDone(challengeId, tokenV3));
+      dispatch(api.getDetailsInit());
+      dispatch(api.getDetailsDone(challengeId, tokenV3));
     },
     onPhaseExpand: () => dispatch(page.togglePhasesExpand()),
     openTermsModal: () => {
@@ -132,6 +185,10 @@ function mapDispatchToProps(dispatch) {
     },
     selectTab: tab => dispatch(page.selectTab(tab)),
     setRoles: roles => dispatch(page.setRoles(roles)),
+    submitApplications: (challengeId, roleIds, tokenV3) => {
+      dispatch(api.submitApplicationsInit());
+      dispatch(api.submitApplicationsDone(challengeId, roleIds, tokenV3));
+    },
     toggleApplyModal: () => {
       dispatch(page.toggleApplyModal());
     },

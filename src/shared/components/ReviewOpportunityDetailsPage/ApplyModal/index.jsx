@@ -6,7 +6,7 @@ import React from 'react';
 import PT from 'prop-types';
 
 import { PrimaryButton, Button } from 'components/buttons';
-import { openPositionsByRole } from 'utils/reviewOpportunities';
+import { activeRoleIds, openPositionsByRole } from 'utils/reviewOpportunities';
 import Modal from 'components/Modal';
 
 import theme from './styles.scss';
@@ -22,13 +22,15 @@ class ApplyModal extends React.Component {
       setRoles,
     } = this.props;
 
-    setRoles(_.filter(details.applications, app => app.handle === handle && app.status !== 'Cancelled').map(app => app.roleId));
+    setRoles(activeRoleIds(details, handle));
   }
 
   render() {
     const { details, handle, onApply, onCancel, toggleRole, selectedRoles } = this.props;
     const positions = openPositionsByRole(details);
-    const hasApplied = Boolean(_.find(details.applications, app => app.handle === handle && app.status !== 'Cancelled'));
+    const previousRoles = activeRoleIds(details, handle);
+    const hasApplied = Boolean(previousRoles.length);
+    const hasChanged = !_.isEqual(new Set(selectedRoles), new Set(previousRoles));
 
     return (
       <Modal onCancel={onCancel} theme={theme}>
@@ -64,10 +66,7 @@ class ApplyModal extends React.Component {
                       checked={_.includes(selectedRoles, position.roleId)}
                       disabled={position.openPositions <= 0}
                       id={`${position.roleId}-checkbox`}
-                      onChange={() => {
-                        console.log('Checkmark clicked for role: ' + position.roleId);
-                        toggleRole(position.roleId);
-                      }}
+                      onChange={() => toggleRole(position.roleId)}
                       type="checkbox"
                     />
                     <label htmlFor={`${position.roleId}-checkbox`}>
@@ -83,7 +82,7 @@ class ApplyModal extends React.Component {
         <div styleName="buttons">
           <Button onClick={onCancel}>Cancel</Button>
           <PrimaryButton
-            disabled={!hasApplied && !selectedRoles}
+            disabled={!hasChanged}
             onClick={onApply}
           >{hasApplied ? 'Update' : 'Apply Now'}</PrimaryButton>
         </div>
