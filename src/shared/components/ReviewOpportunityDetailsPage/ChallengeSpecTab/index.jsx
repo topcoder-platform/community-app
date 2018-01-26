@@ -43,12 +43,6 @@ const ChallengeSpecTab = ({ challenge }) => (
 );
 
 /**
- * Default values for Props
- */
-ChallengeSpecTab.defaultProps = {
-};
-
-/**
  * Prop Validation
  */
 ChallengeSpecTab.propTypes = {

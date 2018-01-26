@@ -36,12 +36,6 @@ const ApplyTime = ({ hasApplied, onApply, openPositions, startDate }) => {
 };
 
 /**
- * Default values for Props
- */
-ApplyTime.defaultProps = {
-};
-
-/**
  * Prop Validation
  */
 ApplyTime.propTypes = {

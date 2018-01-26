@@ -59,13 +59,13 @@ function create(initialState) {
  * @return Promise which resolves to the new reducer.
  */
 export function factory(req) {
-  // if (req && req.url.match(/\/review-opportunities\/\d{8}\/*$/)) {
-  //   const tokens = getAuthTokens(req);
-  //   const challengeId = req.url.match(/\d+/)[0];
-  //   const a = actions.reviewOpportunity;
-  //   return toFSA(a.getReviewOpportunityDetailsDone(challengeId, tokens.tokenV3))
-  //     .then(({ payload }) => create({ details: payload }));
-  // }
+  if (req && req.url.match(/\/review-opportunities\/\d{8}\/*$/)) {
+    const tokens = getAuthTokens(req);
+    const challengeId = req.url.match(/\d+/)[0];
+    const a = actions.reviewOpportunity;
+    return toFSA(a.getDetailsDone(challengeId, tokens.tokenV3))
+      .then(({ error, payload }) => create({ details: error ? null : payload }));
+  }
 
   return Promise.resolve(create());
 }
