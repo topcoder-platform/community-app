@@ -53,6 +53,7 @@ $tip-radius-4: $corner-radius * 2;
 
   align-items: center;
   background: $tc-white;
+  border-left: 1px solid $tc-gray-20;
   display: flex;
   color: $tc-gray-90;
   font-size: 13px;
@@ -66,6 +67,7 @@ $tip-radius-4: $corner-radius * 2;
 }
 
 .expanded {
+  border-left: 0;
   border-radius: $corner-radius * 4;
   box-shadow: 0 0 16px $tc-gray-20;
   height: 325px;
