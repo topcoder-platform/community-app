@@ -6,13 +6,13 @@ exports[`Snapshot match 1`] = `
   onTitleClick={[Function]}
   theme={
     Object {
-      "containerOpen": "src-shared-components-tc-communities-Accordion-AccordionItem-___style__containerOpen___2_Z8e",
-      "content": "src-shared-components-tc-communities-Accordion-AccordionItem-___style__content___1dpq2",
-      "desktop": "src-shared-components-tc-communities-Accordion-AccordionItem-___style__desktop___23r4A",
-      "mobile": "src-shared-components-tc-communities-Accordion-AccordionItem-___style__mobile___3e9mH",
-      "title": "src-shared-components-tc-communities-Accordion-AccordionItem-___style__title___1l-ih",
-      "titleArrow": "src-shared-components-tc-communities-Accordion-AccordionItem-___style__titleArrow___33JDq",
-      "titleText": "src-shared-components-tc-communities-Accordion-AccordionItem-___style__titleText___1TU4v",
+      "containerOpen": "src-shared-components-tc-communities-Accordion-AccordionItem-style___containerOpen___2_Z8eC",
+      "content": "src-shared-components-tc-communities-Accordion-AccordionItem-style___content___1dpq2T",
+      "desktop": "src-shared-components-tc-communities-Accordion-AccordionItem-style___desktop___23r4Aq",
+      "mobile": "src-shared-components-tc-communities-Accordion-AccordionItem-style___mobile___3e9mHb",
+      "title": "src-shared-components-tc-communities-Accordion-AccordionItem-style___title___1l-ihv",
+      "titleArrow": "src-shared-components-tc-communities-Accordion-AccordionItem-style___titleArrow___33JDq1",
+      "titleText": "src-shared-components-tc-communities-Accordion-AccordionItem-style___titleText___1TU4vA",
     }
   }
   title="Test title"
@@ -29,13 +29,13 @@ exports[`Snapshot match 2`] = `
   onTitleClick={[Function]}
   theme={
     Object {
-      "containerOpen": "src-shared-components-tc-communities-Accordion-AccordionItem-___style__containerOpen___2_Z8e",
-      "content": "src-shared-components-tc-communities-Accordion-AccordionItem-___style__content___1dpq2",
-      "desktop": "src-shared-components-tc-communities-Accordion-AccordionItem-___style__desktop___23r4A",
-      "mobile": "src-shared-components-tc-communities-Accordion-AccordionItem-___style__mobile___3e9mH",
-      "title": "src-shared-components-tc-communities-Accordion-AccordionItem-___style__title___1l-ih",
-      "titleArrow": "src-shared-components-tc-communities-Accordion-AccordionItem-___style__titleArrow___33JDq",
-      "titleText": "src-shared-components-tc-communities-Accordion-AccordionItem-___style__titleText___1TU4v",
+      "containerOpen": "src-shared-components-tc-communities-Accordion-AccordionItem-style___containerOpen___2_Z8eC",
+      "content": "src-shared-components-tc-communities-Accordion-AccordionItem-style___content___1dpq2T",
+      "desktop": "src-shared-components-tc-communities-Accordion-AccordionItem-style___desktop___23r4Aq",
+      "mobile": "src-shared-components-tc-communities-Accordion-AccordionItem-style___mobile___3e9mHb",
+      "title": "src-shared-components-tc-communities-Accordion-AccordionItem-style___title___1l-ihv",
+      "titleArrow": "src-shared-components-tc-communities-Accordion-AccordionItem-style___titleArrow___33JDq1",
+      "titleText": "src-shared-components-tc-communities-Accordion-AccordionItem-style___titleText___1TU4vA",
     }
   }
   title="Test title"

@@ -4,7 +4,7 @@ import Avatar from 'components/Avatar';
 import config from 'utils/config';
 import React, { Component } from 'react';
 import PT from 'prop-types';
-import { Link } from 'utils/router';
+import { Link } from 'topcoder-react-utils';
 import './style.scss';
 
 /* TODO: Should be functional component! */
@@ -32,7 +32,7 @@ class LeaderboardAvatar extends Component {
         styleName={`leaderboard-avatar ${member.position || member.isSmr ? '' : 'light-gray'}`}
         target={openNewTab ? '_blank' : undefined}
       >
-        { plusOne ? '+1' : <Avatar url={photoURL} />}
+        { plusOne ? member.handle : <Avatar url={photoURL} />}
         <span styleName={member.position ? `placement placement-${member.position}` : 'hidden'}>
           {member.position}
         </span>

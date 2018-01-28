@@ -22,9 +22,9 @@ exports[`Match shadow snapshot 1`] = `
     text="Time. It’s our most precious resource. You have projects and work where you need to go faster, we have amazing design and development talent, ready to work right now. Let’s get it done."
     theme={
       Object {
-        "content": "src-shared-components-tc-communities-communities-taskforce-Home-___style__BannerContent___1Z-lZ",
-        "link": "src-shared-components-tc-communities-communities-taskforce-Home-___style__BannerLink___2Vkp8",
-        "linkWrap": "src-shared-components-tc-communities-communities-taskforce-Home-___style__BannerLinkWrapper___huJqJ",
+        "content": "src-shared-components-tc-communities-communities-taskforce-Home-style___BannerContent___1Z-lZ2",
+        "link": "src-shared-components-tc-communities-communities-taskforce-Home-style___BannerLink___2Vkp8A",
+        "linkWrap": "src-shared-components-tc-communities-communities-taskforce-Home-style___BannerLinkWrapper___huJqJl",
       }
     }
     themePriority="adhoc-context-default"
@@ -42,9 +42,9 @@ exports[`Match shadow snapshot 1`] = `
   <Connect(JoinCommunityContainer)
     theme={
       Object {
-        "container": "src-shared-components-tc-communities-communities-taskforce-Home-___style__joinContainer___MooC8",
+        "container": "src-shared-components-tc-communities-communities-taskforce-Home-style___joinContainer___MooC8Y",
         "link": Object {
-          "button": "src-shared-components-buttons-outline-round-open-sans-___green-uppercase__button___3hG4e",
+          "button": "src-shared-components-buttons-outline-round-open-sans-green-uppercase___button___3hG4e1",
         },
       }
     }
@@ -58,7 +58,7 @@ exports[`Match shadow snapshot 1`] = `
     subTitle=""
     theme={
       Object {
-        "container": "src-shared-components-tc-communities-communities-taskforce-Home-___style__linksContainer___25Lds",
+        "container": "src-shared-components-tc-communities-communities-taskforce-Home-style___linksContainer___25LdsP",
       }
     }
     themePriority="adhoc-context-default"
@@ -79,7 +79,7 @@ exports[`Match shadow snapshot 1`] = `
         text="Hope is not a strategy. While other sites that offer technology tasks ask you to do the heavy lifting from start to finish, Topcoder TaskForce is purposefully different. You will never be asked to surf a member base, muck through ratings, and ultimately make a decision that you hope is a strong one. On Topcoder TaskForce we first understand your goals and put the right talent in place so you can succeed with ease. Stop playing matchmaker and simply focus on what you want achieved. "
         theme={
           Object {
-            "container": "src-shared-components-tc-communities-communities-taskforce-Home-___style__ImageTextContainer___2Ua9J",
+            "container": "src-shared-components-tc-communities-communities-taskforce-Home-style___ImageTextContainer___2Ua9Jc",
           }
         }
         themePriority="adhoc-context-default"
@@ -112,7 +112,7 @@ exports[`Match shadow snapshot 1`] = `
     subTitle=""
     theme={
       Object {
-        "container": "src-shared-components-tc-communities-communities-taskforce-Home-___style__WhatCanYouGetDone___1to7k",
+        "container": "src-shared-components-tc-communities-communities-taskforce-Home-style___WhatCanYouGetDone___1to7kR",
       }
     }
     themePriority="adhoc-context-default"
@@ -139,7 +139,7 @@ exports[`Match shadow snapshot 1`] = `
     subTitle=""
     theme={
       Object {
-        "container": "src-shared-components-tc-communities-communities-taskforce-Home-___style__resourcesContainer___tnDQ3",
+        "container": "src-shared-components-tc-communities-communities-taskforce-Home-style___resourcesContainer___tnDQ3G",
       }
     }
     themePriority="adhoc-context-default"

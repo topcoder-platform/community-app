@@ -8,6 +8,7 @@ import logger from 'utils/logger';
 import moment from 'moment';
 import qs from 'qs';
 import { decodeToken } from 'tc-accounts';
+import { setErrorIcon, ERROR_ICON_TYPES } from 'utils/errors';
 import { COMPETITION_TRACKS } from 'utils/tc';
 import { getApiV2, getApiV3 } from './api';
 
@@ -38,7 +39,9 @@ export function normalizeChallengeDetails(v3, v3Filtered, v3User, v2, username) 
   // Normalize exising data to make it consistent with the rest of the code
   const challenge = {
     id: v3.challengeId,
+    reliabilityBonus: v3Filtered.reliabilityBonus || 0,
     status: (v3.currentStatus || '').toUpperCase(),
+
     name: v3.challengeName,
     projectId: Number(v3.projectId),
     forumId: Number(v3.forumId),
@@ -79,7 +82,6 @@ export function normalizeChallengeDetails(v3, v3Filtered, v3User, v2, username) 
     documents: v3.documents || [],
     numRegistrants: v3.numberOfRegistrants,
     numberOfCheckpointSubmissions: v3.numberOfCheckpointSubmissions,
-    reliabilityBonus: v3.reliabilityBonus || 0,
   };
 
   // Fill missing data from v3_filtered
@@ -252,7 +254,12 @@ export function normalizeMarathonMatch(challenge, username) {
  * @private
  */
 async function checkError(res) {
-  if (!res.ok) throw new Error(res.statusText);
+  if (!res.ok) {
+    if (res.status >= 500) {
+      setErrorIcon(ERROR_ICON_TYPES.API, '/challenges', res.statusText);
+    }
+    throw new Error(res.statusText);
+  }
   const jsonRes = (await res.json()).result;
   if (jsonRes.status !== 200) throw new Error(jsonRes.content);
   return jsonRes;
@@ -497,7 +504,7 @@ class ChallengesService {
    */
   async register(challengeId) {
     const endpoint = `/challenges/${challengeId}/register`;
-    const res = await this.private.apiV2.postJson(endpoint);
+    const res = await this.private.api.postJson(endpoint);
     if (!res.ok) throw new Error(res.statusText);
     return res.json();
   }
@@ -509,7 +516,7 @@ class ChallengesService {
    */
   async unregister(challengeId) {
     const endpoint = `/challenges/${challengeId}/unregister`;
-    const res = await this.private.apiV2.post(endpoint);
+    const res = await this.private.api.post(endpoint);
     if (!res.ok) throw new Error(res.statusText);
     return res.json();
   }

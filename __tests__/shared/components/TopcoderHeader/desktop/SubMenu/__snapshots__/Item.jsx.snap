@@ -8,11 +8,7 @@ exports[`Matches shallow shapshot 1`] = `
   tabIndex={0}
 >
   <Link
-    className={null}
     enforceA={false}
-    onClick={null}
-    openNewTab={false}
-    replace={false}
     to="menu url"
   >
     icon url
@@ -29,11 +25,7 @@ exports[`Matches shallow shapshot 2`] = `
   tabIndex={0}
 >
   <Link
-    className={null}
     enforceA={false}
-    onClick={null}
-    openNewTab={false}
-    replace={false}
     to="menu url"
   >
     icon url

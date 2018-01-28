@@ -30,13 +30,12 @@ function renderSubmission(s) {
 
 export default function Submissions(props) {
   const {
-    viewable,
-    submissions,
-    checkpoints,
-    isDesign,
+    challenge,
   } = props;
-  if (isDesign) {
-    return viewable ? (
+  const checkpoints = challenge.checkpoints;
+  const submissions = challenge.submissions;
+  if (challenge.track.toLowerCase() === 'design') {
+    return challenge.submissionViewable === 'true' ? (
       <div styleName="container view">
         <div styleName="title">ROUND 2 (FINAL) SUBMISSIONS</div>
         <div styleName="content">
@@ -96,16 +95,11 @@ export default function Submissions(props) {
   );
 }
 
-Submissions.defaultProps = {
-  viewable: false,
-  submissions: [],
-  checkpoints: [],
-  isDesign: false,
-};
-
 Submissions.propTypes = {
-  viewable: PT.bool,
-  submissions: PT.arrayOf(PT.shape()),
-  checkpoints: PT.arrayOf(PT.shape()),
-  isDesign: PT.bool,
+  challenge: PT.shape({
+    checkpoints: PT.arrayOf(PT.object),
+    submissions: PT.arrayOf(PT.object),
+    submissionViewable: PT.string,
+    track: PT.string.isRequired,
+  }).isRequired,
 };

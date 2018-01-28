@@ -2,18 +2,18 @@
 
 exports[`renders correctly 1`] = `
 <svg
-  className="src-shared-components-LoadingIndicator-___styles__container___V7JxF"
+  className="src-shared-components-LoadingIndicator-styles___container___V7JxFl"
   viewBox="0 0 64 64"
 >
   <circle
-    className="src-shared-components-LoadingIndicator-___styles__circle1___hEgvY"
+    className="src-shared-components-LoadingIndicator-styles___circle1___hEgvYX"
     cx="32"
     cy="32"
     id="loading-indicator-circle1"
     r="28"
   />
   <circle
-    className="src-shared-components-LoadingIndicator-___styles__circle2___2-o58"
+    className="src-shared-components-LoadingIndicator-styles___circle2___2-o58I"
     cx="32"
     cy="32"
     id="loading-indicator-circle2"

@@ -183,7 +183,6 @@ class ChallengeDetailPageContainer extends React.Component {
       challengesUrl,
       resultsLoadedForChallengeId,
       savingChallenge,
-      openTermsModal,
       updateChallenge,
     } = this.props;
 
@@ -265,12 +264,12 @@ class ChallengeDetailPageContainer extends React.Component {
             !isEmpty && this.props.selectedTab === DETAIL_TABS.DETAILS &&
             <ChallengeDetailsView
               challenge={this.props.challenge}
+              challengesUrl={challengesUrl}
               communitiesList={this.props.communitiesList.data}
               introduction={this.props.challenge.introduction}
               detailedRequirements={this.props.challenge.detailedRequirements}
               terms={this.props.terms}
               hasRegistered={hasRegistered}
-              openTermsModal={openTermsModal}
               savingChallenge={savingChallenge}
               setSpecsTabState={this.props.setSpecsTabState}
               specsTabState={this.props.specsTabState}
@@ -294,12 +293,7 @@ class ChallengeDetailPageContainer extends React.Component {
           }
           {
             !isEmpty && this.props.selectedTab === DETAIL_TABS.SUBMISSIONS &&
-            <Submissions
-              viewable={this.props.challenge.submissionsViewable === 'true'}
-              submissions={this.props.challenge.submissions}
-              checkpoints={this.props.challenge.checkpoints}
-              isDesign={this.props.challenge.track.toLowerCase() === 'design'}
-            />
+            <Submissions challenge={challenge} />
           }
           {
             !isEmpty && this.props.selectedTab === DETAIL_TABS.WINNERS &&

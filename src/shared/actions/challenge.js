@@ -85,7 +85,7 @@ function getSubmissionsDone(challengeId, tokenV2) {
  * @return {Promise}
  */
 function registerDone(auth, challengeId) {
-  return getChallengesService(undefined, auth.tokenV2)
+  return getChallengesService(auth.tokenV3)
     .register(challengeId)
     /* As a part of registration flow we silently update challenge details,
      * reusing for this purpose the corresponding action handler. */
@@ -99,7 +99,7 @@ function registerDone(auth, challengeId) {
  * @return {Promise}
  */
 function unregisterDone(auth, challengeId) {
-  return getChallengesService(undefined, auth.tokenV2)
+  return getChallengesService(auth.tokenV3)
     .unregister(challengeId)
     /* As a part of unregistration flow we silently update challenge details,
      * reusing for this purpose the corresponding action handler. */

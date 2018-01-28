@@ -9,7 +9,6 @@ exports[`Properly starts with process.env.FRONT_ENV evaluating true Renders prop
     <h1>
       Mock react-router-dom BrowserRouter
     </h1>
-    Mock Browser History
     <div>
       Application
     </div>

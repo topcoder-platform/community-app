@@ -9,11 +9,14 @@ import Footer from 'components/tc-communities/communities/veterans/Footer';
 import Header from 'containers/tc-communities/Header';
 import Home from 'components/tc-communities/communities/veterans/Home';
 import imageTextStyle from 'components/tc-communities/communities/veterans/themes/image-text.scss';
+import JoinToSeeChallengesPage from
+  'components/tc-communities/JoinToSeeChallengesPage';
 import Learn from 'components/tc-communities/communities/veterans/Learn';
 import PT from 'prop-types';
 import React from 'react';
 import Submission from 'routes/Submission';
 import SubmissionManagement from 'routes/SubmissionManagement';
+import TermsDetail from 'routes/TermsDetail';
 import { ThemeProvider } from 'react-css-super-themr';
 import { Route, Switch } from 'react-router-dom';
 
@@ -35,13 +38,13 @@ export default function Veterans({ base, member, meta }) {
             />
             <Switch>
               <Route
-                component={() => ChallengeListing({
+                component={() => (member ? ChallengeListing({
                   challengesUrl: `${base}/challenges`,
                   hideSrm: true,
                   listingOnly: true,
                   meta,
                   newChallengeDetails: true,
-                })}
+                }) : <JoinToSeeChallengesPage />)}
                 exact
                 path={`${base}/challenges`}
               />
@@ -69,6 +72,11 @@ export default function Veterans({ base, member, meta }) {
                 })}
                 exact
                 path={`${base}/challenges/:challengeId(\\d{8})/my-submissions`}
+              />
+              <Route
+                component={TermsDetail}
+                exact
+                path={`${base}/challenges/terms/detail/:termId`}
               />
               <Route
                 component={() => <Leaderboard meta={meta} />}

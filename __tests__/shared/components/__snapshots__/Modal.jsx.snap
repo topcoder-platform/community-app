@@ -5,9 +5,9 @@ exports[`Snapshot match 1`] = `
   onCancel={[Function]}
   theme={
     Object {
-      "container": "src-shared-components-Modal-___styles__container___2HN2G",
-      "overlay": "src-shared-components-Modal-___styles__overlay___36ZAX",
-      "scrolling-disabled-by-modal": "src-shared-components-Modal-___styles__scrolling-disabled-by-modal___1YgZ3",
+      "container": "src-shared-components-Modal-styles___container___2HN2GN",
+      "overlay": "src-shared-components-Modal-styles___overlay___36ZAXn",
+      "scrolling-disabled-by-modal": "src-shared-components-Modal-styles___scrolling-disabled-by-modal___1YgZ3T",
     }
   }
 />

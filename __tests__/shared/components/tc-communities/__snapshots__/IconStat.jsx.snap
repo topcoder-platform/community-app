@@ -2,19 +2,19 @@
 
 exports[`Snapshot match 1`] = `
 <div
-  className="container src-shared-components-tc-communities-IconStat-___style__container___145TJ"
+  className="container src-shared-components-tc-communities-IconStat-style___container___145TJs"
 >
   <div />
   <div
     className={undefined}
   >
     <p
-      className="number src-shared-components-tc-communities-IconStat-___style__number___3GKcu"
+      className="number src-shared-components-tc-communities-IconStat-style___number___3GKcuN"
     >
       5
     </p>
     <p
-      className="label src-shared-components-tc-communities-IconStat-___style__label___3v7Pl"
+      className="label src-shared-components-tc-communities-IconStat-style___label___3v7Pl-"
     >
       Projects
     </p>

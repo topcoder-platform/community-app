@@ -11,8 +11,8 @@ class AchivementService {
   }
 
   /**
-   * get achievements for the handler specified, call to the end point used by this service 
-   * doesn't need auth 
+   * get achievements for the handler specified, call to the end point used by this service
+   * doesn't need auth
    * @param  {String} handle user id
    * @return {Promise}       promise of the request result
    */

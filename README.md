@@ -27,9 +27,11 @@ If you need any operations related to currency conversions, pay attention to the
 
 ### Deployment and Execution
 
-*Disclaimer:* Current instructions are biased towards Ubuntu 16.04. Hovewer, similar recipies should work for other OS. Should you encounter and overcome any tricky issues on other OS, you are welcome to add notes/hints into this file.
+*Disclaimer:* Current instructions are biased towards Ubuntu 16.04. Hovewer, similar recipes should work for other OS. Should you encounter and overcome any tricky issues on other OS, you are welcome to add notes/hints into this file.
 
-1.  You should have NodeJS 8.2.1 (other recent versions should also work fine);
+1.  You should have the following prerequisites:
+    - NodeJS 8.2.1 (other recent versions should also work fine);
+    - Python 2.7.
 
 2.  Install dependencies with one of the following commands:
     -   `$ npm install` Installs all dependencies. Recommended for local development;
@@ -45,7 +47,7 @@ If you need any operations related to currency conversions, pay attention to the
 
 4.  Set environment variables:
     -   `PORT` Specifies the port to run the App at. Defaults to 3000;
-    -   `NODE_ENV` Specifies Topcoder backend to use. Should be either `development` either `production`. Defaults to `production`.
+    -   `NODE_ENV` Specifies Topcoder backend to use. Should be either `development` or `production`. Defaults to `production`.
 
 5.  To build the App's frontend run one of (the result of build will be output into `/build` folder in both cases):
     -   `$ npm run build` To rebuild production frontend;
@@ -53,7 +55,7 @@ If you need any operations related to currency conversions, pay attention to the
 
 6. To run the App use:
     -   `$ npm start` To run the App in normal mode. The frontend will be served from `/build` folder. The Topcoder backend to use will be chosen depending on `NODE_ENV` value;
-    -   `$ npm run dev` To run the App with development tools. In this case the frontend is build in memory by server and uses dev tools like redux-devtools. The Topcoder backend to use will be chosen depending on `NODE_ENV` value. This demands dev dependencies installed at the firts step.
+    -   `$ npm run dev` To run the App with development tools. In this case the frontend is build in memory by server and uses dev tools like redux-devtools. The Topcoder backend to use will be chosen depending on `NODE_ENV` value. This demands dev dependencies installed at the first step.
 
 If you run the App locally against development Topcoder backend you should access the App as `local.topcoder-dev.com:3000`. Prior doing this you should add into your `/etc/hosts` the line `127.0.0.1 local.topcoder-dev.com`. To login into development Topcoder backend use `accounts.topcoder-dev.com/members` to login. Log out at `www.topcoder-dev.com`, or just wipe out auth cookies.
 
@@ -131,8 +133,10 @@ Deploy scripts are setup to use AWS ECS + CircleCI. Make sure the following envi
 * DEV_AWS_ECS_CLUSTER
 * DEV_AWS_REGION
 * DEV_AWS_SECRET_ACCESS_KEY
+* DEV_SERVER_API_KEY
 * PROD_AWS_ACCESS_KEY_ID
 * PROD_AWS_ACCOUNT_ID
 * PROD_AWS_ECS_CLUSTER
 * PROD_AWS_REGION
 * PROD_AWS_SECRET_ACCESS_KEY
+* PROD_SERVER_API_KEY

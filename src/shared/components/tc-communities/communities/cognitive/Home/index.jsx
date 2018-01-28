@@ -11,7 +11,7 @@ import PT from 'prop-types';
 import React from 'react';
 
 import { PrimaryButton } from 'components/buttons';
-import { Link } from 'utils/router';
+import { Link } from 'topcoder-react-utils';
 
 import davePhotoUrl from 'assets/images/communities/cognitive/home/dave.jpg';
 

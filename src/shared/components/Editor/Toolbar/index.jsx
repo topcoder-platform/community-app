@@ -171,27 +171,36 @@ export default class Toolbar extends React.Component {
             visible={st.pickingTextColor}
           />
 
-          <Button
-            disabled={disableStyling}
-            onMouseDown={(e) => {
-              e.preventDefault();
-              this.setState({ pickingHighlightColor: !st.pickingHighlightColor });
-            }}
-            size="sm"
-            theme={{ button: style.basic }}
-          >Highlight</Button>
-          <ColorPicker
-            onChange={(color) => {
-              const editor = st.editor || this.props.connector.previousEditor;
-              editor.focus();
-              setImmediate(() => {
-                editor.applyColorStyle('HIGHLIGHT', color);
-                this.setState({ pickingHighlightColor: false });
-              });
-            }}
-            style={style['highlight-color-picker']}
-            visible={st.pickingHighlightColor}
-          />
+          {
+            /* NOTE: The Highlight buttons is commented out because of an ask
+             * not to show this option in the challenge specs editor, at least
+             * for now. A better solution we should implement in future will be
+             * to customize permitted operations via editor props, thus not
+             * removing the button code. */
+            /*
+              <Button
+                disabled={disableStyling}
+                onMouseDown={(e) => {
+                  e.preventDefault();
+                  this.setState({ pickingHighlightColor: !st.pickingHighlightColor });
+                }}
+                size="sm"
+                theme={{ button: style.basic }}
+              >Highlight</Button>
+              <ColorPicker
+                onChange={(color) => {
+                  const editor = st.editor || this.props.connector.previousEditor;
+                  editor.focus();
+                  setImmediate(() => {
+                    editor.applyColorStyle('HIGHLIGHT', color);
+                    this.setState({ pickingHighlightColor: false });
+                  });
+                }}
+                style={style['highlight-color-picker']}
+                visible={st.pickingHighlightColor}
+              />
+            */
+          }
 
           <div styleName="separator" />
 
@@ -233,18 +242,24 @@ export default class Toolbar extends React.Component {
 
           </div>
 
-          <Button
-            active={st.markdown}
-            disabled
-            onMouseDown={(e) => {
-              e.preventDefault();
-              const active = !st.markdown;
-              this.setState({ markdown: active });
-              this.props.connector.toggleInlineMarkdown(active);
-            }}
-            size="sm"
-            theme={{ button: style.basic }}
-          >Inline Markdown</Button>
+          {
+            /* I guess, we gonna drop the inline Markdown option. Just for
+             * a case, let's keep the button code around for a bit longer. */
+            /*
+              <Button
+                active={st.markdown}
+                disabled
+                onMouseDown={(e) => {
+                  e.preventDefault();
+                  const active = !st.markdown;
+                  this.setState({ markdown: active });
+                  this.props.connector.toggleInlineMarkdown(active);
+                }}
+                size="sm"
+                theme={{ button: style.basic }}
+              >Inline Markdown</Button>
+            */
+          }
         </div>
       </Sticky>
     );

@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import config from 'utils/config';
-import { Link } from 'utils/router';
+import { Link } from 'topcoder-react-utils';
 import moment from 'moment';
 import React from 'react';
 import PT from 'prop-types';
@@ -54,7 +54,6 @@ function ChallengeCard({
   userHandle,
 }) {
   const challenge = passedInChallenge;
-
   challenge.isDataScience = false;
   if (challenge.technologies.includes('Data Science')) {
     challenge.isDataScience = true;

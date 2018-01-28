@@ -76,13 +76,17 @@ exports[`Matches shallow shapshot 1`] = `
           options={
             Array [
               Object {
-                "label": "Sample community",
+                "label": <div>
+                  Sample community
+                </div>,
+                "name": "Sample community",
                 "value": "123",
               },
             ]
           }
           simpleValue={true}
           value="1"
+          valueRenderer={[Function]}
         />
       </div>
     </div>
@@ -122,13 +126,13 @@ exports[`Matches shallow shapshot 1`] = `
         className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__filter___1-QUz src-shared-components-challenge-listing-Filters-FiltersPanel-___style__dates___3kH3c src-shared-components-challenge-listing-Filters-FiltersPanel-___style__hidetwomonthdatepicker___OurWT"
       >
         <label
-          htmlFor="date-range-picker"
+          htmlFor="date-range-picker-one-month"
         >
           Date range
         </label>
         <DateRangePicker
           endDate={undefined}
-          id="date-range-picker"
+          id="date-range-picker-one-month"
           numberOfMonths={1}
           onDatesChange={[Function]}
           readOnly={true}
@@ -139,13 +143,13 @@ exports[`Matches shallow shapshot 1`] = `
         className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__filter___1-QUz src-shared-components-challenge-listing-Filters-FiltersPanel-___style__dates___3kH3c src-shared-components-challenge-listing-Filters-FiltersPanel-___style__hideonemonthdatepicker___2zdTb"
       >
         <label
-          htmlFor="date-range-picker"
+          htmlFor="date-range-picker-two-months"
         >
           Date range
         </label>
         <DateRangePicker
           endDate={undefined}
-          id="date-range-picker"
+          id="date-range-picker-two-months"
           numberOfMonths={2}
           onDatesChange={[Function]}
           readOnly={true}
@@ -270,13 +274,17 @@ exports[`Matches shallow shapshot 2`] = `
           options={
             Array [
               Object {
-                "label": "Sample community",
+                "label": <div>
+                  Sample community
+                </div>,
+                "name": "Sample community",
                 "value": "123",
               },
             ]
           }
           simpleValue={true}
           value="1"
+          valueRenderer={[Function]}
         />
       </div>
     </div>
@@ -305,13 +313,13 @@ exports[`Matches shallow shapshot 2`] = `
         className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__filter___1-QUz src-shared-components-challenge-listing-Filters-FiltersPanel-___style__dates___3kH3c src-shared-components-challenge-listing-Filters-FiltersPanel-___style__hidetwomonthdatepicker___OurWT"
       >
         <label
-          htmlFor="date-range-picker"
+          htmlFor="date-range-picker-one-month"
         >
           Date range
         </label>
         <DateRangePicker
           endDate={undefined}
-          id="date-range-picker"
+          id="date-range-picker-one-month"
           numberOfMonths={1}
           onDatesChange={[Function]}
           readOnly={true}
@@ -322,13 +330,13 @@ exports[`Matches shallow shapshot 2`] = `
         className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__filter___1-QUz src-shared-components-challenge-listing-Filters-FiltersPanel-___style__dates___3kH3c src-shared-components-challenge-listing-Filters-FiltersPanel-___style__hideonemonthdatepicker___2zdTb"
       >
         <label
-          htmlFor="date-range-picker"
+          htmlFor="date-range-picker-two-months"
         >
           Date range
         </label>
         <DateRangePicker
           endDate={undefined}
-          id="date-range-picker"
+          id="date-range-picker-two-months"
           numberOfMonths={2}
           onDatesChange={[Function]}
           readOnly={true}

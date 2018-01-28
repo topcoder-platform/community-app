@@ -46,6 +46,7 @@ jspm_packages
 *.DS_Store
 
 # Misc files
-.build-timestamp
+.build-info
 .injkey
 .vscode
+setenv

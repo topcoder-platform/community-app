@@ -8,6 +8,7 @@
     "SECURE": true
   },
   "LOG_ENTRIES_TOKEN": "",
+  "SERVER_API_KEY": "aa9ccf36-3936-450c-9983-097ddba51bef",
   "URL": {
     "ARENA": "https://arena.topcoder.com",
     "AUTH": "https://accounts.topcoder.com",

@@ -6,7 +6,7 @@ import _ from 'lodash';
 import React from 'react';
 import PT from 'prop-types';
 import { themr } from 'react-css-super-themr';
-import { Link } from 'utils/router';
+import { Link } from 'topcoder-react-utils';
 import defaultStyle from './style.scss';
 
 function ImageText(props) {
