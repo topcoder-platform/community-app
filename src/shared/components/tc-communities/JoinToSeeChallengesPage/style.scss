@@ -1,0 +1,11 @@
+@import "~styles/mixins";
+
+.container {
+  max-width: $tc-screen-lg;
+  padding: 100px 0;
+  text-align: center;
+}
+
+.message {
+  margin-bottom: 50px;
+}
