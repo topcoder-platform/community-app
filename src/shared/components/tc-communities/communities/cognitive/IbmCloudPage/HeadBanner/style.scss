@@ -1,0 +1,27 @@
+@import "~styles/mixins";
+
+.container {
+  align-self: center;
+  background: url("assets/images/communities/cognitive/ibm-cloud/spaceman-banner.jpg");
+  background-position: 50% 50%;
+  background-size: cover;
+  border-radius: 6px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin: auto;
+  max-width: $tc-screen-lg;
+  min-height: 350px;
+  padding: 85px 60px;
+}
+
+.logo {
+  width: 250px;
+}
+
+.text {
+  @include tc-title;
+
+  color: $tc-white;
+  text-transform: uppercase;
+}

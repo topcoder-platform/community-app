@@ -1,0 +1,22 @@
+@import "~styles/mixins";
+
+.button {
+  margin: 40px 0;
+}
+
+.container {
+  margin: auto;
+  max-width: $tc-screen-lg;
+  padding: 60px;
+  text-align: center;
+}
+
+.text {
+  @include tc-body-lg;
+}
+
+.title {
+  @include tc-heading-xl;
+
+  margin-bottom: 10px;
+}

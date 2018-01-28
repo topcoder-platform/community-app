@@ -6,6 +6,8 @@ import JoinCommunity from 'containers/tc-communities/JoinCommunity';
 import PT from 'prop-types';
 import React from 'react';
 
+import { Link } from 'topcoder-react-utils';
+
 import joinImage from
   'assets/images/communities/cognitive/resources/join-image.jpg';
 
@@ -79,12 +81,15 @@ export default function Resources({
               <p styleName="style.faqPSpacing">
                 Once you’ve signed up for the Topcoder Cognitive Community,
                 it’s time to get a trial account of IBM Cloud&nbsp;—
-                entirely free to you. IBM Cloud helps you continuously develop
+                entirely free to you. IBM Cloud
+                (<Link
+                  openNewTab
+                  to="https://www.ibm.com/cloud/"
+                >which used to be IBM
+                Bluemix</Link>) helps you continuously develop
                 and deliver solutions. You can put data to work&nbsp;— protect
                 it, move it, integrate it, and unlock intelligence from it.
-              </p>
-              <p>
-                <a
+                &zwnj;<a
                   href="https://www.ibm.com/cloud/"
                   target="_blank"
                   rel="noopener noreferrer"
@@ -95,9 +100,7 @@ export default function Resources({
                 Signing up for an IBM Cloud trial account is an important
                 step because in order to participate in cognitive challenges on
                 Topcoder, you’ll need to deploy your code to IBM Cloud.
-              </p>
-              <p>
-                <a
+                &zwnj;<a
                   href="https://console.bluemix.net/registration/free?cm_mmc=dw-_-cognitive-_-topcoder-_-community"
                   target="_blank"
                   rel="noopener noreferrer"

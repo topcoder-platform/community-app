@@ -15,6 +15,7 @@ import { Link } from 'topcoder-react-utils';
 
 import davePhotoUrl from 'assets/images/communities/cognitive/home/dave.jpg';
 
+import IbmCloudBanner from '../IbmCloudBanner';
 import NewsletterSignup from '../NewsSignup';
 
 import style from './style.scss';
@@ -53,6 +54,18 @@ export default function Home({
         </div>
       </div>
       <div styleName="container">
+        <IbmCloudBanner
+          onClick={() => {
+            if (!allFaqItemsClosedInResourcesPage) {
+              closeAllFaqItemsInResourcesPage();
+            }
+            toggleFaqItemInResourcesPage(
+              'whyDoINeedIbmCloudAccount',
+              true,
+            );
+          }}
+          to={`${baseUrl}/resources`}
+        />
         <div styleName="mission">
           <div styleName="mission-main">
             Cognitive is gaining traction across all industries&nbsp;— from
@@ -222,7 +235,7 @@ export default function Home({
             <div styleName="style.card style.card-02">
               <div styleName="style.cardImage" />
               <div styleName="style.cardContent">
-                <h1>Challenges</h1>
+                <h1>Live Challenges</h1>
                 {challengeLinks}
                 <PrimaryButton
                   theme={{ button: style.readMoreButton }}

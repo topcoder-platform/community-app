@@ -1,0 +1,18 @@
+@import "~styles/mixins";
+
+.container {
+  background: #3d3d3d;
+  border-radius: 6px;
+  margin: 60px auto;
+  max-width: $tc-screen-lg;
+}
+
+.text {
+  @include tc-heading-lg;
+
+  background: url("assets/images/communities/cognitive/ibm-cloud/spaceman-feet.png");
+  background-size: cover;
+  color: $tc-white;
+  min-height: 130px;
+  padding: 30px 60px;
+}
