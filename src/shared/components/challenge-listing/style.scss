@@ -18,7 +18,7 @@ $challenge-radius-4: $corner-radius * 2;
 
 .ChallengeFiltersExample {
   background: $tc-gray-neutral-dark;
-  flex: 1;
+  flex: 1 0 auto;
 
   .tc-content-wrapper {
     display: flex;
