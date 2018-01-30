@@ -101,8 +101,8 @@
 }
 
 .menuWrap {
-  flex-grow: 1;
-  max-width: 700px;
+  flex-shrink: 1;
+  width: 700px;
   max-height: 0;
   overflow: visible;
   transition: max-height 0.3s ease-out;
