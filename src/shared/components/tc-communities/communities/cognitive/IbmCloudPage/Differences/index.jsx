@@ -17,6 +17,7 @@ export default function Differences() {
             Unless you already have an IBM Cloud Trial account, you’ll
             want to
             &zwnj;<Link
+              openNewTab
               to="https://console.bluemix.net/registration/?cm_sp=dw-cognitive-_-TPC2017-_-community"
             >sign up for an IBM Cloud Lite account</Link>. Here’s a
             breakdown of the major differences between an IBM Cloud
