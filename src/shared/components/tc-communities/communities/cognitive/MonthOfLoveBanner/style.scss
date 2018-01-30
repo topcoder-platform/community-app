@@ -10,27 +10,22 @@
   background-size: cover;
   border-radius: 6px;
   display: flex;
-  min-height: 200px;
   justify-content: space-between;
   margin: 100px auto 60px;
   max-width: $tc-screen-lg;
-  padding: 36px 60px;
-}
-
-.leftBlock {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+  padding: 30px 60px;
 }
 
 .text {
   @include tc-heading-lg;
 
   color: $tc-white;
+  font-weight: normal;
 }
 
 .title {
   @include tc-title;
 
   color: $tc-white;
+  margin-bottom: 10px;
 }

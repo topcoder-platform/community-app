@@ -13,6 +13,9 @@
 
 .text {
   @include tc-body-lg;
+
+  margin: auto;
+  max-width: 847px;
 }
 
 .title {

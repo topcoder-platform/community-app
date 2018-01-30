@@ -17,22 +17,19 @@ export default function Differences() {
             Unless you already have an IBM Cloud Trial account, you’ll
             want to
             &zwnj;<Link
-              to="https://console.bluemix.net/registration/free?cm_mmc=dw-_-cognitive-_-topcoder-_-community"
+              to="https://console.bluemix.net/registration/?cm_sp=dw-cognitive-_-TPC2017-_-community"
             >sign up for an IBM Cloud Lite account</Link>. Here’s a
             breakdown of the major differences between an IBM Cloud
             Trial account and an IBM Cloud Lite account.
           </p>
           <p styleName="text">
             Rest assured — if you already have an IBM Cloud Trial
-            account, you can
-            &zwnj;<Link
-              to="https://console.bluemix.net/registration/free?cm_mmc=dw-_-cognitive-_-topcoder-_-community"
-            >convert to an IBM Lite account</Link>.
+            account, you can convert to an IBM Lite account.
           </p>
           <PrimaryButton
             openNewTab
             theme={{ button: style.button }}
-            to="https://www.ibm.com/cloud/"
+            to="https://www.ibm.com/cloud/lite-account"
           >Learn More About IBM Cloud Lite</PrimaryButton>
         </div>
         <div styleName="right">

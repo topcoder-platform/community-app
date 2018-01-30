@@ -349,11 +349,18 @@
   }
 }
 
+.cardRegularText {
+  @include tc-body-md;
+
+  line-height: 2.4;
+}
+
 .readMoreButton {
   margin: 20px 0 0 !important;
 }
 
-.card-link {
+.card-link,
+.card-link:hover {
   @include tc-body-md;
 
   color: #1a85ff;

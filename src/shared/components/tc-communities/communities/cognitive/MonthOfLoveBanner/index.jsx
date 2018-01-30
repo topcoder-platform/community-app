@@ -13,7 +13,7 @@ export default function MonthOfLoveBanner({
 }) {
   return (
     <div styleName="container">
-      <div styleName="leftBlock">
+      <div>
         <h1
           styleName="title"
         >Cognitive Month of Love</h1>

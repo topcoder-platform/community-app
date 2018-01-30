@@ -83,14 +83,13 @@ export default function Resources({
                 it’s time to get a trial account of IBM Cloud&nbsp;—
                 entirely free to you. IBM Cloud
                 (<Link
-                  openNewTab
-                  to="https://www.ibm.com/cloud/"
+                  to={`${baseUrl}/ibm-cloud`}
                 >which used to be IBM
                 Bluemix</Link>) helps you continuously develop
                 and deliver solutions. You can put data to work&nbsp;— protect
                 it, move it, integrate it, and unlock intelligence from it.
                 &zwnj;<a
-                  href="https://www.ibm.com/cloud/"
+                  href="https://www.ibm.com/cloud/lite-account"
                   target="_blank"
                   rel="noopener noreferrer"
                   styleName="style.link"
@@ -101,7 +100,7 @@ export default function Resources({
                 step because in order to participate in cognitive challenges on
                 Topcoder, you’ll need to deploy your code to IBM Cloud.
                 &zwnj;<a
-                  href="https://console.bluemix.net/registration/free?cm_mmc=dw-_-cognitive-_-topcoder-_-community"
+                  href="https://console.bluemix.net/registration/?cm_sp=dw-cognitive-_-TPC2017-_-community"
                   target="_blank"
                   rel="noopener noreferrer"
                   styleName="style.link"
@@ -115,7 +114,7 @@ export default function Resources({
             >
               It’s easy!
               &zwnj;<a
-                href="https://console.bluemix.net/registration/free?cm_mmc=dw-_-cognitive-_-topcoder-_-community"
+                href="https://console.bluemix.net/registration/?cm_sp=dw-cognitive-_-TPC2017-_-community"
                 target="_blank"
                 rel="noopener noreferrer"
                 styleName="style.link"

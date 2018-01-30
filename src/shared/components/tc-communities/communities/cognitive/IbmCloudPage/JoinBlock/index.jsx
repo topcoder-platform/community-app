@@ -16,7 +16,7 @@ export default function JoinBlock() {
       <PrimaryButton
         openNewTab
         theme={{ button: style.button }}
-        to="https://console.bluemix.net/registration/free?cm_mmc=dw-_-cognitive-_-topcoder-_-community"
+        to="https://console.bluemix.net/registration/?cm_sp=dw-cognitive-_-TPC2017-_-community"
       >Sign up for IBM Cloud Lite</PrimaryButton>
     </div>
   );

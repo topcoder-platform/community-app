@@ -7,6 +7,7 @@
 
 import config from 'utils/config';
 import JoinCommunity from 'containers/tc-communities/JoinCommunity';
+import moment from 'moment';
 import PT from 'prop-types';
 import React from 'react';
 
@@ -28,13 +29,27 @@ export default function Home({
   member,
   toggleFaqItemInResourcesPage,
 }) {
-  const challengeLinks = challenges.slice(0, 3).map(item => (
-    <Link
-      key={item.id}
-      styleName="card-link"
-      to={`${baseUrl}/challenges/${item.id}`}
-    >{item.name}</Link>
-  ));
+  const now = moment();
+  const liveChallengeLinks =
+    challenges.filter(challenge =>
+      now.isAfter(challenge.registrationStartDate),
+    ).slice(0, 3).map(item => (
+      <Link
+        key={item.id}
+        styleName="card-link"
+        to={`${baseUrl}/challenges/${item.id}`}
+      >{item.name}</Link>
+    ));
+  const upcomingChallengeLinks =
+    challenges.filter(challenge =>
+      now.isBefore(challenge.registrationStartDate),
+    ).slice(0, 3).map(item => (
+      <Link
+        key={item.id}
+        styleName="card-link"
+        to={`${baseUrl}/challenges/${item.id}`}
+      >{item.name}</Link>
+    ));
   return (
     <main>
       <div styleName="head-banner">
@@ -54,18 +69,7 @@ export default function Home({
         </div>
       </div>
       <div styleName="container">
-        <IbmCloudBanner
-          onClick={() => {
-            if (!allFaqItemsClosedInResourcesPage) {
-              closeAllFaqItemsInResourcesPage();
-            }
-            toggleFaqItemInResourcesPage(
-              'whyDoINeedIbmCloudAccount',
-              true,
-            );
-          }}
-          to={`${baseUrl}/resources`}
-        />
+        <IbmCloudBanner to={`${baseUrl}/ibm-cloud`} />
         <div styleName="mission">
           <div styleName="mission-main">
             Cognitive is gaining traction across all industries&nbsp;— from
@@ -236,7 +240,22 @@ export default function Home({
               <div styleName="style.cardImage" />
               <div styleName="style.cardContent">
                 <h1>Live Challenges</h1>
-                {challengeLinks}
+                {liveChallengeLinks}
+                <PrimaryButton
+                  theme={{ button: style.readMoreButton }}
+                  to={`${baseUrl}/challenges`}
+                  size="sm"
+                >View All Challenges</PrimaryButton>
+              </div>
+            </div>
+            <div styleName="style.card style.card-02">
+              <div styleName="style.cardImage" />
+              <div styleName="style.cardContent">
+                <h1>Upcoming Challenges</h1>
+                <p styleName="cardRegularText">
+                  Get a sneak peak of upcoming challenges
+                </p>
+                {upcomingChallengeLinks}
                 <PrimaryButton
                   theme={{ button: style.readMoreButton }}
                   to={`${baseUrl}/challenges`}

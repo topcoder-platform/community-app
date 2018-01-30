@@ -38,7 +38,11 @@ export default function IbmCloudBanner({
   );
 }
 
+IbmCloudBanner.defaultProps = {
+  onClick: null,
+};
+
 IbmCloudBanner.propTypes = {
-  onClick: PT.func.isRequired,
+  onClick: PT.func,
   to: PT.string.isRequired,
 };
