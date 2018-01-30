@@ -248,7 +248,7 @@ export default function Home({
                 >View All Challenges</PrimaryButton>
               </div>
             </div>
-            <div styleName="style.card style.card-02">
+            <div styleName="style.card style.card-03">
               <div styleName="style.cardImage" />
               <div styleName="style.cardContent">
                 <h1>Upcoming Challenges</h1>
