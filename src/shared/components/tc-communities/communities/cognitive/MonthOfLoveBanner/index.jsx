@@ -4,7 +4,7 @@
 
 import PT from 'prop-types';
 import React from 'react';
-import { Button } from 'components/buttons';
+import { Button } from 'topcoder-react-ui-kit';
 
 import style from './style.scss';
 

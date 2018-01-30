@@ -10,7 +10,7 @@ import JoinCommunity from 'containers/tc-communities/JoinCommunity';
 import PT from 'prop-types';
 import React from 'react';
 
-import { PrimaryButton } from 'components/buttons';
+import { PrimaryButton } from 'topcoder-react-ui-kit';
 import { Link } from 'topcoder-react-utils';
 
 import davePhotoUrl from 'assets/images/communities/cognitive/home/dave.jpg';

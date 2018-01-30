@@ -7,7 +7,7 @@
 import fetch from 'isomorphic-fetch';
 import React from 'react';
 import PT from 'prop-types';
-import { PrimaryButton } from 'components/buttons';
+import { PrimaryButton } from 'topcoder-react-ui-kit';
 import { themr } from 'react-css-super-themr';
 import { fireErrorMessage } from 'utils/errors';
 import config from 'utils/config';

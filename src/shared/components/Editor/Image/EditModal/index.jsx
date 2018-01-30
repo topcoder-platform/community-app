@@ -5,7 +5,7 @@ import _ from 'lodash';
 import PT from 'prop-types';
 import React from 'react';
 
-import { PrimaryButton, Button } from 'components/buttons';
+import { PrimaryButton, Button } from 'topcoder-react-ui-kit';
 import Modal from 'components/Modal';
 
 import style from './style.scss';

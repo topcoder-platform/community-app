@@ -4,7 +4,7 @@
 
 import PT from 'prop-types';
 import React from 'react';
-import { PrimaryButton } from 'components/buttons';
+import { PrimaryButton } from 'topcoder-react-ui-kit';
 
 import ibmCloudLogoUrl from
   'assets/images/communities/cognitive/ibm-cloud-logo.png';

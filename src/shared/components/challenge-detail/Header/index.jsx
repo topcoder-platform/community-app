@@ -10,7 +10,7 @@ import 'moment-duration-format';
 
 import PT from 'prop-types';
 import React from 'react';
-import { DangerButton, PrimaryButton } from 'components/buttons';
+import { DangerButton, PrimaryButton } from 'topcoder-react-ui-kit';
 
 import ArrowUp from '../../../../assets/images/icon-arrow-up.svg';
 import ArrowDown from '../../../../assets/images/icon-arrow-down.svg';

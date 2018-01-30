@@ -9,7 +9,7 @@ import ImageText from 'components/tc-communities/ImageText2';
 import JoinCommunity from 'containers/tc-communities/JoinCommunity';
 import PT from 'prop-types';
 import React from 'react';
-import { Button } from 'components/buttons';
+import { Button } from 'topcoder-react-ui-kit';
 
 import image01 from './images/image-01.jpg';
 import image02 from './images/image-02.jpg';

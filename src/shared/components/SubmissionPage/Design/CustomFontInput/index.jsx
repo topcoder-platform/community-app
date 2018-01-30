@@ -2,7 +2,7 @@ import _ from 'lodash';
 import config from 'utils/config';
 import React from 'react';
 import PT from 'prop-types';
-import { PrimaryButton } from 'components/buttons';
+import { PrimaryButton } from 'topcoder-react-ui-kit';
 import '../styles.scss';
 import InputBlock from './InputBlock';
 

@@ -2,11 +2,12 @@ import React from 'react';
 import {
   Button,
   DangerButton,
-  GenericButton,
   GhostButton,
   PrimaryButton,
   SecondaryButton,
-} from 'components/buttons';
+} from 'topcoder-react-ui-kit';
+
+import { Button as GenericButton } from 'topcoder-react-utils';
 
 import outlineRoundAkkuratDanger from
   'components/buttons/outline/round/akkurat/danger.scss';
@@ -34,7 +35,7 @@ export default function Buttons() {
 
       <p styleName="style.text">
         All buttons in this page are instances of the generic button,
-        implemented in <code>/src/components/buttons</code> and wrapped
+        implemented in <code>/src/topcoder-react-ui-kit</code> and wrapped
         into different style themes with help
         of <code>react-css-super-themr</code>.
       </p>

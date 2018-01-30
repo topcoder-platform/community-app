@@ -3,7 +3,7 @@
  */
 
 import React from 'react';
-import { PrimaryButton } from 'components/buttons';
+import { PrimaryButton } from 'topcoder-react-ui-kit';
 import { fireErrorMessage } from 'utils/errors';
 
 const ErrorMessageTest = () => (

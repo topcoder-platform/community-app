@@ -8,9 +8,9 @@
 import JoinCommunity from 'containers/tc-communities//JoinCommunity';
 import PT from 'prop-types';
 import React from 'react';
-import { PrimaryButton } from 'components/buttons';
+import { PrimaryButton } from 'topcoder-react-ui-kit';
 
-import joinButtonStyle from 'components/buttons/standard/primary.scss';
+import joinButtonStyle from 'topcoder-react-ui-kit/src/shared/components/buttons/themes/primary.scss';
 import style from './style.scss'; // eslint-disable-line no-unused-vars
 
 export default function Learn({ member }) {

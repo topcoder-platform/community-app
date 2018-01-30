@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { PrimaryButton } from 'components/buttons';
+import { PrimaryButton } from 'topcoder-react-ui-kit';
 import { Link } from 'topcoder-react-utils';
 
 import style from './style.scss';

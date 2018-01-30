@@ -12,7 +12,7 @@ import React from 'react';
 import Sticky from 'react-stickynode';
 
 import PT from 'prop-types';
-import { DangerButton } from 'components/buttons';
+import { DangerButton } from 'topcoder-react-ui-kit';
 import { SPECS_TAB_STATES } from 'actions/page/challenge-details';
 // import { editorStateToHTML } from 'utils/editor';
 

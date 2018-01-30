@@ -9,7 +9,7 @@
 /* eslint-env browser */
 import React from 'react';
 import PT from 'prop-types';
-import { PrimaryButton } from 'components/buttons';
+import { PrimaryButton } from 'topcoder-react-ui-kit';
 import './styles.scss';
 
 /**

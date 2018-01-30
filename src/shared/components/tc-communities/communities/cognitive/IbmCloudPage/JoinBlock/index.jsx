@@ -1,5 +1,5 @@
 import React from 'react';
-import { PrimaryButton } from 'components/buttons';
+import { PrimaryButton } from 'topcoder-react-ui-kit';
 
 import style from './style.scss';
 

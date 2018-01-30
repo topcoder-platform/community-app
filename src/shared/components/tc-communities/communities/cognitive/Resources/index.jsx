@@ -12,7 +12,7 @@ import joinImage from
   'assets/images/communities/cognitive/resources/join-image.jpg';
 
 import standardPrimaryButtonTheme from
-  'components/buttons/standard/primary.scss';
+  'topcoder-react-ui-kit/src/shared/components/buttons/themes/primary.scss';
 
 import IbmLogoSvg from
   'assets/images/communities/cognitive/resources/ibm-logo.svg';
@@ -21,7 +21,7 @@ import LaptopSvg from
 import MsgsSvg from
   'assets/images/communities/cognitive/resources/msgs.svg';
 
-import { Button, PrimaryButton } from 'components/buttons';
+import { Button, PrimaryButton } from 'topcoder-react-ui-kit';
 
 import FaqItem from './FaqItem';
 import NewsSignup from '../NewsSignup';

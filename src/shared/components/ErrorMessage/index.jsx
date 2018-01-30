@@ -8,7 +8,7 @@
 
 import React from 'react';
 import PT from 'prop-types';
-import { DangerButton } from 'components/buttons';
+import { DangerButton } from 'topcoder-react-ui-kit';
 import config from 'utils/config';
 
 import './styles.scss';

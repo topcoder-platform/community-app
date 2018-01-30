@@ -9,9 +9,9 @@ import ImageText from 'components/tc-communities/ImageText2';
 import JoinCommunity from 'containers/tc-communities/JoinCommunity';
 import PT from 'prop-types';
 import React from 'react';
-import { PrimaryButton } from 'components/buttons';
+import { PrimaryButton } from 'topcoder-react-ui-kit';
 
-import primaryButtonTheme from 'components/buttons/standard/primary.scss';
+import primaryButtonTheme from 'topcoder-react-ui-kit/src/shared/components/buttons/themes/primary.scss';
 
 import cardImg01 from
   'assets/images/communities/cognitive/get-started/card-01.jpg';

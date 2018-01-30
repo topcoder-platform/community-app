@@ -15,7 +15,7 @@ import config from 'utils/config';
 import React from 'react';
 import PT from 'prop-types';
 import { client as filestack } from 'filestack-react';
-import { PrimaryButton } from 'components/buttons';
+import { PrimaryButton } from 'topcoder-react-ui-kit';
 import { fireErrorMessage } from 'utils/errors';
 
 import './styles.scss';
