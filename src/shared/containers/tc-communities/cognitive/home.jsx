@@ -2,6 +2,7 @@ import _ from 'lodash';
 import challengeListingActions from 'actions/challenge-listing';
 import communityActions from 'actions/tc-communities';
 import Home from 'components/tc-communities/communities/cognitive/Home';
+import moment from 'moment';
 import PT from 'prop-types';
 import React from 'react';
 import resourcesActions from 'actions/page/communities/cognitive/resources';
@@ -49,6 +50,7 @@ class HomeContainer extends React.Component {
     if (filter) {
       filter = getFilterFunction(filter.challengeFilter);
       challenges = activeChallenges
+        .sort((a, b) => moment(a.registrationStartDate).diff(b.registrationStartDate))
         .filter(x => x.status === 'ACTIVE')
         .filter(filter);
     }
