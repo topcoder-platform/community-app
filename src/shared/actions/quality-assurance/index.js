@@ -6,11 +6,7 @@ import 'isomorphic-fetch';
 import { fireErrorMessage } from 'utils/errors';
 
 function listRepositories() {
-  console.log("++++++++++++++++++++++++++++++++++++++++");
-  console.log("Action - getRepositories");
-  console.log("++++++++++++++++++++++++++++++++++++++++");
   return getService().listRepositories();
-    //.then(data => data.json());
 }
 
 export default createActions({

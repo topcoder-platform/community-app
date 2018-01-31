@@ -5,7 +5,7 @@ import { factory as repositoriesFactory } from './repositories';
 
 export function factory(req) {
   return resolveReducers({
-    repositories: repositoriesFactory(req),
+    data: repositoriesFactory(req),
   }).then(reducers => combineReducers({
     ...reducers,
   }));

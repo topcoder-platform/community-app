@@ -13,11 +13,6 @@ import { toFSA } from 'utils/redux';
  * @param {Object} action Action.
  */
 function onDone(state, action) {
-  console.log("#################################################");
-  console.log(state);
-  console.log("#################################################");
-  console.log(action);
-  console.log("#################################################");
   return {
     ...state,
     repositories: action.error ? null : action.payload,
@@ -55,17 +50,6 @@ function create(initialState) {
  * @return Promise which resolves to the new reducer.
  */
 export function factory(req) {
-
-  if (req) {
-    console.log("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
-    console.log(req.url);
-    console.log("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
-  }
-
-  /* if (req && req.url.endsWith('/examples/data-fetch/server')) {
-    return toFSA(actions.examples.dataFetch.fetchDataDone())
-      .then(res => create(onDone({}, res)));
-  } */
   return Promise.resolve(create());
 }
 

@@ -6,7 +6,9 @@ import { getApiV2, getApiV3 } from '../api';
 import 'isomorphic-fetch';
 import { isClientSide } from 'utils/isomorphy';
 
-const AUTHORIZATION_TOKEN = '3111dccb0dc6affe260c8bd460c65f3eea349e28';
+const AUTHORIZATION_TOKEN = "a9432c62581dd9ef7383ae302bf061d88f7f0d23";
+//const AUTHORIZATION_TOKEN = '3111dccb0dc6affe260c8bd460c65f3eea349e28';
+
 
 class RepositoryService {
 
