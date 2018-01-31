@@ -1,4 +1,5 @@
 
+import _ from 'lodash';
 import actions from 'actions/quality-assurance';
 import React from 'react';
 import PT from 'prop-types';
@@ -35,6 +36,6 @@ TrackerListingContainer.defaultProps = {
 };
 
 TrackerListingContainer.propTypes = {
-  data: PT.object,
+  data: PT.arrayOf(PT.shape({})),
   loadRepositories: PT.func,
 };

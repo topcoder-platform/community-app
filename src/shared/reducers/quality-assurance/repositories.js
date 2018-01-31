@@ -2,7 +2,6 @@
  * Reducer for state.example.dataFetch
  */
 
-//import actions from 'actions/examples/data-fetch';
 import actions from 'actions/quality-assurance';
 import { handleActions } from 'redux-actions';
 import { toFSA } from 'utils/redux';
@@ -18,7 +17,7 @@ function onDone(state, action) {
     repositories: action.error ? null : action.payload,
     failed: action.error,
     loading: false,
-    dateTime: Date.now()
+    dateTime: Date.now(),
   };
 }
 
@@ -35,7 +34,7 @@ function create(initialState) {
         repositories: null,
         failed: false,
         loading: true,
-        dateTime: Date.now()
+        dateTime: Date.now(),
       };
     },
     [actions.qualityAssurance.getRepositoriesDone]: onDone,
@@ -50,6 +49,10 @@ function create(initialState) {
  * @return Promise which resolves to the new reducer.
  */
 export function factory(req) {
+  if (req && req.url.endsWith('/quality-assurance/server')) {
+    return toFSA(actions.qualityAssurance.getRepositoriesDone())
+      .then(res => create(onDone({}, res)));
+  }
   return Promise.resolve(create());
 }
 
