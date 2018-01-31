@@ -18,6 +18,7 @@ import { Route, Switch } from 'react-router-dom';
 import ChallengeListing from './ChallengeListing';
 import Dashboard from './Dashboard';
 import Scoreboard from '../tco/scoreboard';
+import QualityAssurance from '../quality-assurance/index';
 
 import './styles.scss';
 
@@ -49,6 +50,7 @@ export default function Topcoder() {
           exact
           path="/challenges/:challengeId(\d{8})/submit"
         />
+        <Route component={QualityAssurance} exact path="/quality-assurance" />
         <Error404 />
       </Switch>
       <Footer />
