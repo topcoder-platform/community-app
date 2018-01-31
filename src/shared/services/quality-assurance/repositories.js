@@ -5,8 +5,7 @@ import { setErrorIcon, ERROR_ICON_TYPES } from 'utils/errors';
 
 const AUTHORIZATION_TOKEN = 'token a9432c62581dd9ef7383ae302bf061d88f7f0d23';
 
-class RepositoryService {
-
+class RepositoryService{
   async listRepositories() {
     const res = await this.fetch(
       'https://api.github.com/orgs/topcoderinc/repos', {

@@ -12,5 +12,5 @@ export default createActions({
   QUALITY_ASSURANCE: {
     GET_REPOSITORIES_INIT: _.noop,
     GET_REPOSITORIES_DONE: listRepositories,
-  }
+  },
 });
