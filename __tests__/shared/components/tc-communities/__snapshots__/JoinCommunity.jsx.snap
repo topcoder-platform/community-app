@@ -4,7 +4,7 @@ exports[`Matches shallow shapshot 1`] = `
 <div
   className={undefined}
 >
-  <ThemedGenericButton
+  <ThemedButton
     active={false}
     className=""
     composeAdhocTheme="deeply"
@@ -21,7 +21,7 @@ exports[`Matches shallow shapshot 1`] = `
     to={null}
   >
     Join Community
-  </ThemedGenericButton>
+  </ThemedButton>
   <ConfirmModal
     communityId={undefined}
     communityName="ios"
@@ -42,7 +42,7 @@ exports[`Matches shallow shapshot 2`] = `
 <div
   className={undefined}
 >
-  <ThemedGenericButton
+  <ThemedButton
     active={false}
     className="src-shared-components-tc-communities-JoinCommunity-style___joining___rq-m2x"
     composeAdhocTheme="deeply"
@@ -76,7 +76,7 @@ exports[`Matches shallow shapshot 2`] = `
         themePriority="adhoc-context-default"
       />
     </div>
-  </ThemedGenericButton>
+  </ThemedButton>
 </div>
 `;
 
@@ -90,7 +90,7 @@ exports[`Matches shallow shapshot 4`] = `
 <div
   className={undefined}
 >
-  <ThemedGenericButton
+  <ThemedButton
     active={false}
     className=""
     composeAdhocTheme="deeply"
@@ -107,7 +107,7 @@ exports[`Matches shallow shapshot 4`] = `
     to={null}
   >
     Join Community
-  </ThemedGenericButton>
+  </ThemedButton>
   <ThemedModal
     composeAdhocTheme="deeply"
     composeContextTheme="softly"
@@ -128,7 +128,7 @@ exports[`Matches shallow shapshot 4`] = `
       ios
       !
     </p>
-    <ThemedGenericButton
+    <ThemedButton
       active={false}
       composeAdhocTheme="deeply"
       composeContextTheme="softly"
@@ -149,7 +149,7 @@ exports[`Matches shallow shapshot 4`] = `
       to={null}
     >
       Return to the Community
-    </ThemedGenericButton>
+    </ThemedButton>
   </ThemedModal>
 </div>
 `;
@@ -158,7 +158,7 @@ exports[`Matches shallow shapshot 5`] = `
 <div
   className={undefined}
 >
-  <ThemedGenericButton
+  <ThemedButton
     active={false}
     className=""
     composeAdhocTheme="deeply"
@@ -175,7 +175,7 @@ exports[`Matches shallow shapshot 5`] = `
     to={null}
   >
     Join Community
-  </ThemedGenericButton>
+  </ThemedButton>
   <ConfirmModal
     communityId={undefined}
     communityName="ios"

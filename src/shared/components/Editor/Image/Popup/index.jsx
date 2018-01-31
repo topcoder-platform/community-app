@@ -5,7 +5,7 @@ import _ from 'lodash';
 import PT from 'prop-types';
 import React from 'react';
 
-import { GhostButton } from 'components/buttons';
+import { GhostButton } from 'topcoder-react-ui-kit';
 
 import EditModal from '../EditModal';
 

@@ -18,7 +18,7 @@ import LoadingIndicator from 'components/LoadingIndicator';
 import React from 'react';
 import PT from 'prop-types';
 import moment from 'moment';
-import { PrimaryButton } from 'components/buttons';
+import { PrimaryButton } from 'topcoder-react-ui-kit';
 import SubmissionsTable from '../SubmissionsTable';
 
 import style from './styles.scss';

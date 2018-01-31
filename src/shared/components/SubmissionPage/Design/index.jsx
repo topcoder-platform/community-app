@@ -13,7 +13,7 @@ import _ from 'lodash';
 import config from 'utils/config';
 import React from 'react';
 import PT from 'prop-types';
-import { PrimaryButton } from 'components/buttons';
+import { PrimaryButton } from 'topcoder-react-ui-kit';
 import { fireErrorMessage } from 'utils/errors';
 import { CHALLENGE_PHASE_TYPES as PHASE_TYPES } from 'utils/tc';
 

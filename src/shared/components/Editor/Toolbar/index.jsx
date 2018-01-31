@@ -7,7 +7,7 @@ import PT from 'prop-types';
 import React from 'react';
 import Sticky from 'react-stickynode';
 
-import { Button } from 'components/buttons';
+import { Button } from 'topcoder-react-ui-kit';
 import Select from 'components/Select';
 import { EDITOR_BLOCK_STYLE_MAP } from 'utils/editor';
 

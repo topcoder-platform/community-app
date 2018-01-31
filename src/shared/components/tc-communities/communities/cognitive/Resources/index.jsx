@@ -6,11 +6,13 @@ import JoinCommunity from 'containers/tc-communities/JoinCommunity';
 import PT from 'prop-types';
 import React from 'react';
 
+import { Link } from 'topcoder-react-utils';
+
 import joinImage from
   'assets/images/communities/cognitive/resources/join-image.jpg';
 
 import standardPrimaryButtonTheme from
-  'components/buttons/standard/primary.scss';
+  'topcoder-react-ui-kit/src/shared/components/buttons/themes/primary.scss';
 
 import IbmLogoSvg from
   'assets/images/communities/cognitive/resources/ibm-logo.svg';
@@ -19,7 +21,7 @@ import LaptopSvg from
 import MsgsSvg from
   'assets/images/communities/cognitive/resources/msgs.svg';
 
-import { Button, PrimaryButton } from 'components/buttons';
+import { Button, PrimaryButton } from 'topcoder-react-ui-kit';
 
 import FaqItem from './FaqItem';
 import NewsSignup from '../NewsSignup';
@@ -79,13 +81,15 @@ export default function Resources({
               <p styleName="style.faqPSpacing">
                 Once you’ve signed up for the Topcoder Cognitive Community,
                 it’s time to get a trial account of IBM Cloud&nbsp;—
-                entirely free to you. IBM Cloud helps you continuously develop
+                entirely free to you. IBM Cloud
+                (<Link
+                  to={`${baseUrl}/ibm-cloud`}
+                >which used to be IBM
+                Bluemix</Link>) helps you continuously develop
                 and deliver solutions. You can put data to work&nbsp;— protect
                 it, move it, integrate it, and unlock intelligence from it.
-              </p>
-              <p>
-                <a
-                  href="https://www.ibm.com/cloud/"
+                &zwnj;<a
+                  href="https://www.ibm.com/cloud/lite-account"
                   target="_blank"
                   rel="noopener noreferrer"
                   styleName="style.link"
@@ -95,10 +99,8 @@ export default function Resources({
                 Signing up for an IBM Cloud trial account is an important
                 step because in order to participate in cognitive challenges on
                 Topcoder, you’ll need to deploy your code to IBM Cloud.
-              </p>
-              <p>
-                <a
-                  href="https://console.bluemix.net/registration/free?cm_mmc=dw-_-cognitive-_-topcoder-_-community"
+                &zwnj;<a
+                  href="https://console.bluemix.net/registration/?cm_sp=dw-cognitive-_-TPC2017-_-community"
                   target="_blank"
                   rel="noopener noreferrer"
                   styleName="style.link"
@@ -112,7 +114,7 @@ export default function Resources({
             >
               It’s easy!
               &zwnj;<a
-                href="https://console.bluemix.net/registration/free?cm_mmc=dw-_-cognitive-_-topcoder-_-community"
+                href="https://console.bluemix.net/registration/?cm_sp=dw-cognitive-_-TPC2017-_-community"
                 target="_blank"
                 rel="noopener noreferrer"
                 styleName="style.link"

@@ -4,6 +4,7 @@
  */
 
 import Buttons from 'components/examples/Buttons';
+import ColorMixins from 'components/examples/ColorMixins';
 import Content from 'components/Content';
 import CssModules from 'components/examples/CssModules';
 import Editor from 'components/examples/Editor';
@@ -51,6 +52,7 @@ export default function Examples(props) {
           return <CodeSplitting />;
         }}
       />
+      <Route path={`${base}/color-mixins`} component={ColorMixins} />
       <Route path={`${base}/css-modules`} component={CssModules} />
       <Route path={`${base}/data-fetch`} component={DataFetch} />
       <Route path={`${base}/editor`} component={Editor} />

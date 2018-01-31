@@ -8,8 +8,7 @@
 
 import React from 'react';
 import PT from 'prop-types';
-import { DangerButton } from 'components/buttons';
-import config from 'utils/config';
+import { DangerButton } from 'topcoder-react-ui-kit';
 
 import './styles.scss';
 
@@ -37,7 +36,13 @@ class ErrorMessage extends React.Component {
         >
           <p styleName="title">{title}</p>
           <p styleName="details">{details}</p>
-          <p styleName="details">We are sorry you have encountered this problem. Please log the issue into our <a href={config.URL.COMMUNITY_APP_GITHUB_ISSUES} target="_blank" rel="noopener noreferrer">GitHub repository</a> so that we can fix it as soon as possible</p>
+          <p styleName="details">
+            We are sorry that you have encountered this problem. Please, contact
+            our support
+            &zwnj;<a
+              href="mailto:support@topcoder.com"
+            >support@topcoder.com</a> to help us resolve it as soon as possible.
+          </p>
           <DangerButton
             onClick={(e) => {
               e.preventDefault();

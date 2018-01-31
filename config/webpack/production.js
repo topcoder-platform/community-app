@@ -3,7 +3,7 @@ const webpackMerge = require('webpack-merge'); // eslint-disable-line import/no-
 const path = require('path');
 
 const configFactory
-  = require('topcoder-react-utils/config/webpack/production');
+  = require('topcoder-react-utils/config/webpack/app-production');
 
 const defaultConfig = require('./default');
 

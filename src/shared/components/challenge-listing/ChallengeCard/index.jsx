@@ -70,10 +70,9 @@ function ChallengeCard({
       /* TODO: Don't we have a better way, whether a challenge is MM or not? */
       challengeDetailLink = isMM
         ? `${mmDetailUrl}${challenge.rounds[0].id}`
-        : `${challengeUrl}${challenge.id}/?type=develop`;
+        : `${challengeUrl}${challenge.id}`;
     } else {
-      challengeDetailLink =
-        `${challengeUrl}${challenge.id}/?type=${challenge.track.toLowerCase()}`;
+      challengeDetailLink = `${challengeUrl}${challenge.id}`;
     }
   }
 

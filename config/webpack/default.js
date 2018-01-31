@@ -4,7 +4,6 @@ const path = require('path');
 module.exports = {
   entry: {
     'loading-indicator-animation': './src/client/loading-indicator-animation',
-    main: './src/client',
   },
   module: {
     noParse: [

@@ -1,4 +1,4 @@
-import { GenericButton } from 'components/buttons';
+import { Button as GenericButton } from 'topcoder-react-utils';
 import { themr } from 'react-css-super-themr';
 
 import defaultTag from './default.scss';

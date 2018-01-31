@@ -13,7 +13,7 @@ import _ from 'lodash';
 import config from 'utils/config';
 import React from 'react';
 import PT from 'prop-types';
-import { PrimaryButton } from 'components/buttons';
+import { PrimaryButton } from 'topcoder-react-ui-kit';
 import FilePicker from '../FilePicker';
 import Uploading from '../Uploading';
 import './styles.scss';

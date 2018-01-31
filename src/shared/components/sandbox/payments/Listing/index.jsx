@@ -6,7 +6,7 @@ import LoadingIndicator from 'components/LoadingIndicator';
 import PT from 'prop-types';
 import React from 'react';
 import Select from 'components/Select';
-import { PrimaryButton } from 'components/buttons';
+import { PrimaryButton } from 'topcoder-react-ui-kit';
 import Background from '../Background';
 import PaymentRow from './PaymentRow';
 import './style.scss';

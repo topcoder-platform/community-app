@@ -11,7 +11,7 @@ import PT from 'prop-types';
 import { Link } from 'react-router-dom';
 import RobotHappy from 'assets/images/robot-happy.svg';
 import RobotSad from 'assets/images/robot-embarassed.svg';
-import { PrimaryButton, Button } from 'components/buttons';
+import { PrimaryButton, Button } from 'topcoder-react-ui-kit';
 import './styles.scss';
 
 const Uploading = ({

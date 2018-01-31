@@ -6,6 +6,8 @@ import ChallengeDetails from 'routes/ChallengeDetails';
 import ChallengeListing from 'routes/Communities/ChallengeListing';
 import config from 'utils/config';
 import Error404 from 'components/Error404';
+import IbmCloudPage from
+  'components/tc-communities/communities/cognitive/IbmCloudPage';
 import MetaTags from 'utils/MetaTags';
 import Resources from 'containers/tc-communities/cognitive/resources';
 import Footer from 'components/tc-communities/Footer2';
@@ -59,6 +61,11 @@ export default function Cognitive({ base, member, meta }) {
               component={() => <GetStarted baseUrl={base} />}
               exact
               path={`${base}/get-started`}
+            />
+            <Route
+              component={() => <IbmCloudPage baseUrl={base} />}
+              exact
+              path={`${base}/ibm-cloud`}
             />
             <Route
               component={routeProps => ChallengeDetails({

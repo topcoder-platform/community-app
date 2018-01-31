@@ -42,7 +42,7 @@ export default class TermDetails extends React.Component {
           details.agreeabilityType === 'Electronically-agreeable' &&
           <div>
             <div
-              dangerouslySetInnerHTML={{ __html: details.text }}
+              dangerouslySetInnerHTML={{ __html: details.text.replace(/topcoder/gi, 'Topcoder') }}
               styleName="body"
             />
           </div>

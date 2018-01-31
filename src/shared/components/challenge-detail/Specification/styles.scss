@@ -52,15 +52,16 @@ $tc-link-visited: #0c4e98;
 .hiddenSaveButton:active,
 .hiddenSaveButton:focus,
 .hiddenSaveButton:hover {
-  background: white;
-  border: none;
-  max-height: 10px;
-  min-height: 10px;
+  background: white !important;
+  border: none !important;
+  color: white !important;
+  max-height: 10px !important;
+  min-height: 10px !important;
   margin: 0 !important;
   padding: 0 !important;
-  overflow: hidden;
-  outline: none;
-  max-width: 10px;
+  overflow: hidden !important;
+  outline: none !important;
+  max-width: 10px !important;
 }
 
 .challenge-details-view {

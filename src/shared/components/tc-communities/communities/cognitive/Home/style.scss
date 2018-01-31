@@ -69,7 +69,7 @@
 
 .mission {
   display: flex;
-  margin: 100px auto;
+  margin: 60px auto;
   max-width: $tc-screen-lg;
 
   @include xs-to-sm {
@@ -327,6 +327,10 @@
   background-image: url('assets/images/communities/cognitive/home/card-02.jpg');
 }
 
+.card-03 .cardImage {
+  background-image: url('assets/images/communities/cognitive/home/card-03.jpg');
+}
+
 .cardContent {
   padding: 30px;
 }
@@ -349,11 +353,18 @@
   }
 }
 
+.cardRegularText {
+  @include tc-body-md;
+
+  line-height: 2.4;
+}
+
 .readMoreButton {
   margin: 20px 0 0 !important;
 }
 
-.card-link {
+.card-link,
+.card-link:hover {
   @include tc-body-md;
 
   color: #1a85ff;

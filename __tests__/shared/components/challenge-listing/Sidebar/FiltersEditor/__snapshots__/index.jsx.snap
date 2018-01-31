@@ -7,7 +7,7 @@ exports[`Matches shallow shapshot 1`] = `
   <h1>
     My filters
   </h1>
-  <ThemedGenericButton
+  <ThemedButton
     active={false}
     composeAdhocTheme="deeply"
     composeContextTheme="softly"
@@ -28,7 +28,7 @@ exports[`Matches shallow shapshot 1`] = `
     to={null}
   >
     Done
-  </ThemedGenericButton>
+  </ThemedButton>
   <Item
     changeFilterName={[Function]}
     deleteSavedFilter={[Function]}

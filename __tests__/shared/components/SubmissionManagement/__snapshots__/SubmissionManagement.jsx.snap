@@ -72,7 +72,7 @@ exports[`Matches shallow shapshot 1`] = `
   <div
     className="src-shared-components-SubmissionManagement-SubmissionManagement-___styles__btn-wrap___2G2IK"
   >
-    <ThemedGenericButton
+    <ThemedButton
       active={false}
       composeAdhocTheme="deeply"
       composeContextTheme="softly"
@@ -93,7 +93,7 @@ exports[`Matches shallow shapshot 1`] = `
       to="/submit"
     >
       Add Submission
-    </ThemedGenericButton>
+    </ThemedButton>
   </div>
 </div>
 `;

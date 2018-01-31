@@ -13,7 +13,7 @@ import config from 'utils/config';
 import Modal from 'components/Modal';
 import PT from 'prop-types';
 import React from 'react';
-import { PrimaryButton, SecondaryButton } from 'components/buttons';
+import { PrimaryButton, SecondaryButton } from 'topcoder-react-ui-kit';
 import style from './style.scss';
 
 export default function ConfirmModal({

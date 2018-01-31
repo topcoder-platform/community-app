@@ -1,6 +1,6 @@
 const path = require('path');
 const configFactory
-  = require('topcoder-react-utils/config/webpack/development');
+  = require('topcoder-react-utils/config/webpack/app-development');
 const webpackMerge = require('webpack-merge');
 
 const defaultConfig = require('./default');

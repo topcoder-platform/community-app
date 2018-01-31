@@ -1,7 +1,7 @@
 import config from 'utils/config';
 import PT from 'prop-types';
 import React from 'react';
-import { PrimaryButton } from 'components/buttons';
+import { PrimaryButton } from 'topcoder-react-ui-kit';
 
 import InputBlock from './InputBlock';
 import './style.scss';

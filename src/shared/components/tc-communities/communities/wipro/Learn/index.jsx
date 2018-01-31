@@ -21,7 +21,7 @@ import LinksCard from 'components/tc-communities/LinksCard';
 import Text from 'components/tc-communities/Text';
 */
 
-import { PrimaryButton } from 'components/buttons';
+import { PrimaryButton } from 'topcoder-react-ui-kit';
 
 import style from './style.scss';
 

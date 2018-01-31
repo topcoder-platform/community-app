@@ -1,0 +1,110 @@
+@import "~styles/mixins";
+
+.container {
+  @include roboto-mono-regular;
+
+  align-items: center;
+  display: flex;
+}
+
+.name {
+  @include roboto-mono-regular;
+}
+
+@mixin color($color) {
+  &::after {
+    @include roboto-mono-regular;
+
+    content: "— #{$color} —";
+    margin-left: 10px;
+    position: relative;
+    top: -3px;
+  }
+
+  &::before {
+    background: $color;
+    content: "";
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+  }
+}
+
+.tc-black { @include color($tc-black); }
+.tc-gray-90 { @include color($tc-gray-90); }
+.tc-gray-80 { @include color($tc-gray-80); }
+.tc-gray-70 { @include color($tc-gray-70); }
+.tc-gray-60 { @include color($tc-gray-60); }
+.tc-gray-50 { @include color($tc-gray-50); }
+.tc-gray-40 { @include color($tc-gray-40); }
+.tc-gray-30 { @include color($tc-gray-30); }
+.tc-gray-20 { @include color($tc-gray-20); }
+.tc-gray-10 { @include color($tc-gray-10); }
+.tc-gray-neutral-dark { @include color($tc-gray-neutral-dark); }
+.tc-gray-neutral-light { @include color($tc-gray-neutral-light); }
+.tc-white { @include color($tc-white); }
+
+.tc-dark-blue-110 { @include color($tc-dark-blue-110); }
+.tc-dark-blue-100 { @include color($tc-dark-blue-100); }
+.tc-dark-blue-70 { @include color($tc-dark-blue-70); }
+.tc-dark-blue-30 { @include color($tc-dark-blue-30); }
+.tc-dark-blue-10 { @include color($tc-dark-blue-10); }
+
+.tc-light-blue-110 { @include color($tc-light-blue-110); }
+.tc-light-blue-100 { @include color($tc-light-blue-100); }
+.tc-light-blue-70 { @include color($tc-light-blue-70); }
+.tc-light-blue-30 { @include color($tc-light-blue-30); }
+.tc-light-blue-10 { @include color($tc-light-blue-10); }
+
+.tc-orange-110 { @include color($tc-orange-110); }
+.tc-orange-100 { @include color($tc-orange-100); }
+.tc-orange-70 { @include color($tc-orange-70); }
+.tc-orange-30 { @include color($tc-orange-30); }
+.tc-orange-10 { @include color($tc-orange-10); }
+
+.tc-red-110 { @include color($tc-red-110); }
+.tc-red-100 { @include color($tc-red-100); }
+.tc-red-70 { @include color($tc-red-70); }
+.tc-red-30 { @include color($tc-red-30); }
+.tc-red-10 { @include color($tc-red-10); }
+
+.tc-yellow-110 { @include color($tc-yellow-110); }
+.tc-yellow-100 { @include color($tc-yellow-100); }
+.tc-yellow-70 { @include color($tc-yellow-70); }
+.tc-yellow-30 { @include color($tc-yellow-30); }
+.tc-yellow-10 { @include color($tc-yellow-10); }
+
+.tc-green-110 { @include color($tc-green-110); }
+.tc-green-100 { @include color($tc-green-100); }
+.tc-green-70 { @include color($tc-green-70); }
+.tc-green-30 { @include color($tc-green-30); }
+.tc-green-10 { @include color($tc-green-10); }
+
+.tc-purple-110 { @include color($tc-purple-110); }
+.tc-purple-100 { @include color($tc-purple-100); }
+.tc-purple-70 { @include color($tc-purple-70); }
+.tc-purple-30 { @include color($tc-purple-30); }
+.tc-purple-10 { @include color($tc-purple-10); }
+
+.tc-gold { @include color($tc-gold); }
+.tc-silver { @include color($tc-silver); }
+.tc-bronze { @include color($tc-bronze); }
+
+.tc-pastel-green { @include color($tc-pastel-green); }
+.tc-pastel-blue { @include color($tc-pastel-blue); }
+.tc-pastel-yellow { @include color($tc-pastel-yellow); }
+.tc-pastel-crimson { @include color($tc-pastel-crimson); }
+
+.tc-dark-blue { @include color($tc-dark-blue); }
+.tc-light-blue { @include color($tc-light-blue); }
+.tc-green { @include color($tc-green); }
+.tc-purple { @include color($tc-purple); }
+.tc-yellow { @include color($tc-yellow); }
+.tc-orange { @include color($tc-orange); }
+.tc-red { @include color($tc-red); }
+
+.tc-level-1 { @include color($tc-level-1); }
+.tc-level-2 { @include color($tc-level-2); }
+.tc-level-3 { @include color($tc-level-3); }
+.tc-level-4 { @include color($tc-level-4); }
+.tc-level-5 { @include color($tc-level-5); }

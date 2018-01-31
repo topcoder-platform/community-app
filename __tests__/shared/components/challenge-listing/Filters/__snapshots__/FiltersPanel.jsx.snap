@@ -161,7 +161,7 @@ exports[`Matches shallow shapshot 1`] = `
   <div
     className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__buttons___2r3xW"
   >
-    <ThemedGenericButton
+    <ThemedButton
       active={false}
       composeAdhocTheme="deeply"
       composeContextTheme="softly"
@@ -182,8 +182,8 @@ exports[`Matches shallow shapshot 1`] = `
       to={null}
     >
       Clear filters
-    </ThemedGenericButton>
-    <ThemedGenericButton
+    </ThemedButton>
+    <ThemedButton
       active={false}
       composeAdhocTheme="deeply"
       composeContextTheme="softly"
@@ -204,7 +204,7 @@ exports[`Matches shallow shapshot 1`] = `
       to={null}
     >
       Save filter
-    </ThemedGenericButton>
+    </ThemedButton>
   </div>
 </div>
 `;
@@ -348,7 +348,7 @@ exports[`Matches shallow shapshot 2`] = `
   <div
     className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__buttons___2r3xW"
   >
-    <ThemedGenericButton
+    <ThemedButton
       active={false}
       composeAdhocTheme="deeply"
       composeContextTheme="softly"
@@ -369,8 +369,8 @@ exports[`Matches shallow shapshot 2`] = `
       to={null}
     >
       Clear filters
-    </ThemedGenericButton>
-    <ThemedGenericButton
+    </ThemedButton>
+    <ThemedButton
       active={false}
       composeAdhocTheme="deeply"
       composeContextTheme="softly"
@@ -391,7 +391,7 @@ exports[`Matches shallow shapshot 2`] = `
       to={null}
     >
       Save filter
-    </ThemedGenericButton>
+    </ThemedButton>
   </div>
 </div>
 `;
