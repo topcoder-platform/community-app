@@ -48,7 +48,9 @@ class HomeContainer extends React.Component {
     let filter = communitiesList.data.find(x => x.communityId === 'cognitive');
     if (filter) {
       filter = getFilterFunction(filter.challengeFilter);
-      challenges = activeChallenges.filter(filter);
+      challenges = activeChallenges
+        .filter(x => x.status === 'ACTIVE')
+        .filter(filter);
     }
 
     return (
