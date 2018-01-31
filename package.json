@@ -94,7 +94,7 @@
     "stylelint-config-standard": "^17.0.0",
     "supertest": "^3.0.0",
     "tc-accounts": "https://github.com/appirio-tech/accounts-app.git#dev",
-    "topcoder-react-ui-kit": "0.0.4",
+    "topcoder-react-ui-kit": "0.0.5",
     "topcoder-react-utils": "0.0.37",
     "turndown": "^4.0.1",
     "url-parse": "^1.2.0",

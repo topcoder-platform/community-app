@@ -1,0 +1,15 @@
+@import "~styles/mixins";
+
+.container {
+  margin: 25px auto;
+  max-width: $tc-screen-md;
+}
+
+.content {
+  display: flex;
+  flex-wrap: wrap;
+
+  div {
+    margin-right: 10px;
+  }
+}

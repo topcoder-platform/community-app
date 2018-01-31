@@ -418,6 +418,15 @@ exports[`Matches shallow shapshot 1`] = `
     <li>
       <Link
         replace={false}
+        to="/examples/color-mixins"
+      >
+        Color Mixins
+      </Link>
+       — Live demo of TC UI Kit color pallete;
+    </li>
+    <li>
+      <Link
+        replace={false}
         to="/examples/css-modules"
       >
         CSS Modules

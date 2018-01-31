@@ -170,6 +170,10 @@ export default function Content() {
           <Link to="/examples/code-splitting">Code Splitting</Link>
         </li>
         <li>
+          <Link to="/examples/color-mixins">Color Mixins</Link> &mdash; Live
+          demo of TC UI Kit color pallete;
+        </li>
+        <li>
           <Link to="/examples/css-modules">CSS Modules</Link> - Demo/test of CSS modules in action;
         </li>
         <li>
