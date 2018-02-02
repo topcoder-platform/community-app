@@ -7,7 +7,7 @@ import Bucket from 'components/challenge-listing/Listing/Bucket';
 import reduxStoreFactory from 'redux-mock-store';
 import { Provider } from 'react-redux';
 import { StaticRouter } from 'react-router-dom';
-import { Tag } from 'components/tags';
+import { Tag } from 'topcoder-react-ui-kit';
 
 const store = reduxStoreFactory()();
 

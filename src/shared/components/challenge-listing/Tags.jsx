@@ -4,7 +4,7 @@
 import _ from 'lodash';
 import React from 'react';
 import PT from 'prop-types';
-import { Tag } from 'components/tags';
+import { Tag } from 'topcoder-react-ui-kit';
 
 // The number of technologies to be shown without requiring expanding
 const VISIBLE_TECHNOLOGIES = 3;

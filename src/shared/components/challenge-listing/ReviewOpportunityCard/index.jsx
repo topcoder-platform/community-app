@@ -12,7 +12,6 @@ import Tooltip from 'components/Tooltip';
 
 import { REVIEW_OPPORTUNITY_TYPES } from 'utils/tc';
 
-// import Tags from '../Tags';
 import TrackAbbreviationTooltip from '../Tooltips/TrackAbbreviationTooltip';
 
 import SubmissionsIcon from '../Icons/SubmissionsIcon';

@@ -1,18 +1,3 @@
-module.exports = {
-  collectCoverage: true,
-  collectCoverageFrom: [
-    'src/**/*.{js,jsx}',
-  ],
-  coverageDirectory: '__coverage__',
-  moduleNameMapper: {
-    '\\.(scss|css)$': 'identity-obj-proxy',
-  },
-  rootDir: '../..',
-  testPathIgnorePatterns: [
-    '/node_modules/',
-  ],
-  transformIgnorePatterns: [
-    '/node_modules/(?!appirio-tech.*|topcoder|tc-)',
-  ],
-  setupTestFrameworkScriptFile: '<rootDir>/config/jest/setup.js',
-};
+import config from 'topcoder-react-utils/config/jest/default';
+
+module.exports = config;

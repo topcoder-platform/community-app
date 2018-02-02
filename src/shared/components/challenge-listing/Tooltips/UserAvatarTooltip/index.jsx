@@ -12,7 +12,7 @@ import React, { Component } from 'react';
 import PT from 'prop-types';
 // import moment from 'moment';
 import Tooltip from 'components/Tooltip';
-import Avatar from 'components/Avatar';
+import { Avatar } from 'topcoder-react-ui-kit';
 import styles from './style.scss';
 
 /**

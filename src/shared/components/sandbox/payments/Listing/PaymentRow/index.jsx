@@ -6,10 +6,11 @@ import _ from 'lodash';
 import PT from 'prop-types';
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { Avatar } from 'topcoder-react-ui-kit';
+
 import PaymentStatus from '../PaymentStatus';
 import TrackAbbreviationTooltip from '../../../../challenge-listing/Tooltips/TrackAbbreviationTooltip';
 import TrackIcon from '../../../../TrackIcon';
-import Avatar from '../../../../Avatar';
 import './style.scss';
 
 export default function PaymentRow({ challenge }) {

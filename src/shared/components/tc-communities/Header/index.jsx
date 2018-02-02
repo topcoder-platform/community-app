@@ -12,7 +12,7 @@ import config from 'utils/config';
 import DesktopSubMenu from 'components/TopcoderHeader/desktop/SubMenu';
 import React from 'react';
 import PT from 'prop-types';
-import Avatar from 'components/Avatar';
+import { Avatar } from 'topcoder-react-ui-kit';
 import { Link, NavLink } from 'topcoder-react-utils';
 import { getRatingColor } from 'utils/tc';
 import Dropdown from 'components/tc-communities/Dropdown';

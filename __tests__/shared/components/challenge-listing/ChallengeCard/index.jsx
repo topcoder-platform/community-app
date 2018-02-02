@@ -6,7 +6,7 @@ import ChallengeCard from 'components/challenge-listing/ChallengeCard';
 import MockDate from 'mockdate';
 import { Provider } from 'react-redux';
 import mockReduxStore from 'redux-mock-store';
-import { Tag } from 'components/tags';
+import { Tag } from 'topcoder-react-ui-kit';
 import { StaticRouter } from 'react-router-dom';
 
 const store = mockReduxStore()();

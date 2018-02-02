@@ -8,7 +8,7 @@ import {
   DesignTrackTag,
   DevelopmentTrackEventTag,
   DevelopmentTrackTag,
-} from 'components/tags';
+} from 'topcoder-react-ui-kit';
 
 import style from './style.scss';
 

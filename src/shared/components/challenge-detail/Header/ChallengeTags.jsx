@@ -18,7 +18,7 @@ import {
   DesignTrackEventTag,
   DevelopmentTrackTag,
   DevelopmentTrackEventTag,
-} from 'components/tags';
+} from 'topcoder-react-ui-kit';
 
 import { COMPETITION_TRACKS } from 'utils/tc';
 

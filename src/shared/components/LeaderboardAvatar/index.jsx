@@ -1,6 +1,6 @@
 // TODO: All uses of this component MUST be replaced by Avatar component!
 
-import Avatar from 'components/Avatar';
+import { Avatar } from 'topcoder-react-ui-kit';
 import config from 'utils/config';
 import React, { Component } from 'react';
 import PT from 'prop-types';

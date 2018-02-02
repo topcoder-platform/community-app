@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import Avatar from 'components/Avatar';
+import { Avatar } from 'topcoder-react-ui-kit';
 import config from 'utils/config';
 import { getRatingColor } from 'utils/tc';
 import PT from 'prop-types';

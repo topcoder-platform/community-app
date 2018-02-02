@@ -11,7 +11,7 @@
 /* eslint-env browser */
 import React from 'react';
 import PT from 'prop-types';
-import Avatar from 'components/Avatar';
+import { Avatar } from 'topcoder-react-ui-kit';
 
 import './style.scss';
 

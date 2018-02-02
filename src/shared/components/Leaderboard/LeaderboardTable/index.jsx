@@ -21,7 +21,7 @@
 import config from 'utils/config';
 import React from 'react';
 import PT from 'prop-types';
-import Avatar from 'components/Avatar';
+import { Avatar } from 'topcoder-react-ui-kit';
 
 import avatarStyles from '../avatarStyles.scss';
 import styles from './styles.scss'; // eslint-disable-line

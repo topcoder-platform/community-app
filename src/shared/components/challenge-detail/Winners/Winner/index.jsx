@@ -1,4 +1,4 @@
-import Avatar from 'components/Avatar';
+import { Avatar } from 'topcoder-react-ui-kit';
 import config from 'utils/config';
 // import moment from 'moment';
 import PT from 'prop-types';
