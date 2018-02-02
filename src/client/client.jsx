@@ -39,6 +39,7 @@ if (!process.env.FRONT_END) {
 
 const config = window.CONFIG;
 analytics.initialize({
+  Chameleon: {},
   'Segment.io': {
     apiKey: config.SEGMENT_IO_API_KEY,
   },
