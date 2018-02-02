@@ -61,7 +61,7 @@
 
 .title {
   color: #394146;
-  font: 600 36px/136.11% 'Open Sans';
+  font: 600 36px/136.11% 'Open Sans', sans-serif;
 
   @include xs-to-md {
     font-size: 24px;
@@ -70,7 +70,7 @@
 
 .text {
   color: #394146;
-  font: 15px/160% 'Open Sans';
+  font: 15px/160% 'Open Sans', sans-serif;
   margin-top: 19px;
   opacity: 0.7;
 
@@ -92,7 +92,7 @@
   display: inline-block;
   border: 1px solid #0092ff;
   border-radius: 20px;
-  font: 700 14px/40px 'Open Sans';
+  font: 700 14px/40px 'Open Sans', sans-serif;
   height: 40px;
   text-align: center;
   text-transform: uppercase;

@@ -2,11 +2,11 @@
 
 .open,
 .past {
+  @include roboto-regular;
+
   margin-bottom: 10px;
   padding: 0 20px;
   border-right: 1px solid $tc-gray-10;
-  font-family: roboto;
-  font-weight: 400;
 
   &:last-child {
     border-right: none;

@@ -11,9 +11,9 @@ $type-radius-4: $corner-radius * 2;
   font-size: 0;
 
   > a {
-    font-family: 'Roboto';
+    @include roboto-regular;
+
     height: $type-space-60;
-    font-weight: 400;
     font-size: 20px;
     color: $tc-dark-blue-70;
     cursor: pointer;

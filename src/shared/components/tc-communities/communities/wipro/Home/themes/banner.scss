@@ -52,7 +52,7 @@
 h2.title {
   border-bottom: 2px solid white !important;
   display: block !important;
-  font-family: 'Akkurat mono' !important;
+  font-family: 'Akkurat mono', monospace !important;
   font-size: 20px !important;
   line-height: 100% !important;
   padding-left: 30px !important;
@@ -63,7 +63,7 @@ h2.title {
 
 .contentInner p,
 .text {
-  font-family: 'Akkurat regular' !important;
+  font-family: 'Akkurat regular', monospace !important;
   line-height: 20px !important;
   margin: 12px 60px 12px 30px !important;
 }

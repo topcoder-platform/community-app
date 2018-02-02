@@ -100,9 +100,9 @@
     }
 
     .challenge-header {
-      font-family: roboto;
+      @include tc-heading-lg;
+
       color: $tc-black;
-      font-size: 28px;
       line-height: 40px;
       letter-spacing: -0.78px;
       font-weight: 500;
@@ -154,6 +154,8 @@
         flex: 4;
 
         .prizes-title {
+          @include roboto-bold;
+
           margin-left: 20px;
 
           @include xs-to-md {
@@ -161,8 +163,6 @@
           }
 
           margin-top: 20px;
-          font-family: roboto;
-          font-weight: 700;
           font-size: 10px;
           color: $tc-gray-50;
           line-height: 10px;
@@ -186,8 +186,8 @@
               text-align: right;
 
               .prize-rank {
-                font-family: roboto;
-                font-weight: 400;
+                @include roboto-regular;
+
                 font-size: 13px;
                 color: $tc-gray-50;
                 letter-spacing: 0;
@@ -200,8 +200,8 @@
               }
 
               .prize-money {
-                font-family: roboto;
-                font-weight: 500;
+                @include roboto-medium;
+
                 font-size: 20px;
                 color: $tc-gray-80;
                 letter-spacing: -0.5px;
@@ -229,9 +229,9 @@
         }
 
         .bonus-div {
+          @include roboto-regular;
+
           text-align: center;
-          font-family: roboto;
-          font-weight: 400;
           color: $tc-black;
           line-height: 25px;
           margin: 25px 15px 0;
@@ -262,10 +262,10 @@
         justify-content: space-between;
 
         .deadlines-overview-text {
+          @include robot-regular;
+
           display: flex;
           justify-content: flex-start;
-          font-family: roboto;
-          font-weight: 400;
           color: $tc-gray-30;
           line-height: 20px;
           padding: 15px 20px;
@@ -294,8 +294,8 @@
         }
 
         .deadlines-collapser {
-          font-family: roboto;
-          font-weight: 500;
+          @include roboto-medium;
+
           font-size: 13px;
           color: $tc-gray-20;
           letter-spacing: 0;

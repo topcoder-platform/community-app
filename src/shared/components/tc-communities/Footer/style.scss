@@ -15,14 +15,6 @@
   }
 }
 
-.item + .item {
-  margin-left: 78px;
-
-  @include xs-to-sm {
-    margin-left: 15px;
-  }
-}
-
 .item {
   @include xs-to-sm {
     margin-right: 15px;
@@ -31,10 +23,18 @@
   }
 }
 
+.item + .item {
+  margin-left: 78px;
+
+  @include xs-to-sm {
+    margin-left: 15px;
+  }
+}
+
 a.link,
 a.link:visited {
   color: #a3a3ae;
-  font: 700 14px 'Open Sans';
+  font: 700 14px 'Open Sans', sans-serif;
   text-decoration: none;
   text-transform: uppercase;
 }
@@ -75,7 +75,7 @@ a.link:visited {
   background: #60c700;
   color: #fafafa;
   display: inline-block;
-  font: 700 14px/30px 'Open Sans';
+  font: 700 14px/30px 'Open Sans', sans-serif;
   height: 32px;
   outline: none;
   text-transform: uppercase;
@@ -96,7 +96,7 @@ a.link:visited {
   border-radius: 30px;
   color: #fafafa;
   display: inline-block;
-  font: 700 14px/30px 'Open Sans';
+  font: 700 14px/30px 'Open Sans', sans-serif;
   height: 32px;
   margin-left: 60px;
   outline: none;

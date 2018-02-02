@@ -1,8 +1,9 @@
 @import '~styles/mixins';
 
 .challenge-filters {
+  @include roboto-regular;
+
   width: 100%;
-  font-family: 'Roboto';
 
   .filter-header {
     background: $tc-gray-neutral-light;
@@ -49,13 +50,13 @@
     display: none;
 
     @include xs-to-md {
+      @include roboto-regular;
+
       position: relative;
       cursor: pointer;
       display: inline-block;
       height: 40px;
       line-height: 40px;
-      font-family: 'Roboto';
-      font-weight: 400;
       font-size: 14px;
       color: #737380;
       padding-right: 30px;
@@ -78,12 +79,12 @@
     display: none;
 
     @include xs-to-md {
+      @include roboto-regular;
+
       cursor: pointer;
       display: inline-block;
       height: 40px;
       line-height: 40px;
-      font-family: 'Roboto';
-      font-weight: 400;
       font-size: 14px;
       color: #737380;
       padding-left: 15px;

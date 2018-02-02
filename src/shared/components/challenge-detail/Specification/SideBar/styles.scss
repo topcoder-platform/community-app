@@ -37,112 +37,6 @@ $tc-link-visited: #0c4e98;
   }
 }
 
-.challenge-sidebar-inner {
-  > :first-child {
-    margin-top: 0;
-  }
-
-  > div {
-    margin-top: 6 * $base-unit;
-  }
-
-  p {
-    padding-top: 2px;
-    padding-bottom: 7px;
-  }
-
-  h3 {
-    font-family: roboto;
-    font-weight: 700;
-    font-size: 13px;
-    color: $tc-gray-90;
-    line-height: 20px;
-    padding-bottom: 2px;
-  }
-
-  h4 {
-    font-family: roboto;
-    font-weight: bold;
-    font-size: 13px;
-    color: $tc-gray-90;
-    line-height: 20px;
-    margin-top: 4 * $base-unit;
-  }
-
-  h4:first-of-type {
-    margin-top: 2 * $base-unit;
-  }
-
-  .link-like-paragraph {
-    font-family: roboto;
-    font-weight: 400;
-    font-size: 13px;
-    color: $tc-gray-90;
-    line-height: 20px;
-    margin: 0 0 20px;
-
-    @include linkStyle;
-  }
-
-  ol {
-    margin: 0 0 5px;
-    counter-reset: item;
-    font-family: roboto;
-    font-size: 13px;
-    color: $tc-gray-90;
-    line-height: 20px;
-    display: table;
-    padding-top: 8px;
-
-    li {
-      list-style-type: none;
-      font-weight: 400;
-      counter-increment: item;
-      display: table-row;
-
-      @include linkStyle;
-    }
-
-    li::before {
-      display: table-cell;
-      font-weight: 700;
-      text-align: right;
-      content: counter(item) ".";
-      padding: 0 10px 0 0;
-    }
-  }
-
-  ul {
-    margin: 0 0 5px;
-    font-family: roboto;
-    font-size: 13px;
-    color: $tc-gray-90;
-    line-height: 20px;
-    display: table;
-    padding-top: 8px;
-
-    li {
-      list-style-type: none;
-      font-weight: 400;
-      display: table-row;
-
-      @include linkStyle;
-    }
-
-    li::before {
-      display: table-cell;
-      font-weight: 700;
-      text-align: right;
-      content: "-";
-      padding: 0 10px 0 0;
-    }
-  }
-
-  .source-files-list {
-    margin-bottom: 3 * $base-unit;
-  }
-}
-
 .term {
   display: flex;
   align-items: flex-start;
@@ -178,9 +72,9 @@ $tc-link-visited: #0c4e98;
   padding: 5px;
 
   h4 {
+    @include roboto-bold;
+
     white-space: nowrap;
-    font-family: roboto;
-    font-weight: 700;
     font-size: 13px;
     line-height: 20px;
     margin: 5px 0;
@@ -188,8 +82,8 @@ $tc-link-visited: #0c4e98;
   }
 
   p {
-    font-family: roboto;
-    font-weight: 400;
+    @include roboto-regular;
+
     font-size: 13px;
     color: $tc-gray-10;
     line-height: 20px;
@@ -205,3 +99,112 @@ $tc-link-visited: #0c4e98;
 .tooltiptextapproval {
   margin: 0 0 0 -80px;
 }
+
+.challenge-sidebar-inner {
+  > :first-child {
+    margin-top: 0;
+  }
+
+  > div {
+    margin-top: 6 * $base-unit;
+  }
+
+  p {
+    padding-top: 2px;
+    padding-bottom: 7px;
+  }
+
+  h3 {
+    @include roboto-bold;
+
+    font-size: 13px;
+    color: $tc-gray-90;
+    line-height: 20px;
+    padding-bottom: 2px;
+  }
+
+  h4 {
+    @include roboto-bold;
+
+    font-size: 13px;
+    color: $tc-gray-90;
+    line-height: 20px;
+    margin-top: 4 * $base-unit;
+  }
+
+  h4:first-of-type {
+    margin-top: 2 * $base-unit;
+  }
+
+  .link-like-paragraph {
+    @include roboto-regular;
+
+    font-size: 13px;
+    color: $tc-gray-90;
+    line-height: 20px;
+    margin: 0 0 20px;
+
+    @include linkStyle;
+  }
+
+  ol {
+    @include roboto-regular;
+
+    margin: 0 0 5px;
+    counter-reset: item;
+    font-size: 13px;
+    color: $tc-gray-90;
+    line-height: 20px;
+    display: table;
+    padding-top: 8px;
+
+    li {
+      list-style-type: none;
+      font-weight: 400;
+      counter-increment: item;
+      display: table-row;
+
+      @include linkStyle;
+    }
+
+    li::before {
+      display: table-cell;
+      font-weight: 700;
+      text-align: right;
+      content: counter(item) ".";
+      padding: 0 10px 0 0;
+    }
+  }
+
+  ul {
+    @include roboto-regular;
+
+    margin: 0 0 5px;
+    font-size: 13px;
+    color: $tc-gray-90;
+    line-height: 20px;
+    display: table;
+    padding-top: 8px;
+
+    li {
+      list-style-type: none;
+      font-weight: 400;
+      display: table-row;
+
+      @include linkStyle;
+    }
+
+    li::before {
+      display: table-cell;
+      font-weight: 700;
+      text-align: right;
+      content: "-";
+      padding: 0 10px 0 0;
+    }
+  }
+
+  .source-files-list {
+    margin-bottom: 3 * $base-unit;
+  }
+}
+

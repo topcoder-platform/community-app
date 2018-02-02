@@ -34,6 +34,13 @@
   }
 }
 
+.cardImage {
+  background-position: 50% 50%;
+  background-size: cover;
+  height: 200px;
+  width: 100%;
+}
+
 .card-01 .cardImage {
   background-image: url('./images/card-image-01.jpg');
 }
@@ -44,13 +51,6 @@
 
 .cardContent {
   padding: 30px;
-}
-
-.cardImage {
-  background-position: 50% 50%;
-  background-size: cover;
-  height: 200px;
-  width: 100%;
 }
 
 .cardsBlock {

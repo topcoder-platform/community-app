@@ -2,7 +2,8 @@
 $prize-space-10: $base-unit * 2;
 
 .prizes-tooltip {
-  font-family: 'Roboto';
+  @include roboto-regular;
+
   max-width: 480px;
   padding: 15px;
   overflow: hidden;

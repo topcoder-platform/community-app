@@ -1,7 +1,10 @@
 @import "~styles/mixins";
 
 .SideBarFilters {
-  font: 400 13px/30px Roboto;
+  @include roboto-regular;
+
+  font-size: 13px;
+  line-height: 30px;
   width: 100%;
 
   .FilterBox {

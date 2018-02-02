@@ -83,7 +83,7 @@
   color: #47474f;
   display: flex;
   flex-shrink: 0;
-  font: 15px/20px 'Open Sans';
+  font: 15px/20px 'Open Sans', sans-serif;
   justify-content: center;
   height: 20px;
   margin-left: 13px;
@@ -150,7 +150,7 @@
 .menuLink {
   color: #a3a3ae;
   display: block;
-  font: 700 14px/55px 'Open Sans';
+  font: 700 14px/55px 'Open Sans', sans-serif;
   position: relative;
   text-transform: uppercase;
 
@@ -267,7 +267,7 @@
 .userMenuHandle {
   color: #a3a3ae;
   display: inline-block;
-  font: 700 14px/20px 'Open Sans';
+  font: 700 14px/20px 'Open Sans', sans-serif;
   height: 55px;
   padding: 18px 0 17px;
   vertical-align: bottom;
@@ -291,7 +291,7 @@
   background: #60c700;
   color: #fafafa;
   display: inline-block;
-  font: 700 14px/30px 'Open Sans';
+  font: 700 14px/30px 'Open Sans', sans-serif;
   height: 32px;
   text-align: center;
   text-transform: uppercase;
@@ -312,7 +312,7 @@
   border-radius: 30px;
   color: #fafafa;
   display: inline-block;
-  font: 700 14px/30px 'Open Sans';
+  font: 700 14px/30px 'Open Sans', sans-serif;
   height: 32px;
   margin-left: 10px;
   text-align: center;

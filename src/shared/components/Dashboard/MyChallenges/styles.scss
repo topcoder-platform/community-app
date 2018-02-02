@@ -184,6 +184,12 @@
         }
       }
 
+      .items {
+        flex: 1;
+        display: flex;
+        justify-content: center;
+      }
+
       &.tile-view {
         @media only screen and (min-width: 768px) {
           width: 555px;
@@ -210,12 +216,6 @@
           flex-flow: column nowrap;
           align-items: center;
         }
-      }
-
-      .items {
-        flex: 1;
-        display: flex;
-        justify-content: center;
       }
 
       .no-challenges {

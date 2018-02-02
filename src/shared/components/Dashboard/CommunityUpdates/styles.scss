@@ -27,6 +27,26 @@
     }
   }
 
+  .blog-links {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: $tc-white;
+    min-height: 72px;
+
+    @media only screen and (min-width: 900px) {
+      padding: 30px 0;
+    }
+
+    text-transform: uppercase;
+
+    a {
+      color: #0096ff;
+      font-size: 12px;
+    }
+  }
+
   .posts {
     padding: 0 10px 6px;
 
@@ -134,26 +154,6 @@
           }
         }
       }
-    }
-  }
-
-  .blog-links {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: $tc-white;
-    min-height: 72px;
-
-    @media only screen and (min-width: 900px) {
-      padding: 30px 0;
-    }
-
-    text-transform: uppercase;
-
-    a {
-      color: #0096ff;
-      font-size: 12px;
     }
   }
 }

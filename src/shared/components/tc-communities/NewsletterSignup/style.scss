@@ -42,7 +42,7 @@
 
 .title {
   color: #fff;
-  font: 600 32px/134.38% 'Open Sans';
+  font: 600 32px/134.38% 'Open Sans', sans-serif;
 
   @include xs-to-sm {
     font-size: 24px;
@@ -51,7 +51,7 @@
 
 .text {
   color: #fff;
-  font: 18px/133.33% 'Open Sans';
+  font: 18px/133.33% 'Open Sans', sans-serif;
   margin-top: 20px;
 
   @include xs-to-sm {
@@ -77,7 +77,7 @@ input:not([type="checkbox"]).formEmail {
   background-color: #fff;
   border: 0;
   color: #394146;
-  font: 14px/50px 'Open Sans';
+  font: 14px/50px 'Open Sans', sans-serif;
   height: 50px;
   margin: 0;
   outline: none;
@@ -86,7 +86,7 @@ input:not([type="checkbox"]).formEmail {
 
   @include placeholder {
     color: #a3a3ae;
-    font: 14px/50px 'Open Sans';
+    font: 14px/50px 'Open Sans', sans-serif;
     text-transform: none;
   }
 

@@ -2,13 +2,13 @@
 
 @mixin body-text {
   color: #73787c;
-  font: 15px/180% 'Open Sans';
+  font: 15px/180% 'Open Sans', sans-serif;
   text-align: left;
 }
 
 @mixin h3 {
   color: #394146;
-  font: 600 20px/150% 'Open Sans';
+  font: 600 20px/150% 'Open Sans', sans-serif;
   margin-bottom: 12px;
   max-height: 64px;
   overflow: hidden;
@@ -21,7 +21,7 @@
 
 @mixin h4 {
   color: #394146;
-  font: 600 16px/150% 'Open Sans';
+  font: 600 16px/150% 'Open Sans', sans-serif;
   max-height: 64px;
   overflow: hidden;
   text-overflow: ellipsis;

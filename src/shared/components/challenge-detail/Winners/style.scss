@@ -1,7 +1,8 @@
 @import "~styles/mixins";
 
 .container {
-  font-family: 'Roboto';
+  @include roboto-regular;
+
   max-width: 1122px;
   margin-left: auto;
   margin-right: auto;

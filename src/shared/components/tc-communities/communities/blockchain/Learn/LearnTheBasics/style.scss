@@ -47,6 +47,19 @@
   }
 }
 
+.linksList {
+  @include body-text;
+
+  list-style: disc;
+  margin-left: 6px;
+
+  a {
+    @include link;
+
+    display: block;
+  }
+}
+
 .bannerContentInner {
   @include xs-to-sm {
     padding-bottom: 20px;
@@ -70,19 +83,6 @@
   @include xs-to-sm {
     margin-top: 20px;
     text-align: center;
-  }
-}
-
-.linksList {
-  @include body-text;
-
-  list-style: disc;
-  margin-left: 6px;
-
-  a {
-    @include link;
-
-    display: block;
   }
 }
 

@@ -76,6 +76,20 @@
   }
 }
 
+.qouteNote {
+  @include regular-text;
+
+  font-weight: normal;
+
+  strong {
+    font-weight: bold;
+  }
+
+  @include xs-to-sm {
+    display: none;
+  }
+}
+
 .qouteAvatar {
   display: flex;
 
@@ -118,8 +132,11 @@
 }
 
 .qouteCommas {
+  @include roboto-medium;
+
   color: #cfe6ff;
-  font: italic 500 82px Roboto;
+  font-size: 82px;
+  font-style: italic;
   position: absolute;
   margin-top: -30px;
   z-index: -1;
@@ -130,20 +147,6 @@
 
   &.right {
     margin-left: -10px;
-  }
-}
-
-.qouteNote {
-  @include regular-text;
-
-  font-weight: normal;
-
-  strong {
-    font-weight: bold;
-  }
-
-  @include xs-to-sm {
-    display: none;
   }
 }
 

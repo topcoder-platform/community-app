@@ -17,6 +17,28 @@
   flex: none;
 }
 
+.social-links {
+  text-align: center;
+  margin: 40px auto 0;
+  display: inline-block;
+  color: $tc-gray-30;
+
+  hr {
+    border: none;
+    border-top: solid 2px $tc-gray-70;
+    opacity: 0.2;
+    margin: 0 auto;
+    width: 205px;
+  }
+
+  a {
+    display: inline-block;
+    margin: 15px;
+    margin-bottom: 28px;
+    margin-top: 10px;
+  }
+}
+
 .link {
   display: inline-block;
   cursor: pointer;
@@ -37,28 +59,6 @@
     &:hover {
       color: $tc-white;
     }
-  }
-}
-
-.social-links {
-  text-align: center;
-  margin: 40px auto 0;
-  display: inline-block;
-  color: $tc-gray-30;
-
-  hr {
-    border: none;
-    border-top: solid 2px $tc-gray-70;
-    opacity: 0.2;
-    margin: 0 auto;
-    width: 205px;
-  }
-
-  a {
-    display: inline-block;
-    margin: 15px;
-    margin-bottom: 28px;
-    margin-top: 10px;
   }
 }
 

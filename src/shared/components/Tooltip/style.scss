@@ -2,7 +2,8 @@
 
 :global {
   .rc-tooltip {
-    font-family: 'Roboto';
+    @include roboto-regular;
+
     opacity: 1;
   }
 

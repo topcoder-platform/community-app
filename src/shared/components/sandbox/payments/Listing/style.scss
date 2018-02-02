@@ -1,5 +1,9 @@
 @import "~styles/mixins";
 
+.title {
+  text-align: center;
+}
+
 .container {
   display: block;
   margin: auto;
@@ -60,8 +64,4 @@
       min-width: 30px;
     }
   }
-}
-
-.title {
-  text-align: center;
 }

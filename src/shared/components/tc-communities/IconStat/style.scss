@@ -18,7 +18,7 @@
 
 .number {
   color: #394146;
-  font: 600 40px/137.5% 'Open Sans';
+  font: 600 40px/137.5% 'Open Sans', sans-serif;
   margin-top: 17px;
 
   @include xs-to-sm {
@@ -28,7 +28,7 @@
 
 .label {
   color: #47474f;
-  font: 15px 'Open Sans';
+  font: 15px 'Open Sans', sans-serif;
   text-transform: uppercase;
 
   @include xs-to-sm {

@@ -2,11 +2,11 @@
 $tc-link-visited: #0c4e98;
 
 @mixin noteStyle {
+  @include roboto-regular;
+
   background: $tc-gold-30;
   border: 1px solid $tc-gold-70;
   border-radius: 6px;
-  font-family: roboto;
-  font-weight: 400;
   font-style: italic;
   font-size: 13px;
   color: $tc-black;
@@ -78,10 +78,10 @@ $tc-link-visited: #0c4e98;
   }
 
   .challenge-specifications {
+    @include roboto-regular;
+
     flex: 4;
     text-align: left;
-    font-family: roboto;
-    font-weight: 400;
     display: flex;
     flex-direction: column;
     margin: 5px 0 50px;
@@ -114,8 +114,8 @@ $tc-link-visited: #0c4e98;
 }
 
 .h2 {
-  font-family: roboto;
-  font-weight: 700;
+  @include roboto-bold;
+
   font-size: 20px;
   color: $tc-black;
   line-height: 30px;
@@ -123,8 +123,8 @@ $tc-link-visited: #0c4e98;
 }
 
 .h3 {
-  font-family: roboto;
-  font-weight: 700;
+  @include roboto-bold;
+
   font-size: 15px;
   color: $tc-black;
   line-height: 25px;
@@ -133,8 +133,8 @@ $tc-link-visited: #0c4e98;
 }
 
 .p {
-  font-family: roboto;
-  font-weight: 400;
+  @include roboto-regular;
+
   font-size: 15px;
   color: $tc-gray-90;
   line-height: 25px;
@@ -145,9 +145,9 @@ $tc-link-visited: #0c4e98;
 }
 
 .ul {
+  @include roboto-regular;
+
   margin: 0 0 5px 20px;
-  font-family: roboto;
-  font-weight: 400;
   font-size: 15px;
   color: $tc-gray-90;
   line-height: 25px;
@@ -162,8 +162,8 @@ $tc-link-visited: #0c4e98;
 
 .rawHtml {
   h1 {
-    font-family: roboto;
-    font-weight: 500;
+    @include roboto-medium;
+
     font-size: 28px;
     color: $tc-black;
     letter-spacing: -0.78px;
@@ -172,8 +172,8 @@ $tc-link-visited: #0c4e98;
   }
 
   h2 {
-    font-family: roboto;
-    font-weight: 700;
+    @include roboto-bold;
+
     font-size: 20px;
     color: $tc-black;
     line-height: 30px;
@@ -181,8 +181,8 @@ $tc-link-visited: #0c4e98;
   }
 
   h3 {
-    font-family: roboto;
-    font-weight: 700;
+    @include roboto-bold;
+
     font-size: 15px;
     color: $tc-black;
     line-height: 25px;
@@ -191,8 +191,8 @@ $tc-link-visited: #0c4e98;
   }
 
   h4 {
-    font-family: roboto;
-    font-weight: 700;
+    @include roboto-bold;
+
     font-size: 15px;
     color: $tc-gray-90;
     line-height: 25px;
@@ -202,8 +202,8 @@ $tc-link-visited: #0c4e98;
   em,
   strong,
   a {
-    font-family: roboto;
-    font-weight: 400;
+    @include roboto-regular;
+
     font-size: 15px;
     color: $tc-gray-90;
     line-height: 25px;
@@ -242,10 +242,10 @@ $tc-link-visited: #0c4e98;
   }
 
   ol {
+    @include roboto-regular;
+
     margin: 0 0 5px;
     counter-reset: item;
-    font-family: roboto;
-    font-weight: 400;
     font-size: 15px;
     color: $tc-gray-90;
     line-height: 25px;
@@ -271,9 +271,9 @@ $tc-link-visited: #0c4e98;
   }
 
   ul {
+    @include roboto-regular;
+
     margin: 0 0 5px 20px;
-    font-family: roboto;
-    font-weight: 400;
     font-size: 15px;
     color: $tc-gray-90;
     line-height: 25px;
@@ -290,11 +290,11 @@ $tc-link-visited: #0c4e98;
 }
 
 .challenge-specs-main {
+  @include roboto-regular;
+
   padding: 0 20px;
   max-width: 720px;
   align-self: center;
-  font-family: roboto;
-  font-weight: 400;
   font-size: 15px;
   color: $tc-gray-90;
   line-height: 25px;

@@ -319,6 +319,13 @@
   }
 }
 
+.cardImage {
+  background-position: 50% 50%;
+  background-size: cover;
+  height: 300px;
+  width: 100%;
+}
+
 .card-01 .cardImage {
   background-image: url('assets/images/communities/cognitive/home/card-01.jpg');
 }
@@ -333,13 +340,6 @@
 
 .cardContent {
   padding: 30px;
-}
-
-.cardImage {
-  background-position: 50% 50%;
-  background-size: cover;
-  height: 300px;
-  width: 100%;
 }
 
 .cardsBlock {

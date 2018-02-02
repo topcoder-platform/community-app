@@ -1,11 +1,12 @@
 @import "~styles/mixins";
 
 .header {
+  @include roboto-regular;
+
   display: flex;
   padding: 30px 60px;
   background-color: #fcfcfc;
   width: 100%;
-  font-family: 'Roboto';
   justify-content: space-between;
   align-items: center;
   border-bottom: 1px solid #f0f0f0;

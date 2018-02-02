@@ -35,11 +35,10 @@ $down-arrow-size: $base-unit;
   }
 
   .view-options-toggle-container-label {
+    @include tc-label-sm;
+
     display: flex;
     align-items: center;
-    font-weight: 300;
-    font-size: 12px;
-    font-family: 'Roboto';
     margin-right: $base-unit * 2;
   }
 
@@ -91,7 +90,7 @@ $down-arrow-size: $base-unit;
   :global {
     // 'Sort by' dropdown
     .Select {
-      font-family: 'Roboto';
+      @include roboto-regular;
     }
 
     .Select-control {

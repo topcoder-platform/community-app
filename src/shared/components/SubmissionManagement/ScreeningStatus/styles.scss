@@ -6,6 +6,22 @@ $gray-color: #a3a3ad;
 $green-color: #60c700;
 $red-color: #f22f24;
 
+.status {
+  font-weight: 700;
+  display: inline-block;
+  padding: $base-unit $status-space-10;
+  border-radius: $status-space-40 0 0 $status-space-40;
+  text-transform: capitalize;
+
+  &.passed {
+    background: $tc-orange;
+  }
+
+  &.failed {
+    background: $red-color;
+  }
+}
+
 .screening-status {
   background: $tc-gray-50;
   border-radius: $status-space-40;
@@ -43,22 +59,6 @@ $red-color: #f22f24;
     font-size: 15px;
     color: $gray-color;
     font-style: italic;
-  }
-}
-
-.status {
-  font-weight: 700;
-  display: inline-block;
-  padding: $base-unit $status-space-10;
-  border-radius: $status-space-40 0 0 $status-space-40;
-  text-transform: capitalize;
-
-  &.passed {
-    background: $tc-orange;
-  }
-
-  &.failed {
-    background: $red-color;
   }
 }
 

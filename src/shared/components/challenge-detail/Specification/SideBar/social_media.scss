@@ -7,13 +7,13 @@ $tc-fb-blue: #325fba;
 }
 
 .facebook-icon {
+  @include roboto-bold;
+
   width: 35px;
   height: 35px;
   background: $tc-fb-blue;
   border-radius: 18px;
   padding: 0 13px;
   color: $tc-white;
-  font-family: roboto;
-  font-weight: 700;
   font-size: 25px;
 }

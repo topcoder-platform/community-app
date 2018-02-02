@@ -1,5 +1,55 @@
 @import "~styles/mixins";
 
+.errorMsg {
+  color: $tc-red;
+  line-height: 13px;
+  margin-bottom: 6px;
+}
+
+.icon-arrows-v {
+  height: 13px;
+  left: $base-unit;
+  position: absolute;
+  fill: $tc-dark-blue;
+  top: 12px;
+}
+
+.icon-cross {
+  fill: $tc-dark-blue;
+  height: 13px;
+  position: relative;
+  top: 2px;
+}
+
+.cross-tooltip {
+  color: $tc-white;
+  border-radius: 3px;
+  border: 1px solid $tc-gray-80;
+  background: $tc-gray-80;
+  display: none;
+  line-height: 13px;
+  padding: $base-unit * 3;
+  position: absolute;
+  right: 0;
+  top: -50px;
+  z-index: 10;
+
+  &::before {
+    content: '';
+    position: absolute;
+    display: inline-block;
+    width: 0;
+    height: 0;
+    border-color: transparent;
+    border-style: solid;
+    bottom: -6px;
+    margin-left: -5px;
+    border-width: 5px 5px 0;
+    left: 67%;
+    border-top-color: $tc-gray-80;
+  }
+}
+
 .ActiveFilterItem {
   cursor: pointer;
   margin: 0 -2 * $base-unit;
@@ -60,55 +110,5 @@
       border-radius: 26px;
       fill: $tc-white;
     }
-  }
-}
-
-.errorMsg {
-  color: $tc-red;
-  line-height: 13px;
-  margin-bottom: 6px;
-}
-
-.icon-arrows-v {
-  height: 13px;
-  left: $base-unit;
-  position: absolute;
-  fill: $tc-dark-blue;
-  top: 12px;
-}
-
-.icon-cross {
-  fill: $tc-dark-blue;
-  height: 13px;
-  position: relative;
-  top: 2px;
-}
-
-.cross-tooltip {
-  color: $tc-white;
-  border-radius: 3px;
-  border: 1px solid $tc-gray-80;
-  background: $tc-gray-80;
-  display: none;
-  line-height: 13px;
-  padding: $base-unit * 3;
-  position: absolute;
-  right: 0;
-  top: -50px;
-  z-index: 10;
-
-  &::before {
-    content: '';
-    position: absolute;
-    display: inline-block;
-    width: 0;
-    height: 0;
-    border-color: transparent;
-    border-style: solid;
-    bottom: -6px;
-    margin-left: -5px;
-    border-width: 5px 5px 0;
-    left: 67%;
-    border-top-color: $tc-gray-80;
   }
 }

@@ -11,8 +11,9 @@
 }
 
 .container {
+  @include roboto-regular;
+
   color: $tc-black;
-  font-family: roboto;
 }
 
 .modal-container {
@@ -78,43 +79,6 @@
   }
 }
 
-.tab {
-  display: flex;
-  align-items: center;
-  flex: 1;
-
-  @include sm {
-    width: 50%;
-    display: inline-block;
-
-    &.last {
-      width: auto;
-    }
-  }
-
-  &.agreed,
-  &.active.view-only {
-    .tab-index {
-      background-color: $tc-dark-blue-90;
-    }
-
-    .tab-bar {
-      background-color: $tc-dark-blue-90;
-    }
-  }
-
-  &.active {
-    .tab-index {
-      background-color: $tc-green;
-    }
-  }
-
-  &:last-of-type {
-    flex-grow: 0;
-    flex-shrink: 0;
-  }
-}
-
 .tab-index {
   width: 26px;
   height: 26px;
@@ -131,6 +95,57 @@
   @include sm {
     display: inline-block;
     vertical-align: middle;
+  }
+}
+
+.tab-bar {
+  margin: 0 10px;
+  background-color: $tc-gray-20;
+  height: 2px;
+  flex: 1;
+
+  @include sm {
+    display: inline-block;
+    max-width: calc(100% - 120px);
+    min-width: calc(100% - 145px);
+    vertical-align: middle;
+  }
+}
+
+.tab {
+  display: flex;
+  align-items: center;
+  flex: 1;
+
+  @include sm {
+    width: 50%;
+    display: inline-block;
+
+    &.last {
+      width: auto;
+    }
+  }
+
+  &.active {
+    .tab-index {
+      background-color: $tc-green;
+    }
+  }
+
+  &.agreed,
+  &.active.view-only {
+    .tab-index {
+      background-color: $tc-dark-blue-90;
+    }
+
+    .tab-bar {
+      background-color: $tc-dark-blue-90;
+    }
+  }
+
+  &:last-of-type {
+    flex-grow: 0;
+    flex-shrink: 0;
   }
 }
 
@@ -155,20 +170,6 @@
     display: inline-block;
     vertical-align: middle;
     white-space: normal;
-  }
-}
-
-.tab-bar {
-  margin: 0 10px;
-  background-color: $tc-gray-20;
-  height: 2px;
-  flex: 1;
-
-  @include sm {
-    display: inline-block;
-    max-width: calc(100% - 120px);
-    min-width: calc(100% - 145px);
-    vertical-align: middle;
   }
 }
 

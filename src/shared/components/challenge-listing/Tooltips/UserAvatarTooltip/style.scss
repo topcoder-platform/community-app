@@ -8,11 +8,12 @@ $avatar-radius-50: $corner-radius * 25;
 $avatar-radius-4: $corner-radius * 2;
 
 .user-avatar-tooltip {
+  @include roboot-regular;
+
   display: flex;
   justify-content: space-between;
   align-items: center;
   max-width: 640px;
-  font-family: 'Roboto';
   overflow: auto;
   padding: 15px;
 

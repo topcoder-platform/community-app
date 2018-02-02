@@ -1,7 +1,7 @@
 @mixin font {
   color: #787d81;
   display: inline-block;
-  font: 12px 'Open Sans';
+  font: 12px 'Open Sans', sans-serif;
   line-height: 36px;
   vertical-align: top;
 }

@@ -37,8 +37,8 @@ $search-input-width: '100% - 56px';
     vertical-align: middle;
 
     @include placeholder {
-      font-family: Roboto;
-      font-weight: 300;
+      @include roboto-light;
+
       font-size: 15px;
       color: $tc-gray-50;
       text-transform: none;

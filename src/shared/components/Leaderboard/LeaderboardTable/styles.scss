@@ -45,15 +45,7 @@ $table-bg-hover: #f5f5f5;
     vertical-align: bottom;
     border-bottom: 2px solid $table-border-color;
   }
-  // Remove top border from thead by default
-  > thead:first-child {
-    > tr:first-child {
-      > th,
-      > td {
-        border-top: 0;
-      }
-    }
-  }
+
   // Hover effect
   > tbody > tr:hover {
     background-color: $table-bg-hover;
@@ -64,11 +56,22 @@ $table-bg-hover: #f5f5f5;
       display: none;
     }
   }
+
   // cell alignment
   > tbody tr td,
   > thead tr th {
     vertical-align: middle;
     text-align: center;
+  }
+
+  // Remove top border from thead by default
+  > thead:first-child {
+    > tr:first-child {
+      > th,
+      > td {
+        border-top: 0;
+      }
+    }
   }
 
   /* Column specific styling */
@@ -116,10 +119,6 @@ $table-bg-hover: #f5f5f5;
     span {
       display: block;
     }
-  }
-
-  .col-handle .winnings-info span {
-    display: block;
   }
 
   .col-points {

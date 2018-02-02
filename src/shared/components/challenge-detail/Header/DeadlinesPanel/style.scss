@@ -9,8 +9,9 @@
 }
 
 .timezone {
+  @include tc-label-sm;
+
   color: $tc-gray-40;
-  font: 400 12px roboto;
   position: absolute;
   right: 12px;
   bottom: 6px;

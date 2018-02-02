@@ -45,6 +45,26 @@ $table-bg-hover: #f5f5f5;
     vertical-align: bottom;
     border-bottom: 2px solid $table-border-color;
   }
+
+  // cell alignment
+  > tbody tr td,
+  > thead tr th {
+    vertical-align: middle;
+    text-align: center;
+  }
+
+  // hide the table head on extra-small devices
+  > thead {
+    @include sm {
+      display: none;
+    }
+  }
+
+  // Hover effect
+  > tbody > tr:hover {
+    background-color: $table-bg-hover;
+  }
+
   // Remove top border from thead by default
   > thead:first-child {
     > tr:first-child {
@@ -53,22 +73,6 @@ $table-bg-hover: #f5f5f5;
         border-top: 0;
       }
     }
-  }
-  // Hover effect
-  > tbody > tr:hover {
-    background-color: $table-bg-hover;
-  }
-  // hide the table head on extra-small devices
-  > thead {
-    @include sm {
-      display: none;
-    }
-  }
-  // cell alignment
-  > tbody tr td,
-  > thead tr th {
-    vertical-align: middle;
-    text-align: center;
   }
 
   /* Column specific styling */

@@ -14,7 +14,7 @@ $panel-radius-4: $corner-radius * 2;
 
 .button {
   display: flex !important;
-  font: 400 12px Arial !important;
+  font: 400 12px Arial, sans-serif !important;
   margin-bottom: 15px !important;
   width: 100px !important;
 }
@@ -114,6 +114,170 @@ $panel-radius-4: $corner-radius * 2;
       @include xs-to-md {
         display: inline-block;
       }
+    }
+  }
+}
+
+.filter :global .Select-input input {
+  font-size: 15px;
+}
+
+.filter.dates :global .DateInput input {
+  @include roboto-regular;
+
+  padding: $base-unit;
+  height: $panel-space-30;
+  margin-bottom: 0;
+  font-size: 13px;
+  color: $tc-black;
+  line-height: $panel-space-15 + 1;
+}
+
+// filter by keywords
+.filter {
+  :global {
+    .Select-placeholder {
+      font-weight: 300;
+      font-size: 13px;
+      color: $tc-gray-50;
+      line-height: $panel-space-30 - 2;
+    }
+
+    .Select-input {
+      height: 28px;
+    }
+
+    .Select-control {
+      height: $panel-space-30;
+      border-radius: $corner-radius;
+    }
+
+    .Select-input > input:not([type="checkbox"]) {
+      height: $panel-space-30 - 2;
+      border: none;
+      box-shadow: none;
+      background: transparent;
+      border-radius: 0;
+      transition: none;
+      padding-left: 0;
+      margin-bottom: 0;
+
+      &:focus {
+        border: none;
+        box-shadow: none;
+        background: transparent;
+        border-radius: 0;
+        transition: none;
+      }
+    }
+
+    .Select-menu-outer {
+      font-weight: 500;
+      font-size: 13px;
+    }
+
+    .Select--multi,
+    .Select-value {
+      @include roboto-bold;
+
+      background: $tc-gray-neutral-dark !important;
+      border: none !important;
+      font-size: 10px;
+      color: $tc-gray-80 !important;
+      line-height: $panel-space-10 + 2;
+      margin-top: $base-unit - 1;
+      border-radius: $corner-radius + 1;
+      position: relative;
+
+      .Select-value-label {
+        padding: $base-unit - 1 $panel-space-25 $base-unit - 1 $panel-space-7;
+      }
+
+      .Select-value-icon {
+        position: absolute;
+        right: 0;
+        padding: 0 $panel-space-7;
+        font-size: 14px;
+        border: none;
+        border-radius: 0 $corner-radius + 1 $corner-radius + 1 0;
+      }
+    }
+  }
+
+  &.track {
+    :global {
+      .Select-value {
+        background: $tc-light-blue !important;
+        color: $tc-white !important;
+      }
+    }
+  }
+}
+
+// filter by date
+.filter.dates {
+  :global {
+    .DateRangePickerInput__arrow svg {
+      width: $panel-space-15;
+      height: $panel-space-15;
+      fill: $tc-black;
+    }
+
+    .DateInput {
+      padding: $base-unit - 3;
+      line-height: $panel-space-20;
+      width: $panel-space-110 + 2;
+
+      .DateInput__display-text,
+      .DateInput__display-text--has-input {
+        @include roboto-regular;
+
+        font-size: 13px;
+        color: $tc-black;
+        line-height: $panel-space-15 + 1;
+        padding-left: $panel-space-25;
+      }
+
+      .DateInput__display-text {
+        position: relative;
+
+        &::before {
+          content: '';
+          background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB4PSIwcHgiIHk9IjBweCIgd2lkdGg9IjEycHgiIGhlaWdodD0iMTJweCIgdmlld0JveD0iMCAwIDE2IDE2Ij48ZyA+PHBhdGggZmlsbD0iI0EzQTNBRCIgZD0iTTE1LDJoLTJWMWMwLTAuNi0wLjQtMS0xLTFoLTFjLTAuNiwwLTEsMC40LTEsMXYxSDZWMWMwLTAuNi0wLjQtMS0xLTFINEMzLjQsMCwzLDAuNCwzLDF2MUgxQzAuNCwyLDAsMi40LDAsM3YxMmMwLDAuNiwwLjQsMSwxLDFoMTRjMC42LDAsMS0wLjQsMS0xVjNDMTYsMi40LDE1LjYsMiwxNSwyeiBNMTQsMTRIMlY3aDEyVjE0eiIvPjwvZz48L3N2Zz4=);
+          background-position: 0 0;
+          background-repeat: no-repeat;
+          width: $panel-space-15 - 1;
+          height: $panel-space-15 - 1;
+          display: inline-block;
+          position: absolute;
+          left: $panel-space-7;
+          top: $panel-space-7 - 1;
+        }
+      }
+    }
+
+    .CalendarMonth table {
+      font-weight: 400;
+    }
+
+    .CalendarMonth__caption {
+      margin-bottom: $panel-space-10;
+    }
+
+    .DayPicker__week-header {
+      font-weight: 400;
+    }
+
+    .DateRangePicker__picker {
+      top: $base-unit * 9;
+    }
+
+    .DateInput--with-caret::before {
+      top: $panel-space-30 + 4;
+    }
+
+    .DateInput--with-caret::after {
+      top: $panel-space-30 + 5;
     }
   }
 }
@@ -323,170 +487,6 @@ $panel-radius-4: $corner-radius * 2;
 
     @include xs-to-md {
       width: 100%;
-    }
-  }
-}
-
-// filter by date
-.filter.dates {
-  :global {
-    .DateInput {
-      padding: $base-unit - 3;
-      line-height: $panel-space-20;
-      width: $panel-space-110 + 2;
-
-      input {
-        padding: $base-unit;
-        height: $panel-space-30;
-        margin-bottom: 0;
-        font-family: 'Roboto';
-        font-weight: 400;
-        font-size: 13px;
-        color: $tc-black;
-        line-height: $panel-space-15 + 1;
-      }
-
-      .DateInput__display-text,
-      .DateInput__display-text--has-input {
-        font-family: 'Roboto';
-        font-weight: 400;
-        font-size: 13px;
-        color: $tc-black;
-        line-height: $panel-space-15 + 1;
-        padding-left: $panel-space-25;
-      }
-
-      .DateInput__display-text {
-        position: relative;
-
-        &::before {
-          content: '';
-          background-image: url(data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB4PSIwcHgiIHk9IjBweCIgd2lkdGg9IjEycHgiIGhlaWdodD0iMTJweCIgdmlld0JveD0iMCAwIDE2IDE2Ij48ZyA+PHBhdGggZmlsbD0iI0EzQTNBRCIgZD0iTTE1LDJoLTJWMWMwLTAuNi0wLjQtMS0xLTFoLTFjLTAuNiwwLTEsMC40LTEsMXYxSDZWMWMwLTAuNi0wLjQtMS0xLTFINEMzLjQsMCwzLDAuNCwzLDF2MUgxQzAuNCwyLDAsMi40LDAsM3YxMmMwLDAuNiwwLjQsMSwxLDFoMTRjMC42LDAsMS0wLjQsMS0xVjNDMTYsMi40LDE1LjYsMiwxNSwyeiBNMTQsMTRIMlY3aDEyVjE0eiIvPjwvZz48L3N2Zz4=);
-          background-position: 0 0;
-          background-repeat: no-repeat;
-          width: $panel-space-15 - 1;
-          height: $panel-space-15 - 1;
-          display: inline-block;
-          position: absolute;
-          left: $panel-space-7;
-          top: $panel-space-7 - 1;
-        }
-      }
-    }
-
-    .CalendarMonth table {
-      font-weight: 400;
-    }
-
-    .CalendarMonth__caption {
-      margin-bottom: $panel-space-10;
-    }
-
-    .DayPicker__week-header {
-      font-weight: 400;
-    }
-
-    .DateRangePickerInput__arrow svg {
-      width: $panel-space-15;
-      height: $panel-space-15;
-      fill: $tc-black;
-    }
-
-    .DateRangePicker__picker {
-      top: $base-unit * 9;
-    }
-
-    .DateInput--with-caret::before {
-      top: $panel-space-30 + 4;
-    }
-
-    .DateInput--with-caret::after {
-      top: $panel-space-30 + 5;
-    }
-  }
-}
-
-// filter by keywords
-.filter {
-  :global {
-    .Select-placeholder {
-      font-weight: 300;
-      font-size: 13px;
-      color: $tc-gray-50;
-      line-height: $panel-space-30 - 2;
-    }
-
-    .Select-input > input:not([type="checkbox"]) {
-      height: $panel-space-30 - 2;
-      border: none;
-      box-shadow: none;
-      background: transparent;
-      border-radius: 0;
-      transition: none;
-      padding-left: 0;
-      margin-bottom: 0;
-
-      &:focus {
-        border: none;
-        box-shadow: none;
-        background: transparent;
-        border-radius: 0;
-        transition: none;
-      }
-    }
-
-    .Select-input {
-      height: 28px;
-
-      input {
-        font-size: 15px;
-      }
-    }
-
-    .Select-control {
-      height: $panel-space-30;
-      border-radius: $corner-radius;
-    }
-
-    .Select-menu-outer {
-      font-weight: 500;
-      font-size: 13px;
-    }
-
-    .Select--multi,
-    .Select-value {
-      background: $tc-gray-neutral-dark !important;
-      border: none !important;
-      font-family: 'Roboto';
-      font-weight: 700;
-      font-size: 10px;
-      color: $tc-gray-80 !important;
-      line-height: $panel-space-10 + 2;
-      margin-top: $base-unit - 1;
-      border-radius: $corner-radius + 1;
-      position: relative;
-
-      .Select-value-label {
-        padding: $base-unit - 1 $panel-space-25 $base-unit - 1 $panel-space-7;
-      }
-
-      .Select-value-icon {
-        position: absolute;
-        right: 0;
-        padding: 0 $panel-space-7;
-        font-size: 14px;
-        border: none;
-        border-radius: 0 $corner-radius + 1 $corner-radius + 1 0;
-      }
-    }
-  }
-
-  &.track {
-    :global {
-      .Select-value {
-        background: $tc-light-blue !important;
-        color: $tc-white !important;
-      }
     }
   }
 }

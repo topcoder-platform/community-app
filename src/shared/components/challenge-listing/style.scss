@@ -50,12 +50,12 @@ $challenge-radius-4: $corner-radius * 2;
     }
 
     .title {
+      @include roboto-medium;
+
       font-size: 13px;
       color: $tc-gray-80;
       line-height: $base-unit * 4;
       padding: $base-unit * 2 $base-unit * 4;
-      font-family: 'Roboto';
-      font-weight: 500;
       background: $tc-gray-neutral-light;
       border-top-left-radius: $corner-radius * 2;
       border-top-right-radius: $corner-radius * 2;

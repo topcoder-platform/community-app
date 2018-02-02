@@ -1,5 +1,89 @@
 @import '~styles/mixins';
 
+.empty-state-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: #3d3d3d;
+  padding: 20px 10px;
+
+  @media only screen and (min-width: 768px) {
+    padding: 30px 20px;
+  }
+
+  .title {
+    font-family: 'Sofia Pro', Arial, Helvetica, sans-serif;
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 29px;
+    text-align: center;
+    text-transform: uppercase;
+  }
+
+  .content {
+    margin-top: 20px;
+
+    @media only screen and (min-width: 768px) {
+      margin-top: 30px;
+    }
+  }
+
+  .description {
+    max-width: 650px;
+    margin-top: 20px;
+    font-family: 'Merriweather Sans', Arial, Helvetica, sans-serif;
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 24px;
+    text-align: center;
+
+    @media only screen and (min-width: 768px) {
+      margin-top: 30px;
+    }
+
+    @media only screen and (min-width: 900px) {
+      max-width: 856px;
+    }
+  }
+
+  .help-links {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+
+    @media only screen and (min-width: 768px) {
+      margin-top: 30px;
+    }
+
+    .help-link {
+      &:not(:first-child) {
+        margin-top: 30px;
+      }
+    }
+
+    a {
+      text-transform: uppercase;
+      display: block;
+      font-family: 'Sofia Pro', Arial, Helvetica, sans-serif;
+      font-weight: 500;
+
+      // used more generic css class (secondary-cta)
+      // remove learn-more class once we are sure that it is not being used in any empty state
+      &.secondary-cta,
+      &.learn-more {
+        font-size: 12px;
+        line-height: 12px;
+        color: #a3a3ae;
+      }
+    }
+  }
+}
+
+.empty-state-placeholder.sky .title {
+  color: $tc-white;
+}
+
 .programs {
   .section-loading {
     min-height: 200px;
@@ -133,93 +217,9 @@
   }
 }
 
-.empty-state-placeholder {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  color: #3d3d3d;
-  padding: 20px 10px;
-
-  @media only screen and (min-width: 768px) {
-    padding: 30px 20px;
-  }
-
-  .title {
-    font-family: 'Sofia Pro', Arial, Helvetica, sans-serif;
-    font-weight: 500;
-    font-size: 24px;
-    line-height: 29px;
-    text-align: center;
-    text-transform: uppercase;
-  }
-
-  .content {
-    margin-top: 20px;
-
-    @media only screen and (min-width: 768px) {
-      margin-top: 30px;
-    }
-  }
-
-  .description {
-    max-width: 650px;
-    margin-top: 20px;
-    font-family: 'Merriweather Sans', Arial, Helvetica, sans-serif;
-    font-weight: 400;
-    font-size: 15px;
-    line-height: 24px;
-    text-align: center;
-
-    @media only screen and (min-width: 768px) {
-      margin-top: 30px;
-    }
-
-    @media only screen and (min-width: 900px) {
-      max-width: 856px;
-    }
-  }
-
-  .help-links {
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    margin-top: 20px;
-
-    @media only screen and (min-width: 768px) {
-      margin-top: 30px;
-    }
-
-    .help-link {
-      &:not(:first-child) {
-        margin-top: 30px;
-      }
-    }
-
-    a {
-      text-transform: uppercase;
-      display: block;
-      font-family: 'Sofia Pro', Arial, Helvetica, sans-serif;
-      font-weight: 500;
-
-      // used more generic css class (secondary-cta)
-      // remove learn-more class once we are sure that it is not being used in any empty state
-      &.secondary-cta,
-      &.learn-more {
-        font-size: 12px;
-        line-height: 12px;
-        color: #a3a3ae;
-      }
-    }
-  }
-}
-
 .empty-state-placeholder.sky {
   background-image: url(assets/images/pattern-ios-challenges.png);
   background-repeat: repeat;
-
-  .title {
-    color: $tc-white;
-  }
 
   .description {
     color: $tc-white;

@@ -11,7 +11,7 @@
     border-radius: 20px;
     color: $color;
     display: inline-flex;
-    font: 700 14px 'Open Sans';
+    font: 700 14px 'Open Sans', sans-serif;
     justify-content: center;
     line-height: 14px;
     min-height: 40px;
@@ -24,12 +24,6 @@
   .disabled {
     cursor: not-allowed;
     opacity: 0.3;
-  }
-
-  /* To prevent different styling of the button-like link once it has been
-   * visited. */
-  .link:visited {
-    color: $color;
   }
 
   /* .link and .regular classes are applied only to active button-like links,
@@ -52,6 +46,12 @@
       background-image: linear-gradient(to bottom, $shade-3, white 49%, white);
       box-shadow: inset 0 1px 2px 0 rgba(0, 0, 0, 0.2);
     }
+  }
+
+  /* To prevent different styling of the button-like link once it has been
+   * visited. */
+  .link:visited {
+    color: $color;
   }
 
   /* And a few extra classes to support XS, SM and LG sizes. */

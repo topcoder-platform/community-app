@@ -123,10 +123,6 @@ $submission-space-50: $base-unit * 10;
         color: $tc-gray-40;
         line-height: $submission-space-20;
       }
-
-      &:focus {
-        outline: none;
-      }
     }
   }
 
@@ -157,6 +153,10 @@ $submission-space-50: $base-unit * 10;
         transform: rotate(180deg);
       }
     }
+  }
+
+  .status-col button:focus {
+    outline: none;
   }
 }
 

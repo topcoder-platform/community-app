@@ -48,13 +48,12 @@
 }
 
 .note {
+  @include tc-body-sm;
+
   background: $tc-gold-30;
   border: 1px solid $tc-gold-70;
   border-radius: 6px;
-  font-family: roboto;
-  font-weight: 400;
   font-style: italic;
-  font-size: 13px;
   color: $tc-black;
   line-height: 20px;
   padding: 15px 20px;

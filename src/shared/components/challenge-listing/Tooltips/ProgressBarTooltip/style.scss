@@ -9,8 +9,9 @@ $tip-radius-15: $corner-radius * 7 + 1;
 $tip-radius-4: $corner-radius * 2;
 
 div.progress-bar-tooltip {
+  @include roboto-regular;
+
   color: $tc-white;
-  font-family: 'Roboto';
   max-width: none;
   padding: 0 $base-unit * 3;
 

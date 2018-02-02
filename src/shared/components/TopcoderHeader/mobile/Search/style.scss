@@ -10,14 +10,6 @@
   padding: 6px 12px 0;
   position: relative;
 
-  input,
-  input:active,
-  input:focus,
-  input:hover {
-    box-shadow: none;
-    outline: none;
-  }
-
   input {
     background: none;
     border: 1px solid $tc-gray-60;
@@ -39,5 +31,12 @@
     &:focus {
       border: 1px solid $tc-dark-blue-90;
     }
+  }
+
+  input:active,
+  input:focus,
+  input:hover {
+    box-shadow: none;
+    outline: none;
   }
 }

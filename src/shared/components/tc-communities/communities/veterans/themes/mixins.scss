@@ -12,48 +12,67 @@ $white: white;
 /* Typography mixins. */
 
 @mixin h1 {
+  @include roboto-light;
+
   color: $black;
-  font: 300 42px/1.19 Roboto;
+  font-size: 42px;
+  line-height: 1.19;
   margin-bottom: 10px;
   text-transform: uppercase;
 
   @include xs-to-sm {
-    font: 300 36px/1.25 Roboto;
+    font-size: 36px;
+    line-height: 1.25;
   }
 }
 
 @mixin h2 {
+  @include roboto-light;
+
   color: $black;
-  font: 300 36px/1.25 Roboto;
+  font-size: 36px;
+  line-height: 1.25;
   margin-bottom: 10px;
 
   @include xs-to-sm {
-    font: 300 28px/1.25 Roboto;
+    font-size: 28px;
+    line-height: 1.25;
   }
 }
 
 @mixin h3 {
+  @include roboto-light;
+
   color: $black;
-  font: 300 28px/1.25 Roboto;
+  font-size: 28px;
+  line-height: 1.25;
   margin-bottom: 10px;
 
   @include xs-to-sm {
-    font: 300 20px/1.5 Roboto;
+    font-size: 20px;
+    line-height: 1.5;
   }
 }
 
 @mixin large-text {
+  @include roboto-regular;
+
   color: $black;
-  font: 20px/1.25 Roboto;
+  font-size: 20px;
+  line-height: 1.25;
 
   @include xs-to-sm {
-    font: 15px/1.67 Roboto;
+    font-size: 15px;
+    line-height: 1.67;
   }
 }
 
 @mixin regular-text {
+  @include roboto-regular;
+
   color: $black;
-  font: 15px/1.73 Roboto;
+  font-size: 15px;
+  line-height: 1.73;
 }
 
 /* Styling blocks reusable between pages. */

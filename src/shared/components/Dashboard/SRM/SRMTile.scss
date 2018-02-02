@@ -53,14 +53,6 @@
     box-shadow: 0 1px 4px rgba(0, 0, 0, 0.4);
   }
 
-  .past-srm {
-    header {
-      a {
-        line-height: 29px;
-      }
-    }
-  }
-
   .challenge-track {
     width: 5px;
     height: 52px;
@@ -97,6 +89,61 @@
       font-size: 12px;
       text-transform: uppercase;
       color: #a3a3ae;
+    }
+  }
+
+  .past-srm {
+    header {
+      a {
+        line-height: 29px;
+      }
+    }
+  }
+
+  .srm-calendar {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 76px;
+    height: 91px;
+    background-image: url(assets/images/dashboard/ico-calendar-detailed.svg);
+
+    span {
+      display: block;
+      font-family: 'Sofia Pro', Arial, Helvetica, sans-serif;
+      font-weight: bold;
+      color: #b7b7b7;
+
+      &.day {
+        margin-top: 2px;
+        font-size: 24px;
+        color: #3d3d3d;
+      }
+
+      &.month,
+      &.time-zone {
+        letter-spacing: 1.6px;
+        font-size: 10px;
+      }
+
+      &.month {
+        margin-top: 3px;
+        margin-left: 3px;
+      }
+
+      &.time-zone {
+        margin-top: 3px;
+        margin-left: 2px;
+      }
+
+      &.hour {
+        margin-top: 18px;
+        margin-left: 3px;
+        font-family: 'Sofia Pro', Arial, Helvetica, sans-serif;
+        font-weight: 400;
+        font-size: 12px;
+        color: #3d3d3d;
+      }
     }
   }
 
@@ -205,53 +252,6 @@
       font-weight: 400;
       font-size: 12px;
       margin-bottom: 60px;
-    }
-  }
-
-  .srm-calendar {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 76px;
-    height: 91px;
-    background-image: url(assets/images/dashboard/ico-calendar-detailed.svg);
-
-    span {
-      display: block;
-      font-family: 'Sofia Pro', Arial, Helvetica, sans-serif;
-      font-weight: bold;
-      color: #b7b7b7;
-
-      &.day {
-        margin-top: 2px;
-        font-size: 24px;
-        color: #3d3d3d;
-      }
-
-      &.month,
-      &.time-zone {
-        letter-spacing: 1.6px;
-        font-size: 10px;
-      }
-
-      &.month {
-        margin-top: 3px;
-        margin-left: 3px;
-      }
-
-      &.time-zone {
-        margin-top: 3px;
-        margin-left: 2px;
-      }
-
-      &.hour {
-        margin-top: 18px;
-        margin-left: 3px;
-        font-family: 'Sofia Pro', Arial, Helvetica, sans-serif;
-        font-weight: 400;
-        font-size: 12px;
-        color: #3d3d3d;
-      }
     }
   }
 

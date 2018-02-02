@@ -1,20 +1,5 @@
 @import '~styles/mixins';
 
-.container {
-  &:nth-child(even) {
-    margin-top: 20px;
-    flex-direction: row-reverse;
-
-    .contentInner {
-      padding-left: 0;
-    }
-  }
-
-  &:nth-child(odd) {
-    flex-direction: row;
-  }
-}
-
 .contentInner {
   padding: 24px 20px 24px 40px;
 
@@ -29,6 +14,21 @@
     .imageText:nth-child(even) & {
       padding: 20px 15px 0;
     }
+  }
+}
+
+.container {
+  &:nth-child(even) {
+    margin-top: 20px;
+    flex-direction: row-reverse;
+
+    .contentInner {
+      padding-left: 0;
+    }
+  }
+
+  &:nth-child(odd) {
+    flex-direction: row;
   }
 }
 

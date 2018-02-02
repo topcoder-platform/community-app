@@ -87,10 +87,6 @@
       text-decoration: none;
       text-transform: uppercase;
       margin-bottom: 5px;
-
-      &:hover {
-        text-decoration: none;
-      }
     }
 
     p.subtrack-color {
@@ -187,126 +183,6 @@
     border-radius: 4px;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
     background-color: $tc-white;
-
-    .challenge-details {
-      .currentPhase {
-        margin-bottom: 20px;
-        font-family: 'Sofia Pro', Arial, Helvetica, sans-serif;
-        font-weight: 300;
-        font-size: 18px;
-        line-height: 23px;
-        text-transform: uppercase;
-        color: #3d3d3d;
-      }
-
-      .challenge-calendar {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        width: 75px;
-        height: 63px;
-        background-image: url(assets/images/dashboard/ico-calendar.svg);
-
-        > p {
-          font-family: 'Sofia Pro', Arial, Helvetica, sans-serif;
-          font-weight: 700;
-        }
-
-        .ends-in {
-          margin-top: 3px;
-          font-size: 10px;
-          line-height: 13px;
-          text-transform: uppercase;
-          color: #7f7f7f;
-        }
-
-        .time-remaining {
-          margin-top: 5px;
-          font-size: 24px;
-          color: #3d3d3d;
-        }
-
-        .unit-of-time {
-          margin-top: 1px;
-          font-size: 10px;
-          text-transform: lowercase;
-          color: #7f7f7f;
-        }
-
-        &.challenge-late {
-          .ends-in,
-          .time-remaining,
-          .unit-of-time {
-            color: #e66;
-          }
-        }
-      }
-
-      .stalled-challenge {
-        min-height: 83px;
-        padding: 21px 20px 0;
-        font-family: 'Sofia Pro', Arial, Helvetica, sans-serif;
-        font-weight: 500;
-        font-size: 12px;
-        line-height: 18px;
-        text-transform: uppercase;
-        text-align: center;
-        color: #a3a3ae;
-      }
-
-      .phase-action {
-        min-height: 55px;
-
-        .submit {
-          margin: 12px;
-          display: block;
-          text-align: center;
-
-          &.btn-danger {
-            color: #e66e66;
-            background-color: $tc-white;
-            border-color: #e66e66;
-
-            &:hover {
-              background-color: #e66e66;
-              color: $tc-white;
-            }
-
-            &:active {
-              background-color: #e0493e;
-              box-shadow: inset 0 1px 1px 0 rgba(0, 0, 0, 0.3);
-            }
-          }
-        }
-
-        .submitted {
-          position: relative;
-          height: 30px;
-          line-height: 30px;
-          margin-bottom: 25px;
-          padding-left: 35px;
-          padding-right: 20px;
-          border: 1px solid #f0f0f0;
-          border-radius: 4px;
-          background-color: $tc-white;
-          font-family: 'Sofia Pro', Arial, Helvetica, sans-serif;
-          font-size: 12px;
-          text-transform: uppercase;
-          color: #3d3d3d;
-
-          &::before {
-            content: '';
-            width: 15px;
-            height: 15px;
-            background: url(assets/images/dashboard/ico-checkmark.svg);
-            background-size: 15px 15px;
-            position: absolute;
-            bottom: 6px;
-            left: 14px;
-          }
-        }
-      }
-    }
   }
 
   .completed-challenge {
@@ -321,86 +197,6 @@
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
     background-color: $tc-white;
     position: relative;
-
-    header {
-      position: relative;
-
-      .date-completed {
-        font-family: 'Sofia Pro', Arial, Helvetica, sans-serif;
-        font-weight: 500;
-        font-size: 10px;
-        line-height: 14px;
-        text-transform: uppercase;
-        color: #a3a3ae;
-        margin-bottom: 5px;
-      }
-
-      .winner-ribbon {
-        position: absolute;
-        z-index: 1;
-        bottom: -33px;
-        left: -2px;
-
-        @include background-image-size(73px, 26px);
-
-        background: url(assets/images/dashboard/ico-winner-ribbon.svg);
-      }
-    }
-
-    .challenge-details {
-      justify-content: space-between;
-      align-items: center;
-
-      &.DATA_SCIENCE {
-        flex: 2;
-        justify-content: center;
-      }
-
-      .design-challenge-user-place {
-        display: flex;
-        flex-direction: column;
-        flex: 2;
-
-        .tile-view {
-          flex: 2;
-          justify-content: flex-end;
-        }
-      }
-
-      .dev-challenge-user-place {
-        display: flex;
-        flex-direction: column;
-        flex: 2;
-
-        .tile-view {
-          flex: 2;
-        }
-      }
-
-      .marathon-score {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        text-align: center;
-
-        .score {
-          margin-bottom: 5px;
-          font-family: 'Sofia Pro', Arial, Helvetica, sans-serif;
-          font-size: 32px;
-          line-height: 38px;
-          color: #3d3d3d;
-        }
-
-        p:last-child {
-          font-family: 'Sofia Pro', Arial, Helvetica, sans-serif;
-          font-size: 12px;
-          line-height: 14px;
-          color: #a3a3ae;
-          text-transform: uppercase;
-        }
-      }
-    }
   }
 
   @media only screen and (max-width: 768px) {
@@ -618,11 +414,6 @@
     display: flex;
     flex-direction: row;
 
-    header {
-      max-width: 470px;
-      flex: 1;
-    }
-
     .challenge-details {
       flex: 2;
     }
@@ -634,10 +425,6 @@
     display: flex;
     flex-flow: row wrap;
     overflow: hidden;
-
-    header {
-      flex: 2;
-    }
 
     .challenge-details {
       flex: 1;
@@ -711,6 +498,31 @@
 
   .subtrack-color {
     color: #7d939e;
+  }
+}
+
+.challenge.tile-view .completed-challenge header {
+  position: relative;
+
+  .date-completed {
+    font-family: 'Sofia Pro', Arial, Helvetica, sans-serif;
+    font-weight: 500;
+    font-size: 10px;
+    line-height: 14px;
+    text-transform: uppercase;
+    color: #a3a3ae;
+    margin-bottom: 5px;
+  }
+
+  .winner-ribbon {
+    position: absolute;
+    z-index: 1;
+    bottom: -33px;
+    left: -2px;
+
+    @include background-image-size(73px, 26px);
+
+    background: url(assets/images/dashboard/ico-winner-ribbon.svg);
   }
 }
 
@@ -789,4 +601,193 @@ a.tc-btn {
   right: -9px;
   bottom: 2px;
   font-family: 'Sofia Pro', Arial, Helvetica, sans-serif;
+}
+
+.challenge.tile-view header a.name:hover,
+.challenge.tile-view header span.name:hover {
+  text-decoration: none;
+}
+
+.challenge.tile-view .active-challenge .challenge-details {
+  .currentPhase {
+    margin-bottom: 20px;
+    font-family: 'Sofia Pro', Arial, Helvetica, sans-serif;
+    font-weight: 300;
+    font-size: 18px;
+    line-height: 23px;
+    text-transform: uppercase;
+    color: #3d3d3d;
+  }
+
+  .challenge-calendar {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 75px;
+    height: 63px;
+    background-image: url(assets/images/dashboard/ico-calendar.svg);
+
+    > p {
+      font-family: 'Sofia Pro', Arial, Helvetica, sans-serif;
+      font-weight: 700;
+    }
+
+    .ends-in {
+      margin-top: 3px;
+      font-size: 10px;
+      line-height: 13px;
+      text-transform: uppercase;
+      color: #7f7f7f;
+    }
+
+    .time-remaining {
+      margin-top: 5px;
+      font-size: 24px;
+      color: #3d3d3d;
+    }
+
+    .unit-of-time {
+      margin-top: 1px;
+      font-size: 10px;
+      text-transform: lowercase;
+      color: #7f7f7f;
+    }
+
+    &.challenge-late {
+      .ends-in,
+      .time-remaining,
+      .unit-of-time {
+        color: #e66;
+      }
+    }
+  }
+
+  .stalled-challenge {
+    min-height: 83px;
+    padding: 21px 20px 0;
+    font-family: 'Sofia Pro', Arial, Helvetica, sans-serif;
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 18px;
+    text-transform: uppercase;
+    text-align: center;
+    color: #a3a3ae;
+  }
+
+  .phase-action {
+    min-height: 55px;
+
+    .submit {
+      margin: 12px;
+      display: block;
+      text-align: center;
+
+      &.btn-danger {
+        color: #e66e66;
+        background-color: $tc-white;
+        border-color: #e66e66;
+
+        &:hover {
+          background-color: #e66e66;
+          color: $tc-white;
+        }
+
+        &:active {
+          background-color: #e0493e;
+          box-shadow: inset 0 1px 1px 0 rgba(0, 0, 0, 0.3);
+        }
+      }
+    }
+
+    .submitted {
+      position: relative;
+      height: 30px;
+      line-height: 30px;
+      margin-bottom: 25px;
+      padding-left: 35px;
+      padding-right: 20px;
+      border: 1px solid #f0f0f0;
+      border-radius: 4px;
+      background-color: $tc-white;
+      font-family: 'Sofia Pro', Arial, Helvetica, sans-serif;
+      font-size: 12px;
+      text-transform: uppercase;
+      color: #3d3d3d;
+
+      &::before {
+        content: '';
+        width: 15px;
+        height: 15px;
+        background: url(assets/images/dashboard/ico-checkmark.svg);
+        background-size: 15px 15px;
+        position: absolute;
+        bottom: 6px;
+        left: 14px;
+      }
+    }
+  }
+}
+
+.challenge.tile-view .completed-challenge .challenge-details {
+  justify-content: space-between;
+  align-items: center;
+
+  &.DATA_SCIENCE {
+    flex: 2;
+    justify-content: center;
+  }
+
+  .design-challenge-user-place {
+    display: flex;
+    flex-direction: column;
+    flex: 2;
+
+    .tile-view {
+      flex: 2;
+      justify-content: flex-end;
+    }
+  }
+
+  .dev-challenge-user-place {
+    display: flex;
+    flex-direction: column;
+    flex: 2;
+
+    .tile-view {
+      flex: 2;
+    }
+  }
+
+  .marathon-score {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+
+    .score {
+      margin-bottom: 5px;
+      font-family: 'Sofia Pro', Arial, Helvetica, sans-serif;
+      font-size: 32px;
+      line-height: 38px;
+      color: #3d3d3d;
+    }
+
+    p:last-child {
+      font-family: 'Sofia Pro', Arial, Helvetica, sans-serif;
+      font-size: 12px;
+      line-height: 14px;
+      color: #a3a3ae;
+      text-transform: uppercase;
+    }
+  }
+}
+
+.challenge.list-view .active-challenge header {
+  max-width: 470px;
+  flex: 1;
+}
+
+.challenge.list-view .completed-challenge header {
+  flex: 2;
 }

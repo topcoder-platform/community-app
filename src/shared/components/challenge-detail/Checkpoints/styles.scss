@@ -15,12 +15,11 @@ $tc-gray-border: #aaaab5;
     }
 
     .challenge-checkpoint-li {
+      @include tc-label-xl;
+
       background: $tc-white;
       border: 1px solid $tc-gray-border;
       border-radius: 2px;
-      font-family: roboto;
-      font-weight: 500;
-      font-size: 20px;
       color: $tc-dark-blue;
       padding: 10px 0;
       margin-bottom: 10px;
@@ -38,21 +37,18 @@ $tc-gray-border: #aaaab5;
     max-width: 740px;
 
     & > h2 {
-      font-family: roboto;
-      font-weight: 500;
-      font-size: 20px;
+      @include tc-label-xl;
+
       color: $tc-black;
       line-height: 30px;
       margin-bottom: 10px;
     }
 
     & > p {
+      @include tc-body-md;
+
       white-space: pre-wrap;
-      font-family: roboto;
-      font-size: 400;
-      font-size: 15px;
       color: $tc-gray-90;
-      line-height: 25px;
       margin-bottom: 25px;
     }
 
@@ -63,12 +59,12 @@ $tc-gray-border: #aaaab5;
       justify-content: center;
 
       .challenge-checkpoint-submission {
+        @include tc-label-xl;
+
         flex: 1;
         background: $tc-gray-neutral-light;
         border: 1px solid $tc-gray-10;
         border-radius: 2px;
-        font-family: roboto;
-        font-size: 20px;
         color: $tc-dark-blue;
         line-height: 30px;
         text-align: left;
@@ -101,13 +97,11 @@ $tc-gray-border: #aaaab5;
       }
 
       .challenge-checkpoint-feedback {
+        @include tc-body-md;
+
         flex: 1;
         white-space: pre-wrap;
-        font-family: roboto;
-        font-size: 400;
-        font-size: 15px;
         color: $tc-gray-90;
-        line-height: 25px;
         padding: 15px 15px 25px;
 
         span {

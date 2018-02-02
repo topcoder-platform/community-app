@@ -72,20 +72,6 @@ $checkbox-bg-selected: $tc-dark-blue-90;
       transform: rotate(-45deg);
       transition: all 0.15s ease-in-out;
     }
-
-    &:hover::after {
-      opacity: 0.3;
-    }
-  }
-
-  input[type=checkbox]:checked ~ label {
-    background: $checkbox-bg-selected;
-    border-color: $checkbox-bg-selected;
-  }
-
-  input[type=checkbox]:checked + label::after {
-    opacity: 1;
-    border-color: $tc-white;
   }
 }
 
@@ -121,19 +107,6 @@ $slider-handle-color: $tc-white;
   width: $slider-width;
   display: inline-block;
 
-  input[type=checkbox]:focus ~ label {
-    box-shadow: inset 1px 1px 2px rgba(0, 0, 0, 0.4), 1px 1px 1px rgba(255, 255, 255, 0.6);
-    background: $slider-off-bg;
-  }
-
-  input[type=checkbox]:checked ~ label {
-    background: $slider-on-bg;
-
-    &::after {
-      left: ($slider-width - $slider-handle-size) - $slider-handle-offset * 2;
-    }
-  }
-
   label {
     border-radius: $slider-height / 2;
     box-shadow: inset 0 1px 2px 0 rgba(38, 38, 40, 0.3);
@@ -145,10 +118,6 @@ $slider-handle-color: $tc-white;
     transition: background $slider-speed ease-in-out;
     text-indent: -9999em;
     background: $slider-off-bg;
-
-    &:hover {
-      cursor: pointer;
-    }
 
     &::after {
       border-radius: $slider-height / 2;
@@ -219,4 +188,35 @@ $slider-handle-color: $tc-white;
     height: 11px;
     width: 11px;
   }
+}
+
+.tc-slider label:hover {
+  cursor: pointer;
+}
+
+.tc-slider input[type=checkbox]:focus ~ label {
+  box-shadow: inset 1px 1px 2px rgba(0, 0, 0, 0.4), 1px 1px 1px rgba(255, 255, 255, 0.6);
+  background: $slider-off-bg;
+}
+
+.tc-slider input[type=checkbox]:checked ~ label {
+  background: $slider-on-bg;
+
+  &::after {
+    left: ($slider-width - $slider-handle-size) - $slider-handle-offset * 2;
+  }
+}
+
+.tc-checkbox label &:hover::after {
+  opacity: 0.3;
+}
+
+.tc-checkbox input[type=checkbox]:checked ~ label {
+  background: $checkbox-bg-selected;
+  border-color: $checkbox-bg-selected;
+}
+
+.tc-checkbox input[type=checkbox]:checked + label::after {
+  opacity: 1;
+  border-color: $tc-white;
 }

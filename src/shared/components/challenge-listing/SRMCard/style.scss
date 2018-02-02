@@ -12,6 +12,8 @@ $srm-radius-4: $corner-radius * 2;
 
 // happening-now-card
 .SRMCard {
+  @include roboto-medium;
+
   display: flex;
   justify-content: flex-start;
   position: relative;
@@ -20,8 +22,6 @@ $srm-radius-4: $corner-radius * 2;
   border-top: 1px solid $tc-gray-10;
   color: $tc-black;
   font-size: 15px;
-  font-family: 'Roboto';
-  font-weight: 500;
 
   @include xs-to-sm {
     padding: $srm-space-15;
@@ -75,8 +75,8 @@ $srm-radius-4: $corner-radius * 2;
 
   .SRM-details {
     .open-title {
-      font-family: 'Roboto';
-      font-weight: 500;
+      @include roboto-medium;
+
       font-size: 20px;
       color: $tc-black;
       line-height: $srm-space-30;

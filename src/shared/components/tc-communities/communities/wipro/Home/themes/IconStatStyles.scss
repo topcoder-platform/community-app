@@ -1,12 +1,9 @@
 @import '~styles/mixins';
 
 .container {
-  padding: 0;
-}
-
-.container {
-  display: flex;
   align-items: center;
+  display: flex;
+  padding: 0;
 
   @include xs-to-sm {
     display: block;
@@ -26,7 +23,7 @@
 }
 
 .label {
-  font: 400 18px/20px 'Akkurat regular';
+  font: 400 18px/20px 'Akkurat regular', monospace;
   color: #646363;
   margin-top: 10px;
   text-transform: none;
@@ -40,7 +37,7 @@
   flex: 1;
 
   .number {
-    font: 400 36px/36px 'Akkurat regular';
+    font: 400 36px/36px 'Akkurat regular', monospace;
     color: #646363;
     text-align: left;
 

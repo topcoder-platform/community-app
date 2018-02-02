@@ -1,13 +1,14 @@
 @import "~styles/mixins";
 
 .design-content {
+  @include roboto-regular;
+
   display: flex;
   flex: 1;
   flex-direction: column;
   background-color: white;
   width: 100%;
   padding: 5px 60px;
-  font-family: 'Roboto';
 
   @include sm-to-md {
     padding: 0;

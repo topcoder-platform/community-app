@@ -11,6 +11,8 @@ $challenge-radius-1: $corner-radius / 2;
 $challenge-radius-4: $corner-radius * 2;
 
 .placeholder {
+  @include roboto-medium;
+
   display: flex;
   justify-content: flex-start;
   position: relative;
@@ -19,8 +21,6 @@ $challenge-radius-4: $corner-radius * 2;
   border-top: 1px solid $tc-gray-10;
   color: $tc-black;
   font-size: 15px;
-  font-family: 'Roboto';
-  font-weight: 500;
 
   .left-panel {
     display: flex;

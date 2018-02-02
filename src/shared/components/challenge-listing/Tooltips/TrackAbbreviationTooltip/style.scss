@@ -3,7 +3,8 @@ $track-space-20: $base-unit * 4;
 $track-radius-4: $corner-radius * 2;
 
 .track-abbreviation-tooltip {
-  font-family: 'Roboto';
+  @include roboto-regular;
+
   min-width: $base-unit * 45;
   max-width: $base-unit * 60;
   line-height: $track-space-20 - 2;
