@@ -6,7 +6,7 @@
   align-items: flex-start;
   display: flex;
   margin: auto;
-  max-width: $tc-screen-lg;
+  max-width: $screen-lg;
   padding: 100px 0;
 
   @include xs-to-sm {
@@ -129,7 +129,7 @@
   display: flex;
   margin: auto;
   padding-bottom: 60px;
-  max-width: $tc-screen-lg;
+  max-width: $screen-lg;
 
   @include xs-to-sm {
     flex-direction: column;

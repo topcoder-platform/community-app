@@ -143,6 +143,11 @@ $slider-handle-color: $tc-white;
 // ----------------------------------------------------------------------
 // 
 // TODO: Refactor to use parameters like the Slider
+
+.tc-checkbox label:hover::after {
+  opacity: 0.3;
+}
+
 .radio {
   margin: 0;
 
@@ -205,10 +210,6 @@ $slider-handle-color: $tc-white;
   &::after {
     left: ($slider-width - $slider-handle-size) - $slider-handle-offset * 2;
   }
-}
-
-.tc-checkbox label &:hover::after {
-  opacity: 0.3;
 }
 
 .tc-checkbox input[type=checkbox]:checked ~ label {

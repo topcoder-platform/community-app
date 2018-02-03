@@ -98,22 +98,22 @@
       }
 
       &.tco-cta {
-        border: 1px solid $tco-color;
-        background-color: $tco-color;
+        border: 1px solid $tc-orange;
+        background-color: $tc-orange;
 
         &:focus {
-          border: 1px solid $tco-color;
-          background-color: $tco-color;
+          border: 1px solid $tc-orange;
+          background-color: $tc-orange;
         }
 
         &:hover {
-          background-color: $tco-color-dark;
-          border-color: $tco-color-dark;
+          background-color: $tc-orange-110;
+          border-color: $tc-orange-110;
         }
 
         &:active {
-          background-color: $tco-color-dark;
-          border-color: $tco-color-dark;
+          background-color: $tc-orange-110;
+          border-color: $tc-orange-110;
         }
       }
     }
@@ -180,9 +180,6 @@
 }
 
 // from topcoder-app/assets/css/directives/tc-banner.scss
-$tco-color: #f47a20;
-$tco-color-dark: #ea690b;
-
 .tco17 {
   margin-bottom: 10px;
 }

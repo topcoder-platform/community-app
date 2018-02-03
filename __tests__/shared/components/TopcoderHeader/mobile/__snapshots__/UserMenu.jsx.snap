@@ -8,7 +8,7 @@ exports[`Snapshot match 1`] = `
     <a
       href="/members/username"
     >
-      <Themed
+      <ThemedAvatar
         composeAdhocTheme="deeply"
         composeContextTheme="softly"
         mapThemrProps={[Function]}

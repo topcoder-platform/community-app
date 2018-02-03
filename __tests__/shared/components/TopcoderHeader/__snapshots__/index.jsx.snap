@@ -624,7 +624,7 @@ exports[`Render with specified profile 1`] = `
         <div
           className="src-shared-components-TopcoderHeader-___style__avatar___3BqbY"
         >
-          <Themed
+          <ThemedAvatar
             composeAdhocTheme="deeply"
             composeContextTheme="softly"
             mapThemrProps={[Function]}

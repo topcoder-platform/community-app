@@ -6,7 +6,7 @@
   @include tc-title;
 
   margin: 163px auto 50px;
-  max-width: $tc-screen-lg;
+  max-width: $screen-lg;
   padding: 0 40px;
   text-align: center;
 }
@@ -22,7 +22,7 @@
 .cardContainer {
   justify-content: space-between;
   margin: auto;
-  max-width: $tc-screen-lg;
+  max-width: $screen-lg;
   padding: 50px 0;
 
   @include xs-to-sm {

@@ -39,7 +39,7 @@
 
 .head-banner-text-content {
   margin: auto;
-  max-width: $tc-screen-lg;
+  max-width: $screen-lg;
 }
 
 .head-banner-title {
@@ -70,7 +70,7 @@
 .mission {
   display: flex;
   margin: 60px auto;
-  max-width: $tc-screen-lg;
+  max-width: $screen-lg;
 
   @include xs-to-sm {
     flex-direction: column;
@@ -107,7 +107,7 @@
   align-items: flex-start;
   display: flex;
   margin: auto;
-  max-width: $tc-screen-lg;
+  max-width: $screen-lg;
   padding: 100px 0;
 
   @include xs-to-md {
@@ -183,7 +183,7 @@
 
 .joining-is-simple-content {
   margin: auto;
-  max-width: $tc-screen-lg;
+  max-width: $screen-lg;
 }
 
 .joining-is-simple-title {
@@ -281,7 +281,7 @@
 
 .learn-content {
   margin: auto;
-  max-width: $tc-screen-lg;
+  max-width: $screen-lg;
 }
 
 .learn-title {
@@ -345,7 +345,7 @@
 .cardsBlock {
   display: flex;
   margin: 40px auto;
-  max-width: $tc-screen-lg;
+  max-width: $screen-lg;
   padding: 0;
 
   @include xs-to-sm {

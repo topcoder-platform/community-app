@@ -7,7 +7,7 @@ exports[`Matches shallow shapshot 1`] = `
   <span
     className="src-shared-components-Leaderboard-PodiumSpot-___styles__leaderboard-avatar___2Aea7"
   >
-    <Themed
+    <ThemedAvatar
       composeAdhocTheme="deeply"
       composeContextTheme="softly"
       mapThemrProps={[Function]}
@@ -55,7 +55,7 @@ exports[`Matches shallow shapshot 2`] = `
   <span
     className="src-shared-components-Leaderboard-PodiumSpot-___styles__leaderboard-avatar___2Aea7"
   >
-    <Themed
+    <ThemedAvatar
       composeAdhocTheme="deeply"
       composeContextTheme="softly"
       mapThemrProps={[Function]}

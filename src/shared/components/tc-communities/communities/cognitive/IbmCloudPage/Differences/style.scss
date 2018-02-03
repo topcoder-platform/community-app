@@ -12,7 +12,7 @@
 .content {
   display: flex;
   margin: auto;
-  max-width: $tc-screen-lg;
+  max-width: $screen-lg;
 
   @include xs-to-sm {
     flex-direction: column;
