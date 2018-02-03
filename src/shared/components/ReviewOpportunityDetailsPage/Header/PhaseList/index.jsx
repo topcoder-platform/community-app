@@ -4,8 +4,8 @@
 import moment from 'moment';
 import React from 'react';
 import PT from 'prop-types';
+import { Button } from 'topcoder-react-ui-kit';
 
-import { Button } from 'components/buttons';
 import Tooltip from 'components/Tooltip';
 
 import ArrowUp from 'assets/images/icon-arrow-up.svg';

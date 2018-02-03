@@ -14,6 +14,8 @@ import Tooltip from 'components/Tooltip';
 import { formatDuration } from 'utils/time';
 import { REVIEW_OPPORTUNITY_TYPES } from 'utils/tc';
 
+import Tags from '../Tags';
+
 import TrackAbbreviationTooltip from '../Tooltips/TrackAbbreviationTooltip';
 
 import SubmissionsIcon from '../Icons/SubmissionsIcon';
@@ -37,27 +39,28 @@ const quantityText = (num, suffix) => {
 // Functional implementation of ReviewOpportunityCard component
 function ReviewOpportunityCard({
   challengesUrl,
-  /* expandedTags,
-   expandTag,
-   onTechTagClicked, */
+  expandedTags,
+  expandTag,
+  onTechTagClicked,
   opportunity,
 }) {
   const challenge = opportunity.challenge;
   const start = moment(opportunity.startDate);
-  // TODO: Remove the hardcoded values
-  challenge.track = 'DEVELOP';
-  challenge.subTrack = 'REVIEW_OPPORTUNITY';
-  challenge.technologies = 'Node.Js';
-  challenge.platforms = 'Linux';
+
   return (
     <div styleName="reviewOpportunityCard">
       <div styleName="left-panel">
         <div styleName="challenge-track">
-          <TrackAbbreviationTooltip track={challenge.track} subTrack={challenge.subTrack}>
+          <TrackAbbreviationTooltip
+            track={challenge.track}
+            // subTrack={challenge.subTrack}
+            subTrack={'REVIEW_OPPORTUNITY'}
+          >
             <span>
               <TrackIcon
                 track={challenge.track}
-                subTrack={challenge.subTrack}
+                // subTrack={challenge.subTrack}
+                subTrack={'REVIEW_OPPORTUNITY'}
                 isDataScience={challenge.technologies.includes('Data Science')}
               />
             </span>
@@ -71,13 +74,13 @@ function ReviewOpportunityCard({
             <span styleName="date">
               Starts {start.format('MMM DD')}
             </span>
-            {/* TODO: Enable this once the API is ready. <Tags
-              technologies={challenge.technologies}
-              platforms={challenge.platforms}
+            <Tags
+              technologies={challenge.technologies.join(',')}
+              platforms={challenge.platforms.join(',')}
               isExpanded={expandedTags.includes(challenge.id)}
               expand={() => expandTag(challenge.id)}
               onTechTagClicked={onTechTagClicked}
-            /> */}
+            />
           </div>
         </div>
       </div>
@@ -138,10 +141,10 @@ ReviewOpportunityCard.defaultProps = {
 
 // Prop Validation
 ReviewOpportunityCard.propTypes = {
-  // expandedTags: PT.arrayOf(PT.number),
-  // expandTag: PT.func,
+  expandedTags: PT.arrayOf(PT.number),
+  expandTag: PT.func,
   challengesUrl: PT.string.isRequired,
-  // onTechTagClicked: PT.func,
+  onTechTagClicked: PT.func,
   opportunity: PT.shape().isRequired,
 };
 

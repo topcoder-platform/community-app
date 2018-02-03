@@ -223,7 +223,10 @@ function getReviewOpportunitiesDone(uuid, page, tokenV3) {
   return getReviewOpportunitiesService(tokenV3)
     .getReviewOpportunities(REVIEW_OPPORTUNITY_PAGE_SIZE, page * REVIEW_OPPORTUNITY_PAGE_SIZE)
     .then(loaded => ({ uuid, loaded }))
-    .catch(error => fireErrorMessage('Error Getting Review Opportunities', error));
+    .catch((error) => {
+      fireErrorMessage('Error Getting Review Opportunities', error.content || error);
+      return Promise.reject(error);
+    });
 }
 
 export default createActions({

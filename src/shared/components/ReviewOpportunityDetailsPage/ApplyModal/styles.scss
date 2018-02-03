@@ -42,8 +42,12 @@
   background: $tc-white;
   border-radius: 3 * $corner-radius 3 * $corner-radius;
   padding: 6 * $base-unit;
-  top: 33%;
+  top: 35%;
   width: 70%;
+
+  @media (max-height: 768px) {
+    top: 50%;
+  }
 
   h1 {
     color: $tc-gray-80;

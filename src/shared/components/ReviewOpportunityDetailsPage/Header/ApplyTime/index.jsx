@@ -4,9 +4,9 @@
 import moment from 'moment';
 import React from 'react';
 import PT from 'prop-types';
+import { PrimaryButton } from 'topcoder-react-ui-kit';
 
 import { formatDuration } from 'utils/time';
-import { PrimaryButton } from 'components/buttons';
 
 import './styles.scss';
 

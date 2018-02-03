@@ -4,8 +4,8 @@
 import _ from 'lodash';
 import React from 'react';
 import PT from 'prop-types';
+import { PrimaryButton, Button } from 'topcoder-react-ui-kit';
 
-import { PrimaryButton, Button } from 'components/buttons';
 import { activeRoleIds, openPositionsByRole } from 'utils/reviewOpportunities';
 import Modal from 'components/Modal';
 
