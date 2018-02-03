@@ -219,9 +219,8 @@ function getPastChallengesDone(uuid, page, filter, tokenV3, frontFilter = {}) {
  * @param {String} tokenV3 Optional. Topcoder auth token v3.
  * @return {Object} Action object
  */
-function getReviewOpportunitiesDone(uuid, page /* , tokenV3 */) {
-  // TODO: Pass tokenV3 to fetch review opportunities for private challenges
-  return getReviewOpportunitiesService()
+function getReviewOpportunitiesDone(uuid, page, tokenV3) {
+  return getReviewOpportunitiesService(tokenV3)
     .getReviewOpportunities(REVIEW_OPPORTUNITY_PAGE_SIZE, page * REVIEW_OPPORTUNITY_PAGE_SIZE)
     .then(loaded => ({ uuid, loaded }))
     .catch(error => fireErrorMessage('Error Getting Review Opportunities', error));

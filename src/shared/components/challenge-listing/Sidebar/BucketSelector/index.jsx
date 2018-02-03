@@ -4,7 +4,6 @@
  * has a link switching the sidebar into filters editor mode.
  */
 
-import config from 'utils/config';
 import PT from 'prop-types';
 import React from 'react';
 import { BUCKETS } from 'utils/challenge-listing/buckets';
@@ -78,11 +77,7 @@ export default function BucketSelector({
       {getBucket(BUCKETS.OPEN_FOR_REGISTRATION)}
       {getBucket(BUCKETS.ONGOING)}
       <hr />
-      {/* getBucket(BUCKETS.REVIEW_OPPORTUNITIES) */}
-      <a
-        href={`${config.URL.BASE}/review/development-review-opportunities/`}
-        styleName="openForReview"
-      >Open for review</a>
+      {getBucket(BUCKETS.REVIEW_OPPORTUNITIES)}
       {getBucket(BUCKETS.PAST)}
       {/* NOTE: We do not show upcoming challenges for now, for various reasons,
         * more political than technical ;)

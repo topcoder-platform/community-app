@@ -33,6 +33,7 @@ export default function ChallengeListingRoute() {
               listingOnly
               newChallengeDetails
               prizeMode={prizeMode}
+              queryBucket={_.get(query, 'bucket')}
             />
           );
         })

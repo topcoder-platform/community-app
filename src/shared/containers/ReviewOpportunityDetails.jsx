@@ -27,7 +27,10 @@ class ReviewOpportunityDetailsContainer extends React.Component {
       loadDetails,
       tokenV3,
     } = this.props;
+
     if (!isLoadingDetails && !details) {
+      loadDetails(challengeId, tokenV3);
+    } else if (details.challenge.id !== challengeId) {
       loadDetails(challengeId, tokenV3);
     }
   }

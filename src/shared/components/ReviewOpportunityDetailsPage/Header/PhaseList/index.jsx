@@ -8,6 +8,9 @@ import PT from 'prop-types';
 import { Button } from 'components/buttons';
 import Tooltip from 'components/Tooltip';
 
+import ArrowUp from 'assets/images/icon-arrow-up.svg';
+import ArrowDown from 'assets/images/icon-arrow-down.svg';
+
 import style from './styles.scss';
 
 /**
@@ -69,7 +72,7 @@ const renderTooltip = (phase) => {
  * @return {Object} The rendered React element
  */
 const renderPhase = phase => (
-  <Tooltip key={phase.type} className="tooltip-container" content={renderTooltip(phase)}>
+  <Tooltip key={phase.type} className="review-opportunity-details-tooltip" content={renderTooltip(phase)} suppressDiv>
     <div styleName={moment().isBetween(phase.scheduledStartTime, phase.scheduledEndTime) ? 'active-phase' : 'inactive-phase'}>
       <div styleName="type">
         {phase.type}
@@ -91,7 +94,9 @@ const PhaseList = ({ isExpanded, phases, onExpand }) => (
         isExpanded ? phases.map(renderPhase) : phases.slice(0, 4).map(renderPhase)
       }
     </div>
-    <Button onClick={onExpand} theme={style}>{isExpanded ? 'Hide Phase' : 'View All Phase \u2228'}</Button>
+    <Button onClick={onExpand} theme={style}>
+      {isExpanded ? <span>Hide Phases<ArrowUp /></span> : <span>View All Phases<ArrowDown /></span>}
+    </Button>
   </div>
 );
 

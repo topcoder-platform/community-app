@@ -26,7 +26,7 @@ const PaymentInfo = ({ positions }) => (
           {
             positions.map((position, index) => (
               <span key={`${position.role} openings`}>
-                {index !== 0 ? ' & ' : ''}<span styleName="accent">{position.openPositions}</span> {position.role}
+                {index !== 0 ? ' & ' : ''}<span styleName="accent">{position.openPositions}</span> {position.role}{position.openPositions !== 1 ? 'S' : ''}
               </span>
             ))
           }

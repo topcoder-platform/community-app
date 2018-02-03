@@ -7,9 +7,11 @@ import { Link } from 'topcoder-react-utils';
 import moment from 'moment';
 import React from 'react';
 import PT from 'prop-types';
+
 import TrackIcon from 'components/TrackIcon';
 import Tooltip from 'components/Tooltip';
 
+import { formatDuration } from 'utils/time';
 import { REVIEW_OPPORTUNITY_TYPES } from 'utils/tc';
 
 import TrackAbbreviationTooltip from '../Tooltips/TrackAbbreviationTooltip';
@@ -114,12 +116,11 @@ function ReviewOpportunityCard({
           </Tooltip>
         </div>
         <Link
-          to={`https://www.topcoder.com/tc?module=ReviewAuctionDetails&aid=${opportunity.id}`}
+          to={`/review-opportunities/${challenge.id}`}
           styleName="register-button"
-          openNewTab
         >
           <span>
-            { start.isAfter() ? _.capitalize(start.toNow(true)) : `Late by ${start.fromNow(true)}` }
+            { start.isAfter() ? formatDuration(start.diff()) : `Late by ${formatDuration(-start.diff())}` }
           </span>
           <span styleName="to-register">to apply</span>
         </Link>

@@ -31,6 +31,12 @@ $tip-radius-4: $corner-radius * 2;
   }
 }
 
+:global {
+  .review-opportunity-details-tooltip {
+    pointer-events: none;
+  }
+}
+
 .active-phase {
   @include phase($tc-green);
 
@@ -45,7 +51,18 @@ $tip-radius-4: $corner-radius * 2;
   font-weight: 400;
   height: 25px;
   padding: 0 10px;
-  max-width: 120px;
+  max-width: 140px;
+
+  svg {
+    height: auto;
+    margin-left: $base-unit;
+    vertical-align: middle;
+    width: 10px;
+
+    path {
+      fill: $tc-gray-70;
+    }
+  }
 }
 
 .container {
@@ -63,7 +80,7 @@ $tip-radius-4: $corner-radius * 2;
   padding-bottom: 2 * $base-unit;
   padding-top: 2 * $base-unit;
   text-align: left;
-  width: 30%;
+  width: 32%;
 }
 
 .expanded {
@@ -90,15 +107,11 @@ $tip-radius-4: $corner-radius * 2;
   width: 100%;
 }
 
-div.tooltip-container {
+.tooltip-container {
   color: $tc-white;
   font-family: 'Roboto';
   max-width: none;
   padding: 0 $base-unit * 3;
-
-  .rc-tooltip-inner {
-    padding: 0 $base-unit * 3;
-  }
 
   .tip {
     word-wrap: none;

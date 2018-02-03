@@ -5,10 +5,9 @@
 
   background: $tc-white;
   border-radius: 0 0 3 * $corner-radius 3 * $corner-radius;
+  flex: 1 1 966px;
   margin-bottom: 2 * $base-unit;
-  max-width: 966px;
-  padding: 16 * $base-unit;
-  width: auto;
+  padding: 8 * $base-unit 16 * $base-unit;
 
   h3 {
     font-weight: 500;
@@ -70,7 +69,7 @@
 
 .col-1 {
   padding-left: 30px;
-  width: 298px;
+  width: 33%;
 
   @include xs-to-sm {
     padding-left: 0;
@@ -92,7 +91,7 @@
 }
 
 .col-2 {
-  width: 317px;
+  width: 33%;
 
   @include xs-to-sm {
     margin-bottom: 15px;
@@ -104,7 +103,7 @@
 .col-3 {
   display: flex;
   align-items: center;
-  width: 351px;
+  width: 33%;
 
   @include xs-to-sm {
     line-height: 20px;

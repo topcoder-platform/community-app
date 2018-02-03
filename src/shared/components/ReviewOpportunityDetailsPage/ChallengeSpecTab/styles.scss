@@ -55,7 +55,7 @@ $tc-link-visited: #0c4e98;
   border-radius: 0 0 3 * $corner-radius 3 * $corner-radius;
   margin-bottom: 2 * $base-unit;
   max-width: 1240px;
-  padding: 16 * $base-unit;
+  padding: 8 * $base-unit 16 * $base-unit;
   width: 100%;
 }
 

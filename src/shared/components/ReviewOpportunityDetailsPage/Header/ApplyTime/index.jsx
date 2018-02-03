@@ -5,6 +5,7 @@ import moment from 'moment';
 import React from 'react';
 import PT from 'prop-types';
 
+import { formatDuration } from 'utils/time';
 import { PrimaryButton } from 'components/buttons';
 
 import './styles.scss';
@@ -14,7 +15,7 @@ import './styles.scss';
  */
 const ApplyTime = ({ hasApplied, onApply, openPositions, startDate }) => {
   const startMoment = moment(startDate);
-  const timeLeft = startMoment.isAfter() ? startMoment.toNow(true) : '';
+  const timeLeft = startMoment.isAfter() ? formatDuration(startMoment - moment()) : 'None';
 
   return (
     <div styleName="container">
@@ -22,7 +23,7 @@ const ApplyTime = ({ hasApplied, onApply, openPositions, startDate }) => {
         !hasApplied &&
         <div>
           <p>TIME LEFT TO APPLY</p>
-          <h2>{timeLeft || 'None'}</h2>
+          <h2>{timeLeft}</h2>
         </div>
       }
       <div styleName="button-wrapper">

@@ -78,7 +78,7 @@ class ApplyModal extends React.Component {
             ))
           }
         </div>
-        <p>*Depends on the number of submissions, the actual payment may differ</p>
+        <p>*Depends on the number of submissions, the actual payment may differ.</p>
         <div styleName="buttons">
           <Button onClick={onCancel}>Cancel</Button>
           <PrimaryButton

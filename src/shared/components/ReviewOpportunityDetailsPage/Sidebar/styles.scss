@@ -6,12 +6,12 @@
   background: rgb(244, 249, 255);
   border-radius: 0;
   color: $tc-gray-80;
+  flex: 0 0 250px;
   font-size: 13px;
   line-height: 5 * $base-unit;
   margin-top: 5 * $base-unit;
   margin-bottom: 2 * $base-unit;
   padding: 4 * $base-unit;
-  width: 300px;
 
   a {
     color: $tc-dark-blue;
