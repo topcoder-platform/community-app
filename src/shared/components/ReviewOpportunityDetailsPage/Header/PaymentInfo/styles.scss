@@ -11,7 +11,7 @@
   padding-left: 18 * $base-unit;
   padding-top: 2 * $base-unit;
   text-align: left;
-  width: 45%;
+  width: 43%;
 }
 
 .roles {
@@ -19,21 +19,23 @@
 }
 
 .payment {
-  border-bottom: solid 3px $tc-light-blue;
   display: inline-block;
   font-weight: 400;
   margin: 4 * $base-unit;
-  padding-bottom: 2 * $base-unit;
   padding-left: 2 * $base-unit;
   width: 150px;
 
   h2 {
+    border-bottom: solid 3px $tc-light-blue;
     color: $tc-gray-90;
+    display: inline-block;
     margin-top: $base-unit;
-  }
+    padding-bottom: 2 * $base-unit;
+    padding-right: $base-unit;
 
-  &:first-child {
-    border-bottom-color: $tc-gold;
+    &:first-child {
+      border-bottom-color: $tc-gold;
+    }
   }
 }
 

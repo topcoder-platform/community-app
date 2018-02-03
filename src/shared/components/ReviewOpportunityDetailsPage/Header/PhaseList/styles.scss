@@ -14,7 +14,7 @@ $tip-radius-4: $corner-radius * 2;
 
   .type {
     display: inline-block;
-    width: 50%;
+    width: 40%;
 
     &::before {
       content: "\2022";
@@ -27,13 +27,12 @@ $tip-radius-4: $corner-radius * 2;
 
   .date {
     display: inline-block;
-    width: 50%;
+    width: 30%;
   }
-}
 
-:global {
-  .review-opportunity-details-tooltip {
-    pointer-events: none;
+  .duration {
+    display: inline-block;
+    width: 29%;
   }
 }
 
@@ -80,14 +79,13 @@ $tip-radius-4: $corner-radius * 2;
   padding-bottom: 2 * $base-unit;
   padding-top: 2 * $base-unit;
   text-align: left;
-  width: 32%;
+  width: 35%;
 }
 
 .expanded {
   border-left: 0;
   border-radius: $corner-radius * 4;
   box-shadow: 0 0 16px $tc-gray-20;
-  height: 400px;
   position: relative;
 }
 
@@ -103,94 +101,6 @@ $tip-radius-4: $corner-radius * 2;
 }
 
 .phases {
-  padding-left: 8 * $base-unit;
+  padding-left: 4 * $base-unit;
   width: 100%;
-}
-
-.tooltip-container {
-  color: $tc-white;
-  font-family: 'Roboto';
-  max-width: none;
-  padding: 0 $base-unit * 3;
-
-  .tip {
-    word-wrap: none;
-    white-space: nowrap;
-
-    .phase {
-      display: inline-block;
-      line-height: $tip-space-15;
-      min-width: $tip-offset;
-      padding: $tip-space-15 0;
-      background: $tc-gray-80;
-      width: $tip-space-95;
-
-      &:last-child {
-        border-radius: 0 $tip-radius-4 $tip-radius-4 0;
-        padding-right: $tip-space-15;
-      }
-    }
-  }
-
-  .bar {
-    background: $tc-gray-20;
-    height: $base-unit - 1;
-    margin: ($tip-space-10) - 3 0;
-    width: 100%;
-
-    &.last {
-      width: 0;
-    }
-
-    .inner-bar {
-      background: $tc-light-blue;
-      position: relative;
-      border-radius: $corner-radius * 4;
-      border: 2px solid $tc-gray-80;
-      top: -(($tip-space-15) - 1);
-      height: $tip-space-10 - 2;
-      z-index: 1;
-    }
-
-    .point {
-      background: $tc-gray-20;
-      border: 2px solid $tc-gray-80;
-      border-radius: $corner-radius * 9;
-      height: ($tip-space-15) - 3;
-      left: -($base-unit - 2);
-      position: relative;
-      top: -($base-unit - 1);
-      width: ($tip-space-15) - 3;
-      z-index: 2;
-    }
-
-    &.started {
-      .point {
-        background: $tc-light-blue;
-      }
-    }
-  }
-
-  .date {
-    font-weight: 400;
-    font-size: 11px;
-    color: $tc-gray-30;
-    letter-spacing: 0;
-    line-height: $tip-space-15;
-    text-shadow: none;
-  }
-
-  .duration {
-    display: inline-block;
-    border-left: 1px solid $tc-gray-30;
-    color: $tc-gray-30;
-    font-size: 11px;
-    padding-left: 2 * $base-unit;
-    padding-top: $base-unit;
-
-    .hours {
-      color: $tc-white;
-      font-size: 13px;
-    }
-  }
 }

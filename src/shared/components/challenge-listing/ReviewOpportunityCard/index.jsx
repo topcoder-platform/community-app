@@ -53,14 +53,12 @@ function ReviewOpportunityCard({
         <div styleName="challenge-track">
           <TrackAbbreviationTooltip
             track={challenge.track}
-            // subTrack={challenge.subTrack}
-            subTrack={'REVIEW_OPPORTUNITY'}
+            subTrack={challenge.subTrack || 'REVIEW_OPPORTUNITY'}
           >
             <span>
               <TrackIcon
                 track={challenge.track}
-                // subTrack={challenge.subTrack}
-                subTrack={'REVIEW_OPPORTUNITY'}
+                subTrack={challenge.subTrack || 'REVIEW_OPPORTUNITY'}
                 isDataScience={challenge.technologies.includes('Data Science')}
               />
             </span>

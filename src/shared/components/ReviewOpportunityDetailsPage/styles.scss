@@ -76,6 +76,10 @@
     color: $tc-gray-60;
     cursor: pointer;
     margin: 0 4 * $base-unit;
+
+    a:focus {
+      outline: none;
+    }
   }
 
   .selected-tab {
@@ -104,7 +108,7 @@
   .review-opportunity-tag {
     @include tag;
 
-    background: $tc-orange;
+    background: $tc-green;
     color: $tc-white;
     font-weight: 400;
   }
