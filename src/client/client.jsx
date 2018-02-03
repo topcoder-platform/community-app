@@ -2,8 +2,12 @@
  * Client-side rendering of the App.
  */
 
+/* Analytics script is injected via the basic HTML template, because
+ * analytics.js version from NPM seems to be outdated (does not play
+ * well with Chameleon). */
+/* global analytics */
+
 import _ from 'lodash';
-import analytics from 'analytics.js';
 import authActions from 'actions/auth';
 import directActions from 'actions/direct';
 import userGroupsActions from 'actions/groups';
@@ -38,11 +42,6 @@ if (!process.env.FRONT_END) {
 }
 
 const config = window.CONFIG;
-analytics.initialize({
-  'Segment.io': {
-    apiKey: config.SEGMENT_IO_API_KEY,
-  },
-});
 
 /**
  * Performs AnalyticsJS identification of the user.

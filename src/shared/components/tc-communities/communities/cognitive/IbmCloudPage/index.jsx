@@ -1,6 +1,6 @@
 import React from 'react';
 
-import AutoTransition from './AutoTransition';
+// import AutoTransition from './AutoTransition';
 import Differences from './Differences';
 import HeadBanner from './HeadBanner';
 import JoinBlock from './JoinBlock';
@@ -12,7 +12,11 @@ export default function IbmCloudPage() {
       <HeadBanner />
       <JoinBlock />
       <Differences />
-      <AutoTransition />
+
+      {/* Hidden by the request from Trevor: the transition process won't start
+        * until Feb 12. */}
+      {/* <AutoTransition /> */}
+
       <NewsSignup />
     </div>
   );

@@ -33,7 +33,6 @@
     "npm": "^5.5.1"
   },
   "dependencies": {
-    "analytics.js": "^2.9.1",
     "atob": "^2.0.3",
     "babel-register": "^6.26.0",
     "babel-runtime": "^6.26.0",

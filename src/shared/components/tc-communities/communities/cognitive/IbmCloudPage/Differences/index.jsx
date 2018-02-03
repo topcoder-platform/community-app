@@ -23,10 +23,15 @@ export default function Differences() {
             breakdown of the major differences between an IBM Cloud
             Trial account and an IBM Cloud Lite account.
           </p>
-          <p styleName="text">
-            Rest assured — if you already have an IBM Cloud Trial
-            account, you can convert to an IBM Lite account.
-          </p>
+
+          {/* Hidden for now by request from Trevor. */}
+          {/*
+            <p styleName="text">
+              Rest assured — if you already have an IBM Cloud Trial
+              account, you can convert to an IBM Lite account.
+            </p>
+          */}
+
           <PrimaryButton
             openNewTab
             theme={{ button: style.button }}
