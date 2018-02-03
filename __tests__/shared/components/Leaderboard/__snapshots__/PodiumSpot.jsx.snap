@@ -7,10 +7,9 @@ exports[`Matches shallow shapshot 1`] = `
   <span
     className="src-shared-components-Leaderboard-PodiumSpot-___styles__leaderboard-avatar___2Aea7"
   >
-    <ThemedAvatar
+    <Themed
       composeAdhocTheme="deeply"
       composeContextTheme="softly"
-      customStyles={null}
       mapThemrProps={[Function]}
       theme={
         Object {
@@ -56,10 +55,9 @@ exports[`Matches shallow shapshot 2`] = `
   <span
     className="src-shared-components-Leaderboard-PodiumSpot-___styles__leaderboard-avatar___2Aea7"
   >
-    <ThemedAvatar
+    <Themed
       composeAdhocTheme="deeply"
       composeContextTheme="softly"
-      customStyles={null}
       mapThemrProps={[Function]}
       theme={
         Object {

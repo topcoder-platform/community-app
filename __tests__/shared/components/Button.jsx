@@ -1,14 +1,10 @@
 import Button from 'components/Button';
 import React from 'react';
-import Rnd from 'react-test-renderer/shallow';
 import TU from 'react-dom/test-utils';
-
-const rnd = new Rnd();
+import { snapshot } from 'topcoder-react-utils/jest-utils';
 
 test('Snapshot match', () => {
-  rnd.render(<Button />);
-  const button = rnd.getRenderOutput();
-  expect(button).toMatchSnapshot();
+  snapshot(<Button />);
 });
 
 class ButtonClass extends React.Component {

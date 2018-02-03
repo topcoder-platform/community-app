@@ -624,18 +624,12 @@ exports[`Render with specified profile 1`] = `
         <div
           className="src-shared-components-TopcoderHeader-___style__avatar___3BqbY"
         >
-          <ThemedAvatar
+          <Themed
             composeAdhocTheme="deeply"
             composeContextTheme="softly"
-            customStyles={null}
             mapThemrProps={[Function]}
-            theme={
-              Object {
-                "avatar": "",
-              }
-            }
             themePriority="adhoc-context-default"
-            url={null}
+            url={undefined}
           />
         </div>
       </div>

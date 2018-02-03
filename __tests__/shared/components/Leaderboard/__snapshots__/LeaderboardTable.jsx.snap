@@ -44,10 +44,9 @@ exports[`Matches shallow shapshot 1`] = `
         <span
           className="src-shared-components-Leaderboard-LeaderboardTable-___styles__leaderboard-avatar___3Ly7x"
         >
-          <ThemedAvatar
+          <Themed
             composeAdhocTheme="deeply"
             composeContextTheme="softly"
-            customStyles={null}
             mapThemrProps={[Function]}
             theme={
               Object {
@@ -103,10 +102,9 @@ exports[`Matches shallow shapshot 1`] = `
         <span
           className="src-shared-components-Leaderboard-LeaderboardTable-___styles__leaderboard-avatar___3Ly7x"
         >
-          <ThemedAvatar
+          <Themed
             composeAdhocTheme="deeply"
             composeContextTheme="softly"
-            customStyles={null}
             mapThemrProps={[Function]}
             theme={
               Object {
@@ -162,10 +160,9 @@ exports[`Matches shallow shapshot 1`] = `
         <span
           className="src-shared-components-Leaderboard-LeaderboardTable-___styles__leaderboard-avatar___3Ly7x"
         >
-          <ThemedAvatar
+          <Themed
             composeAdhocTheme="deeply"
             composeContextTheme="softly"
-            customStyles={null}
             mapThemrProps={[Function]}
             theme={
               Object {
@@ -221,10 +218,9 @@ exports[`Matches shallow shapshot 1`] = `
         <span
           className="src-shared-components-Leaderboard-LeaderboardTable-___styles__leaderboard-avatar___3Ly7x"
         >
-          <ThemedAvatar
+          <Themed
             composeAdhocTheme="deeply"
             composeContextTheme="softly"
-            customStyles={null}
             mapThemrProps={[Function]}
             theme={
               Object {

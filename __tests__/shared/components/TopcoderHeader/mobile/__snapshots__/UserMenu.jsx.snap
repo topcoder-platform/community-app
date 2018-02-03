@@ -8,18 +8,12 @@ exports[`Snapshot match 1`] = `
     <a
       href="/members/username"
     >
-      <ThemedAvatar
+      <Themed
         composeAdhocTheme="deeply"
         composeContextTheme="softly"
-        customStyles={null}
         mapThemrProps={[Function]}
-        theme={
-          Object {
-            "avatar": "",
-          }
-        }
         themePriority="adhoc-context-default"
-        url={null}
+        url={undefined}
       />
       <span
         className="src-shared-components-TopcoderHeader-mobile-UserMenu-___style__handle___CL0Tq"
