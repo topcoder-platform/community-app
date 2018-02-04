@@ -32,6 +32,7 @@ const ReviewOpportunityDetailsPage = ({
   selectedTab,
   toggleApplyModal,
   setRoles,
+  requiredTerms,
   toggleRole,
 }) => (
   <div styleName="outer-container">
@@ -74,13 +75,13 @@ const ReviewOpportunityDetailsPage = ({
           selectedTab === TABS.CHALLENGE_SPEC ?
             <ChallengeSpecTab challenge={details.challenge} /> : null
         }
-        <Sidebar />
+        <Sidebar requiredTerms={requiredTerms} />
       </div>
 
     </div>
     <Terms
       defaultTitle="Topcoder Reviewer Terms & Conditions"
-      entity={{ type: 'reviewOpportunity', id: '20704' }}
+      entity={{ type: 'reviewOpportunity', id: requiredTerms.filter(term => !term.agreed).map(term => term.termsOfUseId).join() }}
       description="You are seeing these Terms & Conditions of Use because you have registered to a challenge and you have to respect the terms below in order to be able to submit."
       register={onHeaderApply}
     />
@@ -123,6 +124,7 @@ ReviewOpportunityDetailsPage.propTypes = {
   selectTab: PT.func.isRequired,
   selectedTab: PT.string,
   setRoles: PT.func.isRequired,
+  requiredTerms: PT.arrayOf(PT.shape()).isRequired,
   toggleRole: PT.func.isRequired,
 };
 

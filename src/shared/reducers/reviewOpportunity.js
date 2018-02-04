@@ -9,6 +9,26 @@ import { toFSA } from 'utils/redux';
 import { getAuthTokens } from 'utils/tc';
 
 /**
+ * Generates a list of unique terms ids required for the open review roles
+ * with an agreed field
+ *
+ * @param {Object} details Review Opportuny details from API
+ * @return {Array} List of unique terms
+ */
+function buildRequiredTermsList(details) {
+  const roles = details.payments.map(payment => payment.role);
+
+  const requiredTerms = _.uniqBy(
+    details.challenge.terms
+      .filter(term => _.includes(roles, term.role))
+      .map(term => _.pick(term, ['termsOfUseId', 'agreed', 'title'])),
+      // .map(term => _.pick(term, ['termsOfUseId', 'title'])),
+    term => term.termsOfUseId);
+
+  return requiredTerms || [];
+}
+
+/**
  * Handles REVIEW_OPPORTUNITY/GET__DETAILS_DONE action.
  * @param {Object} state
  * @param {Object} action Payload will be JSON from api call
@@ -27,6 +47,7 @@ function onGetDetailsDone(state, { payload, error }) {
     ...state,
     details: payload,
     isLoadingDetails: false,
+    requiredTerms: buildRequiredTermsList(payload),
   };
 }
 
@@ -48,6 +69,7 @@ function create(initialState) {
     authError: false,
     details: null,
     isLoadingDetails: false,
+    requiredTerms: [],
   }));
 }
 
@@ -64,7 +86,10 @@ export function factory(req) {
     const challengeId = req.url.match(/\d+/)[0];
     const a = actions.reviewOpportunity;
     return toFSA(a.getDetailsDone(challengeId, tokens.tokenV3))
-      .then(({ error, payload }) => create({ details: error ? null : payload }));
+      .then(({ error, payload }) => create({
+        details: error ? null : payload,
+        requiredTerms: error ? [] : buildRequiredTermsList(payload),
+      }));
   }
 
   return Promise.resolve(create());

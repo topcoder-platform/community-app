@@ -130,6 +130,7 @@ ReviewOpportunityDetailsContainer.propTypes = {
   selectTab: PT.func.isRequired,
   setRoles: PT.func.isRequired,
   submitApplications: PT.func.isRequired,
+  requiredTerms: PT.arrayOf(PT.shape()).isRequired,
   terms: PT.arrayOf(PT.shape()),
   toggleApplyModal: PT.func.isRequired,
   toggleRole: PT.func.isRequired,
@@ -158,6 +159,7 @@ const mapStateToProps = (state, ownProps) => {
     phasesExpanded: page.phasesExpanded,
     selectedRoles: page.selectedRoles,
     selectedTab: page.selectedTab,
+    requiredTerms: api.requiredTerms,
     terms: terms.terms,
     tokenV3: state.auth.tokenV3,
   };
