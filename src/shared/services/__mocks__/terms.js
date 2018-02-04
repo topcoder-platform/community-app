@@ -15,10 +15,11 @@ import { getApiV2 } from 'services/api';
 import termsAuth from './data/terms-auth.json';
 import termsDocuSignDetails from './data/terms-docu-sign-details.json';
 import termsNoAuth from './data/terms-noauth.json';
+import termsReviewer from './data/terms-reviewer.json';
 import termsReviewerDetails from './data/terms-reviewer-details.json';
 import termsTopcoderDetails from './data/terms-topcoder-details.json';
 
-let reviewTermsAgreed;
+let reviewTermsAgreed = false;
 
 class TermsService {
   /**
@@ -76,6 +77,18 @@ class TermsService {
   }
 
   /**
+   * Mock of getReviewOpportunityTerms(..) method.
+   */
+  /* eslint-disable class-methods-use-this */
+  getReviewOpportunityTerms() {
+    const res = _.clone(termsReviewer);
+    res.terms[0].agreed = reviewTermsAgreed;
+    res.terms[1].agreed = reviewTermsAgreed;
+    return Promise.resolve(res);
+  }
+  /* eslint-enable class-methods-use-this */
+
+  /**
    * Mock of getTermDetails(..) method.
    * In the case of Topcoder challenge terms there is "agreed" field in the
    * response. If the second argument is passed into this method, it will
@@ -93,6 +106,8 @@ class TermsService {
         res = _.clone(termsReviewerDetails);
         break;
       case 21153:
+        // eslint-disable-next-line
+        if (reviewTermsAgreed) agreed = reviewTermsAgreed;
         res = _.clone(termsDocuSignDetails);
         break;
       case 21193:

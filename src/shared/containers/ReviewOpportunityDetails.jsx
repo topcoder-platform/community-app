@@ -9,6 +9,7 @@ import PT from 'prop-types';
 import { connect } from 'react-redux';
 
 import apiActions from 'actions/reviewOpportunity';
+import { fireErrorMessage } from 'utils/errors';
 import LoadingIndicator from 'components/LoadingIndicator';
 import { activeRoleIds } from 'utils/reviewOpportunities';
 import pageActions from 'actions/page/review-opportunity-details';
@@ -36,6 +37,10 @@ class ReviewOpportunityDetailsContainer extends React.Component {
   }
 
   handleOnHeaderApply() {
+    if (this.props.termsFailure) {
+      fireErrorMessage('Error Getting Terms Details', '');
+      return;
+    }
     if (this.props.terms.find(term => !term.agreed)) {
       this.props.openTermsModal();
     } else {
@@ -108,6 +113,7 @@ ReviewOpportunityDetailsContainer.defaultProps = {
   isLoadingDetails: false,
   selectedRoles: [],
   terms: [],
+  termsFailure: false,
   phasesExpanded: false,
   tokenV3: null,
 };
@@ -132,6 +138,7 @@ ReviewOpportunityDetailsContainer.propTypes = {
   submitApplications: PT.func.isRequired,
   requiredTerms: PT.arrayOf(PT.shape()).isRequired,
   terms: PT.arrayOf(PT.shape()),
+  termsFailure: PT.bool,
   toggleApplyModal: PT.func.isRequired,
   toggleRole: PT.func.isRequired,
   onPhaseExpand: PT.func.isRequired,
@@ -157,10 +164,11 @@ const mapStateToProps = (state, ownProps) => {
     handle: state.auth.user ? state.auth.user.handle : '',
     isLoadingDetails: api.isLoadingDetails,
     phasesExpanded: page.phasesExpanded,
+    requiredTerms: api.requiredTerms,
     selectedRoles: page.selectedRoles,
     selectedTab: page.selectedTab,
-    requiredTerms: api.requiredTerms,
     terms: terms.terms,
+    termsFailure: terms.getTermsFailure,
     tokenV3: state.auth.tokenV3,
   };
 };

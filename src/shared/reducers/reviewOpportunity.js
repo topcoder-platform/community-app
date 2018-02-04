@@ -20,9 +20,10 @@ function buildRequiredTermsList(details) {
 
   const requiredTerms = _.uniqBy(
     details.challenge.terms
-      .filter(term => _.includes(roles, term.role))
+      // Sometimes roles such as Primary Reviewer have no directly equal
+      // terms entry.  Include the plain Reviewer terms when present as a back-up.
+      .filter(term => term.role === 'Reviewer' || _.includes(roles, term.role))
       .map(term => _.pick(term, ['termsOfUseId', 'agreed', 'title'])),
-      // .map(term => _.pick(term, ['termsOfUseId', 'title'])),
     term => term.termsOfUseId);
 
   return requiredTerms || [];

@@ -80,6 +80,7 @@ TermsPageContainer.defaultProps = {
   showTermsModal: false,
   description: '',
   defaultTitle: 'Terms & Conditions of Use',
+  reviewOpportunityTerms: [],
   termDetails: {},
   terms: [],
   termsForEntity: null,
@@ -89,6 +90,7 @@ TermsPageContainer.defaultProps = {
 const enitytType = PT.shape({
   type: PT.oneOf(['challenge', 'community', 'reviewOpportunity']).isRequired,
   id: PT.string.isRequired,
+  reviewOpportunityTerms: PT.arrayOf(PT.shape()),
 });
 
 TermsPageContainer.propTypes = {

@@ -2,6 +2,7 @@
  * Description:
  *   Top-level component for the Review Opportunity Details page
  */
+import _ from 'lodash';
 import React from 'react';
 import PT from 'prop-types';
 
@@ -27,12 +28,13 @@ const ReviewOpportunityDetailsPage = ({
   onHeaderApply,
   onModalApply,
   onPhaseExpand,
+  requiredTerms,
   selectedRoles,
+  setRoles,
   selectTab,
   selectedTab,
+  terms,
   toggleApplyModal,
-  setRoles,
-  requiredTerms,
   toggleRole,
 }) => (
   <div styleName="outer-container">
@@ -75,13 +77,13 @@ const ReviewOpportunityDetailsPage = ({
           selectedTab === TABS.CHALLENGE_SPEC ?
             <ChallengeSpecTab challenge={details.challenge} /> : null
         }
-        <Sidebar requiredTerms={requiredTerms} />
+        <Sidebar terms={_.isEmpty(terms) ? requiredTerms : terms} />
       </div>
 
     </div>
     <Terms
       defaultTitle="Topcoder Reviewer Terms & Conditions"
-      entity={{ type: 'reviewOpportunity', id: requiredTerms.filter(term => !term.agreed).map(term => term.termsOfUseId).join() }}
+      entity={{ type: 'reviewOpportunity', id: details.id.toString(), reviewOpportunityTerms: requiredTerms }}
       description="You are seeing these Terms & Conditions of Use because you have registered to a challenge and you have to respect the terms below in order to be able to submit."
       register={onHeaderApply}
     />
@@ -120,11 +122,12 @@ ReviewOpportunityDetailsPage.propTypes = {
   onPhaseExpand: PT.func.isRequired,
   toggleApplyModal: PT.func.isRequired,
   phasesExpanded: PT.bool.isRequired,
+  requiredTerms: PT.arrayOf(PT.shape()).isRequired,
   selectedRoles: PT.arrayOf(PT.number).isRequired,
   selectTab: PT.func.isRequired,
   selectedTab: PT.string,
   setRoles: PT.func.isRequired,
-  requiredTerms: PT.arrayOf(PT.shape()).isRequired,
+  terms: PT.arrayOf(PT.shape()).isRequired,
   toggleRole: PT.func.isRequired,
 };
 
