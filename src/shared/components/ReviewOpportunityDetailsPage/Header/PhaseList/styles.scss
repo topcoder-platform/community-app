@@ -14,7 +14,7 @@ $tip-radius-4: $corner-radius * 2;
 
   .type {
     display: inline-block;
-    width: 40%;
+    width: 44%;
 
     &::before {
       content: "\2022";
@@ -32,7 +32,7 @@ $tip-radius-4: $corner-radius * 2;
 
   .duration {
     display: inline-block;
-    width: 29%;
+    width: 25%;
   }
 }
 
