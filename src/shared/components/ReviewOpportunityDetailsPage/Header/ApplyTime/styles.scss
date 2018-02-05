@@ -1,0 +1,27 @@
+@import "~styles/mixins";
+
+.container {
+  @include roboto-regular;
+
+  align-items: center;
+  background: rgb(244, 249, 255);
+  color: $tc-light-blue;
+  display: flex;
+  flex-direction: column;
+  font-size: 12px;
+  height: 100%;
+  justify-content: center;
+  text-align: center;
+  width: 23%;
+
+  h2 {
+    color: $tc-gray-90;
+    font-weight: 700;
+    margin-top: 2 * $base-unit;
+    margin-bottom: 2 * $base-unit;
+  }
+
+  .button-wrapper {
+    width: 220px;
+  }
+}

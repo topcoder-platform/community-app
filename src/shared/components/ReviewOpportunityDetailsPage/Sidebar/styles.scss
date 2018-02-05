@@ -1,0 +1,27 @@
+@import "~styles/mixins";
+
+.container {
+  @include roboto-regular;
+
+  background: rgb(244, 249, 255);
+  border-radius: 0;
+  color: $tc-gray-80;
+  flex: 0 0 250px;
+  font-size: 13px;
+  line-height: 5 * $base-unit;
+  margin-top: 5 * $base-unit;
+  margin-bottom: 2 * $base-unit;
+  padding: 4 * $base-unit;
+
+  a {
+    color: $tc-dark-blue;
+
+    &:visited {
+      color: $tc-dark-blue;
+    }
+  }
+
+  p {
+    margin: $base-unit 0;
+  }
+}

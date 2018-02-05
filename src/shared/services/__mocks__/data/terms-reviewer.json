@@ -1,0 +1,36 @@
+{
+  "terms": [
+    {
+      "termsOfUseId": 21153,
+      "title": "Appirio NDA v2.0",
+      "url": "http://community.topcoder.com/tc?module=Terms&tuid=21153",
+      "agreeabilityType": "DocuSignable",
+      "agreed": false,
+      "templateId": "fake-template-id"
+    },
+    {
+      "termsOfUseId": 20704,
+      "title": "Standard Reviewer Terms v1.0",
+      "url": "",
+      "agreeabilityType": "Electronically-agreeable",
+      "agreed": false,
+      "templateId": null
+    }
+  ],
+  "serverInformation": {
+    "serverName": "Topcoder API",
+    "apiVersion": "0.0.1",
+    "requestDuration": 29,
+    "currentTime": 1504878884618
+  },
+  "requesterInformation": {
+    "id": "1b37607c519c318194ce6da08c519c0a3f7c9855-7FSFCyd6oSX2mV6Z",
+    "remoteIP": "12.34.567.890",
+    "receivedParams": {
+      "role": "Submitter",
+      "apiVersion": "v2",
+      "challengeId": "30059255",
+      "action": "getChallengeTerms"
+    }
+  }
+}

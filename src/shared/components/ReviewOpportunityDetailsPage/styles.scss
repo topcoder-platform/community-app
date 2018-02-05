@@ -1,0 +1,123 @@
+@import "~styles/mixins";
+
+@mixin tag {
+  border-radius: 2 * $corner-radius;
+  line-height: 20px;
+  margin-bottom: 2px;
+  margin-right: 5px;
+  min-height: 20px;
+  padding: 0 8px;
+}
+
+.challenge-title {
+  color: $tc-black;
+  font-size: 28px;
+  line-height: 40px;
+  letter-spacing: -0.78px;
+  font-weight: 500;
+  margin-bottom: 5px;
+
+  @include xs-to-md {
+    font-size: 20px;
+    line-height: 25px;
+    margin-right: 43px;
+    letter-spacing: 0;
+  }
+
+  @include lg-to-xl {
+    margin-right: 60px;
+  }
+
+  @include md {
+    margin-right: -4px;
+  }
+}
+
+.header {
+  padding: 4 * $base-unit;
+  padding-bottom: 0;
+}
+
+.outer-container {
+  background: $tc-gray-neutral-dark;
+  width: 100%;
+
+  @include xs-to-sm {
+    padding: 8px 10px 20px;
+  }
+
+  @include md {
+    padding: 30px 14px 30px 20px;
+  }
+
+  @include lg-to-xl {
+    padding: 30px 64px;
+  }
+}
+
+.page {
+  @include roboto-regular;
+
+  background: #f6f6f6;
+  border-radius: 3 * $corner-radius;
+  margin: auto;
+  max-width: 1240px;
+  text-align: left;
+  width: 100%;
+}
+
+.tabs {
+  display: flex;
+  font-size: 13px;
+  justify-content: center;
+  line-height: 30px;
+
+  .tab {
+    color: $tc-gray-60;
+    cursor: pointer;
+    margin: 0 4 * $base-unit;
+
+    a:focus {
+      outline: none;
+    }
+  }
+
+  .selected-tab {
+    color: $tc-dark-blue;
+    border-color: $tc-dark-blue;
+    border-bottom-style: solid;
+    border-bottom-width: 3px;
+    font-weight: 700;
+  }
+}
+
+.tab-container {
+  background: $tc-white;
+  display: flex;
+  padding-top: 4 * $base-unit;
+  width: 100%;
+}
+
+.tags {
+  display: flex;
+  font-size: 10px;
+  margin-top: 2 * $base-unit;
+  margin-bottom: 4 * $base-unit;
+  text-align: center;
+
+  .review-opportunity-tag {
+    @include tag;
+
+    background: $tc-green;
+    color: $tc-white;
+    font-weight: 400;
+  }
+
+  .subtrack-tag {
+    @include tag;
+
+    background: $tc-green-10;
+    color: $tc-green;
+    font-weight: 700;
+  }
+}

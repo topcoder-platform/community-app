@@ -79,12 +79,25 @@ exports[`Matches shallow shapshot 1`] = `
     onClick={[Function]}
   />
   <hr />
-  <a
-    className="src-shared-components-challenge-listing-Sidebar-BucketSelector-___style__openForReview___11K8O"
-    href="https://www.topcoder-dev.com/review/development-review-opportunities/"
-  >
-    Open for review
-  </a>
+  <Bucket
+    active={false}
+    bucket={
+      Object {
+        "filter": Object {},
+        "name": "name",
+      }
+    }
+    challenges={
+      Array [
+        Object {
+          "id": "1",
+          "registrationOpen": "open",
+        },
+      ]
+    }
+    disabled={false}
+    onClick={[Function]}
+  />
   <Bucket
     active={false}
     bucket={
@@ -178,12 +191,25 @@ exports[`Matches shallow shapshot 2`] = `
     onClick={[Function]}
   />
   <hr />
-  <a
-    className="src-shared-components-challenge-listing-Sidebar-BucketSelector-___style__openForReview___11K8O"
-    href="https://www.topcoder-dev.com/review/development-review-opportunities/"
-  >
-    Open for review
-  </a>
+  <Bucket
+    active={false}
+    bucket={
+      Object {
+        "filter": Object {},
+        "name": "name",
+      }
+    }
+    challenges={
+      Array [
+        Object {
+          "id": "1",
+          "registrationOpen": "open",
+        },
+      ]
+    }
+    disabled={true}
+    onClick={[Function]}
+  />
   <Bucket
     active={false}
     bucket={
