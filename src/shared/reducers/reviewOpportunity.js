@@ -82,7 +82,7 @@ function create(initialState) {
  * @return Promise which resolves to the new reducer.
  */
 export function factory(req) {
-  if (req && req.url.match(/\/review-opportunities\/\d{8}\/*$/)) {
+  if (req && req.url.match(/^\/challenges\/\d{8}\/review-opportunities/)) {
     const tokens = getAuthTokens(req);
     const challengeId = req.url.match(/\d+/)[0];
     const a = actions.reviewOpportunity;
