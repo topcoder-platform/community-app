@@ -117,7 +117,7 @@ function ReviewOpportunityCard({
           </Tooltip>
         </div>
         <Link
-          to={`/review-opportunities/${challenge.id}`}
+          to={`/challenges/${challenge.id}/review-opportunities`}
           styleName="register-button"
         >
           <span>
