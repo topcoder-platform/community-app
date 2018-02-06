@@ -504,7 +504,7 @@ class ChallengesService {
    */
   async register(challengeId) {
     const endpoint = `/challenges/${challengeId}/register`;
-    const res = await this.private.apiV2.postJson(endpoint);
+    const res = await this.private.api.postJson(endpoint);
     if (!res.ok) throw new Error(res.statusText);
     return res.json();
   }
@@ -516,7 +516,7 @@ class ChallengesService {
    */
   async unregister(challengeId) {
     const endpoint = `/challenges/${challengeId}/unregister`;
-    const res = await this.private.apiV2.post(endpoint);
+    const res = await this.private.api.post(endpoint);
     if (!res.ok) throw new Error(res.statusText);
     return res.json();
   }
