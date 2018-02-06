@@ -247,8 +247,8 @@ export function getReviewOpportunitiesFilterFunction(state) {
       // This allows filterByText to search for Review Types and Challenge Titles
       name: `${opp.challenge.title} ${REVIEW_OPPORTUNITY_TYPES[opp.type]}`,
       registrationStartDate: opp.startDate, // startDate of Review, not Challenge
+      subTrack: opp.challenge.subTrack || '', // Sometimes back-end doesn't return this field
       submissionEndDate: opp.startDate, // Currently uses startDate for both date comparisons
-      platforms: '', // Platforms are already concatenated to Technologies list by back-end
       communities: new Set([ // Used to filter by Track, and communities at a future date
         opp.challenge.track.toLowerCase(),
       ]),

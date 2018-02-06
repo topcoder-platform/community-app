@@ -7,7 +7,7 @@ import React from 'react';
 import Sort from 'utils/challenge-listing/sort';
 import SortingSelectBar from 'components/SortingSelectBar';
 import Waypoint from 'react-waypoint';
-// import { getReviewOpportunitiesFilterFunction } from 'utils/challenge-listing/filter';
+import { getReviewOpportunitiesFilterFunction } from 'utils/challenge-listing/filter';
 import CardPlaceholder from '../../placeholders/ChallengeCard';
 import ReviewOpportunityCard from '../../ReviewOpportunityCard';
 
@@ -21,7 +21,7 @@ export default function ReviewOpportunityBucket({
   challengesUrl,
   expandedTags,
   expandTag,
-  /* filterState, */
+  filterState,
   keepPlaceholders,
   loading,
   loadMore,
@@ -41,13 +41,12 @@ export default function ReviewOpportunityBucket({
    * which means it can be done at render, rather than in the reducer,
    * which avoids reloading the review opportunities from server every time
    * a filter is changed.  */
-  // const filteredOpportunities = sortedOpportunities.filter(getReviewOpportunitiesFilterFunction({
-  //   ...bucket.filter, // Default bucket filters from utils/buckets.js
-  //   ...filterState, // User selected filters
-  // }));
+  const filteredOpportunities = sortedOpportunities.filter(getReviewOpportunitiesFilterFunction({
+    ...bucket.filter, // Default bucket filters from utils/buckets.js
+    ...filterState, // User selected filters
+  }));
 
-  const cards = sortedOpportunities.map(item => (
-  // const cards = filteredOpportunities.map(item => (
+  const cards = filteredOpportunities.map(item => (
     <ReviewOpportunityCard
       challengesUrl={challengesUrl}
       expandedTags={expandedTags}
@@ -83,15 +82,13 @@ export default function ReviewOpportunityBucket({
       />
       {cards}
       {
-        // Show filteredOpportunities once filters are functional
-        !loading && sortedOpportunities.length === 0 && (
-        // !loading && filteredOpportunities.length === 0 && (
+        !loading && filteredOpportunities.length === 0 && (
           <div styleName="no-results">{NO_RESULTS_MESSAGE}</div>
         )
       }
-      {/* TODO: enable lazy loading */
+      {
         loadMore && !loading ? (
-          <Waypoint onEnter={sortedOpportunities.length === 0 ? loadMore : _.noop} />
+          <Waypoint onEnter={loadMore} />
         ) : null
       }
       {placeholders}
@@ -115,7 +112,7 @@ ReviewOpportunityBucket.propTypes = {
   challengesUrl: PT.string.isRequired,
   expandedTags: PT.arrayOf(PT.number),
   expandTag: PT.func,
-  // filterState: PT.shape().isRequired,
+  filterState: PT.shape().isRequired,
   opportunities: PT.arrayOf(PT.shape()).isRequired,
   keepPlaceholders: PT.bool,
   loading: PT.bool,

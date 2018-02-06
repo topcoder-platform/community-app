@@ -1,0 +1,106 @@
+@import "~styles/mixins";
+$tip-min-width: '100% - 80px';
+$tip-offset: 80px;
+$tip-space-10: $base-unit * 2;
+$tip-space-15: $base-unit * 3;
+$tip-space-35: $base-unit * 7;
+$tip-space-95: $base-unit * 19;
+$tip-radius-15: $corner-radius * 7 + 1;
+$tip-radius-4: $corner-radius * 2;
+
+@mixin phase($bullet-color) {
+  display: block;
+  width: 100%;
+
+  .type {
+    display: inline-block;
+    width: 44%;
+
+    &::before {
+      content: "\2022";
+      color: $bullet-color;
+      font-size: 26px;
+      margin-right: 2 * $base-unit;
+      vertical-align: middle;
+    }
+  }
+
+  .date {
+    display: inline-block;
+    width: 30%;
+  }
+
+  .duration {
+    display: inline-block;
+    width: 25%;
+  }
+}
+
+.active-phase {
+  @include phase($tc-green);
+
+  color: $tc-gray-90;
+  background: rgb(244, 249, 255);
+  font-weight: 700;
+}
+
+.button {
+  border-radius: $corner-radius * 12;
+  font-size: 13px;
+  font-weight: 400;
+  height: 25px;
+  padding: 0 10px;
+  max-width: 140px;
+
+  svg {
+    height: auto;
+    margin-left: $base-unit;
+    vertical-align: middle;
+    width: 10px;
+
+    path {
+      fill: $tc-gray-70;
+    }
+  }
+}
+
+.container {
+  @include roboto-regular;
+
+  align-items: center;
+  background: $tc-white;
+  border-left: 1px solid $tc-gray-20;
+  display: flex;
+  color: $tc-gray-90;
+  font-size: 13px;
+  flex-direction: column;
+  height: 100%;
+  justify-content: space-between;
+  padding-bottom: 2 * $base-unit;
+  padding-top: 2 * $base-unit;
+  text-align: left;
+  width: 35%;
+}
+
+.expanded {
+  border-left: 0;
+  border-radius: $corner-radius * 4;
+  box-shadow: 0 0 16px $tc-gray-20;
+  position: relative;
+}
+
+.inactive-phase {
+  @include phase($tc-gray-50);
+
+  color: $tc-gray-50;
+  font-weight: 350;
+
+  strong {
+    font-weight: 500;
+  }
+}
+
+.phases {
+  padding-left: 4 * $base-unit;
+  width: 100%;
+}

@@ -41,12 +41,19 @@ const SEO_PAGE_TITLE = 'Topcoder Challenges';
 export class ListingContainer extends React.Component {
   componentDidMount() {
     const {
+      activeBucket,
       auth,
       communitiesList,
       getCommunitiesList,
+      selectBucket,
+      queryBucket,
     } = this.props;
 
     this.props.markHeaderMenu();
+
+    if (queryBucket !== activeBucket && _.includes(BUCKETS, queryBucket)) {
+      selectBucket(queryBucket);
+    }
 
     if (!communitiesList.loadingUuid
     && (Date.now() - communitiesList.timestamp > 10 * MIN)) {
@@ -282,6 +289,7 @@ ListingContainer.defaultProps = {
   newChallengeDetails: false,
   openChallengesInNewTabs: false,
   prizeMode: 'money-usd',
+  queryBucket: BUCKETS.ALL,
 };
 
 ListingContainer.propTypes = {
@@ -345,6 +353,7 @@ ListingContainer.propTypes = {
   groupIds: PT.arrayOf(PT.string),
   expandedTags: PT.arrayOf(PT.number).isRequired,
   expandTag: PT.func.isRequired,
+  queryBucket: PT.string,
 };
 
 const mapStateToProps = (state, ownProps) => {

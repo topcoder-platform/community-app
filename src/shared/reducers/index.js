@@ -28,6 +28,7 @@ import { factory as errorsFactory } from './errors';
 import { factory as examplesFactory } from './examples';
 import { factory as groupsFactory } from './groups';
 import { factory as pageFactory } from './page';
+import { factory as reviewOpportunityFactory } from './reviewOpportunity';
 import { factory as statsFactory } from './stats';
 import { factory as tcCommunitiesFactory } from './tc-communities';
 import { factory as leaderboardFactory } from './leaderboard';
@@ -47,6 +48,7 @@ export function factory(req) {
     leaderboard: leaderboardFactory(req),
     dashboard: dashboardFactory(req),
     terms: termsFactory(req),
+    reviewOpportunity: reviewOpportunityFactory(req),
     scoreboard: scoreboardFactory(req),
     page: pageFactory(req),
     errors: errorsFactory(req),

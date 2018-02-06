@@ -1,0 +1,164 @@
+@import "~styles/mixins";
+
+.col-1 {
+  padding-left: 30px;
+  width: 33%;
+
+  .role {
+    color: $tc-gray-90;
+    font-weight: 700;
+  }
+}
+
+.col-2 {
+  width: 33%;
+}
+
+.col-3 {
+  color: $tc-gray-40;
+  width: 33%;
+}
+
+.col-4 {
+  display: flex;
+  align-items: center;
+  width: 50px;
+}
+
+.body {
+  border: $tc-gray-10 1px solid;
+}
+
+.buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+}
+
+.container {
+  @include roboto-regular;
+
+  color: $tc-gray-50;
+  background: $tc-white;
+  border-radius: 3 * $corner-radius 3 * $corner-radius;
+  padding: 6 * $base-unit;
+  top: 35%;
+  width: 70%;
+
+  @media (max-height: 768px) {
+    top: 50%;
+  }
+
+  h1 {
+    color: $tc-gray-80;
+    text-align: center;
+    font-size: 28px;
+    font-weight: 400;
+  }
+
+  p {
+    font-size: 13px;
+    font-weight: 350;
+    line-height: 30px;
+    margin: 6 * $base-unit;
+  }
+}
+
+.head {
+  background: $tc-gray-neutral-light;
+  border: $tc-gray-10 1px solid;
+  color: $tc-gray-40;
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 15px;
+  padding: 4 * $base-unit 0;
+  display: flex;
+}
+
+.row {
+  display: flex;
+  line-height: 50px;
+  color: $tc-gray-70;
+  font-size: 15px;
+  border-bottom: 1px solid $tc-gray-10;
+}
+
+$checkbox-size: $base-unit * 4;
+$checkbox-bg-empty: $tc-gray-neutral-light;
+$checkbox-bg-selected: $tc-dark-blue-90;
+
+.tc-checkbox-label {
+  display: inline-block;
+
+  @include tc-label-lg;
+
+  line-height: $checkbox-size;
+  vertical-align: middle;
+  margin-left: $base-unit * 2;
+  user-select: none;
+  cursor: pointer;
+}
+
+.tc-checkbox {
+  height: $checkbox-size;
+  width: $checkbox-size;
+  margin: 0;
+  padding: 0;
+  vertical-align: bottom;
+  position: relative;
+  display: inline-block;
+
+  input[type=checkbox] {
+    display: none;
+  }
+
+  label {
+    cursor: pointer;
+    position: absolute;
+    display: inline-block;
+    width: $checkbox-size;
+    height: $checkbox-size;
+    top: 0;
+    left: 0;
+    border-radius: $corner-radius;
+    box-shadow: none;
+    border: 1px solid $tc-gray-50;
+    background: $tc-gray-neutral-light;
+
+    &::after {
+      opacity: 0;
+      content: '';
+      position: absolute;
+      width: 13px;
+      height: 7px;
+      background: transparent;
+      top: 4px;
+      left: 3px;
+      border: 3px solid $tc-dark-blue-90;
+      border-top: none;
+      border-right: none;
+      transform: rotate(-45deg);
+    }
+
+    &:hover::after {
+      opacity: 0.3;
+    }
+  }
+
+  input[type=checkbox]:checked ~ label {
+    background: $checkbox-bg-selected;
+    border-color: $checkbox-bg-selected;
+  }
+
+  input[type=checkbox]:checked + label::after {
+    opacity: 1;
+    border-color: $tc-white;
+  }
+}
+
+.title {
+  color: $tc-gray-50;
+  font-size: 13px;
+  line-height: 15px;
+  font-weight: 500;
+}

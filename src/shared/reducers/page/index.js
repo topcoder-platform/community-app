@@ -15,6 +15,7 @@ import submission, {
 
 import challengeDetails from './challenge-details';
 import communities from './communities';
+import reviewOpportunityDetails from './review-opportunity-details';
 import sandbox from './sandbox';
 
 /**
@@ -29,6 +30,7 @@ export function factory(req) {
     ...reducers,
     challengeDetails,
     communities,
+    reviewOpportunityDetails,
     sandbox,
   }));
 }
@@ -36,6 +38,7 @@ export function factory(req) {
 export default combineReducers({
   challengeDetails,
   communities,
+  reviewOpportunityDetails,
   submission,
   sandbox,
 });

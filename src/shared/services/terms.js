@@ -89,6 +89,29 @@ class TermsService {
   }
 
   /**
+   * Get the terms for Review Opportunities.  This will ensure that the
+   * provided terms have all the necessary fields by getting anything missing
+   * from the terms details endpoint
+   *
+   * @param {Object} requiredTerms Required terms for review opportunity
+   *
+   * @return {Promise} resolves to the list of validated terms
+   */
+  getReviewOpportunityTerms(requiredTerms) {
+    const promises = requiredTerms.map((term) => {
+      // Agreed field is present, all the necessary information is present for this term, but will
+      // need to verify if agreed is false as user may have agreed to terms after data was loaded
+      if (term.agreed) {
+        return Promise.resolve(term);
+      }
+      // Otherwise grab new details from terms api
+      return this.getTermDetails(term.termsOfUseId).then(res => _.pick(res, ['termsOfUseId', 'agreed', 'title']));
+    });
+
+    return Promise.all(promises).then(terms => ({ terms }));
+  }
+
+  /**
    * get details of specified term
    * @param  {Number|String} termId id of the term
    * @return {Promise}       promise of the request result

@@ -1,0 +1,114 @@
+@import "~styles/mixins";
+
+.container {
+  @include roboto-regular;
+
+  background: $tc-white;
+  border-radius: 0 0 3 * $corner-radius 3 * $corner-radius;
+  flex: 1 1 966px;
+  margin-bottom: 2 * $base-unit;
+  padding: 8 * $base-unit 16 * $base-unit;
+
+  h3 {
+    font-weight: 500;
+  }
+}
+
+.head {
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 15px;
+  padding-top: 8 * $base-unit;
+  padding-bottom: 14px;
+  color: $tc-gray-50;
+  display: flex;
+  border-bottom: 1px solid $tc-gray-10;
+
+  @include xs-to-sm {
+    display: none;
+  }
+}
+
+.body {
+  @include xs-to-sm {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+.row {
+  display: flex;
+  line-height: 50px;
+  color: $tc-gray-70;
+  font-size: 15px;
+  border-bottom: 1px solid $tc-gray-10;
+
+  @include xs-to-sm {
+    flex-direction: column;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    width: 100%;
+  }
+}
+
+.sm-only {
+  display: none;
+
+  @include xs-to-sm {
+    display: block;
+  }
+}
+
+.title {
+  color: $tc-gray-50;
+  font-size: 13px;
+  line-height: 15px;
+  font-weight: 500;
+}
+
+.col-1 {
+  padding-left: 30px;
+  width: 33%;
+
+  @include xs-to-sm {
+    padding-left: 0;
+    font-size: 15px;
+    line-height: 25px;
+    margin-bottom: 10px;
+    width: auto;
+  }
+
+  a,
+  a:hover,
+  a:visited {
+    color: $tc-dark-blue;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+.col-2 {
+  width: 33%;
+
+  @include xs-to-sm {
+    margin-bottom: 15px;
+    line-height: 20px;
+    width: auto;
+  }
+}
+
+.col-3 {
+  display: flex;
+  align-items: center;
+  width: 33%;
+
+  @include xs-to-sm {
+    line-height: 20px;
+    flex-direction: column;
+    align-items: flex-start;
+    width: auto;
+  }
+}
