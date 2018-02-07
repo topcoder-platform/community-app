@@ -9,6 +9,7 @@ $tip-radius-15: $corner-radius * 7 + 1;
 $tip-radius-4: $corner-radius * 2;
 
 @mixin phase($bullet-color) {
+  padding-left: 4 * $base-unit;
   display: block;
   width: 100%;
 
@@ -48,7 +49,8 @@ $tip-radius-4: $corner-radius * 2;
   border-radius: $corner-radius * 12;
   font-size: 13px;
   font-weight: 400;
-  height: 25px;
+  height: 30px;
+  min-height: 30px;
   padding: 0 10px;
   max-width: 140px;
 
@@ -101,6 +103,5 @@ $tip-radius-4: $corner-radius * 2;
 }
 
 .phases {
-  padding-left: 4 * $base-unit;
   width: 100%;
 }

@@ -26,7 +26,7 @@
   width: 150px;
 
   h2 {
-    border-bottom: solid 3px $tc-light-blue;
+    border-bottom: solid 3px $tc-green;
     color: $tc-gray-90;
     display: inline-block;
     margin-top: $base-unit;
@@ -46,7 +46,7 @@
   text-transform: uppercase;
 
   .accent {
-    color: $tc-light-blue;
+    color: $tc-green;
     font-weight: 500;
   }
 }
