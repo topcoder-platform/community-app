@@ -4,6 +4,8 @@
  */
 /* global location */
 
+import Announcement from 'components/Announcement';
+
 import React from 'react';
 import PT from 'prop-types';
 import { connect } from 'react-redux';
@@ -24,11 +26,35 @@ import SRM from 'components/Dashboard/SRM';
 import Program from 'components/Dashboard/Program';
 import CommunityUpdates from 'components/Dashboard/CommunityUpdates';
 import LoadingIndicator from 'components/LoadingIndicator';
+import { cdnService } from 'services/contentful-cms';
+
 import './styles.scss';
 
 // The container component
 export class DashboardPageContainer extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {};
+  }
+
   componentDidMount() {
+    /**
+     * POC for loading announcement into the dashboard.
+     */
+    const now = moment().toISOString();
+    cdnService.getContentEntries({
+      content_type: 'dashboardAnnouncement',
+      'fields.startDate[lt]': now,
+      'fields.endDate[gt]': now,
+      limit: 1,
+      order: '-fields.startDate',
+    }).then((res) => {
+      if (!res.items.length) return;
+      this.setState({
+        announcementId: res.items[0].sys.id,
+      });
+    });
+
     /* TODO: They way communities list is loaded should be re-worked:
      * now there are timestamps of the last loading, thus it can be optimized
      *  */
@@ -145,11 +171,18 @@ export class DashboardPageContainer extends React.Component {
       loadingActiveChallenges = outage > 1.5 * 1000 * config.CHALLENGE_LISTING_AUTO_REFRESH;
     }
 
+    const st = this.state;
+
     return (
       <div styleName="dashboard-container">
         <div styleName="page-container">
           <Header title={'Dashboard'} profile={profile} financials={financials} achievements={achievements} myChallenges={myChallenges.length} />
           <div styleName="my-dashboard-container">
+            {
+              st.announcementId ? (
+                <Announcement id={st.announcementId} />
+              ) : null
+            }
             <div styleName="subtrack-stats">
               {
                 loadingSubtrackRanks &&

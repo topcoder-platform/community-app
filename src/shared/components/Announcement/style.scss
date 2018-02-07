@@ -1,0 +1,37 @@
+@import "~styles/mixins";
+
+.container {
+  background: $tc-gray-neutral-light;
+  background-size: cover;
+  height: 240px;
+  max-width: $screen-lg;
+  padding: 60px;
+  position: relative;
+  width: 100%;
+}
+
+.readMore {
+  margin: 20px 0 0 !important;
+}
+
+.text {
+  @include tc-body-md;
+}
+
+.title {
+  @include tc-title;
+
+  margin-bottom: 10px;
+}
+
+.type {
+  @include tc-label-md;
+
+  background: $tc-red;
+  border-radius: 4px;
+  color: $tc-white;
+  left: 10px;
+  padding: 5px 10px;
+  position: absolute;
+  top: 10px;
+}

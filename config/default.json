@@ -25,6 +25,12 @@
    * challenges once per this amount of seconds. */
   "CHALLENGE_LISTING_AUTO_REFRESH": 300,
 
+  "CONTENTFUL_CMS": {
+    "CDN_API_KEY": "10d59bc940efc8694b92b45224c1e854e1787003897b2abe464ac9c4a586ef28",
+    "PREVIEW_API_KEY": "1fe4f37a03c45cec543700c3ac89e37b1ee4b456b29908f915151e3cfec66bc0",
+    "SPACE": "c8hfly5g6x4z"
+  },
+
   /* API token for logentries.com. The token below is just for local testing of
    * the setup. To override it use LOG_ENTRIES_TOKEN environment variable. */
   "LOG_ENTRIES_TOKEN": "816f5574-0d4a-49f9-ab3b-00d791f7c1f7",

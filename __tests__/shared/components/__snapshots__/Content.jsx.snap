@@ -397,11 +397,20 @@ exports[`Matches shallow shapshot 1`] = `
     <li>
       <Link
         replace={false}
+        to="/examples/announcement/2qgNqwoKZacuMaMCMUqyCq"
+      >
+        Announcement
+      </Link>
+       — This is a part of simple PoC for CMS integration (Countentful CMS is the currently tested option);
+    </li>
+    <li>
+      <Link
+        replace={false}
         to="/examples/buttons/"
       >
         Buttons
       </Link>
-       - Demo/test of standard buttons already available in the code, and customizable with help of 
+       — Demo/test of standard buttons already available in the code, and customizable with help of 
       <code>
         react-css-themr
       </code>

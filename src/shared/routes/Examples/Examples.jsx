@@ -3,6 +3,7 @@
  * available in this App code.
  */
 
+import Announcement from 'components/examples/Announcement';
 import Buttons from 'components/examples/Buttons';
 import ColorMixins from 'components/examples/ColorMixins';
 import Content from 'components/Content';
@@ -34,6 +35,7 @@ export default function Examples(props) {
   const base = props.match.url;
   return (
     <Switch>
+      <Route path={`${base}/announcement/:id`} component={Announcement} />
       <Route path={`${base}/buttons`} component={Buttons} />
       <SplitRoute
         cacheCss
