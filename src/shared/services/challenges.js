@@ -406,6 +406,9 @@ class ChallengesService {
     const challenge = normalizeChallengeDetails(
       challengeV3, challengeV3Filtered, challengeV3User, challengeV2, username);
 
+    challenge.fetchedWithAuth =
+      Boolean(this.private.api.private.token && this.private.apiV2.private.token);
+
     return challenge;
   }
 
