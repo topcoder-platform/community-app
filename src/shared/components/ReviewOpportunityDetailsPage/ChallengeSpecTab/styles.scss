@@ -4,8 +4,8 @@ $tc-link-visited: #0c4e98;
 @mixin noteStyle {
   @include roboto-regular;
 
-  background: $tc-gold-30;
-  border: 1px solid $tc-gold-70;
+  background: $tc-yellow-30;
+  border: 1px solid $tc-yellow-70;
   border-radius: 6px;
   font-style: italic;
   font-size: 13px;

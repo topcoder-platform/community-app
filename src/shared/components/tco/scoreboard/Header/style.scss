@@ -24,7 +24,7 @@
 
 @mixin design-accent-bg {
   .design-accent-background {
-    background-color: $tc-dark-blue-90;
+    background-color: $tc-dark-blue;
   }
 }
 
@@ -42,7 +42,7 @@
 
 @mixin design-accent-clr {
   .design-accent-color {
-    color: $tc-dark-blue-90;
+    color: $tc-dark-blue;
   }
 }
 
@@ -60,7 +60,7 @@
 
 @mixin design-accent-btm-border {
   .design-accent-bottom-border {
-    border-bottom: 3px solid $tc-dark-blue-90;
+    border-bottom: 3px solid $tc-dark-blue;
   }
 }
 

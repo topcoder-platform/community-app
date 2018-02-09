@@ -27,7 +27,7 @@
   }
 
   &.current {
-    background: fade-out($tc-dark-blue-90, 0.66);
+    background: fade-out($tc-dark-blue, 0.66);
 
     a {
       color: $tc-white;
@@ -42,7 +42,7 @@
   }
 
   &:hover {
-    background: $tc-dark-blue-90;
+    background: $tc-dark-blue;
 
     a {
       color: $tc-white;

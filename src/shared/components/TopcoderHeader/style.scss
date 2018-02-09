@@ -45,11 +45,11 @@
   text-transform: uppercase;
 
   &.current {
-    box-shadow: inset 0 -4px 0 -1px $tc-dark-blue-90;
+    box-shadow: inset 0 -4px 0 -1px $tc-dark-blue;
   }
 
   &.opened {
-    color: $tc-dark-blue-90;
+    color: $tc-dark-blue;
 
     /* TODO: This code for downward blue arrow is used also
      * in another place of this stylesheet. Should be implemented
@@ -61,7 +61,7 @@
       height: 0;
       border-style: solid;
       border-width: 6px 5px 0;
-      border-color: $tc-dark-blue-90 transparent transparent transparent;
+      border-color: $tc-dark-blue transparent transparent transparent;
       position: absolute;
       bottom: 5px;
       left: 50%;
@@ -135,7 +135,7 @@
     * as a mixin! */
   &:global.opened {
     path {
-      fill: $tc-dark-blue-90;
+      fill: $tc-dark-blue;
     }
 
     &::after {
@@ -145,7 +145,7 @@
       height: 0;
       border-style: solid;
       border-width: 6px 5px 0;
-      border-color: $tc-dark-blue-90 transparent transparent transparent;
+      border-color: $tc-dark-blue transparent transparent transparent;
       position: absolute;
       left: 60%;
       bottom: -3px;
@@ -163,7 +163,7 @@
 }
 
 .user-menu-handle {
-  border-bottom: 2px solid $tc-dark-blue-90;
+  border-bottom: 2px solid $tc-dark-blue;
   display: inline-block;
   font-size: 15px;
   height: 54px;

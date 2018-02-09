@@ -84,9 +84,9 @@
   // Button Types
 
   .tc-btn-primary {
-    background-color: $tc-dark-blue-90;
+    background-color: $tc-dark-blue;
 
-    @include background-gradient($tc-dark-blue-90, $tc-dark-blue-90);
+    @include background-gradient($tc-dark-blue, $tc-dark-blue);
 
     color: $tc-gray-neutral-light;
     border: 1px solid $tc-dark-blue;
@@ -96,13 +96,13 @@
     &:hover {
       color: $tc-gray-neutral-light;
 
-      @include background-gradient($tc-dark-blue-90, $tc-dark-blue);
+      @include background-gradient($tc-dark-blue, $tc-dark-blue);
     }
 
     &:active {
       color: $tc-gray-neutral-light;
 
-      @include background-gradient($tc-dark-blue, $tc-dark-blue-90);
+      @include background-gradient($tc-dark-blue, $tc-dark-blue);
     }
   }
 

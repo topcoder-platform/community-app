@@ -42,16 +42,16 @@
 }
 
 .focused {
-  border: 1px solid $tc-dark-blue-90;
+  border: 1px solid $tc-dark-blue;
 
-  &:hover { border: 1px solid $tc-dark-blue-90; }
+  &:hover { border: 1px solid $tc-dark-blue; }
 }
 
 .note {
   @include tc-body-sm;
 
-  background: $tc-gold-30;
-  border: 1px solid $tc-gold-70;
+  background: $tc-yellow-30;
+  border: 1px solid $tc-yellow-70;
   border-radius: 6px;
   font-style: italic;
   color: $tc-black;

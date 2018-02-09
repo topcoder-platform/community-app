@@ -134,6 +134,8 @@
 }
 
 .placement {
+  background-color: $tc-gray-20;
+  color: $tc-gray-60;
   display: inline-block;
   width: 22px;
   height: 22px;
@@ -141,22 +143,21 @@
   line-height: 22px;
   text-align: center;
   margin-left: 6px;
-  background-color: $tc-gray-20;
 }
 
 .placement-1 {
   background-color: $tc-gold;
-  color: $tc-black;
+  color: $tc-gold-130;
 }
 
 .placement-2 {
   background-color: $tc-silver;
-  color: $tc-white;
+  color: $tc-silver-130;
 }
 
 .placement-3 {
   background-color: $tc-bronze;
-  color: $tc-white;
+  color: $tc-bronze-130;
 }
 
 .design {

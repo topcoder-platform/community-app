@@ -16,7 +16,7 @@ input[type=checkbox] {
 // 
 $checkbox-size: $base-unit * 4;
 $checkbox-bg-empty: $tc-gray-neutral-light;
-$checkbox-bg-selected: $tc-dark-blue-90;
+$checkbox-bg-selected: $tc-dark-blue;
 
 .tc-checkbox-label {
   display: inline-block;
@@ -66,7 +66,7 @@ $checkbox-bg-selected: $tc-dark-blue-90;
       background: transparent;
       top: 4px;
       left: 3px;
-      border: 3px solid $tc-dark-blue-90;
+      border: 3px solid $tc-dark-blue;
       border-top: none;
       border-right: none;
       transform: rotate(-45deg);
@@ -86,7 +86,7 @@ $slider-width: $slider-height * 2 - ($slider-handle-offset * 2);
 $slider-handle-size: $slider-height - (2 * $slider-handle-offset);
 $slider-speed: 150ms;
 $slider-off-bg: $tc-gray-40;
-$slider-on-bg: $tc-dark-blue-90;
+$slider-on-bg: $tc-dark-blue;
 $slider-handle-color: $tc-white;
 
 .tc-slider-label {
@@ -183,7 +183,7 @@ $slider-handle-color: $tc-white;
   }
 
   input[type="radio"]:checked + label::after {
-    background: $tc-dark-blue-90;
+    background: $tc-dark-blue;
     border-radius: 50%;
     content: "";
     display: inline-block;
