@@ -18,6 +18,9 @@ export default class User {
 
   /**
    * Gets user data object for the specified username.
+   *
+   * NOTE: Only admins are authorized to use the underlying endpoint.
+   *
    * @param {String} username
    * @return {Promise} Resolves to the user data object.
    */
