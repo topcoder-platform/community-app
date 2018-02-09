@@ -19,6 +19,7 @@ import { getService as getChallengeService } from 'services/challenges';
 import { getService as getUserService } from 'services/user';
 import { goToLogin } from 'utils/tc';
 import { AUTOCOMPLETE_TRIGGER_LENGTH } from 'components/MemberSearchInput';
+import { fireErrorMessage } from 'utils/errors';
 
 import './style.scss';
 
@@ -154,35 +155,42 @@ class EditorContainer extends React.Component {
    * Handles the payment.
    */
   async pay() {
-    const {
-      paymentAmount,
-      paymentAssignee,
-      paymentDescription,
-      paymentTitle,
-      setPageState,
-      selectedBillingAccountId,
-      selectedProjectId,
-      tokenV3,
-    } = this.props;
-    setPageState(PAGE_STATE.WAITING_PAYMENT_DRAFT);
-    const challengeService = getChallengeService(tokenV3);
-    const challenge = await challengeService.createTask(
-      selectedProjectId,
-      selectedBillingAccountId,
-      paymentTitle,
-      paymentDescription,
-      paymentAssignee,
-      paymentAmount,
-    );
-    setPageState(PAGE_STATE.WAITING_PAYMENT_ACTIVATION);
-    await challengeService.activate(challenge.id);
-    const userService = getUserService(tokenV3);
-    setPageState(PAGE_STATE.WAITING_PAYMENT_CLOSURE);
-    const user = await userService.getUser(paymentAssignee);
-    if (user) {
-      await challengeService.close(challenge.id, user.id);
+    try {
+      const {
+        paymentAmount,
+        paymentAssignee,
+        paymentDescription,
+        paymentTitle,
+        setPageState,
+        selectedBillingAccountId,
+        selectedProjectId,
+        tokenV3,
+      } = this.props;
+      setPageState(PAGE_STATE.WAITING_PAYMENT_DRAFT);
+      const challengeService = getChallengeService(tokenV3);
+      const challenge = await challengeService.createTask(
+        selectedProjectId,
+        selectedBillingAccountId,
+        paymentTitle,
+        paymentDescription,
+        paymentAssignee,
+        paymentAmount,
+      );
+      setPageState(PAGE_STATE.WAITING_PAYMENT_ACTIVATION);
+      await challengeService.activate(challenge.id);
+      const userService = getUserService(tokenV3);
+      setPageState(PAGE_STATE.WAITING_PAYMENT_CLOSURE);
+      const user = await userService.getUser(paymentAssignee);
+      if (user) {
+        await challengeService.close(challenge.id, user.id);
+      }
+      setPageState(PAGE_STATE.PAID);
+    } catch (error) {
+      fireErrorMessage(
+        'Failed to proceed the payment',
+        'Try to find it in Direct/OR to finalize it manually',
+      );
     }
-    setPageState(PAGE_STATE.PAID);
   }
 
   resetPaymentData() {
