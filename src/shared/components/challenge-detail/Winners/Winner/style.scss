@@ -18,13 +18,13 @@
 }
 
 .flag {
-  color: $tc-gray-40;
-  font-size: 36px;
+  background-color: $tc-dark-blue-30;
+  color: $tc-dark-blue-70;
+  font-size: 42px;
   font-weight: 500;
   height: 50px;
   width: 45px;
   line-height: 50px;
-  background-color: $tc-gray-20;
   position: absolute;
   top: 0;
   left: 12px;
@@ -35,8 +35,8 @@
     display: block;
     position: absolute;
     top: 100%;
-    border-top: solid 20px $tc-gray-20;
-    border-bottom: solid 20px transparent;
+    border-top: solid 15px $tc-dark-blue-30;
+    border-bottom: solid 15px transparent;
     border-left: solid 23px transparent;
     border-right: solid 23px transparent;
   }
