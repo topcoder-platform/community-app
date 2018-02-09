@@ -4,18 +4,18 @@
 
 import PT from 'prop-types';
 import React from 'react';
-import DraftIcon from '../../../../../../assets/images/sandbox/payments/status/draft.svg';
-import ActiveIcon from '../../../../../../assets/images/sandbox/payments/status/active.svg';
-import CanceledIcon from '../../../../../../assets/images/sandbox/payments/status/canceled.svg';
-import CompletedIcon from '../../../../../../assets/images/sandbox/payments/status/completed.svg';
-import PausedIcon from '../../../../../../assets/images/sandbox/payments/status/paused.svg';
+import DraftIcon from 'assets/images/sandbox/payments/status/draft.svg';
+import ActiveIcon from 'assets/images/sandbox/payments/status/active.svg';
+import CanceledIcon from 'assets/images/sandbox/payments/status/canceled.svg';
+import CompletedIcon from 'assets/images/sandbox/payments/status/completed.svg';
+import PausedIcon from 'assets/images/sandbox/payments/status/paused.svg';
 import './style.scss';
 
 const Icons = {
   DRAFT: DraftIcon,
   ACTIVE: ActiveIcon,
-  CANCELED: CanceledIcon,
   COMPLETED: CompletedIcon,
+  DELETED: CanceledIcon,
   PAUSED: PausedIcon,
 };
 export default function PaymentStatus({ status, text }) {
@@ -32,8 +32,8 @@ PaymentStatus.propTypes = {
   status: PT.oneOf([
     'DRAFT',
     'ACTIVE',
-    'CANCELED',
     'COMPLETED',
+    'DELETED',
     'PAUSED',
   ]).isRequired,
   text: PT.string.isRequired,
