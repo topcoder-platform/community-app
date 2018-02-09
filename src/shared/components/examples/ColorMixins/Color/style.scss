@@ -17,6 +17,7 @@
 
     content: "— #{$color} —";
     margin-left: 10px;
+    margin-right: 10px;
     position: relative;
     top: -3px;
   }
@@ -89,6 +90,18 @@
 .tc-gold { @include color($tc-gold); }
 .tc-silver { @include color($tc-silver); }
 .tc-bronze { @include color($tc-bronze); }
+
+.tc-gold-130 { @include color($tc-gold-130); }
+.tc-gold-110 { @include color($tc-gold-110); }
+.tc-gold-100 { @include color($tc-gold-100); }
+
+.tc-silver-130 { @include color($tc-silver-130); }
+.tc-silver-110 { @include color($tc-silver-110); }
+.tc-silver-100 { @include color($tc-silver-100); }
+
+.tc-bronze-130 { @include color($tc-bronze-130); }
+.tc-bronze-110 { @include color($tc-bronze-110); }
+.tc-bronze-100 { @include color($tc-bronze-100); }
 
 .tc-pastel-green { @include color($tc-pastel-green); }
 .tc-pastel-blue { @include color($tc-pastel-blue); }

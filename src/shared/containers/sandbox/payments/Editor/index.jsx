@@ -11,14 +11,16 @@ import Background from 'components/sandbox/payments/Background';
 import Confirmation from 'components/sandbox/payments/Confirmation';
 import Editor from 'components/sandbox/payments/Editor';
 import LoadingIndicator from 'components/LoadingIndicator';
+import logger from 'utils/logger';
 import PT from 'prop-types';
 import React from 'react';
 import { STATE as PAGE_STATE } from 'actions/page/sandbox/payments/editor';
 import { connect } from 'react-redux';
 import { getService as getChallengeService } from 'services/challenges';
-import { getService as getUserService } from 'services/user';
+import { getService as getMembersService } from 'services/members';
 import { goToLogin } from 'utils/tc';
 import { AUTOCOMPLETE_TRIGGER_LENGTH } from 'components/MemberSearchInput';
+import { fireErrorMessage } from 'utils/errors';
 
 import './style.scss';
 
@@ -154,35 +156,43 @@ class EditorContainer extends React.Component {
    * Handles the payment.
    */
   async pay() {
-    const {
-      paymentAmount,
-      paymentAssignee,
-      paymentDescription,
-      paymentTitle,
-      setPageState,
-      selectedBillingAccountId,
-      selectedProjectId,
-      tokenV3,
-    } = this.props;
-    setPageState(PAGE_STATE.WAITING_PAYMENT_DRAFT);
-    const challengeService = getChallengeService(tokenV3);
-    const challenge = await challengeService.createTask(
-      selectedProjectId,
-      selectedBillingAccountId,
-      paymentTitle,
-      paymentDescription,
-      paymentAssignee,
-      paymentAmount,
-    );
-    setPageState(PAGE_STATE.WAITING_PAYMENT_ACTIVATION);
-    await challengeService.activate(challenge.id);
-    const userService = getUserService(tokenV3);
-    setPageState(PAGE_STATE.WAITING_PAYMENT_CLOSURE);
-    const user = await userService.getUser(paymentAssignee);
-    if (user) {
-      await challengeService.close(challenge.id, user.id);
+    try {
+      const {
+        paymentAmount,
+        paymentAssignee,
+        paymentDescription,
+        paymentTitle,
+        setPageState,
+        selectedBillingAccountId,
+        selectedProjectId,
+        tokenV3,
+      } = this.props;
+      setPageState(PAGE_STATE.WAITING_PAYMENT_DRAFT);
+      const challengeService = getChallengeService(tokenV3);
+      const challenge = await challengeService.createTask(
+        selectedProjectId,
+        selectedBillingAccountId,
+        paymentTitle,
+        paymentDescription,
+        paymentAssignee,
+        paymentAmount,
+      );
+      setPageState(PAGE_STATE.WAITING_PAYMENT_ACTIVATION);
+      await challengeService.activate(challenge.id);
+      const membersService = getMembersService(tokenV3);
+      setPageState(PAGE_STATE.WAITING_PAYMENT_CLOSURE);
+      const member = await membersService.getMemberInfo(paymentAssignee);
+      if (member) {
+        await challengeService.close(challenge.id, member.userId);
+      }
+      setPageState(PAGE_STATE.PAID);
+    } catch (error) {
+      logger.error(error);
+      fireErrorMessage(
+        'Failed to proceed the payment',
+        'Try to find it in Direct/OR to finalize it manually',
+      );
     }
-    setPageState(PAGE_STATE.PAID);
   }
 
   resetPaymentData() {

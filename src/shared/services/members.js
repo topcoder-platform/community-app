@@ -17,6 +17,22 @@ class MembersService {
   }
 
   /**
+   * Gets public information on a member.
+   *
+   * This method does not require any authorization.
+   *
+   * @param {String} handle Member handle.
+   * @return {Promise} Resolves to the data object.
+   */
+  async getMemberInfo(handle) {
+    let res = await this.private.api.get(`/members/${handle}`);
+    if (!res.ok) throw new Error(res.statusText);
+    res = (await res.json()).result;
+    if (res.status !== 200) throw new Error(res.content);
+    return res.content;
+  }
+
+  /**
    * Gets a list of suggested member names for the supplied partial
    * @param {String} keyword Partial string to find suggestions for
    * @return {Promise} Resolves to the api response content
@@ -37,7 +53,7 @@ class MembersService {
  * @return {MembersService} Members service object
  */
 let lastInstance = null;
-export function getMembersService(tokenV3) {
+export function getService(tokenV3) {
   if (!lastInstance || tokenV3 !== lastInstance.private.tokenV3) {
     lastInstance = new MembersService(tokenV3);
   }

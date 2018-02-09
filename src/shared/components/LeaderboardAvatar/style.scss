@@ -51,18 +51,22 @@ $leader-radius-4: $corner-radius * 2;
 
     &.placement-1 {
       background: $tc-gold;
+      color: $tc-gold-130;
     }
 
     &.placement-2 {
       background: $tc-silver;
+      color: $tc-silver-130;
     }
 
     &.placement-3 {
       background: $tc-bronze;
+      color: $tc-bronze-130;
     }
 
     &.placement-4 {
-      background: $tc-gray-50;
+      background: $tc-dark-blue-30;
+      color: $tc-dark-blue-100;
     }
   }
 

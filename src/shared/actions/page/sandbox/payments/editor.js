@@ -3,7 +3,7 @@
  */
 
 import { createActions } from 'redux-actions';
-import { getMembersService } from 'services/members';
+import { getService as getMembersService } from 'services/members';
 
 export const STATE = {
   NEW_PAYMENT: 'NEW_PAYMENT',

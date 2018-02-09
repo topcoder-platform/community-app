@@ -86,7 +86,7 @@
     "shortid": "^2.2.8",
     "supertest": "^3.0.0",
     "tc-accounts": "https://github.com/appirio-tech/accounts-app.git#dev",
-    "topcoder-react-ui-kit": "^0.1.2",
+    "topcoder-react-ui-kit": "^0.2.0",
     "topcoder-react-utils": "^0.1.4",
     "turndown": "^4.0.1",
     "url-parse": "^1.2.0",

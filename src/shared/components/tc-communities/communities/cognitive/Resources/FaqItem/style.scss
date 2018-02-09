@@ -7,7 +7,7 @@
   padding: 10px 20px;
 
   a {
-    color: $tc-dark-blue-90;
+    color: $tc-dark-blue;
 
     &:visited {
       color: $tc-purple;
@@ -35,7 +35,7 @@
   @include tc-body-lg;
 
   align-items: center;
-  background: $tc-dark-blue-90;
+  background: $tc-dark-blue;
   border: none;
   color: white;
   cursor: pointer;

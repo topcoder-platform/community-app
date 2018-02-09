@@ -8,7 +8,24 @@ import './style.scss';
 export default function ColorMixins() {
   return (
     <div styleName="container">
-      <h1>Color Mixins</h1>
+      <h1 styleName="title">Color Mixins</h1>
+      <div styleName="text">
+        The numeral suffixes of color constants indicate mix levels of black
+        and white. <code>100</code> means the base color (and the base colors
+        are aliased under the same names without suffixes); levels below
+        &zwnj;<code>100</code> mean the mix of base with white; levels above
+        &zwnj;<code>100</code> mean the mix of base with black.
+      </div>
+      <div styleName="text">
+        In general, colors with <code>110</code> suffix should be used for text
+        only. For the Metals, <code>110</code> should be used for the normal and
+        larger text above the metal, and <code>130</code> should be used for
+        text with small font, for better visibility.
+      </div>
+      <div styleName="text">
+          For convenience, all base colors are aliased under the same names
+          without any suffix (see Brand Colors section).
+      </div>
       <div styleName="content">
         <Group title="Grayscale">
           <Color name="tc-black" />
@@ -87,6 +104,15 @@ export default function ColorMixins() {
           <Color name="tc-gold" />
           <Color name="tc-silver" />
           <Color name="tc-bronze" />
+          <Color name="tc-gold-130" />
+          <Color name="tc-gold-110" />
+          <Color name="tc-gold-100" />
+          <Color name="tc-silver-130" />
+          <Color name="tc-silver-110" />
+          <Color name="tc-silver-100" />
+          <Color name="tc-bronze-130" />
+          <Color name="tc-bronze-110" />
+          <Color name="tc-bronze-100" />
         </Group>
         <Group title="Pastel Colors">
           <Color name="tc-pastel-blue" />

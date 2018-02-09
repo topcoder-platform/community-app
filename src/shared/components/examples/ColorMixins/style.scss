@@ -3,13 +3,34 @@
 .container {
   margin: 25px auto;
   max-width: $screen-md;
+
+  code {
+    background: $tc-gray-neutral-dark;
+    font-family: "Roboto Mono", monospace;
+    padding: 0 5px;
+  }
 }
 
 .content {
   display: flex;
   flex-wrap: wrap;
 
-  div {
-    margin-right: 10px;
+  > div {
+    margin-left: 5px;
+    margin-right: 5px;
+    position: relative;
+    left: -5px;
   }
+}
+
+.text {
+  @include tc-body-md;
+
+  margin: 10px 0;
+}
+
+.title {
+  @include tc-title;
+
+  margin-bottom: 10px;
 }
