@@ -15,18 +15,21 @@ export function isClientSide() {
 
 /**
  * Retruns true if development version of the code is running.
+ * -  At the server-side development mode means that the server was launched by
+ *    "$ npm run dev" command, rather than "$ npm start";
+ * -  At the front-end development version means that the code wat bundled by
+ *    "$ npm run build:dev" command, rather than "$ npm run build".
  */
 export function isDev() {
-  /* TODO: See the comments to HMR-related code in server/server.js for the
-   * reason behind process.env.NODE_ENV_REAL. */
-  return process.env.NODE_ENV === 'development';
+  return process.env.BABEL_ENV === 'development';
 }
 
 /**
  * Returns true if production version of the code is running.
+ * Just the opposite of isDev().
  */
 export function isProd() {
-  return process.env.NODE_ENV === 'production';
+  return process.env.BABEL_ENV === 'production';
 }
 
 /**
