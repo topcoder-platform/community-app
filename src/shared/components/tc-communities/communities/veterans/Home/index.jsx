@@ -5,8 +5,10 @@
  * thus we disable max-len eslint rule for this file
  */
 
+import ChallengesBlock from 'components/tc-communities/ChallengesBlock';
 import ImageText from 'components/tc-communities/ImageText2';
 import JoinCommunity from 'containers/tc-communities/JoinCommunity';
+import LoadingIndicator from 'components/LoadingIndicator';
 import PT from 'prop-types';
 import React from 'react';
 import { Button } from 'topcoder-react-ui-kit';
@@ -17,7 +19,12 @@ import qouteAvatar from './images/qoute-avatar.jpg';
 
 import style from './style.scss';
 
-export default function Home({ baseUrl }) {
+export default function Home({
+  activeChallenges,
+  baseUrl,
+  loadingActiveChallenges,
+  setChallengeListingFilter,
+}) {
   return (
     <main>
       <div styleName="style.header">
@@ -112,6 +119,17 @@ export default function Home({ baseUrl }) {
           </div>
         </div>
       </div>
+      <div styleName="style.challengesBlock">
+        {
+          loadingActiveChallenges ? <LoadingIndicator /> : (
+            <ChallengesBlock
+              baseUrl={baseUrl}
+              challenges={activeChallenges}
+              setChallengeListingFilter={setChallengeListingFilter}
+            />
+          )
+        }
+      </div>
       <div styleName="style.cardsBlock">
         <div styleName="style.card style.card-01">
           <div>
@@ -138,5 +156,10 @@ export default function Home({ baseUrl }) {
 }
 
 Home.propTypes = {
+  activeChallenges: PT.arrayOf(PT.shape({
+
+  })).isRequired,
   baseUrl: PT.string.isRequired,
+  loadingActiveChallenges: PT.bool.isRequired,
+  setChallengeListingFilter: PT.func.isRequired,
 };

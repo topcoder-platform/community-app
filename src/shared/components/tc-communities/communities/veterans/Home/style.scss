@@ -46,6 +46,16 @@
   padding: 0 15px;
 }
 
+.challengesBlock {
+  margin: 0 auto 100px;
+  max-width: $screen-lg;
+  padding: 0 15px;
+
+  @include xs-to-sm {
+    margin-bottom: 50px;
+  }
+}
+
 .header {
   @include header-block;
 

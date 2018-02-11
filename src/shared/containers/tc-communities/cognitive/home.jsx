@@ -50,9 +50,10 @@ class HomeContainer extends React.Component {
     if (filter) {
       filter = getFilterFunction(filter.challengeFilter);
       challenges = activeChallenges
-        .sort((a, b) => moment(a.registrationStartDate).diff(b.registrationStartDate))
         .filter(x => x.status === 'ACTIVE')
-        .filter(filter);
+        .filter(filter)
+        .sort((a, b) =>
+          moment(a.registrationStartDate).diff(b.registrationStartDate));
     }
 
     return (
@@ -69,7 +70,10 @@ class HomeContainer extends React.Component {
 }
 
 HomeContainer.propTypes = {
-  activeChallenges: PT.arrayOf(PT.object).isRequired,
+  activeChallenges: PT.arrayOf(PT.shape({
+    registrationStartDate: PT.string.isRequired,
+    status: PT.string.isRequired,
+  })).isRequired,
   activeChallengesTimestamp: PT.number.isRequired,
   auth: PT.shape({
     tokenV3: PT.string,
