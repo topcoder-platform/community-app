@@ -81,6 +81,7 @@ exports[`Matches shallow shapshot 1 shapshot 1 1`] = `
       expandTag={null}
       expanded={false}
       expandedTags={Array []}
+      extraBucket={null}
       filterState={Object {}}
       keepPastPlaceholders={undefined}
       loadMoreDraft={null}
@@ -93,6 +94,7 @@ exports[`Matches shallow shapshot 1 shapshot 1 1`] = `
       onExpandFilterResult={[Function]}
       onTechTagClicked={[Function]}
       openChallengesInNewTabs={false}
+      preListingMsg={null}
       prizeMode="money-usd"
       reviewOpportunities={Array []}
       selectBucket={[Function]}
@@ -116,6 +118,7 @@ exports[`Matches shallow shapshot 1 shapshot 1 1`] = `
         top={20}
       >
         <Connect(SidebarContainer)
+          extraBucket={null}
           hideTcLinksInFooter={false}
         />
       </Sticky>
@@ -241,6 +244,7 @@ exports[`Matches shallow shapshot 2 shapshot 2 1`] = `
         top={20}
       >
         <Connect(SidebarContainer)
+          extraBucket={null}
           hideTcLinksInFooter={false}
         />
       </Sticky>

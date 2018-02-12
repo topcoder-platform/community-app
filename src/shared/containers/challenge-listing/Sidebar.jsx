@@ -43,7 +43,16 @@ export class SidebarContainer extends React.Component {
   }
 
   render() {
+    const {
+      extraBucket,
+    } = this.props;
+
     const buckets = getBuckets(this.props.user && this.props.user.handle);
+
+    if (extraBucket) {
+      buckets[extraBucket.name] = extraBucket;
+    }
+
     const tokenV2 = this.props.tokenV2;
     const { communityFilters } = this.props;
     const updatedCommunityFilters = [
@@ -65,6 +74,7 @@ export class SidebarContainer extends React.Component {
       <Sidebar
         {...this.props}
         buckets={buckets}
+        extraBucket={extraBucket}
         savedFilters={savedFilters}
         communityFilter={communityFilter}
         deleteSavedFilter={id => this.props.deleteSavedFilter(id, tokenV2)}
@@ -89,6 +99,7 @@ export class SidebarContainer extends React.Component {
 }
 
 SidebarContainer.defaultProps = {
+  extraBucket: null,
   selectedCommunityId: '',
   tokenV2: null,
   user: null,
@@ -100,6 +111,7 @@ SidebarContainer.propTypes = {
     communityId: PT.string.isRequired,
   })).isRequired,
   deleteSavedFilter: PT.func.isRequired,
+  extraBucket: PT.shape(),
   getSavedFilters: PT.func.isRequired,
   savedFilters: PT.arrayOf(PT.shape()).isRequired,
   selectedCommunityId: PT.string,
@@ -132,6 +144,7 @@ function mapStateToProps(state, ownProps) {
     ...state.challengeListing.sidebar,
     challenges: state.challengeListing.challenges,
     disabled: (activeBucket === BUCKETS.ALL) && Boolean(pending.length),
+    extraBucket: ownProps.extraBucket,
     hideTcLinksInFooter: ownProps.hideTcLinksInFooter,
     filterState: state.challengeListing.filter,
     isAuth: Boolean(state.auth.user),

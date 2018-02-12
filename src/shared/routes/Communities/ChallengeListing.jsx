@@ -11,10 +11,12 @@ import { SplitRoute } from 'utils/router';
 
 export default function ChallengeListingRoute({
   challengesUrl,
+  extraBucket,
   hideSrm,
   listingOnly,
   meta,
   newChallengeDetails,
+  preListingMsg,
 }) {
   return (
     <SplitRoute
@@ -43,6 +45,7 @@ export default function ChallengeListingRoute({
               communityId={communityId}
               communityName={meta.communityName}
               defaultCommunityId={meta.communityId}
+              extraBucket={extraBucket}
               groupIds={meta.groupIds}
               hideSrm={hideSrm}
 
@@ -55,6 +58,7 @@ export default function ChallengeListingRoute({
               openChallengesInNewTabs={
                 _.get(meta, 'challengeListing.openChallengesInNewTabs')
               }
+              preListingMsg={preListingMsg}
               prizeMode={prizeMode}
             />
           );
@@ -67,13 +71,16 @@ export default function ChallengeListingRoute({
 
 ChallengeListingRoute.defaultProps = {
   challengesUrl: '/challenges',
+  extraBucket: null,
   hideSrm: false,
   listingOnly: false,
   newChallengeDetails: false,
+  preListingMsg: null,
 };
 
 ChallengeListingRoute.propTypes = {
   challengesUrl: PT.string,
+  extraBucket: PT.string,
   hideSrm: PT.bool,
   listingOnly: PT.bool,
   meta: PT.shape({
@@ -85,4 +92,5 @@ ChallengeListingRoute.propTypes = {
     groupIds: PT.arrayOf(PT.string).isRequired,
   }).isRequired,
   newChallengeDetails: PT.bool,
+  preListingMsg: PT.node,
 };

@@ -19,11 +19,11 @@ test('Client- and server-side checks work properly at the client-side', () => {
 });
 
 test('isDev() returns true in dev', () => {
-  process.env.NODE_ENV = 'development';
+  process.env.BABEL_ENV = 'development';
   expect(mod().isDev()).toBe(true);
 });
 
 test('isDev() returns false in prod', () => {
-  process.env.NODE_ENV = 'production';
+  process.env.BABEL_ENV = 'production';
   expect(mod().isDev()).toBe(false);
 });

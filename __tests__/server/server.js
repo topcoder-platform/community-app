@@ -1,6 +1,8 @@
 import request from 'supertest';
 import config from 'config';
 
+jest.mock('utils/logger');
+
 const MODULE = require.resolve('server/server');
 
 jest.setMock('../../config/webpack/development', {
@@ -14,7 +16,6 @@ jest.setMock(require.resolve('server/renderer'), (req, res, next) => next());
 afterAll(() => {
   delete process.env.DEV_TOOLS;
   delete process.env.FRONT_END;
-  delete process.env.NODE_ENV_REAL;
 });
 
 beforeEach(() => {

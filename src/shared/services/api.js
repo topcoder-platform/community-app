@@ -5,8 +5,19 @@
 import _ from 'lodash';
 import 'isomorphic-fetch'; /* global fetch */
 import config from 'utils/config';
-import { isClientSide } from 'utils/isomorphy';
+import { isClientSide, isDev } from 'utils/isomorphy';
+import { delay } from 'utils/time';
 import { setErrorIcon, ERROR_ICON_TYPES } from 'utils/errors';
+
+/* The minimal delay [ms] between API calls. To avoid problems with the requests
+ * rate limits configured in Topcoder APIs, we throttle requests rate at the
+ * client side, and at server-side, in dev mode (which is meant to be used for
+ * local development. */
+const MIN_API_CALL_DELAY = isDev() ? 1000 : 200;
+
+const API_THROTTLING = true;
+
+let lastApiCallTimestamp = Date.now();
 
 /**
  * API service object. It is reused for both Topcoder API v2 and v3,
@@ -46,7 +57,7 @@ export default class Api {
    *  and you should check .status or .ok fields of the response object
    *  to find out the response status.
    */
-  fetch(endpoint, options = {}) {
+  async fetch(endpoint, options = {}) {
     const {
       base,
       token,
@@ -63,6 +74,16 @@ export default class Api {
         break;
       default:
     }
+
+    /* Throttling of API calls should not happen at server in production. */
+    if (API_THROTTLING && (isClientSide() || isDev())) {
+      const now = Date.now();
+      lastApiCallTimestamp += MIN_API_CALL_DELAY;
+      if (lastApiCallTimestamp > now) {
+        await delay(lastApiCallTimestamp - now);
+      } else lastApiCallTimestamp = now;
+    }
+
     return fetch(`${base}${endpoint}`, { ...options,
       headers,
     })

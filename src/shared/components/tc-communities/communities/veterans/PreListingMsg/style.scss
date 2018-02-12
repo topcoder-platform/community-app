@@ -1,0 +1,22 @@
+@import "~styles/mixins";
+
+.container {
+  @include tc-heading-xl;
+
+  background: $tc-white;
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+  text-align: center;
+}
+
+.join {
+  @include tc-heading-xl;
+
+  background: $tc-white !important;
+  border: none !important;
+  color: $tc-dark-blue !important;
+  outline: none !important;
+  padding: 0 !important;
+  text-decoration: underline;
+}
