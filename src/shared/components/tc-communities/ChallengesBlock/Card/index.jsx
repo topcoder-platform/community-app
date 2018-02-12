@@ -48,7 +48,7 @@ export default function Card({
       moment(challenge.registrationStartDate).format(FORMAT)}`;
   } else {
     timeMsg = `Ends on ${
-      moment(challenge.submissionEndDate)}`;
+      moment(challenge.submissionEndDate).format(FORMAT)}`;
   }
 
   return (
@@ -58,7 +58,7 @@ export default function Card({
           setChallengeListingFilter({ subtracks: [subTrack] }))}
         to={`${baseUrl}/challenges?filter[subtracks][0]=${
           encodeURIComponent(subTrack)}`}
-      >{_.capitalize(subTrack)}</TrackTag>
+      >{_.capitalize(subTrack).replace(/_/g, ' ')}</TrackTag>
       <h1 styleName="title">
         <Link
           to={`${baseUrl}/challenges/${challenge.id}`}

@@ -121,7 +121,7 @@ export default function Home({
       </div>
       <div styleName="style.challengesBlock">
         {
-          loadingActiveChallenges ? <LoadingIndicator /> : (
+          loadingActiveChallenges && !activeChallenges ? <LoadingIndicator /> : (
             <ChallengesBlock
               baseUrl={baseUrl}
               challenges={activeChallenges}
