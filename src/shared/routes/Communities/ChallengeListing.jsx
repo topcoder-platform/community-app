@@ -15,6 +15,7 @@ export default function ChallengeListingRoute({
   listingOnly,
   meta,
   newChallengeDetails,
+  preListingMsg,
 }) {
   return (
     <SplitRoute
@@ -55,6 +56,7 @@ export default function ChallengeListingRoute({
               openChallengesInNewTabs={
                 _.get(meta, 'challengeListing.openChallengesInNewTabs')
               }
+              preListingMsg={preListingMsg}
               prizeMode={prizeMode}
             />
           );
@@ -70,6 +72,7 @@ ChallengeListingRoute.defaultProps = {
   hideSrm: false,
   listingOnly: false,
   newChallengeDetails: false,
+  preListingMsg: null,
 };
 
 ChallengeListingRoute.propTypes = {
@@ -85,4 +88,5 @@ ChallengeListingRoute.propTypes = {
     groupIds: PT.arrayOf(PT.string).isRequired,
   }).isRequired,
   newChallengeDetails: PT.bool,
+  preListingMsg: PT.node,
 };

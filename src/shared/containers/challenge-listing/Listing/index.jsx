@@ -155,6 +155,7 @@ export class ListingContainer extends React.Component {
       lastUpdateOfActiveChallenges,
       listingOnly,
       newChallengeDetails,
+      preListingMsg,
       reviewOpportunities,
       selectBucket,
       selectChallengeDetailsTab,
@@ -242,6 +243,7 @@ export class ListingContainer extends React.Component {
           loadingReviewOpportunities={Boolean(this.props.loadingReviewOpportunitiesUUID)}
           newChallengeDetails={newChallengeDetails}
           openChallengesInNewTabs={this.props.openChallengesInNewTabs}
+          preListingMsg={preListingMsg}
           prizeMode={this.props.prizeMode}
           selectBucket={selectBucket}
           selectChallengeDetailsTab={selectChallengeDetailsTab}
@@ -288,6 +290,7 @@ ListingContainer.defaultProps = {
   listingOnly: false,
   newChallengeDetails: false,
   openChallengesInNewTabs: false,
+  preListingMsg: null,
   prizeMode: 'money-usd',
   queryBucket: BUCKETS.ALL,
 };
@@ -338,6 +341,7 @@ ListingContainer.propTypes = {
   markHeaderMenu: PT.func.isRequired,
   newChallengeDetails: PT.bool,
   openChallengesInNewTabs: PT.bool,
+  preListingMsg: PT.node,
   prizeMode: PT.string,
   reviewOpportunities: PT.arrayOf(PT.shape()).isRequired,
   selectBucket: PT.func.isRequired,
@@ -385,6 +389,7 @@ const mapStateToProps = (state, ownProps) => {
     loadingChallengeTags: cl.loadingChallengeTags,
     newChallengeDetails: ownProps.newChallengeDetails,
     openChallengesInNewTabs: ownProps.openChallengesInNewTabs,
+    preListingMsg: ownProps.preListingMsg,
     prizeMode: ownProps.prizeMode,
     reviewOpportunities: cl.reviewOpportunities,
     selectedCommunityId: cl.selectedCommunityId,

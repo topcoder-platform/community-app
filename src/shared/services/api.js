@@ -13,9 +13,9 @@ import { setErrorIcon, ERROR_ICON_TYPES } from 'utils/errors';
  * rate limits configured in Topcoder APIs, we throttle requests rate at the
  * client side, and at server-side, in dev mode (which is meant to be used for
  * local development. */
-const MIN_API_CALL_DELAY = isDev() ? 500 : 250;
+const MIN_API_CALL_DELAY = isDev() ? 1000 : 200;
 
-const API_THROTTLING = false;
+const API_THROTTLING = true;
 
 let lastApiCallTimestamp = Date.now();
 

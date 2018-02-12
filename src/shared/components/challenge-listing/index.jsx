@@ -28,6 +28,7 @@ export default function ChallengeListing(props) {
     defaultCommunityId,
     hideSrm,
     keepPastPlaceholders,
+    preListingMsg,
   } = props;
 
   let challenges = props.challenges;
@@ -93,6 +94,7 @@ export default function ChallengeListing(props) {
         loadMoreReviewOpportunities={props.loadMoreReviewOpportunities}
         newChallengeDetails={props.newChallengeDetails}
         openChallengesInNewTabs={props.openChallengesInNewTabs}
+        preListingMsg={preListingMsg}
         prizeMode={props.prizeMode}
         reviewOpportunities={props.reviewOpportunities}
         selectBucket={props.selectBucket}
@@ -173,6 +175,7 @@ ChallengeListing.defaultProps = {
   newChallengeDetails: false,
   openChallengesInNewTabs: false,
   reviewOpportunities: [],
+  preListingMsg: null,
   prizeMode: 'money-usd',
   expandedTags: [],
   expandTag: null,
@@ -201,6 +204,7 @@ ChallengeListing.propTypes = {
   loadMoreReviewOpportunities: PT.func,
   newChallengeDetails: PT.bool,
   openChallengesInNewTabs: PT.bool,
+  preListingMsg: PT.node,
   prizeMode: PT.string,
   reviewOpportunities: PT.arrayOf(PT.shape()),
   selectBucket: PT.func.isRequired,

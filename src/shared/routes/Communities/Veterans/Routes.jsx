@@ -9,8 +9,8 @@ import Footer from 'components/tc-communities/communities/veterans/Footer';
 import Header from 'containers/tc-communities/Header';
 import Home from 'containers/tc-communities/veterans/Home';
 import imageTextStyle from 'components/tc-communities/communities/veterans/themes/image-text.scss';
-import JoinToSeeChallengesPage from
-  'components/tc-communities/JoinToSeeChallengesPage';
+import PreListingMsg from
+  'components/tc-communities/communities/veterans/PreListingMsg';
 import Learn from 'components/tc-communities/communities/veterans/Learn';
 import PT from 'prop-types';
 import React from 'react';
@@ -38,13 +38,14 @@ export default function Veterans({ base, member, meta }) {
             />
             <Switch>
               <Route
-                component={() => (member ? ChallengeListing({
+                component={() => ChallengeListing({
                   challengesUrl: `${base}/challenges`,
                   hideSrm: true,
                   listingOnly: true,
+                  preListingMsg: member ? null : <PreListingMsg />,
                   meta,
                   newChallengeDetails: true,
-                }) : <JoinToSeeChallengesPage />)}
+                })}
                 exact
                 path={`${base}/challenges`}
               />
