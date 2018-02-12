@@ -21,6 +21,7 @@ exports[`Matches shallow shapshot 1`] = `
       }
       communityFilter={Object {}}
       disabled={false}
+      extraBucket={null}
       filterState={Object {}}
       isAuth={false}
       savedFilters={Array []}

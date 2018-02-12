@@ -16,6 +16,7 @@ export default function Listing({
   challenges,
   challengesUrl,
   communityName,
+  extraBucket,
   filterState,
   keepPastPlaceholders,
   loadingDraftChallenges,
@@ -39,7 +40,6 @@ export default function Listing({
   expandTag,
 }) {
   const buckets = getBuckets(_.get(auth.user, 'handle'));
-
   const getBucket = (bucket, expanded = false) => {
     let keepPlaceholders = false;
     let loading;
@@ -115,6 +115,7 @@ export default function Listing({
     <div styleName="challengeCardContainer">
       {preListingMsg}
       {auth.user ? getBucket(BUCKETS.MY) : null}
+      {extraBucket ? getBucket(extraBucket) : null}
       {getBucket(BUCKETS.OPEN_FOR_REGISTRATION)}
       {getBucket(BUCKETS.ONGOING)}
       {/* NOTE: We do not show upcoming challenges for now, for various reasons,
@@ -133,6 +134,7 @@ Listing.defaultProps = {
   expanded: false,
   expandedTags: [],
   expandTag: null,
+  extraBucket: null,
   loadMoreDraft: null,
   loadMorePast: null,
   loadMoreReviewOpportunities: null,
@@ -156,6 +158,7 @@ Listing.propTypes = {
   communityName: PT.string,
   expandedTags: PT.arrayOf(PT.number),
   expandTag: PT.func,
+  extraBucket: PT.string,
   filterState: PT.shape().isRequired,
   keepPastPlaceholders: PT.bool.isRequired,
   loadingDraftChallenges: PT.bool.isRequired,
