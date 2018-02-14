@@ -8,7 +8,9 @@ export default function PreListingMsg() {
     <div styleName="container">
       <JoinCommunity
         label="Join Now"
+        joinCommunityWrapper={style.joinCommunityWrapper}
         theme={{
+          container: style.joinContainer,
           link: { button: style.join },
         }}
       />&zwnj;
