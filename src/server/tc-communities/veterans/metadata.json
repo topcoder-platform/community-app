@@ -2,6 +2,9 @@
   "challengeFilter": {
     "groupIds": ["20000013"]
   },
+  "challengeListing": {
+    "ignoreCommunityFilterByDefault": true
+  },
   "communityId": "veterans",
   "communityName": "Veterans Community",
   "groupIds": ["20000013"],

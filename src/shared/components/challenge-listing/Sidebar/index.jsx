@@ -48,6 +48,7 @@ export default function SideBarFilters(props) {
             challenges={props.challenges}
             communityFilter={props.communityFilter}
             disabled={props.disabled}
+            extraBucket={props.extraBucket}
             filterState={props.filterState}
             isAuth={props.isAuth}
             savedFilters={props.savedFilters}
@@ -66,6 +67,7 @@ SideBarFilters.defaultProps = {
   communityFilter: null,
   disabled: false,
   dragState: {},
+  extraBucket: null,
   hideTcLinksInFooter: false,
   isAuth: false,
 };
@@ -85,6 +87,7 @@ SideBarFilters.propTypes = {
   dragSavedFilterMove: PT.func.isRequired,
   dragSavedFilterStart: PT.func.isRequired,
   editSavedFiltersMode: PT.bool.isRequired,
+  extraBucket: PT.string,
   filterState: PT.shape().isRequired,
   hideTcLinksInFooter: PT.bool,
   isAuth: PT.bool,

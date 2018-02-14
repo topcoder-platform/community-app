@@ -8,6 +8,16 @@ const HOUR_MS = 60 * 60 * 1000;
 const DAY_MS = 24 * HOUR_MS;
 
 /**
+ * Returns a Promise that resolves after the specified delay.
+ * @param {Number} time Delay [ms].
+ * @return {Promise}
+ */
+export async function delay(time) {
+  return new Promise(resolve =>
+    setTimeout(() => resolve(), time));
+}
+
+/**
  * Standard duration formatting for listings and details
  *
  * @param {Number} time Time in milliseconds

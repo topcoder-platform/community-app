@@ -17,19 +17,19 @@ import { connect } from 'react-redux';
 
 const JoinCommunityContainer = (props) => {
   const { token, groupIds, userId, terms, openTermsModal,
-    communityId, join } = props;
+    communityId, join, joinCommunityWrapper } = props;
 
   const hasNotAgreedTerms = terms && terms.length && !_.every(terms, 'agreed');
   const onJoinClick = hasNotAgreedTerms ? openTermsModal : join;
 
   return (
-    <div>
-      <JoinCommunity {...props} join={onJoinClick} />
+    <div className={joinCommunityWrapper}>
       <Terms
         entity={{ type: 'community', id: communityId }}
         description="You are seeing these Terms & Conditions because you are going to join a community and you have to respect the terms below in order to be able to be a member."
         register={() => join(token, groupIds[0], userId)}
       />
+      <JoinCommunity {...props} join={onJoinClick} />
     </div>
   );
 };
@@ -37,6 +37,7 @@ const JoinCommunityContainer = (props) => {
 JoinCommunityContainer.defaultProps = {
   token: '',
   groupIds: [''],
+  joinCommunityWrapper: '',
   userId: '',
   terms: [],
 };
@@ -49,6 +50,7 @@ JoinCommunityContainer.propTypes = {
   openTermsModal: PT.func.isRequired,
   communityId: PT.string.isRequired,
   join: PT.func.isRequired,
+  joinCommunityWrapper: PT.string,
 };
 
 function mapStateToProps(state, ownProps) {

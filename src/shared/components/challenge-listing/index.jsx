@@ -26,8 +26,10 @@ export default function ChallengeListing(props) {
   const {
     activeBucket,
     defaultCommunityId,
+    extraBucket,
     hideSrm,
     keepPastPlaceholders,
+    preListingMsg,
   } = props;
 
   let challenges = props.challenges;
@@ -83,6 +85,7 @@ export default function ChallengeListing(props) {
         communityName={props.communityName}
         expandedTags={props.expandedTags}
         expandTag={props.expandTag}
+        extraBucket={extraBucket}
         filterState={props.filterState}
         keepPastPlaceholders={keepPastPlaceholders}
         loadingDraftChallenges={props.loadingDraftChallenges}
@@ -93,6 +96,7 @@ export default function ChallengeListing(props) {
         loadMoreReviewOpportunities={props.loadMoreReviewOpportunities}
         newChallengeDetails={props.newChallengeDetails}
         openChallengesInNewTabs={props.openChallengesInNewTabs}
+        preListingMsg={preListingMsg}
         prizeMode={props.prizeMode}
         reviewOpportunities={props.reviewOpportunities}
         selectBucket={props.selectBucket}
@@ -154,7 +158,10 @@ export default function ChallengeListing(props) {
 
         <div styleName="sidebar-container-desktop">
           <Sticky top={20} bottomBoundary="#challengeFilterContainer">
-            <Sidebar hideTcLinksInFooter={props.hideTcLinksInFooter} />
+            <Sidebar
+              extraBucket={extraBucket}
+              hideTcLinksInFooter={props.hideTcLinksInFooter}
+            />
           </Sticky>
         </div>
       </div>
@@ -166,6 +173,7 @@ ChallengeListing.defaultProps = {
   auth: null,
   communityFilter: null,
   communityName: null,
+  extraBucket: null,
   hideTcLinksInFooter: false,
   loadMoreDraft: null,
   loadMorePast: null,
@@ -173,6 +181,7 @@ ChallengeListing.defaultProps = {
   newChallengeDetails: false,
   openChallengesInNewTabs: false,
   reviewOpportunities: [],
+  preListingMsg: null,
   prizeMode: 'money-usd',
   expandedTags: [],
   expandTag: null,
@@ -187,6 +196,7 @@ ChallengeListing.propTypes = {
   defaultCommunityId: PT.string.isRequired,
   expandedTags: PT.arrayOf(PT.number),
   expandTag: PT.func,
+  extraBucket: PT.string,
   filterState: PT.shape().isRequired,
   hideSrm: PT.bool.isRequired,
   hideTcLinksInFooter: PT.bool,
@@ -201,6 +211,7 @@ ChallengeListing.propTypes = {
   loadMoreReviewOpportunities: PT.func,
   newChallengeDetails: PT.bool,
   openChallengesInNewTabs: PT.bool,
+  preListingMsg: PT.node,
   prizeMode: PT.string,
   reviewOpportunities: PT.arrayOf(PT.shape()),
   selectBucket: PT.func.isRequired,

@@ -16,6 +16,7 @@ export default function Listing({
   challenges,
   challengesUrl,
   communityName,
+  extraBucket,
   filterState,
   keepPastPlaceholders,
   loadingDraftChallenges,
@@ -26,6 +27,7 @@ export default function Listing({
   loadMoreReviewOpportunities,
   newChallengeDetails,
   openChallengesInNewTabs,
+  preListingMsg,
   prizeMode,
   reviewOpportunities,
   selectBucket,
@@ -38,7 +40,6 @@ export default function Listing({
   expandTag,
 }) {
   const buckets = getBuckets(_.get(auth.user, 'handle'));
-
   const getBucket = (bucket, expanded = false) => {
     let keepPlaceholders = false;
     let loading;
@@ -112,7 +113,9 @@ export default function Listing({
 
   return (
     <div styleName="challengeCardContainer">
+      {preListingMsg}
       {auth.user ? getBucket(BUCKETS.MY) : null}
+      {extraBucket ? getBucket(extraBucket) : null}
       {getBucket(BUCKETS.OPEN_FOR_REGISTRATION)}
       {getBucket(BUCKETS.ONGOING)}
       {/* NOTE: We do not show upcoming challenges for now, for various reasons,
@@ -131,9 +134,11 @@ Listing.defaultProps = {
   expanded: false,
   expandedTags: [],
   expandTag: null,
+  extraBucket: null,
   loadMoreDraft: null,
   loadMorePast: null,
   loadMoreReviewOpportunities: null,
+  preListingMsg: null,
   reviewOpportunities: [],
   onTechTagClicked: _.noop,
   onExpandFilterResult: _.noop,
@@ -153,6 +158,7 @@ Listing.propTypes = {
   communityName: PT.string,
   expandedTags: PT.arrayOf(PT.number),
   expandTag: PT.func,
+  extraBucket: PT.string,
   filterState: PT.shape().isRequired,
   keepPastPlaceholders: PT.bool.isRequired,
   loadingDraftChallenges: PT.bool.isRequired,
@@ -164,6 +170,7 @@ Listing.propTypes = {
   newChallengeDetails: PT.bool.isRequired,
   openChallengesInNewTabs: PT.bool,
   prizeMode: PT.string.isRequired,
+  preListingMsg: PT.node,
   reviewOpportunities: PT.arrayOf(PT.shape()),
   selectBucket: PT.func.isRequired,
   selectChallengeDetailsTab: PT.func.isRequired,
