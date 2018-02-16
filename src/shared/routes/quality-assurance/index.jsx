@@ -10,16 +10,11 @@ export default function QualityAssurance() {
       chunkName="quality-assurance/chunk"
       renderClientAsync={renderProps =>
         import(
-          'containers/quality-assurance/bug-tracker-listing',
-        ).then(({ default: BugTrackerListing }) => {
-          const bugId = 'Testing';
-          return (
-            <BugTrackerListing
-              {...renderProps}
-              bugId={bugId}
-            />
-          );
-        })
+          /* webpackChunkName: "quality-assurance/chunk" */
+          'containers/quality-assurance',
+        ).then(({ default: QualityAssuranceListing }) =>
+          <QualityAssuranceListing {...renderProps} />,
+        )
       }
       renderPlaceholder={() => <LoadingIndicator />}
     />

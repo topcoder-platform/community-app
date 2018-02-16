@@ -1,20 +1,17 @@
-/**
- * Reducer for state.example.dataFetch
- */
-
-import actions from 'actions/quality-assurance';
+import { combineReducers } from 'redux';
+import actions from 'actions/quality-assurance/issues';
 import { handleActions } from 'redux-actions';
-import { toFSA } from 'utils/redux';
+import { toFSA, resolveReducers } from 'utils/redux';
 
 /**
- * Handles qualityAssurance.getRepositoriesDone action.
+ * Handles qualityAssuranceIssues.getIssuesDone action.
  * @param {Object} state Previous state.
  * @param {Object} action Action.
  */
 function onDone(state, action) {
   return {
     ...state,
-    repositories: action.error ? null : action.payload,
+    issues: action.error ? [] : action.payload,
     failed: action.error,
     loading: false,
     dateTime: Date.now(),
@@ -22,22 +19,22 @@ function onDone(state, action) {
 }
 
 /**
- * Creates a new getRepositories reducer with the specified initial state.
+ * Creates a new getIssues reducer with the specified initial state.
  * @param {Object} initialState Optional. Initial state.
- * @return getRepositories reducer.
+ * @return getIssues reducer.
  */
 function create(initialState) {
   return handleActions({
-    [actions.qualityAssurance.getRepositoriesInit](state) {
+    [actions.qualityAssuranceIssues.getIssuesInit](state) {
       return {
         ...state,
-        repositories: null,
+        issues: [],
         failed: false,
         loading: true,
         dateTime: Date.now(),
       };
     },
-    [actions.qualityAssurance.getRepositoriesDone]: onDone,
+    [actions.qualityAssuranceIssues.getIssuesDone]: onDone,
   }, initialState || {});
 }
 
@@ -48,13 +45,20 @@ function create(initialState) {
  * @param {Object} req Optional. ExpressJS HTTP request.
  * @return Promise which resolves to the new reducer.
  */
-export function factory(req) {
-  if (req && req.url.endsWith('/quality-assurance/server')) {
-    return toFSA(actions.qualityAssurance.getRepositoriesDone())
+export function issuesFactory(req) {
+  if (req && req.url.endsWith('/quality-assurance/issues/server')) {
+    return toFSA(actions.qualityAssuranceIssues.getIssuesDone())
       .then(res => create(onDone({}, res)));
   }
   return Promise.resolve(create());
 }
 
-/* Default reducer with empty initial state. */
-export default create();
+export function factory(req) {
+  return resolveReducers({
+    data: issuesFactory(req),
+  }).then(reducers => combineReducers({
+    ...reducers,
+  }));
+}
+
+export default undefined;

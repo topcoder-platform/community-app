@@ -19,6 +19,7 @@ import ChallengeListing from './ChallengeListing';
 import Dashboard from './Dashboard';
 import Scoreboard from '../tco/scoreboard';
 import QualityAssurance from '../quality-assurance/index';
+import QualityAssuranceIssues from '../quality-assurance/issues/index';
 
 import './styles.scss';
 
@@ -51,6 +52,7 @@ export default function Topcoder() {
           path="/challenges/:challengeId(\d{8})/submit"
         />
         <Route component={QualityAssurance} exact path="/quality-assurance" />
+        <Route component={QualityAssuranceIssues} exact path="/quality-assurance/:owner/:repo" />
         <Error404 />
       </Switch>
       <Footer />

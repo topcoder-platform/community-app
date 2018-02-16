@@ -1,16 +1,16 @@
 
 import GitApi from 'services/quality-assurance/git-api';
 
-class RepositoryService {
+class IssuesService {
   constructor() {
     this.private = {
       gitapi: new GitApi('https://api.github.com', true),
     };
   }
 
-  async listRepositories() {
+  async listIssues(owner, repo) {
     const res = await this.private.gitapi.get(
-      '/user/repos?sort=pushed&direction=desc&page=1&per_page=100', {
+      `/repos/${owner}/${repo}/issues?state=all&sort=updated&direction=desc&page=1&per_page=100`, {
         headers: {
           Accept: 'application/vnd.github.v3+json',
         },
@@ -23,7 +23,7 @@ class RepositoryService {
 }
 
 export function getService() {
-  return new RepositoryService();
+  return new IssuesService();
 }
 
 export default undefined;

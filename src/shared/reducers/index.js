@@ -35,6 +35,7 @@ import { factory as dashboardFactory } from './dashboard';
 import { factory as termsFactory } from './terms';
 import { factory as scoreboardFactory } from './tco/scoreboard';
 import { factory as qualityAssuranceFactory } from './quality-assurance';
+import { factory as qualityAssuranceIssuesFactory } from './quality-assurance/issues';
 
 export function factory(req) {
   return resolveReducers({
@@ -50,6 +51,7 @@ export function factory(req) {
     terms: termsFactory(req),
     scoreboard: scoreboardFactory(req),
     qualityAssurance: qualityAssuranceFactory(req),
+    qualityAssuranceIssues: qualityAssuranceIssuesFactory(req),
     page: pageFactory(req),
     errors: errorsFactory(req),
   }).then(reducers => combine((state) => {

@@ -4,19 +4,23 @@ import actions from 'actions/quality-assurance';
 import React from 'react';
 import PT from 'prop-types';
 import { connect } from 'react-redux';
+import QualityAssuranceListing from 'components/quality-assurance';
 
-
-class TrackerListingContainer extends React.Component {
+class QualityAssuranceContainer extends React.Component {
   componentDidMount() {
     this.props.loadRepositories();
   }
 
   render() {
     if (this.props.data.repositories) {
-      return <div>Here :: {JSON.stringify(this.props.data.repositories, null, 2)}</div>;
+      return (
+        <div style={{ width: '100%' }}>
+          <QualityAssuranceListing repositories={this.props.data.repositories} />
+        </div>
+      );
     }
-    if (this.props.data.loading) return <div>Loading...</div>;
-    return <div>Initial State: no repositories, and not loading yet.</div>;
+    if (this.props.data.loading) return <div>Loading Repositories...</div>;
+    return <div>Populating Repositories...</div>;
   }
 }
 
@@ -28,14 +32,14 @@ export default connect(
       dispatch(actions.qualityAssurance.getRepositoriesDone());
     },
   }),
-)(TrackerListingContainer);
+)(QualityAssuranceContainer);
 
-TrackerListingContainer.defaultProps = {
-  data: null,
+QualityAssuranceContainer.defaultProps = {
+  data: {},
   loadRepositories: _.noop,
 };
 
-TrackerListingContainer.propTypes = {
-  data: PT.arrayOf(PT.shape({})),
+QualityAssuranceContainer.propTypes = {
+  data: PT.objectOf(PT.shape),
   loadRepositories: PT.func,
 };

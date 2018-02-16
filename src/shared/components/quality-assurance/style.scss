@@ -1,0 +1,74 @@
+.flex-container {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  background-color: rgb(235, 235, 235);
+}
+
+.flex-cell {
+  flex: 0 0 33%;
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+  padding: 0.5rem;
+  box-sizing: border-box;
+}
+
+.flex-cell::before {
+  content: '';
+  display: table;
+}
+
+.flex-repository {
+  flex-grow: 1;
+  border: 1px solid black;
+  border: 1px solid #ededf2;
+  color: #262628;
+  display: flex;
+  justify-content: space-between;
+  word-break: break-all;
+  align-items: center;
+  text-align: center;
+  font-family: Roboto;
+  flex-direction: column;
+  background: white;
+}
+
+.flex-repository-name {
+  font-size: 15px;
+  font-weight: normal;
+  width: 100%;
+  background: rgb(250, 250, 251);
+  padding: 5px 0;
+  border-bottom: 1px solid rgb(237, 237, 242);
+}
+
+.flex-repository-language {
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 15px;
+  color: #fafafb;
+  padding: 4px 5px;
+  border-radius: 2px;
+  background: #26ade9;
+  margin: 6px 0;
+}
+
+.flex-repository-updated {
+  font-size: 10px;
+  color: #747480;
+  font-weight: normal;
+  margin: 2px 0;
+}
+
+.flex-repository-counts {
+  padding: 5px 0;
+  width: 100%;
+  border-top: 1px solid #ededf2;
+  background: #fafafb;
+  font-size: 14px;
+}
+
+.flex-repository-counts-icons {
+  margin-bottom: -3px;
+}

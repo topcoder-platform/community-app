@@ -1,0 +1,96 @@
+.flex-container {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  background-color: rgb(235, 235, 235);
+}
+
+.flex-cell {
+  flex: 0 0 50%;
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+  padding: 0.5rem;
+  box-sizing: border-box;
+}
+
+.flex-cell::before {
+  content: '';
+  display: table;
+}
+
+.flex-issue {
+  flex-grow: 1;
+  border: 1px solid black;
+  border: 1px solid #ededf2;
+  color: #262628;
+  display: flex;
+  justify-content: left;
+  word-break: break-all;
+  align-items: center;
+  text-align: center;
+  font-family: Roboto;
+  background: white;
+}
+
+.flex-issue-content-img {
+  width: 130px;
+  height: 100%;
+  -webkit-box-align: center;
+  align-items: center;
+  display: -webkit-inline-box;
+  display: inline-flex;
+  background: #fafafb;
+  justify-content: center;
+  border-left: 1px solid #ededf2;
+  border-right: 1px solid #ededf2;
+}
+
+.flex-issue-img {
+  height: 60px;
+  margin: 5px;
+}
+
+.flex-issue-content {
+  flex-direction: column;
+  width: 100%;
+  margin: 6px;
+  justify-content: space-around;
+  height: 100%;
+  display: inline-flex;
+}
+
+.flex-issue-title {
+  font-size: 12px;
+  font-weight: normal;
+}
+
+.flex-issue-labels {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  justify-content: center;
+}
+
+.flex-issue-label {
+  font-size: 10px;
+  font-weight: 500;
+  color: #fafafb;
+  padding: 2px 3px;
+  border-radius: 4px;
+  background: #26ade9;
+  margin: 6px 2px 0;
+}
+
+.flex-issue-updated {
+  font-size: 10px;
+  color: #747480;
+  font-weight: normal;
+  margin-top: 10px;
+}
+
+.flex-issue-updated-icons {
+  margin-bottom: -4px;
+  width: 12px;
+  color: #747480;
+}
