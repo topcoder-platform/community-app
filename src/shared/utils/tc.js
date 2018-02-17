@@ -52,7 +52,26 @@ export const USER_ROLES = {
 };
 
 /**
+ * Given user rating returns corresponding rating level (from 1 to 5, both
+ * inclusive). The rating levels are used to group members into categories
+ * by their performance, and to assign colors to their handles.
+ * @param {Number} rating
+ * @return {Number} Rating level.
+ */
+export function getRatingLevel(rating) {
+  if (rating < 900) return 1;
+  else if (rating < 1200) return 2;
+  else if (rating < 1500) return 3;
+  else if (rating < 2200) return 4;
+  return 5;
+}
+
+/**
  * Given a rating value, returns corresponding color.
+ *
+ * !!! DEPRECATED !!! Use the getRatingLevel(..) function above to get
+ * the rating level, and then use SCSS color mixins to set corresponding colors.
+ *
  * @param {Number} rating Rating.
  * @return {String} Color.
  */

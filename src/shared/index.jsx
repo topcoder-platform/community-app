@@ -12,6 +12,8 @@ import ErrorIcons from 'containers/ErrorIcons';
 import 'topcoder-react-ui-kit/dist/style.css';
 
 import 'styles/global.scss';
+import 'slick-carousel/slick/slick.css';
+// import 'slick-carousel/slick/slick-theme.css';
 
 const USE_DEV_TOOLS = Boolean(process.env.DEV_TOOLS);
 const DevTools = USE_DEV_TOOLS ? require('containers/DevTools').default : undefined;

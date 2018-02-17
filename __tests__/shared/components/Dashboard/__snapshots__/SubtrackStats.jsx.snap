@@ -2,158 +2,70 @@
 
 exports[`Matches shallow shapshot 1`] = `
 <div
-  className="src-shared-components-Dashboard-SubtrackStats-___styles__subtrack-stats___2XEE_"
+  className="src-shared-components-Dashboard-SubtrackStats-___style__container___FXAWS"
 >
-  <div
-    className="src-shared-components-Dashboard-SubtrackStats-___styles__ratings___2pnzh"
-  >
-    <div
-      className="src-shared-components-Dashboard-SubtrackStats-___styles__tracks___2UnlG"
-    >
-      <div
-        className="src-shared-components-Dashboard-SubtrackStats-___styles__slide-wrapper___1xP_x"
-      >
-        <a
-          className="src-shared-components-Dashboard-SubtrackStats-___styles__track___1MS06"
-          href="https://www.topcoder-dev.com/members/handle/details/?track=DEVELOP&subTrack=undefined"
-        >
-          <div
-            className="src-shared-components-Dashboard-SubtrackStats-___styles__flex-wrapper___1JpvN"
-          >
-            <p
-              className="src-shared-components-Dashboard-SubtrackStats-___styles__subtrack___2TXRB"
-              title=""
-            >
-              
-            </p>
-            <p
-              className="src-shared-components-Dashboard-SubtrackStats-___styles__rating___9uUVx"
-              style={
-                Object {
-                  "color": "#69C329",
-                }
-              }
-            >
-              1000
-              <span
-                style={
-                  Object {
-                    "backgroundColor": "#69C329",
-                  }
-                }
-              />
-            </p>
-            <p />
-          </div>
-        </a>
-        <a
-          className="src-shared-components-Dashboard-SubtrackStats-___styles__track___1MS06"
-          href="https://www.topcoder-dev.com/members/handle/details/?track=DESIGN&subTrack=undefined"
-        >
-          <div
-            className="src-shared-components-Dashboard-SubtrackStats-___styles__flex-wrapper___1JpvN"
-          >
-            <p
-              className="src-shared-components-Dashboard-SubtrackStats-___styles__subtrack___2TXRB"
-              title=""
-            >
-              
-            </p>
-            <p
-              className="src-shared-components-Dashboard-SubtrackStats-___styles__rating___9uUVx"
-              style={
-                Object {
-                  "color": "#21B2F1",
-                }
-              }
-            >
-              1000
-            </p>
-            <p />
-          </div>
-        </a>
+  <Slider
+    className="src-shared-components-Dashboard-SubtrackStats-___style__slider___3bN3G"
+    infinite={false}
+    nextArrow={
+      <div>
+        <ArrowNext
+          height="19"
+          viewBox="0 0 12 19"
+          width="12"
+          xmlns="http://www.w3.org/2000/svg"
+        />
       </div>
+    }
+    prevArrow={
+      <div>
+        <ArrowPrev
+          height="19"
+          viewBox="0 0 12 19"
+          width="12"
+          xmlns="http://www.w3.org/2000/svg"
+        />
+      </div>
+    }
+    responsive={
+      Array [
+        Object {
+          "breakpoint": 100,
+          "settings": Object {
+            "slidesToScroll": 1,
+            "slidesToShow": 1,
+          },
+        },
+        Object {
+          "breakpoint": 200,
+          "settings": Object {
+            "slidesToScroll": 2,
+            "slidesToShow": 2,
+          },
+        },
+      ]
+    }
+    slidesToScroll={2}
+    slidesToShow={2}
+  >
+    <div>
+      <Dial
+        handle="handle"
+        stat={1000}
+        statType={undefined}
+        subTrack={undefined}
+        track="DEVELOP"
+      />
     </div>
-    <div
-      className="src-shared-components-Dashboard-SubtrackStats-___styles__responsive-carousel___3atTT"
-    >
-      <Slider
-        centerMode={true}
-        dots={false}
-        infinite={false}
-        nextArrow={<NavButton />}
-        prevArrow={<NavButton />}
-        slidesToScroll={1}
-        slidesToShow={1}
-        speed={500}
-      >
-        <div>
-          <div
-            className="src-shared-components-Dashboard-SubtrackStats-___styles__slide-wrapper___1xP_x"
-          >
-            <a
-              className="src-shared-components-Dashboard-SubtrackStats-___styles__track___1MS06"
-              href="https://www.topcoder-dev.com/members/handle/details/?track=DEVELOP&subTrack=undefined"
-            >
-              <div
-                className="src-shared-components-Dashboard-SubtrackStats-___styles__flex-wrapper___1JpvN"
-              >
-                <p
-                  className="src-shared-components-Dashboard-SubtrackStats-___styles__subtrack___2TXRB"
-                  title=""
-                >
-                  
-                </p>
-                <p
-                  className="src-shared-components-Dashboard-SubtrackStats-___styles__rating___9uUVx"
-                  style={
-                    Object {
-                      "color": "#69C329",
-                    }
-                  }
-                >
-                  1000
-                  <span
-                    style={
-                      Object {
-                        "backgroundColor": "#69C329",
-                      }
-                    }
-                  />
-                </p>
-                <p />
-              </div>
-            </a>
-            <a
-              className="src-shared-components-Dashboard-SubtrackStats-___styles__track___1MS06"
-              href="https://www.topcoder-dev.com/members/handle/details/?track=DESIGN&subTrack=undefined"
-            >
-              <div
-                className="src-shared-components-Dashboard-SubtrackStats-___styles__flex-wrapper___1JpvN"
-              >
-                <p
-                  className="src-shared-components-Dashboard-SubtrackStats-___styles__subtrack___2TXRB"
-                  title=""
-                >
-                  
-                </p>
-                <p
-                  className="src-shared-components-Dashboard-SubtrackStats-___styles__rating___9uUVx"
-                  style={
-                    Object {
-                      "color": "#21B2F1",
-                    }
-                  }
-                >
-                  1000
-                </p>
-                <p />
-              </div>
-            </a>
-          </div>
-        </div>
-      </Slider>
+    <div>
+      <Dial
+        handle="handle"
+        stat={1000}
+        statType={undefined}
+        subTrack={undefined}
+        track="DESIGN"
+      />
     </div>
-  </div>
+  </Slider>
 </div>
 `;
