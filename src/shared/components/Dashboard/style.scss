@@ -1,0 +1,25 @@
+@import "~styles/mixins";
+
+.container {
+  background: $tc-gray-neutral-dark;
+  flex: 1;
+  padding: 30px;
+
+  @include xs-to-sm {
+    padding: 0;
+  }
+}
+
+.page {
+  background: $tc-white;
+  border-radius: 4px;
+  margin: 0 auto;
+  max-width: $screen-lg;
+}
+
+.subTitle {
+  @include tc-heading-md;
+
+  margin: 30px;
+  text-align: center;
+}

@@ -4,15 +4,17 @@
  */
 /* global location */
 
-import Announcement from 'components/Announcement';
-
-import React from 'react';
-import PT from 'prop-types';
-import { connect } from 'react-redux';
-import shortId from 'shortid';
 import _ from 'lodash';
-
+import Announcement from 'components/Announcement';
+import Dashboard from 'components/Dashboard';
 import config from 'utils/config';
+import PT from 'prop-types';
+import React from 'react';
+import rssActions from 'actions/rss';
+import shortId from 'shortid';
+
+import { connect } from 'react-redux';
+
 import actions from 'actions/dashboard';
 import cActions from 'actions/challenge-listing';
 import communityActions from 'actions/tc-communities';
@@ -26,21 +28,43 @@ import SRM from 'components/Dashboard/SRM';
 import Program from 'components/Dashboard/Program';
 import CommunityUpdates from 'components/Dashboard/CommunityUpdates';
 import LoadingIndicator from 'components/LoadingIndicator';
+
+import { isTokenExpired } from 'tc-accounts';
 import { cdnService } from 'services/contentful-cms';
 
 import './styles.scss';
 
+/* When mounted, this container triggers (re-)loading of various data it needs.
+ * It will not reload any data already present in the Redux store, if they were
+ * fetched more recently than this max age [ms]. */
+const CACHE_MAX_AGE = 10 * 60 * 1000;
+
+/* Constants for loading Topcoder blog. */
+const TOPCODER_BLOG_ID = 'TOPCODER_BLOG';
+const TOPOCDER_BLOG_URL = `/community-app-assets/api/proxy-get?url=${
+  encodeURIComponent(config.URL.BLOG_FEED)}`;
+
 // The container component
 export class DashboardPageContainer extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {};
-  }
-
   componentDidMount() {
+    const {
+      getTopcoderBlogFeed,
+      tcBlogLoading,
+      tcBlogTimestamp,
+      tokenV3,
+    } = this.props;
+    this.authCheck(tokenV3);
+
+    const now = Date.now();
+
+    if (now - tcBlogTimestamp > CACHE_MAX_AGE && !tcBlogLoading) {
+      getTopcoderBlogFeed();
+    }
+
     /**
      * POC for loading announcement into the dashboard.
      */
+    /*
     const now = moment().toISOString();
     cdnService.getContentEntries({
       content_type: 'dashboardAnnouncement',
@@ -60,7 +84,7 @@ export class DashboardPageContainer extends React.Component {
      *  */
 
     const {
-      auth: { tokenV2, user, tokenV3 },
+      auth: { tokenV2, user },
       challengeListing: { challenges },
       tcCommunities: {
         list: {
@@ -70,9 +94,12 @@ export class DashboardPageContainer extends React.Component {
       getCommunityStats,
     } = this.props;
     if (!tokenV2) {
+      /*
       location.href = `${config.URL.AUTH}/member?retUrl=${encodeURIComponent(location.href)}&utm_source=community-app-main`;
       return false;
+      */
     }
+    /*
     this.props.getBlogs();
     this.props.getCommunityList(this.props.auth);
     if (tokenV3 && user) {
@@ -84,10 +111,16 @@ export class DashboardPageContainer extends React.Component {
       this.props.getUserAchievements(user.handle);
       _.forEach(communityList, c => getCommunityStats(c, challenges, tokenV3));
     }
+    */
     return true;
   }
 
+  componentWillReceiveProps(nextProps) {
+    this.authCheck(nextProps.tokenV3);
+  }
+
   componentDidUpdate(prevProps) {
+    /*
     const {
       auth: { user, tokenV3, profile },
       challengeListing: { challenges },
@@ -117,18 +150,44 @@ export class DashboardPageContainer extends React.Component {
       || communityList !== prevProps.tcCommunities.list.data) && tokenV3) {
       _.forEach(communityList, c => getCommunityStats(c, challenges, tokenV3));
     }
+    */
+  }
+
+  /**
+   * Does nothing if a valid TC API v3 token is passed in; otherwise redirects
+   * user to the TC auth page, with proper return URL.
+   * @param {String} tokenV3
+   */
+  authCheck(tokenV3) {
+    if (tokenV3 && !isTokenExpired(tokenV3)) return;
+
+    /* This implements front-end redirection. Once the server-side rendering of
+     * the Dashboard is in place, this should be updated to work for the server
+     * side rendering as well. */
+    let url = `retUrl=${encodeURIComponent(location.href)}`;
+    url = `${config.URL.AUTH}/member?${url}&utm_source=community-app-main`;
+    location.href = url;
+
+    _.noop(this);
   }
 
   loadChallenges() {
+    /*
     this.props.getAllActiveChallenges(this.props.auth.tokenV3);
     if (config.CHALLENGE_LISTING_AUTO_REFRESH) {
       if (this.autoRefreshTimerId) clearTimeout(this.autoRefreshTimerId);
       this.autoRefreshTimerId = setTimeout(() =>
         this.loadChallenges(), 1000 * config.CHALLENGE_LISTING_AUTO_REFRESH);
     }
+    */
   }
 
   render() {
+    const {
+      tcBlogLoading,
+      tcBlogPosts,
+    } = this.props;
+
     const {
       auth: { profile, user, tokenV3 },
       dashboard: {
@@ -171,113 +230,35 @@ export class DashboardPageContainer extends React.Component {
       loadingActiveChallenges = outage > 1.5 * 1000 * config.CHALLENGE_LISTING_AUTO_REFRESH;
     }
 
-    const st = this.state;
+    const st = this.state || {};
 
     return (
-      <div styleName="dashboard-container">
-        <div styleName="page-container">
-          <Header title={'Dashboard'} profile={profile} financials={financials} achievements={achievements} myChallenges={myChallenges.length} />
-          <div styleName="my-dashboard-container">
-            {
-              st.announcementId ? (
-                <Announcement id={st.announcementId} />
-              ) : null
-            }
-            <div styleName="subtrack-stats">
-              {
-                loadingSubtrackRanks &&
-                <LoadingIndicator theme={{}} />
-              }
-              {
-                !loadingSubtrackRanks &&
-                <SubtrackStats subtracks={subtrackRanks} handle={user ? user.handle : ''} />
-              }
-            </div>
-            <div styleName="challenges">
-              {
-                loadingActiveChallenges &&
-                <LoadingIndicator theme={{}} />
-              }
-              {
-                !loadingActiveChallenges &&
-                <MyChallenges
-                  challenges={myChallenges}
-                  communityList={communityList}
-                  stats={stats}
-                  groups={profile ? profile.groups : []}
-                />
-              }
-            </div>
-            <div styleName="tco tco17">
-              <div styleName="tc-banner-placeholder cognitive">
-                <div styleName="container">
-                  <div styleName="img" />
-                  <div styleName="description">
-                    Learn about Cognitive technologies and get hands on
-                    experience as a member of the Topcoder Cognitive Community.
-                  </div>
-                  <a
-                    href={config.URL.COMMUNITIES.COGNITIVE}
-                    styleName="cta tc-btn-white tc-btn-radius"
-                  >Learn More</a>
-                </div>
-              </div>
-            </div>
-            <div styleName="tco tco17">
-              <div styleName="tc-banner-placeholder black bg-image">
-                <div styleName="container">
-                  <div styleName="title">2017 Topcoder Open</div>
-                  <div styleName="subtitle">October 21-24, 2017 <br /> Buffalo, NY, USA</div>
-                  <div styleName="description">
-                    The Ultimate Programming and Design Tournament - The Final Stage</div>
-                  <a href={config.URL.TCO17} styleName="cta tc-btn-radius tc-btn-white">
-                    Learn More
-                  </a>
-                </div>
-              </div>
-            </div>
-            <div styleName="srms">
-              {
-                loadingSRMs &&
-                <LoadingIndicator theme={{}} />
-              }
-              {
-                !loadingSRMs &&
-                <SRM srms={srms} />
-              }
-            </div>
-            <div styleName="programs">
-              {
-                loadingActiveChallenges &&
-                <LoadingIndicator theme={{}} />
-              }
-              {
-                !loadingActiveChallenges &&
-                <Program
-                  challenges={iosChallenges.slice(0, 3)}
-                  iosRegistered={iosRegistered}
-                  registerIos={() => registerIos(tokenV3, user.userId)}
-                />
-              }
-            </div>
-            <div styleName="community-updates">
-              {
-                loadingBlogs &&
-                <LoadingIndicator theme={{}} />
-              }
-              {
-                !loadingBlogs &&
-                <CommunityUpdates blogs={blogs} />
-              }
-            </div>
-          </div>
-        </div>
-      </div>
+      <Dashboard
+        tcBlogLoading={tcBlogLoading}
+        tcBlogPosts={tcBlogPosts}
+      />
     );
   }
 }
 
+DashboardPageContainer.defaultProps = {
+  tokenV3: null,
+
+  /* OLD STUFF BELOW */
+  auth: {},
+  dashboard: {},
+  challengeListing: {},
+  tcCommunities: {},
+  stats: {},
+};
+
 DashboardPageContainer.propTypes = {
+  getTopcoderBlogFeed: PT.func.isRequired,
+  tcBlogLoading: PT.bool.isRequired,
+  tcBlogTimestamp: PT.number.isRequired,
+  tokenV3: PT.string,
+
+  /* OLD STUFF BELOW */
   auth: PT.shape(),
   dashboard: PT.shape(),
   challengeListing: PT.shape(),
@@ -300,65 +281,73 @@ DashboardPageContainer.propTypes = {
   lastUpdateOfActiveChallenges: PT.number.isRequired,
 };
 
-DashboardPageContainer.defaultProps = {
-  auth: {},
-  dashboard: {},
-  challengeListing: {},
-  tcCommunities: {},
-  stats: {},
-};
+function mapStateToProps(state, props) {
+  const tcBlog = state.rss[TOPCODER_BLOG_ID] || {};
+  return {
+    tcBlogLoading: Boolean(tcBlog.loadingUuid),
+    tcBlogPosts: _.get(tcBlog, 'data.item', []),
+    tcBlogTimestamp: tcBlog.timestamp || 0,
+    tokenV3: state.auth.tokenV3,
 
-const mapStateToProps = state => ({
-  auth: state.auth,
-  dashboard: state.dashboard,
-  challengeListing: state.challengeListing,
-  lastUpdateOfActiveChallenges: state.challengeListing.lastUpdateOfActiveChallenges,
-  tcCommunities: state.tcCommunities,
-  stats: state.stats,
-});
+    /* OLD STUFF BELOW */
+    auth: state.auth,
+    dashboard: state.dashboard,
+    challengeListing: state.challengeListing,
+    lastUpdateOfActiveChallenges: state.challengeListing.lastUpdateOfActiveChallenges,
+    tcCommunities: state.tcCommunities,
+    stats: state.stats,
+  };
+}
 
-const mapDispatchToProps = dispatch => ({
-  getSubtrackRanks: (tokenV3, handle) => {
-    dispatch(actions.dashboard.getSubtrackRanksInit());
-    dispatch(actions.dashboard.getSubtrackRanksDone(tokenV3, handle));
-  },
-  getAllActiveChallenges: (tokenV3) => {
-    const uuid = shortId();
-    dispatch(cActions.challengeListing.getAllActiveChallengesInit(uuid));
-    dispatch(cActions.challengeListing.getAllActiveChallengesDone(uuid, tokenV3));
-  },
-  getSRMs: (tokenV3, handle) => {
-    dispatch(actions.dashboard.getSrmsInit());
-    dispatch(actions.dashboard.getSrmsDone(tokenV3, handle, {
-      filter: 'status=future',
-      orderBy: 'registrationStartAt',
-      limit: 3,
-    }));
-  },
-  getIosRegistration: (tokenV3, userId) => {
-    dispatch(actions.dashboard.getIosRegistration(tokenV3, userId));
-  },
-  registerIos: (tokenV3, userId) => {
-    dispatch(actions.dashboard.registerIos(tokenV3, userId));
-  },
-  getBlogs: () => {
-    dispatch(actions.dashboard.getBlogsInit());
-    dispatch(actions.dashboard.getBlogsDone());
-  },
-  getUserFinancials: (tokenV3, handle) => {
-    dispatch(actions.dashboard.getUserFinancials(tokenV3, handle));
-  },
-  getUserAchievements: (handle) => {
-    dispatch(actions.dashboard.getUserAchievements(handle));
-  },
-  getCommunityList: (auth) => {
-    const uuid = shortId();
-    dispatch(communityActions.tcCommunity.getListInit(uuid));
-    dispatch(communityActions.tcCommunity.getListDone(uuid, auth));
-  },
-  getCommunityStats: (community, challenges, token) =>
-    dispatch(statsActions.stats.getCommunityStats(community, challenges, token)),
-});
+function mapDispatchToProps(dispatch) {
+  return {
+    getTopcoderBlogFeed: () => {
+      const uuid = shortId();
+      const a = rssActions.rss;
+      dispatch(a.getInit(TOPCODER_BLOG_ID, uuid));
+      dispatch(a.getDone(TOPCODER_BLOG_ID, uuid, TOPOCDER_BLOG_URL));
+    },
+
+    /* OLD STUFF BELOW */
+    getSubtrackRanks: (tokenV3, handle) => {
+      dispatch(actions.dashboard.getSubtrackRanksInit());
+      dispatch(actions.dashboard.getSubtrackRanksDone(tokenV3, handle));
+    },
+    getAllActiveChallenges: (tokenV3) => {
+      const uuid = shortId();
+      dispatch(cActions.challengeListing.getAllActiveChallengesInit(uuid));
+      dispatch(cActions.challengeListing.getAllActiveChallengesDone(uuid, tokenV3));
+    },
+    getSRMs: (tokenV3, handle) => {
+      dispatch(actions.dashboard.getSrmsInit());
+      dispatch(actions.dashboard.getSrmsDone(tokenV3, handle, {
+        filter: 'status=future',
+        orderBy: 'registrationStartAt',
+        limit: 3,
+      }));
+    },
+    getIosRegistration: (tokenV3, userId) => {
+      dispatch(actions.dashboard.getIosRegistration(tokenV3, userId));
+    },
+    registerIos: (tokenV3, userId) => {
+      dispatch(actions.dashboard.registerIos(tokenV3, userId));
+    },
+
+    getUserFinancials: (tokenV3, handle) => {
+      dispatch(actions.dashboard.getUserFinancials(tokenV3, handle));
+    },
+    getUserAchievements: (handle) => {
+      dispatch(actions.dashboard.getUserAchievements(handle));
+    },
+    getCommunityList: (auth) => {
+      const uuid = shortId();
+      dispatch(communityActions.tcCommunity.getListInit(uuid));
+      dispatch(communityActions.tcCommunity.getListDone(uuid, auth));
+    },
+    getCommunityStats: (community, challenges, token) =>
+      dispatch(statsActions.stats.getCommunityStats(community, challenges, token)),
+  };
+}
 
 const DashboardContainer = connect(
   mapStateToProps,

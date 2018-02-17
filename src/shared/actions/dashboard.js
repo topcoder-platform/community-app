@@ -57,13 +57,6 @@ function registerIos(tokenV3, userId) {
   return memberService(tokenV3).registerMember(userId, config.SWIFT_PROGRAM_ID);
 }
 
-function getBlogs() {
-  return fetch(config.URL.BLOG)
-    .then(res => (res.ok ? res.text() : new Error(res.statusText)))
-    .then(res => toJson(res))
-    .then(data => data.rss.channel.item.slice(0, 4));
-}
-
 function getUserFinancials(tokenV3, handle) {
   return getService(tokenV3).getUserFinancials(handle).then(data => _.sum(_.map(data, 'amount')));
 }
@@ -82,8 +75,6 @@ export default createActions({
     GET_SRMS_DONE: getSRMs,
     GET_IOS_REGISTRATION: getIosRegistration,
     REGISTER_IOS: registerIos,
-    GET_BLOGS_INIT: _.noop,
-    GET_BLOGS_DONE: getBlogs,
     GET_USER_FINANCIALS: getUserFinancials,
     GET_USER_ACHIEVEMENTS: getUserAchievements,
   },

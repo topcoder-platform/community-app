@@ -1,0 +1,35 @@
+@import "~styles/mixins";
+
+.container {
+  padding: 30px 0;
+}
+
+.content {
+  display: flex;
+  padding: 10px 20px;
+}
+
+.title {
+  @include tc-heading-lg;
+
+  padding: 0 30px;
+  text-align: center;
+}
+
+.viewMore {
+  @include tc-label-lg;
+
+  color: $tc-dark-blue;
+  display: block;
+  padding: 0 30px;
+  text-align: center;
+
+  &:active,
+  &:visited {
+    color: $tc-dark-blue;
+  }
+
+  &:hover {
+    color: $tc-dark-blue-70;
+  }
+}

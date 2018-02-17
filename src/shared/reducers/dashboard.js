@@ -40,15 +40,6 @@ function create(initialState) {
       ...state,
       iosRegistered: action.error ? false : !!action.payload,
     }),
-    [a.getBlogsInit]: state => ({
-      ...state,
-      loadingBlogs: true,
-    }),
-    [a.getBlogsDone]: (state, action) => ({
-      ...state,
-      loadingBlogs: false,
-      blogs: action.error ? [] : action.payload,
-    }),
     [a.getUserFinancials]: (state, action) => ({
       ...state,
       financials: action.error ? 0 : action.payload,
@@ -63,8 +54,6 @@ function create(initialState) {
     srms: [],
     loadingSRMs: false,
     iosRegistered: false,
-    loadingBlogs: false,
-    blogs: [],
     financials: 0,
     achievements: [],
   }));
