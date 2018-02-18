@@ -14,15 +14,6 @@ import { handleActions } from 'redux-actions';
 function create(initialState) {
   const a = actions.dashboard;
   return handleActions({
-    [a.getSubtrackRanksDone]: (state, action) => ({
-      ...state,
-      subtrackRanks: action.error ? [] : action.payload,
-      loadingSubtrackRanks: false,
-    }),
-    [a.getSubtrackRanksInit]: state => ({
-      ...state,
-      loadingSubtrackRanks: true,
-    }),
     [a.getSrmsInit]: state => ({
       ...state,
       loadingSRMs: true,
@@ -49,8 +40,6 @@ function create(initialState) {
       achievements: action.error ? 0 : action.payload,
     }),
   }, _.defaults(_.clone(initialState) || {}, {
-    subtrackRanks: [],
-    loadingSubtrackRanks: false,
     srms: [],
     loadingSRMs: false,
     iosRegistered: false,

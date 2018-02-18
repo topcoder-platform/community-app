@@ -55,7 +55,7 @@ function onGetFinancesInit(state, action) {
  * @param {Object} action
  * @return {Object} New state.
  */
-function onGetFinancesDone(state, { error, payload}) {
+function onGetFinancesDone(state, { error, payload }) {
   if (error) {
     logger.error('Failed to get user financial info', payload);
     fireErrorMessage('Failed to get user financial info', '');
@@ -78,6 +78,47 @@ function onGetFinancesDone(state, { error, payload}) {
 }
 
 /**
+ * Inits the loading of member stats.
+ * @param {Object} state
+ * @param {Object} action
+ * @return {Object} New state.
+ */
+function onGetStatsInit(state, action) {
+  const { handle, uuid } = action.payload;
+  let res = state[handle];
+  res = res ? _.clone(res) : {};
+  res.stats = { loadingUuid: uuid };
+  return {
+    ...state,
+    [handle]: res,
+  };
+}
+
+/**
+ * Finalizes the loading of member stats.
+ * @param {Object} state
+ * @param {Object} action
+ * @return {Object} New state.
+ */
+function onGetStatsDone(state, { error, payload }) {
+  if (error) {
+    logger.error('Failed to get member stats', payload);
+    fireErrorMessage('Failed to get member stats', '');
+    return state;
+  }
+
+  const { data, handle, uuid } = payload;
+  if (uuid !== _.get(state[handle], 'stats.loadingUuid')) return state;
+  return {
+    ...state,
+    [handle]: {
+      ...state[handle],
+      stats: { data, timestamp: Date.now() },
+    },
+  };
+}
+
+/**
  * Creates reduces with the specified intial state.
  * @param {Object} state Optional. If not given, the default one is generated.
  * @return {Function} Reducer.
@@ -89,6 +130,8 @@ function create(state = {}) {
     [a.dropAll]: onDropAll,
     [a.getFinancesInit]: onGetFinancesInit,
     [a.getFinancesDone]: onGetFinancesDone,
+    [a.getStatsInit]: onGetStatsInit,
+    [a.getStatsDone]: onGetStatsDone,
   }, state);
 }
 

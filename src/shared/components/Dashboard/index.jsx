@@ -2,7 +2,7 @@ import PT from 'prop-types';
 import React from 'react';
 
 import CommunityBlog from './CommunityBlog';
-import Finances from './Finances';
+import MemberMetrics from './MemberMetrics';
 import Header from './Header';
 
 import './style.scss';
@@ -10,6 +10,8 @@ import './style.scss';
 export default function Dashboard({
   finances,
   financesLoading,
+  stats,
+  statsLoading,
   tcBlogLoading,
   tcBlogPosts,
 }) {
@@ -17,7 +19,12 @@ export default function Dashboard({
     <div styleName="container">
       <div styleName="page">
         <Header finances={finances} financesLoading={financesLoading} />
-        <Finances finances={finances} loading={financesLoading} />
+        <MemberMetrics
+          finances={finances}
+          financesLoading={financesLoading}
+          stats={stats}
+          statsLoading={statsLoading}
+        />
       {/*}
         achievements={achievements} myChallenges={myChallenges.length} />
         <div styleName="my-dashboard-container">
@@ -121,6 +128,8 @@ export default function Dashboard({
 Dashboard.propTypes = {
   finances: PT.arrayOf(PT.object).isRequired,
   financesLoading: PT.bool.isRequired,
+  stats: PT.shape().isRequired,
+  statsLoading: PT.bool.isRequired,
   tcBlogLoading: PT.bool.isRequired,
   tcBlogPosts: PT.arrayOf(PT.object).isRequired,
 };

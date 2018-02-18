@@ -11,14 +11,6 @@ import { processSRM } from 'utils/tc';
 
 /* global fetch */
 import 'isomorphic-fetch';
-/**
- * Gets possible challenge subtracks.
- * @return {Promise}
- */
-function getSubtrackRanks(tokenV3, handle) {
-  return getService(tokenV3)
-    .getSubtrackRanks(handle);
-}
 
 /**
  * Loads SRM matches.

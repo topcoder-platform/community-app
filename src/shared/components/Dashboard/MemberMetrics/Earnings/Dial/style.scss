@@ -2,19 +2,19 @@
 
 .container {
   border-radius: 4px;
-  display: block;
+  display: inline-block;
   margin: 0 auto;
   padding: 20px 30px;
   text-align: center;
-  max-width: 300px;
+  // max-width: 300px;
 }
 
 .content {
   @include tc-heading-xl;
 
   color: $tc-yellow-110;
-  white-space: nowrap;
   margin: 20px 20px 0;
+  white-space: nowrap;
 }
 
 .title {

@@ -1,11 +1,10 @@
 @import '~styles/mixins';
 
 .container {
-  display: block;
+  display: inline-block;
   margin: 0 auto;
-  padding: 30px;
+  padding: 20px 30px;
   text-align: center;
-  width: 160px;
 }
 
 .label {
@@ -18,7 +17,7 @@
   @include tc-heading-xl;
 
   color: $color;
-  margin: 15px 0 5px;
+  margin: 15px 10px 5px;
 }
 
 .rating { @include rating($tc-black); }
@@ -37,7 +36,7 @@
   border-bottom: 1px solid $tc-gray-20;
   color: $tc-gray-40;
   overflow: hidden;
-  padding-bottom: 10px;
+  padding: 0 10px 10px;
   text-overflow: ellipsis;
   white-space: nowrap;
 }

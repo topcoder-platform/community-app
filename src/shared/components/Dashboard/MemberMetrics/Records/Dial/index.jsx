@@ -13,15 +13,17 @@ import './style.scss';
 
 export default function Dial({
   handle,
-  stat,
-  statType,
-  subTrack,
   track,
+  subTrack,
+  metric,
+  value,
 }) {
   const title = _.startCase(subTrack);
 
+  console.log(title, track);
+
   let ratingType;
-  if (statType === 'Rating') ratingType = `rating-${getRatingLevel(stat)}`;
+  if (metric === 'Rating') ratingType = `rating-${getRatingLevel(value)}`;
   else {
     switch (track) {
       case 'DATA_SCIENCE': ratingType = 'ratingInDataScience'; break;
@@ -40,19 +42,19 @@ export default function Dial({
       styleName="container"
       key={track + subTrack}
     >
-      <p styleName="title" title={title}>{title}</p>
+      <p styleName="title" title={title}>{_.startCase(title)}</p>
       <p
         styleName={ratingType}
-      >{stat.toLocaleString()}</p>
-      <p styleName="label">{statType}</p>
+      >{value.toLocaleString()}</p>
+      <p styleName="label">{metric}</p>
     </a>
   );
 }
 
 Dial.propTypes = {
   handle: PT.string.isRequired,
-  stat: PT.number.isRequired,
-  statType: PT.string.isRequired,
-  subTrack: PT.string.isRequired,
   track: PT.string.isRequired,
+  subTrack: PT.string.isRequired,
+  metric: PT.string.isRequired,
+  value: PT.number.isRequired,
 };

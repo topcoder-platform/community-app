@@ -1,11 +1,10 @@
+import _ from 'lodash';
 import config from 'utils/config';
-import LoadingIndicator from 'components/LoadingIndicator';
 import PT from 'prop-types';
 import React from 'react';
 
 import { Link } from 'topcoder-react-utils';
 
-import Coin from './Coin';
 import Dial from './Dial';
 
 import './style.scss';
@@ -13,44 +12,36 @@ import './style.scss';
 const PACTS_FULL_URL = `${config.URL.COMMUNITY}/PactsMemberServlet?module=PaymentHistory&full_list=true`;
 const PACTS_OWED_URL = `${config.URL.COMMUNITY}/PactsMemberServlet?module=PaymentHistory&full_list=false`;
 
-export default function Finances({
-  finances,
-  loading,
-}) {
+export default function Earnings({ finances }) {
   const map = {};
   finances.forEach((x) => { map[x.status] = x; });
 
-  let total = 0.0;
-  if (map.OWED) total += map.OWED.amount || 0;
-  if (map.PAID) total += map.PAID.amount || 0;
+  const owed = _.get(map.OWED, 'amount', 0);
+  const paid = _.get(map.PAID, 'amount', 0);
+  const total = owed + paid;
 
-  let content;
-  if (loading) {
-    content = (
-      <div styleName="loading">
-        <LoadingIndicator />
-      </div>
-    );
-  } else if (!total) {
-    content = (
-      <p styleName="textMessage">
+  if (!total) {
+    return (
+      <div styleName="container">
         <Link
           styleName="link"
           to="/challenges"
         >Start competing today</Link>&zwnj;
         to gain experience and win prize money!
-      </p>
+      </div>
     );
-  } else if (map.OWED && map.PAID) {
-    content = (
-      <div styleName="innerContainer">
+  }
+
+  if (owed && paid) {
+    return (
+      <div styleName="container">
         <Dial
-          amount={map.PAID.amount}
+          amount={paid}
           title="Paid"
           url={PACTS_FULL_URL}
         />
         <Dial
-          amount={map.OWED.amount}
+          amount={owed}
           title="Owed"
           url={PACTS_OWED_URL}
         />
@@ -61,26 +52,22 @@ export default function Finances({
         />
       </div>
     );
-  } else {
-    content = (
-      <a href={PACTS_FULL_URL} styleName="totalNumber">
-        <Coin />{Math.round(total).toLocaleString()}
-      </a>
-    );
   }
 
   return (
     <div styleName="container">
-      <h1 styleName="title">My Earnings and Records</h1>
-      {content}
+      <Dial
+        amount={total}
+        title="Total Earnings"
+        url={PACTS_FULL_URL}
+      />
     </div>
   );
 }
 
-Finances.propTypes = {
+Earnings.propTypes = {
   finances: PT.arrayOf(PT.shape({
     amount: PT.number.isRequired,
     status: PT.string.isRequired,
   })).isRequired,
-  loading: PT.bool.isRequired,
 };

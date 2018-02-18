@@ -45,11 +45,35 @@ async function getFinancesDone(handle, uuid, tokenV3) {
   return { data, handle, uuid };
 }
 
+/**
+ * Payload creator for the action that inits the loading of member stats.
+ * @param {String} handle
+ * @param {String} uuid
+ * @return {Object} Payload.
+ */
+async function getStatsInit(handle, uuid) {
+  return { handle, uuid };
+}
+
+/**
+ * Payload creator for the action that loads the member stats.
+ * @param {String} handle
+ * @param {String} uuid
+ * @param {String} tokenV3
+ * @return {Object} Payload
+ */
+async function getStatsDone(handle, uuid, tokenV3) {
+  const data = await getService(tokenV3).getStats(handle);
+  return { data, handle, uuid };
+}
+
 export default createActions({
   MEMBERS: {
     DROP: drop,
     DROP_ALL: dropAll,
     GET_FINANCES_INIT: getFinancesInit,
     GET_FINANCES_DONE: getFinancesDone,
+    GET_STATS_INIT: getStatsInit,
+    GET_STATS_DONE: getStatsDone,
   },
 });

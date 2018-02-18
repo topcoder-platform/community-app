@@ -23,7 +23,6 @@ import moment from 'moment';
 import statsActions from 'actions/stats';
 import { processActiveDevDesignChallenges } from 'utils/tc';
 import Header from 'components/Dashboard/Header';
-import SubtrackStats from 'components/Dashboard/SubtrackStats';
 import MyChallenges from 'components/Dashboard/MyChallenges';
 import SRM from 'components/Dashboard/SRM';
 import Program from 'components/Dashboard/Program';
@@ -51,8 +50,11 @@ export class DashboardPageContainer extends React.Component {
       financesLoading,
       financesTimestamp,
       getMemberFinances,
+      getMemberStats,
       getTopcoderBlogFeed,
       handle,
+      statsLoading,
+      statsTimestamp,
       tcBlogLoading,
       tcBlogTimestamp,
       tokenV3,
@@ -67,6 +69,10 @@ export class DashboardPageContainer extends React.Component {
 
     if (now - financesTimestamp > CACHE_MAX_AGE && !financesLoading) {
       getMemberFinances(handle, tokenV3);
+    }
+
+    if (now - statsTimestamp > CACHE_MAX_AGE && !statsLoading) {
+      getMemberStats(handle, tokenV3);
     }
 
     /**
@@ -108,7 +114,6 @@ export class DashboardPageContainer extends React.Component {
       */
     }
     /*
-    this.props.getBlogs();
     this.props.getCommunityList(this.props.auth);
     if (tokenV3 && user) {
       this.loadChallenges();
@@ -120,7 +125,6 @@ export class DashboardPageContainer extends React.Component {
       _.forEach(communityList, c => getCommunityStats(c, challenges, tokenV3));
     }
     */
-    return true;
   }
 
   componentWillReceiveProps(nextProps) {
@@ -196,6 +200,8 @@ export class DashboardPageContainer extends React.Component {
     const {
       finances,
       financesLoading,
+      stats,
+      statsLoading,
       tcBlogLoading,
       tcBlogPosts,
     } = this.props;
@@ -214,7 +220,6 @@ export class DashboardPageContainer extends React.Component {
         },
       },
       registerIos,
-      stats,
     } = this.props;
     const myChallenges = processActiveDevDesignChallenges(
       _.filter(challenges, c => !!c.users[user.handle]),
@@ -248,6 +253,8 @@ export class DashboardPageContainer extends React.Component {
       <Dashboard
         finances={finances}
         financesLoading={financesLoading}
+        stats={stats}
+        statsLoading={statsLoading}
         tcBlogLoading={tcBlogLoading}
         tcBlogPosts={tcBlogPosts}
       />
@@ -259,6 +266,8 @@ DashboardPageContainer.defaultProps = {
   finances: [],
   financesTimestamp: 0,
   handle: '',
+  stats: {},
+  statsTimestamp: 0,
   tcBlogPosts: [],
   tcBlogTimestamp: 0,
   tokenV3: null,
@@ -268,16 +277,19 @@ DashboardPageContainer.defaultProps = {
   dashboard: {},
   challengeListing: {},
   tcCommunities: {},
-  stats: {},
 };
 
 DashboardPageContainer.propTypes = {
-  finances: PT.shape(),
+  finances: PT.arrayOf(PT.object),
   financesLoading: PT.bool.isRequired,
   financesTimestamp: PT.number,
   getMemberFinances: PT.func.isRequired,
+  getMemberStats: PT.func.isRequired,
   getTopcoderBlogFeed: PT.func.isRequired,
   handle: PT.string,
+  stats: PT.shape(),
+  statsLoading: PT.bool.isRequired,
+  statsTimestamp: PT.number,
   tcBlogLoading: PT.bool.isRequired,
   tcBlogPosts: PT.arrayOf(PT.object),
   tcBlogTimestamp: PT.number,
@@ -292,14 +304,10 @@ DashboardPageContainer.propTypes = {
       data: PT.arrayOf(PT.shape()).isRequired,
     }).isRequired,
   }),
-  stats: PT.shape(),
   getAllActiveChallenges: PT.func.isRequired,
-  getSubtrackRanks: PT.func.isRequired,
   getSRMs: PT.func.isRequired,
   getIosRegistration: PT.func.isRequired,
   registerIos: PT.func.isRequired,
-  getBlogs: PT.func.isRequired,
-  getUserFinancials: PT.func.isRequired,
   getUserAchievements: PT.func.isRequired,
   getCommunityStats: PT.func.isRequired,
   getCommunityList: PT.func.isRequired,
@@ -308,7 +316,9 @@ DashboardPageContainer.propTypes = {
 
 function mapStateToProps(state) {
   const userHandle = _.get(state.auth, 'user.handle');
-  const finances = _.get(state.members[userHandle], 'finances', {});
+  const member = state.members[userHandle] || {};
+  const finances = member.finances || {};
+  const stats = member.stats || {};
 
   const tcBlog = state.rss[TOPCODER_BLOG_ID] || {};
   return {
@@ -316,6 +326,9 @@ function mapStateToProps(state) {
     financesLoading: Boolean(finances.loadingUuid),
     financesTimestamp: finances.timestamp,
     handle: userHandle,
+    stats: stats.data,
+    statsLoading: Boolean(stats.loadingUuid),
+    statsTimestamp: stats.timestamp,
     tcBlogLoading: Boolean(tcBlog.loadingUuid),
     tcBlogPosts: _.get(tcBlog, 'data.item'),
     tcBlogTimestamp: tcBlog.timestamp,
@@ -327,7 +340,6 @@ function mapStateToProps(state) {
     challengeListing: state.challengeListing,
     lastUpdateOfActiveChallenges: state.challengeListing.lastUpdateOfActiveChallenges,
     tcCommunities: state.tcCommunities,
-    stats: state.stats,
   };
 }
 
@@ -339,6 +351,11 @@ function mapDispatchToProps(dispatch) {
       dispatch(members.getFinancesInit(handle, uuid));
       dispatch(members.getFinancesDone(handle, uuid, tokenV3));
     },
+    getMemberStats: (handle, tokenV3) => {
+      const uuid = shortId();
+      dispatch(members.getStatsInit(handle, uuid));
+      dispatch(members.getStatsDone(handle, uuid, tokenV3));
+    },
     getTopcoderBlogFeed: () => {
       const uuid = shortId();
       const a = rssActions.rss;
@@ -347,10 +364,6 @@ function mapDispatchToProps(dispatch) {
     },
 
     /* OLD STUFF BELOW */
-    getSubtrackRanks: (tokenV3, handle) => {
-      dispatch(actions.dashboard.getSubtrackRanksInit());
-      dispatch(actions.dashboard.getSubtrackRanksDone(tokenV3, handle));
-    },
     getAllActiveChallenges: (tokenV3) => {
       const uuid = shortId();
       dispatch(cActions.challengeListing.getAllActiveChallengesInit(uuid));
@@ -371,9 +384,6 @@ function mapDispatchToProps(dispatch) {
       dispatch(actions.dashboard.registerIos(tokenV3, userId));
     },
 
-    getUserFinancials: (tokenV3, handle) => {
-      dispatch(actions.dashboard.getUserFinancials(tokenV3, handle));
-    },
     getUserAchievements: (handle) => {
       dispatch(actions.dashboard.getUserAchievements(handle));
     },
