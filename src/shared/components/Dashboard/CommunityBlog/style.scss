@@ -1,28 +1,20 @@
 @import "~styles/mixins";
 
 .container {
-  padding: 30px 0;
+  padding: 30px 0 20px;
 }
 
 .content {
   display: flex;
   padding: 10px 20px;
+
+  @include xs-to-sm {
+    flex-direction: column;
+  }
 }
 
-.title {
-  @include tc-heading-lg;
-
-  padding: 0 30px;
-  text-align: center;
-}
-
-.viewMore {
-  @include tc-label-lg;
-
+.link {
   color: $tc-dark-blue;
-  display: block;
-  padding: 0 30px;
-  text-align: center;
 
   &:active,
   &:visited {
@@ -32,4 +24,11 @@
   &:hover {
     color: $tc-dark-blue-70;
   }
+}
+
+.title {
+  @include tc-heading-lg;
+
+  padding: 0 30px;
+  text-align: center;
 }

@@ -28,16 +28,7 @@
     color: $tc-purple;
   }
 
-  /* On smaller screens it make no sense to try to show the same number of posts
-   * as on the large ones, so we show just two posts at medium screen, and just
-   * one on small and extra-small ones. */
-  @include xs-to-sm {
-    &:nth-child(2) {
-      display: none;
-    }
-  }
-
-  @include xs-to-md {
+  @include md {
     &:nth-child(3) {
       display: none;
     }

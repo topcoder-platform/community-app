@@ -13,7 +13,15 @@ export default function CommunityBlog({
 }) {
   return (
     <div styleName="container">
-      <h1 styleName="title">From the Community Blog</h1>
+      <h1 styleName="title">
+        From the
+        &zwnj;<a
+          href={config.URL.BLOG}
+          rel="noopener noreferrer"
+          styleName="link"
+          target="_blank"
+        >Community Blog</a>
+      </h1>
       <div styleName="content">
         {
           isLoading ? <LoadingIndicator /> : (
@@ -28,12 +36,6 @@ export default function CommunityBlog({
           )
         }
       </div>
-      <a
-        href={config.URL.BLOG}
-        rel="noopener noreferrer"
-        styleName="viewMore"
-        target="_blank"
-      >Visit the Blog</a>
     </div>
   );
 }

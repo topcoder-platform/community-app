@@ -24,7 +24,6 @@ export default function Finances({
   if (map.OWED) total += map.OWED.amount || 0;
   if (map.PAID) total += map.PAID.amount || 0;
 
-  console.log(loading);
   let content;
   if (loading) {
     content = (
@@ -72,7 +71,7 @@ export default function Finances({
 
   return (
     <div styleName="container">
-      <h1 styleName="title">Your Earnings</h1>
+      <h1 styleName="title">My Earnings and Records</h1>
       {content}
     </div>
   );
