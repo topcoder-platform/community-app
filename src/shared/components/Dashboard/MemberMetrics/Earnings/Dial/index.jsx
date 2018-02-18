@@ -12,6 +12,7 @@ import './style.scss';
 
 export default function Dial({
   amount,
+  show,
   title,
   url,
 }) {
@@ -20,13 +21,21 @@ export default function Dial({
       <p styleName="title">{_.startCase(title)}</p>
       <p
         styleName="content"
-      ><Coin />{Math.round(amount).toLocaleString()}</p>
+      >
+        <Coin />
+        {
+          show ? Math.round(amount).toLocaleString() : (
+            <div styleName="hidden">hidden</div>
+          )
+        }
+      </p>
     </a>
   );
 }
 
 Dial.propTypes = {
   amount: PT.number.isRequired,
+  show: PT.bool.isRequired,
   title: PT.string.isRequired,
   url: PT.string.isRequired,
 };

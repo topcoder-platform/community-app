@@ -12,7 +12,7 @@ import './style.scss';
 const PACTS_FULL_URL = `${config.URL.COMMUNITY}/PactsMemberServlet?module=PaymentHistory&full_list=true`;
 const PACTS_OWED_URL = `${config.URL.COMMUNITY}/PactsMemberServlet?module=PaymentHistory&full_list=false`;
 
-export default function Earnings({ finances }) {
+export default function Earnings({ finances, showEarnings }) {
   const map = {};
   finances.forEach((x) => { map[x.status] = x; });
 
@@ -37,16 +37,19 @@ export default function Earnings({ finances }) {
       <div styleName="container">
         <Dial
           amount={paid}
+          show={showEarnings}
           title="Paid"
           url={PACTS_FULL_URL}
         />
         <Dial
           amount={owed}
+          show={showEarnings}
           title="Owed"
           url={PACTS_OWED_URL}
         />
         <Dial
           amount={total}
+          show={showEarnings}
           title="Total"
           url={PACTS_FULL_URL}
         />
@@ -58,6 +61,7 @@ export default function Earnings({ finances }) {
     <div styleName="container">
       <Dial
         amount={total}
+        show={showEarnings}
         title="Total Earnings"
         url={PACTS_FULL_URL}
       />
@@ -70,4 +74,5 @@ Earnings.propTypes = {
     amount: PT.number.isRequired,
     status: PT.string.isRequired,
   })).isRequired,
+  showEarnings: PT.bool.isRequired,
 };

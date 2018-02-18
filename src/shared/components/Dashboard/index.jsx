@@ -10,8 +10,10 @@ import './style.scss';
 export default function Dashboard({
   finances,
   financesLoading,
+  showEarnings,
   stats,
   statsLoading,
+  switchShowEarnings,
   tcBlogLoading,
   tcBlogPosts,
 }) {
@@ -22,8 +24,10 @@ export default function Dashboard({
         <MemberMetrics
           finances={finances}
           financesLoading={financesLoading}
+          showEarnings={showEarnings}
           stats={stats}
           statsLoading={statsLoading}
+          switchShowEarnings={switchShowEarnings}
         />
       {/*}
         achievements={achievements} myChallenges={myChallenges.length} />
@@ -128,8 +132,10 @@ export default function Dashboard({
 Dashboard.propTypes = {
   finances: PT.arrayOf(PT.object).isRequired,
   financesLoading: PT.bool.isRequired,
+  showEarnings: PT.bool.isRequired,
   stats: PT.shape().isRequired,
   statsLoading: PT.bool.isRequired,
+  switchShowEarnings: PT.func.isRequired,
   tcBlogLoading: PT.bool.isRequired,
   tcBlogPosts: PT.arrayOf(PT.object).isRequired,
 };

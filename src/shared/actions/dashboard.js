@@ -61,8 +61,6 @@ function getUserAchievements(handle) {
 
 export default createActions({
   DASHBOARD: {
-    GET_SUBTRACK_RANKS_INIT: _.noop,
-    GET_SUBTRACK_RANKS_DONE: getSubtrackRanks,
     GET_SRMS_INIT: _.noop,
     GET_SRMS_DONE: getSRMs,
     GET_IOS_REGISTRATION: getIosRegistration,

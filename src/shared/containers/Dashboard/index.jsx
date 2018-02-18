@@ -6,7 +6,9 @@
 
 import _ from 'lodash';
 import Announcement from 'components/Announcement';
+import cookies from 'browser-cookies';
 import Dashboard from 'components/Dashboard';
+import dashActions from 'actions/page/dashboard';
 import config from 'utils/config';
 import memberActions from 'actions/members';
 import PT from 'prop-types';
@@ -30,6 +32,7 @@ import LoadingIndicator from 'components/LoadingIndicator';
 
 import { isTokenExpired } from 'tc-accounts';
 import { cdnService } from 'services/contentful-cms';
+import { isClientSide } from 'utils/isomorphy';
 
 import './styles.scss';
 
@@ -200,8 +203,10 @@ export class DashboardPageContainer extends React.Component {
     const {
       finances,
       financesLoading,
+      showEarnings,
       stats,
       statsLoading,
+      switchShowEarnings,
       tcBlogLoading,
       tcBlogPosts,
     } = this.props;
@@ -253,8 +258,10 @@ export class DashboardPageContainer extends React.Component {
       <Dashboard
         finances={finances}
         financesLoading={financesLoading}
+        showEarnings={showEarnings}
         stats={stats}
         statsLoading={statsLoading}
+        switchShowEarnings={switchShowEarnings}
         tcBlogLoading={tcBlogLoading}
         tcBlogPosts={tcBlogPosts}
       />
@@ -266,6 +273,8 @@ DashboardPageContainer.defaultProps = {
   finances: [],
   financesTimestamp: 0,
   handle: '',
+  showEarnings:
+    isClientSide() ? cookies.get('showEarningsInDashboard') !== 'false' : true,
   stats: {},
   statsTimestamp: 0,
   tcBlogPosts: [],
@@ -287,9 +296,11 @@ DashboardPageContainer.propTypes = {
   getMemberStats: PT.func.isRequired,
   getTopcoderBlogFeed: PT.func.isRequired,
   handle: PT.string,
+  showEarnings: PT.bool,
   stats: PT.shape(),
   statsLoading: PT.bool.isRequired,
   statsTimestamp: PT.number,
+  switchShowEarnings: PT.func.isRequired,
   tcBlogLoading: PT.bool.isRequired,
   tcBlogPosts: PT.arrayOf(PT.object),
   tcBlogTimestamp: PT.number,
@@ -326,6 +337,7 @@ function mapStateToProps(state) {
     financesLoading: Boolean(finances.loadingUuid),
     financesTimestamp: finances.timestamp,
     handle: userHandle,
+    showEarnings: state.page.dashboard.showEarnings,
     stats: stats.data,
     statsLoading: Boolean(stats.loadingUuid),
     statsTimestamp: stats.timestamp,
@@ -344,6 +356,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
+  const dash = dashActions.page.dashboard;
   const members = memberActions.members;
   return {
     getMemberFinances: (handle, tokenV3) => {
@@ -362,6 +375,7 @@ function mapDispatchToProps(dispatch) {
       dispatch(a.getInit(TOPCODER_BLOG_ID, uuid));
       dispatch(a.getDone(TOPCODER_BLOG_ID, uuid, TOPOCDER_BLOG_URL));
     },
+    switchShowEarnings: show => dispatch(dash.showEarnings(show)),
 
     /* OLD STUFF BELOW */
     getAllActiveChallenges: (tokenV3) => {

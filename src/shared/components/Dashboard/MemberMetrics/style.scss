@@ -2,7 +2,8 @@
 
 .container {
   border-bottom: 1px solid $tc-gray-neutral-dark;
-  padding: 30px 0 20px;
+  padding: 30px 0;
+  position: relative;
   text-align: center;
 }
 
@@ -50,4 +51,12 @@
   &:hover {
     background: $tc-gray-neutral-light;
   }
+}
+
+.showEarningsSwitch {
+  @include tc-label-sm;
+
+  bottom: 10px;
+  position: absolute;
+  right: 10px;
 }

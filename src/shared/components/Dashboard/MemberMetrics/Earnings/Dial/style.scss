@@ -6,7 +6,6 @@
   margin: 0 auto;
   padding: 20px 30px;
   text-align: center;
-  // max-width: 300px;
 }
 
 .content {
@@ -36,4 +35,18 @@
     border-color: $tc-black;
     color: $tc-black;
   }
+}
+
+.hidden {
+  background: radial-gradient($tc-yellow, $tc-yellow-30 50%, $tc-yellow-10 70%, transparent 90%);
+  border-radius: 100px;
+  color: $tc-gold-110;
+  display: inline-block;
+  font-size: 20px;
+  padding: 0 40px;
+  vertical-align: top;
+}
+
+.value {
+  filter: blur(8px);
 }

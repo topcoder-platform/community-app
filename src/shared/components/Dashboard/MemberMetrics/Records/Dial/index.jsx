@@ -20,8 +20,6 @@ export default function Dial({
 }) {
   const title = _.startCase(subTrack);
 
-  console.log(title, track);
-
   let ratingType;
   if (metric === 'Rating') ratingType = `rating-${getRatingLevel(value)}`;
   else {
