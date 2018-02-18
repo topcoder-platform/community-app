@@ -1,3 +1,18 @@
+@import "~styles/mixins";
+
+.container {
+  background: $tc-gray-neutral-light;
+  display: flex;
+  justify-content: space-between;
+  padding: 20px 30px;
+}
+
+.title {
+  @include tc-title;
+}
+
+// OLD STUFF BELOW
+
 .header-dashboard {
   max-width: 1242px;
   margin-left: auto;

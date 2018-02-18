@@ -18,6 +18,7 @@ import { getCommunityId } from 'server/services//communities';
 import { combine, resolveReducers } from 'utils/redux';
 
 import direct from './direct';
+import members from './members';
 import memberTasks from './member-tasks';
 import topcoderHeader from './topcoder_header';
 import rss from './rss';
@@ -62,6 +63,7 @@ export function factory(req) {
   }, {
     ...reducers,
     direct,
+    members,
     memberTasks,
     topcoderHeader,
     rss,

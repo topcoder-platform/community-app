@@ -2,18 +2,22 @@ import PT from 'prop-types';
 import React from 'react';
 
 import CommunityBlog from './CommunityBlog';
+import Finances from './Finances';
 import Header from './Header';
 
 import './style.scss';
 
 export default function Dashboard({
+  finances,
+  financesLoading,
   tcBlogLoading,
   tcBlogPosts,
 }) {
   return (
     <div styleName="container">
       <div styleName="page">
-        <Header title="Dashboard" /* profile={profile} financials={financials}*/ />
+        <Header finances={finances} financesLoading={financesLoading} />
+        <Finances finances={finances} loading={financesLoading} />
       {/*}
         achievements={achievements} myChallenges={myChallenges.length} />
         <div styleName="my-dashboard-container">
@@ -115,6 +119,8 @@ export default function Dashboard({
 }
 
 Dashboard.propTypes = {
+  finances: PT.arrayOf(PT.object).isRequired,
+  financesLoading: PT.bool.isRequired,
   tcBlogLoading: PT.bool.isRequired,
   tcBlogPosts: PT.arrayOf(PT.object).isRequired,
 };

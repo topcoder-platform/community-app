@@ -17,6 +17,19 @@ class MembersService {
   }
 
   /**
+   * Gets member's financial information.
+   * @param {String} handle User handle.
+   * @return {Promise} Resolves to the financial information object.
+   */
+  async getMemberFinances(handle) {
+    let res = await this.private.api.get(`/members/${handle}/financial`);
+    if (!res.ok) throw new Error(res.statusText);
+    res = (await res.json()).result;
+    if (!res.success) throw new Error(res.content);
+    return res.content;
+  }
+
+  /**
    * Gets public information on a member.
    *
    * This method does not require any authorization.

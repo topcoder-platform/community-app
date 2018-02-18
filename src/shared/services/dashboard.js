@@ -227,21 +227,6 @@ class DashboardService {
         return new Error(res.result.content);
       });
   }
-
-  /**
-   * retrieve user financial information
-   * @param  {string} handle user's handle
-   * @return {Promise}        a promise that will resolve user's financial infomation
-   */
-  getUserFinancials(handle) {
-    return this.private.api.get(`/members/${handle}/financial/`)
-      .then(res => (res.ok ? res.json() : new Error(res.statusText)))
-      .then(res => (
-        res.result.status === 200
-          ? res.result.content
-          : new Error(res.result.content)
-      ));
-  }
 }
 
 /**

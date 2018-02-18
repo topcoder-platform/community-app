@@ -8,6 +8,7 @@ import _ from 'lodash';
 import Announcement from 'components/Announcement';
 import Dashboard from 'components/Dashboard';
 import config from 'utils/config';
+import memberActions from 'actions/members';
 import PT from 'prop-types';
 import React from 'react';
 import rssActions from 'actions/rss';
@@ -26,7 +27,6 @@ import SubtrackStats from 'components/Dashboard/SubtrackStats';
 import MyChallenges from 'components/Dashboard/MyChallenges';
 import SRM from 'components/Dashboard/SRM';
 import Program from 'components/Dashboard/Program';
-import CommunityUpdates from 'components/Dashboard/CommunityUpdates';
 import LoadingIndicator from 'components/LoadingIndicator';
 
 import { isTokenExpired } from 'tc-accounts';
@@ -48,17 +48,25 @@ const TOPOCDER_BLOG_URL = `/community-app-assets/api/proxy-get?url=${
 export class DashboardPageContainer extends React.Component {
   componentDidMount() {
     const {
+      financesLoading,
+      financesTimestamp,
+      getMemberFinances,
       getTopcoderBlogFeed,
+      handle,
       tcBlogLoading,
       tcBlogTimestamp,
       tokenV3,
     } = this.props;
-    this.authCheck(tokenV3);
+    if (!this.authCheck(tokenV3)) return;
 
     const now = Date.now();
 
     if (now - tcBlogTimestamp > CACHE_MAX_AGE && !tcBlogLoading) {
       getTopcoderBlogFeed();
+    }
+
+    if (now - financesTimestamp > CACHE_MAX_AGE && !financesLoading) {
+      getMemberFinances(handle, tokenV3);
     }
 
     /**
@@ -157,9 +165,10 @@ export class DashboardPageContainer extends React.Component {
    * Does nothing if a valid TC API v3 token is passed in; otherwise redirects
    * user to the TC auth page, with proper return URL.
    * @param {String} tokenV3
+   * @return {Boolean} `true` if the user is authenticated; `false` otherwise.
    */
   authCheck(tokenV3) {
-    if (tokenV3 && !isTokenExpired(tokenV3)) return;
+    if (tokenV3 && !isTokenExpired(tokenV3)) return true;
 
     /* This implements front-end redirection. Once the server-side rendering of
      * the Dashboard is in place, this should be updated to work for the server
@@ -169,6 +178,7 @@ export class DashboardPageContainer extends React.Component {
     location.href = url;
 
     _.noop(this);
+    return false;
   }
 
   loadChallenges() {
@@ -184,6 +194,8 @@ export class DashboardPageContainer extends React.Component {
 
   render() {
     const {
+      finances,
+      financesLoading,
       tcBlogLoading,
       tcBlogPosts,
     } = this.props;
@@ -234,6 +246,8 @@ export class DashboardPageContainer extends React.Component {
 
     return (
       <Dashboard
+        finances={finances}
+        financesLoading={financesLoading}
         tcBlogLoading={tcBlogLoading}
         tcBlogPosts={tcBlogPosts}
       />
@@ -242,6 +256,11 @@ export class DashboardPageContainer extends React.Component {
 }
 
 DashboardPageContainer.defaultProps = {
+  finances: [],
+  financesTimestamp: 0,
+  handle: '',
+  tcBlogPosts: [],
+  tcBlogTimestamp: 0,
   tokenV3: null,
 
   /* OLD STUFF BELOW */
@@ -253,9 +272,15 @@ DashboardPageContainer.defaultProps = {
 };
 
 DashboardPageContainer.propTypes = {
+  finances: PT.shape(),
+  financesLoading: PT.bool.isRequired,
+  financesTimestamp: PT.number,
+  getMemberFinances: PT.func.isRequired,
   getTopcoderBlogFeed: PT.func.isRequired,
+  handle: PT.string,
   tcBlogLoading: PT.bool.isRequired,
-  tcBlogTimestamp: PT.number.isRequired,
+  tcBlogPosts: PT.arrayOf(PT.object),
+  tcBlogTimestamp: PT.number,
   tokenV3: PT.string,
 
   /* OLD STUFF BELOW */
@@ -281,12 +306,19 @@ DashboardPageContainer.propTypes = {
   lastUpdateOfActiveChallenges: PT.number.isRequired,
 };
 
-function mapStateToProps(state, props) {
+function mapStateToProps(state) {
+  const userHandle = _.get(state.auth, 'user.handle');
+  const finances = _.get(state.members[userHandle], 'finances', {});
+
   const tcBlog = state.rss[TOPCODER_BLOG_ID] || {};
   return {
+    finances: finances.data,
+    financesLoading: Boolean(finances.loadingUuid),
+    financesTimestamp: finances.timestamp,
+    handle: userHandle,
     tcBlogLoading: Boolean(tcBlog.loadingUuid),
-    tcBlogPosts: _.get(tcBlog, 'data.item', []),
-    tcBlogTimestamp: tcBlog.timestamp || 0,
+    tcBlogPosts: _.get(tcBlog, 'data.item'),
+    tcBlogTimestamp: tcBlog.timestamp,
     tokenV3: state.auth.tokenV3,
 
     /* OLD STUFF BELOW */
@@ -300,7 +332,13 @@ function mapStateToProps(state, props) {
 }
 
 function mapDispatchToProps(dispatch) {
+  const members = memberActions.members;
   return {
+    getMemberFinances: (handle, tokenV3) => {
+      const uuid = shortId();
+      dispatch(members.getFinancesInit(handle, uuid));
+      dispatch(members.getFinancesDone(handle, uuid, tokenV3));
+    },
     getTopcoderBlogFeed: () => {
       const uuid = shortId();
       const a = rssActions.rss;
