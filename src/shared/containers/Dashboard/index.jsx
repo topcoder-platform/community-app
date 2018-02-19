@@ -1,6 +1,5 @@
 /**
- * Container component for the my-dashboard page
- *
+ * Container for the dashboard page.
  */
 /* global location */
 
@@ -46,12 +45,14 @@ const TOPCODER_BLOG_ID = 'TOPCODER_BLOG';
 const TOPOCDER_BLOG_URL = `/community-app-assets/api/proxy-get?url=${
   encodeURIComponent(config.URL.BLOG_FEED)}`;
 
-// The container component
 export class DashboardPageContainer extends React.Component {
   componentDidMount() {
     const {
+      achievementsLoading,
+      achievementsTimestamp,
       financesLoading,
       financesTimestamp,
+      getMemberAchievements,
       getMemberFinances,
       getMemberStats,
       getTopcoderBlogFeed,
@@ -65,6 +66,9 @@ export class DashboardPageContainer extends React.Component {
     if (!this.authCheck(tokenV3)) return;
 
     const now = Date.now();
+
+    if (now - achievementsTimestamp > CACHE_MAX_AGE
+    && !achievementsLoading) getMemberAchievements(handle);
 
     if (now - tcBlogTimestamp > CACHE_MAX_AGE && !tcBlogLoading) {
       getTopcoderBlogFeed();
@@ -96,34 +100,13 @@ export class DashboardPageContainer extends React.Component {
       });
     });
 
-    /* TODO: They way communities list is loaded should be re-worked:
-     * now there are timestamps of the last loading, thus it can be optimized
-     *  */
+    /* OLD STUFF BELOW */
 
-    const {
-      auth: { tokenV2, user },
-      challengeListing: { challenges },
-      tcCommunities: {
-        list: {
-          data: communityList,
-        },
-      },
-      getCommunityStats,
-    } = this.props;
-    if (!tokenV2) {
-      /*
-      location.href = `${config.URL.AUTH}/member?retUrl=${encodeURIComponent(location.href)}&utm_source=community-app-main`;
-      return false;
-      */
-    }
     /*
     this.props.getCommunityList(this.props.auth);
     if (tokenV3 && user) {
       this.loadChallenges();
-      this.props.getSubtrackRanks(tokenV3, user.handle);
       this.props.getSRMs(tokenV3, user.handle);
-      this.props.getIosRegistration(tokenV3, user.userId);
-      this.props.getUserFinancials(tokenV3, user.handle);
       this.props.getUserAchievements(user.handle);
       _.forEach(communityList, c => getCommunityStats(c, challenges, tokenV3));
     }
@@ -136,25 +119,10 @@ export class DashboardPageContainer extends React.Component {
 
   componentDidUpdate(prevProps) {
     /*
-    const {
-      auth: { user, tokenV3, profile },
-      challengeListing: { challenges },
-      tcCommunities: {
-        list: {
-          data: communityList,
-        },
-      },
-      getCommunityStats,
-    } = this.props;
-
     if (tokenV3 && tokenV3 !== prevProps.auth.tokenV3) {
       setImmediate(() => {
         this.loadChallenges();
-        this.props.getSubtrackRanks(tokenV3, user.handle);
         this.props.getSRMs(tokenV3, user.handle);
-        this.props.getIosRegistration(tokenV3, user.userId);
-        this.props.getUserFinancials(tokenV3, user.handle);
-        this.props.getUserAchievements(user.handle);
         _.forEach(communityList, c => getCommunityStats(c, challenges, tokenV3));
       });
     }
@@ -201,6 +169,8 @@ export class DashboardPageContainer extends React.Component {
 
   render() {
     const {
+      achievements,
+      achievementsLoading,
       finances,
       financesLoading,
       showEarnings,
@@ -214,8 +184,7 @@ export class DashboardPageContainer extends React.Component {
     const {
       auth: { profile, user, tokenV3 },
       dashboard: {
-        subtrackRanks, srms, iosRegistered, blogs, financials,
-        loadingSubtrackRanks, loadingSRMs, loadingBlogs, achievements,
+        srms, loadingSRMs,
       },
       challengeListing: { challenges },
       lastUpdateOfActiveChallenges,
@@ -224,13 +193,9 @@ export class DashboardPageContainer extends React.Component {
           data: communityList,
         },
       },
-      registerIos,
     } = this.props;
     const myChallenges = processActiveDevDesignChallenges(
       _.filter(challenges, c => !!c.users[user.handle]),
-    );
-    const iosChallenges = processActiveDevDesignChallenges(
-      _.filter(challenges, c => c.platforms === 'iOS'),
     );
 
     /* When we automatically reload cached challenge objects, we do not want to
@@ -252,10 +217,10 @@ export class DashboardPageContainer extends React.Component {
       loadingActiveChallenges = outage > 1.5 * 1000 * config.CHALLENGE_LISTING_AUTO_REFRESH;
     }
 
-    const st = this.state || {};
-
     return (
       <Dashboard
+        achievements={achievements}
+        achievementsLoading={achievementsLoading}
         finances={finances}
         financesLoading={financesLoading}
         showEarnings={showEarnings}
@@ -270,6 +235,8 @@ export class DashboardPageContainer extends React.Component {
 }
 
 DashboardPageContainer.defaultProps = {
+  achievements: [],
+  achievementsTimestamp: 0,
   finances: [],
   financesTimestamp: 0,
   handle: '',
@@ -289,9 +256,13 @@ DashboardPageContainer.defaultProps = {
 };
 
 DashboardPageContainer.propTypes = {
+  achievements: PT.arrayOf(PT.object),
+  achievementsLoading: PT.bool.isRequired,
+  achievementsTimestamp: PT.number,
   finances: PT.arrayOf(PT.object),
   financesLoading: PT.bool.isRequired,
   financesTimestamp: PT.number,
+  getMemberAchievements: PT.func.isRequired,
   getMemberFinances: PT.func.isRequired,
   getMemberStats: PT.func.isRequired,
   getTopcoderBlogFeed: PT.func.isRequired,
@@ -317,9 +288,6 @@ DashboardPageContainer.propTypes = {
   }),
   getAllActiveChallenges: PT.func.isRequired,
   getSRMs: PT.func.isRequired,
-  getIosRegistration: PT.func.isRequired,
-  registerIos: PT.func.isRequired,
-  getUserAchievements: PT.func.isRequired,
   getCommunityStats: PT.func.isRequired,
   getCommunityList: PT.func.isRequired,
   lastUpdateOfActiveChallenges: PT.number.isRequired,
@@ -328,11 +296,15 @@ DashboardPageContainer.propTypes = {
 function mapStateToProps(state) {
   const userHandle = _.get(state.auth, 'user.handle');
   const member = state.members[userHandle] || {};
+  const achievements = member.achievements || {};
   const finances = member.finances || {};
   const stats = member.stats || {};
 
   const tcBlog = state.rss[TOPCODER_BLOG_ID] || {};
   return {
+    achievements: achievements.data,
+    achievementsLoading: Boolean(achievements.loadingUuid),
+    achievementsTimestamp: achievements.timestamp,
     finances: finances.data,
     financesLoading: Boolean(finances.loadingUuid),
     financesTimestamp: finances.timestamp,
@@ -359,6 +331,11 @@ function mapDispatchToProps(dispatch) {
   const dash = dashActions.page.dashboard;
   const members = memberActions.members;
   return {
+    getMemberAchievements: (handle) => {
+      const uuid = shortId();
+      dispatch(members.getAchievementsInit(handle, uuid));
+      dispatch(members.getAchievementsDone(handle, uuid));
+    },
     getMemberFinances: (handle, tokenV3) => {
       const uuid = shortId();
       dispatch(members.getFinancesInit(handle, uuid));
@@ -390,16 +367,6 @@ function mapDispatchToProps(dispatch) {
         orderBy: 'registrationStartAt',
         limit: 3,
       }));
-    },
-    getIosRegistration: (tokenV3, userId) => {
-      dispatch(actions.dashboard.getIosRegistration(tokenV3, userId));
-    },
-    registerIos: (tokenV3, userId) => {
-      dispatch(actions.dashboard.registerIos(tokenV3, userId));
-    },
-
-    getUserAchievements: (handle) => {
-      dispatch(actions.dashboard.getUserAchievements(handle));
     },
     getCommunityList: (auth) => {
       const uuid = shortId();

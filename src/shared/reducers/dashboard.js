@@ -31,14 +31,6 @@ function create(initialState) {
       ...state,
       iosRegistered: action.error ? false : !!action.payload,
     }),
-    [a.getUserFinancials]: (state, action) => ({
-      ...state,
-      financials: action.error ? 0 : action.payload,
-    }),
-    [a.getUserAchievements]: (state, action) => ({
-      ...state,
-      achievements: action.error ? 0 : action.payload,
-    }),
   }, _.defaults(_.clone(initialState) || {}, {
     srms: [],
     loadingSRMs: false,

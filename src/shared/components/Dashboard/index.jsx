@@ -8,6 +8,8 @@ import Header from './Header';
 import './style.scss';
 
 export default function Dashboard({
+  achievements,
+  achievementsLoading,
   finances,
   financesLoading,
   showEarnings,
@@ -20,7 +22,10 @@ export default function Dashboard({
   return (
     <div styleName="container">
       <div styleName="page">
-        <Header finances={finances} financesLoading={financesLoading} />
+        <Header
+          achievements={achievements}
+          achievementsLoading={achievementsLoading}
+        />
         <MemberMetrics
           finances={finances}
           financesLoading={financesLoading}
@@ -130,6 +135,8 @@ export default function Dashboard({
 }
 
 Dashboard.propTypes = {
+  achievements: PT.arrayOf(PT.object).isRequired,
+  achievementsLoading: PT.bool.isRequired,
   finances: PT.arrayOf(PT.object).isRequired,
   financesLoading: PT.bool.isRequired,
   showEarnings: PT.bool.isRequired,

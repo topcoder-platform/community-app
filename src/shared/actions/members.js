@@ -4,6 +4,7 @@
 
 import { createActions } from 'redux-actions';
 import { getService } from 'services/members';
+import { getService as getUserService } from 'services/user';
 
 /**
  * Payload creator for the action that drops all loaded information about
@@ -20,6 +21,27 @@ function drop(handle) {
  * members.
  */
 function dropAll() {}
+
+/**
+ * Payload creator for the action that inits the loading of member achievements.
+ * @param {String} handle
+ * @param {String} uuid
+ * @return {Object} Payload.
+ */
+function getAchievementsInit(handle, uuid) {
+  return { handle, uuid };
+}
+
+/**
+ * Payload creator for the action that loads member achievements.
+ * @param {String} handle
+ * @param {String} uuid
+ * @return {Promise} Payload.
+ */
+async function getAchievementsDone(handle, uuid) {
+  const data = await getUserService().getAchievements(handle);
+  return { data, handle, uuid };
+}
 
 /**
  * Payload creator for the action that initializes loading of financial
@@ -71,6 +93,8 @@ export default createActions({
   MEMBERS: {
     DROP: drop,
     DROP_ALL: dropAll,
+    GET_ACHIEVEMENTS_INIT: getAchievementsInit,
+    GET_ACHIEVEMENTS_DONE: getAchievementsDone,
     GET_FINANCES_INIT: getFinancesInit,
     GET_FINANCES_DONE: getFinancesDone,
     GET_STATS_INIT: getStatsInit,

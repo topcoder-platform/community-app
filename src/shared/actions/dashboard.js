@@ -4,7 +4,6 @@ import { createActions } from 'redux-actions';
 import { getService } from 'services/dashboard';
 import { getService as srmService } from 'services/srm';
 import { getService as memberService } from 'services/memberCert';
-import { getService as achievementService } from 'services/achievements';
 import config from 'utils/config';
 
 import { processSRM } from 'utils/tc';
@@ -49,23 +48,11 @@ function registerIos(tokenV3, userId) {
   return memberService(tokenV3).registerMember(userId, config.SWIFT_PROGRAM_ID);
 }
 
-function getUserFinancials(tokenV3, handle) {
-  return getService(tokenV3).getUserFinancials(handle).then(data => _.sum(_.map(data, 'amount')));
-}
-
-function getUserAchievements(handle) {
-  const dashboardBadgeName = 'SRM Engagement Honor';
-  return achievementService().getUserAchievements(handle).then(data =>
-    _.filter(data.Achievements, item => item.description === dashboardBadgeName));
-}
-
 export default createActions({
   DASHBOARD: {
     GET_SRMS_INIT: _.noop,
     GET_SRMS_DONE: getSRMs,
     GET_IOS_REGISTRATION: getIosRegistration,
     REGISTER_IOS: registerIos,
-    GET_USER_FINANCIALS: getUserFinancials,
-    GET_USER_ACHIEVEMENTS: getUserAchievements,
   },
 });
