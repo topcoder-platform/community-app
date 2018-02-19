@@ -60,7 +60,7 @@
 }
 
 .fade {
-  background: linear-gradient(180deg, transparent, rgba(255, 255, 255, 0.5) 50%, white 80%);
+  background: linear-gradient(180deg, transparent, $tc-gray-neutral-light 80%);
   bottom: 0;
   height: 200px;
   left: 0;
@@ -71,7 +71,7 @@
 .readMore {
   @include tc-label-lg;
 
-  bottom: 20px;
+  bottom: 15px;
   color: $tc-dark-blue;
   left: 30px;
   position: absolute;
@@ -93,7 +93,7 @@
 .title {
   @include tc-heading-md;
 
-  background: $tc-dark-blue-10;
+  background: $tc-gray-neutral-light;
   color: $tc-dark-blue;
   padding: 20px 30px;
 }

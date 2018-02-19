@@ -7,7 +7,7 @@ import './style.scss';
 const ChallengeLinks = (props) => {
   const { viewMode, challenge } = props;
   return (
-    <div styleName={`challenge-links ${viewMode}-view`}>
+    <div styleName="challenge-links tile-view">
       <a href={getLink(challenge, 'registrants')} styleName="registrants">
         <div styleName="icon registrants-icon" />
         {challenge.subTrack === 'MARATHON_MATCH' && <p>{challenge.numRegistrants[0]}</p>}

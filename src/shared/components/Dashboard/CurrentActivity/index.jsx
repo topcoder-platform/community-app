@@ -8,9 +8,13 @@ import Sticky from 'react-stickynode';
 import SwitchWithLabel from 'components/SwitchWithLabel';
 import config from 'utils/config';
 import * as Filter from 'utils/challenge-listing/filter';
-import ChallengeTile from './ChallengeTile';
+
+// import ChallengeTile from './ChallengeTile';
 import ChallengeFilter from './ChallengeFilter';
+import Challenges from './Challenges';
 import CommunityTile from './CommunityTile';
+import Header from './Header';
+
 import './styles.scss';
 
 export default class MyChallenges extends React.Component {
@@ -52,7 +56,15 @@ export default class MyChallenges extends React.Component {
   }
 
   render() {
-    let challenges = this.props.challenges;
+    const {
+      challenges,
+      challengesLoading,
+      selectChallengeDetailsTab,
+      setChallengeListingFilter,
+      unregisterFromChallenge,
+    } = this.props;
+
+    /*
     const communityId = this.state.selectedCommunityId;
     if (communityId) {
       challenges = _.filter(challenges, Filter.getFilterFunction(_.find(this.props.communityList, ['communityId', communityId]).challengeFilter));
@@ -71,16 +83,27 @@ export default class MyChallenges extends React.Component {
       },
       ).length;
       return community;
-    });
+    })1
+    1;
 
     communityFilters.unshift({
       communityId: '',
       communityName: 'All communities',
       number: this.props.challenges.length,
-    });
+    });*/
 
     return (
-      <div styleName="challenges">
+      <div styleName="container">
+        <Header numChallenges={challenges.length} />
+        <Challenges
+          challenges={challenges}
+          challengesLoading={challengesLoading}
+          selectChallengeDetailsTab={selectChallengeDetailsTab}
+          setChallengeListingFilter={setChallengeListingFilter}
+          unregisterFromChallenge={unregisterFromChallenge}
+        />
+      
+      {/*}
         <header>
           <div styleName="section-title">
             <h1
@@ -97,6 +120,7 @@ export default class MyChallenges extends React.Component {
             </h1>
           </div>
           {
+            /*
             this.state.activeTab === 0 &&
             <div styleName="challenge-view-toggle">
               <button
@@ -116,8 +140,9 @@ export default class MyChallenges extends React.Component {
                 List
               </button>
             </div>
+            */
           }
-          {
+          {/*
             this.state.activeTab === 1 &&
             <div styleName="show-only">
               <SwitchWithLabel
@@ -193,15 +218,29 @@ export default class MyChallenges extends React.Component {
           <div styleName="my-challenges-links">
             <a href={`${config.URL.BASE}/my-challenges/?status=completed`}>Past Challenges</a>
           </div>
-        }
+        */}
       </div>
     );
   }
 }
 
+MyChallenges.defaultProps = {
+  stats: {},
+  communities: [],
+  groups: [],
+  communityList: [],
+};
+
+
 MyChallenges.propTypes = {
+  challenges: PT.arrayOf(PT.object).isRequired,
+  challengesLoading: PT.bool.isRequired,
+  selectChallengeDetailsTab: PT.func.isRequired,
+  setChallengeListingFilter: PT.func.isRequired,
+  unregisterFromChallenge: PT.func.isRequired,
+
   stats: PT.shape(),
-  challenges: PT.arrayOf(PT.shape()),
+  
   communities: PT.arrayOf(PT.shape()),
   groups: PT.arrayOf(PT.shape()),
   communityList: PT.arrayOf(PT.shape({
@@ -209,12 +248,4 @@ MyChallenges.propTypes = {
     communityId: PT.string.isRequired,
     communityName: PT.string.isRequired,
   })),
-};
-
-MyChallenges.defaultProps = {
-  stats: {},
-  challenges: [],
-  communities: [],
-  groups: [],
-  communityList: [],
 };

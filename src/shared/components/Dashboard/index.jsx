@@ -3,6 +3,7 @@ import React from 'react';
 
 import CommunityBlog from './CommunityBlog';
 import MemberMetrics from './MemberMetrics';
+import CurrentActivity from './CurrentActivity';
 import Header from './Header';
 
 import './style.scss';
@@ -10,14 +11,19 @@ import './style.scss';
 export default function Dashboard({
   achievements,
   achievementsLoading,
+  challenges,
+  challengesLoading,
   finances,
   financesLoading,
+  selectChallengeDetailsTab,
+  setChallengeListingFilter,
   showEarnings,
   stats,
   statsLoading,
   switchShowEarnings,
   tcBlogLoading,
   tcBlogPosts,
+  unregisterFromChallenge,
 }) {
   return (
     <div styleName="container">
@@ -34,6 +40,17 @@ export default function Dashboard({
           statsLoading={statsLoading}
           switchShowEarnings={switchShowEarnings}
         />
+        <CurrentActivity
+          challenges={challenges}
+          challengesLoading={challengesLoading}
+          selectChallengeDetailsTab={selectChallengeDetailsTab}
+          setChallengeListingFilter={setChallengeListingFilter}
+          unregisterFromChallenge={unregisterFromChallenge}
+
+          // communityList={communityList}
+          // stats={stats}
+          // groups={profile ? profile.groups : []}
+        />
       {/*}
         achievements={achievements} myChallenges={myChallenges.length} />
         <div styleName="my-dashboard-container">
@@ -42,16 +59,6 @@ export default function Dashboard({
               <Announcement id={st.announcementId} />
             ) : null
           }
-          <div styleName="subtrack-stats">
-            {
-              loadingSubtrackRanks &&
-              <LoadingIndicator theme={{}} />
-            }
-            {
-              !loadingSubtrackRanks &&
-              <SubtrackStats subtracks={subtrackRanks} handle={user ? user.handle : ''} />
-            }
-          </div>
           <div styleName="challenges">
             {
               loadingActiveChallenges &&
@@ -67,34 +74,6 @@ export default function Dashboard({
               />
             }
           </div>
-          <div styleName="tco tco17">
-            <div styleName="tc-banner-placeholder cognitive">
-              <div styleName="container">
-                <div styleName="img" />
-                <div styleName="description">
-                  Learn about Cognitive technologies and get hands on
-                  experience as a member of the Topcoder Cognitive Community.
-                </div>
-                <a
-                  href={config.URL.COMMUNITIES.COGNITIVE}
-                  styleName="cta tc-btn-white tc-btn-radius"
-                >Learn More</a>
-              </div>
-            </div>
-          </div>
-          <div styleName="tco tco17">
-            <div styleName="tc-banner-placeholder black bg-image">
-              <div styleName="container">
-                <div styleName="title">2017 Topcoder Open</div>
-                <div styleName="subtitle">October 21-24, 2017 <br /> Buffalo, NY, USA</div>
-                <div styleName="description">
-                  The Ultimate Programming and Design Tournament - The Final Stage</div>
-                <a href={config.URL.TCO17} styleName="cta tc-btn-radius tc-btn-white">
-                  Learn More
-                </a>
-              </div>
-            </div>
-          </div>
           <div styleName="srms">
             {
               loadingSRMs &&
@@ -105,28 +84,6 @@ export default function Dashboard({
               <SRM srms={srms} />
             }
           </div>
-          <div styleName="programs">
-            {
-              loadingActiveChallenges &&
-              <LoadingIndicator theme={{}} />
-            }
-            {
-              !loadingActiveChallenges &&
-              <Program
-                challenges={iosChallenges.slice(0, 3)}
-                iosRegistered={iosRegistered}
-                registerIos={() => registerIos(tokenV3, user.userId)}
-              />
-            }
-          </div>
-          <div styleName="community-updates">
-            <LoadingIndicator />
-            {
-              !loadingBlogs &&
-              <CommunityUpdates blogs={blogs} />
-            }
-          </div>
-        </div>
           */}
         <CommunityBlog isLoading={tcBlogLoading} posts={tcBlogPosts} />
       </div>
@@ -137,12 +94,17 @@ export default function Dashboard({
 Dashboard.propTypes = {
   achievements: PT.arrayOf(PT.object).isRequired,
   achievementsLoading: PT.bool.isRequired,
+  challenges: PT.arrayOf(PT.object).isRequired,
+  challengesLoading: PT.bool.isRequired,
   finances: PT.arrayOf(PT.object).isRequired,
   financesLoading: PT.bool.isRequired,
+  selectChallengeDetailsTab: PT.func.isRequired,
+  setChallengeListingFilter: PT.func.isRequired,
   showEarnings: PT.bool.isRequired,
   stats: PT.shape().isRequired,
   statsLoading: PT.bool.isRequired,
   switchShowEarnings: PT.func.isRequired,
   tcBlogLoading: PT.bool.isRequired,
   tcBlogPosts: PT.arrayOf(PT.object).isRequired,
+  unregisterFromChallenge: PT.func.isRequired,
 };
