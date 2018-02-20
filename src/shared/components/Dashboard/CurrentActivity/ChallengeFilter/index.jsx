@@ -2,13 +2,34 @@
 
 import React from 'react';
 import PT from 'prop-types';
+import Sticky from 'react-stickynode';
 
 import './style.scss';
 
-const ChallengeFilter = (props) => {
-  const { communities, selectedCommunityId, selectCommunity } = props;
+export default function ChallengeFilter({
+  communities,
+  expand,
+  expanded,
+  selectedCommunityId,
+  selectCommunity,
+}) {
+  if (!expanded) {
+    return (
+      <div
+        onMouseEnter={() => expand(true)}
+        styleName="button"
+      >F</div>
+    );
+  }
+
+  let containerStyle = 'container';
+  if (expanded) containerStyle += ' expanded';
+
   return (
-    <div styleName="container">
+    <div
+      onMouseLeave={() => expand(false)}
+      styleName={containerStyle}
+    >
       {
         communities.map(community => (
           <div
@@ -25,19 +46,20 @@ const ChallengeFilter = (props) => {
   );
 };
 
+ChallengeFilter.defaultProps = {
+  communities: [],
+  expanded: false,
+  selectedCommunityId: '',
+};
+
 ChallengeFilter.propTypes = {
   communities: PT.arrayOf(PT.shape({
     communityId: PT.string.isRequired,
     communityName: PT.string.isRequired,
     number: PT.number.isRequired,
   })),
+  expand: PT.func.isRequired,
+  expanded: PT.bool,
   selectedCommunityId: PT.string,
   selectCommunity: PT.func.isRequired,
 };
-
-ChallengeFilter.defaultProps = {
-  communities: [],
-  selectedCommunityId: '',
-};
-
-export default ChallengeFilter;

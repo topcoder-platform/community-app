@@ -4,6 +4,7 @@
   @include tc-heading-lg;
 
   color: $tc-dark-blue;
+  cursor: pointer;
   padding: 0 10px 20px;
   margin: 0 10px;
 }
@@ -11,4 +12,5 @@
 .selected {
   border-bottom: 2px solid $tc-black;
   color: $tc-black;
+  cursor: default;
 }

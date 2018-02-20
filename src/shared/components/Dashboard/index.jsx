@@ -17,9 +17,11 @@ export default function Dashboard({
   financesLoading,
   selectChallengeDetailsTab,
   setChallengeListingFilter,
+  showChallengeFilter,
   showEarnings,
   stats,
   statsLoading,
+  switchShowChallengeFilter,
   switchShowEarnings,
   tcBlogLoading,
   tcBlogPosts,
@@ -45,6 +47,8 @@ export default function Dashboard({
           challengesLoading={challengesLoading}
           selectChallengeDetailsTab={selectChallengeDetailsTab}
           setChallengeListingFilter={setChallengeListingFilter}
+          showChallengeFilter={showChallengeFilter}
+          switchShowChallengeFilter={switchShowChallengeFilter}
           unregisterFromChallenge={unregisterFromChallenge}
 
           // communityList={communityList}
@@ -100,9 +104,11 @@ Dashboard.propTypes = {
   financesLoading: PT.bool.isRequired,
   selectChallengeDetailsTab: PT.func.isRequired,
   setChallengeListingFilter: PT.func.isRequired,
+  showChallengeFilter: PT.bool.isRequired,
   showEarnings: PT.bool.isRequired,
   stats: PT.shape().isRequired,
   statsLoading: PT.bool.isRequired,
+  switchShowChallengeFilter: PT.func.isRequired,
   switchShowEarnings: PT.func.isRequired,
   tcBlogLoading: PT.bool.isRequired,
   tcBlogPosts: PT.arrayOf(PT.object).isRequired,

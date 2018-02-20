@@ -169,9 +169,11 @@ export class DashboardPageContainer extends React.Component {
       financesLoading,
       selectChallengeDetailsTab,
       setChallengeListingFilter,
+      showChallengeFilter,
       showEarnings,
       stats,
       statsLoading,
+      switchShowChallengeFilter,
       switchShowEarnings,
       tcBlogLoading,
       tcBlogPosts,
@@ -215,9 +217,11 @@ export class DashboardPageContainer extends React.Component {
         financesLoading={financesLoading}
         selectChallengeDetailsTab={selectChallengeDetailsTab}
         setChallengeListingFilter={setChallengeListingFilter}
+        showChallengeFilter={showChallengeFilter}
         showEarnings={showEarnings}
         stats={stats}
         statsLoading={statsLoading}
+        switchShowChallengeFilter={switchShowChallengeFilter}
         switchShowEarnings={switchShowEarnings}
         tcBlogLoading={tcBlogLoading}
         tcBlogPosts={tcBlogPosts}
@@ -267,10 +271,12 @@ DashboardPageContainer.propTypes = {
   handle: PT.string,
   selectChallengeDetailsTab: PT.func.isRequired,
   setChallengeListingFilter: PT.func.isRequired,
+  showChallengeFilter: PT.bool.isRequired,
   showEarnings: PT.bool,
   stats: PT.shape(),
   statsLoading: PT.bool.isRequired,
   statsTimestamp: PT.number,
+  switchShowChallengeFilter: PT.func.isRequired,
   switchShowEarnings: PT.func.isRequired,
   tcBlogLoading: PT.bool.isRequired,
   tcBlogPosts: PT.arrayOf(PT.object),
@@ -313,6 +319,7 @@ function mapStateToProps(state) {
     financesLoading: Boolean(finances.loadingUuid),
     financesTimestamp: finances.timestamp,
     handle: userHandle,
+    showChallengeFilter: state.page.dashboard.showChallengeFilter,
     showEarnings: state.page.dashboard.showEarnings,
     stats: stats.data,
     statsLoading: Boolean(stats.loadingUuid),
@@ -368,6 +375,8 @@ function mapDispatchToProps(dispatch) {
       dispatch(cl.setFilter(filter));
       dispatch(cls.selectBucket(BUCKETS.ALL));
     },
+    switchShowChallengeFilter:
+      show => dispatch(dash.showChallengeFilter(show)),
     switchShowEarnings: show => dispatch(dash.showEarnings(show)),
     unregisterFromChallenge: (auth, challengeId) => {
       const a = challengeActions.challenge;

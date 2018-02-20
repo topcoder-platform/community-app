@@ -61,6 +61,8 @@ export default class MyChallenges extends React.Component {
       challengesLoading,
       selectChallengeDetailsTab,
       setChallengeListingFilter,
+      showChallengeFilter,
+      switchShowChallengeFilter,
       unregisterFromChallenge,
     } = this.props;
 
@@ -100,6 +102,8 @@ export default class MyChallenges extends React.Component {
           challengesLoading={challengesLoading}
           selectChallengeDetailsTab={selectChallengeDetailsTab}
           setChallengeListingFilter={setChallengeListingFilter}
+          showChallengeFilter={showChallengeFilter}
+          switchShowChallengeFilter={switchShowChallengeFilter}
           unregisterFromChallenge={unregisterFromChallenge}
         />
       
@@ -237,6 +241,8 @@ MyChallenges.propTypes = {
   challengesLoading: PT.bool.isRequired,
   selectChallengeDetailsTab: PT.func.isRequired,
   setChallengeListingFilter: PT.func.isRequired,
+  showChallengeFilter: PT.bool.isRequired,
+  switchShowChallengeFilter: PT.func.isRequired,
   unregisterFromChallenge: PT.func.isRequired,
 
   stats: PT.shape(),

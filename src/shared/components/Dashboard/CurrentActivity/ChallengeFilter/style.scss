@@ -1,9 +1,31 @@
 @import '~styles/mixins';
 
+.button {
+  @include tc-heading-xl;
+
+  background: $tc-dark-blue;
+  border-radius: 4px;
+  color: $tc-white;
+  cursor: pointer;
+  height: 45px;
+  margin: 10px;
+  min-width: 45px;
+  text-align: center;
+}
+
 .container {
-  width: 270px;
+  background: $tc-dark-blue;
+  border-radius: 4px;
+  height: 600px;
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  width: 300px;
+}
+
+.container {
+  /*
   background-color: #48f;
-  border-radius: 2px;
   padding: 10px;
   align-self: flex-start;
   color: $tc-white;
@@ -12,6 +34,7 @@
   font-family: 'Sofia Pro', Arial, Helvetica, sans-serif;
   margin-left: auto;
   margin-right: auto;
+  */
 
   @media only screen and (min-width: 768px) {
     margin-left: 15px;
