@@ -3,18 +3,25 @@ import React from 'react';
 
 import './style.scss';
 
-export default function Option({ selected, title }) {
+export default function Option({ select, selected, title }) {
   let containerStyle = 'container';
   if (selected) containerStyle += ' selected';
 
-  return <h1 styleName={containerStyle}>{title}</h1>;
+  return (
+    <div styleName={containerStyle}>
+      <div
+        onClick={select}
+        onKeyPress={select}
+        role="button"
+        // styleName={containerStyle}
+        tabIndex={0}
+      >{title}</div>
+    </div>
+  );
 }
 
-Option.defaultProps = {
-  selected: false,
-};
-
 Option.propTypes = {
-  selected: PT.bool,
+  select: PT.func.isRequired,
+  selected: PT.bool.isRequired,
   title: PT.string.isRequired,
 };

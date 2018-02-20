@@ -1,7 +1,10 @@
-import actions from 'actions/page/dashboard';
+import _ from 'lodash';
+import actions, { TABS } from 'actions/page/dashboard';
 import cookies from 'browser-cookies';
 import { isClientSide } from 'utils/isomorphy';
 import { handleActions } from 'redux-actions';
+
+const validTabs = new Set(_.values(TABS));
 
 /**
  * Shows/hides challenge filter by community.
@@ -29,6 +32,17 @@ function onShowEarnings(state, { payload }) {
 }
 
 /**
+ * Switches dash tabs.
+ * @param {Object} state
+ * @param {String} payload Target tab.
+ * @return {Object} New state.
+ */
+function onSwitchTab(state, { payload }) {
+  if (state.tab === payload || !validTabs.has(payload)) return state;
+  return { ...state, tab: payload };
+}
+
+/**
  * Creates a new reducer.
  * @param {Object} state Optional. Initial state.
  * @return {Function} Reducer.
@@ -38,7 +52,10 @@ function create(state = {}) {
   return handleActions({
     [a.showChallengeFilter]: onShowChallengeFilter,
     [a.showEarnings]: onShowEarnings,
-  }, state);
+    [a.switchTab]: onSwitchTab,
+  }, _.defaults(state, {
+    tab: TABS.MY_ACTIVE_CHALLENGES,
+  }));
 }
 
 export default create();

@@ -4,6 +4,7 @@ import React from 'react';
 import PT from 'prop-types';
 import _ from 'lodash';
 import Sticky from 'react-stickynode';
+import { TABS } from 'actions/page/dashboard';
 
 import SwitchWithLabel from 'components/SwitchWithLabel';
 import config from 'utils/config';
@@ -63,6 +64,8 @@ export default class MyChallenges extends React.Component {
       setChallengeListingFilter,
       showChallengeFilter,
       switchShowChallengeFilter,
+      switchTab,
+      tab,
       unregisterFromChallenge,
     } = this.props;
 
@@ -96,16 +99,24 @@ export default class MyChallenges extends React.Component {
 
     return (
       <div styleName="container">
-        <Header numChallenges={challenges.length} />
-        <Challenges
-          challenges={challenges}
-          challengesLoading={challengesLoading}
-          selectChallengeDetailsTab={selectChallengeDetailsTab}
-          setChallengeListingFilter={setChallengeListingFilter}
-          showChallengeFilter={showChallengeFilter}
-          switchShowChallengeFilter={switchShowChallengeFilter}
-          unregisterFromChallenge={unregisterFromChallenge}
+        <Header
+          numChallenges={challenges.length}
+          switchTab={switchTab}
+          tab={tab}
         />
+        {
+          tab === TABS.MY_ACTIVE_CHALLENGES ? (
+            <Challenges
+              challenges={challenges}
+              challengesLoading={challengesLoading}
+              selectChallengeDetailsTab={selectChallengeDetailsTab}
+              setChallengeListingFilter={setChallengeListingFilter}
+              showChallengeFilter={showChallengeFilter}
+              switchShowChallengeFilter={switchShowChallengeFilter}
+              unregisterFromChallenge={unregisterFromChallenge}
+            />
+          ) : null
+        }
       
       {/*}
         <header>
@@ -235,7 +246,6 @@ MyChallenges.defaultProps = {
   communityList: [],
 };
 
-
 MyChallenges.propTypes = {
   challenges: PT.arrayOf(PT.object).isRequired,
   challengesLoading: PT.bool.isRequired,
@@ -243,7 +253,11 @@ MyChallenges.propTypes = {
   setChallengeListingFilter: PT.func.isRequired,
   showChallengeFilter: PT.bool.isRequired,
   switchShowChallengeFilter: PT.func.isRequired,
+  switchTab: PT.func.isRequired,
+  tab: PT.oneOf(_.values(TABS)).isRequired,
   unregisterFromChallenge: PT.func.isRequired,
+
+
 
   stats: PT.shape(),
   

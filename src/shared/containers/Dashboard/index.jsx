@@ -175,6 +175,8 @@ export class DashboardPageContainer extends React.Component {
       statsLoading,
       switchShowChallengeFilter,
       switchShowEarnings,
+      switchTab,
+      tab,
       tcBlogLoading,
       tcBlogPosts,
       tokenV2,
@@ -223,6 +225,8 @@ export class DashboardPageContainer extends React.Component {
         statsLoading={statsLoading}
         switchShowChallengeFilter={switchShowChallengeFilter}
         switchShowEarnings={switchShowEarnings}
+        switchTab={switchTab}
+        tab={tab}
         tcBlogLoading={tcBlogLoading}
         tcBlogPosts={tcBlogPosts}
         unregisterFromChallenge={id =>
@@ -278,6 +282,8 @@ DashboardPageContainer.propTypes = {
   statsTimestamp: PT.number,
   switchShowChallengeFilter: PT.func.isRequired,
   switchShowEarnings: PT.func.isRequired,
+  switchTab: PT.func.isRequired,
+  tab: PT.string.isRequired,
   tcBlogLoading: PT.bool.isRequired,
   tcBlogPosts: PT.arrayOf(PT.object),
   tcBlogTimestamp: PT.number,
@@ -305,6 +311,8 @@ function mapStateToProps(state) {
   const finances = member.finances || {};
   const stats = member.stats || {};
 
+  const dash = state.page.dashboard;
+
   const tcBlog = state.rss[TOPCODER_BLOG_ID] || {};
   return {
     achievements: achievements.data,
@@ -319,11 +327,12 @@ function mapStateToProps(state) {
     financesLoading: Boolean(finances.loadingUuid),
     financesTimestamp: finances.timestamp,
     handle: userHandle,
-    showChallengeFilter: state.page.dashboard.showChallengeFilter,
-    showEarnings: state.page.dashboard.showEarnings,
+    showChallengeFilter: dash.showChallengeFilter,
+    showEarnings: dash.showEarnings,
     stats: stats.data,
     statsLoading: Boolean(stats.loadingUuid),
     statsTimestamp: stats.timestamp,
+    tab: dash.tab,
     tcBlogLoading: Boolean(tcBlog.loadingUuid),
     tcBlogPosts: _.get(tcBlog, 'data.item'),
     tcBlogTimestamp: tcBlog.timestamp,
@@ -378,6 +387,7 @@ function mapDispatchToProps(dispatch) {
     switchShowChallengeFilter:
       show => dispatch(dash.showChallengeFilter(show)),
     switchShowEarnings: show => dispatch(dash.showEarnings(show)),
+    switchTab: tab => dispatch(dash.switchTab(tab)),
     unregisterFromChallenge: (auth, challengeId) => {
       const a = challengeActions.challenge;
       dispatch(a.unregisterInit());
