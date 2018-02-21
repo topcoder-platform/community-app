@@ -61,6 +61,9 @@ export default class MyChallenges extends React.Component {
     const {
       challenges,
       challengesLoading,
+      communities,
+      communitiesLoading,
+      communityStats,
       selectChallengeDetailsTab,
       setChallengeListingFilter,
       showChallengeFilter,
@@ -118,6 +121,26 @@ export default class MyChallenges extends React.Component {
               switchShowChallengeFilter={switchShowChallengeFilter}
               unregisterFromChallenge={unregisterFromChallenge}
             />
+          ) : null
+        }
+        {
+          tab === TABS.COMMUNITIES ? (
+            <div styleName="communities-container">
+              <section styleName="communities">
+                {
+                  communities.map(c => (
+                    (!this.state.showMyCommunityOnly || this.isCommunityRegstered(c)) &&
+                    <div key={c.communityId}>
+                      <CommunityTile
+                        community={c}
+                        stats={(communityStats[c.communityId] || {}).data}
+                        registered={this.isCommunityRegstered(c)}
+                      />
+                    </div>
+                  ))
+                }
+              </section>
+            </div>
           ) : null
         }
         {
@@ -250,16 +273,12 @@ export default class MyChallenges extends React.Component {
   }
 }
 
-MyChallenges.defaultProps = {
-  stats: {},
-  communities: [],
-  groups: [],
-  communityList: [],
-};
-
 MyChallenges.propTypes = {
   challenges: PT.arrayOf(PT.object).isRequired,
   challengesLoading: PT.bool.isRequired,
+  communities: PT.arrayOf(PT.object).isRequired,
+  communitiesLoading: PT.bool.isRequired,
+  communityStats: PT.shape().isRequired,
   selectChallengeDetailsTab: PT.func.isRequired,
   setChallengeListingFilter: PT.func.isRequired,
   showChallengeFilter: PT.bool.isRequired,
@@ -269,16 +288,4 @@ MyChallenges.propTypes = {
   switchTab: PT.func.isRequired,
   tab: PT.oneOf(_.values(TABS)).isRequired,
   unregisterFromChallenge: PT.func.isRequired,
-
-
-
-  stats: PT.shape(),
-  
-  communities: PT.arrayOf(PT.shape()),
-  groups: PT.arrayOf(PT.shape()),
-  communityList: PT.arrayOf(PT.shape({
-    challengeFilter: PT.shape(),
-    communityId: PT.string.isRequired,
-    communityName: PT.string.isRequired,
-  })),
 };

@@ -48,8 +48,6 @@ export default function ChallengeCard({
   setChallengeListingFilter,
   unregisterFromChallenge,
 }) {
-  console.log(challenge);
-
   const {
     currentPhases,
     forumId,

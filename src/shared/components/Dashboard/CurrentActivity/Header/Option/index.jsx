@@ -13,7 +13,6 @@ export default function Option({ select, selected, title }) {
         onClick={select}
         onKeyPress={select}
         role="button"
-        // styleName={containerStyle}
         tabIndex={0}
       >{title}</div>
     </div>

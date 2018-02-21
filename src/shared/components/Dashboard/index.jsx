@@ -13,6 +13,9 @@ export default function Dashboard({
   achievementsLoading,
   challenges,
   challengesLoading,
+  communities,
+  communitiesLoading,
+  communityStats,
   finances,
   financesLoading,
   selectChallengeDetailsTab,
@@ -49,6 +52,9 @@ export default function Dashboard({
         <CurrentActivity
           challenges={challenges}
           challengesLoading={challengesLoading}
+          communities={communities}
+          communitiesLoading={communitiesLoading}
+          communityStats={communityStats}
           selectChallengeDetailsTab={selectChallengeDetailsTab}
           setChallengeListingFilter={setChallengeListingFilter}
           showChallengeFilter={showChallengeFilter}
@@ -108,6 +114,9 @@ Dashboard.propTypes = {
   achievementsLoading: PT.bool.isRequired,
   challenges: PT.arrayOf(PT.object).isRequired,
   challengesLoading: PT.bool.isRequired,
+  communities: PT.arrayOf(PT.object).isRequired,
+  communitiesLoading: PT.bool.isRequired,
+  communityStats: PT.shape().isRequired,
   finances: PT.arrayOf(PT.object).isRequired,
   financesLoading: PT.bool.isRequired,
   selectChallengeDetailsTab: PT.func.isRequired,
