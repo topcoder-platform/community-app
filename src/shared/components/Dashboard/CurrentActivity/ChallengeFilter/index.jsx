@@ -22,13 +22,10 @@ export default function ChallengeFilter({
     );
   }
 
-  let containerStyle = 'container';
-  if (expanded) containerStyle += ' expanded';
-
   return (
     <div
       onMouseLeave={() => expand(false)}
-      styleName={containerStyle}
+      styleName="container"
     >
       {
         communities.map(community => (

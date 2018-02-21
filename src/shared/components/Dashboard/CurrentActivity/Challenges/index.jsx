@@ -1,3 +1,4 @@
+import config from 'utils/config';
 import LoadingIndicator from 'components/LoadingIndicator';
 import PT from 'prop-types';
 import React from 'react';
@@ -26,28 +27,36 @@ export default function Challenges({
 
   return (
     <div styleName="container">
-      <div styleName="challenges">
-        {
-          challenges.map(item => (
-            <ChallengeCard
-              challenge={item}
-              key={item.id}
-              selectChallengeDetailsTab={selectChallengeDetailsTab}
-              setChallengeListingFilter={setChallengeListingFilter}
-              unregisterFromChallenge={unregisterFromChallenge}
-            />
-          ))
-        }
+      <div styleName="innerContainer">
+        <div styleName="challenges">
+          {
+            challenges.map(item => (
+              <ChallengeCard
+                challenge={item}
+                key={item.id}
+                selectChallengeDetailsTab={selectChallengeDetailsTab}
+                setChallengeListingFilter={setChallengeListingFilter}
+                unregisterFromChallenge={unregisterFromChallenge}
+              />
+            ))
+          }
+        </div>
+        <Sticky
+          bottomBoundary={`.${style.innerContainer}`}
+          styleName="sticky"
+        >
+          <ChallengeFilter
+            expand={switchShowChallengeFilter}
+            expanded={showChallengeFilter}
+          />
+        </Sticky>
       </div>
-      <Sticky
-        bottomBoundary={`.${style.container}`}
-        styleName="sticky"
-      >
-        <ChallengeFilter
-          expand={switchShowChallengeFilter}
-          expanded={showChallengeFilter}
-        />
-      </Sticky>
+      <div styleName="linksContainer">
+        <a
+          href={`${config.URL.BASE}/my-challenges/?status=completed`}
+          styleName="link"
+        >Past Challenges</a>
+      </div>
     </div>
   );
 }
