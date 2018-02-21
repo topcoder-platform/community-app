@@ -11,6 +11,7 @@ import './style.scss';
 export default function Dashboard({
   achievements,
   achievementsLoading,
+  challengeFilter,
   challenges,
   challengesLoading,
   communities,
@@ -26,6 +27,7 @@ export default function Dashboard({
   srmsLoading,
   stats,
   statsLoading,
+  switchChallengeFilter,
   switchShowChallengeFilter,
   switchShowEarnings,
   switchTab,
@@ -51,6 +53,7 @@ export default function Dashboard({
           switchShowEarnings={switchShowEarnings}
         />
         <CurrentActivity
+          challengeFilter={challengeFilter}
           challenges={challenges}
           challengesLoading={challengesLoading}
           communities={communities}
@@ -61,6 +64,7 @@ export default function Dashboard({
           showChallengeFilter={showChallengeFilter}
           srms={srms}
           srmsLoading={srmsLoading}
+          switchChallengeFilter={switchChallengeFilter}
           switchShowChallengeFilter={switchShowChallengeFilter}
           switchTab={switchTab}
           tab={tab}
@@ -114,6 +118,7 @@ export default function Dashboard({
 Dashboard.propTypes = {
   achievements: PT.arrayOf(PT.object).isRequired,
   achievementsLoading: PT.bool.isRequired,
+  challengeFilter: PT.string.isRequired,
   challenges: PT.arrayOf(PT.object).isRequired,
   challengesLoading: PT.bool.isRequired,
   communities: PT.arrayOf(PT.object).isRequired,
@@ -129,6 +134,7 @@ Dashboard.propTypes = {
   srmsLoading: PT.bool.isRequired,
   stats: PT.shape().isRequired,
   statsLoading: PT.bool.isRequired,
+  switchChallengeFilter: PT.func.isRequired,
   switchShowChallengeFilter: PT.func.isRequired,
   switchShowEarnings: PT.func.isRequired,
   switchTab: PT.func.isRequired,

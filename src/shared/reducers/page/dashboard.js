@@ -32,6 +32,19 @@ function onShowEarnings(state, { payload }) {
 }
 
 /**
+ * Switches challenge filter.
+ * @param {Object} state
+ * @param {String} payload
+ * @return {Object} New state.
+ */
+function onSwitchChallengeFilter(state, { payload }) {
+  return {
+    ...state,
+    challengeFilter: payload,
+  };
+}
+
+/**
  * Switches dash tabs.
  * @param {Object} state
  * @param {String} payload Target tab.
@@ -52,8 +65,10 @@ function create(state = {}) {
   return handleActions({
     [a.showChallengeFilter]: onShowChallengeFilter,
     [a.showEarnings]: onShowEarnings,
+    [a.switchChallengeFilter]: onSwitchChallengeFilter,
     [a.switchTab]: onSwitchTab,
   }, _.defaults(state, {
+    challengeFilter: '',
     tab: TABS.MY_ACTIVE_CHALLENGES,
   }));
 }

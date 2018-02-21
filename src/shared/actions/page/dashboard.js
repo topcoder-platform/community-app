@@ -31,6 +31,15 @@ function showEarnings(show) {
 }
 
 /**
+ * Payload creator for the action that switches challenge filter.
+ * @param {String} communityId
+ * @return {String}
+ */
+function switchChallengeFilter(communityId) {
+  return communityId;
+}
+
+/**
  * Payload creator for the action that switches dash tabs.
  * @param {String} tab A value from TABS hash.
  * @return {String} Payload.
@@ -44,6 +53,7 @@ export default createActions({
     DASHBOARD: {
       SHOW_CHALLENGE_FILTER: showChallengesFilter,
       SHOW_EARNINGS: showEarnings,
+      SWITCH_CHALLENGE_FILTER: switchChallengeFilter,
       SWITCH_TAB: switchTab,
     },
   },

@@ -53,6 +53,7 @@ export default class MyChallenges extends React.Component {
 
   render() {
     const {
+      challengeFilter,
       challenges,
       challengesLoading,
       communities,
@@ -63,6 +64,7 @@ export default class MyChallenges extends React.Component {
       showChallengeFilter,
       srms,
       srmsLoading,
+      switchChallengeFilter,
       switchShowChallengeFilter,
       switchTab,
       tab,
@@ -99,7 +101,13 @@ export default class MyChallenges extends React.Component {
     });*/
 
     const myCommunities = communities.filter(x =>
-      _.intersection(userGroups, x.groupIds).length);
+      _.intersection(userGroups, x.groupIds).length)
+      .map((community) => {
+        const filter = Filter.getFilterFunction(community.challengeFilter);
+        const res = _.clone(community);
+        res.number = challenges.filter(x => filter(x)).length;
+        return res;
+      });
 
     return (
       <div styleName="container">
@@ -112,11 +120,19 @@ export default class MyChallenges extends React.Component {
         {
           tab === TABS.MY_ACTIVE_CHALLENGES ? (
             <Challenges
+              challengeFilter={challengeFilter}
               challenges={challenges}
               challengesLoading={challengesLoading}
+              communities={[{
+                communityId: '',
+                communityName: 'All communities',
+                number: challenges.length,
+              }].concat(myCommunities)}
+              communitiesLoading={communitiesLoading}
               selectChallengeDetailsTab={selectChallengeDetailsTab}
               setChallengeListingFilter={setChallengeListingFilter}
               showChallengeFilter={showChallengeFilter}
+              switchChallengeFilter={switchChallengeFilter}
               switchShowChallengeFilter={switchShowChallengeFilter}
               unregisterFromChallenge={unregisterFromChallenge}
             />
@@ -263,6 +279,7 @@ export default class MyChallenges extends React.Component {
 }
 
 MyChallenges.propTypes = {
+  challengeFilter: PT.string.isRequired,
   challenges: PT.arrayOf(PT.object).isRequired,
   challengesLoading: PT.bool.isRequired,
   communities: PT.arrayOf(PT.object).isRequired,
@@ -273,6 +290,7 @@ MyChallenges.propTypes = {
   showChallengeFilter: PT.bool.isRequired,
   srms: PT.arrayOf(PT.object).isRequired,
   srmsLoading: PT.bool.isRequired,
+  switchChallengeFilter: PT.func.isRequired,
   switchShowChallengeFilter: PT.func.isRequired,
   switchTab: PT.func.isRequired,
   tab: PT.oneOf(_.values(TABS)).isRequired,

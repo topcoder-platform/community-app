@@ -1,17 +1,18 @@
 /* eslint jsx-a11y/no-static-element-interactions:0 */
 
+import LoadingIndicator from 'components/LoadingIndicator';
 import React from 'react';
 import PT from 'prop-types';
-import Sticky from 'react-stickynode';
 
 import './style.scss';
 
 export default function ChallengeFilter({
+  challengeFilter,
   communities,
+  communitiesLoading,
   expand,
   expanded,
-  selectedCommunityId,
-  selectCommunity,
+  switchChallengeFilter,
 }) {
   if (!expanded) {
     return (
@@ -28,16 +29,20 @@ export default function ChallengeFilter({
       styleName="container"
     >
       {
-        communities.map(community => (
-          <div
-            key={community.communityId}
-            onClick={() => selectCommunity(community.communityId)}
-            styleName={`row ${community.communityId === selectedCommunityId ? 'selected' : ''}`}
-          >
-            <span>{community.communityName}</span>
-            <span>{community.number}</span>
-          </div>
-        ))
+        communitiesLoading ? (
+          <LoadingIndicator />
+        ) : (
+          communities.map(community => (
+            <div
+              key={community.communityId}
+              onClick={() => switchChallengeFilter(community.communityId)}
+              styleName={`row ${community.communityId === challengeFilter ? 'selected' : ''}`}
+            >
+              <span>{community.communityName}</span>
+              <span>{community.number}</span>
+            </div>
+          ))
+        )
       }
     </div>
   );
@@ -46,17 +51,17 @@ export default function ChallengeFilter({
 ChallengeFilter.defaultProps = {
   communities: [],
   expanded: false,
-  selectedCommunityId: '',
 };
 
 ChallengeFilter.propTypes = {
+  challengeFilter: PT.string.isRequired,
   communities: PT.arrayOf(PT.shape({
     communityId: PT.string.isRequired,
     communityName: PT.string.isRequired,
     number: PT.number.isRequired,
   })),
+  communitiesLoading: PT.bool.isRequired,
   expand: PT.func.isRequired,
   expanded: PT.bool,
-  selectedCommunityId: PT.string,
-  selectCommunity: PT.func.isRequired,
+  switchChallengeFilter: PT.func.isRequired,
 };

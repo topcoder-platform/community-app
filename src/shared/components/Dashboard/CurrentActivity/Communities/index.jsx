@@ -23,20 +23,26 @@ export default function Communities({
   return (
     <div styleName="container">
       {
-        communities.map((c) => {
-          const stats = communityStats[c.communityId] || {};
-          return (
-          /* !this.state.showMyCommunityOnly || this.isCommunityRegstered(c)) && */
-            <div key={c.communityId}>
-              <Card
-                community={c}
-                stats={stats.data}
-                statsLoading={Boolean(stats.loadingUuid)}
-                registered
-              />
-            </div>
-          );
-        })
+        communities.length ? (
+          communities.map((c) => {
+            const stats = communityStats[c.communityId] || {};
+            return (
+            /* !this.state.showMyCommunityOnly || this.isCommunityRegstered(c)) && */
+              <div key={c.communityId}>
+                <Card
+                  community={c}
+                  stats={stats.data}
+                  statsLoading={Boolean(stats.loadingUuid)}
+                  registered
+                />
+              </div>
+            );
+          })
+        ) : (
+          <div styleName="msg">
+            You have not joined any Topcoder sub-community yet.
+          </div>
+        )
       }
     </div>
   );

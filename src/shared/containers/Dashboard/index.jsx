@@ -54,6 +54,7 @@ export class DashboardPageContainer extends React.Component {
       achievementsTimestamp,
       activeChallengesLoading,
       activeChallengesTimestamp,
+      challengeFilter,
       communitiesLoading,
       communitiesTimestamp,
       financesLoading,
@@ -70,6 +71,7 @@ export class DashboardPageContainer extends React.Component {
       srmsTimestamp,
       statsLoading,
       statsTimestamp,
+      switchChallengeFilter,
       tcBlogLoading,
       tcBlogTimestamp,
       tokenV3,
@@ -104,6 +106,8 @@ export class DashboardPageContainer extends React.Component {
       this.updateCommunityStats(this.props);
     }
 
+    if (challengeFilter) switchChallengeFilter('');
+
     /**
      * POC for loading announcement into the dashboard.
      */
@@ -132,21 +136,6 @@ export class DashboardPageContainer extends React.Component {
     && now - nextProps.activeChallengesTimestamp < CACHE_MAX_AGE) {
       this.updateCommunityStats(nextProps);
     }
-  }
-
-  componentDidUpdate(prevProps) {
-    /*
-    const {
-      activeChallenges,
-      getCommunityStats,
-      communities,
-      tokenV3,
-    } = this.props;
-    if ((activeChallenges !== prevProps.activeChallenges
-      || communities !== prevProps.communities) && tokenV3) {
-      _.forEach(communities, c => getCommunityStats(c, activeChallenges, tokenV3));
-    }
-    */
   }
 
   /**
@@ -193,6 +182,7 @@ export class DashboardPageContainer extends React.Component {
       achievementsLoading,
       activeChallenges,
       activeChallengesLoading,
+      challengeFilter,
       communities,
       communitiesLoading,
       communityStats,
@@ -207,6 +197,7 @@ export class DashboardPageContainer extends React.Component {
       srmsLoading,
       stats,
       statsLoading,
+      switchChallengeFilter,
       switchShowChallengeFilter,
       switchShowEarnings,
       switchTab,
@@ -236,6 +227,7 @@ export class DashboardPageContainer extends React.Component {
       <Dashboard
         achievements={achievements}
         achievementsLoading={achievementsLoading}
+        challengeFilter={challengeFilter}
         challenges={activeChallenges.filter(x => x.users[handle])}
         challengesLoading={activeChallengesLoading}
         communities={communities}
@@ -251,6 +243,7 @@ export class DashboardPageContainer extends React.Component {
         srmsLoading={srmsLoading}
         stats={stats}
         statsLoading={statsLoading}
+        switchChallengeFilter={switchChallengeFilter}
         switchShowChallengeFilter={switchShowChallengeFilter}
         switchShowEarnings={switchShowEarnings}
         switchTab={switchTab}
@@ -288,6 +281,7 @@ DashboardPageContainer.propTypes = {
   activeChallenges: PT.arrayOf(PT.object).isRequired,
   activeChallengesLoading: PT.bool.isRequired,
   activeChallengesTimestamp: PT.number.isRequired,
+  challengeFilter: PT.string.isRequired,
   communities: PT.arrayOf(PT.object).isRequired,
   communitiesLoading: PT.bool.isRequired,
   communityStats: PT.shape().isRequired,
@@ -297,7 +291,7 @@ DashboardPageContainer.propTypes = {
   financesTimestamp: PT.number,
   getAllActiveChallenges: PT.func.isRequired,
   getCommunityList: PT.func.isRequired,
-  getCommunityStats: PT.func.isRequired,
+  // getCommunityStats: PT.func.isRequired,
   getMemberAchievements: PT.func.isRequired,
   getMemberFinances: PT.func.isRequired,
   getMemberStats: PT.func.isRequired,
@@ -314,6 +308,7 @@ DashboardPageContainer.propTypes = {
   stats: PT.shape(),
   statsLoading: PT.bool.isRequired,
   statsTimestamp: PT.number,
+  switchChallengeFilter: PT.func.isRequired,
   switchShowChallengeFilter: PT.func.isRequired,
   switchShowEarnings: PT.func.isRequired,
   switchTab: PT.func.isRequired,
@@ -348,6 +343,7 @@ function mapStateToProps(state) {
       Boolean(state.challengeListing.loadingActiveChallengesUUID),
     activeChallengesTimestamp:
       state.challengeListing.lastUpdateOfActiveChallenges,
+    challengeFilter: dash.challengeFilter,
     communities: communities.data,
     communitiesLoading: Boolean(communities.loadingUuid),
     communitiesTimestamp: communities.timestamp,
@@ -433,6 +429,8 @@ function mapDispatchToProps(dispatch) {
       dispatch(cl.setFilter(filter));
       dispatch(cls.selectBucket(BUCKETS.ALL));
     },
+    switchChallengeFilter: filter =>
+      dispatch(dash.switchChallengeFilter(filter)),
     switchShowChallengeFilter:
       show => dispatch(dash.showChallengeFilter(show)),
     switchShowEarnings: show => dispatch(dash.showEarnings(show)),

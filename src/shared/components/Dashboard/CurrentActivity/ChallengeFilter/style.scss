@@ -16,43 +16,27 @@
 .container {
   background: $tc-dark-blue;
   border-radius: 4px;
-  height: 600px;
+  padding: 10px;
   position: absolute;
   right: 10px;
   top: 10px;
   width: 300px;
 }
 
-.container {
-  /*
-  background-color: #48f;
-  padding: 10px;
-  align-self: flex-start;
+.row {
+  @include tc-label-sm;
+
   color: $tc-white;
-  font-size: 12px;
-  line-height: 24px;
-  font-family: 'Sofia Pro', Arial, Helvetica, sans-serif;
-  margin-left: auto;
-  margin-right: auto;
-  */
+  display: flex;
+  justify-content: space-between;
+  padding: 5px 12px;
+  margin: 2px 0;
+  cursor: pointer;
+  border-radius: 4px;
 
-  @media only screen and (min-width: 768px) {
-    margin-left: 15px;
-    margin-right: 0;
-  }
-
-  .row {
-    display: flex;
-    justify-content: space-between;
-    padding: 0 12px;
-    margin: 2px 0;
-    cursor: pointer;
-    border-radius: 4px;
-
-    &.selected,
-    &:hover {
-      background-color: $tc-white;
-      color: #48f;
-    }
+  &.selected,
+  &:hover {
+    background-color: $tc-white;
+    color: $tc-dark-blue;
   }
 }
