@@ -216,6 +216,7 @@ export class DashboardPageContainer extends React.Component {
       tokenV2,
       tokenV3,
       unregisterFromChallenge,
+      userGroups,
     } = this.props;
 
     /* When we automatically reload cached challenge objects, we do not want to
@@ -258,6 +259,7 @@ export class DashboardPageContainer extends React.Component {
         tcBlogPosts={tcBlogPosts}
         unregisterFromChallenge={id =>
           unregisterFromChallenge({ tokenV2, tokenV3 }, id)}
+        userGroups={userGroups.map(x => x.id)}
       />
     );
   }
@@ -322,6 +324,7 @@ DashboardPageContainer.propTypes = {
   tokenV2: PT.string,
   tokenV3: PT.string,
   unregisterFromChallenge: PT.func.isRequired,
+  userGroups: PT.arrayOf(PT.object).isRequired,
 };
 
 function mapStateToProps(state) {
@@ -367,6 +370,7 @@ function mapStateToProps(state) {
     tcBlogTimestamp: tcBlog.timestamp,
     tokenV2: state.auth.tokenV2,
     tokenV3: state.auth.tokenV3,
+    userGroups: _.get(state.auth.profile, 'groups', []),
   };
 }
 

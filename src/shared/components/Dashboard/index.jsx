@@ -33,6 +33,7 @@ export default function Dashboard({
   tcBlogLoading,
   tcBlogPosts,
   unregisterFromChallenge,
+  userGroups,
 }) {
   return (
     <div styleName="container">
@@ -64,6 +65,7 @@ export default function Dashboard({
           switchTab={switchTab}
           tab={tab}
           unregisterFromChallenge={unregisterFromChallenge}
+          userGroups={userGroups}
 
           // communityList={communityList}
           // stats={stats}
@@ -134,4 +136,5 @@ Dashboard.propTypes = {
   tcBlogLoading: PT.bool.isRequired,
   tcBlogPosts: PT.arrayOf(PT.object).isRequired,
   unregisterFromChallenge: PT.func.isRequired,
+  userGroups: PT.arrayOf(PT.object).isRequired,
 };

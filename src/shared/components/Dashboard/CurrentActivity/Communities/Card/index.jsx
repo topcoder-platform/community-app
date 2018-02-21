@@ -1,12 +1,13 @@
 /* eslint-disable global-require, import/no-dynamic-require */
 
-import React from 'react';
+import LoadingIndicator from 'components/LoadingIndicator';
 import PT from 'prop-types';
+import React from 'react';
 
 import './style.scss';
 
 const CommunityTile = (props) => {
-  const { community, stats, registered } = props;
+  const { community, stats, statsLoading, registered } = props;
   return (<div styleName="container">
     <div styleName="left" >
       <img src={require(`assets/images/tc-communities/background/${community.image}`)} alt="" />
@@ -16,18 +17,26 @@ const CommunityTile = (props) => {
     </div>
     <div styleName="right">
       <div styleName="stats">
-        <div styleName="stats-item">
-          <div styleName="value">{stats.numMembers}</div>
-          <div styleName="label">Registrants</div>
-        </div>
-        <div styleName="stats-item">
-          <div styleName="value">{stats.numChallenges}</div>
-          <div styleName="label">Challenges</div>
-        </div>
-        <div styleName="stats-item">
-          <div styleName="value">{stats.openPrizes}</div>
-          <div styleName="label">Purse Cash</div>
-        </div>
+        {
+          statsLoading ? (
+            <LoadingIndicator />
+          ) : (
+            <div styleName="statsInner">
+              <div styleName="stats-item">
+                <div styleName="value">{stats.numMembers || 0}</div>
+                <div styleName="label">Registrants</div>
+              </div>
+              <div styleName="stats-item">
+                <div styleName="value">{stats.numChallenges || 0}</div>
+                <div styleName="label">Challenges</div>
+              </div>
+              <div styleName="stats-item">
+                <div styleName="value">{stats.openPrizes || '$0'}</div>
+                <div styleName="label">Purse Cash</div>
+              </div>
+            </div>
+          )
+        }
       </div>
       <div styleName="actions">
         <a styleName={registered ? 'unreg' : 'reg'}>{registered ? 'Unregister' : 'Register'}</a>
@@ -41,6 +50,7 @@ const CommunityTile = (props) => {
 
 CommunityTile.propTypes = {
   stats: PT.shape(),
+  statsLoading: PT.bool.isRequired,
   community: PT.shape({
     communityId: PT.string.isRequired,
     communityName: PT.string.isRequired,

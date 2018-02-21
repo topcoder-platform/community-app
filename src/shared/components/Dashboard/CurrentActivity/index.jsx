@@ -13,7 +13,7 @@ import * as Filter from 'utils/challenge-listing/filter';
 // import ChallengeTile from './ChallengeTile';
 import ChallengeFilter from './ChallengeFilter';
 import Challenges from './Challenges';
-import CommunityTile from './CommunityTile';
+import Communities from './Communities';
 import Header from './Header';
 import Srms from './Srms';
 
@@ -31,7 +31,6 @@ export default class MyChallenges extends React.Component {
     this.setViewMode = this.setViewMode.bind(this);
     this.setTab = this.setTab.bind(this);
     this.selectCommunity = this.selectCommunity.bind(this);
-    this.isCommunityRegstered = this.isCommunityRegstered.bind(this);
   }
 
   setViewMode(viewMode) {
@@ -52,11 +51,6 @@ export default class MyChallenges extends React.Component {
     });
   }
 
-  isCommunityRegstered(community) {
-    const groups = _.intersection(this.props.groups, community.groupIds);
-    return Boolean(groups.length);
-  }
-
   render() {
     const {
       challenges,
@@ -73,6 +67,7 @@ export default class MyChallenges extends React.Component {
       switchTab,
       tab,
       unregisterFromChallenge,
+      userGroups,
     } = this.props;
 
     /*
@@ -125,22 +120,12 @@ export default class MyChallenges extends React.Component {
         }
         {
           tab === TABS.COMMUNITIES ? (
-            <div styleName="communities-container">
-              <section styleName="communities">
-                {
-                  communities.map(c => (
-                    (!this.state.showMyCommunityOnly || this.isCommunityRegstered(c)) &&
-                    <div key={c.communityId}>
-                      <CommunityTile
-                        community={c}
-                        stats={(communityStats[c.communityId] || {}).data}
-                        registered={this.isCommunityRegstered(c)}
-                      />
-                    </div>
-                  ))
-                }
-              </section>
-            </div>
+            <Communities
+              communities={communities}
+              communitiesLoading={communitiesLoading}
+              communityStats={communityStats}
+              userGroups={userGroups}
+            />
           ) : null
         }
         {
@@ -288,4 +273,5 @@ MyChallenges.propTypes = {
   switchTab: PT.func.isRequired,
   tab: PT.oneOf(_.values(TABS)).isRequired,
   unregisterFromChallenge: PT.func.isRequired,
+  userGroups: PT.arrayOf(PT.object).isRequired,
 };

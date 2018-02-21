@@ -273,28 +273,3 @@
     }
   }
 }
-
-.communities-container {
-  padding: 20px 15px 5px;
-  border-top: 1px solid #f0f0f0;
-  border-bottom: 1px solid #f0f0f0;
-  background-color: #fcfcfc;
-}
-
-.communities {
-  margin-left: auto;
-  margin-right: auto;
-
-  @media only screen and (min-width: 768px) {
-    width: 555px;
-  }
-
-  @media only screen and (min-width: 870px) {
-    width: 840px;
-  }
-
-  @media only screen and (min-width: 1155px) {
-    width: 1125px;
-  }
-}
-

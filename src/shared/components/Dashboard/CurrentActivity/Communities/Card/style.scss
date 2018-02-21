@@ -66,8 +66,6 @@
 }
 
 .stats {
-  display: flex;
-  flex-direction: row;
   padding-left: 20px;
   padding-bottom: 30px;
   border-bottom: 1px solid #f0f0f0;
@@ -76,6 +74,11 @@
 
 .stats-item {
   margin-right: 50px;
+}
+
+.statsInner {
+  display: flex;
+  flex-direction: row;
 }
 
 .value {
