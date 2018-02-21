@@ -26,7 +26,6 @@
   "leaderboardApiUrl": "https://api.topcoder.com/v4/looks/458/run/json/",
   "newsFeed": "http://www.topcoder.com/feed",
   "subdomains": ["blockchain"],
-
-  "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore.",
-  "image": "1.jpg"
+  "description": "Learn about and build the next great decentralized application (DApp) on the Ethereum platform.",
+  "image": "blockchain.jpg"
 }

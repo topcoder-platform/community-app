@@ -115,7 +115,7 @@ function mapStateToProps(state, ownProps) {
     challenges,
     lastUpdateOfActiveChallenges,
     loadingChallenges: Boolean(state.challengeListing.loadingActiveChallengesUUID),
-    stats: ownProps.stats || state.stats.communities[community.communityId].data,
+    stats: ownProps.stats || _.get(state.stats.communities[community.communityId], 'data'),
     token: state.auth.tokenV3,
     userId: _.get(state, 'auth.user.userId'),
   };

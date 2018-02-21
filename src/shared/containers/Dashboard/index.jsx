@@ -67,6 +67,7 @@ export class DashboardPageContainer extends React.Component {
       getSrms,
       getTopcoderBlogFeed,
       handle,
+      profile,
       srmsLoading,
       srmsTimestamp,
       statsLoading,
@@ -87,7 +88,7 @@ export class DashboardPageContainer extends React.Component {
     && !activeChallengesLoading) getAllActiveChallenges(tokenV3);
 
     if (now - communitiesTimestamp > CACHE_MAX_AGE
-    && !communitiesLoading) getCommunityList({ tokenV3 });
+    && !communitiesLoading) getCommunityList({ profile, tokenV3 });
 
     if (now - financesTimestamp > CACHE_MAX_AGE
     && !financesLoading) getMemberFinances(handle, tokenV3);
@@ -264,6 +265,7 @@ DashboardPageContainer.defaultProps = {
   finances: [],
   financesTimestamp: 0,
   handle: '',
+  profile: null,
   showEarnings:
     isClientSide() ? cookies.get('showEarningsInDashboard') !== 'false' : true,
   stats: {},
@@ -298,6 +300,7 @@ DashboardPageContainer.propTypes = {
   getSrms: PT.func.isRequired,
   getTopcoderBlogFeed: PT.func.isRequired,
   handle: PT.string,
+  profile: PT.shape(),
   selectChallengeDetailsTab: PT.func.isRequired,
   setChallengeListingFilter: PT.func.isRequired,
   showChallengeFilter: PT.bool.isRequired,
@@ -352,6 +355,7 @@ function mapStateToProps(state) {
     financesLoading: Boolean(finances.loadingUuid),
     financesTimestamp: finances.timestamp,
     handle: userHandle,
+    profile: state.auth.profile,
     showChallengeFilter: dash.showChallengeFilter,
     showEarnings: dash.showEarnings,
     srms: state.challengeListing.srms.data,
