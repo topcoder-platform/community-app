@@ -10,7 +10,6 @@ import './style.scss';
 export default function Header({ numChallenges, switchTab, tab }) {
   let myChallengesTitle = 'My Active Challenges';
   if (numChallenges) myChallengesTitle += ` (${numChallenges})`;
-console.log(tab, TABS.MY_ACTIVE_CHALLENGES, switchTab)
 
   return (
     <div styleName="container">

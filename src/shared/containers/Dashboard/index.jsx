@@ -20,7 +20,6 @@ import shortId from 'shortid';
 import { connect } from 'react-redux';
 import { BUCKETS } from 'utils/challenge-listing/buckets';
 
-import actions from 'actions/dashboard';
 import challengeListingActions from 'actions/challenge-listing';
 import communityActions from 'actions/tc-communities';
 import moment from 'moment';
@@ -61,8 +60,11 @@ export class DashboardPageContainer extends React.Component {
       getMemberAchievements,
       getMemberFinances,
       getMemberStats,
+      getSrms,
       getTopcoderBlogFeed,
       handle,
+      srmsLoading,
+      srmsTimestamp,
       statsLoading,
       statsTimestamp,
       tcBlogLoading,
@@ -81,6 +83,9 @@ export class DashboardPageContainer extends React.Component {
 
     if (now - financesTimestamp > CACHE_MAX_AGE
     && !financesLoading) getMemberFinances(handle, tokenV3);
+
+    if (now - srmsTimestamp > CACHE_MAX_AGE
+    && !srmsLoading) getSrms(handle, tokenV3);
 
     if (now - statsTimestamp > CACHE_MAX_AGE
     && !statsLoading) getMemberStats(handle, tokenV3);
@@ -171,6 +176,8 @@ export class DashboardPageContainer extends React.Component {
       setChallengeListingFilter,
       showChallengeFilter,
       showEarnings,
+      srms,
+      srmsLoading,
       stats,
       statsLoading,
       switchShowChallengeFilter,
@@ -186,9 +193,6 @@ export class DashboardPageContainer extends React.Component {
 
     const {
       auth: { profile, user },
-      dashboard: {
-        srms, loadingSRMs,
-      },
       tcCommunities: {
         list: {
           data: communityList,
@@ -221,6 +225,8 @@ export class DashboardPageContainer extends React.Component {
         setChallengeListingFilter={setChallengeListingFilter}
         showChallengeFilter={showChallengeFilter}
         showEarnings={showEarnings}
+        srms={srms}
+        srmsLoading={srmsLoading}
         stats={stats}
         statsLoading={statsLoading}
         switchShowChallengeFilter={switchShowChallengeFilter}
@@ -271,12 +277,16 @@ DashboardPageContainer.propTypes = {
   getMemberAchievements: PT.func.isRequired,
   getMemberFinances: PT.func.isRequired,
   getMemberStats: PT.func.isRequired,
+  getSrms: PT.func.isRequired,
   getTopcoderBlogFeed: PT.func.isRequired,
   handle: PT.string,
   selectChallengeDetailsTab: PT.func.isRequired,
   setChallengeListingFilter: PT.func.isRequired,
   showChallengeFilter: PT.bool.isRequired,
   showEarnings: PT.bool,
+  srms: PT.arrayOf(PT.object).isRequired,
+  srmsLoading: PT.bool.isRequired,
+  srmsTimestamp: PT.number.isRequired,
   stats: PT.shape(),
   statsLoading: PT.bool.isRequired,
   statsTimestamp: PT.number,
@@ -299,7 +309,6 @@ DashboardPageContainer.propTypes = {
       data: PT.arrayOf(PT.shape()).isRequired,
     }).isRequired,
   }),
-  getSRMs: PT.func.isRequired,
   getCommunityStats: PT.func.isRequired,
   getCommunityList: PT.func.isRequired,
 };
@@ -329,6 +338,9 @@ function mapStateToProps(state) {
     handle: userHandle,
     showChallengeFilter: dash.showChallengeFilter,
     showEarnings: dash.showEarnings,
+    srms: state.challengeListing.srms.data,
+    srmsLoading: Boolean(state.challengeListing.srms.loadingUuid),
+    srmsTimestamp: state.challengeListing.srms.timestamp,
     stats: stats.data,
     statsLoading: Boolean(stats.loadingUuid),
     statsTimestamp: stats.timestamp,
@@ -370,6 +382,16 @@ function mapDispatchToProps(dispatch) {
       dispatch(members.getStatsInit(handle, uuid));
       dispatch(members.getStatsDone(handle, uuid, tokenV3));
     },
+    getSrms: (handle, tokenV3) => {
+      const uuid = shortId();
+      const a = challengeListingActions.challengeListing;
+      dispatch(a.getSrmsInit(uuid));
+      dispatch(a.getSrmsDone(uuid, handle, {
+        filter: 'status=future',
+        orderBy: 'registrationStartAt',
+        limit: 3,
+      }, tokenV3));
+    },
     getTopcoderBlogFeed: () => {
       const uuid = shortId();
       const a = rssActions.rss;
@@ -395,14 +417,6 @@ function mapDispatchToProps(dispatch) {
     },
 
     /* OLD STUFF BELOW */
-    getSRMs: (tokenV3, handle) => {
-      dispatch(actions.dashboard.getSrmsInit());
-      dispatch(actions.dashboard.getSrmsDone(tokenV3, handle, {
-        filter: 'status=future',
-        orderBy: 'registrationStartAt',
-        limit: 3,
-      }));
-    },
     getCommunityList: (auth) => {
       const uuid = shortId();
       dispatch(communityActions.tcCommunity.getListInit(uuid));

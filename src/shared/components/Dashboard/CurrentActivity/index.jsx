@@ -15,6 +15,7 @@ import ChallengeFilter from './ChallengeFilter';
 import Challenges from './Challenges';
 import CommunityTile from './CommunityTile';
 import Header from './Header';
+import Srms from './Srms';
 
 import './styles.scss';
 
@@ -63,6 +64,8 @@ export default class MyChallenges extends React.Component {
       selectChallengeDetailsTab,
       setChallengeListingFilter,
       showChallengeFilter,
+      srms,
+      srmsLoading,
       switchShowChallengeFilter,
       switchTab,
       tab,
@@ -114,6 +117,14 @@ export default class MyChallenges extends React.Component {
               showChallengeFilter={showChallengeFilter}
               switchShowChallengeFilter={switchShowChallengeFilter}
               unregisterFromChallenge={unregisterFromChallenge}
+            />
+          ) : null
+        }
+        {
+          tab === TABS.SRMS ? (
+            <Srms
+              srms={srms}
+              srmsLoading={srmsLoading}
             />
           ) : null
         }
@@ -252,6 +263,8 @@ MyChallenges.propTypes = {
   selectChallengeDetailsTab: PT.func.isRequired,
   setChallengeListingFilter: PT.func.isRequired,
   showChallengeFilter: PT.bool.isRequired,
+  srms: PT.arrayOf(PT.object).isRequired,
+  srmsLoading: PT.bool.isRequired,
   switchShowChallengeFilter: PT.func.isRequired,
   switchTab: PT.func.isRequired,
   tab: PT.oneOf(_.values(TABS)).isRequired,

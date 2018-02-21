@@ -19,6 +19,8 @@ export default function Dashboard({
   setChallengeListingFilter,
   showChallengeFilter,
   showEarnings,
+  srms,
+  srmsLoading,
   stats,
   statsLoading,
   switchShowChallengeFilter,
@@ -50,6 +52,8 @@ export default function Dashboard({
           selectChallengeDetailsTab={selectChallengeDetailsTab}
           setChallengeListingFilter={setChallengeListingFilter}
           showChallengeFilter={showChallengeFilter}
+          srms={srms}
+          srmsLoading={srmsLoading}
           switchShowChallengeFilter={switchShowChallengeFilter}
           switchTab={switchTab}
           tab={tab}
@@ -110,6 +114,8 @@ Dashboard.propTypes = {
   setChallengeListingFilter: PT.func.isRequired,
   showChallengeFilter: PT.bool.isRequired,
   showEarnings: PT.bool.isRequired,
+  srms: PT.arrayOf(PT.object).isRequired,
+  srmsLoading: PT.bool.isRequired,
   stats: PT.shape().isRequired,
   statsLoading: PT.bool.isRequired,
   switchShowChallengeFilter: PT.func.isRequired,

@@ -33,7 +33,6 @@ import { factory as reviewOpportunityFactory } from './reviewOpportunity';
 import { factory as statsFactory } from './stats';
 import { factory as tcCommunitiesFactory } from './tc-communities';
 import { factory as leaderboardFactory } from './leaderboard';
-import { factory as dashboardFactory } from './dashboard';
 import { factory as termsFactory } from './terms';
 import { factory as scoreboardFactory } from './tco/scoreboard';
 
@@ -47,7 +46,6 @@ export function factory(req) {
     stats: statsFactory(req),
     tcCommunities: tcCommunitiesFactory(req),
     leaderboard: leaderboardFactory(req),
-    dashboard: dashboardFactory(req),
     terms: termsFactory(req),
     reviewOpportunity: reviewOpportunityFactory(req),
     scoreboard: scoreboardFactory(req),
