@@ -98,10 +98,14 @@ export default class MyChallenges extends React.Component {
       number: this.props.challenges.length,
     });*/
 
+    const myCommunities = communities.filter(x =>
+      _.intersection(userGroups, x.groupIds).length);
+
     return (
       <div styleName="container">
         <Header
           numChallenges={challenges.length}
+          numCommunities={myCommunities.length}
           switchTab={switchTab}
           tab={tab}
         />
@@ -121,7 +125,7 @@ export default class MyChallenges extends React.Component {
         {
           tab === TABS.COMMUNITIES ? (
             <Communities
-              communities={communities}
+              communities={myCommunities}
               communitiesLoading={communitiesLoading}
               communityStats={communityStats}
               userGroups={userGroups}

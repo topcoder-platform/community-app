@@ -11,7 +11,6 @@ export default function Communities({
   communities,
   communitiesLoading,
   communityStats,
-  userGroups,
 }) {
   if (communitiesLoading) {
     return (
@@ -26,7 +25,6 @@ export default function Communities({
       {
         communities.map((c) => {
           const stats = communityStats[c.communityId] || {};
-          console.log(userGroups, c.groupIds);
           return (
           /* !this.state.showMyCommunityOnly || this.isCommunityRegstered(c)) && */
             <div key={c.communityId}>
@@ -34,7 +32,7 @@ export default function Communities({
                 community={c}
                 stats={stats.data}
                 statsLoading={Boolean(stats.loadingUuid)}
-                registered={_.intersection(userGroups, c.groupIds).length}
+                registered
               />
             </div>
           );
@@ -48,5 +46,4 @@ Communities.propTypes = {
   communities: PT.arrayOf(PT.object).isRequired,
   communitiesLoading: PT.bool.isRequired,
   communityStats: PT.shape().isRequired,
-  userGroups: PT.arrayOf(PT.object).isRequired,
 };

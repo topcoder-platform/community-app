@@ -39,10 +39,17 @@ const CommunityTile = (props) => {
         }
       </div>
       <div styleName="actions">
-        <a styleName={registered ? 'unreg' : 'reg'}>{registered ? 'Unregister' : 'Register'}</a>
+        {
+          /* TODO: Register / unregister button for non-registered communities */
+        }
         <a rel="noopener noreferrer" styleName="link" target="_blank" href={`/community/${community.communityId}/challenges`}>View All Challenges</a>
-        <div styleName="pipe" />
-        <a rel="noopener noreferrer" styleName="link" target="_blank" href={`/community/${community.communityId}/leaderboard`}>Leaderboard</a>
+        {
+          /*
+            <div styleName="pipe" />
+            <a rel="noopener noreferrer" styleName="link" target="_blank" 
+            href={`/community/${community.communityId}/leaderboard`}>Leaderboard</a>
+          */
+        }
       </div>
     </div>
   </div>);

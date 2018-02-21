@@ -7,9 +7,17 @@ import Option from './Option';
 
 import './style.scss';
 
-export default function Header({ numChallenges, switchTab, tab }) {
+export default function Header({
+  numChallenges,
+  numCommunities,
+  switchTab,
+  tab,
+}) {
   let myChallengesTitle = 'My Active Challenges';
   if (numChallenges) myChallengesTitle += ` (${numChallenges})`;
+
+  let myCommunitiesTitle = 'My Communities';
+  if (numCommunities) myCommunitiesTitle += ` (${numCommunities})`;
 
   return (
     <div styleName="container">
@@ -21,7 +29,7 @@ export default function Header({ numChallenges, switchTab, tab }) {
       <Option
         selected={tab === TABS.COMMUNITIES}
         select={() => switchTab(TABS.COMMUNITIES)}
-        title="Communities"
+        title={myCommunitiesTitle}
       />
       <Option
         selected={tab === TABS.SRMS}
@@ -34,6 +42,7 @@ export default function Header({ numChallenges, switchTab, tab }) {
 
 Header.propTypes = {
   numChallenges: PT.number.isRequired,
+  numCommunities: PT.number.isRequired,
   switchTab: PT.func.isRequired,
   tab: PT.string.isRequired,
 };
