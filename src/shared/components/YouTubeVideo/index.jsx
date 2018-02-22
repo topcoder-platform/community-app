@@ -16,14 +16,25 @@ import ScalableRect from 'components/ScalableRect';
 
 import style from './style.scss';
 
-export default function YouTubeVideo({ className, src, title }) {
+export default function YouTubeVideo({
+  autoplay,
+  className,
+  src,
+  title,
+}) {
   let cl = style.container;
   if (className) cl = `${cl} ${className}`;
+
+  let url = src;
+  if (autoplay) url += '?autoplay=1';
+
   return (
     <ScalableRect className={cl} ratio="16:9">
       <LoadingIndicator theme={{ container: style.loading }} />
       <iframe
-        src={src}
+        allow="autoplay"
+        allowFullScreen
+        src={url}
         styleName="video"
         title={title}
       />
@@ -32,11 +43,13 @@ export default function YouTubeVideo({ className, src, title }) {
 }
 
 YouTubeVideo.defaultProps = {
+  autoplay: false,
   className: null,
   title: null,
 };
 
 YouTubeVideo.propTypes = {
+  autoplay: PT.bool,
   className: PT.string,
   src: PT.string.isRequired,
   title: PT.string,

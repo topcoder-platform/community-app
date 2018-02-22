@@ -5,12 +5,18 @@
   background-size: cover;
   border-bottom: 1px solid $tc-gray-neutral-dark;
   display: flex;
-  flex-direction: column;
   height: 480px;
   max-width: $screen-lg;
   padding: 30px;
   position: relative;
   width: 100%;
+}
+
+.details {
+  align-items: flex-start;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
 }
 
 .hide {
@@ -51,6 +57,11 @@
   color: $tc-white;
   padding: 5px 10px;
   margin-bottom: 30px;
+}
+
+.video {
+  flex: 1;
+  margin: 35px 30px 35px 0;
 }
 
 .hidden {
