@@ -7,7 +7,7 @@ import React from 'react';
 import './style.scss';
 
 const CommunityTile = (props) => {
-  const { community, stats, statsLoading, registered } = props;
+  const { community, stats, statsLoading /* , registered */ } = props;
   return (<div styleName="container">
     <div styleName="left" >
       <img src={require(`assets/images/tc-communities/background/${community.image}`)} alt="" />
@@ -46,7 +46,7 @@ const CommunityTile = (props) => {
         {
           /*
             <div styleName="pipe" />
-            <a rel="noopener noreferrer" styleName="link" target="_blank" 
+            <a rel="noopener noreferrer" styleName="link" target="_blank"
             href={`/community/${community.communityId}/leaderboard`}>Leaderboard</a>
           */
         }
@@ -64,7 +64,7 @@ CommunityTile.propTypes = {
     description: PT.string.isRequired,
     image: PT.string.isRequired,
   }),
-  registered: PT.bool,
+  // registered: PT.bool,
 };
 
 CommunityTile.defaultProps = {

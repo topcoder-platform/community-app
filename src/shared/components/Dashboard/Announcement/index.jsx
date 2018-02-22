@@ -26,8 +26,6 @@ export default function Announcement({
 
   if (!announcement.fields) return null;
 
-  console.log(announcement, assets);
-
   const {
     backgroundImage,
     fontColor,

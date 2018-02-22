@@ -3,15 +3,10 @@
 import React from 'react';
 import PT from 'prop-types';
 import _ from 'lodash';
-import Sticky from 'react-stickynode';
 import { TABS } from 'actions/page/dashboard';
 
-import SwitchWithLabel from 'components/SwitchWithLabel';
-import config from 'utils/config';
 import * as Filter from 'utils/challenge-listing/filter';
 
-// import ChallengeTile from './ChallengeTile';
-import ChallengeFilter from './ChallengeFilter';
 import Challenges from './Challenges';
 import Communities from './Communities';
 import Header from './Header';
@@ -72,34 +67,6 @@ export default class MyChallenges extends React.Component {
       userGroups,
     } = this.props;
 
-    /*
-    const communityId = this.state.selectedCommunityId;
-    if (communityId) {
-      challenges = _.filter(challenges, Filter.getFilterFunction(_.find(this.props.communityList, ['communityId', communityId]).challengeFilter));
-    }
-
-    const communityFilters = _.map(this.props.communityList, (c) => {
-      const community = _.cloneDeep(c);
-      const filterFunc = Filter.getFilterFunction(community.challengeFilter);
-      community.number = _.filter(this.props.challenges, (ch) => {
-        const result = filterFunc(ch);
-        if (result && community.communityId) {
-          // eslint-disable-next-line no-param-reassign
-          ch.communityLabel = community.communityName;
-        }
-        return result;
-      },
-      ).length;
-      return community;
-    })1
-    1;
-
-    communityFilters.unshift({
-      communityId: '',
-      communityName: 'All communities',
-      number: this.props.challenges.length,
-    });*/
-
     const myCommunities = communities.filter(x =>
       _.intersection(userGroups, x.groupIds).length)
       .map((community) => {
@@ -156,123 +123,6 @@ export default class MyChallenges extends React.Component {
             />
           ) : null
         }
-      
-      {/*}
-        <header>
-          <div styleName="section-title">
-            <h1
-              styleName={this.state.activeTab === 0 ? 'active' : ''}
-              onClick={() => this.setTab(0)}
-            >
-              My Challenges
-            </h1>
-            <h1
-              styleName={this.state.activeTab === 1 ? 'active' : ''}
-              onClick={() => this.setTab(1)}
-            >
-              My Communities
-            </h1>
-          </div>
-          {
-            /*
-            this.state.activeTab === 0 &&
-            <div styleName="challenge-view-toggle">
-              <button
-                styleName={
-                  `tile ${this.state.viewMode === 'tile' ? 'disabled' : ''}`
-                }
-                onClick={() => this.setViewMode('tile')}
-              >
-                Grid
-              </button>
-              <button
-                styleName={
-                  `list ${this.state.viewMode === 'list' ? 'disabled' : ''}`
-                }
-                onClick={() => this.setViewMode('list')}
-              >
-                List
-              </button>
-            </div>
-            */
-          }
-          {/*
-            this.state.activeTab === 1 &&
-            <div styleName="show-only">
-              <SwitchWithLabel
-                enabled={this.state.showMyCommunityOnly}
-                labelBefore="Show my community only"
-                onSwitch={on => this.setState({ showMyCommunityOnly: on })}
-              />
-            </div>
-          }
-        </header>
-        {
-          this.state.activeTab === 0 && this.props.challenges && this.props.challenges.length > 0 &&
-          <section styleName={`hasChallenges ${this.state.viewMode === 'list' ? 'list-view-active' : ''}`}>
-            <div styleName={`challenges ${this.state.viewMode}-view`}>
-              <div styleName="items">
-                {
-                  challenges.length === 0 &&
-                  <div styleName="no-challenges">
-                    You don&apos;t participate in active challenges from this community now.
-                  </div>
-                }
-                {
-                  this.state.viewMode === 'list' && challenges.length > 0 &&
-                  <div styleName="section-titles">
-                    <div styleName="challenge-title">Challenges</div>
-                    <div styleName="phase-title">Phase</div>
-                    <div styleName="regs-subs-title">Registrations &amp; Submissions</div>
-                  </div>
-                }
-                {
-                  challenges.map(challenge => (
-                    <ChallengeTile
-                      key={challenge.id}
-                      challenge={challenge}
-                      viewMode={this.state.viewMode}
-                    />
-                  ))
-                }
-              </div>
-              <div styleName="filter-wrapper" id="dashboard-sticky-filter-container">
-                <Sticky top={20} bottomBoundary="#dashboard-sticky-filter-container">
-                  <ChallengeFilter
-                    communities={communityFilters}
-                    selectedCommunityId={this.state.selectedCommunityId}
-                    selectCommunity={this.selectCommunity}
-                  />
-                </Sticky>
-              </div>
-            </div>
-          </section>
-        }
-        {
-          this.state.activeTab === 1 &&
-          <div styleName="communities-container">
-            <section styleName="communities">
-              {
-                this.props.communityList.map(c => (
-                  (!this.state.showMyCommunityOnly || this.isCommunityRegstered(c)) &&
-                  <div key={c.communityId}>
-                    <CommunityTile
-                      community={c}
-                      stats={this.props.stats.communities[c.communityId]}
-                      registered={this.isCommunityRegstered(c)}
-                    />
-                  </div>
-                ))
-              }
-            </section>
-          </div>
-        }
-        {
-          this.state.activeTab === 0 &&
-          <div styleName="my-challenges-links">
-            <a href={`${config.URL.BASE}/my-challenges/?status=completed`}>Past Challenges</a>
-          </div>
-        */}
       </div>
     );
   }

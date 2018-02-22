@@ -62,7 +62,7 @@ async function getPreviewDone(id, uuid) {
     img = await previewService.getAsset(img.sys.id);
     assets[img.sys.id] = img;
   }
-  
+
   return {
     assets,
     data,

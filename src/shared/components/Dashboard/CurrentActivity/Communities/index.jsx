@@ -1,4 +1,3 @@
-import _ from 'lodash';
 import LoadingIndicator from 'components/LoadingIndicator';
 import PT from 'prop-types';
 import React from 'react';

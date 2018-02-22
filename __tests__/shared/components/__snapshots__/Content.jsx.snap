@@ -397,7 +397,7 @@ exports[`Matches shallow shapshot 1`] = `
     <li>
       <Link
         replace={false}
-        to="/examples/announcement/2qgNqwoKZacuMaMCMUqyCq"
+        to="/examples/announcement/5yaVZtOH9CYoQ0QYQk0uoY"
       >
         Announcement
       </Link>

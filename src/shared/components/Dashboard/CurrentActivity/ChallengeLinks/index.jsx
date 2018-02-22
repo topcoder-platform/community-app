@@ -4,8 +4,7 @@ import PT from 'prop-types';
 import { challengeLinks as getLink } from 'utils/tc';
 import './style.scss';
 
-const ChallengeLinks = (props) => {
-  const { viewMode, challenge } = props;
+export default function ChallengeLinks({ challenge }) {
   return (
     <div styleName="challenge-links tile-view">
       <a href={getLink(challenge, 'registrants')} styleName="registrants">
@@ -23,11 +22,8 @@ const ChallengeLinks = (props) => {
       </a>
     </div>
   );
-};
+}
 
 ChallengeLinks.propTypes = {
-  viewMode: PT.oneOf(['tile', 'list']).isRequired,
   challenge: PT.shape().isRequired,
 };
-
-export default ChallengeLinks;

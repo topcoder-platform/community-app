@@ -48,7 +48,7 @@ class Service {
    */
   async getContentEntries(query) {
     const url = `${this.private.baseUrl}/spaces/${
-      config.CONTENTFUL_CMS.SPACE}/entries?${qs.stringify(query)}`
+      config.CONTENTFUL_CMS.SPACE}/entries?${qs.stringify(query)}`;
     let res = await fetch(url, {
       headers: { Authorization: `Bearer ${this.private.key}` },
     });

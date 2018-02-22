@@ -10,10 +10,10 @@ import { combine, resolveReducers } from 'utils/redux';
 import { updateQuery } from 'utils/url';
 import moment from 'moment';
 import { getFilterFunction } from 'utils/challenge-listing/filter';
+import { fireErrorMessage } from 'utils/errors';
 
 import filterPanel from '../challenge-listing/filter-panel';
 import sidebar, { factory as sidebarFactory } from '../challenge-listing/sidebar';
-import { fireErrorMessage } from 'utils/errors';
 
 function onGetAllActiveChallengesDone(state, { error, payload }) {
   if (error) {

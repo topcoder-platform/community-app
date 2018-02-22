@@ -72,45 +72,7 @@ export default function Dashboard({
           tab={tab}
           unregisterFromChallenge={unregisterFromChallenge}
           userGroups={userGroups}
-
-          // communityList={communityList}
-          // stats={stats}
-          // groups={profile ? profile.groups : []}
         />
-      {/*}
-        achievements={achievements} myChallenges={myChallenges.length} />
-        <div styleName="my-dashboard-container">
-          {
-            st.announcementId ? (
-              <Announcement id={st.announcementId} />
-            ) : null
-          }
-          <div styleName="challenges">
-            {
-              loadingActiveChallenges &&
-              <LoadingIndicator theme={{}} />
-            }
-            {
-              !loadingActiveChallenges &&
-              <MyChallenges
-                challenges={myChallenges}
-                communityList={communityList}
-                stats={stats}
-                groups={profile ? profile.groups : []}
-              />
-            }
-          </div>
-          <div styleName="srms">
-            {
-              loadingSRMs &&
-              <LoadingIndicator theme={{}} />
-            }
-            {
-              !loadingSRMs &&
-              <SRM srms={srms} />
-            }
-          </div>
-          */}
         <CommunityBlog isLoading={tcBlogLoading} posts={tcBlogPosts} />
       </div>
     </div>

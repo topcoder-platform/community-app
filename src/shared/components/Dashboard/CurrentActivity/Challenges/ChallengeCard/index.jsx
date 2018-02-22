@@ -11,7 +11,7 @@ import React from 'react';
 import { Link } from 'topcoder-react-utils';
 
 import {
-  DangerButton,
+  // DangerButton,
   DataScienceTrackTag,
   DataScienceTrackEventTag,
   DesignTrackTag,
@@ -21,8 +21,6 @@ import {
   PrimaryButton,
 } from 'topcoder-react-ui-kit';
 
-import { stripUnderscore, challengeLinks as getLink } from 'utils/tc';
-import ChallengeLinks from '../../ChallengeLinks';
 import style from './style.scss';
 
 /* Holds day and hour range in ms. */
@@ -31,24 +29,11 @@ const DAY_MS = 24 * HOUR_MS;
 
 const ALERT_TIME = 24 * HOUR_MS;
 
-function listRoles(roles) {
-  if (!roles) {
-    return 'No assigned role.';
-  }
-
-  const rolesString = roles.join(', ');
-
-  if (rolesString.length > 60) {
-    return `${rolesString.slice(0, 57)}...`;
-  }
-  return rolesString;
-}
-
 export default function ChallengeCard({
   challenge,
   selectChallengeDetailsTab,
   setChallengeListingFilter,
-  unregisterFromChallenge,
+  // unregisterFromChallenge,
 }) {
   const {
     currentPhases,
@@ -100,7 +85,7 @@ export default function ChallengeCard({
   ]).length;
 
   const submitter = roles.includes('Submitter');
-  const submitted = userDetails.hasUserSubmittedForReview;
+  // const submitted = userDetails.hasUserSubmittedForReview;
   let nextPhase = currentPhases && currentPhases[0];
   if (submitter && nextPhase && nextPhase.phaseType === 'Registration') {
     nextPhase = currentPhases[1];
@@ -250,5 +235,5 @@ ChallengeCard.propTypes = {
   }).isRequired,
   selectChallengeDetailsTab: PT.func.isRequired,
   setChallengeListingFilter: PT.func.isRequired,
-  unregisterFromChallenge: PT.func.isRequired,
+  // unregisterFromChallenge: PT.func.isRequired,
 };

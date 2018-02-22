@@ -21,17 +21,9 @@ import { BUCKETS } from 'utils/challenge-listing/buckets';
 
 import challengeListingActions from 'actions/challenge-listing';
 import communityActions from 'actions/tc-communities';
-import moment from 'moment';
 import statsActions from 'actions/stats';
-import { processActiveDevDesignChallenges } from 'utils/tc';
-import Header from 'components/Dashboard/Header';
-// import MyChallenges from 'components/Dashboard/MyChallenges';
-import SRM from 'components/Dashboard/SRM';
-import Program from 'components/Dashboard/Program';
-import LoadingIndicator from 'components/LoadingIndicator';
 
 import { isTokenExpired } from 'tc-accounts';
-import { cdnService } from 'services/contentful-cms';
 import { isClientSide } from 'utils/isomorphy';
 
 import './styles.scss';

@@ -2,23 +2,15 @@
 
 exports[`Matches shallow shapshot 1`] = `
 <div
-  className="src-shared-components-Dashboard-Header-___styles__header-dashboard___MZIIQ"
+  className="src-shared-components-Dashboard-Header-___styles__container___25R-y"
 >
-  <div
-    className="src-shared-components-Dashboard-Header-___styles__page-state-header___3LEXR"
+  <h1
+    className="src-shared-components-Dashboard-Header-___styles__title___23nd3"
   >
-    <header>
-      <div
-        className="src-shared-components-Dashboard-Header-___styles__page-info___2vqPI"
-      >
-        <h1>
-          title
-        </h1>
-      </div>
-      <div
-        className="src-shared-components-Dashboard-Header-___styles__info___36a-O"
-      />
-    </header>
-  </div>
+    Dashboard
+  </h1>
+  <div
+    className="src-shared-components-Dashboard-Header-___styles__badges___3OcgA"
+  />
 </div>
 `;

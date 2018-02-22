@@ -56,7 +56,7 @@ class MembersService {
    * @return {Promise} Resolves to the api response content
    */
   async getMemberSuggestions(keyword) {
-    const res = await this.private.api.get(`/members/_suggest/${keyword}`)
+    const res = await this.private.api.get(`/members/_suggest/${keyword}`);
     return getApiResponsePayloadV3(res);
   }
 }

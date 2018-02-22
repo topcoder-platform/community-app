@@ -46,7 +46,7 @@ export default function ChallengeFilter({
       }
     </div>
   );
-};
+}
 
 ChallengeFilter.defaultProps = {
   communities: [],

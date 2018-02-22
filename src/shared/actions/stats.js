@@ -39,7 +39,8 @@ async function getCommunityStatsDone(community, uuid, challenges, token) {
       const filterFunction = Filter.getFilterFunction(community.challengeFilter);
       filtered = filtered.filter(filterFunction);
     }
-    const totalPrize = filtered.reduce((total, challenge) => total + (challenge.totalPrize || 0), 0);
+    const totalPrize = filtered.reduce((total, challenge) =>
+      total + (challenge.totalPrize || 0), 0);
     const groupService = getGroupService(token);
     const result = {
       community: community.communityId,
