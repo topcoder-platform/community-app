@@ -29,6 +29,8 @@ import style from './style.scss';
 const HOUR_MS = 60 * 60 * 1000;
 const DAY_MS = 24 * HOUR_MS;
 
+const ALERT_TIME = 24 * HOUR_MS;
+
 function listRoles(roles) {
   if (!roles) {
     return 'No assigned role.';
@@ -106,6 +108,7 @@ export default function ChallengeCard({
 
   let statusMsg;
   let deadlineMsg;
+  let msgStyleModifier = '';
   const now = moment();
   if (nextPhase) {
     statusMsg = nextPhase.phaseType;
@@ -113,6 +116,9 @@ export default function ChallengeCard({
     deadlineMsg = deadlineEnd.diff(now);
     const late = deadlineMsg <= 0;
     deadlineMsg = Math.abs(deadlineMsg);
+
+    if (late) msgStyleModifier = ' alert';
+    else if (deadlineMsg < 24 * 60 * 60 * 1000) msgStyleModifier = ' warning';
 
     let format;
     if (deadlineMsg > DAY_MS) format = 'D[d] H[h]';
@@ -122,10 +128,14 @@ export default function ChallengeCard({
     deadlineMsg = moment.duration(deadlineMsg).format(format);
     deadlineMsg = late ? `Late for ${deadlineMsg}` : `Ends in ${deadlineMsg}`;
   } else if (moment(registrationStartDate).isAfter(now)) {
+    if (moment(registrationStartDate).diff(now) < ALERT_TIME) {
+      msgStyleModifier = ' warning';
+    }
     statusMsg = 'Scheduled';
   } else if (status === 'COMPLETED') {
     statusMsg = 'Completed';
   } else {
+    msgStyleModifier = ' alert';
     statusMsg = 'Stalled';
   }
 
@@ -179,8 +189,10 @@ export default function ChallengeCard({
       </div>
       <div>
         <div styleName="statusPanel">
-          <h3 styleName="statusMsg">{statusMsg}</h3>
-          <div styleName="deadlineMsg">{deadlineMsg}</div>
+          <h3 styleName={`statusMsg${msgStyleModifier}`}>{statusMsg}</h3>
+          <div styleName={`deadlineMsg${msgStyleModifier}`}>
+            {deadlineMsg}
+          </div>
           {
             showDirectLink ? (
               <PrimaryButton

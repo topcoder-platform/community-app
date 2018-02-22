@@ -26,6 +26,16 @@
   @include tc-label-sm;
 
   margin: 0 0 5px;
+
+  &.warning {
+    color: $tc-orange-70;
+    font-weight: bold;
+  }
+
+  &.alert {
+    color: $tc-red;
+    font-weight: bold;
+  }
 }
 
 .forumLink {
@@ -56,6 +66,16 @@
 .statusMsg {
   @include tc-heading-md;
   @include roboto-light;
+
+  &.warning {
+    color: $tc-orange-70;
+    font-weight: bold;
+  }
+
+  &.alert {
+    color: $tc-red;
+    font-weight: bold;
+  }
 }
 
 .statusPanel {
