@@ -1,3 +1,4 @@
+import Announcement from 'containers/Dashboard/Announcement';
 import PT from 'prop-types';
 import React from 'react';
 
@@ -44,6 +45,7 @@ export default function Dashboard({
           achievements={achievements}
           achievementsLoading={achievementsLoading}
         />
+        <Announcement />
         <MemberMetrics
           finances={finances}
           financesLoading={financesLoading}

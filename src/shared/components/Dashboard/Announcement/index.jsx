@@ -1,21 +1,125 @@
 import _ from 'lodash';
 import LoadingIndicator from 'components/LoadingIndicator';
-import moment from 'moment';
 import PT from 'prop-types';
 import React from 'react';
 import { PrimaryButton } from 'topcoder-react-ui-kit';
-import { getService } from 'services/contentful-cms';
 
 import style from './style.scss';
 
-const STATES = {
-  LOADED: 'LOADED',
-  LOADING: 'LOADING',
+export default function Announcement({
+  assets,
+  announcement,
+  loading,
+  show,
+  switchShow,
+}) {
+  if (loading) {
+    return (
+      <div styleName="loading">
+        <LoadingIndicator />
+      </div>
+    );
+  }
+
+  if (!announcement.fields) return null;
+
+  console.log(announcement, assets);
+
+  const {
+    backgroundImage,
+    fontColor,
+    readMore,
+    text,
+    title,
+    type,
+  } = announcement.fields;
+
+  if (!show) {
+    return (
+      <div styleName="hidden">
+        <div
+          onClick={() => switchShow(true)}
+          role="button"
+          styleName="hide"
+          tabIndex={0}
+        >+</div>
+        { type ? <div styleName="type">{type}</div> : null }
+        <h1
+          styleName="title"
+          style={{ color: fontColor }}
+        >{title}</h1>
+        <div
+          styleName="text"
+          style={{ color: fontColor }}
+        >{text}</div>
+      </div>
+    );
+  }
+
+  let background = _.get(backgroundImage, 'sys.id');
+  if (background) background = assets[background].fields.file.url;
+
+  const res = (
+    <div
+      styleName="container"
+      style={{
+        backgroundImage: background && `url(${background})`,
+      }}
+    >
+      <div
+        onClick={() => switchShow(false)}
+        role="button"
+        styleName="hide"
+        tabIndex={0}
+      >&times;</div>
+      { type ? <div styleName="type">{type}</div> : null }
+      <h1
+        styleName="title"
+        style={{ color: fontColor }}
+      >{title}</h1>
+      <div
+        styleName="text"
+        style={{ color: fontColor }}
+      >{text}</div>
+      {
+        readMore ? (
+          <PrimaryButton
+            size="sm"
+            theme={{
+              button: style.readMore,
+            }}
+            to={readMore}
+          >Read more</PrimaryButton>
+        ) : null
+      }
+    </div>
+  );
+
+  return res;
+}
+
+Announcement.propTypes = {
+  assets: PT.shape.isRequired,
+  announcement: PT.shape({
+    backgroundImage: PT.shape({
+      sys: PT.shape({
+        id: PT.string.isRequired,
+      }).isRequired,
+    }),
+    fontColor: PT.string,
+    readMore: PT.string,
+    text: PT.string,
+    title: PT.string,
+    type: PT.string,
+  }).isRequired,
+  loading: PT.bool.isRequired,
 };
+
 
 /* Implemented as a stateful component, because it is a rapid POC of the CMS
  * integration, thus no need to spend time on proper Redux integration right
  * now. */
+/*
 export default class Announcement extends React.Component {
   constructor(props) {
     super(props);
@@ -137,3 +241,4 @@ Announcement.propTypes = {
   id: PT.string.isRequired,
   preview: PT.bool,
 };
+*/

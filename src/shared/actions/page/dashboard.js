@@ -11,6 +11,15 @@ export const TABS = {
 };
 
 /**
+ * Payload creator for the action that shows/hides the dash announcement.
+ * @param {Boolean} show
+ * @return {Boolean}
+ */
+function showAnnouncement(show) {
+  return show;
+}
+
+/**
  * Payload creator for the action that shows/hides challenges filter by
  * community.
  * @param {Boolean} show
@@ -51,6 +60,7 @@ function switchTab(tab) {
 export default createActions({
   PAGE: {
     DASHBOARD: {
+      SHOW_ANNOUNCEMENT: showAnnouncement,
       SHOW_CHALLENGE_FILTER: showChallengesFilter,
       SHOW_EARNINGS: showEarnings,
       SWITCH_CHALLENGE_FILTER: switchChallengeFilter,

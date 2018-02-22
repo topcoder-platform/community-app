@@ -17,6 +17,7 @@
 import { getCommunityId } from 'server/services//communities';
 import { combine, resolveReducers } from 'utils/redux';
 
+import cms from './cms';
 import direct from './direct';
 import members from './members';
 import memberTasks from './member-tasks';
@@ -60,6 +61,7 @@ export function factory(req) {
     return res;
   }, {
     ...reducers,
+    cms,
     direct,
     members,
     memberTasks,

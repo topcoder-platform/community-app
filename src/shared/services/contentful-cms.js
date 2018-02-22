@@ -46,13 +46,24 @@ class Service {
    *  content.
    * @return {Promise}
    */
-  getContentEntries(query) {
-    return fetch(`${this.private.baseUrl}/spaces/${
-      config.CONTENTFUL_CMS.SPACE}/entries?${qs.stringify(query)}`, {
-      headers: {
-        Authorization: `Bearer ${this.private.key}`,
-      },
-    }).then(res => res.json());
+  async getContentEntries(query) {
+    const url = `${this.private.baseUrl}/spaces/${
+      config.CONTENTFUL_CMS.SPACE}/entries?${qs.stringify(query)}`
+    let res = await fetch(url, {
+      headers: { Authorization: `Bearer ${this.private.key}` },
+    });
+    res = await res.json();
+    if (!res.includes) return res;
+
+    if (res.includes.Asset) {
+      const assets = {};
+      res.includes.Asset.forEach((asset) => {
+        assets[asset.sys.id] = asset;
+      });
+      res.assets = assets;
+      delete res.includes.Asset;
+    }
+    return res;
   }
 
   /**
@@ -73,6 +84,10 @@ class Service {
 export const cdnService = new Service();
 export const previewService = new Service(true);
 
+/**
+ * Returns an intance of CDN or Preview service.
+ * @param {Boolean} preview
+ */
 export function getService(preview) {
   return preview ? previewService : cdnService;
 }

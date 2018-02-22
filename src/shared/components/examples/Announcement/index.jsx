@@ -1,4 +1,4 @@
-import Announcement from 'components/Announcement';
+import Announcement from 'components/Dashboard/Announcement';
 import PT from 'prop-types';
 import React from 'react';
 

@@ -7,6 +7,17 @@ import { handleActions } from 'redux-actions';
 const validTabs = new Set(_.values(TABS));
 
 /**
+ * Shows/hides announcement.
+ * @param {Object} state
+ * @param {Boolean} payload
+ * @return {Object} New state.
+ */
+function onShowAnnouncement(state, { payload }) {
+  if (state.showAnnouncement === payload) return state;
+  return { ...state, showAnnouncement: payload };
+}
+
+/**
  * Shows/hides challenge filter by community.
  * @param {Object} state
  * @param {Boolean} payload `true` to show; `false` to hide.
@@ -63,6 +74,7 @@ function onSwitchTab(state, { payload }) {
 function create(state = {}) {
   const a = actions.page.dashboard;
   return handleActions({
+    [a.showAnnouncement]: onShowAnnouncement,
     [a.showChallengeFilter]: onShowChallengeFilter,
     [a.showEarnings]: onShowEarnings,
     [a.switchChallengeFilter]: onSwitchChallengeFilter,
@@ -70,6 +82,7 @@ function create(state = {}) {
   }, _.defaults(state, {
     challengeFilter: '',
     tab: TABS.MY_ACTIVE_CHALLENGES,
+    showAnnouncement: true,
   }));
 }
 

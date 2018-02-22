@@ -4,7 +4,6 @@
 /* global location */
 
 import _ from 'lodash';
-import Announcement from 'components/Announcement';
 import challengeActions from 'actions/challenge';
 import cookies from 'browser-cookies';
 import Dashboard from 'components/Dashboard';
@@ -108,25 +107,6 @@ export class DashboardPageContainer extends React.Component {
     }
 
     if (challengeFilter) switchChallengeFilter('');
-
-    /**
-     * POC for loading announcement into the dashboard.
-     */
-    /*
-    const now = moment().toISOString();
-    cdnService.getContentEntries({
-      content_type: 'dashboardAnnouncement',
-      'fields.startDate[lt]': now,
-      'fields.endDate[gt]': now,
-      limit: 1,
-      order: '-fields.startDate',
-    }).then((res) => {
-      if (!res.items.length) return;
-      this.setState({
-        announcementId: res.items[0].sys.id,
-      });
-    });
-    */
   }
 
   componentWillReceiveProps(nextProps) {
@@ -174,7 +154,7 @@ export class DashboardPageContainer extends React.Component {
       || now - (stats.timestamp || 0) < CACHE_MAX_AGE)) return;
       getCommunityStats(community, activeChallenges, tokenV3);
     });
-    _.noop(this);
+    _.noop(this.props.getCommunityStats);
   }
 
   render() {
@@ -210,19 +190,6 @@ export class DashboardPageContainer extends React.Component {
       unregisterFromChallenge,
       userGroups,
     } = this.props;
-
-    /* When we automatically reload cached challenge objects, we do not want to
-   * show the loading state, if the currently loaded challenges are not very
-   * outdated (i.e. no need to show placeholders in the situations when it is
-   * fine to reload silently, keeping showing the previously cached challenges,
-   * while the reload is going on).
-   *
-   * In this code lastUpdateOfActiveChallenges serves as an adequate indication
-   * when the challenges were fetched the last time, and the magic numbers are:
-   * 1000 - to conver config.CHALLENGE_LISTING_AUTO_REFRESH from seconds to ms.
-   * 1.5 - a reasonable margin factor, to decide when we consider already cached
-   * challenges too old to display while the reload takes place.
-   */
 
     return (
       <Dashboard
@@ -293,7 +260,7 @@ DashboardPageContainer.propTypes = {
   financesTimestamp: PT.number,
   getAllActiveChallenges: PT.func.isRequired,
   getCommunityList: PT.func.isRequired,
-  // getCommunityStats: PT.func.isRequired,
+  getCommunityStats: PT.func.isRequired,
   getMemberAchievements: PT.func.isRequired,
   getMemberFinances: PT.func.isRequired,
   getMemberStats: PT.func.isRequired,

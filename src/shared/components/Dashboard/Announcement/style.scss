@@ -1,0 +1,84 @@
+@import "~styles/mixins";
+
+.container {
+  align-items: flex-start;
+  background-size: cover;
+  border-bottom: 1px solid $tc-gray-neutral-dark;
+  display: flex;
+  flex-direction: column;
+  height: 480px;
+  max-width: $screen-lg;
+  padding: 30px;
+  position: relative;
+  width: 100%;
+}
+
+.hide {
+  background: $tc-gray-80;
+  color: $tc-white;
+  cursor: pointer;
+  font-size: 64px;
+  font-weight: bold;
+  padding: 0 10px;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+.loading {
+  padding: 30px;
+}
+
+.readMore {
+  margin: 20px 0 0 !important;
+}
+
+.text {
+  @include tc-body-md;
+}
+
+.title {
+  @include tc-title;
+
+  margin-bottom: 10px;
+}
+
+.type {
+  @include tc-label-md;
+
+  background: $tc-red;
+  border-radius: 4px;
+  color: $tc-white;
+  padding: 5px 10px;
+  margin-bottom: 30px;
+}
+
+.hidden {
+  align-items: center;
+  background: $tc-gray-80;
+  display: flex;
+  height: 64px;
+  padding: 0 94px 0 30px;
+  position: relative;
+  width: 100%;
+
+  .text {
+    @include tc-heading-lg;
+
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .title {
+    @include tc-heading-lg;
+
+    font-weight: 900;
+    margin: 0 30px 0 0;
+    white-space: nowrap;
+  }
+
+  .type {
+    margin: 0 30px 0 0;
+  }
+}
