@@ -21,11 +21,16 @@ class AnnouncementContainer extends React.Component {
       activeLoading,
       activeTimestamp,
       getActive,
+      getPreview,
+      previewId,
     } = this.props;
 
-    const now = Date.now();
-    if (now - activeTimestamp > MAXAGE
-    && !activeLoading) getActive();
+    if (previewId) getPreview(previewId);
+    else {
+      const now = Date.now();
+      if (now - activeTimestamp > MAXAGE
+      && !activeLoading) getActive();
+    }
 
     this.hideIfNecessary(this.props);
   }
@@ -34,12 +39,13 @@ class AnnouncementContainer extends React.Component {
     const id = _.get(this.props.active, 'sys.id');
     const nextId = _.get(nextProps.active, 'sys.id');
     if (id !== nextId) this.hideIfNecessary(nextProps);
-    else if (!nextProps.show && this.props.show) {
+    else if (!nextProps.show && this.props.show && !nextProps.previewId) {
       cookies.set(COOKIE, nextId);
     }
   }
 
   hideIfNecessary(props) {
+    if (props.previewId) return;
     const { active, show, switchShowAnnouncement } = props;
     if (show) {
       const lastSeen = cookies.get(COOKIE);
@@ -53,14 +59,19 @@ class AnnouncementContainer extends React.Component {
       active,
       activeAssets,
       activeLoading,
+      preview,
+      previewAssets,
+      previewLoading,
+      previewId,
       show,
       switchShowAnnouncement,
     } = this.props;
     return (
       <Announcement
-        assets={activeAssets}
-        announcement={active}
-        loading={activeLoading}
+        assets={previewId ? previewAssets : activeAssets}
+        announcement={previewId ? preview : active}
+        loading={previewId ? previewLoading : activeLoading}
+        preview={Boolean(previewId)}
         show={show}
         switchShow={switchShowAnnouncement}
       />
@@ -78,7 +89,11 @@ AnnouncementContainer.propTypes = {
   activeLoading: PT.bool.isRequired,
   activeTimestamp: PT.number.isRequired,
   getActive: PT.func.isRequired,
+  getPreview: PT.func.isRequired,
+  preview: PT.shape().isRequired,
+  previewAssets: PT.shape().isRequired,
   previewId: PT.string,
+  previewLoading: PT.func.isRequired,
   show: PT.bool.isRequired,
   switchShowAnnouncement: PT.func.isRequired,
 };
@@ -90,18 +105,26 @@ function mapStateToProps(state, props) {
     activeAssets: a.active.assets,
     activeLoading: Boolean(a.active.loadingUuid),
     activeTimestamp: a.active.timestamp,
+    preview: a.preview.data,
+    previewAssets: a.preview.assets,
+    previewLoading: Boolean(a.preview.loadingUuid),
     previewId: props.previewId,
     show: state.page.dashboard.showAnnouncement,
   };
 }
 
 function mapDispatchToProps(dispatch) {
+  const a = actions.cms.dashboard.announcements;
   return {
     getActive: () => {
       const uuid = shortId();
-      const a = actions.cms.dashboard.announcements;
       dispatch(a.getActiveInit(uuid));
       dispatch(a.getActiveDone(uuid));
+    },
+    getPreview: (id) => {
+      const uuid = shortId();
+      dispatch(a.getPreviewInit(uuid));
+      dispatch(a.getPreviewDone(id, uuid));
     },
     switchShowAnnouncement: show =>
       dispatch(uiActions.page.dashboard.showAnnouncement(show)),

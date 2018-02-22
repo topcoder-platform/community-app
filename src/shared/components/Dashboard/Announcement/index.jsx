@@ -1,5 +1,6 @@
 import _ from 'lodash';
 import LoadingIndicator from 'components/LoadingIndicator';
+import moment from 'moment';
 import PT from 'prop-types';
 import React from 'react';
 import YouTubeVideo from 'components/YouTubeVideo';
@@ -11,6 +12,7 @@ export default function Announcement({
   assets,
   announcement,
   loading,
+  preview,
   show,
   switchShow,
 }) {
@@ -30,14 +32,24 @@ export default function Announcement({
     backgroundImage,
     fontColor,
     readMore,
+    endDate,
+    startDate,
     text,
     title,
     type,
     youTubeVideoUrl,
   } = announcement.fields;
 
+  const {
+    createdAt,
+    revision,
+    updatedAt,
+  } = announcement.sys;
+
+  let res;
+
   if (!show) {
-    return (
+    res = (
       <div styleName="hidden">
         <div
           onClick={() => switchShow(true)}
@@ -56,60 +68,77 @@ export default function Announcement({
         >{text}</div>
       </div>
     );
-  }
+  } else {
+    let background = _.get(backgroundImage, 'sys.id');
+    if (background) background = assets[background].fields.file.url;
 
-  let background = _.get(backgroundImage, 'sys.id');
-  if (background) background = assets[background].fields.file.url;
-
-  const res = (
-    <div
-      styleName="container"
-      style={{
-        backgroundImage: background && `url(${background})`,
-      }}
-    >
-      <div styleName="details">
-        <div
-          onClick={() => switchShow(false)}
-          role="button"
-          styleName="hide"
-          tabIndex={0}
-        >&times;</div>
-        { type ? <div styleName="type">{type}</div> : null }
-        <h1
-          styleName="title"
-          style={{ color: fontColor }}
-        >{title}</h1>
-        <div
-          styleName="text"
-          style={{ color: fontColor }}
-        >{text}</div>
+    res = (
+      <div
+        styleName="container"
+        style={{
+          backgroundImage: background && `url(${background})`,
+        }}
+      >
+        <div styleName="details">
+          <div
+            onClick={() => switchShow(false)}
+            role="button"
+            styleName="hide"
+            tabIndex={0}
+          >&times;</div>
+          { type ? <div styleName="type">{type}</div> : null }
+          <h1
+            styleName="title"
+            style={{ color: fontColor }}
+          >{title}</h1>
+          <div
+            styleName="text"
+            style={{ color: fontColor }}
+          >{text}</div>
+          {
+            readMore ? (
+              <PrimaryButton
+                size="sm"
+                theme={{
+                  button: style.readMore,
+                }}
+                to={readMore}
+              >Read more</PrimaryButton>
+            ) : null
+          }
+        </div>
         {
-          readMore ? (
-            <PrimaryButton
-              size="sm"
-              theme={{
-                button: style.readMore,
-              }}
-              to={readMore}
-            >Read more</PrimaryButton>
+          youTubeVideoUrl ? (
+            <YouTubeVideo
+              autoplay
+              src={youTubeVideoUrl}
+              styleName="video"
+            />
           ) : null
         }
       </div>
-      {
-        youTubeVideoUrl ? (
-          <YouTubeVideo
-            autoplay
-            src={youTubeVideoUrl}
-            styleName="video"
-          />
-        ) : null
-      }
-    </div>
-  );
+    );
+  }
+
+  if (preview) {
+    res = (
+      <div styleName="preview">
+        <div>Created: {moment(createdAt).toLocaleString()}</div>
+        <div>Last update: {moment(updatedAt).toLocaleString()}</div>
+        <div>Revision: {revision}</div>
+        <div>Display start date: {moment(startDate).toLocaleString()}</div>
+        <div>Display end date: {moment(endDate).toLocaleString()}</div>
+        <div styleName="previewContent">{res}</div>
+      </div>
+    );
+  }
 
   return res;
 }
+
+Announcement.defaultProps = {
+  preview: false,
+};
 
 Announcement.propTypes = {
   assets: PT.shape.isRequired,
@@ -127,132 +156,5 @@ Announcement.propTypes = {
     youTubeVideoUrl: PT.string,
   }).isRequired,
   loading: PT.bool.isRequired,
-};
-
-
-/* Implemented as a stateful component, because it is a rapid POC of the CMS
- * integration, thus no need to spend time on proper Redux integration right
- * now. */
-/*
-export default class Announcement extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = { state: STATES.LOADING };
-  }
-
-  componentDidMount() {
-    const { id, preview } = this.props;
-    const service = getService(preview);
-    service.getContentEntry(id)
-      .then((res) => {
-        const imageId = _.get(res, 'fields.backgroundImage.sys.id');
-        if (imageId) {
-          return service.getAsset(imageId)
-            .then((asset) => {
-              res.fields.backgroundImage = asset.fields.file.url;
-              return res;
-            });
-        }
-        return res;
-      }).then(res => this.setState({
-        ...res,
-        state: STATES.LOADED,
-      }));
-  }
-
-  render() {
-    const st = this.state;
-
-    if (st.state === STATES.LOADING) {
-      return (
-        <div styleName="container">
-          <LoadingIndicator />
-        </div>
-      );
-    }
-
-    const {
-      createdAt,
-      revision,
-      updatedAt,
-    } = st.sys;
-
-    const {
-      backgroundImage,
-      endDate,
-      fontColor,
-      readMore,
-      startDate,
-      text,
-      title,
-      type,
-    } = st.fields;
-
-    const announcement = (
-      <div
-        styleName="container"
-        style={{
-          backgroundImage: `url(${backgroundImage})`,
-        }}
-      >
-        <h1
-          styleName="title"
-          style={{ color: fontColor }}
-        >{title}</h1>
-        <div
-          styleName="text"
-          style={{ color: fontColor }}
-        >{text}</div>
-        { type ? <div styleName="type">{type}</div> : null }
-        {
-          readMore ? (
-            <PrimaryButton
-              size="sm"
-              theme={{
-                button: style.readMore,
-              }}
-              to={readMore}
-            >Read more</PrimaryButton>
-          ) : null
-        }
-      </div>
-    );
-
-    if (!this.props.preview) return announcement;
-
-    return (
-      <div>
-        {
-          this.props.preview ? (
-            <div>
-              <div>Created: {createdAt}</div>
-              <div>Last updated: {updatedAt}</div>
-              <div>Revision: {revision}</div>
-              <div>
-                Visibility start: {
-                  startDate ? moment(startDate).toLocaleString() : 'always'
-                }
-              </div>
-              <div>
-                Visibility end: {
-                  endDate ? moment(endDate).toLocaleString() : 'always'
-                }
-              </div>
-            </div>
-          ) : null
-        }
-        {announcement}
-      </div>
-    );
-  }
-}
-
-Announcement.defaultProps = {
-  preview: false,
-};
-
-Announcement.propTypes = {
-  id: PT.string.isRequired,
   preview: PT.bool,
 };
-*/

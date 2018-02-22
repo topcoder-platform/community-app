@@ -4,7 +4,7 @@
 
 import moment from 'moment';
 import { createActions } from 'redux-actions';
-import { cdnService } from 'services/contentful-cms';
+import { cdnService, previewService } from 'services/contentful-cms';
 
 /**
  * Payload creator for the action that inits the loading of the active dashboard
@@ -37,12 +37,47 @@ async function getActiveDone(uuid) {
   };
 }
 
+/**
+ * Payload creator for the action that inits the loading of the announcement
+ * preview.
+ * @param {String} uuid
+ * @return {String}
+ */
+function getPreviewInit(uuid) {
+  return uuid;
+}
+
+/**
+ * Payload creator for the action that loads an announcement preview.
+ * @param {String} id Announcement ID in the CMS.
+ * @param {String} uuid Operation UUID.
+ * @return {Promise}
+ */
+async function getPreviewDone(id, uuid) {
+  const data = await previewService.getContentEntry(id);
+  const assets = {};
+
+  let img = data.fields.backgroundImage;
+  if (img) {
+    img = await previewService.getAsset(img.sys.id);
+    assets[img.sys.id] = img;
+  }
+  
+  return {
+    assets,
+    data,
+    uuid,
+  };
+}
+
 export default createActions({
   CMS: {
     DASHBOARD: {
       ANNOUNCEMENTS: {
         GET_ACTIVE_INIT: getActiveInit,
         GET_ACTIVE_DONE: getActiveDone,
+        GET_PREVIEW_INIT: getPreviewInit,
+        GET_PREVIEW_DONE: getPreviewDone,
       },
     },
   },

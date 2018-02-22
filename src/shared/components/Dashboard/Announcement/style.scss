@@ -20,15 +20,20 @@
 }
 
 .hide {
+  @include roboto-regular;
+
   background: $tc-gray-80;
   color: $tc-white;
   cursor: pointer;
   font-size: 64px;
   font-weight: bold;
-  padding: 0 10px;
+  height: 64px;
+  line-height: 55px;
   position: absolute;
   right: 0;
+  text-align: center;
   top: 0;
+  width: 64px;
 }
 
 .loading {
@@ -76,6 +81,7 @@
   .text {
     @include tc-heading-lg;
 
+    color: $tc-white;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -84,6 +90,7 @@
   .title {
     @include tc-heading-lg;
 
+    color: $tc-white;
     font-weight: 900;
     margin: 0 30px 0 0;
     white-space: nowrap;
@@ -92,4 +99,18 @@
   .type {
     margin: 0 30px 0 0;
   }
+}
+
+.preview {
+  @include tc-body-md;
+
+  background: $tc-purple-10;
+  border: 1px solid $tc-purple;
+  color: $tc-purple;
+  padding: 30px;
+}
+
+.previewContent {
+  background: $tc-white;
+  margin-top: 20px;
 }

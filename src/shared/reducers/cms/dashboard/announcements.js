@@ -45,6 +45,47 @@ function onGetActiveDone(state, { error, payload }) {
 }
 
 /**
+ * Inits the preview loading.
+ * @param {Object} state
+ * @param {String} payload Operation UUID.
+ * @return {Object} New state.
+ */
+function onGetPreviewInit(state, { payload }) {
+  return {
+    ...state,
+    preview: {
+      ...state.preview,
+      loadingUuid: payload,
+    },
+  };
+}
+
+/**
+ * Received the loaded announcement preview.
+ * @param {Object} state
+ * @param {Boolean} error
+ * @param {Object} payload
+ * @return {Object} New state.
+ */
+function onGetPreviewDone(state, { error, payload }) {
+  if (error) {
+    fireErrorMessage('Failed to get announcement preview', '');
+    return state;
+  }
+
+  const { assets, data, uuid } = payload;
+  if (uuid !== state.preview.loadingUuid) return state;
+  return {
+    ...state,
+    preview: {
+      assets,
+      data,
+      timestamp: Date.now(),
+    },
+  };
+}
+
+/**
  * Creates a new reducer.
  * @param {Object} state Optional. Initial state.
  * @return {Function} New reducer.
@@ -54,8 +95,16 @@ function create(state = {}) {
   return handleActions({
     [a.getActiveInit]: onGetActiveInit,
     [a.getActiveDone]: onGetActiveDone,
+    [a.getPreviewInit]: onGetPreviewInit,
+    [a.getPreviewDone]: onGetPreviewDone,
   }, _.defaults(state, {
     active: {
+      assets: {},
+      data: {},
+      loadingUuid: '',
+      timestamp: 0,
+    },
+    preview: {
       assets: {},
       data: {},
       loadingUuid: '',

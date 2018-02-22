@@ -1,4 +1,4 @@
-import Announcement from 'components/Dashboard/Announcement';
+import Announcement from 'containers/Dashboard/Announcement';
 import PT from 'prop-types';
 import React from 'react';
 
@@ -8,7 +8,7 @@ export default function AnnouncementExample(props) {
   return (
     <div styleName="container">
       <h1>Announcement Preview</h1>
-      <Announcement id={props.match.params.id} preview />
+      <Announcement previewId={props.match.params.id} />
     </div>
   );
 }
