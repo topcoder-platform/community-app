@@ -1,0 +1,16 @@
+@import "~styles/mixins";
+
+.container {
+  padding: 20px 30px;
+}
+
+.loading {
+  padding: 40px 20px 30px;
+}
+
+.msg {
+  @include tc-heading-md;
+
+  padding: 20px 0 0;
+  text-align: center;
+}

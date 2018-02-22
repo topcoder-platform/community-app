@@ -32,6 +32,6 @@
   "newsFeed": "http://www.topcoder.com/feed",
   "subdomains": ["community-2"],
 
-  "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore.",
-  "image":"1.jpg"
+  "description": "A demo community.",
+  "image":"community-2.jpg"
 }

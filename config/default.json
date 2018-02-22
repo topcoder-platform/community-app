@@ -26,9 +26,9 @@
   "CHALLENGE_LISTING_AUTO_REFRESH": 300,
 
   "CONTENTFUL_CMS": {
-    "CDN_API_KEY": "10d59bc940efc8694b92b45224c1e854e1787003897b2abe464ac9c4a586ef28",
-    "PREVIEW_API_KEY": "1fe4f37a03c45cec543700c3ac89e37b1ee4b456b29908f915151e3cfec66bc0",
-    "SPACE": "c8hfly5g6x4z"
+    "CDN_API_KEY": "b25086ddbd7b3e7aeb4fff61ec0a324bbb01366813b3c9ad0d5ac7a75647409d",
+    "PREVIEW_API_KEY": "ed55979c2d5d18e83e11987f2d163f70e0e6da077ca21ffbd2821c565dfd2842",
+    "SPACE": "b5f1djy59z3a"
   },
 
   /* API token for logentries.com. The token below is just for local testing of
@@ -88,7 +88,8 @@
     "ARENA": "https://arena.topcoder-dev.com",
     "AUTH": "http://accounts.topcoder-dev.com",
     "BASE": "https://www.topcoder-dev.com",
-    "BLOG": "https://www.topcoder-dev.com/feed",
+    "BLOG": "https://www.topcoder-dev.com/blog",
+    "BLOG_FEED": "https://www.topcoder-dev.com/feed",
     "COMMUNITY": "https://community.topcoder-dev.com",
     "FORUMS": "https://apps.topcoder-dev.com/forums",
     "HELP": "https://help.topcoder-dev.com",

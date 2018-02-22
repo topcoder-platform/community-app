@@ -10,7 +10,18 @@
   }
 }
 
+.link {
+  color: $tc-black;
+
+  &:hover {
+    color: $tc-dark-blue;
+  }
+}
+
 .number {
+  @include tc-label-sm;
+
+  color: inherit;
   vertical-align: top;
   padding-left: $base-unit - 3;
 }

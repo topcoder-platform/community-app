@@ -1,0 +1,62 @@
+@import "~styles/mixins";
+
+.container {
+  border-bottom: 1px solid $tc-gray-neutral-dark;
+  padding: 30px 0;
+  position: relative;
+  text-align: center;
+}
+
+.innerContainer {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 10px 30px 0;
+}
+
+.link,
+.link:active,
+.link:visited {
+  color: $tc-dark-blue;
+}
+
+.link:hover {
+  color: $tc-dark-blue-70;
+}
+
+.loading {
+  margin: 30px 0;
+}
+
+.title {
+  @include tc-heading-lg;
+
+  padding: 0 30px;
+}
+
+.totalNumber {
+  @include tc-heading-xl;
+
+  border-radius: 4px;
+  cursor: pointer;
+  display: inline-block;
+  margin: 10px 0 0;
+  padding: 20px 30px;
+
+  &,
+  &:active,
+  &:visited {
+    color: $tc-yellow-110;
+  }
+
+  &:hover {
+    background: $tc-gray-neutral-light;
+  }
+}
+
+.showEarningsSwitch {
+  @include tc-label-sm;
+
+  bottom: 10px;
+  position: absolute;
+  right: 25px;
+}

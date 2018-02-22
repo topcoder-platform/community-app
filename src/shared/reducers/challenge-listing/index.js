@@ -10,6 +10,7 @@ import { combine, resolveReducers } from 'utils/redux';
 import { updateQuery } from 'utils/url';
 import moment from 'moment';
 import { getFilterFunction } from 'utils/challenge-listing/filter';
+import { fireErrorMessage } from 'utils/errors';
 
 import filterPanel from '../challenge-listing/filter-panel';
 import sidebar, { factory as sidebarFactory } from '../challenge-listing/sidebar';
@@ -265,6 +266,47 @@ function onGetReviewOpportunitiesDone(state, { payload, error }) {
 }
 
 /**
+ * Inits the loading of SRMs.
+ * @param {Object} state
+ * @param {String} payload Operation UUID.
+ * @return {Object} New state.
+ */
+function onGetSrmsInit(state, { payload }) {
+  return {
+    ...state,
+    srms: {
+      ...state.srms,
+      loadingUuid: payload,
+    },
+  };
+}
+
+/**
+ * Handles loaded SRMs.
+ * @param {Object} state
+ * @param {Object} action
+ * @return {Object} New state.
+ */
+function onGetSrmsDone(state, { error, payload }) {
+  if (error) {
+    logger.error('Failed to load SRMs', payload);
+    fireErrorMessage('Failed to load SRMs', '');
+    return state;
+  }
+
+  const { uuid, data } = payload;
+  if (state.srms.loadingUuid !== uuid) return state;
+  return {
+    ...state,
+    srms: {
+      data,
+      loadingUuid: '',
+      timestamp: Date.now(),
+    },
+  };
+}
+
+/**
  * Creates a new Challenge Listing reducer with the specified initial state.
  * @param {Object} initialState Optional. Initial state.
  * @return Challenge Listing reducer.
@@ -316,6 +358,9 @@ function create(initialState) {
     [a.getReviewOpportunitiesInit]: onGetReviewOpportunitiesInit,
     [a.getReviewOpportunitiesDone]: onGetReviewOpportunitiesDone,
 
+    [a.getSrmsInit]: onGetSrmsInit,
+    [a.getSrmsDone]: onGetSrmsDone,
+
     [a.selectCommunity]: onSelectCommunity,
 
     [a.setFilter]: onSetFilter,
@@ -360,6 +405,12 @@ function create(initialState) {
     selectedCommunityId: '',
 
     sorts: {},
+
+    srms: {
+      data: [],
+      loadingUuid: '',
+      timestamp: 0,
+    },
   }));
 }
 

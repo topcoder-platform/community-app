@@ -1,0 +1,52 @@
+@import '~styles/mixins';
+
+.container {
+  border-radius: 4px;
+  display: inline-block;
+  margin: 0 auto;
+  padding: 20px 30px;
+  text-align: center;
+}
+
+.content {
+  @include tc-heading-xl;
+
+  color: $tc-yellow-110;
+  margin: 20px 20px 0;
+  white-space: nowrap;
+}
+
+.title {
+  @include tc-body-lg;
+
+  border-bottom: 1px solid $tc-gray-20;
+  color: $tc-gray-40;
+  overflow: hidden;
+  padding-bottom: 10px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.container:hover {
+  background: $tc-gray-neutral-light;
+  cursor: pointer;
+
+  .title {
+    border-color: $tc-black;
+    color: $tc-black;
+  }
+}
+
+.hidden {
+  background: radial-gradient($tc-yellow, $tc-yellow-30 50%, $tc-yellow-10 70%, transparent 90%);
+  border-radius: 100px;
+  color: $tc-gold-110;
+  display: inline-block;
+  font-size: 20px;
+  padding: 0 40px;
+  vertical-align: top;
+}
+
+.value {
+  filter: blur(8px);
+}

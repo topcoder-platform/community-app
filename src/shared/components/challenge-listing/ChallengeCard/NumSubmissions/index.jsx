@@ -51,10 +51,10 @@ export default function NumSubmissions({
         <Link
           onClick={() => (
             selectChallengeDetailsTab(
-              numSubmissions && status === 'COMPLETED'
-                ? DETAIL_TABS.SUBMISSIONS : DETAIL_TABS.DETAILS,
+              numSubmissions ? DETAIL_TABS.SUBMISSIONS : DETAIL_TABS.DETAILS,
             )
           )}
+          styleName="link"
           to={link}
         >
           <SubmissionsIcon />

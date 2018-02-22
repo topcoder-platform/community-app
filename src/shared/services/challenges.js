@@ -9,7 +9,7 @@ import moment from 'moment';
 import qs from 'qs';
 import { decodeToken } from 'tc-accounts';
 import { setErrorIcon, ERROR_ICON_TYPES } from 'utils/errors';
-import { COMPETITION_TRACKS } from 'utils/tc';
+import { COMPETITION_TRACKS, getApiResponsePayloadV3 } from 'utils/tc';
 import { getApiV2, getApiV3 } from './api';
 
 export const ORDER_BY = {
@@ -469,6 +469,16 @@ class ChallengesService {
   }
 
   /**
+   * Gets SRM matches.
+   * @param {Object} params
+   * @return {Promise}
+   */
+  async getSrms(params) {
+    const res = await this.private.api.get(`/srms/?${qs.stringify(params)}`);
+    return getApiResponsePayloadV3(res);
+  }
+
+  /**
    * Gets challenges of the specified user.
    * @param {String} username User whose challenges we want to fetch.
    * @param {Object} filters Optional.
@@ -498,6 +508,18 @@ class ChallengesService {
         res.challenges.forEach(item => normalizeMarathonMatch(item, username));
         return res;
       });
+  }
+
+  /**
+   * Gets SRM matches related to the user.
+   * @param {String} handle
+   * @param {Object} params
+   * @return {Promise}
+   */
+  async getUserSrms(handle, params) {
+    const url = `/members/${handle}/srms/?${qs.stringify(params)}`;
+    const res = await this.private.api.get(url);
+    return getApiResponsePayloadV3(res);
   }
 
   /**

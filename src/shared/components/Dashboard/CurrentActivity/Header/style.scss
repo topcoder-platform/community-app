@@ -1,0 +1,13 @@
+@import "~styles/mixins";
+
+.container {
+  display: flex;
+  justify-content: center;
+  padding: 0 30px;
+}
+
+.option {
+  @include tc-heading-lg;
+
+  margin: 0 20px;
+}

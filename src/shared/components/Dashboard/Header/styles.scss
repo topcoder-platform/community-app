@@ -1,179 +1,29 @@
-.header-dashboard {
-  max-width: 1242px;
-  margin-left: auto;
-  margin-right: auto;
+@import "~styles/mixins";
+
+.badges {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+
+  @include xs-to-sm {
+    justify-content: center;
+  }
 }
 
-.page-state-header {
-  background-color: #fcfcfc;
-  padding: 15px;
-  border-bottom: 1px solid #f0f0f0;
+.container {
+  background: $tc-gray-neutral-light;
+  display: flex;
+  justify-content: space-between;
+  padding: 20px 30px;
 
-  header {
-    display: flex;
+  @include xs-to-sm {
     flex-direction: column;
-
-    h1 {
-      font-family: 'Sofia Pro', Arial, Helvetica, sans-serif;
-      font-weight: 500;
-      font-size: 24px;
-      line-height: 31px;
-      color: #3d3d3d;
-      text-transform: uppercase;
-      text-align: center;
-      margin-bottom: 15px;
-    }
-
-    .info {
-      display: flex;
-      flex-direction: row;
-
-      .item {
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        align-items: flex-end;
-        height: 39px;
-        position: relative;
-        margin-left: 40px;
-        margin-right: 20px;
-        font-family: 'Sofia Pro', Arial, Helvetica, sans-serif;
-        font-weight: 400;
-
-        .value {
-          font-size: 24px;
-          margin-bottom: 15px;
-        }
-
-        .title {
-          color: #a3a3ae;
-          font-size: 12px;
-          text-transform: uppercase;
-        }
-      }
-
-      .item:not(:first-child)::before {
-        content: '';
-        display: block;
-        position: absolute;
-        top: -5px;
-        left: -30px;
-        width: 1px;
-        height: 60px;
-        -ms-transform: translateX(0) translateY(2px) rotate(30deg);
-        -webkit-transform: translateX(0) translateY(2px) rotate(30deg);
-        transform: translateX(0) translateY(2px) rotate(30deg);
-        background-color: #d1d3d4;
-      }
-
-      .badgeItem {
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        align-items: flex-end;
-        position: relative;
-        margin-left: 20px;
-        margin-right: 20px;
-        font-family: 'Sofia Pro', Arial, Helvetica, sans-serif;
-        font-weight: 400;
-
-        .value {
-          font-size: 24px;
-          margin-bottom: 15px;
-        }
-
-        .dashboardBadge {
-          background: url(assets/images/dashboard/badge.png) no-repeat;
-          background-size: 70px 70px;
-          width: 70px;
-          height: 70px;
-
-          img {
-            display: none;
-          }
-        }
-
-        .dashboardBadge:hover img {
-          display: block;
-          position: absolute;
-          top: 55px;
-          left: -110px;
-          z-index: 1000;
-          width: auto;
-          overflow: hidden;
-          padding: 8px;
-          background: transparent;
-        }
-      }
-    }
-
-    .user-metrics {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-      justify-content: center;
-      margin-bottom: 12px;
-      margin-left: 15px;
-
-      .money-earned {
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-
-        .number {
-          font-family: 'Sofia Pro', Arial, Helvetica, sans-serif;
-          font-weight: bold;
-          font-size: 18px;
-          line-height: 23px;
-          color: #3d3d3d;
-        }
-
-        p:not(.number) {
-          font-family: 'Sofia Pro', Arial, Helvetica, sans-serif;
-          font-weight: 400;
-          font-size: 10px;
-          line-height: 13px;
-          text-transform: lowercase;
-          margin-left: 5px;
-          color: #a3a3ae;
-
-          @media only screen and (min-width: 600px) {
-            font-size: 12px;
-            line-height: 14px;
-          }
-        }
-      }
-    }
+    text-align: center;
   }
 }
 
-@media (min-width: 768px) {
-  .page-state-header {
-    padding: 30px 60px;
+.title {
+  @include tc-title;
 
-    header {
-      flex-direction: row;
-      align-items: center;
-      justify-content: space-between;
-
-      .page-info {
-        order: 1;
-        display: flex;
-        flex-direction: row;
-
-        h1 {
-          font-size: 36px;
-          line-height: 43px;
-        }
-      }
-
-      .info {
-        order: 2;
-      }
-
-      .user-metrics {
-        margin-bottom: 0;
-      }
-    }
-  }
+  margin-right: 20px;
 }

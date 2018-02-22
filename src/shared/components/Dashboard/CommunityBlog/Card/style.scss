@@ -1,0 +1,99 @@
+@import "~styles/mixins";
+
+.content a {
+  text-decoration: underline;
+}
+
+.container {
+  border: 1px solid $tc-gray-neutral-dark;
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin: 10px;
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+
+  a,
+  a:active {
+    color: $tc-dark-blue;
+  }
+
+  a:hover {
+    color: $tc-dark-blue-70;
+  }
+
+  a:visited {
+    color: $tc-purple;
+  }
+
+  @include md {
+    &:nth-child(3) {
+      display: none;
+    }
+  }
+}
+
+.content {
+  @include tc-body-sm;
+
+  height: 480px;
+  overflow: hidden;
+  padding: 20px 30px;
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @include tc-heading-sm;
+
+    margin: 15px 0 0;
+  }
+
+  img {
+    height: auto;
+    max-width: 100%;
+  }
+}
+
+.fade {
+  background: linear-gradient(180deg, transparent, $tc-gray-neutral-light 80%);
+  bottom: 0;
+  height: 200px;
+  left: 0;
+  position: absolute;
+  right: 0;
+}
+
+.readMore {
+  @include tc-label-lg;
+
+  bottom: 15px;
+  color: $tc-dark-blue;
+  left: 30px;
+  position: absolute;
+
+  &,
+  &:active {
+    color: $tc-dark-blue;
+  }
+
+  &:hover {
+    color: $tc-dark-blue-70;
+  }
+
+  &:visited {
+    color: $tc-purple;
+  }
+}
+
+.title {
+  @include tc-heading-md;
+
+  background: $tc-gray-neutral-light;
+  color: $tc-dark-blue;
+  padding: 20px 30px;
+}

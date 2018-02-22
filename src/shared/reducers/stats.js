@@ -7,6 +7,27 @@ import _ from 'lodash';
 import actions from 'actions/stats';
 import logger from 'utils/logger';
 import { handleActions } from 'redux-actions';
+import { fireErrorMessage } from 'utils/errors';
+
+/**
+ * Inits the loading of community stats.
+ * @param {Object} state
+ * @param {Object} action
+ * @return {Object} New state.
+ */
+function onGetCommunityStatsInit(state, action) {
+  const { community, uuid } = action.payload;
+  let res = state.communities[community];
+  res = res ? _.clone(res) : {};
+  res.loadingUuid = uuid;
+  return {
+    ...state,
+    communities: {
+      ...state.communities,
+      [community]: res,
+    },
+  };
+}
 
 /**
  * Handles result of the getCommunityStats action.
@@ -14,16 +35,25 @@ import { handleActions } from 'redux-actions';
  * @param {Object} action Action result.
  * @return {Object} New state.
  */
-function onGetCommunityStats(state, action) {
-  if (action.error) {
-    logger.error(action.payload);
+function onGetCommunityStatsDone(state, { error, payload }) {
+  if (error) {
+    logger.error('Failed to load community stats', payload);
+    fireErrorMessage('Failed to load community stats', '');
+    return state;
+  }
+
+  const { community, stats, uuid } = payload;
+  if (_.get(state.communities[community], 'loadingUuid') !== uuid) {
     return state;
   }
   return {
     ...state,
     communities: {
       ...state.communities,
-      [action.payload.communityId]: action.payload.stats,
+      [community]: {
+        data: stats,
+        timestamp: Date.now(),
+      },
     },
   };
 }
@@ -36,7 +66,8 @@ function onGetCommunityStats(state, action) {
 function create(initialState = {}) {
   const a = actions.stats;
   return handleActions({
-    [a.getCommunityStats]: onGetCommunityStats,
+    [a.getCommunityStatsInit]: onGetCommunityStatsInit,
+    [a.getCommunityStatsDone]: onGetCommunityStatsDone,
   }, _.defaults(_.clone(initialState), {
     communities: {},
   }));

@@ -97,7 +97,6 @@ export default function ChallengeDetailsView(props) {
       // const html = editorStateToHTML(x.state.editorState.getCurrentContent());
       updatedChallenge[x.id] = x.getHtml();
     });
-    console.log(updatedChallenge);
     updateChallenge(updatedChallenge);
   };
 

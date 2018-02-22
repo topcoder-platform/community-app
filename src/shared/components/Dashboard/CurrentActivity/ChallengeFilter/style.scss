@@ -1,0 +1,42 @@
+@import '~styles/mixins';
+
+.button {
+  @include tc-heading-xl;
+
+  background: $tc-dark-blue;
+  border-radius: 4px;
+  color: $tc-white;
+  cursor: pointer;
+  height: 45px;
+  margin: 10px;
+  min-width: 45px;
+  text-align: center;
+}
+
+.container {
+  background: $tc-dark-blue;
+  border-radius: 4px;
+  padding: 10px;
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  width: 300px;
+}
+
+.row {
+  @include tc-label-sm;
+
+  color: $tc-white;
+  display: flex;
+  justify-content: space-between;
+  padding: 5px 12px;
+  margin: 2px 0;
+  cursor: pointer;
+  border-radius: 4px;
+
+  &.selected,
+  &:hover {
+    background-color: $tc-white;
+    color: $tc-dark-blue;
+  }
+}

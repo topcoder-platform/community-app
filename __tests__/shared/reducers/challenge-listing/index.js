@@ -122,6 +122,12 @@ let expectedState = {
     isSavingFilter: false,
     savedFilters: [],
   },
+
+  srms: {
+    data: [],
+    loadingUuid: '',
+    timestamp: 0,
+  },
 };
 
 function testReducer(reducer) {

@@ -1,0 +1,17 @@
+@import "~styles/mixins";
+
+.container {
+  @include tc-body-lg;
+
+  padding: 20px 30px;
+}
+
+.link,
+.link:active,
+.link:visited {
+  color: $tc-dark-blue;
+}
+
+.link:hover {
+  color: $tc-dark-blue-70;
+}

@@ -25,7 +25,6 @@
   ],
   "newsFeed": "http://www.topcoder.com/feed",
   "subdomains": ["taskforce"],
-
-  "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore.",
-  "image":"3.jpg"
+  "description": "A demo community.",
+  "image":"taskforce.jpg"
 }

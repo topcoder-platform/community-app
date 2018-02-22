@@ -91,7 +91,12 @@ CommunityStatsContainer.propTypes = {
 
 function mapDispatchToProps(dispatch) {
   return {
-    getCommunityStats: (...args) => dispatch(actions.stats.getCommunityStats(...args)),
+    getCommunityStats: (community, challenges, token) => {
+      const uuid = shortid();
+      const a = actions.stats;
+      dispatch(a.getCommunityStatsInit(community, uuid));
+      dispatch(a.getCommunityStatsDone(community, uuid, challenges, token));
+    },
     getAllActiveChallenges: (token) => {
       const uuid = shortid();
       dispatch(cActions.challengeListing.getAllActiveChallengesInit(uuid));
@@ -110,7 +115,7 @@ function mapStateToProps(state, ownProps) {
     challenges,
     lastUpdateOfActiveChallenges,
     loadingChallenges: Boolean(state.challengeListing.loadingActiveChallengesUUID),
-    stats: ownProps.stats || state.stats.communities[community.communityId],
+    stats: ownProps.stats || _.get(state.stats.communities[community.communityId], 'data'),
     token: state.auth.tokenV3,
     userId: _.get(state, 'auth.user.userId'),
   };

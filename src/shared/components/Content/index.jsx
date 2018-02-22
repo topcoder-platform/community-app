@@ -163,7 +163,7 @@ export default function Content() {
       <ul>
         <li>
           <Link
-            to="/examples/announcement/2qgNqwoKZacuMaMCMUqyCq"
+            to="/examples/announcement/5yaVZtOH9CYoQ0QYQk0uoY"
           >Announcement</Link> &mdash;
           This is a part of simple PoC for CMS integration (Countentful CMS is
           the currently tested option);
