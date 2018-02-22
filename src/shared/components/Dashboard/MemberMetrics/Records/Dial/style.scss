@@ -1,0 +1,53 @@
+@import '~styles/mixins';
+
+.container {
+  border-radius: 4px;
+  display: inline-block;
+  margin: 0 auto;
+  padding: 20px 30px;
+  text-align: center;
+}
+
+.label {
+  @include tc-label-sm;
+
+  color: $tc-gray-40;
+}
+
+@mixin rating($color) {
+  @include tc-heading-xl;
+
+  color: $color;
+  margin: 15px 10px 5px;
+}
+
+.rating { @include rating($tc-black); }
+.rating-1 { @include rating($tc-level-1); }
+.rating-2 { @include rating($tc-level-2); }
+.rating-3 { @include rating($tc-level-3); }
+.rating-4 { @include rating($tc-level-4); }
+.rating-5 { @include rating($tc-level-5); }
+.ratingInDataScience { @include rating($tc-orange); }
+.ratingInDesign { @include rating($tc-light-blue); }
+.ratingInDevelopment { @include rating($tc-green); }
+
+.title {
+  @include tc-label-sm;
+
+  border-bottom: 1px solid $tc-gray-20;
+  color: $tc-gray-40;
+  overflow: hidden;
+  padding: 0 10px 10px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.container:hover {
+  background: $tc-gray-neutral-light;
+
+  .label,
+  .title {
+    border-color: $tc-black;
+    color: $tc-black;
+  }
+}

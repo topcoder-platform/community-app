@@ -29,7 +29,6 @@
   "leaderboardApiUrl": "https://api.topcoder.com/v4/looks/458/run/json/",
   "newsFeed": "http://www.topcoder.com/feed",
   "subdomains": ["veterans"],
-
-  "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore.",
-  "image":"1.jpg"
+  "description": "We help military service members and veterans transition to a career in technology on the world’s premier crowdsourcing platform.",
+  "image":"veterans.jpg"
 }

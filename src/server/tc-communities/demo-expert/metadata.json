@@ -30,6 +30,6 @@
   "newsFeed": "http://www.topcoder.com/feed",
   "subdomains": ["demo-expert"],
 
-  "description": "Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore.",
-  "image":"2.jpg"
+  "description": "A demo community.",
+  "image":"demo-expert.jpg"
 }

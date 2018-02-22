@@ -1,0 +1,107 @@
+@import '~styles/mixins';
+
+.button {
+  min-width: 150px !important;
+}
+
+.challengeTabLinks {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 20px 10px 0;
+}
+
+.container {
+  border: 1px solid $tc-gray-neutral-dark;
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin: 10px;
+  max-width: 250px;
+  overflow: hidden;
+  width: 100%;
+}
+
+.deadlineMsg {
+  @include tc-label-sm;
+
+  margin: 0 0 5px;
+
+  &.warning {
+    color: $tc-orange-70;
+    font-weight: bold;
+  }
+
+  &.alert {
+    color: $tc-red;
+    font-weight: bold;
+  }
+}
+
+.forumLink {
+  @include tc-label-sm;
+
+  vertical-align: top;
+
+  &:hover {
+    color: $tc-dark-blue;
+  }
+}
+
+.header {
+  background: $tc-gray-neutral-light;
+  padding: 10px 20px;
+}
+
+.roles {
+  @include tc-body-md;
+
+  background: $tc-gray-neutral-light;
+  overflow: hidden;
+  padding: 10px 20px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.statusMsg {
+  @include tc-heading-md;
+  @include roboto-light;
+
+  &.warning {
+    color: $tc-orange-70;
+    font-weight: bold;
+  }
+
+  &.alert {
+    color: $tc-red;
+    font-weight: bold;
+  }
+}
+
+.statusPanel {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  padding: 20px 20px 40px;
+}
+
+.tags {
+  padding: 5px 0;
+}
+
+.title {
+  @include tc-heading-sm;
+
+  display: block;
+
+  &,
+  &:active,
+  &:focus,
+  &:visited {
+    color: $tc-black;
+  }
+
+  &:hover {
+    color: $tc-dark-blue;
+  }
+}

@@ -48,11 +48,13 @@ export default function NumRegistrants({
         }
       >
         <Link
+          disabled={!numRegistrants}
           onClick={() => (
             selectChallengeDetailsTab(
               numRegistrants ? DETAIL_TABS.REGISTRANTS : DETAIL_TABS.DETAILS,
             )
           )}
+          styleName="link"
           to={link}
         >
           <RegistrantsIcon />

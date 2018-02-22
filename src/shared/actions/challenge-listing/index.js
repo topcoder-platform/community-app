@@ -9,6 +9,7 @@ import { getService } from 'services/challenges';
 import { getReviewOpportunitiesService } from 'services/reviewOpportunities';
 import 'isomorphic-fetch';
 import { fireErrorMessage } from 'utils/errors';
+import { processSRM } from 'utils/tc';
 
 /**
  * The maximum number of challenges to fetch in a single API call. Currently,
@@ -229,6 +230,45 @@ function getReviewOpportunitiesDone(uuid, page, tokenV3) {
     });
 }
 
+/**
+ * Payload creator for the action that inits the loading of SRMs.
+ * @param {String} uuid
+ * @return {String}
+ */
+function getSrmsInit(uuid) {
+  return uuid;
+}
+
+/**
+ * Payload creator for the action that loads SRMs.
+ * @param {String} uuid
+ * @param {String} handle
+ * @param {Object} params
+ * @param {String} tokenV3
+ */
+function getSrmsDone(uuid, handle, params, tokenV3) {
+  const service = getService(tokenV3);
+  const promises = [service.getSrms(params)];
+  if (handle) {
+    promises.push(service.getUserSrms(handle, params));
+  }
+  return Promise.all(promises).then((data) => {
+    let srms = data[0];
+    const userSrms = data[1];
+    const userSrmsMap = {};
+    _.forEach(userSrms, (srm) => {
+      userSrmsMap[srm.id] = srm;
+    });
+    srms = _.map(srms, (srm) => {
+      if (userSrmsMap[srm.id]) {
+        return processSRM(srm);
+      }
+      return srm;
+    });
+    return { uuid, data: srms };
+  });
+}
+
 export default createActions({
   CHALLENGE_LISTING: {
     DROP_CHALLENGES: _.noop,
@@ -250,6 +290,9 @@ export default createActions({
 
     GET_REVIEW_OPPORTUNITIES_INIT: (uuid, page) => ({ uuid, page }),
     GET_REVIEW_OPPORTUNITIES_DONE: getReviewOpportunitiesDone,
+
+    GET_SRMS_INIT: getSrmsInit,
+    GET_SRMS_DONE: getSrmsDone,
 
     EXPAND_TAG: id => id,
 

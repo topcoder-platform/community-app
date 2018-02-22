@@ -1,0 +1,14 @@
+@import "~styles/mixins";
+
+.coin {
+  background: $tc-gold;
+  border-radius: 35px;
+  color: $tc-gold-110;
+  display: inline-block;
+  font-size: 28px;
+  height: 35px;
+  line-height: 35px;
+  margin: 5px;
+  vertical-align: top;
+  width: 35px;
+}

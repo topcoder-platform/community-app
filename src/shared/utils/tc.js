@@ -52,7 +52,26 @@ export const USER_ROLES = {
 };
 
 /**
+ * Given user rating returns corresponding rating level (from 1 to 5, both
+ * inclusive). The rating levels are used to group members into categories
+ * by their performance, and to assign colors to their handles.
+ * @param {Number} rating
+ * @return {Number} Rating level.
+ */
+export function getRatingLevel(rating) {
+  if (rating < 900) return 1;
+  else if (rating < 1200) return 2;
+  else if (rating < 1500) return 3;
+  else if (rating < 2200) return 4;
+  return 5;
+}
+
+/**
  * Given a rating value, returns corresponding color.
+ *
+ * !!! DEPRECATED !!! Use the getRatingLevel(..) function above to get
+ * the rating level, and then use SCSS color mixins to set corresponding colors.
+ *
  * @param {Number} rating Rating.
  * @return {String} Color.
  */
@@ -119,6 +138,19 @@ export function goToLogin(utmSource = '') {
 }
 
 /**
+ * Gets payload from a standard success response from TC API v3; or throws
+ * an error in case of a failure response.
+ * @param {Object} res
+ * @return {Promise} Resolves to the payload.
+ */
+export async function getApiResponsePayloadV3(res) {
+  if (!res.ok) throw new Error(res.statusText);
+  const x = (await res.json()).result;
+  if (!x.success) throw new Error(x.content);
+  return x.content;
+}
+
+/**
  * Calculate the difference from now to a specified date
  * adopt from topcoder-app repo
  * @param  {Date} input the date to diff
@@ -170,89 +202,6 @@ export function stripUnderscore(string) {
     return '';
   }
   return string.replace(/_/g, ' ');
-}
-
-/**
- * process active challenges to populate additional infomation
- * adopt from topcoder-app repo
- * @param  {array} challenges  challenges array to process
- * @return {array}            processed challenges array
- */
-/* TODO: This function should be mixed into normalization function
- * of the challenges service. */
-export function processActiveDevDesignChallenges(challenges) {
-  return _.map(challenges, (c) => {
-    const challenge = _.cloneDeep(c);
-    const phases = challenge.currentPhases;
-    let hasCurrentPhase = false;
-    // If currentPhase is null, the challenge is stalled and there is no end time
-    challenge.userCurrentPhase = 'Stalled';
-    challenge.userCurrentPhaseEndTime = null;
-    challenge.userAction = null;
-    challenge.isSubmitter = false;
-
-    if (phases && phases.length) {
-      hasCurrentPhase = true;
-      challenge.userCurrentPhase = phases[0].phaseType;
-      challenge.userCurrentPhaseEndTime = phases[0].scheduledEndTime;
-    }
-
-    if (hasCurrentPhase && phases.length > 1) {
-      _.forEach(challenge.currentPhases, (phase, index, currentPhases) => {
-        if (phase.phaseType === 'Submission') {
-          challenge.userAction = 'Submit';
-
-          if (_.get(challenge, 'userDetails.hasUserSubmittedForReview', false)) {
-            challenge.userCurrentPhase = phase.phaseType;
-            challenge.userCurrentPhaseEndTime = phase.scheduledEndTime;
-            challenge.userAction = 'Submitted';
-
-            if (currentPhases[index + 1]) {
-              challenge.userCurrentPhase = currentPhases[index + 1].phaseType;
-              challenge.userCurrentPhaseEndTime = currentPhases[index + 1].scheduledEndTime;
-              challenge.userAction = null;
-            }
-          }
-
-          // if user has role of observer
-          const roles = _.get(challenge, 'userDetails.roles', []);
-          if (roles && roles.length > 0) {
-            const submitterRole = _.findIndex(roles, (role) => {
-              const lRole = role.toLowerCase();
-              if (lRole === 'submitter') {
-                challenge.isSubmitter = true;
-              }
-              return lRole === 'submitter';
-            });
-            if (submitterRole === -1) {
-              challenge.userAction = null;
-            }
-          }
-        }
-      });
-    }
-    if (challenge.userCurrentPhase === 'Appeals') {
-      challenge.userAction = 'Appeal';
-    }
-
-    if (challenge.userCurrentPhaseEndTime) {
-      const fullTime = challenge.userCurrentPhaseEndTime;
-      let timeAndUnit = moment(fullTime).fromNow(true);
-      // Split into components: ['an', 'hour'] || ['2', 'months']
-      timeAndUnit = timeAndUnit.split(' ');
-
-      if (timeAndUnit[0] === 'a' || timeAndUnit[0] === 'an') {
-        timeAndUnit[0] = '1';
-      }
-
-      // Add actual time ['2', 'months', actual date]
-      timeAndUnit.push(fullTime);
-      challenge.userCurrentPhaseEndTime = timeAndUnit;
-      // If > 0 then the challenge has 'Late Deliverables' or
-      challenge.isLate = moment().diff(fullTime) > 0;
-    }
-    return challenge;
-  });
 }
 
 /**

@@ -1,0 +1,51 @@
+@import "~styles/mixins";
+
+.challenges {
+  display: flex;
+  flex: 1;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.container {
+  padding: 20px 20px 0;
+}
+
+.innerContainer {
+  display: flex;
+  position: relative;
+}
+
+.link {
+  @include tc-body-md;
+
+  &,
+  &:active,
+  &:focus,
+  &:visited {
+    color: $tc-dark-blue;
+  }
+
+  &:hover {
+    color: $tc-dark-blue-70;
+  }
+}
+
+.linksContainer {
+  padding: 30px 20px 0;
+  text-align: center;
+}
+
+.loading {
+  margin: 40px 20px 30px;
+}
+
+.msg {
+  @include tc-heading-md;
+
+  padding: 20px 0 0;
+}
+
+.sticky {
+  width: 65px;
+}
