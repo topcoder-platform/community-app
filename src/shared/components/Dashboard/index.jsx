@@ -12,6 +12,7 @@ import './style.scss';
 export default function Dashboard({
   achievements,
   achievementsLoading,
+  announcementPreviewId,
   challengeFilter,
   challenges,
   challengesLoading,
@@ -45,7 +46,10 @@ export default function Dashboard({
           achievements={achievements}
           achievementsLoading={achievementsLoading}
         />
-        <Announcement />
+        <Announcement
+          hidePreviewMetaData
+          previewId={announcementPreviewId}
+        />
         <MemberMetrics
           finances={finances}
           financesLoading={financesLoading}
@@ -79,9 +83,14 @@ export default function Dashboard({
   );
 }
 
+Dashboard.defaultProps = {
+  announcementPreviewId: '',
+};
+
 Dashboard.propTypes = {
   achievements: PT.arrayOf(PT.object).isRequired,
   achievementsLoading: PT.bool.isRequired,
+  announcementPreviewId: PT.string,
   challengeFilter: PT.string.isRequired,
   challenges: PT.arrayOf(PT.object).isRequired,
   challengesLoading: PT.bool.isRequired,

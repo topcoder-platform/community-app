@@ -59,6 +59,7 @@ class AnnouncementContainer extends React.Component {
       active,
       activeAssets,
       activeLoading,
+      hidePreviewMetaData,
       preview,
       previewAssets,
       previewLoading,
@@ -70,6 +71,7 @@ class AnnouncementContainer extends React.Component {
       <Announcement
         assets={previewId ? previewAssets : activeAssets}
         announcement={previewId ? preview : active}
+        hidePreviewMetaData={hidePreviewMetaData}
         loading={previewId ? previewLoading : activeLoading}
         preview={Boolean(previewId)}
         show={show}
@@ -80,6 +82,7 @@ class AnnouncementContainer extends React.Component {
 }
 
 AnnouncementContainer.defaultProps = {
+  hidePreviewMetaData: false,
   previewId: '',
 };
 
@@ -88,6 +91,7 @@ AnnouncementContainer.propTypes = {
   activeAssets: PT.shape().isRequired,
   activeLoading: PT.bool.isRequired,
   activeTimestamp: PT.number.isRequired,
+  hidePreviewMetaData: PT.bool,
   getActive: PT.func.isRequired,
   getPreview: PT.func.isRequired,
   preview: PT.shape().isRequired,
@@ -105,6 +109,7 @@ function mapStateToProps(state, props) {
     activeAssets: a.active.assets,
     activeLoading: Boolean(a.active.loadingUuid),
     activeTimestamp: a.active.timestamp,
+    hidePreviewMetaData: props.hidePreviewMetaData,
     preview: a.preview.data,
     previewAssets: a.preview.assets,
     previewLoading: Boolean(a.preview.loadingUuid),
