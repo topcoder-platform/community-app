@@ -12,6 +12,7 @@ import challengeListingSidebarActions from 'actions/challenge-listing/sidebar';
 import config from 'utils/config';
 import memberActions from 'actions/members';
 import PT from 'prop-types';
+import qs from 'qs';
 import React from 'react';
 import rssActions from 'actions/rss';
 import shortId from 'shortid';
@@ -180,13 +181,20 @@ export class DashboardPageContainer extends React.Component {
       tokenV2,
       tokenV3,
       unregisterFromChallenge,
+      urlQuery,
       userGroups,
     } = this.props;
+
+    let announcementPreviewId;
+    if (urlQuery) {
+      announcementPreviewId = qs.parse(urlQuery).announcementPreviewId;
+    }
 
     return (
       <Dashboard
         achievements={achievements}
         achievementsLoading={achievementsLoading}
+        announcementPreviewId={announcementPreviewId}
         challengeFilter={challengeFilter}
         challenges={activeChallenges.filter(x => x.users[handle])}
         challengesLoading={activeChallengesLoading}
@@ -281,10 +289,11 @@ DashboardPageContainer.propTypes = {
   tokenV2: PT.string,
   tokenV3: PT.string,
   unregisterFromChallenge: PT.func.isRequired,
+  urlQuery: PT.string.isRequired,
   userGroups: PT.arrayOf(PT.object).isRequired,
 };
 
-function mapStateToProps(state) {
+function mapStateToProps(state, props) {
   const communities = state.tcCommunities.list;
 
   const userHandle = _.get(state.auth, 'user.handle');
@@ -329,6 +338,7 @@ function mapStateToProps(state) {
     tcBlogTimestamp: tcBlog.timestamp,
     tokenV2: state.auth.tokenV2,
     tokenV3: state.auth.tokenV3,
+    urlQuery: props.location.search.slice(1),
     userGroups: _.get(state.auth.profile, 'groups', []),
   };
 }

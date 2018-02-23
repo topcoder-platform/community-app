@@ -11,6 +11,7 @@ import style from './style.scss';
 export default function Announcement({
   assets,
   announcement,
+  hidePreviewMetaData,
   loading,
   preview,
   show,
@@ -118,7 +119,7 @@ export default function Announcement({
     );
   }
 
-  if (preview) {
+  if (preview && !hidePreviewMetaData) {
     res = (
       <div styleName="preview">
         <div>Created: {moment(createdAt).toLocaleString()}</div>
@@ -153,6 +154,7 @@ Announcement.propTypes = {
     type: PT.string,
     youTubeVideoUrl: PT.string,
   }).isRequired,
+  hidePreviewMetaData: PT.bool.isRequired,
   loading: PT.bool.isRequired,
   preview: PT.bool,
 };
