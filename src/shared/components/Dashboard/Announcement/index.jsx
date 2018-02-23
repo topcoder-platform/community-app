@@ -78,6 +78,7 @@ export default function Announcement({
           backgroundImage: background && `url(${background})`,
         }}
       >
+        { preview ? <h1 styleName="previewLabel">Preview</h1> : null }
         <div styleName="details">
           <div
             onClick={() => switchShow(false)}
