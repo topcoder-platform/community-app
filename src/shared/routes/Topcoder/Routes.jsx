@@ -18,6 +18,7 @@ import { Route, Switch } from 'react-router-dom';
 
 import ChallengeListing from './ChallengeListing';
 import Dashboard from './Dashboard';
+import HallOfFame from '../tco/HallOfFame';
 import Scoreboard from '../tco/scoreboard';
 
 import './styles.scss';
@@ -54,6 +55,11 @@ export default function Topcoder() {
           component={Submission}
           exact
           path="/challenges/:challengeId(\d{8})/submit"
+        />
+        <Route
+          component={HallOfFame}
+          exact
+          path="/tco-hall-of-fame/:eventId?"
         />
         <Error404 />
       </Switch>

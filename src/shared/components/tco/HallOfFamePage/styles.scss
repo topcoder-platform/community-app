@@ -1,0 +1,29 @@
+@import "~styles/mixins";
+
+.outer-container {
+  background: $tc-gray-neutral-dark;
+  width: 100%;
+
+  @include xs-to-sm {
+    padding: 8px 10px 20px;
+  }
+
+  @include md {
+    padding: 30px 14px 30px 20px;
+  }
+
+  @include lg-to-xl {
+    padding: 30px 64px;
+  }
+}
+
+.page {
+  @include roboto-regular;
+
+  background: #f6f6f6;
+  border-radius: 3 * $corner-radius;
+  margin: auto;
+  max-width: 1240px;
+  text-align: left;
+  width: 100%;
+}
