@@ -2,7 +2,6 @@
 
 .outer-container {
   background: $tc-gray-neutral-dark;
-  width: 100%;
 
   @include xs-to-sm {
     padding: 8px 10px 20px;
@@ -21,9 +20,49 @@
   @include roboto-regular;
 
   background: #f6f6f6;
-  border-radius: 3 * $corner-radius;
+  border-radius: 4 * $corner-radius;
+  box-shadow: 3px;
   margin: auto;
-  max-width: 1240px;
+  max-width: 1248px;
   text-align: left;
   width: 100%;
+}
+
+.header {
+  border-radius: inherit;
+  background-color: #fafafb;
+  padding: 40px 50px 0 50px;
+  text-align: center;
+
+  h1 {
+    color: #47474f;
+    font-size: 41px;
+    margin-bottom: 49px;
+  }
+}
+
+.body {
+  background-color: $tc-white;
+  border-top: solid 1px #ededf2;
+  padding: 58px;
+}
+
+.event {
+  display: flex;
+}
+
+.finalists {
+  display: flex;
+}
+
+.trip-winners {
+  display: flex;
+}
+
+.fun-facts {
+  display: flex;
+}
+
+.champions {
+  display: flex;
 }

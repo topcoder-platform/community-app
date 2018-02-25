@@ -6,22 +6,41 @@
 import React from 'react';
 import PT from 'prop-types';
 
-import events from 'utils/hall-of-fame';
+// import events from 'utils/hall-of-fame';
+
+import EventCarousel from './EventCarousel';
 
 import './styles.scss';
 
-const HallOfFamePage = ({ eventId }) => (
+const HallOfFamePage = ({ eventId, onSelectEvent }) => (
   <div styleName="outer-container">
     <div styleName="page">
-      Hall Of Fame Page for <strong>TCO{eventId}</strong><br />
-      <img src={events[eventId].logo} alt="TCO Event Logo" />
-      <img src={events[eventId].banner} alt="TCO Event Logo" />
-      <img src={events[eventId].algorithm.portrait} alt="TCO Event Logo" />
-      <img src={events[eventId].marathon.portrait} alt="TCO Event Logo" />
-      <img src={events[eventId].development.portrait} alt="TCO Event Logo" />
-      <img src={events[eventId].first2finish.portrait} alt="TCO Event Logo" />
-      <img src={events[eventId].uiDesign.portrait} alt="TCO Event Logo" />
-      <img src={events[eventId].uiPrototype.portrait} alt="TCO Event Logo" />
+
+      <div styleName="header">
+        <h1>TCO Hall of Fame</h1>
+        <EventCarousel eventId={eventId} onSelectEvent={onSelectEvent} />
+      </div>
+
+      <div styleName="body">
+        <div styleName="event">
+          Event Here
+        </div>
+        <div styleName="finalists">
+          Finalists Here
+        </div>
+        <div styleName="trip-winners">
+          Trip Winners Here
+        </div>
+      </div>
+
+      <div styleName="fun-facts">
+        Fun Facts Here
+      </div>
+
+      <div styleName="champions">
+        All-Time Champions Here
+      </div>
+
     </div>
   </div>
 );
@@ -32,6 +51,7 @@ HallOfFamePage.defaultProps = {
 
 HallOfFamePage.propTypes = {
   eventId: PT.string,
+  onSelectEvent: PT.func.isRequired,
 };
 
 export default HallOfFamePage;
