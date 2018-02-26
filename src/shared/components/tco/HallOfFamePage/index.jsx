@@ -112,12 +112,8 @@ const HallOfFamePage = ({ eventId, onSelectEvent }) => {
   );
 };
 
-HallOfFamePage.defaultProps = {
-  eventId: '17',
-};
-
 HallOfFamePage.propTypes = {
-  eventId: PT.string,
+  eventId: PT.string.isRequired,
   onSelectEvent: PT.func.isRequired,
 };
 

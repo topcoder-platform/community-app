@@ -6,8 +6,6 @@ import { handleActions } from 'redux-actions';
 
 import actions from 'actions/page/hallOfFame';
 
-import { events } from 'utils/hall-of-fame';
-
 /**
  * Creates a new reducer.
  * @param {Object} state Optional. Initial state.
@@ -18,7 +16,7 @@ function create(defaultState = {}) {
   return handleActions({
     [a.setSelectedEvent]: (state, { payload }) => ({ ...state, selectedEvent: payload }),
   }, _.defaults(defaultState, {
-    // selectedEvent: '17',
+    selectedEvent: '',
   }));
 }
 
@@ -30,10 +28,8 @@ export function factory(req) {
       selectedEvent: eventId,
     }));
   }
-  // Otherwise load the most recent event as a default
-  return Promise.resolve(create({
-    selectedEvent: events[0].id,
-  }));
+
+  return Promise.resolve(create());
 }
 
 export default create();

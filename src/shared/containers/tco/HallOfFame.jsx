@@ -16,7 +16,12 @@ import HallOfFamePage from 'components/tco/HallOfFamePage';
 class HallOfFameContainer extends React.Component {
   constructor(props) {
     super(props);
-    props.setSelectedEvent(props.match.params.eventId || events[0].id);
+
+    // This may be rendered server-side, in which case the reducer will have
+    // set the eventId from the url
+    if (!props.selectedEvent) {
+      props.setSelectedEvent(props.match.params.eventId || events[0].id);
+    }
   }
 
   componentWillReceiveProps(nextProps) {
@@ -30,12 +35,12 @@ class HallOfFameContainer extends React.Component {
   }
 
   render() {
-    return (
+    return this.props.selectedEvent ? (
       <HallOfFamePage
         eventId={this.props.selectedEvent}
         onSelectEvent={eventId => this.handleSelectEvent(eventId)}
       />
-    );
+    ) : <div />;
   }
 }
 

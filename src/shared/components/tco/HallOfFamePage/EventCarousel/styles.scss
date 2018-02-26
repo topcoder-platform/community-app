@@ -1,7 +1,15 @@
+@import "~styles/mixins";
+
 .container {
   align-items: center;
   display: flex;
   justify-content: space-between;
+
+  @include xs-to-md {
+    align-items: flex-end;
+    height: 50px;
+    overflow: scroll;
+  }
 }
 
 .arrow {
@@ -30,6 +38,12 @@
   padding-bottom: 30px;
 }
 
+.arrow-wrapper {
+  @include xs-to-md {
+    display: none;
+  }
+}
+
 .logo {
   align-items: center;
   justify-content: center;
@@ -40,12 +54,26 @@
   outline: none;
   cursor: pointer;
 
+  @include xs-to-md {
+    width: 62px;
+    height: 32px;
+    margin: 0 13px;
+  }
+
   &:first-of-type {
     margin-left: 52px;
+
+    @include xs-to-md {
+      margin-left: 20px;
+    }
   }
 
   &:last-of-type {
     margin-right: 52px;
+
+    @include xs-to-md {
+      margin-right: 20px;
+    }
   }
 
   img {
@@ -54,6 +82,17 @@
     max-width: 128px;
     max-height: 82px;
     user-select: none;
+
+    @include xs-to-md {
+      max-width: 62px;
+      max-height: 32px;
+    }
+  }
+
+  &.hidden {
+    @include lg-to-xl {
+      display: none;
+    }
   }
 
   &.active {
