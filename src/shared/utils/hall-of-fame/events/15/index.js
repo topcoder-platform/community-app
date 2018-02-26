@@ -24,7 +24,8 @@ import winnerUiPrototype from './winnerUIPrototype.png';
 export default {
   logo,
   banner,
-  learnMoreUrl: 'http://tco15.topcoder.com',
+  learnMoreURL: 'http://tco15.topcoder.com',
+  browseGalleryURL: 'https://tco15.topcoder.com/photos/',
   location: 'Indianapolis, Indiana, USA',
   date: '8 - 10 November 2015',
   totalPrizes: '$60,000',
@@ -35,10 +36,10 @@ export default {
     winner: 'handle',
     portrait: winnerAlgorithm,
     finalists: [
-      'handle',
-      'handle',
-      'handle',
-      'handle',
+      'handle1',
+      'handle2',
+      'handle3',
+      'handle4',
     ],
   },
 
@@ -47,10 +48,10 @@ export default {
     winner: 'handle',
     portrait: winnerMarathon,
     finalists: [
-      'handle',
-      'handle',
-      'handle',
-      'handle',
+      'handle1',
+      'handle2',
+      'handle3',
+      'handle4',
     ],
   },
 
@@ -59,10 +60,10 @@ export default {
     winner: 'handle',
     portrait: winnerDevelopment,
     finalists: [
-      'handle',
-      'handle',
-      'handle',
-      'handle',
+      'handle1',
+      'handle2',
+      'handle3',
+      'handle4',
     ],
   },
 
@@ -71,10 +72,10 @@ export default {
     winner: 'handle',
     portrait: winnerFirst2finish,
     finalists: [
-      'handle',
-      'handle',
-      'handle',
-      'handle',
+      'handle1',
+      'handle2',
+      'handle3',
+      'handle4',
     ],
   },
 
@@ -83,10 +84,10 @@ export default {
     winner: 'handle',
     portrait: winnerUiDesign,
     finalists: [
-      'handle',
-      'handle',
-      'handle',
-      'handle',
+      'handle1',
+      'handle2',
+      'handle3',
+      'handle4',
     ],
   },
 
@@ -95,10 +96,38 @@ export default {
     winner: 'handle',
     portrait: winnerUiPrototype,
     finalists: [
-      'handle',
-      'handle',
-      'handle',
-      'handle',
+      'handle1',
+      'handle2',
+      'handle3',
+      'handle4',
     ],
   },
+
+  // Trip Winners Data Starts Here
+  tripWinners: [
+    {
+      role: 'COPILOT',
+      winners: [
+        'handle1',
+        'handle2',
+        'handle3',
+      ],
+    },
+    {
+      role: 'WIREFRAME',
+      winners: [
+        'handle1',
+        'handle2',
+        'handle3',
+      ],
+    },
+    {
+      role: 'OTHERS',
+      winners: [
+        'handle1',
+        'handle2',
+        'handle3',
+      ],
+    },
+  ],
 };

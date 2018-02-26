@@ -24,7 +24,8 @@ import winnerUiPrototype from './winnerUIPrototype.png';
 export default {
   logo,
   banner,
-  learnMoreUrl: 'http://tco17.topcoder.com',
+  learnMoreURL: 'http://tco17.topcoder.com',
+  browseGalleryURL: 'https://tco17.topcoder.com/onsite-photos/',
   location: 'Buffalo, NY, US',
   date: '21 - 24 October 2017',
   totalPrizes: '$60,000',
@@ -137,4 +138,32 @@ export default {
       'vasilica.olariu',
     ],
   },
+
+  // Trip Winners Data Starts Here
+  tripWinners: [
+    {
+      role: 'COPILOT',
+      winners: [
+        'fajar.mln',
+        'Ghostar',
+        'talesforce',
+      ],
+    },
+    {
+      role: 'WIREFRAME',
+      winners: [
+        'selvia_ettine',
+        'diferentway',
+        'f0rc0d3r',
+      ],
+    },
+    {
+      role: 'OTHERS',
+      winners: [
+        'chendika',
+        'KShiv',
+        'dcp',
+      ],
+    },
+  ],
 };

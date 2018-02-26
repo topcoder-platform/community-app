@@ -2,6 +2,7 @@
  * Exports object of all events with eventId keys.
  * NOTE: This file does not need to be edited to update event data unless a new event year is added.
 */
+import _ from 'lodash';
 
 // import tco18 from './18';
 import tco17 from './events/17';
@@ -20,26 +21,6 @@ import tco05 from './events/05';
 import tco04 from './events/04';
 import tco03 from './events/03';
 import tco02 from './events/02';
-
-// const events = {
-//   // 18: tco18,
-//   17: tco17,
-//   16: tco16,
-//   15: tco15,
-//   14: tco14,
-//   13: tco13,
-//   12: tco12,
-//   11: tco11,
-//   10: tco10,
-//   '09': tco09,
-//   '08': tco08,
-//   '07': tco07,
-//   '06': tco06,
-//   '05': tco05,
-//   '04': tco04,
-//   '03': tco03,
-//   '02': tco02,
-// };
 
 /* Array of the TCO Event data.  This can be imported and used directly for iterating
  * through all the events.
@@ -72,6 +53,48 @@ export const events = [
  */
 export function getEvent(id) {
   return events.find(event => event.id === id);
+}
+
+/**
+ * Calculates the number of total finalists in a given event
+ * @param {Object} data Event data object
+ * @return {Number} The total count
+ */
+export function getFinalistsCount(data) {
+  let count = 0;
+  count += data.algorithm ? data.algorithm.finalists.length : 0;
+  count += data.marathon ? data.marathon.finalists.length : 0;
+  count += data.development ? data.development.finalists.length : 0;
+  count += data.first2finish ? data.first2finish.finalists.length : 0;
+  count += data.uiDesign ? data.uiDesign.finalists.length : 0;
+  count += data.uiPrototype ? data.uiPrototype.finalists.length : 0;
+  return count;
+}
+
+/**
+ * Calculates the maximum finalist count of any track
+ * @param {Object} data Event data object
+ * @return {Number} The max count
+ */
+export function getFinalistsMax(data) {
+  const tracks = _.pick(data, ['algorithm', 'marathon', 'development', 'first2finish', 'uiDesign', 'uiPrototype']);
+  return _.max(_.map(tracks, track => (track ? track.finalists.length : 0)));
+}
+
+/**
+ * Calculates the number of total champions in a given event
+ * @param {Object} data Event data object
+ * @return {Number} The total count
+ */
+export function getChampionsCount(data) {
+  let count = 0;
+  count += data.algorithm ? 1 : 0;
+  count += data.marathon ? 1 : 0;
+  count += data.development ? 1 : 0;
+  count += data.first2finish ? 1 : 0;
+  count += data.uiDesign ? 1 : 0;
+  count += data.uiPrototype ? 1 : 0;
+  return count;
 }
 
 export default undefined;
