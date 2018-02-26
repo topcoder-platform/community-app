@@ -164,6 +164,24 @@
   }
 }
 
+.button-wrapper-view-all {
+  margin-top: 41px;
+  max-height: 30px;
+  width: 133px;
+
+  button,
+  a {
+    color: #fff;
+    font-size: 13px;
+    line-height: 30px;
+    padding: 0;
+    height: 30px;
+    width: 133px;
+    margin: 0;
+    font-weight: normal;
+  }
+}
+
 .learn-more {
   color: #fafafb;
 }
@@ -202,7 +220,13 @@
 }
 
 .champions {
+  align-items: center;
+  background-color: #fff;
   display: flex;
+  flex-direction: column;
+  padding: 38px 46px;
+  border-bottom-left-radius: 4 * $corner-radius;
+  border-bottom-right-radius: 4 * $corner-radius;
 }
 
 .test {

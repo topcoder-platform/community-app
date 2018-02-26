@@ -13,6 +13,7 @@ import finalistsIcon from 'assets/images/tco-finalists-icon.png';
 import prizesIcon from 'assets/images/tco-prizes-icon.png';
 import trophyIcon from 'assets/images/tco-trophy-icon.png';
 
+import Champions from './Champions';
 import EventCarousel from './EventCarousel';
 import Finalists from './Finalists';
 import TripWinners from './TripWinners';
@@ -99,7 +100,9 @@ const HallOfFamePage = ({ eventId, onSelectEvent }) => {
         </div>
 
         <div styleName="champions">
-          All-Time Champions Here
+          <h3>TCO All Time Champions</h3>
+          <Champions />
+          <div styleName="button-wrapper-view-all"><PrimaryButton>View All tracks</PrimaryButton></div>
         </div>
 
       </div>

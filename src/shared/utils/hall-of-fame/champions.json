@@ -1,0 +1,175 @@
+{
+  "maxCount": 11,
+  "algorithm": [
+      {
+        "handle": "rng_58",
+        "wins": 3
+      },
+      {
+        "handle": "Petr",
+        "wins": 3
+      },
+      {
+        "handle": "tomek",
+        "wins": 3
+      },
+      {
+        "handle": "crazyb0y",
+        "wins": 1
+      },
+      {
+        "handle": "Egor",
+        "wins": 1
+      },
+      {
+        "handle": "Eryx",
+        "wins": 1
+      },
+      {
+        "handle": "Jan_Kuipers",
+        "wins": 1
+      },
+      {
+        "handle": "John Dethridge",
+        "wins": 1
+      },
+      {
+        "handle": "jonmac",
+        "wins": 1
+      },
+      {
+        "handle": "tourist",
+        "wins": 1
+      },
+      {
+        "handle": "xudyh",
+        "wins": 1
+      }
+    ],
+  "marathon": [
+      {
+        "handle": "Psyho",
+        "wins": 6
+      },
+      {
+        "handle": "ACRush",
+        "wins": 1
+      },
+      {
+        "handle": "ainu7",
+        "wins": 1
+      },
+      {
+        "handle": "KOTEHOK",
+        "wins": 1
+      },
+      {
+        "handle": "Mojito1",
+        "wins": 1
+      },
+      {
+        "handle": "wata",
+        "wins": 1
+      }
+    ],
+  "development": [
+      {
+        "handle": "Sky_",
+        "wins": 3
+      },
+      {
+        "handle": "Yeung",
+        "wins": 2
+      },
+      {
+        "handle": "assistant",
+        "wins": 1
+      },
+      {
+        "handle": "birdofpreyru",
+        "wins": 1
+      },
+      {
+        "handle": "hefeng",
+        "wins": 1
+      },
+      {
+        "handle": "j3_guile",
+        "wins": 1
+      },
+      {
+        "handle": "morehappiness",
+        "wins": 1
+      },
+      {
+        "handle": "romanoTC",
+        "wins": 1
+      },
+      {
+        "handle": "sindu",
+        "wins": 1
+      },
+      {
+        "handle": "StandLove",
+        "wins": 1
+      },
+      {
+        "handle": "visualage",
+        "wins": 1
+      }
+    ],
+  "first2finish": [
+      {
+        "handle": "akinwale",
+        "wins": 2
+      },
+      {
+        "handle": "vvvpig",
+        "wins": 1
+      }
+    ],
+  "uiDesign": [
+      {
+        "handle": "abedavera",
+        "wins": 4
+      },
+      {
+        "handle": "djackmania",
+        "wins": 1
+      },
+      {
+        "handle": "djnapier",
+        "wins": 1
+      },
+      {
+        "handle": "fairy_ley",
+        "wins": 1
+      },
+      {
+        "handle": "iamtong",
+        "wins": 1
+      },
+      {
+        "handle": "kharm",
+        "wins": 1
+      },
+      {
+        "handle": "oninkxronda",
+        "wins": 1
+      },
+      {
+        "handle": "yiming",
+        "wins": 1
+      }
+    ],
+  "uiPrototype": [
+      {
+        "handle": "moulyg",
+        "wins": 2
+      },
+      {
+        "handle": "dileepa",
+        "wins": 1
+      }
+    ]
+}

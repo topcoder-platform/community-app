@@ -1,0 +1,19 @@
+$primary: #15acec;
+$champions: #e9f6fc;
+$empty: #f8fcfe;
+
+.track {
+  background-color: $primary;
+}
+
+.champion {
+  background-color: $champions;
+
+  strong {
+    color: $primary;
+  }
+}
+
+.empty {
+  background-color: $empty;
+}
