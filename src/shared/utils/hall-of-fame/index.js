@@ -1,10 +1,10 @@
 /**
- * Exports object of all events with eventId keys.
+ * Exports object of all events with eventId keys and provides misc event helper functions.
  * NOTE: This file does not need to be edited to update event data unless a new event year is added.
 */
 import _ from 'lodash';
 
-// import tco18 from './18';
+// import tco18 from './events/18';
 import tco17 from './events/17';
 import tco16 from './events/16';
 import tco15 from './events/15';
@@ -21,6 +21,8 @@ import tco05 from './events/05';
 import tco04 from './events/04';
 import tco03 from './events/03';
 import tco02 from './events/02';
+
+import funFacts from './fun-facts';
 
 /* Array of the TCO Event data.  This can be imported and used directly for iterating
  * through all the events.
@@ -79,6 +81,15 @@ export function getFinalistsCount(data) {
 export function getFinalistsMax(data) {
   const tracks = _.pick(data, ['algorithm', 'marathon', 'development', 'first2finish', 'uiDesign', 'uiPrototype']);
   return _.max(_.map(tracks, track => (track ? track.finalists.length : 0)));
+}
+
+/**
+ * Gets x random fun facts.
+ * @param {Number} count The number of random fun facts to return
+ * @return {Array} Array of fun fact objects
+ */
+export function getFunFacts(count) {
+  return _.shuffle(funFacts).slice(0, count);
 }
 
 /**

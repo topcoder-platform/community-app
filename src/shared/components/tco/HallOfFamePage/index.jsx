@@ -16,6 +16,7 @@ import trophyIcon from 'assets/images/tco-trophy-icon.png';
 import Champions from './Champions';
 import EventCarousel from './EventCarousel';
 import Finalists from './Finalists';
+import FunFacts from './FunFacts';
 import TripWinners from './TripWinners';
 
 import './styles.scss';
@@ -96,7 +97,8 @@ const HallOfFamePage = ({ eventId, onSelectEvent }) => {
         </div>
 
         <div styleName="fun-facts">
-          Fun Facts Here
+          <h3>Fun Facts</h3>
+          <FunFacts />
         </div>
 
         <div styleName="champions">

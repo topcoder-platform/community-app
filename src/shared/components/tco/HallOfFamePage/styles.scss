@@ -2,6 +2,7 @@
 
 .outer-container {
   background: $tc-gray-neutral-dark;
+  width: 100%;
 
   @include xs-to-sm {
     padding: 8px 10px 20px;
@@ -12,7 +13,7 @@
   }
 
   @include lg-to-xl {
-    padding: 30px 64px;
+    padding: 30px 64px 50px 64px;
   }
 }
 
@@ -21,7 +22,7 @@
 
   background: #f6f6f6;
   border-radius: 4 * $corner-radius;
-  box-shadow: 3px;
+  box-shadow: 0 0 8px #ccc;
   margin: auto;
   max-width: 1248px;
   text-align: left;
@@ -216,7 +217,9 @@
 }
 
 .fun-facts {
-  display: flex;
+  text-align: center;
+  background: #f2f2f2;
+  padding: 35px 53px  40px 53px;
 }
 
 .champions {
