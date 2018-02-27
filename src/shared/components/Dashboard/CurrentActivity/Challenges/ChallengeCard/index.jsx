@@ -13,11 +13,11 @@ import { Link } from 'topcoder-react-utils';
 import {
   Button,
   // DangerButton,
-  DataScienceTrackTag,
+  // DataScienceTrackTag,
   DataScienceTrackEventTag,
-  DesignTrackTag,
+  // DesignTrackTag,
   DesignTrackEventTag,
-  DevelopmentTrackTag,
+  // DevelopmentTrackTag,
   DevelopmentTrackEventTag,
 } from 'topcoder-react-ui-kit';
 
@@ -47,19 +47,19 @@ export default function ChallengeCard({
   } = challenge;
 
   let EventTag;
-  let TrackTag;
+  // let TrackTag;
   switch (track) {
     case 'DATA_SCIENCE':
       EventTag = DataScienceTrackEventTag;
-      TrackTag = DataScienceTrackTag;
+      // TrackTag = DataScienceTrackTag;
       break;
     case 'DESIGN':
       EventTag = DesignTrackEventTag;
-      TrackTag = DesignTrackTag;
+      // TrackTag = DesignTrackTag;
       break;
     case 'DEVELOP':
       EventTag = DevelopmentTrackEventTag;
-      TrackTag = DevelopmentTrackTag;
+      // TrackTag = DevelopmentTrackTag;
       break;
     default:
   }
