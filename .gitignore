@@ -49,4 +49,4 @@ jspm_packages
 .build-info
 .injkey
 .vscode
-setenv
+set-env.sh

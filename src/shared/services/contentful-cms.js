@@ -6,6 +6,29 @@ import config from 'utils/config';
 import fetch from 'isomorphic-fetch';
 import qs from 'qs';
 
+export const CONTENTFUL_CDN =
+  `https://cdn.contentful.com/spaces/${config.CONTENTFUL_CMS.SPACE}`;
+
+/* The maximal index age [ms]. */
+export const INDEX_MAXAGE = 5 * 60 * 1000;
+
+/**
+ * Gets the index of assets and entries via Community App CDN.
+ * @param {Number} version Optional. The version of index to fetch. Defaults to
+ *  the latest index version.
+ * @return {Promise}
+ */
+export async function getIndex(version) {
+  let v = version;
+  if (!v) {
+    v = Date.now();
+    v -= v % INDEX_MAXAGE;
+  }
+  const res = fetch(`${config.CDN.PUBLIC}/contentful/index?version=${v}`);
+  if (!res.ok) throw new Error('Failed to get the index');
+  return res.json();
+}
+
 class Service {
   /**
    * Creates a new Service instance.

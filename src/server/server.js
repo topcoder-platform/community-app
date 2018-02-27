@@ -17,6 +17,8 @@ import { getRates as getExchangeRates } from 'services/money';
 import { toJson as xmlToJson } from 'utils/xml2json';
 import qs from 'qs';
 
+import cdnRouter from './routes/cdn';
+
 import mockDocuSignFactory from './__mocks__/docu-sign-mock';
 
 // Dome API for topcoder communities
@@ -98,6 +100,8 @@ if (USE_DEV_TOOLS) {
 /* eslint-enable global-require */
 /* eslint-enable import/no-extraneous-dependencies */
 /* eslint-enable import/no-unresolved */
+
+app.use('/api/cdn', cdnRouter);
 
 // app.use(express.static(path.resolve(__dirname, '../../build')));
 app.use('/community-app-assets', express.static(path.resolve(__dirname, '../../build')));
