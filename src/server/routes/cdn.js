@@ -8,6 +8,8 @@ import contentfulRoutes from './contentful';
 
 const router = express.Router();
 
+router.use('/public/ping', (req, res) => res.send('PONG!'));
+
 router.use('/public/contentful', contentfulRoutes);
 
 export default router;
