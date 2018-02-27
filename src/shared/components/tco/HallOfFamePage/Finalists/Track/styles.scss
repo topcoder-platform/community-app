@@ -9,7 +9,7 @@
   line-height: 20px;
   width: 173px;
 
-  @include xs-to-md {
+  @include xs-to-lg {
     width: 46%;
     margin-bottom: 22px;
   }

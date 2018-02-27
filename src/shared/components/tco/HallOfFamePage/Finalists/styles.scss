@@ -4,7 +4,7 @@
   display: flex;
   justify-content: space-between;
 
-  @include xs-to-md {
+  @include xs-to-lg {
     flex-wrap: wrap;
     justify-content: space-around;
   }

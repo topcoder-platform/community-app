@@ -5,7 +5,7 @@
   display: flex;
   justify-content: space-between;
 
-  @include xs-to-md {
+  @include xs-to-lg {
     align-items: flex-end;
     height: 50px;
     overflow: scroll;
@@ -39,7 +39,7 @@
 }
 
 .arrow-wrapper {
-  @include xs-to-md {
+  @include xs-to-lg {
     display: none;
   }
 }
@@ -54,7 +54,7 @@
   outline: none;
   cursor: pointer;
 
-  @include xs-to-md {
+  @include xs-to-lg {
     width: 62px;
     height: 32px;
     margin: 0 13px;
@@ -63,7 +63,7 @@
   &:first-of-type {
     margin-left: 52px;
 
-    @include xs-to-md {
+    @include xs-to-lg {
       margin-left: 20px;
     }
   }
@@ -71,7 +71,7 @@
   &:last-of-type {
     margin-right: 52px;
 
-    @include xs-to-md {
+    @include xs-to-lg {
       margin-right: 20px;
     }
   }
@@ -83,7 +83,7 @@
     max-height: 82px;
     user-select: none;
 
-    @include xs-to-md {
+    @include xs-to-lg {
       max-width: 62px;
       max-height: 32px;
     }
@@ -99,7 +99,7 @@
     border-bottom: solid 2px #0681ff;
     padding-bottom: 28px;
 
-    @include xs-to-md {
+    @include xs-to-lg {
       border-bottom-width: 3px;
     }
 

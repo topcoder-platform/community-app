@@ -5,7 +5,7 @@
   justify-content: space-between;
   width: 100%;
 
-  @include xs-to-md {
+  @include xs-to-lg {
     flex-wrap: wrap;
     justify-content: space-around;
     padding: 6px;

@@ -5,7 +5,7 @@
   display: flex;
   justify-content: space-between;
 
-  @include xs-to-md {
+  @include xs-to-lg {
     flex-direction: column;
     justify-content: center;
     width: 100%;
@@ -18,7 +18,7 @@
   height: 330px;
   width: 360px;
 
-  @include xs-to-md {
+  @include xs-to-lg {
     display: none;
     height: 270px;
     width: 280px;
@@ -36,7 +36,7 @@
   min-width: 360px;
   overflow: hidden;
 
-  @include xs-to-md {
+  @include xs-to-lg {
     max-height: 140px;
     max-width: 280px;
     min-height: 140px;
@@ -58,7 +58,7 @@
     color: #006dea;
   }
 
-  @include xs-to-md {
+  @include xs-to-lg {
     font-size: 14px;
     line-height: 22px;
   }
@@ -67,7 +67,7 @@
 .mobile-buttons {
   display: none;
 
-  @include xs-to-md {
+  @include xs-to-lg {
     display: flex;
     margin-top: 22px;
     justify-content: center;
