@@ -34,21 +34,25 @@ routes.use('/assets/:id', async (req, res) => {
 
 routes.use('/current-dashboard-announcement-id', async (req, res) => {
   res.set('Access-Control-Allow-Origin', '*');
+  res.set('Cache-Control', `max-age=${1000}`);
   res.send(await getCurrentDashboardAnnouncementId());
 });
 
 routes.use('/current-dashboard-announcements-index', async (req, res) => {
   res.set('Access-Control-Allow-Origin', '*');
+  res.set('Cache-Control', `max-age=${1000}`);
   res.send(await getCurrentDashboardAnnouncementsIndex());
 });
 
 routes.use('/index', async (req, res) => {
   res.set('Access-Control-Allow-Origin', '*');
+  res.set('Cache-Control', `max-age=${1000}`);
   res.send(await getIndex());
 });
 
 routes.use('/next-sync-url', async (req, res) => {
   res.set('Access-Control-Allow-Origin', '*');
+  res.set('Cache-Control', `max-age=${1000}`);
   res.send(await getNextSyncUrl());
 });
 

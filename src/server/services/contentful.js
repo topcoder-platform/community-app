@@ -181,34 +181,6 @@ function updateCurrentDashboardAnnouncementId() {
 }
 
 /**
- * Inits the index with data from CMS.
- * @return {Promise}
- */
-async function initIndex() {
-  /* Gets necessary data from CMS. */
-  let d = await fetch(`${CONTENTFUL_CDN}/sync?initial=true`, {
-    headers: {
-      Authorization: `Bearer ${config.CONTENTFUL_CMS.CDN_API_KEY}`,
-    },
-  });
-  if (!d.ok) {
-    logger.error('Failed to initialize the index', d.statusText);
-    throw new Error('Failed to initialize the index');
-  }
-  d = await d.json();
-
-  /* Generates the index. */
-  publicIndex = {
-    assets: {},
-    entries: {},
-  };
-  currentDashboardAnnouncementsMap = {};
-  d.items.forEach(indexItem);
-  publicIndex.timestamp = Date.now();
-  updateCurrentDashboardAnnouncementId();
-}
-
-/**
  * Updates the index.
  * @return {Promise}
  */
@@ -234,6 +206,43 @@ async function updateIndex() {
   }
   publicIndex.timestamp = Date.now();
   updateCurrentDashboardAnnouncementId();
+}
+
+/**
+ * Inits the index with data from CMS.
+ * @return {Promise}
+ */
+async function initIndex() {
+  /* Gets necessary data from CMS. */
+  let d = await fetch(`${CONTENTFUL_CDN}/sync?initial=true`, {
+    headers: {
+      Authorization: `Bearer ${config.CONTENTFUL_CMS.CDN_API_KEY}`,
+    },
+  });
+  if (!d.ok) {
+    logger.error('Failed to initialize the index', d.statusText);
+    throw new Error('Failed to initialize the index');
+  }
+  d = await d.json();
+
+  /* Generates the index. */
+  publicIndex = {
+    assets: {},
+    entries: {},
+  };
+  currentDashboardAnnouncementsMap = {};
+  d.items.forEach(indexItem);
+  publicIndex.timestamp = Date.now();
+  updateCurrentDashboardAnnouncementId();
+
+  /* In case the initial update is too large to fit into a single response.
+   * TODO: This updateIndex(..) function can be combined with initIndex(..)
+   * into a single function. The URL query is the only real difference between
+   * them. */
+  if (d.nextPageUrl) {
+    nextSyncUrl = d.nextPageUrl;
+    await updateIndex();
+  } else nextSyncUrl = d.nextSyncUrl;
 }
 
 /**
