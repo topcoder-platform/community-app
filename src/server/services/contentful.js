@@ -243,7 +243,7 @@ export async function getIndex() {
  * Returns the index of current dashboard announcements.
  * @return {Promise}
  */
-export async function getCurrentDasboardhAnnouncementsIndex() {
+export async function getCurrentDashboardAnnouncementsIndex() {
   while (barrier) await barrier;
   if (!publicIndex || Date.now() - publicIndex.timestamp > INDEX_MAXAGE) {
     await getIndex();

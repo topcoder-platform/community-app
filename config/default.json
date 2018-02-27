@@ -14,7 +14,7 @@
 
   /* CDN configuration. */
   "CDN": {
-    "PUBLIC": "https://cloudfront.amazonaws.com/2017-03-25/distribution/E1N7Y5O368XHVT"
+    "PUBLIC": "https://d1aahxkjiobka8.cloudfront.net"
   },
 
   "COOKIES": {
