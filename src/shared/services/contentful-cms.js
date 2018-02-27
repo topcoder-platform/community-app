@@ -2,6 +2,7 @@
  * POC of Contentful CMS integration.
  */
 
+import _ from 'lodash';
 import config from 'utils/config';
 import fetch from 'isomorphic-fetch';
 import qs from 'qs';
@@ -11,6 +12,17 @@ export const CONTENTFUL_CDN =
 
 /* The maximal index age [ms]. */
 export const INDEX_MAXAGE = 5 * 60 * 1000;
+
+/**
+ * Maps contentful file url into our CDN file url.
+ * @param {String} url
+ * @return {String}
+ */
+export function getFileUrl(url) {
+  const x = url.split('/');
+  return `${config.CDN.PUBLIC}/contentful/images/${
+    x[3]}/${x[4]}/${x[5]}/${x[6]}`;
+}
 
 /**
  * Gets the index of assets and entries via Community App CDN.
@@ -29,6 +41,17 @@ export async function getIndex(version) {
   return res.json();
 }
 
+export async function getCurrentDashboardAnnouncementId() {
+  let v = Date.now();
+  v -= v % INDEX_MAXAGE;
+  const res = fetch(`${config.CDN.PUBLIC}/contentful/current-dashboard-announcement-id?version=${v}`);
+  if (!res.ok) throw new Error('Failed to get the current dashboard announcement id');
+  return res.json();
+}
+
+let index;
+let currentDashboardAnnouncementId;
+
 class Service {
   /**
    * Creates a new Service instance.
@@ -40,6 +63,7 @@ class Service {
       this.private = {
         baseUrl: 'https://preview.contentful.com',
         key: config.CONTENTFUL_CMS.PREVIEW_API_KEY,
+        preview: true,
       };
     } else {
       this.private = {
@@ -49,12 +73,29 @@ class Service {
     }
   }
 
+  async update() {
+    const now = Date.now();
+    if (!index || now - index.timestamp > INDEX_MAXAGE) {
+      index = await getIndex();
+      currentDashboardAnnouncementId =
+        await getCurrentDashboardAnnouncementId();
+    }
+    _.noop(this);
+  }
+
   /**
    * Gets the specified content entry from Contentful CMS.
    * @param {String} id Asset ID.
    * @return {Promise} Resolves to the asset data.
    */
-  getAsset(id) {
+  async getAsset(id) {
+    if (!this.private.preview) {
+      await this.update();
+      const res =
+        await fetch(`${config.CDN.PUBLIC}/contentful/assets/${id}?version=${
+          index.assets[id]}`);
+      return res.json();
+    }
     return fetch(`${this.private.baseUrl}/spaces/${
       config.CONTENTFUL_CMS.SPACE}/assets/${id}`, {
       headers: {
@@ -94,13 +135,25 @@ class Service {
    * @param {String} id Entry ID.
    * @return {Promise} Resolves to the content.
    */
-  getContentEntry(id) {
+  async getContentEntry(id) {
+    if (!this.private.preview) {
+      await this.update();
+      const res =
+        await fetch(`${config.CDN.PUBLIC}/contentful/entries/${id}?version=${
+          index.entries[id]}`);
+      return res.json();
+    }
     return fetch(`${this.private.baseUrl}/spaces/${
       config.CONTENTFUL_CMS.SPACE}/entries/${id}`, {
       headers: {
         Authorization: `Bearer ${this.private.key}`,
       },
     }).then(res => res.json());
+  }
+
+  async getCurrentDashboardAnnouncementId() {
+    await this.update();
+    return currentDashboardAnnouncementId;
   }
 }
 
