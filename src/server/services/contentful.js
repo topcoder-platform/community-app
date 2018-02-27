@@ -35,6 +35,27 @@ async function getCurrentDashAnnouncementsViaCdn(version) {
   return res.json();
 }
 
+/**
+ * Gets the next sync URL via CDN.
+ * @param {Number} version Optional. The version of index to fetch. Defaults to
+ *  the latest version.
+ * @return {Promise}
+ */
+async function getNextSyncUrlViaCdn(version) {
+  let v = version;
+  if (!v) {
+    v = Date.now();
+    v -= v % INDEX_MAXAGE;
+  }
+  const res =
+    await fetch(`${config.CDN.PUBLIC}/contentful/next-sync-url?version=${v}`);
+  if (!res.ok) {
+    logger.error('Failed to get the next sync URL', res.statusText);
+    throw new Error('Failed to get the next sync URL');
+  }
+  return res.text();
+}
+
 /* THE INDEX OF CMS ASSETS AND ENTRIES.
  *
  * A tricky logic is involved to keep it all working properly, beware to modify
@@ -234,6 +255,7 @@ export async function getIndex() {
     /* These two calls are necessary to cache the updated index by CDN. */
     getIndexViaCdn();
     getCurrentDashAnnouncementsViaCdn();
+    getNextSyncUrlViaCdn();
   }
 
   return publicIndex;
@@ -262,6 +284,18 @@ export async function getCurrentDashboardAnnouncementId() {
   return currentDashboardAnnouncementId;
 }
 
+/**
+ * Returns the next sync URL.
+ * @return {Promise}
+ */
+export async function getNextSyncUrl() {
+  while (barrier) await barrier;
+  if (!publicIndex || Date.now() - publicIndex.timestamp > INDEX_MAXAGE) {
+    await getIndex();
+  }
+  return nextSyncUrl;
+}
+
 /* Module initialization.
  * This code tries to pull the current index from CDN, where it is supposed to
  * be cached, to keep it persistent across re-deployments of the app, and also
@@ -273,8 +307,10 @@ version -= version % INDEX_MAXAGE;
 Promise.all([
   getIndexViaCdn(version),
   getCurrentDashAnnouncementsViaCdn(version),
-]).then(([index, dashIndex]) => {
+  getNextSyncUrl(version),
+]).then(([index, dashIndex, next]) => {
   publicIndex = index;
   currentDashboardAnnouncementsMap = dashIndex;
+  nextSyncUrl = next;
   updateCurrentDashboardAnnouncementId();
 }).catch(() => getIndex());

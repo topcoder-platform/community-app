@@ -10,6 +10,7 @@ import {
   getIndex,
   getCurrentDashboardAnnouncementId,
   getCurrentDashboardAnnouncementsIndex,
+  getNextSyncUrl,
 } from '../services/contentful';
 
 const BASE_URL =
@@ -44,6 +45,11 @@ routes.use('/current-dashboard-announcements-index', async (req, res) => {
 routes.use('/index', async (req, res) => {
   res.set('Access-Control-Allow-Origin', '*');
   res.send(await getIndex());
+});
+
+routes.use('/next-sync-url', async (req, res) => {
+  res.set('Access-Control-Allow-Origin', '*');
+  res.send(await getNextSyncUrl());
 });
 
 /* Proxies content requests to Contentful CDN.
