@@ -190,8 +190,7 @@ async function updateIndex() {
     /* Disabled, as we really need to keep these iterations sequential, thus
      * await inside the loop is not an error. */
     /* eslint-disable no-await-in-loop */
-    const url = `${CONTENTFUL_CDN}/sync?sync_token=${nextPageUrl}`;
-    let d = await fetch(url, {
+    let d = await fetch(nextPageUrl, {
       headers: {
         Authorization: `Bearer ${config.CONTENTFUL_CMS.CDN_API_KEY}`,
       },
