@@ -99,6 +99,10 @@
     border-bottom: solid 2px #0681ff;
     padding-bottom: 28px;
 
+    @include xs-to-md {
+      border-bottom-width: 3px;
+    }
+
     img {
       filter: none;
     }

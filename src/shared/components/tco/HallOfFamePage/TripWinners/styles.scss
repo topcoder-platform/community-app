@@ -1,4 +1,11 @@
+@import "~styles/mixins";
+
 .container {
   display: flex;
   justify-content: center;
+
+  @include xs-to-md {
+    align-items: center;
+    flex-wrap: wrap;
+  }
 }

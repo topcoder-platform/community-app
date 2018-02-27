@@ -1,3 +1,5 @@
+@import "~styles/mixins";
+
 .container {
   align-items: center;
   display: flex;
@@ -6,6 +8,11 @@
   font-size: 13px;
   line-height: 20px;
   width: 173px;
+
+  @include xs-to-md {
+    margin-bottom: 23px;
+    width: 48%;
+  }
 }
 
 .track {

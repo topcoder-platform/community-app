@@ -40,8 +40,10 @@ const HallOfFamePage = ({ eventId, onSelectEvent }) => {
               <div styleName="logo">
                 <img src={data.logo} alt={`Logo for TCO${eventId}`} />
               </div>
-              <strong>{data.location}</strong>
-              <p>{data.date}</p>
+              <div styleName="location">
+                <strong>{data.location}</strong>
+                <p>{data.date}</p>
+              </div>
               <div styleName="button-wrapper"><PrimaryButton styleName="learn-more" to={data.learnMoreURL} openNewTab>Learn More</PrimaryButton></div>
               <div styleName="button-wrapper"><Button styleName="browse-gallery" to={data.browseGalleryURL} openNewTab>Browse Gallery</Button></div>
             </div>

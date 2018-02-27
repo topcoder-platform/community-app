@@ -1,4 +1,11 @@
+@import "~styles/mixins";
+
 .container {
   display: flex;
   justify-content: space-between;
+
+  @include xs-to-md {
+    flex-wrap: wrap;
+    justify-content: space-around;
+  }
 }

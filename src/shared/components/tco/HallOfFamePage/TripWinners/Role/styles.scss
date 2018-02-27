@@ -1,3 +1,5 @@
+@import "~styles/mixins";
+
 .container {
   align-items: center;
   display: flex;
@@ -7,6 +9,15 @@
   font-size: 13px;
   line-height: 20px;
   width: 173px;
+
+  @include xs-to-md {
+    margin: 4px;
+    width: 45%;
+
+    &:nth-child(3) {
+      margin-right: calc(50% - 4px);
+    }
+  }
 }
 
 .role {
