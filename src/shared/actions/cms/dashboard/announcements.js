@@ -23,6 +23,8 @@ function getActiveInit(uuid) {
  */
 async function getActiveDone(uuid) {
   let res = await cdnService.getCurrentDashboardAnnouncementId();
+  if (!res) return { assets: {}, data: null, uuid };
+
   res = await cdnService.getContentEntry(res);
 
   const assets = {};

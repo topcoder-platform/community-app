@@ -26,7 +26,7 @@ export default function Announcement({
     );
   }
 
-  if (!announcement.fields) return null;
+  if (!announcement || !announcement.fields) return null;
 
   const {
     backgroundImage,
