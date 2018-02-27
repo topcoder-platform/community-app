@@ -21,8 +21,7 @@ export const INDEX_MAXAGE = 5 * 60 * 1000;
  */
 export function getFileUrl(url) {
   const x = url.split('/');
-  return `${config.CDN.PUBLIC}/contentful/images/${
-    x[3]}/${x[4]}/${x[5]}/${x[6]}`;
+  return `${config.CDN.PUBLIC}/contentful/images/${x[4]}/${x[5]}/${x[6]}`;
 }
 
 /**
@@ -50,7 +49,7 @@ export async function getCurrentDashboardAnnouncementId() {
   v -= v % INDEX_MAXAGE;
   const res = await fetch(`${config.CDN.PUBLIC}/contentful/current-dashboard-announcement-id?version=${v}`);
   if (!res.ok) throw new Error('Failed to get the current dashboard announcement id');
-  return res.json();
+  return res.text();
 }
 
 let index;
