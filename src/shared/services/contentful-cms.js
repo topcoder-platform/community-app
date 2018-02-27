@@ -5,6 +5,7 @@
 import _ from 'lodash';
 import config from 'utils/config';
 import fetch from 'isomorphic-fetch';
+import logger from 'utils/logger';
 import qs from 'qs';
 
 export const CONTENTFUL_CDN =
@@ -36,15 +37,18 @@ export async function getIndex(version) {
     v = Date.now();
     v -= v % INDEX_MAXAGE;
   }
-  const res = fetch(`${config.CDN.PUBLIC}/contentful/index?version=${v}`);
-  if (!res.ok) throw new Error('Failed to get the index');
+  const res = await fetch(`${config.CDN.PUBLIC}/contentful/index?version=${v}`);
+  if (!res.ok) {
+    logger.error('Failed to get the index', res);
+    throw new Error('Failed to get the index');
+  }
   return res.json();
 }
 
 export async function getCurrentDashboardAnnouncementId() {
   let v = Date.now();
   v -= v % INDEX_MAXAGE;
-  const res = fetch(`${config.CDN.PUBLIC}/contentful/current-dashboard-announcement-id?version=${v}`);
+  const res = await fetch(`${config.CDN.PUBLIC}/contentful/current-dashboard-announcement-id?version=${v}`);
   if (!res.ok) throw new Error('Failed to get the current dashboard announcement id');
   return res.json();
 }

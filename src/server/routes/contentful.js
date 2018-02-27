@@ -21,6 +21,7 @@ const routes = express.Router();
 /* Proxies asset requests to Contentful CDN.
  * TODO: Move the actual logic to the service. */
 routes.use('/assets/:id', async (req, res) => {
+  res.set('Access-Control-Allow-Origin', '*');
   const x = await fetch(`${BASE_URL}/assets/${req.params.id}`, {
     headers: {
       Authorization: `Bearer ${KEY}`,
@@ -31,20 +32,24 @@ routes.use('/assets/:id', async (req, res) => {
 });
 
 routes.use('/current-dashboard-announcement-id', async (req, res) => {
+  res.set('Access-Control-Allow-Origin', '*');
   res.send(await getCurrentDashboardAnnouncementId());
 });
 
 routes.use('/current-dashboard-announcements-index', async (req, res) => {
+  res.set('Access-Control-Allow-Origin', '*');
   res.send(await getCurrentDashboardAnnouncementsIndex());
 });
 
 routes.use('/index', async (req, res) => {
+  res.set('Access-Control-Allow-Origin', '*');
   res.send(await getIndex());
 });
 
 /* Proxies content requests to Contentful CDN.
  * TODO: Move the actual logic to the service. */
 routes.use('/entries/:id', async (req, res) => {
+  res.set('Access-Control-Allow-Origin', '*');
   const x = await fetch(`${BASE_URL}/entries/${req.params.id}`, {
     headers: {
       Authorization: `Bearer ${KEY}`,
