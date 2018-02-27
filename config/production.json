@@ -3,6 +3,9 @@
     "V2": "https://api.topcoder.com/v2",
     "V3": "https://api.topcoder.com/v3"
   },
+  "CDN": {
+    "PUBLIC": "https://cloudfront.amazonaws.com/2017-03-25/distribution/EKD44KXC98KGN"
+  },
   "COOKIES": {
     "MAXAGE": 7,
     "SECURE": true
