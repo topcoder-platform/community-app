@@ -142,21 +142,16 @@ function indexEntry(entry) {
  * @param {Object} item
  */
 function indexItem(item) {
-  if (item.type) { /* `true` for deleted items only */
-    switch (item.type) {
-      case 'DeletedAsset': delete publicIndex.assets[item.id]; break;
-      case 'DeletedEntry':
-        delete publicIndex.entries[item.id];
-        delete currentDashboardAnnouncementsMap[item.id];
-        break;
-      default: throw new Error('Invariant violation');
-    }
-  } else {
-    switch (item.sys.type) {
-      case 'Asset': indexAsset(item); break;
-      case 'Entry': indexEntry(item); break;
-      default: throw new Error('Invariant violation');
-    }
+  const { id, type } = item.sys;
+  switch (type) {
+    case 'Asset': indexAsset(item); break;
+    case 'DeletedAsset': delete publicIndex.assets[id]; break;
+    case 'DeletedEntry':
+      delete currentDashboardAnnouncementsMap[id];
+      delete publicIndex.entries[id];
+      break;
+    case 'Entry': indexEntry(item); break;
+    default: throw new Error('Invariant violation');
   }
 }
 
