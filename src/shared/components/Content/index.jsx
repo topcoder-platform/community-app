@@ -103,6 +103,7 @@ export default function Content() {
 
       <h3>TCO Assets</h3>
       <ul>
+        <li><a href="/tco-hall-of-fame">TCO Hall of Fame</a></li>
         <li>
           TCO Scoreboard demo is mounted on <code>/scoreboard/:id</code>,
           where <code>:id</code> is the competition ID, not related to the

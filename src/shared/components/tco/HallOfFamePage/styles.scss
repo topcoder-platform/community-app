@@ -183,12 +183,12 @@
 
   @include xs-to-md {
     border-radius: 0;
-    height: 150px;
+    height: 25vh;
     order: 1;
     width: 100%;
 
     img {
-      min-height: 150px;
+      min-height: 100%;
       min-width: 100%;
       width: 100%;
     }
@@ -207,7 +207,7 @@
 
   @include xs-to-md {
     align-items: center;
-    justify-content: space-around;
+    justify-content: center;
     order: 2;
     padding: 30px 15px;
     width: 100%;
@@ -233,6 +233,8 @@
   }
 
   @include xs-to-md {
+    margin-left: 23px;
+    min-width: 40%;
     text-align: left;
     width: auto;
   }
@@ -337,8 +339,12 @@
 
 .fun-facts {
   background: #f2f2f2;
-  padding: 35px 53px  40px 53px;
+  padding: 35px 53px 40px 53px;
   text-align: center;
+
+  @include xs-to-md {
+    padding: 19px 0 28px 0;
+  }
 }
 
 .champions {
@@ -352,6 +358,7 @@
 
   @include xs-to-md {
     padding: 0;
+    padding-top: 24px;
   }
 }
 

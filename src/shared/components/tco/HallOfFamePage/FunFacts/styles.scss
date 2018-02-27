@@ -1,7 +1,15 @@
+@import "~styles/mixins";
+
 .container {
   align-items: center;
   display: flex;
   justify-content: space-between;
+
+  @include xs-to-md {
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+  }
 }
 
 .fact {
@@ -9,6 +17,16 @@
   border-radius: 4px;
   height: 330px;
   width: 360px;
+
+  @include xs-to-md {
+    display: none;
+    height: 270px;
+    width: 280px;
+
+    &.mobile-active {
+      display: block;
+    }
+  }
 }
 
 .photo {
@@ -17,6 +35,13 @@
   min-height: 180px;
   min-width: 360px;
   overflow: hidden;
+
+  @include xs-to-md {
+    max-height: 140px;
+    max-width: 280px;
+    min-height: 140px;
+    min-width: 280px;
+  }
 }
 
 .text {
@@ -31,5 +56,34 @@
   a,
   a:visited {
     color: #006dea;
+  }
+
+  @include xs-to-md {
+    font-size: 14px;
+    line-height: 22px;
+  }
+}
+
+.mobile-buttons {
+  display: none;
+
+  @include xs-to-md {
+    display: flex;
+    margin-top: 22px;
+    justify-content: center;
+  }
+}
+
+.mobile-button {
+  background-color: #b3bac5;
+  border-radius: 50%;
+  cursor: pointer;
+  height: 8px;
+  margin: 0 6px;
+  outline: none;
+  width: 8px;
+
+  &.mobile-active {
+    background-color: #0681ff;
   }
 }

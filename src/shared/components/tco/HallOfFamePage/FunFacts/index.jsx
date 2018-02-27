@@ -1,5 +1,6 @@
 /**
  * Fun Facts component.  Renders 3 random fun facts with accompanying photos.
+ * Implements a carousel for mobile version, with very basic gesture support.
  */
 import React from 'react';
 import PT from 'prop-types';
@@ -16,15 +17,38 @@ class FunFacts extends React.Component {
     super(props);
     this.state = {
       facts: getFunFacts(props.numFacts),
+      activeMobileFact: 0,
     };
+    this.startX = 0;
+  }
+
+  handleTouchEnd() {
+    if (Math.abs(this.startX - this.endX) > 50) {
+      const direction = this.endX > this.startX ? -1 : 1;
+      let nextFactIndex = this.state.activeMobileFact + direction;
+      if (nextFactIndex >= this.props.numFacts) {
+        nextFactIndex = 0;
+      } else if (nextFactIndex < 0) {
+        nextFactIndex = this.props.numFacts - 1;
+      }
+      this.setState({ activeMobileFact: nextFactIndex });
+    }
   }
 
   render() {
     return (
-      <div styleName="container">
+      <div
+        onTouchStart={(e) => { this.startX = e.touches[0].pageX; this.endX = this.startX; }}
+        onTouchMove={(e) => { this.endX = e.touches[0].pageX; }}
+        onTouchEnd={() => this.handleTouchEnd()}
+        styleName="container"
+      >
         {
-          this.state.facts.map(fact => (
-            <div styleName="fact" key={fact.fact}>
+          this.state.facts.map((fact, index) => (
+            <div
+              key={fact.fact}
+              styleName={`fact ${index === this.state.activeMobileFact ? 'mobile-active' : ''}`}
+            >
               <img styleName="photo" src={fact.photo} alt="Fun Fact" />
               <div
                 styleName="text"
@@ -33,6 +57,19 @@ class FunFacts extends React.Component {
             </div>
           ))
         }
+        <div styleName="mobile-buttons">
+          {
+            this.state.facts.map((fact, index) => (
+              <span
+                key={`${fact.fact} button`}
+                onClick={() => this.setState({ activeMobileFact: index })}
+                role="button"
+                styleName={`mobile-button ${index === this.state.activeMobileFact ? 'mobile-active' : ''}`}
+                tabIndex="0"
+              />
+            ))
+          }
+        </div>
       </div>
     );
   }
