@@ -24,6 +24,7 @@ export default function ConfirmModal({
   resetJoinButton,
   token,
   userId,
+  utmCampaign,
 }) {
   return (
     <Modal onCancel={resetJoinButton}>
@@ -53,7 +54,9 @@ export default function ConfirmModal({
               const url = encodeURIComponent(
                 `${window.location.href}?join=${groupIds[0]}`,
               );
-              window.location = `${config.URL.AUTH}/member?retUrl=${url}&utm_source=${communityId}`;
+              window.location = `${config.URL.AUTH}/member?retUrl=${url}&utm_source=${communityId}${
+                utmCampaign ? `&utm_campaign=${utmCampaign}` : ''
+              }`;
             }}
           >Login</PrimaryButton>
           <PrimaryButton
@@ -62,10 +65,14 @@ export default function ConfirmModal({
                 `${window.location.href}?join=${groupIds[0]}`,
               );
               url = encodeURIComponent(
-                `${config.URL.AUTH}/member?retUrl=${url}&utm_source=${communityId}`,
+                `${config.URL.AUTH}/member?retUrl=${url}&utm_source=${communityId}${
+                  utmCampaign ? `&utm_campaign=${utmCampaign}` : ''
+                }`,
               );
               url = encodeURIComponent(url);
-              window.location = `${config.URL.AUTH}/member/registration?retUrl=${url}&utm_source=${communityId}`;
+              window.location = `${config.URL.AUTH}/member/registration?retUrl=${url}&utm_source=${communityId}${
+                utmCampaign ? `&utm_campaign=${utmCampaign}` : ''
+              }`;
             }}
           >Register</PrimaryButton>
           <SecondaryButton
@@ -80,6 +87,7 @@ export default function ConfirmModal({
 ConfirmModal.defaultProps = {
   token: null,
   userId: null,
+  utmCampaign: '',
 };
 
 ConfirmModal.propTypes = {
@@ -90,4 +98,5 @@ ConfirmModal.propTypes = {
   resetJoinButton: PT.func.isRequired,
   token: PT.string,
   userId: PT.string,
+  utmCampaign: PT.string,
 };

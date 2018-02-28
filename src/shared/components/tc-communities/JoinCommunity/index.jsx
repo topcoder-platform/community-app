@@ -37,6 +37,7 @@ export default function JoinCommunity({
   theme,
   token,
   userId,
+  utmCampaign,
 }) {
   if (state === STATE.HIDDEN) return <div styleName="style.placeholder" />;
   return (
@@ -84,6 +85,7 @@ export default function JoinCommunity({
           resetJoinButton={resetJoinButton}
           token={token}
           userId={userId}
+          utmCampaign={utmCampaign}
         />
       ) : null}
     </div>
@@ -96,6 +98,7 @@ JoinCommunity.defaultProps = {
   theme: {},
   token: null,
   userId: null,
+  utmCampaign: '',
 };
 
 JoinCommunity.propTypes = {
@@ -111,4 +114,5 @@ JoinCommunity.propTypes = {
   theme: PT.shape(),
   token: PT.string,
   userId: PT.string,
+  utmCampaign: PT.string,
 };

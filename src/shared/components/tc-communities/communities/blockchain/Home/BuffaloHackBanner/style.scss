@@ -1,0 +1,61 @@
+@import "~styles/mixins";
+
+.container {
+  background: url('assets/images/communities/blockchain/buffalo-hackathon-banner-background.jpg');
+  background-size: cover;
+  background-position-y: 25%;
+  padding: 60px 0;
+  position: relative;
+
+  @include xs-to-sm {
+    background-position: 50% 25%;
+    padding: 0;
+  }
+}
+
+.content {
+  color: white;
+  max-width: 800px;
+  padding: 60px 100px 60px 60px;
+  position: relative;
+
+  @include xs-to-sm {
+    padding: 300px 20px 20px;
+  }
+}
+
+.contentBackground {
+  background: rgba(#0c53a6, 0.9);
+  bottom: 0;
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+  transform: skewX(10deg);
+  transform-origin: bottom left;
+
+  @include xs-to-sm {
+    background: linear-gradient(transparent 30%, rgba(#0c53a6, 0.9) 45%);
+    transform: none;
+  }
+}
+
+.information {
+  position: relative;
+}
+
+.title {
+  font: 400 36px/135% 'Open Sans', sans-serif;
+  margin-bottom: 5px;
+  text-transform: uppercase;
+}
+
+.text {
+  margin-bottom: 5px;
+  font: 400 15px/24px 'Open Sans', sans-serif;
+}
+
+.date {
+  font: 600 15px/24px 'Open Sans', sans-serif;
+  text-transform: uppercase;
+}

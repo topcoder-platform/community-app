@@ -34,6 +34,7 @@ exports[`Matches shallow shapshot 1`] = `
     resetJoinButton={[Function]}
     token="token"
     userId="useId"
+    utmCampaign=""
   />
 </div>
 `;
@@ -188,6 +189,7 @@ exports[`Matches shallow shapshot 5`] = `
     resetJoinButton={[Function]}
     token={null}
     userId="useId"
+    utmCampaign=""
   />
 </div>
 `;
