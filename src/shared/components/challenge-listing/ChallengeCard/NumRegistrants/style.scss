@@ -3,19 +3,10 @@
 .container {
   display: inline-block;
   font-weight: 400;
-  margin-left: 4 * $base-unit;
-
-  @include xs-to-sm {
-    margin-left: 3 * $base-unit;
-  }
 }
 
-.link {
-  color: $tc-black;
-
-  &:hover {
-    color: $tc-dark-blue;
-  }
+.link:hover {
+  color: $tc-dark-blue;
 }
 
 .number {

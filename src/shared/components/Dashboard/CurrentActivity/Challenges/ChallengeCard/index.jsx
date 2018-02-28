@@ -11,14 +11,14 @@ import React from 'react';
 import { Link } from 'topcoder-react-utils';
 
 import {
+  Button,
   // DangerButton,
-  DataScienceTrackTag,
+  // DataScienceTrackTag,
   DataScienceTrackEventTag,
-  DesignTrackTag,
+  // DesignTrackTag,
   DesignTrackEventTag,
-  DevelopmentTrackTag,
+  // DevelopmentTrackTag,
   DevelopmentTrackEventTag,
-  PrimaryButton,
 } from 'topcoder-react-ui-kit';
 
 import style from './style.scss';
@@ -47,19 +47,19 @@ export default function ChallengeCard({
   } = challenge;
 
   let EventTag;
-  let TrackTag;
+  // let TrackTag;
   switch (track) {
     case 'DATA_SCIENCE':
       EventTag = DataScienceTrackEventTag;
-      TrackTag = DataScienceTrackTag;
+      // TrackTag = DataScienceTrackTag;
       break;
     case 'DESIGN':
       EventTag = DesignTrackEventTag;
-      TrackTag = DesignTrackTag;
+      // TrackTag = DesignTrackTag;
       break;
     case 'DEVELOP':
       EventTag = DevelopmentTrackEventTag;
-      TrackTag = DevelopmentTrackTag;
+      // TrackTag = DevelopmentTrackTag;
       break;
     default:
   }
@@ -129,19 +129,21 @@ export default function ChallengeCard({
       <div>
         <div styleName="header">
           <div styleName="tags">
-            <TrackTag
+            <EventTag
               onClick={() =>
                 setImmediate(() =>
                   setChallengeListingFilter({ subtracks: [subTrack] }),
                 )
               }
+              theme={{ button: style.tag }}
               to={`/challenges?filter[subtracks][0]=${
                 encodeURIComponent(subTrack)}`}
-            >{_.startCase(_.toLower(challenge.subTrack))}</TrackTag>
+            >{_.startCase(_.toLower(challenge.subTrack))}</EventTag>
             {
               isTco ? (
                 <EventTag
                   openNewTab
+                  theme={{ button: style.tag }}
                   to="https://tco18.topcoder.com"
                 >TCO</EventTag>
               ) : null
@@ -171,8 +173,6 @@ export default function ChallengeCard({
             to={`${config.URL.FORUMS}${forumEndpoint}`}
           >Forum</Link>
         </div>
-      </div>
-      <div>
         <div styleName="statusPanel">
           <h3 styleName={`statusMsg${msgStyleModifier}`}>{statusMsg}</h3>
           <div styleName={`deadlineMsg${msgStyleModifier}`}>
@@ -180,31 +180,31 @@ export default function ChallengeCard({
           </div>
           {
             showDirectLink ? (
-              <PrimaryButton
+              <Button
                 openNewTab
                 size="sm"
                 theme={{ button: style.button }}
                 to={`${config.URL.BASE}/direct/contest/detail.action?projectId=${id}`}
-              >Direct</PrimaryButton>
+              >Direct</Button>
             ) : null
           }
           {
             showOrLink ? (
-              <PrimaryButton
+              <Button
                 openNewTab
                 size="sm"
                 theme={{ button: style.button }}
                 to={`${config.URL.ONLINE_REVIEW}/review/actions/ViewProjectDetails?method=viewProjectDetails&pid=${id}`}
-              >Online Review</PrimaryButton>
+              >Online Review</Button>
             ) : null
           }
           {
             submitter ? (
-              <PrimaryButton
+              <Button
                 size="sm"
                 theme={{ button: style.button }}
                 to={`/challenges/${id}/submit`}
-              >Submit</PrimaryButton>
+              >Submit</Button>
             ) : null
           }
           {
@@ -220,6 +220,8 @@ export default function ChallengeCard({
             */
           }
         </div>
+      </div>
+      <div>
         <div styleName="roles">{roles.join(', ')}</div>
       </div>
     </div>

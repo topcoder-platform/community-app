@@ -197,23 +197,27 @@ export default function ChallengeStatus(props) {
       <div>
         {renderLeaderboard()}
         <span styleName="challenge-stats">
-          <NumRegistrants
-            challenge={challenge}
-            challengesUrl={challengesUrl}
-            newChallengeDetails={newChallengeDetails}
-            selectChallengeDetailsTab={selectChallengeDetailsTab}
-          />
-          <NumSubmissions
-            challenge={challenge}
-            challengesUrl={challengesUrl}
-            newChallengeDetails={newChallengeDetails}
-            selectChallengeDetailsTab={selectChallengeDetailsTab}
-          />
+          <div styleName="spacing">
+            <NumRegistrants
+              challenge={challenge}
+              challengesUrl={challengesUrl}
+              newChallengeDetails={newChallengeDetails}
+              selectChallengeDetailsTab={selectChallengeDetailsTab}
+            />
+          </div>
+          <div styleName="spacing">
+            <NumSubmissions
+              challenge={challenge}
+              challengesUrl={challengesUrl}
+              newChallengeDetails={newChallengeDetails}
+              selectChallengeDetailsTab={selectChallengeDetailsTab}
+            />
+          </div>
           {
             challenge.myChallenge &&
-            <span>
+            <div styleName="spacing">
               <a styleName="link-forum past" href={`${FORUM_URL}${challenge.forumId}`}><ForumIcon /></a>
-            </span>
+            </div>
           }
         </span>
       </div>
@@ -257,25 +261,29 @@ export default function ChallengeStatus(props) {
           { phaseMessage }
         </span>
         <span styleName="challenge-stats">
-          <NumRegistrants
-            challenge={props.challenge}
-            challengesUrl={challengesUrl}
-            newChallengeDetails={newChallengeDetails}
-            selectChallengeDetailsTab={selectChallengeDetailsTab}
-          />
-          <NumSubmissions
-            challenge={props.challenge}
-            challengesUrl={challengesUrl}
-            newChallengeDetails={newChallengeDetails}
-            selectChallengeDetailsTab={selectChallengeDetailsTab}
-          />
+          <div styleName="spacing">
+            <NumRegistrants
+              challenge={props.challenge}
+              challengesUrl={challengesUrl}
+              newChallengeDetails={newChallengeDetails}
+              selectChallengeDetailsTab={selectChallengeDetailsTab}
+            />
+          </div>
+          <div styleName="spacing">
+            <NumSubmissions
+              challenge={props.challenge}
+              challengesUrl={challengesUrl}
+              newChallengeDetails={newChallengeDetails}
+              selectChallengeDetailsTab={selectChallengeDetailsTab}
+            />
+          </div>
           {
             myChallenge &&
-            <span>
+            <div styleName="spacing">
               <a styleName="link-forum" href={`${FORUM_URL}${forumId}`}>
                 <ForumIcon />
               </a>
-            </span>
+            </div>
           }
         </span>
         <ProgressBarTooltip challenge={props.challenge}>

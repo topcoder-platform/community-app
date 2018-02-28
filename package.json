@@ -60,6 +60,7 @@
     "money": "^0.2.0",
     "morgan": "^1.9.0",
     "node-forge": "^0.7.1",
+    "nuka-carousel": "^3.0.1",
     "prop-types": "^15.6.0",
     "qs": "^6.5.1",
     "raf": "^3.4.0",

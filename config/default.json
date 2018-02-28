@@ -12,6 +12,11 @@
    * authenticate with an expired token). */
   "AUTH_DROP_TIME": 25,
 
+  /* CDN configuration. */
+  "CDN": {
+    "PUBLIC": "https://d1aahxkjiobka8.cloudfront.net"
+  },
+
   "COOKIES": {
     /* Expiration time [days] for browser cookies set by the App. */
     "MAXAGE": 7,

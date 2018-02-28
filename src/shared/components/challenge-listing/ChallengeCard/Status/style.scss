@@ -207,3 +207,12 @@ $status-radius-4: $corner-radius * 2;
   letter-spacing: 0;
   padding: 15px;
 }
+
+.spacing {
+  display: inline-block;
+  margin-left: 20px;
+
+  @include xs-to-sm {
+    margin-left: 15px;
+  }
+}

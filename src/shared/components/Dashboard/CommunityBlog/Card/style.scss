@@ -17,7 +17,7 @@
 
   a,
   a:active {
-    color: $tc-dark-blue;
+    color: $tc-dark-blue-110;
   }
 
   a:hover {
@@ -25,7 +25,7 @@
   }
 
   a:visited {
-    color: $tc-purple;
+    color: $tc-purple-110;
   }
 
   @include md {
@@ -38,7 +38,7 @@
 .content {
   @include tc-body-sm;
 
-  height: 480px;
+  height: 360px;
   overflow: hidden;
   padding: 20px 30px;
 
@@ -72,13 +72,13 @@
   @include tc-label-lg;
 
   bottom: 15px;
-  color: $tc-dark-blue;
+  color: $tc-dark-blue-110;
   left: 30px;
   position: absolute;
 
   &,
   &:active {
-    color: $tc-dark-blue;
+    color: $tc-dark-blue-110;
   }
 
   &:hover {
@@ -86,7 +86,7 @@
   }
 
   &:visited {
-    color: $tc-purple;
+    color: $tc-purple-110;
   }
 }
 
@@ -94,6 +94,6 @@
   @include tc-heading-md;
 
   background: $tc-gray-neutral-light;
-  color: $tc-dark-blue;
+  color: $tc-dark-blue-110;
   padding: 20px 30px;
 }
