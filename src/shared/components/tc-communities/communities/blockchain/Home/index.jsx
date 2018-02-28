@@ -12,7 +12,7 @@ import Banner from 'components/tc-communities/Banner';
 import ImageText from 'components/tc-communities/ImageText';
 // import ResourceCard from 'components/tc-communities/ResourceCard';
 // import NewsSection from 'components/tc-communities/NewsSection';
-// import PT from 'prop-types';
+import PT from 'prop-types';
 
 import JoinCommunity from 'containers/tc-communities/JoinCommunity';
 
@@ -20,12 +20,14 @@ import JoinCommunity from 'containers/tc-communities/JoinCommunity';
 // import IconNetwork from '../../../../../../assets/images/tc-communities/network.svg';
 // import IconMedal from '../../../../../../assets/images/tc-communities/medal.svg';
 
+import BuffaloHackBanner from './BuffaloHackBanner';
 import style from './style.scss';
 import joinButtonStyle from '../themes/join-button.scss';
 
-export default function Home(/* props */) {
+export default function Home({ showBuffaloHackathonBanner }) {
   return (
     <main>
+      {showBuffaloHackathonBanner ? <BuffaloHackBanner /> : null}
       <Banner
         title="The Topcoder Blockchain Community"
         text="Learn about and build the next great decentralized application (DApp) on the Ethereum platform."
@@ -110,12 +112,10 @@ export default function Home(/* props */) {
   );
 }
 
-/*
 Home.defaultProps = {
-  news: [],
+  showBuffaloHackathonBanner: false,
 };
 
 Home.propTypes = {
-  news: PT.arrayOf(PT.shape()),
+  showBuffaloHackathonBanner: PT.bool,
 };
-*/

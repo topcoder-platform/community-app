@@ -1,33 +1,33 @@
 .button {
-  color: #0092ff;
-  display: inline-block;
-  background: white;
-  border: none;
-  border-radius: 20px;
-  font: 700 14px/40px 'Open Sans', sans-serif;
-  height: 40px;
-  margin-top: 24px;
-  text-align: center;
-  text-transform: uppercase;
-  width: 171px;
+  color: #0092ff !important;
+  display: inline-block !important;
+  background: white !important;
+  border: none !important;
+  border-radius: 20px !important;
+  font: 700 14px/35px 'Open Sans', sans-serif !important;
+  height: 40px !important;
+  margin-top: 24px !important;
+  text-align: center !important;
+  text-transform: uppercase !important;
+  width: 171px !important;
 
   &:hover,
   &:active,
   &:focus,
   &:visited {
-    color: #0092ff;
-    outline: none;
-    text-decoration: none;
+    color: #0092ff !important;
+    outline: none !important;
+    text-decoration: none !important;
   }
 
   &.disabled {
-    cursor: not-allowed;
-    opacity: 0.3;
+    cursor: not-allowed !important;
+    opacity: 0.3 !important;
   }
 
   p {
-    display: inline-block;
-    position: relative;
-    top: -7px;
+    display: inline-block !important;
+    position: relative !important;
+    top: -7px !important;
   }
 }
