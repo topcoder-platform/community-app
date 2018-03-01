@@ -1,16 +1,21 @@
 import _ from 'lodash';
-import config from 'utils/config';
+import JoinCommunity from 'containers/tc-communities/JoinCommunity';
+import PT from 'prop-types';
 import React from 'react';
-import { Button } from 'topcoder-react-ui-kit';
 
 import joinButtonStyle from '../../themes/join-button.scss';
 import style from './style.scss';
 
-/* global window */
-
 _.noop(style);
 
-export default function BuffaloHackBanner() {
+const HACKATHON_REG_GROUP_ID = '20000043';
+
+export default function BuffaloHackBanner({
+  userGroups,
+}) {
+  const registered = userGroups
+  && userGroups.find(x => x.id === HACKATHON_REG_GROUP_ID);
+
   return (
     <div styleName="style.container">
       <div styleName="style.content">
@@ -25,21 +30,39 @@ export default function BuffaloHackBanner() {
             Blockchain industry experts will be on-site!
           </p>
           <p styleName="style.date">April 14-15, 2018</p>
-          <Button
-            onClick={() => {
-              let url = encodeURIComponent(
-                `${window.location.href}?join=20000010`,
-              );
-              url = encodeURIComponent(
-                `${config.URL.AUTH}/member?retUrl=${url}&utm_source=blockchain&utm_campaign=buffalohack`,
-              );
-              url = encodeURIComponent(url);
-              window.location = `${config.URL.AUTH}/member/registration?retUrl=${url}&utm_source=blockchain&utm_campaign=buffalohack`;
-            }}
-            theme={joinButtonStyle}
-          >Register Now</Button>
+          {
+            registered ? (
+              <p styleName="style.date">
+                You have been registered, wait for news in your email box.
+              </p>
+            ) : (
+              <JoinCommunity
+                customJoinConfirmationText="You have been registered for the Hackathon!"
+                customTcAuthModalText="You must be a Topcoder member before you can register for the Hackathon. Please, login if you are already a member, register a new member account otherwise."
+                hiddenButtonText={
+                  <p styleName="style.date">
+                    You have been registered, wait for news in your email box.
+                  </p>
+                }
+                joinGroupId={HACKATHON_REG_GROUP_ID}
+                label="Register Now"
+                skipConfirmJoin
+                theme={{ link: joinButtonStyle }}
+              />
+            )
+          }
         </div>
       </div>
     </div>
   );
 }
+
+BuffaloHackBanner.defaultProps = {
+  userGroups: null,
+};
+
+BuffaloHackBanner.propTypes = {
+  userGroups: PT.arrayOf(PT.shape({
+    id: PT.string.isRequired,
+  })),
+};

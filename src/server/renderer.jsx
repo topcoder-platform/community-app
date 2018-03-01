@@ -8,6 +8,7 @@ import config from 'config';
 import forge from 'node-forge';
 import fs from 'fs';
 import path from 'path';
+import qs from 'qs';
 import React from 'react';
 import ReactDOM from 'react-dom/server';
 import serializeJs from 'serialize-javascript';
@@ -70,7 +71,10 @@ export default (req, res) => {
       <Provider store={store}>
         <StaticRouter
           context={context}
-          location={req.url}
+          location={{
+            pathname: req.url,
+            search: `?${qs.stringify(req.query)}`,
+          }}
         >
           <App />
         </StaticRouter>

@@ -27,19 +27,27 @@ export const STATE = {
 export default function JoinCommunity({
   communityId,
   communityName,
+  customJoinConfirmationText,
+  customTcAuthModalText,
   groupIds,
   hideJoinButton,
   join,
+  joinGroupId,
+  hiddenButtonText,
   label,
   resetJoinButton,
   showJoinConfirmModal,
+  skipConfirmJoin,
   state,
   theme,
   token,
   userId,
-  utmCampaign,
 }) {
-  if (state === STATE.HIDDEN) return <div styleName="style.placeholder" />;
+  if (state === STATE.HIDDEN) {
+    return (
+      <div styleName="style.placeholder">{hiddenButtonText}</div>
+    );
+  }
   return (
     <div
       className={theme.container}
@@ -67,7 +75,12 @@ export default function JoinCommunity({
       { state === STATE.JOINED ? (
         <Modal onCancel={hideJoinButton}>
           <h1 styleName="style.modalTitle">Congratulations!</h1>
-          <p styleName="style.modalMsg">You have joined the {communityName}!</p>
+          <p styleName="style.modalMsg">
+            {
+              customJoinConfirmationText
+              || `You have joined the ${communityName}!`
+            }
+          </p>
           <PrimaryButton
             onClick={hideJoinButton}
             theme={{
@@ -80,12 +93,14 @@ export default function JoinCommunity({
         <ConfirmModal
           communityId={communityId}
           communityName={communityName}
+          customTcAuthModalText={customTcAuthModalText}
           groupIds={groupIds}
           join={join}
+          joinGroupId={joinGroupId}
           resetJoinButton={resetJoinButton}
+          skipConfirmJoin={skipConfirmJoin}
           token={token}
           userId={userId}
-          utmCampaign={utmCampaign}
         />
       ) : null}
     </div>
@@ -93,8 +108,13 @@ export default function JoinCommunity({
 }
 
 JoinCommunity.defaultProps = {
+  customJoinConfirmationText: '',
+  customTcAuthModalText: '',
   groupIds: [''],
+  hiddenButtonText: '',
+  joinGroupId: '',
   label: 'Join Community',
+  skipConfirmJoin: false,
   theme: {},
   token: null,
   userId: null,
@@ -104,12 +124,17 @@ JoinCommunity.defaultProps = {
 JoinCommunity.propTypes = {
   communityId: PT.string.isRequired,
   communityName: PT.string.isRequired,
+  customJoinConfirmationText: PT.string,
+  customTcAuthModalText: PT.string,
   groupIds: PT.arrayOf(PT.string),
+  hiddenButtonText: PT.string,
   hideJoinButton: PT.func.isRequired,
   join: PT.func.isRequired,
+  joinGroupId: PT.string,
   label: PT.string,
   resetJoinButton: PT.func.isRequired,
   showJoinConfirmModal: PT.func.isRequired,
+  skipConfirmJoin: PT.bool,
   state: PT.oneOf(_.values(STATE)).isRequired,
   theme: PT.shape(),
   token: PT.string,
