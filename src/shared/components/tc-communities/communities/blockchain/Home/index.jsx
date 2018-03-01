@@ -24,20 +24,30 @@ import BuffaloHackBanner from './BuffaloHackBanner';
 import style from './style.scss';
 import joinButtonStyle from '../themes/join-button.scss';
 
-export default function Home({ showBuffaloHackathonBanner }) {
+export default function Home({
+  showBuffaloHackathonBanner,
+  userGroups,
+}) {
   return (
     <main>
-      {showBuffaloHackathonBanner ? <BuffaloHackBanner /> : null}
-      <Banner
-        title="The Topcoder Blockchain Community"
-        text="Learn about and build the next great decentralized application (DApp) on the Ethereum platform."
-        imageSrc="/community-app-assets/themes/blockchain/home/banner.png"
-      >
-        <JoinCommunity
-          theme={{ link: joinButtonStyle }}
-          label="Join Now"
-        />
-      </Banner>
+      {
+        showBuffaloHackathonBanner ? (
+          <BuffaloHackBanner
+            userGroups={userGroups}
+          />
+        ) : (
+          <Banner
+            title="The Topcoder Blockchain Community"
+            text="Learn about and build the next great decentralized application (DApp) on the Ethereum platform."
+            imageSrc="/community-app-assets/themes/blockchain/home/banner.png"
+          >
+            <JoinCommunity
+              theme={{ link: joinButtonStyle }}
+              label="Join Now"
+            />
+          </Banner>
+        )
+      }
       <Section
         theme={{
           container: style.introContainer,
@@ -114,8 +124,10 @@ export default function Home({ showBuffaloHackathonBanner }) {
 
 Home.defaultProps = {
   showBuffaloHackathonBanner: false,
+  userGroups: null,
 };
 
 Home.propTypes = {
   showBuffaloHackathonBanner: PT.bool,
+  userGroups: PT.arrayOf(PT.object),
 };
