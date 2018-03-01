@@ -8,7 +8,6 @@ import config from 'config';
 import forge from 'node-forge';
 import fs from 'fs';
 import path from 'path';
-import qs from 'qs';
 import React from 'react';
 import ReactDOM from 'react-dom/server';
 import serializeJs from 'serialize-javascript';
@@ -67,14 +66,12 @@ export default (req, res) => {
 
       store,
     };
+
     const appHtml = ReactDOM.renderToString((
       <Provider store={store}>
         <StaticRouter
           context={context}
-          location={{
-            pathname: req.url,
-            search: `?${qs.stringify(req.query)}`,
-          }}
+          location={req.url}
         >
           <App />
         </StaticRouter>

@@ -34,7 +34,7 @@ export default function ChunkLoader({ base, communityId, member, meta }) {
         return (
           <StaticRouter
             context={routeProps.staticContext}
-            location={routeProps.location.pathname}
+            location={routeProps.location}
           >
             <Routes
               base={base}
