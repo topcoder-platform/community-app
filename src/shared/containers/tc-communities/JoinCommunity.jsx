@@ -56,9 +56,11 @@ JoinCommunityContainer.propTypes = {
 function mapStateToProps(state, ownProps) {
   /* We show Join Community button when a visitor is not authenticated, or when
    * he is authenticated and not a member of the community group. */
+  const { joinGroupId } = ownProps;
   let canJoin = !state.auth.profile || !state.auth.profile.groups;
   if (!canJoin) {
-    const int = _.intersection(state.tcCommunities.meta.data.groupIds,
+    const int = _.intersection(
+      joinGroupId ? [joinGroupId] : state.tcCommunities.meta.data.groupIds,
       state.auth.profile.groups.map(g => g.id));
     canJoin = !int.length;
   }
