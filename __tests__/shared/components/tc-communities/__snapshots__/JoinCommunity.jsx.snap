@@ -25,15 +25,19 @@ exports[`Matches shallow shapshot 1`] = `
   <ConfirmModal
     communityId={undefined}
     communityName="ios"
+    customTcAuthModalText=""
     groupIds={
       Array [
         "",
       ]
     }
     join={[Function]}
+    joinGroupId=""
     resetJoinButton={[Function]}
+    skipConfirmJoin={false}
     token="token"
     userId="useId"
+    utmCampaign=""
   />
 </div>
 `;
@@ -83,7 +87,9 @@ exports[`Matches shallow shapshot 2`] = `
 exports[`Matches shallow shapshot 3`] = `
 <div
   className="src-shared-components-tc-communities-JoinCommunity-___style__placeholder___1XfW2"
-/>
+>
+  
+</div>
 `;
 
 exports[`Matches shallow shapshot 4`] = `
@@ -124,9 +130,7 @@ exports[`Matches shallow shapshot 4`] = `
     <p
       className="src-shared-components-tc-communities-JoinCommunity-___style__modalMsg___25f_a"
     >
-      You have joined the 
-      ios
-      !
+      You have joined the ios!
     </p>
     <ThemedButton
       active={false}
@@ -179,15 +183,19 @@ exports[`Matches shallow shapshot 5`] = `
   <ConfirmModal
     communityId={undefined}
     communityName="ios"
+    customTcAuthModalText=""
     groupIds={
       Array [
         "",
       ]
     }
     join={[Function]}
+    joinGroupId=""
     resetJoinButton={[Function]}
+    skipConfirmJoin={false}
     token={null}
     userId="useId"
+    utmCampaign=""
   />
 </div>
 `;

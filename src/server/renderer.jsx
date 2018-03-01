@@ -66,6 +66,7 @@ export default (req, res) => {
 
       store,
     };
+
     const appHtml = ReactDOM.renderToString((
       <Provider store={store}>
         <StaticRouter

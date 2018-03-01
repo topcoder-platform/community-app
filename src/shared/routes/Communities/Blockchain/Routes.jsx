@@ -14,7 +14,7 @@ import config from 'utils/config';
 import Error404 from 'components/Error404';
 import Footer from 'components/tc-communities/Footer2';
 import Header from 'containers/tc-communities/Header';
-import Home from 'components/tc-communities/communities/blockchain/Home';
+import Home from 'containers/tc-communities/blockchain/Home';
 import Learn from 'containers/tc-communities/blockchain/Learn';
 import MetaTags from 'utils/MetaTags';
 import PT from 'prop-types';
