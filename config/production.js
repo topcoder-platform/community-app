@@ -14,6 +14,7 @@ module.exports = {
   SERVER_API_KEY: 'aa9ccf36-3936-450c-9983-097ddba51bef',
   URL: {
     ARENA: 'https://arena.topcoder.com',
+    APP: 'https://community-app.topcoder.com',
     AUTH: 'https://accounts.topcoder.com',
     BASE: 'https://www.topcoder.com',
     BLOG: 'https://www.topcoder.com/blog',

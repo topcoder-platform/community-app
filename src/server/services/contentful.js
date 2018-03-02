@@ -9,17 +9,21 @@ import logger from 'utils/logger';
 import moment from 'moment';
 import qs from 'qs';
 
-import {
-  INDEX_MAXAGE,
-  getIndex as getIndexViaCdn,
-} from 'services/contentful-cms';
-
 /* Holds Contentful CDN API key. */
 const CDN_KEY = config.SECRET.CONTENTFUL.CDN_API_KEY;
 
 /* Holds Contentful CDN URL. */
 const CDN_URL = `https://cdn.contentful.com/spaces/${
   config.SECRET.CONTENTFUL.SPACE_ID}`;
+
+/* Holds the maximal index age [ms].
+ *
+ * Set to 1 minute, which means ~100k API requests to Contentful from our dev
+ * and prod environments (preview API calls apart, but there should be not that
+ * many of them, as the circle of potential editors is edit, compared to that of
+ * the regular website visitors).
+ */
+const INDEX_MAXAGE = 60 * 1000;
 
 /* Holds Contentful Preview API key. */
 const PREVIEW_KEY = config.SECRET.CONTENTFUL.PREVIEW_API_KEY;
@@ -134,6 +138,22 @@ async function getCurrentDashboardAnnouncementsIndexViaCdn(
   if (!res.ok) {
     const MSG = 'Failed to get the index';
     logger.error(MSG, res.statusText);
+    throw new Error(MSG);
+  }
+  return res.json();
+}
+
+/**
+ * Gets the index of assets and entries via Community App CDN.
+ * @param {Number} version Optional. The version of index to fetch. Defaults to
+ *  the latest index version.
+ * @return {Promise}
+ */
+async function getIndexViaCdn(version = getLastVersion()) {
+  const res = await fetch(`${TC_CDN_URL}/index?version=${version}`);
+  if (!res.ok) {
+    const MSG = 'Failed to get the index';
+    logger.error(MSG, res);
     throw new Error(MSG);
   }
   return res.json();

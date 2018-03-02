@@ -85,6 +85,9 @@ module.exports = {
     /* Connector URL of the TC accounts App. */
     ACCOUNTS_APP_CONNECTOR: 'https://accounts.topcoder-dev.com/connector.html',
 
+    /* The remote address where the app is deployed. */
+    APP: 'https://community-app.topcoder-dev.com',
+
     ARENA: 'https://arena.topcoder-dev.com',
     AUTH: 'http://accounts.topcoder-dev.com',
     BASE: 'https://www.topcoder-dev.com',
