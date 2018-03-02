@@ -32,6 +32,9 @@ fi
 # Builds Docker image of the app.
 TAG=$AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/community-app:$CIRCLE_SHA1
 docker build -t $TAG \
+  --build-arg CONTENTFUL_CDN_API_KEY=$CONTENTFUL_CDN_API_KEY \
+  --build-arg CONTENTFUL_PREVIEW_API_KEY=$CONTENTFUL_PREVIEW_API_KEY \
+  --build-arg CONTENTFUL_SPACE_ID=$CONTENTFUL_SPACE_ID \
   --build-arg NODE_ENV=$NODE_ENV \
   --build-arg SERVER_API_KEY=$SERVER_API_KEY \
   --build-arg FILESTACK_API_KEY=$FILESTACK_API_KEY \

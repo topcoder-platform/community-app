@@ -31,12 +31,6 @@ module.exports = {
    * challenges once per this amount of seconds. */
   CHALLENGE_LISTING_AUTO_REFRESH: 300,
 
-  CONTENTFUL_CMS: {
-    CDN_API_KEY: 'b25086ddbd7b3e7aeb4fff61ec0a324bbb01366813b3c9ad0d5ac7a75647409d',
-    PREVIEW_API_KEY: 'ed55979c2d5d18e83e11987f2d163f70e0e6da077ca21ffbd2821c565dfd2842',
-    SPACE: 'b5f1djy59z3a',
-  },
-
   /* API token for logentries.com. The token below is just for local testing of
    * the setup. To override it use LOG_ENTRIES_TOKEN environment variable. */
   LOG_ENTRIES_TOKEN: '816f5574-0d4a-49f9-ab3b-00d791f7c1f7',
@@ -147,5 +141,11 @@ module.exports = {
   /* Secret part of the configuration. Nest into this section any sensitive
    * parameters that should never be send to the client side. */
   SECRET: {
+    /* Space ID and API keys for Contenful CMS. */
+    CONTENTFUL: {
+      CDN_API_KEY: '',
+      PREVIEW_API_KEY: '',
+      SPACE_ID: '',
+    },
   },
 };

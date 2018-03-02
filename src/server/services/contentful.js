@@ -7,12 +7,119 @@ import config from 'config';
 import fetch from 'isomorphic-fetch';
 import logger from 'utils/logger';
 import moment from 'moment';
+import qs from 'qs';
 
 import {
-  CONTENTFUL_CDN,
   INDEX_MAXAGE,
   getIndex as getIndexViaCdn,
 } from 'services/contentful-cms';
+
+/* Holds Contentful CDN API key. */
+const CDN_KEY = config.SECRET.CONTENTFUL.CDN_API_KEY;
+
+/* Holds Contentful CDN URL. */
+const CDN_URL = `https://cdn.contentful.com/spaces/${
+  config.SECRET.CONTENTFUL.SPACE_ID}`;
+
+/* Holds Contentful Preview API key. */
+const PREVIEW_KEY = config.SECRET.CONTENTFUL.PREVIEW_API_KEY;
+
+/* Holds Contentful Preview URL. */
+const PREVIEW_URL = `https://preview.contentful.com/spaces/${
+  config.SECRET.CONTENTFUL.SPACE_ID}`;
+
+/* Holds base URL of Community App CDN. */
+const TC_CDN_URL = `${config.CDN.PUBLIC}/contentful`;
+
+/* GENERAL-PURPOSE CONTETNFUL API SERVICE. */
+
+/**
+ * Auxiliary class that handles communication with Contentful CDN and preview
+ * APIs in the same uniform manner.
+ */
+class ApiService {
+  /**
+   * Creates a new service instance.
+   * @param {String} baseUrl The base API endpoint.
+   * @param {String} key API key.
+   */
+  constructor(baseUrl, key) {
+    this.private = { baseUrl, key };
+  }
+
+  /**
+   * Gets data from the specified endpoing.
+   * @param {String} endpoint
+   * @param {Object} query Optional. URL query to append to the request.
+   * @return {Promise}
+   */
+  async fetch(endpoint, query) {
+    let url = `${this.private.baseUrl}${endpoint}`;
+    if (query) url += `?${qs.stringify(query)}`;
+    const res = await fetch(url, {
+      headers: { Authorization: `Bearer ${this.private.key}` },
+    });
+    if (!res.ok) throw new Error(res.statusText);
+    return res.json();
+  }
+
+  /**
+   * Gets the specified asset.
+   * @param {String} id Asset ID.
+   * @param {Boolean} mapFileUrlToCdn Optional. Pass in `true` to replace the
+   *  actual file path by Community App CDN path.
+   * @return {Promise}
+   */
+  async getAsset(id, mapFileUrlToCdn) {
+    const res = await this.fetch(`/assets/${id}`);
+    if (mapFileUrlToCdn) {
+      let x = res.fields.file.url.split('/');
+      switch (x[2]) {
+        case 'images.contentful.com':
+          x = `${TC_CDN_URL}/images/${x[4]}/${x[5]}/${x[6]}`;
+          break;
+        default:
+          throw new Error('The asset type is not supported yet');
+      }
+      res.fields.file.url = x;
+    }
+    return res;
+  }
+
+  /**
+   * Gets an array of content entries.
+   * @param {Object} query Optional. Query for filtering / sorting of entries.
+   * @return {Promise}
+   */
+  getContentEntries(query) {
+    return this.fetch('/entries', query);
+  }
+
+  /**
+   * Gets the specified content entry.
+   * @param {String} id Entry ID.
+   * @return {Promise}
+   */
+  getContentEntry(id) {
+    return this.fetch(`/entries/${id}`);
+  }
+}
+
+/* Contentful CDN service. */
+export const cdnService = new ApiService(CDN_URL, CDN_KEY);
+
+/* Contentful Preview service. */
+export const previewService = new ApiService(PREVIEW_URL, PREVIEW_KEY);
+
+/**
+ * Generates the last version for content index, and other similar data that
+ * have to be refreshed regularly to keep us in sync with content edits in CMS.
+ * @return {Number}
+ */
+function getLastVersion() {
+  const now = Date.now();
+  return now - (now % INDEX_MAXAGE);
+}
 
 /**
  * Gets the index of current dashboard announcements via CDN.
@@ -20,17 +127,14 @@ import {
  *  the latest version.
  * @return {Promise}
  */
-async function getCurrentDashAnnouncementsViaCdn(version) {
-  let v = version;
-  if (!v) {
-    v = Date.now();
-    v -= v % INDEX_MAXAGE;
-  }
+async function getCurrentDashboardAnnouncementsIndexViaCdn(
+  version = getLastVersion()) {
   const res =
-    await fetch(`${config.CDN.PUBLIC}/contenful/current-dashboard-announcements-index?version=${v}`);
+    await fetch(`${TC_CDN_URL}/current-dashboard-announcements-index?version=${version}`);
   if (!res.ok) {
-    logger.error('Failed to get the index', res.statusText);
-    throw new Error('Failed to get the index');
+    const MSG = 'Failed to get the index';
+    logger.error(MSG, res.statusText);
+    throw new Error(MSG);
   }
   return res.json();
 }
@@ -41,17 +145,13 @@ async function getCurrentDashAnnouncementsViaCdn(version) {
  *  the latest version.
  * @return {Promise}
  */
-async function getNextSyncUrlViaCdn(version) {
-  let v = version;
-  if (!v) {
-    v = Date.now();
-    v -= v % INDEX_MAXAGE;
-  }
+async function getNextSyncUrlViaCdn(version = getLastVersion()) {
   const res =
-    await fetch(`${config.CDN.PUBLIC}/contentful/next-sync-url?version=${v}`);
+    await fetch(`${TC_CDN_URL}/next-sync-url?version=${version}`);
   if (!res.ok) {
-    logger.error('Failed to get the next sync URL', res.statusText);
-    throw new Error('Failed to get the next sync URL');
+    const MSG = 'Failed to get the next sync URL';
+    logger.error(MSG, res.statusText);
+    throw new Error(MSG);
   }
   return res.text();
 }
@@ -186,11 +286,13 @@ async function updateIndex() {
      * await inside the loop is not an error. */
     /* eslint-disable no-await-in-loop */
     let d = await fetch(nextPageUrl, {
-      headers: {
-        Authorization: `Bearer ${config.CONTENTFUL_CMS.CDN_API_KEY}`,
-      },
+      headers: { Authorization: `Bearer ${CDN_KEY}` },
     });
-    if (!d.ok) throw new Error('Failed to update the index');
+    if (!d.ok) {
+      const MSG = 'Failed to update the index';
+      logger.error(MSG, d.statusText);
+      throw new Error(MSG);
+    }
     d = await d.json();
     /* eslint-anable no-await-in-loop */
 
@@ -208,14 +310,13 @@ async function updateIndex() {
  */
 async function initIndex() {
   /* Gets necessary data from CMS. */
-  let d = await fetch(`${CONTENTFUL_CDN}/sync?initial=true`, {
-    headers: {
-      Authorization: `Bearer ${config.CONTENTFUL_CMS.CDN_API_KEY}`,
-    },
+  let d = await fetch(`${CDN_URL}/sync?initial=true`, {
+    headers: { Authorization: `Bearer ${CDN_KEY}` },
   });
   if (!d.ok) {
-    logger.error('Failed to initialize the index', d.statusText);
-    throw new Error('Failed to initialize the index');
+    const MSG = 'Failed to initialize the index';
+    logger.error(MSG, d.statusText);
+    throw new Error(MSG);
   }
   d = await d.json();
 
@@ -257,7 +358,7 @@ export async function getIndex() {
 
     /* These two calls are necessary to cache the updated index by CDN. */
     getIndexViaCdn();
-    getCurrentDashAnnouncementsViaCdn();
+    getCurrentDashboardAnnouncementsIndexViaCdn();
     getNextSyncUrlViaCdn();
   }
 
@@ -309,7 +410,7 @@ let version = Date.now() - INDEX_MAXAGE;
 version -= version % INDEX_MAXAGE;
 Promise.all([
   getIndexViaCdn(version),
-  getCurrentDashAnnouncementsViaCdn(version),
+  getCurrentDashboardAnnouncementsIndexViaCdn(version),
   getNextSyncUrl(version),
 ]).then(([index, dashIndex, next]) => {
   publicIndex = index;
