@@ -15,6 +15,9 @@ export default function Option({ select, selected, title }) {
         role="button"
         tabIndex={0}
       >{title}</div>
+      {
+        selected ? <div styleName="selectedUnderline" /> : null
+      }
     </div>
   );
 }
