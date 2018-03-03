@@ -1,16 +1,25 @@
 @import "~styles/mixins";
 
 .container {
-  @include tc-heading-lg;
+  @include tc-heading-md;
 
-  color: $tc-dark-blue-110;
+  color: $tc-dark-blue-70;
   cursor: pointer;
-  padding: 0 10px 20px;
+  padding: 0 10px;
   margin: 0 10px;
+  text-transform: uppercase;
 }
 
 .selected {
+  color: $tc-black;
+  cursor: default;
+  font-weight: 500;
+}
+
+.selectedUnderline {
   border-bottom: 2px solid $tc-black;
   color: $tc-black;
   cursor: default;
+  margin: 10px auto;
+  width: 70%;
 }

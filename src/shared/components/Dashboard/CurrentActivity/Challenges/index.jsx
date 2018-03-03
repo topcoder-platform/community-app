@@ -3,11 +3,13 @@ import LoadingIndicator from 'components/LoadingIndicator';
 import PT from 'prop-types';
 import React from 'react';
 import Sticky from 'react-stickynode';
+import { Link } from 'topcoder-react-utils';
 
 import * as Filter from 'utils/challenge-listing/filter';
 
 import ChallengeCard from './ChallengeCard';
 import ChallengeFilter from '../ChallengeFilter';
+
 import style from './style.scss';
 
 export default function Challenges({
@@ -57,9 +59,33 @@ export default function Challenges({
               ))
             ) : (
               <div styleName="msg">
-                No active challenges found
                 {
-                  challengeFilter ? ' in the selected community' : null
+                  challengeFilter ? (
+                    'You have no active challenges in the selected community'
+                  ) : (
+                    <div>
+                      <p>
+                        You have no active challenges at this moment. What are
+                        you interested&nbsp;in?
+                        &zwnj;<Link
+                          openNewTab
+                          to={config.URL.ARENA}
+                        >Competitive Programming</Link>?
+                        &zwnj;<Link
+                          openNewTab
+                          to="/challenges?filter[tracks][datasci]=true"
+                        >Data Science</Link>?
+                        &zwnj;<Link
+                          openNewTab
+                          to="/challenges?filter[tracks][design]=true"
+                        >Design</Link>?
+                        &zwnj;<Link
+                          openNewTab
+                          to="/challenges?filter[tracks][develop]=true"
+                        >Software Development</Link>?
+                      </p>
+                    </div>
+                  )
                 }
               </div>
             )
