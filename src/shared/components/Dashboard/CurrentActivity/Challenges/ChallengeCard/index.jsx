@@ -29,6 +29,15 @@ const DAY_MS = 24 * HOUR_MS;
 
 const ALERT_TIME = 24 * HOUR_MS;
 
+function normalizeSubTrackTagForRendering(subTrack) {
+  let x;
+  switch (subTrack) {
+    case 'WEB_DESIGNS': x = 'Web Design'; break;
+    default: x = subTrack;
+  }
+  return _.startCase(_.toLower(x));
+}
+
 export default function ChallengeCard({
   challenge,
   selectChallengeDetailsTab,
@@ -78,18 +87,27 @@ export default function ChallengeCard({
     'Copilot',
   ]).length;
 
-  const showOrLink = _.intersection(roles, [
+  let showOrLink = _.intersection(roles, [
     'Approver',
     'Copilot',
     'Reviewer',
   ]).length;
 
   const submitter = roles.includes('Submitter');
-  // const submitted = userDetails.hasUserSubmittedForReview;
+  const submitted = userDetails.hasUserSubmittedForReview;
   let nextPhase = currentPhases && currentPhases[0];
   if (submitter && nextPhase && nextPhase.phaseType === 'Registration') {
     nextPhase = currentPhases[1];
   }
+
+  const nextPhaseType = _.get(nextPhase, 'phaseType');
+
+  if (submitted && _.intersection(nextPhaseType, [
+    'Appeals',
+    'Appeal Response',
+  ]).length) showOrLink = true;
+
+  const submissionOpen = nextPhaseType === 'Submission';
 
   let statusMsg;
   let deadlineMsg;
@@ -138,7 +156,7 @@ export default function ChallengeCard({
               theme={{ button: style.tag }}
               to={`/challenges?filter[subtracks][0]=${
                 encodeURIComponent(subTrack)}`}
-            >{_.startCase(_.toLower(challenge.subTrack))}</EventTag>
+            >{normalizeSubTrackTagForRendering(challenge.subTrack)}</EventTag>
             {
               isTco ? (
                 <EventTag
@@ -199,7 +217,7 @@ export default function ChallengeCard({
             ) : null
           }
           {
-            submitter ? (
+            submitter && submissionOpen ? (
               <Button
                 size="sm"
                 theme={{ button: style.button }}

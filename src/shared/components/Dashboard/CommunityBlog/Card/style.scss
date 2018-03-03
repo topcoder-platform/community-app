@@ -77,16 +77,10 @@
   position: absolute;
 
   &,
-  &:active {
-    color: $tc-dark-blue-110;
-  }
-
-  &:hover {
-    color: $tc-dark-blue-70;
-  }
-
+  &:active,
+  &:hover,
   &:visited {
-    color: $tc-purple-110;
+    color: $tc-dark-blue-110;
   }
 }
 
@@ -95,5 +89,7 @@
 
   background: $tc-gray-neutral-light;
   color: $tc-dark-blue-110;
+  font-weight: 300;
+  min-height: 100px;
   padding: 20px 30px;
 }

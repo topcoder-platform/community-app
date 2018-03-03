@@ -1,0 +1,30 @@
+/* Specifies environment variables, which, when set, will override their
+ * counterparts from configuration files. */
+
+module.exports = {
+  LOG_ENTRIES_TOKEN: 'LOG_ENTRIES_TOKEN',
+  MOCK_TERMS_SERVICE: 'MOCK_TERMS_SERVICE',
+
+  NEWSLETTER_SIGNUP: {
+    COGNITIVE: {
+      APIKEY: 'COGNITIVE_NEWSLETTER_SIGNUP_APIKEY',
+      URL: 'COGNITIVE_NEWSLETTER_SIGNUP_URL',
+    },
+  },
+
+  FILESTACK: {
+    API_KEY: 'FILESTACK_API_KEY',
+    SUBMISSION_CONTAINER: 'FILESTACK_SUBMISSION_CONTAINER',
+  },
+
+  SEGMENT_IO_API_KEY: 'SEGMENT_IO_API_KEY',
+  SERVER_API_KEY: 'SERVER_API_KEY',
+
+  SECRET: {
+    CONTENTFUL: {
+      CDN_API_KEY: 'CONTENTFUL_CDN_API_KEY',
+      PREVIEW_API_KEY: 'CONTENTFUL_PREVIEW_API_KEY',
+      SPACE_ID: 'CONTENTFUL_SPACE_ID',
+    },
+  },
+};

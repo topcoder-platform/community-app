@@ -4,6 +4,8 @@ import LoadingIndicator from 'components/LoadingIndicator';
 import React from 'react';
 import PT from 'prop-types';
 
+import FilterIcon from '../../../../../assets/images/filter-icon.svg';
+
 import './style.scss';
 
 export default function ChallengeFilter({
@@ -19,7 +21,7 @@ export default function ChallengeFilter({
       <div
         onMouseEnter={() => expand(true)}
         styleName="button"
-      >F</div>
+      ><FilterIcon /></div>
     );
   }
 

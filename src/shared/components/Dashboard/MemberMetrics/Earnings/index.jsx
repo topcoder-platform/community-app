@@ -13,6 +13,8 @@ const PACTS_FULL_URL = `${config.URL.COMMUNITY}/PactsMemberServlet?module=Paymen
 const PACTS_OWED_URL = `${config.URL.COMMUNITY}/PactsMemberServlet?module=PaymentHistory&full_list=false`;
 
 export default function Earnings({ finances, showEarnings }) {
+  if (!showEarnings) return null;
+
   const map = {};
   finances.forEach((x) => { map[x.status] = x; });
 

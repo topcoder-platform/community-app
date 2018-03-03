@@ -59,7 +59,7 @@
 }
 
 .text {
-  @include tc-body-md;
+  @include tc-body-lg;
 }
 
 .title {
@@ -93,20 +93,21 @@
   width: 100%;
 
   .text {
-    @include tc-heading-lg;
+    @include tc-heading-md;
 
     color: $tc-white;
+    font-weight: 100;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
   }
 
   .title {
-    @include tc-heading-lg;
+    @include tc-heading-md;
 
     color: $tc-white;
-    font-weight: 900;
-    margin: 0 30px 0 0;
+    font-weight: 400;
+    margin: 0 15px 0 0;
     white-space: nowrap;
   }
 
