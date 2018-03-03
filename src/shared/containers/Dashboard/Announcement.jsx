@@ -67,6 +67,7 @@ class AnnouncementContainer extends React.Component {
       show,
       switchShowAnnouncement,
     } = this.props;
+
     return (
       <Announcement
         assets={previewId ? previewAssets : activeAssets}

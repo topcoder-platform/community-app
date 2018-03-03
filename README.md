@@ -5,11 +5,12 @@
 New version of Topcoder Community website.
 
 ### Knowledgebase
--   [Mocking Terms for Testing and Development](docs/mocking-terms.md)
 -   [Code Splitting](docs/code-splitting.md)
 -   [Coding Standards](docs/coding-standards.md)
+-   [Dashboard Announcements](docs/dashboard-announcements.md)
 -   [How to Add a New Topcoder Community?](docs/how-to-add-a-new-topcoder-community.md)
 -   [How To Deep-Link (Correct Use of URL Query Params Within The App)](docs/how-to-deep-link.md)
+-   [Mocking Terms for Testing and Development](docs/mocking-terms.md)
 -   [Why Reducer Factories and How to Use Them?](docs/why-reducer-factories-and-how-to-use-them.md)
 
 ### Misc Development Notes

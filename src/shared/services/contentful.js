@@ -97,7 +97,7 @@ async function getIndex() {
  */
 export async function getCurrentDashboardAnnouncementId() {
   if (isServerSide()) return ss.getCurrentDashboardAnnouncementId();
-  updateCache();
+  await updateCache();
   return cachedCurrentDashboardAnnouncementId;
 }
 
