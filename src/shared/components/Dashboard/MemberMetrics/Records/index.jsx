@@ -7,6 +7,10 @@ import Dial from './Dial';
 import LArrow from '../../../../../assets/images/arrow-prev.svg';
 import RArrow from '../../../../../assets/images/arrow-next.svg';
 
+import './style.scss';
+
+/* global window */
+
 /**
  * Transforms stats object to a more convenient array representation.
  * @param {Object} stats
@@ -63,19 +67,26 @@ export default class Records extends React.Component {
   constructor(props) {
     super(props);
     this.state = {};
+    this.check = this.check.bind(this);
+    this.width = 0;
+  }
+
+  componentDidMount() {
+    window.addEventListener('resize', this.check);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.check);
   }
 
   check() {
     if (!this.carousel) return;
     const st = this.carousel.state;
-    const showLeft = Boolean(st.currentSlide);
+    const showLeft = st.left < 0;
     const showRight = st.currentSlide < st.slideCount - st.slidesToScroll;
-    const align = st.slideCount === 'auto'
-    || st.slidesToScroll >= st.slideCount;
     if (showLeft === this.state.showLeft
-    && showRight === this.state.showRight
-    && align === this.state.align) return;
-    this.setState({ align, showLeft, showRight });
+    && showRight === this.state.showRight) return;
+    this.setState({ showLeft, showRight });
   }
 
   render() {
@@ -113,9 +124,7 @@ export default class Records extends React.Component {
     }
 
     return (
-      <div
-        style={{ display: this.state.align ? 'inline-block' : 'block' }}
-      >
+      <div>
         <Carousel
           afterSlide={() => setImmediate(() => this.check())}
           decorators={decorators}
@@ -126,11 +135,10 @@ export default class Records extends React.Component {
           }}
           slidesToScroll="auto"
           slideWidth="200px"
-          width={
-            this.state.align ? (
-              (200 * this.carousel.state.slideCount) + 200
-            ) : '100%'
-          }
+          style={{
+            display: 'flex',
+            justifyContent: 'center',
+          }}
         >
           {
             transformStats(stats).map(item => (
