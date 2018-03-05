@@ -1,4 +1,5 @@
 import _ from 'lodash';
+import Carousel from 'components/Carousel';
 import config from 'utils/config';
 import PT from 'prop-types';
 import React from 'react';
@@ -6,6 +7,8 @@ import React from 'react';
 import { Link } from 'topcoder-react-utils';
 
 import Dial from './Dial';
+import LArrow from '../../../../../assets/images/arrow-prev.svg';
+import RArrow from '../../../../../assets/images/arrow-next.svg';
 
 import './style.scss';
 
@@ -37,24 +40,30 @@ export default function Earnings({ finances, showEarnings }) {
   if (owed && paid) {
     return (
       <div styleName="container">
-        <Dial
-          amount={paid}
-          show={showEarnings}
-          title="Paid"
-          url={PACTS_FULL_URL}
-        />
-        <Dial
-          amount={owed}
-          show={showEarnings}
-          title="Owed"
-          url={PACTS_OWED_URL}
-        />
-        <Dial
-          amount={total}
-          show={showEarnings}
-          title="Total"
-          url={PACTS_FULL_URL}
-        />
+        <Carousel
+          NextButton={RArrow}
+          PrevButton={LArrow}
+          slideWidth="300px"
+        >
+          <Dial
+            amount={paid}
+            show={showEarnings}
+            title="Paid"
+            url={PACTS_FULL_URL}
+          />
+          <Dial
+            amount={owed}
+            show={showEarnings}
+            title="Owed"
+            url={PACTS_OWED_URL}
+          />
+          <Dial
+            amount={total}
+            show={showEarnings}
+            title="Total"
+            url={PACTS_FULL_URL}
+          />
+        </Carousel>
       </div>
     );
   }
