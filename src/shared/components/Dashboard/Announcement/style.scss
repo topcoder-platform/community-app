@@ -5,11 +5,15 @@
   background-size: cover;
   border-bottom: 1px solid $tc-gray-neutral-dark;
   display: flex;
-  height: 480px;
+  min-height: 480px;
   max-width: $screen-lg;
   padding: 30px;
   position: relative;
   width: 100%;
+
+  @include xs-to-sm {
+    flex-direction: column;
+  }
 }
 
 .details {
@@ -81,6 +85,11 @@
 .video {
   flex: 1;
   margin: 35px 30px 35px 0;
+
+  @include xs-to-sm {
+    align-self: stretch;
+    margin-bottom: 0;
+  }
 }
 
 .hidden {
