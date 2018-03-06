@@ -20,10 +20,8 @@ class LeaderboardAvatar extends Component {
     const { onClick, openNewTab, plusOne, url } = this.props;
     const { member } = this.state;
     const targetURL = url || `${config.URL.BASE}/members/${member.handle}`;
-    let photoURL = member.photoURL;
-    if (photoURL && !photoURL.startsWith('http')) {
-      photoURL = `${config.URL.BASE}/${photoURL}`;
-    }
+    const photoURL = `${config.CDN.PUBLIC}/avatar/${
+      encodeURIComponent(member.photoURL)}?size=30`;
     return (
       <Link
         enforceA
