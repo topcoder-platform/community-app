@@ -202,9 +202,11 @@ export default class TopcoderHeader extends React.Component {
       searchOpened,
     } = this.props;
 
-    const normalizedProfile = _.clone(profile);
-    normalizedProfile.photoURL = `${config.CDN.PUBLIC}/avatar/${
-      encodeURIComponent(normalizedProfile.photoURL)}?size=32`;
+    const normalizedProfile = profile && _.clone(profile);
+    if (profile && profile.photoURL) {
+      normalizedProfile.photoURL = `${config.CDN.PUBLIC}/avatar/${
+        encodeURIComponent(normalizedProfile.photoURL)}?size=32`;
+    }
 
     const closeSearch = this.closeSearch;
 

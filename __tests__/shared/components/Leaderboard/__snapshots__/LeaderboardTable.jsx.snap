@@ -54,7 +54,7 @@ exports[`Matches shallow shapshot 1`] = `
               }
             }
             themePriority="adhoc-context-default"
-            url="some.fake.string"
+            url="https://d1aahxkjiobka8.cloudfront.net/avatar/some.fake.string?size=65"
           />
         </span>
       </td>
@@ -112,7 +112,7 @@ exports[`Matches shallow shapshot 1`] = `
               }
             }
             themePriority="adhoc-context-default"
-            url="some.fake.string"
+            url="https://d1aahxkjiobka8.cloudfront.net/avatar/some.fake.string?size=65"
           />
         </span>
       </td>
@@ -170,7 +170,7 @@ exports[`Matches shallow shapshot 1`] = `
               }
             }
             themePriority="adhoc-context-default"
-            url="some.fake.string"
+            url="https://d1aahxkjiobka8.cloudfront.net/avatar/some.fake.string?size=65"
           />
         </span>
       </td>
@@ -228,7 +228,7 @@ exports[`Matches shallow shapshot 1`] = `
               }
             }
             themePriority="adhoc-context-default"
-            url="https://www.topcoder-dev.com/assets/a.jpg"
+            url="https://d1aahxkjiobka8.cloudfront.net/avatar/%2Fassets%2Fa.jpg?size=65"
           />
         </span>
       </td>
