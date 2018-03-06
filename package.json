@@ -50,6 +50,7 @@
     "html-to-text": "^3.3.0",
     "immutable": "^3.8.2",
     "isomorphic-fetch": "^2.2.1",
+    "jimp": "^0.2.28",
     "le_node": "^1.7.0",
     "lodash": "^4.17.4",
     "markdown-it": "^8.4.0",
