@@ -21,7 +21,7 @@ export default async function getAvatar(url, size) {
   if (!img.ok) throw new Error('Failed to get user avatar');
   img = await jimp.read(await img.buffer());
   return new Promise((resolve, reject) => {
-    img.scaleToFit(size, size, jimp.RESIZE_BEZIER)
+    img.scaleToFit(size, size, jimp.RESIZE_BICUBIC)
       .quality(90).getBuffer(jimp.MIME_JPEG, (err, res) => {
         if (err) reject(err);
         else resolve(res);
