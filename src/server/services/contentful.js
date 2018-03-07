@@ -79,7 +79,7 @@ class ApiService {
     if (mapFileUrlToCdn) {
       let x = res.fields.file.url.split('/');
       switch (x[2]) {
-        case 'images.contentful.com':
+        case 'images.ctfassets.net':
           x = `${TC_CDN_URL}/images/${x[4]}/${x[5]}/${x[6]}`;
           break;
         default:

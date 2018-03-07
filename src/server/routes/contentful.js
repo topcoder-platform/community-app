@@ -70,7 +70,7 @@ routes.use('/entries/:id/preview', async (req, res) => {
 
 /* Proxies image requests to Contentful API. */
 routes.use('/images/:id/:version/:name', (req, res) => {
-  res.redirect(`https://images.contentful.com/${
+  res.redirect(`https://images.ctfassets.net/${
     config.SECRET.CONTENTFUL.SPACE_ID}/${req.params.id}/${
     req.params.version}/${req.params.name}`);
 });
