@@ -9,10 +9,12 @@ router.use((req, res, next) => {
   next();
 });
 
-router.use('/:path', async (req, res) => {
-  const path = decodeURIComponent(req.params.path);
-  const size = Number(req.query.size);
-  res.send(await getAvatar(path, size));
+router.use('/:path', async (req, res, next) => {
+  try {
+    const path = decodeURIComponent(req.params.path);
+    const size = Number(req.query.size);
+    res.send(await getAvatar(path, size));
+  } catch (err) { next(err); }
 });
 
 export default router;
