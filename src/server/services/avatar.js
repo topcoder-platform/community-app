@@ -5,7 +5,7 @@
 
 import config from 'config';
 import fetch from 'isomorphic-fetch';
-import jimp from 'jimp';
+import sharp from 'sharp';
 
 /**
  * Gets user avatar and scales it to the specified size.
@@ -17,14 +17,10 @@ import jimp from 'jimp';
  */
 export default async function getAvatar(url, size) {
   const u = url && url.startsWith('/') ? `${config.URL.BASE}/${url}` : url;
-  let img = await fetch(u);
+  const img = await fetch(u);
   if (!img.ok) throw new Error('Failed to get user avatar');
-  img = await jimp.read(await img.buffer());
-  return new Promise((resolve, reject) => {
-    img.scaleToFit(size, size, jimp.RESIZE_BICUBIC)
-      .quality(90).getBuffer(jimp.MIME_JPEG, (err, res) => {
-        if (err) reject(err);
-        else resolve(res);
-      });
-  });
+  return sharp(await img.buffer())
+    .resize(size, size).max()
+    .toFormat('jpeg')
+    .toBuffer();
 }
