@@ -62,8 +62,11 @@ export default function PodiumSpot(props) {
     competitor,
   } = props;
 
-  const photoUrl = `${config.CDN.PUBLIC}/avatar/${
-    encodeURIComponent(competitor['challenge_stats.photo_url'])}?size=160`;
+  let photoUrl = competitor['challenge_stats.photo_url'];
+  if (photoUrl) {
+    photoUrl = `${config.CDN.PUBLIC}/avatar/${
+      encodeURIComponent(photoUrl)}?size=160`;
+  }
 
   return (
     <div styleName={`styles.PodiumSpot styles.PodiumSpot--${PODIUM_ITEM_MODIFIER[competitor.rank]}`}>

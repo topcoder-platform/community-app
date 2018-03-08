@@ -32,8 +32,11 @@ export default function LeaderboardTable(props) {
   } = props;
   const renderTableRows = comps => (
     comps.map((competitor) => {
-      const photoUrl = `${config.CDN.PUBLIC}/avatar/${
-        encodeURIComponent(competitor['challenge_stats.photo_url'])}?size=65`;
+      let photoUrl = competitor['challenge_stats.photo_url'];
+      if (photoUrl) {
+        photoUrl = `${config.CDN.PUBLIC}/avatar/${
+          encodeURIComponent(photoUrl)}?size=65`;
+      }
       return (
         <tr key={competitor.rank}>
           <td styleName="styles.col-rank">{competitor.rank}</td>
