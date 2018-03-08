@@ -32,8 +32,11 @@ function Tip(props) {
     </span>
   )); */
   const { photoLink } = props.user;
-  const src = `${config.CDN.PUBLIC}/avatar/${
-    encodeURIComponent(photoLink)}?size=50`;
+  let src = photoLink;
+  if (src) {
+    src = `${config.CDN.PUBLIC}/avatar/${
+      encodeURIComponent(src)}?size=50`;
+  }
 
   return (
     <div styleName="user-avatar-tooltip">
