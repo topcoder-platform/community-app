@@ -202,6 +202,12 @@ export default class TopcoderHeader extends React.Component {
       searchOpened,
     } = this.props;
 
+    const normalizedProfile = profile && _.clone(profile);
+    if (profile && profile.photoURL) {
+      normalizedProfile.photoURL = `${config.CDN.PUBLIC}/avatar/${
+        encodeURIComponent(normalizedProfile.photoURL)}?size=32`;
+    }
+
     const closeSearch = this.closeSearch;
 
     const mainMenu = MENU.map((item) => {
@@ -239,10 +245,10 @@ export default class TopcoderHeader extends React.Component {
     let userMenuHandle;
     let userSubMenu;
 
-    if (profile) {
+    if (normalizedProfile) {
       userAvatar = (
         <div styleName="avatar">
-          <Avatar url={profile.photoURL} />
+          <Avatar url={normalizedProfile.photoURL} />
         </div>
       );
 
@@ -256,7 +262,7 @@ export default class TopcoderHeader extends React.Component {
         }, {
           enforceA: true,
           icon: <IconNavProfile />,
-          link: `${BASE_URL}/members/${profile.handle}`,
+          link: `${BASE_URL}/members/${normalizedProfile.handle}`,
           title: 'My Profile',
         }, {
           icon: <IconNavWallet />,
@@ -300,11 +306,11 @@ export default class TopcoderHeader extends React.Component {
         >
           <div
             style={{
-              color: getRatingColor(_.get(profile, 'maxRating.rating', 0)),
+              color: getRatingColor(_.get(normalizedProfile, 'maxRating.rating', 0)),
             }}
             styleName="user-menu-handle"
           >
-            {profile.handle}
+            {normalizedProfile.handle}
           </div>
           {userAvatar}
         </div>
@@ -392,7 +398,7 @@ export default class TopcoderHeader extends React.Component {
           mainMenu={MENU}
           open={openMobileMenu}
           opened={mobileMenuOpened}
-          profile={profile}
+          profile={normalizedProfile}
           userMenu={userSubMenu}
         />
       </div>

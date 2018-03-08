@@ -73,7 +73,7 @@ function getOgImage(challenge) {
   if (challenge.name.startsWith('RUX -')) return ogRuxChallenge;
   if (challenge.prizes) {
     const totalPrize = challenge.prizes.reduce((p, sum) => p + sum, 0);
-    if (totalPrize > 3000) return ogBigPrizesChallenge;
+    if (totalPrize > 2500) return ogBigPrizesChallenge;
   }
   switch (challenge.subTrack) {
     case SUBTRACKS.FIRST_2_FINISH: return ogFirst2Finish;

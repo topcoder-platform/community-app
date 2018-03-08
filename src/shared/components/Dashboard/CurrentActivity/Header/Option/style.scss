@@ -3,7 +3,7 @@
 .container {
   @include tc-heading-md;
 
-  color: $tc-dark-blue-70;
+  color: $tc-gray-50;
   cursor: pointer;
   padding: 0 10px;
   margin: 0 10px;
@@ -13,11 +13,11 @@
 .selected {
   color: $tc-black;
   cursor: default;
-  font-weight: 500;
+  font-weight: 700;
 }
 
 .selectedUnderline {
-  border-bottom: 2px solid $tc-black;
+  border-bottom: 2px solid $tc-dark-blue-70;
   color: $tc-black;
   cursor: default;
   margin: 10px auto;

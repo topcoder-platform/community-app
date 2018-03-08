@@ -22,9 +22,10 @@
 }
 
 .title {
-  @include tc-heading-lg;
+  @include tc-heading-md;
 
   padding: 0 30px;
+  text-transform: uppercase;
 }
 
 .totalNumber {
