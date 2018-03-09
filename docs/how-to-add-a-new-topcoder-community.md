@@ -3,7 +3,10 @@
 
 To add a new community with the name **demo**, we should follow the following protocol:
 
-1.  All community-specific assets should be added to the `/src/assets/themes/demo` folder.
+1.  All community-specific assets should be added to the
+    `/src/assets/themes/demo`, or `/src/assets/images/communities/demo` folder
+    (prefer the later for new communities).
+
 2.  Community meta-data file should be created under the path `/src/server/tc-communities/demo/metadata.json`:
     ```json
     {
