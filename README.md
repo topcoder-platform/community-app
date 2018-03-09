@@ -5,6 +5,7 @@
 New version of Topcoder Community website.
 
 ### Knowledgebase
+-   [CDN: User Avatars](docs/cdn-user-avatars.md)
 -   [Code Splitting](docs/code-splitting.md)
 -   [Coding Standards](docs/coding-standards.md)
 -   [Dashboard Announcements](docs/dashboard-announcements.md)

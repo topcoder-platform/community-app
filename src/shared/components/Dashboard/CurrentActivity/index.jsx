@@ -68,7 +68,7 @@ export default class MyChallenges extends React.Component {
     } = this.props;
 
     const myCommunities = communities.filter(x =>
-      _.intersection(userGroups, x.groupIds).length)
+      _.intersection(userGroups, x.groupIds).length && !x.hidden)
       .map((community) => {
         const filter = Filter.getFilterFunction(community.challengeFilter);
         const res = _.clone(community);

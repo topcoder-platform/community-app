@@ -6,6 +6,9 @@
 import React from 'react';
 import PT from 'prop-types';
 
+import BadgeSrmEngagementHonor from
+  'assets/images/dashboard/badge-srm-engagement-honor.png';
+
 import Badge from './Badge';
 
 import './styles.scss';
@@ -23,6 +26,7 @@ const MAP = {
   'Predix Community': 'predixCommunity',
   'Solved Hard Div1 Problem in SRM': 'solvedHardDiv1ProblemInSrm',
   'Solved Hard Div2 Problem in SRM': 'solvedHardDiv2ProblemInSrm',
+  'SRM Engagement Honor': 'srmEngagementHonor',
   'SRM Winner Div 1': 'srmWinnerDiv1',
   'SRM Winner Div 2': 'srmWinnerDiv2',
   'Studio Cup Top Five': 'studioCupTopFive',
@@ -35,11 +39,18 @@ const MAP = {
   'TopCoder Reviewer': 'topcoderReviewer',
 };
 
+/* Holds the mapping between achievement names and optional XL size badges. */
+const XL_MAP = {
+  'SRM Engagement Honor': BadgeSrmEngagementHonor,
+};
+
 export default function Header(props) {
-  const { achievements } = props;
-
+  const {
+    achievements,
+    showXlBadge,
+    xlBadge,
+  } = props;
   const badges = achievements.filter(x => MAP[x.description]);
-
   return (
     <div styleName="container">
       <h1 styleName="title">Dashboard</h1>
@@ -49,7 +60,9 @@ export default function Header(props) {
             <Badge
               badge={MAP[description]}
               key={description}
+              showXl={show => showXlBadge(show && description)}
               title={description}
+              xlBadge={xlBadge === description && XL_MAP[xlBadge]}
             />
           ))
         }
@@ -64,4 +77,6 @@ Header.defaultProps = {
 
 Header.propTypes = {
   achievements: PT.arrayOf(PT.object),
+  showXlBadge: PT.func.isRequired,
+  xlBadge: PT.string.isRequired,
 };
