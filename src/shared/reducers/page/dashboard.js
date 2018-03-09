@@ -30,7 +30,7 @@ function onShowChallengeFilter(state, { payload }) {
 
 /**
  * Shows/hides member earnings in the dashboard.
- * @param {*} state
+ * @param {Object} state
  * @param {Boolean} payload `true` to show; `false` to hide.
  * @return {Object} New state
  */
@@ -40,6 +40,16 @@ function onShowEarnings(state, { payload }) {
     cookies.set('showEarningsInDashboard', JSON.stringify(payload));
   }
   return { ...state, showEarnings: payload };
+}
+
+/**
+ * Shows/hides XL versions of the badges.
+ * @param {Object} state
+ * @param {String} payload XL badge to show.
+ * @return {Object} New state.
+ */
+function onShowXlBadge(state, { payload }) {
+  return { ...state, xlBadge: payload };
 }
 
 /**
@@ -77,12 +87,14 @@ function create(state = {}) {
     [a.showAnnouncement]: onShowAnnouncement,
     [a.showChallengeFilter]: onShowChallengeFilter,
     [a.showEarnings]: onShowEarnings,
+    [a.showXlBadge]: onShowXlBadge,
     [a.switchChallengeFilter]: onSwitchChallengeFilter,
     [a.switchTab]: onSwitchTab,
   }, _.defaults(state, {
     challengeFilter: '',
     tab: TABS.MY_ACTIVE_CHALLENGES,
     showAnnouncement: true,
+    xlBadge: '',
   }));
 }
 

@@ -40,6 +40,18 @@ function showEarnings(show) {
 }
 
 /**
+ * Payload creator for the action that shows/hides XL badge version in the
+ * dashboard.
+ * @param {String} name Optional. Name of the achievement for which the XL
+ *  badge should be shown. The user, anyway, should have this achievement to
+ *  see this badge. If undefined, then no badges will be expanded.
+ * @return {String}
+ */
+function showXlBadge(name) {
+  return name || '';
+}
+
+/**
  * Payload creator for the action that switches challenge filter.
  * @param {String} communityId
  * @return {String}
@@ -63,6 +75,7 @@ export default createActions({
       SHOW_ANNOUNCEMENT: showAnnouncement,
       SHOW_CHALLENGE_FILTER: showChallengesFilter,
       SHOW_EARNINGS: showEarnings,
+      SHOW_XL_BADGE: showXlBadge,
       SWITCH_CHALLENGE_FILTER: switchChallengeFilter,
       SWITCH_TAB: switchTab,
     },

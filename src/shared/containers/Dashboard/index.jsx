@@ -167,6 +167,7 @@ export class DashboardPageContainer extends React.Component {
       setChallengeListingFilter,
       showChallengeFilter,
       showEarnings,
+      showXlBadge,
       srms,
       srmsLoading,
       stats,
@@ -183,6 +184,7 @@ export class DashboardPageContainer extends React.Component {
       unregisterFromChallenge,
       urlQuery,
       userGroups,
+      xlBadge,
     } = this.props;
 
     let announcementPreviewId;
@@ -207,6 +209,7 @@ export class DashboardPageContainer extends React.Component {
         setChallengeListingFilter={setChallengeListingFilter}
         showChallengeFilter={showChallengeFilter}
         showEarnings={showEarnings}
+        showXlBadge={showXlBadge}
         srms={srms}
         srmsLoading={srmsLoading}
         stats={stats}
@@ -221,6 +224,7 @@ export class DashboardPageContainer extends React.Component {
         unregisterFromChallenge={id =>
           unregisterFromChallenge({ tokenV2, tokenV3 }, id)}
         userGroups={userGroups.map(x => x.id)}
+        xlBadge={xlBadge}
       />
     );
   }
@@ -272,6 +276,7 @@ DashboardPageContainer.propTypes = {
   setChallengeListingFilter: PT.func.isRequired,
   showChallengeFilter: PT.bool.isRequired,
   showEarnings: PT.bool,
+  showXlBadge: PT.func.isRequired,
   srms: PT.arrayOf(PT.object).isRequired,
   srmsLoading: PT.bool.isRequired,
   srmsTimestamp: PT.number.isRequired,
@@ -291,6 +296,7 @@ DashboardPageContainer.propTypes = {
   unregisterFromChallenge: PT.func.isRequired,
   urlQuery: PT.string.isRequired,
   userGroups: PT.arrayOf(PT.object).isRequired,
+  xlBadge: PT.string.isRequired,
 };
 
 function mapStateToProps(state, props) {
@@ -340,6 +346,7 @@ function mapStateToProps(state, props) {
     tokenV3: state.auth.tokenV3,
     urlQuery: props.location.search.slice(1),
     userGroups: _.get(state.auth.profile, 'groups', []),
+    xlBadge: dash.xlBadge,
   };
 }
 
@@ -402,6 +409,7 @@ function mapDispatchToProps(dispatch) {
       dispatch(cl.setFilter(filter));
       dispatch(cls.selectBucket(BUCKETS.ALL));
     },
+    showXlBadge: name => dispatch(dash.showXlBadge(name)),
     switchChallengeFilter: filter =>
       dispatch(dash.switchChallengeFilter(filter)),
     switchShowChallengeFilter:
