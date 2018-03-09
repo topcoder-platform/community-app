@@ -3,7 +3,6 @@
  */
 /* global window */
 
-import _ from 'lodash';
 import LoadingIndicator from 'components/LoadingIndicator';
 import PT from 'prop-types';
 import React from 'react';
@@ -44,8 +43,8 @@ export default function Editor({
   let content;
   if (!projectDetails) content = <LoadingIndicator />;
   else {
-    const billingAccounts = _.get(projectDetails, 'billingAccountIds', [])
-      .map(id => ({ label: id, value: id }));
+    const billingAccounts = (projectDetails.billingAccounts || [])
+      .map(({ id, name }) => ({ label: name, value: id }));
     content = billingAccounts.length ? (
       <div styleName="field">
         <div styleName="field">
@@ -147,7 +146,7 @@ export default function Editor({
               autoBlur
               disabled={!neu}
               labelKey="name"
-              onChange={project => selectProject(project.id)}
+              onChange={project => selectProject(project && project.id)}
               options={projects}
               valueKey="id"
               value={Number(selectedProjectId)}
