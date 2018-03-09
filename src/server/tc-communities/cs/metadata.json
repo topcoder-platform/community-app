@@ -1,0 +1,48 @@
+{
+  "authorizedGroupIds": [
+    "20000000", "20000005", "200000011", "20000016"
+  ],
+  "challengeFilter": {
+    "groupIds": ["20000000"]
+  },
+  "challengeListing": {
+    "ignoreCommunityFilterByDefault": true,
+    "openChallengesInNewTabs": false
+  },
+  "communityId": "cs",
+  "communityName": "CS Community",
+  "groupIds": ["20000000"],
+  "logos": [{
+    "img": "/community-app-assets/themes/cs/wipro-logo.png",
+    "url": "http://www.wipro.com/"
+  }, {
+    "img": "/community-app-assets/themes/cs/logo_topcoder_with_name.svg",
+    "url": "https://www.topcoder.com"
+  }],
+  "additionalLogos": [
+    "/community-app-assets/themes/cs/topgear_logo.png"
+  ],
+  "hideSearch": true,
+  "chevronOverAvatar": true,
+  "footerText": "© Copyright Topcoder, 2018",
+  "menuItems": [
+    {
+      "title": "Home",
+      "url": "/"
+    }, {
+      "title": "Learn",
+      "openNewTab": true,
+      "url": "https://topgear-app.wipro.com"
+    }, {
+      "title": "Challenges",
+      "url": "/challenges"
+    }, {
+      "title": "FAQ",
+      "url": "/faq"
+    }
+  ],
+  "newsFeed": "http://www.topcoder.com/feed",
+  "subdomains": ["cs"],
+  "description": "CS community.",
+  "image":"wipro.jpg"
+}

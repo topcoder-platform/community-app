@@ -1,0 +1,18 @@
+@import '~styles/mixins';
+
+.container {
+  padding: 50px 0;
+  padding-bottom: 50px;
+}
+
+.title {
+  color: #646363;
+  font-family: 'Akkurat bold', sans-serif;
+  font-size: 21px;
+  padding-top: 0;
+
+  @include xs-to-sm {
+    font-size: 18px;
+    padding-top: 0;
+  }
+}

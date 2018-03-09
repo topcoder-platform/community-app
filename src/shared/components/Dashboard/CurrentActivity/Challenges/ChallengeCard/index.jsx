@@ -121,7 +121,7 @@ export default function ChallengeCard({
     deadlineMsg = Math.abs(deadlineMsg);
 
     if (late) msgStyleModifier = ' alert';
-    else if (deadlineMsg < 24 * 60 * 60 * 1000) msgStyleModifier = ' warning';
+    else if (deadlineMsg < ALERT_TIME) msgStyleModifier = ' warning';
 
     let format;
     if (deadlineMsg > DAY_MS) format = 'D[d] H[h]';
@@ -131,9 +131,21 @@ export default function ChallengeCard({
     deadlineMsg = moment.duration(deadlineMsg).format(format);
     deadlineMsg = late ? `Late for ${deadlineMsg}` : `Ends in ${deadlineMsg}`;
   } else if (moment(registrationStartDate).isAfter(now)) {
-    if (moment(registrationStartDate).diff(now) < ALERT_TIME) {
-      msgStyleModifier = ' warning';
-    }
+    deadlineMsg = moment(registrationStartDate).diff(now);
+    const late = deadlineMsg <= 0;
+    deadlineMsg = Math.abs(deadlineMsg);
+
+    if (late) msgStyleModifier = ' alert';
+    else if (deadlineMsg < ALERT_TIME) msgStyleModifier = ' warning';
+
+    let format;
+    if (deadlineMsg > DAY_MS) format = 'D[d] H[h]';
+    else if (deadlineMsg > HOUR_MS) format = 'H[h] m[min]';
+    else format = 'm[min] s[s]';
+
+    deadlineMsg = moment.duration(deadlineMsg).format(format);
+    deadlineMsg = late ? `Late by ${deadlineMsg}` : `Starts in ${deadlineMsg}`;
+
     statusMsg = 'Scheduled';
   } else if (status === 'COMPLETED') {
     statusMsg = 'Completed';

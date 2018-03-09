@@ -1,0 +1,151 @@
+@import '~styles/mixins';
+
+.continueButton {
+  display: block;
+  margin: auto;
+}
+
+.coursesContainer {
+  padding-bottom: 60px;
+}
+
+.faqContainer {
+  padding-top: 0;
+}
+
+.faqTitle {
+  padding-top: 0;
+}
+
+.highlighted {
+  background: #ffc;
+}
+
+.ddashUnderline {
+  border-bottom: 1px dashed #333;
+}
+
+.resourcesTitle {
+  padding-bottom: 50px;
+  padding-top: 0;
+
+  @include xs-to-sm {
+    font-size: 36px;
+    padding-bottom: 30px;
+  }
+}
+
+.resourcesContainer {
+  padding-bottom: 60px;
+
+  @include xs-to-sm {
+    padding-bottom: 50px;
+  }
+}
+
+.bannerContainer {
+  height: 252px;
+
+  @include xs-to-sm {
+    height: 300px;
+  }
+}
+
+.bannerContent {
+  bottom: 0;
+  top: 0;
+  transform: none;
+  width: 600px;
+
+  @include xs-to-sm {
+    top: auto;
+    width: 100%;
+  }
+}
+
+.bannerContentInner {
+  @include xs-to-sm {
+    padding-bottom: 20px;
+    padding-top: 48px;
+  }
+}
+
+.learnBasicsContainer {
+  padding-bottom: 0;
+}
+
+.joinnowWrap {
+  margin-top: 10px;
+
+  @include xs-to-sm {
+    margin-top: 20px;
+    text-align: center;
+  }
+}
+
+.joinnow {
+  color: #0092ff;
+  display: inline-block;
+  border: 1px solid #0092ff;
+  border-radius: 20px;
+  font: 700 14px/40px 'Open Sans', sans-serif;
+  height: 40px;
+  text-align: center;
+  text-transform: uppercase;
+  width: 171px;
+
+  &:hover,
+  &:active,
+  &:focus,
+  &:visited {
+    color: #0092ff;
+    outline: none;
+    text-decoration: none;
+  }
+}
+
+.message {
+  color: #333;
+  font: 16px/22px 'Akkurat regular', sans-serif;
+  opacity: 0.7;
+
+  a {
+    &,
+    &:hover,
+    &:active,
+    &:focus,
+    &:visited {
+      color: #0092ff;
+      font-family: 'Times New Roman', Times, serif;
+      outline: none;
+      text-decoration: underline;
+    }
+  }
+
+  em {
+    font-family: 'Times New Roman', Times, serif;
+    font-style: italic;
+  }
+
+  ol {
+    list-style: decimal inside;
+    padding-left: 24px;
+  }
+
+  p {
+    margin-bottom: 24px;
+  }
+
+  strong {
+    font-weight: bold;
+  }
+}
+
+.tutorialsTitle {
+  padding-top: 0;
+}
+
+.tutorialsContent {
+  flex-wrap: wrap;
+  justify-content: center;
+}

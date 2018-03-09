@@ -29,6 +29,7 @@
 
   color: $tc-gray-40;
   margin: 0 0 20px;
+  min-height: 15px;
 
   &.warning {
     color: $tc-red-110;
@@ -44,6 +45,13 @@
   @include tc-label-sm;
 
   vertical-align: top;
+
+  &,
+  &:active,
+  &:focus,
+  &:visited {
+    color: $tc-gray-40;
+  }
 
   &:hover {
     color: $tc-dark-blue-110;

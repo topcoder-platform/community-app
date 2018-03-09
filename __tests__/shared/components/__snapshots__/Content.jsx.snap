@@ -320,6 +320,14 @@ exports[`Matches shallow shapshot 1`] = `
     <li>
       <Link
         replace={false}
+        to="/community/cs"
+      >
+        CS community
+      </Link>
+    </li>
+    <li>
+      <Link
+        replace={false}
         to="/community/demo-expert"
       >
         Demo Expert Community
