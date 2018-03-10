@@ -42,6 +42,12 @@
   }
 }
 
+.last {
+  &:nth-child(2) {
+    justify-content: center;
+  }
+}
+
 /* TODO: Rename into container. */
 .winner {
   &.place-1 {
@@ -71,20 +77,6 @@
     }
   }
 
-  &.place-2-alt {
-    justify-content: center;
-    width: 100%;
-
-    .flag {
-      background-color: $tc-silver;
-      color: $tc-silver-110;
-
-      &::after {
-        border-top: solid 20px $tc-silver;
-      }
-    }
-  }
-
   &.place-3 {
     .flag {
       background-color: $tc-bronze;
@@ -103,6 +95,10 @@
 
   &:nth-child(2n+3) {
     border-left: none;
+  }
+
+  &:nth-child(n + 3) {
+    max-width: 50%;
   }
 
   @include xs-to-sm {
