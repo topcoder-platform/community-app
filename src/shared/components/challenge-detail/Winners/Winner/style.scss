@@ -42,8 +42,10 @@
   }
 }
 
+/* TODO: Rename into container. */
 .winner {
   &.place-1 {
+    justify-content: center;
     min-width: 100%;
 
     .flag {
@@ -57,6 +59,8 @@
   }
 
   &.place-2 {
+    border-right: 1px solid $tc-gray-10;
+
     .flag {
       background-color: $tc-silver;
       color: $tc-silver-110;
@@ -68,6 +72,7 @@
   }
 
   &.place-2-alt {
+    justify-content: center;
     width: 100%;
 
     .flag {
@@ -91,6 +96,11 @@
     }
   }
 
+  &:nth-child(2n+4) {
+    border-left: none;
+    border-right: 1px solid $tc-gray-10;
+  }
+
   &:nth-child(2n+3) {
     border-left: none;
   }
@@ -106,9 +116,9 @@
   min-width: 50%;
   overflow: hidden;
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
-  border: 1px solid $tc-gray-10;
+  border-bottom: 1px solid $tc-gray-10;
   border-top: none;
   padding: 4 * $base-unit;
 }
