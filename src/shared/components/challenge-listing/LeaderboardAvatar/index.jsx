@@ -22,8 +22,13 @@ class LeaderboardAvatar extends Component {
     const targetURL = url || `${config.URL.BASE}/members/${member.handle}`;
     let photoURL = member.photoURL;
     if (photoURL) {
+      /* Note: 50px is larger than we really need here (the avatar size is
+       * 30px), but it matches the target avatar size in the tooltip, shown
+       * by the challenge listing when an avatar is hovered. Having the same
+       * size will ensure that the avatar in tooltip always appears immediately.
+       */
       photoURL = `${config.CDN.PUBLIC}/avatar/${
-        encodeURIComponent(photoURL)}?size=30`;
+        encodeURIComponent(photoURL)}?size=50`;
     }
     return (
       <Link

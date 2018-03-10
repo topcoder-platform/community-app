@@ -3,7 +3,7 @@ import config from 'utils/config';
 import React from 'react';
 import PT from 'prop-types';
 import moment from 'moment';
-import LeaderboardAvatar from 'components/LeaderboardAvatar';
+import LeaderboardAvatar from 'components/challenge-listing/LeaderboardAvatar';
 import { Link } from 'topcoder-react-utils';
 import { DETAIL_TABS } from 'actions/challenge';
 import 'moment-duration-format';

@@ -3,27 +3,30 @@ $prize-space-15: $base-unit * 3;
 $prize-radius-15: $corner-radius * 7 + 1;
 
 .medal {
-  background: $tc-gray-20;
+  background: $tc-dark-blue-30;
   display: inline-block;
   margin-right: $base-unit;
   border-radius: $prize-radius-15;
   width: $prize-space-15;
   height: $prize-space-15;
   font-weight: 900;
-  color: $tc-gray-80;
+  color: $tc-dark-blue-110;
   text-align: center;
   line-height: $prize-space-15;
 
   &.place-1 {
     background: $tc-gold;
+    color: $tc-gold-130;
   }
 
   &.place-2 {
     background: $tc-silver;
+    color: $tc-silver-130;
   }
 
   &.place-3 {
     background: $tc-bronze;
+    color: $tc-bronze-130;
   }
 }
 
