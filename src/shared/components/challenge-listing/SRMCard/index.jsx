@@ -2,7 +2,7 @@ import TrackIcon from 'components/TrackIcon';
 import React from 'react';
 import PT from 'prop-types';
 import moment from 'moment';
-import LeaderboardAvatar from 'components/LeaderboardAvatar';
+import LeaderboardAvatar from 'components/challenge-listing/LeaderboardAvatar';
 
 import TrackAbbreviationTooltip from '../Tooltips/TrackAbbreviationTooltip';
 import PastSRMCard from './PastSRMCard';

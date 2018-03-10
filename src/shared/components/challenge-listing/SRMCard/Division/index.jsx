@@ -1,6 +1,6 @@
 import PT from 'prop-types';
 import React from 'react';
-import LeaderboardAvatar from 'components/LeaderboardAvatar';
+import LeaderboardAvatar from 'components/challenge-listing/LeaderboardAvatar';
 
 import Tooltip from 'components/Tooltip';
 import RegistrantsIcon from '../../Icons/RegistrantsIcon';

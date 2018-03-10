@@ -1,7 +1,7 @@
 import React from 'react';
 import Renderer from 'react-test-renderer/shallow';
 import TU from 'react-dom/test-utils';
-import LeaderboardAvatar from 'components/LeaderboardAvatar';
+import LeaderboardAvatar from 'components/challenge-listing/LeaderboardAvatar';
 import { StaticRouter } from 'react-router-dom';
 
 const mockData = {
