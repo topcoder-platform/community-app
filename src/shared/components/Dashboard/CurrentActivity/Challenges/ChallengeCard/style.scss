@@ -27,7 +27,7 @@
 .deadlineMsg {
   @include tc-label-sm;
 
-  color: $tc-gray-40;
+  color: $tc-gray-80;
   margin: 0 0 20px;
   min-height: 15px;
 
@@ -68,6 +68,7 @@
   @include tc-label-md;
 
   background: $tc-gray-neutral-light;
+  min-height: 40px;
   overflow: hidden;
   padding: 10px;
   text-overflow: ellipsis;
