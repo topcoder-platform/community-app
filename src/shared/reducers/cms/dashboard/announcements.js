@@ -1,5 +1,6 @@
 import _ from 'lodash';
 import actions from 'actions/cms/dashboard/announcements';
+import logger from 'utils/logger';
 import { handleActions } from 'redux-actions';
 import { fireErrorMessage } from 'utils/errors';
 
@@ -28,6 +29,7 @@ function onGetActiveInit(state, { payload }) {
  */
 function onGetActiveDone(state, { error, payload }) {
   if (error) {
+    logger.error('Failed to get the active announcement', payload);
     fireErrorMessage('Failed to get the active announcement', '');
     return state;
   }

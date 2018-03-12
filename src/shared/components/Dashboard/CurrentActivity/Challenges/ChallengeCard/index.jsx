@@ -11,14 +11,14 @@ import React from 'react';
 import { Link } from 'topcoder-react-utils';
 
 import {
+  Button,
   // DangerButton,
-  DataScienceTrackTag,
+  // DataScienceTrackTag,
   DataScienceTrackEventTag,
-  DesignTrackTag,
+  // DesignTrackTag,
   DesignTrackEventTag,
-  DevelopmentTrackTag,
+  // DevelopmentTrackTag,
   DevelopmentTrackEventTag,
-  PrimaryButton,
 } from 'topcoder-react-ui-kit';
 
 import style from './style.scss';
@@ -28,6 +28,15 @@ const HOUR_MS = 60 * 60 * 1000;
 const DAY_MS = 24 * HOUR_MS;
 
 const ALERT_TIME = 24 * HOUR_MS;
+
+function normalizeSubTrackTagForRendering(subTrack) {
+  let x;
+  switch (subTrack) {
+    case 'WEB_DESIGNS': x = 'Web Design'; break;
+    default: x = subTrack;
+  }
+  return _.startCase(_.toLower(x));
+}
 
 export default function ChallengeCard({
   challenge,
@@ -47,19 +56,19 @@ export default function ChallengeCard({
   } = challenge;
 
   let EventTag;
-  let TrackTag;
+  // let TrackTag;
   switch (track) {
     case 'DATA_SCIENCE':
       EventTag = DataScienceTrackEventTag;
-      TrackTag = DataScienceTrackTag;
+      // TrackTag = DataScienceTrackTag;
       break;
     case 'DESIGN':
       EventTag = DesignTrackEventTag;
-      TrackTag = DesignTrackTag;
+      // TrackTag = DesignTrackTag;
       break;
     case 'DEVELOP':
       EventTag = DevelopmentTrackEventTag;
-      TrackTag = DevelopmentTrackTag;
+      // TrackTag = DevelopmentTrackTag;
       break;
     default:
   }
@@ -78,18 +87,27 @@ export default function ChallengeCard({
     'Copilot',
   ]).length;
 
-  const showOrLink = _.intersection(roles, [
+  let showOrLink = _.intersection(roles, [
     'Approver',
     'Copilot',
     'Reviewer',
   ]).length;
 
   const submitter = roles.includes('Submitter');
-  // const submitted = userDetails.hasUserSubmittedForReview;
+  const submitted = userDetails.hasUserSubmittedForReview;
   let nextPhase = currentPhases && currentPhases[0];
   if (submitter && nextPhase && nextPhase.phaseType === 'Registration') {
     nextPhase = currentPhases[1];
   }
+
+  const nextPhaseType = _.get(nextPhase, 'phaseType');
+
+  if (submitted && _.intersection(nextPhaseType, [
+    'Appeals',
+    'Appeal Response',
+  ]).length) showOrLink = true;
+
+  const submissionOpen = nextPhaseType === 'Submission';
 
   let statusMsg;
   let deadlineMsg;
@@ -103,7 +121,7 @@ export default function ChallengeCard({
     deadlineMsg = Math.abs(deadlineMsg);
 
     if (late) msgStyleModifier = ' alert';
-    else if (deadlineMsg < 24 * 60 * 60 * 1000) msgStyleModifier = ' warning';
+    else if (deadlineMsg < ALERT_TIME) msgStyleModifier = ' warning';
 
     let format;
     if (deadlineMsg > DAY_MS) format = 'D[d] H[h]';
@@ -113,9 +131,21 @@ export default function ChallengeCard({
     deadlineMsg = moment.duration(deadlineMsg).format(format);
     deadlineMsg = late ? `Late for ${deadlineMsg}` : `Ends in ${deadlineMsg}`;
   } else if (moment(registrationStartDate).isAfter(now)) {
-    if (moment(registrationStartDate).diff(now) < ALERT_TIME) {
-      msgStyleModifier = ' warning';
-    }
+    deadlineMsg = moment(registrationStartDate).diff(now);
+    const late = deadlineMsg <= 0;
+    deadlineMsg = Math.abs(deadlineMsg);
+
+    if (late) msgStyleModifier = ' alert';
+    else if (deadlineMsg < ALERT_TIME) msgStyleModifier = ' warning';
+
+    let format;
+    if (deadlineMsg > DAY_MS) format = 'D[d] H[h]';
+    else if (deadlineMsg > HOUR_MS) format = 'H[h] m[min]';
+    else format = 'm[min] s[s]';
+
+    deadlineMsg = moment.duration(deadlineMsg).format(format);
+    deadlineMsg = late ? `Late by ${deadlineMsg}` : `Starts in ${deadlineMsg}`;
+
     statusMsg = 'Scheduled';
   } else if (status === 'COMPLETED') {
     statusMsg = 'Completed';
@@ -129,19 +159,21 @@ export default function ChallengeCard({
       <div>
         <div styleName="header">
           <div styleName="tags">
-            <TrackTag
+            <EventTag
               onClick={() =>
                 setImmediate(() =>
                   setChallengeListingFilter({ subtracks: [subTrack] }),
                 )
               }
+              theme={{ button: style.tag }}
               to={`/challenges?filter[subtracks][0]=${
                 encodeURIComponent(subTrack)}`}
-            >{_.startCase(_.toLower(challenge.subTrack))}</TrackTag>
+            >{normalizeSubTrackTagForRendering(challenge.subTrack)}</EventTag>
             {
               isTco ? (
                 <EventTag
                   openNewTab
+                  theme={{ button: style.tag }}
                   to="https://tco18.topcoder.com"
                 >TCO</EventTag>
               ) : null
@@ -171,8 +203,6 @@ export default function ChallengeCard({
             to={`${config.URL.FORUMS}${forumEndpoint}`}
           >Forum</Link>
         </div>
-      </div>
-      <div>
         <div styleName="statusPanel">
           <h3 styleName={`statusMsg${msgStyleModifier}`}>{statusMsg}</h3>
           <div styleName={`deadlineMsg${msgStyleModifier}`}>
@@ -180,31 +210,31 @@ export default function ChallengeCard({
           </div>
           {
             showDirectLink ? (
-              <PrimaryButton
+              <Button
                 openNewTab
                 size="sm"
                 theme={{ button: style.button }}
                 to={`${config.URL.BASE}/direct/contest/detail.action?projectId=${id}`}
-              >Direct</PrimaryButton>
+              >Direct</Button>
             ) : null
           }
           {
             showOrLink ? (
-              <PrimaryButton
+              <Button
                 openNewTab
                 size="sm"
                 theme={{ button: style.button }}
                 to={`${config.URL.ONLINE_REVIEW}/review/actions/ViewProjectDetails?method=viewProjectDetails&pid=${id}`}
-              >Online Review</PrimaryButton>
+              >Online Review</Button>
             ) : null
           }
           {
-            submitter ? (
-              <PrimaryButton
+            submitter && submissionOpen ? (
+              <Button
                 size="sm"
                 theme={{ button: style.button }}
                 to={`/challenges/${id}/submit`}
-              >Submit</PrimaryButton>
+              >Submit</Button>
             ) : null
           }
           {
@@ -220,6 +250,8 @@ export default function ChallengeCard({
             */
           }
         </div>
+      </div>
+      <div>
         <div styleName="roles">{roles.join(', ')}</div>
       </div>
     </div>

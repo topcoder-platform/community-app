@@ -9,6 +9,7 @@
   cursor: pointer;
   height: 45px;
   margin: 10px;
+  padding: 5px 10px;
   min-width: 45px;
   text-align: center;
 }
@@ -37,6 +38,6 @@
   &.selected,
   &:hover {
     background-color: $tc-white;
-    color: $tc-dark-blue;
+    color: $tc-dark-blue-110;
   }
 }

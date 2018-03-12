@@ -12,6 +12,11 @@ module.exports = {
 
       /[\\/]node_modules[\\/]xml2json/,
 
+      /* We might import some server-side services from isomorphic code, to use
+       * them at the server-side only; but these should be always ignored by
+       * the Webpack. */
+      /server[\\/]services[\\/]contentful/,
+
       /* This module is a part of requireWeak(..) implementation, it must be
        * ignored by Webpack, so that the modules required with this function
        * are not bundled. */

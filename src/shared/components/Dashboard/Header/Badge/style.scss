@@ -1,7 +1,8 @@
 .badge {
   background: url('assets/images/badges.png');
   height: 48px;
-  margin: 1px;
+  margin: 1px 5px;
+  position: absolute;
   width: 48px;
 }
 
@@ -53,6 +54,10 @@
   background-position: -48px -624px;
 }
 
+.srmEngagementHonor {
+  background-position: -146px -671px;
+}
+
 .srmWinnerDiv1 {
   background-position: -144px -528px;
 }
@@ -91,4 +96,13 @@
 
 .topcoderReviewer {
   background-position: -192px -288px;
+}
+
+.xlBadge {
+  height: 128px;
+  left: -40px;
+  position: absolute;
+  top: -40px;
+  width: 128px;
+  z-index: 6;
 }

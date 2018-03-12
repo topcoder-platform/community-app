@@ -5,9 +5,10 @@
 }
 
 .challengeTabLinks {
+  color: $tc-gray-40;
   display: flex;
   justify-content: space-between;
-  padding: 10px 20px 10px 0;
+  padding: 10px;
 }
 
 .container {
@@ -18,6 +19,7 @@
   justify-content: space-between;
   margin: 10px;
   max-width: 250px;
+  min-height: 360px;
   overflow: hidden;
   width: 100%;
 }
@@ -25,15 +27,16 @@
 .deadlineMsg {
   @include tc-label-sm;
 
-  margin: 0 0 5px;
+  color: $tc-gray-80;
+  margin: 0 0 20px;
+  min-height: 15px;
 
   &.warning {
-    color: $tc-orange-70;
-    font-weight: bold;
+    color: $tc-red-110;
   }
 
   &.alert {
-    color: $tc-red;
+    color: $tc-red-110;
     font-weight: bold;
   }
 }
@@ -43,22 +46,31 @@
 
   vertical-align: top;
 
+  &,
+  &:active,
+  &:focus,
+  &:visited {
+    color: $tc-gray-40;
+  }
+
   &:hover {
-    color: $tc-dark-blue;
+    color: $tc-dark-blue-110;
   }
 }
 
 .header {
   background: $tc-gray-neutral-light;
-  padding: 10px 20px;
+  min-height: 85px;
+  padding: 10px;
 }
 
 .roles {
-  @include tc-body-md;
+  @include tc-label-md;
 
   background: $tc-gray-neutral-light;
+  min-height: 40px;
   overflow: hidden;
-  padding: 10px 20px;
+  padding: 10px;
   text-overflow: ellipsis;
   white-space: nowrap;
 }
@@ -67,14 +79,9 @@
   @include tc-heading-md;
   @include roboto-light;
 
-  &.warning {
-    color: $tc-orange-70;
-    font-weight: bold;
-  }
-
   &.alert {
-    color: $tc-red;
-    font-weight: bold;
+    color: $tc-red-110;
+    font-weight: 300;
   }
 }
 
@@ -82,15 +89,19 @@
   align-items: center;
   display: flex;
   flex-direction: column;
-  padding: 20px 20px 40px;
+  padding: 20px;
+}
+
+.tag {
+  margin: 0 5px 0 0;
 }
 
 .tags {
-  padding: 5px 0;
+  margin-bottom: 5px;
 }
 
 .title {
-  @include tc-heading-sm;
+  @include tc-label-md;
 
   display: block;
 
@@ -102,6 +113,6 @@
   }
 
   &:hover {
-    color: $tc-dark-blue;
+    color: $tc-dark-blue-110;
   }
 }

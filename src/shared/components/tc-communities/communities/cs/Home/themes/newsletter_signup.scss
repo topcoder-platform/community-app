@@ -1,0 +1,86 @@
+@import '~styles/mixins';
+
+.container {
+  height: 180px;
+
+  &::before {
+    background-color: #f8f8f8;
+  }
+}
+
+.content {
+  padding: 20px;
+}
+
+.title {
+  color: #333;
+  font-family: 'Akkurat bold', sans-serif;
+  font-size: 21px;
+
+  @include xs-to-sm {
+    font-size: 18px;
+  }
+}
+
+.text {
+  color: #646363;
+  font-family: 'Akkurat bold', sans-serif;
+  font-size: 16px;
+  margin-top: 20px;
+}
+
+.form {
+  display: inline-block;
+  margin-top: 20px;
+  overflow: visible;
+}
+
+input:not([type="checkbox"]).formEmail {
+  background-color: #fff;
+  border: 1px solid #00a2e0;
+  border-radius: 40px;
+  border-bottom-right-radius: 0;
+  border-top-right-radius: 0;
+  color: #646363;
+  font-family: 'Akkurat light', sans-serif;
+  font-size: 16px;
+  line-height: 40px;
+  height: 40px;
+
+  @include xs-to-sm {
+    width: 50%;
+  }
+
+  @include placeholder {
+    color: #646363;
+    font-family: 'Akkurat light', sans-serif;
+    font-size: 16px;
+    line-height: 40px;
+    text-transform: none;
+  }
+
+  &:hover,
+  &:active,
+  &:focus {
+    border: 1px solid #00a2e0;
+  }
+}
+
+.formButton {
+  background: #00a2e0;
+  font-family: 'Akkurat regular', sans-serif;
+  font-size: 16px;
+  line-height: 40px;
+  color: #fff;
+  border: 0;
+  border-radius: 40px;
+  border-bottom-left-radius: 0;
+  border-top-left-radius: 0;
+  text-transform: none;
+  width: auto;
+  padding: 0 30px 0 20px;
+
+  @include xs-to-sm {
+    width: 135px;
+  }
+}

@@ -5,7 +5,6 @@ import PT from 'prop-types';
 import React from 'react';
 import YouTubeVideo from 'components/YouTubeVideo';
 import { PrimaryButton } from 'topcoder-react-ui-kit';
-import { getFileUrl } from 'services/contentful-cms';
 
 import style from './style.scss';
 
@@ -26,7 +25,7 @@ export default function Announcement({
     );
   }
 
-  if (!announcement.fields) return null;
+  if (!announcement || !announcement.fields) return null;
 
   const {
     backgroundImage,
@@ -76,7 +75,7 @@ export default function Announcement({
       <div
         styleName="container"
         style={{
-          backgroundImage: background && `url(${getFileUrl(background)})`,
+          backgroundImage: background && `url(${background})`,
         }}
       >
         { preview ? <h1 styleName="previewLabel">Preview</h1> : null }

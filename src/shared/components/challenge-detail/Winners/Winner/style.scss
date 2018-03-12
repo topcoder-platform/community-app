@@ -42,8 +42,16 @@
   }
 }
 
+.last {
+  &:nth-child(2) {
+    justify-content: center;
+  }
+}
+
+/* TODO: Rename into container. */
 .winner {
   &.place-1 {
+    justify-content: center;
     min-width: 100%;
 
     .flag {
@@ -57,18 +65,7 @@
   }
 
   &.place-2 {
-    .flag {
-      background-color: $tc-silver;
-      color: $tc-silver-110;
-
-      &::after {
-        border-top: solid 20px $tc-silver;
-      }
-    }
-  }
-
-  &.place-2-alt {
-    width: 100%;
+    border-right: 1px solid $tc-gray-10;
 
     .flag {
       background-color: $tc-silver;
@@ -91,8 +88,17 @@
     }
   }
 
+  &:nth-child(2n+4) {
+    border-left: none;
+    border-right: 1px solid $tc-gray-10;
+  }
+
   &:nth-child(2n+3) {
     border-left: none;
+  }
+
+  &:nth-child(n + 3) {
+    max-width: 50%;
   }
 
   @include xs-to-sm {
@@ -106,9 +112,9 @@
   min-width: 50%;
   overflow: hidden;
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
-  border: 1px solid $tc-gray-10;
+  border-bottom: 1px solid $tc-gray-10;
   border-top: none;
   padding: 4 * $base-unit;
 }

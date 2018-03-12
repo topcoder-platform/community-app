@@ -33,8 +33,9 @@ export default function LeaderboardTable(props) {
   const renderTableRows = comps => (
     comps.map((competitor) => {
       let photoUrl = competitor['challenge_stats.photo_url'];
-      if (photoUrl && (photoUrl[0] === '/')) {
-        photoUrl = config.URL.BASE + photoUrl;
+      if (photoUrl) {
+        photoUrl = `${config.CDN.PUBLIC}/avatar/${
+          encodeURIComponent(photoUrl)}?size=65`;
       }
       return (
         <tr key={competitor.rank}>

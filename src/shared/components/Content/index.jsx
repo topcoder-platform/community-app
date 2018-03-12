@@ -126,6 +126,9 @@ export default function Content() {
           <Link to="/community/community-2">Community 2</Link>
         </li>
         <li>
+          <Link to="/community/cs">CS community</Link>
+        </li>
+        <li>
           <Link to="/community/demo-expert">Demo Expert Community</Link>
         </li>
         <li>

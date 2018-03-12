@@ -54,7 +54,7 @@ export default function ChallengeListingRoute() {
         return (
           <StaticRouter
             context={renderProps.staticContext}
-            location={renderProps.location.pathname}
+            location={renderProps.location}
           >
             <ChallengeListing
               {...renderProps}

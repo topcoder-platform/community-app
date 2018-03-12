@@ -5,6 +5,7 @@
   "communityId": "tc-prod-dev",
   "communityName": "Topcoder Product Development",
   "groupIds": ["20000013"],
+  "hidden": true,
   "terms": [21193,21153],
   "logos": [{
     "img": "/community-app-assets/themes/tc-prod-dev/logo_topcoder_with_name.svg",

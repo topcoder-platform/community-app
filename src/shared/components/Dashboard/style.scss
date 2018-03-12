@@ -4,6 +4,7 @@
   background: $tc-gray-neutral-dark;
   flex: 1;
   padding: 20px 30px;
+  width: 100%;
 
   @include xs-to-sm {
     padding: 0;

@@ -1,7 +1,7 @@
 @import "~styles/mixins";
 
 .container {
-  padding: 30px 0 20px;
+  padding: 60px 0 30px;
 }
 
 .content {
@@ -14,11 +14,11 @@
 }
 
 .link {
-  color: $tc-dark-blue;
+  color: $tc-dark-blue-110;
 
   &:active,
   &:visited {
-    color: $tc-dark-blue;
+    color: $tc-dark-blue-110;
   }
 
   &:hover {
@@ -26,9 +26,16 @@
   }
 }
 
+.linksContainer {
+  @include tc-body-md;
+
+  padding: 20px 20px 0;
+  text-align: center;
+}
+
 .title {
   @include tc-heading-lg;
 
-  padding: 0 30px;
+  padding: 0 30px 20px;
   text-align: center;
 }

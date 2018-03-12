@@ -23,7 +23,7 @@
   &:active,
   &:focus,
   &:visited {
-    color: $tc-dark-blue;
+    color: $tc-dark-blue-110;
   }
 
   &:hover {
@@ -43,7 +43,16 @@
 .msg {
   @include tc-heading-md;
 
+  max-width: 640px;
   padding: 20px 0 0;
+
+  a,
+  a:active,
+  a:focus,
+  a:hover,
+  a:visited {
+    color: $tc-dark-blue-110;
+  }
 }
 
 .sticky {

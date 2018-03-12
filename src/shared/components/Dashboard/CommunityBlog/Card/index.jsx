@@ -8,11 +8,14 @@ export default function Card({
   text,
   title,
 }) {
+  const normalizedLink =
+    link.replace(/^https:\/\/wwwtc\.staging\.wpengine\.com/,
+      'https://www.topcoder.com');
   return (
     <div styleName="container">
       <h1 styleName="title">
         <a
-          href={link}
+          href={normalizedLink}
           rel="noopener noreferrer"
           target="_blank"
         >{title}</a>
@@ -25,7 +28,7 @@ export default function Card({
       />
       <div styleName="fade" />
       <a
-        href={link}
+        href={normalizedLink}
         rel="noopener noreferrer"
         styleName="readMore"
         target="_blank"

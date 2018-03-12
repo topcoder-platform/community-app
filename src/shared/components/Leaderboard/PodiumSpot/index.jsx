@@ -63,8 +63,9 @@ export default function PodiumSpot(props) {
   } = props;
 
   let photoUrl = competitor['challenge_stats.photo_url'];
-  if (photoUrl && (photoUrl[0] === '/')) {
-    photoUrl = config.URL.BASE + photoUrl;
+  if (photoUrl) {
+    photoUrl = `${config.CDN.PUBLIC}/avatar/${
+      encodeURIComponent(photoUrl)}?size=160`;
   }
 
   return (

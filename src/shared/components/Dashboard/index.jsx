@@ -25,6 +25,7 @@ export default function Dashboard({
   setChallengeListingFilter,
   showChallengeFilter,
   showEarnings,
+  showXlBadge,
   srms,
   srmsLoading,
   stats,
@@ -38,6 +39,7 @@ export default function Dashboard({
   tcBlogPosts,
   unregisterFromChallenge,
   userGroups,
+  xlBadge,
 }) {
   return (
     <div styleName="container">
@@ -45,6 +47,8 @@ export default function Dashboard({
         <Header
           achievements={achievements}
           achievementsLoading={achievementsLoading}
+          showXlBadge={showXlBadge}
+          xlBadge={xlBadge}
         />
         <Announcement
           hidePreviewMetaData
@@ -103,6 +107,7 @@ Dashboard.propTypes = {
   setChallengeListingFilter: PT.func.isRequired,
   showChallengeFilter: PT.bool.isRequired,
   showEarnings: PT.bool.isRequired,
+  showXlBadge: PT.func.isRequired,
   srms: PT.arrayOf(PT.object).isRequired,
   srmsLoading: PT.bool.isRequired,
   stats: PT.shape().isRequired,
@@ -116,4 +121,5 @@ Dashboard.propTypes = {
   tcBlogPosts: PT.arrayOf(PT.object).isRequired,
   unregisterFromChallenge: PT.func.isRequired,
   userGroups: PT.arrayOf(PT.object).isRequired,
+  xlBadge: PT.string.isRequired,
 };

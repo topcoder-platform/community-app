@@ -6,18 +6,19 @@
   margin: 0 auto;
   padding: 20px 30px;
   text-align: center;
+  width: 300px;
 }
 
 .content {
   @include tc-heading-xl;
 
   color: $tc-yellow-110;
-  margin: 20px 20px 0;
+  margin: 10px 20px 0;
   white-space: nowrap;
 }
 
 .title {
-  @include tc-body-lg;
+  @include tc-body-md;
 
   border-bottom: 1px solid $tc-gray-20;
   color: $tc-gray-40;

@@ -23,8 +23,10 @@ const CommunityTile = (props) => {
           ) : (
             <div styleName="statsInner">
               <div styleName="stats-item">
-                <div styleName="value">{stats.numMembers || 0}</div>
-                <div styleName="label">Registrants</div>
+                <div styleName="value">
+                  {(stats.numMembers || 0).toLocaleString()}
+                </div>
+                <div styleName="label">Members</div>
               </div>
               <div styleName="stats-item">
                 <div styleName="value">{stats.numChallenges || 0}</div>

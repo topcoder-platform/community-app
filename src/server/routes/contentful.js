@@ -3,60 +3,93 @@
  */
 
 import config from 'config';
-import fetch from 'isomorphic-fetch';
 import express from 'express';
 
 import {
+  cdnService,
   getIndex,
   getCurrentDashboardAnnouncementId,
   getCurrentDashboardAnnouncementsIndex,
+  getNextSyncUrl,
+  previewService,
 } from '../services/contentful';
-
-const BASE_URL =
-  `https://cdn.contentful.com/spaces/${config.CONTENTFUL_CMS.SPACE}`;
-const KEY = config.CONTENTFUL_CMS.CDN_API_KEY;
 
 const routes = express.Router();
 
-/* Proxies asset requests to Contentful CDN.
- * TODO: Move the actual logic to the service. */
-routes.use('/assets/:id', async (req, res) => {
-  const x = await fetch(`${BASE_URL}/assets/${req.params.id}`, {
-    headers: {
-      Authorization: `Bearer ${KEY}`,
-    },
-  });
-  if (!x.ok) res.sendStatus(x.status);
-  else res.json(await x.json());
+/* Sets Access-Control-Allow-Origin header to avoid CORS error.
+ * TODO: Replace the wildcard value by an appropriate origin filtering. */
+routes.use((req, res, next) => {
+  res.set('Access-Control-Allow-Origin', '*');
+  next();
 });
 
-routes.use('/current-dashboard-announcement-id', async (req, res) => {
-  res.send(await getCurrentDashboardAnnouncementId());
+/* Proxies asset requests to Contentful API. */
+routes.use('/assets/:id', async (req, res, next) => {
+  try {
+    res.send(await cdnService.getAsset(req.params.id, true));
+  } catch (err) { next(err); }
 });
 
-routes.use('/current-dashboard-announcements-index', async (req, res) => {
-  res.send(await getCurrentDashboardAnnouncementsIndex());
+/* Proxies asset preview requests to Contentful API. */
+routes.use('/assets/:id/preview', async (req, res, next) => {
+  try {
+    res.send(await previewService.getAsset(req.params.id, true));
+  } catch (err) { next(err); }
 });
 
-routes.use('/index', async (req, res) => {
-  res.send(await getIndex());
+/* Returns ID of the current dashboard announcement. */
+routes.use('/current-dashboard-announcement-id', async (req, res, next) => {
+  try {
+    res.set('Cache-Control', `max-age=${1000}`);
+    res.send(await getCurrentDashboardAnnouncementId());
+  } catch (err) { next(err); }
 });
 
-/* Proxies content requests to Contentful CDN.
- * TODO: Move the actual logic to the service. */
-routes.use('/entries/:id', async (req, res) => {
-  const x = await fetch(`${BASE_URL}/entries/${req.params.id}`, {
-    headers: {
-      Authorization: `Bearer ${KEY}`,
-    },
-  });
-  if (!x.ok) res.sendStatus(x.status);
-  else res.json(await x.json());
+/* Returns public index of current dashboard announcements. */
+routes.use('/current-dashboard-announcements-index', async (req, res, next)
+=> {
+  try {
+    res.set('Cache-Control', `max-age=${1000}`);
+    res.send(await getCurrentDashboardAnnouncementsIndex());
+  } catch (err) { next(err); }
 });
 
+/* Returns index of assets and content. */
+routes.use('/index', async (req, res, next) => {
+  try {
+    res.set('Cache-Control', `max-age=${1000}`);
+    res.send(await getIndex());
+  } catch (err) { next(err); }
+});
+
+/* Returns URL for the next sync of assets and content index with Contentful
+ * API. */
+routes.use('/next-sync-url', async (req, res, next) => {
+  try {
+    res.set('Cache-Control', `max-age=${1000}`);
+    res.send(await getNextSyncUrl());
+  } catch (err) { next(err); }
+});
+
+/* Proxies content requests to Contentful API. */
+routes.use('/entries/:id', async (req, res, next) => {
+  try {
+    res.send(await cdnService.getContentEntry(req.params.id));
+  } catch (err) { next(err); }
+});
+
+/* Proxies content preview requests to Contentful API. */
+routes.use('/entries/:id/preview', async (req, res, next) => {
+  try {
+    res.send(await previewService.getContentEntry(req.params.id));
+  } catch (err) { next(err); }
+});
+
+/* Proxies image requests to Contentful API. */
 routes.use('/images/:id/:version/:name', (req, res) => {
-  res.redirect(`//images.contentful.com/${config.CONTENTFUL_CMS.SPACE}/${
-    req.params.id}/${req.params.version}/${req.params.name}`);
+  res.redirect(`https://images.ctfassets.net/${
+    config.SECRET.CONTENTFUL.SPACE_ID}/${req.params.id}/${
+    req.params.version}/${req.params.name}`);
 });
 
 export default routes;

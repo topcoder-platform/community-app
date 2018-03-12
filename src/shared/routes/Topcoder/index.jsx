@@ -26,7 +26,7 @@ export default function ChunkLoader() {
         return (
           <StaticRouter
             context={routeProps.staticContext}
-            location={routeProps.location.pathname}
+            location={routeProps.location}
           ><Routes /></StaticRouter>
         );
       }}

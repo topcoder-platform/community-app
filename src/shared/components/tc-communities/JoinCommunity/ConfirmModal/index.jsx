@@ -12,6 +12,7 @@
 import config from 'utils/config';
 import Modal from 'components/Modal';
 import PT from 'prop-types';
+import qs from 'qs';
 import React from 'react';
 import { PrimaryButton, SecondaryButton } from 'topcoder-react-ui-kit';
 import style from './style.scss';
@@ -19,28 +20,43 @@ import style from './style.scss';
 export default function ConfirmModal({
   communityId,
   communityName,
+  customTcAuthModalText,
   groupIds,
   join,
+  joinGroupId,
   resetJoinButton,
+  skipConfirmJoin,
   token,
   userId,
 }) {
+  let text;
+  if (userId) {
+    text = <p>Do you want to join {communityName}?</p>;
+    if (skipConfirmJoin) {
+      setImmediate(() => join(token, joinGroupId || groupIds[0], userId));
+    }
+  } else {
+    text = customTcAuthModalText || (
+      <div>
+        <p>You must be a Topcoder member before you can join the {communityName}.</p>
+        <p>To join, login if you are already a member. If not, register first.</p>
+      </div>
+    );
+  }
+
+  const currentUrl = window.location.href.match(/[^?]*/)[0];
+  let q = window.location.search.slice(1);
+  q = q ? qs.parse(q) : {};
+  q.join = joinGroupId || groupIds[0];
+  const autoJoinUrl = `${currentUrl}?${qs.stringify(q)}`;
+
   return (
     <Modal onCancel={resetJoinButton}>
-      <div styleName="style.confirmMsg">
-        { userId ? (
-          <p>Do you want to join {communityName}?</p>
-        ) : (
-          <div>
-            <p>You must be a Topcoder member before you can join the {communityName}.</p>
-            <p>To join, login if you are already a member. If not, register first.</p>
-          </div>
-        )}
-      </div>
+      <div styleName="style.confirmMsg">{text}</div>
       { userId ? (
         <div className={style.joinButtons}>
           <PrimaryButton
-            onClick={() => join(token, groupIds[0], userId)}
+            onClick={() => join(token, joinGroupId || groupIds[0], userId)}
           >Join</PrimaryButton>
           <SecondaryButton
             onClick={resetJoinButton}
@@ -50,17 +66,13 @@ export default function ConfirmModal({
         <div className={style.loginButtons}>
           <PrimaryButton
             onClick={() => {
-              const url = encodeURIComponent(
-                `${window.location.href}?join=${groupIds[0]}`,
-              );
+              const url = encodeURIComponent(autoJoinUrl);
               window.location = `${config.URL.AUTH}/member?retUrl=${url}&utm_source=${communityId}`;
             }}
           >Login</PrimaryButton>
           <PrimaryButton
             onClick={() => {
-              let url = encodeURIComponent(
-                `${window.location.href}?join=${groupIds[0]}`,
-              );
+              let url = encodeURIComponent(autoJoinUrl);
               url = encodeURIComponent(
                 `${config.URL.AUTH}/member?retUrl=${url}&utm_source=${communityId}`,
               );
@@ -80,14 +92,18 @@ export default function ConfirmModal({
 ConfirmModal.defaultProps = {
   token: null,
   userId: null,
+  utmCampaign: '',
 };
 
 ConfirmModal.propTypes = {
   communityId: PT.string.isRequired,
   communityName: PT.string.isRequired,
+  customTcAuthModalText: PT.node.isRequired,
   groupIds: PT.arrayOf(PT.string).isRequired,
   join: PT.func.isRequired,
+  joinGroupId: PT.string.isRequired,
   resetJoinButton: PT.func.isRequired,
+  skipConfirmJoin: PT.bool.isRequired,
   token: PT.string,
   userId: PT.string,
 };

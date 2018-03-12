@@ -33,8 +33,13 @@ function Tip(props) {
   )); */
   const { photoLink } = props.user;
   let src = photoLink;
-  if (src && !src.startsWith('http')) {
-    src = `${config.URL.BASE}/${src}`;
+  if (src) {
+    /* NOTE: If we ever change the avatar size here, we should also update it
+     * for the avatars shown in the listing leaderboard itself. Having exactly
+     * the same image in both places improves user experience with the tooltip.
+     */
+    src = `${config.CDN.PUBLIC}/avatar/${
+      encodeURIComponent(src)}?size=50`;
   }
 
   return (

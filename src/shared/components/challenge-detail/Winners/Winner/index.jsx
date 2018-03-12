@@ -14,16 +14,22 @@ function getId(submissions, placement) {
 
 export default function Winner({
   isDesign,
+  last,
   prizes,
   submissions,
   viewable,
   winner,
 }) {
   const submissionId = viewable && getId(submissions, winner.placement);
-  const placeStyle = winner.placement < 4 ? `place-${winner.placement}` : '';
 
-  let avatarUrl = winner.photoURL || '';
-  if (avatarUrl.startsWith('/')) avatarUrl = `${config.URL.BASE}${avatarUrl}`;
+  let placeStyle = winner.placement < 4 ? `place-${winner.placement}` : '';
+  if (last) placeStyle += ' last';
+
+  let avatarUrl = winner.photoURL;
+  if (avatarUrl) {
+    avatarUrl = `${config.CDN.PUBLIC}/avatar/${
+      encodeURIComponent(avatarUrl)}?size=65`;
+  }
 
   const prize = winner.placement <= prizes.length
     ? `${prizes[winner.placement - 1].toLocaleString()}` : 'N/A';
@@ -93,6 +99,7 @@ export default function Winner({
 
 Winner.propTypes = {
   isDesign: PT.bool.isRequired,
+  last: PT.bool.isRequired,
   prizes: PT.arrayOf(PT.number).isRequired,
   submissions: PT.arrayOf(PT.object).isRequired,
   viewable: PT.bool.isRequired,

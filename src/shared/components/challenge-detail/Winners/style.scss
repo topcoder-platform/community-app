@@ -3,12 +3,8 @@
 .container {
   @include roboto-regular;
 
-  max-width: 1122px;
-  margin-left: auto;
-  margin-right: auto;
   display: flex;
   flex-wrap: wrap;
-  padding-bottom: 138px;
 }
 
 .section-title {
