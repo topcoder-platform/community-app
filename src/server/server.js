@@ -45,7 +45,7 @@ app.use(helmet());
 global.atob = atob;
 
 app.use(favicon(path.resolve(__dirname, '../assets/images/favicon.ico')));
-app.use(bodyParser.json());
+app.use(bodyParser.json({ limit: '300kb' }));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(requestIp.mw());
