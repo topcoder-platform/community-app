@@ -13,9 +13,12 @@ import submission, {
   factory as challengeDetailsFactory,
 } from './submission';
 
+
 import challengeDetails from './challenge-details';
 import communities from './communities';
 import dashboard from './dashboard';
+
+import hallOfFame, { factory as hallOfFameFactory } from './hallOfFame';
 import reviewOpportunityDetails from './review-opportunity-details';
 import sandbox from './sandbox';
 
@@ -27,6 +30,7 @@ import sandbox from './sandbox';
 export function factory(req) {
   return resolveReducers({
     submission: challengeDetailsFactory(req),
+    hallOfFame: hallOfFameFactory(req),
   }).then(reducers => combineReducers({
     ...reducers,
     challengeDetails,
@@ -41,6 +45,7 @@ export default combineReducers({
   challengeDetails,
   communities,
   dashboard,
+  hallOfFame,
   reviewOpportunityDetails,
   submission,
   sandbox,

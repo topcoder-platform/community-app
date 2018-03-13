@@ -1,0 +1,110 @@
+@import "~styles/mixins";
+
+.container {
+  align-items: center;
+  display: flex;
+  justify-content: space-between;
+
+  @include xs-to-lg {
+    align-items: flex-end;
+    height: 50px;
+    overflow: scroll;
+  }
+}
+
+.arrow {
+  display: inline-block;
+  pointer-events: none;
+  outline: none;
+  height: 24px;
+  width: 10px;
+
+  &:focus {
+    outline: none;
+  }
+
+  &.active {
+    cursor: pointer;
+    pointer-events: all;
+
+    path {
+      fill: #0681ff;
+    }
+  }
+}
+
+.arrow-wrapper,
+.logo {
+  padding-bottom: 30px;
+}
+
+.arrow-wrapper {
+  @include xs-to-lg {
+    display: none;
+  }
+}
+
+.logo {
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  width: 128px;
+  height: 110px;
+  margin: 0 26px;
+  outline: none;
+  cursor: pointer;
+
+  @include xs-to-lg {
+    width: 62px;
+    height: 32px;
+    margin: 0 13px;
+  }
+
+  &:first-of-type {
+    margin-left: 52px;
+
+    @include xs-to-lg {
+      margin-left: 20px;
+    }
+  }
+
+  &:last-of-type {
+    margin-right: 52px;
+
+    @include xs-to-lg {
+      margin-right: 20px;
+    }
+  }
+
+  img {
+    filter: grayscale(100%);
+    height: auto;
+    max-width: 128px;
+    max-height: 82px;
+    user-select: none;
+
+    @include xs-to-lg {
+      max-width: 62px;
+      max-height: 32px;
+    }
+  }
+
+  &.hidden {
+    @include lg-to-xl {
+      display: none;
+    }
+  }
+
+  &.active {
+    border-bottom: solid 2px #0681ff;
+    padding-bottom: 28px;
+
+    @include xs-to-lg {
+      border-bottom-width: 3px;
+    }
+
+    img {
+      filter: none;
+    }
+  }
+}
