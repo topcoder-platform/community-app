@@ -1,4 +1,5 @@
 @import "../../../Header/style.scss";
+@import "mixins.scss";
 
 .logo {
   &:first-child > img {
@@ -72,13 +73,13 @@
   font-family: 'Akkurat bold', sans-serif;
   text-transform: none;
   font-size: 18px;
-  color: #9bdaf1;
 
+  &,
   &:active,
   &:focus,
   &:hover,
   &:visited {
-    color: #9bdaf1;
+    color: $blue-bright;
   }
 }
 
@@ -86,16 +87,17 @@
   font-family: 'Akkurat bold', sans-serif;
   text-transform: none;
   font-size: 18px;
-  color: #00a2e0;
 
+  &,
   &:active,
   &:focus,
   &:hover,
   &:visited {
-    color: #00a2e0;
+    color: $blue-dark;
   }
 
   &::after {
+    background: $blue-dark !important;
     height: 8px;
     width: 8px;
     left: 50%;
