@@ -31,7 +31,7 @@ export default function Learn() {
           content: style.bannerContent,
           contentInner: style.bannerContentInner,
         }}
-        imageSrc="/community-app-assets/tc-prod-dev/learn/banner.jpg"
+        imageSrc="/community-app-assets/themes/tc-prod-dev/learn/banner.jpg"
       />
 
       <Section
