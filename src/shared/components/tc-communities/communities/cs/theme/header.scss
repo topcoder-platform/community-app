@@ -25,7 +25,7 @@
     text-transform: none;
     text-decoration: underline;
     font-size: 16px;
-    color: #00a2e0;
+    color: $blue-bright;
   }
 
   @include xs-to-lg {
@@ -39,7 +39,7 @@
     text-transform: none;
     text-decoration: underline;
     font-size: 16px;
-    color: #00a2e0;
+    color: $blue-bright;
   }
 }
 
@@ -58,7 +58,7 @@
   font-family: 'Akkurat regular', sans-serif;
   text-transform: none;
   font-size: 16px;
-  color: #00a2e0;
+  color: $blue-bright;
 }
 
 .menu {

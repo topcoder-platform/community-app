@@ -1,36 +1,23 @@
-/**
- * Static implementation of Learn page for Wipro 2 community
- *
- * It hardcodes data which is passed to dummy components,
- * thus we disable max-len eslint rule for this file
- */
-/* eslint-disable max-len */
-
 import React from 'react';
-// import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import Section from 'components/tc-communities/Section';
-/*
 import Accordion from 'components/tc-communities/Accordion/Accordion';
 import AccordionItem from 'components/tc-communities/Accordion/AccordionItem';
-*/
 import Banner from 'components/tc-communities/Banner';
-/*
 import NewsletterSignup from 'components/tc-communities/NewsletterSignup';
 import ArticleCard from 'components/tc-communities/ArticleCard';
 import LinksCard from 'components/tc-communities/LinksCard';
 import Text from 'components/tc-communities/Text';
-*/
-
-import { PrimaryButton } from 'topcoder-react-ui-kit';
 
 import style from './style.scss';
 
 export default function Learn() {
   return (
     <main>
+
       <Banner
-        title="Learn and earn rewards"
-        text="Our continuously evolving structured learning paths are customized to deepen your knowledge and help you acquire industry specific software capabilities. Master the in-demand technologies to succeed in this rapidly changing technology landscape."
+        title="Learning & Certification"
+        text="Our continuously evolving structured learning paths, constantly abreast of the latest, tailored for employees to deepen your knowledge, infuses important software capabilities that are industry specific and help you get the skills you need to succeed."
         theme={{
           container: style.bannerContainer,
           content: style.bannerContent,
@@ -38,19 +25,6 @@ export default function Learn() {
         }}
         imageSrc="/community-app-assets/themes/cs/learn/banner.jpg"
       />
-      <Section>
-        <div styleName="message">
-          <p>To access the TopGear <span styleName="highlighted">Learning</span> Platform, click on &ldquo;<strong>CONTINUE</strong>&rdquo;.</p>
-          <p styleName="button-container">
-            <PrimaryButton
-              openNewTab
-              to="https://topgear-app.wipro.com"
-            >Continue</PrimaryButton>
-          </p>
-        </div>
-      </Section>
-
-      {/*
 
       <Section
         title="Learn The Basics"
@@ -59,15 +33,81 @@ export default function Learn() {
         }}
       >
         <Accordion>
-          <AccordionItem title="Overview">
+          <AccordionItem title="Joining the  Community">
             <Text>
-              <p>The FULCRUM is &ldquo;one stop shop&rdquo; for access to a wide range of training and learning opportunities on Wipro’s Hybrid Crowd. Designed to strengthen the skills of employees, the hub offers physical and online platforms to learn skills on demand, gain hands-on experience, and be future ready.</p>
-              <p>Meticulously crafted comprehensive learning paths, detailed study material, engaging case studies, training projects to systematically enhance your career, development environments to practice, convenient online accessibility, opportunity to connect with mentors, peers, SMEs of various technologies – a variety of resources bringing people and technology together for an innovative and valuable learning experience.</p>
-              <p>Our compelling learning environment across wide range of emerging technologies helps you in mastering today’s most essential skills, that brings your knowledge to the next level, step by step, which ultimately creates a more effective learning experience.</p>
-              <p>Are you ready to step onto the innovative journey of learning?</p>
+              <p>
+                First things first, ...make sure you sign up for Topcoder.
+                It&apos;s quick and painless and opens the door to a whole new
+                world.
+              </p>
               <div styleName="joinnowWrap">
-                <a styleName="joinnow" href="https://topgear-app.wipro.com">Start Exploring</a>
+                <Link styleName="joinnow" to="learn">Join Now</Link>
               </div>
+            </Text>
+          </AccordionItem>
+          <AccordionItem title="How to sign up for work">
+            <Text>
+              <p>
+                It&apos;s likely that you&apos;ll be working on code in a
+                specific git repo. We have many of them, so be sure to ask if
+                you&apos;re not sure which one you shoudl be looking at.
+              </p>
+              <p>In general, you&apos;ll typically find them at https://github.com/topcoder-platform</p>
+            </Text>
+          </AccordionItem>
+          <AccordionItem title="How to compete for work">
+            <Text>
+              <p>
+                Nam dapibus nisl vitae elit fringilla rutrum. Aenean
+                sollicitudin, erat a elementum rutrum, neque sem pretium metus,
+                quis mollis nisl nunc et massa. Vestibulum sed metus in lorem
+                tristique ullamcorper id vitae erat. Nulla mollis sapien
+                sollicitudin lacinia lacinia. Vivamus facilisis dolor et massa
+                placerat, at vestibulum nisl egestas. Nullam rhoncus lacus non
+                odio luctus, eu condimentum mauris ultrices. Praesent blandit,
+                augue a posuere aliquam, arcu tortor feugiat turpis,
+              </p>
+              <p>
+                Nam dapibus nisl vitae elit fringilla rutrum. Aenean
+                sollicitudin, erat a elementum rutrum, neque sem pretium metus,
+                quis mollis nisl nunc et massa. Vestibulum sed metus in lorem
+                tristique ullamcorper id vitae erat. Nulla mollis sapien
+                sollicitudin lacinia lacinia. Vivamus facilisis dolor et massa
+                placerat, at vestibulum nisl egestas. Nullam rhoncus lacus non
+                odio luctus, eu condimentum mauris ultrices. Praesent blandit,
+                augue a posuere aliquam, arcu tortor feugiat turpis,
+              </p>
+              <div styleName="joinnowWrap">
+                <Link styleName="joinnow" to="learn">Join Now</Link>
+              </div>
+            </Text>
+          </AccordionItem>
+          <AccordionItem title="Payment & Rewards">
+            <Text>
+              <p>
+                If you&apos;d like to be a copilot for Topcoder projects, send
+                an email to support@topcoder.com and tell us a little about
+                yourself.
+              </p>
+              <p>
+                If you&apos;d like to work on challenges, check out what&apos;s
+                active on the <a href="challenges">challenges</a> page. If
+                there is nothing active, send us a note and tell us to stop
+                slacking! :)
+              </p>
+              <div styleName="joinnowWrap">
+                <Link styleName="joinnow" to="learn">Join Now</Link>
+              </div>
+            </Text>
+          </AccordionItem>
+          <AccordionItem title="Managing your Badges">
+            <Text>
+              <p>Make sure you&apos;ve setup your payment preferences at https://community.topcoder.com/tc?module=EditPaymentPreferences.  When you&apos;ve earned some money and want to withdraw it, you can do that at https://community.topcoder.com/PactsMemberServlet?module=PaymentHistory&full_list=false</p>
+            </Text>
+          </AccordionItem>
+          <AccordionItem title="Updating your Profile">
+            <Text>
+              <p>Everything to do with managing your profile and preferences can be found at https://www.topcoder.com/settings/account/.  If you can&apos;t find what you&apos;re looking for, send us a note at support@topcoder.com.</p>
             </Text>
           </AccordionItem>
         </Accordion>
@@ -90,7 +130,7 @@ export default function Learn() {
             title: 'Read More',
             url: 'learn',
           }}
-          imageSrc="/community-app-assets/themes/wipro/learn/courses-01.jpg"
+          imageSrc="/community-app-assets/themes/cs/learn/courses-01.jpg"
         />
         <ArticleCard
           title="An Ugly Myspace Profile Will Sure Ruin Your Reputation"
@@ -99,7 +139,7 @@ export default function Learn() {
             title: 'Read More',
             url: 'learn',
           }}
-          imageSrc="/community-app-assets/themes/wipro/learn/courses-02.jpg"
+          imageSrc="/community-app-assets/themes/cs/learn/courses-02.jpg"
         />
         <ArticleCard
           title="3 Simple Ways Work Fast in Competition"
@@ -108,7 +148,7 @@ export default function Learn() {
             title: 'Read More',
             url: 'learn',
           }}
-          imageSrc="/community-app-assets/themes/wipro/learn/courses-03.jpg"
+          imageSrc="/community-app-assets/themes/cs/learn/courses-03.jpg"
         />
       </Section>
 
@@ -172,9 +212,8 @@ export default function Learn() {
       <NewsletterSignup
         title="Sign up for our newsletter"
         text="Don’t miss out on the latest Topcoder IOS challenges and information!"
-        imageSrc="/community-app-assets/themes/wipro/subscribe-bg.jpg"
+        imageSrc="/community-app-assets/themes/cs/subscribe-bg.jpg"
       />
-      */}
     </main>
   );
 }

@@ -1,19 +1,7 @@
 @import '~styles/mixins';
 
-.button-container {
-  text-align: center;
-}
-
 .coursesContainer {
   padding-bottom: 60px;
-}
-
-.highlighted {
-  background: #ffc;
-}
-
-.ddashUnderline {
-  border-bottom: 1px dashed #333;
 }
 
 .resourcesTitle {
@@ -79,7 +67,7 @@
   display: inline-block;
   border: 1px solid #0092ff;
   border-radius: 20px;
-  font: 700 14px/40px 'OpenSans', sans-serif;
+  font: 700 14px/40px 'Open Sans', sans-serif;
   height: 40px;
   text-align: center;
   text-transform: uppercase;
@@ -92,42 +80,5 @@
     color: #0092ff;
     outline: none;
     text-decoration: none;
-  }
-}
-
-.link {
-  &,
-  &:hover,
-  &:active,
-  &:focus,
-  &:visited {
-    color: #0092ff;
-    font-family: 'Times New Roman', Times, serif;
-    outline: none;
-    text-decoration: underline;
-  }
-}
-
-.message {
-  color: #333;
-  font: 16px/22px 'Akkurat regular', sans-serif;
-  opacity: 0.7;
-
-  em {
-    font-family: 'Times New Roman', Times, serif;
-    font-style: italic;
-  }
-
-  ol {
-    list-style: decimal inside;
-    padding-left: 24px;
-  }
-
-  p {
-    margin-bottom: 24px;
-  }
-
-  strong {
-    font-weight: bold;
   }
 }
