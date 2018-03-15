@@ -1,0 +1,123 @@
+@import "../themes/mixins";
+
+/* GENERIC CONTENT */
+
+.h1 { @include h1; }
+
+.contentBlock {
+  @include body-text;
+
+  margin: 60px auto 0;
+  max-width: $screen-md;
+  overflow: hidden;
+  padding: 0 30px;
+
+  ul {
+    list-style: disc;
+    margin-left: 20px;
+  }
+
+  &.twoColumns {
+    align-items: flex-start;
+    display: flex;
+
+    @include xs-to-sm {
+      flex-direction: column;
+    }
+  }
+}
+
+/* HEAD BANNER */
+
+$bannerBackgroundColor: #131a24;
+
+.bannerContainer {
+  background: $bannerBackgroundColor;
+}
+
+.bannerImage {
+  width: 100%;
+}
+
+.bannerContent {
+  margin: auto;
+  max-width: $screen-md;
+  position: relative;
+  width: 100%;
+}
+
+.bannerMaskLeft {
+  background: linear-gradient(90deg, $bannerBackgroundColor 0%, transparent 100%);
+  bottom: 0;
+  position: absolute;
+  top: 0;
+  width: 100px;
+
+  @include xs-to-md {
+    display: none;
+  }
+}
+
+.bannerMaskRight {
+  background: linear-gradient(270deg, $bannerBackgroundColor 50%, transparent 100%);
+  bottom: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 100px;
+
+  @include xs-to-md {
+    display: none;
+  }
+}
+
+/* TIMELINE CARD */
+
+.timelineCardContainer {
+  border-radius: 4px;
+  border-top: solid 10px $tc-dark-blue;
+  box-shadow: 5px 5px 10px $tc-gray-10, -5px 5px 10px $tc-gray-10;
+  margin-right: 30px;
+  padding: 20px;
+
+  @include xs-to-sm {
+    margin-bottom: 60px;
+    width: 100%;
+  }
+}
+
+.timelinePhaseName {
+  @include body-text;
+
+  display: inline;
+  font-weight: bold;
+  line-height: 100%;
+}
+
+.nowrap {
+  @include md-to-xl {
+    white-space: nowrap;
+  }
+}
+
+/* CHALLENGES */
+
+.challengesContainer {
+  background: $tc-gray-neutral-dark;
+  margin-top: 60px;
+  padding: 60px 30px;
+}
+
+.challengesContent {
+  @include body-text;
+
+  margin: auto;
+  max-width: $screen-md;
+  text-align: center;
+}
+
+.challengeCardsContainer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}

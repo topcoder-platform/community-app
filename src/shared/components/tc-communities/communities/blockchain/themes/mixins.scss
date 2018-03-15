@@ -1,9 +1,21 @@
 @import "~styles/mixins";
 
+@mixin page {
+  margin: auto;
+  max-width: $screen-lg;
+  padding: 0 30px;
+}
+
 @mixin body-text {
   color: #73787c;
   font: 15px/180% 'Open Sans', sans-serif;
   text-align: left;
+}
+
+@mixin h1 {
+  color: #394146;
+  font: 600 36px 'Open Sans', sans-serif;
+  margin-bottom: 12px;
 }
 
 @mixin h3 {
