@@ -4,6 +4,7 @@
 
 /* TODO: This assembly of custom challenge listing page should be split out into
  * a separate component. But, it is good enough for now. */
+import BsicHackathon from 'components/tc-communities/communities/blockchain/BsicHackathon';
 import ChallengeListingTopBanner from
   'components/tc-communities/communities/blockchain/ChallengeListing/TopBanner';
 import ChallengeListingRegisterToSee from
@@ -54,6 +55,11 @@ export default function Blockchain({ base, member, meta }) {
               pageId={match.params.pageId || 'home'}
             />
             <Switch>
+              <Route
+                component={BsicHackathon}
+                exact
+                path={`${base}/bsic-hackathon`}
+              />
               <Route
                 component={() => (
                   <div>

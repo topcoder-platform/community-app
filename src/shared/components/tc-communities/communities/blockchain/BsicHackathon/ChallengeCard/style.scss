@@ -1,0 +1,21 @@
+@import "../../themes/mixins";
+
+.button {
+  margin: 20px 0 0 !important;
+}
+
+.container {
+  margin-top: 60px;
+  text-align: left;
+  width: 48%;
+
+  @include xs-to-sm {
+    width: 100%;
+  }
+}
+
+.h1 { @include h3; }
+
+.thumbnail {
+  width: 100%;
+}
