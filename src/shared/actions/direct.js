@@ -73,7 +73,9 @@ function getUserProjectsInit(tokenV3) {
  * @return {Object} Pull result object + some meta-information.
  */
 async function getUserProjectsDone(tokenV3) {
-  const projects = await getService(tokenV3).getUserProjects();
+  const projects = await getService(tokenV3).getUserProjects({
+    hasActiveBillingAccount: true,
+  });
   return { tokenV3, projects };
 }
 
