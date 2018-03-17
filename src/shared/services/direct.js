@@ -8,6 +8,8 @@
  * instance of the service class, or the class itself. */
 /* eslint-disable import/prefer-default-export */
 
+import qs from 'qs';
+
 import { getApiV3 } from './api';
 
 class Direct {
@@ -54,10 +56,13 @@ class Direct {
 
   /**
    * Gets all projects the user can see.
+   * @param {Object} query Optional. Query params for the request.
    * @return {Promise} Resolves to an array of project objects.
    */
-  async getUserProjects() {
-    let res = await this.private.api.get('/direct/projects/user');
+  async getUserProjects(query) {
+    let url = '/direct/projects/user';
+    if (query) url += `?${qs.stringify(query)}`;
+    let res = await this.private.api.get(url);
     if (!res.ok) throw new Error(res.statusText);
     res = (await res.json()).result;
     if (res.status !== 200) throw new Error(res.content);
