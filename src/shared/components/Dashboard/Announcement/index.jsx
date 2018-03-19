@@ -98,6 +98,7 @@ export default function Announcement({
           {
             readMore ? (
               <PrimaryButton
+                openNewTab
                 size="sm"
                 theme={{
                   button: style.readMore,

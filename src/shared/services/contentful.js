@@ -26,7 +26,7 @@ const CDN_URL = `${config.CDN.PUBLIC}/contentful`;
 
 /* Holds URL of the Community App proxy endpoint that works with the Contentful
  * preview API. */
-const PREVIEW_URL = `${config.URL.APP}/api/cdn/contentful`;
+const PREVIEW_URL = `${config.URL.APP}/api/cdn/public/contentful`;
 
 /* At the client-side only, it holds the cached index of published Contentful
  * assets and content. Do not use it directly, use getIndex() function below
