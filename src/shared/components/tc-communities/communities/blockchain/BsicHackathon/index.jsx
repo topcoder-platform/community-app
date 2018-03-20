@@ -1,4 +1,6 @@
+import JoinCommunity from 'containers/tc-communities/JoinCommunity';
 import React from 'react';
+import { Button } from 'topcoder-react-ui-kit';
 
 import HeadBannerImage from
   'assets/images/communities/blockchain/bsic-hackathon/head-banner.jpg';
@@ -14,7 +16,7 @@ import ChallengeImgRefugees from
 
 import ChallengeCard from './ChallengeCard';
 
-import './style.scss';
+import style from './style.scss';
 
 export default function BsicHackathon() {
   return (
@@ -31,24 +33,28 @@ export default function BsicHackathon() {
         </div>
       </div>
       <div styleName="contentBlock">
-        <h1 styleName="h1">About the Hackathon</h1>
+        <h1 styleName="h1">About the Incubator</h1>
         <p>
-          The Decentralized Impact Incubator is a 6-week program to ideate and
-          prototype blockchain-based solutions to global social and
-          environmental challenges. During the period, participants from around
-          the will gather to form teams, design business models, draft
-          proposals and code. Teams need to pass through weekly checkpoints and
-          are guided by mentors throughout the process. Winning projects will
-          receive grants to support continued development.
+          The Decentralized Impact Incubator is a 6-week program built off of
+          the traditional idea of a hackathon to ideate and prototype
+          blockchain-based solutions to global social and environmental
+          challenges. We are calling it an incubator because we will challenge
+          you to build an actual, deployable solution on the ground, more than
+          just code. During the competition, participants from around the will
+          gather to form teams, study human landscape, design business models,
+          and define impact metrics. Teams need to pass through weekly
+          checkpoints and are guided by mentors throughout the process. Winning
+          projects will receive grants and training to support continued
+          development.
         </p>
       </div>
       <div styleName="contentBlock">
         <h1 styleName="h1">Prizes</h1>
         <div>
-          Cash prize of $100,000 USD to best teams of each challenge category:
+          Cash prize of $50,000 USD to best teams of each challenge category:
           <ul>
             <li>
-              $15k for winners, $8k for runner-ups, $2k for community choice.
+              $10k for winners, $2.5k for runner-ups.
             </li>
             <li>
               Business development training for all winning teams to accelerate
@@ -69,16 +75,14 @@ export default function BsicHackathon() {
         <div styleName="timelineCardContainer">
           <h1 styleName="h1">Timeline</h1>
           <div styleName="nowrap">
-            <h3 styleName="timelinePhaseName">Registration:</h3>&zwnj;
+            <h3 styleName="timelinePhaseName">
+              Registration and Team Formation:
+            </h3>&zwnj;
             March 21st - April 9th
           </div>
           <div styleName="nowrap">
-            <h3 styleName="timelinePhaseName">Team Formation:</h3>&zwnj;
-            April 9th - 16th
-          </div>
-          <div styleName="nowrap">
             <h3 styleName="timelinePhaseName">Competition:</h3>&zwnj;
-            April 16th - May 21st
+            April 9th - May 21st
           </div>
           <div styleName="nowrap">
             <h3 styleName="timelinePhaseName">Judging:</h3>&zwnj;
@@ -127,10 +131,14 @@ export default function BsicHackathon() {
       <div styleName="challengesContainer">
         <div styleName="challengesContent">
           <h1 styleName="h1">Get Started</h1>
-          <p>Register To Topcoder (if you haven&apos;t already)</p>
-          <p>
-            Click an image below to register for the challenge you want to compete in:
-          </p>
+          <JoinCommunity
+            label="Join Topcoder Blockchain Community"
+          />
+          <Button
+            enforceA
+            theme={{ button: style.regButtonsW }}
+            to="https://blockchain.topcoder.com/challenges/30063672"
+          >Register for the Challenge</Button>
           <div styleName="challengeCardsContainer">
             <ChallengeCard
               imgUrl={ChallengeImgRefugees}
