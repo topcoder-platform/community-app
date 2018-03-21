@@ -12,6 +12,19 @@
   @include xs-to-sm {
     width: 100%;
   }
+
+  a {
+    @include link;
+  }
+
+  ul {
+    list-style-type: disc;
+    margin-left: 20px;
+
+    li {
+      margin: 5px 0;
+    }
+  }
 }
 
 .h1 { @include h3; }
