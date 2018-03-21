@@ -13,12 +13,15 @@ export default function MonthOfLoveBanner({
 }) {
   return (
     <div styleName="container">
+      <div styleName="mask" />
       <div>
         <h1
           styleName="title"
-        >Cognitive Month of Love</h1>
+        >Cognitive March Madness</h1>
         <p styleName="text">
-          A new challenge will be posted every week, all February long.
+          Four contests to build a tool that gathers information on teams and
+          players by analyzing textual materials from top sports writers and
+          commentators!
         </p>
       </div>
       <Button

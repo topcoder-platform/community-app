@@ -44,5 +44,14 @@
 }
 
 @mixin link {
-  color: #0092ff;
+  &,
+  &:active,
+  &:focus,
+  &:hover {
+    color: #0092ff;
+  }
+
+  &:visited {
+    color: $tc-purple;
+  }
 }

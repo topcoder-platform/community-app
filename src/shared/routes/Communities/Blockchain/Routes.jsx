@@ -58,7 +58,7 @@ export default function Blockchain({ base, member, meta }) {
               <Route
                 component={BsicHackathon}
                 exact
-                path={`${base}/bsic-hackathon`}
+                path={`${base}/bsic-incubator`}
               />
               <Route
                 component={() => (

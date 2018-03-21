@@ -18,7 +18,7 @@ import cardImg01 from
 import cardImg02 from
   'assets/images/communities/cognitive/get-started/card-02.jpg';
 
-import MonthOfLoveBanner from '../MonthOfLoveBanner';
+import MarchMadnessBanner from '../MarchMadnessBanner';
 
 import NewsSignup from '../NewsSignup';
 
@@ -30,7 +30,7 @@ export default function GetStarted({ baseUrl }) {
       <h1 styleName="style.pageTitle">
         Getting Started in the Topcoder Cognitive Community
       </h1>
-      <MonthOfLoveBanner to={`${baseUrl}/challenges`} />
+      <MarchMadnessBanner to={`${baseUrl}/challenges`} />
       <div styleName="style.cardsContainer">
         <ImageText
           imageUrl={cardImg01}
