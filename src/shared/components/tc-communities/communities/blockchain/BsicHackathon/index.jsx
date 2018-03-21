@@ -67,7 +67,7 @@ export default function BsicHackathon() {
             <li>
               Opportunity to showcase their solutions in front of the most
               reputable impact investors, NGOs, philanthropists, charities
-              during conference in June in London, UK.
+              during conference in June in Washington, DC.
             </li>
           </ul>
         </div>
