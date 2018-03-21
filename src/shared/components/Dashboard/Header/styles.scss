@@ -15,6 +15,7 @@
   display: flex;
   justify-content: space-between;
   padding: 20px 25px 20px 30px;
+  position: relative;
 
   @include xs-to-sm {
     flex-direction: column;
@@ -26,4 +27,9 @@
   @include tc-title;
 
   margin-right: 20px;
+}
+
+.xlBadge {
+  height: 66%;
+  width: 66%;
 }

@@ -1,8 +1,10 @@
+@import "~styles/mixins";
+
 .badge {
   background: url('assets/images/badges.png');
   height: 48px;
   margin: 1px 5px;
-  position: absolute;
+  position: relative;
   width: 48px;
 }
 
@@ -94,15 +96,41 @@
   background-position: -48px -336px;
 }
 
+.tco17Champion {
+  background: url('assets/images/dashboard/badge-tco17-gold.svg');
+  background-size: 48px 48px;
+}
+
+.tco17Finalist {
+  background: url('assets/images/dashboard/badge-tco17-finalist.svg');
+  background-size: 48px 48px;
+}
+
 .topcoderReviewer {
   background-position: -192px -288px;
 }
 
 .xlBadge {
-  height: 128px;
-  left: -40px;
+  box-shadow: 0 0 10px 2px $tc-gray-40;
+  height: 200px;
+  left: -76px;
   position: absolute;
-  top: -40px;
-  width: 128px;
+  top: -76px;
+  width: 200px;
+  z-index: 6;
+}
+
+.xlBadgeNode {
+  align-items: center;
+  background: white;
+  border-radius: 50%;
+  box-shadow: 0 0 10px 2px $tc-gray-40;
+  display: flex;
+  height: 200px;
+  justify-content: center;
+  left: -76px;
+  position: absolute;
+  top: -76px;
+  width: 200px;
   z-index: 6;
 }
