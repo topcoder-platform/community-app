@@ -41,6 +41,7 @@ class MemberSearchInput extends React.Component {
 
   render() {
     const {
+      disabled,
       isPopupVisible,
       searchMembers,
       keyword,
@@ -83,6 +84,7 @@ class MemberSearchInput extends React.Component {
           <Avatar url={selectedNewMember && selectedNewMember.photoURL} />
         </div>
         <input
+          disabled={disabled}
           ref={(c) => { this.input = c; }}
           value={keyword}
           type="text"
@@ -97,10 +99,12 @@ class MemberSearchInput extends React.Component {
 }
 
 MemberSearchInput.defaultProps = {
+  disabled: false,
   placeholder: 'username',
 };
 
 MemberSearchInput.propTypes = {
+  disabled: PT.bool,
   placeholder: PT.string,
   searchMembers: PT.arrayOf(PT.shape()).isRequired,
   selectedNewMember: PT.shape().isRequired,

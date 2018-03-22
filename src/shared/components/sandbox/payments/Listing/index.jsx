@@ -9,7 +9,7 @@ import Select from 'components/Select';
 import { PrimaryButton } from 'topcoder-react-ui-kit';
 import Background from '../Background';
 import PaymentRow from './PaymentRow';
-import './style.scss';
+import style from './style.scss';
 
 export default function Listing({
   loadingMemberTasks,
@@ -18,6 +18,7 @@ export default function Listing({
   selectedProjectId,
   selectProject,
 }) {
+  console.log(memberTasks);
   const selectedProjectIdNum = Number(selectedProjectId);
   let content = memberTasks
     .filter(item => item.projectId === selectedProjectIdNum)
@@ -79,6 +80,9 @@ export default function Listing({
           />
           <div styleName="button">
             <PrimaryButton
+              theme={{
+                button: style.newPaymentButton,
+              }}
               to="/sandbox/payments/new"
             >New payment</PrimaryButton>
           </div>

@@ -51,6 +51,7 @@
 
   .name {
     color: $tc-black;
+    padding-left: 0;
   }
 
   thead {
@@ -58,10 +59,15 @@
 
     th {
       color: $tc-gray-60;
+      padding: 0 15px;
       vertical-align: middle;
       text-align: left;
       height: 40px;
       min-width: 30px;
     }
   }
+}
+
+.newPaymentButton {
+  white-space: nowrap;
 }

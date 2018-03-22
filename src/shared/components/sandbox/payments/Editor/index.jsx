@@ -3,6 +3,7 @@
  */
 /* global window */
 
+import _ from 'lodash';
 import LoadingIndicator from 'components/LoadingIndicator';
 import PT from 'prop-types';
 import React from 'react';
@@ -16,6 +17,7 @@ import Background from '../Background';
 import './style.scss';
 
 export default function Editor({
+  challenge,
   memberSuggestions,
   getMemberSuggestions,
   memberInputPopupVisible,
@@ -40,6 +42,12 @@ export default function Editor({
   setPaymentDescription,
   setPaymentTitle,
 }) {
+  let winner;
+  if (challenge) {
+    winner = challenge.winners || [];
+    winner = winner.filter(x => x.type === 'final')[0];
+  }
+
   let content;
   if (!projectDetails) content = <LoadingIndicator />;
   else {
@@ -79,11 +87,12 @@ export default function Editor({
         <div styleName="field">
           <span styleName="label">Assign to</span>
           <MemberSearchInput
+            disabled={!neu}
             placeholder="Type handle to assign member"
             searchMembers={memberSuggestions}
             isPopupVisible={memberInputPopupVisible}
-            keyword={memberInputKeyword}
-            selectedNewMember={memberInputSelected}
+            keyword={_.get(winner, 'handle') || memberInputKeyword}
+            selectedNewMember={winner || memberInputSelected}
             onToggleSearchPopup={setMemberInputPopupVisible}
             onSelectNewMember={(member) => {
               setMemberInputSelected(member);
@@ -93,6 +102,7 @@ export default function Editor({
               setMemberInputKeyword(keyword);
               getMemberSuggestions(keyword);
             }}
+            member={winner}
           />
         </div>
         <div styleName="field">
@@ -160,11 +170,15 @@ export default function Editor({
 }
 
 Editor.defaultProps = {
+  challenge: null,
   neu: true,
   projectDetails: null,
 };
 
 Editor.propTypes = {
+  challenge: PT.shape({
+    winners: PT.arrayOf(PT.object),
+  }),
   neu: PT.bool,
   makePayment: PT.func.isRequired,
   memberSuggestions: PT.arrayOf(PT.shape()).isRequired,
