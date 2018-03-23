@@ -39,7 +39,12 @@ function getAchievementsInit(handle, uuid) {
  * @return {Promise} Payload.
  */
 async function getAchievementsDone(handle, uuid) {
-  const data = await getUserService().getAchievements(handle);
+  let data;
+  try {
+    data = await getUserService().getAchievements(handle);
+  } catch (e) {
+    data = [];
+  }
   return { data, handle, uuid };
 }
 
