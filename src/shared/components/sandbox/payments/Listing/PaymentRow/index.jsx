@@ -3,10 +3,12 @@
  */
 
 import _ from 'lodash';
+import config from 'utils/config';
 import PT from 'prop-types';
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link } from 'topcoder-react-utils';
 import { Avatar } from 'topcoder-react-ui-kit';
+import { getCdnAvatarUrl } from 'utils/tc';
 
 import PaymentStatus from '../PaymentStatus';
 import TrackAbbreviationTooltip from '../../../../challenge-listing/Tooltips/TrackAbbreviationTooltip';
@@ -14,6 +16,9 @@ import TrackIcon from '../../../../TrackIcon';
 import './style.scss';
 
 export default function PaymentRow({ challenge }) {
+  let winner = challenge.winners || [];
+  winner = winner.filter(x => x.type === 'final')[0];
+
   return (
     <tr styleName="paymentRow">
       <td styleName="icon">
@@ -34,7 +39,27 @@ export default function PaymentRow({ challenge }) {
         >{challenge.name}</Link>
       </td>
       <td styleName="price">{`$${_.get(challenge, 'prizes[0]', '-')}`}</td>
-      <td><Avatar styleName="memberAvatar" /><span styleName="memberName">{challenge.member || 'TOPCODER'}</span></td>
+      <td>
+        {
+          winner ? (
+            <div styleName="member">
+              <Avatar
+                styleName="memberAvatar"
+                url={getCdnAvatarUrl(winner.photoURL, 32)}
+              />
+              <span
+                styleName="memberName"
+              >
+                <Link
+                  enforceA
+                  openNewTab
+                  to={`${config.URL.BASE}/members/${winner.handle}`}
+                >{winner.handle}</Link>
+              </span>
+            </div>
+          ) : 'N/A'
+        }
+      </td>
       <td><PaymentStatus status={challenge.status} text={challenge.status} /></td>
     </tr>
   );
@@ -43,5 +68,6 @@ export default function PaymentRow({ challenge }) {
 PaymentRow.propTypes = {
   challenge: PT.shape({
     id: PT.number,
+    winners: PT.arrayOf(PT.object),
   }).isRequired,
 };

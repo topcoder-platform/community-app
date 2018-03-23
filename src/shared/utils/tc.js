@@ -52,6 +52,19 @@ export const USER_ROLES = {
 };
 
 /**
+ * Given user avatar URL from TC API, returns the corresponding avatar URL in
+ * Community App CDN.
+ * @param {String} apiUrl Avatar URL from TC API.
+ * @param {Number} size Optional. Target avatar size (width). Defaults to 100px.
+ * @return {String} Avatar URL in CDN.
+ */
+export function getCdnAvatarUrl(apiUrl, size = 100) {
+  if (!apiUrl) return '';
+  return `${config.CDN.PUBLIC}/avatar/${
+    encodeURIComponent(apiUrl)}?size=${size}`;
+}
+
+/**
  * Given user rating returns corresponding rating level (from 1 to 5, both
  * inclusive). The rating levels are used to group members into categories
  * by their performance, and to assign colors to their handles.

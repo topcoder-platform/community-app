@@ -4,17 +4,22 @@
   border-bottom: 1px solid $tc-gray-10;
   background: #fff;
 
-  td {
-    height: 50px;
-    vertical-align: middle;
-  }
-
   .icon {
     width: 40px;
     padding-left: 10px;
+    padding-right: 0;
+  }
+
+  td {
+    height: 50px;
+    padding: 0 15px;
+    vertical-align: middle;
   }
 
   .name {
+    padding-left: 0;
+    width: 60%;
+
     a {
       color: inherit;
       text-decoration: none;
@@ -49,4 +54,9 @@
     color: #202a36;
     font-weight: 500;
   }
+}
+
+.member {
+  display: flex;
+  align-items: center;
 }
