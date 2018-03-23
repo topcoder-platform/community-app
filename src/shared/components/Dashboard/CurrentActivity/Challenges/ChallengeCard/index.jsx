@@ -94,7 +94,7 @@ export default function ChallengeCard({
   ]).length;
 
   const submitter = roles.includes('Submitter');
-  const submitted = userDetails.hasUserSubmittedForReview;
+  const submitted = _.get(userDetails, 'hasUserSubmittedForReview');
   const nextPhase = currentPhases && _.last(currentPhases);
 
   const nextPhaseType = _.get(nextPhase, 'phaseType');
