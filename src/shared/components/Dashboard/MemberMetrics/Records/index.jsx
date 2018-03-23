@@ -70,7 +70,7 @@ export default function Records({ stats }) {
         slideWidth="200px"
       >
         {
-          transformStats(stats).map(item => (
+          transformStats(stats || {}).map(item => (
             <Dial
               key={`${item.track}-${item.subTrack}`}
               handle={stats.handle}
