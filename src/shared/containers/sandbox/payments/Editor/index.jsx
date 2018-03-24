@@ -275,7 +275,7 @@ class EditorContainer extends React.Component {
         challenge={challenge}
         makePayment={() => this.pay()}
         memberSuggestions={memberSuggestions}
-        getMemberSuggestions={getMemberSuggestions}
+        getMemberSuggestions={keyword => getMemberSuggestions(keyword, tokenV3)}
         memberInputPopupVisible={memberInputPopupVisible}
         setMemberInputPopupVisible={setMemberInputPopupVisible}
         memberInputKeyword={memberInputKeyword}
