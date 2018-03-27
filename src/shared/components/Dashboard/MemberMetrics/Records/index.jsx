@@ -1,5 +1,6 @@
 import _ from 'lodash';
 import Carousel from 'components/XCarousel';
+import moment from 'moment';
 import PT from 'prop-types';
 import React from 'react';
 
@@ -22,6 +23,7 @@ function transformStats(stats) {
         track,
         subTrack,
         metric: 'Rating',
+        mostRecentSubmission: data.mostRecentSubmission,
         value: data.rank.rating,
       });
     } else if (data.wins) {
@@ -29,6 +31,7 @@ function transformStats(stats) {
         track,
         subTrack,
         metric: 'Victories',
+        mostRecentSubmission: data.mostRecentSubmission,
         value: data.wins,
       });
     }
@@ -56,7 +59,8 @@ function transformStats(stats) {
   s = _.get(stats.DEVELOP, 'subTracks');
   if (s) s.forEach(x => push('DEVELOP', x.name, x));
 
-  return res;
+  return res.sort((a, b) =>
+    moment(b.mostRecentSubmission).diff(a.mostRecentSubmission));
 }
 
 export default function Records({ stats }) {
