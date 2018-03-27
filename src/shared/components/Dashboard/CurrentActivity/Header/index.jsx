@@ -1,3 +1,4 @@
+import Carousel from 'components/XCarousel';
 import PT from 'prop-types';
 import React from 'react';
 
@@ -21,21 +22,25 @@ export default function Header({
 
   return (
     <div styleName="container">
-      <Option
-        selected={tab === TABS.MY_ACTIVE_CHALLENGES}
-        select={() => switchTab(TABS.MY_ACTIVE_CHALLENGES)}
-        title={myChallengesTitle}
-      />
-      <Option
-        selected={tab === TABS.COMMUNITIES}
-        select={() => switchTab(TABS.COMMUNITIES)}
-        title={myCommunitiesTitle}
-      />
-      <Option
-        selected={tab === TABS.SRMS}
-        select={() => switchTab(TABS.SRMS)}
-        title="SRMs"
-      />
+      <Carousel
+        alignItems="start"
+      >
+        <Option
+          selected={tab === TABS.MY_ACTIVE_CHALLENGES}
+          select={() => switchTab(TABS.MY_ACTIVE_CHALLENGES)}
+          title={myChallengesTitle}
+        />
+        <Option
+          selected={tab === TABS.COMMUNITIES}
+          select={() => switchTab(TABS.COMMUNITIES)}
+          title={myCommunitiesTitle}
+        />
+        <Option
+          selected={tab === TABS.SRMS}
+          select={() => switchTab(TABS.SRMS)}
+          title="SRMs"
+        />
+      </Carousel>
     </div>
   );
 }

@@ -178,6 +178,9 @@ export default function Content() {
           help of <code>react-css-themr</code>.
         </li>
         <li>
+          <Link to="/examples/carousel">Carousel</Link>
+        </li>
+        <li>
           <Link to="/examples/code-splitting">Code Splitting</Link>
         </li>
         <li>
