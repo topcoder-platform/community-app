@@ -8,6 +8,7 @@
   padding: 0 10px;
   margin: 0 10px;
   text-transform: uppercase;
+  white-space: nowrap;
 }
 
 .selected {
@@ -17,9 +18,10 @@
 }
 
 .selectedUnderline {
-  border-bottom: 2px solid $tc-dark-blue-70;
+  background: $tc-dark-blue-70;
   color: $tc-black;
   cursor: default;
+  height: 2px;
   margin: 10px auto;
   width: 70%;
 }

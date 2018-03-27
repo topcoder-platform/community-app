@@ -1,5 +1,7 @@
+import _ from 'lodash';
 import config from 'utils/config';
 import LoadingIndicator from 'components/LoadingIndicator';
+import moment from 'moment';
 import PT from 'prop-types';
 import React from 'react';
 import Sticky from 'react-stickynode';
@@ -41,6 +43,23 @@ export default function Challenges({
       filteredChallenges = challenges.filter(x => filter(x));
     }
   }
+
+  const now = moment();
+  filteredChallenges = _.clone(filteredChallenges);
+  for (let i = 0; i < filteredChallenges.length; i += 1) {
+    const ch = filteredChallenges[i];
+    const nextPhase = ch.currentPhases && _.last(ch.currentPhases);
+    if (nextPhase) {
+      const deadlineEnd = moment(nextPhase.scheduledEndTime);
+      ch.dashboardPriority = deadlineEnd.diff(now);
+    } else if (moment(ch.registrationStartDate).isAfter(now)) {
+      ch.dashboardPriority = moment(ch.registrationStartDate).diff(now);
+    } else if (ch.status === 'COMPLETED') {
+      ch.dashboardPriority = Number.MAX_VALUE;
+    } else ch.dashboardPriority = -Number.MAX_VALUE;
+  }
+  filteredChallenges.sort((a, b) =>
+    a.dashboardPriority - b.dashboardPriority);
 
   return (
     <div styleName="container">

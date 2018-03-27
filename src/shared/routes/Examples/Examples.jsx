@@ -5,6 +5,7 @@
 
 import Announcement from 'components/examples/Announcement';
 import Buttons from 'components/examples/Buttons';
+import Carousel from 'components/examples/Carousel';
 import ColorMixins from 'components/examples/ColorMixins';
 import Content from 'components/Content';
 import CssModules from 'components/examples/CssModules';
@@ -37,6 +38,7 @@ export default function Examples(props) {
     <Switch>
       <Route path={`${base}/announcement/:id`} component={Announcement} />
       <Route path={`${base}/buttons`} component={Buttons} />
+      <Route path={`${base}/carousel`} component={Carousel} />
       <SplitRoute
         cacheCss
         chunkName="code-splitting/chunk"

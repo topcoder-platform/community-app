@@ -1,0 +1,28 @@
+.container {
+  height: 50px;
+  overflow: hidden;
+  position: relative;
+  width: 100%;
+}
+
+.defaultRollButtonIcon {
+  height: 30px;
+  margin: 20px 10px;
+  width: 30px;
+}
+
+.item {
+  position: absolute;
+}
+
+.rollButton {
+  cursor: pointer;
+  position: absolute;
+}
+
+.viewport {
+  cursor: -webkit-grab;
+  height: 100%;
+  overflow: hidden;
+  position: absolute;
+}
