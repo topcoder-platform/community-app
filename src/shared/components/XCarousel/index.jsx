@@ -202,7 +202,7 @@ export default class XCarousel extends React.Component {
     });
     if (t < 1) {
       this.nextAnimationFrameId = requestAnimationFrame(this.animateRolling);
-    }
+    } else this.updateMetric();
   }
 
   initAnimation(nextState) {
@@ -315,7 +315,7 @@ export default class XCarousel extends React.Component {
       alignItems,
       children,
     } = this.props;
-console.log('RENDER')
+
     const st = this.state;
     let layoutPos = -st.pos;
 

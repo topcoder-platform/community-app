@@ -7,8 +7,6 @@ import React from 'react';
 import { Link } from 'topcoder-react-utils';
 
 import Dial from './Dial';
-import LArrow from '../../../../../assets/images/arrow-prev.svg';
-import RArrow from '../../../../../assets/images/arrow-next.svg';
 
 import './style.scss';
 
