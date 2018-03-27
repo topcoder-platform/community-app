@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import Carousel from 'components/Carousel';
+import Carousel from 'components/XCarousel';
 import PT from 'prop-types';
 import React from 'react';
 
@@ -64,11 +64,7 @@ function transformStats(stats) {
 export default function Records({ stats }) {
   return (
     <div>
-      <Carousel
-        NextButton={RArrow}
-        PrevButton={LArrow}
-        slideWidth="200px"
-      >
+      <Carousel>
         {
           transformStats(stats || {}).map(item => (
             <Dial

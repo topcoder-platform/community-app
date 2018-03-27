@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import Carousel from 'components/Carousel';
+import Carousel from 'components/XCarousel';
 import config from 'utils/config';
 import PT from 'prop-types';
 import React from 'react';
@@ -40,11 +40,7 @@ export default function Earnings({ finances, showEarnings }) {
   if (owed && paid) {
     return (
       <div styleName="container">
-        <Carousel
-          NextButton={RArrow}
-          PrevButton={LArrow}
-          slideWidth="300px"
-        >
+        <Carousel>
           <Dial
             amount={paid}
             show={showEarnings}

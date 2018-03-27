@@ -22,7 +22,9 @@ export const ALIGN = {
  *  width, correspondingly.
  */
 function getNodeSize(node) {
-  return { h: node.offsetHeight, w: node.offsetWidth };
+  if (!node) return { h: 0, w: 0 };
+  const box = node.getBoundingClientRect();
+  return { h: box.height, w: box.width };
 }
 
 function interpolate(a, b, t) {
@@ -31,6 +33,24 @@ function interpolate(a, b, t) {
 
 function newZeroSize() {
   return { h: 0, w: 0 };
+}
+
+function isSameSize(a, b) {
+  const aa = a || newZeroSize();
+  const bb = b || newZeroSize();
+  return aa.h === bb.h && aa.w === bb.w;
+}
+
+function isSameMetric(a, b) {
+  if (a.itemSize.length !== b.itemSize.length
+  || a.maxItemH !== b.maxItemH || a.totalItemsW !== b.totalItemsW
+  || !isSameSize(a.containerSize, b.containerSize)
+  || !isSameSize(a.nextButtonSize, b.nextButtonSize)
+  || !isSameSize(a.prevButtonSize, b.prevButtonSize)) return false;
+  for (let index = 0; index !== a.itemSize.length; index += 1) {
+    if (!isSameSize(a.itemSize[index], b.itemSize[index])) return false;
+  }
+  return true;
 }
 
 export default class XCarousel extends React.Component {
@@ -96,6 +116,10 @@ export default class XCarousel extends React.Component {
     document.addEventListener('mouseup', this.onGrabEnd);
   }
 
+  componentDidUpdate() {
+    if (!this.nextAnimationFrameId) this.updateMetric();
+  }
+
   componentWillUnmount() {
     window.removeEventListener('resize', this.onResize);
     document.removeEventListener('mousemove', this.onGrabMove);
@@ -130,7 +154,7 @@ export default class XCarousel extends React.Component {
   }
 
   onResize() {
-    this.measure();
+    this.updateMetric();
   }
 
   /**
@@ -143,7 +167,7 @@ export default class XCarousel extends React.Component {
    */
   setContainer(node) {
     this.nodes.container = node;
-    this.measure();
+    this.updateMetric();
   }
 
   setNextButton(node) {
@@ -237,22 +261,23 @@ export default class XCarousel extends React.Component {
 
   measure() {
     this.stopAnimation();
-    const state = {
-      ...this.state,
+    const res = {
       itemSize: [],
       maxItemH: 0,
       totalItemsW: 0,
     };
-    this.nodes.viewport.childNodes.forEach((item) => {
-      const size = getNodeSize(item);
-      if (state.maxItemH < size.h) state.maxItemH = size.h;
-      state.totalItemsW += size.w;
-      state.itemSize.push(size);
-    });
-    state.nextButtonSize = getNodeSize(this.nodes.nextButton);
-    state.prevButtonSize = getNodeSize(this.nodes.prevButton);
-    state.containerSize = getNodeSize(this.nodes.container);
-    setImmediate(() => this.setState(this.normalizeState(state)));
+    if (this.nodes.viewport) {
+      this.nodes.viewport.childNodes.forEach((item) => {
+        const size = getNodeSize(item);
+        if (res.maxItemH < size.h) res.maxItemH = size.h;
+        res.totalItemsW += size.w;
+        res.itemSize.push(size);
+      });
+    }
+    res.nextButtonSize = getNodeSize(this.nodes.nextButton);
+    res.prevButtonSize = getNodeSize(this.nodes.prevButton);
+    res.containerSize = getNodeSize(this.nodes.container);
+    return res;
   }
 
   rollToNext() {
@@ -277,12 +302,20 @@ export default class XCarousel extends React.Component {
     this.nextAnimationFrameId = 0;
   }
 
+  updateMetric() {
+    const metric = this.measure();
+    if (isSameMetric(metric, this.state)) return;
+    const state = { ...this.state, ...metric };
+    this.stopAnimation();
+    setImmediate(() => this.setState(this.normalizeState(state)));
+  }
+
   render() {
     const {
       alignItems,
       children,
     } = this.props;
-
+console.log('RENDER')
     const st = this.state;
     let layoutPos = -st.pos;
 
