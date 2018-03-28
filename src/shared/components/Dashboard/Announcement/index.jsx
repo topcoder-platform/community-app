@@ -29,8 +29,11 @@ export default function Announcement({
 
   const {
     backgroundImage,
+    backgroundImagePosition,
     fontColor,
+    maxTextWidth,
     readMore,
+    readMoreLabel,
     endDate,
     startDate,
     text,
@@ -76,10 +79,16 @@ export default function Announcement({
         styleName="container"
         style={{
           backgroundImage: background && `url(${background})`,
+          backgroundPosition: backgroundImagePosition,
         }}
       >
         { preview ? <h1 styleName="previewLabel">Preview</h1> : null }
-        <div styleName="details">
+        <div
+          style={{
+            maxWidth: maxTextWidth,
+          }}
+          styleName="details"
+        >
           <div
             onClick={() => switchShow(false)}
             role="button"
@@ -104,7 +113,7 @@ export default function Announcement({
                   button: style.readMore,
                 }}
                 to={readMore}
-              >Read more</PrimaryButton>
+              >{readMoreLabel || 'Read more'}</PrimaryButton>
             ) : null
           }
         </div>
@@ -149,6 +158,7 @@ Announcement.propTypes = {
         id: PT.string.isRequired,
       }).isRequired,
     }),
+    backgroundImagePosition: PT.string,
     fontColor: PT.string,
     readMore: PT.string,
     text: PT.string,
