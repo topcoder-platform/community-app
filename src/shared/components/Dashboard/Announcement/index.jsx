@@ -62,11 +62,9 @@ export default function Announcement({
         { type ? <div styleName="type">{type}</div> : null }
         <h1
           styleName="title"
-          style={{ color: fontColor }}
         >{title}</h1>
         <div
           styleName="text"
-          style={{ color: fontColor }}
         >{text}</div>
       </div>
     );
