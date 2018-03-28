@@ -110,14 +110,13 @@
   background-position: -192px -288px;
 }
 
-.xlBadge {
-  box-shadow: 0 0 10px 2px $tc-gray-40;
-  height: 200px;
-  left: -76px;
+.xlBadgeHider {
+  background: transparent;
+  height: 48px;
+  left: 76px;
   position: absolute;
-  top: -76px;
-  width: 200px;
-  z-index: 6;
+  top: 76px;
+  width: 48px;
 }
 
 .xlBadgeNode {
