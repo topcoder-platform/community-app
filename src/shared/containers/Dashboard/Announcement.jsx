@@ -40,7 +40,9 @@ class AnnouncementContainer extends React.Component {
     const nextId = _.get(nextProps.active, 'sys.id');
     if (id !== nextId) this.hideIfNecessary(nextProps);
     else if (!nextProps.show && this.props.show && !nextProps.previewId) {
-      cookies.set(COOKIE, nextId);
+      cookies.set(COOKIE, nextId, {
+        expires: 365,
+      });
     }
   }
 

@@ -37,7 +37,9 @@ function onShowChallengeFilter(state, { payload }) {
 function onShowEarnings(state, { payload }) {
   if (state.showEarnings === payload) return state;
   if (isClientSide()) {
-    cookies.set('showEarningsInDashboard', JSON.stringify(payload));
+    cookies.set('showEarningsInDashboard', JSON.stringify(payload), {
+      expires: 365,
+    });
   }
   return { ...state, showEarnings: payload };
 }
