@@ -19,7 +19,7 @@ const Icons = {
   PAUSED: PausedIcon,
 };
 export default function PaymentStatus({ status, text }) {
-  const Icon = Icons[status];
+  const Icon = Icons[status] || CanceledIcon;
   return (
     <div styleName="paymentStatus">
       <Icon styleName="icon" />

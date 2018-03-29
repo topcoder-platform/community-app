@@ -142,3 +142,4 @@ Deploy scripts are setup to use AWS ECS + CircleCI. Make sure the following envi
 * PROD_AWS_REGION
 * PROD_AWS_SECRET_ACCESS_KEY
 * PROD_SERVER_API_KEY
+

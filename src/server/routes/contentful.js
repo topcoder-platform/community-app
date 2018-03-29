@@ -23,17 +23,17 @@ routes.use((req, res, next) => {
   next();
 });
 
-/* Proxies asset requests to Contentful API. */
-routes.use('/assets/:id', async (req, res, next) => {
-  try {
-    res.send(await cdnService.getAsset(req.params.id, true));
-  } catch (err) { next(err); }
-});
-
 /* Proxies asset preview requests to Contentful API. */
 routes.use('/assets/:id/preview', async (req, res, next) => {
   try {
     res.send(await previewService.getAsset(req.params.id, true));
+  } catch (err) { next(err); }
+});
+
+/* Proxies asset requests to Contentful API. */
+routes.use('/assets/:id', async (req, res, next) => {
+  try {
+    res.send(await cdnService.getAsset(req.params.id, true));
   } catch (err) { next(err); }
 });
 
@@ -71,17 +71,17 @@ routes.use('/next-sync-url', async (req, res, next) => {
   } catch (err) { next(err); }
 });
 
-/* Proxies content requests to Contentful API. */
-routes.use('/entries/:id', async (req, res, next) => {
-  try {
-    res.send(await cdnService.getContentEntry(req.params.id));
-  } catch (err) { next(err); }
-});
-
 /* Proxies content preview requests to Contentful API. */
 routes.use('/entries/:id/preview', async (req, res, next) => {
   try {
     res.send(await previewService.getContentEntry(req.params.id));
+  } catch (err) { next(err); }
+});
+
+/* Proxies content requests to Contentful API. */
+routes.use('/entries/:id', async (req, res, next) => {
+  try {
+    res.send(await cdnService.getContentEntry(req.params.id));
   } catch (err) { next(err); }
 });
 

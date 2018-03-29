@@ -1,11 +1,10 @@
 import _ from 'lodash';
-import Carousel from 'components/Carousel';
+import Carousel from 'components/XCarousel';
+import moment from 'moment';
 import PT from 'prop-types';
 import React from 'react';
 
 import Dial from './Dial';
-import LArrow from '../../../../../assets/images/arrow-prev.svg';
-import RArrow from '../../../../../assets/images/arrow-next.svg';
 
 import './style.scss';
 
@@ -24,6 +23,7 @@ function transformStats(stats) {
         track,
         subTrack,
         metric: 'Rating',
+        mostRecentSubmission: data.mostRecentSubmission,
         value: data.rank.rating,
       });
     } else if (data.wins) {
@@ -31,6 +31,7 @@ function transformStats(stats) {
         track,
         subTrack,
         metric: 'Victories',
+        mostRecentSubmission: data.mostRecentSubmission,
         value: data.wins,
       });
     }
@@ -58,19 +59,16 @@ function transformStats(stats) {
   s = _.get(stats.DEVELOP, 'subTracks');
   if (s) s.forEach(x => push('DEVELOP', x.name, x));
 
-  return res;
+  return res.sort((a, b) =>
+    moment(b.mostRecentSubmission).diff(a.mostRecentSubmission));
 }
 
 export default function Records({ stats }) {
   return (
     <div>
-      <Carousel
-        NextButton={RArrow}
-        PrevButton={LArrow}
-        slideWidth="200px"
-      >
+      <Carousel>
         {
-          transformStats(stats).map(item => (
+          transformStats(stats || {}).map(item => (
             <Dial
               key={`${item.track}-${item.subTrack}`}
               handle={stats.handle}

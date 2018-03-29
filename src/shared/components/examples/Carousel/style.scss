@@ -1,0 +1,7 @@
+@import "~styles/mixins";
+
+.container {
+  margin: 30px auto;
+  max-width: $screen-md;
+  padding: 0 30px;
+}

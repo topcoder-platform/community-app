@@ -51,7 +51,10 @@ class MembersService {
   }
 
   /**
-   * Gets a list of suggested member names for the supplied partial
+   * Gets a list of suggested member names for the supplied partial.
+   *
+   * WARNING: This method requires v3 authorization.
+   *
    * @param {String} keyword Partial string to find suggestions for
    * @return {Promise} Resolves to the api response content
    */

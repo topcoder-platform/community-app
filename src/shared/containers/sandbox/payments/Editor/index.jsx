@@ -207,6 +207,7 @@ class EditorContainer extends React.Component {
 
   render() {
     const {
+      challenge,
       memberSuggestions,
       getMemberSuggestions,
       memberInputPopupVisible,
@@ -268,11 +269,13 @@ class EditorContainer extends React.Component {
         />
       );
     }
+
     return (
       <Editor
+        challenge={challenge}
         makePayment={() => this.pay()}
         memberSuggestions={memberSuggestions}
-        getMemberSuggestions={getMemberSuggestions}
+        getMemberSuggestions={keyword => getMemberSuggestions(keyword, tokenV3)}
         memberInputPopupVisible={memberInputPopupVisible}
         setMemberInputPopupVisible={setMemberInputPopupVisible}
         memberInputKeyword={memberInputKeyword}
