@@ -12,25 +12,34 @@ export default function Badge({
 }) {
   let xlBadgeNode;
   if (xlBadge) {
-    if (_.isString(xlBadge)) {
-      xlBadgeNode = (
-        <img
-          alt={title}
-          onMouseLeave={() => showXl()}
-          src={xlBadge}
-          styleName="xlBadge"
+    xlBadgeNode = (
+      <div
+        onMouseMove={(e) => {
+          e.stopPropagation();
+          showXl();
+        }}
+        styleName="xlBadgeNode"
+      >
+        <div
+          onMouseMove={(e) => {
+            e.stopPropagation();
+          }}
+          styleName="xlBadgeHider"
         />
-      );
-    } else {
-      xlBadgeNode = (
-        <div styleName="xlBadgeNode">
-          {xlBadge}
-        </div>
-      );
-    }
+        {
+          _.isString(xlBadge) ? (
+            <img
+              alt={title}
+              src={xlBadge}
+            />
+          ) : xlBadge
+        }
+      </div>
+    );
   }
   return (
     <div
+      onMouseMove={() => showXl(true)}
       onMouseEnter={() => showXl(true)}
       onMouseLeave={() => showXl()}
       styleName={`badge ${badge}`}
