@@ -153,13 +153,13 @@ export default function ChallengeDetailsView(props) {
                               connector={toolbarConnector}
                               id="detailedRequirements"
                               initialMode={EDITOR_MODES.WYSIWYG}
-                              ref={n => n && n.setHtml(detailedRequirements === 'null' ? '' : detailedRequirements)}
+                              ref={n => n && n.setHtml(detailedRequirements)}
                             />
                           ) : (
                             <div
                               /* eslint-disable react/no-danger */
                               dangerouslySetInnerHTML={{
-                                __html: detailedRequirements === 'null' ? '' : detailedRequirements,
+                                __html: detailedRequirements,
                               }}
                               /* eslint-enable react/no-danger */
                               styleName="rawHtml"
@@ -178,13 +178,13 @@ export default function ChallengeDetailsView(props) {
                               connector={toolbarConnector}
                               id="submissionGuidelines"
                               initialMode={EDITOR_MODES.WYSIWYG}
-                              ref={n => n && n.setHtml(finalSubmissionGuidelines === 'null' ? '' : finalSubmissionGuidelines)}
+                              ref={n => n && n.setHtml(finalSubmissionGuidelines)}
                             />
                           ) : (
                             <div
                               /* eslint-disable react/no-danger */
                               dangerouslySetInnerHTML={{
-                                __html: finalSubmissionGuidelines === 'null' ? '' : finalSubmissionGuidelines,
+                                __html: finalSubmissionGuidelines,
                               }}
                               /* eslint-enable react/no-danger */
                               styleName="rawHtml"
@@ -325,13 +325,13 @@ export default function ChallengeDetailsView(props) {
                               connector={toolbarConnector}
                               id="detailedRequirements"
                               initialMode={EDITOR_MODES.WYSIWYG}
-                              ref={n => n && n.setHtml(detailedRequirements === 'null' ? '' : detailedRequirements)}
+                              ref={n => n && n.setHtml(detailedRequirements)}
                             />
                           ) : (
                             <div
                               /* eslint-disable react/no-danger */
                               dangerouslySetInnerHTML={{
-                                __html: detailedRequirements === 'null' ? '' : detailedRequirements,
+                                __html: detailedRequirements,
                               }}
                               /* eslint-enable react/no-danger */
                               styleName="rawHtml"

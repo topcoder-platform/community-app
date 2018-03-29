@@ -105,7 +105,7 @@ function getAllActiveChallengesDone(uuid, tokenV3) {
       service.getUserChallenges(user, filter, params)));
   }
   return Promise.all(calls).then(([ch, mm, uch, umm]) => {
-    const challenges = mm !== undefined ? ch.concat(mm) : ch;
+    const challenges = mm ? ch.concat(mm) : ch;
 
     /* uch and umm arrays contain challenges where the user is participating in
      * some role. The same challenge are already listed in res array, but they
@@ -146,20 +146,18 @@ function getDraftChallengesInit(uuid, page) {
  * @param {Number} page Page of challenges to fetch.
  * @param {Object} filter Backend filter to use.
  * @param {String} tokenV3 Optional. Topcoder auth token v3.
- * @param {Object}
+ * @param {Promise}
  */
-function getDraftChallengesDone(uuid, page, filter, tokenV3) {
+async function getDraftChallengesDone(uuid, page, filter, tokenV3) {
   const service = getService(tokenV3);
-  return Promise.all([
-    service.getChallenges({
-      ...filter,
-      status: 'DRAFT',
-    }, {
-      limit: PAGE_SIZE,
-      offset: page * PAGE_SIZE,
-    }),
-  ]).then(([{ challenges: chunkA }]) =>
-    ({ uuid, challenges: (chunkA !== undefined) ? chunkA : [] }));
+  const data = await service.getChallenges({
+    ...filter,
+    status: 'DRAFT',
+  }, {
+    limit: PAGE_SIZE,
+    offset: page * PAGE_SIZE,
+  });
+  return { uuid, challenges: data.challenges };
 }
 
 /**
@@ -180,20 +178,24 @@ function getPastChallengesInit(uuid, page, frontFilter) {
  * @param {Object} filter Backend filter to use.
  * @param {String} tokenV3 Optional. Topcoder auth token v3.
  * @param {Object} frontFilter Optional. Original frontend filter.
- * @param {Object}
+ * @param {Promise}
  */
-function getPastChallengesDone(uuid, page, filter, tokenV3, frontFilter = {}) {
+async function getPastChallengesDone(
+  uuid,
+  page,
+  filter,
+  tokenV3,
+  frontFilter = {},
+) {
   const service = getService(tokenV3);
-  return Promise.all([
-    service.getChallenges({
-      ...filter,
-      status: 'COMPLETED',
-    }, {
-      limit: PAGE_SIZE,
-      offset: page * PAGE_SIZE,
-    }),
-  ]).then(([{ challenges: chunkA }]) =>
-    ({ uuid, challenges: chunkA, frontFilter }));
+  const data = await service.getChallenges({
+    ...filter,
+    status: 'COMPLETED',
+  }, {
+    limit: PAGE_SIZE,
+    offset: page * PAGE_SIZE,
+  });
+  return { uuid, challenges: data.challenges, frontFilter };
 }
 
 /**

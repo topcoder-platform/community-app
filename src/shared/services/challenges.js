@@ -251,10 +251,16 @@ export function normalizeChallenge(challenge, username) {
     groups,
     platforms: '',
     registrationOpen,
-    technologies: '',
     submissionEndTimestamp: challenge.submissionEndDate,
     users: username ? { username: true } : {},
   });
+  /* eslint-disable no-param-reassign */
+  if (!challenge.prizes) challenge.prizes = challenge.prize || [];
+  if (!challenge.totalPrize) {
+    challenge.totalPrize = challenge.prizes.reduce((sum, x) => sum + x, 0);
+  }
+  if (!challenge.technologies) challenge.technologies = '';
+  /* eslint-enable no-param-reassign */
 }
 
 /**
