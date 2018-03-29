@@ -37,7 +37,7 @@ const OE_TOKEN = config.OPEN_EXCHANGE.TOKEN;
 
 let cachedRates;
 
-if (isClientSide()) cachedRates = window.EXCHANGE_RATES;
+if (isClientSide()) cachedRates = window.config.EXCHANGE_RATES;
 else if (fs.existsSync(DISK_CACHE)) {
   cachedRates = JSON.parse(fs.readFileSync(DISK_CACHE, 'utf8'));
 }
