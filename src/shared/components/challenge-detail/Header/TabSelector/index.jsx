@@ -9,6 +9,7 @@ import config from 'utils/config';
 import React from 'react';
 import PT from 'prop-types';
 import { DETAIL_TABS } from 'actions/challenge';
+import { Link } from 'topcoder-react-utils';
 
 import style from './style.scss';
 
@@ -63,6 +64,15 @@ export default function ChallengeViewSelector(props) {
       mask2.style.display = 'block';
     }
   };
+  /* This code use to marathon match registration/submission link in the future */
+  const isMM = false;
+  // if (challenge.subTrack === 'MARATHON_MATCH') {
+  //   isMM = true;
+  // }
+  const registranstsLink = `${config.URL.COMMUNITY}
+  /longcontest/?module=ViewReg&rd=${challenge.id}`;
+  const submissionsLink = `${config.URL.COMMUNITY}
+  /longcontest/?module=Submit&compid=${challenge.id}&rd=${challenge.id}&cd=${challenge.id}`;
 
   return (
     <div
@@ -78,7 +88,7 @@ export default function ChallengeViewSelector(props) {
         >DETAILS
         </a>
         {
-          numRegistrants ? (
+          (numRegistrants && !isMM) ? (
             <a
               onClick={(e) => {
                 handleSelectorClicked(e, DETAIL_TABS.REGISTRANTS);
@@ -86,6 +96,15 @@ export default function ChallengeViewSelector(props) {
               styleName={getSelectorStyle(selectedView, DETAIL_TABS.REGISTRANTS)}
             >REGISTRANTS ({numRegistrants})
             </a>
+          ) : null
+        }
+        {
+          (numRegistrants && isMM) ? (
+            <Link
+              to={registranstsLink}
+              styleName={getSelectorStyle(selectedView, DETAIL_TABS.REGISTRANTS)}
+            >REGISTRANTS ({numRegistrants})
+            </Link>
           ) : null
         }
         {
@@ -97,11 +116,19 @@ export default function ChallengeViewSelector(props) {
           </a>
         }
         {
-          numSubmissions ? (
+          (numSubmissions && !isMM) ? (
             <a
               onClick={(e) => { handleSelectorClicked(e, DETAIL_TABS.SUBMISSIONS); }}
               styleName={getSelectorStyle(selectedView, DETAIL_TABS.SUBMISSIONS)}
             >SUBMISSIONS ({numSubmissions})</a>
+          ) : null
+        }
+        {
+          (numSubmissions && isMM) ? (
+            <Link
+              to={submissionsLink}
+              styleName={getSelectorStyle(selectedView, DETAIL_TABS.SUBMISSIONS)}
+            >SUBMISSIONS ({numSubmissions})</Link>
           ) : null
         }
         {
@@ -113,10 +140,10 @@ export default function ChallengeViewSelector(props) {
           ) : null
         }
         { (hasRegistered || Boolean(roles.length)) &&
-          <a
-            href={`${config.URL.FORUMS}${forumEndpoint}`}
-            styleName={getSelectorStyle(selectedView, DETAIL_TABS.CHALLENGE_FORUM)}
-          >CHALLENGE FORUM</a>
+        <a
+          href={`${config.URL.FORUMS}${forumEndpoint}`}
+          styleName={getSelectorStyle(selectedView, DETAIL_TABS.CHALLENGE_FORUM)}
+        >CHALLENGE FORUM</a>
         }
       </div>
     </div>

@@ -55,6 +55,7 @@ export default function ChallengeDetailsView(props) {
     environment,
     codeRepo,
     userDetails,
+    subTrack,
   } = challenge;
 
   const roles = (userDetails || {}).roles || [];
@@ -354,8 +355,7 @@ export default function ChallengeDetailsView(props) {
                         <li>
                           New to Studio?
                           &zwnj;<a href={config.URL.INFO.DESIGN_CHALLENGE_TYPES}>
-                            Learn how to compete here
-                          </a>.
+                          Learn how to compete here</a>.
                         </li>
                         <li>
                           Upload your submission in three parts (
@@ -411,11 +411,7 @@ export default function ChallengeDetailsView(props) {
                       money, respective country currency conversion shall be
                       considered as per Wipro standard currency conversion
                       guidelines. Please refer to policy document at
-                      &zwnj;<a
-                        href="https://wipro365.sharepoint.com/sites/wipro-people-policies/wipro%20policies/TopGear-RewardPoints-Policy.pdf"
-                        rel="noopener noreferrer"
-                        target="_blank"
-                      >https://wipro365.sharepoint.com/sites/wipro-people-policies/wipro%20policies/TopGear-RewardPoints-Policy.pdf</a>&zwnj;
+                      &zwnj;<a href="https://wipro365.sharepoint.com/sites/wipro-people-policies/wipro%20policies/TopGear-RewardPoints-Policy.pdf" rel="noopener noreferrer" target="_blank">https://wipro365.sharepoint.com/sites/wipro-people-policies/wipro%20policies/TopGear-RewardPoints-Policy.pdf</a>&zwnj;
                       for details regarding the policy.
                     </p>
                   </div>
@@ -426,12 +422,7 @@ export default function ChallengeDetailsView(props) {
                     challenge. For information on payment policies, setting up your
                     profile to receive payments, and general payment questions,
                     please refer to
-                    &zwnj;<a
-                      href="https://help.topcoder.com/hc/en-us/articles/217482038-Payment-Policies-and-Instructions"
-                      rel="noopener noreferrer"
-                      target="_blank"
-                    >https://help.topcoder.com/hc/en-us/articles/217482038-Payment-Policies-and-Instructions
-                    </a>.
+                    &zwnj;<a href="https://help.topcoder.com/hc/en-us/articles/217482038-Payment-Policies-and-Instructions" rel="noopener noreferrer" target="_blank">https://help.topcoder.com/hc/en-us/articles/217482038-Payment-Policies-and-Instructions</a>.
                   </p>
                 )
               }
@@ -466,6 +457,7 @@ export default function ChallengeDetailsView(props) {
           fileTypes={fileTypes}
           isDesign={track.toLowerCase() === 'design'}
           isDevelop={track.toLowerCase() === 'develop'}
+          isMM={subTrack.toUpperCase() === 'MARATHON_MATCH'}
           terms={terms}
           shareable={_.isEmpty(groups)}
           environment={environment}

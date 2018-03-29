@@ -4,7 +4,6 @@
  * in the challenge yet). Shows a tooltip when hovered.
  */
 
-import _ from 'lodash';
 import config from 'utils/config';
 import PT from 'prop-types';
 import React from 'react';
@@ -18,16 +17,12 @@ import SubmissionsIcon from '../../Icons/SubmissionsIcon';
 
 import './style.scss';
 
-const ID_LENGTH = 6;
-const MM_BASE_URL
-  = `${config.URL.COMMUNITY}/longcontest/?module=ViewStandings&rd=`;
+// This link use to marathon match in the future
+// const MM_BASE_URL
+//   = `${config.URL.COMMUNITY}/longcontest/?module=Submit&`;
 
-export default function NumSubmissions({
-  challenge: { id, numSubmissions, rounds, status, track },
-  challengesUrl,
-  newChallengeDetails,
-  selectChallengeDetailsTab,
-}) {
+export default function NumSubmissions({ challenge: { id, numSubmissions, status, subTrack },
+  challengesUrl, newChallengeDetails, selectChallengeDetailsTab }) {
   let tip;
   switch (numSubmissions) {
     case 0: tip = 'No submissions'; break;
@@ -36,9 +31,13 @@ export default function NumSubmissions({
   }
   const query = numSubmissions && status === 'COMPLETED'
     ? `?tab=${DETAIL_TABS.SUBMISSIONS}` : '';
-  let link = track === 'DATA_SCIENCE' && _.toString(id).length < ID_LENGTH
-    ? `${MM_BASE_URL}${rounds[0].id}` : `${challengesUrl}/${id}${query}`;
-  if (!newChallengeDetails && track !== 'DATA_SCIENCE') {
+  // This link use to marathon match in the future
+  // let link = subTrack === 'MARATHON_MATCH' ?
+  // `${MM_BASE_URL}compid=${challenge.componentId}&
+  // rd=${challenge.roundId}&cd=${challenge.contestId}` :
+  // `${challengesUrl}/${id}${query}`;
+  let link = `${challengesUrl}/${id}${query}`;
+  if (!newChallengeDetails && subTrack !== 'MARATHON_MATCH') {
     link = `${config.URL.BASE}/challenge-details/${id}/?type=develop#viewRegistrant`;
   }
   return (

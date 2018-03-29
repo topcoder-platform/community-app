@@ -1,5 +1,4 @@
 import _ from 'lodash';
-import config from 'utils/config';
 import { Link } from 'topcoder-react-utils';
 import moment from 'moment';
 import React from 'react';
@@ -21,9 +20,6 @@ export const PRIZE_MODE = {
   MONEY_USD: 'money-usd',
   POINTS: 'points',
 };
-
-// Constants
-const ID_LENGTH = 6;
 
 // Get the End date of a challenge
 const getEndDate = (c) => {
@@ -59,22 +55,8 @@ function ChallengeCard({
     challenge.isDataScience = true;
   }
   challenge.prize = challenge.prizes || [];
-  // challenge.totalPrize = challenge.prize.reduce((x, y) => y + x, 0)
-  const isMM = _.toString(challenge.id).length < ID_LENGTH;
-  let challengeDetailLink;
-  {
-    const challengeUrl = newChallengeDetails
-      ? `${challengesUrl}/` : `${config.URL.BASE}/challenge-details/`;
-    if (challenge.track === 'DATA_SCIENCE') {
-      const mmDetailUrl = `${config.URL.COMMUNITY}/tc?module=MatchDetails&rd=`;
-      /* TODO: Don't we have a better way, whether a challenge is MM or not? */
-      challengeDetailLink = isMM
-        ? `${mmDetailUrl}${challenge.rounds[0].id}`
-        : `${challengeUrl}${challenge.id}`;
-    } else {
-      challengeDetailLink = `${challengeUrl}${challenge.id}`;
-    }
-  }
+
+  const challengeDetailLink = `${challengesUrl}/${challenge.id}`;
 
   const registrationPhase = challenge.allPhases.filter(phase => phase.phaseType === 'Registration')[0];
   const isRegistrationOpen = registrationPhase ? registrationPhase.phaseStatus === 'Open' : false;
@@ -167,7 +149,6 @@ function ChallengeCard({
               prizeUnitSymbol={prizeUnitSymbol}
               totalPrize={totalPrize}
               withoutTooltip={prizeMode === PRIZE_MODE.POINTS}
-              isMM={isMM}
             />
           )}
         </div>
