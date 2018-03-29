@@ -11,24 +11,9 @@ import ShareSocial from './ShareSocial';
 
 import styles from './styles.scss';
 
-export default function SideBar({
-  challengesUrl,
-  documents,
-  eventDetail,
-  reviewScorecardId,
-  screeningScorecardId,
-  shareable,
-  forumLink,
-  submissionLimit,
-  hasRegistered,
-  fileTypes,
-  reviewType,
-  isDesign,
-  terms,
-  isDevelop,
-  environment,
-  codeRepo,
-}) {
+export default function SideBar({ challengesUrl, documents, eventDetail, reviewScorecardId,
+  screeningScorecardId, shareable, forumLink, submissionLimit, hasRegistered, fileTypes, reviewType,
+  isDesign, terms, isDevelop, environment, codeRepo, isMM }) {
   const scorecardURL = `${config.URL.ONLINE_REVIEW}/review/actions/ViewScorecard?scid=`;
   const faqURL = config.URL.INFO.DESIGN_CHALLENGE_SUBMISSION;
   let submissionLimitDisplay = 'Unlimited';
@@ -90,7 +75,7 @@ export default function SideBar({
           </div>
         )}
         {
-          !isDesign &&
+          !isDesign && !isMM &&
           <div>
             <h3>REVIEW STYLE:</h3>
             <h4>Final Review:</h4>
@@ -109,33 +94,36 @@ export default function SideBar({
             </span>
           </div>
         }
-        <div>
-          <h3>CHALLENGE LINKS:</h3>
-          {
-            isDevelop && environment && environment.length > 0 &&
-            <p styleName="link-like-paragraph">
-              <a href={`${environment}`}>Environment</a>
-            </p>
-          }
-          {
-            isDevelop && codeRepo && codeRepo.length > 0 &&
-            <p styleName="link-like-paragraph">
-              <a href={`${codeRepo}`}>Code Repository</a>
-            </p>
-          }
-          {
-            screeningScorecardId > 0 &&
-            <p styleName="link-like-paragraph">
-              <a href={`${scorecardURL}${screeningScorecardId}`}>Screening Scorecard</a>
-            </p>
-          }
-          {
-            reviewScorecardId > 0 && !isDesign &&
-            <p styleName="link-like-paragraph">
-              <a href={`${scorecardURL}${reviewScorecardId}`}>Review Scorecard</a>
-            </p>
-          }
-        </div>
+        {
+          !isMM &&
+          <div>
+            <h3>CHALLENGE LINKS:</h3>
+            {
+              isDevelop && environment && environment.length > 0 &&
+              <p styleName="link-like-paragraph">
+                <a href={`${environment}`}>Environment</a>
+              </p>
+            }
+            {
+              isDevelop && codeRepo && codeRepo.length > 0 &&
+              <p styleName="link-like-paragraph">
+                <a href={`${codeRepo}`}>Code Repository</a>
+              </p>
+            }
+            {
+              screeningScorecardId > 0 &&
+              <p styleName="link-like-paragraph">
+                <a href={`${scorecardURL}${screeningScorecardId}`}>Screening Scorecard</a>
+              </p>
+            }
+            {
+              reviewScorecardId > 0 && !isDesign &&
+              <p styleName="link-like-paragraph">
+                <a href={`${scorecardURL}${reviewScorecardId}`}>Review Scorecard</a>
+              </p>
+            }
+          </div>
+        }
         {
           isDesign &&
           <div>
@@ -174,8 +162,7 @@ export default function SideBar({
             <p styleName="link-like-paragraph">
               Questions?
               &zwnj;<a href={forumLink}>
-                Ask in the Challenge Discussion Forums.
-              </a>
+              Ask in the Challenge Discussion Forums.</a>
             </p>
             <h3>SOURCE FILES:</h3>
             <ul styleName="source-files-list">
@@ -235,6 +222,7 @@ SideBar.defaultProps = {
   hasRegistered: false,
   reviewType: 'COMMUNITY',
   isDesign: false,
+  isMM: false,
   terms: [],
   isDevelop: false,
   environment: '',
@@ -257,6 +245,7 @@ SideBar.propTypes = {
   hasRegistered: PT.bool,
   reviewType: PT.string,
   isDesign: PT.bool,
+  isMM: PT.bool,
   terms: PT.arrayOf(PT.shape()),
   isDevelop: PT.bool,
   environment: PT.string,

@@ -17,6 +17,73 @@ export const ORDER_BY = {
 };
 
 /**
+ * Normalize name convention for subtrack
+ * @param subTrack
+ * @returns {*} new subtrack
+ */
+function normalizeNameConventionForSubtrack(subTrack) {
+  switch (subTrack) {
+    case 'Copilot Posting':
+      return 'COPILOT_POSTING';
+    case 'Web Design':
+      return 'WEB_DESIGNS';
+    case 'Logo Design':
+      return 'LOGO_DESIGN';
+    case 'Banners/Icons':
+      return 'BANNERS_OR_ICONS';
+    case 'Application Front-End Design':
+      return 'APPLICATION_FRONT_END_DESIGN';
+    case 'Widget or Mobile Screen Design':
+      return 'WIDGET_OR_MOBILE_SCREEN_DESIGN';
+    case 'Front-End Flash':
+      return 'FRONT_END_FLASH';
+    case 'Print/Presentation':
+      return 'PRINT_OR_PRESENTATION';
+    case 'Wireframes':
+      return 'WIREFRAMES';
+    case 'Idea Generation':
+      return 'IDEA_GENERATION';
+    case 'Studio Other':
+      return 'STUDIO_OTHER';
+    case 'Conceptualization':
+      return 'CONCEPTUALIZATION';
+    case 'Specification':
+      return 'SPECIFICATION';
+    case 'Architecture':
+      return 'ARCHITECTURE';
+    case 'Design':
+      return 'DESIGN';
+    case 'Development':
+      return 'DEVELOPMENT';
+    case 'RIA Build Competition':
+      return 'RIA_BUILD_COMPETITION';
+    case 'UI Prototype Competition':
+      return 'UI_PROTOTYPE_COMPETITION';
+    case 'Assembly Competition':
+      return 'ASSEMBLY_COMPETITION';
+    case 'Test Suites':
+      return 'TEST_SUITES';
+    case 'Test Scenarios':
+      return 'TEST_SCENARIOS';
+    case 'Content Creation':
+      return 'CONTENT_CREATION';
+    case 'Bug Hunt':
+      return 'BUG_HUNT';
+    case 'Design First2Finish':
+      return 'DESIGN_FIRST_2_FINISH';
+    case 'Code':
+      return 'CODE';
+    case 'First2Finish':
+      return 'FIRST_2_FINISH';
+    case 'Marathon Match':
+    case 'DEVELOP_MARATHON_MATCH':
+      return 'MARATHON_MATCH';
+    default:
+      return subTrack;
+  }
+}
+
+/**
  * Normalizes a regular challenge details object received from the backend APIs.
  * NOTE: It is possible, that this normalization is not necessary after we
  * have moved to Topcoder API v3, but it is kept for now to minimize a risk of
@@ -92,9 +159,12 @@ export function normalizeChallengeDetails(v3, v3Filtered, v3User, v2, username) 
         groups[id] = true;
       });
     }
+
+    // Normalize name convention for subtrack
+    const newsubTrack = normalizeNameConventionForSubtrack(v3Filtered.subTrack);
     _.defaults(challenge, {
-      track: v3Filtered.track,
-      subTrack: v3Filtered.subTrack,
+      track: newsubTrack === 'MARATHON_MATCH' ? 'DATA_SCIENCE' : v3Filtered.track,
+      subTrack: newsubTrack,
       submissionEndDate: v3Filtered.submissionEndDate, // Dates are not correct in v3
       submissionEndTimestamp: v3Filtered.submissionEndDate, // Dates are not correct in v3
 
@@ -171,6 +241,11 @@ export function normalizeChallenge(challenge, username) {
       groups[id] = true;
     });
   }
+
+  // Normalize name convention for subtrack
+  const newsubTrack = normalizeNameConventionForSubtrack(challenge.subTrack);
+  _.set(challenge, 'subTrack', newsubTrack);
+  _.set(challenge, 'track', newsubTrack === 'MARATHON_MATCH' ? 'DATA_SCIENCE' : challenge.track);
   _.defaults(challenge, {
     communities: new Set([COMPETITION_TRACKS[challenge.track]]),
     groups,
@@ -180,71 +255,6 @@ export function normalizeChallenge(challenge, username) {
     submissionEndTimestamp: challenge.submissionEndDate,
     users: username ? { username: true } : {},
   });
-}
-
-/**
- * Normalizes a marathon match challenge object received from the backend.
- * NOTE: This function is copied from the existing code in the challenge listing
- * component. It is possible, that this normalization is not necessary after we
- * have moved to Topcoder API v3, but it is kept for now to minimize a risk of
- * breaking anything.
- * @param {Object} challenge MM challenge object received from the backend.
- * @param {String} username Optional.
- * @return {Object} Normalized challenge.
- */
-export function normalizeMarathonMatch(challenge, username) {
-  const startDate = _.get(challenge, 'rounds[0].codingStartAt') || challenge.startDate;
-  const endDate = _.get(challenge, 'rounds[0].codingEndAt') || challenge.endDate;
-  const endTimestamp = new Date(endDate).getTime();
-  const status = endTimestamp > Date.now() ? 'Open' : 'Close';
-  const allPhases = [{
-    actualStartTime: startDate,
-    challengeId: challenge.id,
-    phaseType: 'Registration',
-    phaseStatus: status,
-    scheduledEndTime: endDate,
-  }, {
-    actualStartTime: startDate,
-    challengeId: challenge.id,
-    phaseType: 'Submission',
-    phaseStatus: status,
-    scheduledEndTime: endDate,
-  }];
-  const groups = {};
-  if (challenge.groupIds) {
-    challenge.groupIds.forEach((id) => {
-      groups[id] = true;
-    });
-  }
-  _.defaults(challenge, {
-    challengeCommunity: 'Data',
-    challengeType: 'Marathon',
-    allPhases,
-    currentPhases: allPhases.filter(phase => phase.phaseStatus === 'Open'),
-    communities: new Set([COMPETITION_TRACKS.DATA_SCIENCE]),
-    currentPhaseName: endTimestamp > Date.now() ? 'Registration' : '',
-    groups,
-    numRegistrants: challenge.userIds ? challenge.userIds.length : 0,
-    numSubmissions: 0, // currently challenge doesn't return submission value
-    platforms: '',
-    prizes: [0],
-    registrationOpen: endTimestamp > Date.now() &&
-      (challenge.status !== 'PAST') ? 'Yes' : 'No',
-    registrationStartDate: challenge.startDate,
-    submissionEndDate: challenge.endDate,
-    submissionEndTimestamp: endTimestamp,
-    technologies: '',
-    totalPrize: 0,
-    track: 'DATA_SCIENCE',
-    status: endTimestamp > Date.now() ? 'ACTIVE' : 'COMPLETED',
-    subTrack: 'MARATHON_MATCH',
-    users: username ? { username: true } : {},
-  });
-  /* eslint-disable no-param-reassign */
-  challenge.endDate = endDate;
-  challenge.startDate = startDate;
-  if (challenge.status === 'PAST') challenge.status = 'COMPLETED';
-  /* eslint-enable no-param-reassign */
 }
 
 /**
@@ -264,6 +274,7 @@ async function checkError(res) {
   if (jsonRes.status !== 200) throw new Error(jsonRes.content);
   return jsonRes;
 }
+
 
 class ChallengesService {
   /**
@@ -455,20 +466,6 @@ class ChallengesService {
   }
 
   /**
-   * Gets marathon matches.
-   * @param {Object} filters Optional.
-   * @param {Object} params Optional.
-   * @return {Promise} Resolve to the api response.
-   */
-  getMarathonMatches(filters, params) {
-    return this.private.getChallenges('/marathonMatches/', filters, params)
-      .then((res) => {
-        res.challenges.forEach(item => normalizeMarathonMatch(item));
-        return res;
-      });
-  }
-
-  /**
    * Gets SRM matches.
    * @param {Object} params
    * @return {Promise}
@@ -494,21 +491,6 @@ class ChallengesService {
       });
   }
 
-  /**
-   * Gets marathon matches of the specified user.
-   * @param {String} username User whose challenges we want to fetch.
-   * @param {Object} filters Optional.
-   * @param {Number} params Optional.
-   * @return {Promise} Resolves to the api response.
-   */
-  getUserMarathonMatches(username, filters, params) {
-    const endpoint = `/members/${username.toLowerCase()}/mms/`;
-    return this.private.getChallenges(endpoint, filters, params)
-      .then((res) => {
-        res.challenges.forEach(item => normalizeMarathonMatch(item, username));
-        return res;
-      });
-  }
 
   /**
    * Gets SRM matches related to the user.
@@ -553,7 +535,7 @@ class ChallengesService {
    * @param {String} challengeId
    * @param {String} track Either DESIGN or DEVELOP
    * @return {Promise}
-  */
+   */
   submit(body, challengeId, track, onProgress) {
     let api;
     let contentType;
@@ -587,12 +569,10 @@ class ChallengesService {
         headers: { 'Content-Type': contentType },
         method: 'POST',
       }, onProgress).then(procres => JSON.parse(procres));
-    },
-    (err) => {
+    }, (err) => {
       logger.error(`Failed to submit to the challenge #${challengeId}`, err);
       throw err;
-    },
-    );
+    });
   }
 
   /**
@@ -621,7 +601,7 @@ class ChallengesService {
 let lastInstance = null;
 export function getService(tokenV3, tokenV2) {
   if (!lastInstance || lastInstance.private.tokenV3 !== tokenV3
-  || lastInstance.tokenV2 !== tokenV2) {
+    || lastInstance.tokenV2 !== tokenV2) {
     lastInstance = new ChallengesService(tokenV3, tokenV2);
   }
   return lastInstance;

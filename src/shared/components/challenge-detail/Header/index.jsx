@@ -81,7 +81,7 @@ export default function ChallengeHeader(props) {
 
   let trackLower = track ? track.toLowerCase() : 'design';
   if (technologies.includes('Data Science')) {
-    trackLower = 'datasci';
+    trackLower = 'data_science';
   }
 
   const eventNames = (events || []).map((event => (event.eventName || '').toUpperCase()));
@@ -236,7 +236,7 @@ export default function ChallengeHeader(props) {
                       <p styleName="bonus-text">
                         <span styleName={`bonus-highlight ${trackLower}-accent-color`}>
                           BONUS: {numberOfCheckpointsPrizes} </span>CHECKPOINTS AWARDED
-                          WORTH <span styleName={`bonus-highlight ${trackLower}-accent-color`}>${topCheckPointPrize} </span>EACH
+                        WORTH <span styleName={`bonus-highlight ${trackLower}-accent-color`}>${topCheckPointPrize} </span>EACH
                       </p> :
                       <p styleName="bonus-text">
                         <span styleName={`bonus-highlight ${trackLower}-accent-color`}>
@@ -262,7 +262,7 @@ export default function ChallengeHeader(props) {
               {hasRegistered ? (
                 <DangerButton
                   disabled={unregistering || registrationEnded
-                    || hasSubmissions}
+                  || hasSubmissions}
                   onClick={unregisterFromChallenge}
                   theme={{ button: style.challengeAction }}
                 >Unregister</DangerButton>
@@ -279,11 +279,7 @@ export default function ChallengeHeader(props) {
                 to={`${challengesUrl}/${challengeId}/submit`}
               >Submit</PrimaryButton>
               { track === 'DESIGN' && hasRegistered && !unregistering
-                && hasSubmissions && (
-                  <PrimaryButton
-                    theme={{ button: style.challengeAction }}
-                    to={`${challengesUrl}/${challengeId}/my-submissions`}
-                  >View Submissions</PrimaryButton>
+              && hasSubmissions && (<PrimaryButton theme={{ button: style.challengeAction }} to={`${challengesUrl}/${challengeId}/my-submissions`}>View Submissions</PrimaryButton>
                 )
               }
             </div>

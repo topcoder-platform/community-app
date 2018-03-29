@@ -83,7 +83,7 @@ function getAllActiveChallengesInit(uuid) {
 }
 
 /**
- * Gets all active challenges (including marathon matches) from the backend.
+ * Gets all active challenges from the backend.
  * Once this action is completed any active challenges saved to the state before
  * will be dropped, and the newly fetched ones will be stored there.
  * @param {String} uuid
@@ -97,18 +97,15 @@ function getAllActiveChallengesDone(uuid, tokenV3) {
   const service = getService(tokenV3);
   const calls = [
     getAll(params => service.getChallenges(filter, params)),
-    getAll(params => service.getMarathonMatches(filter, params)),
   ];
   let user;
   if (tokenV3) {
     user = decodeToken(tokenV3).handle;
     calls.push(getAll(params =>
       service.getUserChallenges(user, filter, params)));
-    calls.push(getAll(params =>
-      service.getUserMarathonMatches(user, filter, params)));
   }
   return Promise.all(calls).then(([ch, mm, uch, umm]) => {
-    const challenges = ch.concat(mm);
+    const challenges = mm !== undefined ? ch.concat(mm) : ch;
 
     /* uch and umm arrays contain challenges where the user is participating in
      * some role. The same challenge are already listed in res array, but they
@@ -145,7 +142,7 @@ function getDraftChallengesInit(uuid, page) {
 }
 
 /**
- * Gets the specified page of draft challenges (including MMs).
+ * Gets the specified page of draft challenges
  * @param {Number} page Page of challenges to fetch.
  * @param {Object} filter Backend filter to use.
  * @param {String} tokenV3 Optional. Topcoder auth token v3.
@@ -161,15 +158,8 @@ function getDraftChallengesDone(uuid, page, filter, tokenV3) {
       limit: PAGE_SIZE,
       offset: page * PAGE_SIZE,
     }),
-    service.getMarathonMatches({
-      ...filter,
-      status: 'DRAFT',
-    }, {
-      limit: PAGE_SIZE,
-      offset: page * PAGE_SIZE,
-    }),
-  ]).then(([{ challenges: chunkA }, { challenges: chunkB }]) =>
-    ({ uuid, challenges: chunkA.concat(chunkB) }));
+  ]).then(([{ challenges: chunkA }]) =>
+    ({ uuid, challenges: (chunkA !== undefined) ? chunkA : [] }));
 }
 
 /**
@@ -185,7 +175,7 @@ function getPastChallengesInit(uuid, page, frontFilter) {
 }
 
 /**
- * Gets the specified page of past challenges (including MMs).
+ * Gets the specified page of past challenges
  * @param {Number} page Page of challenges to fetch.
  * @param {Object} filter Backend filter to use.
  * @param {String} tokenV3 Optional. Topcoder auth token v3.
@@ -202,15 +192,8 @@ function getPastChallengesDone(uuid, page, filter, tokenV3, frontFilter = {}) {
       limit: PAGE_SIZE,
       offset: page * PAGE_SIZE,
     }),
-    service.getMarathonMatches({
-      ...filter,
-      status: 'PAST',
-    }, {
-      limit: PAGE_SIZE,
-      offset: page * PAGE_SIZE,
-    }),
-  ]).then(([{ challenges: chunkA }, { challenges: chunkB }]) =>
-    ({ uuid, challenges: chunkA.concat(chunkB), frontFilter }));
+  ]).then(([{ challenges: chunkA }]) =>
+    ({ uuid, challenges: chunkA, frontFilter }));
 }
 
 /**

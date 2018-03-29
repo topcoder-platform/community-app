@@ -25,7 +25,7 @@ export const CHALLENGE_PHASE_TYPES = {
  * uses upper-case literals to encode the tracks. At some point, we should
  * update it in this code as well! */
 export const COMPETITION_TRACKS = {
-  DATA_SCIENCE: 'datasci',
+  DATA_SCIENCE: 'data_science',
   DESIGN: 'design',
   DEVELOP: 'develop',
 };
@@ -280,7 +280,8 @@ export function challengeLinks(challenge, type) {
       default:
         return '';
     }
-  } else if (challenge.subTrack === 'SRM') {
+  } else
+  if (challenge.subTrack === 'SRM') {
     data = {
       roundId: challenge.rounds[0].id,
     };
@@ -308,7 +309,7 @@ export function challengeLinks(challenge, type) {
           default:
             return '';
         }
-        /* eslint no-fallthrough:0 */
+      /* eslint no-fallthrough:0 */
       case 'submissions':
         return `${config.URL.BASE}/challenge-details/${data.id}/?type=${data.track}#submissions`;
       case 'registrants':
