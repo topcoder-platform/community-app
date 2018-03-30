@@ -5,12 +5,11 @@
  */
 
 import _ from 'lodash';
-import config from 'utils/config';
 import PT from 'prop-types';
 import React from 'react';
 import Tooltip from 'components/Tooltip';
 import { DETAIL_TABS } from 'actions/challenge';
-import { Link } from 'topcoder-react-utils';
+import { Link, utils } from 'topcoder-react-utils';
 
 /* TODO: The icon should be converted back to SVG and imported using the
  * the standard approach for our code! */
@@ -20,7 +19,7 @@ import './style.scss';
 
 const ID_LENGTH = 6;
 const MM_BASE_URL
-  = `${config.URL.COMMUNITY}/longcontest/?module=ViewRegistrants&rd=`;
+  = `${utils.config.URL.COMMUNITY}/longcontest/?module=ViewRegistrants&rd=`;
 
 export default function NumRegistrants({
   challenge: { id, numRegistrants, rounds, track },
@@ -38,7 +37,7 @@ export default function NumRegistrants({
   let link = track === 'DATA_SCIENCE' && _.toString(id).length < ID_LENGTH
     ? `${MM_BASE_URL}${rounds[0].id}` : `${challengesUrl}/${id}${query}`;
   if (!newChallengeDetails && track !== 'DATA_SCIENCE') {
-    link = `${config.URL.BASE}/challenge-details/${id}/?type=develop#viewRegistrant`;
+    link = `${utils.config.URL.BASE}/challenge-details/${id}/?type=develop#viewRegistrant`;
   }
   return (
     <span styleName="container">

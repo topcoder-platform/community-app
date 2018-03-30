@@ -12,7 +12,6 @@
 import _ from 'lodash';
 import actions from 'actions/challenge-listing';
 import challengeActions from 'actions/challenge';
-import config from 'utils/config';
 import filterPanelActions from 'actions/challenge-listing/filter-panel';
 import headerActions from 'actions/topcoder_header';
 import logger from 'utils/logger';
@@ -28,6 +27,8 @@ import communityActions from 'actions/tc-communities';
 import { BUCKETS } from 'utils/challenge-listing/buckets';
 import { combine, mapToBackend } from 'utils/challenge-listing/filter';
 import MetaTags from 'utils/MetaTags';
+import { utils } from 'topcoder-react-utils';
+
 import ogImage from '../../../../assets/images/og_image.jpg';
 import style from './styles.scss';
 
@@ -121,10 +122,10 @@ export class ListingContainer extends React.Component {
 
     this.props.getPastChallenges(0, f.back, this.props.auth.tokenV3, f.front);
 
-    if (config.CHALLENGE_LISTING_AUTO_REFRESH) {
+    if (utils.config.CHALLENGE_LISTING_AUTO_REFRESH) {
       if (this.autoRefreshTimerId) clearTimeout(this.autoRefreshTimerId);
       this.autoRefreshTimerId = setTimeout(() =>
-        this.loadChallenges(), 1000 * config.CHALLENGE_LISTING_AUTO_REFRESH);
+        this.loadChallenges(), 1000 * utils.config.CHALLENGE_LISTING_AUTO_REFRESH);
     }
   }
 

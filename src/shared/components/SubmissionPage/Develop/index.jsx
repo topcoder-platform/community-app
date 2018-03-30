@@ -10,10 +10,11 @@
 /* eslint-env browser */
 
 import _ from 'lodash';
-import config from 'utils/config';
 import React from 'react';
 import PT from 'prop-types';
 import { PrimaryButton } from 'topcoder-react-ui-kit';
+import { utils } from 'topcoder-react-utils';
+
 import FilePicker from '../FilePicker';
 import Uploading from '../Uploading';
 import './styles.scss';
@@ -131,7 +132,7 @@ class Develop extends React.Component {
               <p>
                 Submitting your files means you hereby agree to the
                 &zwnj;<a
-                  href={config.URL.INFO.TOPCODER_TERMS}
+                  href={utils.config.URL.INFO.TOPCODER_TERMS}
                   rel="noreferrer noopener"
                   target="_blank"
                 >Topcoder terms of use</a>&zwnj;

@@ -1,4 +1,3 @@
-import _ from 'lodash';
 import atob from 'atob';
 import Application from 'shared';
 import config from 'config';
@@ -7,7 +6,7 @@ import logger from 'utils/logger';
 import path from 'path';
 import qs from 'qs';
 import serializeJs from 'serialize-javascript';
-import serverFactory from 'topcoder-react-utils/dist/server-side/server';
+import serverFactory from 'topcoder-react-utils/dist/src/server';
 
 import { getRates as getExchangeRates } from 'services/money';
 import { toJson as xmlToJson } from 'utils/xml2json';
@@ -50,21 +49,14 @@ const EXTRA_SCRIPTS = [
 
 const MODE = process.env.BABEL_ENV;
 
-async function beforeRender(req) {
+async function beforeRender(req, suggestedConfig) {
   const [
     store,
     rates,
   ] = await Promise.all([storeFactory(req), getExchangeRates()]);
 
-  const sanitizedConfig =
-    _.omit(config, [
-      'LOG_ENTRIES_TOKEN',
-      'SECRET',
-    ]);
-  sanitizedConfig.EXCHANGE_RATES = rates;
-
   return {
-    config: sanitizedConfig,
+    config: { ...suggestedConfig, EXCHANGE_RATES: rates },
     extraScripts: EXTRA_SCRIPTS,
     store,
   };

@@ -12,9 +12,10 @@
  */
 
 import _ from 'lodash';
-import config from 'utils/config';
 import moment from 'moment';
 import React from 'react';
+import { utils } from 'topcoder-react-utils';
+
 import PT from 'prop-types';
 
 import DeleteIcon from '../Icons/IconTrashSimple.svg';
@@ -44,7 +45,7 @@ export default function Submission(props) {
           styleName={type === 'DESIGN' ? 'design-img' : 'dev-img'}
           src={
             submissionObject.preview ||
-            `${config.URL.STUDIO}?module=DownloadSubmission&sbmid=${submissionObject.submissionId}&sbt=tiny&sfi=1`
+            `${utils.config.URL.STUDIO}?module=DownloadSubmission&sbmid=${submissionObject.submissionId}&sbt=tiny&sfi=1`
           }
         />
       </td>
@@ -64,7 +65,7 @@ export default function Submission(props) {
           <a
             href={
               type === 'DESIGN'
-                ? `${config.URL.STUDIO}?module=DownloadSubmission&sbmid=${submissionObject.submissionId}&sbt=original`
+                ? `${utils.config.URL.STUDIO}?module=DownloadSubmission&sbmid=${submissionObject.submissionId}&sbt=original`
                 : submissionObject.download
             }
           ><DownloadIcon /></a>

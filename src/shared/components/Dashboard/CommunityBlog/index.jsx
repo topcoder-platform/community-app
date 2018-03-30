@@ -1,7 +1,7 @@
-import config from 'utils/config';
 import LoadingIndicator from 'components/LoadingIndicator';
 import PT from 'prop-types';
 import React from 'react';
+import { utils } from 'topcoder-react-utils';
 
 import Card from './Card';
 
@@ -32,7 +32,7 @@ export default function CommunityBlog({
       </div>
       <div styleName="linksContainer">
         <a
-          href={config.URL.BLOG}
+          href={utils.config.URL.BLOG}
           rel="noopener noreferrer"
           styleName="link"
           target="_blank"

@@ -24,7 +24,6 @@ export default class MultiEditor extends React.Component {
     this.fakeConnector = new Connector();
     this.fakeConnector.setToolbar(this);
     this.id = props.id;
-    console.log(props);
     this.state = {
       mode: props.initialMode,
     };

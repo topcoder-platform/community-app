@@ -18,10 +18,10 @@
  *      - project_result.final_score: Number, required. The user's current score
  */
 
-import config from 'utils/config';
 import React from 'react';
 import PT from 'prop-types';
 import { Avatar } from 'topcoder-react-ui-kit';
+import { utils } from 'topcoder-react-utils';
 
 import avatarStyles from '../avatarStyles.scss';
 import styles from './styles.scss'; // eslint-disable-line
@@ -34,7 +34,7 @@ export default function LeaderboardTable(props) {
     comps.map((competitor) => {
       let photoUrl = competitor['challenge_stats.photo_url'];
       if (photoUrl) {
-        photoUrl = `${config.CDN.PUBLIC}/avatar/${
+        photoUrl = `${utils.config.CDN.PUBLIC}/avatar/${
           encodeURIComponent(photoUrl)}?size=65`;
       }
       return (
@@ -51,7 +51,7 @@ export default function LeaderboardTable(props) {
             </span>
           </td>
           <td styleName="styles.col-handle">
-            <a href={`${config.URL.BASE}/members/${competitor['challenge_stats.winner_handle']}/`}>{competitor['challenge_stats.winner_handle']}</a>
+            <a href={`${utils.config.URL.BASE}/members/${competitor['challenge_stats.winner_handle']}/`}>{competitor['challenge_stats.winner_handle']}</a>
             <div styleName="styles.winnings-info">
               <span>{competitor.points} points</span>
               <span>{competitor['challenge_stats.count']} challenges</span>

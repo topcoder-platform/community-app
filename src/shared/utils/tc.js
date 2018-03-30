@@ -4,10 +4,9 @@
 /* global window */
 
 import _ from 'lodash';
-import config from 'utils/config';
 import moment from 'moment-timezone';
 import { isTokenExpired } from 'tc-accounts';
-import { isClientSide } from 'utils/isomorphy';
+import { utils } from 'topcoder-react-utils';
 
 /**
  * Possible phase types (at the moment, this map does not cover all
@@ -60,7 +59,7 @@ export const USER_ROLES = {
  */
 export function getCdnAvatarUrl(apiUrl, size = 100) {
   if (!apiUrl) return '';
-  return `${config.CDN.PUBLIC}/avatar/${
+  return `${utils.config.CDN.PUBLIC}/avatar/${
     encodeURIComponent(apiUrl)}?size=${size}`;
 }
 
@@ -133,8 +132,12 @@ export function getAuthTokens(req = {}) {
   const cookies = req.cookies || {};
   let tokenV2 = cookies.tcjwt;
   let tokenV3 = cookies.v3jwt;
-  if (!tokenV2 || isTokenExpired(tokenV2, config.AUTH_DROP_TIME)) tokenV2 = '';
-  if (!tokenV3 || isTokenExpired(tokenV3, config.AUTH_DROP_TIME)) tokenV3 = '';
+  if (!tokenV2 || isTokenExpired(tokenV2, utils.config.AUTH_DROP_TIME)) {
+    tokenV2 = '';
+  }
+  if (!tokenV3 || isTokenExpired(tokenV3, utils.config.AUTH_DROP_TIME)) {
+    tokenV3 = '';
+  }
   return { tokenV2, tokenV3 };
 }
 
@@ -144,9 +147,9 @@ export function getAuthTokens(req = {}) {
  * @param {String} utmSource
  */
 export function goToLogin(utmSource = '') {
-  if (isClientSide()) {
+  if (utils.isomorphy.isClientSide()) {
     const retUrl = encodeURIComponent(window.location.href);
-    window.location = `${config.URL.AUTH}/member?retUrl=${retUrl}&utm_source=${utmSource}`;
+    window.location = `${utils.config.URL.AUTH}/member?retUrl=${retUrl}&utm_source=${utmSource}`;
   }
 }
 
@@ -280,16 +283,16 @@ export function challengeLinks(challenge, type) {
     };
     switch (type) {
       case 'forums':
-        return `${config.URL.FORUMS}/?module=ThreadList&forumID=${data.forumId}`;
+        return `${utils.config.URL.FORUMS}/?module=ThreadList&forumID=${data.forumId}`;
       case 'registrants':
-        return `${config.URL.COMMUNITY}/longcontest/?module=ViewRegistrants&rd=${data.roundId}`;
+        return `${utils.config.URL.COMMUNITY}/longcontest/?module=ViewRegistrants&rd=${data.roundId}`;
       case 'submit':
-        return `${config.URL.COMMUNITY}/longcontest/?module=Submit&compid=${data.componentId}&rd=${data.roundId}&cd=${data.challengeId}`;
+        return `${utils.config.URL.COMMUNITY}/longcontest/?module=Submit&compid=${data.componentId}&rd=${data.roundId}&cd=${data.challengeId}`;
       case 'detail':
         if (challenge.status === 'PAST') {
-          return `${config.URL.COMMUNITY}/longcontest/stats/?module=ViewOverview&rd=${data.roundId}`;
+          return `${utils.config.URL.COMMUNITY}/longcontest/stats/?module=ViewOverview&rd=${data.roundId}`;
         } // for all other statues (ACTIVE, UPCOMING), show the problem statement
-        return `${config.URL.COMMUNITY}/longcontest/?module=ViewProblemStatement&pm=${data.problemId}&rd=${data.roundId}`;
+        return `${utils.config.URL.COMMUNITY}/longcontest/?module=ViewProblemStatement&pm=${data.problemId}&rd=${data.roundId}`;
       default:
         return '';
     }
@@ -299,7 +302,7 @@ export function challengeLinks(challenge, type) {
     };
     switch (type) {
       case 'detail':
-        return `${config.URL.COMMUNITY}/stat?c=round_overview&rd=${data.roundId}`;
+        return `${utils.config.URL.COMMUNITY}/stat?c=round_overview&rd=${data.roundId}`;
       default:
         return '';
     }
@@ -313,29 +316,29 @@ export function challengeLinks(challenge, type) {
       case 'forums':
         switch (challenge.track.toLowerCase()) {
           case 'develop':
-            return `${config.URL.FORUMS}/?module=Category&categoryID=${data.forumId}`;
+            return `${utils.config.URL.FORUMS}/?module=Category&categoryID=${data.forumId}`;
           case 'data':
-            return `${config.URL.FORUMS}/?module=Category&categoryID=${data.forumId}`;
+            return `${utils.config.URL.FORUMS}/?module=Category&categoryID=${data.forumId}`;
           case 'design':
-            return `${config.URL.FORUMS}/?module=ThreadList&forumID=${data.forumId}`;
+            return `${utils.config.URL.FORUMS}/?module=ThreadList&forumID=${data.forumId}`;
           default:
             return '';
         }
         /* eslint no-fallthrough:0 */
       case 'submissions':
-        return `${config.URL.BASE}/challenge-details/${data.id}/?type=${data.track}#submissions`;
+        return `${utils.config.URL.BASE}/challenge-details/${data.id}/?type=${data.track}#submissions`;
       case 'registrants':
-        return `${config.URL.BASE}/challenge-details/${data.id}/?type=${data.track}#viewRegistrant`;
+        return `${utils.config.URL.BASE}/challenge-details/${data.id}/?type=${data.track}#viewRegistrant`;
       case 'submit':// TODO use details link for submit, we can replace it with new submission page url
-        return `${config.URL.BASE}/challenge-details/${data.id}/?type=${data.track}`;
+        return `${utils.config.URL.BASE}/challenge-details/${data.id}/?type=${data.track}`;
       case 'detail':
-        return `${config.URL.BASE}/challenge-details/${data.id}/?type=${data.track}`;
+        return `${utils.config.URL.BASE}/challenge-details/${data.id}/?type=${data.track}`;
       case 'viewScorecards':
-        return `${config.URL.ONLINE_REVIEW}/review/actions/ViewProjectDetails?pid=${data.id}`;
+        return `${utils.config.URL.ONLINE_REVIEW}/review/actions/ViewProjectDetails?pid=${data.id}`;
       case 'completeAppeals':
-        return `${config.URL.ONLINE_REVIEW}/review/actions/EarlyAppeals?pid=${data.id}`;
+        return `${utils.config.URL.ONLINE_REVIEW}/review/actions/EarlyAppeals?pid=${data.id}`;
       case 'unRegister':
-        return `${config.URL.ONLINE_REVIEW}/review/actions/Unregister?pid=${data.id}`;
+        return `${utils.config.URL.ONLINE_REVIEW}/review/actions/Unregister?pid=${data.id}`;
       default:
         return '';
     }

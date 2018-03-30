@@ -15,7 +15,7 @@ import ReactDomServer from 'react-dom/server';
 import shortid from 'shortid';
 import { Provider } from 'react-redux';
 import { Route } from 'react-router-dom';
-import { isServerSide } from 'utils/isomorphy';
+import { utils } from 'topcoder-react-utils';
 
 import ContentWrapper from './ContentWrapper';
 
@@ -68,7 +68,7 @@ export default class SplitRoute extends React.Component {
         path={path}
         render={(props) => {
           let res = null;
-          if (isServerSide()) {
+          if (utils.isomorphy.isServerSide()) {
             /* Server-side rendering */
 
             /* 1. The component or its placeholder is rendered into HTML

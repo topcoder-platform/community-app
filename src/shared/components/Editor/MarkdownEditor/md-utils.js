@@ -452,6 +452,5 @@ export default class MdUtils {
     this.env = {};
     this.tokens = this.markdown.parse(
       contentState.getPlainText(), this.env);
-    console.log(this.tokens, this.env);
   }
 }

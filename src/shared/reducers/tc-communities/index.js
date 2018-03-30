@@ -9,12 +9,12 @@ import actions from 'actions/tc-communities';
 import logger from 'utils/logger';
 import { handleActions } from 'redux-actions';
 import { decodeToken } from 'tc-accounts';
-import { isClientSide } from 'utils/isomorphy';
 import { combine, resolveReducers, toFSA } from 'utils/redux';
 import { getAuthTokens } from 'utils/tc';
 import { STATE as JOIN_COMMUNITY } from 'components/tc-communities/JoinCommunity';
 import { getService as getTermsService } from 'services/terms';
 import { getCommunityId } from 'server/services/communities';
+import { utils } from 'topcoder-react-utils';
 
 import { fireErrorMessage } from 'utils/errors';
 
@@ -28,7 +28,7 @@ function onJoinDone(state, action) {
     /* NOTE: Using alert is, probably, not a best practice, but will work just
      * fine for now. Anyway, if everything works fine, users are not supposed
      * to see it normally. */
-    if (isClientSide()) {
+    if (utils.isomorphy.isClientSide()) {
       alert('Failed to join the group!'); // eslint-disable-line no-alert
     }
 

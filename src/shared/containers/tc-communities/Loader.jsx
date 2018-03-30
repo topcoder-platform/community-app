@@ -12,11 +12,11 @@ import AccessDenied, {
   CAUSE as ACCESS_DENIED_REASON,
 } from 'components/tc-communities/AccessDenied';
 import actions from 'actions/tc-communities/meta';
-import config from 'utils/config';
 import LoadingPagePlaceholder
   from 'components/tc-communities/LoadingPagePlaceholder';
 import PT from 'prop-types';
 import React from 'react';
+import { utils } from 'topcoder-react-utils';
 
 import { connect } from 'react-redux';
 
@@ -50,7 +50,7 @@ class Loader extends React.Component {
      * clear, what exactly do we need to support it in general. */
     if (communityId === 'wipro' && !this.props.visitorGroups) {
       const returnUrl = encodeURIComponent(window.location.href);
-      window.location = `${config.URL.AUTH}/sso-login/?retUrl=${returnUrl}&utm_source=wipro`;
+      window.location = `${utils.config.URL.AUTH}/sso-login/?retUrl=${returnUrl}&utm_source=wipro`;
     }
   }
 

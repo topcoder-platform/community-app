@@ -1,5 +1,4 @@
 import _ from 'lodash';
-import config from 'utils/config';
 import moment from 'moment';
 import NumRegistrants from
   'components/challenge-listing/ChallengeCard/NumRegistrants';
@@ -8,7 +7,7 @@ import NumSubmissions from
 import PT from 'prop-types';
 import React from 'react';
 
-import { Link } from 'topcoder-react-utils';
+import { Link, utils } from 'topcoder-react-utils';
 
 import {
   Button,
@@ -197,7 +196,7 @@ export default function ChallengeCard({
           <Link
             openNewTab
             styleName="forumLink"
-            to={`${config.URL.FORUMS}${forumEndpoint}`}
+            to={`${utils.config.URL.FORUMS}${forumEndpoint}`}
           >Forum</Link>
         </div>
         <div styleName="statusPanel">
@@ -211,7 +210,7 @@ export default function ChallengeCard({
                 openNewTab
                 size="sm"
                 theme={{ button: style.button }}
-                to={`${config.URL.BASE}/direct/contest/detail.action?projectId=${id}`}
+                to={`${utils.config.URL.BASE}/direct/contest/detail.action?projectId=${id}`}
               >Direct</Button>
             ) : null
           }
@@ -221,7 +220,7 @@ export default function ChallengeCard({
                 openNewTab
                 size="sm"
                 theme={{ button: style.button }}
-                to={`${config.URL.ONLINE_REVIEW}/review/actions/ViewProjectDetails?method=viewProjectDetails&pid=${id}`}
+                to={`${utils.config.URL.ONLINE_REVIEW}/review/actions/ViewProjectDetails?method=viewProjectDetails&pid=${id}`}
               >Online Review</Button>
             ) : null
           }

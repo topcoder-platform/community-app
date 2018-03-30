@@ -18,12 +18,13 @@
  *      - state: string, required. The submission state.
  */
 
-import config from 'utils/config';
 import React from 'react';
 import PT from 'prop-types';
 
 import codeFields from 'shared/fields/submissionCodeFields.json';
 import designFields from 'shared/fields/submissionDesignFields.json';
+
+import { utils } from 'topcoder-react-utils';
 
 import styles from './styles.scss'; // eslint-disable-line no-unused-vars
 
@@ -50,7 +51,7 @@ export default function ScoreboardTable(props) {
         <tr key={submission.id}>
           <td styleName="styles.col-rank">{index + 1}</td>
           <td styleName="styles.col-handle">
-            <a href={`${config.URL.BASE}/members/${submission.handle}/`}>{submission.handle}</a>
+            <a href={`${utils.config.URL.BASE}/members/${submission.handle}/`}>{submission.handle}</a>
           </td>
           {getTemplateValues(fields, challenge.type === 'Code' ? submission.submissionCode : submission.submissionDesign)}
         </tr>

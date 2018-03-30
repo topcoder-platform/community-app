@@ -6,7 +6,7 @@
 
 import _ from 'lodash';
 import qs from 'qs';
-import { isServerSide } from './isomorphy';
+import { utils } from 'topcoder-react-utils';
 
 /**
  * If executed client-side (determined in this case by the presence of global
@@ -19,7 +19,7 @@ import { isServerSide } from './isomorphy';
  *  'update' as undefined.
  */
 export function updateQuery(update) {
-  if (isServerSide()) return;
+  if (utils.isomorphy.isServerSide()) return;
 
   let query = qs.parse(window.location.search.slice(1));
 

@@ -1,10 +1,9 @@
 // TODO: All uses of this component MUST be replaced by Avatar component!
 
 import { Avatar } from 'topcoder-react-ui-kit';
-import config from 'utils/config';
 import React, { Component } from 'react';
 import PT from 'prop-types';
-import { Link } from 'topcoder-react-utils';
+import { Link, utils } from 'topcoder-react-utils';
 import './style.scss';
 
 /* TODO: Should be functional component! */
@@ -19,7 +18,7 @@ class LeaderboardAvatar extends Component {
   render() {
     const { onClick, openNewTab, plusOne, url } = this.props;
     const { member } = this.state;
-    const targetURL = url || `${config.URL.BASE}/members/${member.handle}`;
+    const targetURL = url || `${utils.config.URL.BASE}/members/${member.handle}`;
     let photoURL = member.photoURL;
     if (photoURL) {
       /* Note: 50px is larger than we really need here (the avatar size is
@@ -27,7 +26,7 @@ class LeaderboardAvatar extends Component {
        * by the challenge listing when an avatar is hovered. Having the same
        * size will ensure that the avatar in tooltip always appears immediately.
        */
-      photoURL = `${config.CDN.PUBLIC}/avatar/${
+      photoURL = `${utils.config.CDN.PUBLIC}/avatar/${
         encodeURIComponent(photoURL)}?size=50`;
     }
     return (

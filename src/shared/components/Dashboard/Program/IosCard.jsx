@@ -1,8 +1,9 @@
 import React from 'react';
 import PT from 'prop-types';
 
-import config from 'utils/config';
 import { stripUnderscore } from 'utils/tc';
+import { utils } from 'topcoder-react-utils';
+
 import './IosCard.scss';
 
 const IosCard = (props) => {
@@ -12,23 +13,23 @@ const IosCard = (props) => {
       <div styleName="challenge-track" />
       <header>
         <div>
-          <a href={`${config.URL.BASE}/challenge-details/${challenge.id}/?type=${challenge.track}`} styleName="name">
+          <a href={`${utils.config.URL.BASE}/challenge-details/${challenge.id}/?type=${challenge.track}`} styleName="name">
             <span>{challenge.name}</span>
           </a>
           <p styleName="subtrack-color">{stripUnderscore(challenge.subTrack)}</p>
         </div>
         <div styleName="challenge-links">
           <div styleName="stats">
-            <a href={`${config.URL.BASE}/challenge-details/${challenge.id}/?type=${challenge.track}#viewRegistrant`} styleName="registrants">
+            <a href={`${utils.config.URL.BASE}/challenge-details/${challenge.id}/?type=${challenge.track}#viewRegistrant`} styleName="registrants">
               <div styleName="registrants-icon" />
               <p>{challenge.numRegistrants}</p>
             </a>
-            <a href={`${config.URL.BASE}/challenge-details/${challenge.id}/?type=${challenge.track}#submissions`} styleName="submissions">
+            <a href={`${utils.config.URL.BASE}/challenge-details/${challenge.id}/?type=${challenge.track}#submissions`} styleName="submissions">
               <div styleName="submissions-icon" />
               <p>{challenge.numSubmissions}</p>
             </a>
           </div>
-          <a href={`${config.URL.FORUMS}/?module=Category&categoryID=${challenge.forumId}`} styleName="forum">
+          <a href={`${utils.config.URL.FORUMS}/?module=Category&categoryID=${challenge.forumId}`} styleName="forum">
             <div styleName="forum-icon" />
             <p>Posts</p>
           </a>

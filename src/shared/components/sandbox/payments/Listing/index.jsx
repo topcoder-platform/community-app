@@ -18,7 +18,6 @@ export default function Listing({
   selectedProjectId,
   selectProject,
 }) {
-  console.log(memberTasks);
   const selectedProjectIdNum = Number(selectedProjectId);
   let content = memberTasks
     .filter(item => item.projectId === selectedProjectIdNum)

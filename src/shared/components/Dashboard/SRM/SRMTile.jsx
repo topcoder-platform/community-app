@@ -1,8 +1,9 @@
 import React from 'react';
 import PT from 'prop-types';
 
-import config from 'utils/config';
 import { timeDiff, localTime } from 'utils/tc';
+import { utils } from 'topcoder-react-utils';
+
 import './SRMTile.scss';
 
 const SRMTile = (props) => {
@@ -34,7 +35,7 @@ const SRMTile = (props) => {
               srm.userStatus !== 'registered' &&
               <div>
                 <a
-                  href={`${config.URL.COMMUNITY}/tc` +
+                  href={`${utils.config.URL.COMMUNITY}/tc` +
                     `?module=MatchDetails&rd=${srm.rounds[0] && srm.rounds[0].id}`}
                   styleName="tc-btn"
                   className="tc-btn tc-btn-s tc-btn-wide"

@@ -26,10 +26,10 @@ import htmlToText from 'html-to-text';
 import PT from 'prop-types';
 import { connect } from 'react-redux';
 import challengeActions, { DETAIL_TABS } from 'actions/challenge';
-import config from 'utils/config';
 import MetaTags from 'utils/MetaTags';
 import { BUCKETS } from 'utils/challenge-listing/buckets';
 import { CHALLENGE_PHASE_TYPES, COMPETITION_TRACKS_V3, SUBTRACKS } from 'utils/tc';
+import { utils } from 'topcoder-react-utils';
 
 import ogWireframe from
   '../../../assets/images/open-graph/challenges/01-wireframe.jpg';
@@ -186,7 +186,7 @@ class ChallengeDetailPageContainer extends React.Component {
   registerForChallenge() {
     if (!this.props.auth.tokenV2) {
       const utmSource = this.props.communityId || 'community-app-main';
-      location.href = `${config.URL.AUTH}/member?retUrl=${encodeURIComponent(location.href)}&utm_source=${utmSource}`;
+      location.href = `${utils.config.URL.AUTH}/member?retUrl=${encodeURIComponent(location.href)}&utm_source=${utmSource}`;
     } else if (_.every(this.props.terms, 'agreed')) {
       this.props.registerForChallenge(this.props.auth, this.props.challengeId);
     } else {

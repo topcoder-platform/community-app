@@ -1,9 +1,9 @@
 /* eslint jsx-a11y/no-static-element-interactions:0 */
 
-import React from 'react';
 import PT from 'prop-types';
+import React from 'react';
+import { utils } from 'topcoder-react-utils';
 
-import config from 'utils/config';
 import IosCard from './IosCard';
 import MemberIcon from '../../../../assets/images/Member-06.svg';
 import './styles.scss';
@@ -41,7 +41,7 @@ const Program = (props) => {
                   >Participate</a>
                 </div>
                 <div styleName="help-link">
-                  <a href={config.URL.IOS} styleName="learn-more">Learn More</a>
+                  <a href={utils.config.URL.IOS} styleName="learn-more">Learn More</a>
                 </div>
               </div>
             </div>
@@ -58,7 +58,7 @@ const Program = (props) => {
                     <MemberIcon />
                   </div>
                   <a
-                    href={config.URL.IOS}
+                    href={utils.config.URL.IOS}
                     title="topcoder iOS Member Program"
                     className="tc-btn tc-btn-s tc-btn-ghost tc-btn-wide"
                   >

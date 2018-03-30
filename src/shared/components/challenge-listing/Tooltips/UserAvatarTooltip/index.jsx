@@ -7,12 +7,11 @@
  * the 'user' prop.
  */
 
-import config from 'utils/config';
 import React, { Component } from 'react';
 import PT from 'prop-types';
-// import moment from 'moment';
 import Tooltip from 'components/Tooltip';
 import { Avatar } from 'topcoder-react-ui-kit';
+import { utils } from 'topcoder-react-utils';
 import styles from './style.scss';
 
 /**
@@ -38,7 +37,7 @@ function Tip(props) {
      * for the avatars shown in the listing leaderboard itself. Having exactly
      * the same image in both places improves user experience with the tooltip.
      */
-    src = `${config.CDN.PUBLIC}/avatar/${
+    src = `${utils.config.CDN.PUBLIC}/avatar/${
       encodeURIComponent(src)}?size=50`;
   }
 

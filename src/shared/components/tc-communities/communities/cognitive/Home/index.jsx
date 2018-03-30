@@ -5,14 +5,13 @@
  * thus we disable max-len eslint rule for this file
  */
 
-import config from 'utils/config';
 import JoinCommunity from 'containers/tc-communities/JoinCommunity';
 import moment from 'moment';
 import PT from 'prop-types';
 import React from 'react';
 
 import { PrimaryButton } from 'topcoder-react-ui-kit';
-import { Link } from 'topcoder-react-utils';
+import { Link, utils } from 'topcoder-react-utils';
 
 import davePhotoUrl from 'assets/images/communities/cognitive/home/dave.jpg';
 
@@ -85,7 +84,7 @@ export default function Home({
             real-life business problems for companies in need of cognitive
             expertise. Develop your skills and you may even win a trip to the
             &zwnj;<a
-              href={config.URL.TCO}
+              href={utils.config.URL.TCO}
               rel="noopener noreferrer"
               styleName="link"
               target="_blank"

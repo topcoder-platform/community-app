@@ -1,11 +1,10 @@
 import _ from 'lodash';
-import config from 'utils/config';
 import LoadingIndicator from 'components/LoadingIndicator';
 import moment from 'moment';
 import PT from 'prop-types';
 import React from 'react';
 import Sticky from 'react-stickynode';
-import { Link } from 'topcoder-react-utils';
+import { Link, utils } from 'topcoder-react-utils';
 
 import * as Filter from 'utils/challenge-listing/filter';
 
@@ -88,7 +87,7 @@ export default function Challenges({
                         you interested&nbsp;in?
                         &zwnj;<Link
                           openNewTab
-                          to={config.URL.ARENA}
+                          to={utils.config.URL.ARENA}
                         >Competitive Programming</Link>?
                         &zwnj;<Link
                           openNewTab
@@ -126,7 +125,7 @@ export default function Challenges({
       </div>
       <div styleName="linksContainer">
         <a
-          href={`${config.URL.BASE}/my-challenges/?status=completed`}
+          href={`${utils.config.URL.BASE}/my-challenges/?status=completed`}
           styleName="link"
         >Past Challenges</a>
       </div>

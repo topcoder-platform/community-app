@@ -1,9 +1,11 @@
 import actions from 'actions/smp';
 
-jest.mock('utils/config', () => ({
-  API: {
-    V2: 'https://api.topcoder-dev.com/v2',
-    V3: 'API-URL-V3',
+jest.mock('topcoder-react-utils', () => ({
+  config: {
+    API: {
+      V2: 'https://api.topcoder-dev.com/v2',
+      V3: 'API-URL-V3',
+    },
   },
 }));
 

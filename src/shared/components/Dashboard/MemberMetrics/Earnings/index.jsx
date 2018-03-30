@@ -1,17 +1,16 @@
 import _ from 'lodash';
 import Carousel from 'components/XCarousel';
-import config from 'utils/config';
 import PT from 'prop-types';
 import React from 'react';
 
-import { Link } from 'topcoder-react-utils';
+import { Link, utils } from 'topcoder-react-utils';
 
 import Dial from './Dial';
 
 import './style.scss';
 
-const PACTS_FULL_URL = `${config.URL.COMMUNITY}/PactsMemberServlet?module=PaymentHistory&full_list=true`;
-const PACTS_OWED_URL = `${config.URL.COMMUNITY}/PactsMemberServlet?module=PaymentHistory&full_list=false`;
+const PACTS_FULL_URL = `${utils.config.URL.COMMUNITY}/PactsMemberServlet?module=PaymentHistory&full_list=true`;
+const PACTS_OWED_URL = `${utils.config.URL.COMMUNITY}/PactsMemberServlet?module=PaymentHistory&full_list=false`;
 
 export default function Earnings({ finances, showEarnings }) {
   if (!showEarnings) return null;

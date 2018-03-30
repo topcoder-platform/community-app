@@ -5,7 +5,7 @@ import moment from 'moment';
 import React from 'react';
 import PT from 'prop-types';
 
-import config from 'utils/config';
+import { utils } from 'topcoder-react-utils';
 
 import './styles.scss';
 
@@ -25,7 +25,7 @@ const ApplicationsTab = ({ applications }) => (
         applications.filter(app => app.status !== 'Cancelled').map(app => (
           <div styleName="row" key={`${app.handle} ${app.role}`}>
             <div styleName="col-1">
-              <a href={`${config.URL.BASE}/members/${app.handle}`}>{app.handle}</a>
+              <a href={`${utils.config.URL.BASE}/members/${app.handle}`}>{app.handle}</a>
             </div>
             <div styleName="col-2">
               <div styleName="sm-only title">Role</div>

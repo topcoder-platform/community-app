@@ -7,7 +7,7 @@ import React from 'react';
 import PT from 'prop-types';
 import moment from 'moment';
 import _ from 'lodash';
-import config from 'utils/config';
+import { utils } from 'topcoder-react-utils';
 
 import CheckMark from '../icons/check-mark.svg';
 import './style.scss';
@@ -90,7 +90,7 @@ export default function Registrants({ challenge, checkpointResults, results }) {
             return (
               <div styleName="row" key={r.handle}>
                 <div styleName="col-1">
-                  <a href={`${config.URL.BASE}/members/${r.handle}`}>{r.handle}</a>
+                  <a href={`${utils.config.URL.BASE}/members/${r.handle}`}>{r.handle}</a>
                 </div>
                 <div styleName="col-2">
                   <div styleName="sm-only title">Registration Date</div>

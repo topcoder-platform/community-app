@@ -3,10 +3,9 @@
  */
 
 import _ from 'lodash';
-import config from 'utils/config';
 import PT from 'prop-types';
 import React from 'react';
-import { Link } from 'topcoder-react-utils';
+import { Link, utils } from 'topcoder-react-utils';
 import { Avatar } from 'topcoder-react-ui-kit';
 import { getCdnAvatarUrl } from 'utils/tc';
 
@@ -53,7 +52,7 @@ export default function PaymentRow({ challenge }) {
                 <Link
                   enforceA
                   openNewTab
-                  to={`${config.URL.BASE}/members/${winner.handle}`}
+                  to={`${utils.config.URL.BASE}/members/${winner.handle}`}
                 >{winner.handle}</Link>
               </span>
             </div>

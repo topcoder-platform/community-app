@@ -1,5 +1,6 @@
 import React from 'react';
-import config from 'utils/config';
+import { utils } from 'topcoder-react-utils';
+
 import IconMagnifyingGlass from '../../../../../assets/images/magnifying_glass.svg';
 import './style.scss';
 
@@ -14,7 +15,7 @@ export default function Search() {
       <input
         onKeyPress={(event) => {
           if (event.key === 'Enter') {
-            window.location = `${config.URL.BASE}/search/members?q=${
+            window.location = `${utils.config.URL.BASE}/search/members?q=${
               encodeURIComponent(event.target.value)
             }`;
           }

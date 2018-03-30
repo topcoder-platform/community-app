@@ -16,7 +16,7 @@ import SubmissionManagement from 'components/SubmissionManagement/SubmissionMana
 import React from 'react';
 import PT from 'prop-types';
 import { connect } from 'react-redux';
-import config from 'utils/config';
+import { utils } from 'topcoder-react-utils';
 
 import './styles.scss';
 import challengeActions from '../../actions/challenge';
@@ -62,10 +62,10 @@ class SubmissionManagementPageContainer extends React.Component {
       onShowDetails: this.props.onShowDetails,
       onDelete: this.props.onSubmissionDelete,
       onDownload: () => this.props.onDownloadSubmission(0, this.props.authTokens),
-      onlineReviewUrl: `${config.URL.ONLINE_REVIEW}/review/actions/ViewProjectDetails?pid=${this.props.challengeId}`,
+      onlineReviewUrl: `${utils.config.URL.ONLINE_REVIEW}/review/actions/ViewProjectDetails?pid=${this.props.challengeId}`,
       challengeUrl: `${challengesUrl}/${this.props.challengeId}`,
-      addSumissionUrl: `${config.URL.BASE}/challenges/${this.props.challengeId}/submit`,
-      helpPageUrl: config.URL.HELP,
+      addSumissionUrl: `${utils.config.URL.BASE}/challenges/${this.props.challengeId}/submit`,
+      helpPageUrl: utils.config.URL.HELP,
     };
 
     return (

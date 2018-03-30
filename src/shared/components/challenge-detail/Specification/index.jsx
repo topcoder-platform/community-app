@@ -3,13 +3,13 @@
 */
 
 import _ from 'lodash';
-import config from 'utils/config';
 import Editor, { MODES as EDITOR_MODES } from 'components/Editor/MultiEditor';
 import EditorToolbar from 'components/Editor/Toolbar';
 import Previewer from 'components/Editor/Previewer';
 import ToolbarConnector from 'components/Editor/Connector';
 import React from 'react';
 import Sticky from 'react-stickynode';
+import { utils } from 'topcoder-react-utils';
 
 import PT from 'prop-types';
 import { DangerButton } from 'topcoder-react-ui-kit';
@@ -62,7 +62,7 @@ export default function ChallengeDetailsView(props) {
   let forumLink = track.toLowerCase() === 'design'
     ? `/?module=ThreadList&forumID=${forumId}`
     : `/?module=Category&categoryID=${forumId}`;
-  forumLink = `${config.URL.FORUMS}${forumLink}`;
+  forumLink = `${utils.config.URL.FORUMS}${forumLink}`;
 
   let isWipro = false;
   const wiproCommunity = communitiesList.find(x => x.communityId === 'wipro');
@@ -306,7 +306,7 @@ export default function ChallengeDetailsView(props) {
                               Round 2, even if they didn&apos;t win a Checkpoint prize.
                             </li>
                             <li>
-                              <a href={config.URL.INFO.DESIGN_CHALLENGE_CHECKPOINTS}>
+                              <a href={utils.config.URL.INFO.DESIGN_CHALLENGE_CHECKPOINTS}>
                                 Learn more here
                               </a>.
                             </li>
@@ -343,7 +343,7 @@ export default function ChallengeDetailsView(props) {
                       <h2 styleName="h2">Stock Photography</h2>
                       <p styleName="p">
                         {stockArtText}&nbsp;
-                        <a href={config.URL.INFO.STOCK_ART_POLICY}>
+                        <a href={utils.config.URL.INFO.STOCK_ART_POLICY}>
                           See this page for more details.
                         </a>
                       </p>
@@ -353,13 +353,13 @@ export default function ChallengeDetailsView(props) {
                       <ul styleName="ul">
                         <li>
                           New to Studio?
-                          &zwnj;<a href={config.URL.INFO.DESIGN_CHALLENGE_TYPES}>
+                          &zwnj;<a href={utils.config.URL.INFO.DESIGN_CHALLENGE_TYPES}>
                             Learn how to compete here
                           </a>.
                         </li>
                         <li>
                           Upload your submission in three parts (
-                          <a href={config.URL.INFO.DESIGN_CHALLENGE_SUBMISSION}>
+                          <a href={utils.config.URL.INFO.DESIGN_CHALLENGE_SUBMISSION}>
                             Learn more here
                           </a>
                           ). Your design should be finalized and should contain only a single design
@@ -367,7 +367,7 @@ export default function ChallengeDetailsView(props) {
                         </li>
                         <li>
                           If your submission wins, your source files must be correct and &ldquo;
-                          <a href={config.URL.INFO.DESIGN_CHALLENGES}>
+                          <a href={utils.config.URL.INFO.DESIGN_CHALLENGES}>
                             Final Fixes
                           </a>&rdquo;
                           (if applicable) must be completed before payment can be released.
@@ -447,7 +447,7 @@ export default function ChallengeDetailsView(props) {
                 reliability rating is based on the past 15 projects, it can only
                 have 15 discrete values.
                 <br />
-                <a href={config.URL.INFO.RELIABILITY_RATINGS_AND_BONUSES}>
+                <a href={utils.config.URL.INFO.RELIABILITY_RATINGS_AND_BONUSES}>
                   Read more.
                 </a>
               </p>

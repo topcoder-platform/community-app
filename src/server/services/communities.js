@@ -13,7 +13,7 @@ import {
   addDescendantGroups,
   getService as getGroupsService,
 } from 'services/groups';
-import { isServerSide } from 'utils//isomorphy';
+import { utils } from 'topcoder-react-utils';
 
 /* Holds the mapping between subdomains and communities. It is automatically
  * generated at startup, using "subdomains" property from community configs */
@@ -26,7 +26,7 @@ const SUBDOMAIN_COMMUNITY = {};
 const COMMUNITY_META_DATA = {};
 
 const METADATA_PATH = path.resolve(__dirname, '../tc-communities');
-const VALID_IDS = isServerSide()
+const VALID_IDS = utils.isomorphy.isServerSide()
 && fs.readdirSync(METADATA_PATH).filter((id) => {
   /* Here we check which ids are correct, and also popuate SUBDOMAIN_COMMUNITY
    * map. */

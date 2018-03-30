@@ -3,7 +3,6 @@
  */
 
 import _ from 'lodash';
-import config from 'utils/config';
 import ChallengeFilters from 'containers/challenge-listing/FilterPanel';
 import moment from 'moment';
 import React from 'react';
@@ -12,6 +11,7 @@ import Sticky from 'react-stickynode';
 import * as Filter from 'utils/challenge-listing/filter';
 import Sidebar from 'containers/challenge-listing/Sidebar';
 import { isReviewOpportunitiesBucket } from 'utils/challenge-listing/buckets';
+import { utils } from 'topcoder-react-utils';
 
 import Listing from './Listing';
 import ChallengeCardPlaceholder from './placeholders/ChallengeCard';
@@ -57,10 +57,10 @@ export default function ChallengeListing(props) {
    * challenges too old to display while the reload takes place.
    */
   let suppressPlaceholders = false;
-  if (config.CHALLENGE_LISTING_AUTO_REFRESH) {
+  if (utils.config.CHALLENGE_LISTING_AUTO_REFRESH) {
     const outage = moment().diff(props.lastUpdateOfActiveChallenges);
     suppressPlaceholders =
-      outage < 1.5 * 1000 * config.CHALLENGE_LISTING_AUTO_REFRESH;
+      outage < 1.5 * 1000 * utils.config.CHALLENGE_LISTING_AUTO_REFRESH;
   }
 
   let challengeCardContainer;

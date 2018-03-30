@@ -1,7 +1,6 @@
-import config from 'utils/config';
 import PT from 'prop-types';
 import React from 'react';
-import { PrimaryButton } from 'topcoder-react-ui-kit';
+import { PrimaryButton, utils } from 'topcoder-react-ui-kit';
 
 import InputBlock from './InputBlock';
 import './style.scss';
@@ -19,7 +18,7 @@ export default function StockArtInput({
           provide the location and details so that the client can obtain
           them. Follow the guidelines at our
           &zwnj;<a
-            href={config.URL.INFO.STOCK_ART_POLICY}
+            href={utils.config.URL.INFO.STOCK_ART_POLICY}
             rel="norefferer noopener"
             target="_blank"
           >Studio Stock Art Policy</a>.

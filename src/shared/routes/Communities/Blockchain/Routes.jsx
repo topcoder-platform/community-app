@@ -11,7 +11,6 @@ import ChallengeListingRegisterToSee from
   'components/tc-communities/communities/blockchain/ChallengeListing/RegisterToSee';
 import ChallengeDetails from 'routes/ChallengeDetails';
 import ChallengeListing from 'routes/Communities/ChallengeListing';
-import config from 'utils/config';
 import Error404 from 'components/Error404';
 import Footer from 'components/tc-communities/Footer2';
 import Header from 'containers/tc-communities/Header';
@@ -25,6 +24,8 @@ import SubmissionManagement from 'routes/SubmissionManagement';
 import TermsDetail from 'routes/TermsDetail';
 import { Route, Switch } from 'react-router-dom';
 import { ThemeProvider } from 'react-css-super-themr';
+import { utils } from 'topcoder-react-utils';
+
 import primaryButtonStyle from 'components/buttons/outline/round/open-sans/green-uppercase.scss';
 import secondaryButtonStyle from 'components/buttons/outline/round/open-sans/blue-uppercase.scss';
 
@@ -47,7 +48,7 @@ export default function Blockchain({ base, member, meta }) {
               image={socialImage}
               siteName="Topcoder Blockchain Community"
               title="Topcoder Blockchain Community"
-              url={config.URL.COMMUNITIES.BLOCKCHAIN}
+              url={utils.config.URL.COMMUNITIES.BLOCKCHAIN}
             />
             <Header
               baseUrl={base}

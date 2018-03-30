@@ -4,7 +4,8 @@
  */
 
 import _ from 'lodash';
-import config from 'utils/config';
+import { utils } from 'topcoder-react-utils';
+
 import { getService as getCommunityService } from 'services/communities';
 import { getApiV2 } from './api';
 
@@ -155,7 +156,7 @@ export function getService(tokenV2) {
   /* Because of Topcoder backend restrictions, it is not straightforward to test
    * terms-related functionality in any other way than just providing an option
    * to run the app against mock terms service. */
-  if (config.MOCK_TERMS_SERVICE) {
+  if (utils.config.MOCK_TERMS_SERVICE) {
     /* eslint-disable global-require */
     return require('./__mocks__/terms').getService(tokenV2);
     /* eslint-enable global-require */
