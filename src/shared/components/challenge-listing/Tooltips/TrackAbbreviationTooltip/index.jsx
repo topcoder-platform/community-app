@@ -24,7 +24,7 @@ const DESCRIPTION = {
   DESIGN_FIRST_2_FINISH: 'Be the first to deliver the design solution',
   FIRST_2_FINISH: 'Be the first to deliver the development solution',
   LOGO_DESIGN: 'Logo Design',
-  MARATHON_MATCH: 'Write algorythms to solve complex problems, often for real world issues',
+  MARATHON_MATCH: 'Write algorithms to solve complex problems, often for real world issues',
   PRINT_OR_PRESENTATION: 'Design print and presentation assets',
   SRM: 'Single Round Match - quickly write code to solve algorythm problems head to head against other competitors',
   STUDIO_OTHER: 'Studio other',
