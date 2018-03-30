@@ -182,55 +182,6 @@ export function normalizeChallenge(challenge, username) {
   });
 }
 
-/**
- * Normalizes a marathon match challenge object received from the backend.
- * NOTE: This function is copied from the existing code in the challenge listing
- * component. It is possible, that this normalization is not necessary after we
- * have moved to Topcoder API v3, but it is kept for now to minimize a risk of
- * breaking anything.
- * @param {Object} challenge MM challenge object received from the backend.
- * @param {String} username Optional.
- * @return {Object} Normalized challenge.
- */
-export function normalizeMarathonMatch(challenge, username) {
-  const endTimestamp = new Date(challenge.endDate).getTime();
-  const allphases = [{
-    challengeId: challenge.id,
-    phaseType: 'Registration',
-    phaseStatus: endTimestamp > Date.now() ? 'Open' : 'Close',
-    scheduledEndTime: challenge.endDate,
-  }];
-  const groups = {};
-  if (challenge.groupIds) {
-    challenge.groupIds.forEach((id) => {
-      groups[id] = true;
-    });
-  }
-  _.defaults(challenge, {
-    challengeCommunity: 'Data',
-    challengeType: 'Marathon',
-    allPhases: allphases,
-    currentPhases: allphases.filter(phase => phase.phaseStatus === 'Open'),
-    communities: new Set([COMPETITION_TRACKS.DATA_SCIENCE]),
-    currentPhaseName: endTimestamp > Date.now() ? 'Registration' : '',
-    groups,
-    numRegistrants: challenge.numRegistrants ? challenge.numRegistrants[0] : 0,
-    numSubmissions: challenge.userIds ? challenge.userIds.length : 0,
-    platforms: '',
-    prizes: [0],
-    registrationOpen: endTimestamp > Date.now() ? 'Yes' : 'No',
-    registrationStartDate: challenge.startDate,
-    submissionEndDate: challenge.endDate,
-    submissionEndTimestamp: endTimestamp,
-    technologies: '',
-    totalPrize: 0,
-    track: 'DATA_SCIENCE',
-    status: endTimestamp > Date.now() ? 'ACTIVE' : 'COMPLETED',
-    subTrack: 'MARATHON_MATCH',
-    users: username ? { username: true } : {},
-  });
-}
-
 class ChallengesService {
   /**
    * @param {String} tokenV3 Optional. Auth token for Topcoder API v3.
@@ -344,20 +295,6 @@ class ChallengesService {
   }
 
   /**
-   * Gets marathon matches.
-   * @param {Object} filters Optional.
-   * @param {Object} params Optional.
-   * @return {Promise} Resolve to the api response.
-   */
-  getMarathonMatches(filters, params) {
-    return this.private.getChallenges('/marathonMatches/', filters, params)
-      .then((res) => {
-        res.challenges.forEach(item => normalizeMarathonMatch(item));
-        return res;
-      });
-  }
-
-  /**
    * Gets challenges of the specified user.
    * @param {String} username User whose challenges we want to fetch.
    * @param {Object} filters Optional.
@@ -369,22 +306,6 @@ class ChallengesService {
     return this.private.getChallenges(endpoint, filters, params)
       .then((res) => {
         res.challenges.forEach(item => normalizeChallenge(item, username));
-        return res;
-      });
-  }
-
-  /**
-   * Gets marathon matches of the specified user.
-   * @param {String} username User whose challenges we want to fetch.
-   * @param {Object} filters Optional.
-   * @param {Number} params Optional.
-   * @return {Promise} Resolves to the api response.
-   */
-  getUserMarathonMatches(username, filters, params) {
-    const endpoint = `/members/${username.toLowerCase()}/mms/`;
-    return this.private.getChallenges(endpoint, filters, params)
-      .then((res) => {
-        res.challenges.forEach(item => normalizeMarathonMatch(item, username));
         return res;
       });
   }
