@@ -179,7 +179,7 @@ export function normalizeChallenge(challenge, username) {
     registrationOpen,
     technologies: '',
     submissionEndTimestamp: challenge.submissionEndDate,
-    users: username ? { username: true } : {},
+    users: username ? { [username]: true } : {},
   });
 }
 
