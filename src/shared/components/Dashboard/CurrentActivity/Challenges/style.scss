@@ -14,6 +14,11 @@
 .innerContainer {
   display: flex;
   position: relative;
+
+  @include xs-to-sm {
+    align-items: flex-end;
+    flex-direction: column-reverse;
+  }
 }
 
 .link {

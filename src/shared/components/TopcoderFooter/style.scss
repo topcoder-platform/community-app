@@ -10,6 +10,7 @@
 .footer {
   background-color: $tc-gray-90;
   font-family: "Roboto", Helvetica, Arial, sans-serif;
+  overflow: hidden;
   padding: 45px;
   padding-bottom: 30px;
   text-align: center;
@@ -22,6 +23,7 @@
   margin: 40px auto 0;
   display: inline-block;
   color: $tc-gray-30;
+  width: 100%;
 
   hr {
     border: none;
