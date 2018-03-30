@@ -32,6 +32,7 @@ export default function Announcement({
     backgroundImagePosition,
     fontColor,
     maxTextWidth,
+    publicTitle,
     readMore,
     readMoreLabel,
     endDate,
@@ -64,8 +65,7 @@ export default function Announcement({
         { type ? <div styleName="type">{type}</div> : null }
         <h1
           styleName="title"
-        >{title}
-        </h1>
+        >{publicTitle || title}</h1>
         <div
           styleName="text"
         >{text}
@@ -103,8 +103,7 @@ export default function Announcement({
           <h1
             styleName="title"
             style={{ color: fontColor }}
-          >{title}
-          </h1>
+          >{publicTitle || title}</h1>
           <div
             styleName="text"
             style={{ color: fontColor }}
@@ -160,18 +159,21 @@ Announcement.defaultProps = {
 Announcement.propTypes = {
   assets: PT.shape.isRequired,
   announcement: PT.shape({
-    backgroundImage: PT.shape({
-      sys: PT.shape({
-        id: PT.string.isRequired,
-      }).isRequired,
+    fields: PT.shape({
+      backgroundImage: PT.shape({
+        sys: PT.shape({
+          id: PT.string.isRequired,
+        }).isRequired,
+      }),
+      backgroundImagePosition: PT.string,
+      fontColor: PT.string,
+      publicTitle: PT.string,
+      readMore: PT.string,
+      text: PT.string,
+      title: PT.string,
+      type: PT.string,
+      youTubeVideoUrl: PT.string,
     }),
-    backgroundImagePosition: PT.string,
-    fontColor: PT.string,
-    readMore: PT.string,
-    text: PT.string,
-    title: PT.string,
-    type: PT.string,
-    youTubeVideoUrl: PT.string,
   }).isRequired,
   hidePreviewMetaData: PT.bool.isRequired,
   loading: PT.bool.isRequired,
