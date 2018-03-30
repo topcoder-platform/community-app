@@ -66,6 +66,7 @@ export default function Bucket({
   }
 
   if (!filteredChallenges.length && !loadMore) return null;
+  console.log(filteredChallenges);
 
   const cards = filteredChallenges.map(item => (
     <ChallengeCard
