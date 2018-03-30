@@ -252,7 +252,7 @@ export function normalizeChallenge(challenge, username) {
     platforms: '',
     registrationOpen,
     submissionEndTimestamp: challenge.submissionEndDate,
-    users: username ? { username: true } : {},
+    users: username ? { [username]: true } : {},
   });
   /* eslint-disable no-param-reassign */
   if (!challenge.prizes) challenge.prizes = challenge.prize || [];
