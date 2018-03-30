@@ -1,4 +1,5 @@
 import _ from 'lodash';
+import config from 'utils/config';
 import { Link } from 'topcoder-react-utils';
 import moment from 'moment';
 import React from 'react';
@@ -56,7 +57,10 @@ function ChallengeCard({
   }
   challenge.prize = challenge.prizes || [];
 
-  const challengeDetailLink = `${challengesUrl}/${challenge.id}`;
+  const challengeDetailLink = challenge.subTrack === 'MARATHON_MATCH'
+    && challenge.isLegacy
+    ? `${config.URL.COMMUNITY}/tc?module=MatchDetail&rd=${challenge.id}`
+    : `${challengesUrl}/${challenge.id}`;
 
   const registrationPhase = challenge.allPhases.filter(phase => phase.phaseType === 'Registration')[0];
   const isRegistrationOpen = registrationPhase ? registrationPhase.phaseStatus === 'Open' : false;
