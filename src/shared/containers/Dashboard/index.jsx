@@ -10,6 +10,7 @@ import cookies from 'browser-cookies';
 import Dashboard from 'components/Dashboard';
 import dashActions from 'actions/page/dashboard';
 import challengeListingSidebarActions from 'actions/challenge-listing/sidebar';
+import LoadingIndicator from 'components/LoadingIndicator';
 import memberActions from 'actions/members';
 import PT from 'prop-types';
 import qs from 'qs';
@@ -42,34 +43,67 @@ const TOPOCDER_BLOG_URL = `/community-app-assets/api/proxy-get?url=${
 export class DashboardPageContainer extends React.Component {
   componentDidMount() {
     const {
-      achievementsLoading,
-      achievementsTimestamp,
-      activeChallengesLoading,
-      activeChallengesTimestamp,
       challengeFilter,
-      communitiesLoading,
-      communitiesTimestamp,
-      financesLoading,
-      financesTimestamp,
-      getAllActiveChallenges,
-      getCommunityList,
-      getMemberAchievements,
-      getMemberFinances,
-      getMemberStats,
-      getSrms,
-      getTopcoderBlogFeed,
-      handle,
-      profile,
-      srmsLoading,
-      srmsTimestamp,
-      statsLoading,
-      statsTimestamp,
       switchChallengeFilter,
-      tcBlogLoading,
-      tcBlogTimestamp,
-      tokenV3,
     } = this.props;
-    if (!this.authCheck(tokenV3)) return;
+
+    this.updateData(this.props);
+
+    if (challengeFilter) switchChallengeFilter('');
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.updateData(nextProps);
+  }
+
+  /**
+   * Does nothing if a valid TC API v3 token is passed in; otherwise redirects
+   * user to the TC auth page, with proper return URL.
+   * @param {String} tokenV3
+   * @return {Boolean} `true` if the user is authenticated; `false` otherwise.
+   */
+  authCheck(tokenV3) {
+    if (tokenV3 && !isTokenExpired(tokenV3)) return true;
+
+    /* This implements front-end redirection. Once the server-side rendering of
+     * the Dashboard is in place, this should be updated to work for the server
+     * side rendering as well. */
+    let url = `retUrl=${encodeURIComponent(location.href)}`;
+    url = `${config.URL.AUTH}/member?${url}&utm_source=community-app-main`;
+    location.href = url;
+
+    _.noop(this);
+    return false;
+  }
+
+  updateData({
+    achievementsLoading,
+    achievementsTimestamp,
+    activeChallengesLoading,
+    activeChallengesTimestamp,
+    authenticating,
+    communitiesLoading,
+    communitiesTimestamp,
+    financesLoading,
+    financesTimestamp,
+    getAllActiveChallenges,
+    getCommunityList,
+    getMemberAchievements,
+    getMemberFinances,
+    getMemberStats,
+    getSrms,
+    getTopcoderBlogFeed,
+    handle,
+    profile,
+    srmsLoading,
+    srmsTimestamp,
+    statsLoading,
+    statsTimestamp,
+    tcBlogLoading,
+    tcBlogTimestamp,
+    tokenV3,
+  }) {
+    if (authenticating || !this.authCheck(tokenV3)) return;
 
     const now = Date.now();
 
@@ -98,38 +132,6 @@ export class DashboardPageContainer extends React.Component {
     && now - activeChallengesTimestamp < CACHE_MAX_AGE) {
       this.updateCommunityStats(this.props);
     }
-
-    if (challengeFilter) switchChallengeFilter('');
-  }
-
-  componentWillReceiveProps(nextProps) {
-    this.authCheck(nextProps.tokenV3);
-
-    const now = Date.now();
-    if (now - nextProps.communitiesTimestamp < CACHE_MAX_AGE
-    && now - nextProps.activeChallengesTimestamp < CACHE_MAX_AGE) {
-      this.updateCommunityStats(nextProps);
-    }
-  }
-
-  /**
-   * Does nothing if a valid TC API v3 token is passed in; otherwise redirects
-   * user to the TC auth page, with proper return URL.
-   * @param {String} tokenV3
-   * @return {Boolean} `true` if the user is authenticated; `false` otherwise.
-   */
-  authCheck(tokenV3) {
-    if (tokenV3 && !isTokenExpired(tokenV3)) return true;
-
-    /* This implements front-end redirection. Once the server-side rendering of
-     * the Dashboard is in place, this should be updated to work for the server
-     * side rendering as well. */
-    let url = `retUrl=${encodeURIComponent(location.href)}`;
-    url = `${config.URL.AUTH}/member?${url}&utm_source=community-app-main`;
-    location.href = url;
-
-    _.noop(this);
-    return false;
   }
 
   updateCommunityStats(props) {
@@ -156,6 +158,7 @@ export class DashboardPageContainer extends React.Component {
       achievementsLoading,
       activeChallenges,
       activeChallengesLoading,
+      authenticating,
       challengeFilter,
       communities,
       communitiesLoading,
@@ -186,6 +189,8 @@ export class DashboardPageContainer extends React.Component {
       userGroups,
       xlBadge,
     } = this.props;
+
+    if (authenticating) return <LoadingIndicator />;
 
     let announcementPreviewId;
     if (urlQuery) {
@@ -250,28 +255,29 @@ DashboardPageContainer.defaultProps = {
 DashboardPageContainer.propTypes = {
   achievements: PT.arrayOf(PT.object),
   achievementsLoading: PT.bool.isRequired,
-  achievementsTimestamp: PT.number,
+  achievementsTimestamp: PT.number, // eslint-disable-line react/no-unused-prop-types
   activeChallenges: PT.arrayOf(PT.object).isRequired,
   activeChallengesLoading: PT.bool.isRequired,
-  activeChallengesTimestamp: PT.number.isRequired,
+  activeChallengesTimestamp: PT.number.isRequired, // eslint-disable-line react/no-unused-prop-types
+  authenticating: PT.bool.isRequired, // eslint-disable-line react/no-unused-prop-types
   challengeFilter: PT.string.isRequired,
   communities: PT.arrayOf(PT.object).isRequired,
   communitiesLoading: PT.bool.isRequired,
   communityStats: PT.shape().isRequired,
-  communitiesTimestamp: PT.number.isRequired,
+  communitiesTimestamp: PT.number.isRequired, // eslint-disable-line react/no-unused-prop-types
   finances: PT.arrayOf(PT.object),
   financesLoading: PT.bool.isRequired,
-  financesTimestamp: PT.number,
-  getAllActiveChallenges: PT.func.isRequired,
-  getCommunityList: PT.func.isRequired,
+  financesTimestamp: PT.number, // eslint-disable-line react/no-unused-prop-types
+  getAllActiveChallenges: PT.func.isRequired, // eslint-disable-line react/no-unused-prop-types
+  getCommunityList: PT.func.isRequired, // eslint-disable-line react/no-unused-prop-types
   getCommunityStats: PT.func.isRequired,
-  getMemberAchievements: PT.func.isRequired,
-  getMemberFinances: PT.func.isRequired,
-  getMemberStats: PT.func.isRequired,
-  getSrms: PT.func.isRequired,
-  getTopcoderBlogFeed: PT.func.isRequired,
+  getMemberAchievements: PT.func.isRequired, // eslint-disable-line react/no-unused-prop-types
+  getMemberFinances: PT.func.isRequired, // eslint-disable-line react/no-unused-prop-types
+  getMemberStats: PT.func.isRequired, // eslint-disable-line react/no-unused-prop-types
+  getSrms: PT.func.isRequired, // eslint-disable-line react/no-unused-prop-types
+  getTopcoderBlogFeed: PT.func.isRequired, // eslint-disable-line react/no-unused-prop-types
   handle: PT.string,
-  profile: PT.shape(),
+  profile: PT.shape(), // eslint-disable-line react/no-unused-prop-types
   selectChallengeDetailsTab: PT.func.isRequired,
   setChallengeListingFilter: PT.func.isRequired,
   showChallengeFilter: PT.bool.isRequired,
@@ -279,10 +285,10 @@ DashboardPageContainer.propTypes = {
   showXlBadge: PT.func.isRequired,
   srms: PT.arrayOf(PT.object).isRequired,
   srmsLoading: PT.bool.isRequired,
-  srmsTimestamp: PT.number.isRequired,
+  srmsTimestamp: PT.number.isRequired, // eslint-disable-line react/no-unused-prop-types
   stats: PT.shape(),
   statsLoading: PT.bool.isRequired,
-  statsTimestamp: PT.number,
+  statsTimestamp: PT.number, // eslint-disable-line react/no-unused-prop-types
   switchChallengeFilter: PT.func.isRequired,
   switchShowChallengeFilter: PT.func.isRequired,
   switchShowEarnings: PT.func.isRequired,
@@ -290,7 +296,7 @@ DashboardPageContainer.propTypes = {
   tab: PT.string.isRequired,
   tcBlogLoading: PT.bool.isRequired,
   tcBlogPosts: PT.arrayOf(PT.object),
-  tcBlogTimestamp: PT.number,
+  tcBlogTimestamp: PT.number, // eslint-disable-line react/no-unused-prop-types
   tokenV2: PT.string,
   tokenV3: PT.string,
   unregisterFromChallenge: PT.func.isRequired,
@@ -320,6 +326,7 @@ function mapStateToProps(state, props) {
       Boolean(state.challengeListing.loadingActiveChallengesUUID),
     activeChallengesTimestamp:
       state.challengeListing.lastUpdateOfActiveChallenges,
+    authenticating: state.auth.authenticating,
     challengeFilter: dash.challengeFilter,
     communities: communities.data,
     communitiesLoading: Boolean(communities.loadingUuid),
