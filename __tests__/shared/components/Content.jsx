@@ -5,8 +5,6 @@ import Content from 'components/Content';
 jest.mock('topcoder-react-utils', () =>
   require('topcoder-react-utils/dist/src/mock'));
 
-console.log(require('topcoder-react-utils'));
-
 test('Matches shallow shapshot', () => {
   const renderer = new Renderer();
   renderer.render(<Content />);

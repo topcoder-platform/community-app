@@ -72,7 +72,7 @@ exports[`Matches shallow shapshot 1`] = `
           autoBlur={true}
           clearable={false}
           id="community-select"
-          onChange={[Function]}
+          onChange={[MockFunction]}
           options={
             Array [
               Object {
@@ -190,7 +190,7 @@ exports[`Matches shallow shapshot 1`] = `
       disabled={true}
       enforceA={false}
       mapThemrProps={[Function]}
-      onClick={[Function]}
+      onClick={[MockFunction]}
       onMouseDown={null}
       openNewTab={false}
       replace={false}
@@ -270,7 +270,7 @@ exports[`Matches shallow shapshot 2`] = `
           autoBlur={true}
           clearable={false}
           id="community-select"
-          onChange={[Function]}
+          onChange={[MockFunction]}
           options={
             Array [
               Object {
@@ -377,7 +377,7 @@ exports[`Matches shallow shapshot 2`] = `
       disabled={true}
       enforceA={false}
       mapThemrProps={[Function]}
-      onClick={[Function]}
+      onClick={[MockFunction]}
       onMouseDown={null}
       openNewTab={false}
       replace={false}

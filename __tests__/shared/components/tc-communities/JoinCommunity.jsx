@@ -1,8 +1,11 @@
-import React from 'react';
-import _ from 'lodash';
-import Renderer from 'react-test-renderer/shallow';
-import TU from 'react-dom/test-utils';
 import JoinCommunity from 'components/tc-communities/JoinCommunity';
+import React from 'react';
+import TU from 'react-dom/test-utils';
+import {
+  renderDom,
+  shallowSnapshot,
+  simulate,
+} from 'topcoder-react-utils/jest-utils';
 
 const hideJoinButton = jest.fn();
 const join = jest.fn();
@@ -63,38 +66,24 @@ const mockDatas = [
 ];
 
 test('Matches shallow shapshot', () => {
-  const renderer = new Renderer();
-  _.forEach(mockDatas, (data) => {
-    renderer.render((
-      <JoinCommunity {...data} />
-    ));
-    expect(renderer.getRenderOutput()).toMatchSnapshot();
-  });
+  mockDatas.forEach(data => shallowSnapshot(<JoinCommunity {...data} />));
 });
 
-class Wrapper extends React.Component {
-  componentDidMount() {}
-  render() {
-    return <JoinCommunity {...this.props} />;
-  }
-}
-
-describe('click confirm-join', () => {
-  const instance = TU.renderIntoDocument((<Wrapper {...mockDatas[0]} />));
-  const matches = TU.scryRenderedDOMComponentsWithTag(instance, 'button');
-  _.forEach(matches, m => TU.Simulate.click(m));
+test('click confirm-join', () => {
+  const dom = renderDom(<JoinCommunity {...mockDatas[0]} />);
+  const matches = TU.scryRenderedDOMComponentsWithTag(dom, 'button');
+  matches.forEach(m => simulate.click(m));
   expect(join).toHaveBeenCalled();
 });
 
-
-describe('click joined', () => {
-  const instance = TU.renderIntoDocument((<Wrapper {...mockDatas[3]} />));
+test('click joined', () => {
+  const instance = renderDom(<JoinCommunity {...mockDatas[3]} />);
   const matches = TU.scryRenderedDOMComponentsWithTag(instance, 'button');
   TU.Simulate.click(matches[0]);
 });
 
-describe('click without token', () => {
-  const instance = TU.renderIntoDocument((<Wrapper {...mockDatas[4]} />));
+test('click without token', () => {
+  const instance = renderDom(<JoinCommunity {...mockDatas[4]} />);
   const matches = TU.scryRenderedDOMComponentsWithTag(instance, 'button');
   TU.Simulate.click(matches[0]);
 });

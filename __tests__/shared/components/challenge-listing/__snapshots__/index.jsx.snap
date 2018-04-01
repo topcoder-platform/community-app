@@ -97,11 +97,11 @@ exports[`Matches shallow shapshot 1 shapshot 1 1`] = `
       preListingMsg={null}
       prizeMode="money-usd"
       reviewOpportunities={Array []}
-      selectBucket={[Function]}
+      selectBucket={[MockFunction]}
       selectChallengeDetailsTab={undefined}
       selectedCommunityId={undefined}
-      setFilterState={[Function]}
-      setSort={[Function]}
+      setFilterState={[MockFunction]}
+      setSort={[MockFunction]}
       sorts={Object {}}
     />
     <div

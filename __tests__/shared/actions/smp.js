@@ -1,13 +1,6 @@
 import actions from 'actions/smp';
 
-jest.mock('topcoder-react-utils', () => ({
-  config: {
-    API: {
-      V2: 'https://api.topcoder-dev.com/v2',
-      V3: 'API-URL-V3',
-    },
-  },
-}));
+jest.mock('topcoder-react-utils', () => require('topcoder-react-utils/dist/src/mock'));
 
 let originalFetch;
 
@@ -63,7 +56,7 @@ describe('smp.deleteSubmissionDone', () => {
 
   test('Calls the correct endpoint', () => {
     expect(global.fetch).toHaveBeenCalledWith(
-      'API-URL-V3/submissions/submissionId', {
+      'https://api.topcoder-dev.com/v3/submissions/submissionId', {
         headers: {
           Authorization: 'Bearer Token V3',
           'Content-Type': 'application/json',

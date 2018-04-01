@@ -31,9 +31,9 @@ exports[`Matches shallow shapshot 1`] = `
         "",
       ]
     }
-    join={[Function]}
+    join={[MockFunction]}
     joinGroupId=""
-    resetJoinButton={[Function]}
+    resetJoinButton={[MockFunction]}
     skipConfirmJoin={false}
     token="token"
     userId="useId"
@@ -118,7 +118,7 @@ exports[`Matches shallow shapshot 4`] = `
     composeAdhocTheme="deeply"
     composeContextTheme="softly"
     mapThemrProps={[Function]}
-    onCancel={[Function]}
+    onCancel={[MockFunction]}
     theme={Object {}}
     themePriority="adhoc-context-default"
   >
@@ -139,7 +139,7 @@ exports[`Matches shallow shapshot 4`] = `
       disabled={false}
       enforceA={false}
       mapThemrProps={[Function]}
-      onClick={[Function]}
+      onClick={[MockFunction]}
       onMouseDown={null}
       openNewTab={false}
       replace={false}
@@ -189,9 +189,9 @@ exports[`Matches shallow shapshot 5`] = `
         "",
       ]
     }
-    join={[Function]}
+    join={[MockFunction]}
     joinGroupId=""
-    resetJoinButton={[Function]}
+    resetJoinButton={[MockFunction]}
     skipConfirmJoin={false}
     token={null}
     userId="useId"

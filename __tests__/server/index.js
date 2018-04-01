@@ -1,6 +1,6 @@
 // import _ from 'lodash';
 
-test('Dummy test', () => null);
+test('Dummy test', () => undefined);
 
 /*
 const SRC = '../../src';

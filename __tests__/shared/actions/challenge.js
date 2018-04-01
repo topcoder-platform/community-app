@@ -5,13 +5,6 @@ jest.mock('services/challenges');
 const mockFetch = resolvesTo => jest.fn(() =>
   Promise.resolve({ json: () => resolvesTo }));
 
-jest.mock('utils/config', () => ({
-  API: {
-    V2: 'API-URL-V2',
-    V3: 'API-URL-V3',
-  },
-}));
-
 let originalFetch;
 
 beforeAll(() => {
