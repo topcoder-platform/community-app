@@ -64,15 +64,12 @@ export default function ChallengeViewSelector(props) {
       mask2.style.display = 'block';
     }
   };
+
   /* This code use to marathon match registration/submission link in the future */
-  const isMM = false;
-  // if (challenge.subTrack === 'MARATHON_MATCH') {
-  //   isMM = true;
-  // }
-  const registranstsLink = `${config.URL.COMMUNITY}
-  /longcontest/?module=ViewReg&rd=${challenge.id}`;
-  const submissionsLink = `${config.URL.COMMUNITY}
-  /longcontest/?module=Submit&compid=${challenge.id}&rd=${challenge.id}&cd=${challenge.id}`;
+  const isMM = challenge.subTrack === 'MARATHON_MATCH';
+
+  const registranstsLink = `${config.URL.COMMUNITY}/longcontest/?module=ViewReg&rd=${challenge.id}`;
+  const submissionsLink = `${config.URL.COMMUNITY}/longcontest/?module=Submit&compid=${challenge.id}&rd=${challenge.id}&cd=${challenge.id}`;
 
   return (
     <div
@@ -99,12 +96,12 @@ export default function ChallengeViewSelector(props) {
           ) : null
         }
         {
-          (numRegistrants && isMM) ? (
+          isMM ? (
             <Link
+              forceA
               to={registranstsLink}
               styleName={getSelectorStyle(selectedView, DETAIL_TABS.REGISTRANTS)}
-            >REGISTRANTS ({numRegistrants})
-            </Link>
+            >REGISTRANTS</Link>
           ) : null
         }
         {
@@ -124,11 +121,12 @@ export default function ChallengeViewSelector(props) {
           ) : null
         }
         {
-          (numSubmissions && isMM) ? (
+          isMM ? (
             <Link
+              forceA
               to={submissionsLink}
               styleName={getSelectorStyle(selectedView, DETAIL_TABS.SUBMISSIONS)}
-            >SUBMISSIONS ({numSubmissions})</Link>
+            >SUBMISSIONS</Link>
           ) : null
         }
         {
