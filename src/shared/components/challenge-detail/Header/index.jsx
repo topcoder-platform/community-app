@@ -275,6 +275,7 @@ export default function ChallengeHeader(props) {
                 <DangerButton
                   disabled={unregistering || registrationEnded
                   || hasSubmissions}
+                  forceA
                   onClick={mmRegLink ? null : unregisterFromChallenge}
                   theme={{ button: style.challengeAction }}
                   to={mmRegLink}
@@ -282,6 +283,7 @@ export default function ChallengeHeader(props) {
               ) : (
                 <PrimaryButton
                   disabled={registering || registrationEnded}
+                  forceA
                   onClick={mmRegLink ? null : registerForChallenge}
                   theme={{ button: style.challengeAction }}
                   to={mmRegLink}
