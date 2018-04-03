@@ -105,6 +105,8 @@ function normalizeNameConventionForSubtrack(subTrack) {
 export function normalizeChallengeDetails(v3, v3Filtered, v3User, v2, username) {
   // Normalize exising data to make it consistent with the rest of the code
   const challenge = {
+    ...v3,
+
     id: v3.challengeId,
     reliabilityBonus: v3Filtered.reliabilityBonus || 0,
     status: (v3.currentStatus || '').toUpperCase(),
