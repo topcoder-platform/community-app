@@ -56,20 +56,56 @@
   }
 }
 
+.closeWhatIsTopcoderVideoCross {
+  cursor: pointer;
+  font-size: 36px;
+  position: absolute;
+  right: 10px;
+  top: 5px;
+}
+
 .header {
   @include header-block;
 
   background-image: url('./images/header.jpg');
 }
 
+.marginTop30 {
+  margin-top: 15px !important;
+}
+
+.watchVideoButton {
+  background: none !important;
+  border-color: white !important;
+  color: white !important;
+
+  &:hover {
+    border-color: $tc-dark-blue-70 !important;
+    color: $tc-dark-blue-70 !important;
+  }
+}
+
+.whatIsTopcoderVideo {
+  max-width: 66vw;
+  width: 66vw;
+}
+
 .imageTextBlock {
   margin: 0 auto;
   max-width: $screen-lg;
   padding: 0 15px;
+
+  a {
+    text-decoration: underline;
+  }
 }
 
 .joinButtonInHeader {
   margin-top: 40px;
+}
+
+.joinButtonInCard {
+  margin-top: 20px;
 }
 
 .ourMission {

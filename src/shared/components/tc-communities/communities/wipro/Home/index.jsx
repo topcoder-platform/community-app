@@ -5,6 +5,7 @@
  * thus we disable max-len eslint rule for this file
  */
 
+import config from 'utils/config';
 import React from 'react';
 import Section from 'components/tc-communities/Section';
 import Banner from 'components/tc-communities/Banner';
@@ -112,6 +113,10 @@ const settings = {
 */
 
 export default function Home(props) {
+  const {
+    userId,
+  } = props;
+
   return (
     <main>
       <Banner
@@ -177,7 +182,7 @@ export default function Home(props) {
             link={[{
               newTab: true,
               title: 'Initiate Project',
-              url: 'https://connect.topcoder.com/new-project/generic_dev?refCode=topgear',
+              url: `${config.URL.TOPGEAR}/topcoder_projects/initiate_project?user_id=${userId}`,
             }, {
               newTab: true,
               title: 'Request Group',
@@ -283,9 +288,10 @@ export default function Home(props) {
 
 Home.defaultProps = {
   news: [],
+  userId: 0,
 };
 
 Home.propTypes = {
-  // news: PT.arrayOf(PT.shape()),
   resetChallengeListing: PT.func.isRequired,
+  userId: PT.number,
 };
