@@ -1,8 +1,15 @@
+import _ from 'lodash';
 import challengeListingActions from 'actions/challenge-listing';
 import challengeListingSidebarActions from 'actions/challenge-listing/sidebar';
 import Home from 'components/tc-communities/communities/wipro/Home';
 import { connect } from 'react-redux';
 import { BUCKETS } from 'utils/challenge-listing/buckets';
+
+function mapStateToProps(state) {
+  return {
+    userId: _.get(state.auth.user, 'userId'),
+  };
+}
 
 function mapDispatchToProps(dispatch) {
   return {
@@ -16,4 +23,4 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-export default connect(() => ({}), mapDispatchToProps)(Home);
+export default connect(mapStateToProps, mapDispatchToProps)(Home);
