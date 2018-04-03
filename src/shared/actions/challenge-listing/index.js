@@ -103,15 +103,15 @@ function getAllActiveChallengesDone(uuid, tokenV3) {
     user = decodeToken(tokenV3).handle;
     calls.push(getAll(params =>
       service.getUserChallenges(user, filter, params)));
+    calls.push(getAll(params =>
+      service.getUserMarathonMatches(user, filter, params)));
   }
-  return Promise.all(calls).then(([ch, mm, uch, umm]) => {
-    const challenges = mm ? ch.concat(mm) : ch;
-
+  return Promise.all(calls).then(([challenges, uch, umm]) => {
     /* uch and umm arrays contain challenges where the user is participating in
      * some role. The same challenge are already listed in res array, but they
      * are not attributed to the user there. This block of code marks user
      * challenges in an efficient way. */
-    if (uch) {
+    if (uch && umm) {
       const map = {};
       uch.forEach((item) => { map[item.id] = item; });
       umm.forEach((item) => { map[item.id] = item; });

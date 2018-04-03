@@ -176,7 +176,7 @@ describe('challengeListing.getAllActiveChallengesDone with token', () => {
   });
 
   test('payload is a promise which resolves to the expected object', () =>
-    a.payload.then(res => expect(res.challenges).toHaveLength(3)));
+    a.payload.then(res => expect(res.challenges).toHaveLength(2)));
 });
 
 describe('challengeListing.getDraftChallengesDone', () => {

@@ -540,6 +540,18 @@ class ChallengesService {
   }
 
   /**
+   * Gets marathon matches of the specified user.
+   * @param {String} username User whose challenges we want to fetch.
+   * @param {Object} filters Optional.
+   * @param {Number} params Optional.
+   * @return {Promise} Resolves to the api response.
+   */
+  getUserMarathonMatches(username, filters, params) {
+    const endpoint = `/members/${username.toLowerCase()}/mms/`;
+    return this.private.getChallenges(endpoint, filters, params);
+  }
+
+  /**
    * Submits a challenge submission.  Uses APIV2 for Development submission
    * and APIV3 for Design submisisons.
    * @param {Object} body
