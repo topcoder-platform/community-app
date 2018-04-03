@@ -59,7 +59,7 @@ function ChallengeCard({
 
   const challengeDetailLink = challenge.subTrack === 'MARATHON_MATCH'
     && challenge.isLegacy
-    ? `${config.URL.COMMUNITY}/tc?module=MatchDetail&rd=${challenge.id}`
+    ? `${config.URL.COMMUNITY}/tc?module=MatchDetail&rd=${challenge.roundId}`
     : `${challengesUrl}/${challenge.id}`;
 
   const registrationPhase = challenge.allPhases.filter(phase => phase.phaseType === 'Registration')[0];

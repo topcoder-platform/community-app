@@ -5,6 +5,7 @@
  */
 
 import _ from 'lodash';
+import config from 'utils/config';
 import moment from 'moment';
 import 'moment-duration-format';
 
@@ -42,11 +43,15 @@ export default function ChallengeHeader(props) {
   } = props;
 
   const {
+    componentId,
+    contestId,
     drPoints,
     id: challengeId,
     name,
+    roundId,
     subTrack,
     track,
+
     events,
     technologies,
     platforms,
@@ -211,6 +216,13 @@ export default function ChallengeHeader(props) {
       break;
   }
 
+  let mmRegLink;
+  let mmSubLink;
+  if (subTrack === 'MARATHON_MATCH') {
+    mmRegLink = `${config.URL.COMMUNITY}/tc?module=MatchDetails&rd=${roundId}`;
+    mmSubLink = `${config.URL.COMMUNITY}/longcontest/?module=Submit&rd=${roundId}&compid=${componentId}&cd=${contestId}`;
+  }
+
   return (
     <div styleName="challenge-outer-container">
       <div styleName="important-detail">
@@ -263,20 +275,22 @@ export default function ChallengeHeader(props) {
                 <DangerButton
                   disabled={unregistering || registrationEnded
                   || hasSubmissions}
-                  onClick={unregisterFromChallenge}
+                  onClick={mmRegLink ? null : unregisterFromChallenge}
                   theme={{ button: style.challengeAction }}
+                  to={mmRegLink}
                 >Unregister</DangerButton>
               ) : (
                 <PrimaryButton
                   disabled={registering || registrationEnded}
-                  onClick={registerForChallenge}
+                  onClick={mmRegLink ? null : registerForChallenge}
                   theme={{ button: style.challengeAction }}
+                  to={mmRegLink}
                 >Register</PrimaryButton>
               )}
               <PrimaryButton
                 disabled={!hasRegistered || unregistering || submissionEnded}
                 theme={{ button: style.challengeAction }}
-                to={`${challengesUrl}/${challengeId}/submit`}
+                to={mmSubLink || `${challengesUrl}/${challengeId}/submit`}
               >Submit</PrimaryButton>
               { track === 'DESIGN' && hasRegistered && !unregistering
               && hasSubmissions && (<PrimaryButton theme={{ button: style.challengeAction }} to={`${challengesUrl}/${challengeId}/my-submissions`}>View Submissions</PrimaryButton>

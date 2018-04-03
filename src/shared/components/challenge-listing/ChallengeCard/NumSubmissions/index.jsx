@@ -17,29 +17,37 @@ import SubmissionsIcon from '../../Icons/SubmissionsIcon';
 
 import './style.scss';
 
-// This link use to marathon match in the future
-// const MM_BASE_URL
-//   = `${config.URL.COMMUNITY}/longcontest/?module=Submit&`;
-
-export default function NumSubmissions({ challenge: { id, numSubmissions, status, subTrack },
-  challengesUrl, newChallengeDetails, selectChallengeDetailsTab }) {
+export default function NumSubmissions({
+  challenge: {
+    componentId,
+    contestId,
+    id,
+    isLegacy,
+    numSubmissions,
+    roundId,
+    status,
+    subTrack,
+  },
+  challengesUrl,
+  selectChallengeDetailsTab,
+}) {
   let tip;
   switch (numSubmissions) {
     case 0: tip = 'No submissions'; break;
     case 1: tip = '1 total submission'; break;
     default: tip = `${numSubmissions} total submissions`;
   }
+
   const query = numSubmissions && status === 'COMPLETED'
     ? `?tab=${DETAIL_TABS.SUBMISSIONS}` : '';
-  // This link use to marathon match in the future
-  // let link = subTrack === 'MARATHON_MATCH' ?
-  // `${MM_BASE_URL}compid=${challenge.componentId}&
-  // rd=${challenge.roundId}&cd=${challenge.contestId}` :
-  // `${challengesUrl}/${id}${query}`;
+
   let link = `${challengesUrl}/${id}${query}`;
-  if (!newChallengeDetails && subTrack !== 'MARATHON_MATCH') {
-    link = `${config.URL.BASE}/challenge-details/${id}/?type=develop#viewRegistrant`;
+
+  if (subTrack === 'MARATHON_MATCH' && isLegacy) {
+    link = `${config.URL.COMMUNITY}/longcontest/?module=Submit&rd=${
+      roundId}&compid=${componentId}&cd=${contestId}`;
   }
+
   return (
     <div styleName="container">
       <Tooltip
@@ -73,6 +81,5 @@ NumSubmissions.propTypes = {
     track: PT.string.isRequired,
   }).isRequired,
   challengesUrl: PT.string.isRequired,
-  newChallengeDetails: PT.bool.isRequired,
   selectChallengeDetailsTab: PT.func.isRequired,
 };

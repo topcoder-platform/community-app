@@ -18,27 +18,32 @@ import RegistrantsIcon from '../../Icons/RegistrantsIcon';
 
 import './style.scss';
 
-// This link use to marathon match in the future
-// const MM_BASE_URL
-//   = `${config.URL.COMMUNITY}/longcontest/?module=ViewReg&rd=`;
-
-
-export default function NumRegistrants({ challenge: { id, numRegistrants, subTrack },
-  challengesUrl, newChallengeDetails, selectChallengeDetailsTab }) {
+export default function NumRegistrants({
+  challenge: {
+    id,
+    isLegacy,
+    numRegistrants,
+    roundId,
+    subTrack,
+  },
+  challengesUrl,
+  selectChallengeDetailsTab,
+}) {
   let tip;
   switch (numRegistrants) {
     case 0: tip = 'No registrants'; break;
     case 1: tip = '1 total registrant'; break;
     default: tip = `${numRegistrants} total registrants`;
   }
+
   const query = numRegistrants ? `?tab=${DETAIL_TABS.REGISTRANTS}` : '';
-  // This link use to marathon match in the future
-  // let link = subTrack === 'MARATHON_MATCH' ?
-  // `${MM_BASE_URL}${challenge.roundId}` : `${challengesUrl}/${id}${query}`;
+
   let link = `${challengesUrl}/${id}${query}`;
-  if (!newChallengeDetails && subTrack !== 'MARATHON_MATCH') {
-    link = `${config.URL.BASE}/challenge-details/${id}/?type=develop#viewRegistrant`;
+
+  if (subTrack === 'MARATHON_MATCH' && isLegacy) {
+    link = `${config.URL.COMMUNITY}/longcontest/?module=ViewReg&rd=${roundId}`;
   }
+
   return (
     <span styleName="container">
       <Tooltip
@@ -72,6 +77,5 @@ NumRegistrants.propTypes = {
     track: PT.string.isRequired,
   }).isRequired,
   challengesUrl: PT.string.isRequired,
-  newChallengeDetails: PT.bool.isRequired,
   selectChallengeDetailsTab: PT.func.isRequired,
 };
