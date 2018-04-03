@@ -53,6 +53,7 @@ export default function NumRegistrants({
       >
         <Link
           disabled={!numRegistrants}
+          forceA={subTrack === 'MARATHON_MATCH' && isLegacy}
           onClick={() => (
             selectChallengeDetailsTab(
               numRegistrants ? DETAIL_TABS.REGISTRANTS : DETAIL_TABS.DETAILS,

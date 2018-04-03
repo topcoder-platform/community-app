@@ -56,6 +56,7 @@ export default function NumSubmissions({
         }
       >
         <Link
+          forceA={subTrack === 'MARATHON_MATCH' && isLegacy}
           onClick={() => (
             selectChallengeDetailsTab(
               numSubmissions ? DETAIL_TABS.SUBMISSIONS : DETAIL_TABS.DETAILS,

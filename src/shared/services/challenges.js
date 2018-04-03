@@ -165,6 +165,9 @@ export function normalizeChallengeDetails(v3, v3Filtered, v3User, v2, username) 
     // Normalize name convention for subtrack
     const newsubTrack = normalizeNameConventionForSubtrack(v3Filtered.subTrack);
     _.defaults(challenge, {
+      componentId: v3Filtered.componentId,
+      contestId: v3Filtered.contestId,
+
       track: newsubTrack === 'MARATHON_MATCH' ? 'DATA_SCIENCE' : v3Filtered.track,
       subTrack: newsubTrack,
       submissionEndDate: v3Filtered.submissionEndDate, // Dates are not correct in v3
