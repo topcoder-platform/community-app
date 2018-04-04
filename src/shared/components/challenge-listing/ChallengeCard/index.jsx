@@ -57,10 +57,18 @@ function ChallengeCard({
   }
   challenge.prize = challenge.prizes || [];
 
-  const challengeDetailLink = challenge.subTrack === 'MARATHON_MATCH'
-    && challenge.isLegacy
-    ? `${config.URL.COMMUNITY}/tc?module=MatchDetail&rd=${challenge.roundId}`
-    : `${challengesUrl}/${challenge.id}`;
+  const {
+    isLegacy,
+    roundId,
+    subTrack,
+  } = challenge;
+
+  const legacyChallengeDetailsLink =
+    `${config.URL.COMMUNITY}/tc?module=MatchDetail&rd=${roundId}`;
+
+  const challengeDetailLink = subTrack === 'MARATHON_MATCH'
+    && isLegacy ? legacyChallengeDetailsLink :
+    `${challengesUrl}/${challenge.id}`;
 
   const registrationPhase = challenge.allPhases.filter(phase => phase.phaseType === 'Registration')[0];
   const isRegistrationOpen = registrationPhase ? registrationPhase.phaseStatus === 'Open' : false;
@@ -108,11 +116,14 @@ function ChallengeCard({
     <div styleName="challengeCard">
       <div styleName="left-panel">
         <div styleName="challenge-track">
-          <TrackAbbreviationTooltip track={challenge.track} subTrack={challenge.subTrack}>
+          <TrackAbbreviationTooltip
+            subTrack={subTrack}
+            track={challenge.track}
+          >
             <span>
               <TrackIcon
                 track={challenge.track}
-                subTrack={challenge.subTrack}
+                subTrack={subTrack}
                 tcoEligible={challenge.events ? challenge.events[0].eventName : ''}
                 isDataScience={challenge.isDataScience}
               />
@@ -144,23 +155,25 @@ function ChallengeCard({
       </div>
       <div styleName="right-panel">
         <div styleName={isRegistrationOpen ? 'prizes with-register-button' : 'prizes'}>
-          {(prizeMode !== PRIZE_MODE.HIDDEN) && (
-            <Prize
-              bonuses={bonuses}
-              label={prizeMode === PRIZE_MODE.POINTS ? 'Points' : 'Purse'}
-              points={challenge.drPoints}
-              prizes={prizes}
-              prizeUnitSymbol={prizeUnitSymbol}
-              totalPrize={totalPrize}
-              withoutTooltip={prizeMode === PRIZE_MODE.POINTS}
-            />
-          )}
+          {
+            (prizeMode !== PRIZE_MODE.HIDDEN && (!isLegacy || totalPrize)) ? (
+              <Prize
+                bonuses={bonuses}
+                label={prizeMode === PRIZE_MODE.POINTS ? 'Points' : 'Purse'}
+                points={challenge.drPoints}
+                prizes={prizes}
+                prizeUnitSymbol={prizeUnitSymbol}
+                totalPrize={totalPrize}
+                withoutTooltip={prizeMode === PRIZE_MODE.POINTS}
+              />
+            ) : null
+          }
         </div>
 
         <ChallengeStatus
           challenge={challenge}
           challengesUrl={challengesUrl}
-          detailLink={challengeDetailLink}
+          detailLink={subTrack === 'MARATHON_MATCH' ? legacyChallengeDetailsLink : challengeDetailLink}
           newChallengeDetails={newChallengeDetails}
           openChallengesInNewTabs={openChallengesInNewTabs}
           sampleWinnerProfile={sampleWinnerProfile}

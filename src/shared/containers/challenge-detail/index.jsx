@@ -292,9 +292,9 @@ class ChallengeDetailPageContainer extends React.Component {
 
     const isEmpty = _.isEmpty(this.props.challenge);
 
-    const hasRegistered = isRegistered(this.props.challenge.userDetails,
-      this.props.challenge.registrants,
-      (this.props.auth.user || {}).handle);
+    const hasRegistered = _.isUndefined(challenge.isRegistered) ?
+      isRegistered(challenge.userDetails, challenge.registrants, (auth.user || {}).handle) :
+      challenge.isRegistered;
 
     if (this.props.isLoadingChallenge || this.props.isLoadingTerms) {
       return <LoadingPagePlaceholder />;
