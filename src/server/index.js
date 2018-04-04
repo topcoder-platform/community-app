@@ -52,7 +52,6 @@ const EXTRA_SCRIPTS = [
 const MODE = process.env.BABEL_ENV;
 
 async function beforeRender(req, suggestedConfig) {
-  console.log('!!!!!!!!!!!!!!!!!!!1');
   const [
     store,
     rates,
@@ -70,8 +69,6 @@ async function beforeRender(req, suggestedConfig) {
  * @param {Object} server
  */
 async function onExpressJsSetup(server) {
-  console.log('234234234');
-  return;
   /* tc-accounts App was designed for browser environment, and its decodeToken()
    * function (which we would like to use server-side as well) depends on global
    * atob() method, which is present in browser, but not in NodeJS. This is the

@@ -1,11 +1,7 @@
 import JoinCommunity from 'components/tc-communities/JoinCommunity';
 import React from 'react';
 import TU from 'react-dom/test-utils';
-import {
-  renderDom,
-  shallowSnapshot,
-  simulate,
-} from 'topcoder-react-utils/jest-utils';
+import { JU } from 'topcoder-react-utils';
 
 const hideJoinButton = jest.fn();
 const join = jest.fn();
@@ -66,24 +62,24 @@ const mockDatas = [
 ];
 
 test('Matches shallow shapshot', () => {
-  mockDatas.forEach(data => shallowSnapshot(<JoinCommunity {...data} />));
+  mockDatas.forEach(data => JU.shallowSnapshot(<JoinCommunity {...data} />));
 });
 
 test('click confirm-join', () => {
-  const dom = renderDom(<JoinCommunity {...mockDatas[0]} />);
+  const dom = JU.renderDom(<JoinCommunity {...mockDatas[0]} />);
   const matches = TU.scryRenderedDOMComponentsWithTag(dom, 'button');
-  matches.forEach(m => simulate.click(m));
+  matches.forEach(m => JU.simulate.click(m));
   expect(join).toHaveBeenCalled();
 });
 
 test('click joined', () => {
-  const instance = renderDom(<JoinCommunity {...mockDatas[3]} />);
+  const instance = JU.renderDom(<JoinCommunity {...mockDatas[3]} />);
   const matches = TU.scryRenderedDOMComponentsWithTag(instance, 'button');
-  TU.Simulate.click(matches[0]);
+  JU.simulate.click(matches[0]);
 });
 
 test('click without token', () => {
-  const instance = renderDom(<JoinCommunity {...mockDatas[4]} />);
+  const instance = JU.renderDom(<JoinCommunity {...mockDatas[4]} />);
   const matches = TU.scryRenderedDOMComponentsWithTag(instance, 'button');
-  TU.Simulate.click(matches[0]);
+  JU.simulate.click(matches[0]);
 });

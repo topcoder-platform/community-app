@@ -31,23 +31,23 @@ export default function Home({
   const now = moment();
   const liveChallengeLinks =
     challenges.filter(challenge =>
-      now.isAfter(challenge.registrationStartDate),
-    ).slice(0, 3).map(item => (
-      <Link
-        key={item.id}
-        styleName="card-link"
-        to={`${baseUrl}/challenges/${item.id}`}
-      >{item.name}</Link>
+      now.isAfter(challenge.registrationStartDate)).slice(0, 3).map(item => (
+        <Link
+          key={item.id}
+          styleName="card-link"
+          to={`${baseUrl}/challenges/${item.id}`}
+        >{item.name}
+        </Link>
     ));
   const upcomingChallengeLinks =
     challenges.filter(challenge =>
-      now.isBefore(challenge.registrationStartDate),
-    ).slice(0, 3).map(item => (
-      <Link
-        key={item.id}
-        styleName="card-link"
-        to={`${baseUrl}/challenges/${item.id}`}
-      >{item.name}</Link>
+      now.isBefore(challenge.registrationStartDate)).slice(0, 3).map(item => (
+        <Link
+          key={item.id}
+          styleName="card-link"
+          to={`${baseUrl}/challenges/${item.id}`}
+        >{item.name}
+        </Link>
     ));
   return (
     <main>
@@ -83,18 +83,23 @@ export default function Home({
             challenges, access educational resources, and win money by solving
             real-life business problems for companies in need of cognitive
             expertise. Develop your skills and you may even win a trip to the
-            &zwnj;<a
-              href={utils.config.URL.TCO}
-              rel="noopener noreferrer"
-              styleName="link"
-              target="_blank"
-            >Topcoder Open</a>,
+            &zwnj;{
+              <a
+                href={utils.config.URL.TCO}
+                rel="noopener noreferrer"
+                styleName="link"
+                target="_blank"
+              >
+                Topcoder Open
+              </a>
+            },
             our largest competitive programming and design
             competition of the year.
             <PrimaryButton
               theme={{ button: style['mission-details-button'] }}
               to={`${baseUrl}/get-started`}
-            >Get Started</PrimaryButton>
+            >Get Started
+            </PrimaryButton>
           </div>
         </div>
         <div styleName="quoteContainer">
@@ -132,12 +137,16 @@ export default function Home({
               </p>
               <p styleName="joining-is-simple-text">
                 Also, be sure to check out the cognitive computing zone on
-                &zwnj;<a
-                  href="https://www.ibm.com/developerworks/"
-                  rel="noopener noreferrer"
-                  styleName="link"
-                  target="_blank"
-                >IBM developerWorks</a>.
+                &zwnj;{
+                  <a
+                    href="https://www.ibm.com/developerworks/"
+                    rel="noopener noreferrer"
+                    styleName="link"
+                    target="_blank"
+                  >
+                    IBM developerWorks
+                  </a>
+                }.
                 There you’ll find how-to content and community
                 expertise to help you succeed with your own cognitive apps and
                 solutions, and get more information on machine learning and AI.
@@ -166,29 +175,37 @@ export default function Home({
                 <div styleName="joining-point">2</div>
                 <p styleName="joining-point-text">
                   Register for
-                  &zwnj;<Link
-                    styleName="link"
-                    to={`${baseUrl}/challenges`}
-                  >cognitive challenges</Link>
+                  &zwnj;{
+                    <Link
+                      styleName="link"
+                      to={`${baseUrl}/challenges`}
+                    >
+                      cognitive challenges
+                    </Link>
+                  }
                 </p>
               </div>
               <div styleName="joining-point-container">
                 <div styleName="joining-point">3</div>
                 <p styleName="joining-point-text">
                   Compete using
-                  &nbsp;<Link
-                    onClick={() => {
-                      if (!allFaqItemsClosedInResourcesPage) {
-                        closeAllFaqItemsInResourcesPage();
-                      }
-                      toggleFaqItemInResourcesPage(
-                        'whyDoINeedIbmCloudAccount',
-                        true,
-                      );
-                    }}
-                    styleName="link"
-                    to={`${baseUrl}/resources`}
-                  >IBM Cloud</Link>
+                  &nbsp;{
+                    <Link
+                      onClick={() => {
+                        if (!allFaqItemsClosedInResourcesPage) {
+                          closeAllFaqItemsInResourcesPage();
+                        }
+                        toggleFaqItemInResourcesPage(
+                          'whyDoINeedIbmCloudAccount',
+                          true,
+                        );
+                      }}
+                      styleName="link"
+                      to={`${baseUrl}/resources`}
+                    >
+                      IBM Cloud
+                    </Link>
+                  }
                 </p>
               </div>
             </div>
@@ -215,24 +232,28 @@ export default function Home({
                   }}
                   styleName="card-link"
                   to={`${baseUrl}/resources`}
-                >What is IBM Cloud?</Link>
+                >What is IBM Cloud?
+                </Link>
                 <a
                   href="https://www.ibm.com/developerworks/"
                   rel="noopener noreferrer"
                   styleName="card-link"
                   target="_blank"
-                >Explore IBM developerWorks</a>
+                >Explore IBM developerWorks
+                </a>
                 <a
                   href="https://developer.ibm.com/events/"
                   rel="noopener noreferrer"
                   styleName="card-link"
                   target="_blank"
-                >Take part in a developerWorks Event</a>
+                >Take part in a developerWorks Event
+                </a>
                 <PrimaryButton
                   theme={{ button: style.readMoreButton }}
                   to={`${baseUrl}/resources`}
                   size="sm"
-                >View Resources</PrimaryButton>
+                >View Resources
+                </PrimaryButton>
               </div>
             </div>
             <div styleName="style.card style.card-02">
@@ -244,7 +265,8 @@ export default function Home({
                   theme={{ button: style.readMoreButton }}
                   to={`${baseUrl}/challenges`}
                   size="sm"
-                >View All Challenges</PrimaryButton>
+                >View All Challenges
+                </PrimaryButton>
               </div>
             </div>
             <div styleName="style.card style.card-03">
@@ -259,7 +281,8 @@ export default function Home({
                   theme={{ button: style.readMoreButton }}
                   to={`${baseUrl}/challenges`}
                   size="sm"
-                >View All Challenges</PrimaryButton>
+                >View All Challenges
+                </PrimaryButton>
               </div>
             </div>
           </div>
@@ -278,12 +301,10 @@ Home.defaultProps = {
 Home.propTypes = {
   allFaqItemsClosedInResourcesPage: PT.bool.isRequired,
   baseUrl: PT.string.isRequired,
-  challenges: PT.arrayOf(
-    PT.shape({
-      id: PT.number.isRequired,
-      name: PT.string.isRequired,
-    }),
-  ),
+  challenges: PT.arrayOf(PT.shape({
+    id: PT.number.isRequired,
+    name: PT.string.isRequired,
+  })),
   closeAllFaqItemsInResourcesPage: PT.func.isRequired,
   member: PT.bool.isRequired,
   toggleFaqItemInResourcesPage: PT.func.isRequired,

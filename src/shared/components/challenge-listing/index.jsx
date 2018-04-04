@@ -32,15 +32,13 @@ export default function ChallengeListing(props) {
     preListingMsg,
   } = props;
 
-  let challenges = props.challenges;
+  let { challenges } = props;
 
   if (props.communityFilter) {
-    challenges = challenges.filter(
-      Filter.getFilterFunction(props.communityFilter));
+    challenges = challenges.filter(Filter.getFilterFunction(props.communityFilter));
   }
 
-  challenges = challenges.filter(
-    Filter.getFilterFunction(props.filterState));
+  challenges = challenges.filter(Filter.getFilterFunction(props.filterState));
 
   const expanded = false;
 
@@ -117,7 +115,7 @@ export default function ChallengeListing(props) {
         defaultCommunityId={defaultCommunityId}
         hideSrm={hideSrm}
         setCardType={_.noop/* cardType => this.setCardType(cardType) */}
-        isCardTypeSet={'Challenges' /* this.state.currentCardType */}
+        isCardTypeSet="Challenges"
         isAuth={Boolean(props.auth.user)}
       />
       <div styleName={`tc-content-wrapper ${/* this.state.currentCardType === 'SRMs' ? '' : */'hidden'}`}>
@@ -128,7 +126,7 @@ export default function ChallengeListing(props) {
         <div styleName="challenges-container SRMs-container">
           {/* happening now */}
           <div>
-            <SRMCard category={'now'} />
+            <SRMCard category="now" />
           </div>
           {/* upcoming SRMs */}
           <div>
@@ -138,7 +136,7 @@ export default function ChallengeListing(props) {
           {/* past SRMs */}
           <div>
             <div styleName="title">Past SRMs</div>
-            <SRMCard category={'past'} />
+            <SRMCard category="past" />
           </div>
         </div>
 

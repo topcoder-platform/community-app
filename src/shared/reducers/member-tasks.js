@@ -74,7 +74,7 @@ function onGetDone(state, { error, payload }) {
   });
 
   /* If the first page of tasks has been loaded, updates its timestamp. */
-  let timestamps = state.timestamps;
+  let { timestamps } = state;
   if (!state.lastRequestedPageNum) {
     timestamps = _.clone(timestamps);
     timestamps[projectId] = Date.now();

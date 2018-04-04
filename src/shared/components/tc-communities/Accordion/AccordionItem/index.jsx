@@ -16,7 +16,9 @@ import IconTickDown from '../../../../../assets/images/tc-communities/tick_down_
 import defaultStyle from './style.scss';
 
 function AccordionItem(props) {
-  const { title, children, onTitleClick, isOpen, theme } = props;
+  const {
+    title, children, onTitleClick, isOpen, theme,
+  } = props;
 
   const content = (
     <div className={`${theme.container} ${isOpen ? theme.containerOpen : ''}`}>
@@ -24,6 +26,7 @@ function AccordionItem(props) {
         <div
           className="accordion-title-button"
           onClick={onTitleClick}
+          onKeyPress={onTitleClick}
           role="button"
           tabIndex={0}
         >
@@ -43,7 +46,8 @@ function AccordionItem(props) {
         bottomBoundary="#accordion"
         enableTransforms={false}
         styleName="desktop"
-      >{content}</Sticky>
+      >{content}
+      </Sticky>
       <div styleName="mobile">{content}</div>
     </div>
   );

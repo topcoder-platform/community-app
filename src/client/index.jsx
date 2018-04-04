@@ -1,6 +1,6 @@
 import forge from 'node-forge';
 
-const BUILD_INFO = window.TRU_CONSTANTS;
+const BUILD_INFO = window.TRU_BUILD_INFO;
 
 /* Cuts injected data section out from the HTML markup. */
 const block = document.querySelector('script[id="inj"]');

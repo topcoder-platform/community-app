@@ -83,7 +83,8 @@ export default function Listing({
                 button: style.newPaymentButton,
               }}
               to="/sandbox/payments/new"
-            >New payment</PrimaryButton>
+            >New payment
+            </PrimaryButton>
           </div>
         </div>
         {content}

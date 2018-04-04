@@ -9,9 +9,7 @@
 import { combineReducers } from 'redux';
 import { resolveReducers } from 'utils/redux';
 
-import submission, {
-  factory as challengeDetailsFactory,
-} from './submission';
+import submission, { factory as challengeDetailsFactory } from './submission';
 
 
 import challengeDetails from './challenge-details';

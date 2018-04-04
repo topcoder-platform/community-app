@@ -105,7 +105,7 @@ class FilePicker extends React.Component {
             styleName="submission-input"
             onChange={this.handleChangeFile}
           />
-          <label
+          <label // eslint-disable-line
             htmlFor={`submission-input-${id}`}
             id={`label-submit-file-${id}`}
           />
@@ -115,7 +115,8 @@ class FilePicker extends React.Component {
               const ele = document.getElementById(`label-submit-file-${id}`);
               ele.click();
             }}
-          >Pick a File</PrimaryButton>
+          >Pick a File
+          </PrimaryButton>
         </div>
         {
           error &&

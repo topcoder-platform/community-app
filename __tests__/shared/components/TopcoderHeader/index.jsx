@@ -5,10 +5,7 @@ import React from 'react';
 import TopcoderHeader from 'components/TopcoderHeader';
 import TU from 'react-dom/test-utils';
 
-import {
-  renderDom,
-  shallowSnapshot,
-} from 'topcoder-react-utils/jest-utils';
+import { JU } from 'topcoder-react-utils';
 
 const mockCloseMenu = jest.fn();
 const mockCloseSearch = jest.fn();
@@ -20,7 +17,7 @@ function styleNameMatch(item, styleName) {
 }
 
 test('Default render', () => {
-  shallowSnapshot((
+  JU.shallowSnapshot((
     <TopcoderHeader
       closeMenu={_.noop}
       closeMobileMenu={_.noop}
@@ -34,7 +31,7 @@ test('Default render', () => {
 });
 
 test('Render with open menu', () => {
-  shallowSnapshot((
+  JU.shallowSnapshot((
     <TopcoderHeader
       closeMenu={_.noop}
       closeMobileMenu={_.noop}
@@ -59,7 +56,7 @@ test('Render with open menu', () => {
 });
 
 test('Render with specified profile', () => {
-  shallowSnapshot((
+  JU.shallowSnapshot((
     <TopcoderHeader
       closeMenu={_.noop}
       closeMobileMenu={_.noop}
@@ -77,7 +74,7 @@ test('Render with specified profile', () => {
 describe.skip('User input handling', () => {
   let dom;
   beforeAll(() => {
-    dom = renderDom((
+    dom = JU.renderDom((
       <TopcoderHeader
         activeTrigger={{
           bottom: 0,

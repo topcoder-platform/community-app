@@ -69,7 +69,8 @@ class NewsletterSignup extends React.Component {
               onClick={() => this.subscribe()}
               size="md"
               theme={{ button: theme.formButton }}
-            >{buttonText}</PrimaryButton>
+            >{buttonText}
+            </PrimaryButton>
           </div>
         </div>
       </div>

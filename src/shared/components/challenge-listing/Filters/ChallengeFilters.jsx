@@ -105,6 +105,7 @@ export default function ChallengeFilters({
               (
                 <span
                   onClick={() => showTrackModal(true)}
+                  onKeyPress={() => showTrackModal(true)}
                   role="button"
                   styleName="track-btn"
                   tabIndex={0}
@@ -120,6 +121,7 @@ export default function ChallengeFilters({
             * on the viewport size. */}
           <span
             onClick={() => setExpanded(!expanded)}
+            onKeyPress={() => setExpanded(!expanded)}
             role="button"
             styleName="filter-btn"
             tabIndex={0}

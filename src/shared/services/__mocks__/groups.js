@@ -68,9 +68,7 @@ export function addDescendantGroups(groupIds, knownGroups) {
  *    (or outdated), and are not being loaded.
  *  - "unknown" - the groups that are absent in "knownGroups" map.
  */
-export function checkGroupsStatus(
-  groupIds, knownGroups = {}, loadingGroups = {},
-) {
+export function checkGroupsStatus(groupIds, knownGroups = {}, loadingGroups = {}) {
   const loaded = [];
   const loading = [];
   const missing = [];

@@ -69,16 +69,17 @@ export function factory(req) {
   if (req) {
     let communityId = getCommunityId(req.subdomains);
     if (!communityId && req.url.match(/\/community\/.*/)) {
-      communityId = req.url.split('/')[2];
+      [,, communityId] = req.url.split('/');
       // remove possible params like ?join=<communityId>
       communityId = communityId ? communityId.replace(/\?.*/, '') : communityId;
     }
     if (communityId) {
       const state = { loadingMetaDataForCommunityId: communityId };
-      const tokenV3 = getAuthTokens(req).tokenV3;
-      return toFSA(
-        actions.tcCommunities.meta.fetchDataDone(communityId, tokenV3),
-      ).then(res => create(onDone(state, res)));
+      const { tokenV3 } = getAuthTokens(req);
+      return toFSA(actions.tcCommunities.meta.fetchDataDone(
+        communityId,
+        tokenV3,
+      )).then(res => create(onDone(state, res)));
     }
   }
   return Promise.resolve(create());

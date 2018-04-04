@@ -19,8 +19,11 @@ const SRMTile = (props) => {
           </header>
           <div styleName="srm-details">
             <p styleName="starts-in">
-              Starts in <span>{`${timeDiff(srm.codingStartAt, 'quantity')}
-                ${timeDiff(srm.codingStartAt, 'unit')}`}</span>
+              Starts in {
+                <span>{`${timeDiff(srm.codingStartAt, 'quantity')}
+                  ${timeDiff(srm.codingStartAt, 'unit')}`}
+                </span>
+              }
             </p>
             <div styleName="srm-calendar">
               <span styleName="day">{localTime(srm.codingStartAt, 'DD')}</span>

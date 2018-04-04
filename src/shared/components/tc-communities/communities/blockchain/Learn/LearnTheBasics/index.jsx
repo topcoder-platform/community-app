@@ -44,11 +44,14 @@ export default function LearnTheBasics({ baseUrl }) {
               &zwnj;<Link to={baseUrl}>the homepage</Link>.
               For more information on getting started with Topcoder,
               visit
-              &zwnj;<a
-                href="https://www.topcoder.com/getting-started/"
-                rel="noopener noreferrer"
-                target="_blank"
-              >https://www.topcoder.com/getting-started</a>
+              &zwnj;{
+                <a
+                  href="https://www.topcoder.com/getting-started/"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >https://www.topcoder.com/getting-started
+                </a>
+              }
             </p>
           </Text>
         </AccordionItem>
@@ -65,7 +68,8 @@ export default function LearnTheBasics({ baseUrl }) {
               href="https://www.topcoder.com/member-onboarding/choosing-your-first-competition-whats-right-for-you/"
               rel="noopener noreferrer"
               target="_blank"
-            >Learn more</a>
+            >Learn more
+            </a>
           </Text>
         </AccordionItem>
         <AccordionItem title="Payment & Rewards">
@@ -80,7 +84,8 @@ export default function LearnTheBasics({ baseUrl }) {
               href="https://www.topcoder.com/member-onboarding/winning-getting-paid/"
               rel="noopener noreferrer"
               target="_blank"
-            >Learn more</a>
+            >Learn more
+            </a>
           </Text>
         </AccordionItem>
         <AccordionItem title="Managing your Profile">
@@ -88,15 +93,21 @@ export default function LearnTheBasics({ baseUrl }) {
             <p>
               Everything to do with managing your profile and preferences can
               be found at
-              &zwnj;<a
-                href="https://www.topcoder.com/settings/account/"
-                rel="noopener noreferrer"
-                target="_blank"
-              >https://www.topcoder.com/settings/account</a>. If you
+              &zwnj;{
+                <a
+                  href="https://www.topcoder.com/settings/account/"
+                  rel="noopener noreferrer"
+                  target="_blank"
+                >https://www.topcoder.com/settings/account
+                </a>
+              }. If you
               can’t find what you’re looking for, send us a note at
-              &zwnj;<a
-                href="mailto:support@topcoder.com"
-              >support@topcoder.com</a>.
+              &zwnj;{
+                <a
+                  href="mailto:support@topcoder.com"
+                >support@topcoder.com
+                </a>
+              }.
             </p>
           </Text>
         </AccordionItem>

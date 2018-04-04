@@ -18,7 +18,13 @@ export default function Background({ children, onExit, escapeButton }) {
       {escapeButton && (
         /* TODO: This should be updated to use our standard button
          * compatible with react-redux routing. */
-        <a styleName="esc" onClick={onExit} role="button" tabIndex={-1}>
+        <a
+          styleName="esc"
+          onClick={onExit}
+          onKeyPress={onExit}
+          role="button"
+          tabIndex={-1}
+        >
           <div styleName="button">
             <CloseIcon />
           </div>

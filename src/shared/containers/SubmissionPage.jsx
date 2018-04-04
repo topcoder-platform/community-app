@@ -11,9 +11,7 @@ import React from 'react';
 import PT from 'prop-types';
 import { connect } from 'react-redux';
 import SubmissionsPage from 'components/SubmissionPage';
-import AccessDenied, {
-  CAUSE as ACCESS_DENIED_REASON,
-} from 'components/tc-communities/AccessDenied';
+import AccessDenied, { CAUSE as ACCESS_DENIED_REASON } from 'components/tc-communities/AccessDenied';
 
 /**
  * SubmissionsPage Container
@@ -130,7 +128,7 @@ SubmissionsPageContainer.propTypes = {
  * @return {Object}
  */
 const mapStateToProps = (state, ownProps) => {
-  const submission = state.page.submission;
+  const { submission } = state.page;
   return {
     currentPhases: state.challenge.details.currentPhases,
     stockArtRecords: submission.design.stockArtRecords,

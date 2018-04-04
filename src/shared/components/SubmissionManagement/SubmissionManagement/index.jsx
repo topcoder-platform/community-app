@@ -90,20 +90,35 @@ export default function SubmissionManagement(props) {
       <div styleName="submission-management-content">
         <div styleName="content-head">
           <p styleName="title">Manage your submissions</p>
-          {isDesign && <p styleName="round-ends">
-            <span styleName="ends-label">{currentPhase.phaseType} Ends:</span> {end.format('dddd MM/DD/YY hh:mm A')}</p>}
+          {
+            isDesign && (
+              <p styleName="round-ends">
+                <span styleName="ends-label">{currentPhase.phaseType} Ends:</span> {end.format('dddd MM/DD/YY hh:mm A')}
+              </p>
+            )
+          }
         </div>
-        {isDesign && <p styleName="recommend-info">
-          We always recommend to download your submission to check you uploaded the correct
-           zip files and also verify the photos and fonts declarations.
-           If you don’t want to see a submission, simply delete. If you have a new submission,
-           use the Upload Submission button to add one at the top of the list.</p>}
-        {isDevelop && <p styleName="recommend-info">
-          We always recommend to download your submission to check you uploaded
-           the correct zip file.
-           If you don’t want to see the submission, simply delete.
-           If you have a new submission, use the Upload Submission button to
-            overwrite the current one.</p>}
+        {
+          isDesign && (
+            <p styleName="recommend-info">
+              We always recommend to download your submission to check you uploaded the correct
+              zip files and also verify the photos and fonts declarations.
+              If you don’t want to see a submission, simply delete. If you have a new submission,
+              use the Upload Submission button to add one at the top of the list.
+            </p>
+          )
+        }
+        {
+          isDevelop && (
+            <p styleName="recommend-info">
+              We always recommend to download your submission to check you uploaded
+              the correct zip file.
+              If you don’t want to see the submission, simply delete.
+              If you have a new submission, use the Upload Submission button to
+                overwrite the current one.
+            </p>
+          )
+        }
         {loadingSubmissions && <LoadingIndicator />}
         {!loadingSubmissions &&
           <SubmissionsTable

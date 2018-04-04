@@ -35,7 +35,8 @@ export default function Bucket({
       role="button"
       styleName="bucket"
       tabIndex={0}
-    >{bucket.name}{count}{error}</div>
+    >{bucket.name}{count}{error}
+    </div>
   );
 }
 

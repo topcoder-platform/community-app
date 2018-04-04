@@ -43,10 +43,12 @@ class EventCarousel extends React.Component {
         <div styleName="arrow-wrapper">
           <a
             onClick={() => this.setState({ firstIndex: firstIndex - 1 })}
+            onKeyPress={() => this.setState({ firstIndex: firstIndex - 1 })}
             role="button"
             styleName={`arrow ${firstIndex > 0 ? 'active' : ''}`}
             tabIndex={0}
-          ><ArrowPrev /></a>
+          ><ArrowPrev />
+          </a>
         </div>
         {
           _.map(events, (event, index) => {
@@ -60,6 +62,7 @@ class EventCarousel extends React.Component {
             return (
               <a
                 onClick={() => onSelectEvent(id)}
+                onKeyPress={() => onSelectEvent(id)}
                 key={id}
                 role="link"
                 styleName={`logo ${id === eventId ? 'active' : ''} ${hidden ? 'hidden' : ''}`}
@@ -76,10 +79,12 @@ class EventCarousel extends React.Component {
         <div styleName="arrow-wrapper">
           <a
             onClick={() => this.setState({ firstIndex: firstIndex + 1 })}
+            onKeyPress={() => this.setState({ firstIndex: firstIndex + 1 })}
             role="button"
             styleName={`arrow ${firstIndex < events.length - maxAtOnce ? 'active' : ''}`}
             tabIndex={0}
-          ><ArrowNext /></a>
+          ><ArrowNext />
+          </a>
         </div>
       </div>
     );

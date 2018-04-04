@@ -7,14 +7,12 @@ const DUMMY_AUTH = { tokenV3: 'token' };
 const DUMMY_LEADERBOARD_API_URL = 'some/api/url';
 
 const fetchFailureMock = jest.fn(() =>
-  Promise.reject(new Error('ERROR')),
-);
+  Promise.reject(new Error('ERROR')));
 
 const fetchSuccessMock = jest.fn(() =>
   Promise.resolve({
     json: () => (DUMMY_PAYLOAD),
-  }),
-);
+  }));
 
 function testReducer(reducer, expectedInitialState) {
   let state;
@@ -68,8 +66,7 @@ describe('default reducer', () => testReducer(defaultReducer, {}));
 
 global.fetch = fetchSuccessMock;
 describe('factory without http request', () =>
-  factory().then(res => testReducer(res, {})),
-);
+  factory().then(res => testReducer(res, {})));
 
 global.fetch = fetchSuccessMock;
 describe('factory with matching http request and success response', () =>
@@ -81,9 +78,7 @@ describe('factory with matching http request and success response', () =>
       failed: false,
       loading: false,
       loadedApiUrl: '/leaderboard',
-    }),
-  ),
-);
+    })));
 
 global.fetch = fetchFailureMock;
 describe('factory with matching http request and network failure', () =>
@@ -95,6 +90,4 @@ describe('factory with matching http request and network failure', () =>
       failed: true,
       loading: false,
       loadedApiUrl: null,
-    }),
-  ),
-);
+    })));

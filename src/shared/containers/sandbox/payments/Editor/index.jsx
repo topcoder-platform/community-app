@@ -350,12 +350,12 @@ function mapStateToProps(state, ownProps) {
   const page = state.page.sandbox.payments.editor;
 
   let challenge;
-  const paymentId = ownProps.paymentId;
+  const { paymentId } = ownProps;
   if (Number(paymentId) === _.get(state, 'challenge.details.id')) {
     challenge = state.challenge.details;
   }
 
-  let projectDetails = direct.projectDetails;
+  let { projectDetails } = direct;
   if (_.get(projectDetails, 'project.projectId') !== page.selectedProjectId) {
     projectDetails = null;
   }

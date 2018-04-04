@@ -32,8 +32,7 @@ export default function Submissions(props) {
   const {
     challenge,
   } = props;
-  const checkpoints = challenge.checkpoints;
-  const submissions = challenge.submissions;
+  const { checkpoints, submissions } = challenge;
   if (challenge.track.toLowerCase() === 'design') {
     return challenge.submissionViewable === 'true' ? (
       <div styleName="container view">
@@ -63,7 +62,8 @@ export default function Submissions(props) {
           <div styleName="title">Private Challenge</div>
           <div styleName="subtitle">Submissions are not viewable for this challenge</div>
           <div styleName="desc">There are many reason why the submissions may not be viewable, such
-        as the allowance of stock art, or a client&apos;s desire to keep the work private.</div>
+        as the allowance of stock art, or a client&apos;s desire to keep the work private.
+          </div>
         </div>
       );
   }

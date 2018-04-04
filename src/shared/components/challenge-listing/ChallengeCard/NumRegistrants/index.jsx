@@ -22,7 +22,9 @@ const MM_BASE_URL
   = `${utils.config.URL.COMMUNITY}/longcontest/?module=ViewRegistrants&rd=`;
 
 export default function NumRegistrants({
-  challenge: { id, numRegistrants, rounds, track },
+  challenge: {
+    id, numRegistrants, rounds, track,
+  },
   challengesUrl,
   newChallengeDetails,
   selectChallengeDetailsTab,
@@ -49,9 +51,8 @@ export default function NumRegistrants({
         <Link
           disabled={!numRegistrants}
           onClick={() => (
-            selectChallengeDetailsTab(
-              numRegistrants ? DETAIL_TABS.REGISTRANTS : DETAIL_TABS.DETAILS,
-            )
+            selectChallengeDetailsTab(numRegistrants ?
+              DETAIL_TABS.REGISTRANTS : DETAIL_TABS.DETAILS)
           )}
           styleName="link"
           to={link}

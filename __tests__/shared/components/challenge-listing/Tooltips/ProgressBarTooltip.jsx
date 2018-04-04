@@ -45,9 +45,11 @@ class Wrapper extends React.Component {
   componentDidMount() {}
 
   render() {
-    return (<ProgressBarTooltip {...this.props}>
-      <div className="mock-class">abcedfghik</div>
-    </ProgressBarTooltip>);
+    return (
+      <ProgressBarTooltip {...this.props}>
+        <div className="mock-class">abcedfghik</div>
+      </ProgressBarTooltip>
+    );
   }
 }
 

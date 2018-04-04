@@ -22,7 +22,8 @@ export default function ExamplesRoute() {
           <StaticRouter
             context={routeProps.staticContext}
             location={routeProps.location}
-          ><Examples {...routeProps} /></StaticRouter>
+          ><Examples {...routeProps} />
+          </StaticRouter>
         );
       }}
     />

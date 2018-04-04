@@ -192,8 +192,7 @@ describe('Properly starts with process.env.FRONT_ENV evaluating true', () => {
           .toHaveBeenCalledWith('Token V3');
         resolve();
       });
-    }),
-  );
+    }));
 
   test('Does not write auth tokens to the state, when no need to', () =>
     new Promise((resolve) => {
@@ -209,8 +208,7 @@ describe('Properly starts with process.env.FRONT_ENV evaluating true', () => {
         expect(mockAuthActions.auth.setTcTokenV3).not.toHaveBeenCalled();
         resolve();
       });
-    }),
-  );
+    }));
 
   test('Unmock cookies generate a warning', () =>
     new Promise((resolve) => {
@@ -224,6 +222,5 @@ describe('Properly starts with process.env.FRONT_ENV evaluating true', () => {
         expect(mockLogger.warn).toHaveBeenCalledWith('Authentication failed!');
         resolve();
       });
-    }),
-  );
+    }));
 });

@@ -67,7 +67,8 @@ export default function Winner({
             <a
               href={`${utils.config.URL.BASE}/members/${winner.handle}`}
               styleName="handle"
-            >{winner.handle}</a>
+            >{winner.handle}
+            </a>
             <div styleName="prize">${prize}</div>
           </div>
         </div>
@@ -81,7 +82,8 @@ export default function Winner({
             styleName="download"
             target="_blank"
             href={isDesign ? `${utils.config.URL.STUDIO}/?module=DownloadSubmission&sbmid=${submissionId}` : winner.submissionDownloadLink}
-          >Download</a>
+          >Download
+          </a>
         }
         {
           /*

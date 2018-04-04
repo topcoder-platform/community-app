@@ -73,9 +73,11 @@ async function updateCache() {
     throw error;
   }
   res = await Promise.all([res[0].json(), res[1].text()]);
-  cachedIndex = res[0];
+  [
+    cachedIndex,
+    cachedCurrentDashboardAnnouncementId,
+  ] = res;
   cachedIndex.timestamp = now;
-  cachedCurrentDashboardAnnouncementId = res[1];
 }
 
 /**

@@ -103,14 +103,13 @@ function create(initialState = {}) {
 export function factory(req) {
   let joinPromise;
   if (req) {
-    const tokenV2 = getAuthTokens(req).tokenV2;
-    const tokenV3 = getAuthTokens(req).tokenV3;
+    const { tokenV2, tokenV3 } = getAuthTokens(req);
     const joinGroupId = req.query && req.query.join;
 
     // get community id
     let communityId = getCommunityId(req.subdomains);
     if (!communityId && req.url.startsWith('/community')) {
-      communityId = req.url.split('/')[2];
+      [,, communityId] = req.url.split('/');
       // remove possible params like ?join=<communityId>
       communityId = communityId ? communityId.replace(/\?.*/, '') : communityId;
     }
@@ -123,9 +122,7 @@ export function factory(req) {
       joinPromise = termsService.getCommunityTerms(communityId, tokenV3).then((result) => {
         // if all terms agreed we can perform join action
         if (_.every(result.terms, 'agreed')) {
-          return toFSA(
-            actions.tcCommunity.joinDone(tokenV3, joinGroupId, user.userId),
-          );
+          return toFSA(actions.tcCommunity.joinDone(tokenV3, joinGroupId, user.userId));
         }
 
         return false;

@@ -25,10 +25,10 @@ import {
 import logger from 'utils/logger';
 import { setErrorsStore } from 'utils/errors';
 
+import { utils } from 'topcoder-react-utils';
+
 import storeFactory from '../shared/store-factory';
 import './styles.scss';
-
-import { utils } from 'topcoder-react-utils';
 
 const actions = {
   ...authActions,
@@ -36,13 +36,10 @@ const actions = {
   ...userGroupsActions,
 };
 
-console.log('@!#$!@#$!@#$!@#$!');
-
 /* Isomorphic code may rely on this environment variable to check whether it is
  * executed client- or server-side. */
 if (!utils.isomorphy.isClientSide()) {
-  throw new Error(
-    'process.env.FRONT_END must evaluate to true at the client side');
+  throw new Error('process.env.FRONT_END must evaluate to true at the client side');
 }
 
 const config = window.CONFIG;
@@ -94,7 +91,7 @@ function authenticate(store) {
     logger.warn('Authentication failed!');
     return ({});
   }).then(({ tctV2, tctV3 }) => {
-    const auth = store.getState().auth;
+    const { auth } = store.getState();
     if (auth.profile && !analyticsIdentitySet) {
       identify(auth.profile, _.get(auth, 'user.roles'));
       analyticsIdentitySet = true;

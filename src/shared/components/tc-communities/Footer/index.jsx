@@ -54,14 +54,16 @@ function Footer(props) {
               const url = encodeURIComponent(window.location.href);
               window.location = `${utils.config.URL.AUTH}/member/registration?retUrl=${url}&utm_source=${communityId}`;
             }}
-          >Register</button>
+          >Register
+          </button>
           <button
             className={theme.btnLogin}
             onClick={() => {
               const url = encodeURIComponent(window.location.href);
               window.location = `${utils.config.URL.AUTH}/member?retUrl=${url}&utm_source=${communityId}`;
             }}
-          >Login</button>
+          >Login
+          </button>
         </div>
       )}
     </nav>

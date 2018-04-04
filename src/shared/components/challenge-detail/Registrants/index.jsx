@@ -52,9 +52,8 @@ export default function Registrants({ challenge, checkpointResults, results }) {
 
   const checkpointPhase = challenge.allPhases.find(x =>
     x.phaseType === 'Checkpoint Submission');
-  const checkpointDate = moment(
-    checkpointPhase ? checkpointPhase.actualEndTime || checkpointPhase.scheduledEndTime : 0,
-  );
+  const checkpointDate = moment(checkpointPhase ?
+    checkpointPhase.actualEndTime || checkpointPhase.scheduledEndTime : 0);
 
   registrants.sort((a, b) => new Date(a.registrationDate).getTime()
     - new Date(b.registrationDate).getTime());

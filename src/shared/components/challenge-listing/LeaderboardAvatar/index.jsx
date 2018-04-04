@@ -16,10 +16,12 @@ class LeaderboardAvatar extends Component {
   }
 
   render() {
-    const { onClick, openNewTab, plusOne, url } = this.props;
+    const {
+      onClick, openNewTab, plusOne, url,
+    } = this.props;
     const { member } = this.state;
     const targetURL = url || `${utils.config.URL.BASE}/members/${member.handle}`;
-    let photoURL = member.photoURL;
+    let { photoURL } = member;
     if (photoURL) {
       /* Note: 50px is larger than we really need here (the avatar size is
        * 30px), but it matches the target avatar size in the tooltip, shown

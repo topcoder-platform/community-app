@@ -5,9 +5,11 @@ import Text from 'components/tc-communities/Text';
 class Wrapper extends React.Component {
   componentDidMount() {}
   render() {
-    return (<Text {...this.props}>
-      <div>content</div>
-    </Text>);
+    return (
+      <Text {...this.props}>
+        <div>content</div>
+      </Text>
+    );
   }
 }
 

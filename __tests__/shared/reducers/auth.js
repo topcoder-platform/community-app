@@ -33,8 +33,7 @@ function testReducer(reducer, istate) {
         dummy,
         profile: 'Profile',
       });
-    }),
-  );
+    }));
 
   test('Set TC Token V2', () => {
     const state = reducer({ dummy }, mockActions.auth.setTcTokenV2());
@@ -73,9 +72,7 @@ describe('Default reducer', () => {
 
 describe('Factory without server side rendering', () =>
   reducers.factory().then(res =>
-    testReducer(res, {}),
-  ),
-);
+    testReducer(res, {})));
 
 describe('Factory with server side rendering', () =>
   reducers.factory({
@@ -84,6 +81,4 @@ describe('Factory with server side rendering', () =>
       v3jwt: 'Token V3',
     },
   }).then(res =>
-    testReducer(res, {}),
-  ),
-);
+    testReducer(res, {})));

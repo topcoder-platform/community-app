@@ -44,10 +44,8 @@ export default function Examples(props) {
         chunkName="code-splitting/chunk"
         path={`${base}/code-splitting`}
         renderClientAsync={() =>
-          import(
-            /* webpackChunkName: "code-splitting/chunk" */
-            'components/examples/CodeSplitting',
-          ).then(({ default: CodeSplitting }) => <CodeSplitting />)
+          import(/* webpackChunkName: "code-splitting/chunk" */ 'components/examples/CodeSplitting')
+          .then(({ default: CodeSplitting }) => <CodeSplitting />)
         }
         renderPlaceholder={() => <LoadingIndicator />}
         renderServer={() => {

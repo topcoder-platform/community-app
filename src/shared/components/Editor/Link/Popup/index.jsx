@@ -31,7 +31,8 @@ export default class Popup extends React.Component {
           className="edit"
           onClick={() => this.setState({ editing: true })}
           size="sm"
-        >Edit</GhostButton>
+        >Edit
+        </GhostButton>
       </div>
     );
 
@@ -54,7 +55,8 @@ export default class Popup extends React.Component {
             this.handleDone();
           }}
           size="sm"
-        >Done</GhostButton>
+        >Done
+        </GhostButton>
       </div>
     );
 

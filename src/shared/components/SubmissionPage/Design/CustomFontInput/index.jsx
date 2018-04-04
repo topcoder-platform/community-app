@@ -20,11 +20,15 @@ export default function CustomFontInput({
         </p>
         <p>
           Read the
-          &zwnj;<a
-            href={utils.config.URL.INFO.STUDIO_FONTS_POLICY}
-            rel="norefferer noopener"
-            target="_blank"
-          >Studio Fonts Policy</a>.
+          &zwnj;{
+            <a
+              href={utils.config.URL.INFO.STUDIO_FONTS_POLICY}
+              rel="norefferer noopener"
+              target="_blank"
+            >
+              Studio Fonts Policy
+            </a>
+          }.
         </p>
         <p>
           If your fonts is not on the list, you must provide the URL
@@ -55,7 +59,8 @@ export default function CustomFontInput({
             e.preventDefault();
           }}
           disabled={customFontRecords.some(x => !_.isEmpty(x.errors))}
-        >+ Add Font</PrimaryButton>
+        >+ Add Font
+        </PrimaryButton>
       </div>
     </div>
   );

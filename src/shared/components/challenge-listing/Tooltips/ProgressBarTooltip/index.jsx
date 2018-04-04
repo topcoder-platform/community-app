@@ -49,7 +49,7 @@ const getTime = (date) => {
  * @param {String} props.width The width of the phase element in the UI.
  */
 function Phase(props) {
-  const progress = props.progress;
+  const { progress } = props;
   const limitProgress = parseFloat(_.replace(progress, '%', ''));
   const limitWidth = limitProgress <= 100 ? limitProgress : 100;
   return (
@@ -85,7 +85,7 @@ Phase.propTypes = {
 function Tip(props) {
   let steps = [];
   const c = props.challenge;
-  const isLoaded = props.isLoaded;
+  const { isLoaded } = props;
   if (!c || _.isEmpty(c)) return <div />;
   // TC API v2 does not provide detailed information on challenge phases,
   // it just includes some deadlines into the challenge details. The code below,

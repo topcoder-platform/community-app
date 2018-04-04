@@ -43,7 +43,8 @@ export default function Dial({
       <p styleName="title" title={title}>{_.startCase(title)}</p>
       <p
         styleName={ratingType}
-      >{value.toLocaleString()}</p>
+      >{value.toLocaleString()}
+      </p>
       <p styleName="label">{metric}</p>
     </a>
   );

@@ -10,7 +10,9 @@ import { Link } from 'topcoder-react-utils';
 import defaultStyle from './style.scss';
 
 function ImageText(props) {
-  const { imageSrc, title, text, link, theme, children } = props;
+  const {
+    imageSrc, title, text, link, theme, children,
+  } = props;
 
   let links;
   if (link) {
@@ -20,7 +22,8 @@ function ImageText(props) {
           className={theme.link}
           openNewTab={item.newTab}
           to={item.url}
-        >{item.title}</Link>
+        >{item.title}
+        </Link>
       </div>
     ));
   }

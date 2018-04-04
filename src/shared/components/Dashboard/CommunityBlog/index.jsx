@@ -36,7 +36,8 @@ export default function CommunityBlog({
           rel="noopener noreferrer"
           styleName="link"
           target="_blank"
-        >Visit the Blog</a>
+        >Visit the Blog
+        </a>
       </div>
     </div>
   );

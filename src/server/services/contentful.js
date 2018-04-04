@@ -131,8 +131,7 @@ function getLastVersion() {
  *  the latest version.
  * @return {Promise}
  */
-async function getCurrentDashboardAnnouncementsIndexViaCdn(
-  version = getLastVersion()) {
+async function getCurrentDashboardAnnouncementsIndexViaCdn(version = getLastVersion()) {
   const res =
     await fetch(`${TC_CDN_URL}/current-dashboard-announcements-index?version=${version}`);
   if (!res.ok) {
@@ -317,8 +316,7 @@ async function updateIndex() {
     /* eslint-anable no-await-in-loop */
 
     d.items.forEach(indexItem);
-    nextPageUrl = d.nextPageUrl;
-    nextSyncUrl = d.nextSyncUrl;
+    ({ nextPageUrl, nextSyncUrl } = d);
   }
   publicIndex.timestamp = Date.now();
   updateCurrentDashboardAnnouncementId();
@@ -357,7 +355,7 @@ async function initIndex() {
   if (d.nextPageUrl) {
     nextSyncUrl = d.nextPageUrl;
     await updateIndex();
-  } else nextSyncUrl = d.nextSyncUrl;
+  } else ({ nextSyncUrl } = d);
 }
 
 /**

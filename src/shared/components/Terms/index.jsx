@@ -67,8 +67,10 @@ export default class Terms extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const { selectedTerm, loadDetails, terms,
-      checkStatus, canRegister, onCancel, register } = this.props;
+    const {
+      selectedTerm, loadDetails, terms,
+      checkStatus, canRegister, onCancel, register,
+    } = this.props;
     if (nextProps.selectedTerm && !_.isEqual(selectedTerm, nextProps.selectedTerm) &&
       nextProps.loadingTermId !== _.toString(nextProps.selectedTerm.termsOfUseId)) {
       loadDetails(nextProps.selectedTerm.termsOfUseId);
@@ -124,10 +126,12 @@ export default class Terms extends React.Component {
   }
 
   render() {
-    const { onCancel, terms, details, loadingTermId, docuSignUrl,
+    const {
+      onCancel, terms, details, loadingTermId, docuSignUrl,
       getDocuSignUrl, agreeTerm, agreeingTerm, isLoadingTerms,
       loadingDocuSignUrl, selectedTerm, viewOnly, checkingStatus,
-      description, defaultTitle } = this.props;
+      description, defaultTitle,
+    } = this.props;
 
     const handleHorizonalScroll = (e) => {
       const scrollElement = e.target;
@@ -199,8 +203,20 @@ export default class Terms extends React.Component {
                                   }`
                                 }
                               >
-                                <div styleName="tab-index" onClick={() => this.selectTerm(t)}>{index + 1}</div>
-                                <div styleName="tab-title" onClick={() => this.selectTerm(t)}>{t.title}</div>
+                                <div
+                                  styleName="tab-index"
+                                  onClick={() => this.selectTerm(t)}
+                                  onKeyPress={() => this.selectTerm(t)}
+                                >
+                                  {index + 1}
+                                </div>
+                                <div
+                                  styleName="tab-title"
+                                  onClick={() => this.selectTerm(t)}
+                                  onKeyPress={() => this.selectTerm(t)}
+                                >
+                                  {t.title}
+                                </div>
                                 {
                                   index < terms.length - 1 &&
                                   <div styleName="tab-bar" />
@@ -245,31 +261,39 @@ export default class Terms extends React.Component {
                       <div styleName="buttons">
                         {
                           selectedTerm.agreed ?
-                            (<PrimaryButton
-                              theme={style}
-                              onClick={(e) => {
-                                this.nextTerm(e);
-                                if (this.vScrollArea) {
-                                  this.vScrollArea.scrollTop = 0;
-                                }
-                              }}
-                            >Next</PrimaryButton>) :
-                            (<div>
+                            (
                               <PrimaryButton
-                                disabled={agreeingTerm === details.termsOfUseId}
-                                onClick={() => {
-                                  agreeTerm(details.termsOfUseId);
+                                theme={style}
+                                onClick={(e) => {
+                                  this.nextTerm(e);
                                   if (this.vScrollArea) {
                                     this.vScrollArea.scrollTop = 0;
                                   }
                                 }}
-                                theme={style}
-                              >I Agree</PrimaryButton>
-                              <Button
-                                onClick={onCancel}
-                                theme={style}
-                              >I Disagree</Button>
-                            </div>)
+                              >
+                                Next
+                              </PrimaryButton>
+                            ) :
+                            (
+                              <div>
+                                <PrimaryButton
+                                  disabled={agreeingTerm === details.termsOfUseId}
+                                  onClick={() => {
+                                    agreeTerm(details.termsOfUseId);
+                                    if (this.vScrollArea) {
+                                      this.vScrollArea.scrollTop = 0;
+                                    }
+                                  }}
+                                  theme={style}
+                                >I Agree
+                                </PrimaryButton>
+                                <Button
+                                  onClick={onCancel}
+                                  theme={style}
+                                >I Disagree
+                                </Button>
+                              </div>
+                            )
                         }
                       </div>
                     ) : <div styleName="bottom-placeholder" />

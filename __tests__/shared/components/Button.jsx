@@ -1,10 +1,10 @@
 import Button from 'components/Button';
 import React from 'react';
 import TU from 'react-dom/test-utils';
-import { snapshot } from 'topcoder-react-utils/jest-utils';
+import { JU } from 'topcoder-react-utils';
 
 test('Snapshot match', () => {
-  snapshot(<Button />);
+  JU.snapshot(<Button />);
 });
 
 class ButtonClass extends React.Component {

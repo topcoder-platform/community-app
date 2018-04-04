@@ -25,7 +25,7 @@ class ReviewOpportunitiesService {
   getReviewOpportunities(limit, offset) {
     const endpoint = `/reviewOpportunities?limit=${limit}&offset=${offset}`;
     return this.private.api.get(endpoint)
-      .then(res => (res.ok ? res.json() : Promise.reject(`Error Code: ${res.status}`)))
+      .then(res => (res.ok ? res.json() : Promise.reject(new Error(`Error Code: ${res.status}`))))
       .then(res => (
         res.result.status === 200 ?
           res.result.content :

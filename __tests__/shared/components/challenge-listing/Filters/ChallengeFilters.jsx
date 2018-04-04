@@ -47,7 +47,9 @@ const mockDatas = [{
   communityFilters: [{ filter: {} }],
   communityName: 'name',
   expanded: false,
-  filterState: { tags: ['abc'], subtracks: ['CODE'], endDate: moment('2019-12-31T23:00:00.000Z'), startDate: moment('2019-12-31T23:00:00.000Z'), tracks: ['tracks'] },
+  filterState: {
+    tags: ['abc'], subtracks: ['CODE'], endDate: moment('2019-12-31T23:00:00.000Z'), startDate: moment('2019-12-31T23:00:00.000Z'), tracks: ['tracks'],
+  },
   isCardTypeSet: 'Challenges',
   saveFilter,
   selectCommunity,

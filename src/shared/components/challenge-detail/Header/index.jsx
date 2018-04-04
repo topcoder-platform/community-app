@@ -103,8 +103,7 @@ export default function ChallengeHeader(props) {
    * iterate through all their submissions and ensure that all of them
    * are Deleted
   */
-  const hasSubmissions = userDetails && (userDetails.submissions || []).reduce(
-    (acc, submission) => acc || submission.status !== 'Deleted', false);
+  const hasSubmissions = userDetails && (userDetails.submissions || []).reduce((acc, submission) => acc || submission.status !== 'Deleted', false);
 
   let nextPhase = (currentPhases && currentPhases[0]) || {};
   if (hasRegistered && nextPhase.phaseType === 'Registration') {
@@ -187,8 +186,11 @@ export default function ChallengeHeader(props) {
     case 'active':
       nextDeadlineMsg = (
         <div styleName="next-deadline">
-          Next Deadline: <span styleName="deadline-highlighted">
-            {nextDeadline || '-'}</span>
+          Next Deadline: {
+            <span styleName="deadline-highlighted">
+              {nextDeadline || '-'}
+            </span>
+          }
         </div>
       );
       break;
@@ -203,9 +205,11 @@ export default function ChallengeHeader(props) {
       nextDeadlineMsg = (
         <div>
           Status:
-          &zwnj;<span styleName="deadline-highlighted">
-            {_.upperFirst(_.lowerCase(status))}
-          </span>
+          &zwnj;{
+            <span styleName="deadline-highlighted">
+              {_.upperFirst(_.lowerCase(status))}
+            </span>
+          }
         </div>
       );
       break;
@@ -235,7 +239,8 @@ export default function ChallengeHeader(props) {
                     bonusType === 'Bonus' ?
                       <p styleName="bonus-text">
                         <span styleName={`bonus-highlight ${trackLower}-accent-color`}>
-                          BONUS: {numberOfCheckpointsPrizes} </span>CHECKPOINTS AWARDED
+                          BONUS: {numberOfCheckpointsPrizes}
+                        </span>CHECKPOINTS AWARDED
                           WORTH <span styleName={`bonus-highlight ${trackLower}-accent-color`}>${topCheckPointPrize} </span>EACH
                       </p> :
                       <p styleName="bonus-text">
@@ -265,26 +270,30 @@ export default function ChallengeHeader(props) {
                     || hasSubmissions}
                   onClick={unregisterFromChallenge}
                   theme={{ button: style.challengeAction }}
-                >Unregister</DangerButton>
+                >Unregister
+                </DangerButton>
               ) : (
                 <PrimaryButton
                   disabled={registering || registrationEnded}
                   onClick={registerForChallenge}
                   theme={{ button: style.challengeAction }}
-                >Register</PrimaryButton>
+                >Register
+                </PrimaryButton>
               )}
               <PrimaryButton
                 disabled={!hasRegistered || unregistering || submissionEnded}
                 theme={{ button: style.challengeAction }}
                 to={`${challengesUrl}/${challengeId}/submit`}
-              >Submit</PrimaryButton>
+              >Submit
+              </PrimaryButton>
               {
                 track === 'DESIGN' && hasRegistered && !unregistering
                 && hasSubmissions && (
                   <PrimaryButton
                     theme={{ button: style.challengeAction }}
                     to={`${challengesUrl}/${challengeId}/my-submissions`}
-                  >View Submissions</PrimaryButton>
+                  >View Submissions
+                  </PrimaryButton>
                 )
               }
             </div>
@@ -305,6 +314,7 @@ export default function ChallengeHeader(props) {
             </div>
             <a
               onClick={props.onToggleDeadlines}
+              onKeyPress={props.onToggleDeadlines}
               role="button"
               styleName="deadlines-collapser"
               tabIndex={0}

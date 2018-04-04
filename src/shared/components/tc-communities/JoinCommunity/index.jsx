@@ -86,7 +86,8 @@ export default function JoinCommunity({
             theme={{
               button: style.returnToCommunityButton,
             }}
-          >Return to the Community</PrimaryButton>
+          >Return to the Community
+          </PrimaryButton>
         </Modal>
       ) : null}
       { state === STATE.CONFIRM_JOIN ? (

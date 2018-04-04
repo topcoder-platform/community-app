@@ -16,7 +16,8 @@ export default function Content() {
       <div styleName="build-timestamp">Build Timestamp: {utils.isomorphy.buildTimestamp()}</div>
       <h1>Topcoder Community App</h1>
       <p>Isomorphic ReactJS App for new version of Topcoder community website.
-        Technological stack includes:</p>
+        Technological stack includes:
+      </p>
       <ul>
         <li>Autoprefixer;</li>
         <li>
@@ -95,7 +96,8 @@ export default function Content() {
         </li>
         <li>
           <a href="/challenges/30050696/my-submissions">Submission Management
-          Page</a> &ndash; generally available at
+          Page
+          </a> &ndash; generally available at
           the endpoint <code>/challenges/:challengeId/my-submissions</code>;
           the link here leads to a test challenge.
         </li>
@@ -142,7 +144,8 @@ export default function Content() {
         </li>
         <li>
           <Link to="/community/tc-prod-dev">Topcoder Product
-          Development community</Link>
+          Development community
+          </Link>
         </li>
         <li>
           <Link to="/community/wipro">TopGear (Wipro) community</Link>
@@ -168,7 +171,8 @@ export default function Content() {
         <li>
           <Link
             to="/examples/announcement/5yaVZtOH9CYoQ0QYQk0uoY"
-          >Announcement</Link> &mdash;
+          >Announcement
+          </Link> &mdash;
           This is a part of simple PoC for CMS integration (Countentful CMS is
           the currently tested option);
         </li>
@@ -211,7 +215,8 @@ export default function Content() {
         <li>
           <Link
             to="/examples/link-test"
-          >Link Test</Link>
+          >Link Test
+          </Link>
         </li>
         <li>
           <Link to="/examples/loading-indicators">Loading Indicators</Link>

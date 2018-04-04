@@ -9,8 +9,10 @@ export default function Card({
   title,
 }) {
   const normalizedLink =
-    link.replace(/^https:\/\/wwwtc\.staging\.wpengine\.com/,
-      'https://www.topcoder.com');
+    link.replace(
+      /^https:\/\/wwwtc\.staging\.wpengine\.com/,
+      'https://www.topcoder.com',
+    );
   return (
     <div styleName="container">
       <h1 styleName="title">
@@ -18,7 +20,8 @@ export default function Card({
           href={normalizedLink}
           rel="noopener noreferrer"
           target="_blank"
-        >{title}</a>
+        >{title}
+        </a>
       </h1>
       <div
         /* eslint-disable react/no-danger */
@@ -32,7 +35,8 @@ export default function Card({
         rel="noopener noreferrer"
         styleName="readMore"
         target="_blank"
-      >Read More</a>
+      >Read More
+      </a>
     </div>
   );
 }

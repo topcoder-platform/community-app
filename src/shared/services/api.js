@@ -83,7 +83,8 @@ export default class Api {
       } else lastApiCallTimestamp = now;
     }
 
-    return fetch(`${base}${endpoint}`, { ...options,
+    return fetch(`${base}${endpoint}`, {
+      ...options,
       headers,
     })
       .catch((e) => {

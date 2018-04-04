@@ -89,7 +89,7 @@ function ChallengeCard({
     });
   }
   let prizeUnitSymbol = '';
-  let prizes = challenge.prizes;
+  let { prizes } = challenge;
   let totalPrize;
   switch (prizeMode) {
     case PRIZE_MODE.POINTS:
@@ -113,7 +113,7 @@ function ChallengeCard({
       break;
     case PRIZE_MODE.MONEY_USD:
       prizeUnitSymbol = '$';
-      totalPrize = challenge.totalPrize;
+      ({ totalPrize } = challenge);
       break;
     default: throw new Error('Unknown prize mode!');
   }
@@ -140,7 +140,8 @@ function ChallengeCard({
             to={challengeDetailLink}
             styleName="challenge-title"
             openNewTab={openChallengesInNewTabs}
-          >{challenge.name}</Link>
+          >{challenge.name}
+          </Link>
           <div styleName="details-footer">
             <span styleName="date">
               {challenge.status === 'ACTIVE' ? 'Ends ' : 'Ended '}

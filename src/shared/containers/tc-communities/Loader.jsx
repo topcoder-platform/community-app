@@ -8,9 +8,7 @@
 /* global window */
 
 import _ from 'lodash';
-import AccessDenied, {
-  CAUSE as ACCESS_DENIED_REASON,
-} from 'components/tc-communities/AccessDenied';
+import AccessDenied, { CAUSE as ACCESS_DENIED_REASON } from 'components/tc-communities/AccessDenied';
 import actions from 'actions/tc-communities/meta';
 import LoadingPagePlaceholder
   from 'components/tc-communities/LoadingPagePlaceholder';
@@ -129,7 +127,7 @@ Loader.propTypes = {
 };
 
 function mapStateToProps(state, ownProps) {
-  const communityId = ownProps.communityId;
+  const { communityId } = ownProps;
 
   let meta = state.tcCommunities.meta.data;
   const loadingMeta = communityId === meta.loadingMetaDataForCommunityId;

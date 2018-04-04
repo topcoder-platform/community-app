@@ -35,10 +35,12 @@ const Program = (props) => {
                 <div styleName="help-link">
                   <a
                     onClick={registerIos}
+                    onKeyPress={registerIos}
                     className="tc-btn tc-btn-s tc-btn-ghost"
                     styleName="tc-btn"
                     title="Participate"
-                  >Participate</a>
+                  >Participate
+                  </a>
                 </div>
                 <div styleName="help-link">
                   <a href={utils.config.URL.IOS} styleName="learn-more">Learn More</a>

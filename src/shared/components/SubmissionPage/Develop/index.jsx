@@ -122,20 +122,28 @@ class Develop extends React.Component {
                 <p>
                   If you are having trouble uploading your file, please send
                   your submission to
-                  &zwnj;<a
-                    href="mailto://support@topcoder.com"
-                  >support@topcoder.com</a>
+                  &zwnj;{
+                    <a
+                      href="mailto://support@topcoder.com"
+                    >
+                      support@topcoder.com
+                    </a>
+                  }
                 </p>
               </div>
             </div>
             <div styleName="row agree">
               <p>
                 Submitting your files means you hereby agree to the
-                &zwnj;<a
-                  href={utils.config.URL.INFO.TOPCODER_TERMS}
-                  rel="noreferrer noopener"
-                  target="_blank"
-                >Topcoder terms of use</a>&zwnj;
+                &zwnj;{
+                  <a
+                    href={utils.config.URL.INFO.TOPCODER_TERMS}
+                    rel="noreferrer noopener"
+                    target="_blank"
+                  >
+                    Topcoder terms of use
+                  </a>
+                }&zwnj;
                 and to the extent your uploaded file wins a topcoder Competition,
                 you hereby assign, grant and transfer and agree to assign, grant and
                 transfer to topcoder all right and title in and to the Winning Submission
@@ -154,7 +162,8 @@ class Develop extends React.Component {
               <PrimaryButton
                 type="submit"
                 disabled={!agreed || !!fpState.error || !fpState.fileName}
-              >Submit</PrimaryButton>
+              >Submit
+              </PrimaryButton>
             </div>
           </form>
         </div>

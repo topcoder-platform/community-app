@@ -52,14 +52,18 @@ export default function Submission(props) {
       <td styleName="id-col">{submissionObject.submissionId}</td>
       <td>{submissionObject.submissionType}</td>
       <td styleName="date-col">{formatDate(submissionObject.submissionDate)}</td>
-      {type === 'DESIGN' && <td styleName="status-col">
-        {submissionObject.screening &&
-          <ScreeningStatus
-            screeningObject={submissionObject.screening}
-            onShowDetails={onShowDetails}
-            submissionId={submissionObject.submissionId}
-          />}
-      </td>}
+      {
+        type === 'DESIGN' && (
+          <td styleName="status-col">
+            {submissionObject.screening &&
+              <ScreeningStatus
+                screeningObject={submissionObject.screening}
+                onShowDetails={onShowDetails}
+                submissionId={submissionObject.submissionId}
+              />}
+          </td>
+        )
+      }
       <td styleName="action-col">
         <div>
           <a
@@ -68,7 +72,8 @@ export default function Submission(props) {
                 ? `${utils.config.URL.STUDIO}?module=DownloadSubmission&sbmid=${submissionObject.submissionId}&sbt=original`
                 : submissionObject.download
             }
-          ><DownloadIcon /></a>
+          ><DownloadIcon />
+          </a>
           { /*
             TODO: At the moment we just fetch downloads from the legacy
               Topcoder Studio API, and we don't need any JS code to this.
@@ -84,12 +89,14 @@ export default function Submission(props) {
               styleName="delete-icon"
               onClick={() => onDelete(submissionObject.submissionId)}
               disabled={!allowDelete}
-            ><DeleteIcon /></button>
+            ><DeleteIcon />
+            </button>
           }
           <button
             styleName={`expand-icon ${(showScreeningDetails ? 'expanded' : '')}`}
             onClick={() => onShowDetails(submissionObject.submissionId)}
-          ><ExpandIcon /></button>
+          ><ExpandIcon />
+          </button>
         </div>
       </td>
     </tr>
@@ -103,17 +110,15 @@ Submission.defaultProps = {
 };
 
 Submission.propTypes = {
-  submissionObject: PT.shape(
-    {
-      submissionId: PT.number,
-      warpreviewnings: PT.string,
-      screening: PT.shape({
-        status: PT.string,
-      }),
-      submitted: PT.string,
-      type: PT.string,
-    },
-  ),
+  submissionObject: PT.shape({
+    submissionId: PT.number,
+    warpreviewnings: PT.string,
+    screening: PT.shape({
+      status: PT.string,
+    }),
+    submitted: PT.string,
+    type: PT.string,
+  }),
   showScreeningDetails: PT.bool,
   type: PT.string.isRequired,
   onDelete: PT.func.isRequired,

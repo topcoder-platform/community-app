@@ -75,14 +75,16 @@ function Header(props) {
           key={img}
           to={item.url}
           className={theme.logo}
-        >{logo}</Link>
+        >{logo}
+        </Link>
       );
     } else {
       logo = (
         <span
           key={img}
           className={theme.logo}
-        >{logo}</span>
+        >{logo}
+        </span>
       );
     }
     return logo;
@@ -122,27 +124,23 @@ function Header(props) {
       { hideJoinNow ? null : (
         <button
           onClick={() => {
-            let url = encodeURIComponent(
-              `${window.location.href}?join=${groupIds[0]}`,
-            );
-            url = encodeURIComponent(
-              `${utils.config.URL.AUTH}/member?retUrl=${url}&utm_source=${communityId}`,
-            );
+            let url = encodeURIComponent(`${window.location.href}?join=${groupIds[0]}`);
+            url = encodeURIComponent(`${utils.config.URL.AUTH}/member?retUrl=${url}&utm_source=${communityId}`);
             url = encodeURIComponent(url);
             window.location = `${utils.config.URL.AUTH}/member/registration?retUrl=${url}&utm_source=${communityId}`;
           }}
           className={theme.btnRegister}
-        >Join Now</button>
+        >Join Now
+        </button>
       )}
       <button
         onClick={() => {
-          const url = encodeURIComponent(
-            `${window.location.href}?join=${groupIds[0]}`,
-          );
+          const url = encodeURIComponent(`${window.location.href}?join=${groupIds[0]}`);
           window.location = `${utils.config.URL.AUTH}/member?retUrl=${url}&utm_source=${communityId}`;
         }}
         className={theme.btnLogin}
-      >Login</button>
+      >Login
+      </button>
     </div>
   );
 
@@ -214,8 +212,7 @@ function Header(props) {
                 >
                   <img src={logoUrl} alt="Community logo" />
                 </span>
-              ),
-            )}
+              ))}
           </div>
         </div>
       </header>
@@ -248,7 +245,7 @@ Header.propTypes = {
   closeMenu: PT.func.isRequired,
   communityId: PT.string.isRequired,
   communitySelector: PT.arrayOf(PT.shape()).isRequired,
-  groupIds: PT.arrayOf[PT.string],
+  groupIds: PT.arrayOf(PT.string),
   isMobileOpen: PT.bool.isRequired,
 
   menuItems: PT.arrayOf(PT.shape({

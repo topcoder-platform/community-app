@@ -6,9 +6,7 @@
  */
 
 import _ from 'lodash';
-import AccessDenied, {
-  CAUSE as ACCESS_DENIED_REASON,
-} from 'components/tc-communities/AccessDenied';
+import AccessDenied, { CAUSE as ACCESS_DENIED_REASON } from 'components/tc-communities/AccessDenied';
 import Modal from 'components/Modal';
 import Button from 'components/Button';
 import LoadingIndicator from 'components/LoadingIndicator';
@@ -91,11 +89,13 @@ class SubmissionManagementPageContainer extends React.Component {
             <div styleName="modal-content">
               <p styleName="are-you-sure">
                 Are you sure you want to delete
-                submission <span styleName="id">{this.props.toBeDeletedId}</span>?</p>
+                submission <span styleName="id">{this.props.toBeDeletedId}</span>?
+              </p>
               <p styleName="remove-warn">
                 This will permanently remove all
                 files from our servers and can’t be undone.
-                You’ll have to upload all the files again in order to restore it.</p>
+                You’ll have to upload all the files again in order to restore it.
+              </p>
               <div
                 /* NOTE: Current implementation of the loading indicator is
                  * based on a gif image. Thus, we want to load create this
@@ -104,7 +104,8 @@ class SubmissionManagementPageContainer extends React.Component {
                  * when needed. */
                 className={this.props.deleting ? '' : 'hidden'}
                 styleName="deletingIndicator"
-              ><LoadingIndicator /></div>
+              ><LoadingIndicator />
+              </div>
               <div
                 className={this.props.deleting ? 'hidden' : ''}
                 styleName="action-btns"
@@ -112,15 +113,18 @@ class SubmissionManagementPageContainer extends React.Component {
                 <Button
                   className="tc-btn-sm tc-btn-default"
                   onClick={() => this.props.onCancelSubmissionDelete()}
-                >Cancel</Button>
+                >Cancel
+                </Button>
                 <Button
                   className="tc-btn-sm tc-btn-warning"
                   onClick={
                     () => this.props.onSubmissionDeleteConfirmed(
                       this.props.authTokens.tokenV3,
-                      this.props.toBeDeletedId)
+                      this.props.toBeDeletedId,
+)
                   }
-                >Delete Submission</Button>
+                >Delete Submission
+                </Button>
               </div>
             </div>
           </Modal>}
@@ -135,7 +139,7 @@ SubmissionManagementPageContainer.defaultProps = {
   deleting: false,
   isLoadingChallenge: false,
   mySubmissions: [],
-  isLoadingSubmissions: false,
+  // isLoadingSubmissions: false,
   showModal: false,
   toBeDeletedId: 0,
   challenge: null,
@@ -166,9 +170,9 @@ SubmissionManagementPageContainer.propTypes = {
 };
 
 function mapStateToProps(state, props) {
-  const challengeId = props.match.params.challengeId;
+  const { challengeId } = props.match.params;
 
-  let mySubmissions = state.challenge.mySubmissions;
+  let { mySubmissions } = state.challenge;
   mySubmissions = challengeId === mySubmissions.challengeId
     ? mySubmissions.v2 : null;
 

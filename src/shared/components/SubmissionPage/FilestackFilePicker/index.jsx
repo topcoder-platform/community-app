@@ -144,6 +144,28 @@ class FilestackFilePicker extends React.Component {
                 region: utils.config.FILESTACK.REGION,
               },
             })}
+            onKeyPress={() => this.filestack.pick({
+              accept: fileExtensions,
+              fromSources: [
+                'local_file_system',
+                'googledrive',
+                'box',
+                'dropbox',
+                'onedrive',
+              ],
+              maxSize: 500 * 1024 * 1024,
+              onFileUploadFailed: () => setDragged(false),
+              onFileUploadFinished: (file) => {
+                setDragged(false);
+                this.onSuccess(file);
+              },
+              startUploadingWhenMaxFilesReached: true,
+              storeTo: {
+                container: utils.config.FILESTACK.SUBMISSION_CONTAINER,
+                path: this.getPath(),
+                region: utils.config.FILESTACK.REGION,
+              },
+            })}
             onDragEnter={() => setDragged(true)}
             onDragLeave={() => setDragged(false)}
             onDragOver={e => e.preventDefault()}

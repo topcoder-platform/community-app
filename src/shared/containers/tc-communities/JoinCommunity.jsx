@@ -10,14 +10,14 @@ import _ from 'lodash';
 import actions from 'actions/tc-communities';
 import Terms from 'containers/Terms';
 import termsActions from 'actions/terms';
-import JoinCommunity, {
-  STATE as JOIN_COMMUNITY,
-} from 'components/tc-communities/JoinCommunity';
+import JoinCommunity, { STATE as JOIN_COMMUNITY } from 'components/tc-communities/JoinCommunity';
 import { connect } from 'react-redux';
 
 const JoinCommunityContainer = (props) => {
-  const { token, groupIds, userId, terms, openTermsModal,
-    communityId, join, joinCommunityWrapper } = props;
+  const {
+    token, groupIds, userId, terms, openTermsModal,
+    communityId, join, joinCommunityWrapper,
+  } = props;
 
   const hasNotAgreedTerms = terms && terms.length && !_.every(terms, 'agreed');
   const onJoinClick = hasNotAgreedTerms ? openTermsModal : join;
@@ -61,7 +61,8 @@ function mapStateToProps(state, ownProps) {
   if (!canJoin) {
     const int = _.intersection(
       joinGroupId ? [joinGroupId] : state.tcCommunities.meta.data.groupIds,
-      state.auth.profile.groups.map(g => g.id));
+      state.auth.profile.groups.map(g => g.id),
+    );
     canJoin = !int.length;
   }
   if (state.tcCommunities.hideJoinButton) canJoin = false;

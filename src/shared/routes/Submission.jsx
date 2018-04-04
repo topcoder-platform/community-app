@@ -7,10 +7,8 @@ export default function SubmissionsPageRoute(props) {
     <SplitRoute
       chunkName="submissions-page/chunk"
       renderClientAsync={() =>
-        import(
-          /* webpackChunkName: "submissions-page/chunk" */
-          'containers/SubmissionPage',
-        ).then(({ default: SubmissionsPageContainer }) => (
+        import(/* webpackChunkName: "submissions-page/chunk" */ 'containers/SubmissionPage')
+        .then(({ default: SubmissionsPageContainer }) => (
           <SubmissionsPageContainer {...props} />
         ))
       }

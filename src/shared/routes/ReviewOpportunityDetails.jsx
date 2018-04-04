@@ -14,10 +14,8 @@ export default function ReviewOpportunityDetails(props) {
       cacheCss
       chunkName="review-opportunity-details/chunk"
       renderClientAsync={() =>
-        import(
-          /* webpackChunkName: "review-opportunity-details/chunk" */
-          'containers/ReviewOpportunityDetails',
-        ).then(({ default: ReviewOpportunityDetailsContainer }) => (
+        import(/* webpackChunkName: "review-opportunity-details/chunk" */ 'containers/ReviewOpportunityDetails')
+        .then(({ default: ReviewOpportunityDetailsContainer }) => (
           <ReviewOpportunityDetailsContainer {...props} />
         ))
       }

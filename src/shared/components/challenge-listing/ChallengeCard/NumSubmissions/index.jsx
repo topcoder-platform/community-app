@@ -22,7 +22,9 @@ const MM_BASE_URL
   = `${utils.config.URL.COMMUNITY}/longcontest/?module=ViewStandings&rd=`;
 
 export default function NumSubmissions({
-  challenge: { id, numSubmissions, rounds, status, track },
+  challenge: {
+    id, numSubmissions, rounds, status, track,
+  },
   challengesUrl,
   newChallengeDetails,
   selectChallengeDetailsTab,
@@ -49,9 +51,8 @@ export default function NumSubmissions({
       >
         <Link
           onClick={() => (
-            selectChallengeDetailsTab(
-              numSubmissions ? DETAIL_TABS.SUBMISSIONS : DETAIL_TABS.DETAILS,
-            )
+            selectChallengeDetailsTab(numSubmissions ?
+              DETAIL_TABS.SUBMISSIONS : DETAIL_TABS.DETAILS)
           )}
           styleName="link"
           to={link}

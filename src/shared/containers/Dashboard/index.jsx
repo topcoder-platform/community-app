@@ -2,6 +2,7 @@
  * Container for the dashboard page.
  */
 /* global location */
+/* eslint-disable no-restricted-globals */
 
 import _ from 'lodash';
 import challengeActions from 'actions/challenge';
@@ -188,7 +189,7 @@ export class DashboardPageContainer extends React.Component {
 
     let announcementPreviewId;
     if (urlQuery) {
-      announcementPreviewId = qs.parse(urlQuery).announcementPreviewId;
+      ({ announcementPreviewId } = qs.parse(urlQuery));
     }
 
     return (
@@ -351,7 +352,7 @@ function mapStateToProps(state, props) {
 
 function mapDispatchToProps(dispatch) {
   const dash = dashActions.page.dashboard;
-  const members = memberActions.members;
+  const { members } = memberActions;
   return {
     getAllActiveChallenges: (tokenV3) => {
       const uuid = shortId();

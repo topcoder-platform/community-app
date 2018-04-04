@@ -85,22 +85,38 @@ export default function Challenges({
                       <p>
                         You have no active challenges at this moment. What are
                         you interested&nbsp;in?
-                        &zwnj;<Link
-                          openNewTab
-                          to={utils.config.URL.ARENA}
-                        >Competitive Programming</Link>?
-                        &zwnj;<Link
-                          openNewTab
-                          to="/challenges?filter[tracks][datasci]=true"
-                        >Data Science</Link>?
-                        &zwnj;<Link
-                          openNewTab
-                          to="/challenges?filter[tracks][design]=true"
-                        >Design</Link>?
-                        &zwnj;<Link
-                          openNewTab
-                          to="/challenges?filter[tracks][develop]=true"
-                        >Software Development</Link>?
+                        &zwnj;{
+                          <Link
+                            openNewTab
+                            to={utils.config.URL.ARENA}
+                          >
+                            Competitive Programming
+                          </Link>
+                        }?
+                        &zwnj;{
+                          <Link
+                            openNewTab
+                            to="/challenges?filter[tracks][datasci]=true"
+                          >
+                            Data Science
+                          </Link>
+                        }?
+                        &zwnj;{
+                          <Link
+                            openNewTab
+                            to="/challenges?filter[tracks][design]=true"
+                          >
+                            Design
+                          </Link>
+                        }?
+                        &zwnj;{
+                          <Link
+                            openNewTab
+                            to="/challenges?filter[tracks][develop]=true"
+                          >
+                            Software Development
+                          </Link>
+                        }?
                       </p>
                     </div>
                   )
@@ -127,7 +143,8 @@ export default function Challenges({
         <a
           href={`${utils.config.URL.BASE}/my-challenges/?status=completed`}
           styleName="link"
-        >Past Challenges</a>
+        >Past Challenges
+        </a>
       </div>
     </div>
   );

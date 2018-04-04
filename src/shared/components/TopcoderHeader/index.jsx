@@ -154,7 +154,7 @@ export default class TopcoderHeader extends React.Component {
 
   globalTouchListener({ target }) {
     const { closeMenu, searchOpened, openedMenu } = this.props;
-    const closeSearch = this.closeSearch;
+    const { closeSearch } = this;
     const menuButton = this.getMenuButton(target);
 
     if (menuButton) {
@@ -209,7 +209,7 @@ export default class TopcoderHeader extends React.Component {
         encodeURIComponent(normalizedProfile.photoURL)}?size=32`;
     }
 
-    const closeSearch = this.closeSearch;
+    const { closeSearch } = this;
 
     const mainMenu = MENU.map((item) => {
       let styleName = 'main-menu-item';
@@ -237,7 +237,8 @@ export default class TopcoderHeader extends React.Component {
             }
           }}
           styleName={styleName}
-        >{item.title}</li>
+        >{item.title}
+        </li>
       );
     });
 
@@ -359,7 +360,8 @@ export default class TopcoderHeader extends React.Component {
                 }
               }}
               styleName="search-icon"
-            ><MagnifyingGlass /></div>
+            ><MagnifyingGlass />
+            </div>
           </div>
         </div>
         <DesktopSubMenu

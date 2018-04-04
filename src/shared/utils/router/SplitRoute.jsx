@@ -41,8 +41,7 @@ export default class SplitRoute extends React.Component {
     /* Marking chunk's stylesheet as unused.
      * This works properly only when styling does not depend on the ordering
      * of loaded stylesheets, which is how our CSS should be written. */
-    const link = document.querySelector(
-      `link[data-chunk="${TMP_CHUNK_PREFIX}/${this.props.chunkName}"]`);
+    const link = document.querySelector(`link[data-chunk="${TMP_CHUNK_PREFIX}/${this.props.chunkName}"]`);
     link.setAttribute('data-chunk-unused', unusedCssStamp += 1);
 
     /* Reset to the initial state. */
@@ -86,7 +85,9 @@ export default class SplitRoute extends React.Component {
              *    to be injected by server/renderer.jsx into the rendered HTML
              *    document as a field of window.SPLITS object. We also check
              *    that route ID is unique among all matched SplitRoutes. */
-            const splits = props.staticContext.splits;
+            /* eslint-disable react/prop-types */
+            const { splits } = props.staticContext;
+            /* eslint-enable react/prop-types */
             if (splits[`${TMP_CHUNK_PREFIX}/${chunkName}`]) throw new Error('SplitRoute: IDs clash!');
             else splits[`${TMP_CHUNK_PREFIX}/${chunkName}`] = html;
 
@@ -228,7 +229,7 @@ export default class SplitRoute extends React.Component {
 }
 
 SplitRoute.defaultProps = {
-  cacheCss: false,
+  // cacheCss: false,
   exact: false,
   location: null,
   path: null,

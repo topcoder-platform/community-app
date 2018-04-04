@@ -22,7 +22,7 @@ export default class EditModal extends React.Component {
     this.state = {
       description,
       size,
-      src,
+      // src,
       previewURL: '',
       editURL: src,
     };
@@ -63,10 +63,12 @@ export default class EditModal extends React.Component {
           <div styleName="buttons-container">
             <Button
               onClick={() => this.setState({ previewURL: st.editURL })}
-            >Preview</Button>
+            >Preview
+            </Button>
             <PrimaryButton
               onClick={() => this.props.onSave(st.editURL, st.size)}
-            >Save</PrimaryButton>
+            >Save
+            </PrimaryButton>
           </div>
           { st.previewURL ?
             <div styleName="preview">

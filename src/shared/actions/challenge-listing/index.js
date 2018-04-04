@@ -54,8 +54,7 @@ function getChallengeSubtracksDone() {
   return getService()
     .getChallengeSubtracks()
     .then(res =>
-      res.sort((a, b) => a.name.localeCompare(b.name)),
-    );
+      res.sort((a, b) => a.name.localeCompare(b.name)));
 }
 
 /**
@@ -67,8 +66,7 @@ function getChallengeTagsDone() {
     .getChallengeTags()
     .then(res =>
       res.map(item => item.name)
-        .sort((a, b) => a.localeCompare(b)),
-    );
+        .sort((a, b) => a.localeCompare(b)));
 }
 
 /**

@@ -44,7 +44,7 @@ function ReviewOpportunityCard({
   onTechTagClicked,
   opportunity,
 }) {
-  const challenge = opportunity.challenge;
+  const { challenge } = opportunity;
   const start = moment(opportunity.startDate);
 
   return (
@@ -64,10 +64,11 @@ function ReviewOpportunityCard({
             </span>
           </TrackAbbreviationTooltip>
         </div>
-        <div styleName={'challenge-details'}>
+        <div styleName="challenge-details">
           <Link
             to={`${challengesUrl}/${challenge.id}`}
-          >{challenge.title}</Link>
+          >{challenge.title}
+          </Link>
           <div styleName="details-footer">
             <span styleName="date">
               Starts {start.format('MMM DD')}

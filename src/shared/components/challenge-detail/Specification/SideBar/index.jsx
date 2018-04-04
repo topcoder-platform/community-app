@@ -45,15 +45,19 @@ export default function SideBar({
       'Community Review Board performs a thorough review based on scorecards.'
   );
 
-  const reviewTip = (<div styleName="tctooltiptext tooltiptextreview">
-    <h4>Final Review:</h4>
-    <p>{reviewTypeDescription}</p>
-  </div>);
+  const reviewTip = (
+    <div styleName="tctooltiptext tooltiptextreview">
+      <h4>Final Review:</h4>
+      <p>{reviewTypeDescription}</p>
+    </div>
+  );
 
-  const approvalTip = (<div styleName="tctooltiptext tooltiptextapproval">
-    <h4>Approval:</h4>
-    <p>Customer has final opportunity to sign-off on the delivered assets.</p>
-  </div>);
+  const approvalTip = (
+    <div styleName="tctooltiptext tooltiptextapproval">
+      <h4>Approval:</h4>
+      <p>Customer has final opportunity to sign-off on the delivered assets.</p>
+    </div>
+  );
 
   return (
     <div styleName="challenge-spec-sidebar">
@@ -173,9 +177,11 @@ export default function SideBar({
             </p>
             <p styleName="link-like-paragraph">
               Questions?
-              &zwnj;<a href={forumLink}>
-                Ask in the Challenge Discussion Forums.
-              </a>
+              &zwnj;{
+                <a href={forumLink}>
+                  Ask in the Challenge Discussion Forums.
+                </a>
+              }
             </p>
             <h3>SOURCE FILES:</h3>
             <ul styleName="source-files-list">
@@ -207,7 +213,8 @@ export default function SideBar({
                   <div styleName="term" key={t.termsOfUseId}>
                     <Link
                       to={`${challengesUrl}/terms/detail/${t.termsOfUseId}`}
-                    >{t.title}</Link>
+                    >{t.title}
+                    </Link>
                   </div>
                 ))
               }

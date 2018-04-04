@@ -67,8 +67,7 @@ export function factory(req) {
   if (state.tokenV3) {
     state.user = decodeToken(state.tokenV3);
     return toFSA(actions.auth.loadProfile(state.tokenV3)).then(res =>
-      create(onProfileLoaded(state, res)),
-    );
+      create(onProfileLoaded(state, res)));
   }
   return Promise.resolve(create(state));
 }

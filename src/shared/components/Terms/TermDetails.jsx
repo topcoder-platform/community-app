@@ -33,8 +33,10 @@ export default class TermDetails extends React.Component {
   }
 
   render() {
-    const { details, docuSignUrl,
-      loadingDocuSignUrl } = this.props;
+    const {
+      details, docuSignUrl,
+      loadingDocuSignUrl,
+    } = this.props;
 
     return (
       <div>

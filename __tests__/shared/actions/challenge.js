@@ -51,8 +51,7 @@ describe('challenge.getDetailsDone', () => {
   mockChallenge.communities = new Set(mockChallenge.communities);
 
   test('payload is a promise which resolves to the expected object', () =>
-    a.payload.then(res => expect(res).toEqual(mockChallenge)),
-  );
+    a.payload.then(res => expect(res).toEqual(mockChallenge)));
 });
 
 describe('challenge.fetchSubmissionsDone', () => {

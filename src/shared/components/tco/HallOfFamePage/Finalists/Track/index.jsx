@@ -9,7 +9,9 @@ import { themr } from 'react-css-super-themr';
 
 import defaultStyles from './styles.scss';
 
-const Track = ({ count, data, track, theme }) => (data ? (
+const Track = ({
+  count, data, track, theme,
+}) => (data ? (
   <div className={theme.container}>
     <div className={theme.track}>{track}</div>
     <div className={theme.winner}>

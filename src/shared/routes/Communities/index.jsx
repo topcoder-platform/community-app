@@ -9,16 +9,16 @@ import React from 'react';
 import { StaticRouter } from 'react-router-dom';
 import { requireWeak, resolveWeak, SplitRoute } from 'utils/router';
 
-export default function ChunkLoader({ base, communityId, member, meta }) {
+export default function ChunkLoader({
+  base, communityId, member, meta,
+}) {
   return (
     <SplitRoute
       key={member}
       chunkName="communities/chunk"
       renderClientAsync={() =>
-        import(
-          /* webpackChunkName: "communities/chunk" */
-          './Routes',
-        ).then(({ default: Routes }) => (
+        import(/* webpackChunkName: "communities/chunk" */ './Routes')
+        .then(({ default: Routes }) => (
           <Routes
             base={base}
             communityId={communityId}

@@ -9,7 +9,9 @@ import Tooltip from 'components/Tooltip';
 
 import Popup from './Popup';
 
-const Image = ({ children, contentState, entityKey, updateEntityData }) => {
+const Image = ({
+  children, contentState, entityKey, updateEntityData,
+}) => {
   const {
     description,
     size,

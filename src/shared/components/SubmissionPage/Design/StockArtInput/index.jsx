@@ -17,11 +17,15 @@ export default function StockArtInput({
           If you used any stock photos in your design mocks, please
           provide the location and details so that the client can obtain
           them. Follow the guidelines at our
-          &zwnj;<a
-            href={utils.config.URL.INFO.STOCK_ART_POLICY}
-            rel="norefferer noopener"
-            target="_blank"
-          >Studio Stock Art Policy</a>.
+          &zwnj;{
+            <a
+              href={utils.config.URL.INFO.STOCK_ART_POLICY}
+              rel="norefferer noopener"
+              target="_blank"
+            >
+              Studio Stock Art Policy
+            </a>
+          }.
         </p>
         <p>
           Note that you can paste a list of URL separated by any space-likes
@@ -49,7 +53,8 @@ export default function StockArtInput({
             e.stopPropagation();
             e.preventDefault();
           }}
-        >+ Add Stock Art Record</PrimaryButton>
+        >+ Add Stock Art Record
+        </PrimaryButton>
       </div>
     </div>
   );

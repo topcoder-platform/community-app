@@ -217,7 +217,8 @@ class Design extends React.Component {
                   href={utils.config.URL.INFO.DESIGN_CHALLENGE_SUBMISSION}
                   rel="noreferrer noopener"
                   target="_blank"
-                >Learn more about formatting your submission file.</a>
+                >Learn more about formatting your submission file.
+                </a>
               </p>
             </div>
             <div styleName="right">
@@ -296,7 +297,7 @@ class Design extends React.Component {
               </div>
               <textarea
                 onChange={(event) => {
-                  const target = event.target;
+                  const { target } = event;
                   if (target.value.length > MAX_NOTES_LENGTH) {
                     target.value = target.value.slice(0, MAX_NOTES_LENGTH);
                   }
@@ -319,12 +320,15 @@ class Design extends React.Component {
           <div styleName="row agree">
             <p>
               Submitting your files means you hereby agree to the
-              &zwnj;<a
-                href={utils.config.URL.INFO.TOPCODER_TERMS}
-                rel="norefferer noopener"
-                target="_blank"
-              >Topcoder terms of use</a>&zwnj;
-              and to the extent your uploaded file wins a topcoder Competition,
+              &zwnj;{
+                <a
+                  href={utils.config.URL.INFO.TOPCODER_TERMS}
+                  rel="norefferer noopener"
+                  target="_blank"
+                >Topcoder terms of use
+                </a>
+              }&zwnj;
+                and to the extent your uploaded file wins a topcoder Competition,
               you hereby assign, grant and transfer and agree to assign, grant and
               transfer to topcoder all right and challengeName in and to the Winning Submission
               (as further described in the terms of use).
@@ -348,7 +352,8 @@ class Design extends React.Component {
                 customFontRecords.some(x => !_.isEmpty(x.errors)) ||
                 stockArtRecords.some(x => !_.isEmpty(x.errors))
               }
-            >Submit</PrimaryButton>
+            >Submit
+            </PrimaryButton>
           </div>
         </form>
       </div>

@@ -19,6 +19,7 @@
  * provided via the 'onFilter' property, if any, passing in the current filter
  * object.
  */
+/* eslint-disable jsx-a11y/label-has-for */
 
 import _ from 'lodash';
 import * as Filter from 'utils/challenge-listing/filter';
@@ -160,7 +161,11 @@ export default function FiltersPanel({
     <div styleName={className}>
       <div styleName="header">
         <span styleName="title">Filters</span>
-        <span styleName="close-icon" onClick={() => onClose()}>
+        <span
+          styleName="close-icon"
+          onClick={() => onClose()}
+          onKeyPress={() => onClose()}
+        >
           <UiSimpleRemove className="cross" />
         </span>
       </div>
@@ -282,13 +287,15 @@ export default function FiltersPanel({
           size="sm"
           theme={{ button: style.button }}
           themePriority={PRIORITY.ADHOC_DEFAULT_CONTEXT}
-        >Clear filters</Button>
+        >Clear filters
+        </Button>
         <PrimaryButton
           disabled={disableClearSaveFilterButtons || !isAuth}
           onClick={onSaveFilter}
           size="sm"
           theme={{ button: style.button }}
-        >Save filter</PrimaryButton>
+        >Save filter
+        </PrimaryButton>
       </div>
     </div>
   );
