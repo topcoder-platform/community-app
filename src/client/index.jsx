@@ -1,5 +1,7 @@
 import forge from 'node-forge';
 
+const BUILD_INFO = window.TRU_CONSTANTS;
+
 /* Cuts injected data section out from the HTML markup. */
 const block = document.querySelector('script[id="inj"]');
 document.getElementsByTagName('body')[0].removeChild(block);
@@ -9,7 +11,7 @@ let injectedData = forge.util.decode64(window.INJ);
 const iv = injectedData.slice(0, 32);
 injectedData = injectedData.slice(32);
 /* eslint-disable no-undef */
-const decipher = forge.cipher.createDecipher('AES-CBC', BUILD_RNDKEY);
+const decipher = forge.cipher.createDecipher('AES-CBC', BUILD_INFO.key);
 /* eslint-enable no-undef */
 decipher.start({ iv });
 decipher.update(forge.util.createBuffer(injectedData));

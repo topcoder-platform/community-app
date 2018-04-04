@@ -36,7 +36,7 @@ const OE_TOKEN = utils.config.OPEN_EXCHANGE.TOKEN;
 
 let cachedRates;
 
-if (utils.ismorphy.isClientSide()) cachedRates = window.config.EXCHANGE_RATES;
+if (utils.isomorphy.isClientSide()) cachedRates = window.config.EXCHANGE_RATES;
 else if (fs.existsSync(DISK_CACHE)) {
   cachedRates = JSON.parse(fs.readFileSync(DISK_CACHE, 'utf8'));
 }
@@ -57,7 +57,7 @@ function refresh() {
       return Promise.resolve();
     }
   }
-  const url = utils.ismorphy.isClientSide() ? '/community-app-assets/api/exchange-rates'
+  const url = utils.isomorphy.isClientSide() ? '/community-app-assets/api/exchange-rates'
     : `${OE_API}/latest.json?app_id=${OE_TOKEN}`;
   return fetch(url, {
     headers: {
@@ -67,7 +67,7 @@ function refresh() {
     cachedRates = res;
     fx.base = res.base;
     fx.rates = res.rates;
-    if (utils.ismorphy.isServerSide()) {
+    if (utils.isomorphy.isServerSide()) {
       logger.info('Exchange rates synced with https://openexchangerates.com');
       fs.writeFile(DISK_CACHE, JSON.stringify(cachedRates));
     }

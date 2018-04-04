@@ -6,7 +6,7 @@ import logger from 'utils/logger';
 import path from 'path';
 import qs from 'qs';
 import serializeJs from 'serialize-javascript';
-import serverFactory from 'topcoder-react-utils/dist/src/server';
+import { server as serverFactory } from 'topcoder-react-utils';
 
 import { getRates as getExchangeRates } from 'services/money';
 import { toJson as xmlToJson } from 'utils/xml2json';
@@ -22,6 +22,8 @@ import tcCommunitiesDemoApi from './tc-communities';
 import storeFactory from '../shared/store-factory';
 
 import webpackConfigFactory from '../../webpack.config';
+
+global.atob = atob;
 
 const EXTRA_SCRIPTS = [
   `<script
@@ -50,6 +52,7 @@ const EXTRA_SCRIPTS = [
 const MODE = process.env.BABEL_ENV;
 
 async function beforeRender(req, suggestedConfig) {
+  console.log('!!!!!!!!!!!!!!!!!!!1');
   const [
     store,
     rates,
@@ -66,7 +69,9 @@ async function beforeRender(req, suggestedConfig) {
  * Custom tuning of ExpressJS server.
  * @param {Object} server
  */
-function onExpressJsSetup(server) {
+async function onExpressJsSetup(server) {
+  console.log('234234234');
+  return;
   /* tc-accounts App was designed for browser environment, and its decodeToken()
    * function (which we would like to use server-side as well) depends on global
    * atob() method, which is present in browser, but not in NodeJS. This is the
