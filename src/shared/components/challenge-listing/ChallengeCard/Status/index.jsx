@@ -3,7 +3,7 @@ import React from 'react';
 import PT from 'prop-types';
 import moment from 'moment';
 import LeaderboardAvatar from 'components/challenge-listing/LeaderboardAvatar';
-import { Link, utils } from 'topcoder-react-utils';
+import { config, Link } from 'topcoder-react-utils';
 import { DETAIL_TABS } from 'actions/challenge';
 import 'moment-duration-format';
 
@@ -80,7 +80,7 @@ function getProfile(user) {
 }
 
 export default function ChallengeStatus(props) {
-  const FORUM_URL = `${utils.config.URL.FORUMS}/?module=Category&categoryID=`;
+  const FORUM_URL = `${config.URL.FORUMS}/?module=Category&categoryID=`;
 
   const {
     challengesUrl,
@@ -139,7 +139,7 @@ export default function ChallengeStatus(props) {
     });
     let resultsLink = detailLink;
     if (challenge.challengeType === 'Marathon') {
-      resultsLink = `${utils.config.URL.COMMUNITY}/longcontest/?module=ViewStandings&rd=${_.get(challenge, 'rounds[0].id')}`;
+      resultsLink = `${config.URL.COMMUNITY}/longcontest/?module=ViewStandings&rd=${_.get(challenge, 'rounds[0].id')}`;
     }
 
     return leaderboard || (

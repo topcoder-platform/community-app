@@ -4,9 +4,9 @@
 
 /* global fetch */
 import 'isomorphic-fetch';
-import { utils } from 'topcoder-react-utils';
+import { config, isomorphy } from 'topcoder-react-utils';
 
-const xml2json = utils.isomorphy.isServerSide() ? require('xml2json') : null;
+const xml2json = isomorphy.isServerSide() ? require('xml2json') : null;
 
 /**
  * Makes XML -> JSON conversion.
@@ -19,7 +19,7 @@ export function toJson(xml) {
     body: JSON.stringify({ xml }),
     headers: {
       'Content-Type': 'application/json',
-      Authorization: `ApiKey ${utils.config.SERVER_API_KEY}`,
+      Authorization: `ApiKey ${config.SERVER_API_KEY}`,
     },
     method: 'POST',
   }).then(res => res.json());

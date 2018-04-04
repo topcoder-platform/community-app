@@ -12,7 +12,7 @@ import DesktopSubMenu from 'components/TopcoderHeader/desktop/SubMenu';
 import React from 'react';
 import PT from 'prop-types';
 import { Avatar } from 'topcoder-react-ui-kit';
-import { Link, NavLink, utils } from 'topcoder-react-utils';
+import { config, Link, NavLink } from 'topcoder-react-utils';
 import { getRatingColor } from 'utils/tc';
 import Dropdown from 'components/tc-communities/Dropdown';
 import { themr } from 'react-css-super-themr';
@@ -46,7 +46,7 @@ function Header(props) {
     theme,
   } = props;
 
-  const BASE_URL = utils.config.URL.BASE;
+  const BASE_URL = config.URL.BASE;
 
   let userSubMenu;
   if (profile) {
@@ -125,9 +125,9 @@ function Header(props) {
         <button
           onClick={() => {
             let url = encodeURIComponent(`${window.location.href}?join=${groupIds[0]}`);
-            url = encodeURIComponent(`${utils.config.URL.AUTH}/member?retUrl=${url}&utm_source=${communityId}`);
+            url = encodeURIComponent(`${config.URL.AUTH}/member?retUrl=${url}&utm_source=${communityId}`);
             url = encodeURIComponent(url);
-            window.location = `${utils.config.URL.AUTH}/member/registration?retUrl=${url}&utm_source=${communityId}`;
+            window.location = `${config.URL.AUTH}/member/registration?retUrl=${url}&utm_source=${communityId}`;
           }}
           className={theme.btnRegister}
         >Join Now
@@ -136,7 +136,7 @@ function Header(props) {
       <button
         onClick={() => {
           const url = encodeURIComponent(`${window.location.href}?join=${groupIds[0]}`);
-          window.location = `${utils.config.URL.AUTH}/member?retUrl=${url}&utm_source=${communityId}`;
+          window.location = `${config.URL.AUTH}/member?retUrl=${url}&utm_source=${communityId}`;
         }}
         className={theme.btnLogin}
       >Login

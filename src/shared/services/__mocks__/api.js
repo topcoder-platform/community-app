@@ -4,7 +4,7 @@
 
 import _ from 'lodash';
 import 'isomorphic-fetch'; /* global fetch */
-import { utils } from 'topcoder-react-utils';
+import { config } from 'topcoder-react-utils';
 
 /**
  * API service object. It is reused for both Topcoder API v2 and v3,
@@ -115,7 +115,7 @@ export default class Api {
 let lastApiV2 = null;
 export function getApiV2(token) {
   if (!lastApiV2 || lastApiV2.private.token !== token) {
-    lastApiV2 = new Api(utils.config.API.V2, token);
+    lastApiV2 = new Api(config.API.V2, token);
   }
   return lastApiV2;
 }
@@ -132,7 +132,7 @@ export function getApiV2(token) {
 let lastApiV3 = null;
 export function getApiV3(token) {
   if (!lastApiV3 || lastApiV3.private.token !== token) {
-    lastApiV3 = new Api(utils.config.API.V3, token);
+    lastApiV3 = new Api(config.API.V3, token);
   }
   return lastApiV3;
 }

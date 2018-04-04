@@ -12,7 +12,7 @@ import { themr } from 'react-css-super-themr';
 import { fireErrorMessage } from 'utils/errors';
 import qs from 'qs';
 
-import { utils } from 'topcoder-react-utils';
+import { config } from 'topcoder-react-utils';
 
 import defaultStyle from './style.scss';
 
@@ -30,7 +30,7 @@ class NewsletterSignup extends React.Component {
         body: formData,
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded',
-          Authorization: `ApiKey ${utils.config.SERVER_API_KEY}`,
+          Authorization: `ApiKey ${config.SERVER_API_KEY}`,
         },
         method: 'POST',
       }).then(res => res.text())

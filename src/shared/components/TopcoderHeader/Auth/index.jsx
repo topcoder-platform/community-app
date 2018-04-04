@@ -6,7 +6,7 @@
 
 import PT from 'prop-types';
 import React from 'react';
-import { utils } from 'topcoder-react-utils';
+import { config } from 'topcoder-react-utils';
 
 import './style.scss';
 
@@ -22,15 +22,15 @@ export default function Auth({ column }) {
     >
       <a
         className="tc-btn-sm tc-btn-primary"
-        href={`${utils.config.URL.AUTH}/member/registration?utm_source=community-app-main`}
+        href={`${config.URL.AUTH}/member/registration?utm_source=community-app-main`}
       >Join
       </a>
       <a
         className="tc-btn-sm tc-btn-default"
-        href={`${utils.config.URL.AUTH}/member?utm_source=community-app-main`}
+        href={`${config.URL.AUTH}/member?utm_source=community-app-main`}
         onClick={(event) => {
           const retUrl = encodeURIComponent(window.location.href);
-          window.location = `${utils.config.URL.AUTH}/member?retUrl=${retUrl}&utm_source=community-app-main`;
+          window.location = `${config.URL.AUTH}/member?retUrl=${retUrl}&utm_source=community-app-main`;
           event.preventDefault();
         }}
       >Log In

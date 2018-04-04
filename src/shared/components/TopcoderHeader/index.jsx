@@ -4,7 +4,7 @@ import { getRatingColor } from 'utils/tc';
 import PT from 'prop-types';
 import React from 'react';
 
-import { utils } from 'topcoder-react-utils';
+import { config } from 'topcoder-react-utils';
 
 import Auth from './Auth';
 import IconNavBlog from '../../../assets/images/nav/blog.svg';
@@ -43,7 +43,7 @@ import './style.scss';
  * executed at client side, thus it does not make the code non-isomorphic. */
 /* global window, document */
 
-const BASE_URL = utils.config.URL.BASE;
+const BASE_URL = config.URL.BASE;
 
 const MENU = [{
   title: 'Compete',
@@ -53,7 +53,7 @@ const MENU = [{
     title: 'All Challenges',
   }, {
     icon: <IconNavCP />,
-    link: utils.config.URL.ARENA,
+    link: config.URL.ARENA,
     title: 'Competitive Programming',
   }],
 }, {
@@ -94,7 +94,7 @@ const MENU = [{
   }, {
     enforceA: true,
     icon: <IconNavTcoGeneric />,
-    link: utils.config.URL.TCO,
+    link: config.URL.TCO,
     title: 'TCO',
   }, {
     enforceA: true,
@@ -103,7 +103,7 @@ const MENU = [{
     title: 'Programs',
   }, {
     icon: <IconNavForums />,
-    link: utils.config.URL.FORUMS,
+    link: config.URL.FORUMS,
     title: 'Forums',
   }, {
     enforceA: true,
@@ -205,7 +205,7 @@ export default class TopcoderHeader extends React.Component {
 
     const normalizedProfile = profile && _.clone(profile);
     if (profile && profile.photoURL) {
-      normalizedProfile.photoURL = `${utils.config.CDN.PUBLIC}/avatar/${
+      normalizedProfile.photoURL = `${config.CDN.PUBLIC}/avatar/${
         encodeURIComponent(normalizedProfile.photoURL)}?size=32`;
     }
 
@@ -268,7 +268,7 @@ export default class TopcoderHeader extends React.Component {
           title: 'My Profile',
         }, {
           icon: <IconNavWallet />,
-          link: `${utils.config.URL.COMMUNITY}/PactsMemberServlet?module=PaymentHistory&full_list=false`,
+          link: `${config.URL.COMMUNITY}/PactsMemberServlet?module=PaymentHistory&full_list=false`,
           title: 'Payments',
         }, {
           enforceA: true,

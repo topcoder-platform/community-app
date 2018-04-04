@@ -11,7 +11,7 @@ import Sticky from 'react-stickynode';
 import * as Filter from 'utils/challenge-listing/filter';
 import Sidebar from 'containers/challenge-listing/Sidebar';
 import { isReviewOpportunitiesBucket } from 'utils/challenge-listing/buckets';
-import { utils } from 'topcoder-react-utils';
+import { config } from 'topcoder-react-utils';
 
 import Listing from './Listing';
 import ChallengeCardPlaceholder from './placeholders/ChallengeCard';
@@ -55,10 +55,10 @@ export default function ChallengeListing(props) {
    * challenges too old to display while the reload takes place.
    */
   let suppressPlaceholders = false;
-  if (utils.config.CHALLENGE_LISTING_AUTO_REFRESH) {
+  if (config.CHALLENGE_LISTING_AUTO_REFRESH) {
     const outage = moment().diff(props.lastUpdateOfActiveChallenges);
     suppressPlaceholders =
-      outage < 1.5 * 1000 * utils.config.CHALLENGE_LISTING_AUTO_REFRESH;
+      outage < 1.5 * 1000 * config.CHALLENGE_LISTING_AUTO_REFRESH;
   }
 
   let challengeCardContainer;

@@ -2,7 +2,7 @@ import _ from 'lodash';
 import actions, { TABS } from 'actions/page/dashboard';
 import cookies from 'browser-cookies';
 import { handleActions } from 'redux-actions';
-import { utils } from 'topcoder-react-utils';
+import { isomorphy } from 'topcoder-react-utils';
 
 const validTabs = new Set(_.values(TABS));
 
@@ -36,7 +36,7 @@ function onShowChallengeFilter(state, { payload }) {
  */
 function onShowEarnings(state, { payload }) {
   if (state.showEarnings === payload) return state;
-  if (utils.isomorphy.isClientSide()) {
+  if (isomorphy.isClientSide()) {
     cookies.set('showEarningsInDashboard', JSON.stringify(payload), {
       expires: 365,
     });

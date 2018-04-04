@@ -22,17 +22,17 @@ import _ from 'lodash';
 /* global fetch */
 import 'isomorphic-fetch';
 
-import { utils } from 'topcoder-react-utils';
+import { config, isomorphy } from 'topcoder-react-utils';
 
 const logger = {};
 _.functions(console).forEach((func) => {
-  logger[func] = utils.isomorphy.isDevBuild()
-    || utils.isomorphy.isServerSide() ? console[func] : _.noop;
+  logger[func] = isomorphy.isDevBuild()
+    || isomorphy.isServerSide() ? console[func] : _.noop;
 });
 
 let leLogger;
-if (utils.isomorphy.isServerSide()) {
-  const token = utils.config.LOG_ENTRIES_TOKEN;
+if (isomorphy.isServerSide()) {
+  const token = config.LOG_ENTRIES_TOKEN;
   if (token) {
     const LeLogger = require('le_node');
     leLogger = new LeLogger({ token });
@@ -46,7 +46,7 @@ if (utils.isomorphy.isServerSide()) {
       }),
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `ApiKey ${utils.config.SERVER_API_KEY}`,
+        Authorization: `ApiKey ${config.SERVER_API_KEY}`,
       },
       method: 'POST',
     }).catch(() => {
@@ -65,7 +65,7 @@ if (utils.isomorphy.isServerSide()) {
 if (leLogger) {
   const extend = (base, le) => {
     logger[base] = (...rest) => {
-      if (utils.isomorphy.isDevBuild() || utils.isomorphy.isServerSide()) {
+      if (isomorphy.isDevBuild() || isomorphy.isServerSide()) {
         console[base](...rest);
       }
       let msg = '';

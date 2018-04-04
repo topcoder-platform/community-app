@@ -5,7 +5,7 @@
  */
 
 import _ from 'lodash';
-import { utils } from 'topcoder-react-utils';
+import { config } from 'topcoder-react-utils';
 
 import Api from './api';
 
@@ -15,7 +15,7 @@ export default class UserSettings {
    */
   constructor(tokenV2) {
     this.private = {
-      api: new Api(utils.config.URL.USER_SETTINGS, tokenV2),
+      api: new Api(config.URL.USER_SETTINGS, tokenV2),
       token: tokenV2,
     };
   }

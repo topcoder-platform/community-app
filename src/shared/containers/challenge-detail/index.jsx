@@ -29,7 +29,7 @@ import challengeActions, { DETAIL_TABS } from 'actions/challenge';
 import MetaTags from 'utils/MetaTags';
 import { BUCKETS } from 'utils/challenge-listing/buckets';
 import { CHALLENGE_PHASE_TYPES, COMPETITION_TRACKS_V3, SUBTRACKS } from 'utils/tc';
-import { utils } from 'topcoder-react-utils';
+import { config } from 'topcoder-react-utils';
 
 import ogWireframe from
   '../../../assets/images/open-graph/challenges/01-wireframe.jpg';
@@ -186,7 +186,7 @@ class ChallengeDetailPageContainer extends React.Component {
   registerForChallenge() {
     if (!this.props.auth.tokenV2) {
       const utmSource = this.props.communityId || 'community-app-main';
-      window.location.href = `${utils.config.URL.AUTH}/member?retUrl=${encodeURIComponent(window.location.href)}&utm_source=${utmSource}`;
+      window.location.href = `${config.URL.AUTH}/member?retUrl=${encodeURIComponent(window.location.href)}&utm_source=${utmSource}`;
     } else if (_.every(this.props.terms, 'agreed')) {
       this.props.registerForChallenge(this.props.auth, this.props.challengeId);
     } else {

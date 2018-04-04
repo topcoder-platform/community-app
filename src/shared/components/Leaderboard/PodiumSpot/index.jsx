@@ -22,7 +22,7 @@
 import React from 'react';
 import PT from 'prop-types';
 import { Avatar } from 'topcoder-react-ui-kit';
-import { utils } from 'topcoder-react-utils';
+import { config } from 'topcoder-react-utils';
 
 import avatarStyles from '../avatarStyles.scss';
 import styles from './styles.scss'; // eslint-disable-line
@@ -64,7 +64,7 @@ export default function PodiumSpot(props) {
 
   let photoUrl = competitor['challenge_stats.photo_url'];
   if (photoUrl) {
-    photoUrl = `${utils.config.CDN.PUBLIC}/avatar/${
+    photoUrl = `${config.CDN.PUBLIC}/avatar/${
       encodeURIComponent(photoUrl)}?size=160`;
   }
 
@@ -80,7 +80,7 @@ export default function PodiumSpot(props) {
       </span>
       <div styleName="styles.ranking">{DISPLAY_RANKING[competitor.rank]}</div>
       <div>
-        <a styleName="styles.profile-link" href={`${utils.config.URL.BASE}/members/${competitor['challenge_stats.winner_handle']}/`}>
+        <a styleName="styles.profile-link" href={`${config.URL.BASE}/members/${competitor['challenge_stats.winner_handle']}/`}>
           {competitor['challenge_stats.winner_handle']}
         </a>
       </div>

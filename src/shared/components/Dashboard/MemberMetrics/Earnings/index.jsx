@@ -3,14 +3,14 @@ import Carousel from 'components/XCarousel';
 import PT from 'prop-types';
 import React from 'react';
 
-import { Link, utils } from 'topcoder-react-utils';
+import { config, Link } from 'topcoder-react-utils';
 
 import Dial from './Dial';
 
 import './style.scss';
 
-const PACTS_FULL_URL = `${utils.config.URL.COMMUNITY}/PactsMemberServlet?module=PaymentHistory&full_list=true`;
-const PACTS_OWED_URL = `${utils.config.URL.COMMUNITY}/PactsMemberServlet?module=PaymentHistory&full_list=false`;
+const PACTS_FULL_URL = `${config.URL.COMMUNITY}/PactsMemberServlet?module=PaymentHistory&full_list=true`;
+const PACTS_OWED_URL = `${config.URL.COMMUNITY}/PactsMemberServlet?module=PaymentHistory&full_list=false`;
 
 export default function Earnings({ finances, showEarnings }) {
   if (!showEarnings) return null;

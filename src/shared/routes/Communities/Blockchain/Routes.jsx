@@ -24,7 +24,7 @@ import SubmissionManagement from 'routes/SubmissionManagement';
 import TermsDetail from 'routes/TermsDetail';
 import { Route, Switch } from 'react-router-dom';
 import { ThemeProvider } from 'react-css-super-themr';
-import { utils } from 'topcoder-react-utils';
+import { config } from 'topcoder-react-utils';
 
 import primaryButtonStyle from 'components/buttons/outline/round/open-sans/green-uppercase.scss';
 import secondaryButtonStyle from 'components/buttons/outline/round/open-sans/blue-uppercase.scss';
@@ -48,7 +48,7 @@ export default function Blockchain({ base, member, meta }) {
               image={socialImage}
               siteName="Topcoder Blockchain Community"
               title="Topcoder Blockchain Community"
-              url={utils.config.URL.COMMUNITIES.BLOCKCHAIN}
+              url={config.URL.COMMUNITIES.BLOCKCHAIN}
             />
             <Header
               baseUrl={base}

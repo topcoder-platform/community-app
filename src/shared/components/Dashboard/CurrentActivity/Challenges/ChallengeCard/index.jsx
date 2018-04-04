@@ -7,7 +7,7 @@ import NumSubmissions from
 import PT from 'prop-types';
 import React from 'react';
 
-import { Link, utils } from 'topcoder-react-utils';
+import { config, Link } from 'topcoder-react-utils';
 
 import {
   Button,
@@ -198,7 +198,7 @@ export default function ChallengeCard({
           <Link
             openNewTab
             styleName="forumLink"
-            to={`${utils.config.URL.FORUMS}${forumEndpoint}`}
+            to={`${config.URL.FORUMS}${forumEndpoint}`}
           >Forum
           </Link>
         </div>
@@ -213,7 +213,7 @@ export default function ChallengeCard({
                 openNewTab
                 size="sm"
                 theme={{ button: style.button }}
-                to={`${utils.config.URL.BASE}/direct/contest/detail.action?projectId=${id}`}
+                to={`${config.URL.BASE}/direct/contest/detail.action?projectId=${id}`}
               >Direct
               </Button>
             ) : null
@@ -224,7 +224,7 @@ export default function ChallengeCard({
                 openNewTab
                 size="sm"
                 theme={{ button: style.button }}
-                to={`${utils.config.URL.ONLINE_REVIEW}/review/actions/ViewProjectDetails?method=viewProjectDetails&pid=${id}`}
+                to={`${config.URL.ONLINE_REVIEW}/review/actions/ViewProjectDetails?method=viewProjectDetails&pid=${id}`}
               >Online Review
               </Button>
             ) : null

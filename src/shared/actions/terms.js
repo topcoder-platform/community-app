@@ -5,7 +5,7 @@
 import _ from 'lodash';
 import { createActions } from 'redux-actions';
 import { getService } from 'services/terms';
-import { utils } from 'topcoder-react-utils';
+import { config } from 'topcoder-react-utils';
 
 /**
  * Payload creator for TERMS/GET_TERMS_DONE action,
@@ -155,7 +155,7 @@ function checkStatusDone(entity, tokens) {
 
   // we set this flag for getTermsDone when MOCK_TERMS_SERVICE is true
   // so that checkStatusDone resolves to all terms agreed when mocking
-  const mockAgreed = utils.config.MOCK_TERMS_SERVICE;
+  const mockAgreed = config.MOCK_TERMS_SERVICE;
 
   /**
    * Promisified setTimeout

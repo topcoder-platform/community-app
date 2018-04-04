@@ -1,7 +1,7 @@
 /* eslint-env browser */
 
 import actions from 'actions/errors';
-import { utils } from 'topcoder-react-utils';
+import { isomorphy } from 'topcoder-react-utils';
 
 export const ERROR_ICON_TYPES = {
   NETWORK: 'network',
@@ -19,7 +19,7 @@ export function setErrorsStore(s) {
  * it will show a modal error diaglog with styling until the user clicks OK.
  */
 export function fireErrorMessage(title, details) {
-  if (utils.isomorphy.isClientSide() && store) {
+  if (isomorphy.isClientSide() && store) {
     setImmediate(() => {
       store.dispatch(actions.errors.newError(title, details));
     });
@@ -30,7 +30,7 @@ export function fireErrorMessage(title, details) {
  * clear all error icons
  */
 export function clearAllErrorIcons() {
-  if (utils.isomorphy.isClientSide() && store) {
+  if (isomorphy.isClientSide() && store) {
     setImmediate(() => {
       store.dispatch(actions.errors.clearAllErrorIcons());
     });
@@ -44,7 +44,7 @@ export function clearAllErrorIcons() {
  * @param message icon hover message
  */
 export function setErrorIcon(id, title, message) {
-  if (utils.isomorphy.isClientSide() && store) {
+  if (isomorphy.isClientSide() && store) {
     setImmediate(() => {
       store.dispatch(actions.errors.setErrorIcon(id, title, message));
     });
@@ -56,7 +56,7 @@ export function setErrorIcon(id, title, message) {
  * @param id  id of error icon type to clear
  */
 export function clearErrorIcon(id) {
-  if (utils.isomorphy.isClientSide() && store) {
+  if (isomorphy.isClientSide() && store) {
     setImmediate(() => {
       store.dispatch(actions.errors.clearErrorIcon(id));
     });

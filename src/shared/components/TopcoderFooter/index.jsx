@@ -2,7 +2,7 @@ import moment from 'moment';
 import PT from 'prop-types';
 import React from 'react';
 
-import { utils } from 'topcoder-react-utils';
+import { config } from 'topcoder-react-utils';
 
 import FacebookIcon from './icons/facebook.svg';
 import GooglePlusIcon from './icons/google_plus.svg';
@@ -25,7 +25,7 @@ Link.propTypes = {
 };
 
 export default function TopcoderFooter() {
-  const base = utils.config.URL.BASE;
+  const base = config.URL.BASE;
   const currentYear = moment().year();
   return (
     <div styleName="footer">
@@ -33,8 +33,8 @@ export default function TopcoderFooter() {
         <ul>
           <Link to={`${base}/sitemap`}>SITE MAP</Link>
           <Link to={`${base}/about`}>ABOUT US</Link>
-          <Link to={`${utils.config.URL.HELP}/hc/en-us/articles/219069687-Contact-Support`}>CONTACT US</Link>
-          <Link to={utils.config.URL.HELP}>HELP CENTER</Link>
+          <Link to={`${config.URL.HELP}/hc/en-us/articles/219069687-Contact-Support`}>CONTACT US</Link>
+          <Link to={config.URL.HELP}>HELP CENTER</Link>
           <Link to={`${base}/community/how-it-works/privacy-policy/`}>PRIVACY POLICY</Link>
           <Link to={`${base}/community/how-it-works/terms/`}>TERMS</Link>
         </ul>

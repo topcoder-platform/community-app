@@ -13,7 +13,7 @@ import _ from 'lodash';
 import React from 'react';
 import PT from 'prop-types';
 import { PrimaryButton } from 'topcoder-react-ui-kit';
-import { utils } from 'topcoder-react-utils';
+import { config } from 'topcoder-react-utils';
 import { fireErrorMessage } from 'utils/errors';
 import { CHALLENGE_PHASE_TYPES as PHASE_TYPES } from 'utils/tc';
 
@@ -214,7 +214,7 @@ class Design extends React.Component {
               </p>
               <p>
                 <a
-                  href={utils.config.URL.INFO.DESIGN_CHALLENGE_SUBMISSION}
+                  href={config.URL.INFO.DESIGN_CHALLENGE_SUBMISSION}
                   rel="noreferrer noopener"
                   target="_blank"
                 >Learn more about formatting your submission file.
@@ -322,7 +322,7 @@ class Design extends React.Component {
               Submitting your files means you hereby agree to the
               &zwnj;{
                 <a
-                  href={utils.config.URL.INFO.TOPCODER_TERMS}
+                  href={config.URL.INFO.TOPCODER_TERMS}
                   rel="norefferer noopener"
                   target="_blank"
                 >Topcoder terms of use

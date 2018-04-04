@@ -8,7 +8,7 @@ import _ from 'lodash';
 import React from 'react';
 import PT from 'prop-types';
 import { DETAIL_TABS } from 'actions/challenge';
-import { utils } from 'topcoder-react-utils';
+import { config } from 'topcoder-react-utils';
 
 import style from './style.scss';
 
@@ -123,7 +123,7 @@ export default function ChallengeViewSelector(props) {
         }
         { (hasRegistered || Boolean(roles.length)) &&
           <a
-            href={`${utils.config.URL.FORUMS}${forumEndpoint}`}
+            href={`${config.URL.FORUMS}${forumEndpoint}`}
             styleName={getSelectorStyle(selectedView, DETAIL_TABS.CHALLENGE_FORUM)}
           >CHALLENGE FORUM
           </a>

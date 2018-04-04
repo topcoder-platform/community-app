@@ -1,6 +1,6 @@
 import PT from 'prop-types';
 import React from 'react';
-import { PrimaryButton, utils } from 'topcoder-react-ui-kit';
+import { config, PrimaryButton } from 'topcoder-react-ui-kit';
 
 import InputBlock from './InputBlock';
 import './style.scss';
@@ -19,7 +19,7 @@ export default function StockArtInput({
           them. Follow the guidelines at our
           &zwnj;{
             <a
-              href={utils.config.URL.INFO.STOCK_ART_POLICY}
+              href={config.URL.INFO.STOCK_ART_POLICY}
               rel="norefferer noopener"
               target="_blank"
             >

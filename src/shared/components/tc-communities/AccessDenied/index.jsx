@@ -2,7 +2,7 @@
 
 import _ from 'lodash';
 import { PrimaryButton } from 'topcoder-react-ui-kit';
-import { utils } from 'topcoder-react-utils';
+import { config } from 'topcoder-react-utils';
 import PT from 'prop-types';
 import React from 'react';
 
@@ -25,10 +25,10 @@ export default function AccessDenied({ cause, communityId, redirectLink }) {
           <div styleName="msg">
             <a
               className="tc-btn-md tc-btn-primary"
-              href={`${utils.config.URL.AUTH}/member?utm_source=${communityId}`}
+              href={`${config.URL.AUTH}/member?utm_source=${communityId}`}
               onClick={(event) => {
                 const retUrl = encodeURIComponent(window.location.href);
-                window.location = `${utils.config.URL.AUTH}/member?retUrl=${retUrl}&utm_source=${communityId}`;
+                window.location = `${config.URL.AUTH}/member?retUrl=${retUrl}&utm_source=${communityId}`;
                 event.preventDefault();
               }}
             >Log In Here

@@ -7,7 +7,7 @@
 
 import React from 'react';
 import PT from 'prop-types';
-import { utils } from 'topcoder-react-utils';
+import { config } from 'topcoder-react-utils';
 
 import './style.scss';
 
@@ -22,7 +22,7 @@ const FiltersCardsType = ({ hideSrm, isCardTypeSet }) => (
     {
       hideSrm ? null : (
         <a
-          href={utils.config.URL.ARENA}
+          href={config.URL.ARENA}
           target="_blank"
           rel="noopener noreferrer"
         >SRMs

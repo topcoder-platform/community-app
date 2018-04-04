@@ -14,7 +14,7 @@
 import _ from 'lodash';
 import moment from 'moment';
 import React from 'react';
-import { utils } from 'topcoder-react-utils';
+import { config } from 'topcoder-react-utils';
 
 import PT from 'prop-types';
 
@@ -45,7 +45,7 @@ export default function Submission(props) {
           styleName={type === 'DESIGN' ? 'design-img' : 'dev-img'}
           src={
             submissionObject.preview ||
-            `${utils.config.URL.STUDIO}?module=DownloadSubmission&sbmid=${submissionObject.submissionId}&sbt=tiny&sfi=1`
+            `${config.URL.STUDIO}?module=DownloadSubmission&sbmid=${submissionObject.submissionId}&sbt=tiny&sfi=1`
           }
         />
       </td>
@@ -69,7 +69,7 @@ export default function Submission(props) {
           <a
             href={
               type === 'DESIGN'
-                ? `${utils.config.URL.STUDIO}?module=DownloadSubmission&sbmid=${submissionObject.submissionId}&sbt=original`
+                ? `${config.URL.STUDIO}?module=DownloadSubmission&sbmid=${submissionObject.submissionId}&sbt=original`
                 : submissionObject.download
             }
           ><DownloadIcon />

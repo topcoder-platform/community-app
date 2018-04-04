@@ -25,7 +25,7 @@ import communityActions from 'actions/tc-communities';
 import statsActions from 'actions/stats';
 
 import { isTokenExpired } from 'tc-accounts';
-import { utils } from 'topcoder-react-utils';
+import { config, isomorphy } from 'topcoder-react-utils';
 
 import './styles.scss';
 
@@ -37,7 +37,7 @@ const CACHE_MAX_AGE = 10 * 60 * 1000;
 /* Constants for loading Topcoder blog. */
 const TOPCODER_BLOG_ID = 'TOPCODER_BLOG';
 const TOPOCDER_BLOG_URL = `/community-app-assets/api/proxy-get?url=${
-  encodeURIComponent(utils.config.URL.BLOG_FEED)}`;
+  encodeURIComponent(config.URL.BLOG_FEED)}`;
 
 export class DashboardPageContainer extends React.Component {
   componentDidMount() {
@@ -125,7 +125,7 @@ export class DashboardPageContainer extends React.Component {
      * the Dashboard is in place, this should be updated to work for the server
      * side rendering as well. */
     let url = `retUrl=${encodeURIComponent(location.href)}`;
-    url = `${utils.config.URL.AUTH}/member?${url}&utm_source=community-app-main`;
+    url = `${config.URL.AUTH}/member?${url}&utm_source=community-app-main`;
     location.href = url;
 
     _.noop(this);
@@ -238,7 +238,7 @@ DashboardPageContainer.defaultProps = {
   handle: '',
   profile: null,
   showEarnings:
-    utils.isomorphy.isClientSide() ? cookies.get('showEarningsInDashboard') !== 'false' : true,
+    isomorphy.isClientSide() ? cookies.get('showEarningsInDashboard') !== 'false' : true,
   stats: {},
   statsTimestamp: 0,
   tcBlogPosts: [],

@@ -13,7 +13,7 @@ import _ from 'lodash';
 import React from 'react';
 import PT from 'prop-types';
 import { PrimaryButton } from 'topcoder-react-ui-kit';
-import { utils } from 'topcoder-react-utils';
+import { config } from 'topcoder-react-utils';
 
 import FilePicker from '../FilePicker';
 import Uploading from '../Uploading';
@@ -137,7 +137,7 @@ class Develop extends React.Component {
                 Submitting your files means you hereby agree to the
                 &zwnj;{
                   <a
-                    href={utils.config.URL.INFO.TOPCODER_TERMS}
+                    href={config.URL.INFO.TOPCODER_TERMS}
                     rel="noreferrer noopener"
                     target="_blank"
                   >

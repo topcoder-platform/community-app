@@ -17,11 +17,11 @@
 
 import _ from 'lodash';
 import logger from 'utils/logger';
-import { utils } from 'topcoder-react-utils';
+import { config } from 'topcoder-react-utils';
 import { getApiV3 } from './api';
 
 /* The value of USER_GROUP_MAXAGE constant converted to [ms]. */
-const USER_GROUP_MAXAGE = utils.config.USER_GROUP_MAXAGE * 1000;
+const USER_GROUP_MAXAGE = config.USER_GROUP_MAXAGE * 1000;
 
 /**
  * Given an array of IDs (or a single ID) of user groups, and a map of known

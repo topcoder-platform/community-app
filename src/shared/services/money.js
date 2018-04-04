@@ -13,11 +13,11 @@ import fs from 'fs';
 import fx from 'money';
 import logger from 'utils/logger';
 import path from 'path';
-import { utils } from 'topcoder-react-utils';
+import { config, isomorphy } from 'topcoder-react-utils';
 
 const DISK_CACHE = path.resolve(__dirname, '../../../.exchange-rates.cache');
 const OE_API = 'https://openexchangerates.org/api';
-const OE_TOKEN = utils.config.OPEN_EXCHANGE.TOKEN;
+const OE_TOKEN = config.OPEN_EXCHANGE.TOKEN;
 
 /**
  * For optimal performance currency exchanged rates are cached and updated once
@@ -36,7 +36,7 @@ const OE_TOKEN = utils.config.OPEN_EXCHANGE.TOKEN;
 
 let cachedRates;
 
-if (utils.isomorphy.isClientSide()) cachedRates = window.config.EXCHANGE_RATES;
+if (isomorphy.isClientSide()) cachedRates = window.config.EXCHANGE_RATES;
 else if (fs.existsSync(DISK_CACHE)) {
   cachedRates = JSON.parse(fs.readFileSync(DISK_CACHE, 'utf8'));
 }
@@ -53,21 +53,21 @@ if (cachedRates) {
 function refresh() {
   if (cachedRates) {
     const age = Date.now() - (1000 * cachedRates.timestamp);
-    if (age < 3600000 * utils.config.OPEN_EXCHANGE.MAXAGE) {
+    if (age < 3600000 * config.OPEN_EXCHANGE.MAXAGE) {
       return Promise.resolve();
     }
   }
-  const url = utils.isomorphy.isClientSide() ? '/community-app-assets/api/exchange-rates'
+  const url = isomorphy.isClientSide() ? '/community-app-assets/api/exchange-rates'
     : `${OE_API}/latest.json?app_id=${OE_TOKEN}`;
   return fetch(url, {
     headers: {
-      Authorization: `ApiKey ${utils.config.SERVER_API_KEY}`,
+      Authorization: `ApiKey ${config.SERVER_API_KEY}`,
     },
   }).then(res => res.json()).then((res) => {
     cachedRates = res;
     fx.base = res.base;
     fx.rates = res.rates;
-    if (utils.isomorphy.isServerSide()) {
+    if (isomorphy.isServerSide()) {
       logger.info('Exchange rates synced with https://openexchangerates.com');
       fs.writeFile(DISK_CACHE, JSON.stringify(cachedRates));
     }

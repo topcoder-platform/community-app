@@ -5,7 +5,7 @@
 import fetch from 'isomorphic-fetch';
 import { toJson } from 'utils/xml2json';
 import { createActions } from 'redux-actions';
-import { utils } from 'topcoder-react-utils';
+import { config } from 'topcoder-react-utils';
 
 /**
  * Payload creator for the action that drops data loaded from the specified
@@ -43,7 +43,7 @@ function getInit(feed, uuid) {
  */
 async function getDone(feed, uuid, url) {
   let res = await fetch(url, {
-    headers: { Authorization: `ApiKey ${utils.config.SERVER_API_KEY}` },
+    headers: { Authorization: `ApiKey ${config.SERVER_API_KEY}` },
   });
   if (!res.ok) throw new Error(res.statusText);
   res = await res.text();

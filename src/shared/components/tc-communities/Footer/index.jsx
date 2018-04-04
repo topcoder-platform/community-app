@@ -9,7 +9,7 @@ import React from 'react';
 import PT from 'prop-types';
 import { themr } from 'react-css-super-themr';
 import { Link, NavLink } from 'react-router-dom';
-import { utils } from 'topcoder-react-utils';
+import { config } from 'topcoder-react-utils';
 
 import defaultStyle from './style.scss';
 import TopcoderLogoGray from '../../../../assets/images/tc-communities/logo_topcoder_gray.svg';
@@ -52,7 +52,7 @@ function Footer(props) {
             className={theme.btnRegister}
             onClick={() => {
               const url = encodeURIComponent(window.location.href);
-              window.location = `${utils.config.URL.AUTH}/member/registration?retUrl=${url}&utm_source=${communityId}`;
+              window.location = `${config.URL.AUTH}/member/registration?retUrl=${url}&utm_source=${communityId}`;
             }}
           >Register
           </button>
@@ -60,7 +60,7 @@ function Footer(props) {
             className={theme.btnLogin}
             onClick={() => {
               const url = encodeURIComponent(window.location.href);
-              window.location = `${utils.config.URL.AUTH}/member?retUrl=${url}&utm_source=${communityId}`;
+              window.location = `${config.URL.AUTH}/member?retUrl=${url}&utm_source=${communityId}`;
             }}
           >Login
           </button>

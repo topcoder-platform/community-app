@@ -12,7 +12,7 @@ import communityActions from 'actions/tc-communities';
 import Header from 'components/tc-communities/Header';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { utils } from 'topcoder-react-utils';
+import { config } from 'topcoder-react-utils';
 
 /* Holds one minute in milliseconds. */
 const MIN = 60 * 1000;
@@ -35,7 +35,7 @@ class HeaderContainer extends React.Component {
     const communitySelector = [{
       label: 'Topcoder Public Community',
       value: '0',
-      redirect: utils.config.URL.BASE,
+      redirect: config.URL.BASE,
     }];
     communityList.data.forEach((item, index) => {
       if (!item.hidden) {
@@ -45,7 +45,7 @@ class HeaderContainer extends React.Component {
           value,
           label: item.communityName,
           redirect: item.mainSubdomain ? (
-            utils.config.URL.BASE.replace('www', item.mainSubdomain)
+            config.URL.BASE.replace('www', item.mainSubdomain)
           ) : `/community/${item.communityId}`,
         });
       }

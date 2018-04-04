@@ -5,7 +5,7 @@ import PT from 'prop-types';
 
 import Tooltip from 'components/Tooltip';
 import { Link } from 'react-router-dom';
-import { utils } from 'topcoder-react-utils';
+import { config } from 'topcoder-react-utils';
 
 import ShareSocial from './ShareSocial';
 
@@ -29,8 +29,8 @@ export default function SideBar({
   environment,
   codeRepo,
 }) {
-  const scorecardURL = `${utils.config.URL.ONLINE_REVIEW}/review/actions/ViewScorecard?scid=`;
-  const faqURL = utils.config.URL.INFO.DESIGN_CHALLENGE_SUBMISSION;
+  const scorecardURL = `${config.URL.ONLINE_REVIEW}/review/actions/ViewScorecard?scid=`;
+  const faqURL = config.URL.INFO.DESIGN_CHALLENGE_SUBMISSION;
   let submissionLimitDisplay = 'Unlimited';
   if (submissionLimit === 1) {
     submissionLimitDisplay = '1 submission';
@@ -69,7 +69,7 @@ export default function SideBar({
               <ul>
                 {
                   documents.map((doc) => {
-                    const url = `${utils.config.URL.COMMUNITY}/tc?module=DownloadDocument&docid=${doc.documentid}`;
+                    const url = `${config.URL.COMMUNITY}/tc?module=DownloadDocument&docid=${doc.documentid}`;
                     return (
                       <li key={url}>
                         <a href={url}>{doc.documentname}</a>

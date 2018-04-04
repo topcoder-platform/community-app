@@ -1,7 +1,7 @@
 import React from 'react';
 import PT from 'prop-types';
 
-import { utils } from 'topcoder-react-utils';
+import { config } from 'topcoder-react-utils';
 
 import Abbreviation from './Abbreviation';
 import './style.scss';
@@ -26,7 +26,7 @@ export default function TrackIcon({
 
 TrackIcon.defaultProps = {
   isDataScience: false,
-  MAIN_URL: utils.config.URL.BASE,
+  MAIN_URL: config.URL.BASE,
   tcoEligible: '',
 };
 

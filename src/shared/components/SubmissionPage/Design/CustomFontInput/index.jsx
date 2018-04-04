@@ -2,7 +2,7 @@ import _ from 'lodash';
 import React from 'react';
 import PT from 'prop-types';
 import { PrimaryButton } from 'topcoder-react-ui-kit';
-import { utils } from 'topcoder-react-utils';
+import { config } from 'topcoder-react-utils';
 import '../styles.scss';
 import InputBlock from './InputBlock';
 
@@ -22,7 +22,7 @@ export default function CustomFontInput({
           Read the
           &zwnj;{
             <a
-              href={utils.config.URL.INFO.STUDIO_FONTS_POLICY}
+              href={config.URL.INFO.STUDIO_FONTS_POLICY}
               rel="norefferer noopener"
               target="_blank"
             >

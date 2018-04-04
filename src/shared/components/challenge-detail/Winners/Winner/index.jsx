@@ -1,7 +1,7 @@
 import { Avatar } from 'topcoder-react-ui-kit';
 import PT from 'prop-types';
 import React from 'react';
-import { utils } from 'topcoder-react-utils';
+import { config } from 'topcoder-react-utils';
 
 import Lock from '../../icons/lock.svg';
 
@@ -26,7 +26,7 @@ export default function Winner({
 
   let avatarUrl = winner.photoURL;
   if (avatarUrl) {
-    avatarUrl = `${utils.config.CDN.PUBLIC}/avatar/${
+    avatarUrl = `${config.CDN.PUBLIC}/avatar/${
       encodeURIComponent(avatarUrl)}?size=65`;
   }
 
@@ -44,7 +44,7 @@ export default function Winner({
                 <img
                   styleName="preview"
                   alt=""
-                  src={`${utils.config.URL.STUDIO}/studio.jpg` +
+                  src={`${config.URL.STUDIO}/studio.jpg` +
                     `?module=DownloadSubmission&sbmid=${submissionId}&sbt=small&sfi=1`}
                 />
               ) :
@@ -65,7 +65,7 @@ export default function Winner({
           />
           <div>
             <a
-              href={`${utils.config.URL.BASE}/members/${winner.handle}`}
+              href={`${config.URL.BASE}/members/${winner.handle}`}
               styleName="handle"
             >{winner.handle}
             </a>
@@ -81,7 +81,7 @@ export default function Winner({
           <a
             styleName="download"
             target="_blank"
-            href={isDesign ? `${utils.config.URL.STUDIO}/?module=DownloadSubmission&sbmid=${submissionId}` : winner.submissionDownloadLink}
+            href={isDesign ? `${config.URL.STUDIO}/?module=DownloadSubmission&sbmid=${submissionId}` : winner.submissionDownloadLink}
           >Download
           </a>
         }

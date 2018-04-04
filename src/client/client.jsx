@@ -25,7 +25,7 @@ import {
 import logger from 'utils/logger';
 import { setErrorsStore } from 'utils/errors';
 
-import { utils } from 'topcoder-react-utils';
+import { isomorphy } from 'topcoder-react-utils';
 
 import storeFactory from '../shared/store-factory';
 import './styles.scss';
@@ -38,7 +38,7 @@ const actions = {
 
 /* Isomorphic code may rely on this environment variable to check whether it is
  * executed client- or server-side. */
-if (!utils.isomorphy.isClientSide()) {
+if (!isomorphy.isClientSide()) {
   throw new Error('process.env.FRONT_END must evaluate to true at the client side');
 }
 

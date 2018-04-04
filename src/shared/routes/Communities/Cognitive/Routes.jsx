@@ -22,7 +22,7 @@ import socialImage from 'assets/images/communities/cognitive/social.jpg';
 
 import TermsDetail from 'routes/TermsDetail';
 import { Route, Switch } from 'react-router-dom';
-import { utils } from 'topcoder-react-utils';
+import { config } from 'topcoder-react-utils';
 
 export default function Cognitive({ base, member, meta }) {
   return (
@@ -34,7 +34,7 @@ export default function Cognitive({ base, member, meta }) {
             image={socialImage}
             siteName="Topcoder Cognitive Community"
             title="Topcoder Cognitive Community"
-            url={utils.config.URL.COMMUNITIES.COGNITIVE}
+            url={config.URL.COMMUNITIES.COGNITIVE}
           />
           <Header
             baseUrl={base}

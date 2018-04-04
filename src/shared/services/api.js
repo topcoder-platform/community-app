@@ -4,7 +4,7 @@
 
 import _ from 'lodash';
 import 'isomorphic-fetch'; /* global fetch */
-import { utils } from 'topcoder-react-utils';
+import { config, isomorphy } from 'topcoder-react-utils';
 import { delay } from 'utils/time';
 import { setErrorIcon, ERROR_ICON_TYPES } from 'utils/errors';
 
@@ -12,7 +12,7 @@ import { setErrorIcon, ERROR_ICON_TYPES } from 'utils/errors';
  * rate limits configured in Topcoder APIs, we throttle requests rate at the
  * client side, and at server-side, in dev mode (which is meant to be used for
  * local development. */
-const MIN_API_CALL_DELAY = utils.isomorphy.isDevBuild() ? 1000 : 200;
+const MIN_API_CALL_DELAY = isomorphy.isDevBuild() ? 1000 : 200;
 
 const API_THROTTLING = true;
 
@@ -75,7 +75,7 @@ export default class Api {
     }
 
     /* Throttling of API calls should not happen at server in production. */
-    if (API_THROTTLING && (utils.isomorphy.isClientSide() || utils.isomorphy.isDevBuild())) {
+    if (API_THROTTLING && (isomorphy.isClientSide() || isomorphy.isDevBuild())) {
       const now = Date.now();
       lastApiCallTimestamp += MIN_API_CALL_DELAY;
       if (lastApiCallTimestamp > now) {
@@ -175,7 +175,7 @@ export default class Api {
     } = this.private;
     const headers = options.headers ? _.clone(options.headers) : {};
     if (token) headers.Authorization = `Bearer ${token}`;
-    if (utils.isomorphy.isClientSide()) {
+    if (isomorphy.isClientSide()) {
       return new Promise((res, rej) => {
         const xhr = new XMLHttpRequest(); //eslint-disable-line
         xhr.open(options.method, `${base}${endpoint}`);
@@ -211,7 +211,7 @@ export default class Api {
 let lastApiV2 = null;
 export function getApiV2(token) {
   if (!lastApiV2 || lastApiV2.private.token !== token) {
-    lastApiV2 = new Api(utils.config.API.V2, token);
+    lastApiV2 = new Api(config.API.V2, token);
   }
   return lastApiV2;
 }
@@ -228,7 +228,7 @@ export function getApiV2(token) {
 let lastApiV3 = null;
 export function getApiV3(token) {
   if (!lastApiV3 || lastApiV3.private.token !== token) {
-    lastApiV3 = new Api(utils.config.API.V3, token);
+    lastApiV3 = new Api(config.API.V3, token);
   }
   return lastApiV3;
 }

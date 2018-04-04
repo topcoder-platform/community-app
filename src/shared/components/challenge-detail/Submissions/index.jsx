@@ -6,7 +6,7 @@
 import React from 'react';
 import PT from 'prop-types';
 import moment from 'moment';
-import { utils } from 'topcoder-react-utils';
+import { config } from 'topcoder-react-utils';
 import Lock from '../icons/lock.svg';
 
 import './style.scss';
@@ -14,13 +14,13 @@ import './style.scss';
 function renderSubmission(s) {
   return (
     <div styleName="submission" key={s.submissionId}>
-      <a target="_blank" href={`${utils.config.URL.STUDIO}?module=DownloadSubmission&sbmid=${s.submissionId}`}>
-        <img alt="" src={`${utils.config.URL.STUDIO}/studio.jpg?module=DownloadSubmission&sbmid=${s.submissionId}&sbt=small&sfi=1`} />
+      <a target="_blank" href={`${config.URL.STUDIO}?module=DownloadSubmission&sbmid=${s.submissionId}`}>
+        <img alt="" src={`${config.URL.STUDIO}/studio.jpg?module=DownloadSubmission&sbmid=${s.submissionId}&sbt=small&sfi=1`} />
       </a>
       <div styleName="bottom-info">
         <div styleName="links">
-          <a target="_blank" href={`${utils.config.URL.STUDIO}?module=DownloadSubmission&sbmid=${s.submissionId}`}>{`#${s.submissionId}`}</a>
-          <a styleName="handle" target="_blank" href={`${utils.config.URL.BASE}/members/${s.submitter}`}>{s.submitter}</a>
+          <a target="_blank" href={`${config.URL.STUDIO}?module=DownloadSubmission&sbmid=${s.submissionId}`}>{`#${s.submissionId}`}</a>
+          <a styleName="handle" target="_blank" href={`${config.URL.BASE}/members/${s.submitter}`}>{s.submitter}</a>
         </div>
         <div>{moment(s.submissionTime).format('MMM DD,YYYY HH:mm')}</div>
       </div>
@@ -80,7 +80,7 @@ export default function Submissions(props) {
         submissions.map(s => (
           <div key={s.handle + s.submissionDate} styleName="row">
             <div styleName="col-1">
-              <a styleName="handle" target="_blank" href={`${utils.config.URL.BASE}/member-profile/${s.handle}/develop`}>{s.handle}</a>
+              <a styleName="handle" target="_blank" href={`${config.URL.BASE}/member-profile/${s.handle}/develop`}>{s.handle}</a>
             </div>
             <div styleName="col-2">{moment(s.submissionDate).format('MMM DD, YYYY HH:mm')}</div>
             <div styleName="col-3">

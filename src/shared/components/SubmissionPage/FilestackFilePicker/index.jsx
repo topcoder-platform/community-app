@@ -15,7 +15,7 @@ import React from 'react';
 import PT from 'prop-types';
 import { client as filestack } from 'filestack-react';
 import { PrimaryButton } from 'topcoder-react-ui-kit';
-import { utils } from 'topcoder-react-utils';
+import { config } from 'topcoder-react-utils';
 import { fireErrorMessage } from 'utils/errors';
 
 import './styles.scss';
@@ -36,7 +36,7 @@ class FilestackFilePicker extends React.Component {
       setDragged,
     } = this.props;
 
-    this.filestack = filestack.init(utils.config.FILESTACK.API_KEY);
+    this.filestack = filestack.init(config.FILESTACK.API_KEY);
 
     setFileName('');
     setError('');
@@ -61,7 +61,7 @@ class FilestackFilePicker extends React.Component {
       size,
       key,
       // container doesn't seem to get echoed from Drag and Drop
-      container: container || utils.config.FILESTACK.SUBMISSION_CONTAINER,
+      container: container || config.FILESTACK.SUBMISSION_CONTAINER,
     });
   }
 
@@ -139,9 +139,9 @@ class FilestackFilePicker extends React.Component {
               },
               startUploadingWhenMaxFilesReached: true,
               storeTo: {
-                container: utils.config.FILESTACK.SUBMISSION_CONTAINER,
+                container: config.FILESTACK.SUBMISSION_CONTAINER,
                 path: this.getPath(),
-                region: utils.config.FILESTACK.REGION,
+                region: config.FILESTACK.REGION,
               },
             })}
             onKeyPress={() => this.filestack.pick({
@@ -161,9 +161,9 @@ class FilestackFilePicker extends React.Component {
               },
               startUploadingWhenMaxFilesReached: true,
               storeTo: {
-                container: utils.config.FILESTACK.SUBMISSION_CONTAINER,
+                container: config.FILESTACK.SUBMISSION_CONTAINER,
                 path: this.getPath(),
-                region: utils.config.FILESTACK.REGION,
+                region: config.FILESTACK.REGION,
               },
             })}
             onDragEnter={() => setDragged(true)}
@@ -184,9 +184,9 @@ class FilestackFilePicker extends React.Component {
                 },
                 progressInterval: 1000,
               }, {
-                container: utils.config.FILESTACK.SUBMISSION_CONTAINER,
+                container: config.FILESTACK.SUBMISSION_CONTAINER,
                 path: this.getPath(),
-                region: utils.config.FILESTACK.REGION,
+                region: config.FILESTACK.REGION,
               }).then(file => this.onSuccess(file));
               return undefined;
             }}

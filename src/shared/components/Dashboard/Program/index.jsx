@@ -2,7 +2,7 @@
 
 import PT from 'prop-types';
 import React from 'react';
-import { utils } from 'topcoder-react-utils';
+import { config } from 'topcoder-react-utils';
 
 import IosCard from './IosCard';
 import MemberIcon from '../../../../assets/images/Member-06.svg';
@@ -43,7 +43,7 @@ const Program = (props) => {
                   </a>
                 </div>
                 <div styleName="help-link">
-                  <a href={utils.config.URL.IOS} styleName="learn-more">Learn More</a>
+                  <a href={config.URL.IOS} styleName="learn-more">Learn More</a>
                 </div>
               </div>
             </div>
@@ -60,7 +60,7 @@ const Program = (props) => {
                     <MemberIcon />
                   </div>
                   <a
-                    href={utils.config.URL.IOS}
+                    href={config.URL.IOS}
                     title="topcoder iOS Member Program"
                     className="tc-btn tc-btn-s tc-btn-ghost tc-btn-wide"
                   >

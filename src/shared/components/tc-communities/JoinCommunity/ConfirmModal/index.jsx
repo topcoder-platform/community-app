@@ -14,7 +14,7 @@ import PT from 'prop-types';
 import qs from 'qs';
 import React from 'react';
 import { PrimaryButton, SecondaryButton } from 'topcoder-react-ui-kit';
-import { utils } from 'topcoder-react-utils';
+import { config } from 'topcoder-react-utils';
 
 import style from './style.scss';
 
@@ -70,16 +70,16 @@ export default function ConfirmModal({
           <PrimaryButton
             onClick={() => {
               const url = encodeURIComponent(autoJoinUrl);
-              window.location = `${utils.config.URL.AUTH}/member?retUrl=${url}&utm_source=${communityId}`;
+              window.location = `${config.URL.AUTH}/member?retUrl=${url}&utm_source=${communityId}`;
             }}
           >Login
           </PrimaryButton>
           <PrimaryButton
             onClick={() => {
               let url = encodeURIComponent(autoJoinUrl);
-              url = encodeURIComponent(`${utils.config.URL.AUTH}/member?retUrl=${url}&utm_source=${communityId}`);
+              url = encodeURIComponent(`${config.URL.AUTH}/member?retUrl=${url}&utm_source=${communityId}`);
               url = encodeURIComponent(url);
-              window.location = `${utils.config.URL.AUTH}/member/registration?retUrl=${url}&utm_source=${communityId}`;
+              window.location = `${config.URL.AUTH}/member/registration?retUrl=${url}&utm_source=${communityId}`;
             }}
           >Register
           </PrimaryButton>

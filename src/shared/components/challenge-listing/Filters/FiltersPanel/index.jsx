@@ -29,7 +29,7 @@ import Select from 'components/Select';
 import moment from 'moment';
 import { Button, PrimaryButton } from 'topcoder-react-ui-kit';
 import Tooltip from 'components/Tooltip';
-import { Link, utils } from 'topcoder-react-utils';
+import { config, Link } from 'topcoder-react-utils';
 import { COMPOSE, PRIORITY } from 'react-css-super-themr';
 import { REVIEW_OPPORTUNITY_TYPES } from 'utils/tc';
 import CheckmarkIcon from './CheckmarkIcon';
@@ -82,7 +82,7 @@ export default function FiltersPanel({
           <Link
             onMouseDown={(e) => {
               const url = community.mainSubdomain ? (
-                utils.config.URL.BASE.replace(/www/, community.mainSubdomain)
+                config.URL.BASE.replace(/www/, community.mainSubdomain)
               ) : `/community/${community.communityId}`;
               window.open(url);
               e.stopPropagation();

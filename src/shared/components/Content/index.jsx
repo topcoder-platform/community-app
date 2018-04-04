@@ -6,14 +6,14 @@
 
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { utils } from 'topcoder-react-utils';
+import { isomorphy } from 'topcoder-react-utils';
 
 import './style.scss';
 
 export default function Content() {
   return (
     <div styleName="container">
-      <div styleName="build-timestamp">Build Timestamp: {utils.isomorphy.buildTimestamp()}</div>
+      <div styleName="build-timestamp">Build Timestamp: {isomorphy.buildTimestamp()}</div>
       <h1>Topcoder Community App</h1>
       <p>Isomorphic ReactJS App for new version of Topcoder community website.
         Technological stack includes:

@@ -5,7 +5,7 @@
 import _ from 'lodash';
 import PT from 'prop-types';
 import React from 'react';
-import { utils } from 'topcoder-react-utils';
+import { config } from 'topcoder-react-utils';
 
 import { getRatingLevel } from 'utils/tc';
 
@@ -34,7 +34,7 @@ export default function Dial({
   return (
     <a
       href={
-        `${utils.config.URL.BASE}/members/${handle}/details/` +
+        `${config.URL.BASE}/members/${handle}/details/` +
           `?track=${track}&subTrack=${subTrack}`
       }
       styleName="container"

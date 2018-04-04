@@ -5,7 +5,7 @@ import PT from 'prop-types';
 import TrackIcon from 'components/TrackIcon';
 import { DETAIL_TABS } from 'actions/challenge';
 import { convertNow as convertMoney } from 'services/money';
-import { Link, utils } from 'topcoder-react-utils';
+import { config, Link } from 'topcoder-react-utils';
 
 import Tags from '../Tags';
 
@@ -64,9 +64,9 @@ function ChallengeCard({
   let challengeDetailLink;
   {
     const challengeUrl = newChallengeDetails
-      ? `${challengesUrl}/` : `${utils.config.URL.BASE}/challenge-details/`;
+      ? `${challengesUrl}/` : `${config.URL.BASE}/challenge-details/`;
     if (challenge.track === 'DATA_SCIENCE') {
-      const mmDetailUrl = `${utils.config.URL.COMMUNITY}/tc?module=MatchDetails&rd=`;
+      const mmDetailUrl = `${config.URL.COMMUNITY}/tc?module=MatchDetails&rd=`;
       /* TODO: Don't we have a better way, whether a challenge is MM or not? */
       challengeDetailLink = isMM
         ? `${mmDetailUrl}${challenge.rounds[0].id}`

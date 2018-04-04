@@ -4,7 +4,7 @@ import moment from 'moment';
 import PT from 'prop-types';
 import React from 'react';
 import Sticky from 'react-stickynode';
-import { Link, utils } from 'topcoder-react-utils';
+import { config, Link } from 'topcoder-react-utils';
 
 import * as Filter from 'utils/challenge-listing/filter';
 
@@ -88,7 +88,7 @@ export default function Challenges({
                         &zwnj;{
                           <Link
                             openNewTab
-                            to={utils.config.URL.ARENA}
+                            to={config.URL.ARENA}
                           >
                             Competitive Programming
                           </Link>
@@ -141,7 +141,7 @@ export default function Challenges({
       </div>
       <div styleName="linksContainer">
         <a
-          href={`${utils.config.URL.BASE}/my-challenges/?status=completed`}
+          href={`${config.URL.BASE}/my-challenges/?status=completed`}
           styleName="link"
         >Past Challenges
         </a>
