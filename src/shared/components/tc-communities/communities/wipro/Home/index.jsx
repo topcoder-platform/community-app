@@ -16,7 +16,7 @@ import NewsSection from 'components/tc-communities/NewsSection';
 */
 
 import { noop } from 'lodash';
-import { Link } from 'topcoder-react-utils';
+import { config, Link } from 'topcoder-react-utils';
 
 // import Slider from 'react-slick';
 
@@ -112,6 +112,10 @@ const settings = {
 */
 
 export default function Home(props) {
+  const {
+    userId,
+  } = props;
+
   return (
     <main>
       <Banner
@@ -177,7 +181,7 @@ export default function Home(props) {
             link={[{
               newTab: true,
               title: 'Initiate Project',
-              url: 'https://connect.topcoder.com/new-project/generic_dev?refCode=topgear',
+              url: `${config.URL.TOPGEAR}/topcoder_projects/initiate_project?user_id=${userId}`,
             }, {
               newTab: true,
               title: 'Request Group',
@@ -283,10 +287,10 @@ export default function Home(props) {
 }
 
 Home.defaultProps = {
-  // news: [],
+  userId: 0,
 };
 
 Home.propTypes = {
-  // news: PT.arrayOf(PT.shape()),
   resetChallengeListing: PT.func.isRequired,
+  userId: PT.number,
 };

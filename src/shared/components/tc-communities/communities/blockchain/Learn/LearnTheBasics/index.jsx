@@ -6,6 +6,8 @@ import React from 'react';
 import Section from 'components/tc-communities/Section';
 import Text from 'components/tc-communities/Text';
 import joinButtonStyle from 'components/buttons/outline/round/open-sans/blue-uppercase.scss';
+
+import { SecondaryButton } from 'topcoder-react-ui-kit';
 import { Link } from 'react-router-dom';
 
 import style from './style.scss';
@@ -63,13 +65,12 @@ export default function LearnTheBasics({ baseUrl }) {
               registration. If you see something that interests you, click on
               it and then you can read the details and register for the challenge.
             </p>
-            <a
-              className={style.joinnow}
-              href="https://www.topcoder.com/member-onboarding/choosing-your-first-competition-whats-right-for-you/"
-              rel="noopener noreferrer"
-              target="_blank"
-            >Learn more
-            </a>
+            <SecondaryButton
+              openNewTab
+              to="https://www.topcoder.com/member-onboarding/choosing-your-first-competition-whats-right-for-you/"
+            >
+              Learn more
+            </SecondaryButton>
           </Text>
         </AccordionItem>
         <AccordionItem title="Payment & Rewards">
@@ -79,13 +80,12 @@ export default function LearnTheBasics({ baseUrl }) {
               You could also earn more as a copilot or reviewer or even win a
               large cash prize in our yearly tournament, the Topcoder Open.
             </p>
-            <a
-              className={style.joinnow}
-              href="https://www.topcoder.com/member-onboarding/winning-getting-paid/"
-              rel="noopener noreferrer"
-              target="_blank"
-            >Learn more
-            </a>
+            <SecondaryButton
+              openNewTab
+              to="https://www.topcoder.com/member-onboarding/winning-getting-paid/"
+            >
+              Learn more
+            </SecondaryButton>
           </Text>
         </AccordionItem>
         <AccordionItem title="Managing your Profile">

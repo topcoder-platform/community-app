@@ -4,7 +4,6 @@
  * in the challenge yet). Shows a tooltip when hovered.
  */
 
-import _ from 'lodash';
 import PT from 'prop-types';
 import React from 'react';
 import Tooltip from 'components/Tooltip';
@@ -17,16 +16,18 @@ import SubmissionsIcon from '../../Icons/SubmissionsIcon';
 
 import './style.scss';
 
-const ID_LENGTH = 6;
-const MM_BASE_URL
-  = `${config.URL.COMMUNITY}/longcontest/?module=ViewStandings&rd=`;
-
 export default function NumSubmissions({
   challenge: {
-    id, numSubmissions, rounds, status, track,
+    componentId,
+    contestId,
+    id,
+    isLegacy,
+    numSubmissions,
+    roundId,
+    status,
+    subTrack,
   },
   challengesUrl,
-  newChallengeDetails,
   selectChallengeDetailsTab,
 }) {
   let tip;
@@ -35,13 +36,17 @@ export default function NumSubmissions({
     case 1: tip = '1 total submission'; break;
     default: tip = `${numSubmissions} total submissions`;
   }
+
   const query = numSubmissions && status === 'COMPLETED'
     ? `?tab=${DETAIL_TABS.SUBMISSIONS}` : '';
-  let link = track === 'DATA_SCIENCE' && _.toString(id).length < ID_LENGTH
-    ? `${MM_BASE_URL}${rounds[0].id}` : `${challengesUrl}/${id}${query}`;
-  if (!newChallengeDetails && track !== 'DATA_SCIENCE') {
-    link = `${config.URL.BASE}/challenge-details/${id}/?type=develop#viewRegistrant`;
+
+  let link = `${challengesUrl}/${id}${query}`;
+
+  if (subTrack === 'MARATHON_MATCH' && isLegacy) {
+    link = `${config.URL.COMMUNITY}/longcontest/?module=Submit&rd=${
+      roundId}&compid=${componentId}&cd=${contestId}`;
   }
+
   return (
     <div styleName="container">
       <Tooltip
@@ -50,6 +55,7 @@ export default function NumSubmissions({
         }
       >
         <Link
+          forceA={subTrack === 'MARATHON_MATCH' && isLegacy}
           onClick={() => (
             selectChallengeDetailsTab(numSubmissions ?
               DETAIL_TABS.SUBMISSIONS : DETAIL_TABS.DETAILS)
@@ -74,6 +80,5 @@ NumSubmissions.propTypes = {
     track: PT.string.isRequired,
   }).isRequired,
   challengesUrl: PT.string.isRequired,
-  newChallengeDetails: PT.bool.isRequired,
   selectChallengeDetailsTab: PT.func.isRequired,
 };

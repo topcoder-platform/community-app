@@ -122,6 +122,9 @@ module.exports = {
     STUDIO: 'https://studio.topcoder-dev.com',
     TCO: 'https://www.topcoder.com/tco',
     TCO17: 'https://tco17.topcoder.com/',
+
+    TOPGEAR: 'https://dev-topgear.wipro.com',
+
     USER_SETTINGS: 'https://lc1-user-settings-service.herokuapp.com',
     WIPRO: 'https://wipro.topcoder.com',
     COMMUNITY_API: 'http://localhost:8000',

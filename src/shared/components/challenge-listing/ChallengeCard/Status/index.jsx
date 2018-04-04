@@ -137,9 +137,10 @@ export default function ChallengeStatus(props) {
           </UserAvatarTooltip>
         </div>);
     });
+
     let resultsLink = detailLink;
-    if (challenge.challengeType === 'Marathon') {
-      resultsLink = `${config.URL.COMMUNITY}/longcontest/?module=ViewStandings&rd=${_.get(challenge, 'rounds[0].id')}`;
+    if (challenge.subTrack === 'MARATHON_MATCH') {
+      resultsLink = `${config.URL.COMMUNITY}/longcontest/?module=ViewStandings&rd=${_.get(challenge, 'roundId')}`;
     }
 
     return leaderboard || (
@@ -197,7 +198,6 @@ export default function ChallengeStatus(props) {
             <NumRegistrants
               challenge={challenge}
               challengesUrl={challengesUrl}
-              newChallengeDetails={newChallengeDetails}
               selectChallengeDetailsTab={selectChallengeDetailsTab}
             />
           </div>
@@ -205,7 +205,6 @@ export default function ChallengeStatus(props) {
             <NumSubmissions
               challenge={challenge}
               challengesUrl={challengesUrl}
-              newChallengeDetails={newChallengeDetails}
               selectChallengeDetailsTab={selectChallengeDetailsTab}
             />
           </div>

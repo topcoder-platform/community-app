@@ -55,6 +55,7 @@ export default function ChallengeDetailsView(props) {
     environment,
     codeRepo,
     userDetails,
+    subTrack,
   } = challenge;
 
   const roles = (userDetails || {}).roles || [];
@@ -474,6 +475,7 @@ export default function ChallengeDetailsView(props) {
           fileTypes={fileTypes}
           isDesign={track.toLowerCase() === 'design'}
           isDevelop={track.toLowerCase() === 'develop'}
+          isMM={subTrack.toUpperCase() === 'MARATHON_MATCH'}
           terms={terms}
           shareable={_.isEmpty(groups)}
           environment={environment}

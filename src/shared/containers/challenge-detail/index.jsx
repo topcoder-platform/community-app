@@ -31,30 +31,19 @@ import { BUCKETS } from 'utils/challenge-listing/buckets';
 import { CHALLENGE_PHASE_TYPES, COMPETITION_TRACKS_V3, SUBTRACKS } from 'utils/tc';
 import { config } from 'topcoder-react-utils';
 
-import ogWireframe from
-  '../../../assets/images/open-graph/challenges/01-wireframe.jpg';
-import ogUiDesign from
-  '../../../assets/images/open-graph/challenges/02-ui-design.jpg';
-import ogUiPrototype from
-  '../../../assets/images/open-graph/challenges/03-ui-prototype.jpg';
-import ogFirst2Finish from
-  '../../../assets/images/open-graph/challenges/04-first-2-finish.jpg';
-import ogDevelopment from
-  '../../../assets/images/open-graph/challenges/05-development.jpg';
-import ogBigPrizesChallenge from
-  '../../../assets/images/open-graph/challenges/09-big-prizes-challenge.jpg';
-import ogLuxChallenge from
-  '../../../assets/images/open-graph/challenges/10-lux-challenge.jpg';
-import ogRuxChallenge from
-  '../../../assets/images/open-graph/challenges/11-rux-challenge.jpg';
-import og24hUiPrototype from
-  '../../../assets/images/open-graph/challenges/12-24h-ui-prototype-challenge.jpg';
-import og48hUiPrototype from
-  '../../../assets/images/open-graph/challenges/13-48h-ui-prototype-challenge.jpg';
+import ogWireframe from '../../../assets/images/open-graph/challenges/01-wireframe.jpg';
+import ogUiDesign from '../../../assets/images/open-graph/challenges/02-ui-design.jpg';
+import ogUiPrototype from '../../../assets/images/open-graph/challenges/03-ui-prototype.jpg';
+import ogFirst2Finish from '../../../assets/images/open-graph/challenges/04-first-2-finish.jpg';
+import ogDevelopment from '../../../assets/images/open-graph/challenges/05-development.jpg';
+import ogBigPrizesChallenge from '../../../assets/images/open-graph/challenges/09-big-prizes-challenge.jpg';
+import ogLuxChallenge from '../../../assets/images/open-graph/challenges/10-lux-challenge.jpg';
+import ogRuxChallenge from '../../../assets/images/open-graph/challenges/11-rux-challenge.jpg';
+import og24hUiPrototype from '../../../assets/images/open-graph/challenges/12-24h-ui-prototype-challenge.jpg';
+import og48hUiPrototype from '../../../assets/images/open-graph/challenges/13-48h-ui-prototype-challenge.jpg';
 
 /* A fallback image, just in case we missed some corner case. */
-import ogImage from
-  '../../../assets/images/og_image.jpg';
+import ogImage from '../../../assets/images/og_image.jpg';
 
 import './styles.scss';
 
@@ -104,6 +93,82 @@ function isRegistered(details, registrants, handle) {
     return true;
   }
   return false;
+}
+
+/**
+ * Normalize name convention for subtrack
+ * @param subTrack
+ * @returns {*} new subtrack
+ */
+function normalizeNameConventionForSubtrack(subTrack) {
+  switch (subTrack) {
+    case 'Copilot Posting':
+      return 'COPILOT_POSTING';
+    case 'Web Design':
+      return 'WEB_DESIGNS';
+    case 'Logo Design':
+      return 'LOGO_DESIGN';
+    case 'Banners/Icons':
+      return 'BANNERS_OR_ICONS';
+    case 'Application Front-End Design':
+      return 'APPLICATION_FRONT_END_DESIGN';
+    case 'Widget or Mobile Screen Design':
+      return 'WIDGET_OR_MOBILE_SCREEN_DESIGN';
+    case 'Front-End Flash':
+      return 'FRONT_END_FLASH';
+    case 'Print/Presentation':
+      return 'PRINT_OR_PRESENTATION';
+    case 'Wireframes':
+      return 'WIREFRAMES';
+    case 'Idea Generation':
+      return 'IDEA_GENERATION';
+    case 'Studio Other':
+      return 'STUDIO_OTHER';
+    case 'Conceptualization':
+      return 'CONCEPTUALIZATION';
+    case 'Specification':
+      return 'SPECIFICATION';
+    case 'Architecture':
+      return 'ARCHITECTURE';
+    case 'Design':
+      return 'DESIGN';
+    case 'Development':
+      return 'DEVELOPMENT';
+    case 'RIA Build Competition':
+      return 'RIA_BUILD_COMPETITION';
+    case 'UI Prototype Competition':
+      return 'UI_PROTOTYPE_COMPETITION';
+    case 'Assembly Competition':
+      return 'ASSEMBLY_COMPETITION';
+    case 'Test Suites':
+      return 'TEST_SUITES';
+    case 'Test Scenarios':
+      return 'TEST_SCENARIOS';
+    case 'Content Creation':
+      return 'CONTENT_CREATION';
+    case 'Bug Hunt':
+      return 'BUG_HUNT';
+    case 'Design First2Finish':
+      return 'DESIGN_FIRST_2_FINISH';
+    case 'Code':
+      return 'CODE';
+    case 'First2Finish':
+      return 'FIRST_2_FINISH';
+    case 'Marathon Match':
+    case 'DEVELOP_MARATHON_MATCH':
+      return 'MARATHON_MATCH';
+    default:
+      return subTrack;
+  }
+}
+
+/**
+ * normalize challenge from server render
+ * @param challenge
+ */
+function normalizeChallenge(challenge) {
+  _.set(challenge, 'subTrack', normalizeNameConventionForSubtrack(challenge.subTrack));
+  _.set(challenge, 'track', challenge.subTrack === 'MARATHON_MATCH' ? 'DATA_SCIENCE' : challenge.track);
 }
 
 // The container component
@@ -158,7 +223,7 @@ class ChallengeDetailPageContainer extends React.Component {
     }
 
     if (!communitiesList.loadingUuid
-    && (Date.now() - communitiesList.timestamp > 10 * MIN)) {
+      && (Date.now() - communitiesList.timestamp > 10 * MIN)) {
       getCommunitiesList(auth);
     }
 
@@ -205,6 +270,7 @@ class ChallengeDetailPageContainer extends React.Component {
       updateChallenge,
     } = this.props;
 
+
     /* Generation of data for SEO meta-tags. */
     let prizesStr;
     if (challenge.prizes && challenge.prizes.length) {
@@ -226,11 +292,9 @@ class ChallengeDetailPageContainer extends React.Component {
 
     const isEmpty = _.isEmpty(this.props.challenge);
 
-    const hasRegistered = isRegistered(
-      this.props.challenge.userDetails,
-      this.props.challenge.registrants,
-      (this.props.auth.user || {}).handle,
-    );
+    const hasRegistered = _.isUndefined(challenge.isRegistered) ?
+      isRegistered(challenge.userDetails, challenge.registrants, (auth.user || {}).handle) :
+      challenge.isRegistered;
 
     if (this.props.isLoadingChallenge || this.props.isLoadingTerms) {
       return <LoadingPagePlaceholder />;
@@ -239,6 +303,8 @@ class ChallengeDetailPageContainer extends React.Component {
     let winners = challenge.winners || [];
     winners = winners.filter(w => !w.type || w.type === 'final');
 
+    /* normalize challenge from server render */
+    normalizeChallenge(challenge);
     return (
       <div styleName="outer-container">
         <div styleName="challenge-detail-container">

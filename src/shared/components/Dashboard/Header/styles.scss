@@ -27,6 +27,9 @@
   @include tc-title;
 
   margin-right: 20px;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .xlBadge {
