@@ -26,6 +26,7 @@ exports[`Matches shallow shapshot shapshot 1`] = `
       <span
         className="src-shared-components-challenge-listing-Filters-___ChallengeFilters__filter-btn___3sRQR"
         onClick={[Function]}
+        onKeyPress={[Function]}
         role="button"
         tabIndex={0}
       >
@@ -159,6 +160,7 @@ exports[`Matches shallow shapshot shapshot 2`] = `
       <span
         className="src-shared-components-challenge-listing-Filters-___ChallengeFilters__track-btn___34Cfs"
         onClick={[Function]}
+        onKeyPress={[Function]}
         role="button"
         tabIndex={0}
       >
@@ -170,6 +172,7 @@ exports[`Matches shallow shapshot shapshot 2`] = `
       <span
         className="src-shared-components-challenge-listing-Filters-___ChallengeFilters__filter-btn___3sRQR"
         onClick={[Function]}
+        onKeyPress={[Function]}
         role="button"
         tabIndex={0}
       >

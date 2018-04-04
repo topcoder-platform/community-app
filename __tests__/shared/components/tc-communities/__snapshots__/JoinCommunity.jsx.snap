@@ -37,7 +37,6 @@ exports[`Matches shallow shapshot 1`] = `
     skipConfirmJoin={false}
     token="token"
     userId="useId"
-    utmCampaign=""
   />
 </div>
 `;
@@ -195,7 +194,6 @@ exports[`Matches shallow shapshot 5`] = `
     skipConfirmJoin={false}
     token={null}
     userId="useId"
-    utmCampaign=""
   />
 </div>
 `;

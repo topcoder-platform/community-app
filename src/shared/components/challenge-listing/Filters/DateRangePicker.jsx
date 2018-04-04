@@ -46,11 +46,12 @@ class DateRangePicker extends React.Component {
 
 DateRangePicker.defaultProps = {
   onDatesChange: () => true,
-  // readOnly: true,
+  readOnly: true,
 };
 
 DateRangePicker.propTypes = {
   onDatesChange: PT.func,
+  readOnly: PT.bool,
 };
 
 export default DateRangePicker;

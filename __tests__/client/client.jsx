@@ -5,6 +5,16 @@ import PT from 'prop-types';
 import React from 'react';
 import renderer from 'react-test-renderer';
 
+beforeAll(() => {
+  window.TRU_BUILD_INFO = {
+    mode: 'development',
+    timestamp: 'Wed, 29 Nov 2017 07:40:00 GMT',
+  };
+});
+
+afterEach(() => delete window.TRU_FRONT_END);
+afterAll(() => delete window.TRU_BUILD_INFO);
+
 const SRC = '../../src';
 const MODULE = `${SRC}/client/client`;
 
@@ -145,12 +155,12 @@ describe('Properly starts with process.env.FRONT_ENV evaluating true', () => {
 
   let rendered;
 
-  afterAll(() => delete process.env.FRONT_END);
+  afterAll(() => delete window.TRU_FRONT_END);
 
   beforeEach(() => {
     jest.resetModules();
     jest.clearAllMocks();
-    process.env.FRONT_END = true;
+    window.TRU_FRONT_END = true;
 
     let resolve;
     rendered = new Promise((r) => { resolve = r; });

@@ -6,7 +6,6 @@
 
 import React from 'react';
 
-/*
 import Routes from 'routes';
 import ErrorMessage from 'containers/ErrorMessage';
 import ErrorIcons from 'containers/ErrorIcons';
@@ -19,11 +18,8 @@ import 'slick-carousel/slick/slick-theme.css';
 
 const USE_DEV_TOOLS = Boolean(process.env.DEV_TOOLS);
 const DevTools = USE_DEV_TOOLS ? require('containers/DevTools').default : undefined;
-*/
 
 export default function App() {
-  return <div>APP</div>;
-  /*
   return (
     <div>
       <Routes />
@@ -32,5 +28,4 @@ export default function App() {
       { USE_DEV_TOOLS ? <DevTools /> : undefined }
     </div>
   );
-  */
 }

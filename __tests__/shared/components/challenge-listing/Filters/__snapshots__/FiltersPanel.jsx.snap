@@ -15,6 +15,7 @@ exports[`Matches shallow shapshot 1`] = `
     <span
       className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__close-icon___2EeEO"
       onClick={[Function]}
+      onKeyPress={[Function]}
     >
       <UiSimpleRemove
         className="cross"
@@ -224,6 +225,7 @@ exports[`Matches shallow shapshot 2`] = `
     <span
       className="src-shared-components-challenge-listing-Filters-FiltersPanel-___style__close-icon___2EeEO"
       onClick={[Function]}
+      onKeyPress={[Function]}
     >
       <UiSimpleRemove
         className="cross"
