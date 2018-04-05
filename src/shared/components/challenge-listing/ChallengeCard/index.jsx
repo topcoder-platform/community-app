@@ -64,7 +64,7 @@ function ChallengeCard({
   } = challenge;
 
   const legacyChallengeDetailsLink =
-    `${config.URL.COMMUNITY}/tc?module=MatchDetail&rd=${roundId}`;
+    `${config.URL.COMMUNITY}/tc?module=MatchDetails&rd=${roundId}`;
 
   const challengeDetailLink = subTrack === 'MARATHON_MATCH'
     && isLegacy ? legacyChallengeDetailsLink :
