@@ -142,8 +142,8 @@ function filterBySubtracks(challenge, state) {
 
 function filterByTags(challenge, state) {
   if (!state.tags) return true;
-  const str = `${challenge.name} ${challenge.platforms} ${
-    challenge.technologies}`.toLowerCase();
+  const { platforms, technologies } = challenge;
+  const str = `${platforms} ${technologies}`.toLowerCase();
   return state.tags.some(tag => str.includes(tag.toLowerCase()));
 }
 
