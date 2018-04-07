@@ -52,6 +52,18 @@ export const USER_ROLES = {
 };
 
 /**
+ * Given metadata object of a Topcoder sub-community, returns the canonic base
+ * URL of that sub-community.
+ * @param {Object} community Community meta-data.
+ * @return {String}
+ */
+export function getSubCommunityBaseUrl(community) {
+  return community.mainSubdomain ?
+    config.URL.BASE.replace('www', community.mainSubdomain) :
+    `/community/${community.communityId}`;
+}
+
+/**
  * Given user avatar URL from TC API, returns the corresponding avatar URL in
  * Community App CDN.
  * @param {String} apiUrl Avatar URL from TC API.
@@ -259,88 +271,6 @@ export function processSRM(s) {
     srm.currentPhase = 'CODING';
   }
   return srm;
-}
-
-/**
- * calculate challenge related links depends on the type
- * adopt from topcoder-app repo
- * @param  {Object} challenge specified challenge
- * @param  {string} type      type of link
- * @return {string}           calculated link
- */
-export function challengeLinks(challenge, type) {
-  let data;
-  if (challenge.subTrack === 'MARATHON_MATCH') {
-    data = {
-      roundId: challenge.rounds[0].id,
-      forumId: challenge.rounds[0].forumId,
-      componentId: _.get(challenge, 'componentId', ''),
-      challengeId: challenge.id,
-      problemId: _.get(challenge, 'problemId', ''),
-    };
-    switch (type) {
-      case 'forums':
-        return `${config.URL.FORUMS}/?module=ThreadList&forumID=${data.forumId}`;
-      case 'registrants':
-        return `${config.URL.COMMUNITY}/longcontest/?module=ViewRegistrants&rd=${data.roundId}`;
-      case 'submit':
-        return `${config.URL.COMMUNITY}/longcontest/?module=Submit&compid=${data.componentId}&rd=${data.roundId}&cd=${data.challengeId}`;
-      case 'detail':
-        if (challenge.status === 'PAST') {
-          return `${config.URL.COMMUNITY}/longcontest/stats/?module=ViewOverview&rd=${data.roundId}`;
-        } // for all other statues (ACTIVE, UPCOMING), show the problem statement
-        return `${config.URL.COMMUNITY}/longcontest/?module=ViewProblemStatement&pm=${data.problemId}&rd=${data.roundId}`;
-      default:
-        return '';
-    }
-  } else
-  if (challenge.subTrack === 'SRM') {
-    data = {
-      roundId: challenge.rounds[0].id,
-    };
-    switch (type) {
-      case 'detail':
-        return `${config.URL.COMMUNITY}/stat?c=round_overview&rd=${data.roundId}`;
-      default:
-        return '';
-    }
-  } else {
-    data = {
-      track: challenge.track.toLowerCase(),
-      forumId: challenge.forumId,
-      id: challenge.id,
-    };
-    switch (type) {
-      case 'forums':
-        switch (challenge.track.toLowerCase()) {
-          case 'develop':
-            return `${config.URL.FORUMS}/?module=Category&categoryID=${data.forumId}`;
-          case 'data':
-            return `${config.URL.FORUMS}/?module=Category&categoryID=${data.forumId}`;
-          case 'design':
-            return `${config.URL.FORUMS}/?module=ThreadList&forumID=${data.forumId}`;
-          default:
-            return '';
-        }
-      /* eslint no-fallthrough:0 */
-      case 'submissions':
-        return `${config.URL.BASE}/challenge-details/${data.id}/?type=${data.track}#submissions`;
-      case 'registrants':
-        return `${config.URL.BASE}/challenge-details/${data.id}/?type=${data.track}#viewRegistrant`;
-      case 'submit':// TODO use details link for submit, we can replace it with new submission page url
-        return `${config.URL.BASE}/challenge-details/${data.id}/?type=${data.track}`;
-      case 'detail':
-        return `${config.URL.BASE}/challenge-details/${data.id}/?type=${data.track}`;
-      case 'viewScorecards':
-        return `${config.URL.ONLINE_REVIEW}/review/actions/ViewProjectDetails?pid=${data.id}`;
-      case 'completeAppeals':
-        return `${config.URL.ONLINE_REVIEW}/review/actions/EarlyAppeals?pid=${data.id}`;
-      case 'unRegister':
-        return `${config.URL.ONLINE_REVIEW}/review/actions/Unregister?pid=${data.id}`;
-      default:
-        return '';
-    }
-  }
 }
 
 export default undefined;

@@ -4,16 +4,28 @@ import LoadingIndicator from 'components/LoadingIndicator';
 import PT from 'prop-types';
 import React from 'react';
 
+import { getSubCommunityBaseUrl } from 'utils/tc';
+
 import './style.scss';
 
-const CommunityTile = (props) => {
+export default function CommunityTile(props) {
   const { community, stats, statsLoading /* , registered */ } = props;
+
+  const baseUrl = getSubCommunityBaseUrl(community);
+
   return (<div styleName="container">
     <div styleName="left" >
       <img src={require(`assets/images/tc-communities/background/${community.image}`)} alt="" />
       <div styleName="name">{community.communityName}</div>
       <div styleName="desc">{community.description}</div>
-      <a rel="noopener noreferrer" target="_blank" styleName="learn-more" href={`/community/${community.communityId}/home`}>Learn more</a>
+      <a
+        href={baseUrl}
+        rel="noopener noreferrer"
+        styleName="learn-more"
+        target="_blank"
+      >
+        Learn more
+      </a>
     </div>
     <div styleName="right">
       <div styleName="stats">
@@ -44,7 +56,14 @@ const CommunityTile = (props) => {
         {
           /* TODO: Register / unregister button for non-registered communities */
         }
-        <a rel="noopener noreferrer" styleName="link" target="_blank" href={`/community/${community.communityId}/challenges`}>View All Challenges</a>
+        <a
+          href={`${baseUrl}/challenges`}
+          rel="noopener noreferrer"
+          styleName="link"
+          target="_blank"
+        >
+          View All Challenges
+        </a>
         {
           /*
             <div styleName="pipe" />
@@ -55,7 +74,7 @@ const CommunityTile = (props) => {
       </div>
     </div>
   </div>);
-};
+}
 
 CommunityTile.propTypes = {
   stats: PT.shape(),
@@ -74,5 +93,3 @@ CommunityTile.defaultProps = {
   community: {},
   registered: false,
 };
-
-export default CommunityTile;
