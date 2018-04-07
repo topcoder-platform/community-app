@@ -13,6 +13,7 @@ import communityActions from 'actions/tc-communities';
 import Header from 'components/tc-communities/Header';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import { getSubCommunityBaseUrl } from 'utils/tc';
 
 /* Holds one minute in milliseconds. */
 const MIN = 60 * 1000;
@@ -44,9 +45,7 @@ class HeaderContainer extends React.Component {
         communitySelector.push({
           value,
           label: item.communityName,
-          redirect: item.mainSubdomain ? (
-            config.URL.BASE.replace('www', item.mainSubdomain)
-          ) : `/community/${item.communityId}`,
+          redirect: getSubCommunityBaseUrl(item),
         });
       }
     });
