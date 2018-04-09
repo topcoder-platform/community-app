@@ -107,13 +107,10 @@ export function normalizeChallengeDetails(v3, v3Filtered, v3User, username) {
   const challenge = {
     ...v3,
 
-    allPhases: v3.phases || [],
-    submissionEndDate: v3.submissionEndDate,
-    submissionEndTimestamp: v3.submissionEndDate,
-
     id: v3.challengeId,
     reliabilityBonus: v3Filtered.reliabilityBonus || 0,
     status: (v3.currentStatus || '').toUpperCase(),
+
     name: v3.challengeName,
     projectId: Number(v3.projectId),
     forumId: Number(v3.forumId),
@@ -173,6 +170,11 @@ export function normalizeChallengeDetails(v3, v3Filtered, v3User, username) {
 
       track: newsubTrack === 'MARATHON_MATCH' ? 'DATA_SCIENCE' : v3Filtered.track,
       subTrack: newsubTrack,
+      submissionEndDate: v3Filtered.submissionEndDate, // Dates are not correct in v3
+      submissionEndTimestamp: v3Filtered.submissionEndDate, // Dates are not correct in v3
+
+      /* Taking phases from v3_filtered, because dates are not correct in v3 */
+      allPhases: v3Filtered.allPhases || [],
 
       /* Taking phases from v3_filtered, because dates are not correct in v3 */
       currentPhases: v3Filtered.currentPhases || [],
