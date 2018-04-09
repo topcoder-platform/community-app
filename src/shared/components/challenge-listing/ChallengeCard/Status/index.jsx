@@ -85,7 +85,7 @@ export default function ChallengeStatus(props) {
 
   const {
     challengesUrl,
-    newChallengeDetails,
+    mmRegLink,
     selectChallengeDetailsTab,
     userHandle,
   } = props;
@@ -175,7 +175,7 @@ export default function ChallengeStatus(props) {
     }
     return (
       <a
-        href={detailLink}
+        href={challenge.subTrack === 'MARATHON_MATCH' ? mmRegLink : detailLink}
         onClick={() => false}
         styleName="register-button"
         target={openChallengesInNewTabs ? '_blank' : undefined}
@@ -264,7 +264,6 @@ export default function ChallengeStatus(props) {
             <NumRegistrants
               challenge={props.challenge}
               challengesUrl={challengesUrl}
-              newChallengeDetails={newChallengeDetails}
               selectChallengeDetailsTab={selectChallengeDetailsTab}
             />
           </div>
@@ -272,7 +271,6 @@ export default function ChallengeStatus(props) {
             <NumSubmissions
               challenge={props.challenge}
               challengesUrl={challengesUrl}
-              newChallengeDetails={newChallengeDetails}
               selectChallengeDetailsTab={selectChallengeDetailsTab}
             />
           </div>
@@ -319,6 +317,7 @@ export default function ChallengeStatus(props) {
 ChallengeStatus.defaultProps = {
   challenge: {},
   detailLink: '',
+  mmRegLink: '',
   openChallengesInNewTabs: false,
   userHandle: '',
 };
@@ -327,7 +326,7 @@ ChallengeStatus.propTypes = {
   challenge: PT.shape(),
   challengesUrl: PT.string.isRequired,
   detailLink: PT.string,
-  newChallengeDetails: PT.bool.isRequired,
+  mmRegLink: PT.string,
   openChallengesInNewTabs: PT.bool,
   selectChallengeDetailsTab: PT.func.isRequired,
   userHandle: PT.string,

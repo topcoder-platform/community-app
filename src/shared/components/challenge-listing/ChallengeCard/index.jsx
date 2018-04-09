@@ -65,6 +65,8 @@ function ChallengeCard({
 
   const legacyChallengeDetailsLink =
     `${config.URL.COMMUNITY}/tc?module=MatchDetails&rd=${roundId}`;
+  const mmRegLink =
+    `${config.URL.COMMUNITY}/tc?module=ViewReg&rd=${roundId}`;
 
   const challengeDetailLink = subTrack === 'MARATHON_MATCH'
     && isLegacy ? legacyChallengeDetailsLink :
@@ -174,6 +176,7 @@ function ChallengeCard({
           challenge={challenge}
           challengesUrl={challengesUrl}
           detailLink={subTrack === 'MARATHON_MATCH' ? legacyChallengeDetailsLink : challengeDetailLink}
+          mmRegLink={mmRegLink}
           newChallengeDetails={newChallengeDetails}
           openChallengesInNewTabs={openChallengesInNewTabs}
           sampleWinnerProfile={sampleWinnerProfile}

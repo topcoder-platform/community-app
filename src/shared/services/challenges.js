@@ -102,7 +102,7 @@ function normalizeNameConventionForSubtrack(subTrack) {
  * @param {String} username Optional.
  * @return {Object} Normalized challenge object.
  */
-export function normalizeChallengeDetails(v3, v3Filtered, v3User, v2, username) {
+export function normalizeChallengeDetails(v3, v3Filtered, v3User, username) {
   // Normalize exising data to make it consistent with the rest of the code
   const challenge = {
     ...v3,
@@ -195,19 +195,6 @@ export function normalizeChallengeDetails(v3, v3Filtered, v3User, v2, username) 
     });
   }
 
-  // Fill missing data from v2
-  if (v2) {
-    _.defaults(challenge, {
-      round1Introduction: v2.round1Introduction || '', // This is always null in v3 for some reason
-      round2Introduction: v2.round2Introduction || '', // This is always null in v3 for some reason
-      registrants: v2.registrants || [], // Registrants are now only returned by v2
-
-      /* Although v3 does return appealsEndDate, it causes incorrect 'Winners'
-       * phase time for some reason */
-      appealsEndDate: v2.appealsEndDate,
-    });
-  }
-
   // Fill some derived data
   const registrationOpen = _.some(challenge.allPhases,
     phase => phase.phaseType === 'Registration' && phase.phaseStatus === 'Open') ? 'Yes' : 'No';
@@ -218,10 +205,11 @@ export function normalizeChallengeDetails(v3, v3Filtered, v3User, v2, username) 
   });
 
   // A hot fix to show submissions for on-going challenges
-  if ((!challenge.submissions || !challenge.submissions.length) && !_.isEmpty(v2)) {
-    challenge.submissions = v2.registrants
-      .filter(r => r.submissionDate)
-      .sort((a, b) => a.submissionDate.localeCompare(b.submissionDate));
+  if (!challenge.submissions || !challenge.submissions.length) {
+    challenge.submissions = v3.registrants
+      .filter(r => r.submissionDate || '')
+      .sort((a, b) => (a.submissionDate || '')
+        .localeCompare(b.submissionDate || ''));
   }
 
   return challenge;
@@ -421,15 +409,10 @@ class ChallengesService {
     const challengeV3User = username && await this.getUserChallenges(username, { id: challengeId })
       .then(res => res.challenges[0]);
 
-    const track = challengeV3Filtered.track.toLowerCase() || 'develop';
-    const challengeV2 = await this.private.apiV2.fetch(`/${track}/challenges/${challengeId}`)
-      .then(res => res.json());
-
     const challenge = normalizeChallengeDetails(
-      challengeV3, challengeV3Filtered, challengeV3User, challengeV2, username);
+      challengeV3, challengeV3Filtered, challengeV3User, username);
 
-    challenge.fetchedWithAuth =
-      Boolean(this.private.api.private.token && this.private.apiV2.private.token);
+    challenge.fetchedWithAuth = Boolean(this.private.api.private.token);
 
     return challenge;
   }
