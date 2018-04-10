@@ -86,9 +86,13 @@ function getOgImage(challenge) {
 }
 
 function isRegistered(details, registrants, handle) {
+  /*
+    TODO: This code is commented out because related API is broken now
+    and does not set / clear Submitter role properly.
   if (details && details.roles && details.roles.includes('Submitter')) {
     return true;
   }
+  */
   if (_.find(registrants, r => r.handle === handle)) {
     return true;
   }
