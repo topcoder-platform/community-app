@@ -8,31 +8,42 @@ import React from 'react';
 import PT from 'prop-types';
 import _ from 'lodash';
 import actions from 'actions/tc-communities';
+import shortId from 'shortid';
 import Terms from 'containers/Terms';
 import termsActions from 'actions/terms';
+
 import JoinCommunity, {
   STATE as JOIN_COMMUNITY,
 } from 'components/tc-communities/JoinCommunity';
 import { connect } from 'react-redux';
 
-const JoinCommunityContainer = (props) => {
-  const { token, groupIds, userId, terms, openTermsModal,
-    communityId, join, joinCommunityWrapper } = props;
+class JoinCommunityContainer extends React.Component {
+  constructor(props) {
+    super(props);
+    this.instanceId = shortId();
+  }
 
-  const hasNotAgreedTerms = terms && terms.length && !_.every(terms, 'agreed');
-  const onJoinClick = hasNotAgreedTerms ? openTermsModal : join;
+  render() {
+    const { token, groupIds, userId, terms, openTermsModal,
+      communityId, join, joinCommunityWrapper } = this.props;
 
-  return (
-    <div className={joinCommunityWrapper}>
-      <Terms
-        entity={{ type: 'community', id: communityId }}
-        description="You are seeing these Terms & Conditions because you are going to join a community and you have to respect the terms below in order to be able to be a member."
-        register={() => join(token, groupIds[0], userId)}
-      />
-      <JoinCommunity {...props} join={onJoinClick} />
-    </div>
-  );
-};
+    const hasNotAgreedTerms = terms && terms.length && !_.every(terms, 'agreed');
+    const onJoinClick = hasNotAgreedTerms ?
+      () => openTermsModal(this.instanceId) : join;
+
+    return (
+      <div className={joinCommunityWrapper}>
+        <Terms
+          entity={{ type: 'community', id: communityId }}
+          description="You are seeing these Terms & Conditions because you are going to join a community and you have to respect the terms below in order to be able to be a member."
+          instanceId={this.instanceId}
+          register={() => join(token, groupIds[0], userId)}
+        />
+        <JoinCommunity {...this.props} join={onJoinClick} />
+      </div>
+    );
+  }
+}
 
 JoinCommunityContainer.defaultProps = {
   token: '',
@@ -93,9 +104,9 @@ function mapDispatchToProps(dispatch) {
     },
     resetJoinButton: () => dispatch(a.resetJoinButton()),
     showJoinConfirmModal: () => dispatch(a.showJoinConfirmModal()),
-    openTermsModal: () => {
+    openTermsModal: (uuid) => {
       dispatch(a.resetJoinButton());
-      dispatch(t.openTermsModal());
+      dispatch(t.openTermsModal(uuid));
     },
   };
 }
