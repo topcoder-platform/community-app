@@ -219,7 +219,7 @@ export default function ChallengeHeader(props) {
   let mmRegLink;
   let mmSubLink;
   if (subTrack === 'MARATHON_MATCH') {
-    mmRegLink = `${config.URL.COMMUNITY}/tc?module=ViewReg&rd=${roundId}`;
+    mmRegLink = `${config.URL.COMMUNITY}/longcontest/?module=ViewReg&rd=${roundId}`;
     mmSubLink = `${config.URL.COMMUNITY}/longcontest/?module=Submit&rd=${roundId}&compid=${componentId}&cd=${contestId}`;
   }
 
