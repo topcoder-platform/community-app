@@ -194,7 +194,7 @@ function mapDispatchToProps(dispatch) {
     },
     onPhaseExpand: () => dispatch(page.togglePhasesExpand()),
     openTermsModal: () => {
-      dispatch(terms.openTermsModal());
+      dispatch(terms.openTermsModal('ANY'));
     },
     selectTab: tab => dispatch(page.selectTab(tab)),
     setRoles: roles => dispatch(page.setRoles(roles)),
