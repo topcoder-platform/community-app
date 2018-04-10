@@ -11,6 +11,8 @@ import _ from 'lodash';
 import Terms from 'components/Terms';
 import termsActions from 'actions/terms';
 
+let isAnyTermModalOpen = false;
+
 class TermsPageContainer extends React.Component {
   componentDidMount() {
     const { loadTerms, authTokens, entity, termsForEntity } = this.props;
@@ -31,37 +33,56 @@ class TermsPageContainer extends React.Component {
     }
   }
 
+  componentWillUnmount() {
+    if (this.forceOpen) isAnyTermModalOpen = false;
+  }
+
   render() {
+    const {
+      closeTermsModal,
+      instanceId,
+      openTermsModalUuid,
+    } = this.props;
+
+    if (openTermsModalUuid === 'ANY' && !isAnyTermModalOpen) {
+      isAnyTermModalOpen = true;
+      this.forceOpen = true;
+    }
+    const open = (openTermsModalUuid && openTermsModalUuid === instanceId)
+    || (openTermsModalUuid === 'ANY' && this.forceOpen);
+
     return (
       <div>
-        {this.props.showTermsModal &&
-          <Terms
-            agreeingTerm={this.props.agreeingTerm}
-            agreeTerm={termId => this.props.agreeTerm(this.props.authTokens, termId)}
-            canRegister={this.props.canRegister}
-            checkingStatus={this.props.checkingStatus}
-            checkStatus={() => this.props.checkStatus(this.props.authTokens, this.props.entity)}
-            defaultTitle={this.props.defaultTitle}
-            description={this.props.description}
-            details={this.props.termDetails}
-            docuSignUrl={this.props.docuSignUrl}
-            getDocuSignUrl={(templateId) => {
-              const base = window ? window.location.href.match('.*://[^/]*')[0] : '';
-              return this.props.getDocuSignUrl(this.props.authTokens,
-                templateId, `${base}/community-app-assets/iframe-break`);
-            }}
-            isLoadingTerms={this.props.isLoadingTerms}
-            loadDetails={termId => this.props.loadTermDetails(this.props.authTokens, termId)}
-            loadingDocuSignUrl={this.props.loadingDocuSignUrl}
-            loadingTermId={this.props.loadingTermId}
-            onCancel={this.props.closeTermsModal}
-            register={this.props.register}
-            selectedTerm={this.props.selectedTerm}
-            selectTerm={this.props.selectTerm}
-            signDocu={this.props.signDocu}
-            terms={this.props.terms}
-            viewOnly={this.props.viewOnly}
-          />
+        {
+          open ? (
+            <Terms
+              agreeingTerm={this.props.agreeingTerm}
+              agreeTerm={termId => this.props.agreeTerm(this.props.authTokens, termId)}
+              canRegister={this.props.canRegister}
+              checkingStatus={this.props.checkingStatus}
+              checkStatus={() => this.props.checkStatus(this.props.authTokens, this.props.entity)}
+              defaultTitle={this.props.defaultTitle}
+              description={this.props.description}
+              details={this.props.termDetails}
+              docuSignUrl={this.props.docuSignUrl}
+              getDocuSignUrl={(templateId) => {
+                const base = window ? window.location.href.match('.*://[^/]*')[0] : '';
+                return this.props.getDocuSignUrl(this.props.authTokens,
+                  templateId, `${base}/community-app-assets/iframe-break`);
+              }}
+              isLoadingTerms={this.props.isLoadingTerms}
+              loadDetails={termId => this.props.loadTermDetails(this.props.authTokens, termId)}
+              loadingDocuSignUrl={this.props.loadingDocuSignUrl}
+              loadingTermId={this.props.loadingTermId}
+              onCancel={() => closeTermsModal(instanceId)}
+              register={this.props.register}
+              selectedTerm={this.props.selectedTerm}
+              selectTerm={this.props.selectTerm}
+              signDocu={this.props.signDocu}
+              terms={this.props.terms}
+              viewOnly={this.props.viewOnly}
+            />
+          ) : null
         }
       </div>
     );
@@ -107,14 +128,23 @@ TermsPageContainer.propTypes = {
   entity: enitytType.isRequired,
   getDocuSignUrl: PT.func.isRequired,
   isLoadingTerms: PT.bool,
+
+  /* WARNING: This is very important prop! It is not safe to open multiple terms
+   * modal simultaneously: DocuSign terms will fail to load, if the same terms
+   * is shown in multiple modals. To prevent this, parent component should pass
+   * into terms container an UUID that will be used then in actions to open
+   * this exact modal. */
+  instanceId: PT.string.isRequired,
+
   loadingDocuSignUrl: PT.string,
   loadingTermId: PT.string,
   loadTermDetails: PT.func.isRequired,
   loadTerms: PT.func.isRequired,
+  openTermsModalUuid: PT.string.isRequired,
   register: PT.func.isRequired,
   selectedTerm: PT.shape(),
   selectTerm: PT.func.isRequired,
-  showTermsModal: PT.bool,
+
   signDocu: PT.func.isRequired,
   termDetails: PT.shape(),
   terms: PT.arrayOf(PT.shape()),
@@ -131,8 +161,8 @@ const mapStateToProps = (state, props) => ({
   isLoadingTerms: _.isEqual(state.terms.loadingTermsForEntity, props.entity),
   loadingDocuSignUrl: state.terms.loadingDocuSignUrl,
   loadingTermId: state.terms.loadingDetailsForTermId,
+  openTermsModalUuid: state.terms.openTermsModalUuid,
   selectedTerm: state.terms.selectedTerm,
-  showTermsModal: state.terms.showTermsModal,
   termDetails: state.terms.details,
   terms: state.terms.terms,
   termsForEntity: state.terms.entity,
@@ -142,8 +172,8 @@ const mapStateToProps = (state, props) => ({
 const mapDispatchToProps = (dispatch) => {
   const t = termsActions.terms;
   return {
-    closeTermsModal: () => {
-      dispatch(t.closeTermsModal());
+    closeTermsModal: (uuid) => {
+      dispatch(t.closeTermsModal(uuid));
     },
     selectTerm: (term) => {
       dispatch(t.selectTerm(term));
