@@ -68,7 +68,7 @@ export default function ChallengeViewSelector(props) {
   /* This code use to marathon match registration/submission link in the future */
   const isMM = challenge.subTrack === 'MARATHON_MATCH';
 
-  const registranstsLink = `${config.URL.COMMUNITY}/longcontest/?module=ViewReg&rd=${challenge.id}`;
+  const registranstsLink = `${config.URL.COMMUNITY}/longcontest/?module=ViewReg&rd=${challenge.roundId}`;
   const submissionsLink = `${config.URL.COMMUNITY}/longcontest/?longcontest/?module=ViewRegistrants&rd=${challenge.roundId}`;
 
   return (
