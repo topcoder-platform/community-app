@@ -25,7 +25,7 @@ export const CHALLENGE_PHASE_TYPES = {
  * uses upper-case literals to encode the tracks. At some point, we should
  * update it in this code as well! */
 export const COMPETITION_TRACKS = {
-  DATA_SCIENCE: 'datasci',
+  DATA_SCIENCE: 'data_science',
   DESIGN: 'design',
   DEVELOP: 'develop',
 };

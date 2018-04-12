@@ -22,9 +22,6 @@ export const PRIZE_MODE = {
   POINTS: 'points',
 };
 
-// Constants
-const ID_LENGTH = 6;
-
 // Get the End date of a challenge
 const getEndDate = (c) => {
   let phases = c.allPhases;
@@ -59,22 +56,21 @@ function ChallengeCard({
     challenge.isDataScience = true;
   }
   challenge.prize = challenge.prizes || [];
-  // challenge.totalPrize = challenge.prize.reduce((x, y) => y + x, 0)
-  const isMM = _.toString(challenge.id).length < ID_LENGTH;
-  let challengeDetailLink;
-  {
-    const challengeUrl = newChallengeDetails
-      ? `${challengesUrl}/` : `${config.URL.BASE}/challenge-details/`;
-    if (challenge.track === 'DATA_SCIENCE') {
-      const mmDetailUrl = `${config.URL.COMMUNITY}/tc?module=MatchDetails&rd=`;
-      /* TODO: Don't we have a better way, whether a challenge is MM or not? */
-      challengeDetailLink = isMM
-        ? `${mmDetailUrl}${challenge.rounds[0].id}`
-        : `${challengeUrl}${challenge.id}`;
-    } else {
-      challengeDetailLink = `${challengeUrl}${challenge.id}`;
-    }
-  }
+
+  const {
+    isLegacy,
+    roundId,
+    subTrack,
+  } = challenge;
+
+  const legacyChallengeDetailsLink =
+    `${config.URL.COMMUNITY}/tc?module=MatchDetails&rd=${roundId}`;
+  const mmRegLink =
+    `${config.URL.COMMUNITY}/tc?module=ViewReg&rd=${roundId}`;
+
+  const challengeDetailLink = subTrack === 'MARATHON_MATCH'
+    && isLegacy ? legacyChallengeDetailsLink :
+    `${challengesUrl}/${challenge.id}`;
 
   const registrationPhase = challenge.allPhases.filter(phase => phase.phaseType === 'Registration')[0];
   const isRegistrationOpen = registrationPhase ? registrationPhase.phaseStatus === 'Open' : false;
@@ -122,11 +118,14 @@ function ChallengeCard({
     <div styleName="challengeCard">
       <div styleName="left-panel">
         <div styleName="challenge-track">
-          <TrackAbbreviationTooltip track={challenge.track} subTrack={challenge.subTrack}>
+          <TrackAbbreviationTooltip
+            subTrack={subTrack}
+            track={challenge.track}
+          >
             <span>
               <TrackIcon
                 track={challenge.track}
-                subTrack={challenge.subTrack}
+                subTrack={subTrack}
                 tcoEligible={challenge.events ? challenge.events[0].eventName : ''}
                 isDataScience={challenge.isDataScience}
               />
@@ -158,24 +157,26 @@ function ChallengeCard({
       </div>
       <div styleName="right-panel">
         <div styleName={isRegistrationOpen ? 'prizes with-register-button' : 'prizes'}>
-          {(prizeMode !== PRIZE_MODE.HIDDEN) && (
-            <Prize
-              bonuses={bonuses}
-              label={prizeMode === PRIZE_MODE.POINTS ? 'Points' : 'Purse'}
-              points={challenge.drPoints}
-              prizes={prizes}
-              prizeUnitSymbol={prizeUnitSymbol}
-              totalPrize={totalPrize}
-              withoutTooltip={prizeMode === PRIZE_MODE.POINTS}
-              isMM={isMM}
-            />
-          )}
+          {
+            (prizeMode !== PRIZE_MODE.HIDDEN && (!isLegacy || totalPrize)) ? (
+              <Prize
+                bonuses={bonuses}
+                label={prizeMode === PRIZE_MODE.POINTS ? 'Points' : 'Purse'}
+                points={challenge.drPoints}
+                prizes={prizes}
+                prizeUnitSymbol={prizeUnitSymbol}
+                totalPrize={totalPrize}
+                withoutTooltip={prizeMode === PRIZE_MODE.POINTS}
+              />
+            ) : null
+          }
         </div>
 
         <ChallengeStatus
           challenge={challenge}
           challengesUrl={challengesUrl}
-          detailLink={challengeDetailLink}
+          detailLink={subTrack === 'MARATHON_MATCH' ? legacyChallengeDetailsLink : challengeDetailLink}
+          mmRegLink={mmRegLink}
           newChallengeDetails={newChallengeDetails}
           openChallengesInNewTabs={openChallengesInNewTabs}
           sampleWinnerProfile={sampleWinnerProfile}

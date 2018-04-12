@@ -5,6 +5,7 @@
  */
 
 import _ from 'lodash';
+import config from 'utils/config';
 import moment from 'moment';
 import 'moment-duration-format';
 
@@ -42,11 +43,15 @@ export default function ChallengeHeader(props) {
   } = props;
 
   const {
+    componentId,
+    contestId,
     drPoints,
     id: challengeId,
     name,
+    roundId,
     subTrack,
     track,
+
     events,
     technologies,
     platforms,
@@ -81,7 +86,7 @@ export default function ChallengeHeader(props) {
 
   let trackLower = track ? track.toLowerCase() : 'design';
   if (technologies.includes('Data Science')) {
-    trackLower = 'datasci';
+    trackLower = 'data_science';
   }
 
   const eventNames = (events || []).map((event => (event.eventName || '').toUpperCase()));
@@ -211,6 +216,13 @@ export default function ChallengeHeader(props) {
       break;
   }
 
+  let mmRegLink;
+  let mmSubLink;
+  if (subTrack === 'MARATHON_MATCH') {
+    mmRegLink = `${config.URL.COMMUNITY}/longcontest/?module=ViewReg&rd=${roundId}`;
+    mmSubLink = `${config.URL.COMMUNITY}/longcontest/?module=Submit&rd=${roundId}&compid=${componentId}&cd=${contestId}`;
+  }
+
   return (
     <div styleName="challenge-outer-container">
       <div styleName="important-detail">
@@ -236,7 +248,7 @@ export default function ChallengeHeader(props) {
                       <p styleName="bonus-text">
                         <span styleName={`bonus-highlight ${trackLower}-accent-color`}>
                           BONUS: {numberOfCheckpointsPrizes} </span>CHECKPOINTS AWARDED
-                          WORTH <span styleName={`bonus-highlight ${trackLower}-accent-color`}>${topCheckPointPrize} </span>EACH
+                        WORTH <span styleName={`bonus-highlight ${trackLower}-accent-color`}>${topCheckPointPrize} </span>EACH
                       </p> :
                       <p styleName="bonus-text">
                         <span styleName={`bonus-highlight ${trackLower}-accent-color`}>
@@ -262,28 +274,28 @@ export default function ChallengeHeader(props) {
               {hasRegistered ? (
                 <DangerButton
                   disabled={unregistering || registrationEnded
-                    || hasSubmissions}
-                  onClick={unregisterFromChallenge}
+                  || hasSubmissions}
+                  forceA
+                  onClick={mmRegLink ? null : unregisterFromChallenge}
                   theme={{ button: style.challengeAction }}
+                  to={mmRegLink}
                 >Unregister</DangerButton>
               ) : (
                 <PrimaryButton
                   disabled={registering || registrationEnded}
-                  onClick={registerForChallenge}
+                  forceA
+                  onClick={mmRegLink ? null : registerForChallenge}
                   theme={{ button: style.challengeAction }}
+                  to={mmRegLink}
                 >Register</PrimaryButton>
               )}
               <PrimaryButton
                 disabled={!hasRegistered || unregistering || submissionEnded}
                 theme={{ button: style.challengeAction }}
-                to={`${challengesUrl}/${challengeId}/submit`}
+                to={mmSubLink || `${challengesUrl}/${challengeId}/submit`}
               >Submit</PrimaryButton>
               { track === 'DESIGN' && hasRegistered && !unregistering
-                && hasSubmissions && (
-                  <PrimaryButton
-                    theme={{ button: style.challengeAction }}
-                    to={`${challengesUrl}/${challengeId}/my-submissions`}
-                  >View Submissions</PrimaryButton>
+              && hasSubmissions && (<PrimaryButton theme={{ button: style.challengeAction }} to={`${challengesUrl}/${challengeId}/my-submissions`}>View Submissions</PrimaryButton>
                 )
               }
             </div>
