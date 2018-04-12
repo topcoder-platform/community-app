@@ -572,7 +572,7 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(cl.getChallengeSubtracksDone());
     },
     openTermsModal: (term) => {
-      dispatch(t.openTermsModal(term));
+      dispatch(t.openTermsModal('ANY', term));
     },
     updateChallenge: (challenge, tokenV3) => {
       const uuid = shortId();

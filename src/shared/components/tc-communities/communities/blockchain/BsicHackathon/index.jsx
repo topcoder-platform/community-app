@@ -79,7 +79,7 @@ export default function BsicHackathon() {
             <h3 styleName="timelinePhaseName">
               Registration and Team Formation:
             </h3>&zwnj;
-            March 21st - April 9th
+            March 21st - April 16th
           </div>
           <div styleName="nowrap">
             <h3 styleName="timelinePhaseName">Competition:</h3>&zwnj;

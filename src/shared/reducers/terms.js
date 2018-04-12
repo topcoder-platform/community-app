@@ -174,27 +174,39 @@ function onAgreeTermDone(state, action) {
 }
 
 /**
- * Handles TERMS/OPEN_TERMS_MODAL action.
+ * Opens the specified instance of terms modal + selects the terms to show in
+ * there, although the exact functioning of that functionality was not
+ * documented, thus has to be tracked.
  * @param {Object} state
  * @param {Object} action
  * @return {Object} New state.
  */
 function onOpenTermsModal(state, action) {
-  if (action.payload) {
-    return {
-      ...state,
-      showTermsModal: true,
-      selectedTerm: action.payload,
-      viewOnly: true,
-    };
+  const { modalInstanceUuid } = action.payload;
+
+  let { selectedTerm } = action.payload;
+  if (!selectedTerm) {
+    selectedTerm = _.find(state.terms, t => !t.agreed) || state.terms[0];
   }
-  const selectedTerm = _.find(state.terms, t => !t.agreed) || state.terms[0];
+
   return {
     ...state,
-    showTermsModal: true,
+    openTermsModalUuid: modalInstanceUuid,
     selectedTerm,
-    viewOnly: false,
+    viewOnly: Boolean(action.payload.selectedTerm),
   };
+}
+
+/**
+ * Closes the specified terms modal, if necessary.
+ * @param {Object} state
+ * @param {Object} action
+ * @return {Object} New state.
+ */
+function onCloseTermsModal(state, { payload }) {
+  if (payload !== state.openTermsModalUuid
+  && state.openTermsModalUuid !== 'ANY') return state;
+  return { ...state, openTermsModalUuid: '' };
 }
 
 /**
@@ -275,8 +287,10 @@ function create(initialState) {
       agreeingTerm: payload,
     }),
     [actions.terms.agreeTermDone]: onAgreeTermDone,
+
     [actions.terms.openTermsModal]: onOpenTermsModal,
-    [actions.terms.closeTermsModal]: state => ({ ...state, showTermsModal: false }),
+    [actions.terms.closeTermsModal]: onCloseTermsModal,
+
     [actions.terms.selectTerm]: (state, { payload }) => ({ ...state, selectedTerm: payload }),
     [actions.terms.signDocu]: onSignDocu,
     [actions.terms.checkStatusInit]: state => ({
@@ -287,7 +301,7 @@ function create(initialState) {
   }, initialState || {
     getTermsFailure: false,
     terms: [],
-    showTermsModal: false,
+    openTermsModalUuid: '',
     selectedTerm: null,
     viewOnly: false,
     checkingStatus: false,
@@ -335,7 +349,7 @@ export function factory(req) {
         // if we try to join community automatically, but not all terms are agreed,
         // then we show terms modal (also we make sure is logged in before open)
         if (tokens.tokenV3 && req.query.join && !_.every(termsDoneAction.payload.terms, 'agreed')) {
-          state = onOpenTermsModal(state, actions.terms.openTermsModal());
+          state = onOpenTermsModal(state, actions.terms.openTermsModal('ANY'));
         }
 
         return create(state);
