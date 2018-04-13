@@ -41,6 +41,16 @@ class MembersService {
   }
 
   /**
+   * Gets member skills.
+   * @param {String} handle
+   * @return {Promise} Resolves to the stats object.
+   */
+  async getSkills(handle) {
+    const res = await this.private.api.get(`/members/${handle}/skills`);
+    return getApiResponsePayloadV3(res);
+  }
+
+  /**
    * Gets member statistics.
    * @param {String} handle
    * @return {Promise} Resolves to the stats object.

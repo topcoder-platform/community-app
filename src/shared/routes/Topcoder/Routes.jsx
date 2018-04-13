@@ -19,6 +19,7 @@ import { Route, Switch } from 'react-router-dom';
 import ChallengeListing from './ChallengeListing';
 import Dashboard from './Dashboard';
 import HallOfFame from '../tco/HallOfFame';
+import Profile from '../Profile';
 import Scoreboard from '../tco/scoreboard';
 
 import './styles.scss';
@@ -60,6 +61,11 @@ export default function Topcoder() {
           component={HallOfFame}
           exact
           path="/tco-hall-of-fame/:eventId?"
+        />
+        <Route
+          component={Profile}
+          exact
+          path="/members/:handle([\w\-\[\].{}]{2,15})"
         />
         <Error404 />
       </Switch>

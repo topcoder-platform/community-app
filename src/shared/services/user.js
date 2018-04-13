@@ -32,6 +32,17 @@ export default class User {
   }
 
   /**
+   * Gets public user info. Does not need auth.
+   * @param {String} username
+   * @return {Object}
+   */
+  async getUserPublic(username) {
+    const res = await this.private.apiV2.get(`/users/${username}`);
+    if (!res.ok) throw new Error(res.statusText);
+    return res.json() || null;
+  }
+
+  /**
    * Gets user data object for the specified username.
    *
    * NOTE: Only admins are authorized to use the underlying endpoint.
@@ -61,4 +72,3 @@ export function getService(tokenV3, tokenV2) {
   }
   return lastInstance;
 }
-
