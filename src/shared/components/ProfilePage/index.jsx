@@ -6,16 +6,19 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import PT from 'prop-types';
 import { PrimaryButton } from 'topcoder-react-ui-kit';
-import { isNumber, isNull } from 'lodash';
+import Sticky from 'react-stickynode';
+import { isNumber, isNull, isEmpty, orderBy } from 'lodash';
 
+import config from 'utils/config';
 import { getRatingColor } from 'utils/tc';
 
 import ArrowNext from 'assets/images/arrow-next.svg';
-
 import CopilotIcon from 'assets/images/profile/ico-track-copilot.svg';
 import DataScienceIcon from 'assets/images/profile/ico-track-data.svg';
 import DesignIcon from 'assets/images/profile/ico-track-design.svg';
 import DevelopIcon from 'assets/images/profile/ico-track-develop.svg';
+import Robot from 'assets/images/robot-happy.svg';
+
 
 import Header from './Header';
 
@@ -67,7 +70,11 @@ class ProfilePage extends React.Component {
         }
       });
       if (active.length > 0) {
-        activeTracks.push({ name: track, subTracks: active });
+        const sorted = orderBy(active, [
+          s => s.wins,
+          s => (s.rank ? s.rank.rating : 0),
+        ], ['desc', 'desc']);
+        activeTracks.push({ name: track, subTracks: sorted });
       }
     });
 
@@ -89,23 +96,36 @@ class ProfilePage extends React.Component {
       skillsExpanded,
     } = this.state;
 
+    const activeTracks = this.getActiveTracks();
+
     return (
       <div styleName="outer-container">
         <div styleName="profile-container">
           <div styleName="about-container">
             <div id="affix" styleName="profile-header-container">
-              <div styleName="sticky-container">
-                <Header
-                  copilot={copilot}
-                  country={country}
-                  info={info}
-                  onShowBadges={() => this.setState({ badgesModalOpen: true })}
-                  showBadgesButton={achievements.length > 0}
-                  wins={stats.wins}
-                />
-              </div>
+              <Sticky top={10}>
+                <div styleName="sticky-container">
+                  <Header
+                    copilot={copilot}
+                    country={country}
+                    info={info}
+                    onShowBadges={() => this.setState({ badgesModalOpen: true })}
+                    showBadgesButton={achievements.length > 0}
+                    wins={stats.wins}
+                  />
+                </div>
+              </Sticky>
             </div>
             <div styleName="profile-about-container">
+              {
+                isEmpty(skills) && isEmpty(activeTracks) &&
+                <div styleName="empty-profile">
+                  <h2>BEEP. BEEP. HELLO!</h2>
+                  <Robot />
+                  <p>Seems like this member doesn’t have much information to share yet.</p>
+                  <PrimaryButton theme={style} to={`${config.URL.BASE}/community/members`}>VIEW OTHER MEMBERS</PrimaryButton>
+                </div>
+              }
               {
                 skills && skills.length > 0 &&
                 <div id="profile-skills">
@@ -136,7 +156,7 @@ class ProfilePage extends React.Component {
               <div id="profile-activity">
                 <div styleName="categories">
                   {
-                    this.getActiveTracks().map(track => (
+                    activeTracks.map(track => (
                       <div key={track.name} styleName="track">
                         <div styleName="name">
                           { track.name === 'COPILOT' && <CopilotIcon /> }
@@ -148,7 +168,7 @@ class ProfilePage extends React.Component {
                         {
                           track.subTracks.map((subtrack, index) => (
                             <Link to="#" key={subtrack.name} styleName={`subtrack ${index === 0 ? 'first' : ''}`}>
-                              <div styleName="name">{subtrack.name === 'FIRST_2_FINISH' ? 'FIRST2FINISH' : subtrack.name.replace(/_/g, ' ')}</div>
+                              <div styleName="name">{subtrack.name.replace('FIRST_2_FINISH', 'FIRST2FINISH').replace(/_/g, ' ')}</div>
                               {
                                 subtrack.rank && !isNull(subtrack.rank.rating) &&
                                   <div styleName="ranking">
