@@ -1,71 +1,565 @@
 @import "~styles/mixins";
 
-.outer-container {
-  background: $tc-gray-neutral-dark;
-  display: block;
-  width: 100%;
+@mixin module-s {
+  margin-top: 6px;
+  background-color: $tc-white;
+}
 
-  @include xs-to-lg {
-    width: calc(100vw);
-  }
+@mixin module-l {
+  @include module-s;
 
-  @include xs-to-lg {
-    padding: 7px 10px 20px 10px;
-  }
+  max-width: 1242px;
+  margin-left: 10px;
+  margin-right: 10px;
+  padding-top: 30px;
 
-  @include lg-to-xl {
-    padding: 30px 64px 50px 64px;
+  @media only screen and (min-width: 900px) {
+    padding-top: 30px;
   }
 }
 
-.page {
-  @include roboto-regular;
-
-  background: #f6f6f6;
-  border-radius: 4 * $corner-radius;
-  box-shadow: 0 0 8px #ccc;
-  margin: auto;
-  max-width: 1248px;
-  text-align: left;
+.outer-container {
+  background: $tc-gray-neutral-light;
   width: 100%;
 
-  h1 {
-    color: #47474f;
-    font-size: 41px;
-    margin-bottom: 49px;
+  @include xs-to-sm {
+    padding: 8px 10px 20px;
   }
 
-  h2 {
-    color: #262628;
-    font-size: 36px;
-    font-weight: 400;
-    margin-bottom: 32px;
+  @include md {
+    padding: 30px 14px 30px 20px;
   }
 
-  h3 {
-    color: #4a4a4a;
-    font-size: 28px;
-    letter-spacing: 0;
-    margin-bottom: 30px;
+  @include lg-to-xl {
+    padding: 30px 64px;
+  }
+}
+
+.button {
+  font-size: 12px;
+  height: 30px;
+  margin-bottom: 30px;
+  min-height: 30px;
+  line-height: 28px;
+  padding: 0 10px;
+}
+
+.profile-container {
+  align-items: center;
+  display: flex;
+  justify-content: space-around;
+  flex-direction: column;
+  width: 100%;
+}
+
+hr {
+  width: 100%;
+  border: 1px solid $tc-gray-20;
+  margin-bottom: 15px;
+}
+
+// Main container
+// This is the flex container; we convert it to 2 column layout on >767px width
+.about-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+
+  @include module-l;
+
+  background-color: transparent;
+  padding-top: 0;
+  // margin: 0 auto;
+  // margin-left: auto;
+  // margin-right: auto;
+
+  @media (min-width: 768px) {
+    padding-top: 30px;
+    flex-direction: row;
+  }
+}
+
+// Both containers are flex column, then flex fows on >767px
+// User data container
+.profile-header-container {
+  background: transparent;
+  width: 100%;
+  max-width: 100%;
+  margin-bottom: 5px;
+  display: flex;
+  position: relative;
+  margin-left: 10px;
+
+  @media (min-width: 768px) {
+    max-width: 368px;
+    margin: 0 auto;
+    padding-right: 10px;
+    display: block;
+    position: relative;
   }
 
-  @include xs-to-lg {
+  // Sticky container
+  .sticky-container {
+    background-color: $tc-white;
+    // margin: 0 auto;
+    // padding: 0;
+    display: flex;
+    width: auto;
+    max-width: auto;
+
+    @media (min-width: 768px) {
+      display: block;
+      box-sizing: border-box;
+      width: 368px;
+      margin: 0;
+    }
+
+    padding: 30px 34px;
+    margin: 0 10px;
+    transition: 0.2s all;
+  }
+
+  .sticky-container.affix {
+    position: fixed;
+    top: 10px;
+    bottom: auto;
+    z-index: 10;
+  }
+
+  .sticky-container.affix-bottom {
+    position: absolute;
+    bottom: 0;
+    z-index: 10;
+    top: auto;
+  }
+}
+
+// Where we show the info
+.profile-about-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 883px;
+  padding: 0 10px;
+  // flex-basis: 882px;
+  // flex-grow: 10;
+  // margin: 0 auto;
+
+  .skills {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    align-self: center;
+    background: $tc-white;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+
+    .list {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      flex-wrap: wrap;
+      width: 100%;
+      margin-left: auto;
+      margin-bottom: 15px;
+      margin-right: 15px;
+
+      .skill {
+        margin-top: 20px;
+        margin-right: 15px;
+
+        a:hover {
+          cursor: default;
+        }
+
+        + .skill {
+          margin-left: 15px;
+        }
+      }
+    }
+
+    .dimmed {
+      width: 100%;
+      margin-top: -70px;
+      height: 100px;
+      background: rgba(0, 0, 0, 0.6);
+      opacity: 1;
+      transition: all 0.5s;
+      -webkit-transition: all 0.5s;
+    }
+
     h1 {
-      font-size: 28px;
-      letter-spacing: 0;
+      font-size: 25px;
+      margin: auto;
+    }
+
+    .empty-state {
+      .sample-skills {
+        margin: 0 auto;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        flex-wrap: wrap;
+        width: 100%;
+
+        .skill {
+          width: 130px;
+          opacity: 0.3;
+
+          a {
+            cursor: default;
+          }
+        }
+      }
+    }
+
+    button.more {
+      margin-bottom: 20px;
+    }
+  }
+
+  .activity {
+    font-size: 18px;
+    line-height: 21px;
+
+    @include sofia-pro-medium;
+
+    text-transform: uppercase;
+    margin-top: 20px;
+  }
+
+  .categories {
+    @include module-l;
+
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: 15px;
+    align-self: center;
+    background: $tc-white;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+
+    .track {
+      margin-top: 22.4px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding-bottom: 30px;
+
+      &.noclick {
+        cursor: default;
+      }
+
+      .name {
+        margin: auto;
+        font-size: 20px;
+        line-height: 24px;
+        margin-bottom: 10.6px;
+
+        @include sofia-pro-extra-light;
+      }
+
+      svg {
+        height: 20px;
+        width: 20px;
+        margin-right: 7px;
+        margin-bottom: -2px;
+      }
+
+      .subtrack {
+        text-decoration: none;
+        color: $tc-black;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        width: 300px;
+        height: 52px;
+        border-bottom: 1px solid $tc-gray-neutral-dark;
+
+        &.first {
+          border-top: 1px solid $tc-gray-neutral-dark;
+        }
+
+        &:hover {
+          background-color: $tc-gray-neutral-dark;
+        }
+
+        .name {
+          margin-left: 15px;
+          align-self: center;
+          flex-basis: 250px;
+          text-align: left;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+          font-size: 14px;
+          line-height: 18px;
+          text-transform: uppercase;
+          display: flex;
+          flex-direction: row;
+          justify-content: flex-start;
+          margin-top: 12px;
+
+          @include sofia-pro-light;
+        }
+
+        .ranking {
+          margin: auto;
+          margin-right: 15px;
+          color: $tc-gray-80;
+          display: flex;
+          flex-direction: column;
+          align-items: flex-end;
+
+          @include sofia-pro-medium;
+
+          .number {
+            text-align: center;
+            font-size: 13.4px;
+            line-height: 16px;
+
+            span.square {
+              position: absolute;
+              margin-left: 5px;
+              width: 6px;
+              height: 6px;
+            }
+          }
+
+          .tag {
+            text-transform: uppercase;
+            margin: 5px auto 0 auto;
+
+            @include sofia-pro-regular;
+
+            font-size: 12px;
+            line-height: 10px;
+            color: $tc-gray-60;
+          }
+        }
+
+        .arrow {
+          @include sofia-pro-extra-light;
+
+          color: $tc-gray-80;
+          height: 12px;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+        }
+      }
+
+      .icon {
+        width: 80px;
+        height: 80px;
+        margin: auto;
+      }
+    }
+  }
+
+  // .external-links {
+  //   @include module-l;
+  //
+  //   width: 100%;
+  //   align-self: center;
+  //   display: flex;
+  //   flex-direction: column;
+  //   align-items: center;
+  //   text-align: center;
+  //   margin-left: auto;
+  //   margin-right: auto;
+  //
+  //   .activity {
+  //     margin-bottom: 15px;
+  //   }
+  //
+  //   .external-links-data {
+  //     margin-bottom: 20px;
+  //   }
+  //
+  //   .empty-state {
+  //     .sample-ext-accounts {
+  //       margin: 0 auto;
+  //       display: flex;
+  //       flex-direction: row;
+  //       justify-content: center;
+  //       flex-wrap: wrap;
+  //       width: 100%;
+  //     }
+  //
+  //     .ext-tile {
+  //       opacity: 0.3;
+  //       margin-top: 0;
+  //       margin-bottom: 0;
+  //
+  //       .external-account-box {
+  //         margin-top: 0;
+  //       }
+  //
+  //       // a {
+  //       //   cursor: default;
+  //       // }
+  //     }
+  //   }
+  // }
+}
+
+@media (min-width: 768px) {
+  .profile-about-container {
+    .activity {
+      font-size: 24px;
       line-height: 30px;
-      margin-bottom: 35px;
+      margin-top: 30px;
     }
 
-    h2 {
-      color: #4a4a4a;
-      font-size: 22px;
-      margin-bottom: 30px;
+    .skills {
+      display: flex;
+      flex-direction: column;
+      padding-top: 0;
+      padding-bottom: 0;
+
+      .list {
+        display: flex;
+        flex-direction: row;
+        width: 100%;
+        padding-left: 30px;
+        padding-right: 30px;
+        margin: 0 auto 30px auto;
+
+        .skill {
+          margin-top: 30px;
+          margin-right: 15px;
+          margin-left: 15px;
+        }
+
+        + .skill {
+          margin-left: 15px;
+        }
+
+        &:nth-child(3n + 1) {
+          margin-left: 15px !important;
+          border: 1px solid lime;
+        }
+
+        .leftButton,
+        .rightButton {
+          height: 100px;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+
+          &:hover {
+            cursor: pointer;
+          }
+        }
+      }
+
+      button.more {
+        margin-bottom: 30px;
+      }
     }
 
-    h3 {
-      font-size: 18px;
-      margin-bottom: 12px;
+    .categories {
+      margin-top: 1px;
+      padding-top: 0;
+
+      .activity {
+        font-size: 28px;
+        line-height: 34px;
+
+        @include sofia-pro-bold;
+
+        text-transform: uppercase;
+      }
+
+      .track {
+        width: 100%;
+        padding-top: 30px;
+
+        .name {
+          svg {
+            height: 30px;
+            width: 30px;
+            margin-right: 7px;
+            margin-bottom: -4px;
+          }
+
+          background-size: 30px;
+          background-position: 16px 4px;
+          font-weight: 200;
+          font-size: 24px;
+          line-height: 30px;
+          margin-bottom: 30px;
+          margin-top: 0;
+
+          @include sofia-pro-medium;
+        }
+
+        .subtrack {
+          align-items: center;
+          width: 75%;
+          height: 60px;
+
+          .name {
+            font-size: 18px;
+            flex-basis: 350px;
+            line-height: 24px;
+            margin-top: 17px;
+            margin-bottom: 20px;
+          }
+
+          .ranking {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+
+            .number {
+              font-size: 18px;
+              line-height: 23px;
+            }
+
+            .tag {
+              margin-top: 2px;
+              font-size: 12px;
+              line-height: 14px;
+              color: $tc-gray-60;
+            }
+          }
+
+          .arrow {
+            color: $tc-gray-30;
+            height: 15px;
+            margin-right: 10px;
+          }
+        }
+
+        .icon {
+          width: 80px;
+          height: 80px;
+          margin: auto;
+        }
+      }
+    }
+
+    .external-links {
+      margin-top: 1px;
+      padding-top: 0;
+      padding-bottom: 0;
+
+      .external-links-data {
+        margin-bottom: 30px;
+      }
+
+      .activity {
+        margin-bottom: 0;
+        text-transform: uppercase;
+      }
     }
   }
 }
