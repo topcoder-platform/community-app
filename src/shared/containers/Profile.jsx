@@ -57,6 +57,8 @@ class ProfileContainer extends React.Component {
 
 ProfileContainer.defaultProps = {
   achievements: null,
+  copilot: false,
+  country: '',
   info: null,
   profileForHandle: '',
   skills: null,
@@ -65,6 +67,8 @@ ProfileContainer.defaultProps = {
 
 ProfileContainer.propTypes = {
   achievements: PT.arrayOf(PT.shape()),
+  copilot: PT.bool,
+  country: PT.string,
   handleParam: PT.string.isRequired,
   info: PT.shape(),
   loadingError: PT.bool.isRequired,
@@ -76,6 +80,8 @@ ProfileContainer.propTypes = {
 
 const mapStateToProps = (state, ownProps) => ({
   achievements: state.profile.achievements,
+  copilot: state.profile.copilot,
+  country: state.profile.country,
   handleParam: ownProps.match.params.handle,
   info: state.profile.info,
   loadingError: state.profile.loadingError,

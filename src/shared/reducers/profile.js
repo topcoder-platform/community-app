@@ -19,6 +19,7 @@ function onGetAchievementsDone(state, { payload, error }) {
   return ({
     ...state,
     achievements: payload.Achievements,
+    copilot: payload.copilot,
     country: payload.country,
     loadingError: false,
   });
@@ -80,6 +81,7 @@ function create(initialState) {
     [a.getStatsDone]: onGetStatsDone,
   }, _.defaults(initialState, {
     achievements: null,
+    copilot: false,
     country: '',
     info: null,
     loadingError: false,

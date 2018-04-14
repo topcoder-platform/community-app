@@ -1,0 +1,39 @@
+/**
+ * Defines typography/font related mixins not currently implemented in topcoder-react-ui-ki
+ */
+
+@mixin sofia-pro-extra-light {
+  font-family: 'Sofia Pro', Arial, Helvetica, sans-serif;
+  font-weight: 200;
+}
+
+@mixin sofia-pro-light {
+  font-family: 'Sofia Pro', Arial, Helvetica, sans-serif;
+  font-weight: 300;
+}
+
+@mixin sofia-pro-regular {
+  font-family: 'Sofia Pro', Arial, Helvetica, sans-serif;
+  font-weight: 400;
+}
+
+@mixin sofia-pro-italic {
+  @include sofia-pro-regular;
+
+  font-style: italic;
+}
+
+@mixin sofia-pro-medium {
+  font-family: 'Sofia Pro', Arial, Helvetica, sans-serif;
+  font-weight: 500;
+}
+
+@mixin sofia-pro-semi-bold {
+  font-family: 'Sofia Pro', Arial, Helvetica, sans-serif;
+  font-weight: 600;
+}
+
+@mixin sofia-pro-bold {
+  font-family: 'Sofia Pro', Arial, Helvetica, sans-serif;
+  font-weight: bold;
+}
