@@ -6,6 +6,7 @@ import PT from 'prop-types';
 import { noop } from 'lodash';
 import moment from 'moment';
 
+import config from 'utils/config';
 import { getRatingColor } from 'utils/tc';
 
 import DefaultPortrait from 'assets/images/ico-user-default.svg';
@@ -38,7 +39,7 @@ const ProfileHeader = ({
     </div>
     <div styleName="info">
       <h1 style={{ color: getRatingColor(info.maxRating.rating || 0) }} styleName="handle">{info.handle}</h1>
-      <h3 styleName="location-challenges">{country}<span> | </span>{wins} Wins</h3>
+      <h3 styleName="location-challenges">{country}{Boolean(wins) && (<span> | {wins} Wins</span>) }</h3>
       <h3 styleName="tenure">Member Since {moment(info.createdAt).format('MMMM, YYYY')}</h3>
     </div>
     {
@@ -59,10 +60,10 @@ const ProfileHeader = ({
         </div>
       </div>
     }
-    <p styleName="description">{info.description}</p>
+    { info.description && <p styleName="description">{info.description}</p> }
     <div styleName="links">
       { showBadgesButton && <a onClick={() => onShowBadges()} role="link" styleName="link badge-link" tabIndex="0">Badges</a> }
-      <a href={`https://apps.topcoder-dev.com/forums/?module=History&userID=${info.userId}`} styleName="link">Forum Posts</a></div>
+      <a href={`${config.URL.FORUMS}/?module=History&userID=${info.userId}`} styleName="link">Forum Posts</a></div>
   </div>
 );
 
