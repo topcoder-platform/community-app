@@ -81,7 +81,7 @@ class ProfilePage extends React.Component {
     const { copilot, stats } = this.props;
     const activeTracks = [];
 
-    if (copilot) {
+    if (copilot && stats.COPILOT && stats.COPILOT.fulfillment) {
       activeTracks.push({
         name: 'COPILOT',
         subTracks: [{

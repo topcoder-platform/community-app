@@ -7,7 +7,6 @@ import moment from 'moment';
 
 import './styles.scss';
 
-
 const Popup = ({ date, name }) => (
   <div styleName="container">
     <div styleName="name">{name}</div>

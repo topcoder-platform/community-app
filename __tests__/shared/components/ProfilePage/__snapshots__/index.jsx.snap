@@ -1,0 +1,603 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders a full Profile correctly 1`] = `
+<div
+  className="src-shared-components-ProfilePage-___styles__outer-container___3in3p"
+>
+  <div
+    className="src-shared-components-ProfilePage-___styles__profile-container___13E1W"
+  >
+    <div
+      className="src-shared-components-ProfilePage-___styles__about-container___3Bxx5"
+    >
+      <div
+        className="src-shared-components-ProfilePage-___styles__profile-header-container___28i-i"
+        id="affix"
+      >
+        <Sticky
+          activeClass="active"
+          bottomBoundary={-250}
+          enableTransforms={true}
+          enabled={true}
+          onStateChange={null}
+          releasedClass="released"
+          shouldFreeze={[Function]}
+          top={10}
+        >
+          <div
+            className="src-shared-components-ProfilePage-___styles__sticky-container___3neSB"
+          >
+            <ProfileHeader
+              copilot={true}
+              country="United States"
+              info={
+                Object {
+                  "competitionCountryCode": "USA",
+                  "createdAt": "2004-03-21T21:05Z",
+                  "createdBy": "8547899",
+                  "description": "Test Description",
+                  "handle": "testHandle",
+                  "handleLower": "testhandle",
+                  "homeCountryCode": "USA",
+                  "maxRating": Object {
+                    "rating": 0,
+                    "subTrack": null,
+                    "track": null,
+                  },
+                  "photoURL": null,
+                  "status": "ACTIVE",
+                  "tracks": Array [
+                    "DATA_SCIENCE",
+                    "DESIGN",
+                    "DEVELOP",
+                  ],
+                  "updatedAt": "2017-10-17T17:13Z",
+                  "updatedBy": "8547899",
+                  "userId": 8547899,
+                }
+              }
+              onShowBadges={[Function]}
+              showBadgesButton={true}
+              wins={3}
+            />
+          </div>
+        </Sticky>
+      </div>
+      <div
+        className="src-shared-components-ProfilePage-___styles__profile-about-container___1Bqmr"
+      >
+        <div
+          id="profile-skills"
+        >
+          <div
+            className="src-shared-components-ProfilePage-___styles__skills___1HaSX"
+          >
+            <h3
+              className="src-shared-components-ProfilePage-___styles__activity___1H__1"
+            >
+              Skills
+            </h3>
+            <div
+              className="src-shared-components-ProfilePage-___styles__list___sjJ9L"
+            >
+              <div
+                className="src-shared-components-ProfilePage-___styles__skill___17_DJ"
+              >
+                <Skill
+                  tagId="117"
+                  tagName="API"
+                />
+              </div>
+              <div
+                className="src-shared-components-ProfilePage-___styles__skill___17_DJ"
+              >
+                <Skill
+                  tagId="125"
+                  tagName="Bash"
+                />
+              </div>
+              <div
+                className="src-shared-components-ProfilePage-___styles__skill___17_DJ"
+              >
+                <Skill
+                  tagId="132"
+                  tagName="C#"
+                />
+              </div>
+              <div
+                className="src-shared-components-ProfilePage-___styles__skill___17_DJ"
+              >
+                <Skill
+                  tagId="153"
+                  tagName="CSS"
+                />
+              </div>
+              <div
+                className="src-shared-components-ProfilePage-___styles__skill___17_DJ"
+              >
+                <Skill
+                  tagId="159"
+                  tagName="Database"
+                />
+              </div>
+              <div
+                className="src-shared-components-ProfilePage-___styles__skill___17_DJ"
+              >
+                <Skill
+                  tagId="168"
+                  tagName="EC2"
+                />
+              </div>
+              <div
+                className="src-shared-components-ProfilePage-___styles__skill___17_DJ"
+              >
+                <Skill
+                  tagId="170"
+                  tagName="EJB"
+                />
+              </div>
+              <div
+                className="src-shared-components-ProfilePage-___styles__skill___17_DJ"
+              >
+                <Skill
+                  tagId="176"
+                  tagName="Excel"
+                />
+              </div>
+              <div
+                className="src-shared-components-ProfilePage-___styles__skill___17_DJ"
+              >
+                <Skill
+                  tagId="212"
+                  tagName="HTML"
+                />
+              </div>
+              <div
+                className="src-shared-components-ProfilePage-___styles__skill___17_DJ"
+              >
+                <Skill
+                  tagId="247"
+                  tagName="Java"
+                />
+              </div>
+            </div>
+            <ThemedButton
+              active={false}
+              composeAdhocTheme="deeply"
+              composeContextTheme="softly"
+              disabled={false}
+              enforceA={false}
+              mapThemrProps={[Function]}
+              onClick={[Function]}
+              onMouseDown={null}
+              openNewTab={false}
+              replace={false}
+              size={null}
+              theme={Object {}}
+              themePriority="adhoc-context-default"
+              to={null}
+            >
+              VIEW ALL
+            </ThemedButton>
+          </div>
+        </div>
+        <div
+          id="profile-activity"
+        >
+          <div
+            className="src-shared-components-ProfilePage-___styles__categories___3breE"
+          >
+            <div
+              className="src-shared-components-ProfilePage-___styles__track___1HhV4"
+              id="COPILOT"
+            >
+              <div
+                className="src-shared-components-ProfilePage-___styles__name___MlhSb"
+              >
+                <CopilotIcon
+                  height="32"
+                  viewBox="0 0 32 32"
+                  width="32"
+                  xmlns="http://www.w3.org/2000/svg"
+                />
+                <span>
+                  COPILOT
+                   ACTIVITY
+                </span>
+              </div>
+              <Link
+                className="src-shared-components-ProfilePage-___styles__subtrack___3XSXN src-shared-components-ProfilePage-___styles__first___2Jpel"
+                replace={false}
+                to="#"
+              >
+                <div
+                  className="src-shared-components-ProfilePage-___styles__name___MlhSb"
+                >
+                  COPILOT
+                </div>
+                <div
+                  className="src-shared-components-ProfilePage-___styles__ranking___3HTWE"
+                >
+                  <div
+                    className="src-shared-components-ProfilePage-___styles__number___2_Xhl"
+                    style={
+                      Object {
+                        "color": "#a3a3ae",
+                      }
+                    }
+                  >
+                    98%
+                  </div>
+                  <div
+                    className="src-shared-components-ProfilePage-___styles__tag___2aLPA"
+                  >
+                    Fulfillment
+                  </div>
+                </div>
+                <ArrowNext
+                  className="src-shared-components-ProfilePage-___styles__arrow___3RiTC"
+                  height="19"
+                  viewBox="0 0 12 19"
+                  width="12"
+                  xmlns="http://www.w3.org/2000/svg"
+                />
+              </Link>
+            </div>
+            <div
+              className="src-shared-components-ProfilePage-___styles__track___1HhV4"
+              id="DEVELOP"
+            >
+              <div
+                className="src-shared-components-ProfilePage-___styles__name___MlhSb"
+              >
+                <DevelopIcon
+                  height="32"
+                  viewBox="0 0 32 32"
+                  width="32"
+                  xmlns="http://www.w3.org/2000/svg"
+                />
+                <span>
+                  DEVELOPMENT
+                   ACTIVITY
+                </span>
+              </div>
+              <Link
+                className="src-shared-components-ProfilePage-___styles__subtrack___3XSXN src-shared-components-ProfilePage-___styles__first___2Jpel"
+                replace={false}
+                to="#"
+              >
+                <div
+                  className="src-shared-components-ProfilePage-___styles__name___MlhSb"
+                >
+                  FIRST2FINISH
+                </div>
+                <div
+                  className="src-shared-components-ProfilePage-___styles__ranking___3HTWE"
+                >
+                  <div
+                    className="src-shared-components-ProfilePage-___styles__number___2_Xhl"
+                    style={
+                      Object {
+                        "color": "#21b2f1",
+                      }
+                    }
+                  >
+                    3
+                  </div>
+                  <div
+                    className="src-shared-components-ProfilePage-___styles__tag___2aLPA"
+                  >
+                    Wins
+                  </div>
+                </div>
+                <ArrowNext
+                  className="src-shared-components-ProfilePage-___styles__arrow___3RiTC"
+                  height="19"
+                  viewBox="0 0 12 19"
+                  width="12"
+                  xmlns="http://www.w3.org/2000/svg"
+                />
+              </Link>
+            </div>
+            <div
+              className="src-shared-components-ProfilePage-___styles__track___1HhV4"
+              id="DESIGN"
+            >
+              <div
+                className="src-shared-components-ProfilePage-___styles__name___MlhSb"
+              >
+                <DesignIcon
+                  height="32"
+                  viewBox="0 0 32 32"
+                  width="32"
+                  xmlns="http://www.w3.org/2000/svg"
+                />
+                <span>
+                  DESIGN
+                   ACTIVITY
+                </span>
+              </div>
+              <Link
+                className="src-shared-components-ProfilePage-___styles__subtrack___3XSXN src-shared-components-ProfilePage-___styles__first___2Jpel"
+                replace={false}
+                to="#"
+              >
+                <div
+                  className="src-shared-components-ProfilePage-___styles__name___MlhSb"
+                >
+                  LOGO DESIGN
+                </div>
+                <div
+                  className="src-shared-components-ProfilePage-___styles__ranking___3HTWE"
+                >
+                  <div
+                    className="src-shared-components-ProfilePage-___styles__number___2_Xhl"
+                    style={
+                      Object {
+                        "color": "#21b2f1",
+                      }
+                    }
+                  >
+                    0
+                  </div>
+                  <div
+                    className="src-shared-components-ProfilePage-___styles__tag___2aLPA"
+                  >
+                    Wins
+                  </div>
+                </div>
+                <ArrowNext
+                  className="src-shared-components-ProfilePage-___styles__arrow___3RiTC"
+                  height="19"
+                  viewBox="0 0 12 19"
+                  width="12"
+                  xmlns="http://www.w3.org/2000/svg"
+                />
+              </Link>
+              <Link
+                className="src-shared-components-ProfilePage-___styles__subtrack___3XSXN"
+                replace={false}
+                to="#"
+              >
+                <div
+                  className="src-shared-components-ProfilePage-___styles__name___MlhSb"
+                >
+                  WEB DESIGNS
+                </div>
+                <div
+                  className="src-shared-components-ProfilePage-___styles__ranking___3HTWE"
+                >
+                  <div
+                    className="src-shared-components-ProfilePage-___styles__number___2_Xhl"
+                    style={
+                      Object {
+                        "color": "#21b2f1",
+                      }
+                    }
+                  >
+                    0
+                  </div>
+                  <div
+                    className="src-shared-components-ProfilePage-___styles__tag___2aLPA"
+                  >
+                    Wins
+                  </div>
+                </div>
+                <ArrowNext
+                  className="src-shared-components-ProfilePage-___styles__arrow___3RiTC"
+                  height="19"
+                  viewBox="0 0 12 19"
+                  width="12"
+                  xmlns="http://www.w3.org/2000/svg"
+                />
+              </Link>
+            </div>
+            <div
+              className="src-shared-components-ProfilePage-___styles__track___1HhV4"
+              id="DATA_SCIENCE"
+            >
+              <div
+                className="src-shared-components-ProfilePage-___styles__name___MlhSb"
+              >
+                <DataScienceIcon
+                  height="32"
+                  viewBox="0 0 32 32"
+                  width="32"
+                  xmlns="http://www.w3.org/2000/svg"
+                />
+                <span>
+                  DATA SCIENCE
+                   ACTIVITY
+                </span>
+              </div>
+              <Link
+                className="src-shared-components-ProfilePage-___styles__subtrack___3XSXN src-shared-components-ProfilePage-___styles__first___2Jpel"
+                replace={false}
+                to="#"
+              >
+                <div
+                  className="src-shared-components-ProfilePage-___styles__name___MlhSb"
+                >
+                  MARATHON MATCH
+                </div>
+                <div
+                  className="src-shared-components-ProfilePage-___styles__ranking___3HTWE"
+                >
+                  <div
+                    className="src-shared-components-ProfilePage-___styles__number___2_Xhl"
+                    style={
+                      Object {
+                        "color": "#FCD617",
+                      }
+                    }
+                  >
+                    1800
+                  </div>
+                  <div
+                    className="src-shared-components-ProfilePage-___styles__tag___2aLPA"
+                  >
+                    Rating
+                  </div>
+                </div>
+                <ArrowNext
+                  className="src-shared-components-ProfilePage-___styles__arrow___3RiTC"
+                  height="19"
+                  viewBox="0 0 12 19"
+                  width="12"
+                  xmlns="http://www.w3.org/2000/svg"
+                />
+              </Link>
+              <Link
+                className="src-shared-components-ProfilePage-___styles__subtrack___3XSXN"
+                replace={false}
+                to="#"
+              >
+                <div
+                  className="src-shared-components-ProfilePage-___styles__name___MlhSb"
+                >
+                  SRM
+                </div>
+                <div
+                  className="src-shared-components-ProfilePage-___styles__ranking___3HTWE"
+                >
+                  <div
+                    className="src-shared-components-ProfilePage-___styles__number___2_Xhl"
+                    style={
+                      Object {
+                        "color": "#FCD617",
+                      }
+                    }
+                  >
+                    1650
+                  </div>
+                  <div
+                    className="src-shared-components-ProfilePage-___styles__tag___2aLPA"
+                  >
+                    Rating
+                  </div>
+                </div>
+                <ArrowNext
+                  className="src-shared-components-ProfilePage-___styles__arrow___3RiTC"
+                  height="19"
+                  viewBox="0 0 12 19"
+                  width="12"
+                  xmlns="http://www.w3.org/2000/svg"
+                />
+              </Link>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`renders an empty Profile correctly 1`] = `
+<div
+  className="src-shared-components-ProfilePage-___styles__outer-container___3in3p"
+>
+  <div
+    className="src-shared-components-ProfilePage-___styles__profile-container___13E1W"
+  >
+    <div
+      className="src-shared-components-ProfilePage-___styles__about-container___3Bxx5"
+    >
+      <div
+        className="src-shared-components-ProfilePage-___styles__profile-header-container___28i-i"
+        id="affix"
+      >
+        <Sticky
+          activeClass="active"
+          bottomBoundary={-250}
+          enableTransforms={true}
+          enabled={true}
+          onStateChange={null}
+          releasedClass="released"
+          shouldFreeze={[Function]}
+          top={10}
+        >
+          <div
+            className="src-shared-components-ProfilePage-___styles__sticky-container___3neSB"
+          >
+            <ProfileHeader
+              copilot={false}
+              country="United States"
+              info={
+                Object {
+                  "competitionCountryCode": "USA",
+                  "createdAt": "2004-03-21T21:05Z",
+                  "createdBy": "8547899",
+                  "description": "Test Description",
+                  "handle": "testHandle",
+                  "handleLower": "testhandle",
+                  "homeCountryCode": "USA",
+                  "maxRating": Object {
+                    "rating": 0,
+                    "subTrack": null,
+                    "track": null,
+                  },
+                  "photoURL": null,
+                  "status": "ACTIVE",
+                  "tracks": Array [],
+                  "updatedAt": "2017-10-17T17:13Z",
+                  "updatedBy": "8547899",
+                  "userId": 8547899,
+                }
+              }
+              onShowBadges={[Function]}
+              showBadgesButton={false}
+              wins={0}
+            />
+          </div>
+        </Sticky>
+      </div>
+      <div
+        className="src-shared-components-ProfilePage-___styles__profile-about-container___1Bqmr"
+      >
+        <div
+          className="src-shared-components-ProfilePage-___styles__empty-profile___2vxMh"
+        >
+          <h2>
+            BEEP. BEEP. HELLO!
+          </h2>
+          <Robot
+            height="86"
+            viewBox="0 0 86 86"
+            width="86"
+            xmlns="http://www.w3.org/2000/svg"
+          />
+          <p>
+            Seems like this member doesn’t have much information to share yet.
+          </p>
+          <ThemedButton
+            active={false}
+            composeAdhocTheme="deeply"
+            composeContextTheme="softly"
+            disabled={false}
+            enforceA={false}
+            mapThemrProps={[Function]}
+            onClick={null}
+            onMouseDown={null}
+            openNewTab={false}
+            replace={false}
+            size={null}
+            theme={Object {}}
+            themePriority="adhoc-context-default"
+            to="https://www.topcoder-dev.com/community/members"
+          >
+            VIEW OTHER MEMBERS
+          </ThemedButton>
+        </div>
+        <div
+          id="profile-activity"
+        >
+          <div
+            className="src-shared-components-ProfilePage-___styles__categories___3breE"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

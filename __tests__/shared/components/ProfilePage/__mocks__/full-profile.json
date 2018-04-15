@@ -1,0 +1,647 @@
+{
+  "achievements": [
+    {
+      "date": "2017-09-18T00:00:00.000-04:00",
+      "description": "SRM Engagement Honor"
+    },
+    {
+      "date": "2015-07-23T00:00:00.000-04:00",
+      "description": "Studio First Passing Submission"
+    },
+    {
+      "date": "2015-06-02T00:00:00.000-04:00",
+      "description": "Participant Badge"
+    },
+    {
+      "date": "2015-04-29T00:00:00.000-04:00",
+      "description": "Show Your Skills iOS Badge"
+    },
+    {
+      "date": "2015-04-23T00:00:00.000-04:00",
+      "description": "iOS Participant Badge"
+    },
+    {
+      "date": "2013-03-21T00:00:00.000-04:00",
+      "description": "First Forum Post"
+    },
+    {
+      "date": "2013-02-20T00:00:00.000-05:00",
+      "description": "One Hundred Forum Posts"
+    },
+    {
+      "date": "2012-11-28T00:00:00.000-05:00",
+      "description": "Five Hundred Forum Posts"
+    },
+    {
+      "date": "2012-09-29T00:00:00.000-04:00",
+      "description": "First Passing Submission"
+    },
+    {
+      "date": "2012-04-30T00:00:00.000-04:00",
+      "description": "One Thousand Forum Posts"
+    },
+    {
+      "date": "2012-02-17T00:00:00.000-05:00",
+      "description": "Studio First Forum Post"
+    },
+    {
+      "date": "2009-06-23T00:00:00.000-04:00",
+      "description": "Studio One Hundred Forum Posts"
+    },
+    {
+      "date": "2005-01-29T00:00:00.000-05:00",
+      "description": "Five Thousand Forum Posts"
+    }
+  ],
+  "copilot": true,
+  "country": "United States",
+  "handleParam": "testHandle",
+  "info": {
+    "maxRating": {
+      "rating": 0,
+      "track": null,
+      "subTrack": null
+    },
+    "userId": 8547899,
+    "description": "Test Description",
+    "handle": "testHandle",
+    "handleLower": "testhandle",
+    "status": "ACTIVE",
+    "homeCountryCode": "USA",
+    "competitionCountryCode": "USA",
+    "photoURL": null,
+    "tracks": [
+      "DATA_SCIENCE",
+      "DESIGN",
+      "DEVELOP"
+    ],
+    "updatedAt": "2017-10-17T17:13Z",
+    "createdAt": "2004-03-21T21:05Z",
+    "createdBy": "8547899",
+    "updatedBy": "8547899"
+  },
+  "loadingError": false,
+  "profileForHandle": "testHandle",
+  "skills": {
+    "117": {
+      "tagName": "API",
+      "hidden": false,
+      "score": 1,
+      "sources": [
+        "USER_ENTERED"
+      ]
+    },
+    "125": {
+      "tagName": "Bash",
+      "hidden": false,
+      "score": 1,
+      "sources": [
+        "USER_ENTERED"
+      ]
+    },
+    "132": {
+      "tagName": "C#",
+      "hidden": false,
+      "score": 1,
+      "sources": [
+        "USER_ENTERED"
+      ]
+    },
+    "153": {
+      "tagName": "CSS",
+      "hidden": false,
+      "score": 1,
+      "sources": [
+        "USER_ENTERED"
+      ]
+    },
+    "159": {
+      "tagName": "Database",
+      "hidden": false,
+      "score": 1,
+      "sources": [
+        "USER_ENTERED"
+      ]
+    },
+    "168": {
+      "tagName": "EC2",
+      "hidden": false,
+      "score": 1,
+      "sources": [
+        "USER_ENTERED"
+      ]
+    },
+    "170": {
+      "tagName": "EJB",
+      "hidden": false,
+      "score": 1,
+      "sources": [
+        "USER_ENTERED"
+      ]
+    },
+    "176": {
+      "tagName": "Excel",
+      "hidden": false,
+      "score": 1,
+      "sources": [
+        "USER_ENTERED"
+      ]
+    },
+    "212": {
+      "tagName": "HTML",
+      "hidden": false,
+      "score": 1,
+      "sources": [
+        "USER_ENTERED"
+      ]
+    },
+    "247": {
+      "tagName": "Java",
+      "hidden": false,
+      "score": 1,
+      "sources": [
+        "USER_ENTERED"
+      ]
+    },
+    "248": {
+      "tagName": "JavaScript",
+      "hidden": false,
+      "score": 1,
+      "sources": [
+        "USER_ENTERED"
+      ]
+    },
+    "259": {
+      "tagName": "JSON",
+      "hidden": false,
+      "score": 1,
+      "sources": [
+        "USER_ENTERED"
+      ]
+    },
+    "260": {
+      "tagName": "JSP",
+      "hidden": false,
+      "score": 1,
+      "sources": [
+        "USER_ENTERED"
+      ]
+    },
+    "284": {
+      "tagName": "MySql",
+      "hidden": false,
+      "score": 1,
+      "sources": [
+        "USER_ENTERED"
+      ]
+    },
+    "286": {
+      "tagName": "Node.js",
+      "hidden": false,
+      "score": 1,
+      "sources": [
+        "USER_ENTERED"
+      ]
+    },
+    "294": {
+      "tagName": "Oracle",
+      "hidden": false,
+      "score": 1,
+      "sources": [
+        "USER_ENTERED"
+      ]
+    },
+    "295": {
+      "tagName": "Oracle Database",
+      "hidden": false,
+      "score": 1,
+      "sources": [
+        "USER_ENTERED"
+      ]
+    },
+    "306": {
+      "tagName": "PostgreSQL",
+      "hidden": false,
+      "score": 1,
+      "sources": [
+        "USER_ENTERED"
+      ]
+    },
+    "317": {
+      "tagName": "Redis",
+      "hidden": false,
+      "score": 1,
+      "sources": [
+        "USER_ENTERED"
+      ]
+    },
+    "323": {
+      "tagName": "REST",
+      "hidden": false,
+      "score": 1,
+      "sources": [
+        "USER_ENTERED"
+      ]
+    },
+    "328": {
+      "tagName": "Salesforce",
+      "hidden": false,
+      "score": 1,
+      "sources": [
+        "CHALLENGE"
+      ]
+    },
+    "355": {
+      "tagName": "SQL",
+      "hidden": false,
+      "score": 1,
+      "sources": [
+        "USER_ENTERED"
+      ]
+    },
+    "356": {
+      "tagName": "SQL Server",
+      "hidden": false,
+      "score": 1,
+      "sources": [
+        "USER_ENTERED"
+      ]
+    },
+    "387": {
+      "tagName": "Web Services",
+      "hidden": false,
+      "score": 1,
+      "sources": [
+        "USER_ENTERED"
+      ]
+    },
+    "401": {
+      "tagName": "XML",
+      "hidden": false,
+      "score": 1,
+      "sources": [
+        "USER_ENTERED"
+      ]
+    }
+  },
+  "stats": {
+    "userId": 8547899,
+    "handle": "testHandle",
+    "handleLower": "testhandle",
+    "maxRating": {
+      "rating": 0,
+      "track": null,
+      "subTrack": null
+    },
+    "challenges": 78,
+    "wins": 3,
+    "DEVELOP": {
+      "challenges": 29,
+      "wins": 3,
+      "subTracks": [
+        {
+          "id": 125,
+          "name": "ASSEMBLY_COMPETITION",
+          "challenges": 6,
+          "wins": 0,
+          "rank": {
+            "rating": null,
+            "activePercentile": null,
+            "activeRank": null,
+            "activeCountryRank": null,
+            "activeSchoolRank": null,
+            "overallPercentile": null,
+            "overallRank": null,
+            "overallCountryRank": null,
+            "overallSchoolRank": null,
+            "volatility": null,
+            "reliability": null,
+            "maxRating": null,
+            "minRating": null
+          },
+          "submissions": {
+            "numInquiries": 6,
+            "submissions": 0,
+            "submissionRate": 0,
+            "passedScreening": 0,
+            "screeningSuccessRate": 0,
+            "passedReview": 0,
+            "reviewSuccessRate": 0,
+            "appeals": 0,
+            "appealSuccessRate": 0,
+            "maxScore": 0,
+            "minScore": 0,
+            "avgScore": 0,
+            "avgPlacement": 0,
+            "winPercent": 0
+          },
+          "mostRecentEventDate": "2014-10-06T11:30:02.000Z"
+        },
+        {
+          "id": 134,
+          "name": "CONCEPTUALIZATION",
+          "challenges": 1,
+          "wins": 0,
+          "rank": {
+            "rating": null,
+            "activePercentile": null,
+            "activeRank": null,
+            "activeCountryRank": null,
+            "activeSchoolRank": null,
+            "overallPercentile": null,
+            "overallRank": null,
+            "overallCountryRank": null,
+            "overallSchoolRank": null,
+            "volatility": null,
+            "reliability": null,
+            "maxRating": null,
+            "minRating": null
+          },
+          "submissions": {
+            "numInquiries": 1,
+            "submissions": 0,
+            "submissionRate": 0,
+            "passedScreening": 0,
+            "screeningSuccessRate": 0,
+            "passedReview": 0,
+            "reviewSuccessRate": 0,
+            "appeals": 0,
+            "appealSuccessRate": 0,
+            "maxScore": 0,
+            "minScore": 0,
+            "avgScore": 0,
+            "avgPlacement": 0,
+            "winPercent": 0
+          },
+          "mostRecentEventDate": "2014-03-22T22:00:03.000Z"
+        },
+        {
+          "id": 149,
+          "name": "FIRST_2_FINISH",
+          "challenges": 20,
+          "wins": 3,
+          "rank": {
+            "rating": null,
+            "activePercentile": null,
+            "activeRank": null,
+            "activeCountryRank": null,
+            "activeSchoolRank": null,
+            "overallPercentile": null,
+            "overallRank": null,
+            "overallCountryRank": null,
+            "overallSchoolRank": null,
+            "volatility": null,
+            "reliability": null,
+            "maxRating": null,
+            "minRating": null
+          },
+          "submissions": {
+            "numInquiries": 20,
+            "submissions": 5,
+            "submissionRate": 0.25,
+            "passedScreening": 3,
+            "screeningSuccessRate": 0.6,
+            "passedReview": 3,
+            "reviewSuccessRate": 0.6,
+            "appeals": 0,
+            "appealSuccessRate": 0,
+            "maxScore": 100,
+            "minScore": 100,
+            "avgScore": 100,
+            "avgPlacement": 1,
+            "winPercent": 0.6
+          },
+          "mostRecentEventDate": "2017-01-22T16:33:45.000Z",
+          "mostRecentSubmission": "2017-01-22T19:33:00.000Z"
+        },
+        {
+          "id": 150,
+          "name": "CODE",
+          "challenges": 2,
+          "wins": 0,
+          "rank": {
+            "rating": null,
+            "activePercentile": null,
+            "activeRank": null,
+            "activeCountryRank": null,
+            "activeSchoolRank": null,
+            "overallPercentile": null,
+            "overallRank": null,
+            "overallCountryRank": null,
+            "overallSchoolRank": null,
+            "volatility": null,
+            "reliability": null,
+            "maxRating": null,
+            "minRating": null
+          },
+          "submissions": {
+            "numInquiries": 2,
+            "submissions": 0,
+            "submissionRate": 0,
+            "passedScreening": 0,
+            "screeningSuccessRate": 0,
+            "passedReview": 0,
+            "reviewSuccessRate": 0,
+            "appeals": 0,
+            "appealSuccessRate": 0,
+            "maxScore": 0,
+            "minScore": 0,
+            "avgScore": 0,
+            "avgPlacement": 0,
+            "winPercent": 0
+          },
+          "mostRecentEventDate": "2014-10-31T08:37:11.000Z"
+        }
+      ],
+      "mostRecentEventDate": "2017-01-22T16:33:45.000Z",
+      "mostRecentSubmission": "2017-01-22T19:33:00.000Z"
+    },
+    "DESIGN": {
+      "challenges": 49,
+      "wins": 0,
+      "subTracks": [
+        {
+          "id": 20,
+          "name": "LOGO_DESIGN",
+          "numInquiries": 3,
+          "challenges": 3,
+          "wins": 0,
+          "winPercent": 0,
+          "avgPlacement": 0,
+          "submissions": 1,
+          "submissionRate": 0.3333333333333333,
+          "passedScreening": 0,
+          "screeningSuccessRate": 0,
+          "mostRecentEventDate": "2010-06-30T07:00:00.000Z",
+          "mostRecentSubmission": "2009-04-16T22:17:00.000Z"
+        },
+        {
+          "id": 17,
+          "name": "WEB_DESIGNS",
+          "numInquiries": 21,
+          "challenges": 21,
+          "wins": 0,
+          "winPercent": 0,
+          "avgPlacement": 0,
+          "submissions": 1,
+          "submissionRate": 0.04761904761904762,
+          "passedScreening": 0,
+          "screeningSuccessRate": 0,
+          "mostRecentEventDate": "2014-12-16T09:01:12.000Z",
+          "mostRecentSubmission": "2014-03-29T08:12:00.000Z"
+        },
+        {
+          "id": 34,
+          "name": "STUDIO_OTHER",
+          "numInquiries": 3,
+          "challenges": 3,
+          "wins": 0,
+          "winPercent": 0,
+          "avgPlacement": 0,
+          "submissions": 0,
+          "submissionRate": 0,
+          "passedScreening": 0,
+          "screeningSuccessRate": 0,
+          "mostRecentEventDate": "2009-09-08T12:00:00.000Z"
+        },
+        {
+          "id": 16,
+          "name": "BANNERS_OR_ICONS",
+          "numInquiries": 6,
+          "challenges": 6,
+          "wins": 0,
+          "winPercent": 0,
+          "avgPlacement": 0,
+          "submissions": 0,
+          "submissionRate": 0,
+          "passedScreening": 0,
+          "screeningSuccessRate": 0,
+          "mostRecentEventDate": "2014-05-22T01:00:10.000Z"
+        },
+        {
+          "id": 18,
+          "name": "WIREFRAMES",
+          "numInquiries": 5,
+          "challenges": 5,
+          "wins": 0,
+          "winPercent": 0,
+          "avgPlacement": 0,
+          "submissions": 0,
+          "submissionRate": 0,
+          "passedScreening": 0,
+          "screeningSuccessRate": 0,
+          "mostRecentEventDate": "2014-06-06T03:53:03.000Z"
+        },
+        {
+          "id": 40,
+          "name": "DESIGN_FIRST_2_FINISH",
+          "numInquiries": 5,
+          "challenges": 5,
+          "wins": 0,
+          "winPercent": 0,
+          "avgPlacement": 0,
+          "submissions": 0,
+          "submissionRate": 0,
+          "passedScreening": 0,
+          "screeningSuccessRate": 0,
+          "mostRecentEventDate": "2015-01-30T00:50:17.000Z"
+        },
+        {
+          "id": 32,
+          "name": "APPLICATION_FRONT_END_DESIGN",
+          "numInquiries": 1,
+          "challenges": 1,
+          "wins": 0,
+          "winPercent": 0,
+          "avgPlacement": 0,
+          "submissions": 0,
+          "submissionRate": 0,
+          "passedScreening": 0,
+          "screeningSuccessRate": 0,
+          "mostRecentEventDate": "2010-02-05T23:00:00.000Z"
+        },
+        {
+          "id": 21,
+          "name": "PRINT_OR_PRESENTATION",
+          "numInquiries": 3,
+          "challenges": 3,
+          "wins": 0,
+          "winPercent": 0,
+          "avgPlacement": 0,
+          "submissions": 0,
+          "submissionRate": 0,
+          "passedScreening": 0,
+          "screeningSuccessRate": 0,
+          "mostRecentEventDate": "2014-07-08T10:00:16.000Z"
+        },
+        {
+          "id": 30,
+          "name": "WIDGET_OR_MOBILE_SCREEN_DESIGN",
+          "numInquiries": 2,
+          "challenges": 2,
+          "wins": 0,
+          "winPercent": 0,
+          "avgPlacement": 0,
+          "submissions": 0,
+          "submissionRate": 0,
+          "passedScreening": 0,
+          "screeningSuccessRate": 0,
+          "mostRecentEventDate": "2014-04-11T09:00:08.000Z"
+        }
+      ],
+      "mostRecentEventDate": "2015-01-30T00:50:17.000Z",
+      "mostRecentSubmission": "2014-03-29T08:12:00.000Z"
+    },
+    "DATA_SCIENCE": {
+      "challenges": 5,
+      "wins": 4,
+      "SRM": {
+        "challenges": 0,
+        "wins": 0,
+        "rank": {
+          "rating": 1650,
+          "percentile": 0,
+          "rank": 0,
+          "countryRank": 0,
+          "schoolRank": 0,
+          "volatility": 0,
+          "maximumRating": 0,
+          "minimumRating": 0,
+          "defaultLanguage": "Java",
+          "competitions": 0
+        },
+        "challengeDetails": null,
+        "division1": null,
+        "division2": null
+      },
+      "MARATHON_MATCH": {
+        "challenges": 2,
+        "wins": 1,
+        "rank": {
+          "rating": 1800,
+          "competitions": 0,
+          "avgRank": 0,
+          "avgNumSubmissions": 0,
+          "bestRank": 0,
+          "topFiveFinishes": 0,
+          "topTenFinishes": 0,
+          "rank": 0,
+          "percentile": 0,
+          "volatility": 0,
+          "minimumRating": 0,
+          "maximumRating": 0,
+          "countryRank": 0,
+          "schoolRank": 0,
+          "defaultLanguage": "Java"
+        }
+      }
+    },
+    "COPILOT": {
+      "fulfillment": "98"
+    },
+    "updatedAt": null,
+    "createdAt": null,
+    "createdBy": null,
+    "updatedBy": null
+  }
+}
