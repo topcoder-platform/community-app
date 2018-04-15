@@ -12,7 +12,6 @@ exports[`renders a full Profile correctly 1`] = `
     >
       <div
         className="src-shared-components-ProfilePage-___styles__profile-header-container___28i-i"
-        id="affix"
       >
         <Sticky
           activeClass="active"
@@ -505,7 +504,6 @@ exports[`renders an empty Profile correctly 1`] = `
     >
       <div
         className="src-shared-components-ProfilePage-___styles__profile-header-container___28i-i"
-        id="affix"
       >
         <Sticky
           activeClass="active"

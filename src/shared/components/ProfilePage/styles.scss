@@ -30,6 +30,7 @@
   height: 330px;
   justify-content: space-around;
   padding-top: 3 * $base-unit;
+  text-align: center;
 
   h2 {
     font-size: 22px;
@@ -117,8 +118,8 @@ hr {
   .sticky-container {
     background-color: $tc-white;
     display: flex;
-    width: auto;
-    max-width: auto;
+    justify-content: center;
+    width: calc(100vw - 40px);
 
     @media (min-width: 768px) {
       display: block;
@@ -130,20 +131,6 @@ hr {
     padding: 30px 34px;
     margin: 0 10px;
     transition: 0.2s all;
-  }
-
-  .sticky-container.affix {
-    position: fixed;
-    top: 10px;
-    bottom: auto;
-    z-index: 10;
-  }
-
-  .sticky-container.affix-bottom {
-    position: absolute;
-    bottom: 0;
-    z-index: 10;
-    top: auto;
   }
 }
 

@@ -161,7 +161,7 @@ class ProfilePage extends React.Component {
         }
         <div styleName="profile-container">
           <div styleName="about-container">
-            <div id="affix" styleName="profile-header-container">
+            <div styleName="profile-header-container">
               <Sticky
                 bottomBoundary={document.body.scrollHeight - 250}
                 enabled={!isMobile}
