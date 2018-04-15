@@ -2,12 +2,12 @@
  * Profile Page.  Displays the publicly available achievements, stats and skills
  * of a TopCoder member.
  */
+import _ from 'lodash';
 import React from 'react';
 import { Link } from 'react-router-dom';
 import PT from 'prop-types';
 import { PrimaryButton } from 'topcoder-react-ui-kit';
 import Sticky from 'react-stickynode';
-import { isNumber, isNull, isEmpty, orderBy } from 'lodash';
 
 import config from 'utils/config';
 import { getRatingColor } from 'utils/tc';
@@ -19,10 +19,13 @@ import DesignIcon from 'assets/images/profile/ico-track-design.svg';
 import DevelopIcon from 'assets/images/profile/ico-track-develop.svg';
 import Robot from 'assets/images/robot-happy.svg';
 
-
 import Header from './Header';
+import Skill from './Skill';
 
 import style from './styles.scss';
+
+// Number of skills to show before a 'VIEW MORE' button is created
+const MAX_SKILLS = 10;
 
 // Maps API track names to format in design
 const TRACK_NAMES = {
@@ -42,7 +45,7 @@ const TRACK_NAMES = {
 const isActiveSubtrack = (subtrack) => {
   if (subtrack.rank && subtrack.rank > 0) {
     return true;
-  } else if (isNumber(subtrack.submissions)) {
+  } else if (_.isNumber(subtrack.submissions)) {
     return subtrack.submissions > 0;
   }
   return subtrack.submissions && subtrack.submissions.submissions > 0;
@@ -70,7 +73,7 @@ class ProfilePage extends React.Component {
         }
       });
       if (active.length > 0) {
-        const sorted = orderBy(active, [
+        const sorted = _.orderBy(active, [
           s => s.wins,
           s => (s.rank ? s.rank.rating : 0),
         ], ['desc', 'desc']);
@@ -87,7 +90,6 @@ class ProfilePage extends React.Component {
       copilot,
       country,
       info,
-      skills,
       stats,
     } = this.props;
 
@@ -95,6 +97,13 @@ class ProfilePage extends React.Component {
       // badgesModalOpen,
       skillsExpanded,
     } = this.state;
+
+    // Convert skills from object to an array for easier iteration
+    let skills = _.map(this.props.skills, (skill, tagId) => ({ tagId, ...skill }));
+    const showMoreButton = skills.length > MAX_SKILLS;
+    if (!skillsExpanded) {
+      skills = skills.slice(0, MAX_SKILLS);
+    }
 
     const activeTracks = this.getActiveTracks();
 
@@ -118,7 +127,7 @@ class ProfilePage extends React.Component {
             </div>
             <div styleName="profile-about-container">
               {
-                isEmpty(skills) && isEmpty(activeTracks) &&
+                _.isEmpty(skills) && _.isEmpty(activeTracks) &&
                 <div styleName="empty-profile">
                   <h2>BEEP. BEEP. HELLO!</h2>
                   <Robot />
@@ -127,17 +136,25 @@ class ProfilePage extends React.Component {
                 </div>
               }
               {
-                skills && skills.length > 0 &&
+                !_.isEmpty(skills) &&
                 <div id="profile-skills">
                   <div styleName="skills">
                     <h3 styleName="activity">Skills</h3>
                     <div styleName="list">
-                      <div ng-repeat="skill in vm.skills" styleName="skill">
-                        <span>Skill Here</span>
-                      </div>
+                      {
+                        skills.map(({ tagId, tagName, hidden }) => (
+                          !hidden &&
+                          <div key={tagId} styleName="skill">
+                            <Skill
+                              tagId={tagId}
+                              tagName={tagName}
+                            />
+                          </div>
+                        ))
+                      }
                     </div>
                     {
-                      !skillsExpanded &&
+                      showMoreButton && !skillsExpanded &&
                       <PrimaryButton
                         onClick={() => this.setState({ skillsExpanded: true })}
                         theme={style}
@@ -170,14 +187,14 @@ class ProfilePage extends React.Component {
                             <Link to="#" key={subtrack.name} styleName={`subtrack ${index === 0 ? 'first' : ''}`}>
                               <div styleName="name">{subtrack.name.replace('FIRST_2_FINISH', 'FIRST2FINISH').replace(/_/g, ' ')}</div>
                               {
-                                subtrack.rank && !isNull(subtrack.rank.rating) &&
+                                subtrack.rank && !_.isNull(subtrack.rank.rating) &&
                                   <div styleName="ranking">
                                     <div style={{ color: getRatingColor(subtrack.rank.rating) }} styleName="number">{subtrack.rank.rating}</div>
                                     <div styleName="tag">Rating</div>
                                   </div>
                               }
                               {
-                                (!subtrack.rank || isNull(subtrack.rank.rating)) &&
+                                (!subtrack.rank || _.isNull(subtrack.rank.rating)) &&
                                 !subtrack.fulfillment &&
                                 <div styleName="ranking">
                                   <div style={{ color: '#21B2F1' }} styleName="number">{subtrack.wins}</div>
