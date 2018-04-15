@@ -2,6 +2,7 @@
  * Profile Page.  Displays the publicly available achievements, stats and skills
  * of a TopCoder member.
  */
+/* eslint-env browser */
 import _ from 'lodash';
 import React from 'react';
 import { Link } from 'react-router-dom';
@@ -56,8 +57,18 @@ class ProfilePage extends React.Component {
     super(props);
     this.state = {
       badgesModalOpen: false,
+      isMobile: false,
       skillsExpanded: false,
     };
+  }
+
+  componentDidMount() {
+    this.handleResize();
+    window.addEventListener('resize', () => this.handleResize());
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.handleResize());
   }
 
   getActiveTracks() {
@@ -84,6 +95,10 @@ class ProfilePage extends React.Component {
     return activeTracks;
   }
 
+  handleResize() {
+    this.setState({ isMobile: window.innerWidth < 768 });
+  }
+
   render() {
     const {
       achievements,
@@ -95,6 +110,7 @@ class ProfilePage extends React.Component {
 
     const {
       // badgesModalOpen,
+      isMobile,
       skillsExpanded,
     } = this.state;
 
@@ -112,7 +128,7 @@ class ProfilePage extends React.Component {
         <div styleName="profile-container">
           <div styleName="about-container">
             <div id="affix" styleName="profile-header-container">
-              <Sticky top={10}>
+              <Sticky enabled={!isMobile} top={10}>
                 <div styleName="sticky-container">
                   <Header
                     copilot={copilot}
