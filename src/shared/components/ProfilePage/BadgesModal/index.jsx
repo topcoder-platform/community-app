@@ -6,8 +6,11 @@ import PT from 'prop-types';
 import { noop } from 'lodash';
 
 import Modal from 'components/Modal';
+import Tooltip from 'components/Tooltip';
 
 import CloseButton from 'assets/images/profile/x-mark-gray.svg';
+
+import Popup from './Popup';
 
 import {
   normalizeAchievements,
@@ -22,8 +25,9 @@ import modal from './modal.scss';
 import styles from './styles.scss';
 /* eslint-enable no-unused-vars */
 
-const BadgesModal = ({ achievements, handle, onClose, photoURL }) => {
+const BadgesModal = ({ achievements, handle, isMobile, onClose, photoURL }) => {
   const normalized = normalizeAchievements(achievements);
+  const trigger = isMobile ? ['click'] : ['hover'];
 
   return (
     <Modal onCancel={onClose} theme={modal}>
@@ -45,7 +49,17 @@ const BadgesModal = ({ achievements, handle, onClose, photoURL }) => {
                   { group.groupClass.substring(0, 9) === 'HP-Badges' && <span styleName="badges.subBadge badges.hpLogo" /> }
                   {
                     group.specificAchievements.map(achievement => (
-                      <span key={achievement.name} styleName={`badges.subBadge badges.${achievement.specificClass} ${achievement.active ? 'badges.selected' : ''}`} />
+                      <Tooltip
+                        className={styles.tooltip}
+                        content={
+                          <Popup date={achievement.date} name={achievement.name} />
+                        }
+                        key={achievement.name}
+                        suppressDiv
+                        trigger={trigger}
+                      >
+                        <span styleName={`badges.subBadge badges.${achievement.specificClass} ${achievement.active ? 'badges.selected' : ''}`} />
+                      </Tooltip>
                     ))
                   }
                 </div>
@@ -55,7 +69,17 @@ const BadgesModal = ({ achievements, handle, onClose, photoURL }) => {
           <div styleName="styles.footer-badges">
             {
               getSingleAchievements(normalized).map(achievement => (
-                <div key={achievement.id} styleName={`badges.singleBadge badges.${achievement.groupClass} ${achievement.active ? 'badges.selected' : ''}`} />
+                <Tooltip
+                  className={styles.tooltip}
+                  content={
+                    <Popup date={achievement.date} name={achievement.name} />
+                  }
+                  key={achievement.id}
+                  suppressDiv
+                  trigger={trigger}
+                >
+                  <div styleName={`badges.singleBadge badges.${achievement.groupClass} ${achievement.active ? 'badges.selected' : ''}`} />
+                </Tooltip>
               ))
             }
           </div>
@@ -67,6 +91,7 @@ const BadgesModal = ({ achievements, handle, onClose, photoURL }) => {
 
 BadgesModal.defaultProps = {
   achievements: [],
+  isMobile: false,
   onClose: noop,
   photoURL: '',
 };
@@ -74,6 +99,7 @@ BadgesModal.defaultProps = {
 BadgesModal.propTypes = {
   achievements: PT.arrayOf(PT.shape()),
   handle: PT.string.isRequired,
+  isMobile: PT.bool,
   photoURL: PT.string,
   onClose: PT.func,
 };

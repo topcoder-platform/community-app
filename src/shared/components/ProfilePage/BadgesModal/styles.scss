@@ -68,4 +68,13 @@ header.head {
       fill: $tc-gray-50;
     }
   }
+
+  @include xs-to-sm {
+    height: 20px;
+    width: 20px;
+  }
+}
+
+.tooltip {
+  pointer-events: none;
 }
