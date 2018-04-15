@@ -30,10 +30,10 @@ const MAX_SKILLS = 10;
 
 // Maps API track names to format in design
 const TRACK_NAMES = {
+  COPILOT: 'COPILOT',
   DATA_SCIENCE: 'DATA SCIENCE',
   DEVELOP: 'DEVELOPMENT',
   DESIGN: 'DESIGN',
-  COPILOT: 'COPILOT',
 };
 
 /**
@@ -72,10 +72,20 @@ class ProfilePage extends React.Component {
   }
 
   getActiveTracks() {
-    const { stats } = this.props;
+    const { copilot, stats } = this.props;
     const activeTracks = [];
 
-    ['DEVELOP', 'DESIGN', 'DATA_SCIENCE', 'COPILOT'].forEach((track) => {
+    if (copilot) {
+      activeTracks.push({
+        name: 'COPILOT',
+        subTracks: [{
+          fulfillment: stats.COPILOT.fulfillment,
+          name: 'COPILOT',
+        }],
+      });
+    }
+
+    ['DEVELOP', 'DESIGN', 'DATA_SCIENCE'].forEach((track) => {
       const active = [];
       const subTracks = stats[track] ? stats[track].subTracks || [] : [];
       subTracks.forEach((subtrack) => {
@@ -220,7 +230,7 @@ class ProfilePage extends React.Component {
                               {
                                 subtrack.fulfillment &&
                                 <div styleName="ranking">
-                                  <div styleName="number">{`${subtrack.fulfillment}%`}</div>
+                                  <div style={{ color: '#a3a3ae' }} styleName="number">{`${subtrack.fulfillment}%`}</div>
                                   <div styleName="tag">Fulfillment</div>
                                 </div>
                               }
