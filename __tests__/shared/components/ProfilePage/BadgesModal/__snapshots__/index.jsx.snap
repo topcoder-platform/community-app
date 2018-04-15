@@ -1,0 +1,310 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders achievements correctly 1`] = `
+<ThemedModal
+  composeAdhocTheme="deeply"
+  composeContextTheme="softly"
+  mapThemrProps={[Function]}
+  onCancel={[Function]}
+  theme={
+    Object {
+      "container": "src-shared-components-ProfilePage-BadgesModal-modal___container___4EvuJJ",
+    }
+  }
+  themePriority="adhoc-context-default"
+>
+  <header
+    className="src-shared-components-ProfilePage-BadgesModal-___styles__head___2Awc5"
+  >
+    <div>
+      <div>
+        
+        <span>
+          testHandle
+        </span>
+        <span
+          className="src-shared-components-ProfilePage-BadgesModal-___styles__divider___3BuuF"
+        >
+           // 
+        </span>
+        <span
+          className="src-shared-components-ProfilePage-BadgesModal-___styles__title___10epD"
+        >
+          BADGES
+        </span>
+      </div>
+    </div>
+  </header>
+  <aside
+    className="src-shared-components-ProfilePage-BadgesModal-___styles__badges___iTXkj"
+  >
+    <CloseButton
+      className="src-shared-components-ProfilePage-BadgesModal-___styles__close-button___19iJL"
+      height="36"
+      onClick={[Function]}
+      viewBox="0 0 36 36"
+      width="36"
+      xmlns="http://www.w3.org/2000/svg"
+    />
+    <div
+      className="src-shared-components-ProfilePage-BadgesModal-___styles__content___3wxpB"
+    >
+      <div
+        className="src-shared-components-ProfilePage-BadgesModal-___styles__badgeGroups___3KAO2"
+      >
+        <div
+          className="src-shared-components-ProfilePage-BadgesModal-___badges__groupBadge___3Cghu src-shared-components-ProfilePage-BadgesModal-___badges__Forum-Posts___3cKMV"
+        >
+          <Tooltip
+            align={Object {}}
+            className="src-shared-components-ProfilePage-BadgesModal-styles___tooltip___2iYV_8"
+            content={
+              <Popup
+                date="2013-03-21T00:00:00.000-04:00"
+                name="First Forum Post"
+              />
+            }
+            defaultVisible={false}
+            onTooltipHover={[Function]}
+            placeArrow={[Function]}
+            position="top"
+            suppressDiv={true}
+            trigger={
+              Array [
+                "hover",
+              ]
+            }
+          >
+            <span
+              className="src-shared-components-ProfilePage-BadgesModal-___badges__subBadge___34O-c src-shared-components-ProfilePage-BadgesModal-___badges__Forum-Posts-1___urckG src-shared-components-ProfilePage-BadgesModal-___badges__selected___2e2Lr"
+            />
+          </Tooltip>
+          <Tooltip
+            align={Object {}}
+            className="src-shared-components-ProfilePage-BadgesModal-styles___tooltip___2iYV_8"
+            content={
+              <Popup
+                date="2013-02-20T00:00:00.000-05:00"
+                name="One Hundred Forum Posts"
+              />
+            }
+            defaultVisible={false}
+            onTooltipHover={[Function]}
+            placeArrow={[Function]}
+            position="top"
+            suppressDiv={true}
+            trigger={
+              Array [
+                "hover",
+              ]
+            }
+          >
+            <span
+              className="src-shared-components-ProfilePage-BadgesModal-___badges__subBadge___34O-c src-shared-components-ProfilePage-BadgesModal-___badges__Forum-Posts-100___3rzCU src-shared-components-ProfilePage-BadgesModal-___badges__selected___2e2Lr"
+            />
+          </Tooltip>
+          <Tooltip
+            align={Object {}}
+            className="src-shared-components-ProfilePage-BadgesModal-styles___tooltip___2iYV_8"
+            content={
+              <Popup
+                date="2012-11-28T00:00:00.000-05:00"
+                name="Five Hundred Forum Posts"
+              />
+            }
+            defaultVisible={false}
+            onTooltipHover={[Function]}
+            placeArrow={[Function]}
+            position="top"
+            suppressDiv={true}
+            trigger={
+              Array [
+                "hover",
+              ]
+            }
+          >
+            <span
+              className="src-shared-components-ProfilePage-BadgesModal-___badges__subBadge___34O-c src-shared-components-ProfilePage-BadgesModal-___badges__Forum-Posts-500___2DHkn src-shared-components-ProfilePage-BadgesModal-___badges__selected___2e2Lr"
+            />
+          </Tooltip>
+          <Tooltip
+            align={Object {}}
+            className="src-shared-components-ProfilePage-BadgesModal-styles___tooltip___2iYV_8"
+            content={
+              <Popup
+                date="2012-04-30T00:00:00.000-04:00"
+                name="One Thousand Forum Posts"
+              />
+            }
+            defaultVisible={false}
+            onTooltipHover={[Function]}
+            placeArrow={[Function]}
+            position="top"
+            suppressDiv={true}
+            trigger={
+              Array [
+                "hover",
+              ]
+            }
+          >
+            <span
+              className="src-shared-components-ProfilePage-BadgesModal-___badges__subBadge___34O-c src-shared-components-ProfilePage-BadgesModal-___badges__Forum-Posts-1000___oCnsV src-shared-components-ProfilePage-BadgesModal-___badges__selected___2e2Lr"
+            />
+          </Tooltip>
+          <Tooltip
+            align={Object {}}
+            className="src-shared-components-ProfilePage-BadgesModal-styles___tooltip___2iYV_8"
+            content={
+              <Popup
+                date="2005-01-29T00:00:00.000-05:00"
+                name="Five Thousand Forum Posts"
+              />
+            }
+            defaultVisible={false}
+            onTooltipHover={[Function]}
+            placeArrow={[Function]}
+            position="top"
+            suppressDiv={true}
+            trigger={
+              Array [
+                "hover",
+              ]
+            }
+          >
+            <span
+              className="src-shared-components-ProfilePage-BadgesModal-___badges__subBadge___34O-c src-shared-components-ProfilePage-BadgesModal-___badges__Forum-Posts-5000___1ciJs src-shared-components-ProfilePage-BadgesModal-___badges__selected___2e2Lr"
+            />
+          </Tooltip>
+        </div>
+        <div
+          className="src-shared-components-ProfilePage-BadgesModal-___badges__groupBadge___3Cghu src-shared-components-ProfilePage-BadgesModal-___badges__Passing-Submissions___3238v"
+        >
+          <Tooltip
+            align={Object {}}
+            className="src-shared-components-ProfilePage-BadgesModal-styles___tooltip___2iYV_8"
+            content={
+              <Popup
+                date="2015-07-23T00:00:00.000-04:00"
+                name="First Passing Submission"
+              />
+            }
+            defaultVisible={false}
+            onTooltipHover={[Function]}
+            placeArrow={[Function]}
+            position="top"
+            suppressDiv={true}
+            trigger={
+              Array [
+                "hover",
+              ]
+            }
+          >
+            <span
+              className="src-shared-components-ProfilePage-BadgesModal-___badges__subBadge___34O-c src-shared-components-ProfilePage-BadgesModal-___badges__Studio-Passing-Submissions-1___2JaKp src-shared-components-ProfilePage-BadgesModal-___badges__selected___2e2Lr"
+            />
+          </Tooltip>
+          <Tooltip
+            align={Object {}}
+            className="src-shared-components-ProfilePage-BadgesModal-styles___tooltip___2iYV_8"
+            content={
+              <Popup
+                date=""
+                name="Fifty Passing Submissions"
+              />
+            }
+            defaultVisible={false}
+            onTooltipHover={[Function]}
+            placeArrow={[Function]}
+            position="top"
+            suppressDiv={true}
+            trigger={
+              Array [
+                "hover",
+              ]
+            }
+          >
+            <span
+              className="src-shared-components-ProfilePage-BadgesModal-___badges__subBadge___34O-c src-shared-components-ProfilePage-BadgesModal-___badges__Passing-Submissions-50___1SmIh"
+            />
+          </Tooltip>
+          <Tooltip
+            align={Object {}}
+            className="src-shared-components-ProfilePage-BadgesModal-styles___tooltip___2iYV_8"
+            content={
+              <Popup
+                date=""
+                name="One Hundred Passing Submissions"
+              />
+            }
+            defaultVisible={false}
+            onTooltipHover={[Function]}
+            placeArrow={[Function]}
+            position="top"
+            suppressDiv={true}
+            trigger={
+              Array [
+                "hover",
+              ]
+            }
+          >
+            <span
+              className="src-shared-components-ProfilePage-BadgesModal-___badges__subBadge___34O-c src-shared-components-ProfilePage-BadgesModal-___badges__Passing-Submissions-100___2UZvi"
+            />
+          </Tooltip>
+          <Tooltip
+            align={Object {}}
+            className="src-shared-components-ProfilePage-BadgesModal-styles___tooltip___2iYV_8"
+            content={
+              <Popup
+                date=""
+                name="Two Hundred And Fifty Passing Submissions"
+              />
+            }
+            defaultVisible={false}
+            onTooltipHover={[Function]}
+            placeArrow={[Function]}
+            position="top"
+            suppressDiv={true}
+            trigger={
+              Array [
+                "hover",
+              ]
+            }
+          >
+            <span
+              className="src-shared-components-ProfilePage-BadgesModal-___badges__subBadge___34O-c src-shared-components-ProfilePage-BadgesModal-___badges__Passing-Submissions-250___20myV"
+            />
+          </Tooltip>
+          <Tooltip
+            align={Object {}}
+            className="src-shared-components-ProfilePage-BadgesModal-styles___tooltip___2iYV_8"
+            content={
+              <Popup
+                date=""
+                name="Five Hundred Passing Submissions"
+              />
+            }
+            defaultVisible={false}
+            onTooltipHover={[Function]}
+            placeArrow={[Function]}
+            position="top"
+            suppressDiv={true}
+            trigger={
+              Array [
+                "hover",
+              ]
+            }
+          >
+            <span
+              className="src-shared-components-ProfilePage-BadgesModal-___badges__subBadge___34O-c src-shared-components-ProfilePage-BadgesModal-___badges__Passing-Submissions-500___3Xkw3"
+            />
+          </Tooltip>
+        </div>
+      </div>
+      <div
+        className="src-shared-components-ProfilePage-BadgesModal-___styles__footer-badges___1Ak-p"
+      />
+    </div>
+  </aside>
+</ThemedModal>
+`;
