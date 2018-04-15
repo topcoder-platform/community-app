@@ -151,6 +151,7 @@ class ProfilePage extends React.Component {
           <BadgesModal
             achievements={achievements}
             handle={info.handle}
+            isMobile={isMobile}
             photoURL={info.photoURL}
             onClose={() => this.setState({ badgesModalOpen: false })}
           />
