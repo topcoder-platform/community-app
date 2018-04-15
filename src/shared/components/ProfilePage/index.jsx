@@ -45,6 +45,9 @@ const TRACK_NAMES = {
  * @return {Boolean}
  */
 const isActiveSubtrack = (subtrack) => {
+  if (subtrack.name === 'COPILOT_POSTING') {
+    return false;
+  }
   if (subtrack.rank && subtrack.rank.rating > 0) {
     return true;
   } else if (_.isNumber(subtrack.submissions)) {
@@ -159,7 +162,11 @@ class ProfilePage extends React.Component {
         <div styleName="profile-container">
           <div styleName="about-container">
             <div id="affix" styleName="profile-header-container">
-              <Sticky enabled={!isMobile} top={10}>
+              <Sticky
+                bottomBoundary={document.body.scrollHeight - 250}
+                enabled={!isMobile}
+                top={10}
+              >
                 <div styleName="sticky-container">
                   <Header
                     copilot={copilot}
@@ -221,7 +228,7 @@ class ProfilePage extends React.Component {
                 <div styleName="categories">
                   {
                     activeTracks.map(track => (
-                      <div key={track.name} styleName="track">
+                      <div id={track.name} key={track.name} styleName="track">
                         <div styleName="name">
                           { track.name === 'COPILOT' && <CopilotIcon /> }
                           { track.name === 'DATA_SCIENCE' && <DataScienceIcon /> }

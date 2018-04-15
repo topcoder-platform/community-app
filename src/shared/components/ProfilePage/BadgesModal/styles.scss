@@ -24,6 +24,18 @@ header.head {
     margin-bottom: -5px;
     margin-right: 13px;
   }
+
+  @include xs-to-sm {
+    text-align: center;
+
+    .divider {
+      display: none;
+    }
+
+    .title {
+      display: block;
+    }
+  }
 }
 
 .badges {
