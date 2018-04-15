@@ -91,10 +91,7 @@ function create(initialState) {
 }
 
 /**
- * Factory which creates a new reducer with its initial state tailored to the
- * ExpressJS HTTP request, if specified (for server-side rendering). If HTTP
- * request is not specified, it creates just the default reducer.
- * @param {Object} req Optional. ExpressJS HTTP request.
+ * Factory which creates a new reducer.
  * @return Promise which resolves to the new reducer.
  */
 export function factory() {

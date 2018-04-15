@@ -35,7 +35,7 @@ const BadgesModal = ({ achievements, handle, isMobile, onClose, photoURL }) => {
         <div>
           <div>
             { photoURL && <img src={photoURL} styleName="styles.profile-circle" alt="Member Portrait" /> }
-            <span>{handle}</span><span>{' // '}</span><span styleName="styles.title">BADGES</span>
+            <span>{handle}</span><span styleName="styles.divider">{' // '}</span><span styleName="styles.title">BADGES</span>
           </div>
         </div>
       </header>

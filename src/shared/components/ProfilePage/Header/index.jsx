@@ -47,14 +47,14 @@ const ProfileHeader = ({
       <div styleName="tracks-links">
         <div styleName="tracks">
           {
-            [...info.tracks, copilot ? 'COPILOT' : ''].map(track => (
-              <div key={track} styleName="track">
+            [...info.tracks, ...(copilot ? ['COPILOT'] : [])].map(track => (
+              <a href={`#${track}`} key={track} styleName="track">
                 { track === 'COPILOT' && <CopilotIcon styleName="track-icon" /> }
                 { track === 'DATA_SCIENCE' && <DataScienceIcon styleName="track-icon" /> }
                 { track === 'DESIGN' && <DesignIcon styleName="track-icon" /> }
                 { track === 'DEVELOP' && <DevelopIcon styleName="track-icon" /> }
                 <div styleName="text">{TRACK_LABELS[track]}</div>
-              </div>
+              </a>
             ))
           }
         </div>

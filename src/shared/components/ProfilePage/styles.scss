@@ -88,9 +88,6 @@ hr {
 
   background-color: transparent;
   padding-top: 0;
-  // margin: 0 auto;
-  // margin-left: auto;
-  // margin-right: auto;
 
   @media (min-width: 768px) {
     padding-top: 30px;
@@ -107,14 +104,11 @@ hr {
   margin-bottom: 5px;
   display: flex;
   position: relative;
-  // margin-left: 10px;
 
   @media (min-width: 768px) {
     max-width: 368px;
     margin: 0 auto;
     padding-right: 10px;
-    // padding: 0;
-    // margin: 0;
     display: block;
     position: relative;
   }
@@ -122,8 +116,6 @@ hr {
   // Sticky container
   .sticky-container {
     background-color: $tc-white;
-    // margin: 0 auto;
-    // padding: 0;
     display: flex;
     width: auto;
     max-width: auto;
@@ -174,7 +166,6 @@ hr {
     text-align: center;
     margin-left: auto;
     margin-right: auto;
-    // padding: 0 4px;
 
     .list {
       display: flex;
@@ -218,26 +209,6 @@ hr {
       font-size: 25px;
       margin: auto;
     }
-
-    // .empty-state {
-    //   .sample-skills {
-    //     margin: 0 auto;
-    //     display: flex;
-    //     flex-direction: row;
-    //     justify-content: center;
-    //     flex-wrap: wrap;
-    //     width: 100%;
-    //
-    //     .skill {
-    //       width: 130px;
-    //       opacity: 0.3;
-    //
-    //       a {
-    //         cursor: default;
-    //       }
-    //     }
-    //   }
-    // }
 
     button.more {
       margin-bottom: 20px;
@@ -385,52 +356,6 @@ hr {
       }
     }
   }
-
-  // .external-links {
-  //   @include module-l;
-  //
-  //   width: 100%;
-  //   align-self: center;
-  //   display: flex;
-  //   flex-direction: column;
-  //   align-items: center;
-  //   text-align: center;
-  //   margin-left: auto;
-  //   margin-right: auto;
-  //
-  //   .activity {
-  //     margin-bottom: 15px;
-  //   }
-  //
-  //   .external-links-data {
-  //     margin-bottom: 20px;
-  //   }
-  //
-  //   .empty-state {
-  //     .sample-ext-accounts {
-  //       margin: 0 auto;
-  //       display: flex;
-  //       flex-direction: row;
-  //       justify-content: center;
-  //       flex-wrap: wrap;
-  //       width: 100%;
-  //     }
-  //
-  //     .ext-tile {
-  //       opacity: 0.3;
-  //       margin-top: 0;
-  //       margin-bottom: 0;
-  //
-  //       .external-account-box {
-  //         margin-top: 0;
-  //       }
-  //
-  //       // a {
-  //       //   cursor: default;
-  //       // }
-  //     }
-  //   }
-  // }
 }
 
 @media (min-width: 768px) {
@@ -569,20 +494,5 @@ hr {
         }
       }
     }
-
-    // .external-links {
-    //   margin-top: 1px;
-    //   padding-top: 0;
-    //   padding-bottom: 0;
-    //
-    //   .external-links-data {
-    //     margin-bottom: 30px;
-    //   }
-    //
-    //   .activity {
-    //     margin-bottom: 0;
-    //     text-transform: uppercase;
-    //   }
-    // }
   }
 }
