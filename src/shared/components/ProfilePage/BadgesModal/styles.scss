@@ -16,10 +16,11 @@ header.head {
     }
   }
 
-  img.profile-circle {
+  .profile-circle {
     display: inline;
     border-radius: 50%;
     height: 30px;
+    width: auto;
     margin-bottom: -5px;
     margin-right: 13px;
   }

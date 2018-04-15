@@ -45,7 +45,7 @@ const TRACK_NAMES = {
  * @return {Boolean}
  */
 const isActiveSubtrack = (subtrack) => {
-  if (subtrack.rank && subtrack.rank > 0) {
+  if (subtrack.rank && subtrack.rank.rating > 0) {
     return true;
   } else if (_.isNumber(subtrack.submissions)) {
     return subtrack.submissions > 0;
@@ -91,6 +91,14 @@ class ProfilePage extends React.Component {
     ['DEVELOP', 'DESIGN', 'DATA_SCIENCE'].forEach((track) => {
       const active = [];
       const subTracks = stats[track] ? stats[track].subTracks || [] : [];
+
+      if (stats[track].SRM) {
+        subTracks.push({ ...stats[track].SRM, name: 'SRM' });
+      }
+      if (stats[track].MARATHON_MATCH) {
+        subTracks.push({ ...stats[track].MARATHON_MATCH, name: 'MARATHON MATCH' });
+      }
+
       subTracks.forEach((subtrack) => {
         if (isActiveSubtrack(subtrack)) {
           active.push({ ...subtrack, active: true });
