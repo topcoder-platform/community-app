@@ -7,7 +7,6 @@ import { noop } from 'lodash';
 
 import Modal from 'components/Modal';
 
-import DefaultPortrait from 'assets/images/ico-user-default.svg';
 import CloseButton from 'assets/images/profile/x-mark-gray.svg';
 
 import {
@@ -31,7 +30,7 @@ const BadgesModal = ({ achievements, handle, onClose, photoURL }) => {
       <header styleName="styles.head">
         <div>
           <div>
-            { photoURL ? <img src={photoURL} styleName="styles.profile-circle" alt="Member Portrait" /> : <DefaultPortrait styleName="styles.profile-circle" /> }
+            { photoURL && <img src={photoURL} styleName="styles.profile-circle" alt="Member Portrait" /> }
             <span>{handle}</span><span>{' // '}</span><span styleName="styles.title">BADGES</span>
           </div>
         </div>
