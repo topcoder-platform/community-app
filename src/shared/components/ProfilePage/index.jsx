@@ -20,6 +20,7 @@ import DesignIcon from 'assets/images/profile/ico-track-design.svg';
 import DevelopIcon from 'assets/images/profile/ico-track-develop.svg';
 import Robot from 'assets/images/robot-happy.svg';
 
+import BadgesModal from './BadgesModal';
 import Header from './Header';
 import Skill from './Skill';
 
@@ -60,15 +61,17 @@ class ProfilePage extends React.Component {
       isMobile: false,
       skillsExpanded: false,
     };
+
+    this.handleResize = this.handleResize.bind(this);
   }
 
   componentDidMount() {
     this.handleResize();
-    window.addEventListener('resize', () => this.handleResize());
+    window.addEventListener('resize', this.handleResize);
   }
 
   componentWillUnmount() {
-    window.removeEventListener('resize', this.handleResize());
+    window.removeEventListener('resize', this.handleResize);
   }
 
   getActiveTracks() {
@@ -119,7 +122,7 @@ class ProfilePage extends React.Component {
     } = this.props;
 
     const {
-      // badgesModalOpen,
+      badgesModalOpen,
       isMobile,
       skillsExpanded,
     } = this.state;
@@ -135,6 +138,15 @@ class ProfilePage extends React.Component {
 
     return (
       <div styleName="outer-container">
+        {
+          badgesModalOpen &&
+          <BadgesModal
+            achievements={achievements}
+            handle={info.handle}
+            photoURL={info.photoURL}
+            onClose={() => this.setState({ badgesModalOpen: false })}
+          />
+        }
         <div styleName="profile-container">
           <div styleName="about-container">
             <div id="affix" styleName="profile-header-container">
@@ -223,7 +235,7 @@ class ProfilePage extends React.Component {
                                 (!subtrack.rank || _.isNull(subtrack.rank.rating)) &&
                                 !subtrack.fulfillment &&
                                 <div styleName="ranking">
-                                  <div style={{ color: '#21B2F1' }} styleName="number">{subtrack.wins}</div>
+                                  <div style={{ color: '#21b2f1' }} styleName="number">{subtrack.wins}</div>
                                   <div styleName="tag">Wins</div>
                                 </div>
                               }
