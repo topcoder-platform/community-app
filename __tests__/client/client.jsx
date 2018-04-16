@@ -1,3 +1,8 @@
+/**
+ * TODO: These tests are to be refactored as necessary and moved to
+ * "topcoder-react-utils" package, where related code was moved.
+ */
+
 /* eslint-env browser */
 
 import _ from 'lodash';
@@ -143,13 +148,13 @@ jest.setMock(`${SRC}/shared`, {
   default: () => <div>Application</div>,
 });
 
-test('Fails to start with process.env.FRONT_END evaluating false', () => {
+test.skip('Fails to start with process.env.FRONT_END evaluating false', () => {
   jest.resetModules();
   expect(process.env.FRONT_END).toBeUndefined();
   expect(() => require(MODULE)).toThrow();
 });
 
-describe('Properly starts with process.env.FRONT_ENV evaluating true', () => {
+describe.skip('Properly starts with process.env.FRONT_ENV evaluating true', () => {
   /* NOTE: Before each test a promise is stored into this variable, which will
    * resolve once the page is rendered. */
 
