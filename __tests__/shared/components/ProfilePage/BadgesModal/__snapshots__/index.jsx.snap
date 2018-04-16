@@ -60,7 +60,7 @@ exports[`renders achievements correctly 1`] = `
             className="src-shared-components-ProfilePage-BadgesModal-styles___tooltip___2iYV_8"
             content={
               <Popup
-                date="2013-03-21T00:00:00.000-04:00"
+                date="2012-02-17T00:00:00.000-05:00"
                 name="First Forum Post"
               />
             }
@@ -84,7 +84,7 @@ exports[`renders achievements correctly 1`] = `
             className="src-shared-components-ProfilePage-BadgesModal-styles___tooltip___2iYV_8"
             content={
               <Popup
-                date="2013-02-20T00:00:00.000-05:00"
+                date="2009-06-23T00:00:00.000-04:00"
                 name="One Hundred Forum Posts"
               />
             }
@@ -184,7 +184,7 @@ exports[`renders achievements correctly 1`] = `
             className="src-shared-components-ProfilePage-BadgesModal-styles___tooltip___2iYV_8"
             content={
               <Popup
-                date="2015-07-23T00:00:00.000-04:00"
+                date="2012-09-29T00:00:00.000-04:00"
                 name="First Passing Submission"
               />
             }
@@ -200,7 +200,7 @@ exports[`renders achievements correctly 1`] = `
             }
           >
             <span
-              className="src-shared-components-ProfilePage-BadgesModal-___badges__subBadge___34O-c src-shared-components-ProfilePage-BadgesModal-___badges__Studio-Passing-Submissions-1___2JaKp src-shared-components-ProfilePage-BadgesModal-___badges__selected___2e2Lr"
+              className="src-shared-components-ProfilePage-BadgesModal-___badges__subBadge___34O-c src-shared-components-ProfilePage-BadgesModal-___badges__Passing-Submissions-1___1nPUK src-shared-components-ProfilePage-BadgesModal-___badges__selected___2e2Lr"
             />
           </Tooltip>
           <Tooltip

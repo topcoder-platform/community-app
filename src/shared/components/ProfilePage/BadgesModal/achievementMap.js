@@ -4,6 +4,8 @@
  *
  * Copied and adapted from topcoder-app
  */
+import moment from 'moment';
+
 const groupAchievements =
 [
   {
@@ -570,10 +572,12 @@ const singleAchievements =
 export const getGroupAchievements = achievements => groupAchievements.map(group => ({
   ...group,
   specificAchievements: group.specificAchievements.map((specific) => {
-    const found = achievements.find(a => a.description === specific.name);
-    if (found) {
+    const found = achievements.filter(a => a.description === specific.name);
+    if (found.length > 0) {
+      const date = found.map(a => a.date)
+        .reduce((earliest, current) => (moment(current).isBefore(earliest) ? current : earliest));
       const specificClass = found.isStudio ? `Studio-${specific.specificClass}` : specific.specificClass;
-      return { ...specific, active: true, date: found.date, specificClass };
+      return { ...specific, active: true, date, specificClass };
     }
     return specific;
   }),

@@ -12,7 +12,7 @@ exports[`renders badge modal popup correctly 1`] = `
   <div
     className="src-shared-components-ProfilePage-BadgesModal-Popup-___styles__date___SCzmg"
   >
-    Earned on Sep 17, 2017
+    Earned on Sep 18, 2017
   </div>
 </div>
 `;
