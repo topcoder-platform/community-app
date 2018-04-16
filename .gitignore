@@ -47,6 +47,5 @@ jspm_packages
 
 # Misc files
 .build-info
-.injkey
 .vscode
 set-env.sh
