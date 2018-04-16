@@ -112,7 +112,7 @@ exports[`Matches shallow shapshot 1`] = `
     </em>
      example, and the innter one tries to set the same theme as in the 
     <em>
-      Default theme + Context styling
+      Default theme + Context styling 
     </em>
      example. The question is, which will win with the current version of react-css-super-themr?
   </p>

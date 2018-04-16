@@ -2,7 +2,7 @@
  * This module provides a service to manage scoreboards via API.
  */
 import Api from 'services/api';
-import config from 'utils/config';
+import { config } from 'topcoder-react-utils';
 
 class ScoreboardService {
   /**

@@ -11,9 +11,7 @@ import { Button } from 'topcoder-react-ui-kit';
 import Select from 'components/Select';
 import { EDITOR_BLOCK_STYLE_MAP } from 'utils/editor';
 
-import {
-  RichUtils,
-} from 'draft-js';
+import { RichUtils } from 'draft-js';
 
 import ColorPicker from './ColorPicker';
 import Connector from '../Connector';
@@ -31,9 +29,9 @@ export default class Toolbar extends React.Component {
     this.state = {
       block: null,
       editor: null,
-      markdown: false,
+      // markdown: false,
       pickingTextColor: false,
-      pickingHighlightColor: false,
+      // pickingHighlightColor: false,
 
       BOLD: false,
       ITALIC: false,
@@ -65,7 +63,7 @@ export default class Toolbar extends React.Component {
         editor,
         block,
         BOLD: inlineStyle.has('BOLD'),
-        INLINE_CODE: inlineStyle.has('CODE'),
+        // INLINE_CODE: inlineStyle.has('CODE'),
         ITALIC: inlineStyle.has('ITALIC'),
         UNDERLINE: inlineStyle.has('UNDERLINE'),
         STRIKETHROUGH: inlineStyle.has('STRIKETHROUGH'),
@@ -75,7 +73,7 @@ export default class Toolbar extends React.Component {
         block: 'unstyled',
         editor: null,
         BOLD: false,
-        INLINE_CODE: false,
+        // INLINE_CODE: false,
         ITALIC: false,
         UNDERLINE: false,
         STRIKETHROUGH: false,
@@ -99,7 +97,8 @@ export default class Toolbar extends React.Component {
         }}
         size="sm"
         theme={{ button: theme }}
-      >{label}</Button>
+      >{label}
+      </Button>
     );
 
     return (
@@ -136,7 +135,8 @@ export default class Toolbar extends React.Component {
             onClick={() => this.props.onSave()}
             size="sm"
             theme={{ button: style.basic }}
-          >Save</Button>
+          >Save
+          </Button>
           <div styleName="separator" />
 
           <div styleName="separator" />
@@ -157,7 +157,8 @@ export default class Toolbar extends React.Component {
             }}
             size="sm"
             theme={{ button: style.basic }}
-          >Color</Button>
+          >Color
+          </Button>
           <ColorPicker
             onChange={(color) => {
               const editor = st.editor || this.props.connector.previousEditor;
@@ -212,7 +213,8 @@ export default class Toolbar extends React.Component {
             }}
             size="sm"
             theme={{ button: style.basic }}
-          >Insert Link</Button>
+          >Insert Link
+          </Button>
 
           <Button
             disabled={disableStyling}
@@ -222,7 +224,8 @@ export default class Toolbar extends React.Component {
             }}
             size="sm"
             theme={{ button: style.basic }}
-          >Insert Image</Button>
+          >Insert Image
+          </Button>
 
           <div styleName="select-wrapper">
             <Select

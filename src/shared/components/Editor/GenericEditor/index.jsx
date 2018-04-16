@@ -61,6 +61,7 @@ export default class GenericEditor extends React.Component {
       <div
         className={containerStyles}
         onClick={() => this.focus()}
+        onKeyPress={() => this.focus()}
         onFocus={() => this.focus()}
         role="button"
         tabIndex={0}

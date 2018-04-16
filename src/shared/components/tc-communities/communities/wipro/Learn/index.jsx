@@ -45,7 +45,8 @@ export default function Learn() {
             <PrimaryButton
               openNewTab
               to="https://topgear-app.wipro.com"
-            >Continue</PrimaryButton>
+            >Continue
+            </PrimaryButton>
           </p>
         </div>
       </Section>

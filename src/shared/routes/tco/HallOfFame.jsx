@@ -14,10 +14,8 @@ export default function HallOfFameRouter(props) {
       cacheCss
       chunkName="tco/hall-of-fame/chunk"
       renderClientAsync={() =>
-        import(
-          /* webpackChunkName: "tco/hall-of-fame/chunk" */
-          'containers/tco/HallOfFame',
-        ).then(({ default: HallOfFameContainer }) => (
+        import(/* webpackChunkName: "tco/hall-of-fame/chunk" */ 'containers/tco/HallOfFame')
+        .then(({ default: HallOfFameContainer }) => (
           <HallOfFameContainer {...props} />
         ))
       }

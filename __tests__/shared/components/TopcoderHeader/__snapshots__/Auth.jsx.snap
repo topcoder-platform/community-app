@@ -4,6 +4,7 @@ exports[`Snapshot match 1`] = `
 <div
   className="src-shared-components-TopcoderHeader-Auth-___style__auth___3X0_r"
   onClick={[Function]}
+  onKeyPress={null}
   role="button"
   tabIndex="0"
 >
@@ -27,6 +28,7 @@ exports[`Snapshot match 2`] = `
 <div
   className="column src-shared-components-TopcoderHeader-Auth-___style__auth___3X0_r"
   onClick={[Function]}
+  onKeyPress={null}
   role="button"
   tabIndex="0"
 >

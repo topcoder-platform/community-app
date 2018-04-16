@@ -12,9 +12,11 @@ export default function CodeSplitting() {
       <p>
         For a better perspective, how cool and complex it is: Webpack 2+
         documentation on code splitting refer
-        &zwnj;<a href="https://reacttraining.com/react-router/web/guides/code-splitting">
-          this page
-        </a> of <strong>react-router</strong> documentation for further details
+        &zwnj;{
+          <a href="https://reacttraining.com/react-router/web/guides/code-splitting">
+            this page
+          </a>
+        } of <strong>react-router</strong> documentation for further details
         one code splitting implementation for ReactJS. Here is the qoute:
       </p>
       <div styleName="quote">

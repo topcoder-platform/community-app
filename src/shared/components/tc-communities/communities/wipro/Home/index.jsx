@@ -5,7 +5,6 @@
  * thus we disable max-len eslint rule for this file
  */
 
-import config from 'utils/config';
 import React from 'react';
 import Section from 'components/tc-communities/Section';
 import Banner from 'components/tc-communities/Banner';
@@ -17,7 +16,7 @@ import NewsSection from 'components/tc-communities/NewsSection';
 */
 
 import { noop } from 'lodash';
-import { Link } from 'topcoder-react-utils';
+import { config, Link } from 'topcoder-react-utils';
 
 // import Slider from 'react-slick';
 
@@ -205,7 +204,8 @@ export default function Home(props) {
             onClick={() => props.resetChallengeListing()}
             styleName="ImageTextStyles.link"
             to="challenges?communityId="
-          >View All Public Challenges</Link>
+          >View All Public Challenges
+          </Link>
         </div>
       </Section>
 
@@ -287,7 +287,6 @@ export default function Home(props) {
 }
 
 Home.defaultProps = {
-  news: [],
   userId: 0,
 };
 

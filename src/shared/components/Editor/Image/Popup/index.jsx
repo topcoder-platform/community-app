@@ -26,7 +26,8 @@ export default class Popup extends React.Component {
           className="edit"
           onClick={() => this.setState({ editing: true })}
           size="sm"
-        >Edit</GhostButton>
+        >Edit
+        </GhostButton>
       </div>
     );
 

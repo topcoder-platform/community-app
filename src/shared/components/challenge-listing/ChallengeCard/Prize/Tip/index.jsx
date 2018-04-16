@@ -58,7 +58,7 @@ export default function Tip({
 }
 
 Tip.defaultProps = {
-  isLoaded: false,
+  // isLoaded: false,
   points: null,
 };
 

@@ -38,7 +38,8 @@ export default function SubMenu({
         }
       }}
       styleName={menu ? 'opened-menu' : 'closed-menu'}
-    >{items}</ul>
+    >{items}
+    </ul>
   );
 }
 

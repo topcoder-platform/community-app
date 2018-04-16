@@ -14,6 +14,7 @@ exports[`Matches shallow shapshot 1`] = `
   <span
     className="src-shared-components-challenge-listing-Filters-ChallengeSearchBar-___style__SearchButton___3GzR0 src-shared-components-challenge-listing-Filters-ChallengeSearchBar-___style__active___8LjMb"
     onClick={[Function]}
+    onKeyPress={[Function]}
   >
     <ZoomIcon
       className="src-shared-components-challenge-listing-Filters-ChallengeSearchBar-___style__zoomIcon___3d_cL"
@@ -40,6 +41,7 @@ exports[`Matches shallow shapshot 2`] = `
   <span
     className="src-shared-components-challenge-listing-Filters-ChallengeSearchBar-___style__SearchButton___3GzR0"
     onClick={[Function]}
+    onKeyPress={[Function]}
   >
     <ZoomIcon
       className="src-shared-components-challenge-listing-Filters-ChallengeSearchBar-___style__zoomIcon___3d_cL"

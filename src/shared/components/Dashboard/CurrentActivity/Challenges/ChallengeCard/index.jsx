@@ -1,5 +1,4 @@
 import _ from 'lodash';
-import config from 'utils/config';
 import moment from 'moment';
 import NumRegistrants from
   'components/challenge-listing/ChallengeCard/NumRegistrants';
@@ -8,7 +7,7 @@ import NumSubmissions from
 import PT from 'prop-types';
 import React from 'react';
 
-import { Link } from 'topcoder-react-utils';
+import { config, Link } from 'topcoder-react-utils';
 
 import {
   Button,
@@ -159,27 +158,29 @@ export default function ChallengeCard({
             <EventTag
               onClick={() =>
                 setImmediate(() =>
-                  setChallengeListingFilter({ subtracks: [subTrack] }),
-                )
+                  setChallengeListingFilter({ subtracks: [subTrack] }))
               }
               theme={{ button: style.tag }}
               to={`/challenges?filter[subtracks][0]=${
                 encodeURIComponent(subTrack)}`}
-            >{normalizeSubTrackTagForRendering(challenge.subTrack)}</EventTag>
+            >{normalizeSubTrackTagForRendering(challenge.subTrack)}
+            </EventTag>
             {
               isTco ? (
                 <EventTag
                   openNewTab
                   theme={{ button: style.tag }}
                   to="https://tco18.topcoder.com"
-                >TCO</EventTag>
+                >TCO
+                </EventTag>
               ) : null
             }
           </div>
           <Link
             styleName="title"
             to={`/challenges/${challenge.id}`}
-          >{challenge.name}</Link>
+          >{challenge.name}
+          </Link>
         </div>
         <div styleName="challengeTabLinks">
           <NumRegistrants
@@ -198,7 +199,8 @@ export default function ChallengeCard({
             openNewTab
             styleName="forumLink"
             to={`${config.URL.FORUMS}${forumEndpoint}`}
-          >Forum</Link>
+          >Forum
+          </Link>
         </div>
         <div styleName="statusPanel">
           <h3 styleName={`statusMsg${msgStyleModifier}`}>{statusMsg}</h3>
@@ -212,7 +214,8 @@ export default function ChallengeCard({
                 size="sm"
                 theme={{ button: style.button }}
                 to={`${config.URL.BASE}/direct/contest/detail.action?projectId=${id}`}
-              >Direct</Button>
+              >Direct
+              </Button>
             ) : null
           }
           {
@@ -222,7 +225,8 @@ export default function ChallengeCard({
                 size="sm"
                 theme={{ button: style.button }}
                 to={`${config.URL.ONLINE_REVIEW}/review/actions/ViewProjectDetails?method=viewProjectDetails&pid=${id}`}
-              >Online Review</Button>
+              >Online Review
+              </Button>
             ) : null
           }
           {
@@ -231,7 +235,8 @@ export default function ChallengeCard({
                 size="sm"
                 theme={{ button: style.button }}
                 to={`/challenges/${id}/submit`}
-              >Submit</Button>
+              >Submit
+              </Button>
             ) : null
           }
           {

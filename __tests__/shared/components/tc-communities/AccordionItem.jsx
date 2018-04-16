@@ -51,8 +51,7 @@ describe('Click on title', () => {
   beforeEach(() => jest.clearAllMocks());
 
   test('onTitleClick', () => {
-    const btn = TU.findAllInRenderedTree(page, item =>
-      item && item.className && item.className.match(/accordion-title-button/));
+    const btn = TU.scryRenderedDOMComponentsWithClass(page, 'accordion-title-button');
     expect(btn.length).toBe(2);
     TU.Simulate.click(btn[0]);
     expect(mockOnTitleClick).toHaveBeenCalled();

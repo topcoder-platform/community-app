@@ -98,7 +98,7 @@ export default class EditorWrapper extends React.Component {
   applyBlockStyle(type) {
     let editorState = this.state.editor;
     editorState = RichUtils.toggleBlockType(editorState, type);
-    this.setState({ editorState });
+    this.setState({ editorState }); // eslint-disable-line
   }
 
   /**
@@ -117,7 +117,8 @@ export default class EditorWrapper extends React.Component {
     contentState = _.reduce(
       EDITOR_COLOR_MAP,
       (state, value, name) => Modifier.removeInlineStyle(state, sel, `${type}_${name}`),
-      contentState);
+      contentState,
+    );
 
     editorState = EditorState.push(editorState, contentState, 'change-inline-style');
 
@@ -162,7 +163,8 @@ export default class EditorWrapper extends React.Component {
       sel,
       ' ',
       null,
-      key);
+      key,
+    );
 
     editorState = EditorState.push(editorState, contentState, 'insert-characters');
 
@@ -241,6 +243,7 @@ export default class EditorWrapper extends React.Component {
       <div
         className={containerStyles}
         onClick={() => this.focus()}
+        onKeyPress={() => this.focus()}
         onFocus={() => this.focus()}
         role="button"
         tabIndex={0}
@@ -248,8 +251,7 @@ export default class EditorWrapper extends React.Component {
         <Editor
           editorState={st.editor}
           handleKeyCommand={(command, state) => {
-            const editorState = RichUtils.handleKeyCommand(
-              state, command);
+            const editorState = RichUtils.handleKeyCommand(state, command);
             if (editorState) {
               connector.setFocusedEditor(this, editorState);
               this.setState({ editor: editorState });

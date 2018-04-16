@@ -130,8 +130,8 @@ export default function Listing({
 Listing.defaultProps = {
   challenges: [],
   communityName: null,
-  currentFilterName: '',
-  expanded: false,
+  // currentFilterName: '',
+  // expanded: false,
   expandedTags: [],
   expandTag: null,
   extraBucket: null,
@@ -140,8 +140,8 @@ Listing.defaultProps = {
   loadMoreReviewOpportunities: null,
   preListingMsg: null,
   reviewOpportunities: [],
-  onTechTagClicked: _.noop,
-  onExpandFilterResult: _.noop,
+  // onTechTagClicked: _.noop,
+  // onExpandFilterResult: _.noop,
   openChallengesInNewTabs: false,
 };
 

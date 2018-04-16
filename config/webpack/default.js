@@ -27,7 +27,7 @@ module.exports = {
       loader: 'file-loader',
       options: {
         outputPath: '/images/',
-        publicPath: '/community-app-assets',
+        publicPath: '/community-app-assets/images',
       },
     }],
   },

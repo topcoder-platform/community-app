@@ -9,7 +9,9 @@ import { themr } from 'react-css-super-themr';
 import defaultStyle from './style.scss';
 
 function IconStat(props) {
-  const { icon: Icon, number, label, theme } = props;
+  const {
+    icon: Icon, number, label, theme,
+  } = props;
 
   return (
     <div className={theme.container}>

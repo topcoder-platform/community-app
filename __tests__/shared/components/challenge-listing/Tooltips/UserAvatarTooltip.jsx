@@ -40,9 +40,11 @@ class Wrapper extends React.Component {
   componentDidMount() {}
 
   render() {
-    return (<UserAvatarTooltip {...this.props}>
-      <div className="mock-class">abcedfghik</div>
-    </UserAvatarTooltip>);
+    return (
+      <UserAvatarTooltip {...this.props}>
+        <div className="mock-class">abcedfghik</div>
+      </UserAvatarTooltip>
+    );
   }
 }
 

@@ -15,9 +15,7 @@ describe('examples.dataFetch.fetchDataDone', () => {
     new Promise(resolve =>
       setTimeout(() => resolve({
         json: () => ({ data: 'DUMMY DATA' }),
-      }), 1),
-    ),
-  );
+      }), 1)));
 
   const a = actions.examples.dataFetch.fetchDataDone();
 

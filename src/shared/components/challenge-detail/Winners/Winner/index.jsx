@@ -1,8 +1,7 @@
 import { Avatar } from 'topcoder-react-ui-kit';
-import config from 'utils/config';
-// import moment from 'moment';
 import PT from 'prop-types';
 import React from 'react';
+import { config } from 'topcoder-react-utils';
 
 import Lock from '../../icons/lock.svg';
 
@@ -68,7 +67,8 @@ export default function Winner({
             <a
               href={`${config.URL.BASE}/members/${winner.handle}`}
               styleName="handle"
-            >{winner.handle}</a>
+            >{winner.handle}
+            </a>
             <div styleName="prize">${prize}</div>
           </div>
         </div>
@@ -82,7 +82,8 @@ export default function Winner({
             styleName="download"
             target="_blank"
             href={isDesign ? `${config.URL.STUDIO}/?module=DownloadSubmission&sbmid=${submissionId}` : winner.submissionDownloadLink}
-          >Download</a>
+          >Download
+          </a>
         }
         {
           /*

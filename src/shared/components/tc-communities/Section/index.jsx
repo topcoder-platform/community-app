@@ -22,7 +22,9 @@ import { Link } from 'topcoder-react-utils';
 import defaultStyle from './style.scss';
 
 function Section(props) {
-  const { anchor, subTitle, title, children, link, theme } = props;
+  const {
+    anchor, subTitle, title, children, link, theme,
+  } = props;
 
   return (
     <section className={theme.container}>
@@ -34,9 +36,13 @@ function Section(props) {
       <div className={theme.content}>
         {children}
       </div>
-      {link && <div className={theme.linkWrap}>
-        <Link className={theme.link} to={link.url}>{link.title}</Link>
-      </div>}
+      {
+        link && (
+        <div className={theme.linkWrap}>
+          <Link className={theme.link} to={link.url}>{link.title}</Link>
+        </div>
+        )
+      }
     </section>
   );
 }

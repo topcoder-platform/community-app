@@ -9,7 +9,9 @@ import { themr } from 'react-css-super-themr';
 import defaultStyle from './style.scss';
 import Link from './Link';
 
-function Banner({ children, imageSrc, link, theme, text, title }) {
+function Banner({
+  children, imageSrc, link, theme, text, title,
+}) {
   let links;
   if (link) {
     links = (_.isArray(link) ? link : [link]).map(item => (

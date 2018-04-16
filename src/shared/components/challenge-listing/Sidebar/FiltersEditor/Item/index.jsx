@@ -43,6 +43,7 @@ export default function Item({
       />
       <span
         onClick={deleteSavedFilter}
+        onKeyPress={deleteSavedFilter}
         role="button"
         styleName="right"
         tabIndex={0}

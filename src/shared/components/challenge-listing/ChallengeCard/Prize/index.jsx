@@ -10,8 +10,15 @@ import Tooltip from 'components/Tooltip';
 import Tip from './Tip';
 import './style.scss';
 
-export default function Prize({ bonuses, label, points, prizes,
-  prizeUnitSymbol, totalPrize, withoutTooltip }) {
+export default function Prize({
+  bonuses,
+  label,
+  points,
+  prizes,
+  prizeUnitSymbol,
+  totalPrize,
+  withoutTooltip,
+}) {
   const component = (
     <div>
       <div styleName="prize">

@@ -17,10 +17,8 @@ export default function ChallengeDetailsRoute(props) {
       cacheCss
       chunkName="challenge-details/chunk"
       renderClientAsync={() =>
-        import(
-          /* webpackChunkName: "challenge-details/chunk" */
-          'containers/challenge-detail',
-        ).then(({ default: ChallengeDetails }) => (
+        import(/* webpackChunkName: "challenge-details/chunk" */ 'containers/challenge-detail')
+        .then(({ default: ChallengeDetails }) => (
           <ChallengeDetails {...props} />
         ))
       }

@@ -5,14 +5,12 @@ import { toFSA } from 'utils/redux';
 const DUMMY_PAYLOAD = 'Dummy Payload 12345';
 
 const fetchFailureMock = jest.fn(() =>
-  Promise.reject(new Error('ERROR')),
-);
+  Promise.reject(new Error('ERROR')));
 
 const fetchSuccessMock = jest.fn(() =>
   Promise.resolve({
     json: () => ({ data: DUMMY_PAYLOAD }),
-  }),
-);
+  }));
 
 function testReducer(reducer, expectedInitialState) {
   let state;
@@ -61,8 +59,7 @@ describe('default reducer', () => testReducer(defaultReducer, {}));
 
 global.fetch = fetchSuccessMock;
 describe('factory without http request', () =>
-  factory().then(res => testReducer(res, {})),
-);
+  factory().then(res => testReducer(res, {})));
 
 global.fetch = fetchSuccessMock;
 describe('factory with matching http request and success response', () =>
@@ -73,9 +70,7 @@ describe('factory with matching http request and success response', () =>
       data: DUMMY_PAYLOAD,
       failed: undefined,
       loading: false,
-    }),
-  ),
-);
+    })));
 
 global.fetch = fetchFailureMock;
 describe('factory with matching http request and network failure', () =>
@@ -86,6 +81,4 @@ describe('factory with matching http request and network failure', () =>
       data: null,
       failed: true,
       loading: false,
-    }),
-  ),
-);
+    })));

@@ -109,8 +109,7 @@ jest.mock('utils/challenge-listing/buckets', () => ({
     UPCOMING: 'UPCOMING',
   },
   isReviewOpportunitiesBucket: () => false,
-}),
-);
+}));
 
 const Listing = require('components/challenge-listing/Listing').default;
 

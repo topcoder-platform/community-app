@@ -63,17 +63,17 @@ exports[`Matches shallow shapshot 1`] = `
         },
       ]
     }
-    expand={[Function]}
+    expand={[MockFunction]}
     expandTag={null}
     expanded={true}
     expandedTags={Array []}
     keepPlaceholders={false}
-    loadMore={[Function]}
+    loadMore={[MockFunction]}
     loading={false}
     newChallengeDetails={false}
     openChallengesInNewTabs={false}
-    setFilterState={[Function]}
-    setSort={[Function]}
+    setFilterState={[MockFunction]}
+    setSort={[MockFunction]}
     sort=""
     userHandle=""
   />
@@ -211,17 +211,17 @@ exports[`Matches shallow shapshot 2`] = `
         },
       ]
     }
-    expand={[Function]}
+    expand={[MockFunction]}
     expandTag={null}
     expanded={false}
     expandedTags={Array []}
     keepPlaceholders={false}
-    loadMore={[Function]}
+    loadMore={[MockFunction]}
     loading={true}
     newChallengeDetails={false}
     openChallengesInNewTabs={false}
-    setFilterState={[Function]}
-    setSort={[Function]}
+    setFilterState={[MockFunction]}
+    setSort={[MockFunction]}
     sort=""
     userHandle=""
   />
@@ -246,7 +246,7 @@ exports[`Matches shallow shapshot 3`] = `
       }
     }
     challenges={Array []}
-    expand={[Function]}
+    expand={[MockFunction]}
     expandTag={null}
     expanded={false}
     expandedTags={Array []}
@@ -255,8 +255,8 @@ exports[`Matches shallow shapshot 3`] = `
     loading={true}
     newChallengeDetails={false}
     openChallengesInNewTabs={false}
-    setFilterState={[Function]}
-    setSort={[Function]}
+    setFilterState={[MockFunction]}
+    setSort={[MockFunction]}
     sort=""
     userHandle=""
   />

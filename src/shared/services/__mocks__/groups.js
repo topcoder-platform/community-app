@@ -16,8 +16,8 @@
  */
 
 import _ from 'lodash';
-import config from 'utils/config';
 import logger from 'utils/logger';
+import { config } from 'topcoder-react-utils';
 import { getApiV3 } from './api';
 
 /* The value of USER_GROUP_MAXAGE constant converted to [ms]. */
@@ -68,9 +68,7 @@ export function addDescendantGroups(groupIds, knownGroups) {
  *    (or outdated), and are not being loaded.
  *  - "unknown" - the groups that are absent in "knownGroups" map.
  */
-export function checkGroupsStatus(
-  groupIds, knownGroups = {}, loadingGroups = {},
-) {
+export function checkGroupsStatus(groupIds, knownGroups = {}, loadingGroups = {}) {
   const loaded = [];
   const loading = [];
   const missing = [];

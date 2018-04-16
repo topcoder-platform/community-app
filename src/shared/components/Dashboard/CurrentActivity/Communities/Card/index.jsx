@@ -13,67 +13,60 @@ export default function CommunityTile(props) {
 
   const baseUrl = getSubCommunityBaseUrl(community);
 
-  return (<div styleName="container">
-    <div styleName="left" >
-      <img src={require(`assets/images/tc-communities/background/${community.image}`)} alt="" />
-      <div styleName="name">{community.communityName}</div>
-      <div styleName="desc">{community.description}</div>
-      <a
-        href={baseUrl}
-        rel="noopener noreferrer"
-        styleName="learn-more"
-        target="_blank"
-      >
-        Learn more
-      </a>
-    </div>
-    <div styleName="right">
-      <div styleName="stats">
-        {
-          statsLoading ? (
-            <LoadingIndicator />
-          ) : (
-            <div styleName="statsInner">
-              <div styleName="stats-item">
-                <div styleName="value">
-                  {(stats.numMembers || 0).toLocaleString()}
-                </div>
-                <div styleName="label">Members</div>
-              </div>
-              <div styleName="stats-item">
-                <div styleName="value">{stats.numChallenges || 0}</div>
-                <div styleName="label">Challenges</div>
-              </div>
-              <div styleName="stats-item">
-                <div styleName="value">{stats.openPrizes || '$0'}</div>
-                <div styleName="label">Purse Cash</div>
-              </div>
-            </div>
-          )
-        }
-      </div>
-      <div styleName="actions">
-        {
-          /* TODO: Register / unregister button for non-registered communities */
-        }
+  return (
+    <div styleName="container">
+      <div styleName="left" >
+        <img src={require(`assets/images/tc-communities/background/${community.image}`)} alt="" />
+        <div styleName="name">{community.communityName}</div>
+        <div styleName="desc">{community.description}</div>
         <a
-          href={`${baseUrl}/challenges`}
+          href={baseUrl}
           rel="noopener noreferrer"
-          styleName="link"
+          styleName="learn-more"
           target="_blank"
         >
-          View All Challenges
+          Learn more
         </a>
-        {
-          /*
-            <div styleName="pipe" />
-            <a rel="noopener noreferrer" styleName="link" target="_blank"
-            href={`/community/${community.communityId}/leaderboard`}>Leaderboard</a>
-          */
-        }
+      </div>
+      <div styleName="right">
+        <div styleName="stats">
+          {
+            statsLoading ? (
+              <LoadingIndicator />
+            ) : (
+              <div styleName="statsInner">
+                <div styleName="stats-item">
+                  <div styleName="value">
+                    {(stats.numMembers || 0).toLocaleString()}
+                  </div>
+                </div>
+              </div>
+            )
+          }
+        </div>
+        <div styleName="actions">
+          {
+            /* TODO: Register / unregister button for non-registered communities */
+          }
+          <a
+            href={`${baseUrl}/challenges`}
+            rel="noopener noreferrer"
+            styleName="link"
+            target="_blank"
+          >
+            View All Challenges
+          </a>
+          {
+            /*
+              <div styleName="pipe" />
+              <a rel="noopener noreferrer" styleName="link" target="_blank"
+              href={`/community/${community.communityId}/leaderboard`}>Leaderboard</a>
+            */
+          }
+        </div>
       </div>
     </div>
-  </div>);
+  );
 }
 
 CommunityTile.propTypes = {
@@ -91,5 +84,5 @@ CommunityTile.propTypes = {
 CommunityTile.defaultProps = {
   stats: {},
   community: {},
-  registered: false,
+  // registered: false,
 };

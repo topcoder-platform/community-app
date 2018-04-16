@@ -60,6 +60,7 @@ class MemberSearchInput extends React.Component {
       return (
         <div
           onClick={onClick}
+          onKeyPress={onClick}
           styleName="dropdown-cell"
           key={i}
           role="menuitem"

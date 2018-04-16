@@ -9,7 +9,9 @@ import { themr } from 'react-css-super-themr';
 import defaultStyle from './style.scss';
 
 function ArticleCard(props) {
-  const { children, imageSrc, theme, title } = props;
+  const {
+    children, imageSrc, theme, title,
+  } = props;
   return (
     <div className={theme.container}>
       <div className={theme.image} style={{ backgroundImage: `url(${imageSrc})` }} />

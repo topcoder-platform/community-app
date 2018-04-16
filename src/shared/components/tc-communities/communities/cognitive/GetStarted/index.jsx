@@ -51,7 +51,8 @@ export default function GetStarted({ baseUrl }) {
           <PrimaryButton
             theme={{ button: style.cardButton }}
             to={`${baseUrl}/challenges`}
-          >View Challenges</PrimaryButton>
+          >View Challenges
+          </PrimaryButton>
         </ImageText>
         <ImageText
           imageUrl={cardImg02}

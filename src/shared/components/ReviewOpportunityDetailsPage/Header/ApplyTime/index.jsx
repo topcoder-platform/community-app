@@ -13,7 +13,9 @@ import './styles.scss';
 /**
  * ApplyTime Component
  */
-const ApplyTime = ({ hasApplied, onApply, openPositions, startDate }) => {
+const ApplyTime = ({
+  hasApplied, onApply, openPositions, startDate,
+}) => {
   const startMoment = moment(startDate);
   const timeLeft = startMoment.isAfter() ? formatDuration(startMoment - moment()) : 'None';
 
@@ -30,7 +32,8 @@ const ApplyTime = ({ hasApplied, onApply, openPositions, startDate }) => {
         <PrimaryButton
           disabled={!timeLeft || !openPositions}
           onClick={() => onApply()}
-        >{hasApplied ? 'Manage Applications' : 'Apply for review'}</PrimaryButton>
+        >{hasApplied ? 'Manage Applications' : 'Apply for review'}
+        </PrimaryButton>
       </div>
     </div>
   );

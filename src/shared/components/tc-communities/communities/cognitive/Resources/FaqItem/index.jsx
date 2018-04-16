@@ -15,6 +15,7 @@ export default function FaqItem({
     <div styleName="container">
       <div
         onClick={() => toggle(!open)}
+        onKeyPress={() => toggle(!open)}
         role="button"
         styleName="question"
         tabIndex={0}

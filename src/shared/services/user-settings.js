@@ -5,7 +5,8 @@
  */
 
 import _ from 'lodash';
-import config from 'utils/config';
+import { config } from 'topcoder-react-utils';
+
 import Api from './api';
 
 export default class UserSettings {

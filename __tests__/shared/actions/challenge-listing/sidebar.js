@@ -44,8 +44,10 @@ describe('challengeListing.sidebar.deleteSavedFilter', () => {
 });
 
 describe('challengeListing.sidebar.dragSavedFilterMove', () => {
-  const a = actions.dragSavedFilterMove({ target: { offsetHeight: 10 } },
-    { y: 0, startIndex: 0, index: 10 });
+  const a = actions.dragSavedFilterMove(
+    { target: { offsetHeight: 10 } },
+    { y: 0, startIndex: 0, index: 10 },
+  );
 
   test('has expected type', () => {
     expect(a.type).toBe('CHALLENGE_LISTING/SIDEBAR/DRAG_SAVED_FILTER_MOVE');
@@ -56,20 +58,26 @@ describe('challengeListing.sidebar.dragSavedFilterMove', () => {
 });
 
 describe('challengeListing.sidebar.dragSavedFilterMove with screenY', () => {
-  const a = actions.dragSavedFilterMove({ screenY: 10, target: { offsetHeight: 10 } },
-    { y: 0, startIndex: 0, index: 10 });
+  const a = actions.dragSavedFilterMove(
+    { screenY: 10, target: { offsetHeight: 10 } },
+    { y: 0, startIndex: 0, index: 10 },
+  );
 
   test('has expected type', () => {
     expect(a.type).toBe('CHALLENGE_LISTING/SIDEBAR/DRAG_SAVED_FILTER_MOVE');
   });
 
   test('payload is expected object', () =>
-    expect(a.payload).toEqual({ y: 0, startIndex: 0, index: 10, currentIndex: 1 }));
+    expect(a.payload).toEqual({
+      y: 0, startIndex: 0, index: 10, currentIndex: 1,
+    }));
 });
 
 describe('challengeListing.sidebar.dragSavedFilterMove same index', () => {
-  const a = actions.dragSavedFilterMove({ screenY: 10, target: { offsetHeight: 10 } },
-    { y: 0, startIndex: 9, index: 10 });
+  const a = actions.dragSavedFilterMove(
+    { screenY: 10, target: { offsetHeight: 10 } },
+    { y: 0, startIndex: 9, index: 10 },
+  );
 
   test('has expected type', () => {
     expect(a.type).toBe('CHALLENGE_LISTING/SIDEBAR/DRAG_SAVED_FILTER_MOVE');

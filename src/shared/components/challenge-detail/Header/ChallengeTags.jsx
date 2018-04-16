@@ -69,38 +69,37 @@ export default function ChallengeTags(props) {
         <TrackTag
           onClick={() =>
             setImmediate(() =>
-              setChallengeListingFilter({ subtracks: [subTrack] }),
-            )
+              setChallengeListingFilter({ subtracks: [subTrack] }))
           }
           to={`${challengesUrl}?filter[subtracks][0]=${
             encodeURIComponent(subTrack)}`}
-        >{stylizedSubTrack(subTrack)}</TrackTag>
+        >{stylizedSubTrack(subTrack)}
+        </TrackTag>
       }
       {
         events.map(event => (
           <EventTag
             to={`https://${event}.topcoder.com`}
             key={event}
-          >{event}</EventTag>
+          >{event}
+          </EventTag>
         ))
       }
       {
-        technPlatforms.map(
-          tag =>
+        technPlatforms.map(tag =>
             (
               tag &&
               <Tag
                 key={tag}
                 onClick={() =>
                   setImmediate(() =>
-                    setChallengeListingFilter({ tags: [tag] }),
-                  )
+                    setChallengeListingFilter({ tags: [tag] }))
                 }
                 to={`${challengesUrl}?filter[tags][0]=${
                   encodeURIComponent(tag)}`}
-              >{tag}</Tag>
-            ),
-        )
+              >{tag}
+              </Tag>
+            ))
       }
     </div>
   );

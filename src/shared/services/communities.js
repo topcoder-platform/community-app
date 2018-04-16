@@ -4,7 +4,7 @@
 
 import fetch from 'isomorphic-fetch';
 import qs from 'qs';
-import { isClientSide } from 'utils/isomorphy';
+import { isomorphy } from 'topcoder-react-utils';
 
 /* Client-side version of the service. */
 class Communities {
@@ -49,7 +49,7 @@ class Communities {
 let lastInstance = null;
 export function getService(tokenV3) {
   if (!lastInstance || (tokenV3 !== lastInstance.private.tokenV3)) {
-    if (isClientSide()) lastInstance = new Communities(tokenV3);
+    if (isomorphy.isClientSide()) lastInstance = new Communities(tokenV3);
     else {
       /* eslint-disable global-require */
       const Service = require('server/services/communities').default;
