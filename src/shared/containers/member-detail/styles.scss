@@ -1,0 +1,830 @@
+@import "~styles/mixins";
+@import '~appirio-styles/styles/topcoder/tc-includes';
+
+.outer-container {
+  background: $tc-gray-neutral-dark;
+  width: 100%;
+
+  @include xs-to-sm {
+    padding: 8px 10px 20px;
+  }
+
+  @include md {
+    padding: 30px 14px 30px 20px;
+  }
+
+  @include lg-to-xl {
+    padding: 30px 64px;
+  }
+}
+
+// Main container
+// This is the flex container; we convert it to 2 column layout on >767px width
+.about-container {
+  display: flex;
+  flex-direction: column;
+
+  @include module-l;
+  background-color: transparent;
+  padding-top: 0px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 0px;
+  @media (min-width: 768px) {
+    padding-top: 30px;
+    flex-direction: row;
+  }
+}
+
+// Both containers are flex column, then flex fows on >767px
+// User data container
+.profile-header-container {
+  background: transparent;
+  width: 100%;
+  max-width: 100%;
+  margin-bottom: 5px;
+  display: flex;
+  position: relative;
+  margin-left: 10px;
+
+  @media (min-width: 768px) {
+    max-width: 368px;
+    margin: 0 auto;
+    padding-right: 10px;
+    display: block;
+    position: relative;
+  }
+
+  // Sticky container
+  .sticky-container {
+    background-color: white;
+    margin: 0 auto;
+    padding: 0;
+    display: flex;
+    width: auto;
+    max-width: auto;
+
+    @media (min-width: 768px){
+      display: block;
+      box-sizing: border-box;
+      width: 368px;
+      margin: 0;
+    }
+    padding: 30px 34px;
+    margin: 0 10px;
+    transition: .2s all;
+  }
+
+  .sticky-container.affix {
+    position:fixed;
+    top: 10px;
+    bottom: auto;
+    z-index: 10;
+  }
+
+  .sticky-container.affix-bottom {
+    position: absolute;
+    bottom: 0;
+    z-index: 10;
+    top: auto;
+
+  }
+}
+
+// Where we show the info
+.profile-about-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  // max-width: 883px;
+  padding: 0 10px;
+  margin: 0 auto;
+
+  .empty-profile {
+    background: $white;
+  }
+  .empty-state {
+    width: 100%;
+  }
+
+  .skills {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    align-self: center;
+    background: white;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+
+    .list {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      flex-wrap: wrap;
+      width: 100%;
+      margin-left: auto;
+      margin-bottom: 15px;
+      margin-right: 15px;
+
+      .skill {
+        margin-top: 20px;
+        margin-right: 15px;
+
+        a:hover {
+          cursor: default;
+        }
+
+        + .skill {
+          margin-left: 15px;
+        }
+
+        &:nth-child(3n + 1) {
+          // margin-left: 0px;
+        }
+      }
+    }
+
+    .dimmed {
+      width:100%;
+      margin-top: -70px;
+      height:100px;
+      background:rgba(0,0,0,0.6);
+      opacity:1;
+      transition: all 0.5s;
+      -webkit-transition: all 0.5s;
+    }
+
+
+    h1 {
+      font-size: 25px;
+      margin: auto;
+    }
+
+    .empty-state {
+
+      .sample-skills {
+        margin: 0px auto;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        flex-wrap: wrap;
+        width: 100%;
+
+        .skill {
+          width: 130px;
+          opacity: 0.3;
+          a {
+            cursor: default;
+          }
+        }
+      }
+    }
+
+    button.more {
+      margin-bottom: 20px;
+    }
+  }
+
+  .activity {
+    font-size: 18px;
+    line-height: 21px;
+    @include sofia-pro-medium;
+    text-transform: uppercase;
+    margin-top: 20px;
+  }
+
+  .categories {
+    @include module-l;
+    margin-left: 0px;
+    margin-right: 0px;
+    padding-top: 15px;
+    align-self: center;
+    background: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+
+    .track {
+      margin-top: 22.4px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding-bottom: 30px;
+
+      &.noclick {
+        cursor: default;
+      }
+
+      .name {
+        margin: auto;
+        font-size: 20px;
+        line-height: 24px;
+        margin-bottom: 10.6px;
+        @include sofia-pro-extra-light;
+      }
+
+      img {
+        height: 20px;
+        width: 20px;
+        margin-right: 7px;
+        margin-bottom: -2px;
+      }
+
+      .subtrack {
+        text-decoration: none;
+        color: black;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        width: 300px;
+        height: 52px;
+        border-bottom: 1px solid #f0f0f0;
+
+        &.first {
+          border-top: 1px solid #f0f0f0;
+        }
+
+        &:hover {
+          background-color: #f0f0f0;
+        }
+
+        .name {
+          margin-left: 15px;
+          align-self: center;
+          flex-basis: 250px;
+          align-text: left;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+          font-size: 14px;
+          line-height: 18px;
+          text-transform: uppercase;
+          display: flex;
+          flex-direction: row;
+          justify-content: flex-start;
+          margin-top: 12px;
+          @include sofia-pro-light;
+
+          span {
+          }
+
+        }
+
+        .ranking {
+          margin: auto;
+          margin-right: 15px;
+          color: $accent-gray;
+          display: flex;
+          flex-direction: column;
+          align-items: flex-end;
+          @include sofia-pro-medium;
+
+          .number {
+            text-align: center;
+            font-size: 13.4px;
+            line-height: 16px;
+
+            span.square {
+              position: absolute;
+              margin-left: 5px;
+              width: 6px;
+              height: 6px;
+            }
+          }
+
+          .tag {
+            text-transform: uppercase;
+            margin: 5px auto 0px auto;
+            @include sofia-pro-regular;
+            font-size: 12px;
+            line-height: 10px;
+            color: #7f7f7f;
+          }
+        }
+
+        .arrow {
+          @include sofia-pro-extra-light;
+          color: $accent-gray;
+          height: 12px;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+        }
+      }
+
+      .icon {
+        width: 80px;
+        height: 80px;
+        margin: auto;
+      }
+
+    }
+  }
+
+  .external-links {
+    @include module-l;
+    width: 100%;
+    align-self: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+
+
+    .activity {
+      margin-bottom: 15px;
+    }
+
+    external-links-data {
+      margin-bottom: 20px;
+    }
+
+    .empty-state {
+
+      .sample-ext-accounts {
+        margin: 0px auto;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        flex-wrap: wrap;
+        width: 100%;
+      }
+
+      .ext-tile {
+        opacity: 0.3;
+        margin-top: 0px;
+        margin-bottom: 0px;
+
+        .external-account-box {
+          margin-top: 0px;
+        }
+        a {
+          cursor: default;
+        }
+      }
+
+    }
+  }
+}
+
+@media (min-width: 768px) {
+  .profile-about-container {
+
+    .activity {
+      font-size: 24px;
+      line-height: 30px;
+      margin-top: 30px;
+    }
+
+    .skills {
+      display: flex;
+      flex-direction: column;
+      padding-top: 0px;
+      padding-bottom: 0px;
+
+      .list {
+        display: flex;
+        flex-direction: row;
+        width: 100%;
+        padding-left: 30px;
+        padding-right: 30px;
+        margin: 0px auto 30px auto;
+
+        .skill {
+          margin-top: 30px;
+          margin-right: 15px;
+          margin-left: 15px;
+          width: 130px;
+        }
+
+        + .skill {
+          margin-left: 15px;
+        }
+
+        &:nth-child(3n + 1) {
+          margin-left: 15px !important;
+          border: 1px solid lime;
+        }
+
+        .leftButton, .rightButton {
+          height: 100px;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          &:hover {
+            cursor: pointer;
+          }
+        }
+      }
+
+      button.more {
+        margin-bottom: 30px;
+      }
+
+    }
+
+    .categories {
+      margin-top: 1px;
+      padding-top: 0px;
+      .activity {
+        font-size: 28px;
+        line-height: 34px;
+        @include sofia-pro-bold;
+        text-transform: uppercase;
+      }
+
+      .track {
+        width: 100%;
+        padding-top: 30px;
+        .name {
+          img {
+            height: 30px;
+            width: 30px;
+            margin-right: 7px;
+            margin-bottom: -4px;
+          }
+          background-size: 30px;
+          background-position: 16px 4px;
+          font-weight: 200;
+          font-size: 24px;
+          line-height: 30px;
+          margin-bottom: 30px;
+          margin-top: 0px;
+          @include sofia-pro-medium;
+        }
+
+        .subtrack {
+          align-items: center;
+          width: 75%;
+          height: 60px;
+          .name {
+
+            font-size: 18px;
+            flex-basis: 350px;
+            line-height: 24px;
+            margin-top: 17px;
+            margin-bottom: 20px;
+          }
+          .ranking {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            .number {
+              font-size: 18px;
+              line-height: 23px;
+            }
+            .tag {
+              margin-top: 2px;
+              font-size: 12px;
+              line-height: 14px;
+              color: #7f7f7f;
+            }
+          }
+          .arrow {
+            color: #cccccc;
+            height: 15px;
+            margin-right: 10px;
+          }
+        }
+        .icon {
+          width: 80px;
+          height: 80px;
+          margin: auto;
+        }
+
+      }
+
+    }
+
+    .external-links {
+      margin-top: 1px;
+      padding-top: 0px;
+      padding-bottom: 0px;
+
+      external-links-data {
+        margin-bottom: 30px;
+      }
+      .activity {
+        margin-bottom: 0px;
+        text-transform: uppercase;
+      }
+    }
+  }
+}
+
+.profile-widget-directive {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  .info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    h1.handle {
+      text-align: center;
+      font-size: 28px;
+      line-height: 34px;
+      @include sofia-pro-medium;
+    }
+
+    h3.tenure {
+      margin-top: 5px;
+      font-size: 12px;
+      line-height: 14px;
+      @include sofia-pro-light;
+      color: $accent-gray;
+      text-align: center;
+      text-transform: uppercase;
+    }
+
+    h3.location-challenges {
+      margin-top: 20px;
+      font-size: 12px;
+      line-height: 14px;
+      @include sofia-pro-medium;
+      text-align: center;
+      text-transform: uppercase;
+    }
+
+    p.description {
+      margin-top: 12px;
+      max-width: 600px;
+      text-align: left;
+    }
+
+  }
+
+  img.profile-circle {
+    border-radius: 50%;
+    display: inline;
+    width: 140px;
+    height: 140px;
+  }
+
+  h5 {
+    color: gray;
+    &.tracks {
+      text-transform: uppercase;
+    }
+    &.location {
+      margin-top: 10px;
+    }
+  }
+
+  p.description {
+    word-wrap: break-word;
+    margin-top: 30px;
+    font-size: 15px;
+    line-height: 24px;
+    //TODO change font to Merriweather Sans Regular
+    @include merriweather-sans-regular;
+    text-align: left;
+    color: $gray-darkest;
+  }
+
+  .edit {
+    width: 99px;
+    margin-top: 30px;
+    text-align: center;
+    @include sofia-pro-bold;
+    // font-size: 12px;
+  }
+
+  .tracks-links {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 40px;
+    width: 100%;
+
+
+    .tracks {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+
+      .track {
+        cursor: pointer;
+        display: flex;
+        width: 100%;
+        flex-wrap: wrap;
+        flex-direction: column;
+        align-items: center;
+        + .track {
+          margin-left: 20px;
+        }
+        .track-icon {
+          background-size: 40px;
+          width: 40px;
+        }
+
+        .wow {
+          line-height: 1.2;
+          background-size: 49px;
+        }
+
+        .text {
+          @include sofia-pro-light;
+          color: $accent-gray;
+          font-size: $label-small;
+          line-height: 12px;
+          margin-top: 11px;
+          text-transform: uppercase;
+          text-align: center;
+          // white-space: nowrap;
+          word-wrap: break-word;
+        }
+      }
+    }
+  }
+
+  .links {
+    margin-top: 30px;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    .link {
+      @include sofia-pro-regular;
+      font-size: 12px;
+      line-height: 14px;
+      text-decoration: none;
+      text-transform: uppercase;
+      margin-left: 10px;
+      margin-right: 10px;
+    }
+  }
+}
+
+.sticky {
+  width: 65px;
+}
+
+img.profile-circle {
+  border-radius: 50%;
+  display: inline;
+  width: 140px;
+  height: 140px;
+}
+
+.develop-icon {
+  background-image: url(assets/images/ico-track-develop.svg);
+  background-position:0 0;
+  background-repeat:no-repeat;
+  background-size: 40px;
+  height: 40px;
+  width: 40px;
+}
+.design-icon {
+  background-image: url(assets/images/ico-track-design.svg);
+  font-size: 30px;
+  background-position:0 0;
+  background-repeat:no-repeat;
+  background-size: 40px;
+  height: 40px;
+  width: 40px;
+}
+.data-icon {
+  background-image: url(assets/images/ico-track-data.svg);
+  background-position:0 0;
+  background-repeat:no-repeat;
+  background-size: 40px;
+  height: 40px;
+  width: 40px;
+}
+.copilot-icon {
+  background-image: url(assets/images/ico-track-copilot.svg);
+  background-position:0 0;
+  background-repeat:no-repeat;
+  background-size: 40px;
+  height: 40px;
+  width: 40px;
+}
+
+.skill-tile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 106px;
+  width: 80px;
+
+  @media (min-width: 768px) {
+    width: 100px;
+    height: 128px;
+  }
+
+  .new {
+    .skill-icon {
+      background-color: #F2FAFF;
+      border: 1px solid #85CCFF;
+      box-shadow: 0 0 3px #0096FF;
+    }
+  }
+
+  a:hover {
+    text-decoration: none;
+  }
+
+  a.skill-hidden {
+
+    img {
+      opacity: .3;
+    }
+
+    .hidden-indicator {
+      display: block;
+    }
+
+    .name {
+      text-decoration: line-through;
+      color: $accent-gray;
+    }
+  }
+
+  .skill-icon {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #FBFBFB;
+    padding: 10px;
+    border: 1px solid $gray-light;
+    height: 80px;
+    width: 80px;
+    @media (min-width: 768px) {
+      height: 100px;
+      width: 100px;
+    }
+
+    .remove-indicator {
+      position: absolute;
+      display: none;
+      top: 34px;
+      left: 30px;
+      @include background-image-size(40px, 50px);
+      background: url(assets/images/x-mark-red.svg);
+      z-index: 100;
+    }
+
+    .hidden-indicator {
+      position: absolute;
+      display: none;
+      top: 32px;
+      left: 31px;
+      @include background-image-size(36px, 36px);
+      background: url(assets/images/x-mark-gray.svg);
+      z-index: 100;
+    }
+
+    img {
+      width: 48px;
+      height: 48px;
+      @media only screen and (min-width: 768px) {
+        width: 60px;
+        height: 60px;
+      }
+    }
+
+  }
+
+  .name {
+    @include sofia-pro-light;
+    margin-top: 8px;
+    font-size: 12px;
+    color: #3A3C3E;
+    text-align: center;
+    @media (min-width: 768px) {
+      font-size: 14px;
+    }
+  }
+}
+
+.settings-container {
+  skill-tile {
+    a:not(.skill-hidden):hover {
+      div.skill-icon {
+        background-color: #FEE8EC;
+        border: 1px solid #FCBBC5;
+        box-shadow: none;
+
+        .remove-indicator {
+          display: block;
+        }
+      }
+      img {
+        opacity: .3;
+      }
+    }
+  }
+}

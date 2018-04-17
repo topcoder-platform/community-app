@@ -161,6 +161,88 @@ function onGetStatsDone(state, { error, payload }) {
 }
 
 /**
+ * Inits the loading of member profile.
+ * @param {Object} state
+ * @param {Object} action
+ * @return {Object} New state.
+ */
+function onGetProfileInit(state, action) {
+  const { handle, uuid } = action.payload;
+  let res = state[handle];
+  res = res ? _.clone(res) : {};
+  res.profile = { loadingUuid: uuid };
+  return {
+    ...state,
+    [handle]: res,
+  };
+}
+
+/**
+ * Finalizes the loading of member profile.
+ * @param {Object} state
+ * @param {Object} action
+ * @return {Object} New state.
+ */
+function onGetProfileDone(state, { error, payload }) {
+  if (error) {
+    logger.error('Failed to get member profile', payload);
+    fireErrorMessage('Failed to get member profile', '');
+    return state;
+  }
+
+  const { data, handle, uuid } = payload;
+  if (uuid !== _.get(state[handle], 'profile.loadingUuid')) return state;
+  return {
+    ...state,
+    [handle]: {
+      ...state[handle],
+      profile: { data, timestamp: Date.now() },
+    },
+  };
+}
+
+/**
+ * Inits the loading of member skills.
+ * @param {Object} state
+ * @param {Object} action
+ * @return {Object} New state.
+ */
+function onGetSkillsInit(state, action) {
+  const { handle, uuid } = action.payload;
+  let res = state[handle];
+  res = res ? _.clone(res) : {};
+  res.skills = { loadingUuid: uuid };
+  return {
+    ...state,
+    [handle]: res,
+  };
+}
+
+/**
+ * Finalizes the loading of member skills.
+ * @param {Object} state
+ * @param {Object} action
+ * @return {Object} New state.
+ */
+function onGetSkillsDone(state, { error, payload }) {
+  if (error) {
+    logger.error('Failed to get member skills', payload);
+    fireErrorMessage('Failed to get member skills', '');
+    return state;
+  }
+
+  const { data, handle, uuid } = payload;
+  if (uuid !== _.get(state[handle], 'skills.loadingUuid')) return state;
+  return {
+    ...state,
+    [handle]: {
+      ...state[handle],
+      skills: { data, timestamp: Date.now() },
+    },
+  };
+}
+
+/**
  * Creates reduces with the specified intial state.
  * @param {Object} state Optional. If not given, the default one is generated.
  * @return {Function} Reducer.
@@ -176,6 +258,10 @@ function create(state = {}) {
     [a.getFinancesDone]: onGetFinancesDone,
     [a.getStatsInit]: onGetStatsInit,
     [a.getStatsDone]: onGetStatsDone,
+    [a.getProfileInit]: onGetProfileInit,
+    [a.getProfileDone]: onGetProfileDone,
+    [a.getSkillsInit]: onGetSkillsInit,
+    [a.getSkillsDone]: onGetSkillsDone,
   }, state);
 }
 
