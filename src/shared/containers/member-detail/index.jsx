@@ -17,42 +17,10 @@ import DEVELOP_ICON from '../../../assets/images/ico-track-develop.svg';
 import DESIGN_ICON from '../../../assets/images/ico-track-design.svg';
 import COPILOT_ICON from '../../../assets/images/ico-track-copilot.svg';
 
-import communityActions from 'actions/tc-communities';
-import pageActions from 'actions/page';
-import ChallengeHeader from 'components/challenge-detail/Header';
-import challengeListingActions from 'actions/challenge-listing';
-import challengeListingSidebarActions from 'actions/challenge-listing/sidebar';
-import Registrants from 'components/challenge-detail/Registrants';
 import shortId from 'shortid';
-import Submissions from 'components/challenge-detail/Submissions';
-import Winners from 'components/challenge-detail/Winners';
-import ChallengeDetailsView from 'components/challenge-detail/Specification';
-import Terms from 'containers/Terms';
-import termsActions from 'actions/terms';
-import ChallengeCheckpoints from 'components/challenge-detail/Checkpoints';
 import React from 'react';
-import htmlToText from 'html-to-text';
 import PT from 'prop-types';
 import { connect } from 'react-redux';
-import challengeActions, { DETAIL_TABS } from 'actions/challenge';
-import config from 'utils/config';
-import MetaTags from 'utils/MetaTags';
-import { BUCKETS } from 'utils/challenge-listing/buckets';
-import { CHALLENGE_PHASE_TYPES, COMPETITION_TRACKS_V3, SUBTRACKS } from 'utils/tc';
-
-import ogWireframe from '../../../assets/images/open-graph/challenges/01-wireframe.jpg';
-import ogUiDesign from '../../../assets/images/open-graph/challenges/02-ui-design.jpg';
-import ogUiPrototype from '../../../assets/images/open-graph/challenges/03-ui-prototype.jpg';
-import ogFirst2Finish from '../../../assets/images/open-graph/challenges/04-first-2-finish.jpg';
-import ogDevelopment from '../../../assets/images/open-graph/challenges/05-development.jpg';
-import ogBigPrizesChallenge from '../../../assets/images/open-graph/challenges/09-big-prizes-challenge.jpg';
-import ogLuxChallenge from '../../../assets/images/open-graph/challenges/10-lux-challenge.jpg';
-import ogRuxChallenge from '../../../assets/images/open-graph/challenges/11-rux-challenge.jpg';
-import og24hUiPrototype from '../../../assets/images/open-graph/challenges/12-24h-ui-prototype-challenge.jpg';
-import og48hUiPrototype from '../../../assets/images/open-graph/challenges/13-48h-ui-prototype-challenge.jpg';
-
-/* A fallback image, just in case we missed some corner case. */
-import ogImage from '../../../assets/images/og_image.jpg';
 
 import './styles.scss';
 
@@ -68,6 +36,18 @@ const RoleMap = {
   'DEVELOP': 'Developer',
   'DATA_SCIENCE': 'Data Scientist',
   'COPILOT': 'Copilot'
+}
+
+const SubTrackMap = {
+  'BUG_HUNT' : 'BUG HUNT',
+  'ASSEMBLY_COMPETITION': 'ASSEMBLY',
+  'UI_PROTOTYPE_COMPETITION': 'UI PROTOTYPE COMPETITION',
+  'FIRST_2_FINISH': 'FIRST2FINISH',
+  'CODE': 'CODE',
+  'DESIGN_FIRST_2_FINISH': 'DESIGN FIRST2FINISH',
+  'LOGO_DESIGN': 'LOGO DESIGN',
+  'SRM': 'SRM',
+  'COPILOT': 'COPILOT'
 }
 
 const SkillShowNumber = 10;
@@ -131,7 +111,7 @@ const Track = ({track}) => {
 
     return (
       <a styleName={firstStyle}>
-        <div styleName="name">{item.name}</div>
+        <div styleName="name">{SubTrackMap[item.name]}</div>
         {isFulfillment &&
         <div styleName="ranking">
           <div styleName="number">{item.fulfillment}%</div>
