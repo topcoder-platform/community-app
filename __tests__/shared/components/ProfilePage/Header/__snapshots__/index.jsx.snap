@@ -108,7 +108,7 @@ exports[`renders profile about header correctly 1`] = `
   >
     <a
       className="src-shared-components-ProfilePage-Header-___styles__link___1S7ii"
-      href="https://apps.topcoder-dev.com/forums/?module=History&userID=8547899"
+      href="https://apps.topcoder-dev.com/forums/?module=History&userID=200000"
     >
       Forum Posts
     </a>

@@ -21,6 +21,7 @@ import DevelopIcon from 'assets/images/profile/ico-track-develop.svg';
 import Robot from 'assets/images/robot-happy.svg';
 
 import BadgesModal from './BadgesModal';
+import ExternalLink, { dataMap } from './ExternalLink';
 import Header from './Header';
 import Skill from './Skill';
 
@@ -145,6 +146,13 @@ class ProfilePage extends React.Component {
       skills = skills.slice(0, MAX_SKILLS);
     }
 
+    let externals = _.map(
+      _.pick(this.props.externalAccounts, _.map(dataMap, 'provider')), (data, type) => ({ type, data }),
+    );
+    this.props.externalLinks.map(data => externals.push(({ type: 'weblink', data })));
+    externals = _.filter(externals, 'data');
+    externals = _.sortBy(externals, 'type');
+
     const activeTracks = this.getActiveTracks();
 
     return (
@@ -181,7 +189,7 @@ class ProfilePage extends React.Component {
             </div>
             <div styleName="profile-about-container">
               {
-                _.isEmpty(skills) && _.isEmpty(activeTracks) &&
+                _.isEmpty(skills) && _.isEmpty(activeTracks) && _.isEmpty(externals) &&
                 <div styleName="empty-profile">
                   <h2>BEEP. BEEP. HELLO!</h2>
                   <Robot />
@@ -271,6 +279,23 @@ class ProfilePage extends React.Component {
                   }
                 </div>
               </div>
+              {
+                !_.isEmpty(externals) &&
+                <div styleName="external-links-container">
+                  <h3>On The Web</h3>
+                  <div styleName="external-links">
+                    {
+                      externals.map(external => (
+                        <ExternalLink
+                          data={external.data}
+                          key={external.type}
+                          type={external.type}
+                        />
+                      ))
+                    }
+                  </div>
+                </div>
+              }
             </div>
           </div>
         </div>
@@ -283,6 +308,8 @@ ProfilePage.propTypes = {
   achievements: PT.arrayOf(PT.shape()).isRequired,
   copilot: PT.bool.isRequired,
   country: PT.string.isRequired,
+  externalAccounts: PT.shape().isRequired,
+  externalLinks: PT.arrayOf(PT.shape()).isRequired,
   info: PT.shape().isRequired,
   skills: PT.shape().isRequired,
   stats: PT.shape().isRequired,

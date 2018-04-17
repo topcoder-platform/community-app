@@ -55,6 +55,36 @@
   ],
   "copilot": true,
   "country": "United States",
+  "externalAccounts": {
+    "userId": 200000,
+    "handle": "testHandle",
+    "behance": null,
+    "bitbucket": {
+      "handle": "testHandle",
+      "followers": 0,
+      "languages": null,
+      "repos": 0,
+      "profileURL": "https://bitbucket.org/testHandle/"
+    },
+    "dribbble": null,
+    "github": null,
+    "linkedin": null,
+    "stackoverflow": {
+      "name": "testHandle",
+      "reputation": 1000,
+      "answers": 42
+    },
+    "twitter": null
+  },
+  "externalLinks": [
+    {
+      "description": "Topcoder!",
+      "userId": 200000,
+      "handle": "testHandle",
+      "title": "topcoder",
+      "URL": "www.topcoder.com"
+    }
+  ],
   "handleParam": "testHandle",
   "info": {
     "maxRating": {
@@ -62,7 +92,7 @@
       "track": null,
       "subTrack": null
     },
-    "userId": 8547899,
+    "userId": 200000,
     "description": "Test Description",
     "handle": "testHandle",
     "handleLower": "testhandle",
@@ -77,8 +107,8 @@
     ],
     "updatedAt": "2017-10-17T17:13Z",
     "createdAt": "2004-03-21T21:05Z",
-    "createdBy": "8547899",
-    "updatedBy": "8547899"
+    "createdBy": "200000",
+    "updatedBy": "200000"
   },
   "loadingError": false,
   "profileForHandle": "testHandle",
@@ -285,7 +315,7 @@
     }
   },
   "stats": {
-    "userId": 8547899,
+    "userId": 200000,
     "handle": "testHandle",
     "handleLower": "testhandle",
     "maxRating": {

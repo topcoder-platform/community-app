@@ -59,6 +59,8 @@ ProfileContainer.defaultProps = {
   achievements: null,
   copilot: false,
   country: '',
+  externalAccounts: null,
+  externalLinks: null,
   info: null,
   profileForHandle: '',
   skills: null,
@@ -69,6 +71,8 @@ ProfileContainer.propTypes = {
   achievements: PT.arrayOf(PT.shape()),
   copilot: PT.bool,
   country: PT.string,
+  externalAccounts: PT.shape(),
+  externalLinks: PT.arrayOf(PT.shape()),
   handleParam: PT.string.isRequired,
   info: PT.shape(),
   loadingError: PT.bool.isRequired,
@@ -82,6 +86,8 @@ const mapStateToProps = (state, ownProps) => ({
   achievements: state.profile.achievements,
   copilot: state.profile.copilot,
   country: state.profile.country,
+  externalAccounts: state.profile.externalAccounts,
+  externalLinks: state.profile.externalLinks,
   handleParam: ownProps.match.params.handle,
   info: state.profile.info,
   loadingError: state.profile.loadingError,
@@ -96,10 +102,14 @@ function mapDispatchToProps(dispatch) {
     loadProfile: (handle) => {
       dispatch(a.loadProfile(handle));
       dispatch(a.getAchievementsInit());
+      dispatch(a.getExternalAccountsInit());
+      dispatch(a.getExternalLinksInit());
       dispatch(a.getInfoInit());
       dispatch(a.getSkillsInit());
       dispatch(a.getStatsInit());
       dispatch(a.getAchievementsDone(handle));
+      dispatch(a.getExternalAccountsDone(handle));
+      dispatch(a.getExternalLinksDone(handle));
       dispatch(a.getInfoDone(handle));
       dispatch(a.getSkillsDone(handle));
       dispatch(a.getStatsDone(handle));
