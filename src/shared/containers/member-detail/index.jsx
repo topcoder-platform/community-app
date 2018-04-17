@@ -308,7 +308,7 @@ class MemberDetailPageContainer extends React.Component {
               {skillsData && skillsData.length != 0 &&
                 <div styleName="list">{skillsData.map(mapSkill)}</div>
               }
-              {!this.state.showAllSkill && <button className="tc-btn tc-btn-s" onClick={this.onViewAll}>VIEW ALL</button>}
+              {skillsData && skillsData.length != 0 && skillsData && skillsData.length != 0 && !this.state.showAllSkill && <button className="tc-btn tc-btn-s" onClick={this.onViewAll}>VIEW ALL</button>}
               {this.state.showAllSkill && <button className="tc-btn tc-btn-s" onClick={this.onViewLess}>VIEW LESS</button>}
             </div>
             
