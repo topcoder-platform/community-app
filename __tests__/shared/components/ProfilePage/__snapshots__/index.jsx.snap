@@ -33,7 +33,7 @@ exports[`renders a full Profile correctly 1`] = `
                 Object {
                   "competitionCountryCode": "USA",
                   "createdAt": "2004-03-21T21:05Z",
-                  "createdBy": "8547899",
+                  "createdBy": "200000",
                   "description": "Test Description",
                   "handle": "testHandle",
                   "handleLower": "testhandle",
@@ -51,8 +51,8 @@ exports[`renders a full Profile correctly 1`] = `
                     "DEVELOP",
                   ],
                   "updatedAt": "2017-10-17T17:13Z",
-                  "updatedBy": "8547899",
-                  "userId": 8547899,
+                  "updatedBy": "200000",
+                  "userId": 200000,
                 }
               }
               onShowBadges={[Function]}
@@ -486,6 +486,51 @@ exports[`renders a full Profile correctly 1`] = `
             </div>
           </div>
         </div>
+        <div
+          className="src-shared-components-ProfilePage-___styles__external-links-container___2jHlD"
+        >
+          <h3>
+            On The Web
+          </h3>
+          <div
+            className="src-shared-components-ProfilePage-___styles__external-links___21O2N"
+          >
+            <ExternalLink
+              data={
+                Object {
+                  "followers": 0,
+                  "handle": "testHandle",
+                  "languages": null,
+                  "profileURL": "https://bitbucket.org/testHandle/",
+                  "repos": 0,
+                }
+              }
+              type="bitbucket"
+            />
+            <ExternalLink
+              data={
+                Object {
+                  "answers": 42,
+                  "name": "testHandle",
+                  "reputation": 1000,
+                }
+              }
+              type="stackoverflow"
+            />
+            <ExternalLink
+              data={
+                Object {
+                  "URL": "www.topcoder.com",
+                  "description": "Topcoder!",
+                  "handle": "testHandle",
+                  "title": "topcoder",
+                  "userId": 200000,
+                }
+              }
+              type="weblink"
+            />
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -525,7 +570,7 @@ exports[`renders an empty Profile correctly 1`] = `
                 Object {
                   "competitionCountryCode": "USA",
                   "createdAt": "2004-03-21T21:05Z",
-                  "createdBy": "8547899",
+                  "createdBy": "200000",
                   "description": "Test Description",
                   "handle": "testHandle",
                   "handleLower": "testhandle",
@@ -539,8 +584,8 @@ exports[`renders an empty Profile correctly 1`] = `
                   "status": "ACTIVE",
                   "tracks": Array [],
                   "updatedAt": "2017-10-17T17:13Z",
-                  "updatedBy": "8547899",
-                  "userId": 8547899,
+                  "updatedBy": "200000",
+                  "userId": 200000,
                 }
               }
               onShowBadges={[Function]}

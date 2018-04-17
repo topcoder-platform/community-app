@@ -26,6 +26,40 @@ function onGetAchievementsDone(state, { payload, error }) {
 }
 
 /**
+ * Handles PROFILE/GET_EXTERNAL_ACCOUNTS_DONE action.
+ * @param {Object} state
+ * @param {Object} action Payload will be JSON from api call
+ * @return {Object} New state
+ */
+function onGetExternalAccountsDone(state, { payload, error }) {
+  if (error) {
+    return { ...state, loadingError: true };
+  }
+
+  return ({
+    ...state,
+    externalAccounts: payload,
+  });
+}
+
+/**
+ * Handles PROFILE/GET_EXTERNAL_LINKS_DONE action.
+ * @param {Object} state
+ * @param {Object} action Payload will be JSON from api call
+ * @return {Object} New state
+ */
+function onGetExternalLinksDone(state, { payload, error }) {
+  if (error) {
+    return { ...state, loadingError: true };
+  }
+
+  return ({
+    ...state,
+    externalLinks: payload,
+  });
+}
+
+/**
  * Handles PROFILE/GET_INFO_DONE action.
  * @param {Object} state
  * @param {Object} action Payload will be JSON from api call
@@ -73,6 +107,10 @@ function create(initialState) {
     [a.loadProfile]: (state, action) => ({ ...state, profileForHandle: action.payload }),
     [a.getAchievementsInit]: state => state,
     [a.getAchievementsDone]: onGetAchievementsDone,
+    [a.getExternalAccountsInit]: state => state,
+    [a.getExternalAccountsDone]: onGetExternalAccountsDone,
+    [a.getExternalLinksInit]: state => state,
+    [a.getExternalLinksDone]: onGetExternalLinksDone,
     [a.getInfoInit]: state => state,
     [a.getInfoDone]: onGetInfoDone,
     [a.getSkillsInit]: state => state,

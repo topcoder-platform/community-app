@@ -2,6 +2,18 @@
   "achievements": [],
   "copilot": false,
   "country": "United States",
+  "externalAccounts": {
+    "userId": 200000,
+    "handle": "testHandle",
+    "behance": null,
+    "bitbucket": null,
+    "dribbble": null,
+    "github": null,
+    "linkedin": null,
+    "stackoverflow": null,
+    "twitter": null
+  },
+  "externalLinks": [],
   "handleParam": "testHandle",
   "info": {
     "maxRating": {
@@ -9,7 +21,7 @@
       "track": null,
       "subTrack": null
     },
-    "userId": 8547899,
+    "userId": 200000,
     "description": "Test Description",
     "handle": "testHandle",
     "handleLower": "testhandle",
@@ -20,14 +32,14 @@
     "tracks": [],
     "updatedAt": "2017-10-17T17:13Z",
     "createdAt": "2004-03-21T21:05Z",
-    "createdBy": "8547899",
-    "updatedBy": "8547899"
+    "createdBy": "200000",
+    "updatedBy": "200000"
   },
   "loadingError": false,
   "profileForHandle": "testHandle",
   "skills": {},
   "stats": {
-    "userId": 8547899,
+    "userId": 200000,
     "handle": "testHandle",
     "handleLower": "testhandle",
     "maxRating": {

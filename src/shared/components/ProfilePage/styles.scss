@@ -96,6 +96,31 @@ hr {
   }
 }
 
+.external-links-container {
+  background-color: $tc-white;
+  margin-top: 0;
+  padding-top: 0;
+  text-align: center;
+
+  h3 {
+    font-size: 18px;
+    line-height: 21px;
+    margin-bottom: 20px;
+
+    @include sofia-pro-medium;
+
+    text-transform: uppercase;
+  }
+}
+
+.external-links {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: flex-start;
+  margin-top: 1px;
+  padding: 0 30px 30px 30px;
+}
+
 // Both containers are flex column, then flex fows on >767px
 // User data container
 .profile-header-container {
@@ -346,6 +371,13 @@ hr {
 }
 
 @media (min-width: 768px) {
+  .external-links-container {
+    h3 {
+      font-size: 24px;
+      line-height: 30px;
+    }
+  }
+
   .profile-about-container {
     .activity {
       font-size: 24px;
