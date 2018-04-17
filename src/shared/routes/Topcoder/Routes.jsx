@@ -6,6 +6,7 @@
  */
 
 import ChallengeDetails from 'routes/ChallengeDetails';
+import MemberDetails from 'routes/MemberDetails';
 import TermsDetail from 'routes/TermsDetail';
 import Error404 from 'components/Error404';
 import Footer from 'components/TopcoderFooter';
@@ -37,6 +38,11 @@ export default function Topcoder() {
           component={ChallengeDetails}
           exact
           path="/challenges/:challengeId(\d{8})"
+        />
+        <Route
+          component={MemberDetails}
+          exact
+          path="/members/:handle"
         />
         <Route component={ChallengeListing} exact path="/challenges" />
         <Route component={Dashboard} exact path="/my-dashboard" />

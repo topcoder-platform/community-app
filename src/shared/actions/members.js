@@ -73,6 +73,28 @@ async function getFinancesDone(handle, uuid, tokenV3) {
 }
 
 /**
+ * Payload creator for the action that inits the loading of member profile.
+ * @param {String} handle
+ * @param {String} uuid
+ * @return {Object} Payload.
+ */
+async function getProfileInit(handle, uuid) {
+  return { handle, uuid };
+}
+
+/**
+ * Payload creator for the action that loads the member profile.
+ * @param {String} handle
+ * @param {String} uuid
+ * @param {String} tokenV3
+ * @return {Object} Payload
+ */
+async function getProfileDone(handle, uuid, tokenV3) {
+  const data = await getService(tokenV3).getMemberInfo(handle);
+  return { data, handle, uuid };
+}
+
+/**
  * Payload creator for the action that inits the loading of member stats.
  * @param {String} handle
  * @param {String} uuid
@@ -94,6 +116,28 @@ async function getStatsDone(handle, uuid, tokenV3) {
   return { data, handle, uuid };
 }
 
+/**
+ * Payload creator for the action that inits the loading of member skills.
+ * @param {String} handle
+ * @param {String} uuid
+ * @return {Object} Payload.
+ */
+async function getSkillsInit(handle, uuid) {
+  return { handle, uuid };
+}
+
+/**
+ * Payload creator for the action that loads the member skills.
+ * @param {String} handle
+ * @param {String} uuid
+ * @param {String} tokenV3
+ * @return {Object} Payload
+ */
+async function getSkillsDone(handle, uuid, tokenV3) {
+  const data = await getService(tokenV3).getSkills(handle);
+  return { data, handle, uuid };
+}
+
 export default createActions({
   MEMBERS: {
     DROP: drop,
@@ -104,5 +148,9 @@ export default createActions({
     GET_FINANCES_DONE: getFinancesDone,
     GET_STATS_INIT: getStatsInit,
     GET_STATS_DONE: getStatsDone,
+    GET_PROFILE_INIT: getProfileInit,
+    GET_PROFILE_DONE: getProfileDone,
+    GET_SKILLS_INIT: getSkillsInit,
+    GET_SKILLS_DONE: getSkillsDone,
   },
 });
