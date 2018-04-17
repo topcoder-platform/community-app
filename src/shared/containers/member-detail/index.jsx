@@ -292,9 +292,11 @@ class MemberDetailPageContainer extends React.Component {
               {this.state.showAllSkill && <button className="tc-btn tc-btn-s" onClick={this.onViewLess}>VIEW LESS</button>}
             </div>
             
-            <div styleName="categories">
-              {trackToDisplay.map((item, i) => <Track track={item} key={`${item}-${i}`}></Track>)}
-            </div>
+            <section className="tc-section">
+              <div styleName="categories">
+                {trackToDisplay.map((item, i) => <Track track={item} key={`${item}-${i}`}></Track>)}
+              </div>
+            </section>
             
           </div>
         </div>
