@@ -26,7 +26,7 @@ const DESCRIPTION = {
   LOGO_DESIGN: 'Logo Design',
   MARATHON_MATCH: 'Write algorithms to solve complex problems, often for real world issues',
   PRINT_OR_PRESENTATION: 'Design print and presentation assets',
-  SRM: 'Single Round Match - quickly write code to solve algorythm problems head to head against other competitors',
+  SRM: 'Single Round Match - quickly write code to solve algorithm problems head to head against other competitors',
   STUDIO_OTHER: 'Studio other',
   UI_PROTOTYPE_COMPETITION: 'Develop the front end of a UX',
   WEB_DESIGNS: 'Design UI and front end experiences for web experiences',
