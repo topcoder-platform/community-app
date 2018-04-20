@@ -15,12 +15,13 @@ beforeEach(() => {
 */
 
 test.skip('Does not throw', () => {
-  expect(() => require(MODULE)).not.toThrow();
+  // expect(() => require(MODULE)).not.toThrow();
 });
 
 test.skip('Does not throw when uses dev tools', () => {
+  /*
   process.env.DEV_TOOLS = true;
   expect(() => require(MODULE)).not.toThrow();
   delete process.env.DEV_TOOLS;
+  */
 });
-
