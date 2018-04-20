@@ -9,12 +9,11 @@ import actions from 'actions/tc-communities';
 import logger from 'utils/logger';
 import { handleActions } from 'redux-actions';
 import { decodeToken } from 'tc-accounts';
-import { combine, resolveReducers, toFSA } from 'utils/redux';
 import { getAuthTokens } from 'utils/tc';
 import { STATE as JOIN_COMMUNITY } from 'components/tc-communities/JoinCommunity';
 import { getService as getTermsService } from 'services/terms';
 import { getCommunityId } from 'server/services/communities';
-import { isomorphy } from 'topcoder-react-utils';
+import { isomorphy, redux } from 'topcoder-react-utils';
 
 import { fireErrorMessage } from 'utils/errors';
 
@@ -122,7 +121,11 @@ export function factory(req) {
       joinPromise = termsService.getCommunityTerms(communityId, tokenV3).then((result) => {
         // if all terms agreed we can perform join action
         if (_.every(result.terms, 'agreed')) {
-          return toFSA(actions.tcCommunity.joinDone(tokenV3, joinGroupId, user.userId));
+          return redux.resolveAction(actions.tcCommunity.joinDone(
+            tokenV3,
+            joinGroupId,
+            user.userId,
+          ));
         }
 
         return false;
@@ -131,7 +134,7 @@ export function factory(req) {
   }
 
   return Promise.all([
-    resolveReducers({
+    redux.resolveReducers({
       meta: metaFactory(req),
       news: newsFactory(req),
     }),
@@ -141,7 +144,7 @@ export function factory(req) {
     if (joinResult) {
       state = onJoinDone({}, joinResult);
     }
-    return combine(create(state), {
+    return redux.combineReducers(create(state), {
       ...reducers,
     });
   });

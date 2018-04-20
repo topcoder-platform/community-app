@@ -16,11 +16,9 @@ import {
   getFreshToken,
 } from 'tc-accounts';
 import logger from 'utils/logger';
-import { client } from 'topcoder-react-utils';
+import { client, redux } from 'topcoder-react-utils';
 import { setErrorsStore } from 'utils/errors';
 
-import App from '../shared';
-import storeFactory from '../shared/store-factory';
 import './styles.scss';
 
 const actions = {
@@ -127,19 +125,34 @@ function authenticate(store) {
 
 let prevLocation;
 client({
-  Application: () => (
-    <Route
-      component={({ location }) => {
-        if (prevLocation !== location) {
-          prevLocation = location;
-          analytics.page();
-        }
-        return <App />;
-      }}
-    />
-  ),
-  storeFactory: async (state) => {
-    const store = await storeFactory(undefined, state);
+  applicationModulePath: require.resolve('../shared'),
+  getApplication: () => {
+    /* eslint-disable global-require */
+    const Application = require('../shared').default;
+    /* eslint-enable global-require */
+    // return Application;
+    return () => (
+      <Route
+        component={({ location }) => {
+          if (prevLocation !== location) {
+            prevLocation = location;
+            analytics.page();
+          }
+          return <Application />;
+        }}
+      />
+    );
+  },
+  moduleHot: module.hot,
+  storeFactory: async (initialState) => {
+    const store = await redux.storeFactory({
+      /* eslint-disable global-require */
+      getReducerFactory: () => require('reducers').factory,
+      /* eslint-enable global-require */
+      initialState,
+      moduleHot: module.hot,
+      reducerFactoryModulePath: require.resolve('reducers'),
+    });
     authenticate(store);
     setErrorsStore(store);
     return store;

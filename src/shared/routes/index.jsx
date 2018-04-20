@@ -4,10 +4,10 @@
 
 import CommunityLoader from 'containers/tc-communities/Loader';
 import Content from 'components/Content';
-import MetaTags from 'utils//MetaTags';
 import React from 'react';
 
 import { Switch, Route, withRouter } from 'react-router-dom';
+import { MetaTags } from 'topcoder-react-utils';
 
 import PT from 'prop-types';
 

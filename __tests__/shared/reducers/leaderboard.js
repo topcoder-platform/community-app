@@ -1,6 +1,6 @@
 import actions from 'actions/leaderboard';
 import defaultReducer, { factory } from 'reducers/leaderboard';
-import { toFSA } from 'utils/redux';
+import { redux } from 'topcoder-react-utils';
 
 const DUMMY_PAYLOAD = [{ 'user.handle': 'fake.username' }];
 const DUMMY_AUTH = { tokenV3: 'token' };
@@ -34,30 +34,34 @@ function testReducer(reducer, expectedInitialState) {
 
   test('properly handles data loading with success', () => {
     global.fetch = fetchSuccessMock;
-    return toFSA(actions.leaderboard.fetchLeaderboardDone(DUMMY_AUTH, DUMMY_LEADERBOARD_API_URL))
-      .then((action) => {
-        state = reducer(state, action);
-        expect(state).toEqual({
-          data: DUMMY_PAYLOAD,
-          failed: false,
-          loading: false,
-          loadedApiUrl: DUMMY_LEADERBOARD_API_URL,
-        });
+    return redux.resolveAction(actions.leaderboard.fetchLeaderboardDone(
+      DUMMY_AUTH,
+      DUMMY_LEADERBOARD_API_URL,
+    )).then((action) => {
+      state = reducer(state, action);
+      expect(state).toEqual({
+        data: DUMMY_PAYLOAD,
+        failed: false,
+        loading: false,
+        loadedApiUrl: DUMMY_LEADERBOARD_API_URL,
       });
+    });
   });
 
   test('properly handles data loading with failure', () => {
     global.fetch = fetchFailureMock;
-    return toFSA(actions.leaderboard.fetchLeaderboardDone(DUMMY_AUTH, DUMMY_LEADERBOARD_API_URL))
-      .then((action) => {
-        state = reducer(state, action);
-        expect(state).toEqual({
-          data: null,
-          failed: true,
-          loading: false,
-          loadedApiUrl: null,
-        });
+    return redux.resolveAction(actions.leaderboard.fetchLeaderboardDone(
+      DUMMY_AUTH,
+      DUMMY_LEADERBOARD_API_URL,
+    )).then((action) => {
+      state = reducer(state, action);
+      expect(state).toEqual({
+        data: null,
+        failed: true,
+        loading: false,
+        loadedApiUrl: null,
       });
+    });
   });
 }
 

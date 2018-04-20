@@ -16,7 +16,6 @@ import Footer from 'components/tc-communities/Footer2';
 import Header from 'containers/tc-communities/Header';
 import Home from 'containers/tc-communities/blockchain/Home';
 import Learn from 'containers/tc-communities/blockchain/Learn';
-import MetaTags from 'utils/MetaTags';
 import PT from 'prop-types';
 import React from 'react';
 import Submission from 'routes/Submission';
@@ -24,7 +23,7 @@ import SubmissionManagement from 'routes/SubmissionManagement';
 import TermsDetail from 'routes/TermsDetail';
 import { Route, Switch } from 'react-router-dom';
 import { ThemeProvider } from 'react-css-super-themr';
-import { config } from 'topcoder-react-utils';
+import { config, MetaTags } from 'topcoder-react-utils';
 
 import primaryButtonStyle from 'components/buttons/outline/round/open-sans/green-uppercase.scss';
 import secondaryButtonStyle from 'components/buttons/outline/round/open-sans/blue-uppercase.scss';

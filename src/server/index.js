@@ -6,8 +6,9 @@ import logger from 'utils/logger';
 import path from 'path';
 import qs from 'qs';
 import serializeJs from 'serialize-javascript';
-import { server as serverFactory } from 'topcoder-react-utils';
 
+import { factory as reducerFactory } from 'reducers';
+import { redux, server as serverFactory } from 'topcoder-react-utils';
 import { getRates as getExchangeRates } from 'services/money';
 import { toJson as xmlToJson } from 'utils/xml2json';
 
@@ -16,10 +17,6 @@ import mockDocuSignFactory from './__mocks__/docu-sign-mock';
 
 /* Dome API for topcoder communities */
 import tcCommunitiesDemoApi from './tc-communities';
-
-/* This is always initial state of the store. Later we'll have to provide a way
- * to put the store into correct state depending on the demanded route. */
-import storeFactory from '../shared/store-factory';
 
 import webpackConfigFactory from '../../webpack.config';
 
@@ -55,7 +52,13 @@ async function beforeRender(req, suggestedConfig) {
   const [
     store,
     rates,
-  ] = await Promise.all([storeFactory(req), getExchangeRates()]);
+  ] = await Promise.all([
+    redux.storeFactory({
+      getReducerFactory: () => reducerFactory,
+      httpRequest: req,
+    }),
+    getExchangeRates(),
+  ]);
 
   return {
     config: { ...suggestedConfig, EXCHANGE_RATES: rates },
@@ -145,6 +148,7 @@ async function onExpressJsSetup(server) {
     setTimeout(() => res.send(mockDocuSignFactory(req.query.returnUrl)), 3000));
 }
 
+global.KEEP_BUILD_INFO = true;
 serverFactory(webpackConfigFactory(MODE), {
   Application,
   beforeRender,

@@ -8,10 +8,10 @@ import React from 'react';
 import PT from 'prop-types';
 import { connect } from 'react-redux';
 import _ from 'lodash';
-import MetaTags from 'utils/MetaTags';
 import LoadingIndicator from 'components/LoadingIndicator';
 import TermDetails from 'components/Terms/TermDetails';
 import termsActions from 'actions/terms';
+import { MetaTags } from 'topcoder-react-utils';
 
 import './styles.scss';
 

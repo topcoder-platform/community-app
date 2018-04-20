@@ -26,8 +26,7 @@ import sidebarActions from 'actions/challenge-listing/sidebar';
 import communityActions from 'actions/tc-communities';
 import { BUCKETS } from 'utils/challenge-listing/buckets';
 import { combine, mapToBackend } from 'utils/challenge-listing/filter';
-import MetaTags from 'utils/MetaTags';
-import { config } from 'topcoder-react-utils';
+import { config, MetaTags } from 'topcoder-react-utils';
 
 import ogImage from '../../../../assets/images/og_image.jpg';
 import style from './styles.scss';

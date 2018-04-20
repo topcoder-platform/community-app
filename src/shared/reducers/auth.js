@@ -4,10 +4,9 @@
 
 import actions from 'actions/auth';
 import communityActions from 'actions/tc-communities';
-import { handleActions } from 'redux-actions';
 import { decodeToken } from 'tc-accounts';
-import { toFSA } from 'utils/redux';
 import { getAuthTokens } from 'utils/tc';
+import { redux } from 'topcoder-react-utils';
 
 /**
  * Handles actions.auth.loadProfile action.
@@ -28,7 +27,7 @@ function onProfileLoaded(state, action) {
  * @return Auth reducer.
  */
 function create(initialState) {
-  return handleActions({
+  return redux.handleActions({
     [actions.auth.loadProfile]: onProfileLoaded,
     [actions.auth.setTcTokenV2]: (state, action) => ({
       ...state,
@@ -66,8 +65,8 @@ export function factory(req) {
   };
   if (state.tokenV3) {
     state.user = decodeToken(state.tokenV3);
-    return toFSA(actions.auth.loadProfile(state.tokenV3)).then(res =>
-      create(onProfileLoaded(state, res)));
+    return redux.resolveAction(actions.auth.loadProfile(state.tokenV3))
+      .then(res => create(onProfileLoaded(state, res)));
   }
   return Promise.resolve(create(state));
 }

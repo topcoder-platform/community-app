@@ -3,8 +3,7 @@
  */
 
 import actions from 'actions/tco/scoreboard';
-import { handleActions } from 'redux-actions';
-import { toFSA } from 'utils/redux';
+import { redux } from 'topcoder-react-utils';
 
 /**
  * Handles scoreboard.fetchScoreboardDone action.
@@ -26,7 +25,7 @@ function onDone(state, action) {
  * @return scoreboard reducer.
  */
 function create(initialState) {
-  return handleActions({
+  return redux.handleActions({
     [actions.scoreboard.fetchScoreboardInit](state) {
       return {
         ...state,
@@ -48,7 +47,7 @@ function create(initialState) {
  */
 export function factory(req) {
   if (req && req.url.endsWith('/scoreboard')) {
-    return toFSA(actions.scoreboard.fetchScoreboardDone())
+    return redux.resolveAction(actions.scoreboard.fetchScoreboardDone())
       .then(res => create(onDone({}, res)));
   }
   return Promise.resolve(create());
