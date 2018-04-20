@@ -4,8 +4,7 @@
 
 import actions from 'actions/leaderboard';
 import metaActions from 'actions/tc-communities/meta';
-import { handleActions } from 'redux-actions';
-import { toFSA } from 'utils/redux';
+import { redux } from 'topcoder-react-utils';
 import { getAuthTokens } from 'utils/tc';
 
 /**
@@ -29,7 +28,7 @@ function onDone(state, action) {
  * @return Leaderboard reducer.
  */
 function create(initialState) {
-  return handleActions({
+  return redux.handleActions({
     [actions.leaderboard.fetchLeaderboardInit](state) {
       return {
         ...state,
@@ -65,8 +64,10 @@ export function factory(req) {
         return Promise.reject();
       }
 
-      return toFSA(actions.leaderboard.fetchLeaderboardDone(tokens, data.leaderboardApiUrl))
-        .then(response => create(onDone({}, response)));
+      return redux.resolveAction(actions.leaderboard.fetchLeaderboardDone(
+        tokens,
+        data.leaderboardApiUrl,
+      )).then(response => create(onDone({}, response)));
     });
   }
   /* Otherwise this part of Redux state is initialized empty. */

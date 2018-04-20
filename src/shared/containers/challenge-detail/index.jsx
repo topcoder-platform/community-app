@@ -26,10 +26,9 @@ import htmlToText from 'html-to-text';
 import PT from 'prop-types';
 import { connect } from 'react-redux';
 import challengeActions, { DETAIL_TABS } from 'actions/challenge';
-import MetaTags from 'utils/MetaTags';
 import { BUCKETS } from 'utils/challenge-listing/buckets';
 import { CHALLENGE_PHASE_TYPES, COMPETITION_TRACKS_V3, SUBTRACKS } from 'utils/tc';
-import { config } from 'topcoder-react-utils';
+import { config, MetaTags } from 'topcoder-react-utils';
 
 import ogWireframe from '../../../assets/images/open-graph/challenges/01-wireframe.jpg';
 import ogUiDesign from '../../../assets/images/open-graph/challenges/02-ui-design.jpg';

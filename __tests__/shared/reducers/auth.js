@@ -1,5 +1,5 @@
 import { mockAction } from 'utils/mock';
-import { toFSA } from 'utils/redux';
+import { redux } from 'topcoder-react-utils';
 
 const dummy = 'DUMMY';
 
@@ -26,7 +26,7 @@ function testReducer(reducer, istate) {
   });
 
   test('Load profile', () =>
-    toFSA(mockActions.auth.loadProfile()).then((action) => {
+    redux.resolveAction(mockActions.auth.loadProfile()).then((action) => {
       const state = reducer({ dummy }, action);
       expect(state).toEqual({
         authenticating: false,

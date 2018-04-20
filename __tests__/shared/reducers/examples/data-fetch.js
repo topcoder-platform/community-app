@@ -1,6 +1,6 @@
 import actions from 'actions/examples/data-fetch';
 import defaultReducer, { factory } from 'reducers/examples/data-fetch';
-import { toFSA } from 'utils/redux';
+import { redux } from 'topcoder-react-utils';
 
 const DUMMY_PAYLOAD = 'Dummy Payload 12345';
 
@@ -31,7 +31,7 @@ function testReducer(reducer, expectedInitialState) {
 
   test('properly handles data loading with success', () => {
     global.fetch = fetchSuccessMock;
-    return toFSA(actions.examples.dataFetch.fetchDataDone()).then((action) => {
+    return redux.resolveAction(actions.examples.dataFetch.fetchDataDone()).then((action) => {
       state = reducer(state, action);
       expect(state).toEqual({
         data: DUMMY_PAYLOAD,
@@ -43,7 +43,7 @@ function testReducer(reducer, expectedInitialState) {
 
   test('properly handles data loading with failure', () => {
     global.fetch = fetchFailureMock;
-    return toFSA(actions.examples.dataFetch.fetchDataDone()).then((action) => {
+    return redux.resolveAction(actions.examples.dataFetch.fetchDataDone()).then((action) => {
       state = reducer(state, action);
       expect(state).toEqual({
         data: null,

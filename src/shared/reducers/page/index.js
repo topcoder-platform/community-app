@@ -7,7 +7,7 @@
  */
 
 import { combineReducers } from 'redux';
-import { resolveReducers } from 'utils/redux';
+import { redux } from 'topcoder-react-utils';
 
 import submission, { factory as challengeDetailsFactory } from './submission';
 
@@ -26,7 +26,7 @@ import sandbox from './sandbox';
  * @return {Function} Reducer.
  */
 export function factory(req) {
-  return resolveReducers({
+  return redux.resolveReducers({
     submission: challengeDetailsFactory(req),
     hallOfFame: hallOfFameFactory(req),
   }).then(reducers => combineReducers({

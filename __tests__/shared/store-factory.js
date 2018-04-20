@@ -1,3 +1,8 @@
+/* TODO:
+ * Store factory was moved to topcoder-react-utils,
+ * this test should be moved there as well.
+ */
+/*
 const MODULE = require.resolve('shared/store-factory');
 
 afterAll(() => {
@@ -7,12 +12,13 @@ afterAll(() => {
 beforeEach(() => {
   jest.resetModules();
 });
+*/
 
-test('Does not throw', () => {
+test.skip('Does not throw', () => {
   expect(() => require(MODULE)).not.toThrow();
 });
 
-test('Does not throw when uses dev tools', () => {
+test.skip('Does not throw when uses dev tools', () => {
   process.env.DEV_TOOLS = true;
   expect(() => require(MODULE)).not.toThrow();
   delete process.env.DEV_TOOLS;

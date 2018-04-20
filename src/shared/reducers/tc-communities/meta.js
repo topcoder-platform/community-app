@@ -5,9 +5,8 @@
 import _ from 'lodash';
 import actions from 'actions/tc-communities/meta';
 import logger from 'utils/logger';
-import { handleActions } from 'redux-actions';
 import { getCommunityId } from 'server/services/communities';
-import { toFSA } from 'utils/redux';
+import { redux } from 'topcoder-react-utils';
 import { getAuthTokens } from 'utils/tc';
 
 /**
@@ -37,7 +36,7 @@ function onDone(state, action) {
  * @return community meta reducer.
  */
 function create(initialState) {
-  return handleActions({
+  return redux.handleActions({
     [actions.tcCommunities.meta.mobileToggle](state) {
       return {
         ...state,
@@ -76,7 +75,7 @@ export function factory(req) {
     if (communityId) {
       const state = { loadingMetaDataForCommunityId: communityId };
       const { tokenV3 } = getAuthTokens(req);
-      return toFSA(actions.tcCommunities.meta.fetchDataDone(
+      return redux.resolveAction(actions.tcCommunities.meta.fetchDataDone(
         communityId,
         tokenV3,
       )).then(res => create(onDone(state, res)));

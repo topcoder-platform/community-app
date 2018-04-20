@@ -6,8 +6,7 @@
 import _ from 'lodash';
 import actions, { PAGE_SIZE } from 'actions/member-tasks';
 import logger from 'utils/logger';
-import { handleActions } from 'redux-actions';
-import { isomorphy } from 'topcoder-react-utils';
+import { isomorphy, redux } from 'topcoder-react-utils';
 
 /**
  * Drops all tasks and cancels the ongoing loading operation, if it is pending.
@@ -96,7 +95,7 @@ function onGetDone(state, { error, payload }) {
  */
 function create(state = {}) {
   const a = actions.memberTasks;
-  return handleActions({
+  return redux.handleActions({
     [a.dropAll]: onDropAll,
     [a.getInit]: onGetInit,
     [a.getDone]: onGetDone,

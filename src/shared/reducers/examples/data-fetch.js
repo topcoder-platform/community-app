@@ -3,8 +3,7 @@
  */
 
 import actions from 'actions/examples/data-fetch';
-import { handleActions } from 'redux-actions';
-import { toFSA } from 'utils/redux';
+import { redux } from 'topcoder-react-utils';
 
 /**
  * Handles examples.dataFetch.fetchDataDone action.
@@ -26,7 +25,7 @@ function onDone(state, action) {
  * @return dataFetch reducer.
  */
 function create(initialState) {
-  return handleActions({
+  return redux.handleActions({
     [actions.examples.dataFetch.fetchDataInit](state) {
       return {
         ...state,
@@ -48,7 +47,7 @@ function create(initialState) {
  */
 export function factory(req) {
   if (req && req.url.endsWith('/examples/data-fetch/server')) {
-    return toFSA(actions.examples.dataFetch.fetchDataDone())
+    return redux.resolveAction(actions.examples.dataFetch.fetchDataDone())
       .then(res => create(onDone({}, res)));
   }
   return Promise.resolve(create());

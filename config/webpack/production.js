@@ -13,7 +13,7 @@ const standardDevelopmentConfig = configFactory({
     'loading-indicator-animation': './src/client/loading-indicator-animation',
     main: './src/client',
   },
-  keepBuildInfo: true,
+  keepBuildInfo: Boolean(global.KEEP_BUILD_INFO),
   publicPath: '/community-app-assets',
 });
 
