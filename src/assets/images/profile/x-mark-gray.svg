@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="36px" height="36px" viewBox="0 0 36 36" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
+    <!-- Generator: Sketch 3.3.3 (12081) - http://www.bohemiancoding.com/sketch -->
+    <title>x-mark-gray</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Edit-Profile-Web" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
+        <g id="Profile-Edit-W-T1-Profile" sketch:type="MSArtboardGroup" transform="translate(-922.000000, -2873.000000)">
+            <g id="x-mark-gray" sketch:type="MSLayerGroup" transform="translate(922.000000, 2873.000000)">
+                <path d="M18,24.0952381 L8.0952381,34 L2,27.9047619 L11.9047619,18 L2,8.0952381 L8.0952381,2 L18,11.9047619 L27.9047619,2 L34,8.0952381 L24.0952381,18 L34,27.9047619 L27.9047619,34 L18,24.0952381 L18,24.0952381 Z" id="x-mark" fill="#B7B7B7" sketch:type="MSShapeGroup"></path>
+                <path d="M18,24.0952381 L18,24.0952381 L27.9047619,34 L34,27.9047619 L24.0952381,18 L34,8.0952381 L27.9047619,2 L18,11.9047619 L8.0952381,2 L2,8.0952381 L11.9047619,18 L2,27.9047619 L8.0952381,34 L18,24.0952381 Z M18.7071068,24.8023449 L18.7071068,24.8023449 L8.80234488,34.7071068 L8.0952381,35.4142136 L7.38813131,34.7071068 L1.29289322,28.6118687 L0.585786438,27.9047619 L1.29289322,27.1976551 L11.1976551,17.2928932 L11.1976551,18.7071068 L1.29289322,8.80234488 L0.585786438,8.0952381 L1.29289322,7.38813131 L7.38813131,1.29289322 L8.0952381,0.585786438 L8.80234488,1.29289322 L18.7071068,11.1976551 L17.2928932,11.1976551 L27.1976551,1.29289322 L27.9047619,0.585786438 L28.6118687,1.29289322 L34.7071068,7.38813131 L35.4142136,8.0952381 L34.7071068,8.80234488 L24.8023449,18.7071068 L24.8023449,17.2928932 L34.7071068,27.1976551 L35.4142136,27.9047619 L34.7071068,28.6118687 L28.6118687,34.7071068 L27.9047619,35.4142136 L27.1976551,34.7071068 L17.2928932,24.8023449 L18.7071068,24.8023449 Z" id="Shape" fill="#FCFCFC" sketch:type="MSShapeGroup"></path>
+            </g>
+        </g>
+    </g>
+</svg>

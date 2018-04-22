@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="64px" height="64px" viewBox="0 0 64 64" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <defs></defs>
+    <g id="Tools" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="icons/skills/id-125">
+            <rect id="Rectangle-7" fill="#224D6B" x="7" y="7" width="50" height="50" rx="4"></rect>
+            <rect id="Rectangle-7" fill="#173B59" x="7" y="7" width="50" height="10" rx="4"></rect>
+            <circle id="Oval-2" fill="#FBFBFB" cx="52" cy="12" r="2"></circle>
+            <rect id="Rectangle-8" fill="#FBFBFB" x="26" y="42" width="12" height="3"></rect>
+            <path d="M23,32.5 L23,34 L22.9978604,33.9988108 L14,39 L14,36.0023785 L20.3012838,32.5 L14,28.9976215 L14,26 L22.9978604,31.0011892 L23,31 L23,32.5 L23,32.5 Z" id="Rectangle-9" fill="#FBFBFB"></path>
+        </g>
+    </g>
+</svg>
