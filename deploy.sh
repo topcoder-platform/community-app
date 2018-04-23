@@ -48,7 +48,7 @@ make_task_def(){
 				"cpu": 100,
 				"environment": [
 						{
-								"name": "NODE_ENV",
+								"name": "NODE_CONFIG_ENV",
 								"value": "%s"
 						}
 				],
@@ -71,12 +71,12 @@ make_task_def(){
 	]'
 	
 	if [ "$ENV" = "PROD" ]; then
-			NODE_ENV=production
+			NODE_CONFIG_ENV=production
 	elif [ "$ENV" = "DEV" ]; then
-			NODE_ENV=development
+			NODE_CONFIG_ENV=development
 	fi
 
-	task_def=$(printf "$task_template" $ACCOUNT_ID $AWS_REGION $AWS_REPOSITORY $TAG $NODE_ENV $AWS_ECS_CLUSTER $AWS_REGION)
+	task_def=$(printf "$task_template" $ACCOUNT_ID $AWS_REGION $AWS_REPOSITORY $TAG $NODE_CONFIG_ENV $AWS_ECS_CLUSTER $AWS_REGION)
 }
 
 push_ecr_image() {
