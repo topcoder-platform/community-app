@@ -4,7 +4,7 @@ Development and testing related to challenges and communities terms is not strai
 
 ### Development
 
-To enable terms mocking for development, run the app with `MOCK_TERMS_SERVICE` environment variable set to `true`. E.g., on Linux, in dev. mode against production backend, you execute `$ MOCK_TERMS_SERVICE=true NODE_ENV=production PORT=80 npm run dev`. Against development backend it would be simply `$ MOCK_TERMS_SERVICE=true npm run dev`.
+To enable terms mocking for development, run the app with `MOCK_TERMS_SERVICE` environment variable set to `true`. E.g., on Linux, in dev. mode against production backend, you execute `$ MOCK_TERMS_SERVICE=true NODE_CONFIG_ENV=production PORT=80 npm run dev`. Against development backend it would be simply `$ MOCK_TERMS_SERVICE=true npm run dev`.
 
 With this option enabled, each challenge and community you access will be protected by two terms if user is not authenticated: a simple Topcoder ones + mock DocuSign NDA (really simple mock, renders a small HTML page, that shows buttons that, when pressed, imitate DocuSign callbacks in the cases of terms agreement or rejection). If a user is authenticated then each challenge and community will be protected by three terms one of which is agreed. By default, two terms won't be agreed initially. Agreeing with them won't be stored in the service mock though after all terms agreed `checkStatusDone` action will return all terms agreed. If you reload a page, you'll see that both terms are pending to be agreed with again.
 
