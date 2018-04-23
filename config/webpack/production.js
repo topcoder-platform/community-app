@@ -25,11 +25,4 @@ jsxRule.exclude = [
   /src[\\/]assets[\\/]images[\\/]dashboard/,
 ];
 
-module.exports = webpackMerge.smart(standardDevelopmentConfig, defaultConfig, {
-  module: {
-    noParse: [
-      /* To avoid bundling of redux-devtools into production bundle. */
-      /[\\/]src[\\/]shared[\\/]containers[\\/]DevTools/,
-    ],
-  },
-});
+module.exports = webpackMerge.smart(standardDevelopmentConfig, defaultConfig);
