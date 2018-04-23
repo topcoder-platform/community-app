@@ -7,14 +7,11 @@
 * If an event did not have the corresponding TRACK, the entire line can be commented out.
 */
 import logo from './logo.png';
-import banner from './banner.jpg';
+import banner from './banner.png';
 
-import winnerAlgorithm from './winnerAlgorithm.png';
-import winnerMarathon from './winnerMarathon.png';
-import winnerDevelopment from './winnerDevelopment.png';
-import winnerFirst2finish from './winnerFirst2finish.png';
-import winnerUiDesign from './winnerUIDesign.png';
-import winnerUiPrototype from './winnerUIPrototype.png';
+import winnerAlgorithm from './winnerAlgorithm.jpg';
+import winnerComponentDevelopment from './winnerComponentDevelopment.jpg';
+import winnerComponentDesign from './winnerComponentDesign.jpg';
 
 /**
  * Data for the event goes here, and the format is very similar JSON.
@@ -24,110 +21,94 @@ import winnerUiPrototype from './winnerUIPrototype.png';
 export default {
   logo,
   banner,
-  learnMoreURL: 'http://tco.topcoder.com',
-  browseGalleryURL: '',
-  location: 'Location, Country',
-  date: 'Date',
+  learnMoreURL: 'https://www.topcoder.com/tc?module=Static&d1=tournaments&d2=tco05&d3=about',
+  browseGalleryURL: 'https://www.flickr.com/photos/53993064@N03/albums/72157662219960244',
+  location: 'Santa Clara, California, USA',
+  date: 'Oct 13 - Oct 14, 2005',
   totalPrizes: '$60,000',
   countryCount: 29,
 
   // ALGORITHM Data Starts Here
   algorithm: {
-    winner: 'handle',
+    winner: 'Eryx',
     portrait: winnerAlgorithm,
     finalists: [
-      'handle1',
-      'handle2',
-      'handle3',
-      'handle4',
-    ],
-  },
-
-  // MARATHON Data Starts Here
-  marathon: {
-    winner: 'handle',
-    portrait: winnerMarathon,
-    finalists: [
-      'handle1',
-      'handle2',
-      'handle3',
-      'handle4',
+      'Andrew_Lazarev',
+      'antimatter',
+      'ardiankp',
+      'assembler',
+      'aubergineanode',
+      'cyfra',
+      'DamianK',
+      'daveagp',
+      'dgarthur',
+      'elizarov',
+      'futo',
+      'gawry',
+      'haha',
+      'HardCoder',
+      'hauser',
+      'HilbertRaum',
+      'HiltonLange',
+      'Im2Good',
+      'ivan_metelsky',
+      'John Dethridge',
+      'kalmakka',
+      'krijgertje',
+      'lars',
+      'lovro',
+      'lunaticfringe',
+      'madking',
+      'marek.cygan',
+      'marian',
+      'mickle',
+      'misof',
+      'natori',
+      'nicka81',
+      'NPermyakov',
+      'overwise',
+      'Petr',
+      'ploh',
+      'radeye',
+      'RalphFurmaniak',
+      'Ryan',
+      'sjelkjd',
+      'snewman',
+      'texel',
+      'tjq',
+      'tomal',
+      'venco',
+      'Ying',
+      'Zis',
     ],
   },
 
   // DEVELOPMENT Data Starts Here
-  development: {
-    winner: 'handle',
-    portrait: winnerDevelopment,
+  componentDevelopment: {
+    winner: 'visualage',
+    portrait: winnerComponentDevelopment,
     finalists: [
-      'handle1',
-      'handle2',
-      'handle3',
-      'handle4',
-    ],
-  },
-
-  // FIRST2FINISH Data Starts Here
-  first2finish: {
-    winner: 'handle',
-    portrait: winnerFirst2finish,
-    finalists: [
-      'handle1',
-      'handle2',
-      'handle3',
-      'handle4',
+      'sindu',
+      'oldbig',
+      'arylio',
+      'cnettel',
+      'colau',
+      'matmis',
     ],
   },
 
   // UI DESIGN Data Starts Here
-  uiDesign: {
-    winner: 'handle',
-    portrait: winnerUiDesign,
+  componentDesign: {
+    winner: 'nicka81',
+    portrait: winnerComponentDesign,
     finalists: [
-      'handle1',
-      'handle2',
-      'handle3',
-      'handle4',
+      'Pops',
+      'kyky',
+      'aubergineanode',
+      'dmks',
+      'ShindouHikaru',
+      'ThinMan',
+      'victor_lxd',
     ],
   },
-
-  // UI PROTOTYPE Data Starts Here
-  uiPrototype: {
-    winner: 'handle',
-    portrait: winnerUiPrototype,
-    finalists: [
-      'handle1',
-      'handle2',
-      'handle3',
-      'handle4',
-    ],
-  },
-
-  // Trip Winners Data Starts Here
-  tripWinners: [
-    {
-      role: 'COPILOT',
-      winners: [
-        'handle1',
-        'handle2',
-        'handle3',
-      ],
-    },
-    {
-      role: 'WIREFRAME',
-      winners: [
-        'handle1',
-        'handle2',
-        'handle3',
-      ],
-    },
-    {
-      role: 'OTHERS',
-      winners: [
-        'handle1',
-        'handle2',
-        'handle3',
-      ],
-    },
-  ],
 };

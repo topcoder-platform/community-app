@@ -26,7 +26,7 @@ const Track = ({
     }
     { _.range(data.finalists.length, count).map(i => <div className={theme.empty} key={i} />) }
   </div>
-) : <div />);
+) : false);
 
 Track.defaultProps = {
   count: 10,
