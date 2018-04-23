@@ -9,12 +9,12 @@
 import logo from './logo.png';
 import banner from './banner.jpg';
 
-import winnerAlgorithm from './winnerAlgorithm.png';
+import winnerAlgorithm from './winnerAlgorithm.jpg';
 import winnerMarathon from './winnerMarathon.png';
-import winnerDevelopment from './winnerDevelopment.png';
-import winnerFirst2finish from './winnerFirst2finish.png';
-import winnerUiDesign from './winnerUIDesign.png';
-import winnerUiPrototype from './winnerUIPrototype.png';
+import winnerDevelopment from './winnerDevelopment.jpg';
+import winnerModDash from './winnerModDash.jpg';
+import winnerDesign from './winnerDesign.png';
+import winnerStudio from './winnerStudio.jpg';
 
 /**
  * Data for the event goes here, and the format is very similar JSON.
@@ -24,110 +24,125 @@ import winnerUiPrototype from './winnerUIPrototype.png';
 export default {
   logo,
   banner,
-  learnMoreURL: 'http://tco.topcoder.com',
-  browseGalleryURL: '',
-  location: 'Location, Country',
-  date: 'Date',
+  learnMoreURL: 'http://tccommunity.wpengine.com/tco11/',
+  browseGalleryURL: 'https://www.flickr.com/photos/53993064@N03/sets/72157625031026589',
+  location: 'Fort Lauderdale, Florida, USA',
+  date: 'Sept 25 - Sept 28, 2011',
   totalPrizes: '$60,000',
   countryCount: 29,
 
   // ALGORITHM Data Starts Here
   algorithm: {
-    winner: 'handle',
+    winner: 'rng_58',
     portrait: winnerAlgorithm,
     finalists: [
-      'handle1',
-      'handle2',
-      'handle3',
-      'handle4',
+      '[[iwi]]',
+      '_Romka_',
+      '7ania7',
+      'A_A_Lunyov',
+      'ACRush',
+      'ainu7',
+      'bmerry',
+      'gawry',
+      'Kankuro',
+      'LayCurse',
+      'lyrically',
+      'marek.cygan',
+      'Mike Mirzayanov',
+      'mikhailOK',
+      'nika',
+      'PaulJefferys',
+      'Petr',
+      'pieguy',
+      'RAD.',
+      'SergeiRogulenko',
+      'theycallhimtom',
+      'unbing',
+      'Vitaliy',
     ],
   },
 
   // MARATHON Data Starts Here
   marathon: {
-    winner: 'handle',
+    winner: 'Psyho',
     portrait: winnerMarathon,
     finalists: [
-      'handle1',
-      'handle2',
-      'handle3',
-      'handle4',
+      'ACRush',
+      'ainu7',
+      'chokudai',
+      'jdmetz',
+      'komiya',
+      'nhzp339',
+      'ploh',
+      'RAVEman',
+      'Rizvanov_de_xXx',
+      'wata',
+      'wleite',
     ],
   },
 
   // DEVELOPMENT Data Starts Here
   development: {
-    winner: 'handle',
+    winner: 'Yeung',
     portrait: winnerDevelopment,
     finalists: [
-      'handle1',
-      'handle2',
-      'handle3',
-      'handle4',
+      'yext',
+      'cyberjag',
+      'flexme',
+      'j3_guile',
+      'mohamede1945',
+      'RaitoShum',
+      'sandaruwang',
+      'sunnysummer',
+      'tangzx',
     ],
   },
 
-  // FIRST2FINISH Data Starts Here
-  first2finish: {
-    winner: 'handle',
-    portrait: winnerFirst2finish,
+  modDash: {
+    winner: 'Yeung',
+    portrait: winnerModDash,
     finalists: [
-      'handle1',
-      'handle2',
-      'handle3',
-      'handle4',
+      'Fanazhe',
+      'FireIce',
+      'flexme',
+      'hohosky',
+      'iRabbit',
+      'JGeeks',
+      'rac_',
+      'Shraddha_Gusai',
+      'supercharger',
+      'yext',
+      'Zulander',
     ],
   },
 
-  // UI DESIGN Data Starts Here
-  uiDesign: {
-    winner: 'handle',
-    portrait: winnerUiDesign,
+  design: {
+    winner: 'BLE',
+    portrait: winnerDesign,
     finalists: [
-      'handle1',
-      'handle2',
-      'handle3',
-      'handle4',
+      'argolite',
+      'faeton',
+      'gevak',
+      'MiG-29',
+      'nikolay83',
+      'saarixx',
+      'winterflame',
     ],
   },
 
-  // UI PROTOTYPE Data Starts Here
-  uiPrototype: {
-    winner: 'handle',
-    portrait: winnerUiPrototype,
+  studio: {
+    winner: 'abedavera',
+    portrait: winnerStudio,
     finalists: [
-      'handle1',
-      'handle2',
-      'handle3',
-      'handle4',
+      'CMYK',
+      'djackmania',
+      'djnapier',
+      'fairy_ley',
+      'iamtong',
+      'idblack',
+      'oninkxronda',
+      'puchki',
+      'thinkcreeper',
     ],
   },
-
-  // Trip Winners Data Starts Here
-  tripWinners: [
-    {
-      role: 'COPILOT',
-      winners: [
-        'handle1',
-        'handle2',
-        'handle3',
-      ],
-    },
-    {
-      role: 'WIREFRAME',
-      winners: [
-        'handle1',
-        'handle2',
-        'handle3',
-      ],
-    },
-    {
-      role: 'OTHERS',
-      winners: [
-        'handle1',
-        'handle2',
-        'handle3',
-      ],
-    },
-  ],
 };

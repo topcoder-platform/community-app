@@ -19,8 +19,8 @@ import tco07 from './events/07';
 import tco06 from './events/06';
 import tco05 from './events/05';
 import tco04 from './events/04';
-import tco03 from './events/03';
-import tco02 from './events/02';
+// import tco03 from './events/03';
+// import tco02 from './events/02';
 
 import funFacts from './fun-facts';
 
@@ -43,8 +43,8 @@ export const events = [
   { id: '06', data: tco06 },
   { id: '05', data: tco05 },
   { id: '04', data: tco04 },
-  { id: '03', data: tco03 },
-  { id: '02', data: tco02 },
+  // { id: '03', data: tco03 },
+  // { id: '02', data: tco02 },
 ];
 
 
@@ -70,6 +70,15 @@ export function getFinalistsCount(data) {
   count += data.first2finish ? data.first2finish.finalists.length : 0;
   count += data.uiDesign ? data.uiDesign.finalists.length : 0;
   count += data.uiPrototype ? data.uiPrototype.finalists.length : 0;
+
+  count += data.studio ? data.studio.finalists.length : 0;
+  count += data.design ? data.design.finalists.length : 0;
+  count += data.componentDesign ? data.componentDesign.finalists.length : 0;
+  count += data.componentDevelopment ? data.componentDevelopment.finalists.length : 0;
+  count += data.modDash ? data.modDash.finalists.length : 0;
+  count += data.specification ? data.specification.finalists.length : 0;
+  count += data.architecture ? data.architecture.finalists.length : 0;
+  count += data.assembly ? data.assembly.finalists.length : 0;
   return count;
 }
 
@@ -79,7 +88,22 @@ export function getFinalistsCount(data) {
  * @return {Number} The max count
  */
 export function getFinalistsMax(data) {
-  const tracks = _.pick(data, ['algorithm', 'marathon', 'development', 'first2finish', 'uiDesign', 'uiPrototype']);
+  const tracks = _.pick(data, [
+    'algorithm',
+    'marathon',
+    'development',
+    'first2finish',
+    'uiDesign',
+    'uiPrototype',
+    'studio',
+    'design',
+    'componentDesign',
+    'componentDevelopment',
+    'modDash',
+    'specification',
+    'architecture',
+    'assembly',
+  ]);
   return _.max(_.map(tracks, track => (track ? track.finalists.length : 0)));
 }
 
@@ -105,6 +129,15 @@ export function getChampionsCount(data) {
   count += data.first2finish ? 1 : 0;
   count += data.uiDesign ? 1 : 0;
   count += data.uiPrototype ? 1 : 0;
+
+  count += data.studio ? 1 : 0;
+  count += data.design ? 1 : 0;
+  count += data.componentDesign ? 1 : 0;
+  count += data.componentDevelopment ? 1 : 0;
+  count += data.modDash ? 1 : 0;
+  count += data.specification ? 1 : 0;
+  count += data.architecture ? 1 : 0;
+  count += data.assembly ? 1 : 0;
   return count;
 }
 

@@ -10,11 +10,14 @@ import logo from './logo.png';
 import banner from './banner.jpg';
 
 import winnerAlgorithm from './winnerAlgorithm.png';
-import winnerMarathon from './winnerMarathon.png';
-import winnerDevelopment from './winnerDevelopment.png';
-import winnerFirst2finish from './winnerFirst2finish.png';
-import winnerUiDesign from './winnerUIDesign.png';
-import winnerUiPrototype from './winnerUIPrototype.png';
+import winnerArchitecture from './winnerArchitecture.jpg';
+import winnerAssembly from './winnerAssembly.jpg';
+import winnerMarathon from './winnerMarathon.jpg';
+import winnerComponentDevelopment from './winnerComponentDevelopment.jpg';
+import winnerComponentDesign from './winnerComponentDesign.jpg';
+import winnerModDash from './winnerModDash.jpg';
+import winnerSpecification from './winnerSpecification.jpg';
+import winnerStudio from './winnerStudio.jpg';
 
 /**
  * Data for the event goes here, and the format is very similar JSON.
@@ -24,110 +27,149 @@ import winnerUiPrototype from './winnerUIPrototype.png';
 export default {
   logo,
   banner,
-  learnMoreURL: 'http://tco.topcoder.com',
-  browseGalleryURL: '',
-  location: 'Location, Country',
-  date: 'Date',
+  learnMoreURL: 'https://community.topcoder.com/tc?module=Static&d1=tournaments&d2=tco09&d3=overview&d4=overview',
+  browseGalleryURL: 'https://www.flickr.com/photos/53993064@N03/sets/72157664380469801',
+  location: 'Las Vegas, Nevada, USA',
+  date: 'Jun 1 - Jun 4, 2009',
   totalPrizes: '$60,000',
   countryCount: 29,
 
   // ALGORITHM Data Starts Here
   algorithm: {
-    winner: 'handle',
+    winner: 'crazyb0y',
     portrait: winnerAlgorithm,
     finalists: [
-      'handle1',
-      'handle2',
-      'handle3',
-      'handle4',
+      'UdH-WiNGeR',
+      'marek.cygan',
+      'Gluk',
+      'lucasr',
+      'Ostap',
+      'pdallago',
+      'Petr',
+      'Im2Good',
+      'SnapDragon',
+      'syg96',
+      'wata',
+      'yuhch123',
+      'WSX',
+      '(iwi)',
+      'ACRush',
+      'andrewzta',
+      'blueblimp',
     ],
   },
 
   // MARATHON Data Starts Here
   marathon: {
-    winner: 'handle',
+    winner: 'KOTEHOK',
     portrait: winnerMarathon,
     finalists: [
-      'handle1',
-      'handle2',
-      'handle3',
-      'handle4',
+      'AlexanderL',
+      'jdmetz',
+      'maniek',
+      'nhzp339',
+      'prober',
+      'Psyho',
+      'roma',
+      'wleite',
+      'zibada',
     ],
   },
 
   // DEVELOPMENT Data Starts Here
-  development: {
-    winner: 'handle',
-    portrait: winnerDevelopment,
+  componentDevelopment: {
+    winner: 'assistant',
+    portrait: winnerComponentDevelopment,
     finalists: [
-      'handle1',
-      'handle2',
-      'handle3',
-      'handle4',
+      'EveningSun',
+      'Hacker_QC',
+      'hefeng',
+      'iKnown',
+      'morehappiness',
+      'myxgyy',
+      'Orange_Cloud',
+      'romanoTC',
+      'velorien',
+    ],
+  },
+
+  componentDesign: {
+    winner: 'saarixx',
+    portrait: winnerComponentDesign,
+    finalists: [
+      'argolite',
+      'bramandia',
+      'caru',
+      'gevak',
+      'Indemar',
+      'Mafy',
+      'nicka81',
+      'Pops',
+      'Standlove',
     ],
   },
 
   // FIRST2FINISH Data Starts Here
-  first2finish: {
-    winner: 'handle',
-    portrait: winnerFirst2finish,
+  modDash: {
+    winner: 'PE',
+    portrait: winnerModDash,
     finalists: [
-      'handle1',
-      'handle2',
-      'handle3',
-      'handle4',
+      'cucu',
+      'enefem21',
+      'Margarita',
+      'saarixx',
+      'ShindouHikaru',
+      'will.xie',
+      'Yeung',
     ],
   },
 
-  // UI DESIGN Data Starts Here
-  uiDesign: {
-    winner: 'handle',
-    portrait: winnerUiDesign,
+  assembly: {
+    winner: 'pulky',
+    portrait: winnerAssembly,
     finalists: [
-      'handle1',
-      'handle2',
-      'handle3',
-      'handle4',
+      'BeBetter',
+      'oldbig',
+      'PE',
+      'pinoydream',
+      'retunsky',
+    ],
+  },
+
+  architecture: {
+    winner: 'Standlove',
+    portrait: winnerArchitecture,
+    finalists: [
+      'AleaActaEst',
+      'argolite',
+      'Ghostar',
+      'saevio',
+      'the_best',
+    ],
+  },
+
+  specification: {
+    winner: 'AleaActaEst',
+    portrait: winnerSpecification,
+    finalists: [
+      'MiG-29',
     ],
   },
 
   // UI PROTOTYPE Data Starts Here
-  uiPrototype: {
-    winner: 'handle',
-    portrait: winnerUiPrototype,
+  studio: {
+    winner: 'djnapier',
+    portrait: winnerStudio,
     finalists: [
-      'handle1',
-      'handle2',
-      'handle3',
-      'handle4',
+      'oninkxronda',
+      'djackmania',
+      'abedavera',
+      'Elizabethhee',
+      'foxyhu',
+      'oton',
+      'mahestro',
+      'sweetpea',
+      'Tricia_Tjia',
     ],
   },
-
-  // Trip Winners Data Starts Here
-  tripWinners: [
-    {
-      role: 'COPILOT',
-      winners: [
-        'handle1',
-        'handle2',
-        'handle3',
-      ],
-    },
-    {
-      role: 'WIREFRAME',
-      winners: [
-        'handle1',
-        'handle2',
-        'handle3',
-      ],
-    },
-    {
-      role: 'OTHERS',
-      winners: [
-        'handle1',
-        'handle2',
-        'handle3',
-      ],
-    },
-  ],
 };
