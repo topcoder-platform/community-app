@@ -9,12 +9,12 @@
 import logo from './logo.png';
 import banner from './banner.jpg';
 
-import winnerAlgorithm from './winnerAlgorithm.png';
+import winnerAlgorithm from './winnerAlgorithm.jpg';
 import winnerMarathon from './winnerMarathon.png';
-import winnerDevelopment from './winnerDevelopment.png';
+import winnerDevelopment from './winnerDevelopment.jpg';
 import winnerFirst2finish from './winnerFirst2finish.png';
-import winnerUiDesign from './winnerUIDesign.png';
-import winnerUiPrototype from './winnerUIPrototype.png';
+import winnerUiDesign from './winnerUIDesign.jpg';
+import winnerUiPrototype from './winnerUIPrototype.jpg';
 
 /**
  * Data for the event goes here, and the format is very similar JSON.
@@ -33,73 +33,97 @@ export default {
 
   // ALGORITHM Data Starts Here
   algorithm: {
-    winner: 'handle',
+    winner: 'rng_58',
     portrait: winnerAlgorithm,
     finalists: [
-      'handle1',
-      'handle2',
-      'handle3',
-      'handle4',
+      'bmerry',
+      'eatmore',
+      'Enot',
+      'ikatanic',
+      'K.A.D.R',
+      'Kankuro',
+      'krijgertje',
+      'Petr',
+      'scott_wu',
+      'tourist',
+      'Um_nik',
     ],
   },
 
   // MARATHON Data Starts Here
   marathon: {
-    winner: 'handle',
+    winner: 'Psyho',
     portrait: winnerMarathon,
     finalists: [
-      'handle1',
-      'handle2',
-      'handle3',
-      'handle4',
+      'CatalinT',
+      'eldidou',
+      'imazato',
+      'marek.cygan',
+      'nhzp339',
+      'nika',
+      'wleite',
     ],
   },
 
   // DEVELOPMENT Data Starts Here
   development: {
-    winner: 'handle',
+    winner: 'Sky_',
     portrait: winnerDevelopment,
     finalists: [
-      'handle1',
-      'handle2',
-      'handle3',
-      'handle4',
+      'cjalmeida',
+      'kinfkong',
+      'MonicaMuranyi',
+      'NightWolf',
+      'seriyvolk83',
+      'spanhawk',
+      'vvvpig',
     ],
   },
 
   // FIRST2FINISH Data Starts Here
   first2finish: {
-    winner: 'handle',
+    winner: 'vvvpig',
     portrait: winnerFirst2finish,
     finalists: [
-      'handle1',
-      'handle2',
-      'handle3',
-      'handle4',
+      'ananthhh',
+      'callmekatootie',
+      'gondzo',
+      'lbotsch',
+      'morehappiness',
+      'seriyvolk83',
+      'smtryingcode',
     ],
   },
 
   // UI DESIGN Data Starts Here
   uiDesign: {
-    winner: 'handle',
+    winner: 'abedavera',
     portrait: winnerUiDesign,
     finalists: [
-      'handle1',
-      'handle2',
-      'handle3',
-      'handle4',
+      'ArteVisual',
+      'cendhika',
+      'iamtong',
+      'kharm',
+      'nicokontes',
+      'ravijune',
+      'Tewibowo',
+      'yiming',
+      'yoki',
     ],
   },
 
   // UI PROTOTYPE Data Starts Here
   uiPrototype: {
-    winner: 'handle',
+    winner: 'moulyg',
     portrait: winnerUiPrototype,
     finalists: [
-      'handle1',
-      'handle2',
-      'handle3',
-      'handle4',
+      'dileepa',
+      'hi4sandy',
+      'leo.ananth',
+      'nghi85',
+      'nomo_kazza',
+      'soso0574',
+      'thomaskranitsas',
     ],
   },
 
@@ -108,25 +132,43 @@ export default {
     {
       role: 'COPILOT',
       winners: [
-        'handle1',
-        'handle2',
-        'handle3',
+        'elkhawajah',
+        'FireIce',
+        'Ghostar',
+        'Wendell',
       ],
     },
     {
       role: 'WIREFRAME',
       winners: [
-        'handle1',
-        'handle2',
-        'handle3',
+        'DaraK',
+        'f0rc0d3r',
+        'picachui',
+        'selvia_ettine',
+      ],
+    },
+    {
+      role: 'TRIP WINNERS',
+      winners: [
+        'akinwale',
+        'birdofpreyru',
+      ],
+    },
+    {
+      role: 'IOS',
+      winners: [
+        'N1k1tung',
       ],
     },
     {
       role: 'OTHERS',
       winners: [
-        'handle1',
-        'handle2',
-        'handle3',
+        'cgy4ever',
+        'chekspir',
+        'jaco.cronje',
+        'mahestro',
+        'quesks',
+        'talesforce',
       ],
     },
   ],
