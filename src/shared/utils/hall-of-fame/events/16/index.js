@@ -118,12 +118,12 @@ export default {
     portrait: winnerUiPrototype,
     finalists: [
       'dileepa',
+      'thomaskranitsas',
       'hi4sandy',
       'leo.ananth',
       'nghi85',
       'nomo_kazza',
       'soso0574',
-      'thomaskranitsas',
     ],
   },
 
