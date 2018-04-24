@@ -41,4 +41,4 @@ Track.propTypes = {
   theme: PT.shape().isRequired,
 };
 
-export default themr('tco-hall-of-fame-champion-track', defaultStyles)(Track);
+export default themr('hall-of-fame/tco-champion-track', defaultStyles)(Track);

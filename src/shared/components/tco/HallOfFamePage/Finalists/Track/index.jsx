@@ -26,7 +26,7 @@ const Track = ({
     }
     { _.range(data.finalists.length, count).map(i => <div className={theme.empty} key={i} />) }
   </div>
-) : <div />);
+) : false);
 
 Track.defaultProps = {
   count: 10,
@@ -40,4 +40,4 @@ Track.propTypes = {
   theme: PT.shape().isRequired,
 };
 
-export default themr('tco-hall-of-fame-track', defaultStyles)(Track);
+export default themr('hall-of-fame/tco-track', defaultStyles)(Track);

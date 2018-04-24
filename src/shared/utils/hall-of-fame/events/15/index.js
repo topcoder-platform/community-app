@@ -9,12 +9,11 @@
 import logo from './logo.png';
 import banner from './banner.jpg';
 
-import winnerAlgorithm from './winnerAlgorithm.png';
-import winnerMarathon from './winnerMarathon.png';
-import winnerDevelopment from './winnerDevelopment.png';
-import winnerFirst2finish from './winnerFirst2finish.png';
-import winnerUiDesign from './winnerUIDesign.png';
-import winnerUiPrototype from './winnerUIPrototype.png';
+import winnerAlgorithm from './winnerAlgorithm.jpg';
+import winnerMarathon from './winnerMarathon.jpeg';
+import winnerDevelopment from './winnerDevelopment.jpg';
+import winnerUiDesign from './winnerUiDesign.jpg';
+import winnerUiPrototype from './winnerUiPrototype.jpeg';
 
 /**
  * Data for the event goes here, and the format is very similar JSON.
@@ -26,80 +25,96 @@ export default {
   banner,
   learnMoreURL: 'http://tco15.topcoder.com',
   browseGalleryURL: 'https://tco15.topcoder.com/photos/',
-  location: 'Indianapolis, Indiana, USA',
-  date: '8 - 10 November 2015',
+  location: 'Yogyakarta, Indonesia & Indianapolis, Indiana, USA',
+  date: 'Sept 21 - Sept 22, 2015 Nov 8 - Nov 10 2015',
   totalPrizes: '$60,000',
   countryCount: 29,
 
   // ALGORITHM Data Starts Here
   algorithm: {
-    winner: 'handle',
+    winner: 'Petr',
     portrait: winnerAlgorithm,
     finalists: [
-      'handle1',
-      'handle2',
-      'handle3',
-      'handle4',
+      'kuniavki',
+      'Kankuro',
+      'bmerry',
+      'ecnerwal',
+      'Egor',
+      'Endagorion',
+      'qwerty787788',
+      'scott_wu',
+      'subscriber',
+      'tourist',
     ],
   },
 
   // MARATHON Data Starts Here
   marathon: {
-    winner: 'handle',
+    winner: 'ACRush',
     portrait: winnerMarathon,
     finalists: [
-      'handle1',
-      'handle2',
-      'handle3',
-      'handle4',
+      'nhzp339',
+      'Psyho',
+      'CatalinT',
+      'colun',
+      'eldidou',
+      'fhlasek',
+      'komaki',
+      'Mojito1',
+      'mugurelionut',
+      'takapt',
+      'wleite',
     ],
   },
 
   // DEVELOPMENT Data Starts Here
   development: {
-    winner: 'handle',
+    winner: 'Sky_',
     portrait: winnerDevelopment,
     finalists: [
-      'handle1',
-      'handle2',
-      'handle3',
-      'handle4',
-    ],
-  },
-
-  // FIRST2FINISH Data Starts Here
-  first2finish: {
-    winner: 'handle',
-    portrait: winnerFirst2finish,
-    finalists: [
-      'handle1',
-      'handle2',
-      'handle3',
-      'handle4',
+      'albertwang',
+      'ananthhh',
+      'bannie2492',
+      'flytoj2ee',
+      'kinfkong',
+      'mohamede1945',
+      'MonicaMuranyi',
+      'N1k1tung',
+      'seriyvolk83',
+      'ultronzero',
+      'yedtoss',
     ],
   },
 
   // UI DESIGN Data Starts Here
   uiDesign: {
-    winner: 'handle',
+    winner: 'abedavera',
     portrait: winnerUiDesign,
     finalists: [
-      'handle1',
-      'handle2',
-      'handle3',
-      'handle4',
+      'iamtong',
+      'kharm',
+      'aditm17',
+      'chekspir',
+      'DaraK',
+      'iaminfinite',
+      'idblack',
+      'jeniroxy',
+      'ravijune',
+      'tototpc',
+      'yoki',
     ],
   },
 
   // UI PROTOTYPE Data Starts Here
   uiPrototype: {
-    winner: 'handle',
+    winner: 'dileepa',
     portrait: winnerUiPrototype,
     finalists: [
-      'handle1',
-      'handle2',
-      'handle3',
-      'handle4',
+      'albertwang',
+      'amethystlei',
+      'fivestarwy',
+      'hi4sandy',
+      'moulyg',
     ],
   },
 
@@ -108,25 +123,23 @@ export default {
     {
       role: 'COPILOT',
       winners: [
-        'handle1',
-        'handle2',
-        'handle3',
+        'FireIce',
+        'Ghostar',
+        'iSpartan',
+        'Wendell',
       ],
     },
     {
-      role: 'WIREFRAME',
+      role: 'INFORMATION ARCHITECTURE',
       winners: [
-        'handle1',
-        'handle2',
-        'handle3',
-      ],
-    },
-    {
-      role: 'OTHERS',
-      winners: [
-        'handle1',
-        'handle2',
-        'handle3',
+        'DaraK',
+        'eng01',
+        'f0rc0d3r',
+        'lunana',
+        'picachui',
+        'rainforest',
+        'selvia_ettine',
+        'teevics',
       ],
     },
   ],

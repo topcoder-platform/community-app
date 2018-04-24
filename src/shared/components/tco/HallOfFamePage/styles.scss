@@ -179,6 +179,7 @@
   img {
     min-height: 375px;
     min-width: 810px;
+    max-width: 810px;
   }
 
   @include xs-to-lg {
