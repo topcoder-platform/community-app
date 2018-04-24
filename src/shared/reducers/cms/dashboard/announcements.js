@@ -41,6 +41,7 @@ function onGetActiveDone(state, { error, payload }) {
     active: {
       assets,
       data,
+      loadingUuid: '',
       timestamp: Date.now(),
     },
   };
@@ -82,6 +83,50 @@ function onGetPreviewDone(state, { error, payload }) {
     preview: {
       assets,
       data,
+      loadingUuid: '',
+      timestamp: Date.now(),
+    },
+  };
+}
+
+/**
+ * Inits the loading of scheduled announcements list.
+ * @param {Object} state Old state.
+ * @param {String} payload Operation UUID.
+ * @return {Object} New state.
+ */
+function onGetScheduledInit(state, { payload }) {
+  return {
+    ...state,
+    scheduled: {
+      ...state.scheduled,
+      loadingUuid: payload,
+    },
+  };
+}
+
+/**
+ * Receives the loaded list of scheduled announcements.
+ * @param {Object} state Old state.
+ * @param {Object} error Operation error, if any.
+ * @param {String} payload Object with two fields:
+ *  - data {Array} - Loaded list;
+ *  - uuid {String} - Operation UUID;
+ * @return {Object} New state.
+ */
+function onGetScheduledDone(state, { error, payload }) {
+  if (error) {
+    fireErrorMessage('Failed to get the list of scheduled announcements', '');
+    return state;
+  }
+
+  const { uuid, data } = payload;
+  if (uuid !== state.scheduled.loadingUuid) return state;
+  return {
+    ...state,
+    scheduled: {
+      data,
+      loadingUuid: '',
       timestamp: Date.now(),
     },
   };
@@ -99,6 +144,8 @@ function create(state = {}) {
     [a.getActiveDone]: onGetActiveDone,
     [a.getPreviewInit]: onGetPreviewInit,
     [a.getPreviewDone]: onGetPreviewDone,
+    [a.getScheduledInit]: onGetScheduledInit,
+    [a.getScheduledDone]: onGetScheduledDone,
   }, _.defaults(state, {
     active: {
       assets: {},
@@ -109,6 +156,11 @@ function create(state = {}) {
     preview: {
       assets: {},
       data: {},
+      loadingUuid: '',
+      timestamp: 0,
+    },
+    scheduled: {
+      data: [],
       loadingUuid: '',
       timestamp: 0,
     },
