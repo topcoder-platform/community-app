@@ -1,0 +1,22 @@
+@import "~styles/mixins";
+
+.container {
+  @include tc-body-md;
+
+  background: white;
+  border: 1px solid $tc-purple;
+  padding: 10px;
+  position: absolute;
+  overflow: hidden;
+
+  &:hover {
+    background: $tc-purple-30;
+    cursor: pointer;
+  }
+}
+
+.title {
+  @include tc-heading-md;
+
+  white-space: nowrap;
+}

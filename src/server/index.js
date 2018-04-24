@@ -22,6 +22,9 @@ import webpackConfigFactory from '../../webpack.config';
 
 global.atob = atob;
 
+const CMS_BASE_URL =
+  `https://app.contentful.com/spaces/${config.SECRET.CONTENTFUL.SPACE_ID}`;
+
 const EXTRA_SCRIPTS = [
   `<script
       src="/community-app-assets/loading-indicator-animation.js"
@@ -95,6 +98,11 @@ async function onExpressJsSetup(server) {
 
   // serve demo api
   server.use('/community-app-assets/api/tc-communities', tcCommunitiesDemoApi);
+
+  server.use(
+    '/community-app-assets/api/edit-contentful-entry/:id',
+    (req, res) => res.redirect(`${CMS_BASE_URL}/entries/${req.params.id}`),
+  );
 
   /**
    * Auxiliary endpoint for xml -> json conversion (the most popular npm library

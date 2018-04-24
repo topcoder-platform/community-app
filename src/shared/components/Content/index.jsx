@@ -162,6 +162,11 @@ export default function Content() {
       </p>
       <ul>
         <li>
+          <Link to="/sandbox/cms/dashboard/announcements">
+            A simple list of all published dashboard announcements.
+          </Link>
+        </li>
+        <li>
           <Link to="/sandbox/payments">Payments PoC</Link>
         </li>
       </ul>
