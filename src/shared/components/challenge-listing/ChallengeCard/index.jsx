@@ -19,7 +19,6 @@ export const PRIZE_MODE = {
   MONEY_EUR: 'money-eur',
   MONEY_INR: 'money-inr',
   MONEY_USD: 'money-usd',
-  POINTS: 'points',
 };
 
 // Constants
@@ -92,9 +91,6 @@ function ChallengeCard({
   let { prizes } = challenge;
   let totalPrize;
   switch (prizeMode) {
-    case PRIZE_MODE.POINTS:
-      totalPrize = Math.round(challenge.drPoints || 0);
-      break;
     case PRIZE_MODE.MONEY_EUR:
       prizeUnitSymbol = '€';
       bonuses.forEach((bonus) => {
@@ -159,18 +155,26 @@ function ChallengeCard({
       </div>
       <div styleName="right-panel">
         <div styleName={isRegistrationOpen ? 'prizes with-register-button' : 'prizes'}>
-          {(prizeMode !== PRIZE_MODE.HIDDEN) && (
-            <Prize
-              bonuses={bonuses}
-              label={prizeMode === PRIZE_MODE.POINTS ? 'Points' : 'Purse'}
-              points={challenge.drPoints}
-              prizes={prizes}
-              prizeUnitSymbol={prizeUnitSymbol}
-              totalPrize={totalPrize}
-              withoutTooltip={prizeMode === PRIZE_MODE.POINTS}
-              isMM={isMM}
-            />
-          )}
+          {
+            totalPrize >= 1 &&
+              <Prize
+                bonuses={bonuses}
+                label="Purse"
+                prizes={prizes}
+                prizeUnitSymbol={prizeUnitSymbol}
+                totalPrize={totalPrize}
+              />
+          }
+          {
+            challenge.pointPrizes && challenge.pointPrizes.length > 0 &&
+              <Prize
+                bonuses={bonuses}
+                label="Points"
+                prizes={challenge.pointPrizes}
+                prizeUnitSymbol=""
+                totalPrize={challenge.pointPrizes.reduce((acc, points) => acc + points, 0)}
+              />
+          }
         </div>
 
         <ChallengeStatus
