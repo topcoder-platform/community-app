@@ -36,9 +36,20 @@
   'Roboto Mono', 700, italic,
   'assets/fonts/roboto-mono/RobotoMono-BoldItalic');
 
+// Using the implementation of this mixin provided by topcoder-react-utils
+// is not loading fonts correctly.  This may be a webpack related issue.
+@mixin font-family($font-name, $font-weight, $font-style, $font-url, $font-file) {
+  @font-face {
+    font-family: '#{$font-name}';
+    src: url('#{$font-url}#{$font-file}.eot');
+    src: url('#{$font-url}#{$font-file}.eot?#iefix') format('embedded-opentype'), url('#{$font-url}#{$font-file}.woff') format('woff'), url('#{$font-url}#{$font-file}.ttf') format('truetype'), url('#{$font-url}#{$font-file}.svg##{$font-name}') format('svg');
+    font-weight: $font-weight;
+    font-style: $font-style;
+  }
+}
+
 /* Sofia Pro font is currently used in the Topcoder footer
   and header. */
-
 @include font-family('Sofia Pro', 300, normal, '../assets/fonts/sofiapro/', 'sofiapro-light-webfont');
 @include font-family('Sofia Pro', 300, italic, '../assets/fonts/sofiapro/', 'sofiapro-light-italic-webfont');
 @include font-family('Sofia Pro', 400, normal, '../assets/fonts/sofiapro/', 'sofiapro-regular-webfont');
@@ -51,19 +62,19 @@
 @include font-family('Sofia Pro', 700, italic, '../assets/fonts/sofiapro/', 'sofiapro-bold-italic-webfont');
 
 /* OpenSans font is being used by the new design of community pages */
-@include font-family('Open Sans', 300, normal, '../assets/fonts/opensans/', 'opensans-light-webfont');
-@include font-family('Open Sans', 300, italic, '../assets/fonts/opensans/', 'opensans-lightitalic-webfont');
-@include font-family('Open Sans', 400, normal, '../assets/fonts/opensans/', 'opensans-regular-webfont');
-@include font-family('Open Sans', 400, italic, '../assets/fonts/opensans/', 'opensans-italic-webfont');
-@include font-family('Open Sans', 600, normal, '../assets/fonts/opensans/', 'opensans-semibold-webfont');
-@include font-family('Open Sans', 600, italic, '../assets/fonts/opensans/', 'opensans-semibolditalic-webfont');
-@include font-family('Open Sans', 700, normal, '../assets/fonts/opensans/', 'opensans-bold-webfont');
-@include font-family('Open Sans', 700, italic, '../assets/fonts/opensans/', 'opensans-bolditalic-webfont');
-@include font-family('Open Sans', 800, normal, '../assets/fonts/opensans/', 'opensans-extrabold-webfont');
-@include font-family('Open Sans', 800, italic, '../assets/fonts/opensans/', 'opensans-extrabolditalic-webfont');
+@include font-family('Open Sans', 300, normal, 'assets/fonts/opensans/', 'opensans-light-webfont');
+@include font-family('Open Sans', 300, italic, 'assets/fonts/opensans/', 'opensans-lightitalic-webfont');
+@include font-family('Open Sans', 400, normal, 'assets/fonts/opensans/', 'opensans-regular-webfont');
+@include font-family('Open Sans', 400, italic, 'assets/fonts/opensans/', 'opensans-italic-webfont');
+@include font-family('Open Sans', 600, normal, 'assets/fonts/opensans/', 'opensans-semibold-webfont');
+@include font-family('Open Sans', 600, italic, 'assets/fonts/opensans/', 'opensans-semibolditalic-webfont');
+@include font-family('Open Sans', 700, normal, 'assets/fonts/opensans/', 'opensans-bold-webfont');
+@include font-family('Open Sans', 700, italic, 'assets/fonts/opensans/', 'opensans-bolditalic-webfont');
+@include font-family('Open Sans', 800, normal, 'assets/fonts/opensans/', 'opensans-extrabold-webfont');
+@include font-family('Open Sans', 800, italic, 'assets/fonts/opensans/', 'opensans-extrabolditalic-webfont');
 
 /* Akkurat font is being used by the Wipro community */
-@include font-family('Akkurat light', 300, normal, '../assets/fonts/Akkurat/', 'WiproAkkuratTT-Light');
-@include font-family('Akkurat regular', 400, normal, '../assets/fonts/Akkurat/', 'WiproAkkuratTTRegular');
-@include font-family('Akkurat mono', 400, normal, '../assets/fonts/Akkurat/', 'AkkuratMonoMono');
-@include font-family('Akkurat bold', 700, normal, '../assets/fonts/Akkurat/', 'WiproAkkuratTT-Bold');
+@include font-family('Akkurat light', 300, normal, 'assets/fonts/Akkurat/', 'WiproAkkuratTT-Light');
+@include font-family('Akkurat regular', 400, normal, 'assets/fonts/Akkurat/', 'WiproAkkuratTTRegular');
+@include font-family('Akkurat mono', 400, normal, 'assets/fonts/Akkurat/', 'AkkuratMonoMono');
+@include font-family('Akkurat bold', 700, normal, 'assets/fonts/Akkurat/', 'WiproAkkuratTT-Bold');

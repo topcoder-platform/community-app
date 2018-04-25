@@ -41,6 +41,36 @@ class MembersService {
   }
 
   /**
+   * Gets member external account info.
+   * @param {String} handle
+   * @return {Promise} Resolves to the stats object.
+   */
+  async getExternalAccounts(handle) {
+    const res = await this.private.api.get(`/members/${handle}/externalAccounts`);
+    return getApiResponsePayloadV3(res);
+  }
+
+  /**
+   * Gets member external links.
+   * @param {String} handle
+   * @return {Promise} Resolves to the stats object.
+   */
+  async getExternalLinks(handle) {
+    const res = await this.private.api.get(`/members/${handle}/externalLinks`);
+    return getApiResponsePayloadV3(res);
+  }
+
+  /**
+   * Gets member skills.
+   * @param {String} handle
+   * @return {Promise} Resolves to the stats object.
+   */
+  async getSkills(handle) {
+    const res = await this.private.api.get(`/members/${handle}/skills`);
+    return getApiResponsePayloadV3(res);
+  }
+
+  /**
    * Gets member statistics.
    * @param {String} handle
    * @return {Promise} Resolves to the stats object.

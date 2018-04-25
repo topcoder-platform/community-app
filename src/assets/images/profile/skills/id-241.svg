@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="64px" height="64px" viewBox="0 0 64 64" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <defs></defs>
+    <g id="Skills---Design" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="icons/skills/id-241">
+            <rect id="Rectangle-7" fill="#53699A" x="9" y="9" width="50" height="50" rx="4"></rect>
+            <rect id="Rectangle-7" fill="#6484D3" x="5" y="5" width="50" height="50" rx="4"></rect>
+            <path d="M19,20 L19,18 L21,18" id="Stroke-1683" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+            <path d="M21,40 L19,40 L19,38" id="Stroke-1684" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+            <path d="M39,18 L41,18 L41,20" id="Stroke-1685" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+            <path d="M25,18 L28,18" id="Stroke-1686" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+            <path d="M25,40 L28,40" id="Stroke-1687" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+            <path d="M32,18 L35,18" id="Stroke-1688" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+            <path d="M19,24 L19,27" id="Stroke-1689" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+            <path d="M41,24 L41,27" id="Stroke-1690" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+            <path d="M19,31 L19,34" id="Stroke-1691" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+            <path d="M46,33 L32,31 L34,45 L38,41 L43,46 L47,42 L42,37 L46,33 L46,33 Z" id="Stroke-1692" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="#394146"></path>
+        </g>
+    </g>
+</svg>

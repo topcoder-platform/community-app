@@ -90,6 +90,10 @@ export default function Content() {
           <Link to="/challenges">Main Challenge Listing</Link>
         </li>
         <li>
+          Public Profile Page available at the <code>/members/:handle</code> endpoint.
+          Valid link on dev <Link to="/members/TonyJ">here.</Link>
+        </li>
+        <li>
           Stand-alone terms of use page:
           &zwnj;<Link to="/challenges/terms/detail/21193">simple</Link>,
           &zwnj;<Link to="/challenges/terms/detail/21153">DocuSign</Link>.

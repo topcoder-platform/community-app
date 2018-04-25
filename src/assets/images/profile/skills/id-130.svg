@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="64px" height="64px" viewBox="0 0 64 64" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <defs></defs>
+    <g id="Skills---Develop" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="icons/skills/id-130">
+            <rect id="Rectangle-7" fill="#A3A18F" x="9" y="9" width="50" height="50" rx="4"></rect>
+            <rect id="Rectangle-7" fill="#EAE2C1" x="5" y="5" width="50" height="50" rx="4"></rect>
+            <path d="M19.1961524,27.1961524 L19.1961524,21.1961524 C19.1961524,17.8821524 21.8821524,15.1961524 25.1961524,15.1961524 C28.5101524,15.1961524 31.1961524,17.8821524 31.1961524,21.1961524" id="Stroke-5501" stroke="#394146" stroke-width="4" stroke-linecap="round" stroke-linejoin="round" transform="translate(25.196152, 21.196152) rotate(-30.000000) translate(-25.196152, -21.196152) "></path>
+            <path d="M21,37 C21,31.477 25.477,27 31,27 C36.523,27 41,31.477 41,37 C41,42.523 36.523,47 31,47 C25.477,47 21,42.523 21,37 L21,37 Z" id="Stroke-5513" stroke="#394146" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="#F6F6F6"></path>
+            <path d="M31,38 L31,41" id="Stroke-5514" stroke="#394146" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+            <path d="M28,35 C28,33.343 29.343,32 31,32 C32.657,32 34,33.343 34,35 C34,36.657 32.657,38 31,38 C29.343,38 28,36.657 28,35 L28,35 Z" id="Stroke-5515" stroke="#394146" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="#B7B7B7"></path>
+            <path d="M45,18 L47,16" id="Stroke-1509" stroke="#A3A18F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+            <path d="M47,24 L49.828,24" id="Stroke-1510" stroke="#A3A18F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+            <path d="M45,30 L47,32" id="Stroke-1511" stroke="#A3A18F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+            <path d="M39,14.828 L39,12" id="Stroke-1508" stroke="#A3A18F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+        </g>
+    </g>
+</svg>
