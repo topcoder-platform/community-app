@@ -399,6 +399,14 @@ exports[`Matches shallow shapshot 1`] = `
     <li>
       <Link
         replace={false}
+        to="/sandbox/cms/dashboard/announcements"
+      >
+        A simple list of all published dashboard announcements.
+      </Link>
+    </li>
+    <li>
+      <Link
+        replace={false}
         to="/sandbox/payments"
       >
         Payments PoC

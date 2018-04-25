@@ -104,6 +104,21 @@ export async function getCurrentDashboardAnnouncementId() {
   return cachedCurrentDashboardAnnouncementId;
 }
 
+/**
+ * Gets index of the current dashboard announcements.
+ */
+export async function getCurrentDashboardAnnouncementsIndex() {
+  if (isomorphy.isServerSide()) {
+    return ss.getCurrentDashboardAnnouncementsIndex();
+  }
+  let res = `${CDN_URL}/current-dashboard-announcements-index`;
+  res = await fetch(res);
+  if (!res.ok) {
+    throw new Error('Failed to get the index of current dashboard announcements');
+  }
+  return res.json();
+}
+
 class Service {
   /**
    * Creates a new Service instance.
@@ -140,34 +155,6 @@ class Service {
   }
 
   /**
-   * Gets an array of content entries.
-   * @param {Object} query Optional. Query for filtering / sorting of the
-   *  content.
-   * @return {Promise}
-   */
-  /*
-  async getContentEntries(query) {
-    const url = `${this.private.baseUrl}/spaces/${
-      config.CONTENTFUL_CMS.SPACE}/entries?${qs.stringify(query)}`;
-    let res = await fetch(url, {
-      headers: { Authorization: `Bearer ${this.private.key}` },
-    });
-    res = await res.json();
-    if (!res.includes) return res;
-
-    if (res.includes.Asset) {
-      const assets = {};
-      res.includes.Asset.forEach((asset) => {
-        assets[asset.sys.id] = asset;
-      });
-      res.assets = assets;
-      delete res.includes.Asset;
-    }
-    return res;
-  }
-  */
-
-  /**
    * Gets the specified content entry from Contentful CMS.
    * @param {String} id Entry ID.
    * @return {Promise} Resolves to the content.
@@ -181,7 +168,12 @@ class Service {
       res = await fetch(`${PREVIEW_URL}/entries/${id}/preview`);
     } else {
       const index = await getIndex();
-      res = `${CDN_URL}/entries/${id}?version=${index.entries[id]}`;
+      let version = index.entries[id];
+      if (!version) {
+        version = Date.now() - INDEX_MAXAGE;
+        version -= version % INDEX_MAXAGE;
+      }
+      res = `${CDN_URL}/entries/${id}?version=${version}`;
       res = await fetch(res);
     }
     if (!res.ok) {

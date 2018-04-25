@@ -2,11 +2,12 @@
  * Actions related to the dashboard announcements.
  */
 
-// import moment from 'moment';
+import _ from 'lodash';
 import { createActions } from 'redux-actions';
 import {
   cdnService,
   getCurrentDashboardAnnouncementId,
+  getCurrentDashboardAnnouncementsIndex,
   previewService,
 } from 'services/contentful';
 
@@ -43,22 +44,6 @@ async function getActiveDone(uuid) {
     data: res,
     uuid,
   };
-
-  /*
-  const now = moment().toISOString();
-  const res = await cdnService.getContentEntries({
-    content_type: 'dashboardAnnouncement',
-    'fields.startDate[lt]': now,
-    'fields.endDate[gt]': now,
-    limit: 1,
-    order: '-fields.startDate',
-  });
-  return {
-    assets: res.assets,
-    data: res.items[0],
-    uuid,
-  };
-  */
 }
 
 /**
@@ -94,6 +79,33 @@ async function getPreviewDone(id, uuid) {
   };
 }
 
+/**
+ * Payload creator for the action that inits the loading of all scheduled
+ * announcements, bypassing the cache, as it is intended for use by editors.
+ * @param {String} uuid
+ * @return {String}
+ */
+async function getScheduledInit(uuid) {
+  return uuid;
+}
+
+/**
+ * Payload creator for the action that actually loads all scheduled
+ * announcements, bypassing the cache, as it is intended for use by editors.
+ * @param {String} uuid
+ * @return {Object}
+ */
+async function getScheduledDone(uuid) {
+  const data = [];
+  const index = _.keys(await getCurrentDashboardAnnouncementsIndex());
+  for (let i = 0; i !== index.length; i += 1) {
+    /* eslint-disable no-await-in-loop */
+    data.push(await cdnService.getContentEntry(index[i]));
+    /* eslint-enable no-await-in-loop */
+  }
+  return { uuid, data };
+}
+
 export default createActions({
   CMS: {
     DASHBOARD: {
@@ -102,6 +114,8 @@ export default createActions({
         GET_ACTIVE_DONE: getActiveDone,
         GET_PREVIEW_INIT: getPreviewInit,
         GET_PREVIEW_DONE: getPreviewDone,
+        GET_SCHEDULED_INIT: getScheduledInit,
+        GET_SCHEDULED_DONE: getScheduledDone,
       },
     },
   },
