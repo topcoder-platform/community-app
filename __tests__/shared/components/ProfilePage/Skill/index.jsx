@@ -5,10 +5,6 @@ import Skill from 'components/ProfilePage/Skill';
 
 const rnd = new Renderer();
 
-jest.mock('utils/isomorphy', () => ({
-  isClientSide: () => false,
-}));
-
 it('renders a skill correctly', () => {
   rnd.render((<Skill
     tagId="1"

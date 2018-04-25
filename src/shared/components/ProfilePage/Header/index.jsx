@@ -6,8 +6,8 @@ import PT from 'prop-types';
 import { noop } from 'lodash';
 import moment from 'moment';
 
-import config from 'utils/config';
 import { getRatingColor } from 'utils/tc';
+import { config } from 'topcoder-react-utils';
 
 import DefaultPortrait from 'assets/images/ico-user-default.svg';
 
@@ -62,8 +62,21 @@ const ProfileHeader = ({
     }
     { info.description && <p styleName="description">{info.description}</p> }
     <div styleName="links">
-      { showBadgesButton && <a onClick={() => onShowBadges()} role="link" styleName="link badge-link" tabIndex="0">Badges</a> }
-      <a href={`${config.URL.FORUMS}/?module=History&userID=${info.userId}`} styleName="link">Forum Posts</a></div>
+      {
+        showBadgesButton ? (
+          <a
+            onClick={() => onShowBadges()}
+            onKeyPress={() => onShowBadges()}
+            role="link"
+            styleName="link badge-link"
+            tabIndex="0"
+          >
+            Badges
+          </a>
+        ) : null
+      }
+      <a href={`${config.URL.FORUMS}/?module=History&userID=${info.userId}`} styleName="link">Forum Posts</a>
+    </div>
   </div>
 );
 

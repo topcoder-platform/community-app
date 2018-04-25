@@ -14,11 +14,9 @@ export default function ProfileLoader(props) {
       cacheCss
       chunkName="profile/chunk"
       renderClientAsync={() =>
-        import(
-          /* webpackChunkName: "profile/chunk" */
-          'containers/Profile',
-        ).then(({ default: ProfileContainer }) => (
-          <ProfileContainer {...props} />
+        import(/* webpackChunkName: "profile/chunk" */ 'containers/Profile')
+          .then(({ default: ProfileContainer }) => (
+            <ProfileContainer {...props} />
         ))
       }
       renderPlaceholder={() => <LoadingPagePlaceholder />}

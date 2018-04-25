@@ -10,8 +10,8 @@ import PT from 'prop-types';
 import { PrimaryButton } from 'topcoder-react-ui-kit';
 import Sticky from 'react-stickynode';
 
-import config from 'utils/config';
 import { getRatingColor } from 'utils/tc';
+import { config } from 'topcoder-react-utils';
 
 import ArrowNext from 'assets/images/arrow-next.svg';
 import CopilotIcon from 'assets/images/profile/ico-track-copilot.svg';
@@ -146,9 +146,7 @@ class ProfilePage extends React.Component {
       skills = skills.slice(0, MAX_SKILLS);
     }
 
-    let externals = _.map(
-      _.pick(this.props.externalAccounts, _.map(dataMap, 'provider')), (data, type) => ({ type, data }),
-    );
+    let externals = _.map(_.pick(this.props.externalAccounts, _.map(dataMap, 'provider')), (data, type) => ({ type, data }));
     this.props.externalLinks.map(data => externals.push(({ type: 'weblink', data })));
     externals = _.filter(externals, 'data');
     externals = _.sortBy(externals, 'type');
@@ -220,14 +218,16 @@ class ProfilePage extends React.Component {
                       <PrimaryButton
                         onClick={() => this.setState({ skillsExpanded: true })}
                         theme={style}
-                      >VIEW ALL</PrimaryButton>
+                      >VIEW ALL
+                      </PrimaryButton>
                     }
                     {
                       skillsExpanded &&
                       <PrimaryButton
                         onClick={() => this.setState({ skillsExpanded: false })}
                         theme={style}
-                      >VIEW LESS</PrimaryButton>
+                      >VIEW LESS
+                      </PrimaryButton>
                     }
                   </div>
                 </div>
