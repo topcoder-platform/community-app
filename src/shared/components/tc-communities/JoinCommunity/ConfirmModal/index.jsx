@@ -9,12 +9,13 @@
 
 /* global window */
 
-import config from 'utils/config';
 import Modal from 'components/Modal';
 import PT from 'prop-types';
 import qs from 'qs';
 import React from 'react';
 import { PrimaryButton, SecondaryButton } from 'topcoder-react-ui-kit';
+import { config } from 'topcoder-react-utils';
+
 import style from './style.scss';
 
 export default function ConfirmModal({
@@ -57,10 +58,12 @@ export default function ConfirmModal({
         <div className={style.joinButtons}>
           <PrimaryButton
             onClick={() => join(token, joinGroupId || groupIds[0], userId)}
-          >Join</PrimaryButton>
+          >Join
+          </PrimaryButton>
           <SecondaryButton
             onClick={resetJoinButton}
-          >Cancel</SecondaryButton>
+          >Cancel
+          </SecondaryButton>
         </div>
       ) : (
         <div className={style.loginButtons}>
@@ -69,20 +72,21 @@ export default function ConfirmModal({
               const url = encodeURIComponent(autoJoinUrl);
               window.location = `${config.URL.AUTH}/member?retUrl=${url}&utm_source=${communityId}`;
             }}
-          >Login</PrimaryButton>
+          >Login
+          </PrimaryButton>
           <PrimaryButton
             onClick={() => {
               let url = encodeURIComponent(autoJoinUrl);
-              url = encodeURIComponent(
-                `${config.URL.AUTH}/member?retUrl=${url}&utm_source=${communityId}`,
-              );
+              url = encodeURIComponent(`${config.URL.AUTH}/member?retUrl=${url}&utm_source=${communityId}`);
               url = encodeURIComponent(url);
               window.location = `${config.URL.AUTH}/member/registration?retUrl=${url}&utm_source=${communityId}`;
             }}
-          >Register</PrimaryButton>
+          >Register
+          </PrimaryButton>
           <SecondaryButton
             onClick={resetJoinButton}
-          >Cancel</SecondaryButton>
+          >Cancel
+          </SecondaryButton>
         </div>
       )}
     </Modal>
@@ -92,7 +96,7 @@ export default function ConfirmModal({
 ConfirmModal.defaultProps = {
   token: null,
   userId: null,
-  utmCampaign: '',
+  // utmCampaign: '',
 };
 
 ConfirmModal.propTypes = {

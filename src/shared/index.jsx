@@ -5,18 +5,18 @@
  */
 
 import React from 'react';
+
 import Routes from 'routes';
 import ErrorMessage from 'containers/ErrorMessage';
 import ErrorIcons from 'containers/ErrorIcons';
+
+import { DevTools, isomorphy } from 'topcoder-react-utils';
 
 import 'topcoder-react-ui-kit/dist/style.css';
 
 import 'styles/global.scss';
 import 'slick-carousel/slick/slick.css';
-// import 'slick-carousel/slick/slick-theme.css';
-
-const USE_DEV_TOOLS = Boolean(process.env.DEV_TOOLS);
-const DevTools = USE_DEV_TOOLS ? require('containers/DevTools').default : undefined;
+import 'slick-carousel/slick/slick-theme.css';
 
 export default function App() {
   return (
@@ -24,7 +24,7 @@ export default function App() {
       <Routes />
       <ErrorMessage />
       <ErrorIcons />
-      { USE_DEV_TOOLS ? <DevTools /> : undefined }
+      { isomorphy.isDevBuild() ? <DevTools /> : undefined }
     </div>
   );
 }

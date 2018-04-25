@@ -133,7 +133,7 @@ function onSelectBucket(state, { payload }) {
 }
 
 function onSelectSavedFilter(state, { payload }) {
-  const isForReviewOpportunities = state.savedFilters[payload].filter.isForReviewOpportunities;
+  const { isForReviewOpportunities } = state.savedFilters[payload].filter;
   updateQuery({
     bucket: isForReviewOpportunities ? BUCKETS.SAVED_REVIEW_OPPORTUNITIES_FILTER : undefined,
   });

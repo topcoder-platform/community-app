@@ -13,10 +13,8 @@ export default function Sandbox({ base }) {
     <SplitRoute
       chunkName="sandbox/chunk"
       renderClientAsync={() =>
-        import(
-          /* webpackChunkName: "sandbox/chunk" */
-          './Router',
-        ).then(({ default: Router }) => <Router base={base} />)
+        import(/* webpackChunkName: "sandbox/chunk" */ './Router')
+        .then(({ default: Router }) => <Router base={base} />)
       }
       renderPlaceholder={() => <LoadingIndicator />}
     />

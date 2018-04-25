@@ -55,11 +55,17 @@ export default function ScreeningStatus(props) {
         {/* status */}
         {hasStatus && !hasPending ?
           <span styleName={`status ${setStatusClassName()}`}>
-            {hasStatus.substring(0, hasStatus.indexOf('ed'))}</span> :
+            {hasStatus.substring(0, hasStatus.indexOf('ed'))}
+          </span> :
           <span>Not yet performed</span>}{/* pending */}
         {/* warning */}
-        {hasWarnings && <span styleName="warning">
-          {`${warnLength} `}{warnLength > 1 ? ' warnings' : 'warning'}</span>}
+        {
+          hasWarnings && (
+            <span styleName="warning">
+              {`${warnLength} `}{warnLength > 1 ? ' warnings' : 'warning'}
+            </span>
+          )
+        }
       </div>
     </button>
   );
@@ -70,12 +76,10 @@ ScreeningStatus.defaultProps = {
 };
 
 ScreeningStatus.propTypes = {
-  screeningObject: PT.shape(
-    {
-      status: PT.string,
-      warnings: PT.array,
-    },
-  ).isRequired,
+  screeningObject: PT.shape({
+    status: PT.string,
+    warnings: PT.array,
+  }).isRequired,
   onShowDetails: PT.func,
   submissionId: PT.number.isRequired,
 };

@@ -117,7 +117,7 @@ function mapStateToProps(state) {
  */
 function mapDispatchToProps(dispatch) {
   const { direct, memberTasks } = actions;
-  const payments = actions.page.sandbox.payments;
+  const { payments } = actions.page.sandbox;
   return {
     loadMemberTasks: (projectId, pageNum, tokenV3) => {
       const uuid = shortid();

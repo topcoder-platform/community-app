@@ -1,8 +1,7 @@
 import React from 'react';
-import _ from 'lodash';
-import Renderer from 'react-test-renderer/shallow';
-import TU from 'react-dom/test-utils';
 import FiltersSwitch from 'components/challenge-listing/Filters/FiltersSwitch';
+
+import { JU } from 'topcoder-react-utils';
 
 const onSwitch = jest.fn();
 
@@ -19,31 +18,13 @@ const mockDatas = [{
 }];
 
 test('Matches shallow shapshot', () => {
-  const renderer = new Renderer();
-
-  _.forEach(mockDatas, (data) => {
-    renderer.render((
-      <FiltersSwitch {...data} />
-    ));
-    expect(renderer.getRenderOutput()).toMatchSnapshot();
-  });
+  mockDatas.forEach(data => JU.shallowSnapshot(<FiltersSwitch {...data} />));
 });
 
-class Wrapper extends React.Component {
-  componentDidMount() {}
-
-  render() {
-    return <FiltersSwitch {...this.props} />;
-  }
-}
-
 test('handle events', () => {
-  const instance = TU.renderIntoDocument((<Wrapper {...mockDatas[1]} />));
-  const matches = TU.findAllInRenderedTree(instance, item =>
-    item && item.className && item.className.match('Switch') && item.className.match('tc-outline-btn'));
-  expect(matches).toHaveLength(1);
-
-  TU.Simulate.click(matches[0]);
+  const dom = JU.renderDom(<FiltersSwitch {...mockDatas[1]} />);
+  const matches = JU.findInDomByClass(dom, 'tc-outline-btn');
+  JU.simulate.click(matches);
   expect(onSwitch).toHaveBeenCalledTimes(1);
 });
 

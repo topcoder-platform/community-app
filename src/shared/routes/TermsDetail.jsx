@@ -17,10 +17,8 @@ export default function TermsDetailRoute(props) {
       cacheCss
       chunkName="terms-detail/chunk"
       renderClientAsync={() =>
-        import(
-          /* webpackChunkName: "terms-detail/chunk" */
-          'containers/terms-detail',
-        ).then(({ default: TermsDetail }) => (
+        import(/* webpackChunkName: "terms-detail/chunk" */ 'containers/terms-detail')
+        .then(({ default: TermsDetail }) => (
           <TermsDetail {...props} />
         ))
       }

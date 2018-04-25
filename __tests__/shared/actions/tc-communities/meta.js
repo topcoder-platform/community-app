@@ -9,7 +9,7 @@ jest.mock('utils/tc', () => ({
   getCommunitiesMetadata: communityId => (
     communityId !== 'someId404'
       ? Promise.resolve({ communityId })
-      : Promise.reject({ communityId, error: '404' })
+      : Promise.reject({ communityId, error: '404' }) // eslint-disable-line prefer-promise-reject-errors
   ),
 }));
 

@@ -44,10 +44,12 @@ class Accordion extends Component {
             >
               <div
                 onClick={() => this.selectItem(index)}
+                onKeyPress={() => this.selectItem(index)}
                 role="button"
                 styleName="title"
                 tabIndex={0}
-              >{child.props.title}</div>
+              >{child.props.title}
+              </div>
             </li>
           ))}
         </ul>

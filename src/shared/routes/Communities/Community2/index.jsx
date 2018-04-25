@@ -15,10 +15,8 @@ export default function ChunkLoader({ base, meta }) {
       cacheCss
       chunkName="community-2/chunk"
       renderClientAsync={() =>
-        import(
-          /* webpackChunkName: "community-2/chunk" */
-          './Routes',
-        ).then(({ default: Routes }) => <Routes base={base} meta={meta} />)
+        import(/* webpackChunkName: "community-2/chunk" */ './Routes')
+        .then(({ default: Routes }) => <Routes base={base} meta={meta} />)
       }
       renderPlaceholder={() => <LoadingIndicator />}
       renderServer={(routeProps) => {
@@ -28,7 +26,8 @@ export default function ChunkLoader({ base, meta }) {
           <StaticRouter
             context={routeProps.staticContext}
             location={routeProps.location}
-          ><Routes base={base} meta={meta} /></StaticRouter>
+          ><Routes base={base} meta={meta} />
+          </StaticRouter>
         );
       }}
     />

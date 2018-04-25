@@ -1,19 +1,35 @@
 /* eslint jsx-a11y/no-static-element-interactions:0 */
 
-import config from 'utils/config';
 import React from 'react';
 import PT from 'prop-types';
 
 import Tooltip from 'components/Tooltip';
 import { Link } from 'react-router-dom';
+import { config } from 'topcoder-react-utils';
 
 import ShareSocial from './ShareSocial';
 
 import styles from './styles.scss';
 
-export default function SideBar({ challengesUrl, documents, eventDetail, reviewScorecardId,
-  screeningScorecardId, shareable, forumLink, submissionLimit, hasRegistered, fileTypes, reviewType,
-  isDesign, terms, isDevelop, environment, codeRepo, isMM }) {
+export default function SideBar({
+  challengesUrl,
+  documents,
+  eventDetail,
+  reviewScorecardId,
+  screeningScorecardId,
+  shareable,
+  forumLink,
+  submissionLimit,
+  hasRegistered,
+  fileTypes,
+  reviewType,
+  isDesign,
+  terms,
+  isDevelop,
+  environment,
+  codeRepo,
+  isMM,
+}) {
   const scorecardURL = `${config.URL.ONLINE_REVIEW}/review/actions/ViewScorecard?scid=`;
   const faqURL = config.URL.INFO.DESIGN_CHALLENGE_SUBMISSION;
   let submissionLimitDisplay = 'Unlimited';
@@ -30,15 +46,19 @@ export default function SideBar({ challengesUrl, documents, eventDetail, reviewS
       'Community Review Board performs a thorough review based on scorecards.'
   );
 
-  const reviewTip = (<div styleName="tctooltiptext tooltiptextreview">
-    <h4>Final Review:</h4>
-    <p>{reviewTypeDescription}</p>
-  </div>);
+  const reviewTip = (
+    <div styleName="tctooltiptext tooltiptextreview">
+      <h4>Final Review:</h4>
+      <p>{reviewTypeDescription}</p>
+    </div>
+  );
 
-  const approvalTip = (<div styleName="tctooltiptext tooltiptextapproval">
-    <h4>Approval:</h4>
-    <p>Customer has final opportunity to sign-off on the delivered assets.</p>
-  </div>);
+  const approvalTip = (
+    <div styleName="tctooltiptext tooltiptextapproval">
+      <h4>Approval:</h4>
+      <p>Customer has final opportunity to sign-off on the delivered assets.</p>
+    </div>
+  );
 
   return (
     <div styleName="challenge-spec-sidebar">
@@ -161,8 +181,11 @@ export default function SideBar({ challengesUrl, documents, eventDetail, reviewS
             </p>
             <p styleName="link-like-paragraph">
               Questions?
-              &zwnj;<a href={forumLink}>
-              Ask in the Challenge Discussion Forums.</a>
+              &zwnj;{
+                <a href={forumLink}>
+                  Ask in the Challenge Discussion Forums.
+                </a>
+              }
             </p>
             <h3>SOURCE FILES:</h3>
             <ul styleName="source-files-list">
@@ -194,7 +217,8 @@ export default function SideBar({ challengesUrl, documents, eventDetail, reviewS
                   <div styleName="term" key={t.termsOfUseId}>
                     <Link
                       to={`${challengesUrl}/terms/detail/${t.termsOfUseId}`}
-                    >{t.title}</Link>
+                    >{t.title}
+                    </Link>
                   </div>
                 ))
               }

@@ -42,7 +42,8 @@ export default function InputBlock({
         styleName="close"
         type="button"
         onClick={() => set()}
-      ><span>&#10799;</span></button>
+      ><span>&#10799;</span>
+      </button>
     </div>
   );
 }

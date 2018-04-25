@@ -9,7 +9,9 @@ import { Link } from 'topcoder-react-utils';
 import defaultStyle from './style.scss';
 
 function ResourceCard(props) {
-  const { icon: Icon, title, text, link, theme } = props;
+  const {
+    icon: Icon, title, text, link, theme,
+  } = props;
 
   return (
     <div className={theme.container}>
@@ -22,7 +24,8 @@ function ResourceCard(props) {
             className={theme.link}
             openNewTab={link.openNewTab}
             to={link.url}
-          >{link.title}</Link>
+          >{link.title}
+          </Link>
         </div>
       }
     </div>

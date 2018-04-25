@@ -25,9 +25,9 @@ exports[`Matches shallow shapshot 1`] = `
       filterState={Object {}}
       isAuth={false}
       savedFilters={Array []}
-      selectBucket={[Function]}
-      selectSavedFilter={[Function]}
-      setEditSavedFiltersMode={[Function]}
+      selectBucket={[MockFunction]}
+      selectSavedFilter={[MockFunction]}
+      setEditSavedFiltersMode={[MockFunction]}
     />
   </div>
   <Footer
@@ -44,16 +44,16 @@ exports[`Matches shallow shapshot 2`] = `
     className="src-shared-components-challenge-listing-Sidebar-___style__FilterBox___2Fea8"
   >
     <FiltersEditor
-      changeFilterName={[Function]}
-      deleteSavedFilter={[Function]}
-      dragSavedFilterMove={[Function]}
-      dragSavedFilterStart={[Function]}
+      changeFilterName={[MockFunction]}
+      deleteSavedFilter={[MockFunction]}
+      dragSavedFilterMove={[MockFunction]}
+      dragSavedFilterStart={[MockFunction]}
       dragState={Object {}}
-      resetFilterName={[Function]}
+      resetFilterName={[MockFunction]}
       savedFilters={Array []}
-      setEditSavedFiltersMode={[Function]}
-      updateAllSavedFilters={[Function]}
-      updateSavedFilter={[Function]}
+      setEditSavedFiltersMode={[MockFunction]}
+      updateAllSavedFilters={[MockFunction]}
+      updateSavedFilter={[MockFunction]}
     />
   </div>
   <Footer

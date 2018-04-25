@@ -30,9 +30,11 @@ class Wrapper extends React.Component {
   componentDidMount() {}
 
   render() {
-    return (<TrackAbbreviationTooltip {...this.props}>
-      <div className="mock-class">abcedfghik</div>
-    </TrackAbbreviationTooltip>);
+    return (
+      <TrackAbbreviationTooltip {...this.props}>
+        <div className="mock-class">abcedfghik</div>
+      </TrackAbbreviationTooltip>
+    );
   }
 }
 

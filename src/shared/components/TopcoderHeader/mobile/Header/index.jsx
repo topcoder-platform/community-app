@@ -20,6 +20,7 @@ export default function Header({
     <div styleName="header-wrapper">
       <div
         onClick={open}
+        onKeyPress={open}
         role="button"
         styleName="header"
         tabIndex={0}

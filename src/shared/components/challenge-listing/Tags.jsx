@@ -12,7 +12,9 @@ const VISIBLE_TECHNOLOGIES = 3;
 /**
  * Implements <Tags> component
  */
-export default function Tags({ expand, isExpanded, technologies, platforms, onTechTagClicked }) {
+export default function Tags({
+  expand, isExpanded, technologies, platforms, onTechTagClicked,
+}) {
   const onClick = (item) => {
     // resolved conflict with c++ tag
     if (item.indexOf('+') === 0) {
@@ -43,7 +45,8 @@ export default function Tags({ expand, isExpanded, technologies, platforms, onTe
           onClick={() => onClick(item.trim())}
           key={item}
           role="button"
-        >{item}</Tag>
+        >{item}
+        </Tag>
       ));
     }
     return '';

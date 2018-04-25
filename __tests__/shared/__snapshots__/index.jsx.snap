@@ -13,6 +13,5 @@ exports[`Snapshot match 2`] = `
   <withRouter(Connect(Routes)) />
   <Connect(ErrorMessageContainer) />
   <Connect(ErrorIconsContainer) />
-  <res />
 </div>
 `;

@@ -24,14 +24,9 @@ class HallOfFameContainer extends React.Component {
     }
   }
 
-  componentWillReceiveProps(nextProps) {
-    if (this.props.match.params.eventId !== nextProps.match.params.eventId) {
-      nextProps.setSelectedEvent(nextProps.match.params.eventId);
-    }
-  }
-
   handleSelectEvent(eventId) {
-    this.context.router.history.push(`/tco-hall-of-fame/${eventId}`);
+    this.props.history.push(`/hall-of-fame/tco/${eventId}`);
+    this.props.setSelectedEvent(eventId);
   }
 
   render() {
@@ -43,10 +38,6 @@ class HallOfFameContainer extends React.Component {
     ) : <div />;
   }
 }
-
-HallOfFameContainer.contextTypes = {
-  router: PT.object.isRequired,
-};
 
 HallOfFameContainer.defaultProps = {
   selectedEvent: '',
@@ -60,6 +51,7 @@ HallOfFameContainer.propTypes = {
       eventId: PT.string,
     }),
   }).isRequired,
+  history: PT.shape().isRequired,
 };
 
 const mapStateToProps = state => ({

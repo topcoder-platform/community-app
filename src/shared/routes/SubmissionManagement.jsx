@@ -7,10 +7,8 @@ export default function SubmissionManagementRoute(props) {
     <SplitRoute
       chunkName="submission-management/chunk"
       renderClientAsync={() =>
-        import(
-          /* webpackChunkName: "submission-management/chunk" */
-          'containers/SubmissionManagement',
-        ).then(({ default: SubmissionManagement }) => (
+        import(/* webpackChunkName: "submission-management/chunk" */ 'containers/SubmissionManagement')
+        .then(({ default: SubmissionManagement }) => (
           <SubmissionManagement {...props} />
         ))
       }

@@ -10,10 +10,8 @@ export default function ScoreboardRoute(props) {
       exact
       path="/scoreboard/:challengeId"
       renderClientAsync={() =>
-        import(
-          /* webpackChunkName: "scoreboard/chunk" */
-          'containers/tco/scoreboard',
-        ).then(({ default: Scoreboard }) => (
+        import(/* webpackChunkName: "scoreboard/chunk" */ 'containers/tco/scoreboard')
+        .then(({ default: Scoreboard }) => (
           <Scoreboard {...props} />
         ))
       }

@@ -10,7 +10,9 @@ import championIcon from 'assets/images/tco-champion-icon.png';
 
 import defaultStyles from './styles.scss';
 
-const Track = ({ count, data, track, theme }) => (data ? (
+const Track = ({
+  count, data, track, theme,
+}) => (data ? (
   <div className={theme.container}>
     <div className={theme.track}>
       <span>{track}</span>
@@ -39,4 +41,4 @@ Track.propTypes = {
   theme: PT.shape().isRequired,
 };
 
-export default themr('tco-hall-of-fame-champion-track', defaultStyles)(Track);
+export default themr('hall-of-fame/tco-champion-track', defaultStyles)(Track);

@@ -49,15 +49,15 @@ If you need any operations related to currency conversions, pay attention to the
 
 4.  Set environment variables:
     -   `PORT` Specifies the port to run the App at. Defaults to 3000;
-    -   `NODE_ENV` Specifies Topcoder backend to use. Should be either `development` or `production`. Defaults to `production`.
+    -   `NODE_CONFIG_ENV` Specifies Topcoder backend to use. Should be either `development` or `production`. Defaults to `production`.
 
 5.  To build the App's frontend run one of (the result of build will be output into `/build` folder in both cases):
     -   `$ npm run build` To rebuild production frontend;
     -   `$ npm run build:dev` This command should only be used to test whether development build of the front end works. You don't have to execute this command to run development version of the App (the server will automatically build frontend in memory anyway). You can't successfully execute this command without installing dev dependencies.
 
 6. To run the App use:
-    -   `$ npm start` To run the App in normal mode. The frontend will be served from `/build` folder. The Topcoder backend to use will be chosen depending on `NODE_ENV` value;
-    -   `$ npm run dev` To run the App with development tools. In this case the frontend is build in memory by server and uses dev tools like redux-devtools. The Topcoder backend to use will be chosen depending on `NODE_ENV` value. This demands dev dependencies installed at the first step.
+    -   `$ npm start` To run the App in normal mode. The frontend will be served from `/build` folder. The Topcoder backend to use will be chosen depending on `NODE_CONFIG_ENV` value;
+    -   `$ npm run dev` To run the App with development tools. In this case the frontend is build in memory by server and uses dev tools like redux-devtools. The Topcoder backend to use will be chosen depending on `NODE_CONFIG_ENV` value. This demands dev dependencies installed at the first step.
 
 If you run the App locally against development Topcoder backend you should access the App as `local.topcoder-dev.com:3000`. Prior doing this you should add into your `/etc/hosts` the line `127.0.0.1 local.topcoder-dev.com`. To login into development Topcoder backend use `accounts.topcoder-dev.com/members` to login. Log out at `www.topcoder-dev.com`, or just wipe out auth cookies.
 
@@ -75,7 +75,7 @@ To automatically correct js files, you can use `npm run fix:js`.
 
 Access to Wipro community demands proper authorization. In development environment (both local and remote) the test user `dan_developer / dantopcoder123` is authorized to access this community.
 
-It is intended that Wipro community is accessed as `wipro.topcoder-dev.com` in dev (both local and remote) and `wipro.topcoder.com` in prod. Thus, to deploy it locally you should have in your `/etc/hosts` the alias `127.0.0.1 wipro.topcoder-dev.com`, and run the app with the command `NODE_ENV=development PORT=80 npm run dev`. Take into account the following:
+It is intended that Wipro community is accessed as `wipro.topcoder-dev.com` in dev (both local and remote) and `wipro.topcoder.com` in prod. Thus, to deploy it locally you should have in your `/etc/hosts` the alias `127.0.0.1 wipro.topcoder-dev.com`, and run the app with the command `NODE_CONFIG_ENV=development PORT=80 npm run dev`. Take into account the following:
 
 1.  To run the App at port 80 you may need extra configuration (see in the end of the previous section);
 

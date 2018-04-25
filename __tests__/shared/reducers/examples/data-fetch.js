@@ -1,18 +1,16 @@
 import actions from 'actions/examples/data-fetch';
 import defaultReducer, { factory } from 'reducers/examples/data-fetch';
-import { toFSA } from 'utils/redux';
+import { redux } from 'topcoder-react-utils';
 
 const DUMMY_PAYLOAD = 'Dummy Payload 12345';
 
 const fetchFailureMock = jest.fn(() =>
-  Promise.reject(new Error('ERROR')),
-);
+  Promise.reject(new Error('ERROR')));
 
 const fetchSuccessMock = jest.fn(() =>
   Promise.resolve({
     json: () => ({ data: DUMMY_PAYLOAD }),
-  }),
-);
+  }));
 
 function testReducer(reducer, expectedInitialState) {
   let state;
@@ -33,7 +31,7 @@ function testReducer(reducer, expectedInitialState) {
 
   test('properly handles data loading with success', () => {
     global.fetch = fetchSuccessMock;
-    return toFSA(actions.examples.dataFetch.fetchDataDone()).then((action) => {
+    return redux.resolveAction(actions.examples.dataFetch.fetchDataDone()).then((action) => {
       state = reducer(state, action);
       expect(state).toEqual({
         data: DUMMY_PAYLOAD,
@@ -45,7 +43,7 @@ function testReducer(reducer, expectedInitialState) {
 
   test('properly handles data loading with failure', () => {
     global.fetch = fetchFailureMock;
-    return toFSA(actions.examples.dataFetch.fetchDataDone()).then((action) => {
+    return redux.resolveAction(actions.examples.dataFetch.fetchDataDone()).then((action) => {
       state = reducer(state, action);
       expect(state).toEqual({
         data: null,
@@ -61,8 +59,7 @@ describe('default reducer', () => testReducer(defaultReducer, {}));
 
 global.fetch = fetchSuccessMock;
 describe('factory without http request', () =>
-  factory().then(res => testReducer(res, {})),
-);
+  factory().then(res => testReducer(res, {})));
 
 global.fetch = fetchSuccessMock;
 describe('factory with matching http request and success response', () =>
@@ -73,9 +70,7 @@ describe('factory with matching http request and success response', () =>
       data: DUMMY_PAYLOAD,
       failed: undefined,
       loading: false,
-    }),
-  ),
-);
+    })));
 
 global.fetch = fetchFailureMock;
 describe('factory with matching http request and network failure', () =>
@@ -86,6 +81,4 @@ describe('factory with matching http request and network failure', () =>
       data: null,
       failed: true,
       loading: false,
-    }),
-  ),
-);
+    })));

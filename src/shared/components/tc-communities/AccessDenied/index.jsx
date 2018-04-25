@@ -1,8 +1,8 @@
 /* global window */
 
 import _ from 'lodash';
-import config from 'utils/config';
 import { PrimaryButton } from 'topcoder-react-ui-kit';
+import { config } from 'topcoder-react-utils';
 import PT from 'prop-types';
 import React from 'react';
 
@@ -31,7 +31,8 @@ export default function AccessDenied({ cause, communityId, redirectLink }) {
                 window.location = `${config.URL.AUTH}/member?retUrl=${retUrl}&utm_source=${communityId}`;
                 event.preventDefault();
               }}
-            >Log In Here</a>
+            >Log In Here
+            </a>
           </div>
         </div>
       );
@@ -50,7 +51,8 @@ export default function AccessDenied({ cause, communityId, redirectLink }) {
           <div styleName="msg">You have not submitted to this challenge</div>
           <PrimaryButton
             to={redirectLink}
-          >Back to the challenge</PrimaryButton>
+          >Back to the challenge
+          </PrimaryButton>
         </div>
       );
     default: return <div />;

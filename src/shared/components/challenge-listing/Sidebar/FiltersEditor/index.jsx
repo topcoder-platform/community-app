@@ -48,7 +48,8 @@ export default function FiltersEditor({
           setEditSavedFiltersMode(false);
         }}
         theme={{ button: style.doneButton }}
-      >Done</PrimaryButton>
+      >Done
+      </PrimaryButton>
       { savedFilterItems }
       <div styleName="note">
         Drag the filters to set the order you prefer;

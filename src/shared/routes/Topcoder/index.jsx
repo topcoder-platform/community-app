@@ -14,10 +14,8 @@ export default function ChunkLoader() {
       cacheCss
       chunkName="topcoder-website/chunk"
       renderClientAsync={() =>
-        import(
-          /* webpackChunkName: "topcoder-website/chunk" */
-          './Routes',
-        ).then(({ default: Routes }) => <Routes />)
+        import(/* webpackChunkName: "topcoder-website/chunk" */'./Routes')
+        .then(({ default: Routes }) => <Routes />)
       }
       renderPlaceholder={() => <LoadingIndicator />}
       renderServer={(routeProps) => {
@@ -27,7 +25,8 @@ export default function ChunkLoader() {
           <StaticRouter
             context={routeProps.staticContext}
             location={routeProps.location}
-          ><Routes /></StaticRouter>
+          ><Routes />
+          </StaticRouter>
         );
       }}
     />

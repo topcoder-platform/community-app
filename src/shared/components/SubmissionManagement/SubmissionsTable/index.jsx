@@ -39,13 +39,13 @@ export default function SubmissionsTable(props) {
 
   const submissionsWithDetails = [];
   if (!submissionObjects || submissionObjects.length === 0) {
-    submissionsWithDetails.push(
+    submissionsWithDetails.push((
       <tr key={999} styleName="submission-row">
         <td colSpan="6" styleName="no-submission">
           You have no submission uploaded so far.
         </td>
-      </tr>,
-    );
+      </tr>
+    ));
   } else {
     submissionObjects.forEach((subObject) => {
       // submissionPhaseStartDate will be the start date of

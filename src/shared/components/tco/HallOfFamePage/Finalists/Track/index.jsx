@@ -9,7 +9,9 @@ import { themr } from 'react-css-super-themr';
 
 import defaultStyles from './styles.scss';
 
-const Track = ({ count, data, track, theme }) => (data ? (
+const Track = ({
+  count, data, track, theme,
+}) => (data ? (
   <div className={theme.container}>
     <div className={theme.track}>{track}</div>
     <div className={theme.winner}>
@@ -24,7 +26,7 @@ const Track = ({ count, data, track, theme }) => (data ? (
     }
     { _.range(data.finalists.length, count).map(i => <div className={theme.empty} key={i} />) }
   </div>
-) : <div />);
+) : false);
 
 Track.defaultProps = {
   count: 10,
@@ -38,4 +40,4 @@ Track.propTypes = {
   theme: PT.shape().isRequired,
 };
 
-export default themr('tco-hall-of-fame-track', defaultStyles)(Track);
+export default themr('hall-of-fame/tco-track', defaultStyles)(Track);

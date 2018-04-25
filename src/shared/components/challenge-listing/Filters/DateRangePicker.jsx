@@ -36,8 +36,8 @@ class DateRangePicker extends React.Component {
         onFocusChange={(focusedInput) => { this.setState({ focusedInput }); }}
         startDate={this.props.startDate}
         endDate={this.props.endDate}
-        anchorDirection={'right'}
-        displayFormat={'MMM DD, YYYY'}
+        anchorDirection="right"
+        displayFormat="MMM DD, YYYY"
         readOnly={this.props.readOnly}
       />
     );
@@ -51,6 +51,7 @@ DateRangePicker.defaultProps = {
 
 DateRangePicker.propTypes = {
   onDatesChange: PT.func,
+  readOnly: PT.bool,
 };
 
 export default DateRangePicker;

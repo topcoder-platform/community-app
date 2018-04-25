@@ -22,7 +22,7 @@ const Role = ({ count, data, theme }) => (
 
 Role.defaultProps = {
   count: 3,
-  role: 'TRACK',
+  // role: 'TRACK',
 };
 
 Role.propTypes = {
@@ -31,4 +31,4 @@ Role.propTypes = {
   theme: PT.shape().isRequired,
 };
 
-export default themr('tco-hall-of-fame-role', defaultStyles)(Role);
+export default themr('hall-of-fame/tco-role', defaultStyles)(Role);

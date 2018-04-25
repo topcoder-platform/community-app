@@ -2,6 +2,7 @@
  * Container for the dashboard page.
  */
 /* global location */
+/* eslint-disable no-restricted-globals */
 
 import _ from 'lodash';
 import challengeActions from 'actions/challenge';
@@ -9,7 +10,6 @@ import cookies from 'browser-cookies';
 import Dashboard from 'components/Dashboard';
 import dashActions from 'actions/page/dashboard';
 import challengeListingSidebarActions from 'actions/challenge-listing/sidebar';
-import config from 'utils/config';
 import LoadingIndicator from 'components/LoadingIndicator';
 import memberActions from 'actions/members';
 import PT from 'prop-types';
@@ -26,7 +26,7 @@ import communityActions from 'actions/tc-communities';
 import statsActions from 'actions/stats';
 
 import { isTokenExpired } from 'tc-accounts';
-import { isClientSide } from 'utils/isomorphy';
+import { config, isomorphy } from 'topcoder-react-utils';
 
 import './styles.scss';
 
@@ -194,7 +194,7 @@ export class DashboardPageContainer extends React.Component {
 
     let announcementPreviewId;
     if (urlQuery) {
-      announcementPreviewId = qs.parse(urlQuery).announcementPreviewId;
+      ({ announcementPreviewId } = qs.parse(urlQuery));
     }
 
     return (
@@ -243,7 +243,7 @@ DashboardPageContainer.defaultProps = {
   handle: '',
   profile: null,
   showEarnings:
-    isClientSide() ? cookies.get('showEarningsInDashboard') !== 'false' : true,
+    isomorphy.isClientSide() ? cookies.get('showEarningsInDashboard') !== 'false' : true,
   stats: {},
   statsTimestamp: 0,
   tcBlogPosts: [],
@@ -359,7 +359,7 @@ function mapStateToProps(state, props) {
 
 function mapDispatchToProps(dispatch) {
   const dash = dashActions.page.dashboard;
-  const members = memberActions.members;
+  const { members } = memberActions;
   return {
     getAllActiveChallenges: (tokenV3) => {
       const uuid = shortId();

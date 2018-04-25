@@ -20,7 +20,13 @@ export default function Item({
   return (
     /* TODO: Should be done in a clean way, witout disabling eslint rules. */
     /* eslint-disable jsx-a11y/no-noninteractive-element-to-interactive-role */
-    <li styleName={styleName} onClick={closeMenu} role="button" tabIndex={0}>
+    <li
+      styleName={styleName}
+      onClick={closeMenu}
+      onKeyPress={closeMenu}
+      role="button"
+      tabIndex={0}
+    >
       <Link enforceA={enforceA} to={link}>
         {icon}
         {title}

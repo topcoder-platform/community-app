@@ -81,30 +81,40 @@ export default function Resources({
               <p styleName="style.faqPSpacing">
                 Once you’ve signed up for the Topcoder Cognitive Community,
                 it’s time to get a trial account of IBM Cloud&nbsp;—
-                entirely free to you. IBM Cloud
-                (<Link
+                entirely free to you. IBM Cloud (
+                <Link
                   to={`${baseUrl}/ibm-cloud`}
-                >which used to be IBM
-                Bluemix</Link>) helps you continuously develop
+                >
+                  which used to be IBM Bluemix
+                </Link>
+                ) helps you continuously develop
                 and deliver solutions. You can put data to work&nbsp;— protect
                 it, move it, integrate it, and unlock intelligence from it.
-                &zwnj;<a
-                  href="https://www.ibm.com/cloud/lite-account"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  styleName="style.link"
-                >Learn more about IBM Cloud</a>
+                &zwnj;{
+                  <a
+                    href="https://www.ibm.com/cloud/lite-account"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    styleName="style.link"
+                  >
+                    Learn more about IBM Cloud
+                  </a>
+                }
               </p>
               <p styleName="style.faqPSpacing">
                 Signing up for an IBM Cloud trial account is an important
                 step because in order to participate in cognitive challenges on
                 Topcoder, you’ll need to deploy your code to IBM Cloud.
-                &zwnj;<a
-                  href="https://console.bluemix.net/registration/?cm_sp=dw-cognitive-_-TPC2017-_-community"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  styleName="style.link"
-                >Sign up for IBM Cloud</a>
+                &zwnj;{
+                  <a
+                    href="https://console.bluemix.net/registration/?cm_sp=dw-cognitive-_-TPC2017-_-community"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    styleName="style.link"
+                  >
+                    Sign up for IBM Cloud
+                  </a>
+                }
               </p>
             </FaqItem>
             <FaqItem
@@ -113,12 +123,16 @@ export default function Resources({
               toggle={show => toggleFaqItem('howDoIGetIbmCloudAccount', show)}
             >
               It’s easy!
-              &zwnj;<a
-                href="https://console.bluemix.net/registration/?cm_sp=dw-cognitive-_-TPC2017-_-community"
-                target="_blank"
-                rel="noopener noreferrer"
-                styleName="style.link"
-              >Click here</a> to get an IBM Cloud account.
+              &zwnj;{
+                <a
+                  href="https://console.bluemix.net/registration/?cm_sp=dw-cognitive-_-TPC2017-_-community"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  styleName="style.link"
+                >
+                  Click here
+                </a>
+              } to get an IBM Cloud account.
             </FaqItem>
             <FaqItem
               open={shownFaqItems.prerequisites}
@@ -230,7 +244,8 @@ export default function Resources({
                   <PrimaryButton
                     theme={{ button: style.joinButton }}
                     to={`${baseUrl}/challenges`}
-                  >View Challenges</PrimaryButton>
+                  >View Challenges
+                  </PrimaryButton>
                 </div>
               ) : (
                 <div>
@@ -266,7 +281,8 @@ export default function Resources({
               openNewTab
               theme={{ button: style.moreQCardButton }}
               to="https://help.topcoder.com/hc/en-us/articles/219069687-Contact-Support"
-            >Contact Us</Button>
+            >Contact Us
+            </Button>
           </div>
           <div styleName="style.moreQCard style.moreQCard2">
             <MsgsSvg height="100" />
@@ -274,7 +290,8 @@ export default function Resources({
               openNewTab
               theme={{ button: style.moreQCardButton }}
               to="https://apps.topcoder.com/forums/?module=ThreadList&forumID=609116"
-            >Cognitive Forum</Button>
+            >Cognitive Forum
+            </Button>
           </div>
           <div styleName="style.moreQCard style.moreQCard3">
             <IbmLogoSvg height="100" />
@@ -282,7 +299,8 @@ export default function Resources({
               openNewTab
               theme={{ button: style.moreQCardButton }}
               to="https://www.ibm.com/developerworks/"
-            >developerWorks&reg;</Button>
+            >developerWorks&reg;
+            </Button>
           </div>
         </div>
       </div>

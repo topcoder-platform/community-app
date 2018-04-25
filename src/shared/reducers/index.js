@@ -15,7 +15,7 @@
  */
 
 import { getCommunityId } from 'server/services//communities';
-import { combine, resolveReducers } from 'utils/redux';
+import { redux } from 'topcoder-react-utils';
 
 import cms from './cms';
 import direct from './direct';
@@ -39,7 +39,7 @@ import { factory as termsFactory } from './terms';
 import { factory as scoreboardFactory } from './tco/scoreboard';
 
 export function factory(req) {
-  return resolveReducers({
+  return redux.resolveReducers({
     auth: authFactory(req),
     challenge: challengeFactory(req),
     challengeListing: challengeListingFactory(req),
@@ -54,7 +54,7 @@ export function factory(req) {
     scoreboard: scoreboardFactory(req),
     page: pageFactory(req),
     errors: errorsFactory(req),
-  }).then(reducers => combine((state) => {
+  }).then(reducers => redux.combineReducers((state) => {
     const res = { ...state };
     if (req) {
       res.domain = `${req.protocol}://${req.headers.host || req.hostname}`;

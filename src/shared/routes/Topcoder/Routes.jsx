@@ -60,7 +60,7 @@ export default function Topcoder() {
         <Route
           component={HallOfFame}
           exact
-          path="/tco-hall-of-fame/:eventId?"
+          path="/hall-of-fame/tco/:eventId?"
         />
         <Route
           component={Profile}

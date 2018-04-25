@@ -44,7 +44,8 @@ export default function Badge({
       onMouseLeave={() => showXl()}
       styleName={`badge ${badge}`}
       title={title}
-    >{xlBadgeNode}</div>
+    >{xlBadgeNode}
+    </div>
   );
 }
 

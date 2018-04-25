@@ -1,5 +1,5 @@
 import { mockAction } from 'utils/mock';
-import { toFSA } from 'utils/redux';
+import { redux } from 'topcoder-react-utils';
 
 const dummy = 'DUMMY';
 
@@ -26,15 +26,14 @@ function testReducer(reducer, istate) {
   });
 
   test('Load profile', () =>
-    toFSA(mockActions.auth.loadProfile()).then((action) => {
+    redux.resolveAction(mockActions.auth.loadProfile()).then((action) => {
       const state = reducer({ dummy }, action);
       expect(state).toEqual({
         authenticating: false,
         dummy,
         profile: 'Profile',
       });
-    }),
-  );
+    }));
 
   test('Set TC Token V2', () => {
     const state = reducer({ dummy }, mockActions.auth.setTcTokenV2());
@@ -73,9 +72,7 @@ describe('Default reducer', () => {
 
 describe('Factory without server side rendering', () =>
   reducers.factory().then(res =>
-    testReducer(res, {}),
-  ),
-);
+    testReducer(res, {})));
 
 describe('Factory with server side rendering', () =>
   reducers.factory({
@@ -84,6 +81,4 @@ describe('Factory with server side rendering', () =>
       v3jwt: 'Token V3',
     },
   }).then(res =>
-    testReducer(res, {}),
-  ),
-);
+    testReducer(res, {})));

@@ -6,8 +6,7 @@ import _ from 'lodash';
 import actions from 'actions/terms';
 import { getCommunityId } from 'server/services/communities';
 import logger from 'utils/logger';
-import { handleActions } from 'redux-actions';
-import { toFSA } from 'utils/redux';
+import { redux } from 'topcoder-react-utils';
 import { getAuthTokens } from 'utils/tc';
 
 /**
@@ -262,7 +261,7 @@ function onCheckStatusDone(state, action) {
  * @return Terms reducer.
  */
 function create(initialState) {
-  return handleActions({
+  return redux.handleActions({
     [actions.terms.getTermsInit]: onGetTermsInit,
     [actions.terms.getTermsDone]: onGetTermsDone,
     [actions.terms.getTermDetailsInit]: (state, { payload }) => ({
@@ -331,7 +330,7 @@ export function factory(req) {
     // if it's commynity page
     let communityId = getCommunityId(req.subdomains);
     if (!communityId && req.url.match(/\/community\/.*/)) {
-      communityId = req.url.split('/')[2];
+      [,, communityId] = req.url.split('/');
       // remove possible params like ?join=<communityId>
       communityId = communityId ? communityId.replace(/\?.*/, '') : communityId;
     }
@@ -341,19 +340,20 @@ export function factory(req) {
 
     // load terms for the entity
     if (entity) {
-      return toFSA(actions.terms.getTermsDone(entity, tokens)).then((termsDoneAction) => {
-        // we have to init first, otherwise results will be ignored by onGetTermsDone
-        let state = onGetTermsInit({}, actions.terms.getTermsInit(entity));
-        state = onGetTermsDone(state, termsDoneAction);
+      return redux.resolveAction(actions.terms.getTermsDone(entity, tokens))
+        .then((termsDoneAction) => {
+          // we have to init first, otherwise results will be ignored by onGetTermsDone
+          let state = onGetTermsInit({}, actions.terms.getTermsInit(entity));
+          state = onGetTermsDone(state, termsDoneAction);
 
-        // if we try to join community automatically, but not all terms are agreed,
-        // then we show terms modal (also we make sure is logged in before open)
-        if (tokens.tokenV3 && req.query.join && !_.every(termsDoneAction.payload.terms, 'agreed')) {
-          state = onOpenTermsModal(state, actions.terms.openTermsModal('ANY'));
-        }
+          // if we try to join community automatically, but not all terms are agreed,
+          // then we show terms modal (also we make sure is logged in before open)
+          if (tokens.tokenV3 && req.query.join && !_.every(termsDoneAction.payload.terms, 'agreed')) {
+            state = onOpenTermsModal(state, actions.terms.openTermsModal('ANY'));
+          }
 
-        return create(state);
-      });
+          return create(state);
+        });
     }
   }
   /* Otherwise this part of Redux state is initialized empty. */

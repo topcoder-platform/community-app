@@ -15,7 +15,9 @@ let isAnyTermModalOpen = false;
 
 class TermsPageContainer extends React.Component {
   componentDidMount() {
-    const { loadTerms, authTokens, entity, termsForEntity } = this.props;
+    const {
+      loadTerms, authTokens, entity, termsForEntity,
+    } = this.props;
 
     if (!_.isEqual(entity, termsForEntity)) {
       loadTerms(authTokens, entity);
@@ -67,8 +69,11 @@ class TermsPageContainer extends React.Component {
               docuSignUrl={this.props.docuSignUrl}
               getDocuSignUrl={(templateId) => {
                 const base = window ? window.location.href.match('.*://[^/]*')[0] : '';
-                return this.props.getDocuSignUrl(this.props.authTokens,
-                  templateId, `${base}/community-app-assets/iframe-break`);
+                return this.props.getDocuSignUrl(
+                  this.props.authTokens,
+                  templateId,
+                  `${base}/community-app-assets/iframe-break`,
+                );
               }}
               isLoadingTerms={this.props.isLoadingTerms}
               loadDetails={termId => this.props.loadTermDetails(this.props.authTokens, termId)}
@@ -98,10 +103,10 @@ TermsPageContainer.defaultProps = {
   loadingDocuSignUrl: '',
   loadingTermId: '',
   selectedTerm: null,
-  showTermsModal: false,
+  // showTermsModal: false,
   description: '',
   defaultTitle: 'Terms & Conditions of Use',
-  reviewOpportunityTerms: [],
+  // reviewOpportunityTerms: [],
   termDetails: {},
   terms: [],
   termsForEntity: null,

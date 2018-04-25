@@ -15,10 +15,8 @@ export default function ChunkLoader({ base, member, meta }) {
       cacheCss
       chunkName="qa-community/chunk"
       renderClientAsync={() =>
-        import(
-          /* webpackChunkName: "qa-community/chunk" */
-          './Routes',
-        ).then(({ default: Routes }) => (
+        import(/* webpackChunkName: "qa-community/chunk" */ './Routes')
+        .then(({ default: Routes }) => (
           <Routes base={base} member={member} meta={meta} />
         ))
       }

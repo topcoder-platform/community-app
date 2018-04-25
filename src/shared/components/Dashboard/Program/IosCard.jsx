@@ -1,8 +1,9 @@
 import React from 'react';
 import PT from 'prop-types';
 
-import config from 'utils/config';
 import { stripUnderscore } from 'utils/tc';
+import { config } from 'topcoder-react-utils';
+
 import './IosCard.scss';
 
 const IosCard = (props) => {

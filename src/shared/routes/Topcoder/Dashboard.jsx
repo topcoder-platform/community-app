@@ -10,10 +10,8 @@ export default function DashboardRoute(props) {
       exact
       path="/my-dashboard"
       renderClientAsync={() =>
-        import(
-          /* webpackChunkName: "dashboard/chunk" */
-          'containers/Dashboard',
-        ).then(({ default: Dashboard }) => (
+        import(/* webpackChunkName: "dashboard/chunk" */'containers/Dashboard')
+        .then(({ default: Dashboard }) => (
           <Dashboard {...props} />
         ))
       }

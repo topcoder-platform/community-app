@@ -9,7 +9,9 @@ import { Link } from 'react-router-dom';
 import defaultStyle from './style.scss';
 
 function ArticleCard(props) {
-  const { imageSrc, title, text, link, theme } = props;
+  const {
+    imageSrc, title, text, link, theme,
+  } = props;
 
   let t = text.match(/<p>.*<\/p>/) || '';
   if (t && t[0]) t = t[0].slice(3, -4);
