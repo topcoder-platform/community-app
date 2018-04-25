@@ -13,7 +13,6 @@ import './style.scss';
 export default function Prize({
   bonuses,
   label,
-  points,
   prizes,
   prizeUnitSymbol,
   totalPrize,
@@ -32,7 +31,6 @@ export default function Prize({
   const tip = (
     <Tip
       bonuses={bonuses}
-      points={points}
       prizes={prizes}
       prizeUnitSymbol={prizeUnitSymbol}
     />
@@ -42,14 +40,12 @@ export default function Prize({
 
 Prize.defaultProps = {
   prizes: [],
-  points: null,
   withoutTooltip: false,
 };
 
 Prize.propTypes = {
   bonuses: PT.arrayOf(PT.object).isRequired,
   label: PT.string.isRequired,
-  points: PT.number,
   prizes: PT.arrayOf(PT.number),
   prizeUnitSymbol: PT.string.isRequired,
   totalPrize: PT.number.isRequired,

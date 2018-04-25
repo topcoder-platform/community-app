@@ -51,7 +51,7 @@ export default function ChallengeHeader(props) {
     roundId,
     subTrack,
     track,
-
+    pointPrizes,
     events,
     technologies,
     platforms,
@@ -243,7 +243,7 @@ export default function ChallengeHeader(props) {
         <div styleName="prizes-ops-container">
           <div styleName="prizes-outer-container">
             <h3 styleName="prizes-title">PRIZES</h3>
-            <Prizes prizes={prizes && prizes.length ? prizes : [0]} />
+            <Prizes prizes={prizes && prizes.length ? prizes : [0]} pointPrizes={pointPrizes} />
             {
               bonusType ? (
                 <div id={`bonus-${trackLower}`} styleName="bonus-div">
