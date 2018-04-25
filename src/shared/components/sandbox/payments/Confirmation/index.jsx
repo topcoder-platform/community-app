@@ -32,10 +32,12 @@ export default function Confirmation({
           <div styleName="actions">
             <Button
               onClick={resetPaymentData}
-            >Make another payment</Button>
+            >Make another payment
+            </Button>
             <PrimaryButton
               to="/sandbox/payments"
-            >Ok, done for now</PrimaryButton>
+            >Ok, done for now
+            </PrimaryButton>
           </div>
         </div>
       </div>

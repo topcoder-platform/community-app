@@ -1,4 +1,4 @@
-test('', () => {});
+test('', () => undefined);
 /*
 import request from 'supertest';
 import config from 'config';

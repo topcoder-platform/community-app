@@ -19,9 +19,9 @@
  * provided via the 'onFilter' property, if any, passing in the current filter
  * object.
  */
+/* eslint-disable jsx-a11y/label-has-for */
 
 import _ from 'lodash';
-import config from 'utils/config';
 import * as Filter from 'utils/challenge-listing/filter';
 import React from 'react';
 import PT from 'prop-types';
@@ -29,7 +29,7 @@ import Select from 'components/Select';
 import moment from 'moment';
 import { Button, PrimaryButton } from 'topcoder-react-ui-kit';
 import Tooltip from 'components/Tooltip';
-import { Link } from 'topcoder-react-utils';
+import { config, Link } from 'topcoder-react-utils';
 import { COMPOSE, PRIORITY } from 'react-css-super-themr';
 import { REVIEW_OPPORTUNITY_TYPES } from 'utils/tc';
 import CheckmarkIcon from './CheckmarkIcon';
@@ -161,7 +161,11 @@ export default function FiltersPanel({
     <div styleName={className}>
       <div styleName="header">
         <span styleName="title">Filters</span>
-        <span styleName="close-icon" onClick={() => onClose()}>
+        <span
+          styleName="close-icon"
+          onClick={() => onClose()}
+          onKeyPress={() => onClose()}
+        >
           <UiSimpleRemove className="cross" />
         </span>
       </div>
@@ -283,13 +287,15 @@ export default function FiltersPanel({
           size="sm"
           theme={{ button: style.button }}
           themePriority={PRIORITY.ADHOC_DEFAULT_CONTEXT}
-        >Clear filters</Button>
+        >Clear filters
+        </Button>
         <PrimaryButton
           disabled={disableClearSaveFilterButtons || !isAuth}
           onClick={onSaveFilter}
           size="sm"
           theme={{ button: style.button }}
-        >Save filter</PrimaryButton>
+        >Save filter
+        </PrimaryButton>
       </div>
     </div>
   );

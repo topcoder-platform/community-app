@@ -56,17 +56,18 @@ export default function Announcement({
       <div styleName="hidden">
         <div
           onClick={() => switchShow(true)}
+          onKeyPress={() => switchShow(true)}
           role="button"
           styleName="hide"
           tabIndex={0}
-        >+</div>
+        >+
+        </div>
         { type ? <div styleName="type">{type}</div> : null }
-        <h1
-          styleName="title"
-        >{publicTitle || title}</h1>
+        <h1 styleName="title">{publicTitle || title}</h1>
         <div
           styleName="text"
-        >{text}</div>
+        >{text}
+        </div>
       </div>
     );
   } else {
@@ -90,19 +91,24 @@ export default function Announcement({
         >
           <div
             onClick={() => switchShow(false)}
+            onKeyPress={() => switchShow(false)}
             role="button"
             styleName="hide"
             tabIndex={0}
-          >&times;</div>
+          >&times;
+          </div>
           { type ? <div styleName="type">{type}</div> : null }
           <h1
             styleName="title"
             style={{ color: fontColor }}
-          >{publicTitle || title}</h1>
+          >
+            {publicTitle || title}
+          </h1>
           <div
             styleName="text"
             style={{ color: fontColor }}
-          >{text}</div>
+          >{text}
+          </div>
           {
             readMore ? (
               <PrimaryButton
@@ -112,7 +118,8 @@ export default function Announcement({
                   button: style.readMore,
                 }}
                 to={readMore}
-              >{readMoreLabel || 'Read more'}</PrimaryButton>
+              >{readMoreLabel || 'Read more'}
+              </PrimaryButton>
             ) : null
           }
         </div>

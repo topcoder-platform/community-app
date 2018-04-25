@@ -8,10 +8,10 @@ import React from 'react';
 import PT from 'prop-types';
 import { connect } from 'react-redux';
 import _ from 'lodash';
-import MetaTags from 'utils/MetaTags';
 import LoadingIndicator from 'components/LoadingIndicator';
 import TermDetails from 'components/Terms/TermDetails';
 import termsActions from 'actions/terms';
+import { MetaTags } from 'topcoder-react-utils';
 
 import './styles.scss';
 
@@ -57,8 +57,10 @@ class TermsDetailPageContainer extends React.Component {
                 docuSignUrl={docuSignUrl}
                 getDocuSignUrl={(templateId) => {
                   const base = window ? window.location.href.match('.*://[^/]*')[0] : '';
-                  return getDocuSignUrl(authTokens,
-                    templateId, `${base}/community-app-assets/iframe-break`);
+                  return getDocuSignUrl(
+authTokens,
+                    templateId, `${base}/community-app-assets/iframe-break`,
+);
                 }}
                 loadingDocuSignUrl={loadingDocuSignUrl}
               />
@@ -74,7 +76,7 @@ TermsDetailPageContainer.defaultProps = {
   docuSignUrl: '',
   loadingDocuSignUrl: '',
   loadingTermId: '',
-  description: '',
+  // description: '',
   details: null,
   getTermDetailsFailure: false,
 };

@@ -15,7 +15,7 @@ function Footer(props) {
 }
 
 Footer.defaultProps = {
-  text: '',
+  // text: '',
   theme: {
     footer: '',
     footerText: '',

@@ -1,10 +1,9 @@
 import _ from 'lodash';
 import Carousel from 'components/XCarousel';
-import config from 'utils/config';
 import PT from 'prop-types';
 import React from 'react';
 
-import { Link } from 'topcoder-react-utils';
+import { config, Link } from 'topcoder-react-utils';
 
 import Dial from './Dial';
 
@@ -29,7 +28,8 @@ export default function Earnings({ finances, showEarnings }) {
         <Link
           styleName="link"
           to="/challenges"
-        >Start competing today</Link>&zwnj;
+        >Start competing today
+        </Link>&zwnj;
         to gain experience and win prize money!
       </div>
     );

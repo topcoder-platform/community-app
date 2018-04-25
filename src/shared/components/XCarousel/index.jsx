@@ -338,7 +338,8 @@ export default class XCarousel extends React.Component {
           }}
           styleName="rollButton"
           tabIndex={0}
-        ><DefaultPrevButton styleName="defaultRollButtonIcon" /></div>
+        ><DefaultPrevButton styleName="defaultRollButtonIcon" />
+        </div>
         <div
           onTouchEnd={this.onGrabEnd}
           onTouchMove={this.onGrabMove}
@@ -368,7 +369,8 @@ export default class XCarousel extends React.Component {
                     top,
                   }}
                   styleName="item"
-                >{item}</div>
+                >{item}
+                </div>
               );
               layoutPos += st.itemSize[index].w;
               return res;
@@ -386,7 +388,8 @@ export default class XCarousel extends React.Component {
           }}
           styleName="rollButton"
           tabIndex={0}
-        ><DefaultNextButton styleName="defaultRollButtonIcon" /></div>
+        ><DefaultNextButton styleName="defaultRollButtonIcon" />
+        </div>
       </div>
     );
   }

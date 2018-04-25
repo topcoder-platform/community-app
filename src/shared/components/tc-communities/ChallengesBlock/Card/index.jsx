@@ -58,11 +58,13 @@ export default function Card({
           setChallengeListingFilter({ subtracks: [subTrack] }))}
         to={`${baseUrl}/challenges?filter[subtracks][0]=${
           encodeURIComponent(subTrack)}`}
-      >{_.capitalize(subTrack).replace(/_/g, ' ')}</TrackTag>
+      >{_.capitalize(subTrack).replace(/_/g, ' ')}
+      </TrackTag>
       <h1 styleName="title">
         <Link
           to={`${baseUrl}/challenges/${challenge.id}`}
-        >{challenge.name}</Link>
+        >{challenge.name}
+        </Link>
       </h1>
       <div>
         {/*

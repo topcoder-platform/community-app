@@ -24,7 +24,7 @@ router.get('/', (req, res) => {
  * Endpoint for community meta data
  */
 router.get('/:communityId/meta', (req, res) => {
-  const communityId = req.params.communityId;
+  const { communityId } = req.params;
   const tokenV3 = req.headers.authorization;
   new CommunitiesService(tokenV3).getMetadata(communityId)
     .catch(err => res.status(404).send(err))

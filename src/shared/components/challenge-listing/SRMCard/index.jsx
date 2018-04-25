@@ -59,8 +59,8 @@ const HappeningNow = () => (
   <div className="SRMCard now">
     <div className="left-panel">
       <div className="SRM-track">
-        <TrackAbbreviationTooltip track={'DATA_SCIENCE'} subTrack={'SRM'}>
-          <TrackIcon track={'DATA_SCIENCE'} subTrack={'SRM'} tcoEligible={'TCO'} />
+        <TrackAbbreviationTooltip track="DATA_SCIENCE" subTrack="SRM">
+          <TrackIcon track="DATA_SCIENCE" subTrack="SRM" tcoEligible="TCO" />
         </TrackAbbreviationTooltip>
       </div>
       <div className="SRM-details">
@@ -87,8 +87,8 @@ const UpcomingSRMs = ({ srmChallenge }) => (
   <div className="SRMCard upcoming">
     <div className="left-panel upcoming">
       <div className="SRM-track">
-        <TrackAbbreviationTooltip track={'DATA_SCIENCE'} subTrack={'SRM'}>
-          <TrackIcon track={'DATA_SCIENCE'} subTrack={'SRM'} />
+        <TrackAbbreviationTooltip track="DATA_SCIENCE" subTrack="SRM">
+          <TrackIcon track="DATA_SCIENCE" subTrack="SRM" />
         </TrackAbbreviationTooltip>
       </div>
       <div className="SRM-details">

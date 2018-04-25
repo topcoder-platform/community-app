@@ -5,13 +5,13 @@
  */
 
 import _ from 'lodash';
-import config from 'utils/config';
 import moment from 'moment';
 import 'moment-duration-format';
 
 import PT from 'prop-types';
 import React from 'react';
 import { DangerButton, PrimaryButton } from 'topcoder-react-ui-kit';
+import { config } from 'topcoder-react-utils';
 
 import ArrowUp from '../../../../assets/images/icon-arrow-up.svg';
 import ArrowDown from '../../../../assets/images/icon-arrow-down.svg';
@@ -108,8 +108,7 @@ export default function ChallengeHeader(props) {
    * iterate through all their submissions and ensure that all of them
    * are Deleted
   */
-  const hasSubmissions = userDetails && (userDetails.submissions || []).reduce(
-    (acc, submission) => acc || submission.status !== 'Deleted', false);
+  const hasSubmissions = userDetails && (userDetails.submissions || []).reduce((acc, submission) => acc || submission.status !== 'Deleted', false);
 
   let nextPhase = (currentPhases && currentPhases[0]) || {};
   if (hasRegistered && nextPhase.phaseType === 'Registration') {
@@ -192,8 +191,11 @@ export default function ChallengeHeader(props) {
     case 'active':
       nextDeadlineMsg = (
         <div styleName="next-deadline">
-          Next Deadline: <span styleName="deadline-highlighted">
-            {nextDeadline || '-'}</span>
+          Next Deadline: {
+            <span styleName="deadline-highlighted">
+              {nextDeadline || '-'}
+            </span>
+          }
         </div>
       );
       break;
@@ -208,9 +210,11 @@ export default function ChallengeHeader(props) {
       nextDeadlineMsg = (
         <div>
           Status:
-          &zwnj;<span styleName="deadline-highlighted">
-            {_.upperFirst(_.lowerCase(status))}
-          </span>
+          &zwnj;{
+            <span styleName="deadline-highlighted">
+              {_.upperFirst(_.lowerCase(status))}
+            </span>
+          }
         </div>
       );
       break;
@@ -247,7 +251,8 @@ export default function ChallengeHeader(props) {
                     bonusType === 'Bonus' ?
                       <p styleName="bonus-text">
                         <span styleName={`bonus-highlight ${trackLower}-accent-color`}>
-                          BONUS: {numberOfCheckpointsPrizes} </span>CHECKPOINTS AWARDED
+                          BONUS: {numberOfCheckpointsPrizes}
+                        </span>CHECKPOINTS AWARDED
                         WORTH <span styleName={`bonus-highlight ${trackLower}-accent-color`}>${topCheckPointPrize} </span>EACH
                       </p> :
                       <p styleName="bonus-text">
@@ -279,7 +284,9 @@ export default function ChallengeHeader(props) {
                   onClick={mmRegLink ? null : unregisterFromChallenge}
                   theme={{ button: style.challengeAction }}
                   to={mmRegLink}
-                >Unregister</DangerButton>
+                >
+                  Unregister
+                </DangerButton>
               ) : (
                 <PrimaryButton
                   disabled={registering || registrationEnded}
@@ -287,13 +294,17 @@ export default function ChallengeHeader(props) {
                   onClick={mmRegLink ? null : registerForChallenge}
                   theme={{ button: style.challengeAction }}
                   to={mmRegLink}
-                >Register</PrimaryButton>
+                >
+                  Register
+                </PrimaryButton>
               )}
               <PrimaryButton
                 disabled={!hasRegistered || unregistering || submissionEnded}
                 theme={{ button: style.challengeAction }}
                 to={mmSubLink || `${challengesUrl}/${challengeId}/submit`}
-              >Submit</PrimaryButton>
+              >
+                Submit
+              </PrimaryButton>
               { track === 'DESIGN' && hasRegistered && !unregistering
               && hasSubmissions && (<PrimaryButton theme={{ button: style.challengeAction }} to={`${challengesUrl}/${challengeId}/my-submissions`}>View Submissions</PrimaryButton>
                 )
@@ -316,6 +327,7 @@ export default function ChallengeHeader(props) {
             </div>
             <a
               onClick={props.onToggleDeadlines}
+              onKeyPress={props.onToggleDeadlines}
               role="button"
               styleName="deadlines-collapser"
               tabIndex={0}

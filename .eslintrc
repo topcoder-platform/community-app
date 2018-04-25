@@ -1,3 +1,6 @@
 {
-  "extends": "./node_modules/topcoder-react-utils/config/eslint/default.json"
+  "extends": "./node_modules/topcoder-react-utils/config/eslint/default.json",
+  "rules": {
+    "jsx-a11y/anchor-is-valid": false
+  }
 }

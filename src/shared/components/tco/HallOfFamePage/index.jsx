@@ -22,7 +22,7 @@ import TripWinners from './TripWinners';
 import './styles.scss';
 
 const HallOfFamePage = ({ eventId, onSelectEvent }) => {
-  const data = getEvent(eventId).data;
+  const { data } = getEvent(eventId);
 
   return (
     <div styleName="outer-container">

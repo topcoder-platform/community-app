@@ -15,10 +15,8 @@ export default function ChunkLoader({ base, member, meta }) {
       cacheCss
       chunkName="blockchain-community/chunk"
       renderClientAsync={() =>
-        import(
-          /* webpackChunkName: "blockchain-community/chunk" */
-          './Routes',
-        ).then(({ default: Routes }) => (
+        import(/* webpackChunkName: "blockchain-community/chunk" */ './Routes')
+        .then(({ default: Routes }) => (
           <Routes base={base} member={member} meta={meta} />
         ))
       }
@@ -30,7 +28,8 @@ export default function ChunkLoader({ base, member, meta }) {
           <StaticRouter
             context={routeProps.staticContext}
             location={routeProps.location}
-          ><Routes base={base} member={member} meta={meta} /></StaticRouter>
+          ><Routes base={base} member={member} meta={meta} />
+          </StaticRouter>
         );
       }}
     />

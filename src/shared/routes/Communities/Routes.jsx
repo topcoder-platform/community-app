@@ -17,7 +17,9 @@ import Veterans from './Veterans';
 import Wipro from './Wipro';
 import Cognitive from './Cognitive';
 
-export default function Communities({ base, communityId, member, meta }) {
+export default function Communities({
+  base, communityId, member, meta,
+}) {
   switch (communityId) {
     case 'blockchain':
       return <Blockchain base={base} member={member} meta={meta} />;

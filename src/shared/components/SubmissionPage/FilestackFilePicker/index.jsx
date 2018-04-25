@@ -11,11 +11,11 @@
 /* eslint-env browser */
 
 import _ from 'lodash';
-import config from 'utils/config';
 import React from 'react';
 import PT from 'prop-types';
 import { client as filestack } from 'filestack-react';
 import { PrimaryButton } from 'topcoder-react-ui-kit';
+import { config } from 'topcoder-react-utils';
 import { fireErrorMessage } from 'utils/errors';
 
 import './styles.scss';
@@ -123,6 +123,28 @@ class FilestackFilePicker extends React.Component {
           <PrimaryButton onClick={this.onClickPick}>Pick a File</PrimaryButton>
           <div
             onClick={() => this.filestack.pick({
+              accept: fileExtensions,
+              fromSources: [
+                'local_file_system',
+                'googledrive',
+                'box',
+                'dropbox',
+                'onedrive',
+              ],
+              maxSize: 500 * 1024 * 1024,
+              onFileUploadFailed: () => setDragged(false),
+              onFileUploadFinished: (file) => {
+                setDragged(false);
+                this.onSuccess(file);
+              },
+              startUploadingWhenMaxFilesReached: true,
+              storeTo: {
+                container: config.FILESTACK.SUBMISSION_CONTAINER,
+                path: this.getPath(),
+                region: config.FILESTACK.REGION,
+              },
+            })}
+            onKeyPress={() => this.filestack.pick({
               accept: fileExtensions,
               fromSources: [
                 'local_file_system',

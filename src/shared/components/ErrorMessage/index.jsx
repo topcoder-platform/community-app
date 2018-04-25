@@ -39,16 +39,20 @@ class ErrorMessage extends React.Component {
           <p styleName="details">
             We are sorry that you have encountered this problem. Please, contact
             our support
-            &zwnj;<a
-              href="mailto:support@topcoder.com"
-            >support@topcoder.com</a> to help us resolve it as soon as possible.
+            &zwnj;{
+              <a
+                href="mailto:support@topcoder.com"
+              >support@topcoder.com
+              </a>
+            } to help us resolve it as soon as possible.
           </p>
           <DangerButton
             onClick={(e) => {
               e.preventDefault();
               onOk();
             }}
-          >OK</DangerButton>
+          >OK
+          </DangerButton>
         </div>
       </div>
     );

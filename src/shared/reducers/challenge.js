@@ -8,7 +8,7 @@ import smpActions from 'actions/smp';
 import logger from 'utils/logger';
 
 import { handleActions } from 'redux-actions';
-import { combine, toFSA } from 'utils/redux';
+import { redux } from 'topcoder-react-utils';
 import { getAuthTokens } from 'utils/tc';
 import { updateQuery } from 'utils/url';
 
@@ -48,8 +48,10 @@ function onGetDetailsInit(state, action) {
 function onGetDetailsDone(state, action) {
   if (action.error) {
     logger.error('Failed to get challenge details!', action.payload);
-    fireErrorMessage('ERROR: Failed to load the challenge',
-      'Please, try again a bit later');
+    fireErrorMessage(
+      'ERROR: Failed to load the challenge',
+      'Please, try again a bit later',
+    );
     return {
       ...state,
       fetchChallengeFailure: action.error,
@@ -364,47 +366,57 @@ export function factory(req) {
   if (req && req.url.match(/\/challenges\/\d{8}([?/].*)?$/)) {
     const tokens = getAuthTokens(req);
     const challengeId = req.url.match(/\d+/)[0];
-    return toFSA(actions.challenge.getDetailsDone(challengeId, tokens.tokenV3, tokens.tokenV2))
-      .then((details) => {
-        const track = _.get(details, 'payload.track', '').toLowerCase();
-        const checkpointsPromise = track === 'design' ? (
-          toFSA(actions.challenge.fetchCheckpointsDone(
-            tokens.tokenV2, challengeId))
-        ) : null;
-        const resultsPromise = _.get(details, 'payload.status', '') === 'COMPLETED' ? (
-          toFSA(actions.challenge.loadResultsDone(tokens, challengeId, track))
-        ) : null;
-        return Promise.all([details, checkpointsPromise, resultsPromise]);
-      }).then(([details, checkpoints, results]) => {
-        let state = {
-          loadingCheckpoints: true,
-          loadingDetailsForChallengeId: challengeId,
-          loadingResultsForChallengeId: challengeId,
-        };
-        if (req.query.tab) {
-          state = onSelectTab(state, { payload: req.query.tab });
-        }
-        state = onGetDetailsDone(state, details);
-        if (checkpoints) state = onFetchCheckpointsDone(state, checkpoints);
-        if (results) state = onLoadResultsDone(state, results);
-        return state;
-      }).then(res => combine(create(res), { mySubmissionsManagement }));
+    return redux.resolveAction(actions.challenge.getDetailsDone(
+      challengeId,
+      tokens.tokenV3,
+      tokens.tokenV2,
+    )).then((details) => {
+      const track = _.get(details, 'payload.track', '').toLowerCase();
+      const checkpointsPromise = track === 'design' ? (
+        redux.resolveAction(actions.challenge.fetchCheckpointsDone(tokens.tokenV2, challengeId))
+      ) : null;
+      const resultsPromise = _.get(details, 'payload.status', '') === 'COMPLETED' ? (
+        redux.resolveAction(actions.challenge.loadResultsDone(tokens, challengeId, track))
+      ) : null;
+      return Promise.all([details, checkpointsPromise, resultsPromise]);
+    }).then(([details, checkpoints, results]) => {
+      let state = {
+        loadingCheckpoints: true,
+        loadingDetailsForChallengeId: challengeId,
+        loadingResultsForChallengeId: challengeId,
+      };
+      if (req.query.tab) {
+        state = onSelectTab(state, { payload: req.query.tab });
+      }
+      state = onGetDetailsDone(state, details);
+      if (checkpoints) state = onFetchCheckpointsDone(state, checkpoints);
+      if (results) state = onLoadResultsDone(state, results);
+      return state;
+    }).then(res => redux.combineReducers(create(res), { mySubmissionsManagement }));
   }
 
   if (req && req.url.match(/^\/challenges\/\d{8}\/my-submissions/)) {
     const tokens = getAuthTokens(req);
     const challengeId = req.url.match(/\d+/)[0];
     return Promise.all([
-      toFSA(actions.challenge.getDetailsDone(challengeId, tokens.tokenV3, tokens.tokenV2)),
-      toFSA(actions.challenge.getSubmissionsDone(challengeId, tokens.tokenV3, tokens.tokenV2)),
+      redux.resolveAction(actions.challenge.getDetailsDone(
+        challengeId,
+        tokens.tokenV3,
+        tokens.tokenV2,
+      )),
+      redux.resolveAction(actions.challenge.getSubmissionsDone(
+        challengeId,
+        tokens.tokenV3,
+        tokens.tokenV2,
+      )),
     ]).then(([challenge, submissions]) => {
       const state = onGetDetailsDone({}, challenge);
       return onGetSubmissionsDone(state, submissions);
-    }).then(state => combine(create(state), { mySubmissionsManagement }));
+    }).then(state => redux.combineReducers(create(state), { mySubmissionsManagement }));
   }
   /* Otherwise this part of Redux state is initialized empty. */
-  return Promise.resolve(combine(create(), { mySubmissionsManagement }));
+  return Promise.resolve(redux.combineReducers(create(), { mySubmissionsManagement }));
 }
 
 /* Default reducer with empty initial state. */
-export default combine(create(), { mySubmissionsManagement });
+export default redux.combineReducers(create(), { mySubmissionsManagement });

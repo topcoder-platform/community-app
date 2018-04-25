@@ -9,12 +9,12 @@
 import logo from './logo.png';
 import banner from './banner.jpg';
 
-import winnerAlgorithm from './winnerAlgorithm.png';
+import winnerAlgorithm from './winnerAlgorithm.jpg';
 import winnerMarathon from './winnerMarathon.png';
-import winnerDevelopment from './winnerDevelopment.png';
-import winnerFirst2finish from './winnerFirst2finish.png';
-import winnerUiDesign from './winnerUIDesign.png';
-import winnerUiPrototype from './winnerUIPrototype.png';
+import winnerDevelopment from './winnerDevelopment.jpg';
+import winnerModDash from './winnerModDash.jpg';
+import winnerStudio from './winnerStudio.jpg';
+import winnerDesign from './winnerDesign.jpeg';
 
 /**
  * Data for the event goes here, and the format is very similar JSON.
@@ -24,109 +24,152 @@ import winnerUiPrototype from './winnerUIPrototype.png';
 export default {
   logo,
   banner,
-  learnMoreURL: 'http://tco.topcoder.com',
-  browseGalleryURL: '',
-  location: 'Location, Country',
-  date: 'Date',
+  learnMoreURL: 'http://tccommunity.wpengine.com/tco13/overview/',
+  browseGalleryURL: 'http://tccommunity.wpengine.com/tco13/overview/photos/',
+  location: 'Washington DC, USA',
+  date: 'Nov 10 - Nov 13, 2013',
   totalPrizes: '$60,000',
   countryCount: 29,
 
   // ALGORITHM Data Starts Here
   algorithm: {
-    winner: 'handle',
+    winner: 'Petr',
     portrait: winnerAlgorithm,
     finalists: [
-      'handle1',
-      'handle2',
-      'handle3',
-      'handle4',
+      '[[iwi]]',
+      'andrewzta',
+      'aropan',
+      'cgy4ever',
+      'darnley',
+      'dzhulgakov',
+      'Egor',
+      'ir5',
+      'Jedi_Knight',
+      'ke1vin',
+      'marcina007',
+      'Mimino',
+      'msg555',
+      'nika',
+      'peter50216',
+      'Petr',
+      'rejudge',
+      'sdya',
+      'theycallhimtom',
+      'tomek',
+      'tourist',
+      'UdH-WiNGeR',
+      'v3ctor',
+      'wata',
     ],
   },
 
   // MARATHON Data Starts Here
   marathon: {
-    winner: 'handle',
+    winner: 'Psyho',
     portrait: winnerMarathon,
     finalists: [
-      'handle1',
-      'handle2',
-      'handle3',
-      'handle4',
+      'ACRush',
+      'ainu7',
+      'blackmath',
+      'chokudai',
+      'colun',
+      'doudouille',
+      'eldidou',
+      'Komaki',
+      'Milanin',
+      'nhzp339',
+      'wleite',
     ],
   },
 
   // DEVELOPMENT Data Starts Here
   development: {
-    winner: 'handle',
+    winner: 'morehappiness',
     portrait: winnerDevelopment,
     finalists: [
-      'handle1',
-      'handle2',
-      'handle3',
-      'handle4',
+      'j3_guile',
+      'Yeung',
+      'GreatKevin',
+      'subchap',
+      'vvvpig',
+      'duxiaoyang',
+      'flexme',
+      'billthu',
+      'velorien',
+      'sparemax',
+      'flytoj2ee',
     ],
   },
 
   // FIRST2FINISH Data Starts Here
-  first2finish: {
-    winner: 'handle',
-    portrait: winnerFirst2finish,
+  modDash: {
+    winner: 'supercharger',
+    portrait: winnerModDash,
     finalists: [
-      'handle1',
-      'handle2',
-      'handle3',
-      'handle4',
+      'akinwale',
+      'gogocrow',
+      'kalc',
+      'LieutenantRoger',
+      'MonicaMuranyi',
+      'moulyg',
+      'notpad',
+      'subchap',
+      'TrePe',
+      'wz12',
+      'Yeung',
     ],
   },
 
-  // UI DESIGN Data Starts Here
-  uiDesign: {
-    winner: 'handle',
-    portrait: winnerUiDesign,
+  studio: {
+    winner: 'abedavera',
+    portrait: winnerStudio,
     finalists: [
-      'handle1',
-      'handle2',
-      'handle3',
-      'handle4',
+      'fairy_ley',
+      'FxStudio',
+      'iamtong',
+      'idblack',
+      'iMadReactions',
+      'kelvinwebdesign',
+      'oninkxronda',
+      'thinkcreeper',
+      'yoki',
     ],
   },
 
-  // UI PROTOTYPE Data Starts Here
-  uiPrototype: {
-    winner: 'handle',
-    portrait: winnerUiPrototype,
+  design: {
+    winner: 'albertwang ',
+    portrait: winnerDesign,
     finalists: [
-      'handle1',
-      'handle2',
-      'handle3',
-      'handle4',
+      'AleaActaEst',
+      'argolite',
+      'BLE',
+      'Indemar',
+      'kurtrips',
+      'MiG-29',
+      'Standlove',
+      'vangavroche',
     ],
   },
 
   // Trip Winners Data Starts Here
   tripWinners: [
     {
-      role: 'COPILOT',
+      role: 'CLOUDSPOKE',
       winners: [
-        'handle1',
-        'handle2',
-        'handle3',
-      ],
-    },
-    {
-      role: 'WIREFRAME',
-      winners: [
-        'handle1',
-        'handle2',
-        'handle3',
-      ],
-    },
-    {
-      role: 'OTHERS',
-      winners: [
-        'handle1',
-        'handle2',
-        'handle3',
+        'PaulKolbovich',
+        'callmekatootie',
+        'jan3594',
+        'shankarkamble',
+        'soe',
+        'wcheung',
+        'aproxacs',
+        'Manish_Kumar',
+        'KnowledgeLover',
+        'logontokartik',
+        'eucuepo',
+        'chok68',
+        'Debadyuti',
+        'enreeco/ForceLogic',
       ],
     },
   ],

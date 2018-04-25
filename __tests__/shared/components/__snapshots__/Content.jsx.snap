@@ -265,7 +265,7 @@ exports[`Matches shallow shapshot 1`] = `
   <ul>
     <li>
       <a
-        href="/tco-hall-of-fame"
+        href="/hall-of-fame/tco"
       >
         TCO Hall of Fame
       </a>
@@ -396,6 +396,14 @@ exports[`Matches shallow shapshot 1`] = `
     The right place to put any experimental and proof-of-concept stuff.
   </p>
   <ul>
+    <li>
+      <Link
+        replace={false}
+        to="/sandbox/cms/dashboard/announcements"
+      >
+        A simple list of all published dashboard announcements.
+      </Link>
+    </li>
     <li>
       <Link
         replace={false}

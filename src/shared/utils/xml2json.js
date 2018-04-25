@@ -4,10 +4,9 @@
 
 /* global fetch */
 import 'isomorphic-fetch';
-import config from 'utils/config';
-import { isServerSide } from './isomorphy';
+import { config, isomorphy } from 'topcoder-react-utils';
 
-const xml2json = isServerSide() ? require('xml2json') : null;
+const xml2json = isomorphy.isServerSide() ? require('xml2json') : null;
 
 /**
  * Makes XML -> JSON conversion.

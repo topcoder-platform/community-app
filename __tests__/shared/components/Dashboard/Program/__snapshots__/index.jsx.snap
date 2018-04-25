@@ -97,6 +97,7 @@ exports[`Matches shallow shapshot 2`] = `
             <a
               className="tc-btn tc-btn-s tc-btn-ghost src-shared-components-Dashboard-Program-___styles__tc-btn___CjdgX"
               onClick={[Function]}
+              onKeyPress={[Function]}
               title="Participate"
             >
               Participate

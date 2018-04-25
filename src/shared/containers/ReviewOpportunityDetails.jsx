@@ -155,7 +155,7 @@ ReviewOpportunityDetailsContainer.propTypes = {
 const mapStateToProps = (state, ownProps) => {
   const api = state.reviewOpportunity;
   const page = state.page.reviewOpportunityDetails;
-  const terms = state.terms;
+  const { terms } = state;
   return {
     authError: api.authError,
     applyModalOpened: page.applyModalOpened,
@@ -182,7 +182,7 @@ const mapStateToProps = (state, ownProps) => {
 function mapDispatchToProps(dispatch) {
   const api = apiActions.reviewOpportunity;
   const page = pageActions.page.reviewOpportunityDetails;
-  const terms = termsActions.terms;
+  const { terms } = termsActions;
   return {
     cancelApplications: (challengeId, roleIds, tokenV3) => {
       dispatch(api.cancelApplicationsInit());

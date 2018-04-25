@@ -4,13 +4,11 @@
  * in the challenge yet). Shows a tooltip when hovered.
  */
 
-
-import config from 'utils/config';
 import PT from 'prop-types';
 import React from 'react';
 import Tooltip from 'components/Tooltip';
 import { DETAIL_TABS } from 'actions/challenge';
-import { Link } from 'topcoder-react-utils';
+import { config, Link } from 'topcoder-react-utils';
 
 /* TODO: The icon should be converted back to SVG and imported using the
  * the standard approach for our code! */
@@ -55,9 +53,8 @@ export default function NumRegistrants({
           disabled={!numRegistrants}
           forceA={subTrack === 'MARATHON_MATCH' && isLegacy}
           onClick={() => (
-            selectChallengeDetailsTab(
-              numRegistrants ? DETAIL_TABS.REGISTRANTS : DETAIL_TABS.DETAILS,
-            )
+            selectChallengeDetailsTab(numRegistrants ?
+              DETAIL_TABS.REGISTRANTS : DETAIL_TABS.DETAILS)
           )}
           styleName="link"
           to={link}

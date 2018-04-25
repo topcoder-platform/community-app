@@ -2,14 +2,14 @@
 set -eo pipefail
 
 # Builds Docker image of Community App application.
-# This script expects a single argument: NODE_ENV, which must be either
+# This script expects a single argument: NODE_CONFIG_ENV, which must be either
 # "development" or "production".
 
-NODE_ENV=$1
+NODE_CONFIG_ENV=$1
 
 # Selects proper AWS_ACCOUNT_ID / AWS_REGION for dev / prod builds. Fails
-# execution, if NODE_ENV argument is missing or incorrect.
-if [ $NODE_ENV == production ]
+# execution, if NODE_CONFIG_ENV argument is missing or incorrect.
+if [ $NODE_CONFIG_ENV == production ]
 then
   AWS_ACCOUNT_ID=$PROD_AWS_ACCOUNT_ID
   AWS_REGION=$PROD_AWS_REGION
@@ -17,7 +17,7 @@ then
   FILESTACK_API_KEY=$PROD_FILESTACK_API_KEY
   FILESTACK_SUBMISSION_CONTAINER=$PROD_FILESTACK_SUBMISSION_CONTAINER
   SEGMENT_IO_API_KEY=$PROD_SEGMENT_IO_API_KEY
-elif [ $NODE_ENV == development ]
+elif [ $NODE_CONFIG_ENV == development ]
 then
   AWS_ACCOUNT_ID=$DEV_AWS_ACCOUNT_ID
   AWS_REGION=$DEV_AWS_REGION
@@ -35,7 +35,7 @@ docker build -t $TAG \
   --build-arg CONTENTFUL_CDN_API_KEY=$CONTENTFUL_CDN_API_KEY \
   --build-arg CONTENTFUL_PREVIEW_API_KEY=$CONTENTFUL_PREVIEW_API_KEY \
   --build-arg CONTENTFUL_SPACE_ID=$CONTENTFUL_SPACE_ID \
-  --build-arg NODE_ENV=$NODE_ENV \
+  --build-arg NODE_CONFIG_ENV=$NODE_CONFIG_ENV \
   --build-arg SERVER_API_KEY=$SERVER_API_KEY \
   --build-arg FILESTACK_API_KEY=$FILESTACK_API_KEY \
   --build-arg FILESTACK_SUBMISSION_CONTAINER=$FILESTACK_SUBMISSION_CONTAINER \

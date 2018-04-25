@@ -66,7 +66,6 @@ export default function Bucket({
   }
 
   if (!filteredChallenges.length && !loadMore) return null;
-  console.log(filteredChallenges);
 
   const cards = filteredChallenges.map(item => (
     <ChallengeCard
@@ -127,7 +126,8 @@ export default function Bucket({
             role="button"
             styleName="view-more"
             tabIndex={0}
-          >View more challenges</a>
+          >View more challenges
+          </a>
         ) : null
       }
     </div>

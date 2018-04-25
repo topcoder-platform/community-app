@@ -33,8 +33,7 @@ export default function BucketSelector({
   let filteredChallenges = challenges.filter(getFilterFunction(filterState));
 
   if (communityFilter) {
-    filteredChallenges = filteredChallenges.filter(
-      getFilterFunction(communityFilter));
+    filteredChallenges = filteredChallenges.filter(getFilterFunction(communityFilter));
   }
 
   const getBucket = bucket => (
@@ -92,6 +91,7 @@ export default function BucketSelector({
               <h1>My filters</h1>
               <a
                 onClick={() => setEditSavedFiltersMode(true)}
+                onKeyPress={() => setEditSavedFiltersMode(true)}
                 role="button"
                 styleName="edit-link"
                 tabIndex={0}

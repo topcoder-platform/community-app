@@ -33,7 +33,25 @@ const Finalists = ({ data }) => {
       />
       <Track
         count={maxFinalists}
+        data={data.architecture}
+        theme={developmentAndFirst2finishTheme}
+        track="ARCHITECTURE"
+      />
+      <Track
+        count={maxFinalists}
+        data={data.assembly}
+        theme={developmentAndFirst2finishTheme}
+        track="ASSEMBLY"
+      />
+      <Track
+        count={maxFinalists}
         data={data.development}
+        theme={developmentAndFirst2finishTheme}
+        track="DEVELOPMENT"
+      />
+      <Track
+        count={maxFinalists}
+        data={data.componentDevelopment}
         theme={developmentAndFirst2finishTheme}
         track="DEVELOPMENT"
       />
@@ -45,15 +63,45 @@ const Finalists = ({ data }) => {
       />
       <Track
         count={maxFinalists}
+        data={data.modDash}
+        theme={developmentAndFirst2finishTheme}
+        track="MOD DASH"
+      />
+      <Track
+        count={maxFinalists}
+        data={data.studio}
+        theme={uiDesignAndPrototypeTheme}
+        track="STUDIO"
+      />
+      <Track
+        count={maxFinalists}
         data={data.uiDesign}
         theme={uiDesignAndPrototypeTheme}
         track="UI DESIGN"
       />
       <Track
         count={maxFinalists}
+        data={data.design}
+        theme={uiDesignAndPrototypeTheme}
+        track="DESIGN"
+      />
+      <Track
+        count={maxFinalists}
+        data={data.componentDesign}
+        theme={uiDesignAndPrototypeTheme}
+        track="DESIGN"
+      />
+      <Track
+        count={maxFinalists}
         data={data.uiPrototype}
         theme={uiDesignAndPrototypeTheme}
         track="UI PROTOTYPE"
+      />
+      <Track
+        count={maxFinalists}
+        data={data.specification}
+        theme={uiDesignAndPrototypeTheme}
+        track="SPECIFICATION"
       />
     </div>
   );

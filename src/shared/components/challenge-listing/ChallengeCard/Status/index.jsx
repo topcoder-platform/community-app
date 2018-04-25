@@ -1,10 +1,9 @@
 import _ from 'lodash';
-import config from 'utils/config';
 import React from 'react';
 import PT from 'prop-types';
 import moment from 'moment';
 import LeaderboardAvatar from 'components/challenge-listing/LeaderboardAvatar';
-import { Link } from 'topcoder-react-utils';
+import { config, Link } from 'topcoder-react-utils';
 import { DETAIL_TABS } from 'actions/challenge';
 import 'moment-duration-format';
 
@@ -122,9 +121,7 @@ export default function ChallengeStatus(props) {
             key={winner.handle}
             member={winner}
             onClick={() => (
-              setImmediate(() => selectChallengeDetailsTab(
-                DETAIL_TABS.WINNERS,
-              ))
+              setImmediate(() => selectChallengeDetailsTab(DETAIL_TABS.WINNERS))
             )}
             openNewTab={openChallengesInNewTabs}
             url={detailLink}
@@ -152,7 +149,8 @@ export default function ChallengeStatus(props) {
           setImmediate(() => selectChallengeDetailsTab(DETAIL_TABS.SUBMISSIONS))
         )}
         to={resultsLink}
-      >Results</Link>
+      >Results
+      </Link>
     );
   }
 
@@ -162,9 +160,7 @@ export default function ChallengeStatus(props) {
       detailLink,
       openChallengesInNewTabs,
     } = props;
-    const timeDiff = getTimeLeft(
-      challenge.allPhases.find(p => p.phaseType === 'Registration'),
-    );
+    const timeDiff = getTimeLeft(challenge.allPhases.find(p => p.phaseType === 'Registration'));
     let timeNote = timeDiff.text;
     /* TODO: This is goofy, makes the trick, but should be improved. The idea
      * here is that the standard "getTimeLeft" method, for positive times,

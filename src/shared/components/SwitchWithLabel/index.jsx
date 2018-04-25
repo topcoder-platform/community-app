@@ -16,6 +16,7 @@ function SwitchWithLabel(props) {
     <div
       className={props.theme.wrapper}
       onClick={() => props.onSwitch(!props.enabled)}
+      onKeyPress={() => props.onSwitch(!props.enabled)}
     >
       {props.labelBefore}
       <Switch

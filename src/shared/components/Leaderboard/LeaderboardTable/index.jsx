@@ -18,10 +18,10 @@
  *      - project_result.final_score: Number, required. The user's current score
  */
 
-import config from 'utils/config';
 import React from 'react';
 import PT from 'prop-types';
 import { Avatar } from 'topcoder-react-ui-kit';
+import { config } from 'topcoder-react-utils';
 
 import avatarStyles from '../avatarStyles.scss';
 import styles from './styles.scss'; // eslint-disable-line

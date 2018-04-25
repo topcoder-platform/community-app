@@ -4,8 +4,7 @@
 
 import _ from 'lodash';
 import actions from 'actions/reviewOpportunity';
-import { handleActions } from 'redux-actions';
-import { toFSA } from 'utils/redux';
+import { redux } from 'topcoder-react-utils';
 import { getAuthTokens } from 'utils/tc';
 
 /**
@@ -24,7 +23,8 @@ function buildRequiredTermsList(details) {
       // terms entry.  Include the plain Reviewer terms when present as a back-up.
       .filter(term => term.role === 'Reviewer' || _.includes(roles, term.role))
       .map(term => _.pick(term, ['termsOfUseId', 'agreed', 'title'])),
-    term => term.termsOfUseId);
+    term => term.termsOfUseId,
+  );
 
   return requiredTerms || [];
 }
@@ -59,7 +59,7 @@ function onGetDetailsDone(state, { payload, error }) {
  */
 function create(initialState) {
   const a = actions.reviewOpportunity;
-  return handleActions({
+  return redux.handleActions({
     [a.cancelApplicationsInit]: state => state,
     [a.cancelApplicationsDone]: state => state,
     [a.getDetailsInit]: state => ({ ...state, isLoadingDetails: true }),
@@ -86,7 +86,7 @@ export function factory(req) {
     const tokens = getAuthTokens(req);
     const challengeId = req.url.match(/\d+/)[0];
     const a = actions.reviewOpportunity;
-    return toFSA(a.getDetailsDone(challengeId, tokens.tokenV3))
+    return redux.resolveAction(a.getDetailsDone(challengeId, tokens.tokenV3))
       .then(({ error, payload }) => create({
         details: error ? null : payload,
         requiredTerms: error ? [] : buildRequiredTermsList(payload),

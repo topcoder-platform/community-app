@@ -53,7 +53,7 @@ export class SidebarContainer extends React.Component {
       buckets[extraBucket.name] = extraBucket;
     }
 
-    const tokenV2 = this.props.tokenV2;
+    const { tokenV2 } = this.props;
     const { communityFilters } = this.props;
     const updatedCommunityFilters = [
       {
@@ -79,7 +79,7 @@ export class SidebarContainer extends React.Component {
         communityFilter={communityFilter}
         deleteSavedFilter={id => this.props.deleteSavedFilter(id, tokenV2)}
         selectSavedFilter={(index) => {
-          const filter = this.props.savedFilters[index].filter;
+          const { filter } = this.props.savedFilters[index];
           this.props.selectSavedFilter(index);
           this.props.setFilter(_.omit(filter, 'communityId'));
           this.props.setSearchText(filter.text || '');
@@ -138,7 +138,7 @@ function mapDispatchToProps(dispatch) {
 }
 
 function mapStateToProps(state, ownProps) {
-  const activeBucket = state.challengeListing.sidebar.activeBucket;
+  const { activeBucket } = state.challengeListing.sidebar;
   const pending = _.keys(state.challengeListing.pendingRequests);
   return {
     ...state.challengeListing.sidebar,

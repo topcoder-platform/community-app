@@ -5,8 +5,7 @@
 import fetch from 'isomorphic-fetch';
 import { toJson } from 'utils/xml2json';
 import { createActions } from 'redux-actions';
-
-const config = require('utils/config');
+import { config } from 'topcoder-react-utils';
 
 /**
  * Payload creator for the action that drops data loaded from the specified

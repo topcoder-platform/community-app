@@ -13,6 +13,7 @@ const standardDevelopmentConfig = configFactory({
     'loading-indicator-animation': './src/client/loading-indicator-animation',
     main: './src/client',
   },
+  keepBuildInfo: Boolean(global.KEEP_BUILD_INFO),
   publicPath: '/community-app-assets',
 });
 
@@ -24,11 +25,4 @@ jsxRule.exclude = [
   /src[\\/]assets[\\/]images[\\/]dashboard/,
 ];
 
-module.exports = webpackMerge.smart(standardDevelopmentConfig, defaultConfig, {
-  module: {
-    noParse: [
-      /* To avoid bundling of redux-devtools into production bundle. */
-      /[\\/]src[\\/]shared[\\/]containers[\\/]DevTools/,
-    ],
-  },
-});
+module.exports = webpackMerge.smart(standardDevelopmentConfig, defaultConfig);

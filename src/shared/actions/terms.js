@@ -3,9 +3,9 @@
  */
 
 import _ from 'lodash';
-import config from 'utils/config';
 import { createActions } from 'redux-actions';
 import { getService } from 'services/terms';
+import { config } from 'topcoder-react-utils';
 
 /**
  * Payload creator for TERMS/GET_TERMS_DONE action,

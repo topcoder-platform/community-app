@@ -15,10 +15,8 @@ export default function ChunkLoader({ base, meta }) {
       cacheCss
       chunkName="srmx-community/chunk"
       renderClientAsync={() =>
-        import(
-          /* webpackChunkName: "srmx-community/chunk" */
-          './Routes',
-        ).then(({ default: Routes }) => <Routes base={base} meta={meta} />)
+        import(/* webpackChunkName: "srmx-community/chunk" */ './Routes')
+        .then(({ default: Routes }) => <Routes base={base} meta={meta} />)
       }
       renderPlaceholder={() => <LoadingIndicator />}
       renderServer={(routeProps) => {
@@ -28,7 +26,8 @@ export default function ChunkLoader({ base, meta }) {
           <StaticRouter
             context={routeProps.staticContext}
             location={routeProps.location}
-          ><Routes base={base} meta={meta} /></StaticRouter>
+          ><Routes base={base} meta={meta} />
+          </StaticRouter>
         );
       }}
     />
