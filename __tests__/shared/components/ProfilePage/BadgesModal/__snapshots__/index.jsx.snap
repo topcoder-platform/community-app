@@ -25,7 +25,7 @@ exports[`renders achievements correctly 1`] = `
         <span
           className="src-shared-components-ProfilePage-BadgesModal-___styles__divider___3BuuF"
         >
-           // 
+           &sol;&sol; 
         </span>
         <span
           className="src-shared-components-ProfilePage-BadgesModal-___styles__title___10epD"

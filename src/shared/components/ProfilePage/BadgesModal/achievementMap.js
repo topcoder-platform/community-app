@@ -577,7 +577,9 @@ export const getGroupAchievements = achievements => groupAchievements.map(group 
       const date = found.map(a => a.date)
         .reduce((earliest, current) => (moment(current).isBefore(earliest) ? current : earliest));
       const specificClass = found.isStudio ? `Studio-${specific.specificClass}` : specific.specificClass;
-      return { ...specific, active: true, date, specificClass };
+      return {
+        ...specific, active: true, date, specificClass,
+      };
     }
     return specific;
   }),
@@ -594,7 +596,9 @@ export const getSingleAchievements = achievements => singleAchievements.map((sin
   const found = achievements.find(a => a.description === single.name);
   if (found) {
     const groupClass = found.isStudio ? `Studio-${single.groupClass}` : single.groupClass;
-    return { ...single, active: true, date: found.date, groupClass };
+    return {
+      ...single, active: true, date: found.date, groupClass,
+    };
   }
   return single;
 }).filter(single => single.active);

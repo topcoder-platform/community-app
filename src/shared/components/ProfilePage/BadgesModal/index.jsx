@@ -25,7 +25,9 @@ import modal from './modal.scss';
 import styles from './styles.scss';
 /* eslint-enable no-unused-vars */
 
-const BadgesModal = ({ achievements, handle, isMobile, onClose, photoURL }) => {
+const BadgesModal = ({
+  achievements, handle, isMobile, onClose, photoURL,
+}) => {
   const normalized = normalizeAchievements(achievements);
   const trigger = isMobile ? ['click'] : ['hover'];
 
@@ -35,7 +37,7 @@ const BadgesModal = ({ achievements, handle, isMobile, onClose, photoURL }) => {
         <div>
           <div>
             { photoURL && <img src={photoURL} styleName="styles.profile-circle" alt="Member Portrait" /> }
-            <span>{handle}</span><span styleName="styles.divider">{' // '}</span><span styleName="styles.title">BADGES</span>
+            <span>{handle}</span><span styleName="styles.divider"> &sol;&sol; </span><span styleName="styles.title">BADGES</span>
           </div>
         </div>
       </header>

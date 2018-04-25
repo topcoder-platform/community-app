@@ -5,15 +5,13 @@ import React from 'react';
 import PT from 'prop-types';
 import { truncate } from 'lodash';
 
-import { isClientSide } from 'utils/isomorphy';
-
 import FallbackIcon from 'assets/images/profile/skills/id-develop.svg';
+import { isomorphy } from 'topcoder-react-utils';
 
 import './styles.scss';
 
 let assets;
-
-if (isClientSide()) {
+if (isomorphy.isClientSide()) {
   assets = require.context('assets/images/profile/skills', false, /svg/);
 }
 
