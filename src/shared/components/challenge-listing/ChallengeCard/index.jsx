@@ -168,7 +168,6 @@ function ChallengeCard({
           {
             challenge.pointPrizes && challenge.pointPrizes.length > 0 &&
               <Prize
-                bonuses={bonuses}
                 label="Points"
                 prizes={challenge.pointPrizes}
                 prizeUnitSymbol=""
