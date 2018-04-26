@@ -39,12 +39,13 @@ export default function Prize({
 }
 
 Prize.defaultProps = {
+  bonuses: [],
   prizes: [],
   withoutTooltip: false,
 };
 
 Prize.propTypes = {
-  bonuses: PT.arrayOf(PT.object).isRequired,
+  bonuses: PT.arrayOf(PT.object),
   label: PT.string.isRequired,
   prizes: PT.arrayOf(PT.number),
   prizeUnitSymbol: PT.string.isRequired,
