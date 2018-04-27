@@ -10,6 +10,7 @@ import './style.scss';
 
 export default function Winners({
   winners,
+  pointPrizes,
   prizes,
   submissions,
   viewable,
@@ -23,6 +24,7 @@ export default function Winners({
             isDesign={isDesign}
             key={`${w.handle}-${w.placement}`}
             last={index === winners.length - 1}
+            pointPrizes={pointPrizes}
             prizes={prizes}
             submissions={submissions}
             viewable={viewable}
@@ -36,6 +38,7 @@ export default function Winners({
 
 Winners.defaultProps = {
   winners: [],
+  pointPrizes: [],
   prizes: [],
   submissions: [],
   viewable: false,
@@ -44,6 +47,7 @@ Winners.defaultProps = {
 
 Winners.propTypes = {
   winners: PT.arrayOf(PT.shape()),
+  pointPrizes: PT.arrayOf(PT.number),
   prizes: PT.arrayOf(PT.number),
   submissions: PT.arrayOf(PT.shape()),
   viewable: PT.bool,

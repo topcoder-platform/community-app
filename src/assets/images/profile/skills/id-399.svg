@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="64px" height="64px" viewBox="0 0 64 64" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <defs>
+        <linearGradient x1="33.9192708%" y1="0%" x2="68.9583333%" y2="100%" id="linearGradient-1">
+            <stop stop-color="#4BA3FA" offset="0%"></stop>
+            <stop stop-color="#C4E0F8" offset="100%"></stop>
+        </linearGradient>
+        <linearGradient x1="33.9192708%" y1="0%" x2="68.9583333%" y2="100%" id="linearGradient-2">
+            <stop stop-color="#A3D4FF" offset="0%"></stop>
+            <stop stop-color="#0F88FF" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="Languages" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="icons/skills/id-399">
+            <g id="Rectangle-22-+-Rectangle-25" transform="translate(8.000000, 4.000000)">
+                <path d="M0,4.00490831 C0,1.79305852 1.79405245,0 4.00989318,0 L43.9901068,0 C46.2047097,0 48,1.78913646 48,4.00172845 L48,46 L38,56 L3.99484381,56 C1.7885525,56 0,54.200205 0,51.9950917 L0,4.00490831 Z" id="Rectangle-22" fill="#F0F0F0"></path>
+                <path d="M38,50.009763 C38,47.795232 39.7877996,46 42.009763,46 L48,46 L38,56 L38,50.009763 Z" id="Rectangle-25" fill="#D1D3D4"></path>
+            </g>
+            <text id="XAML" font-family="Helvetica Neue" font-size="12" font-weight="420" fill="#394146">
+                <tspan x="15.332" y="47">XAML</tspan>
+            </text>
+            <g id="Stroke-1693-+-Stroke-1694-+-Polygon-3-+-Polygon-3-+-Polygon-3" transform="translate(17.000000, 17.000000)">
+                <path d="M4.28571429,0.571428571 L0,7.57142857 L4.28571429,14.5714286" id="Stroke-1693" stroke="#A3A3AE" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></path>
+                <path d="M26.7142857,0.571428571 L31,7.57142857 L26.7142857,14.5714286" id="Stroke-1694" stroke="#A3A3AE" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"></path>
+                <g id="Polygon-3-+-Polygon-3-+-Polygon-3" transform="translate(7.000000, 0.000000)">
+                    <path d="M0,7.5 L4.25,0.0769251104 L12.75,0.0769251104 L17,7.5 L12.75,14.9230749 L4.25,14.9230749 L0,7.5 L0,7.5 Z" id="Polygon-3" fill="#0F88FF"></path>
+                    <path d="M8.5,7.50000038 L17,7.5 L12.75,14.9230749 L4.25,14.9230749 L8.5,7.50000038 Z" id="Polygon-3" fill="url(#linearGradient-1)"></path>
+                    <path d="M4.25,0.0769251104 L12.75,0.0769251104 L8.5,7.50000038 L0,7.5 L4.25,0.0769251104 Z" id="Polygon-3" fill="url(#linearGradient-2)"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

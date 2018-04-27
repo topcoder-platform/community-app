@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="64px" height="64px" viewBox="0 0 64 64" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <defs></defs>
+    <g id="Technologies" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="icons/skills/id-149">
+            <circle id="Oval-3" fill="#82D1C3" cx="32" cy="32" r="30"></circle>
+            <path d="M44,38 C44,36.343 45.343,35 47,35 L47,30 C45.343,30 44,28.657 44,27 C44,25.343 45.343,24 47,24 L47,22 C47,19.239 44.761,17 42,17 L22,17 C19.239,17 17,19.239 17,22 L17,24.008 C17.028,24.008 17.055,24 17.083,24 C18.74,24 20.083,25.343 20.083,27 C20.083,28.657 18.74,30 17.083,30 C17.055,30 17.028,29.992 17,29.992 L17,35.008 C17.028,35.008 17.055,35 17.083,35 C18.74,35 20.083,36.343 20.083,38 C20.083,39.657 18.74,41 17.083,41 C17.055,41 17.028,40.992 17,40.992 L17,42 C17,44.761 19.239,47 22,47 L42,47 C44.761,47 47,44.761 47,42 L47,41 C45.343,41 44,39.657 44,38 L44,38 Z" id="Stroke-5025" stroke="#394146" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="#FFFFFF"></path>
+            <path d="M30,30 L24,30 L24,24 L30,24 L30,30 Z" id="Stroke-5017" stroke="#394146" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="#A3A3AE"></path>
+            <path d="M40,30 L34,30 L34,24 L40,24 L40,30 Z" id="Stroke-5018" stroke="#394146" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="#ACF1E2"></path>
+            <path d="M30,41 L24,41 L24,35 L30,35 L30,41 Z" id="Stroke-5019" stroke="#394146" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="#A3A3AE"></path>
+            <path d="M40,41 L34,41 L34,35 L40,35 L40,41 Z" id="Stroke-5020" stroke="#394146" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="#A3A3AE"></path>
+        </g>
+    </g>
+</svg>

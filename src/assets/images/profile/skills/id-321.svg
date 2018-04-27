@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="64px" height="64px" viewBox="0 0 64 64" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <defs></defs>
+    <g id="Skills---Design" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="icons/skills/id-321">
+            <rect id="Rectangle-7" fill="#029BB5" x="9" y="10" width="50" height="50" rx="4"></rect>
+            <rect id="Rectangle-7" fill="#02D7FF" x="5" y="6" width="50" height="50" rx="4"></rect>
+            <g id="iOS-Developer" transform="translate(15.000000, 18.000000)" stroke="#FFFFFF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M4.00000007,22 L1.0003,22 C0.4473,22 0.0003,21.552 0.0003,21 L0.0003,1 C0.0003,0.448 0.4473,0 1.0003,0 L29.0003,0 C29.5523,0 30.0003,0.448 30.0003,1 L30.0003,21 C30.0003,21.552 29.5523,22 29.0003,22 L16.9999996,22" id="Stroke-1696"></path>
+                <path d="M26,10 L26,12" id="Stroke-1699"></path>
+                <path d="M15,27 L6,27 C5.448,27 5,26.552 5,26 L5,10 C5,9.448 5.448,9 6,9 L15,9 C15.552,9 16,9.448 16,10 L16,26 C16,26.552 15.552,27 15,27 L15,27 Z" id="Stroke-1698"></path>
+                <path d="M10,24 L11,24" id="Stroke-1702"></path>
+            </g>
+        </g>
+    </g>
+</svg>

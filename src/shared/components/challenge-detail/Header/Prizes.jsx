@@ -4,6 +4,7 @@
 
 import React from 'react';
 import PT from 'prop-types';
+import { range } from 'lodash';
 
 import './style.scss';
 
@@ -13,14 +14,16 @@ function getOrdinal(num) {
   return ordinals[(v - 20) % 10] || ordinals[v] || ordinals[0];
 }
 
-export default function Prizes({ prizes }) {
+export default function Prizes({ pointPrizes, prizes }) {
+  const prizeLength = Math.max(pointPrizes.length, prizes.length);
   return (
     <div styleName="prizes-container">
       {
-        (prizes && prizes.length) ?
-          prizes.map((prize, index) => {
-            if (!prize) return null;
+        range(prizeLength).map((index) => {
             const rank = index + 1;
+            const pair = [];
+            if (prizes[index]) pair.push(prizes[index].toLocaleString());
+            if (pointPrizes[index]) pair.push(`${pointPrizes[index]}pts`);
             return (
               <div key={rank} styleName="prize-fill">
                 <div id={`rank${rank}`} styleName="prize-card">
@@ -29,19 +32,24 @@ export default function Prizes({ prizes }) {
                     <span styleName="rank-ordinal">{getOrdinal(rank)}</span>
                   </p>
                   <p styleName="prize-money">
-                    <span styleName="prize-currency">$</span>
-                    {prize.toLocaleString()}
+                    { !!prizes[index] && <span styleName="prize-currency">$</span> }
+                    {pair.join(' + ')}
                   </p>
                 </div>
               </div>
             );
           })
-          : <div />
       }
     </div>
   );
 }
 
+Prizes.defaultProps = {
+  pointPrizes: [],
+  prizes: [],
+};
+
 Prizes.propTypes = {
-  prizes: PT.arrayOf(PT.number).isRequired,
+  pointPrizes: PT.arrayOf(PT.number),
+  prizes: PT.arrayOf(PT.number),
 };
