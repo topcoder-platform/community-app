@@ -119,7 +119,7 @@ export default function Home(props) {
   return (
     <main>
       <Banner
-        title="Deliver your project&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;requirements faster&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;through crowdsourcing&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;"
+        title="Deliver your project&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;requirements faster&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;through crowdsourcing&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;"
         imageSrc={bannerImage}
         theme={bannerStyle}
       >
