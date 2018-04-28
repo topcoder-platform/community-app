@@ -120,20 +120,17 @@ export default function Home(props) {
   return (
     <main>
       <Banner
-        title="Wipro crowd"
-        link={{
-          title: 'Compete Now',
-          url: 'challenges',
-        }}
+        title="Deliver your project&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;requirements faster&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;through crowdsourcing&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;"
         imageSrc={bannerImage}
         theme={bannerStyle}
       >
         <p>
-          Compete & win in fun and exciting challenges and join the community
-          of winners!
+          Tap into the Wipro global/account expert pool for your project
+          requirements.
         </p>
-        <p styleName="style.banner-highlighted-text">
-          Nova Challenge Series on <span styleName="style.banner-highlighted-text-2">topgear.topcoder.com</span>
+        <p>
+          Engage TopGear for bringing in velocity, additional bandwidth and
+          capability to meet your project requirements.
         </p>
       </Banner>
 

@@ -10,6 +10,7 @@ import React from 'react';
 import { SplitRoute } from 'utils/router';
 
 export default function ChallengeListingRoute({
+  ChallengeListingBanner,
   challengesUrl,
   extraBucket,
   hideSrm,
@@ -39,6 +40,7 @@ export default function ChallengeListingRoute({
           return (
             <ChallengeListing
               {...routeProps}
+              ChallengeListingBanner={ChallengeListingBanner}
               challengesUrl={challengesUrl}
               communityId={communityId}
               communityName={meta.communityName}
@@ -68,6 +70,7 @@ export default function ChallengeListingRoute({
 }
 
 ChallengeListingRoute.defaultProps = {
+  ChallengeListingBanner: null,
   challengesUrl: '/challenges',
   extraBucket: null,
   hideSrm: false,
@@ -77,6 +80,7 @@ ChallengeListingRoute.defaultProps = {
 };
 
 ChallengeListingRoute.propTypes = {
+  ChallengeListingBanner: PT.node,
   challengesUrl: PT.string,
   extraBucket: PT.string,
   hideSrm: PT.bool,
