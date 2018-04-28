@@ -7,30 +7,35 @@
 
 .content {
   border-radius: 100% !important;
-  top: -180px !important;
-  height: 600px !important;
-  right: -140px !important;
+  bottom: -370px !important;
+  min-height: 550px !important;
+  height: 550px !important;
+  left: -100px !important;
   overflow: visible !important;
   position: absolute !important;
   transform: none !important;
-  width: 600px !important;
+  width: 550px !important;
 }
 
 .contentBg {
-  background: #70c052 !important;
+  background: rgba(0, 10, 50, 0.8) !important;
   position: absolute !important;
   border-radius: 100% !important;
-  width: 600px !important;
-  height: 600px !important;
+  width: 550px !important;
+  height: 550px !important;
   transform: none !important;
 }
 
 .contentInner {
   color: #fff !important;
-  padding: 200px 0 0 50px !important;
+  padding: 30px 0 0 100px !important;
   position: relative !important;
-  width: 500px !important;
+  width: 600px !important;
   z-index: 1 !important;
+
+  @include xs-to-sm {
+    text-align: left;
+  }
 }
 
 h2.title {
@@ -41,21 +46,14 @@ h2.title {
   padding-top: 5px !important;
   text-decoration: underline !important;
   text-transform: none !important;
-
-  @include xs-to-sm {
-    text-align: left !important;
-  }
+  width: 300px !important;
 }
 
 .contentInner p,
 .text {
   font-family: 'Akkurat regular', monospace !important;
   line-height: 20px !important;
-  margin: 15px 60px 15px 0 !important;
-
-  @include xs-to-sm {
-    text-align: left !important;
-  }
+  margin: 15px 60px 15px 25px !important;
 }
 
 .linkWrap {
