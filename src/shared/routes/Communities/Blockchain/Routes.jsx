@@ -4,7 +4,7 @@
 
 /* TODO: This assembly of custom challenge listing page should be split out into
  * a separate component. But, it is good enough for now. */
-import BsicHackathon from 'components/tc-communities/communities/blockchain/BsicHackathon';
+import BsicHackathon from 'containers/tc-communities/blockchain/BsicIncubator';
 import ChallengeListingTopBanner from
   'components/tc-communities/communities/blockchain/ChallengeListing/TopBanner';
 import ChallengeListingRegisterToSee from
