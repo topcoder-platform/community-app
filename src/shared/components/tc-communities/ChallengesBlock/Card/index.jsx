@@ -73,7 +73,7 @@ export default function Card({
         <div
           styleName="prizes"
         >
-          Prizes: {challenge.prizes.map(x => `$${x}`).join('\u00a0/ ')}
+          Prizes: {(challenge.prizes || []).map(x => `$${x}`).join('\u00a0/ ')}
         </div>
       </div>
     </div>

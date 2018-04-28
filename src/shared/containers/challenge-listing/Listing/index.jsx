@@ -137,6 +137,7 @@ export class ListingContainer extends React.Component {
       allPastChallengesLoaded,
       allReviewOpportunitiesLoaded,
       activeBucket,
+      ChallengeListingBanner,
       challenges,
       challengesUrl,
       challengeSubtracks,
@@ -200,6 +201,24 @@ export class ListingContainer extends React.Component {
 
     const description = 'Join Topcoder and compete in these challenges, to learn and earn!';
 
+    let banner;
+    if (!listingOnly) {
+      banner = ChallengeListingBanner ? (
+        <ChallengeListingBanner />
+      ) : (
+        <Banner
+          title="Challenges"
+          text="Browse our available challenges and compete."
+          theme={{
+            container: style.bannerContainer,
+            content: style.bannerContent,
+            contentInner: style.bannerContentInner,
+          }}
+          imageSrc="/community-app-assets/themes/wipro/challenges/banner.jpg"
+        />
+      );
+    }
+
     return (
       <div styleName="container">
         <MetaTags
@@ -208,20 +227,7 @@ export class ListingContainer extends React.Component {
           siteName="Topcoder"
           title={this.props.communityId ? `${this.props.communityName} Challenges` : SEO_PAGE_TITLE}
         />
-        { /* TODO: This banner should be moved out of here! */ }
-        { !listingOnly ? (
-          <Banner
-            title="Challenges"
-            text="Browse our available challenges and compete."
-            theme={{
-              container: style.bannerContainer,
-              content: style.bannerContent,
-              contentInner: style.bannerContentInner,
-            }}
-            imageSrc="/community-app-assets/themes/wipro/challenges/banner.jpg"
-          />
-        ) : null
-        }
+        {banner}
         <ChallengeListing
           activeBucket={activeBucket}
           challenges={challenges}
@@ -281,6 +287,7 @@ export class ListingContainer extends React.Component {
 }
 
 ListingContainer.defaultProps = {
+  ChallengeListingBanner: null,
   defaultCommunityId: '',
   extraBucket: null,
   hideSrm: false,
@@ -307,6 +314,7 @@ ListingContainer.propTypes = {
   allDraftChallengesLoaded: PT.bool.isRequired,
   allPastChallengesLoaded: PT.bool.isRequired,
   allReviewOpportunitiesLoaded: PT.bool.isRequired,
+  ChallengeListingBanner: PT.node,
   challenges: PT.arrayOf(PT.shape({})).isRequired,
   challengesUrl: PT.string,
   challengeSubtracks: PT.arrayOf(PT.shape()).isRequired,
