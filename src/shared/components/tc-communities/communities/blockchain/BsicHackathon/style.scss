@@ -113,6 +113,7 @@ $bannerBackgroundColor: #131a24;
 
   margin: auto;
   max-width: $screen-md;
+  padding: 0 30px;
   text-align: center;
 }
 
@@ -127,5 +128,7 @@ $bannerBackgroundColor: #131a24;
 }
 
 .faq {
-  margin: 0 30px;
+  margin: 30px auto 0;
+  max-width: $screen-md;
+  padding: 0 30px;
 }
