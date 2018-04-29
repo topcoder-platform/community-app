@@ -8,13 +8,14 @@ const configFactory
 const defaultConfig = require('./default');
 
 const standardDevelopmentConfig = configFactory({
+  cdnPublicPath: process.env.CDN_URL,
   context: path.resolve(__dirname, '../..'),
   entry: {
     'loading-indicator-animation': './src/client/loading-indicator-animation',
     main: './src/client',
   },
   keepBuildInfo: Boolean(global.KEEP_BUILD_INFO),
-  publicPath: '/community-app-assets',
+  publicPath: '/api/cdn/public/static-assets',
 });
 
 const jsxRule = standardDevelopmentConfig.module.rules.find(rule =>
