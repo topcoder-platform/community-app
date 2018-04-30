@@ -7,8 +7,11 @@ const configFactory
 
 const defaultConfig = require('./default');
 
+let cdnPublicPath = process.env.CDN_URL;
+if (cdnPublicPath) cdnPublicPath += '/static-assets';
+
 const standardDevelopmentConfig = configFactory({
-  cdnPublicPath: process.env.CDN_URL,
+  cdnPublicPath,
   context: path.resolve(__dirname, '../..'),
   entry: {
     'loading-indicator-animation': './src/client/loading-indicator-animation',
