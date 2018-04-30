@@ -11,7 +11,7 @@ const standardDevelopmentConfig = configFactory({
     'loading-indicator-animation': './src/client/loading-indicator-animation',
     main: './src/client',
   },
-  publicPath: '/community-app-assets',
+  publicPath: '/api/cdn/public/static-assets',
 });
 
 const jsxRule = standardDevelopmentConfig.module.rules.find(rule =>

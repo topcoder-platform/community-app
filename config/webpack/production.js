@@ -7,18 +7,18 @@ const configFactory
 
 const defaultConfig = require('./default');
 
-let cdnPublicPath = process.env.CDN_URL;
-if (cdnPublicPath) cdnPublicPath += '/static-assets';
+let publicPath = process.env.CDN_URL;
+if (publicPath) publicPath += '/static-assets';
+else publicPath = '/api/cdn/public/static-assets';
 
 const standardDevelopmentConfig = configFactory({
-  cdnPublicPath,
   context: path.resolve(__dirname, '../..'),
   entry: {
     'loading-indicator-animation': './src/client/loading-indicator-animation',
     main: './src/client',
   },
   keepBuildInfo: Boolean(global.KEEP_BUILD_INFO),
-  publicPath: '/api/cdn/public/static-assets',
+  publicPath,
 });
 
 const jsxRule = standardDevelopmentConfig.module.rules.find(rule =>
