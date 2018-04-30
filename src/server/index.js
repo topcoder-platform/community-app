@@ -2,7 +2,9 @@ import atob from 'atob';
 import Application from 'shared';
 import config from 'config';
 import fetch from 'isomorphic-fetch';
+import fs from 'fs';
 import logger from 'utils/logger';
+import moment from 'moment';
 import path from 'path';
 import qs from 'qs';
 import serializeJs from 'serialize-javascript';
@@ -25,9 +27,13 @@ global.atob = atob;
 const CMS_BASE_URL =
   `https://app.contentful.com/spaces/${config.SECRET.CONTENTFUL.SPACE_ID}`;
 
+let ts = path.resolve(__dirname, '../../.build-info');
+ts = JSON.parse(fs.readFileSync(ts));
+ts = moment(ts.timestamp).valueOf();
+
 const EXTRA_SCRIPTS = [
   `<script
-      src="/community-app-assets/loading-indicator-animation.js"
+      src="${config.CDN.PUBLIC || '/api/cdn/public'}/static-assets/loading-indicator-animation-${ts}.js"
       type="application/javascript"
   ></script>`,
   `<script>

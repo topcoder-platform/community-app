@@ -6,9 +6,10 @@
  * https://github.com/topcoder-platform/community-app/blob/develop/docs/code-splitting.md
  */
 
-/* global document, window */
+/* global document, PUBLIC_PATH, window */
 
 import _ from 'lodash';
+import moment from 'moment';
 import PT from 'prop-types';
 import React from 'react';
 import ReactDomServer from 'react-dom/server';
@@ -22,8 +23,6 @@ import ContentWrapper from './ContentWrapper';
 /* Specifies the maximal number of unused CSS stylesheets to be kept in memory.
  */
 const MAX_UNUSED_STYLESHEETS = 10;
-
-const TMP_CHUNK_PREFIX = 'community-app-assets';
 
 let unusedCssStamp = 0;
 
@@ -41,7 +40,7 @@ export default class SplitRoute extends React.Component {
     /* Marking chunk's stylesheet as unused.
      * This works properly only when styling does not depend on the ordering
      * of loaded stylesheets, which is how our CSS should be written. */
-    const link = document.querySelector(`link[data-chunk="${TMP_CHUNK_PREFIX}/${this.props.chunkName}"]`);
+    const link = document.querySelector(`link[data-chunk="${this.props.chunkName}"]`);
     link.setAttribute('data-chunk-unused', unusedCssStamp += 1);
 
     /* Reset to the initial state. */
@@ -59,6 +58,9 @@ export default class SplitRoute extends React.Component {
       renderServer,
       strict,
     } = this.props;
+
+    const timestamp = moment(isomorphy.buildTimestamp()).valueOf();
+
     return (
       <Route
         component={this.state.component}
@@ -88,14 +90,14 @@ export default class SplitRoute extends React.Component {
             /* eslint-disable react/prop-types */
             const { splits } = props.staticContext;
             /* eslint-enable react/prop-types */
-            if (splits[`${TMP_CHUNK_PREFIX}/${chunkName}`]) throw new Error('SplitRoute: IDs clash!');
-            else splits[`${TMP_CHUNK_PREFIX}/${chunkName}`] = html;
+            if (splits[`${chunkName}`]) throw new Error('SplitRoute: IDs clash!');
+            else splits[`${chunkName}`] = html;
 
             /* 3. The stylesheet links are injected via links elements in the
              *    header of the document, to have a better control over styles
              *    (re-)loading, independent of ReactJS mechanics of
              *    the document updates. */
-            props.staticContext.chunks.push(`${TMP_CHUNK_PREFIX}/${chunkName}`);
+            props.staticContext.chunks.push(`${chunkName}`);
 
             /* 4. We also render the mounted component, or the placeholder,
              *    into the document, using dangerouslySetInnerHTML to inject
@@ -109,14 +111,14 @@ export default class SplitRoute extends React.Component {
             /* eslint-enable react/no-danger */
           } else {
             /* Client side rendering */
-            if (window.SPLITS[`${TMP_CHUNK_PREFIX}/${chunkName}`]) {
+            if (window.SPLITS[`${chunkName}`]) {
               /* If the page has been pre-rendered at the server-side, we render
                * exactly the same until the splitted code is loaded. */
               /* eslint-disable react/no-danger */
               res = (
                 <div
                   dangerouslySetInnerHTML={{
-                    __html: window.SPLITS[`${TMP_CHUNK_PREFIX}/${chunkName}`],
+                    __html: window.SPLITS[`${chunkName}`],
                   }}
                 />
               );
@@ -126,7 +128,7 @@ export default class SplitRoute extends React.Component {
                * because if the vistor navigates around the app and comes back
                * to this route, we want to re-render the page from scratch in
                * that case (because the state of app has changed). */
-              delete window.SPLITS[`${TMP_CHUNK_PREFIX}/${chunkName}`];
+              delete window.SPLITS[`${chunkName}`];
             } else if (renderPlaceholder) {
               /* If the page has not been pre-rendered, the best we can do prior
                * the loading of split code, is to render the placeholder, if
@@ -146,14 +148,14 @@ export default class SplitRoute extends React.Component {
              * helps to avoid some unnecessary flickering when the app loads a
              * page already pre-rendered at the server side. */
             let link =
-              document.querySelector(`link[data-chunk="${TMP_CHUNK_PREFIX}/${chunkName}"]`);
+              document.querySelector(`link[data-chunk="${chunkName}"]`);
             if (link) {
               /* Marking the chunk being used again. */
               link.removeAttribute('data-chunk-unused');
             } else {
               link = document.createElement('link');
-              link.setAttribute('data-chunk', `${TMP_CHUNK_PREFIX}/${chunkName}`);
-              link.setAttribute('href', `/${TMP_CHUNK_PREFIX}/${chunkName}.css`);
+              link.setAttribute('data-chunk', `${chunkName}`);
+              link.setAttribute('href', `${PUBLIC_PATH}/${chunkName}-${timestamp}.css`);
               link.setAttribute('rel', 'stylesheet');
               const head = document.getElementsByTagName('head')[0];
               head.appendChild(link);
@@ -210,7 +212,7 @@ export default class SplitRoute extends React.Component {
                 component: () => (
                   <div>
                     <ContentWrapper
-                      chunkName={`${TMP_CHUNK_PREFIX}/${chunkName}`}
+                      chunkName={`${chunkName}`}
                       content={component}
                       parent={this}
                     />
