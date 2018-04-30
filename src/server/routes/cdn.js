@@ -16,6 +16,12 @@ router.use('/public/avatar', avatarRoutes);
 router.use('/public/contentful', contentfulRoutes);
 
 const url = path.resolve(__dirname, '../../../build');
-router.use('/public/static-assets', express.static(url));
+
+/* Sets Access-Control-Allow-Origin header to avoid CORS error.
+ * TODO: Replace the wildcard value by an appropriate origin filtering. */
+router.use('/public/static-assets', (req, res, next) => {
+  res.set('Access-Control-Allow-Origin', '*');
+  next();
+}, express.static(url));
 
 export default router;
