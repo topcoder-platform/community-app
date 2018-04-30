@@ -1,6 +1,8 @@
 const path = require('path');
 const configFactory
   = require('topcoder-react-utils/config/webpack/app-development');
+
+const webpack = require('webpack');
 const webpackMerge = require('webpack-merge');
 
 const defaultConfig = require('./default');
@@ -21,5 +23,9 @@ jsxRule.exclude = [
   /src[\\/]assets[\\/]fonts/,
   /src[\\/]assets[\\/]images[\\/]dashboard/,
 ];
+
+standardDevelopmentConfig.plugins.push(new webpack.DefinePlugin({
+  PUBLIC_PATH: JSON.stringify('/api/cdn/public/static-assets'),
+}));
 
 module.exports = webpackMerge.smart(standardDevelopmentConfig, defaultConfig);

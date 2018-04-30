@@ -5,6 +5,8 @@ const path = require('path');
 const configFactory
   = require('topcoder-react-utils/config/webpack/app-production');
 
+const webpack = require('webpack');
+
 const defaultConfig = require('./default');
 
 let publicPath = process.env.CDN_URL;
@@ -28,5 +30,9 @@ jsxRule.exclude = [
   /src[\\/]assets[\\/]fonts/,
   /src[\\/]assets[\\/]images[\\/]dashboard/,
 ];
+
+standardDevelopmentConfig.plugins.push(new webpack.DefinePlugin({
+  PUBLIC_PATH: JSON.stringify(publicPath),
+}));
 
 module.exports = webpackMerge.smart(standardDevelopmentConfig, defaultConfig);
