@@ -52,18 +52,16 @@ $tc-link-visited: #0c4e98;
 }
 
 .tctooltip {
-  p {
-    background: $tc-green;
-    font-style: roboto;
-    font-weight: 700;
-    font-size: 13px;
-    line-height: 20px;
-    color: $tc-white;
-    padding: 0 6px;
-    border-radius: 10px;
-    margin: 0 5px;
-    cursor: pointer;
-  }
+  background: $tc-green;
+  font-style: roboto;
+  font-weight: 700;
+  font-size: 13px;
+  line-height: 20px;
+  color: $tc-white;
+  padding: 0 6px;
+  border-radius: 10px;
+  margin: 0 5px;
+  cursor: pointer;
 }
 
 .tctooltiptext {
