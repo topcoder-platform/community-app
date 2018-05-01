@@ -1,6 +1,7 @@
 import atob from 'atob';
 import Application from 'shared';
 import config from 'config';
+import express from 'express';
 import fetch from 'isomorphic-fetch';
 import fs from 'fs';
 import logger from 'utils/logger';
@@ -160,6 +161,14 @@ async function onExpressJsSetup(server) {
      * thus timeout to imitate this in our mock. 3 seconds just an arbitrary
      * choice. */
     setTimeout(() => res.send(mockDocuSignFactory(req.query.returnUrl)), 3000));
+
+  /* TODO:
+   * This is a temporary fallback route: some of the assets in the app are not
+   * properly packed with Webpack, and they rely on just being copied into some
+   * path on the server. The easiest solution for now is to keep this route
+   * for static assets. */
+  const url = path.resolve(__dirname, '../../build');
+  server.use('/community-app-assets', express.static(url));
 }
 
 global.KEEP_BUILD_INFO = true;
