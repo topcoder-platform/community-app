@@ -3,15 +3,13 @@
  */
 import path from 'path';
 import React from 'react';
-import { StaticRouter } from 'react-router-dom';
 
 import LoadingPagePlaceholder from 'components/LoadingPagePlaceholder';
-import { requireWeak, resolveWeak, SplitRoute } from 'utils/router';
+import { AppChunk, webpack } from 'topcoder-react-utils';
 
 export default function ProfileLoader(props) {
   return (
-    <SplitRoute
-      cacheCss
+    <AppChunk
       chunkName="profile/chunk"
       renderClientAsync={() =>
         import(/* webpackChunkName: "profile/chunk" */ 'containers/Profile')
@@ -21,13 +19,10 @@ export default function ProfileLoader(props) {
       }
       renderPlaceholder={() => <LoadingPagePlaceholder />}
       renderServer={() => {
-        const p = resolveWeak('containers/Profile');
-        const ProfileContainer = requireWeak(path.resolve(__dirname, p));
-        return (
-          <StaticRouter context={{}}>
-            <ProfileContainer {...props} />
-          </StaticRouter>
-        );
+        const p = webpack.resolveWeak('containers/Profile');
+        const ProfileContainer =
+          webpack.requireWeak(path.resolve(__dirname, p));
+        return <ProfileContainer {...props} />;
       }}
     />
   );

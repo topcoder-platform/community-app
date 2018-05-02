@@ -1,5 +1,8 @@
 # Code Splitting
 
+***Functionality described below has been moved to `topcoder-react-utils`.***
+***This document will be updated accordingly and moved shortly.***
+
 ### Background
 
 As a codebase grows in size, so do the JS and CSS bundles generated from this codebase. Reaching megabytes of JS and CSS is extremely easy, and this size start having an impact on website loading time, and performance of development tools. Solution to this problem is the code splitting: JS and CSS bundles are devided into multiple pieces which are loaded dynamically from the server (or the local cache) when necessary. Different routes of an app are obvious choice for the split points.
