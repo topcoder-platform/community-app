@@ -28,7 +28,7 @@ import {
   Switch,
   Route,
 } from 'react-router-dom';
-import { requireWeak, resolveWeak, SplitRoute } from 'utils/router';
+import { AppChunk, webpack } from 'topcoder-react-utils';
 
 import DataFetch from './DataFetch';
 
@@ -39,8 +39,7 @@ export default function Examples(props) {
       <Route path={`${base}/announcement/:id`} component={Announcement} />
       <Route path={`${base}/buttons`} component={Buttons} />
       <Route path={`${base}/carousel`} component={Carousel} />
-      <SplitRoute
-        cacheCss
+      <AppChunk
         chunkName="code-splitting/chunk"
         path={`${base}/code-splitting`}
         renderClientAsync={() =>
@@ -49,8 +48,8 @@ export default function Examples(props) {
         }
         renderPlaceholder={() => <LoadingIndicator />}
         renderServer={() => {
-          const p = resolveWeak('components/examples/CodeSplitting');
-          const CodeSplitting = requireWeak(path.resolve(__dirname, p));
+          const p = webpack.resolveWeak('components/examples/CodeSplitting');
+          const CodeSplitting = webpack.requireWeak(path.resolve(__dirname, p));
           return <CodeSplitting />;
         }}
       />

@@ -3,15 +3,13 @@
  */
 import path from 'path';
 import React from 'react';
-import { StaticRouter } from 'react-router-dom';
 
 import LoadingPagePlaceholder from 'components/LoadingPagePlaceholder';
-import { requireWeak, resolveWeak, SplitRoute } from 'utils/router';
+import { AppChunk, webpack } from 'topcoder-react-utils';
 
 export default function ReviewOpportunityDetails(props) {
   return (
-    <SplitRoute
-      cacheCss
+    <AppChunk
       chunkName="review-opportunity-details/chunk"
       renderClientAsync={() =>
         import(/* webpackChunkName: "review-opportunity-details/chunk" */ 'containers/ReviewOpportunityDetails')
@@ -21,13 +19,10 @@ export default function ReviewOpportunityDetails(props) {
       }
       renderPlaceholder={() => <LoadingPagePlaceholder />}
       renderServer={() => {
-        const p = resolveWeak('containers/ReviewOpportunityDetails');
-        const ReviewOpportunityDetailsContainer = requireWeak(path.resolve(__dirname, p));
-        return (
-          <StaticRouter context={{}}>
-            <ReviewOpportunityDetailsContainer {...props} />
-          </StaticRouter>
-        );
+        const p = webpack.resolveWeak('containers/ReviewOpportunityDetails');
+        const ReviewOpportunityDetailsContainer =
+          webpack.requireWeak(path.resolve(__dirname, p));
+        return <ReviewOpportunityDetailsContainer {...props} />;
       }}
     />
   );

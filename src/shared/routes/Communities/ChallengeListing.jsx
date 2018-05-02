@@ -7,7 +7,7 @@ import LoadingIndicator from 'components/LoadingIndicator';
 import PT from 'prop-types';
 import qs from 'qs';
 import React from 'react';
-import { SplitRoute } from 'utils/router';
+import { AppChunk } from 'topcoder-react-utils';
 
 export default function ChallengeListingRoute({
   ChallengeListingBanner,
@@ -20,8 +20,7 @@ export default function ChallengeListingRoute({
   preListingMsg,
 }) {
   return (
-    <SplitRoute
-      cacheCss
+    <AppChunk
       chunkName="challenge-listing/chunk"
       renderClientAsync={routeProps =>
         import(/* webpackChunkName: "challenge-listing/chunk" */ 'containers/challenge-listing/Listing')

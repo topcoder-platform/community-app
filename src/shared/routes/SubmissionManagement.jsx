@@ -1,10 +1,10 @@
 import LoadingIndicator from 'components/LoadingIndicator';
 import React from 'react';
-import { SplitRoute } from 'utils/router';
+import { AppChunk } from 'topcoder-react-utils';
 
 export default function SubmissionManagementRoute(props) {
   return (
-    <SplitRoute
+    <AppChunk
       chunkName="submission-management/chunk"
       renderClientAsync={() =>
         import(/* webpackChunkName: "submission-management/chunk" */ 'containers/SubmissionManagement')
