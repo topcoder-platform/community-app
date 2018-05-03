@@ -1,11 +1,11 @@
 /**
- * Routing of Predix Community.
+ * Routing of IoT Community.
  */
 
 import Error404 from 'components/Error404';
 import Footer from 'components/tc-communities/Footer2';
 import Header from 'containers/tc-communities/Header';
-import Home from 'containers/tc-communities/predix/Home';
+import Home from 'containers/tc-communities/iot/Home';
 import PT from 'prop-types';
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
@@ -14,7 +14,7 @@ import { ThemeProvider } from 'react-css-super-themr';
 import primaryButtonStyle from 'components/buttons/outline/round/open-sans/green-uppercase.scss';
 import secondaryButtonStyle from 'components/buttons/outline/round/open-sans/blue-uppercase.scss';
 
-export default function Predix({ base }) {
+export default function IoT({ base }) {
   return (
     <Route
       component={({ match }) => (
@@ -54,10 +54,10 @@ export default function Predix({ base }) {
   );
 }
 
-Predix.defaultProps = {
+IoT.defaultProps = {
   base: '',
 };
 
-Predix.propTypes = {
+IoT.propTypes = {
   base: PT.string,
 };

@@ -6,8 +6,8 @@
 import React from 'react';
 import PT from 'prop-types';
 
-import BadgePredixCommunity from
-  'assets/images/dashboard/badge-predix-community.png';
+import BadgeIoTCommunity from
+  'assets/images/dashboard/badge-predix-community.png'; // TODO: Update with proper badge
 import BadgeSrmEngagementHonor from
   'assets/images/dashboard/badge-srm-engagement-honor.png';
 import BadgeTco17Champion from
@@ -49,7 +49,7 @@ const MAP = {
 
 /* Holds the mapping between achievement names and optional XL size badges. */
 const XL_MAP = {
-  'Predix Community': BadgePredixCommunity,
+  'IoT Community': BadgeIoTCommunity,
   'SRM Engagement Honor': BadgeSrmEngagementHonor,
   'TCO17 Champion': <BadgeTco17Champion styleName="xlBadge" />,
   'TCO17 Finalist': <BadgeTco17Finalist styleName="xlBadge" />,

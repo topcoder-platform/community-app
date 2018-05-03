@@ -9,7 +9,7 @@ import Blockchain from './Blockchain';
 import Community2 from './Community2';
 import CS from './CS';
 import DemoExpert from './DemoExpert';
-import Predix from './Predix';
+import IoT from './iot';
 import QA from './QA';
 import SRMx from './SRMx';
 import TaskForce from './TaskForce';
@@ -27,7 +27,7 @@ export default function Communities({
     case 'community-2': return <Community2 base={base} meta={meta} />;
     case 'cs': return <CS base={base} meta={meta} />;
     case 'demo-expert': return <DemoExpert base={base} meta={meta} />;
-    case 'predix': return <Predix base={base} meta={meta} />;
+    case 'iot': return <IoT base={base} meta={meta} />;
     case 'qa': return <QA base={base} member={member} meta={meta} />;
     case 'srmx': return <SRMx base={base} meta={meta} />;
     case 'taskforce': return <TaskForce base={base} meta={meta} />;

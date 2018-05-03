@@ -1,5 +1,5 @@
 /**
- * Static implementation of Home page for Predix community
+ * Static implementation of Home page for IoT community
  *
  * It hardcodes data which is passed to dummy components,
  * thus we disable max-len eslint rule for this file

@@ -560,6 +560,12 @@ const singleAchievements =
     groupClass: 'TCO17-Champion',
     active: false,
   },
+  {
+    id: 1012,
+    name: 'IoT Community',
+    groupClass: 'IoT-Community',
+    active: false,
+  },
 ];
 
 /**

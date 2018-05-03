@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import challengeListingActions from 'actions/challenge-listing';
 import challengeListingSidebarActions from 'actions/challenge-listing/sidebar';
-import Home from 'components/tc-communities/communities/predix/Home';
+import Home from 'components/tc-communities/communities/iot/Home';
 import { connect } from 'react-redux';
 import { BUCKETS } from 'utils/challenge-listing/buckets';
 

@@ -138,7 +138,7 @@ export default function Content() {
           <Link to="/community/demo-expert">Demo Expert Community</Link>
         </li>
         <li>
-          <Link to="/community/predix">Predix</Link>
+          <Link to="/community/iot">IoT Community</Link>
         </li>
         <li>
           <Link to="/community/qa">QA Community</Link>
