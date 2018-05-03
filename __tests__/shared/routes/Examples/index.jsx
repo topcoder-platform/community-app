@@ -4,7 +4,7 @@ import { StaticRouter } from 'react-router-dom';
 
 import Examples from 'routes/Examples';
 
-test('matches snapshots', () => {
+test.skip('matches snapshots', () => {
   const cmp = renderer.create((
     <StaticRouter context={{}}>
       <Examples />

@@ -102,14 +102,14 @@ export default function SideBar({
             <span styleName="link-like-paragraph tooltip-container">
               {reviewTypeTitle}
               <Tooltip content={reviewTip}>
-                <div styleName="tctooltip"><p>?</p></div>
+                <div styleName="tctooltip">?</div>
               </Tooltip>
             </span>
             <h4>Approval:</h4>
             <span styleName="link-like-paragraph tooltip-container">
               User Sign-Off
               <Tooltip content={approvalTip} className={styles['tooltip-overlay']}>
-                <div styleName="tctooltip"><p>?</p></div>
+                <div styleName="tctooltip">?</div>
               </Tooltip>
             </span>
           </div>
