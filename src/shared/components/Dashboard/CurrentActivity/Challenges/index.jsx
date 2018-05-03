@@ -6,7 +6,7 @@ import React from 'react';
 import Sticky from 'react-stickynode';
 import { config, Link } from 'topcoder-react-utils';
 
-import * as Filter from 'utils/challenge-listing/filter';
+import { filter as Filter } from 'topcoder-react-lib';
 
 import ChallengeCard from './ChallengeCard';
 import ChallengeFilter from '../ChallengeFilter';

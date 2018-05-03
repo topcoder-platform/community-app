@@ -5,10 +5,12 @@ module.exports = {
   entry: {
     'loading-indicator-animation': './src/client/loading-indicator-animation',
   },
+  externals: {
+    /* NodeJS library for https://logentries.com. It is server-side only. Exclude it as null. */
+    le_node: 'null',
+  },
   module: {
     noParse: [
-      /* NodeJS library for https://logentries.com. It is server-side only. */
-      /[\\/]node_modules[\\/]le_node/,
 
       /[\\/]node_modules[\\/]xml2json/,
 

@@ -2,50 +2,8 @@
  * for the specific page (Submission Management Page). They should be moved to
  * page/challenge/submissions-management */
 
-import { handleActions } from 'redux-actions';
-
+import { reducers } from 'topcoder-react-lib';
 import actions from 'actions/smp';
-
-function create(initialState) {
-  return handleActions({
-    [actions.smp.showDetails]: (state, { payload }) => {
-      const showDetails = new Set(state.showDetails);
-
-      if (showDetails.has(payload)) {
-        showDetails.delete(payload);
-      } else {
-        showDetails.add(payload);
-      }
-
-      return { ...state, showDetails };
-    },
-
-    [actions.smp.confirmDelete]: (state, { payload }) => ({
-      ...state,
-      showModal: true,
-      toBeDeletedId: payload,
-    }),
-
-    [actions.smp.cancelDelete]: state => ({
-      ...state,
-      showModal: false,
-      toBeDeletedId: 0,
-    }),
-
-    [actions.smp.deleteSubmissionDone]: state => ({
-      ...state,
-      deletingSubmission: false,
-      showModal: false,
-      toBeDeletedId: 0,
-    }),
-
-    [actions.smp.deleteSubmissionInit]: state => ({
-      ...state,
-      deletingSubmission: true,
-    }),
-
-  }, initialState || {});
-}
 
 /**
  * Factory which creates a new reducer with its initial state tailored to the
@@ -55,13 +13,47 @@ function create(initialState) {
  * @return Promise which resolves to the new reducer.
  */
 export function factory() {
-  const state = {
-    showDetails: [],
-    showModal: false,
-    toBeDeletedId: 0,
+  const options = {
+    initialState: {
+      showDetails: [],
+      showModal: false,
+      toBeDeletedId: 0,
+    },
+    mergeReducers: {
+      [actions.smp.showDetails]: (state, { payload }) => {
+        const showDetails = new Set(state.showDetails);
+
+        if (showDetails.has(payload)) {
+          showDetails.delete(payload);
+        } else {
+          showDetails.add(payload);
+        }
+
+        return { ...state, showDetails };
+      },
+
+      [actions.smp.confirmDelete]: (state, { payload }) => ({
+        ...state,
+        showModal: true,
+        toBeDeletedId: payload,
+      }),
+
+      [actions.smp.cancelDelete]: state => ({
+        ...state,
+        showModal: false,
+        toBeDeletedId: 0,
+      }),
+
+      [actions.smp.deleteSubmissionDone]: state => ({
+        ...state,
+        deletingSubmission: false,
+        showModal: false,
+        toBeDeletedId: 0,
+      }),
+    },
   };
 
-  return Promise.resolve(create(state));
+  return reducers.mySubmissionsManagement.factory(options);
 }
 
-export default create();
+export default factory();

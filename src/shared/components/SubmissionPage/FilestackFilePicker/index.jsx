@@ -16,9 +16,11 @@ import PT from 'prop-types';
 import { client as filestack } from 'filestack-react';
 import { PrimaryButton } from 'topcoder-react-ui-kit';
 import { config } from 'topcoder-react-utils';
-import { fireErrorMessage } from 'utils/errors';
+import { errors } from 'topcoder-react-lib';
 
 import './styles.scss';
+
+const { fireErrorMessage } = errors;
 
 /**
  * FilestackFilePicker component

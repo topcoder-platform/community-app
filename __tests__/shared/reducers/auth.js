@@ -1,25 +1,39 @@
-import { mockAction } from 'utils/mock';
+import _ from 'lodash';
 import { redux } from 'topcoder-react-utils';
+import { actions, mock } from 'topcoder-react-lib';
+import communityActions from 'actions/tc-communities';
+
+const { mockAction } = mock;
 
 const dummy = 'DUMMY';
 
 const mockActions = {
   auth: {
-    loadProfile: mockAction('LOAD_PROFILE', Promise.resolve('Profile')),
+    loadProfile: mockAction('LOAD_PROFILE', Promise.resolve({ groups: [{ id: '1' }] })),
     setTcTokenV2: mockAction('SET_TC_TOKEN_V2', 'Token V2'),
     setTcTokenV3: mockAction('SET_TC_TOKEN_V3', 'Token V3'),
   },
 };
-jest.setMock(require.resolve('actions/auth'), mockActions);
+
+_.merge(actions, mockActions);
 
 jest.setMock('tc-accounts', {
   decodeToken: () => 'User object',
   isTokenExpired: () => false,
 });
 
+const mockCommunityActions = {
+  tcCommunity: {
+    joinDone: mockAction('JOIN_DONE', Promise.resolve({ groupId: '2' })),
+  },
+};
+_.merge(communityActions, mockCommunityActions);
+
 const reducers = require('reducers/auth');
 
-function testReducer(reducer, istate) {
+let reducer;
+
+function testReducer(istate) {
   test('Initial state', () => {
     const state = reducer(undefined, {});
     expect(state).toEqual(istate);
@@ -31,54 +45,47 @@ function testReducer(reducer, istate) {
       expect(state).toEqual({
         authenticating: false,
         dummy,
-        profile: 'Profile',
+        profile: { groups: [{ id: '1' }] },
       });
     }));
 
-  test('Set TC Token V2', () => {
-    const state = reducer({ dummy }, mockActions.auth.setTcTokenV2());
-    expect(state).toEqual({
-      dummy,
-      tokenV2: 'Token V2',
-    });
-  });
-
-  test('Set TC Token V3', () => {
-    const state = reducer({ dummy }, mockActions.auth.setTcTokenV3());
-    expect(state).toEqual({
-      dummy,
-      tokenV3: 'Token V3',
-      user: 'User object',
-    });
-  });
-
-  test('Set TC Token V3 with failure', () => {
-    mockActions.auth.setTcTokenV3 = mockAction('SET_TC_TOKEN_V3', null);
-    const state = reducer({ dummy }, mockActions.auth.setTcTokenV3());
-    expect(state).toEqual({
-      dummy,
-      tokenV3: null,
-      user: null,
-    });
-    mockActions.auth.setTcTokenV3 = mockAction('SET_TC_TOKEN_V3', 'Token V3');
-  });
+  test('Join group', () =>
+    redux.resolveAction(communityActions.tcCommunity.joinDone()).then((action) => {
+      const state = reducer({ profile: { groups: [{ id: '1' }] } }, action);
+      expect(state).toEqual({
+        profile: { groups: [{ id: '1' }, { id: '2' }] },
+      });
+    }));
 }
 
 describe('Default reducer', () => {
-  testReducer(reducers.default, {
+  beforeAll((done) => {
+    reducers.default.then((res) => {
+      reducer = res;
+      done();
+    });
+  });
+
+  testReducer({
     authenticating: true,
+    tokenV2: '',
+    tokenV3: '',
+    user: null,
   });
 });
 
-describe('Factory without server side rendering', () =>
-  reducers.factory().then(res =>
-    testReducer(res, {})));
+describe('Factory without server side rendering', () => {
+  beforeAll((done) => {
+    reducers.factory().then((res) => {
+      reducer = res;
+      done();
+    });
+  });
 
-describe('Factory with server side rendering', () =>
-  reducers.factory({
-    cookies: {
-      tcjwt: 'Token V2',
-      v3jwt: 'Token V3',
-    },
-  }).then(res =>
-    testReducer(res, {})));
+  testReducer({
+    authenticating: true,
+    tokenV2: '',
+    tokenV3: '',
+    user: null,
+  });
+});

@@ -11,7 +11,7 @@ import Dashboard from 'components/Dashboard';
 import dashActions from 'actions/page/dashboard';
 import challengeListingSidebarActions from 'actions/challenge-listing/sidebar';
 import LoadingIndicator from 'components/LoadingIndicator';
-import memberActions from 'actions/members';
+import { actions } from 'topcoder-react-lib';
 import PT from 'prop-types';
 import qs from 'qs';
 import React from 'react';
@@ -23,7 +23,6 @@ import { BUCKETS } from 'utils/challenge-listing/buckets';
 
 import challengeListingActions from 'actions/challenge-listing';
 import communityActions from 'actions/tc-communities';
-import statsActions from 'actions/stats';
 
 import { isTokenExpired } from 'tc-accounts';
 import { config, isomorphy } from 'topcoder-react-utils';
@@ -359,7 +358,7 @@ function mapStateToProps(state, props) {
 
 function mapDispatchToProps(dispatch) {
   const dash = dashActions.page.dashboard;
-  const { members } = memberActions;
+  const { members } = actions;
   return {
     getAllActiveChallenges: (tokenV3) => {
       const uuid = shortId();
@@ -373,7 +372,7 @@ function mapDispatchToProps(dispatch) {
     },
     getCommunityStats: (community, challenges, token) => {
       const uuid = shortId();
-      const a = statsActions.stats;
+      const a = actions.stats;
       dispatch(a.getCommunityStatsInit(community, uuid));
       dispatch(a.getCommunityStatsDone(community, uuid, challenges, token));
     },

@@ -14,7 +14,7 @@ import actions from 'actions/challenge-listing';
 import challengeActions from 'actions/challenge';
 import filterPanelActions from 'actions/challenge-listing/filter-panel';
 import headerActions from 'actions/topcoder_header';
-import logger from 'utils/logger';
+import { logger, filter as Filter } from 'topcoder-react-lib';
 import React from 'react';
 import PT from 'prop-types';
 import shortId from 'shortid';
@@ -25,11 +25,12 @@ import NewsletterSignup from 'components/tc-communities/NewsletterSignup';
 import sidebarActions from 'actions/challenge-listing/sidebar';
 import communityActions from 'actions/tc-communities';
 import { BUCKETS } from 'utils/challenge-listing/buckets';
-import { combine, mapToBackend } from 'utils/challenge-listing/filter';
 import { config, MetaTags } from 'topcoder-react-utils';
 
 import ogImage from '../../../../assets/images/og_image.jpg';
 import style from './styles.scss';
+
+const { combine, mapToBackend } = Filter;
 
 let mounted = false;
 

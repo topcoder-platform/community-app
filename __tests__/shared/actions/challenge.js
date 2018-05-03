@@ -1,6 +1,9 @@
+import _ from 'lodash';
 import actions from 'actions/challenge';
 
-jest.mock('services/challenges');
+import { services } from 'topcoder-react-lib';
+
+_.merge(services.challenge, require('topcoder-react-lib/src/services/__mocks__/challenges'));
 
 const mockFetch = resolvesTo => jest.fn(() =>
   Promise.resolve({ json: () => resolvesTo }));
@@ -47,11 +50,13 @@ describe('challenge.getDetailsDone', () => {
   });
 
   const mockChallenge =
-    require('services/__mocks__/data/challenge-normalized.json');
-  mockChallenge.communities = new Set(mockChallenge.communities);
+    require('topcoder-react-lib/src/services/__mocks__/data/challenge-normalized.json');
 
   test('payload is a promise which resolves to the expected object', () =>
-    a.payload.then(res => expect(res).toEqual(mockChallenge)));
+    a.payload.then((res) => {
+      res.communities = Array.from(res.communities);
+      expect(res).toEqual(mockChallenge);
+    }));
 });
 
 describe('challenge.fetchSubmissionsDone', () => {

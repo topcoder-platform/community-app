@@ -7,7 +7,7 @@
 
 import _ from 'lodash';
 import actions from 'actions/challenge-listing/sidebar';
-import logger from 'utils/logger';
+import { logger } from 'topcoder-react-lib';
 import { BUCKETS } from 'utils/challenge-listing/buckets';
 import { handleActions } from 'redux-actions';
 import { updateQuery } from 'utils/url';

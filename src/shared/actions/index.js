@@ -4,14 +4,13 @@
  * groups of actions.
  */
 
+import { actions } from 'topcoder-react-lib';
 import challengeActions from './challenge';
-import directActions from './direct';
-import memberTasks from './member-tasks';
 import pageActions from './page';
 
 export default {
   ...challengeActions,
-  ...directActions,
-  ...memberTasks,
   ...pageActions,
+  memberTasks: actions.memberTasks,
+  direct: actions.direct,
 };

@@ -8,12 +8,12 @@
 
 import _ from 'lodash';
 import actions from 'actions/page/submission';
-import logger from 'utils/logger';
-
-import { fireErrorMessage } from 'utils/errors';
+import { logger, errors } from 'topcoder-react-lib';
 import { redux } from 'topcoder-react-utils';
 
 import design from './design';
+
+const { fireErrorMessage } = errors;
 
 /**
  * Handles results of PAGE/CHALLENGE_DETAILS/SUBMISSION/SUBMIT_DONE action.

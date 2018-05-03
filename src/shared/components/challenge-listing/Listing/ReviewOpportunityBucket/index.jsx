@@ -7,7 +7,7 @@ import React from 'react';
 import Sort from 'utils/challenge-listing/sort';
 import SortingSelectBar from 'components/SortingSelectBar';
 import Waypoint from 'react-waypoint';
-import { getReviewOpportunitiesFilterFunction } from 'utils/challenge-listing/filter';
+import { filter as Filter } from 'topcoder-react-lib';
 import CardPlaceholder from '../../placeholders/ChallengeCard';
 import ReviewOpportunityCard from '../../ReviewOpportunityCard';
 
@@ -41,7 +41,8 @@ export default function ReviewOpportunityBucket({
    * which means it can be done at render, rather than in the reducer,
    * which avoids reloading the review opportunities from server every time
    * a filter is changed.  */
-  const filteredOpportunities = sortedOpportunities.filter(getReviewOpportunitiesFilterFunction({
+  const filteredOpportunities =
+  sortedOpportunities.filter(Filter.getReviewOpportunitiesFilterFunction({
     ...bucket.filter, // Default bucket filters from utils/buckets.js
     ...filterState, // User selected filters
   }));

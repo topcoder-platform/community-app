@@ -7,7 +7,7 @@
  */
 
 import fetch from 'isomorphic-fetch';
-import logger from 'utils/logger';
+import { logger } from 'topcoder-react-lib';
 import { config, isomorphy } from 'topcoder-react-utils';
 
 /* Service-side Contentful services module. Some of its functionality will be

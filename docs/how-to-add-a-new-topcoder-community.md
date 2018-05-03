@@ -55,7 +55,7 @@ To add a new community with the name **demo**, we should follow the following pr
     > Technically, when application server serves configuration object for a specified community, it extends each of these arrays by descendant groups (it helps to significantly simply a lot of related code).
 
     -   `authorizedGroupIds` - *String Array* - Optional. Array of group IDs. If specified, access to the community will be restricted only to authenticated visitors, included into any of these groups, or any of their descendant groups. If undefined, community will be accessible to any visitors (including non-authenticated ones).
-    -   `challengeFilter` - *Object* - Challenge filter matching challenges related to the community. This object can include any options known to the `/src/utils/challenge-listing/filter.js` module, though in many cases you want to use just one of these:
+    -   `challengeFilter` - *Object* - Challenge filter matching challenges related to the community. This object can include any options known to the `topcoder-react-lib/src/utils/challenge-listing/filter.js` module, though in many cases you want to use just one of these:
         ```js
         /* Matches challenges belonging to any of the groups listed by ID. */
         {

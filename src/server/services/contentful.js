@@ -5,7 +5,7 @@
 
 import config from 'config';
 import fetch from 'isomorphic-fetch';
-import logger from 'utils/logger';
+import { logger } from 'topcoder-react-lib';
 import moment from 'moment';
 import qs from 'qs';
 

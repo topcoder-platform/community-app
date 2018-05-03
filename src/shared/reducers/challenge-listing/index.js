@@ -4,16 +4,16 @@
 
 import _ from 'lodash';
 import actions from 'actions/challenge-listing';
-import logger from 'utils/logger';
 import { handleActions } from 'redux-actions';
 import { redux } from 'topcoder-react-utils';
 import { updateQuery } from 'utils/url';
 import moment from 'moment';
-import { getFilterFunction } from 'utils/challenge-listing/filter';
-import { fireErrorMessage } from 'utils/errors';
+import { logger, errors, filter as Filter } from 'topcoder-react-lib';
 
 import filterPanel from '../challenge-listing/filter-panel';
 import sidebar, { factory as sidebarFactory } from '../challenge-listing/sidebar';
+
+const { fireErrorMessage } = errors;
 
 function onGetAllActiveChallengesDone(state, { error, payload }) {
   if (error) {
@@ -150,7 +150,7 @@ function onGetPastChallengesDone(state, { error, payload }) {
 
   let keepPastPlaceholders = false;
   if (loaded.length) {
-    const ff = getFilterFunction(frontFilter);
+    const ff = Filter.getFilterFunction(frontFilter);
     keepPastPlaceholders =
       challenges.filter(ff).length - state.challenges.filter(ff).length < 10;
   }

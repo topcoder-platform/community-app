@@ -8,7 +8,7 @@ import moment from 'moment';
 import React from 'react';
 import PT from 'prop-types';
 import Sticky from 'react-stickynode';
-import * as Filter from 'utils/challenge-listing/filter';
+import { filter as Filter } from 'topcoder-react-lib';
 import Sidebar from 'containers/challenge-listing/Sidebar';
 import { isReviewOpportunitiesBucket } from 'utils/challenge-listing/buckets';
 import { config } from 'topcoder-react-utils';

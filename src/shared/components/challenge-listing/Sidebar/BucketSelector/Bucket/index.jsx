@@ -3,7 +3,7 @@
  */
 
 import _ from 'lodash';
-import * as Filter from 'utils/challenge-listing/filter';
+import { filter as Filter } from 'topcoder-react-lib';
 import PT from 'prop-types';
 import React from 'react';
 import './style.scss';

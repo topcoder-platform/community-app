@@ -14,25 +14,19 @@
  * To understand reducers read http://redux.js.org/docs/basics/Reducers.html.
  */
 
-import { getCommunityId } from 'server/services//communities';
+import { getCommunityId } from 'server/services/communities';
 import { redux } from 'topcoder-react-utils';
+import { reducers } from 'topcoder-react-lib';
 
 import cms from './cms';
-import direct from './direct';
-import members from './members';
-import memberTasks from './member-tasks';
 import topcoderHeader from './topcoder_header';
 import rss from './rss';
 import { factory as authFactory } from './auth';
 import { factory as challengeFactory } from './challenge';
 import { factory as challengeListingFactory } from './challenge-listing';
-import { factory as errorsFactory } from './errors';
 import { factory as examplesFactory } from './examples';
-import { factory as groupsFactory } from './groups';
 import { factory as pageFactory } from './page';
-import { factory as profileFactory } from './profile';
 import { factory as reviewOpportunityFactory } from './reviewOpportunity';
-import { factory as statsFactory } from './stats';
 import { factory as tcCommunitiesFactory } from './tc-communities';
 import { factory as leaderboardFactory } from './leaderboard';
 import { factory as termsFactory } from './terms';
@@ -43,18 +37,14 @@ export function factory(req) {
     auth: authFactory(req),
     challenge: challengeFactory(req),
     challengeListing: challengeListingFactory(req),
-    groups: groupsFactory(req),
     examples: examplesFactory(req),
-    stats: statsFactory(req),
     tcCommunities: tcCommunitiesFactory(req),
     leaderboard: leaderboardFactory(req),
-    profile: profileFactory(req),
     terms: termsFactory(req),
     reviewOpportunity: reviewOpportunityFactory(req),
     scoreboard: scoreboardFactory(req),
     page: pageFactory(req),
-    errors: errorsFactory(req),
-  }).then(reducers => redux.combineReducers((state) => {
+  }).then(resolvedReducers => redux.combineReducers((state) => {
     const res = { ...state };
     if (req) {
       res.domain = `${req.protocol}://${req.headers.host || req.hostname}`;
@@ -62,11 +52,15 @@ export function factory(req) {
     }
     return res;
   }, {
-    ...reducers,
+    ...resolvedReducers,
     cms,
-    direct,
-    members,
-    memberTasks,
+    groups: reducers.groups.default,
+    stats: reducers.stats.default,
+    direct: reducers.direct.default,
+    profile: reducers.profile.default,
+    errors: reducers.errors.default,
+    members: reducers.members.default,
+    memberTasks: reducers.memberTasks.default,
     topcoderHeader,
     rss,
   }));

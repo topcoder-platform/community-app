@@ -1,8 +1,9 @@
 import _ from 'lodash';
 import actions from 'actions/cms/dashboard/announcements';
-import logger from 'utils/logger';
+import { logger, errors } from 'topcoder-react-lib';
 import { handleActions } from 'redux-actions';
-import { fireErrorMessage } from 'utils/errors';
+
+const { fireErrorMessage } = errors;
 
 /**
  * Inits the loading of the active announcement.

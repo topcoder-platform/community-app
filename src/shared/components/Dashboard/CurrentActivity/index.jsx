@@ -5,7 +5,7 @@ import PT from 'prop-types';
 import _ from 'lodash';
 import { TABS } from 'actions/page/dashboard';
 
-import * as Filter from 'utils/challenge-listing/filter';
+import { filter as Filter } from 'topcoder-react-lib';
 
 import Challenges from './Challenges';
 import Communities from './Communities';

@@ -1,7 +1,5 @@
 import actions from 'actions/smp';
 
-// jest.mock('topcoder-react-utils', () => require('topcoder-react-utils/dist/src/mock'));
-
 let originalFetch;
 
 beforeAll(() => {
