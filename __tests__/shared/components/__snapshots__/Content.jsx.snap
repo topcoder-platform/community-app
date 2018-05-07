@@ -277,11 +277,12 @@ exports[`Matches shallow shapshot 1`] = `
   </h3>
   <ul>
     <li>
-      <a
-        href="/hall-of-fame/tco"
+      <Link
+        replace={false}
+        to="/hall-of-fame/tco"
       >
         TCO Hall of Fame
-      </a>
+      </Link>
     </li>
     <li>
       TCO Scoreboard demo is mounted on 
