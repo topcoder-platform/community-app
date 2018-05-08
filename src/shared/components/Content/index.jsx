@@ -171,6 +171,11 @@ export default function Content() {
           </Link>
         </li>
         <li>
+          <Link to="/sandbox/cms/testing">
+            CMS-related testing.
+          </Link>
+        </li>
+        <li>
           <Link to="/sandbox/payments">Payments PoC</Link>
         </li>
       </ul>
