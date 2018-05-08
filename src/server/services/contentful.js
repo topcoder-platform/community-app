@@ -124,7 +124,7 @@ class ApiService {
    */
   async queryAssets(query, mapFileUrlToCdn) {
     const res = await this.fetch('/assets', query);
-    if (mapFileUrlToCdn) res.forEach(x => mapAssetFileUrlToCdn(x));
+    if (mapFileUrlToCdn) res.items.forEach(x => mapAssetFileUrlToCdn(x));
     return res;
   }
 

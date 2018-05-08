@@ -30,7 +30,7 @@ function freeQuery(id, target, preview) {
  * @param {String} contentType One of CONTENT_TYPES values.
  * @param {Boolean} preview Optional.
  */
-function getContentInit(operationId, contentId, target, preview ) {
+function getContentInit(operationId, contentId, target, preview) {
   return {
     contentId,
     operationId,
@@ -47,14 +47,17 @@ function getContentInit(operationId, contentId, target, preview ) {
  * @return {Object}
  */
 async function getContentDone(operationId, contentId, target, preview) {
-  let s = getService(preview);
+  const service = getService(preview);
+
+  let content;
   switch (target) {
-    case TARGETS.ASSETS: s = s.getAsset; break;
-    case TARGETS.ENTRIES: s = s.getEntry; break;
+    case TARGETS.ASSETS: content = await service.getAsset(contentId); break;
+    case TARGETS.ENTRIES: content = await service.getEntry(contentId); break;
     default: throw new Error(ERRMSG_UNKNOWN_TARGET);
   }
+
   return {
-    content: await s(contentId),
+    content,
     contentId,
     operationId,
     preview,
@@ -80,14 +83,17 @@ function queryContentInit(operationId, queryId, target, preview) {
  * @param {Boolean} preview Optional.
  */
 async function queryContentDone(operationId, queryId, target, query, preview) {
-  let s = getService(preview);
+  const service = getService(preview);
+
+  let data;
   switch (target) {
-    case TARGETS.ASSETS: s = s.queryAssets; break;
-    case TARGETS.ENTRIES: s = s.queryEntries; break;
+    case TARGETS.ASSETS: data = await service.queryAssets(query); break;
+    case TARGETS.ENTRIES: data = await service.queryEntries(query); break;
     default: throw new Error(ERRMSG_UNKNOWN_TARGET);
   }
+
   return {
-    data: await s(query),
+    data,
     operationId,
     preview,
     queryId,

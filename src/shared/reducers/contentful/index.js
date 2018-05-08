@@ -23,7 +23,8 @@ import { fireErrorMessage } from 'utils/errors';
 
 import space from './space';
 
-const validActions = new Set(_.values(actions.contentful).filter(_.isString));
+const validActions = new Set(_.values(actions.contentful)
+  .filter(_.isFunction).map(action => action.toString()));
 
 function create(init) {
   return (state, action) => {
@@ -35,7 +36,7 @@ function create(init) {
       return init ? _.defaults(init, def) : def;
     }
 
-    if (!validActions.has(action.types)) return state;
+    if (!validActions.has(action.type)) return state;
 
     const { error, payload } = action;
 

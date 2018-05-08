@@ -67,7 +67,7 @@ function findData(content, ids, query, minTimestamp) {
     const it = content.items[id];
     /* Fail: some of the required items is not known, or too outdated. */
     if (!it || !it.item || it.timestamp < minTimestamp) return null;
-    res.items[id] = it;
+    res.items[id] = it.item;
   }
 
   /* Success. */
@@ -128,17 +128,16 @@ class ContentfulLoader extends React.Component {
     if (d.entries.queryId) bookQuery(d.entries.queryId, 'entries', preview);
 
     /* Loading. */
-    const assetsMatch = d.assets.match;
-    if (assetsMatch) {
-      if (!assetsMatch.loadingOperationId
-        && assetsMatch.timestamp < minTimestamp) {
+    if (assetQuery) {
+      const m = d.assets.match;
+      if (!m || (!m.loadingOperationId && m.timestamp < minTimestamp)) {
         queryContent(assetQuery, 'assets', preview);
       }
     }
-    const entriesMatch = d.entries.match;
-    if (entriesMatch) {
-      if (!entriesMatch.loadingOperationId
-        && entriesMatch.timestamp < minTimestamp) {
+
+    if (entryQuery) {
+      const m = d.entries.match;
+      if (!m || (!m.loadingOperationId && m.timestamp < minTimestamp)) {
         queryContent(entryQuery, 'entries', preview);
       }
     }
@@ -307,8 +306,9 @@ function mapDispatchToProps(dispatch) {
     queryContent: (query, target, preview) => {
       const uuid = shortId();
       const queryId = queryToMd5(query);
+      const q = _.isObject(query) ? query : null;
       dispatch(a.queryContentInit(uuid, queryId, target, preview));
-      dispatch(a.queryContentDone(uuid, queryId, target, query, preview));
+      dispatch(a.queryContentDone(uuid, queryId, target, q, preview));
     },
   };
 }
