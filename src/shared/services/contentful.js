@@ -27,7 +27,7 @@ const CDN_URL = `${config.CDN.PUBLIC}/contentful`;
 
 /* Holds the base URL of Community App endpoints that proxy HTTP request to
  * Contentful APIs. */
-const PROXY_URL = `${config.URL.APP}/api/cdn/public/contentful`;
+const PROXY_ENDPOINT = '/api/cdn/public/contentful';
 
 /* At the client-side only, it holds the cached index of published Contentful
  * assets and content. Do not use it directly, use getIndex() function below
@@ -142,7 +142,7 @@ class Service {
       if (isomorphy.isServerSide()) {
         return ss.previewService.getAsset(id, true);
       }
-      res = await fetch(`${PROXY_URL}/preview/assets/${id}`);
+      res = await fetch(`${PROXY_ENDPOINT}/preview/assets/${id}`);
     } else {
       const index = await getIndex();
       res = `${CDN_URL}/published/assets/${id}?version=${index.assets[id]}`;
@@ -167,7 +167,7 @@ class Service {
       if (isomorphy.isServerSide()) {
         return ss.previewService.getEntry(id);
       }
-      res = await fetch(`${PROXY_URL}/preview/entries/${id}`);
+      res = await fetch(`${PROXY_ENDPOINT}/preview/entries/${id}`);
     } else {
       const index = await getIndex();
       let version = index.entries[id];
@@ -204,11 +204,11 @@ class Service {
      * which proxies it to Contentful API, via the same server-side service
      * used above. */
     let url = this.private.preview ? 'preview' : 'published';
-    url = `${PROXY_URL}/${url}/assets`;
+    url = `${PROXY_ENDPOINT}/${url}/assets`;
     if (query) url += `?${_.isString(query) ? query : qs.stringify(query)}`;
     const res = await fetch(url);
     if (!res.ok) throw new Error(res.statusText);
-    return res;
+    return res.json();
   }
 
   /**
@@ -229,11 +229,11 @@ class Service {
      * which proxies it to Contentful API via the same server-side service
      * used above. */
     let url = this.private.preview ? 'preview' : 'published';
-    url = `${PROXY_URL}/${url}/entries`;
+    url = `${PROXY_ENDPOINT}/${url}/entries`;
     if (query) url += `?${qs.stringify(query)}`;
     const res = await fetch(url);
     if (!res.ok) throw new Error(res.statusText);
-    return res;
+    return res.json();
   }
 }
 

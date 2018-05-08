@@ -37,35 +37,35 @@ routes.use('/images/:id/:version/:name', (req, res) => {
 
 /* Queries asset previews. */
 routes.use('/preview/assets', (req, res, next) =>
-  previewService.queryAssets(req.query, true).then(res.send, next));
+  previewService.queryAssets(req.query, true).then(res.send.bind(res), next));
 
 /* Gets preview of the specified asset. */
 routes.use('/preview/assets/:id', (req, res, next) =>
-  previewService.getAsset(req.params.id, true).then(res.send, next));
+  previewService.getAsset(req.params.id, true).then(res.send.bind(res), next));
 
 /* Queries entry previews. */
 routes.use('/preview/entries', (req, res, next) =>
-  previewService.queryEntries(req.query).then(res.send, next));
+  previewService.queryEntries(req.query).then(res.send.bind(res), next));
 
 /* Gets preview of the specified entry. */
 routes.use('/preview/entries/:id', (req, res, next) =>
-  previewService.getEntry(req.params.id).then(res.send, next));
+  previewService.getEntry(req.params.id).then(res.send.bind(res), next));
 
 /* Queries published assets. */
 routes.use('/published/assets', (req, res, next) =>
-  cdnService.queryAssets(req.query, true).then(res.send, next));
+  cdnService.queryAssets(req.query, true).then(res.send.bind(res), next));
 
 /* Gets the specified published asset. */
 routes.use('/published/assets/:id', (req, res, next) =>
-  cdnService.getAsset(req.params.id, true).then(res.send, next));
+  cdnService.getAsset(req.params.id, true).then(res.send.bind(res), next));
 
 /* Queries published entries. */
 routes.use('/published/entries', (req, res, next) =>
-  cdnService.queryEntries(req.query).then(res.send, next));
+  cdnService.queryEntries(req.query).then(res.send.bind(res), next));
 
 /* Gets the specified published entry. */
 routes.use('/published/entries/:id', (req, res, next) =>
-  cdnService.getEntry(req.params.id).then(res.send, next));
+  cdnService.getEntry(req.params.id).then(res.send.bind(res), next));
 
 /* Returns ID of the current dashboard announcement. */
 routes.use('/current-dashboard-announcement-id', async (req, res, next) => {

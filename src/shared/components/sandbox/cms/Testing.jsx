@@ -4,8 +4,14 @@ import React from 'react';
 export default function Testing() {
   return (
     <ContentfulLoader
-      assetQuery
-      render={() => <div>Content</div>}
+      assetQuery={{
+        mimetype_group: 'plaintext'
+      }}
+      render={data => (
+        <pre>
+          {JSON.stringify(data, null, '  ')}
+        </pre>
+      )}
       renderPlaceholder={() => <div>test</div>}
     />
   );

@@ -100,7 +100,7 @@ function onGetContentDone(state, action) {
 function onQueryContentInit(state, action) {
   const { operationId, queryId } = action.payload;
   const a = collectionActions.loadItemInit(operationId, queryId);
-  return { ...state, queries: reduceCollection(state, a) };
+  return { ...state, queries: reduceCollection(state.queries, a) };
 }
 
 /**
@@ -134,22 +134,33 @@ function onQueryContentDone(state, action) {
    * matched items, and of the items not matched anymore. */
 
   const q = state.queries[queryId];
-  const oldIdsSet = new Set(q.item.items);
-  const newIdsSet = new Set(d.items);
 
-  const added = [];
-  d.items.forEach((id) => {
-    if (!oldIdsSet.has(id)) added.push(id);
-  });
-  a = collectionActions.bookItems(added, q.numRefs);
-  res.items = reduceCollection(res.items, a);
+  let added;
+  let gone;
+  if (q.item) {
+    const neu = new Set(d.items);
+    const old = new Set(q.item.items);
+    d.items.forEach((id) => {
+      if (!old.has(id)) added.push(id);
+    });
+    q.item.items.forEach((id) => {
+      if (!neu.has(id)) gone.push(id);
+    });
+  } else {
+    console.log(d);
+    added = d.items;
+    gone = [];
+  }
 
-  const gone = [];
-  state.queries[queryId].item.items.forEach((id) => {
-    if (!newIdsSet.has(id)) gone.push(id);
-  });
-  a = collectionActions.freeItems(gone, q.numRefs);
-  res.items = reduceCollection(res.items, a);
+  if (added.length) {
+    a = collectionActions.bookItems(added, q.numRefs);
+    res.items = reduceCollection(res.items, a);
+  }
+
+  if (gone.length) {
+    a = collectionActions.freeItems(gone, q.numRefs);
+    res.items = reduceCollection(res.items, a);
+  }
 
   return res;
 }
@@ -165,9 +176,10 @@ function onQueryContentDone(state, action) {
 function updateQueryRefCounters(state, id, increment) {
   let a = collectionActions;
   a = increment ? a.bookItems : a.freeItems;
-  const q = state.queries[id].item;
   const res = { ...state, queries: reduceCollection(state.queries, a(id)) };
-  if (q && q.items.length) res.items = reduceCollection(res.items, a(q.items));
+
+  const ids = _.get(state.queries[id], 'item.items');
+  if (ids && ids.length) res.items = reduceCollection(res.items, a(ids));
   return res;
 }
 
