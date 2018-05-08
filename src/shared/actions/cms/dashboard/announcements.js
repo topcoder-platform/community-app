@@ -30,7 +30,7 @@ async function getActiveDone(uuid) {
   let res = await getCurrentDashboardAnnouncementId();
   if (!res) return { assets: {}, data: null, uuid };
 
-  res = await cdnService.getContentEntry(res);
+  res = await cdnService.getEntry(res);
 
   const assets = {};
   let img = res.fields.backgroundImage;
@@ -63,7 +63,7 @@ function getPreviewInit(uuid) {
  * @return {Promise}
  */
 async function getPreviewDone(id, uuid) {
-  const data = await previewService.getContentEntry(id);
+  const data = await previewService.getEntry(id);
   const assets = {};
 
   let img = data.fields.backgroundImage;
@@ -100,7 +100,7 @@ async function getScheduledDone(uuid) {
   const index = _.keys(await getCurrentDashboardAnnouncementsIndex());
   for (let i = 0; i !== index.length; i += 1) {
     /* eslint-disable no-await-in-loop */
-    data.push(await cdnService.getContentEntry(index[i]));
+    data.push(await cdnService.getEntry(index[i]));
     /* eslint-enable no-await-in-loop */
   }
   return { uuid, data };
