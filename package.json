@@ -90,7 +90,7 @@
     "supertest": "^3.0.0",
     "tc-accounts": "https://github.com/appirio-tech/accounts-app.git#dev",
     "topcoder-react-ui-kit": "^0.2.4",
-    "topcoder-react-utils": "^0.3.8",
+    "topcoder-react-utils": "^0.3.9",
     "turndown": "^4.0.1",
     "url-parse": "^1.2.0",
     "uuid": "^3.2.1",

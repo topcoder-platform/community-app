@@ -35,7 +35,33 @@ const PREVIEW_URL = `https://preview.contentful.com/spaces/${
 /* Holds base URL of Community App CDN. */
 const TC_CDN_URL = `${config.CDN.PUBLIC}/contentful`;
 
+export const ASSETS_DOMAIN = 'assets.ctfassets.net';
+export const IMAGES_DOMAIN = 'images.ctfassets.net';
+
 /* GENERAL-PURPOSE CONTETNFUL API SERVICE. */
+
+/**
+ * Given an asset object, replaces its original file URL by URL leading to our
+ * own CloudFront CDN.
+ *
+ * BEWARE:
+ *  - It mutates the argument asset.
+ *
+ * @param {Object} asset
+ */
+function mapAssetFileUrlToCdn(asset) {
+  let x = asset.fields.file.url.split('/');
+  switch (x[2]) {
+    case ASSETS_DOMAIN:
+      x = `${TC_CDN_URL}/assets/${x[4]}/${x[5]}/${x[6]}`;
+      break;
+    case IMAGES_DOMAIN:
+      x = `${TC_CDN_URL}/images/${x[4]}/${x[5]}/${x[6]}`;
+      break;
+    default: throw new Error('Unexpected asset location');
+  }
+  asset.fields.file.url = x; // eslint-disable-line no-param-reassign
+}
 
 /**
  * Auxiliary class that handles communication with Contentful CDN and preview
@@ -76,17 +102,29 @@ class ApiService {
    */
   async getAsset(id, mapFileUrlToCdn) {
     const res = await this.fetch(`/assets/${id}`);
-    if (mapFileUrlToCdn) {
-      let x = res.fields.file.url.split('/');
-      switch (x[2]) {
-        case 'images.ctfassets.net':
-          x = `${TC_CDN_URL}/images/${x[4]}/${x[5]}/${x[6]}`;
-          break;
-        default:
-          throw new Error('The asset type is not supported yet');
-      }
-      res.fields.file.url = x;
-    }
+    if (mapFileUrlToCdn) mapAssetFileUrlToCdn(res);
+    return res;
+  }
+
+  /**
+   * Gets the specified content entry.
+   * @param {String} id Entry ID.
+   * @return {Promise}
+   */
+  getEntry(id) {
+    return this.fetch(`/entries/${id}`);
+  }
+
+  /**
+   * Queries assets.
+   * @param {Object} query Optional. Query.
+   * @param {Boolean} mapFileUrlToCdn Optional. Pass in `true` to replace the
+   *  actual file path by Community App CDN path.
+   * @return {Promise}
+   */
+  async queryAssets(query, mapFileUrlToCdn) {
+    const res = await this.fetch('/assets', query);
+    if (mapFileUrlToCdn) res.items.forEach(x => mapAssetFileUrlToCdn(x));
     return res;
   }
 
@@ -95,17 +133,8 @@ class ApiService {
    * @param {Object} query Optional. Query for filtering / sorting of entries.
    * @return {Promise}
    */
-  getContentEntries(query) {
+  queryEntries(query) {
     return this.fetch('/entries', query);
-  }
-
-  /**
-   * Gets the specified content entry.
-   * @param {String} id Entry ID.
-   * @return {Promise}
-   */
-  getContentEntry(id) {
-    return this.fetch(`/entries/${id}`);
   }
 }
 

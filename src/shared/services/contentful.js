@@ -6,8 +6,10 @@
  * Community App CDN, thus reducing the load on the Contentful APIs.
  */
 
+import _ from 'lodash';
 import fetch from 'isomorphic-fetch';
 import logger from 'utils/logger';
+import qs from 'qs';
 import { config, isomorphy } from 'topcoder-react-utils';
 
 /* Service-side Contentful services module. Some of its functionality will be
@@ -23,9 +25,9 @@ if (isomorphy.isServerSide()) {
  * there). */
 const CDN_URL = `${config.CDN.PUBLIC}/contentful`;
 
-/* Holds URL of the Community App proxy endpoint that works with the Contentful
- * preview API. */
-const PREVIEW_URL = `${config.URL.APP}/api/cdn/public/contentful`;
+/* Holds the base URL of Community App endpoints that proxy HTTP request to
+ * Contentful APIs. */
+const PROXY_ENDPOINT = '/api/cdn/public/contentful';
 
 /* At the client-side only, it holds the cached index of published Contentful
  * assets and content. Do not use it directly, use getIndex() function below
@@ -140,10 +142,10 @@ class Service {
       if (isomorphy.isServerSide()) {
         return ss.previewService.getAsset(id, true);
       }
-      res = await fetch(`${PREVIEW_URL}/assets/${id}/preview`);
+      res = await fetch(`${PROXY_ENDPOINT}/preview/assets/${id}`);
     } else {
       const index = await getIndex();
-      res = `${CDN_URL}/assets/${id}?version=${index.assets[id]}`;
+      res = `${CDN_URL}/published/assets/${id}?version=${index.assets[id]}`;
       res = await fetch(res);
     }
     if (!res.ok) {
@@ -159,13 +161,13 @@ class Service {
    * @param {String} id Entry ID.
    * @return {Promise} Resolves to the content.
    */
-  async getContentEntry(id) {
+  async getEntry(id) {
     let res;
     if (this.private.preview) {
       if (isomorphy.isServerSide()) {
-        return ss.previewService.getContentEntry(id);
+        return ss.previewService.getEntry(id);
       }
-      res = await fetch(`${PREVIEW_URL}/entries/${id}/preview`);
+      res = await fetch(`${PROXY_ENDPOINT}/preview/entries/${id}`);
     } else {
       const index = await getIndex();
       let version = index.entries[id];
@@ -173,7 +175,7 @@ class Service {
         version = Date.now() - INDEX_MAXAGE;
         version -= version % INDEX_MAXAGE;
       }
-      res = `${CDN_URL}/entries/${id}?version=${version}`;
+      res = `${CDN_URL}/published/entries/${id}?version=${version}`;
       res = await fetch(res);
     }
     if (!res.ok) {
@@ -181,6 +183,56 @@ class Service {
       logger.error(error);
       throw error;
     }
+    return res.json();
+  }
+
+  /**
+   * Queries assets.
+   * @param {Object|String} query Optional. See reference of Contentful content
+   *  delivery API for supported parameters.
+   * @return {Promise}
+   */
+  async queryAssets(query) {
+    /* At server-side we just directly call server-side service,
+     * to query assets from Contentful API. */
+    if (isomorphy.isServerSide()) {
+      const service = this.private.preview ? ss.previewService : ss.cdnService;
+      return service.queryAssets(query, true);
+    }
+
+    /* At client-side we send HTTP request to Community App server,
+     * which proxies it to Contentful API, via the same server-side service
+     * used above. */
+    let url = this.private.preview ? 'preview' : 'published';
+    url = `${PROXY_ENDPOINT}/${url}/assets`;
+    if (query) url += `?${_.isString(query) ? query : qs.stringify(query)}`;
+    const res = await fetch(url);
+    if (!res.ok) throw new Error(res.statusText);
+    return res.json();
+  }
+
+  /**
+   * Queries entries.
+   * @param {Object} query Optional. See reference of Contentful content
+   *  delivery API for supported parameters.
+   * @return {Promise}
+   */
+  async queryEntries(query) {
+    /* At server-side we just directly call server-side service,
+     * to query entries from Contentful API. */
+    if (isomorphy.isServerSide()) {
+      const service = this.private.preview ? ss.previewService : ss.cdnService;
+      return service.queryEntries(query);
+    }
+
+    /* At client-side we send HTTP request to Community App server,
+     * which proxies it to Contentful API via the same server-side service
+     * used above. */
+    let url = this.private.preview ? 'preview' : 'published';
+    url = `${PROXY_ENDPOINT}/${url}/entries`;
+    if (query) url += `?${qs.stringify(query)}`;
+    const res = await fetch(url);
+    if (!res.ok) throw new Error(res.statusText);
     return res.json();
   }
 }
