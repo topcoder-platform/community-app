@@ -85,12 +85,7 @@ export default function Announcement({
         }}
       >
         { preview ? <h1 styleName="previewLabel">Preview</h1> : null }
-        <div
-          style={{
-            maxWidth: maxTextWidth,
-          }}
-          styleName="details"
-        >
+        <div styleName="details">
           <div
             onClick={() => switchShow(false)}
             onKeyPress={() => switchShow(false)}
@@ -102,13 +97,18 @@ export default function Announcement({
           { type ? <div styleName="type">{type}</div> : null }
           <h1
             styleName="title"
-            style={{ color: fontColor }}
+            style={{
+              color: fontColor,
+              maxWidth: maxTextWidth,
+            }}
           >{publicTitle || title}</h1>
           <div
             styleName="text"
-            style={{ color: fontColor }}
-          >{text}
-          </div>
+            style={{
+              color: fontColor,
+              maxWidth: maxTextWidth,
+            }}
+          >{text}</div>
           {
             readMore ? (
               <PrimaryButton
