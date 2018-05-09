@@ -1,7 +1,7 @@
 @import '~styles/mixins';
 
 .container {
-  background-position: 60% 0 !important;
+  background-position: 0 0 !important;
   height: 300px !important;
 }
 
@@ -10,7 +10,7 @@
   bottom: -370px !important;
   min-height: 550px !important;
   height: 550px !important;
-  left: -100px !important;
+  left: -200px !important;
   overflow: visible !important;
   position: absolute !important;
   transform: none !important;
@@ -28,7 +28,7 @@
 
 .contentInner {
   color: #fff !important;
-  padding: 30px 0 0 100px !important;
+  padding: 30px 0 0 200px !important;
   position: relative !important;
   width: 600px !important;
   z-index: 1 !important;
