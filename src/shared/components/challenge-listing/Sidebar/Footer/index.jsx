@@ -4,6 +4,7 @@
  */
 
 import config from 'utils/config';
+import moment from 'moment';
 import PT from 'prop-types';
 import React from 'react';
 import './style.scss';
@@ -24,7 +25,7 @@ export default function Footer({
           </ul>
         )
       }
-      <p styleName="copyright">Topcoder © 2017</p>
+      <p styleName="copyright">Topcoder © {moment().year()}</p>
     </div>
   );
 }
