@@ -277,11 +277,12 @@ exports[`Matches shallow shapshot 1`] = `
   </h3>
   <ul>
     <li>
-      <a
-        href="/hall-of-fame/tco"
+      <Link
+        replace={false}
+        to="/hall-of-fame/tco"
       >
         TCO Hall of Fame
-      </a>
+      </Link>
     </li>
     <li>
       TCO Scoreboard demo is mounted on 
@@ -415,6 +416,14 @@ exports[`Matches shallow shapshot 1`] = `
         to="/sandbox/cms/dashboard/announcements"
       >
         A simple list of all published dashboard announcements.
+      </Link>
+    </li>
+    <li>
+      <Link
+        replace={false}
+        to="/sandbox/cms/testing"
+      >
+        CMS-related testing.
       </Link>
     </li>
     <li>
