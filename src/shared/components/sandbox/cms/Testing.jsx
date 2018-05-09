@@ -4,9 +4,7 @@ import React from 'react';
 export default function Testing() {
   return (
     <ContentfulLoader
-      assetQuery={{
-        mimetype_group: 'plaintext'
-      }}
+      assetIds={['29ysEKdf1i8KWWgIeqIqwy', '5LbjvbQVd68A0GAykeYue0']}
       render={data => (
         <pre>
           {JSON.stringify(data, null, '  ')}
