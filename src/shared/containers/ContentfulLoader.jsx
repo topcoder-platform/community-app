@@ -96,7 +96,9 @@ function findDataSlots(content, ids, query) {
 
   res.itemIds = _.isArray(ids) ? ids : [ids];
   res.itemIds.forEach((id) => {
-    res.items.push(content.items[id]);
+    const slot = content.items[id];
+    if (slot) res.items.push(slot);
+    else res.items.push({ id, timestamp: 0 });
   });
 
   return res;
@@ -116,8 +118,6 @@ class ContentfulLoader extends React.Component {
     } = this.props;
     const d = this.findDataSlots();
     const minTimestamp = Date.now() - refreshMaxage;
-
-    console.log(d);
 
     /* Books the content in the store. */
     const assetIds = d.assets.itemIds;

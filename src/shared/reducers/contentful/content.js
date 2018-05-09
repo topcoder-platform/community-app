@@ -135,8 +135,8 @@ function onQueryContentDone(state, action) {
 
   const q = state.queries[queryId];
 
-  let added;
-  let gone;
+  let added = [];
+  const gone = [];
   if (q.item) {
     const neu = new Set(d.items);
     const old = new Set(q.item.items);
@@ -146,11 +146,7 @@ function onQueryContentDone(state, action) {
     q.item.items.forEach((id) => {
       if (!neu.has(id)) gone.push(id);
     });
-  } else {
-    console.log(d);
-    added = d.items;
-    gone = [];
-  }
+  } else added = d.items;
 
   if (added.length) {
     a = collectionActions.bookItems(added, q.numRefs);
