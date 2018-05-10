@@ -1,4 +1,4 @@
-import _ from 'lodash';
+// import _ from 'lodash';
 import ContentfulLoader from 'containers/ContentfulLoader';
 // import PT from 'prop-types';
 import React from 'react';
@@ -22,7 +22,7 @@ export default class Testing extends React.Component {
     setTimeout(() => this.setState({
       entryQueries: {
         content_type: 'viewport',
-      }
+      },
     }), 9000);
   }
 
