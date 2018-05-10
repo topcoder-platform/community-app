@@ -1,0 +1,81 @@
+{
+  "maxRating": {
+    "rating": 2162,
+    "track": "DEVELOP",
+    "subTrack": "DEVELOPMENT"
+  },
+  "userId": 22655076,
+  "firstName": "Mike",
+  "lastName": "Smith",
+  "description": "Hello",
+  "otherLangName": "Som",
+  "handle": "tcscoder",
+  "handleLower": "tcscoder",
+  "status": "ACTIVE",
+  "email": "tcscoder@gmail.com",
+  "addresses": [
+    {
+      "streetAddr1": "Street line 1, #432",
+      "streetAddr2": "",
+      "city": "Cheng Du",
+      "zip": "610101",
+      "stateCode": "Sichuan",
+      "type": "HOME",
+      "updatedAt": null,
+      "createdAt": null,
+      "createdBy": "",
+      "updatedBy": ""
+    }
+  ],
+  "homeCountryCode": "CHN",
+  "competitionCountryCode": "CHN",
+  "photoURL": "https://topcoder-prod-media.s3.amazonaws.com/member/profile/tcscoder-1525559661069.png",
+  "tracks": [
+    "DEVELOP"
+  ],
+  "updatedAt": "2018-05-05T22:34Z",
+  "createdAt": "2006-10-06T08:49Z",
+  "createdBy": "22655076",
+  "updatedBy": "22655076",
+  "groups": [
+    {
+      "id": "20000010",
+      "modifiedBy": null,
+      "modifiedAt": null,
+      "createdBy": "8547899",
+      "createdAt": "2017-09-11T13:54:47.000Z",
+      "name": "Blockchain",
+      "description": "Blockchain",
+      "privateGroup": true,
+      "selfRegister": true,
+      "subGroups": null,
+      "parentGroup": null
+    },
+    {
+      "id": "20000013",
+      "modifiedBy": null,
+      "modifiedAt": null,
+      "createdBy": "8547899",
+      "createdAt": "2017-10-19T10:54:47.000Z",
+      "name": "Veterans",
+      "description": "Veterans",
+      "privateGroup": true,
+      "selfRegister": true,
+      "subGroups": null,
+      "parentGroup": null
+    },
+    {
+      "id": "20000015",
+      "modifiedBy": null,
+      "modifiedAt": null,
+      "createdBy": "8547899",
+      "createdAt": "2017-11-06T15:49:35.000Z",
+      "name": "Cognitive",
+      "description": "Cognitive Community",
+      "privateGroup": true,
+      "selfRegister": true,
+      "subGroups": null,
+      "parentGroup": null
+    }
+  ]
+}

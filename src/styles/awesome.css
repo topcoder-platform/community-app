@@ -1,0 +1,74 @@
+.fa {
+  display: inline-block;
+  font: normal normal normal 14px/1 FontAwesome;
+  font-size: inherit;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+.fa-comment:before {
+  content: "\f075";
+}
+.fa-credit-card:before {
+  content: "\f09d";
+}
+.fa-user:before {
+  content: "\f007";
+}
+.fa-group:before,
+.fa-users:before {
+  content: "\f0c0";
+}
+.fa-globe:before {
+  content: "\f0ac";
+}
+.fa-github:before {
+  content: "\f09b";
+}
+.fa-dribbble:before {
+  content: "\f17d";
+}
+.fa-linkedin:before {
+  content: "\f0e1";
+}
+.fa-stack-overflow:before {
+  content: "\f16c";
+}
+.fa-behance:before {
+  content: "\f1b4";
+}
+.fa-bitbucket:before {
+  content: "\f171";
+}
+.fa-twitter:before {
+  content: "\f099";
+}
+
+.fa-spin {
+  animation: fa-spin 2s infinite linear;
+}
+
+.fa-spinner:before {
+  content: "\f110";
+}
+
+@keyframes fa-spin {
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(359deg);
+    transform: rotate(359deg);
+  }
+}
+
+.Toastify__slide-exit--top-center {
+  animation-name: Toastify__slideOutDown !important; 
+}
+.Toastify__toast-container {
+  width: 400px;
+}
+.hidden {
+  display: none !important;
+}

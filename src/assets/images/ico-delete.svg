@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="16px" height="16px" viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Cards---Show-Hide-Delete" transform="translate(-643.000000, -690.000000)" fill="#A3A3AE">
+            <path d="M655,691 C655,690.4 654.6,690 654,690 L648,690 C647.4,690 647,690.4 647,691 L647,693 L643,693 L643,695 L644,695 L644,705 C644,705.6 644.4,706 645,706 L657,706 C657.6,706 658,705.6 658,705 L658,695 L659,695 L659,693 L655,693 L655,691 L655,691 Z M649,692 L653,692 L653,693 L649,693 L649,692 Z M646,695 L656,695 L656,704 L646,704 L646,695 Z" id="icon-delete"></path>
+        </g>
+    </g>
+</svg>

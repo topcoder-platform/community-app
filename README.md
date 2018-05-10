@@ -87,9 +87,22 @@ It is intended that Wipro community is accessed as `wipro.topcoder-dev.com` in d
 
 We use [https://logentries.com](https://logentries.com) to track the logs. Log Entries API token should be provided via the `LOG_ENTRIES_TOKEN` environment variable, which will override the default values set in `/config/default.json` (sample account for local setup testing), and in `/config/production.json` (empty token) - with empty token Log Entries will not be used.
 
+### Configuration for auth0.com
+
+Auth0.com is used to link external social account (GitHub account, etc..), they are configured with default values as `AUTH0.DOMAIN` and `AUTH0.CLIENT_ID` in `config/default.json`. Use  `/config/production.json` for production config.
+
 ### Configuration for Scoreboard API
 
 Change the property in `URL.COMMUNITY_API` in config.
+
+### TC pages integrated
+
+- Changes list and challenge detail page: http://local.topcoder.com/challenges
+- Member profile page: http://local.topcoder.com/members/TonyJ
+- Dashboard page: http://local.topcoder.com/my-dashboard
+- Settings page: http://local.topcoder.com/settings/profile
+- Community page: http://local.topcoder.com/community/blockchain
+- TCO hall of fame page: http://local.topcoder.com/hall-of-fame/tco
 
 ### Current Status
 
@@ -126,7 +139,10 @@ This App already contains:
 Pending low-priority stuff (these are important, but can be added along the way):
 - Webpack Dashboard (https://github.com/FormidableLabs/webpack-dashboard);
 
+
+
 ### CI / CD
+
 Deploy scripts are setup to use AWS ECS + CircleCI. Make sure the following environment variables are setup in CircleCI:
 * AWS_ECS_SERVICE
 * AWS_REPOSITORY

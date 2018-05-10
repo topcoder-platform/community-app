@@ -1,0 +1,94 @@
+@import "~styles/mixins";
+
+.email-preferences-container {
+  width: 100%;
+  padding: 0 60px 30px;
+
+  .processing {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100px;
+  }
+
+  .newsletters {
+    .newsletter {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: left;
+
+      .content {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        padding: 15px 0;
+        border-bottom: 1px solid $tc-gray-20;
+        width: 100%;
+        transition: background-color 0.15s;
+
+        &.disabled {
+          background-color: $tc-gray-neutral-light;
+        }
+
+        .newsletter-details {
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          padding-left: 10px;
+
+          .icon {
+            &.disabled {
+              color: #b7b7b7;
+            }
+
+            img {
+              height: 32px;
+              width: 32px;
+            }
+
+            span {
+              @include sofia-pro-medium;
+
+              font-size: 16px;
+            }
+          }
+        }
+      }
+
+      .text {
+        margin-left: 15px;
+
+        .title {
+          font-size: 16px;
+          line-height: 28px;
+
+          @include sofia-pro-medium;
+
+          transition: 0.1s color;
+
+          &.disabled {
+            color: #b7b7b7;
+          }
+        }
+
+        .description {
+          @include merriweather-sans-regular;
+
+          font-size: 13px;
+          margin-top: 4px;
+          color: $tc-gray-40;
+        }
+      }
+    }
+  }
+}
+
+.save-button {
+  margin-bottom: 15px;
+  margin-top: 15px;
+  height: 40px;
+  width: 120px;
+  font-size: 18px;
+  text-transform: uppercase;
+}

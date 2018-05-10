@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="64px" height="64px" viewBox="0 0 64 64" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 3.6.1 (26313) - http://www.bohemiancoding.com/sketch -->
+    <title>icons/skills/id-353</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Skills---Develop" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="icons/skills/id-353">
+            <path d="M55,59 L13,59 C10.8,59 9,57.2 9,55 L9,13 C9,10.8 10.8,9 13,9 L55,9 C57.2,9 59,10.8 59,13 L59,55 C59,57.2 57.2,59 55,59 L55,59 Z" id="Shape" fill="#D1D3D4"></path>
+            <path d="M51,55 L9,55 C6.8,55 5,53.2 5,51 L5,9 C5,6.8 6.8,5 9,5 L51,5 C53.2,5 55,6.8 55,9 L55,51 C55,53.2 53.2,55 51,55 L51,55 Z" id="Shape" fill="#F0F0F0"></path>
+            <path d="M23,13 L19,13 L19,38.1715729 L13.4142136,32.5857864 L10.5857864,35.4142136 L21,45.8284271 L31.4142136,35.4142136 L28.5857864,32.5857864 L23,38.1715729 L23,13 Z" id="Shape" fill="#05C14F"></path>
+            <path d="M44.3,25.9 L43.4,22.8 L38.7,22.8 L37.8,25.9 L34.9,25.9 L39.3,13 L42.6,13 L47.2,25.9 L44.3,25.9 L44.3,25.9 Z M42.7,20.6 C41.8,17.8 41.4,16.3 41.2,15.9 C41.1,15.5 41,15.2 41,15 C40.8,15.8 40.3,17.6 39.3,20.6 L42.7,20.6 L42.7,20.6 Z" id="Shape" fill="#F11D3D"></path>
+            <path d="M45.8,45.9 L36.2,45.9 L36.2,44.1 L42.4,35.3 L36.4,35.3 L36.4,33 L45.6,33 L45.6,34.8 L39.4,43.6 L45.7,43.6 L45.7,45.9 L45.8,45.9 Z" id="Shape" fill="#378EE6"></path>
+        </g>
+    </g>
+</svg>

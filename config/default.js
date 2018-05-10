@@ -8,6 +8,12 @@ module.exports = {
     V3: 'https://api.topcoder-dev.com/v3',
   },
 
+  /* Auth0 config */
+  AUTH0: {
+    DOMAIN: 'topcoder-dev.auth0.com',
+    CLIENT_ID: 'JFDo7HMkf0q2CkVFHojy3zHWafziprhT',
+  },
+
   /* Amount of time [seconds] before expiration of authentication tokens,
    * when the code will treat them as expired (to prevent attempts to
    * authenticate with an expired token). */
