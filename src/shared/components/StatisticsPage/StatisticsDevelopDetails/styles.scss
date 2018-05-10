@@ -1,0 +1,322 @@
+@import "~styles/mixins";
+
+
+.develop {
+  // move the cards up to compensate for size. Refactor of the component will make this obsolete!
+  margin-top: -40px;
+
+  .bottom {
+    padding-bottom: 40px;
+    h2.detailed {
+      margin: 30px auto 0;
+      text-align: center;
+      @include sofia-pro-regular;
+      font-size: 24px;
+      line-height: 30px;
+      text-transform: uppercase;
+    }
+  }
+  ul.vertical-stats {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    li {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+    }
+  }
+}
+
+
+.develop, .design {
+
+  .graphs {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  h2.detailed {
+    margin: 30px auto 0;
+    text-align: center;
+    @include sofia-pro-regular;
+    font-size: 24px;
+    line-height: 30px;
+    text-transform: uppercase;
+  }
+  ul.vertical-stats {
+    width: 90%;
+    margin: 0 auto;
+    margin-top: 30px;
+    li {
+      @include sofia-pro-regular;
+      font-size: 15px;
+      line-height: 18px;
+      padding: 14px;
+      border-bottom: 1px solid #f6f6f6;
+      .right {
+        color: #0096ff;
+      }
+      &.first {
+        border-top: 1px solid #f6f6f6;
+      }
+    }
+  }
+
+  ul.divisions {
+    @include sofia-pro-regular;
+
+    li.division {
+      border-bottom: 1px solid #f0f0f0;
+      padding-top: 30px;
+      padding-bottom: 30px;
+      width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+      ul {
+        li.totals, li.level {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          ul.row {
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            width: 250px;
+            li {
+              height: 100px;
+              width: 100px;
+              display: flex;
+              margin-left: 10px;
+              margin-bottom: 10px;
+              background-color: #f6f6f6;
+              flex-direction: column;
+              justify-content: center;
+              align-items: center;
+              h3 {
+                font-size: 22px;
+                font-weight: bold;
+                color: #a3a3ae;
+              }
+              span {
+                margin-top: 4px;
+                font-size: 11px;
+                color: #a3a3ae;
+                text-align: center;
+                width: 85px;
+              }
+              &.left {
+                background-color: white;
+                height: 60px;
+                width: 210px;
+                h2 {
+                  font-size: 22px;
+                  font-weight: bold;
+                }
+                h3 {
+                  font-size: 20px;
+                  font-weight: 200;
+                  text-transform: uppercase;
+                }
+                span {
+                  font-size: 11px;
+                  color: #a3a3ae;
+                  margin-top: 7px;
+                  font-weight: bold;
+                }
+              }
+            }
+          }
+        }
+        li.totals {
+          ul.row {
+            li {
+              background-color: white;
+              border: solid 1px #d1d3d4;
+              h2 {
+                font-weight: bold;
+              }
+              h3 {
+                color: black;
+              }
+              &.left {
+                border: none;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  tc-section,.tc-section {
+    padding: 30px;
+  }
+
+  .challenges {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    .challenge.tile {
+      width: 285px;
+      padding: 15px;
+      margin: 10px 5px;
+    }
+    .no-challenges {
+      margin: 30px;
+      @include sofia-pro-regular;
+      font-size: 16px;
+      color: #a3a3ae;
+    }
+  }
+
+}
+
+
+.develop, .design, .data {
+
+      .graphs {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+      h2.detailed {
+        margin: 30px auto 0;
+        @include sofia-pro-regular;
+        font-size: 24px;
+        line-height: 30px;
+      }
+      ul.vertical-stats {
+        margin-top: 30px;
+        width: 95%;
+        align-content: space-between;
+        height: 300px;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-content: center;
+        flex-wrap: wrap;
+        li {
+          width: 28%;
+          margin: 0 15px;
+          @include sofia-pro-regular;
+          font-size: 15px;
+          line-height: 18px;
+          padding: 14px;
+          border-bottom: 1px solid #f6f6f6;
+          .right {
+            color: #0096ff;
+          }
+          &.first {
+            border-top: 1px solid #f6f6f6;
+          }
+        }
+      }
+
+      ul.divisions {
+        li.division {
+          ul {
+            li.totals, li.level {
+              display: flex;
+              flex-direction: column;
+              align-items: center;
+              ul.row {
+                display: flex;
+                flex-direction: row;
+                flex-wrap: wrap;
+                width: 600px;
+                li {
+                  height: 80px;
+                  width: 100px;
+                  display: flex;
+                  margin-left: 10px;
+                  margin-bottom: 10px;
+                  background-color: #fcfcfc;
+                  flex-direction: column;
+                  justify-content: center;
+                  align-items: center;
+                  h3 {
+                    font-size: 18px;
+                    font-weight: 600;
+                    color: #3d3d3d;
+                  }
+                  span {
+                    margin-top: 4px;
+                    font-size: 12px;
+                    color: #a3a3ae;
+                    text-align: center;
+                    width: 85px;
+                  }
+                  &.left {
+                    background-color: white;
+                    height: 80px;
+                    width: 140px;
+                    &.wide {
+                      width: 245px;
+                      display: flex;
+                      flex-direction: column;
+                      align-items: flex-start;
+                      padding-left: 20px;
+                    }
+                    &.level {
+                      background-color: #f2faff;
+                    }
+                    h3 {
+                      font-size: 18px;
+                      font-weight: 600;
+                      text-transform: uppercase;
+                      text-align: left;
+                      &.level {
+                        color: #3d3d3d;
+                      }
+                    }
+                    span {
+                      font-size: 11px;
+                      color: #a3a3ae;
+                      text-align: left;
+                      margin-top: 7px;
+                      font-weight: 600;
+                    }
+                  }
+                }
+              }
+            }
+            li.totals {
+              ul.row {
+                li {
+                  background-color: white;
+                  border: none;
+                  &.left {
+                    background-color: none;
+                  }
+                  h3 {
+                    color: #097DCE;
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+
+      .tabs {
+        width: 90%;
+        margin-left: auto;
+        margin-right: auto;
+        a {
+          font-size: 24px;
+          height: 40px;
+          width: 170px;
+        }
+      }
+
+      .challenges {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        .challenge.tile {
+        }
+      }
+
+    }

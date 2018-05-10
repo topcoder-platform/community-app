@@ -101,6 +101,20 @@ function onGetStatsDone(state, { payload, error }) {
   return ({ ...state, stats: payload, loadingError: false });
 }
 
+/**
+ * Handles PROFILE/GET_STATS_HISTORY_DONE action.
+ * @param {Object} state
+ * @param {Object} action Payload will be JSON from api call
+ * @return {Object} New state
+ */
+function onGetStatsHistoryDone(statsHistory, { payload, error }) {
+  if (error) {
+    return { ...statsHistory, loadingError: true };
+  }
+
+  return ({ ...statsHistory, statsHistory: payload, loadingError: false });
+}
+
 function create(initialState) {
   const a = actions.profile;
   return handleActions({
@@ -117,6 +131,8 @@ function create(initialState) {
     [a.getSkillsDone]: onGetSkillsDone,
     [a.getStatsInit]: state => state,
     [a.getStatsDone]: onGetStatsDone,
+    [a.getStatsHistoryInit]: state => state,
+    [a.getStatsHistroyDone]: onGetStatsHistoryDone,
   }, _.defaults(initialState, {
     achievements: null,
     copilot: false,

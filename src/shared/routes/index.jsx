@@ -19,6 +19,7 @@ import Communities from './Communities';
 import Examples from './Examples';
 import Sandbox from './Sandbox';
 import Topcoder from './Topcoder';
+import Statistics from './Statistics';
 
 function Routes({ communityId }) {
   const metaTags = (
@@ -52,6 +53,7 @@ function Routes({ communityId }) {
       <Switch>
         <Route exact path="/" component={Content} />
         { Examples() }
+        { Statistics() }
         <Route
           render={({ match }) => (
             <CommunityLoader
