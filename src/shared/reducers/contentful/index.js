@@ -45,8 +45,19 @@ function create(init) {
       return state;
     }
 
+    const res = _.clone(state);
+    switch (action.type) {
+      case actions.contentful.getContentDone.toString():
+      case actions.contentful.queryContentDone.toString():
+        res.preview = space(state.preview, actions.contentful.cleanState());
+        res.published = space(state.published, actions.contentful.cleanState());
+        break;
+      default:
+    }
+
     const key = payload.preview ? 'preview' : 'published';
-    return { ...state, [key]: space(state[key], action) };
+    res[key] = space(res[key], action);
+    return res;
   };
 }
 
