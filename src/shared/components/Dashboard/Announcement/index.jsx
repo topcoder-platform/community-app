@@ -153,11 +153,12 @@ export default function Announcement({
 }
 
 Announcement.defaultProps = {
+  assets: {},
   preview: false,
 };
 
 Announcement.propTypes = {
-  assets: PT.shape.isRequired,
+  assets: PT.shape(),
   announcement: PT.shape({
     fields: PT.shape({
       backgroundImage: PT.shape({

@@ -182,9 +182,10 @@ class ContentfulLoader extends React.Component {
       entryIds,
       entryQueries,
       maxage,
+      preview,
     } = this.props;
     const minTimestamp = Date.now() - maxage;
-    const res = {};
+    const res = { preview: Boolean(preview) };
 
     res.assets = findData(assets, assetIds, assetQueries, minTimestamp);
     if (!res.assets) return null;
@@ -313,14 +314,13 @@ class ContentfulLoader extends React.Component {
   }
 
   render() {
-    const { render, renderPlaceholder } = this.props;
+    const { render, renderPlaceholder: Placeholder } = this.props;
     const data = this.findRequestedData();
 
     /* Some of the required data still pending to load: render a placeholder,
      * or nothing. */
     if (!data) {
-      return _.isFunction(renderPlaceholder)
-        ? renderPlaceholder() : renderPlaceholder;
+      return _.isFunction(Placeholder) ? <Placeholder /> : Placeholder;
     }
 
     /* Bingo: render the child component with requested data. */
