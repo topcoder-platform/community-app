@@ -4,6 +4,9 @@ exports[`renders account setting page correctly 1`] = `
 <div
   className="src-shared-components-Settings-___style__container___2VsNz"
 >
+  <Connect(MetaTags)
+    title="Account Info | TopCoder"
+  />
   <div
     className="src-shared-components-Settings-___style__page___2zowc"
   >
@@ -1402,6 +1405,9 @@ exports[`renders email setting page correctly 1`] = `
 <div
   className="src-shared-components-Settings-___style__container___2VsNz"
 >
+  <Connect(MetaTags)
+    title="Email Preferences | TopCoder"
+  />
   <div
     className="src-shared-components-Settings-___style__page___2zowc"
   >
@@ -2796,6 +2802,9 @@ exports[`renders preferences setting page correctly 1`] = `
 <div
   className="src-shared-components-Settings-___style__container___2VsNz"
 >
+  <Connect(MetaTags)
+    title="Preferences | TopCoder"
+  />
   <div
     className="src-shared-components-Settings-___style__page___2zowc"
   >
@@ -4188,6 +4197,9 @@ exports[`renders profile setting page correctly 1`] = `
 <div
   className="src-shared-components-Settings-___style__container___2VsNz"
 >
+  <Connect(MetaTags)
+    title="Edit Profile | TopCoder"
+  />
   <div
     className="src-shared-components-Settings-___style__page___2zowc"
   >
