@@ -3,6 +3,7 @@
  */
 import React from 'react';
 import PT from 'prop-types';
+import { MetaTags } from 'topcoder-react-utils';
 
 import { TABS } from 'actions/page/settings';
 
@@ -25,8 +26,27 @@ export default function Settings(props) {
     props.history.push(`/settings/${tab}`);
   };
 
+  let title;
+  switch (settingsTab) {
+    case TABS.ACCOUNT:
+      title = 'Account Info';
+      break;
+    case TABS.EMAIL:
+      title = 'Email Preferences';
+      break;
+    case TABS.PREFERENCES:
+      title = 'Preferences';
+      break;
+    default:
+      title = 'Edit Profile';
+      break;
+  }
+
   return (
     <div styleName="container">
+      <MetaTags
+        title={`${title} | TopCoder`}
+      />
       <div styleName="page">
         <Header
           {...props}
