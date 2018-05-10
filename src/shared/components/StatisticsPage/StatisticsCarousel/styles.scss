@@ -1,0 +1,181 @@
+@import "~styles/mixins";
+
+
+.subtrack-stats {
+  width: 100%;
+  max-width: 1242px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  background-color: #fff;
+  padding: 30px auto;
+  & + .develop {
+    // move the cards up to compensate for size. Refactor of the component will make this obsolete!
+    margin-top: -40px;
+  }
+}
+
+
+
+
+.tc-carousel {
+  ul {
+    display: block;
+    height: 148px;
+    margin: 0 auto;
+    @media only screen and (max-width: 767px) {
+      display: none;
+      width: auto;
+    }
+    @media only screen and (min-width: 768px) {
+      &[slide-count="1"] {
+        width: 170px;
+      }
+      &[slide-count="2"] {
+        width: 340px;
+      }
+      &[slide-count="3"] {
+        width: 510px;
+      }
+      &[slide-count="4"] {
+        width: 680px;
+      }
+      &[slide-count="5"] {
+        width: 850px;
+      }
+      &[slide-count="6"] {
+        width: 1020px;
+      }
+      &[slide-count="7"] {
+        width: 1190px;
+      }
+    }
+
+    li {
+      div:last-child {
+        margin-right: 0;
+      }
+    }
+  }
+
+  .rn-carousel-controls {
+    position: relative;
+    @media only screen and (max-width: 767px) {
+      display: none;
+    }
+
+    .rn-carousel-control {
+      height: 148px;
+      width: 80px;
+      line-height: 148px;
+      top: -148px;
+      background-color: #fcfcfc;
+      color: #a3a3ae;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .rn-carousel-control-prev {
+      left: 0;
+    }
+
+    .rn-carousel-control-prev:before {
+      content: '';
+      display: block;
+      width: 20px;
+      height: 38px;
+      background-image: url(/assets/images/ico-arrow-big-left.svg);
+      background-size: 20px 38px;
+
+      :hover {
+        opacity: 0;
+      }
+    }
+
+    .rn-carousel-control-next {
+      right: 0;
+    }
+
+    .rn-carousel-control.rn-carousel-control-next:before {
+      content: '';
+      display: block;
+      width: 20px;
+      height: 38px;
+      background-image: url(/assets/images/ico-arrow-big-right.svg);
+      background-size: 20px 38px;
+
+      :hover {
+        opacity: 0.3;
+      }
+    }
+
+  }
+
+  .slide {
+    display: inline-block;
+
+    @media only screen and (max-width: 767px) {
+      display: block;
+    }
+  }
+
+// .carousel-elem-list {
+  .slide {
+    &:not(:first-child) {
+      .carousel-elem:before {
+        content: '';
+        display: block;
+        position: absolute;
+        top: 32px;
+        left: -30px;
+        background-color: #f0f0f0;
+        @media only screen and (min-width: 768px) {
+          top: 32px;
+          left: -18px;
+        }
+        @media only screen and (max-width: 767px) {
+          top: -30px;
+          left: 60px;
+        }
+      }
+    }
+  }
+
+
+  ul[slide-count="3"] {
+    @media only screen and (min-width: 575px) {
+      .slide {
+        display: inline-block;
+
+        &:not(:first-child) {
+          .carousel-elem:before {
+            top: 32px;
+            left: -18px;
+          }
+        }
+      }
+    }
+  }
+// }
+}
+
+
+
+@media only screen and (max-width: 767px) {
+      .tc-carousel ul {
+        display: block;
+        height: auto;
+        padding-bottom: 40px;
+
+        > li {
+          position: relative;
+          text-align: center;
+
+          .slide {
+            text-align: center;
+          }
+        }
+      }
+}

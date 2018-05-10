@@ -22,5 +22,7 @@ export default createActions({
     GET_SKILLS_DONE: handle => getMembersService().getSkills(handle),
     GET_STATS_INIT: noop,
     GET_STATS_DONE: handle => getMembersService().getStats(handle),
+    GET_STATS_HISTORY_INIT: noop,
+    GET_STATS_HISTORY_DONE: handle => getMembersService().getStatsHistory(handle),
   },
 });

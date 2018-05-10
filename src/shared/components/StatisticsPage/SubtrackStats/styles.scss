@@ -1,0 +1,117 @@
+@import "~styles/mixins";
+
+.carousel-elem {
+  position: relative;
+  display: inline-block;
+  margin-right: 65px;
+  padding: 20px 0;
+  width: 130px;
+  @media only screen and (min-width: 768px) {
+    margin-right: 35px;
+    padding: 30px 20px;
+
+    &:hover {
+      background-color: #fcfcfc;
+
+      .title {
+        color: #3d3d3d;
+        border-bottom-color: #3d3d3d;
+      }
+
+      p:last-child {
+        color: #3d3d3d;
+      }
+    }
+  }
+
+  &:first-child {
+    margin-left: 20px;
+  }
+
+  &:last-child {
+    margin-right: 20px;
+  }
+
+  .flex-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    &.no-link {
+      cursor: default;
+    }
+    &.link {
+      cursor: pointer;
+    }
+  }
+
+  p {
+    @include sofia-pro-medium;
+    font-size: 12px;
+    font-weight: 400;
+    color: #a3a3ae;
+
+    &:last-child {
+      text-transform: uppercase;
+    }
+  }
+
+  .title {
+    padding-bottom: 7px;
+    border-bottom: 1px solid #D1D3D4;
+  }
+
+  .value {
+    position: relative;
+    margin-bottom: 7px;
+    font-size: 32px;
+    color: #3d3d3d;
+    @media only screen and (max-width: 767px) {
+      margin-top: 10px;
+    }
+
+    span {
+      position: absolute;
+      top: 5px;
+      right: -10px;
+      width: 6px;
+      height: 6px;
+      background-color: #5E9EF1;
+    }
+  }
+
+  .label {
+    text-align: center;
+  }
+
+
+}
+
+
+.slide {
+  display: inline-block;
+  @media only screen and (max-width: 767px) {
+    display: block;
+  }
+}
+
+// .carousel-elem-list {
+.slide {
+  &:not(:first-child) {
+    .carousel-elem:before {
+      content: '';
+      display: block;
+      position: absolute;
+      top: 32px;
+      left: -30px;
+      background-color: #f0f0f0;
+      @media only screen and (min-width: 768px) {
+        top: 32px;
+        left: -18px;
+      }
+      @media only screen and (max-width: 767px) {
+        top: -30px;
+        left: 60px;
+      }
+    }
+  }
+}

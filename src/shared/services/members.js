@@ -81,6 +81,16 @@ class MembersService {
   }
 
   /**
+   * Gets member statistics history.
+   * @param {String} handle
+   * @return {Promise} Resolves to the stats object.
+   */
+  async getStatsHistory(handle) {
+    const res = await this.private.api.get(`/members/${handle}/stats/history`);
+    return getApiResponsePayloadV3(res);
+  }
+
+  /**
    * Gets a list of suggested member names for the supplied partial.
    *
    * WARNING: This method requires v3 authorization.
