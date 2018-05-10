@@ -12,15 +12,26 @@ export default class Testing extends React.Component {
     };
 
     setTimeout(() => this.setState({
-      // query: ['22k5Cuv40YG4my6IY28sSw'],
+      assetQueries: true,
     }), 3000);
+
+    setTimeout(() => this.setState({
+      assetQueries: false,
+    }), 6000);
+
+    setTimeout(() => this.setState({
+      entryQueries: {
+        content_type: 'viewport',
+      }
+    }), 9000);
   }
 
   render() {
     return (
       <div>
         <ContentfulLoader
-          assetQueries
+          assetQueries={this.state.assetQueries}
+          entryQueries={this.state.entryQueries}
           render={data => <pre>{JSON.stringify(data, null, '  ')}</pre>}
           renderPlaceholder={() => 'LOADING'}
         />

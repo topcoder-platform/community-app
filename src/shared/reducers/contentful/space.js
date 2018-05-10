@@ -40,6 +40,14 @@ function create(init) {
       return init ? _.defaults(init, def) : def;
     }
 
+    if (action.type === actions.contentful.cleanState.toString()) {
+      return {
+        ...state,
+        assets: content(state.assets, action),
+        entries: content(state.entries, action),
+      };
+    }
+
     const { data, target } = action.payload;
     const res = { ...state, [target]: content(state[target], action) };
 

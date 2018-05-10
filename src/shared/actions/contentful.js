@@ -16,6 +16,10 @@ function bookQuery(id, target, preview) {
   return { id, preview, target };
 }
 
+function cleanState() {
+  return Date.now();
+}
+
 function freeContent(ids, target, preview) {
   return { ids, preview, target };
 }
@@ -62,7 +66,6 @@ async function getContentDone(operationId, contentId, target, preview) {
     operationId,
     preview,
     target,
-    timestamp: Date.now(),
   };
 }
 
@@ -98,7 +101,6 @@ async function queryContentDone(operationId, queryId, target, query, preview) {
     preview,
     queryId,
     target,
-    timestamp: Date.now(),
   };
 }
 
@@ -106,6 +108,7 @@ export default redux.createActions({
   CONTENTFUL: {
     BOOK_CONTENT: bookContent,
     BOOK_QUERY: bookQuery,
+    CLEAN_STATE: cleanState,
     FREE_CONTENT: freeContent,
     FREE_QUERY: freeQuery,
     GET_CONTENT_INIT: getContentInit,
