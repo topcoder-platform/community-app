@@ -1,16 +1,30 @@
+import _ from 'lodash';
 import ContentfulLoader from 'containers/ContentfulLoader';
+// import PT from 'prop-types';
 import React from 'react';
 
-export default function Testing() {
-  return (
-    <ContentfulLoader
-      assetIds={['29ysEKdf1i8KWWgIeqIqwy', '5LbjvbQVd68A0GAykeYue0']}
-      render={data => (
-        <pre>
-          {JSON.stringify(data, null, '  ')}
-        </pre>
-      )}
-      renderPlaceholder={() => <div>test</div>}
-    />
-  );
+export default class Testing extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      // query: null,
+    };
+
+    setTimeout(() => this.setState({
+      // query: ['22k5Cuv40YG4my6IY28sSw'],
+    }), 3000);
+  }
+
+  render() {
+    return (
+      <div>
+        <ContentfulLoader
+          assetQueries
+          render={data => <pre>{JSON.stringify(data, null, '  ')}</pre>}
+          renderPlaceholder={() => 'LOADING'}
+        />
+      </div>
+    );
+  }
 }
