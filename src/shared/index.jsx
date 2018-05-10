@@ -12,7 +12,12 @@ import ErrorIcons from 'containers/ErrorIcons';
 
 import { DevTools, isomorphy } from 'topcoder-react-utils';
 
+import { ToastContainer, Slide } from 'react-toastify';
+
+import 'react-toastify/dist/ReactToastify.css';
 import 'topcoder-react-ui-kit/dist/style.css';
+
+import 'styles/awesome.css';
 
 import 'styles/global.scss';
 import 'slick-carousel/slick/slick.css';
@@ -24,6 +29,7 @@ export default function App() {
       <Routes />
       <ErrorMessage />
       <ErrorIcons />
+      <ToastContainer position="top-center" hideProgressBar draggable={false} transition={Slide} />
       { isomorphy.isDevBuild() ? <DevTools /> : undefined }
     </div>
   );
