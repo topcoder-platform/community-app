@@ -16,6 +16,29 @@ const DEFAULT_MAXAGE = 5 * 60 * 1000;
 const DEFAULT_REFRESH_MAXAGE = 1 * 60 * 1000;
 
 /**
+ * Returns an array of all `a` elements not present in `b`.
+ * @param {Array} a
+ * @param {Array} b
+ * @return {Array}
+ */
+function arrayDiff(a, b) {
+  if (!b.length) return a;
+  const set = new Set(b);
+  return a.filter(item => !set.has(item));
+}
+
+/**
+ * Auxiliary function:
+ *  - If `arg` is an array, returns that array;
+ *  - If `arg` is falsy, returns a new empty array;
+ *  - Otherwise returns a new array, having `arg` as its only element.
+ */
+function toArray(arg) {
+  if (arg) return _.isArray(arg) ? arg : [arg];
+  return [];
+}
+
+/**
  * Generates Md5 fingerprint of the specified query.
  * @param {Object|String} query
  * @return {String}
@@ -28,78 +51,47 @@ function queryToMd5(query) {
 }
 
 /**
- * Finds required data, and returns either them, or `undefined` if any of the
- * requested data are missing.
- * @param {Object} content
- * @param {String|String[]} ids
- * @param {Object} query
- * @param {Number} minTimestamp
- * @return {Object}
+ * Looks up for the specified content. Either returns all requested content,
+ * or null, if any of the content is missing.
+ * @param {Object} content An object with `items` and `queries` collections for
+ *  the look up. Each collection should be an intance of `colleciton` store
+ *  segment from `topcoder-react-utils` library.
+ * @param {String|String[]} itemIds ID, or an array of IDs, of items to look
+ *  for.
+ * @param {Object|Object[]} query Query, or an array of queries, to look for.
+ * @param {Number} minTimestamp The minimal timestamp of items and queries to
+ *  take into account; i.e. any stored items / queries with timestamps older
+ *  than this value will be ignored during the lookup.
+ * @return {Object} `null` if any of the requested content is missing, or an
+ *  object with two fields:
+ *  - `items` {Object} - the map of content items (including those matched by
+ *    the queries;
+ *  - `matches` {Array} - array of query results.
  */
-function findData(content, ids, query, minTimestamp) {
-  let aux;
-  const res = { items: {}, match: null };
+function findData(content, itemIds, queries, minTimestamp) {
+  const res = { items: {}, matches: [] };
+  let ids = toArray(itemIds);
 
-  /* Finds query result. */
-  if (query) {
-    const q = content.queries[queryToMd5(query)];
-    /* Fail: the query result is not known, or too outdated. */
-    if (!q || !q.item || q.timestamp < minTimestamp) return null;
-    aux = q.item.items;
-    res.match = q.item;
+  /* Lookup of query results, along with collection of items matched by these
+   * queries. */
+  if (queries) {
+    const array = toArray(queries);
+    for (let i = 0; i !== array.length; i += 1) {
+      const slot = content.queries[queryToMd5(array[i])];
+      if (!slot || !slot.item || slot.timestamp < minTimestamp) return null;
+      ids = ids.concat(slot.item.items);
+      res.matches.push(slot.item);
+    }
   }
 
-  /* Merges explicitely requetsed content IDs into IDs matched by the query,
-   * taking into account that any or both of them might be absent. */
-  if (ids) {
-    if (aux) {
-      if (_.isArray(ids)) aux = aux.concat(ids);
-      else aux.push(ids);
-    } else aux = _.isArray(ids) ? ids : [ids];
+  /* Lookup of content items. */
+  if (ids.length) {
+    for (let i = 0; i !== ids.length; i += 1) {
+      const slot = content.items[ids[i]];
+      if (!slot || !slot.item || slot.timestamp < minTimestamp) return null;
+      res.items[ids[i]] = slot.item;
+    }
   }
-
-  /* If there are no content IDs to look for - returns. */
-  if (!aux || !aux.length) return res;
-
-  /* Otherwise - attempts to find all required content objects. */
-  for (let i = 0; i !== aux.length; i += 1) {
-    const id = aux[i];
-    const it = content.items[id];
-    /* Fail: some of the required items is not known, or too outdated. */
-    if (!it || !it.item || it.timestamp < minTimestamp) return null;
-    res.items[id] = it.item;
-  }
-
-  /* Success. */
-  return res;
-}
-
-/**
- * This is similar to `findData(..)` but intended for usage in loading /
- * reloading operations, where we need to find slots (wrappers) where info on
- * all requested content and/or query is stored.
- * @param {Object} content
- * @param {String|String[]} ids
- * @param {Object} query
- * @param {Number} minTimestamp
- * @param {Number} minReloadTimestamp
- * @return {Object}
- */
-function findDataSlots(content, ids, query) {
-  const res = { items: [], match: null };
-  res.queryId = queryToMd5(query);
-
-  /* Finds query result. */
-  if (query) res.match = content.queries[res.queryId];
-
-  if (!ids) return res;
-
-  res.itemIds = _.isArray(ids) ? ids : [ids];
-  res.itemIds.forEach((id) => {
-    const slot = content.items[id];
-    if (slot) res.items.push(slot);
-    else res.items.push({ id, timestamp: 0 });
-  });
 
   return res;
 }
@@ -107,137 +99,228 @@ function findDataSlots(content, ids, query) {
 class ContentfulLoader extends React.Component {
   componentDidMount() {
     const {
-      assetQuery,
-      bookContent,
-      bookQuery,
-      entryQuery,
-      getContent,
-      preview,
-      queryContent,
+      assetIds,
+      assetQueries,
+      entryIds,
+      entryQueries,
       refreshMaxage,
     } = this.props;
-    const d = this.findDataSlots();
-    const minTimestamp = Date.now() - refreshMaxage;
 
-    /* Books the content in the store. */
-    const assetIds = d.assets.itemIds;
-    const entryIds = d.entries.itemIds;
-    if (assetIds && assetIds.length) bookContent(assetIds, 'assets', preview);
-    if (entryIds && entryIds.length) bookContent(entryIds, 'entries', preview);
-    if (d.assets.queryId) bookQuery(d.assets.queryId, 'assets', preview);
-    if (d.entries.queryId) bookQuery(d.entries.queryId, 'entries', preview);
+    const timeLimit = Date.now() - refreshMaxage;
+    this.loadContentOnMount(assetIds, 'assets', timeLimit);
+    this.loadContentOnMount(entryIds, 'entries', timeLimit);
+    this.loadQueriesOnMount(assetQueries, 'assets', timeLimit);
+    this.loadQueriesOnMount(entryQueries, 'entries', timeLimit);
+  }
 
-    /* Loading. */
-    if (assetQuery) {
-      const m = d.assets.match;
-      if (!m || (!m.loadingOperationId && m.timestamp < minTimestamp)) {
-        queryContent(assetQuery, 'assets', preview);
-      }
-    }
+  componentDidUpdate(prev) {
+    const {
+      assetIds,
+      assetQueries,
+      entryIds,
+      entryQueries,
+      refreshMaxage,
+    } = this.props;
 
-    if (entryQuery) {
-      const m = d.entries.match;
-      if (!m || (!m.loadingOperationId && m.timestamp < minTimestamp)) {
-        queryContent(entryQuery, 'entries', preview);
-      }
-    }
-    d.assets.items.forEach((item) => {
-      if (!item.loadingOperationId && item.timestamp < minTimestamp) {
-        getContent(item.id, 'assets', preview);
-      }
-    });
-    d.entries.items.forEach((item) => {
-      if (!item.loadingOperationId && item.timestamp < minTimestamp) {
-        getContent(item.id, 'entries', preview);
-      }
-    });
+    const timeLimit = Date.now() - refreshMaxage;
+
+    this.updateContent(assetIds, prev.assetIds, 'assets', timeLimit, prev);
+    this.updateContent(entryIds, prev.entryIds, 'entries', timeLimit, prev);
+    this.updateQueries(
+      assetQueries, prev.assetQueries, 'assets', timeLimit,
+      prev,
+    );
+    this.updateQueries(
+      entryQueries, prev.entryQueries, 'entries', timeLimit,
+      prev,
+    );
   }
 
   componentWillUnmount() {
-    /* Free related content in the store. */
-    const { freeContent, freeQuery, preview } = this.props;
-    const d = this.findDataSlots();
+    const {
+      assetIds,
+      assetQueries,
+      entryIds,
+      entryQueries,
+      freeContent,
+      freeQuery,
+      preview,
+    } = this.props;
 
-    /* Books the content in the store. */
-    const assetIds = d.assets.itemIds;
-    const entryIds = d.entries.itemIds;
-    if (assetIds && assetIds.length) freeContent(assetIds, 'assets', preview);
-    if (entryIds && entryIds.length) freeContent(entryIds, 'entries', preview);
-    if (d.assets.queryId) freeQuery(d.assets.queryId, 'assets', preview);
-    if (d.entries.queryId) freeQuery(d.entries.queryId, 'entries', preview);
+    if (assetIds) freeContent(toArray(assetIds), 'assets', preview);
+    if (entryIds) freeContent(toArray(entryIds), 'entries', preview);
+
+    if (assetQueries) {
+      const ids = toArray(assetQueries).map(query => queryToMd5(query));
+      ids.forEach(id => freeQuery(id, 'assets', preview));
+    }
+
+    if (entryQueries) {
+      const ids = toArray(entryQueries).map(query => queryToMd5(query));
+      ids.forEach(id => freeQuery(id, 'entries', preview));
+    }
   }
 
   /**
    * Generates an object with requested data to pass into the rendering
    * function. In case any of the data are missing, it returns `undefined`.
    * @return {Object} In case all requested data are present, it is an object
-   *  with the following fields:
-   *  - assets {Object} - ID > object mapping of assets;
-   *  - entries {Object} - ID > object mapping of entries;
-   *  - assetsMatch {Object} - Optional. The result of asset query, if it was
-   *    provided;
-   *  - entriesMatch {Object} - Optional. The result of entries query, if it
-   *    was requested.
+   *  with the following structure:
+   *  - assets {Object}
+   *    - items: {Object}
+   *    - matches: {Array}
+   *  - entries {Object}
+   *    - items: {Object}
+   *    - matches: {Array}
    */
-  findRequiredData() {
-    /* TODO: The logic for assets and entries is the same here, thus all can
-     * be done with a more generic method called twice. But, before we debug
-     * the current implementation, further abstraction seems risky. */
+  findRequestedData() {
     const {
       assetIds,
-      assetQuery,
+      assetQueries,
       assets,
       entries,
       entryIds,
-      entryQuery,
+      entryQueries,
       maxage,
+      preview,
     } = this.props;
     const minTimestamp = Date.now() - maxage;
+    const res = { preview: Boolean(preview) };
 
-    /* Finds assets and/or asset query result. */
-    const a = findData(assets, assetIds, assetQuery, minTimestamp);
-    if (!a) return null; /* Fail: something is not found or outdated. */
+    res.assets = findData(assets, assetIds, assetQueries, minTimestamp);
+    if (!res.assets) return null;
 
-    /* Finds entries and/or entry query result. */
-    const e = findData(entries, entryIds, entryQuery, minTimestamp);
-    if (!e) return null; /* Fail: something is not found or outdated. */
+    res.entries = findData(entries, entryIds, entryQueries, minTimestamp);
+    if (!res.entries) return null;
 
-    /* Bingo! */
-    return {
-      assets: a.items,
-      entries: e.items,
-      assetsMatch: a.match,
-      entriesMatch: e.match,
-    };
+    return res;
   }
 
   /**
-   * Generates an object with all data on requested items we have
-   * @return {Object}
+   * (Re-)loads assets or entries with specified IDs.
+   * @param {String[]} ids
+   * @param {String} target `assets` or `entries`.
+   * @param {Number} timeLimit
    */
-  findDataSlots() {
+  loadContent(ids, target, timeLimit) {
+    const { getContent, preview, [target]: { items } } = this.props;
+    ids.forEach((id) => {
+      const slot = items[id];
+      if (!slot || (!slot.loadingOperationId && slot.timestamp < timeLimit)) {
+        getContent(id, target, preview);
+      }
+    });
+  }
+
+  /**
+   * Initial booking of content (on mount).
+   * @param {String|String[]} contentIds Optional. ID, or an array of IDs.
+   * @param {String} target `assets` or `entries`
+   * @param {Number} timeLimit
+   */
+  loadContentOnMount(contentIds, target, timeLimit) {
+    if (!contentIds) return;
+    const ids = toArray(contentIds);
+    const { bookContent, preview } = this.props;
+    bookContent(ids, target, preview);
+    this.loadContent(ids, target, timeLimit);
+  }
+
+  loadQueries(ids, contentQueries, target, timeLimit) {
+    const { queryContent, preview, [target]: { queries } } = this.props;
+    ids.forEach((id, index) => {
+      const slot = queries[id];
+      if (!slot || (!slot.loadingOperationId && slot.timestamp < timeLimit)) {
+        queryContent(id, contentQueries[index], target, preview);
+      }
+    });
+  }
+
+  loadQueriesOnMount(contentQueries, target, timeLimit) {
+    if (!contentQueries) return;
+    const queries = toArray(contentQueries);
+    const ids = queries.map(q => queryToMd5(q));
+    const { bookQuery, preview } = this.props;
+    ids.forEach(id => bookQuery(id, target, preview));
+    this.loadQueries(ids, queries, target, timeLimit);
+  }
+
+  updateContent(ids, prevIds, target, timeLimit, prev) {
+    if (!ids && !prevIds) return;
+    const old = toArray(prevIds);
+    const neu = toArray(ids);
+    let added;
+    let gone;
     const {
-      assetIds,
-      assetQuery,
-      assets,
-      entries,
-      entryIds,
-      entryQuery,
+      bookContent,
+      freeContent,
+      getContent,
+      preview,
+      [target]: { items },
     } = this.props;
-    const a = findDataSlots(assets, assetIds, assetQuery);
-    const e = findDataSlots(entries, entryIds, entryQuery);
-    return { assets: a, entries: e };
+    if (preview !== prev.preview) {
+      added = neu;
+      gone = old;
+    } else {
+      added = arrayDiff(neu, old);
+      gone = arrayDiff(old, neu);
+    }
+    if (gone.length) freeContent(gone, target, prev.preview);
+    if (added.length) {
+      bookContent(added, target, preview);
+      added.forEach((id) => {
+        const slot = items[id];
+        if (!slot || (!slot.loadingOperationId && slot.timestamp < timeLimit)) {
+          getContent(id, target, preview);
+        }
+      });
+    }
+  }
+
+  updateQueries(contentQueries, prevQueries, target, timeLimit, prev) {
+    if (!contentQueries && !prevQueries) return;
+    const old = toArray(prevQueries);
+    const neu = toArray(contentQueries);
+    let added;
+    let gone;
+    const {
+      bookQuery,
+      freeQuery,
+      queryContent,
+      preview,
+      [target]: { queries },
+    } = this.props;
+    if (preview !== prev.preview) {
+      added = neu;
+      gone = old;
+    } else {
+      added = arrayDiff(neu, old);
+      gone = arrayDiff(old, neu);
+    }
+    if (gone.length) {
+      const ids = gone.map(q => queryToMd5(q));
+      ids.forEach(id => freeQuery(id, target, prev.preview));
+    }
+    if (added.length) {
+      const ids = added.map(q => queryToMd5(q));
+      ids.forEach((id, index) => {
+        bookQuery(id, target, preview);
+        const slot = queries[id];
+        if (!slot || (!slot.loadingOperationId && slot.timestamp < timeLimit)) {
+          queryContent(id, added[index], target, preview);
+        }
+      });
+    }
   }
 
   render() {
-    const { render, renderPlaceholder } = this.props;
-    const data = this.findRequiredData();
+    const { render, renderPlaceholder: Placeholder } = this.props;
+    const data = this.findRequestedData();
 
     /* Some of the required data still pending to load: render a placeholder,
      * or nothing. */
     if (!data) {
-      return _.isFunction(renderPlaceholder) ? renderPlaceholder()
-        : renderPlaceholder;
+      return _.isFunction(Placeholder) ? <Placeholder /> : Placeholder;
     }
 
     /* Bingo: render the child component with requested data. */
@@ -247,9 +330,9 @@ class ContentfulLoader extends React.Component {
 
 ContentfulLoader.defaultProps = {
   assetIds: null,
-  assetQuery: null,
+  assetQueries: null,
   entryIds: null,
-  entryQuery: null,
+  entryQueries: null,
   maxage: DEFAULT_MAXAGE,
   preview: false,
   refreshMaxage: DEFAULT_REFRESH_MAXAGE,
@@ -262,12 +345,12 @@ const STRING_OR_STRING_ARRAY = PT.oneOfType([PT.string, PT.arrayOf(PT.string)]);
 ContentfulLoader.propTypes = {
   assets: PT.shape().isRequired,
   assetIds: STRING_OR_STRING_ARRAY,
-  assetQuery: QUERY_TYPE,
+  assetQueries: QUERY_TYPE,
   bookContent: PT.func.isRequired,
   bookQuery: PT.func.isRequired,
   entries: PT.shape().isRequired,
   entryIds: STRING_OR_STRING_ARRAY,
-  entryQuery: QUERY_TYPE,
+  entryQueries: QUERY_TYPE,
   freeContent: PT.func.isRequired,
   freeQuery: PT.func.isRequired,
   getContent: PT.func.isRequired,
@@ -300,12 +383,8 @@ function mapDispatchToProps(dispatch) {
       dispatch(a.getContentInit(uuid, contentId, target, preview));
       dispatch(a.getContentDone(uuid, contentId, target, preview));
     },
-    /* TODO: It seems that at all points of the call we'll already know the
-     * query ID (Md5 fingerprint), thus we should pass it in as argument,
-     * rather than leaving it to this function to re-generate it. */
-    queryContent: (query, target, preview) => {
+    queryContent: (queryId, query, target, preview) => {
       const uuid = shortId();
-      const queryId = queryToMd5(query);
       const q = _.isObject(query) ? query : null;
       dispatch(a.queryContentInit(uuid, queryId, target, preview));
       dispatch(a.queryContentDone(uuid, queryId, target, q, preview));

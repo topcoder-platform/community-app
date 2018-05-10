@@ -18,8 +18,8 @@ const reduceCollection = truReducers.collection;
  * @param {Number} now
  * @return {State} New state.
  */
-function cleanState(state, now) {
-  const a = collectionActions.clean(now - CACHE_MAXAGE);
+function onCleanState(state, { payload }) {
+  const a = collectionActions.clean(payload - CACHE_MAXAGE);
   return {
     ...state,
     items: reduceCollection(state.items, a),
@@ -82,10 +82,9 @@ function onGetContentDone(state, action) {
     content,
     contentId,
     operationId,
-    timestamp,
   } = action.payload;
 
-  const res = cleanState(state, timestamp);
+  const res = _.clone(state);
   const a = collectionActions.loadItemDone(operationId, contentId, content);
   res.items = reduceCollection(res.items, a);
   return res;
@@ -114,10 +113,9 @@ function onQueryContentDone(state, action) {
     data,
     operationId,
     queryId,
-    timestamp,
   } = action.payload;
 
-  const res = cleanState(state, timestamp);
+  const res = _.clone(state);
 
   /* Adds matched items to items collection. */
   const d = _.omit(data, 'includes');
@@ -185,6 +183,7 @@ function create(initialState = {}) {
     [truActions.collection.addItems]: onAddItems,
     [a.bookContent]: onBookContent,
     [a.bookQuery]: (s, act) => updateQueryRefCounters(s, act.payload.id, true),
+    [a.cleanState]: onCleanState,
     [a.freeContent]: onFreeContent,
     [a.freeQuery]: (s, act) => updateQueryRefCounters(s, act.payload.id, false),
     [a.getContentInit]: onGetContentInit,
