@@ -41,11 +41,11 @@ jest.setMock(require.resolve('actions/page/settings'), mockActions);
 jest.setMock(require.resolve('actions/profile'), mockActions);
 
 const mockToast = {
-  toast: {
+  toastr: {
     success: jest.fn(),
   },
 };
-jest.setMock('react-toastify', mockToast);
+jest.setMock('react-redux-toastr', mockToast);
 
 const reducers = require('reducers/page/settings');
 
@@ -84,7 +84,7 @@ function testReducer(istate) {
   test('Add skill', () => {
     const prevState = state;
     state = reducer(state, mockActions.profile.addSkillDone());
-    expect(mockToast.toast.success).toBeCalled();
+
     expect(state).toEqual({
       ...prevState,
       skills: { [skill1.tagId]: { ...skill1, isNew: 0 }, [skill2.tagId]: { ...skill2, isNew: 1 } },
@@ -94,7 +94,7 @@ function testReducer(istate) {
   test('Hide skill', () => {
     const prevState = state;
     state = reducer(state, mockActions.profile.hideSkillDone());
-    expect(mockToast.toast.success).toBeCalled();
+
     expect(state).toEqual({
       ...prevState,
       skills: {
@@ -115,7 +115,6 @@ function testReducer(istate) {
     const prevState = state;
     state = reducer(state, mockActions.profile.updateProfileDone());
     expect(state).toEqual(prevState);
-    expect(mockToast.toast.success).toBeCalled();
   });
 
   test('Update password error', () => {
@@ -128,35 +127,30 @@ function testReducer(istate) {
     const prevState = state;
     state = reducer(state, mockActions.profile.updatePasswordDone());
     expect(state).toEqual({ ...prevState, incorrectPassword: false });
-    expect(mockToast.toast.success).toBeCalled();
   });
 
   test('Upload photo', () => {
     const prevState = state;
     state = reducer(state, mockActions.profile.uploadPhotoDone());
     expect(state).toEqual(prevState);
-    expect(mockToast.toast.success).toBeCalled();
   });
 
   test('Delete photo', () => {
     const prevState = state;
     state = reducer(state, mockActions.profile.deletePhotoDone());
     expect(state).toEqual(prevState);
-    expect(mockToast.toast.success).toBeCalled();
   });
 
   test('Save email preferences', () => {
     const prevState = state;
     state = reducer(state, mockActions.profile.saveEmailPreferencesDone());
     expect(state).toEqual(prevState);
-    expect(mockToast.toast.success).toBeCalled();
   });
 
   test('Link external account', () => {
     const prevState = state;
     state = reducer(state, mockActions.profile.linkExternalAccountDone());
     expect(state).toEqual(prevState);
-    expect(mockToast.toast.success).toBeCalled();
   });
 
   test('Unlink external account init', () => {
@@ -169,14 +163,12 @@ function testReducer(istate) {
     const prevState = state;
     state = reducer(state, mockActions.profile.unlinkExternalAccountDone());
     expect(state).toEqual({ ...prevState, deletingLinks: [] });
-    expect(mockToast.toast.success).toBeCalled();
   });
 
   test('Add web link', () => {
     const prevState = state;
     state = reducer(state, mockActions.profile.addWebLinkDone());
     expect(state).toEqual(prevState);
-    expect(mockToast.toast.success).toBeCalled();
   });
 
   test('Delete web link init', () => {
@@ -189,7 +181,6 @@ function testReducer(istate) {
     const prevState = state;
     state = reducer(state, mockActions.profile.deleteWebLinkDone());
     expect(state).toEqual({ ...prevState, deletingLinks: [] });
-    expect(mockToast.toast.success).toBeCalled();
   });
 }
 

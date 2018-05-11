@@ -141,7 +141,7 @@ export default class Credential extends React.Component {
             <div>
               <form name="newPasswordForm" noValidate>
                 <div className="form-label">Current password</div>
-                <div styleName="validation-bar">
+                <div styleName="validation-bar" className="form-field">
                   <div styleName={`password toggle-password ${this.state.focus['current-password-input'] ? 'focus' : ''}`}>
                     <input id="current-password-input" styleName="password-input" onChange={this.checkPassword} onFocus={this.onPasswordFocus} onBlur={this.onPasswordBlur} name="currentPassword" type="password" placeholder="Password" required />
                     <label htmlFor="currentPasswordCheckbox">
@@ -160,7 +160,7 @@ export default class Credential extends React.Component {
                   }
                 </div>
                 <div className="form-label">New Password</div>
-                <div styleName="validation-bar">
+                <div styleName="validation-bar" className="form-field">
                   <div styleName={`password toggle-password ${this.state.focus['new-password-input'] ? 'focus' : ''}`}>
                     <input id="new-password-input" styleName="password-input" onChange={this.checkPassword} onFocus={this.onPasswordFocus} onBlur={this.onPasswordBlur} name="password" type="password" placeholder="Create new password" minLength="8" maxLength="64" required />
                     <label htmlFor="newPasswordCheckbox">

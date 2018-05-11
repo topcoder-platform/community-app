@@ -2,6 +2,7 @@
  * Child component of Settings/Account/NameAddress renders the
  * 'Name' and 'Address' sections of account setting page.
  */
+/* eslint-disable no-nested-ternary */
 import _ from 'lodash';
 import React from 'react';
 import PT from 'prop-types';
@@ -27,6 +28,7 @@ export default class NameAddress extends React.Component {
     this.onSaveAccount = this.onSaveAccount.bind(this);
 
     this.state = {
+      nameChanged: false,
       accountInfo: this.toAccountInfo(),
     };
   }
@@ -34,7 +36,7 @@ export default class NameAddress extends React.Component {
   onUpdateName(e) {
     const accountInfo = { ...this.state.accountInfo };
     accountInfo[e.target.name] = e.target.value;
-    this.setState({ accountInfo });
+    this.setState({ accountInfo, nameChanged: true });
   }
 
   onUpdateAddress(e) {
@@ -134,14 +136,14 @@ export default class NameAddress extends React.Component {
             <div className="section-fields" styleName="section-fields">
               <input autoComplete="false" name="hidden" type="text" className="hidden" />
               <div className="form-label">First name <span styleName="no-text-transform">&nbsp;(Given name)</span><span className="mandatory">*mandatory</span></div>
-              <div styleName={`validation-bar ${accountInfo.firstName ? 'success-bar' : 'error-bar'}`}>
+              <div className="form-field" styleName={`validation-bar ${this.state.nameChanged ? (accountInfo.firstName ? 'success-bar' : 'error-bar') : ''}`}>
                 <input name="firstName" type="text" placeholder="First" onChange={this.onUpdateName} value={accountInfo.firstName} maxLength="64" required />
                 <div className={`form-input-error ${accountInfo.firstName ? 'hidden' : ''}`}>
                   <p>This is a required field.</p>
                 </div>
               </div>
               <div className="form-label">Last name<span styleName="no-text-transform">&nbsp;(Surname)</span><span className="mandatory">*mandatory</span></div>
-              <div styleName={`validation-bar ${accountInfo.lastName ? 'success-bar' : 'error-bar'}`}>
+              <div className="form-field" styleName={`validation-bar ${this.state.nameChanged ? (accountInfo.lastName ? 'success-bar' : 'error-bar') : ''}`}>
                 <input name="lastName" type="text" placeholder="Last" onChange={this.onUpdateName} value={accountInfo.lastName} maxLength="64" required />
                 <div className={`form-input-error ${accountInfo.lastName ? 'hidden' : ''}`}>
                   <p>This is a required field.</p>
@@ -156,28 +158,30 @@ export default class NameAddress extends React.Component {
             </div>
             <div className="section-fields" styleName="section-fields">
               <div className="form-label" styleName="address">Address</div>
-              <input name="streetAddr1" type="text" placeholder="123 Topcoder Ave." value={accountInfo.homeAddress.streetAddr1} onChange={this.onUpdateAddress} />
+              <input className="form-field" name="streetAddr1" type="text" placeholder="123 Topcoder Ave." value={accountInfo.homeAddress.streetAddr1} onChange={this.onUpdateAddress} />
               <div className="form-label">Address 2<span styleName="no-text-transform">&nbsp;(apt., suite, etc.)</span></div>
-              <input name="streetAddr2" type="text" placeholder="Suite 42" value={accountInfo.homeAddress.streetAddr2} onChange={this.onUpdateAddress} />
+              <input className="form-field" name="streetAddr2" type="text" placeholder="Suite 42" value={accountInfo.homeAddress.streetAddr2} onChange={this.onUpdateAddress} />
               <div className="form-label">City</div>
-              <input name="city" type="text" placeholder="Best City in the World" value={accountInfo.homeAddress.city} onChange={this.onUpdateAddress} />
+              <input className="form-field" name="city" type="text" placeholder="Best City in the World" value={accountInfo.homeAddress.city} onChange={this.onUpdateAddress} />
               <div className="form-label">State/Province</div>
-              <input name="stateCode" type="text" placeholder="California" value={accountInfo.homeAddress.stateCode} onChange={this.onUpdateAddress} />
+              <input className="form-field" name="stateCode" type="text" placeholder="California" value={accountInfo.homeAddress.stateCode} onChange={this.onUpdateAddress} />
               <div className="form-label">Zip/Post Code</div>
-              <input name="zip" type="text" placeholder="Zip" value={accountInfo.homeAddress.zip} onChange={this.onUpdateAddress} />
+              <input className="form-field" name="zip" type="text" placeholder="Zip" value={accountInfo.homeAddress.zip} onChange={this.onUpdateAddress} />
               <div className="form-label"><span>Country</span><span className="mandatory">*mandatory</span></div>
-              <Select
-                name="location"
-                options={countries}
-                value={userCountry}
-                onChange={this.onUpdateCountry}
-                placeholder="Country"
-                matchPos="start"
-                matchProp="name"
-                labelKey="name"
-                valueKey="name"
-                clearable={false}
-              />
+              <div className="form-field">
+                <Select
+                  name="location"
+                  options={countries}
+                  value={userCountry}
+                  onChange={this.onUpdateCountry}
+                  placeholder="Country"
+                  matchPos="start"
+                  matchProp="name"
+                  labelKey="name"
+                  valueKey="name"
+                  clearable={false}
+                />
+              </div>
             </div>
           </div>
         </form>

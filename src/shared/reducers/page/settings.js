@@ -4,10 +4,16 @@
 import _ from 'lodash';
 import { config } from 'topcoder-react-utils';
 import { handleActions } from 'redux-actions';
-import { toast } from 'react-toastify';
+import { toastr } from 'react-redux-toastr';
 
 import actions, { TABS } from 'actions/page/settings';
 import profileActions from 'actions/profile';
+
+function toastrSuccess(title, message) {
+  setImmediate(() => {
+    toastr.success(title, message);
+  });
+}
 
 function mergeSkills(state, { type, payload, error }) {
   if (error) {
@@ -15,9 +21,9 @@ function mergeSkills(state, { type, payload, error }) {
   }
 
   if (type === 'PROFILE/ADD_SKILL_DONE') {
-    toast.success(`Success! Skill "${payload.skill.tagName}" was added.`);
+    toastrSuccess('Success! ', `Skill "${payload.skill.tagName}" was added.`);
   } else if (type === 'PROFILE/HIDE_SKILL_DONE') {
-    toast.success(`Success! Skill "${payload.skill.tagName}" was removed.`);
+    toastrSuccess('Success! ', `Skill "${payload.skill.tagName}" was removed.`);
   }
 
   const firstTime = state.skills === undefined;
@@ -74,7 +80,7 @@ function onAddWebLinkDone(state, { error }) {
   if (error) {
     return state;
   }
-  toast.success('Success! Your link has been added. Data from your link will be visible on your profile shortly.');
+  toastrSuccess('Success!', 'Your link has been added. Data from your link will be visible on your profile shortly.');
 
   return state;
 }
@@ -94,7 +100,7 @@ function onDeleteWebLinkDone(state, { payload, error }) {
   if (error || !payload.data) {
     return state;
   }
-  toast.success(`Success! Your web link "${payload.data.URL}" was removed.`);
+  toastrSuccess('Success! ', `Your web link "${payload.data.URL}" was removed.`);
 
   const deletingLinks = _.filter(state.deletingLinks, l => l.key !== payload.data.key);
 
@@ -106,7 +112,7 @@ function onDeleteWebLinkDone(state, { payload, error }) {
 
 function onLinkExternalAccountDone(state, { payload, error }) {
   if (!error) {
-    toast.success(`Success! Your ${payload.data.providerType} account has been linked. Data from your linked account will be visible on your profile shortly.`);
+    toastrSuccess('Success! ', `Your ${payload.data.providerType} account has been linked. Data from your linked account will be visible on your profile shortly.`);
   }
   return state;
 }
@@ -124,7 +130,7 @@ function onUnlinkExternalAccountInit(state, { payload, error }) {
 
 function onUnlinkExternalAccountDone(state, { payload, error }) {
   if (!error) {
-    toast.success(`Success! Your ${payload.providerType} account has been unlinked.`);
+    toastrSuccess('Success! ', `Your ${payload.providerType} account has been unlinked.`);
   }
 
   const deletingLinks = _.filter(state.deletingLinks, l => l.providerType !== payload.providerType);
@@ -139,35 +145,35 @@ function onUpdatePasswordDone(state, { error }) {
   if (error) {
     return { ...state, incorrectPassword: true };
   }
-  toast.success('Success! Your password was updated.');
+  toastrSuccess('Success! ', 'Your password was updated.');
 
   return { ...state, incorrectPassword: false };
 }
 
 function onUpdateProfileDone(state, { error }) {
   if (!error) {
-    toast.success('Success! Your account information was updated.');
+    toastrSuccess('Success! ', 'Your account information was updated.');
   }
   return state;
 }
 
 function onUploadPhotoDone(state, { error }) {
   if (!error) {
-    toast.success('Success! Your profile image was updated.');
+    toastrSuccess('Success! ', 'Your profile image was updated.');
   }
   return state;
 }
 
 function onDeletePhotoDone(state, { error }) {
   if (!error) {
-    toast.success('Success! Your profile image was deleted.');
+    toastrSuccess('Success! ', 'Your profile image was deleted.');
   }
   return state;
 }
 
 function onSaveEmailPreferencesDone(state, { error }) {
   if (!error) {
-    toast.success('Success! Your email preferences were updated.');
+    toastrSuccess('Success! ', 'Your email preferences were updated.');
   }
   return state;
 }
@@ -205,6 +211,13 @@ function create(defaultState = {}) {
   }));
 }
 
+/**
+ * Factory which creates a new reducer with its initial state tailored to the
+ * ExpressJS HTTP request, if specified (for server-side rendering). If HTTP
+ * request is not specified, it creates just the default reducer.
+ * @param {Object} req Optional. ExpressJS HTTP request.
+ * @return Promise which resolves to the new reducer.
+ */
 export function factory(req) {
   // Check to see if a specific tab is provided as a param
   if (req && req.url) {

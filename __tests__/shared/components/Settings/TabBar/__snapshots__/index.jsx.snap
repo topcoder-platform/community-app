@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`renders tabs bar correctly 1`] = `
+exports[`renders tab bar correctly 1`] = `
 <nav
   className="src-shared-components-Settings-TabBar-___styles__settings-tab___3G_Kf"
 >

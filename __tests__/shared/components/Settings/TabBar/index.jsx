@@ -5,7 +5,7 @@ import TabBar from 'components/Settings/TabBar';
 
 const rnd = new Renderer();
 
-it('renders tabs bar correctly', () => {
+it('renders tab bar correctly', () => {
   rnd.render((<TabBar
     settingsTab="profile"
     selectTab={() => {}}

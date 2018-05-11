@@ -19,6 +19,9 @@
 
         @include placeholder {
           color: $tc-gray-40;
+          font-size: 12px;
+
+          @include sofia-pro-regular;
         }
 
         &:disabled {
