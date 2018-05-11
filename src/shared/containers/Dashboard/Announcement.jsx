@@ -5,7 +5,10 @@
 import _ from 'lodash';
 import actions from 'actions/cms/dashboard/announcements';
 import Announcement from 'components/Dashboard/Announcement';
+import ContentfulLoader from 'containers/ContentfulLoader';
 import cookies from 'browser-cookies';
+import LoadingIndicator from 'components/LoadingIndicator';
+import moment from 'moment';
 import PT from 'prop-types';
 import React from 'react';
 import shortId from 'shortid';
@@ -16,6 +19,11 @@ const COOKIE = 'lastSeenDashboardAnnouncement';
 const MAXAGE = 10 * 60 * 1000;
 
 class AnnouncementContainer extends React.Component {
+  constructor(props) {
+    super(props);
+    this.now = moment().format();
+  }
+
   componentDidMount() {
     const {
       activeLoading,
@@ -58,27 +66,52 @@ class AnnouncementContainer extends React.Component {
 
   render() {
     const {
-      active,
-      activeAssets,
-      activeLoading,
       hidePreviewMetaData,
-      preview,
-      previewAssets,
-      previewLoading,
       previewId,
       show,
       switchShowAnnouncement,
     } = this.props;
 
     return (
-      <Announcement
-        assets={previewId ? previewAssets : activeAssets}
-        announcement={previewId ? preview : active}
-        hidePreviewMetaData={hidePreviewMetaData}
-        loading={previewId ? previewLoading : activeLoading}
+      <ContentfulLoader
+        entryQueries={{
+          content_type: 'dashboardAnnouncement',
+          'fields.startDate': {
+            lt: this.now,
+          },
+          'fields.endDate': {
+            gt: this.now,
+          },
+          limit: 1,
+          order: '-fields.startDate',
+        }}
         preview={Boolean(previewId)}
-        show={show}
-        switchShow={switchShowAnnouncement}
+        render={(data) => {
+          let announcement = data.entries.matches[0].items[0];
+          if (!announcement) return null;
+          announcement = data.entries.items[announcement];
+          const backgroundAssetId =
+            _.get(announcement.fields.backgroundImage, 'sys.id');
+          return (
+            <ContentfulLoader
+              assetIds={backgroundAssetId}
+              preview={data.preview}
+              render={data2 => (
+                <Announcement
+                  assets={data2.assets.items}
+                  announcement={announcement}
+                  hidePreviewMetaData={hidePreviewMetaData}
+                  loading={false}
+                  preview={data.preview}
+                  show={show}
+                  switchShow={switchShowAnnouncement}
+                />
+              )}
+              renderPlaceholder={LoadingIndicator}
+            />
+          );
+        }}
+        renderPlaceholder={LoadingIndicator}
       />
     );
   }
@@ -91,16 +124,12 @@ AnnouncementContainer.defaultProps = {
 
 AnnouncementContainer.propTypes = {
   active: PT.shape().isRequired,
-  activeAssets: PT.shape().isRequired,
   activeLoading: PT.bool.isRequired,
   activeTimestamp: PT.number.isRequired,
   hidePreviewMetaData: PT.bool,
   getActive: PT.func.isRequired,
   getPreview: PT.func.isRequired,
-  preview: PT.shape().isRequired,
-  previewAssets: PT.shape().isRequired,
   previewId: PT.string,
-  previewLoading: PT.func.isRequired,
   show: PT.bool.isRequired,
   switchShowAnnouncement: PT.func.isRequired,
 };
