@@ -16,6 +16,7 @@
 
 import { getCommunityId } from 'server/services//communities';
 import { redux } from 'topcoder-react-utils';
+import { reducer as toastrReducer } from 'react-redux-toastr';
 
 import cms from './cms';
 import direct from './direct';
@@ -71,6 +72,7 @@ export function factory(req) {
     memberTasks,
     topcoderHeader,
     rss,
+    toastr: toastrReducer,
   }));
 }
 

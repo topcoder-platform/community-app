@@ -6,7 +6,7 @@
 import _ from 'lodash';
 import React from 'react';
 import PT from 'prop-types';
-import { toast } from 'react-toastify';
+import { toastr } from 'react-redux-toastr';
 
 import Select from 'components/Select';
 
@@ -54,7 +54,7 @@ export default function Skills(props) {
       return;
     }
     if (skills[skill.id] && !skills[skill.id].hidden) {
-      toast.info(`You've already added skill "${skill.name}".`);
+      toastr.info('', `You've already added skill "${skill.name}".`);
       return;
     }
     addSkill(handle, tokenV3, { tagId: skill.id, tagName: skill.name });

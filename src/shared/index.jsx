@@ -12,9 +12,9 @@ import ErrorIcons from 'containers/ErrorIcons';
 
 import { DevTools, isomorphy } from 'topcoder-react-utils';
 
-import { ToastContainer, Slide } from 'react-toastify';
+import ExtendedReduxToastr from 'components/toastr';
 
-import 'react-toastify/dist/ReactToastify.css';
+import 'react-redux-toastr/lib/css/react-redux-toastr.min.css';
 import 'topcoder-react-ui-kit/dist/style.css';
 
 import 'styles/awesome.css';
@@ -29,7 +29,13 @@ export default function App() {
       <Routes />
       <ErrorMessage />
       <ErrorIcons />
-      <ToastContainer position="top-center" hideProgressBar draggable={false} transition={Slide} />
+      <ExtendedReduxToastr
+        preventDuplicates
+        position="top-center"
+        transitionIn="fadeIn"
+        transitionOut="fadeOut"
+        progressBar={false}
+      />
       { isomorphy.isDevBuild() ? <DevTools /> : undefined }
     </div>
   );

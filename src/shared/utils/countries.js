@@ -1,3 +1,6 @@
+/**
+ * Provides lookup data for countryies.
+ */
 import countries from './countries.json';
 
 // Initialize maps

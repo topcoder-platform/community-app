@@ -17,7 +17,11 @@ nav.settings-tab {
 
   li {
     display: inline-block;
-    margin-right: 35px;
+    margin-right: 25px;
+
+    @media only screen and (min-width: 768px) {
+      margin-right: 35px;
+    }
 
     &:last-child {
       margin-right: 0;
@@ -27,7 +31,7 @@ nav.settings-tab {
   a {
     @include sofia-pro-medium;
 
-    font-size: 18px;
+    font-size: 13px;
     line-height: 24px;
     color: $tc-gray-40;
     text-transform: uppercase;

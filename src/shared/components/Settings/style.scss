@@ -25,6 +25,15 @@
 }
 
 :global {
+  .profile-settings {
+    .Select-input,
+    .Select-placeholder,
+    .Select-value-label,
+    .Select-menu-outer, {
+      @include merriweather-sans-regular;
+    }
+  }
+
   .settings-section {
     display: flex;
     box-sizing: border-box;
@@ -105,6 +114,7 @@
       .form-field {
         background: white;
         color: black;
+        max-width: 360px;
 
         &:disabled {
           color: #b7b7b7;
@@ -123,6 +133,7 @@
         margin-bottom: 5px;
         margin-top: 5px;
         text-transform: uppercase;
+        max-width: 360px;
 
         .mandatory {
           color: $tc-dark-blue-70;
@@ -256,11 +267,6 @@
 
   .onoffswitch-checkbox:checked + .onoffswitch-label {
     background-color: $switch-active-color;
-
-    & .onoffswitch-inner {
-      // margin-left: 0;
-      // background-color: $switch-active-color;
-    }
 
     & .onoffswitch-switch {
       right: 0;

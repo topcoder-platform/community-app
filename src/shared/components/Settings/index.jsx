@@ -43,9 +43,10 @@ export default function Settings(props) {
   }
 
   return (
-    <div styleName="container">
+    <div styleName="container" className="profile-settings">
       <MetaTags
         title={`${title} | TopCoder`}
+        description="Profile setting page for Topcoder member"
       />
       <div styleName="page">
         <Header

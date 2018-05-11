@@ -5,28 +5,12 @@ exports[`Snapshot match 1`] = `
   <withRouter(Connect(Routes)) />
   <Connect(ErrorMessageContainer) />
   <Connect(ErrorIconsContainer) />
-  <ToastContainer
-    autoClose={5000}
-    bodyClassName={null}
-    className={null}
-    closeButton={
-      <CloseButton
-        ariaLabel="close"
-      />
-    }
-    closeOnClick={true}
-    draggable={false}
-    draggablePercent={80}
-    hideProgressBar={true}
-    newestOnTop={false}
-    pauseOnHover={true}
-    pauseOnVisibilityChange={true}
+  <Connect(ReduxToastr)
     position="top-center"
-    progressClassName={null}
-    rtl={false}
-    style={null}
-    toastClassName={null}
-    transition={[Function]}
+    preventDuplicates={true}
+    progressBar={false}
+    transitionIn="fadeIn"
+    transitionOut="fadeOut"
   />
 </div>
 `;
@@ -36,28 +20,12 @@ exports[`Snapshot match 2`] = `
   <withRouter(Connect(Routes)) />
   <Connect(ErrorMessageContainer) />
   <Connect(ErrorIconsContainer) />
-  <ToastContainer
-    autoClose={5000}
-    bodyClassName={null}
-    className={null}
-    closeButton={
-      <CloseButton
-        ariaLabel="close"
-      />
-    }
-    closeOnClick={true}
-    draggable={false}
-    draggablePercent={80}
-    hideProgressBar={true}
-    newestOnTop={false}
-    pauseOnHover={true}
-    pauseOnVisibilityChange={true}
+  <Connect(ReduxToastr)
     position="top-center"
-    progressClassName={null}
-    rtl={false}
-    style={null}
-    toastClassName={null}
-    transition={[Function]}
+    preventDuplicates={true}
+    progressBar={false}
+    transitionIn="fadeIn"
+    transitionOut="fadeOut"
   />
 </div>
 `;

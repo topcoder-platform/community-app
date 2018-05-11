@@ -2,9 +2,10 @@
 
 exports[`renders account setting page correctly 1`] = `
 <div
-  className="src-shared-components-Settings-___style__container___2VsNz"
+  className="profile-settings src-shared-components-Settings-___style__container___2VsNz"
 >
   <Connect(MetaTags)
+    description="Profile setting page for Topcoder member"
     title="Account Info | TopCoder"
   />
   <div
@@ -1403,9 +1404,10 @@ exports[`renders account setting page correctly 1`] = `
 
 exports[`renders email setting page correctly 1`] = `
 <div
-  className="src-shared-components-Settings-___style__container___2VsNz"
+  className="profile-settings src-shared-components-Settings-___style__container___2VsNz"
 >
   <Connect(MetaTags)
+    description="Profile setting page for Topcoder member"
     title="Email Preferences | TopCoder"
   />
   <div
@@ -2800,9 +2802,10 @@ exports[`renders email setting page correctly 1`] = `
 
 exports[`renders preferences setting page correctly 1`] = `
 <div
-  className="src-shared-components-Settings-___style__container___2VsNz"
+  className="profile-settings src-shared-components-Settings-___style__container___2VsNz"
 >
   <Connect(MetaTags)
+    description="Profile setting page for Topcoder member"
     title="Preferences | TopCoder"
   />
   <div
@@ -4195,9 +4198,10 @@ exports[`renders preferences setting page correctly 1`] = `
 
 exports[`renders profile setting page correctly 1`] = `
 <div
-  className="src-shared-components-Settings-___style__container___2VsNz"
+  className="profile-settings src-shared-components-Settings-___style__container___2VsNz"
 >
   <Connect(MetaTags)
+    description="Profile setting page for Topcoder member"
     title="Edit Profile | TopCoder"
   />
   <div
