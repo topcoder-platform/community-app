@@ -357,6 +357,14 @@ exports[`Matches shallow shapshot 1`] = `
     <li>
       <Link
         replace={false}
+        to="/community/iot"
+      >
+        IoT Community
+      </Link>
+    </li>
+    <li>
+      <Link
+        replace={false}
         to="/community/qa"
       >
         QA Community
