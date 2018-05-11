@@ -23,20 +23,25 @@ class LeaderboardPageContainer extends React.Component {
   }
 
   render() {
+    const { HeadBanner } = this.props;
     return (
       <div>
         {/* For demo we hardcode banner properties so we can disable max-len linting */}
         {/* eslint-disable max-len */}
-        <Banner
-          title="Leaderboard"
-          text="Rewards program is intended to celebrate and recognize your contribution. Rewards for project contributions are given using ‘Reward Points’. Points earned translate into badges. Quarterly rewards are given away to the toppers of all categories."
-          theme={{
-            container: style.bannerContainer,
-            content: style.bannerContent,
-            contentInner: style.bannerContentInner,
-          }}
-          imageSrc="/community-app-assets/themes/wipro/leaderboard/banner.jpg"
-        />
+        {
+          HeadBanner ? <HeadBanner /> : (
+            <Banner
+              title="Leaderboard"
+              text="Rewards program is intended to celebrate and recognize your contribution. Rewards for project contributions are given using ‘Reward Points’. Points earned translate into badges. Quarterly rewards are given away to the toppers of all categories."
+              theme={{
+                container: style.bannerContainer,
+                content: style.bannerContent,
+                contentInner: style.bannerContentInner,
+              }}
+              imageSrc="/community-app-assets/themes/wipro/leaderboard/banner.jpg"
+            />
+          )
+        }
         {/* eslint-enable max-len */}
         <div styleName="Leaderboard">
           <h2 styleName="section-title">Leaderboard</h2>
@@ -54,6 +59,7 @@ class LeaderboardPageContainer extends React.Component {
 }
 
 LeaderboardPageContainer.defaultProps = {
+  HeadBanner: null,
   leaderboardData: [],
   isLoadingLeaderboard: false,
   loadedApiUrl: null,
@@ -64,6 +70,7 @@ LeaderboardPageContainer.defaultProps = {
 };
 
 LeaderboardPageContainer.propTypes = {
+  HeadBanner: PT.func,
   leaderboardData: PT.arrayOf(PT.shape()),
   isLoadingLeaderboard: PT.bool,
   loadLeaderboard: PT.func.isRequired,
