@@ -1,16 +1,16 @@
 @import '~styles/mixins';
 
 .container {
-  background-position: 0 0 !important;
+  background-position: 50% 0 !important;
   height: 300px !important;
 }
 
 .content {
   border-radius: 100% !important;
-  bottom: -370px !important;
+  bottom: -150px !important;
   min-height: 550px !important;
   height: 550px !important;
-  left: -200px !important;
+  left: -250px !important;
   overflow: visible !important;
   position: absolute !important;
   transform: none !important;
@@ -18,7 +18,7 @@
 }
 
 .contentBg {
-  background: rgba(0, 10, 50, 0.8) !important;
+  background: #ef3341 !important;
   position: absolute !important;
   border-radius: 100% !important;
   width: 550px !important;
@@ -28,7 +28,7 @@
 
 .contentInner {
   color: #fff !important;
-  padding: 30px 0 0 200px !important;
+  padding: 150px 0 0 250px !important;
   position: relative !important;
   width: 600px !important;
   z-index: 1 !important;
@@ -39,6 +39,7 @@
 }
 
 h2.title {
+  color: yellow !important;
   display: block !important;
   font-family: 'Akkurat mono', monospace !important;
   font-size: 20px !important;
