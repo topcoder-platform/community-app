@@ -2,7 +2,7 @@
 
 exports[`renders account setting page correctly 1`] = `
 <div
-  className="src-shared-components-Settings-Account-___styles__account-info-container___222Ag"
+  className="account-info-container src-shared-components-Settings-Account-___styles__account-info-container___222Ag"
 >
   <Credential
     clearIncorrectPassword={[Function]}
