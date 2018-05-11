@@ -428,7 +428,7 @@ export default function ChallengeDetailsView(props) {
                   </div>
                 ) : (
                   <p styleName="p">
-                    Topcoder will compensate members in accordance with the our
+                    Topcoder will compensate members in accordance with our
                     standard payment policies, unless otherwise specified in this
                     challenge. For information on payment policies, setting up your
                     profile to receive payments, and general payment questions,
