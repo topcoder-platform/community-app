@@ -2,6 +2,10 @@
  * counterparts from configuration files. */
 
 module.exports = {
+  CONTENTFUL: {
+    LOCAL_MODE: 'CONTENTFUL_LOCAL_MODE',
+  },
+
   LOG_ENTRIES_TOKEN: 'LOG_ENTRIES_TOKEN',
   MOCK_TERMS_SERVICE: 'MOCK_TERMS_SERVICE',
 
