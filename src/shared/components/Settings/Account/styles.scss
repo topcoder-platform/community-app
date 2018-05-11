@@ -11,3 +11,9 @@
     margin-top: 20px;
   }
 }
+
+:global {
+  .account-info-container .section-fields .form-label {
+    max-width: 360px !important;
+  }
+}

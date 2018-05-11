@@ -9,7 +9,7 @@ import './styles.scss';
 
 export default function Account(props) {
   return (
-    <div styleName="account-info-container">
+    <div styleName="account-info-container" className="account-info-container">
       <Credential
         {...props}
       />
