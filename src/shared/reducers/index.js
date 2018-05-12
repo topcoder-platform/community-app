@@ -16,6 +16,7 @@
 
 import { getCommunityId } from 'server/services//communities';
 import { redux } from 'topcoder-react-utils';
+import { reducer as toastrReducer } from 'react-redux-toastr';
 
 import cms from './cms';
 import direct from './direct';
@@ -30,6 +31,7 @@ import { factory as errorsFactory } from './errors';
 import { factory as examplesFactory } from './examples';
 import { factory as groupsFactory } from './groups';
 import { factory as pageFactory } from './page';
+import { factory as lookupFactory } from './lookup';
 import { factory as profileFactory } from './profile';
 import { factory as reviewOpportunityFactory } from './reviewOpportunity';
 import { factory as statsFactory } from './stats';
@@ -48,6 +50,7 @@ export function factory(req) {
     stats: statsFactory(req),
     tcCommunities: tcCommunitiesFactory(req),
     leaderboard: leaderboardFactory(req),
+    lookup: lookupFactory(req),
     profile: profileFactory(req),
     terms: termsFactory(req),
     reviewOpportunity: reviewOpportunityFactory(req),
@@ -69,6 +72,7 @@ export function factory(req) {
     memberTasks,
     topcoderHeader,
     rss,
+    toastr: toastrReducer,
   }));
 }
 

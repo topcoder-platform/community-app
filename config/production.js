@@ -3,6 +3,10 @@ module.exports = {
     V2: 'https://api.topcoder.com/v2',
     V3: 'https://api.topcoder.com/v3',
   },
+  AUTH0: {
+    DOMAIN: 'topcoder.auth0.com',
+    CLIENT_ID: '6ZwZEUo2ZK4c50aLPpgupeg5v2Ffxp9P',
+  },
   CDN: {
     PUBLIC: 'https://d2nl5eqipnb33q.cloudfront.net',
   },

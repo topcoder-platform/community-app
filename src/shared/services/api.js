@@ -162,6 +162,29 @@ export default class Api {
   }
 
   /**
+   * Sends PATCH request to the specified endpoint.
+   * @param {String} endpoint
+   * @param {Blob|BufferSource|FormData|String} body
+   * @return {Promise}
+   */
+  patch(endpoint, body) {
+    return this.fetch(endpoint, {
+      body,
+      method: 'PATCH',
+    });
+  }
+
+  /**
+   * Sends PATCH request to the specified endpoint.
+   * @param {String} endpoint
+   * @param {JSON} json
+   * @return {Promise}
+   */
+  patchJson(endpoint, json) {
+    return this.patch(endpoint, JSON.stringify(json));
+  }
+
+  /**
    * Upload with progress
    * @param {String} endpoint
    * @param {Object} body and headers
