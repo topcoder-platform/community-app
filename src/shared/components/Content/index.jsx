@@ -159,6 +159,15 @@ export default function Content() {
         </li>
       </ul>
 
+      <h3>Previews of Contentful Components</h3>
+      <ul>
+        <li>
+          <Link to="/examples/contentful/banner/5il6oFtWp2Ua6WGs60M2mK">
+            <code>Banner</code>
+          </Link>
+        </li>
+      </ul>
+
       <h3>Sandbox</h3>
       <p>
         The right place to put any experimental and proof-of-concept
