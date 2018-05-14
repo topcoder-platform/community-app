@@ -1,10 +1,13 @@
 .content {
   font-family: "Akkurat mono", monospace;
+  line-height: 150%;
 
   h1 {
     font: bold 20px/150% "Akkurat mono", monospace;
     text-decoration: underline;
   }
+
+  p { margin: 10px 0; }
 }
 
 .contentWrapper {
