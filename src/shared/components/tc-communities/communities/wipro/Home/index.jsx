@@ -5,11 +5,12 @@
  * thus we disable max-len eslint rule for this file
  */
 
-import config from 'utils/config';
+import Banner from 'components/Contentful/Banner';
+import ContentfulLoader from 'containers/ContentfulLoader';
 import React from 'react';
 import Section from 'components/tc-communities/Section';
-import Banner from 'components/tc-communities/Banner';
 import ImageText from 'components/tc-communities/ImageText';
+import LoadingIndicator from 'components/LoadingIndicator';
 /*
 import ResourceCard from 'components/tc-communities/ResourceCard';
 import NewsletterSignup from 'components/tc-communities/NewsletterSignup';
@@ -26,8 +27,6 @@ import PT from 'prop-types';
 import JoinCommunity from 'containers/tc-communities/JoinCommunity';
 import CommunityStats from 'containers/tc-communities/CommunityStats';
 
-import bannerImage from 'assets/images/communities/wipro/home/banner.jpg';
-
 /*
 import IconRocket from '../../../../../../assets/images/tc-communities/rocket.svg';
 import IconNetwork from '../../../../../../assets/images/tc-communities/network.svg';
@@ -35,7 +34,6 @@ import IconMedal from '../../../../../../assets/images/tc-communities/medal.svg'
 */
 
 import style from './style.scss';
-import bannerStyle from './themes/banner.scss';
 import IconStatStyles from './themes/IconStatStyles.scss';
 // import NewsletterSignupStyle from './themes/newsletter_signup.scss';
 import ImageTextStyles from './themes/imageTextStyle.scss';
@@ -119,20 +117,14 @@ export default function Home(props) {
 
   return (
     <main>
-      <Banner
-        title="Deliver your project&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;requirements faster&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;through crowdsourcing&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;"
-        imageSrc={bannerImage}
-        theme={bannerStyle}
-      >
-        <p>
-          Tap into the Wipro global/account expert pool for your project
-          requirements.
-        </p>
-        <p>
-          Engage TopGear for bringing in velocity, additional bandwidth and
-          capability to meet your project requirements.
-        </p>
-      </Banner>
+      <ContentfulLoader
+        entryQueries={{
+          content_type: 'banner',
+          'fields.name': 'TopGear - Home - Banner',
+        }}
+        render={d => d.entries.matches[0].items.map(id => <Banner id={id} />)}
+        renderPlaceholder={LoadingIndicator}
+      />
 
       <CommunityStats theme={IconStatStyles} icons={COMMUNITY_STATS_ICONS} />
 
