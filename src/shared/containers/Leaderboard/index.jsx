@@ -23,7 +23,8 @@ class LeaderboardPageContainer extends React.Component {
   }
 
   render() {
-    const { HeadBanner } = this.props;
+    const { HeadBanner, leaderboardData } = this.props;
+    const ld = leaderboardData || [];
     return (
       <div>
         {/* For demo we hardcode banner properties so we can disable max-len linting */}
@@ -45,8 +46,8 @@ class LeaderboardPageContainer extends React.Component {
         {/* eslint-enable max-len */}
         <div styleName="Leaderboard">
           <h2 styleName="section-title">Leaderboard</h2>
-          <Podium competitors={this.props.leaderboardData.slice(0, 3)} />
-          <LeaderboardTable competitors={this.props.leaderboardData.slice(3)} />
+          <Podium competitors={ld.slice(0, 3)} />
+          <LeaderboardTable competitors={ld.slice(3)} />
         </div>
         <NewsletterSignup
           title="Sign up for our newsletter"
@@ -80,7 +81,7 @@ LeaderboardPageContainer.propTypes = {
 };
 
 const mapStateToProps = state => ({
-  leaderboardData: state.leaderboard.data || [],
+  leaderboardData: state.leaderboard.data,
   isLoadingLeaderboard: state.leaderboard.loading,
   loadedApiUrl: state.leaderboard.loadedApiUrl,
   auth: state.auth,
