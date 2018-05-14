@@ -6,6 +6,7 @@
  *   Connects the Redux store to the Challenge Submissions display components.
  *   Passes the relevent state and setters as properties to the UI components.
  */
+import _ from 'lodash';
 import actions from 'actions/page/submission';
 import React from 'react';
 import PT from 'prop-types';
@@ -40,8 +41,9 @@ class SubmissionsPageContainer extends React.Component {
   }
 
   render() {
-    const { registrants, handle } = this.props;
-    const isRegistered = registrants.find(r => r.handle === handle);
+    const { challenge, registrants, handle } = this.props;
+    const isRegistered = _.isUndefined(challenge.isRegistered)
+      ? registrants.find(r => r.handle === handle) : challenge.isRegistered;
 
     if (!isRegistered) return <AccessDenied cause={ACCESS_DENIED_REASON.NOT_AUTHORIZED} />;
     return (
@@ -74,6 +76,7 @@ const filestackDataProp = PT.shape({
  * Prop Validation
  */
 SubmissionsPageContainer.propTypes = {
+  challenge: PT.shape().isRequired,
   currentPhases: PT.arrayOf(PT.object).isRequired,
   stockArtRecords: PT.arrayOf(PT.object).isRequired,
   setStockArtRecord: PT.func.isRequired,
@@ -130,6 +133,7 @@ SubmissionsPageContainer.propTypes = {
 const mapStateToProps = (state, ownProps) => {
   const { submission } = state.page;
   return {
+    challenge: state.challenge.details,
     currentPhases: state.challenge.details.currentPhases,
     stockArtRecords: submission.design.stockArtRecords,
     customFontRecords: submission.design.customFontRecords,

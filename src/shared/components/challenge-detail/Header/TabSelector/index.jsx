@@ -8,7 +8,7 @@ import _ from 'lodash';
 import React from 'react';
 import PT from 'prop-types';
 import { DETAIL_TABS } from 'actions/challenge';
-import { config, Link } from 'topcoder-react-utils';
+import { config } from 'topcoder-react-utils';
 
 import style from './style.scss';
 
@@ -64,12 +64,6 @@ export default function ChallengeViewSelector(props) {
     }
   };
 
-  /* This code use to marathon match registration/submission link in the future */
-  const isMM = challenge.subTrack === 'MARATHON_MATCH';
-
-  const registranstsLink = `${config.URL.COMMUNITY}/longcontest/?module=ViewReg&rd=${challenge.roundId}`;
-  const submissionsLink = `${config.URL.COMMUNITY}/longcontest/?longcontest/?module=ViewRegistrants&rd=${challenge.roundId}`;
-
   return (
     <div
       styleName="container"
@@ -85,7 +79,7 @@ export default function ChallengeViewSelector(props) {
         >DETAILS
         </a>
         {
-          (numRegistrants && !isMM) ? (
+          numRegistrants ? (
             <a
               onClick={(e) => {
                 handleSelectorClicked(e, DETAIL_TABS.REGISTRANTS);
@@ -99,17 +93,6 @@ export default function ChallengeViewSelector(props) {
           ) : null
         }
         {
-          isMM ? (
-            <Link
-              forceA
-              to={registranstsLink}
-              styleName={getSelectorStyle(selectedView, DETAIL_TABS.REGISTRANTS)}
-            >
-              REGISTRANTS
-            </Link>
-          ) : null
-        }
-        {
           trackLower === 'design' && checkpointCount > 0 &&
           <a
             onClick={(e) => { handleSelectorClicked(e, DETAIL_TABS.CHECKPOINTS); }}
@@ -119,24 +102,13 @@ export default function ChallengeViewSelector(props) {
           </a>
         }
         {
-          (numSubmissions && !isMM) ? (
+          numSubmissions ? (
             <a
               onClick={(e) => { handleSelectorClicked(e, DETAIL_TABS.SUBMISSIONS); }}
               onKeyPress={(e) => { handleSelectorClicked(e, DETAIL_TABS.SUBMISSIONS); }}
               styleName={getSelectorStyle(selectedView, DETAIL_TABS.SUBMISSIONS)}
             >SUBMISSIONS ({numSubmissions})
             </a>
-          ) : null
-        }
-        {
-          isMM ? (
-            <Link
-              forceA
-              to={submissionsLink}
-              styleName={getSelectorStyle(selectedView, DETAIL_TABS.SUBMISSIONS)}
-            >
-              SUBMISSIONS
-            </Link>
           ) : null
         }
         {

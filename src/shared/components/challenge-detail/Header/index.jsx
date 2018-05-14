@@ -11,7 +11,6 @@ import 'moment-duration-format';
 import PT from 'prop-types';
 import React from 'react';
 import { DangerButton, PrimaryButton } from 'topcoder-react-ui-kit';
-import { config } from 'topcoder-react-utils';
 
 import ArrowUp from '../../../../assets/images/icon-arrow-up.svg';
 import ArrowDown from '../../../../assets/images/icon-arrow-down.svg';
@@ -43,12 +42,9 @@ export default function ChallengeHeader(props) {
   } = props;
 
   const {
-    componentId,
-    contestId,
     drPoints,
     id: challengeId,
     name,
-    roundId,
     subTrack,
     track,
     pointPrizes,
@@ -220,13 +216,6 @@ export default function ChallengeHeader(props) {
       break;
   }
 
-  let mmRegLink;
-  let mmSubLink;
-  if (subTrack === 'MARATHON_MATCH') {
-    mmRegLink = `${config.URL.COMMUNITY}/longcontest/?module=ViewReg&rd=${roundId}`;
-    mmSubLink = `${config.URL.COMMUNITY}/longcontest/?module=Submit&rd=${roundId}&compid=${componentId}&cd=${contestId}`;
-  }
-
   return (
     <div styleName="challenge-outer-container">
       <div styleName="important-detail">
@@ -281,9 +270,8 @@ export default function ChallengeHeader(props) {
                   disabled={unregistering || registrationEnded
                   || hasSubmissions}
                   forceA
-                  onClick={mmRegLink ? null : unregisterFromChallenge}
+                  onClick={unregisterFromChallenge}
                   theme={{ button: style.challengeAction }}
-                  to={mmRegLink}
                 >
                   Unregister
                 </DangerButton>
@@ -291,9 +279,8 @@ export default function ChallengeHeader(props) {
                 <PrimaryButton
                   disabled={registering || registrationEnded}
                   forceA
-                  onClick={mmRegLink ? null : registerForChallenge}
+                  onClick={registerForChallenge}
                   theme={{ button: style.challengeAction }}
-                  to={mmRegLink}
                 >
                   Register
                 </PrimaryButton>
@@ -301,7 +288,7 @@ export default function ChallengeHeader(props) {
               <PrimaryButton
                 disabled={!hasRegistered || unregistering || submissionEnded}
                 theme={{ button: style.challengeAction }}
-                to={mmSubLink || `${challengesUrl}/${challengeId}/submit`}
+                to={`${challengesUrl}/${challengeId}/submit`}
               >
                 Submit
               </PrimaryButton>
