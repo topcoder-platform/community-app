@@ -65,7 +65,9 @@ export default function Announcement({
         { type ? <div styleName="type">{type}</div> : null }
         <h1
           styleName="title"
-        >{publicTitle || title}</h1>
+        >
+          {publicTitle || title}
+        </h1>
         <div
           styleName="text"
         >{text}
@@ -101,14 +103,18 @@ export default function Announcement({
               color: fontColor,
               maxWidth: maxTextWidth,
             }}
-          >{publicTitle || title}</h1>
+          >
+            {publicTitle || title}
+          </h1>
           <div
             styleName="text"
             style={{
               color: fontColor,
               maxWidth: maxTextWidth,
             }}
-          >{text}</div>
+          >
+            {text}
+          </div>
           {
             readMore ? (
               <PrimaryButton

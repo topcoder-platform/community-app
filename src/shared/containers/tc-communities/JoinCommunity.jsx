@@ -12,9 +12,7 @@ import shortId from 'shortid';
 import Terms from 'containers/Terms';
 import termsActions from 'actions/terms';
 
-import JoinCommunity, {
-  STATE as JOIN_COMMUNITY,
-} from 'components/tc-communities/JoinCommunity';
+import JoinCommunity, { STATE as JOIN_COMMUNITY } from 'components/tc-communities/JoinCommunity';
 import { connect } from 'react-redux';
 
 class JoinCommunityContainer extends React.Component {
@@ -24,8 +22,10 @@ class JoinCommunityContainer extends React.Component {
   }
 
   render() {
-    const { token, groupIds, userId, terms, openTermsModal,
-      communityId, join, joinCommunityWrapper } = this.props;
+    const {
+      token, groupIds, userId, terms, openTermsModal,
+      communityId, join, joinCommunityWrapper,
+    } = this.props;
 
     const hasNotAgreedTerms = terms && terms.length && !_.every(terms, 'agreed');
     const onJoinClick = hasNotAgreedTerms ?
