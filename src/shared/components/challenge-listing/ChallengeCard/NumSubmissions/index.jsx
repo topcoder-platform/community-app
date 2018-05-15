@@ -5,12 +5,11 @@
  */
 
 import _ from 'lodash';
-import config from 'utils/config';
 import PT from 'prop-types';
 import React from 'react';
 import Tooltip from 'components/Tooltip';
 import { DETAIL_TABS } from 'actions/challenge';
-import { Link } from 'topcoder-react-utils';
+import { config, Link } from 'topcoder-react-utils';
 
 /* TODO: The icon should be converted back to SVG and imported using the
  * the standard approach for our code! */
@@ -23,7 +22,9 @@ const MM_BASE_URL
   = `${config.URL.COMMUNITY}/longcontest/?module=ViewStandings&rd=`;
 
 export default function NumSubmissions({
-  challenge: { id, numSubmissions, rounds, status, track },
+  challenge: {
+    id, numSubmissions, rounds, status, track,
+  },
   challengesUrl,
   newChallengeDetails,
   selectChallengeDetailsTab,
@@ -50,9 +51,8 @@ export default function NumSubmissions({
       >
         <Link
           onClick={() => (
-            selectChallengeDetailsTab(
-              numSubmissions ? DETAIL_TABS.SUBMISSIONS : DETAIL_TABS.DETAILS,
-            )
+            selectChallengeDetailsTab(numSubmissions ?
+              DETAIL_TABS.SUBMISSIONS : DETAIL_TABS.DETAILS)
           )}
           styleName="link"
           to={link}

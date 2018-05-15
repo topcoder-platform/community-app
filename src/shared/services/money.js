@@ -8,13 +8,12 @@
 /* global window */
 
 import _ from 'lodash';
-import config from 'utils/config';
 import fetch from 'isomorphic-fetch';
 import fs from 'fs';
 import fx from 'money';
 import logger from 'utils/logger';
 import path from 'path';
-import { isClientSide, isServerSide } from 'utils/isomorphy';
+import { config, isomorphy } from 'topcoder-react-utils';
 
 const DISK_CACHE = path.resolve(__dirname, '../../../.exchange-rates.cache');
 const OE_API = 'https://openexchangerates.org/api';
@@ -37,7 +36,7 @@ const OE_TOKEN = config.OPEN_EXCHANGE.TOKEN;
 
 let cachedRates;
 
-if (isClientSide()) cachedRates = window.EXCHANGE_RATES;
+if (isomorphy.isClientSide()) cachedRates = window.CONFIG.EXCHANGE_RATES;
 else if (fs.existsSync(DISK_CACHE)) {
   cachedRates = JSON.parse(fs.readFileSync(DISK_CACHE, 'utf8'));
 }
@@ -58,7 +57,7 @@ function refresh() {
       return Promise.resolve();
     }
   }
-  const url = isClientSide() ? '/community-app-assets/api/exchange-rates'
+  const url = isomorphy.isClientSide() ? '/community-app-assets/api/exchange-rates'
     : `${OE_API}/latest.json?app_id=${OE_TOKEN}`;
   return fetch(url, {
     headers: {
@@ -68,7 +67,7 @@ function refresh() {
     cachedRates = res;
     fx.base = res.base;
     fx.rates = res.rates;
-    if (isServerSide()) {
+    if (isomorphy.isServerSide()) {
       logger.info('Exchange rates synced with https://openexchangerates.com');
       fs.writeFile(DISK_CACHE, JSON.stringify(cachedRates));
     }

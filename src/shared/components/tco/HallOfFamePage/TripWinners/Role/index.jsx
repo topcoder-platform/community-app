@@ -22,7 +22,7 @@ const Role = ({ count, data, theme }) => (
 
 Role.defaultProps = {
   count: 3,
-  role: 'TRACK',
+  // role: 'TRACK',
 };
 
 Role.propTypes = {

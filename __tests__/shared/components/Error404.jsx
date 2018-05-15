@@ -19,8 +19,7 @@ test('renders correctly without context', () =>
     <BrowserRouter>
       <Error404 />
     </BrowserRouter>
-  )).toJSON()).toMatchSnapshot(),
-);
+  )).toJSON()).toMatchSnapshot());
 
 test('writes error to the context, if provided', () => {
   const context = {};

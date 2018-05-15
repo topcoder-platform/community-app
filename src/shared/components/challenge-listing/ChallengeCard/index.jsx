@@ -1,12 +1,12 @@
 import _ from 'lodash';
-import config from 'utils/config';
-import { Link } from 'topcoder-react-utils';
 import moment from 'moment';
 import React from 'react';
 import PT from 'prop-types';
 import TrackIcon from 'components/TrackIcon';
 import { DETAIL_TABS } from 'actions/challenge';
 import { convertNow as convertMoney } from 'services/money';
+import { config, Link } from 'topcoder-react-utils';
+
 import Tags from '../Tags';
 
 import Prize from './Prize';
@@ -89,7 +89,7 @@ function ChallengeCard({
     });
   }
   let prizeUnitSymbol = '';
-  let prizes = challenge.prizes;
+  let { prizes } = challenge;
   let totalPrize;
   switch (prizeMode) {
     case PRIZE_MODE.POINTS:
@@ -113,7 +113,7 @@ function ChallengeCard({
       break;
     case PRIZE_MODE.MONEY_USD:
       prizeUnitSymbol = '$';
-      totalPrize = challenge.totalPrize;
+      ({ totalPrize } = challenge);
       break;
     default: throw new Error('Unknown prize mode!');
   }
@@ -140,7 +140,8 @@ function ChallengeCard({
             to={challengeDetailLink}
             styleName="challenge-title"
             openNewTab={openChallengesInNewTabs}
-          >{challenge.name}</Link>
+          >{challenge.name}
+          </Link>
           <div styleName="details-footer">
             <span styleName="date">
               {challenge.status === 'ACTIVE' ? 'Ends ' : 'Ended '}

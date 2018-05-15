@@ -4,10 +4,9 @@
 /* global window */
 
 import _ from 'lodash';
-import config from 'utils/config';
 import moment from 'moment-timezone';
 import { isTokenExpired } from 'tc-accounts';
-import { isClientSide } from 'utils/isomorphy';
+import { config, isomorphy } from 'topcoder-react-utils';
 
 /**
  * Possible phase types (at the moment, this map does not cover all
@@ -145,8 +144,12 @@ export function getAuthTokens(req = {}) {
   const cookies = req.cookies || {};
   let tokenV2 = cookies.tcjwt;
   let tokenV3 = cookies.v3jwt;
-  if (!tokenV2 || isTokenExpired(tokenV2, config.AUTH_DROP_TIME)) tokenV2 = '';
-  if (!tokenV3 || isTokenExpired(tokenV3, config.AUTH_DROP_TIME)) tokenV3 = '';
+  if (!tokenV2 || isTokenExpired(tokenV2, config.AUTH_DROP_TIME)) {
+    tokenV2 = '';
+  }
+  if (!tokenV3 || isTokenExpired(tokenV3, config.AUTH_DROP_TIME)) {
+    tokenV3 = '';
+  }
   return { tokenV2, tokenV3 };
 }
 
@@ -156,7 +159,7 @@ export function getAuthTokens(req = {}) {
  * @param {String} utmSource
  */
 export function goToLogin(utmSource = '') {
-  if (isClientSide()) {
+  if (isomorphy.isClientSide()) {
     const retUrl = encodeURIComponent(window.location.href);
     window.location = `${config.URL.AUTH}/member?retUrl=${retUrl}&utm_source=${utmSource}`;
   }

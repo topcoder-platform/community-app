@@ -32,6 +32,7 @@ export default function FiltersSwitch(props) {
       styleName={className}
       className={`tc-outline-btn ${props.className || ''}`}
       onClick={() => (props.onSwitch ? props.onSwitch(!props.active) : null)}
+      onKeyPress={() => (props.onSwitch ? props.onSwitch(!props.active) : null)}
     >
       <FiltersIcon color="#5D5D66" styleName="FiltersIcon" />
       Filters

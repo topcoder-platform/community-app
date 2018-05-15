@@ -14,6 +14,8 @@ import Srms from './Srms';
 
 import './styles.scss';
 
+/* eslint-disable react/no-unused-state */
+
 export default class MyChallenges extends React.Component {
   constructor(props) {
     super(props);

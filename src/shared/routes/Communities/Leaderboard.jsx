@@ -13,10 +13,8 @@ export default function LeaderboardRoute({ meta }) {
       cacheCss
       chunkName="leaderboard/chunk"
       renderClientAsync={() =>
-        import(
-          /* webpackChunkName: "leaderboard/chunk" */
-          'containers/Leaderboard',
-        ).then(({ default: Leaderboard }) => (
+        import(/* webpackChunkName: "leaderboard/chunk" */ 'containers/Leaderboard')
+        .then(({ default: Leaderboard }) => (
           <Leaderboard apiUrl={meta.leaderboardApiUrl} />
         ))
       }

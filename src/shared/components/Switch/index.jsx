@@ -15,6 +15,7 @@ function Switch(props) {
     <div
       className={`${props.theme.switch} ${props.enabled ? props.theme.enabled : props.theme.disabled}`}
       onClick={() => props.onSwitch(!props.enabled)}
+      onKeyPress={() => props.onSwitch(!props.enabled)}
     >
       <div styleName="handle" />
     </div>

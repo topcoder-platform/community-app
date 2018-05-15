@@ -1,6 +1,8 @@
-import config from 'utils/config';
 import React from 'react';
 import PT from 'prop-types';
+
+import { config } from 'topcoder-react-utils';
+
 import Abbreviation from './Abbreviation';
 import './style.scss';
 

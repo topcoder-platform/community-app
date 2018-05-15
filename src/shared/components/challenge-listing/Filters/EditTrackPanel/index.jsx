@@ -28,7 +28,11 @@ const EditTrackPanel = props => (
   <div styleName={`EditTrackPanel ${props.opened === true ? 'opened' : 'closed'}`}>
     <div styleName="header">
       <span styleName="title">Tracks</span>
-      <span styleName="close-icon" onClick={() => props.onClose()}>
+      <span
+        styleName="close-icon"
+        onClick={() => props.onClose()}
+        onKeyPress={() => props.onClose()}
+      >
         <UiSimpleRemove />
       </span>
     </div>

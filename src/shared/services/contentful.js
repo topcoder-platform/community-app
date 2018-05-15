@@ -6,15 +6,14 @@
  * Community App CDN, thus reducing the load on the Contentful APIs.
  */
 
-import config from 'utils/config';
 import fetch from 'isomorphic-fetch';
 import logger from 'utils/logger';
-import { isServerSide } from 'utils/isomorphy';
+import { config, isomorphy } from 'topcoder-react-utils';
 
 /* Service-side Contentful services module. Some of its functionality will be
  * reused by our isomorphic code when executed at the server-side. */
 let ss;
-if (isServerSide()) {
+if (isomorphy.isServerSide()) {
   /* eslint-disable global-require */
   ss = require('server/services/contentful');
   /* eslint-enable global-require */
@@ -74,9 +73,11 @@ async function updateCache() {
     throw error;
   }
   res = await Promise.all([res[0].json(), res[1].text()]);
-  cachedIndex = res[0];
+  [
+    cachedIndex,
+    cachedCurrentDashboardAnnouncementId,
+  ] = res;
   cachedIndex.timestamp = now;
-  cachedCurrentDashboardAnnouncementId = res[1];
 }
 
 /**
@@ -86,7 +87,7 @@ async function updateCache() {
  * @return {Promise}
  */
 async function getIndex() {
-  if (isServerSide()) return ss.getIndex();
+  if (isomorphy.isServerSide()) return ss.getIndex();
   await updateCache();
   return cachedIndex;
 }
@@ -96,7 +97,9 @@ async function getIndex() {
  * @return {Promise} Resolves to the ID string.
  */
 export async function getCurrentDashboardAnnouncementId() {
-  if (isServerSide()) return ss.getCurrentDashboardAnnouncementId();
+  if (isomorphy.isServerSide()) {
+    return ss.getCurrentDashboardAnnouncementId();
+  }
   await updateCache();
   return cachedCurrentDashboardAnnouncementId;
 }
@@ -119,7 +122,9 @@ class Service {
   async getAsset(id) {
     let res;
     if (this.private.preview) {
-      if (isServerSide()) return ss.previewService.getAsset(id, true);
+      if (isomorphy.isServerSide()) {
+        return ss.previewService.getAsset(id, true);
+      }
       res = await fetch(`${PREVIEW_URL}/assets/${id}/preview`);
     } else {
       const index = await getIndex();
@@ -170,7 +175,9 @@ class Service {
   async getContentEntry(id) {
     let res;
     if (this.private.preview) {
-      if (isServerSide()) return ss.previewService.getContentEntry(id);
+      if (isomorphy.isServerSide()) {
+        return ss.previewService.getContentEntry(id);
+      }
       res = await fetch(`${PREVIEW_URL}/entries/${id}/preview`);
     } else {
       const index = await getIndex();

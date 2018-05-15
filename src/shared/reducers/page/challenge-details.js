@@ -1,7 +1,5 @@
 import _ from 'lodash';
-import actions, {
-  SPECS_TAB_STATES,
-} from 'actions/page/challenge-details';
+import actions, { SPECS_TAB_STATES } from 'actions/page/challenge-details';
 import { handleActions } from 'redux-actions';
 
 /**

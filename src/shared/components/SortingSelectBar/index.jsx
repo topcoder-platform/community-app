@@ -4,7 +4,9 @@ import React from 'react';
 import Select from 'react-select';
 import './style.scss';
 
-export default function SortingSelectBar({ onSelect, options, title, value }) {
+export default function SortingSelectBar({
+  onSelect, options, title, value,
+}) {
   return (
     <div styleName="sortingBar">
       <h1 styleName="title">{title}</h1>

@@ -48,8 +48,10 @@ function onGetDetailsInit(state, action) {
 function onGetDetailsDone(state, action) {
   if (action.error) {
     logger.error('Failed to get challenge details!', action.payload);
-    fireErrorMessage('ERROR: Failed to load the challenge',
-      'Please, try again a bit later');
+    fireErrorMessage(
+      'ERROR: Failed to load the challenge',
+      'Please, try again a bit later',
+    );
     return {
       ...state,
       fetchChallengeFailure: action.error,
@@ -368,8 +370,7 @@ export function factory(req) {
       .then((details) => {
         const track = _.get(details, 'payload.track', '').toLowerCase();
         const checkpointsPromise = track === 'design' ? (
-          toFSA(actions.challenge.fetchCheckpointsDone(
-            tokens.tokenV2, challengeId))
+          toFSA(actions.challenge.fetchCheckpointsDone(tokens.tokenV2, challengeId))
         ) : null;
         const resultsPromise = _.get(details, 'payload.status', '') === 'COMPLETED' ? (
           toFSA(actions.challenge.loadResultsDone(tokens, challengeId, track))

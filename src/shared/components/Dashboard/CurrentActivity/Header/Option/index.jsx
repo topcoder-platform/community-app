@@ -14,7 +14,8 @@ export default function Option({ select, selected, title }) {
         onKeyPress={select}
         role="button"
         tabIndex={0}
-      >{title}</div>
+      >{title}
+      </div>
       {
         selected ? <div styleName="selectedUnderline" /> : null
       }

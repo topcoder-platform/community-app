@@ -28,7 +28,8 @@ export default function ScalableRect({ children, className, ratio }) {
     <div
       style={{ paddingBottom }}
       styleName="container"
-    ><div styleName="wrapper">{children}</div></div>
+    ><div styleName="wrapper">{children}</div>
+    </div>
   );
   return className ? (
     <div className={className}>{rect}</div>

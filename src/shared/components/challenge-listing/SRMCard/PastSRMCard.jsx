@@ -34,8 +34,8 @@ const PastSRMCard = () => (
     <div className="upper-row">
       <div className="left-panel past">
         <div className="SRM-track">
-          <TrackAbbreviationTooltip track={'DATA_SCIENCE'} subTrack={'SRM'}>
-            <TrackIcon track={'DATA_SCIENCE'} subTrack={'SRM'} />
+          <TrackAbbreviationTooltip track="DATA_SCIENCE" subTrack="SRM">
+            <TrackIcon track="DATA_SCIENCE" subTrack="SRM" />
           </TrackAbbreviationTooltip>
         </div>
         <div className="SRM-details">
@@ -68,10 +68,10 @@ const PastSRMCard = () => (
 
     <div className="division-row">
       <div className="division-col left">
-        <Division division={'Division 1'} />
+        <Division division="Division 1" />
       </div>
       <div className="division-col right">
-        <Division division={'Division 2'} />
+        <Division division="Division 2" />
       </div>
     </div>
   </div>

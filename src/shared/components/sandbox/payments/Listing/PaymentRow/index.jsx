@@ -3,10 +3,9 @@
  */
 
 import _ from 'lodash';
-import config from 'utils/config';
 import PT from 'prop-types';
 import React from 'react';
-import { Link } from 'topcoder-react-utils';
+import { config, Link } from 'topcoder-react-utils';
 import { Avatar } from 'topcoder-react-ui-kit';
 import { getCdnAvatarUrl } from 'utils/tc';
 
@@ -17,7 +16,7 @@ import './style.scss';
 
 export default function PaymentRow({ challenge }) {
   let winner = challenge.winners || [];
-  winner = winner.filter(x => x.type === 'final')[0];
+  [winner] = winner.filter(x => x.type === 'final');
 
   return (
     <tr styleName="paymentRow">
@@ -36,7 +35,8 @@ export default function PaymentRow({ challenge }) {
       <td styleName="name">
         <Link
           to={`/sandbox/payments/${challenge.id}`}
-        >{challenge.name}</Link>
+        >{challenge.name}
+        </Link>
       </td>
       <td styleName="price">{`$${_.get(challenge, 'prizes[0]', '-')}`}</td>
       <td>
@@ -54,7 +54,8 @@ export default function PaymentRow({ challenge }) {
                   enforceA
                   openNewTab
                   to={`${config.URL.BASE}/members/${winner.handle}`}
-                >{winner.handle}</Link>
+                >{winner.handle}
+                </Link>
               </span>
             </div>
           ) : 'N/A'

@@ -1,7 +1,8 @@
-import config from 'utils/config';
 import moment from 'moment';
 import PT from 'prop-types';
 import React from 'react';
+
+import { config } from 'topcoder-react-utils';
 
 import FacebookIcon from './icons/facebook.svg';
 import GooglePlusIcon from './icons/google_plus.svg';

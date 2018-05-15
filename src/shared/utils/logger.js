@@ -22,17 +22,16 @@ import _ from 'lodash';
 /* global fetch */
 import 'isomorphic-fetch';
 
-import config from './config';
-
-import { isDev, isServerSide } from './isomorphy';
+import { config, isomorphy } from 'topcoder-react-utils';
 
 const logger = {};
 _.functions(console).forEach((func) => {
-  logger[func] = isDev() || isServerSide() ? console[func] : _.noop;
+  logger[func] = isomorphy.isDevBuild()
+    || isomorphy.isServerSide() ? console[func] : _.noop;
 });
 
 let leLogger;
-if (isServerSide()) {
+if (isomorphy.isServerSide()) {
   const token = config.LOG_ENTRIES_TOKEN;
   if (token) {
     const LeLogger = require('le_node');
@@ -66,7 +65,9 @@ if (isServerSide()) {
 if (leLogger) {
   const extend = (base, le) => {
     logger[base] = (...rest) => {
-      if (isDev() || isServerSide()) console[base](...rest);
+      if (isomorphy.isDevBuild() || isomorphy.isServerSide()) {
+        console[base](...rest);
+      }
       let msg = '';
       rest.forEach((item) => {
         let it = item;

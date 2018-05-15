@@ -10,7 +10,9 @@ import championIcon from 'assets/images/tco-champion-icon.png';
 
 import defaultStyles from './styles.scss';
 
-const Track = ({ count, data, track, theme }) => (data ? (
+const Track = ({
+  count, data, track, theme,
+}) => (data ? (
   <div className={theme.container}>
     <div className={theme.track}>
       <span>{track}</span>

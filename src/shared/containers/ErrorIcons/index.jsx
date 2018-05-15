@@ -1,3 +1,5 @@
+/* eslint-disable jsx-a11y/click-events-have-key-events, jsx-a11y/anchor-is-valid */
+
 import _ from 'lodash';
 import React from 'react';
 import PT from 'prop-types';
@@ -47,14 +49,15 @@ function ErrorIconsContainer({
   return (
     <div styleName="container">
       {_.toPairs(errorIcons).map(([id, errors]) => (
-        !_.isEmpty(errors) ? <Tooltip
-          key={id}
-          styleName="Tooltip"
-          content={<Tip errors={errors} clear={() => clearErrorIcon(id)} />}
-        >
-          {Icons[id] || null}
-        </Tooltip>
-          : null
+        !_.isEmpty(errors) ? (
+          <Tooltip
+            key={id}
+            styleName="Tooltip"
+            content={<Tip errors={errors} clear={() => clearErrorIcon(id)} />}
+          >
+            {Icons[id] || null}
+          </Tooltip>
+        ) : null
       ))}
     </div>
   );

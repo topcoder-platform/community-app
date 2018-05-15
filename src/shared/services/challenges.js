@@ -134,8 +134,10 @@ export function normalizeChallengeDetails(v3, v3Filtered, v3User, v2, username) 
   }
 
   // Fill some derived data
-  const registrationOpen = _.some(challenge.allPhases,
-    phase => phase.phaseType === 'Registration' && phase.phaseStatus === 'Open') ? 'Yes' : 'No';
+  const registrationOpen = _.some(
+    challenge.allPhases,
+    phase => phase.phaseType === 'Registration' && phase.phaseStatus === 'Open',
+  ) ? 'Yes' : 'No';
   _.defaults(challenge, {
     communities: new Set([COMPETITION_TRACKS[challenge.track]]),
     registrationOpen,
@@ -163,8 +165,7 @@ export function normalizeChallengeDetails(v3, v3Filtered, v3User, v2, username) 
  */
 export function normalizeChallenge(challenge, username) {
   const registrationOpen = challenge.allPhases.filter(d =>
-    d.phaseType === 'Registration',
-  )[0].phaseStatus === 'Open' ? 'Yes' : 'No';
+    d.phaseType === 'Registration')[0].phaseStatus === 'Open' ? 'Yes' : 'No';
   const groups = {};
   if (challenge.groupIds) {
     challenge.groupIds.forEach((id) => {
@@ -313,8 +314,7 @@ class ChallengesService {
    *  is rejected.
    */
   async activate(challengeId) {
-    let res = await this.private.api.post(
-      `/challenges/${challengeId}/activate`);
+    let res = await this.private.api.post(`/challenges/${challengeId}/activate`);
     if (!res.ok) throw new Error(res.statusText);
     res = (await res.json()).result;
     if (res.status !== 200) throw new Error(res.content);
@@ -404,7 +404,12 @@ class ChallengesService {
       .then(res => res.json());
 
     const challenge = normalizeChallengeDetails(
-      challengeV3, challengeV3Filtered, challengeV3User, challengeV2, username);
+      challengeV3,
+      challengeV3Filtered,
+      challengeV3User,
+      challengeV2,
+      username,
+    );
 
     challenge.fetchedWithAuth =
       Boolean(this.private.api.private.token && this.private.apiV2.private.token);
@@ -560,7 +565,7 @@ class ChallengesService {
     let url;
 
     if (track === 'DESIGN') {
-      api = this.private.api;
+      ({ api } = this.private);
       contentType = 'application/json';
       url = '/submissions/'; // The submission info is contained entirely in the JSON body
     } else {
@@ -574,24 +579,25 @@ class ChallengesService {
       body,
       headers: { 'Content-Type': contentType },
       method: 'POST',
-    }, onProgress).then((res) => {
-      const jres = JSON.parse(res);
-      // Return result for Develop submission
-      if (track === 'DEVELOP') {
-        return jres;
-      }
-      // Design Submission requires an extra "Processing" POST
-      const procId = jres.result.content.id;
-      return api.upload(`/submissions/${procId}/process/`, {
-        body: JSON.stringify({ param: jres.result.content }),
-        headers: { 'Content-Type': contentType },
-        method: 'POST',
-      }, onProgress).then(procres => JSON.parse(procres));
-    },
-    (err) => {
-      logger.error(`Failed to submit to the challenge #${challengeId}`, err);
-      throw err;
-    },
+    }, onProgress).then(
+      (res) => {
+        const jres = JSON.parse(res);
+        // Return result for Develop submission
+        if (track === 'DEVELOP') {
+          return jres;
+        }
+        // Design Submission requires an extra "Processing" POST
+        const procId = jres.result.content.id;
+        return api.upload(`/submissions/${procId}/process/`, {
+          body: JSON.stringify({ param: jres.result.content }),
+          headers: { 'Content-Type': contentType },
+          method: 'POST',
+        }, onProgress).then(procres => JSON.parse(procres));
+      },
+      (err) => {
+        logger.error(`Failed to submit to the challenge #${challengeId}`, err);
+        throw err;
+      },
     );
   }
 

@@ -16,7 +16,9 @@ import './styles.scss';
 /**
  * Header Component
  */
-const Header = ({ details, handle, onApply, phasesExpanded, onPhaseExpand }) => (
+const Header = ({
+  details, handle, onApply, phasesExpanded, onPhaseExpand,
+}) => (
   <div styleName="container">
     <PaymentInfo
       positions={openPositionsByRole(details)}

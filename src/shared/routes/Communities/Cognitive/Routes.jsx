@@ -4,7 +4,6 @@
 
 import ChallengeDetails from 'routes/ChallengeDetails';
 import ChallengeListing from 'routes/Communities/ChallengeListing';
-import config from 'utils/config';
 import Error404 from 'components/Error404';
 import IbmCloudPage from
   'components/tc-communities/communities/cognitive/IbmCloudPage';
@@ -23,6 +22,7 @@ import socialImage from 'assets/images/communities/cognitive/social.jpg';
 
 import TermsDetail from 'routes/TermsDetail';
 import { Route, Switch } from 'react-router-dom';
+import { config } from 'topcoder-react-utils';
 
 export default function Cognitive({ base, member, meta }) {
   return (

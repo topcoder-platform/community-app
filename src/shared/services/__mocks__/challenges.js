@@ -133,8 +133,10 @@ export function normalizeChallengeDetails(v3, v3Filtered, v3User, v2, username) 
   }
 
   // Fill some derived data
-  const registrationOpen = _.some(challenge.allPhases,
-    phase => phase.phaseType === 'Registration' && phase.phaseStatus === 'Open') ? 'Yes' : 'No';
+  const registrationOpen = _.some(
+    challenge.allPhases,
+    phase => phase.phaseType === 'Registration' && phase.phaseStatus === 'Open',
+  ) ? 'Yes' : 'No';
   _.defaults(challenge, {
     communities: new Set([COMPETITION_TRACKS[challenge.track]]),
     registrationOpen,
@@ -163,8 +165,7 @@ export function normalizeChallengeDetails(v3, v3Filtered, v3User, v2, username) 
  */
 export function normalizeChallenge(challenge, username) {
   const registrationOpen = challenge.allPhases.filter(d =>
-    d.phaseType === 'Registration',
-  )[0].phaseStatus === 'Open' ? 'Yes' : 'No';
+    d.phaseType === 'Registration')[0].phaseStatus === 'Open' ? 'Yes' : 'No';
   const groups = {};
   if (challenge.groupIds) {
     challenge.groupIds.forEach((id) => {
@@ -246,11 +247,7 @@ class ChallengesService {
      * @param {Object} params Optional. A map of any other parameters beside
      *  `filter`.
      */
-    const getChallenges = (
-      endpoint,
-      // filters = {},
-      // params = {},
-    ) => {
+    const getChallenges = (endpoint) => {
       /*
       const query = {
         filter: qs.stringify(filters),
@@ -262,12 +259,10 @@ class ChallengesService {
         response = sampleApiV3Response;
         /* TODO: Should we mock the filtering here for an advanced testing? */
       } else throw new Error('Requested endpoint has not been mocked yet.');
-      return Promise.resolve(
-        response.result.status === 200 ? {
-          challenges: response.result.content || [],
-          totalCount: response.result.metadata.totalCount,
-        } : new Error(response.result.content),
-      );
+      return Promise.resolve(response.result.status === 200 ? {
+        challenges: response.result.content || [],
+        totalCount: response.result.metadata.totalCount,
+      } : new Error(response.result.content));
     };
 
     this.private = {
@@ -295,9 +290,13 @@ class ChallengesService {
         .then(res => res.challenges[0]);
 
     const challengeV2 = sampleApiV2ResponseSingle;
-
     const challenge = normalizeChallengeDetails(
-      challengeV3, challengeV3Filtered, null, challengeV2, null);
+      challengeV3,
+      challengeV3Filtered,
+      null,
+      challengeV2,
+      null,
+    );
 
     return challenge;
   }

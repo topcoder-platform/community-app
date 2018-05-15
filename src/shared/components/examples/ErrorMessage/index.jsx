@@ -13,7 +13,8 @@ const ErrorMessageTest = () => (
         fireErrorMessage('Error Message #1', 'A sample error message');
         fireErrorMessage('Error Message #2', 'Another error message');
       }}
-    >ErrorMessage Test</PrimaryButton>
+    >ErrorMessage Test
+    </PrimaryButton>
   </div>
 );
 

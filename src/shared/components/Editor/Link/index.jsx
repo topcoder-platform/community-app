@@ -9,7 +9,9 @@ import Tooltip from 'components/Tooltip';
 
 import Popup from './Popup';
 
-const Link = ({ children, contentState, entityKey, updateEntityData }) => {
+const Link = ({
+  children, contentState, entityKey, updateEntityData,
+}) => {
   const {
     href,
     triggerPopup,

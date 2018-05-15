@@ -72,7 +72,8 @@ function mapStateToProps(state, ownProps) {
   if (!canJoin) {
     const int = _.intersection(
       joinGroupId ? [joinGroupId] : state.tcCommunities.meta.data.groupIds,
-      state.auth.profile.groups.map(g => g.id));
+      state.auth.profile.groups.map(g => g.id),
+    );
     canJoin = !int.length;
   }
   if (state.tcCommunities.hideJoinButton) canJoin = false;

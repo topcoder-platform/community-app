@@ -4,7 +4,8 @@
  */
 
 import _ from 'lodash';
-import config from 'utils/config';
+import { config } from 'topcoder-react-utils';
+
 import { getService as getCommunityService } from 'services/communities';
 import { getApiV2 } from './api';
 

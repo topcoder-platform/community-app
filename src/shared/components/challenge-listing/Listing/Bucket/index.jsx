@@ -127,7 +127,8 @@ export default function Bucket({
             role="button"
             styleName="view-more"
             tabIndex={0}
-          >View more challenges</a>
+          >View more challenges
+          </a>
         ) : null
       }
     </div>

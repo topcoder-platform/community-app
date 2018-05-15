@@ -4,20 +4,16 @@ import { mockAction } from 'utils/mock';
 const mockChallengeActions = {
   challenge: {
     getDetailsInit: mockAction('CHALLENGE/GET_DETAILS_INIT', '12345'),
-    getDetailsDone: mockAction(
-      'CHALLENGE/GET_DETAILS_DONE', {
-        id: 12345,
-        tag: 'v3-normalized-details',
-      },
-    ),
+    getDetailsDone: mockAction('CHALLENGE/GET_DETAILS_DONE', {
+      id: 12345,
+      tag: 'v3-normalized-details',
+    }),
     getDetailsDoneError: mockAction(
       'CHALLENGE/GET_DETAILS_DONE',
       null,
       'Unknown error',
     ),
-    getSubmissionsInit: mockAction(
-      'GET_SUBMISSION_INIT',
-    ),
+    getSubmissionsInit: mockAction('GET_SUBMISSION_INIT'),
     getSubmissionsDone: mockAction(
       'GET_SUBMISSION_DONE',
       [{ submissionId: '1' }],
@@ -48,7 +44,8 @@ const mockSmpActions = {
 };
 jest.setMock(require.resolve('actions/smp'), mockSmpActions);
 
-jest.setMock(require.resolve('reducers/my-submissions-management'),
+jest.setMock(
+  require.resolve('reducers/my-submissions-management'),
   state => ({ ...state }),
 );
 
@@ -239,8 +236,7 @@ describe('Default reducer', () =>
     selectedTab: 'details',
     unregistering: false,
     updatingChallengeUuid: '',
-  }),
-);
+  }));
 
 jest.clearAllMocks();
 jest.resetAllMocks();
@@ -256,9 +252,7 @@ describe('Factory without http request', () =>
       registering: false,
       unregistering: false,
       updatingChallengeUuid: '',
-    }),
-  ),
-);
+    })));
 
 describe('Factory with server-side rendering', () =>
   reducers.factory({
@@ -277,9 +271,7 @@ describe('Factory with server-side rendering', () =>
       registering: false,
       unregistering: false,
       updatingChallengeUuid: '',
-    }),
-  ),
-);
+    })));
 
 describe('Factory without server-side rendering', () =>
   reducers.factory({
@@ -294,6 +286,4 @@ describe('Factory without server-side rendering', () =>
       registering: false,
       unregistering: false,
       updatingChallengeUuid: '',
-    }),
-  ),
-);
+    })));

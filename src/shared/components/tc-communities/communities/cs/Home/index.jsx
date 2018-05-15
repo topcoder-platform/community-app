@@ -200,7 +200,8 @@ export default function Home(props) {
             onClick={() => props.resetChallengeListing()}
             styleName="ImageTextStyles.link"
             to="challenges?communityId="
-          >View All Public Challenges</Link>
+          >View All Public Challenges
+          </Link>
         </div>
       </Section>
 
@@ -282,7 +283,7 @@ export default function Home(props) {
 }
 
 Home.defaultProps = {
-  news: [],
+  // news: [],
 };
 
 Home.propTypes = {

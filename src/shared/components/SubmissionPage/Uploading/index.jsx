@@ -50,7 +50,8 @@ const Uploading = ({
           <Link
             styleName="link"
             to={`${challengesUrl}/${challengeId}`}
-          >{challengeName}</Link>
+          >{challengeName}
+          </Link>
       }
       {
         (isSubmitting || submitDone) &&
@@ -93,10 +94,12 @@ const Uploading = ({
           <div styleName="button-container">
             <Button
               onClick={() => reset()}
-            >Cancel</Button>
+            >Cancel
+            </Button>
             <PrimaryButton
               onClick={() => retry()}
-            >Try Again</PrimaryButton>
+            >Try Again
+            </PrimaryButton>
           </div>
       }
       {
@@ -112,21 +115,25 @@ const Uploading = ({
               <span>
                 <Button
                   onClick={() => reset()}
-                >Add Another Submission</Button>
+                >Add Another Submission
+                </Button>
                 <PrimaryButton
                   to={`${challengesUrl}/${challengeId}/my-submissions`}
                   onClick={() => back()}
-                >View My Submissions</PrimaryButton>
+                >View My Submissions
+                </PrimaryButton>
               </span>
             ) : (
               <span>
                 <Button
                   onClick={() => reset()}
-                >Submit Again</Button>
+                >Submit Again
+                </Button>
                 <PrimaryButton
                   to={`${challengesUrl}/${challengeId}`}
                   onClick={() => back()}
-                >Back to Challenge</PrimaryButton>
+                >Back to Challenge
+                </PrimaryButton>
               </span>
             )}
           </div>

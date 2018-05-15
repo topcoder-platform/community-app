@@ -57,8 +57,10 @@ class TermsDetailPageContainer extends React.Component {
                 docuSignUrl={docuSignUrl}
                 getDocuSignUrl={(templateId) => {
                   const base = window ? window.location.href.match('.*://[^/]*')[0] : '';
-                  return getDocuSignUrl(authTokens,
-                    templateId, `${base}/community-app-assets/iframe-break`);
+                  return getDocuSignUrl(
+authTokens,
+                    templateId, `${base}/community-app-assets/iframe-break`,
+);
                 }}
                 loadingDocuSignUrl={loadingDocuSignUrl}
               />
@@ -74,7 +76,7 @@ TermsDetailPageContainer.defaultProps = {
   docuSignUrl: '',
   loadingDocuSignUrl: '',
   loadingTermId: '',
-  description: '',
+  // description: '',
   details: null,
   getTermDetailsFailure: false,
 };

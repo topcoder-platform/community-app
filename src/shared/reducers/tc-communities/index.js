@@ -9,12 +9,12 @@ import actions from 'actions/tc-communities';
 import logger from 'utils/logger';
 import { handleActions } from 'redux-actions';
 import { decodeToken } from 'tc-accounts';
-import { isClientSide } from 'utils/isomorphy';
 import { combine, resolveReducers, toFSA } from 'utils/redux';
 import { getAuthTokens } from 'utils/tc';
 import { STATE as JOIN_COMMUNITY } from 'components/tc-communities/JoinCommunity';
 import { getService as getTermsService } from 'services/terms';
 import { getCommunityId } from 'server/services/communities';
+import { isomorphy } from 'topcoder-react-utils';
 
 import { fireErrorMessage } from 'utils/errors';
 
@@ -28,7 +28,7 @@ function onJoinDone(state, action) {
     /* NOTE: Using alert is, probably, not a best practice, but will work just
      * fine for now. Anyway, if everything works fine, users are not supposed
      * to see it normally. */
-    if (isClientSide()) {
+    if (isomorphy.isClientSide()) {
       alert('Failed to join the group!'); // eslint-disable-line no-alert
     }
 
@@ -103,14 +103,13 @@ function create(initialState = {}) {
 export function factory(req) {
   let joinPromise;
   if (req) {
-    const tokenV2 = getAuthTokens(req).tokenV2;
-    const tokenV3 = getAuthTokens(req).tokenV3;
+    const { tokenV2, tokenV3 } = getAuthTokens(req);
     const joinGroupId = req.query && req.query.join;
 
     // get community id
     let communityId = getCommunityId(req.subdomains);
     if (!communityId && req.url.startsWith('/community')) {
-      communityId = req.url.split('/')[2];
+      [,, communityId] = req.url.split('/');
       // remove possible params like ?join=<communityId>
       communityId = communityId ? communityId.replace(/\?.*/, '') : communityId;
     }
@@ -123,9 +122,7 @@ export function factory(req) {
       joinPromise = termsService.getCommunityTerms(communityId, tokenV3).then((result) => {
         // if all terms agreed we can perform join action
         if (_.every(result.terms, 'agreed')) {
-          return toFSA(
-            actions.tcCommunity.joinDone(tokenV3, joinGroupId, user.userId),
-          );
+          return toFSA(actions.tcCommunity.joinDone(tokenV3, joinGroupId, user.userId));
         }
 
         return false;

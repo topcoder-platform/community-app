@@ -12,10 +12,8 @@ export default function Payment({ base }) {
     <SplitRoute
       chunkName="sandbox-payment/chunk"
       renderClientAsync={() =>
-        import(
-          /* webpackChunkName: "sandbox-payment/chunk" */
-          './Router',
-        ).then(({ default: Router }) => <Router base={base} />)
+        import(/* webpackChunkName: "sandbox-payment/chunk" */ './Router')
+        .then(({ default: Router }) => <Router base={base} />)
       }
       renderPlaceholder={() => <LoadingIndicator />}
     />

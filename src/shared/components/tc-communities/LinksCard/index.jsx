@@ -22,7 +22,8 @@ function LinksCard(props) {
               className={theme.link}
               openNewTab={link.openNewTab}
               to={link.url}
-            >{link.title}</Link>
+            >{link.title}
+            </Link>
           </li>
         ))}
       </ul>

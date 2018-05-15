@@ -30,22 +30,26 @@ export default function Sample({ Button, theme, title }) {
           size="xs"
           theme={theme}
           to={ref}
-        >Extra-Small Link Button</Button>
+        >Extra-Small Link Button
+        </Button>
         <Button
           size="sm"
           theme={theme}
           to={ref}
-        >Small Link Button</Button>
+        >Small Link Button
+        </Button>
         <Button
           size="md"
           theme={theme}
           to={ref}
-        >Medium Link Button (default)</Button>
+        >Medium Link Button (default)
+        </Button>
         <Button
           size="lg"
           theme={theme}
           to={ref}
-        >Large Link Button</Button>
+        >Large Link Button
+        </Button>
       </div>
 
       <div>
@@ -53,22 +57,26 @@ export default function Sample({ Button, theme, title }) {
           disabled
           size="xs"
           theme={theme}
-        >Extra-Small Button</Button>
+        >Extra-Small Button
+        </Button>
         <Button
           disabled
           size="sm"
           theme={theme}
-        >Small Button</Button>
+        >Small Button
+        </Button>
         <Button
           disabled
           size="md"
           theme={theme}
-        >Medium Button (default)</Button>
+        >Medium Button (default)
+        </Button>
         <Button
           disabled
           size="lg"
           theme={theme}
-        >Large Button</Button>
+        >Large Button
+        </Button>
       </div>
     </SampleGroup>
   );

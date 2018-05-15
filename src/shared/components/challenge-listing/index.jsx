@@ -3,7 +3,6 @@
  */
 
 import _ from 'lodash';
-import config from 'utils/config';
 import ChallengeFilters from 'containers/challenge-listing/FilterPanel';
 import moment from 'moment';
 import React from 'react';
@@ -12,6 +11,7 @@ import Sticky from 'react-stickynode';
 import * as Filter from 'utils/challenge-listing/filter';
 import Sidebar from 'containers/challenge-listing/Sidebar';
 import { isReviewOpportunitiesBucket } from 'utils/challenge-listing/buckets';
+import { config } from 'topcoder-react-utils';
 
 import Listing from './Listing';
 import ChallengeCardPlaceholder from './placeholders/ChallengeCard';
@@ -32,15 +32,13 @@ export default function ChallengeListing(props) {
     preListingMsg,
   } = props;
 
-  let challenges = props.challenges;
+  let { challenges } = props;
 
   if (props.communityFilter) {
-    challenges = challenges.filter(
-      Filter.getFilterFunction(props.communityFilter));
+    challenges = challenges.filter(Filter.getFilterFunction(props.communityFilter));
   }
 
-  challenges = challenges.filter(
-    Filter.getFilterFunction(props.filterState));
+  challenges = challenges.filter(Filter.getFilterFunction(props.filterState));
 
   const expanded = false;
 
@@ -117,7 +115,7 @@ export default function ChallengeListing(props) {
         defaultCommunityId={defaultCommunityId}
         hideSrm={hideSrm}
         setCardType={_.noop/* cardType => this.setCardType(cardType) */}
-        isCardTypeSet={'Challenges' /* this.state.currentCardType */}
+        isCardTypeSet="Challenges"
         isAuth={Boolean(props.auth.user)}
       />
       <div styleName={`tc-content-wrapper ${/* this.state.currentCardType === 'SRMs' ? '' : */'hidden'}`}>
@@ -128,7 +126,7 @@ export default function ChallengeListing(props) {
         <div styleName="challenges-container SRMs-container">
           {/* happening now */}
           <div>
-            <SRMCard category={'now'} />
+            <SRMCard category="now" />
           </div>
           {/* upcoming SRMs */}
           <div>
@@ -138,7 +136,7 @@ export default function ChallengeListing(props) {
           {/* past SRMs */}
           <div>
             <div styleName="title">Past SRMs</div>
-            <SRMCard category={'past'} />
+            <SRMCard category="past" />
           </div>
         </div>
 

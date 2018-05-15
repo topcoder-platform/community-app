@@ -4,7 +4,7 @@
  * (thus allowing to show/hide detail panels for different submissions),
  * and it should define all necessary handlers to pass to the children.
  */
-/* global location */
+/* global window */
 
 import _ from 'lodash';
 import communityActions from 'actions/tc-communities';
@@ -26,10 +26,10 @@ import htmlToText from 'html-to-text';
 import PT from 'prop-types';
 import { connect } from 'react-redux';
 import challengeActions, { DETAIL_TABS } from 'actions/challenge';
-import config from 'utils/config';
 import MetaTags from 'utils/MetaTags';
 import { BUCKETS } from 'utils/challenge-listing/buckets';
 import { CHALLENGE_PHASE_TYPES, COMPETITION_TRACKS_V3, SUBTRACKS } from 'utils/tc';
+import { config } from 'topcoder-react-utils';
 
 import ogWireframe from
   '../../../assets/images/open-graph/challenges/01-wireframe.jpg';
@@ -186,7 +186,7 @@ class ChallengeDetailPageContainer extends React.Component {
   registerForChallenge() {
     if (!this.props.auth.tokenV2) {
       const utmSource = this.props.communityId || 'community-app-main';
-      location.href = `${config.URL.AUTH}/member?retUrl=${encodeURIComponent(location.href)}&utm_source=${utmSource}`;
+      window.location.href = `${config.URL.AUTH}/member?retUrl=${encodeURIComponent(window.location.href)}&utm_source=${utmSource}`;
     } else if (_.every(this.props.terms, 'agreed')) {
       this.props.registerForChallenge(this.props.auth, this.props.challengeId);
     } else {
@@ -226,9 +226,11 @@ class ChallengeDetailPageContainer extends React.Component {
 
     const isEmpty = _.isEmpty(this.props.challenge);
 
-    const hasRegistered = isRegistered(this.props.challenge.userDetails,
+    const hasRegistered = isRegistered(
+      this.props.challenge.userDetails,
       this.props.challenge.registrants,
-      (this.props.auth.user || {}).handle);
+      (this.props.auth.user || {}).handle,
+    );
 
     if (this.props.isLoadingChallenge || this.props.isLoadingTerms) {
       return <LoadingPagePlaceholder />;
@@ -345,7 +347,7 @@ ChallengeDetailPageContainer.defaultProps = {
   communityId: null,
   isLoadingChallenge: false,
   isLoadingTerms: false,
-  loadingCheckpointResults: false,
+  // loadingCheckpointResults: false,
   results: null,
   terms: [],
 };

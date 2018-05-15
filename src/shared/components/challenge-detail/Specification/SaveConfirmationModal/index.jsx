@@ -19,7 +19,8 @@ export default function SaveConfirmationModal({
         saving ? <LoadingIndicator /> : (
           <PrimaryButton
             onClick={onDone}
-          >Done</PrimaryButton>
+          >Done
+          </PrimaryButton>
         )
       }
     </Modal>

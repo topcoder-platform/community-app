@@ -92,7 +92,8 @@ export default class Carousel extends React.Component {
           display: 'flex',
           justifyContent: 'center',
         }}
-      >{children}</Nuka>
+      >{children}
+      </Nuka>
     );
   }
 }

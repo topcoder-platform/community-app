@@ -37,7 +37,9 @@ class InputBlock extends React.Component {
   }
 
   render() {
-    const { active, name, source, url, errors } = this.props.record;
+    const {
+      active, name, source, url, errors,
+    } = this.props.record;
 
     return (
       <div styleName="container">
@@ -97,7 +99,8 @@ class InputBlock extends React.Component {
           styleName="close"
           type="button"
           onClick={() => this.props.set()}
-        ><span>&#10799;</span></button>
+        ><span>&#10799;</span>
+        </button>
       </div>
     );
   }

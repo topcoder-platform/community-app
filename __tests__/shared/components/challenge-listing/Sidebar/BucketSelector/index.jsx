@@ -65,8 +65,7 @@ jest.mock('utils/challenge-listing/buckets', () => ({
     UPCOMING: 'UPCOMING',
     REVIEW_OPPORTUNITIES: 'REVIEW_OPPORTUNITIES',
   },
-}),
-);
+}));
 
 const BucketSelector = require('components/challenge-listing/Sidebar/BucketSelector').default;
 
@@ -90,7 +89,7 @@ test('Matches shallow shapshot', () => {
 });
 
 test('handle clicks', () => {
-  const instance = TU.renderIntoDocument((<Wrapper {...mockDatas[1]} disabled={false} activeBucket={'OPEN_FOR_REGISTRATION'} />));
+  const instance = TU.renderIntoDocument((<Wrapper {...mockDatas[1]} disabled={false} activeBucket="OPEN_FOR_REGISTRATION" />));
   let matches = TU.findAllInRenderedTree(instance, item =>
     item && item.className && item.className.match('edit-link'));
   expect(matches).toHaveLength(1);

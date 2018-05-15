@@ -7,7 +7,7 @@ import _ from 'lodash';
 import actions, { PAGE_SIZE } from 'actions/member-tasks';
 import logger from 'utils/logger';
 import { handleActions } from 'redux-actions';
-import { isClientSide } from 'utils/isomorphy';
+import { isomorphy } from 'topcoder-react-utils';
 
 /**
  * Drops all tasks and cancels the ongoing loading operation, if it is pending.
@@ -52,7 +52,7 @@ function onGetDone(state, { error, payload }) {
     logger.error(payload);
     /* NOTE: For now, using alert to inform about failures is kind of fine. */
     /* eslint-disable no-alert */
-    if (isClientSide()) alert('Failed to load member tasks');
+    if (isomorphy.isClientSide()) alert('Failed to load member tasks');
     /* eslint-enable no-alert */
     return state;
   }
@@ -74,7 +74,7 @@ function onGetDone(state, { error, payload }) {
   });
 
   /* If the first page of tasks has been loaded, updates its timestamp. */
-  let timestamps = state.timestamps;
+  let { timestamps } = state;
   if (!state.lastRequestedPageNum) {
     timestamps = _.clone(timestamps);
     timestamps[projectId] = Date.now();

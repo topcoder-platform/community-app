@@ -57,10 +57,24 @@ const ReviewOpportunityDetailsPage = ({
 
         <div styleName="tabs">
           <div styleName={`tab ${selectedTab === TABS.APPLICATIONS ? 'selected-tab' : ''}`}>
-            <a onClick={() => selectTab(TABS.APPLICATIONS)} role="link" tabIndex="0">REVIEW APPLICATIONS {`(${details.applications ? details.applications.filter(app => app.status !== 'Cancelled').length : 0})`}</a>
+            <a
+              onClick={() => selectTab(TABS.APPLICATIONS)}
+              onKeyPress={() => selectTab(TABS.APPLICATIONS)}
+              role="link"
+              tabIndex="0"
+            >
+              REVIEW APPLICATIONS {`(${details.applications ? details.applications.filter(app => app.status !== 'Cancelled').length : 0})`}
+            </a>
           </div>
           <div styleName={`tab ${selectedTab === TABS.CHALLENGE_SPEC ? 'selected-tab' : ''}`}>
-            <a onClick={() => selectTab(TABS.CHALLENGE_SPEC)} role="link" tabIndex="-1">CHALLENGE SPEC</a>
+            <a
+              onClick={() => selectTab(TABS.CHALLENGE_SPEC)}
+              onKeyPress={() => selectTab(TABS.CHALLENGE_SPEC)}
+              role="link"
+              tabIndex="-1"
+            >
+              CHALLENGE SPEC
+            </a>
           </div>
           <div styleName="tab">
             <a href="https://help.topcoder.com/hc/en-us/articles/222503827-Development-Reviewer-Role-Responsibilities" target="_blank" rel="noopener noreferrer">REVIEW PROCESS AND RULES</a>

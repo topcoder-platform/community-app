@@ -10,13 +10,13 @@ exports[`Matches shallow shapshot shapshot 1`] = `
     <FiltersCardsType
       hideSrm={undefined}
       isCardTypeSet="type"
-      setCardType={[Function]}
+      setCardType={[MockFunction]}
     />
     <ChallengeSearchBar
       onSearch={[Function]}
       placeholder="Search Challenges"
       query=""
-      setQuery={[Function]}
+      setQuery={[MockFunction]}
     />
     
     <span
@@ -26,6 +26,7 @@ exports[`Matches shallow shapshot shapshot 1`] = `
       <span
         className="src-shared-components-challenge-listing-Filters-___ChallengeFilters__filter-btn___3sRQR"
         onClick={[Function]}
+        onKeyPress={[Function]}
         role="button"
         tabIndex={0}
       >
@@ -40,7 +41,7 @@ exports[`Matches shallow shapshot shapshot 1`] = `
         active={false}
         className="src-shared-components-challenge-listing-Filters-___ChallengeFilters__FiltersSwitch___1VgDJ"
         filtersCount={0}
-        onSwitch={[Function]}
+        onSwitch={[MockFunction]}
       />
     </span>
   </div>
@@ -62,11 +63,11 @@ exports[`Matches shallow shapshot shapshot 1`] = `
     isReviewOpportunitiesBucket={false}
     isSavingFilter={false}
     onClose={[Function]}
-    onSaveFilter={[Function]}
-    selectCommunity={[Function]}
+    onSaveFilter={[MockFunction]}
+    selectCommunity={[MockFunction]}
     selectedCommunityId="3"
-    setFilterState={[Function]}
-    setSearchText={[Function]}
+    setFilterState={[MockFunction]}
+    setSearchText={[MockFunction]}
     validKeywords={
       Array [
         "",
@@ -101,13 +102,13 @@ exports[`Matches shallow shapshot shapshot 2`] = `
     <FiltersCardsType
       hideSrm={undefined}
       isCardTypeSet="Challenges"
-      setCardType={[Function]}
+      setCardType={[MockFunction]}
     />
     <ChallengeSearchBar
       onSearch={[Function]}
       placeholder="Search Challenges"
       query=""
-      setQuery={[Function]}
+      setQuery={[MockFunction]}
     />
     <span>
       <span
@@ -159,6 +160,7 @@ exports[`Matches shallow shapshot shapshot 2`] = `
       <span
         className="src-shared-components-challenge-listing-Filters-___ChallengeFilters__track-btn___34Cfs"
         onClick={[Function]}
+        onKeyPress={[Function]}
         role="button"
         tabIndex={0}
       >
@@ -170,6 +172,7 @@ exports[`Matches shallow shapshot shapshot 2`] = `
       <span
         className="src-shared-components-challenge-listing-Filters-___ChallengeFilters__filter-btn___3sRQR"
         onClick={[Function]}
+        onKeyPress={[Function]}
         role="button"
         tabIndex={0}
       >
@@ -189,7 +192,7 @@ exports[`Matches shallow shapshot shapshot 2`] = `
         active={false}
         className="src-shared-components-challenge-listing-Filters-___ChallengeFilters__FiltersSwitch___1VgDJ"
         filtersCount={3}
-        onSwitch={[Function]}
+        onSwitch={[MockFunction]}
       />
     </span>
   </div>
@@ -225,11 +228,11 @@ exports[`Matches shallow shapshot shapshot 2`] = `
     isReviewOpportunitiesBucket={false}
     isSavingFilter={false}
     onClose={[Function]}
-    onSaveFilter={[Function]}
-    selectCommunity={[Function]}
+    onSaveFilter={[MockFunction]}
+    selectCommunity={[MockFunction]}
     selectedCommunityId="3"
-    setFilterState={[Function]}
-    setSearchText={[Function]}
+    setFilterState={[MockFunction]}
+    setSearchText={[MockFunction]}
     validKeywords={
       Array [
         "",

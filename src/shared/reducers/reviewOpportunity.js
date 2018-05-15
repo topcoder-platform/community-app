@@ -24,7 +24,8 @@ function buildRequiredTermsList(details) {
       // terms entry.  Include the plain Reviewer terms when present as a back-up.
       .filter(term => term.role === 'Reviewer' || _.includes(roles, term.role))
       .map(term => _.pick(term, ['termsOfUseId', 'agreed', 'title'])),
-    term => term.termsOfUseId);
+    term => term.termsOfUseId,
+  );
 
   return requiredTerms || [];
 }

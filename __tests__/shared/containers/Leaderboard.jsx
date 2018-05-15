@@ -74,7 +74,7 @@ const obj = TU.renderIntoDocument((
   />
 ));
 
-const props = obj.selector.props;
+const { props } = obj.selector;
 
 test('loadLeaderboard dispatch', () => {
   props.loadLeaderboard();

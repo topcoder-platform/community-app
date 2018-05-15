@@ -31,7 +31,8 @@ export default function ChallengesBlock({
       </div>
       <PrimaryButton
         to={`${baseUrl}/challenges`}
-      >Browse all challenges</PrimaryButton>
+      >Browse all challenges
+      </PrimaryButton>
     </div>
   );
 }

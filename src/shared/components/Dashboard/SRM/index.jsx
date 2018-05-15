@@ -1,7 +1,8 @@
 import React from 'react';
 import PT from 'prop-types';
 
-import config from 'utils/config';
+import { config } from 'topcoder-react-utils';
+
 import SRMTile from './SRMTile';
 import './styles.scss';
 
