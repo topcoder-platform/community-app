@@ -9,11 +9,11 @@ import LoadingIndicator from 'components/LoadingIndicator';
 import qs from 'qs';
 import React from 'react';
 // import { StaticRouter } from 'react-router-dom';
-import { /* requireWeak, resolveWeak, */ SplitRoute } from 'utils/router';
+import { AppChunk } from 'topcoder-react-utils';
 
 export default function ChallengeListingRoute() {
   return (
-    <SplitRoute
+    <AppChunk
       cacheCss
       chunkName="challenge-listing/chunk"
       renderClientAsync={renderProps =>

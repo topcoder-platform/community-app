@@ -144,7 +144,8 @@ export default function BsicHackathon({
             enforceA
             theme={{ button: style.regButtonsW }}
             to="https://blockchain.topcoder.com/challenges/30063672"
-          >Register for the Challenge
+          >
+            Register for the Challenge
           </Button>
           <div styleName="challengeCardsContainer">
             <ChallengeCard
@@ -221,14 +222,16 @@ export default function BsicHackathon({
                       <Link
                         openNewTab
                         to="https://www.fastcompany.com/3062386/democracy-is-getting-a-reboot-on-the-blockchain"
-                      >Democracy Is Getting A Reboot On The Blockchain
+                      >
+                        Democracy Is Getting A Reboot On The Blockchain
                       </Link>
                     </li>
                     <li>
                       <Link
                         openNewTab
                         to="https://ssir.org/articles/entry/will_blockchain_disrupt_government_corruption"
-                      >Will Blockchain Disrupt Government Corruption?
+                      >
+                        Will Blockchain Disrupt Government Corruption?
                       </Link>
                     </li>
                     <li>

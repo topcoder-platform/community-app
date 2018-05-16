@@ -149,9 +149,8 @@ function filterByTags(challenge, state) {
 
 function filterByText(challenge, state) {
   if (!state.text) return true;
-  const str =
-    `${challenge.name} ${challenge.platforms} ${challenge.technologies}`
-      .toLowerCase();
+  const { platforms, technologies } = challenge;
+  const str = `${platforms} ${technologies}`.toLowerCase();
   return str.includes(state.text.toLowerCase());
 }
 

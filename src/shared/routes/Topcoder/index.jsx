@@ -5,29 +5,20 @@
 import LoadingIndicator from 'components/LoadingIndicator';
 import path from 'path';
 import React from 'react';
-import { StaticRouter } from 'react-router-dom';
-import { requireWeak, resolveWeak, SplitRoute } from 'utils/router';
+import { AppChunk, webpack } from 'topcoder-react-utils';
 
 export default function ChunkLoader() {
   return (
-    <SplitRoute
-      cacheCss
+    <AppChunk
       chunkName="topcoder-website/chunk"
       renderClientAsync={() =>
         import(/* webpackChunkName: "topcoder-website/chunk" */'./Routes')
         .then(({ default: Routes }) => <Routes />)
       }
       renderPlaceholder={() => <LoadingIndicator />}
-      renderServer={(routeProps) => {
-        const p = resolveWeak('./Routes');
-        const Routes = requireWeak(path.resolve(__dirname, p));
-        return (
-          <StaticRouter
-            context={routeProps.staticContext}
-            location={routeProps.location}
-          ><Routes />
-          </StaticRouter>
-        );
+      renderServer={() => {
+        const Routes = webpack.requireWeak(path.resolve(__dirname, './Routes'));
+        return <Routes />;
       }}
     />
   );
