@@ -37,3 +37,14 @@
   font-family: 'Sofia Pro', Arial, Helvetica, sans-serif;
   font-weight: bold;
 }
+
+@mixin merriweather-sans-light {
+  font-family: 'Merriweather Sans', Arial, Helvetica, sans-serif;
+  font-weight: 300;
+}
+
+@mixin merriweather-sans-regular {
+  font-family: 'Merriweather Sans', Arial, Helvetica, sans-serif;
+  font-weight: 400;
+}
+

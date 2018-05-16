@@ -4,6 +4,7 @@
 
 import actions from 'actions/auth';
 import communityActions from 'actions/tc-communities';
+import profileActions from 'actions/profile';
 import { decodeToken } from 'tc-accounts';
 import { getAuthTokens } from 'utils/tc';
 import { redux } from 'topcoder-react-utils';
@@ -45,6 +46,51 @@ function create(initialState) {
         groups: state.profile.groups.concat({ id: payload.groupId.toString() }),
       },
     }),
+    [profileActions.profile.uploadPhotoDone]: (state, { payload, error }) => {
+      if (error) {
+        return state;
+      }
+      if (!state.profile || state.profile.handle !== payload.handle) {
+        return state;
+      }
+      return {
+        ...state,
+        profile: {
+          ...state.profile,
+          photoURL: payload.photoURL,
+        },
+      };
+    },
+    [profileActions.profile.deletePhotoDone]: (state, { payload, error }) => {
+      if (error) {
+        return state;
+      }
+      if (!state.profile || state.profile.handle !== payload.handle) {
+        return state;
+      }
+      return {
+        ...state,
+        profile: {
+          ...state.profile,
+          photoURL: null,
+        },
+      };
+    },
+    [profileActions.profile.updateProfileDone]: (state, { payload, error }) => {
+      if (error) {
+        return state;
+      }
+      if (!state.profile || state.profile.handle !== payload.handle) {
+        return state;
+      }
+      return {
+        ...state,
+        profile: {
+          ...state.profile,
+          ...payload,
+        },
+      };
+    },
   }, initialState || {
     authenticating: true,
   });

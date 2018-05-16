@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="64px" height="64px" viewBox="0 0 64 64" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 3.6.1 (26313) - http://www.bohemiancoding.com/sketch -->
+    <title>icons/skills/id-263</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Technologies" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="icons/skills/id-263">
+            <circle id="Oval-3" fill="#2FC087" cx="32" cy="32" r="30"></circle>
+            <rect id="Rectangle-37" fill="#394146" x="31" y="44" width="2" height="12"></rect>
+            <g id="XMLID_832_" transform="translate(17.000000, 21.000000)">
+                <path d="M27,3 L15,3 C15,1.35 13.65,0 12,0 L3,0 C1.35,0 0,1.35 0,3 L0,6 L0,15 L0,12 C0,13.65 1.35,15 3,15 L27,15 C28.65,15 30,13.65 30,12 L30,6 C30,4.35 28.65,3 27,3 L27,3 Z" id="XMLID_672_" fill="#394146"></path>
+                <path d="M15,6 C15,7.65 13.65,9 12,9 L6,9 L3,9 L0,9 L0,21 C0,22.65 1.35,24 3,24 L27,24 C28.65,24 30,22.65 30,21 L30,6 L27,6 L15,6 L15,6 Z" id="XMLID_46_" fill="#F6F6F6"></path>
+            </g>
+            <path d="M15,55 L49,55" id="Line" stroke="#394146" stroke-width="2" stroke-linecap="square"></path>
+        </g>
+    </g>
+</svg>
