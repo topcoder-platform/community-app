@@ -6,12 +6,11 @@ import React from 'react';
 import { StaticRouter } from 'react-router-dom';
 
 import LoadingPagePlaceholder from 'components/LoadingPagePlaceholder';
-import { requireWeak, resolveWeak, SplitRoute } from 'utils/router';
+import { AppChunk, webpack } from 'topcoder-react-utils';
 
 export default function SettingsLoader(props) {
   return (
-    <SplitRoute
-      cacheCss
+    <AppChunk
       chunkName="settings/chunk"
       renderClientAsync={() =>
         import(/* webpackChunkName: "settings/chunk" */ 'containers/Settings')
@@ -21,8 +20,8 @@ export default function SettingsLoader(props) {
       }
       renderPlaceholder={() => <LoadingPagePlaceholder />}
       renderServer={() => {
-        const p = resolveWeak('containers/Settings');
-        const SettingsContainer = requireWeak(path.resolve(__dirname, p));
+        const p = webpack.resolveWeak('containers/Settings');
+        const SettingsContainer = webpack.requireWeak(path.resolve(__dirname, p));
         return (
           <StaticRouter context={{}}>
             <SettingsContainer {...props} />
