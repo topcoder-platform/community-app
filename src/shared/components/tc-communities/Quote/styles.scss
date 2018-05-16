@@ -1,0 +1,36 @@
+@import '~styles/mixins';
+
+.container {
+  @include md-to-xl {
+    display: flex;
+    align-items: flex-start;
+  }
+}
+
+.authorPhoto {
+  display: block;
+  margin: 0 auto 10px;
+
+  @include md-to-xl {
+    margin-right: 30px;
+  }
+}
+
+.authorName {
+  color: $tc-black;
+  font-size: 24px;
+  font-weight: 600;
+  margin-top: 14px;
+}
+
+.authorDescription {
+  color: $tc-gray-80;
+  font-size: 16px;
+  margin-top: 8px;
+}
+
+.text {
+  color: $tc-gray-80;
+  font-size: 20px;
+  line-height: 30px;
+}

@@ -4,53 +4,109 @@
  * corners: like drawing a gray placeholder with a loading indicator while your
  * network communicates with YouTube to get the actual video.
  *
- * Probably, it works out of the box for other video hosting platforms, and
- * also for embeding of other similar objects, but to be on the safe side, lets
- * call it YouTubeVideo for now.
+ * It also supports custom video thumb / play button.
+ * There are also several properties to control youtube video player:
+ * `autoplay`, `controls`, `rel`, `showinfo` see details at https://developers.google.com/youtube/player_parameters
  */
 
 import LoadingIndicator from 'components/LoadingIndicator';
 import PT from 'prop-types';
 import React from 'react';
 import ScalableRect from 'components/ScalableRect';
+import YouTube from 'react-youtube';
 
 import style from './style.scss';
 
-export default function YouTubeVideo({
-  autoplay,
-  className,
-  src,
-  title,
-}) {
-  let cl = style.container;
-  if (className) cl = `${cl} ${className}`;
+class YouTubeVideo extends React.Component {
+  constructor(props) {
+    super(props);
 
-  let url = src;
-  if (autoplay) url += '?autoplay=1';
+    this.state = {
+      showThumb: !!props.thumb,
+    };
 
-  return (
-    <ScalableRect className={cl} ratio="16:9">
-      <LoadingIndicator theme={{ container: style.loading }} />
-      <iframe
-        allow="autoplay"
-        allowFullScreen
-        src={url}
-        styleName="video"
-        title={title}
-      />
-    </ScalableRect>
-  );
+    this.onThumbClick = this.onThumbClick.bind(this);
+    this.onVideoReady = this.onVideoReady.bind(this);
+  }
+
+  onThumbClick() {
+    this.setState({
+      showThumb: false,
+    });
+    if (this.player) {
+      this.player.playVideo();
+    }
+  }
+
+  onVideoReady(event) {
+    this.player = event.target;
+  }
+
+  render() {
+    const {
+      autoplay,
+      className,
+      controls,
+      thumb,
+      rel,
+      showinfo,
+      src,
+      title,
+    } = this.props;
+
+    const { showThumb } = this.state;
+
+    let cl = style.container;
+    if (className) cl = `${cl} ${className}`;
+
+    const videoIdMatch = src.match(/\/\/www\.youtube\.com\/embed\/([^/?]+)/);
+    if (!videoIdMatch) {
+      return null;
+    }
+    const [, videoId] = videoIdMatch;
+
+    return (
+      <ScalableRect className={cl} ratio="16:9">
+        <LoadingIndicator theme={{ container: style.loading }} />
+        <YouTube
+          className={style.video}
+          videoId={videoId}
+          opts={{
+            playerVars: {
+              autoplay: autoplay ? 1 : 0,
+              controls: controls ? 1 : 0,
+              rel: rel ? 1 : 0,
+              showinfo: showinfo ? 1 : 0,
+            },
+          }}
+          onReady={this.onVideoReady}
+          title={title}
+        />
+        {showThumb && <div onClick={this.onThumbClick} role="presentation">{thumb}</div>}
+      </ScalableRect>
+    );
+  }
 }
 
 YouTubeVideo.defaultProps = {
   autoplay: false,
   className: null,
+  controls: true,
+  thumb: null,
+  rel: true,
+  showinfo: true,
   title: null,
 };
 
 YouTubeVideo.propTypes = {
   autoplay: PT.bool,
   className: PT.string,
+  controls: PT.bool,
+  thumb: PT.node,
+  rel: PT.bool,
+  showinfo: PT.bool,
   src: PT.string.isRequired,
   title: PT.string,
 };
+
+export default YouTubeVideo;

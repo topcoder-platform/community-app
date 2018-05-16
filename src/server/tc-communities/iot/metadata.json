@@ -16,6 +16,12 @@
   "menuItems": [{
     "title": "Home",
     "url": "/"
+  },{
+    "title": "Get Started",
+    "url": "/get-started"
+  },{
+    "title": "About Predix",
+    "url": "/about"
   }],
   "newsFeed": "http://www.topcoder.com/feed",
   "subdomains": ["iot"],
