@@ -122,7 +122,7 @@ export default function Listing({
         * more political than technical ;)
         getBucket(BUCKETS.UPCOMING) */
       }
-      {getBucket(BUCKETS.PAST)}
+      { /* getBucket(BUCKETS.PAST) */ }
     </div>
   );
 }
