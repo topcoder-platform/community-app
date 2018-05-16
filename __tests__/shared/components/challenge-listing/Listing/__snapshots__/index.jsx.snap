@@ -76,30 +76,6 @@ exports[`Matches shallow shapshot 1`] = `
     sort={null}
     userHandle="handle"
   />
-  <Bucket
-    bucket={Object {}}
-    bucketId="PAST"
-    challenges={Array []}
-    challengesUrl={undefined}
-    communityName={null}
-    expand={[Function]}
-    expandTag={null}
-    expanded={false}
-    expandedTags={Array []}
-    filterState={undefined}
-    keepPlaceholders={false}
-    loadMore={[MockFunction]}
-    loading={false}
-    newChallengeDetails={false}
-    openChallengesInNewTabs={false}
-    prizeMode={undefined}
-    selectChallengeDetailsTab={undefined}
-    selectedCommunityId={undefined}
-    setFilterState={[MockFunction]}
-    setSort={[Function]}
-    sort={null}
-    userHandle="handle"
-  />
 </div>
 `;
 
@@ -206,30 +182,6 @@ exports[`Matches shallow shapshot 4`] = `
     filterState={undefined}
     keepPlaceholders={false}
     loadMore={null}
-    loading={false}
-    newChallengeDetails={false}
-    openChallengesInNewTabs={false}
-    prizeMode={undefined}
-    selectChallengeDetailsTab={undefined}
-    selectedCommunityId={undefined}
-    setFilterState={[MockFunction]}
-    setSort={[Function]}
-    sort={null}
-    userHandle=""
-  />
-  <Bucket
-    bucket={Object {}}
-    bucketId="PAST"
-    challenges={Array []}
-    challengesUrl={undefined}
-    communityName={null}
-    expand={[Function]}
-    expandTag={null}
-    expanded={false}
-    expandedTags={Array []}
-    filterState={undefined}
-    keepPlaceholders={false}
-    loadMore={[MockFunction]}
     loading={false}
     newChallengeDetails={false}
     openChallengesInNewTabs={false}

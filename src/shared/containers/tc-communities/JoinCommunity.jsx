@@ -12,7 +12,8 @@ import shortId from 'shortid';
 import Terms from 'containers/Terms';
 import termsActions from 'actions/terms';
 
-import JoinCommunity, { STATE as JOIN_COMMUNITY } from 'components/tc-communities/JoinCommunity';
+import JoinCommunity, { STATE as JOIN_COMMUNITY }
+  from 'components/tc-communities/JoinCommunity';
 import { connect } from 'react-redux';
 
 class JoinCommunityContainer extends React.Component {

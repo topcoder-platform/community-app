@@ -71,7 +71,8 @@ export default function Home({
             theme={{
               button: style.watchVideoButton,
             }}
-          >&#9658;&emsp;Watch video
+          >
+            &#9658;&emsp;Watch video
           </Button>
         </p>
         <JoinCommunity

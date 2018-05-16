@@ -68,7 +68,8 @@ export default function LearnTheBasics({ baseUrl }) {
             <SecondaryButton
               openNewTab
               to="https://www.topcoder.com/member-onboarding/choosing-your-first-competition-whats-right-for-you/"
-            >Learn more
+            >
+              Learn more
             </SecondaryButton>
           </Text>
         </AccordionItem>
@@ -82,7 +83,8 @@ export default function LearnTheBasics({ baseUrl }) {
             <SecondaryButton
               openNewTab
               to="https://www.topcoder.com/member-onboarding/winning-getting-paid/"
-            >Learn more
+            >
+              Learn more
             </SecondaryButton>
           </Text>
         </AccordionItem>
