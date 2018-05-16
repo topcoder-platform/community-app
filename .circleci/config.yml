@@ -99,7 +99,9 @@ workflows:
       - "build-dev":
           filters:
             branches:
-              only: develop
+              only: 
+                - develop
+                - mm-feature-experiment
 
       # Production builds are exectuted only on tagged commits to the
       # master branch.
