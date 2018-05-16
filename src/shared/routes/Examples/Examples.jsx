@@ -30,6 +30,7 @@ import {
 } from 'react-router-dom';
 import { AppChunk, webpack } from 'topcoder-react-utils';
 
+import Contentful from './Contentful';
 import DataFetch from './DataFetch';
 
 export default function Examples(props) {
@@ -54,6 +55,7 @@ export default function Examples(props) {
         }}
       />
       <Route path={`${base}/color-mixins`} component={ColorMixins} />
+      <Route path={`${base}/contentful`} component={Contentful} />
       <Route path={`${base}/css-modules`} component={CssModules} />
       <Route path={`${base}/data-fetch`} component={DataFetch} />
       <Route path={`${base}/editor`} component={Editor} />

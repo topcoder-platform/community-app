@@ -10,6 +10,7 @@ import FAQ from 'components/tc-communities/communities/wipro/FAQ';
 import Footer from 'components/tc-communities/communities/wipro/Footer';
 import Header from 'containers/tc-communities/Header';
 import Home from 'containers/tc-communities/wipro/Home';
+import LeaderboardBanner from 'components/tc-communities/communities/wipro/LeaderboardBanner';
 import Learn from 'components/tc-communities/communities/wipro/Learn';
 import PT from 'prop-types';
 import React from 'react';
@@ -79,7 +80,12 @@ export default function Wipro({ base, meta }) {
                 path={`${base}/faq`}
               />
               <Route
-                component={() => <Leaderboard meta={meta} />}
+                component={() => (
+                  <Leaderboard
+                    HeadBanner={LeaderboardBanner}
+                    meta={meta}
+                  />
+                )}
                 exact
                 path={`${base}/leaderboard`}
               />

@@ -5,8 +5,8 @@
 
 import config from 'config';
 import fetch from 'isomorphic-fetch';
-import logger from 'utils/logger';
-import moment from 'moment';
+// import logger from 'utils/logger';
+// import moment from 'moment';
 import qs from 'qs';
 
 /* Holds Contentful CDN API key. */
@@ -23,7 +23,7 @@ const CDN_URL = `https://cdn.contentful.com/spaces/${
  * many of them, as the circle of potential editors is edit, compared to that of
  * the regular website visitors).
  */
-const INDEX_MAXAGE = 60 * 1000;
+// const INDEX_MAXAGE = 60 * 1000;
 
 /* Holds Contentful Preview API key. */
 const PREVIEW_KEY = config.SECRET.CONTENTFUL.PREVIEW_API_KEY;
@@ -149,27 +149,12 @@ export const previewService = new ApiService(PREVIEW_URL, PREVIEW_KEY);
  * have to be refreshed regularly to keep us in sync with content edits in CMS.
  * @return {Number}
  */
+/*
 function getLastVersion() {
   const now = Date.now();
   return now - (now % INDEX_MAXAGE);
 }
-
-/**
- * Gets the index of current dashboard announcements via CDN.
- * @param {Number} version Optional. The version of index to fetch. Defaults to
- *  the latest version.
- * @return {Promise}
- */
-async function getCurrentDashboardAnnouncementsIndexViaCdn(version = getLastVersion()) {
-  const res =
-    await fetch(`${TC_CDN_URL}/current-dashboard-announcements-index?version=${version}`);
-  if (!res.ok) {
-    const MSG = 'Failed to get the index';
-    logger.error(MSG, res.statusText);
-    throw new Error(MSG);
-  }
-  return res.json();
-}
+*/
 
 /**
  * Gets the index of assets and entries via Community App CDN.
@@ -177,6 +162,7 @@ async function getCurrentDashboardAnnouncementsIndexViaCdn(version = getLastVers
  *  the latest index version.
  * @return {Promise}
  */
+/*
 async function getIndexViaCdn(version = getLastVersion()) {
   const res = await fetch(`${TC_CDN_URL}/index?version=${version}`);
   if (!res.ok) {
@@ -186,6 +172,7 @@ async function getIndexViaCdn(version = getLastVersion()) {
   }
   return res.json();
 }
+*/
 
 /**
  * Gets the next sync URL via CDN.
@@ -193,6 +180,7 @@ async function getIndexViaCdn(version = getLastVersion()) {
  *  the latest version.
  * @return {Promise}
  */
+/*
 async function getNextSyncUrlViaCdn(version = getLastVersion()) {
   const res =
     await fetch(`${TC_CDN_URL}/next-sync-url?version=${version}`);
@@ -203,6 +191,7 @@ async function getNextSyncUrlViaCdn(version = getLastVersion()) {
   }
   return res.text();
 }
+*/
 
 /* THE INDEX OF CMS ASSETS AND ENTRIES.
  *
@@ -214,44 +203,34 @@ async function getNextSyncUrlViaCdn(version = getLastVersion()) {
  * by this module. If not null, then it is a promise that signals that the index
  * update is in progress; in this case any function that needs to access the
  * index should wait until the promise is resolved. */
-let barrier = null;
-
-/* The map of current dashboard announcements (only those with startDate before
- * now, and the endDate after now). Each value in the map is an object that
- * contains the following fields:
- *  - id {String} - CMS ID of the announcement entry;
- *  - startDate {Number} - Timestamp of the moment when the announcement should
- *    be shown;
- *  - endDate {Number} - The timestamp of the moment when the announcement
- *    should be hidden. */
-let currentDashboardAnnouncementsMap;
-
-/* CMS ID of the announcement entry that should be shown right now. */
-let currentDashboardAnnouncementId = '';
+// let barrier = null;
 
 /* Holds the next sync URL provided by the CMS. */
-let nextSyncUrl;
+// let nextSyncUrl;
 
 /* The public index of CMS assets and entries. It is the map between CMS IDs of
  * these assets/entries and the timestamps of their last updates. Note that this
  * index is accessible by the frontend via CDN, thus anybody can access it and
  * thus all assets and entries mentioned in this index. That's why announcements
  * with future startDate are not included into this index. */
-let publicIndex;
+// let publicIndex;
 
 /**
  * Adds a new asset to the index, or updates the existing one.
  * @param {Object} asset
  */
+/*
 function indexAsset(asset) {
   const { id, createdAt, updatedAt } = asset.sys;
   publicIndex.assets[id] = moment(updatedAt || createdAt).valueOf();
 }
+*/
 
 /**
  * Adds a new entry to the index, or updates the existing one.
  * @param {Object} entry
  */
+/*
 function indexEntry(entry) {
   let isPublic = true;
   const { id, createdAt, updatedAt } = entry.sys;
@@ -263,6 +242,7 @@ function indexEntry(entry) {
      * out which announcement should be show at any moment, without a call to
      * CMS. We also do not include future announcements into the public index
      * to avoid any exposure to general public before the time. */
+/*
     case 'dashboardAnnouncement': {
       const now = Date.now();
       const endDate = moment(entry.fields.endDate['en-US']).valueOf();
@@ -283,12 +263,14 @@ function indexEntry(entry) {
 
   if (isPublic) publicIndex.entries[id] = timestamp;
 }
+*/
 
 /**
  * Adds a new asset or entry to the index, or updates / removes the existing
  * one.
  * @param {Object} item
  */
+/*
 function indexItem(item) {
   const { id, type } = item.sys;
   switch (type) {
@@ -302,10 +284,12 @@ function indexItem(item) {
     default: throw new Error('Invariant violation');
   }
 }
+*/
 
 /**
  * Updates the current announcement ID.
  */
+/*
 function updateCurrentDashboardAnnouncementId() {
   const list = [];
   const now = Date.now();
@@ -322,17 +306,20 @@ function updateCurrentDashboardAnnouncementId() {
     publicIndex.entries[currentDashboardAnnouncementId] = list[0].timestamp;
   }
 }
+*/
 
 /**
  * Updates the index.
  * @return {Promise}
  */
+/*
 async function updateIndex() {
   let nextPageUrl = nextSyncUrl;
   while (nextPageUrl) {
     /* Disabled, as we really need to keep these iterations sequential, thus
      * await inside the loop is not an error. */
-    /* eslint-disable no-await-in-loop */
+/* eslint-disable no-await-in-loop */
+/*
     let d = await fetch(nextPageUrl, {
       headers: { Authorization: `Bearer ${CDN_KEY}` },
     });
@@ -343,20 +330,23 @@ async function updateIndex() {
     }
     d = await d.json();
     /* eslint-anable no-await-in-loop */
-
+/*
     d.items.forEach(indexItem);
     ({ nextPageUrl, nextSyncUrl } = d);
   }
   publicIndex.timestamp = Date.now();
   updateCurrentDashboardAnnouncementId();
 }
+*/
 
 /**
  * Inits the index with data from CMS.
  * @return {Promise}
  */
+/*
 async function initIndex() {
   /* Gets necessary data from CMS. */
+/*
   let d = await fetch(`${CDN_URL}/sync?initial=true`, {
     headers: { Authorization: `Bearer ${CDN_KEY}` },
   });
@@ -368,6 +358,7 @@ async function initIndex() {
   d = await d.json();
 
   /* Generates the index. */
+/*
   publicIndex = {
     assets: {},
     entries: {},
@@ -381,11 +372,13 @@ async function initIndex() {
    * TODO: This updateIndex(..) function can be combined with initIndex(..)
    * into a single function. The URL query is the only real difference between
    * them. */
+/*
   if (d.nextPageUrl) {
     nextSyncUrl = d.nextPageUrl;
     await updateIndex();
   } else ({ nextSyncUrl } = d);
 }
+*/
 
 /**
  * Returns the index of CMS assets and content, along with the timestamps of
@@ -393,6 +386,7 @@ async function initIndex() {
  * automatic updates of the index, as necessary.
  * @return {Promise}
  */
+/*
 export async function getIndex() {
   while (barrier) await barrier;
   if (!publicIndex) barrier = initIndex();
@@ -404,6 +398,7 @@ export async function getIndex() {
     barrier = null;
 
     /* These two calls are necessary to cache the updated index by CDN. */
+/*
     getIndexViaCdn();
     getCurrentDashboardAnnouncementsIndexViaCdn();
     getNextSyncUrlViaCdn();
@@ -411,34 +406,13 @@ export async function getIndex() {
 
   return publicIndex;
 }
-
-/**
- * Returns the index of current dashboard announcements.
- * @return {Promise}
- */
-export async function getCurrentDashboardAnnouncementsIndex() {
-  while (barrier) await barrier;
-  if (!publicIndex || Date.now() - publicIndex.timestamp > INDEX_MAXAGE) {
-    await getIndex();
-  }
-  return currentDashboardAnnouncementsMap;
-}
-
-/**
- * Returns ID of the current dashboard announcement to show.
- */
-export async function getCurrentDashboardAnnouncementId() {
-  while (barrier) await barrier;
-  if (!publicIndex || Date.now() - publicIndex.timestamp > INDEX_MAXAGE) {
-    await getIndex();
-  }
-  return currentDashboardAnnouncementId;
-}
+*/
 
 /**
  * Returns the next sync URL.
  * @return {Promise}
  */
+/*
 export async function getNextSyncUrl() {
   while (barrier) await barrier;
   if (!publicIndex || Date.now() - publicIndex.timestamp > INDEX_MAXAGE) {
@@ -446,6 +420,7 @@ export async function getNextSyncUrl() {
   }
   return nextSyncUrl;
 }
+*/
 
 /* Module initialization.
  * This code tries to pull the current index from CDN, where it is supposed to
@@ -453,6 +428,7 @@ export async function getNextSyncUrl() {
  * to prevent unnecessary calls to Contentful APIs from a locally deployed
  * server. In case of failure, it initializes the new index using getIndex()
  * function directly. */
+/*
 let version = Date.now() - INDEX_MAXAGE;
 version -= version % INDEX_MAXAGE;
 Promise.all([
@@ -465,3 +441,4 @@ Promise.all([
   nextSyncUrl = next;
   updateCurrentDashboardAnnouncementId();
 }).catch(() => getIndex());
+*/
