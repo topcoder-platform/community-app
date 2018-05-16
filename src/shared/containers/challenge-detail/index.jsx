@@ -84,7 +84,7 @@ function getOgImage(challenge) {
   }
 }
 
-function isRegistered(details, registrants, handle) {
+function isRegistered(registrants, handle) {
   /*
     TODO: This code is commented out because related API is broken now
     and does not set / clear Submitter role properly.
@@ -295,9 +295,7 @@ class ChallengeDetailPageContainer extends React.Component {
 
     const isEmpty = _.isEmpty(this.props.challenge);
 
-    const hasRegistered = _.isUndefined(challenge.isRegistered) ?
-      isRegistered(challenge.userDetails, challenge.registrants, (auth.user || {}).handle) :
-      challenge.isRegistered;
+    const hasRegistered = isRegistered(challenge.registrants, (auth.user || {}).handle);
 
     if (this.props.isLoadingChallenge || this.props.isLoadingTerms) {
       return <LoadingPagePlaceholder />;

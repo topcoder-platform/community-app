@@ -6,7 +6,6 @@
  *   Connects the Redux store to the Challenge Submissions display components.
  *   Passes the relevent state and setters as properties to the UI components.
  */
-import _ from 'lodash';
 import actions from 'actions/page/submission';
 import React from 'react';
 import PT from 'prop-types';
@@ -41,10 +40,8 @@ class SubmissionsPageContainer extends React.Component {
   }
 
   render() {
-    const { challenge, registrants, handle } = this.props;
-    const isRegistered = _.isUndefined(challenge.isRegistered)
-      ? registrants.find(r => r.handle === handle) : challenge.isRegistered;
-
+    const { registrants, handle } = this.props;
+    const isRegistered = registrants.find(r => r.handle === handle);
     if (!isRegistered) return <AccessDenied cause={ACCESS_DENIED_REASON.NOT_AUTHORIZED} />;
     return (
       <SubmissionsPage
