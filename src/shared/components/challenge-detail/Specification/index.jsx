@@ -392,7 +392,7 @@ export default function ChallengeDetailsView(props) {
                       <p styleName="p">
                         Submissions are viewable to the client as they are entered
                         into the challenge. Winners are selected by the client and
-                        are chosen solely at the Client&apos;s discretion.
+                        are chosen solely at the client&apos;s discretion.
                       </p>
                     </article>
                   </div>
