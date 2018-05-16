@@ -6,14 +6,13 @@ import LoadingIndicator from 'components/LoadingIndicator';
 import path from 'path';
 import PT from 'prop-types';
 import React from 'react';
-import { StaticRouter } from 'react-router-dom';
-import { requireWeak, resolveWeak, SplitRoute } from 'utils/router';
+import { AppChunk, webpack } from 'topcoder-react-utils';
 
 export default function ChunkLoader({
   base, communityId, member, meta,
 }) {
   return (
-    <SplitRoute
+    <AppChunk
       key={member}
       chunkName="communities/chunk"
       renderClientAsync={() =>
@@ -28,21 +27,15 @@ export default function ChunkLoader({
         ))
       }
       renderPlaceholder={() => <LoadingIndicator />}
-      renderServer={(routeProps) => {
-        const p = resolveWeak('./Routes');
-        const Routes = requireWeak(path.resolve(__dirname, p));
+      renderServer={() => {
+        const Routes = webpack.requireWeak(path.resolve(__dirname, './Routes'));
         return (
-          <StaticRouter
-            context={routeProps.staticContext}
-            location={routeProps.location}
-          >
-            <Routes
-              base={base}
-              communityId={communityId}
-              member={member}
-              meta={meta}
-            />
-          </StaticRouter>
+          <Routes
+            base={base}
+            communityId={communityId}
+            member={member}
+            meta={meta}
+          />
         );
       }}
     />

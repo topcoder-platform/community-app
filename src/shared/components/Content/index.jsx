@@ -112,7 +112,7 @@ export default function Content() {
 
       <h3>TCO Assets</h3>
       <ul>
-        <li><a href="/hall-of-fame/tco">TCO Hall of Fame</a></li>
+        <li><Link to="/hall-of-fame/tco">TCO Hall of Fame</Link></li>
         <li>
           TCO Scoreboard demo is mounted on <code>/scoreboard/:id</code>,
           where <code>:id</code> is the competition ID, not related to the
@@ -162,6 +162,15 @@ export default function Content() {
         </li>
       </ul>
 
+      <h3>Previews of Contentful Components</h3>
+      <ul>
+        <li>
+          <Link to="/examples/contentful/banner/5il6oFtWp2Ua6WGs60M2mK">
+            <code>Banner</code>
+          </Link>
+        </li>
+      </ul>
+
       <h3>Sandbox</h3>
       <p>
         The right place to put any experimental and proof-of-concept
@@ -171,6 +180,11 @@ export default function Content() {
         <li>
           <Link to="/sandbox/cms/dashboard/announcements">
             A simple list of all published dashboard announcements.
+          </Link>
+        </li>
+        <li>
+          <Link to="/sandbox/cms/testing">
+            CMS-related testing.
           </Link>
         </li>
         <li>

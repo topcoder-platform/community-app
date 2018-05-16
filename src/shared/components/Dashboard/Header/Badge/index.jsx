@@ -76,6 +76,7 @@ export default function Badge({
             <img
               alt={title}
               src={xlBadge}
+              styleName="xlBadgeImage"
             />
           ) : xlBadge
         }

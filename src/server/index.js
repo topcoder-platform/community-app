@@ -34,7 +34,7 @@ ts = moment(ts.timestamp).valueOf();
 
 const EXTRA_SCRIPTS = [
   `<script
-      src="${config.CDN.PUBLIC || '/api/cdn/public'}/static-assets/loading-indicator-animation-${ts}.js"
+      src="${process.env.CDN_URL || '/api/cdn/public'}/static-assets/loading-indicator-animation-${ts}.js"
       type="application/javascript"
   ></script>`,
   `<script>
