@@ -4,6 +4,7 @@
 
 import CmsDasbhoardAnnouncements from
   'containers/sandbox/cms/dashboard/Announcements';
+import CmsTesting from 'components/sandbox/cms/Testing';
 import Error404 from 'components/Error404';
 import PT from 'prop-types';
 import React from 'react';
@@ -22,6 +23,10 @@ export default function Router({ base }) {
       <Route
         component={CmsDasbhoardAnnouncements}
         path={`${base}/cms/dashboard/announcements`}
+      />
+      <Route
+        component={CmsTesting}
+        path={`${base}/cms/testing`}
       />
       <Error404 />
     </Switch>

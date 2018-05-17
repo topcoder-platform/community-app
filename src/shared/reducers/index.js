@@ -17,7 +17,7 @@
 import { getCommunityId } from 'server/services//communities';
 import { redux } from 'topcoder-react-utils';
 
-import cms from './cms';
+import contentful from './contentful';
 import direct from './direct';
 import members from './members';
 import memberTasks from './member-tasks';
@@ -63,7 +63,7 @@ export function factory(req) {
     return res;
   }, {
     ...reducers,
-    cms,
+    contentful,
     direct,
     members,
     memberTasks,
