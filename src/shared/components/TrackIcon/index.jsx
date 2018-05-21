@@ -2,7 +2,6 @@ import config from 'utils/config';
 import React from 'react';
 import PT from 'prop-types';
 import Abbreviation from './Abbreviation';
-
 import './style.scss';
 
 export default function TrackIcon({
@@ -13,10 +12,9 @@ export default function TrackIcon({
   MAIN_URL,
 }) {
   const TCO_URL = `${MAIN_URL}/tco`;
-  const st = subTrack.toUpperCase().replace(/ /g, '_');
   return (
     <span styleName="trackIcon">
-      <div styleName={`${(isDataScience ? 'data_science' : track.toLowerCase())} main-icon`}>{Abbreviation[track][st]}</div>
+      <div styleName={`${(isDataScience ? 'data_science' : track.toLowerCase())} main-icon`}>{Abbreviation[track][subTrack]}</div>
       <a href={`${TCO_URL}`}>
         <div styleName={tcoEligible ? `${(isDataScience ? 'data_science' : track.toLowerCase())} tco-icon` : 'hidden'}>TCO</div>
       </a>
