@@ -1,0 +1,79 @@
+@import "~styles/mixins";
+
+.container {
+  background: white;
+  align-content: center;
+
+  &:nth-child(even) .containerWrapperByImage {
+    flex-direction: row-reverse;
+    background-color: rgb(37, 192, 137);
+  }
+}
+
+.contentWrapper {
+  margin: 0 auto;
+  max-width: $screen-md;
+  padding: 30px 30px;
+  color: black;
+}
+
+.content {
+  h1 {
+    color: #394146;
+    font: 600 36px "Open Sans", sans-serif;
+    margin-bottom: 12px;
+  }
+
+  p {
+    color: rgb(120, 125, 129);
+    font: 15px/22px "Open Sans", sans-serif;
+    padding: 6px 0;
+  }
+}
+
+.containerWrapperByImage {
+  border-radius: 6px;
+  margin: 20px auto;
+  max-width: $screen-md;
+  background-color: rgb(189, 115, 30);
+  display: flex;
+  overflow: hidden;
+}
+
+.contentByImage {
+  margin: auto auto;
+  width: 51%;
+  padding: 30px 30px;
+
+  h1 {
+    color: white;
+    font: normal 36px "Open Sans", sans-serif;
+    margin-bottom: 12px;
+  }
+
+  p {
+    color: white;
+    font: 15px/22px "Open Sans", sans-serif;
+    padding: 6px 0;
+  }
+}
+
+.image {
+  background: no-repeat center;
+  background-size: cover;
+  height: auto;
+  width: 49%;
+
+  @include xs-to-sm {
+    height: auto;
+    min-height: 180px;
+    width: 100%;
+
+    &::after {
+      content: '';
+      display: block;
+      height: 0;
+      padding-bottom: 48%;  /*fixed aspect ration 180 / 375 */
+    }
+  }
+}

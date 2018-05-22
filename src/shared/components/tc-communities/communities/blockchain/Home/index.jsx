@@ -10,6 +10,11 @@ import React from 'react';
 import Section from 'components/tc-communities/Section';
 import Banner from 'components/tc-communities/Banner';
 import ImageText from 'components/tc-communities/ImageText';
+import ContentfulBanner from 'components/Contentful/Banner';
+import ContentfulBlock from 'components/Contentful/ContentBlock';
+import ContentfulViewport from 'components/Contentful/Viewport';
+import ContentfulLoader from 'containers/ContentfulLoader';
+import LoadingIndicator from 'components/LoadingIndicator';
 // import ResourceCard from 'components/tc-communities/ResourceCard';
 // import NewsSection from 'components/tc-communities/NewsSection';
 import PT from 'prop-types';
@@ -48,6 +53,46 @@ export default function Home({
           </Banner>
         )
       }
+      <ContentfulLoader
+        entryQueries={{
+          content_type: 'banner',
+          'fields.name': 'Demo',
+        }}
+        render={d => d.entries.matches[0].items.map(id => <ContentfulBanner id={id} />)}
+        renderPlaceholder={LoadingIndicator}
+      />
+      <ContentfulLoader
+        entryQueries={{
+          content_type: 'contentBlock',
+          'fields.name': 'Demo Content Without Image',
+        }}
+        render={d => d.entries.matches[0].items.map(id => <ContentfulBlock id={id} />)}
+        renderPlaceholder={LoadingIndicator}
+      />
+      <ContentfulLoader
+        entryQueries={{
+          content_type: 'contentBlock',
+          'fields.name': 'Demo Content With Image',
+        }}
+        render={d => d.entries.matches[0].items.map(id => <ContentfulBlock id={id} />)}
+        renderPlaceholder={LoadingIndicator}
+      />
+      <ContentfulLoader
+        entryQueries={{
+          content_type: 'contentBlock',
+          'fields.name': 'Demo Content With Image',
+        }}
+        render={d => d.entries.matches[0].items.map(id => <ContentfulBlock id={id} />)}
+        renderPlaceholder={LoadingIndicator}
+      />
+      <ContentfulLoader
+        entryQueries={{
+          content_type: 'viewport',
+          'fields.name': 'blockchain',
+        }}
+        render={d => d.entries.matches[0].items.map(id => <ContentfulViewport id={id} />)}
+        renderPlaceholder={LoadingIndicator}
+      />
       <Section
         theme={{
           container: style.introContainer,
