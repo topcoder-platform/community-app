@@ -9,10 +9,12 @@ import resourcesActions from 'actions/page/communities/cognitive/resources';
 import shortId from 'shortid';
 
 import { connect } from 'react-redux';
-import { filter as Filter } from 'topcoder-react-lib';
+import { challenge as challengeUtils } from 'topcoder-react-lib';
 
 /* Holds cache time [ms] for the data demanded by this container. */
 const MAXAGE = 30 * 60 * 1000;
+
+const Filter = challengeUtils.filter;
 
 class HomeContainer extends React.Component {
   componentDidMount() {

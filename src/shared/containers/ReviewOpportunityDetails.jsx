@@ -13,7 +13,7 @@ import LoadingIndicator from 'components/LoadingIndicator';
 import { activeRoleIds } from 'utils/reviewOpportunities';
 import pageActions from 'actions/page/review-opportunity-details';
 import ReviewOpportunityDetailsPage from 'components/ReviewOpportunityDetailsPage';
-import termsActions from 'actions/terms';
+import termsPageActions from 'actions/page/terms';
 
 const { fireErrorMessage } = errors;
 
@@ -183,7 +183,6 @@ const mapStateToProps = (state, ownProps) => {
 function mapDispatchToProps(dispatch) {
   const api = actions.reviewOpportunity;
   const page = pageActions.page.reviewOpportunityDetails;
-  const { terms } = termsActions;
   return {
     cancelApplications: (challengeId, roleIds, tokenV3) => {
       dispatch(api.cancelApplicationsInit());
@@ -195,7 +194,7 @@ function mapDispatchToProps(dispatch) {
     },
     onPhaseExpand: () => dispatch(page.togglePhasesExpand()),
     openTermsModal: () => {
-      dispatch(terms.openTermsModal('ANY'));
+      dispatch(termsPageActions.page.terms.openTermsModal('ANY'));
     },
     selectTab: tab => dispatch(page.selectTab(tab)),
     setRoles: roles => dispatch(page.setRoles(roles)),

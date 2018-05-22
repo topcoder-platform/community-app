@@ -5,7 +5,7 @@
 /* eslint-disable no-restricted-globals */
 
 import _ from 'lodash';
-import challengeActions from 'actions/challenge';
+import challengeDetailsActions from 'actions/page/challenge-details';
 import cookies from 'browser-cookies';
 import Dashboard from 'components/Dashboard';
 import dashActions from 'actions/page/dashboard';
@@ -408,7 +408,7 @@ function mapDispatchToProps(dispatch) {
       dispatch(a.getDone(TOPCODER_BLOG_ID, uuid, TOPOCDER_BLOG_URL));
     },
     selectChallengeDetailsTab: tab =>
-      dispatch(challengeActions.challenge.selectTab(tab)),
+      dispatch(challengeDetailsActions.page.challengeDetails.selectTab(tab)),
     setChallengeListingFilter: (filter) => {
       const cl = challengeListingActions.challengeListing;
       const cls = challengeListingSidebarActions.challengeListing.sidebar;
@@ -423,7 +423,7 @@ function mapDispatchToProps(dispatch) {
     switchShowEarnings: show => dispatch(dash.showEarnings(show)),
     switchTab: tab => dispatch(dash.switchTab(tab)),
     unregisterFromChallenge: (auth, challengeId) => {
-      const a = challengeActions.challenge;
+      const a = actions.challenge;
       dispatch(a.unregisterInit());
       dispatch(a.unregisterDone(auth, challengeId));
     },

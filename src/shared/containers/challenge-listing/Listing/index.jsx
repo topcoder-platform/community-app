@@ -11,10 +11,10 @@
 
 import _ from 'lodash';
 import actions from 'actions/challenge-listing';
-import challengeActions from 'actions/challenge';
+import challengeDetailsActions from 'actions/page/challenge-details';
 import filterPanelActions from 'actions/challenge-listing/filter-panel';
 import headerActions from 'actions/topcoder_header';
-import { logger, filter as Filter } from 'topcoder-react-lib';
+import { logger, challenges as challengesUtils } from 'topcoder-react-lib';
 import React from 'react';
 import PT from 'prop-types';
 import shortId from 'shortid';
@@ -30,7 +30,7 @@ import { config, MetaTags } from 'topcoder-react-utils';
 import ogImage from '../../../../assets/images/og_image.jpg';
 import style from './styles.scss';
 
-const { combine, mapToBackend } = Filter;
+const { combine, mapToBackend } = challengesUtils.filter;
 
 let mounted = false;
 
@@ -448,7 +448,7 @@ function mapDispatchToProps(dispatch) {
     },
     selectBucket: bucket => dispatch(sa.selectBucket(bucket)),
     selectChallengeDetailsTab: tab =>
-      dispatch(challengeActions.challenge.selectTab(tab)),
+      dispatch(challengeDetailsActions.page.challengeDetails.selectTab(tab)),
     selectCommunity: id => dispatch(a.selectCommunity(id)),
     setFilter: state => dispatch(a.setFilter(state)),
     setSearchText: text => dispatch(fpa.setSearchText(text)),

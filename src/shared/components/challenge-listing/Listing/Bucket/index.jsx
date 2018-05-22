@@ -11,12 +11,14 @@ import React from 'react';
 import Sort from 'utils/challenge-listing/sort';
 import SortingSelectBar from 'components/SortingSelectBar';
 import Waypoint from 'react-waypoint';
-import { filter as Filter } from 'topcoder-react-lib';
+import { challenge as challengeUtils } from 'topcoder-react-lib';
 import CardPlaceholder from '../../placeholders/ChallengeCard';
 import ChallengeCard from '../../ChallengeCard';
 import './style.scss';
 
 const COLLAPSED_SIZE = 10;
+
+const Filter = challengeUtils.filter;
 
 export default function Bucket({
   bucket,

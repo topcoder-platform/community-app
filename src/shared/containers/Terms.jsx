@@ -9,7 +9,8 @@ import PT from 'prop-types';
 import { connect } from 'react-redux';
 import _ from 'lodash';
 import Terms from 'components/Terms';
-import termsActions from 'actions/terms';
+import termsPageActions from 'actions/page/terms';
+import { actions } from 'topcoder-react-lib';
 
 let isAnyTermModalOpen = false;
 
@@ -174,40 +175,39 @@ const mapStateToProps = (state, props) => ({
   viewOnly: state.terms.viewOnly,
 });
 
-const mapDispatchToProps = (dispatch) => {
-  const t = termsActions.terms;
+function mapDispatchToProps(dispatch) {
   return {
     closeTermsModal: (uuid) => {
-      dispatch(t.closeTermsModal(uuid));
+      dispatch(termsPageActions.page.terms.closeTermsModal(uuid));
     },
     selectTerm: (term) => {
-      dispatch(t.selectTerm(term));
+      dispatch(termsPageActions.selectTerm(term));
     },
     loadTermDetails: (tokens, termId) => {
-      dispatch(t.getTermDetailsInit(termId));
-      dispatch(t.getTermDetailsDone(termId, tokens.tokenV2));
+      dispatch(actions.terms.getTermDetailsInit(termId));
+      dispatch(actions.terms.getTermDetailsDone(termId, tokens.tokenV2));
     },
     getDocuSignUrl: (tokens, templateId, returnUrl) => {
-      dispatch(t.getDocuSignUrlInit(templateId));
-      dispatch(t.getDocuSignUrlDone(templateId, returnUrl, tokens.tokenV2));
+      dispatch(actions.terms.getDocuSignUrlInit(templateId));
+      dispatch(actions.terms.getDocuSignUrlDone(templateId, returnUrl, tokens.tokenV2));
     },
     agreeTerm: (tokens, termId) => {
-      dispatch(t.agreeTermInit(termId));
-      dispatch(t.agreeTermDone(termId, tokens.tokenV2));
+      dispatch(actions.terms.agreeTermInit(termId));
+      dispatch(actions.terms.agreeTermDone(termId, tokens.tokenV2));
     },
     signDocu: (id) => {
-      dispatch(t.signDocu(id));
+      dispatch(termsPageActions.page.terms.signDocu(id));
     },
     checkStatus: (tokens, entity) => {
-      dispatch(t.checkStatusInit());
-      dispatch(t.checkStatusDone(entity, tokens));
+      dispatch(actions.terms.checkStatusInit());
+      dispatch(actions.terms.checkStatusDone(entity, tokens));
     },
     loadTerms: (tokens, entity) => {
-      dispatch(t.getTermsInit(entity));
-      dispatch(t.getTermsDone(entity, tokens));
+      dispatch(actions.terms.getTermsInit(entity));
+      dispatch(actions.terms.getTermsDone(entity, tokens));
     },
   };
-};
+}
 
 const TermsContainer = connect(
   mapStateToProps,

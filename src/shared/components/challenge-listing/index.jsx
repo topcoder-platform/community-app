@@ -8,7 +8,7 @@ import moment from 'moment';
 import React from 'react';
 import PT from 'prop-types';
 import Sticky from 'react-stickynode';
-import { filter as Filter } from 'topcoder-react-lib';
+import { challenge as challengeUtils } from 'topcoder-react-lib';
 import Sidebar from 'containers/challenge-listing/Sidebar';
 import { isReviewOpportunitiesBucket } from 'utils/challenge-listing/buckets';
 import { config } from 'topcoder-react-utils';
@@ -18,6 +18,8 @@ import ChallengeCardPlaceholder from './placeholders/ChallengeCard';
 import SRMCard from './SRMCard';
 
 import './style.scss';
+
+const Filter = challengeUtils.filter;
 
 // Number of challenge placeholder card to display
 const CHALLENGE_PLACEHOLDER_COUNT = 8;

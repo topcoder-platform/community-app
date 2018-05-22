@@ -8,12 +8,14 @@ import { handleActions } from 'redux-actions';
 import { redux } from 'topcoder-react-utils';
 import { updateQuery } from 'utils/url';
 import moment from 'moment';
-import { logger, errors, filter as Filter } from 'topcoder-react-lib';
+import { logger, errors, challenge as challengeUtils }
+  from 'topcoder-react-lib';
 
 import filterPanel from '../challenge-listing/filter-panel';
 import sidebar, { factory as sidebarFactory } from '../challenge-listing/sidebar';
 
 const { fireErrorMessage } = errors;
+const { filter: Filter } = challengeUtils;
 
 function onGetAllActiveChallengesDone(state, { error, payload }) {
   if (error) {

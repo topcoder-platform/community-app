@@ -1,3 +1,10 @@
+/* TODO: These tests should be refactored to the best practices and moved to
+ * `topcoder-react-lib`, whether the corresponding reducer has been moved
+ * already. */
+
+test.skip('PLACEHOLDER', () => {});
+
+/*
 import _ from 'lodash';
 import { redux } from 'topcoder-react-utils';
 import { mock, actions } from 'topcoder-react-lib';
@@ -355,3 +362,5 @@ describe('Factory without server-side rendering', () => {
 
   testReducer(defaultState);
 });
+
+*/

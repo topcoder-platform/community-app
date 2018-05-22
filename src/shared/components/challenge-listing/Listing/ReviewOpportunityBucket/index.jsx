@@ -7,11 +7,13 @@ import React from 'react';
 import Sort from 'utils/challenge-listing/sort';
 import SortingSelectBar from 'components/SortingSelectBar';
 import Waypoint from 'react-waypoint';
-import { filter as Filter } from 'topcoder-react-lib';
+import { challenge as challengeUtils } from 'topcoder-react-lib';
 import CardPlaceholder from '../../placeholders/ChallengeCard';
 import ReviewOpportunityCard from '../../ReviewOpportunityCard';
 
 import './style.scss';
+
+const Filter = challengeUtils.filter;
 
 const NO_RESULTS_MESSAGE = 'There are no review opportunities available';
 

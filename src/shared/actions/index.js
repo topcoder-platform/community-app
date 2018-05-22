@@ -5,11 +5,9 @@
  */
 
 import { actions } from 'topcoder-react-lib';
-import challengeActions from './challenge';
 import pageActions from './page';
 
 export default {
-  ...challengeActions,
   ...pageActions,
   memberTasks: actions.memberTasks,
   direct: actions.direct,

@@ -3,8 +3,7 @@
  */
 
 import _ from 'lodash';
-import { createActions } from 'redux-actions';
-import { actions } from 'topcoder-react-lib';
+import { redux } from 'topcoder-react-utils';
 
 /**
  * Payload creator for the action that opens the specified terms modal.
@@ -30,12 +29,13 @@ function closeTermsModal(modalInstanceUuid) {
   return modalInstanceUuid;
 }
 
-export default _.merge({ terms: actions.terms }, createActions({
-  TERMS: {
-    OPEN_TERMS_MODAL: openTermsModal,
-    CLOSE_TERMS_MODAL: closeTermsModal,
-
-    SELECT_TERM: _.identity,
-    SIGN_DOCU: _.identity,
+export default redux.createActions({
+  PAGE: {
+    TERMS: {
+      OPEN_TERMS_MODAL: openTermsModal,
+      CLOSE_TERMS_MODAL: closeTermsModal,
+      SELECT_TERM: _.identity,
+      SIGN_DOCU: _.identity,
+    },
   },
-}));
+});
