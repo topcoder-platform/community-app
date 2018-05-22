@@ -8,13 +8,11 @@
 import LoadingPagePlaceholder from 'components/LoadingPagePlaceholder';
 import path from 'path';
 import React from 'react';
-import { StaticRouter } from 'react-router-dom';
-import { requireWeak, resolveWeak, SplitRoute } from 'utils/router';
+import { AppChunk, webpack } from 'topcoder-react-utils';
 
 export default function TermsDetailRoute(props) {
   return (
-    <SplitRoute
-      cacheCss
+    <AppChunk
       chunkName="terms-detail/chunk"
       renderClientAsync={() =>
         import(/* webpackChunkName: "terms-detail/chunk" */ 'containers/terms-detail')
@@ -24,13 +22,9 @@ export default function TermsDetailRoute(props) {
       }
       renderPlaceholder={() => <LoadingPagePlaceholder />}
       renderServer={() => {
-        const p = resolveWeak('containers/terms-detail');
-        const TermsDetail = requireWeak(path.resolve(__dirname, p));
-        return (
-          <StaticRouter context={{}}>
-            <TermsDetail {...props} />
-          </StaticRouter>
-        );
+        const p = webpack.resolveWeak('containers/terms-detail');
+        const TermsDetail = webpack.requireWeak(path.resolve(__dirname, p));
+        return <TermsDetail {...props} />;
       }}
     />
   );

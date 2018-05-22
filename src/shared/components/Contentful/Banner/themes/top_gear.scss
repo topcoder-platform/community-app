@@ -1,0 +1,21 @@
+.content {
+  font-family: "Akkurat mono", monospace;
+  line-height: 150%;
+
+  h1 {
+    font: bold 20px/150% "Akkurat mono", monospace;
+    text-decoration: underline;
+  }
+
+  p { margin: 10px 0; }
+}
+
+.contentWrapper {
+  background: #eb3747;
+  border-radius: 50%;
+  height: 360px;
+  opacity: 1;
+  padding: 60px;
+  width: 360px;
+  top: 480px;
+}

@@ -68,7 +68,9 @@ export default function LearnTheBasics({ baseUrl }) {
             <SecondaryButton
               openNewTab
               to="https://www.topcoder.com/member-onboarding/choosing-your-first-competition-whats-right-for-you/"
-            >Learn more</SecondaryButton>
+            >
+              Learn more
+            </SecondaryButton>
           </Text>
         </AccordionItem>
         <AccordionItem title="Payment & Rewards">
@@ -81,7 +83,9 @@ export default function LearnTheBasics({ baseUrl }) {
             <SecondaryButton
               openNewTab
               to="https://www.topcoder.com/member-onboarding/winning-getting-paid/"
-            >Learn more</SecondaryButton>
+            >
+              Learn more
+            </SecondaryButton>
           </Text>
         </AccordionItem>
         <AccordionItem title="Managing your Profile">

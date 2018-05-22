@@ -1,9 +1,11 @@
 import atob from 'atob';
 import Application from 'shared';
 import config from 'config';
+import express from 'express';
 import fetch from 'isomorphic-fetch';
-import 'services/communities';
 import { logger } from 'topcoder-react-lib';
+import fs from 'fs';
+import moment from 'moment';
 import path from 'path';
 import qs from 'qs';
 import serializeJs from 'serialize-javascript';
@@ -26,9 +28,13 @@ global.atob = atob;
 const CMS_BASE_URL =
   `https://app.contentful.com/spaces/${config.SECRET.CONTENTFUL.SPACE_ID}`;
 
+let ts = path.resolve(__dirname, '../../.build-info');
+ts = JSON.parse(fs.readFileSync(ts));
+ts = moment(ts.timestamp).valueOf();
+
 const EXTRA_SCRIPTS = [
   `<script
-      src="/community-app-assets/loading-indicator-animation.js"
+      src="${process.env.CDN_URL || '/api/cdn/public'}/static-assets/loading-indicator-animation-${ts}.js"
       type="application/javascript"
   ></script>`,
   `<script>
@@ -155,6 +161,14 @@ async function onExpressJsSetup(server) {
      * thus timeout to imitate this in our mock. 3 seconds just an arbitrary
      * choice. */
     setTimeout(() => res.send(mockDocuSignFactory(req.query.returnUrl)), 3000));
+
+  /* TODO:
+   * This is a temporary fallback route: some of the assets in the app are not
+   * properly packed with Webpack, and they rely on just being copied into some
+   * path on the server. The easiest solution for now is to keep this route
+   * for static assets. */
+  const url = path.resolve(__dirname, '../../build');
+  server.use('/community-app-assets', express.static(url));
 }
 
 global.KEEP_BUILD_INFO = true;

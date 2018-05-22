@@ -19,7 +19,7 @@ import { getCommunityId } from 'server/services/communities';
 import { redux } from 'topcoder-react-utils';
 import { reducerFactory } from 'topcoder-react-lib';
 
-import cms from './cms';
+import contentful from './contentful';
 import topcoderHeader from './topcoder_header';
 import rss from './rss';
 import { factory as challengeListingFactory } from './challenge-listing';
@@ -120,7 +120,7 @@ export function factory(req) {
   }, {
     ..._.omit(resolvedReducers, 'standard'),
     ...resolvedReducers.standard,
-    cms,
+    contentful,
     topcoderHeader,
     rss,
   }));

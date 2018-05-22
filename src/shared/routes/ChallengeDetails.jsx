@@ -8,13 +8,11 @@
 import LoadingPagePlaceholder from 'components/LoadingPagePlaceholder';
 import path from 'path';
 import React from 'react';
-import { StaticRouter } from 'react-router-dom';
-import { requireWeak, resolveWeak, SplitRoute } from 'utils/router';
+import { AppChunk, webpack } from 'topcoder-react-utils';
 
 export default function ChallengeDetailsRoute(props) {
   return (
-    <SplitRoute
-      cacheCss
+    <AppChunk
       chunkName="challenge-details/chunk"
       renderClientAsync={() =>
         import(/* webpackChunkName: "challenge-details/chunk" */ 'containers/challenge-detail')
@@ -24,13 +22,9 @@ export default function ChallengeDetailsRoute(props) {
       }
       renderPlaceholder={() => <LoadingPagePlaceholder />}
       renderServer={() => {
-        const p = resolveWeak('containers/challenge-detail');
-        const ChallengeDetails = requireWeak(path.resolve(__dirname, p));
-        return (
-          <StaticRouter context={{}}>
-            <ChallengeDetails {...props} />
-          </StaticRouter>
-        );
+        const p = webpack.resolveWeak('containers/challenge-detail');
+        const ChallengeDetails = webpack.requireWeak(path.resolve(__dirname, p));
+        return <ChallengeDetails {...props} />;
       }}
     />
   );

@@ -1,6 +1,9 @@
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const path = require('path');
 
+let publicPath = process.env.CDN_URL || '/api/cdn/public';
+publicPath += '/static-assets';
+
 module.exports = {
   entry: {
     'loading-indicator-animation': './src/client/loading-indicator-animation',
@@ -29,7 +32,7 @@ module.exports = {
       loader: 'file-loader',
       options: {
         outputPath: '/images/',
-        publicPath: '/community-app-assets/images',
+        publicPath: `${publicPath}/images`,
       },
     }],
   },

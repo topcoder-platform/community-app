@@ -4,7 +4,7 @@
   "description": "Topcoder community website",
   "main": "index.js",
   "scripts": {
-    "build": "./node_modules/.bin/webpack --env=production --progress --profile --colors --display-optimization-bailout",
+    "build": "npm run clean && ./node_modules/.bin/webpack --env=production --progress --profile --colors --display-optimization-bailout",
     "build:dev": "npm run clean && ./node_modules/.bin/webpack --env=development --progress --profile --colors --display-optimization-bailout",
     "clean": "rimraf build",
     "dev": "cross-env BABEL_ENV=development NODE_ENV=development node ./bin/www",
