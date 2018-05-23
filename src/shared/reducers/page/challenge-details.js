@@ -52,7 +52,7 @@ function onSetSpecsTabState(state, { payload }) {
 function create(state = {}) {
   const a = actions.page.challengeDetails;
   return handleActions({
-    [a.selectedTab]: onSelectTab,
+    [a.selectTab]: onSelectTab,
     [a.setSpecsTabState]: onSetSpecsTabState,
     [a.toggleCheckpointFeedback]: onToggleCheckpointFeedback,
   }, _.defaults(state, {
