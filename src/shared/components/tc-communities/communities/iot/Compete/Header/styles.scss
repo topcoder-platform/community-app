@@ -1,0 +1,56 @@
+@import '~styles/mixins';
+@import '../../themes/mixins';
+
+.header {
+  background: #2886af;
+  color: #fff;
+  font-weight: 600;
+  text-align: center;
+  padding: 60px 0;
+  font-family: "GE Inspira", "GE Sans", sans-serif;
+  font-size: 16px;
+  .container {
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+    display: flex;
+    flex-direction: row;
+    .col-title {
+      width: 75%;
+      font-size: 36px;
+      font-weight: 400;
+      line-height: 57px;
+      margin-top: 0;
+      text-align: left;
+    }
+    .col-button {
+      width: 25%;
+      a {
+        background: #3ab4d4;
+        border-radius: 29px;
+        height: 57px;
+        line-height: 57px;
+        min-width: 230px;
+	border-radius: 25px;
+	color: #fff;
+	display: inline-block;
+	font-size: 18px;
+	padding: 0 30px;
+	text-align: center;
+	-webkit-transition-property: all;
+	-moz-transition-property: all;
+	-o-transition-property: all;
+	transition-property: all;
+	-webkit-transition-duration: 0.25s;
+	-moz-transition-duration: 0.25s;
+	-o-transition-duration: 0.25s;
+	transition-duration: 0.25s;
+	-webkit-transition-timing-function: linear;
+	-moz-transition-timing-function: linear;
+	-o-transition-timing-function: linear;
+	transition-timing-function: linear;
+      }
+    }
+  }
+}

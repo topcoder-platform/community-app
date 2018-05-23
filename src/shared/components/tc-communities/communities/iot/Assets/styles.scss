@@ -1,0 +1,99 @@
+@import '~styles/mixins';
+@import '../themes/mixins';
+
+.main {
+  @include main;
+  font-family: "GE Inspira", "GE Sans", sans-serif;
+}
+
+.assets-header {
+  background: #2886af;
+  color: #fff;
+  padding: 45px 110px 45px 30px;
+  position: relative;
+  h1 {
+    font-family: "GE Inspira", "GE Sans", sans-serif;
+    font-size: 42px;
+    margin: 0;
+    margin-bottom: 10px;
+  }
+  .description {
+    font-size: 20px;
+    p {
+      margin: 0 0 10px;
+    }
+  }
+  .view-mode {
+    position: absolute;
+    right: 30px;
+    top: calc(50% - 9px);
+    a {
+        display: inline-block;
+        height: 18px;
+        margin: 0 4px;
+        opacity: 0.3;
+        width: 19px;
+    }
+    a.switch-to-grid {
+      background: url('assets/images/communities/iot/assets-grid.png') 50% 50% no-repeat;
+    }
+    a.switch-to-list {
+      background: url('assets/images/communities/iot/assets-list.png') 50% 50% no-repeat;
+    }
+  }
+}
+
+
+.assets-body {
+  background: #eee;
+  padding: 30px 55px;
+  .assets-items {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    list-style: none;
+    margin: 0;
+    overflow: hidden;
+    padding-left: 0;
+  }
+}
+
+
+.quoteContainer {
+  padding: 60px 0;
+}
+
+.quote {
+  text-align: center;
+
+  h1 {
+    color: $tc-light-blue-100;
+    font-size: 48px;
+    font-weight: 400;
+    line-height: 1.1;
+    margin-top: 60px;
+  }
+
+  h3 {
+    font-size: 28px;
+    font-weight: 600;
+    line-height: 36px;
+    margin-top: 20px;
+    margin-bottom: 10px;
+  }
+
+  p {
+    font-size: 16px;
+  }
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}

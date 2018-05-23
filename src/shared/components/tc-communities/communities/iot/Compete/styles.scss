@@ -1,0 +1,64 @@
+@import '~styles/mixins';
+@import '../themes/mixins';
+
+.main {
+  @include main;
+}
+
+.quoteContainer {
+  padding: 60px 0;
+}
+
+.past-challenges {
+  padding: 40px 0;
+  background: #eeeeee;
+
+
+  @media (max-width: 1200px) {
+    .container {
+      width: 1170px;
+    }
+  }
+  @media (max-width: 992px) {
+    .container {
+      width: 970px;
+    }
+  }
+  @media (max-width: 768px) {
+    .container {
+      width: 750px;
+    }
+  }
+
+  .container {
+    width: 1170px;
+    background: #eeeeee;
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+    &::before {
+      display: table;
+      content: " ";
+    }
+    hr {
+      height: 0px;
+      margin-top: 20px;
+      margin-bottom: 20px;
+      border: 0;
+      border-top-width: 0px;
+      border-top-style: none;
+      border-top-color: currentcolor;
+      border-top: 1px solid #eee;
+    }
+    h2 {
+      text-align: center;
+    }
+    li {
+      background: #fff;
+      margin-bottom: 10px;
+      overflow: hidden;
+      padding: 20px;
+    }
+  }
+}
