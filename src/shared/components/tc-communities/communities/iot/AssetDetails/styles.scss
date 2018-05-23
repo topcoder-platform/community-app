@@ -1,0 +1,170 @@
+@import '~styles/mixins';
+@import '../themes/mixins';
+
+.user-row {
+  width: 100%;
+  margin-right: -15px;
+  margin-left: -15px;
+  display: flex;
+  flex-direction: row;
+}
+
+.user-col {
+  width: 25%;
+  position: relative;
+  min-height: 1px;
+  padding-right: 15px;
+  padding-left: 15px;
+  .user-photo {
+    border-radius: 50%;
+    height: 80px;
+    overflow: hidden;
+    width: 80px;
+  }
+}
+
+.user-col-2 {
+  width: 75%;
+  position: relative;
+  min-height: 1px;
+  padding-right: 15px;
+  padding-left: 15px;
+  h4.asset-section-title {
+      font-size: 18px;
+      font-weight: 600;
+      margin-top: 0;
+      margin-bottom: 10px;
+  }
+  .user-name{
+    a {
+    font-size: 24px;
+    font-weight: 600;
+    }
+  }
+}
+
+.main {
+  @include main;
+  font-family: "GE Inspira", "GE Sans", sans-serif;
+}
+
+.assets-header {
+  position: relative;
+  background: #2886af;
+  color: #fff;
+  padding: 45px 110px 45px 30px;
+  padding-left: 170px;
+
+  h1 {
+    font-size: 42px;
+    margin: 0;
+  }
+  &::before {
+    background: $tc-green-100 url('assets/images/communities/iot/assets-folder.png') 50% 50% no-repeat;
+    border-radius: 50%;
+    content: '';
+    height: 80px;
+    left: 60px;
+    position: absolute;
+    top: calc(50% - 40px);
+    width: 80px;
+  }
+}
+
+.assets-body-details {
+  background: #fff;
+  padding: 35px 60px;
+  .assets-body-row {
+    margin-right: -15px;
+    margin-left: -15px;
+    display: flex;
+    flex-direction: row;
+    .main-assets-col {
+      width: 66.66666667%;
+      position: relative;
+      min-height: 1px;
+      padding-right: 15px;
+      padding-left: 15px;
+      .main-asset-body {
+        border-right: 1px solid #eee;
+        margin-right: 10px;
+        padding-right: 60px;
+        .asset-details {
+          margin-bottom: 50px;
+          h3.asset-section-title {
+            font-size: 24px;
+            font-weight: 600;
+            margin-top: 0;
+            color: #333;
+            margin-bottom: 10px;
+          }
+        }
+      }
+    }
+  }
+  p {
+    font-size: 18px;
+    line-height: 28px;
+  }
+  a.github {
+      background: url('assets/images/communities/iot/github.png') 0 50% no-repeat;
+      display: inline-block;
+      height: 31px;
+      line-height: 31px;
+      padding-left: 40px;
+  }
+  .asset-description{
+    h3.asset-section-title {
+      font-size: 24px;
+      font-weight: 600;
+      margin-top: 0;
+    }
+  }
+  .btn-download {
+    background: #3ab4d4;
+    border-radius: 28px;
+    color: #fff;
+    display: block;
+    font-size: 24px;
+    font-weight: 600;
+    height: 57px;
+    line-height: 57px;
+    margin-top: 30px;
+    text-align: center;
+  }
+  .platforms {
+    margin-top: 20px;
+    h4.asset-section-title {
+      font-size: 18px;
+      font-weight: 600;
+      margin-top: 0;
+    }
+  }
+}
+
+
+.main-members-col {
+  width: 33.33333333%;
+  position: relative;
+  min-height: 1px;
+  padding-right: 15px;
+  padding-left: 15px;
+  .technologies,
+  .platforms {
+    margin-top: 20px;
+    h4.asset-section-title {
+      font-size: 18px;
+      font-weight: 600;
+      margin-top: 0;
+    }
+    span {
+      background: #eee;
+      border-radius: 15px;
+      display: inline-block;
+      height: 30px;
+      line-height: 30px;
+      margin: 5px 2px;
+      padding: 0 15px;
+    }
+  }
+}

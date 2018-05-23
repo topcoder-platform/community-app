@@ -1,0 +1,95 @@
+@import '~styles/mixins';
+@import '../../themes/mixins';
+
+.challenge {
+  margin-right: -15px;
+  margin-left: -15px;
+  .challenge-item {
+    background: #fff;
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 10px;
+    overflow: hidden;
+
+    .challenge-info-row {
+      width: 41.66666667%;
+      position: relative;
+      min-height: 1px;
+      padding-right: 15px;
+      padding-left: 15px;
+      .challenge-info {
+        min-height: 120px;
+        position: relative;
+        p {
+          margin-top: 4px;
+          margin-bottom: 4px;
+        }
+        &::after {
+          background: #eee;
+          content: '';
+          height: 119px;
+          position: absolute;
+          right: -15px;
+          top: 0;
+          width: 1px;
+        }
+        .challenge-title {
+          font-size: 18px;
+          margin: 0 0 4px;
+        }
+        .develop-challenge {
+          color: #46ad00;
+          text-transform: uppercase;
+        }
+      }
+    }
+    .challenge-submissions-row {
+      width: 33.33333333%;
+      padding-right: 15px;
+      padding-left: 15px;
+      .challenge-submissions {
+        min-height: 120px;
+        position: relative;
+        height: 120px;
+        padding-top: 36px;
+        min-height: 1px;
+        &::after {
+          background: #eee;
+          content: '';
+          height: 119px;
+          position: absolute;
+          right: -15px;
+          top: 0;
+          width: 1px;
+        }
+      }
+    }
+    .challenge-links {
+      width: 25%;
+      min-height: 1px;
+      padding-right: 15px;
+      padding-left: 15px;
+      min-height: 120px;
+      padding-top: 36px;
+      position: relative;
+      .links-registrants {
+        background: url("assets/themes/iot/compete/icon-registrants.png") 50% 100% no-repeat;
+        text-transform: uppercase;
+      }
+      .links-submissions {
+        background: url("assets/themes/iot/compete/icon-submissions.png") 50% 100% no-repeat;
+        text-transform: uppercase;
+      }
+      .links-forum {
+        background: url("assets/themes/iot/compete/icon-forum.png") 50% 100% no-repeat;
+        text-transform: uppercase;
+      }
+      a {
+        display: inline-block;
+        height: 45px;
+        text-align: center;
+        width: calc(33% - 4px);
+      }
+    }
+  }
+}

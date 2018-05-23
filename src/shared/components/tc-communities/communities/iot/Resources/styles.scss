@@ -1,0 +1,60 @@
+@import '~styles/mixins';
+@import '../themes/mixins';
+
+.main {
+  @include main;
+}
+
+.quoteContainer {
+  padding: 60px 0;
+}
+
+.logos {
+  margin: 0 -15px;
+
+  @include md-to-xl {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  a {
+    display: block;
+    margin-bottom: 10px;
+    padding: 0 15px;
+
+    @include md-to-xl {
+      width: 33.33333333%;
+    }
+  }
+
+  img {
+    display: block;
+    max-width: 100%;
+    margin: 0 auto;
+  }
+}
+
+.quote {
+  text-align: center;
+
+  h1 {
+    color: $tc-light-blue-100;
+    font-size: 48px;
+    font-weight: 400;
+    line-height: 1.1;
+    margin-top: 60px;
+  }
+
+  h3 {
+    font-size: 28px;
+    font-weight: 600;
+    line-height: 36px;
+    margin-top: 20px;
+    margin-bottom: 10px;
+  }
+
+  p {
+    font-size: 16px;
+  }
+}

@@ -22,6 +22,15 @@
   },{
     "title": "About Predix",
     "url": "/about"
+  },{
+    "title": "Predix Assets",
+    "url": "/assets"
+  },{
+    "title": "Resources",
+    "url": "https://www.predix.io/resources"
+  },{
+    "title": "Compete",
+    "url": "/compete"
   }],
   "newsFeed": "http://www.topcoder.com/feed",
   "subdomains": ["iot"],

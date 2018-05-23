@@ -1,0 +1,14 @@
+@import '~styles/mixins';
+
+.link {
+  display: inline-block;
+  cursor: pointer;
+  a,
+  a:visited,
+  a:focus,
+  a:hover {
+    &:hover {
+      color: $tc-light-blue-70;
+    }
+  }
+}
