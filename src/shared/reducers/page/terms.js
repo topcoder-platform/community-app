@@ -69,11 +69,11 @@ function onSignDocu(state, action) {
  */
 export function factory() {
   return redux.handleActions({
-    [actions.terms.openTermsModal]: onOpenTermsModal,
-    [actions.terms.closeTermsModal]: onCloseTermsModal,
+    [actions.page.terms.openTermsModal]: onOpenTermsModal,
+    [actions.page.terms.closeTermsModal]: onCloseTermsModal,
 
-    [actions.terms.selectTerm]: (state, { payload }) => ({ ...state, selectedTerm: payload }),
-    [actions.terms.signDocu]: onSignDocu,
+    [actions.page.terms.selectTerm]: (state, { payload }) => ({ ...state, selectedTerm: payload }),
+    [actions.page.terms.signDocu]: onSignDocu,
   }, {
     getTermsFailure: false,
     terms: [],

@@ -14,7 +14,7 @@ import actions from 'actions/challenge-listing';
 import challengeDetailsActions from 'actions/page/challenge-details';
 import filterPanelActions from 'actions/challenge-listing/filter-panel';
 import headerActions from 'actions/topcoder_header';
-import { logger, challenges as challengesUtils } from 'topcoder-react-lib';
+import { logger, challenge as challengeUtils } from 'topcoder-react-lib';
 import React from 'react';
 import PT from 'prop-types';
 import shortId from 'shortid';
@@ -30,7 +30,7 @@ import { config, MetaTags } from 'topcoder-react-utils';
 import ogImage from '../../../../assets/images/og_image.jpg';
 import style from './styles.scss';
 
-const { combine, mapToBackend } = challengesUtils.filter;
+const { combine, mapToBackend } = challengeUtils.filter;
 
 let mounted = false;
 
