@@ -10,7 +10,7 @@ import _ from 'lodash';
 import actions from 'actions/tc-communities';
 import shortId from 'shortid';
 import Terms from 'containers/Terms';
-import termsPageActions from 'actions/page/terms';
+import termsActions from 'actions/terms';
 
 import JoinCommunity, { STATE as JOIN_COMMUNITY }
   from 'components/tc-communities/JoinCommunity';
@@ -107,7 +107,7 @@ function mapDispatchToProps(dispatch) {
     showJoinConfirmModal: () => dispatch(a.showJoinConfirmModal()),
     openTermsModal: (uuid) => {
       dispatch(a.resetJoinButton());
-      dispatch(termsPageActions.page.terms.openTermsModal(uuid));
+      dispatch(termsActions.terms.openTermsModal(uuid));
     },
   };
 }

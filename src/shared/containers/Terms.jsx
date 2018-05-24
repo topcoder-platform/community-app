@@ -9,7 +9,7 @@ import PT from 'prop-types';
 import { connect } from 'react-redux';
 import _ from 'lodash';
 import Terms from 'components/Terms';
-import termsPageActions from 'actions/page/terms';
+import termsActions from 'actions/terms';
 import { actions } from 'topcoder-react-lib';
 
 let isAnyTermModalOpen = false;
@@ -178,10 +178,10 @@ const mapStateToProps = (state, props) => ({
 function mapDispatchToProps(dispatch) {
   return {
     closeTermsModal: (uuid) => {
-      dispatch(termsPageActions.page.terms.closeTermsModal(uuid));
+      dispatch(termsActions.terms.closeTermsModal(uuid));
     },
     selectTerm: (term) => {
-      dispatch(termsPageActions.selectTerm(term));
+      dispatch(termsActions.terms.selectTerm(term));
     },
     loadTermDetails: (tokens, termId) => {
       dispatch(actions.terms.getTermDetailsInit(termId));
@@ -196,7 +196,7 @@ function mapDispatchToProps(dispatch) {
       dispatch(actions.terms.agreeTermDone(termId, tokens.tokenV2));
     },
     signDocu: (id) => {
-      dispatch(termsPageActions.page.terms.signDocu(id));
+      dispatch(termsActions.terms.signDocu(id));
     },
     checkStatus: (tokens, entity) => {
       dispatch(actions.terms.checkStatusInit());

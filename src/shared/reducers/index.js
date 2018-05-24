@@ -28,6 +28,7 @@ import { factory as pageFactory } from './page';
 import { factory as tcCommunitiesFactory } from './tc-communities';
 import { factory as leaderboardFactory } from './leaderboard';
 import { factory as scoreboardFactory } from './tco/scoreboard';
+import { factory as termsFactory } from './terms';
 
 /**
  * Given HTTP request, generates options for SSR by topcoder-react-lib's reducer
@@ -109,6 +110,7 @@ export function factory(req) {
     tcCommunities: tcCommunitiesFactory(req),
     leaderboard: leaderboardFactory(req),
     scoreboard: scoreboardFactory(req),
+    terms: termsFactory(req),
     page: pageFactory(req),
   }).then(resolvedReducers => redux.combineReducers((state) => {
     const res = { ...state };
@@ -120,6 +122,7 @@ export function factory(req) {
   }, {
     ..._.omit(resolvedReducers, 'standard'),
     ...resolvedReducers.standard,
+    terms: resolvedReducers.terms,
     contentful,
     topcoderHeader,
     rss,

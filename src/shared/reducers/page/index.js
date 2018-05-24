@@ -12,7 +12,6 @@ import { redux } from 'topcoder-react-utils';
 import submission, { factory as challengeDetailsFactory } from './submission';
 
 import submissionManagement from './submission_management';
-import terms from './terms';
 
 import challengeDetails from './challenge-details';
 import communities from './communities';
@@ -39,7 +38,6 @@ export function factory(req) {
     reviewOpportunityDetails,
     submissionManagement,
     sandbox,
-    terms,
   }));
 }
 
@@ -52,5 +50,4 @@ export default combineReducers({
   submission,
   submissionManagement,
   sandbox,
-  terms,
 });

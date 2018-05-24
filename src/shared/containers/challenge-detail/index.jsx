@@ -19,7 +19,7 @@ import Submissions from 'components/challenge-detail/Submissions';
 import Winners from 'components/challenge-detail/Winners';
 import ChallengeDetailsView from 'components/challenge-detail/Specification';
 import Terms from 'containers/Terms';
-import termsPageActions from 'actions/page/terms';
+import termsActions from 'actions/terms';
 import ChallengeCheckpoints from 'components/challenge-detail/Checkpoints';
 import React from 'react';
 import htmlToText from 'html-to-text';
@@ -522,7 +522,7 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(cl.getChallengeSubtracksDone());
     },
     openTermsModal: (term) => {
-      dispatch(termsPageActions.page.terms.openTermsModal('ANY', term));
+      dispatch(termsActions.terms.openTermsModal('ANY', term));
     },
     updateChallenge: (challenge, tokenV3) => {
       const uuid = shortId();

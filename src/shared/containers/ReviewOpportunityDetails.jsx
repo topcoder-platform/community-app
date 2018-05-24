@@ -13,7 +13,7 @@ import LoadingIndicator from 'components/LoadingIndicator';
 import { activeRoleIds } from 'utils/reviewOpportunities';
 import pageActions from 'actions/page/review-opportunity-details';
 import ReviewOpportunityDetailsPage from 'components/ReviewOpportunityDetailsPage';
-import termsPageActions from 'actions/page/terms';
+import termsActions from 'actions/terms';
 
 const { fireErrorMessage } = errors;
 
@@ -194,7 +194,7 @@ function mapDispatchToProps(dispatch) {
     },
     onPhaseExpand: () => dispatch(page.togglePhasesExpand()),
     openTermsModal: () => {
-      dispatch(termsPageActions.page.terms.openTermsModal('ANY'));
+      dispatch(termsActions.terms.openTermsModal('ANY'));
     },
     selectTab: tab => dispatch(page.selectTab(tab)),
     setRoles: roles => dispatch(page.setRoles(roles)),
