@@ -14,42 +14,38 @@ function ContentBlock({
   contentBlock,
   theme,
 }) {
-  if (background) {
-    return (
-      <div
-        className={theme.container}
-        style={contentBlock.containerStyles}
-      >
-        <div className={theme.containerWrapperByImage} style={contentBlock.contentWrapperStyles}>
-          <div
-            className={theme.contentByImage}
-            /* eslint-disable react/no-danger */
-            dangerouslySetInnerHTML={{ __html: md(contentBlock.text) }}
-            /* eslint-enable react/no-danger */
-            style={contentBlock.contentStyles}
-          />
-          <div className={theme.image} style={{ backgroundImage: `url(${background.file.url})` }} />
-        </div>
-      </div>
-    );
-  }
   return (
     <div
       className={theme.container}
-      style={contentBlock.containerStyles}
+      style={contentBlock.extraStylesForContainer}
     >
-      <div className={theme.contentWrapper} style={contentBlock.contentWrapperStyles}>
+      <div
+        className={theme.contentWrapper}
+        style={contentBlock.extraStylesForContentWrapper}
+      >
         <div
           className={theme.content}
           /* eslint-disable react/no-danger */
-          dangerouslySetInnerHTML={{ __html: md(contentBlock.text) }}
+          dangerouslySetInnerHTML={{ __html: md(contentBlock.text || '') }}
           /* eslint-enable react/no-danger */
-          style={contentBlock.contentStyles}
+          style={contentBlock.extraStylesForContent}
         />
+        {
+          background ? (
+            <div
+              className={theme.image}
+              style={{ backgroundImage: `url(${background.file.url})` }}
+            />
+          ) : null
+        }
       </div>
     </div>
   );
 }
+
+ContentBlock.defaultProps = {
+  background: null,
+};
 
 ContentBlock.propTypes = {
   background: PT.shape(),

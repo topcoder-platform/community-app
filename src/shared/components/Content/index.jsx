@@ -162,33 +162,18 @@ export default function Content() {
       <h3>Previews of Contentful Components</h3>
       <ul>
         <li>
-          <Link to="/examples/contentful/banner/6GCQiigHUQsCYs0IOc8YUm">
-            <code>BlockChain Banner</code>
+          <Link to="/examples/contentful/banner/5il6oFtWp2Ua6WGs60M2mK">
+            <code>Banner</code>
           </Link>
         </li>
         <li>
-          <Link to="/examples/contentful/contentblock/3KtCHPKsgEIk8I8SKyEo2G">
-            <code>ContentBlock For BlockChain Without Image</code>
+          <Link to="/examples/contentful/contentblock/6CVFvEiZFKYQMwW82aYCWS">
+            <code>ContentBlock</code>
           </Link>
         </li>
         <li>
-          <Link to="/examples/contentful/contentblock/2qruJIfc3COkQasyG8MGu4">
-            <code>ContentBlock For BlockChain With Image</code>
-          </Link>
-        </li>
-        <li>
-          <Link to="/examples/contentful/contentblock/2OoRwPCwXS4Mi6Meqm8WEG">
-            <code>ContentBlock For Veteran</code>
-          </Link>
-        </li>
-        <li>
-          <Link to="/examples/contentful/viewport/7oB8kliUM04I0iGIAC2KmQ">
-            <code>Blockchain Viewport</code>
-          </Link>
-        </li>
-        <li>
-          <Link to="/examples/contentful/viewport/6jYlMe3gmkqeaSWskqa6SA">
-            <code>Veteran Viewport</code>
+          <Link to="/examples/contentful/viewport/YomgM8zPCoEaUqaKouyGG">
+            <code>Viewport</code>
           </Link>
         </li>
       </ul>

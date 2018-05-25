@@ -99,7 +99,7 @@ workflows:
       - "build-dev":
           filters:
             branches:
-              only: develop
+              only: contentful-components # develop
 
       # Production builds are exectuted only on tagged commits to the
       # master branch.

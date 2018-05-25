@@ -17,21 +17,9 @@ const THEMES = {
 /* Loads content block background asset. */
 function BackgroundLoader(props) {
   const { contentBlock, preview } = props;
-  if (!contentBlock.backgroundImage) {
-    return (
-      <ContentfulLoader
-        preview={preview}
-        render={data => (
-          <ContentBlock
-            {...props}
-            theme={THEMES[contentBlock.baseTheme]}
-          />
-        )}
-        renderPlaceholder={LoadingIndicator}
-      />
-    );
-  } else {
-    const assetId = contentBlock.backgroundImage.sys.id;
+  const { image } = contentBlock;
+  if (image) {
+    const assetId = image.sys.id;
     return (
       <ContentfulLoader
         assetIds={assetId}
@@ -47,6 +35,7 @@ function BackgroundLoader(props) {
       />
     );
   }
+  return <ContentBlock {...props} theme={THEMES[contentBlock.baseTheme]} />;
 }
 
 BackgroundLoader.propTypes = {

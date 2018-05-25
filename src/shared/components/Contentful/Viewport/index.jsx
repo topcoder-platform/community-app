@@ -7,9 +7,11 @@ import ContentfulLoader from 'containers/ContentfulLoader';
 import LoadingIndicator from 'components/LoadingIndicator';
 import ContentfullBanner from 'components/Contentful/Banner';
 import ContentfullBlock from 'components/Contentful/ContentBlock';
-import { fireErrorMessage } from 'utils/errors';
+import { errors } from 'topcoder-react-lib';
 import PT from 'prop-types';
 import React from 'react';
+
+const { fireErrorMessage } = errors;
 
 /* Loads viewport background asset. */
 function BackgroundLoader(props) {
@@ -19,19 +21,21 @@ function BackgroundLoader(props) {
   return (
     <ContentfulLoader
       entryIds={viewportItemsIds}
-      preivew={preview}
-      render={(data) => {
-          return viewportItemsIds.map((viewportItem, idx) => {
-            if (data.entries.items[viewportItemsIds[idx]].sys.contentType.sys.id === 'banner') {
-             return <ContentfullBanner id={viewportItemsIds[idx]} />;
-            } else if (data.entries.items[viewportItemsIds[idx]].sys.contentType.sys.id === 'contentBlock') {
-             return <ContentfullBlock id={viewportItemsIds[idx]} />;
-            } else {
-              fireErrorMessage('Unsupported content type from contentful', '');
-              return;
-            }
-          });
-        }
+      preview={preview}
+      render={data =>
+        viewportItemsIds.map((viewportItem, idx) => {
+          if (data.entries.items[viewportItemsIds[idx]].sys.contentType.sys.id === 'banner') {
+            return (
+              <ContentfullBanner id={viewportItemsIds[idx]} preview={preview} />
+            );
+          } else if (data.entries.items[viewportItemsIds[idx]].sys.contentType.sys.id === 'contentBlock') {
+            return (
+              <ContentfullBlock id={viewportItemsIds[idx]} preview={preview} />
+            );
+          }
+          fireErrorMessage('Unsupported content type from contentful', '');
+          return null;
+        })
       }
       renderPlaceholder={LoadingIndicator}
     />
@@ -40,7 +44,6 @@ function BackgroundLoader(props) {
 
 BackgroundLoader.propTypes = {
   viewport: PT.shape().isRequired,
-  id: PT.string.isRequired,
   preview: PT.bool.isRequired,
 };
 
@@ -54,6 +57,7 @@ export default function ViewportLoader(props) {
       render={data => (
         <BackgroundLoader
           {...props}
+          preview={preview}
           viewport={data.entries.items[id].fields}
         />
       )}

@@ -1,58 +1,34 @@
 @import "~styles/mixins";
 
+.contentWrapper {
+  background-color: rgb(189, 115, 30);
+  border-radius: 6px;
+  overflow: hidden;
+  padding: 0;
+}
+
 .container {
   background: white;
   align-content: center;
 
-  &:nth-child(even) .containerWrapperByImage {
+  &:nth-child(even) .contentWrapper {
     flex-direction: row-reverse;
     background-color: rgb(37, 192, 137);
   }
 }
 
-.contentWrapper {
-  margin: 0 auto;
-  max-width: $screen-md;
-  padding: 30px 30px;
-  color: black;
-}
-
 .content {
+  padding: 30px;
+  width: 51%;
+
   h1 {
-    color: #394146;
+    color: $tc-white;
     font: 600 36px "Open Sans", sans-serif;
     margin-bottom: 12px;
   }
 
   p {
-    color: rgb(120, 125, 129);
-    font: 15px/22px "Open Sans", sans-serif;
-    padding: 6px 0;
-  }
-}
-
-.containerWrapperByImage {
-  border-radius: 6px;
-  margin: 20px auto;
-  max-width: $screen-md;
-  background-color: rgb(189, 115, 30);
-  display: flex;
-  overflow: hidden;
-}
-
-.contentByImage {
-  margin: auto auto;
-  width: 51%;
-  padding: 30px 30px;
-
-  h1 {
-    color: white;
-    font: normal 36px "Open Sans", sans-serif;
-    margin-bottom: 12px;
-  }
-
-  p {
-    color: white;
+    color: $tc-white;
     font: 15px/22px "Open Sans", sans-serif;
     padding: 6px 0;
   }
@@ -62,6 +38,7 @@
   background: no-repeat center;
   background-size: cover;
   height: auto;
+  margin: 0;
   width: 49%;
 
   @include xs-to-sm {
@@ -73,7 +50,7 @@
       content: '';
       display: block;
       height: 0;
-      padding-bottom: 48%;  /*fixed aspect ration 180 / 375 */
+      padding-bottom: 48%;  /* fixed aspect ration 180 / 375 */
     }
   }
 }

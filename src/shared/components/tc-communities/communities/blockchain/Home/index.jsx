@@ -55,40 +55,8 @@ export default function Home({
       }
       <ContentfulLoader
         entryQueries={{
-          content_type: 'banner',
-          'fields.name': 'Demo',
-        }}
-        render={d => d.entries.matches[0].items.map(id => <ContentfulBanner id={id} />)}
-        renderPlaceholder={LoadingIndicator}
-      />
-      <ContentfulLoader
-        entryQueries={{
-          content_type: 'contentBlock',
-          'fields.name': 'Demo Content Without Image',
-        }}
-        render={d => d.entries.matches[0].items.map(id => <ContentfulBlock id={id} />)}
-        renderPlaceholder={LoadingIndicator}
-      />
-      <ContentfulLoader
-        entryQueries={{
-          content_type: 'contentBlock',
-          'fields.name': 'Demo Content With Image',
-        }}
-        render={d => d.entries.matches[0].items.map(id => <ContentfulBlock id={id} />)}
-        renderPlaceholder={LoadingIndicator}
-      />
-      <ContentfulLoader
-        entryQueries={{
-          content_type: 'contentBlock',
-          'fields.name': 'Demo Content With Image',
-        }}
-        render={d => d.entries.matches[0].items.map(id => <ContentfulBlock id={id} />)}
-        renderPlaceholder={LoadingIndicator}
-      />
-      <ContentfulLoader
-        entryQueries={{
           content_type: 'viewport',
-          'fields.name': 'blockchain',
+          'fields.name': 'Blockchain - Home Viewport',
         }}
         render={d => d.entries.matches[0].items.map(id => <ContentfulViewport id={id} />)}
         renderPlaceholder={LoadingIndicator}
