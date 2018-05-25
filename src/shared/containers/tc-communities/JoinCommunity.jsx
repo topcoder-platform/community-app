@@ -97,7 +97,6 @@ function mapStateToProps(state, ownProps) {
 
 function mapDispatchToProps(dispatch) {
   const a = actions.tcCommunity;
-  const t = termsActions.terms;
   return {
     hideJoinButton: () => dispatch(a.hideJoinButton()),
     join: (...args) => {
@@ -108,7 +107,7 @@ function mapDispatchToProps(dispatch) {
     showJoinConfirmModal: () => dispatch(a.showJoinConfirmModal()),
     openTermsModal: (uuid) => {
       dispatch(a.resetJoinButton());
-      dispatch(t.openTermsModal(uuid));
+      dispatch(termsActions.terms.openTermsModal(uuid));
     },
   };
 }

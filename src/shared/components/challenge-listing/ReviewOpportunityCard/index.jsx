@@ -11,7 +11,7 @@ import PT from 'prop-types';
 import TrackIcon from 'components/TrackIcon';
 import Tooltip from 'components/Tooltip';
 
-import { formatDuration } from 'utils/time';
+import { time } from 'topcoder-react-lib';
 import { REVIEW_OPPORTUNITY_TYPES } from 'utils/tc';
 
 import Tags from '../Tags';
@@ -22,6 +22,8 @@ import SubmissionsIcon from '../Icons/SubmissionsIcon';
 import OpenPositionsIcon from '../Icons/RegistrantsIcon';
 
 import './style.scss';
+
+const { formatDuration } = time;
 
 /**
  * Generates text for the tooltip that describes the number of submissions or

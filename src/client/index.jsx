@@ -4,9 +4,6 @@
 /* global analytics */
 
 import _ from 'lodash';
-import authActions from 'actions/auth';
-import directActions from 'actions/direct';
-import userGroupsActions from 'actions/groups';
 import cookies from 'browser-cookies';
 import { Route } from 'react-router-dom';
 import React from 'react';
@@ -15,17 +12,12 @@ import {
   decodeToken,
   getFreshToken,
 } from 'tc-accounts';
-import logger from 'utils/logger';
+import { actions, logger, errors } from 'topcoder-react-lib';
 import { client, redux } from 'topcoder-react-utils';
-import { setErrorsStore } from 'utils/errors';
 
 import './styles.scss';
 
-const actions = {
-  ...authActions,
-  ...directActions,
-  ...userGroupsActions,
-};
+const { setErrorsStore } = errors;
 
 /**
  * Performs AnalyticsJS identification of the user.

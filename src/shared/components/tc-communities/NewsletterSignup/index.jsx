@@ -9,12 +9,14 @@ import React from 'react';
 import PT from 'prop-types';
 import { PrimaryButton } from 'topcoder-react-ui-kit';
 import { themr } from 'react-css-super-themr';
-import { fireErrorMessage } from 'utils/errors';
+import { errors } from 'topcoder-react-lib';
 import qs from 'qs';
 
 import { config } from 'topcoder-react-utils';
 
 import defaultStyle from './style.scss';
+
+const { fireErrorMessage } = errors;
 
 class NewsletterSignup extends React.Component {
   subscribe() {

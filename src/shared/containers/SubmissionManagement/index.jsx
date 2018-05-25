@@ -15,10 +15,10 @@ import React from 'react';
 import PT from 'prop-types';
 import { connect } from 'react-redux';
 import { config } from 'topcoder-react-utils';
+import { actions } from 'topcoder-react-lib';
 
 import './styles.scss';
-import challengeActions from '../../actions/challenge';
-import smpActions from '../../actions/smp';
+import smpActions from '../../actions/page/submission_management';
 
 // The container component
 class SubmissionManagementPageContainer extends React.Component {
@@ -207,34 +207,34 @@ function mapStateToProps(state, props) {
 
 const mapDispatchToProps = dispatch => ({
   onShowDetails: (submissionId) => {
-    dispatch(smpActions.smp.showDetails(submissionId));
+    dispatch(smpActions.page.submissionManagement.showDetails(submissionId));
   },
 
   onSubmissionDelete: (submissionId) => {
-    dispatch(smpActions.smp.confirmDelete(submissionId));
+    dispatch(smpActions.page.submissionManagement.confirmDelete(submissionId));
   },
 
   onCancelSubmissionDelete: () => {
-    dispatch(smpActions.smp.cancelDelete());
+    dispatch(smpActions.page.submissionManagement.cancelDelete());
   },
 
   onSubmissionDeleteConfirmed: (challengeId, submissionId) => {
-    dispatch(smpActions.smp.deleteSubmissionInit());
-    dispatch(smpActions.smp.deleteSubmissionDone(challengeId, submissionId));
+    dispatch(actions.smp.deleteSubmissionInit());
+    dispatch(actions.smp.deleteSubmissionDone(challengeId, submissionId));
   },
 
   onDownloadSubmission: (...payload) => {
-    dispatch(smpActions.smp.downloadSubmission(...payload));
+    dispatch(actions.smp.downloadSubmission(...payload));
   },
 
   loadChallengeDetails: (tokens, challengeId) => {
-    const a = challengeActions.challenge;
+    const a = actions.challenge;
     dispatch(a.getDetailsInit(challengeId));
     dispatch(a.getDetailsDone(challengeId, tokens.tokenV3, tokens.tokenV2));
   },
 
   loadMySubmissions: (tokens, challengeId) => {
-    const a = challengeActions.challenge;
+    const a = actions.challenge;
     dispatch(a.getSubmissionsInit(challengeId));
     dispatch(a.getSubmissionsDone(challengeId, tokens.tokenV2));
   },

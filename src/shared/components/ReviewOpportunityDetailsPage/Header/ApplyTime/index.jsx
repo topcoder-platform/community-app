@@ -6,9 +6,11 @@ import React from 'react';
 import PT from 'prop-types';
 import { PrimaryButton } from 'topcoder-react-ui-kit';
 
-import { formatDuration } from 'utils/time';
+import { time } from 'topcoder-react-lib';
 
 import './styles.scss';
+
+const { formatDuration } = time;
 
 /**
  * ApplyTime Component

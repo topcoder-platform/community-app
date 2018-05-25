@@ -4,7 +4,7 @@ import PT from 'prop-types';
 import moment from 'moment';
 import LeaderboardAvatar from 'components/challenge-listing/LeaderboardAvatar';
 import { config, Link } from 'topcoder-react-utils';
-import { DETAIL_TABS } from 'actions/challenge';
+import { TABS as DETAIL_TABS } from 'actions/page/challenge-details';
 import 'moment-duration-format';
 
 import ChallengeProgressBar from '../../ChallengeProgressBar';

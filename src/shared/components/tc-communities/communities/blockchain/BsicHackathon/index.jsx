@@ -561,25 +561,15 @@ export default function BsicHackathon({
           toggle={show => toggleFaqItem('n16', show)}
         >
           <p>
-            We will post a detailed list on the challenge specs, the
-            blockchain.topcoder.com/bsic-incubator website, post in the
-            forum, and cross-post in slack, but here’s a short list.
+            Here are
+            &zwnj;
+            <Link
+              openNewTab
+              to="https://docs.google.com/document/d/1hBIqUlout-8nK1cSfGOAQ9T1dQKPXGK6A_JaKZerVjE/edit?usp=sharing"
+            >
+              the detailed instructions on the final submission
+            </Link>.
           </p>
-          <p>A zip file containing:</p>
-          <ul>
-            <li>
-              A README.md explaining your submission .zip
-            </li>
-            <li>
-              A folder containing all your checkpoint submissions
-            </li>
-            <li>
-              Source code
-            </li>
-            <li>
-              Supporting Materials
-            </li>
-          </ul>
         </FaqItem>
         <FaqItem
           open={shownFaqItems.n17}
@@ -588,7 +578,8 @@ export default function BsicHackathon({
         >
           <ul>
             <li>
-              It should not contain your team name, names, email addresses.
+              It should not contain your names and email addresses (Team name
+              is allowed in presentation and other deliverables).
               Judging must be anonymous. We will link your submission to
               your team via your team captain’s Topcoder handle. The judges
               will just see your submission as a submission number.

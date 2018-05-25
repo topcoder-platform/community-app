@@ -5,7 +5,7 @@ import React from 'react';
 import PT from 'prop-types';
 import { connect } from 'react-redux';
 
-import actions from 'actions/profile';
+import { actions } from 'topcoder-react-lib';
 import Error404 from 'components/Error404';
 import LoadingIndicator from 'components/LoadingIndicator';
 import ProfilePage from 'components/ProfilePage';

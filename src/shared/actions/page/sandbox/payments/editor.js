@@ -3,7 +3,9 @@
  */
 
 import { createActions } from 'redux-actions';
-import { getService as getMembersService } from 'services/members';
+import { services } from 'topcoder-react-lib';
+
+const getMembersService = services.members.getService;
 
 export const STATE = {
   NEW_PAYMENT: 'NEW_PAYMENT',

@@ -46,7 +46,7 @@ export default function Content() {
         </li>
         <li>SCSS styles;</li>
         <li>Topcoder API v2 and v3 service
-          (see <code>/src/shared/services/api.js</code>), with support of TC
+          (see <code>topcoder-react-lib/src/services/api.js</code>), with support of TC
           authentication (look for auth tokens either
           in <code>store.auth</code> of Redux store, or
           in <code>v3jwt</code> and <code>tcjwt</code> cookies of the front-end

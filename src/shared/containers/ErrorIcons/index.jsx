@@ -4,13 +4,14 @@ import _ from 'lodash';
 import React from 'react';
 import PT from 'prop-types';
 import { connect } from 'react-redux';
-import actions from 'actions/errors';
-import { ERROR_ICON_TYPES } from 'utils/errors';
+import { actions, errors as libErrors } from 'topcoder-react-lib';
 import Tooltip from 'components/Tooltip';
 import APIErrorIcon from './APIError.svg';
 import NetworkErrorIcon from './NetworkError.svg';
 
 import './style.scss';
+
+const { ERROR_ICON_TYPES } = libErrors;
 
 const Icons = {
   [ERROR_ICON_TYPES.API]: <APIErrorIcon />,

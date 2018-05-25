@@ -14,7 +14,7 @@ import React from 'react';
 import PT from 'prop-types';
 import { PrimaryButton } from 'topcoder-react-ui-kit';
 import { config } from 'topcoder-react-utils';
-import { fireErrorMessage } from 'utils/errors';
+import { errors } from 'topcoder-react-lib';
 import { CHALLENGE_PHASE_TYPES as PHASE_TYPES } from 'utils/tc';
 
 import FilestackFilePicker from '../FilestackFilePicker';
@@ -22,6 +22,8 @@ import CustomFontInput from './CustomFontInput';
 import StockArtInput from './StockArtInput';
 import Uploading from '../Uploading';
 import './styles.scss';
+
+const { fireErrorMessage } = errors;
 
 /* The maximum number of symbols allowed in the Notes textarea. */
 const MAX_NOTES_LENGTH = 500;

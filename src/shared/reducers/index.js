@@ -14,47 +14,105 @@
  * To understand reducers read http://redux.js.org/docs/basics/Reducers.html.
  */
 
-import { getCommunityId } from 'server/services//communities';
+import _ from 'lodash';
+import { getCommunityId } from 'server/services/communities';
 import { redux } from 'topcoder-react-utils';
+import { reducerFactory } from 'topcoder-react-lib';
 
 import contentful from './contentful';
-import direct from './direct';
-import members from './members';
-import memberTasks from './member-tasks';
 import topcoderHeader from './topcoder_header';
 import rss from './rss';
-import { factory as authFactory } from './auth';
-import { factory as challengeFactory } from './challenge';
 import { factory as challengeListingFactory } from './challenge-listing';
-import { factory as errorsFactory } from './errors';
 import { factory as examplesFactory } from './examples';
-import { factory as groupsFactory } from './groups';
 import { factory as pageFactory } from './page';
-import { factory as profileFactory } from './profile';
-import { factory as reviewOpportunityFactory } from './reviewOpportunity';
-import { factory as statsFactory } from './stats';
 import { factory as tcCommunitiesFactory } from './tc-communities';
 import { factory as leaderboardFactory } from './leaderboard';
-import { factory as termsFactory } from './terms';
 import { factory as scoreboardFactory } from './tco/scoreboard';
+import { factory as termsFactory } from './terms';
+
+/**
+ * Given HTTP request, generates options for SSR by topcoder-react-lib's reducer
+ * factory.
+ * @param {ExpressJsHttpRequest} req
+ * @return {Object} Options.
+ */
+function generateSsrOptions(req) {
+  const res = {};
+  if (req.url.match(/^\/challenges\/\d+\/my-submissions/)) {
+    const challengeId = req.url.match(/\d+/)[0];
+    _.set(res, 'challenge.challengeDetails.id', challengeId);
+    _.set(res, 'challenge.challengeDetails.mySubmission', true);
+  } else if (req.url.match(/\/challenges\/\d+([?/].*)?$/)) {
+    const challengeId = req.url.match(/\d+/)[0];
+    _.set(res, 'challenge.challengeDetails.id', challengeId);
+  }
+
+  /* TODO: This should do SSR for terms of use, but this is messy,
+   * thus commented out until we are in position to carefully test
+   * and bring it back in use. */
+  /*
+  if (req) {
+    let entity;
+
+    // if it's challenge details page
+    if (req.url.match(/^\/challenges\/\d+/)) {
+      const challengeId = req.url.match(/\d+/)[0];
+      entity = { type: 'challenge', id: challengeId };
+    }
+
+    // if it's community page
+    let communityId = getCommunityId(req.subdomains);
+    */
+  // if (!communityId && req.url.match(/\/community\/.*/)) {
+  /*
+      [,, communityId] = req.url.split('/');
+      // remove possible params like ?join=<communityId>
+    */
+  // communityId = communityId ? communityId.replace(/\?.*/, '') : communityId;
+  /*
+    }
+    if (!entity && communityId) {
+      entity = { type: 'community', id: communityId };
+    }
+
+    // set options for the entity
+    if (entity) {
+      options.auth = getAuthTokens(req);
+      _.set(options, 'terms.entity.type', entity.type);
+      _.set(options, 'terms.entity.id', entity.id);
+
+      return reducers.terms.factory(options).then((res) => {
+        // if we try to join community automatically, but not all terms are agreed,
+        // then we show terms modal (also we make sure is logged in before open)
+        if (options.auth.tokenV3 && req.query.join && !_.every
+          (options.initialState.terms, 'agreed')) {
+          const newState = onOpenTermsModal(options.initialState,
+            actions.terms.openTermsModal('ANY'));
+          return reducers.terms.factory({
+            initialState: newState,
+            mergeReducers: options.mergeReducers,
+          });
+        }
+        return res;
+      });
+    }
+  }
+  */
+
+  return res;
+}
 
 export function factory(req) {
   return redux.resolveReducers({
-    auth: authFactory(req),
-    challenge: challengeFactory(req),
+    standard: reducerFactory(req && generateSsrOptions(req)),
     challengeListing: challengeListingFactory(req),
-    groups: groupsFactory(req),
     examples: examplesFactory(req),
-    stats: statsFactory(req),
     tcCommunities: tcCommunitiesFactory(req),
     leaderboard: leaderboardFactory(req),
-    profile: profileFactory(req),
-    terms: termsFactory(req),
-    reviewOpportunity: reviewOpportunityFactory(req),
     scoreboard: scoreboardFactory(req),
+    terms: termsFactory(req),
     page: pageFactory(req),
-    errors: errorsFactory(req),
-  }).then(reducers => redux.combineReducers((state) => {
+  }).then(resolvedReducers => redux.combineReducers((state) => {
     const res = { ...state };
     if (req) {
       res.domain = `${req.protocol}://${req.headers.host || req.hostname}`;
@@ -62,11 +120,10 @@ export function factory(req) {
     }
     return res;
   }, {
-    ...reducers,
+    ..._.omit(resolvedReducers, 'standard'),
+    ...resolvedReducers.standard,
+    terms: resolvedReducers.terms,
     contentful,
-    direct,
-    members,
-    memberTasks,
     topcoderHeader,
     rss,
   }));
