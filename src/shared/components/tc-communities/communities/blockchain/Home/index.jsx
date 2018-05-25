@@ -10,8 +10,6 @@ import React from 'react';
 import Section from 'components/tc-communities/Section';
 import Banner from 'components/tc-communities/Banner';
 import ImageText from 'components/tc-communities/ImageText';
-import ContentfulBanner from 'components/Contentful/Banner';
-import ContentfulBlock from 'components/Contentful/ContentBlock';
 import ContentfulViewport from 'components/Contentful/Viewport';
 import ContentfulLoader from 'containers/ContentfulLoader';
 import LoadingIndicator from 'components/LoadingIndicator';
