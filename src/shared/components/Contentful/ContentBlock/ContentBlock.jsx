@@ -23,6 +23,13 @@ function ContentBlock({
         className={theme.contentWrapper}
         style={contentBlock.extraStylesForContentWrapper}
       >
+        {
+          background ? (
+            <div className={theme.image}>
+              <img alt="" src={background.file.url} />
+            </div>
+          ) : null
+        }
         <div
           className={theme.content}
           /* eslint-disable react/no-danger */
@@ -30,14 +37,6 @@ function ContentBlock({
           /* eslint-enable react/no-danger */
           style={contentBlock.extraStylesForContent}
         />
-        {
-          background ? (
-            <div
-              className={theme.image}
-              style={{ backgroundImage: `url(${background.file.url})` }}
-            />
-          ) : null
-        }
       </div>
     </div>
   );

@@ -6,6 +6,10 @@
   max-width: $screen-md;
   padding: 15px;
   color: black;
+
+  @include xs-to-sm {
+    flex-direction: column;
+  }
 }
 
 .container {
@@ -15,10 +19,15 @@
 
   &:nth-child(even) .contentWrapper {
     flex-direction: row-reverse;
+
+    @include xs-to-sm {
+      flex-direction: column;
+    }
   }
 }
 
 .content {
+  flex: 1;
   padding: 15px;
 
   h1 {
@@ -35,22 +44,10 @@
 }
 
 .image {
-  background: no-repeat center;
-  background-size: cover;
-  height: 320px;
+  flex: 1;
   margin: 15px;
-  width: 50%;
 
-  @include xs-to-sm {
-    height: auto;
-    min-height: 180px;
+  img {
     width: 100%;
-
-    &::after {
-      content: '';
-      display: block;
-      height: 0;
-      padding-bottom: 48%; /* fixed aspect ration 180 / 375 */
-    }
   }
 }

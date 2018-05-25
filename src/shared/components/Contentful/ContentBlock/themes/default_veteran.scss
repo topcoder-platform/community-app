@@ -12,14 +12,13 @@
   align-content: center;
 
   &:nth-child(even) .contentWrapper {
-    flex-direction: row-reverse;
     background-color: rgb(37, 192, 137);
   }
 }
 
 .content {
+  flex: 1;
   padding: 30px;
-  width: 51%;
 
   h1 {
     color: $tc-white;
@@ -35,22 +34,10 @@
 }
 
 .image {
-  background: no-repeat center;
-  background-size: cover;
-  height: auto;
   margin: 0;
-  width: 49%;
 
-  @include xs-to-sm {
-    height: auto;
-    min-height: 180px;
-    width: 100%;
-
-    &::after {
-      content: '';
-      display: block;
-      height: 0;
-      padding-bottom: 48%;  /* fixed aspect ration 180 / 375 */
-    }
+  img {
+    height: 100%;
+    object-fit: cover;
   }
 }
