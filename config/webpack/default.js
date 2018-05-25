@@ -8,6 +8,12 @@ module.exports = {
   entry: {
     'loading-indicator-animation': './src/client/loading-indicator-animation',
   },
+  resolve: {
+    alias: {
+      react: path.resolve(__dirname, '../../node_modules', 'react'),
+      'react-dom': path.resolve(__dirname, '../../node_modules', 'react-dom'),
+    },
+  },
   module: {
     noParse: [
       /* NodeJS library for https://logentries.com. It is server-side only. */
