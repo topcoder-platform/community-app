@@ -5,11 +5,13 @@
 import _ from 'lodash';
 import { createActions } from 'redux-actions';
 import { decodeToken } from 'tc-accounts';
-import { getService } from 'services/challenges';
-import { getReviewOpportunitiesService } from 'services/reviewOpportunities';
 import 'isomorphic-fetch';
-import { fireErrorMessage } from 'utils/errors';
 import { processSRM } from 'utils/tc';
+import { errors, services } from 'topcoder-react-lib';
+
+const { fireErrorMessage } = errors;
+const { getService } = services.challenge;
+const { getReviewOpportunitiesService } = services.reviewOpportunities;
 
 /**
  * The maximum number of challenges to fetch in a single API call. Currently,

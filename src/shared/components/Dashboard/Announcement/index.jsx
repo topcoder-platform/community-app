@@ -70,7 +70,8 @@ export default function Announcement({
         </h1>
         <div
           styleName="text"
-        >{text}
+        >
+          {text}
         </div>
       </div>
     );

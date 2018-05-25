@@ -76,7 +76,7 @@ exports[`Matches shallow shapshot 1`] = `
     <li>
       Topcoder API v2 and v3 service (see 
       <code>
-        /src/shared/services/api.js
+        topcoder-react-lib/src/services/api.js
       </code>
       ), with support of TC authentication (look for auth tokens either in 
       <code>

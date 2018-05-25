@@ -7,13 +7,11 @@
 
 import _ from 'lodash';
 import fs from 'fs';
-import logger from 'utils/logger';
+import { logger, services } from 'topcoder-react-lib';
 import path from 'path';
-import {
-  addDescendantGroups,
-  getService as getGroupsService,
-} from 'services/groups';
 import { isomorphy } from 'topcoder-react-utils';
+
+const { addDescendantGroups, getService } = services.groups;
 
 /* Holds the mapping between subdomains and communities. It is automatically
  * generated at startup, using "subdomains" property from community configs */
@@ -58,7 +56,7 @@ function addUnknown(ids, known, unknown) {
 export default class Communities {
   constructor(tokenV3) {
     this.private = {
-      groupsService: getGroupsService(tokenV3),
+      groupsService: getService(tokenV3),
       tokenV3,
     };
 

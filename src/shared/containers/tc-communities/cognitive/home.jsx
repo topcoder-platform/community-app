@@ -9,10 +9,12 @@ import resourcesActions from 'actions/page/communities/cognitive/resources';
 import shortId from 'shortid';
 
 import { connect } from 'react-redux';
-import { getFilterFunction } from 'utils/challenge-listing/filter';
+import { challenge as challengeUtils } from 'topcoder-react-lib';
 
 /* Holds cache time [ms] for the data demanded by this container. */
 const MAXAGE = 30 * 60 * 1000;
+
+const Filter = challengeUtils.filter;
 
 class HomeContainer extends React.Component {
   componentDidMount() {
@@ -48,7 +50,7 @@ class HomeContainer extends React.Component {
     let challenges;
     let filter = communitiesList.data.find(x => x.communityId === 'cognitive');
     if (filter) {
-      filter = getFilterFunction(filter.challengeFilter);
+      filter = Filter.getFilterFunction(filter.challengeFilter);
       challenges = activeChallenges
         .filter(x => x.status === 'ACTIVE')
         .filter(filter)
