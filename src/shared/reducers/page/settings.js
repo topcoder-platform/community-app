@@ -6,8 +6,8 @@ import { config } from 'topcoder-react-utils';
 import { handleActions } from 'redux-actions';
 import { toastr } from 'react-redux-toastr';
 
-import actions, { TABS } from 'actions/page/settings';
-import profileActions from 'actions/profile';
+import pageActions, { TABS } from 'actions/page/settings';
+import { actions } from 'topcoder-react-lib';
 
 function toastrSuccess(title, message) {
   setImmediate(() => {
@@ -184,27 +184,27 @@ function onSaveEmailPreferencesDone(state, { error }) {
  * @return {Function} Reducer.
  */
 function create(defaultState = {}) {
-  const a = actions.page.settings;
+  const a = pageActions.page.settings;
   return handleActions({
     [a.selectTab]: (state, { payload }) => ({
       settingsTab: payload,
       deletingLinks: state.deletingLinks,
     }),
     [a.clearIncorrectPassword]: state => ({ ...state, incorrectPassword: false }),
-    [profileActions.profile.getSkillsDone]: mergeSkills,
-    [profileActions.profile.addSkillDone]: mergeSkills,
-    [profileActions.profile.hideSkillDone]: mergeSkills,
-    [profileActions.profile.updateProfileDone]: onUpdateProfileDone,
-    [profileActions.profile.updatePasswordDone]: onUpdatePasswordDone,
-    [profileActions.profile.uploadPhotoDone]: onUploadPhotoDone,
-    [profileActions.profile.deletePhotoDone]: onDeletePhotoDone,
-    [profileActions.profile.saveEmailPreferencesDone]: onSaveEmailPreferencesDone,
-    [profileActions.profile.addWebLinkDone]: onAddWebLinkDone,
-    [profileActions.profile.deleteWebLinkInit]: onDeleteWebLinkInit,
-    [profileActions.profile.deleteWebLinkDone]: onDeleteWebLinkDone,
-    [profileActions.profile.linkExternalAccountDone]: onLinkExternalAccountDone,
-    [profileActions.profile.unlinkExternalAccountInit]: onUnlinkExternalAccountInit,
-    [profileActions.profile.unlinkExternalAccountDone]: onUnlinkExternalAccountDone,
+    [actions.profile.getSkillsDone]: mergeSkills,
+    [actions.profile.addSkillDone]: mergeSkills,
+    [actions.profile.hideSkillDone]: mergeSkills,
+    [actions.profile.updateProfileDone]: onUpdateProfileDone,
+    [actions.profile.updatePasswordDone]: onUpdatePasswordDone,
+    [actions.profile.uploadPhotoDone]: onUploadPhotoDone,
+    [actions.profile.deletePhotoDone]: onDeletePhotoDone,
+    [actions.profile.saveEmailPreferencesDone]: onSaveEmailPreferencesDone,
+    [actions.profile.addWebLinkDone]: onAddWebLinkDone,
+    [actions.profile.deleteWebLinkInit]: onDeleteWebLinkInit,
+    [actions.profile.deleteWebLinkDone]: onDeleteWebLinkDone,
+    [actions.profile.linkExternalAccountDone]: onLinkExternalAccountDone,
+    [actions.profile.unlinkExternalAccountInit]: onUnlinkExternalAccountInit,
+    [actions.profile.unlinkExternalAccountDone]: onUnlinkExternalAccountDone,
   }, _.defaults(defaultState, {
     settingsTab: TABS.PROFILE,
     deletingLinks: [],

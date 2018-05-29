@@ -2,7 +2,9 @@
  * The Billing service helps to handle Topcoder billing accounts.
  */
 
-import { getApiV3 } from './api';
+import { services } from 'topcoder-react-lib';
+
+const { getApiV3 } = services.api;
 
 export default class Billing {
   /**

@@ -7,7 +7,9 @@ import _ from 'lodash';
 import { config } from 'topcoder-react-utils';
 
 import { getService as getCommunityService } from 'services/communities';
-import { getApiV2 } from './api';
+import { services } from 'topcoder-react-lib';
+
+const { getApiV2 } = services.api;
 
 class TermsService {
   /**

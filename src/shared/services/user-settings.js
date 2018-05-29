@@ -6,8 +6,9 @@
 
 import _ from 'lodash';
 import { config } from 'topcoder-react-utils';
+import { services } from 'topcoder-react-lib';
 
-import Api from './api';
+const Api = services.api.default;
 
 export default class UserSettings {
   /**

@@ -1,8 +1,10 @@
 /**
  * This module provides a service to manage scoreboards via API.
  */
-import Api from 'services/api';
+import { services } from 'topcoder-react-lib';
 import { config } from 'topcoder-react-utils';
+
+const Api = services.api.default;
 
 class ScoreboardService {
   /**

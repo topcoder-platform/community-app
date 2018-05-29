@@ -9,8 +9,7 @@ import { connect } from 'react-redux';
 import { isTokenExpired } from 'tc-accounts';
 import { goToLogin } from 'utils/tc';
 
-import actions from 'actions/profile';
-import lookupActions from 'actions/lookup';
+import { actions } from 'topcoder-react-lib';
 import dashActions from 'actions/page/dashboard';
 import settingsActions, { TABS } from 'actions/page/settings';
 
@@ -154,7 +153,7 @@ function mapDispatchToProps(dispatch) {
       dispatch(profileActions.getLinkedAccountsInit());
       dispatch(profileActions.getExternalAccountsInit());
       dispatch(profileActions.getExternalLinksInit());
-      dispatch(lookupActions.lookup.getApprovedSkills());
+      dispatch(actions.lookup.getApprovedSkills());
       dispatch(profileActions.getLinkedAccountsDone(profile, tokenV3));
       dispatch(profileActions.getExternalAccountsDone(handle));
       dispatch(profileActions.getExternalLinksDone(handle));

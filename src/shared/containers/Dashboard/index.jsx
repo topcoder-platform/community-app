@@ -11,7 +11,7 @@ import Dashboard from 'components/Dashboard';
 import dashActions from 'actions/page/dashboard';
 import challengeListingSidebarActions from 'actions/challenge-listing/sidebar';
 import LoadingIndicator from 'components/LoadingIndicator';
-import memberActions from 'actions/members';
+import { actions } from 'topcoder-react-lib';
 import PT from 'prop-types';
 import qs from 'qs';
 import React from 'react';
@@ -359,7 +359,7 @@ function mapStateToProps(state, props) {
 
 function mapDispatchToProps(dispatch) {
   const dash = dashActions.page.dashboard;
-  const { members } = memberActions;
+  const { members } = actions;
   return {
     getAllActiveChallenges: (tokenV3) => {
       const uuid = shortId();

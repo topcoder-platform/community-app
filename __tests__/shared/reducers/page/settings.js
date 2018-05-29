@@ -1,4 +1,6 @@
+import _ from 'lodash';
 import { mockAction } from 'utils/mock';
+import { actions } from 'topcoder-react-lib';
 
 const handle = 'tcscoder';
 const photoURL = 'http://url';
@@ -38,7 +40,7 @@ const mockActions = {
   },
 };
 jest.setMock(require.resolve('actions/page/settings'), mockActions);
-jest.setMock(require.resolve('actions/profile'), mockActions);
+_.merge(actions.profile, mockActions.profile);
 
 const mockToast = {
   toastr: {

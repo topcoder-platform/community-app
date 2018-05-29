@@ -4,13 +4,14 @@
  */
 
 import _ from 'lodash';
-import logger from 'utils/logger';
 import moment from 'moment';
 import qs from 'qs';
 import { decodeToken } from 'tc-accounts';
 import { setErrorIcon, ERROR_ICON_TYPES } from 'utils/errors';
 import { COMPETITION_TRACKS, getApiResponsePayloadV3 } from 'utils/tc';
-import { getApiV2, getApiV3 } from './api';
+import { logger, services } from 'topcoder-react-lib';
+
+const { getApiV2, getApiV3 } = services.api;
 
 export const ORDER_BY = {
   SUBMISSION_END_DATE: 'submissionEndDate',
