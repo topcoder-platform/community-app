@@ -166,6 +166,16 @@ export default function Content() {
             <code>Banner</code>
           </Link>
         </li>
+        <li>
+          <Link to="/examples/contentful/contentblock/6CVFvEiZFKYQMwW82aYCWS">
+            <code>ContentBlock</code>
+          </Link>
+        </li>
+        <li>
+          <Link to="/examples/contentful/viewport/YomgM8zPCoEaUqaKouyGG">
+            <code>Viewport</code>
+          </Link>
+        </li>
       </ul>
 
       <h3>Sandbox</h3>

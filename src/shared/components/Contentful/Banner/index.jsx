@@ -12,6 +12,7 @@ import Banner from './Banner';
 /* eslint-disable global-require */
 const THEMES = {
   TopGear: require('./themes/top_gear.scss'),
+  'Default Sub-Community': require('./themes/default_sub-community.scss'),
 };
 /* eslint-enable global-require */
 
