@@ -60,7 +60,7 @@ export default function Topcoder() {
         />
         <Route
           component={Crowd4GoodPage}
-          path={'/crowd-for-good'}
+          path="/crowd-for-good"
         />
         <Route
           component={HallOfFame}
