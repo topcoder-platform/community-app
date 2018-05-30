@@ -4,7 +4,9 @@
 
     width: 100%;
 
-    input.Select-input {
+    input.Select-input,
+    input.Select-input:focus {
+      background-color: transparent !important;
       margin-left: 0 !important;
       padding-right: 6px !important;
     }

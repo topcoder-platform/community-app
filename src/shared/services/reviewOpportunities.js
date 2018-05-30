@@ -3,7 +3,9 @@
  * submitting applications.
  */
 
-import { getApiV3 } from './api';
+import { services } from 'topcoder-react-lib';
+
+const { getApiV3 } = services.api;
 
 class ReviewOpportunitiesService {
   /**

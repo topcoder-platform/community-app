@@ -1,0 +1,19 @@
+@import "~styles/mixins";
+
+.account-info-container {
+  padding: 0 60px 30px;
+
+  .account-info-error {
+    color: #ef3a3a;
+  }
+
+  .section-fields {
+    margin-top: 20px;
+  }
+}
+
+:global {
+  .account-info-container .section-fields .form-label {
+    max-width: 360px !important;
+  }
+}

@@ -16,9 +16,10 @@
  */
 
 import _ from 'lodash';
-import logger from 'utils/logger';
 import { config } from 'topcoder-react-utils';
-import { getApiV3 } from './api';
+import { logger, services } from 'topcoder-react-lib';
+
+const { getApiV3 } = services.api;
 
 /* The value of USER_GROUP_MAXAGE constant converted to [ms]. */
 const USER_GROUP_MAXAGE = config.USER_GROUP_MAXAGE * 1000;

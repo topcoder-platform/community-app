@@ -5,7 +5,9 @@
 import _ from 'lodash';
 import { createActions } from 'redux-actions';
 import { getService as getChallengesService } from 'services/challenges';
-import { getApiV2 } from '../services/api';
+import { services } from 'topcoder-react-lib';
+
+const { getApiV2 } = services.api;
 
 /**
  * String values of valid tab names.

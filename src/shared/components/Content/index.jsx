@@ -46,7 +46,7 @@ export default function Content() {
         </li>
         <li>SCSS styles;</li>
         <li>Topcoder API v2 and v3 service
-          (see <code>/src/shared/services/api.js</code>), with support of TC
+          (see <code>https://github.com/topcoder-platform/topcoder-react-lib/blob/master/src/services/api.js</code>), with support of TC
           authentication (look for auth tokens either
           in <code>store.auth</code> of Redux store, or
           in <code>v3jwt</code> and <code>tcjwt</code> cookies of the front-end
@@ -104,6 +104,9 @@ export default function Content() {
           </a> &ndash; generally available at
           the endpoint <code>/challenges/:challengeId/my-submissions</code>;
           the link here leads to a test challenge.
+        </li>
+        <li>
+          <Link to="/settings/profile">Settings Profile Page</Link>
         </li>
       </ul>
 

@@ -11,11 +11,11 @@ import Section from 'components/tc-communities/Section';
 import PT from 'prop-types';
 import LoadingIndicator from 'components/LoadingIndicator';
 
-import { getApiV2 } from 'services/api';
-
+import { services } from 'topcoder-react-lib';
 
 import style from './style.scss';
 
+const { getApiV2 } = services.api;
 const INFO_ID = '30058834';
 
 /**
