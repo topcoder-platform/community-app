@@ -10,9 +10,9 @@ import React from 'react';
 import Section from 'components/tc-communities/Section';
 import Banner from 'components/tc-communities/Banner';
 import ImageText from 'components/tc-communities/ImageText';
-import ContentfulViewport from 'components/Contentful/Viewport';
-import ContentfulLoader from 'containers/ContentfulLoader';
-import LoadingIndicator from 'components/LoadingIndicator';
+// import ContentfulViewport from 'components/Contentful/Viewport';
+// import ContentfulLoader from 'containers/ContentfulLoader';
+// import LoadingIndicator from 'components/LoadingIndicator';
 // import ResourceCard from 'components/tc-communities/ResourceCard';
 // import NewsSection from 'components/tc-communities/NewsSection';
 import PT from 'prop-types';
@@ -51,6 +51,7 @@ export default function Home({
           </Banner>
         )
       }
+      {/*
       <ContentfulLoader
         entryQueries={{
           content_type: 'viewport',
@@ -59,6 +60,7 @@ export default function Home({
         render={d => d.entries.matches[0].items.map(id => <ContentfulViewport id={id} />)}
         renderPlaceholder={LoadingIndicator}
       />
+      */}
       <Section
         theme={{
           container: style.introContainer,
