@@ -5,7 +5,9 @@
 import _ from 'lodash';
 import 'isomorphic-fetch';
 import { createActions } from 'redux-actions';
-import { getApiV3 } from 'services/api';
+import { services } from 'topcoder-react-lib';
+
+const { getApiV3 } = services.api;
 
 function deleteSubmission(tokenV3, submissionId) {
   return getApiV3(tokenV3).delete(`/submissions/${submissionId}`)

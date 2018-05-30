@@ -10,7 +10,7 @@
  */
 
 import _ from 'lodash';
-import { getApiV2 } from 'services/api';
+import { services } from 'topcoder-react-lib';
 
 import termsAuth from './data/terms-auth.json';
 import termsDocuSignDetails from './data/terms-docu-sign-details.json';
@@ -18,6 +18,8 @@ import termsNoAuth from './data/terms-noauth.json';
 import termsReviewer from './data/terms-reviewer.json';
 import termsReviewerDetails from './data/terms-reviewer-details.json';
 import termsTopcoderDetails from './data/terms-topcoder-details.json';
+
+const { getApiV2 } = services.api;
 
 let reviewTermsAgreed = false;
 
