@@ -6,6 +6,7 @@
  */
 
 import ChallengeDetails from 'routes/ChallengeDetails';
+import Crowd4GoodPage from 'components/sandbox/Crowd4GoodPage';
 import TermsDetail from 'routes/TermsDetail';
 import Error404 from 'components/Error404';
 import Footer from 'components/TopcoderFooter';
@@ -56,6 +57,10 @@ export default function Topcoder() {
           component={Submission}
           exact
           path="/challenges/:challengeId(\d{8})/submit"
+        />
+        <Route
+          component={Crowd4GoodPage}
+          path={'/crowd-for-good'}
         />
         <Route
           component={HallOfFame}
