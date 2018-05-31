@@ -5,6 +5,8 @@
  * thus we disable max-len eslint rule for this file
  */
 
+// import ContentfulBlock from 'components/Contentful/ContentBlock';
+// import ContentfulLoader from 'containers/ContentfulLoader';
 import ChallengesBlock from 'components/tc-communities/ChallengesBlock';
 import ImageText from 'components/tc-communities/ImageText2';
 import JoinCommunity from 'containers/tc-communities/JoinCommunity';
@@ -48,10 +50,12 @@ export default function Home({
             />
             <div
               onClick={() => showWhatIsTopcoderVideo()}
+              onKeyPress={() => showWhatIsTopcoderVideo()}
               role="button"
               styleName="closeWhatIsTopcoderVideoCross"
               tabIndex={0}
-            >&times;</div>
+            >&times;
+            </div>
           </Modal>
         ) : null
       }
@@ -63,12 +67,15 @@ export default function Home({
         </p>
         <p styleName="marginTop30">
           What is Topcoder?
-          &zwnj;<Button
+          &zwnj;
+          <Button
             onClick={() => showWhatIsTopcoderVideo(true)}
             theme={{
               button: style.watchVideoButton,
             }}
-          >&#9658;&emsp;Watch video</Button>
+          >
+            &#9658;&emsp;Watch video
+          </Button>
         </p>
         <JoinCommunity
           label="Join Now"
@@ -82,7 +89,24 @@ export default function Home({
         We help connect talented coders with organizations across the globe in
         need of your specialized skills.
       </h1>
-
+      {/*
+      <ContentfulLoader
+        entryQueries={{
+          content_type: 'contentBlock',
+          'fields.name': 'Demo Content For Veteran',
+        }}
+        render={d => d.entries.matches[0].items.map(id => <ContentfulBlock id={id} />)}
+        renderPlaceholder={LoadingIndicator}
+      />
+      <ContentfulLoader
+        entryQueries={{
+          content_type: 'contentBlock',
+          'fields.name': 'Demo Content For Veteran',
+        }}
+        render={d => d.entries.matches[0].items.map(id => <ContentfulBlock id={id} />)}
+        renderPlaceholder={LoadingIndicator}
+      />
+      */}
       <div styleName="style.imageTextBlock">
         <ImageText imageUrl={image01}>
           <h1>Why We Started</h1>
@@ -141,32 +165,40 @@ export default function Home({
           <p>
             If you&apos;re new to Topcoder, we&apos;re here to help. If you
             have any questions about joining or competing, contact us
-            &zwnj;<Link
+            &zwnj;
+            <Link
               to="mailto:support@topcoder.com"
-            >here</Link>.
+            >here
+            </Link>.
           </p>
           <p>
             The
-            &zwnj;<Link
+            &zwnj;
+            <Link
               openNewTab
               to="https://apps.topcoder.com/forums/"
-            >Topcoder forums</Link>&zwnj;
+            >Topcoder forums
+            </Link>&zwnj;
             have lots of great insight and they are a good place to find
             answers to your questions.
           </p>
           <p>
             We also have Slack for our community members. Instant feedback and
             chatting opportunities with some of the world&apos;s best.
-            &zwnj;<Link
+            &zwnj;
+            <Link
               openNewTab
               to="https://docs.google.com/forms/d/e/1FAIpQLScb9pWbauhQ6owZZheM15f1Rodu_6CdGNtivvDb71kGgpJJKw/viewform"
-            >Topcoder Community Slack</Link>.
+            >Topcoder Community Slack
+            </Link>.
           </p>
           <p>
             The best place to start after you register is to check the
-            &zwnj;<Link
+            &zwnj;
+            <Link
               to={`${baseUrl}/challenges`}
-            >challenge listings page</Link>. We event have some fun challenges
+            >challenge listings page
+            </Link>. We event have some fun challenges
             which are perfect for getting your feet wet!
           </p>
         </ImageText>

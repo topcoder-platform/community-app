@@ -1,8 +1,7 @@
 import { Avatar } from 'topcoder-react-ui-kit';
-import config from 'utils/config';
-// import moment from 'moment';
 import PT from 'prop-types';
 import React from 'react';
+import { config } from 'topcoder-react-utils';
 
 import Lock from '../../icons/lock.svg';
 
@@ -15,6 +14,7 @@ function getId(submissions, placement) {
 export default function Winner({
   isDesign,
   last,
+  pointPrizes,
   prizes,
   submissions,
   viewable,
@@ -31,8 +31,12 @@ export default function Winner({
       encodeURIComponent(avatarUrl)}?size=65`;
   }
 
-  const prize = winner.placement <= prizes.length
-    ? `${prizes[winner.placement - 1].toLocaleString()}` : 'N/A';
+  const pair = [];
+  const prizeIndex = winner.placement - 1;
+  if (prizes[prizeIndex]) pair.push(prizes[prizeIndex].toLocaleString());
+  if (pointPrizes[prizeIndex]) pair.push(`${pointPrizes[prizeIndex]}pts`);
+
+  const prize = pair.join(' + ') || 'N/A';
 
   return (
     <div styleName={`winner ${placeStyle}`}>
@@ -68,7 +72,8 @@ export default function Winner({
             <a
               href={`${config.URL.BASE}/members/${winner.handle}`}
               styleName="handle"
-            >{winner.handle}</a>
+            >{winner.handle}
+            </a>
             <div styleName="prize">${prize}</div>
           </div>
         </div>
@@ -82,7 +87,8 @@ export default function Winner({
             styleName="download"
             target="_blank"
             href={isDesign ? `${config.URL.STUDIO}/?module=DownloadSubmission&sbmid=${submissionId}` : winner.submissionDownloadLink}
-          >Download</a>
+          >Download
+          </a>
         }
         {
           /*
@@ -97,10 +103,16 @@ export default function Winner({
   );
 }
 
+Winner.defaultProps = {
+  pointPrizes: [],
+  prizes: [],
+};
+
 Winner.propTypes = {
   isDesign: PT.bool.isRequired,
   last: PT.bool.isRequired,
-  prizes: PT.arrayOf(PT.number).isRequired,
+  pointPrizes: PT.arrayOf(PT.number),
+  prizes: PT.arrayOf(PT.number),
   submissions: PT.arrayOf(PT.object).isRequired,
   viewable: PT.bool.isRequired,
   winner: PT.shape({

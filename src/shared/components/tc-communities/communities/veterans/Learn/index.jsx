@@ -57,7 +57,8 @@ export default function Learn({ member }) {
             <PrimaryButton
               theme={{ button: style.readMoreButton }}
               to="https://help.topcoder.com/hc/en-us"
-            >Read More</PrimaryButton>
+            >Read More
+            </PrimaryButton>
           </div>
         </div>
         <div styleName="style.card style.card-02">
@@ -72,7 +73,8 @@ export default function Learn({ member }) {
             <PrimaryButton
               theme={{ button: style.readMoreButton }}
               to="https://help.topcoder.com/hc/en-us/sections/203968098-Getting-Paid"
-            >Read More</PrimaryButton>
+            >Read More
+            </PrimaryButton>
           </div>
         </div>
       </div>

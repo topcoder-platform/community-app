@@ -75,8 +75,8 @@ export default class Themr extends React.Component {
         <p>
           The external theme provider tries to set the same theme as in the
           &zwnj;<em>Default theme + Parent-provided styling</em> example, and
-          the innter one tries to set the same theme as in the <em>Default
-          theme + Context styling</em> example. The question is, which will win
+          the innter one tries to set the same theme as in
+          the <em>Default theme + Context styling </em> example. The question is, which will win
           with the current version of react-css-super-themr?
         </p>
         <ThemeProvider theme={style}>

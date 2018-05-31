@@ -22,10 +22,12 @@ export default function Menu({
         [ topcoder ]
         <span
           onClick={close}
+          onKeyPress={close}
           role="button"
           styleName="x-cross"
           tabIndex={0}
-        >&times;</span>
+        >&times;
+        </span>
       </div>
       <Search />
       {

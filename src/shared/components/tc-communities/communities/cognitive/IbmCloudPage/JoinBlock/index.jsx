@@ -17,7 +17,8 @@ export default function JoinBlock() {
         openNewTab
         theme={{ button: style.button }}
         to="https://console.bluemix.net/registration/?cm_sp=dw-cognitive-_-TPC2017-_-community"
-      >Sign up for IBM Cloud Lite</PrimaryButton>
+      >Sign up for IBM Cloud Lite
+      </PrimaryButton>
     </div>
   );
 }

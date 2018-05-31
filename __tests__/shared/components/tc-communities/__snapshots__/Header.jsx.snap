@@ -6,7 +6,7 @@ exports[`Snapshot match 1`] = `
   additionalLogos={Array []}
   baseUrl=""
   chevronOverAvatar={false}
-  closeMenu={[Function]}
+  closeMenu={[MockFunction]}
   communityId="someId"
   communitySelector={
     Array [
@@ -26,8 +26,8 @@ exports[`Snapshot match 1`] = `
   loginUrl="/some/login/url"
   logos={Array []}
   menuItems={Array []}
-  onMobileToggleClick={[Function]}
-  openMenu={[Function]}
+  onMobileToggleClick={[MockFunction]}
+  openMenu={[MockFunction]}
   openedMenu={null}
   pageId="home"
   profile={null}
@@ -70,7 +70,7 @@ exports[`Snapshot match 2`] = `
   additionalLogos={Array []}
   baseUrl=""
   chevronOverAvatar={false}
-  closeMenu={[Function]}
+  closeMenu={[MockFunction]}
   communityId="someId"
   communitySelector={
     Array [
@@ -111,8 +111,8 @@ exports[`Snapshot match 2`] = `
       },
     ]
   }
-  onMobileToggleClick={[Function]}
-  openMenu={[Function]}
+  onMobileToggleClick={[MockFunction]}
+  openMenu={[MockFunction]}
   openedMenu={null}
   pageId="other"
   profile={null}

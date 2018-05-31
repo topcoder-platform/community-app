@@ -1,0 +1,19 @@
+@import "~styles/mixins";
+
+.container {
+  margin: auto;
+  max-width: $screen-lg;
+  padding: 30px;
+}
+
+.content {
+  margin-top: 20px;
+  position: relative;
+}
+
+.date {
+  @include tc-label-md;
+
+  position: absolute;
+  transform: translateY(-10px);
+}

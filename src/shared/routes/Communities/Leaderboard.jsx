@@ -5,26 +5,23 @@
 import LoadingIndicator from 'components/LoadingIndicator';
 import PT from 'prop-types';
 import React from 'react';
-import { SplitRoute } from 'utils/router';
+import { AppChunk } from 'topcoder-react-utils';
 
 export default function LeaderboardRoute({
   HeadBanner,
   meta,
 }) {
   return (
-    <SplitRoute
-      cacheCss
+    <AppChunk
       chunkName="leaderboard/chunk"
       renderClientAsync={() =>
-        import(
-          /* webpackChunkName: "leaderboard/chunk" */
-          'containers/Leaderboard',
-        ).then(({ default: Leaderboard }) => (
-          <Leaderboard
-            apiUrl={meta.leaderboardApiUrl}
-            HeadBanner={HeadBanner}
-          />
-        ))
+        import(/* webpackChunkName: "leaderboard/chunk" */ 'containers/Leaderboard')
+          .then(({ default: Leaderboard }) => (
+            <Leaderboard
+              apiUrl={meta.leaderboardApiUrl}
+              HeadBanner={HeadBanner}
+            />
+          ))
       }
       renderPlaceholder={() => <LoadingIndicator />}
     />

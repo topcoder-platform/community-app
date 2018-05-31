@@ -39,7 +39,9 @@ const LABELS = {
   work: 'Work',
 };
 
-export default function CommunityStats({ stats, theme, icons, titles, filter }) {
+export default function CommunityStats({
+  stats, theme, icons, titles, filter,
+}) {
   const iconsToRender = [];
   _.forIn(stats, (value, key) => {
     if (!filter || filter[key]) {
@@ -62,7 +64,8 @@ export default function CommunityStats({ stats, theme, icons, titles, filter }) 
         container: style.container,
         content: style.content,
       }}
-    >{iconsToRender}</Section>
+    >{iconsToRender}
+    </Section>
   ) : null;
 }
 

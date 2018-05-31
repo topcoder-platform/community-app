@@ -45,7 +45,7 @@ export default function Editor({
   let winner;
   if (challenge) {
     winner = challenge.winners || [];
-    winner = winner.filter(x => x.type === 'final')[0];
+    [winner] = winner.filter(x => x.type === 'final');
   }
 
   let content;
@@ -129,7 +129,8 @@ export default function Editor({
               <PrimaryButton
                 onClick={makePayment}
                 // to="/sandbox/payments/123/done"
-              >Pay now</PrimaryButton>
+              >Pay now
+              </PrimaryButton>
             ) : null
           }
         </div>

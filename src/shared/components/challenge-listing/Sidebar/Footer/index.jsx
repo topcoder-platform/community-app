@@ -3,10 +3,10 @@
  * and Topcoder copyright.
  */
 
-import config from 'utils/config';
 import moment from 'moment';
 import PT from 'prop-types';
 import React from 'react';
+import { config } from 'topcoder-react-utils';
 import './style.scss';
 
 export default function Footer({

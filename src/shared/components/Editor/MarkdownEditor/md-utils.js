@@ -227,7 +227,7 @@ export default class MdUtils {
         switch (st.type) {
           case 'link_open': {
             const id = shortId().replace(/-/g, ':');
-            this.hrefs[id] = st.attrs[0][1];
+            [[, this.hrefs[id]]] = st.attrs;
             styles.push(`a:${id}`);
             break;
           }
@@ -326,7 +326,7 @@ export default class MdUtils {
       if (linesBefore) {
         this.highlightLines(linesBefore);
         this.highlightInline();
-        this.styleLine = token.map[0];
+        [this.styleLine] = token.map;
         this.key = this.content.getKeyAfter(this.key);
       }
     }
@@ -398,7 +398,7 @@ export default class MdUtils {
         this.highlightLines(numLines);
         this.highlightInline(subTokens);
         this.key = this.content.getKeyAfter(this.key);
-        this.styleLine = token.map[1];
+        [, this.styleLine] = token.map;
         this.blockTypes.pop();
         break;
       }
@@ -409,7 +409,7 @@ export default class MdUtils {
         this.highlightLines(token.map[1] - token.map[0]);
         this.highlightInline(token.children);
         this.key = this.content.getKeyAfter(this.key);
-        this.styleLine = token.map[1];
+        [, this.styleLine] = token.map;
         this.blockTypes.pop();
         break;
       }
@@ -418,7 +418,7 @@ export default class MdUtils {
         this.highlightLines(token.map[1] - token.map[0]);
         this.highlightInline(token.children);
         this.key = this.content.getKeyAfter(this.key);
-        this.styleLine = token.map[1];
+        [, this.styleLine] = token.map;
         break;
 
       default:
@@ -450,8 +450,6 @@ export default class MdUtils {
   parse(contentState) {
     delete this.html;
     this.env = {};
-    this.tokens = this.markdown.parse(
-      contentState.getPlainText(), this.env);
-    console.log(this.tokens, this.env);
+    this.tokens = this.markdown.parse(contentState.getPlainText(), this.env);
   }
 }

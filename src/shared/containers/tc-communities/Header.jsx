@@ -3,7 +3,6 @@
  */
 
 import _ from 'lodash';
-import config from 'utils/config';
 import PT from 'prop-types';
 import React from 'react';
 import shortId from 'shortid';
@@ -14,6 +13,7 @@ import Header from 'components/tc-communities/Header';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { getSubCommunityBaseUrl } from 'utils/tc';
+import { config } from 'topcoder-react-utils';
 
 /* Holds one minute in milliseconds. */
 const MIN = 60 * 1000;

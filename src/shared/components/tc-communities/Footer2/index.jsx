@@ -19,31 +19,36 @@ export default function Footer2() {
             href="https://www.topcoder.com/about-topcoder/"
             rel="noopener noreferrer"
             target="_blank"
-          >About</a>
+          >About
+          </a>
           &bull;
           <a
             href="https://help.topcoder.com/hc/en-us/articles/219069687-Contact-Support"
             rel="noopener noreferrer"
             target="_blank"
-          >Contact</a>
+          >Contact
+          </a>
           &bull;
           <a
             href="https://help.topcoder.com/hc/en-us"
             rel="noopener noreferrer"
             target="_blank"
-          >Help</a>
+          >Help
+          </a>
           &bull;
           <a
             href="https://www.topcoder.com/community/how-it-works/privacy-policy/"
             rel="noopener noreferrer"
             target="_blank"
-          >Privacy</a>
+          >Privacy
+          </a>
           &bull;
           <a
             href="https://www.topcoder.com/community/how-it-works/terms/"
             rel="noopener noreferrer"
             target="_blank"
-          >Terms</a>
+          >Terms
+          </a>
         </div>
       </div>
     </div>

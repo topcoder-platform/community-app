@@ -1,4 +1,6 @@
-import { mockAction } from 'utils/mock';
+import { mock } from 'topcoder-react-lib';
+
+const { mockAction } = mock;
 
 jest.mock('utils/url', () => ({
   updateQuery: () => {},
@@ -134,7 +136,9 @@ function testReducer(reducer) {
   });
 
   test('properly handles getSavedFilters', () => {
-    const savedFilters = [{ name: 'name', filter: 'filter', savedName: 'savedName', id: '1' }, { name: 'name2', filter: 'filter2' }];
+    const savedFilters = [{
+      name: 'name', filter: 'filter', savedName: 'savedName', id: '1',
+    }, { name: 'name2', filter: 'filter2' }];
     state = reducer(state, mockActions.getSavedFilters(savedFilters)());
     expectedState = {
       ...expectedState,

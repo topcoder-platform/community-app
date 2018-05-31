@@ -5,11 +5,12 @@
 /* global window */
 
 import _ from 'lodash';
-import config from 'utils/config';
 import React from 'react';
 import PT from 'prop-types';
 import { themr } from 'react-css-super-themr';
 import { Link, NavLink } from 'react-router-dom';
+import { config } from 'topcoder-react-utils';
+
 import defaultStyle from './style.scss';
 import TopcoderLogoGray from '../../../../assets/images/tc-communities/logo_topcoder_gray.svg';
 
@@ -53,14 +54,16 @@ function Footer(props) {
               const url = encodeURIComponent(window.location.href);
               window.location = `${config.URL.AUTH}/member/registration?retUrl=${url}&utm_source=${communityId}`;
             }}
-          >Register</button>
+          >Register
+          </button>
           <button
             className={theme.btnLogin}
             onClick={() => {
               const url = encodeURIComponent(window.location.href);
               window.location = `${config.URL.AUTH}/member?retUrl=${url}&utm_source=${communityId}`;
             }}
-          >Login</button>
+          >Login
+          </button>
         </div>
       )}
     </nav>

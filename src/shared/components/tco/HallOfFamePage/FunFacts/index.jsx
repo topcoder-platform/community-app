@@ -63,6 +63,7 @@ class FunFacts extends React.Component {
               <span
                 key={`${fact.fact} button`}
                 onClick={() => this.setState({ activeMobileFact: index })}
+                onKeyPress={() => this.setState({ activeMobileFact: index })}
                 role="button"
                 styleName={`mobile-button ${index === this.state.activeMobileFact ? 'mobile-active' : ''}`}
                 tabIndex="0"

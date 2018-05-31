@@ -1,6 +1,6 @@
-import config from 'utils/config';
 import NewsletterSignup from 'components/tc-communities/NewsletterSignup';
 import React from 'react';
+import { config } from 'topcoder-react-utils';
 
 import newsletterImg from
   'assets/images/communities/cognitive/newsletter.jpg';

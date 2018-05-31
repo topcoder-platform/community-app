@@ -144,7 +144,9 @@ export default function BsicHackathon({
             enforceA
             theme={{ button: style.regButtonsW }}
             to="https://blockchain.topcoder.com/challenges/30063672"
-          >Register for the Challenge</Button>
+          >
+            Register for the Challenge
+          </Button>
           <div styleName="challengeCardsContainer">
             <ChallengeCard
               imgUrl={ChallengeImgRefugees}
@@ -220,13 +222,17 @@ export default function BsicHackathon({
                       <Link
                         openNewTab
                         to="https://www.fastcompany.com/3062386/democracy-is-getting-a-reboot-on-the-blockchain"
-                      >Democracy Is Getting A Reboot On The Blockchain</Link>
+                      >
+                        Democracy Is Getting A Reboot On The Blockchain
+                      </Link>
                     </li>
                     <li>
                       <Link
                         openNewTab
                         to="https://ssir.org/articles/entry/will_blockchain_disrupt_government_corruption"
-                      >Will Blockchain Disrupt Government Corruption?</Link>
+                      >
+                        Will Blockchain Disrupt Government Corruption?
+                      </Link>
                     </li>
                     <li>
                       <Link
@@ -378,7 +384,8 @@ export default function BsicHackathon({
             </li>
             <li>
               The required deliverables are (1) Weekly checkpoints
-              &zwnj;<a
+              &zwnj;
+              <a
                 href="https://paper.dropbox.com/doc/Weekly-checkpoints-09FvI6B1wAuT7qqVvw7kz?_tk=share_copylink"
                 target="_blank"
                 rel="noopener noreferrer"
@@ -388,7 +395,8 @@ export default function BsicHackathon({
             </li>
             <li>
               You will be scored by such criteria
-              &zwnj;<a
+              &zwnj;
+              <a
                 href="https://airtable.com/shryJsiCL6nc2hieb"
                 target="_blank"
                 rel="noopener noreferrer"
@@ -399,7 +407,8 @@ export default function BsicHackathon({
             <li>
               Every team has 3 mentors. There’s a post in your private
               forum telling you who they are
-              &zwnj;<a
+              &zwnj;
+              <a
                 href="https://airtable.com/shrCUgy4ZgOSCoveO"
                 target="_blank"
                 rel="noopener noreferrer"
@@ -420,7 +429,8 @@ export default function BsicHackathon({
           toggle={show => toggleFaqItem('n02', show)}
         >
           Click this link to join the slack domain:
-          &zwnj;<a
+          &zwnj;
+          <a
             href="https://apps.topcoder.com/forums/?module=Thread&threadID=914879&start=0&mc=1#2254786"
             target="_blank"
             rel="noopener noreferrer"
@@ -637,7 +647,8 @@ export default function BsicHackathon({
           toggle={show => toggleFaqItem('n22', show)}
         >
           We have 94 so far. Here’s a team list:
-          &zwnj;<a
+          &zwnj;
+          <a
             href="https://airtable.com/shrrtV5S2261uBCNJ"
           >
             https://airtable.com/shrrtV5S2261uBCNJ

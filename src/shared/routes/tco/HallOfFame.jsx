@@ -3,33 +3,26 @@
  */
 import path from 'path';
 import React from 'react';
-import { StaticRouter } from 'react-router-dom';
 
 import LoadingPagePlaceholder from 'components/LoadingPagePlaceholder';
-import { requireWeak, resolveWeak, SplitRoute } from 'utils/router';
+import { AppChunk, webpack } from 'topcoder-react-utils';
 
 export default function HallOfFameRouter(props) {
   return (
-    <SplitRoute
-      cacheCss
+    <AppChunk
       chunkName="tco/hall-of-fame/chunk"
       renderClientAsync={() =>
-        import(
-          /* webpackChunkName: "tco/hall-of-fame/chunk" */
-          'containers/tco/HallOfFame',
-        ).then(({ default: HallOfFameContainer }) => (
+        import(/* webpackChunkName: "tco/hall-of-fame/chunk" */ 'containers/tco/HallOfFame')
+        .then(({ default: HallOfFameContainer }) => (
           <HallOfFameContainer {...props} />
         ))
       }
       renderPlaceholder={() => <LoadingPagePlaceholder />}
       renderServer={() => {
-        const p = resolveWeak('containers/tco/HallOfFame');
-        const HallOfFameContainer = requireWeak(path.resolve(__dirname, p));
-        return (
-          <StaticRouter context={{}}>
-            <HallOfFameContainer {...props} />
-          </StaticRouter>
-        );
+        const p = webpack.resolveWeak('containers/tco/HallOfFame');
+        const HallOfFameContainer =
+          webpack.requireWeak(path.resolve(__dirname, p));
+        return <HallOfFameContainer {...props} />;
       }}
     />
   );

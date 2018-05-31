@@ -9,18 +9,16 @@ import LoadingIndicator from 'components/LoadingIndicator';
 import qs from 'qs';
 import React from 'react';
 // import { StaticRouter } from 'react-router-dom';
-import { /* requireWeak, resolveWeak, */ SplitRoute } from 'utils/router';
+import { AppChunk } from 'topcoder-react-utils';
 
 export default function ChallengeListingRoute() {
   return (
-    <SplitRoute
+    <AppChunk
       cacheCss
       chunkName="challenge-listing/chunk"
       renderClientAsync={renderProps =>
-        import(
-          /* webpackChunkName: "challenge-listing/chunk" */
-          'containers/challenge-listing/Listing',
-        ).then(({ default: ChallengeListing }) => {
+        import(/* webpackChunkName: "challenge-listing/chunk" */ 'containers/challenge-listing/Listing')
+        .then(({ default: ChallengeListing }) => {
           /* TODO: Choice of currency and prize mode should be moved to
            * Redux actions / reducers. */
           const query = renderProps.location.search ?

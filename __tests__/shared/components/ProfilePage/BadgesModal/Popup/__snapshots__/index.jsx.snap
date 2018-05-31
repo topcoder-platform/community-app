@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders badge modal popup correctly 1`] = `
+<div
+  className="src-shared-components-ProfilePage-BadgesModal-Popup-___styles__container___2E7IH"
+>
+  <div
+    className="src-shared-components-ProfilePage-BadgesModal-Popup-___styles__name___YvSOO"
+  >
+    SRM Engagement Honor
+  </div>
+  <div
+    className="src-shared-components-ProfilePage-BadgesModal-Popup-___styles__date___SCzmg"
+  >
+    Earned on Sep 18, 2017
+  </div>
+</div>
+`;

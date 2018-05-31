@@ -5,12 +5,11 @@
  */
 
 import _ from 'lodash';
-import config from 'utils/config';
 import PT from 'prop-types';
 import React from 'react';
 import Tooltip from 'components/Tooltip';
-import { DETAIL_TABS } from 'actions/challenge';
-import { Link } from 'topcoder-react-utils';
+import { TABS as DETAIL_TABS } from 'actions/page/challenge-details';
+import { config, Link } from 'topcoder-react-utils';
 
 /* TODO: The icon should be converted back to SVG and imported using the
  * the standard approach for our code! */
@@ -23,7 +22,9 @@ const MM_BASE_URL
   = `${config.URL.COMMUNITY}/longcontest/?module=ViewRegistrants&rd=`;
 
 export default function NumRegistrants({
-  challenge: { id, numRegistrants, rounds, track },
+  challenge: {
+    id, numRegistrants, rounds, track,
+  },
   challengesUrl,
   newChallengeDetails,
   selectChallengeDetailsTab,
@@ -50,9 +51,8 @@ export default function NumRegistrants({
         <Link
           disabled={!numRegistrants}
           onClick={() => (
-            selectChallengeDetailsTab(
-              numRegistrants ? DETAIL_TABS.REGISTRANTS : DETAIL_TABS.DETAILS,
-            )
+            selectChallengeDetailsTab(numRegistrants ?
+              DETAIL_TABS.REGISTRANTS : DETAIL_TABS.DETAILS)
           )}
           styleName="link"
           to={link}

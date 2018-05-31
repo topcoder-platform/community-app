@@ -7,7 +7,7 @@
 
 import _ from 'lodash';
 import actions from 'actions/challenge-listing/sidebar';
-import logger from 'utils/logger';
+import { logger } from 'topcoder-react-lib';
 import { BUCKETS } from 'utils/challenge-listing/buckets';
 import { handleActions } from 'redux-actions';
 import { updateQuery } from 'utils/url';
@@ -133,7 +133,7 @@ function onSelectBucket(state, { payload }) {
 }
 
 function onSelectSavedFilter(state, { payload }) {
-  const isForReviewOpportunities = state.savedFilters[payload].filter.isForReviewOpportunities;
+  const { isForReviewOpportunities } = state.savedFilters[payload].filter;
   updateQuery({
     bucket: isForReviewOpportunities ? BUCKETS.SAVED_REVIEW_OPPORTUNITIES_FILTER : undefined,
   });

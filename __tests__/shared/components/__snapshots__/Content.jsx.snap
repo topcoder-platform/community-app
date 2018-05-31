@@ -76,7 +76,7 @@ exports[`Matches shallow shapshot 1`] = `
     <li>
       Topcoder API v2 and v3 service (see 
       <code>
-        /src/shared/services/api.js
+        topcoder-react-lib/src/services/api.js
       </code>
       ), with support of TC authentication (look for auth tokens either in 
       <code>
@@ -238,6 +238,19 @@ exports[`Matches shallow shapshot 1`] = `
       </Link>
     </li>
     <li>
+      Public Profile Page available at the 
+      <code>
+        /members/:handle
+      </code>
+       endpoint. Valid link on dev 
+      <Link
+        replace={false}
+        to="/members/TonyJ"
+      >
+        here.
+      </Link>
+    </li>
+    <li>
       Stand-alone terms of use page: ‌
       <Link
         replace={false}
@@ -272,11 +285,12 @@ exports[`Matches shallow shapshot 1`] = `
   </h3>
   <ul>
     <li>
-      <a
-        href="/tco-hall-of-fame"
+      <Link
+        replace={false}
+        to="/hall-of-fame/tco"
       >
         TCO Hall of Fame
-      </a>
+      </Link>
     </li>
     <li>
       TCO Scoreboard demo is mounted on 
@@ -398,12 +412,63 @@ exports[`Matches shallow shapshot 1`] = `
     </li>
   </ul>
   <h3>
+    Previews of Contentful Components
+  </h3>
+  <ul>
+    <li>
+      <Link
+        replace={false}
+        to="/examples/contentful/banner/5il6oFtWp2Ua6WGs60M2mK"
+      >
+        <code>
+          Banner
+        </code>
+      </Link>
+    </li>
+    <li>
+      <Link
+        replace={false}
+        to="/examples/contentful/contentblock/6CVFvEiZFKYQMwW82aYCWS"
+      >
+        <code>
+          ContentBlock
+        </code>
+      </Link>
+    </li>
+    <li>
+      <Link
+        replace={false}
+        to="/examples/contentful/viewport/YomgM8zPCoEaUqaKouyGG"
+      >
+        <code>
+          Viewport
+        </code>
+      </Link>
+    </li>
+  </ul>
+  <h3>
     Sandbox
   </h3>
   <p>
     The right place to put any experimental and proof-of-concept stuff.
   </p>
   <ul>
+    <li>
+      <Link
+        replace={false}
+        to="/sandbox/cms/dashboard/announcements"
+      >
+        A simple list of all published dashboard announcements.
+      </Link>
+    </li>
+    <li>
+      <Link
+        replace={false}
+        to="/sandbox/cms/testing"
+      >
+        CMS-related testing.
+      </Link>
+    </li>
     <li>
       <Link
         replace={false}

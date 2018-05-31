@@ -7,14 +7,13 @@
 * If an event did not have the corresponding TRACK, the entire line can be commented out.
 */
 import logo from './logo.png';
-import banner from './banner.jpg';
+import banner from './banner.png';
 
-import winnerAlgorithm from './winnerAlgorithm.png';
+import winnerAlgorithm from './winnerAlgorithm.jpg';
 import winnerMarathon from './winnerMarathon.png';
-import winnerDevelopment from './winnerDevelopment.png';
-import winnerFirst2finish from './winnerFirst2finish.png';
-import winnerUiDesign from './winnerUIDesign.png';
-import winnerUiPrototype from './winnerUIPrototype.png';
+import winnerComponentDevelopment from './winnerComponentDevelopment.jpg';
+import winnerComponentDesign from './winnerComponentDesign.jpg';
+import winnerStudio from './winnerStudio.png';
 
 /**
  * Data for the event goes here, and the format is very similar JSON.
@@ -24,110 +23,165 @@ import winnerUiPrototype from './winnerUIPrototype.png';
 export default {
   logo,
   banner,
-  learnMoreURL: 'http://tco.topcoder.com',
-  browseGalleryURL: '',
-  location: 'Location, Country',
-  date: 'Date',
+  learnMoreURL: 'https://www.topcoder.com/tc?module=Static&d1=tournaments&d2=tco08&d3=about',
+  browseGalleryURL: 'https://www.flickr.com/photos/53993064@N03/albums/72157664501932526',
+  location: 'Las Vegas, Nevada, USA',
+  date: 'May 11 - 15, 2008',
   totalPrizes: '$60,000',
   countryCount: 29,
 
   // ALGORITHM Data Starts Here
   algorithm: {
-    winner: 'handle',
+    winner: 'tomek',
     portrait: winnerAlgorithm,
     finalists: [
-      'handle1',
-      'handle2',
-      'handle3',
-      'handle4',
+      '(iwi)',
+      '_efer_',
+      'Abednego',
+      'ACRush',
+      'ahyangyi',
+      'Alexus',
+      'andrewzta',
+      'ardiankp',
+      'asaveljevs',
+      'bhzhan',
+      'blueblimp',
+      'bmerry',
+      'Burunduk1',
+      'Burunduk2',
+      'cyfra',
+      'dmytro',
+      'eonx',
+      'Eryx',
+      'falagar',
+      'fuwenjie',
+      'Gassa',
+      'gawry',
+      'Gluk',
+      'grotmol',
+      'hyyylr',
+      'Im2Good',
+      'inazz',
+      'izulin',
+      'jakubr',
+      'Jan_Kuipers',
+      'Jasko',
+      'John Dethridge',
+      'kedaizd',
+      'Klinck',
+      'klopyrev',
+      'KOTEHOK',
+      'krijgertje',
+      'ktuan',
+      'lewha0',
+      'liympanda',
+      'Loner',
+      'maciejk',
+      'malcin',
+      'marek.cygan',
+      'mathijs',
+      'nika',
+      'olo',
+      'overwise',
+      'pashka',
+      'PaulJefferys',
+      'Petr',
+      'ploh',
+      'pparys',
+      'Psyho',
+      'Revenger',
+      'Rizvanov_de_xXx',
+      'SkidanovAlex',
+      'Soultaker',
+      'SpaceFlyer',
+      'tomekkulczynski',
+      'Vasyl(alphacom)',
+      'venco',
+      'victorsb',
+      'VitalyGoldstein',
+      'vlad89',
+      'w_',
+      'wintokk',
+      'WSX',
+      'xhl_kogitsune',
+      'Yarin',
+      'Ying',
     ],
   },
 
   // MARATHON Data Starts Here
   marathon: {
-    winner: 'handle',
+    winner: 'Psyho',
     portrait: winnerMarathon,
     finalists: [
-      'handle1',
-      'handle2',
-      'handle3',
-      'handle4',
+      'paranoia',
+      'brinky',
+      'rahulgarg123',
+      'doudouille',
+      'tpelkone',
+      'RatonulBolnav',
+      'delicato',
+      'wata',
+      'Iquadrat',
+      'bhzhan',
+      'venco',
     ],
   },
 
   // DEVELOPMENT Data Starts Here
-  development: {
-    winner: 'handle',
-    portrait: winnerDevelopment,
+  componentDevelopment: {
+    winner: 'romanoTC',
+    portrait: winnerComponentDevelopment,
     finalists: [
-      'handle1',
-      'handle2',
-      'handle3',
-      'handle4',
-    ],
-  },
-
-  // FIRST2FINISH Data Starts Here
-  first2finish: {
-    winner: 'handle',
-    portrait: winnerFirst2finish,
-    finalists: [
-      'handle1',
-      'handle2',
-      'handle3',
-      'handle4',
+      'cyberjag',
+      'enefem21',
+      'hefeng',
+      'hotblue',
+      'jueyey',
+      'netsafe',
+      'oldbig',
+      'Orange_Cloud',
+      'PE',
+      'wiedzmin',
+      'Xuchen',
     ],
   },
 
   // UI DESIGN Data Starts Here
-  uiDesign: {
-    winner: 'handle',
-    portrait: winnerUiDesign,
+  componentDesign: {
+    winner: 'Pops',
+    portrait: winnerComponentDesign,
     finalists: [
-      'handle1',
-      'handle2',
-      'handle3',
-      'handle4',
+      'AleaActaEst',
+      'argolite',
+      'dmks',
+      'fabrizyo',
+      'humblefool',
+      'kyky',
+      'Luca',
+      'ShindouHikaru',
+      'tushak',
+      'urtks',
+      'Wendell',
     ],
   },
 
   // UI PROTOTYPE Data Starts Here
-  uiPrototype: {
-    winner: 'handle',
-    portrait: winnerUiPrototype,
+  studio: {
+    winner: 'oninkxronda',
+    portrait: winnerStudio,
     finalists: [
-      'handle1',
-      'handle2',
-      'handle3',
-      'handle4',
+      'dogsoldier39',
+      'Elizabethhee',
+      'foxyhu',
+      'abedavera',
+      'djackmania',
+      'oton',
+      'Tricia_Tjia',
+      'mahestro',
+      'sweetpea',
+      'Maraqja',
+      'vlad_D',
     ],
   },
-
-  // Trip Winners Data Starts Here
-  tripWinners: [
-    {
-      role: 'COPILOT',
-      winners: [
-        'handle1',
-        'handle2',
-        'handle3',
-      ],
-    },
-    {
-      role: 'WIREFRAME',
-      winners: [
-        'handle1',
-        'handle2',
-        'handle3',
-      ],
-    },
-    {
-      role: 'OTHERS',
-      winners: [
-        'handle1',
-        'handle2',
-        'handle3',
-      ],
-    },
-  ],
 };

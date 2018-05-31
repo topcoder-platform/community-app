@@ -18,7 +18,6 @@ export default function Listing({
   selectedProjectId,
   selectProject,
 }) {
-  console.log(memberTasks);
   const selectedProjectIdNum = Number(selectedProjectId);
   let content = memberTasks
     .filter(item => item.projectId === selectedProjectIdNum)
@@ -84,7 +83,8 @@ export default function Listing({
                 button: style.newPaymentButton,
               }}
               to="/sandbox/payments/new"
-            >New payment</PrimaryButton>
+            >New payment
+            </PrimaryButton>
           </div>
         </div>
         {content}

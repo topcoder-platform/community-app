@@ -90,7 +90,8 @@ export default function ScreeningDetails(props) {
         {warnings}
         {((hasStatusFailed) || (hasStatusPassed && hasWarnings)) &&
           <p styleName="more-info">Need more info on how to pass screening?
-             Go to help to read Rules & Policies.</p>}
+             Go to help to read Rules & Policies.
+          </p>}
         <div styleName="help-btn">
           <a href={helpPageUrl} styleName="help-link" className="tc-btn-default">Help</a>
         </div>

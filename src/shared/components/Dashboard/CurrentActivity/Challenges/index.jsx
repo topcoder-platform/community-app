@@ -1,18 +1,19 @@
 import _ from 'lodash';
-import config from 'utils/config';
 import LoadingIndicator from 'components/LoadingIndicator';
 import moment from 'moment';
 import PT from 'prop-types';
 import React from 'react';
 import Sticky from 'react-stickynode';
-import { Link } from 'topcoder-react-utils';
+import { config, Link } from 'topcoder-react-utils';
 
-import * as Filter from 'utils/challenge-listing/filter';
+import { challenge as challengeUtils } from 'topcoder-react-lib';
 
 import ChallengeCard from './ChallengeCard';
 import ChallengeFilter from '../ChallengeFilter';
 
 import style from './style.scss';
+
+const Filter = challengeUtils.filter;
 
 export default function Challenges({
   challengeFilter,
@@ -86,22 +87,38 @@ export default function Challenges({
                       <p>
                         You have no active challenges at this moment. What are
                         you interested&nbsp;in?
-                        &zwnj;<Link
-                          openNewTab
-                          to={config.URL.ARENA}
-                        >Competitive Programming</Link>?
-                        &zwnj;<Link
-                          openNewTab
-                          to="/challenges?filter[tracks][datasci]=true"
-                        >Data Science</Link>?
-                        &zwnj;<Link
-                          openNewTab
-                          to="/challenges?filter[tracks][design]=true"
-                        >Design</Link>?
-                        &zwnj;<Link
-                          openNewTab
-                          to="/challenges?filter[tracks][develop]=true"
-                        >Software Development</Link>?
+                        &zwnj;{
+                          <Link
+                            openNewTab
+                            to={config.URL.ARENA}
+                          >
+                            Competitive Programming
+                          </Link>
+                        }?
+                        &zwnj;{
+                          <Link
+                            openNewTab
+                            to="/challenges?filter[tracks][datasci]=true"
+                          >
+                            Data Science
+                          </Link>
+                        }?
+                        &zwnj;{
+                          <Link
+                            openNewTab
+                            to="/challenges?filter[tracks][design]=true"
+                          >
+                            Design
+                          </Link>
+                        }?
+                        &zwnj;{
+                          <Link
+                            openNewTab
+                            to="/challenges?filter[tracks][develop]=true"
+                          >
+                            Software Development
+                          </Link>
+                        }?
                       </p>
                     </div>
                   )
@@ -128,7 +145,8 @@ export default function Challenges({
         <a
           href={`${config.URL.BASE}/my-challenges/?status=completed`}
           styleName="link"
-        >Past Challenges</a>
+        >Past Challenges
+        </a>
       </div>
     </div>
   );

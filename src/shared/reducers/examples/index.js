@@ -5,12 +5,12 @@
  */
 
 import { combineReducers } from 'redux';
-import { resolveReducers } from 'utils/redux';
+import { redux } from 'topcoder-react-utils';
 
 import { factory as dataFetchFactory } from './data-fetch';
 
 export function factory(req) {
-  return resolveReducers({
+  return redux.resolveReducers({
     dataFetch: dataFetchFactory(req),
   }).then(reducers => combineReducers({
     ...reducers,

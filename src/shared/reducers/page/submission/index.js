@@ -8,13 +8,12 @@
 
 import _ from 'lodash';
 import actions from 'actions/page/submission';
-import logger from 'utils/logger';
-
-import { fireErrorMessage } from 'utils/errors';
-import { handleActions } from 'redux-actions';
-import { combine } from 'utils/redux';
+import { logger, errors } from 'topcoder-react-lib';
+import { redux } from 'topcoder-react-utils';
 
 import design from './design';
+
+const { fireErrorMessage } = errors;
 
 /**
  * Handles results of PAGE/CHALLENGE_DETAILS/SUBMISSION/SUBMIT_DONE action.
@@ -144,7 +143,7 @@ function fpSet(state, id, map) {
 function create(initialState) {
   const a = actions.page.submission;
 
-  return handleActions({
+  return redux.handleActions({
     [a.submitDone]: onSubmitDone,
     [a.submitInit]: onSubmitInit,
     [a.submitReset]: onSubmitReset,
@@ -199,9 +198,9 @@ function create(initialState) {
 
 export function factory() {
   // Server-side rendering not implemented yet
-  return Promise.resolve(combine(create(), { design }));
+  return Promise.resolve(redux.combineReducers(create(), { design }));
 }
 
-export default combine(create(), {
+export default redux.combineReducers(create(), {
   design,
 });

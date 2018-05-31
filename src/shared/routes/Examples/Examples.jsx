@@ -28,8 +28,9 @@ import {
   Switch,
   Route,
 } from 'react-router-dom';
-import { requireWeak, resolveWeak, SplitRoute } from 'utils/router';
+import { AppChunk, webpack } from 'topcoder-react-utils';
 
+import Contentful from './Contentful';
 import DataFetch from './DataFetch';
 
 export default function Examples(props) {
@@ -39,24 +40,22 @@ export default function Examples(props) {
       <Route path={`${base}/announcement/:id`} component={Announcement} />
       <Route path={`${base}/buttons`} component={Buttons} />
       <Route path={`${base}/carousel`} component={Carousel} />
-      <SplitRoute
-        cacheCss
+      <AppChunk
         chunkName="code-splitting/chunk"
         path={`${base}/code-splitting`}
         renderClientAsync={() =>
-          import(
-            /* webpackChunkName: "code-splitting/chunk" */
-            'components/examples/CodeSplitting',
-          ).then(({ default: CodeSplitting }) => <CodeSplitting />)
+          import(/* webpackChunkName: "code-splitting/chunk" */ 'components/examples/CodeSplitting')
+          .then(({ default: CodeSplitting }) => <CodeSplitting />)
         }
         renderPlaceholder={() => <LoadingIndicator />}
         renderServer={() => {
-          const p = resolveWeak('components/examples/CodeSplitting');
-          const CodeSplitting = requireWeak(path.resolve(__dirname, p));
+          const p = webpack.resolveWeak('components/examples/CodeSplitting');
+          const CodeSplitting = webpack.requireWeak(path.resolve(__dirname, p));
           return <CodeSplitting />;
         }}
       />
       <Route path={`${base}/color-mixins`} component={ColorMixins} />
+      <Route path={`${base}/contentful`} component={Contentful} />
       <Route path={`${base}/css-modules`} component={CssModules} />
       <Route path={`${base}/data-fetch`} component={DataFetch} />
       <Route path={`${base}/editor`} component={Editor} />

@@ -2,16 +2,16 @@
  * Container for the dashboard page.
  */
 /* global location */
+/* eslint-disable no-restricted-globals */
 
 import _ from 'lodash';
-import challengeActions from 'actions/challenge';
+import challengeDetailsActions from 'actions/page/challenge-details';
 import cookies from 'browser-cookies';
 import Dashboard from 'components/Dashboard';
 import dashActions from 'actions/page/dashboard';
 import challengeListingSidebarActions from 'actions/challenge-listing/sidebar';
-import config from 'utils/config';
 import LoadingIndicator from 'components/LoadingIndicator';
-import memberActions from 'actions/members';
+import { actions } from 'topcoder-react-lib';
 import PT from 'prop-types';
 import qs from 'qs';
 import React from 'react';
@@ -23,10 +23,9 @@ import { BUCKETS } from 'utils/challenge-listing/buckets';
 
 import challengeListingActions from 'actions/challenge-listing';
 import communityActions from 'actions/tc-communities';
-import statsActions from 'actions/stats';
 
 import { isTokenExpired } from 'tc-accounts';
-import { isClientSide } from 'utils/isomorphy';
+import { config, isomorphy } from 'topcoder-react-utils';
 
 import './styles.scss';
 
@@ -194,7 +193,7 @@ export class DashboardPageContainer extends React.Component {
 
     let announcementPreviewId;
     if (urlQuery) {
-      announcementPreviewId = qs.parse(urlQuery).announcementPreviewId;
+      ({ announcementPreviewId } = qs.parse(urlQuery));
     }
 
     return (
@@ -243,7 +242,7 @@ DashboardPageContainer.defaultProps = {
   handle: '',
   profile: null,
   showEarnings:
-    isClientSide() ? cookies.get('showEarningsInDashboard') !== 'false' : true,
+    isomorphy.isClientSide() ? cookies.get('showEarningsInDashboard') !== 'false' : true,
   stats: {},
   statsTimestamp: 0,
   tcBlogPosts: [],
@@ -359,7 +358,7 @@ function mapStateToProps(state, props) {
 
 function mapDispatchToProps(dispatch) {
   const dash = dashActions.page.dashboard;
-  const members = memberActions.members;
+  const { members } = actions;
   return {
     getAllActiveChallenges: (tokenV3) => {
       const uuid = shortId();
@@ -373,7 +372,7 @@ function mapDispatchToProps(dispatch) {
     },
     getCommunityStats: (community, challenges, token) => {
       const uuid = shortId();
-      const a = statsActions.stats;
+      const a = actions.stats;
       dispatch(a.getCommunityStatsInit(community, uuid));
       dispatch(a.getCommunityStatsDone(community, uuid, challenges, token));
     },
@@ -409,7 +408,7 @@ function mapDispatchToProps(dispatch) {
       dispatch(a.getDone(TOPCODER_BLOG_ID, uuid, TOPOCDER_BLOG_URL));
     },
     selectChallengeDetailsTab: tab =>
-      dispatch(challengeActions.challenge.selectTab(tab)),
+      dispatch(challengeDetailsActions.page.challengeDetails.selectTab(tab)),
     setChallengeListingFilter: (filter) => {
       const cl = challengeListingActions.challengeListing;
       const cls = challengeListingSidebarActions.challengeListing.sidebar;
@@ -424,7 +423,7 @@ function mapDispatchToProps(dispatch) {
     switchShowEarnings: show => dispatch(dash.showEarnings(show)),
     switchTab: tab => dispatch(dash.switchTab(tab)),
     unregisterFromChallenge: (auth, challengeId) => {
-      const a = challengeActions.challenge;
+      const a = actions.challenge;
       dispatch(a.unregisterInit());
       dispatch(a.unregisterDone(auth, challengeId));
     },

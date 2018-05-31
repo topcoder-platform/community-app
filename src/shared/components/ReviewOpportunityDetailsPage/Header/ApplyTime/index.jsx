@@ -6,14 +6,18 @@ import React from 'react';
 import PT from 'prop-types';
 import { PrimaryButton } from 'topcoder-react-ui-kit';
 
-import { formatDuration } from 'utils/time';
+import { time } from 'topcoder-react-lib';
 
 import './styles.scss';
+
+const { formatDuration } = time;
 
 /**
  * ApplyTime Component
  */
-const ApplyTime = ({ hasApplied, onApply, openPositions, startDate }) => {
+const ApplyTime = ({
+  hasApplied, onApply, openPositions, startDate,
+}) => {
   const startMoment = moment(startDate);
   const timeLeft = startMoment.isAfter() ? formatDuration(startMoment - moment()) : 'None';
 
@@ -30,7 +34,8 @@ const ApplyTime = ({ hasApplied, onApply, openPositions, startDate }) => {
         <PrimaryButton
           disabled={!timeLeft || !openPositions}
           onClick={() => onApply()}
-        >{hasApplied ? 'Manage Applications' : 'Apply for review'}</PrimaryButton>
+        >{hasApplied ? 'Manage Applications' : 'Apply for review'}
+        </PrimaryButton>
       </div>
     </div>
   );

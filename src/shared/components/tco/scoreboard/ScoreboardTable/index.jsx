@@ -18,12 +18,13 @@
  *      - state: string, required. The submission state.
  */
 
-import config from 'utils/config';
 import React from 'react';
 import PT from 'prop-types';
 
 import codeFields from 'shared/fields/submissionCodeFields.json';
 import designFields from 'shared/fields/submissionDesignFields.json';
+
+import { config } from 'topcoder-react-utils';
 
 import styles from './styles.scss'; // eslint-disable-line no-unused-vars
 

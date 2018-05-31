@@ -5,7 +5,13 @@ const path = require('path');
 const configFactory
   = require('topcoder-react-utils/config/webpack/app-production');
 
+const webpack = require('webpack');
+
 const defaultConfig = require('./default');
+
+let publicPath = process.env.CDN_URL;
+if (publicPath) publicPath += '/static-assets';
+else publicPath = '/api/cdn/public/static-assets';
 
 const standardDevelopmentConfig = configFactory({
   context: path.resolve(__dirname, '../..'),
@@ -13,7 +19,8 @@ const standardDevelopmentConfig = configFactory({
     'loading-indicator-animation': './src/client/loading-indicator-animation',
     main: './src/client',
   },
-  publicPath: '/community-app-assets',
+  keepBuildInfo: Boolean(global.KEEP_BUILD_INFO),
+  publicPath,
 });
 
 const jsxRule = standardDevelopmentConfig.module.rules.find(rule =>
@@ -24,11 +31,8 @@ jsxRule.exclude = [
   /src[\\/]assets[\\/]images[\\/]dashboard/,
 ];
 
-module.exports = webpackMerge.smart(standardDevelopmentConfig, defaultConfig, {
-  module: {
-    noParse: [
-      /* To avoid bundling of redux-devtools into production bundle. */
-      /[\\/]src[\\/]shared[\\/]containers[\\/]DevTools/,
-    ],
-  },
-});
+standardDevelopmentConfig.plugins.push(new webpack.DefinePlugin({
+  PUBLIC_PATH: JSON.stringify(publicPath),
+}));
+
+module.exports = webpackMerge.smart(standardDevelopmentConfig, defaultConfig);

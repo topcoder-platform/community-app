@@ -12,9 +12,8 @@ import shortId from 'shortid';
 import Terms from 'containers/Terms';
 import termsActions from 'actions/terms';
 
-import JoinCommunity, {
-  STATE as JOIN_COMMUNITY,
-} from 'components/tc-communities/JoinCommunity';
+import JoinCommunity, { STATE as JOIN_COMMUNITY }
+  from 'components/tc-communities/JoinCommunity';
 import { connect } from 'react-redux';
 
 class JoinCommunityContainer extends React.Component {
@@ -24,8 +23,10 @@ class JoinCommunityContainer extends React.Component {
   }
 
   render() {
-    const { token, groupIds, userId, terms, openTermsModal,
-      communityId, join, joinCommunityWrapper } = this.props;
+    const {
+      token, groupIds, userId, terms, openTermsModal,
+      communityId, join, joinCommunityWrapper,
+    } = this.props;
 
     const hasNotAgreedTerms = terms && terms.length && !_.every(terms, 'agreed');
     const onJoinClick = hasNotAgreedTerms ?
@@ -72,7 +73,8 @@ function mapStateToProps(state, ownProps) {
   if (!canJoin) {
     const int = _.intersection(
       joinGroupId ? [joinGroupId] : state.tcCommunities.meta.data.groupIds,
-      state.auth.profile.groups.map(g => g.id));
+      state.auth.profile.groups.map(g => g.id),
+    );
     canJoin = !int.length;
   }
   if (state.tcCommunities.hideJoinButton) canJoin = false;
@@ -95,7 +97,6 @@ function mapStateToProps(state, ownProps) {
 
 function mapDispatchToProps(dispatch) {
   const a = actions.tcCommunity;
-  const t = termsActions.terms;
   return {
     hideJoinButton: () => dispatch(a.hideJoinButton()),
     join: (...args) => {
@@ -106,7 +107,7 @@ function mapDispatchToProps(dispatch) {
     showJoinConfirmModal: () => dispatch(a.showJoinConfirmModal()),
     openTermsModal: (uuid) => {
       dispatch(a.resetJoinButton());
-      dispatch(t.openTermsModal(uuid));
+      dispatch(termsActions.terms.openTermsModal(uuid));
     },
   };
 }

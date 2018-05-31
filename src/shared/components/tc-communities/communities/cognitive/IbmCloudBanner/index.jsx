@@ -25,7 +25,8 @@ export default function IbmCloudBanner({
         />
         <h1
           styleName="text"
-        >IBM Bluemix is Now IBM Cloud!</h1>
+        >IBM Bluemix is Now IBM Cloud!
+        </h1>
       </div>
       <PrimaryButton
         onClick={onClick}
@@ -33,7 +34,8 @@ export default function IbmCloudBanner({
           button: style.button,
         }}
         to={to}
-      >Learn More</PrimaryButton>
+      >Learn More
+      </PrimaryButton>
     </div>
   );
 }

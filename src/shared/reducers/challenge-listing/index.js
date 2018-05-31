@@ -4,16 +4,18 @@
 
 import _ from 'lodash';
 import actions from 'actions/challenge-listing';
-import logger from 'utils/logger';
 import { handleActions } from 'redux-actions';
-import { combine, resolveReducers } from 'utils/redux';
+import { redux } from 'topcoder-react-utils';
 import { updateQuery } from 'utils/url';
 import moment from 'moment';
-import { getFilterFunction } from 'utils/challenge-listing/filter';
-import { fireErrorMessage } from 'utils/errors';
+import { logger, errors, challenge as challengeUtils }
+  from 'topcoder-react-lib';
 
 import filterPanel from '../challenge-listing/filter-panel';
 import sidebar, { factory as sidebarFactory } from '../challenge-listing/sidebar';
+
+const { fireErrorMessage } = errors;
+const { filter: Filter } = challengeUtils;
 
 function onGetAllActiveChallengesDone(state, { error, payload }) {
   if (error) {
@@ -150,7 +152,7 @@ function onGetPastChallengesDone(state, { error, payload }) {
 
   let keepPastPlaceholders = false;
   if (loaded.length) {
-    const ff = getFilterFunction(frontFilter);
+    const ff = Filter.getFilterFunction(frontFilter);
     keepPastPlaceholders =
       challenges.filter(ff).length - state.challenges.filter(ff).length < 10;
   }
@@ -430,15 +432,15 @@ export function factory(req) {
     }
     state.selectedCommunityId = req.query.communityId;
 
-    return resolveReducers({
+    return redux.resolveReducers({
       sidebar: sidebarFactory(req),
-    }).then(reducers => combine(create(state), { ...reducers, filterPanel }));
+    }).then(reducers => redux.combineReducers(create(state), { ...reducers, filterPanel }));
   }
 
-  return resolveReducers({
+  return redux.resolveReducers({
     sidebar: sidebarFactory(req),
-  }).then(reducers => combine(create(), { ...reducers, filterPanel }));
+  }).then(reducers => redux.combineReducers(create(), { ...reducers, filterPanel }));
 }
 
 /* Default reducer with empty initial state. */
-export default combine(create(), { filterPanel, sidebar });
+export default redux.combineReducers(create(), { filterPanel, sidebar });

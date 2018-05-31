@@ -4,7 +4,7 @@ jobs:
   # Build & Deploy against development backend
   "build-dev":
     docker:
-      - image: docker:17.06.1-ce-git
+      - image: docker:17.11.0-ce-git
     steps:
       # Initialization.
       - checkout
@@ -79,7 +79,7 @@ jobs:
   # Jest unit-tests).
   test:
     docker:
-      - image: circleci/node:8.9.2
+      - image: circleci/node:8.11.1
     steps:
       - checkout
       - restore_cache:
@@ -99,7 +99,7 @@ workflows:
       - "build-dev":
           filters:
             branches:
-              only: develop
+              only: new-develop
 
       # Production builds are exectuted only on tagged commits to the
       # master branch.
@@ -116,4 +116,4 @@ workflows:
           filters:
             branches:
               ignore:
-                - develop
+                - new-develop

@@ -7,12 +7,11 @@
  * the 'user' prop.
  */
 
-import config from 'utils/config';
 import React, { Component } from 'react';
 import PT from 'prop-types';
-// import moment from 'moment';
 import Tooltip from 'components/Tooltip';
 import { Avatar } from 'topcoder-react-ui-kit';
+import { config } from 'topcoder-react-utils';
 import styles from './style.scss';
 
 /**

@@ -7,13 +7,11 @@
 
 import _ from 'lodash';
 import fs from 'fs';
-import logger from 'utils/logger';
+import { logger, services } from 'topcoder-react-lib';
 import path from 'path';
-import {
-  addDescendantGroups,
-  getService as getGroupsService,
-} from 'services/groups';
-import { isServerSide } from 'utils//isomorphy';
+import { isomorphy } from 'topcoder-react-utils';
+
+const { addDescendantGroups, getService } = services.groups;
 
 /* Holds the mapping between subdomains and communities. It is automatically
  * generated at startup, using "subdomains" property from community configs */
@@ -26,7 +24,7 @@ const SUBDOMAIN_COMMUNITY = {};
 const COMMUNITY_META_DATA = {};
 
 const METADATA_PATH = path.resolve(__dirname, '../tc-communities');
-const VALID_IDS = isServerSide()
+const VALID_IDS = isomorphy.isServerSide()
 && fs.readdirSync(METADATA_PATH).filter((id) => {
   /* Here we check which ids are correct, and also popuate SUBDOMAIN_COMMUNITY
    * map. */
@@ -58,7 +56,7 @@ function addUnknown(ids, known, unknown) {
 export default class Communities {
   constructor(tokenV3) {
     this.private = {
-      groupsService: getGroupsService(tokenV3),
+      groupsService: getService(tokenV3),
       tokenV3,
     };
 
@@ -75,13 +73,15 @@ export default class Communities {
           metadata = COMMUNITY_META_DATA[communityId];
           resolve(metadata);
         } else {
-          const uri = path.resolve(__dirname, '../tc-communities',
-            communityId, 'metadata.json');
+          const uri = path.resolve(
+            __dirname, '../tc-communities',
+            communityId, 'metadata.json',
+          );
           fs.readFile(uri, 'utf8', (err, res) => {
             if (err) {
               const msg = `Failed to get metadata for ${communityId} community`;
               logger.error(msg, err);
-              return reject({ error: msg });
+              return reject({ error: msg }); // eslint-disable-line prefer-promise-reject-errors
             }
             COMMUNITY_META_DATA[communityId] = JSON.parse(res);
             metadata = COMMUNITY_META_DATA[communityId];
@@ -111,15 +111,15 @@ export default class Communities {
           .then(map => _.assign(knownGroups, map))
       ) : null).then(() => {
         if (groomedMetadata.authorizedGroupIds) {
-          groomedMetadata.authorizedGroupIds = addDescendantGroups(
-            groomedMetadata.authorizedGroupIds, knownGroups);
+          groomedMetadata.authorizedGroupIds =
+            addDescendantGroups(groomedMetadata.authorizedGroupIds, knownGroups);
         }
         if (groomedMetadata.groupIds) {
           groomedMetadata.groupIds = addDescendantGroups(groomedMetadata.groupIds, knownGroups);
         }
         if (challengeGroupIds) {
-          groomedMetadata.challengeFilter.groupIds = addDescendantGroups(
-            challengeGroupIds, knownGroups);
+          groomedMetadata.challengeFilter.groupIds =
+            addDescendantGroups(challengeGroupIds, knownGroups);
         }
         return groomedMetadata;
       });
@@ -135,27 +135,23 @@ export default class Communities {
   getList(userGroupIds) {
     const list = [];
     const knownGroups = {};
-    return Promise.all(
-      VALID_IDS.map(id =>
-        this.private.getMetadata(id, knownGroups).then((data) => {
-          if (!data.authorizedGroupIds ||
+    return Promise.all(VALID_IDS.map(id =>
+      this.private.getMetadata(id, knownGroups).then((data) => {
+        if (!data.authorizedGroupIds ||
           _.intersection(data.authorizedGroupIds, userGroupIds).length) {
-            list.push({
-              challengeFilter: data.challengeFilter || {},
-              communityId: data.communityId,
-              communityName: data.communityName,
-              description: data.description,
-              groupIds: data.groupIds,
-              hidden: data.hidden || false,
-              image: data.image,
-              mainSubdomain: _.get(data, 'subdomains[0]', ''),
-            });
-          }
-        }).catch(() => null),
-      ),
-    ).then(() =>
-      list.sort((a, b) => a.communityName.localeCompare(b.communityName)),
-    );
+          list.push({
+            challengeFilter: data.challengeFilter || {},
+            communityId: data.communityId,
+            communityName: data.communityName,
+            description: data.description,
+            groupIds: data.groupIds,
+            hidden: data.hidden || false,
+            image: data.image,
+            mainSubdomain: _.get(data, 'subdomains[0]', ''),
+          });
+        }
+      }).catch(() => null))).then(() =>
+      list.sort((a, b) => a.communityName.localeCompare(b.communityName)));
   }
 
   /**

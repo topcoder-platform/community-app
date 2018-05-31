@@ -31,6 +31,7 @@ export default function Badge({
             <img
               alt={title}
               src={xlBadge}
+              styleName="xlBadgeImage"
             />
           ) : xlBadge
         }
@@ -44,7 +45,8 @@ export default function Badge({
       onMouseLeave={() => showXl()}
       styleName={`badge ${badge}`}
       title={title}
-    >{xlBadgeNode}</div>
+    >{xlBadgeNode}
+    </div>
   );
 }
 

@@ -1,4 +1,6 @@
-import { mockAction } from 'utils/mock';
+import { mock } from 'topcoder-react-lib';
+
+const { mockAction } = mock;
 
 jest.mock('utils/url', () => ({
   updateQuery: () => {},
@@ -6,9 +8,7 @@ jest.mock('utils/url', () => ({
 const defaultReducer = require('reducers/challenge-listing').default;
 
 const mockActions = {
-  dropChallenges: () => mockAction(
-    'CHALLENGE_LISTING/DROP_CHALLENGES',
-  ),
+  dropChallenges: () => mockAction('CHALLENGE_LISTING/DROP_CHALLENGES'),
   getAllActiveChallengesInit: uuid => mockAction(
     'CHALLENGE_LISTING/GET_ALL_ACTIVE_CHALLENGES_INIT',
     uuid,
@@ -17,17 +17,13 @@ const mockActions = {
     'CHALLENGE_LISTING/GET_ALL_ACTIVE_CHALLENGES_DONE',
     payload,
   ),
-  getChallengeSubtracksInit: () => mockAction(
-    'CHALLENGE_LISTING/GET_CHALLENGE_SUBTRACKS_INIT',
-  ),
+  getChallengeSubtracksInit: () => mockAction('CHALLENGE_LISTING/GET_CHALLENGE_SUBTRACKS_INIT'),
   getChallengeSubtracksDone: (payload, error) => mockAction(
     'CHALLENGE_LISTING/GET_CHALLENGE_SUBTRACKS_DONE',
     payload,
     error,
   ),
-  getChallengeTagsInit: () => mockAction(
-    'CHALLENGE_LISTING/GET_CHALLENGE_TAGS_INIT',
-  ),
+  getChallengeTagsInit: () => mockAction('CHALLENGE_LISTING/GET_CHALLENGE_TAGS_INIT'),
   getChallengeTagsDone: (payload, error) => mockAction(
     'CHALLENGE_LISTING/GET_CHALLENGE_TAGS_DONE',
     payload,

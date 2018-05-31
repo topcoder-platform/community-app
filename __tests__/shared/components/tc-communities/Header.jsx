@@ -61,7 +61,7 @@ class Wrapper extends React.Component {
   }
 }
 
-describe('Toggle mobile menu', () => {
+describe.skip('Toggle mobile menu', () => {
   beforeEach(() => jest.clearAllMocks());
 
   const page = TU.renderIntoDocument((

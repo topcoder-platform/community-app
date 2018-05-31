@@ -11,11 +11,10 @@
 
 import _ from 'lodash';
 import actions from 'actions/challenge-listing';
-import challengeActions from 'actions/challenge';
-import config from 'utils/config';
+import challengeDetailsActions from 'actions/page/challenge-details';
 import filterPanelActions from 'actions/challenge-listing/filter-panel';
 import headerActions from 'actions/topcoder_header';
-import logger from 'utils/logger';
+import { logger, challenge as challengeUtils } from 'topcoder-react-lib';
 import React from 'react';
 import PT from 'prop-types';
 import shortId from 'shortid';
@@ -26,10 +25,12 @@ import NewsletterSignup from 'components/tc-communities/NewsletterSignup';
 import sidebarActions from 'actions/challenge-listing/sidebar';
 import communityActions from 'actions/tc-communities';
 import { BUCKETS } from 'utils/challenge-listing/buckets';
-import { combine, mapToBackend } from 'utils/challenge-listing/filter';
-import MetaTags from 'utils/MetaTags';
+import { config, MetaTags } from 'topcoder-react-utils';
+
 import ogImage from '../../../../assets/images/og_image.jpg';
 import style from './styles.scss';
+
+const { combine, mapToBackend } = challengeUtils.filter;
 
 let mounted = false;
 
@@ -78,7 +79,7 @@ export class ListingContainer extends React.Component {
       this.props.getCommunitiesList(this.props.auth);
     }
 
-    const profile = this.props.auth.profile;
+    const { profile } = this.props.auth;
     if (profile) {
       if (!prevProps.auth.profile) setImmediate(() => this.loadChallenges());
     } else if (prevProps.auth.profile) {
@@ -100,7 +101,7 @@ export class ListingContainer extends React.Component {
   /* Evaluates the backend challenge filter most suitable for the current state
    * of the active frontend filters. */
   getBackendFilter() {
-    let filter = this.props.filter;
+    let { filter } = this.props;
     let communityFilter = this.props.communitiesList.data.find(item =>
       item.communityId === this.props.selectedCommunityId);
     if (communityFilter) communityFilter = communityFilter.challengeFilter;
@@ -447,7 +448,7 @@ function mapDispatchToProps(dispatch) {
     },
     selectBucket: bucket => dispatch(sa.selectBucket(bucket)),
     selectChallengeDetailsTab: tab =>
-      dispatch(challengeActions.challenge.selectTab(tab)),
+      dispatch(challengeDetailsActions.page.challengeDetails.selectTab(tab)),
     selectCommunity: id => dispatch(a.selectCommunity(id)),
     setFilter: state => dispatch(a.setFilter(state)),
     setSearchText: text => dispatch(fpa.setSearchText(text)),

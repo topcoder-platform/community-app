@@ -31,6 +31,10 @@ module.exports = {
    * challenges once per this amount of seconds. */
   CHALLENGE_LISTING_AUTO_REFRESH: 300,
 
+  CONTENTFUL: {
+    LOCAL_MODE: false,
+  },
+
   /* API token for logentries.com. The token below is just for local testing of
    * the setup. To override it use LOG_ENTRIES_TOKEN environment variable. */
   LOG_ENTRIES_TOKEN: '816f5574-0d4a-49f9-ab3b-00d791f7c1f7',
@@ -91,7 +95,7 @@ module.exports = {
     ARENA: 'https://arena.topcoder-dev.com',
     AUTH: 'http://accounts.topcoder-dev.com',
     BASE: 'https://www.topcoder-dev.com',
-    BLOG: 'https://www.topcoder-dev.com/blog',
+    BLOG: 'https://www.topcoder.com/blog',
     BLOG_FEED: 'https://www.topcoder-dev.com/feed',
     COMMUNITY: 'https://community.topcoder-dev.com',
     FORUMS: 'https://apps.topcoder-dev.com/forums',

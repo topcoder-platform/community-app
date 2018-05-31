@@ -22,7 +22,7 @@ function create(defaultState = {}) {
 
 export function factory(req) {
   // Check to see if a specific event is provided as a param
-  if (req && req.url.match(/^\/tco-hall-of-fame\/\d{2}\/?/)) {
+  if (req && req.url.match(/^\/hall-of-fame\/tco\/\d{2}\/?/)) {
     const eventId = req.url.match(/\d{2}/)[0];
     return Promise.resolve(create({
       selectedEvent: eventId,

@@ -26,7 +26,9 @@ class ApplyModal extends React.Component {
   }
 
   render() {
-    const { details, handle, onApply, onCancel, toggleRole, selectedRoles } = this.props;
+    const {
+      details, handle, onApply, onCancel, toggleRole, selectedRoles,
+    } = this.props;
     const positions = openPositionsByRole(details);
     const previousRoles = activeRoleIds(details, handle);
     const hasApplied = Boolean(previousRoles.length);
@@ -84,7 +86,8 @@ class ApplyModal extends React.Component {
           <PrimaryButton
             disabled={!hasChanged}
             onClick={onApply}
-          >{hasApplied ? 'Update' : 'Apply Now'}</PrimaryButton>
+          >{hasApplied ? 'Update' : 'Apply Now'}
+          </PrimaryButton>
         </div>
       </Modal>
     );

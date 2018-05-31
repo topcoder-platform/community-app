@@ -1,0 +1,116 @@
+{
+  "achievements": [],
+  "copilot": false,
+  "country": "United States",
+  "externalAccounts": {
+    "userId": 200000,
+    "handle": "testHandle",
+    "behance": null,
+    "bitbucket": null,
+    "dribbble": null,
+    "github": null,
+    "linkedin": null,
+    "stackoverflow": null,
+    "twitter": null
+  },
+  "externalLinks": [],
+  "handleParam": "testHandle",
+  "info": {
+    "maxRating": {
+      "rating": 0,
+      "track": null,
+      "subTrack": null
+    },
+    "userId": 200000,
+    "description": "Test Description",
+    "handle": "testHandle",
+    "handleLower": "testhandle",
+    "status": "ACTIVE",
+    "homeCountryCode": "USA",
+    "competitionCountryCode": "USA",
+    "photoURL": null,
+    "tracks": [],
+    "updatedAt": "2017-10-17T17:13Z",
+    "createdAt": "2004-03-21T21:05Z",
+    "createdBy": "200000",
+    "updatedBy": "200000"
+  },
+  "loadingError": false,
+  "profileForHandle": "testHandle",
+  "skills": {},
+  "stats": {
+    "userId": 200000,
+    "handle": "testHandle",
+    "handleLower": "testhandle",
+    "maxRating": {
+      "rating": 0,
+      "track": null,
+      "subTrack": null
+    },
+    "challenges": 0,
+    "wins": 0,
+    "DEVELOP": {
+      "challenges": 0,
+      "wins": 0,
+      "subTracks": [],
+      "mostRecentEventDate": "2017-01-22T16:33:45.000Z",
+      "mostRecentSubmission": "2017-01-22T19:33:00.000Z"
+    },
+    "DESIGN": {
+      "challenges": 0,
+      "wins": 0,
+      "subTracks": [],
+      "mostRecentEventDate": "2015-01-30T00:50:17.000Z",
+      "mostRecentSubmission": "2014-03-29T08:12:00.000Z"
+    },
+    "DATA_SCIENCE": {
+      "challenges": 0,
+      "wins": 0,
+      "SRM": {
+        "challenges": 0,
+        "wins": 0,
+        "rank": {
+          "rating": 0,
+          "percentile": 0,
+          "rank": 0,
+          "countryRank": 0,
+          "schoolRank": 0,
+          "volatility": 0,
+          "maximumRating": 0,
+          "minimumRating": 0,
+          "defaultLanguage": "Java",
+          "competitions": 0
+        },
+        "challengeDetails": null,
+        "division1": null,
+        "division2": null
+      },
+      "MARATHON_MATCH": {
+        "challenges": 0,
+        "wins": 0,
+        "rank": {
+          "rating": 0,
+          "competitions": 0,
+          "avgRank": 0,
+          "avgNumSubmissions": 0,
+          "bestRank": 0,
+          "topFiveFinishes": 0,
+          "topTenFinishes": 0,
+          "rank": 0,
+          "percentile": 0,
+          "volatility": 0,
+          "minimumRating": 0,
+          "maximumRating": 0,
+          "countryRank": 0,
+          "schoolRank": 0,
+          "defaultLanguage": "Java"
+        }
+      }
+    },
+    "COPILOT": null,
+    "updatedAt": null,
+    "createdAt": null,
+    "createdBy": null,
+    "updatedBy": null
+  }
+}

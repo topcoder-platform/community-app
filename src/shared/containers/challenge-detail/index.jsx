@@ -4,7 +4,7 @@
  * (thus allowing to show/hide detail panels for different submissions),
  * and it should define all necessary handlers to pass to the children.
  */
-/* global location */
+/* global window */
 
 import _ from 'lodash';
 import communityActions from 'actions/tc-communities';
@@ -25,11 +25,12 @@ import React from 'react';
 import htmlToText from 'html-to-text';
 import PT from 'prop-types';
 import { connect } from 'react-redux';
-import challengeActions, { DETAIL_TABS } from 'actions/challenge';
-import config from 'utils/config';
-import MetaTags from 'utils/MetaTags';
+import challengeDetailsActions, { TABS as DETAIL_TABS }
+  from 'actions/page/challenge-details';
 import { BUCKETS } from 'utils/challenge-listing/buckets';
 import { CHALLENGE_PHASE_TYPES, COMPETITION_TRACKS_V3, SUBTRACKS } from 'utils/tc';
+import { config, MetaTags } from 'topcoder-react-utils';
+import { actions } from 'topcoder-react-lib';
 
 import ogWireframe from
   '../../../assets/images/open-graph/challenges/01-wireframe.jpg';
@@ -186,7 +187,7 @@ class ChallengeDetailPageContainer extends React.Component {
   registerForChallenge() {
     if (!this.props.auth.tokenV2) {
       const utmSource = this.props.communityId || 'community-app-main';
-      location.href = `${config.URL.AUTH}/member?retUrl=${encodeURIComponent(location.href)}&utm_source=${utmSource}`;
+      window.location.href = `${config.URL.AUTH}/member?retUrl=${encodeURIComponent(window.location.href)}&utm_source=${utmSource}`;
     } else if (_.every(this.props.terms, 'agreed')) {
       this.props.registerForChallenge(this.props.auth, this.props.challengeId);
     } else {
@@ -226,9 +227,11 @@ class ChallengeDetailPageContainer extends React.Component {
 
     const isEmpty = _.isEmpty(this.props.challenge);
 
-    const hasRegistered = isRegistered(this.props.challenge.userDetails,
+    const hasRegistered = isRegistered(
+      this.props.challenge.userDetails,
       this.props.challenge.registrants,
-      (this.props.auth.user || {}).handle);
+      (this.props.auth.user || {}).handle,
+    );
 
     if (this.props.isLoadingChallenge || this.props.isLoadingTerms) {
       return <LoadingPagePlaceholder />;
@@ -299,7 +302,12 @@ class ChallengeDetailPageContainer extends React.Component {
             !isEmpty && this.props.selectedTab === DETAIL_TABS.REGISTRANTS &&
             <Registrants
               challenge={this.props.challenge}
-              checkpointResults={this.props.checkpointResults}
+              checkpointResults={
+                _.merge(
+                  this.props.checkpointResults,
+                  this.props.checkpointResultsUi,
+                )
+              }
               results={results}
             />
           }
@@ -318,6 +326,7 @@ class ChallengeDetailPageContainer extends React.Component {
             !isEmpty && this.props.selectedTab === DETAIL_TABS.WINNERS &&
             <Winners
               winners={winners}
+              pointPrizes={this.props.challenge.pointPrizes}
               prizes={this.props.challenge.prizes}
               submissions={this.props.challenge.submissions}
               viewable={this.props.challenge.submissionsViewable === 'true'}
@@ -345,7 +354,7 @@ ChallengeDetailPageContainer.defaultProps = {
   communityId: null,
   isLoadingChallenge: false,
   isLoadingTerms: false,
-  loadingCheckpointResults: false,
+  // loadingCheckpointResults: false,
   results: null,
   terms: [],
 };
@@ -357,6 +366,7 @@ ChallengeDetailPageContainer.propTypes = {
   challengeSubtracksMap: PT.shape().isRequired,
   challengesUrl: PT.string,
   checkpointResults: PT.arrayOf(PT.shape()),
+  checkpointResultsUi: PT.shape().isRequired,
   checkpoints: PT.shape(),
   communityId: PT.string,
   communitiesList: PT.shape({
@@ -399,6 +409,7 @@ function mapStateToProps(state, props) {
     challengesUrl: props.challengesUrl,
     challengeSubtracksMap: state.challengeListing.challengeSubtracksMap,
     checkpointResults: (state.challenge.checkpoints || {}).checkpointResults,
+    checkpointResultsUi: state.page.challengeDetails.checkpoints,
     checkpoints: state.challenge.checkpoints || {},
     communityId: props.communityId,
     communitiesList: state.tcCommunities.list,
@@ -414,7 +425,10 @@ function mapStateToProps(state, props) {
     results: state.challenge.results,
     resultsLoadedForChallengeId: state.challenge.resultsLoadedForChallengeId,
     savingChallenge: Boolean(state.challenge.updatingChallengeUuid),
-    selectedTab: state.challenge.selectedTab || 'details',
+
+    /* TODO: Carefully move default value to defaultProps. */
+    selectedTab: state.page.challengeDetails.selectedTab || 'details',
+
     specsTabState: state.page.challengeDetails.specsTabState,
     terms: state.terms.terms,
     unregistering: state.challenge.unregistering,
@@ -423,8 +437,6 @@ function mapStateToProps(state, props) {
 
 const mapDispatchToProps = (dispatch) => {
   const ca = communityActions.tcCommunity;
-  const a = challengeActions.challenge;
-  const t = termsActions.terms;
   return {
     getCommunitiesList: (auth) => {
       const uuid = shortId();
@@ -432,6 +444,7 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(ca.getListDone(uuid, auth));
     },
     loadChallengeDetails: (tokens, challengeId) => {
+      const a = actions.challenge;
       dispatch(a.getDetailsInit(challengeId));
       dispatch(a.getDetailsDone(challengeId, tokens.tokenV3, tokens.tokenV2))
         .then((res) => {
@@ -452,10 +465,12 @@ const mapDispatchToProps = (dispatch) => {
         });
     },
     registerForChallenge: (auth, challengeId) => {
+      const a = actions.challenge;
       dispatch(a.registerInit());
       dispatch(a.registerDone(auth, challengeId));
     },
     reloadChallengeDetails: (tokens, challengeId) => {
+      const a = actions.challenge;
       dispatch(a.getDetailsDone(challengeId, tokens.tokenV3, tokens.tokenV2))
         .then((challengeDetails) => {
           if (challengeDetails.track === 'DESIGN') {
@@ -477,22 +492,29 @@ const mapDispatchToProps = (dispatch) => {
     setSpecsTabState: state =>
       dispatch(pageActions.page.challengeDetails.setSpecsTabState(state)),
     unregisterFromChallenge: (auth, challengeId) => {
+      const a = actions.challenge;
       dispatch(a.unregisterInit());
       dispatch(a.unregisterDone(auth, challengeId));
     },
     loadResults: (auth, challengeId, type) => {
+      const a = actions.challenge;
       dispatch(a.loadResultsInit(challengeId));
       dispatch(a.loadResultsDone(auth, challengeId, type));
     },
     fetchCheckpoints: (tokens, challengeId) => {
+      const a = actions.challenge;
       dispatch(a.fetchCheckpointsInit());
       dispatch(a.fetchCheckpointsDone(tokens.tokenV2, challengeId));
     },
     toggleCheckpointFeedback: (id, open) => {
-      dispatch(a.toggleCheckpointFeedback(id, open));
+      const {
+        toggleCheckpointFeedback,
+      } = challengeDetailsActions.page.challengeDetails;
+      dispatch(toggleCheckpointFeedback(id, open));
     },
     onSelectorClicked: (tab) => {
-      dispatch(a.selectTab(tab));
+      const { selectTab } = challengeDetailsActions.page.challengeDetails;
+      dispatch(selectTab(tab));
     },
     getSubtracks: () => {
       const cl = challengeListingActions.challengeListing;
@@ -500,10 +522,11 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(cl.getChallengeSubtracksDone());
     },
     openTermsModal: (term) => {
-      dispatch(t.openTermsModal('ANY', term));
+      dispatch(termsActions.terms.openTermsModal('ANY', term));
     },
     updateChallenge: (challenge, tokenV3) => {
       const uuid = shortId();
+      const a = actions.challenge;
       dispatch(a.updateChallengeInit(uuid));
       dispatch(a.updateChallengeDone(uuid, challenge, tokenV3));
     },

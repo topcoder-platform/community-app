@@ -1,0 +1,253 @@
+@import "~styles/mixins";
+
+.logo {
+  padding: 20px 0 0 0;
+
+  svg,
+  img {
+    max-height: 30px;
+    max-width: 30px;
+  }
+}
+
+.container {
+  background-color: $tc-gray-neutral-light;
+  border: 1px solid $tc-gray-10;
+  width: 280px;
+  height: 90px;
+  display: flex;
+  flex-direction: row;
+  text-align: center;
+  margin-bottom: 10px;
+  border-radius: 4px;
+
+  @include sofia-pro-medium;
+
+  &:hover {
+    cursor: pointer;
+
+    i {
+      color: black;
+    }
+  }
+
+  .top {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 90px;
+    height: 88px;
+    border-radius: 4px 0 0 4px;
+    position: relative;
+
+    i {
+      font-size: 40px;
+      margin-top: 15px;
+    }
+
+    h2 {
+      margin-top: 5px;
+      flex-basis: 40px;
+      text-transform: uppercase;
+      font-weight: 500;
+      color: #a3a3ae;
+      font-size: 10px;
+      line-height: 12px;
+    }
+  }
+
+  .bottom {
+    width: 220px;
+    padding-top: 10px;
+    background-color: $tc-white;
+    height: 100%;
+
+    .handle {
+      @include sofia-pro-light;
+
+      font-size: 18px;
+      height: 20px;
+    }
+
+    .title {
+      margin-top: 10px;
+      color: #9e9e9e;
+      font-size: 12px;
+      line-height: 14px;
+
+      @include sofia-pro-medium;
+    }
+
+    .pending {
+      p {
+        @include sofia-pro-regular;
+
+        font-size: 16px;
+        color: $tc-gray-10;
+        margin-bottom: 15px;
+        padding: 0 10px;
+      }
+    }
+
+    ul {
+      margin-top: 10px;
+      height: 40px;
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+
+      li {
+        justify-content: space-between;
+        margin: 10px 0 10px 0;
+        width: 90px;
+        color: #9e9e9e;
+
+        .key {
+          font-size: 11px;
+          text-transform: capitalize;
+        }
+
+        .value {
+          font-size: 14px;
+        }
+      }
+    }
+
+    .link-title {
+      @include sofia-pro-medium;
+
+      font-size: 12px;
+      line-height: 20px;
+      color: $tc-gray-80;
+      margin-top: 10px;
+      height: 40px;
+      overflow: hidden;
+      padding: 0 20px;
+      text-transform: uppercase;
+    }
+
+    .link-url,
+    .link-url:visited {
+      color: $tc-dark-blue;
+      font-size: 12px;
+      line-height: 14px;
+      word-wrap: break-word;
+      display: block;
+      overflow: hidden;
+      max-height: 14px;
+      padding: 0 20px;
+      text-transform: uppercase;
+    }
+  }
+}
+
+@media (min-width: 768px) {
+  .logo {
+    padding: 10px;
+
+    svg,
+    img {
+      max-height: 40px;
+      max-width: 40px;
+    }
+  }
+
+  .container {
+    border: 1px solid #f0f0f0;
+    background-color: $tc-gray-neutral-light;
+    margin-left: 15px;
+    margin-top: 30px;
+    margin-bottom: 0;
+    width: 218px;
+    height: 240px;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    padding: 0;
+
+    @include sofia-pro-medium;
+
+    i {
+      color: #7f7f7f;
+    }
+
+    &:hover {
+      cursor: pointer;
+      background-color: #fbfbfb;
+
+      i {
+        color: black;
+      }
+    }
+
+    .top {
+      padding-top: 15px;
+      background: none;
+      width: auto;
+
+      h2 {
+        flex-basis: 40px;
+        text-transform: uppercase;
+        font-weight: 500;
+        color: #a3a3ae;
+        font-size: 12px;
+        line-height: 14px;
+      }
+    }
+
+    .bottom {
+      background-color: $tc-gray-neutral-light;
+      margin-top: 15px;
+      width: auto;
+
+      .handle {
+        margin-top: 20px;
+        margin-bottom: 20px;
+      }
+
+      .title {
+        height: 40px;
+        margin-top: 15px;
+        margin-bottom: 30px;
+      }
+
+      ul {
+        margin-left: 10px;
+        margin-bottom: 10px;
+        height: 40px;
+        display: flex;
+        flex-direction: row;
+
+        li {
+          justify-content: space-between;
+          margin: 10px 0 10px 0;
+          width: 90px;
+
+          @include sofia-pro-medium;
+
+          .value {
+            color: $tc-gray-90;
+            font-size: 18px;
+          }
+
+          .key {
+            text-transform: uppercase;
+            font-size: 12px;
+            margin-top: 4px;
+            color: $tc-gray-40;
+          }
+        }
+      }
+
+      .link-title {
+        margin-top: 15px;
+        margin-bottom: 20px;
+        height: 60px;
+      }
+
+      .link-url {
+        max-height: 28px;
+      }
+    }
+  }
+}

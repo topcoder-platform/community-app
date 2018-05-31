@@ -38,7 +38,8 @@ class Modal extends React.Component {
         <div
           className={theme.container}
           onWheel={event => event.stopPropagation()}
-        >{children}</div>
+        >{children}
+        </div>
         <button
           onClick={() => onCancel()}
           className={theme.overlay}

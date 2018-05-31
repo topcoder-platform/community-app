@@ -1,12 +1,12 @@
 import _ from 'lodash';
-import config from 'utils/config';
-import { Link } from 'topcoder-react-utils';
 import moment from 'moment';
 import React from 'react';
 import PT from 'prop-types';
 import TrackIcon from 'components/TrackIcon';
-import { DETAIL_TABS } from 'actions/challenge';
+import { TABS as DETAIL_TABS } from 'actions/page/challenge-details';
 import { convertNow as convertMoney } from 'services/money';
+import { config, Link } from 'topcoder-react-utils';
+
 import Tags from '../Tags';
 
 import Prize from './Prize';
@@ -19,7 +19,6 @@ export const PRIZE_MODE = {
   MONEY_EUR: 'money-eur',
   MONEY_INR: 'money-inr',
   MONEY_USD: 'money-usd',
-  POINTS: 'points',
 };
 
 // Constants
@@ -89,12 +88,9 @@ function ChallengeCard({
     });
   }
   let prizeUnitSymbol = '';
-  let prizes = challenge.prizes;
+  let { prizes } = challenge;
   let totalPrize;
   switch (prizeMode) {
-    case PRIZE_MODE.POINTS:
-      totalPrize = Math.round(challenge.drPoints || 0);
-      break;
     case PRIZE_MODE.MONEY_EUR:
       prizeUnitSymbol = '€';
       bonuses.forEach((bonus) => {
@@ -113,7 +109,7 @@ function ChallengeCard({
       break;
     case PRIZE_MODE.MONEY_USD:
       prizeUnitSymbol = '$';
-      totalPrize = challenge.totalPrize;
+      ({ totalPrize } = challenge);
       break;
     default: throw new Error('Unknown prize mode!');
   }
@@ -140,7 +136,8 @@ function ChallengeCard({
             to={challengeDetailLink}
             styleName="challenge-title"
             openNewTab={openChallengesInNewTabs}
-          >{challenge.name}</Link>
+          >{challenge.name}
+          </Link>
           <div styleName="details-footer">
             <span styleName="date">
               {challenge.status === 'ACTIVE' ? 'Ends ' : 'Ended '}
@@ -158,18 +155,25 @@ function ChallengeCard({
       </div>
       <div styleName="right-panel">
         <div styleName={isRegistrationOpen ? 'prizes with-register-button' : 'prizes'}>
-          {(prizeMode !== PRIZE_MODE.HIDDEN) && (
-            <Prize
-              bonuses={bonuses}
-              label={prizeMode === PRIZE_MODE.POINTS ? 'Points' : 'Purse'}
-              points={challenge.drPoints}
-              prizes={prizes}
-              prizeUnitSymbol={prizeUnitSymbol}
-              totalPrize={totalPrize}
-              withoutTooltip={prizeMode === PRIZE_MODE.POINTS}
-              isMM={isMM}
-            />
-          )}
+          {
+            totalPrize >= 1 &&
+              <Prize
+                bonuses={bonuses}
+                label="Purse"
+                prizes={prizes}
+                prizeUnitSymbol={prizeUnitSymbol}
+                totalPrize={totalPrize}
+              />
+          }
+          {
+            challenge.pointPrizes && challenge.pointPrizes.length > 0 &&
+              <Prize
+                label="Points"
+                prizes={challenge.pointPrizes}
+                prizeUnitSymbol=""
+                totalPrize={challenge.pointPrizes.reduce((acc, points) => acc + points, 0)}
+              />
+          }
         </div>
 
         <ChallengeStatus

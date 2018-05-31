@@ -3,9 +3,11 @@
  */
 
 import _ from 'lodash';
-import config from 'utils/config';
 import { createActions } from 'redux-actions';
-import { getService } from 'services/terms';
+import { services } from 'topcoder-react-lib';
+import { config } from 'topcoder-react-utils';
+
+const { getService } = services.terms;
 
 /**
  * Payload creator for TERMS/GET_TERMS_DONE action,
@@ -159,7 +161,6 @@ function checkStatusDone(entity, tokens) {
 
   /**
    * Promisified setTimeout
-
    * @param  {Number} timeout timeout in milliseconds
    * @return {Promise}         resolves after timeout
    */
@@ -169,7 +170,6 @@ function checkStatusDone(entity, tokens) {
 
   /**
    * Makes attempt to check status
-
    * @param  {Number} maxAttempts maximum number of attempts to perform
    * @return {Promise}            resolves to the list of term objects
    */

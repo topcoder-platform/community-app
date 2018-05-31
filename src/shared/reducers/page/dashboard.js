@@ -1,8 +1,7 @@
 import _ from 'lodash';
 import actions, { TABS } from 'actions/page/dashboard';
 import cookies from 'browser-cookies';
-import { isClientSide } from 'utils/isomorphy';
-import { handleActions } from 'redux-actions';
+import { isomorphy, redux } from 'topcoder-react-utils';
 
 const validTabs = new Set(_.values(TABS));
 
@@ -36,7 +35,7 @@ function onShowChallengeFilter(state, { payload }) {
  */
 function onShowEarnings(state, { payload }) {
   if (state.showEarnings === payload) return state;
-  if (isClientSide()) {
+  if (isomorphy.isClientSide()) {
     cookies.set('showEarningsInDashboard', JSON.stringify(payload), {
       expires: 365,
     });
@@ -85,7 +84,7 @@ function onSwitchTab(state, { payload }) {
  */
 function create(state = {}) {
   const a = actions.page.dashboard;
-  return handleActions({
+  return redux.handleActions({
     [a.showAnnouncement]: onShowAnnouncement,
     [a.showChallengeFilter]: onShowChallengeFilter,
     [a.showEarnings]: onShowEarnings,
@@ -96,6 +95,7 @@ function create(state = {}) {
     challengeFilter: '',
     tab: TABS.MY_ACTIVE_CHALLENGES,
     showAnnouncement: true,
+    showChallengeFilter: false,
     xlBadge: '',
   }));
 }

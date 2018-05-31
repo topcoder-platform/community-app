@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="64px" height="64px" viewBox="0 0 64 64" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <defs></defs>
+    <g id="Skills---Data" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="icons/skills/id-105">
+            <rect id="Rectangle-7" fill="#AA875D" x="9" y="9" width="50" height="50" rx="4"></rect>
+            <rect id="Rectangle-7" fill="#F6B66D" x="5" y="5" width="50" height="50" rx="4"></rect>
+            <text id="∫" font-family="Avenir" font-size="27" font-weight="633" fill="#D4350A">
+                <tspan x="11.7515" y="38">∫</tspan>
+            </text>
+            <text id="∑" font-family="Avenir" font-size="27" font-weight="633" fill="#D4350A">
+                <tspan x="30.252" y="38">∑</tspan>
+            </text>
+        </g>
+    </g>
+</svg>

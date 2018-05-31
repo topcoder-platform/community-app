@@ -4,10 +4,9 @@
 
 import _ from 'lodash';
 import actions from 'actions/tc-communities/meta';
-import logger from 'utils/logger';
-import { handleActions } from 'redux-actions';
+import { logger } from 'topcoder-react-lib';
 import { getCommunityId } from 'server/services/communities';
-import { toFSA } from 'utils/redux';
+import { redux } from 'topcoder-react-utils';
 import { getAuthTokens } from 'utils/tc';
 
 /**
@@ -37,7 +36,7 @@ function onDone(state, action) {
  * @return community meta reducer.
  */
 function create(initialState) {
-  return handleActions({
+  return redux.handleActions({
     [actions.tcCommunities.meta.mobileToggle](state) {
       return {
         ...state,
@@ -69,16 +68,17 @@ export function factory(req) {
   if (req) {
     let communityId = getCommunityId(req.subdomains);
     if (!communityId && req.url.match(/\/community\/.*/)) {
-      communityId = req.url.split('/')[2];
+      [,, communityId] = req.url.split('/');
       // remove possible params like ?join=<communityId>
       communityId = communityId ? communityId.replace(/\?.*/, '') : communityId;
     }
     if (communityId) {
       const state = { loadingMetaDataForCommunityId: communityId };
-      const tokenV3 = getAuthTokens(req).tokenV3;
-      return toFSA(
-        actions.tcCommunities.meta.fetchDataDone(communityId, tokenV3),
-      ).then(res => create(onDone(state, res)));
+      const { tokenV3 } = getAuthTokens(req);
+      return redux.resolveAction(actions.tcCommunities.meta.fetchDataDone(
+        communityId,
+        tokenV3,
+      )).then(res => create(onDone(state, res)));
     }
   }
   return Promise.resolve(create());

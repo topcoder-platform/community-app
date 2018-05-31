@@ -11,12 +11,14 @@ import React from 'react';
 import Sort from 'utils/challenge-listing/sort';
 import SortingSelectBar from 'components/SortingSelectBar';
 import Waypoint from 'react-waypoint';
-import { getFilterFunction } from 'utils/challenge-listing/filter';
+import { challenge as challengeUtils } from 'topcoder-react-lib';
 import CardPlaceholder from '../../placeholders/ChallengeCard';
 import ChallengeCard from '../../ChallengeCard';
 import './style.scss';
 
 const COLLAPSED_SIZE = 10;
+
+const Filter = challengeUtils.filter;
 
 export default function Bucket({
   bucket,
@@ -41,7 +43,7 @@ export default function Bucket({
   expandedTags,
   expandTag,
 }) {
-  const filter = getFilterFunction(bucket.filter);
+  const filter = Filter.getFilterFunction(bucket.filter);
   const activeSort = sort || bucket.sorts[0];
 
   const sortedChallenges = _.clone(challenges);
@@ -126,7 +128,8 @@ export default function Bucket({
             role="button"
             styleName="view-more"
             tabIndex={0}
-          >View more challenges</a>
+          >View more challenges
+          </a>
         ) : null
       }
     </div>

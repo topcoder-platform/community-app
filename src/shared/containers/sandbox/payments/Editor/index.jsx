@@ -11,18 +11,19 @@ import Background from 'components/sandbox/payments/Background';
 import Confirmation from 'components/sandbox/payments/Confirmation';
 import Editor from 'components/sandbox/payments/Editor';
 import LoadingIndicator from 'components/LoadingIndicator';
-import logger from 'utils/logger';
 import PT from 'prop-types';
 import React from 'react';
 import { STATE as PAGE_STATE } from 'actions/page/sandbox/payments/editor';
 import { connect } from 'react-redux';
-import { getService as getChallengeService } from 'services/challenges';
-import { getService as getMembersService } from 'services/members';
 import { goToLogin } from 'utils/tc';
 import { AUTOCOMPLETE_TRIGGER_LENGTH } from 'components/MemberSearchInput';
-import { fireErrorMessage } from 'utils/errors';
+import { logger, errors, services } from 'topcoder-react-lib';
 
 import './style.scss';
+
+const { fireErrorMessage } = errors;
+const getChallengeService = services.challenge.getService;
+const getMembersService = services.members.getService;
 
 /**
  * If given props have loaded project details with some billing accounts, this
@@ -350,12 +351,12 @@ function mapStateToProps(state, ownProps) {
   const page = state.page.sandbox.payments.editor;
 
   let challenge;
-  const paymentId = ownProps.paymentId;
+  const { paymentId } = ownProps;
   if (Number(paymentId) === _.get(state, 'challenge.details.id')) {
     challenge = state.challenge.details;
   }
 
-  let projectDetails = direct.projectDetails;
+  let { projectDetails } = direct;
   if (_.get(projectDetails, 'project.projectId') !== page.selectedProjectId) {
     projectDetails = null;
   }

@@ -5,11 +5,13 @@
 import _ from 'lodash';
 import { createActions } from 'redux-actions';
 import { decodeToken } from 'tc-accounts';
-import { getService } from 'services/challenges';
-import { getReviewOpportunitiesService } from 'services/reviewOpportunities';
 import 'isomorphic-fetch';
-import { fireErrorMessage } from 'utils/errors';
 import { processSRM } from 'utils/tc';
+import { errors, services } from 'topcoder-react-lib';
+
+const { fireErrorMessage } = errors;
+const { getService } = services.challenge;
+const { getReviewOpportunitiesService } = services.reviewOpportunities;
 
 /**
  * The maximum number of challenges to fetch in a single API call. Currently,
@@ -54,8 +56,7 @@ function getChallengeSubtracksDone() {
   return getService()
     .getChallengeSubtracks()
     .then(res =>
-      res.sort((a, b) => a.name.localeCompare(b.name)),
-    );
+      res.sort((a, b) => a.name.localeCompare(b.name)));
 }
 
 /**
@@ -67,8 +68,7 @@ function getChallengeTagsDone() {
     .getChallengeTags()
     .then(res =>
       res.map(item => item.name)
-        .sort((a, b) => a.localeCompare(b)),
-    );
+        .sort((a, b) => a.localeCompare(b)));
 }
 
 /**

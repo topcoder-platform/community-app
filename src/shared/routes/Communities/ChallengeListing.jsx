@@ -7,7 +7,7 @@ import LoadingIndicator from 'components/LoadingIndicator';
 import PT from 'prop-types';
 import qs from 'qs';
 import React from 'react';
-import { SplitRoute } from 'utils/router';
+import { AppChunk } from 'topcoder-react-utils';
 
 export default function ChallengeListingRoute({
   ChallengeListingBanner,
@@ -20,23 +20,20 @@ export default function ChallengeListingRoute({
   preListingMsg,
 }) {
   return (
-    <SplitRoute
-      cacheCss
+    <AppChunk
       chunkName="challenge-listing/chunk"
       renderClientAsync={routeProps =>
-        import(
-          /* webpackChunkName: "challenge-listing/chunk" */
-          'containers/challenge-listing/Listing',
-        ).then(({ default: ChallengeListing }) => {
+        import(/* webpackChunkName: "challenge-listing/chunk" */ 'containers/challenge-listing/Listing')
+        .then(({ default: ChallengeListing }) => {
           let query = routeProps.location.search;
           query = query ? qs.parse(query.slice(1)) : {};
           const currencyFromUrl = query ? query.currency : undefined;
           const prizeMode = currencyFromUrl && `money-${currencyFromUrl}`;
 
-          let communityId = query.communityId;
+          let { communityId } = query;
           if (!communityId
           && !_.get(meta, 'challengeListing.ignoreCommunityFilterByDefault')) {
-            communityId = meta.communityId;
+            ({ communityId } = meta);
           }
 
           return (

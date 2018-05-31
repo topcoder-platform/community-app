@@ -6,17 +6,15 @@
 import LoadingIndicator from 'components/LoadingIndicator';
 import PT from 'prop-types';
 import React from 'react';
-import { SplitRoute } from 'utils/router';
+import { AppChunk } from 'topcoder-react-utils';
 
 export default function Sandbox({ base }) {
   return (
-    <SplitRoute
+    <AppChunk
       chunkName="sandbox/chunk"
       renderClientAsync={() =>
-        import(
-          /* webpackChunkName: "sandbox/chunk" */
-          './Router',
-        ).then(({ default: Router }) => <Router base={base} />)
+        import(/* webpackChunkName: "sandbox/chunk" */ './Router')
+        .then(({ default: Router }) => <Router base={base} />)
       }
       renderPlaceholder={() => <LoadingIndicator />}
     />

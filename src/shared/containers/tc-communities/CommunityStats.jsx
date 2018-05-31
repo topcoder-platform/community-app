@@ -12,7 +12,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import shortid from 'shortid';
 
-import actions from 'actions/stats';
+import { actions } from 'topcoder-react-lib';
 import cActions from 'actions/challenge-listing';
 import CommunityStats from 'components/tc-communities/CommunityStats';
 
@@ -107,9 +107,7 @@ function mapDispatchToProps(dispatch) {
 
 function mapStateToProps(state, ownProps) {
   const community = state.tcCommunities.meta.data;
-  const challenges = state.challengeListing.challenges;
-  const lastUpdateOfActiveChallenges =
-    state.challengeListing.lastUpdateOfActiveChallenges;
+  const { challenges, lastUpdateOfActiveChallenges } = state.challengeListing;
   return {
     community,
     challenges,

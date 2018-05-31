@@ -1,5 +1,6 @@
 import React from 'react';
-import config from 'utils/config';
+import { config } from 'topcoder-react-utils';
+
 import IconMagnifyingGlass from '../../../../../assets/images/magnifying_glass.svg';
 import './style.scss';
 
