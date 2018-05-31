@@ -14,6 +14,7 @@ AWS_ECS_SERVICE=$(eval "echo \$${ENV}_AWS_ECS_SERVICE")
 AWS_REPOSITORY=$(eval "echo \$${ENV}_AWS_REPOSITORY")
 
 configure_aws_cli() {
+  echo "Configuring aws"
 	AWS_ACCESS_KEY_ID=$(eval "echo \$${ENV}_AWS_ACCESS_KEY_ID")
 	AWS_SECRET_ACCESS_KEY=$(eval "echo \$${ENV}_AWS_SECRET_ACCESS_KEY")
 	aws --version
