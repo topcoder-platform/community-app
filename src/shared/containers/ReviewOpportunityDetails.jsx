@@ -8,13 +8,14 @@ import React from 'react';
 import PT from 'prop-types';
 import { connect } from 'react-redux';
 
-import apiActions from 'actions/reviewOpportunity';
-import { fireErrorMessage } from 'utils/errors';
+import { actions, errors } from 'topcoder-react-lib';
 import LoadingIndicator from 'components/LoadingIndicator';
 import { activeRoleIds } from 'utils/reviewOpportunities';
 import pageActions from 'actions/page/review-opportunity-details';
 import ReviewOpportunityDetailsPage from 'components/ReviewOpportunityDetailsPage';
 import termsActions from 'actions/terms';
+
+const { fireErrorMessage } = errors;
 
 /**
  * ReviewOpportunityDetails Container
@@ -180,9 +181,8 @@ const mapStateToProps = (state, ownProps) => {
  * @return {Object}
  */
 function mapDispatchToProps(dispatch) {
-  const api = apiActions.reviewOpportunity;
+  const api = actions.reviewOpportunity;
   const page = pageActions.page.reviewOpportunityDetails;
-  const { terms } = termsActions;
   return {
     cancelApplications: (challengeId, roleIds, tokenV3) => {
       dispatch(api.cancelApplicationsInit());
@@ -194,7 +194,7 @@ function mapDispatchToProps(dispatch) {
     },
     onPhaseExpand: () => dispatch(page.togglePhasesExpand()),
     openTermsModal: () => {
-      dispatch(terms.openTermsModal('ANY'));
+      dispatch(termsActions.terms.openTermsModal('ANY'));
     },
     selectTab: tab => dispatch(page.selectTab(tab)),
     setRoles: roles => dispatch(page.setRoles(roles)),

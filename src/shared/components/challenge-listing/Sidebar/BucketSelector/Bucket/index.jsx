@@ -3,10 +3,12 @@
  */
 
 import _ from 'lodash';
-import * as Filter from 'utils/challenge-listing/filter';
+import { challenge as challengeUtils } from 'topcoder-react-lib';
 import PT from 'prop-types';
 import React from 'react';
 import './style.scss';
+
+const Filter = challengeUtils.filter;
 
 export default function Bucket({
   active,

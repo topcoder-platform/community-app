@@ -15,14 +15,14 @@ import PT from 'prop-types';
 import React from 'react';
 import { STATE as PAGE_STATE } from 'actions/page/sandbox/payments/editor';
 import { connect } from 'react-redux';
-import { logger, services } from 'topcoder-react-lib';
-import { getService as getChallengeService } from 'services/challenges';
 import { goToLogin } from 'utils/tc';
 import { AUTOCOMPLETE_TRIGGER_LENGTH } from 'components/MemberSearchInput';
-import { fireErrorMessage } from 'utils/errors';
+import { logger, errors, services } from 'topcoder-react-lib';
 
 import './style.scss';
 
+const { fireErrorMessage } = errors;
+const getChallengeService = services.challenge.getService;
 const getMembersService = services.members.getService;
 
 /**

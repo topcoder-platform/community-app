@@ -4,8 +4,6 @@
 /* global analytics */
 
 import _ from 'lodash';
-import directActions from 'actions/direct';
-import userGroupsActions from 'actions/groups';
 import cookies from 'browser-cookies';
 import { Route } from 'react-router-dom';
 import React from 'react';
@@ -14,11 +12,12 @@ import {
   decodeToken,
   getFreshToken,
 } from 'tc-accounts';
-import { actions, logger } from 'topcoder-react-lib';
+import { actions, logger, errors } from 'topcoder-react-lib';
 import { client, redux } from 'topcoder-react-utils';
-import { setErrorsStore } from 'utils/errors';
 
 import './styles.scss';
+
+const { setErrorsStore } = errors;
 
 /**
  * Performs AnalyticsJS identification of the user.
@@ -99,8 +98,8 @@ function authenticate(store) {
      * or he has authenticated as a different user. In both cases, we must drop
      * from the state all sensitive data, accessible only to specific users. */
     if (prevUserV3.handle && prevUserV3.handle !== userV3.handle) {
-      store.dispatch(directActions.direct.dropAll());
-      store.dispatch(userGroupsActions.groups.dropGroups());
+      store.dispatch(actions.direct.dropAll());
+      store.dispatch(actions.groups.dropGroups());
     }
 
     /* Automatic refreshment of auth tokens. */

@@ -1,4 +1,6 @@
-import { mockAction } from 'utils/mock';
+import { mock } from 'topcoder-react-lib';
+
+const { mockAction } = mock;
 
 const mockMetaActions = {
   tcCommunities: {

@@ -5,6 +5,8 @@
  * thus we disable max-len eslint rule for this file
  */
 
+// import ContentfulBlock from 'components/Contentful/ContentBlock';
+// import ContentfulLoader from 'containers/ContentfulLoader';
 import ChallengesBlock from 'components/tc-communities/ChallengesBlock';
 import ImageText from 'components/tc-communities/ImageText2';
 import JoinCommunity from 'containers/tc-communities/JoinCommunity';
@@ -87,7 +89,24 @@ export default function Home({
         We help connect talented coders with organizations across the globe in
         need of your specialized skills.
       </h1>
-
+      {/*
+      <ContentfulLoader
+        entryQueries={{
+          content_type: 'contentBlock',
+          'fields.name': 'Demo Content For Veteran',
+        }}
+        render={d => d.entries.matches[0].items.map(id => <ContentfulBlock id={id} />)}
+        renderPlaceholder={LoadingIndicator}
+      />
+      <ContentfulLoader
+        entryQueries={{
+          content_type: 'contentBlock',
+          'fields.name': 'Demo Content For Veteran',
+        }}
+        render={d => d.entries.matches[0].items.map(id => <ContentfulBlock id={id} />)}
+        renderPlaceholder={LoadingIndicator}
+      />
+      */}
       <div styleName="style.imageTextBlock">
         <ImageText imageUrl={image01}>
           <h1>Why We Started</h1>

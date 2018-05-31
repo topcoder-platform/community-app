@@ -5,7 +5,7 @@
 /* eslint-disable no-restricted-globals */
 
 import _ from 'lodash';
-import challengeActions from 'actions/challenge';
+import challengeDetailsActions from 'actions/page/challenge-details';
 import cookies from 'browser-cookies';
 import Dashboard from 'components/Dashboard';
 import dashActions from 'actions/page/dashboard';
@@ -23,7 +23,6 @@ import { BUCKETS } from 'utils/challenge-listing/buckets';
 
 import challengeListingActions from 'actions/challenge-listing';
 import communityActions from 'actions/tc-communities';
-import statsActions from 'actions/stats';
 
 import { isTokenExpired } from 'tc-accounts';
 import { config, isomorphy } from 'topcoder-react-utils';
@@ -373,7 +372,7 @@ function mapDispatchToProps(dispatch) {
     },
     getCommunityStats: (community, challenges, token) => {
       const uuid = shortId();
-      const a = statsActions.stats;
+      const a = actions.stats;
       dispatch(a.getCommunityStatsInit(community, uuid));
       dispatch(a.getCommunityStatsDone(community, uuid, challenges, token));
     },
@@ -409,7 +408,7 @@ function mapDispatchToProps(dispatch) {
       dispatch(a.getDone(TOPCODER_BLOG_ID, uuid, TOPOCDER_BLOG_URL));
     },
     selectChallengeDetailsTab: tab =>
-      dispatch(challengeActions.challenge.selectTab(tab)),
+      dispatch(challengeDetailsActions.page.challengeDetails.selectTab(tab)),
     setChallengeListingFilter: (filter) => {
       const cl = challengeListingActions.challengeListing;
       const cls = challengeListingSidebarActions.challengeListing.sidebar;
@@ -424,7 +423,7 @@ function mapDispatchToProps(dispatch) {
     switchShowEarnings: show => dispatch(dash.showEarnings(show)),
     switchTab: tab => dispatch(dash.switchTab(tab)),
     unregisterFromChallenge: (auth, challengeId) => {
-      const a = challengeActions.challenge;
+      const a = actions.challenge;
       dispatch(a.unregisterInit());
       dispatch(a.unregisterDone(auth, challengeId));
     },

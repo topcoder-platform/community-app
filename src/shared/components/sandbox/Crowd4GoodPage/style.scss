@@ -1,0 +1,25 @@
+@import "~styles/mixins";
+
+.banner {
+  margin-bottom: 30px;
+  width: 100%;
+}
+
+.container {
+  flex-direction: column;
+  max-width: $screen-md;
+  margin: 30px auto;
+  padding: 30px;
+
+  h1 {
+    @include tc-title;
+
+    margin-bottom: 10px;
+  }
+
+  p {
+    @include tc-body-md;
+
+    margin: 10px 0;
+  }
+}

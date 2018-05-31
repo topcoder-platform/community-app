@@ -11,7 +11,7 @@ import _ from 'lodash';
 import fetch from 'isomorphic-fetch';
 import fs from 'fs';
 import fx from 'money';
-import logger from 'utils/logger';
+import { logger } from 'topcoder-react-lib';
 import path from 'path';
 import { config, isomorphy } from 'topcoder-react-utils';
 

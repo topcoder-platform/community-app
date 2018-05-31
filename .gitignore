@@ -49,3 +49,4 @@ jspm_packages
 .build-info
 .vscode
 set-env.sh
+set-test-env.sh

@@ -7,7 +7,7 @@
 import _ from 'lodash';
 import React from 'react';
 import PT from 'prop-types';
-import { DETAIL_TABS } from 'actions/challenge';
+import { TABS as DETAIL_TABS } from 'actions/page/challenge-details';
 import { config } from 'topcoder-react-utils';
 
 import style from './style.scss';

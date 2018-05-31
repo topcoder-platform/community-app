@@ -6,12 +6,14 @@ import React from 'react';
 import PT from 'prop-types';
 import { Button } from 'topcoder-react-ui-kit';
 
-import { formatDuration } from 'utils/time';
+import { time } from 'topcoder-react-lib';
 
 import ArrowUp from 'assets/images/icon-arrow-up.svg';
 import ArrowDown from 'assets/images/icon-arrow-down.svg';
 
 import style from './styles.scss';
+
+const { formatDuration } = time;
 
 /**
  * Renders a single phase based on the supplied phase data

@@ -1,5 +1,6 @@
 import _ from 'lodash';
 import moment from 'moment';
+import 'moment-duration-format';
 import NumRegistrants from
   'components/challenge-listing/ChallengeCard/NumRegistrants';
 import NumSubmissions from

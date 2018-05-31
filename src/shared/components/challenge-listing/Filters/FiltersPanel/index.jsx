@@ -22,7 +22,7 @@
 /* eslint-disable jsx-a11y/label-has-for */
 
 import _ from 'lodash';
-import * as Filter from 'utils/challenge-listing/filter';
+import { challenge as challengeUtils } from 'topcoder-react-lib';
 import React from 'react';
 import PT from 'prop-types';
 import Select from 'components/Select';
@@ -36,6 +36,8 @@ import CheckmarkIcon from './CheckmarkIcon';
 import DateRangePicker from '../DateRangePicker';
 import style from './style.scss';
 import UiSimpleRemove from '../../Icons/ui-simple-remove.svg';
+
+const Filter = challengeUtils.filter;
 
 export default function FiltersPanel({
   communityFilters,
