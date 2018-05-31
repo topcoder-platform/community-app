@@ -56,7 +56,7 @@ jobs:
       # Build of Docker image.
       - run:
           name: Build of Docker image
-          command: ./build.sh development
+          command: ./build.sh test
 
       # Caching node modules.
       - save_cache:
