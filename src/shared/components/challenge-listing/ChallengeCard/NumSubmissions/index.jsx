@@ -8,7 +8,7 @@ import _ from 'lodash';
 import PT from 'prop-types';
 import React from 'react';
 import Tooltip from 'components/Tooltip';
-import { DETAIL_TABS } from 'actions/challenge';
+import { TABS as DETAIL_TABS } from 'actions/page/challenge-details';
 import { config, Link } from 'topcoder-react-utils';
 
 /* TODO: The icon should be converted back to SVG and imported using the

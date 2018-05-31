@@ -10,7 +10,7 @@ import { connect } from 'react-redux';
 import _ from 'lodash';
 import LoadingIndicator from 'components/LoadingIndicator';
 import TermDetails from 'components/Terms/TermDetails';
-import termsActions from 'actions/terms';
+import { actions } from 'topcoder-react-lib';
 import { MetaTags } from 'topcoder-react-utils';
 
 import './styles.scss';
@@ -104,19 +104,18 @@ const mapStateToProps = (state, props) => ({
   details: state.terms.details,
 });
 
-const mapDispatchToProps = (dispatch) => {
-  const t = termsActions.terms;
+function mapDispatchToProps(dispatch) {
   return {
     loadTermDetails: (tokens, termId) => {
-      dispatch(t.getTermDetailsInit(termId));
-      dispatch(t.getTermDetailsDone(termId, tokens.tokenV2));
+      dispatch(actions.terms.getTermDetailsInit(termId));
+      dispatch(actions.terms.getTermDetailsDone(termId, tokens.tokenV2));
     },
     getDocuSignUrl: (tokens, templateId, returnUrl) => {
-      dispatch(t.getDocuSignUrlInit(templateId));
-      dispatch(t.getDocuSignUrlDone(templateId, returnUrl, tokens.tokenV2));
+      dispatch(actions.terms.getDocuSignUrlInit(templateId));
+      dispatch(actions.terms.getDocuSignUrlDone(templateId, returnUrl, tokens.tokenV2));
     },
   };
-};
+}
 
 export default connect(
   mapStateToProps,

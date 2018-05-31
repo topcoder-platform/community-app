@@ -8,6 +8,10 @@ import moment from 'moment-timezone';
 import { isTokenExpired } from 'tc-accounts';
 import { config, isomorphy } from 'topcoder-react-utils';
 
+import { tc } from 'topcoder-react-lib';
+
+export const { COMPETITION_TRACKS, REVIEW_OPPORTUNITY_TYPES } = tc;
+
 /**
  * Possible phase types (at the moment, this map does not cover all
  * possibilities).
@@ -20,14 +24,6 @@ export const CHALLENGE_PHASE_TYPES = {
 /**
  * Codes of the Topcoder communities.
  */
-/* TODO: These are originally motivated by Topcoder API v2. Topcoder API v3
- * uses upper-case literals to encode the tracks. At some point, we should
- * update it in this code as well! */
-export const COMPETITION_TRACKS = {
-  DATA_SCIENCE: 'datasci',
-  DESIGN: 'design',
-  DEVELOP: 'develop',
-};
 
 export const COMPETITION_TRACKS_V3 = {
   DESIGN: 'DESIGN',
@@ -124,15 +120,6 @@ export function getRatingColor(rating) {
 }
 
 /**
- * Review Opportunity types
- */
-export const REVIEW_OPPORTUNITY_TYPES = {
-  'Contest Review': 'Review',
-  'Spec Review': 'Specification Review',
-  'Iterative Review': 'Iterative Review',
-};
-
-/**
  * Given ExpressJS HTTP request it extracts Topcoder auth tokens from cookies,
  * if they are present there and are not expired.
  * @param {Object} req ExpressJS HTTP request. For convenience, it is allowed to
@@ -163,19 +150,6 @@ export function goToLogin(utmSource = '') {
     const retUrl = encodeURIComponent(window.location.href);
     window.location = `${config.URL.AUTH}/member?retUrl=${retUrl}&utm_source=${utmSource}`;
   }
-}
-
-/**
- * Gets payload from a standard success response from TC API v3; or throws
- * an error in case of a failure response.
- * @param {Object} res
- * @return {Promise} Resolves to the payload.
- */
-export async function getApiResponsePayloadV3(res) {
-  if (!res.ok) throw new Error(res.statusText);
-  const x = (await res.json()).result;
-  if (!x.success) throw new Error(x.content);
-  return x.content;
 }
 
 /**

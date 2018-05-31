@@ -4,7 +4,9 @@
 
 import React from 'react';
 import { PrimaryButton } from 'topcoder-react-ui-kit';
-import { fireErrorMessage } from 'utils/errors';
+import { errors } from 'topcoder-react-lib';
+
+const { fireErrorMessage } = errors;
 
 const ErrorMessageTest = () => (
   <div>

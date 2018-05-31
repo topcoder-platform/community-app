@@ -4,7 +4,7 @@
 
 import _ from 'lodash';
 import actions from 'actions/tc-communities/meta';
-import logger from 'utils/logger';
+import { logger } from 'topcoder-react-lib';
 import { getCommunityId } from 'server/services/communities';
 import { redux } from 'topcoder-react-utils';
 import { getAuthTokens } from 'utils/tc';

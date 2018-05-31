@@ -1,7 +1,7 @@
 import _ from 'lodash';
-import { mockAction } from 'utils/mock';
-import { actions } from 'topcoder-react-lib';
+import { actions, mock } from 'topcoder-react-lib';
 
+const { mockAction } = mock;
 const handle = 'tcscoder';
 const photoURL = 'http://url';
 const tab = 'profile';

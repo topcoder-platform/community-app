@@ -7,9 +7,11 @@
  */
 import _ from 'lodash';
 import { createActions } from 'redux-actions';
-import { getService as getChallengesService } from 'services/challenges';
+import { services } from 'topcoder-react-lib';
 
 import design from './design';
+
+const getChallengesService = services.challenge.getService;
 
 /**
  * Payload creator for the action that actually performs submission operation.

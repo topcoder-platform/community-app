@@ -6,12 +6,14 @@ import React from 'react';
 import Sticky from 'react-stickynode';
 import { config, Link } from 'topcoder-react-utils';
 
-import * as Filter from 'utils/challenge-listing/filter';
+import { challenge as challengeUtils } from 'topcoder-react-lib';
 
 import ChallengeCard from './ChallengeCard';
 import ChallengeFilter from '../ChallengeFilter';
 
 import style from './style.scss';
+
+const Filter = challengeUtils.filter;
 
 export default function Challenges({
   challengeFilter,

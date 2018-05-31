@@ -8,7 +8,7 @@
 
 import _ from 'lodash';
 import fetch from 'isomorphic-fetch';
-import logger from 'utils/logger';
+import { logger } from 'topcoder-react-lib';
 import qs from 'qs';
 import { config, isomorphy } from 'topcoder-react-utils';
 

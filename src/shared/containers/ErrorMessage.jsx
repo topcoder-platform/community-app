@@ -6,7 +6,7 @@
  *   NOTE: This is created and managed by utils/errors and should not
  *   be used directly.
  */
-import actions from 'actions/errors';
+import { actions } from 'topcoder-react-lib';
 import React from 'react';
 import PT from 'prop-types';
 import { connect } from 'react-redux';

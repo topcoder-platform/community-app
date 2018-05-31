@@ -46,7 +46,7 @@ export default function Content() {
         </li>
         <li>SCSS styles;</li>
         <li>Topcoder API v2 and v3 service
-          (see <code>https://github.com/topcoder-platform/topcoder-react-lib/blob/master/src/services/api.js</code>), with support of TC
+          (see <code>topcoder-react-lib/src/services/api.js</code>), with support of TC
           authentication (look for auth tokens either
           in <code>store.auth</code> of Redux store, or
           in <code>v3jwt</code> and <code>tcjwt</code> cookies of the front-end
@@ -82,6 +82,9 @@ export default function Content() {
           &zwnj;<Link to="/challenges/30050463">code challenge 2</Link>,
           &zwnj;<Link to="/challenges/30049552">design challenge</Link>,
           &zwnj;<Link to="/challenges/30050696">design challenge 2</Link>.
+        </li>
+        <li>
+          <Link to="/crowd-for-good">Crowd 4 Good Page</Link>
         </li>
         <li>
           <Link to="/my-dashboard">Dashboard</Link>
@@ -167,6 +170,16 @@ export default function Content() {
         <li>
           <Link to="/examples/contentful/banner/5il6oFtWp2Ua6WGs60M2mK">
             <code>Banner</code>
+          </Link>
+        </li>
+        <li>
+          <Link to="/examples/contentful/contentblock/6CVFvEiZFKYQMwW82aYCWS">
+            <code>ContentBlock</code>
+          </Link>
+        </li>
+        <li>
+          <Link to="/examples/contentful/viewport/YomgM8zPCoEaUqaKouyGG">
+            <code>Viewport</code>
           </Link>
         </li>
       </ul>
