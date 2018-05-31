@@ -17,7 +17,9 @@
 import _ from 'lodash';
 import { getCommunityId } from 'server/services/communities';
 import { redux } from 'topcoder-react-utils';
+import { reducer as toastrReducer } from 'react-redux-toastr';
 import { reducerFactory } from 'topcoder-react-lib';
+import { getAuthTokens } from 'utils/tc';
 
 import contentful from './contentful';
 import topcoderHeader from './topcoder_header';
@@ -38,6 +40,7 @@ import { factory as termsFactory } from './terms';
  */
 function generateSsrOptions(req) {
   const res = {};
+  res.auth = getAuthTokens(req);
   if (req.url.match(/^\/challenges\/\d+\/my-submissions/)) {
     const challengeId = req.url.match(/\d+/)[0];
     _.set(res, 'challenge.challengeDetails.id', challengeId);
@@ -126,6 +129,7 @@ export function factory(req) {
     contentful,
     topcoderHeader,
     rss,
+    toastr: toastrReducer,
   }));
 }
 

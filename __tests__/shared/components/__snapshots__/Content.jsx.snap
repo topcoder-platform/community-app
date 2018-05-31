@@ -279,6 +279,14 @@ exports[`Matches shallow shapshot 1`] = `
       </code>
       ; the link here leads to a test challenge.
     </li>
+    <li>
+      <Link
+        replace={false}
+        to="/settings/profile"
+      >
+        Settings Profile Page
+      </Link>
+    </li>
   </ul>
   <h3>
     TCO Assets

@@ -250,4 +250,17 @@ export function processSRM(s) {
   return srm;
 }
 
+/**
+ * Compare two strings, null/undefined/empty are considered as equal.
+ * @param {String} str1 One string
+ * @param {String} str2 Another string
+ * @returns {Boolean} true if two strings equal, false otherwise
+ */
+export function looseEqual(str1, str2) {
+  if (!str1 && !str2) {
+    return true;
+  }
+  return _.isEqual(str1, str2);
+}
+
 export default undefined;
