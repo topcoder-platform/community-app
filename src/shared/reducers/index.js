@@ -18,6 +18,7 @@ import _ from 'lodash';
 import { getCommunityId } from 'server/services/communities';
 import { redux } from 'topcoder-react-utils';
 import { reducerFactory } from 'topcoder-react-lib';
+import { getAuthTokens } from 'utils/tc';
 
 import contentful from './contentful';
 import topcoderHeader from './topcoder_header';
@@ -37,7 +38,9 @@ import { factory as termsFactory } from './terms';
  * @return {Object} Options.
  */
 function generateSsrOptions(req) {
-  const res = {};
+  const res = {
+    auth: getAuthTokens(req),
+  };
   if (req.url.match(/^\/challenges\/\d+\/my-submissions/)) {
     const challengeId = req.url.match(/\d+/)[0];
     _.set(res, 'challenge.challengeDetails.id', challengeId);
@@ -77,7 +80,6 @@ function generateSsrOptions(req) {
 
     // set options for the entity
     if (entity) {
-      options.auth = getAuthTokens(req);
       _.set(options, 'terms.entity.type', entity.type);
       _.set(options, 'terms.entity.id', entity.id);
 
