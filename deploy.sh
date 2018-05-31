@@ -10,6 +10,9 @@ AWS_REGION=$(eval "echo \$${ENV}_AWS_REGION")
 AWS_ECS_CLUSTER=$(eval "echo \$${ENV}_AWS_ECS_CLUSTER")
 ACCOUNT_ID=$(eval "echo \$${ENV}_AWS_ACCOUNT_ID")
 
+AWS_ECS_SERVICE=$(eval "echo \$${ENV}_AWS_ECS_SERVICE")
+AWS_REPOSITORY=$(eval "echo \$${ENV}_AWS_REPOSITORY")
+
 configure_aws_cli() {
 	AWS_ACCESS_KEY_ID=$(eval "echo \$${ENV}_AWS_ACCESS_KEY_ID")
 	AWS_SECRET_ACCESS_KEY=$(eval "echo \$${ENV}_AWS_SECRET_ACCESS_KEY")
@@ -74,9 +77,12 @@ make_task_def(){
 			NODE_CONFIG_ENV=production
 	elif [ "$ENV" = "DEV" ]; then
 			NODE_CONFIG_ENV=development
+	elif [ "$ENV" = "test" ]; then
+			NODE_CONFIG_ENV=test
 	fi
 
 	task_def=$(printf "$task_template" $ACCOUNT_ID $AWS_REGION $AWS_REPOSITORY $TAG $NODE_CONFIG_ENV $AWS_ECS_CLUSTER $AWS_REGION)
+	echo $task_def
 }
 
 push_ecr_image() {
