@@ -45,7 +45,7 @@ deploy_cluster() {
 make_task_def(){
 	task_template='[
 		{
-				"name": "%",
+				"name": "%s",
 				"image": "%s.dkr.ecr.%s.amazonaws.com/%s:%s",
 				"essential": true,
 				"memory": 500,
