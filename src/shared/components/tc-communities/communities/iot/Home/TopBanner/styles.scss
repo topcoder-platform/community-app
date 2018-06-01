@@ -1,0 +1,53 @@
+@import '~styles/mixins';
+@import '../../themes/mixins';
+
+.banner {
+  background: url(assets/themes/iot/home/home-hero.jpg) no-repeat center;
+  background-size: cover;
+}
+
+.container {
+  @include container;
+}
+
+.inner-container {
+  @include inner-container-sm(8);
+
+  color: $tc-white;
+  padding: 100px 0 50px;
+  text-align: center;
+}
+
+.logos {
+  display: block;
+  margin-bottom: 50px;
+  margin-top: 110px;
+  max-width: 100%;
+
+  @include md-to-lg {
+    margin-top: 0;
+  }
+}
+
+.buttons {
+  margin-top: 100px;
+}
+
+.title {
+  font-size: 24px;
+  line-height: 64px;
+
+  @include md-to-lg {
+    font-size: 39px;
+  }
+
+  @include xl {
+    font-size: 51px;
+  }
+}
+
+.text {
+  font-size: 24px;
+  line-height: 1.42857143;
+  margin: 45px 0 0;
+}
