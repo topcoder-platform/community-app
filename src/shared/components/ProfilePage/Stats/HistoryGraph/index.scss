@@ -1,0 +1,96 @@
+@import "~styles/mixins";
+
+:global {
+  .history-graph {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+
+    .axis path,
+    .axis line {
+      fill: none;
+      stroke: none;
+      shape-rendering: crispEdges;
+    }
+
+    .x.axis path {
+      display: none;
+    }
+
+    rect {
+      fill: $tc-white;
+      stroke: $tc-gray-20;
+      stroke-width: 2.3px;
+    }
+
+    .line {
+      fill: none;
+      stroke: #c5c5c5;
+      stroke-width: 2.3px;
+    }
+
+    .grid.x .tick {
+      stroke: $tc-gray-20;
+      stroke-width: 2px;
+      stroke-dasharray: 6, 8;
+    }
+
+    .grid.y .tick {
+      stroke: none;
+      opacity: 0;
+      stroke-width: 1px;
+    }
+
+    .y.axis .tick text {
+      font-size: 10px;
+      width: 20px;
+      text-align: left;
+    }
+
+    circle {
+      stroke: $tc-white;
+      stroke-width: 1.5px;
+
+      &:hover {
+        r: 7.5px;
+        stroke-width: 2px;
+      }
+    }
+  }
+}
+
+@media (min-width: $screen-md) {
+  :global {
+    .history-graph {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+
+      .axis path,
+      .axis line {
+        fill: none;
+        stroke: none;
+        shape-rendering: crispEdges;
+      }
+
+      .x.axis path {
+        display: none;
+      }
+
+      .line {
+        fill: none;
+        stroke: #c5c5c5;
+        stroke-width: 2.3px;
+      }
+
+      .grid .tick {
+        stroke: white;
+        opacity: 0.7;
+      }
+
+      .y.axis .tick text {
+        font-size: 10px;
+      }
+    }
+  }
+}

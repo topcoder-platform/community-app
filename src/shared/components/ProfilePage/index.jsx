@@ -5,19 +5,11 @@
 /* eslint-env browser */
 import _ from 'lodash';
 import React from 'react';
-import { Link } from 'react-router-dom';
 import PT from 'prop-types';
 import { PrimaryButton } from 'topcoder-react-ui-kit';
 import Sticky from 'react-stickynode';
 
-import { getRatingColor } from 'utils/tc';
 import { config } from 'topcoder-react-utils';
-
-import ArrowNext from 'assets/images/arrow-next.svg';
-import CopilotIcon from 'assets/images/profile/ico-track-copilot.svg';
-import DataScienceIcon from 'assets/images/profile/ico-track-data.svg';
-import DesignIcon from 'assets/images/profile/ico-track-design.svg';
-import DevelopIcon from 'assets/images/profile/ico-track-develop.svg';
 import Robot from 'assets/images/robot-happy.svg';
 
 import BadgesModal from './BadgesModal';
@@ -26,17 +18,10 @@ import Header from './Header';
 import Skill from './Skill';
 
 import style from './styles.scss';
+import StatsCategory from './StatsCategory';
 
 // Number of skills to show before a 'VIEW MORE' button is created
 const MAX_SKILLS = 10;
-
-// Maps API track names to format in design
-const TRACK_NAMES = {
-  COPILOT: 'COPILOT',
-  DATA_SCIENCE: 'DATA SCIENCE',
-  DEVELOP: 'DEVELOPMENT',
-  DESIGN: 'DESIGN',
-};
 
 /**
  * Inspects a subtrack and determines if the member is active
@@ -233,51 +218,7 @@ class ProfilePage extends React.Component {
                 </div>
               }
               <div id="profile-activity">
-                <div styleName="categories">
-                  {
-                    activeTracks.map(track => (
-                      <div id={track.name} key={track.name} styleName="track">
-                        <div styleName="name">
-                          { track.name === 'COPILOT' && <CopilotIcon /> }
-                          { track.name === 'DATA_SCIENCE' && <DataScienceIcon /> }
-                          { track.name === 'DESIGN' && <DesignIcon /> }
-                          { track.name === 'DEVELOP' && <DevelopIcon /> }
-                          <span>{TRACK_NAMES[track.name]} ACTIVITY</span>
-                        </div>
-                        {
-                          track.subTracks.map((subtrack, index) => (
-                            <Link to="#" key={subtrack.name} styleName={`subtrack ${index === 0 ? 'first' : ''}`}>
-                              <div styleName="name">{subtrack.name.replace('FIRST_2_FINISH', 'FIRST2FINISH').replace(/_/g, ' ')}</div>
-                              {
-                                subtrack.rank && !_.isNull(subtrack.rank.rating) &&
-                                  <div styleName="ranking">
-                                    <div style={{ color: getRatingColor(subtrack.rank.rating) }} styleName="number">{subtrack.rank.rating}</div>
-                                    <div styleName="tag">Rating</div>
-                                  </div>
-                              }
-                              {
-                                (!subtrack.rank || _.isNull(subtrack.rank.rating)) &&
-                                !subtrack.fulfillment &&
-                                <div styleName="ranking">
-                                  <div style={{ color: '#21b2f1' }} styleName="number">{subtrack.wins}</div>
-                                  <div styleName="tag">Wins</div>
-                                </div>
-                              }
-                              {
-                                subtrack.fulfillment &&
-                                <div styleName="ranking">
-                                  <div style={{ color: '#a3a3ae' }} styleName="number">{`${subtrack.fulfillment}%`}</div>
-                                  <div styleName="tag">Fulfillment</div>
-                                </div>
-                              }
-                              <ArrowNext styleName="arrow" />
-                            </Link>
-                          ))
-                        }
-                      </div>
-                    ))
-                  }
-                </div>
+                <StatsCategory handle={info.handle} stats={stats} />
               </div>
               {
                 !_.isEmpty(externals) &&

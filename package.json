@@ -40,6 +40,7 @@
     "browser-cookies": "^1.1.0",
     "config": "^1.30.0",
     "cookie-parser": "^1.4.3",
+    "d3": "3.5.17",
     "draft-js": "^0.10.4",
     "draft-js-export-html": "^1.2.0",
     "draft-js-markdown-shortcuts-plugin": "^0.3.0",
