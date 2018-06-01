@@ -78,7 +78,7 @@ make_task_def(){
 			NODE_CONFIG_ENV=production
 	elif [ "$ENV" = "DEV" ]; then
 			NODE_CONFIG_ENV=development
-	elif [ "$ENV" = "test" ]; then
+	elif [ "$ENV" = "TEST" ]; then
 			NODE_CONFIG_ENV=development
 	fi
 
