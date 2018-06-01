@@ -12,6 +12,7 @@ ACCOUNT_ID=$(eval "echo \$${ENV}_AWS_ACCOUNT_ID")
 
 AWS_ECS_SERVICE=$(eval "echo \$${ENV}_AWS_ECS_SERVICE")
 AWS_REPOSITORY=$(eval "echo \$${ENV}_AWS_REPOSITORY")
+AWS_ECS_TASK_FAMILY=$(eval "echo \$${ENV}_AWS_ECS_TASK_FAMILY")
 
 configure_aws_cli() {  
 	AWS_ACCESS_KEY_ID=$(eval "echo \$${ENV}_AWS_ACCESS_KEY_ID")
@@ -26,7 +27,7 @@ configure_aws_cli() {
 
 deploy_cluster() {
 
-    family="community-app-task"
+    #family="community-app-task"
 
     make_task_def
     register_definition
@@ -44,7 +45,7 @@ deploy_cluster() {
 make_task_def(){
 	task_template='[
 		{
-				"name": "community-app",
+				"name": "%",
 				"image": "%s.dkr.ecr.%s.amazonaws.com/%s:%s",
 				"essential": true,
 				"memory": 500,
@@ -67,7 +68,7 @@ make_task_def(){
 						"options": {
 								"awslogs-group": "/aws/ecs/%s",
 								"awslogs-region": "%s",
-								"awslogs-stream-prefix": "community-app"
+								"awslogs-stream-prefix": "%s"
 						}
 				}
 		}
@@ -78,10 +79,10 @@ make_task_def(){
 	elif [ "$ENV" = "DEV" ]; then
 			NODE_CONFIG_ENV=development
 	elif [ "$ENV" = "test" ]; then
-			NODE_CONFIG_ENV=test
+			NODE_CONFIG_ENV=development
 	fi
 
-	task_def=$(printf "$task_template" $ACCOUNT_ID $AWS_REGION $AWS_REPOSITORY $TAG $NODE_CONFIG_ENV $AWS_ECS_CLUSTER $AWS_REGION)
+	task_def=$(printf "$task_template" $AWS_ECS_CLUSTER $ACCOUNT_ID $AWS_REGION $AWS_REPOSITORY $TAG $NODE_CONFIG_ENV $AWS_ECS_CLUSTER $AWS_REGION $AWS_ECS_CLUSTER)
 	echo $task_def
 }
 
@@ -93,13 +94,12 @@ push_ecr_image() {
 }
 
 register_definition() {
-    if revision=$(aws ecs register-task-definition --container-definitions "$task_def" --family $family | $JQ '.taskDefinition.taskDefinitionArn'); then
+    if revision=$(aws ecs register-task-definition --container-definitions "$task_def" --family $AWS_ECS_TASK_FAMILY | $JQ '.taskDefinition.taskDefinitionArn'); then
         echo "Revision: $revision"
     else
         echo "Failed to register task definition"
         return 1
     fi
-
 }
 
 configure_aws_cli
