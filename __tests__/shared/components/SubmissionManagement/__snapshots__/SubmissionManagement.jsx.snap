@@ -63,9 +63,7 @@ exports[`Matches shallow shapshot 1`] = `
       onShowDetails={[Function]}
       onlineReviewUrl=""
       showDetails={Array []}
-      status={undefined}
       submissionObjects={Array []}
-      submissionPhaseStartDate={undefined}
       type="Challenge Track"
     />
   </div>
