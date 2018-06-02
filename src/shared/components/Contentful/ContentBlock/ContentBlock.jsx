@@ -2,9 +2,10 @@
  * The core content block rendering.
  */
 
-import md from 'utils/markdown';
 import PT from 'prop-types';
 import React from 'react';
+
+import MarkdownRenderer from 'components/MarkdownRenderer';
 
 import { themr } from 'react-css-super-themr';
 import defaultTheme from './themes/default.scss';
@@ -32,11 +33,10 @@ function ContentBlock({
         }
         <div
           className={theme.content}
-          /* eslint-disable react/no-danger */
-          dangerouslySetInnerHTML={{ __html: md(contentBlock.text || '') }}
-          /* eslint-enable react/no-danger */
           style={contentBlock.extraStylesForContent}
-        />
+        >
+          <MarkdownRenderer markdown={contentBlock.text} />
+        </div>
       </div>
     </div>
   );

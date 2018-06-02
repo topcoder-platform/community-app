@@ -255,6 +255,9 @@ export default function Content() {
           <Link to="/examples/loading-indicators">Loading Indicators</Link>
         </li>
         <li>
+          <Link to="/examples/markdown">Markdown Rendering</Link> - A component that can be passed markdown as a prop and will render it as native React elements.  Also supports inlining a subset of the JSX Components found in Community App.
+        </li>
+        <li>
           <Link to="/examples/scalable-rect">ScalableRect</Link> component makes
           it easy to create dynamically scaled components with fixed side ratio.
         </li>
