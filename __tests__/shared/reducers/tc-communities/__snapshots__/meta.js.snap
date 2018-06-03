@@ -3,7 +3,7 @@
 exports[`Default reducer Creates expected intial state 1`] = `
 Object {
   "data": null,
-  "loadingOperationId": "communityId",
+  "loadingOperationId": null,
   "numRefs": 0,
   "timestamp": 0,
 }

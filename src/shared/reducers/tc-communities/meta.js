@@ -11,11 +11,6 @@ import { getAuthTokens } from 'utils/tc';
 const itemActions = truActions.item;
 const itemReducer = reducers.item;
 
-function onFetchDataInit(state, action) {
-  const a = { ...action, type: itemActions.loadDataInit.toString() };
-  return itemReducer(state, a);
-}
-
 /**
  * Handles tcCommunities.meta.fetchDataDone action.
  * @param {Object} state Previous state.
@@ -26,7 +21,7 @@ function onFetchDataDone(state, action) {
     logger.error('Failed to load community meta-data!', action.payload);
     return state;
   }
-  const a = { ...action, type: itemActions.loadDataDone.toString() };
+  const a = redux.proxyAction(itemActions.loadDataDone, action);
   return itemReducer(state, a);
 }
 
@@ -36,15 +31,17 @@ function onFetchDataDone(state, action) {
  * @return community meta reducer.
  */
 function create(initialState = itemReducer(undefined, '@@INIT')) {
+  const a = actions.tcCommunities.meta;
   return redux.handleActions({
-    [actions.tcCommunities.meta.mobileToggle](state) {
+    [a.mobileToggle](state) {
       return {
         ...state,
         isMobileOpen: !state.isMobileOpen,
       };
     },
-    [actions.tcCommunities.meta.fetchDataInit]: onFetchDataInit,
-    [actions.tcCommunities.meta.fetchDataDone]: onFetchDataDone,
+    [a.fetchDataInit]:
+      redux.proxyReducer(itemReducer, itemActions.loadDataInit),
+    [a.fetchDataDone]: onFetchDataDone,
   }, initialState);
 }
 
@@ -64,8 +61,8 @@ export async function factory(req) {
       communityId = communityId ? communityId.replace(/\?.*/, '') : communityId;
     }
     if (communityId) {
-      const state = itemReducer(undefined, '@@INIT');
-      state.loadingOperationId = communityId;
+      let state = itemReducer(undefined, '@@INIT');
+      state = { ...state, loadingOperationId: communityId };
       const { tokenV3 } = getAuthTokens(req);
       let action =
         actions.tcCommunities.meta.fetchDataDone(communityId, tokenV3);

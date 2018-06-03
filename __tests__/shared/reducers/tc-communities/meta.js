@@ -52,28 +52,19 @@ function testReducer(r) {
   });
 }
 
-const INITIAL_STATE = {
-  data: {},
-  lastUpdateOfMetaData: 0,
-  loadingMetaDataForCommunityId: '',
-};
-
 describe('Default reducer', () => {
-  testReducer(reducer.default, INITIAL_STATE);
+  testReducer(reducer.default);
 });
 
 describe('Factory without http request', () =>
-  reducer.factory().then(res =>
-    testReducer(res, INITIAL_STATE)));
+  reducer.factory().then(testReducer));
 
 describe('Factory with server-side rendering', () =>
   reducer.factory({
     url: '/community/communityId/header',
-  }).then(res =>
-    testReducer(res, INITIAL_STATE)));
+  }).then(testReducer));
 
 describe('Factory without server-side rendering', () =>
   reducer.factory({
     url: '/some-random-url',
-  }).then(res =>
-    testReducer(res, INITIAL_STATE)));
+  }).then(testReducer));
