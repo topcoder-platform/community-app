@@ -5,6 +5,9 @@
 import _ from 'lodash';
 import { createActions } from 'redux-actions';
 import { getService as getCommunitiesService } from 'services/communities';
+import { actions } from 'topcoder-react-utils';
+
+const itemActions = actions.item;
 
 /**
  * Corresponding action initializes loading of meta-data for the specified
@@ -21,9 +24,12 @@ function fetchDataInit(communityId) {
 /**
  * Corresponding action loads meta-data for the specified community.
  * @param {String} communityId
+ * @param {String} tokenV3 Optional.
+ * @return {Action}
  */
-function fetchDataDone(communityId, tokenV3) {
-  return getCommunitiesService(tokenV3).getMetadata(communityId);
+async function fetchDataDone(communityId, tokenV3) {
+  const data = await getCommunitiesService(tokenV3).getMetadata(communityId);
+  return itemActions.loadDataDone(communityId, data).payload;
 }
 
 export default createActions({

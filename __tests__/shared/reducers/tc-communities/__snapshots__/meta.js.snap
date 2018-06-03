@@ -1,0 +1,39 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Default reducer Creates expected intial state 1`] = `
+Object {
+  "data": null,
+  "loadingOperationId": "communityId",
+  "numRefs": 0,
+  "timestamp": 0,
+}
+`;
+
+exports[`Default reducer Handles fetchDataInit as expected 1`] = `
+Object {
+  "data": null,
+  "loadingOperationId": "test-community",
+  "numRefs": 0,
+  "timestamp": 0,
+}
+`;
+
+exports[`Default reducer Handles mobileToggle as expected 1`] = `
+Object {
+  "data": null,
+  "isMobileOpen": true,
+  "loadingOperationId": "test-community",
+  "numRefs": 0,
+  "timestamp": 0,
+}
+`;
+
+exports[`Default reducer Handles mobileToggle as expected 2`] = `
+Object {
+  "data": null,
+  "isMobileOpen": true,
+  "loadingOperationId": "test-community",
+  "numRefs": 0,
+  "timestamp": 0,
+}
+`;
