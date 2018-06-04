@@ -45,32 +45,41 @@ deploy_cluster() {
 make_task_def(){
 	task_template='[
 		{
+				"executionRoleArn": "arn:aws:iam::%s:role/ecsTaskExecutionRole",
 				"name": "%s",
-				"image": "%s.dkr.ecr.%s.amazonaws.com/%s:%s",
-				"essential": true,
-				"memory": 500,
-				"cpu": 100,
-				"environment": [
+				"image": "%s.dkr.ecr.%s.amazonaws.com/%s:%s",				
+				"containerDefinitions": [
+					"cpu": 1,
+					"environment": [
 						{
 								"name": "NODE_CONFIG_ENV",
 								"value": "%s"
 						}
-				],
-				"portMappings": [
-						{
-								"hostPort": 0,
-								"containerPort": 3000,
-								"protocol": "tcp"
+						],
+						"portMappings": [
+								{
+										"hostPort": 0,
+										"containerPort": 3000,
+										"protocol": "tcp"
+								}
+						],
+						"logConfiguration": {
+								"logDriver": "awslogs",
+								"options": {
+										"awslogs-group": "/aws/ecs/%s",
+										"awslogs-region": "%s",
+										"awslogs-stream-prefix": "%s"
+								}
 						}
 				],
-				"logConfiguration": {
-						"logDriver": "awslogs",
-						"options": {
-								"awslogs-group": "/aws/ecs/%s",
-								"awslogs-region": "%s",
-								"awslogs-stream-prefix": "%s"
-						}
-				}
+				"memory": "4096",
+				"taskRoleArn": "arn:aws:iam::%s:role/ecsTaskExecutionRole",  
+				"family": "%s",  
+				"requiresCompatibilities": [
+				"FARGATE"
+				],
+				"networkMode": "awsvpc",
+				"cpu": "2048"				
 		}
 	]'
 	
@@ -82,7 +91,7 @@ make_task_def(){
 			NODE_CONFIG_ENV=development
 	fi
 
-	task_def=$(printf "$task_template" $AWS_ECS_CLUSTER $ACCOUNT_ID $AWS_REGION $AWS_REPOSITORY $TAG $NODE_CONFIG_ENV $AWS_ECS_CLUSTER $AWS_REGION $AWS_ECS_CLUSTER)
+	task_def=$(printf "$task_template" $ACCOUNT_ID $AWS_ECS_CLUSTER $ACCOUNT_ID $AWS_REGION $AWS_REPOSITORY $TAG $NODE_CONFIG_ENV $AWS_ECS_CLUSTER $AWS_REGION $AWS_ECS_CLUSTER $ACCOUNT_ID $AWS_ECS_CLUSTER)
 	echo $task_def
 }
 
