@@ -629,7 +629,6 @@ exports[`Render with specified profile 1`] = `
             composeContextTheme="softly"
             mapThemrProps={[Function]}
             themePriority="adhoc-context-default"
-            url={undefined}
           />
         </div>
       </div>
