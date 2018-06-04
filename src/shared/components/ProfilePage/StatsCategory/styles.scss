@@ -150,7 +150,7 @@
   }
 }
 
-@media (min-width: 768px) {
+@mixin md-to-xl {
   .categories {
     margin-top: 1px;
     padding-top: 0;

@@ -4,16 +4,16 @@ import PT from 'prop-types';
 import X from 'assets/images/profile/x-mark-gray.svg';
 import { getRatingColor } from 'utils/tc';
 import StatsCategory from '../../StatsCategory';
-import styles from './styles.scss';
+import './styles.scss';
 
 
 class StatsModal extends React.Component {
   componentDidMount() {
-    document.body.classList.add(styles['is-modal-open']);
+    document.body.classList.add('scrolling-disabled-by-modal');
   }
 
   componentWillUnmount() {
-    document.body.classList.remove(styles['is-modal-open']);
+    document.body.classList.remove('scrolling-disabled-by-modal');
   }
 
   render() {

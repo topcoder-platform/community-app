@@ -1,9 +1,9 @@
 @import "~styles/mixins";
 
-ul.divisions {
+.divisions {
   @include sofia-pro-regular;
 
-  li.division {
+  .division {
     border-bottom: 1px solid #f0f0f0;
     padding-top: 30px;
     padding-bottom: 30px;
@@ -12,8 +12,8 @@ ul.divisions {
     margin-right: auto;
 
     ul {
-      li.totals {
-        ul.row {
+      .totals {
+        .row {
           li {
             background-color: white;
             border: solid 1px #d1d3d4;
@@ -33,13 +33,13 @@ ul.divisions {
         }
       }
 
-      li.totals,
-      li.level {
+      .totals,
+      .level {
         display: flex;
         flex-direction: column;
         align-items: center;
 
-        ul.row {
+        .row {
           display: flex;
           flex-direction: row;
           flex-wrap: wrap;
@@ -100,12 +100,12 @@ ul.divisions {
   }
 }
 
-@media (min-width: $screen-md) {
-  ul.divisions {
-    li.division {
+@include md-to-xl {
+  .divisions {
+    .division {
       ul {
-        li.totals {
-          ul.row {
+        .totals {
+          .row {
             li {
               background-color: white;
               border: none;
@@ -121,13 +121,13 @@ ul.divisions {
           }
         }
 
-        li.totals,
-        li.level {
+        .totals,
+        .level {
           display: flex;
           flex-direction: column;
           align-items: center;
 
-          ul.row {
+          .row {
             display: flex;
             flex-direction: row;
             flex-wrap: wrap;

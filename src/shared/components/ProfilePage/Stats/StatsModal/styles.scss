@@ -1,9 +1,5 @@
 @import "~styles/mixins";
 
-.is-modal-open {
-  overflow: hidden;
-}
-
 .stats-modal {
   position: fixed;
   top: 0;
@@ -69,7 +65,7 @@
   }
 }
 
-@media (min-width: $screen-md) {
+@include md-to-xl {
   .category {
     justify-content: space-between;
     align-items: flex-start;

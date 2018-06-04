@@ -1,6 +1,41 @@
 @import "~styles/mixins";
 
-:global {
+.distribution-graph {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+
+  .axis path,
+  .axis line {
+    fill: none;
+    stroke: none;
+    shape-rendering: crispEdges;
+  }
+
+  .grid :global(.tick) {
+    stroke: white;
+    opacity: 0.7;
+  }
+
+  .grid path {
+    stroke-width: 0;
+  }
+
+  .axis text {
+    font-family: sans-serif;
+    font-size: 11px;
+  }
+
+  text:global(.label) {
+    text-anchor: middle;
+    font-family: sans-serif;
+    font-size: 12px;
+    fill: white;
+    pointer-events: none;
+  }
+}
+
+@include md-to-xl {
   .distribution-graph {
     display: flex;
     flex-direction: row;
@@ -13,7 +48,7 @@
       shape-rendering: crispEdges;
     }
 
-    .grid .tick {
+    .grid :global(.tick) {
       stroke: white;
       opacity: 0.7;
     }
@@ -27,67 +62,12 @@
       font-size: 11px;
     }
 
-    text.label {
+    text:global(.label) {
       text-anchor: middle;
       font-family: sans-serif;
       font-size: 12px;
       fill: white;
       pointer-events: none;
-    }
-
-    text.countryLabel {
-      text-anchor: middle;
-      font-family: sans-serif;
-      font-size: 12px;
-      fill: black;
-      pointer-events: none;
-    }
-  }
-}
-
-@media (min-width: $screen-md) {
-  :global {
-    .distribution-graph {
-      display: flex;
-      flex-direction: row;
-      justify-content: center;
-
-      .axis path,
-      .axis line {
-        fill: none;
-        stroke: none;
-        shape-rendering: crispEdges;
-      }
-
-      .grid .tick {
-        stroke: white;
-        opacity: 0.7;
-      }
-
-      .grid path {
-        stroke-width: 0;
-      }
-
-      .axis text {
-        font-family: sans-serif;
-        font-size: 11px;
-      }
-
-      text.label {
-        text-anchor: middle;
-        font-family: sans-serif;
-        font-size: 12px;
-        fill: white;
-        pointer-events: none;
-      }
-
-      text.countryLabel {
-        text-anchor: middle;
-        font-family: sans-serif;
-        font-size: 12px;
-        fill: black;
-        pointer-events: none;
-      }
     }
   }
 }

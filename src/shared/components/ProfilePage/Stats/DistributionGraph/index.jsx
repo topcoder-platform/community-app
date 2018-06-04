@@ -3,36 +3,35 @@ import d3 from 'd3';
 import React from 'react';
 import { toPairs } from 'lodash';
 import PT from 'prop-types';
+import { getRatingColor } from 'utils/tc';
 import ChartTooltip from '../ChartTooltip';
-import './index.scss';
+import styles from './index.scss';
 
 const getRanges = distribution => (
   toPairs(distribution)
-    .map(([name, number]) => ({
-      name,
-      number,
-      start: parseInt(name.match(/\d+/)[0], 10),
-      end: parseInt(name.match(/To(\d+)/)[1], 10),
-    }))
+    .map(([name, number]) => {
+      const [start, end] = name.match(/ratingRange(\d+)To(\d+)/).slice(1).map(rating => parseInt(rating, 10));
+      return {
+        name,
+        number,
+        start,
+        end,
+      };
+    })
     .sort((a, b) => a.start - b.start)
 );
 
-function removeLeadingZeroes(ranges) {
-  while (ranges[0].number === 0) {
-    ranges.shift();
+const getNonZeroRanges = (ranges) => {
+  let st = 0;
+  while (ranges[st].number === 0) {
+    st += 1;
   }
-}
-
-function removeTrailingZeroes(ranges) {
-  while (ranges[ranges.length - 1].number === 0) {
-    ranges.pop();
+  let end = ranges.length - 1;
+  while (end > st && ranges[end].number === 0) {
+    end -= 1;
   }
-}
-
-function ratingToColor(colors, rating) {
-  const filteredColors = colors.filter(color => rating >= color.start && rating <= color.end);
-  return (filteredColors[0] && filteredColors[0].color) || 'black';
-}
+  return ranges.slice(st, end + 1);
+};
 
 export default class DistributionGraph extends React.Component {
   constructor(props) {
@@ -75,61 +74,23 @@ export default class DistributionGraph extends React.Component {
     }
     const { distribution } = wrapper;
 
-    const colors = [
-      // grey
-      {
-        color: '#9D9FA0',
-        darkerColor: '#9D9FA0',
-        start: 0,
-        end: 899,
-      },
-      // green
-      {
-        color: '#69C329',
-        darkerColor: '#69C329',
-        start: 900,
-        end: 1199,
-      },
-      // blue
-      {
-        color: '#616BD5',
-        darkerColor: '#616BD5',
-        start: 1200,
-        end: 1499,
-      },
-      // yellow
-      {
-        color: '#FCD617',
-        darkerColor: '#FCD617',
-        start: 1500,
-        end: 2199,
-      },
-      // red
-      {
-        color: '#EF3A3A',
-        darkerColor: '#EF3A3A',
-        start: 2200,
-        end: Infinity,
-      },
-    ];
-
     const desktopMeasurements = {
-      w: 835,
+      w: 855,
       h: 400,
       padding: {
         top: 20,
         right: 5,
         bottom: 100,
-        left: 60,
+        left: 40,
       },
     };
 
     const mobileMeasurements = {
-      w: 350,
+      w: 370,
       h: 200,
       padding: {
         top: 50,
-        left: 60,
+        left: 40,
         bottom: 80,
         right: 50,
       },
@@ -140,9 +101,8 @@ export default class DistributionGraph extends React.Component {
     const totalW = w + padding.left + padding.right;
     const totalH = h + padding.top + padding.bottom;
 
-    const ranges = getRanges(distribution);
-    removeLeadingZeroes(ranges);
-    removeTrailingZeroes(ranges);
+    const ranges = getNonZeroRanges(getRanges(distribution));
+
     const xScale = d3.scale.ordinal()
       .domain(d3.range(ranges.length))
       .rangeRoundBands([padding.left, padding.left + w], 0.05);
@@ -174,12 +134,12 @@ export default class DistributionGraph extends React.Component {
       .attr('fill', '#f6f6f6');
 
     svg.append('g')
-      .attr('class', 'grid')
+      .attr('class', styles.grid)
       .attr('transform', `translate(${padding.left},0)`)
       .call(yAxis(5).tickSize(-totalW, 0, 0).tickFormat(''));
 
     svg.append('g')
-      .attr('class', 'axis')
+      .attr('class', styles.axis)
       .attr('transform', `translate(${padding.left},0)`)
       .call(yAxis(5));
 
@@ -188,9 +148,8 @@ export default class DistributionGraph extends React.Component {
       .attr('y1', totalH - padding.bottom)
       .attr('x2', xScale2(rating))
       .attr('y2', padding.top)
-      .attr('class', 'my-rating')
       .attr('stroke-width', 2)
-      .attr('stroke', ratingToColor(colors, rating));
+      .attr('stroke', getRatingColor(rating));
 
     svg.selectAll('rect.bar')
       .data(ranges)
@@ -201,7 +160,7 @@ export default class DistributionGraph extends React.Component {
       .attr('y', d => yScale(d.number))
       .attr('width', xScale.rangeBand())
       .attr('height', d => totalH - padding.bottom - yScale(d.number))
-      .attr('fill', d => ratingToColor(colors, d.start));
+      .attr('fill', d => getRatingColor(d.start));
 
     svg.selectAll('rect.hover')
       .data(ranges)
@@ -222,7 +181,7 @@ export default class DistributionGraph extends React.Component {
           challengeName: `${d.number} Coders`,
           challengeData: `Rating Range: ${d.start} - ${d.start + 99}`,
           rating: d.number,
-          ratingColor: ratingToColor(colors, d.start),
+          ratingColor: getRatingColor(d.start),
         });
       })
       .on('mousemove', () => {
@@ -254,10 +213,10 @@ export default class DistributionGraph extends React.Component {
       ))
       .attr('y1', h + padding.top + 0.5)
       .attr('y2', h + padding.top + 0.5)
-      .attr('stroke', d => ratingToColor(colors, d.start));
+      .attr('stroke', d => getRatingColor(d.start));
 
     svg.append('g')
-      .attr('class', 'axis')
+      .attr('class', styles.axis)
       .attr('transform', `translate(0,${(h + padding.top)})`)
       .call(xAxis)
       .selectAll('text')
@@ -271,7 +230,7 @@ export default class DistributionGraph extends React.Component {
 
   render() {
     return (
-      <div className="distribution-graph" ref={this.graphRef}>
+      <div styleName="distribution-graph" ref={this.graphRef}>
         <ChartTooltip {...this.state} />
       </div>
     );

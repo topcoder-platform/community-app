@@ -4,8 +4,7 @@
 import React from 'react';
 import PT from 'prop-types';
 import { connect } from 'react-redux';
-import actions from 'actions/members';
-import profileActions from 'actions/profile';
+import { actions } from 'topcoder-react-lib';
 import Error404 from 'components/Error404';
 import LoadingIndicator from 'components/LoadingIndicator';
 import ProfileStatsPage from 'components/ProfilePage/Stats';
@@ -13,16 +12,9 @@ import { shouldShowGraph, isValidTrack } from 'utils/memberStats';
 import _ from 'lodash';
 import qs from 'qs';
 
-function getQueryParamsQuery(location) {
-  const query = location.search ?
-    qs.parse(location.search.slice(1)) : null;
-
-  return {
-    track: _.get(query, 'track'),
-    subTrack: _.get(query, 'subTrack'),
-    tab: _.get(query, 'tab'),
-  };
-}
+const getQueryParamsQuery = location => (
+  location.search ? qs.parse(location.search.slice(1)) : {}
+);
 
 class ProfileStatsContainer extends React.Component {
   componentDidMount() {
@@ -31,7 +23,6 @@ class ProfileStatsContainer extends React.Component {
       location,
       loadStats,
       loadStatsHistoryAndDistribution,
-      loadChallenges,
     } = this.props;
     const trackAndSubTrack = getQueryParamsQuery(location);
     loadStats(handleParam);
@@ -42,15 +33,6 @@ class ProfileStatsContainer extends React.Component {
         trackAndSubTrack.subTrack,
       );
     }
-    if (trackAndSubTrack.tab === 'challenges') {
-      loadChallenges(
-        handleParam,
-        trackAndSubTrack.track,
-        trackAndSubTrack.subTrack,
-        100,
-        0,
-      );
-    }
   }
 
   componentWillReceiveProps(nextProps) {
@@ -59,7 +41,6 @@ class ProfileStatsContainer extends React.Component {
       location,
       loadStats,
       loadStatsHistoryAndDistribution,
-      loadChallenges,
     } = nextProps;
     const nextQueryParams = getQueryParamsQuery(location);
     const trackAndSubTrack = getQueryParamsQuery(this.props.location);
@@ -76,14 +57,6 @@ class ProfileStatsContainer extends React.Component {
             handleParam,
             nextQueryParams.track,
             nextQueryParams.subTrack,
-          );
-        } else if (nextQueryParams.tab === 'challenges') {
-          loadChallenges(
-            handleParam,
-            nextQueryParams.track,
-            nextQueryParams.subTrack,
-            100,
-            0,
           );
         }
       }
@@ -126,7 +99,6 @@ ProfileStatsContainer.propTypes = {
   loadingError: PT.bool,
   loadStats: PT.func.isRequired,
   loadStatsHistoryAndDistribution: PT.func.isRequired,
-  loadChallenges: PT.func.isRequired,
   handleParam: PT.string.isRequired,
   statsHistory: PT.shape(),
   statsDistribution: PT.shape(),
@@ -143,8 +115,8 @@ const mapStateToProps = (state, ownProps) => {
     loadingError: state.members.loadingError,
     isLoading: !state.profile.info
       || !_.get(obj, 'stats.data')
-      || ('loadingUuid' in _.get(obj, 'statsHistory'))
-      || ('loadingUuid' in _.get(obj, 'statsDistribution')),
+      || ('loadingUuid' in _.get(obj, 'statsHistory', {}))
+      || ('loadingUuid' in _.get(obj, 'statsDistribution', {})),
     stats: _.get(obj, 'stats.data'),
     statsHistory: _.get(obj, 'statsHistory.data'),
     statsDistribution: _.get(obj, 'statsDistribution.data'),
@@ -155,7 +127,7 @@ const mapStateToProps = (state, ownProps) => {
 
 function mapDispatchToProps(dispatch) {
   const a = actions.members;
-  const pa = profileActions.profile;
+  const pa = actions.profile;
 
   return {
     loadStats: (handle) => {
@@ -171,10 +143,6 @@ function mapDispatchToProps(dispatch) {
       dispatch(a.getStatsHistoryDone(handle));
       dispatch(a.getStatsDistributionInit(handle));
       dispatch(a.getStatsDistributionDone(handle, track, subTrack));
-    },
-    loadChallenges: (handle, track, subTrack, limit, offset) => {
-      dispatch(a.getChallengesInit(handle, subTrack));
-      dispatch(a.getChallengesDone(handle, track, subTrack, limit, offset));
     },
   };
 }

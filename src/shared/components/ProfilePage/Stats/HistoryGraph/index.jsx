@@ -3,13 +3,9 @@ import d3 from 'd3';
 import moment from 'moment';
 import React from 'react';
 import PT from 'prop-types';
+import { getRatingColor, RATING_COLORS } from 'utils/tc';
 import ChartTooltip from '../ChartTooltip';
-import './index.scss';
-
-function ratingToColor(colors, rating) {
-  const filteredColors = colors.filter(color => rating >= color.start && rating <= color.end);
-  return (filteredColors[0] && filteredColors[0].color) || 'black';
-}
+import styles from './index.scss';
 
 export default class HistoryGraph extends React.Component {
   constructor(props) {
@@ -68,44 +64,6 @@ export default class HistoryGraph extends React.Component {
     history.sort(({ ratingDate: d1 }, { ratingDate: d2 }) => moment(d1) - moment(d2));
 
     const parseDate = d3.time.format.utc('%Y-%m-%dT%H:%M:%S.%LZ').parse;
-
-    const colors = [
-      // grey
-      {
-        color: '#9D9FA0',
-        darkerColor: '#9D9FA0',
-        start: 0,
-        end: 899,
-      },
-      // green
-      {
-        color: '#69C329',
-        darkerColor: '#69C329',
-        start: 900,
-        end: 1199,
-      },
-      // blue
-      {
-        color: '#616BD5',
-        darkerColor: '#616BD5',
-        start: 1200,
-        end: 1499,
-      },
-      // yellow
-      {
-        color: '#FCD617',
-        darkerColor: '#FCD617',
-        start: 1500,
-        end: 2199,
-      },
-      // red
-      {
-        color: '#EF3A3A',
-        darkerColor: '#EF3A3A',
-        start: 2200,
-        end: Infinity,
-      },
-    ];
 
     const desktopMeasurements = {
       w: 835,
@@ -173,7 +131,7 @@ export default class HistoryGraph extends React.Component {
 
 
     svg.append('g')
-      .attr('class', 'x axis')
+      .attr('class', `${styles.x} ${styles.axis}`)
       .attr('transform', `translate(0,${h + padding.top})`)
       .call(xAxis().tickFormat((d) => {
         const m = moment(d);
@@ -182,31 +140,31 @@ export default class HistoryGraph extends React.Component {
           : m.format('MMM').toUpperCase();
       }));
 
-    svg.selectAll('g.x.axis .tick text')
+    svg.selectAll(`g.${styles.x}.${styles.axis} .tick text`)
       .attr('font-weight', d => (moment(d).format('MM') === '01' ? 'bold' : 'normal'))
       .attr('fill', d => (moment(d).format('MM') === '01' ? 'black' : '#a3a3ad'))
       .attr('font-size', () => 11);
 
 
     svg.append('g')
-      .attr('class', 'y axis')
+      .attr('class', `${styles.y} ${styles.axis}`)
       .attr('transform', `translate(${padding.left - 25})`)
       .call(yAxis().tickFormat(d => `${parseInt(d, 10)}`));
 
     svg.append('g')
-      .attr('class', 'grid x')
+      .attr('class', `${styles.x} ${styles.grid}`)
       .attr('transform', `translate(0,${h + padding.top})`)
       .call(xAxis().tickSize(-h, 0, 0).tickFormat(''));
 
     svg.append('g')
-      .attr('class', 'grid y')
+      .attr('class', `${styles.y} ${styles.grid}`)
       .attr('transform', `translate(${padding.left},0)`)
       .call(yAxis().tickSize(-w, 0, 0).tickFormat(''));
 
 
     svg.append('path')
       .datum(history)
-      .attr('class', 'line')
+      .attr('class', styles.line)
       .attr('d', line);
 
     function processRatingStripePoint(_y) {
@@ -220,13 +178,13 @@ export default class HistoryGraph extends React.Component {
 
     svg.append('g')
       .selectAll('line')
-      .data(colors)
+      .data(RATING_COLORS)
       .enter()
       .append('line')
       .attr('x1', padding.left - 18)
       .attr('x2', padding.left - 18)
-      .attr('y1', d => processRatingStripePoint(y(d.start)))
-      .attr('y2', d => processRatingStripePoint(y(d.end)))
+      .attr('y1', (d, i) => processRatingStripePoint(y(i === 0 ? 0 : RATING_COLORS[i - 1].limit)))
+      .attr('y2', d => processRatingStripePoint(y(d.limit - 1)))
       .attr('stroke', d => d.color)
       .attr('stroke-width', 3);
 
@@ -237,7 +195,7 @@ export default class HistoryGraph extends React.Component {
       .attr('cx', d => x(parseDate(d.ratingDate)))
       .attr('cy', d => y(d.newRating))
       .attr('r', 5.5)
-      .attr('fill', d => ratingToColor(colors, d.newRating))
+      .attr('fill', d => getRatingColor(d.newRating))
       .on('mouseover', (d) => {
         const e = d3.event;
         $scope.setState({
@@ -245,9 +203,9 @@ export default class HistoryGraph extends React.Component {
           left: e.pageX,
           top: e.pageY,
           challengeName: d.challengeName,
-          challengeData: moment(d.ratingDate).format('MMM d, YYYY'),
+          challengeData: moment(d.ratingDate).format('MMM DD, YYYY'),
           rating: d.newRating,
-          ratingColor: ratingToColor(colors, d.newRating),
+          ratingColor: getRatingColor(d.newRating),
           href: `/challenges/${d.challengeId}`,
         });
       });
@@ -255,7 +213,7 @@ export default class HistoryGraph extends React.Component {
 
   render() {
     return (
-      <div className="history-graph" ref={this.graphRef}>
+      <div styleName="history-graph" ref={this.graphRef}>
         <ChartTooltip {...this.state} />
       </div>
     );

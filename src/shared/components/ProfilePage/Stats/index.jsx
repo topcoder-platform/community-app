@@ -22,27 +22,9 @@ class ProfileStats extends React.Component {
     this.state = {
       activeGraph: 'history',
       showModal: false,
-      isMobile: window.innerWidth < 768,
     };
 
-    this.handleResize = this.handleResize.bind(this);
     this.toggleModal = this.toggleModal.bind(this);
-  }
-
-  componentDidMount() {
-    this.handleResize();
-    window.addEventListener('resize', this.handleResize);
-  }
-
-  componentWillUnmount() {
-    window.removeEventListener('resize', this.handleResize);
-  }
-
-  handleResize() {
-    const isMobile = window.innerWidth < 768;
-    if (this.state.isMobile !== isMobile) {
-      this.setState({ isMobile });
-    }
   }
 
   toggleModal() {
@@ -112,7 +94,7 @@ class ProfileStats extends React.Component {
                 tabs.map(tab => (
                   <li key={tab}>
                     <Link
-                      className={activeTab === tab ? 'selected' : ''}
+                      className={activeTab === tab ? styles.selected : ''}
                       to={`/members/${handleParam}/details/?track=${track}&subTrack=${subTrack}&tab=${tab}`}
                     >
                       {tab}
@@ -122,16 +104,21 @@ class ProfileStats extends React.Component {
             </ul>
             <ul styleName="subtrack-stats">
               {
-                subTrackSummary.map(({ label, value }) => (
+                subTrackSummary.map(({ label, value, link }) => (
                   <li key={label}>
-                    <div
-                      styleName="value"
-                      className={label === 'rating' ? styles.rating : ''}
-                      style={{ color: label === 'rating' ? getRatingColor(value) : undefined }}
-                    >
-                      {value || '-'}
-                      {label === 'rating' && <span styleName="square" style={{ backgroundColor: getRatingColor(value) }} />}
-                    </div>
+                    {
+                      link ?
+                        <a styleName="value" href={link}>{value || '-'}</a>
+                        :
+                        <div
+                          styleName="value"
+                          className={label === 'rating' ? styles.rating : ''}
+                          style={{ color: label === 'rating' ? getRatingColor(parseInt(value.replace(/\D/g, ''), 10)) : undefined }}
+                        >
+                          {value || '-'}
+                          {label === 'rating' && <span styleName="square" style={{ backgroundColor: getRatingColor((parseInt(value.replace(/\D/g, ''), 10))) }} />}
+                        </div>
+                    }
                     <p styleName="label">{label}</p>
                   </li>
                 ))
