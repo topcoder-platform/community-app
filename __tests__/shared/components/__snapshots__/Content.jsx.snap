@@ -216,6 +216,14 @@ exports[`Matches shallow shapshot 1`] = `
     <li>
       <Link
         replace={false}
+        to="/crowd-for-good"
+      >
+        Crowd 4 Good Page
+      </Link>
+    </li>
+    <li>
+      <Link
+        replace={false}
         to="/my-dashboard"
       >
         Dashboard

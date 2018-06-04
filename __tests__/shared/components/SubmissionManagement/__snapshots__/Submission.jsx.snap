@@ -26,9 +26,7 @@ exports[`Snapshot match 1`] = `
     className="src-shared-components-SubmissionManagement-Submission-___styles__action-col___2M1RY"
   >
     <div>
-      <a
-        href={undefined}
-      >
+      <a>
         <DownloadIcon
           height="16"
           viewBox="0 0 16 16"
@@ -92,9 +90,7 @@ exports[`Snapshot match 2`] = `
     className="src-shared-components-SubmissionManagement-Submission-___styles__action-col___2M1RY"
   >
     <div>
-      <a
-        href={undefined}
-      >
+      <a>
         <DownloadIcon
           height="16"
           viewBox="0 0 16 16"

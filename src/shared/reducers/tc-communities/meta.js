@@ -2,32 +2,27 @@
  * Reducer for state.tcCommunities.meta
  */
 
-import _ from 'lodash';
 import actions from 'actions/tc-communities/meta';
 import { logger } from 'topcoder-react-lib';
 import { getCommunityId } from 'server/services/communities';
-import { redux } from 'topcoder-react-utils';
+import { actions as truActions, reducers, redux } from 'topcoder-react-utils';
 import { getAuthTokens } from 'utils/tc';
+
+const itemActions = truActions.item;
+const itemReducer = reducers.item;
 
 /**
  * Handles tcCommunities.meta.fetchDataDone action.
  * @param {Object} state Previous state.
  * @param {Object} action Action.
  */
-function onDone(state, action) {
+function onFetchDataDone(state, action) {
   if (action.error) {
     logger.error('Failed to load community meta-data!', action.payload);
     return state;
-  } else if (action.payload.communityId
-    !== state.loadingMetaDataForCommunityId) {
-    return state;
   }
-  return {
-    ...state,
-    data: action.payload,
-    lastUpdateOfMetaData: Date.now(),
-    loadingMetaDataForCommunityId: '',
-  };
+  const a = redux.proxyAction(itemActions.loadDataDone, action);
+  return itemReducer(state, a);
 }
 
 /**
@@ -35,26 +30,19 @@ function onDone(state, action) {
  * @param {Object} initialState Optional. Initial state.
  * @return community meta reducer.
  */
-function create(initialState) {
+function create(initialState = itemReducer(undefined, '@@INIT')) {
+  const a = actions.tcCommunities.meta;
   return redux.handleActions({
-    [actions.tcCommunities.meta.mobileToggle](state) {
+    [a.mobileToggle](state) {
       return {
         ...state,
         isMobileOpen: !state.isMobileOpen,
       };
     },
-    [actions.tcCommunities.meta.fetchDataInit](state, action) {
-      return {
-        ...state,
-        loadingMetaDataForCommunityId: action.payload,
-      };
-    },
-    [actions.tcCommunities.meta.fetchDataDone]: onDone,
-  }, _.defaults(initialState || {}, {
-    data: {},
-    lastUpdateOfMetaData: 0,
-    loadingMetaDataForCommunityId: '',
-  }));
+    [a.fetchDataInit]:
+      redux.proxyReducer(itemReducer, itemActions.loadDataInit),
+    [a.fetchDataDone]: onFetchDataDone,
+  }, initialState);
 }
 
 /**
@@ -64,7 +52,7 @@ function create(initialState) {
  * @param {Object} req Optional. ExpressJS HTTP request.
  * @return Promise which resolves to the new reducer.
  */
-export function factory(req) {
+export async function factory(req) {
   if (req) {
     let communityId = getCommunityId(req.subdomains);
     if (!communityId && req.url.match(/\/community\/.*/)) {
@@ -73,15 +61,16 @@ export function factory(req) {
       communityId = communityId ? communityId.replace(/\?.*/, '') : communityId;
     }
     if (communityId) {
-      const state = { loadingMetaDataForCommunityId: communityId };
+      let state = itemReducer(undefined, '@@INIT');
+      state = { ...state, loadingOperationId: communityId };
       const { tokenV3 } = getAuthTokens(req);
-      return redux.resolveAction(actions.tcCommunities.meta.fetchDataDone(
-        communityId,
-        tokenV3,
-      )).then(res => create(onDone(state, res)));
+      let action =
+        actions.tcCommunities.meta.fetchDataDone(communityId, tokenV3);
+      action = await redux.resolveAction(action);
+      return create(onFetchDataDone(state, action));
     }
   }
-  return Promise.resolve(create());
+  return create();
 }
 
 /* Default reducer with empty initial state. */

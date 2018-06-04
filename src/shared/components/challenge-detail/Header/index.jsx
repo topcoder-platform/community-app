@@ -241,8 +241,17 @@ export default function ChallengeHeader(props) {
                       <p styleName="bonus-text">
                         <span styleName={`bonus-highlight ${trackLower}-accent-color`}>
                           BONUS: {numberOfCheckpointsPrizes}
-                        </span>CHECKPOINTS AWARDED
-                          WORTH <span styleName={`bonus-highlight ${trackLower}-accent-color`}>${topCheckPointPrize} </span>EACH
+                        </span>
+                        &zwnj;
+                        CHECKPOINTS AWARDED WORTH
+                        &zwnj;
+                        <span
+                          styleName={`bonus-highlight ${trackLower}-accent-color`}
+                        >
+                          ${topCheckPointPrize}
+                        </span>
+                        &zwnj;
+                        EACH
                       </p> :
                       <p styleName="bonus-text">
                         <span styleName={`bonus-highlight ${trackLower}-accent-color`}>

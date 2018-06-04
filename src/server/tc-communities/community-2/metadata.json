@@ -1,7 +1,4 @@
 {
-  "authorizedGroupIds": [
-    "20000002"
-  ],
   "challengeFilter": {
     "groupIds": ["20000002"]
   },
