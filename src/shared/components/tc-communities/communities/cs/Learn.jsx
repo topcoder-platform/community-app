@@ -8,7 +8,7 @@ export default function Home() {
     <ContentfulLoader
       entryQueries={{
         content_type: 'viewport',
-        'fields.name': 'Blockchain Community - Home',
+        'fields.name': 'CS Community - Learn',
       }}
       render={data => (
         <Viewport
