@@ -133,7 +133,7 @@ export default class NameAddress extends React.Component {
               <h2> Name</h2>
               <div className="description">Required for legal purposes; will be kept private and not shared with anyone.</div>
             </div>
-            <div className="section-fields" styleName="section-fields">
+            <div className="section-fields" styleName="account-section-fields">
               <input autoComplete="false" name="hidden" type="text" className="hidden" />
               <div className="form-label">First name <span styleName="no-text-transform">&nbsp;(Given name)</span><span className="mandatory">*mandatory</span></div>
               <div className="form-field" styleName={`validation-bar ${this.state.nameChanged ? (accountInfo.firstName ? 'success-bar' : 'error-bar') : ''}`}>
@@ -156,7 +156,7 @@ export default class NameAddress extends React.Component {
               <h2>Address</h2>
               <div className="description">Required for payments and in case we need to mail you something. Will be kept private and not shared with anyone.</div>
             </div>
-            <div className="section-fields" styleName="section-fields">
+            <div className="section-fields" styleName="account-section-fields">
               <div className="form-label" styleName="address">Address</div>
               <input className="form-field" name="streetAddr1" type="text" placeholder="123 Topcoder Ave." value={accountInfo.homeAddress.streetAddr1} onChange={this.onUpdateAddress} />
               <div className="form-label">Address 2<span styleName="no-text-transform">&nbsp;(apt., suite, etc.)</span></div>

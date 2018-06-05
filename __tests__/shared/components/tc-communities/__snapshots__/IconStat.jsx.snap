@@ -5,9 +5,7 @@ exports[`Snapshot match 1`] = `
   className="container src-shared-components-tc-communities-IconStat-style___container___145TJs"
 >
   <div />
-  <div
-    className={undefined}
-  >
+  <div>
     <p
       className="number src-shared-components-tc-communities-IconStat-style___number___3GKcuN"
     >

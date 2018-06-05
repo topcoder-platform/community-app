@@ -13,7 +13,6 @@ exports[`Snapshot match 1`] = `
         composeContextTheme="softly"
         mapThemrProps={[Function]}
         themePriority="adhoc-context-default"
-        url={undefined}
       />
       <span
         className="src-shared-components-TopcoderHeader-mobile-UserMenu-___style__handle___CL0Tq"

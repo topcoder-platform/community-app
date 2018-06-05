@@ -15,7 +15,7 @@
 }
 
 .name {
-  .section-fields {
+  .account-section-fields {
     display: flex;
     flex-direction: column;
   }
@@ -91,11 +91,12 @@
     position: absolute;
     top: 65px;
     left: 3px;
+    color: #ef3a3a;
   }
 }
 
 @media only screen and (min-width: 768px) {
-  .section-fields {
+  .account-section-fields {
     margin-top: 0;
     width: 100%;
   }

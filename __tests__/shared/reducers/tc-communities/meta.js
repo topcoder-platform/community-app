@@ -1,3 +1,4 @@
+import mockDate from 'mockdate';
 import { mock } from 'topcoder-react-lib';
 
 const { mockAction } = mock;
@@ -16,58 +17,54 @@ const mockMetaActions = {
 };
 jest.setMock(require.resolve('actions/tc-communities/meta'), mockMetaActions);
 
-const reducers = require('reducers/tc-communities/meta');
+const reducer = require('reducers/tc-communities/meta');
+
+beforeAll(() => {
+  mockDate.set('2018-06-03T02:15:55Z');
+});
 
 beforeEach(() => jest.clearAllMocks());
 
-function testReducer(reducer, istate) {
+afterAll(() => {
+  mockDate.reset();
+});
+
+function testReducer(r) {
   let state;
 
+  function check(action) {
+    state = r(state, action);
+    expect(state).toMatchSnapshot();
+    mockDate.set(Date.now() + 1234);
+  }
+
   test('Creates expected intial state', () => {
-    state = reducer(undefined, {});
-    expect(state).toEqual(istate);
+    check('@@INIT');
   });
 
   test('Handles fetchDataInit as expected', () => {
-    state = reducer(state, mockMetaActions.tcCommunities.meta.fetchDataInit());
-    expect(state).toEqual({
-      data: {},
-      lastUpdateOfMetaData: 0,
-      loadingMetaDataForCommunityId: 'test-community',
-    });
+    check(mockMetaActions.tcCommunities.meta.fetchDataInit());
   });
 
   test('Handles mobileToggle as expected', () => {
-    state = reducer(state, mockMetaActions.tcCommunities.meta.mobileToggle());
-    expect(state.isMobileOpen).toBeTruthy();
-
-    state = reducer(state, mockMetaActions.tcCommunities.meta.mobileToggle());
-    expect(state.isMobileOpen).toBeFalsy();
+    check(mockMetaActions.tcCommunities.meta.mobileToggle());
+    check(state, mockMetaActions.tcCommunities.meta.mobileToggle());
   });
 }
 
-const INITIAL_STATE = {
-  data: {},
-  lastUpdateOfMetaData: 0,
-  loadingMetaDataForCommunityId: '',
-};
-
 describe('Default reducer', () => {
-  testReducer(reducers.default, INITIAL_STATE);
+  testReducer(reducer.default);
 });
 
 describe('Factory without http request', () =>
-  reducers.factory().then(res =>
-    testReducer(res, INITIAL_STATE)));
+  reducer.factory().then(testReducer));
 
 describe('Factory with server-side rendering', () =>
-  reducers.factory({
+  reducer.factory({
     url: '/community/communityId/header',
-  }).then(res =>
-    testReducer(res, INITIAL_STATE)));
+  }).then(testReducer));
 
 describe('Factory without server-side rendering', () =>
-  reducers.factory({
+  reducer.factory({
     url: '/some-random-url',
-  }).then(res =>
-    testReducer(res, INITIAL_STATE)));
+  }).then(testReducer));

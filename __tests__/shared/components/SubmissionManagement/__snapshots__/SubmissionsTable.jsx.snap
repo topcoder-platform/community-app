@@ -33,12 +33,10 @@ exports[`Matches shallow shapshot 1`] = `
     </thead>
     <tbody>
       <Submission
-        allowDelete={undefined}
         onDelete={[Function]}
         onDownload={[Function]}
         onShowDetails={[Function]}
         showScreeningDetails={true}
-        status={undefined}
         submissionObject={
           Object {
             "submissionId": 12345,

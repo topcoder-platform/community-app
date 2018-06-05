@@ -1,9 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Matches shallow shapshot 1`] = `
-<div
-  className={undefined}
->
+<div>
   <ThemedButton
     active={false}
     className=""
@@ -23,7 +21,6 @@ exports[`Matches shallow shapshot 1`] = `
     Join Community
   </ThemedButton>
   <ConfirmModal
-    communityId={undefined}
     communityName="ios"
     customTcAuthModalText=""
     groupIds={
@@ -42,9 +39,7 @@ exports[`Matches shallow shapshot 1`] = `
 `;
 
 exports[`Matches shallow shapshot 2`] = `
-<div
-  className={undefined}
->
+<div>
   <ThemedButton
     active={false}
     className="src-shared-components-tc-communities-JoinCommunity-style___joining___rq-m2x"
@@ -92,9 +87,7 @@ exports[`Matches shallow shapshot 3`] = `
 `;
 
 exports[`Matches shallow shapshot 4`] = `
-<div
-  className={undefined}
->
+<div>
   <ThemedButton
     active={false}
     className=""
@@ -158,9 +151,7 @@ exports[`Matches shallow shapshot 4`] = `
 `;
 
 exports[`Matches shallow shapshot 5`] = `
-<div
-  className={undefined}
->
+<div>
   <ThemedButton
     active={false}
     className=""
@@ -180,7 +171,6 @@ exports[`Matches shallow shapshot 5`] = `
     Join Community
   </ThemedButton>
   <ConfirmModal
-    communityId={undefined}
     communityName="ios"
     customTcAuthModalText=""
     groupIds={

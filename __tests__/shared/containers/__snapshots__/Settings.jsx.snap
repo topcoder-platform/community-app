@@ -194,7 +194,6 @@ exports[`renders account setting page correctly 1`] = `
           "description": "SRM Engagement Honor",
         },
       ],
-      "activeChallengesCount": 1,
       "copilot": false,
       "country": "China",
       "credential": Object {
@@ -928,7 +927,6 @@ exports[`renders email setting page correctly 1`] = `
           "description": "SRM Engagement Honor",
         },
       ],
-      "activeChallengesCount": 1,
       "copilot": false,
       "country": "China",
       "credential": Object {
@@ -1662,7 +1660,6 @@ exports[`renders preferences setting page correctly 1`] = `
           "description": "SRM Engagement Honor",
         },
       ],
-      "activeChallengesCount": 1,
       "copilot": false,
       "country": "China",
       "credential": Object {
@@ -2396,7 +2393,6 @@ exports[`renders profile setting page correctly 1`] = `
           "description": "SRM Engagement Honor",
         },
       ],
-      "activeChallengesCount": 1,
       "copilot": false,
       "country": "China",
       "credential": Object {

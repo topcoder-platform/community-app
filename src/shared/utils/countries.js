@@ -1,63 +1,28 @@
 /**
  * Provides lookup data for countryies.
  */
-import countries from './countries.json';
+import _ from 'lodash';
 
-// Initialize maps
-const codeToCountryObj = {};
-const numericStringToCountryObj = {};
-const alpha2ToCountryObj = {};
-const alpha3ToCountryObj = {};
+import countryUtil from 'i18n-iso-countries';
+import enCountries from 'i18n-iso-countries/langs/en.json';
 
-countries.forEach((obj, index) => {
-  codeToCountryObj[obj.code] = index;
-  numericStringToCountryObj[obj.numericString] = index;
-  alpha2ToCountryObj[obj.alpha2] = index;
-  alpha3ToCountryObj[obj.alpha3] = index;
+countryUtil.registerLocale(enCountries);
+
+const countries = [];
+
+_.forIn(countryUtil.getNames('en'), (name, alpha2) => {
+  countries.push({ name, alpha3: countryUtil.alpha2ToAlpha3(alpha2) });
 });
-
-export function getCountryObjFromCountryCode(numCode) {
-  if (!numCode) {
-    return null;
-  }
-  const idx = codeToCountryObj[numCode.toString()];
-  if (idx >= 0) {
-    return countries[idx];
-  }
-  return null;
-}
-
-export function getCountryObjFromNumericString(numericString) {
-  if (!numericString) {
-    return null;
-  }
-  const idx = numericStringToCountryObj[numericString.toString()];
-  if (idx >= 0) {
-    return countries[idx];
-  }
-  return null;
-}
-
-export function getCountryObjFromAlpha2(alpha2) {
-  if (!alpha2) {
-    return null;
-  }
-  const idx = alpha2ToCountryObj[alpha2.toString()];
-  if (idx >= 0) {
-    return countries[idx];
-  }
-  return null;
-}
 
 export function getCountryObjFromAlpha3(alpha3) {
   if (!alpha3) {
     return null;
   }
-  const idx = alpha3ToCountryObj[alpha3.toString()];
-  if (idx >= 0) {
-    return countries[idx];
+  const name = countryUtil.getName(alpha3, 'en');
+  if (!name) {
+    return null;
   }
-  return null;
+  return { name, alpha3 };
 }
 
 export function getAllCountryObjects() {
