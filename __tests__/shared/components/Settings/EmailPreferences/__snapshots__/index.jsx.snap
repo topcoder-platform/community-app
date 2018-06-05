@@ -212,7 +212,6 @@ exports[`renders email preferences correctly 1`] = `
             >
               <input
                 className="onoffswitch-checkbox"
-                defaultChecked={undefined}
                 id="EMAIL-pre-onoffswitch-TOPCODER_NL_DATA"
                 name="eprf-onoffswitch"
                 onChange={[Function]}
@@ -264,7 +263,6 @@ exports[`renders email preferences correctly 1`] = `
             >
               <input
                 className="onoffswitch-checkbox"
-                defaultChecked={undefined}
                 id="EMAIL-pre-onoffswitch-TOPCODER_NL_IOS"
                 name="eprf-onoffswitch"
                 onChange={[Function]}
@@ -316,7 +314,6 @@ exports[`renders email preferences correctly 1`] = `
             >
               <input
                 className="onoffswitch-checkbox"
-                defaultChecked={undefined}
                 id="EMAIL-pre-onoffswitch-TOPCODER_NL_TCO"
                 name="eprf-onoffswitch"
                 onChange={[Function]}
@@ -368,7 +365,6 @@ exports[`renders email preferences correctly 1`] = `
             >
               <input
                 className="onoffswitch-checkbox"
-                defaultChecked={undefined}
                 id="EMAIL-pre-onoffswitch-TOPCODER_NL_PREDIX"
                 name="eprf-onoffswitch"
                 onChange={[Function]}
@@ -420,7 +416,6 @@ exports[`renders email preferences correctly 1`] = `
             >
               <input
                 className="onoffswitch-checkbox"
-                defaultChecked={undefined}
                 id="EMAIL-pre-onoffswitch-TOPCODER_NL_IBM_COGNITIVE"
                 name="eprf-onoffswitch"
                 onChange={[Function]}

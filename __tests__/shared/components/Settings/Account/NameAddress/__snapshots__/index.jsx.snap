@@ -1218,7 +1218,12 @@ exports[`renders name & address section of account setting page correctly 1`] = 
               ]
             }
             placeholder="Country"
-            value={null}
+            value={
+              Object {
+                "alpha3": "CHN",
+                "name": "China",
+              }
+            }
             valueKey="name"
           />
         </div>
