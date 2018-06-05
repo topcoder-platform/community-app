@@ -1,0 +1,86 @@
+@import '~styles/mixins';
+@import '../themes/mixins';
+
+.main {
+  @include main;
+}
+
+.welcomeContainer {
+  background: $tc-gray-neutral-light;
+  padding: 60px 0;
+
+  h2 {
+    @include h2;
+
+    margin-bottom: 20px;
+    text-align: center;
+  }
+}
+
+.predixCloudContainer {
+  padding: 60px 0;
+  text-align: center;
+
+  img {
+    display: block;
+    margin: 0 auto;
+    max-width: 100%;
+  }
+
+  h1 {
+    color: $tc-black;
+    font-size: 48px;
+    font-weight: 400;
+    margin: 60px 0 10px;
+  }
+
+  h3 {
+    color: $tc-gray-80;
+    font-size: 28px;
+    font-weight: 400;
+    line-height: 36px;
+    margin: 20px 0 10px;
+  }
+}
+
+.singleQuoteContainer {
+  padding: 60px 0;
+  text-align: center;
+}
+
+.singleQuoteText {
+  font-size: 28px;
+  font-weight: 600;
+  line-height: 36px;
+
+  strong {
+    color: $tc-light-blue-100;
+    font-size: 36px;
+  }
+}
+
+.videoPlayButton {
+  background: url(assets/themes/iot/home/video-thumb.png) no-repeat center;
+  background-size: cover;
+  bottom: 0;
+  cursor: pointer;
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+
+  &::after {
+    background: url(assets/themes/iot/home/video-play.png) no-repeat;
+    content: '';
+    height: 160px;
+    left: calc(50% - 80px);
+    opacity: 0.75;
+    position: absolute;
+    top: calc(50% - 80px);
+    width: 160px;
+  }
+
+  &:hover::after {
+    opacity: 1;
+  }
+}
