@@ -1,0 +1,149 @@
+/*
+  Common mixins for IoT community
+*/
+@import '~styles/mixins';
+
+// as iot community uses 'Open Sans' font same like blockchain,
+// define it one time for each community page, using style for <main> tag
+@mixin main {
+  font-family: 'Open Sans', sans-serif;
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: 'Open Sans', sans-serif;
+  }
+}
+
+@mixin h1 {
+  color: $tc-black;
+  font-size: 48px;
+  font-weight: 400;
+  line-height: 1.1;
+
+  @include md {
+    font-size: 39px;
+  }
+
+  @include lg {
+    font-size: 48px;
+  }
+
+  @include xl {
+    font-size: 51px;
+  }
+}
+
+@mixin h2 {
+  color: $tc-black;
+  font-size: 48px;
+  font-weight: 400;
+  line-height: 1.1;
+
+  @include md {
+    font-size: 39px;
+  }
+
+  @include lg {
+    font-size: 48px;
+  }
+
+  @include xl {
+    font-size: 51px;
+  }
+}
+
+@mixin h3 {
+  font-size: 21px;
+  font-weight: 400;
+  line-height: 1.42857143;
+
+  @include md {
+    font-size: 30px;
+  }
+
+  @include lg {
+    font-size: 33px;
+  }
+
+  @include xl {
+    font-size: 39px;
+  }
+}
+
+@mixin text {
+  font-size: 16px;
+  line-height: 1.42857143;
+
+  @include md-to-xl {
+    font-size: 20px;
+  }
+
+  p {
+    margin-bottom: 20px;
+  }
+}
+
+// some variable to reconstruct twitter bootstrap grid but using Topcoder breakpoints
+$grid-gutter-width:         30px !default;
+$container-sm:              (720px + $grid-gutter-width) !default;
+$container-md:              (940px + $grid-gutter-width) !default;
+$container-lg:              (1140px + $grid-gutter-width) !default;
+$grid-columns:              12 !default;
+
+// same like twitter bootstrap container but without clearfix
+@mixin container($gutter: $grid-gutter-width) {
+  margin-right: auto;
+  margin-left: auto;
+  padding-left: floor(($gutter / 2));
+  padding-right: ceil(($gutter / 2));
+
+  @include md-to-xl {
+    width: $container-sm;
+  }
+
+  @include lg-to-xl {
+    width: $container-md;
+  }
+
+  @include xl {
+    width: $container-lg;
+  }
+}
+
+// next mixins create container to mimic twitter bootstrap columns
+@mixin inner-container-xs($columns: $grid-columns) {
+  margin-right: auto;
+  margin-left: auto;
+  width: percentage($columns / $grid-columns);
+}
+
+@mixin inner-container-sm($columns: $grid-columns) {
+  margin-right: auto;
+  margin-left: auto;
+
+  @include md-to-xl {
+    width: percentage($columns / $grid-columns);
+  }
+}
+
+@mixin inner-container-md($columns: $grid-columns) {
+  margin-right: auto;
+  margin-left: auto;
+
+  @include lg-to-xl {
+    width: percentage($columns / $grid-columns);
+  }
+}
+
+@mixin inner-container-lg($columns: $grid-columns) {
+  margin-right: auto;
+  margin-left: auto;
+
+  @include xl {
+    width: percentage($columns / $grid-columns);
+  }
+}
