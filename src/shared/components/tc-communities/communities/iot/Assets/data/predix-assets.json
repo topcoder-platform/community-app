@@ -1,0 +1,161 @@
+[{
+		"id": "predix-cityiq-google-maps-poc-app",
+		"title": "Predix – CityIQ / Google.Maps PoC App",
+		"description": "This Topcoder challenge was focused on developing a simple proof-of-concept application that combines",
+		"text": [],
+		"technologies": [{
+				"title": "Angular 2+",
+				"url": ""
+			},
+			{
+				"title": "Google API",
+				"url": ""
+			}, {
+				"title": "JavaScript",
+				"url": ""
+			}, {
+				"title": "node.js",
+				"url": ""
+			}, {
+				"title": "Predix",
+				"url": "https://www.ge.com/digital/predix"
+			}, {
+				"title": "Reactjs",
+				"url": ""
+			}
+		],
+		"platforms": [{
+				"title": "Google",
+				"url": ""
+			},
+			{
+				"title": "Node.js",
+				"url": ""
+			}, {
+				"title": "Predix",
+				"url": "https://www.ge.com/digital/predix"
+			}
+		],
+		"githubUrl": "https://github.com/topcoder-predix/cityiq-ui",
+		"abstract":"<p>This Topcoder challenge was focused on developing a simple proof-of-concept application that combines together services provided by CityIQ, <a href='https://www.predix.io/'>Predix</a>, and Google. Check out the <a href='https://www.topcoder.com/challenges/30059233/?type=develop&noncache=true'>original challenge</a> and dive into the winning Asset details below.</p><p>Congratulations to <a href='https://www.topcoder.com/members/maxceem/'>maxceem</a> for taking first place in the challenge and providing us with his winner’s asset details and description.</p>",
+        "content": "<p >This a simple proof of concept application that combines services provided by CityIQ (pedestrian and traffic data), Predix (assets and cloud), and Google (Maps and Places) to help a user to choose the best location for their new business.</p><h3>How the application works</h3><p>A user chooses a location in the Google Map by searching for a location using free-text query — processed by Google Places API or by simply clicking on the map. Also, the user chooses the type of place they’re interested in, in order to see possible competitors in the selected niche. The area around the location that will then be used to analyze data is determined using several methods. If the user used free-text search, then Google Places API returns some advised viewport to display search results. In that case, the area is determined based on that recommendation, but we make it square for further use. If the user simply clicked on the map, the area is chosen based on the current zoom level.</p><p>The back end receives requests with the location, area, and business type, and retrieves data about pedestrians and traffic level in the area from the CityIQ service, as well as information about competitors from the Google Places API.</p><p >CityIQ provides data from many sensors; each has around 3,400 types of traffic events and around 500 types of pedestrian events per day. To analyze an area, we can retrieve data from around 120 sensors, which forces us to restrict the duration of events that we can analyze to just 5-10 minutes, as we can get only 1,000 events per request. This way, we can still compare the level of traffic and pedestrian activities in various places in the analyzed area by displaying this data in the Google Map using heat maps.</p><p >The Google Places API gives us 20 nearby places of the defined type. We display these places as points and use clusterization to handle situations where there are several places close to one another.</p><h3>How we can further improve</h3><p>There are still a lot of improvements that can be made to this app. In CityIQ, there is still a lot of data that can be used to analyze traffic and pedestrian levels, depending on the time of day and day of the week. Also, we can get up to 60 places from Google Places with some delay and add the ability to filter places based on the place’s price level.</p>",
+		"author": {
+			"name": "maxceem",
+			"avatarURL": "http://predix.topcoder.com/wp-content/uploads/sites/7/2017/10/maxceem.jpeg",
+			"profileURL": "https://www.topcoder.com/members/maxceem/",
+			"country": "Ukraine"
+		}
+	},
+
+	{
+		"id": "predix-steam-locomotive-nodejs-simulation",
+		"title": "Predix – Steam Locomotive NodeJS Simulation",
+		"description": "This Topcoder challenge was focused on creating a generic device in node.js",
+		"text": [],
+		"technologies": [{
+			"title": "JavaScript",
+			"url": ""
+		}, {
+			"title": "node.js",
+			"url": ""
+		}, {
+			"title": "Predix",
+			"url": "https://www.ge.com/digital/predix"
+		}],
+		"platforms": [{
+			"title": "Node.js",
+			"url": ""
+		}, {
+			"title": "Predix",
+			"url": "https://www.ge.com/digital/predix"
+		}],
+		"githubUrl": "https://github.com/topcoder-predix/locomotive-simulation",
+		"abstract":"<p>This Topcoder challenge was focused on creating a generic device in node.js and to use it to simulate a steam locomotive. Check out the <a href='https://www.topcoder.com/challenges/30058353/?type=develop&noncache=true'>original challenge</a> and dive into the winning Asset details below.</p><p >Congratulations to <a href='https://www.topcoder.com/members/dcp/'>dcp</a> for taking first place in the challenge and providing us a description of his solution below.</p>",
+		"content": "<p >This application simulates a steam locomotive tracking system. It is part of the Predix Industrial Internet of Things (IoT) suite of applications. In real-world usage, there would be many more variables tracked about the locomotive, but the point of this application was to illustrate the possibilities and provide a general proof of concept.</p><h3 >Predix time series and asset services</h3><p>By sending data to the Predix cloud from sensors (simulated in this application), we can provide a centralized tracking location, which offers a plethora of real-world benefits, such as allowing a company to monitor a fleet of trains for potential problems, etc. Predix time series service is used to track data points about the locomotive, such as fuel mass in tender, pressure, speed, etc. The Predix asset service is used to store messages when some value falls out of an acceptable range (e.g., maximum speed of the locomotive exceeded).</p><h3 >Running the simulator</h3><p >The application uses node.js and is written entirely in JavaScript. There is a setup utility which will handle creating the Predix UAA, asset, and time series services, and will create a client bound against these services. You will need to have an existing Predix account before running this utility. Once you do, it can be invoked by using “npm run setup.” Then, to run the simulator, you can use “npm run app.” (Please refer to the README.md file for more details on setup and running the simulator.)</p><p >As the simulator generates data about the locomotive, it is queued and then sent to Predix in batches. These data batches are sent to Predix in an asynchronous manner, and if the data fails to be sent — due to temporary network glitch, etc. — then it will be sent again, ensuring that no data is ever lost.</p><h3 >Problem-solving for the challenge</h3><p >The hardest part of the challenge was coding the solution such that it could handle network failures without losing any data, and also queuing the data to be sent to Predix so that the main simulator loop could run without any delays. The approach used to solve both of those problems was to use node.js promises. The application should run on any platform that node.js will run on.</p>",
+        
+		"author": {
+			"name": "dcp",
+			"avatarURL": "http://predix.topcoder.com/wp-content/uploads/sites/7/2017/10/dcp.jpg",
+			"profileURL": "https://www.topcoder.com/members/dcp/",
+			"country": "United States"
+		}
+	},
+
+	{
+		"id": "predix-integration-with-alexa-voice-service",
+		"title": "Predix – Integration with Alexa Voice Service",
+		"description": "This Topcoder challenge was focused on creating a simple survey app that integrates",
+		"text": [],
+		"technologies": [{
+				"title": "Angular 2+",
+				"url": ""
+			},
+			{
+				"title": "JavaScript",
+				"url": ""
+			},
+			{
+				"title": "node.js",
+				"url": ""
+			},
+			{
+				"title": "Predix",
+				"url": "https://www.ge.com/digital/predix"
+			},
+			{
+				"title": "Reactjs",
+				"url": ""
+			}
+		],
+		"platforms": [{
+				"title": "Node.js",
+				"url": ""
+			},
+			{
+				"title": "Predix",
+				"url": "https://www.ge.com/digital/predix"
+			}
+		],
+		"githubUrl": "https://github.com/topcoder-predix/alexa-avs",
+		"abstract": "<p>This Topcoder challenge was focused on creating a simple survey app that integrates <a href='https://www.predix.io/'>Predix</a> with Amazon Alexa Voice Service (AVS). Check out the <a href='https://www.topcoder.com/challenges/30058889/?type=develop&noncache=true'>original challenge</a> and dive into the winning Asset details below.</p><p >Congratulations to <a href='https://www.topcoder.com/members/maxceem/'>maxceem</a> for taking first place in the challenge and providing us with his “winner’s asset details and description”.</p>",
+		"content": "<p >The main idea of this application is to implement a survey with which user can interact via voice. We have surveys that are stored in the Predix asset service in text format, and when a user visits our web-based application they can choose a survey to complete. After that, they can listen to the survey questions and give answers by voice, during which time the user’s replies are recognized and stored in the Predix asset service.</p><h3 >Leveraging Amazon’s Alexa Skills</h3><p >To synthesize speech from text and recognize voice answers back to text, we use Amazon's Alexa by implementing an Alexa Skill to provide some additional features. For instance, instead of dummy speech-to-text recognition, Alexa tries to understand our intent when we say something. Thus during a survey, we can ask Alexa, What is the weather?', 'How are you?', or 'What time is it now?' and she will reply, rather than treating our question as an answer. So it’s like completing a survey with a real person. Also, not only can users complete surveys using our web app, but they can also do so by using any AVS-enabled device, like Amazon Echo (though with some nuances).</p><p >Alexa Skill retrieves survey questions from the Predix asset and, after recording the answers, our web app simply implements the AVS device, which allows interaction with Alexa. Taking this into account, we cannot identify which survey, in particular, a user wants to complete. But luckily, we host our Alexa Skill code and our front-end code using the same server hosted in the Predix Cloud. By using this feature we can pass the ID of the chosen survey from the front end to Alexa Skill. However, this method has some drawbacks. Alexa Skills doesn’t let us identify the user, so when anyone chooses a survey using front-end code, it affects all of the users interacting with the Alexa Skill.</p><p>The diagram below shows how app components interact with one another:</p><img src='http://predix.topcoder.com/wp-content/uploads/sites/7/2017/10/Diagram.png' alt='' />",
+		"author": {
+			"name": "maxceem",
+			"avatarURL": "http://predix.topcoder.com/wp-content/uploads/sites/7/2017/10/maxceem.jpeg",
+			"profileURL": "https://www.topcoder.com/members/maxceem/",
+			"country": "Ukraine"
+		}
+	},
+	{
+		"id": "predix-sensor-emulator-in-c",
+		"title": "Predix – Sensor Emulator in C++",
+		"description": "This Topcoder challenge was focused on creating a Predix sensor emulator in C++.",
+		"text": [],
+		"technologies": [{
+				"title": "C",
+				"url": ""
+			},
+			{
+				"title": "C++",
+				"url": ""
+			}, {
+				"title": "Predix",
+				"url": "https://www.ge.com/digital/predix"
+			}
+		],
+		"platforms": [{
+			"title": "Predix",
+			"url": "https://www.ge.com/digital/predix"
+		}],
+		"githubUrl": "https://github.com/topcoder-predix/sensor-emulator",
+		"abstract":"<p >This Topcoder challenge was focused on creating a <a href='https://www.predix.io/'>Predix</a> sensor emulator in C++. Check out the <a href='https://www.topcoder.com/challenge-details/30057804/?type=develop'>original challenge</a> and dive into the winning Asset details below.</p><p>Congratulations to <a href='https://www.topcoder.com/members/cjalmeida/'>cjalmeida</a> for taking first place in the challenge and providing us with his “winner’s asset details and description”.</p>",
+		"content":"<p >This is a sample application built using modern C++14 features that simulates the collection of sensor data and uploads to GE Predix “Asset” and “Timeseries” services. The application is built based on POCO library (mainly for networking) and should run on any recent Linux device. The use case would be a field-deployed data collector — likely implemented on a cheap embedded ARM SoC board — fetching data from multiple cheap sensors. An INI file contains the configuration needed to connect to the Predix services.</p><p >All communication is secured via TLS. You just need to provide a valid CA bundle. On start, the application securely retrieves an access token from the User Authentication and Authorization Service (UAA). This service uniquely authenticates each end node and makes sure rogue devices have no access to the other services.</p><p>Then it starts sampling data from a “mocked sensor” implementation. If the data is considered “OK,” the content is sent to the Timeseries Service (TS), a Predix-hosted database that specializes in storing time-dependent sensor data. A persistent Secure WebSocket (wss://) connection to TS is established and kept alive to minimize connection overhead. The API is message-oriented, using the a send-and-ack mechanism. The data is sent asynchronously (via threading) to avoid blocking the sampling operation. An intermediate queue and reconnect logic are used to make sure data is not lost on flaky connections.</p><p>If the sampled mock sensor data is an “ERROR,” a notification is sent to the Asset service, a hosted document-oriented database. This communication is made via regular HTTPS using a REST-oriented API. Again, the communication is asynchronous.</p><p>The configuration assumes you have provisioned the required UAA, TS, and Asset Predix services. To simplify testing, the code also provides a Python script that fully automates the provisioning step from a brand-new Predix account. This also shows how to automate node fleet maintenance using the CloudFoundry client and Predix management APIs.</p><p>Finally, to simplify development, the application is cross-platform (i.e., Windows, Linux, and MacOS), works on GCC/Clang/VC++, and uses CMake as common build tool. Also, while not common in C/C++ land, the code relies on Conan.io for dependency management; pulling external dependencies should be as simple as it is on Java/Python/Node.</p>",
+		"author": {
+			"name": "cjalmeida",
+			"avatarURL": "http://predix.topcoder.com/wp-content/uploads/sites/7/2017/08/cjalmeida-1480692380958-1.jpeg",
+			"profileURL": "https://www.topcoder.com/members/cjalmeida/",
+			"country": "Brazil"
+		}
+	}
+
+]
