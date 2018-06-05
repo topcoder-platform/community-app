@@ -257,10 +257,7 @@ export function processSRM(s) {
  * @returns {Boolean} true if two strings equal, false otherwise
  */
 export function looseEqual(str1, str2) {
-  if (!str1 && !str2) {
-    return true;
-  }
-  return _.isEqual(str1, str2);
+  return (!str1 && !str2) || str1 === str2;
 }
 
 export default undefined;

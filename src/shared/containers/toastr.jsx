@@ -93,7 +93,7 @@ class ExtendedReduxToastr extends ReduxToastr {
 
 export default connect(
   state => ({
-    toastr: state.toastr ? state.toastr : state.get('toastr'),
+    toastr: state.toastr,
   }),
   actions,
 )(ExtendedReduxToastr);

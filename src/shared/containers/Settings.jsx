@@ -126,6 +126,7 @@ function mapStateToProps(state) {
     profile: state.auth.profile,
     lookupData: state.lookup,
     profileState: state.profile,
+    activeChallengesCount: _.get(state.challenge, 'activeChallengesCount'),
     loadingError: state.profile.loadingError,
   };
 }
@@ -135,9 +136,9 @@ function mapDispatchToProps(dispatch) {
   const loadHeaderData = ({ handle, tokenV3 }) => {
     dispatch(profileActions.loadProfile(handle));
     dispatch(profileActions.getAchievementsInit());
-    dispatch(profileActions.getActiveChallengesCountInit());
+    dispatch(actions.challenge.getActiveChallengesCountInit());
     dispatch(profileActions.getAchievementsDone(handle));
-    dispatch(profileActions.getActiveChallengesCountDone(handle, tokenV3));
+    dispatch(actions.challenge.getActiveChallengesCountDone(handle, tokenV3));
   };
 
   const loadTabData = ({
@@ -153,7 +154,8 @@ function mapDispatchToProps(dispatch) {
       dispatch(profileActions.getLinkedAccountsInit());
       dispatch(profileActions.getExternalAccountsInit());
       dispatch(profileActions.getExternalLinksInit());
-      dispatch(actions.lookup.getApprovedSkills());
+      dispatch(actions.lookup.getSkillTagsInit());
+      dispatch(actions.lookup.getSkillTagsDone());
       dispatch(profileActions.getLinkedAccountsDone(profile, tokenV3));
       dispatch(profileActions.getExternalAccountsDone(handle));
       dispatch(profileActions.getExternalLinksDone(handle));

@@ -12,7 +12,7 @@ import ErrorIcons from 'containers/ErrorIcons';
 
 import { DevTools, isomorphy } from 'topcoder-react-utils';
 
-import ExtendedReduxToastr from 'components/toastr';
+import ExtendedReduxToastr from 'containers/toastr';
 
 import 'react-redux-toastr/lib/css/react-redux-toastr.min.css';
 import 'topcoder-react-ui-kit/dist/style.css';

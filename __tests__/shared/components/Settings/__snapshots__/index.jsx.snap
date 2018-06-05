@@ -12,6 +12,7 @@ exports[`renders account setting page correctly 1`] = `
     className="src-shared-components-Settings-___style__page___2zowc"
   >
     <Header
+      activeChallengesCount={-1}
       clearIncorrectPassword={[Function]}
       handle=""
       history={Object {}}
@@ -194,7 +195,6 @@ exports[`renders account setting page correctly 1`] = `
               "description": "SRM Engagement Honor",
             },
           ],
-          "activeChallengesCount": 1,
           "copilot": false,
           "country": "China",
           "credential": Object {
@@ -890,7 +890,6 @@ exports[`renders account setting page correctly 1`] = `
               "description": "SRM Engagement Honor",
             },
           ],
-          "activeChallengesCount": 1,
           "copilot": false,
           "country": "China",
           "credential": Object {
@@ -1414,6 +1413,7 @@ exports[`renders email setting page correctly 1`] = `
     className="src-shared-components-Settings-___style__page___2zowc"
   >
     <Header
+      activeChallengesCount={-1}
       handle=""
       history={Object {}}
       profile={
@@ -1595,7 +1595,6 @@ exports[`renders email setting page correctly 1`] = `
               "description": "SRM Engagement Honor",
             },
           ],
-          "activeChallengesCount": 1,
           "copilot": false,
           "country": "China",
           "credential": Object {
@@ -2289,7 +2288,6 @@ exports[`renders email setting page correctly 1`] = `
               "description": "SRM Engagement Honor",
             },
           ],
-          "activeChallengesCount": 1,
           "copilot": false,
           "country": "China",
           "credential": Object {
@@ -2812,6 +2810,7 @@ exports[`renders preferences setting page correctly 1`] = `
     className="src-shared-components-Settings-___style__page___2zowc"
   >
     <Header
+      activeChallengesCount={-1}
       handle=""
       history={Object {}}
       profile={
@@ -2993,7 +2992,6 @@ exports[`renders preferences setting page correctly 1`] = `
               "description": "SRM Engagement Honor",
             },
           ],
-          "activeChallengesCount": 1,
           "copilot": false,
           "country": "China",
           "credential": Object {
@@ -3686,7 +3684,6 @@ exports[`renders preferences setting page correctly 1`] = `
               "description": "SRM Engagement Honor",
             },
           ],
-          "activeChallengesCount": 1,
           "copilot": false,
           "country": "China",
           "credential": Object {
@@ -4208,6 +4205,7 @@ exports[`renders profile setting page correctly 1`] = `
     className="src-shared-components-Settings-___style__page___2zowc"
   >
     <Header
+      activeChallengesCount={-1}
       addSkill={[Function]}
       deletePhoto={[Function]}
       handle=""
@@ -4393,7 +4391,6 @@ exports[`renders profile setting page correctly 1`] = `
               "description": "SRM Engagement Honor",
             },
           ],
-          "activeChallengesCount": 1,
           "copilot": false,
           "country": "China",
           "credential": Object {
@@ -5092,7 +5089,6 @@ exports[`renders profile setting page correctly 1`] = `
               "description": "SRM Engagement Honor",
             },
           ],
-          "activeChallengesCount": 1,
           "copilot": false,
           "country": "China",
           "credential": Object {

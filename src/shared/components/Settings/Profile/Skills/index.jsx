@@ -4,9 +4,11 @@
 /* eslint-disable jsx-a11y/interactive-supports-focus */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import _ from 'lodash';
+import path from 'path';
 import React from 'react';
 import PT from 'prop-types';
 import { toastr } from 'react-redux-toastr';
+import requireContext from 'require-context';
 
 import Select from 'components/Select';
 
@@ -18,8 +20,38 @@ import { isomorphy } from 'topcoder-react-utils';
 import './styles.scss';
 
 let assets;
-if (isomorphy.isClientSide()) {
-  assets = require.context('assets/images/profile/skills', false, /svg/);
+if (process.env.NODE_ENV !== 'test') {
+  if (isomorphy.isClientSide()) {
+    // require.context is only available in webpack bundled client code
+    assets = require.context('assets/images/profile/skills', false, /svg/);
+  } else {
+    assets = requireContext(path.dirname(require.resolve('assets/images/profile/skills/id-data.svg')), false, /svg/);
+  }
+}
+
+/**
+ * Get image.
+ * @param {String} imageFile The image file name
+ * @returns {Element} React element
+ */
+function getImage(imageFile) {
+  if (isomorphy.isClientSide()) {
+    return <img src={assets(`./${imageFile}`)} alt="Skill Icon" />;
+  }
+  const Image = assets(imageFile);
+  return <Image />;
+}
+
+/**
+ * Check image exists.
+ * @param {String} imageFile The image file name
+ * @returns {Boolean} True if image exists; false otherwise
+ */
+function imageExist(imageFile) {
+  if (!assets) {
+    return false;
+  }
+  return (isomorphy.isClientSide() && assets.keys().includes(`./${imageFile}`)) || assets.keys().includes(imageFile);
 }
 
 export default function Skills(props) {
@@ -61,7 +93,7 @@ export default function Skills(props) {
   };
 
   // All lookup skills
-  const lookupSkills = lookupData.approvedSkills || [];
+  const lookupSkills = lookupData.skillTags || [];
   const lookupSkillsMap = {};
   _.forEach(lookupSkills, (skill) => {
     lookupSkillsMap[skill.id] = skill;
@@ -132,7 +164,7 @@ export default function Skills(props) {
                       <div styleName="skill-icon">
                         <div styleName="remove-indicator" />
                         <div styleName="hidden-indicator" />
-                        { assets && assets.keys().includes(`./id-${skill.tagId}.svg`) ? <img src={assets(`./id-${skill.tagId}.svg`)} alt="Skill Icon" /> : <FallbackIcon /> }
+                        { imageExist(`id-${skill.tagId}.svg`) ? getImage(`id-${skill.tagId}.svg`) : <FallbackIcon /> }
                       </div>
                       <div styleName="name">{_.truncate(skill.tagName, { length: 20, separator: ' ' })}</div>
                     </a>

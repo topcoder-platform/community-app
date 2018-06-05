@@ -87,10 +87,6 @@ It is intended that Wipro community is accessed as `wipro.topcoder-dev.com` in d
 
 We use [https://logentries.com](https://logentries.com) to track the logs. Log Entries API token should be provided via the `LOG_ENTRIES_TOKEN` environment variable, which will override the default values set in `/config/default.json` (sample account for local setup testing), and in `/config/production.json` (empty token) - with empty token Log Entries will not be used.
 
-### Configuration for auth0.com
-
-Auth0.com is used to link external social account (GitHub account, etc..), they are configured with default values as `AUTH0.DOMAIN` and `AUTH0.CLIENT_ID` in `config/default.json`. Use  `/config/production.json` for production config.
-
 ### Configuration for Scoreboard API
 
 Change the property in `URL.COMMUNITY_API` in config.
@@ -152,10 +148,12 @@ Deploy scripts are setup to use AWS ECS + CircleCI. Make sure the following envi
 * DEV_AWS_REGION
 * DEV_AWS_SECRET_ACCESS_KEY
 * DEV_SERVER_API_KEY
+* DEV_AUTH0_CLIENT_ID
 * PROD_AWS_ACCESS_KEY_ID
 * PROD_AWS_ACCOUNT_ID
 * PROD_AWS_ECS_CLUSTER
 * PROD_AWS_REGION
 * PROD_AWS_SECRET_ACCESS_KEY
 * PROD_SERVER_API_KEY
+* PROD_AUTH0_CLIENT_ID
 

@@ -2,7 +2,6 @@
  * Child component of Settings/Account/Credential renders the
  * 'Credential' section of account setting page.
  */
-/* global document */
 import _ from 'lodash';
 import React from 'react';
 import PT from 'prop-types';
@@ -24,7 +23,16 @@ export default class Credential extends React.Component {
         'new-password-input': false,
         'current-password-input': false,
       },
+      passwordInputType: {
+        'new-password-input': 'password',
+        'current-password-input': 'password',
+      },
+      newPassword: '',
+      currentPassword: '',
     };
+
+    this.newPasswordRef = React.createRef();
+    this.currentPasswordRef = React.createRef();
 
     this.onPasswordFocus = this.onPasswordFocus.bind(this);
     this.onPasswordBlur = this.onPasswordBlur.bind(this);
@@ -38,16 +46,13 @@ export default class Credential extends React.Component {
       && !nextProps.profileState.updatingPassword
       && !nextProps.settingsPageState.incorrectPassword
     ) {
-      document.querySelector('#new-password-input').value = '';
-      document.querySelector('#current-password-input').value = '';
-      this.setState({ passwordValid: false });
+      this.setState({ passwordValid: false, newPassword: '', currentPassword: '' });
     }
   }
 
   onUpdatePassword(e) {
     e.preventDefault();
-    const newPassword = document.querySelector('#new-password-input').value;
-    const currentPassword = document.querySelector('#current-password-input').value;
+    const { newPassword, currentPassword } = this.state;
     this.props.updatePassword(
       this.props.profile, this.props.tokenV3,
       newPassword, currentPassword,
@@ -82,36 +87,57 @@ export default class Credential extends React.Component {
 
   toggleTypeAttribute(inputId) {
     _.noop(this);
-    const input = document.querySelector(`#${inputId}`);
-    if (input.type === 'text') {
-      input.type = 'password';
+
+    let type = this.state.passwordInputType[inputId];
+    if (type === 'text') {
+      type = 'password';
     } else {
-      input.type = 'text';
+      type = 'text';
     }
-    input.focus();
+
+    this.setState({
+      ...this.state,
+      passwordInputType: {
+        ...this.state.passwordInputType,
+        [inputId]: type,
+      },
+    });
+
+    setImmediate(() => {
+      if (inputId === 'current-password-input') {
+        this.currentPasswordRef.current.focus();
+      } else {
+        this.newPasswordRef.current.focus();
+      }
+    });
   }
 
   checkPassword(e) {
+    let { newPassword, currentPassword } = this.state;
+
     if (e.target.id === 'current-password-input') {
+      currentPassword = e.target.value;
       this.props.clearIncorrectPassword();
+    } else {
+      newPassword = e.target.value;
     }
 
-    const password = document.querySelector('#new-password-input').value;
     let hasLength = false;
     let hasLetter = false;
     let hasSymbolNumber = false;
-    if (password) {
-      hasLength = password.length >= 8;
-      hasLetter = /[a-zA-Z]/.test(password);
-      hasSymbolNumber = /[-!$@#%^&*()_+|~=`{}[\]:";'<>?,./]/.test(password) || /[\d]/.test(password);
+    if (newPassword) {
+      hasLength = newPassword.length >= 8;
+      hasLetter = /[a-zA-Z]/.test(newPassword);
+      hasSymbolNumber = /[-!$@#%^&*()_+|~=`{}[\]:";'<>?,./]/.test(newPassword) || /[\d]/.test(newPassword);
     }
-    const currentPassword = document.querySelector('#current-password-input').value;
     this.setState({
       ...this.state,
       hasLength,
       hasLetter,
       hasSymbolNumber,
       passwordValid: currentPassword.length && hasLength && hasLetter && hasSymbolNumber,
+      newPassword,
+      currentPassword,
     });
   }
 
@@ -131,7 +157,7 @@ export default class Credential extends React.Component {
           <h2>Credentials</h2>
           <div className="description">Used to log in to your account and cannot be edited. Please contact support@topcoder.com if you need to make changes.</div>
         </div>
-        <div className="section-fields" styleName="section-fields">
+        <div className="section-fields" styleName="credentials-section-fields">
           <div className="form-label username">Username</div>
           <input name="username" value={profile.handle} disabled className="form-field grey" />
           <div className="form-label">Email</div>
@@ -143,7 +169,7 @@ export default class Credential extends React.Component {
                 <div className="form-label">Current password</div>
                 <div styleName="validation-bar" className="form-field">
                   <div styleName={`password toggle-password ${this.state.focus['current-password-input'] ? 'focus' : ''}`}>
-                    <input id="current-password-input" styleName="password-input" onChange={this.checkPassword} onFocus={this.onPasswordFocus} onBlur={this.onPasswordBlur} name="currentPassword" type="password" placeholder="Password" required />
+                    <input id="current-password-input" styleName="password-input" ref={this.currentPasswordRef} onChange={this.checkPassword} onFocus={this.onPasswordFocus} onBlur={this.onPasswordBlur} name="currentPassword" type={this.state.passwordInputType['current-password-input']} placeholder="Password" required />
                     <label htmlFor="currentPasswordCheckbox">
                       <input type="checkbox" id="currentPasswordCheckbox" onChange={() => this.toggleTypeAttribute('current-password-input')} />
                       Show
@@ -162,7 +188,7 @@ export default class Credential extends React.Component {
                 <div className="form-label">New Password</div>
                 <div styleName="validation-bar" className="form-field">
                   <div styleName={`password toggle-password ${this.state.focus['new-password-input'] ? 'focus' : ''}`}>
-                    <input id="new-password-input" styleName="password-input" onChange={this.checkPassword} onFocus={this.onPasswordFocus} onBlur={this.onPasswordBlur} name="password" type="password" placeholder="Create new password" minLength="8" maxLength="64" required />
+                    <input id="new-password-input" styleName="password-input" ref={this.newPasswordRef} onChange={this.checkPassword} onFocus={this.onPasswordFocus} onBlur={this.onPasswordBlur} name="password" type={this.state.passwordInputType['new-password-input']} placeholder="Create new password" minLength="8" maxLength="64" required />
                     <label htmlFor="newPasswordCheckbox">
                       <input type="checkbox" id="newPasswordCheckbox" onChange={() => this.toggleTypeAttribute('new-password-input')} />
                       Show

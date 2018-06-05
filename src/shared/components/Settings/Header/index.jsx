@@ -15,6 +15,7 @@ export default function Header(props) {
     profileState,
     showXlBadge,
     xlBadge,
+    activeChallengesCount,
   } = props;
   const achievements = profileState.achievements || [];
   const badges = achievements.filter(x => MAP[x.description]);
@@ -42,7 +43,7 @@ export default function Header(props) {
           <div styleName="separator" className={hasBadges ? '' : 'hidden'} />
           <div styleName="item">
             <div styleName="value">
-              <p>{_.isNumber(profileState.activeChallengesCount) ? profileState.activeChallengesCount : ''}</p>
+              <p>{_.isNumber(activeChallengesCount) && activeChallengesCount >= 0 ? activeChallengesCount : ''}</p>
             </div>
             <div styleName="title">
               <p>Active Challenges</p>
@@ -56,11 +57,13 @@ export default function Header(props) {
 
 Header.defaultProps = {
   xlBadge: null,
+  activeChallengesCount: -1,
 };
 
 Header.propTypes = {
   profileState: PT.shape().isRequired,
   showXlBadge: PT.func.isRequired,
   xlBadge: PT.string,
+  activeChallengesCount: PT.number,
 };
 

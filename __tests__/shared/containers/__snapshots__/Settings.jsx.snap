@@ -2,6 +2,7 @@
 
 exports[`renders account setting page correctly 1`] = `
 <SettingsContainer
+  activeChallengesCount={undefined}
   addSkill={[Function]}
   addWebLink={[Function]}
   authenticating={false}
@@ -194,7 +195,6 @@ exports[`renders account setting page correctly 1`] = `
           "description": "SRM Engagement Honor",
         },
       ],
-      "activeChallengesCount": 1,
       "copilot": false,
       "country": "China",
       "credential": Object {
@@ -736,6 +736,7 @@ exports[`renders account setting page correctly 1`] = `
 
 exports[`renders email setting page correctly 1`] = `
 <SettingsContainer
+  activeChallengesCount={undefined}
   addSkill={[Function]}
   addWebLink={[Function]}
   authenticating={false}
@@ -928,7 +929,6 @@ exports[`renders email setting page correctly 1`] = `
           "description": "SRM Engagement Honor",
         },
       ],
-      "activeChallengesCount": 1,
       "copilot": false,
       "country": "China",
       "credential": Object {
@@ -1470,6 +1470,7 @@ exports[`renders email setting page correctly 1`] = `
 
 exports[`renders preferences setting page correctly 1`] = `
 <SettingsContainer
+  activeChallengesCount={undefined}
   addSkill={[Function]}
   addWebLink={[Function]}
   authenticating={false}
@@ -1662,7 +1663,6 @@ exports[`renders preferences setting page correctly 1`] = `
           "description": "SRM Engagement Honor",
         },
       ],
-      "activeChallengesCount": 1,
       "copilot": false,
       "country": "China",
       "credential": Object {
@@ -2204,6 +2204,7 @@ exports[`renders preferences setting page correctly 1`] = `
 
 exports[`renders profile setting page correctly 1`] = `
 <SettingsContainer
+  activeChallengesCount={undefined}
   addSkill={[Function]}
   addWebLink={[Function]}
   authenticating={false}
@@ -2396,7 +2397,6 @@ exports[`renders profile setting page correctly 1`] = `
           "description": "SRM Engagement Honor",
         },
       ],
-      "activeChallengesCount": 1,
       "copilot": false,
       "country": "China",
       "credential": Object {

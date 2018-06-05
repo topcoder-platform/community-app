@@ -2,7 +2,7 @@
 
 exports[`renders account setting page correctly 1`] = `
 <div
-  className="account-info-container src-shared-components-Settings-Account-___styles__account-info-container___222Ag"
+  className="account-info-container"
 >
   <Credential
     clearIncorrectPassword={[Function]}
@@ -185,7 +185,6 @@ exports[`renders account setting page correctly 1`] = `
             "description": "SRM Engagement Honor",
           },
         ],
-        "activeChallengesCount": 1,
         "copilot": false,
         "country": "China",
         "credential": Object {
@@ -871,7 +870,6 @@ exports[`renders account setting page correctly 1`] = `
             "description": "SRM Engagement Honor",
           },
         ],
-        "activeChallengesCount": 1,
         "copilot": false,
         "country": "China",
         "credential": Object {
