@@ -58,17 +58,18 @@ export function factory(req) {
     const communityId = match[1];
     // as every community can has its own leaderboard page url
     // we are trying to get leadeboard page url from community meta data api
-    return metaActions.tcCommunities.meta.fetchDataDone(communityId).payload.then((data) => {
-      // reject if there is no leaderboardApiUrl for current community
-      if (!data.leaderboardApiUrl) {
-        return Promise.reject();
-      }
+    return metaActions.tcCommunities.meta
+      .fetchDataDone(null, communityId).payload.then(({ data }) => {
+        // reject if there is no leaderboardApiUrl for current community
+        if (!data.leaderboardApiUrl) {
+          return Promise.reject();
+        }
 
-      return redux.resolveAction(actions.leaderboard.fetchLeaderboardDone(
-        tokens,
-        data.leaderboardApiUrl,
-      )).then(response => create(onDone({}, response)));
-    });
+        return redux.resolveAction(actions.leaderboard.fetchLeaderboardDone(
+          tokens,
+          data.leaderboardApiUrl,
+        )).then(response => create(onDone({}, response)));
+      });
   }
   /* Otherwise this part of Redux state is initialized empty. */
   return Promise.resolve(create());

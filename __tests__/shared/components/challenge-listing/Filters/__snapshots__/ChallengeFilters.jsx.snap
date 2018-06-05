@@ -8,7 +8,6 @@ exports[`Matches shallow shapshot shapshot 1`] = `
     className="src-shared-components-challenge-listing-Filters-___ChallengeFilters__filter-header___2l3Jh"
   >
     <FiltersCardsType
-      hideSrm={undefined}
       isCardTypeSet="type"
       setCardType={[MockFunction]}
     />
@@ -46,7 +45,6 @@ exports[`Matches shallow shapshot shapshot 1`] = `
     </span>
   </div>
   <FiltersPanel
-    auth={undefined}
     challenges={Array []}
     communityFilters={
       Array [
@@ -56,7 +54,6 @@ exports[`Matches shallow shapshot shapshot 1`] = `
       ]
     }
     communityName="name"
-    defaultCommunityId={undefined}
     filterState={Object {}}
     hidden={true}
     isAuth={false}
@@ -100,7 +97,6 @@ exports[`Matches shallow shapshot shapshot 2`] = `
     className="src-shared-components-challenge-listing-Filters-___ChallengeFilters__filter-header___2l3Jh"
   >
     <FiltersCardsType
-      hideSrm={undefined}
       isCardTypeSet="Challenges"
       setCardType={[MockFunction]}
     />
@@ -197,7 +193,6 @@ exports[`Matches shallow shapshot shapshot 2`] = `
     </span>
   </div>
   <FiltersPanel
-    auth={undefined}
     challenges={Array []}
     communityFilters={
       Array [
@@ -207,7 +202,6 @@ exports[`Matches shallow shapshot shapshot 2`] = `
       ]
     }
     communityName="name"
-    defaultCommunityId={undefined}
     filterState={
       Object {
         "endDate": "2019-12-31T23:00:00.000Z",

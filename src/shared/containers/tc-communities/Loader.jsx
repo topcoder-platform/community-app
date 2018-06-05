@@ -40,7 +40,7 @@ class Loader extends React.Component {
     } = nextProps;
 
     if (!loadingMeta && (
-      !meta /* || (Date.now() - meta.lastUpdateOfMetaData) > MAXAGE */
+      !meta /* || (Date.now() - meta.timestamp) > MAXAGE */
     )) nextProps.loadMetaData(communityId, tokenV3);
 
     /* TODO: This is a hacky way to handle SSO authentication for TopGear
@@ -129,9 +129,10 @@ Loader.propTypes = {
 function mapStateToProps(state, ownProps) {
   const { communityId } = ownProps;
 
-  let meta = state.tcCommunities.meta.data;
-  const loadingMeta = communityId === meta.loadingMetaDataForCommunityId;
-  if (meta.communityId !== communityId) meta = null;
+  let { meta } = state.tcCommunities;
+  const loadingMeta = communityId === meta.loadingOperationId;
+  meta = meta.data;
+  if (_.get(meta, 'communityId') !== communityId) meta = null;
 
   return {
     Community: ownProps.communityComponent,

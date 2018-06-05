@@ -600,6 +600,15 @@ exports[`Matches shallow shapshot 1`] = `
     <li>
       <Link
         replace={false}
+        to="/examples/markdown"
+      >
+        Markdown Rendering
+      </Link>
+       - A component that can be passed markdown as a prop and will render it as native React elements.  Also supports inlining a subset of the JSX Components found in Community App.
+    </li>
+    <li>
+      <Link
+        replace={false}
         to="/examples/scalable-rect"
       >
         ScalableRect
