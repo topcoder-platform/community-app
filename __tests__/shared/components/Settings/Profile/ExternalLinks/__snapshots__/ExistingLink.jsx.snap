@@ -48,6 +48,7 @@ exports[`renders existing link of profile setting page correctly 1`] = `
         href="http://www.google.com"
         id="link-url"
         prevent-event-propagation="true"
+        rel="noopener noreferrer"
         target="_blank"
       >
         http://www.google.com
