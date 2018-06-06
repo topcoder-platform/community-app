@@ -33,7 +33,8 @@ class AnnouncementContainer extends React.Component {
 
     return (
       <ContentfulLoader
-        entryQueries={{
+        entryIds={previewId}
+        entryQueries={previewId ? null : {
           content_type: 'dashboardAnnouncement',
           'fields.startDate': {
             lt: this.now,
@@ -46,7 +47,7 @@ class AnnouncementContainer extends React.Component {
         }}
         preview={Boolean(previewId)}
         render={(data) => {
-          let announcement = data.entries.matches[0].items[0];
+          let announcement = previewId || data.entries.matches[0].items[0];
           if (!announcement) return null;
           announcement = data.entries.items[announcement];
           const backgroundAssetId =

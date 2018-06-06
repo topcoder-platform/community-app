@@ -1,0 +1,9 @@
+/*
+  Theme for Section component used in IoT community
+*/
+@import '~styles/mixins';
+@import './mixins';
+
+.content {
+  @include container;
+}

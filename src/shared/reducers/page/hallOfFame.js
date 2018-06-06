@@ -15,20 +15,14 @@ function create(defaultState = {}) {
   const a = actions.page.hallOfFame;
   return handleActions({
     [a.setSelectedEvent]: (state, { payload }) => ({ ...state, selectedEvent: payload }),
+    [a.setSelectedEventType]: (state, { payload }) => ({ ...state, selectedEventType: payload }),
   }, _.defaults(defaultState, {
     selectedEvent: '',
+    selectedEventType: '',
   }));
 }
 
-export function factory(req) {
-  // Check to see if a specific event is provided as a param
-  if (req && req.url.match(/^\/hall-of-fame\/tco\/\d{2}\/?/)) {
-    const eventId = req.url.match(/\d{2}/)[0];
-    return Promise.resolve(create({
-      selectedEvent: eventId,
-    }));
-  }
-
+export function factory() {
   return Promise.resolve(create());
 }
 

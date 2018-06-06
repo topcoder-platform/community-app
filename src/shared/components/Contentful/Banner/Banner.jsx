@@ -3,9 +3,10 @@
  */
 
 import _ from 'lodash';
-import md from 'utils/markdown';
 import PT from 'prop-types';
 import React from 'react';
+
+import MarkdownRenderer from 'components/MarkdownRenderer';
 
 import { themr } from 'react-css-super-themr';
 
@@ -26,11 +27,10 @@ function Banner({
       <div className={theme.contentWrapper} style={banner.contentWrapperStyles}>
         <div
           className={theme.content}
-          /* eslint-disable react/no-danger */
-          dangerouslySetInnerHTML={{ __html: md(banner.text) }}
-          /* eslint-enable react/no-danger */
           style={banner.contentStyles}
-        />
+        >
+          <MarkdownRenderer markdown={banner.text} />
+        </div>
       </div>
     </div>
   );
