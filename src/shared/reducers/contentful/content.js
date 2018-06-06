@@ -117,6 +117,7 @@ function onQueryContentDone(state, action) {
 
   const res = _.clone(state);
 
+
   /* Adds matched items to items collection. */
   const d = _.omit(data, 'includes');
   let a = collectionActions.addItems(_.keyBy(data.items, i => i.sys.id));
@@ -154,6 +155,10 @@ function onQueryContentDone(state, action) {
   if (gone.length) {
     a = collectionActions.freeItems(gone, q.numRefs);
     res.items = reduceCollection(res.items, a);
+  }
+
+  if (data.includes) {
+    _.assign(res, { includes: data.includes });
   }
 
   return res;
