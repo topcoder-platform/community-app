@@ -82,7 +82,7 @@ export default function ExistingLink(props) {
             <div>
               <p data-ellipsis="" className={pending ? 'hidden' : ''} styleName="link-title">{link.title}</p>
               <p className={!pending ? 'hidden' : ''} styleName="link-title">Loading data. This will take a few minutes.</p>
-              <a styleName="link-url" id="link-url" href={prependProtocol(link.URL)} target="_blank" rel="noopener noreferrer" prevent-event-propagation="true">{prependProtocol(link.URL)}</a>
+              <a styleName="link-url" id="link-url" href={prependProtocol(link.URL)} target="_blank" prevent-event-propagation="true">{prependProtocol(link.URL)}</a>
             </div>
           )
         }

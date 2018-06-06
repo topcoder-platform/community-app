@@ -84,11 +84,9 @@ export default function Winner({
         {
           (winner.submissionDownloadLink && viewable) &&
           <a
-            href={isDesign ? `${config.URL.STUDIO}/?module=DownloadSubmission&sbmid=${submissionId}` : winner.submissionDownloadLink}
             styleName="download"
             target="_blank"
-            challenge
-            rel="noopener noreferrer"
+            href={isDesign ? `${config.URL.STUDIO}/?module=DownloadSubmission&sbmid=${submissionId}` : winner.submissionDownloadLink}
           >Download
           </a>
         }

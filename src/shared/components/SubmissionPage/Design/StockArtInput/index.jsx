@@ -21,8 +21,8 @@ export default function StockArtInput({
           &zwnj;{
             <a
               href={config.URL.INFO.STOCK_ART_POLICY}
+              rel="norefferer noopener"
               target="_blank"
-              rel="noreferrer noopener"
             >
               Studio Stock Art Policy
             </a>
