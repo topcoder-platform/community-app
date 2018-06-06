@@ -24,7 +24,7 @@ export default function CustomFontInput({
             <a
               href={config.URL.INFO.STUDIO_FONTS_POLICY}
               target="_blank"
-              rel="norefferer noopener"
+              rel="noopener noreferrer"
             >
               Studio Fonts Policy
             </a>

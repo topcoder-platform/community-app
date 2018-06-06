@@ -218,7 +218,7 @@ class Design extends React.Component {
                 <a
                   href={config.URL.INFO.DESIGN_CHALLENGE_SUBMISSION}
                   target="_blank"
-                  rel="noreferrer noopener"
+                  rel="noopener noreferrer"
                 >Learn more about formatting your submission file.
                 </a>
               </p>
@@ -326,7 +326,7 @@ class Design extends React.Component {
                 <a
                   href={config.URL.INFO.TOPCODER_TERMS}
                   target="_blank"
-                  rel="norefferer noopener"
+                  rel="noopener noreferrer"
                 >Topcoder terms of use
                 </a>
               }&zwnj;
