@@ -193,6 +193,10 @@ class ContentfulLoader extends React.Component {
     res.entries = findData(entries, entryIds, entryQueries, minTimestamp);
     if (!res.entries) return null;
 
+    if (entries.includes) {
+      res.includes = entries.includes;
+    }
+
     return res;
   }
 

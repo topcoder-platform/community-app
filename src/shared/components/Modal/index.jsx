@@ -10,21 +10,27 @@
 
 import _ from 'lodash';
 import React from 'react';
+import ReactDom from 'react-dom';
 import PT from 'prop-types';
 import { themr } from 'react-css-super-themr';
 import defaultStyle from './styles.scss';
 
-/* NOTE: Modal component is implemented as class because we should append /
- * remove a special class to the document's body to block its scrolling while
- * keeping the modal's content scrollable. Unfortunately, just catching and
- * manipulating on mouse wheel events does not help. */
+/* NOTE: Modal component is implemented as class, as it demands advanced
+ * interaction with DOM upon mount and unmount. */
 class Modal extends React.Component {
+  constructor(props) {
+    super(props);
+    this.portal = document.createElement('div');
+  }
+
   componentDidMount() {
     document.body.classList.add('scrolling-disabled-by-modal');
+    document.body.appendChild(this.portal);
   }
 
   componentWillUnmount() {
     document.body.classList.remove('scrolling-disabled-by-modal');
+    document.body.removeChild(this.portal);
   }
 
   render() {
@@ -33,18 +39,21 @@ class Modal extends React.Component {
       onCancel,
       theme,
     } = this.props;
-    return (
-      <div>
-        <div
-          className={theme.container}
-          onWheel={event => event.stopPropagation()}
-        >{children}
-        </div>
-        <button
-          onClick={() => onCancel()}
-          className={theme.overlay}
-        />
-      </div>
+    return ReactDom.createPortal(
+      (
+        <React.Fragment>
+          <div
+            className={theme.container}
+            onWheel={event => event.stopPropagation()}
+          >{children}
+          </div>
+          <button
+            onClick={() => onCancel()}
+            className={theme.overlay}
+          />
+        </React.Fragment>
+      ),
+      this.portal,
     );
   }
 }
