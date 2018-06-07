@@ -43,10 +43,10 @@ deploy_cluster() {
 make_task_def(){
 	task_template='
 		{
-			"executionRoleArn": "arn:aws:iam::%s:role/ecsTaskExecutionRole",
-			"name": "%s",			
+			"executionRoleArn": "arn:aws:iam::%s:role/ecsTaskExecutionRole",			
 			"containerDefinitions": [
 				{
+				"name": "%s",			
 				"image": "%s.dkr.ecr.%s.amazonaws.com/%s:%s",
 				 "cpu": 100,
 				 "memory": 512,				
