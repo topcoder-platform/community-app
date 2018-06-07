@@ -41,12 +41,12 @@ deploy_cluster() {
 }
 
 make_task_def(){
-	task_template='[
+	task_template='
 		{
 				"executionRoleArn": "arn:aws:iam::%s:role/ecsTaskExecutionRole",
 				"name": "%s",
 				"image": "%s.dkr.ecr.%s.amazonaws.com/%s:%s",				
-				"containerDefinitions": [
+				"containerDefinitions": [{
 					"cpu": 1,
 					"environment": [
 						{
@@ -69,7 +69,7 @@ make_task_def(){
 										"awslogs-stream-prefix": "%s"
 								}
 						}
-				],
+				}],
 				"memory": "4096",
 				"taskRoleArn": "arn:aws:iam::%s:role/ecsTaskExecutionRole",  
 				"family": "%s",  
@@ -78,8 +78,7 @@ make_task_def(){
 				],
 				"networkMode": "awsvpc",
 				"cpu": "2048"				
-		}
-	]'
+		}'
 	
 	if [ "$ENV" = "PROD" ]; then
 			NODE_CONFIG_ENV=production
