@@ -43,41 +43,44 @@ deploy_cluster() {
 make_task_def(){
 	task_template='
 		{
-				"executionRoleArn": "arn:aws:iam::%s:role/ecsTaskExecutionRole",
-				"name": "%s",
-				"image": "%s.dkr.ecr.%s.amazonaws.com/%s:%s",				
-				"containerDefinitions": [{
-					"cpu": 1,
-					"environment": [
-						{
-								"name": "NODE_CONFIG_ENV",
-								"value": "%s"
-						}
-						],
-						"portMappings": [
-								{
-										"hostPort": 0,
-										"containerPort": 3000,
-										"protocol": "tcp"
-								}
-						],
-						"logConfiguration": {
-								"logDriver": "awslogs",
-								"options": {
-										"awslogs-group": "/aws/ecs/%s",
-										"awslogs-region": "%s",
-										"awslogs-stream-prefix": "%s"
-								}
-						}
-				}],
-				"memory": "4096",
-				"taskRoleArn": "arn:aws:iam::%s:role/ecsTaskExecutionRole",  
-				"family": "%s",  
-				"requiresCompatibilities": [
-				"FARGATE"
+			"executionRoleArn": "arn:aws:iam::%s:role/ecsTaskExecutionRole",
+			"name": "%s",
+			"image": "%s.dkr.ecr.%s.amazonaws.com/%s:%s",
+			"containerDefinitions": [
+				{
+				"cpu": 2,
+				"memoryReservation": 512,
+				"environment": [
+					{
+					"name": "NODE_CONFIG_ENV",
+					"value": "%s"
+					}
 				],
-				"networkMode": "awsvpc",
-				"cpu": "2048"				
+				"portMappings": [
+					{
+					"hostPort": 0,
+					"containerPort": 3000,
+					"protocol": "tcp"
+					}
+				],
+				"logConfiguration": {
+					"logDriver": "awslogs",
+					"options": {
+					"awslogs-group": "/aws/ecs/%s",
+					"awslogs-region": "%s",
+					"awslogs-stream-prefix": "%s"
+					}
+				}
+				}
+			],
+			"memory": "2048",
+			"taskRoleArn": "arn:aws:iam::%s:role/ecsTaskExecutionRole",
+			"family": "%s",
+			"requiresCompatibilities": [
+				"FARGATE"
+			],
+			"networkMode": "awsvpc",
+			"cpu": "1024"
 		}'
 	
 	if [ "$ENV" = "PROD" ]; then
