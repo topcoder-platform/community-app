@@ -44,12 +44,12 @@ make_task_def(){
 	task_template='
 		{
 			"executionRoleArn": "arn:aws:iam::%s:role/ecsTaskExecutionRole",
-			"name": "%s",
-			"image": "%s.dkr.ecr.%s.amazonaws.com/%s:%s",
+			"name": "%s",			
 			"containerDefinitions": [
 				{
-				"cpu": 2,
-				"memoryReservation": 512,
+				"image": "%s.dkr.ecr.%s.amazonaws.com/%s:%s",
+				 "cpu": 100,
+				 "memory": 512,				
 				"environment": [
 					{
 					"name": "NODE_CONFIG_ENV",
@@ -58,7 +58,7 @@ make_task_def(){
 				],
 				"portMappings": [
 					{
-					"hostPort": 0,
+					"hostPort": 3000,
 					"containerPort": 3000,
 					"protocol": "tcp"
 					}
@@ -72,15 +72,15 @@ make_task_def(){
 					}
 				}
 				}
-			],
-			"memory": "2048",
+			],			
 			"taskRoleArn": "arn:aws:iam::%s:role/ecsTaskExecutionRole",
 			"family": "%s",
 			"requiresCompatibilities": [
 				"FARGATE"
 			],
 			"networkMode": "awsvpc",
-			"cpu": "1024"
+			"memory": "4096",
+			"cpu": "2048"
 		}'
 	
 	if [ "$ENV" = "PROD" ]; then
