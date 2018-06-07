@@ -73,11 +73,12 @@ make_task_def(){
 				}
 				}
 			],			
-			"taskRoleArn": "arn:aws:iam::%s:role/ecsTaskExecutionRole",
+			
 			"family": "%s",
 			"requiresCompatibilities": [
 				"FARGATE"
 			],
+			"taskRoleArn": "arn:aws:iam::%s:role/ecsTaskExecutionRole",
 			"networkMode": "awsvpc",
 			"memory": "4096",
 			"cpu": "2048"
@@ -91,7 +92,7 @@ make_task_def(){
 			NODE_CONFIG_ENV=development
 	fi
 
-	task_def=$(printf "$task_template" $ACCOUNT_ID $AWS_ECS_CLUSTER $ACCOUNT_ID $AWS_REGION $AWS_REPOSITORY $TAG $NODE_CONFIG_ENV $AWS_ECS_CLUSTER $AWS_REGION $AWS_ECS_CLUSTER $ACCOUNT_ID $AWS_ECS_CLUSTER)
+	task_def=$(printf "$task_template" $ACCOUNT_ID $AWS_ECS_CLUSTER $ACCOUNT_ID $AWS_REGION $AWS_REPOSITORY $TAG $NODE_CONFIG_ENV $AWS_ECS_CLUSTER $AWS_REGION $AWS_ECS_CLUSTER $AWS_ECS_TASK_FAMILY $ACCOUNT_ID)
 	echo $task_def
 }
 
