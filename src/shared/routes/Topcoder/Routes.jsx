@@ -18,6 +18,7 @@ import { Route, Switch } from 'react-router-dom';
 
 import ChallengeListing from './ChallengeListing';
 import Dashboard from './Dashboard';
+import Settings from './Settings';
 import HallOfFame from '../HallOfFame';
 import Profile from '../Profile';
 import Scoreboard from '../tco/scoreboard';
@@ -66,6 +67,16 @@ export default function Topcoder() {
           component={Profile}
           exact
           path="/members/:handle([\w\-\[\].{}]{2,15})"
+        />
+        <Route
+          component={Settings}
+          exact
+          path="/settings"
+        />
+        <Route
+          component={Settings}
+          exact
+          path="/settings/:settingsTab(profile|account|email|preferences)"
         />
         <Error404 />
       </Switch>

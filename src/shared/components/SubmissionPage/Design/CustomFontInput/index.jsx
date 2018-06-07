@@ -23,8 +23,8 @@ export default function CustomFontInput({
           &zwnj;{
             <a
               href={config.URL.INFO.STUDIO_FONTS_POLICY}
-              rel="norefferer noopener"
               target="_blank"
+              rel="noopener noreferrer"
             >
               Studio Fonts Policy
             </a>

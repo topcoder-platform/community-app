@@ -12,7 +12,12 @@ import ErrorIcons from 'containers/ErrorIcons';
 
 import { DevTools, isomorphy } from 'topcoder-react-utils';
 
+import ExtendedReduxToastr from 'containers/toastr';
+
+import 'react-redux-toastr/lib/css/react-redux-toastr.min.css';
 import 'topcoder-react-ui-kit/dist/style.css';
+
+import 'styles/awesome.css';
 
 import 'styles/global.scss';
 import 'slick-carousel/slick/slick.css';
@@ -24,6 +29,13 @@ export default function App() {
       <Routes />
       <ErrorMessage />
       <ErrorIcons />
+      <ExtendedReduxToastr
+        preventDuplicates
+        position="top-center"
+        transitionIn="fadeIn"
+        transitionOut="fadeOut"
+        progressBar={false}
+      />
       { isomorphy.isDevBuild() ? <DevTools /> : undefined }
     </div>
   );

@@ -1,0 +1,167 @@
+@import "~styles/mixins";
+
+.edit-skills {
+  input {
+    width: 790px;
+    margin: 16px 0 16px 0;
+  }
+}
+
+.skills .Select-menu-outer {
+  z-index: 101;
+}
+
+.skills {
+  border-top: 1px solid $tc-gray-20;
+  padding-top: 20px;
+
+  @media screen and (min-width: 768) {
+    padding-top: 30px;
+  }
+
+  .skills-section-fields {
+    display: flex;
+    flex-direction: column;
+
+    .list {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      margin-top: 20px;
+
+      .skill {
+        margin: 0 20px 10px;
+
+        @media only screen and (min-width: 768px) {
+          margin: 0;
+          margin-right: 30px;
+          margin-bottom: 60px;
+        }
+      }
+    }
+  }
+}
+
+.skill-tile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 106px;
+  width: 80px;
+
+  @media (min-width: 768px) {
+    width: 100px;
+    height: 128px;
+  }
+
+  a {
+    cursor: pointer;
+  }
+
+  a:hover {
+    text-decoration: none;
+  }
+
+  .skill-icon {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #fbfbfb;
+    padding: 10px;
+    border: 1px solid $tc-gray-20;
+    height: 80px;
+    width: 80px;
+
+    @media (min-width: 768px) {
+      height: 100px;
+      width: 100px;
+    }
+
+    .remove-indicator {
+      position: absolute;
+      display: none;
+      top: 34px;
+      left: 30px;
+
+      @include background-image-size(40px, 50px);
+
+      background: url(assets/images/profile/x-mark-red.svg);
+      z-index: 100;
+    }
+
+    .hidden-indicator {
+      position: absolute;
+      display: none;
+      top: 32px;
+      left: 31px;
+
+      @include background-image-size(36px, 36px);
+
+      background: url(assets/images/profile/x-mark-gray.svg);
+    }
+
+    img {
+      width: 48px;
+      height: 48px;
+
+      @media only screen and (min-width: 768px) {
+        width: 60px;
+        height: 60px;
+      }
+    }
+  }
+
+  .new {
+    .skill-icon {
+      background-color: #f2faff;
+      border: 1px solid #85ccff;
+      box-shadow: 0 0 3px #0096ff;
+    }
+  }
+
+  .name {
+    @include sofia-pro-light;
+
+    margin-top: 8px;
+    font-size: 12px;
+    color: #3a3c3e;
+    text-align: center;
+
+    @media (min-width: 768px) {
+      font-size: 14px;
+    }
+  }
+
+  a.skill-hidden {
+    img {
+      opacity: 0.3;
+    }
+
+    .hidden-indicator {
+      display: block;
+    }
+
+    .name {
+      text-decoration: line-through;
+      color: $tc-gray-40;
+    }
+  }
+
+  a:not(.skill-hidden):hover {
+    div.skill-icon {
+      background-color: #fee8ec;
+      border: 1px solid #fcbbc5;
+      box-shadow: none;
+
+      .remove-indicator {
+        display: block;
+      }
+    }
+
+    img {
+      opacity: 0.3;
+    }
+  }
+}
