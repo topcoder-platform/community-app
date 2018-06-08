@@ -108,6 +108,9 @@ export default function Content() {
           the endpoint <code>/challenges/:challengeId/my-submissions</code>;
           the link here leads to a test challenge.
         </li>
+        <li>
+          <Link to="/settings/profile">Settings Profile Page</Link>
+        </li>
       </ul>
 
       <h3>TCO Assets</h3>

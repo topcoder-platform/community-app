@@ -91,6 +91,15 @@ We use [https://logentries.com](https://logentries.com) to track the logs. Log E
 
 Change the property in `URL.COMMUNITY_API` in config.
 
+### TC pages integrated
+
+- Changes list and challenge detail page: http://local.topcoder.com/challenges
+- Member profile page: http://local.topcoder.com/members/TonyJ
+- Dashboard page: http://local.topcoder.com/my-dashboard
+- Settings page: http://local.topcoder.com/settings/profile
+- Community page: http://local.topcoder.com/community/blockchain
+- TCO hall of fame page: http://local.topcoder.com/hall-of-fame/tco
+
 ### Current Status
 
 *Note:* Server-side rendering is supported. It means, if you go to `/src/server/App.jsx` and remove the line `<_script type="application/javascript" src="/bundle.js"></script>`, which loads JS bundle in the page, when you start the App and load any page, you'll still see a properly rendered page (without any interactivity). It means that loading of JS bundle and initialization of ReactJS do not block the proper rendering of the page.
@@ -126,7 +135,10 @@ This App already contains:
 Pending low-priority stuff (these are important, but can be added along the way):
 - Webpack Dashboard (https://github.com/FormidableLabs/webpack-dashboard);
 
+
+
 ### CI / CD
+
 Deploy scripts are setup to use AWS ECS + CircleCI. Make sure the following environment variables are setup in CircleCI:
 * AWS_ECS_SERVICE
 * AWS_REPOSITORY
@@ -136,10 +148,12 @@ Deploy scripts are setup to use AWS ECS + CircleCI. Make sure the following envi
 * DEV_AWS_REGION
 * DEV_AWS_SECRET_ACCESS_KEY
 * DEV_SERVER_API_KEY
+* DEV_AUTH0_CLIENT_ID
 * PROD_AWS_ACCESS_KEY_ID
 * PROD_AWS_ACCOUNT_ID
 * PROD_AWS_ECS_CLUSTER
 * PROD_AWS_REGION
 * PROD_AWS_SECRET_ACCESS_KEY
 * PROD_SERVER_API_KEY
+* PROD_AUTH0_CLIENT_ID
 

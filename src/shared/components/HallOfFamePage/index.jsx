@@ -33,12 +33,12 @@ const HallOfFamePage = ({ eventId, onSelectEvent, hallOfFame }) => {
 
   if (data) { // Get Event
     // Process Finalists
-    result = _.filter(data.leaderboards, d => d.title === `TCO${eventId} Finalists`);
+    result = _.filter(data.leaderboards, d => /\b(Finalists)\b/gi.test(d.title));
     if (result && result.length > 0) {
       finalists = _.assign({}, result[0]);
     }
     // Process Trip Winners
-    result = _.filter(data.leaderboards, d => d.title === 'Trip Winners');
+    result = _.filter(data.leaderboards, d => /\b(Trip Winners)\b/gi.test(d.title));
     if (result && result.length > 0) {
       tripWinners = _.assign({}, result[0]);
     }
@@ -93,41 +93,26 @@ const HallOfFamePage = ({ eventId, onSelectEvent, hallOfFame }) => {
                 </div>
 
                 <div styleName="event-stats">
-                  <div styleName="stats-box">
-                    <img src={data.promo.statistics[0].icon.file.url} alt="Prizes Icon" />
-                    <div>
-                      <h4>{data.promo.statistics[0].value}</h4>
-                      <span>{data.promo.statistics[0].description}</span>
-                    </div>
-                  </div>
-                  <div styleName="stats-box">
-                    <img src={data.promo.statistics[1].icon.file.url} alt="Champions Icon" />
-                    <div>
-                      <h4>{data.promo.statistics[1].value}</h4>
-                      <span>{data.promo.statistics[1].description}</span>
-                    </div>
-                  </div>
-                  <div styleName="stats-box">
-                    <img src={data.promo.statistics[2].icon.file.url} alt="Finalists Icon" />
-                    <div>
-                      <h4>{data.promo.statistics[2].value}</h4>
-                      <span>{data.promo.statistics[2].description}</span>
-                    </div>
-                  </div>
-                  <div styleName="stats-box">
-                    <img src={data.promo.statistics[3].icon.file.url} alt="Countries Icon" />
-                    <div>
-                      <h4>{data.promo.statistics[3].value}</h4>
-                      <span>{data.promo.statistics[3].description}</span>
-                    </div>
-                  </div>
+                  {
+                    _.map(data.promo.statistics, stat => (
+                      <div styleName="stats-box" key={stat.description}>
+                        <img src={stat.icon.file.url} alt={stat.description} />
+                        <div>
+                          <h4>{stat.value}</h4>
+                          <span>{stat.description}</span>
+                        </div>
+                      </div>
+                    ))
+                  }
                 </div>
               </div>
-
-              <div styleName="finalists">
-                <h2>{finalists.title}</h2>
-                <Finalists data={finalists} />
-              </div>
+              {
+                finalists &&
+                <div styleName="finalists">
+                  <h2>{finalists.title}</h2>
+                  <Finalists data={finalists} />
+                </div>
+              }
               {
                 tripWinners && (
                   <div styleName="trip-winners">
@@ -141,7 +126,7 @@ const HallOfFamePage = ({ eventId, onSelectEvent, hallOfFame }) => {
         }
 
         {
-          data ? (
+          data && data.quickStories ? (
             <div styleName="fun-facts">
               <h3>{data.quickStories.title}</h3>
               <FunFacts data={data.quickStories} />
@@ -150,7 +135,7 @@ const HallOfFamePage = ({ eventId, onSelectEvent, hallOfFame }) => {
         }
 
         {
-          data ? (
+          champions ? (
             <div styleName="champions">
               <h3>{champions.title}</h3>
               <Champions data={champions} />

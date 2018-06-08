@@ -17,6 +17,7 @@
 import _ from 'lodash';
 import { getCommunityId } from 'server/services/communities';
 import { redux } from 'topcoder-react-utils';
+import { reducer as toastrReducer } from 'react-redux-toastr';
 import { reducerFactory } from 'topcoder-react-lib';
 import { getAuthTokens } from 'utils/tc';
 
@@ -128,6 +129,7 @@ export function factory(req) {
     contentful,
     topcoderHeader,
     rss,
+    toastr: toastrReducer,
   }));
 }
 
