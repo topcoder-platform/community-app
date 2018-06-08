@@ -1,0 +1,64 @@
+@import "~styles/mixins";
+
+.chart-tooltip {
+  display: block;
+  opacity: 0;
+  position: absolute;
+  box-sizing: border-box;
+  width: 320px;
+  height: 115px;
+  padding: 15px;
+  color: $tc-white !important;
+  background-color: $tc-gray-80;
+  transform: translate(-160px, -45px);
+  border-radius: 5px;
+  transition: opacity 200ms ease;
+  transition-delay: 200ms;
+  font-family: sans-serif;
+  z-index: 3;
+
+  &:hover {
+    opacity: 1 !important;
+    color: $tc-white;
+  }
+
+  &::before {
+    content: '';
+    position: absolute;
+    left: 155px;
+    top: -5px;
+    height: 10px;
+    width: 10px;
+    background-color: $tc-gray-80;
+    transform: rotate(45deg);
+  }
+
+  .tooltip-rating {
+    width: 60px;
+    height: 60px;
+    margin-right: 15px;
+    border-radius: 50%;
+    float: left;
+    text-align: center;
+    padding-top: 23px;
+    transition: background-color 200ms ease;
+  }
+
+  .tooltip-challenge {
+    height: 100%;
+    width: calc(100% - 90px);
+    float: left;
+  }
+
+  .tooltip-challenge .challenge-name {
+    white-space: normal;
+    line-height: 20px;
+    word-wrap: break-word;
+  }
+
+  .tooltip-challenge .challenge-date {
+    font-weight: normal;
+    margin-top: 13px;
+    font-size: 12px;
+  }
+}

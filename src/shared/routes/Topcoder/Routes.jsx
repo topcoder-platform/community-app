@@ -22,7 +22,7 @@ import Settings from './Settings';
 import HallOfFame from '../HallOfFame';
 import Profile from '../Profile';
 import Scoreboard from '../tco/scoreboard';
-
+import ProfileStats from '../ProfileStats';
 import './styles.scss';
 
 export default function Topcoder() {
@@ -71,12 +71,12 @@ export default function Topcoder() {
         <Route
           component={Settings}
           exact
-          path="/settings"
+          path="/settings/:settingsTab(profile|account|email|preferences)"
         />
         <Route
-          component={Settings}
+          component={ProfileStats}
           exact
-          path="/settings/:settingsTab(profile|account|email|preferences)"
+          path="/members/:handle([\w\-\[\].{}]{2,15})/details"
         />
         <Error404 />
       </Switch>
