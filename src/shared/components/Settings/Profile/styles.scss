@@ -1,0 +1,20 @@
+@import "~styles/mixins";
+
+.edit-profile-container {
+  padding: 0 60px 30px;
+
+  .clearfix {
+    @include clearfix;
+
+    margin-bottom: 40px;
+  }
+}
+
+.save-button {
+  margin-bottom: 15px;
+  margin-top: 15px;
+  height: 40px;
+  width: 120px;
+  font-size: 18px;
+  text-transform: uppercase;
+}

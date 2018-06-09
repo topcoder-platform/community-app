@@ -1,80 +1,42 @@
 /**
- * The service for currency conversions. It uses currency rates provided by
- * https://openexchangerates.org, and caches them server-side, to minimize
- * the number of API requests (the free Open Exchange allows up to 1000 API
- * requests per month).
+ * The service for currency conversions.
+ *
+ * TODO: Refactor the service and its use cases to be async, and relying on
+ * Redux store in the normal way.
  */
 
-/* global window */
 
 import _ from 'lodash';
 import fetch from 'isomorphic-fetch';
-import fs from 'fs';
 import fx from 'money';
-import { logger } from 'topcoder-react-lib';
-import path from 'path';
 import { config, isomorphy } from 'topcoder-react-utils';
 
-const DISK_CACHE = path.resolve(__dirname, '../../../.exchange-rates.cache');
-const OE_API = 'https://openexchangerates.org/api';
-const OE_TOKEN = config.OPEN_EXCHANGE.TOKEN;
+const CDN_URL = config.CDN.PUBLIC;
+const MAX_AGE = 60 * 60 * 1000;
 
-/**
- * For optimal performance currency exchanged rates are cached and updated once
- * per config.OPEN_EXCHANGE.MAXAGE hours.
- *
- * Initial cached rated are injected into client side via window.EXCHANGE_RATES
- * during page rendering at the server-side. This way it is ensured that some
- * cached rates are always available, thus syncroneous functions are safe.
- *
- * At the server side, in addition to in-memory caching, the rates are also
- * cached at the hard-drive, and the initial cached rates are read from there,
- * when the app is started. Otherwise, the free quota for accessing
- * http://openexchangerates.com runs out extremely rapidly during development,
- * due to frequent restarts of the code.
- */
+let cache = { timestamp: 0 };
 
-let cachedRates;
+if (isomorphy.isClientSide()) cache = config.EXCHANGE_RATES;
 
-if (isomorphy.isClientSide()) cachedRates = window.CONFIG.EXCHANGE_RATES;
-else if (fs.existsSync(DISK_CACHE)) {
-  cachedRates = JSON.parse(fs.readFileSync(DISK_CACHE, 'utf8'));
-}
-
-if (cachedRates) {
-  fx.base = cachedRates.base;
-  fx.rates = cachedRates.rates;
+if (cache) {
+  fx.base = cache.base;
+  fx.rates = cache.rates;
 }
 
 /**
  * Refreshes cached rate values, if necessary.
  * @return {Promise} Resolves to undefined once the operation is completed.
  */
-function refresh() {
-  if (cachedRates) {
-    const age = Date.now() - (1000 * cachedRates.timestamp);
-    if (age < 3600000 * config.OPEN_EXCHANGE.MAXAGE) {
-      return Promise.resolve();
-    }
-  }
-  const url = isomorphy.isClientSide() ? '/community-app-assets/api/exchange-rates'
-    : `${OE_API}/latest.json?app_id=${OE_TOKEN}`;
-  return fetch(url, {
-    headers: {
-      Authorization: `ApiKey ${config.SERVER_API_KEY}`,
-    },
-  }).then(res => res.json()).then((res) => {
-    cachedRates = res;
-    fx.base = res.base;
-    fx.rates = res.rates;
-    if (isomorphy.isServerSide()) {
-      logger.info('Exchange rates synced with https://openexchangerates.com');
-      fs.writeFile(DISK_CACHE, JSON.stringify(cachedRates));
-    }
-  });
+async function updateCache() {
+  if (Date.now() - cache.timestamp < MAX_AGE) return;
+  const upd = await fetch(`${CDN_URL}/exchange-rates`);
+  if (!upd.ok) throw new Error(upd.statusText);
+  cache = await upd.json();
+  fx.base = cache.base;
+  fx.rates = cache.rates;
 }
 
-refresh();
+updateCache();
 
 /**
  * Converts specified amount of money to another currency.
@@ -85,8 +47,9 @@ refresh();
  *  resolved immediately, but from time to time it will have to wait for async
  *  operations necessary to update the cached currency rates.
  */
-export function convert(amount, to, from = 'USD') {
-  return refresh().then(() => fx.convert(amount, { from, to }));
+export async function convert(amount, to, from = 'USD') {
+  await updateCache();
+  return fx.convert(amount, { from, to });
 }
 
 /**
@@ -100,7 +63,7 @@ export function convert(amount, to, from = 'USD') {
  * @return {Number}
  */
 export function convertNow(amount, to, from = 'USD') {
-  refresh();
+  updateCache();
   return fx.convert(amount, { from, to });
 }
 
@@ -108,8 +71,9 @@ export function convertNow(amount, to, from = 'USD') {
  * Returns exchange rates.
  * @return {Promise}
  */
-export function getRates() {
-  return refresh().then(() => _.clone(cachedRates));
+export async function getRates() {
+  await updateCache();
+  return _.cloneDeep(cache);
 }
 
 /**
@@ -117,8 +81,6 @@ export function getRates() {
  * @return {Promise}
  */
 export function getRatesNow() {
-  refresh();
-  return _.clone(cachedRates);
+  updateCache();
+  return _.cloneDeep(cache);
 }
-
-export default undefined;

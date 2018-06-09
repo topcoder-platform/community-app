@@ -1,0 +1,102 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders preferences setting page correctly 1`] = `
+<div
+  className="src-shared-components-Settings-Preferences-___styles__preferences-container___m6Zzc"
+>
+  <ul>
+    <li>
+      <a
+        href="https://apps.topcoder-dev.com/forums/?module=Settings"
+        rel="noopener noreferrer"
+        target="_blank"
+      >
+        <div
+          className="src-shared-components-Settings-Preferences-___styles__icon___3fXyX"
+        >
+          <i
+            className="fa fa-comment"
+          />
+        </div>
+        <span>
+          Forum Preferences
+        </span>
+        <div
+          className="src-shared-components-Settings-Preferences-___styles__description___2xD92"
+        >
+          Change how forums are displayed and when you"re notified regarding activity
+        </div>
+      </a>
+    </li>
+    <li>
+      <a
+        href="https://community.topcoder-dev.com/tc?module=EditPaymentPreferences"
+        rel="noopener noreferrer"
+        target="_blank"
+      >
+        <div
+          className="src-shared-components-Settings-Preferences-___styles__icon___3fXyX"
+        >
+          <i
+            className="fa fa-credit-card"
+          />
+        </div>
+        <span>
+          Payment Preferences
+        </span>
+        <div
+          className="src-shared-components-Settings-Preferences-___styles__description___2xD92"
+        >
+          Select your preferred payment method and set accrual limits
+        </div>
+      </a>
+    </li>
+    <li>
+      <a
+        href="https://community.topcoder-dev.com/tc?module=VisaSelection"
+        rel="noopener noreferrer"
+        target="_blank"
+      >
+        <div
+          className="src-shared-components-Settings-Preferences-___styles__icon___3fXyX"
+        >
+          <i
+            className="fa fa-user"
+          />
+        </div>
+        <span>
+          Invitation Letter
+        </span>
+        <div
+          className="src-shared-components-Settings-Preferences-___styles__description___2xD92"
+        >
+          Need a visa letter for a Topcoder event? Get one here.
+        </div>
+      </a>
+    </li>
+    <li>
+      <a
+        href="https://community.topcoder-dev.com/tc?module=ViewReferrals"
+        rel="noopener noreferrer"
+        target="_blank"
+      >
+        <div
+          className="src-shared-components-Settings-Preferences-___styles__icon___3fXyX"
+        >
+          <i
+            className="fa fa-users"
+          />
+        </div>
+        <span>
+          Referrals
+        </span>
+        <div
+          className="src-shared-components-Settings-Preferences-___styles__description___2xD92"
+        >
+          If you participated in our past referral program, see who registered using your invitation link
+        </div>
+      </a>
+    </li>
+  </ul>
+</div>
+`;

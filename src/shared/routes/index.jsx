@@ -4,6 +4,7 @@
 
 import CommunityLoader from 'containers/tc-communities/Loader';
 import Content from 'components/Content';
+import MemberProgramsPage from 'components/MemberProgramsPage';
 import React from 'react';
 
 import { Switch, Route, withRouter } from 'react-router-dom';
@@ -53,6 +54,11 @@ function Routes({ communityId }) {
         <Route exact path="/" component={Content} />
         { Examples() }
         <Route
+          component={MemberProgramsPage}
+          exact
+          path="/community/member-programs"
+        />
+        <Route
           render={({ match }) => (
             <CommunityLoader
               communityComponent={({ member, meta }) => {
@@ -70,7 +76,7 @@ function Routes({ communityId }) {
               communityId={match.params.communityId}
             />
           )}
-          path="/community/:communityId"
+          path="/__community__/:communityId"
         />
         <Route
           component={() => <Sandbox base="/sandbox" />}

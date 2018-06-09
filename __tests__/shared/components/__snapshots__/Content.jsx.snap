@@ -238,6 +238,14 @@ exports[`Matches shallow shapshot 1`] = `
       </Link>
     </li>
     <li>
+      <Link
+        replace={false}
+        to="/community/member-programs"
+      >
+        Member Programs Page
+      </Link>
+    </li>
+    <li>
       Public Profile Page available at the 
       <code>
         /members/:handle
@@ -278,6 +286,14 @@ exports[`Matches shallow shapshot 1`] = `
         /challenges/:challengeId/my-submissions
       </code>
       ; the link here leads to a test challenge.
+    </li>
+    <li>
+      <Link
+        replace={false}
+        to="/settings/profile"
+      >
+        Settings Profile Page
+      </Link>
     </li>
   </ul>
   <h3>
@@ -325,7 +341,7 @@ exports[`Matches shallow shapshot 1`] = `
     <li>
       <Link
         replace={false}
-        to="/community/blockchain"
+        to="/__community__/blockchain"
       >
         Blockchain Community
       </Link>
@@ -333,7 +349,7 @@ exports[`Matches shallow shapshot 1`] = `
     <li>
       <Link
         replace={false}
-        to="/community/cognitive"
+        to="/__community__/cognitive"
       >
         Cognitive Community
       </Link>
@@ -341,7 +357,7 @@ exports[`Matches shallow shapshot 1`] = `
     <li>
       <Link
         replace={false}
-        to="/community/community-2"
+        to="/__community__/community-2"
       >
         Community 2
       </Link>
@@ -349,7 +365,7 @@ exports[`Matches shallow shapshot 1`] = `
     <li>
       <Link
         replace={false}
-        to="/community/cs"
+        to="/__community__/cs"
       >
         CS community
       </Link>
@@ -357,7 +373,7 @@ exports[`Matches shallow shapshot 1`] = `
     <li>
       <Link
         replace={false}
-        to="/community/demo-expert"
+        to="/__community__/demo-expert"
       >
         Demo Expert Community
       </Link>
@@ -365,7 +381,7 @@ exports[`Matches shallow shapshot 1`] = `
     <li>
       <Link
         replace={false}
-        to="/community/qa"
+        to="/__community__/qa"
       >
         QA Community
       </Link>
@@ -373,7 +389,7 @@ exports[`Matches shallow shapshot 1`] = `
     <li>
       <Link
         replace={false}
-        to="/community/srmx"
+        to="/__community__/srmx"
       >
         SRMX Community
       </Link>
@@ -381,7 +397,7 @@ exports[`Matches shallow shapshot 1`] = `
     <li>
       <Link
         replace={false}
-        to="/community/taskforce"
+        to="/__community__/taskforce"
       >
         Taskforce community
       </Link>
@@ -389,7 +405,7 @@ exports[`Matches shallow shapshot 1`] = `
     <li>
       <Link
         replace={false}
-        to="/community/tc-prod-dev"
+        to="/__community__/tc-prod-dev"
       >
         Topcoder Product Development community
       </Link>
@@ -397,7 +413,7 @@ exports[`Matches shallow shapshot 1`] = `
     <li>
       <Link
         replace={false}
-        to="/community/wipro"
+        to="/__community__/wipro"
       >
         TopGear (Wipro) community
       </Link>
@@ -405,7 +421,7 @@ exports[`Matches shallow shapshot 1`] = `
     <li>
       <Link
         replace={false}
-        to="/community/veterans"
+        to="/__community__/veterans"
       >
         Veterans Community
       </Link>

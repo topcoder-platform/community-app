@@ -78,3 +78,14 @@
 @include font-family('Akkurat regular', 400, normal, 'assets/fonts/Akkurat/', 'WiproAkkuratTTRegular');
 @include font-family('Akkurat mono', 400, normal, 'assets/fonts/Akkurat/', 'AkkuratMonoMono');
 @include font-family('Akkurat bold', 700, normal, 'assets/fonts/Akkurat/', 'WiproAkkuratTT-Bold');
+
+/* Merriweather Sans is being used by Dashboard & Settings page */
+@include font-family('Merriweather Sans', 700, normal, 'assets/fonts/merriweather-sans/', 'merriweathersans-bold-webfont');
+@include font-family('Merriweather Sans', 700, italic, 'assets/fonts/merriweather-sans/', 'merriweathersans-bolditalic-webfont');
+@include font-family('Merriweather Sans', 400, normal, 'assets/fonts/merriweather-sans/', 'merriweathersans-regular-webfont');
+@include font-family('Merriweather Sans', 400, italic, 'assets/fonts/merriweather-sans/', 'merriweathersans-italic-webfont');
+@include font-family('Merriweather Sans', 300, normal, 'assets/fonts/merriweather-sans/', 'merriweathersans-light-webfont');
+@include font-family('Merriweather Sans', 300, italic, 'assets/fonts/merriweather-sans/', 'merriweathersans-lightitalic-webfont');
+
+/* Awesome font */
+@include font-family('FontAwesome', normal, normal, 'assets/fonts/font-awesome/', 'fontawesome-webfont');

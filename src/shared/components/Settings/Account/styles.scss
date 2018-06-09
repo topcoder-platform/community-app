@@ -1,0 +1,15 @@
+@import "~styles/mixins";
+
+:global {
+  .account-info-container {
+    padding: 0 60px 30px;
+
+    .section-fields {
+      margin-top: 20px;
+
+      .form-label {
+        max-width: 360px !important;
+      }
+    }
+  }
+}

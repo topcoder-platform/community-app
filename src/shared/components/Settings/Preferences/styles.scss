@@ -1,0 +1,111 @@
+@import "~styles/mixins";
+
+.preferences-container {
+  padding-bottom: 25px;
+
+  ul {
+    margin-top: 30px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  li {
+    span {
+      text-decoration: none;
+      color: black;
+      font-size: 14px;
+      margin-top: 15px;
+    }
+
+    a {
+      padding: 5px;
+      width: 130px;
+      height: 160px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: center;
+      text-decoration: none;
+
+      .icon {
+        i {
+          font-size: 40px;
+          color: #d1d3d4;
+        }
+      }
+
+      &:hover {
+        i { color: #85ccff; }
+        span { color: #85ccff; }
+      }
+    }
+
+    font-size: 16px;
+    width: 130px;
+    height: 160px;
+    margin: 20px 20px;
+    background-color: #fbfbfb;
+    border: 1px solid #f0f0f0;
+
+    &:hover {
+      border: 1px solid #85ccff;
+    }
+
+    @include sofia-pro-regular;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+
+    .description {
+      margin-top: 7px;
+      color: #a3a3ae;
+      font-size: 12px;
+    }
+  }
+
+  hr {
+    margin: 12px 0;
+  }
+}
+
+@media (min-width: 768px) {
+  .preferences-container {
+    ul {
+      li {
+        a {
+          height: 220px;
+          width: 260px;
+          padding: 15px;
+        }
+
+        height: 220px;
+        width: 260px;
+
+        .icon {
+          margin-top: 10px;
+
+          i {
+            font-size: 55px;
+          }
+        }
+
+        span {
+          margin-top: 35px;
+          font-size: 18px;
+        }
+
+        .description {
+          margin-top: 9px;
+          line-height: 18px;
+          font-size: 14px;
+          padding-left: 6px;
+        }
+      }
+    }
+  }
+}

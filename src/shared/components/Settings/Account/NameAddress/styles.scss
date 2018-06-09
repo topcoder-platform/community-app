@@ -1,0 +1,116 @@
+@import "~styles/mixins";
+
+.name,
+.address {
+  input {
+    @include placeholder {
+      @include sofia-pro-regular;
+
+      color: $tc-gray-40;
+      font-size: 12px;
+      text-transform: uppercase;
+      transition: opacity 0.15s;
+    }
+  }
+}
+
+.name {
+  .account-section-fields {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+.address {
+  border-bottom: none;
+
+  .form-label {
+    margin-top: 10px;
+
+    &.address {
+      margin-top: 0;
+    }
+  }
+}
+
+.validation-bar {
+  width: 100%;
+  display: block;
+  position: relative;
+
+  &::before {
+    border-radius: 3px 0 0 3px;
+    content: '';
+    display: none;
+    height: 38px;
+    width: 2px;
+    left: 1px;
+    position: absolute;
+    top: 0;
+  }
+
+  & input[type='text'],
+  & input[type='password'] {
+    width: 100% !important;
+  }
+
+  &.error-bar::before {
+    background-color: $tc-red;
+    display: block;
+  }
+
+  &.success-bar::before {
+    background-color: $tc-green;
+    display: block;
+  }
+}
+
+.update-account-info {
+  width: 630px;
+
+  .address-fields {
+    @media only screen and (min-width: 768px) {
+      display: flex;
+      flex-flow: row wrap;
+      justify-content: space-between;
+    }
+  }
+
+  label {
+    display: block;
+    position: relative;
+    margin-bottom: 15px;
+  }
+
+  input {
+    display: block;
+    margin-top: 7px;
+  }
+
+  .account-info-error {
+    position: absolute;
+    top: 65px;
+    left: 3px;
+    color: #ef3a3a;
+  }
+}
+
+@media only screen and (min-width: 768px) {
+  .account-section-fields {
+    margin-top: 0;
+    width: 100%;
+  }
+}
+
+.save-button {
+  margin-bottom: 15px;
+  margin-top: 15px;
+  height: 40px;
+  width: 120px;
+  font-size: 18px;
+  text-transform: uppercase;
+}
+
+.no-text-transform {
+  text-transform: none;
+}
