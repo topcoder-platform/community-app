@@ -93,6 +93,9 @@ export default function Content() {
           <Link to="/challenges">Main Challenge Listing</Link>
         </li>
         <li>
+          <Link to="/community/member-programs">Member Programs Page</Link>
+        </li>
+        <li>
           Public Profile Page available at the <code>/members/:handle</code> endpoint.
           Valid link on dev <Link to="/members/TonyJ">here.</Link>
         </li>
@@ -129,39 +132,39 @@ export default function Content() {
       <h3>Separate Topcoder Communities</h3>
       <ul>
         <li>
-          <Link to="/community/blockchain">Blockchain Community</Link>
+          <Link to="/__community__/blockchain">Blockchain Community</Link>
         </li>
         <li>
-          <Link to="/community/cognitive">Cognitive Community</Link>
+          <Link to="/__community__/cognitive">Cognitive Community</Link>
         </li>
         <li>
-          <Link to="/community/community-2">Community 2</Link>
+          <Link to="/__community__/community-2">Community 2</Link>
         </li>
         <li>
-          <Link to="/community/cs">CS community</Link>
+          <Link to="/__community__/cs">CS community</Link>
         </li>
         <li>
-          <Link to="/community/demo-expert">Demo Expert Community</Link>
+          <Link to="/__community__/demo-expert">Demo Expert Community</Link>
         </li>
         <li>
-          <Link to="/community/qa">QA Community</Link>
+          <Link to="/__community__/qa">QA Community</Link>
         </li>
         <li>
-          <Link to="/community/srmx">SRMX Community</Link>
+          <Link to="/__community__/srmx">SRMX Community</Link>
         </li>
         <li>
-          <Link to="/community/taskforce">Taskforce community</Link>
+          <Link to="/__community__/taskforce">Taskforce community</Link>
         </li>
         <li>
-          <Link to="/community/tc-prod-dev">Topcoder Product
+          <Link to="/__community__/tc-prod-dev">Topcoder Product
           Development community
           </Link>
         </li>
         <li>
-          <Link to="/community/wipro">TopGear (Wipro) community</Link>
+          <Link to="/__community__/wipro">TopGear (Wipro) community</Link>
         </li>
         <li>
-          <Link to="/community/veterans">Veterans Community</Link>
+          <Link to="/__community__/veterans">Veterans Community</Link>
         </li>
       </ul>
 
