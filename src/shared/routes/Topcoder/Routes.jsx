@@ -10,6 +10,7 @@ import TermsDetail from 'routes/TermsDetail';
 import Error404 from 'components/Error404';
 import Footer from 'components/TopcoderFooter';
 import Header from 'containers/TopcoderHeader';
+import MemberProgramsPage from 'components/MemberProgramsPage';
 import React from 'react';
 import ReviewOpportunityDetails from 'routes/ReviewOpportunityDetails';
 import Submission from 'routes/Submission';
@@ -57,6 +58,11 @@ export default function Topcoder() {
           component={Submission}
           exact
           path="/challenges/:challengeId(\d{8})/submit"
+        />
+        <Route
+          component={MemberProgramsPage}
+          exact
+          path="/community/member-programs"
         />
         <Route
           component={HallOfFame}

@@ -1,14 +1,13 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Match shadow snapshot 1`] = `
-<Connect(ContentfulLoader)
-  entryQueries={
+<ViewportLoader
+  id={null}
+  preview={false}
+  query={
     Object {
-      "content_type": "viewport",
       "fields.name": "Community 2 - Home Page",
     }
   }
-  render={[Function]}
-  renderPlaceholder={[Function]}
 />
 `;
