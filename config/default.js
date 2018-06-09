@@ -163,5 +163,7 @@ module.exports = {
       PREVIEW_API_KEY: '',
       SPACE_ID: '',
     },
+
+    OPEN_EXCHANGE_RATES_KEY: '',
   },
 };
