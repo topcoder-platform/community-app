@@ -29,6 +29,7 @@ async function updateCache() {
   const upd = await fetch(`${OER_API}/latest.json?app_id=${OER_KEY}`);
   if (!upd.ok) throw new Error(upd.statusText);
   cache = await upd.json();
+  cache.timestamp *= 1000; /* Timestamp in API response is in seconds. */
 }
 
 /**
