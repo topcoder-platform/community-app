@@ -59,17 +59,6 @@ module.exports = {
     },
   },
 
-  /* Configuration related to https://openexchangerates.org. This is the
-   * service which provides currency exchange rates. */
-  OPEN_EXCHANGE: {
-    /* Once the app is running, currency rates are cached server-side and
-     * refreshed each X hours, where X is the number configured here. */
-    MAXAGE: 12,
-
-    /* API token. */
-    TOKEN: '3fcd4a89fca148fa9e8537550d29410f',
-  },
-
   /* Amount of time [seconds] before expiration of authentication tokens,
    * when the frontend will automatically trigger their refreshment. Once
    * ready, it will either write to the Redux store fresh token, or will

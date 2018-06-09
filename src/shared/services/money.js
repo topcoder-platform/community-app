@@ -14,21 +14,6 @@ import { config, isomorphy } from 'topcoder-react-utils';
 const CDN_URL = config.CDN.PUBLIC;
 const MAX_AGE = 60 * 60 * 1000;
 
-/**
- * For optimal performance currency exchanged rates are cached and updated once
- * per config.OPEN_EXCHANGE.MAXAGE hours.
- *
- * Initial cached rated are injected into client side via window.EXCHANGE_RATES
- * during page rendering at the server-side. This way it is ensured that some
- * cached rates are always available, thus syncroneous functions are safe.
- *
- * At the server side, in addition to in-memory caching, the rates are also
- * cached at the hard-drive, and the initial cached rates are read from there,
- * when the app is started. Otherwise, the free quota for accessing
- * http://openexchangerates.com runs out extremely rapidly during development,
- * due to frequent restarts of the code.
- */
-
 let cache = { timestamp: 0 };
 
 if (isomorphy.isClientSide()) cache = config.EXCHANGE_RATES;
