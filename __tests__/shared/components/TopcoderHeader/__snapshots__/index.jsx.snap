@@ -124,17 +124,6 @@ exports[`Default render 1`] = `
           "items": Array [
             Object {
               "enforceA": true,
-              "icon": <IconNavRocket
-                height="32"
-                viewBox="0 0 32 32"
-                width="32"
-                xmlns="http://www.w3.org/2000/svg"
-              />,
-              "link": "https://www.topcoder-dev.com/getting-started",
-              "title": "Getting Started",
-            },
-            Object {
-              "enforceA": true,
               "icon": <IconNavBookDesign
                 height="32"
                 viewBox="0 0 32 32"
@@ -404,17 +393,6 @@ exports[`Render with open menu 1`] = `
         },
         Object {
           "items": Array [
-            Object {
-              "enforceA": true,
-              "icon": <IconNavRocket
-                height="32"
-                viewBox="0 0 32 32"
-                width="32"
-                xmlns="http://www.w3.org/2000/svg"
-              />,
-              "link": "https://www.topcoder-dev.com/getting-started",
-              "title": "Getting Started",
-            },
             Object {
               "enforceA": true,
               "icon": <IconNavBookDesign
@@ -694,17 +672,6 @@ exports[`Render with specified profile 1`] = `
         },
         Object {
           "items": Array [
-            Object {
-              "enforceA": true,
-              "icon": <IconNavRocket
-                height="32"
-                viewBox="0 0 32 32"
-                width="32"
-                xmlns="http://www.w3.org/2000/svg"
-              />,
-              "link": "https://www.topcoder-dev.com/getting-started",
-              "title": "Getting Started",
-            },
             Object {
               "enforceA": true,
               "icon": <IconNavBookDesign

@@ -58,32 +58,34 @@ const MENU = [{
   }],
 }, {
   title: 'Learn',
-  items: [{
+  items: [
+  /* {
     enforceA: true,
     icon: <IconNavRocket />,
     link: `${BASE_URL}/getting-started`,
     title: 'Getting Started',
-  }, {
-    enforceA: true,
-    icon: <IconNavBookDesign />,
-    link: `${BASE_URL}/community/design`,
-    title: 'Design',
-  }, {
-    enforceA: true,
-    icon: <IconNavBoolDevelop />,
-    link: `${BASE_URL}/community/development`,
-    title: 'Development',
-  }, {
-    enforceA: true,
-    icon: <IconNavBookData />,
-    link: `${BASE_URL}/community/data-science/`,
-    title: 'Data Science',
-  }, {
-    enforceA: true,
-    icon: <IconNavBookCP />,
-    link: `${BASE_URL}/community/competitive-programming`,
-    title: 'Competitive Programming',
-  }],
+  }, */
+    {
+      enforceA: true,
+      icon: <IconNavBookDesign />,
+      link: `${BASE_URL}/community/design`,
+      title: 'Design',
+    }, {
+      enforceA: true,
+      icon: <IconNavBoolDevelop />,
+      link: `${BASE_URL}/community/development`,
+      title: 'Development',
+    }, {
+      enforceA: true,
+      icon: <IconNavBookData />,
+      link: `${BASE_URL}/community/data-science/`,
+      title: 'Data Science',
+    }, {
+      enforceA: true,
+      icon: <IconNavBookCP />,
+      link: `${BASE_URL}/community/competitive-programming`,
+      title: 'Competitive Programming',
+    }],
 }, {
   title: 'Community',
   items: [{
