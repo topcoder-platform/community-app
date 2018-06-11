@@ -52,10 +52,14 @@ function ViewportLoader(props) {
     id,
     preview,
   } = props;
-  const query = {};
+
+  let query;
 
   if (props.query) {
-    _.defaults(query, props.query, { content_type: 'viewport', include: 2 });
+    query = _.defaults(_.clone(props.query), {
+      content_type: 'viewport',
+      include: 2,
+    });
   }
 
   return (
