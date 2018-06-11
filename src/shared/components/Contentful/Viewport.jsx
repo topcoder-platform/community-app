@@ -53,19 +53,19 @@ function ViewportLoader(props) {
     preview,
   } = props;
 
-  let query;
+  const queries = [];
+
+  if (id) {
+    queries.push({ 'sys.id': id, content_type: 'viewport' });
+  }
 
   if (props.query) {
-    query = _.defaults(_.clone(props.query), {
-      content_type: 'viewport',
-      include: 2,
-    });
+    queries.push({ ...props.query, content_type: 'viewport' });
   }
 
   return (
     <ContentfulLoader
-      entryIds={id}
-      entryQueries={query}
+      entryQueries={queries}
       preview={preview}
       render={(data) => {
         // _.map(data.entries.items, 'fields.content') returns an array containing
