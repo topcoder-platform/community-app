@@ -48,8 +48,8 @@ make_task_def(){
 				{
 				"name": "%s",			
 				"image": "%s.dkr.ecr.%s.amazonaws.com/%s:%s",
-				 "cpu": 100,
-				 "memory": 512,				
+				 "cpu": 1,
+				 "memoryReservation": 512,				
 				"environment": [
 					{
 					"name": "NODE_CONFIG_ENV",
