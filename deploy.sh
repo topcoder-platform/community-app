@@ -48,11 +48,7 @@ make_task_def(){
 				{
 				"name": "%s",			
 				"image": "%s.dkr.ecr.%s.amazonaws.com/%s:%s",
-				 "dockerLabels": {
-        			"NODE_CONFIG_ENV": "development"
-      				},
 				 "cpu": 100,
-				 essential : true	
 				 "memory": 512,				
 				"environment": [
 					{
