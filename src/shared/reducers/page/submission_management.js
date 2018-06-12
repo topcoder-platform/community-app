@@ -7,20 +7,17 @@ import _ from 'lodash';
 import actions from 'actions/page/submission_management';
 import { redux } from 'topcoder-react-utils';
 
+function onShowDetails(state, { payload: id }) {
+  const showDetails = _.clone(state.showDetails);
+  if (showDetails[id]) delete showDetails[id];
+  else showDetails[id] = true;
+  return { ...state, showDetails };
+}
+
 function create(initialState = {}) {
   const a = actions.page.submissionManagement;
   return redux.handleActions({
-    [a.showDetails]: (state, { payload }) => {
-      const showDetails = new Set(state.showDetails);
-
-      if (showDetails.has(payload)) {
-        showDetails.delete(payload);
-      } else {
-        showDetails.add(payload);
-      }
-
-      return { ...state, showDetails };
-    },
+    [a.showDetails]: onShowDetails,
 
     [a.confirmDelete]: (state, { payload }) => ({
       ...state,
@@ -34,7 +31,7 @@ function create(initialState = {}) {
       toBeDeletedId: 0,
     }),
 
-    [a.deleteSubmissionDone]: state => ({
+    'SMP/DELETE_SUBMISSION_DONE': state => ({
       ...state,
       deletingSubmission: false,
       showModal: false,
@@ -42,7 +39,7 @@ function create(initialState = {}) {
     }),
 
   }, _.defaults(initialState, {
-    showDetails: [],
+    showDetails: {},
     showModal: false,
     toBeDeletedId: 0,
   }));

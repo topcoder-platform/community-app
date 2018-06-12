@@ -51,6 +51,7 @@ class SubmissionManagementPageContainer extends React.Component {
       submissionPhaseStartDate,
       handle,
       registrants,
+      showDetails,
     } = this.props;
     const isRegistered = registrants.find(r => r.handle === handle);
     if (!isRegistered) return <AccessDenied redirectLink={`${challengesUrl}/${challenge.id}`} cause={ACCESS_DENIED_REASON.HAVE_NOT_SUBMITTED_TO_THE_CHALLENGE} />;
@@ -75,7 +76,7 @@ class SubmissionManagementPageContainer extends React.Component {
               challengesUrl={challengesUrl}
               loadingSubmissions={Boolean(loadingSubmissionsForChallengeId)}
               submissions={this.props.mySubmissions}
-              showDetails={this.props.showDetails}
+              showDetails={showDetails}
               submissionPhaseStartDate={submissionPhaseStartDate}
               {...smConfig}
             />}
@@ -184,7 +185,7 @@ function mapStateToProps(state, props) {
     challenge: state.challenge.details,
     challengesUrl: props.challengesUrl,
 
-    deleting: state.challenge.mySubmissionsManagement.deletingSubmission,
+    deleting: state.page.submissionManagement.deletingSubmission,
 
     isLoadingChallenge: Boolean(state.challenge.loadingDetailsForChallengeId),
 
@@ -194,10 +195,10 @@ function mapStateToProps(state, props) {
 
     submissionPhaseStartDate: submissionPhase.actualStartTime || submissionPhase.scheduledStartTime || '',
 
-    showDetails: new Set(state.challenge.mySubmissionsManagement.showDetails),
+    showDetails: state.page.submissionManagement.showDetails,
 
-    showModal: state.challenge.mySubmissionsManagement.showModal,
-    toBeDeletedId: state.challenge.mySubmissionsManagement.toBeDeletedId,
+    showModal: state.page.submissionManagement.showModal,
+    toBeDeletedId: state.page.submissionManagement.toBeDeletedId,
 
     authTokens: state.auth,
     registrants: state.challenge.details.registrants,
