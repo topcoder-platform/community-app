@@ -56,7 +56,7 @@ export default function SubmissionsTable(props) {
       const submission = (
         <Submission
           submissionObject={subObject}
-          showScreeningDetails={showDetails.has(subObject.submissionId)}
+          showScreeningDetails={showDetails[subObject.submissionId]}
           type={type}
           onShowDetails={onShowDetails}
           onDelete={onDelete}
@@ -70,7 +70,7 @@ export default function SubmissionsTable(props) {
 
       const submissionDetail = (
         <tr key={subObject.submissionId} styleName="submission-row">
-          {showDetails.has(subObject.submissionId) &&
+          {showDetails[subObject.submissionId] &&
             <td colSpan="6" styleName="dev-details">
               <ScreeningDetails
                 screeningObject={subObject.screening}
@@ -118,7 +118,6 @@ const SubShape = PT.shape({
 
 SubmissionsTable.defaultProps = {
   submissionObjects: [],
-  showDetails: new Set(),
   onDelete: _.noop,
   onDownload: _.noop,
   onShowDetails: _.noop,
@@ -128,7 +127,7 @@ SubmissionsTable.defaultProps = {
 
 SubmissionsTable.propTypes = {
   submissionObjects: PT.arrayOf(SubShape),
-  showDetails: PT.instanceOf(Set),
+  showDetails: PT.shape().isRequired,
   type: PT.string.isRequired,
   onDelete: PT.func,
   onlineReviewUrl: PT.string,

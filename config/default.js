@@ -8,6 +8,12 @@ module.exports = {
     V3: 'https://api.topcoder-dev.com/v3',
   },
 
+  /* Auth0 config */
+  AUTH0: {
+    DOMAIN: 'topcoder-dev.auth0.com',
+    CLIENT_ID: 'JFDo7HMkf0q2CkVFHojy3zHWafziprhT',
+  },
+
   /* Amount of time [seconds] before expiration of authentication tokens,
    * when the code will treat them as expired (to prevent attempts to
    * authenticate with an expired token). */
@@ -51,17 +57,6 @@ module.exports = {
       APIKEY: '',
       URL: '',
     },
-  },
-
-  /* Configuration related to https://openexchangerates.org. This is the
-   * service which provides currency exchange rates. */
-  OPEN_EXCHANGE: {
-    /* Once the app is running, currency rates are cached server-side and
-     * refreshed each X hours, where X is the number configured here. */
-    MAXAGE: 12,
-
-    /* API token. */
-    TOKEN: '3fcd4a89fca148fa9e8537550d29410f',
   },
 
   /* Amount of time [seconds] before expiration of authentication tokens,
@@ -157,5 +152,7 @@ module.exports = {
       PREVIEW_API_KEY: '',
       SPACE_ID: '',
     },
+
+    OPEN_EXCHANGE_RATES_KEY: '',
   },
 };

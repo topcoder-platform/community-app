@@ -27,6 +27,10 @@
       line-height: 22px;
     }
   }
+
+  @include xs-to-sm {
+    transform: none;
+  }
 }
 
 .contentWrapper {
@@ -39,6 +43,11 @@
   right: 0;
   width: 538px;
   padding: 45px 35px 45px 86px;
+
+  @include xs-to-sm {
+    transform: none;
+    width: 100%;
+  }
 }
 
 .container {
@@ -54,5 +63,6 @@
   @include xs-to-sm {
     align-items: flex-end;
     height: 600px;
+    max-height: 100vh;
   }
 }

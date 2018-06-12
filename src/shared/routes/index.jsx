@@ -70,7 +70,7 @@ function Routes({ communityId }) {
               communityId={match.params.communityId}
             />
           )}
-          path="/community/:communityId"
+          path="/__community__/:communityId"
         />
         <Route
           component={() => <Sandbox base="/sandbox" />}

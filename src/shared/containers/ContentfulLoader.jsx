@@ -193,6 +193,10 @@ class ContentfulLoader extends React.Component {
     res.entries = findData(entries, entryIds, entryQueries, minTimestamp);
     if (!res.entries) return null;
 
+    if (entries.includes) {
+      res.includes = entries.includes;
+    }
+
     return res;
   }
 
@@ -339,7 +343,7 @@ ContentfulLoader.defaultProps = {
   renderPlaceholder: null,
 };
 
-const QUERY_TYPE = PT.oneOfType([PT.bool, PT.object]);
+const QUERY_TYPE = PT.oneOfType([PT.bool, PT.object, PT.arrayOf(PT.object)]);
 const STRING_OR_STRING_ARRAY = PT.oneOfType([PT.string, PT.arrayOf(PT.string)]);
 
 ContentfulLoader.propTypes = {

@@ -6,11 +6,11 @@
  */
 
 import ChallengeDetails from 'routes/ChallengeDetails';
-import Crowd4GoodPage from 'components/sandbox/Crowd4GoodPage';
 import TermsDetail from 'routes/TermsDetail';
 import Error404 from 'components/Error404';
 import Footer from 'components/TopcoderFooter';
 import Header from 'containers/TopcoderHeader';
+import MemberProgramsPage from 'components/MemberProgramsPage';
 import React from 'react';
 import ReviewOpportunityDetails from 'routes/ReviewOpportunityDetails';
 import Submission from 'routes/Submission';
@@ -19,10 +19,11 @@ import { Route, Switch } from 'react-router-dom';
 
 import ChallengeListing from './ChallengeListing';
 import Dashboard from './Dashboard';
-import HallOfFame from '../tco/HallOfFame';
+import Settings from './Settings';
+import HallOfFame from '../HallOfFame';
 import Profile from '../Profile';
 import Scoreboard from '../tco/scoreboard';
-
+import ProfileStats from '../ProfileStats';
 import './styles.scss';
 
 export default function Topcoder() {
@@ -59,18 +60,29 @@ export default function Topcoder() {
           path="/challenges/:challengeId(\d{8})/submit"
         />
         <Route
-          component={Crowd4GoodPage}
-          path="/crowd-for-good"
+          component={MemberProgramsPage}
+          exact
+          path="/community/member-programs"
         />
         <Route
           component={HallOfFame}
           exact
-          path="/hall-of-fame/tco/:eventId?"
+          path="/hall-of-fame/:type/:eventId?"
         />
         <Route
           component={Profile}
           exact
           path="/members/:handle([\w\-\[\].{}]{2,15})"
+        />
+        <Route
+          component={Settings}
+          exact
+          path="/settings/:settingsTab(profile|account|email|preferences)"
+        />
+        <Route
+          component={ProfileStats}
+          exact
+          path="/members/:handle([\w\-\[\].{}]{2,15})/details"
         />
         <Error404 />
       </Switch>

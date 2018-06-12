@@ -153,7 +153,6 @@ export default function SubmissionManagement(props) {
 SubmissionManagement.defaultProps = {
   onDelete: _.noop,
   onShowDetails: _.noop,
-  showDetails: new Set(),
   onDownload: _.noop,
   onlineReviewUrl: '',
   helpPageUrl: '',
@@ -162,7 +161,7 @@ SubmissionManagement.defaultProps = {
 };
 
 SubmissionManagement.propTypes = {
-  showDetails: PT.instanceOf(Set),
+  showDetails: PT.shape().isRequired,
   onDelete: PT.func,
   onlineReviewUrl: PT.string,
   helpPageUrl: PT.string,

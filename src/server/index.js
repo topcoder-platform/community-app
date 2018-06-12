@@ -71,7 +71,7 @@ async function beforeRender(req, suggestedConfig) {
   ]);
 
   return {
-    config: { ...suggestedConfig, EXCHANGE_RATES: rates },
+    configToInject: { ...suggestedConfig, EXCHANGE_RATES: rates },
     extraScripts: EXTRA_SCRIPTS,
     store,
   };

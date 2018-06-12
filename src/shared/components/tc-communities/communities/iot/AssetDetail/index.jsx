@@ -47,7 +47,7 @@ export default function AssetDetail({
               <div styleName="info">
                 <h4 >Topcoder Winner</h4>
 
-                <a href={asset.author.profileURL} target="_blank">{ asset.author.name }</a>
+                <a href={asset.author.profileURL} target="_blank" rel="noreferrer noopener">{ asset.author.name }</a>
                 <div >{ asset.author.country }</div>
               </div>
             </div>

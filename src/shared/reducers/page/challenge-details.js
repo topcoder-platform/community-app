@@ -61,4 +61,19 @@ function create(state = {}) {
   }));
 }
 
+/**
+ * Reducer factory.
+ * @param {HttpRequest} req ExpressJS HTTP Request.
+ * @return {Promise} Resolves to the reducer.
+ */
+export async function factory(req) {
+  if (!req) return create();
+
+  let state = {};
+  if (req.query.tab) {
+    state = onSelectTab(state, { payload: req.query.tab });
+  }
+  return create(state);
+}
+
 export default create();

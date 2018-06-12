@@ -97,7 +97,7 @@ export function getRatingLevel(rating) {
  */
 /* TODO: The actual color values below are taken from topcoder-app. Probably,
  * they don't match colors in the current Topcoder style guide. */
-const RATING_COLORS = [{
+export const RATING_COLORS = [{
   color: '#9D9FA0' /* Grey */,
   limit: 900,
 }, {
@@ -248,6 +248,16 @@ export function processSRM(s) {
     srm.currentPhase = 'CODING';
   }
   return srm;
+}
+
+/**
+ * Compare two strings, null/undefined/empty are considered as equal.
+ * @param {String} str1 One string
+ * @param {String} str2 Another string
+ * @returns {Boolean} true if two strings equal, false otherwise
+ */
+export function looseEqual(str1, str2) {
+  return (!str1 && !str2) || str1 === str2;
 }
 
 export default undefined;

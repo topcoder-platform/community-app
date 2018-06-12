@@ -28,7 +28,7 @@ const AssetList = ({
                   <div styleName="description">
                     <p>{ item.description }…</p>
                     <p styleName="links"><a href={detailUrl} styleName="details">More Details</a></p>
-                    <p styleName="links"><a href={item.githubUrl} target="_blank" styleName="github">{ item.githubUrl }</a></p>
+                    <p styleName="links"><a href={item.githubUrl} target="_blank" rel="noreferrer noopener" styleName="github">{ item.githubUrl }</a></p>
                   </div>
                 </div>
                 <div styleName="col-asset col-asset-technologies">
@@ -56,7 +56,7 @@ const AssetList = ({
                   </div>
                 </div>
                 <div styleName="col-asset col-asset-links">
-                  <a href={item.githubUrl} target="_blank" styleName="github">GitHub</a>
+                  <a href={item.githubUrl} target="_blank" rel="noreferrer noopener" styleName="github">GitHub</a>
                   <a href={detailUrl} styleName="details">More Details</a>
                 </div>
               </li>
