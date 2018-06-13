@@ -17,6 +17,7 @@ import Veterans from './Veterans';
 import Wipro from './Wipro';
 import Cognitive from './Cognitive';
 import IoT from './iot';
+import TCO from './TCO';
 
 export default function Communities({
   base, communityId, member, meta,
@@ -36,6 +37,7 @@ export default function Communities({
     case 'wipro': return <Wipro base={base} meta={meta} />;
     case 'cognitive': return <Cognitive base={base} member={member} meta={meta} />;
     case 'iot': return <IoT base={base} meta={meta} />;
+    case 'tco': return <TCO base={base} meta={meta} />;
     default: throw new Error('Unknown community ID!');
   }
 }
