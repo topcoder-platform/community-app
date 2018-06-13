@@ -454,6 +454,16 @@ exports[`Matches shallow shapshot 1`] = `
     <li>
       <Link
         replace={false}
+        to="/examples/contentful/route/4eL1gLh8gU66ewMwIIYu4y"
+      >
+        <code>
+          Route
+        </code>
+      </Link>
+    </li>
+    <li>
+      <Link
+        replace={false}
         to="/examples/contentful/viewport/YomgM8zPCoEaUqaKouyGG"
       >
         <code>

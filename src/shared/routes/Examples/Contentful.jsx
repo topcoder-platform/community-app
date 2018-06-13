@@ -7,6 +7,7 @@ import React from 'react';
 
 import Banner from 'components/Contentful/Banner';
 import ContentBlock from 'components/Contentful/ContentBlock';
+import ContentfulRoute from 'components/Contentful/Route';
 import Viewport from 'components/Contentful/Viewport';
 
 import { Route, Switch } from 'react-router-dom';
@@ -22,6 +23,10 @@ export default function Contentful({ match }) {
       <Route
         path={`${base}/contentblock/:id`}
         component={p => <ContentBlock id={p.match.params.id} preview />}
+      />
+      <Route
+        path={`${base}/route/:id`}
+        component={p => <ContentfulRoute baseUrl={p.match.url} id={p.match.params.id} preview />}
       />
       <Route
         path={`${base}/viewport/:id`}
