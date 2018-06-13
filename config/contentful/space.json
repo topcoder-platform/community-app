@@ -6,341 +6,13 @@
           "sys": {
             "type": "Link",
             "linkType": "Space",
-            "id": "zfmkkhaw6gag"
-          }
-        },
-        "id": "banner",
-        "type": "ContentType",
-        "createdAt": "2018-06-08T07:12:07.393Z",
-        "updatedAt": "2018-06-08T07:12:12.355Z",
-        "environment": {
-          "sys": {
-            "id": "master",
-            "type": "Link",
-            "linkType": "Environment"
-          }
-        },
-        "createdBy": {
-          "sys": {
-            "type": "Link",
-            "linkType": "User",
-            "id": "45dcz0cMTXaqLOh66hDPS4"
-          }
-        },
-        "updatedBy": {
-          "sys": {
-            "type": "Link",
-            "linkType": "User",
-            "id": "45dcz0cMTXaqLOh66hDPS4"
-          }
-        },
-        "publishedCounter": 1,
-        "version": 2,
-        "publishedBy": {
-          "sys": {
-            "type": "Link",
-            "linkType": "User",
-            "id": "45dcz0cMTXaqLOh66hDPS4"
-          }
-        },
-        "publishedVersion": 1,
-        "firstPublishedAt": "2018-06-08T07:12:12.355Z",
-        "publishedAt": "2018-06-08T07:12:12.355Z"
-      },
-      "displayField": "name",
-      "name": "Banner",
-      "description": "A block with background image; and a small area intended for brief textual content. The textual area is positioned in a fixed position relative to the block sides, and it has its own background for readability.",
-      "fields": [
-        {
-          "id": "name",
-          "name": "Name",
-          "type": "Symbol",
-          "localized": false,
-          "required": true,
-          "validations": [
-            {
-              "unique": true
-            }
-          ],
-          "disabled": false,
-          "omitted": false
-        },
-        {
-          "id": "text",
-          "name": "Text",
-          "type": "Text",
-          "localized": false,
-          "required": false,
-          "validations": [
-          ],
-          "disabled": false,
-          "omitted": false
-        },
-        {
-          "id": "backgroundImage",
-          "name": "Background Image",
-          "type": "Link",
-          "localized": false,
-          "required": true,
-          "validations": [
-            {
-              "linkMimetypeGroup": [
-                "image"
-              ]
-            },
-            {
-              "assetImageDimensions": {
-                "width": {
-                  "min": null,
-                  "max": 2400
-                },
-                "height": {
-                  "min": null,
-                  "max": 1800
-                }
-              },
-              "message": "Images larger than 2400 x 1800 px are prohibited for performance reasons."
-            },
-            {
-              "assetFileSize": {
-                "max": 1048576
-              },
-              "message": "Images larger than 1MB are prohibited for performance reasons."
-            }
-          ],
-          "disabled": false,
-          "omitted": false,
-          "linkType": "Asset"
-        },
-        {
-          "id": "baseTheme",
-          "name": "Banner Style",
-          "type": "Symbol",
-          "localized": false,
-          "required": true,
-          "validations": [
-            {
-              "in": [
-                "Default",
-                "TopGear",
-                "Default Sub-Community"
-              ],
-              "message": "Wrong banner style provided."
-            }
-          ],
-          "disabled": false,
-          "omitted": false
-        },
-        {
-          "id": "containerStyles",
-          "name": "Extra styles for container",
-          "type": "Object",
-          "localized": false,
-          "required": false,
-          "validations": [
-          ],
-          "disabled": false,
-          "omitted": false
-        },
-        {
-          "id": "contentWrapperStyles",
-          "name": "Extra styles for content wrapper",
-          "type": "Object",
-          "localized": false,
-          "required": false,
-          "validations": [
-          ],
-          "disabled": false,
-          "omitted": false
-        },
-        {
-          "id": "contentStyles",
-          "name": "Extra styles for content",
-          "type": "Object",
-          "localized": false,
-          "required": false,
-          "validations": [
-          ],
-          "disabled": false,
-          "omitted": false
-        }
-      ]
-    },
-    {
-      "sys": {
-        "space": {
-          "sys": {
-            "type": "Link",
-            "linkType": "Space",
-            "id": "zfmkkhaw6gag"
-          }
-        },
-        "id": "contentBlock",
-        "type": "ContentType",
-        "createdAt": "2018-06-08T07:12:07.421Z",
-        "updatedAt": "2018-06-08T07:12:11.597Z",
-        "environment": {
-          "sys": {
-            "id": "master",
-            "type": "Link",
-            "linkType": "Environment"
-          }
-        },
-        "createdBy": {
-          "sys": {
-            "type": "Link",
-            "linkType": "User",
-            "id": "45dcz0cMTXaqLOh66hDPS4"
-          }
-        },
-        "updatedBy": {
-          "sys": {
-            "type": "Link",
-            "linkType": "User",
-            "id": "45dcz0cMTXaqLOh66hDPS4"
-          }
-        },
-        "publishedCounter": 1,
-        "version": 2,
-        "publishedBy": {
-          "sys": {
-            "type": "Link",
-            "linkType": "User",
-            "id": "45dcz0cMTXaqLOh66hDPS4"
-          }
-        },
-        "publishedVersion": 1,
-        "firstPublishedAt": "2018-06-08T07:12:11.597Z",
-        "publishedAt": "2018-06-08T07:12:11.597Z"
-      },
-      "displayField": "name",
-      "name": "Content Block",
-      "description": "The data model for content block component",
-      "fields": [
-        {
-          "id": "name",
-          "name": "Name",
-          "type": "Symbol",
-          "localized": false,
-          "required": false,
-          "validations": [
-          ],
-          "disabled": false,
-          "omitted": false
-        },
-        {
-          "id": "text",
-          "name": "Text",
-          "type": "Text",
-          "localized": false,
-          "required": false,
-          "validations": [
-          ],
-          "disabled": false,
-          "omitted": false
-        },
-        {
-          "id": "image",
-          "name": "Image",
-          "type": "Link",
-          "localized": false,
-          "required": false,
-          "validations": [
-            {
-              "linkMimetypeGroup": [
-                "image"
-              ]
-            },
-            {
-              "assetImageDimensions": {
-                "width": {
-                  "min": null,
-                  "max": 2048
-                },
-                "height": {
-                  "min": null,
-                  "max": 2048
-                }
-              },
-              "message": "The image is too large (2048 x 2048 is the max allowed size)."
-            },
-            {
-              "assetFileSize": {
-                "max": 1048576
-              },
-              "message": "The image file is too large (1MB is the max  allowed size)."
-            }
-          ],
-          "disabled": false,
-          "omitted": false,
-          "linkType": "Asset"
-        },
-        {
-          "id": "baseTheme",
-          "name": "Theme",
-          "type": "Symbol",
-          "localized": false,
-          "required": true,
-          "validations": [
-            {
-              "in": [
-                "Default",
-                "Veteran"
-              ],
-              "message": "Unknown theme"
-            }
-          ],
-          "disabled": false,
-          "omitted": false
-        },
-        {
-          "id": "extraStylesForContainer",
-          "name": "Extra styles for container",
-          "type": "Object",
-          "localized": false,
-          "required": false,
-          "validations": [
-          ],
-          "disabled": false,
-          "omitted": false
-        },
-        {
-          "id": "extraStylesForContentWrapper",
-          "name": "Extra styles for content wrapper",
-          "type": "Object",
-          "localized": false,
-          "required": false,
-          "validations": [
-          ],
-          "disabled": false,
-          "omitted": false
-        },
-        {
-          "id": "extraStylesForContent",
-          "name": "Extra styles for content",
-          "type": "Object",
-          "localized": false,
-          "required": false,
-          "validations": [
-          ],
-          "disabled": false,
-          "omitted": false
-        }
-      ]
-    },
-    {
-      "sys": {
-        "space": {
-          "sys": {
-            "type": "Link",
-            "linkType": "Space",
-            "id": "zfmkkhaw6gag"
+            "id": "b5f1djy59z3a"
           }
         },
         "id": "dashboardAnnouncement",
         "type": "ContentType",
-        "createdAt": "2018-06-08T07:12:07.424Z",
-        "updatedAt": "2018-06-08T07:12:10.959Z",
+        "createdAt": "2018-02-22T12:31:50.933Z",
+        "updatedAt": "2018-06-13T15:22:36.219Z",
         "environment": {
           "sys": {
             "id": "master",
@@ -352,28 +24,28 @@
           "sys": {
             "type": "Link",
             "linkType": "User",
-            "id": "45dcz0cMTXaqLOh66hDPS4"
+            "id": "5eyjAZAPH48cRQzQMTCIxG"
           }
         },
         "updatedBy": {
           "sys": {
             "type": "Link",
             "linkType": "User",
-            "id": "45dcz0cMTXaqLOh66hDPS4"
+            "id": "5eyjAZAPH48cRQzQMTCIxG"
           }
         },
-        "publishedCounter": 1,
-        "version": 2,
+        "publishedCounter": 7,
+        "version": 14,
         "publishedBy": {
           "sys": {
             "type": "Link",
             "linkType": "User",
-            "id": "45dcz0cMTXaqLOh66hDPS4"
+            "id": "5eyjAZAPH48cRQzQMTCIxG"
           }
         },
-        "publishedVersion": 1,
-        "firstPublishedAt": "2018-06-08T07:12:10.959Z",
-        "publishedAt": "2018-06-08T07:12:10.959Z"
+        "publishedVersion": 13,
+        "firstPublishedAt": "2018-02-22T12:31:51.295Z",
+        "publishedAt": "2018-06-13T15:22:36.219Z"
       },
       "displayField": "title",
       "name": "Dashboard Announcement",
@@ -555,13 +227,13 @@
           "sys": {
             "type": "Link",
             "linkType": "Space",
-            "id": "zfmkkhaw6gag"
+            "id": "b5f1djy59z3a"
           }
         },
         "id": "viewport",
         "type": "ContentType",
-        "createdAt": "2018-06-08T07:12:07.448Z",
-        "updatedAt": "2018-06-08T07:12:13.112Z",
+        "createdAt": "2018-05-01T21:49:27.462Z",
+        "updatedAt": "2018-06-13T15:22:34.786Z",
         "environment": {
           "sys": {
             "id": "master",
@@ -573,28 +245,28 @@
           "sys": {
             "type": "Link",
             "linkType": "User",
-            "id": "45dcz0cMTXaqLOh66hDPS4"
+            "id": "5eyjAZAPH48cRQzQMTCIxG"
           }
         },
         "updatedBy": {
           "sys": {
             "type": "Link",
             "linkType": "User",
-            "id": "45dcz0cMTXaqLOh66hDPS4"
+            "id": "5eyjAZAPH48cRQzQMTCIxG"
           }
         },
-        "publishedCounter": 1,
-        "version": 2,
+        "publishedCounter": 3,
+        "version": 6,
         "publishedBy": {
           "sys": {
             "type": "Link",
             "linkType": "User",
-            "id": "45dcz0cMTXaqLOh66hDPS4"
+            "id": "5eyjAZAPH48cRQzQMTCIxG"
           }
         },
-        "publishedVersion": 1,
-        "firstPublishedAt": "2018-06-08T07:12:13.112Z",
-        "publishedAt": "2018-06-08T07:12:13.112Z"
+        "publishedVersion": 5,
+        "firstPublishedAt": "2018-05-01T21:49:27.921Z",
+        "publishedAt": "2018-06-13T15:22:34.786Z"
       },
       "displayField": "name",
       "name": "Viewport",
@@ -636,13 +308,13 @@
           "sys": {
             "type": "Link",
             "linkType": "Space",
-            "id": "zfmkkhaw6gag"
+            "id": "b5f1djy59z3a"
           }
         },
-        "id": "quote",
+        "id": "banner",
         "type": "ContentType",
-        "createdAt": "2018-06-08T08:14:07.149Z",
-        "updatedAt": "2018-06-08T10:58:02.130Z",
+        "createdAt": "2018-05-13T20:19:15.459Z",
+        "updatedAt": "2018-06-13T15:22:32.756Z",
         "environment": {
           "sys": {
             "id": "master",
@@ -654,28 +326,1778 @@
           "sys": {
             "type": "Link",
             "linkType": "User",
-            "id": "45dcz0cMTXaqLOh66hDPS4"
+            "id": "5eyjAZAPH48cRQzQMTCIxG"
           }
         },
         "updatedBy": {
           "sys": {
             "type": "Link",
             "linkType": "User",
-            "id": "45dcz0cMTXaqLOh66hDPS4"
+            "id": "5eyjAZAPH48cRQzQMTCIxG"
           }
         },
-        "publishedCounter": 7,
-        "version": 14,
+        "publishedCounter": 11,
+        "version": 22,
         "publishedBy": {
           "sys": {
             "type": "Link",
             "linkType": "User",
-            "id": "45dcz0cMTXaqLOh66hDPS4"
+            "id": "5eyjAZAPH48cRQzQMTCIxG"
           }
         },
-        "publishedVersion": 13,
-        "firstPublishedAt": "2018-06-08T08:14:07.582Z",
-        "publishedAt": "2018-06-08T10:58:02.130Z"
+        "publishedVersion": 21,
+        "firstPublishedAt": "2018-05-13T20:19:15.804Z",
+        "publishedAt": "2018-06-13T15:22:32.756Z"
+      },
+      "displayField": "name",
+      "name": "Banner",
+      "description": "A block with background image; and a small area intended for brief textual content. The textual area is positioned in a fixed position relative to the block sides, and it has its own background for readability.",
+      "fields": [
+        {
+          "id": "name",
+          "name": "Name",
+          "type": "Symbol",
+          "localized": false,
+          "required": true,
+          "validations": [
+            {
+              "unique": true
+            }
+          ],
+          "disabled": false,
+          "omitted": false
+        },
+        {
+          "id": "text",
+          "name": "Text",
+          "type": "Text",
+          "localized": false,
+          "required": false,
+          "validations": [
+          ],
+          "disabled": false,
+          "omitted": false
+        },
+        {
+          "id": "backgroundImage",
+          "name": "Background Image",
+          "type": "Link",
+          "localized": false,
+          "required": true,
+          "validations": [
+            {
+              "linkMimetypeGroup": [
+                "image"
+              ]
+            },
+            {
+              "assetImageDimensions": {
+                "width": {
+                  "min": null,
+                  "max": 2400
+                },
+                "height": {
+                  "min": null,
+                  "max": 1800
+                }
+              },
+              "message": "Images larger than 2400 x 1800 px are prohibited for performance reasons."
+            },
+            {
+              "assetFileSize": {
+                "max": 1048576
+              },
+              "message": "Images larger than 1MB are prohibited for performance reasons."
+            }
+          ],
+          "disabled": false,
+          "omitted": false,
+          "linkType": "Asset"
+        },
+        {
+          "id": "baseTheme",
+          "name": "Banner Style",
+          "type": "Symbol",
+          "localized": false,
+          "required": true,
+          "validations": [
+            {
+              "in": [
+                "Default",
+                "TopGear",
+                "Default Sub-Community"
+              ],
+              "message": "Wrong banner style provided."
+            }
+          ],
+          "disabled": false,
+          "omitted": false
+        },
+        {
+          "id": "containerStyles",
+          "name": "Extra styles for container",
+          "type": "Object",
+          "localized": false,
+          "required": false,
+          "validations": [
+          ],
+          "disabled": false,
+          "omitted": false
+        },
+        {
+          "id": "contentWrapperStyles",
+          "name": "Extra styles for content wrapper",
+          "type": "Object",
+          "localized": false,
+          "required": false,
+          "validations": [
+          ],
+          "disabled": false,
+          "omitted": false
+        },
+        {
+          "id": "contentStyles",
+          "name": "Extra styles for content",
+          "type": "Object",
+          "localized": false,
+          "required": false,
+          "validations": [
+          ],
+          "disabled": false,
+          "omitted": false
+        }
+      ]
+    },
+    {
+      "sys": {
+        "space": {
+          "sys": {
+            "type": "Link",
+            "linkType": "Space",
+            "id": "b5f1djy59z3a"
+          }
+        },
+        "id": "contentBlock",
+        "type": "ContentType",
+        "createdAt": "2018-05-25T13:14:48.111Z",
+        "updatedAt": "2018-06-13T15:22:36.811Z",
+        "environment": {
+          "sys": {
+            "id": "master",
+            "type": "Link",
+            "linkType": "Environment"
+          }
+        },
+        "createdBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "5eyjAZAPH48cRQzQMTCIxG"
+          }
+        },
+        "updatedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "5eyjAZAPH48cRQzQMTCIxG"
+          }
+        },
+        "publishedCounter": 3,
+        "version": 6,
+        "publishedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "5eyjAZAPH48cRQzQMTCIxG"
+          }
+        },
+        "publishedVersion": 5,
+        "firstPublishedAt": "2018-05-25T13:14:52.506Z",
+        "publishedAt": "2018-06-13T15:22:36.811Z"
+      },
+      "displayField": "name",
+      "name": "Content Block",
+      "description": "The data model for content block component",
+      "fields": [
+        {
+          "id": "name",
+          "name": "Name",
+          "type": "Symbol",
+          "localized": false,
+          "required": false,
+          "validations": [
+          ],
+          "disabled": false,
+          "omitted": false
+        },
+        {
+          "id": "text",
+          "name": "Text",
+          "type": "Text",
+          "localized": false,
+          "required": false,
+          "validations": [
+          ],
+          "disabled": false,
+          "omitted": false
+        },
+        {
+          "id": "image",
+          "name": "Image",
+          "type": "Link",
+          "localized": false,
+          "required": false,
+          "validations": [
+            {
+              "linkMimetypeGroup": [
+                "image"
+              ]
+            },
+            {
+              "assetImageDimensions": {
+                "width": {
+                  "min": null,
+                  "max": 2048
+                },
+                "height": {
+                  "min": null,
+                  "max": 2048
+                }
+              },
+              "message": "The image is too large (2048 x 2048 is the max allowed size)."
+            },
+            {
+              "assetFileSize": {
+                "max": 1048576
+              },
+              "message": "The image file is too large (1MB is the max  allowed size)."
+            }
+          ],
+          "disabled": false,
+          "omitted": false,
+          "linkType": "Asset"
+        },
+        {
+          "id": "baseTheme",
+          "name": "Theme",
+          "type": "Symbol",
+          "localized": false,
+          "required": true,
+          "validations": [
+            {
+              "in": [
+                "Default",
+                "Veteran"
+              ],
+              "message": "Unknown theme"
+            }
+          ],
+          "disabled": false,
+          "omitted": false
+        },
+        {
+          "id": "extraStylesForContainer",
+          "name": "Extra styles for container",
+          "type": "Object",
+          "localized": false,
+          "required": false,
+          "validations": [
+          ],
+          "disabled": false,
+          "omitted": false
+        },
+        {
+          "id": "extraStylesForContentWrapper",
+          "name": "Extra styles for content wrapper",
+          "type": "Object",
+          "localized": false,
+          "required": false,
+          "validations": [
+          ],
+          "disabled": false,
+          "omitted": false
+        },
+        {
+          "id": "extraStylesForContent",
+          "name": "Extra styles for content",
+          "type": "Object",
+          "localized": false,
+          "required": false,
+          "validations": [
+          ],
+          "disabled": false,
+          "omitted": false
+        }
+      ]
+    },
+    {
+      "sys": {
+        "space": {
+          "sys": {
+            "type": "Link",
+            "linkType": "Space",
+            "id": "b5f1djy59z3a"
+          }
+        },
+        "id": "hoFLeaderboardChampion",
+        "type": "ContentType",
+        "createdAt": "2018-06-07T15:42:24.910Z",
+        "updatedAt": "2018-06-07T15:42:31.873Z",
+        "environment": {
+          "sys": {
+            "id": "master",
+            "type": "Link",
+            "linkType": "Environment"
+          }
+        },
+        "createdBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "00ch0VzpaGI4Xzp6ndR09Y"
+          }
+        },
+        "updatedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "00ch0VzpaGI4Xzp6ndR09Y"
+          }
+        },
+        "publishedCounter": 1,
+        "version": 2,
+        "publishedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "00ch0VzpaGI4Xzp6ndR09Y"
+          }
+        },
+        "publishedVersion": 1,
+        "firstPublishedAt": "2018-06-07T15:42:31.873Z",
+        "publishedAt": "2018-06-07T15:42:31.873Z"
+      },
+      "displayField": "handle",
+      "name": "HoF Leaderboard Champion",
+      "description": "HoF Leaderboard Champion",
+      "fields": [
+        {
+          "id": "handle",
+          "name": "Handle",
+          "type": "Symbol",
+          "localized": false,
+          "required": true,
+          "validations": [
+            {
+              "unique": true
+            }
+          ],
+          "disabled": false,
+          "omitted": false
+        },
+        {
+          "id": "image",
+          "name": "Image",
+          "type": "Link",
+          "localized": false,
+          "required": true,
+          "validations": [
+            {
+              "linkMimetypeGroup": [
+                "image"
+              ]
+            }
+          ],
+          "disabled": false,
+          "omitted": false,
+          "linkType": "Asset"
+        }
+      ]
+    },
+    {
+      "sys": {
+        "space": {
+          "sys": {
+            "type": "Link",
+            "linkType": "Space",
+            "id": "b5f1djy59z3a"
+          }
+        },
+        "id": "hoFPromoLink",
+        "type": "ContentType",
+        "createdAt": "2018-06-07T15:42:24.947Z",
+        "updatedAt": "2018-06-07T15:42:33.362Z",
+        "environment": {
+          "sys": {
+            "id": "master",
+            "type": "Link",
+            "linkType": "Environment"
+          }
+        },
+        "createdBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "00ch0VzpaGI4Xzp6ndR09Y"
+          }
+        },
+        "updatedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "00ch0VzpaGI4Xzp6ndR09Y"
+          }
+        },
+        "publishedCounter": 1,
+        "version": 2,
+        "publishedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "00ch0VzpaGI4Xzp6ndR09Y"
+          }
+        },
+        "publishedVersion": 1,
+        "firstPublishedAt": "2018-06-07T15:42:33.362Z",
+        "publishedAt": "2018-06-07T15:42:33.362Z"
+      },
+      "displayField": "url",
+      "name": "HoF Promo Link",
+      "description": "HoF Promo Link",
+      "fields": [
+        {
+          "id": "url",
+          "name": "URL",
+          "type": "Symbol",
+          "localized": false,
+          "required": true,
+          "validations": [
+          ],
+          "disabled": false,
+          "omitted": false
+        },
+        {
+          "id": "title",
+          "name": "Title",
+          "type": "Symbol",
+          "localized": false,
+          "required": true,
+          "validations": [
+          ],
+          "disabled": false,
+          "omitted": false
+        },
+        {
+          "id": "cssStyle",
+          "name": "CSS Style",
+          "type": "Symbol",
+          "localized": false,
+          "required": false,
+          "validations": [
+            {
+              "regexp": {
+                "pattern": "^[a-zA-Z0-9_]+$/g"
+              }
+            }
+          ],
+          "disabled": false,
+          "omitted": false
+        }
+      ]
+    },
+    {
+      "sys": {
+        "space": {
+          "sys": {
+            "type": "Link",
+            "linkType": "Space",
+            "id": "b5f1djy59z3a"
+          }
+        },
+        "id": "hoFLeaderboardData",
+        "type": "ContentType",
+        "createdAt": "2018-06-07T15:42:24.964Z",
+        "updatedAt": "2018-06-07T15:42:32.790Z",
+        "environment": {
+          "sys": {
+            "id": "master",
+            "type": "Link",
+            "linkType": "Environment"
+          }
+        },
+        "createdBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "00ch0VzpaGI4Xzp6ndR09Y"
+          }
+        },
+        "updatedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "00ch0VzpaGI4Xzp6ndR09Y"
+          }
+        },
+        "publishedCounter": 1,
+        "version": 2,
+        "publishedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "00ch0VzpaGI4Xzp6ndR09Y"
+          }
+        },
+        "publishedVersion": 1,
+        "firstPublishedAt": "2018-06-07T15:42:32.790Z",
+        "publishedAt": "2018-06-07T15:42:32.790Z"
+      },
+      "displayField": "title",
+      "name": "HoF Leaderboard Data",
+      "description": "HoF Leaderboard Data",
+      "fields": [
+        {
+          "id": "title",
+          "name": "Title",
+          "type": "Symbol",
+          "localized": false,
+          "required": true,
+          "validations": [
+            {
+              "unique": true
+            }
+          ],
+          "disabled": false,
+          "omitted": false
+        },
+        {
+          "id": "track",
+          "name": "Track",
+          "type": "Symbol",
+          "localized": false,
+          "required": true,
+          "validations": [
+          ],
+          "disabled": false,
+          "omitted": false
+        },
+        {
+          "id": "champion",
+          "name": "Champion",
+          "type": "Link",
+          "localized": false,
+          "required": false,
+          "validations": [
+            {
+              "linkContentType": [
+                "hoFLeaderboardChampion"
+              ]
+            }
+          ],
+          "disabled": false,
+          "omitted": false,
+          "linkType": "Entry"
+        },
+        {
+          "id": "members",
+          "name": "Members",
+          "type": "Array",
+          "localized": false,
+          "required": true,
+          "validations": [
+          ],
+          "disabled": false,
+          "omitted": false,
+          "items": {
+            "type": "Link",
+            "validations": [
+              {
+                "linkContentType": [
+                  "hoFMembers"
+                ]
+              }
+            ],
+            "linkType": "Entry"
+          }
+        }
+      ]
+    },
+    {
+      "sys": {
+        "space": {
+          "sys": {
+            "type": "Link",
+            "linkType": "Space",
+            "id": "b5f1djy59z3a"
+          }
+        },
+        "id": "hallOfFameVersion",
+        "type": "ContentType",
+        "createdAt": "2018-06-07T15:42:24.975Z",
+        "updatedAt": "2018-06-07T15:42:26.255Z",
+        "environment": {
+          "sys": {
+            "id": "master",
+            "type": "Link",
+            "linkType": "Environment"
+          }
+        },
+        "createdBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "00ch0VzpaGI4Xzp6ndR09Y"
+          }
+        },
+        "updatedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "00ch0VzpaGI4Xzp6ndR09Y"
+          }
+        },
+        "publishedCounter": 1,
+        "version": 2,
+        "publishedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "00ch0VzpaGI4Xzp6ndR09Y"
+          }
+        },
+        "publishedVersion": 1,
+        "firstPublishedAt": "2018-06-07T15:42:26.255Z",
+        "publishedAt": "2018-06-07T15:42:26.255Z"
+      },
+      "displayField": "versionId",
+      "name": "HoF Version",
+      "description": "HoF Version",
+      "fields": [
+        {
+          "id": "versionId",
+          "name": "Version ID",
+          "type": "Symbol",
+          "localized": false,
+          "required": true,
+          "validations": [
+            {
+              "unique": true
+            },
+            {
+              "size": {
+                "max": 2,
+                "min": 2
+              },
+              "message": "2 digits"
+            },
+            {
+              "regexp": {
+                "pattern": "^[1-9]\\d*$",
+                "flags": null
+              },
+              "message": "number only"
+            }
+          ],
+          "disabled": false,
+          "omitted": false
+        },
+        {
+          "id": "promo",
+          "name": "Promo",
+          "type": "Link",
+          "localized": false,
+          "required": false,
+          "validations": [
+            {
+              "linkContentType": [
+                "hoFPromo"
+              ]
+            }
+          ],
+          "disabled": false,
+          "omitted": false,
+          "linkType": "Entry"
+        },
+        {
+          "id": "leaderboards",
+          "name": "Leaderboards",
+          "type": "Array",
+          "localized": false,
+          "required": true,
+          "validations": [
+          ],
+          "disabled": false,
+          "omitted": false,
+          "items": {
+            "type": "Link",
+            "validations": [
+              {
+                "linkContentType": [
+                  "hoFLeaderboard"
+                ]
+              }
+            ],
+            "linkType": "Entry"
+          }
+        },
+        {
+          "id": "quickStories",
+          "name": "Quick Stories",
+          "type": "Link",
+          "localized": false,
+          "required": true,
+          "validations": [
+            {
+              "linkContentType": [
+                "hoFStories"
+              ]
+            }
+          ],
+          "disabled": false,
+          "omitted": false,
+          "linkType": "Entry"
+        }
+      ]
+    },
+    {
+      "sys": {
+        "space": {
+          "sys": {
+            "type": "Link",
+            "linkType": "Space",
+            "id": "b5f1djy59z3a"
+          }
+        },
+        "id": "hallOfFame",
+        "type": "ContentType",
+        "createdAt": "2018-06-07T15:42:24.993Z",
+        "updatedAt": "2018-06-07T15:42:34.113Z",
+        "environment": {
+          "sys": {
+            "id": "master",
+            "type": "Link",
+            "linkType": "Environment"
+          }
+        },
+        "createdBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "00ch0VzpaGI4Xzp6ndR09Y"
+          }
+        },
+        "updatedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "00ch0VzpaGI4Xzp6ndR09Y"
+          }
+        },
+        "publishedCounter": 1,
+        "version": 2,
+        "publishedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "00ch0VzpaGI4Xzp6ndR09Y"
+          }
+        },
+        "publishedVersion": 1,
+        "firstPublishedAt": "2018-06-07T15:42:34.113Z",
+        "publishedAt": "2018-06-07T15:42:34.113Z"
+      },
+      "displayField": "title",
+      "name": "Hall of Fame",
+      "description": "Hall of Fame",
+      "fields": [
+        {
+          "id": "title",
+          "name": "Title",
+          "type": "Symbol",
+          "localized": false,
+          "required": true,
+          "validations": [
+            {
+              "unique": true
+            }
+          ],
+          "disabled": false,
+          "omitted": false
+        },
+        {
+          "id": "versions",
+          "name": "Versions",
+          "type": "Array",
+          "localized": false,
+          "required": false,
+          "validations": [
+          ],
+          "disabled": false,
+          "omitted": false,
+          "items": {
+            "type": "Link",
+            "validations": [
+              {
+                "linkContentType": [
+                  "hallOfFameVersion"
+                ]
+              }
+            ],
+            "linkType": "Entry"
+          }
+        },
+        {
+          "id": "allTimeChampions",
+          "name": "All Time Champions",
+          "type": "Link",
+          "localized": false,
+          "required": true,
+          "validations": [
+            {
+              "linkContentType": [
+                "hoFAllTimeChampions"
+              ]
+            }
+          ],
+          "disabled": false,
+          "omitted": false,
+          "linkType": "Entry"
+        }
+      ]
+    },
+    {
+      "sys": {
+        "space": {
+          "sys": {
+            "type": "Link",
+            "linkType": "Space",
+            "id": "b5f1djy59z3a"
+          }
+        },
+        "id": "hoFQuickStory",
+        "type": "ContentType",
+        "createdAt": "2018-06-07T15:42:24.993Z",
+        "updatedAt": "2018-06-07T15:42:34.873Z",
+        "environment": {
+          "sys": {
+            "id": "master",
+            "type": "Link",
+            "linkType": "Environment"
+          }
+        },
+        "createdBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "00ch0VzpaGI4Xzp6ndR09Y"
+          }
+        },
+        "updatedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "00ch0VzpaGI4Xzp6ndR09Y"
+          }
+        },
+        "publishedCounter": 1,
+        "version": 2,
+        "publishedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "00ch0VzpaGI4Xzp6ndR09Y"
+          }
+        },
+        "publishedVersion": 1,
+        "firstPublishedAt": "2018-06-07T15:42:34.873Z",
+        "publishedAt": "2018-06-07T15:42:34.873Z"
+      },
+      "displayField": "text",
+      "name": "HoF Quick Story",
+      "description": "HoF Quick Story",
+      "fields": [
+        {
+          "id": "image",
+          "name": "Image",
+          "type": "Link",
+          "localized": false,
+          "required": false,
+          "validations": [
+          ],
+          "disabled": false,
+          "omitted": false,
+          "linkType": "Asset"
+        },
+        {
+          "id": "text",
+          "name": "Text",
+          "type": "Text",
+          "localized": false,
+          "required": false,
+          "validations": [
+          ],
+          "disabled": false,
+          "omitted": false
+        }
+      ]
+    },
+    {
+      "sys": {
+        "space": {
+          "sys": {
+            "type": "Link",
+            "linkType": "Space",
+            "id": "b5f1djy59z3a"
+          }
+        },
+        "id": "hoFAllTimeChampions",
+        "type": "ContentType",
+        "createdAt": "2018-06-07T15:42:25.498Z",
+        "updatedAt": "2018-06-07T15:42:27.890Z",
+        "environment": {
+          "sys": {
+            "id": "master",
+            "type": "Link",
+            "linkType": "Environment"
+          }
+        },
+        "createdBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "00ch0VzpaGI4Xzp6ndR09Y"
+          }
+        },
+        "updatedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "00ch0VzpaGI4Xzp6ndR09Y"
+          }
+        },
+        "publishedCounter": 1,
+        "version": 2,
+        "publishedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "00ch0VzpaGI4Xzp6ndR09Y"
+          }
+        },
+        "publishedVersion": 1,
+        "firstPublishedAt": "2018-06-07T15:42:27.890Z",
+        "publishedAt": "2018-06-07T15:42:27.890Z"
+      },
+      "displayField": "title",
+      "name": "HoF All Time Champions",
+      "description": "HoF All Time Champions",
+      "fields": [
+        {
+          "id": "title",
+          "name": "Title",
+          "type": "Symbol",
+          "localized": false,
+          "required": true,
+          "validations": [
+          ],
+          "disabled": false,
+          "omitted": false
+        },
+        {
+          "id": "icon",
+          "name": "Icon",
+          "type": "Link",
+          "localized": false,
+          "required": true,
+          "validations": [
+          ],
+          "disabled": false,
+          "omitted": false,
+          "linkType": "Asset"
+        },
+        {
+          "id": "list",
+          "name": "List",
+          "type": "Array",
+          "localized": false,
+          "required": true,
+          "validations": [
+          ],
+          "disabled": false,
+          "omitted": false,
+          "items": {
+            "type": "Link",
+            "validations": [
+              {
+                "linkContentType": [
+                  "hoFLeaderboardData"
+                ]
+              }
+            ],
+            "linkType": "Entry"
+          }
+        }
+      ]
+    },
+    {
+      "sys": {
+        "space": {
+          "sys": {
+            "type": "Link",
+            "linkType": "Space",
+            "id": "b5f1djy59z3a"
+          }
+        },
+        "id": "hoFStories",
+        "type": "ContentType",
+        "createdAt": "2018-06-07T15:42:25.507Z",
+        "updatedAt": "2018-06-07T15:42:27.201Z",
+        "environment": {
+          "sys": {
+            "id": "master",
+            "type": "Link",
+            "linkType": "Environment"
+          }
+        },
+        "createdBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "00ch0VzpaGI4Xzp6ndR09Y"
+          }
+        },
+        "updatedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "00ch0VzpaGI4Xzp6ndR09Y"
+          }
+        },
+        "publishedCounter": 1,
+        "version": 2,
+        "publishedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "00ch0VzpaGI4Xzp6ndR09Y"
+          }
+        },
+        "publishedVersion": 1,
+        "firstPublishedAt": "2018-06-07T15:42:27.201Z",
+        "publishedAt": "2018-06-07T15:42:27.201Z"
+      },
+      "displayField": "title",
+      "name": "HoF Stories",
+      "description": "HoF Stories",
+      "fields": [
+        {
+          "id": "title",
+          "name": "Title",
+          "type": "Symbol",
+          "localized": false,
+          "required": true,
+          "validations": [
+          ],
+          "disabled": false,
+          "omitted": false
+        },
+        {
+          "id": "list",
+          "name": "List",
+          "type": "Array",
+          "localized": false,
+          "required": true,
+          "validations": [
+          ],
+          "disabled": false,
+          "omitted": false,
+          "items": {
+            "type": "Link",
+            "validations": [
+              {
+                "linkContentType": [
+                  "hoFQuickStory"
+                ]
+              }
+            ],
+            "linkType": "Entry"
+          }
+        }
+      ]
+    },
+    {
+      "sys": {
+        "space": {
+          "sys": {
+            "type": "Link",
+            "linkType": "Space",
+            "id": "b5f1djy59z3a"
+          }
+        },
+        "id": "hoFPromoStat",
+        "type": "ContentType",
+        "createdAt": "2018-06-07T15:42:25.530Z",
+        "updatedAt": "2018-06-07T15:42:29.496Z",
+        "environment": {
+          "sys": {
+            "id": "master",
+            "type": "Link",
+            "linkType": "Environment"
+          }
+        },
+        "createdBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "00ch0VzpaGI4Xzp6ndR09Y"
+          }
+        },
+        "updatedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "00ch0VzpaGI4Xzp6ndR09Y"
+          }
+        },
+        "publishedCounter": 1,
+        "version": 2,
+        "publishedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "00ch0VzpaGI4Xzp6ndR09Y"
+          }
+        },
+        "publishedVersion": 1,
+        "firstPublishedAt": "2018-06-07T15:42:29.496Z",
+        "publishedAt": "2018-06-07T15:42:29.496Z"
+      },
+      "displayField": "value",
+      "name": "HoF Promo Statistics",
+      "description": "HoF Promo Statistics",
+      "fields": [
+        {
+          "id": "value",
+          "name": "Value",
+          "type": "Symbol",
+          "localized": false,
+          "required": true,
+          "validations": [
+          ],
+          "disabled": false,
+          "omitted": false
+        },
+        {
+          "id": "description",
+          "name": "Description",
+          "type": "Symbol",
+          "localized": false,
+          "required": true,
+          "validations": [
+          ],
+          "disabled": false,
+          "omitted": false
+        },
+        {
+          "id": "icon",
+          "name": "Icon",
+          "type": "Link",
+          "localized": false,
+          "required": false,
+          "validations": [
+          ],
+          "disabled": false,
+          "omitted": false,
+          "linkType": "Asset"
+        }
+      ]
+    },
+    {
+      "sys": {
+        "space": {
+          "sys": {
+            "type": "Link",
+            "linkType": "Space",
+            "id": "b5f1djy59z3a"
+          }
+        },
+        "id": "hoFMembers",
+        "type": "ContentType",
+        "createdAt": "2018-06-07T15:42:25.711Z",
+        "updatedAt": "2018-06-07T15:42:28.935Z",
+        "environment": {
+          "sys": {
+            "id": "master",
+            "type": "Link",
+            "linkType": "Environment"
+          }
+        },
+        "createdBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "00ch0VzpaGI4Xzp6ndR09Y"
+          }
+        },
+        "updatedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "00ch0VzpaGI4Xzp6ndR09Y"
+          }
+        },
+        "publishedCounter": 1,
+        "version": 2,
+        "publishedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "00ch0VzpaGI4Xzp6ndR09Y"
+          }
+        },
+        "publishedVersion": 1,
+        "firstPublishedAt": "2018-06-07T15:42:28.935Z",
+        "publishedAt": "2018-06-07T15:42:28.935Z"
+      },
+      "displayField": "handle",
+      "name": "HoF Members",
+      "description": "HoF Members",
+      "fields": [
+        {
+          "id": "handle",
+          "name": "Handle",
+          "type": "Symbol",
+          "localized": false,
+          "required": true,
+          "validations": [
+          ],
+          "disabled": false,
+          "omitted": false
+        },
+        {
+          "id": "value",
+          "name": "Value",
+          "type": "Integer",
+          "localized": false,
+          "required": false,
+          "validations": [
+          ],
+          "disabled": false,
+          "omitted": false
+        }
+      ]
+    },
+    {
+      "sys": {
+        "space": {
+          "sys": {
+            "type": "Link",
+            "linkType": "Space",
+            "id": "b5f1djy59z3a"
+          }
+        },
+        "id": "hoFPromo",
+        "type": "ContentType",
+        "createdAt": "2018-06-07T15:42:25.712Z",
+        "updatedAt": "2018-06-07T15:42:31.147Z",
+        "environment": {
+          "sys": {
+            "id": "master",
+            "type": "Link",
+            "linkType": "Environment"
+          }
+        },
+        "createdBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "00ch0VzpaGI4Xzp6ndR09Y"
+          }
+        },
+        "updatedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "00ch0VzpaGI4Xzp6ndR09Y"
+          }
+        },
+        "publishedCounter": 1,
+        "version": 2,
+        "publishedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "00ch0VzpaGI4Xzp6ndR09Y"
+          }
+        },
+        "publishedVersion": 1,
+        "firstPublishedAt": "2018-06-07T15:42:31.147Z",
+        "publishedAt": "2018-06-07T15:42:31.147Z"
+      },
+      "displayField": "title",
+      "name": "HoF Promo",
+      "description": "HoF Promo",
+      "fields": [
+        {
+          "id": "logo",
+          "name": "Logo",
+          "type": "Link",
+          "localized": false,
+          "required": true,
+          "validations": [
+            {
+              "linkMimetypeGroup": [
+                "image"
+              ]
+            }
+          ],
+          "disabled": false,
+          "omitted": false,
+          "linkType": "Asset"
+        },
+        {
+          "id": "bannerImage",
+          "name": "Banner Image",
+          "type": "Link",
+          "localized": false,
+          "required": true,
+          "validations": [
+            {
+              "linkMimetypeGroup": [
+                "image"
+              ]
+            }
+          ],
+          "disabled": false,
+          "omitted": false,
+          "linkType": "Asset"
+        },
+        {
+          "id": "title",
+          "name": "Title",
+          "type": "Symbol",
+          "localized": false,
+          "required": true,
+          "validations": [
+          ],
+          "disabled": false,
+          "omitted": false
+        },
+        {
+          "id": "description",
+          "name": "Description",
+          "type": "Text",
+          "localized": false,
+          "required": false,
+          "validations": [
+          ],
+          "disabled": false,
+          "omitted": false
+        },
+        {
+          "id": "links",
+          "name": "Links",
+          "type": "Array",
+          "localized": false,
+          "required": true,
+          "validations": [
+          ],
+          "disabled": false,
+          "omitted": false,
+          "items": {
+            "type": "Link",
+            "validations": [
+              {
+                "linkContentType": [
+                  "hoFPromoLink"
+                ]
+              }
+            ],
+            "linkType": "Entry"
+          }
+        },
+        {
+          "id": "statistics",
+          "name": "Statistics",
+          "type": "Array",
+          "localized": false,
+          "required": true,
+          "validations": [
+          ],
+          "disabled": false,
+          "omitted": false,
+          "items": {
+            "type": "Link",
+            "validations": [
+              {
+                "linkContentType": [
+                  "hoFPromoStat"
+                ]
+              }
+            ],
+            "linkType": "Entry"
+          }
+        },
+        {
+          "id": "attributes",
+          "name": "Attributes",
+          "type": "Array",
+          "localized": false,
+          "required": true,
+          "validations": [
+          ],
+          "disabled": false,
+          "omitted": false,
+          "items": {
+            "type": "Link",
+            "validations": [
+              {
+                "linkContentType": [
+                  "hoFPromoStat"
+                ]
+              }
+            ],
+            "linkType": "Entry"
+          }
+        }
+      ]
+    },
+    {
+      "sys": {
+        "space": {
+          "sys": {
+            "type": "Link",
+            "linkType": "Space",
+            "id": "b5f1djy59z3a"
+          }
+        },
+        "id": "hoFLeaderboard",
+        "type": "ContentType",
+        "createdAt": "2018-06-07T15:42:25.755Z",
+        "updatedAt": "2018-06-07T15:42:30.200Z",
+        "environment": {
+          "sys": {
+            "id": "master",
+            "type": "Link",
+            "linkType": "Environment"
+          }
+        },
+        "createdBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "00ch0VzpaGI4Xzp6ndR09Y"
+          }
+        },
+        "updatedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "00ch0VzpaGI4Xzp6ndR09Y"
+          }
+        },
+        "publishedCounter": 1,
+        "version": 2,
+        "publishedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "00ch0VzpaGI4Xzp6ndR09Y"
+          }
+        },
+        "publishedVersion": 1,
+        "firstPublishedAt": "2018-06-07T15:42:30.200Z",
+        "publishedAt": "2018-06-07T15:42:30.200Z"
+      },
+      "displayField": "title",
+      "name": "HoF Leaderboard",
+      "description": "HoF Leaderboard",
+      "fields": [
+        {
+          "id": "title",
+          "name": "Title",
+          "type": "Symbol",
+          "localized": false,
+          "required": true,
+          "validations": [
+          ],
+          "disabled": false,
+          "omitted": false
+        },
+        {
+          "id": "data",
+          "name": "Data",
+          "type": "Array",
+          "localized": false,
+          "required": true,
+          "validations": [
+          ],
+          "disabled": false,
+          "omitted": false,
+          "items": {
+            "type": "Link",
+            "validations": [
+              {
+                "linkContentType": [
+                  "hoFLeaderboardData"
+                ]
+              }
+            ],
+            "linkType": "Entry"
+          }
+        }
+      ]
+    },
+    {
+      "sys": {
+        "space": {
+          "sys": {
+            "type": "Link",
+            "linkType": "Space",
+            "id": "b5f1djy59z3a"
+          }
+        },
+        "id": "route",
+        "type": "ContentType",
+        "createdAt": "2018-06-13T15:22:31.400Z",
+        "updatedAt": "2018-06-13T15:22:37.786Z",
+        "environment": {
+          "sys": {
+            "id": "master",
+            "type": "Link",
+            "linkType": "Environment"
+          }
+        },
+        "createdBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "5eyjAZAPH48cRQzQMTCIxG"
+          }
+        },
+        "updatedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "5eyjAZAPH48cRQzQMTCIxG"
+          }
+        },
+        "publishedCounter": 1,
+        "version": 2,
+        "publishedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "5eyjAZAPH48cRQzQMTCIxG"
+          }
+        },
+        "publishedVersion": 1,
+        "firstPublishedAt": "2018-06-13T15:22:37.786Z",
+        "publishedAt": "2018-06-13T15:22:37.786Z"
+      },
+      "displayField": "name",
+      "name": "Route",
+      "description": "A Route that can render a Viewport at its endpoint, and also include sub-routes with Viewports.",
+      "fields": [
+        {
+          "id": "name",
+          "name": "Name",
+          "type": "Symbol",
+          "localized": false,
+          "required": true,
+          "validations": [
+            {
+              "unique": true
+            }
+          ],
+          "disabled": false,
+          "omitted": false
+        },
+        {
+          "id": "url",
+          "name": "URL",
+          "type": "Symbol",
+          "localized": false,
+          "required": false,
+          "validations": [
+            {
+              "regexp": {
+                "pattern": "^[\\w#!:.?+=&%@!\\-\\/]+$"
+              }
+            }
+          ],
+          "disabled": false,
+          "omitted": false
+        },
+        {
+          "id": "viewport",
+          "name": "Viewport",
+          "type": "Link",
+          "localized": false,
+          "required": false,
+          "validations": [
+            {
+              "linkContentType": [
+                "viewport"
+              ]
+            }
+          ],
+          "disabled": false,
+          "omitted": false,
+          "linkType": "Entry"
+        },
+        {
+          "id": "childRoutes",
+          "name": "Child Routes",
+          "type": "Array",
+          "localized": false,
+          "required": false,
+          "validations": [
+          ],
+          "disabled": false,
+          "omitted": false,
+          "items": {
+            "type": "Link",
+            "validations": [
+              {
+                "linkContentType": [
+                  "route"
+                ]
+              }
+            ],
+            "linkType": "Entry"
+          }
+        },
+        {
+          "id": "pageTitle",
+          "name": "Page Title",
+          "type": "Symbol",
+          "localized": false,
+          "required": true,
+          "validations": [
+          ],
+          "disabled": false,
+          "omitted": false
+        },
+        {
+          "id": "description",
+          "name": "Description",
+          "type": "Text",
+          "localized": false,
+          "required": true,
+          "validations": [
+          ],
+          "disabled": false,
+          "omitted": false
+        },
+        {
+          "id": "socialThumbnail",
+          "name": "Social Thumbnail",
+          "type": "Symbol",
+          "localized": false,
+          "required": false,
+          "validations": [
+          ],
+          "disabled": false,
+          "omitted": false
+        },
+        {
+          "id": "socialSiteName",
+          "name": "Social Site Name",
+          "type": "Symbol",
+          "localized": false,
+          "required": false,
+          "validations": [
+          ],
+          "disabled": false,
+          "omitted": false
+        },
+        {
+          "id": "socialDescription",
+          "name": "Social Description",
+          "type": "Symbol",
+          "localized": false,
+          "required": false,
+          "validations": [
+          ],
+          "disabled": false,
+          "omitted": false
+        },
+        {
+          "id": "socialTitle",
+          "name": "Social Title",
+          "type": "Symbol",
+          "localized": false,
+          "required": false,
+          "validations": [
+          ],
+          "disabled": false,
+          "omitted": false
+        },
+        {
+          "id": "socialUrl",
+          "name": "Social URL",
+          "type": "Symbol",
+          "localized": false,
+          "required": false,
+          "validations": [
+            {
+              "regexp": {
+                "pattern": "^(ftp|http|https):\\/\\/(\\w+:{0,1}\\w*@)?(\\S+)(:[0-9]+)?(\\/|\\/([\\w#!:.?+=&%@!\\-\\/]))?$"
+              }
+            }
+          ],
+          "disabled": false,
+          "omitted": false
+        }
+      ]
+    },
+    {
+      "sys": {
+        "space": {
+          "sys": {
+            "type": "Link",
+            "linkType": "Space",
+            "id": "b5f1djy59z3a"
+          }
+        },
+        "id": "quote",
+        "type": "ContentType",
+        "createdAt": "2018-06-13T15:22:31.457Z",
+        "updatedAt": "2018-06-13T15:22:33.959Z",
+        "environment": {
+          "sys": {
+            "id": "master",
+            "type": "Link",
+            "linkType": "Environment"
+          }
+        },
+        "createdBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "5eyjAZAPH48cRQzQMTCIxG"
+          }
+        },
+        "updatedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "5eyjAZAPH48cRQzQMTCIxG"
+          }
+        },
+        "publishedCounter": 1,
+        "version": 2,
+        "publishedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "5eyjAZAPH48cRQzQMTCIxG"
+          }
+        },
+        "publishedVersion": 1,
+        "firstPublishedAt": "2018-06-13T15:22:33.959Z",
+        "publishedAt": "2018-06-13T15:22:33.959Z"
       },
       "displayField": "name",
       "name": "Quote",
@@ -823,13 +2245,13 @@
           "sys": {
             "type": "Link",
             "linkType": "Space",
-            "id": "zfmkkhaw6gag"
+            "id": "b5f1djy59z3a"
           }
         },
         "id": "video",
         "type": "ContentType",
-        "createdAt": "2018-06-08T08:35:47.094Z",
-        "updatedAt": "2018-06-08T11:08:44.535Z",
+        "createdAt": "2018-06-13T15:22:31.969Z",
+        "updatedAt": "2018-06-13T15:22:33.328Z",
         "environment": {
           "sys": {
             "id": "master",
@@ -841,28 +2263,28 @@
           "sys": {
             "type": "Link",
             "linkType": "User",
-            "id": "45dcz0cMTXaqLOh66hDPS4"
+            "id": "5eyjAZAPH48cRQzQMTCIxG"
           }
         },
         "updatedBy": {
           "sys": {
             "type": "Link",
             "linkType": "User",
-            "id": "45dcz0cMTXaqLOh66hDPS4"
+            "id": "5eyjAZAPH48cRQzQMTCIxG"
           }
         },
-        "publishedCounter": 6,
-        "version": 12,
+        "publishedCounter": 1,
+        "version": 2,
         "publishedBy": {
           "sys": {
             "type": "Link",
             "linkType": "User",
-            "id": "45dcz0cMTXaqLOh66hDPS4"
+            "id": "5eyjAZAPH48cRQzQMTCIxG"
           }
         },
-        "publishedVersion": 11,
-        "firstPublishedAt": "2018-06-08T08:35:47.538Z",
-        "publishedAt": "2018-06-08T11:08:44.535Z"
+        "publishedVersion": 1,
+        "firstPublishedAt": "2018-06-13T15:22:33.328Z",
+        "publishedAt": "2018-06-13T15:22:33.328Z"
       },
       "displayField": "name",
       "name": "Video",
@@ -942,196 +2364,24 @@
         "type": "EditorInterface",
         "space": {
           "sys": {
-            "id": "zfmkkhaw6gag",
+            "id": "b5f1djy59z3a",
             "type": "Link",
             "linkType": "Space"
           }
         },
-        "version": 2,
-        "createdAt": "2018-06-08T07:12:12.456Z",
+        "version": 14,
+        "createdAt": "2018-02-22T12:31:51.471Z",
         "createdBy": {
           "sys": {
-            "id": "45dcz0cMTXaqLOh66hDPS4",
+            "id": "5eyjAZAPH48cRQzQMTCIxG",
             "type": "Link",
             "linkType": "User"
           }
         },
-        "updatedAt": "2018-06-08T07:12:14.699Z",
+        "updatedAt": "2018-06-13T15:22:40.864Z",
         "updatedBy": {
           "sys": {
-            "id": "45dcz0cMTXaqLOh66hDPS4",
-            "type": "Link",
-            "linkType": "User"
-          }
-        },
-        "contentType": {
-          "sys": {
-            "id": "banner",
-            "type": "Link",
-            "linkType": "ContentType"
-          }
-        },
-        "environment": {
-          "sys": {
-            "id": "master",
-            "type": "Link",
-            "linkType": "Environment"
-          }
-        }
-      },
-      "controls": [
-        {
-          "fieldId": "name",
-          "settings": {
-            "helpText": "Banner name. It will be shown only in CMS, and not rendered at the banner itself."
-          },
-          "widgetId": "singleLine"
-        },
-        {
-          "fieldId": "text",
-          "settings": {
-            "helpText": "Text to render at the banner."
-          },
-          "widgetId": "markdown"
-        },
-        {
-          "fieldId": "backgroundImage",
-          "settings": {
-            "helpText": "Background image."
-          },
-          "widgetId": "assetLinkEditor"
-        },
-        {
-          "fieldId": "baseTheme",
-          "settings": {
-            "helpText": "Base style of the banner."
-          },
-          "widgetId": "dropdown"
-        },
-        {
-          "fieldId": "containerStyles",
-          "settings": {
-            "helpText": "Optional. Additional styles for banner container (root) element."
-          },
-          "widgetId": "objectEditor"
-        },
-        {
-          "fieldId": "contentWrapperStyles",
-          "settings": {
-            "helpText": "Optional. Additional styles for the content wrapper element. This element takes care about positioning of textual content, and its background."
-          },
-          "widgetId": "objectEditor"
-        },
-        {
-          "fieldId": "contentStyles",
-          "settings": {
-            "helpText": "Optional. Additional styles for the textual content."
-          },
-          "widgetId": "objectEditor"
-        }
-      ]
-    },
-    {
-      "sys": {
-        "id": "default",
-        "type": "EditorInterface",
-        "space": {
-          "sys": {
-            "id": "zfmkkhaw6gag",
-            "type": "Link",
-            "linkType": "Space"
-          }
-        },
-        "version": 2,
-        "createdAt": "2018-06-08T07:12:11.743Z",
-        "createdBy": {
-          "sys": {
-            "id": "45dcz0cMTXaqLOh66hDPS4",
-            "type": "Link",
-            "linkType": "User"
-          }
-        },
-        "updatedAt": "2018-06-08T07:12:14.759Z",
-        "updatedBy": {
-          "sys": {
-            "id": "45dcz0cMTXaqLOh66hDPS4",
-            "type": "Link",
-            "linkType": "User"
-          }
-        },
-        "contentType": {
-          "sys": {
-            "id": "contentBlock",
-            "type": "Link",
-            "linkType": "ContentType"
-          }
-        },
-        "environment": {
-          "sys": {
-            "id": "master",
-            "type": "Link",
-            "linkType": "Environment"
-          }
-        }
-      },
-      "controls": [
-        {
-          "fieldId": "name",
-          "widgetId": "singleLine"
-        },
-        {
-          "fieldId": "text",
-          "widgetId": "markdown"
-        },
-        {
-          "fieldId": "image",
-          "widgetId": "assetLinkEditor"
-        },
-        {
-          "fieldId": "baseTheme",
-          "settings": {
-            "helpText": "Content block theme"
-          },
-          "widgetId": "dropdown"
-        },
-        {
-          "fieldId": "extraStylesForContainer",
-          "widgetId": "objectEditor"
-        },
-        {
-          "fieldId": "extraStylesForContentWrapper",
-          "widgetId": "objectEditor"
-        },
-        {
-          "fieldId": "extraStylesForContent",
-          "widgetId": "objectEditor"
-        }
-      ]
-    },
-    {
-      "sys": {
-        "id": "default",
-        "type": "EditorInterface",
-        "space": {
-          "sys": {
-            "id": "zfmkkhaw6gag",
-            "type": "Link",
-            "linkType": "Space"
-          }
-        },
-        "version": 2,
-        "createdAt": "2018-06-08T07:12:11.145Z",
-        "createdBy": {
-          "sys": {
-            "id": "45dcz0cMTXaqLOh66hDPS4",
-            "type": "Link",
-            "linkType": "User"
-          }
-        },
-        "updatedAt": "2018-06-08T07:12:14.446Z",
-        "updatedBy": {
-          "sys": {
-            "id": "45dcz0cMTXaqLOh66hDPS4",
+            "id": "5eyjAZAPH48cRQzQMTCIxG",
             "type": "Link",
             "linkType": "User"
           }
@@ -1255,24 +2505,24 @@
         "type": "EditorInterface",
         "space": {
           "sys": {
-            "id": "zfmkkhaw6gag",
+            "id": "b5f1djy59z3a",
             "type": "Link",
             "linkType": "Space"
           }
         },
-        "version": 2,
-        "createdAt": "2018-06-08T07:12:13.641Z",
+        "version": 5,
+        "createdAt": "2018-05-01T21:49:28.123Z",
         "createdBy": {
           "sys": {
-            "id": "45dcz0cMTXaqLOh66hDPS4",
+            "id": "5eyjAZAPH48cRQzQMTCIxG",
             "type": "Link",
             "linkType": "User"
           }
         },
-        "updatedAt": "2018-06-08T07:12:14.611Z",
+        "updatedAt": "2018-06-13T15:22:41.093Z",
         "updatedBy": {
           "sys": {
-            "id": "45dcz0cMTXaqLOh66hDPS4",
+            "id": "5eyjAZAPH48cRQzQMTCIxG",
             "type": "Link",
             "linkType": "User"
           }
@@ -1316,24 +2566,1096 @@
         "type": "EditorInterface",
         "space": {
           "sys": {
-            "id": "zfmkkhaw6gag",
+            "id": "b5f1djy59z3a",
             "type": "Link",
             "linkType": "Space"
           }
         },
-        "version": 14,
-        "createdAt": "2018-06-08T08:14:07.776Z",
+        "version": 21,
+        "createdAt": "2018-05-13T20:19:16.031Z",
         "createdBy": {
           "sys": {
-            "id": "45dcz0cMTXaqLOh66hDPS4",
+            "id": "5eyjAZAPH48cRQzQMTCIxG",
             "type": "Link",
             "linkType": "User"
           }
         },
-        "updatedAt": "2018-06-08T10:58:02.842Z",
+        "updatedAt": "2018-06-13T15:22:40.679Z",
         "updatedBy": {
           "sys": {
-            "id": "45dcz0cMTXaqLOh66hDPS4",
+            "id": "5eyjAZAPH48cRQzQMTCIxG",
+            "type": "Link",
+            "linkType": "User"
+          }
+        },
+        "contentType": {
+          "sys": {
+            "id": "banner",
+            "type": "Link",
+            "linkType": "ContentType"
+          }
+        },
+        "environment": {
+          "sys": {
+            "id": "master",
+            "type": "Link",
+            "linkType": "Environment"
+          }
+        }
+      },
+      "controls": [
+        {
+          "fieldId": "name",
+          "settings": {
+            "helpText": "Banner name. It will be shown only in CMS, and not rendered at the banner itself."
+          },
+          "widgetId": "singleLine"
+        },
+        {
+          "fieldId": "text",
+          "settings": {
+            "helpText": "Text to render at the banner."
+          },
+          "widgetId": "markdown"
+        },
+        {
+          "fieldId": "backgroundImage",
+          "settings": {
+            "helpText": "Background image."
+          },
+          "widgetId": "assetLinkEditor"
+        },
+        {
+          "fieldId": "baseTheme",
+          "settings": {
+            "helpText": "Base style of the banner."
+          },
+          "widgetId": "dropdown"
+        },
+        {
+          "fieldId": "containerStyles",
+          "settings": {
+            "helpText": "Optional. Additional styles for banner container (root) element."
+          },
+          "widgetId": "objectEditor"
+        },
+        {
+          "fieldId": "contentWrapperStyles",
+          "settings": {
+            "helpText": "Optional. Additional styles for the content wrapper element. This element takes care about positioning of textual content, and its background."
+          },
+          "widgetId": "objectEditor"
+        },
+        {
+          "fieldId": "contentStyles",
+          "settings": {
+            "helpText": "Optional. Additional styles for the textual content."
+          },
+          "widgetId": "objectEditor"
+        }
+      ]
+    },
+    {
+      "sys": {
+        "id": "default",
+        "type": "EditorInterface",
+        "space": {
+          "sys": {
+            "id": "b5f1djy59z3a",
+            "type": "Link",
+            "linkType": "Space"
+          }
+        },
+        "version": 5,
+        "createdAt": "2018-05-25T13:14:52.634Z",
+        "createdBy": {
+          "sys": {
+            "id": "5eyjAZAPH48cRQzQMTCIxG",
+            "type": "Link",
+            "linkType": "User"
+          }
+        },
+        "updatedAt": "2018-06-13T15:22:40.856Z",
+        "updatedBy": {
+          "sys": {
+            "id": "5eyjAZAPH48cRQzQMTCIxG",
+            "type": "Link",
+            "linkType": "User"
+          }
+        },
+        "contentType": {
+          "sys": {
+            "id": "contentBlock",
+            "type": "Link",
+            "linkType": "ContentType"
+          }
+        },
+        "environment": {
+          "sys": {
+            "id": "master",
+            "type": "Link",
+            "linkType": "Environment"
+          }
+        }
+      },
+      "controls": [
+        {
+          "fieldId": "name",
+          "widgetId": "singleLine"
+        },
+        {
+          "fieldId": "text",
+          "widgetId": "markdown"
+        },
+        {
+          "fieldId": "image",
+          "widgetId": "assetLinkEditor"
+        },
+        {
+          "fieldId": "baseTheme",
+          "settings": {
+            "helpText": "Content block theme"
+          },
+          "widgetId": "dropdown"
+        },
+        {
+          "fieldId": "extraStylesForContainer",
+          "widgetId": "objectEditor"
+        },
+        {
+          "fieldId": "extraStylesForContentWrapper",
+          "widgetId": "objectEditor"
+        },
+        {
+          "fieldId": "extraStylesForContent",
+          "widgetId": "objectEditor"
+        }
+      ]
+    },
+    {
+      "sys": {
+        "id": "default",
+        "type": "EditorInterface",
+        "space": {
+          "sys": {
+            "id": "b5f1djy59z3a",
+            "type": "Link",
+            "linkType": "Space"
+          }
+        },
+        "version": 2,
+        "createdAt": "2018-06-07T15:42:32.172Z",
+        "createdBy": {
+          "sys": {
+            "id": "00ch0VzpaGI4Xzp6ndR09Y",
+            "type": "Link",
+            "linkType": "User"
+          }
+        },
+        "updatedAt": "2018-06-07T15:42:36.139Z",
+        "updatedBy": {
+          "sys": {
+            "id": "00ch0VzpaGI4Xzp6ndR09Y",
+            "type": "Link",
+            "linkType": "User"
+          }
+        },
+        "contentType": {
+          "sys": {
+            "id": "hoFLeaderboardChampion",
+            "type": "Link",
+            "linkType": "ContentType"
+          }
+        },
+        "environment": {
+          "sys": {
+            "id": "master",
+            "type": "Link",
+            "linkType": "Environment"
+          }
+        }
+      },
+      "controls": [
+        {
+          "fieldId": "handle",
+          "settings": {
+            "helpText": "The handle name"
+          },
+          "widgetId": "singleLine"
+        },
+        {
+          "fieldId": "image",
+          "settings": {
+            "helpText": "The image of champion"
+          },
+          "widgetId": "assetLinkEditor"
+        }
+      ]
+    },
+    {
+      "sys": {
+        "id": "default",
+        "type": "EditorInterface",
+        "space": {
+          "sys": {
+            "id": "b5f1djy59z3a",
+            "type": "Link",
+            "linkType": "Space"
+          }
+        },
+        "version": 2,
+        "createdAt": "2018-06-07T15:42:33.484Z",
+        "createdBy": {
+          "sys": {
+            "id": "00ch0VzpaGI4Xzp6ndR09Y",
+            "type": "Link",
+            "linkType": "User"
+          }
+        },
+        "updatedAt": "2018-06-07T15:42:37.830Z",
+        "updatedBy": {
+          "sys": {
+            "id": "00ch0VzpaGI4Xzp6ndR09Y",
+            "type": "Link",
+            "linkType": "User"
+          }
+        },
+        "contentType": {
+          "sys": {
+            "id": "hoFPromoLink",
+            "type": "Link",
+            "linkType": "ContentType"
+          }
+        },
+        "environment": {
+          "sys": {
+            "id": "master",
+            "type": "Link",
+            "linkType": "Environment"
+          }
+        }
+      },
+      "controls": [
+        {
+          "fieldId": "url",
+          "widgetId": "singleLine"
+        },
+        {
+          "fieldId": "title",
+          "widgetId": "singleLine"
+        },
+        {
+          "fieldId": "cssStyle",
+          "widgetId": "singleLine"
+        }
+      ]
+    },
+    {
+      "sys": {
+        "id": "default",
+        "type": "EditorInterface",
+        "space": {
+          "sys": {
+            "id": "b5f1djy59z3a",
+            "type": "Link",
+            "linkType": "Space"
+          }
+        },
+        "version": 2,
+        "createdAt": "2018-06-07T15:42:32.905Z",
+        "createdBy": {
+          "sys": {
+            "id": "00ch0VzpaGI4Xzp6ndR09Y",
+            "type": "Link",
+            "linkType": "User"
+          }
+        },
+        "updatedAt": "2018-06-07T15:42:37.934Z",
+        "updatedBy": {
+          "sys": {
+            "id": "00ch0VzpaGI4Xzp6ndR09Y",
+            "type": "Link",
+            "linkType": "User"
+          }
+        },
+        "contentType": {
+          "sys": {
+            "id": "hoFLeaderboardData",
+            "type": "Link",
+            "linkType": "ContentType"
+          }
+        },
+        "environment": {
+          "sys": {
+            "id": "master",
+            "type": "Link",
+            "linkType": "Environment"
+          }
+        }
+      },
+      "controls": [
+        {
+          "fieldId": "title",
+          "settings": {
+            "helpText": "The title of Leaderboard. It is strongly recommended to use track name with upper case"
+          },
+          "widgetId": "singleLine"
+        },
+        {
+          "fieldId": "track",
+          "settings": {
+            "helpText": "Upper Case Value, If no track, set TRACK as default value"
+          },
+          "widgetId": "singleLine"
+        },
+        {
+          "fieldId": "champion",
+          "widgetId": "entryLinkEditor"
+        },
+        {
+          "fieldId": "members",
+          "settings": {
+            "helpText": "The members of leaderboard",
+            "bulkEditing": false
+          },
+          "widgetId": "entryLinksEditor"
+        }
+      ]
+    },
+    {
+      "sys": {
+        "id": "default",
+        "type": "EditorInterface",
+        "space": {
+          "sys": {
+            "id": "b5f1djy59z3a",
+            "type": "Link",
+            "linkType": "Space"
+          }
+        },
+        "version": 2,
+        "createdAt": "2018-06-07T15:42:26.414Z",
+        "createdBy": {
+          "sys": {
+            "id": "00ch0VzpaGI4Xzp6ndR09Y",
+            "type": "Link",
+            "linkType": "User"
+          }
+        },
+        "updatedAt": "2018-06-07T15:42:37.897Z",
+        "updatedBy": {
+          "sys": {
+            "id": "00ch0VzpaGI4Xzp6ndR09Y",
+            "type": "Link",
+            "linkType": "User"
+          }
+        },
+        "contentType": {
+          "sys": {
+            "id": "hallOfFameVersion",
+            "type": "Link",
+            "linkType": "ContentType"
+          }
+        },
+        "environment": {
+          "sys": {
+            "id": "master",
+            "type": "Link",
+            "linkType": "Environment"
+          }
+        }
+      },
+      "controls": [
+        {
+          "fieldId": "versionId",
+          "settings": {
+            "helpText": "Year number, eg: 18, 17"
+          },
+          "widgetId": "singleLine"
+        },
+        {
+          "fieldId": "promo",
+          "widgetId": "entryLinkEditor"
+        },
+        {
+          "fieldId": "leaderboards",
+          "settings": {
+            "bulkEditing": false
+          },
+          "widgetId": "entryLinksEditor"
+        },
+        {
+          "fieldId": "quickStories",
+          "widgetId": "entryLinkEditor"
+        }
+      ]
+    },
+    {
+      "sys": {
+        "id": "default",
+        "type": "EditorInterface",
+        "space": {
+          "sys": {
+            "id": "b5f1djy59z3a",
+            "type": "Link",
+            "linkType": "Space"
+          }
+        },
+        "version": 2,
+        "createdAt": "2018-06-07T15:42:34.305Z",
+        "createdBy": {
+          "sys": {
+            "id": "00ch0VzpaGI4Xzp6ndR09Y",
+            "type": "Link",
+            "linkType": "User"
+          }
+        },
+        "updatedAt": "2018-06-07T15:42:37.944Z",
+        "updatedBy": {
+          "sys": {
+            "id": "00ch0VzpaGI4Xzp6ndR09Y",
+            "type": "Link",
+            "linkType": "User"
+          }
+        },
+        "contentType": {
+          "sys": {
+            "id": "hallOfFame",
+            "type": "Link",
+            "linkType": "ContentType"
+          }
+        },
+        "environment": {
+          "sys": {
+            "id": "master",
+            "type": "Link",
+            "linkType": "Environment"
+          }
+        }
+      },
+      "controls": [
+        {
+          "fieldId": "title",
+          "settings": {
+            "helpText": "Lower Case Value"
+          },
+          "widgetId": "singleLine"
+        },
+        {
+          "fieldId": "versions",
+          "settings": {
+            "helpText": "Event's versions",
+            "bulkEditing": false
+          },
+          "widgetId": "entryLinksEditor"
+        },
+        {
+          "fieldId": "allTimeChampions",
+          "settings": {
+            "helpText": "All Time Champions Data"
+          },
+          "widgetId": "entryLinkEditor"
+        }
+      ]
+    },
+    {
+      "sys": {
+        "id": "default",
+        "type": "EditorInterface",
+        "space": {
+          "sys": {
+            "id": "b5f1djy59z3a",
+            "type": "Link",
+            "linkType": "Space"
+          }
+        },
+        "version": 2,
+        "createdAt": "2018-06-07T15:42:35.076Z",
+        "createdBy": {
+          "sys": {
+            "id": "00ch0VzpaGI4Xzp6ndR09Y",
+            "type": "Link",
+            "linkType": "User"
+          }
+        },
+        "updatedAt": "2018-06-07T15:42:37.809Z",
+        "updatedBy": {
+          "sys": {
+            "id": "00ch0VzpaGI4Xzp6ndR09Y",
+            "type": "Link",
+            "linkType": "User"
+          }
+        },
+        "contentType": {
+          "sys": {
+            "id": "hoFQuickStory",
+            "type": "Link",
+            "linkType": "ContentType"
+          }
+        },
+        "environment": {
+          "sys": {
+            "id": "master",
+            "type": "Link",
+            "linkType": "Environment"
+          }
+        }
+      },
+      "controls": [
+        {
+          "fieldId": "image",
+          "widgetId": "assetLinkEditor"
+        },
+        {
+          "fieldId": "text",
+          "widgetId": "markdown"
+        }
+      ]
+    },
+    {
+      "sys": {
+        "id": "default",
+        "type": "EditorInterface",
+        "space": {
+          "sys": {
+            "id": "b5f1djy59z3a",
+            "type": "Link",
+            "linkType": "Space"
+          }
+        },
+        "version": 2,
+        "createdAt": "2018-06-07T15:42:28.112Z",
+        "createdBy": {
+          "sys": {
+            "id": "00ch0VzpaGI4Xzp6ndR09Y",
+            "type": "Link",
+            "linkType": "User"
+          }
+        },
+        "updatedAt": "2018-06-07T15:42:39.963Z",
+        "updatedBy": {
+          "sys": {
+            "id": "00ch0VzpaGI4Xzp6ndR09Y",
+            "type": "Link",
+            "linkType": "User"
+          }
+        },
+        "contentType": {
+          "sys": {
+            "id": "hoFAllTimeChampions",
+            "type": "Link",
+            "linkType": "ContentType"
+          }
+        },
+        "environment": {
+          "sys": {
+            "id": "master",
+            "type": "Link",
+            "linkType": "Environment"
+          }
+        }
+      },
+      "controls": [
+        {
+          "fieldId": "title",
+          "settings": {
+            "helpText": "This title of All Time Champions"
+          },
+          "widgetId": "singleLine"
+        },
+        {
+          "fieldId": "icon",
+          "settings": {
+            "helpText": "Trophy icon"
+          },
+          "widgetId": "assetLinkEditor"
+        },
+        {
+          "fieldId": "list",
+          "settings": {
+            "helpText": "Champions List of Tracks",
+            "bulkEditing": false
+          },
+          "widgetId": "entryLinksEditor"
+        }
+      ]
+    },
+    {
+      "sys": {
+        "id": "default",
+        "type": "EditorInterface",
+        "space": {
+          "sys": {
+            "id": "b5f1djy59z3a",
+            "type": "Link",
+            "linkType": "Space"
+          }
+        },
+        "version": 2,
+        "createdAt": "2018-06-07T15:42:27.380Z",
+        "createdBy": {
+          "sys": {
+            "id": "00ch0VzpaGI4Xzp6ndR09Y",
+            "type": "Link",
+            "linkType": "User"
+          }
+        },
+        "updatedAt": "2018-06-07T15:42:38.283Z",
+        "updatedBy": {
+          "sys": {
+            "id": "00ch0VzpaGI4Xzp6ndR09Y",
+            "type": "Link",
+            "linkType": "User"
+          }
+        },
+        "contentType": {
+          "sys": {
+            "id": "hoFStories",
+            "type": "Link",
+            "linkType": "ContentType"
+          }
+        },
+        "environment": {
+          "sys": {
+            "id": "master",
+            "type": "Link",
+            "linkType": "Environment"
+          }
+        }
+      },
+      "controls": [
+        {
+          "fieldId": "title",
+          "settings": {
+            "helpText": "The title of Stories"
+          },
+          "widgetId": "singleLine"
+        },
+        {
+          "fieldId": "list",
+          "settings": {
+            "helpText": "The list of stories",
+            "bulkEditing": false
+          },
+          "widgetId": "entryLinksEditor"
+        }
+      ]
+    },
+    {
+      "sys": {
+        "id": "default",
+        "type": "EditorInterface",
+        "space": {
+          "sys": {
+            "id": "b5f1djy59z3a",
+            "type": "Link",
+            "linkType": "Space"
+          }
+        },
+        "version": 2,
+        "createdAt": "2018-06-07T15:42:29.688Z",
+        "createdBy": {
+          "sys": {
+            "id": "00ch0VzpaGI4Xzp6ndR09Y",
+            "type": "Link",
+            "linkType": "User"
+          }
+        },
+        "updatedAt": "2018-06-07T15:42:38.279Z",
+        "updatedBy": {
+          "sys": {
+            "id": "00ch0VzpaGI4Xzp6ndR09Y",
+            "type": "Link",
+            "linkType": "User"
+          }
+        },
+        "contentType": {
+          "sys": {
+            "id": "hoFPromoStat",
+            "type": "Link",
+            "linkType": "ContentType"
+          }
+        },
+        "environment": {
+          "sys": {
+            "id": "master",
+            "type": "Link",
+            "linkType": "Environment"
+          }
+        }
+      },
+      "controls": [
+        {
+          "fieldId": "value",
+          "widgetId": "singleLine"
+        },
+        {
+          "fieldId": "description",
+          "widgetId": "singleLine"
+        },
+        {
+          "fieldId": "icon",
+          "widgetId": "assetLinkEditor"
+        }
+      ]
+    },
+    {
+      "sys": {
+        "id": "default",
+        "type": "EditorInterface",
+        "space": {
+          "sys": {
+            "id": "b5f1djy59z3a",
+            "type": "Link",
+            "linkType": "Space"
+          }
+        },
+        "version": 2,
+        "createdAt": "2018-06-07T15:42:29.073Z",
+        "createdBy": {
+          "sys": {
+            "id": "00ch0VzpaGI4Xzp6ndR09Y",
+            "type": "Link",
+            "linkType": "User"
+          }
+        },
+        "updatedAt": "2018-06-07T15:42:38.828Z",
+        "updatedBy": {
+          "sys": {
+            "id": "00ch0VzpaGI4Xzp6ndR09Y",
+            "type": "Link",
+            "linkType": "User"
+          }
+        },
+        "contentType": {
+          "sys": {
+            "id": "hoFMembers",
+            "type": "Link",
+            "linkType": "ContentType"
+          }
+        },
+        "environment": {
+          "sys": {
+            "id": "master",
+            "type": "Link",
+            "linkType": "Environment"
+          }
+        }
+      },
+      "controls": [
+        {
+          "fieldId": "handle",
+          "settings": {
+            "helpText": "Handle name"
+          },
+          "widgetId": "singleLine"
+        },
+        {
+          "fieldId": "value",
+          "settings": {
+            "helpText": "Default value is blank. This value is currently use for all time champion."
+          },
+          "widgetId": "numberEditor"
+        }
+      ]
+    },
+    {
+      "sys": {
+        "id": "default",
+        "type": "EditorInterface",
+        "space": {
+          "sys": {
+            "id": "b5f1djy59z3a",
+            "type": "Link",
+            "linkType": "Space"
+          }
+        },
+        "version": 2,
+        "createdAt": "2018-06-07T15:42:31.329Z",
+        "createdBy": {
+          "sys": {
+            "id": "00ch0VzpaGI4Xzp6ndR09Y",
+            "type": "Link",
+            "linkType": "User"
+          }
+        },
+        "updatedAt": "2018-06-07T15:42:38.524Z",
+        "updatedBy": {
+          "sys": {
+            "id": "00ch0VzpaGI4Xzp6ndR09Y",
+            "type": "Link",
+            "linkType": "User"
+          }
+        },
+        "contentType": {
+          "sys": {
+            "id": "hoFPromo",
+            "type": "Link",
+            "linkType": "ContentType"
+          }
+        },
+        "environment": {
+          "sys": {
+            "id": "master",
+            "type": "Link",
+            "linkType": "Environment"
+          }
+        }
+      },
+      "controls": [
+        {
+          "fieldId": "logo",
+          "widgetId": "assetLinkEditor"
+        },
+        {
+          "fieldId": "bannerImage",
+          "widgetId": "assetLinkEditor"
+        },
+        {
+          "fieldId": "title",
+          "settings": {
+            "helpText": "Recommend use title of HoF + verionId of HoF, eg TCO17"
+          },
+          "widgetId": "singleLine"
+        },
+        {
+          "fieldId": "description",
+          "widgetId": "markdown"
+        },
+        {
+          "fieldId": "links",
+          "settings": {
+            "bulkEditing": false
+          },
+          "widgetId": "entryLinksEditor"
+        },
+        {
+          "fieldId": "statistics",
+          "settings": {
+            "helpText": "The event statistics data",
+            "bulkEditing": false
+          },
+          "widgetId": "entryLinksEditor"
+        },
+        {
+          "fieldId": "attributes",
+          "settings": {
+            "helpText": "Use for event informations. eg Date, Location",
+            "bulkEditing": false
+          },
+          "widgetId": "entryLinksEditor"
+        }
+      ]
+    },
+    {
+      "sys": {
+        "id": "default",
+        "type": "EditorInterface",
+        "space": {
+          "sys": {
+            "id": "b5f1djy59z3a",
+            "type": "Link",
+            "linkType": "Space"
+          }
+        },
+        "version": 2,
+        "createdAt": "2018-06-07T15:42:30.685Z",
+        "createdBy": {
+          "sys": {
+            "id": "00ch0VzpaGI4Xzp6ndR09Y",
+            "type": "Link",
+            "linkType": "User"
+          }
+        },
+        "updatedAt": "2018-06-07T15:42:39.980Z",
+        "updatedBy": {
+          "sys": {
+            "id": "00ch0VzpaGI4Xzp6ndR09Y",
+            "type": "Link",
+            "linkType": "User"
+          }
+        },
+        "contentType": {
+          "sys": {
+            "id": "hoFLeaderboard",
+            "type": "Link",
+            "linkType": "ContentType"
+          }
+        },
+        "environment": {
+          "sys": {
+            "id": "master",
+            "type": "Link",
+            "linkType": "Environment"
+          }
+        }
+      },
+      "controls": [
+        {
+          "fieldId": "title",
+          "settings": {
+            "helpText": "The title of Leaderboard"
+          },
+          "widgetId": "singleLine"
+        },
+        {
+          "fieldId": "data",
+          "settings": {
+            "helpText": "Champions List of Tracks",
+            "bulkEditing": false
+          },
+          "widgetId": "entryLinksEditor"
+        }
+      ]
+    },
+    {
+      "sys": {
+        "id": "default",
+        "type": "EditorInterface",
+        "space": {
+          "sys": {
+            "id": "b5f1djy59z3a",
+            "type": "Link",
+            "linkType": "Space"
+          }
+        },
+        "version": 2,
+        "createdAt": "2018-06-13T15:22:37.895Z",
+        "createdBy": {
+          "sys": {
+            "id": "5eyjAZAPH48cRQzQMTCIxG",
+            "type": "Link",
+            "linkType": "User"
+          }
+        },
+        "updatedAt": "2018-06-13T15:22:38.810Z",
+        "updatedBy": {
+          "sys": {
+            "id": "5eyjAZAPH48cRQzQMTCIxG",
+            "type": "Link",
+            "linkType": "User"
+          }
+        },
+        "contentType": {
+          "sys": {
+            "id": "route",
+            "type": "Link",
+            "linkType": "ContentType"
+          }
+        },
+        "environment": {
+          "sys": {
+            "id": "master",
+            "type": "Link",
+            "linkType": "Environment"
+          }
+        }
+      },
+      "controls": [
+        {
+          "fieldId": "name",
+          "settings": {
+            "helpText": "This is the identifier that will be passed to the <ContentfulRoute> component, it will not be displayed."
+          },
+          "widgetId": "singleLine"
+        },
+        {
+          "fieldId": "url",
+          "settings": {
+            "helpText": "The URL segment represented by the route.  Ex.  /test/"
+          },
+          "widgetId": "singleLine"
+        },
+        {
+          "fieldId": "viewport",
+          "settings": {
+            "helpText": "A Viewport to be rendered at the provided URL"
+          },
+          "widgetId": "entryLinkEditor"
+        },
+        {
+          "fieldId": "childRoutes",
+          "settings": {
+            "helpText": "Additional sub-routes which will available at /URL/childURL/",
+            "bulkEditing": false
+          },
+          "widgetId": "entryLinksEditor"
+        },
+        {
+          "fieldId": "pageTitle",
+          "settings": {
+            "helpText": "Page Title Meta Tag"
+          },
+          "widgetId": "singleLine"
+        },
+        {
+          "fieldId": "description",
+          "settings": {
+            "helpText": "Page Description Meta Tag"
+          },
+          "widgetId": "markdown"
+        },
+        {
+          "fieldId": "socialThumbnail",
+          "settings": {
+            "helpText": "Twitter/Facebook Meta Tag"
+          },
+          "widgetId": "singleLine"
+        },
+        {
+          "fieldId": "socialSiteName",
+          "settings": {
+            "helpText": "Twitter/Facebook Meta Tag"
+          },
+          "widgetId": "singleLine"
+        },
+        {
+          "fieldId": "socialDescription",
+          "settings": {
+            "helpText": "Twitter/Facebook Meta Tag"
+          },
+          "widgetId": "singleLine"
+        },
+        {
+          "fieldId": "socialTitle",
+          "settings": {
+            "helpText": "Twitter/Facebook Meta Tag"
+          },
+          "widgetId": "singleLine"
+        },
+        {
+          "fieldId": "socialUrl",
+          "settings": {
+            "helpText": "Twitter/Facebook Meta Tag"
+          },
+          "widgetId": "urlEditor"
+        }
+      ]
+    },
+    {
+      "sys": {
+        "id": "default",
+        "type": "EditorInterface",
+        "space": {
+          "sys": {
+            "id": "b5f1djy59z3a",
+            "type": "Link",
+            "linkType": "Space"
+          }
+        },
+        "version": 2,
+        "createdAt": "2018-06-13T15:22:34.162Z",
+        "createdBy": {
+          "sys": {
+            "id": "5eyjAZAPH48cRQzQMTCIxG",
+            "type": "Link",
+            "linkType": "User"
+          }
+        },
+        "updatedAt": "2018-06-13T15:22:39.099Z",
+        "updatedBy": {
+          "sys": {
+            "id": "5eyjAZAPH48cRQzQMTCIxG",
             "type": "Link",
             "linkType": "User"
           }
@@ -1419,24 +3741,24 @@
         "type": "EditorInterface",
         "space": {
           "sys": {
-            "id": "zfmkkhaw6gag",
+            "id": "b5f1djy59z3a",
             "type": "Link",
             "linkType": "Space"
           }
         },
-        "version": 12,
-        "createdAt": "2018-06-08T08:35:47.674Z",
+        "version": 2,
+        "createdAt": "2018-06-13T15:22:33.497Z",
         "createdBy": {
           "sys": {
-            "id": "45dcz0cMTXaqLOh66hDPS4",
+            "id": "5eyjAZAPH48cRQzQMTCIxG",
             "type": "Link",
             "linkType": "User"
           }
         },
-        "updatedAt": "2018-06-08T11:08:45.196Z",
+        "updatedAt": "2018-06-13T15:22:41.031Z",
         "updatedBy": {
           "sys": {
-            "id": "45dcz0cMTXaqLOh66hDPS4",
+            "id": "5eyjAZAPH48cRQzQMTCIxG",
             "type": "Link",
             "linkType": "User"
           }
@@ -1507,13 +3829,13 @@
       "optional": false,
       "sys": {
         "type": "Locale",
-        "id": "6M7cjThAOb6kXlTZj60mQ2",
-        "version": 1,
+        "id": "2Bbh5SuC97fHov8K00lMGU",
+        "version": 3,
         "space": {
           "sys": {
             "type": "Link",
             "linkType": "Space",
-            "id": "zfmkkhaw6gag"
+            "id": "b5f1djy59z3a"
           }
         },
         "environment": {
@@ -1527,23 +3849,327 @@
           "sys": {
             "type": "Link",
             "linkType": "User",
-            "id": "45dcz0cMTXaqLOh66hDPS4"
+            "id": "5nSoJ2Ikv9WK5zFIaT5TFY"
           }
         },
-        "createdAt": "2018-06-07T06:28:09Z",
+        "createdAt": "2018-02-15T18:52:45Z",
         "updatedBy": {
           "sys": {
             "type": "Link",
             "linkType": "User",
-            "id": "45dcz0cMTXaqLOh66hDPS4"
+            "id": "5eyjAZAPH48cRQzQMTCIxG"
           }
         },
-        "updatedAt": "2018-06-07T06:28:09Z"
+        "updatedAt": "2018-06-13T15:22:30Z"
       }
     }
   ],
   "webhooks": [
   ],
   "roles": [
+    {
+      "name": "Developer",
+      "description": "Allows reading Entries and managing API Keys",
+      "policies": [
+        {
+          "effect": "allow",
+          "actions": [
+            "read"
+          ],
+          "constraint": {
+            "and": [
+              {
+                "equals": [
+                  {
+                    "doc": "sys.type"
+                  },
+                  "Entry"
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "effect": "allow",
+          "actions": [
+            "read"
+          ],
+          "constraint": {
+            "and": [
+              {
+                "equals": [
+                  {
+                    "doc": "sys.type"
+                  },
+                  "Asset"
+                ]
+              }
+            ]
+          }
+        }
+      ],
+      "permissions": {
+        "ContentModel": [
+          "read"
+        ],
+        "Settings": [
+        ],
+        "ContentDelivery": "all"
+      },
+      "sys": {
+        "type": "Role",
+        "id": "2B1xa4EAr6NPATwmw071Mg",
+        "version": 0,
+        "space": {
+          "sys": {
+            "type": "Link",
+            "linkType": "Space",
+            "id": "b5f1djy59z3a"
+          }
+        },
+        "createdBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "5nSoJ2Ikv9WK5zFIaT5TFY"
+          }
+        },
+        "createdAt": "2018-02-15T18:52:45Z",
+        "updatedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "5nSoJ2Ikv9WK5zFIaT5TFY"
+          }
+        },
+        "updatedAt": "2018-02-15T18:52:45Z"
+      }
+    },
+    {
+      "name": "Editor",
+      "description": "Allows editing, publishing and archiving of content",
+      "policies": [
+        {
+          "effect": "allow",
+          "actions": "all",
+          "constraint": {
+            "and": [
+              {
+                "equals": [
+                  {
+                    "doc": "sys.type"
+                  },
+                  "Entry"
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "effect": "allow",
+          "actions": "all",
+          "constraint": {
+            "and": [
+              {
+                "equals": [
+                  {
+                    "doc": "sys.type"
+                  },
+                  "Asset"
+                ]
+              }
+            ]
+          }
+        }
+      ],
+      "permissions": {
+        "ContentModel": [
+          "read"
+        ],
+        "Settings": [
+        ],
+        "ContentDelivery": [
+        ]
+      },
+      "sys": {
+        "type": "Role",
+        "id": "2B2o82WiZwUvOffFeQRBwg",
+        "version": 0,
+        "space": {
+          "sys": {
+            "type": "Link",
+            "linkType": "Space",
+            "id": "b5f1djy59z3a"
+          }
+        },
+        "createdBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "5nSoJ2Ikv9WK5zFIaT5TFY"
+          }
+        },
+        "createdAt": "2018-02-15T18:52:45Z",
+        "updatedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "5nSoJ2Ikv9WK5zFIaT5TFY"
+          }
+        },
+        "updatedAt": "2018-02-15T18:52:45Z"
+      }
+    },
+    {
+      "name": "Author",
+      "description": "Allows editing of content",
+      "policies": [
+        {
+          "effect": "allow",
+          "actions": [
+            "create"
+          ],
+          "constraint": {
+            "and": [
+              {
+                "equals": [
+                  {
+                    "doc": "sys.type"
+                  },
+                  "Entry"
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "effect": "allow",
+          "actions": [
+            "read"
+          ],
+          "constraint": {
+            "and": [
+              {
+                "equals": [
+                  {
+                    "doc": "sys.type"
+                  },
+                  "Entry"
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "effect": "allow",
+          "actions": [
+            "update"
+          ],
+          "constraint": {
+            "and": [
+              {
+                "equals": [
+                  {
+                    "doc": "sys.type"
+                  },
+                  "Entry"
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "effect": "allow",
+          "actions": [
+            "create"
+          ],
+          "constraint": {
+            "and": [
+              {
+                "equals": [
+                  {
+                    "doc": "sys.type"
+                  },
+                  "Asset"
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "effect": "allow",
+          "actions": [
+            "read"
+          ],
+          "constraint": {
+            "and": [
+              {
+                "equals": [
+                  {
+                    "doc": "sys.type"
+                  },
+                  "Asset"
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "effect": "allow",
+          "actions": [
+            "update"
+          ],
+          "constraint": {
+            "and": [
+              {
+                "equals": [
+                  {
+                    "doc": "sys.type"
+                  },
+                  "Asset"
+                ]
+              }
+            ]
+          }
+        }
+      ],
+      "permissions": {
+        "ContentModel": [
+          "read"
+        ],
+        "Settings": [
+        ],
+        "ContentDelivery": [
+        ]
+      },
+      "sys": {
+        "type": "Role",
+        "id": "2dBm0tjwmqb4y3klt6smnc",
+        "version": 0,
+        "space": {
+          "sys": {
+            "type": "Link",
+            "linkType": "Space",
+            "id": "b5f1djy59z3a"
+          }
+        },
+        "createdBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "5nSoJ2Ikv9WK5zFIaT5TFY"
+          }
+        },
+        "createdAt": "2018-03-19T19:47:30Z",
+        "updatedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "5nSoJ2Ikv9WK5zFIaT5TFY"
+          }
+        },
+        "updatedAt": "2018-03-19T19:47:30Z"
+      }
+    }
   ]
 }
