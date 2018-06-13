@@ -71,7 +71,6 @@ make_task_def(){
 				}
 		}
 		]'
-
 	
 	if [ "$ENV" = "PROD" ]; then
 			NODE_CONFIG_ENV=production
@@ -82,7 +81,7 @@ make_task_def(){
 	fi
 
 	task_def=$(printf "$task_template" $AWS_ECS_CLUSTER $ACCOUNT_ID $AWS_REGION $AWS_REPOSITORY $TAG $NODE_CONFIG_ENV $AWS_ECS_CLUSTER $AWS_REGION $AWS_ECS_CLUSTER)
-	echo $task_def
+	#echo $task_def
 }
 
 push_ecr_image() {
