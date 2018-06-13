@@ -181,7 +181,7 @@ export default function Content() {
           </Link>
         </li>
         <li>
-          <Link to="/examples/contentful/route/5m5jgCKGT6yqWGM4K2G88o/root">
+          <Link to="/examples/contentful/route/4eL1gLh8gU66ewMwIIYu4y">
             <code>Route</code>
           </Link>
         </li>
