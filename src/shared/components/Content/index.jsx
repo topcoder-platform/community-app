@@ -181,6 +181,11 @@ export default function Content() {
           </Link>
         </li>
         <li>
+          <Link to="/examples/contentful/route/5m5jgCKGT6yqWGM4K2G88o/root">
+            <code>Route</code>
+          </Link>
+        </li>
+        <li>
           <Link to="/examples/contentful/viewport/YomgM8zPCoEaUqaKouyGG">
             <code>Viewport</code>
           </Link>
