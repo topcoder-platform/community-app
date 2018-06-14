@@ -31,6 +31,9 @@
       "title": "Challenges",
       "url": "/challenges"
     }, {
+      "title": "Catalog",
+      "url": "/catalog"
+    }, {
       "title": "FAQ",
       "url": "/faq"
     }

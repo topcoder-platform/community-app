@@ -68,13 +68,12 @@ function ViewportLoader(props) {
       entryQueries={queries}
       preview={preview}
       render={(data) => {
-        // _.map(data.entries.items, 'fields.content') returns an array containing
-        // the 'content' arrays of each matched viewport.
-        // flatten turns this into an array containing the viewport content objects of all viewports
-        // the outer map grabs just the id from each viewport object
-        // Result: An array of id strings
-
-        const contentIds = _.map(_.flatten(_.map(data.entries.items, 'fields.content')), 'sys.id');
+        const contentIds = [];
+        _.forOwn(data.entries.items, (item) => {
+          const content = item.fields.content || [];
+          content.forEach(c => contentIds.push(c.sys.id));
+        });
+        if (!contentIds.length) return null;
 
         return (
           <ViewportContentLoader
