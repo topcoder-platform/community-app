@@ -434,6 +434,16 @@ exports[`Matches shallow shapshot 1`] = `
     <li>
       <Link
         replace={false}
+        to="/examples/contentful/accordion/id"
+      >
+        <code>
+          Accordion
+        </code>
+      </Link>
+    </li>
+    <li>
+      <Link
+        replace={false}
         to="/examples/contentful/banner/5il6oFtWp2Ua6WGs60M2mK"
       >
         <code>

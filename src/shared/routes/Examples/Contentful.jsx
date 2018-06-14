@@ -5,6 +5,7 @@
 import PT from 'prop-types';
 import React from 'react';
 
+import Accordion from 'components/Contentful/Accordion';
 import Banner from 'components/Contentful/Banner';
 import ContentBlock from 'components/Contentful/ContentBlock';
 import ContentfulRoute from 'components/Contentful/Route';
@@ -16,6 +17,10 @@ export default function Contentful({ match }) {
   const base = match.url;
   return (
     <Switch>
+      <Route
+        path={`${base}/accordion/:id`}
+        component={p => <Accordion id={p.match.params.id} preview />}
+      />
       <Route
         path={`${base}/banner/:id`}
         component={p => <Banner id={p.match.params.id} preview />}
