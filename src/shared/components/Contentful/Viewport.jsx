@@ -3,6 +3,7 @@
  */
 
 import _ from 'lodash';
+import Accordion from 'components/Contentful/Accordion';
 import Banner from 'components/Contentful/Banner';
 import ContentBlock from 'components/Contentful/ContentBlock';
 import ContentfulLoader from 'containers/ContentfulLoader';
@@ -23,7 +24,11 @@ function ViewportContentLoader(props) {
       preview={preview}
       render={data =>
         contentIds.map((id) => {
-          if (data.entries.items[id].sys.contentType.sys.id === 'banner') {
+          if (data.entries.items[id].sys.contentType.sys.id === 'accordion') {
+            return (
+              <Accordion id={id} key={id} preview={preview} />
+            );
+          } else if (data.entries.items[id].sys.contentType.sys.id === 'banner') {
             return (
               <Banner id={id} key={id} preview={preview} />
             );
@@ -68,13 +73,12 @@ function ViewportLoader(props) {
       entryQueries={queries}
       preview={preview}
       render={(data) => {
-        // _.map(data.entries.items, 'fields.content') returns an array containing
-        // the 'content' arrays of each matched viewport.
-        // flatten turns this into an array containing the viewport content objects of all viewports
-        // the outer map grabs just the id from each viewport object
-        // Result: An array of id strings
-
-        const contentIds = _.map(_.flatten(_.map(data.entries.items, 'fields.content')), 'sys.id');
+        const contentIds = [];
+        _.forOwn(data.entries.items, (item) => {
+          const content = item.fields.content || [];
+          content.forEach(c => contentIds.push(c.sys.id));
+        });
+        if (!contentIds.length) return null;
 
         return (
           <ViewportContentLoader

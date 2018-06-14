@@ -1,0 +1,24 @@
+{
+  "challengeFilter": {
+    "groupIds": ["20000047"],
+    "or": [{
+      "tags": ["Mobile"]
+    }]
+  },
+  "communityId": "mobile",
+  "communityName": "Mobile Community",
+  "groupIds": ["20000047"],
+  "hideSearch": true,
+  "logos": [{
+    "img": "/community-app-assets/themes/mobile/logo_topcoder_with_name.svg",
+    "url": "https://www.topcoder.com"
+  }],
+  "menuItems": [{
+    "title": "Home",
+    "url": "/"
+  }],
+  "newsFeed": "http://www.topcoder.com/feed",
+  "subdomains": ["mobile"],
+  "description": "Community of mobile experts.",
+  "image": "mobile.jpg"
+}

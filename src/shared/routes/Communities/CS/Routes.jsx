@@ -2,6 +2,7 @@
  * Routing of Wipro Community.
  */
 
+import Catalog from 'components/tc-communities/communities/cs/Catalog';
 import ChallengeDetails from 'routes/ChallengeDetails';
 import ChallengeListing from 'routes/Communities/ChallengeListing';
 import Error404 from 'components/Error404';
@@ -49,6 +50,11 @@ export default function CS({ base, meta }) {
                 })}
                 exact
                 path={`${base}/challenges/:challengeId(\\d{8})`}
+              />
+              <Route
+                component={Catalog}
+                exact
+                path={`${base}/catalog`}
               />
               <Route
                 component={routeProps => Submission({

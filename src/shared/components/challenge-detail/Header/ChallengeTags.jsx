@@ -46,6 +46,7 @@ export default function ChallengeTags(props) {
   let EventTag;
   let TrackTag;
   switch (track) {
+    case 'datasci':
     case COMPETITION_TRACKS.DATA_SCIENCE:
       EventTag = DataScienceTrackEventTag;
       TrackTag = DataScienceTrackTag;

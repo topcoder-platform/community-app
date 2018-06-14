@@ -5,8 +5,10 @@
 import PT from 'prop-types';
 import React from 'react';
 
+import Accordion from 'components/Contentful/Accordion';
 import Banner from 'components/Contentful/Banner';
 import ContentBlock from 'components/Contentful/ContentBlock';
+import ContentfulRoute from 'components/Contentful/Route';
 import Viewport from 'components/Contentful/Viewport';
 
 import { Route, Switch } from 'react-router-dom';
@@ -16,12 +18,20 @@ export default function Contentful({ match }) {
   return (
     <Switch>
       <Route
+        path={`${base}/accordion/:id`}
+        component={p => <Accordion id={p.match.params.id} preview />}
+      />
+      <Route
         path={`${base}/banner/:id`}
         component={p => <Banner id={p.match.params.id} preview />}
       />
       <Route
         path={`${base}/contentblock/:id`}
         component={p => <ContentBlock id={p.match.params.id} preview />}
+      />
+      <Route
+        path={`${base}/route/:id`}
+        component={p => <ContentfulRoute baseUrl={p.match.url} id={p.match.params.id} preview />}
       />
       <Route
         path={`${base}/viewport/:id`}
