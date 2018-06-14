@@ -5,9 +5,10 @@
  *
  * Additional custom components can be added to the customComponents array found below.
  */
+
+import _ from 'lodash';
 import { createElement } from 'react';
 import MarkdownIt from 'markdown-it';
-import { fromPairs } from 'lodash';
 import { Button, PrimaryButton, SecondaryButton } from 'topcoder-react-ui-kit';
 import { Link } from 'topcoder-react-utils';
 import shortid from 'shortid';
@@ -88,10 +89,26 @@ function traverse(tokens, idx) {
 
   if (!node) return null;
 
+  /* TODO: This is sub-optimal. Should generate UUID based on the actual
+   * element data, most probably using md5 hash of its data */
   const key = shortid.generate();
 
   if (node.type === 'inline') {
     return traverseChildren(node.children);
+  }
+
+  /* Inline images need special hanling, as for markup like this:
+   * ![alt text](URL)
+   * `markdown-it` includs `alt text` as the child of image token. */
+  if (node.type === 'image') {
+    const attrs = { key };
+    if (node.attrs) {
+      node.attrs.forEach((attr) => {
+        attrs[attr[0]] = attr[1];
+      });
+    }
+    attrs.alt = _.get(node, 'children[0].content', '');
+    return createElement('img', attrs);
   }
 
   if (node.type === 'html_inline') {
@@ -100,7 +117,7 @@ function traverse(tokens, idx) {
     let type = match[1];
     const attrs = match[2] ? match[2].match(/\w+(=".*?"| ?)/g) : [];
 
-    let props = fromPairs(attrs.map((attr) => {
+    let props = _.fromPairs(attrs.map((attr) => {
       const pair = attr.match(/^(\w+)="(.*)"/);
       return pair ? pair.slice(1) : [attr, true];
     }));
@@ -124,13 +141,13 @@ function traverse(tokens, idx) {
       return node.content;
     }
     return node.content ?
-      createElement(node.tag, { key, ...fromPairs(node.attrs) }, [node.content]) :
-      createElement(node.tag, { key, ...fromPairs(node.attrs) });
+      createElement(node.tag, { key, ..._.fromPairs(node.attrs) }, [node.content]) :
+      createElement(node.tag, { key, ..._.fromPairs(node.attrs) });
   }
 
   // This tag has a directly nested tag, render it recursively.
   if (node.nesting === 1) {
-    return createElement(node.tag, { key, ...fromPairs(node.attrs) }, traverse(tokens, idx + 1));
+    return createElement(node.tag, { key, ..._.fromPairs(node.attrs) }, traverse(tokens, idx + 1));
   }
 
   // This is a closing tag. Do nothing.
