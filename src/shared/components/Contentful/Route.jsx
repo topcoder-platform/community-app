@@ -52,6 +52,12 @@ function ChildRoutesLoader(props) {
             )}
           />
           {
+            /**
+             * TODO: Technically, it means that we are going to load entire
+             * tree of routes, even for the paths that are guaranteed not to
+             * match. It should optimized to load only those child routes that
+             * may match, judging by the currently tested route segment.
+             */
             _.map(data.entries.items, (childRoute => (
               <ContentfulRoute
                 id={childRoute.sys.id}
@@ -87,17 +93,20 @@ export default function ContentfulRoute(props) {
     preview,
   } = props;
 
-  const query = name ? ({ content_type: 'route', 'fields.name': name }) : null;
+  const queries = [];
+
+  /* Mapping `id` to query helps to fetch the route entry and its children with
+   * a single call to Contentful API, which is handy for Route content type. */
+  if (id) queries.push({ content_type: 'route', 'sys.id': id });
+  if (name) queries.push({ content_type: 'route', 'fields.name': name });
 
   return (
     <ContentfulLoader
-      entryIds={id}
-      entryQueries={query}
+      entryQueries={queries}
       preview={preview}
       render={(data) => {
         const { fields } = Object.values(data.entries.items)[0];
         const url = path || buildUrl(baseUrl, fields.url);
-
         return (
           <ChildRoutesLoader
             fields={fields}
