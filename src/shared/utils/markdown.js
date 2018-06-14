@@ -40,6 +40,17 @@ const customComponents = {
  * changed for new components.
  */
 
+function normalizeProps(props) {
+  if (!props.style) return props;
+  const res = _.clone(props);
+  res.style = {};
+  props.style.split(';').forEach((style) => {
+    const [name, value] = style.split(':');
+    res.style[_.camelCase(name)] = value;
+  });
+  return res;
+}
+
 /**
  * Maps token into properties for corresponding ReactJS component.
  * @param {Object} token
@@ -53,7 +64,7 @@ function getProps(token, key) {
       res[attr] = value;
     });
   }
-  return res;
+  return normalizeProps(res);
 }
 
 /**
@@ -120,6 +131,7 @@ function renderTokens(tokens, startFrom) {
           if (customComponents[tag]) {
             ({ type: tag, props } = customComponents[tag](props));
           }
+          props = normalizeProps(props);
           if (selfClosing) {
             output.push(React.createElement(tag, { key: pos, ...props }));
           } else {
