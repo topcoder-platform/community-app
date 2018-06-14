@@ -434,7 +434,7 @@ exports[`Matches shallow shapshot 1`] = `
     <li>
       <Link
         replace={false}
-        to="/examples/contentful/accordion/id"
+        to="/examples/contentful/accordion/2aRYmMs4rmwEIISCag8MOm"
       >
         <code>
           Accordion

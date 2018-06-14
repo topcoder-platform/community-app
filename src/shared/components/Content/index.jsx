@@ -171,7 +171,7 @@ export default function Content() {
       <h3>Previews of Contentful Components</h3>
       <ul>
         <li>
-          <Link to="/examples/contentful/accordion/id">
+          <Link to="/examples/contentful/accordion/2aRYmMs4rmwEIISCag8MOm">
             <code>Accordion</code>
           </Link>
         </li>
