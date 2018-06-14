@@ -140,7 +140,7 @@ const PROPS_CAUSING_UPDATE = [
   'assetIds', 'assetQueries',
   'entryIds', 'entryQueries',
   'maxage', 'preview', 'refreshMaxage',
-  'render', 'renderPlaceholder'
+  'render', 'renderPlaceholder',
 ];
 
 class ContentfulLoader extends React.Component {
