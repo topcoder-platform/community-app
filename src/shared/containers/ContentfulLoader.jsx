@@ -136,6 +136,13 @@ function findRequestedData(props) {
   return res;
 }
 
+const PROPS_CAUSING_UPDATE = [
+  'assetIds', 'assetQueries',
+  'entryIds', 'entryQueries',
+  'maxage', 'preview', 'refreshMaxage',
+  'render', 'renderPlaceholder'
+];
+
 class ContentfulLoader extends React.Component {
   componentDidMount() {
     const {
@@ -154,6 +161,12 @@ class ContentfulLoader extends React.Component {
   }
 
   shouldComponentUpdate(nextProps) {
+    for (let i = 0; i !== PROPS_CAUSING_UPDATE.length; i += 1) {
+      const prop = PROPS_CAUSING_UPDATE[i];
+      if (nextProps[prop] !== this.props[prop]) return true;
+    }
+    /* TODO: Memorize nextData in the object, to not re-calculate them during
+     * the rendering. */
     const data = findRequestedData(this.props);
     const nextData = findRequestedData(nextProps);
     return Boolean(data) !== Boolean(nextData) || !_.isEqual(data, nextData);
