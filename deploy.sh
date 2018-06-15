@@ -28,8 +28,7 @@ configure_aws_cli() {
 deploy_cluster() {
     make_task_def
     register_definition
-
-		if [[ $(aws ecs update-service --cluster $AWS_ECS_CLUSTER --service $AWS_ECS_SERVICE --task-definition $revision | \
+	if [[ $(aws ecs update-service --cluster $AWS_ECS_CLUSTER --service $AWS_ECS_SERVICE --task-definition $revision | \
                    $JQ '.service.taskDefinition') != $revision ]]; then
         echo "Error updating service."
         return 1
@@ -80,7 +79,7 @@ make_task_def(){
 	fi
 
 	task_def=$(printf "$task_template" $AWS_ECS_CLUSTER $ACCOUNT_ID $AWS_REGION $AWS_REPOSITORY $TAG $NODE_CONFIG_ENV $AWS_ECS_CLUSTER $AWS_REGION $AWS_ECS_CLUSTER)
-	#echo $task_def
+	echo $task_def
 }
 
 push_ecr_image() {
