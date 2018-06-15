@@ -26,7 +26,6 @@ configure_aws_cli() {
 }
 
 deploy_cluster() {
-    #family="community-app-task"
     make_task_def
     register_definition
 
