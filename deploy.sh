@@ -48,8 +48,9 @@ make_task_def(){
 	elif [ "$ENV" = "TEST" ]; then
 			NODE_CONFIG_ENV=development
 	fi
-	#task_def=$(printf "$task_template" $AWS_ECS_CLUSTER $ACCOUNT_ID $AWS_REGION $AWS_REPOSITORY $TAG $NODE_CONFIG_ENV $AWS_ECS_CLUSTER $AWS_REGION $AWS_ECS_CLUSTER)
-	task_def=$(printf "$task_template" $AWS_ECS_CLUSTER)
+
+	task_def=$(printf "$task_template" $AWS_ECS_CLUSTER $ACCOUNT_ID $AWS_REGION $AWS_REPOSITORY $TAG $NODE_CONFIG_ENV $AWS_ECS_CLUSTER $AWS_REGION $AWS_ECS_CLUSTER)
+	#task_def=$(printf "$task_template" $AWS_ECS_CLUSTER)
 
 	echo $task_def
 }
