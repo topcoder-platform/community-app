@@ -39,36 +39,7 @@ deploy_cluster() {
 }
 
 make_task_def(){
-		task_template='[
-		{
-				"name": "%s",
-				"image": "%s.dkr.ecr.%s.amazonaws.com/%s:%s",
-				"essential": true,
-				"memory": 500,
-				"cpu": 100,
-				"environment": [
-						{
-								"name": "NODE_CONFIG_ENV",
-								"value": "%s"
-						}
-				],
-				"portMappings": [
-						{
-								"hostPort": 0,
-								"containerPort": 3000,
-								"protocol": "tcp"
-						}
-				],
-				"logConfiguration": {
-						"logDriver": "awslogs",
-						"options": {
-								"awslogs-group": "/aws/ecs/%s",
-								"awslogs-region": "%s",
-								"awslogs-stream-prefix": "community-app"
-						}
-				}
-		}
-		]'
+		task_template=''
 	
 	if [ "$ENV" = "PROD" ]; then
 			NODE_CONFIG_ENV=production
@@ -77,7 +48,6 @@ make_task_def(){
 	elif [ "$ENV" = "TEST" ]; then
 			NODE_CONFIG_ENV=development
 	fi
-	echo $task_template
 	#task_def=$(printf "$task_template" $AWS_ECS_CLUSTER $ACCOUNT_ID $AWS_REGION $AWS_REPOSITORY $TAG $NODE_CONFIG_ENV $AWS_ECS_CLUSTER $AWS_REGION $AWS_ECS_CLUSTER)
 	task_def=$(printf "$task_template")
 
