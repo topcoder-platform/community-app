@@ -39,7 +39,36 @@ deploy_cluster() {
 }
 
 make_task_def(){
-		task_template=''
+	task_template='[
+	{
+		"name": "%s",
+		"image": "%s.dkr.ecr.%s.amazonaws.com/%s:%s",
+		"essential": true,
+		"memory": 500,
+		"cpu": 100,
+		"environment": [
+		{
+			"name": "NODE_CONFIG_ENV",
+			"value": "%s"
+		}
+		],
+		"portMappings": [
+		{
+			"hostPort": 0,
+			"containerPort": 3000,
+			"protocol": "tcp"
+		}
+		],
+		"logConfiguration": {
+		"logDriver": "awslogs",
+		"options": {
+			"awslogs-group": "/aws/ecs/%s",
+			"awslogs-region": "%s",
+			"awslogs-stream-prefix": "%s"
+		}
+		}
+	}
+	]'
 	
 	if [ "$ENV" = "PROD" ]; then
 			NODE_CONFIG_ENV=production
