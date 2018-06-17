@@ -13,7 +13,7 @@ ACCOUNT_ID=$(eval "echo \$${ENV}_AWS_ACCOUNT_ID")
 AWS_ECS_SERVICE=$(eval "echo \$${ENV}_AWS_ECS_SERVICE")
 AWS_REPOSITORY=$(eval "echo \$${ENV}_AWS_REPOSITORY")
 AWS_ECS_TASK_FAMILY=$(eval "echo \$${ENV}_AWS_ECS_TASK_FAMILY")
-
+echo $AWS_ECS_SERVICE
 configure_aws_cli() {  
 	AWS_ACCESS_KEY_ID=$(eval "echo \$${ENV}_AWS_ACCESS_KEY_ID")
 	AWS_SECRET_ACCESS_KEY=$(eval "echo \$${ENV}_AWS_SECRET_ACCESS_KEY")
@@ -28,8 +28,7 @@ configure_aws_cli() {
 deploy_cluster() {
     make_task_def
     register_definition
-	if [[ $(aws ecs update-service --cluster $AWS_ECS_CLUSTER --service $AWS_ECS_SERVICE --task-definition $revision | \
-                   $JQ '.service.taskDefinition') != $revision ]]; then
+	if [[ $(aws ecs update-service --cluster $AWS_ECS_CLUSTER --service $AWS_ECS_SERVICE --task-definition $revision | $JQ '.service.taskDefinition') != $revision ]]; then
         echo "Error updating service."
         return 1
     fi
@@ -79,8 +78,6 @@ make_task_def(){
 	fi
 
 	task_def=$(printf "$task_template" $AWS_ECS_CLUSTER $ACCOUNT_ID $AWS_REGION $AWS_REPOSITORY $TAG $NODE_CONFIG_ENV $AWS_ECS_CLUSTER $AWS_REGION $AWS_ECS_CLUSTER)
-	#task_def=$(printf "$task_template" $AWS_ECS_CLUSTER)
-
 	echo $task_def
 }
 
