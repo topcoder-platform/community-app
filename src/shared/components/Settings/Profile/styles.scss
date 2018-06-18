@@ -1,20 +1,16 @@
 @import "~styles/mixins";
 
-.edit-profile-container {
-  padding: 0 60px 30px;
+.profile-container {
+  display: flex;
+  padding-top: 60px;
 
-  .clearfix {
-    @include clearfix;
-
-    margin-bottom: 40px;
+  .col-bar {
+    width: 370px;
+    padding-left: 70px;
+    padding-right: 70px;
   }
-}
 
-.save-button {
-  margin-bottom: 15px;
-  margin-top: 15px;
-  height: 40px;
-  width: 120px;
-  font-size: 18px;
-  text-transform: uppercase;
+  .col-content {
+    width: 876px;
+  }
 }
