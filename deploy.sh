@@ -13,7 +13,7 @@ ACCOUNT_ID=$(eval "echo \$${ENV}_AWS_ACCOUNT_ID")
 AWS_ECS_SERVICE=$(eval "echo \$${ENV}_AWS_ECS_SERVICE")
 AWS_REPOSITORY=$(eval "echo \$${ENV}_AWS_REPOSITORY")
 AWS_ECS_TASK_FAMILY=$(eval "echo \$${ENV}_AWS_ECS_TASK_FAMILY")
-echo $AWS_ECS_SERVICE
+echo $AWS_ECS_SERVICE 
 configure_aws_cli() {  
 	AWS_ACCESS_KEY_ID=$(eval "echo \$${ENV}_AWS_ACCESS_KEY_ID")
 	AWS_SECRET_ACCESS_KEY=$(eval "echo \$${ENV}_AWS_SECRET_ACCESS_KEY")

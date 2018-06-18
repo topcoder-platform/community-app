@@ -42,6 +42,8 @@ then
 else
   exit 1
 fi
+echo "CDN URL"
+echo $CDN_URL
 
 # Builds Docker image of the app.
 TAG=$AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$AWS_ECS_CLUSTER:$CIRCLE_SHA1
