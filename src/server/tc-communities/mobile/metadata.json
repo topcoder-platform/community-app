@@ -8,7 +8,7 @@
   "challengeListing": {
     "ignoreCommunityFilterByDefault": false,
     "openChallengesInNewTabs": false
-  },  
+  },
   "communityId": "mobile",
   "communityName": "Mobile Community",
   "groupIds": ["20000047"],
@@ -21,6 +21,9 @@
     {
       "title": "Home",
       "url": "/"
+    }, {
+      "title": "Learn",
+      "url": "/learn"
     }, {
       "title": "Challenges",
       "url": "/challenges"
