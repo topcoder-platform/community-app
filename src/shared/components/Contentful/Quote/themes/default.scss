@@ -1,0 +1,120 @@
+@import "~styles/mixins";
+
+.container {
+  align-content: center;
+  background: white;
+  padding: 10px 0;
+}
+
+.contentWrapper {
+  display: flex;
+  margin: 200px auto;
+  max-width: $screen-lg;
+  padding: 0 40px;
+
+  @include xs-to-sm {
+    flex-direction: column-reverse;
+    margin: 50px auto;
+    padding: 0 25px;
+  }
+}
+
+.content {
+  position: relative;
+}
+
+.quoteTextWrapper {
+  font-family: 'Roboto', Helvetica, Arial, sans-serif;
+  font-weight: 300;
+  font-size: 28px;
+  font-style: italic;
+  line-height: 1.25;
+  color: #262628;
+  margin-bottom: 20px;
+}
+
+.quoteTextWrapper::before {
+  content: "\201C";
+  color: #cfe6ff;
+  font-size: 82px;
+  font-style: italic;
+  margin-top: -30px;
+  margin-left: -20px;
+  position: absolute;
+  z-index: 1;
+
+  @include roboto-medium;
+}
+
+.quoteTextWrapper::after {
+  content: "\201D";
+  color: #cfe6ff;
+  font-size: 82px;
+  font-style: italic;
+  margin-top: -30px;
+  margin-left: -10px;
+  position: absolute;
+  z-index: 1;
+
+  @include roboto-medium;
+}
+
+.quoteTextWrapper > p {
+  position: relative;
+  display: inline;
+  z-index: 2;
+}
+
+.authorInfo {
+  font-family: 'Roboto', Helvetica, Arial, sans-serif;
+  font-weight: 400;
+  font-size: 15px;
+  line-height: 1.73;
+  color: #262628;
+
+  @include xs-to-sm {
+    display: none;
+  }
+}
+
+.authorName {
+  font-weight: bold;
+}
+
+.authorAffiliation {
+  position: relative;
+}
+
+.avatarContainer {
+  display: flex;
+
+  img {
+    height: 150px;
+    margin-right: 40px;
+    width: 150px;
+
+    @include xs-to-sm {
+      height: 50px;
+      margin-right: 15px;
+      width: 50px;
+    }
+  }
+
+  &.noImage {
+    img {
+      display: none;
+    }
+  }
+
+  .authorInfo {
+    display: none;
+
+    @include xs-to-sm {
+      display: block;
+    }
+  }
+
+  .authorName {
+    display: block;
+  }
+}

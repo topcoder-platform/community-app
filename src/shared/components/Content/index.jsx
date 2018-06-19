@@ -147,6 +147,12 @@ export default function Content() {
           <Link to="/__community__/demo-expert">Demo Expert Community</Link>
         </li>
         <li>
+          <Link to="/__community__/iot">IoT Community</Link>
+        </li>
+        <li>
+          <Link to="/__community__/mobile">Mobile Community</Link>
+        </li>
+        <li>
           <Link to="/__community__/qa">QA Community</Link>
         </li>
         <li>
@@ -183,6 +189,16 @@ export default function Content() {
         <li>
           <Link to="/examples/contentful/contentblock/6CVFvEiZFKYQMwW82aYCWS">
             <code>ContentBlock</code>
+          </Link>
+        </li>
+        <li>
+          <Link to="/examples/contentful/quote/3o7LgdSIsougYimQ2GyUw4">
+            <code>Quote</code>
+          </Link>
+        </li>
+        <li>
+          <Link to="/examples/contentful/video/4U4DkVDy3C0WcImaEw42mw">
+            <code>Video</code>
           </Link>
         </li>
         <li>

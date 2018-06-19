@@ -7,6 +7,8 @@ import Accordion from 'components/Contentful/Accordion';
 import Banner from 'components/Contentful/Banner';
 import ContentBlock from 'components/Contentful/ContentBlock';
 import ContentfulLoader from 'containers/ContentfulLoader';
+import Quote from 'components/Contentful/Quote';
+import Video from 'components/Contentful/Video';
 import { errors } from 'topcoder-react-lib';
 import LoadingIndicator from 'components/LoadingIndicator';
 import PT from 'prop-types';
@@ -35,6 +37,14 @@ function ViewportContentLoader(props) {
           } else if (data.entries.items[id].sys.contentType.sys.id === 'contentBlock') {
             return (
               <ContentBlock id={id} key={id} preview={preview} />
+            );
+          } else if (data.entries.items[id].sys.contentType.sys.id === 'quote') {
+            return (
+              <Quote id={id} key={id} preview={preview} />
+            );
+          } else if (data.entries.items[id].sys.contentType.sys.id === 'video') {
+            return (
+              <Video id={id} key={id} preview={preview} />
             );
           }
           fireErrorMessage('Unsupported content type from contentful', '');
