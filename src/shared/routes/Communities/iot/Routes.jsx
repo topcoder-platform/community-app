@@ -7,7 +7,6 @@ import ChallengeListing from 'routes/Communities/ChallengeListing';
 
 import Error404 from 'components/Error404';
 import Footer from 'components/tc-communities/Footer2';
-import FooterLogos from 'components/tc-communities/FooterLogos';
 import Header from 'containers/tc-communities/Header';
 import Home from 'containers/tc-communities/iot/Home';
 import GetStarted from 'containers/tc-communities/iot/GetStarted';
@@ -25,12 +24,6 @@ import { ThemeProvider } from 'react-css-super-themr';
 import primaryButtonStyle from 'components/buttons/outline/round/open-sans/blue-uppercase.scss';
 import secondaryButtonStyle from 'components/buttons/outline/round/open-sans/default.scss';
 import sectionStyle from 'components/tc-communities/communities/iot/themes/section.scss';
-
-import geLogoSrc from 'assets/themes/iot/ge-footer-logo.png';
-
-const logos = [
-  { img: geLogoSrc, url: 'http://www.ge.com/digital/' },
-];
 
 export default function IoT({ base, meta }) {
   return (
@@ -137,7 +130,6 @@ export default function IoT({ base, meta }) {
                 path={`${base}`}
               />
             </Switch>
-            <FooterLogos logos={logos} />
             <Footer />
           </div>
         </ThemeProvider>
