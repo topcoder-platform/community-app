@@ -35,6 +35,7 @@ class SettingsContainer extends React.Component {
       authenticating,
       loadHeaderData,
       loadTabData,
+      loadAllUserTraits,
     } = props;
 
     if (authenticating) return;
@@ -50,6 +51,11 @@ class SettingsContainer extends React.Component {
     // Load header data
     if (handleChanged) {
       loadHeaderData(props);
+    }
+
+    // Load all user traits
+    if (handleChanged) {
+      loadAllUserTraits(handle, tokenV3);
     }
 
     // Load tab data
@@ -128,6 +134,9 @@ function mapStateToProps(state) {
     profileState: state.profile,
     activeChallengesCount: _.get(state.challenge, 'activeChallengesCount'),
     loadingError: state.profile.loadingError,
+    settingsUI: state.ui.settings,
+    settings: state.settings,
+    userTraits: state.settings.userTraits,
   };
 }
 
@@ -219,6 +228,21 @@ function mapDispatchToProps(dispatch) {
     updatePassword: (profile, tokenV3, newPassword, oldPassword) => {
       dispatch(profileActions.updatePasswordInit());
       dispatch(profileActions.updatePasswordDone(profile, tokenV3, newPassword, oldPassword));
+    },
+    toggleProfileSideTab: (tab) => {
+      dispatch(actions.ui.settings.profile.toggleTab(tab));
+    },
+    loadAllUserTraits: (handle, tokenV3) => {
+      dispatch(actions.settings.getAllUserTraits(handle, tokenV3));
+    },
+    addUserTrait: (handle, traitId, data, tokenV3) => {
+      dispatch(actions.settings.addUserTrait(handle, traitId, data, tokenV3));
+    },
+    updateUserTrait: (handle, traitId, data, tokenV3) => {
+      dispatch(actions.settings.updateUserTrait(handle, traitId, data, tokenV3));
+    },
+    deleteUserTrait: (handle, traitId, tokenV3) => {
+      dispatch(actions.settings.deleteUserTrait(handle, traitId, tokenV3));
     },
   };
 }
