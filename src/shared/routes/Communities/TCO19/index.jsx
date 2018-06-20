@@ -11,9 +11,9 @@ import { AppChunk, webpack } from 'topcoder-react-utils';
 export default function ChunkLoader({ base, meta }) {
   return (
     <AppChunk
-      chunkName="tco-community/chunk"
+      chunkName="tco19-community/chunk"
       renderClientAsync={() =>
-        import(/* webpackChunkName: "tco-community/chunk" */ './Routes')
+        import(/* webpackChunkName: "tco19-community/chunk" */ './Routes')
         .then(({ default: Routes }) => (
           <Routes base={base} meta={meta} />
         ))
