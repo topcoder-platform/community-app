@@ -96,6 +96,53 @@ function findData(content, itemIds, queries, minTimestamp) {
   return res;
 }
 
+/**
+ * Generates an object with requested data to pass into the rendering
+ * function. In case any of the data are missing, it returns `undefined`.
+ * @param {Object} props Props set to use.
+ * @return {Object} In case all requested data are present, it is an object
+ *  with the following structure:
+ *  - assets {Object}
+ *    - items: {Object}
+ *    - matches: {Array}
+ *  - entries {Object}
+ *    - items: {Object}
+ *    - matches: {Array}
+ */
+function findRequestedData(props) {
+  const {
+    assetIds,
+    assetQueries,
+    assets,
+    entries,
+    entryIds,
+    entryQueries,
+    maxage,
+    preview,
+  } = props;
+  const minTimestamp = Date.now() - maxage;
+  const res = { preview: Boolean(preview) };
+
+  res.assets = findData(assets, assetIds, assetQueries, minTimestamp);
+  if (!res.assets) return null;
+
+  res.entries = findData(entries, entryIds, entryQueries, minTimestamp);
+  if (!res.entries) return null;
+
+  if (entries.includes) {
+    res.includes = entries.includes;
+  }
+
+  return res;
+}
+
+const PROPS_CAUSING_UPDATE = [
+  'assetIds', 'assetQueries',
+  'entryIds', 'entryQueries',
+  'maxage', 'preview', 'refreshMaxage',
+  'render', 'renderPlaceholder',
+];
+
 class ContentfulLoader extends React.Component {
   componentDidMount() {
     const {
@@ -111,6 +158,18 @@ class ContentfulLoader extends React.Component {
     this.loadContentOnMount(entryIds, 'entries', timeLimit);
     this.loadQueriesOnMount(assetQueries, 'assets', timeLimit);
     this.loadQueriesOnMount(entryQueries, 'entries', timeLimit);
+  }
+
+  shouldComponentUpdate(nextProps) {
+    for (let i = 0; i !== PROPS_CAUSING_UPDATE.length; i += 1) {
+      const prop = PROPS_CAUSING_UPDATE[i];
+      if (nextProps[prop] !== this.props[prop]) return true;
+    }
+    /* TODO: Memorize nextData in the object, to not re-calculate them during
+     * the rendering. */
+    const data = findRequestedData(this.props);
+    const nextData = findRequestedData(nextProps);
+    return Boolean(data) !== Boolean(nextData) || !_.isEqual(data, nextData);
   }
 
   componentDidUpdate(prev) {
@@ -159,45 +218,6 @@ class ContentfulLoader extends React.Component {
       const ids = toArray(entryQueries).map(query => queryToMd5(query));
       ids.forEach(id => freeQuery(id, 'entries', preview));
     }
-  }
-
-  /**
-   * Generates an object with requested data to pass into the rendering
-   * function. In case any of the data are missing, it returns `undefined`.
-   * @return {Object} In case all requested data are present, it is an object
-   *  with the following structure:
-   *  - assets {Object}
-   *    - items: {Object}
-   *    - matches: {Array}
-   *  - entries {Object}
-   *    - items: {Object}
-   *    - matches: {Array}
-   */
-  findRequestedData() {
-    const {
-      assetIds,
-      assetQueries,
-      assets,
-      entries,
-      entryIds,
-      entryQueries,
-      maxage,
-      preview,
-    } = this.props;
-    const minTimestamp = Date.now() - maxage;
-    const res = { preview: Boolean(preview) };
-
-    res.assets = findData(assets, assetIds, assetQueries, minTimestamp);
-    if (!res.assets) return null;
-
-    res.entries = findData(entries, entryIds, entryQueries, minTimestamp);
-    if (!res.entries) return null;
-
-    if (entries.includes) {
-      res.includes = entries.includes;
-    }
-
-    return res;
   }
 
   /**
@@ -319,7 +339,7 @@ class ContentfulLoader extends React.Component {
 
   render() {
     const { render, renderPlaceholder: Placeholder } = this.props;
-    const data = this.findRequestedData();
+    const data = findRequestedData(this.props);
 
     /* Some of the required data still pending to load: render a placeholder,
      * or nothing. */

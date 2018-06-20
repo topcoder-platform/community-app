@@ -5,12 +5,12 @@
  *
  * Additional custom components can be added to the customComponents array found below.
  */
-import { createElement } from 'react';
+
+import _ from 'lodash';
+import React from 'react';
 import MarkdownIt from 'markdown-it';
-import { fromPairs } from 'lodash';
 import { Button, PrimaryButton, SecondaryButton } from 'topcoder-react-ui-kit';
 import { Link } from 'topcoder-react-utils';
-import shortid from 'shortid';
 
 import JoinCommunity from 'containers/tc-communities/JoinCommunity';
 
@@ -40,103 +40,121 @@ const customComponents = {
  * changed for new components.
  */
 
+function normalizeProps(props) {
+  if (!props.style) return props;
+  const res = _.clone(props);
+  res.style = {};
+  props.style.split(';').forEach((style) => {
+    const [name, value] = style.split(':');
+    res.style[_.camelCase(name)] = value;
+  });
+  return res;
+}
+
+/**
+ * Maps token into properties for corresponding ReactJS component.
+ * @param {Object} token
+ * @param {Number} key
+ * @return {Object}
+ */
+function getProps(token, key) {
+  const res = { key };
+  if (token.attrs) {
+    token.attrs.forEach(([attr, value]) => {
+      res[attr] = value;
+    });
+  }
+  return normalizeProps(res);
+}
+
+/**
+ * Renders tokens with zero nesting.
+ * @param {Object} tokens
+ * @param {Number} index
+ * @return {Object}
+ */
+function renderToken(tokens, index) {
+  const token = tokens[index];
+  switch (token.type) {
+    case 'image': {
+      const props = getProps(token, index);
+      props.alt = _.get(token, 'children[0].content', '');
+      return React.createElement('img', props);
+    }
+    case 'inline':
+      /* eslint-disable no-use-before-define */
+      return renderTokens(token.children, 0);
+      /* eslint-enable no-use-before-define */
+    case 'text':
+      return token.content;
+    default:
+      return React.createElement(token.tag, getProps(token, index));
+  }
+}
+
 /**
  * Iterates through the non-nested children of an 'inline' node and calls
  * the traverse rendering function on each of them when necessary.
- * @param {Array} children The list of tokens
+ * @param {Array} tokens The list of tokens
+ * @param {Number} startFrom Starting index for the rendering pass.
  * @return {Array} The rendered React elements
  */
 // Array destructuring is not appropriate for this use case
 /* eslint-disable prefer-destructuring */
-function traverseChildren(children) {
-  let idx = 0;
-  let nesting = 0;
-  const branches = [];
-  while (idx < children.length) {
-    const node = children[idx];
-    // If nesting count is higher than 0, the traverse() function will have recursively
-    // rendered the element already.
-    if (nesting === 0) {
-      // This rule needs to be disabled to allow mutual recursion.
-      /* eslint-disable no-use-before-define */
-      branches.push(traverse(children, idx));
-      /* eslint-enable no-use-before-define */
+function renderTokens(tokens, startFrom) {
+  let level = 0;
+  const output = [];
+  for (let pos = startFrom; pos < tokens.length; pos += 1) {
+    const token = tokens[pos];
+    const content = token.content;
+    const html = token.type === 'html_inline';
+    if (token.nesting === -1 || (html && content.startsWith('</'))) {
+      level -= 1;
+    } else if (level === 0) {
+      if (token.nesting === 1) {
+        output.push(React.createElement(
+          token.tag,
+          getProps(token, pos),
+          renderTokens(tokens, 1 + pos),
+        ));
+        level += 1;
+      } else if (token.type === 'html_inline') {
+        if (!token.content.startsWith('</')) {
+          const match = token.content.match(/^<(\w+) *(.*?)(\/)?>/);
+          let tag = match[1];
+          const attrs = match[2] ? match[2].match(/\w+(=".*?"| ?)/g) : [];
+          let props = _.fromPairs(attrs.map((attr) => {
+            const pair = attr.match(/^(\w+)="(.*)"/);
+            return pair ? pair.slice(1) : [attr, true];
+          }));
+          const selfClosing = match[3] || tag === 'img' || tag === 'hr' || tag === 'br';
+          if (customComponents[tag]) {
+            ({ type: tag, props } = customComponents[tag](props));
+          }
+          props = normalizeProps(props);
+          if (selfClosing) {
+            output.push(React.createElement(tag, { key: pos, ...props }));
+          } else {
+            level += 1;
+            output.push(React.createElement(
+              tag,
+              { key: pos, ...props },
+              renderTokens(tokens, pos + 1),
+            ));
+          }
+        }
+      } else output.push(renderToken(tokens, pos));
+    } else if (token.nesting === 1) {
+      level += 1;
+    } else if (html) {
+      if (!content.startsWith('</') && !content.endsWith('/>')) {
+        level += 1;
+      }
     }
-
-    if (node.type === 'html_inline') {
-      if (node.content[1] === '/') nesting -= 1;
-      else if (node.content.substr(-2, 1) !== '/') nesting += 1;
-    } else {
-      nesting += node.nesting;
-    }
-
-    idx += 1;
+    if (level < 0) break;
   }
-
-  return branches;
+  return output;
 }
-
-/**
- * Renders the token at the provided index.  This will be called recursively
- * to render any simply nested children nodes of the token.
- * @param {Array} tokens The list of tokens provided by markdown-it
- * @param {Number} idx The index of the token in the above array to be rendered
- * @return {Node} The rendered React element
- */
-function traverse(tokens, idx) {
-  const node = tokens[idx];
-
-  if (!node) return null;
-
-  const key = shortid.generate();
-
-  if (node.type === 'inline') {
-    return traverseChildren(node.children);
-  }
-
-  if (node.type === 'html_inline') {
-    const match = node.content.match(/^<(\w+) *(.*?)(\/)?>/);
-    if (!match) return null;
-    let type = match[1];
-    const attrs = match[2] ? match[2].match(/\w+(=".*?"| ?)/g) : [];
-
-    let props = fromPairs(attrs.map((attr) => {
-      const pair = attr.match(/^(\w+)="(.*)"/);
-      return pair ? pair.slice(1) : [attr, true];
-    }));
-
-    const selfClosing = match[3] || type === 'img' || type === 'hr' || type === 'br';
-
-    if (customComponents[type]) {
-      ({ type, props } = customComponents[type](props));
-    }
-
-    if (selfClosing) {
-      return createElement(type, { key, ...props });
-    }
-
-    return createElement(type, { key, ...props }, traverse(tokens, idx + 1));
-  }
-
-  // This tag has no child elements, the recursion has hit its max depth
-  if (node.nesting === 0) {
-    if (node.type === 'text') {
-      return node.content;
-    }
-    return node.content ?
-      createElement(node.tag, { key, ...fromPairs(node.attrs) }, [node.content]) :
-      createElement(node.tag, { key, ...fromPairs(node.attrs) });
-  }
-
-  // This tag has a directly nested tag, render it recursively.
-  if (node.nesting === 1) {
-    return createElement(node.tag, { key, ...fromPairs(node.attrs) }, traverse(tokens, idx + 1));
-  }
-
-  // This is a closing tag. Do nothing.
-  return null;
-}
-/* eslint-enable prefer-destructuring */
 
 const md = new MarkdownIt({ html: true });
 // Disable html_block detection to force all html tags to be evaluated inline,
@@ -144,7 +162,7 @@ const md = new MarkdownIt({ html: true });
 md.block.ruler.disable('html_block');
 
 // Assign the custom renderer
-md.renderer.render = tokens => traverseChildren(tokens);
+md.renderer.render = tokens => renderTokens(tokens, 0);
 
 export default function render(text) {
   return md.render(text);
