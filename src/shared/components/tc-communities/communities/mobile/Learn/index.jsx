@@ -4,7 +4,7 @@ import Viewport from 'components/Contentful/Viewport';
 export default function Home() {
   return (
     <Viewport
-      query={{ 'fields.name': 'IoT Community - About' }}
+      query={{ 'fields.name': 'Mobile Community - Learn' }}
     />
   );
 }

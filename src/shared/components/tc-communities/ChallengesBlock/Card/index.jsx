@@ -28,6 +28,7 @@ export default function Card({
 
   let TrackTag;
   switch (challenge.track.toLowerCase()) {
+    case 'datasci':
     case COMPETITION_TRACKS.DATA_SCIENCE:
       TrackTag = DataScienceTrackTag;
       break;

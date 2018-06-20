@@ -2355,6 +2355,189 @@
           "omitted": false
         }
       ]
+    },
+    {
+      "sys": {
+        "space": {
+          "sys": {
+            "type": "Link",
+            "linkType": "Space",
+            "id": "msq1axjv3adq"
+          }
+        },
+        "id": "accordion",
+        "type": "ContentType",
+        "createdAt": "2018-06-14T03:37:38.569Z",
+        "updatedAt": "2018-06-14T04:20:02.882Z",
+        "environment": {
+          "sys": {
+            "id": "master",
+            "type": "Link",
+            "linkType": "Environment"
+          }
+        },
+        "createdBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "5aXn7I37HU18yyBamAAtGm"
+          }
+        },
+        "updatedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "5aXn7I37HU18yyBamAAtGm"
+          }
+        },
+        "publishedCounter": 2,
+        "version": 4,
+        "publishedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "5aXn7I37HU18yyBamAAtGm"
+          }
+        },
+        "publishedVersion": 3,
+        "firstPublishedAt": "2018-06-14T03:37:39.159Z",
+        "publishedAt": "2018-06-14T04:20:02.882Z"
+      },
+      "displayField": "name",
+      "name": "Accordion",
+      "description": "Accordion/FAQ",
+      "fields": [
+        {
+          "id": "name",
+          "name": "Name",
+          "type": "Symbol",
+          "localized": false,
+          "required": true,
+          "validations": [
+          ],
+          "disabled": false,
+          "omitted": false
+        },
+        {
+          "id": "title",
+          "name": "Title",
+          "type": "Symbol",
+          "localized": false,
+          "required": false,
+          "validations": [
+          ],
+          "disabled": false,
+          "omitted": false
+        },
+        {
+          "id": "items",
+          "name": "Items",
+          "type": "Array",
+          "localized": false,
+          "required": false,
+          "validations": [
+          ],
+          "disabled": false,
+          "omitted": false,
+          "items": {
+            "type": "Link",
+            "validations": [
+              {
+                "linkContentType": [
+                  "accordionItem"
+                ]
+              }
+            ],
+            "linkType": "Entry"
+          }
+        }
+      ]
+    },
+    {
+      "sys": {
+        "space": {
+          "sys": {
+            "type": "Link",
+            "linkType": "Space",
+            "id": "msq1axjv3adq"
+          }
+        },
+        "id": "accordionItem",
+        "type": "ContentType",
+        "createdAt": "2018-06-14T03:38:44.546Z",
+        "updatedAt": "2018-06-14T03:39:20.150Z",
+        "environment": {
+          "sys": {
+            "id": "master",
+            "type": "Link",
+            "linkType": "Environment"
+          }
+        },
+        "createdBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "5aXn7I37HU18yyBamAAtGm"
+          }
+        },
+        "updatedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "5aXn7I37HU18yyBamAAtGm"
+          }
+        },
+        "publishedCounter": 2,
+        "version": 4,
+        "publishedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "5aXn7I37HU18yyBamAAtGm"
+          }
+        },
+        "publishedVersion": 3,
+        "firstPublishedAt": "2018-06-14T03:38:45.043Z",
+        "publishedAt": "2018-06-14T03:39:20.150Z"
+      },
+      "displayField": "name",
+      "name": "AccordionItem",
+      "description": "The Label/Text Pair for an Accordion/FAQ Item",
+      "fields": [
+        {
+          "id": "name",
+          "name": "Name",
+          "type": "Symbol",
+          "localized": false,
+          "required": true,
+          "validations": [
+          ],
+          "disabled": false,
+          "omitted": false
+        },
+        {
+          "id": "label",
+          "name": "Label",
+          "type": "Symbol",
+          "localized": false,
+          "required": false,
+          "validations": [
+          ],
+          "disabled": false,
+          "omitted": false
+        },
+        {
+          "id": "text",
+          "name": "Text",
+          "type": "Text",
+          "localized": false,
+          "required": false,
+          "validations": [
+          ],
+          "disabled": false,
+          "omitted": false
+        }
+      ]
     }
   ],
   "editorInterfaces": [

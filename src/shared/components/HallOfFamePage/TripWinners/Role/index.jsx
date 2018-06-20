@@ -10,7 +10,7 @@ import defaultStyles from './styles.scss';
 
 const Role = ({ count, data, theme }) => (
   <div className={theme.container}>
-    <div className={theme.role}>{data.title}</div>
+    <div className={theme.role}>{data.track}</div>
     {
       data.members.map(member => (
         <div key={member.handle} className={theme.winner}>{member.handle}</div>
