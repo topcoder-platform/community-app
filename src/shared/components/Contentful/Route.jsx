@@ -19,10 +19,11 @@ const buildUrl = (base, segment) => `${_.trimEnd(base, '/')}/${_.trim(segment, '
 function ChildRoutesLoader(props) {
   const {
     fields,
-    ids,
     preview,
     url,
   } = props;
+
+  const ids = _.map(fields.childRoutes, 'sys.id');
 
   return (
     <ContentfulLoader
@@ -79,7 +80,6 @@ function ChildRoutesLoader(props) {
 
 ChildRoutesLoader.propTypes = {
   fields: PT.shape().isRequired,
-  ids: PT.arrayOf(PT.string).isRequired,
   preview: PT.bool.isRequired,
   url: PT.string.isRequired,
 };
@@ -110,7 +110,6 @@ export default function ContentfulRoute(props) {
         return (
           <ChildRoutesLoader
             fields={fields}
-            ids={_.map(fields.childRoutes, 'sys.id')}
             preview={preview}
             url={url}
           />
