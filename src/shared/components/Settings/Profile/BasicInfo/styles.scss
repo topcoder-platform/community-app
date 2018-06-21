@@ -7,6 +7,7 @@
 .basic-info-container {
   display: flex;
   align-items: flex-start;
+
   @include sofia-pro-light;
 
   .user-icon {
@@ -20,6 +21,7 @@
 
     .handle {
       @include sofia-pro-medium;
+
       width: 103px;
       height: 35px;
       font-size: 28px;
@@ -40,6 +42,7 @@
 
         label {
           @include sofia-pro-medium;
+
           font-size: 12px;
           margin-bottom: 5px;
         }

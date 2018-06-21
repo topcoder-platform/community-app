@@ -11,25 +11,24 @@ const rnd = new Renderer();
 it('renders profile setting page correctly', () => {
   // FIXME: Fix the tests for the settings page
   expect(true).toBeTruthy();
-  return;
-  rnd.render((<Settings
-    handle=""
-    tokenV3=""
-    settingsTab="profile"
-    history={{}}
-    selectTab={() => {}}
-    showXlBadge={() => {}}
-    profile={userProfile}
-    profileState={profileState}
-    settingsPageState={{}}
-    lookupData={{}}
-    updateProfile={() => {}}
-    uploadPhoto={() => {}}
-    deletePhoto={() => {}}
-    addSkill={() => {}}
-    hideSkill={() => {}}
-  />));
-  expect(rnd.getRenderOutput()).toMatchSnapshot();
+  // rnd.render((<Settings
+  //   handle=""
+  //   tokenV3=""
+  //   settingsTab="profile"
+  //   history={{}}
+  //   selectTab={() => {}}
+  //   showXlBadge={() => {}}
+  //   profile={userProfile}
+  //   profileState={profileState}
+  //   settingsPageState={{}}
+  //   lookupData={{}}
+  //   updateProfile={() => {}}
+  //   uploadPhoto={() => {}}
+  //   deletePhoto={() => {}}
+  //   addSkill={() => {}}
+  //   hideSkill={() => {}}
+  // />));
+  // expect(rnd.getRenderOutput()).toMatchSnapshot();
 });
 
 it('renders account setting page correctly', () => {

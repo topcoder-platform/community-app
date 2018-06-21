@@ -1,36 +1,36 @@
-import _ from 'lodash';
-import React from 'react';
-import Renderer from 'react-test-renderer/shallow';
-
-import Settings from 'containers/Settings';
-import { TABS } from 'actions/page/settings';
-
-import userProfile from '../components/Settings/__mocks__/user-profile.json';
-import profileState from '../components/Settings/__mocks__/profile-state.json';
-
-const rnd = new Renderer();
-
-const mockState = {
-  page: {
-    dashboard: { xlBadge: '' },
-    settings: { settingsTab: TABS.PROFILE },
-  },
-  auth: {
-    authenticating: false,
-    tokenV3: 'tokenV3',
-    user: {
-      handle: userProfile.handle,
-    },
-    profile: userProfile,
-  },
-  profile: profileState,
-  lookup: {},
-  ui: {
-    settings: {
-      TABS, currentProfileTab: '',
-    },
-  },
-};
+// import _ from 'lodash';
+// import React from 'react';
+// import Renderer from 'react-test-renderer/shallow';
+//
+// import Settings from 'containers/Settings';
+// import { TABS } from 'actions/page/settings';
+//
+// import userProfile from '../components/Settings/__mocks__/user-profile.json';
+// import profileState from '../components/Settings/__mocks__/profile-state.json';
+//
+// const rnd = new Renderer();
+//
+// const mockState = {
+//   page: {
+//     dashboard: { xlBadge: '' },
+//     settings: { settingsTab: TABS.PROFILE },
+//   },
+//   auth: {
+//     authenticating: false,
+//     tokenV3: 'tokenV3',
+//     user: {
+//       handle: userProfile.handle,
+//     },
+//     profile: userProfile,
+//   },
+//   profile: profileState,
+//   lookup: {},
+//   ui: {
+//     settings: {
+//       TABS, currentProfileTab: '',
+//     },
+//   },
+// };
 
 // FIXME: Fix the tests for the settings page
 it('fake profile settings test', () => {
