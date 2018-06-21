@@ -6,7 +6,7 @@ import _ from 'lodash';
  * @return {Object}
  */
 export function fixStyle(style) {
-  return style ? _.mapKeys(style, _.camelCase) : undefined;
+  return style ? _.mapKeys(style, (value, key) => _.camelCase(key)) : undefined;
 }
 
 export default undefined;
