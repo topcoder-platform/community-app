@@ -53,12 +53,6 @@ function ChildRoutesLoader(props) {
             )}
           />
           {
-            /**
-             * TODO: Technically, it means that we are going to load entire
-             * tree of routes, even for the paths that are guaranteed not to
-             * match. It should optimized to load only those child routes that
-             * may match, judging by the currently tested route segment.
-             */
             _.map(data.entries.items, (childRoute => (
               <ContentfulRoute
                 id={childRoute.sys.id}
@@ -108,10 +102,17 @@ export default function ContentfulRoute(props) {
         const { fields } = Object.values(data.entries.items)[0];
         const url = path || buildUrl(baseUrl, fields.url);
         return (
-          <ChildRoutesLoader
-            fields={fields}
-            preview={preview}
-            url={url}
+          <Route
+            /* This route prevents fetching data about child routes and their
+             * rendering, if they already known to not match. */
+            path={url}
+            render={() => (
+              <ChildRoutesLoader
+                fields={fields}
+                preview={preview}
+                url={url}
+              />
+            )}
           />
         );
       }}
