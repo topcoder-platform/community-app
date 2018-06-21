@@ -114,6 +114,7 @@ export default function Content() {
         <li>
           <Link to="/settings/profile">Settings Profile Page</Link>
         </li>
+        <li><Link to="/track/design">Track Home Page - Design</Link></li>
       </ul>
 
       <h3>TCO Assets</h3>
