@@ -19,6 +19,7 @@ import challengeDetails, { factory as challengeDetailsFactory }
 import communities from './communities';
 import dashboard from './dashboard';
 import settings, { factory as settingsFactory } from './settings';
+import trackHomePages from './trackHomePages';
 
 import hallOfFame, { factory as hallOfFameFactory } from './hallOfFame';
 import reviewOpportunityDetails from './review-opportunity-details';
@@ -42,6 +43,7 @@ export function factory(req) {
     reviewOpportunityDetails,
     submissionManagement,
     sandbox,
+    trackHomePages,
   }));
 }
 
@@ -55,4 +57,5 @@ export default combineReducers({
   submission,
   submissionManagement,
   sandbox,
+  trackHomePages,
 });

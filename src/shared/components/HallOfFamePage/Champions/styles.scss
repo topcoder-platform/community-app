@@ -4,6 +4,8 @@
   display: flex;
   justify-content: space-between;
   width: 100%;
+  flex-grow: 1;
+  flex-wrap: wrap;
 
   @include xs-to-lg {
     flex-wrap: wrap;

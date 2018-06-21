@@ -295,6 +295,14 @@ exports[`Matches shallow shapshot 1`] = `
         Settings Profile Page
       </Link>
     </li>
+    <li>
+      <Link
+        replace={false}
+        to="/track/design"
+      >
+        Track Home Page - Design
+      </Link>
+    </li>
   </ul>
   <h3>
     TCO Assets

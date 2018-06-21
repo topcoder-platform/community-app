@@ -139,7 +139,6 @@ const HallOfFamePage = ({ eventId, onSelectEvent, hallOfFame }) => {
             <div styleName="champions">
               <h3>{champions.title}</h3>
               <Champions data={champions} />
-              <div styleName="button-wrapper-view-all"><PrimaryButton>View All tracks</PrimaryButton></div>
             </div>
           ) : undefined
         }
