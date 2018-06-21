@@ -6,6 +6,7 @@ import PT from 'prop-types';
 import React from 'react';
 
 import MarkdownRenderer from 'components/MarkdownRenderer';
+import { fixStyle } from 'utils/contentful';
 
 import { themr } from 'react-css-super-themr';
 import defaultTheme from './themes/default.scss';
@@ -18,11 +19,11 @@ function ContentBlock({
   return (
     <div
       className={theme.container}
-      style={contentBlock.extraStylesForContainer}
+      style={fixStyle(contentBlock.extraStylesForContainer)}
     >
       <div
         className={theme.contentWrapper}
-        style={contentBlock.extraStylesForContentWrapper}
+        style={fixStyle(contentBlock.extraStylesForContentWrapper)}
       >
         {
           background ? (
@@ -33,7 +34,7 @@ function ContentBlock({
         }
         <div
           className={theme.content}
-          style={contentBlock.extraStylesForContent}
+          style={fixStyle(contentBlock.extraStylesForContent)}
         >
           <MarkdownRenderer markdown={contentBlock.text} />
         </div>

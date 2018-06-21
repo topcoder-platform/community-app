@@ -9,6 +9,7 @@ import React from 'react';
 import MarkdownRenderer from 'components/MarkdownRenderer';
 
 import { themr } from 'react-css-super-themr';
+import { fixStyle } from 'utils/contentful';
 
 import defaultTheme from './themes/default.scss';
 
@@ -22,12 +23,15 @@ function Banner({
       className={theme.container}
       style={_.merge({
         backgroundImage: `url(${background.file.url})`,
-      }, banner.containerStyles)}
+      }, fixStyle(banner.containerStyles))}
     >
-      <div className={theme.contentWrapper} style={banner.contentWrapperStyles}>
+      <div
+        className={theme.contentWrapper}
+        style={fixStyle(banner.contentWrapperStyles)}
+      >
         <div
           className={theme.content}
-          style={banner.contentStyles}
+          style={fixStyle(banner.contentStyles)}
         >
           <MarkdownRenderer markdown={banner.text} />
         </div>
