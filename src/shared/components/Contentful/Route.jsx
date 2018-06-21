@@ -18,6 +18,7 @@ const buildUrl = (base, segment) => `${_.trimEnd(base, '/')}/${_.trim(segment, '
 
 function ChildRoutesLoader(props) {
   const {
+    error404,
     fields,
     preview,
     url,
@@ -64,7 +65,7 @@ function ChildRoutesLoader(props) {
               />
             )))
           }
-          <Route component={Error404} />
+          { error404 || <Route component={error404 || Error404} /> }
         </Switch>
       )}
       renderPlaceholder={LoadingIndicator}
@@ -72,7 +73,12 @@ function ChildRoutesLoader(props) {
   );
 }
 
+ChildRoutesLoader.defaultProps = {
+  error404: null,
+};
+
 ChildRoutesLoader.propTypes = {
+  error404: PT.node,
   fields: PT.shape().isRequired,
   preview: PT.bool.isRequired,
   url: PT.string.isRequired,
@@ -81,6 +87,7 @@ ChildRoutesLoader.propTypes = {
 export default function ContentfulRoute(props) {
   const {
     baseUrl,
+    error404,
     id,
     name,
     path,
@@ -108,6 +115,7 @@ export default function ContentfulRoute(props) {
             path={url}
             render={() => (
               <ChildRoutesLoader
+                error404={error404}
                 fields={fields}
                 preview={preview}
                 url={url}
@@ -123,6 +131,7 @@ export default function ContentfulRoute(props) {
 
 ContentfulRoute.defaultProps = {
   baseUrl: '',
+  error404: null,
   id: '',
   name: '',
   path: '',
@@ -131,6 +140,7 @@ ContentfulRoute.defaultProps = {
 
 ContentfulRoute.propTypes = {
   baseUrl: PT.string,
+  error404: PT.node,
   id: PT.string,
   name: PT.string,
   path: PT.string, // This can also be used to override the url from Contentful
