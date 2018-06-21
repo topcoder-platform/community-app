@@ -7,11 +7,11 @@
   color: #888894;
   font-size: 13px;
   line-height: 20px;
-  width: 173px;
+  min-width: 173px;
+  margin-bottom: 22px;
 
   @include xs-to-lg {
     width: 46%;
-    margin-bottom: 22px;
   }
 }
 
