@@ -3,6 +3,7 @@
  */
 
 import ChallengeListing from 'routes/Communities/ChallengeListing';
+import ContentfulRoute from 'components/Contentful/Route';
 import Error404 from 'components/Error404';
 import Footer from 'components/tc-communities/Footer2';
 import Header from 'containers/tc-communities/Header';
@@ -38,43 +39,49 @@ export default function Mobile({ base, meta }) {
               hideJoinNow
               pageId={match.params.pageId || 'home'}
             />
-            <Switch>
-              <Route
-                component={Home}
-                exact
-                path={`${base}/home`}
-              />
-              <Route
-                component={Home}
-                exact
-                path={`${base}`}
-              />
-              <Route
-                component={Learn}
-                exact
-                path={`${base}/learn`}
-              />
-              <Route
-                component={() => (
-                  <div>
-                    {
-                      ChallengeListing({
-                        challengesUrl: `${base}/challenges`,
-                        meta,
-                        listingOnly: true,
-                        newChallengeDetails: true,
-                      })
-                   }
-                  </div>
-                )}
-                exact
-                path={`${base}/challenges`}
-              />
-              <Route
-                component={Error404}
-                path={`${base}/:any`}
-              />
-            </Switch>
+            <ContentfulRoute
+              baseUrl="/"
+              error404={(
+                <Switch>
+                  <Route
+                    component={Home}
+                    exact
+                    path={`${base}/home`}
+                  />
+                  <Route
+                    component={Home}
+                    exact
+                    path={`${base}`}
+                  />
+                  <Route
+                    component={Learn}
+                    exact
+                    path={`${base}/learn`}
+                  />
+                  <Route
+                    component={() => (
+                      <div>
+                        {
+                          ChallengeListing({
+                            challengesUrl: `${base}/challenges`,
+                            meta,
+                            listingOnly: true,
+                            newChallengeDetails: true,
+                          })
+                      }
+                      </div>
+                    )}
+                    exact
+                    path={`${base}/challenges`}
+                  />
+                  <Route
+                    component={Error404}
+                    path={`${base}/:any`}
+                  />
+                </Switch>
+              )}
+              id="5iTZIKlrYQUSQCs0cU6WuO"
+            />
             <Footer />
           </div>
         </ThemeProvider>
