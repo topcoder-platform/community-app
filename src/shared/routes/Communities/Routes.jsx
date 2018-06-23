@@ -39,7 +39,7 @@ export default function Communities({
     case 'cognitive': return <Cognitive base={base} member={member} meta={meta} />;
     case 'iot': return <IoT base={base} meta={meta} />;
     case 'tco19': return <TCO19 base={base} meta={meta} />;
-    case 'mobile': return <Mobile base={base} />;
+    case 'mobile': return <Mobile base={base} meta={meta} />;
     default: throw new Error('Unknown community ID!');
   }
 }
