@@ -549,14 +549,6 @@ exports[`Matches shallow shapshot 1`] = `
         CMS-related testing.
       </Link>
     </li>
-    <li>
-      <Link
-        replace={false}
-        to="/sandbox/payments"
-      >
-        Payments PoC
-      </Link>
-    </li>
   </ul>
   <h3>
     Misc Examples

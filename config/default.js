@@ -118,6 +118,7 @@ module.exports = {
     IOS: 'https://ios.topcoder-dev.com',
     MEMBER: 'https://members.topcoder-dev.com',
     ONLINE_REVIEW: 'https://software.topcoder-dev.com',
+    PAYMENT_TOOL: 'https://payment.topcoder-dev.com',
     STUDIO: 'https://studio.topcoder-dev.com',
     TCO: 'https://www.topcoder.com/tco',
     TCO17: 'https://tco17.topcoder.com/',

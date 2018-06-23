@@ -230,9 +230,6 @@ export default function Content() {
             CMS-related testing.
           </Link>
         </li>
-        <li>
-          <Link to="/sandbox/payments">Payments PoC</Link>
-        </li>
       </ul>
 
       <h3>Misc Examples</h3>
