@@ -1,0 +1,141 @@
+/**
+ * Competition Types Carousel Component
+ */
+/* eslint-disable react/no-danger */
+import _ from 'lodash';
+import React from 'react';
+import PT from 'prop-types';
+import showdown from 'showdown';
+import { PrimaryButton } from 'topcoder-react-ui-kit';
+
+import ArrowNext from 'assets/images/arrow-next.svg';
+import ArrowPrev from 'assets/images/arrow-prev.svg';
+import TrackIcon from '../TrackIcon';
+
+import './styles.scss';
+
+const converter = new showdown.Converter();
+
+class CompetitionTypes extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      activeIndex: 0,
+      data: this.props.data.tracks,
+      challengeURL: this.props.data.tracks[0].viewChallengesLink,
+    };
+  }
+
+  toggleActive(index) {
+    this.setState({
+      activeIndex: index,
+      challengeURL: this.state.data[index].viewChallengesLink,
+    });
+  }
+
+  render() {
+    const {
+      track,
+      data,
+    } = this.props;
+
+    const types = _.assign({}, data.tracks);
+    const currentIndex = this.state.activeIndex;
+
+    return (
+      <div styleName="container">
+        <h1>Competition Types</h1>
+        <div
+          styleName="text"
+          dangerouslySetInnerHTML={
+            { __html: converter.makeHtml(data.description) }
+          }
+        />
+        <div styleName="track-icons">
+          {
+            _.map(types, (type, index) => (
+              <a key={type.trackName} role="link" tabIndex={0}>
+                <TrackIcon
+                  track={track}
+                  abbreviation={type.abbreviation}
+                  isBigIcon={false}
+                  onClick={() => this.toggleActive(index)}
+                  isActive={index === currentIndex.toString()}
+                />
+              </a>
+            ))
+          }
+        </div>
+        <div styleName="carousel">
+          <div styleName="arrow-wrapper">
+            <a
+              onClick={() => this.setState({ activeIndex: currentIndex - 1 })}
+              onKeyPress={() => this.setState({ activeIndex: currentIndex - 1 })}
+              role="button"
+              styleName={`arrow ${currentIndex > 0 ? 'active' : ''}`}
+              tabIndex={0}
+            ><ArrowPrev />
+            </a>
+          </div>
+          <div styleName="track-infos">
+            {
+                _.map(types, (type, index) => (
+                  <div styleName={`info ${index === currentIndex.toString() ? 'active' : ''}`} key={type.trackName}>
+                    <div styleName="mobile">
+                      <div styleName="big-icon-mobile">
+                        <TrackIcon
+                          track={track}
+                          abbreviation={type.abbreviation}
+                          isActive={index === currentIndex.toString()}
+                        />
+                      </div>
+                      <div styleName="mobile-title">
+                        { type.trackName}
+                      </div>
+                    </div>
+                    <div styleName="big-icon">
+                      <TrackIcon
+                        track={track}
+                        abbreviation={type.abbreviation}
+                        isActive={index === currentIndex.toString()}
+                      />
+                    </div>
+                    <div styleName="intro">
+                      <div styleName="title">
+                        { type.trackName}
+                      </div>
+                      <div styleName="description">
+                        { type.description}
+                      </div>
+                      <div styleName="period">
+                        { type.estimatedDuration}
+                      </div>
+                    </div>
+                  </div>
+                ))
+              }
+          </div>
+          <div styleName="arrow-wrapper">
+            <a
+              onClick={() => this.setState({ activeIndex: currentIndex + 1 })}
+              onKeyPress={() => this.setState({ activeIndex: currentIndex + 1 })}
+              role="button"
+              styleName={`arrow ${currentIndex < data.tracks.length - 1 ? 'active' : ''}`}
+              tabIndex={0}
+            ><ArrowNext />
+            </a>
+          </div>
+        </div>
+        <div styleName="button-wrapper"><PrimaryButton to={this.state.challengeURL} openNewTab>Browse Challenges</PrimaryButton></div>
+      </div>
+    );
+  }
+}
+
+CompetitionTypes.propTypes = {
+  track: PT.string.isRequired,
+  data: PT.shape().isRequired,
+};
+
+export default CompetitionTypes;

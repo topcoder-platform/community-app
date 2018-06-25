@@ -157,10 +157,6 @@ function onQueryContentDone(state, action) {
     res.items = reduceCollection(res.items, a);
   }
 
-  if (data.includes) {
-    _.assign(res, { includes: data.includes });
-  }
-
   return res;
 }
 

@@ -1,0 +1,65 @@
+@import "~styles/mixins";
+
+.image {
+  .edit-image {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .profile-circle {
+      margin-top: 10px;
+      border-radius: 50%;
+      border: 1px solid #d1d3d4;
+      width: 120px;
+      height: 120px;
+      padding: 2px;
+    }
+
+    .upload-image {
+      display: flex;
+      flex-direction: column;
+
+      p {
+        margin-top: 15px;
+        margin-bottom: 10px;
+      }
+
+      input {
+        padding: 0;
+      }
+    }
+
+    .buttons {
+      .file-upload {
+        position: relative;
+        overflow: hidden;
+        width: 120px;
+        text-transform: capitalize;
+        font-family: "Times New Roman", Georgia, Serif;
+        font-weight: 500;
+        font-size: 13px;
+        min-height: 30px;
+        padding: 0;
+        background-color: #fff;
+        color: #47474f;
+        border-radius: 6px;
+        border: 1px solid #47474f;
+        box-shadow: 0 2px 9px 0 rgba(38, 38, 40, 0.06);
+      }
+
+      .file-delete {
+        display: none;
+        width: 80px;
+        margin-left: 0;
+        text-transform: uppercase;
+        font-size: 12px;
+        min-height: 30px;
+        padding: 0;
+
+        &:hover {
+          background: $tc-dark-blue;
+        }
+      }
+    }
+  }
+}

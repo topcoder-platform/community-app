@@ -1,0 +1,74 @@
+@import "~styles/mixins";
+
+.hide {
+  display: none;
+}
+
+.basic-info-container {
+  display: flex;
+  align-items: flex-start;
+
+  @include sofia-pro-light;
+
+  .user-icon {
+    margin-right: 1em;
+  }
+
+  .form-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+
+    .handle {
+      @include sofia-pro-medium;
+
+      width: 103px;
+      height: 35px;
+      font-size: 28px;
+      line-height: 1.25;
+      color: #262628;
+      margin-bottom: 20px;
+    }
+
+    .row {
+      display: flex;
+      margin-bottom: 10px;
+
+      .field {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        margin-right: 10px;
+
+        label {
+          @include sofia-pro-medium;
+
+          font-size: 12px;
+          margin-bottom: 5px;
+        }
+      }
+    }
+
+    .bio-label {
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .bio-text {
+      height: 70px;
+    }
+
+    .date-input {
+      display: flex;
+      align-items: center;
+    }
+  }
+}
+
+.save-button {
+  margin-bottom: 15px;
+  margin-top: 15px;
+  height: 40px;
+  width: 190px;
+  font-size: 15px;
+}

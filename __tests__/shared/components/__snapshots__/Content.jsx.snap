@@ -295,6 +295,14 @@ exports[`Matches shallow shapshot 1`] = `
         Settings Profile Page
       </Link>
     </li>
+    <li>
+      <Link
+        replace={false}
+        to="/track/design"
+      >
+        Track Home Page - Design
+      </Link>
+    </li>
   </ul>
   <h3>
     TCO Assets
@@ -376,6 +384,22 @@ exports[`Matches shallow shapshot 1`] = `
         to="/__community__/demo-expert"
       >
         Demo Expert Community
+      </Link>
+    </li>
+    <li>
+      <Link
+        replace={false}
+        to="/__community__/iot"
+      >
+        IoT Community
+      </Link>
+    </li>
+    <li>
+      <Link
+        replace={false}
+        to="/__community__/mobile"
+      >
+        Mobile Community
       </Link>
     </li>
     <li>
@@ -464,6 +488,26 @@ exports[`Matches shallow shapshot 1`] = `
     <li>
       <Link
         replace={false}
+        to="/examples/contentful/quote/3o7LgdSIsougYimQ2GyUw4"
+      >
+        <code>
+          Quote
+        </code>
+      </Link>
+    </li>
+    <li>
+      <Link
+        replace={false}
+        to="/examples/contentful/video/4U4DkVDy3C0WcImaEw42mw"
+      >
+        <code>
+          Video
+        </code>
+      </Link>
+    </li>
+    <li>
+      <Link
+        replace={false}
         to="/examples/contentful/route/4eL1gLh8gU66ewMwIIYu4y"
       >
         <code>
@@ -503,14 +547,6 @@ exports[`Matches shallow shapshot 1`] = `
         to="/sandbox/cms/testing"
       >
         CMS-related testing.
-      </Link>
-    </li>
-    <li>
-      <Link
-        replace={false}
-        to="/sandbox/payments"
-      >
-        Payments PoC
       </Link>
     </li>
   </ul>

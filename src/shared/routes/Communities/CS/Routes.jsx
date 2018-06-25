@@ -5,6 +5,7 @@
 import Catalog from 'components/tc-communities/communities/cs/Catalog';
 import ChallengeDetails from 'routes/ChallengeDetails';
 import ChallengeListing from 'routes/Communities/ChallengeListing';
+import ChallengeListingBanner from 'components/tc-communities/communities/cs/ChallengeListingBanner';
 import Error404 from 'components/Error404';
 import FAQ from 'components/tc-communities/communities/cs/FAQ';
 import Footer from 'components/tc-communities/communities/cs/Footer';
@@ -36,6 +37,7 @@ export default function CS({ base, meta }) {
               <Route
                 component={() => ChallengeListing({
                   challengesUrl: `${base}/challenges`,
+                  ChallengeListingBanner,
                   meta,
                   newChallengeDetails: true,
                 })}

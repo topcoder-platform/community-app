@@ -114,6 +114,7 @@ export default function Content() {
         <li>
           <Link to="/settings/profile">Settings Profile Page</Link>
         </li>
+        <li><Link to="/track/design">Track Home Page - Design</Link></li>
       </ul>
 
       <h3>TCO Assets</h3>
@@ -145,6 +146,12 @@ export default function Content() {
         </li>
         <li>
           <Link to="/__community__/demo-expert">Demo Expert Community</Link>
+        </li>
+        <li>
+          <Link to="/__community__/iot">IoT Community</Link>
+        </li>
+        <li>
+          <Link to="/__community__/mobile">Mobile Community</Link>
         </li>
         <li>
           <Link to="/__community__/qa">QA Community</Link>
@@ -186,6 +193,16 @@ export default function Content() {
           </Link>
         </li>
         <li>
+          <Link to="/examples/contentful/quote/3o7LgdSIsougYimQ2GyUw4">
+            <code>Quote</code>
+          </Link>
+        </li>
+        <li>
+          <Link to="/examples/contentful/video/4U4DkVDy3C0WcImaEw42mw">
+            <code>Video</code>
+          </Link>
+        </li>
+        <li>
           <Link to="/examples/contentful/route/4eL1gLh8gU66ewMwIIYu4y">
             <code>Route</code>
           </Link>
@@ -212,9 +229,6 @@ export default function Content() {
           <Link to="/sandbox/cms/testing">
             CMS-related testing.
           </Link>
-        </li>
-        <li>
-          <Link to="/sandbox/payments">Payments PoC</Link>
         </li>
       </ul>
 

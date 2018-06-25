@@ -1,0 +1,35 @@
+@import "~styles/mixins";
+
+nav.side-tab ul {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  li {
+    height: 45px;
+    margin-bottom: 20px;
+  }
+
+  a {
+    @include sofia-pro-light;
+
+    font-size: 15px;
+    line-height: 25px;
+    color: #262628;
+    text-transform: capitalize;
+    text-decoration: none;
+    cursor: pointer;
+    height: 100%;
+    padding-left: 21px;
+    display: flex;
+    align-items: center;
+
+    img {
+      margin-right: 14px;
+    }
+
+    &:focus {
+      outline: none;
+    }
+  }
+}

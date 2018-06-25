@@ -129,19 +129,8 @@ function findRequestedData(props) {
   res.entries = findData(entries, entryIds, entryQueries, minTimestamp);
   if (!res.entries) return null;
 
-  if (entries.includes) {
-    res.includes = entries.includes;
-  }
-
   return res;
 }
-
-const PROPS_CAUSING_UPDATE = [
-  'assetIds', 'assetQueries',
-  'entryIds', 'entryQueries',
-  'maxage', 'preview', 'refreshMaxage',
-  'render', 'renderPlaceholder',
-];
 
 class ContentfulLoader extends React.Component {
   componentDidMount() {
@@ -152,24 +141,11 @@ class ContentfulLoader extends React.Component {
       entryQueries,
       refreshMaxage,
     } = this.props;
-
     const timeLimit = Date.now() - refreshMaxage;
     this.loadContentOnMount(assetIds, 'assets', timeLimit);
     this.loadContentOnMount(entryIds, 'entries', timeLimit);
     this.loadQueriesOnMount(assetQueries, 'assets', timeLimit);
     this.loadQueriesOnMount(entryQueries, 'entries', timeLimit);
-  }
-
-  shouldComponentUpdate(nextProps) {
-    for (let i = 0; i !== PROPS_CAUSING_UPDATE.length; i += 1) {
-      const prop = PROPS_CAUSING_UPDATE[i];
-      if (nextProps[prop] !== this.props[prop]) return true;
-    }
-    /* TODO: Memorize nextData in the object, to not re-calculate them during
-     * the rendering. */
-    const data = findRequestedData(this.props);
-    const nextData = findRequestedData(nextProps);
-    return Boolean(data) !== Boolean(nextData) || !_.isEqual(data, nextData);
   }
 
   componentDidUpdate(prev) {
@@ -305,8 +281,12 @@ class ContentfulLoader extends React.Component {
     if (!contentQueries && !prevQueries) return;
     const old = toArray(prevQueries);
     const neu = toArray(contentQueries);
+    const oldIds = old.map(q => queryToMd5(q));
+    const neuIds = old.map(q => queryToMd5(q));
     let added;
     let gone;
+    let addedIds;
+    let goneIds;
     const {
       bookQuery,
       freeQuery,
@@ -317,17 +297,27 @@ class ContentfulLoader extends React.Component {
     if (preview !== prev.preview) {
       added = neu;
       gone = old;
+      addedIds = neuIds;
+      goneIds = oldIds;
     } else {
-      added = arrayDiff(neu, old);
-      gone = arrayDiff(old, neu);
+      addedIds = arrayDiff(neuIds, oldIds);
+      goneIds = arrayDiff(oldIds, neuIds);
+      added = [];
+      if (addedIds.length) {
+        const neuMap = _.zipObject(neuIds, neu);
+        addedIds.forEach(id => added.push(neuMap[id]));
+      }
+      gone = [];
+      if (goneIds.length) {
+        const oldMap = _.zipObject(oldIds, old);
+        goneIds.forEach(id => gone.push(oldMap[id]));
+      }
     }
     if (gone.length) {
-      const ids = gone.map(q => queryToMd5(q));
-      ids.forEach(id => freeQuery(id, target, prev.preview));
+      goneIds.forEach(id => freeQuery(id, target, prev.preview));
     }
     if (added.length) {
-      const ids = added.map(q => queryToMd5(q));
-      ids.forEach((id, index) => {
+      addedIds.forEach((id, index) => {
         bookQuery(id, target, preview);
         const slot = queries[id];
         if (!slot || (!slot.loadingOperationId && slot.timestamp < timeLimit)) {

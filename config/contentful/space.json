@@ -227,13 +227,13 @@
           "sys": {
             "type": "Link",
             "linkType": "Space",
-            "id": "b5f1djy59z3a"
+            "id": "lw2izgzzjdoy"
           }
         },
         "id": "viewport",
         "type": "ContentType",
-        "createdAt": "2018-05-01T21:49:27.462Z",
-        "updatedAt": "2018-06-13T15:22:34.786Z",
+        "createdAt": "2018-06-22T17:45:50.560Z",
+        "updatedAt": "2018-06-22T19:47:04.300Z",
         "environment": {
           "sys": {
             "id": "master",
@@ -245,28 +245,28 @@
           "sys": {
             "type": "Link",
             "linkType": "User",
-            "id": "5eyjAZAPH48cRQzQMTCIxG"
+            "id": "5aXn7I37HU18yyBamAAtGm"
           }
         },
         "updatedBy": {
           "sys": {
             "type": "Link",
             "linkType": "User",
-            "id": "5eyjAZAPH48cRQzQMTCIxG"
+            "id": "5aXn7I37HU18yyBamAAtGm"
           }
         },
-        "publishedCounter": 3,
-        "version": 6,
+        "publishedCounter": 5,
+        "version": 10,
         "publishedBy": {
           "sys": {
             "type": "Link",
             "linkType": "User",
-            "id": "5eyjAZAPH48cRQzQMTCIxG"
+            "id": "5aXn7I37HU18yyBamAAtGm"
           }
         },
-        "publishedVersion": 5,
-        "firstPublishedAt": "2018-05-01T21:49:27.921Z",
-        "publishedAt": "2018-06-13T15:22:34.786Z"
+        "publishedVersion": 9,
+        "firstPublishedAt": "2018-06-22T17:46:08.896Z",
+        "publishedAt": "2018-06-22T19:47:04.300Z"
       },
       "displayField": "name",
       "name": "Viewport",
@@ -299,6 +299,34 @@
             ],
             "linkType": "Entry"
           }
+        },
+        {
+          "id": "theme",
+          "name": "Theme",
+          "type": "Symbol",
+          "localized": false,
+          "required": false,
+          "validations": [
+            {
+              "in": [
+                "Column",
+                "Row with Max-Width"
+              ]
+            }
+          ],
+          "disabled": false,
+          "omitted": false
+        },
+        {
+          "id": "extraStylesForContainer",
+          "name": "Extra styles for container",
+          "type": "Object",
+          "localized": false,
+          "required": false,
+          "validations": [
+          ],
+          "disabled": false,
+          "omitted": false
         }
       ]
     },
@@ -587,7 +615,8 @@
             {
               "in": [
                 "Default",
-                "Veteran"
+                "Veteran",
+                "Row Item"
               ],
               "message": "Unknown theme"
             }

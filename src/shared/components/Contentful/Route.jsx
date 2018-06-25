@@ -18,11 +18,13 @@ const buildUrl = (base, segment) => `${_.trimEnd(base, '/')}/${_.trim(segment, '
 
 function ChildRoutesLoader(props) {
   const {
+    error404,
     fields,
-    ids,
     preview,
     url,
   } = props;
+
+  const ids = _.map(fields.childRoutes, 'sys.id');
 
   return (
     <ContentfulLoader
@@ -52,12 +54,6 @@ function ChildRoutesLoader(props) {
             )}
           />
           {
-            /**
-             * TODO: Technically, it means that we are going to load entire
-             * tree of routes, even for the paths that are guaranteed not to
-             * match. It should optimized to load only those child routes that
-             * may match, judging by the currently tested route segment.
-             */
             _.map(data.entries.items, (childRoute => (
               <ContentfulRoute
                 id={childRoute.sys.id}
@@ -69,7 +65,7 @@ function ChildRoutesLoader(props) {
               />
             )))
           }
-          <Route component={Error404} />
+          { error404 || <Route component={error404 || Error404} /> }
         </Switch>
       )}
       renderPlaceholder={LoadingIndicator}
@@ -77,9 +73,13 @@ function ChildRoutesLoader(props) {
   );
 }
 
+ChildRoutesLoader.defaultProps = {
+  error404: null,
+};
+
 ChildRoutesLoader.propTypes = {
+  error404: PT.node,
   fields: PT.shape().isRequired,
-  ids: PT.arrayOf(PT.string).isRequired,
   preview: PT.bool.isRequired,
   url: PT.string.isRequired,
 };
@@ -87,6 +87,7 @@ ChildRoutesLoader.propTypes = {
 export default function ContentfulRoute(props) {
   const {
     baseUrl,
+    error404,
     id,
     name,
     path,
@@ -108,11 +109,18 @@ export default function ContentfulRoute(props) {
         const { fields } = Object.values(data.entries.items)[0];
         const url = path || buildUrl(baseUrl, fields.url);
         return (
-          <ChildRoutesLoader
-            fields={fields}
-            ids={_.map(fields.childRoutes, 'sys.id')}
-            preview={preview}
-            url={url}
+          <Route
+            /* This route prevents fetching data about child routes and their
+             * rendering, if they already known to not match. */
+            path={url}
+            render={() => (
+              <ChildRoutesLoader
+                error404={error404}
+                fields={fields}
+                preview={preview}
+                url={url}
+              />
+            )}
           />
         );
       }}
@@ -123,6 +131,7 @@ export default function ContentfulRoute(props) {
 
 ContentfulRoute.defaultProps = {
   baseUrl: '',
+  error404: null,
   id: '',
   name: '',
   path: '',
@@ -131,6 +140,7 @@ ContentfulRoute.defaultProps = {
 
 ContentfulRoute.propTypes = {
   baseUrl: PT.string,
+  error404: PT.node,
   id: PT.string,
   name: PT.string,
   path: PT.string, // This can also be used to override the url from Contentful
