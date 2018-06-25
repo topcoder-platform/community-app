@@ -23,7 +23,6 @@ import trackHomePages from './trackHomePages';
 
 import hallOfFame, { factory as hallOfFameFactory } from './hallOfFame';
 import reviewOpportunityDetails from './review-opportunity-details';
-import sandbox from './sandbox';
 
 /**
  * Reducer factory.
@@ -42,7 +41,6 @@ export function factory(req) {
     dashboard,
     reviewOpportunityDetails,
     submissionManagement,
-    sandbox,
     trackHomePages,
   }));
 }
@@ -56,6 +54,5 @@ export default combineReducers({
   reviewOpportunityDetails,
   submission,
   submissionManagement,
-  sandbox,
   trackHomePages,
 });

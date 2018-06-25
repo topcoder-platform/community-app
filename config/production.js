@@ -27,6 +27,7 @@ module.exports = {
     HELP: 'https://help.topcoder.com',
     MEMBER: 'https://member.topcoder.com',
     ONLINE_REVIEW: 'https://software.topcoder.com',
+    PAYMENT_TOOL: 'https://payment.topcoder.com',
     STUDIO: 'https://studio.topcoder.com',
     IOS: 'https://ios.topcoder.com',
 

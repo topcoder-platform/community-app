@@ -3,11 +3,9 @@
  */
 
 import ChallengeListing from 'routes/Communities/ChallengeListing';
-import Error404 from 'components/Error404';
+import ContentfulRoute from 'components/Contentful/Route';
 import Footer from 'components/tc-communities/Footer2';
 import Header from 'containers/tc-communities/Header';
-import Home from 'containers/tc-communities/mobile/Home';
-import Learn from 'containers/tc-communities/mobile/Learn';
 import PT from 'prop-types';
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
@@ -40,21 +38,6 @@ export default function Mobile({ base, meta }) {
             />
             <Switch>
               <Route
-                component={Home}
-                exact
-                path={`${base}/home`}
-              />
-              <Route
-                component={Home}
-                exact
-                path={`${base}`}
-              />
-              <Route
-                component={Learn}
-                exact
-                path={`${base}/learn`}
-              />
-              <Route
                 component={() => (
                   <div>
                     {
@@ -64,15 +47,15 @@ export default function Mobile({ base, meta }) {
                         listingOnly: true,
                         newChallengeDetails: true,
                       })
-                   }
+                  }
                   </div>
                 )}
                 exact
                 path={`${base}/challenges`}
               />
-              <Route
-                component={Error404}
-                path={`${base}/:any`}
+              <ContentfulRoute
+                baseUrl={base}
+                id="5iTZIKlrYQUSQCs0cU6WuO"
               />
             </Switch>
             <Footer />
