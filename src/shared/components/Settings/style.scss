@@ -2,9 +2,9 @@
 
 .container {
   background: $tc-gray-neutral-dark;
-  flex: 1;
-  padding: 20px 10px;
+  padding: 30px 60px;
   width: 100%;
+  box-shadow: 0 1px 0 0 #f0f0f0;
 
   @include xs-to-sm {
     padding: 0;
@@ -21,7 +21,7 @@
   background: $tc-white;
   border-radius: 6px;
   margin: 0 auto;
-  max-width: $screen-lg;
+  max-width: 1246px;
 }
 
 :global {
@@ -29,7 +29,7 @@
     .Select-input,
     .Select-placeholder,
     .Select-value-label,
-    .Select-menu-outer, {
+    .Select-menu-outer {
       @include merriweather-sans-regular;
     }
   }
@@ -108,7 +108,7 @@
       @media only screen and (min-width: 768px) {
         border-left: 6px solid #f6f6f6;
         padding-left: 60px;
-        max-width: 816px;// 1242 - (60 + 270 + 30 + 6 + 60)
+        max-width: 816px;
       }
 
       .form-field {
@@ -168,8 +168,6 @@
   }
 
   .save-section {
-    background-color: #fcfcfc;
-    border-top: 1px solid #f0f0f0;
     display: flex;
     flex-direction: column;
     justify-content: center;

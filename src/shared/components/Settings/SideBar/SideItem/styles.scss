@@ -1,5 +1,31 @@
 @import "~styles/mixins";
 
-a.active-tab {
+.menu-item {
+  margin-left: 14px;
+}
+
+.active-tab {
   background-color: #ededf2;
+
+  .menu-item {
+    @include roboto-bold;
+
+    font-size: 15px;
+    line-height: 25px;
+    font-weight: 700;
+  }
+}
+
+.tab {
+  .menu-item {
+    @include roboto-regular;
+
+    font-size: 15px;
+    font-weight: 400;
+    line-height: 25px;
+  }
+}
+
+.svg-icon {
+  margin-top: 3px;
 }

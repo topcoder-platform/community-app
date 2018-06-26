@@ -80,6 +80,7 @@
     "react-select": "^1.1.0",
     "react-slick": "^0.15.4",
     "react-stickynode": "^1.4.1",
+    "react-svg": "^4.0.17",
     "react-waypoint": "^7.1.0",
     "redux": "^3.7.2",
     "redux-actions": "^2.4.0",

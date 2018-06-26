@@ -4,11 +4,9 @@
 import React from 'react';
 import PT from 'prop-types';
 
-
 import SideBar from '../SideBar';
 import sideIcons from './SideIcons';
 import BasicInfo from './BasicInfo';
-
 
 import './styles.scss';
 
@@ -38,4 +36,3 @@ Profile.propTypes = {
   settingsUI: PT.shape().isRequired,
   toggleProfileSideTab: PT.func.isRequired,
 };
-
