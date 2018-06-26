@@ -1,8 +1,9 @@
 /**
- * render a side bar tab item
+ * render a side bar tab Item
  */
 import React from 'react';
 import PT from 'prop-types';
+import ReactSVG from 'react-svg';
 
 import './styles.scss';
 
@@ -13,6 +14,8 @@ export default function SideItem(props) {
     name,
     toggle,
   } = props;
+
+  const fileExtension = icon.substring(icon.length - 3, icon.length);
 
   const clickTab = (e, tab) => {
     e.preventDefault();
@@ -27,8 +30,10 @@ export default function SideItem(props) {
       tabIndex={0}
       onKeyPress={e => clickTab(e, name)}
       onClick={e => clickTab(e, name)}
-      styleName={currentTab === name ? 'active-tab' : ''}
-    ><img src={icon} alt="" />{ name }
+      styleName={currentTab === name ? 'active-tab' : 'tab'}
+    >
+      { fileExtension === 'svg' ? <div styleName="svg-icon"><ReactSVG path={icon} svgStyle={{ width: 30, height: 30 }} /></div> : <img src={icon} alt="" />}
+      <div styleName="menu-item">{ name }</div>
     </a>
   );
 }

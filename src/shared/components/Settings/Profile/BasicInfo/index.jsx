@@ -2,6 +2,7 @@
  * Child component of Settings/Profile/ renders the
  * 'Basic Info' page.
  */
+/* eslint-disable react/forbid-prop-types */
 /* eslint-disable no-nested-ternary */
 /* eslint-disable jsx-a11y/label-has-for */
 import _ from 'lodash';
@@ -38,6 +39,7 @@ export default class BasicInfo extends React.Component {
       basicInfo: this.toBasicInfo(this.props.userTraits),
     };
   }
+
   componentWillReceiveProps(nextProps) {
     const newBasicInfo = this.toBasicInfo(nextProps.userTraits);
     this.setState({
@@ -302,11 +304,11 @@ export default class BasicInfo extends React.Component {
                 theme={{ button: Styles['save-button'] }}
               >
                 {
-                 'Save Changes'
-              }
+                  'Save Changes'
+                }
                 {
-                this.state.savingBasicInfo && '......'
-              }
+                  this.state.savingBasicInfo && '......'
+                }
               </PrimaryButton>
             </div>
           </div>
@@ -319,7 +321,7 @@ export default class BasicInfo extends React.Component {
 BasicInfo.propTypes = {
   tokenV3: PT.string.isRequired,
   handle: PT.string.isRequired,
-  userTraits: PT.shape().isRequired,
+  userTraits: PT.array.isRequired,
   settingsUI: PT.shape().isRequired,
   addUserTrait: PT.func.isRequired,
   updateUserTrait: PT.func.isRequired,

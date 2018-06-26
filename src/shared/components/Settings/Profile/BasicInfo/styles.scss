@@ -11,7 +11,7 @@
   @include sofia-pro-light;
 
   .user-icon {
-    margin-right: 1em;
+    margin-right: 40px;
   }
 
   .form-container {
@@ -49,6 +49,10 @@
       }
     }
 
+    div.row:last-child {
+      margin-bottom: 0;
+    }
+
     .bio-label {
       display: flex;
       justify-content: space-between;
@@ -66,8 +70,7 @@
 }
 
 .save-button {
-  margin-bottom: 15px;
-  margin-top: 15px;
+  margin-top: 20px;
   height: 40px;
   width: 190px;
   font-size: 15px;

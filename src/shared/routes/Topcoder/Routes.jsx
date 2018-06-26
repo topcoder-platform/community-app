@@ -75,7 +75,7 @@ export default function Topcoder() {
             <Route
               component={Settings}
               exact
-              path="/settings/:settingsTab(profile|account|email|preferences)"
+              path="/settings/:settingsTab(profile|tools|account|email|preferences)"
             />
             <Route
               component={ProfileStats}
