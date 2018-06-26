@@ -1,5 +1,6 @@
 /**
- * render a side bar tab item
+ * Sidebar item for the preference page sidebar.
+ * It opens a new browser tab with the URL passed as prop.
  */
 import React from 'react';
 import PT from 'prop-types';
@@ -9,9 +10,8 @@ import './styles.scss';
 export default function SideItem(props) {
   const {
     icon,
-    currentTab,
     name,
-    toggle,
+    url,
   } = props;
 
   /*
@@ -30,20 +30,13 @@ export default function SideItem(props) {
     );
   };
 
-  const clickTab = (e, tab) => {
-    e.preventDefault();
-    setImmediate(() => {
-      toggle(tab);
-    });
-  };
-
   return (
     <a
-      role="link"
+      styleName="SideItem"
+      href={url}
+      target="_blank"
+      rel="noopener noreferrer"
       tabIndex={0}
-      onKeyPress={e => clickTab(e, name)}
-      onClick={e => clickTab(e, name)}
-      styleName={`SideItem ${currentTab === name ? 'active-tab' : ''}`}
     >
       {
         // `icon` can either be an img src (a string) or a React element
@@ -57,11 +50,10 @@ export default function SideItem(props) {
 }
 
 SideItem.propTypes = {
-  currentTab: PT.string.isRequired,
   name: PT.string.isRequired,
   icon: PT.oneOfType([
     PT.string, // for img icons
     PT.element, // for svg icons
   ]).isRequired,
-  toggle: PT.func.isRequired,
+  url: PT.string.isRequired,
 };

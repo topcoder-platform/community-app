@@ -1,0 +1,16 @@
+@import "~styles/mixins";
+
+.Personalization {
+  margin-bottom: 60px;
+
+  .title {
+    @include tc-heading-lg;
+
+    margin-bottom: 25px;
+  }
+
+  .user-consent-container {
+    border-top: 1px solid $tc-gray-neutral-dark;
+    min-height: 430px;
+  }
+}

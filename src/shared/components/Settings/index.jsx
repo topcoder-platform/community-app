@@ -14,7 +14,6 @@ import './style.scss';
 import Profile from './Profile';
 import Account from './Account';
 import Preferences from './Preferences';
-import EmailPreferences from './EmailPreferences';
 
 export default function Settings(props) {
   const {
@@ -30,9 +29,6 @@ export default function Settings(props) {
   switch (settingsTab) {
     case TABS.ACCOUNT:
       title = 'Account Info';
-      break;
-    case TABS.EMAIL:
-      title = 'Email Preferences';
       break;
     case TABS.PREFERENCES:
       title = 'Preferences';
@@ -65,12 +61,6 @@ export default function Settings(props) {
         {
           settingsTab === TABS.ACCOUNT &&
           <Account
-            {...props}
-          />
-        }
-        {
-          settingsTab === TABS.EMAIL &&
-          <EmailPreferences
             {...props}
           />
         }
