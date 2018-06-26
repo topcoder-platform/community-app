@@ -336,20 +336,6 @@
           "validations": [
             {
               "unique": true
-            },
-            {
-              "size": {
-                "max": 2,
-                "min": 2
-              },
-              "message": "2 digits"
-            },
-            {
-              "regexp": {
-                "pattern": "^[1-9]\\d*$",
-                "flags": null
-              },
-              "message": "number only"
             }
           ],
           "disabled": false,
