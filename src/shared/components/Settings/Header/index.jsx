@@ -29,7 +29,6 @@ export default function Header(props) {
         <a role="link" tabIndex={0} onKeyPress={e => clickTab(e, TABS.PROFILE)} onClick={e => clickTab(e, TABS.PROFILE)} styleName={settingsTab === TABS.PROFILE ? 'active-tab' : 'tab'}>Profile</a>
         <a role="link" tabIndex={0} onKeyPress={e => clickTab(e, TABS.TOOLS)} onClick={e => clickTab(e, TABS.TOOLS)} styleName={settingsTab === TABS.TOOLS ? 'active-tab' : 'tab'}>Tools</a>
         <a role="link" tabIndex={0} onKeyPress={e => clickTab(e, TABS.ACCOUNT)} onClick={e => clickTab(e, TABS.ACCOUNT)} styleName={settingsTab === TABS.ACCOUNT ? 'active-tab' : 'tab'}>Account</a>
-        <a role="link" tabIndex={0} onKeyPress={e => clickTab(e, TABS.EMAIL)} onClick={e => clickTab(e, TABS.EMAIL)} styleName={settingsTab === TABS.EMAIL ? 'active-tab' : 'tab'}>Email</a>
         <a role="link" tabIndex={0} onKeyPress={e => clickTab(e, TABS.PREFERENCES)} onClick={e => clickTab(e, TABS.PREFERENCES)} styleName={settingsTab === TABS.PREFERENCES ? 'active-tab' : 'tab'}>Preferences</a>
       </div>
     </div>

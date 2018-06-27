@@ -149,7 +149,7 @@ function mapDispatchToProps(dispatch) {
       dispatch(profileActions.getExternalAccountsDone(handle));
       dispatch(profileActions.getExternalLinksDone(handle));
       dispatch(profileActions.getSkillsDone(handle));
-    } else if (settingsTab === TABS.EMAIL) {
+    } else if (settingsTab === TABS.PREFERENCES) {
       dispatch(profileActions.getEmailPreferencesInit());
       dispatch(profileActions.getEmailPreferencesDone(profile, tokenV3));
     } else if (settingsTab === TABS.ACCOUNT) {

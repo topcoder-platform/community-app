@@ -1,45 +1,68 @@
 /**
- * Child component of Settings/Email renders setting page for misc preferences.
+ * Child component of Settings
+ * Preferences renders setting page for user preferences.
  */
 import React from 'react';
 
-import { config } from 'topcoder-react-utils';
+import Email from './Email';
+import Personalization from './Personalization';
+import SideBar from './SideBar';
 
 import './styles.scss';
 
-export default function Preferences() {
-  return (
-    <div styleName="preferences-container">
-      <ul>
-        <li>
-          <a href={`${config.URL.FORUMS}/?module=Settings`} target="_blank" rel="noopener noreferrer">
-            <div styleName="icon"><i className="fa fa-comment" /></div>
-            <span>Forum Preferences</span>
-            <div styleName="description">Change how forums are displayed and when you&quot;re notified regarding activity</div>
-          </a>
-        </li>
-        <li>
-          <a href={`${config.URL.COMMUNITY}/tc?module=EditPaymentPreferences`} target="_blank" rel="noopener noreferrer">
-            <div styleName="icon"><i className="fa fa-credit-card" /></div>
-            <span>Payment Preferences</span>
-            <div styleName="description">Select your preferred payment method and set accrual limits</div>
-          </a>
-        </li>
-        <li>
-          <a href={`${config.URL.COMMUNITY}/tc?module=VisaSelection`} target="_blank" rel="noopener noreferrer">
-            <div styleName="icon"><i className="fa fa-user" /></div>
-            <span>Invitation Letter</span>
-            <div styleName="description">Need a visa letter for a Topcoder event? Get one here.</div>
-          </a>
-        </li>
-        <li>
-          <a href={`${config.URL.COMMUNITY}/tc?module=ViewReferrals`} target="_blank" rel="noopener noreferrer">
-            <div styleName="icon"><i className="fa fa-users" /></div>
-            <span>Referrals</span>
-            <div styleName="description">If you participated in our past referral program, see who registered using your invitation link</div>
-          </a>
-        </li>
-      </ul>
-    </div>
-  );
+const tabs = {
+  EMAIL: 'e-mail',
+  FORUM: 'forum',
+  PAYMENT: 'payment',
+  LETTER: 'invitation letter',
+  REFERRALS: 'referrals',
+  PERSONALIZATION: 'personalization',
+};
+
+export default class Preferences extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.toggleTab = this.toggleTab.bind(this);
+
+    this.state = {
+      currentTab: 'e-mail',
+    };
+  }
+
+  toggleTab(tab) {
+    this.setState({ currentTab: tab });
+  }
+
+  render() {
+    const {
+      currentTab,
+    } = this.state;
+
+    const renderTabContent = (tab) => {
+      switch (tab) {
+        case 'e-mail':
+          return <Email {...this.props} />;
+        case 'personalization':
+          return <Personalization {...this.props} />;
+        default:
+          return null;
+      }
+    };
+
+    return (
+      <div styleName="preferences-container">
+        <div styleName="col-bar">
+          <SideBar
+            tabs={tabs}
+            currentTab={currentTab}
+            toggle={this.toggleTab}
+          />
+        </div>
+        <div styleName="col-content">
+          { renderTabContent(currentTab) }
+        </div>
+      </div>
+    );
+  }
 }

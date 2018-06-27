@@ -16,32 +16,15 @@ a.SideItem {
 
   img {
     margin-right: 14px;
-    width: 34px;
-    max-height: 30px;
   }
 
   &:focus {
     outline: none;
   }
 
-  &.active-tab {
-    background-color: #ededf2;
-    font-weight: 700;
-  }
-
   .svg-container {
     display: flex;
     justify-content: center;
     margin-right: 12px;
-  }
-}
-
-.tab {
-  .menu-item {
-    @include roboto-regular;
-
-    font-size: 15px;
-    font-weight: 400;
-    line-height: 25px;
   }
 }

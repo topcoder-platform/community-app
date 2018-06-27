@@ -48,15 +48,6 @@ exports[`renders setting page header correctly 1`] = `
       role="link"
       tabIndex={0}
     >
-      Email
-    </a>
-    <a
-      className="src-shared-components-Settings-Header-___styles__tab___2IDaU"
-      onClick={[Function]}
-      onKeyPress={[Function]}
-      role="link"
-      tabIndex={0}
-    >
       Preferences
     </a>
   </div>
