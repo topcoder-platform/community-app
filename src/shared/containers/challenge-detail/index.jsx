@@ -198,7 +198,7 @@ class ChallengeDetailPageContainer extends React.Component {
       registerForChallenge,
       terms,
     } = this.props;
-    if (!auth.tokenV2) {
+    if (!auth.tokenV3) {
       const utmSource = communityId || 'community-app-main';
       window.location.href = `${config.URL.AUTH}/member?retUrl=${encodeURIComponent(window.location.href)}&utm_source=${utmSource}`;
     } else if (_.every(terms, 'agreed')) {
