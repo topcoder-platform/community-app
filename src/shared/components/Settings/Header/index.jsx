@@ -1,69 +1,41 @@
 /**
- * Child component of Settings/Header renders summary of number of active challenges.
- * Also renders special badges based on achievements data.
-*/
-import _ from 'lodash';
+ * Child component of Settings/Header
+ */
 import React from 'react';
 import PT from 'prop-types';
-
-import Badge, { MAP, XL_MAP } from '../../Dashboard/Header/Badge';
+import { TABS } from 'actions/page/settings';
 
 import './styles.scss';
 
 export default function Header(props) {
   const {
-    profileState,
-    showXlBadge,
-    xlBadge,
-    activeChallengesCount,
+    selectTab,
+    settingsTab,
   } = props;
-  const achievements = profileState.achievements || [];
-  const badges = achievements.filter(x => MAP[x.description]);
-  const hasBadges = badges && badges.length;
+
+  const clickTab = (e, tab) => {
+    e.preventDefault();
+    setImmediate(() => {
+      selectTab(tab);
+    });
+  };
+
   return (
     <div styleName="page-state-header">
-      <header>
-        <div styleName="page-info">
-          <h1>Settings</h1>
-        </div>
-        <div styleName="info">
-          <div styleName="badgeItem">
-            {
-              _.map(badges, ({ description }) => (
-                <Badge
-                  badge={MAP[description]}
-                  key={description}
-                  showXl={show => showXlBadge(show && description)}
-                  title={description}
-                  xlBadge={xlBadge === description && XL_MAP[xlBadge]}
-                />
-              ))
-            }
-          </div>
-          <div styleName="separator" className={hasBadges ? '' : 'hidden'} />
-          <div styleName="item">
-            <div styleName="value">
-              <p>{_.isNumber(activeChallengesCount) && activeChallengesCount >= 0 ? activeChallengesCount : ''}</p>
-            </div>
-            <div styleName="title">
-              <p>Active Challenges</p>
-            </div>
-          </div>
-        </div>
-      </header>
+      <div styleName="page-info">
+        <h1>Settings</h1>
+      </div>
+      <div styleName="menu-list">
+        <a role="link" tabIndex={0} onKeyPress={e => clickTab(e, TABS.PROFILE)} onClick={e => clickTab(e, TABS.PROFILE)} styleName={settingsTab === TABS.PROFILE ? 'active-tab' : 'tab'}>Profile</a>
+        <a role="link" tabIndex={0} onKeyPress={e => clickTab(e, TABS.TOOLS)} onClick={e => clickTab(e, TABS.TOOLS)} styleName={settingsTab === TABS.TOOLS ? 'active-tab' : 'tab'}>Tools</a>
+        <a role="link" tabIndex={0} onKeyPress={e => clickTab(e, TABS.ACCOUNT)} onClick={e => clickTab(e, TABS.ACCOUNT)} styleName={settingsTab === TABS.ACCOUNT ? 'active-tab' : 'tab'}>Account</a>
+        <a role="link" tabIndex={0} onKeyPress={e => clickTab(e, TABS.PREFERENCES)} onClick={e => clickTab(e, TABS.PREFERENCES)} styleName={settingsTab === TABS.PREFERENCES ? 'active-tab' : 'tab'}>Preferences</a>
+      </div>
     </div>
   );
 }
 
-Header.defaultProps = {
-  xlBadge: null,
-  activeChallengesCount: -1,
-};
-
 Header.propTypes = {
-  profileState: PT.shape().isRequired,
-  showXlBadge: PT.func.isRequired,
-  xlBadge: PT.string,
-  activeChallengesCount: PT.number,
+  settingsTab: PT.string.isRequired,
+  selectTab: PT.func.isRequired,
 };
-

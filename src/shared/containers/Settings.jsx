@@ -10,7 +10,6 @@ import { isTokenExpired } from 'tc-accounts';
 import { goToLogin } from 'utils/tc';
 
 import { actions } from 'topcoder-react-lib';
-import dashActions from 'actions/page/dashboard';
 import settingsActions, { TABS } from 'actions/page/settings';
 
 import Error404 from 'components/Error404';
@@ -33,7 +32,6 @@ class SettingsContainer extends React.Component {
       settingsTab,
       tokenV3,
       authenticating,
-      loadHeaderData,
       loadTabData,
       loadAllUserTraits,
     } = props;
@@ -47,11 +45,6 @@ class SettingsContainer extends React.Component {
     }
 
     const handleChanged = handle !== profileState.profileForHandle;
-
-    // Load header data
-    if (handleChanged) {
-      loadHeaderData(props);
-    }
 
     // Load all user traits
     if (handleChanged) {
@@ -94,11 +87,8 @@ SettingsContainer.defaultProps = {
 };
 
 SettingsContainer.propTypes = {
-  xlBadge: PT.string.isRequired,
-  loadHeaderData: PT.func.isRequired,
   loadTabData: PT.func.isRequired,
   selectTab: PT.func.isRequired,
-  showXlBadge: PT.func.isRequired,
   uploadPhoto: PT.func.isRequired,
   deletePhoto: PT.func.isRequired,
   updateProfile: PT.func.isRequired,
@@ -123,7 +113,6 @@ SettingsContainer.propTypes = {
 
 function mapStateToProps(state) {
   return {
-    xlBadge: state.page.dashboard.xlBadge,
     settingsTab: state.page.settings.settingsTab,
     settingsPageState: state.page.settings,
     authenticating: state.auth.authenticating,
@@ -142,13 +131,6 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   const profileActions = actions.profile;
-  const loadHeaderData = ({ handle, tokenV3 }) => {
-    dispatch(profileActions.loadProfile(handle));
-    dispatch(profileActions.getAchievementsInit());
-    dispatch(actions.challenge.getActiveChallengesCountInit());
-    dispatch(profileActions.getAchievementsDone(handle));
-    dispatch(actions.challenge.getActiveChallengesCountDone(handle, tokenV3));
-  };
 
   const loadTabData = ({
     handle,
@@ -163,8 +145,6 @@ function mapDispatchToProps(dispatch) {
       dispatch(profileActions.getLinkedAccountsInit());
       dispatch(profileActions.getExternalAccountsInit());
       dispatch(profileActions.getExternalLinksInit());
-      dispatch(actions.lookup.getSkillTagsInit());
-      dispatch(actions.lookup.getSkillTagsDone());
       dispatch(profileActions.getLinkedAccountsDone(profile, tokenV3));
       dispatch(profileActions.getExternalAccountsDone(handle));
       dispatch(profileActions.getExternalLinksDone(handle));
@@ -179,9 +159,7 @@ function mapDispatchToProps(dispatch) {
   };
 
   return {
-    loadHeaderData,
     loadTabData,
-    showXlBadge: name => dispatch(dashActions.page.dashboard.showXlBadge(name)),
     selectTab: tab => dispatch(settingsActions.page.settings.selectTab(tab)),
     clearIncorrectPassword: () => dispatch(settingsActions.page.settings.clearIncorrectPassword()),
     addWebLink: (handle, tokenV3, webLink) => {
@@ -231,6 +209,9 @@ function mapDispatchToProps(dispatch) {
     },
     toggleProfileSideTab: (tab) => {
       dispatch(actions.ui.settings.profile.toggleTab(tab));
+    },
+    toggleToolsSideTab: (tab) => {
+      dispatch(actions.ui.settings.tools.toggleTab(tab));
     },
     loadAllUserTraits: (handle, tokenV3) => {
       dispatch(actions.settings.getAllUserTraits(handle, tokenV3));

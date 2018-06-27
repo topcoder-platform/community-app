@@ -9,4 +9,20 @@ nav.side-tab ul {
     height: 45px;
     margin-bottom: 20px;
   }
+
+  a {
+    color: $tc-black;
+    text-transform: capitalize;
+    text-decoration: none;
+    cursor: pointer;
+    height: 100%;
+    padding-left: 21px;
+    display: flex;
+    align-items: center;
+    border-radius: 5px;
+
+    &:focus {
+      outline: none;
+    }
+  }
 }

@@ -6,6 +6,7 @@ import { createActions } from 'redux-actions';
 
 export const TABS = {
   PROFILE: 'profile',
+  TOOLS: 'tools',
   ACCOUNT: 'account',
   PREFERENCES: 'preferences',
 };

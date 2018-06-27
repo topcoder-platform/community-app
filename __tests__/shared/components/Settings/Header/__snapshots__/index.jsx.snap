@@ -4,61 +4,52 @@ exports[`renders setting page header correctly 1`] = `
 <div
   className="src-shared-components-Settings-Header-___styles__page-state-header___186Yi"
 >
-  <header>
-    <div
-      className="src-shared-components-Settings-Header-___styles__page-info___8tgl9"
+  <div
+    className="src-shared-components-Settings-Header-___styles__page-info___8tgl9"
+  >
+    <h1>
+      Settings
+    </h1>
+  </div>
+  <div
+    className="src-shared-components-Settings-Header-___styles__menu-list___1PSWJ"
+  >
+    <a
+      className="src-shared-components-Settings-Header-___styles__tab___2IDaU"
+      onClick={[Function]}
+      onKeyPress={[Function]}
+      role="link"
+      tabIndex={0}
     >
-      <h1>
-        Settings
-      </h1>
-    </div>
-    <div
-      className="src-shared-components-Settings-Header-___styles__info___2aTO2"
+      Profile
+    </a>
+    <a
+      className="src-shared-components-Settings-Header-___styles__tab___2IDaU"
+      onClick={[Function]}
+      onKeyPress={[Function]}
+      role="link"
+      tabIndex={0}
     >
-      <div
-        className="src-shared-components-Settings-Header-___styles__badgeItem___1V1KE"
-      >
-        <Badge
-          badge="digitalRunTopFive"
-          showXl={[Function]}
-          title="Digital Run Top Five"
-          xlBadge={false}
-        />
-        <Badge
-          badge="digitalRunWinner"
-          showXl={[Function]}
-          title="Digital Run Winner"
-          xlBadge={false}
-        />
-        <Badge
-          badge="srmEngagementHonor"
-          showXl={[Function]}
-          title="SRM Engagement Honor"
-          xlBadge="/community-app-assets/images/513f13bd15c4ada4399e77a685b1d2c7.png"
-        />
-      </div>
-      <div
-        className="src-shared-components-Settings-Header-___styles__separator___3aAxz"
-      />
-      <div
-        className="src-shared-components-Settings-Header-___styles__item___DUACf"
-      >
-        <div
-          className="src-shared-components-Settings-Header-___styles__value___3LpbW"
-        >
-          <p>
-            
-          </p>
-        </div>
-        <div
-          className="src-shared-components-Settings-Header-___styles__title___2Pmjv"
-        >
-          <p>
-            Active Challenges
-          </p>
-        </div>
-      </div>
-    </div>
-  </header>
+      Tools
+    </a>
+    <a
+      className="src-shared-components-Settings-Header-___styles__tab___2IDaU"
+      onClick={[Function]}
+      onKeyPress={[Function]}
+      role="link"
+      tabIndex={0}
+    >
+      Account
+    </a>
+    <a
+      className="src-shared-components-Settings-Header-___styles__tab___2IDaU"
+      onClick={[Function]}
+      onKeyPress={[Function]}
+      role="link"
+      tabIndex={0}
+    >
+      Preferences
+    </a>
+  </div>
 </div>
 `;

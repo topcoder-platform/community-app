@@ -8,11 +8,13 @@ import PT from 'prop-types';
 import React from 'react';
 import ContentBlock from './ContentBlock';
 
-/* eslint-disable global-require */
+import veteranTheme from './themes/default_veteran.scss';
+import rowItemTheme from './themes/row_item.scss';
+
 const THEMES = {
-  Veteran: require('./themes/default_veteran.scss'),
+  Veteran: veteranTheme,
+  'Row Item': rowItemTheme,
 };
-/* eslint-enable global-require */
 
 /* Loads content block background asset. */
 function BackgroundLoader(props) {

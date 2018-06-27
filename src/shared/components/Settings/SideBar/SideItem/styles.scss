@@ -16,6 +16,8 @@ a.SideItem {
 
   img {
     margin-right: 14px;
+    width: 34px;
+    max-height: 30px;
   }
 
   &:focus {
@@ -31,5 +33,15 @@ a.SideItem {
     display: flex;
     justify-content: center;
     margin-right: 12px;
+  }
+}
+
+.tab {
+  .menu-item {
+    @include roboto-regular;
+
+    font-size: 15px;
+    font-weight: 400;
+    line-height: 25px;
   }
 }

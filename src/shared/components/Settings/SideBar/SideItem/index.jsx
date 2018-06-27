@@ -1,5 +1,5 @@
 /**
- * render a side bar tab item
+ * render a side bar tab Item
  */
 import React from 'react';
 import PT from 'prop-types';

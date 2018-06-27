@@ -2,12 +2,14 @@
 
 .profile-container {
   display: flex;
-  padding-top: 60px;
+  flex-direction: row;
+  align-content: space-between;
+  padding: 60px 50px 55px 50px;
+  box-shadow: 0 2px 9px 0 rgba(38, 38, 40, 0.06);
 
   .col-bar {
-    width: 370px;
-    padding-left: 70px;
-    padding-right: 70px;
+    width: 250px;
+    margin-right: 70px;
   }
 
   .col-content {

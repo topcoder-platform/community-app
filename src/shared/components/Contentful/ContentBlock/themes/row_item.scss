@@ -1,0 +1,30 @@
+.contentWrapper {
+  flex-direction: column;
+  padding: 0;
+
+  h3 {
+    text-align: center;
+  }
+}
+
+.container {
+  margin: 0 15px;
+  padding: 0;
+  width: 100%;
+
+  &:first-child {
+    margin-left: 0;
+  }
+
+  &:last-child {
+    margin-right: 0;
+  }
+
+  &:nth-child(even) .contentWrapper {
+    flex-direction: column;
+  }
+}
+
+.image {
+  margin: 0;
+}

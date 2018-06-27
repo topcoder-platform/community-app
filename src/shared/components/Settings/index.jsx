@@ -8,7 +8,7 @@ import { MetaTags } from 'topcoder-react-utils';
 import { TABS } from 'actions/page/settings';
 
 import Header from './Header';
-import TabBar from './TabBar';
+import Tools from './Tools';
 
 import './style.scss';
 import Profile from './Profile';
@@ -27,6 +27,9 @@ export default function Settings(props) {
 
   let title;
   switch (settingsTab) {
+    case TABS.TOOLS:
+      title = 'Tools';
+      break;
     case TABS.ACCOUNT:
       title = 'Account Info';
       break;
@@ -46,15 +49,18 @@ export default function Settings(props) {
       />
       <div styleName="page">
         <Header
-          {...props}
-        />
-        <TabBar
           settingsTab={settingsTab}
           selectTab={selectTab}
         />
         {
           settingsTab === TABS.PROFILE &&
           <Profile
+            {...props}
+          />
+        }
+        {
+          settingsTab === TABS.TOOLS &&
+          <Tools
             {...props}
           />
         }
