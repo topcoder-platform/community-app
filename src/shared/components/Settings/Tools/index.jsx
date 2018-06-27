@@ -12,9 +12,13 @@ import Software from './Software';
 import './styles.scss';
 
 export default function Tools(props) {
-  const tabs = props.settingsUI.TABS.TOOLS;
+  const {
+    settingsUI,
+    toggleToolsSideTab,
+  } = props;
+  const tabs = settingsUI.TABS.TOOLS;
   const names = Object.keys(tabs).map(key => tabs[key]);
-  const currentTab = props.settingsUI.currentToolsTab;
+  const currentTab = settingsUI.currentToolsTab;
 
   let assets;
   const sideIcons = {};
@@ -35,7 +39,7 @@ export default function Tools(props) {
           icons={sideIcons}
           names={names}
           currentTab={currentTab}
-          toggle={props.toggleToolsSideTab}
+          toggle={toggleToolsSideTab}
         />
       </div>
       <div styleName="col-content">

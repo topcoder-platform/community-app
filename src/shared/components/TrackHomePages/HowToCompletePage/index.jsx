@@ -76,16 +76,24 @@ const HowToCompletePage = ({ howToComplete }) => {
           <Header data={header} />
         </div>
         <div styleName="steps" id="steps">
-          <h1>Step by Step</h1>
+          <h1>
+Step by Step
+          </h1>
           <StepByStep data={steps} />
         </div>
         <div styleName="how-to-extras">
-          <h1>How-to Extras</h1>
+          <h1>
+How-to Extras
+          </h1>
           <FAQ data={howToExtras} />
         </div>
         <div styleName="faq">
-          <h1>FAQ</h1>
-          <div styleName="text">Here’s a few answers to our most common questions</div>
+          <h1>
+FAQ
+          </h1>
+          <div styleName="text">
+Here’s a few answers to our most common questions
+          </div>
           <FAQ data={faq} />
         </div>
       </div>

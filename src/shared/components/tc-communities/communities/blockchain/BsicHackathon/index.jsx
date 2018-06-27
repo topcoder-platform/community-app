@@ -39,7 +39,9 @@ export default function BsicHackathon({
         </div>
       </div>
       <div styleName="contentBlock">
-        <h1 styleName="h1">About the Incubator</h1>
+        <h1 styleName="h1">
+About the Incubator
+        </h1>
         <p>
           The Decentralized Impact Incubator is a 6-week program built off of
           the traditional idea of a hackathon to ideate and prototype
@@ -55,7 +57,9 @@ export default function BsicHackathon({
         </p>
       </div>
       <div styleName="contentBlock">
-        <h1 styleName="h1">Prizes</h1>
+        <h1 styleName="h1">
+Prizes
+        </h1>
         <div>
           Cash prize of $50,000 USD to best teams of each challenge category:
           <ul>
@@ -79,28 +83,42 @@ export default function BsicHackathon({
       </div>
       <div styleName="contentBlock twoColumns">
         <div styleName="timelineCardContainer">
-          <h1 styleName="h1">Timeline</h1>
+          <h1 styleName="h1">
+Timeline
+          </h1>
           <div styleName="nowrap">
             <h3 styleName="timelinePhaseName">
               Registration and Team Formation:
-            </h3>&zwnj;
+            </h3>
+&zwnj;
             March 21st - April 16th
           </div>
           <div styleName="nowrap">
-            <h3 styleName="timelinePhaseName">Competition:</h3>&zwnj;
+            <h3 styleName="timelinePhaseName">
+Competition:
+            </h3>
+&zwnj;
             April 9th - May 21st
           </div>
           <div styleName="nowrap">
-            <h3 styleName="timelinePhaseName">Judging:</h3>&zwnj;
+            <h3 styleName="timelinePhaseName">
+Judging:
+            </h3>
+&zwnj;
             May 21st - June 4th
           </div>
           <div styleName="nowrap">
-            <h3 styleName="timelinePhaseName">Winners Announced:</h3>&zwnj;
+            <h3 styleName="timelinePhaseName">
+Winners Announced:
+            </h3>
+&zwnj;
             June 4th
           </div>
         </div>
         <div>
-          <h1 styleName="h1">Judging Criteria</h1>
+          <h1 styleName="h1">
+Judging Criteria
+          </h1>
           <ul>
             <li>
               Weekly checkpoints (which will guide you to create an excellent
@@ -136,7 +154,9 @@ export default function BsicHackathon({
       </div>
       <div styleName="challengesContainer">
         <div styleName="challengesContent">
-          <h1 styleName="h1">Get Started</h1>
+          <h1 styleName="h1">
+Get Started
+          </h1>
           <JoinCommunity
             label="Join Topcoder Blockchain Community"
           />
@@ -151,7 +171,7 @@ export default function BsicHackathon({
             <ChallengeCard
               imgUrl={ChallengeImgRefugees}
               title="Refugees Challenge"
-              text={
+              text={(
                 <div>
                   From Myanmar to Syria, geopolitical instability has created
                   the largest humanitarian crisis since WWII. 65.6 million
@@ -201,12 +221,12 @@ export default function BsicHackathon({
                     </li>
                   </ul>
                 </div>
-              }
+)}
             />
             <ChallengeCard
               imgUrl={ChallengeImgDemocracy}
               title="Democracy Challenge"
-              text={
+              text={(
                 <div>
                   Secure voting, protected privacy, free flow of
                   information...these ideas empower an equitable, distributed
@@ -257,12 +277,12 @@ export default function BsicHackathon({
                     </li>
                   </ul>
                 </div>
-              }
+)}
             />
             <ChallengeCard
               imgUrl={ChallengeImgHardware}
               title="Hardware Challenge"
-              text={
+              text={(
                 <div>
                   As more and more blockchain for social impact projects pop up,
                   a pattern of problems has arisen. How do we reduce the need
@@ -303,12 +323,12 @@ export default function BsicHackathon({
                     </li>
                   </ul>
                 </div>
-              }
+)}
             />
             <ChallengeCard
               imgUrl={ChallengeImgAgriculture}
               title="Agriculture Challenge"
-              text={
+              text={(
                 <div>
                   Poor agricultural practices are damaging the Earth&apos;s
                   land and environment. Overgrazing and overdrafting lead to
@@ -365,13 +385,15 @@ export default function BsicHackathon({
                     </li>
                   </ul>
                 </div>
-              }
+)}
             />
           </div>
         </div>
       </div>
       <div styleName="faq">
-        <h2>FAQ for Competitors</h2>
+        <h2>
+FAQ for Competitors
+        </h2>
         <FaqItem
           open={shownFaqItems.n01}
           question="What do I absolutely need to know about the #ImpactIncubator?"
@@ -391,7 +413,9 @@ export default function BsicHackathon({
                 rel="noopener noreferrer"
               >
                 https://paper.dropbox.com/doc/Weekly-checkpoints-09FvI6B1wAuT7qqVvw7kz?_tk=share_copylink
-              </a> and (2) a 5-min video demo
+              </a>
+              {' '}
+and (2) a 5-min video demo
             </li>
             <li>
               You will be scored by such criteria
@@ -568,7 +592,8 @@ export default function BsicHackathon({
               to="https://docs.google.com/document/d/1hBIqUlout-8nK1cSfGOAQ9T1dQKPXGK6A_JaKZerVjE/edit?usp=sharing"
             >
               the detailed instructions on the final submission
-            </Link>.
+            </Link>
+.
           </p>
         </FaqItem>
         <FaqItem
@@ -640,7 +665,9 @@ export default function BsicHackathon({
           conference on June 1.
         </FaqItem>
         <br />
-        <h3>FAQ for Mentors</h3>
+        <h3>
+FAQ for Mentors
+        </h3>
         <FaqItem
           open={shownFaqItems.n22}
           question="How many teams are there?"

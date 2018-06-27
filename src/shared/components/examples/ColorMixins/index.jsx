@@ -8,18 +8,54 @@ import './style.scss';
 export default function ColorMixins() {
   return (
     <div styleName="container">
-      <h1 styleName="title">Color Mixins</h1>
+      <h1 styleName="title">
+Color Mixins
+      </h1>
       <div styleName="text">
         The numeral suffixes of color constants indicate mix levels of black
-        and white. <code>100</code> means the base color (and the base colors
+        and white.
+        {' '}
+        <code>
+100
+        </code>
+        {' '}
+means the base color (and the base colors
         are aliased under the same names without suffixes); levels below
-        &zwnj;<code>100</code> mean the mix of base with white; levels above
-        &zwnj;<code>100</code> mean the mix of base with black.
+        &zwnj;
+        <code>
+100
+        </code>
+        {' '}
+mean the mix of base with white; levels above
+        &zwnj;
+        <code>
+100
+        </code>
+        {' '}
+mean the mix of base with black.
       </div>
       <div styleName="text">
-        In general, colors with <code>110</code> suffix should be used for text
-        only. For the Metals, <code>110</code> should be used for the normal and
-        larger text above the metal, and <code>130</code> should be used for
+        In general, colors with
+        {' '}
+        <code>
+110
+        </code>
+        {' '}
+suffix should be used for text
+        only. For the Metals,
+        {' '}
+        <code>
+110
+        </code>
+        {' '}
+should be used for the normal and
+        larger text above the metal, and
+        {' '}
+        <code>
+130
+        </code>
+        {' '}
+should be used for
         text with small font, for better visibility.
       </div>
       <div styleName="text">

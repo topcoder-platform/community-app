@@ -18,11 +18,13 @@ class TipsQuotes extends React.Component {
       tipsQuotes: getItems(props.numTipsQuotes, props.data.tipsQuotes),
     };
   }
+
   render() {
+    const { tipsQuotes } = this.state;
     return (
       <div styleName="container">
         {
-          this.state.tipsQuotes.map(tipQuote => (
+          tipsQuotes.map(tipQuote => (
             <div key={tipQuote.text} styleName="tip-quote">
               <div
                 styleName="text"
@@ -35,8 +37,12 @@ class TipsQuotes extends React.Component {
                   <img src={tipQuote.memberPhoto.file.url} alt={tipQuote.memberHandle} />
                 </div>
                 <div styleName="member-info">
-                  <a href={tipQuote.memberProfileLink} target="_blank" rel="noopener noreferrer" styleName="member-handle">{ tipQuote.memberHandle}</a>
-                  <div styleName="member-date">{`Topcoder member since ${tipQuote.memberSince}`}</div>
+                  <a href={tipQuote.memberProfileLink} target="_blank" rel="noopener noreferrer" styleName="member-handle">
+                    { tipQuote.memberHandle}
+                  </a>
+                  <div styleName="member-date">
+                    {`Topcoder member since ${tipQuote.memberSince}`}
+                  </div>
                 </div>
               </div>
             </div>

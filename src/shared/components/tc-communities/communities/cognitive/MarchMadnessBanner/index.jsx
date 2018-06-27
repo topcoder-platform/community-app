@@ -17,7 +17,8 @@ export default function MonthOfLoveBanner({
       <div>
         <h1
           styleName="title"
-        >Cognitive March Madness
+        >
+Cognitive March Madness
         </h1>
         <p styleName="text">
           Four contests to build a tool that gathers information on teams and
@@ -30,7 +31,8 @@ export default function MonthOfLoveBanner({
           button: style.button,
         }}
         to={to}
-      >View Challenges
+      >
+View Challenges
       </Button>
     </div>
   );

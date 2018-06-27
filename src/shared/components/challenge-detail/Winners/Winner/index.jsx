@@ -42,21 +42,25 @@ export default function Winner({
     <div styleName={`winner ${placeStyle}`}>
       {
         <div styleName="thumbnail">
-          <div styleName="flag">{winner.placement}</div>
+          <div styleName="flag">
+            {winner.placement}
+          </div>
           {
-            (viewable && isDesign) ?
-              (
+            (viewable && isDesign)
+              ? (
                 <img
                   styleName="preview"
                   alt=""
-                  src={`${config.URL.STUDIO}/studio.jpg` +
-                    `?module=DownloadSubmission&sbmid=${submissionId}&sbt=small&sfi=1`}
+                  src={`${config.URL.STUDIO}/studio.jpg`
+                    + `?module=DownloadSubmission&sbmid=${submissionId}&sbt=small&sfi=1`}
                 />
-              ) :
-              (
+              )
+              : (
                 <div styleName="lock">
                   <Lock styleName="lock-icon" />
-                  <div styleName="text">LOCKED</div>
+                  <div styleName="text">
+LOCKED
+                  </div>
                 </div>
               )
           }
@@ -72,25 +76,40 @@ export default function Winner({
             <a
               href={`${config.URL.BASE}/members/${winner.handle}`}
               styleName="handle"
-            >{winner.handle}
+            >
+              {winner.handle}
             </a>
-            <div styleName="prize">${prize}</div>
+            <div styleName="prize">
+$
+              {prize}
+            </div>
           </div>
         </div>
         {
-          submissionId &&
-          <div styleName="id">ID: <span>#{getId(submissions, winner.placement)}</span></div>
+          submissionId
+          && (
+          <div styleName="id">
+ID:
+            <span>
+#
+              {getId(submissions, winner.placement)}
+            </span>
+          </div>
+          )
         }
         {
-          (winner.submissionDownloadLink && viewable) &&
+          (winner.submissionDownloadLink && viewable)
+          && (
           <a
             href={isDesign ? `${config.URL.STUDIO}/?module=DownloadSubmission&sbmid=${submissionId}` : winner.submissionDownloadLink}
             styleName="download"
             target="_blank"
             challenge
             rel="noopener noreferrer"
-          >Download
+          >
+Download
           </a>
+          )
         }
         {
           /*

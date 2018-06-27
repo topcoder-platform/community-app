@@ -24,41 +24,60 @@ import Switch from 'components/Switch';
 import UiSimpleRemove from '../../Icons/ui-simple-remove.svg';
 import './style.scss';
 
-const EditTrackPanel = props => (
-  <div styleName={`EditTrackPanel ${props.opened === true ? 'opened' : 'closed'}`}>
-    <div styleName="header">
-      <span styleName="title">Tracks</span>
-      <span
-        styleName="close-icon"
-        onClick={() => props.onClose()}
-        onKeyPress={() => props.onClose()}
-      >
-        <UiSimpleRemove />
-      </span>
+function EditTrackPanel({
+  dataScienceEnabled,
+  designEnabled,
+  devEnabled,
+  onClose,
+  opened,
+  switchDataScience,
+  switchDesign,
+  switchDev,
+}) {
+  return (
+    <div styleName={`EditTrackPanel ${opened === true ? 'opened' : 'closed'}`}>
+      <div styleName="header">
+        <span styleName="title">
+  Tracks
+        </span>
+        <span
+          styleName="close-icon"
+          onClick={() => onClose()}
+          onKeyPress={() => onClose()}
+        >
+          <UiSimpleRemove />
+        </span>
+      </div>
+      <div styleName="row">
+        <span>
+  Design
+        </span>
+        <Switch
+          enabled={designEnabled}
+          onSwitch={switchDesign}
+        />
+      </div>
+      <div styleName="row">
+        <span>
+  Development
+        </span>
+        <Switch
+          enabled={devEnabled}
+          onSwitch={switchDev}
+        />
+      </div>
+      <div styleName="row">
+        <span>
+  Data Science
+        </span>
+        <Switch
+          enabled={dataScienceEnabled}
+          onSwitch={switchDataScience}
+        />
+      </div>
     </div>
-    <div styleName="row">
-      <span>Design</span>
-      <Switch
-        enabled={props.designEnabled}
-        onSwitch={props.switchDesign}
-      />
-    </div>
-    <div styleName="row">
-      <span>Development</span>
-      <Switch
-        enabled={props.devEnabled}
-        onSwitch={props.switchDev}
-      />
-    </div>
-    <div styleName="row">
-      <span>Data Science</span>
-      <Switch
-        enabled={props.dataScienceEnabled}
-        onSwitch={props.switchDataScience}
-      />
-    </div>
-  </div>
-);
+  );
+}
 
 EditTrackPanel.defaultProps = {
   opened: false,

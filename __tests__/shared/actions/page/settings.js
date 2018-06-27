@@ -9,8 +9,7 @@ describe('page.settings.selectTab', () => {
     expect(a.type).toBe('PAGE/SETTINGS/SELECT_TAB');
   });
 
-  test('Select tab should be returned with identity value', () =>
-    expect(a.payload).toBe(payload));
+  test('Select tab should be returned with identity value', () => expect(a.payload).toBe(payload));
 });
 
 describe('page.settings.clearIncorrectPassword', () => {
@@ -20,6 +19,5 @@ describe('page.settings.clearIncorrectPassword', () => {
     expect(a.type).toBe('PAGE/SETTINGS/CLEAR_INCORRECT_PASSWORD');
   });
 
-  test('Clear incorrect password should be returned with identity value', () =>
-    expect(a.payload).toBe(payload));
+  test('Clear incorrect password should be returned with identity value', () => expect(a.payload).toBe(payload));
 });

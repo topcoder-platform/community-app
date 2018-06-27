@@ -15,10 +15,14 @@ export default function CommunityTile(props) {
 
   return (
     <div styleName="container">
-      <div styleName="left" >
+      <div styleName="left">
         <img src={require(`assets/images/tc-communities/background/${community.image}`)} alt="" />
-        <div styleName="name">{community.communityName}</div>
-        <div styleName="desc">{community.description}</div>
+        <div styleName="name">
+          {community.communityName}
+        </div>
+        <div styleName="desc">
+          {community.description}
+        </div>
         <a
           href={baseUrl}
           rel="noopener noreferrer"
@@ -39,15 +43,25 @@ export default function CommunityTile(props) {
                   <div styleName="value">
                     {(stats.numMembers || 0).toLocaleString()}
                   </div>
-                  <div styleName="label">Members</div>
+                  <div styleName="label">
+Members
+                  </div>
                 </div>
                 <div styleName="stats-item">
-                  <div styleName="value">{stats.numChallenges || 0}</div>
-                  <div styleName="label">Challenges</div>
+                  <div styleName="value">
+                    {stats.numChallenges || 0}
+                  </div>
+                  <div styleName="label">
+Challenges
+                  </div>
                 </div>
                 <div styleName="stats-item">
-                  <div styleName="value">{stats.openPrizes || '$0'}</div>
-                  <div styleName="label">Purse Cash</div>
+                  <div styleName="value">
+                    {stats.openPrizes || '$0'}
+                  </div>
+                  <div styleName="label">
+Purse Cash
+                  </div>
                 </div>
               </div>
             )

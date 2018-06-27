@@ -19,7 +19,9 @@ const TopBanner = ({
     }}
   >
     <div styleName="buttonContainer">
-      <PrimaryButton to={`${baseUrl}/register`} onClick={evt => evt.preventDefault()}>Join Now</PrimaryButton>
+      <PrimaryButton to={`${baseUrl}/register`} onClick={evt => evt.preventDefault()}>
+Join Now
+      </PrimaryButton>
     </div>
   </Section>
 );

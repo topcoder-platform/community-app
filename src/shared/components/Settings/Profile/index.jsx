@@ -11,9 +11,13 @@ import BasicInfo from './BasicInfo';
 import './styles.scss';
 
 export default function Profile(props) {
-  const tabs = props.settingsUI.TABS.PROFILE;
+  const {
+    settingsUI,
+    toggleProfileSideTab,
+  } = props;
+  const tabs = settingsUI.TABS.PROFILE;
   const names = Object.keys(tabs).map(key => tabs[key]);
-  const currentTab = props.settingsUI.currentProfileTab;
+  const currentTab = settingsUI.currentProfileTab;
   return (
     <div styleName="profile-container">
       <div styleName="col-bar">
@@ -21,7 +25,7 @@ export default function Profile(props) {
           icons={sideIcons}
           names={names}
           currentTab={currentTab}
-          toggle={props.toggleProfileSideTab}
+          toggle={toggleProfileSideTab}
         />
       </div>
       <div styleName="col-content">

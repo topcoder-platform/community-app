@@ -25,7 +25,9 @@ class StatsModal extends React.Component {
             <div styleName="avatar">
               <img src={info.photoURL} alt="user img" />
             </div>
-            <div styleName="handle" style={{ color: getRatingColor(info.maxRating.rating || 0) }}>{info.handle}</div>
+            <div styleName="handle" style={{ color: getRatingColor(info.maxRating.rating || 0) }}>
+              {info.handle}
+            </div>
           </div>
           <a styleName="exit" onClick={onClose} onKeyPress={onClose} role="button" tabIndex={0}>
             <X />

@@ -67,19 +67,23 @@ class MemberSearchInput extends React.Component {
           tabIndex={i}
         >
           <Avatar size={30} url={member.photoURL} />
-          <div styleName="handle">{member.handle}</div>
+          <div styleName="handle">
+            {member.handle}
+          </div>
         </div>
       );
     };
 
     return (
       <div styleName="container">
-        {isPopupVisible &&
-          keyword.length >= AUTOCOMPLETE_TRIGGER_LENGTH &&
-          searchMembers.length > 0 &&
+        {isPopupVisible
+          && keyword.length >= AUTOCOMPLETE_TRIGGER_LENGTH
+          && searchMembers.length > 0
+          && (
           <div styleName="member-dropdown">
             {searchMembers.map(renderMember)}
           </div>
+          )
         }
         <div styleName="avatarPrefix">
           <Avatar url={selectedNewMember && selectedNewMember.photoURL} />

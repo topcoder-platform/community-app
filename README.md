@@ -68,8 +68,10 @@ If you run the App locally against production Topcoder backend you should run it
 - Now you can run the App.
 To login into production Topcoder backend use `accounts.topcoder.com/members` with your regular account, and to logout you can just wipe out cookies, or just log out at `www.topcoder.com`.
 
-Development dependencies include StyleFMT. You can execute `$ npm run fix:styles` to automatically correct you stylesheets to comply with Stylelint rules (but it can fail for some rules).
-To automatically correct js files, you can use `npm run fix:js`.
+Development dependencies include StyleFMT. You can execute
+`$ npm run lint:scss -- --fix` to automatically correct you stylesheets to
+comply with Stylelint rules (but it can fail for some rules).
+To automatically correct js files, you can use `npm run lint:js -- --fix`.
 
 ### Accessing Wipro Community
 

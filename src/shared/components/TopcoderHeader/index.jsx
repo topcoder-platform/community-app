@@ -139,8 +139,9 @@ export default class TopcoderHeader extends React.Component {
   }
 
   componentWillUnmount() {
-    this.props.closeMenu();
-    this.props.closeSearch();
+    const { closeMenu, closeSearch } = this.props;
+    closeMenu();
+    closeSearch();
     this.removeGlobalTouchListener();
   }
 
@@ -185,8 +186,9 @@ export default class TopcoderHeader extends React.Component {
   }
 
   closeSearch() {
+    const { closeSearch } = this.props;
     this.searchInput.blur();
-    this.props.closeSearch();
+    closeSearch();
   }
 
   render() {
@@ -226,8 +228,8 @@ export default class TopcoderHeader extends React.Component {
             /* False when mouse cursor leaves from the main menu element to the
              * sub-menu. In that case we keep the sub-menu opened, and responsible
              * for further tracking of the mouse cursor. */
-            if (!isMobile && activeTrigger &&
-              1 + event.pageY < activeTrigger.bottom) closeMenu();
+            if (!isMobile && activeTrigger
+              && 1 + event.pageY < activeTrigger.bottom) closeMenu();
           }}
           onTouchStart={(event) => {
             if (isMobile && openedMenu && openedMenu.title === item.title) {
@@ -239,7 +241,8 @@ export default class TopcoderHeader extends React.Component {
             }
           }}
           styleName={styleName}
-        >{item.title}
+        >
+          {item.title}
         </li>
       );
     });
@@ -294,8 +297,8 @@ export default class TopcoderHeader extends React.Component {
             /* False when mouse cursor leaves from the main menu element to the
              * sub-menu. In that case we keep the sub-menu opened, and responsible
              * for further tracking of the mouse cursor. */
-            if (!isMobile && activeTrigger &&
-              1 + event.pageY < activeTrigger.bottom) closeMenu();
+            if (!isMobile && activeTrigger
+              && 1 + event.pageY < activeTrigger.bottom) closeMenu();
           }}
           onTouchStart={(event) => {
             if (isMobile && openedMenu && openedMenu.title === userSubMenu.title) {
@@ -319,7 +322,13 @@ export default class TopcoderHeader extends React.Component {
           {userAvatar}
         </div>
       );
-    } else authButtons = <span styleName="auth-align"><Auth /></span>;
+    } else {
+      authButtons = (
+        <span styleName="auth-align">
+          <Auth />
+        </span>
+      );
+    }
 
     return (
       <div
@@ -349,8 +358,8 @@ export default class TopcoderHeader extends React.Component {
               className={searchOpened ? 'opened' : ''}
               onMouseEnter={event => !isMobile && openSearch(event.target)}
               onMouseLeave={(event) => {
-                if (!isMobile && activeTrigger &&
-                  1 + event.pageY < activeTrigger.bottom) closeSearch();
+                if (!isMobile && activeTrigger
+                  && 1 + event.pageY < activeTrigger.bottom) closeSearch();
               }}
               onTouchStart={(event) => {
                 if (isMobile && searchOpened) {
@@ -362,7 +371,8 @@ export default class TopcoderHeader extends React.Component {
                 }
               }}
               styleName="search-icon"
-            ><MagnifyingGlass />
+            >
+              <MagnifyingGlass />
             </div>
           </div>
         </div>

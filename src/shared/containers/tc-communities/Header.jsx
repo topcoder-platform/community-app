@@ -105,8 +105,7 @@ function mapDispatchToProps(dispatch) {
       dispatch(communityActions.tcCommunity.getListInit(uuid));
       dispatch(communityActions.tcCommunity.getListDone(uuid, auth));
     },
-    onMobileToggleClick: () =>
-      dispatch(metaActions.tcCommunities.meta.mobileToggle()),
+    onMobileToggleClick: () => dispatch(metaActions.tcCommunities.meta.mobileToggle()),
   });
 }
 

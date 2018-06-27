@@ -92,8 +92,8 @@ function onFilterSaved(state, action) {
 
   return {
     ...state,
-    activeBucket: newSavedFilter.filter.isForReviewOpportunities ?
-      BUCKETS.SAVED_REVIEW_OPPORTUNITIES_FILTER : BUCKETS.SAVED_FILTER,
+    activeBucket: newSavedFilter.filter.isForReviewOpportunities
+      ? BUCKETS.SAVED_REVIEW_OPPORTUNITIES_FILTER : BUCKETS.SAVED_FILTER,
     activeSavedFilter: state.savedFilters.length,
     savedFilters: state.savedFilters.concat(newSavedFilter),
     isSavingFilter: false,
@@ -139,8 +139,8 @@ function onSelectSavedFilter(state, { payload }) {
   });
   return {
     ...state,
-    activeBucket: isForReviewOpportunities ?
-      BUCKETS.SAVED_REVIEW_OPPORTUNITIES_FILTER : BUCKETS.SAVED_FILTER,
+    activeBucket: isForReviewOpportunities
+      ? BUCKETS.SAVED_REVIEW_OPPORTUNITIES_FILTER : BUCKETS.SAVED_FILTER,
     activeSavedFilter: payload,
   };
 }

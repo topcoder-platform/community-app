@@ -27,8 +27,13 @@ function Quote({
           <div className={`${theme.avatarContainer} ${(avatar ? '' : theme.noImage)}`}>
             { avatar ? <img alt="Quote author avatar" src={avatar.file.url} /> : null }
             <div className={theme.authorInfo}>
-              <span className={theme.authorName}>{quote.authorName}&nbsp;</span>
-              <span className={theme.authorAffiliation}>{quote.authorAffiliation}</span>
+              <span className={theme.authorName}>
+                {quote.authorName}
+&nbsp;
+              </span>
+              <span className={theme.authorAffiliation}>
+                {quote.authorAffiliation}
+              </span>
             </div>
           </div>
           <div
@@ -39,8 +44,13 @@ function Quote({
               <MarkdownRenderer markdown={quote.text} />
             </div>
             <div className={theme.authorInfo}>
-              <span className={theme.authorName}>{quote.authorName}&nbsp;</span>
-              <span className={theme.authorAffiliation}>{quote.authorAffiliation}</span>
+              <span className={theme.authorName}>
+                {quote.authorName}
+&nbsp;
+              </span>
+              <span className={theme.authorAffiliation}>
+                {quote.authorAffiliation}
+              </span>
             </div>
           </div>
         </div>

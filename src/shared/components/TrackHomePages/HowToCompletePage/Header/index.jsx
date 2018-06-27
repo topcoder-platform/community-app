@@ -14,7 +14,9 @@ const converter = new showdown.Converter();
 const Header = ({ data }) => (
   <div styleName="container">
     <div styleName="left">
-      <h1>{data.title}</h1>
+      <h1>
+        {data.title}
+      </h1>
       <p
         dangerouslySetInnerHTML={
           { __html: converter.makeHtml(data.text) }
@@ -24,7 +26,12 @@ const Header = ({ data }) => (
         {
           data.table.map(item => (
             <div styleName="time-item" key={item.time}>
-              <span styleName="time">{item.time}</span> - {item.description}
+              <span styleName="time">
+                {item.time}
+              </span>
+              {' '}
+-
+              {item.description}
             </div>
           ))
         }
@@ -54,7 +61,12 @@ const Header = ({ data }) => (
       {
         data.table.map(item => (
           <div styleName="time-item" key={item.time}>
-            <span styleName="time">{item.time}</span> - {item.description}
+            <span styleName="time">
+              {item.time}
+            </span>
+            {' '}
+-
+            {item.description}
           </div>
         ))
       }

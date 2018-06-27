@@ -57,6 +57,7 @@ exports[`renders about me section of profile setting page correctly 1`] = `
             }
             themePriority="adhoc-context-default"
             to={null}
+            type="button"
           >
             Change Image
           </ThemedButton>
@@ -87,6 +88,7 @@ exports[`renders about me section of profile setting page correctly 1`] = `
               }
               themePriority="adhoc-context-default"
               to={null}
+              type="button"
             >
               Delete
             </ThemedButton>

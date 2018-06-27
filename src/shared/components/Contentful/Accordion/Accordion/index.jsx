@@ -27,7 +27,9 @@ class Accordion extends Component {
 
     return (
       <div className={theme.outerContainer}>
-        <h1>{title}</h1>
+        <h1>
+          {title}
+        </h1>
         <div className={theme.container} id="accordion">
           <ul className={theme.titleList}>
             {React.Children.map(children, (child, index) => (
@@ -43,7 +45,8 @@ class Accordion extends Component {
                   role="button"
                   styleName="title"
                   tabIndex={0}
-                >{child.props.title}
+                >
+                  {child.props.title}
                 </div>
               </li>
             ))}

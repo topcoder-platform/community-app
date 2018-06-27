@@ -4,13 +4,11 @@ import { redux } from 'topcoder-react-utils';
 
 const DUMMY_PAYLOAD = 'Dummy Payload 12345';
 
-const fetchFailureMock = jest.fn(() =>
-  Promise.reject(new Error('ERROR')));
+const fetchFailureMock = jest.fn(() => Promise.reject(new Error('ERROR')));
 
-const fetchSuccessMock = jest.fn(() =>
-  Promise.resolve({
-    json: () => ({ data: DUMMY_PAYLOAD }),
-  }));
+const fetchSuccessMock = jest.fn(() => Promise.resolve({
+  json: () => ({ data: DUMMY_PAYLOAD }),
+}));
 
 function testReducer(reducer, expectedInitialState) {
   let state;
@@ -58,27 +56,22 @@ global.fetch = fetchSuccessMock;
 describe('default reducer', () => testReducer(defaultReducer, {}));
 
 global.fetch = fetchSuccessMock;
-describe('factory without http request', () =>
-  factory().then(res => testReducer(res, {})));
+describe('factory without http request', () => factory().then(res => testReducer(res, {})));
 
 global.fetch = fetchSuccessMock;
-describe('factory with matching http request and success response', () =>
-  factory({
-    url: '/examples/data-fetch/server',
-  }).then(res =>
-    testReducer(res, {
-      data: DUMMY_PAYLOAD,
-      failed: undefined,
-      loading: false,
-    })));
+describe('factory with matching http request and success response', () => factory({
+  url: '/examples/data-fetch/server',
+}).then(res => testReducer(res, {
+  data: DUMMY_PAYLOAD,
+  failed: undefined,
+  loading: false,
+})));
 
 global.fetch = fetchFailureMock;
-describe('factory with matching http request and network failure', () =>
-  factory({
-    url: '/examples/data-fetch/server',
-  }).then(res =>
-    testReducer(res, {
-      data: null,
-      failed: true,
-      loading: false,
-    })));
+describe('factory with matching http request and network failure', () => factory({
+  url: '/examples/data-fetch/server',
+}).then(res => testReducer(res, {
+  data: null,
+  failed: true,
+  loading: false,
+})));

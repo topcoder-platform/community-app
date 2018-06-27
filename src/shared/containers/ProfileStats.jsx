@@ -37,16 +37,21 @@ class ProfileStatsContainer extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     const {
-      handleParam,
-      location,
+      handleParam: nextHandleParam,
+      location: nextLocation,
       loadStats,
       loadStatsHistoryAndDistribution,
     } = nextProps;
-    const nextQueryParams = getQueryParamsQuery(location);
-    const trackAndSubTrack = getQueryParamsQuery(this.props.location);
+    const {
+      handleParam,
+      location,
+    } = this.props;
 
-    if (handleParam !== this.props.handleParam) {
-      loadStats(handleParam);
+    const nextQueryParams = getQueryParamsQuery(nextLocation);
+    const trackAndSubTrack = getQueryParamsQuery(location);
+
+    if (nextHandleParam !== handleParam) {
+      loadStats(nextHandleParam);
       if (
         nextQueryParams.track !== trackAndSubTrack.track
         || nextQueryParams.subTrack !== trackAndSubTrack.subTrack
@@ -54,7 +59,7 @@ class ProfileStatsContainer extends React.Component {
         if (shouldShowGraph(nextQueryParams)
           && !nextQueryParams.tab) {
           loadStatsHistoryAndDistribution(
-            handleParam,
+            nextHandleParam,
             nextQueryParams.track,
             nextQueryParams.subTrack,
           );
@@ -77,12 +82,14 @@ class ProfileStatsContainer extends React.Component {
 
     return isLoading
       ? <LoadingIndicator />
-      : <ProfileStatsPage
-        {...this.props}
-        track={track}
-        subTrack={subTrack}
-        tab={tab}
-      />;
+      : (
+        <ProfileStatsPage
+          {...this.props}
+          track={track}
+          subTrack={subTrack}
+          tab={tab}
+        />
+      );
   }
 }
 

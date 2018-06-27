@@ -62,8 +62,8 @@ export default function BucketSelector({
       }
       bucket={{
         hideCount: true,
-        name: item.filter.isForReviewOpportunities ?
-          `${item.name} (Review Opportunities)` : item.name,
+        name: item.filter.isForReviewOpportunities
+          ? `${item.name} (Review Opportunities)` : item.name,
         error: item.filterError,
       }}
       challenges={[]}
@@ -87,26 +87,32 @@ export default function BucketSelector({
           getBucket(BUCKETS.UPCOMING) */
       }
       {
-        savedFilters.length ?
-          <div>
-            <div styleName="my-filters">
-              <h1>My filters</h1>
-              <a
-                onClick={() => setEditSavedFiltersMode(true)}
-                onKeyPress={() => setEditSavedFiltersMode(true)}
-                role="button"
-                styleName="edit-link"
-                tabIndex={0}
-              >
+        savedFilters.length
+          ? (
+            <div>
+              <div styleName="my-filters">
+                <h1>
+My filters
+                </h1>
+                <a
+                  onClick={() => setEditSavedFiltersMode(true)}
+                  onKeyPress={() => setEditSavedFiltersMode(true)}
+                  role="button"
+                  styleName="edit-link"
+                  tabIndex={0}
+                >
                 edit
-              </a>
+                </a>
+              </div>
+              {savedFiltersRender}
             </div>
-            {savedFiltersRender}
-          </div> : ''
+          ) : ''
       }
       <hr />
       <div styleName="get-rss">
-        <a href={RSS_LINK}>Get the RSS feed</a>
+        <a href={RSS_LINK}>
+Get the RSS feed
+        </a>
       </div>
     </div>
   );

@@ -22,8 +22,12 @@ class HomePageContainer extends React.Component {
       props.setSelectedTrack(props.match.params.track);
     }
   }
+
   render() {
-    const { selectedTrack } = this.props;
+    const {
+      auth,
+      selectedTrack,
+    } = this.props;
     return (
       <ContentfulLoader
         entryQueries={{
@@ -44,7 +48,7 @@ class HomePageContainer extends React.Component {
                 render={() => (
                   <HomePage
                     homePage={homePage}
-                    auth={this.props.auth}
+                    auth={auth}
                   />
                 )}
                 renderPlaceholder={LoadingIndicator}
@@ -84,8 +88,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  setSelectedTrack: track =>
-    dispatch(actions.page.trackHomePages.setSelectedTrack(track)),
+  setSelectedTrack: track => dispatch(actions.page.trackHomePages.setSelectedTrack(track)),
 });
 
 const Container = connect(mapStateToProps, mapDispatchToProps)(HomePageContainer);

@@ -63,6 +63,11 @@ export default class EmailPreferences extends React.Component {
   }
 
   onChange() {
+    const {
+      profile,
+      saveEmailPreferences,
+      tokenV3,
+    } = this.props;
     const switches = document.querySelectorAll('input[name="eprf-onoffswitch"]');
     const newPreferences = {};
     _.forEach(switches, (sw) => {
@@ -76,9 +81,9 @@ export default class EmailPreferences extends React.Component {
     // as per http://apps.topcoder.com/forums/?module=Thread&threadID=920048&start=0
     newPreferences.TOPCODER_NL_PREDIX = false;
 
-    this.props.saveEmailPreferences(
-      this.props.profile,
-      this.props.tokenV3,
+    saveEmailPreferences(
+      profile,
+      tokenV3,
       newPreferences,
     );
   }
@@ -114,7 +119,9 @@ export default class EmailPreferences extends React.Component {
 
     return (
       <div styleName="EmailPreferences">
-        <h1 styleName="title">Email Preferences</h1>
+        <h1 styleName="title">
+Email Preferences
+        </h1>
         {
           showLoading && <LoadingIndicator />
         }

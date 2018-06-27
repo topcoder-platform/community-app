@@ -8,12 +8,18 @@ import ToggleableItem from 'components/Settings/ToggleableItem';
 
 import './styles.scss';
 
-export default function Personalization(props) {
+export default function Personalization({
+  addUserTrait,
+  handle,
+  tokenV3,
+  updateUserTrait,
+  userTraits,
+}) {
   const primaryText = 'User Consent';
   const secondaryText = 'I allow Topcoder to use my information to make my experience more personal.';
 
   const getTraitData = () => {
-    const trait = props.userTraits.filter(t => t.traitId === 'personalization');
+    const trait = userTraits.filter(t => t.traitId === 'personalization');
     if (trait.length !== 0) {
       return trait[0].traits.data[0];
     }
@@ -37,17 +43,19 @@ export default function Personalization(props) {
     // personalization data might not have been created yet; if so, add new trait
     if (traitData && typeof traitData.userConsent === 'boolean') {
       const personalizationData = { userConsent: !traitData.userConsent };
-      props.updateUserTrait(props.handle, 'personalization', [personalizationData], props.tokenV3);
+      updateUserTrait(handle, 'personalization', [personalizationData], tokenV3);
     } else if (!traitData) {
       // update the default (userConsent: false) when creating the new trait
       const personalizationData = { userConsent: true };
-      props.addUserTrait(props.handle, 'personalization', [personalizationData], props.tokenV3);
+      addUserTrait(handle, 'personalization', [personalizationData], tokenV3);
     }
   };
 
   return (
     <div styleName="Personalization">
-      <h1 styleName="title">Personalization</h1>
+      <h1 styleName="title">
+Personalization
+      </h1>
       <div styleName="user-consent-container">
         <ToggleableItem
           id="user-consent"

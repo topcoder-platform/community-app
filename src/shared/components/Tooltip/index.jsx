@@ -34,7 +34,11 @@ function Tooltip({
       defaultVisible={defaultVisible}
     >
       {
-        suppressDiv ? children : (<div>{children}</div>)
+        suppressDiv ? children : (
+          <div>
+            {children}
+          </div>
+        )
       }
     </RCTooltip>
   );

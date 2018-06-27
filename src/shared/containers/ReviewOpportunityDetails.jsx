@@ -38,14 +38,20 @@ class ReviewOpportunityDetailsContainer extends React.Component {
   }
 
   handleOnHeaderApply() {
-    if (this.props.termsFailure) {
+    const {
+      openTermsModal,
+      terms,
+      termsFailure,
+      toggleApplyModal,
+    } = this.props;
+    if (termsFailure) {
       fireErrorMessage('Error Getting Terms Details', '');
       return;
     }
-    if (this.props.terms.find(term => !term.agreed)) {
-      this.props.openTermsModal();
+    if (terms.find(term => !term.agreed)) {
+      openTermsModal();
     } else {
-      this.props.toggleApplyModal();
+      toggleApplyModal();
     }
   }
 
@@ -91,16 +97,26 @@ class ReviewOpportunityDetailsContainer extends React.Component {
   }
 
   render() {
-    if (this.props.authError) {
-      return <div>You are not authorized to access this page.</div>;
+    const {
+      authError,
+      details,
+    } = this.props;
+    if (authError) {
+      return (
+        <div>
+You are not authorized to access this page.
+        </div>
+      );
     }
 
-    return this.props.details ?
-      <ReviewOpportunityDetailsPage
-        onHeaderApply={() => this.handleOnHeaderApply()}
-        onModalApply={() => this.handleOnModalApply()}
-        {...this.props}
-      /> : <LoadingIndicator />;
+    return details
+      ? (
+        <ReviewOpportunityDetailsPage
+          onHeaderApply={() => this.handleOnHeaderApply()}
+          onModalApply={() => this.handleOnModalApply()}
+          {...this.props}
+        />
+      ) : <LoadingIndicator />;
   }
 }
 

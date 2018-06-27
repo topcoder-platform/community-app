@@ -15,12 +15,14 @@ import ErrorMessage from 'components/ErrorMessage';
 function ErrorMessageContainer({ error, clearError }) {
   return (
     <div>
-      { error ?
-        <ErrorMessage
-          title={error.title}
-          details={error.details}
-          onOk={() => clearError()}
-        /> : undefined }
+      { error
+        ? (
+          <ErrorMessage
+            title={error.title}
+            details={error.details}
+            onOk={() => clearError()}
+          />
+        ) : undefined }
     </div>
   );
 }

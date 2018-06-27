@@ -54,13 +54,21 @@ class HallOfFameContainer extends React.Component {
   }
 
   handleSelectEvent(eventType, eventId) {
-    this.props.history.push(`/hall-of-fame/${eventType}/${eventId}`);
-    this.props.setSelectedEvent(eventId);
-    this.props.setSelectedEventType(eventType);
+    const {
+      history,
+      setSelectedEvent,
+      setSelectedEventType,
+    } = this.props;
+    history.push(`/hall-of-fame/${eventType}/${eventId}`);
+    setSelectedEvent(eventId);
+    setSelectedEventType(eventType);
   }
 
   render() {
-    const { selectedEventType } = this.props;
+    const {
+      selectedEvent,
+      selectedEventType,
+    } = this.props;
     return (
       <ContentfulLoader
         entryQueries={{
@@ -81,10 +89,10 @@ class HallOfFameContainer extends React.Component {
                 preview={data.preview}
                 render={() => (
                   <HallOfFamePage
-                    eventId={this.props.selectedEvent === '' ?
-                      hallOfFame.versions[0].fields.versionId : this.props.selectedEvent}
-                    onSelectEvent={(eventType, eventId) =>
-                      this.handleSelectEvent(eventType, eventId)}
+                    eventId={selectedEvent === ''
+                      ? hallOfFame.versions[0].fields.versionId : selectedEvent}
+                    onSelectEvent={
+                      (eventType, eventId) => this.handleSelectEvent(eventType, eventId)}
                     hallOfFame={hallOfFame}
                   />
                 )}
@@ -125,10 +133,9 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  setSelectedEvent: eventId =>
-    dispatch(actions.page.hallOfFame.setSelectedEvent(eventId)),
-  setSelectedEventType: eventType =>
-    dispatch(actions.page.hallOfFame.setSelectedEventType(eventType)),
+  setSelectedEvent: eventId => dispatch(actions.page.hallOfFame.setSelectedEvent(eventId)),
+  setSelectedEventType:
+    eventType => dispatch(actions.page.hallOfFame.setSelectedEventType(eventType)),
 });
 
 const Container = connect(

@@ -22,6 +22,7 @@ class HowToCompletePageContainer extends React.Component {
       props.setSelectedTrack(props.match.params.track);
     }
   }
+
   render() {
     const { selectedTrack } = this.props;
     return (
@@ -77,8 +78,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  setSelectedTrack: track =>
-    dispatch(actions.page.trackHomePages.setSelectedTrack(track)),
+  setSelectedTrack: track => dispatch(actions.page.trackHomePages.setSelectedTrack(track)),
 });
 
 const Container = connect(mapStateToProps, mapDispatchToProps)(HowToCompletePageContainer);

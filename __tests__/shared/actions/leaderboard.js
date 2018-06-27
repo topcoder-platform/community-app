@@ -1,7 +1,6 @@
 import actions from 'actions/leaderboard';
 
-const mockFetch = resolvesTo => jest.fn(() =>
-  Promise.resolve({ json: () => resolvesTo }));
+const mockFetch = resolvesTo => jest.fn(() => Promise.resolve({ json: () => resolvesTo }));
 
 let originalFetch;
 
@@ -20,8 +19,7 @@ describe('leaderboard.fetchLeaderboardInit', () => {
     expect(a.type).toBe('LEADERBOARD/FETCH_LEADERBOARD_INIT');
   });
 
-  test('payload is undefined', () =>
-    expect(a.payload).toBeUndefined());
+  test('payload is undefined', () => expect(a.payload).toBeUndefined());
 });
 
 describe('leaderboard.fetchLeaderboardDone', () => {
@@ -33,8 +31,7 @@ describe('leaderboard.fetchLeaderboardDone', () => {
     expect(a.type).toBe('LEADERBOARD/FETCH_LEADERBOARD_DONE');
   });
 
-  test('payload is a promise which resolves to the expected object', () =>
-    a.payload.then(res => expect(res.data[0]['user.handle']).toEqual('fake.username')));
+  test('payload is a promise which resolves to the expected object', () => a.payload.then(res => expect(res.data[0]['user.handle']).toEqual('fake.username')));
 });
 
 describe('leaderboard.fetchLeaderboardDone with token', () => {
@@ -46,8 +43,7 @@ describe('leaderboard.fetchLeaderboardDone with token', () => {
     expect(a.type).toBe('LEADERBOARD/FETCH_LEADERBOARD_DONE');
   });
 
-  test('payload is a promise which resolves to the expected object', () =>
-    a.payload.then(res => expect(res.data[0]['user.handle']).toEqual('fake.username')));
+  test('payload is a promise which resolves to the expected object', () => a.payload.then(res => expect(res.data[0]['user.handle']).toEqual('fake.username')));
 });
 
 
@@ -60,6 +56,5 @@ describe('leaderboard.fetchLeaderboardDone with mocky', () => {
     expect(a.type).toBe('LEADERBOARD/FETCH_LEADERBOARD_DONE');
   });
 
-  test('payload is a promise which resolves to the expected object', () =>
-    a.payload.then(res => expect(res.data[0]['user.handle']).toEqual('fake.username')));
+  test('payload is a promise which resolves to the expected object', () => a.payload.then(res => expect(res.data[0]['user.handle']).toEqual('fake.username')));
 });

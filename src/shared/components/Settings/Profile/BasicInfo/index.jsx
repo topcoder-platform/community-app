@@ -36,22 +36,21 @@ export default class BasicInfo extends React.Component {
     this.state = {
       savingBasicInfo: false,
       inputChanged: false,
-      basicInfo: this.toBasicInfo(this.props.userTraits),
+      basicInfo: this.toBasicInfo(props.userTraits),
     };
   }
 
   componentWillReceiveProps(nextProps) {
     const newBasicInfo = this.toBasicInfo(nextProps.userTraits);
     this.setState({
-      ...this.state,
       basicInfo: newBasicInfo,
       savingBasicInfo: false,
     });
   }
+
   onSaveBasicInfo(e) {
     e.preventDefault();
     this.setState({
-      ...this.state,
       savingBasicInfo: true,
     });
 
@@ -61,7 +60,8 @@ export default class BasicInfo extends React.Component {
       addUserTrait,
       updateUserTrait,
     } = this.props;
-    let newInfo = { ...this.state.basicInfo };
+    const { basicInfo } = this.state;
+    let newInfo = { ...basicInfo };
 
     /**
      * omit fields that the api can't accept now.
@@ -76,9 +76,11 @@ export default class BasicInfo extends React.Component {
       addUserTrait(handle, 'basic_info', [newInfo], tokenV3);
     }
   }
+
   onUpdateSelect(option) {
     if (option) {
-      const basicInfo = { ...this.state.basicInfo };
+      const { basicInfo: oldBasicInfo } = this.state;
+      const basicInfo = { ...oldBasicInfo };
       basicInfo[option.key] = option.name;
       this.setState({ basicInfo, inputChanged: true });
     }
@@ -86,14 +88,16 @@ export default class BasicInfo extends React.Component {
 
 
   onUpdateInput(e) {
-    const basicInfo = { ...this.state.basicInfo };
+    const { basicInfo: oldBasicInfo } = this.state;
+    const basicInfo = { ...oldBasicInfo };
     basicInfo[e.target.name] = e.target.value;
     this.setState({ basicInfo, inputChanged: true });
   }
 
   onUpdateCountry(country) {
     if (country && country.alpha3) {
-      const basicInfo = { ...this.state.basicInfo };
+      const { basicInfo: oldBasicInfo } = this.state;
+      const basicInfo = { ...oldBasicInfo };
       basicInfo.country = country.name;
       this.setState({ basicInfo, inputChanged: true });
     }
@@ -107,8 +111,9 @@ export default class BasicInfo extends React.Component {
   }
 
   toBasicInfo(userTraits) {
+    const { handle } = this.props;
     const defaultInfo = {
-      handle: this.props.handle,
+      handle,
       firstName: '',
       lastName: '',
       shortBio: '',
@@ -131,7 +136,7 @@ export default class BasicInfo extends React.Component {
   }
 
   shouldDisableSave() {
-    const { basicInfo } = this.state;
+    const { basicInfo, inputChanged } = this.state;
 
     const invalid = !_.trim(basicInfo.firstName).length
       || !_.trim(basicInfo.lastName).length
@@ -154,16 +159,20 @@ export default class BasicInfo extends React.Component {
     }
 
     // Value not changed, no need save
-    return this.state.inputChanged === false;
+    return inputChanged === false;
   }
 
   render() {
-    const tabs = this.props.settingsUI.TABS.PROFILE;
-    const currentTab = this.props.settingsUI.currentProfileTab;
+    const {
+      settingsUI,
+    } = this.props;
+    const tabs = settingsUI.TABS.PROFILE;
+    const currentTab = settingsUI.currentProfileTab;
     const containerStyle = currentTab === tabs.BASIC ? '' : 'hide';
 
     const {
       basicInfo,
+      savingBasicInfo,
     } = this.state;
 
     return (
@@ -175,32 +184,51 @@ export default class BasicInfo extends React.Component {
             />
           </div>
           <div styleName="form-container">
-            <p styleName="handle">{ basicInfo.handle }</p>
+            <p styleName="handle">
+              { basicInfo.handle }
+            </p>
             <form name="BasicInfoForm" noValidate autoComplete="off">
               <div styleName="row">
                 <div styleName="field">
-                  <label htmlFor="firstName">Firstname</label>
+                  <label htmlFor="firstName">
+Firstname
+                  </label>
                   <input id="firstName" name="firstName" type="text" placeholder="First Name" onChange={this.onUpdateInput} value={basicInfo.firstName} maxLength="64" required />
                 </div>
                 <div styleName="field">
-                  <label htmlFor="lastName">Lastname</label>
+                  <label htmlFor="lastName">
+Lastname
+                  </label>
                   <input id="lastName" name="lastName" type="text" placeholder="Last Name" onChange={this.onUpdateInput} value={basicInfo.lastName} maxLength="64" required />
                 </div>
               </div>
               <div styleName="row">
                 <div styleName="field">
-                  <label styleName="bio-label" htmlFor="shortBio"><span>Short Bio</span> <span >{ basicInfo.shortBio.length }/240</span></label>
+                  <label styleName="bio-label" htmlFor="shortBio">
+                    <span>
+Short Bio
+                    </span>
+                    {' '}
+                    <span>
+                      { basicInfo.shortBio.length }
+/240
+                    </span>
+                  </label>
                   <textarea id="shortBio" styleName="bio-text" name="shortBio" placeholder="shortBio" onChange={this.onUpdateInput} value={basicInfo.shortBio} maxLength="240" cols="3" rows="10" required />
                 </div>
               </div>
               <div styleName="row">
                 <div styleName="field">
-                  <label htmlFor="birthDate">Birth Date</label>
+                  <label htmlFor="birthDate">
+Birth Date
+                  </label>
                   <input id="birthDate" styleName="date-input" name="birthDate" type="date" onChange={this.onUpdateInput} value={basicInfo.birthDate} required />
                 </div>
 
                 <div styleName="field">
-                  <label htmlFor="gender">Gender</label>
+                  <label htmlFor="gender">
+Gender
+                  </label>
                   <Select
                     name="gender"
                     options={dropdowns.gender}
@@ -214,7 +242,9 @@ export default class BasicInfo extends React.Component {
                 </div>
 
                 <div styleName="field">
-                  <label htmlFor="ethnicBackground">Ethnic</label>
+                  <label htmlFor="ethnicBackground">
+Ethnic
+                  </label>
                   <Select
                     name="ethnicBackground"
                     options={dropdowns.ethnicBackground}
@@ -228,7 +258,9 @@ export default class BasicInfo extends React.Component {
                 </div>
 
                 <div styleName="field">
-                  <label htmlFor="tshirtSize">T-Shirt-Size</label>
+                  <label htmlFor="tshirtSize">
+T-Shirt-Size
+                  </label>
                   <Select
                     name="tshirtSize"
                     options={dropdowns.tshirtSize}
@@ -244,13 +276,17 @@ export default class BasicInfo extends React.Component {
 
               <div styleName="row">
                 <div styleName="field">
-                  <label htmlFor="address">Address</label>
+                  <label htmlFor="address">
+Address
+                  </label>
                   <input id="address" name="address" type="text" placeholder="address" onChange={this.onUpdateInput} value={basicInfo.address} maxLength="64" required />
                 </div>
               </div>
               <div styleName="row">
                 <div styleName="field">
-                  <label htmlFor="country">Country</label>
+                  <label htmlFor="country">
+Country
+                  </label>
                   <Select
                     name="country"
                     options={countries}
@@ -265,31 +301,41 @@ export default class BasicInfo extends React.Component {
                   />
                 </div>
                 <div styleName="field">
-                  <label htmlFor="state">State</label>
+                  <label htmlFor="state">
+State
+                  </label>
                   <input id="state" name="state" type="text" placeholder="state" onChange={this.onUpdateInput} value={basicInfo.state} maxLength="64" required />
                 </div>
               </div>
 
               <div styleName="row">
                 <div styleName="field">
-                  <label htmlFor="city">City</label>
+                  <label htmlFor="city">
+City
+                  </label>
                   <input id="city" name="city" type="text" placeholder="city" onChange={this.onUpdateInput} value={basicInfo.city} maxLength="64" required />
                 </div>
                 <div styleName="field">
-                  <label htmlFor="zipCode">ZIP Code</label>
+                  <label htmlFor="zipCode">
+ZIP Code
+                  </label>
                   <input id="zipCode" name="zipCode" type="text" placeholder="zipCode" onChange={this.onUpdateInput} value={basicInfo.zipCode} maxLength="64" required />
                 </div>
               </div>
 
               <div styleName="row">
                 <div styleName="field">
-                  <label htmlFor="currentLocation">Current Location</label>
+                  <label htmlFor="currentLocation">
+Current Location
+                  </label>
                   <input id="currentLocation" name="currentLocation" type="text" placeholder="currentLocation" onChange={this.onUpdateInput} value={basicInfo.currentLocation} maxLength="64" required />
                 </div>
               </div>
               <div styleName="row">
                 <div styleName="field">
-                  <label htmlFor="primaryInterestInTopcoder">Primary Interest of Topcoder</label>
+                  <label htmlFor="primaryInterestInTopcoder">
+Primary Interest of Topcoder
+                  </label>
                   <input id="primaryInterestInTopcoder" name="primaryInterestInTopcoder" type="text" placeholder="primaryInterestInTopcoder" onChange={this.onUpdateInput} value={basicInfo.primaryInterestInTopcoder} maxLength="64" required />
                 </div>
               </div>
@@ -299,7 +345,7 @@ export default class BasicInfo extends React.Component {
             <div className="save-section">
               <PrimaryButton
                 onClick={this.onSaveBasicInfo}
-                disabled={this.shouldDisableSave() || this.state.savingBasicInfo}
+                disabled={this.shouldDisableSave() || savingBasicInfo}
 
                 theme={{ button: Styles['save-button'] }}
               >
@@ -307,7 +353,7 @@ export default class BasicInfo extends React.Component {
                   'Save Changes'
                 }
                 {
-                  this.state.savingBasicInfo && '......'
+                  savingBasicInfo && '......'
                 }
               </PrimaryButton>
             </div>

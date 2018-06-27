@@ -34,13 +34,17 @@ export default function Tip({
   return (
     <div styleName="prizes-tooltip">
       <div style={{ overflow: 'auto' }}>
-        <h1>Prizes</h1>
+        <h1>
+Prizes
+        </h1>
         {prizesRender}
       </div>
       {
         points ? (
           <div styleName="points">
-            <h1>Points</h1>
+            <h1>
+Points
+            </h1>
             {points}
           </div>
         ) : null
@@ -48,7 +52,9 @@ export default function Tip({
       {
         bonuses.length ? (
           <div styleName="bonuses">
-            <h1>Bonuses</h1>
+            <h1>
+Bonuses
+            </h1>
             {bonusesRender}
           </div>
         ) : null

@@ -17,8 +17,7 @@ describe('tcCommunities.news.getNewsDone', () => {
     expect(a.type).toBe('TC_COMMUNITIES/NEWS/GET_NEWS_DONE');
   });
 
-  test('payload is a promise which resolves to the expected object', () =>
-    a.payload.then(res => expect(res).toEqual({ xml: {} })));
+  test('payload is a promise which resolves to the expected object', () => a.payload.then(res => expect(res).toEqual({ xml: {} })));
 });
 
 describe('tcCommunities.news.getNewsDone with error response', () => {
@@ -34,6 +33,5 @@ describe('tcCommunities.news.getNewsDone with error response', () => {
     expect(a.type).toBe('TC_COMMUNITIES/NEWS/GET_NEWS_DONE');
   });
 
-  test('payload is a promise which resolves to the expected object', () =>
-    a.payload.catch(res => expect(res.toString()).toMatch('Error')));
+  test('payload is a promise which resolves to the expected object', () => a.payload.catch(res => expect(res.toString()).toMatch('Error')));
 });

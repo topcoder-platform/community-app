@@ -42,9 +42,31 @@ class TermsPageContainer extends React.Component {
 
   render() {
     const {
+      agreeingTerm,
+      agreeTerm,
+      authTokens,
+      canRegister,
+      checkingStatus,
+      checkStatus,
       closeTermsModal,
+      defaultTitle,
+      description,
+      docuSignUrl,
+      entity,
+      getDocuSignUrl,
       instanceId,
+      isLoadingTerms,
+      loadingDocuSignUrl,
+      loadingTermId,
+      loadTermDetails,
       openTermsModalUuid,
+      register,
+      selectedTerm,
+      selectTerm,
+      signDocu,
+      termDetails,
+      terms,
+      viewOnly,
     } = this.props;
 
     if (openTermsModalUuid === 'ANY' && !isAnyTermModalOpen) {
@@ -59,34 +81,34 @@ class TermsPageContainer extends React.Component {
         {
           open ? (
             <Terms
-              agreeingTerm={this.props.agreeingTerm}
-              agreeTerm={termId => this.props.agreeTerm(this.props.authTokens, termId)}
-              canRegister={this.props.canRegister}
-              checkingStatus={this.props.checkingStatus}
-              checkStatus={() => this.props.checkStatus(this.props.authTokens, this.props.entity)}
-              defaultTitle={this.props.defaultTitle}
-              description={this.props.description}
-              details={this.props.termDetails}
-              docuSignUrl={this.props.docuSignUrl}
+              agreeingTerm={agreeingTerm}
+              agreeTerm={termId => agreeTerm(authTokens, termId)}
+              canRegister={canRegister}
+              checkingStatus={checkingStatus}
+              checkStatus={() => checkStatus(authTokens, entity)}
+              defaultTitle={defaultTitle}
+              description={description}
+              details={termDetails}
+              docuSignUrl={docuSignUrl}
               getDocuSignUrl={(templateId) => {
                 const base = window ? window.location.href.match('.*://[^/]*')[0] : '';
-                return this.props.getDocuSignUrl(
-                  this.props.authTokens,
+                return getDocuSignUrl(
+                  authTokens,
                   templateId,
                   `${base}/community-app-assets/iframe-break`,
                 );
               }}
-              isLoadingTerms={this.props.isLoadingTerms}
-              loadDetails={termId => this.props.loadTermDetails(this.props.authTokens, termId)}
-              loadingDocuSignUrl={this.props.loadingDocuSignUrl}
-              loadingTermId={this.props.loadingTermId}
+              isLoadingTerms={isLoadingTerms}
+              loadDetails={termId => loadTermDetails(authTokens, termId)}
+              loadingDocuSignUrl={loadingDocuSignUrl}
+              loadingTermId={loadingTermId}
               onCancel={() => closeTermsModal(instanceId)}
-              register={this.props.register}
-              selectedTerm={this.props.selectedTerm}
-              selectTerm={this.props.selectTerm}
-              signDocu={this.props.signDocu}
-              terms={this.props.terms}
-              viewOnly={this.props.viewOnly}
+              register={register}
+              selectedTerm={selectedTerm}
+              selectTerm={selectTerm}
+              signDocu={signDocu}
+              terms={terms}
+              viewOnly={viewOnly}
             />
           ) : null
         }
@@ -158,22 +180,25 @@ TermsPageContainer.propTypes = {
   viewOnly: PT.bool,
 };
 
-const mapStateToProps = (state, props) => ({
-  agreeingTerm: state.terms.agreeingTerm,
-  authTokens: state.auth,
-  canRegister: state.terms.canRegister,
-  checkingStatus: state.terms.checkingStatus,
-  docuSignUrl: state.terms.docuSignUrl,
-  isLoadingTerms: _.isEqual(state.terms.loadingTermsForEntity, props.entity),
-  loadingDocuSignUrl: state.terms.loadingDocuSignUrl,
-  loadingTermId: state.terms.loadingDetailsForTermId,
-  openTermsModalUuid: state.terms.openTermsModalUuid,
-  selectedTerm: state.terms.selectedTerm,
-  termDetails: state.terms.details,
-  terms: state.terms.terms,
-  termsForEntity: state.terms.entity,
-  viewOnly: state.terms.viewOnly,
-});
+function mapStateToProps(state, props) {
+  const { entity } = props;
+  return {
+    agreeingTerm: state.terms.agreeingTerm,
+    authTokens: state.auth,
+    canRegister: state.terms.canRegister,
+    checkingStatus: state.terms.checkingStatus,
+    docuSignUrl: state.terms.docuSignUrl,
+    isLoadingTerms: _.isEqual(state.terms.loadingTermsForEntity, entity),
+    loadingDocuSignUrl: state.terms.loadingDocuSignUrl,
+    loadingTermId: state.terms.loadingDetailsForTermId,
+    openTermsModalUuid: state.terms.openTermsModalUuid,
+    selectedTerm: state.terms.selectedTerm,
+    termDetails: state.terms.details,
+    terms: state.terms.terms,
+    termsForEntity: state.terms.entity,
+    viewOnly: state.terms.viewOnly,
+  };
+}
 
 function mapDispatchToProps(dispatch) {
   return {

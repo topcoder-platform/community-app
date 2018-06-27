@@ -12,7 +12,9 @@ test('Snapshot match', () => {
     <AccordionItem
       title="Test title"
     >
-      <div>Test content</div>
+      <div>
+Test content
+      </div>
     </AccordionItem>
   ));
   expect(rnd.getRenderOutput()).toMatchSnapshot();
@@ -22,7 +24,9 @@ test('Snapshot match', () => {
       title="Test title"
       isOpen
     >
-      <div>Test content</div>
+      <div>
+Test content
+      </div>
     </AccordionItem>
   ));
   expect(rnd.getRenderOutput()).toMatchSnapshot();
@@ -30,11 +34,14 @@ test('Snapshot match', () => {
 
 class Wrapper extends React.Component {
   componentDidMount() {}
+
   render() {
     return (
       <div>
         <AccordionItem {...this.props} title="Test title">
-          <div>Test content</div>
+          <div>
+Test content
+          </div>
         </AccordionItem>
       </div>
     );

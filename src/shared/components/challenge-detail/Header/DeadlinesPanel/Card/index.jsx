@@ -16,8 +16,12 @@ export default function Card({ past, time, title }) {
   const past2 = past === null ? time2.isBefore(moment()) : past;
   return (
     <div styleName={past2 ? 'past' : 'open'}>
-      <p styleName="title">{title}</p>
-      <p styleName="date">{time2.format(FORMAT)}</p>
+      <p styleName="title">
+        {title}
+      </p>
+      <p styleName="date">
+        {time2.format(FORMAT)}
+      </p>
     </div>
   );
 }

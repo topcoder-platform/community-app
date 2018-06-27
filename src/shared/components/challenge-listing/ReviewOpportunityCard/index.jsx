@@ -69,11 +69,14 @@ function ReviewOpportunityCard({
         <div styleName="challenge-details">
           <Link
             to={`${challengesUrl}/${challenge.id}`}
-          >{challenge.title}
+          >
+            {challenge.title}
           </Link>
           <div styleName="details-footer">
             <span styleName="date">
-              Starts {start.format('MMM DD')}
+              Starts
+              {' '}
+              {start.format('MMM DD')}
             </span>
             <Tags
               technologies={challenge.technologies.join(',')}
@@ -87,36 +90,56 @@ function ReviewOpportunityCard({
       </div>
       <div styleName="right-panel">
         <Tooltip
-          content={
+          content={(
             <div styleName="tooltip">
               {opportunity.payments.map(payment => (
-                <div key={payment.role}>{payment.role} - ${payment.payment.toLocaleString()}</div>
+                <div key={payment.role}>
+                  {payment.role}
+                  {' '}
+- $
+                  {payment.payment.toLocaleString()}
+                </div>
               ))}
             </div>
-          }
+)}
         >
           <div styleName="payment">
-            <span>$</span>{_.sumBy(opportunity.payments, 'payment').toLocaleString()}
-            <div styleName="payment-type">Payment</div>
+            <span>
+$
+            </span>
+            {_.sumBy(opportunity.payments, 'payment').toLocaleString()}
+            <div styleName="payment-type">
+Payment
+            </div>
           </div>
         </Tooltip>
-        <span styleName="review-type">{REVIEW_OPPORTUNITY_TYPES[opportunity.type]}</span>
+        <span styleName="review-type">
+          {REVIEW_OPPORTUNITY_TYPES[opportunity.type]}
+        </span>
         <div styleName="review-stats">
           <Tooltip
-            content={
-              <div styleName="tooltip">{quantityText(opportunity.openPositions, 'open position')}</div>
-            }
+            content={(
+              <div styleName="tooltip">
+                {quantityText(opportunity.openPositions, 'open position')}
+              </div>
+)}
           >
             <OpenPositionsIcon />
-            <span styleName="number">{opportunity.openPositions}</span>
+            <span styleName="number">
+              {opportunity.openPositions}
+            </span>
           </Tooltip>
           <Tooltip
-            content={
-              <div styleName="tooltip">{quantityText(opportunity.submissions, 'submission')}</div>
-            }
+            content={(
+              <div styleName="tooltip">
+                {quantityText(opportunity.submissions, 'submission')}
+              </div>
+)}
           >
             <SubmissionsIcon />
-            <span styleName="number">{opportunity.submissions}</span>
+            <span styleName="number">
+              {opportunity.submissions}
+            </span>
           </Tooltip>
         </div>
         <Link
@@ -126,7 +149,9 @@ function ReviewOpportunityCard({
           <span>
             { start.isAfter() ? formatDuration(start.diff()) : `Late by ${formatDuration(-start.diff())}` }
           </span>
-          <span styleName="to-register">to apply</span>
+          <span styleName="to-register">
+to apply
+          </span>
         </Link>
       </div>
     </div>

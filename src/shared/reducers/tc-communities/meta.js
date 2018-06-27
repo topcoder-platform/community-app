@@ -64,8 +64,7 @@ export async function factory(req) {
       let state = itemReducer(undefined, '@@INIT');
       state = { ...state, loadingOperationId: communityId };
       const { tokenV3 } = getAuthTokens(req);
-      let action =
-        actions.tcCommunities.meta.fetchDataDone(communityId, tokenV3);
+      let action = actions.tcCommunities.meta.fetchDataDone(communityId, tokenV3);
       action = await redux.resolveAction(action);
       return create(onFetchDataDone(state, action));
     }

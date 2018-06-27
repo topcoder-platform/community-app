@@ -18,21 +18,30 @@ import PT from 'prop-types';
 import FiltersIcon from './filters-icon.svg';
 import './style.scss';
 
-export default function FiltersSwitch(props) {
+export default function FiltersSwitch({
+  active,
+  className: propClassName,
+  filtersCount: propFiltersCount,
+  onSwitch,
+}) {
   let className = 'FiltersSwitch';
-  if (props.active) className += ' active';
+  if (active) className += ' active';
 
   let filtersCount;
-  if (props.filtersCount) {
-    filtersCount = <span styleName="filtersCount">{props.filtersCount}</span>;
+  if (propFiltersCount) {
+    filtersCount = (
+      <span styleName="filtersCount">
+        {propFiltersCount}
+      </span>
+    );
   }
 
   return (
     <div
       styleName={className}
-      className={`tc-outline-btn ${props.className || ''}`}
-      onClick={() => (props.onSwitch ? props.onSwitch(!props.active) : null)}
-      onKeyPress={() => (props.onSwitch ? props.onSwitch(!props.active) : null)}
+      className={`tc-outline-btn ${propClassName || ''}`}
+      onClick={() => (onSwitch ? onSwitch(!active) : null)}
+      onKeyPress={() => (onSwitch ? onSwitch(!active) : null)}
     >
       <FiltersIcon color="#5D5D66" styleName="FiltersIcon" />
       Filters

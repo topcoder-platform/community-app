@@ -24,8 +24,12 @@ function AccordionItem(props) {
           role="button"
           tabIndex={0}
         >
-          <span className={theme.titleText}>{title}</span>
-          <span className={theme.titleArrow}><IconTickDown /></span>
+          <span className={theme.titleText}>
+            {title}
+          </span>
+          <span className={theme.titleArrow}>
+            <IconTickDown />
+          </span>
         </div>
       </h3>
       <div className={theme.content}>
@@ -40,9 +44,12 @@ function AccordionItem(props) {
         bottomBoundary="#accordion"
         enableTransforms={false}
         styleName="desktop"
-      >{content}
+      >
+        {content}
       </Sticky>
-      <div styleName="mobile">{content}</div>
+      <div styleName="mobile">
+        {content}
+      </div>
     </div>
   );
 }

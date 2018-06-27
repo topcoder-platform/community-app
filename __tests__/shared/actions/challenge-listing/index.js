@@ -8,8 +8,9 @@ jest.setMock('tc-accounts', {
 
 const actions = require('actions/challenge-listing').default.challengeListing;
 
-const mockFetch = (ok, resolvesTo) => jest.fn(() =>
-  Promise.resolve({ ok, json: () => resolvesTo }));
+const mockFetch = (ok, resolvesTo) => jest.fn(
+  () => Promise.resolve({ ok, json: () => resolvesTo }),
+);
 
 let originalFetch;
 
@@ -29,11 +30,10 @@ describe('challengeListing.setSort', () => {
     expect(a.type).toBe('CHALLENGE_LISTING/SET_SORT');
   });
 
-  test('payload is expected object', () =>
-    expect(a.payload).toEqual({
-      bucket: 'bucket',
-      sort: 'sort',
-    }));
+  test('payload is expected object', () => expect(a.payload).toEqual({
+    bucket: 'bucket',
+    sort: 'sort',
+  }));
 });
 
 describe('challengeListing.getAllActiveChallengesInit', () => {
@@ -45,8 +45,7 @@ describe('challengeListing.getAllActiveChallengesInit', () => {
     expect(a.type).toBe('CHALLENGE_LISTING/GET_ALL_ACTIVE_CHALLENGES_INIT');
   });
 
-  test('payload is expected object', () =>
-    expect(a.payload).toEqual('dummy'));
+  test('payload is expected object', () => expect(a.payload).toEqual('dummy'));
 });
 
 describe('challengeListing.getDraftChallengesInit', () => {
@@ -58,11 +57,10 @@ describe('challengeListing.getDraftChallengesInit', () => {
     expect(a.type).toBe('CHALLENGE_LISTING/GET_DRAFT_CHALLENGES_INIT');
   });
 
-  test('payload is expected object', () =>
-    expect(a.payload).toEqual({
-      uuid: 'uuid',
-      page: 'page',
-    }));
+  test('payload is expected object', () => expect(a.payload).toEqual({
+    uuid: 'uuid',
+    page: 'page',
+  }));
 });
 
 describe('challengeListing.getPastChallengesInit', () => {
@@ -74,11 +72,10 @@ describe('challengeListing.getPastChallengesInit', () => {
     expect(a.type).toBe('CHALLENGE_LISTING/GET_PAST_CHALLENGES_INIT');
   });
 
-  test('payload is expected object', () =>
-    expect(a.payload).toEqual({
-      uuid: 'uuid',
-      page: 'page',
-    }));
+  test('payload is expected object', () => expect(a.payload).toEqual({
+    uuid: 'uuid',
+    page: 'page',
+  }));
 });
 
 describe('challengeListing.getChallengeSubtracksDone', () => {

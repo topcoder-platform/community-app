@@ -11,8 +11,7 @@ export default function ChunkLoader() {
   return (
     <AppChunk
       chunkName="topcoder-website/chunk"
-      renderClientAsync={() =>
-        import(/* webpackChunkName: "topcoder-website/chunk" */'./Routes')
+      renderClientAsync={() => import(/* webpackChunkName: "topcoder-website/chunk" */'./Routes')
         .then(({ default: Routes }) => <Routes />)
       }
       renderPlaceholder={() => <LoadingIndicator />}

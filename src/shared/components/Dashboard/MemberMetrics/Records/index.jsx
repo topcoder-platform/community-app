@@ -59,8 +59,7 @@ function transformStats(stats) {
   s = _.get(stats.DEVELOP, 'subTracks');
   if (s) s.forEach(x => push('DEVELOP', x.name, x));
 
-  return res.sort((a, b) =>
-    moment(b.mostRecentSubmission).diff(a.mostRecentSubmission));
+  return res.sort((a, b) => moment(b.mostRecentSubmission).diff(a.mostRecentSubmission));
 }
 
 export default function Records({ stats }) {

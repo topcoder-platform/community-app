@@ -42,29 +42,41 @@ class TermsDetailPageContainer extends React.Component {
     return (
       <div styleName="outer-container">
         {
-          loadingTermId === termId ? <div styleName="loading"><LoadingIndicator /></div> : null
-        }
-        {
-          getTermDetailsFailure ? <div styleName="error">{getTermDetailsFailure.error.details}</div> : null
-        }
-        {
-          details ?
-            <div styleName="terms-detail-container">
-              <MetaTags title={details.title} description={details.title} />
-              <div styleName="terms-title">{details.title}</div>
-              <TermDetails
-                details={details}
-                docuSignUrl={docuSignUrl}
-                getDocuSignUrl={(templateId) => {
-                  const base = window ? window.location.href.match('.*://[^/]*')[0] : '';
-                  return getDocuSignUrl(
-authTokens,
-                    templateId, `${base}/community-app-assets/iframe-break`,
-);
-                }}
-                loadingDocuSignUrl={loadingDocuSignUrl}
-              />
+          loadingTermId === termId ? (
+            <div styleName="loading">
+              <LoadingIndicator />
             </div>
+          ) : null
+        }
+        {
+          getTermDetailsFailure ? (
+            <div styleName="error">
+              {getTermDetailsFailure.error.details}
+            </div>
+          ) : null
+        }
+        {
+          details
+            ? (
+              <div styleName="terms-detail-container">
+                <MetaTags title={details.title} description={details.title} />
+                <div styleName="terms-title">
+                  {details.title}
+                </div>
+                <TermDetails
+                  details={details}
+                  docuSignUrl={docuSignUrl}
+                  getDocuSignUrl={(templateId) => {
+                    const base = window ? window.location.href.match('.*://[^/]*')[0] : '';
+                    return getDocuSignUrl(
+                      authTokens,
+                      templateId, `${base}/community-app-assets/iframe-break`,
+                    );
+                  }}
+                  loadingDocuSignUrl={loadingDocuSignUrl}
+                />
+              </div>
+            )
             : null
         }
       </div>
@@ -93,16 +105,18 @@ TermsDetailPageContainer.propTypes = {
   details: PT.shape(),
 };
 
-const mapStateToProps = (state, props) => ({
-  termId: props.match.params.termId,
-  agreeingTerm: state.terms.agreeingTerm,
-  authTokens: state.auth,
-  docuSignUrl: state.terms.docuSignUrl,
-  loadingDocuSignUrl: state.terms.loadingDocuSignUrl,
-  getTermDetailsFailure: state.terms.getTermDetailsFailure,
-  loadingTermId: state.terms.loadingDetailsForTermId,
-  details: state.terms.details,
-});
+function mapStateToProps(state, props) {
+  return {
+    termId: props.match.params.termId,
+    agreeingTerm: state.terms.agreeingTerm,
+    authTokens: state.auth,
+    docuSignUrl: state.terms.docuSignUrl,
+    loadingDocuSignUrl: state.terms.loadingDocuSignUrl,
+    getTermDetailsFailure: state.terms.getTermDetailsFailure,
+    loadingTermId: state.terms.loadingDetailsForTermId,
+    details: state.terms.details,
+  };
+}
 
 function mapDispatchToProps(dispatch) {
   return {

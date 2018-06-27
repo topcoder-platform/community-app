@@ -9,4 +9,3 @@ test('Matches shallow shapshot', () => {
     <PastSRMCard />
   ));
 });
-

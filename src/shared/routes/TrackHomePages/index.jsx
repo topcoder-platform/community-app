@@ -12,9 +12,8 @@ export default function TrackHomePages({ base }) {
   return (
     <AppChunk
       chunkName="track-homepages/chunk"
-      renderClientAsync={() =>
-        import(/* webpackChunkName: "track-homepages/chunk" */'./Router')
-          .then(({ default: Router }) => <Router base={base} />)
+      renderClientAsync={() => import(/* webpackChunkName: "track-homepages/chunk" */'./Router')
+        .then(({ default: Router }) => <Router base={base} />)
       }
       renderPlaceholder={() => <LoadingIndicator />}
       renderServer={() => {
@@ -28,4 +27,3 @@ export default function TrackHomePages({ base }) {
 TrackHomePages.propTypes = {
   base: PT.string.isRequired,
 };
-

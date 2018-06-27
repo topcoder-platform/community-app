@@ -22,7 +22,9 @@ export default function TrackIcon({
       tabIndex={0}
       onKeyPress={null}
     >
-      <div styleName={`${track.toLowerCase()} ${isBigIcon ? 'big-icon' : `${isActive ? 'main-icon-active' : 'main-icon'}`} `}>{abbreviation.toUpperCase()}</div>
+      <div styleName={`${track.toLowerCase()} ${isBigIcon ? 'big-icon' : `${isActive ? 'main-icon-active' : 'main-icon'}`} `}>
+        {abbreviation.toUpperCase()}
+      </div>
     </div>
   );
 }

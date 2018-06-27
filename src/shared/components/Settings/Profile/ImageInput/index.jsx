@@ -24,14 +24,20 @@ export default class ImageInput extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (this.props.profileState.deletingPhoto && !nextProps.profileState.deletingPhoto) {
+    const {
+      profileState,
+    } = this.props;
+    if (profileState.deletingPhoto && !nextProps.profileState.deletingPhoto) {
       document.querySelector('#change-image-input').value = null;
     }
   }
 
   onChangeImage(e) {
     e.preventDefault();
-    if (this.props.profileState.uploadingPhoto) {
+    const {
+      profileState,
+    } = this.props;
+    if (profileState.uploadingPhoto) {
       return;
     }
     const fileInput = document.querySelector('#change-image-input');
@@ -40,24 +46,36 @@ export default class ImageInput extends React.Component {
 
   onUploadPhoto(e) {
     e.preventDefault();
-    if (this.props.profileState.uploadingPhoto) {
+    const {
+      handle,
+      profileState,
+      tokenV3,
+      uploadPhoto,
+    } = this.props;
+    if (profileState.uploadingPhoto) {
       return;
     }
     const fileInput = document.querySelector('#change-image-input');
     const file = fileInput.files[0];
-    this.props.uploadPhoto(this.props.handle, this.props.tokenV3, file);
+    uploadPhoto(handle, tokenV3, file);
   }
 
   onDeletePhoto(e) {
+    const {
+      deletePhoto,
+      profile,
+      profileState,
+      tokenV3,
+    } = this.props;
     e.preventDefault();
-    if (this.props.profileState.deletingPhoto) {
+    if (profileState.deletingPhoto) {
       return;
     }
-    const newProfile = _.clone(this.props.profile);
+    const newProfile = _.clone(profile);
     delete newProfile.photoURL;
     delete newProfile.groups;
     newProfile.tracks = newProfile.tracks || [];
-    this.props.deletePhoto(newProfile, this.props.tokenV3);
+    deletePhoto(newProfile, tokenV3);
   }
 
   render() {
@@ -75,12 +93,12 @@ export default class ImageInput extends React.Component {
       <div styleName="image">
         <div styleName="edit-image">
           {
-                profile.photoURL &&
-                <img alt="User" src={profile.photoURL} styleName="profile-circle" />
+                profile.photoURL
+                && <img alt="User" src={profile.photoURL} styleName="profile-circle" />
               }
           {
-                !profile.photoURL &&
-                <DefaultPortrait styleName="profile-circle" />
+                !profile.photoURL
+                && <DefaultPortrait styleName="profile-circle" />
               }
           <div styleName="buttons">
             <PrimaryButton onClick={this.onChangeImage} disabled={uploadingPhoto || deletingPhoto} theme={{ button: Styles['file-upload'] }}>
@@ -96,7 +114,8 @@ export default class ImageInput extends React.Component {
             </PrimaryButton>
             <input type="file" name="image" onChange={this.onUploadPhoto} id="change-image-input" className="hidden" />
             {
-                  profile.photoURL &&
+                  profile.photoURL
+                  && (
                   <div>
                     <SecondaryButton
                       onClick={this.onDeletePhoto}
@@ -111,6 +130,7 @@ export default class ImageInput extends React.Component {
                       }
                     </SecondaryButton>
                   </div>
+                  )
                 }
           </div>
         </div>

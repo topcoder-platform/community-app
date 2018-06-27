@@ -15,13 +15,20 @@ import { DevTools, isomorphy } from 'topcoder-react-utils';
 import ExtendedReduxToastr from 'containers/toastr';
 
 import 'react-redux-toastr/lib/css/react-redux-toastr.min.css';
-import 'topcoder-react-ui-kit/dist/style.css';
 
 import 'styles/awesome.css';
 
 import 'styles/global.scss';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
+
+/* eslint-disable global-require */
+if (process.env.NODE_ENV === 'production') {
+  require('topcoder-react-ui-kit/dist/prod/style.css');
+} else {
+  require('topcoder-react-ui-kit/dist/dev/style.css');
+}
+/* eslint-enable global-require */
 
 export default function App() {
   return (

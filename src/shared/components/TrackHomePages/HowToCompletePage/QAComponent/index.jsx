@@ -17,13 +17,17 @@ class QAComponent extends React.Component {
       isActive: false,
     };
   }
+
   toggleActive() {
+    const { isActive } = this.state;
     this.setState({
-      isActive: !this.state.isActive,
+      isActive: !isActive,
     });
   }
+
   render() {
     const { data, isLastItem } = this.props;
+    const { isActive } = this.state;
     const className = `container ${isLastItem}`;
     return (
       <div styleName={className}>
@@ -31,16 +35,16 @@ class QAComponent extends React.Component {
           tabIndex={0}
           role="button"
           onKeyPress={e => (e.key === 'Enter' ? null : null)}
-          styleName={this.state.isActive ? 'question active' : 'question'}
+          styleName={isActive ? 'question active' : 'question'}
           onClick={() => this.toggleActive()}
         >
           <div styleName="text">
             { data.title }
           </div>
-          <div styleName={this.state.isActive ? 'toggle-arrow active' : 'toggle-arrow'} />
+          <div styleName={isActive ? 'toggle-arrow active' : 'toggle-arrow'} />
         </div>
         <div
-          styleName={this.state.isActive ? 'answer active' : 'answer'}
+          styleName={isActive ? 'answer active' : 'answer'}
           dangerouslySetInnerHTML={
             { __html: converter.makeHtml(data.text) }
           }

@@ -13,8 +13,12 @@ const ImportantPolicies = ({ data }) => (
       data.policies.map(policy => (
         <div key={policy.title} styleName="policy">
           <img styleName="icon" src={policy.icon.file.url} alt="Policy" />
-          <div styleName="title">{policy.title}</div>
-          <div styleName="text">{policy.shortDescription}</div>
+          <div styleName="title">
+            {policy.title}
+          </div>
+          <div styleName="text">
+            {policy.shortDescription}
+          </div>
         </div>
       ))
     }

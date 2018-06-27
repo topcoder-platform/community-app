@@ -13,13 +13,20 @@ const Track = ({
 }) => (data ? (
   <div className={theme.container}>
     <div className={theme.track}>
-      <span>{track}</span>
+      <span>
+        {track}
+      </span>
       <img src={icon} alt="Champion Icon" />
     </div>
     {
       data.members.map(member => (
         <div key={member.handle} className={theme.champion}>
-          <span>{member.handle}</span><strong>{member.value}</strong>
+          <span>
+            {member.handle}
+          </span>
+          <strong>
+            {member.value}
+          </strong>
         </div>
       ))
     }

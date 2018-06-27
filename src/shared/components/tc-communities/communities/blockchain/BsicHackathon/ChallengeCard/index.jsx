@@ -15,8 +15,12 @@ export default function ChallengeCard({
         src={imgUrl}
         styleName="thumbnail"
       />
-      <h1 styleName="h1">{title}</h1>
-      <div>{text}</div>
+      <h1 styleName="h1">
+        {title}
+      </h1>
+      <div>
+        {text}
+      </div>
     </div>
   );
 }

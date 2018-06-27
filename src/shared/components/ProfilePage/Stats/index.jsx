@@ -8,7 +8,9 @@ import PT from 'prop-types';
 import { Link } from 'react-router-dom';
 import { getRatingColor } from 'utils/tc';
 import Th from 'assets/images/th.svg';
-import { shouldShowGraph, getHistory, getSubTrackStats, getSummary, getDetails } from 'utils/memberStats';
+import {
+  shouldShowGraph, getHistory, getSubTrackStats, getSummary, getDetails,
+} from 'utils/memberStats';
 import DistributionGraph from './DistributionGraph';
 import HistoryGraph from './HistoryGraph';
 import styles from './styles.scss';
@@ -28,7 +30,8 @@ class ProfileStats extends React.Component {
   }
 
   toggleModal() {
-    this.setState({ showModal: !this.state.showModal });
+    const { showModal } = this.state;
+    this.setState({ showModal: !showModal });
   }
 
   render() {
@@ -75,15 +78,21 @@ class ProfileStats extends React.Component {
           <div styleName="page-state-header">
             <header>
               <div styleName="page-info">
-                <h1>{subTrack.replace('FIRST_2_FINISH', 'FIRST2FINISH').replace(/_/g, ' ')}</h1>
+                <h1>
+                  {subTrack.replace('FIRST_2_FINISH', 'FIRST2FINISH').replace(/_/g, ' ')}
+                </h1>
                 <a styleName="nav-right" onClick={this.toggleModal} onKeyPress={this.toggleModal} role="button" tabIndex={0}>
                   <Th height={16} width={16} />
                 </a>
               </div>
               <div styleName="info">
                 <div styleName="item">
-                  <div styleName="value">{activeChallengesCount}</div>
-                  <div styleName="title">Active Challenges</div>
+                  <div styleName="value">
+                    {activeChallengesCount}
+                  </div>
+                  <div styleName="title">
+Active Challenges
+                  </div>
                 </div>
               </div>
             </header>
@@ -107,28 +116,37 @@ class ProfileStats extends React.Component {
                 subTrackSummary.map(({ label, value, link }) => (
                   <li key={label}>
                     {
-                      link ?
-                        <a styleName="value" href={link}>{value || '-'}</a>
-                        :
-                        <div
-                          styleName="value"
-                          className={label === 'rating' ? styles.rating : ''}
-                          style={{ color: label === 'rating' ? getRatingColor(parseInt(value.replace(/\D/g, ''), 10)) : undefined }}
-                        >
-                          {value || '-'}
-                          {label === 'rating' && <span styleName="square" style={{ backgroundColor: getRatingColor((parseInt(value.replace(/\D/g, ''), 10))) }} />}
-                        </div>
+                      link
+                        ? (
+                          <a styleName="value" href={link}>
+                            {value || '-'}
+                          </a>
+                        )
+                        : (
+                          <div
+                            styleName="value"
+                            className={label === 'rating' ? styles.rating : ''}
+                            style={{ color: label === 'rating' ? getRatingColor(parseInt(value.replace(/\D/g, ''), 10)) : undefined }}
+                          >
+                            {value || '-'}
+                            {label === 'rating' && <span styleName="square" style={{ backgroundColor: getRatingColor((parseInt(value.replace(/\D/g, ''), 10))) }} />}
+                          </div>
+                        )
                     }
-                    <p styleName="label">{label}</p>
+                    <p styleName="label">
+                      {label}
+                    </p>
                   </li>
                 ))
               }
             </ul>
             {
-              activeTab === 'statistics' &&
+              activeTab === 'statistics'
+              && (
               <div className="tab-view">
                 {
-                  shouldShowGraph({ track, subTrack }) &&
+                  shouldShowGraph({ track, subTrack })
+                  && (
                   <div styleName="statistics-graph">
                     <div styleName="graph-title">
                       <div styleName="text">
@@ -138,12 +156,14 @@ class ProfileStats extends React.Component {
                         <button
                           className={`tc-btn tc-btn-s ${activeGraph === 'history' ? 'active' : ''}`}
                           onClick={() => this.setState({ activeGraph: 'history' })}
+                          type="button"
                         >
                           View Rating History
                         </button>
                         <button
                           className={`tc-btn tc-btn-s ${activeGraph === 'distribution' ? 'active' : ''}`}
                           onClick={() => this.setState({ activeGraph: 'distribution' })}
+                          type="button"
                         >
                           View Rating Distribution
                         </button>
@@ -152,36 +172,54 @@ class ProfileStats extends React.Component {
                     {
                       activeGraph === 'history'
                         ? <HistoryGraph history={getHistory(statsHistory, track, subTrack)} />
-                        : <DistributionGraph
-                          distribution={statsDistribution}
-                          rating={_.get(subTrackStats, 'rank.rating')}
-                        />
+                        : (
+                          <DistributionGraph
+                            distribution={statsDistribution}
+                            rating={_.get(subTrackStats, 'rank.rating')}
+                          />
+                        )
                     }
                   </div>
+                  )
                 }
                 {
-                  track !== 'COPILOT' &&
+                  track !== 'COPILOT'
+                    && (
                     <div styleName="details">
-                      <h2>Details</h2>
+                      <h2>
+Details
+                      </h2>
                       {
-                        subTrack !== 'SRM' ?
-                          <ul styleName="vertical-stats">
-                            {
+                        subTrack !== 'SRM'
+                          ? (
+                            <ul styleName="vertical-stats">
+                              {
                               subTrackDetails.map(({ label, value }) => (
                                 <li key={label}>
-                                  <div>{label}</div>
-                                  <div styleName="right">{value || '-'}</div>
+                                  <div>
+                                    {label}
+                                  </div>
+                                  <div styleName="right">
+                                    {value || '-'}
+                                  </div>
                                 </li>
                               ))
                             }
-                          </ul>
+                            </ul>
+                          )
                           : <SRMStats subTrackDetails={subTrackDetails} />
                       }
                     </div>
+                    )
                 }
               </div>
+              )
             }
-            {activeTab === 'challenges' && <div>Not Implemented</div>}
+            {activeTab === 'challenges' && (
+            <div>
+Not Implemented
+            </div>
+            )}
           </div>
         </div>
         {showModal && <StatsModal stats={stats} info={info} onClose={this.toggleModal} />}

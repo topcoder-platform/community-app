@@ -12,8 +12,7 @@ export default function ChunkLoader({ base, meta }) {
   return (
     <AppChunk
       chunkName="wipro-community/chunk"
-      renderClientAsync={() =>
-        import(/* webpackChunkName: "wipro-community/chunk" */ './Routes')
+      renderClientAsync={() => import(/* webpackChunkName: "wipro-community/chunk" */ './Routes')
         .then(({ default: Routes }) => <Routes base={base} meta={meta} />)
       }
       renderPlaceholder={() => <LoadingIndicator />}

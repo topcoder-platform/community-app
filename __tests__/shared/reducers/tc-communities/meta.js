@@ -56,15 +56,12 @@ describe('Default reducer', () => {
   testReducer(reducer.default);
 });
 
-describe('Factory without http request', () =>
-  reducer.factory().then(testReducer));
+describe('Factory without http request', () => reducer.factory().then(testReducer));
 
-describe('Factory with server-side rendering', () =>
-  reducer.factory({
-    url: '/community/communityId/header',
-  }).then(testReducer));
+describe('Factory with server-side rendering', () => reducer.factory({
+  url: '/community/communityId/header',
+}).then(testReducer));
 
-describe('Factory without server-side rendering', () =>
-  reducer.factory({
-    url: '/some-random-url',
-  }).then(testReducer));
+describe('Factory without server-side rendering', () => reducer.factory({
+  url: '/some-random-url',
+}).then(testReducer));

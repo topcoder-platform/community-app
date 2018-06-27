@@ -55,23 +55,23 @@ function ViewportContentLoader(props) {
                 return (
                   <Accordion id={id} key={id} preview={preview} />
                 );
-              } else if (data.entries.items[id].sys.contentType.sys.id === 'banner') {
+              } if (data.entries.items[id].sys.contentType.sys.id === 'banner') {
                 return (
                   <Banner id={id} key={id} preview={preview} />
                 );
-              } else if (data.entries.items[id].sys.contentType.sys.id === 'contentBlock') {
+              } if (data.entries.items[id].sys.contentType.sys.id === 'contentBlock') {
                 return (
                   <ContentBlock id={id} key={id} preview={preview} />
                 );
-              } else if (data.entries.items[id].sys.contentType.sys.id === 'quote') {
+              } if (data.entries.items[id].sys.contentType.sys.id === 'quote') {
                 return (
                   <Quote id={id} key={id} preview={preview} />
                 );
-              } else if (data.entries.items[id].sys.contentType.sys.id === 'video') {
+              } if (data.entries.items[id].sys.contentType.sys.id === 'video') {
                 return (
                   <Video id={id} key={id} preview={preview} />
                 );
-              } else if (data.entries.items[id].sys.contentType.sys.id === 'viewport') {
+              } if (data.entries.items[id].sys.contentType.sys.id === 'viewport') {
                 return (
                   <ViewportLoader id={id} key={id} preview={preview} />
                 );
@@ -104,6 +104,7 @@ function ViewportLoader(props) {
   const {
     id,
     preview,
+    query,
   } = props;
 
   const queries = [];
@@ -112,7 +113,7 @@ function ViewportLoader(props) {
     queries.push({ 'sys.id': id, content_type: 'viewport' });
   }
 
-  if (props.query) {
+  if (query) {
     queries.push({ ...props.query, content_type: 'viewport' });
   }
 

@@ -6,13 +6,11 @@ const DUMMY_PAYLOAD = [{ 'user.handle': 'fake.username' }];
 const DUMMY_AUTH = { tokenV3: 'token' };
 const DUMMY_LEADERBOARD_API_URL = 'some/api/url';
 
-const fetchFailureMock = jest.fn(() =>
-  Promise.reject(new Error('ERROR')));
+const fetchFailureMock = jest.fn(() => Promise.reject(new Error('ERROR')));
 
-const fetchSuccessMock = jest.fn(() =>
-  Promise.resolve({
-    json: () => (DUMMY_PAYLOAD),
-  }));
+const fetchSuccessMock = jest.fn(() => Promise.resolve({
+  json: () => (DUMMY_PAYLOAD),
+}));
 
 function testReducer(reducer, expectedInitialState) {
   let state;
@@ -69,29 +67,24 @@ global.fetch = fetchSuccessMock;
 describe('default reducer', () => testReducer(defaultReducer, {}));
 
 global.fetch = fetchSuccessMock;
-describe('factory without http request', () =>
-  factory().then(res => testReducer(res, {})));
+describe('factory without http request', () => factory().then(res => testReducer(res, {})));
 
 global.fetch = fetchSuccessMock;
-describe('factory with matching http request and success response', () =>
-  factory({
-    url: '/leaderboard',
-  }).then(res =>
-    testReducer(res, {
-      data: DUMMY_PAYLOAD,
-      failed: false,
-      loading: false,
-      loadedApiUrl: '/leaderboard',
-    })));
+describe('factory with matching http request and success response', () => factory({
+  url: '/leaderboard',
+}).then(res => testReducer(res, {
+  data: DUMMY_PAYLOAD,
+  failed: false,
+  loading: false,
+  loadedApiUrl: '/leaderboard',
+})));
 
 global.fetch = fetchFailureMock;
-describe('factory with matching http request and network failure', () =>
-  factory({
-    url: '/leaderboard',
-  }).then(res =>
-    testReducer(res, {
-      data: null,
-      failed: true,
-      loading: false,
-      loadedApiUrl: null,
-    })));
+describe('factory with matching http request and network failure', () => factory({
+  url: '/leaderboard',
+}).then(res => testReducer(res, {
+  data: null,
+  failed: true,
+  loading: false,
+  loadedApiUrl: null,
+})));

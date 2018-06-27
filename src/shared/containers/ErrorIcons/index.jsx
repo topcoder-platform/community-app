@@ -21,12 +21,18 @@ const Icons = {
 function Tip({ errors, clear }) {
   return (
     <div styleName="Tip">
-      <a styleName="clear" onClick={clear} role="button" tabIndex={-1}>&#10799;</a>
+      <a styleName="clear" onClick={clear} role="button" tabIndex={-1}>
+&#10799;
+      </a>
       {
         errors.map(({ title, message }, i) => (
           <div key={i.toString()} styleName="item">
-            <div styleName="title" title={title}>{title}</div>
-            <div styleName="message">{message}</div>
+            <div styleName="title" title={title}>
+              {title}
+            </div>
+            <div styleName="message">
+              {message}
+            </div>
           </div>
         ))
       }

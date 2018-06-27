@@ -33,12 +33,16 @@ export default function ChallengeHeader(props) {
     checkpoints,
     hasRegistered,
     numWinners,
+    onSelectorClicked,
+    onToggleDeadlines,
     registering,
     registerForChallenge,
     setChallengeListingFilter,
     unregisterFromChallenge,
     unregistering,
     challengeSubtracksMap,
+    selectedView,
+    showDeadlineDetail,
   } = props;
 
   const {
@@ -75,10 +79,9 @@ export default function ChallengeHeader(props) {
     registrationEnded = regPhase.phaseStatus !== 'Open';
   }
 
-  const submissionEnded =
-    status === 'COMPLETED' ||
-    (_.get(phases, 'submission.phaseStatus') !== 'Open' &&
-      _.get(phases, 'checkpointSubmission.phaseStatus') !== 'Open');
+  const submissionEnded = status === 'COMPLETED'
+    || (_.get(phases, 'submission.phaseStatus') !== 'Open'
+      && _.get(phases, 'checkpointSubmission.phaseStatus') !== 'Open');
 
   let trackLower = track ? track.toLowerCase() : 'design';
   if (technologies.includes('Data Science')) {
@@ -127,7 +130,7 @@ export default function ChallengeHeader(props) {
 
   let relevantPhases = [];
 
-  if (props.showDeadlineDetail) {
+  if (showDeadlineDetail) {
     relevantPhases = (allPhases || []).filter((phase) => {
       if (phase.phaseType === 'Iterative Review') {
         const end = phase.actualEndTime || phase.scheduledEndTime;
@@ -137,8 +140,8 @@ export default function ChallengeHeader(props) {
       if (phaseLowerCase.includes('screening') || phaseLowerCase.includes('specification')) {
         return false;
       }
-      if (phaseLowerCase.includes('registration') || phaseLowerCase.includes('checkpoint') ||
-        phaseLowerCase.includes('submission') || phaseLowerCase.includes('review')) {
+      if (phaseLowerCase.includes('registration') || phaseLowerCase.includes('checkpoint')
+        || phaseLowerCase.includes('submission') || phaseLowerCase.includes('review')) {
         return true;
       }
       return false;
@@ -151,14 +154,14 @@ export default function ChallengeHeader(props) {
       if (b.phaseType.toLowerCase().includes('registration')) {
         return 1;
       }
-      return (new Date(a.actualEndTime || a.scheduledEndTime)).getTime() -
-        (new Date(b.actualEndTime || b.scheduledEndTime)).getTime();
+      return (new Date(a.actualEndTime || a.scheduledEndTime)).getTime()
+        - (new Date(b.actualEndTime || b.scheduledEndTime)).getTime();
     });
     if (subTrack === 'FIRST_2_FINISH' && status === 'COMPLETED') {
       const phases2 = allPhases.filter(p => p.phaseType === 'Iterative Review' && p.phaseStatus === 'Closed');
       const endPhaseDate = Math.max(...phases2.map(d => new Date(d.scheduledEndTime)));
-      relevantPhases = _.filter(relevantPhases, p => (p.phaseType.toLowerCase().includes('registration') ||
-        new Date(p.scheduledEndTime).getTime() < endPhaseDate));
+      relevantPhases = _.filter(relevantPhases, p => (p.phaseType.toLowerCase().includes('registration')
+        || new Date(p.scheduledEndTime).getTime() < endPhaseDate));
       relevantPhases.push({
         id: -1,
         phaseType: 'Winners',
@@ -187,7 +190,9 @@ export default function ChallengeHeader(props) {
     case 'active':
       nextDeadlineMsg = (
         <div styleName="next-deadline">
-          Next Deadline: {
+          Next Deadline:
+          {' '}
+          {
             <span styleName="deadline-highlighted">
               {nextDeadline || '-'}
             </span>
@@ -206,7 +211,8 @@ export default function ChallengeHeader(props) {
       nextDeadlineMsg = (
         <div>
           Status:
-          &zwnj;{
+          &zwnj;
+          {
             <span styleName="deadline-highlighted">
               {_.upperFirst(_.lowerCase(status))}
             </span>
@@ -219,7 +225,9 @@ export default function ChallengeHeader(props) {
   return (
     <div styleName="challenge-outer-container">
       <div styleName="important-detail">
-        <h1 styleName="challenge-header">{name}</h1>
+        <h1 styleName="challenge-header">
+          {name}
+        </h1>
         <ChallengeTags
           subTrack={subTrack}
           track={trackLower}
@@ -231,33 +239,43 @@ export default function ChallengeHeader(props) {
         />
         <div styleName="prizes-ops-container">
           <div styleName="prizes-outer-container">
-            <h3 styleName="prizes-title">PRIZES</h3>
+            <h3 styleName="prizes-title">
+PRIZES
+            </h3>
             <Prizes prizes={prizes && prizes.length ? prizes : [0]} pointPrizes={pointPrizes} />
             {
               bonusType ? (
                 <div id={`bonus-${trackLower}`} styleName="bonus-div">
                   {
-                    bonusType === 'Bonus' ?
-                      <p styleName="bonus-text">
-                        <span styleName={`bonus-highlight ${trackLower}-accent-color`}>
-                          BONUS: {numberOfCheckpointsPrizes}
-                        </span>
+                    bonusType === 'Bonus'
+                      ? (
+                        <p styleName="bonus-text">
+                          <span styleName={`bonus-highlight ${trackLower}-accent-color`}>
+                          BONUS:
+                            {' '}
+                            {numberOfCheckpointsPrizes}
+                          </span>
                         &zwnj;
                         CHECKPOINTS AWARDED WORTH
                         &zwnj;
-                        <span
-                          styleName={`bonus-highlight ${trackLower}-accent-color`}
-                        >
-                          ${topCheckPointPrize}
-                        </span>
+                          <span
+                            styleName={`bonus-highlight ${trackLower}-accent-color`}
+                          >
+                          $
+                            {topCheckPointPrize}
+                          </span>
                         &zwnj;
                         EACH
-                      </p> :
-                      <p styleName="bonus-text">
-                        <span styleName={`bonus-highlight ${trackLower}-accent-color`}>
-                          RELIABILITY BONUS: ${reliabilityBonus.toFixed()}
-                        </span>
-                      </p>
+                        </p>
+                      )
+                      : (
+                        <p styleName="bonus-text">
+                          <span styleName={`bonus-highlight ${trackLower}-accent-color`}>
+                          RELIABILITY BONUS: $
+                            {reliabilityBonus.toFixed()}
+                          </span>
+                        </p>
+                      )
                   }
                 </div>
               ) : null
@@ -266,7 +284,10 @@ export default function ChallengeHeader(props) {
               drPoints ? (
                 <div styleName="bonus-div">
                   <p styleName="bonus-text">
-                    <span styleName={`bonus-highlight ${trackLower}-accent-color`}>POINTS: {drPoints}</span>
+                    <span styleName={`bonus-highlight ${trackLower}-accent-color`}>
+POINTS:
+                      {drPoints}
+                    </span>
                   </p>
                 </div>
               ) : null
@@ -280,21 +301,24 @@ export default function ChallengeHeader(props) {
                     || hasSubmissions}
                   onClick={unregisterFromChallenge}
                   theme={{ button: style.challengeAction }}
-                >Unregister
+                >
+Unregister
                 </DangerButton>
               ) : (
                 <PrimaryButton
                   disabled={registering || registrationEnded}
                   onClick={registerForChallenge}
                   theme={{ button: style.challengeAction }}
-                >Register
+                >
+Register
                 </PrimaryButton>
               )}
               <PrimaryButton
                 disabled={!hasRegistered || unregistering || submissionEnded}
                 theme={{ button: style.challengeAction }}
                 to={`${challengesUrl}/${challengeId}/submit`}
-              >Submit
+              >
+Submit
               </PrimaryButton>
               {
                 track === 'DESIGN' && hasRegistered && !unregistering
@@ -302,7 +326,8 @@ export default function ChallengeHeader(props) {
                   <PrimaryButton
                     theme={{ button: style.challengeAction }}
                     to={`${challengesUrl}/${challengeId}/my-submissions`}
-                  >View Submissions
+                  >
+View Submissions
                   </PrimaryButton>
                 )
               }
@@ -314,37 +339,51 @@ export default function ChallengeHeader(props) {
             <div styleName="deadlines-overview-text">
               {nextDeadlineMsg}
               {
-                (status || '').toLowerCase() === 'active' &&
+                (status || '').toLowerCase() === 'active'
+                && (
                 <div styleName="current-phase">
                   <span styleName="deadline-highlighted">
                     {timeLeft}
-                  </span> until current deadline ends
+                  </span>
+                  {' '}
+until current deadline ends
                 </div>
+                )
               }
             </div>
             <a
-              onClick={props.onToggleDeadlines}
-              onKeyPress={props.onToggleDeadlines}
+              onClick={onToggleDeadlines}
+              onKeyPress={onToggleDeadlines}
               role="button"
               styleName="deadlines-collapser"
               tabIndex={0}
             >
-              {props.showDeadlineDetail ?
-                <span styleName="collapse-text">Hide Deadlines <ArrowDown /></span>
-                : <span styleName="collapse-text">Show Deadlines <ArrowUp /></span>
+              {showDeadlineDetail
+                ? (
+                  <span styleName="collapse-text">
+Hide Deadlines
+                    <ArrowDown />
+                  </span>
+                )
+                : (
+                  <span styleName="collapse-text">
+Show Deadlines
+                    <ArrowUp />
+                  </span>
+                )
               }
             </a>
           </div>
           {
-            props.showDeadlineDetail &&
-            <DeadlinesPanel deadlines={relevantPhases} />
+            showDeadlineDetail
+            && <DeadlinesPanel deadlines={relevantPhases} />
           }
         </div>
         <TabSelector
           challenge={challenge}
-          onSelectorClicked={props.onSelectorClicked}
+          onSelectorClicked={onSelectorClicked}
           trackLower={trackLower}
-          selectedView={props.selectedView}
+          selectedView={selectedView}
           numRegistrants={numRegistrants}
           numWinners={numWinners}
           hasCheckpoints={checkpoints && checkpoints.length > 0}

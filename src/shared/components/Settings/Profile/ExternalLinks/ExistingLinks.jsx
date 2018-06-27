@@ -36,6 +36,13 @@ export default class ExistingLinks extends React.Component {
   onDeleteLink(e) {
     e.preventDefault();
     e.stopPropagation();
+    const {
+      deleteWebLink,
+      handle,
+      profile,
+      tokenV3,
+      unlinkExternalAccount,
+    } = this.props;
 
     const { linkToConfirmDelete } = this.state;
 
@@ -45,11 +52,11 @@ export default class ExistingLinks extends React.Component {
     this.setState({ linkToConfirmDelete: null });
 
     if (linkToConfirmDelete.providerType === 'weblink') {
-      this.props.deleteWebLink(this.props.handle, this.props.tokenV3, linkToConfirmDelete);
+      deleteWebLink(handle, tokenV3, linkToConfirmDelete);
     } else {
-      this.props.unlinkExternalAccount(
-        this.props.profile,
-        this.props.tokenV3,
+      unlinkExternalAccount(
+        profile,
+        tokenV3,
         linkToConfirmDelete.providerType,
       );
     }
@@ -66,14 +73,21 @@ export default class ExistingLinks extends React.Component {
     return (
       <div styleName="existing-links">
         {
-          linkToConfirmDelete &&
-          (
+          linkToConfirmDelete
+          && (
             <Modal theme={{ container: Styles['deletion-confirmation-modal'] }}>
               <div styleName="deletion-confirmation-container">
                 <div styleName="deletion-confirmation">
-                  <div styleName="deletion-confirmation-title">Heads Up!</div>
-                  <div styleName="deletion-confirmation-message">Are you sure you want to delete the external link
-                    <span styleName="deletion-confirmation-account-title">&quot;{linkToConfirmDelete.providerType === 'weblink' ? linkToConfirmDelete.URL : linkToConfirmDelete.providerType}&quot;</span>
+                  <div styleName="deletion-confirmation-title">
+Heads Up!
+                  </div>
+                  <div styleName="deletion-confirmation-message">
+Are you sure you want to delete the external link
+                    <span styleName="deletion-confirmation-account-title">
+&quot;
+                      {linkToConfirmDelete.providerType === 'weblink' ? linkToConfirmDelete.URL : linkToConfirmDelete.providerType}
+&quot;
+                    </span>
                     ? This action can&apos;t be undone later.
                   </div>
                   <div styleName="deletion-confirmation-buttons">
@@ -95,15 +109,14 @@ export default class ExistingLinks extends React.Component {
         }
         <div styleName="external-link-list">
           {
-            _.map(allLinks, link =>
-              (
-                <ExistingLink
-                  key={`${link.providerType}${link.key}`}
-                  link={link}
-                  supportedAccounts={supportedAccounts}
-                  onConfirmDeleteLink={this.onConfirmDeleteLink}
-                />
-              ))
+            _.map(allLinks, link => (
+              <ExistingLink
+                key={`${link.providerType}${link.key}`}
+                link={link}
+                supportedAccounts={supportedAccounts}
+                onConfirmDeleteLink={this.onConfirmDeleteLink}
+              />
+            ))
           }
         </div>
       </div>
