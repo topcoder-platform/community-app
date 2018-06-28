@@ -103,7 +103,14 @@ async function onExpressJsSetup(server) {
   server.use('/api/cdn', cdnRouter);
 
   // serve demo api
-  server.use('/community-app-assets/api/tc-communities', tcCommunitiesDemoApi);
+  server.use(
+    '/community-app-assets/api/tc-communities',
+    (req, res, next) => {
+      res.set('Access-Control-Allow-Origin', '*');
+      next();
+    },
+    tcCommunitiesDemoApi,
+  );
 
   server.use(
     '/community-app-assets/api/edit-contentful-entry/:id',
