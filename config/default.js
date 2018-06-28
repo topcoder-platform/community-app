@@ -6,7 +6,7 @@ module.exports = {
   API: {
     V2: 'https://api.topcoder-dev.com/v2',
     V3: 'https://api.topcoder-dev.com/v3',
-    V4: 'https://test-api.topcoder-dev.com/v4',
+    V4: 'https://api.topcoder-dev.com/v4',
   },
 
   /* Auth0 config */

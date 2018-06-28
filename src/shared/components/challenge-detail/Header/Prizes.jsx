@@ -19,22 +19,29 @@ export default function Prizes({ pointPrizes, prizes }) {
     <div styleName="prizes-container">
       {
         _.range(prizeLength).map((index) => {
-            const rank = index + 1;
-            const pair = [];
-            if (!_.isUndefined(prizes[index])) pair.push(prizes[index].toLocaleString());
-            if (!_.isUndefined(pointPrizes[index])) pair.push(`${pointPrizes[index]}pts`);
-            return (
-              <div key={rank} styleName="prize-fill">
-                <div id={`rank${rank}`} styleName="prize-card">
-                  <p styleName="prize-rank">
-                    {rank}
-                    <span styleName="rank-ordinal">{getOrdinal(rank)}</span>
-                  </p>
-                  <p styleName="prize-money">
-                    { !_.isUndefined(prizes[index]) && <span styleName="prize-currency">$</span> }
-                    {pair.join(' + ')}
-                  </p>
-                </div>
+          const rank = index + 1;
+          const pair = [];
+          if (!_.isUndefined(prizes[index])) pair.push(prizes[index].toLocaleString());
+          if (!_.isUndefined(pointPrizes[index])) pair.push(`${pointPrizes[index]}pts`);
+          return (
+            <div key={rank} styleName="prize-fill">
+              <div id={`rank${rank}`} styleName="prize-card">
+                <p styleName="prize-rank">
+                  {rank}
+                  <span styleName="rank-ordinal">
+                    {getOrdinal(rank)}
+                  </span>
+                </p>
+                <p styleName="prize-money">
+                  {
+                    !_.isUndefined(prizes[index]) && (
+                    <span styleName="prize-currency">
+                      $
+                    </span>
+                    )
+                  }
+                  {pair.join(' + ')}
+                </p>
               </div>
             </div>
           );
