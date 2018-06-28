@@ -114,7 +114,6 @@ export default class MyChallenges extends React.Component {
               communities={myCommunities}
               communitiesLoading={communitiesLoading}
               communityStats={communityStats}
-              userGroups={userGroups}
             />
           ) : null
         }
@@ -148,5 +147,5 @@ MyChallenges.propTypes = {
   switchTab: PT.func.isRequired,
   tab: PT.oneOf(_.values(TABS)).isRequired,
   unregisterFromChallenge: PT.func.isRequired,
-  userGroups: PT.arrayOf(PT.object).isRequired,
+  userGroups: PT.arrayOf(PT.string).isRequired,
 };

@@ -21,6 +21,7 @@ const LOCAL_MODE = Boolean(config.CONTENTFUL.LOCAL_MODE);
 /* Sets Access-Control-Allow-Origin header to avoid CORS error.
  * TODO: Replace the wildcard value by an appropriate origin filtering. */
 routes.use((req, res, next) => {
+  res.set('Access-Control-Allow-Headers', 'authorization');
   res.set('Access-Control-Allow-Origin', '*');
   next();
 });
