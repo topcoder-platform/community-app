@@ -15,7 +15,6 @@ import IconNavBoolDevelop from '../../../assets/images/nav/book-develop.svg';
 import IconNavCP from '../../../assets/images/nav/track-cp.svg';
 import IconNavEvents from '../../../assets/images/nav/events.svg';
 import IconNavForums from '../../../assets/images/nav/forums.svg';
-import IconNavMembers from '../../../assets/images/nav/members.svg';
 import IconNavPrograms from '../../../assets/images/nav/programs.svg';
 import IconNavRocket from '../../../assets/images/nav/rocket.svg';
 import IconNavStatistics from '../../../assets/images/nav/statistics.svg';
@@ -89,11 +88,6 @@ const MENU = [{
 }, {
   title: 'Community',
   items: [{
-    enforceA: true,
-    icon: <IconNavMembers />,
-    link: `${BASE_URL}/community/members/`,
-    title: 'Overview',
-  }, {
     enforceA: true,
     icon: <IconNavTcoGeneric />,
     link: config.URL.TCO,
