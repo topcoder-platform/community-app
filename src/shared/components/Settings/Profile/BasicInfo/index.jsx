@@ -8,6 +8,7 @@
 import _ from 'lodash';
 import React from 'react';
 import PT from 'prop-types';
+import moment from 'moment';
 
 import { PrimaryButton } from 'topcoder-react-ui-kit';
 import { getAllCountryObjects } from 'utils/countries';
@@ -42,8 +43,12 @@ export default class BasicInfo extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     const newBasicInfo = this.toBasicInfo(nextProps.userTraits);
+
     this.setState({
-      basicInfo: newBasicInfo,
+      basicInfo: {
+        ...newBasicInfo,
+        birthDate: moment(newBasicInfo.birthDate).format('YYYY-MM-DD'),
+      },
       savingBasicInfo: false,
     });
   }
@@ -61,19 +66,11 @@ export default class BasicInfo extends React.Component {
       updateUserTrait,
     } = this.props;
     const { basicInfo } = this.state;
-    let newInfo = { ...basicInfo };
-
-    /**
-     * omit fields that the api can't accept now.
-     * remove this line when api is fixed.
-     * see: http://apps.topcoder.com/forums/?module=Thread&threadID=919568&start=0
-     * */
-    newInfo = _.omit(newInfo, ['birthDate', 'address', 'state', 'city', 'zipCode', 'currentLocation']);
 
     if (this.isBasicInfoCreated()) {
-      updateUserTrait(handle, 'basic_info', [newInfo], tokenV3);
+      updateUserTrait(handle, 'basic_info', [basicInfo], tokenV3);
     } else {
-      addUserTrait(handle, 'basic_info', [newInfo], tokenV3);
+      addUserTrait(handle, 'basic_info', [basicInfo], tokenV3);
     }
   }
 
@@ -122,7 +119,6 @@ export default class BasicInfo extends React.Component {
       tshirtSize: 'S',
       country: '',
       primaryInterestInTopcoder: '',
-
       birthDate: '',
       address: '',
       state: '',
@@ -132,7 +128,10 @@ export default class BasicInfo extends React.Component {
     };
     const trait = userTraits.filter(t => t.traitId === 'basic_info');
     const basicInfo = trait.length === 0 ? null : trait[0].traits.data[0];
-    return _.extend(defaultInfo, basicInfo);
+    return _.extend(defaultInfo, {
+      ...basicInfo,
+      birthDate: basicInfo ? new Date(basicInfo.birthDate).getTime() : '',
+    });
   }
 
   shouldDisableSave() {
