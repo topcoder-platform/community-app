@@ -33,13 +33,21 @@
   h1 {
     color: #394146;
     font: 600 36px "Open Sans", sans-serif;
-    margin-bottom: 12px;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    margin: 20px 0 10px;
   }
 
   p {
     color: rgb(120, 125, 129);
     font: 15px/22px "Open Sans", sans-serif;
-    padding: 6px 0;
+    padding: 5px 0;
   }
 
   td,
@@ -52,6 +60,11 @@
   ol {
     color: rgb(120, 125, 129);
     font: 15px/22px "Open Sans", sans-serif;
+    margin-left: 20px;
+  }
+
+  ul {
+    list-style-type: disc;
   }
 
   img {
