@@ -106,6 +106,7 @@ async function onExpressJsSetup(server) {
   server.use(
     '/community-app-assets/api/tc-communities',
     (req, res, next) => {
+      res.set('Access-Control-Allow-Headers', 'authorization');
       res.set('Access-Control-Allow-Origin', '*');
       next();
     },
