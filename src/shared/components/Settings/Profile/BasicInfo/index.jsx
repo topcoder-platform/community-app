@@ -67,10 +67,17 @@ export default class BasicInfo extends React.Component {
     } = this.props;
     const { basicInfo } = this.state;
 
+
     if (this.isBasicInfoCreated()) {
-      updateUserTrait(handle, 'basic_info', [basicInfo], tokenV3);
+      updateUserTrait(handle, 'basic_info', [{
+        ...basicInfo,
+        birthDate: new Date(basicInfo.birthDate).getTime(),
+      }], tokenV3);
     } else {
-      addUserTrait(handle, 'basic_info', [basicInfo], tokenV3);
+      addUserTrait(handle, 'basic_info', [{
+        ...basicInfo,
+        birthDate: new Date(basicInfo.birthDate).getTime(),
+      }], tokenV3);
     }
   }
 
