@@ -4,23 +4,7 @@
  * client- and server-side rendering.
  */
 
-import React from 'react';
-
-import Routes from 'routes';
-import ErrorMessage from 'containers/ErrorMessage';
-import ErrorIcons from 'containers/ErrorIcons';
-
-import { DevTools, isomorphy } from 'topcoder-react-utils';
-
-import ExtendedReduxToastr from 'containers/toastr';
-
-import 'react-redux-toastr/lib/css/react-redux-toastr.min.css';
-
-import 'styles/awesome.css';
-
-import 'styles/global.scss';
-import 'slick-carousel/slick/slick.css';
-import 'slick-carousel/slick/slick-theme.css';
+/* Entry point that ensures correct ordering of imported external styles. */
 
 /* eslint-disable global-require */
 if (process.env.NODE_ENV === 'production') {
@@ -30,20 +14,14 @@ if (process.env.NODE_ENV === 'production') {
 }
 /* eslint-enable global-require */
 
-export default function App() {
-  return (
-    <div>
-      <Routes />
-      <ErrorMessage />
-      <ErrorIcons />
-      <ExtendedReduxToastr
-        preventDuplicates
-        position="top-center"
-        transitionIn="fadeIn"
-        transitionOut="fadeOut"
-        progressBar={false}
-      />
-      { isomorphy.isDevBuild() ? <DevTools /> : undefined }
-    </div>
-  );
-}
+require('react-redux-toastr/lib/css/react-redux-toastr.min.css');
+
+require('styles/awesome.css');
+
+require('styles/global.scss');
+require('slick-carousel/slick/slick.css');
+require('slick-carousel/slick/slick-theme.css');
+
+const App = require('./app').default;
+
+export default App;
