@@ -7,6 +7,7 @@ import PT from 'prop-types';
 import SideBar from '../SideBar';
 import sideIcons from './SideIcons';
 import BasicInfo from './BasicInfo';
+import ComingSoon from '../ComingSoon';
 
 import './styles.scss';
 
@@ -18,6 +19,16 @@ export default function Profile(props) {
   const tabs = settingsUI.TABS.PROFILE;
   const names = Object.keys(tabs).map(key => tabs[key]);
   const currentTab = settingsUI.currentProfileTab;
+
+  const renderView = () => {
+    switch (currentTab) {
+      case 'basic info':
+        return <BasicInfo {...props} />;
+      default:
+        return <ComingSoon />;
+    }
+  };
+
   return (
     <div styleName="profile-container">
       <div styleName="col-bar">
@@ -29,9 +40,7 @@ export default function Profile(props) {
         />
       </div>
       <div styleName="col-content">
-        <BasicInfo
-          {...props}
-        />
+        {renderView()}
       </div>
     </div>
   );
