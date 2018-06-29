@@ -220,7 +220,7 @@ Short Bio
 /240
                     </span>
                   </label>
-                  <textarea id="shortBio" styleName="bio-text" name="shortBio" placeholder="shortBio" onChange={this.onUpdateInput} value={basicInfo.shortBio} maxLength="240" cols="3" rows="10" required />
+                  <textarea id="shortBio" styleName="bio-text" name="shortBio" placeholder="short Bio" onChange={this.onUpdateInput} value={basicInfo.shortBio} maxLength="240" cols="3" rows="10" required />
                 </div>
               </div>
               <div styleName="row">
@@ -251,16 +251,7 @@ Gender
                   <label htmlFor="ethnicBackground">
 Ethnic
                   </label>
-                  <Select
-                    name="ethnicBackground"
-                    options={dropdowns.ethnicBackground}
-                    value={basicInfo.ethnicBackground}
-                    onChange={this.onUpdateSelect}
-                    placeholder="Ethnic"
-                    labelKey="name"
-                    valueKey="name"
-                    clearable={false}
-                  />
+                  <input id="ethnicBackground" name="ethnicBackground" type="text" placeholder="Ethnic" onChange={this.onUpdateInput} value={basicInfo.ethnicBackground} maxLength="64" required />
                 </div>
 
                 <div styleName="field">
@@ -272,7 +263,7 @@ T-Shirt-Size
                     options={dropdowns.tshirtSize}
                     value={basicInfo.tshirtSize}
                     onChange={this.onUpdateSelect}
-                    placeholder="tshirtSize"
+                    placeholder="t-shirt Size"
                     labelKey="name"
                     valueKey="name"
                     clearable={false}
@@ -285,7 +276,7 @@ T-Shirt-Size
                   <label htmlFor="address">
 Address
                   </label>
-                  <input id="address" name="address" type="text" placeholder="address" onChange={this.onUpdateInput} value={basicInfo.address} maxLength="64" required />
+                  <input id="address" name="address" type="text" placeholder="Address" onChange={this.onUpdateInput} value={basicInfo.address} maxLength="64" required />
                 </div>
               </div>
               <div styleName="row">
@@ -310,7 +301,7 @@ Country
                   <label htmlFor="state">
 State
                   </label>
-                  <input id="state" name="state" type="text" placeholder="state" onChange={this.onUpdateInput} value={basicInfo.state} maxLength="64" required />
+                  <input id="state" name="state" type="text" placeholder="State" onChange={this.onUpdateInput} value={basicInfo.state} maxLength="64" required />
                 </div>
               </div>
 
@@ -319,13 +310,13 @@ State
                   <label htmlFor="city">
 City
                   </label>
-                  <input id="city" name="city" type="text" placeholder="city" onChange={this.onUpdateInput} value={basicInfo.city} maxLength="64" required />
+                  <input id="city" name="city" type="text" placeholder="City" onChange={this.onUpdateInput} value={basicInfo.city} maxLength="64" required />
                 </div>
                 <div styleName="field">
                   <label htmlFor="zipCode">
 ZIP Code
                   </label>
-                  <input id="zipCode" name="zipCode" type="text" placeholder="zipCode" onChange={this.onUpdateInput} value={basicInfo.zipCode} maxLength="64" required />
+                  <input id="zipCode" name="zipCode" type="text" placeholder="ZIP Code" onChange={this.onUpdateInput} value={basicInfo.zipCode} maxLength="64" required />
                 </div>
               </div>
 
@@ -334,7 +325,7 @@ ZIP Code
                   <label htmlFor="currentLocation">
 Current Location
                   </label>
-                  <input id="currentLocation" name="currentLocation" type="text" placeholder="currentLocation" onChange={this.onUpdateInput} value={basicInfo.currentLocation} maxLength="64" required />
+                  <input id="currentLocation" name="currentLocation" type="text" placeholder="Current location" onChange={this.onUpdateInput} value={basicInfo.currentLocation} maxLength="64" required />
                 </div>
               </div>
               <div styleName="row">
@@ -342,10 +333,12 @@ Current Location
                   <label htmlFor="primaryInterestInTopcoder">
 Primary Interest of Topcoder
                   </label>
-                  <input id="primaryInterestInTopcoder" name="primaryInterestInTopcoder" type="text" placeholder="primaryInterestInTopcoder" onChange={this.onUpdateInput} value={basicInfo.primaryInterestInTopcoder} maxLength="64" required />
+                  <input id="primaryInterestInTopcoder" name="primaryInterestInTopcoder" type="text" placeholder="Primary interest in Topcoder" onChange={this.onUpdateInput} value={basicInfo.primaryInterestInTopcoder} maxLength="64" required />
                 </div>
               </div>
-
+              <div styleName="required">
+All fields are mandatory.
+              </div>
             </form>
 
             <div className="save-section">
