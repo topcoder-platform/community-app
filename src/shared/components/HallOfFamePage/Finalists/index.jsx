@@ -7,6 +7,7 @@ import React from 'react';
 import PT from 'prop-types';
 
 import { getSingleTrackList } from 'utils/hall-of-fame';
+import ContentfulLoader from 'containers/ContentfulLoader';
 
 import Track from './Track';
 
@@ -43,22 +44,63 @@ function findTheme(track) {
 }
 
 const Finalists = ({ data }) => {
-  const maxFinalists = _.max(_.map(data.data, track => (track.members.length)));
-
+  const finalData = data;
+  const championIds = _.map(finalData.data, item => (item.fields.champion.sys.id));
+  const members = _.map(finalData.data, item => (item.fields.members));
+  let memberIds = [];
+  let maxFinalLists = 0;
+  for (let i = 0; i !== members.length; i += 1) {
+    memberIds = memberIds.concat(_.map(members[i], item => (item.sys.id)));
+    if (members[i].length > maxFinalLists) {
+      maxFinalLists = members[i].length;
+    }
+  }
+  const entryIds = championIds.concat(memberIds);
   return (
-    <div className={styles.container}>
-      {
-        data.data.map(list => (
-          <Track
-            key={list.track}
-            count={maxFinalists}
-            data={getSingleTrackList(list.track.toUpperCase(), data.data)}
-            theme={findTheme(list.track.toUpperCase())}
-            track={list.track.toUpperCase()}
+    <ContentfulLoader
+      entryIds={entryIds}
+      render={(result) => {
+        // process champion
+        for (let i = 0; i !== championIds.length; i += 1) {
+          finalData.data[i].fields.champion.fields = result.entries.items[championIds[i]].fields;
+        }
+        // process member
+        for (let i = 0; i !== members.length; i += 1) {
+          for (let j = 0; j !== members[i].length; j += 1) {
+            finalData.data[i].fields.members[j].fields = result
+              .entries.items[members[i][j].sys.id].fields;
+          }
+        }
+        const imageIds = _.map(finalData.data, item => (item.fields.champion.fields.image.sys.id));
+        return (
+          <ContentfulLoader
+            assetIds={imageIds}
+            render={(imageResult) => {
+              // process champion image
+              for (let i = 0; i !== imageIds.length; i += 1) {
+                finalData.data[i].fields.champion.fields.image
+                  .fields = imageResult.assets.items[imageIds[i]].fields;
+              }
+              return (
+                <div className={styles.container}>
+                  {
+                    finalData.data.map(list => (
+                      <Track
+                        key={list.fields.track}
+                        count={maxFinalLists}
+                        data={getSingleTrackList(list.fields.track.toUpperCase(), finalData.data)}
+                        theme={findTheme(list.fields.track.toUpperCase())}
+                        track={list.fields.track.toUpperCase()}
+                      />
+                    ))
+                  }
+                </div>
+              );
+            }}
           />
-        ))
-      }
-    </div>
+        );
+      }}
+    />
   );
 };
 

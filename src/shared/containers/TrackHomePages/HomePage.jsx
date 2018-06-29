@@ -7,65 +7,42 @@ import PT from 'prop-types';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
-import actions from 'actions/page/trackHomePages';
 import HomePage from 'components/TrackHomePages/HomePage';
 import LoadingIndicator from 'components/LoadingIndicator';
 import Error404 from 'components/Error404';
 import ContentfulLoader from '../ContentfulLoader';
 
 
-class HomePageContainer extends React.Component {
-  constructor(props) {
-    super(props);
-
-    if (props.match.params.track) {
-      props.setSelectedTrack(props.match.params.track);
-    }
-  }
-
-  render() {
-    const {
-      auth,
-      selectedTrack,
-    } = this.props;
-    return (
-      <ContentfulLoader
-        entryQueries={{
-          content_type: 'trackHomepage',
-          'fields.track': selectedTrack,
-          include: 10,
-        }}
-        render={(data) => {
-          if (data.entries.matches[0].total > 0) {
-            let homePage = data.entries.matches[0].items[0];
-            if (!homePage) return null;
-            const result = data.entries.items[homePage];
-            homePage = result.fields;
-            homePage.includes = data.includes;
-            return (
-              <ContentfulLoader
-                preview={data.preview}
-                render={() => (
-                  <HomePage
-                    homePage={homePage}
-                    auth={auth}
-                  />
-                )}
-                renderPlaceholder={LoadingIndicator}
+const HomePageContainer = ({ match, auth }) => (
+  <ContentfulLoader
+    entryQueries={{
+      content_type: 'trackHomepage',
+      'fields.track': match.params.track,
+    }}
+    render={(data) => {
+      if (data.entries.matches[0].total > 0) {
+        let homePage = data.entries.matches[0].items[0];
+        if (!homePage) return null;
+        const result = data.entries.items[homePage];
+        homePage = result.fields;
+        return (
+          <ContentfulLoader
+            preview={data.preview}
+            render={() => (
+              <HomePage
+                homePage={homePage}
+                auth={auth}
               />
-            );
-          }
-          return (<Error404 />);
-        }}
-        renderPlaceholder={LoadingIndicator}
-      />
-    );
-  }
-}
-
-HomePageContainer.defaultProps = {
-  selectedTrack: '',
-};
+            )}
+            renderPlaceholder={LoadingIndicator}
+          />
+        );
+      }
+      return (<Error404 />);
+    }}
+    enderPlaceholder={LoadingIndicator}
+  />
+);
 
 HomePageContainer.propTypes = {
   auth: PT.shape({
@@ -73,8 +50,6 @@ HomePageContainer.propTypes = {
     tokenV3: PT.string,
     user: PT.shape(),
   }).isRequired,
-  selectedTrack: PT.string,
-  setSelectedTrack: PT.func.isRequired,
   match: PT.shape({
     params: PT.shape({
       track: PT.string,
@@ -84,13 +59,9 @@ HomePageContainer.propTypes = {
 
 const mapStateToProps = state => ({
   auth: state.auth,
-  selectedTrack: state.page.trackHomePages.selectedTrack,
 });
 
-const mapDispatchToProps = dispatch => ({
-  setSelectedTrack: track => dispatch(actions.page.trackHomePages.setSelectedTrack(track)),
-});
 
-const Container = connect(mapStateToProps, mapDispatchToProps)(HomePageContainer);
+const Container = connect(mapStateToProps)(HomePageContainer);
 
 export default withRouter(Container);
