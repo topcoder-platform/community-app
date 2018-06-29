@@ -40,6 +40,7 @@ class HallOfFameContainer extends React.Component {
         entryQueries={{
           content_type: 'hallOfFame',
           'fields.title': selectedEventType,
+          include: 10,
         }}
         render={(data) => {
           if (data.entries.matches[0].total > 0) {
