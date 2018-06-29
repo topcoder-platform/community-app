@@ -11,20 +11,20 @@ export default function ChallengeCard({
 }) {
   return (
     <div styleName="container">
-      <img
-        alt="Challenge Thumbnail"
-        src={imgUrl}
-        styleName="thumbnail"
-      />
-      <h1 styleName="h1">
-        {title}
-      </h1>
       <div styleName="content">
+        <img
+          alt="Challenge Thumbnail"
+          src={imgUrl}
+          styleName="thumbnail"
+        />
+        {winners}
+      </div>
+      <div styleName="content">
+        <h1 styleName="h1">
+          {title}
+        </h1>
         <div>
           {text}
-        </div>
-        <div>
-          {winners}
         </div>
       </div>
     </div>
