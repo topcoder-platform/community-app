@@ -2,15 +2,13 @@
  * IBM Cloud Banner.
  */
 
-import PT from 'prop-types';
+// import PT from 'prop-types';
 import React from 'react';
-import { Button } from 'topcoder-react-ui-kit';
+// import { Button } from 'topcoder-react-ui-kit';
 
-import style from './style.scss';
+import './style.scss';
 
-export default function MonthOfLoveBanner({
-  to,
-}) {
+export default function MonthOfLoveBanner() {
   return (
     <div styleName="container">
       <div styleName="mask" />
@@ -45,6 +43,8 @@ View Challenges
   );
 }
 
+/*
 MonthOfLoveBanner.propTypes = {
   to: PT.string.isRequired,
 };
+*/

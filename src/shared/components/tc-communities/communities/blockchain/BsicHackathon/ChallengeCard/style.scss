@@ -5,9 +5,11 @@
 }
 
 .container {
+  display: flex;
+  flex-direction: column;
   margin-top: 60px;
   text-align: left;
-  width: 48%;
+  width: 100%;
 
   @include xs-to-sm {
     width: 100%;
@@ -27,8 +29,39 @@
   }
 }
 
-.h1 { @include h3; }
+.h1 {
+  @include h3;
+
+  // align-self: center;
+  margin-top: 10px;
+}
 
 .thumbnail {
-  width: 100%;
+  // align-self: center;
+  width: 50%;
+
+  @include xs-to-sm {
+    width: 100%;
+  }
+}
+
+.content {
+  display: flex;
+  justify-content: space-between;
+
+  @include xs-to-sm {
+    flex-direction: column;
+  }
+
+  h3 {
+    margin-top: 10px;
+  }
+
+  > div {
+    width: 48%;
+
+    @include xs-to-sm {
+      width: 100%;
+    }
+  }
 }
