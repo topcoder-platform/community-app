@@ -12,7 +12,7 @@
 }
 
 .container {
-  background: url("assets/images/communities/cognitive/basketball-sports-teams-players-banner.jpg");
+  background: url("assets/images/communities/cognitive/analytics-indicators-image.jpg");
   background-position: 66% 25%;
   background-size: cover;
   border-radius: 6px;
@@ -43,6 +43,11 @@
   color: $tc-white;
   font-weight: 300;
   position: relative;
+  margin: 5px 0;
+}
+
+.bold {
+  font-weight: bold;
 }
 
 .title {

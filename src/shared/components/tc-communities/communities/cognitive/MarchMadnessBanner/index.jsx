@@ -18,14 +18,19 @@ export default function MonthOfLoveBanner({
         <h1
           styleName="title"
         >
-Cognitive March Madness
+          A Data Science Match to make online ratings more accurate
         </h1>
         <p styleName="text">
-          Four contests to build a tool that gathers information on teams and
-          players by analyzing textual materials from top sports writers and
-          commentators!
+          Perform
+          sentiment analysis on review comments by customers, and correlate
+          these comments to the quantitative review score for a given seller.
+        </p>
+        <p styleName="text bold">
+          Starts on July 9, 2018
         </p>
       </div>
+      {
+      /*
       <Button
         theme={{
           button: style.button,
@@ -34,6 +39,8 @@ Cognitive March Madness
       >
 View Challenges
       </Button>
+      */
+      }
     </div>
   );
 }
