@@ -29,8 +29,8 @@ class JoinCommunityContainer extends React.Component {
     } = this.props;
 
     const hasNotAgreedTerms = terms && terms.length && !_.every(terms, 'agreed');
-    const onJoinClick = hasNotAgreedTerms ?
-      () => openTermsModal(this.instanceId) : join;
+    const onJoinClick = hasNotAgreedTerms
+      ? () => openTermsModal(this.instanceId) : join;
 
     return (
       <div className={joinCommunityWrapper}>

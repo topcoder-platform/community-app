@@ -14,7 +14,8 @@ export default function Card({
         height,
         width,
       }}
-    >{text}
+    >
+      {text}
     </div>
   );
 }

@@ -32,15 +32,27 @@ export default function ConfirmModal({
 }) {
   let text;
   if (userId) {
-    text = <p>Do you want to join {communityName}?</p>;
+    text = (
+      <p>
+Do you want to join
+        {communityName}
+?
+      </p>
+    );
     if (skipConfirmJoin) {
       setImmediate(() => join(token, joinGroupId || groupIds[0], userId));
     }
   } else {
     text = customTcAuthModalText || (
       <div>
-        <p>You must be a Topcoder member before you can join the {communityName}.</p>
-        <p>To join, login if you are already a member. If not, register first.</p>
+        <p>
+You must be a Topcoder member before you can join the
+          {communityName}
+.
+        </p>
+        <p>
+To join, login if you are already a member. If not, register first.
+        </p>
       </div>
     );
   }
@@ -53,16 +65,20 @@ export default function ConfirmModal({
 
   return (
     <Modal onCancel={resetJoinButton}>
-      <div styleName="style.confirmMsg">{text}</div>
+      <div styleName="style.confirmMsg">
+        {text}
+      </div>
       { userId ? (
         <div className={style.joinButtons}>
           <PrimaryButton
             onClick={() => join(token, joinGroupId || groupIds[0], userId)}
-          >Join
+          >
+Join
           </PrimaryButton>
           <SecondaryButton
             onClick={resetJoinButton}
-          >Cancel
+          >
+Cancel
           </SecondaryButton>
         </div>
       ) : (
@@ -72,7 +88,8 @@ export default function ConfirmModal({
               const url = encodeURIComponent(autoJoinUrl);
               window.location = `${config.URL.AUTH}/member?retUrl=${url}&utm_source=${communityId}`;
             }}
-          >Login
+          >
+Login
           </PrimaryButton>
           <PrimaryButton
             onClick={() => {
@@ -81,11 +98,13 @@ export default function ConfirmModal({
               url = encodeURIComponent(url);
               window.location = `${config.URL.AUTH}/member/registration?retUrl=${url}&utm_source=${communityId}`;
             }}
-          >Register
+          >
+Register
           </PrimaryButton>
           <SecondaryButton
             onClick={resetJoinButton}
-          >Cancel
+          >
+Cancel
           </SecondaryButton>
         </div>
       )}

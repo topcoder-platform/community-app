@@ -43,11 +43,12 @@ export default function ReviewOpportunityBucket({
    * which means it can be done at render, rather than in the reducer,
    * which avoids reloading the review opportunities from server every time
    * a filter is changed.  */
-  const filteredOpportunities =
-  sortedOpportunities.filter(Filter.getReviewOpportunitiesFilterFunction({
-    ...bucket.filter, // Default bucket filters from utils/buckets.js
-    ...filterState, // User selected filters
-  }));
+  const filteredOpportunities = sortedOpportunities.filter(
+    Filter.getReviewOpportunitiesFilterFunction({
+      ...bucket.filter, // Default bucket filters from utils/buckets.js
+      ...filterState, // User selected filters
+    }),
+  );
 
   const cards = filteredOpportunities.map(item => (
     <ReviewOpportunityCard
@@ -86,7 +87,9 @@ export default function ReviewOpportunityBucket({
       {cards}
       {
         !loading && filteredOpportunities.length === 0 && (
-          <div styleName="no-results">{NO_RESULTS_MESSAGE}</div>
+          <div styleName="no-results">
+            {NO_RESULTS_MESSAGE}
+          </div>
         )
       }
       {

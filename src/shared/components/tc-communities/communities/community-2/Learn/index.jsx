@@ -43,12 +43,22 @@ export default function Learn() {
         <Accordion>
           <AccordionItem title="Overview">
             <Text>
-              <p>The FULCRUM is &ldquo;one stop shop&rdquo; for access to a wide range of training and learning opportunities on Wipro’s Hybrid Crowd. Designed to strengthen the skills of employees, the hub offers physical and online platforms to learn skills on demand, gain hands-on experience, and be future ready.</p>
-              <p>Meticulously crafted comprehensive learning paths, detailed study material, engaging case studies, training projects to systematically enhance your career, development environments to practice, convenient online accessibility, opportunity to connect with mentors, peers, SMEs of various technologies – a variety of resources bringing people and technology together for an innovative and valuable learning experience.</p>
-              <p>Our compelling learning environment across wide range of emerging technologies helps you in mastering today’s most essential skills, that brings your knowledge to the next level, step by step, which ultimately creates a more effective learning experience.</p>
-              <p>Are you ready to step onto the innovative journey of learning?</p>
+              <p>
+The FULCRUM is &ldquo;one stop shop&rdquo; for access to a wide range of training and learning opportunities on Wipro’s Hybrid Crowd. Designed to strengthen the skills of employees, the hub offers physical and online platforms to learn skills on demand, gain hands-on experience, and be future ready.
+              </p>
+              <p>
+Meticulously crafted comprehensive learning paths, detailed study material, engaging case studies, training projects to systematically enhance your career, development environments to practice, convenient online accessibility, opportunity to connect with mentors, peers, SMEs of various technologies – a variety of resources bringing people and technology together for an innovative and valuable learning experience.
+              </p>
+              <p>
+Our compelling learning environment across wide range of emerging technologies helps you in mastering today’s most essential skills, that brings your knowledge to the next level, step by step, which ultimately creates a more effective learning experience.
+              </p>
+              <p>
+Are you ready to step onto the innovative journey of learning?
+              </p>
               <div styleName="joinnowWrap">
-                <a styleName="joinnow" href="https://topgear-app.wipro.com">Start Exploring</a>
+                <a styleName="joinnow" href="https://topgear-app.wipro.com">
+Start Exploring
+                </a>
               </div>
             </Text>
           </AccordionItem>

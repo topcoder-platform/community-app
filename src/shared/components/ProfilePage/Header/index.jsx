@@ -38,12 +38,29 @@ const ProfileHeader = ({
       { info.photoURL ? <img src={info.photoURL} styleName="profile-circle" alt="Member Portait" /> : <DefaultPortrait styleName="profile-circle" /> }
     </div>
     <div styleName="info">
-      <h1 style={{ color: getRatingColor(info.maxRating.rating || 0) }} styleName="handle">{info.handle}</h1>
-      <h3 styleName="location-challenges">{country}{Boolean(wins) && (<span> | {wins} Wins</span>) }</h3>
-      <h3 styleName="tenure">Member Since {moment(info.createdAt).format('MMMM, YYYY')}</h3>
+      <h1 style={{ color: getRatingColor(info.maxRating.rating || 0) }} styleName="handle">
+        {info.handle}
+      </h1>
+      <h3 styleName="location-challenges">
+        {country}
+        {Boolean(wins) && (
+        <span>
+          {' '}
+|
+          {wins}
+          {' '}
+Wins
+        </span>
+        ) }
+      </h3>
+      <h3 styleName="tenure">
+Member Since
+        {moment(info.createdAt).format('MMMM, YYYY')}
+      </h3>
     </div>
     {
-      info.tracks && info.tracks.length > 0 &&
+      info.tracks && info.tracks.length > 0
+      && (
       <div styleName="tracks-links">
         <div styleName="tracks">
           {
@@ -53,14 +70,21 @@ const ProfileHeader = ({
                 { track === 'DATA_SCIENCE' && <DataScienceIcon styleName="track-icon" /> }
                 { track === 'DESIGN' && <DesignIcon styleName="track-icon" /> }
                 { track === 'DEVELOP' && <DevelopIcon styleName="track-icon" /> }
-                <div styleName="text">{TRACK_LABELS[track]}</div>
+                <div styleName="text">
+                  {TRACK_LABELS[track]}
+                </div>
               </a>
             ))
           }
         </div>
       </div>
+      )
     }
-    { info.description && <p styleName="description">{info.description}</p> }
+    { info.description && (
+    <p styleName="description">
+      {info.description}
+    </p>
+    ) }
     <div styleName="links">
       {
         showBadgesButton ? (
@@ -75,7 +99,9 @@ const ProfileHeader = ({
           </a>
         ) : null
       }
-      <a href={`${config.URL.FORUMS}/?module=History&userID=${info.userId}`} styleName="link">Forum Posts</a>
+      <a href={`${config.URL.FORUMS}/?module=History&userID=${info.userId}`} styleName="link">
+Forum Posts
+      </a>
     </div>
   </div>
 );

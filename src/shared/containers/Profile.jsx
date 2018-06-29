@@ -48,10 +48,12 @@ class ProfileContainer extends React.Component {
       return <Error404 />;
     }
 
-    return achievements && info && skills && stats ?
-      <ProfilePage
-        {...this.props}
-      /> : <LoadingIndicator />;
+    return achievements && info && skills && stats
+      ? (
+        <ProfilePage
+          {...this.props}
+        />
+      ) : <LoadingIndicator />;
   }
 }
 

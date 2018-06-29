@@ -22,13 +22,16 @@ class Leaderboard extends React.Component {
       activeIndex: index,
     });
   }
+
   render() {
     const { data } = this.props;
-    const currentIndex = this.state.activeIndex;
+    const { activeIndex: currentIndex } = this.state;
 
     return (
       <div styleName="container">
-        <h1>TCO Leaderboard</h1>
+        <h1>
+TCO Leaderboard
+        </h1>
         <div styleName="button-bar">
           {
             _.map(data.stages, (stage, index) => (
@@ -71,7 +74,9 @@ class Leaderboard extends React.Component {
                       return (
                         <div styleName="champion" key={champion.handle}>
                           <div styleName="photo">
-                            <span styleName={`metal ${color}`}>{num + 1}</span>
+                            <span styleName={`metal ${color}`}>
+                              {num + 1}
+                            </span>
                             <img src={champion.photo.file.url} alt={champion.handle} />
                           </div>
                           <div styleName="info">
@@ -90,7 +95,11 @@ class Leaderboard extends React.Component {
             </div>
           ))
         }
-        <div styleName="button-wrapper-learn-more"><PrimaryButton to={data.tcoLink} openNewTab>Learn More about TCO</PrimaryButton></div>
+        <div styleName="button-wrapper-learn-more">
+          <PrimaryButton to={data.tcoLink} openNewTab>
+Learn More about TCO
+          </PrimaryButton>
+        </div>
       </div>
     );
   }

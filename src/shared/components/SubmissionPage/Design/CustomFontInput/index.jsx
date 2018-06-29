@@ -13,14 +13,17 @@ export default function CustomFontInput({
   return (
     <div styleName="row">
       <div styleName="left">
-        <h4>DID YOU USE CUSTOM FONTS?</h4>
+        <h4>
+DID YOU USE CUSTOM FONTS?
+        </h4>
         <p>
           Check to see if your font is on the Studio Standard Fonts list.
           If it is, leave the URL field
         </p>
         <p>
           Read the
-          &zwnj;{
+          &zwnj;
+          {
             <a
               href={config.URL.INFO.STUDIO_FONTS_POLICY}
               target="_blank"
@@ -28,7 +31,8 @@ export default function CustomFontInput({
             >
               Studio Fonts Policy
             </a>
-          }.
+          }
+.
         </p>
         <p>
           If your fonts is not on the list, you must provide the URL
@@ -59,7 +63,8 @@ export default function CustomFontInput({
             e.preventDefault();
           }}
           disabled={customFontRecords.some(x => !_.isEmpty(x.errors))}
-        >+ Add Font
+        >
++ Add Font
         </PrimaryButton>
       </div>
     </div>

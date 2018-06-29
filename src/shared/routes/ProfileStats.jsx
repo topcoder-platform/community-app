@@ -10,10 +10,9 @@ export default function ProfileStatsRoute(props) {
   return (
     <AppChunk
       chunkName="profileStats/chunk"
-      renderClientAsync={() =>
-        import(/* webpackChunkName: "profileStats/chunk" */ 'containers/ProfileStats')
-          .then(({ default: ProfileStatsContainer }) => (
-            <ProfileStatsContainer {...props} />
+      renderClientAsync={() => import(/* webpackChunkName: "profileStats/chunk" */ 'containers/ProfileStats')
+        .then(({ default: ProfileStatsContainer }) => (
+          <ProfileStatsContainer {...props} />
         ))
       }
       renderPlaceholder={() => <LoadingPagePlaceholder />}

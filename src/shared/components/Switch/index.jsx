@@ -10,12 +10,16 @@ import PT from 'prop-types';
 import { themr } from 'react-css-super-themr';
 import defaultStyle from './style.scss';
 
-function Switch(props) {
+function Switch({
+  enabled,
+  onSwitch,
+  theme,
+}) {
   return (
     <div
-      className={`${props.theme.switch} ${props.enabled ? props.theme.enabled : props.theme.disabled}`}
-      onClick={() => props.onSwitch(!props.enabled)}
-      onKeyPress={() => props.onSwitch(!props.enabled)}
+      className={`${theme.switch} ${enabled ? theme.enabled : theme.disabled}`}
+      onClick={() => onSwitch(!enabled)}
+      onKeyPress={() => onSwitch(!enabled)}
     >
       <div styleName="handle" />
     </div>

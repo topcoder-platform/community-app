@@ -33,7 +33,8 @@ export default class HistoryGraph extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (prevProps.history !== this.props.history) {
+    const { history } = this.props;
+    if (prevProps.history !== history) {
       this.draw();
     }
   }
@@ -170,7 +171,7 @@ export default class HistoryGraph extends React.Component {
     function processRatingStripePoint(_y) {
       if (_y < padding.top || Number.isNaN(_y)) {
         return padding.top;
-      } else if (_y > totalH - padding.bottom) {
+      } if (_y > totalH - padding.bottom) {
         return totalH - padding.bottom;
       }
       return _y;

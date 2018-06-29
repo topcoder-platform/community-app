@@ -17,7 +17,8 @@ const FiltersCardsType = ({ hideSrm, isCardTypeSet }) => (
       styleName={`${isCardTypeSet === 'Challenges' ? 'active' : ''}`}
       onClick={e => e.preventDefault()}
       onKeyPress={e => e.preventDefault()}
-    >Challenges
+    >
+Challenges
     </a>
     {
       hideSrm ? null : (
@@ -25,7 +26,8 @@ const FiltersCardsType = ({ hideSrm, isCardTypeSet }) => (
           href={config.URL.ARENA}
           target="_blank"
           rel="noopener noreferrer"
-        >SRMs
+        >
+SRMs
         </a>
       )
     }

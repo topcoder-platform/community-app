@@ -1,0 +1,30 @@
+@import "~styles/mixins";
+
+a.SideItem {
+  @include tc-body-md;
+
+  line-height: 25px;
+  color: #262628;
+  text-transform: capitalize;
+  text-decoration: none;
+  cursor: pointer;
+  height: 100%;
+  padding-left: 21px;
+  display: flex;
+  align-items: center;
+  border-radius: 4px;
+
+  img {
+    margin-right: 14px;
+  }
+
+  &:focus {
+    outline: none;
+  }
+
+  .svg-container {
+    display: flex;
+    justify-content: center;
+    margin-right: 12px;
+  }
+}

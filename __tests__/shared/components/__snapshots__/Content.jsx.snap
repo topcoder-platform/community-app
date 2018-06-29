@@ -7,7 +7,7 @@ exports[`Matches shallow shapshot 1`] = `
   <div
     className="src-shared-components-Content-___style__build-timestamp___2PJGW"
   >
-    Build Timestamp: 
+    Build Timestamp:
     Wed, 29 Nov 2017 07:40:00 GMT
   </div>
   <h1>
@@ -24,7 +24,7 @@ exports[`Matches shallow shapshot 1`] = `
       Babel with latest JS standard support both client- and server-side;
     </li>
     <li>
-      ESlint (AirBnB style, run with 
+      ESlint (AirBnB style, run with
       <code>
         $ npm run lint:js
       </code>
@@ -37,21 +37,23 @@ exports[`Matches shallow shapshot 1`] = `
       Font loading (Roboto fonts are included into the repo);
     </li>
     <li>
-      General Topcoder styles (check 
+      General Topcoder styles (check
       <code>
         /src/styles
       </code>
       );
     </li>
     <li>
-      Hot reload of JS code and SCSS styles in dev environment (start it with 
+      Hot reload of JS code and SCSS styles in dev environment (start it with
+       
       <code>
         $ npm run dev
       </code>
       );
     </li>
     <li>
-      Loading of .svg assets as ReactJS components with 
+      Loading of .svg assets as ReactJS components with
+       
       <code>
         babel-plugin-inline-react-svg
       </code>
@@ -61,7 +63,8 @@ exports[`Matches shallow shapshot 1`] = `
       ReactJS;
     </li>
     <li>
-      React CSS Modules (with 
+      React CSS Modules (with
+       
       <code>
         babel-plugin-react-css-modules
       </code>
@@ -74,29 +77,33 @@ exports[`Matches shallow shapshot 1`] = `
       SCSS styles;
     </li>
     <li>
-      Topcoder API v2 and v3 service (see 
+      Topcoder API v2 and v3 service (see
       <code>
         topcoder-react-lib/src/services/api.js
       </code>
-      ), with support of TC authentication (look for auth tokens either in 
+      ), with support of TC authentication (look for auth tokens either in
       <code>
         store.auth
       </code>
-       of Redux store, or in 
+       
+      of Redux store, or in
       <code>
         v3jwt
       </code>
-       and 
+       
+      and
       <code>
         tcjwt
       </code>
-       cookies of the front-end requests to the server);
+       
+      cookies of the front-end requests to the server);
     </li>
     <li>
       Stylefmt;
     </li>
     <li>
-      Stylelint for SCSS (standard Stylelint style, run with 
+      Stylelint for SCSS (standard Stylelint style, run with
+       
       <code>
         $ npm run lint:scss
       </code>
@@ -114,17 +121,20 @@ exports[`Matches shallow shapshot 1`] = `
       <strong>
         Challenge Details Page
       </strong>
-       is available at the endpoint 
+       
+      is available at the endpoint
       <code>
         /challenges/:challengeId
       </code>
       .
       <br />
-      Here are some demo links valid in 
+      Here are some demo links valid in
+       
       <strong>
         production
       </strong>
-       environment:
+       
+      environment:
       <br />
       ‌
       <Link
@@ -170,7 +180,8 @@ exports[`Matches shallow shapshot 1`] = `
       </Link>
       .
       <br />
-      Here are some demo links valid in 
+      Here are some demo links valid in
+       
       <strong>
         development
       </strong>
@@ -246,11 +257,14 @@ exports[`Matches shallow shapshot 1`] = `
       </Link>
     </li>
     <li>
-      Public Profile Page available at the 
+      Public Profile Page available at the
+       
       <code>
         /members/:handle
       </code>
-       endpoint. Valid link on dev 
+       
+      endpoint. Valid link on dev
+       
       <Link
         replace={false}
         to="/members/TonyJ"
@@ -281,7 +295,8 @@ exports[`Matches shallow shapshot 1`] = `
       >
         Submission Management Page
       </a>
-       – generally available at the endpoint 
+       
+      – generally available at the endpoint
       <code>
         /challenges/:challengeId/my-submissions
       </code>
@@ -317,15 +332,18 @@ exports[`Matches shallow shapshot 1`] = `
       </Link>
     </li>
     <li>
-      TCO Scoreboard demo is mounted on 
+      TCO Scoreboard demo is mounted on
+       
       <code>
         /scoreboard/:id
       </code>
-      , where 
+      , where
+       
       <code>
         :id
       </code>
-       is the competition ID, not related to the regular challenge IDs. Here are two demo links for the scoreboards for the competitions created by the scoreboard init script: ‌
+       
+      is the competition ID, not related to the regular challenge IDs. Here are two demo links for the scoreboards for the competitions created by the scoreboard init script: ‌
       <Link
         replace={false}
         to="/scoreboard/123"
@@ -561,7 +579,8 @@ exports[`Matches shallow shapshot 1`] = `
       >
         Announcement
       </Link>
-       — This is a part of simple PoC for CMS integration (Countentful CMS is the currently tested option);
+       
+      — This is a part of simple PoC for CMS integration (Countentful CMS is the currently tested option);
     </li>
     <li>
       <Link
@@ -570,7 +589,8 @@ exports[`Matches shallow shapshot 1`] = `
       >
         Buttons
       </Link>
-       — Demo/test of standard buttons already available in the code, and customizable with help of 
+       
+      — Demo/test of standard buttons already available in the code, and customizable with help of
       <code>
         react-css-themr
       </code>
@@ -599,7 +619,8 @@ exports[`Matches shallow shapshot 1`] = `
       >
         Color Mixins
       </Link>
-       — Live demo of TC UI Kit color pallete;
+       
+      — Live demo of TC UI Kit color pallete;
     </li>
     <li>
       <Link
@@ -608,7 +629,8 @@ exports[`Matches shallow shapshot 1`] = `
       >
         CSS Modules
       </Link>
-       - Demo/test of CSS modules in action;
+       
+      - Demo/test of CSS modules in action;
     </li>
     <li>
       <Link
@@ -617,7 +639,8 @@ exports[`Matches shallow shapshot 1`] = `
       >
         Data Fetch
       </Link>
-       - Demonstrates how data fetching should be implemented in isomorphic way, using Redux with Flux Standard Actions and promise;
+       
+      - Demonstrates how data fetching should be implemented in isomorphic way, using Redux with Flux Standard Actions and promise;
     </li>
     <li>
       <Link
@@ -634,7 +657,8 @@ exports[`Matches shallow shapshot 1`] = `
       >
         Error Message
       </Link>
-       - Demonstrates UI component for errors messaging;
+       
+      - Demonstrates UI component for errors messaging;
     </li>
     <li>
       <Link
@@ -643,7 +667,8 @@ exports[`Matches shallow shapshot 1`] = `
       >
         Fonts Test
       </Link>
-       - A simple showcase of the fonts included into this repo, and the test of their proper inclusion into the bundle;
+       
+      - A simple showcase of the fonts included into this repo, and the test of their proper inclusion into the bundle;
     </li>
     <li>
       <Link
@@ -668,7 +693,7 @@ exports[`Matches shallow shapshot 1`] = `
       >
         Markdown Rendering
       </Link>
-       - A component that can be passed markdown as a prop and will render it as native React elements.  Also supports inlining a subset of the JSX Components found in Community App.
+      ‌ – A component that can be passed markdown as a prop and will render it as native React elements.  Also supports inlining a subset of the JSX Components found in Community App.
     </li>
     <li>
       <Link
@@ -677,7 +702,8 @@ exports[`Matches shallow shapshot 1`] = `
       >
         ScalableRect
       </Link>
-       component makes it easy to create dynamically scaled components with fixed side ratio.
+       
+      component makes it easy to create dynamically scaled components with fixed side ratio.
     </li>
     <li>
       <Link
@@ -686,11 +712,13 @@ exports[`Matches shallow shapshot 1`] = `
       >
         SVG Loading
       </Link>
-       - Shows how to load 
+       
+      - Shows how to load
       <code>
         .svg
       </code>
-       assets with use of 
+       
+      assets with use of
       <code>
         babel-plugin-inline-react-svg
       </code>
@@ -703,7 +731,8 @@ exports[`Matches shallow shapshot 1`] = `
       >
         Tags
       </Link>
-       - Demo/test of standard tags already available in the code, and customizable with help of 
+       
+      - Demo/test of standard tags already available in the code, and customizable with help of
       <code>
         react-css-themr
       </code>
@@ -716,7 +745,8 @@ exports[`Matches shallow shapshot 1`] = `
       >
         Super Themr
       </Link>
-       - Test/demo of
+       
+      - Test/demo of
       <code>
         react-css-super-themr
       </code>
@@ -729,7 +759,8 @@ exports[`Matches shallow shapshot 1`] = `
       >
         Typography
       </Link>
-       - Most of Topcoder websites use the same styleguide for the design. In particular, all typography is supposed to use the set of styles from this example. For all these styles we have global mixins, which should be used whenever possible (but never modified without explicit approval).
+       
+      - Most of Topcoder websites use the same styleguide for the design. In particular, all typography is supposed to use the set of styles from this example. For all these styles we have global mixins, which should be used whenever possible (but never modified without explicit approval).
     </li>
   </ul>
 </div>

@@ -16,13 +16,19 @@ function IconStat(props) {
   return (
     <div className={theme.container}>
       {
-        Icon && (_.isString(Icon) ?
-          <img alt="Icon" src={Icon} className={theme.icon} /> :
-          <Icon className={theme.icon} />)
+        Icon && (_.isString(Icon)
+          ? <img alt="Icon" src={Icon} className={theme.icon} />
+          : <Icon className={theme.icon} />)
       }
       <div className={theme.text}>
-        <p className={theme.number}>{number}</p>
-        {label && <p className={theme.label}>{label}</p>}
+        <p className={theme.number}>
+          {number}
+        </p>
+        {label && (
+        <p className={theme.label}>
+          {label}
+        </p>
+        )}
       </div>
     </div>
   );

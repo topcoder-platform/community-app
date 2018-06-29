@@ -8,13 +8,12 @@ import { MetaTags } from 'topcoder-react-utils';
 import { TABS } from 'actions/page/settings';
 
 import Header from './Header';
-import TabBar from './TabBar';
+import Tools from './Tools';
 
 import './style.scss';
 import Profile from './Profile';
 import Account from './Account';
 import Preferences from './Preferences';
-import EmailPreferences from './EmailPreferences';
 
 export default function Settings(props) {
   const {
@@ -28,11 +27,11 @@ export default function Settings(props) {
 
   let title;
   switch (settingsTab) {
+    case TABS.TOOLS:
+      title = 'Tools';
+      break;
     case TABS.ACCOUNT:
       title = 'Account Info';
-      break;
-    case TABS.EMAIL:
-      title = 'Email Preferences';
       break;
     case TABS.PREFERENCES:
       title = 'Preferences';
@@ -50,35 +49,40 @@ export default function Settings(props) {
       />
       <div styleName="page">
         <Header
-          {...props}
-        />
-        <TabBar
           settingsTab={settingsTab}
           selectTab={selectTab}
         />
         {
-          settingsTab === TABS.PROFILE &&
+          settingsTab === TABS.PROFILE
+          && (
           <Profile
             {...props}
           />
+          )
         }
         {
-          settingsTab === TABS.ACCOUNT &&
+          settingsTab === TABS.TOOLS
+          && (
+          <Tools
+            {...props}
+          />
+          )
+        }
+        {
+          settingsTab === TABS.ACCOUNT
+          && (
           <Account
             {...props}
           />
+          )
         }
         {
-          settingsTab === TABS.EMAIL &&
-          <EmailPreferences
-            {...props}
-          />
-        }
-        {
-          settingsTab === TABS.PREFERENCES &&
+          settingsTab === TABS.PREFERENCES
+          && (
           <Preferences
             {...props}
           />
+          )
         }
       </div>
     </div>

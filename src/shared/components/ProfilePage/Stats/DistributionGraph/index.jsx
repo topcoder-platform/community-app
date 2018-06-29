@@ -57,7 +57,8 @@ export default class DistributionGraph extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (prevProps.distribution !== this.props.distribution) {
+    const { distribution } = this.props;
+    if (prevProps.distribution !== distribution) {
       this.draw();
     }
   }

@@ -136,7 +136,8 @@ function ChallengeCard({
             to={challengeDetailLink}
             styleName="challenge-title"
             openNewTab={openChallengesInNewTabs}
-          >{challenge.name}
+          >
+            {challenge.name}
           </Link>
           <div styleName="details-footer">
             <span styleName="date">
@@ -156,7 +157,8 @@ function ChallengeCard({
       <div styleName="right-panel">
         <div styleName={isRegistrationOpen ? 'prizes with-register-button' : 'prizes'}>
           {
-            totalPrize >= 1 &&
+            totalPrize >= 1
+              && (
               <Prize
                 bonuses={bonuses}
                 label="Purse"
@@ -164,15 +166,18 @@ function ChallengeCard({
                 prizeUnitSymbol={prizeUnitSymbol}
                 totalPrize={totalPrize}
               />
+              )
           }
           {
-            challenge.pointPrizes && challenge.pointPrizes.length > 0 &&
+            challenge.pointPrizes && challenge.pointPrizes.length > 0
+              && (
               <Prize
                 label="Points"
                 prizes={challenge.pointPrizes}
                 prizeUnitSymbol=""
                 totalPrize={challenge.pointPrizes.reduce((acc, points) => acc + points, 0)}
               />
+              )
           }
         </div>
 

@@ -60,7 +60,11 @@ const HallOfFamePage = ({ eventId, onSelectEvent, hallOfFame }) => {
         {
           data ? (
             <div styleName="header">
-              <h1>{hallOfFame.title.toUpperCase()} Hall of Fame</h1>
+              <h1>
+                {hallOfFame.title.toUpperCase()}
+                {' '}
+Hall of Fame
+              </h1>
               <EventCarousel
                 eventId={eventId}
                 onSelectEvent={onSelectEvent}
@@ -81,11 +85,23 @@ const HallOfFamePage = ({ eventId, onSelectEvent, hallOfFame }) => {
                     <img src={data.promo.logo.file.url} alt={`Logo for ${hallOfFame.title.toUpperCase()}${eventId}`} />
                   </div>
                   <div styleName="location">
-                    <strong>{data.promo.attributes[0].value}</strong>
-                    <p>{data.promo.attributes[1].value}</p>
+                    <strong>
+                      {data.promo.attributes[0].value}
+                    </strong>
+                    <p>
+                      {data.promo.attributes[1].value}
+                    </p>
                   </div>
-                  <div styleName="button-wrapper"><PrimaryButton styleName="learn-more" to={data.promo.links[0].url} openNewTab>{data.promo.links[0].title}</PrimaryButton></div>
-                  <div styleName="button-wrapper"><Button styleName="browse-gallery" to={data.promo.links[1].url} openNewTab>{data.promo.links[1].title}</Button></div>
+                  <div styleName="button-wrapper">
+                    <PrimaryButton styleName="learn-more" to={data.promo.links[0].url} openNewTab>
+                      {data.promo.links[0].title}
+                    </PrimaryButton>
+                  </div>
+                  <div styleName="button-wrapper">
+                    <Button styleName="browse-gallery" to={data.promo.links[1].url} openNewTab>
+                      {data.promo.links[1].title}
+                    </Button>
+                  </div>
                 </div>
 
                 <div styleName="banner">
@@ -98,8 +114,12 @@ const HallOfFamePage = ({ eventId, onSelectEvent, hallOfFame }) => {
                       <div styleName="stats-box" key={stat.description}>
                         <img src={stat.icon.file.url} alt={stat.description} />
                         <div>
-                          <h4>{stat.value}</h4>
-                          <span>{stat.description}</span>
+                          <h4>
+                            {stat.value}
+                          </h4>
+                          <span>
+                            {stat.description}
+                          </span>
                         </div>
                       </div>
                     ))
@@ -107,16 +127,22 @@ const HallOfFamePage = ({ eventId, onSelectEvent, hallOfFame }) => {
                 </div>
               </div>
               {
-                finalists &&
+                finalists
+                && (
                 <div styleName="finalists">
-                  <h2>{finalists.title}</h2>
+                  <h2>
+                    {finalists.title}
+                  </h2>
                   <Finalists data={finalists} />
                 </div>
+                )
               }
               {
                 tripWinners && (
                   <div styleName="trip-winners">
-                    <h3>{tripWinners.title}</h3>
+                    <h3>
+                      {tripWinners.title}
+                    </h3>
                     <TripWinners roles={tripWinners} />
                   </div>
                 )
@@ -128,7 +154,9 @@ const HallOfFamePage = ({ eventId, onSelectEvent, hallOfFame }) => {
         {
           data && data.quickStories ? (
             <div styleName="fun-facts">
-              <h3>{data.quickStories.title}</h3>
+              <h3>
+                {data.quickStories.title}
+              </h3>
               <FunFacts data={data.quickStories} />
             </div>
           ) : undefined
@@ -137,7 +165,9 @@ const HallOfFamePage = ({ eventId, onSelectEvent, hallOfFame }) => {
         {
           champions ? (
             <div styleName="champions">
-              <h3>{champions.title}</h3>
+              <h3>
+                {champions.title}
+              </h3>
               <Champions data={champions} />
             </div>
           ) : undefined

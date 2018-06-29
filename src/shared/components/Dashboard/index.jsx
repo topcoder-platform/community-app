@@ -120,6 +120,6 @@ Dashboard.propTypes = {
   tcBlogLoading: PT.bool.isRequired,
   tcBlogPosts: PT.arrayOf(PT.object).isRequired,
   unregisterFromChallenge: PT.func.isRequired,
-  userGroups: PT.arrayOf(PT.object).isRequired,
+  userGroups: PT.arrayOf(PT.string).isRequired,
   xlBadge: PT.string.isRequired,
 };

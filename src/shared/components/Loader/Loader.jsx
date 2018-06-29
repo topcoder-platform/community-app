@@ -2,8 +2,10 @@ import React from 'react';
 import PT from 'prop-types';
 import './LoaderStyle.scss';
 
-const Loader = (props) => {
-  const className = `Loader${props.type ? ` Loader_${props.type}` : ''}`;
+function Loader({
+  type,
+}) {
+  const className = `Loader${type ? ` Loader_${type}` : ''}`;
 
   return (
     <div styleName={className}>
@@ -12,7 +14,7 @@ const Loader = (props) => {
       </div>
     </div>
   );
-};
+}
 
 Loader.defaultProps = {
   type: '',

@@ -40,12 +40,24 @@ export default function Learn() {
       />
       <Section>
         <div styleName="message">
-          <p>To access the TopGear <span styleName="highlighted">Learning</span> Platform, click on &ldquo;<strong>CONTINUE</strong>&rdquo;.</p>
+          <p>
+To access the TopGear
+            <span styleName="highlighted">
+Learning
+            </span>
+            {' '}
+Platform, click on &ldquo;
+            <strong>
+CONTINUE
+            </strong>
+&rdquo;.
+          </p>
           <p styleName="button-container">
             <PrimaryButton
               openNewTab
               to="https://topgear-app.wipro.com"
-            >Continue
+            >
+Continue
             </PrimaryButton>
           </p>
         </div>

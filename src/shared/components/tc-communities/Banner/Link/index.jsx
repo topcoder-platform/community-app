@@ -13,8 +13,10 @@ import defaultStyle from './style.scss';
 
 function Link({ theme, title, url }) {
   return (
-    <div className={theme.linkWrap} >
-      <RouterLink className={theme.link} to={url}>{title}</RouterLink>
+    <div className={theme.linkWrap}>
+      <RouterLink className={theme.link} to={url}>
+        {title}
+      </RouterLink>
     </div>
   );
 }

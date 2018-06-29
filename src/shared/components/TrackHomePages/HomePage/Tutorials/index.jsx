@@ -19,15 +19,19 @@ class Tutorials extends React.Component {
       tutorials: getItems(props.numTutorials, props.data.tutorials),
     };
   }
+
   render() {
+    const { tutorials } = this.state;
     return (
       <div styleName="container">
         {
-          this.state.tutorials.map(tutorial => (
+          tutorials.map(tutorial => (
             <a href={tutorial.linkUrl} key={tutorial.title} styleName="tutorial">
               <img styleName="photo" src={tutorial.image.file.url} alt="Tutorial" />
               <div styleName="content">
-                <div styleName="title">{tutorial.title}</div>
+                <div styleName="title">
+                  {tutorial.title}
+                </div>
                 <div
                   styleName="text"
                   dangerouslySetInnerHTML={

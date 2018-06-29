@@ -50,8 +50,7 @@ class AnnouncementContainer extends React.Component {
           let announcement = previewId || data.entries.matches[0].items[0];
           if (!announcement) return null;
           announcement = data.entries.items[announcement];
-          const backgroundAssetId =
-            _.get(announcement.fields.backgroundImage, 'sys.id');
+          const backgroundAssetId = _.get(announcement.fields.backgroundImage, 'sys.id');
 
           const lastSeen = cookies.get(COOKIE);
           const thisId = announcement.sys.id;
@@ -112,8 +111,7 @@ function mapStateToProps(state, props) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    switchShowAnnouncement: show =>
-      dispatch(uiActions.page.dashboard.showAnnouncement(show)),
+    switchShowAnnouncement: show => dispatch(uiActions.page.dashboard.showAnnouncement(show)),
   };
 }
 

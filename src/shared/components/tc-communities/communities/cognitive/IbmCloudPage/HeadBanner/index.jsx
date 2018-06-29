@@ -12,7 +12,11 @@ export default function HeadBanner() {
         src={ibmCloudLogoUrl}
         styleName="logo"
       />
-      <h1 styleName="text">Goodbye IBM Bluemix,<br />Hello IBM Cloud!</h1>
+      <h1 styleName="text">
+Goodbye IBM Bluemix,
+        <br />
+Hello IBM Cloud!
+      </h1>
     </div>
   );
 }

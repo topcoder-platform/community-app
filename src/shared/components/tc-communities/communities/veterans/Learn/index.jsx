@@ -17,7 +17,9 @@ export default function Learn({ member }) {
   return (
     <main>
       <div styleName="style.headerBlock">
-        <h1>LEARNING & CERTIFICATION</h1>
+        <h1>
+LEARNING & CERTIFICATION
+        </h1>
         <p>
           Just like our members, our learning paths are constantly evolving.
           Deepen your knowledge, get hands-on experience with industry-specific
@@ -27,7 +29,9 @@ export default function Learn({ member }) {
       {
         member ? null : (
           <div styleName="style.joinBlock">
-            <h1>Topcoder for Veterans 101</h1>
+            <h1>
+Topcoder for Veterans 101
+            </h1>
             <p>
               Before you can compete in challenge, you need to sign up for
               Topcoder. It’s free and easy to get started right away. Once you
@@ -48,7 +52,9 @@ export default function Learn({ member }) {
         <div styleName="style.card style.card-01">
           <div styleName="style.cardImage" />
           <div styleName="style.cardContent">
-            <h1>The Types of Challenges</h1>
+            <h1>
+The Types of Challenges
+            </h1>
             <p>
               There are three main tracks: design, development, and data science.
               Whether you’re looking to design a landing page, solve a coding
@@ -57,14 +63,17 @@ export default function Learn({ member }) {
             <PrimaryButton
               theme={{ button: style.readMoreButton }}
               to="https://help.topcoder.com/hc/en-us"
-            >Read More
+            >
+Read More
             </PrimaryButton>
           </div>
         </div>
         <div styleName="style.card style.card-02">
           <div styleName="style.cardImage" />
           <div styleName="style.cardContent">
-            <h1>Getting Paid</h1>
+            <h1>
+Getting Paid
+            </h1>
             <p>
               With Topcoder, you get paid for winning challenges, not for hours
               worked. The reward varies for each challenge — from checkpoint to
@@ -73,7 +82,8 @@ export default function Learn({ member }) {
             <PrimaryButton
               theme={{ button: style.readMoreButton }}
               to="https://help.topcoder.com/hc/en-us/sections/203968098-Getting-Paid"
-            >Read More
+            >
+Read More
             </PrimaryButton>
           </div>
         </div>

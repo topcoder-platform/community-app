@@ -34,22 +34,38 @@ export default class Themr extends React.Component {
   }
 
   render() {
+    const {
+      key,
+      style: stateStyle,
+    } = this.state;
     return (
       <div styleName="style.container">
         <h1 styleName="style.title">
-          <code>react-css-super-themr</code> test/demo
+          <code>
+react-css-super-themr
+          </code>
+          {' '}
+test/demo
         </h1>
-        <h3>Default theme</h3>
+        <h3>
+Default theme
+        </h3>
         <ThemableComponent />
-        <h3>Default theme + Parent-provided styling</h3>
+        <h3>
+Default theme + Parent-provided styling
+        </h3>
         <ThemableComponent
           theme={style}
         />
-        <h3>Default theme + Context styling</h3>
+        <h3>
+Default theme + Context styling
+        </h3>
         <ThemeProvider theme={contextTheme}>
           <ThemableComponent />
         </ThemeProvider>
-        <h3>Default theme + Context styling + Parent-provided styling</h3>
+        <h3>
+Default theme + Context styling + Parent-provided styling
+        </h3>
         <ThemeProvider theme={contextTheme}>
           <ThemableComponent theme={style} />
         </ThemeProvider>
@@ -67,19 +83,33 @@ export default class Themr extends React.Component {
           won't be updated if we don't force ReactJS to destruct and re-create
           corresponding DOM subtree. We achieve this by changing key property!
         */}
-        <ThemeProvider key={this.state.key} theme={this.state.style}>
+        <ThemeProvider key={key} theme={style}>
           <ThemableComponent />
         </ThemeProvider>
 
-        <h3>Test of nested theme providers.</h3>
+        <h3>
+Test of nested theme providers.
+        </h3>
         <p>
           The external theme provider tries to set the same theme as in the
-          &zwnj;<em>Default theme + Parent-provided styling</em> example, and
+          &zwnj;
+          <em>
+Default theme + Parent-provided styling
+          </em>
+          {' '}
+example, and
           the innter one tries to set the same theme as in
-          the <em>Default theme + Context styling </em> example. The question is, which will win
+          the
+          {' '}
+          <em>
+Default theme + Context styling
+            {' '}
+          </em>
+          {' '}
+example. The question is, which will win
           with the current version of react-css-super-themr?
         </p>
-        <ThemeProvider theme={style}>
+        <ThemeProvider theme={stateStyle}>
           <ThemeProvider theme={contextTheme}>
             <ThemableComponent />
           </ThemeProvider>

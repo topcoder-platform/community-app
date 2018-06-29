@@ -34,17 +34,23 @@ export default class LinkAccounts extends React.Component {
   }
 
   handleClick(e, account) {
+    const {
+      linkExternalAccount,
+      profile,
+      tokenV3,
+      unlinkExternalAccount,
+    } = this.props;
     e.preventDefault();
     if (account.status === 'linked') {
-      this.props.unlinkExternalAccount(
-        this.props.profile,
-        this.props.tokenV3,
+      unlinkExternalAccount(
+        profile,
+        tokenV3,
         account.providerType,
       );
     } else if (!account.disabled && account.status === 'unlinked') {
-      this.props.linkExternalAccount(
-        this.props.profile,
-        this.props.tokenV3,
+      linkExternalAccount(
+        profile,
+        tokenV3,
         account.providerType,
       );
     }
@@ -78,24 +84,44 @@ export default class LinkAccounts extends React.Component {
             <div key={account.providerType} role="button" onClick={e => this.handleClick(e, account)} styleName={getStyleName(account)}>
               <div styleName={`external-account-box ${account.colorClass}`}>
                 <i className={`fa ${account.className}`} />
-                <div styleName="provider">{account.displayName}</div>
+                <div styleName="provider">
+                  {account.displayName}
+                </div>
               </div>
               {
-                account.status === 'linked' &&
-                <div styleName="status already-connected">Connected</div>
+                account.status === 'linked'
+                && (
+                <div styleName="status already-connected">
+Connected
+                </div>
+                )
               }
               {
-                account.status === 'pending' &&
-                <div styleName="status already-connected">Connecting</div>
+                account.status === 'pending'
+                && (
+                <div styleName="status already-connected">
+Connecting
+                </div>
+                )
               }
-              <div styleName="status disconnect">Disconnect</div>
+              <div styleName="status disconnect">
+Disconnect
+              </div>
               {
-                account.status === 'unlinked' && !account.disabled &&
-                <div styleName="status">Connect</div>
+                account.status === 'unlinked' && !account.disabled
+                && (
+                <div styleName="status">
+Connect
+                </div>
+                )
               }
               {
-                account.disabled &&
-                <div styleName="status">Coming Soon</div>
+                account.disabled
+                && (
+                <div styleName="status">
+Coming Soon
+                </div>
+                )
               }
             </div>
           ))

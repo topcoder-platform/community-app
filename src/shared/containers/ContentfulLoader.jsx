@@ -384,14 +384,10 @@ function mapStateToProps(state, ownProps) {
 function mapDispatchToProps(dispatch) {
   const a = actions.contentful;
   return {
-    bookContent: (ids, target, preview) =>
-      dispatch(a.bookContent(ids, target, preview)),
-    bookQuery: (id, target, preview) =>
-      dispatch(a.bookQuery(id, target, preview)),
-    freeContent: (ids, target, preview) =>
-      dispatch(a.freeContent(ids, target, preview)),
-    freeQuery: (id, target, preview) =>
-      dispatch(a.freeQuery(id, target, preview)),
+    bookContent: (ids, target, preview) => dispatch(a.bookContent(ids, target, preview)),
+    bookQuery: (id, target, preview) => dispatch(a.bookQuery(id, target, preview)),
+    freeContent: (ids, target, preview) => dispatch(a.freeContent(ids, target, preview)),
+    freeQuery: (id, target, preview) => dispatch(a.freeQuery(id, target, preview)),
     getContent: (contentId, target, preview) => {
       const uuid = shortId();
       dispatch(a.getContentInit(uuid, contentId, target, preview));

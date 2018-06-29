@@ -21,10 +21,16 @@ const ChartTooltip = ({
     href={href}
     onClick={e => e.stopPropagation()}
   >
-    <div styleName="tooltip-rating" style={{ backgroundColor: ratingColor }}>{rating}</div>
+    <div styleName="tooltip-rating" style={{ backgroundColor: ratingColor }}>
+      {rating}
+    </div>
     <div styleName="tooltip-challenge">
-      <div styleName="challenge-name">{challengeName}</div>
-      <div styleName="challenge-date">{challengeData}</div>
+      <div styleName="challenge-name">
+        {challengeName}
+      </div>
+      <div styleName="challenge-date">
+        {challengeData}
+      </div>
     </div>
   </a>
 );

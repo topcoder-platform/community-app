@@ -32,8 +32,16 @@ class ExtendedToastrBox extends ToastrBox {
         </div>
         {options.status && type === 'light' && <div className={classnames('toastr-status', options.status)} />}
         <div className="rrt-middle-container">
-          {title && <div className="rrt-title">{title}</div>}
-          {message && <div className="rrt-text">{message}</div>}
+          {title && (
+          <div className="rrt-title">
+            {title}
+          </div>
+          )}
+          {message && (
+          <div className="rrt-text">
+            {message}
+          </div>
+          )}
           {options.component && this.renderSubComponent()}
         </div>
 
@@ -72,7 +80,8 @@ class ExtendedReduxToastr extends ReduxToastr {
               item={mergedItem}
               {...this.props}
             />
-            {item.options && item.options.attention &&
+            {item.options && item.options.attention
+              && (
               <div
                 role="button"
                 onClick={() => {
@@ -84,6 +93,7 @@ class ExtendedReduxToastr extends ReduxToastr {
                 }}
                 className="toastr-attention"
               />
+              )
             }
           </span>
         );

@@ -69,4 +69,3 @@ export function processLinkData(entry, includes) {
 
 
 export default undefined;
-

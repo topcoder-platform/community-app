@@ -1,0 +1,33 @@
+@import "~styles/mixins";
+
+.ToggleableItem {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  border: 1px solid $tc-gray-neutral-dark;
+  border-top: 0;
+  padding: 20px;
+
+  .body {
+    display: flex;
+    flex-direction: column;
+  }
+
+  p.primary {
+    @include tc-body-md;
+
+    font-weight: 700;
+    margin-bottom: 5px;
+  }
+
+  p.secondary {
+    @include tc-body-md;
+
+    color: $tc-gray-40;
+  }
+
+  .onoffswitch-no-padding-right {
+    margin-right: 0;
+  }
+}

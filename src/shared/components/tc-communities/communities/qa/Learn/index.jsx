@@ -42,23 +42,55 @@ export default function Learn() {
         <Accordion>
           <AccordionItem title="Joining the  Community">
             <Text>
-              <p>First things first, ...make sure you sign up for Topcoder. It&apos;s quick and painless and opens the door to a whole new world.</p>
+              <p>
+First things first, ...make sure you sign up for Topcoder. It&apos;s quick and painless and opens the door to a whole new world.
+              </p>
               <JoinCommunity theme={{ link: joinButtonStyle, container: style.joinContainer }} />
             </Text>
           </AccordionItem>
           <AccordionItem title="How do I participate in a challenge?">
-            <Text><p>Find a challenge that interests you on the <a href="/challenges">challenge listings page</a>. You can filter by challenge types, prizes, deadlines, etc. Look for challenges that are still open for registration. If you see something that interests you, click it and then you can read the details and register for the challenge. Watch the <a href="https://www.yammer.com/wipro.com/#/files/101411899">video</a>.</p></Text>
+            <Text>
+              <p>
+Find a challenge that interests you on the
+                <a href="/challenges">
+challenge listings page
+                </a>
+. You can filter by challenge types, prizes, deadlines, etc. Look for challenges that are still open for registration. If you see something that interests you, click it and then you can read the details and register for the challenge. Watch the
+                <a href="https://www.yammer.com/wipro.com/#/files/101411899">
+video
+                </a>
+.
+              </p>
+            </Text>
           </AccordionItem>
           <AccordionItem title="How do I submit to a challenge?">
-            <Text><p>Do all of your coding/design work offline, or as specified in the challenge spec. When you are ready to submit, come back to the challenge page and click the Submit button. The Submit page will give instructions to upload your submission. Watch the <a href="https://www.yammer.com/wipro.com/#/files/101411933">video</a>.</p></Text>
+            <Text>
+              <p>
+Do all of your coding/design work offline, or as specified in the challenge spec. When you are ready to submit, come back to the challenge page and click the Submit button. The Submit page will give instructions to upload your submission. Watch the
+                <a href="https://www.yammer.com/wipro.com/#/files/101411933">
+video
+                </a>
+.
+              </p>
+            </Text>
           </AccordionItem>
           <AccordionItem title="Updating your Profile">
             <Text>
-              <p>Everything to do with managing your profile and preferences can be found at <a href="https://www.topcoder.com/settings/account/">https://www.topcoder.com/settings/account/</a>.  If you can&apos;t find what you&apos;re looking for, send us a note at support@topcoder.com.</p>
+              <p>
+Everything to do with managing your profile and preferences can be found at
+                <a href="https://www.topcoder.com/settings/account/">
+https://www.topcoder.com/settings/account/
+                </a>
+.  If you can&apos;t find what you&apos;re looking for, send us a note at support@topcoder.com.
+              </p>
             </Text>
           </AccordionItem>
           <AccordionItem title="I have more question. Who should I contact?">
-            <Text><p>Please write to support@topcoder.com</p></Text>
+            <Text>
+              <p>
+Please write to support@topcoder.com
+              </p>
+            </Text>
           </AccordionItem>
         </Accordion>
       </Section>

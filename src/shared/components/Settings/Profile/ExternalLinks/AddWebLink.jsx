@@ -20,7 +20,8 @@ export default class AddWebLink extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (this.props.profileState.addingWebLink && !nextProps.profileState.addingWebLink) {
+    const { profileState } = this.props;
+    if (profileState.addingWebLink && !nextProps.profileState.addingWebLink) {
       this.setState({ webLink: '' });
     }
   }
@@ -34,8 +35,14 @@ export default class AddWebLink extends React.Component {
   // Add web link
   onAddWebLink(e) {
     e.preventDefault();
-    if (this.state.webLink && this.isWebLinkValid()) {
-      this.props.addWebLink(this.props.handle, this.props.tokenV3, this.state.webLink);
+    const {
+      addWebLink,
+      handle,
+      tokenV3,
+    } = this.props;
+    const { webLink } = this.state;
+    if (webLink && this.isWebLinkValid()) {
+      addWebLink(handle, tokenV3, webLink);
     }
   }
 
@@ -50,6 +57,7 @@ export default class AddWebLink extends React.Component {
     } = this.props;
 
     const { addingWebLink } = profileState;
+    const { webLink } = this.state;
 
     const webLinkValid = this.isWebLinkValid();
 
@@ -58,18 +66,20 @@ export default class AddWebLink extends React.Component {
         <div styleName="web-link">
           <form name="addWebLinkFrm" onSubmit={this.onAddWebLink} autoComplete="off">
             <div styleName={webLinkValid ? 'validation-bar url' : 'validation-bar url error-bar'}>
-              <input id="web-link-input" name="url" type="text" styleName="url" value={this.state.webLink} onChange={this.onUpdateWebLink} placeholder="http://www.yourlink.com" required />
+              <input id="web-link-input" name="url" type="text" styleName="url" value={webLink} onChange={this.onUpdateWebLink} placeholder="http://www.yourlink.com" required />
               {
-                !webLinkValid &&
-                (
+                !webLinkValid
+                && (
                   <div styleName="form-input-error">
-                    <p>Please enter a valid URL</p>
+                    <p>
+Please enter a valid URL
+                    </p>
                   </div>
                 )
               }
             </div>
             <PrimaryButton
-              disabled={!this.state.webLink || !webLinkValid || addingWebLink}
+              disabled={!webLink || !webLinkValid || addingWebLink}
               onClick={this.onAddWebLink}
               theme={{ button: Styles['add-button'] }}
             >

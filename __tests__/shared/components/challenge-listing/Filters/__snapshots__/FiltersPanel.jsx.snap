@@ -177,6 +177,7 @@ exports[`Matches shallow shapshot 1`] = `
       }
       themePriority="adhoc-default-context"
       to={null}
+      type="button"
     >
       Clear filters
     </ThemedButton>
@@ -199,6 +200,7 @@ exports[`Matches shallow shapshot 1`] = `
       }
       themePriority="adhoc-context-default"
       to={null}
+      type="button"
     >
       Save filter
     </ThemedButton>
@@ -361,6 +363,7 @@ exports[`Matches shallow shapshot 2`] = `
       }
       themePriority="adhoc-default-context"
       to={null}
+      type="button"
     >
       Clear filters
     </ThemedButton>
@@ -383,6 +386,7 @@ exports[`Matches shallow shapshot 2`] = `
       }
       themePriority="adhoc-context-default"
       to={null}
+      type="button"
     >
       Save filter
     </ThemedButton>

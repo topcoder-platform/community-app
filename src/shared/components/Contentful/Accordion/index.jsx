@@ -29,8 +29,8 @@ function AccordionItemsLoader(props) {
               <AccordionItem
                 key={itemId}
                 title={
-                  data.entries.items[itemId].fields.label ||
-                  data.entries.items[itemId].fields.name
+                  data.entries.items[itemId].fields.label
+                  || data.entries.items[itemId].fields.name
                  }
               >
                 <MarkdownRenderer markdown={data.entries.items[itemId].fields.text} />

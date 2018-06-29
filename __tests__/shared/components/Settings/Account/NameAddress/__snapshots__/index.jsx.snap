@@ -14,7 +14,8 @@ exports[`renders name & address section of account setting page correctly 1`] = 
         className="section-info"
       >
         <h2>
-           Name
+           
+          Name
         </h2>
         <div
           className="description"
@@ -34,7 +35,7 @@ exports[`renders name & address section of account setting page correctly 1`] = 
         <div
           className="form-label"
         >
-          First name 
+          First name
           <span
             className="src-shared-components-Settings-Account-NameAddress-___styles__no-text-transform___jWPWe"
           >
@@ -1252,6 +1253,7 @@ exports[`renders name & address section of account setting page correctly 1`] = 
       }
       themePriority="adhoc-context-default"
       to={null}
+      type="button"
     >
       Save
     </ThemedButton>

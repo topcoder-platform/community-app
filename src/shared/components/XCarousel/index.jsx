@@ -143,8 +143,9 @@ export default class XCarousel extends React.Component {
   }
 
   onGrabStart(event) {
+    const { pos } = this.state;
     const e = event.changedTouches ? event.changedTouches[0] : event;
-    this.anchor = { pos: this.state.pos, x: e.screenX, y: e.screenY };
+    this.anchor = { pos, x: e.screenX, y: e.screenY };
     this.cursor = { x: e.screenX, y: e.screenY };
     this.previousBodyCursor = document.body.style.cursor;
     document.body.style.cursor = '-webkit-grabbing';
@@ -183,16 +184,18 @@ export default class XCarousel extends React.Component {
   }
 
   animateGrabbing() {
-    const pos = this.anchor.pos - (this.cursor.x - this.anchor.x);
+    const { pos } = this.state;
+    const newPos = this.anchor.pos - (this.cursor.x - this.anchor.x);
     this.nextAnimationFrameId = requestAnimationFrame(this.animateGrabbing);
-    if (this.state.pos !== pos) this.setState({ pos });
+    if (pos !== newPos) this.setState({ newPos });
   }
 
   animateRolling() {
     const next = this.nextState;
     const prev = this.prevState;
+    const { speed } = this.props;
 
-    let t = (Date.now() - prev.timestamp) / this.props.speed;
+    let t = (Date.now() - prev.timestamp) / speed;
     if (t > 1) t = 1;
     else if (t) t = Math.sqrt(t);
     this.setState({
@@ -206,11 +209,12 @@ export default class XCarousel extends React.Component {
   }
 
   initAnimation(nextState) {
+    const { speed } = this.props;
     const now = Date.now();
     this.prevState = _.clone(this.state);
     this.prevState.timestamp = now;
     this.nextState = nextState;
-    this.nextState.timestamp = now + this.props.speed;
+    this.nextState.timestamp = now + speed;
   }
 
   /**
@@ -227,8 +231,8 @@ export default class XCarousel extends React.Component {
     if (state.totalItemsW < state.containerSize.w) {
       res.nextButtonPos = 0;
       res.prevButtonPos = 0;
-      res.pos = justifyUnderflow === ALIGN.START ? 0 :
-        res.totalItemsW - res.containerSize.w;
+      res.pos = justifyUnderflow === ALIGN.START ? 0
+        : res.totalItemsW - res.containerSize.w;
       if (justifyUnderflow === ALIGN.CENTER) res.pos /= 2;
     } else if (res.pos <= 0) {
       res.pos = 0;
@@ -249,8 +253,8 @@ export default class XCarousel extends React.Component {
         pos = alt;
         old = neu;
       }
-      const maxPos = res.totalItemsW -
-        (res.containerSize.w - res.prevButtonPos);
+      const maxPos = res.totalItemsW
+        - (res.containerSize.w - res.prevButtonPos);
       if (res.pos >= maxPos) {
         res.pos = maxPos;
         res.nextButtonPos = 0;
@@ -338,7 +342,8 @@ export default class XCarousel extends React.Component {
           }}
           styleName="rollButton"
           tabIndex={0}
-        ><DefaultPrevButton styleName="defaultRollButtonIcon" />
+        >
+          <DefaultPrevButton styleName="defaultRollButtonIcon" />
         </div>
         <div
           onTouchEnd={this.onGrabEnd}
@@ -369,7 +374,8 @@ export default class XCarousel extends React.Component {
                     top,
                   }}
                   styleName="item"
-                >{item}
+                >
+                  {item}
                 </div>
               );
               layoutPos += st.itemSize[index].w;
@@ -388,7 +394,8 @@ export default class XCarousel extends React.Component {
           }}
           styleName="rollButton"
           tabIndex={0}
-        ><DefaultNextButton styleName="defaultRollButtonIcon" />
+        >
+          <DefaultNextButton styleName="defaultRollButtonIcon" />
         </div>
       </div>
     );

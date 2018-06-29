@@ -20,13 +20,20 @@ export default class Popup extends React.Component {
   }
 
   render() {
+    const {
+      onEdit,
+      size,
+      src,
+    } = this.props;
+    const { editing } = this.state;
     const renderDisplay = () => (
       <div>
         <GhostButton
           className="edit"
           onClick={() => this.setState({ editing: true })}
           size="sm"
-        >Edit
+        >
+Edit
         </GhostButton>
       </div>
     );
@@ -34,12 +41,12 @@ export default class Popup extends React.Component {
     const renderEdit = () => (
       <div>
         <EditModal
-          size={this.props.size}
-          src={this.props.src}
+          size={size}
+          src={src}
           onCancel={() => this.setState({ editing: false })}
-          onSave={(src, size) => {
+          onSave={(newSrc, newSize) => {
             this.setState({ editing: false });
-            this.props.onEdit(src, size);
+            onEdit(newSrc, newSize);
           }}
         />
       </div>
@@ -47,7 +54,7 @@ export default class Popup extends React.Component {
 
     return (
       <div>
-        { this.state.editing ? renderEdit() : renderDisplay() }
+        { editing ? renderEdit() : renderDisplay() }
       </div>
     );
   }

@@ -34,8 +34,11 @@ import { AppChunk, webpack } from 'topcoder-react-utils';
 import Contentful from './Contentful';
 import DataFetch from './DataFetch';
 
-export default function Examples(props) {
-  const base = props.match.url;
+export default function Examples({
+  match: {
+    url: base,
+  },
+}) {
   return (
     <Switch>
       <Route path={`${base}/announcement/:id`} component={Announcement} />
@@ -44,8 +47,7 @@ export default function Examples(props) {
       <AppChunk
         chunkName="code-splitting/chunk"
         path={`${base}/code-splitting`}
-        renderClientAsync={() =>
-          import(/* webpackChunkName: "code-splitting/chunk" */ 'components/examples/CodeSplitting')
+        renderClientAsync={() => import(/* webpackChunkName: "code-splitting/chunk" */ 'components/examples/CodeSplitting')
           .then(({ default: CodeSplitting }) => <CodeSplitting />)
         }
         renderPlaceholder={() => <LoadingIndicator />}

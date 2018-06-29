@@ -24,17 +24,24 @@ const ApplyTime = ({
   return (
     <div styleName="container">
       {
-        !hasApplied &&
+        !hasApplied
+        && (
         <div>
-          <p>TIME LEFT TO APPLY</p>
-          <h2>{timeLeft}</h2>
+          <p>
+TIME LEFT TO APPLY
+          </p>
+          <h2>
+            {timeLeft}
+          </h2>
         </div>
+        )
       }
       <div styleName="button-wrapper">
         <PrimaryButton
           disabled={!timeLeft || !openPositions}
           onClick={() => onApply()}
-        >{hasApplied ? 'Manage Applications' : 'Apply for review'}
+        >
+          {hasApplied ? 'Manage Applications' : 'Apply for review'}
         </PrimaryButton>
       </div>
     </div>

@@ -4,11 +4,15 @@ import PT from 'prop-types';
 
 import style from './styles.scss';
 
-const Checkpoints = (props) => {
+function Checkpoints(props) {
+  const {
+    checkpoints,
+    toggleCheckpointFeedback,
+  } = props;
   const {
     checkpointResults,
     generalFeedback,
-  } = props.checkpoints;
+  } = checkpoints;
 
   return (
     <div styleName="challenge-detail-checkpoints">
@@ -23,16 +27,20 @@ const Checkpoints = (props) => {
                 document
                   .getElementsByClassName(style['challenge-checkpoint-winners'])[index]
                   .scrollIntoView(true);
-                props.toggleCheckpointFeedback(index, true);
+                toggleCheckpointFeedback(index, true);
               }}
+              type="button"
             >
-              #{item.submissionId}
+              #
+              {item.submissionId}
             </button>
           ))
         }
       </div>
       <div styleName="challenge-checkpoint-detail">
-        <h2>Checkpoint Winners & General Feedback</h2>
+        <h2>
+Checkpoint Winners & General Feedback
+        </h2>
         <p
           dangerouslySetInnerHTML={{ // eslint-disable-line react/no-danger
             __html: generalFeedback || '',
@@ -44,11 +52,19 @@ const Checkpoints = (props) => {
               <button
                 onClick={(e) => {
                   e.preventDefault();
-                  props.toggleCheckpointFeedback(index);
+                  toggleCheckpointFeedback(index);
                 }}
                 styleName="challenge-checkpoint-submission"
+                type="button"
               >
-                <span><span styleName="feedback-text">Feedback </span>#{item.submissionId}</span>
+                <span>
+                  <span styleName="feedback-text">
+Feedback
+                    {' '}
+                  </span>
+#
+                  {item.submissionId}
+                </span>
                 <span styleName="challenge-checkpoint-expander">
                   {
                     item.expanded ? '-' : '+'
@@ -56,13 +72,15 @@ const Checkpoints = (props) => {
                 </span>
               </button>
               {
-                item.expanded &&
+                item.expanded
+                && (
                 <p
                   styleName="challenge-checkpoint-feedback"
                   dangerouslySetInnerHTML={{ // eslint-disable-line react/no-danger
                     __html: item.feedback || '<span>Empty Feedback</span>',
                   }}
                 />
+                )
               }
             </div>
           ))
@@ -70,13 +88,14 @@ const Checkpoints = (props) => {
       </div>
     </div>
   );
-};
+}
 
 Checkpoints.propTypes = {
   checkpoints: PT.shape({
     checkpointResults: PT.arrayOf(PT.shape()).isRequired,
     generalFeedback: PT.string,
   }).isRequired,
+  toggleCheckpointFeedback: PT.func.isRequired,
 };
 
 export default Checkpoints;

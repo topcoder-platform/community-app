@@ -23,26 +23,32 @@ class FilePicker extends React.Component {
   }
 
   componentDidMount() {
-    this.props.setFileName('');
-    this.props.setError('');
-    this.props.setDragged(false);
-    const id = this.props.id || 1;
-    const ele = document.getElementById(`drop-zone-${id}`);
+    const {
+      id,
+      setDragged,
+      setError,
+      setFileName,
+    } = this.props;
+    setFileName('');
+    setError('');
+    setDragged(false);
+    const safeId = id || 1;
+    const ele = document.getElementById(`drop-zone-${safeId}`);
     ele.addEventListener('dragenter', (e) => {
-      this.props.setDragged(true);
+      setDragged(true);
       e.preventDefault();
     });
     ele.addEventListener('dragleave', (e) => {
-      this.props.setDragged(false);
+      setDragged(false);
       e.preventDefault();
     });
     ele.addEventListener('dragover', (e) => {
       e.preventDefault();
     });
     ele.ondrop = (e) => {
-      const inputEle = document.getElementById(`submission-input-${id}`);
+      const inputEle = document.getElementById(`submission-input-${safeId}`);
       inputEle.files = e.dataTransfer.files;
-      this.props.setDragged(false);
+      setDragged(false);
       e.preventDefault();
       e.stopPropagation();
     };
@@ -50,77 +56,110 @@ class FilePicker extends React.Component {
 
   /* User has selected a new file, verify the filename and extensions */
   handleChangeFile() {
-    const id = this.props.id || 1;
-    const element = document.getElementById(`submission-input-${id}`);
+    const {
+      fileExtensions,
+      id,
+      setFileName,
+      setError,
+    } = this.props;
+    const safeId = id || 1;
+    const element = document.getElementById(`submission-input-${safeId}`);
     const fileName = element.files[0].name;
     const splitFileName = fileName.split('.');
     const extension = `.${splitFileName[splitFileName.length - 1]}`;
-    const allowedExtensions = this.props.fileExtensions;
+    const allowedExtensions = fileExtensions;
     if (allowedExtensions.indexOf(extension) < 0) {
-      this.props.setError(`Invalid ${allowedExtensions.join(' or ')} file.`);
-      this.props.setFileName('');
+      setError(`Invalid ${allowedExtensions.join(' or ')} file.`);
+      setFileName('');
     } else {
-      this.props.setError('');
-      this.props.setFileName(fileName);
+      setError('');
+      setFileName(fileName);
     }
   }
 
   render() {
     const {
       fileExtensions,
+      id,
       title,
       mandatory,
       fileName,
       error,
       dragged,
     } = this.props;
-    const id = this.props.id || 1;
+    const safeId = id || 1;
 
     return (
       <div styleName="container">
         <div styleName="desc">
-          <p>{title}</p>
+          <p>
+            {title}
+          </p>
           {
-            mandatory && <p styleName="mandatory">*mandatory</p>
+            mandatory && (
+            <p styleName="mandatory">
+*mandatory
+            </p>
+            )
           }
         </div>
         <div
           styleName={`file-picker ${error ? 'error' : ''} ${dragged ? 'drag' : ''}`}
-          id={`drop-zone-${id}`}
+          id={`drop-zone-${safeId}`}
         >
           {
-            !fileName && <p>Drag and drop your submission{fileExtensions.join(' or ')} file here.</p>
+            !fileName && (
+            <p>
+Drag and drop your submission
+              {fileExtensions.join(' or ')}
+              {' '}
+file here.
+            </p>
+            )
           }
           {
-            !fileName && <span>or</span>
+            !fileName && (
+            <span>
+or
+            </span>
+            )
           }
           {
-            fileName && <p styleName="file-name">{fileName}</p>
+            fileName && (
+            <p styleName="file-name">
+              {fileName}
+            </p>
+            )
           }
           <input
             data-type="zip"
             type="file"
             name={`${title.toLowerCase()}File`}
-            id={`submission-input-${id}`}
+            id={`submission-input-${safeId}`}
             styleName="submission-input"
             onChange={this.handleChangeFile}
           />
           <label // eslint-disable-line
-            htmlFor={`submission-input-${id}`}
-            id={`label-submit-file-${id}`}
+            htmlFor={`submission-input-${safeId}`}
+            id={`label-submit-file-${safeId}`}
           />
           <PrimaryButton
             onClick={(e) => {
               e.preventDefault();
-              const ele = document.getElementById(`label-submit-file-${id}`);
+              const ele = document.getElementById(`label-submit-file-${safeId}`);
               ele.click();
             }}
-          >Pick a File
+          >
+Pick a File
           </PrimaryButton>
         </div>
         {
-          error &&
-          <div styleName="error-container">{error}</div>
+          error
+          && (
+          <div styleName="error-container">
+            {error}
+          </div>
+          )
         }
       </div>
     );

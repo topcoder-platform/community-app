@@ -22,15 +22,16 @@ class CompetitionTypes extends React.Component {
 
     this.state = {
       activeIndex: 0,
-      data: this.props.data.tracks,
-      challengeURL: this.props.data.tracks[0].viewChallengesLink,
+      data: props.data.tracks,
+      challengeURL: props.data.tracks[0].viewChallengesLink,
     };
   }
 
   toggleActive(index) {
+    const { data } = this.state;
     this.setState({
       activeIndex: index,
-      challengeURL: this.state.data[index].viewChallengesLink,
+      challengeURL: data[index].viewChallengesLink,
     });
   }
 
@@ -41,11 +42,16 @@ class CompetitionTypes extends React.Component {
     } = this.props;
 
     const types = _.assign({}, data.tracks);
-    const currentIndex = this.state.activeIndex;
+    const {
+      activeIndex: currentIndex,
+      challengeURL,
+    } = this.state;
 
     return (
       <div styleName="container">
-        <h1>Competition Types</h1>
+        <h1>
+Competition Types
+        </h1>
         <div
           styleName="text"
           dangerouslySetInnerHTML={
@@ -75,7 +81,8 @@ class CompetitionTypes extends React.Component {
               role="button"
               styleName={`arrow ${currentIndex > 0 ? 'active' : ''}`}
               tabIndex={0}
-            ><ArrowPrev />
+            >
+              <ArrowPrev />
             </a>
           </div>
           <div styleName="track-infos">
@@ -123,11 +130,16 @@ class CompetitionTypes extends React.Component {
               role="button"
               styleName={`arrow ${currentIndex < data.tracks.length - 1 ? 'active' : ''}`}
               tabIndex={0}
-            ><ArrowNext />
+            >
+              <ArrowNext />
             </a>
           </div>
         </div>
-        <div styleName="button-wrapper"><PrimaryButton to={this.state.challengeURL} openNewTab>Browse Challenges</PrimaryButton></div>
+        <div styleName="button-wrapper">
+          <PrimaryButton to={challengeURL} openNewTab>
+            Browse Challenges
+          </PrimaryButton>
+        </div>
       </div>
     );
   }

@@ -1,5 +1,5 @@
 /**
- * render a side bar tab item
+ * render a side bar tab Item
  */
 import React from 'react';
 import PT from 'prop-types';
@@ -14,6 +14,22 @@ export default function SideItem(props) {
     toggle,
   } = props;
 
+  /*
+   * Simple rendering function used to add the props (width & height)
+   * only once instead of having to add them on each element
+   */
+  const renderSvgIcon = (svgIcon) => {
+    const componentProps = {
+      width: '34px',
+      height: '30px',
+    };
+    return (
+      <div styleName="svg-container">
+        { React.cloneElement(svgIcon, componentProps) }
+      </div>
+    );
+  };
+
   const clickTab = (e, tab) => {
     e.preventDefault();
     setImmediate(() => {
@@ -27,8 +43,15 @@ export default function SideItem(props) {
       tabIndex={0}
       onKeyPress={e => clickTab(e, name)}
       onClick={e => clickTab(e, name)}
-      styleName={currentTab === name ? 'active-tab' : ''}
-    ><img src={icon} alt="" />{ name }
+      styleName={`SideItem ${currentTab === name ? 'active-tab' : ''}`}
+    >
+      {
+        // `icon` can either be an img src (a string) or a React element
+        // it's a React element when the image is an SVG
+        // (see `components/examples/SvgLoading` for an example)
+        typeof icon === 'string' ? <img src={icon} alt="tab icon" /> : renderSvgIcon(icon)
+      }
+      { name }
     </a>
   );
 }
@@ -36,6 +59,9 @@ export default function SideItem(props) {
 SideItem.propTypes = {
   currentTab: PT.string.isRequired,
   name: PT.string.isRequired,
-  icon: PT.string.isRequired,
+  icon: PT.oneOfType([
+    PT.string, // for img icons
+    PT.element, // for svg icons
+  ]).isRequired,
   toggle: PT.func.isRequired,
 };

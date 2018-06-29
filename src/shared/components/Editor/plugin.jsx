@@ -23,13 +23,12 @@ import Link from './Link';
  * @param {String} type The block type to create the strategy for, ex. 'IMG', 'LINK'
  * @return {Function} The strategy function
  */
-const createStrategy = type =>
-  (contentBlock, callback, contentState) => {
-    contentBlock.findEntityRanges((metadata) => {
-      const key = metadata.getEntity();
-      return key !== null && contentState.getEntity(key).getType() === type;
-    }, callback);
-  };
+const createStrategy = type => (contentBlock, callback, contentState) => {
+  contentBlock.findEntityRanges((metadata) => {
+    const key = metadata.getEntity();
+    return key !== null && contentState.getEntity(key).getType() === type;
+  }, callback);
+};
 
 /**
  * Creates a custom plugin instance

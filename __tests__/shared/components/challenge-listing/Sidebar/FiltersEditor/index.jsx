@@ -87,4 +87,3 @@ test.skip('handle events', () => {
   TU.Simulate.dragStart(matches[0]);
   expect(dragSavedFilterStart).toHaveBeenCalled();
 });
-

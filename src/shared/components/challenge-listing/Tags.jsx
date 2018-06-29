@@ -45,7 +45,8 @@ export default function Tags({
           onClick={() => onClick(item.trim())}
           key={item}
           role="button"
-        >{item}
+        >
+          {item}
         </Tag>
       ));
     }

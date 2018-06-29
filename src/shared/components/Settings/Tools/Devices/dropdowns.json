@@ -1,0 +1,24 @@
+{
+    "type": [
+        {
+            "key": "deviceType",
+            "name": "Desktop"
+        },
+        {
+            "key": "deviceType",
+            "name": "Laptop"
+        },
+        {
+            "key": "deviceType",
+            "name": "Tablet"
+        },
+        {
+            "key": "deviceType",
+            "name": "Smartphone"
+        },
+        {
+            "key": "deviceType",
+            "name": "Console"
+        }
+    ]
+}

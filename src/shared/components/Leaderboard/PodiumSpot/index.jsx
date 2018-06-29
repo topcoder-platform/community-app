@@ -78,15 +78,25 @@ export default function PodiumSpot(props) {
           url={photoUrl}
         />
       </span>
-      <div styleName="styles.ranking">{DISPLAY_RANKING[competitor.rank]}</div>
+      <div styleName="styles.ranking">
+        {DISPLAY_RANKING[competitor.rank]}
+      </div>
       <div>
         <a styleName="styles.profile-link" href={`${config.URL.BASE}/members/${competitor['challenge_stats.winner_handle']}/`}>
           {competitor['challenge_stats.winner_handle']}
         </a>
       </div>
       <div styleName="styles.winnings-info">
-        <span>{competitor.points} points</span>
-        <span>{competitor['challenge_stats.count']} challenges</span>
+        <span>
+          {competitor.points}
+          {' '}
+points
+        </span>
+        <span>
+          {competitor['challenge_stats.count']}
+          {' '}
+challenges
+        </span>
       </div>
     </div>
   );

@@ -53,9 +53,9 @@ export const USER_ROLES = {
  * @return {String}
  */
 export function getSubCommunityBaseUrl(community) {
-  return community.mainSubdomain ?
-    config.URL.BASE.replace('www', community.mainSubdomain) :
-    `/community/${community.communityId}`;
+  return community.mainSubdomain
+    ? config.URL.BASE.replace('www', community.mainSubdomain)
+    : `/community/${community.communityId}`;
 }
 
 /**
@@ -80,9 +80,9 @@ export function getCdnAvatarUrl(apiUrl, size = 100) {
  */
 export function getRatingLevel(rating) {
   if (rating < 900) return 1;
-  else if (rating < 1200) return 2;
-  else if (rating < 1500) return 3;
-  else if (rating < 2200) return 4;
+  if (rating < 1200) return 2;
+  if (rating < 1500) return 3;
+  if (rating < 2200) return 4;
   return 5;
 }
 
@@ -170,7 +170,7 @@ export function timeDiff(input, type) {
   }
   if (type === 'quantity') {
     return timeAndUnit[0];
-  } else if (type === 'unit') {
+  } if (type === 'unit') {
     return timeAndUnit[1];
   }
   return timeAndUnit;

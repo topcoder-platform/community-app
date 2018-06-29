@@ -56,8 +56,13 @@ test('Snapshot match', () => {
 
 class Wrapper extends React.Component {
   componentDidMount() {}
+
   render() {
-    return <div><Header {...this.props} /></div>;
+    return (
+      <div>
+        <Header {...this.props} />
+      </div>
+    );
   }
 }
 
@@ -78,23 +83,20 @@ describe.skip('Toggle mobile menu', () => {
   ));
 
   test.skip('onMobileToggle', () => {
-    const btn = TU.findAllInRenderedTree(page, item =>
-      item && item.className && item.className.match(/mobile-toggle/));
+    const btn = TU.findAllInRenderedTree(page, item => item && item.className && item.className.match(/mobile-toggle/));
     expect(btn.length).toBe(1);
     TU.Simulate.click(btn[0]);
     expect(mockOnMobileToggle).toHaveBeenCalled();
   });
 
   test('click register', () => {
-    const matches = TU.findAllInRenderedTree(page, item =>
-      item && item.className && item.className.match('btnRegister'));
+    const matches = TU.findAllInRenderedTree(page, item => item && item.className && item.className.match('btnRegister'));
     expect(matches).toHaveLength(1);
     TU.Simulate.click(matches[0]);
   });
 
   test('click login', () => {
-    const matches = TU.findAllInRenderedTree(page, item =>
-      item && item.className && item.className.match('btnLogin'));
+    const matches = TU.findAllInRenderedTree(page, item => item && item.className && item.className.match('btnLogin'));
     expect(matches).toHaveLength(1);
     TU.Simulate.click(matches[0]);
   });
@@ -117,8 +119,7 @@ describe('mouse event', () => {
   ));
 
   test.skip('mouse event', () => {
-    const matches = TU.findAllInRenderedTree(page, item =>
-      item && item.className && item.className.match('user-menu'));
+    const matches = TU.findAllInRenderedTree(page, item => item && item.className && item.className.match('user-menu'));
     expect(matches).toHaveLength(2);
     TU.Simulate.mouseEnter(matches[0]);
     expect(openMenu).toHaveBeenCalledTimes(1);

@@ -4,11 +4,13 @@ import React from 'react';
 
 import './style.scss';
 
-export default function AnnouncementExample(props) {
+export default function AnnouncementExample({ match }) {
   return (
     <div styleName="container">
-      <h1>Announcement Preview</h1>
-      <Announcement previewId={props.match.params.id} />
+      <h1>
+Announcement Preview
+      </h1>
+      <Announcement previewId={match.params.id} />
     </div>
   );
 }

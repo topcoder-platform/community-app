@@ -35,46 +35,64 @@ function getAvailableFilterName(savedFilters) {
 
 export class Container extends React.Component {
   componentDidMount() {
-    if (!this.props.loadingSubtracks) this.props.getSubtracks();
-    if (!this.props.loadingKeywords) this.props.getKeywords();
+    const {
+      getKeywords,
+      getSubtracks,
+      loadingKeywords,
+      loadingSubtracks,
+    } = this.props;
+    if (!loadingSubtracks) getSubtracks();
+    if (!loadingKeywords) getKeywords();
   }
 
   render() {
-    const communityFilters = [
+    const {
+      activeBucket,
+      communityFilters,
+      filterState,
+      isSavingFilter,
+      saveFilter,
+      savedFilters,
+      selectBucket,
+      selectedCommunityId,
+      setFilterState,
+      tokenV2,
+    } = this.props;
+    const communityFilters2 = [
       {
         communityId: '',
         communityName: 'All',
         challengeFilter: {},
       },
-      ...this.props.communityFilters,
+      ...communityFilters,
     ];
 
-    const isForReviewOpportunities = isReviewOpportunitiesBucket(this.props.activeBucket);
+    const isForReviewOpportunities = isReviewOpportunitiesBucket(activeBucket);
 
     return (
       <FilterPanel
         {...this.props}
-        communityFilters={communityFilters}
+        communityFilters={communityFilters2}
         saveFilter={() => {
-          const name = getAvailableFilterName(this.props.savedFilters);
+          const name = getAvailableFilterName(savedFilters);
           const filter = {
-            ...this.props.filterState,
-            communityId: this.props.selectedCommunityId,
+            ...filterState,
+            communityId: selectedCommunityId,
           };
 
           if (isForReviewOpportunities) filter.isForReviewOpportunities = true;
 
-          this.props.saveFilter(name, filter, this.props.tokenV2);
+          saveFilter(name, filter, tokenV2);
         }}
         setFilterState={(state) => {
-          this.props.setFilterState(state);
-          if (this.props.activeBucket === BUCKETS.SAVED_FILTER) {
-            this.props.selectBucket(BUCKETS.ALL);
-          } else if (this.props.activeBucket === BUCKETS.SAVED_REVIEW_OPPORTUNITIES_FILTER) {
-            this.props.selectBucket(BUCKETS.REVIEW_OPPORTUNITIES);
+          setFilterState(state);
+          if (activeBucket === BUCKETS.SAVED_FILTER) {
+            selectBucket(BUCKETS.ALL);
+          } else if (activeBucket === BUCKETS.SAVED_REVIEW_OPPORTUNITIES_FILTER) {
+            selectBucket(BUCKETS.REVIEW_OPPORTUNITIES);
           }
         }}
-        isSavingFilter={this.props.isSavingFilter}
+        isSavingFilter={isSavingFilter}
         isReviewOpportunitiesBucket={isForReviewOpportunities}
       />
     );

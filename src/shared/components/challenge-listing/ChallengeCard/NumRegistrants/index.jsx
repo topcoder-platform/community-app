@@ -18,8 +18,7 @@ import RegistrantsIcon from '../../Icons/RegistrantsIcon';
 import './style.scss';
 
 const ID_LENGTH = 6;
-const MM_BASE_URL
-  = `${config.URL.COMMUNITY}/longcontest/?module=ViewRegistrants&rd=`;
+const MM_BASE_URL = `${config.URL.COMMUNITY}/longcontest/?module=ViewRegistrants&rd=`;
 
 export default function NumRegistrants({
   challenge: {
@@ -44,21 +43,25 @@ export default function NumRegistrants({
   return (
     <span styleName="container">
       <Tooltip
-        content={
-          <div styleName="tooltip">{tip}</div>
-        }
+        content={(
+          <div styleName="tooltip">
+            {tip}
+          </div>
+)}
       >
         <Link
           disabled={!numRegistrants}
           onClick={() => (
-            selectChallengeDetailsTab(numRegistrants ?
-              DETAIL_TABS.REGISTRANTS : DETAIL_TABS.DETAILS)
+            selectChallengeDetailsTab(numRegistrants
+              ? DETAIL_TABS.REGISTRANTS : DETAIL_TABS.DETAILS)
           )}
           styleName="link"
           to={link}
         >
           <RegistrantsIcon />
-          <span styleName="number">{numRegistrants}</span>
+          <span styleName="number">
+            {numRegistrants}
+          </span>
         </Link>
       </Tooltip>
     </span>

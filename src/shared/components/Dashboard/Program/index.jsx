@@ -13,19 +13,28 @@ const Program = (props) => {
   return (
     <div styleName="programs">
       {
-        iosRegistered &&
+        iosRegistered
+        && (
         <header>
           <h1 styleName="section-title">
-            <span>iOS</span> Community
+            <span>
+iOS
+            </span>
+            {' '}
+Community
           </h1>
         </header>
+        )
       }
       <section>
         {
-          !iosRegistered &&
+          !iosRegistered
+          && (
           <div styleName="unregistered">
             <div styleName="empty-state-placeholder sky">
-              <div styleName="title">iOS Community</div>
+              <div styleName="title">
+iOS Community
+              </div>
               <div styleName="content" />
               <div styleName="description">
                 Earn iOS topcoder badges and exclusive access to iOS challenges,
@@ -39,23 +48,30 @@ const Program = (props) => {
                     className="tc-btn tc-btn-s tc-btn-ghost"
                     styleName="tc-btn"
                     title="Participate"
-                  >Participate
+                  >
+Participate
                   </a>
                 </div>
                 <div styleName="help-link">
-                  <a href={config.URL.IOS} styleName="learn-more">Learn More</a>
+                  <a href={config.URL.IOS} styleName="learn-more">
+Learn More
+                  </a>
                 </div>
               </div>
             </div>
           </div>
+          )
         }
         {
-          iosRegistered &&
+          iosRegistered
+          && (
           <div styleName="registered">
             <div styleName="badge-and-challenges">
               <div styleName="registered-badge">
                 <div styleName="flex-wrapper">
-                  <p>iOS Community</p>
+                  <p>
+iOS Community
+                  </p>
                   <div styleName="badge-timeline">
                     <MemberIcon />
                   </div>
@@ -77,6 +93,7 @@ const Program = (props) => {
               }
             </div>
           </div>
+          )
         }
       </section>
     </div>
@@ -90,4 +107,3 @@ Program.propTypes = {
 };
 
 export default Program;
-

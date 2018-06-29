@@ -19,19 +19,25 @@ export default class Popup extends React.Component {
   }
 
   handleDone() {
-    this.props.onEdit(this.state.href);
+    const { onEdit } = this.props;
+    const { href } = this.state;
+    onEdit(href);
     this.setState({ editing: false });
   }
 
   render() {
+    const { editing, href } = this.state;
     const renderDisplay = () => (
       <div>
-        <a href={this.state.href} target="_blank" rel="noopener noreferrer">{this.state.href}</a>
+        <a href={href} target="_blank" rel="noopener noreferrer">
+          {href}
+        </a>
         <GhostButton
           className="edit"
           onClick={() => this.setState({ editing: true })}
           size="sm"
-        >Edit
+        >
+Edit
         </GhostButton>
       </div>
     );
@@ -40,7 +46,7 @@ export default class Popup extends React.Component {
       <div>
         <input
           type="text"
-          value={this.state.href}
+          value={href}
           onChange={() => this.setState({ href: this.node.value })}
           onKeyUp={(e) => {
             if (e.keyCode === 13) {
@@ -55,14 +61,15 @@ export default class Popup extends React.Component {
             this.handleDone();
           }}
           size="sm"
-        >Done
+        >
+Done
         </GhostButton>
       </div>
     );
 
     return (
       <div styleName="container">
-        { this.state.editing ? renderEdit() : renderDisplay() }
+        { editing ? renderEdit() : renderDisplay() }
       </div>
     );
   }

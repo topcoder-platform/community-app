@@ -21,6 +21,7 @@ class Wrapper extends React.Component {
       },
     };
   }
+
   componentDidMount() {}
 
   render() {

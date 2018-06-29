@@ -43,7 +43,10 @@ export default function Home({
           ) : (
             <span>
               Sign up. &laquo;Test&raquo; your skills. Get Rewarded.
-              &zwnj;<span className={style.highlighted}>It&apos;s that simple!</span>
+              &zwnj;
+              <span className={style.highlighted}>
+It&apos;s that simple!
+              </span>
             </span>
           )}
         </div>
@@ -214,4 +217,3 @@ Home.propTypes = {
   member: PT.bool.isRequired,
   news: PT.arrayOf(PT.shape()),
 };
-

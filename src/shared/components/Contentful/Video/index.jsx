@@ -24,7 +24,7 @@ export default function VideoLoader(props) {
             src={video.source}
             title={video.title}
           />);
-          }
+      }
         }
       renderPlaceholder={LoadingIndicator}
     />

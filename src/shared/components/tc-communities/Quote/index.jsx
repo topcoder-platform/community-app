@@ -23,9 +23,19 @@ const Quote = ({
   <div className={theme.container}>
     {authorPhotoURL && <img src={authorPhotoURL} alt={authorName} className={theme.authorPhoto} />}
     <div>
-      <blockquote className={theme.text}>{children}</blockquote>
-      {authorName && <p className={theme.authorName}>{authorName}</p>}
-      {authorDescription && <p className={theme.authorDescription}>{authorDescription}</p>}
+      <blockquote className={theme.text}>
+        {children}
+      </blockquote>
+      {authorName && (
+      <p className={theme.authorName}>
+        {authorName}
+      </p>
+      )}
+      {authorDescription && (
+      <p className={theme.authorDescription}>
+        {authorDescription}
+      </p>
+      )}
     </div>
   </div>
 );

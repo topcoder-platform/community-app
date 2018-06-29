@@ -12,10 +12,9 @@ export default function SettingsLoader(props) {
   return (
     <AppChunk
       chunkName="settings/chunk"
-      renderClientAsync={() =>
-        import(/* webpackChunkName: "settings/chunk" */ 'containers/Settings')
-          .then(({ default: SettingsContainer }) => (
-            <SettingsContainer {...props} />
+      renderClientAsync={() => import(/* webpackChunkName: "settings/chunk" */ 'containers/Settings')
+        .then(({ default: SettingsContainer }) => (
+          <SettingsContainer {...props} />
         ))
       }
       renderPlaceholder={() => <LoadingPagePlaceholder />}

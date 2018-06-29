@@ -23,38 +23,61 @@ class CommunityStatsContainer extends React.Component {
   /* When container mounts we get / update related stats. */
   componentDidMount() {
     const {
+      challenges,
+      community,
+      getAllActiveChallenges,
+      getCommunityStats,
       lastUpdateOfActiveChallenges,
+      token,
     } = this.props;
 
-    this.props.getCommunityStats(this.props.community, this.props.challenges, this.props.token);
+    getCommunityStats(community, challenges, token);
 
     if (Date.now() - lastUpdateOfActiveChallenges > 10 * MIN) {
-      this.props.getAllActiveChallenges(this.props.token);
+      getAllActiveChallenges(token);
     }
   }
 
   /* When group or auth token is changed we get / update related stats. */
   componentWillReceiveProps(nextProps) {
-    if (nextProps.token &&
-      (nextProps.token !== this.props.token
-        || nextProps.community !== this.props.community
-        || nextProps.challenges !== this.props.challenges)) {
-      this.props.getCommunityStats(nextProps.community, nextProps.challenges, nextProps.token);
+    const {
+      challenges,
+      community,
+      getAllActiveChallenges,
+      getCommunityStats,
+      token,
+      userId,
+    } = this.props;
+
+    if (nextProps.token
+      && (nextProps.token !== token
+        || nextProps.community !== community
+        || nextProps.challenges !== challenges)) {
+      getCommunityStats(nextProps.community, nextProps.challenges, nextProps.token);
     }
 
-    if (nextProps.userId !== this.props.userId) {
-      this.props.getAllActiveChallenges(nextProps.token);
+    if (nextProps.userId !== userId) {
+      getAllActiveChallenges(nextProps.token);
     }
   }
 
   render() {
-    return !this.props.loadingChallenges && (
+    const {
+      filter,
+      icons,
+      loadingChallenges,
+      stats,
+      theme,
+      titles,
+    } = this.props;
+
+    return !loadingChallenges && (
       <CommunityStats
-        stats={this.props.stats}
-        theme={this.props.theme}
-        titles={this.props.titles}
-        icons={this.props.icons}
-        filter={this.props.filter}
+        stats={stats}
+        theme={theme}
+        titles={titles}
+        icons={icons}
+        filter={filter}
       />
     );
   }

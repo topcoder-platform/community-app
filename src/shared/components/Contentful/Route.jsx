@@ -47,8 +47,8 @@ function ChildRoutesLoader(props) {
                   url={fields.socialUrl}
                 />
                 {
-                  fields.viewport ?
-                    <Viewport id={fields.viewport.sys.id} preview={preview} /> : <Error404 />
+                  fields.viewport
+                    ? <Viewport id={fields.viewport.sys.id} preview={preview} /> : <Error404 />
                 }
               </React.Fragment>
             )}

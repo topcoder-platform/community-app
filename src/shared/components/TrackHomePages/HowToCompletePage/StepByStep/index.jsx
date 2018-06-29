@@ -20,15 +20,18 @@ class StepByStep extends React.Component {
       activeIndex: -1,
     };
   }
+
   toggleActive(index) {
     this.setState({
       activeIndex: index,
     });
   }
+
   render() {
     const { data } = this.props;
+    const { activeIndex } = this.state;
     const steps = data.Steps;
-    const currentIndex = this.state.activeIndex;
+    const currentIndex = activeIndex;
 
     return (
       <div styleName="container">
@@ -58,7 +61,9 @@ class StepByStep extends React.Component {
                 </div>
                 <div styleName="content">
                   <div styleName="title">
-                    {index + 1}. { menu.title}
+                    {index + 1}
+.
+                    { menu.title}
                   </div>
                   <div
                     styleName="text"

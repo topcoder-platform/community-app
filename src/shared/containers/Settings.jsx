@@ -10,7 +10,6 @@ import { isTokenExpired } from 'tc-accounts';
 import { goToLogin } from 'utils/tc';
 
 import { actions } from 'topcoder-react-lib';
-import dashActions from 'actions/page/dashboard';
 import settingsActions, { TABS } from 'actions/page/settings';
 
 import Error404 from 'components/Error404';
@@ -30,13 +29,16 @@ class SettingsContainer extends React.Component {
     const {
       handle,
       profileState,
-      settingsTab,
+      settingsTab: targetSEttingsTab,
       tokenV3,
       authenticating,
-      loadHeaderData,
       loadTabData,
       loadAllUserTraits,
     } = props;
+
+    const {
+      settingsTab,
+    } = this.props;
 
     if (authenticating) return;
 
@@ -48,18 +50,13 @@ class SettingsContainer extends React.Component {
 
     const handleChanged = handle !== profileState.profileForHandle;
 
-    // Load header data
-    if (handleChanged) {
-      loadHeaderData(props);
-    }
-
     // Load all user traits
     if (handleChanged) {
       loadAllUserTraits(handle, tokenV3);
     }
 
     // Load tab data
-    if (handleChanged || settingsTab !== this.props.settingsTab) {
+    if (handleChanged || targetSEttingsTab !== settingsTab) {
       loadTabData(props);
     }
   }
@@ -78,10 +75,12 @@ class SettingsContainer extends React.Component {
     // Only load the page when authenticated and profile is loaded
     const loaded = !authenticating && profile;
 
-    return loaded ?
-      <Settings
-        {...this.props}
-      />
+    return loaded
+      ? (
+        <Settings
+          {...this.props}
+        />
+      )
       : <LoadingIndicator />;
   }
 }
@@ -94,11 +93,8 @@ SettingsContainer.defaultProps = {
 };
 
 SettingsContainer.propTypes = {
-  xlBadge: PT.string.isRequired,
-  loadHeaderData: PT.func.isRequired,
   loadTabData: PT.func.isRequired,
   selectTab: PT.func.isRequired,
-  showXlBadge: PT.func.isRequired,
   uploadPhoto: PT.func.isRequired,
   deletePhoto: PT.func.isRequired,
   updateProfile: PT.func.isRequired,
@@ -123,7 +119,6 @@ SettingsContainer.propTypes = {
 
 function mapStateToProps(state) {
   return {
-    xlBadge: state.page.dashboard.xlBadge,
     settingsTab: state.page.settings.settingsTab,
     settingsPageState: state.page.settings,
     authenticating: state.auth.authenticating,
@@ -142,13 +137,6 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   const profileActions = actions.profile;
-  const loadHeaderData = ({ handle, tokenV3 }) => {
-    dispatch(profileActions.loadProfile(handle));
-    dispatch(profileActions.getAchievementsInit());
-    dispatch(actions.challenge.getActiveChallengesCountInit());
-    dispatch(profileActions.getAchievementsDone(handle));
-    dispatch(actions.challenge.getActiveChallengesCountDone(handle, tokenV3));
-  };
 
   const loadTabData = ({
     handle,
@@ -163,13 +151,11 @@ function mapDispatchToProps(dispatch) {
       dispatch(profileActions.getLinkedAccountsInit());
       dispatch(profileActions.getExternalAccountsInit());
       dispatch(profileActions.getExternalLinksInit());
-      dispatch(actions.lookup.getSkillTagsInit());
-      dispatch(actions.lookup.getSkillTagsDone());
       dispatch(profileActions.getLinkedAccountsDone(profile, tokenV3));
       dispatch(profileActions.getExternalAccountsDone(handle));
       dispatch(profileActions.getExternalLinksDone(handle));
       dispatch(profileActions.getSkillsDone(handle));
-    } else if (settingsTab === TABS.EMAIL) {
+    } else if (settingsTab === TABS.PREFERENCES) {
       dispatch(profileActions.getEmailPreferencesInit());
       dispatch(profileActions.getEmailPreferencesDone(profile, tokenV3));
     } else if (settingsTab === TABS.ACCOUNT) {
@@ -179,9 +165,7 @@ function mapDispatchToProps(dispatch) {
   };
 
   return {
-    loadHeaderData,
     loadTabData,
-    showXlBadge: name => dispatch(dashActions.page.dashboard.showXlBadge(name)),
     selectTab: tab => dispatch(settingsActions.page.settings.selectTab(tab)),
     clearIncorrectPassword: () => dispatch(settingsActions.page.settings.clearIncorrectPassword()),
     addWebLink: (handle, tokenV3, webLink) => {
@@ -231,6 +215,9 @@ function mapDispatchToProps(dispatch) {
     },
     toggleProfileSideTab: (tab) => {
       dispatch(actions.ui.settings.profile.toggleTab(tab));
+    },
+    toggleToolsSideTab: (tab) => {
+      dispatch(actions.ui.settings.tools.toggleTab(tab));
     },
     loadAllUserTraits: (handle, tokenV3) => {
       dispatch(actions.settings.getAllUserTraits(handle, tokenV3));

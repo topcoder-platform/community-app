@@ -19,7 +19,9 @@ export default function Header(props) {
   const badges = achievements.filter(x => MAP[x.description]);
   return (
     <div styleName="container">
-      <h1 styleName="title">Dashboard</h1>
+      <h1 styleName="title">
+Dashboard
+      </h1>
       <div styleName="badges">
         {
           badges.map(({ description }) => (

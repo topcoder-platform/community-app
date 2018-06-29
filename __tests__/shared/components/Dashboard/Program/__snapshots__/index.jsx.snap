@@ -11,7 +11,8 @@ exports[`Matches shallow shapshot 1`] = `
       <span>
         iOS
       </span>
-       Community
+       
+      Community
     </h1>
   </header>
   <section>

@@ -17,7 +17,10 @@ export default function DeadlinesPanel({ deadlines }) {
 
   return (
     <div styleName="panel">
-      <p styleName="timezone">Timezone: {moment.tz.guess()}</p>
+      <p styleName="timezone">
+Timezone:
+        {moment.tz.guess()}
+      </p>
       <Card
         past={started}
         time={start}

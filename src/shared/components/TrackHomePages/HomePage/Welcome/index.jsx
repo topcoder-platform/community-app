@@ -15,15 +15,25 @@ const converter = new showdown.Converter();
 const Welcome = ({ data }) => (
   <div styleName="container">
     <div styleName="left">
-      <h1>{data.title}</h1>
+      <h1>
+        {data.title}
+      </h1>
       <div
         styleName="text"
         dangerouslySetInnerHTML={
           { __html: converter.makeHtml(data.text) }
         }
       />
-      <div styleName="button-register"><Button styleName="register" to={data.primaryButton.URL} openNewTab>{data.primaryButton.text}</Button></div>
-      <div styleName="button-complete"><PrimaryButton styleName="complete" to={`${data.track}/how-to-complete`}>How To Compete</PrimaryButton></div>
+      <div styleName="button-register">
+        <Button styleName="register" to={data.primaryButton.URL} openNewTab>
+          {data.primaryButton.text}
+        </Button>
+      </div>
+      <div styleName="button-complete">
+        <PrimaryButton styleName="complete" to={`${data.track}/how-to-complete`}>
+How To Compete
+        </PrimaryButton>
+      </div>
       <div
         styleName="text"
         dangerouslySetInnerHTML={
@@ -45,7 +55,9 @@ const Welcome = ({ data }) => (
         )
       }
     </div>
-    <h1 styleName="mobile">{data.title}</h1>
+    <h1 styleName="mobile">
+      {data.title}
+    </h1>
     <div styleName="video-mobile">
       {
         data.media.file.contentType === 'video/mp4' ? (
@@ -66,8 +78,16 @@ const Welcome = ({ data }) => (
         { __html: converter.makeHtml(data.text) }
       }
     />
-    <div styleName="button-register-mobile"><Button styleName="register" to={data.primaryButton.URL} openNewTab>{data.primaryButton.text}</Button></div>
-    <div styleName="button-complete-mobile"><PrimaryButton styleName="complete" to={`${data.track}/how-to-complete`}>How To Compete</PrimaryButton></div>
+    <div styleName="button-register-mobile">
+      <Button styleName="register" to={data.primaryButton.URL} openNewTab>
+        {data.primaryButton.text}
+      </Button>
+    </div>
+    <div styleName="button-complete-mobile">
+      <PrimaryButton styleName="complete" to={`${data.track}/how-to-complete`}>
+How To Compete
+      </PrimaryButton>
+    </div>
   </div>
 );
 

@@ -18,14 +18,18 @@ export default function Dial({
 }) {
   return (
     <a href={url} styleName="container">
-      <p styleName="title">{_.startCase(title)}</p>
+      <p styleName="title">
+        {_.startCase(title)}
+      </p>
       <p
         styleName="content"
       >
         <Coin />
         {
           show ? Math.round(amount).toLocaleString() : (
-            <div styleName="hidden">hidden</div>
+            <div styleName="hidden">
+hidden
+            </div>
           )
         }
       </p>

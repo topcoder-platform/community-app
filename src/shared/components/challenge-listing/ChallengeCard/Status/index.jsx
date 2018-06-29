@@ -148,7 +148,8 @@ export default function ChallengeStatus(props) {
           setImmediate(() => selectChallengeDetailsTab(DETAIL_TABS.SUBMISSIONS))
         )}
         to={resultsLink}
-      >Results
+      >
+Results
       </Link>
     );
   }
@@ -178,7 +179,9 @@ export default function ChallengeStatus(props) {
         <span>
           { timeNote }
         </span>
-        <span styleName="to-register">to register</span>
+        <span styleName="to-register">
+to register
+        </span>
       </a>
     );
   }
@@ -210,10 +213,14 @@ export default function ChallengeStatus(props) {
             />
           </div>
           {
-            challenge.myChallenge &&
+            challenge.myChallenge
+            && (
             <div styleName="spacing">
-              <a styleName="link-forum past" href={`${FORUM_URL}${challenge.forumId}`}><ForumIcon /></a>
+              <a styleName="link-forum past" href={`${FORUM_URL}${challenge.forumId}`}>
+                <ForumIcon />
+              </a>
             </div>
+            )
           }
         </span>
       </div>
@@ -229,7 +236,7 @@ export default function ChallengeStatus(props) {
       myChallenge,
       status,
       subTrack,
-    } = props.challenge;
+    } = challenge;
 
     let statusPhase = currentPhases
       .filter(p => p.phaseType !== 'Registration')
@@ -259,7 +266,7 @@ export default function ChallengeStatus(props) {
         <span styleName="challenge-stats">
           <div styleName="spacing">
             <NumRegistrants
-              challenge={props.challenge}
+              challenge={challenge}
               challengesUrl={challengesUrl}
               newChallengeDetails={newChallengeDetails}
               selectChallengeDetailsTab={selectChallengeDetailsTab}
@@ -267,22 +274,24 @@ export default function ChallengeStatus(props) {
           </div>
           <div styleName="spacing">
             <NumSubmissions
-              challenge={props.challenge}
+              challenge={challenge}
               challengesUrl={challengesUrl}
               newChallengeDetails={newChallengeDetails}
               selectChallengeDetailsTab={selectChallengeDetailsTab}
             />
           </div>
           {
-            myChallenge &&
+            myChallenge
+            && (
             <div styleName="spacing">
               <a styleName="link-forum" href={`${FORUM_URL}${forumId}`}>
                 <ForumIcon />
               </a>
             </div>
+            )
           }
         </span>
-        <ProgressBarTooltip challenge={props.challenge}>
+        <ProgressBarTooltip challenge={challenge}>
           {
             status === 'ACTIVE' && statusPhase ? (
               <div>

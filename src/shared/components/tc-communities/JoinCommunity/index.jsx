@@ -45,7 +45,9 @@ export default function JoinCommunity({
 }) {
   if (state === STATE.HIDDEN) {
     return (
-      <div styleName="style.placeholder">{hiddenButtonText}</div>
+      <div styleName="style.placeholder">
+        {hiddenButtonText}
+      </div>
     );
   }
   return (
@@ -67,14 +69,18 @@ export default function JoinCommunity({
       >
         { state === STATE.JOINING ? (
           <div className={style.joiningContainer}>
-            <span>Joining...</span>
+            <span>
+Joining...
+            </span>
             <LoadingIndicator theme={{ container: style.loadingIndicator }} />
           </div>
         ) : label}
       </Button>
       { state === STATE.JOINED ? (
         <Modal onCancel={hideJoinButton}>
-          <h1 styleName="style.modalTitle">Congratulations!</h1>
+          <h1 styleName="style.modalTitle">
+Congratulations!
+          </h1>
           <p styleName="style.modalMsg">
             {
               customJoinConfirmationText
@@ -86,7 +92,8 @@ export default function JoinCommunity({
             theme={{
               button: style.returnToCommunityButton,
             }}
-          >Return to the Community
+          >
+Return to the Community
           </PrimaryButton>
         </Modal>
       ) : null}

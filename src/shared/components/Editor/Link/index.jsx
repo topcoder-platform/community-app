@@ -35,7 +35,9 @@ const Link = ({
         trigger={['click', 'hover']}
         defaultVisible={triggerPopup}
       >
-        <a href={href} target="_blank" rel="noopener noreferrer">{children}</a>
+        <a href={href} target="_blank" rel="noopener noreferrer">
+          {children}
+        </a>
       </Tooltip>
     </span>
   );

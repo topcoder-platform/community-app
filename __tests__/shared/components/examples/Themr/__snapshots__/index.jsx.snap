@@ -10,7 +10,8 @@ exports[`Matches shallow shapshot 1`] = `
     <code>
       react-css-super-themr
     </code>
-     test/demo
+     
+    test/demo
   </h1>
   <h3>
     Default theme
@@ -93,7 +94,14 @@ exports[`Matches shallow shapshot 1`] = `
     When you look into the source code, pay attention to the change of key property of ThemeProvider!
   </p>
   <ThemeProvider
-    theme={Object {}}
+    theme={
+      Object {
+        "box": "src-shared-components-examples-Themr-style___box___2VpH5M",
+        "container": "src-shared-components-examples-Themr-style___container___2Ztres",
+        "text": "src-shared-components-examples-Themr-style___text___3B1uOg",
+        "title": "src-shared-components-examples-Themr-style___title___3op293",
+      }
+    }
   >
     <ThemedThemableComponent
       composeAdhocTheme="deeply"
@@ -110,21 +118,18 @@ exports[`Matches shallow shapshot 1`] = `
     <em>
       Default theme + Parent-provided styling
     </em>
-     example, and the innter one tries to set the same theme as in the 
+     
+    example, and the innter one tries to set the same theme as in the
+     
     <em>
-      Default theme + Context styling 
+      Default theme + Context styling
+       
     </em>
-     example. The question is, which will win with the current version of react-css-super-themr?
+     
+    example. The question is, which will win with the current version of react-css-super-themr?
   </p>
   <ThemeProvider
-    theme={
-      Object {
-        "box": "src-shared-components-examples-Themr-style___box___2VpH5M",
-        "container": "src-shared-components-examples-Themr-style___container___2Ztres",
-        "text": "src-shared-components-examples-Themr-style___text___3B1uOg",
-        "title": "src-shared-components-examples-Themr-style___title___3op293",
-      }
-    }
+    theme={Object {}}
   >
     <ThemeProvider
       theme={

@@ -108,7 +108,9 @@ const HomePage = ({ homePage, auth }) => {
           />
         </div>
         <div styleName="tips-quotes">
-          <h1>Tips & Quotes</h1>
+          <h1>
+Tips & Quotes
+          </h1>
           <div
             styleName="text"
             dangerouslySetInnerHTML={
@@ -118,7 +120,9 @@ const HomePage = ({ homePage, auth }) => {
           <TipsQuotes data={tipsQuotes} />
         </div>
         <div styleName="important-policies">
-          <h1>Important Policies</h1>
+          <h1>
+Important Policies
+          </h1>
           <div
             styleName="text"
             dangerouslySetInnerHTML={
@@ -126,10 +130,16 @@ const HomePage = ({ homePage, auth }) => {
             }
           />
           <ImportantPolicies data={importantPolicies} />
-          <div styleName="button-wrapper-learn-more"><PrimaryButton to={importantPolicies.learnMore} openNewTab>Learn More</PrimaryButton></div>
+          <div styleName="button-wrapper-learn-more">
+            <PrimaryButton to={importantPolicies.learnMore} openNewTab>
+Learn More
+            </PrimaryButton>
+          </div>
         </div>
         <div styleName={`tutorials ${auth.user ? 'last-section' : ''}`}>
-          <h1>Tutorials</h1>
+          <h1>
+Tutorials
+          </h1>
           <div
             styleName="text"
             dangerouslySetInnerHTML={
@@ -137,11 +147,21 @@ const HomePage = ({ homePage, auth }) => {
             }
           />
           <Tutorials data={tutorials} />
-          <div styleName="button-wrapper-learn-more"><PrimaryButton to={tutorials.learnMore} openNewTab>Learn More</PrimaryButton></div>
+          <div styleName="button-wrapper-learn-more">
+            <PrimaryButton to={tutorials.learnMore} openNewTab>
+Learn More
+            </PrimaryButton>
+          </div>
         </div>
         <div styleName={`sign-up ${auth.user ? 'hidden' : ''}`}>
-          <p>Ready to Design? Click here to sign up with Topcoder!</p>
-          <div styleName="button-wrapper-view-all"><PrimaryButton to="/" >Sign Up Now</PrimaryButton></div>
+          <p>
+Ready to Design? Click here to sign up with Topcoder!
+          </p>
+          <div styleName="button-wrapper-view-all">
+            <PrimaryButton to="/">
+Sign Up Now
+            </PrimaryButton>
+          </div>
         </div>
       </div>
     </div>

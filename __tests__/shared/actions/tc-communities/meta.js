@@ -24,8 +24,7 @@ describe('tcCommunities.meta.mobileToggle', () => {
     expect(a.type).toBe('TC_COMMUNITIES/META/MOBILE_TOGGLE');
   });
 
-  test('payload is undefined', () =>
-    expect(a.payload).toBeUndefined());
+  test('payload is undefined', () => expect(a.payload).toBeUndefined());
 });
 
 describe('tcCommunities.meta.fetchDataInit', () => {
@@ -35,8 +34,7 @@ describe('tcCommunities.meta.fetchDataInit', () => {
     expect(a.type).toBe('TC_COMMUNITIES/META/FETCH_DATA_INIT');
   });
 
-  test('payload is undefined', () =>
-    expect(a.payload).toBeUndefined());
+  test('payload is undefined', () => expect(a.payload).toBeUndefined());
 });
 
 describe.skip('tcCommunities.meta.fetchDataDone', () => {
@@ -46,8 +44,7 @@ describe.skip('tcCommunities.meta.fetchDataDone', () => {
     expect(a.type).toBe('TC_COMMUNITIES/META/FETCH_DATA_DONE');
   });
 
-  test('payload is a promise which resolves to the expected object', () =>
-    a.payload.then(res => expect(res).toEqual({ communityId: 'someId' })));
+  test('payload is a promise which resolves to the expected object', () => a.payload.then(res => expect(res).toEqual({ communityId: 'someId' })));
 
   const a404 = actions.tcCommunities.meta.fetchDataDone('someId404');
 
@@ -55,8 +52,7 @@ describe.skip('tcCommunities.meta.fetchDataDone', () => {
     expect(a404.type).toBe('TC_COMMUNITIES/META/FETCH_DATA_DONE');
   });
 
-  test.skip('payload is a promise which rejects to the expected object', () =>
-    a404.payload.catch(err => expect(err).toEqual({ communityId: 'someId404', error: '404' })));
+  test.skip('payload is a promise which rejects to the expected object', () => a404.payload.catch(err => expect(err).toEqual({ communityId: 'someId404', error: '404' })));
 });
 
 describe('tcCommunities.meta.fetchDataDone at frontend', () => {
@@ -72,8 +68,7 @@ describe('tcCommunities.meta.fetchDataDone at frontend', () => {
     expect(a.type).toBe('TC_COMMUNITIES/META/FETCH_DATA_DONE');
   });
 
-  test.skip('payload is a promise which resolves to the expected object', () =>
-    a.payload.then(res => expect(res).toEqual('dummy')));
+  test.skip('payload is a promise which resolves to the expected object', () => a.payload.then(res => expect(res).toEqual('dummy')));
 });
 
 describe.skip('tcCommunities.meta.fetchDataDone at frontend with 404 response', () => {
@@ -89,6 +84,5 @@ describe.skip('tcCommunities.meta.fetchDataDone at frontend with 404 response', 
     expect(a.type).toBe('TC_COMMUNITIES/META/FETCH_DATA_DONE');
   });
 
-  test('payload is a promise which rejects', () =>
-    expect(a.payload).rejects.toBeDefined());
+  test('payload is a promise which rejects', () => expect(a.payload).rejects.toBeDefined());
 });
