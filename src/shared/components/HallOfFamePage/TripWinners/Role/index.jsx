@@ -13,7 +13,7 @@ const Role = ({ count, data, theme }) => (
     <div className={theme.role}>{data.track}</div>
     {
       data.members.map(member => (
-        <div key={member.handle} className={theme.winner}>{member.handle}</div>
+        <div key={member.fields.handle} className={theme.winner}>{member.fields.handle}</div>
       ))
     }
     { _.range(data.members.length, count).map(i => <div className={theme.empty} key={i} />) }

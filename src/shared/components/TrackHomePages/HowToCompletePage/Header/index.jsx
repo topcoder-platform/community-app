@@ -23,8 +23,8 @@ const Header = ({ data }) => (
       <div styleName="time-table">
         {
           data.table.map(item => (
-            <div styleName="time-item" key={item.time}>
-              <span styleName="time">{item.time}</span> - {item.description}
+            <div styleName="time-item" key={item.fields.time}>
+              <span styleName="time">{item.fields.time}</span> - {item.fields.description}
             </div>
           ))
         }
@@ -32,15 +32,15 @@ const Header = ({ data }) => (
     </div>
     <div styleName="right">
       {
-        data.media.file.contentType === 'video/mp4' ? (
+        data.media.fields.file.contentType === 'video/mp4' ? (
           <YouTubeVideo
-            src={data.media.file.url}
+            src={data.media.fields.file.url}
             rel={false}
             showinfo={false}
             videoId="HU2xr_wjR3s"
             thumb={<div styleName="videoPlayButton" />}
           />) : (
-            <img src={data.media.file.url} alt={data.media.file.url} />
+            <img src={data.media.fields.file.url} alt={data.media.fields.file.url} />
         )
       }
     </div>
@@ -53,8 +53,8 @@ const Header = ({ data }) => (
     <div styleName="time-table-mobile">
       {
         data.table.map(item => (
-          <div styleName="time-item" key={item.time}>
-            <span styleName="time">{item.time}</span> - {item.description}
+          <div styleName="time-item" key={item.fields.time}>
+            <span styleName="time">{item.fields.time}</span> - {item.fields.description}
           </div>
         ))
       }

@@ -53,7 +53,7 @@ class EventCarousel extends React.Component {
         </div>
         {
           _.map(this.props.events.list, (event, index) => {
-            const { promo, versionId } = event;
+            const { fields, versionId } = event;
             const hidden = index < firstIndex || index >= firstIndex + maxAtOnce;
             // We need to render 'hidden' events to the dom in desktop mode
             // because they all need to be rendered in mobile mode
@@ -62,16 +62,16 @@ class EventCarousel extends React.Component {
             // cause issues.
             return (
               <a
-                onClick={() => onSelectEvent(this.props.eventType, versionId)}
+                onClick={() => onSelectEvent(this.props.eventType, fields.versionId)}
                 onKeyPress={() => onSelectEvent(this.props.eventType, versionId)}
-                key={versionId}
+                key={fields.versionId}
                 role="link"
-                styleName={`logo ${versionId === eventId ? 'active' : ''} ${hidden ? 'hidden' : ''}`}
+                styleName={`logo ${fields.versionId === eventId ? 'active' : ''} ${hidden ? 'hidden' : ''}`}
                 tabIndex={0}
               >
                 <img
-                  src={promo.logo.file.url}
-                  alt={`Logo for TCO${versionId}`}
+                  src={fields.promo.fields.logo.fields.file.url}
+                  alt={`Logo for TCO${fields.versionId}`}
                 />
               </a>
             );

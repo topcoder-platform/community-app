@@ -17,13 +17,13 @@ const Track = ({
       <img src={icon} alt="Champion Icon" />
     </div>
     {
-      data.members.map(member => (
-        <div key={member.handle} className={theme.champion}>
-          <span>{member.handle}</span><strong>{member.value}</strong>
+      data.fields.members.map(member => (
+        <div key={member.fields.handle} className={theme.champion}>
+          <span>{member.fields.handle}</span><strong>{member.fields.value}</strong>
         </div>
       ))
     }
-    { _.range(data.members.length, count).map(i => <div className={theme.empty} key={i} />) }
+    { _.range(data.fields.members.length, count).map(i => <div className={theme.empty} key={i} />) }
   </div>
 ) : <div />);
 
