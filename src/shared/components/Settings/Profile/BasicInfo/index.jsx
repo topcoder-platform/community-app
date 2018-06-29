@@ -122,7 +122,6 @@ export default class BasicInfo extends React.Component {
       lastName: '',
       shortBio: '',
       gender: 'male',
-      ethnicBackground: 'Caucasian',
       tshirtSize: 'S',
       country: '',
       primaryInterestInTopcoder: '',
@@ -154,7 +153,6 @@ export default class BasicInfo extends React.Component {
       || !_.trim(basicInfo.primaryInterestInTopcoder).length
       || !_.trim(basicInfo.birthDate).length
       || !_.trim(basicInfo.gender).length
-      || !_.trim(basicInfo.ethnicBackground).length
       || !_.trim(basicInfo.tshirtSize).length
       || !_.trim(basicInfo.state).length
       || !_.trim(basicInfo.country).length;
@@ -245,13 +243,6 @@ Gender
                     valueKey="name"
                     clearable={false}
                   />
-                </div>
-
-                <div styleName="field">
-                  <label htmlFor="ethnicBackground">
-Ethnic
-                  </label>
-                  <input id="ethnicBackground" name="ethnicBackground" type="text" placeholder="Ethnic" onChange={this.onUpdateInput} value={basicInfo.ethnicBackground} maxLength="64" required />
                 </div>
 
                 <div styleName="field">
