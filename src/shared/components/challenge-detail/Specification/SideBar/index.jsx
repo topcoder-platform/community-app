@@ -109,7 +109,7 @@ ELIGIBLE EVENTS:
           </div>
         )}
         {
-          !isDesign && !isMM &&
+          !isDesign && !isMM && (
           <div>
             <h3>
 REVIEW STYLE:
@@ -137,9 +137,10 @@ Approval:
               </Tooltip>
             </span>
           </div>
+          )
         }
         {
-          !isMM &&
+          !isMM && (
           <div>
             <h3>
   CHALLENGE LINKS:
@@ -185,6 +186,7 @@ Approval:
               )
             }
           </div>
+          )
         }
         {
           isDesign

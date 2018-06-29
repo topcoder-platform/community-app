@@ -99,10 +99,10 @@ function getAllActiveChallengesDone(uuid, tokenV3) {
   let user;
   if (tokenV3) {
     user = decodeToken(tokenV3).handle;
-    calls.push(getAll(params =>
-      // Handle any errors on this endpoint so that the non-user specific challenges
-      // will still be loaded.
-      service.getUserChallenges(user, filter, params).catch(() => ({ challenges: [] }))));
+    // Handle any errors on this endpoint so that the non-user specific challenges
+    // will still be loaded.
+    calls.push(getAll(params => service.getUserChallenges(user, filter, params)
+      .catch(() => ({ challenges: [] }))));
   }
   return Promise.all(calls).then(([ch, uch]) => {
     /* uch array contains challenges where the user is participating in
