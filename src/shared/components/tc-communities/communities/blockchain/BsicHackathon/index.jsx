@@ -156,14 +156,52 @@ Judging Criteria
           <h1 styleName="h1">
             Completed
           </h1>
-          <p styleName="paragraph">
-            664 Registrants, 94 Teams, 58 Countries,
-            47 Submission, 6 Weeks Hackathon
-          </p>
-          <p styleName="paragraph">
-            47 Different ideas on 4 use cases,
-            $10&nbsp;000 reward to each winning team.
-          </p>
+          <div styleName="facts">
+            <p>
+              664
+              <br />
+              Registrants
+            </p>
+            <p>
+              94
+              <br />
+              Teams
+            </p>
+            <p>
+              58
+              <br />
+              Countries
+            </p>
+            <p>
+              47
+              <br />
+              Submissions
+            </p>
+            <p>
+              6 Weeks
+              <br />
+              Hackathon Duration
+            </p>
+          </div>
+          <div styleName="facts">
+            <p>
+              47
+              <br />
+              Different Ideas
+            </p>
+            <p>
+              4
+              <br />
+              Use Cases
+            </p>
+          </div>
+          <div styleName="facts">
+            <p>
+              $40 000 +
+              <br />
+              Awarded Prize Money
+            </p>
+          </div>
           <JoinCommunity
             label="Join Topcoder Blockchain Community"
           />
