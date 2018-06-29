@@ -185,8 +185,6 @@ function onUpdateUserTrait(state, { error }) {
   return state;
 }
 
-onUpdateUserTrait
-
 /**
  * Creates a new reducer.
  * @param {Object} state Optional. Initial state.
