@@ -70,7 +70,7 @@ class EventCarousel extends React.Component {
                 tabIndex={0}
               >
                 <img
-                  src={fields.promo.fields.logo.fields.file.url}
+                  src={_.get(fields.promo.fields.logo.fields, 'file.url')}
                   alt={`Logo for TCO${fields.versionId}`}
                 />
               </a>
