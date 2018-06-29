@@ -178,6 +178,15 @@ function onSaveEmailPreferencesDone(state, { error }) {
   return state;
 }
 
+function onUpdateUserTrait(state, { error }) {
+  if (!error) {
+    toastrSuccess('Success! ', 'Your information has been updated.');
+  }
+  return state;
+}
+
+onUpdateUserTrait
+
 /**
  * Creates a new reducer.
  * @param {Object} state Optional. Initial state.
@@ -205,6 +214,8 @@ function create(defaultState = {}) {
     [actions.profile.linkExternalAccountDone]: onLinkExternalAccountDone,
     [actions.profile.unlinkExternalAccountInit]: onUnlinkExternalAccountInit,
     [actions.profile.unlinkExternalAccountDone]: onUnlinkExternalAccountDone,
+    [actions.settings.updateUserTrait]: onUpdateUserTrait,
+    [actions.settings.addUserTrait]: onUpdateUserTrait,
   }, _.defaults(defaultState, {
     settingsTab: TABS.PROFILE,
     deletingLinks: [],
