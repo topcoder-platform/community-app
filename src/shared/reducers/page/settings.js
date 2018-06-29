@@ -214,6 +214,7 @@ function create(defaultState = {}) {
     [actions.profile.unlinkExternalAccountDone]: onUnlinkExternalAccountDone,
     [actions.settings.updateUserTrait]: onUpdateUserTrait,
     [actions.settings.addUserTrait]: onUpdateUserTrait,
+    [actions.settings.deleteUserTrait]: onUpdateUserTrait,
   }, _.defaults(defaultState, {
     settingsTab: TABS.PROFILE,
     deletingLinks: [],
