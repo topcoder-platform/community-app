@@ -10,7 +10,9 @@ export default function Crowd4GoodPage() {
   return (
     <div styleName="container">
       <img alt="Banner" src={BannerImage} styleName="banner" />
-      <h1>Crowd for Good - A Topcoder Initiative</h1>
+      <h1>
+Crowd for Good - A Topcoder Initiative
+      </h1>
       <p>
         Crowdsourcing has come a long way since the last 10 years. For the most
         part, it has become become a reliable and cost-effective way for

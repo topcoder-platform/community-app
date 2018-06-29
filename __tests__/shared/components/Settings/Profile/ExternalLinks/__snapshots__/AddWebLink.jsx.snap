@@ -45,6 +45,7 @@ exports[`renders add web link section of profile setting page correctly 1`] = `
         }
         themePriority="adhoc-context-default"
         to={null}
+        type="button"
       >
         Add
       </ThemedButton>

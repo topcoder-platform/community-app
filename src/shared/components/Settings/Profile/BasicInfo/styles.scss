@@ -67,6 +67,11 @@
       align-items: center;
     }
   }
+
+  .required {
+    color: $tc-red;
+    font-size: 13px;
+  }
 }
 
 .save-button {

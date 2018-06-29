@@ -28,8 +28,8 @@ const TripWinners = ({ roles }) => {
       render={(result) => {
         for (let i = 0; i !== members.length; i += 1) {
           for (let j = 0; j !== members[i].length; j += 1) {
-            winnerData.data[i].fields.members[j].fields =
-              result.entries.items[members[i][j].sys.id].fields;
+            winnerData.data[i].fields.members[j].fields = result
+              .entries.items[members[i][j].sys.id].fields;
           }
         }
         return (

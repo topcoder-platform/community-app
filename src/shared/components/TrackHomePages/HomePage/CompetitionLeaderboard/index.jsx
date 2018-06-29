@@ -22,8 +22,10 @@ const CompetitionLeaderboard = ({ data, track }) => {
     <ContentfulLoader
       entryIds={entryIds}
       render={(items) => {
-        const tracks = _.filter(items.entries.items, item =>
-          competitionTypesIds.includes(item.sys.id));
+        const tracks = _.filter(
+          items.entries.items,
+          item => competitionTypesIds.includes(item.sys.id),
+        );
         const stages = _.filter(items.entries.items, item => leaderboardIds.includes(item.sys.id));
         result.competitionTypes.tracks = tracks;
         result.tcoLeaderboard.stages = stages;

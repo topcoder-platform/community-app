@@ -17,7 +17,9 @@ export default function ChallengesBlock({
 }) {
   return (
     <div styleName="container">
-      <h1 styleName="title">Active Challenges</h1>
+      <h1 styleName="title">
+Active Challenges
+      </h1>
       <div styleName="list">
         {
           challenges.slice(0, 3).map(challenge => (
@@ -31,7 +33,8 @@ export default function ChallengesBlock({
       </div>
       <PrimaryButton
         to={`${baseUrl}/challenges`}
-      >Browse all challenges
+      >
+Browse all challenges
       </PrimaryButton>
     </div>
   );

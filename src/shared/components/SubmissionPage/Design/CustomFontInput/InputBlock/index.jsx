@@ -23,48 +23,70 @@ class InputBlock extends React.Component {
 
   /* Callback for when user selects fonts on the drop-down box */
   onChangeFontSelect(e) {
-    this.props.set({ ...this.props.record, active: true, source: e.target.value });
+    const { record, set } = this.props;
+    set({ ...record, active: true, source: e.target.value });
   }
 
   /* Callback for when user enters Font name */
   onInputName(e) {
-    this.props.set({ ...this.props.record, active: true, name: e.target.value });
+    const { record, set } = this.props;
+    set({ ...record, active: true, name: e.target.value });
   }
 
   /* Callback for when user enters Font url */
   onInputUrl(e) {
-    this.props.set({ ...this.props.record, active: true, url: e.target.value });
+    const { record, set } = this.props;
+    set({ ...record, active: true, url: e.target.value });
   }
 
   render() {
+    const { record, set } = this.props;
     const {
       active, name, source, url, errors,
-    } = this.props.record;
+    } = record;
 
     return (
       <div styleName="container">
-        <span styleName="desc">FONT SOURCE</span>
+        <span styleName="desc">
+FONT SOURCE
+        </span>
         <select
           styleName="inp"
           data-type="fontSource"
           value={source}
           onChange={this.onChangeFontSelect}
         >
-          <option disabled hidden value="">Select a provider from the list</option>
+          <option disabled hidden value="">
+Select a provider from the list
+          </option>
           <option value="STUDIO_STANDARD_FONTS_LIST">
             Studio Standard Fonts List
           </option>
-          <option value="FONTS_DOT_COM">Fonts.com</option>
-          <option value="MYFONTS">MyFonts</option>
-          <option value="ADOBE_FONTS">Adobe Fonts</option>
-          <option value="FONT_SHOP">Font Shop</option>
+          <option value="FONTS_DOT_COM">
+Fonts.com
+          </option>
+          <option value="MYFONTS">
+MyFonts
+          </option>
+          <option value="ADOBE_FONTS">
+Adobe Fonts
+          </option>
+          <option value="FONT_SHOP">
+Font Shop
+          </option>
           <option value="T26_DIGITAL_TYPE_FOUNDRY">
             T.26 Digital Type Foundry
           </option>
-          <option value="FONT_SQUIRREL">Font Squirrel</option>
-          <option value="TYPOGRAPHY_DOT_COM">Typography.com</option>
+          <option value="FONT_SQUIRREL">
+Font Squirrel
+          </option>
+          <option value="TYPOGRAPHY_DOT_COM">
+Typography.com
+          </option>
         </select>
-        <span styleName="desc">FONT NAME</span>
+        <span styleName="desc">
+FONT NAME
+        </span>
         <input
           type="text"
           placeholder="Select font source to edit field"
@@ -76,9 +98,11 @@ class InputBlock extends React.Component {
         <p styleName={`error ${active && errors.INVALID_NAME ? 'show' : ''}`}>
           This field is required.
         </p>
-        {source !== 'STUDIO_STANDARD_FONTS_LIST' ?
-          [
-            <span key={1} styleName="desc">FONT URL</span>,
+        {source !== 'STUDIO_STANDARD_FONTS_LIST'
+          ? [
+            <span key={1} styleName="desc">
+FONT URL
+            </span>,
             <input
               key={2}
               type="text"
@@ -98,8 +122,11 @@ class InputBlock extends React.Component {
         <button
           styleName="close"
           type="button"
-          onClick={() => this.props.set()}
-        ><span>&#10799;</span>
+          onClick={() => set()}
+        >
+          <span>
+&#10799;
+          </span>
         </button>
       </div>
     );

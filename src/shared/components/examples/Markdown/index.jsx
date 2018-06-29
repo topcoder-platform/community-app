@@ -25,32 +25,62 @@ const example = `
 
 const MarkdownExample = () => (
   <div styleName="container">
-    <h1>Markdown using &lt;MarkdownRenderer&gt;</h1>
-    <h2>Example Usage:</h2>
+    <h1>
+Markdown using &lt;MarkdownRenderer&gt;
+    </h1>
+    <h2>
+Example Usage:
+    </h2>
     <code>
       <pre>
         {example}
       </pre>
     </code>
-    <h2>Results:</h2>
+    <h2>
+Results:
+    </h2>
     <MarkdownRenderer
       markdown={markdown}
     />
-    <h2>Currently Supported JSX Elements</h2>
+    <h2>
+Currently Supported JSX Elements
+    </h2>
     <ul>
-      <li>Button, PrimaryButton, SecondaryButton</li>
-      <li>JoinCommunity</li>
-      <li>Link</li>
+      <li>
+Button, PrimaryButton, SecondaryButton
+      </li>
+      <li>
+JoinCommunity
+      </li>
+      <li>
+Link
+      </li>
     </ul>
-    <h2>Notes</h2>
+    <h2>
+Notes
+    </h2>
     <ul>
       <li>
         Additional JSX components can be supported by adding a
-        field to customComponents in <code>utils/markdown.js</code>
+        field to customComponents in
+        {' '}
+        <code>
+utils/markdown.js
+        </code>
       </li>
       <li>
         Custom Renderer can also be called directly by importing
-        the <code>render</code> function from <code>utils/markdown</code>
+        the
+        {' '}
+        <code>
+render
+        </code>
+        {' '}
+function from
+        {' '}
+        <code>
+utils/markdown
+        </code>
       </li>
     </ul>
   </div>

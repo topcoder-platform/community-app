@@ -44,6 +44,9 @@ export default class Tracks extends React.Component {
   }
 
   onUpdateTracks() {
+    const {
+      onUpdateTracks,
+    } = this.props;
     const switches = document.querySelectorAll('input[name="onoffswitch"]');
     const newTracks = [];
     _.forEach(switches, (sw) => {
@@ -52,17 +55,22 @@ export default class Tracks extends React.Component {
       }
     });
 
-    this.props.onUpdateTracks(newTracks);
+    onUpdateTracks(newTracks);
   }
 
   render() {
-    const userTracks = this.props.tracks;
+    const { tracks: userTracks } = this.props;
 
     return (
       <div className="settings-section">
         <div className="section-info">
-          <h2>Tracks</h2>
-          <div className="description">Topcoder&apos;s three categories of challenges... please pick at least one based on your skills and interests.</div>
+          <h2>
+            Tracks
+          </h2>
+          <div className="description">
+            Topcoder&apos;s three categories of challenges... please pick at
+            least one based on your skills and interests.
+          </div>
         </div>
         <div className="section-fields">
           <div styleName="track-toggle">
@@ -75,18 +83,22 @@ export default class Tracks extends React.Component {
                       <div styleName="track-details">
                         <div styleName={enabled ? 'icon' : 'icon disabled'}>
                           {
-                            enabled &&
-                            track.enabledIcon()
+                            enabled
+                            && track.enabledIcon()
                           }
                           {
-                            !enabled &&
-                            track.disabledIcon()
+                            !enabled
+                            && track.disabledIcon()
                           }
                         </div>
                         <div styleName="text">
-                          <span styleName={enabled ? 'title' : 'title disabled'}>{track.label}</span>
+                          <span styleName={enabled ? 'title' : 'title disabled'}>
+                            {track.label}
+                          </span>
                           <div styleName="description">
-                            <span>{track.description}</span>
+                            <span>
+                              {track.description}
+                            </span>
                           </div>
                         </div>
                       </div>
@@ -125,4 +137,3 @@ Tracks.propTypes = {
   tracks: PT.arrayOf(PT.string),
   onUpdateTracks: PT.func.isRequired,
 };
-

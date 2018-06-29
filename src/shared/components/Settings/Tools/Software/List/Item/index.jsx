@@ -43,7 +43,9 @@ export default function Item(props) {
         onClick={() => onDeleteItem(index)}
       >
         <img src={assets('./trash.svg')} alt="delete-icon" />
-        <p>Delete</p>
+        <p>
+Delete
+        </p>
       </a>
     </div>
   );

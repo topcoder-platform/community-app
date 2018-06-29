@@ -16,24 +16,32 @@ import ContentfulLoader from './ContentfulLoader';
 
 class HallOfFameContainer extends React.Component {
   handleSelectEvent(eventType, eventId) {
-    this.props.history.push(`/hall-of-fame/${eventType}/${eventId}`);
-    this.props.setSelectedEvent(eventId);
-    this.props.setSelectedEventType(eventType);
+    const {
+      history,
+      setSelectedEvent,
+      setSelectedEventType,
+    } = this.props;
+    history.push(`/hall-of-fame/${eventType}/${eventId}`);
+    setSelectedEvent(eventId);
+    setSelectedEventType(eventType);
   }
 
   render() {
-    if (this.props.selectedEvent === '') {
-      if (this.props.match.params.eventId) {
-        this.props.setSelectedEvent(this.props.match.params.eventId);
+    const {
+      match,
+      selectedEvent,
+      selectedEventType,
+      setSelectedEvent,
+      setSelectedEventType,
+    } = this.props;
+    if (selectedEvent === '') {
+      if (match.params.eventId) {
+        setSelectedEvent(match.params.eventId);
       }
     }
-    if (this.props.selectedEventType) {
-      this.props.setSelectedEventType(this.props.match.params.type);
+    if (selectedEventType) {
+      setSelectedEventType(match.params.type);
     }
-
-    const {
-      selectedEventType,
-    } = this.props;
 
     return (
       <ContentfulLoader
@@ -55,15 +63,16 @@ class HallOfFameContainer extends React.Component {
                 preview={data.preview}
                 render={(verionResult) => {
                   for (let i = 0; i !== verionsIds.length; i += 1) {
-                    hallOfFame.versions[i].fields =
-                      verionResult.entries.items[verionsIds[i]].fields;
+                    hallOfFame.versions[i].fields = verionResult
+                      .entries.items[verionsIds[i]].fields;
                   }
                   return (
                     <HallOfFamePage
-                      eventId={this.props.selectedEvent === '' ?
-                        hallOfFame.versions[0].fields.versionId : this.props.selectedEvent}
-                      onSelectEvent={(eventType, eventId) =>
-                        this.handleSelectEvent(eventType, eventId)}
+                      eventId={selectedEvent === ''
+                        ? hallOfFame.versions[0].fields.versionId : selectedEvent}
+                      onSelectEvent={
+                        (eventType, eventId) => this.handleSelectEvent(eventType, eventId)
+                      }
                       hallOfFame={hallOfFame}
                     />
                   );
@@ -105,10 +114,9 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  setSelectedEvent: eventId =>
-    dispatch(actions.page.hallOfFame.setSelectedEvent(eventId)),
-  setSelectedEventType: eventType =>
-    dispatch(actions.page.hallOfFame.setSelectedEventType(eventType)),
+  setSelectedEvent: eventId => dispatch(actions.page.hallOfFame.setSelectedEvent(eventId)),
+  setSelectedEventType:
+    eventType => dispatch(actions.page.hallOfFame.setSelectedEventType(eventType)),
 });
 
 const Container = connect(

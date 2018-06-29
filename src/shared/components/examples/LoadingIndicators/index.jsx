@@ -8,7 +8,9 @@ import style from './style.scss';
 export default function LoadingIndicators() {
   return (
     <div styleName="style.page">
-      <h1>Loading Indicators</h1>
+      <h1>
+Loading Indicators
+      </h1>
       <p>
         Demo of loading indicators we have in the code base. At the moment we
         have just one type, but you can flexibly tune its size / coloring using

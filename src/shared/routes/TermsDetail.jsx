@@ -14,8 +14,7 @@ export default function TermsDetailRoute(props) {
   return (
     <AppChunk
       chunkName="terms-detail/chunk"
-      renderClientAsync={() =>
-        import(/* webpackChunkName: "terms-detail/chunk" */ 'containers/terms-detail')
+      renderClientAsync={() => import(/* webpackChunkName: "terms-detail/chunk" */ 'containers/terms-detail')
         .then(({ default: TermsDetail }) => (
           <TermsDetail {...props} />
         ))

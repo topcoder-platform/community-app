@@ -18,8 +18,7 @@ import SubmissionsIcon from '../../Icons/SubmissionsIcon';
 import './style.scss';
 
 const ID_LENGTH = 6;
-const MM_BASE_URL
-  = `${config.URL.COMMUNITY}/longcontest/?module=ViewStandings&rd=`;
+const MM_BASE_URL = `${config.URL.COMMUNITY}/longcontest/?module=ViewStandings&rd=`;
 
 export default function NumSubmissions({
   challenge: {
@@ -45,20 +44,24 @@ export default function NumSubmissions({
   return (
     <div styleName="container">
       <Tooltip
-        content={
-          <div styleName="tooltip">{tip}</div>
-        }
+        content={(
+          <div styleName="tooltip">
+            {tip}
+          </div>
+)}
       >
         <Link
           onClick={() => (
-            selectChallengeDetailsTab(numSubmissions ?
-              DETAIL_TABS.SUBMISSIONS : DETAIL_TABS.DETAILS)
+            selectChallengeDetailsTab(numSubmissions
+              ? DETAIL_TABS.SUBMISSIONS : DETAIL_TABS.DETAILS)
           )}
           styleName="link"
           to={link}
         >
           <SubmissionsIcon />
-          <span styleName="number">{numSubmissions}</span>
+          <span styleName="number">
+            {numSubmissions}
+          </span>
         </Link>
       </Tooltip>
     </div>

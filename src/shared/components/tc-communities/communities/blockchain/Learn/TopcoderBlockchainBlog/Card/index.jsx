@@ -15,7 +15,8 @@ export default function Card({ fullWidth, item }) {
           href={item.link}
           rel="noopener noreferrer"
           target="_blank"
-        >{item.title}
+        >
+          {item.title}
         </a>
       </h3>
       <div
@@ -28,7 +29,8 @@ export default function Card({ fullWidth, item }) {
         styleName="readMore"
         target="_blank"
         rel="noopener noreferrer"
-      >Read More...
+      >
+Read More...
       </a>
       <div styleName="mask" />
     </div>

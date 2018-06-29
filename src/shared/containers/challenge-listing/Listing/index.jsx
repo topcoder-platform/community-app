@@ -45,12 +45,15 @@ export class ListingContainer extends React.Component {
       activeBucket,
       auth,
       communitiesList,
+      communityId,
       getCommunitiesList,
+      markHeaderMenu,
       selectBucket,
+      selectCommunity,
       queryBucket,
     } = this.props;
 
-    this.props.markHeaderMenu();
+    markHeaderMenu();
 
     if (queryBucket !== activeBucket && _.includes(BUCKETS, queryBucket)) {
       selectBucket(queryBucket);
@@ -61,8 +64,8 @@ export class ListingContainer extends React.Component {
       getCommunitiesList(auth);
     }
 
-    if (this.props.communityId) {
-      this.props.selectCommunity(this.props.communityId);
+    if (communityId) {
+      selectCommunity(communityId);
     }
 
     if (mounted) {
@@ -73,18 +76,23 @@ export class ListingContainer extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
+    const {
+      auth,
+      dropChallenges,
+      getCommunitiesList,
+    } = this.props;
     const oldUserId = _.get(prevProps, 'auth.user.userId');
     const userId = _.get(this.props, 'auth.user.userId');
     if (userId !== oldUserId) {
-      this.props.getCommunitiesList(this.props.auth);
+      getCommunitiesList(auth);
     }
 
-    const { profile } = this.props.auth;
+    const { profile } = auth;
     if (profile) {
       if (!prevProps.auth.profile) setImmediate(() => this.loadChallenges());
     } else if (prevProps.auth.profile) {
       setImmediate(() => {
-        this.props.dropChallenges();
+        dropChallenges();
         this.loadChallenges();
       });
     }
@@ -101,9 +109,14 @@ export class ListingContainer extends React.Component {
   /* Evaluates the backend challenge filter most suitable for the current state
    * of the active frontend filters. */
   getBackendFilter() {
+    const {
+      communitiesList,
+      selectedCommunityId,
+    } = this.props;
     let { filter } = this.props;
-    let communityFilter = this.props.communitiesList.data.find(item =>
-      item.communityId === this.props.selectedCommunityId);
+    let communityFilter = communitiesList.data.find(
+      item => item.communityId === selectedCommunityId,
+    );
     if (communityFilter) communityFilter = communityFilter.challengeFilter;
     if (communityFilter) filter = combine(filter, communityFilter);
     return {
@@ -113,27 +126,31 @@ export class ListingContainer extends React.Component {
   }
 
   loadChallenges() {
+    const {
+      auth,
+      getAllActiveChallenges,
+      getPastChallenges,
+    } = this.props;
     const f = this.getBackendFilter();
-    this.props.getAllActiveChallenges(this.props.auth.tokenV3);
+    getAllActiveChallenges(auth.tokenV3);
 
     /* No need to fetch draft challenges for now: we are not showing the
      * Upcoming Challenges bucket, for now. */
     // this.props.getDraftChallenges(0, backendFilter, this.props.auth.tokenV3);
 
-    this.props.getPastChallenges(0, f.back, this.props.auth.tokenV3, f.front);
+    getPastChallenges(0, f.back, auth.tokenV3, f.front);
 
     if (config.CHALLENGE_LISTING_AUTO_REFRESH) {
       if (this.autoRefreshTimerId) clearTimeout(this.autoRefreshTimerId);
-      this.autoRefreshTimerId = setTimeout(() =>
-        this.loadChallenges(), 1000 * config.CHALLENGE_LISTING_AUTO_REFRESH);
+      this.autoRefreshTimerId = setTimeout(
+        () => this.loadChallenges(), 1000 * config.CHALLENGE_LISTING_AUTO_REFRESH,
+      );
     }
   }
 
   render() {
     const {
-      auth: {
-        tokenV3,
-      },
+      auth,
       allDraftChallengesLoaded,
       allPastChallengesLoaded,
       allReviewOpportunitiesLoaded,
@@ -143,7 +160,12 @@ export class ListingContainer extends React.Component {
       challengesUrl,
       challengeSubtracks,
       challengeTags,
+      communityFilters,
+      communityId,
+      communityName,
       defaultCommunityId,
+      expandTag,
+      expandedTags,
       extraBucket,
       filter,
       groupIds,
@@ -156,15 +178,27 @@ export class ListingContainer extends React.Component {
       lastRequestedPageOfPastChallenges,
       lastRequestedPageOfReviewOpportunities,
       lastUpdateOfActiveChallenges,
+      loadingActiveChallengesUUID,
+      loadingDraftChallengesUUID,
+      loadingPastChallengesUUID,
+      loadingReviewOpportunitiesUUID,
       listingOnly,
       newChallengeDetails,
+      openChallengesInNewTabs,
       preListingMsg,
+      prizeMode,
       reviewOpportunities,
       selectBucket,
       selectChallengeDetailsTab,
       selectedCommunityId,
+      setFilter,
+      setSearchText,
+      setSort,
+      sorts,
       hideTcLinksInSidebarFooter,
     } = this.props;
+
+    const { tokenV3 } = auth;
 
     let loadMoreDraft;
     if (!allDraftChallengesLoaded) {
@@ -192,12 +226,12 @@ export class ListingContainer extends React.Component {
 
     let loadMoreReviewOpportunities;
     if (!allReviewOpportunitiesLoaded) {
-      loadMoreReviewOpportunities = () =>
-        getReviewOpportunities(1 + lastRequestedPageOfReviewOpportunities, tokenV3);
+      loadMoreReviewOpportunities = () => getReviewOpportunities(
+        1 + lastRequestedPageOfReviewOpportunities, tokenV3,
+      );
     }
 
-    let communityFilter = this.props.communityFilters.find(item =>
-      item.communityId === this.props.selectedCommunityId);
+    let communityFilter = communityFilters.find(item => item.communityId === selectedCommunityId);
     if (communityFilter) communityFilter = communityFilter.challengeFilter;
 
     const description = 'Join Topcoder and compete in these challenges, to learn and earn!';
@@ -226,7 +260,7 @@ export class ListingContainer extends React.Component {
           description={description}
           image={ogImage}
           siteName="Topcoder"
-          title={this.props.communityId ? `${this.props.communityName} Challenges` : SEO_PAGE_TITLE}
+          title={communityId ? `${communityName} Challenges` : SEO_PAGE_TITLE}
         />
         {banner}
         <ChallengeListing
@@ -236,24 +270,24 @@ export class ListingContainer extends React.Component {
           challengeTags={challengeTags}
           challengesUrl={challengesUrl}
           communityFilter={communityFilter}
-          communityName={this.props.communityName}
+          communityName={communityName}
           defaultCommunityId={defaultCommunityId}
-          expandedTags={this.props.expandedTags}
-          expandTag={this.props.expandTag}
+          expandedTags={expandedTags}
+          expandTag={expandTag}
           extraBucket={extraBucket}
           filterState={filter}
           hideSrm={hideSrm}
           hideTcLinksInFooter={hideTcLinksInSidebarFooter}
           keepPastPlaceholders={keepPastPlaceholders}
           lastUpdateOfActiveChallenges={lastUpdateOfActiveChallenges}
-          loadingChallenges={Boolean(this.props.loadingActiveChallengesUUID)}
-          loadingDraftChallenges={Boolean(this.props.loadingDraftChallengesUUID)}
-          loadingPastChallenges={Boolean(this.props.loadingPastChallengesUUID)}
-          loadingReviewOpportunities={Boolean(this.props.loadingReviewOpportunitiesUUID)}
+          loadingChallenges={Boolean(loadingActiveChallengesUUID)}
+          loadingDraftChallenges={Boolean(loadingDraftChallengesUUID)}
+          loadingPastChallenges={Boolean(loadingPastChallengesUUID)}
+          loadingReviewOpportunities={Boolean(loadingReviewOpportunitiesUUID)}
           newChallengeDetails={newChallengeDetails}
-          openChallengesInNewTabs={this.props.openChallengesInNewTabs}
+          openChallengesInNewTabs={openChallengesInNewTabs}
           preListingMsg={preListingMsg}
-          prizeMode={this.props.prizeMode}
+          prizeMode={prizeMode}
           selectBucket={selectBucket}
           selectChallengeDetailsTab={selectChallengeDetailsTab}
           selectedCommunityId={selectedCommunityId}
@@ -262,18 +296,18 @@ export class ListingContainer extends React.Component {
           loadMoreReviewOpportunities={loadMoreReviewOpportunities}
           reviewOpportunities={reviewOpportunities}
           setFilterState={(state) => {
-            this.props.setFilter(state);
-            this.props.setSearchText(state.text || '');
-            if (this.props.activeBucket === BUCKETS.SAVED_FILTER) {
-              this.props.selectBucket(BUCKETS.ALL);
-            } else if (this.props.activeBucket === BUCKETS.SAVED_REVIEW_OPPORTUNITIES_FILTER) {
-              this.props.selectBucket(BUCKETS.REVIEW_OPPORTUNITIES);
+            setFilter(state);
+            setSearchText(state.text || '');
+            if (activeBucket === BUCKETS.SAVED_FILTER) {
+              selectBucket(BUCKETS.ALL);
+            } else if (activeBucket === BUCKETS.SAVED_REVIEW_OPPORTUNITIES_FILTER) {
+              selectBucket(BUCKETS.REVIEW_OPPORTUNITIES);
             }
           }}
-          setSort={this.props.setSort}
-          sorts={this.props.sorts}
+          setSort={setSort}
+          sorts={sorts}
           groupIds={groupIds}
-          auth={this.props.auth}
+          auth={auth}
         />
         { !listingOnly ? (
           <NewsletterSignup
@@ -447,14 +481,13 @@ function mapDispatchToProps(dispatch) {
       dispatch(a.getReviewOpportunitiesDone(uuid, page, token));
     },
     selectBucket: bucket => dispatch(sa.selectBucket(bucket)),
-    selectChallengeDetailsTab: tab =>
-      dispatch(challengeDetailsActions.page.challengeDetails.selectTab(tab)),
+    selectChallengeDetailsTab:
+      tab => dispatch(challengeDetailsActions.page.challengeDetails.selectTab(tab)),
     selectCommunity: id => dispatch(a.selectCommunity(id)),
     setFilter: state => dispatch(a.setFilter(state)),
     setSearchText: text => dispatch(fpa.setSearchText(text)),
     setSort: (bucket, sort) => dispatch(a.setSort(bucket, sort)),
-    markHeaderMenu: () =>
-      dispatch(ah.setCurrentNav('Compete', 'All Challenges')),
+    markHeaderMenu: () => dispatch(ah.setCurrentNav('Compete', 'All Challenges')),
     expandTag: id => dispatch(a.expandTag(id)),
   };
 }

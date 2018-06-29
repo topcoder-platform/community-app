@@ -70,14 +70,14 @@ const Champions = ({ data }) => {
               // process members
               for (let i = 0; i !== members.length; i += 1) {
                 for (let j = 0; j !== members[i].length; j += 1) {
-                  championsData.list[i].fields.members[j].fields =
-                    memberResult.entries.items[members[i][j].sys.id].fields;
+                  championsData.list[i].fields.members[j]
+                    .fields = memberResult.entries.items[members[i][j].sys.id].fields;
                 }
               }
               // process champion
               for (let i = 0; i !== championIds.length; i += 1) {
-                championsData.list[i].fields.champion.fields =
-                  memberResult.entries.items[championIds[i]].fields;
+                championsData.list[i].fields.champion
+                  .fields = memberResult.entries.items[championIds[i]].fields;
               }
               return (
                 <div className={styles.container}>

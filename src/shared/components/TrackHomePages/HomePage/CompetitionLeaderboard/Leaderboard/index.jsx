@@ -23,9 +23,10 @@ class Leaderboard extends React.Component {
       activeIndex: index,
     });
   }
+
   render() {
     const { data } = this.props;
-    const currentIndex = this.state.activeIndex;
+    const { activeIndex: currentIndex } = this.state;
     const stage1Ids = _.map(data.stages[0].fields.champions, item => (item.sys.id));
     const stage2Ids = _.map(data.stages[1].fields.champions, item => (item.sys.id));
     const stage3Ids = _.map(data.stages[2].fields.champions, item => (item.sys.id));
@@ -35,14 +36,22 @@ class Leaderboard extends React.Component {
       <ContentfulLoader
         entryIds={entryIds}
         render={(stageResult) => {
-          const stage1 = _.filter(stageResult.entries.items, item =>
-            stage1Ids.includes(item.sys.id));
-          const stage2 = _.filter(stageResult.entries.items, item =>
-            stage2Ids.includes(item.sys.id));
-          const stage3 = _.filter(stageResult.entries.items, item =>
-            stage3Ids.includes(item.sys.id));
-          const stage4 = _.filter(stageResult.entries.items, item =>
-            stage4Ids.includes(item.sys.id));
+          const stage1 = _.filter(
+            stageResult.entries.items,
+            item => stage1Ids.includes(item.sys.id),
+          );
+          const stage2 = _.filter(
+            stageResult.entries.items,
+            item => stage2Ids.includes(item.sys.id),
+          );
+          const stage3 = _.filter(
+            stageResult.entries.items,
+            item => stage3Ids.includes(item.sys.id),
+          );
+          const stage4 = _.filter(
+            stageResult.entries.items,
+            item => stage4Ids.includes(item.sys.id),
+          );
           const stage1PhotoIds = _.map(stage1, c => (c.fields.photo.sys.id));
           const stage2PhotoIds = _.map(stage2, c => (c.fields.photo.sys.id));
           const stage3PhotoIds = _.map(stage3, c => (c.fields.photo.sys.id));
@@ -53,29 +62,37 @@ class Leaderboard extends React.Component {
               assetIds={assetIds}
               render={(photoResult) => {
                 for (let i = 0; i !== stage1PhotoIds.length; i += 1) {
-                  const photos = _.filter(photoResult.assets.items, item =>
-                    stage1PhotoIds.includes(item.sys.id));
+                  const photos = _.filter(
+                    photoResult.assets.items,
+                    item => stage1PhotoIds.includes(item.sys.id),
+                  );
                   for (let j = 0; j !== photos.length; j += 1) {
                     stage1[j].fields.photo.fields = photos[j].fields;
                   }
                 }
                 for (let i = 0; i !== stage2PhotoIds.length; i += 1) {
-                  const photos = _.filter(photoResult.assets.items, item =>
-                    stage2PhotoIds.includes(item.sys.id));
+                  const photos = _.filter(
+                    photoResult.assets.items,
+                    item => stage2PhotoIds.includes(item.sys.id),
+                  );
                   for (let j = 0; j !== photos.length; j += 1) {
                     stage2[j].fields.photo.fields = photos[j].fields;
                   }
                 }
                 for (let i = 0; i !== stage3PhotoIds.length; i += 1) {
-                  const photos = _.filter(photoResult.assets.items, item =>
-                    stage3PhotoIds.includes(item.sys.id));
+                  const photos = _.filter(
+                    photoResult.assets.items,
+                    item => stage3PhotoIds.includes(item.sys.id),
+                  );
                   for (let j = 0; j !== photos.length; j += 1) {
                     stage3[j].fields.photo.fields = photos[j].fields;
                   }
                 }
                 for (let i = 0; i !== stage4PhotoIds.length; i += 1) {
-                  const photos = _.filter(photoResult.assets.items, item =>
-                    stage4PhotoIds.includes(item.sys.id));
+                  const photos = _.filter(
+                    photoResult.assets.items,
+                    item => stage4PhotoIds.includes(item.sys.id),
+                  );
                   for (let j = 0; j !== photos.length; j += 1) {
                     stage4[j].fields.photo.fields = photos[j].fields;
                   }
@@ -87,7 +104,9 @@ class Leaderboard extends React.Component {
                 data.stages[3].champions = stage4;
                 return (
                   <div styleName="container">
-                    <h1>TCO Leaderboard</h1>
+                    <h1>
+TCO Leaderboard
+                    </h1>
                     <div styleName="button-bar">
                       {
                         _.map(data.stages, (stage, index) => (
@@ -130,7 +149,9 @@ class Leaderboard extends React.Component {
                                 return (
                                   <div styleName="champion" key={champion.fields.handle}>
                                     <div styleName="photo">
-                                      <span styleName={`metal ${color}`}>{num + 1}</span>
+                                      <span styleName={`metal ${color}`}>
+                                        {num + 1}
+                                      </span>
                                       <img
                                         src={champion.fields.photo.fields.file.url}
                                         alt={champion.fields.handle}
@@ -152,7 +173,11 @@ class Leaderboard extends React.Component {
                         </div>
                       ))
                     }
-                    <div styleName="button-wrapper-learn-more"><PrimaryButton to={data.tcoLink} openNewTab>Learn More about TCO</PrimaryButton></div>
+                    <div styleName="button-wrapper-learn-more">
+                      <PrimaryButton to={data.tcoLink} openNewTab>
+Learn More about TCO
+                      </PrimaryButton>
+                    </div>
                   </div>
                 );
               }}

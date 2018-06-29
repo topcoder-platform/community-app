@@ -28,13 +28,19 @@ class FunFacts extends React.Component {
   }
 
   handleTouchEnd() {
+    const {
+      numFacts,
+    } = this.props;
+    const {
+      activeMobileFact,
+    } = this.state;
     if (Math.abs(this.startX - this.endX) > 50) {
       const direction = this.endX > this.startX ? -1 : 1;
-      let nextFactIndex = this.state.activeMobileFact + direction;
-      if (nextFactIndex >= this.props.numFacts) {
+      let nextFactIndex = activeMobileFact + direction;
+      if (nextFactIndex >= numFacts) {
         nextFactIndex = 0;
       } else if (nextFactIndex < 0) {
-        nextFactIndex = this.props.numFacts - 1;
+        nextFactIndex = numFacts - 1;
       }
       this.setState({ activeMobileFact: nextFactIndex });
     }
@@ -42,6 +48,7 @@ class FunFacts extends React.Component {
 
   render() {
     const { data } = this.props;
+    const { activeMobileFact, facts } = this.state;
     const storyIds = _.map(data.list, item => (item.sys.id));
     return (
       <ContentfulLoader
@@ -70,10 +77,10 @@ class FunFacts extends React.Component {
                     styleName="container"
                   >
                     {
-                      this.state.facts.map((fact, index) => (
+                      facts.map((fact, index) => (
                         <div
                           key={fact.fields.text}
-                          styleName={`fact ${index === this.state.activeMobileFact ? 'mobile-active' : ''}`}
+                          styleName={`fact ${index === activeMobileFact ? 'mobile-active' : ''}`}
                         >
                           <img styleName="photo" src={fact.fields.image.fields.file.url} alt="Fun Fact" />
                           <div
@@ -87,13 +94,13 @@ class FunFacts extends React.Component {
                     }
                     <div styleName="mobile-buttons">
                       {
-                        this.state.facts.map((fact, index) => (
+                        facts.map((fact, index) => (
                           <span
                             key={`${fact.fields.text} button`}
                             onClick={() => this.setState({ activeMobileFact: index })}
                             onKeyPress={() => this.setState({ activeMobileFact: index })}
                             role="button"
-                            styleName={`mobile-button ${index === this.state.activeMobileFact ? 'mobile-active' : ''}`}
+                            styleName={`mobile-button ${index === activeMobileFact ? 'mobile-active' : ''}`}
                             tabIndex="0"
                           />
                         ))

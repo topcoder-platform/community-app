@@ -10,10 +10,14 @@ import defaultStyles from './styles.scss';
 
 const Role = ({ count, data, theme }) => (
   <div className={theme.container}>
-    <div className={theme.role}>{data.track}</div>
+    <div className={theme.role}>
+      {data.track}
+    </div>
     {
       data.members.map(member => (
-        <div key={member.fields.handle} className={theme.winner}>{member.fields.handle}</div>
+        <div key={member.fields.handle} className={theme.winner}>
+          {member.fields.handle}
+        </div>
       ))
     }
     { _.range(data.members.length, count).map(i => <div className={theme.empty} key={i} />) }

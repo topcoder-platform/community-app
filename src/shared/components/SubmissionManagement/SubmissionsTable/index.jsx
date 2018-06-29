@@ -50,8 +50,8 @@ export default function SubmissionsTable(props) {
     submissionObjects.forEach((subObject) => {
       // submissionPhaseStartDate will be the start date of
       // the current submission/checkpoint or empty string if any other phase
-      const allowDelete = submissionPhaseStartDate &&
-        moment(subObject.submissionDate).isAfter(submissionPhaseStartDate);
+      const allowDelete = submissionPhaseStartDate
+        && moment(subObject.submissionDate).isAfter(submissionPhaseStartDate);
 
       const submission = (
         <Submission
@@ -70,7 +70,8 @@ export default function SubmissionsTable(props) {
 
       const submissionDetail = (
         <tr key={subObject.submissionId} styleName="submission-row">
-          {showDetails[subObject.submissionId] &&
+          {showDetails[subObject.submissionId]
+            && (
             <td colSpan="6" styleName="dev-details">
               <ScreeningDetails
                 screeningObject={subObject.screening}
@@ -78,7 +79,8 @@ export default function SubmissionsTable(props) {
                 onlineReviewUrl={onlineReviewUrl}
                 submissionId={subObject.submissionId}
               />
-            </td>}
+            </td>
+            )}
         </tr>
       );
       submissionsWithDetails.push(submissionDetail);
@@ -90,12 +92,26 @@ export default function SubmissionsTable(props) {
       <table>
         <thead>
           <tr>
-            <th>Preview</th>
-            <th>ID</th>
-            <th>Type</th>
-            <th>Submission Date</th>
-            {type === 'DESIGN' && <th styleName="status">Screening Status</th>}
-            <th styleName="actions">Actions</th>
+            <th>
+Preview
+            </th>
+            <th>
+ID
+            </th>
+            <th>
+Type
+            </th>
+            <th>
+Submission Date
+            </th>
+            {type === 'DESIGN' && (
+            <th styleName="status">
+Screening Status
+            </th>
+            )}
+            <th styleName="actions">
+Actions
+            </th>
           </tr>
         </thead>
         <tbody>

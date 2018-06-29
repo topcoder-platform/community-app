@@ -19,8 +19,7 @@ class AnnouncementsContainer extends React.Component {
           'fields.endDate': { gt: this.now },
         }}
         render={(data) => {
-          const announcements = data.entries.matches[0].items.map(id =>
-            data.entries.items[id]);
+          const announcements = data.entries.matches[0].items.map(id => data.entries.items[id]);
           return <Announcements announcements={announcements} />;
         }}
         renderPlaceholder={<Announcements loading />}

@@ -22,15 +22,18 @@ class StepByStep extends React.Component {
       activeIndex: -1,
     };
   }
+
   toggleActive(index) {
     this.setState({
       activeIndex: index,
     });
   }
+
   render() {
     const { data } = this.props;
+    const { activeIndex } = this.state;
     const steps = data.Steps;
-    const currentIndex = this.state.activeIndex;
+    const currentIndex = activeIndex;
     const iconIds = _.map(steps, item => (item.fields.icon.sys.id));
     return (
       <ContentfulLoader
@@ -67,7 +70,9 @@ class StepByStep extends React.Component {
                       </div>
                       <div styleName="content">
                         <div styleName="title">
-                          {index + 1}. { menu.fields.title}
+                          {index + 1}
+.
+                          { menu.fields.title}
                         </div>
                         <div
                           styleName="text"

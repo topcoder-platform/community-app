@@ -20,13 +20,16 @@ class Wrapper extends React.Component {
       },
     };
   }
+
   componentDidMount() {}
 
   render() {
     return (
       <Provider store={store}>
         <Section {...this.props}>
-          <div>content</div>
+          <div>
+content
+          </div>
         </Section>
       </Provider>
     );

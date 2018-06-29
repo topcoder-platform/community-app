@@ -34,9 +34,9 @@ export default function ScreeningStatus(props) {
   const setClassName = () => {
     if (hasPending) {
       return 'pending';
-    } else if (hasStatusPassed && !hasWarnings) {
+    } if (hasStatusPassed && !hasWarnings) {
       return 'pass-with-no-warn';
-    } else if (hasStatusFailed && !hasWarnings) {
+    } if (hasStatusFailed && !hasWarnings) {
       return 'fail-with-no-warn';
     }
     return 'has-warn';
@@ -44,25 +44,33 @@ export default function ScreeningStatus(props) {
   const setStatusClassName = () => {
     if (hasStatusPassed && hasWarnings) {
       return 'passed';
-    } else if (hasStatusFailed && hasWarnings) {
+    } if (hasStatusFailed && hasWarnings) {
       return 'failed';
     }
     return '';
   };
   return (
-    <button onClick={() => onShowDetails(submissionId)}>
+    <button onClick={() => onShowDetails(submissionId)} type="button">
       <div styleName={`screening-status ${setClassName()}`}>
         {/* status */}
-        {hasStatus && !hasPending ?
-          <span styleName={`status ${setStatusClassName()}`}>
-            {hasStatus.substring(0, hasStatus.indexOf('ed'))}
-          </span> :
-          <span>Not yet performed</span>}{/* pending */}
+        {hasStatus && !hasPending
+          ? (
+            <span styleName={`status ${setStatusClassName()}`}>
+              {hasStatus.substring(0, hasStatus.indexOf('ed'))}
+            </span>
+          )
+          : (
+            <span>
+Not yet performed
+            </span>
+          )}
+        {/* pending */}
         {/* warning */}
         {
           hasWarnings && (
             <span styleName="warning">
-              {`${warnLength} `}{warnLength > 1 ? ' warnings' : 'warning'}
+              {`${warnLength} `}
+              {warnLength > 1 ? ' warnings' : 'warning'}
             </span>
           )
         }

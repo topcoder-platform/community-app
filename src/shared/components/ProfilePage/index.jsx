@@ -36,7 +36,7 @@ const isActiveSubtrack = (subtrack) => {
   }
   if (subtrack.rank && subtrack.rank.rating > 0) {
     return true;
-  } else if (_.isNumber(subtrack.submissions)) {
+  } if (_.isNumber(subtrack.submissions)) {
     return subtrack.submissions > 0;
   }
   return subtrack.submissions && subtrack.submissions.submissions > 0;
@@ -114,7 +114,10 @@ class ProfilePage extends React.Component {
       achievements,
       copilot,
       country,
+      externalAccounts,
+      externalLinks,
       info,
+      skills: propSkills,
       stats,
     } = this.props;
 
@@ -125,14 +128,14 @@ class ProfilePage extends React.Component {
     } = this.state;
 
     // Convert skills from object to an array for easier iteration
-    let skills = _.map(this.props.skills, (skill, tagId) => ({ tagId, ...skill }));
+    let skills = _.map(propSkills, (skill, tagId) => ({ tagId, ...skill }));
     const showMoreButton = skills.length > MAX_SKILLS;
     if (!skillsExpanded) {
       skills = skills.slice(0, MAX_SKILLS);
     }
 
-    let externals = _.map(_.pick(this.props.externalAccounts, _.map(dataMap, 'provider')), (data, type) => ({ type, data }));
-    this.props.externalLinks.map(data => externals.push(({ type: 'weblink', data })));
+    let externals = _.map(_.pick(externalAccounts, _.map(dataMap, 'provider')), (data, type) => ({ type, data }));
+    externalLinks.map(data => externals.push(({ type: 'weblink', data })));
     externals = _.filter(externals, 'data');
     externals = _.sortBy(externals, 'type');
 
@@ -141,7 +144,8 @@ class ProfilePage extends React.Component {
     return (
       <div styleName="outer-container">
         {
-          badgesModalOpen &&
+          badgesModalOpen
+          && (
           <BadgesModal
             achievements={achievements}
             handle={info.handle}
@@ -149,6 +153,7 @@ class ProfilePage extends React.Component {
             photoURL={info.photoURL}
             onClose={() => this.setState({ badgesModalOpen: false })}
           />
+          )
         }
         <div styleName="profile-container">
           <div styleName="about-container">
@@ -172,58 +177,81 @@ class ProfilePage extends React.Component {
             </div>
             <div styleName="profile-about-container">
               {
-                _.isEmpty(skills) && _.isEmpty(activeTracks) && _.isEmpty(externals) &&
+                _.isEmpty(skills) && _.isEmpty(activeTracks) && _.isEmpty(externals)
+                && (
                 <div styleName="empty-profile">
-                  <h2>BEEP. BEEP. HELLO!</h2>
+                  <h2>
+BEEP. BEEP. HELLO!
+                  </h2>
                   <Robot />
-                  <p>Seems like this member doesn’t have much information to share yet.</p>
-                  <PrimaryButton theme={style} to={`${config.URL.BASE}/community/members`}>VIEW OTHER MEMBERS</PrimaryButton>
+                  <p>
+Seems like this member doesn’t have much information to share yet.
+                  </p>
+                  <PrimaryButton theme={style} to={`${config.URL.BASE}/community/members`}>
+VIEW OTHER MEMBERS
+                  </PrimaryButton>
                 </div>
+                )
               }
               {
-                !_.isEmpty(skills) &&
+                !_.isEmpty(skills)
+                && (
                 <div id="profile-skills">
                   <div styleName="skills">
-                    <h3 styleName="activity">Skills</h3>
+                    <h3 styleName="activity">
+Skills
+                    </h3>
                     <div styleName="list">
                       {
                         skills.map(({ tagId, tagName, hidden }) => (
-                          !hidden &&
+                          !hidden
+                          && (
                           <div key={tagId} styleName="skill">
                             <Skill
                               tagId={tagId}
                               tagName={tagName}
                             />
                           </div>
+                          )
                         ))
                       }
                     </div>
                     {
-                      showMoreButton && !skillsExpanded &&
+                      showMoreButton && !skillsExpanded
+                      && (
                       <PrimaryButton
                         onClick={() => this.setState({ skillsExpanded: true })}
                         theme={style}
-                      >VIEW ALL
+                      >
+VIEW ALL
                       </PrimaryButton>
+                      )
                     }
                     {
-                      skillsExpanded &&
+                      skillsExpanded
+                      && (
                       <PrimaryButton
                         onClick={() => this.setState({ skillsExpanded: false })}
                         theme={style}
-                      >VIEW LESS
+                      >
+VIEW LESS
                       </PrimaryButton>
+                      )
                     }
                   </div>
                 </div>
+                )
               }
               <div id="profile-activity">
                 <StatsCategory handle={info.handle} stats={stats} />
               </div>
               {
-                !_.isEmpty(externals) &&
+                !_.isEmpty(externals)
+                && (
                 <div styleName="external-links-container">
-                  <h3>On The Web</h3>
+                  <h3>
+On The Web
+                  </h3>
                   <div styleName="external-links">
                     {
                       externals.map(external => (
@@ -236,6 +264,7 @@ class ProfilePage extends React.Component {
                     }
                   </div>
                 </div>
+                )
               }
             </div>
           </div>

@@ -67,8 +67,8 @@ const Finalists = ({ data }) => {
         // process member
         for (let i = 0; i !== members.length; i += 1) {
           for (let j = 0; j !== members[i].length; j += 1) {
-            finalData.data[i].fields.members[j].fields =
-              result.entries.items[members[i][j].sys.id].fields;
+            finalData.data[i].fields.members[j].fields = result
+              .entries.items[members[i][j].sys.id].fields;
           }
         }
         const imageIds = _.map(finalData.data, item => (item.fields.champion.fields.image.sys.id));
@@ -78,8 +78,8 @@ const Finalists = ({ data }) => {
             render={(imageResult) => {
               // process champion image
               for (let i = 0; i !== imageIds.length; i += 1) {
-                finalData.data[i].fields.champion.fields.image.fields =
-                  imageResult.assets.items[imageIds[i]].fields;
+                finalData.data[i].fields.champion.fields.image
+                  .fields = imageResult.assets.items[imageIds[i]].fields;
               }
               return (
                 <div className={styles.container}>

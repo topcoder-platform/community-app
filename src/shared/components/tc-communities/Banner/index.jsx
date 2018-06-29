@@ -29,8 +29,12 @@ function Banner({
       <div className={theme.content}>
         <div className={theme.contentBg} />
         <div className={theme.contentInner}>
-          <h2 className={theme.title}>{title}</h2>
-          <p className={theme.text}>{text}</p>
+          <h2 className={theme.title}>
+            {title}
+          </h2>
+          <p className={theme.text}>
+            {text}
+          </p>
           {links}
           {children}
         </div>

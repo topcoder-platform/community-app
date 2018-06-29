@@ -102,7 +102,7 @@ export default class MarkdownEditor extends React.Component {
           })}
           connector={connector}
           decorator={this.mdUtils}
-          editorState={this.state.editor}
+          editorState={st.editor}
           id={id}
           onChange={state => this.onChange(state)}
           ref={(node) => { this.editor = node; }}

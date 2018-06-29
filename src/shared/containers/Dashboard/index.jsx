@@ -39,6 +39,23 @@ const TOPCODER_BLOG_ID = 'TOPCODER_BLOG';
 const TOPOCDER_BLOG_URL = `/community-app-assets/api/proxy-get?url=${
   encodeURIComponent(config.URL.BLOG_FEED)}`;
 
+function updateCommunityStats(props) {
+  const {
+    activeChallenges,
+    communities,
+    communityStats,
+    getCommunityStats,
+    tokenV3,
+  } = props;
+  const now = Date.now();
+  communities.forEach((community) => {
+    const stats = communityStats[community.communityId];
+    if (stats && (stats.loadingUuid
+    || now - (stats.timestamp || 0) < CACHE_MAX_AGE)) return;
+    getCommunityStats(community, activeChallenges, tokenV3);
+  });
+}
+
 export class DashboardPageContainer extends React.Component {
   componentDidMount() {
     const {
@@ -129,26 +146,8 @@ export class DashboardPageContainer extends React.Component {
 
     if (now - communitiesTimestamp < CACHE_MAX_AGE
     && now - activeChallengesTimestamp < CACHE_MAX_AGE) {
-      this.updateCommunityStats(this.props);
+      updateCommunityStats(this.props);
     }
-  }
-
-  updateCommunityStats(props) {
-    const {
-      activeChallenges,
-      communities,
-      communityStats,
-      getCommunityStats,
-      tokenV3,
-    } = props;
-    const now = Date.now();
-    communities.forEach((community) => {
-      const stats = communityStats[community.communityId];
-      if (stats && (stats.loadingUuid
-      || now - (stats.timestamp || 0) < CACHE_MAX_AGE)) return;
-      getCommunityStats(community, activeChallenges, tokenV3);
-    });
-    _.noop(this.props.getCommunityStats);
   }
 
   render() {
@@ -225,8 +224,7 @@ export class DashboardPageContainer extends React.Component {
         tab={tab}
         tcBlogLoading={tcBlogLoading}
         tcBlogPosts={tcBlogPosts}
-        unregisterFromChallenge={id =>
-          unregisterFromChallenge({ tokenV2, tokenV3 }, id)}
+        unregisterFromChallenge={id => unregisterFromChallenge({ tokenV2, tokenV3 }, id)}
         userGroups={userGroups.map(x => x.id)}
         xlBadge={xlBadge}
       />
@@ -269,7 +267,7 @@ DashboardPageContainer.propTypes = {
   financesTimestamp: PT.number, // eslint-disable-line react/no-unused-prop-types
   getAllActiveChallenges: PT.func.isRequired, // eslint-disable-line react/no-unused-prop-types
   getCommunityList: PT.func.isRequired, // eslint-disable-line react/no-unused-prop-types
-  getCommunityStats: PT.func.isRequired,
+  getCommunityStats: PT.func.isRequired, // eslint-disable-line react/no-unused-prop-types
   getMemberAchievements: PT.func.isRequired, // eslint-disable-line react/no-unused-prop-types
   getMemberFinances: PT.func.isRequired, // eslint-disable-line react/no-unused-prop-types
   getMemberStats: PT.func.isRequired, // eslint-disable-line react/no-unused-prop-types
@@ -407,8 +405,8 @@ function mapDispatchToProps(dispatch) {
       dispatch(a.getInit(TOPCODER_BLOG_ID, uuid));
       dispatch(a.getDone(TOPCODER_BLOG_ID, uuid, TOPOCDER_BLOG_URL));
     },
-    selectChallengeDetailsTab: tab =>
-      dispatch(challengeDetailsActions.page.challengeDetails.selectTab(tab)),
+    selectChallengeDetailsTab:
+      tab => dispatch(challengeDetailsActions.page.challengeDetails.selectTab(tab)),
     setChallengeListingFilter: (filter) => {
       const cl = challengeListingActions.challengeListing;
       const cls = challengeListingSidebarActions.challengeListing.sidebar;
@@ -416,8 +414,7 @@ function mapDispatchToProps(dispatch) {
       dispatch(cls.selectBucket(BUCKETS.ALL));
     },
     showXlBadge: name => dispatch(dash.showXlBadge(name)),
-    switchChallengeFilter: filter =>
-      dispatch(dash.switchChallengeFilter(filter)),
+    switchChallengeFilter: filter => dispatch(dash.switchChallengeFilter(filter)),
     switchShowChallengeFilter:
       show => dispatch(dash.showChallengeFilter(show)),
     switchShowEarnings: show => dispatch(dash.showEarnings(show)),

@@ -14,14 +14,13 @@ export default function LeaderboardRoute({
   return (
     <AppChunk
       chunkName="leaderboard/chunk"
-      renderClientAsync={() =>
-        import(/* webpackChunkName: "leaderboard/chunk" */ 'containers/Leaderboard')
-          .then(({ default: Leaderboard }) => (
-            <Leaderboard
-              apiUrl={meta.leaderboardApiUrl}
-              HeadBanner={HeadBanner}
-            />
-          ))
+      renderClientAsync={() => import(/* webpackChunkName: "leaderboard/chunk" */ 'containers/Leaderboard')
+        .then(({ default: Leaderboard }) => (
+          <Leaderboard
+            apiUrl={meta.leaderboardApiUrl}
+            HeadBanner={HeadBanner}
+          />
+        ))
       }
       renderPlaceholder={() => <LoadingIndicator />}
     />

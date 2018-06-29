@@ -32,7 +32,8 @@ exports[`Matches shallow shapshot 1`] = `
         >
            
           0
-          H 
+          H
+           
           0
           M
         </p>
@@ -88,6 +89,7 @@ exports[`Matches shallow shapshot 1`] = `
       }
       themePriority="adhoc-context-default"
       to="/submit"
+      type="button"
     >
       Add Submission
     </ThemedButton>

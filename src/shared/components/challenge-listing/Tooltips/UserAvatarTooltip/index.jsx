@@ -22,7 +22,7 @@ import styles from './style.scss';
  * tracks with largest amounts of victories, as the TC API v2 does not provide an
  * efficient way to query those.
  */
-function Tip(props) {
+function Tip({ user }) {
   /* const joined = moment(props.user.memberSince).format('MMM YYYY');
   const rating = props.user.ratingSummary.map(item => (
     <span styleName="rating" key={item.name}>
@@ -30,7 +30,7 @@ function Tip(props) {
       <span>{item.rating}</span>
     </span>
   )); */
-  const { photoLink } = props.user;
+  const { photoLink } = user;
   let src = photoLink;
   if (src) {
     /* NOTE: If we ever change the avatar size here, we should also update it
@@ -49,7 +49,9 @@ function Tip(props) {
         }}
         url={src}
       />
-      <div styleName="handle">{props.user.handle}</div>
+      <div styleName="handle">
+        {user.handle}
+      </div>
       {/* Below block is commented out as it's not possible to get this information
       // as of now.
       <div styleName="info">
@@ -87,10 +89,14 @@ class UserAvatarTooltip extends Component {
   }
 
   render() {
-    const tip = <Tip user={this.state.user} />;
+    const { children } = this.props;
+    const { user } = this.state;
+    const tip = <Tip user={user} />;
     return (
       <Tooltip content={tip}>
-        <div>{this.props.children}</div>
+        <div>
+          {children}
+        </div>
       </Tooltip>
     );
   }

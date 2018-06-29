@@ -13,8 +13,7 @@ export default function ChunkLoader({ base, member, meta }) {
     <AppChunk
       cacheCss
       chunkName="cognitive-community/chunk"
-      renderClientAsync={() =>
-        import(/* webpackChunkName: "cognitive-community/chunk" */ './Routes')
+      renderClientAsync={() => import(/* webpackChunkName: "cognitive-community/chunk" */ './Routes')
         .then(({ default: Routes }) => <Routes base={base} member={member} meta={meta} />)
       }
       renderPlaceholder={() => <LoadingIndicator />}

@@ -20,8 +20,10 @@ class TipsQuotes extends React.Component {
       tipsQuotes: getItems(props.numTipsQuotes, props.data.tipsQuotes),
     };
   }
+
   render() {
     const { data } = this.props;
+    const { tipsQuotes } = this.state;
     const entryIds = _.map(data.tipsQuotes, item => (item.sys.id));
     return (
       <ContentfulLoader
@@ -36,13 +38,13 @@ class TipsQuotes extends React.Component {
               assetIds={assetIds}
               render={(photoResult) => {
                 for (let i = 0; i !== assetIds.length; i += 1) {
-                  data.tipsQuotes[i].fields.memberPhoto.fields
-                    = photoResult.assets.items[assetIds[i]].fields;
+                  data.tipsQuotes[i].fields.memberPhoto.fields = photoResult
+                    .assets.items[assetIds[i]].fields;
                 }
                 return (
                   <div styleName="container">
                     {
-                      this.state.tipsQuotes.map(tipQuote => (
+                      tipsQuotes.map(tipQuote => (
                         <div key={tipQuote.fields.text} styleName="tip-quote">
                           <div
                             styleName="text"
@@ -58,8 +60,12 @@ class TipsQuotes extends React.Component {
                               />
                             </div>
                             <div styleName="member-info">
-                              <a href={tipQuote.fields.memberProfileLink} target="_blank" rel="noopener noreferrer" styleName="member-handle">{ tipQuote.fields.memberHandle}</a>
-                              <div styleName="member-date">{`Topcoder member since ${tipQuote.fields.memberSince}`}</div>
+                              <a href={tipQuote.fields.memberProfileLink} target="_blank" rel="noopener noreferrer" styleName="member-handle">
+                                { tipQuote.fields.memberHandle}
+                              </a>
+                              <div styleName="member-date">
+                                {`Topcoder member since ${tipQuote.fields.memberSince}`}
+                              </div>
                             </div>
                           </div>
                         </div>

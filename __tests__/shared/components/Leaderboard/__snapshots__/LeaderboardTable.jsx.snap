@@ -71,69 +71,13 @@ exports[`Matches shallow shapshot 1`] = `
         >
           <span>
             0
-             points
+             
+            points
           </span>
           <span>
             0
-             challenges
-          </span>
-        </div>
-      </td>
-      <td
-        className="src-shared-components-Leaderboard-LeaderboardTable-___styles__col-challenges___29htm"
-      >
-        0
-      </td>
-      <td
-        className="src-shared-components-Leaderboard-LeaderboardTable-___styles__col-points___10Lis"
-      >
-        0
-      </td>
-    </tr>
-    <tr>
-      <td
-        className="src-shared-components-Leaderboard-LeaderboardTable-___styles__col-rank___2K_CR"
-      >
-        1
-      </td>
-      <td
-        className="src-shared-components-Leaderboard-LeaderboardTable-___styles__col-avatar___1xu8j"
-      >
-        <span
-          className="src-shared-components-Leaderboard-LeaderboardTable-___styles__leaderboard-avatar___3Ly7x"
-        >
-          <ThemedAvatar
-            composeAdhocTheme="deeply"
-            composeContextTheme="softly"
-            mapThemrProps={[Function]}
-            theme={
-              Object {
-                "avatar": "src-shared-components-Leaderboard-avatarStyles___default___1bHTzy",
-              }
-            }
-            themePriority="adhoc-context-default"
-            url="https://d1aahxkjiobka8.cloudfront.net/avatar/some.fake.string?size=65"
-          />
-        </span>
-      </td>
-      <td
-        className="src-shared-components-Leaderboard-LeaderboardTable-___styles__col-handle___3Sr8G"
-      >
-        <a
-          href="https://www.topcoder-dev.com/members/winnner/"
-        >
-          winnner
-        </a>
-        <div
-          className="src-shared-components-Leaderboard-LeaderboardTable-___styles__winnings-info___1Fiyn"
-        >
-          <span>
-            0
-             points
-          </span>
-          <span>
-            0
-             challenges
+             
+            challenges
           </span>
         </div>
       </td>
@@ -187,11 +131,73 @@ exports[`Matches shallow shapshot 1`] = `
         >
           <span>
             0
-             points
+             
+            points
           </span>
           <span>
             0
-             challenges
+             
+            challenges
+          </span>
+        </div>
+      </td>
+      <td
+        className="src-shared-components-Leaderboard-LeaderboardTable-___styles__col-challenges___29htm"
+      >
+        0
+      </td>
+      <td
+        className="src-shared-components-Leaderboard-LeaderboardTable-___styles__col-points___10Lis"
+      >
+        0
+      </td>
+    </tr>
+    <tr>
+      <td
+        className="src-shared-components-Leaderboard-LeaderboardTable-___styles__col-rank___2K_CR"
+      >
+        1
+      </td>
+      <td
+        className="src-shared-components-Leaderboard-LeaderboardTable-___styles__col-avatar___1xu8j"
+      >
+        <span
+          className="src-shared-components-Leaderboard-LeaderboardTable-___styles__leaderboard-avatar___3Ly7x"
+        >
+          <ThemedAvatar
+            composeAdhocTheme="deeply"
+            composeContextTheme="softly"
+            mapThemrProps={[Function]}
+            theme={
+              Object {
+                "avatar": "src-shared-components-Leaderboard-avatarStyles___default___1bHTzy",
+              }
+            }
+            themePriority="adhoc-context-default"
+            url="https://d1aahxkjiobka8.cloudfront.net/avatar/some.fake.string?size=65"
+          />
+        </span>
+      </td>
+      <td
+        className="src-shared-components-Leaderboard-LeaderboardTable-___styles__col-handle___3Sr8G"
+      >
+        <a
+          href="https://www.topcoder-dev.com/members/winnner/"
+        >
+          winnner
+        </a>
+        <div
+          className="src-shared-components-Leaderboard-LeaderboardTable-___styles__winnings-info___1Fiyn"
+        >
+          <span>
+            0
+             
+            points
+          </span>
+          <span>
+            0
+             
+            challenges
           </span>
         </div>
       </td>
@@ -245,11 +251,13 @@ exports[`Matches shallow shapshot 1`] = `
         >
           <span>
             0
-             points
+             
+            points
           </span>
           <span>
             0
-             challenges
+             
+            challenges
           </span>
         </div>
       </td>

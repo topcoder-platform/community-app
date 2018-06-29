@@ -2,8 +2,7 @@ const webpackMerge = require('webpack-merge'); // eslint-disable-line import/no-
 
 const path = require('path');
 
-const configFactory
-  = require('topcoder-react-utils/config/webpack/app-production');
+const configFactory = require('topcoder-react-utils/config/webpack/app-production');
 
 const webpack = require('webpack');
 
@@ -23,8 +22,7 @@ const standardDevelopmentConfig = configFactory({
   publicPath,
 });
 
-const jsxRule = standardDevelopmentConfig.module.rules.find(rule =>
-  rule.loader === 'babel-loader');
+const jsxRule = standardDevelopmentConfig.module.rules.find(rule => rule.loader === 'babel-loader');
 jsxRule.exclude = [
   /node_modules[\\/](?!appirio-tech.*|topcoder|tc-)/,
   /src[\\/]assets[\\/]fonts/,

@@ -39,23 +39,27 @@ export default class Toolbar extends React.Component {
   }
 
   componentDidMount() {
-    this.props.connector.setToolbar(this);
+    const { connector } = this.props;
+    connector.setToolbar(this);
   }
 
-  componentWillReceiveProps({ connector }) {
-    const prevConnector = this.props.connector;
-    if (connector !== prevConnector) {
+  componentWillReceiveProps({ connector: newConnector }) {
+    const { connector } = this.props;
+    const prevConnector = connector;
+    if (newConnector !== prevConnector) {
       if (prevConnector) prevConnector.setToolbar(null);
-      if (connector) connector.setToolbar(this);
+      if (newConnector) newConnector.setToolbar(this);
     }
   }
 
   componentWillUnmount() {
-    this.props.connector.setToolbar(null);
+    const { connector } = this.props;
+    connector.setToolbar(null);
   }
 
   onFocusedEditorChanged(newState) {
-    const editor = this.props.connector.focusedEditor;
+    const { connector } = this.props;
+    const editor = connector.focusedEditor;
     if (editor) {
       const inlineStyle = newState.getCurrentInlineStyle();
       const block = RichUtils.getCurrentBlockType(newState);
@@ -84,7 +88,7 @@ export default class Toolbar extends React.Component {
   render() {
     const st = this.state;
     const disableStyling = !st.editor;
-    const { connector } = this.props;
+    const { connector, nodeId, onSave } = this.props;
 
     const createStyleButton = (label, name, active, theme) => (
       <Button
@@ -97,13 +101,14 @@ export default class Toolbar extends React.Component {
         }}
         size="sm"
         theme={{ button: theme }}
-      >{label}
+      >
+        {label}
       </Button>
     );
 
     return (
       <Sticky innerZ={2}>
-        <div id={this.props.nodeId} styleName="container">
+        <div id={nodeId} styleName="container">
           {
             connector.focusedEditor instanceof MultiEditor ? (
               <div styleName="select-wrapper">
@@ -132,10 +137,11 @@ export default class Toolbar extends React.Component {
 
           <Button
             // disabled={!this.props.connector.modified}
-            onClick={() => this.props.onSave()}
+            onClick={() => onSave()}
             size="sm"
             theme={{ button: style.basic }}
-          >Save
+          >
+Save
           </Button>
           <div styleName="separator" />
 
@@ -157,11 +163,12 @@ export default class Toolbar extends React.Component {
             }}
             size="sm"
             theme={{ button: style.basic }}
-          >Color
+          >
+Color
           </Button>
           <ColorPicker
             onChange={(color) => {
-              const editor = st.editor || this.props.connector.previousEditor;
+              const editor = st.editor || connector.previousEditor;
               editor.focus();
               setImmediate(() => {
                 editor.applyColorStyle('TEXT', color);
@@ -213,7 +220,8 @@ export default class Toolbar extends React.Component {
             }}
             size="sm"
             theme={{ button: style.basic }}
-          >Insert Link
+          >
+Insert Link
           </Button>
 
           <Button
@@ -224,7 +232,8 @@ export default class Toolbar extends React.Component {
             }}
             size="sm"
             theme={{ button: style.basic }}
-          >Insert Image
+          >
+Insert Image
           </Button>
 
           <div styleName="select-wrapper">

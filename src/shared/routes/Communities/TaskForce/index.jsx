@@ -12,8 +12,7 @@ export default function ChunkLoader({ base, meta }) {
   return (
     <AppChunk
       chunkName="taskforce-community/chunk"
-      renderClientAsync={() =>
-        import(/* webpackChunkName: "taskforce-community/chunk" */ './Routes')
+      renderClientAsync={() => import(/* webpackChunkName: "taskforce-community/chunk" */ './Routes')
         .then(({ default: Routes }) => <Routes base={base} meta={meta} />)
       }
       renderPlaceholder={() => <LoadingIndicator />}

@@ -48,19 +48,27 @@ const COMMUNITY_STATS_ICONS = {
   openPrizes: '../../../../../community-app-assets/themes/wipro/prizes.png',
 };
 
-function PrevArrow(props) {
+function PrevArrow({
+  className,
+  onClick,
+}) {
   return (
     <button
-      onClick={props.onClick}
-      className={`${style.PrevArrow} ${props.className.indexOf('slick-disabled') > -1 ? style.disabled : ''}`}
+      onClick={onClick}
+      className={`${style.PrevArrow} ${className.indexOf('slick-disabled') > -1 ? style.disabled : ''}`}
+      type="button"
     />);
 }
 
-function NextArrow(props) {
+function NextArrow({
+  className,
+  onClick,
+}) {
   return (
     <button
-      onClick={props.onClick}
-      className={`${style.NextArrow} ${props.className.indexOf('slick-disabled') > -1 ? style.disabled : ''}`}
+      onClick={onClick}
+      className={`${style.NextArrow} ${className.indexOf('slick-disabled') > -1 ? style.disabled : ''}`}
+      type="button"
     />);
 }
 
@@ -194,7 +202,8 @@ export default function Home(props) {
             onClick={() => props.resetChallengeListing()}
             styleName="ImageTextStyles.link"
             to="challenges?communityId="
-          >View All Public Challenges
+          >
+View All Public Challenges
           </Link>
         </div>
       </Section>

@@ -60,7 +60,9 @@ MOCK_WINNERS = MOCK_WINNERS.slice(0, MAX_VISIBLE_WINNERS);
 const renderLeaderboard = MOCK_WINNERS.map(winner => (
   <div className="avatar-container" key={winner.handle}>
     <LeaderboardAvatar member={winner} />
-    <div className="name">{winner.handle}</div>
+    <div className="name">
+      {winner.handle}
+    </div>
   </div>
 ));
 
@@ -81,19 +83,30 @@ const MOCK_RESULTS = [{
 
 const resultsRows = MOCK_RESULTS.map(row => (
   <div className="results-detail-row" key={row.title}>
-    <p className="d-title">{row.title}</p>
+    <p className="d-title">
+      {row.title}
+    </p>
     <span className="challenge-stats">
       <span>
         <Tooltip content={numSubmissionsTipText(row.submission)}>
           <a className="num-sub" href="">
-            <SubmissionsIcon /> <span className="number">{row.submission}</span>
+            <SubmissionsIcon />
+            {' '}
+            <span className="number">
+              {row.submission}
+            </span>
           </a>
         </Tooltip>
       </span>
       <span>
         <Tooltip content={numRegistrantsTipText(row.percent)}>
           <a className="num-reg" href="">
-            <RegistrantsIcon /> <span className="number">{row.percent}%</span>
+            <RegistrantsIcon />
+            {' '}
+            <span className="number">
+              {row.percent}
+%
+            </span>
           </a>
         </Tooltip>
       </span>
@@ -104,15 +117,21 @@ const resultsRows = MOCK_RESULTS.map(row => (
 /*
 * Past SRMCard
 */
-const Division = props => (
-  <div className="division">
-    <div className="leaderboard-row">
-      <p className="stage">{ props.division }</p>
-      <div className="leaders">{ renderLeaderboard}</div>
+function Division({ division }) {
+  return (
+    <div className="division">
+      <div className="leaderboard-row">
+        <p className="stage">
+          { division }
+        </p>
+        <div className="leaders">
+          { renderLeaderboard}
+        </div>
+      </div>
+      {resultsRows}
     </div>
-    {resultsRows}
-  </div>
-);
+  );
+}
 
 Division.propTypes = {
   division: PT.string.isRequired,

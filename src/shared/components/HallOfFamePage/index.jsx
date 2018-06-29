@@ -35,11 +35,11 @@ const HallOfFamePage = ({ eventId, onSelectEvent, hallOfFame }) => {
 
   if (data) {
     allTimeChampionId = hof.allTimeChampions.sys.id;
-    promoIds = hof.versions.length > 1 ?
-      _.map(hof.versions, item => (item.fields.promo.sys.id)) : hof.versions.sys.id;
+    promoIds = hof.versions.length > 1
+      ? _.map(hof.versions, item => (item.fields.promo.sys.id)) : hof.versions.sys.id;
     leaderboardsIds = _.map(data.fields.leaderboards, item => (item.sys.id));
-    quickStoriesIds = data.fields.quickStories.length > 1 ?
-      _.map(data.fields.quickStories, item => (item.sys.id)) : data.fields.quickStories.sys.id;
+    quickStoriesIds = data.fields.quickStories.length > 1
+      ? _.map(data.fields.quickStories, item => (item.sys.id)) : data.fields.quickStories.sys.id;
     entryIds = promoIds.concat(leaderboardsIds, quickStoriesIds, allTimeChampionId);
   }
 
@@ -50,8 +50,8 @@ const HallOfFamePage = ({ eventId, onSelectEvent, hallOfFame }) => {
         // process leaderboard entries
         if (Array.isArray(leaderboardsIds)) {
           for (let i = 0; i !== leaderboardsIds.length; i += 1) {
-            data.fields.leaderboards[i].fields =
-              eventResult.entries.items[leaderboardsIds[i]].fields;
+            data.fields.leaderboards[i].fields = eventResult
+              .entries.items[leaderboardsIds[i]].fields;
           }
         } else {
           data.fields.leaderboards.fields = eventResult.entries.items[leaderboardsIds].fields;
@@ -60,8 +60,8 @@ const HallOfFamePage = ({ eventId, onSelectEvent, hallOfFame }) => {
         // process quick stories entries
         if (Array.isArray(quickStoriesIds)) {
           for (let i = 0; i !== quickStoriesIds.length; i += 1) {
-            data.fields.quickStories[i].fields =
-              eventResult.entries.items[quickStoriesIds[i]].fields;
+            data.fields.quickStories[i].fields = eventResult
+              .entries.items[quickStoriesIds[i]].fields;
           }
         } else {
           data.fields.quickStories.fields = eventResult.entries.items[quickStoriesIds].fields;
@@ -97,33 +97,32 @@ const HallOfFamePage = ({ eventId, onSelectEvent, hallOfFame }) => {
             render={(currentEventResult) => {
               // atrributes
               for (let i = 0; i !== attributesIds.length; i += 1) {
-                data.fields.promo.fields.attributes[i].fields =
-                  currentEventResult.entries.items[attributesIds[i]].fields;
+                data.fields.promo.fields.attributes[i]
+                  .fields = currentEventResult.entries.items[attributesIds[i]].fields;
               }
               // links
               for (let i = 0; i !== linkIds.length; i += 1) {
-                data.fields.promo.fields.links[i].fields =
-                  currentEventResult.entries.items[linkIds[i]].fields;
+                data.fields.promo.fields.links[i]
+                  .fields = currentEventResult.entries.items[linkIds[i]].fields;
               }
               // stats
               for (let i = 0; i !== statisticsIds.length; i += 1) {
-                data.fields.promo.fields.statistics[i].fields =
-                  currentEventResult.entries.items[statisticsIds[i]].fields;
+                data.fields.promo.fields.statistics[i]
+                  .fields = currentEventResult.entries.items[statisticsIds[i]].fields;
               }
               // final list
               for (let i = 0; i !== finalistIds.length; i += 1) {
-                data.fields.leaderboards[0].fields.data[i].fields =
-                  currentEventResult.entries.items[finalistIds[i]].fields;
+                data.fields.leaderboards[0].fields.data[i]
+                  .fields = currentEventResult.entries.items[finalistIds[i]].fields;
               }
               // trip winners
               for (let i = 0; i !== tripWinnerIds.length; i += 1) {
-                data.fields.leaderboards[1].fields.data[i].fields =
-                  currentEventResult.entries.items[tripWinnerIds[i]].fields;
+                data.fields.leaderboards[1].fields.data[i]
+                  .fields = currentEventResult.entries.items[tripWinnerIds[i]].fields;
               }
-              data.fields.promo.fields.bannerImage.fields =
-                currentEventResult.assets.items[bannerId].fields;
-              data.fields.promo.fields.logo.fields =
-                currentEventResult.assets.items[logoId].fields;
+              data.fields.promo.fields.bannerImage
+                .fields = currentEventResult.assets.items[bannerId].fields;
+              data.fields.promo.fields.logo.fields = currentEventResult.assets.items[logoId].fields;
 
               // process stats icon
               const iconIds = _.map(
@@ -135,8 +134,8 @@ const HallOfFamePage = ({ eventId, onSelectEvent, hallOfFame }) => {
                   assetIds={iconIds}
                   render={(iconResult) => {
                     for (let i = 0; i !== iconIds.length; i += 1) {
-                      data.fields.promo.fields.statistics[i].fields.icon.fields =
-                        iconResult.assets.items[iconIds[i]].fields;
+                      data.fields.promo.fields.statistics[i].fields.icon
+                        .fields = iconResult.assets.items[iconIds[i]].fields;
                     }
                     return (
                       <div styleName="outer-container">
@@ -147,7 +146,11 @@ const HallOfFamePage = ({ eventId, onSelectEvent, hallOfFame }) => {
                           {
                             data ? (
                               <div styleName="header">
-                                <h1>{hof.title.toUpperCase()} Hall of Fame</h1>
+                                <h1>
+                                  {hof.title.toUpperCase()}
+                                  {' '}
+                                  Hall of Fame
+                                </h1>
                                 <EventCarousel
                                   eventId={eventId}
                                   onSelectEvent={onSelectEvent}
@@ -170,10 +173,20 @@ const HallOfFamePage = ({ eventId, onSelectEvent, hallOfFame }) => {
                                       <strong>
                                         {data.fields.promo.fields.attributes[0].fields.value}
                                       </strong>
-                                      <p>{data.fields.promo.fields.attributes[1].fields.value}</p>
+                                      <p>
+                                        {data.fields.promo.fields.attributes[1].fields.value}
+                                      </p>
                                     </div>
-                                    <div styleName="button-wrapper"><PrimaryButton styleName="learn-more" to={data.fields.promo.fields.links[0].fields.url} openNewTab>{data.fields.promo.fields.links[0].fields.title}</PrimaryButton></div>
-                                    <div styleName="button-wrapper"><Button styleName="browse-gallery" to={data.fields.promo.fields.links[1].fields.url} openNewTab>{data.fields.promo.fields.links[1].fields.title}</Button></div>
+                                    <div styleName="button-wrapper">
+                                      <PrimaryButton styleName="learn-more" to={data.fields.promo.fields.links[0].fields.url} openNewTab>
+                                        {data.fields.promo.fields.links[0].fields.title}
+                                      </PrimaryButton>
+                                    </div>
+                                    <div styleName="button-wrapper">
+                                      <Button styleName="browse-gallery" to={data.fields.promo.fields.links[1].fields.url} openNewTab>
+                                        {data.fields.promo.fields.links[1].fields.title}
+                                      </Button>
+                                    </div>
                                   </div>
 
                                   <div styleName="banner">
@@ -189,8 +202,12 @@ const HallOfFamePage = ({ eventId, onSelectEvent, hallOfFame }) => {
                                             alt={stat.fields.description}
                                           />
                                           <div>
-                                            <h4>{stat.fields.value}</h4>
-                                            <span>{stat.fields.description}</span>
+                                            <h4>
+                                              {stat.fields.value}
+                                            </h4>
+                                            <span>
+                                              {stat.fields.description}
+                                            </span>
                                           </div>
                                         </div>
                                       ))
@@ -198,16 +215,22 @@ const HallOfFamePage = ({ eventId, onSelectEvent, hallOfFame }) => {
                                   </div>
                                 </div>
                                 {
-                                  data.fields.leaderboards[0].fields.data.length > 0 &&
+                                  data.fields.leaderboards[0].fields.data.length > 0
+                                  && (
                                   <div styleName="finalists">
-                                    <h2>{data.fields.leaderboards[0].fields.title}</h2>
+                                    <h2>
+                                      {data.fields.leaderboards[0].fields.title}
+                                    </h2>
                                     <Finalists data={data.fields.leaderboards[0].fields} />
                                   </div>
+                                  )
                                 }
                                 {
                                   data.fields.leaderboards[1].fields.data.length > 0 && (
                                     <div styleName="trip-winners">
-                                      <h3>{data.fields.leaderboards[1].fields.title}</h3>
+                                      <h3>
+                                        {data.fields.leaderboards[1].fields.title}
+                                      </h3>
                                       <TripWinners roles={data.fields.leaderboards[1].fields} />
                                     </div>
                                   )
@@ -218,7 +241,9 @@ const HallOfFamePage = ({ eventId, onSelectEvent, hallOfFame }) => {
                           {
                             data && data.fields.quickStories.fields.list.length > 0 ? (
                               <div styleName="fun-facts">
-                                <h3>{data.fields.quickStories.fields.title}</h3>
+                                <h3>
+                                  {data.fields.quickStories.fields.title}
+                                </h3>
                                 <FunFacts data={data.fields.quickStories.fields} />
                               </div>
                             ) : undefined
@@ -226,7 +251,9 @@ const HallOfFamePage = ({ eventId, onSelectEvent, hallOfFame }) => {
                           {
                             hof.allTimeChampions.fields ? (
                               <div styleName="champions">
-                                <h3>{hof.allTimeChampions.fields.title}</h3>
+                                <h3>
+                                  {hof.allTimeChampions.fields.title}
+                                </h3>
                                 <Champions data={hof.allTimeChampions.fields} />
                               </div>
                             ) : undefined

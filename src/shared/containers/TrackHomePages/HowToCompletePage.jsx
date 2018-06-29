@@ -14,31 +14,31 @@ import ContentfulLoader from '../ContentfulLoader';
 const HowToCompletePageContainer = ({ match }) => (
   <ContentfulLoader
     entryQueries={{
-          content_type: 'trackHowToCompete',
-          'fields.track': match.params.track,
-          include: 10,
-        }}
+      content_type: 'trackHowToCompete',
+      'fields.track': match.params.track,
+      include: 10,
+    }}
     render={(data) => {
-          if (data.entries.matches[0].total > 0) {
-            let howToComplete = data.entries.matches[0].items[0];
-            if (!howToComplete) return null;
-            const result = data.entries.items[howToComplete];
-            howToComplete = result.fields;
-            howToComplete.includes = data.includes;
-            return (
-              <ContentfulLoader
-                preview={data.preview}
-                render={() => (
-                  <HowToCompletePage
-                    howToComplete={howToComplete}
-                  />
-                )}
-                renderPlaceholder={LoadingIndicator}
+      if (data.entries.matches[0].total > 0) {
+        let howToComplete = data.entries.matches[0].items[0];
+        if (!howToComplete) return null;
+        const result = data.entries.items[howToComplete];
+        howToComplete = result.fields;
+        howToComplete.includes = data.includes;
+        return (
+          <ContentfulLoader
+            preview={data.preview}
+            render={() => (
+              <HowToCompletePage
+                howToComplete={howToComplete}
               />
-            );
-          }
-          return (<Error404 />);
-        }}
+            )}
+            renderPlaceholder={LoadingIndicator}
+          />
+        );
+      }
+      return (<Error404 />);
+    }}
     renderPlaceholder={LoadingIndicator}
   />
 );

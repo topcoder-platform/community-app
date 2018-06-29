@@ -90,14 +90,12 @@ test('Matches shallow shapshot', () => {
 
 test('handle clicks', () => {
   const instance = TU.renderIntoDocument((<Wrapper {...mockDatas[1]} disabled={false} activeBucket="OPEN_FOR_REGISTRATION" />));
-  let matches = TU.findAllInRenderedTree(instance, item =>
-    item && item.className && item.className.match('edit-link'));
+  let matches = TU.findAllInRenderedTree(instance, item => item && item.className && item.className.match('edit-link'));
   expect(matches).toHaveLength(1);
   TU.Simulate.click(matches[0]);
   expect(setEditSavedFiltersMode).toHaveBeenCalledWith(true);
 
-  matches = TU.findAllInRenderedTree(instance, item =>
-    item && item.className && item.className.match('bucket'));
+  matches = TU.findAllInRenderedTree(instance, item => item && item.className && item.className.match('bucket'));
   _.forEach(matches, match => TU.Simulate.click(match));
   expect(selectSavedFilter).toHaveBeenCalledWith(0);
   expect(selectBucket).toHaveBeenCalled();

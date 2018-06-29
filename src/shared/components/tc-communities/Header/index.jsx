@@ -75,7 +75,8 @@ function Header(props) {
           key={img}
           to={item.url}
           className={theme.logo}
-        >{logo}
+        >
+          {logo}
         </Link>
       );
     } else {
@@ -83,7 +84,8 @@ function Header(props) {
         <span
           key={img}
           className={theme.logo}
-        >{logo}
+        >
+          {logo}
         </span>
       );
     }
@@ -112,11 +114,13 @@ function Header(props) {
         {profile.handle}
       </div>
       {
-        chevronOverAvatar ?
-          <span className={theme.chevronDown} /> :
-          <div className={theme.avatar}>
-            <Avatar url={profile.photoURL} />
-          </div>
+        chevronOverAvatar
+          ? <span className={theme.chevronDown} />
+          : (
+            <div className={theme.avatar}>
+              <Avatar url={profile.photoURL} />
+            </div>
+          )
       }
     </div>
   ) : (
@@ -130,7 +134,9 @@ function Header(props) {
             window.location = `${config.URL.AUTH}/member/registration?retUrl=${url}&utm_source=${communityId}`;
           }}
           className={theme.btnRegister}
-        >Join Now
+          type="button"
+        >
+Join Now
         </button>
       )}
       <button
@@ -139,7 +145,9 @@ function Header(props) {
           window.location = `${config.URL.AUTH}/member?retUrl=${url}&utm_source=${communityId}`;
         }}
         className={theme.btnLogin}
-      >Login
+        type="button"
+      >
+Login
       </button>
     </div>
   );
@@ -153,9 +161,14 @@ function Header(props) {
           <button
             className={theme.mobileToggle}
             onClick={onMobileToggleClick}
+            type="button"
           >
-            <span>Toggle navigation</span>
-            <i /><i /><i />
+            <span>
+Toggle navigation
+            </span>
+            <i />
+            <i />
+            <i />
           </button>
           <div className={theme.logosWrap}>
             <div className={theme.logos}>
@@ -202,17 +215,20 @@ function Header(props) {
         </div>
         <div className={theme.userWrap}>
           {loginState}
-          { !hideSearch && <div className={theme.search}><IconSearch /></div>}
+          { !hideSearch && (
+          <div className={theme.search}>
+            <IconSearch />
+          </div>
+          )}
           <div className={theme.additionalLogos}>
-            {_.map(additionalLogos, (logoUrl, index) =>
-              (
-                <span
-                  key={index}
-                  className={theme.logo}
-                >
-                  <img src={logoUrl} alt="Community logo" />
-                </span>
-              ))}
+            {_.map(additionalLogos, (logoUrl, index) => (
+              <span
+                key={index}
+                className={theme.logo}
+              >
+                <img src={logoUrl} alt="Community logo" />
+              </span>
+            ))}
           </div>
         </div>
       </header>

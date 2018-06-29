@@ -6,15 +6,20 @@ import React from 'react';
 import PT from 'prop-types';
 import { isomorphy } from 'topcoder-react-utils';
 import SideBar from '../SideBar';
-import Device from './Devices';
+import Devices from './Devices';
+import ComingSoon from '../ComingSoon';
 import Software from './Software';
 
 import './styles.scss';
 
 export default function Tools(props) {
-  const tabs = props.settingsUI.TABS.TOOLS;
+  const {
+    settingsUI,
+    toggleToolsSideTab,
+  } = props;
+  const tabs = settingsUI.TABS.TOOLS;
   const names = Object.keys(tabs).map(key => tabs[key]);
-  const currentTab = props.settingsUI.currentToolsTab;
+  const currentTab = settingsUI.currentToolsTab;
 
   let assets;
   const sideIcons = {};
@@ -28,6 +33,17 @@ export default function Tools(props) {
     }
   }
 
+  const renderView = () => {
+    switch (currentTab) {
+      case 'devices':
+        return <Devices {...props} />;
+      case 'software':
+        return <Software {...props} />;
+      default:
+        return <ComingSoon />;
+    }
+  };
+
   return (
     <div styleName="tools-container">
       <div styleName="col-bar">
@@ -35,16 +51,11 @@ export default function Tools(props) {
           icons={sideIcons}
           names={names}
           currentTab={currentTab}
-          toggle={props.toggleToolsSideTab}
+          toggle={toggleToolsSideTab}
         />
       </div>
       <div styleName="col-content">
-        <Device
-          {...props}
-        />
-        <Software
-          {...props}
-        />
+        {renderView()}
       </div>
     </div>
   );

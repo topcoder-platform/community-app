@@ -50,18 +50,18 @@ export const getDivisions = (stats) => {
       const level = _level;
       level.problemsFailed = level.problemsFailed || level.failedChallenges || 0;
       level.problemsSubmitted = level.problemsSubmitted || level.challenges || 0;
-      level.problemsSuccessful =
-        (level.problemsSubmitted - level.problemsFailed - (level.problemsSysByTest || 0)) || 0;
+      level.problemsSuccessful = (level.problemsSubmitted - level.problemsFailed
+        - (level.problemsSysByTest || 0)) || 0;
       level.percentSuccessful = (level.problemsSuccessful / (level.problemsSubmitted || 1)) || 0;
-      ans.total.problemsSuccessful +=
-        level.problemsSuccessful || (level.challenges - level.failedChallenges) || 0;
+      ans.total.problemsSuccessful
+        += level.problemsSuccessful || (level.challenges - level.failedChallenges) || 0;
       ans.total.problemsFailed += level.problemsFailed || level.failedChallenges || 0;
       ans.total.problemsSubmitted += level.problemsSubmitted || level.challenges || 0;
       ans.total.problemsSysByTest += level.problemsSysByTest || 0;
       ans[level.levelName] = level;
     });
-    ans.total.percentSuccessful =
-      (ans.total.problemsSuccessful / (ans.total.problemsSubmitted || 1)) || 0;
+    ans.total.percentSuccessful = (ans.total.problemsSuccessful
+      / (ans.total.problemsSubmitted || 1)) || 0;
     ans.levels = [];
     if (ans['Level One']) ans.levels.push(ans['Level One']);
     if (ans['Level Two']) ans.levels.push(ans['Level Two']);
@@ -146,7 +146,7 @@ const interestingData = {
 export function getSubTrackStats(stats, track, subTrack) {
   if (track === 'COPILOT') {
     return _.get(stats, 'COPILOT', null);
-  } else if (track === 'DATA_SCIENCE') {
+  } if (track === 'DATA_SCIENCE') {
     // data science stats are nested in a funky way
     return _.get(stats, `DATA_SCIENCE.${subTrack}`, null);
   }

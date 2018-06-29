@@ -1,5 +1,5 @@
 // Table of contents
-// 
+//
 // Checkboxes
 // Switches
 // Radios
@@ -10,10 +10,10 @@ input[type=checkbox] {
 // Checkboxes
 // CHECKBOX
 // ----------------------------------------------------------------------
-// 
+//
 // TODO: Refactor to use parameters as the slider;
 // TODO: Create mixin for the 4 sizes - lg, md, sm, xs
-// 
+//
 $checkbox-size: $base-unit * 4;
 $checkbox-bg-empty: $tc-gray-neutral-light;
 $checkbox-bg-selected: $tc-dark-blue;
@@ -78,7 +78,7 @@ $checkbox-bg-selected: $tc-dark-blue;
 // Checkboxes
 // SLIDER
 // ----------------------------------------------------------------------
-// 
+//
 // TODO: Create mixin and render the 4 sizes - lg, md, sm, xs
 $slider-height: $base-unit * 5;
 $slider-handle-offset: 3px;
@@ -138,10 +138,10 @@ $slider-handle-color: $tc-white;
   }
 }
 
-// 
+//
 // RADIO
 // ----------------------------------------------------------------------
-// 
+//
 // TODO: Refactor to use parameters like the Slider
 
 .tc-checkbox label:hover::after {

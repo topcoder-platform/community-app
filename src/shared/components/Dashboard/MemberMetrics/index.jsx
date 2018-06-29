@@ -18,7 +18,9 @@ export default function Finances({
 }) {
   return (
     <div styleName="container">
-      <h1 styleName="title">My Earnings and Stats</h1>
+      <h1 styleName="title">
+My Earnings and Stats
+      </h1>
       {
         financesLoading || statsLoading ? (
           <div styleName="loading">

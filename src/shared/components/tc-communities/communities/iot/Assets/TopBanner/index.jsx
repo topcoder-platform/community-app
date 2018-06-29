@@ -20,9 +20,13 @@ const TopBanner = ({
 
   return (
     <div styleName="assets-header">
-      <h1>Predix Assets</h1>
+      <h1>
+Predix Assets
+      </h1>
       <div styleName="description">
-        <p>Download the latest Predix assets created by Topcoder members to accelerate your Predix learning, and be sure to check out the latest Predix challenges. Your winning code could be posted next!</p>
+        <p>
+Download the latest Predix assets created by Topcoder members to accelerate your Predix learning, and be sure to check out the latest Predix challenges. Your winning code could be posted next!
+        </p>
       </div>
 
       <div styleName="view-mode">

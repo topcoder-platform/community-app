@@ -87,6 +87,10 @@ module.exports = {
     /* The remote address where the app is deployed. */
     APP: 'https://community-app.topcoder-dev.com',
 
+    /* This is the same value as above, but it is used by topcoder-react-lib,
+     * as a more verbose name for the param. */
+    COMMUNITY_APP: 'https://community-app.topcoder-dev.com',
+
     ARENA: 'https://arena.topcoder-dev.com',
     AUTH: 'http://accounts.topcoder-dev.com',
     BASE: 'https://www.topcoder-dev.com',

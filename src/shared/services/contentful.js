@@ -29,8 +29,7 @@ const LOCAL_MODE = Boolean(config.CONTENTFUL.LOCAL_MODE);
 
 /* Holds the base URL of Community App endpoints that proxy HTTP request to
  * Contentful APIs. */
-const PROXY_ENDPOINT
-  = `${LOCAL_MODE ? '' : config.URL.APP}/api/cdn/public/contentful`;
+const PROXY_ENDPOINT = `${LOCAL_MODE ? '' : config.URL.APP}/api/cdn/public/contentful`;
 
 /* At the client-side only, it holds the cached index of published Contentful
  * assets and content. Do not use it directly, use getIndex() function below

@@ -19,11 +19,13 @@ export default class MarkdownRenderer extends React.Component {
   }
 
   componentWillMount() {
-    this.renderElements(this.props.markdown);
+    const { markdown } = this.props;
+    this.renderElements(markdown);
   }
 
   componentWillReceiveProps(nextProps) {
-    if (this.props.markdown !== nextProps.markdown) {
+    const { markdown } = this.props;
+    if (markdown !== nextProps.markdown) {
       this.renderElements(nextProps.markdown);
     }
   }

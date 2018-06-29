@@ -207,4 +207,3 @@ test('setFilterState', () => {
   expect(setFilterState).toHaveBeenCalledTimes(3);
   */
 });
-

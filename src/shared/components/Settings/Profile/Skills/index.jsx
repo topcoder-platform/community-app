@@ -117,11 +117,18 @@ export default function Skills(props) {
   return (
     <div className="settings-section" styleName="skills">
       <div className="section-info">
-        <h2>Skills</h2>
-        <div className="description">Languages, environments, frameworks, libraries, platforms, tools, and any other technologies that you know well.</div>
+        <h2>
+Skills
+        </h2>
+        <div className="description">
+          Languages, environments, frameworks, libraries, platforms, tools,
+          and any other technologies that you know well.
+        </div>
       </div>
       <div className="section-fields" styleName="skills-section-fields">
-        <div className="form-label">Add a new skill</div>
+        <div className="form-label">
+Add a new skill
+        </div>
         <Select
           name="skills"
           options={lookupSkills}
@@ -166,7 +173,9 @@ export default function Skills(props) {
                         <div styleName="hidden-indicator" />
                         { imageExist(`id-${skill.tagId}.svg`) ? getImage(`id-${skill.tagId}.svg`) : <FallbackIcon /> }
                       </div>
-                      <div styleName="name">{_.truncate(skill.tagName, { length: 20, separator: ' ' })}</div>
+                      <div styleName="name">
+                        {_.truncate(skill.tagName, { length: 20, separator: ' ' })}
+                      </div>
                     </a>
                   </div>
                 </div>

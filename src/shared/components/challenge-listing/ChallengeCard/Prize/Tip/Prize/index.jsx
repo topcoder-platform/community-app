@@ -16,8 +16,11 @@ export default function Prize({
   if (place <= 3) medalStyleName += ` place-${place}`;
   return (
     <div styleName="prize">
-      <span styleName={medalStyleName}>{place}</span>
-      {prizeUnitSymbol}{prize.toLocaleString()}
+      <span styleName={medalStyleName}>
+        {place}
+      </span>
+      {prizeUnitSymbol}
+      {prize.toLocaleString()}
     </div>
   );
 }

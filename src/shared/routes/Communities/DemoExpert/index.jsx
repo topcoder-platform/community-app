@@ -14,8 +14,7 @@ export default function ChunkLoader({ base, meta }) {
     <AppChunk
       cacheCss
       chunkName="demo-expert-community/chunk"
-      renderClientAsync={() =>
-        import(/* webpackChunkName: "demo-expert-community/chunk" */ './Routes')
+      renderClientAsync={() => import(/* webpackChunkName: "demo-expert-community/chunk" */ './Routes')
         .then(({ default: Routes }) => <Routes base={base} meta={meta} />)
       }
       renderPlaceholder={() => <LoadingIndicator />}
@@ -25,7 +24,8 @@ export default function ChunkLoader({ base, meta }) {
           <StaticRouter
             context={routeProps.staticContext}
             location={routeProps.location}
-          ><Routes base={base} meta={meta} />
+          >
+            <Routes base={base} meta={meta} />
           </StaticRouter>
         );
       }}

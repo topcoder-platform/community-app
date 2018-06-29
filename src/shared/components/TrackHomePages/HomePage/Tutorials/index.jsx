@@ -21,8 +21,10 @@ class Tutorials extends React.Component {
       tutorials: getItems(props.numTutorials, props.data.tutorials),
     };
   }
+
   render() {
     const { data } = this.props;
+    const { tutorials } = this.state;
     const entryIds = _.map(data.tutorials, item => (item.sys.id));
     return (
       <ContentfulLoader
@@ -37,17 +39,19 @@ class Tutorials extends React.Component {
               assetIds={assetIds}
               render={(imageResult) => {
                 for (let i = 0; i !== assetIds.length; i += 1) {
-                  data.tutorials[i].fields.image.fields =
-                    imageResult.assets.items[assetIds[i]].fields;
+                  data.tutorials[i].fields.image.fields = imageResult
+                    .assets.items[assetIds[i]].fields;
                 }
                 return (
                   <div styleName="container">
                     {
-                      this.state.tutorials.map(tutorial => (
+                      tutorials.map(tutorial => (
                         <a href={tutorial.fields.linkUrl} key={tutorial.fields.title} styleName="tutorial">
                           <img styleName="photo" src={tutorial.fields.image.fields.file.url} alt="Tutorial" />
                           <div styleName="content">
-                            <div styleName="title">{tutorial.fields.title}</div>
+                            <div styleName="title">
+                              {tutorial.fields.title}
+                            </div>
                             <div
                               styleName="text"
                               dangerouslySetInnerHTML={

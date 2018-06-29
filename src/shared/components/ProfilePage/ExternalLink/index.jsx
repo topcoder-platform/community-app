@@ -51,134 +51,232 @@ const ExternalLink = ({ data, type }) => {
           { type === 'twitter' && <TwitterIcon /> }
           { type === 'weblink' && <FallbackIcon /> }
         </div>
-        <h2>{found.displayName}</h2>
+        <h2>
+          {found.displayName}
+        </h2>
       </div>
       <div styleName="bottom">
         {
-          type === 'github' &&
+          type === 'github'
+          && (
           <div>
-            <div styleName="handle">{data.handle}</div>
+            <div styleName="handle">
+              {data.handle}
+            </div>
             <ul>
               <li>
-                <div styleName="value">{data.followers || 0}</div>
-                <div styleName="key">followers</div>
+                <div styleName="value">
+                  {data.followers || 0}
+                </div>
+                <div styleName="key">
+followers
+                </div>
               </li>
               <li>
-                <div styleName="value">{data.publicRepos || 0}</div>
-                <div styleName="key">repositories</div>
+                <div styleName="value">
+                  {data.publicRepos || 0}
+                </div>
+                <div styleName="key">
+repositories
+                </div>
               </li>
             </ul>
           </div>
+          )
         }
         {
-          type === 'stackoverflow' &&
+          type === 'stackoverflow'
+          && (
           <div>
-            <div styleName="handle">{data.name}</div>
+            <div styleName="handle">
+              {data.name}
+            </div>
             <ul>
               <li>
-                <div styleName="value">{data.reputation || 0}</div>
-                <div styleName="key">reputation</div>
+                <div styleName="value">
+                  {data.reputation || 0}
+                </div>
+                <div styleName="key">
+reputation
+                </div>
               </li>
               <li>
-                <div styleName="value">{data.answers || 0}</div>
-                <div styleName="key">answers</div>
+                <div styleName="value">
+                  {data.answers || 0}
+                </div>
+                <div styleName="key">
+answers
+                </div>
               </li>
             </ul>
           </div>
+          )
         }
         {
-          type === 'behance' &&
+          type === 'behance'
+          && (
           <div>
-            <div styleName="handle">{data.name}</div>
+            <div styleName="handle">
+              {data.name}
+            </div>
             <ul>
               <li>
-                <div styleName="value">{data.projectViews || 0}</div>
-                <div styleName="key">views</div>
+                <div styleName="value">
+                  {data.projectViews || 0}
+                </div>
+                <div styleName="key">
+views
+                </div>
               </li>
               <li>
-                <div styleName="value">{data.projectAppreciations || 0}</div>
-                <div styleName="key">likes</div>
+                <div styleName="value">
+                  {data.projectAppreciations || 0}
+                </div>
+                <div styleName="key">
+likes
+                </div>
               </li>
             </ul>
           </div>
+          )
         }
         {
-          type === 'behance' &&
+          type === 'behance'
+          && (
           <div>
-            <div styleName="handle">{data.name}</div>
+            <div styleName="handle">
+              {data.name}
+            </div>
             <ul>
               <li>
-                <div styleName="value">{data.projectViews || 0}</div>
-                <div styleName="key">views</div>
+                <div styleName="value">
+                  {data.projectViews || 0}
+                </div>
+                <div styleName="key">
+views
+                </div>
               </li>
               <li>
-                <div styleName="value">{data.projectAppreciations || 0}</div>
-                <div styleName="key">likes</div>
+                <div styleName="value">
+                  {data.projectAppreciations || 0}
+                </div>
+                <div styleName="key">
+likes
+                </div>
               </li>
             </ul>
           </div>
+          )
         }
         {
-          type === 'dribbble' &&
+          type === 'dribbble'
+          && (
           <div>
-            <div styleName="handle">{data.handle}</div>
+            <div styleName="handle">
+              {data.handle}
+            </div>
             <ul>
               <li>
-                <div styleName="value">{data.followers || 0}</div>
-                <div styleName="key">followers</div>
+                <div styleName="value">
+                  {data.followers || 0}
+                </div>
+                <div styleName="key">
+followers
+                </div>
               </li>
               <li>
-                <div styleName="value">{data.likes || 0}</div>
-                <div styleName="key">likes</div>
+                <div styleName="value">
+                  {data.likes || 0}
+                </div>
+                <div styleName="key">
+likes
+                </div>
               </li>
             </ul>
           </div>
+          )
         }
         {
-          type === 'bitbucket' &&
+          type === 'bitbucket'
+          && (
           <div>
-            <div styleName="handle">{data.handle}</div>
+            <div styleName="handle">
+              {data.handle}
+            </div>
             <ul>
               <li>
-                <div styleName="value">{data.followers || 0}</div>
-                <div styleName="key">followers</div>
+                <div styleName="value">
+                  {data.followers || 0}
+                </div>
+                <div styleName="key">
+followers
+                </div>
               </li>
               <li>
-                <div styleName="value">{data.repos || 0}</div>
-                <div styleName="key">repositories</div>
+                <div styleName="value">
+                  {data.repos || 0}
+                </div>
+                <div styleName="key">
+repositories
+                </div>
               </li>
             </ul>
           </div>
+          )
         }
         {
-          type === 'twitter' &&
+          type === 'twitter'
+          && (
           <div>
-            <div styleName="handle">{data.handle}</div>
+            <div styleName="handle">
+              {data.handle}
+            </div>
             <ul>
               <li>
-                <div styleName="value">{data.tweets || 0}</div>
-                <div styleName="key">tweets</div>
+                <div styleName="value">
+                  {data.tweets || 0}
+                </div>
+                <div styleName="key">
+tweets
+                </div>
               </li>
               <li>
-                <div styleName="value">TBD</div>
-                <div styleName="key">followers</div>
+                <div styleName="value">
+TBD
+                </div>
+                <div styleName="key">
+followers
+                </div>
               </li>
             </ul>
           </div>
+          )
         }
         {
-          type === 'linkedin' &&
+          type === 'linkedin'
+          && (
           <div>
-            <div styleName="handle">{data.name}</div>
-            <div styleName="title">{data.title}</div>
+            <div styleName="handle">
+              {data.name}
+            </div>
+            <div styleName="title">
+              {data.title}
+            </div>
           </div>
+          )
         }
         {
-          type === 'weblink' &&
+          type === 'weblink'
+          && (
           <div>
-            <p styleName="link-title">{data.title}</p>
-            <span styleName="link-url">{data.URL}</span>
+            <p styleName="link-title">
+              {data.title}
+            </p>
+            <span styleName="link-url">
+              {data.URL}
+            </span>
           </div>
+          )
         }
       </div>
     </a>

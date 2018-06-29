@@ -14,8 +14,7 @@ export default function ChallengeDetailsRoute(props) {
   return (
     <AppChunk
       chunkName="challenge-details/chunk"
-      renderClientAsync={() =>
-        import(/* webpackChunkName: "challenge-details/chunk" */ 'containers/challenge-detail')
+      renderClientAsync={() => import(/* webpackChunkName: "challenge-details/chunk" */ 'containers/challenge-detail')
         .then(({ default: ChallengeDetails }) => (
           <ChallengeDetails {...props} />
         ))

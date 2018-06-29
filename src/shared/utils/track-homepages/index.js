@@ -14,4 +14,3 @@ export function getItems(count, list) {
 
 
 export default undefined;
-

@@ -29,12 +29,16 @@ class SettingsContainer extends React.Component {
     const {
       handle,
       profileState,
-      settingsTab,
+      settingsTab: targetSEttingsTab,
       tokenV3,
       authenticating,
       loadTabData,
       loadAllUserTraits,
     } = props;
+
+    const {
+      settingsTab,
+    } = this.props;
 
     if (authenticating) return;
 
@@ -52,7 +56,7 @@ class SettingsContainer extends React.Component {
     }
 
     // Load tab data
-    if (handleChanged || settingsTab !== this.props.settingsTab) {
+    if (handleChanged || targetSEttingsTab !== settingsTab) {
       loadTabData(props);
     }
   }
@@ -71,10 +75,12 @@ class SettingsContainer extends React.Component {
     // Only load the page when authenticated and profile is loaded
     const loaded = !authenticating && profile;
 
-    return loaded ?
-      <Settings
-        {...this.props}
-      />
+    return loaded
+      ? (
+        <Settings
+          {...this.props}
+        />
+      )
       : <LoadingIndicator />;
   }
 }

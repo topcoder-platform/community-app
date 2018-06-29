@@ -39,7 +39,7 @@ test('Matches shallow shapshot', () => {
 
   _.forEach(mockDatas, (data) => {
     renderer.render((
-      <Provider store={store} >
+      <Provider store={store}>
         <StaticRouter context={{}}>
           <SRMCard {...data} />
         </StaticRouter>
@@ -49,4 +49,3 @@ test('Matches shallow shapshot', () => {
     TU.renderIntoDocument((<Wrapper {...data} />));
   });
 });
-

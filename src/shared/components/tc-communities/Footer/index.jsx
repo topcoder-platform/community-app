@@ -14,9 +14,12 @@ import { config } from 'topcoder-react-utils';
 import defaultStyle from './style.scss';
 import TopcoderLogoGray from '../../../../assets/images/tc-communities/logo_topcoder_gray.svg';
 
-function Footer(props) {
-  const { communityId, menuItems, theme } = props;
-
+function Footer({
+  communityId,
+  isAuthorized,
+  menuItems,
+  theme,
+}) {
   const items = _.map(menuItems, (item, index) => (
     <li key={index} className={theme.item}>
       <NavLink
@@ -31,7 +34,9 @@ function Footer(props) {
   const itemLogo = (
     <li key="logo" className={`${theme.item} ${theme.itemLogo}`}>
       {menuItems.length ? (
-        <Link to={menuItems[0].url}><TopcoderLogoGray className={theme.logo} /></Link>
+        <Link to={menuItems[0].url}>
+          <TopcoderLogoGray className={theme.logo} />
+        </Link>
       ) : (
         <TopcoderLogoGray className={theme.logo} />
       )}
@@ -46,7 +51,7 @@ function Footer(props) {
       <ul className={theme.menu}>
         {items}
       </ul>
-      {!props.isAuthorized && (
+      {!isAuthorized && (
         <div className={theme.authorize}>
           <button
             className={theme.btnRegister}
@@ -54,7 +59,9 @@ function Footer(props) {
               const url = encodeURIComponent(window.location.href);
               window.location = `${config.URL.AUTH}/member/registration?retUrl=${url}&utm_source=${communityId}`;
             }}
-          >Register
+            type="button"
+          >
+Register
           </button>
           <button
             className={theme.btnLogin}
@@ -62,7 +69,9 @@ function Footer(props) {
               const url = encodeURIComponent(window.location.href);
               window.location = `${config.URL.AUTH}/member?retUrl=${url}&utm_source=${communityId}`;
             }}
-          >Login
+            type="button"
+          >
+Login
           </button>
         </div>
       )}

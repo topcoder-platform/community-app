@@ -9,8 +9,12 @@ import { connect } from 'react-redux';
 
 class Container extends React.Component {
   componentWillUnmount() {
-    if (!_.isEmpty(this.props.shownFaqItems)) {
-      this.props.closeAllFaqItems();
+    const {
+      closeAllFaqItems,
+      shownFaqItems,
+    } = this.props;
+    if (!_.isEmpty(shownFaqItems)) {
+      closeAllFaqItems();
     }
   }
 
@@ -32,8 +36,7 @@ function mapDispatchToActions(dispatch) {
   const a = actions.page.communities.blockchain.bsicIncubator;
   return {
     closeAllFaqItems: () => dispatch(a.closeAllFaqItems()),
-    toggleFaqItem: (index, show) =>
-      dispatch(a.toggleFaqItem(index, show, true)),
+    toggleFaqItem: (index, show) => dispatch(a.toggleFaqItem(index, show, true)),
   };
 }
 

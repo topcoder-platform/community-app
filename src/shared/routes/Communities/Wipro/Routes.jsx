@@ -27,7 +27,7 @@ export default function Wipro({ base, meta }) {
   return (
     <Route
       component={({ match }) => (
-        <ThemeProvider theme={theme} >
+        <ThemeProvider theme={theme}>
           <div>
             <Header
               baseUrl={base}

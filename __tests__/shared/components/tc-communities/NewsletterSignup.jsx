@@ -36,6 +36,7 @@ test('Snapshot match', () => {
 
 class Wrapper extends React.Component {
   componentDidMount() {}
+
   render() {
     return (
       <NewsletterSignup {...this.props} />

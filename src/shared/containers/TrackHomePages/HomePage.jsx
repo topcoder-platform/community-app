@@ -16,30 +16,30 @@ import ContentfulLoader from '../ContentfulLoader';
 const HomePageContainer = ({ match, auth }) => (
   <ContentfulLoader
     entryQueries={{
-        content_type: 'trackHomepage',
-        'fields.track': match.params.track,
-      }}
+      content_type: 'trackHomepage',
+      'fields.track': match.params.track,
+    }}
     render={(data) => {
-        if (data.entries.matches[0].total > 0) {
-            let homePage = data.entries.matches[0].items[0];
-            if (!homePage) return null;
-            const result = data.entries.items[homePage];
-            homePage = result.fields;
-            return (
-              <ContentfulLoader
-                preview={data.preview}
-                render={() => (
-                  <HomePage
-                    homePage={homePage}
-                    auth={auth}
-                  />
-                )}
-                renderPlaceholder={LoadingIndicator}
+      if (data.entries.matches[0].total > 0) {
+        let homePage = data.entries.matches[0].items[0];
+        if (!homePage) return null;
+        const result = data.entries.items[homePage];
+        homePage = result.fields;
+        return (
+          <ContentfulLoader
+            preview={data.preview}
+            render={() => (
+              <HomePage
+                homePage={homePage}
+                auth={auth}
               />
-            );
-          }
-          return (<Error404 />);
-        }}
+            )}
+            renderPlaceholder={LoadingIndicator}
+          />
+        );
+      }
+      return (<Error404 />);
+    }}
     enderPlaceholder={LoadingIndicator}
   />
 );

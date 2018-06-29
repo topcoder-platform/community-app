@@ -34,8 +34,15 @@ test('Snapshot match', () => {
 
 class Wrapper extends React.Component {
   componentDidMount() {}
+
   render() {
-    return <table><tbody><Submission {...this.props} /></tbody></table>;
+    return (
+      <table>
+        <tbody>
+          <Submission {...this.props} />
+        </tbody>
+      </table>
+    );
   }
 }
 

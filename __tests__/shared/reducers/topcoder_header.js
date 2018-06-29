@@ -81,8 +81,6 @@ function testReducer(reducer, istate) {
   });
 }
 
-describe('Default reducer', () =>
-  testReducer(reducers.default, {
-    currentNav: {},
-  }));
-
+describe('Default reducer', () => testReducer(reducers.default, {
+  currentNav: {},
+}));

@@ -18,6 +18,11 @@ module.exports = {
   URL: {
     ARENA: 'https://arena.topcoder.com',
     APP: 'https://community-app.topcoder.com',
+
+    /* This is the same value as above, but it is used by topcoder-react-lib,
+     * as a more verbose name for the param. */
+    COMMUNITY_APP: 'https://community-app.topcoder.com',
+
     AUTH: 'https://accounts.topcoder.com',
     BASE: 'https://www.topcoder.com',
     BLOG: 'https://www.topcoder.com/blog',
