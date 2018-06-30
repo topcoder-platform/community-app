@@ -176,7 +176,7 @@ I UNDERSTAND AND AGREE
                 type="submit"
                 disabled={!agreed || !!fpState.error || !fpState.fileName}
               >
-Submit
+                Submit
               </PrimaryButton>
             </div>
           </form>

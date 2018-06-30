@@ -385,8 +385,9 @@ I UNDERSTAND AND AGREE
                 || customFontRecords.some(x => !_.isEmpty(x.errors))
                 || stockArtRecords.some(x => !_.isEmpty(x.errors))
               }
+              type="submit"
             >
-Submit
+              Submit
             </PrimaryButton>
           </div>
         </form>
