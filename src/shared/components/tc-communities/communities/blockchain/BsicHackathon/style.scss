@@ -106,7 +106,21 @@ $bannerBackgroundColor: #131a24;
   flex-wrap: wrap;
   justify-content: center;
 
+  &.wide {
+    justify-content: space-between;
+  }
+
+  :first-child {
+    margin-left: 0;
+  }
+
+  :last-child {
+    margin-right: 0;
+  }
+
   > * {
+    font: 28px 'Open Sans', sans-serif;
+    line-height: 1.2;
     margin: 20px;
   }
 }
