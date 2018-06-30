@@ -425,7 +425,7 @@ function create(initialState) {
  * @return {Promise} Resolves to the new reducer.
  */
 export function factory(req) {
-  if (req && req.url.match(/challenges(\/?$|\?)/)) {
+  if (req && req.url.match(/challenges(\/?$|\/?\?)/)) {
     let state = {};
 
     if (req.query.filter) {
