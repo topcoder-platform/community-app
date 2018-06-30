@@ -2,10 +2,12 @@
  * Fun Facts component.  Renders 3 random fun facts with accompanying photos.
  * Implements a carousel for mobile version, with very basic gesture support.
  */
+import _ from 'lodash';
 import React from 'react';
 import PT from 'prop-types';
 import { getStories } from 'utils/hall-of-fame';
 import showdown from 'showdown';
+import ContentfulLoader from 'containers/ContentfulLoader';
 
 import './styles.scss';
 
@@ -45,46 +47,72 @@ class FunFacts extends React.Component {
   }
 
   render() {
-    const {
-      activeMobileFact,
-      facts,
-    } = this.state;
+    const { data } = this.props;
+    const { activeMobileFact, facts } = this.state;
+    const storyIds = _.map(data.list, item => (item.sys.id));
     return (
-      <div
-        onTouchStart={(e) => { this.startX = e.touches[0].pageX; this.endX = this.startX; }}
-        onTouchMove={(e) => { this.endX = e.touches[0].pageX; }}
-        onTouchEnd={() => this.handleTouchEnd()}
-        styleName="container"
-      >
-        {
-          facts.map((fact, index) => (
-            <div
-              key={fact.text}
-              styleName={`fact ${index === activeMobileFact ? 'mobile-active' : ''}`}
-            >
-              <img styleName="photo" src={fact.image.file.url} alt="Fun Fact" />
-              <div
-                styleName="text"
-                dangerouslySetInnerHTML={{ __html: converter.makeHtml(fact.text) }}
-              />
-            </div>
-          ))
-        }
-        <div styleName="mobile-buttons">
-          {
-            facts.map((fact, index) => (
-              <span
-                key={`${fact.text} button`}
-                onClick={() => this.setState({ activeMobileFact: index })}
-                onKeyPress={() => this.setState({ activeMobileFact: index })}
-                role="button"
-                styleName={`mobile-button ${index === activeMobileFact ? 'mobile-active' : ''}`}
-                tabIndex="0"
-              />
-            ))
+      <ContentfulLoader
+        entryIds={storyIds}
+        render={(result) => {
+          for (let i = 0; i !== storyIds.length; i += 1) {
+            data.list[i].fields = result.entries.items[storyIds[i]].fields;
           }
-        </div>
-      </div>
+          // process image
+          const imageIds = _.map(data.list, item => (item.fields.image.sys.id));
+          return (
+            <ContentfulLoader
+              assetIds={imageIds}
+              render={(imageResult) => {
+                for (let i = 0; i !== imageIds.length; i += 1) {
+                  data.list[i].fields.image.fields = imageResult.assets.items[imageIds[i]].fields;
+                }
+                return (
+                  <div
+                    onTouchStart={(e) => {
+                      this.startX = e.touches[0].pageX;
+                      this.endX = this.startX;
+                    }}
+                    onTouchMove={(e) => { this.endX = e.touches[0].pageX; }}
+                    onTouchEnd={() => this.handleTouchEnd()}
+                    styleName="container"
+                  >
+                    {
+                      facts.map((fact, index) => (
+                        <div
+                          key={fact.fields.text}
+                          styleName={`fact ${index === activeMobileFact ? 'mobile-active' : ''}`}
+                        >
+                          <img styleName="photo" src={fact.fields.image.fields.file.url} alt="Fun Fact" />
+                          <div
+                            styleName="text"
+                            dangerouslySetInnerHTML={{
+                              __html: converter.makeHtml(fact.fields.text),
+                            }}
+                          />
+                        </div>
+                      ))
+                    }
+                    <div styleName="mobile-buttons">
+                      {
+                        facts.map((fact, index) => (
+                          <span
+                            key={`${fact.fields.text} button`}
+                            onClick={() => this.setState({ activeMobileFact: index })}
+                            onKeyPress={() => this.setState({ activeMobileFact: index })}
+                            role="button"
+                            styleName={`mobile-button ${index === activeMobileFact ? 'mobile-active' : ''}`}
+                            tabIndex="0"
+                          />
+                        ))
+                      }
+                    </div>
+                  </div>
+                );
+              }}
+            />
+          );
+        }}
+      />
     );
   }
 }

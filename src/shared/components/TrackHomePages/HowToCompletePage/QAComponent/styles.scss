@@ -65,7 +65,6 @@
 
   color: $tc-dark-blue-110;
   align-self: left;
-  margin-top: 15px;
   margin-left: 20px;
 
   @media screen and (max-width: $screen-sm) {
@@ -84,11 +83,9 @@
   margin-right: 20px;
   width: 20px;
   height: 11px;
-  margin-top: 18px;
 
   &.active {
     transform: scale(1, -1);
-    margin-top: 20px;
   }
 
   @media screen and (max-width: $screen-sm) {

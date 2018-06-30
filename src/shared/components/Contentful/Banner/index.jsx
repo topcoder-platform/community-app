@@ -13,6 +13,8 @@ import Banner from './Banner';
 const THEMES = {
   TopGear: require('./themes/top_gear.scss'),
   'Default Sub-Community': require('./themes/default_sub-community.scss'),
+  'Simple Title above Background':
+    require('./themes/simple_title_above_background.scss'),
 };
 /* eslint-enable global-require */
 

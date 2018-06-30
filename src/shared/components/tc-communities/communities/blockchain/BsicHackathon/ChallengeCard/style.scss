@@ -40,7 +40,7 @@
   @include h3;
 
   // align-self: center;
-  margin-top: 10px;
+  margin-top: -5px;
 }
 
 .thumbnail {
@@ -63,6 +63,8 @@
   */
 
   h3 {
+    @include h3;
+
     margin-top: 10px;
   }
 

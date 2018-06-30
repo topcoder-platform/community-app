@@ -156,7 +156,7 @@ Judging Criteria
           <h1 styleName="h1">
             Completed
           </h1>
-          <div styleName="facts">
+          <div styleName="facts wide">
             <p>
               664
               <br />

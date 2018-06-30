@@ -15,8 +15,8 @@ const Role = ({ count, data, theme }) => (
     </div>
     {
       data.members.map(member => (
-        <div key={member.handle} className={theme.winner}>
-          {member.handle}
+        <div key={member.fields.handle} className={theme.winner}>
+          {member.fields.handle}
         </div>
       ))
     }

@@ -17,22 +17,22 @@ const Track = ({
       {track}
     </div>
     <div className={theme.winner}>
-      <img src={data.champion.image.file.url} alt="Winner Portrait" />
+      <img src={data.fields.champion.fields.image.fields.file.url} alt="Winner Portrait" />
       <div>
-        {data.champion.handle}
+        {data.fields.champion.fields.handle}
       </div>
       <div className={theme.label}>
 Champion
       </div>
     </div>
     {
-      data.members.map(member => (
-        <div key={member.handle} className={theme.finalist}>
-          {member.handle}
+      data.fields.members.map(member => (
+        <div key={member.fields.handle} className={theme.finalist}>
+          {member.fields.handle}
         </div>
       ))
     }
-    { _.range(data.members.length, count).map(i => <div className={theme.empty} key={i} />) }
+    { _.range(data.fields.members.length, count).map(i => <div className={theme.empty} key={i} />) }
   </div>
 ) : false);
 
