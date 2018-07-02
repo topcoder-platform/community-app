@@ -65,13 +65,18 @@ const TRACK_COLOR_CLASS = {
 /**
  * Renders the tooltip's content.
  */
-function Tip(props) {
+function Tip({
+  subTrack,
+  track,
+}) {
   return (
     <div styleName="track-abbreviation-tooltip">
-      <div styleName={`header ${TRACK_COLOR_CLASS[props.track]}`}>
-        {HEADER[props.subTrack]}
+      <div styleName={`header ${TRACK_COLOR_CLASS[track]}`}>
+        {HEADER[subTrack]}
       </div>
-      <div styleName="body">{DESCRIPTION[props.subTrack]}</div>
+      <div styleName="body">
+        {DESCRIPTION[subTrack]}
+      </div>
     </div>
   );
 }
@@ -89,8 +94,12 @@ function placeArrow(TooltipNode) {
 /**
  * Renders the tooltip.
  */
-function TrackAbbreviationTooltip(props) {
-  const tip = <Tip track={props.track} subTrack={props.subTrack} />;
+function TrackAbbreviationTooltip({
+  children,
+  subTrack,
+  track,
+}) {
+  const tip = <Tip track={track} subTrack={subTrack} />;
   return (
     <Tooltip
       className="track-abbreviation-tooltip"
@@ -98,7 +107,7 @@ function TrackAbbreviationTooltip(props) {
       position="topLeft"
       placeArrow={placeArrow}
     >
-      {props.children}
+      {children}
     </Tooltip>
   );
 }

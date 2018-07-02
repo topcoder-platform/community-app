@@ -19,9 +19,9 @@ export default class TermDetails extends React.Component {
   }
 
   componentWillMount() {
-    const { details } = this.props;
+    const { details, getDocuSignUrl } = this.props;
     if (details.agreeabilityType !== 'Electronically-agreeable' && details.docusignTemplateId) {
-      this.props.getDocuSignUrl(details.docusignTemplateId);
+      getDocuSignUrl(details.docusignTemplateId);
       this.setState({ loadingFrame: true });
     }
   }
@@ -37,38 +37,43 @@ export default class TermDetails extends React.Component {
       details, docuSignUrl,
       loadingDocuSignUrl,
     } = this.props;
+    const { loadingFrame } = this.state;
 
     return (
       <div>
         {
-          details.agreeabilityType === 'Electronically-agreeable' &&
+          details.agreeabilityType === 'Electronically-agreeable'
+          && (
           <div>
             <div
               dangerouslySetInnerHTML={{ __html: details.text.replace(/topcoder/gi, 'Topcoder') }}
               styleName="body"
             />
           </div>
+          )
         }
         {
-          details.agreeabilityType !== 'Electronically-agreeable' &&
-          details.docusignTemplateId === loadingDocuSignUrl &&
-          <LoadingIndicator />
+          details.agreeabilityType !== 'Electronically-agreeable'
+          && details.docusignTemplateId === loadingDocuSignUrl
+          && <LoadingIndicator />
         }
         {
-          details.agreeabilityType !== 'Electronically-agreeable' && details.docusignTemplateId &&
-          !loadingDocuSignUrl && docuSignUrl &&
+          details.agreeabilityType !== 'Electronically-agreeable' && details.docusignTemplateId
+          && !loadingDocuSignUrl && docuSignUrl
+          && (
           <div>
             {
-              this.state.loadingFrame &&
-              <LoadingIndicator />
+              loadingFrame
+              && <LoadingIndicator />
             }
             <iframe
               onLoad={this.frameLoaded}
               src={docuSignUrl}
-              styleName={this.state.loadingFrame ? 'hidden' : 'frame'}
+              styleName={loadingFrame ? 'hidden' : 'frame'}
               title={details.title}
             />
           </div>
+          )
         }
       </div>
     );

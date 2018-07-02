@@ -7,7 +7,7 @@
 import PT from 'prop-types';
 import React from 'react';
 import Tooltip from 'components/Tooltip';
-import { DETAIL_TABS } from 'actions/challenge';
+import { TABS as DETAIL_TABS } from 'actions/page/challenge-details';
 import { config, Link } from 'topcoder-react-utils';
 
 /* TODO: The icon should be converted back to SVG and imported using the
@@ -15,6 +15,9 @@ import { config, Link } from 'topcoder-react-utils';
 import RegistrantsIcon from '../../Icons/RegistrantsIcon';
 
 import './style.scss';
+
+const ID_LENGTH = 6;
+const MM_BASE_URL = `${config.URL.COMMUNITY}/longcontest/?module=ViewRegistrants&rd=`;
 
 export default function NumRegistrants({
   challenge: {
@@ -45,22 +48,26 @@ export default function NumRegistrants({
   return (
     <span styleName="container">
       <Tooltip
-        content={
-          <div styleName="tooltip">{tip}</div>
-        }
+        content={(
+          <div styleName="tooltip">
+            {tip}
+          </div>
+)}
       >
         <Link
           disabled={!numRegistrants}
           forceA={subTrack === 'MARATHON_MATCH' && isLegacy}
           onClick={() => (
-            selectChallengeDetailsTab(numRegistrants ?
-              DETAIL_TABS.REGISTRANTS : DETAIL_TABS.DETAILS)
+            selectChallengeDetailsTab(numRegistrants
+              ? DETAIL_TABS.REGISTRANTS : DETAIL_TABS.DETAILS)
           )}
           styleName="link"
           to={link}
         >
           <RegistrantsIcon />
-          <span styleName="number">{numRegistrants}</span>
+          <span styleName="number">
+            {numRegistrants}
+          </span>
         </Link>
       </Tooltip>
     </span>

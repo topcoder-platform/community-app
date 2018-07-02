@@ -35,7 +35,7 @@ test('Matches shallow shapshot', () => {
   const renderer = new Renderer();
 
   renderer.render((
-    <StaticRouter context={{}} >
+    <StaticRouter context={{}}>
       <LeaderboardAvatar {...mockData} />
     </StaticRouter>
   ));
@@ -44,7 +44,7 @@ test('Matches shallow shapshot', () => {
 
 test.skip('Render properly', () => {
   let instance = TU.renderIntoDocument((
-    <StaticRouter context={{}} >
+    <StaticRouter context={{}}>
       <LeaderboardAvatar {...mockData2} />
     </StaticRouter>
   ));
@@ -55,7 +55,7 @@ test.skip('Render properly', () => {
   expect(instance.state.member).toEqual(mockData2.member);
 
   instance = TU.renderIntoDocument((
-    <StaticRouter context={{}} >
+    <StaticRouter context={{}}>
       <LeaderboardAvatar {...mockData3} />
     </StaticRouter>
   ));

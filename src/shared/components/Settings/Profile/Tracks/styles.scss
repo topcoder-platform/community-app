@@ -1,0 +1,102 @@
+@import "~styles/mixins";
+
+.track-toggle {
+  border-top: 1px solid $tc-gray-20;
+
+  hr {
+    margin-top: 15px;
+    width: 100%;
+
+    &.first {
+      margin-top: 0;
+    }
+
+    &.bottom {
+      margin-bottom: 0;
+    }
+  }
+
+  .track {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+
+    .content {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      padding: 15px 0;
+      border-bottom: 1px solid $tc-gray-20;
+      width: 100%;
+      transition: background-color 0.15s;
+
+      &.disabled {
+        background-color: $tc-gray-neutral-light;
+      }
+
+      .track-details {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        padding-left: 10px;
+
+        .icon {
+          &.disabled {
+            color: #b7b7b7;
+          }
+
+          svg,
+          img {
+            height: 32px;
+            width: 32px;
+          }
+
+          span {
+            @include sofia-pro-medium;
+
+            font-size: 16px;
+          }
+        }
+      }
+    }
+
+    .text {
+      margin-left: 15px;
+
+      .title {
+        font-size: 16px;
+        line-height: 28px;
+
+        @include sofia-pro-medium;
+
+        text-transform: uppercase;
+        transition: 0.1s color;
+
+        &.disabled {
+          color: #b7b7b7;
+        }
+      }
+
+      .description {
+        @include merriweather-sans-regular;
+
+        font-size: 13px;
+        margin-top: 4px;
+        color: $tc-gray-40;
+      }
+    }
+  }
+
+  @media only screen and (min-width: 760px) {
+    hr {
+      margin: 20px 0;
+      margin-top: 20px;
+
+      &.first {
+        margin-top: 0;
+      }
+    }
+  }
+}
+

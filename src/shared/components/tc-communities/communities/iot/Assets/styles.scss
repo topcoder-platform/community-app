@@ -1,0 +1,6 @@
+@import '~styles/mixins';
+@import '../themes/mixins';
+
+.main {
+  @include main;
+}

@@ -1,0 +1,43 @@
+@import "~styles/mixins";
+
+.contentWrapper {
+  background-color: rgb(189, 115, 30);
+  border-radius: 6px;
+  overflow: hidden;
+  padding: 0;
+}
+
+.container {
+  background: white;
+  align-content: center;
+
+  &:nth-child(even) .contentWrapper {
+    background-color: rgb(37, 192, 137);
+  }
+}
+
+.content {
+  flex: 1;
+  padding: 30px;
+
+  h1 {
+    color: $tc-white;
+    font: 600 36px "Open Sans", sans-serif;
+    margin-bottom: 12px;
+  }
+
+  p {
+    color: $tc-white;
+    font: 15px/22px "Open Sans", sans-serif;
+    padding: 6px 0;
+  }
+}
+
+.image {
+  margin: 0;
+
+  img {
+    height: 100%;
+    object-fit: cover;
+  }
+}

@@ -11,4 +11,3 @@ test('Matches shallow shapshot', () => {
   ));
   expect(renderer.getRenderOutput()).toMatchSnapshot();
 });
-

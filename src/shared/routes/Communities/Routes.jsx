@@ -16,6 +16,9 @@ import TcProdDev from './TcProdDev';
 import Veterans from './Veterans';
 import Wipro from './Wipro';
 import Cognitive from './Cognitive';
+import IoT from './iot';
+import TCO19 from './TCO19';
+import Mobile from './Mobile';
 
 export default function Communities({
   base, communityId, member, meta,
@@ -34,6 +37,9 @@ export default function Communities({
       return <Veterans base={base} member={member} meta={meta} />;
     case 'wipro': return <Wipro base={base} meta={meta} />;
     case 'cognitive': return <Cognitive base={base} member={member} meta={meta} />;
+    case 'iot': return <IoT base={base} meta={meta} />;
+    case 'tco19': return <TCO19 base={base} meta={meta} />;
+    case 'mobile': return <Mobile base={base} meta={meta} />;
     default: throw new Error('Unknown community ID!');
   }
 }

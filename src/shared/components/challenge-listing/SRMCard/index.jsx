@@ -50,7 +50,11 @@ MOCK_REGISTRANTS.push(lastItem);
 const renderLeaderboard = MOCK_REGISTRANTS.map((winner, index) => (
   <div className="avatar-container" key={winner.handle}>
     <LeaderboardAvatar member={winner} />
-    {index < MOCK_REGISTRANTS.length - 1 ? <div className="name">{winner.handle}</div> : ''}
+    {index < MOCK_REGISTRANTS.length - 1 ? (
+      <div className="name">
+        {winner.handle}
+      </div>
+    ) : ''}
   </div>
 ));
 
@@ -64,10 +68,16 @@ const HappeningNow = () => (
         </TrackAbbreviationTooltip>
       </div>
       <div className="SRM-details">
-        <p className="open-title">Happening now: SRM 678</p>
+        <p className="open-title">
+Happening now: SRM 678
+        </p>
         <div className="SRM-open-info">
-          <p className="registered">156 registered members</p>
-          <p className="registeration-ends">Registration ends in 24 min.</p>
+          <p className="registered">
+156 registered members
+          </p>
+          <p className="registeration-ends">
+Registration ends in 24 min.
+          </p>
         </div>
       </div>
     </div>
@@ -77,7 +87,9 @@ const HappeningNow = () => (
       </div>
     </div>
     <a href="" className="register-button">
-      <span className="to-register">+ Register</span>
+      <span className="to-register">
++ Register
+      </span>
     </a>
   </div>
 );
@@ -92,22 +104,32 @@ const UpcomingSRMs = ({ srmChallenge }) => (
         </TrackAbbreviationTooltip>
       </div>
       <div className="SRM-details">
-        <p className="upcoming-title">Competitive Programming - {srmChallenge.name}</p>
-        <div className="SRM-date">{moment(srmChallenge.startDate).format('MMM DD, YYYY hh:mm a')}</div>
+        <p className="upcoming-title">
+Competitive Programming -
+          {srmChallenge.name}
+        </p>
+        <div className="SRM-date">
+          {moment(srmChallenge.startDate).format('MMM DD, YYYY hh:mm a')}
+        </div>
       </div>
     </div>
     <div className="right-panel upcoming">
-      <div className="SRM-date">{moment(srmChallenge.startDate).format('MMM DD, YYYY hh:mm a')}</div>
-      <a href="" className="notify-me">Notify me</a>
+      <div className="SRM-date">
+        {moment(srmChallenge.startDate).format('MMM DD, YYYY hh:mm a')}
+      </div>
+      <a href="" className="notify-me">
+Notify me
+      </a>
     </div>
     <a href="" className="notify-button">
-      <span className="notify-me">+ Notify me</span>
+      <span className="notify-me">
++ Notify me
+      </span>
     </a>
   </div>
 );
 
 UpcomingSRMs.defaultProps = {
-  srmChallenge: null,
 };
 
 UpcomingSRMs.propTypes = {
@@ -135,7 +157,6 @@ const SRMCard = ({ category, srmChallenge }) => (
 );
 
 SRMCard.defaultProps = {
-  category: null,
   srmChallenge: null,
 };
 

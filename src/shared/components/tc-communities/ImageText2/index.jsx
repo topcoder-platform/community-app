@@ -17,7 +17,9 @@ function ImageText2(props) {
           backgroundImage: `url(${imageUrl})`,
         }}
       />
-      <div className={theme.content}>{children}</div>
+      <div className={theme.content}>
+        {children}
+      </div>
     </div>
   );
 }

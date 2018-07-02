@@ -26,12 +26,18 @@ export default function Header({
         tabIndex={0}
       >
         {<LogoTopcoder styleName="logo" />}
-        <div styleName="menu">Menu</div>
+        <div styleName="menu">
+Menu
+        </div>
         {profile ? (
           <div styleName="avatar">
             <Avatar url={profile.photoURL} />
           </div>
-        ) : <div styleName="auth"><Auth /></div>}
+        ) : (
+          <div styleName="auth">
+            <Auth />
+          </div>
+        )}
       </div>
       {opened ? (
         <Menu

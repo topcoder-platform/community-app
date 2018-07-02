@@ -19,8 +19,7 @@ const CONSENSYS_RSS_URL = `/community-app-assets/api/proxy-get?url=${
 }`;
 
 const TOPCODER_BLOCKCHAIN_BLOG_RSS_ID = 'TopcoderBlockchainBlog';
-const TOPCODER_BLOCKCHAIN_BLOG_RSS_URL =
-`/community-app-assets/api/proxy-get?url=${
+const TOPCODER_BLOCKCHAIN_BLOG_RSS_URL = `/community-app-assets/api/proxy-get?url=${
   encodeURIComponent('https://www.topcoder.com/blog/tag/blockchain/feed/')
 }`;
 

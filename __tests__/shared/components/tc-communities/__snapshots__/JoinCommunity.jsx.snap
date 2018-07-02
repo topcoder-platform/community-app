@@ -1,9 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Matches shallow shapshot 1`] = `
-<div
-  className={undefined}
->
+<div>
   <ThemedButton
     active={false}
     className=""
@@ -19,11 +17,11 @@ exports[`Matches shallow shapshot 1`] = `
     size={null}
     themePriority="adhoc-context-default"
     to={null}
+    type="button"
   >
     Join Community
   </ThemedButton>
   <ConfirmModal
-    communityId={undefined}
     communityName="ios"
     customTcAuthModalText=""
     groupIds={
@@ -42,9 +40,7 @@ exports[`Matches shallow shapshot 1`] = `
 `;
 
 exports[`Matches shallow shapshot 2`] = `
-<div
-  className={undefined}
->
+<div>
   <ThemedButton
     active={false}
     className="src-shared-components-tc-communities-JoinCommunity-style___joining___rq-m2x"
@@ -60,6 +56,7 @@ exports[`Matches shallow shapshot 2`] = `
     size={null}
     themePriority="adhoc-context-default"
     to={null}
+    type="button"
   >
     <div
       className="src-shared-components-tc-communities-JoinCommunity-style___joiningContainer___2P4Cvw"
@@ -92,9 +89,7 @@ exports[`Matches shallow shapshot 3`] = `
 `;
 
 exports[`Matches shallow shapshot 4`] = `
-<div
-  className={undefined}
->
+<div>
   <ThemedButton
     active={false}
     className=""
@@ -110,6 +105,7 @@ exports[`Matches shallow shapshot 4`] = `
     size={null}
     themePriority="adhoc-context-default"
     to={null}
+    type="button"
   >
     Join Community
   </ThemedButton>
@@ -150,6 +146,7 @@ exports[`Matches shallow shapshot 4`] = `
       }
       themePriority="adhoc-context-default"
       to={null}
+      type="button"
     >
       Return to the Community
     </ThemedButton>
@@ -158,9 +155,7 @@ exports[`Matches shallow shapshot 4`] = `
 `;
 
 exports[`Matches shallow shapshot 5`] = `
-<div
-  className={undefined}
->
+<div>
   <ThemedButton
     active={false}
     className=""
@@ -176,11 +171,11 @@ exports[`Matches shallow shapshot 5`] = `
     size={null}
     themePriority="adhoc-context-default"
     to={null}
+    type="button"
   >
     Join Community
   </ThemedButton>
   <ConfirmModal
-    communityId={undefined}
     communityName="ios"
     customTcAuthModalText=""
     groupIds={

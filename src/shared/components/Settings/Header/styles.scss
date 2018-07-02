@@ -1,0 +1,68 @@
+@import "~styles/mixins";
+
+.page-state-header {
+  background-color: $tc-gray-neutral-light;
+  border-bottom: 1px solid $tc-gray-10;
+  border-top-left-radius: 6px;
+  border-top-right-radius: 6px;
+  height: 120px;
+  padding: 42px 50px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  align-content: space-between;
+}
+
+.page-info {
+  align-self: left;
+  width: 505px;
+
+  h1 {
+    @include roboto-regular;
+
+    font-size: 28px;
+    font-weight: normal;
+    font-style: normal;
+    font-stretch: normal;
+    line-height: 1.25;
+    letter-spacing: normal;
+    color: $tc-black;
+  }
+}
+
+.menu-list {
+  @include roboto-medium;
+
+  align-self: right;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  align-content: space-between;
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 20px;
+  width: 691px;
+
+  a {
+    width: 25%;
+    cursor: pointer;
+    text-align: center;
+    margin: 0;
+    margin-right: 100px;
+    outline-style: none;
+  }
+
+  a:last-child {
+    margin-right: 0;
+  }
+
+  .tab {
+    color: $tc-gray-30;
+  }
+
+  .active-tab {
+    color: $tc-black;
+    padding: 15px 0;
+    border-bottom: 2px solid $tc-dark-blue-110;
+  }
+}

@@ -8,6 +8,7 @@ export default createActions({
   PAGE: {
     HALL_OF_FAME: {
       SET_SELECTED_EVENT: _.identity,
+      SET_SELECTED_EVENT_TYPE: _.identity,
     },
   },
 });

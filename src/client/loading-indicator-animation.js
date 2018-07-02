@@ -18,10 +18,8 @@ function animateLoadingIndicators(timestamp) {
     circle.setAttribute('opacity', 1.0 - (phase1 * phase1));
   };
 
-  const circle1 =
-    document.querySelectorAll('circle[id="loading-indicator-circle1"]');
-  const circle2 =
-    document.querySelectorAll('circle[id="loading-indicator-circle2"]');
+  const circle1 = document.querySelectorAll('circle[id="loading-indicator-circle1"]');
+  const circle2 = document.querySelectorAll('circle[id="loading-indicator-circle2"]');
 
   circle1.forEach(x => updateCircle(x, 0));
   circle2.forEach(x => updateCircle(x, 0.5));

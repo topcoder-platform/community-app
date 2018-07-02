@@ -175,6 +175,7 @@ exports[`renders a full Profile correctly 1`] = `
               theme={Object {}}
               themePriority="adhoc-context-default"
               to={null}
+              type="button"
             >
               VIEW ALL
             </ThemedButton>
@@ -183,308 +184,373 @@ exports[`renders a full Profile correctly 1`] = `
         <div
           id="profile-activity"
         >
-          <div
-            className="src-shared-components-ProfilePage-___styles__categories___3breE"
-          >
-            <div
-              className="src-shared-components-ProfilePage-___styles__track___1HhV4"
-              id="COPILOT"
-            >
-              <div
-                className="src-shared-components-ProfilePage-___styles__name___MlhSb"
-              >
-                <CopilotIcon
-                  height="32"
-                  viewBox="0 0 32 32"
-                  width="32"
-                  xmlns="http://www.w3.org/2000/svg"
-                />
-                <span>
-                  COPILOT
-                   ACTIVITY
-                </span>
-              </div>
-              <Link
-                className="src-shared-components-ProfilePage-___styles__subtrack___3XSXN src-shared-components-ProfilePage-___styles__first___2Jpel"
-                replace={false}
-                to="#"
-              >
-                <div
-                  className="src-shared-components-ProfilePage-___styles__name___MlhSb"
-                >
-                  COPILOT
-                </div>
-                <div
-                  className="src-shared-components-ProfilePage-___styles__ranking___3HTWE"
-                >
-                  <div
-                    className="src-shared-components-ProfilePage-___styles__number___2_Xhl"
-                    style={
-                      Object {
-                        "color": "#a3a3ae",
-                      }
-                    }
-                  >
-                    98%
-                  </div>
-                  <div
-                    className="src-shared-components-ProfilePage-___styles__tag___2aLPA"
-                  >
-                    Fulfillment
-                  </div>
-                </div>
-                <ArrowNext
-                  className="src-shared-components-ProfilePage-___styles__arrow___3RiTC"
-                  height="19"
-                  viewBox="0 0 12 19"
-                  width="12"
-                  xmlns="http://www.w3.org/2000/svg"
-                />
-              </Link>
-            </div>
-            <div
-              className="src-shared-components-ProfilePage-___styles__track___1HhV4"
-              id="DEVELOP"
-            >
-              <div
-                className="src-shared-components-ProfilePage-___styles__name___MlhSb"
-              >
-                <DevelopIcon
-                  height="32"
-                  viewBox="0 0 32 32"
-                  width="32"
-                  xmlns="http://www.w3.org/2000/svg"
-                />
-                <span>
-                  DEVELOPMENT
-                   ACTIVITY
-                </span>
-              </div>
-              <Link
-                className="src-shared-components-ProfilePage-___styles__subtrack___3XSXN src-shared-components-ProfilePage-___styles__first___2Jpel"
-                replace={false}
-                to="#"
-              >
-                <div
-                  className="src-shared-components-ProfilePage-___styles__name___MlhSb"
-                >
-                  FIRST2FINISH
-                </div>
-                <div
-                  className="src-shared-components-ProfilePage-___styles__ranking___3HTWE"
-                >
-                  <div
-                    className="src-shared-components-ProfilePage-___styles__number___2_Xhl"
-                    style={
-                      Object {
-                        "color": "#21b2f1",
-                      }
-                    }
-                  >
-                    3
-                  </div>
-                  <div
-                    className="src-shared-components-ProfilePage-___styles__tag___2aLPA"
-                  >
-                    Wins
-                  </div>
-                </div>
-                <ArrowNext
-                  className="src-shared-components-ProfilePage-___styles__arrow___3RiTC"
-                  height="19"
-                  viewBox="0 0 12 19"
-                  width="12"
-                  xmlns="http://www.w3.org/2000/svg"
-                />
-              </Link>
-            </div>
-            <div
-              className="src-shared-components-ProfilePage-___styles__track___1HhV4"
-              id="DESIGN"
-            >
-              <div
-                className="src-shared-components-ProfilePage-___styles__name___MlhSb"
-              >
-                <DesignIcon
-                  height="32"
-                  viewBox="0 0 32 32"
-                  width="32"
-                  xmlns="http://www.w3.org/2000/svg"
-                />
-                <span>
-                  DESIGN
-                   ACTIVITY
-                </span>
-              </div>
-              <Link
-                className="src-shared-components-ProfilePage-___styles__subtrack___3XSXN src-shared-components-ProfilePage-___styles__first___2Jpel"
-                replace={false}
-                to="#"
-              >
-                <div
-                  className="src-shared-components-ProfilePage-___styles__name___MlhSb"
-                >
-                  LOGO DESIGN
-                </div>
-                <div
-                  className="src-shared-components-ProfilePage-___styles__ranking___3HTWE"
-                >
-                  <div
-                    className="src-shared-components-ProfilePage-___styles__number___2_Xhl"
-                    style={
-                      Object {
-                        "color": "#21b2f1",
-                      }
-                    }
-                  >
-                    0
-                  </div>
-                  <div
-                    className="src-shared-components-ProfilePage-___styles__tag___2aLPA"
-                  >
-                    Wins
-                  </div>
-                </div>
-                <ArrowNext
-                  className="src-shared-components-ProfilePage-___styles__arrow___3RiTC"
-                  height="19"
-                  viewBox="0 0 12 19"
-                  width="12"
-                  xmlns="http://www.w3.org/2000/svg"
-                />
-              </Link>
-              <Link
-                className="src-shared-components-ProfilePage-___styles__subtrack___3XSXN"
-                replace={false}
-                to="#"
-              >
-                <div
-                  className="src-shared-components-ProfilePage-___styles__name___MlhSb"
-                >
-                  WEB DESIGNS
-                </div>
-                <div
-                  className="src-shared-components-ProfilePage-___styles__ranking___3HTWE"
-                >
-                  <div
-                    className="src-shared-components-ProfilePage-___styles__number___2_Xhl"
-                    style={
-                      Object {
-                        "color": "#21b2f1",
-                      }
-                    }
-                  >
-                    0
-                  </div>
-                  <div
-                    className="src-shared-components-ProfilePage-___styles__tag___2aLPA"
-                  >
-                    Wins
-                  </div>
-                </div>
-                <ArrowNext
-                  className="src-shared-components-ProfilePage-___styles__arrow___3RiTC"
-                  height="19"
-                  viewBox="0 0 12 19"
-                  width="12"
-                  xmlns="http://www.w3.org/2000/svg"
-                />
-              </Link>
-            </div>
-            <div
-              className="src-shared-components-ProfilePage-___styles__track___1HhV4"
-              id="DATA_SCIENCE"
-            >
-              <div
-                className="src-shared-components-ProfilePage-___styles__name___MlhSb"
-              >
-                <DataScienceIcon
-                  height="32"
-                  viewBox="0 0 32 32"
-                  width="32"
-                  xmlns="http://www.w3.org/2000/svg"
-                />
-                <span>
-                  DATA SCIENCE
-                   ACTIVITY
-                </span>
-              </div>
-              <Link
-                className="src-shared-components-ProfilePage-___styles__subtrack___3XSXN src-shared-components-ProfilePage-___styles__first___2Jpel"
-                replace={false}
-                to="#"
-              >
-                <div
-                  className="src-shared-components-ProfilePage-___styles__name___MlhSb"
-                >
-                  MARATHON MATCH
-                </div>
-                <div
-                  className="src-shared-components-ProfilePage-___styles__ranking___3HTWE"
-                >
-                  <div
-                    className="src-shared-components-ProfilePage-___styles__number___2_Xhl"
-                    style={
-                      Object {
-                        "color": "#FCD617",
-                      }
-                    }
-                  >
-                    1800
-                  </div>
-                  <div
-                    className="src-shared-components-ProfilePage-___styles__tag___2aLPA"
-                  >
-                    Rating
-                  </div>
-                </div>
-                <ArrowNext
-                  className="src-shared-components-ProfilePage-___styles__arrow___3RiTC"
-                  height="19"
-                  viewBox="0 0 12 19"
-                  width="12"
-                  xmlns="http://www.w3.org/2000/svg"
-                />
-              </Link>
-              <Link
-                className="src-shared-components-ProfilePage-___styles__subtrack___3XSXN"
-                replace={false}
-                to="#"
-              >
-                <div
-                  className="src-shared-components-ProfilePage-___styles__name___MlhSb"
-                >
-                  SRM
-                </div>
-                <div
-                  className="src-shared-components-ProfilePage-___styles__ranking___3HTWE"
-                >
-                  <div
-                    className="src-shared-components-ProfilePage-___styles__number___2_Xhl"
-                    style={
-                      Object {
-                        "color": "#FCD617",
-                      }
-                    }
-                  >
-                    1650
-                  </div>
-                  <div
-                    className="src-shared-components-ProfilePage-___styles__tag___2aLPA"
-                  >
-                    Rating
-                  </div>
-                </div>
-                <ArrowNext
-                  className="src-shared-components-ProfilePage-___styles__arrow___3RiTC"
-                  height="19"
-                  viewBox="0 0 12 19"
-                  width="12"
-                  xmlns="http://www.w3.org/2000/svg"
-                />
-              </Link>
-            </div>
-          </div>
+          <StatsCategory
+            className=""
+            handle="testHandle"
+            inModal={false}
+            stats={
+              Object {
+                "COPILOT": Object {
+                  "fulfillment": "98",
+                },
+                "DATA_SCIENCE": Object {
+                  "MARATHON_MATCH": Object {
+                    "challenges": 2,
+                    "rank": Object {
+                      "avgNumSubmissions": 0,
+                      "avgRank": 0,
+                      "bestRank": 0,
+                      "competitions": 0,
+                      "countryRank": 0,
+                      "defaultLanguage": "Java",
+                      "maximumRating": 0,
+                      "minimumRating": 0,
+                      "percentile": 0,
+                      "rank": 0,
+                      "rating": 1800,
+                      "schoolRank": 0,
+                      "topFiveFinishes": 0,
+                      "topTenFinishes": 0,
+                      "volatility": 0,
+                    },
+                    "wins": 1,
+                  },
+                  "SRM": Object {
+                    "challengeDetails": null,
+                    "challenges": 0,
+                    "division1": null,
+                    "division2": null,
+                    "rank": Object {
+                      "competitions": 0,
+                      "countryRank": 0,
+                      "defaultLanguage": "Java",
+                      "maximumRating": 0,
+                      "minimumRating": 0,
+                      "percentile": 0,
+                      "rank": 0,
+                      "rating": 1650,
+                      "schoolRank": 0,
+                      "volatility": 0,
+                    },
+                    "wins": 0,
+                  },
+                  "challenges": 5,
+                  "wins": 4,
+                },
+                "DESIGN": Object {
+                  "challenges": 49,
+                  "mostRecentEventDate": "2015-01-30T00:50:17.000Z",
+                  "mostRecentSubmission": "2014-03-29T08:12:00.000Z",
+                  "subTracks": Array [
+                    Object {
+                      "avgPlacement": 0,
+                      "challenges": 3,
+                      "id": 20,
+                      "mostRecentEventDate": "2010-06-30T07:00:00.000Z",
+                      "mostRecentSubmission": "2009-04-16T22:17:00.000Z",
+                      "name": "LOGO_DESIGN",
+                      "numInquiries": 3,
+                      "passedScreening": 0,
+                      "screeningSuccessRate": 0,
+                      "submissionRate": 0.3333333333333333,
+                      "submissions": 1,
+                      "winPercent": 0,
+                      "wins": 0,
+                    },
+                    Object {
+                      "avgPlacement": 0,
+                      "challenges": 21,
+                      "id": 17,
+                      "mostRecentEventDate": "2014-12-16T09:01:12.000Z",
+                      "mostRecentSubmission": "2014-03-29T08:12:00.000Z",
+                      "name": "WEB_DESIGNS",
+                      "numInquiries": 21,
+                      "passedScreening": 0,
+                      "screeningSuccessRate": 0,
+                      "submissionRate": 0.04761904761904762,
+                      "submissions": 1,
+                      "winPercent": 0,
+                      "wins": 0,
+                    },
+                    Object {
+                      "avgPlacement": 0,
+                      "challenges": 3,
+                      "id": 34,
+                      "mostRecentEventDate": "2009-09-08T12:00:00.000Z",
+                      "name": "STUDIO_OTHER",
+                      "numInquiries": 3,
+                      "passedScreening": 0,
+                      "screeningSuccessRate": 0,
+                      "submissionRate": 0,
+                      "submissions": 0,
+                      "winPercent": 0,
+                      "wins": 0,
+                    },
+                    Object {
+                      "avgPlacement": 0,
+                      "challenges": 6,
+                      "id": 16,
+                      "mostRecentEventDate": "2014-05-22T01:00:10.000Z",
+                      "name": "BANNERS_OR_ICONS",
+                      "numInquiries": 6,
+                      "passedScreening": 0,
+                      "screeningSuccessRate": 0,
+                      "submissionRate": 0,
+                      "submissions": 0,
+                      "winPercent": 0,
+                      "wins": 0,
+                    },
+                    Object {
+                      "avgPlacement": 0,
+                      "challenges": 5,
+                      "id": 18,
+                      "mostRecentEventDate": "2014-06-06T03:53:03.000Z",
+                      "name": "WIREFRAMES",
+                      "numInquiries": 5,
+                      "passedScreening": 0,
+                      "screeningSuccessRate": 0,
+                      "submissionRate": 0,
+                      "submissions": 0,
+                      "winPercent": 0,
+                      "wins": 0,
+                    },
+                    Object {
+                      "avgPlacement": 0,
+                      "challenges": 5,
+                      "id": 40,
+                      "mostRecentEventDate": "2015-01-30T00:50:17.000Z",
+                      "name": "DESIGN_FIRST_2_FINISH",
+                      "numInquiries": 5,
+                      "passedScreening": 0,
+                      "screeningSuccessRate": 0,
+                      "submissionRate": 0,
+                      "submissions": 0,
+                      "winPercent": 0,
+                      "wins": 0,
+                    },
+                    Object {
+                      "avgPlacement": 0,
+                      "challenges": 1,
+                      "id": 32,
+                      "mostRecentEventDate": "2010-02-05T23:00:00.000Z",
+                      "name": "APPLICATION_FRONT_END_DESIGN",
+                      "numInquiries": 1,
+                      "passedScreening": 0,
+                      "screeningSuccessRate": 0,
+                      "submissionRate": 0,
+                      "submissions": 0,
+                      "winPercent": 0,
+                      "wins": 0,
+                    },
+                    Object {
+                      "avgPlacement": 0,
+                      "challenges": 3,
+                      "id": 21,
+                      "mostRecentEventDate": "2014-07-08T10:00:16.000Z",
+                      "name": "PRINT_OR_PRESENTATION",
+                      "numInquiries": 3,
+                      "passedScreening": 0,
+                      "screeningSuccessRate": 0,
+                      "submissionRate": 0,
+                      "submissions": 0,
+                      "winPercent": 0,
+                      "wins": 0,
+                    },
+                    Object {
+                      "avgPlacement": 0,
+                      "challenges": 2,
+                      "id": 30,
+                      "mostRecentEventDate": "2014-04-11T09:00:08.000Z",
+                      "name": "WIDGET_OR_MOBILE_SCREEN_DESIGN",
+                      "numInquiries": 2,
+                      "passedScreening": 0,
+                      "screeningSuccessRate": 0,
+                      "submissionRate": 0,
+                      "submissions": 0,
+                      "winPercent": 0,
+                      "wins": 0,
+                    },
+                  ],
+                  "wins": 0,
+                },
+                "DEVELOP": Object {
+                  "challenges": 29,
+                  "mostRecentEventDate": "2017-01-22T16:33:45.000Z",
+                  "mostRecentSubmission": "2017-01-22T19:33:00.000Z",
+                  "subTracks": Array [
+                    Object {
+                      "challenges": 6,
+                      "id": 125,
+                      "mostRecentEventDate": "2014-10-06T11:30:02.000Z",
+                      "name": "ASSEMBLY_COMPETITION",
+                      "rank": Object {
+                        "activeCountryRank": null,
+                        "activePercentile": null,
+                        "activeRank": null,
+                        "activeSchoolRank": null,
+                        "maxRating": null,
+                        "minRating": null,
+                        "overallCountryRank": null,
+                        "overallPercentile": null,
+                        "overallRank": null,
+                        "overallSchoolRank": null,
+                        "rating": null,
+                        "reliability": null,
+                        "volatility": null,
+                      },
+                      "submissions": Object {
+                        "appealSuccessRate": 0,
+                        "appeals": 0,
+                        "avgPlacement": 0,
+                        "avgScore": 0,
+                        "maxScore": 0,
+                        "minScore": 0,
+                        "numInquiries": 6,
+                        "passedReview": 0,
+                        "passedScreening": 0,
+                        "reviewSuccessRate": 0,
+                        "screeningSuccessRate": 0,
+                        "submissionRate": 0,
+                        "submissions": 0,
+                        "winPercent": 0,
+                      },
+                      "wins": 0,
+                    },
+                    Object {
+                      "challenges": 1,
+                      "id": 134,
+                      "mostRecentEventDate": "2014-03-22T22:00:03.000Z",
+                      "name": "CONCEPTUALIZATION",
+                      "rank": Object {
+                        "activeCountryRank": null,
+                        "activePercentile": null,
+                        "activeRank": null,
+                        "activeSchoolRank": null,
+                        "maxRating": null,
+                        "minRating": null,
+                        "overallCountryRank": null,
+                        "overallPercentile": null,
+                        "overallRank": null,
+                        "overallSchoolRank": null,
+                        "rating": null,
+                        "reliability": null,
+                        "volatility": null,
+                      },
+                      "submissions": Object {
+                        "appealSuccessRate": 0,
+                        "appeals": 0,
+                        "avgPlacement": 0,
+                        "avgScore": 0,
+                        "maxScore": 0,
+                        "minScore": 0,
+                        "numInquiries": 1,
+                        "passedReview": 0,
+                        "passedScreening": 0,
+                        "reviewSuccessRate": 0,
+                        "screeningSuccessRate": 0,
+                        "submissionRate": 0,
+                        "submissions": 0,
+                        "winPercent": 0,
+                      },
+                      "wins": 0,
+                    },
+                    Object {
+                      "challenges": 20,
+                      "id": 149,
+                      "mostRecentEventDate": "2017-01-22T16:33:45.000Z",
+                      "mostRecentSubmission": "2017-01-22T19:33:00.000Z",
+                      "name": "FIRST_2_FINISH",
+                      "rank": Object {
+                        "activeCountryRank": null,
+                        "activePercentile": null,
+                        "activeRank": null,
+                        "activeSchoolRank": null,
+                        "maxRating": null,
+                        "minRating": null,
+                        "overallCountryRank": null,
+                        "overallPercentile": null,
+                        "overallRank": null,
+                        "overallSchoolRank": null,
+                        "rating": null,
+                        "reliability": null,
+                        "volatility": null,
+                      },
+                      "submissions": Object {
+                        "appealSuccessRate": 0,
+                        "appeals": 0,
+                        "avgPlacement": 1,
+                        "avgScore": 100,
+                        "maxScore": 100,
+                        "minScore": 100,
+                        "numInquiries": 20,
+                        "passedReview": 3,
+                        "passedScreening": 3,
+                        "reviewSuccessRate": 0.6,
+                        "screeningSuccessRate": 0.6,
+                        "submissionRate": 0.25,
+                        "submissions": 5,
+                        "winPercent": 0.6,
+                      },
+                      "wins": 3,
+                    },
+                    Object {
+                      "challenges": 2,
+                      "id": 150,
+                      "mostRecentEventDate": "2014-10-31T08:37:11.000Z",
+                      "name": "CODE",
+                      "rank": Object {
+                        "activeCountryRank": null,
+                        "activePercentile": null,
+                        "activeRank": null,
+                        "activeSchoolRank": null,
+                        "maxRating": null,
+                        "minRating": null,
+                        "overallCountryRank": null,
+                        "overallPercentile": null,
+                        "overallRank": null,
+                        "overallSchoolRank": null,
+                        "rating": null,
+                        "reliability": null,
+                        "volatility": null,
+                      },
+                      "submissions": Object {
+                        "appealSuccessRate": 0,
+                        "appeals": 0,
+                        "avgPlacement": 0,
+                        "avgScore": 0,
+                        "maxScore": 0,
+                        "minScore": 0,
+                        "numInquiries": 2,
+                        "passedReview": 0,
+                        "passedScreening": 0,
+                        "reviewSuccessRate": 0,
+                        "screeningSuccessRate": 0,
+                        "submissionRate": 0,
+                        "submissions": 0,
+                        "winPercent": 0,
+                      },
+                      "wins": 0,
+                    },
+                  ],
+                  "wins": 3,
+                },
+                "challenges": 78,
+                "createdAt": null,
+                "createdBy": null,
+                "handle": "testHandle",
+                "handleLower": "testhandle",
+                "maxRating": Object {
+                  "rating": 0,
+                  "subTrack": null,
+                  "track": null,
+                },
+                "updatedAt": null,
+                "updatedBy": null,
+                "userId": 200000,
+                "wins": 3,
+              }
+            }
+          />
         </div>
         <div
           className="src-shared-components-ProfilePage-___styles__external-links-container___2jHlD"
@@ -628,6 +694,7 @@ exports[`renders an empty Profile correctly 1`] = `
             theme={Object {}}
             themePriority="adhoc-context-default"
             to="https://www.topcoder-dev.com/community/members"
+            type="button"
           >
             VIEW OTHER MEMBERS
           </ThemedButton>
@@ -635,8 +702,87 @@ exports[`renders an empty Profile correctly 1`] = `
         <div
           id="profile-activity"
         >
-          <div
-            className="src-shared-components-ProfilePage-___styles__categories___3breE"
+          <StatsCategory
+            className=""
+            handle="testHandle"
+            inModal={false}
+            stats={
+              Object {
+                "COPILOT": null,
+                "DATA_SCIENCE": Object {
+                  "MARATHON_MATCH": Object {
+                    "challenges": 0,
+                    "rank": Object {
+                      "avgNumSubmissions": 0,
+                      "avgRank": 0,
+                      "bestRank": 0,
+                      "competitions": 0,
+                      "countryRank": 0,
+                      "defaultLanguage": "Java",
+                      "maximumRating": 0,
+                      "minimumRating": 0,
+                      "percentile": 0,
+                      "rank": 0,
+                      "rating": 0,
+                      "schoolRank": 0,
+                      "topFiveFinishes": 0,
+                      "topTenFinishes": 0,
+                      "volatility": 0,
+                    },
+                    "wins": 0,
+                  },
+                  "SRM": Object {
+                    "challengeDetails": null,
+                    "challenges": 0,
+                    "division1": null,
+                    "division2": null,
+                    "rank": Object {
+                      "competitions": 0,
+                      "countryRank": 0,
+                      "defaultLanguage": "Java",
+                      "maximumRating": 0,
+                      "minimumRating": 0,
+                      "percentile": 0,
+                      "rank": 0,
+                      "rating": 0,
+                      "schoolRank": 0,
+                      "volatility": 0,
+                    },
+                    "wins": 0,
+                  },
+                  "challenges": 0,
+                  "wins": 0,
+                },
+                "DESIGN": Object {
+                  "challenges": 0,
+                  "mostRecentEventDate": "2015-01-30T00:50:17.000Z",
+                  "mostRecentSubmission": "2014-03-29T08:12:00.000Z",
+                  "subTracks": Array [],
+                  "wins": 0,
+                },
+                "DEVELOP": Object {
+                  "challenges": 0,
+                  "mostRecentEventDate": "2017-01-22T16:33:45.000Z",
+                  "mostRecentSubmission": "2017-01-22T19:33:00.000Z",
+                  "subTracks": Array [],
+                  "wins": 0,
+                },
+                "challenges": 0,
+                "createdAt": null,
+                "createdBy": null,
+                "handle": "testHandle",
+                "handleLower": "testhandle",
+                "maxRating": Object {
+                  "rating": 0,
+                  "subTrack": null,
+                  "track": null,
+                },
+                "updatedAt": null,
+                "updatedBy": null,
+                "userId": 200000,
+                "wins": 0,
+              }
+            }
           />
         </div>
       </div>

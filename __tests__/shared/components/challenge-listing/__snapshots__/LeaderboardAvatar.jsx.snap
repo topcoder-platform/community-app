@@ -15,6 +15,7 @@ exports[`Matches shallow shapshot 1`] = `
         "hash": "",
         "pathname": "/",
         "search": "",
+        "state": undefined,
       },
       "push": [Function],
       "replace": [Function],

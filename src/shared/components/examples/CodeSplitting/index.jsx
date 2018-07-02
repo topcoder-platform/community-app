@@ -4,7 +4,9 @@ import './style.scss';
 export default function CodeSplitting() {
   return (
     <div styleName="code-splitting">
-      <h1>Code Splitting Test</h1>
+      <h1>
+Code Splitting Test
+      </h1>
       <p>
         If code splitting works properly, this page should render nicely and
         look pretty.
@@ -12,16 +14,29 @@ export default function CodeSplitting() {
       <p>
         For a better perspective, how cool and complex it is: Webpack 2+
         documentation on code splitting refer
-        &zwnj;{
+        &zwnj;
+        {
           <a href="https://reacttraining.com/react-router/web/guides/code-splitting">
             this page
           </a>
-        } of <strong>react-router</strong> documentation for further details
+        }
+        {' '}
+of
+        {' '}
+        <strong>
+react-router
+        </strong>
+        {' '}
+documentation for further details
         one code splitting implementation for ReactJS. Here is the qoute:
       </p>
       <div styleName="quote">
-        <h3>Code-splitting + server rendering</h3>
-        <p>We’ve tried and failed a couple of times. What we learned:</p>
+        <h3>
+Code-splitting + server rendering
+        </h3>
+        <p>
+We’ve tried and failed a couple of times. What we learned:
+        </p>
         <ol>
           <li>
             You need synchronous module resolution on the server so you can
@@ -44,7 +59,12 @@ export default function CodeSplitting() {
           in favor of code-splitting + service worker caching. Godspeed
           those who attempt the server-rendered, code-split apps.
         </p>
-        <em styleName="author">From Code Splitting documentation of <strong>react-router</strong></em>
+        <em styleName="author">
+From Code Splitting documentation of
+          <strong>
+react-router
+          </strong>
+        </em>
       </div>
       <p>
         So, welcome to Topcoder, where difficult things can be done fast,
@@ -52,7 +72,11 @@ export default function CodeSplitting() {
       </p>
       <p>
         Instructions on using our implementation of code splitting are
-        &zwnj;<a href="https://github.com/topcoder-platform/community-app/blob/develop/docs/code-splitting.md">available here</a>.
+        &zwnj;
+        <a href="https://github.com/topcoder-platform/community-app/blob/develop/docs/code-splitting.md">
+available here
+        </a>
+.
       </p>
     </div>
   );

@@ -1,0 +1,593 @@
+{
+  "achievements": [
+    {
+      "date": "2016-09-02T00:00:00.000-04:00",
+      "description": "iOS Developer Challenger Badge"
+    },
+    {
+      "date": "2015-08-05T00:00:00.000-04:00",
+      "description": "Participant Badge"
+    },
+    {
+      "date": "2015-08-05T00:00:00.000-04:00",
+      "description": "iOS Participant Badge"
+    },
+    {
+      "date": "2014-07-01T00:00:00.000-04:00",
+      "description": "Digital Run Top Five"
+    },
+    {
+      "date": "2014-07-01T00:00:00.000-04:00",
+      "description": "Digital Run Winner"
+    },
+    {
+      "date": "2014-02-11T00:00:00.000-05:00",
+      "description": "First Milestone Prize"
+    },
+    {
+      "date": "2013-03-15T00:00:00.000-04:00",
+      "description": "First Forum Post"
+    },
+    {
+      "date": "2013-03-04T00:00:00.000-05:00",
+      "description": "First Passing Submission"
+    },
+    {
+      "date": "2013-02-28T00:00:00.000-05:00",
+      "description": "First Placement"
+    },
+    {
+      "date": "2013-02-28T00:00:00.000-05:00",
+      "description": "First Win"
+    },
+    {
+      "date": "2012-11-09T00:00:00.000-05:00",
+      "description": "One Hundred Forum Posts"
+    },
+    {
+      "date": "2010-10-09T00:00:00.000-04:00",
+      "description": "Five Hundred Forum Posts"
+    },
+    {
+      "date": "2009-04-04T00:00:00.000-04:00",
+      "description": "Twenty Five Placements"
+    },
+    {
+      "date": "2008-07-01T00:00:00.000-04:00",
+      "description": "Twenty Five First Placement Win"
+    },
+    {
+      "date": "2008-06-11T00:00:00.000-04:00",
+      "description": "One Thousand Forum Posts"
+    },
+    {
+      "date": "2008-05-12T00:00:00.000-04:00",
+      "description": "Fifty Passing Submissions"
+    },
+    {
+      "date": "2008-05-03T00:00:00.000-04:00",
+      "description": "Fifty Placements"
+    },
+    {
+      "date": "2008-05-01T00:00:00.000-04:00",
+      "description": "TopCoder Development Coder of the Month for May 2008"
+    },
+    {
+      "date": "2007-03-30T00:00:00.000-04:00",
+      "description": "Fifty First Placement Win"
+    },
+    {
+      "date": "2006-11-03T00:00:00.000-05:00",
+      "description": "One Hundred Passing Submissions"
+    },
+    {
+      "date": "2006-10-28T00:00:00.000-04:00",
+      "description": "One Hundred First Placement Win"
+    },
+    {
+      "date": "2006-10-28T00:00:00.000-04:00",
+      "description": "One hundred Placements"
+    },
+    {
+      "date": "2006-10-28T00:00:00.000-04:00",
+      "description": "SRM Engagement Honor"
+    }
+  ],
+  "copilot": false,
+  "country": "China",
+  "info": null,
+  "loadingError": false,
+  "skills": {
+    "100": {
+      "tagName": ".NET",
+      "hidden": false,
+      "score": 2,
+      "sources": [
+        "CHALLENGE"
+      ]
+    },
+    "101": {
+      "tagName": "ActionScript",
+      "hidden": false,
+      "score": 1,
+      "sources": [
+        "CHALLENGE"
+      ]
+    },
+    "109": {
+      "tagName": "Android",
+      "hidden": false,
+      "score": 1,
+      "sources": [
+        "CHALLENGE"
+      ]
+    },
+    "110": {
+      "tagName": "AngularJS",
+      "hidden": false,
+      "score": 10,
+      "sources": [
+        "CHALLENGE"
+      ]
+    },
+    "115": {
+      "tagName": "Apache Kafka",
+      "hidden": false,
+      "score": 1,
+      "sources": [
+        "USER_ENTERED"
+      ]
+    },
+    "117": {
+      "tagName": "API",
+      "hidden": false,
+      "score": 4,
+      "sources": [
+        "CHALLENGE"
+      ]
+    },
+    "127": {
+      "tagName": "Blackberry SDK",
+      "hidden": false,
+      "score": 1,
+      "sources": [
+        "CHALLENGE"
+      ]
+    },
+    "132": {
+      "tagName": "C#",
+      "hidden": false,
+      "score": 1,
+      "sources": [
+        "CHALLENGE"
+      ]
+    },
+    "153": {
+      "tagName": "CSS",
+      "hidden": false,
+      "score": 10,
+      "sources": [
+        "CHALLENGE"
+      ]
+    },
+    "154": {
+      "tagName": "CSS3",
+      "hidden": false,
+      "score": 1,
+      "sources": [
+        "USER_ENTERED"
+      ]
+    },
+    "163": {
+      "tagName": "Docker",
+      "hidden": false,
+      "score": 5,
+      "sources": [
+        "CHALLENGE"
+      ]
+    },
+    "170": {
+      "tagName": "EJB",
+      "hidden": false,
+      "score": 18,
+      "sources": [
+        "CHALLENGE"
+      ]
+    },
+    "171": {
+      "tagName": "Elasticsearch",
+      "hidden": false,
+      "score": 1,
+      "sources": [
+        "CHALLENGE"
+      ]
+    },
+    "177": {
+      "tagName": "Express",
+      "hidden": false,
+      "score": 1,
+      "sources": [
+        "CHALLENGE"
+      ]
+    },
+    "182": {
+      "tagName": "Flex",
+      "hidden": false,
+      "score": 3,
+      "sources": [
+        "CHALLENGE",
+        "USER_ENTERED"
+      ]
+    },
+    "186": {
+      "tagName": "Force.Com Sites",
+      "hidden": false,
+      "score": 1,
+      "sources": [
+        "CHALLENGE"
+      ]
+    },
+    "211": {
+      "tagName": "Hibernate",
+      "hidden": false,
+      "score": 12,
+      "sources": [
+        "CHALLENGE"
+      ]
+    },
+    "212": {
+      "tagName": "HTML",
+      "hidden": false,
+      "score": 6,
+      "sources": [
+        "CHALLENGE"
+      ]
+    },
+    "213": {
+      "tagName": "HTML5",
+      "hidden": false,
+      "score": 12,
+      "sources": [
+        "CHALLENGE",
+        "USER_ENTERED"
+      ]
+    },
+    "214": {
+      "tagName": "HTTP",
+      "hidden": false,
+      "score": 3,
+      "sources": [
+        "CHALLENGE"
+      ]
+    },
+    "219": {
+      "tagName": "IBM DB2",
+      "hidden": false,
+      "score": 5,
+      "sources": [
+        "CHALLENGE",
+        "USER_ENTERED"
+      ]
+    },
+    "229": {
+      "tagName": "IBM Websphere Application Server",
+      "hidden": false,
+      "score": 3,
+      "sources": [
+        "CHALLENGE"
+      ]
+    },
+    "232": {
+      "tagName": "IBM WebSphere MQ",
+      "hidden": false,
+      "score": 1,
+      "sources": [
+        "CHALLENGE"
+      ]
+    },
+    "244": {
+      "tagName": "J2EE",
+      "hidden": false,
+      "score": 15,
+      "sources": [
+        "CHALLENGE"
+      ]
+    },
+    "247": {
+      "tagName": "Java",
+      "hidden": false,
+      "score": 123,
+      "sources": [
+        "CHALLENGE"
+      ]
+    },
+    "248": {
+      "tagName": "JavaScript",
+      "hidden": false,
+      "score": 20,
+      "sources": [
+        "CHALLENGE"
+      ]
+    },
+    "249": {
+      "tagName": "JBoss Seam",
+      "hidden": false,
+      "score": 3,
+      "sources": [
+        "CHALLENGE"
+      ]
+    },
+    "250": {
+      "tagName": "JDBC",
+      "hidden": false,
+      "score": 3,
+      "sources": [
+        "CHALLENGE"
+      ]
+    },
+    "254": {
+      "tagName": "JPA",
+      "hidden": false,
+      "score": 9,
+      "sources": [
+        "CHALLENGE"
+      ]
+    },
+    "255": {
+      "tagName": "jQuery",
+      "hidden": false,
+      "score": 2,
+      "sources": [
+        "CHALLENGE"
+      ]
+    },
+    "258": {
+      "tagName": "JSF",
+      "hidden": false,
+      "score": 2,
+      "sources": [
+        "CHALLENGE",
+        "USER_ENTERED"
+      ]
+    },
+    "259": {
+      "tagName": "JSON",
+      "hidden": false,
+      "score": 1,
+      "sources": [
+        "CHALLENGE"
+      ]
+    },
+    "260": {
+      "tagName": "JSP",
+      "hidden": false,
+      "score": 21,
+      "sources": [
+        "CHALLENGE",
+        "USER_ENTERED"
+      ]
+    },
+    "276": {
+      "tagName": "Maven",
+      "hidden": false,
+      "score": 1,
+      "sources": [
+        "CHALLENGE"
+      ]
+    },
+    "281": {
+      "tagName": "MongoDB",
+      "hidden": false,
+      "score": 1,
+      "sources": [
+        "CHALLENGE"
+      ]
+    },
+    "284": {
+      "tagName": "MySql",
+      "hidden": false,
+      "score": 7,
+      "sources": [
+        "CHALLENGE",
+        "USER_ENTERED"
+      ]
+    },
+    "286": {
+      "tagName": "Node.js",
+      "hidden": false,
+      "score": 18,
+      "sources": [
+        "CHALLENGE",
+        "USER_ENTERED"
+      ]
+    },
+    "295": {
+      "tagName": "Oracle Database",
+      "hidden": false,
+      "score": 14,
+      "sources": [
+        "CHALLENGE"
+      ]
+    },
+    "303": {
+      "tagName": "PHP",
+      "hidden": false,
+      "score": 1,
+      "sources": [
+        "CHALLENGE"
+      ]
+    },
+    "306": {
+      "tagName": "PostgreSQL",
+      "hidden": false,
+      "score": 8,
+      "sources": [
+        "CHALLENGE"
+      ]
+    },
+    "315": {
+      "tagName": "React.js",
+      "hidden": false,
+      "score": 1,
+      "sources": [
+        "USER_ENTERED"
+      ]
+    },
+    "323": {
+      "tagName": "REST",
+      "hidden": false,
+      "score": 5,
+      "sources": [
+        "CHALLENGE"
+      ]
+    },
+    "328": {
+      "tagName": "Salesforce",
+      "hidden": false,
+      "score": 2,
+      "sources": [
+        "CHALLENGE"
+      ]
+    },
+    "337": {
+      "tagName": "Servlet",
+      "hidden": false,
+      "score": 2,
+      "sources": [
+        "CHALLENGE"
+      ]
+    },
+    "344": {
+      "tagName": "Sharepoint 3.0",
+      "hidden": false,
+      "score": 2,
+      "sources": [
+        "CHALLENGE",
+        "USER_ENTERED"
+      ]
+    },
+    "354": {
+      "tagName": "Spring",
+      "hidden": false,
+      "score": 15,
+      "sources": [
+        "CHALLENGE"
+      ]
+    },
+    "355": {
+      "tagName": "SQL",
+      "hidden": false,
+      "score": 4,
+      "sources": [
+        "CHALLENGE"
+      ]
+    },
+    "356": {
+      "tagName": "SQL Server",
+      "hidden": false,
+      "score": 2,
+      "sources": [
+        "CHALLENGE"
+      ]
+    },
+    "362": {
+      "tagName": "Struts",
+      "hidden": false,
+      "score": 3,
+      "sources": [
+        "CHALLENGE"
+      ]
+    },
+    "387": {
+      "tagName": "Web Services",
+      "hidden": false,
+      "score": 8,
+      "sources": [
+        "CHALLENGE"
+      ]
+    },
+    "401": {
+      "tagName": "XML",
+      "hidden": false,
+      "score": 6,
+      "sources": [
+        "CHALLENGE"
+      ]
+    },
+    "402": {
+      "tagName": "XSL",
+      "hidden": false,
+      "score": 2,
+      "sources": [
+        "CHALLENGE",
+        "USER_ENTERED"
+      ]
+    }
+  },
+  "stats": null,
+  "profileForHandle": "tcscoder",
+  "linkedAccounts": [
+    {
+      "userId": "623633",
+      "name": "tcscoder",
+      "email": "tcscoder@gmail.com",
+      "providerType": "github",
+      "provider": null,
+      "context": null,
+      "social": true,
+      "enterprise": false,
+      "emailVerified": false
+    },
+    {
+      "userId": "1233342",
+      "name": "1233342",
+      "email": "",
+      "providerType": "stackoverflow",
+      "provider": null,
+      "context": null,
+      "social": true,
+      "enterprise": false,
+      "emailVerified": false
+    }
+  ],
+  "externalLinks": [
+    {
+      "userId": 22655076,
+      "key": "4c7136cdbbf227274e49c475e7541abf",
+      "handle": "tcscoder",
+      "description": "Search the world's information, including webpages, images, videos and more. Google has many special features to help you find exactly what you're looking for.",
+      "entities": null,
+      "keywords": null,
+      "title": "Google",
+      "images": "https://www.google.com/images/branding/googlelogo/1x/googlelogo_white_background_color_272x92dp.png",
+      "source": "embed.ly",
+      "synchronizedAt": 1525560141959,
+      "URL": "https://www.google.com"
+    }
+  ],
+  "externalAccounts": {
+    "userId": 22655076,
+    "handle": "tcscoder",
+    "behance": null,
+    "bitbucket": null,
+    "dribbble": null,
+    "github": null,
+    "linkedin": null,
+    "stackoverflow": null,
+    "twitter": null,
+    "updatedAt": null,
+    "createdAt": null,
+    "createdBy": null,
+    "updatedBy": null
+  },
+  "emailPreferences": {
+    "TOPCODER_NL_DESIGN": true,
+    "TOPCODER_NL_DEV": true,
+    "TOPCODER_NL_GEN": true
+  },
+  "credential": {
+    "activationCode": "SDUUH(HFS",
+    "resetToken": null,
+    "hasPassword": true
+  }
+}

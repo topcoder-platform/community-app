@@ -12,8 +12,7 @@ export default function ChunkLoader({ base, member, meta }) {
   return (
     <AppChunk
       chunkName="veterans-community/chunk"
-      renderClientAsync={() =>
-        import(/* webpackChunkName: "veterans-community/chunk" */ './Routes')
+      renderClientAsync={() => import(/* webpackChunkName: "veterans-community/chunk" */ './Routes')
         .then(({ default: Routes }) => (
           <Routes base={base} member={member} meta={meta} />
         ))

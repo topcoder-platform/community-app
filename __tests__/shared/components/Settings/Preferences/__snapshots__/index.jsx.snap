@@ -1,0 +1,31 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders preferences setting page correctly 1`] = `
+<div
+  className="src-shared-components-Settings-Preferences-___styles__preferences-container___m6Zzc"
+>
+  <div
+    className="src-shared-components-Settings-Preferences-___styles__col-bar___2Fr2T"
+  >
+    <SideBar
+      currentTab="e-mail"
+      tabs={
+        Object {
+          "EMAIL": "e-mail",
+          "FORUM": "forum",
+          "LETTER": "invitation letter",
+          "PAYMENT": "payment",
+          "PERSONALIZATION": "personalization",
+          "REFERRALS": "referrals",
+        }
+      }
+      toggle={[Function]}
+    />
+  </div>
+  <div
+    className="src-shared-components-Settings-Preferences-___styles__col-content___2OhJS"
+  >
+    <EmailPreferences />
+  </div>
+</div>
+`;

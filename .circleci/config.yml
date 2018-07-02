@@ -135,7 +135,7 @@ workflows:
       - "build-dev":
           filters:
             branches:
-              only: develop
+              only: new-develop
       # Development builds are executed on "develop" branch only.
       - "build-test":
           filters:
@@ -156,4 +156,4 @@ workflows:
           filters:
             branches:
               ignore:
-                - develop
+                - new-develop

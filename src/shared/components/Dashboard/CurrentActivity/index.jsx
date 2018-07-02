@@ -5,7 +5,7 @@ import PT from 'prop-types';
 import _ from 'lodash';
 import { TABS } from 'actions/page/dashboard';
 
-import * as Filter from 'utils/challenge-listing/filter';
+import { challenge as challengeUtils } from 'topcoder-react-lib';
 
 import Challenges from './Challenges';
 import Communities from './Communities';
@@ -13,6 +13,8 @@ import Header from './Header';
 import Srms from './Srms';
 
 import './styles.scss';
+
+const Filter = challengeUtils.filter;
 
 /* eslint-disable react/no-unused-state */
 
@@ -69,8 +71,7 @@ export default class MyChallenges extends React.Component {
       userGroups,
     } = this.props;
 
-    const myCommunities = communities.filter(x =>
-      _.intersection(userGroups, x.groupIds).length)
+    const myCommunities = communities.filter(x => _.intersection(userGroups, x.groupIds).length)
       .map((community) => {
         const filter = Filter.getFilterFunction(community.challengeFilter);
         const res = _.clone(community);
@@ -113,7 +114,6 @@ export default class MyChallenges extends React.Component {
               communities={myCommunities}
               communitiesLoading={communitiesLoading}
               communityStats={communityStats}
-              userGroups={userGroups}
             />
           ) : null
         }
@@ -147,5 +147,5 @@ MyChallenges.propTypes = {
   switchTab: PT.func.isRequired,
   tab: PT.oneOf(_.values(TABS)).isRequired,
   unregisterFromChallenge: PT.func.isRequired,
-  userGroups: PT.arrayOf(PT.object).isRequired,
+  userGroups: PT.arrayOf(PT.string).isRequired,
 };

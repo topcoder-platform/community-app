@@ -6,12 +6,14 @@ import React from 'react';
 import Sticky from 'react-stickynode';
 import { config, Link } from 'topcoder-react-utils';
 
-import * as Filter from 'utils/challenge-listing/filter';
+import { challenge as challengeUtils } from 'topcoder-react-lib';
 
 import ChallengeCard from './ChallengeCard';
 import ChallengeFilter from '../ChallengeFilter';
 
 import style from './style.scss';
+
+const Filter = challengeUtils.filter;
 
 export default function Challenges({
   challengeFilter,
@@ -57,8 +59,7 @@ export default function Challenges({
       ch.dashboardPriority = Number.MAX_VALUE;
     } else ch.dashboardPriority = -Number.MAX_VALUE;
   }
-  filteredChallenges.sort((a, b) =>
-    a.dashboardPriority - b.dashboardPriority);
+  filteredChallenges.sort((a, b) => a.dashboardPriority - b.dashboardPriority);
 
   return (
     <div styleName="container">
@@ -85,38 +86,46 @@ export default function Challenges({
                       <p>
                         You have no active challenges at this moment. What are
                         you interested&nbsp;in?
-                        &zwnj;{
+                        &zwnj;
+                        {
                           <Link
                             openNewTab
                             to={config.URL.ARENA}
                           >
                             Competitive Programming
                           </Link>
-                        }?
-                        &zwnj;{
+                        }
+?
+                        &zwnj;
+                        {
                           <Link
                             openNewTab
                             to="/challenges?filter[tracks][datasci]=true"
                           >
                             Data Science
                           </Link>
-                        }?
-                        &zwnj;{
+                        }
+?
+                        &zwnj;
+                        {
                           <Link
                             openNewTab
                             to="/challenges?filter[tracks][design]=true"
                           >
                             Design
                           </Link>
-                        }?
-                        &zwnj;{
+                        }
+?
+                        &zwnj;
+                        {
                           <Link
                             openNewTab
                             to="/challenges?filter[tracks][develop]=true"
                           >
                             Software Development
                           </Link>
-                        }?
+                        }
+?
                       </p>
                     </div>
                   )
@@ -143,7 +152,8 @@ export default function Challenges({
         <a
           href={`${config.URL.BASE}/my-challenges/?status=completed`}
           styleName="link"
-        >Past Challenges
+        >
+Past Challenges
         </a>
       </div>
     </div>

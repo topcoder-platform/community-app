@@ -1,0 +1,17 @@
+@import "~styles/mixins";
+
+.preferences-container {
+  display: flex;
+  padding-top: 60px;
+
+  .col-bar {
+    width: 370px;
+    padding-left: 50px;
+    padding-right: 70px;
+  }
+
+  .col-content {
+    flex: 1;
+    margin-right: 50px;
+  }
+}

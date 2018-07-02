@@ -7,7 +7,7 @@
 import PT from 'prop-types';
 import React from 'react';
 import Tooltip from 'components/Tooltip';
-import { DETAIL_TABS } from 'actions/challenge';
+import { TABS as DETAIL_TABS } from 'actions/page/challenge-details';
 import { config, Link } from 'topcoder-react-utils';
 
 /* TODO: The icon should be converted back to SVG and imported using the
@@ -15,6 +15,9 @@ import { config, Link } from 'topcoder-react-utils';
 import SubmissionsIcon from '../../Icons/SubmissionsIcon';
 
 import './style.scss';
+
+const ID_LENGTH = 6;
+const MM_BASE_URL = `${config.URL.COMMUNITY}/longcontest/?module=ViewStandings&rd=`;
 
 export default function NumSubmissions({
   challenge: {
@@ -50,21 +53,25 @@ export default function NumSubmissions({
   return (
     <div styleName="container">
       <Tooltip
-        content={
-          <div styleName="tooltip">{tip}</div>
-        }
+        content={(
+          <div styleName="tooltip">
+            {tip}
+          </div>
+)}
       >
         <Link
           forceA={subTrack === 'MARATHON_MATCH' && isLegacy}
           onClick={() => (
-            selectChallengeDetailsTab(numSubmissions ?
-              DETAIL_TABS.SUBMISSIONS : DETAIL_TABS.DETAILS)
+            selectChallengeDetailsTab(numSubmissions
+              ? DETAIL_TABS.SUBMISSIONS : DETAIL_TABS.DETAILS)
           )}
           styleName="link"
           to={link}
         >
           <SubmissionsIcon />
-          <span styleName="number">{numSubmissions}</span>
+          <span styleName="number">
+            {numSubmissions}
+          </span>
         </Link>
       </Tooltip>
     </div>

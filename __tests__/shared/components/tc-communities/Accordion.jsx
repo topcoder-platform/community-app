@@ -10,7 +10,9 @@ test('Snapshot match', () => {
   rnd.render((
     <Accordion>
       <AccordionItem title="Test title">
-        <div>Test content</div>
+        <div>
+Test content
+        </div>
       </AccordionItem>
     </Accordion>
   ));
@@ -19,15 +21,20 @@ test('Snapshot match', () => {
 
 class Wrapper extends React.Component {
   componentDidMount() {}
+
   render() {
     return (
       <div>
         <Accordion>
           <AccordionItem title="Test title 1">
-            <div>Test content 1</div>
+            <div>
+Test content 1
+            </div>
           </AccordionItem>
           <AccordionItem title="Test title 2">
-            <div>Test content 2</div>
+            <div>
+Test content 2
+            </div>
           </AccordionItem>
         </Accordion>
       </div>

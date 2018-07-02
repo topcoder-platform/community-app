@@ -19,6 +19,7 @@ import Communities from './Communities';
 import Examples from './Examples';
 import Sandbox from './Sandbox';
 import Topcoder from './Topcoder';
+import TrackHomePages from './TrackHomePages';
 
 function Routes({ communityId }) {
   const metaTags = (
@@ -70,11 +71,15 @@ function Routes({ communityId }) {
               communityId={match.params.communityId}
             />
           )}
-          path="/community/:communityId"
+          path="/__community__/:communityId"
         />
         <Route
           component={() => <Sandbox base="/sandbox" />}
           path="/sandbox"
+        />
+        <Route
+          component={() => <TrackHomePages base="/track" />}
+          path="/track"
         />
         <Topcoder />
       </Switch>

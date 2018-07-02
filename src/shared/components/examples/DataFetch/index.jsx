@@ -4,7 +4,9 @@ import './styles.scss';
 export default function DataFetch() {
   return (
     <div styleName="DataFetch">
-      <h1>Data Fetch</h1>
+      <h1>
+Data Fetch
+      </h1>
       <p>
         This is a simple example of how to fetch data from a remote API into
         the Redux store, using actions and reducers. Two pages available via

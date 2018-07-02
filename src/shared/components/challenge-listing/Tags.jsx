@@ -25,10 +25,7 @@ export default function Tags({
   };
 
   const renderTechnologies = () => {
-    const combined = _.union(
-      technologies ? technologies.split(',').map(item => item.trim()) : [],
-      platforms ? platforms.split(',').map(item => item.trim()) : [],
-    );
+    const combined = _.union(technologies, platforms);
 
     if (combined.length) {
       let display = combined;
@@ -45,7 +42,8 @@ export default function Tags({
           onClick={() => onClick(item.trim())}
           key={item}
           role="button"
-        >{item}
+        >
+          {item}
         </Tag>
       ));
     }
@@ -62,8 +60,8 @@ export default function Tags({
 // Default Props
 Tags.defaultProps = {
   onTechTagClicked: _.noop,
-  technologies: '',
-  platforms: '',
+  technologies: [],
+  platforms: [],
   isExpanded: false,
   expand: null,
 };
@@ -71,8 +69,8 @@ Tags.defaultProps = {
 // Prop validation
 Tags.propTypes = {
   onTechTagClicked: PT.func,
-  technologies: PT.string,
-  platforms: PT.string,
+  technologies: PT.arrayOf(PT.string),
+  platforms: PT.arrayOf(PT.string),
   isExpanded: PT.bool,
   expand: PT.func,
 };

@@ -22,7 +22,8 @@ function ImageText(props) {
           className={theme.link}
           openNewTab={item.newTab}
           to={item.url}
-        >{item.title}
+        >
+          {item.title}
         </Link>
       </div>
     ));
@@ -33,8 +34,12 @@ function ImageText(props) {
       <div className={theme.image} style={{ backgroundImage: `url(${imageSrc})` }} />
       <div className={theme.content}>
         <div className={theme.contentInner}>
-          <h3 className={theme.title}>{title}</h3>
-          <p className={theme.text}>{text}</p>
+          <h3 className={theme.title}>
+            {title}
+          </h3>
+          <p className={theme.text}>
+            {text}
+          </p>
           {links}
           {children}
         </div>

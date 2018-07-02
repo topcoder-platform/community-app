@@ -46,6 +46,7 @@ export default function ChallengeTags(props) {
   let EventTag;
   let TrackTag;
   switch (track) {
+    case 'datasci':
     case COMPETITION_TRACKS.DATA_SCIENCE:
       EventTag = DataScienceTrackEventTag;
       TrackTag = DataScienceTrackTag;
@@ -65,41 +66,43 @@ export default function ChallengeTags(props) {
   return (
     <div>
       {
-        subTrack &&
+        subTrack
+        && (
         <TrackTag
-          onClick={() =>
-            setImmediate(() =>
-              setChallengeListingFilter({ subtracks: [subTrack] }))
+          onClick={() => setImmediate(() => setChallengeListingFilter({ subtracks: [subTrack] }))
           }
           to={`${challengesUrl}?filter[subtracks][0]=${
             encodeURIComponent(subTrack)}`}
-        >{stylizedSubTrack(subTrack)}
+        >
+          {stylizedSubTrack(subTrack)}
         </TrackTag>
+        )
       }
       {
         events.map(event => (
           <EventTag
             to={`https://${event}.topcoder.com`}
             key={event}
-          >{event}
+          >
+            {event}
           </EventTag>
         ))
       }
       {
-        technPlatforms.map(tag =>
-            (
-              tag &&
+        technPlatforms.map(tag => (
+          tag
+              && (
               <Tag
                 key={tag}
-                onClick={() =>
-                  setImmediate(() =>
-                    setChallengeListingFilter({ tags: [tag] }))
+                onClick={() => setImmediate(() => setChallengeListingFilter({ tags: [tag] }))
                 }
                 to={`${challengesUrl}?filter[tags][0]=${
                   encodeURIComponent(tag)}`}
-              >{tag}
+              >
+                {tag}
               </Tag>
-            ))
+              )
+        ))
       }
     </div>
   );

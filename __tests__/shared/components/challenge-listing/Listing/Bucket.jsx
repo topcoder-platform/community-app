@@ -36,7 +36,7 @@ const mockDatas = [{
     {
       id: '2',
       status: 'a',
-      technologies: 'a, b, c',
+      technologies: ['a', 'b', 'c'],
       allPhases: [{
         phaseType: 'Registration',
         phaseStatus: 'Open',
@@ -207,4 +207,3 @@ test('setFilterState', () => {
   expect(setFilterState).toHaveBeenCalledTimes(3);
   */
 });
-

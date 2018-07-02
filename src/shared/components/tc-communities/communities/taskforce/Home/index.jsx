@@ -26,7 +26,7 @@ import IconMedal from '../../../../../../assets/images/tc-communities/medal.svg'
 
 import style from './style.scss';
 
-export default function Home(props) {
+export default function Home({ news }) {
   return (
     <main>
       <Banner
@@ -97,7 +97,11 @@ export default function Home(props) {
         }}
         title="What Can You Get Done?"
       >
-        <Text><p>Through Topcoder TaskForce you can easily and quickly get quality design, development, and data tasks accomplished. No matchmaking, no searching for talent, simply tell us what you need done and we’ll take care of the rest.</p></Text>
+        <Text>
+          <p>
+Through Topcoder TaskForce you can easily and quickly get quality design, development, and data tasks accomplished. No matchmaking, no searching for talent, simply tell us what you need done and we’ll take care of the rest.
+          </p>
+        </Text>
       </Section>
 
       <Section
@@ -131,7 +135,7 @@ export default function Home(props) {
         />
       </Section>
 
-      <NewsSection news={props.news} />
+      <NewsSection news={news} />
 
       <NewsletterSignup
         title="3 key crowdsourcing stories, 1x per month"

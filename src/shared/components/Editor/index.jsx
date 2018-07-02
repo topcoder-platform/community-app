@@ -64,7 +64,7 @@ export default class EditorWrapper extends React.Component {
   }
 
   componentWillReceiveProps({ connector, id }) {
-    const prevConnector = this.props.connector;
+    const { connector: prevConnector } = this.props;
     this.id = id;
     if (connector !== prevConnector) {
       if (prevConnector) prevConnector.removeEditor(this);
@@ -73,11 +73,13 @@ export default class EditorWrapper extends React.Component {
   }
 
   componentWillUnmount() {
-    this.props.connector.removeEditor(this);
+    const { connector } = this.props;
+    connector.removeEditor(this);
   }
 
   getHtml() {
-    return editorStateToHTML(this.state.editor.getCurrentContent());
+    const { editor } = this.state;
+    return editorStateToHTML(editor.getCurrentContent());
   }
 
   setHtml(html) {
@@ -96,7 +98,8 @@ export default class EditorWrapper extends React.Component {
    * @param {String} type The new block style
    */
   applyBlockStyle(type) {
-    let editorState = this.state.editor;
+    const { editor } = this.state;
+    let editorState = editor;
     editorState = RichUtils.toggleBlockType(editorState, type);
     this.setState({ editorState }); // eslint-disable-line
   }
@@ -108,7 +111,7 @@ export default class EditorWrapper extends React.Component {
    * @param {String} color The new color name
    */
   applyColorStyle(type, color) {
-    let editorState = this.state.editor;
+    let { editor: editorState } = this.state;
     let contentState = editorState.getCurrentContent();
 
     const sel = editorState.getSelection();
@@ -138,7 +141,7 @@ export default class EditorWrapper extends React.Component {
    * @param {Boolean} triggerModal Whether to trigger the img selection/resize modal on creation
    */
   insertImage(src, triggerModal) {
-    let editorState = this.state.editor;
+    let { editor: editorState } = this.state;
     let contentState = editorState.getCurrentContent();
 
     // If the user has a range selected, it needs to be collapsed before insertText will work
@@ -178,7 +181,7 @@ export default class EditorWrapper extends React.Component {
    * @param {Boolean} triggerPopup Whether to trigger the popup on creation
    */
   insertLink(title, href, triggerPopup) {
-    let editorState = this.state.editor;
+    let { editor: editorState } = this.state;
     let contentState = editorState.getCurrentContent();
 
     const sel = editorState.getSelection();
@@ -221,7 +224,8 @@ export default class EditorWrapper extends React.Component {
    * @return {String} The resulting style of the selection
    */
   toggleInlineStyle(styleName) {
-    const editorState = RichUtils.toggleInlineStyle(this.state.editor, styleName);
+    const { editor } = this.state;
+    const editorState = RichUtils.toggleInlineStyle(editor, styleName);
     this.setState({ editor: editorState });
     return editorState.getCurrentInlineStyle();
   }
@@ -274,7 +278,7 @@ export default class EditorWrapper extends React.Component {
             this.setState({ editor: newState });
           }}
           plugins={[
-            this.state.markdown ? this.markdownPlugin : {},
+            st.markdown ? this.markdownPlugin : {},
             this.customPlugin,
           ]}
           ref={(node) => { this.node = node; }}

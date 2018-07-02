@@ -8,14 +8,12 @@ export default function ExamplesRoute() {
     <AppChunk
       chunkName="examples/chunk"
       path="/examples"
-      renderClientAsync={props =>
-        import(/* webpackChunkName: "examples/chunk" */ './Examples')
-          .then(({ default: Examples }) => <Examples {...props} />)
+      renderClientAsync={props => import(/* webpackChunkName: "examples/chunk" */ './Examples')
+        .then(({ default: Examples }) => <Examples {...props} />)
       }
       renderPlaceholder={() => <LoadingIndicator />}
       renderServer={(routeProps) => {
-        const Examples =
-          webpack.requireWeak(path.join(__dirname, './Examples'));
+        const Examples = webpack.requireWeak(path.join(__dirname, './Examples'));
         return <Examples {...routeProps} />;
       }}
     />

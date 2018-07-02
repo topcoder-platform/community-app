@@ -3,7 +3,7 @@ import moment from 'moment';
 import React from 'react';
 import PT from 'prop-types';
 import TrackIcon from 'components/TrackIcon';
-import { DETAIL_TABS } from 'actions/challenge';
+import { TABS as DETAIL_TABS } from 'actions/page/challenge-details';
 import { convertNow as convertMoney } from 'services/money';
 import { config, Link } from 'topcoder-react-utils';
 
@@ -135,7 +135,8 @@ function ChallengeCard({
             to={challengeDetailLink}
             styleName="challenge-title"
             openNewTab={openChallengesInNewTabs}
-          >{challenge.name}
+          >
+            {challenge.name}
           </Link>
           <div styleName="details-footer">
             <span styleName="date">
@@ -155,7 +156,8 @@ function ChallengeCard({
       <div styleName="right-panel">
         <div styleName={isRegistrationOpen ? 'prizes with-register-button' : 'prizes'}>
           {
-            totalPrize >= 1 &&
+            totalPrize >= 1
+              && (
               <Prize
                 bonuses={bonuses}
                 label="Purse"
@@ -163,15 +165,18 @@ function ChallengeCard({
                 prizeUnitSymbol={prizeUnitSymbol}
                 totalPrize={totalPrize}
               />
+              )
           }
           {
-            challenge.pointPrizes && challenge.pointPrizes.length > 0 &&
+            challenge.pointPrizes && challenge.pointPrizes.length > 0
+              && (
               <Prize
                 label="Points"
                 prizes={challenge.pointPrizes}
                 prizeUnitSymbol=""
                 totalPrize={challenge.pointPrizes.reduce((acc, points) => acc + points, 0)}
               />
+              )
           }
         </div>
 

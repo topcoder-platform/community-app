@@ -14,7 +14,9 @@ function ArticleCard(props) {
     <div className={theme.container}>
       <Player className={theme.video} url={url} controls />
       <div className={theme.content}>
-        <h3 className={theme.title}>{title}</h3>
+        <h3 className={theme.title}>
+          {title}
+        </h3>
       </div>
     </div>
   );

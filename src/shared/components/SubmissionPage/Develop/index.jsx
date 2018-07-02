@@ -33,29 +33,34 @@ class Develop extends React.Component {
   }
 
   componentWillUnmount() {
-    this.props.resetForm();
+    const { resetForm } = this.props;
+    resetForm();
   }
 
   reset() {
-    this.props.setAgreed(false);
-    this.props.resetForm();
+    const { resetForm, setAgreed } = this.props;
+    setAgreed(false);
+    resetForm();
   }
 
   /* User has clicked submit, prepare formData for the V2 API and start upload */
   handleSubmit(e) {
+    const { submitForm } = this.props;
     e.preventDefault();
     this.formData = new FormData(document.getElementById('submit-form'));
-    this.props.submitForm(this.formData);
+    submitForm(this.formData);
   }
 
   /* User has clicked to go retry the submission after an error */
   retry() {
-    this.props.submitForm(this.formData);
+    const { submitForm } = this.props;
+    submitForm(this.formData);
   }
 
   /* User has clicked to go back to a new submission after a successful submit */
   back() {
-    this.props.resetForm();
+    const { resetForm } = this.props;
+    resetForm();
   }
 
   render() {
@@ -98,8 +103,11 @@ class Develop extends React.Component {
           >
             <div styleName="row">
               <div styleName="left">
-                <h4>FILES</h4>
-                <p>Please follow the instructions on the Challenge Details page regarding
+                <h4>
+FILES
+                </h4>
+                <p>
+Please follow the instructions on the Challenge Details page regarding
                   what your submission should contain and how it should be organized.
                 </p>
               </div>
@@ -122,7 +130,8 @@ class Develop extends React.Component {
                 <p>
                   If you are having trouble uploading your file, please send
                   your submission to
-                  &zwnj;{
+                  &zwnj;
+                  {
                     <a
                       href="mailto://support@topcoder.com"
                     >
@@ -135,7 +144,8 @@ class Develop extends React.Component {
             <div styleName="row agree">
               <p>
                 Submitting your files means you hereby agree to the
-                &zwnj;{
+                &zwnj;
+                {
                   <a
                     href={config.URL.INFO.TOPCODER_TERMS}
                     rel="noreferrer noopener"
@@ -143,7 +153,8 @@ class Develop extends React.Component {
                   >
                     Topcoder terms of use
                   </a>
-                }&zwnj;
+                }
+&zwnj;
                 and to the extent your uploaded file wins a topcoder Competition,
                 you hereby assign, grant and transfer and agree to assign, grant and
                 transfer to topcoder all right and title in and to the Winning Submission
@@ -156,31 +167,36 @@ class Develop extends React.Component {
                   onChange={e => setAgreed(e.target.checked)}
                 />
                 <label htmlFor="agree">
-                  <div styleName="tc-checkbox-label">I UNDERSTAND AND AGREE</div>
+                  <div styleName="tc-checkbox-label">
+I UNDERSTAND AND AGREE
+                  </div>
                 </label>
               </div>
               <PrimaryButton
                 type="submit"
                 disabled={!agreed || !!fpState.error || !fpState.fileName}
-              >Submit
+              >
+                Submit
               </PrimaryButton>
             </div>
           </form>
         </div>
-      ) :
-        <Uploading
-          challengeId={challengeId}
-          challengeName={challengeName}
-          challengesUrl={challengesUrl}
-          error={errorMsg}
-          isSubmitting={isSubmitting}
-          submitDone={submitDone}
-          reset={this.reset}
-          retry={this.retry}
-          track={track}
-          uploadProgress={uploadProgress}
-          back={this.back}
-        />
+      )
+        : (
+          <Uploading
+            challengeId={challengeId}
+            challengeName={challengeName}
+            challengesUrl={challengesUrl}
+            error={errorMsg}
+            isSubmitting={isSubmitting}
+            submitDone={submitDone}
+            reset={this.reset}
+            retry={this.retry}
+            track={track}
+            uploadProgress={uploadProgress}
+            back={this.back}
+          />
+        )
     );
   }
 }

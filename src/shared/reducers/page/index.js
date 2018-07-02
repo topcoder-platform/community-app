@@ -9,16 +9,20 @@
 import { combineReducers } from 'redux';
 import { redux } from 'topcoder-react-utils';
 
-import submission, { factory as challengeDetailsFactory } from './submission';
+import submission, { factory as submissionFactory } from './submission';
 
+import submissionManagement from './submission_management';
 
-import challengeDetails from './challenge-details';
+import challengeDetails, { factory as challengeDetailsFactory }
+  from './challenge-details';
+
 import communities from './communities';
 import dashboard from './dashboard';
+import settings, { factory as settingsFactory } from './settings';
+
 
 import hallOfFame, { factory as hallOfFameFactory } from './hallOfFame';
 import reviewOpportunityDetails from './review-opportunity-details';
-import sandbox from './sandbox';
 
 /**
  * Reducer factory.
@@ -27,15 +31,16 @@ import sandbox from './sandbox';
  */
 export function factory(req) {
   return redux.resolveReducers({
-    submission: challengeDetailsFactory(req),
+    challengeDetails: challengeDetailsFactory(req),
+    submission: submissionFactory(req),
     hallOfFame: hallOfFameFactory(req),
+    settings: settingsFactory(req),
   }).then(reducers => combineReducers({
     ...reducers,
-    challengeDetails,
     communities,
     dashboard,
     reviewOpportunityDetails,
-    sandbox,
+    submissionManagement,
   }));
 }
 
@@ -43,8 +48,9 @@ export default combineReducers({
   challengeDetails,
   communities,
   dashboard,
+  settings,
   hallOfFame,
   reviewOpportunityDetails,
   submission,
-  sandbox,
+  submissionManagement,
 });

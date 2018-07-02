@@ -17,8 +17,15 @@ import style from './styles.scss';
 // The container component
 class LeaderboardPageContainer extends React.Component {
   componentDidMount() {
-    if (!(this.props.apiUrl === this.props.loadedApiUrl || this.props.isLoadingLeaderboard)) {
-      this.props.loadLeaderboard(this.props.auth, this.props.apiUrl);
+    const {
+      apiUrl,
+      auth,
+      isLoadingLeaderboard,
+      loadLeaderboard,
+      loadedApiUrl,
+    } = this.props;
+    if (!(apiUrl === loadedApiUrl || isLoadingLeaderboard)) {
+      loadLeaderboard(auth, apiUrl);
     }
   }
 
@@ -45,7 +52,9 @@ class LeaderboardPageContainer extends React.Component {
         }
         {/* eslint-enable max-len */}
         <div styleName="Leaderboard">
-          <h2 styleName="section-title">Leaderboard</h2>
+          <h2 styleName="section-title">
+            Leaderboard
+          </h2>
           <Podium competitors={ld.slice(0, 3)} />
           <LeaderboardTable competitors={ld.slice(3)} />
         </div>

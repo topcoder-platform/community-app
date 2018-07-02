@@ -28,6 +28,7 @@ export default function Card({
 
   let TrackTag;
   switch (challenge.track.toLowerCase()) {
+    case 'datasci':
     case COMPETITION_TRACKS.DATA_SCIENCE:
       TrackTag = DataScienceTrackTag;
       break;
@@ -54,16 +55,17 @@ export default function Card({
   return (
     <div styleName="container">
       <TrackTag
-        onClick={() => setImmediate(() =>
-          setChallengeListingFilter({ subtracks: [subTrack] }))}
+        onClick={() => setImmediate(() => setChallengeListingFilter({ subtracks: [subTrack] }))}
         to={`${baseUrl}/challenges?filter[subtracks][0]=${
           encodeURIComponent(subTrack)}`}
-      >{_.capitalize(subTrack).replace(/_/g, ' ')}
+      >
+        {_.capitalize(subTrack).replace(/_/g, ' ')}
       </TrackTag>
       <h1 styleName="title">
         <Link
           to={`${baseUrl}/challenges/${challenge.id}`}
-        >{challenge.name}
+        >
+          {challenge.name}
         </Link>
       </h1>
       <div>
@@ -71,11 +73,15 @@ export default function Card({
         <div styleName="text">Platforms: {challenge.platforms}</div>
         <div styleName="text">Technologies: {challenge.technologies}</div>
         */}
-        <div styleName="text">{timeMsg}</div>
+        <div styleName="text">
+          {timeMsg}
+        </div>
         <div
           styleName="prizes"
         >
-          Prizes: {(challenge.prizes || []).map(x => `$${x}`).join('\u00a0/ ')}
+          Prizes:
+          {' '}
+          {(challenge.prizes || []).map(x => `$${x}`).join('\u00a0/ ')}
         </div>
       </div>
     </div>

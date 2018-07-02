@@ -7,7 +7,7 @@ exports[`Matches shallow shapshot 1`] = `
   <div
     className="src-shared-components-Content-___style__build-timestamp___2PJGW"
   >
-    Build Timestamp: 
+    Build Timestamp:
     Wed, 29 Nov 2017 07:40:00 GMT
   </div>
   <h1>
@@ -24,7 +24,7 @@ exports[`Matches shallow shapshot 1`] = `
       Babel with latest JS standard support both client- and server-side;
     </li>
     <li>
-      ESlint (AirBnB style, run with 
+      ESlint (AirBnB style, run with
       <code>
         $ npm run lint:js
       </code>
@@ -37,21 +37,23 @@ exports[`Matches shallow shapshot 1`] = `
       Font loading (Roboto fonts are included into the repo);
     </li>
     <li>
-      General Topcoder styles (check 
+      General Topcoder styles (check
       <code>
         /src/styles
       </code>
       );
     </li>
     <li>
-      Hot reload of JS code and SCSS styles in dev environment (start it with 
+      Hot reload of JS code and SCSS styles in dev environment (start it with
+       
       <code>
         $ npm run dev
       </code>
       );
     </li>
     <li>
-      Loading of .svg assets as ReactJS components with 
+      Loading of .svg assets as ReactJS components with
+       
       <code>
         babel-plugin-inline-react-svg
       </code>
@@ -61,7 +63,8 @@ exports[`Matches shallow shapshot 1`] = `
       ReactJS;
     </li>
     <li>
-      React CSS Modules (with 
+      React CSS Modules (with
+       
       <code>
         babel-plugin-react-css-modules
       </code>
@@ -74,29 +77,33 @@ exports[`Matches shallow shapshot 1`] = `
       SCSS styles;
     </li>
     <li>
-      Topcoder API v2 and v3 service (see 
+      Topcoder API v2 and v3 service (see
       <code>
-        /src/shared/services/api.js
+        topcoder-react-lib/src/services/api.js
       </code>
-      ), with support of TC authentication (look for auth tokens either in 
+      ), with support of TC authentication (look for auth tokens either in
       <code>
         store.auth
       </code>
-       of Redux store, or in 
+       
+      of Redux store, or in
       <code>
         v3jwt
       </code>
-       and 
+       
+      and
       <code>
         tcjwt
       </code>
-       cookies of the front-end requests to the server);
+       
+      cookies of the front-end requests to the server);
     </li>
     <li>
       Stylefmt;
     </li>
     <li>
-      Stylelint for SCSS (standard Stylelint style, run with 
+      Stylelint for SCSS (standard Stylelint style, run with
+       
       <code>
         $ npm run lint:scss
       </code>
@@ -114,17 +121,20 @@ exports[`Matches shallow shapshot 1`] = `
       <strong>
         Challenge Details Page
       </strong>
-       is available at the endpoint 
+       
+      is available at the endpoint
       <code>
         /challenges/:challengeId
       </code>
       .
       <br />
-      Here are some demo links valid in 
+      Here are some demo links valid in
+       
       <strong>
         production
       </strong>
-       environment:
+       
+      environment:
       <br />
       ‌
       <Link
@@ -170,7 +180,8 @@ exports[`Matches shallow shapshot 1`] = `
       </Link>
       .
       <br />
-      Here are some demo links valid in 
+      Here are some demo links valid in
+       
       <strong>
         development
       </strong>
@@ -216,6 +227,14 @@ exports[`Matches shallow shapshot 1`] = `
     <li>
       <Link
         replace={false}
+        to="/crowd-for-good"
+      >
+        Crowd 4 Good Page
+      </Link>
+    </li>
+    <li>
+      <Link
+        replace={false}
         to="/my-dashboard"
       >
         Dashboard
@@ -230,11 +249,22 @@ exports[`Matches shallow shapshot 1`] = `
       </Link>
     </li>
     <li>
-      Public Profile Page available at the 
+      <Link
+        replace={false}
+        to="/community/member-programs"
+      >
+        Member Programs Page
+      </Link>
+    </li>
+    <li>
+      Public Profile Page available at the
+       
       <code>
         /members/:handle
       </code>
-       endpoint. Valid link on dev 
+       
+      endpoint. Valid link on dev
+       
       <Link
         replace={false}
         to="/members/TonyJ"
@@ -265,11 +295,28 @@ exports[`Matches shallow shapshot 1`] = `
       >
         Submission Management Page
       </a>
-       – generally available at the endpoint 
+       
+      – generally available at the endpoint
       <code>
         /challenges/:challengeId/my-submissions
       </code>
       ; the link here leads to a test challenge.
+    </li>
+    <li>
+      <Link
+        replace={false}
+        to="/settings/profile"
+      >
+        Settings Profile Page
+      </Link>
+    </li>
+    <li>
+      <Link
+        replace={false}
+        to="/track/design"
+      >
+        Track Home Page - Design
+      </Link>
     </li>
   </ul>
   <h3>
@@ -285,15 +332,18 @@ exports[`Matches shallow shapshot 1`] = `
       </Link>
     </li>
     <li>
-      TCO Scoreboard demo is mounted on 
+      TCO Scoreboard demo is mounted on
+       
       <code>
         /scoreboard/:id
       </code>
-      , where 
+      , where
+       
       <code>
         :id
       </code>
-       is the competition ID, not related to the regular challenge IDs. Here are two demo links for the scoreboards for the competitions created by the scoreboard init script: ‌
+       
+      is the competition ID, not related to the regular challenge IDs. Here are two demo links for the scoreboards for the competitions created by the scoreboard init script: ‌
       <Link
         replace={false}
         to="/scoreboard/123"
@@ -317,7 +367,7 @@ exports[`Matches shallow shapshot 1`] = `
     <li>
       <Link
         replace={false}
-        to="/community/blockchain"
+        to="/__community__/blockchain"
       >
         Blockchain Community
       </Link>
@@ -325,7 +375,7 @@ exports[`Matches shallow shapshot 1`] = `
     <li>
       <Link
         replace={false}
-        to="/community/cognitive"
+        to="/__community__/cognitive"
       >
         Cognitive Community
       </Link>
@@ -333,7 +383,7 @@ exports[`Matches shallow shapshot 1`] = `
     <li>
       <Link
         replace={false}
-        to="/community/community-2"
+        to="/__community__/community-2"
       >
         Community 2
       </Link>
@@ -341,7 +391,7 @@ exports[`Matches shallow shapshot 1`] = `
     <li>
       <Link
         replace={false}
-        to="/community/cs"
+        to="/__community__/cs"
       >
         CS community
       </Link>
@@ -349,7 +399,7 @@ exports[`Matches shallow shapshot 1`] = `
     <li>
       <Link
         replace={false}
-        to="/community/demo-expert"
+        to="/__community__/demo-expert"
       >
         Demo Expert Community
       </Link>
@@ -357,7 +407,23 @@ exports[`Matches shallow shapshot 1`] = `
     <li>
       <Link
         replace={false}
-        to="/community/qa"
+        to="/__community__/iot"
+      >
+        IoT Community
+      </Link>
+    </li>
+    <li>
+      <Link
+        replace={false}
+        to="/__community__/mobile"
+      >
+        Mobile Community
+      </Link>
+    </li>
+    <li>
+      <Link
+        replace={false}
+        to="/__community__/qa"
       >
         QA Community
       </Link>
@@ -365,7 +431,7 @@ exports[`Matches shallow shapshot 1`] = `
     <li>
       <Link
         replace={false}
-        to="/community/srmx"
+        to="/__community__/srmx"
       >
         SRMX Community
       </Link>
@@ -373,7 +439,7 @@ exports[`Matches shallow shapshot 1`] = `
     <li>
       <Link
         replace={false}
-        to="/community/taskforce"
+        to="/__community__/taskforce"
       >
         Taskforce community
       </Link>
@@ -381,7 +447,7 @@ exports[`Matches shallow shapshot 1`] = `
     <li>
       <Link
         replace={false}
-        to="/community/tc-prod-dev"
+        to="/__community__/tc-prod-dev"
       >
         Topcoder Product Development community
       </Link>
@@ -389,7 +455,7 @@ exports[`Matches shallow shapshot 1`] = `
     <li>
       <Link
         replace={false}
-        to="/community/wipro"
+        to="/__community__/wipro"
       >
         TopGear (Wipro) community
       </Link>
@@ -397,7 +463,7 @@ exports[`Matches shallow shapshot 1`] = `
     <li>
       <Link
         replace={false}
-        to="/community/veterans"
+        to="/__community__/veterans"
       >
         Veterans Community
       </Link>
@@ -410,10 +476,70 @@ exports[`Matches shallow shapshot 1`] = `
     <li>
       <Link
         replace={false}
+        to="/examples/contentful/accordion/2aRYmMs4rmwEIISCag8MOm"
+      >
+        <code>
+          Accordion
+        </code>
+      </Link>
+    </li>
+    <li>
+      <Link
+        replace={false}
         to="/examples/contentful/banner/5il6oFtWp2Ua6WGs60M2mK"
       >
         <code>
           Banner
+        </code>
+      </Link>
+    </li>
+    <li>
+      <Link
+        replace={false}
+        to="/examples/contentful/contentblock/6CVFvEiZFKYQMwW82aYCWS"
+      >
+        <code>
+          ContentBlock
+        </code>
+      </Link>
+    </li>
+    <li>
+      <Link
+        replace={false}
+        to="/examples/contentful/quote/3o7LgdSIsougYimQ2GyUw4"
+      >
+        <code>
+          Quote
+        </code>
+      </Link>
+    </li>
+    <li>
+      <Link
+        replace={false}
+        to="/examples/contentful/video/4U4DkVDy3C0WcImaEw42mw"
+      >
+        <code>
+          Video
+        </code>
+      </Link>
+    </li>
+    <li>
+      <Link
+        replace={false}
+        to="/examples/contentful/route/4eL1gLh8gU66ewMwIIYu4y"
+      >
+        <code>
+          Route
+        </code>
+      </Link>
+    </li>
+    <li>
+      <Link
+        replace={false}
+        to="/examples/contentful/viewport/YomgM8zPCoEaUqaKouyGG"
+      >
+        <code>
+          Viewport
         </code>
       </Link>
     </li>
@@ -441,14 +567,6 @@ exports[`Matches shallow shapshot 1`] = `
         CMS-related testing.
       </Link>
     </li>
-    <li>
-      <Link
-        replace={false}
-        to="/sandbox/payments"
-      >
-        Payments PoC
-      </Link>
-    </li>
   </ul>
   <h3>
     Misc Examples
@@ -461,7 +579,8 @@ exports[`Matches shallow shapshot 1`] = `
       >
         Announcement
       </Link>
-       — This is a part of simple PoC for CMS integration (Countentful CMS is the currently tested option);
+       
+      — This is a part of simple PoC for CMS integration (Countentful CMS is the currently tested option);
     </li>
     <li>
       <Link
@@ -470,7 +589,8 @@ exports[`Matches shallow shapshot 1`] = `
       >
         Buttons
       </Link>
-       — Demo/test of standard buttons already available in the code, and customizable with help of 
+       
+      — Demo/test of standard buttons already available in the code, and customizable with help of
       <code>
         react-css-themr
       </code>
@@ -499,7 +619,8 @@ exports[`Matches shallow shapshot 1`] = `
       >
         Color Mixins
       </Link>
-       — Live demo of TC UI Kit color pallete;
+       
+      — Live demo of TC UI Kit color pallete;
     </li>
     <li>
       <Link
@@ -508,7 +629,8 @@ exports[`Matches shallow shapshot 1`] = `
       >
         CSS Modules
       </Link>
-       - Demo/test of CSS modules in action;
+       
+      - Demo/test of CSS modules in action;
     </li>
     <li>
       <Link
@@ -517,7 +639,8 @@ exports[`Matches shallow shapshot 1`] = `
       >
         Data Fetch
       </Link>
-       - Demonstrates how data fetching should be implemented in isomorphic way, using Redux with Flux Standard Actions and promise;
+       
+      - Demonstrates how data fetching should be implemented in isomorphic way, using Redux with Flux Standard Actions and promise;
     </li>
     <li>
       <Link
@@ -534,7 +657,8 @@ exports[`Matches shallow shapshot 1`] = `
       >
         Error Message
       </Link>
-       - Demonstrates UI component for errors messaging;
+       
+      - Demonstrates UI component for errors messaging;
     </li>
     <li>
       <Link
@@ -543,7 +667,8 @@ exports[`Matches shallow shapshot 1`] = `
       >
         Fonts Test
       </Link>
-       - A simple showcase of the fonts included into this repo, and the test of their proper inclusion into the bundle;
+       
+      - A simple showcase of the fonts included into this repo, and the test of their proper inclusion into the bundle;
     </li>
     <li>
       <Link
@@ -564,11 +689,21 @@ exports[`Matches shallow shapshot 1`] = `
     <li>
       <Link
         replace={false}
+        to="/examples/markdown"
+      >
+        Markdown Rendering
+      </Link>
+      ‌ – A component that can be passed markdown as a prop and will render it as native React elements.  Also supports inlining a subset of the JSX Components found in Community App.
+    </li>
+    <li>
+      <Link
+        replace={false}
         to="/examples/scalable-rect"
       >
         ScalableRect
       </Link>
-       component makes it easy to create dynamically scaled components with fixed side ratio.
+       
+      component makes it easy to create dynamically scaled components with fixed side ratio.
     </li>
     <li>
       <Link
@@ -577,11 +712,13 @@ exports[`Matches shallow shapshot 1`] = `
       >
         SVG Loading
       </Link>
-       - Shows how to load 
+       
+      - Shows how to load
       <code>
         .svg
       </code>
-       assets with use of 
+       
+      assets with use of
       <code>
         babel-plugin-inline-react-svg
       </code>
@@ -594,7 +731,8 @@ exports[`Matches shallow shapshot 1`] = `
       >
         Tags
       </Link>
-       - Demo/test of standard tags already available in the code, and customizable with help of 
+       
+      - Demo/test of standard tags already available in the code, and customizable with help of
       <code>
         react-css-themr
       </code>
@@ -607,7 +745,8 @@ exports[`Matches shallow shapshot 1`] = `
       >
         Super Themr
       </Link>
-       - Test/demo of
+       
+      - Test/demo of
       <code>
         react-css-super-themr
       </code>
@@ -620,7 +759,8 @@ exports[`Matches shallow shapshot 1`] = `
       >
         Typography
       </Link>
-       - Most of Topcoder websites use the same styleguide for the design. In particular, all typography is supposed to use the set of styles from this example. For all these styles we have global mixins, which should be used whenever possible (but never modified without explicit approval).
+       
+      - Most of Topcoder websites use the same styleguide for the design. In particular, all typography is supposed to use the set of styles from this example. For all these styles we have global mixins, which should be used whenever possible (but never modified without explicit approval).
     </li>
   </ul>
 </div>

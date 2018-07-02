@@ -39,14 +39,18 @@ class Loader extends React.Component {
       communityId, loadingMeta, meta, tokenV3,
     } = nextProps;
 
+    const {
+      visitorGroups,
+    } = this.props;
+
     if (!loadingMeta && (
-      !meta /* || (Date.now() - meta.lastUpdateOfMetaData) > MAXAGE */
+      !meta /* || (Date.now() - meta.timestamp) > MAXAGE */
     )) nextProps.loadMetaData(communityId, tokenV3);
 
     /* TODO: This is a hacky way to handle SSO authentication for TopGear
      * (Wipro) community visitors. Should be re-factored, but not it is not
      * clear, what exactly do we need to support it in general. */
-    if (communityId === 'wipro' && !this.props.visitorGroups) {
+    if (communityId === 'wipro' && !visitorGroups) {
       const returnUrl = encodeURIComponent(window.location.href);
       window.location = `${config.URL.AUTH}/sso-login/?retUrl=${returnUrl}&utm_source=wipro`;
     }
@@ -129,9 +133,10 @@ Loader.propTypes = {
 function mapStateToProps(state, ownProps) {
   const { communityId } = ownProps;
 
-  let meta = state.tcCommunities.meta.data;
-  const loadingMeta = communityId === meta.loadingMetaDataForCommunityId;
-  if (meta.communityId !== communityId) meta = null;
+  let { meta } = state.tcCommunities;
+  const loadingMeta = communityId === meta.loadingOperationId;
+  meta = meta.data;
+  if (_.get(meta, 'communityId') !== communityId) meta = null;
 
   return {
     Community: ownProps.communityComponent,

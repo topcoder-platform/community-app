@@ -39,7 +39,9 @@ export default function LeaderboardTable(props) {
       }
       return (
         <tr key={competitor.rank}>
-          <td styleName="styles.col-rank">{competitor.rank}</td>
+          <td styleName="styles.col-rank">
+            {competitor.rank}
+          </td>
           <td styleName="styles.col-avatar">
             <span styleName="styles.leaderboard-avatar">
               <Avatar
@@ -51,14 +53,28 @@ export default function LeaderboardTable(props) {
             </span>
           </td>
           <td styleName="styles.col-handle">
-            <a href={`${config.URL.BASE}/members/${competitor['challenge_stats.winner_handle']}/`}>{competitor['challenge_stats.winner_handle']}</a>
+            <a href={`${config.URL.BASE}/members/${competitor['challenge_stats.winner_handle']}/`}>
+              {competitor['challenge_stats.winner_handle']}
+            </a>
             <div styleName="styles.winnings-info">
-              <span>{competitor.points} points</span>
-              <span>{competitor['challenge_stats.count']} challenges</span>
+              <span>
+                {competitor.points}
+                {' '}
+points
+              </span>
+              <span>
+                {competitor['challenge_stats.count']}
+                {' '}
+challenges
+              </span>
             </div>
           </td>
-          <td styleName="styles.col-challenges">{competitor['challenge_stats.count']}</td>
-          <td styleName="styles.col-points">{competitor.points}</td>
+          <td styleName="styles.col-challenges">
+            {competitor['challenge_stats.count']}
+          </td>
+          <td styleName="styles.col-points">
+            {competitor.points}
+          </td>
         </tr>
       );
     })
@@ -68,11 +84,21 @@ export default function LeaderboardTable(props) {
     <table styleName="styles.LeaderboardTable">
       <thead>
         <tr>
-          <th styleName="styles.col-rank">Rank</th>
-          <th>&nbsp;</th>
-          <th styleName="styles.col-handle">Handle</th>
-          <th styleName="styles.col-challenges"># of Challenges</th>
-          <th styleName="styles.col-points">Points</th>
+          <th styleName="styles.col-rank">
+Rank
+          </th>
+          <th>
+&nbsp;
+          </th>
+          <th styleName="styles.col-handle">
+Handle
+          </th>
+          <th styleName="styles.col-challenges">
+# of Challenges
+          </th>
+          <th styleName="styles.col-points">
+Points
+          </th>
         </tr>
       </thead>
       <tbody>

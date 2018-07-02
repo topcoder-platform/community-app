@@ -5,6 +5,14 @@ exports[`Snapshot match 1`] = `
   <withRouter(Connect(Routes)) />
   <Connect(ErrorMessageContainer) />
   <Connect(ErrorIconsContainer) />
+  <Connect(ReduxToastr)
+    position="top-center"
+    preventDuplicates={true}
+    progressBar={false}
+    transitionIn="fadeIn"
+    transitionOut="fadeOut"
+  />
+  <res />
 </div>
 `;
 
@@ -13,5 +21,13 @@ exports[`Snapshot match 2`] = `
   <withRouter(Connect(Routes)) />
   <Connect(ErrorMessageContainer) />
   <Connect(ErrorIconsContainer) />
+  <Connect(ReduxToastr)
+    position="top-center"
+    preventDuplicates={true}
+    progressBar={false}
+    transitionIn="fadeIn"
+    transitionOut="fadeOut"
+  />
+  <res />
 </div>
 `;

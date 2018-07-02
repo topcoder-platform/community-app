@@ -15,6 +15,7 @@ import FontsTest from 'components/examples/FontsTest';
 import LinkTest from 'components/examples/LinkTest';
 import LoadingIndicator from 'components/LoadingIndicator';
 import LoadingIndicators from 'components/examples/LoadingIndicators';
+import Markdown from 'components/examples/Markdown';
 import path from 'path';
 import PT from 'prop-types';
 import React from 'react';
@@ -33,8 +34,11 @@ import { AppChunk, webpack } from 'topcoder-react-utils';
 import Contentful from './Contentful';
 import DataFetch from './DataFetch';
 
-export default function Examples(props) {
-  const base = props.match.url;
+export default function Examples({
+  match: {
+    url: base,
+  },
+}) {
   return (
     <Switch>
       <Route path={`${base}/announcement/:id`} component={Announcement} />
@@ -43,8 +47,7 @@ export default function Examples(props) {
       <AppChunk
         chunkName="code-splitting/chunk"
         path={`${base}/code-splitting`}
-        renderClientAsync={() =>
-          import(/* webpackChunkName: "code-splitting/chunk" */ 'components/examples/CodeSplitting')
+        renderClientAsync={() => import(/* webpackChunkName: "code-splitting/chunk" */ 'components/examples/CodeSplitting')
           .then(({ default: CodeSplitting }) => <CodeSplitting />)
         }
         renderPlaceholder={() => <LoadingIndicator />}
@@ -72,6 +75,7 @@ export default function Examples(props) {
         component={LoadingIndicators}
         path={`${base}/loading-indicators`}
       />
+      <Route path={`${base}/markdown`} component={Markdown} />
       <Route path={`${base}/scalable-rect`} component={ScalableRect} />
       <Route path={`${base}/svg-loading`} component={SvgLoading} />
       <Route path={`${base}/tags`} component={Tags} />

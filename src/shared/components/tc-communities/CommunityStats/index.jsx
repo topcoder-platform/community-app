@@ -64,7 +64,8 @@ export default function CommunityStats({
         container: style.container,
         content: style.content,
       }}
-    >{iconsToRender}
+    >
+      {iconsToRender}
     </Section>
   ) : null;
 }

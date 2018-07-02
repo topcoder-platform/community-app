@@ -5,13 +5,13 @@
 /* eslint-disable no-restricted-globals */
 
 import _ from 'lodash';
-import challengeActions from 'actions/challenge';
+import challengeDetailsActions from 'actions/page/challenge-details';
 import cookies from 'browser-cookies';
 import Dashboard from 'components/Dashboard';
 import dashActions from 'actions/page/dashboard';
 import challengeListingSidebarActions from 'actions/challenge-listing/sidebar';
 import LoadingIndicator from 'components/LoadingIndicator';
-import memberActions from 'actions/members';
+import { actions } from 'topcoder-react-lib';
 import PT from 'prop-types';
 import qs from 'qs';
 import React from 'react';
@@ -23,7 +23,6 @@ import { BUCKETS } from 'utils/challenge-listing/buckets';
 
 import challengeListingActions from 'actions/challenge-listing';
 import communityActions from 'actions/tc-communities';
-import statsActions from 'actions/stats';
 
 import { isTokenExpired } from 'tc-accounts';
 import { config, isomorphy } from 'topcoder-react-utils';
@@ -39,6 +38,23 @@ const CACHE_MAX_AGE = 10 * 60 * 1000;
 const TOPCODER_BLOG_ID = 'TOPCODER_BLOG';
 const TOPOCDER_BLOG_URL = `/community-app-assets/api/proxy-get?url=${
   encodeURIComponent(config.URL.BLOG_FEED)}`;
+
+function updateCommunityStats(props) {
+  const {
+    activeChallenges,
+    communities,
+    communityStats,
+    getCommunityStats,
+    tokenV3,
+  } = props;
+  const now = Date.now();
+  communities.forEach((community) => {
+    const stats = communityStats[community.communityId];
+    if (stats && (stats.loadingUuid
+    || now - (stats.timestamp || 0) < CACHE_MAX_AGE)) return;
+    getCommunityStats(community, activeChallenges, tokenV3);
+  });
+}
 
 export class DashboardPageContainer extends React.Component {
   componentDidMount() {
@@ -130,26 +146,8 @@ export class DashboardPageContainer extends React.Component {
 
     if (now - communitiesTimestamp < CACHE_MAX_AGE
     && now - activeChallengesTimestamp < CACHE_MAX_AGE) {
-      this.updateCommunityStats(this.props);
+      updateCommunityStats(this.props);
     }
-  }
-
-  updateCommunityStats(props) {
-    const {
-      activeChallenges,
-      communities,
-      communityStats,
-      getCommunityStats,
-      tokenV3,
-    } = props;
-    const now = Date.now();
-    communities.forEach((community) => {
-      const stats = communityStats[community.communityId];
-      if (stats && (stats.loadingUuid
-      || now - (stats.timestamp || 0) < CACHE_MAX_AGE)) return;
-      getCommunityStats(community, activeChallenges, tokenV3);
-    });
-    _.noop(this.props.getCommunityStats);
   }
 
   render() {
@@ -226,8 +224,7 @@ export class DashboardPageContainer extends React.Component {
         tab={tab}
         tcBlogLoading={tcBlogLoading}
         tcBlogPosts={tcBlogPosts}
-        unregisterFromChallenge={id =>
-          unregisterFromChallenge({ tokenV2, tokenV3 }, id)}
+        unregisterFromChallenge={id => unregisterFromChallenge({ tokenV2, tokenV3 }, id)}
         userGroups={userGroups.map(x => x.id)}
         xlBadge={xlBadge}
       />
@@ -270,7 +267,7 @@ DashboardPageContainer.propTypes = {
   financesTimestamp: PT.number, // eslint-disable-line react/no-unused-prop-types
   getAllActiveChallenges: PT.func.isRequired, // eslint-disable-line react/no-unused-prop-types
   getCommunityList: PT.func.isRequired, // eslint-disable-line react/no-unused-prop-types
-  getCommunityStats: PT.func.isRequired,
+  getCommunityStats: PT.func.isRequired, // eslint-disable-line react/no-unused-prop-types
   getMemberAchievements: PT.func.isRequired, // eslint-disable-line react/no-unused-prop-types
   getMemberFinances: PT.func.isRequired, // eslint-disable-line react/no-unused-prop-types
   getMemberStats: PT.func.isRequired, // eslint-disable-line react/no-unused-prop-types
@@ -359,7 +356,7 @@ function mapStateToProps(state, props) {
 
 function mapDispatchToProps(dispatch) {
   const dash = dashActions.page.dashboard;
-  const { members } = memberActions;
+  const { members } = actions;
   return {
     getAllActiveChallenges: (tokenV3) => {
       const uuid = shortId();
@@ -373,7 +370,7 @@ function mapDispatchToProps(dispatch) {
     },
     getCommunityStats: (community, challenges, token) => {
       const uuid = shortId();
-      const a = statsActions.stats;
+      const a = actions.stats;
       dispatch(a.getCommunityStatsInit(community, uuid));
       dispatch(a.getCommunityStatsDone(community, uuid, challenges, token));
     },
@@ -408,8 +405,8 @@ function mapDispatchToProps(dispatch) {
       dispatch(a.getInit(TOPCODER_BLOG_ID, uuid));
       dispatch(a.getDone(TOPCODER_BLOG_ID, uuid, TOPOCDER_BLOG_URL));
     },
-    selectChallengeDetailsTab: tab =>
-      dispatch(challengeActions.challenge.selectTab(tab)),
+    selectChallengeDetailsTab:
+      tab => dispatch(challengeDetailsActions.page.challengeDetails.selectTab(tab)),
     setChallengeListingFilter: (filter) => {
       const cl = challengeListingActions.challengeListing;
       const cls = challengeListingSidebarActions.challengeListing.sidebar;
@@ -417,14 +414,13 @@ function mapDispatchToProps(dispatch) {
       dispatch(cls.selectBucket(BUCKETS.ALL));
     },
     showXlBadge: name => dispatch(dash.showXlBadge(name)),
-    switchChallengeFilter: filter =>
-      dispatch(dash.switchChallengeFilter(filter)),
+    switchChallengeFilter: filter => dispatch(dash.switchChallengeFilter(filter)),
     switchShowChallengeFilter:
       show => dispatch(dash.showChallengeFilter(show)),
     switchShowEarnings: show => dispatch(dash.showEarnings(show)),
     switchTab: tab => dispatch(dash.switchTab(tab)),
     unregisterFromChallenge: (auth, challengeId) => {
-      const a = challengeActions.challenge;
+      const a = actions.challenge;
       dispatch(a.unregisterInit());
       dispatch(a.unregisterDone(auth, challengeId));
     },

@@ -18,29 +18,30 @@ import './styles.scss';
  * SubmissionsPage Component
  */
 function SubmissionsPage(props) {
-  console.log(props);
+  const {
+    challengeId,
+    challengeName,
+    challengesUrl,
+    status,
+    track,
+  } = props;
   return (
     <div styleName="container">
       <div styleName="content">
         <Header
-          challengeId={props.challengeId}
-          challengesUrl={props.challengesUrl}
-          title={props.challengeName}
+          challengeId={challengeId}
+          challengesUrl={challengesUrl}
+          title={challengeName}
         />
         {
-          props.track === 'DEVELOP' &&
-          props.status === 'ACTIVE' &&
-          <Develop {...props} />
+          track === 'DEVELOP'
+          && status === 'ACTIVE'
+          && <Develop {...props} />
         }
         {
-          props.track === 'DESIGN' &&
-          props.status === 'ACTIVE' &&
-          <Design {...props} />
-        }
-        {
-          props.track === 'DATA_SCIENCE' && props.status === 'ACTIVE' ? (
-            <Marathon {...props} />
-          ) : null
+          track === 'DESIGN'
+          && status === 'ACTIVE'
+          && <Design {...props} />
         }
       </div>
     </div>

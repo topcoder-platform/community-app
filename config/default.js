@@ -6,6 +6,13 @@ module.exports = {
   API: {
     V2: 'https://api.topcoder-dev.com/v2',
     V3: 'https://api.topcoder-dev.com/v3',
+    V4: 'https://api.topcoder-dev.com/v4',
+  },
+
+  /* Auth0 config */
+  AUTH0: {
+    DOMAIN: 'topcoder-dev.auth0.com',
+    CLIENT_ID: 'JFDo7HMkf0q2CkVFHojy3zHWafziprhT',
   },
 
   /* Amount of time [seconds] before expiration of authentication tokens,
@@ -53,17 +60,6 @@ module.exports = {
     },
   },
 
-  /* Configuration related to https://openexchangerates.org. This is the
-   * service which provides currency exchange rates. */
-  OPEN_EXCHANGE: {
-    /* Once the app is running, currency rates are cached server-side and
-     * refreshed each X hours, where X is the number configured here. */
-    MAXAGE: 12,
-
-    /* API token. */
-    TOKEN: '3fcd4a89fca148fa9e8537550d29410f',
-  },
-
   /* Amount of time [seconds] before expiration of authentication tokens,
    * when the frontend will automatically trigger their refreshment. Once
    * ready, it will either write to the Redux store fresh token, or will
@@ -91,6 +87,10 @@ module.exports = {
 
     /* The remote address where the app is deployed. */
     APP: 'https://community-app.topcoder-dev.com',
+
+    /* This is the same value as above, but it is used by topcoder-react-lib,
+     * as a more verbose name for the param. */
+    COMMUNITY_APP: 'https://community-app.topcoder-dev.com',
 
     ARENA: 'https://arena.topcoder-dev.com',
     AUTH: 'http://accounts.topcoder-dev.com',
@@ -123,6 +123,7 @@ module.exports = {
     IOS: 'https://ios.topcoder-dev.com',
     MEMBER: 'https://members.topcoder-dev.com',
     ONLINE_REVIEW: 'https://software.topcoder-dev.com',
+    PAYMENT_TOOL: 'https://payment.topcoder-dev.com',
     STUDIO: 'https://studio.topcoder-dev.com',
     TCO: 'https://www.topcoder.com/tco',
     TCO17: 'https://tco17.topcoder.com/',
@@ -157,5 +158,7 @@ module.exports = {
       PREVIEW_API_KEY: '',
       SPACE_ID: '',
     },
+
+    OPEN_EXCHANGE_RATES_KEY: '',
   },
 };

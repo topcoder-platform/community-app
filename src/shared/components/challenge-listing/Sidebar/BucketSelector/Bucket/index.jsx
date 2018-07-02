@@ -3,10 +3,12 @@
  */
 
 import _ from 'lodash';
-import * as Filter from 'utils/challenge-listing/filter';
+import { challenge as challengeUtils } from 'topcoder-react-lib';
 import PT from 'prop-types';
 import React from 'react';
 import './style.scss';
+
+const Filter = challengeUtils.filter;
 
 export default function Bucket({
   active,
@@ -19,14 +21,28 @@ export default function Bucket({
   if (!bucket.hideCount && !disabled) {
     const filter = Filter.getFilterFunction(bucket.filter);
     count = challenges.filter(filter).length;
-    count = <span styleName="right">{count}</span>;
+    count = (
+      <span styleName="right">
+        {count}
+      </span>
+    );
   }
 
   const error = Boolean(bucket.error) && (
-    <div styleName="errorMsg">{bucket.error}</div>
+    <div styleName="errorMsg">
+      {bucket.error}
+    </div>
   );
 
-  if (active) return <div styleName="active bucket">{bucket.name}{count}{error}</div>;
+  if (active) {
+    return (
+      <div styleName="active bucket">
+        {bucket.name}
+        {count}
+        {error}
+      </div>
+    );
+  }
 
   return (
     <div
@@ -35,7 +51,10 @@ export default function Bucket({
       role="button"
       styleName="bucket"
       tabIndex={0}
-    >{bucket.name}{count}{error}
+    >
+      {bucket.name}
+      {count}
+      {error}
     </div>
   );
 }

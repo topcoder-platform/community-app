@@ -8,7 +8,9 @@ import './style.scss';
 export default function Carousel() {
   return (
     <div styleName="container">
-      <h1>Carousel</h1>
+      <h1>
+Carousel
+      </h1>
       <XCarousel>
         <Card color="red" height={90} />
         <Card color="green" height={120} />

@@ -5,7 +5,7 @@
 import _ from 'lodash';
 import actions from 'actions/terms';
 import { getCommunityId } from 'server/services/communities';
-import logger from 'utils/logger';
+import { logger } from 'topcoder-react-lib';
 import { redux } from 'topcoder-react-utils';
 import { getAuthTokens } from 'utils/tc';
 

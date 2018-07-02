@@ -96,6 +96,42 @@ function findData(content, itemIds, queries, minTimestamp) {
   return res;
 }
 
+/**
+ * Generates an object with requested data to pass into the rendering
+ * function. In case any of the data are missing, it returns `undefined`.
+ * @param {Object} props Props set to use.
+ * @return {Object} In case all requested data are present, it is an object
+ *  with the following structure:
+ *  - assets {Object}
+ *    - items: {Object}
+ *    - matches: {Array}
+ *  - entries {Object}
+ *    - items: {Object}
+ *    - matches: {Array}
+ */
+function findRequestedData(props) {
+  const {
+    assetIds,
+    assetQueries,
+    assets,
+    entries,
+    entryIds,
+    entryQueries,
+    maxage,
+    preview,
+  } = props;
+  const minTimestamp = Date.now() - maxage;
+  const res = { preview: Boolean(preview) };
+
+  res.assets = findData(assets, assetIds, assetQueries, minTimestamp);
+  if (!res.assets) return null;
+
+  res.entries = findData(entries, entryIds, entryQueries, minTimestamp);
+  if (!res.entries) return null;
+
+  return res;
+}
+
 class ContentfulLoader extends React.Component {
   componentDidMount() {
     const {
@@ -105,7 +141,6 @@ class ContentfulLoader extends React.Component {
       entryQueries,
       refreshMaxage,
     } = this.props;
-
     const timeLimit = Date.now() - refreshMaxage;
     this.loadContentOnMount(assetIds, 'assets', timeLimit);
     this.loadContentOnMount(entryIds, 'entries', timeLimit);
@@ -159,41 +194,6 @@ class ContentfulLoader extends React.Component {
       const ids = toArray(entryQueries).map(query => queryToMd5(query));
       ids.forEach(id => freeQuery(id, 'entries', preview));
     }
-  }
-
-  /**
-   * Generates an object with requested data to pass into the rendering
-   * function. In case any of the data are missing, it returns `undefined`.
-   * @return {Object} In case all requested data are present, it is an object
-   *  with the following structure:
-   *  - assets {Object}
-   *    - items: {Object}
-   *    - matches: {Array}
-   *  - entries {Object}
-   *    - items: {Object}
-   *    - matches: {Array}
-   */
-  findRequestedData() {
-    const {
-      assetIds,
-      assetQueries,
-      assets,
-      entries,
-      entryIds,
-      entryQueries,
-      maxage,
-      preview,
-    } = this.props;
-    const minTimestamp = Date.now() - maxage;
-    const res = { preview: Boolean(preview) };
-
-    res.assets = findData(assets, assetIds, assetQueries, minTimestamp);
-    if (!res.assets) return null;
-
-    res.entries = findData(entries, entryIds, entryQueries, minTimestamp);
-    if (!res.entries) return null;
-
-    return res;
   }
 
   /**
@@ -281,8 +281,12 @@ class ContentfulLoader extends React.Component {
     if (!contentQueries && !prevQueries) return;
     const old = toArray(prevQueries);
     const neu = toArray(contentQueries);
+    const oldIds = old.map(q => queryToMd5(q));
+    const neuIds = old.map(q => queryToMd5(q));
     let added;
     let gone;
+    let addedIds;
+    let goneIds;
     const {
       bookQuery,
       freeQuery,
@@ -293,17 +297,27 @@ class ContentfulLoader extends React.Component {
     if (preview !== prev.preview) {
       added = neu;
       gone = old;
+      addedIds = neuIds;
+      goneIds = oldIds;
     } else {
-      added = arrayDiff(neu, old);
-      gone = arrayDiff(old, neu);
+      addedIds = arrayDiff(neuIds, oldIds);
+      goneIds = arrayDiff(oldIds, neuIds);
+      added = [];
+      if (addedIds.length) {
+        const neuMap = _.zipObject(neuIds, neu);
+        addedIds.forEach(id => added.push(neuMap[id]));
+      }
+      gone = [];
+      if (goneIds.length) {
+        const oldMap = _.zipObject(oldIds, old);
+        goneIds.forEach(id => gone.push(oldMap[id]));
+      }
     }
     if (gone.length) {
-      const ids = gone.map(q => queryToMd5(q));
-      ids.forEach(id => freeQuery(id, target, prev.preview));
+      goneIds.forEach(id => freeQuery(id, target, prev.preview));
     }
     if (added.length) {
-      const ids = added.map(q => queryToMd5(q));
-      ids.forEach((id, index) => {
+      addedIds.forEach((id, index) => {
         bookQuery(id, target, preview);
         const slot = queries[id];
         if (!slot || (!slot.loadingOperationId && slot.timestamp < timeLimit)) {
@@ -315,7 +329,7 @@ class ContentfulLoader extends React.Component {
 
   render() {
     const { render, renderPlaceholder: Placeholder } = this.props;
-    const data = this.findRequestedData();
+    const data = findRequestedData(this.props);
 
     /* Some of the required data still pending to load: render a placeholder,
      * or nothing. */
@@ -339,7 +353,7 @@ ContentfulLoader.defaultProps = {
   renderPlaceholder: null,
 };
 
-const QUERY_TYPE = PT.oneOfType([PT.bool, PT.object]);
+const QUERY_TYPE = PT.oneOfType([PT.bool, PT.object, PT.arrayOf(PT.object)]);
 const STRING_OR_STRING_ARRAY = PT.oneOfType([PT.string, PT.arrayOf(PT.string)]);
 
 ContentfulLoader.propTypes = {
@@ -370,14 +384,10 @@ function mapStateToProps(state, ownProps) {
 function mapDispatchToProps(dispatch) {
   const a = actions.contentful;
   return {
-    bookContent: (ids, target, preview) =>
-      dispatch(a.bookContent(ids, target, preview)),
-    bookQuery: (id, target, preview) =>
-      dispatch(a.bookQuery(id, target, preview)),
-    freeContent: (ids, target, preview) =>
-      dispatch(a.freeContent(ids, target, preview)),
-    freeQuery: (id, target, preview) =>
-      dispatch(a.freeQuery(id, target, preview)),
+    bookContent: (ids, target, preview) => dispatch(a.bookContent(ids, target, preview)),
+    bookQuery: (id, target, preview) => dispatch(a.bookQuery(id, target, preview)),
+    freeContent: (ids, target, preview) => dispatch(a.freeContent(ids, target, preview)),
+    freeQuery: (id, target, preview) => dispatch(a.freeQuery(id, target, preview)),
     getContent: (contentId, target, preview) => {
       const uuid = shortId();
       dispatch(a.getContentInit(uuid, contentId, target, preview));

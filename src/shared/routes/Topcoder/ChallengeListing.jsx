@@ -16,13 +16,12 @@ export default function ChallengeListingRoute() {
     <AppChunk
       cacheCss
       chunkName="challenge-listing/chunk"
-      renderClientAsync={renderProps =>
-        import(/* webpackChunkName: "challenge-listing/chunk" */ 'containers/challenge-listing/Listing')
+      renderClientAsync={renderProps => import(/* webpackChunkName: "challenge-listing/chunk" */ 'containers/challenge-listing/Listing')
         .then(({ default: ChallengeListing }) => {
           /* TODO: Choice of currency and prize mode should be moved to
            * Redux actions / reducers. */
-          const query = renderProps.location.search ?
-            qs.parse(renderProps.location.search.slice(1)) : null;
+          const query = renderProps.location.search
+            ? qs.parse(renderProps.location.search.slice(1)) : null;
           const currencyFromUrl = _.get(query, 'currency');
           const prizeMode = currencyFromUrl && `money-${currencyFromUrl}`;
           return (

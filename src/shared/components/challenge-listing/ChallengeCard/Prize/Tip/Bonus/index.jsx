@@ -15,8 +15,11 @@ export default function Bonus({
 }) {
   return (
     <div styleName="bonus">
-      <span styleName="name">{name}</span>
-      {prizeUnitSymbol}{prize.toLocaleString()}
+      <span styleName="name">
+        {name}
+      </span>
+      {prizeUnitSymbol}
+      {prize.toLocaleString()}
     </div>
   );
 }

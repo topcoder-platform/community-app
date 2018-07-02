@@ -1,6 +1,7 @@
 import PT from 'prop-types';
 import React from 'react';
-import { config, PrimaryButton } from 'topcoder-react-ui-kit';
+import { config } from 'topcoder-react-utils';
+import { PrimaryButton } from 'topcoder-react-ui-kit';
 
 import InputBlock from './InputBlock';
 import './style.scss';
@@ -12,20 +13,24 @@ export default function StockArtInput({
   return (
     <div styleName="row">
       <div styleName="left">
-        <h4>DID YOU USE STOCK ART?</h4>
+        <h4>
+DID YOU USE STOCK ART?
+        </h4>
         <p>
           If you used any stock photos in your design mocks, please
           provide the location and details so that the client can obtain
           them. Follow the guidelines at our
-          &zwnj;{
+          &zwnj;
+          {
             <a
               href={config.URL.INFO.STOCK_ART_POLICY}
-              rel="norefferer noopener"
               target="_blank"
+              rel="noreferrer noopener"
             >
               Studio Stock Art Policy
             </a>
-          }.
+          }
+.
         </p>
         <p>
           Note that you can paste a list of URL separated by any space-likes
@@ -53,7 +58,8 @@ export default function StockArtInput({
             e.stopPropagation();
             e.preventDefault();
           }}
-        >+ Add Stock Art Record
+        >
++ Add Stock Art Record
         </PrimaryButton>
       </div>
     </div>

@@ -11,11 +11,11 @@ import Section from 'components/tc-communities/Section';
 import PT from 'prop-types';
 import LoadingIndicator from 'components/LoadingIndicator';
 
-import { getApiV2 } from 'services/api';
-
+import { services } from 'topcoder-react-lib';
 
 import style from './style.scss';
 
+const { getApiV2 } = services.api;
 const INFO_ID = '30058834';
 
 /**
@@ -33,17 +33,17 @@ export default class Home extends React.Component {
   }
 
   componentDidMount() {
-    getApiV2(this.props.tokenV2)
+    const { tokenV2 } = this.props;
+    getApiV2(tokenV2)
       .fetch(`/challenges/${INFO_ID}`)
       .then(res => res.json())
       .then(res => this.setState({ msgHtml: res.detailedRequirements }));
   }
 
   render() {
+    const { msgHtml } = this.state;
     return (
       <main>
-
-
         <Section
           theme={{
             container: style.linksContainer,
@@ -51,8 +51,8 @@ export default class Home extends React.Component {
         >
           {
             /* eslint-disable react/no-danger */
-            this.state.msgHtml
-              ? <div dangerouslySetInnerHTML={{ __html: this.state.msgHtml }} />
+            msgHtml
+              ? <div dangerouslySetInnerHTML={{ __html: msgHtml }} />
               : <LoadingIndicator />
             /* eslint-enable react/no-danger */
           }
@@ -67,4 +67,3 @@ export default class Home extends React.Component {
 Home.propTypes = {
   tokenV2: PT.string.isRequired,
 };
-

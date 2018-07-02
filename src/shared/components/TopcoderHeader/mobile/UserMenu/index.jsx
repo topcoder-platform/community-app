@@ -17,7 +17,8 @@ export default function UserMenu({ menu, profile }) {
               color: getRatingColor(_.get(profile, 'maxRating.rating', 0)),
             }}
             styleName="handle"
-          >{profile.handle}
+          >
+            {profile.handle}
           </span>
         </a>
       </div>

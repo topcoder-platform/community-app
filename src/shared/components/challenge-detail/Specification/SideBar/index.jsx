@@ -41,22 +41,30 @@ export default function SideBar({
 
   const reviewTypeTitle = reviewType === 'PEER' ? 'Peer Review' : 'Community Review Board';
   const reviewTypeDescription = (
-    reviewType === 'PEER' ?
-      'Your peers performs a thorough review based on scorecards.' :
-      'Community Review Board performs a thorough review based on scorecards.'
+    reviewType === 'PEER'
+      ? 'Your peers performs a thorough review based on scorecards.'
+      : 'Community Review Board performs a thorough review based on scorecards.'
   );
 
   const reviewTip = (
     <div styleName="tctooltiptext tooltiptextreview">
-      <h4>Final Review:</h4>
-      <p>{reviewTypeDescription}</p>
+      <h4>
+Final Review:
+      </h4>
+      <p>
+        {reviewTypeDescription}
+      </p>
     </div>
   );
 
   const approvalTip = (
     <div styleName="tctooltiptext tooltiptextapproval">
-      <h4>Approval:</h4>
-      <p>Customer has final opportunity to sign-off on the delivered assets.</p>
+      <h4>
+Approval:
+      </h4>
+      <p>
+Customer has final opportunity to sign-off on the delivered assets.
+      </p>
     </div>
   );
 
@@ -66,14 +74,18 @@ export default function SideBar({
         {
           hasRegistered && documents && documents.length > 0 && (
             <div>
-              <h3>DOWNLOADS:</h3>
+              <h3>
+DOWNLOADS:
+              </h3>
               <ul>
                 {
                   documents.map((doc) => {
                     const url = `${config.URL.COMMUNITY}/tc?module=DownloadDocument&docid=${doc.documentid}`;
                     return (
                       <li key={url}>
-                        <a href={url}>{doc.documentname}</a>
+                        <a href={url}>
+                          {doc.documentname}
+                        </a>
                       </li>
                     );
                   })
@@ -84,7 +96,9 @@ export default function SideBar({
         }
         {eventDetail && (
           <div>
-            <h3>ELIGIBLE EVENTS:</h3>
+            <h3>
+ELIGIBLE EVENTS:
+            </h3>
             <p styleName="link-like-paragraph">
               {/* TODO: It is not good to compose the event URL like this, as
                 * in general there is not guaranteed to be correct. */}
@@ -95,60 +109,95 @@ export default function SideBar({
           </div>
         )}
         {
-          !isDesign && !isMM &&
+          !isDesign && !isMM && (
           <div>
-            <h3>REVIEW STYLE:</h3>
-            <h4>Final Review:</h4>
+            <h3>
+REVIEW STYLE:
+            </h3>
+            <h4>
+Final Review:
+            </h4>
             <span styleName="link-like-paragraph tooltip-container">
               {reviewTypeTitle}
               <Tooltip content={reviewTip}>
-                <div styleName="tctooltip">?</div>
+                <div styleName="tctooltip">
+?
+                </div>
               </Tooltip>
             </span>
-            <h4>Approval:</h4>
+            <h4>
+Approval:
+            </h4>
             <span styleName="link-like-paragraph tooltip-container">
               User Sign-Off
               <Tooltip content={approvalTip} className={styles['tooltip-overlay']}>
-                <div styleName="tctooltip">?</div>
+                <div styleName="tctooltip">
+?
+                </div>
               </Tooltip>
             </span>
           </div>
+          )
         }
         {
-          !isMM &&
+          !isMM && (
           <div>
-            <h3>CHALLENGE LINKS:</h3>
+            <h3>
+  CHALLENGE LINKS:
+            </h3>
             {
-              isDevelop && environment && environment.length > 0 &&
+              isDevelop && environment && environment.length > 0
+              && (
               <p styleName="link-like-paragraph">
-                <a href={`${environment}`}>Environment</a>
+                <a href={`${environment}`}>
+  Environment
+                </a>
               </p>
+              )
             }
             {
-              isDevelop && codeRepo && codeRepo.length > 0 &&
+              isDevelop && codeRepo && codeRepo.length > 0
+              && (
               <p styleName="link-like-paragraph">
-                <a href={`${codeRepo}`}>Code Repository</a>
+                <a href={`${codeRepo}`}>
+  Code Repository
+                </a>
               </p>
+              )
             }
             {
-              screeningScorecardId > 0 &&
+              screeningScorecardId > 0
+              && (
               <p styleName="link-like-paragraph">
-                <a href={`${scorecardURL}${screeningScorecardId}`}>Screening Scorecard</a>
+                <a href={`${scorecardURL}${screeningScorecardId}`}>
+  Screening Scorecard
+                </a>
               </p>
+              )
             }
             {
-              reviewScorecardId > 0 && !isDesign &&
+              reviewScorecardId > 0 && !isDesign
+              && (
               <p styleName="link-like-paragraph">
-                <a href={`${scorecardURL}${reviewScorecardId}`}>Review Scorecard</a>
+                <a href={`${scorecardURL}${reviewScorecardId}`}>
+  Review Scorecard
+                </a>
               </p>
+              )
             }
           </div>
+          )
         }
         {
-          isDesign &&
+          isDesign
+          && (
           <div>
-            <h3>SUBMISSION FORMAT:</h3>
-            <h4>Your Design Files:</h4>
+            <h3>
+SUBMISSION FORMAT:
+            </h3>
+            <h4>
+Your Design Files:
+            </h4>
             <ol>
               <li>
                 {'Look for instructions in this challenge regarding what files to provide.'}
@@ -165,69 +214,99 @@ export default function SideBar({
             </ol>
             <p styleName="link-like-paragraph">
               Trouble formatting your submission or want to learn more?
-              &zwnj;<a href={faqURL}>Read the FAQ.</a>
+              &zwnj;
+              <a href={faqURL}>
+Read the FAQ.
+              </a>
             </p>
-            <h4>Fonts:</h4>
+            <h4>
+Fonts:
+            </h4>
             <p styleName="link-like-paragraph">
               All fonts within your design must be declared when you submit.
               DO NOT include any font files in your submission or source files.
               Read about the font policy here.
             </p>
-            <h4>Screening:</h4>
+            <h4>
+Screening:
+            </h4>
             <p styleName="link-like-paragraph">
               All submissions are screened for eligibility before the challenge
-              holder picks winners. Don{"'"}t let your hard work go to waste.
+              holder picks winners. Don
+              {"'"}
+t let your hard work go to waste.
               Learn more about how to pass screening here.
             </p>
             <p styleName="link-like-paragraph">
               Questions?
-              &zwnj;{
+              &zwnj;
+              {
                 <a href={forumLink}>
                   Ask in the Challenge Discussion Forums.
                 </a>
               }
             </p>
-            <h3>SOURCE FILES:</h3>
+            <h3>
+SOURCE FILES:
+            </h3>
             <ul styleName="source-files-list">
               {
-                fileTypes && fileTypes.length > 0 ?
-                  fileTypes.map(fileT => <li key={fileT}>{fileT}</li>) :
-                  undefined
+                fileTypes && fileTypes.length > 0
+                  ? fileTypes.map(fileT => (
+                    <li key={fileT}>
+                      {fileT}
+                    </li>
+                  ))
+                  : undefined
               }
             </ul>
             <p styleName="link-like-paragraph">
               You must include all source files with your submission.
             </p>
-            <h3>SUBMISSION LIMIT:</h3>
+            <h3>
+SUBMISSION LIMIT:
+            </h3>
             <p styleName="link-like-paragraph">
               {
-                submissionLimit ?
-                  submissionLimitDisplay : <strong>{submissionLimitDisplay}</strong>
+                submissionLimit
+                  ? submissionLimitDisplay : (
+                    <strong>
+                      {submissionLimitDisplay}
+                    </strong>
+                  )
               }
             </p>
           </div>
+          )
         }
         {
-          terms.length > 0 &&
+          terms.length > 0
+          && (
           <div>
-            <h3>CHALLENGE TERMS:</h3>
+            <h3>
+CHALLENGE TERMS:
+            </h3>
             <div styleName="link-like-paragraph">
               {
                 terms.map(t => (
                   <div styleName="term" key={t.termsOfUseId}>
                     <Link
                       to={`${challengesUrl}/terms/detail/${t.termsOfUseId}`}
-                    >{t.title}
+                    >
+                      {t.title}
                     </Link>
                   </div>
                 ))
               }
             </div>
           </div>
+          )
         }
         { shareable && (
           <div>
-            <h3>SHARE:</h3>
+            <h3>
+SHARE:
+            </h3>
             <ShareSocial />
           </div>
         )}

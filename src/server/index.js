@@ -3,8 +3,8 @@ import Application from 'shared';
 import config from 'config';
 import express from 'express';
 import fetch from 'isomorphic-fetch';
+import { logger } from 'topcoder-react-lib';
 import fs from 'fs';
-import logger from 'utils/logger';
 import moment from 'moment';
 import path from 'path';
 import qs from 'qs';
@@ -25,8 +25,7 @@ import webpackConfigFactory from '../../webpack.config';
 
 global.atob = atob;
 
-const CMS_BASE_URL =
-  `https://app.contentful.com/spaces/${config.SECRET.CONTENTFUL.SPACE_ID}`;
+const CMS_BASE_URL = `https://app.contentful.com/spaces/${config.SECRET.CONTENTFUL.SPACE_ID}`;
 
 let ts = path.resolve(__dirname, '../../.build-info');
 ts = JSON.parse(fs.readFileSync(ts));
@@ -71,7 +70,7 @@ async function beforeRender(req, suggestedConfig) {
   ]);
 
   return {
-    config: { ...suggestedConfig, EXCHANGE_RATES: rates },
+    configToInject: { ...suggestedConfig, EXCHANGE_RATES: rates },
     extraScripts: EXTRA_SCRIPTS,
     store,
   };
@@ -104,7 +103,20 @@ async function onExpressJsSetup(server) {
   server.use('/api/cdn', cdnRouter);
 
   // serve demo api
-  server.use('/community-app-assets/api/tc-communities', tcCommunitiesDemoApi);
+  server.use(
+    '/community-app-assets/api/tc-communities',
+    (req, res, next) => {
+      res.set('Access-Control-Allow-Headers', 'authorization');
+      res.set('Access-Control-Allow-Origin', '*');
+      next();
+    },
+    tcCommunitiesDemoApi,
+  );
+
+  server.use(
+    '/community-app-assets/api/edit-contentful-entry/:id',
+    (req, res) => res.redirect(`${CMS_BASE_URL}/entries/${req.params.id}`),
+  );
 
   server.use(
     '/community-app-assets/api/edit-contentful-entry/:id',
@@ -156,11 +168,7 @@ async function onExpressJsSetup(server) {
    * HTML document (/src/shared/services/__mocks__/data/docu-sign-mock.html)
    * that has two buttons, that do the same redirects, as the real DocuSign
    * page would do on signing / rejecting a document. */
-  server.use('/community-app-assets/api/mock/docu-sign', (req, res) =>
-    /* The real DocuSign API does not return the page immediately,
-     * thus timeout to imitate this in our mock. 3 seconds just an arbitrary
-     * choice. */
-    setTimeout(() => res.send(mockDocuSignFactory(req.query.returnUrl)), 3000));
+  server.use('/community-app-assets/api/mock/docu-sign', (req, res) => setTimeout(() => res.send(mockDocuSignFactory(req.query.returnUrl)), 3000));
 
   /* TODO:
    * This is a temporary fallback route: some of the assets in the app are not

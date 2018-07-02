@@ -5,11 +5,13 @@
 import _ from 'lodash';
 import { createActions } from 'redux-actions';
 import { decodeToken } from 'tc-accounts';
-import { getService } from 'services/challenges';
-import { getReviewOpportunitiesService } from 'services/reviewOpportunities';
 import 'isomorphic-fetch';
-import { fireErrorMessage } from 'utils/errors';
 import { processSRM } from 'utils/tc';
+import { errors, services } from 'topcoder-react-lib';
+
+const { fireErrorMessage } = errors;
+const { getService } = services.challenge;
+const { getReviewOpportunitiesService } = services.reviewOpportunities;
 
 /**
  * The maximum number of challenges to fetch in a single API call. Currently,
@@ -53,8 +55,7 @@ function getAll(getter, page = 0, prev) {
 function getChallengeSubtracksDone() {
   return getService()
     .getChallengeSubtracks()
-    .then(res =>
-      res.sort((a, b) => a.name.localeCompare(b.name)));
+    .then(res => res.sort((a, b) => a.name.localeCompare(b.name)));
 }
 
 /**
@@ -64,9 +65,8 @@ function getChallengeSubtracksDone() {
 function getChallengeTagsDone() {
   return getService()
     .getChallengeTags()
-    .then(res =>
-      res.map(item => item.name)
-        .sort((a, b) => a.localeCompare(b)));
+    .then(res => res.map(item => item.name)
+      .sort((a, b) => a.localeCompare(b)));
 }
 
 /**
@@ -99,21 +99,20 @@ function getAllActiveChallengesDone(uuid, tokenV3) {
   let user;
   if (tokenV3) {
     user = decodeToken(tokenV3).handle;
-    calls.push(getAll(params =>
-      service.getUserChallenges(user, filter, params)));
-    calls.push(getAll(params =>
-      service.getUserMarathonMatches(user, filter, params)));
+    // Handle any errors on this endpoint so that the non-user specific challenges
+    // will still be loaded.
+    calls.push(getAll(params => service.getUserChallenges(user, filter, params)
+      .catch(() => ({ challenges: [] }))));
   }
-  return Promise.all(calls).then(([challenges, uch, umm]) => {
-    /* uch and umm arrays contain challenges where the user is participating in
+  return Promise.all(calls).then(([ch, uch]) => {
+    /* uch array contains challenges where the user is participating in
      * some role. The same challenge are already listed in res array, but they
      * are not attributed to the user there. This block of code marks user
      * challenges in an efficient way. */
     if (uch && umm) {
       const map = {};
       uch.forEach((item) => { map[item.id] = item; });
-      umm.forEach((item) => { map[item.id] = item; });
-      challenges.forEach((item) => {
+      ch.forEach((item) => {
         if (map[item.id]) {
           /* It is fine to reassing, as the array we modifying is created just
            * above within the same function. */
@@ -125,7 +124,7 @@ function getAllActiveChallengesDone(uuid, tokenV3) {
       });
     }
 
-    return { uuid, challenges };
+    return { uuid, challenges: ch };
   });
 }
 
@@ -148,14 +147,13 @@ function getDraftChallengesInit(uuid, page) {
  */
 async function getDraftChallengesDone(uuid, page, filter, tokenV3) {
   const service = getService(tokenV3);
-  const data = await service.getChallenges({
+  return service.getChallenges({
     ...filter,
     status: 'DRAFT',
   }, {
     limit: PAGE_SIZE,
     offset: page * PAGE_SIZE,
-  });
-  return { uuid, challenges: data.challenges };
+  }).then(({ challenges }) => ({ uuid, challenges }));
 }
 
 /**
@@ -186,14 +184,13 @@ async function getPastChallengesDone(
   frontFilter = {},
 ) {
   const service = getService(tokenV3);
-  const data = await service.getChallenges({
+  return service.getChallenges({
     ...filter,
     status: 'COMPLETED',
   }, {
     limit: PAGE_SIZE,
     offset: page * PAGE_SIZE,
-  });
-  return { uuid, challenges: data.challenges, frontFilter };
+  }).then(({ challenges }) => ({ uuid, challenges, frontFilter }));
 }
 
 /**

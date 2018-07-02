@@ -82,9 +82,9 @@ export default function ChallengeDetailsView(props) {
   const toolbarConnector = new ToolbarConnector();
   const isSaving = specsTabState === SPECS_TAB_STATES.SAVING;
 
-  const stockArtText = allowStockArt ?
-    'Stock photography is allowed in this challenge.' :
-    'Stock photography is not allowed in this challenge. All submitted elements must be designed solely by you.';
+  const stockArtText = allowStockArt
+    ? 'Stock photography is allowed in this challenge.'
+    : 'Stock photography is not allowed in this challenge. All submitted elements must be designed solely by you.';
 
   /**
    * Saves updated challenge into API.
@@ -118,7 +118,8 @@ export default function ChallengeDetailsView(props) {
             <DangerButton
               onClick={() => setSpecsTabState(SPECS_TAB_STATES.EDIT)}
               theme={{ button: style.hiddenSaveButton }}
-            >Don&apos;t press it!
+            >
+Don&apos;t press it!
             </DangerButton>
           </Sticky>
         ) : null
@@ -141,13 +142,16 @@ export default function ChallengeDetailsView(props) {
         <div styleName="challenge-specifications">
           <div styleName={`challenge-specs-main ${accentedStyle}`}>
             {
-              track.toLowerCase() !== 'design' ?
-                (
+              track.toLowerCase() !== 'design'
+                ? (
                   <div>
                     {
-                      detailedRequirements &&
+                      detailedRequirements
+                      && (
                       <article>
-                        <h2 styleName="h2">Challenge Overview</h2>
+                        <h2 styleName="h2">
+Challenge Overview
+                        </h2>
                         {
                           editMode ? (
                             <Editor
@@ -168,11 +172,15 @@ export default function ChallengeDetailsView(props) {
                           )
                         }
                       </article>
+                      )
                     }
                     {
-                      finalSubmissionGuidelines &&
+                      finalSubmissionGuidelines
+                      && (
                       <article>
-                        <h2 styleName="h2">Final Submission Guidelines</h2>
+                        <h2 styleName="h2">
+Final Submission Guidelines
+                        </h2>
                         {
                           editMode ? (
                             <Editor
@@ -193,15 +201,19 @@ export default function ChallengeDetailsView(props) {
                           )
                         }
                       </article>
+                      )
                     }
                   </div>
-                ) :
-                (
+                )
+                : (
                   <div>
                     {
-                      introduction &&
+                      introduction
+                      && (
                       <article>
-                        <h2 styleName="h2">Challenge Summary</h2>
+                        <h2 styleName="h2">
+Challenge Summary
+                        </h2>
                         {
                           editMode ? (
                             <Editor
@@ -231,16 +243,25 @@ export default function ChallengeDetailsView(props) {
                           might have for the client in the forums.
                         </p>
                       </article>
+                      )
                     }
                     {
-                      numberOfCheckpointsPrizes > 0 &&
+                      numberOfCheckpointsPrizes > 0
+                      && (
                       <article>
-                        <h2 styleName="h2">Challenge Format</h2>
-                        <p styleName="p">This competition will be run as a two-round challenge.</p>
+                        <h2 styleName="h2">
+Challenge Format
+                        </h2>
+                        <p styleName="p">
+This competition will be run as a two-round challenge.
+                        </p>
                         {
-                          round1Introduction &&
+                          round1Introduction
+                          && (
                           <div>
-                            <h3 styleName="h3">Round 1</h3>
+                            <h3 styleName="h3">
+Round 1
+                            </h3>
                             {
                               editMode ? (
                                 <Editor
@@ -261,11 +282,15 @@ export default function ChallengeDetailsView(props) {
                               )
                             }
                           </div>
+                          )
                         }
                         {
-                          round2Introduction &&
+                          round2Introduction
+                          && (
                           <div>
-                            <h3 styleName="h3">Round 2</h3>
+                            <h3 styleName="h3">
+Round 2
+                            </h3>
                             {
                               editMode ? (
                                 <Editor
@@ -286,11 +311,15 @@ export default function ChallengeDetailsView(props) {
                               )
                             }
                           </div>
+                          )
                         }
                         <div styleName="note">
-                          <p styleName="p">Regarding the Rounds:</p>
+                          <p styleName="p">
+Regarding the Rounds:
+                          </p>
                           <ul styleName="ul">
-                            <li>To be eligible for Round 1 prizes and design feedback,
+                            <li>
+To be eligible for Round 1 prizes and design feedback,
                               you must submit before the Checkpoint deadline.
                             </li>
                             <li>
@@ -310,16 +339,21 @@ export default function ChallengeDetailsView(props) {
                             <li>
                               <a href={config.URL.INFO.DESIGN_CHALLENGE_CHECKPOINTS}>
                                 Learn more here
-                              </a>.
+                              </a>
+.
                             </li>
                           </ul>
                         </div>
                       </article>
+                      )
                     }
                     {
-                      detailedRequirements &&
+                      detailedRequirements
+                      && (
                       <article>
-                        <h2 styleName="h2">Full Description & Project Guide</h2>
+                        <h2 styleName="h2">
+Full Description & Project Guide
+                        </h2>
                         {
                           editMode ? (
                             <Editor
@@ -340,26 +374,34 @@ export default function ChallengeDetailsView(props) {
                           )
                         }
                       </article>
+                      )
                     }
                     <article>
-                      <h2 styleName="h2">Stock Photography</h2>
+                      <h2 styleName="h2">
+Stock Photography
+                      </h2>
                       <p styleName="p">
-                        {stockArtText}&nbsp;
+                        {stockArtText}
+&nbsp;
                         <a href={config.URL.INFO.STOCK_ART_POLICY}>
                           See this page for more details.
                         </a>
                       </p>
                     </article>
                     <article>
-                      <h2 styleName="h2">How To Submit</h2>
+                      <h2 styleName="h2">
+How To Submit
+                      </h2>
                       <ul styleName="ul">
                         <li>
                           New to Studio?
-                          &zwnj;{
+                          &zwnj;
+                          {
                             <a href={config.URL.INFO.DESIGN_CHALLENGE_TYPES}>
                               Learn how to compete here
                             </a>
-                          }.
+                          }
+.
                         </li>
                         <li>
                           Upload your submission in three parts (
@@ -373,7 +415,8 @@ export default function ChallengeDetailsView(props) {
                           If your submission wins, your source files must be correct and &ldquo;
                           <a href={config.URL.INFO.DESIGN_CHALLENGES}>
                             Final Fixes
-                          </a>&rdquo;
+                          </a>
+&rdquo;
                           (if applicable) must be completed before payment can be released.
                         </li>
                         <li>
@@ -389,18 +432,22 @@ export default function ChallengeDetailsView(props) {
                     </article>
 
                     <article>
-                      <h2 styleName="h2">Winner Selection</h2>
+                      <h2 styleName="h2">
+Winner Selection
+                      </h2>
                       <p styleName="p">
                         Submissions are viewable to the client as they are entered
                         into the challenge. Winners are selected by the client and
-                        are chosen solely at the Client&apos;s discretion.
+                        are chosen solely at the client&apos;s discretion.
                       </p>
                     </article>
                   </div>
                 )
             }
             <article>
-              <h2 styleName="h2">Payments</h2>
+              <h2 styleName="h2">
+Payments
+              </h2>
               {
                 isWipro ? (
                   <div>
@@ -415,14 +462,17 @@ export default function ChallengeDetailsView(props) {
                       money, respective country currency conversion shall be
                       considered as per Wipro standard currency conversion
                       guidelines. Please refer to policy document at
-                      &zwnj;{
+                      &zwnj;
+                      {
                         <a
                           href="https://wipro365.sharepoint.com/sites/wipro-people-policies/wipro%20policies/TopGear-RewardPoints-Policy.pdf"
                           rel="noopener noreferrer"
                           target="_blank"
-                        >https://wipro365.sharepoint.com/sites/wipro-people-policies/wipro%20policies/TopGear-RewardPoints-Policy.pdf
+                        >
+https://wipro365.sharepoint.com/sites/wipro-people-policies/wipro%20policies/TopGear-RewardPoints-Policy.pdf
                         </a>
-                      }&zwnj;
+                      }
+&zwnj;
                       for details regarding the policy.
                     </p>
                   </div>
@@ -433,20 +483,25 @@ export default function ChallengeDetailsView(props) {
                     challenge. For information on payment policies, setting up your
                     profile to receive payments, and general payment questions,
                     please refer to
-                    &zwnj;{
+                    &zwnj;
+                    {
                       <a
                         href="https://help.topcoder.com/hc/en-us/articles/217482038-Payment-Policies-and-Instructions"
                         rel="noopener noreferrer"
                         target="_blank"
-                      >https://help.topcoder.com/hc/en-us/articles/217482038-Payment-Policies-and-Instructions
+                      >
+https://help.topcoder.com/hc/en-us/articles/217482038-Payment-Policies-and-Instructions
                       </a>
-                    }.
+                    }
+.
                   </p>
                 )
               }
             </article>
             <article>
-              <h2 styleName="h2">Reliability Rating and Bonus</h2>
+              <h2 styleName="h2">
+Reliability Rating and Bonus
+              </h2>
               <p styleName="p">
                 For challenges that have a reliability bonus, the bonus depends
                 on the reliability rating at the moment of registration for that
@@ -475,7 +530,7 @@ export default function ChallengeDetailsView(props) {
           fileTypes={fileTypes}
           isDesign={track.toLowerCase() === 'design'}
           isDevelop={track.toLowerCase() === 'develop'}
-          isMM={subTrack.toUpperCase() === 'MARATHON_MATCH'}
+          isMM={challenge.subTrack.toUpperCase() === 'MARATHON_MATCH'}
           terms={terms}
           shareable={_.isEmpty(groups)}
           environment={environment}
@@ -523,7 +578,7 @@ ChallengeDetailsView.propTypes = {
     submissionLimit: PT.number,
     mainEvent: PT.shape(),
     reviewType: PT.string,
-    technologies: PT.string,
+    technologies: PT.arrayOf(PT.string),
     fileTypes: PT.arrayOf(PT.string),
     numberOfCheckpointsPrizes: PT.number,
     round1Introduction: PT.string,

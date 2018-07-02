@@ -49,10 +49,14 @@ export default function Item({
         tabIndex={0}
       >
         <UiSimpleRemove styleName="icon-cross" />
-        <div styleName="cross-tooltip">Delete Filter</div>
+        <div styleName="cross-tooltip">
+Delete Filter
+        </div>
       </span>
       { Boolean(error) && (
-        <div styleName="errorMsg">{error}</div>
+        <div styleName="errorMsg">
+          {error}
+        </div>
       )}
     </div>
   );

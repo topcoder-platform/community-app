@@ -21,10 +21,14 @@ export default function Prize({
   const component = (
     <div>
       <div styleName="prize">
-        <span styleName="symbol">{prizeUnitSymbol}</span>
+        <span styleName="symbol">
+          {prizeUnitSymbol}
+        </span>
         {totalPrize.toLocaleString()}
       </div>
-      <div styleName="label">{label}</div>
+      <div styleName="label">
+        {label}
+      </div>
     </div>
   );
   if (withoutTooltip) return component;
@@ -35,7 +39,11 @@ export default function Prize({
       prizeUnitSymbol={prizeUnitSymbol}
     />
   );
-  return <Tooltip content={tip}>{component}</Tooltip>;
+  return (
+    <Tooltip content={tip}>
+      {component}
+    </Tooltip>
+  );
 }
 
 Prize.defaultProps = {

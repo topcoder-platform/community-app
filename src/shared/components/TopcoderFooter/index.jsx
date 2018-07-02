@@ -11,10 +11,15 @@ import TwitterIcon from './icons/twitter.svg';
 
 import './style.scss';
 
-function Link(props) {
+function Link({
+  children,
+  to,
+}) {
   return (
     <li styleName="link">
-      <a href={props.to}>{props.children}</a>
+      <a href={to}>
+        {children}
+      </a>
     </li>
   );
 }
@@ -31,12 +36,24 @@ export default function TopcoderFooter() {
     <div styleName="footer">
       <nav>
         <ul>
-          <Link to={`${base}/sitemap`}>SITE MAP</Link>
-          <Link to={`${base}/about`}>ABOUT US</Link>
-          <Link to={`${config.URL.HELP}/hc/en-us/articles/219069687-Contact-Support`}>CONTACT US</Link>
-          <Link to={config.URL.HELP}>HELP CENTER</Link>
-          <Link to={`${base}/community/how-it-works/privacy-policy/`}>PRIVACY POLICY</Link>
-          <Link to={`${base}/community/how-it-works/terms/`}>TERMS</Link>
+          <Link to={`${base}/sitemap`}>
+SITE MAP
+          </Link>
+          <Link to={`${base}/about`}>
+ABOUT US
+          </Link>
+          <Link to={`${config.URL.HELP}/hc/en-us/articles/219069687-Contact-Support`}>
+CONTACT US
+          </Link>
+          <Link to={config.URL.HELP}>
+HELP CENTER
+          </Link>
+          <Link to={`${base}/community/how-it-works/privacy-policy/`}>
+PRIVACY POLICY
+          </Link>
+          <Link to={`${base}/community/how-it-works/terms/`}>
+TERMS
+          </Link>
         </ul>
       </nav>
       <div styleName="social-links">

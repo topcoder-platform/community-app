@@ -43,15 +43,21 @@ export default function LearnTheBasics({ baseUrl }) {
             <p>
               If you are new to Topcoder, you can register through the
               Blockchain Community by clicking the Join Now button on
-              &zwnj;<Link to={baseUrl}>the homepage</Link>.
+              &zwnj;
+              <Link to={baseUrl}>
+the homepage
+              </Link>
+.
               For more information on getting started with Topcoder,
               visit
-              &zwnj;{
+              &zwnj;
+              {
                 <a
                   href="https://www.topcoder.com/getting-started/"
                   rel="noopener noreferrer"
                   target="_blank"
-                >https://www.topcoder.com/getting-started
+                >
+https://www.topcoder.com/getting-started
                 </a>
               }
             </p>
@@ -93,21 +99,27 @@ export default function LearnTheBasics({ baseUrl }) {
             <p>
               Everything to do with managing your profile and preferences can
               be found at
-              &zwnj;{
+              &zwnj;
+              {
                 <a
                   href="https://www.topcoder.com/settings/account/"
                   rel="noopener noreferrer"
                   target="_blank"
-                >https://www.topcoder.com/settings/account
+                >
+https://www.topcoder.com/settings/account
                 </a>
-              }. If you
+              }
+. If you
               can’t find what you’re looking for, send us a note at
-              &zwnj;{
+              &zwnj;
+              {
                 <a
                   href="mailto:support@topcoder.com"
-                >support@topcoder.com
+                >
+support@topcoder.com
                 </a>
-              }.
+              }
+.
             </p>
           </Text>
         </AccordionItem>

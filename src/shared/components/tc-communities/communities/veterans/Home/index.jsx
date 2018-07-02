@@ -5,6 +5,8 @@
  * thus we disable max-len eslint rule for this file
  */
 
+// import ContentfulBlock from 'components/Contentful/ContentBlock';
+// import ContentfulLoader from 'containers/ContentfulLoader';
 import ChallengesBlock from 'components/tc-communities/ChallengesBlock';
 import ImageText from 'components/tc-communities/ImageText2';
 import JoinCommunity from 'containers/tc-communities/JoinCommunity';
@@ -53,29 +55,30 @@ export default function Home({
               styleName="closeWhatIsTopcoderVideoCross"
               tabIndex={0}
             >
-              &times;
+&times;
             </div>
           </Modal>
         ) : null
       }
       <div styleName="style.header">
-        <h1>Topcoder for Veterans</h1>
+        <h1>
+Topcoder for Veterans
+        </h1>
         <p>
           We help military service members and veterans transition to a career
           in technology with the world&apos;s premier crowdsourcing platform.
         </p>
         <p styleName="marginTop30">
           What is Topcoder?
-          &zwnj;{
-            <Button
-              onClick={() => showWhatIsTopcoderVideo(true)}
-              theme={{
-                button: style.watchVideoButton,
-              }}
-            >
-              &#9658;&emsp;Watch video
-            </Button>
-          }
+          &zwnj;
+          <Button
+            onClick={() => showWhatIsTopcoderVideo(true)}
+            theme={{
+              button: style.watchVideoButton,
+            }}
+          >
+            &#9658;&emsp;Watch video
+          </Button>
         </p>
         <JoinCommunity
           label="Join Now"
@@ -89,10 +92,29 @@ export default function Home({
         We help connect talented coders with organizations across the globe in
         need of your specialized skills.
       </h1>
-
+      {/*
+      <ContentfulLoader
+        entryQueries={{
+          content_type: 'contentBlock',
+          'fields.name': 'Demo Content For Veteran',
+        }}
+        render={d => d.entries.matches[0].items.map(id => <ContentfulBlock id={id} />)}
+        renderPlaceholder={LoadingIndicator}
+      />
+      <ContentfulLoader
+        entryQueries={{
+          content_type: 'contentBlock',
+          'fields.name': 'Demo Content For Veteran',
+        }}
+        render={d => d.entries.matches[0].items.map(id => <ContentfulBlock id={id} />)}
+        renderPlaceholder={LoadingIndicator}
+      />
+      */}
       <div styleName="style.imageTextBlock">
         <ImageText imageUrl={image01}>
-          <h1>Why We Started</h1>
+          <h1>
+Why We Started
+          </h1>
           <p>
             The U.S. military has some of the most sophisticated technology
             platforms and equipment on the planet, which demand the brightest
@@ -115,7 +137,9 @@ export default function Home({
           </p>
         </ImageText>
         <ImageText imageUrl={image02}>
-          <h1>How the Topcoder Veterans Community Works</h1>
+          <h1>
+How the Topcoder Veterans Community Works
+          </h1>
           <p>
             The challenges on veterans.topcoder.com are real-world problems and
             projects requested by Topcoder customers. Whether a contestant wins
@@ -144,52 +168,54 @@ export default function Home({
           />
         </ImageText>
         <ImageText imageUrl={image03}>
-          <h1>The Topcoder Team is Here to Help</h1>
+          <h1>
+The Topcoder Team is Here to Help
+          </h1>
           <p>
             If you&apos;re new to Topcoder, we&apos;re here to help. If you
             have any questions about joining or competing, contact us
-            &zwnj;{
-              <Link
-                to="mailto:support@topcoder.com"
-              >
-                here
-              </Link>
-            }.
+            &zwnj;
+            <Link
+              to="mailto:support@topcoder.com"
+            >
+here
+            </Link>
+.
           </p>
           <p>
             The
-            &zwnj;{
-              <Link
-                openNewTab
-                to="https://apps.topcoder.com/forums/"
-              >
-                Topcoder forums
-              </Link>
-            }&zwnj;
+            &zwnj;
+            <Link
+              openNewTab
+              to="https://apps.topcoder.com/forums/"
+            >
+Topcoder forums
+            </Link>
+&zwnj;
             have lots of great insight and they are a good place to find
             answers to your questions.
           </p>
           <p>
             We also have Slack for our community members. Instant feedback and
             chatting opportunities with some of the world&apos;s best.
-            &zwnj;{
-              <Link
-                openNewTab
-                to="https://docs.google.com/forms/d/e/1FAIpQLScb9pWbauhQ6owZZheM15f1Rodu_6CdGNtivvDb71kGgpJJKw/viewform"
-              >
-                Topcoder Community Slack
-              </Link>
-            }.
+            &zwnj;
+            <Link
+              openNewTab
+              to="https://docs.google.com/forms/d/e/1FAIpQLScb9pWbauhQ6owZZheM15f1Rodu_6CdGNtivvDb71kGgpJJKw/viewform"
+            >
+Topcoder Community Slack
+            </Link>
+.
           </p>
           <p>
             The best place to start after you register is to check the
-            &zwnj;{
-              <Link
-                to={`${baseUrl}/challenges`}
-              >
-                challenge listings page
-              </Link>
-            }. We event have some fun challenges
+            &zwnj;
+            <Link
+              to={`${baseUrl}/challenges`}
+            >
+challenge listings page
+            </Link>
+. We event have some fun challenges
             which are perfect for getting your feet wet!
           </p>
         </ImageText>
@@ -199,22 +225,34 @@ export default function Home({
         <div styleName="style.qouteAvatar">
           <img alt="Qoute avatar" src={qouteAvatar} />
           <div styleName="style.qouteNote">
-            <strong>Jarah Meador</strong> Innovation Crowdsourcing Lead at the
+            <strong>
+Jarah Meador
+            </strong>
+            {' '}
+Innovation Crowdsourcing Lead at the
             VA
           </div>
         </div>
         <div>
           <div styleName="style.qouteText">
-            <span styleName="style.qouteCommas style.left">&ldquo;</span>
+            <span styleName="style.qouteCommas style.left">
+&ldquo;
+            </span>
             The launch of the Topcoder Veterans Community represents a major milestone
             in our ongoing mission to help veterans develop new skills and successfully
             transition to meaningful civilian jobs.  This community is helping the VA, as
             well as other organizations, accelerate technology innovation development
             while supporting important workforce development for Veterans.
-            <span styleName="style.qouteCommas style.right">&rdquo;</span>
+            <span styleName="style.qouteCommas style.right">
+&rdquo;
+            </span>
           </div>
           <div styleName="style.qouteNote">
-            <strong>Jarah Meador</strong> Innovation Crowdsourcing Lead, U.S. Department
+            <strong>
+Jarah Meador
+            </strong>
+            {' '}
+Innovation Crowdsourcing Lead, U.S. Department
             of Veterans Affairs
           </div>
         </div>
@@ -233,21 +271,29 @@ export default function Home({
       <div styleName="style.cardsBlock">
         <div styleName="style.card style.card-01">
           <div>
-            <h1>Learn & Explore</h1>
+            <h1>
+Learn & Explore
+            </h1>
             <p>
               Grow your skills and get Topcoder-certified&nbsp;&mdash; all for
               free
             </p>
-            <Button to={`${baseUrl}/learn`}>Learn More</Button>
+            <Button to={`${baseUrl}/learn`}>
+Learn More
+            </Button>
           </div>
         </div>
         <div styleName="style.card style.card-02">
           <div>
-            <h1>Compete & Earn</h1>
+            <h1>
+Compete & Earn
+            </h1>
             <p>
               Check out our challenges and get paid for winning results
             </p>
-            <Button to={`${baseUrl}/learn`}>Learn More</Button>
+            <Button to={`${baseUrl}/learn`}>
+Learn More
+            </Button>
           </div>
         </div>
       </div>
