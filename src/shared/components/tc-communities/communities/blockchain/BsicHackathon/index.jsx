@@ -1,7 +1,6 @@
 import JoinCommunity from 'containers/tc-communities/JoinCommunity';
 import PT from 'prop-types';
 import React from 'react';
-import { Button } from 'topcoder-react-ui-kit';
 import { Link } from 'topcoder-react-utils';
 
 import HeadBannerImage from
@@ -19,7 +18,7 @@ import ChallengeImgRefugees from
 import ChallengeCard from './ChallengeCard';
 import FaqItem from './FaqItem';
 
-import style from './style.scss';
+import './style.scss';
 
 export default function BsicHackathon({
   shownFaqItems,
@@ -155,18 +154,57 @@ Judging Criteria
       <div styleName="challengesContainer">
         <div styleName="challengesContent">
           <h1 styleName="h1">
-Get Started
+            Completed
           </h1>
+          <div styleName="facts wide">
+            <p>
+              664
+              <br />
+              Registrants
+            </p>
+            <p>
+              94
+              <br />
+              Teams
+            </p>
+            <p>
+              58
+              <br />
+              Countries
+            </p>
+            <p>
+              47
+              <br />
+              Submissions
+            </p>
+            <p>
+              6 Weeks
+              <br />
+              Hackathon Duration
+            </p>
+          </div>
+          <div styleName="facts">
+            <p>
+              47
+              <br />
+              Different Ideas
+            </p>
+            <p>
+              4
+              <br />
+              Use Cases
+            </p>
+          </div>
+          <div styleName="facts">
+            <p>
+              $40 000 +
+              <br />
+              Awarded Prize Money
+            </p>
+          </div>
           <JoinCommunity
             label="Join Topcoder Blockchain Community"
           />
-          <Button
-            enforceA
-            theme={{ button: style.regButtonsW }}
-            to="https://blockchain.topcoder.com/challenges/30063672"
-          >
-            Register for the Challenge
-          </Button>
           <div styleName="challengeCardsContainer">
             <ChallengeCard
               imgUrl={ChallengeImgRefugees}
@@ -221,7 +259,121 @@ Get Started
                     </li>
                   </ul>
                 </div>
-)}
+              )}
+              winners={(
+                <div>
+                  <h3>
+                    Winning Team
+                  </h3>
+                  <p>
+                    unCHAINed
+                  </p>
+                  <h3>
+                    Team members
+                  </h3>
+                  <p>
+                    Trevor Campbell (
+                    <Link
+                      openNewTab
+                      to="https://www.topcoder.com/members/tdcampbell/"
+                    >
+                      tdcampbell
+                    </Link>
+                    ), Todd Schultz (
+                    <Link
+                      openNewTab
+                      to="https://www.topcoder.com/members/tschultz1216/"
+                    >
+                      tschultz1216
+                    </Link>
+                    ), Sam Blumenthal (
+                    <Link
+                      openNewTab
+                      to="https://www.topcoder.com/members/sam.blumenthal/"
+                    >
+                      sam.blumenthal
+                    </Link>
+                    ), Gurmeet Budhraja (
+                    <Link
+                      openNewTab
+                      to="https://www.topcoder.com/members/khojsolutions/"
+                    >
+                      khojsolutions
+                    </Link>
+                    ), Madhu Machavarapu (
+                    <Link
+                      openNewTab
+                      to="https://www.topcoder.com/members/94madhu94/"
+                    >
+                      94madhu94
+                    </Link>
+                    ), Urja Pawar (
+                    <Link
+                      openNewTab
+                      to="https://www.topcoder.com/members/urjapawar/"
+                    >
+                      urjapawar
+                    </Link>
+                    )
+                  </p>
+                  <h3>
+                    Project Detail
+                  </h3>
+                  <p>
+                    <Link
+                      openNewTab
+                      to="https://www.youtube.com/watch?v=HDWE0cKNcZM&feature=youtu.be"
+                    >
+                      watch this video
+                    </Link>
+                  </p>
+                  <br />
+                  <h3>
+                    Runner-up
+                  </h3>
+                  <p>
+                    Arcadia
+                  </p>
+                  <h3>
+                    Team members
+                  </h3>
+                  <p>
+                    Elisa Pasquali (
+                    <Link
+                      openNewTab
+                      to="https://www.topcoder.com/members/epg/"
+                    >
+                      epg
+                    </Link>
+                    ), Ana Zamfir (
+                    <Link
+                      openNewTab
+                      to="https://www.topcoder.com/members/ancaz/"
+                    >
+                      ancaz
+                    </Link>
+                    ), Ioana Stanescu (
+                    <Link
+                      openNewTab
+                      to="https://www.topcoder.com/members/osninja/"
+                    >
+                      osninja
+                    </Link>
+                    )
+                  </p>
+                  <h3>
+                    Project Details
+                  </h3>
+                  <p>
+                    <Link
+                      openNewTab
+                      to="https://www.youtube.com/watch?v=MvGXMZ9bsCQ&feature=youtu.be"
+                    >
+                      watch this video
+                    </Link>
+                  </p>
+                </div>
+              )}
             />
             <ChallengeCard
               imgUrl={ChallengeImgDemocracy}
@@ -277,7 +429,114 @@ Get Started
                     </li>
                   </ul>
                 </div>
-)}
+              )}
+              winners={(
+                <div>
+                  <h3>
+                    Winning Team
+                  </h3>
+                  <p>
+                    Popchain*
+                  </p>
+                  <h3>
+                    Team members
+                  </h3>
+                  <p>
+                    Val Denay Mack (
+                    <Link
+                      openNewTab
+                      to="https://www.topcoder.com/members/valem21/"
+                    >
+                      valem21
+                    </Link>
+                    ), Gael Gundin (
+                    <Link
+                      openNewTab
+                      to="https://www.topcoder.com/members/wapinpana/"
+                    >
+                      wapinpana
+                    </Link>
+                    )
+                  </p>
+                  <h3>
+                    Project Detail
+                  </h3>
+                  <p>
+                    <Link
+                      openNewTab
+                      to="https://www.youtube.com/watch?v=QHJfLn0nwpM&feature=youtu.be"
+                    >
+                      watch this video
+                    </Link>
+                  </p>
+                  <br />
+                  <h3>
+                    Runner-up
+                  </h3>
+                  <p>
+                    Akshar
+                  </p>
+                  <h3>
+                    Team members
+                  </h3>
+                  <p>
+                    Rahul Bansal (
+                    <Link
+                      openNewTab
+                      to="https://www.topcoder.com/members/rahulb/"
+                    >
+                      rahulb
+                    </Link>
+                    ), Siddharth Swarnkar (
+                    <Link
+                      openNewTab
+                      to="https://www.topcoder.com/members/siddharthsoni/"
+                    >
+                      siddharthsoni
+                    </Link>
+                    ), Sundari Narayan Swami (
+                    <Link
+                      openNewTab
+                      to="https://www.topcoder.com/members/sswami/"
+                    >
+                      sswami
+                    </Link>
+                    ), Bhavyaa Rastogi (
+                    <Link
+                      openNewTab
+                      to="https://www.topcoder.com/members/krusherz/"
+                    >
+                      krusherz
+                    </Link>
+                    ), Carlos Rojas Noveron (
+                    <Link
+                      openNewTab
+                      to="https://www.topcoder.com/members/CarlosNoveron/"
+                    >
+                      CarlosNoveron
+                    </Link>
+                    ), Dr. Hugh Gosnell (
+                    <Link
+                      openNewTab
+                      to="https://www.topcoder.com/members/hugh_g/"
+                    >
+                      hugh_g
+                    </Link>
+                    )
+                  </p>
+                  <h3>
+                    Project Details
+                  </h3>
+                  <p>
+                    <Link
+                      openNewTab
+                      to="https://www.youtube.com/watch?v=0Onj1IhtWgs&feature=youtu.be"
+                    >
+                      watch this video
+                    </Link>
+                  </p>
+                </div>
+              )}
             />
             <ChallengeCard
               imgUrl={ChallengeImgHardware}
@@ -323,7 +582,135 @@ Get Started
                     </li>
                   </ul>
                 </div>
-)}
+              )}
+              winners={(
+                <div>
+                  <h3>
+                    Winning Team
+                  </h3>
+                  <p>
+                    Kidner Project
+                  </p>
+                  <h3>
+                    Team members
+                  </h3>
+                  <p>
+                    Sajida Zouarhi (
+                    <Link
+                      openNewTab
+                      to="https://www.topcoder.com/members/sajz/"
+                    >
+                      SajZ
+                    </Link>
+                    ), Noah Basri (
+                    <Link
+                      openNewTab
+                      to="https://www.topcoder.com/members/noah-basri/"
+                    >
+                      Noah-Basri
+                    </Link>
+                    ), Maroussia Arnault (
+                    <Link
+                      openNewTab
+                      to="https://www.topcoder.com/members/marou_kid/"
+                    >
+                      Marou_Kid
+                    </Link>
+                    ), Amelia Lintern-Smith (
+                    <Link
+                      openNewTab
+                      to="https://www.topcoder.com/members/amelials/"
+                    >
+                      amelials
+                    </Link>
+                    ), Clément Massonnaud (
+                    <Link
+                      openNewTab
+                      to="https://www.topcoder.com/members/clemass/"
+                    >
+                      CleMass
+                    </Link>
+                    ), Mathieu Vincens (
+                    <Link
+                      openNewTab
+                      to="https://www.topcoder.com/members/Mathvincens/"
+                    >
+                      Mathvincens
+                    </Link>
+                    )
+                  </p>
+                  <h3>
+                    Project Detail
+                  </h3>
+                  <p>
+                    <Link
+                      openNewTab
+                      to="https://www.youtube.com/watch?v=Y_Td2_0rxYo&feature=youtu.be"
+                    >
+                      watch this video
+                    </Link>
+                  </p>
+                  <br />
+                  <h3>
+                    Runner-up
+                  </h3>
+                  <p>
+                    Aphetor
+                  </p>
+                  <h3>
+                    Team members
+                  </h3>
+                  <p>
+                    Alexander S. Blum (
+                    <Link
+                      openNewTab
+                      to="https://www.topcoder.com/members/ablumbc/"
+                    >
+                      ablumbc
+                    </Link>
+                    ), Meredith Finkelstein (
+                    <Link
+                      openNewTab
+                      to="https://www.topcoder.com/members/msrobot0/"
+                    >
+                      msrobot0
+                    </Link>
+                    ), Seth Weiner (
+                    <Link
+                      openNewTab
+                      to="https://www.topcoder.com/members/sethweiner/"
+                    >
+                      sethweiner
+                    </Link>
+                    ), Chris Jaroszewski (
+                    <Link
+                      openNewTab
+                      to="https://www.topcoder.com/members/CJaroszewski/"
+                    >
+                      Cjaroszewski
+                    </Link>
+                    ) , Peter Lyons (
+                    <Link
+                      openNewTab
+                      to="https://www.topcoder.com/members/anemas971/"
+                    >
+                      Anemas971
+                    </Link>
+                    )
+                  </p>
+                  <h3>
+                    Project Details
+                  </h3>
+                  <p>
+                    <Link
+                      openNewTab
+                      to="https://www.youtube.com/watch?v=bHTaiihtlm8&feature=youtu.be"
+                    >
+                      watch this video
+                    </Link>
+                  </p>
+                </div>
+              )}
             />
             <ChallengeCard
               imgUrl={ChallengeImgAgriculture}
@@ -385,7 +772,121 @@ Get Started
                     </li>
                   </ul>
                 </div>
-)}
+              )}
+              winners={(
+                <div>
+                  <p>
+                    This sub-challenge witnessed a tie
+                  </p>
+                  <h3>
+                    Winning Teams
+                  </h3>
+                  <p>
+                    Team 1: Greenblocks
+                  </p>
+                  <h3>
+                    Team members
+                  </h3>
+                  <p>
+                    Philipp Beer (
+                    <Link
+                      openNewTab
+                      to="https://www.topcoder.com/members/Depose/"
+                    >
+                      Depose
+                    </Link>
+                    ), Lewis Daly (
+                    <Link
+                      openNewTab
+                      to="https://www.topcoder.com/members/lwilld/"
+                    >
+                      lwilld
+                    </Link>
+                    ), Billy Garrison (
+                    <Link
+                      openNewTab
+                      to="https://www.topcoder.com/members/BillyGarrison/"
+                    >
+                      BillyGarrison
+                    </Link>
+                    )
+                  </p>
+                  <h3>
+                    Project Detail
+                  </h3>
+                  <p>
+                    <Link
+                      openNewTab
+                      to="https://www.youtube.com/watch?v=DGyOvjV9I90&feature=youtu.be"
+                    >
+                      watch this video
+                    </Link>
+                  </p>
+                  <br />
+                  <p>
+                    Team 2: Thor
+                  </p>
+                  <h3>
+                    Team members
+                  </h3>
+                  <p>
+                    Ylli Vllasolli (
+                    <Link
+                      openNewTab
+                      to="https://www.topcoder.com/members/Team-Thor/"
+                    >
+                      Team-Thor
+                    </Link>
+                    ), Charlotte Stephens (
+                    <Link
+                      openNewTab
+                      to="https://www.topcoder.com/members/Charlotte-Thor/"
+                    >
+                      Charlotte-Thor
+                    </Link>
+                    ), Bayo Akins (
+                    <Link
+                      openNewTab
+                      to="https://www.topcoder.com/members/BayoAkins/"
+                    >
+                      Bayoakins
+                    </Link>
+                    ), Erica Sundberg (
+                    <Link
+                      openNewTab
+                      to="https://www.topcoder.com/members/e5r34t/"
+                    >
+                      e5r34t
+                    </Link>
+                    ), Stephen Jackson (
+                    <Link
+                      openNewTab
+                      to="https://www.topcoder.com/members/stevejaxon/"
+                    >
+                      stevejaxon
+                    </Link>
+                    ), Ife Nkechukwu (
+                    <Link
+                      openNewTab
+                      to="https://www.topcoder.com/members/ife-thor/"
+                    >
+                      ife-thor
+                    </Link>
+                    )
+                  </p>
+                  <h3>
+                    Project Detail
+                  </h3>
+                  <p>
+                    <Link
+                      openNewTab
+                      to="https://www.youtube.com/watch?v=c4YUOoE7Cyc&feature=youtu.be"
+                    >
+                      watch this video
+                    </Link>
+                  </p>
+                </div>
+              )}
             />
           </div>
         </div>

@@ -2,15 +2,13 @@
  * IBM Cloud Banner.
  */
 
-import PT from 'prop-types';
+// import PT from 'prop-types';
 import React from 'react';
-import { Button } from 'topcoder-react-ui-kit';
+// import { Button } from 'topcoder-react-ui-kit';
 
-import style from './style.scss';
+import './style.scss';
 
-export default function MonthOfLoveBanner({
-  to,
-}) {
+export default function MonthOfLoveBanner() {
   return (
     <div styleName="container">
       <div styleName="mask" />
@@ -18,14 +16,19 @@ export default function MonthOfLoveBanner({
         <h1
           styleName="title"
         >
-Cognitive March Madness
+          A Data Science Match to make online ratings more accurate
         </h1>
         <p styleName="text">
-          Four contests to build a tool that gathers information on teams and
-          players by analyzing textual materials from top sports writers and
-          commentators!
+          Perform
+          sentiment analysis on review comments by customers, and correlate
+          these comments to the quantitative review score for a given seller.
+        </p>
+        <p styleName="text bold">
+          Starts on July 9, 2018
         </p>
       </div>
+      {
+      /*
       <Button
         theme={{
           button: style.button,
@@ -34,10 +37,14 @@ Cognitive March Madness
       >
 View Challenges
       </Button>
+      */
+      }
     </div>
   );
 }
 
+/*
 MonthOfLoveBanner.propTypes = {
   to: PT.string.isRequired,
 };
+*/
