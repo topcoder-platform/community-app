@@ -257,8 +257,18 @@ here.
           </Link>
         </li>
         <li>
-          Public Profile Page available at the <code>/members/:handle</code> endpoint.
-          Valid link on dev <Link to="/members/TonyJ">here.</Link>
+          Public Profile Page available at the
+          {' '}
+          <code>
+/members/:handle
+          </code>
+          {' '}
+endpoint.
+          Valid link on dev
+          {' '}
+          <Link to="/members/TonyJ">
+here.
+          </Link>
         </li>
         <li>
           Stand-alone terms of use page:

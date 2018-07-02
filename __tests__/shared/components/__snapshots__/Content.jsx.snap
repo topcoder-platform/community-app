@@ -273,6 +273,22 @@ exports[`Matches shallow shapshot 1`] = `
       </Link>
     </li>
     <li>
+      Public Profile Page available at the
+       
+      <code>
+        /members/:handle
+      </code>
+       
+      endpoint. Valid link on dev
+       
+      <Link
+        replace={false}
+        to="/members/TonyJ"
+      >
+        here.
+      </Link>
+    </li>
+    <li>
       Stand-alone terms of use page: ‌
       <Link
         replace={false}

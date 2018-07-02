@@ -4,7 +4,6 @@
 import _ from 'lodash';
 import React from 'react';
 import PT from 'prop-types';
-import { range } from 'lodash';
 
 import './style.scss';
 

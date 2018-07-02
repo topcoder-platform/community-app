@@ -11,7 +11,6 @@ import PT from 'prop-types';
 import Header from './Header';
 import Design from './Design';
 import Develop from './Develop';
-import Marathon from './Marathon';
 import './styles.scss';
 
 /**

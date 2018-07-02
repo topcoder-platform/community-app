@@ -62,14 +62,12 @@ function ChallengeCard({
     subTrack,
   } = challenge;
 
-  const legacyChallengeDetailsLink =
-    `${config.URL.COMMUNITY}/tc?module=MatchDetails&rd=${roundId}`;
-  const mmRegLink =
-    `${config.URL.COMMUNITY}/tc?module=ViewReg&rd=${roundId}`;
+  const legacyChallengeDetailsLink = `${config.URL.COMMUNITY}/tc?module=MatchDetails&rd=${roundId}`;
+  const mmRegLink = `${config.URL.COMMUNITY}/tc?module=ViewReg&rd=${roundId}`;
 
   const challengeDetailLink = subTrack === 'MARATHON_MATCH'
-    && isLegacy ? legacyChallengeDetailsLink :
-    `${challengesUrl}/${challenge.id}`;
+    && isLegacy ? legacyChallengeDetailsLink
+    : `${challengesUrl}/${challenge.id}`;
 
   const registrationPhase = challenge.allPhases.filter(phase => phase.phaseType === 'Registration')[0];
   const isRegistrationOpen = registrationPhase ? registrationPhase.phaseStatus === 'Open' : false;

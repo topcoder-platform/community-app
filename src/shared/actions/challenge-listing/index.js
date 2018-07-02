@@ -109,7 +109,7 @@ function getAllActiveChallengesDone(uuid, tokenV3) {
      * some role. The same challenge are already listed in res array, but they
      * are not attributed to the user there. This block of code marks user
      * challenges in an efficient way. */
-    if (uch && umm) {
+    if (uch) {
       const map = {};
       uch.forEach((item) => { map[item.id] = item; });
       ch.forEach((item) => {

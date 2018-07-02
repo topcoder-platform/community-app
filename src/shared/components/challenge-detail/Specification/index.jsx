@@ -55,7 +55,6 @@ export default function ChallengeDetailsView(props) {
     environment,
     codeRepo,
     userDetails,
-    subTrack,
   } = challenge;
 
   const roles = (userDetails || {}).roles || [];

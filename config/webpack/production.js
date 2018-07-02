@@ -6,8 +6,6 @@ const configFactory = require('topcoder-react-utils/config/webpack/app-productio
 
 const webpack = require('webpack');
 
-const webpack = require('webpack');
-
 const defaultConfig = require('./default');
 
 let publicPath = process.env.CDN_URL;
