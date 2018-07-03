@@ -53,8 +53,11 @@ const Champions = ({ data }) => {
         }
         // process icon
         championsData.icon.fields = result.assets.items[iconId].fields;
-
-        const championIds = _.map(championsData.list, item => (_.get(item.fields.champion, 'sys.id')));
+        const championIds = [];
+        championsData.list.forEach((item) => {
+          const { champion } = item.fields;
+          if (champion) championIds.push(champion.sys.id);
+        });
         const members = _.map(championsData.list, item => (item.fields.members));
         for (let i = 0; i !== members.length; i += 1) {
           memberIds = memberIds.concat(_.map(members[i], item => (item.sys.id)));

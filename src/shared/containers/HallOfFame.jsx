@@ -13,7 +13,6 @@ import { withRouter } from 'react-router-dom';
 import HallOfFamePage from 'components/HallOfFamePage';
 import ContentfulLoader from './ContentfulLoader';
 
-
 class HallOfFameContainer extends React.Component {
   handleSelectEvent(eventType, eventId) {
     const {
