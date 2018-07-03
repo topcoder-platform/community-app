@@ -71,34 +71,7 @@ $bannerBackgroundColor: #131a24;
   }
 }
 
-/* TIMELINE CARD */
-
-.timelineCardContainer {
-  border-radius: 4px;
-  border-top: solid 10px $tc-dark-blue;
-  box-shadow: 5px 5px 10px $tc-gray-10, -5px 5px 10px $tc-gray-10;
-  margin-right: 30px;
-  padding: 20px;
-
-  @include xs-to-sm {
-    margin-bottom: 60px;
-    width: 100%;
-  }
-}
-
-.timelinePhaseName {
-  @include body-text;
-
-  display: inline;
-  font-weight: bold;
-  line-height: 100%;
-}
-
-.nowrap {
-  @include md-to-xl {
-    white-space: nowrap;
-  }
-}
+/* FACTS */
 
 .facts {
   color: $tc-black;
