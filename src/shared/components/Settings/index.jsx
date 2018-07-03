@@ -14,25 +14,23 @@ import './style.scss';
 import Profile from './Profile';
 import Account from './Account';
 import Preferences from './Preferences';
-import EmailPreferences from './EmailPreferences';
+import Tools from './Tools';
 
 export default function Settings(props) {
   const {
     settingsTab,
+    selectSubtab
   } = props;
-
-  const selectTab = (tab) => {
-    props.selectTab(tab);
-    props.history.push(`/settings/${tab}`);
-  };
+  
+  
 
   let title;
   switch (settingsTab) {
     case TABS.ACCOUNT:
       title = 'Account Info';
       break;
-    case TABS.EMAIL:
-      title = 'Email Preferences';
+    case TABS.TOOLS:
+      title = 'Tools Details';
       break;
     case TABS.PREFERENCES:
       title = 'Preferences';
@@ -43,7 +41,7 @@ export default function Settings(props) {
   }
 
   return (
-    <div styleName="container" className="profile-settings">
+    <div styleName="container" className="profile-settings" style= {{padding: "30px 60px"}}>
       <MetaTags
         title={`${title} | TopCoder`}
         description="Profile setting page for Topcoder member"
@@ -51,14 +49,17 @@ export default function Settings(props) {
       <div styleName="page">
         <Header
           {...props}
-        />
-        <TabBar
-          settingsTab={settingsTab}
-          selectTab={selectTab}
+          settingsTab= {settingsTab}
         />
         {
           settingsTab === TABS.PROFILE &&
           <Profile
+            {...props}
+          />
+        }
+        {
+          settingsTab === TABS.TOOLS &&
+          <Tools
             {...props}
           />
         }
@@ -68,12 +69,7 @@ export default function Settings(props) {
             {...props}
           />
         }
-        {
-          settingsTab === TABS.EMAIL &&
-          <EmailPreferences
-            {...props}
-          />
-        }
+        
         {
           settingsTab === TABS.PREFERENCES &&
           <Preferences
@@ -90,5 +86,5 @@ Settings.propTypes = {
   profileState: PT.shape().isRequired,
   settingsPageState: PT.shape().isRequired,
   history: PT.shape().isRequired,
-  selectTab: PT.func.isRequired,
+  selectSubtab: PT.func.isRequired
 };

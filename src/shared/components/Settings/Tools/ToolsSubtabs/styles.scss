@@ -1,0 +1,17 @@
+@import "~styles/mixins";
+
+.activeTab {
+    cursor: pointer;
+    background: #ededf2;
+    height: 30px;
+    font-family: Roboto;
+    font-weight: bold;
+    padding: 4px 10px 4px 2px;
+}
+.inactiveTab {
+    cursor: pointer;
+    background: white;
+    height: 30px;
+    font-family: Roboto;
+    padding: 4px 10px 4px 2px;
+}

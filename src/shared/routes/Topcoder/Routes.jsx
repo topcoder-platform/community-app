@@ -26,6 +26,7 @@ import Scoreboard from '../tco/scoreboard';
 import './styles.scss';
 
 export default function Topcoder() {
+  console.log("Entered routes");
   return (
     <div styleName="container">
       <Header />
@@ -76,7 +77,12 @@ export default function Topcoder() {
         <Route
           component={Settings}
           exact
-          path="/settings/:settingsTab(profile|account|email|preferences)"
+          path="/settings/:settingsTab"
+        />
+        <Route
+          component={Settings}
+          exact
+          path="/settings/:settingsTab/:subTab"
         />
         <Error404 />
       </Switch>

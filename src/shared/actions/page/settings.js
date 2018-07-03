@@ -6,8 +6,8 @@ import { createActions } from 'redux-actions';
 
 export const TABS = {
   PROFILE: 'profile',
+  TOOLS: 'tools',
   ACCOUNT: 'account',
-  EMAIL: 'email',
   PREFERENCES: 'preferences',
 };
 
@@ -16,6 +16,7 @@ export default createActions({
     SETTINGS: {
       SELECT_TAB: _.identity,
       CLEAR_INCORRECT_PASSWORD: _.identity,
+      SELECT_SUBTAB: _.identity
     },
   },
 });

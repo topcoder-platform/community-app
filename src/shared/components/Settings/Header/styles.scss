@@ -16,7 +16,6 @@
       font-size: 24px;
       line-height: 31px;
       color: $tc-gray-90;
-      text-transform: uppercase;
       text-align: center;
       margin-bottom: 15px;
     }
@@ -84,7 +83,6 @@
       margin: auto;
 
       .page-info {
-        order: 1;
         display: flex;
         flex-direction: row;
         margin-left: 20px;

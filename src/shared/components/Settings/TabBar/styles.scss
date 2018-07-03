@@ -4,7 +4,6 @@ nav.settings-tab {
   display: flex;
   flex-direction: row;
   justify-content: center;
-  border-bottom: 1px solid $tc-gray-20;
   background-color: $tc-gray-neutral-light;
 
   @media only screen and (min-width: 768px) {
@@ -34,7 +33,6 @@ nav.settings-tab {
     font-size: 13px;
     line-height: 24px;
     color: $tc-gray-40;
-    text-transform: uppercase;
     text-decoration: none;
     cursor: pointer;
 

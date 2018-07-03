@@ -28,6 +28,7 @@ import sandbox from './sandbox';
  * @return {Function} Reducer.
  */
 export function factory(req) {
+  
   return redux.resolveReducers({
     submission: challengeDetailsFactory(req),
     hallOfFame: hallOfFameFactory(req),
