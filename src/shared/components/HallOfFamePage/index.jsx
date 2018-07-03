@@ -194,9 +194,13 @@ const HallOfFamePage = ({ eventId, onSelectEvent, hallOfFame }) => {
                                       </PrimaryButton>
                                     </div>
                                     <div styleName="button-wrapper">
-                                      <Button styleName="browse-gallery" to={data.fields.promo.fields.links[1].fields.url} openNewTab>
-                                        {data.fields.promo.fields.links[1].fields.title}
-                                      </Button>
+                                      {
+                                        _.get(data.fields.promo, 'fields.links[1].fields.url') ? (
+                                          <Button styleName="browse-gallery" to={_.get(data.fields.promo, 'fields.links[1].fields.url')} openNewTab>
+                                            {_.get(data.fields.promo, 'fields.links[1].fields.title')}
+                                          </Button>
+                                        ) : null
+                                      }
                                     </div>
                                   </div>
 
