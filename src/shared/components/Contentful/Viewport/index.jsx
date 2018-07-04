@@ -19,28 +19,39 @@ import Viewport from './Viewport';
 
 import columnTheme from './themes/column.scss';
 import rowTheme from './themes/row.scss';
+import gridTheme from './themes/grid.scss';
 
 const { fireErrorMessage } = errors;
 
 const THEMES = {
   Column: columnTheme,
   'Row with Max-Width': rowTheme,
+  Grid: gridTheme,
 };
 
 /* Loads viewport content assets. */
 function ViewportContentLoader(props) {
   const {
     contentIds,
-    extraStylesForContainer,
     preview,
     themeName,
+    grid,
+  } = props;
+  let {
+    extraStylesForContainer,
   } = props;
 
   const theme = THEMES[themeName];
-
   if (!theme) {
     fireErrorMessage('Unsupported theme name from contentful', '');
     return null;
+  }
+
+  if (themeName === 'Grid') {
+    extraStylesForContainer = _.assign(extraStylesForContainer || {}, {
+      'grid-template-columns': `repeat(${grid.columns || 3}, 1fr)`,
+      'grid-gap': `${grid.gap || 10}px`,
+    });
   }
 
   return (
@@ -90,6 +101,10 @@ function ViewportContentLoader(props) {
 ViewportContentLoader.defaultProps = {
   extraStylesForContainer: null,
   themeName: 'Column',
+  grid: PT.shape({
+    columns: 3,
+    gap: 10,
+  }),
 };
 
 ViewportContentLoader.propTypes = {
@@ -97,6 +112,7 @@ ViewportContentLoader.propTypes = {
   extraStylesForContainer: PT.shape(),
   preview: PT.bool.isRequired,
   themeName: PT.string,
+  grid: PT.shape(),
 };
 
 /* Loads the main viewport entry. */
@@ -129,6 +145,10 @@ function ViewportLoader(props) {
           key={viewport.sys.id}
           preview={preview}
           themeName={viewport.fields.theme}
+          grid={{
+            columns: viewport.fields.gridColumns,
+            gap: viewport.fields.gridGap,
+          }}
         />
       ))}
       renderPlaceholder={LoadingIndicator}
