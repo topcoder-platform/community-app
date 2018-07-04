@@ -1,74 +1,64 @@
 /**
- * Child component of Settings/Profile/AboutMe renders "About Me" section of profile setting page.
+ * Child component of Settings/Profile renders setting page for profile.
  */
-/* global document */
 import _ from 'lodash';
 import React from 'react';
 import PT from 'prop-types';
 
-import { PrimaryButton, SecondaryButton } from 'topcoder-react-ui-kit';
+import { PrimaryButton } from 'topcoder-react-ui-kit';
 
-import { getAllCountryObjects, getCountryObjFromAlpha3 } from 'utils/countries';
+import { looseEqual } from 'utils/tc';
 
-import Select from 'components/Select';
-import DefaultPortrait from 'assets/images/ico-user-default.svg';
+import Data from './Data';
 
 import Styles from './styles.scss';
 
-const countries = getAllCountryObjects();
-
 export default class Language extends React.Component {
-  
-  render() {
+    constructor(props) {
+        super(props);
+        console.log("Language props", props)
+        this.state = {
+          language:props.language.traits.data[0].language,
+          spokenLevel: props.language.traits.data[0].spokenLevel,
+          writtenLevel:props.language.traits.data[0].writtenLevel
+        };
     
+        
+      }
+    //   onSaveProfileLanguage(e) {
+    //     e.preventDefault();
+    //     if (this.props.profileState.updatingProfile) {
+    //       return;
+    //     }
+    //     const newBasicInfo= _.clone(this.props.basicInfo);
+    //     const newProfile = _.clone(this.props.profile);
+    
+    //     newProfile.description = this.state.bio;
+    //     newProfile.competitionCountryCode = this.state.countryCode;
+    //     newProfile.tracks = this.state.tracks;
+    
+    //     newBasicInfo.traits.data[0].shortBio= this.state.bio;
+    //     newBasicInfo.traits.data[0].firstName= this.state.firstName;
+    //     newBasicInfo.traits.data[0].lastName= this.state.lastName;
+    //     newBasicInfo.traits.data[0].gender= this.state.gender;
+    //     newBasicInfo.traits.data[0].ethnicBackground= this.state.ethnic;
+    //     newBasicInfo.traits.data[0].tshirtSize= this.state.tSize;
+    //     newBasicInfo.traits.data[0].ethnicBackground= this.state.ethnic;
+    //     newBasicInfo.traits.data[0].primaryInterestInTopcoder= this.state.interest;
+    //     delete newProfile.groups;
+    //     this.props.updateProfile(newProfile, this.props.tokenV3);
+    //     console.log("Updated basic info/ profile component ", newBasicInfo);
+    //     this.props.updateBasicInfo(newBasicInfo);
+    //   }
+      render() {
+          return (
+              <Data 
+              language= {this.state.language}
+              spokenLevel= {this.state.spokenLevel}
+              writtenLevel= {this.state.writtenLevel}
+              />
+          );
 
-    return (
-      <div>
-        <form autoComplete= "off">
-          <h2>Language</h2>
-          <br />
-          <div style= {{backgroundColor: "#fafafb", border:"1px solid #ededf2"}}>
-            <h3>Add Language</h3>
-            <br />
-            <div styleName= "col-md-6 col-sm-6 col-xs-6 col-lg-6">
-              <p>Language</p>
-              <input type= "text" style= {{width: "100%"}} />
-            </div>
-            <div styleName= "col-md-3 col-sm-3 col-xs-3 col-lg-3">
-              <p>Spoken Level</p>
-              <input type= "text" style= {{width: "100%"}} />
-            </div>
-            <div styleName= "col-md-3 col-sm-3 col-xs-3 col-lg-3">
-              <p>Written Level</p>
-              <input type= "text" style= {{width: "100%"}} />
-            </div>
-            <button style= {{padding: "5px", borderRadius: "4px"}}>
-              Add Language
-            </button>
-          </div>
-          <br />
-          <div style= {{border:"1px solid #ededf2"}}>
-            <h4>Hungarian</h4>
-            <p>Spoken: NATIVE | Written: NATIVE</p>
-          </div>
-          <div style= {{border:"1px solid #ededf2"}}>
-            <h4>German</h4>
-            <p>Spoken: BASIC | Written: BASIC</p>
-          </div>
-          <div style= {{border:"1px solid #ededf2"}}>
-            <h4>Hungarian</h4>
-            <p>Spoken: BASIC | Written: BASIC</p>
-          </div>
-        </form>
-      </div>
-    );
-  }
+      }
+
 }
-
-Language.defaultProps = {
- 
-};
-
-Language.propTypes = {
- };
-

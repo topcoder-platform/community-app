@@ -22,7 +22,7 @@ export default function Settings(props) {
     selectSubtab
   } = props;
   
-  
+  console.log("Settings props", props);
 
   let title;
   switch (settingsTab) {

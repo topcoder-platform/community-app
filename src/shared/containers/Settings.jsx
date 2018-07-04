@@ -27,7 +27,7 @@ class SettingsContainer extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    console.log("Component will receive props", this.props)
+    // console.log("Component will receive props", this.props)
     this.loadPageData(nextProps);
   }
 
@@ -42,7 +42,7 @@ class SettingsContainer extends React.Component {
       loadHeaderData,
       loadTabData,
     } = props;
-    console.log("Load Page Data props", props)
+    // console.log("Load Page Data props", props)
     if (authenticating) return;
      // Check auth token, go to login page if invalid
     if (!tokenV3 || isTokenExpired(tokenV3)) {
@@ -69,7 +69,7 @@ class SettingsContainer extends React.Component {
       loadingError,
       profile,
       basicInfo,
-      // language
+      language
     } = this.props;
     console.log("Sending props", this.props);
     if (loadingError) {
@@ -77,7 +77,7 @@ class SettingsContainer extends React.Component {
     }
 
     // Only load the page when authenticated and profile is loaded
-    const loaded = !authenticating && profile && basicInfo;
+    const loaded = !authenticating && profile && (basicInfo || language);
 
     return loaded ?
       <Settings
@@ -101,12 +101,12 @@ function defaultSubtab(mainTab){
 }
 SettingsContainer.defaultProps = {
   settingsTab: TABS.PROFILE,
-  subTab: PROFILETABS.BASICINFO,
+  subTab: defaultSubtab(TABS.PROFILE),
   handle: '',
   tokenV3: '',
   profile: null,
   basicInfo: null,
-  // language: null
+  language: null
 };
 
 SettingsContainer.propTypes = {
@@ -153,7 +153,7 @@ function mapStateToProps(state) {
     tokenV3: state.auth.tokenV3,
     profile: state.auth.profile,
     basicInfo: state.basicInfo.basicInfo,
-    // basicInfo: state.language.language,
+    language: state.language.language,
     lookupData: state.lookup,
     profileState: state.profile,
     activeChallengesCount: _.get(state.challenge, 'activeChallengesCount'),
@@ -184,12 +184,12 @@ function mapDispatchToProps(dispatch) {
     subTab,
     settingsTab,
     basicInfo,
-    // language
+    language
   }) => {
     console.log("Subtab", subTab);
     dispatch(profileActions.loadProfile(handle));
     if (settingsTab === TABS.PROFILE) {
-      dispatch(settingsActions.page.settings.selectTab('profile/basicinfo'));
+      // dispatch(settingsActions.page.settings.selectTab('profile/basicinfo'));
       dispatch(profileActions.getSkillsInit());
       dispatch(profileActions.getLinkedAccountsInit());
       dispatch(profileActions.getExternalAccountsInit());
@@ -201,16 +201,16 @@ function mapDispatchToProps(dispatch) {
       dispatch(profileActions.getExternalLinksDone(handle));
       dispatch(profileActions.getSkillsDone(handle));
     } else if (settingsTab === TABS.TOOLS) {
-      dispatch(settingsActions.page.settings.selectTab('tools/devices'));
+      // dispatch(settingsActions.page.settings.selectTab('tools/devices'));
       dispatch(profileActions.getEmailPreferencesInit());
       dispatch(profileActions.getEmailPreferencesDone(profile, tokenV3));
     } else if (settingsTab === TABS.ACCOUNT) {
-      dispatch(settingsActions.page.settings.selectTab('account'));
+      // dispatch(settingsActions.page.settings.selectTab('account'));
       dispatch(profileActions.getCredentialInit());
       dispatch(profileActions.getCredentialDone(profile, tokenV3));
     }
     else if (settingsTab === TABS.PREFERENCES) {
-      dispatch(settingsActions.page.settings.selectTab('preferences/email'));
+      // dispatch(settingsActions.page.settings.selectTab('preferences/email'));
       }
     if(subTab===PROFILETABS.BASICINFO){
       console.log("Entering basic info actions");
@@ -222,6 +222,7 @@ function mapDispatchToProps(dispatch) {
       dispatch(languageActions.getLanguageInit());
       dispatch(languageActions.getLanguageDone(handle, tokenV3));
     }
+    console.log("Exiting the loadTabData");
   };
 
   return {

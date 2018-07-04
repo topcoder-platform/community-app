@@ -10,9 +10,7 @@ import { AppChunk, webpack } from 'topcoder-react-utils';
 
 export default function SettingsLoader(props) {
   console.log("Entered settings routes with props", props);
-  // const pathit= props.match.url;
-  // const showit = pathit.match(/^\/settings\/(profile|tools|account|preferences)(\/)(basicinfo|devices|language|software)?$/);
-  // console.log("showit", showit);
+  
   return (
     <AppChunk
       chunkName="settings/chunk"

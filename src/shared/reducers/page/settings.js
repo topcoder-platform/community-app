@@ -220,7 +220,19 @@ function create(defaultState = {}) {
     deletingLinks: []
     }));
 }
-
+function getSubTab(mainTab){
+  switch (mainTab){
+    case 'profile':{
+      return PROFILETABS.BASICINFO;
+    }
+    case 'tools':{
+      return TOOLSTABS.DEVICES;
+    }
+    case 'preferences':{
+      return PREFERENCESTABS.EMAIL;
+    }
+  }
+}
 /**
  * Factory which creates a new reducer with its initial state tailored to the
  * ExpressJS HTTP request, if specified (for server-side rendering). If HTTP
@@ -231,17 +243,37 @@ function create(defaultState = {}) {
 export function factory(req) {
   // Check to see if a specific tab is provided as a param
   if (req && req.url) {
+    var h= 0;
     const { pathname } = require('url').parse(`${config.URL.APP}${req.url}`); /* eslint-disable-line global-require */
-    const match = pathname.match(/^\/settings\/(profile|tools|account|preferences)(\/)?$/);
+    var match= pathname.match(/^\/settings\/(profile|tools|account|preferences)(\/)(basicinfo|language|education|work|organization|skill|hobby|community|devices|software|serviceproviders|subscriptions)?$/);
+    if(!match){
+      var match = pathname.match(/^\/settings\/(profile|tools|account|preferences)(\/)?$/);
+      var h=1;
+    }
     console.log("Req", req);
     console.log("match", match);
+    if(h===1){
     if (match && match[1]) {
       console.log("Settings tab", match[1]);
+      
+      
       return Promise.resolve(create({
         settingsTab: match[1],
+        subTab: getSubTab(match[1])
       }));
       
     
+    }}
+    else{
+      if (match && match[1] && match[3]) {
+        console.log("Settings tab", match[1]);
+        return Promise.resolve(create({
+          settingsTab: match[1],
+          subTab: match[3]
+        }));
+        
+      
+      }
     }
     return Promise.resolve(create());
   }
