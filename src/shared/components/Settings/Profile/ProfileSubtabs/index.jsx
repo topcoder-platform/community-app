@@ -14,7 +14,6 @@ export default function ProfileSubtabs(props) {
   } = props;
 
   const clickTab = (e, tab) => {
-      console.log("Tab in profile sub tabs", tab)
     e.preventDefault();
     setImmediate(() => {
       selectTab(tab);

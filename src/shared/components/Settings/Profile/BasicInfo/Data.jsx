@@ -111,20 +111,20 @@ console.log("Entered basic info constructors")
     const birthDate = document.querySelector('#profile-birthDate').value;
     this.props.onUpdateBirthDate(birthDate);
   }
-  onUpdateGender(e){
-    e.preventDefault();
-    const gender = document.querySelector('#profile-gender').value;
-    this.props.onUpdateGender(gender);
+  onUpdateGender(gender){
+    // e.preventDefault();
+    // const gender = document.querySelector('#profile-gender').value;
+    this.props.onUpdateGender(gender.name);
   }
   onUpdateEthnic(e){
     e.preventDefault();
     const ethnic = document.querySelector('#profile-ethnic').value;
     this.props.onUpdateEthnic(ethnic);
   }
-  onUpdateTSize(e){
-    e.preventDefault();
-    const tSize = document.querySelector('#profile-tSize').value;
-    this.props.onUpdateTSize(tSize);
+  onUpdateTSize(tSize){
+    // e.preventDefault();
+    // const tSize = document.querySelector('#profile-tSize').value;
+    this.props.onUpdateTSize(tSize.name);
   }
   onUpdateAddress(e) {
     e.preventDefault();

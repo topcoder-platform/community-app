@@ -23,7 +23,7 @@ import ExternalLinks from './ExternalLinks';
 
 import Styles from './styles.scss';
 
-import ProfileSubtabs from './ProfileSubtabs';
+import Navbar from './Navbar';
 import { PROFILETABS } from 'actions/page/profileSettings';
 export default class Profile extends React.Component {
   constructor(props) {
@@ -37,12 +37,7 @@ export default class Profile extends React.Component {
     } = this.props;
     const { updatingProfile } = profileState;
     
-    const selectTab = (tab) => {
-      var sTab= 'profile';
-      const tab1= sTab+"/"+tab;
-      this.props.selectTab(tab1);
-      this.props.history.push(`/settings/profile/${tab}`);
-    };
+    
 
 
     return (
@@ -52,9 +47,9 @@ export default class Profile extends React.Component {
             <input autoComplete="false" name="hidden" type="text" className="hidden" />
             <div styleName= "col-lg-3 col-sm-3 col-xs-3 col-md-3" style= {{padding: "0 10px"}}>
               <div>
-                <ProfileSubtabs
+                <Navbar
                   subTab= {subTab}
-                  selectTab= {selectTab}
+                  {...this.props}
                   />
               </div>
             </div>

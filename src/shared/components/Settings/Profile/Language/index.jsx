@@ -18,12 +18,44 @@ export default class Language extends React.Component {
         super(props);
         console.log("Language props", props)
         this.state = {
-          language:props.language.traits.data[0].language,
-          spokenLevel: props.language.traits.data[0].spokenLevel,
-          writtenLevel:props.language.traits.data[0].writtenLevel
+          languages:props.language.traits.data,
+          spokenLevel: '',
+          writtenLevel: '',
+          language: ''
         };
-    
-        
+        this.onUpdateLanguages = this.onUpdateLanguages.bind(this);
+        this.onSaveProfileLanguages = this.onSaveProfileLanguages.bind(this);
+        this.onDeleteProfileLanguages= this.onDeleteProfileLanguages.bind(this);
+        this.onUpdateLanguage= this.onUpdateLanguage.bind(this);
+        this.onUpdateWrittenLevel= this.onUpdateWrittenLevel.bind(this);
+        this.onUpdateSpokenLevel= this.onUpdateSpokenLevel.bind(this);
+      }
+      onDeleteProfileLanguages(languageobj){
+        _.remove(this.state.languages, language => language.language===languageobj);
+        this.setState({languages: this.state.languages});
+        const newLanguage= _.clone(this.props.language);
+        newLanguage.traits.data= this.state.languages;
+        this.props.updateLanguage(newLanguage, this.props.handle);
+      }
+      onUpdateSpokenLevel(spokenLevel) {
+        this.setState({ spokenLevel });
+      }
+      onUpdateWrittenLevel(writtenLevel) {
+        this.setState({ writtenLevel });
+      }
+      onUpdateLanguage(language) {
+        this.setState({ language });
+      }
+      onUpdateLanguages(languagesobj) {
+        const languagesObjects= this.state.languages;
+        languagesObjects.push(languagesobj);
+        this.setState({languages:languagesObjects});
+      }
+      onSaveProfileLanguages(e) {
+        e.preventDefault();
+        const newLanguage= _.clone(this.props.language);
+        newLanguage.traits.data= this.state.languages;
+        this.props.updateLanguage(newLanguage, this.props.handle);
       }
     //   onSaveProfileLanguage(e) {
     //     e.preventDefault();
@@ -53,9 +85,16 @@ export default class Language extends React.Component {
       render() {
           return (
               <Data 
+              languages= {this.state.languages}
               language= {this.state.language}
               spokenLevel= {this.state.spokenLevel}
               writtenLevel= {this.state.writtenLevel}
+              onUpdateLanguages= {this.onUpdateLanguages}
+              onSaveProfileLanguages= {this.onSaveProfileLanguages}
+              onDeleteProfileLanguages= {this.onDeleteProfileLanguages}
+              onUpdateSpokenLevel= {this.onUpdateSpokenLevel}
+              onUpdateWrittenLevel= {this.onUpdateWrittenLevel}
+              onUpdateLanguage= {this.onUpdateLanguage}
               />
           );
 

@@ -58,7 +58,7 @@ class SettingsContainer extends React.Component {
     }
 
     // Load tab data
-    if (handleChanged || settingsTab !== this.props.settingsTab) {
+    if (handleChanged || settingsTab !== this.props.settingsTab || subTab!==this.props.subTab) {
       loadTabData(props);
     }
   }
@@ -69,16 +69,21 @@ class SettingsContainer extends React.Component {
       loadingError,
       profile,
       basicInfo,
-      language
+      language,
+      subTab
     } = this.props;
     console.log("Sending props", this.props);
     if (loadingError) {
       return <Error404 />;
     }
-
+var loaded= null;
     // Only load the page when authenticated and profile is loaded
-    const loaded = !authenticating && profile && (basicInfo || language);
-
+    if(subTab=== 'basicinfo'){
+    var loaded = !authenticating && profile && (basicInfo);
+}
+else if(subTab==='language'){
+  var loaded = !authenticating && profile && (language)
+}
     return loaded ?
       <Settings
         {...this.props}
@@ -120,6 +125,7 @@ SettingsContainer.propTypes = {
   deletePhoto: PT.func.isRequired,
   updateProfile: PT.func.isRequired,
   updateBasicInfo: PT.func.isRequired,
+  updateLanguage: PT.func.isRequired,
   addSkill: PT.func.isRequired,
   hideSkill: PT.func.isRequired,
   addWebLink: PT.func.isRequired,
@@ -165,11 +171,12 @@ function mapDispatchToProps(dispatch) {
   const profileActions = actions.profile;
   const basicInfoActions= actions.basicInfo;
   const languageActions= actions.language;
-  console.log("actions", actions);
-  console.log("profileActions", profileActions);
-  console.log("basicInfoActions", basicInfoActions);
+  // console.log("actions", actions);
+  // console.log("profileActions", profileActions);
+  // console.log("basicInfoActions", basicInfoActions);
   
   const loadHeaderData = ({ handle, tokenV3 }) => {
+    console.log("Entered load header data");
     dispatch(profileActions.loadProfile(handle));
     dispatch(profileActions.getAchievementsInit());
     dispatch(actions.challenge.getActiveChallengesCountInit());
@@ -189,6 +196,7 @@ function mapDispatchToProps(dispatch) {
     console.log("Subtab", subTab);
     dispatch(profileActions.loadProfile(handle));
     if (settingsTab === TABS.PROFILE) {
+      console.log("Entering profile settings tab");
       // dispatch(settingsActions.page.settings.selectTab('profile/basicinfo'));
       dispatch(profileActions.getSkillsInit());
       dispatch(profileActions.getLinkedAccountsInit());
@@ -201,24 +209,27 @@ function mapDispatchToProps(dispatch) {
       dispatch(profileActions.getExternalLinksDone(handle));
       dispatch(profileActions.getSkillsDone(handle));
     } else if (settingsTab === TABS.TOOLS) {
+      console.log("Entering tools settings tab");
       // dispatch(settingsActions.page.settings.selectTab('tools/devices'));
       dispatch(profileActions.getEmailPreferencesInit());
       dispatch(profileActions.getEmailPreferencesDone(profile, tokenV3));
     } else if (settingsTab === TABS.ACCOUNT) {
+      console.log("Entering account settings tab");
       // dispatch(settingsActions.page.settings.selectTab('account'));
       dispatch(profileActions.getCredentialInit());
       dispatch(profileActions.getCredentialDone(profile, tokenV3));
     }
     else if (settingsTab === TABS.PREFERENCES) {
+      console.log("Entering preferences settings tab");
       // dispatch(settingsActions.page.settings.selectTab('preferences/email'));
       }
     if(subTab===PROFILETABS.BASICINFO){
-      console.log("Entering basic info actions");
+      console.log("Entering basic info subtab");
       dispatch(basicInfoActions.getBasicInfoInit());
       dispatch(basicInfoActions.getBasicInfoDone(handle, tokenV3));
     }
     if(subTab===PROFILETABS.LANGUAGE){
-      console.log("Entered language subtab actions");
+      console.log("Entered language subtab");
       dispatch(languageActions.getLanguageInit());
       dispatch(languageActions.getLanguageDone(handle, tokenV3));
     }
@@ -257,6 +268,11 @@ function mapDispatchToProps(dispatch) {
       console.log("Updated basic info/ settings container: ", basicInfo);
       dispatch(basicInfoActions.updateBasicInfoDone(basicInfo));
     },
+    updateLanguage: (language, handle) => {
+      dispatch(languageActions.updateLanguageInit());
+      // console.log("Updated basic info/ settings container: ", basicInfo);
+      dispatch(languageActions.updateLanguageDone(language, handle));
+    },
     addSkill: (handle, tokenV3, skill) => {
       dispatch(profileActions.addSkillInit());
       dispatch(profileActions.addSkillDone(handle, tokenV3, skill));
@@ -287,7 +303,7 @@ function mapDispatchToProps(dispatch) {
 
 const Container = connect(
   mapStateToProps,
-  mapDispatchToProps,
+  mapDispatchToProps
 )(SettingsContainer);
 
 export default Container;
