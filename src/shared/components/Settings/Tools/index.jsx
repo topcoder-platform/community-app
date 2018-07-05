@@ -1,11 +1,14 @@
 /**
  * Child component of Settings/Tools renders setting page for tools.
  */
-
 import React from 'react';
 import PT from 'prop-types';
-import { isomorphy } from 'topcoder-react-utils';
-import SideBar from '../SideBar';
+import Accordion from 'components/Settings/Accordion';
+import SideBar from 'components/Settings/SideBar';
+import Devices from 'assets/images/tools/sideicons/devices.svg';
+import ServiceProviders from 'assets/images/tools/sideicons/serviceproviders.svg';
+import SoftwareIcon from 'assets/images/tools/sideicons/software.svg';
+import Subscriptions from 'assets/images/tools/sideicons/subscriptions.svg';
 import Device from './Devices';
 import Software from './Software';
 
@@ -16,35 +19,45 @@ export default function Tools(props) {
   const names = Object.keys(tabs).map(key => tabs[key]);
   const currentTab = props.settingsUI.currentToolsTab;
 
-  let assets;
-  const sideIcons = {};
-  if (isomorphy.isClientSide()) {
-    assets = require.context('assets/images/tools/sideicons', false, /svg/);
+  const icons = {
+    devices: <Devices />,
+    'service providers': <ServiceProviders />,
+    software: <SoftwareIcon />,
+    subscriptions: <Subscriptions />,
+  };
 
-    if (assets) {
-      names.forEach((name) => {
-        sideIcons[name] = assets(`./${name}.svg`);
-      });
+  const renderTabContent = (tab) => {
+    switch (tab) {
+      case 'devices':
+        return <Device {...props} />;
+      case 'software':
+        return <Software {...props} />;
+      default:
+        return null;
     }
-  }
+  };
 
   return (
     <div styleName="tools-container">
+      <div styleName="mobile-view">
+        <Accordion
+          icons={icons}
+          names={names}
+          currentSidebarTab={currentTab}
+          renderTabContent={renderTabContent}
+          toggleSidebarTab={props.toggleToolsSideTab}
+        />
+      </div>
       <div styleName="col-bar">
         <SideBar
-          icons={sideIcons}
+          icons={icons}
           names={names}
           currentTab={currentTab}
           toggle={props.toggleToolsSideTab}
         />
       </div>
       <div styleName="col-content">
-        <Device
-          {...props}
-        />
-        <Software
-          {...props}
-        />
+        { renderTabContent(currentTab) }
       </div>
     </div>
   );

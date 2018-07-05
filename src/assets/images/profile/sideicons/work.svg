@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="30px" height="30px" viewBox="0 0 30 30" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: sketchtool 49.3 (51167) - http://www.bohemiancoding.com/sketch -->
+    <title>3747A81F-F886-4CCD-84DE-5A0A7678FFE9</title>
+    <desc>Created with sketchtool.</desc>
+    <defs>
+        <rect id="path-1" x="0" y="6" width="30" height="24"></rect>
+        <rect id="path-2" x="12" y="0" width="6" height="9"></rect>
+    </defs>
+    <g id="Symbols" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="icon/profile/work">
+            <g id="Rectangle-7">
+                <use fill="#FFFFFF" fill-rule="evenodd" xlink:href="#path-1"></use>
+                <rect stroke="#444444" stroke-width="2" x="1" y="7" width="28" height="22"></rect>
+            </g>
+            <circle id="Oval-Copy" stroke="#262628" stroke-width="2" fill="#FFFFFF" fill-rule="nonzero" cx="10" cy="14" r="3"></circle>
+            <path d="M15,25 L15,22.017 C15,21.307 14.659,20.654 14.0989167,20.292 C13.207,19.717 11.6615,19 9.5,19 C7.311,19 5.77466667,19.713 4.89283333,20.288 C4.33733333,20.65 4,21.301 4,22.007 L4,25 L15,25 Z" id="Shape-Copy" stroke="#262628" stroke-width="2" fill="#CEE6FF" fill-rule="nonzero"></path>
+            <rect id="Rectangle-4-Copy-3" fill="#0681FF" x="17" y="11" width="8" height="2"></rect>
+            <rect id="Rectangle-4-Copy-4" fill="#0681FF" x="19" y="17" width="6" height="2"></rect>
+            <rect id="Rectangle-4-Copy-5" fill="#0681FF" x="21" y="23" width="4" height="2"></rect>
+            <g id="Rectangle-9">
+                <use fill="#CEF0AF" fill-rule="evenodd" xlink:href="#path-2"></use>
+                <rect stroke="#444444" stroke-width="2" x="13" y="1" width="4" height="7"></rect>
+            </g>
+        </g>
+    </g>
+</svg>

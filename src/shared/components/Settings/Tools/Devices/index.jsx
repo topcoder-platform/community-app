@@ -205,76 +205,71 @@ export default class Devices extends React.Component {
   }
 
   render() {
-    const tabs = this.props.settingsUI.TABS.TOOLS;
-    const currentTab = this.props.settingsUI.currentToolsTab;
-    const containerStyle = currentTab === tabs.DEVICES ? '' : 'hide';
     const deviceItems = this.state.deviceTrait.traits ?
       this.state.deviceTrait.traits.data.slice() : [];
     const { newDevice, formInvalid, errorMessage } = this.state;
 
     return (
-      <div styleName={containerStyle}>
-        <div styleName="devices-container">
-          <div styleName={`error-message ${formInvalid ? 'active' : ''}`}>
-            {errorMessage}
-          </div>
-          <h1>Devices</h1>
-          <div styleName="form-container">
-            <form name="device-form" noValidate autoComplete="off">
-              <div styleName="row">
-                <p>Add Device</p>
-              </div>
-              <div styleName="row">
-                <div styleName="field col-1">
-                  <label htmlFor="deviceType">Device Type</label>
-                  <Select
-                    name="deviceType"
-                    options={dropdowns.type}
-                    onChange={this.onUpdateSelect}
-                    value={newDevice.deviceType}
-                    placeholder="Device Type"
-                    labelKey="name"
-                    valueKey="name"
-                    clearable={false}
-                  />
-                </div>
-              </div>
-              <div styleName="row">
-                <div styleName="field col-1">
-                  <label htmlFor="manufacturer">Manufacturer</label>
-                  <input id="manufacturer" name="manufacturer" type="text" placeholder="Manufacturer" value={newDevice.manufacturer} onChange={this.onUpdateInput} maxLength="64" required />
-                </div>
-                <div styleName="field col-2">
-                  <label htmlFor="model">Model</label>
-                  <input id="model" name="model" type="text" placeholder="Model" onChange={this.onUpdateInput} value={newDevice.model} maxLength="64" required />
-                </div>
-              </div>
-              <div styleName="row">
-                <div styleName="field col-1">
-                  <label htmlFor="operating-system">Operating System</label>
-                  <input id="operating-system" name="operatingSystem" type="text" onChange={this.onUpdateInput} placeholder="Operating System" value={newDevice.operatingSystem} maxLength="64" required />
-                </div>
-                <div styleName="field col-2">
-                  <label htmlFor="osVersion">OS version</label>
-                  <input id="os-version" name="osVersion" type="text" onChange={this.onUpdateInput} placeholder="OS version" value={newDevice.osVersion} maxLength="64" required />
-                </div>
-                <div styleName="field col-3">
-                  <label htmlFor="osLanguage">OS Language</label>
-                  <input id="os-language" name="osLanguage" type="text" onChange={this.onUpdateInput} placeholder="OS Language" value={newDevice.osLanguage} maxLength="64" required />
-                </div>
-              </div>
-            </form>
-            <div styleName="button-save">
-              <PrimaryButton
-                styleName="complete"
-                onClick={this.onAddDevice}
-              >
-                Add Device
-              </PrimaryButton>
-            </div>
-          </div>
-          <DeviceList deviceList={{ items: deviceItems }} onDeleteItem={this.onDeleteDevice} />
+      <div styleName="devices-container">
+        <div styleName={`error-message ${formInvalid ? 'active' : ''}`}>
+          {errorMessage}
         </div>
+        <h1>Devices</h1>
+        <div styleName="form-container">
+          <form name="device-form" noValidate autoComplete="off">
+            <div styleName="row">
+              <p>Add Device</p>
+            </div>
+            <div styleName="row">
+              <div styleName="field col-1">
+                <label htmlFor="deviceType">Device Type</label>
+                <Select
+                  name="deviceType"
+                  options={dropdowns.type}
+                  onChange={this.onUpdateSelect}
+                  value={newDevice.deviceType}
+                  placeholder="Device Type"
+                  labelKey="name"
+                  valueKey="name"
+                  clearable={false}
+                />
+              </div>
+              <div styleName="field col-1">
+                <label htmlFor="manufacturer">Manufacturer</label>
+                <input id="manufacturer" name="manufacturer" type="text" placeholder="Manufacturer" value={newDevice.manufacturer} onChange={this.onUpdateInput} maxLength="64" required />
+              </div>
+            </div>
+            <div styleName="row">
+              <div styleName="field col-2">
+                <label htmlFor="model">Model</label>
+                <input id="model" name="model" type="text" placeholder="Model" onChange={this.onUpdateInput} value={newDevice.model} maxLength="64" required />
+              </div>
+              <div styleName="field col-2">
+                <label htmlFor="operating-system">Operating System</label>
+                <input id="operating-system" name="operatingSystem" type="text" onChange={this.onUpdateInput} placeholder="Operating System" value={newDevice.operatingSystem} maxLength="64" required />
+              </div>
+            </div>
+            <div styleName="row">
+              <div styleName="field col-2">
+                <label htmlFor="osVersion">OS version</label>
+                <input id="os-version" name="osVersion" type="text" onChange={this.onUpdateInput} placeholder="OS version" value={newDevice.osVersion} maxLength="64" required />
+              </div>
+              <div styleName="field col-2">
+                <label htmlFor="osLanguage">OS Language</label>
+                <input id="os-language" name="osLanguage" type="text" onChange={this.onUpdateInput} placeholder="OS Language" value={newDevice.osLanguage} maxLength="64" required />
+              </div>
+            </div>
+          </form>
+          <div styleName="button-save">
+            <PrimaryButton
+              styleName="complete"
+              onClick={this.onAddDevice}
+            >
+              Add Device
+            </PrimaryButton>
+          </div>
+        </div>
+        <DeviceList deviceList={{ items: deviceItems }} onDeleteItem={this.onDeleteDevice} />
       </div>
     );
   }
@@ -287,5 +282,4 @@ Devices.propTypes = {
   addUserTrait: PT.func.isRequired,
   updateUserTrait: PT.func.isRequired,
   deleteUserTrait: PT.func.isRequired,
-  settingsUI: PT.shape().isRequired,
 };

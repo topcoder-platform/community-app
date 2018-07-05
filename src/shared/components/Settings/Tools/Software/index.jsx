@@ -174,59 +174,54 @@ export default class Software extends React.Component {
   }
 
   render() {
-    const tabs = this.props.settingsUI.TABS.TOOLS;
-    const currentTab = this.props.settingsUI.currentToolsTab;
-    const containerStyle = currentTab === tabs.SOFTWARE ? '' : 'hide';
     const softwareItems = this.state.softwareTrait.traits ?
       this.state.softwareTrait.traits.data.slice() : [];
     const { newSoftware, formInvalid, errorMessage } = this.state;
 
     return (
-      <div styleName={containerStyle}>
-        <div styleName="software-container">
-          <div styleName={`error-message ${formInvalid ? 'active' : ''}`}>
-            { errorMessage }
-          </div>
-          <h1>Software</h1>
-          <div styleName="form-container">
-            <form name="software-form" noValidate autoComplete="off">
-              <div styleName="row">
-                <p>Add Software</p>
-              </div>
-              <div styleName="row">
-                <div styleName="field col-1">
-                  <label htmlFor="softwareType">Software Type</label>
-                  <Select
-                    name="softwareType"
-                    options={dropdowns.type}
-                    onChange={this.onUpdateSelect}
-                    value={newSoftware.softwareType}
-                    placeholder="Software Type"
-                    labelKey="name"
-                    valueKey="name"
-                    clearable={false}
-                  />
-                </div>
-                <div styleName="field col-2">
-                  <label htmlFor="name">Name</label>
-                  <input id="name" name="name" type="text" placeholder="Name" onChange={this.onUpdateInput} value={newSoftware.name} maxLength="64" required />
-                </div>
-              </div>
-            </form>
-            <div styleName="button-save">
-              <PrimaryButton
-                styleName="complete"
-                onClick={this.onAddSoftware}
-              >
-                Add Software
-              </PrimaryButton>
-            </div>
-          </div>
-          <SoftwareList
-            softwareList={{ items: softwareItems }}
-            onDeleteItem={this.onDeleteSoftware}
-          />
+      <div styleName="software-container">
+        <div styleName={`error-message ${formInvalid ? 'active' : ''}`}>
+          { errorMessage }
         </div>
+        <h1>Software</h1>
+        <div styleName="form-container">
+          <form name="software-form" noValidate autoComplete="off">
+            <div styleName="row">
+              <p>Add Software</p>
+            </div>
+            <div styleName="row">
+              <div styleName="field col-1">
+                <label htmlFor="softwareType">Software Type</label>
+                <Select
+                  name="softwareType"
+                  options={dropdowns.type}
+                  onChange={this.onUpdateSelect}
+                  value={newSoftware.softwareType}
+                  placeholder="Software Type"
+                  labelKey="name"
+                  valueKey="name"
+                  clearable={false}
+                />
+              </div>
+              <div styleName="field col-2">
+                <label htmlFor="name">Name</label>
+                <input id="name" name="name" type="text" placeholder="Name" onChange={this.onUpdateInput} value={newSoftware.name} maxLength="64" required />
+              </div>
+            </div>
+          </form>
+          <div styleName="button-save">
+            <PrimaryButton
+              styleName="complete"
+              onClick={this.onAddSoftware}
+            >
+              Add Software
+            </PrimaryButton>
+          </div>
+        </div>
+        <SoftwareList
+          softwareList={{ items: softwareItems }}
+          onDeleteItem={this.onDeleteSoftware}
+        />
       </div>
     );
   }
@@ -239,5 +234,4 @@ Software.propTypes = {
   addUserTrait: PT.func.isRequired,
   updateUserTrait: PT.func.isRequired,
   deleteUserTrait: PT.func.isRequired,
-  settingsUI: PT.shape().isRequired,
 };

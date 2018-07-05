@@ -62,6 +62,7 @@ export default class ImageInput extends React.Component {
 
   render() {
     const {
+      handle,
       profile,
       profileState,
     } = this.props;
@@ -83,6 +84,7 @@ export default class ImageInput extends React.Component {
                 <DefaultPortrait styleName="profile-circle" />
               }
           <div styleName="buttons">
+            <p styleName="handle">{handle}</p>
             <PrimaryButton onClick={this.onChangeImage} disabled={uploadingPhoto || deletingPhoto} theme={{ button: Styles['file-upload'] }}>
               {
                     uploadingPhoto && <i className="fa fa-spinner fa-spin" />

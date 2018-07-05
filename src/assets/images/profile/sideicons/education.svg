@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="30px" height="30px" viewBox="0 0 30 30" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: sketchtool 49.3 (51167) - http://www.bohemiancoding.com/sketch -->
+    <title>3F4FEC15-57A7-4E9C-9CAD-21AAFCE100EF</title>
+    <desc>Created with sketchtool.</desc>
+    <defs>
+        <rect id="path-1" x="5" y="8" width="20" height="19" rx="6"></rect>
+        <polygon id="path-2" points="9.65685425 5.65685425 26 0 20.3431458 15.3431458 4 21"></polygon>
+    </defs>
+    <g id="Symbols" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="icon/profile/education">
+            <g id="Rectangle-6">
+                <use fill="#FFFFFF" fill-rule="evenodd" xlink:href="#path-1"></use>
+                <rect stroke="#444444" stroke-width="2" x="6" y="9" width="18" height="17" rx="6"></rect>
+            </g>
+            <g id="Rectangle-5" transform="translate(15.000000, 10.500000) rotate(-317.000000) translate(-15.000000, -10.500000) ">
+                <use fill="#CEF0AF" fill-rule="evenodd" xlink:href="#path-2"></use>
+                <path stroke="#444444" stroke-width="2" d="M10.4313406,6.44699011 L5.66893111,19.3641239 L19.5686594,14.5530099 L24.3310689,1.63587613 L10.4313406,6.44699011 Z"></path>
+            </g>
+            <rect id="Rectangle-4-Copy-3" fill="#444444" transform="translate(28.500000, 15.000000) rotate(-270.000000) translate(-28.500000, -15.000000) " x="24" y="14" width="9" height="2"></rect>
+        </g>
+    </g>
+</svg>
