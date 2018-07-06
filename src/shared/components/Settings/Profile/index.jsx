@@ -28,8 +28,9 @@ import { PROFILETABS } from 'actions/page/profileSettings';
 export default class Profile extends React.Component {
   constructor(props) {
     super(props);
-  }
+    console.log("Profile props", props);
 
+  }
   render() {
     const {
       profileState,
@@ -69,6 +70,7 @@ export default class Profile extends React.Component {
               {
                 subTab === PROFILETABS.EDUCATION &&
                 <Education
+                {...this.props}
                 />
               }
               {

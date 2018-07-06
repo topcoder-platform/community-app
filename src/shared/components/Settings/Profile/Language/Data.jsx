@@ -65,8 +65,7 @@ export default class Data extends React.Component {
         return (
         <div style= {{border:"1px solid #ededf2"}}>
         <div styleName= "col-md-9 col-sm-9 col-xs-9 col-lg-9">
-          <h4 id= "profiledellanguage" ref=  "profile-delete-language">{languageObj.language}</h4>
-          <p>{key}</p>
+          <h4>{languageObj.language}</h4>
           <p>Spoken: {languageObj.spokenLevel} | Written: {languageObj.writtenLevel}</p>
         </div>
         <div styleName= "col-md-3 col-sm-3 col-xs-3 col-lg-3">

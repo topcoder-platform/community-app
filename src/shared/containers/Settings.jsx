@@ -68,22 +68,30 @@ class SettingsContainer extends React.Component {
       authenticating,
       loadingError,
       profile,
-      basicInfo,
-      language,
       subTab
     } = this.props;
+    function loadingSubTab(subTab, props){
+      switch(subTab){
+        case 'basicinfo': {
+          return props.basicInfo
+        }
+        case 'language': {
+          return props.language
+        }
+        case 'education': {
+          return props.education
+        }
+      }                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 
+    }
     console.log("Sending props", this.props);
     if (loadingError) {
       return <Error404 />;
     }
 var loaded= null;
     // Only load the page when authenticated and profile is loaded
-    if(subTab=== 'basicinfo'){
-    var loaded = !authenticating && profile && (basicInfo);
-}
-else if(subTab==='language'){
-  var loaded = !authenticating && profile && (language)
-}
+
+    var loaded = !authenticating && profile && (loadingSubTab(subTab, this.props));
+
     return loaded ?
       <Settings
         {...this.props}
@@ -111,7 +119,8 @@ SettingsContainer.defaultProps = {
   tokenV3: '',
   profile: null,
   basicInfo: null,
-  language: null
+  language: null,
+  education: null
 };
 
 SettingsContainer.propTypes = {
@@ -126,6 +135,7 @@ SettingsContainer.propTypes = {
   updateProfile: PT.func.isRequired,
   updateBasicInfo: PT.func.isRequired,
   updateLanguage: PT.func.isRequired,
+  updateEducation: PT.func.isRequired,
   addSkill: PT.func.isRequired,
   hideSkill: PT.func.isRequired,
   addWebLink: PT.func.isRequired,
@@ -160,6 +170,7 @@ function mapStateToProps(state) {
     profile: state.auth.profile,
     basicInfo: state.basicInfo.basicInfo,
     language: state.language.language,
+    education: state.education.education,
     lookupData: state.lookup,
     profileState: state.profile,
     activeChallengesCount: _.get(state.challenge, 'activeChallengesCount'),
@@ -171,6 +182,7 @@ function mapDispatchToProps(dispatch) {
   const profileActions = actions.profile;
   const basicInfoActions= actions.basicInfo;
   const languageActions= actions.language;
+  const educationActions= actions.education;
   // console.log("actions", actions);
   // console.log("profileActions", profileActions);
   // console.log("basicInfoActions", basicInfoActions);
@@ -189,9 +201,7 @@ function mapDispatchToProps(dispatch) {
     profile,
     tokenV3,
     subTab,
-    settingsTab,
-    basicInfo,
-    language
+    settingsTab
   }) => {
     console.log("Subtab", subTab);
     dispatch(profileActions.loadProfile(handle));
@@ -228,10 +238,15 @@ function mapDispatchToProps(dispatch) {
       dispatch(basicInfoActions.getBasicInfoInit());
       dispatch(basicInfoActions.getBasicInfoDone(handle, tokenV3));
     }
-    if(subTab===PROFILETABS.LANGUAGE){
+    else if(subTab===PROFILETABS.LANGUAGE){
       console.log("Entered language subtab");
       dispatch(languageActions.getLanguageInit());
       dispatch(languageActions.getLanguageDone(handle, tokenV3));
+    }
+    else if(subTab===PROFILETABS.EDUCATION){
+      console.log("Entered education subtab");
+      dispatch(educationActions.getEducationInit());
+      dispatch(educationActions.getEducationDone(handle, tokenV3));
     }
     console.log("Exiting the loadTabData");
   };
@@ -272,6 +287,11 @@ function mapDispatchToProps(dispatch) {
       dispatch(languageActions.updateLanguageInit());
       // console.log("Updated basic info/ settings container: ", basicInfo);
       dispatch(languageActions.updateLanguageDone(language, handle));
+    },
+    updateEducation: (education, handle) => {
+      dispatch(educationActions.updateEducationInit());
+      // console.log("Updated basic info/ settings container: ", basicInfo);
+      dispatch(educationActions.updateEducationDone(education, handle));
     },
     addSkill: (handle, tokenV3, skill) => {
       dispatch(profileActions.addSkillInit());
