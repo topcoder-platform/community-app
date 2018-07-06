@@ -16,6 +16,8 @@ import developmentAndFirst2finishTheme from './developmentAndFirst2finish.scss';
 import uiDesignAndPrototypeTheme from './uiDesignAndPrototype.scss';
 import styles from './styles.scss';
 
+const CENTERED_CONTENT_MAX = 6;
+
 /**
  * Return theme by track name
  * for good performance default condition uses design theme
@@ -48,12 +50,8 @@ const Finalists = ({ data }) => {
   const championIds = _.map(finalData.data, item => (item.fields.champion.sys.id));
   const members = _.map(finalData.data, item => (item.fields.members));
   let memberIds = [];
-  let maxFinalLists = 0;
   for (let i = 0; i !== members.length; i += 1) {
     memberIds = memberIds.concat(_.map(members[i], item => (item.sys.id)));
-    if (members[i].length > maxFinalLists) {
-      maxFinalLists = members[i].length;
-    }
   }
   const entryIds = championIds.concat(memberIds);
   return (
@@ -82,12 +80,11 @@ const Finalists = ({ data }) => {
                   .fields = imageResult.assets.items[imageIds[i]].fields;
               }
               return (
-                <div className={styles.container}>
+                <div className={[styles.container, (finalData.data.length < CENTERED_CONTENT_MAX ? styles.centered : '')].join(' ')}>
                   {
                     finalData.data.map(list => (
                       <Track
                         key={list.fields.track}
-                        count={maxFinalLists}
                         data={getSingleTrackList(list.fields.track.toUpperCase(), finalData.data)}
                         theme={findTheme(list.fields.track.toUpperCase())}
                         track={list.fields.track.toUpperCase()}
