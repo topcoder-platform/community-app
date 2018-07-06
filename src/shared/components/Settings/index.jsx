@@ -53,28 +53,36 @@ export default function Settings(props) {
           selectTab={selectTab}
         />
         {
-          settingsTab === TABS.PROFILE &&
+          settingsTab === TABS.PROFILE
+          && (
           <Profile
             {...props}
           />
+          )
         }
         {
-          settingsTab === TABS.TOOLS &&
+          settingsTab === TABS.TOOLS
+          && (
           <Tools
             {...props}
           />
+          )
         }
         {
-          settingsTab === TABS.ACCOUNT &&
+          settingsTab === TABS.ACCOUNT
+          && (
           <Account
             {...props}
           />
+          )
         }
         {
-          settingsTab === TABS.PREFERENCES &&
+          settingsTab === TABS.PREFERENCES
+          && (
           <Preferences
             {...props}
           />
+          )
         }
       </div>
     </div>

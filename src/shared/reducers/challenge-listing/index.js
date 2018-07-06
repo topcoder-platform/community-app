@@ -11,8 +11,8 @@ import moment from 'moment';
 import { logger, errors, challenge as challengeUtils }
   from 'topcoder-react-lib';
 
-import filterPanel from '../challenge-listing/filter-panel';
-import sidebar, { factory as sidebarFactory } from '../challenge-listing/sidebar';
+import filterPanel from './filter-panel';
+import sidebar, { factory as sidebarFactory } from './sidebar';
 
 const { fireErrorMessage } = errors;
 const { filter: Filter } = challengeUtils;
@@ -153,8 +153,7 @@ function onGetPastChallengesDone(state, { error, payload }) {
   let keepPastPlaceholders = false;
   if (loaded.length) {
     const ff = Filter.getFilterFunction(frontFilter);
-    keepPastPlaceholders =
-      challenges.filter(ff).length - state.challenges.filter(ff).length < 10;
+    keepPastPlaceholders = challenges.filter(ff).length - state.challenges.filter(ff).length < 10;
   }
 
   return {
@@ -333,8 +332,10 @@ function create(initialState) {
       reviewOpportunities: [],
     }),
 
-    [a.expandTag]: (state, { payload }) =>
-      ({ ...state, expandedTags: [...state.expandedTags, payload] }),
+    [a.expandTag]: (state, { payload }) => ({
+      ...state,
+      expandedTags: [...state.expandedTags, payload],
+    }),
 
     [a.getAllActiveChallengesInit]: onGetAllActiveChallengesInit,
     [a.getAllActiveChallengesDone]: onGetAllActiveChallengesDone,
@@ -424,7 +425,7 @@ function create(initialState) {
  * @return {Promise} Resolves to the new reducer.
  */
 export function factory(req) {
-  if (req && req.url.match(/challenges(\/?$|\?)/)) {
+  if (req && req.url.match(/challenges(\/?$|\/?\?)/)) {
     let state = {};
 
     if (req.query.filter) {

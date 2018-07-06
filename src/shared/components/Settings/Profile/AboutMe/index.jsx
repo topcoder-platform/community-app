@@ -30,14 +30,16 @@ export default class AboutMe extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    if (this.props.profileState.deletingPhoto && !nextProps.profileState.deletingPhoto) {
+    const { profileState } = this.props;
+    if (profileState.deletingPhoto && !nextProps.profileState.deletingPhoto) {
       document.querySelector('#change-image-input').value = null;
     }
   }
 
   onChangeImage(e) {
     e.preventDefault();
-    if (this.props.profileState.uploadingPhoto) {
+    const { profileState } = this.props;
+    if (profileState.uploadingPhoto) {
       return;
     }
     const fileInput = document.querySelector('#change-image-input');
@@ -46,35 +48,49 @@ export default class AboutMe extends React.Component {
 
   onUploadPhoto(e) {
     e.preventDefault();
-    if (this.props.profileState.uploadingPhoto) {
+    const {
+      handle,
+      profileState,
+      tokenV3,
+      uploadPhoto,
+    } = this.props;
+    if (profileState.uploadingPhoto) {
       return;
     }
     const fileInput = document.querySelector('#change-image-input');
     const file = fileInput.files[0];
-    this.props.uploadPhoto(this.props.handle, this.props.tokenV3, file);
+    uploadPhoto(handle, tokenV3, file);
   }
 
   onDeletePhoto(e) {
+    const {
+      deletePhoto,
+      profile,
+      profileState,
+      tokenV3,
+    } = this.props;
     e.preventDefault();
-    if (this.props.profileState.deletingPhoto) {
+    if (profileState.deletingPhoto) {
       return;
     }
-    const newProfile = _.clone(this.props.profile);
+    const newProfile = _.clone(profile);
     delete newProfile.photoURL;
     delete newProfile.groups;
     newProfile.tracks = newProfile.tracks || [];
-    this.props.deletePhoto(newProfile, this.props.tokenV3);
+    deletePhoto(newProfile, tokenV3);
   }
 
   onUpdateBio(e) {
+    const { onUpdateBio } = this.props;
     e.preventDefault();
     const bio = document.querySelector('#profile-bio').value;
-    this.props.onUpdateBio(bio);
+    onUpdateBio(bio);
   }
 
   onUpdateCountry(country) {
+    const { onUpdateCountry } = this.props;
     if (country && country.alpha3) {
-      this.props.onUpdateCountry(country.alpha3);
+      onUpdateCountry(country.alpha3);
     }
   }
 
@@ -96,20 +112,26 @@ export default class AboutMe extends React.Component {
     return (
       <div className="settings-section">
         <div className="section-info">
-          <h2>About Me</h2>
-          <div className="description">The most important information that other community members should know about you.</div>
+          <h2>
+About Me
+          </h2>
+          <div className="description">
+The most important information that other community members should know about you.
+          </div>
         </div>
         <div className="section-fields">
           <div styleName="image">
-            <div className="form-label">your profile image</div>
+            <div className="form-label">
+your profile image
+            </div>
             <div styleName="edit-image">
               {
-                profile.photoURL &&
-                <img alt="User" src={profile.photoURL} styleName="profile-circle" />
+                profile.photoURL
+                && <img alt="User" src={profile.photoURL} styleName="profile-circle" />
               }
               {
-                !profile.photoURL &&
-                <DefaultPortrait styleName="profile-circle" />
+                !profile.photoURL
+                && <DefaultPortrait styleName="profile-circle" />
               }
               <div styleName="buttons">
                 <PrimaryButton onClick={this.onChangeImage} disabled={uploadingPhoto || deletingPhoto} theme={{ button: Styles['file-upload'] }}>
@@ -125,7 +147,8 @@ export default class AboutMe extends React.Component {
                 </PrimaryButton>
                 <input type="file" name="image" onChange={this.onUploadPhoto} id="change-image-input" className="hidden" />
                 {
-                  profile.photoURL &&
+                  profile.photoURL
+                  && (
                   <div>
                     <SecondaryButton
                       onClick={this.onDeletePhoto}
@@ -140,12 +163,15 @@ export default class AboutMe extends React.Component {
                       }
                     </SecondaryButton>
                   </div>
+                  )
                 }
               </div>
             </div>
           </div>
           <div styleName="country">
-            <div className="form-label">Country to represent</div>
+            <div className="form-label">
+Country to represent
+            </div>
             <Select
               name="location"
               options={countries}
@@ -160,9 +186,13 @@ export default class AboutMe extends React.Component {
             />
           </div>
           <div styleName="bio">
-            <div className="form-label">short bio
-              <span className="char-count">{(bio && bio.length) || 0}
-                <span className="grey">&nbsp;/ 256</span>
+            <div className="form-label">
+short bio
+              <span className="char-count">
+                {(bio && bio.length) || 0}
+                <span className="grey">
+&nbsp;/ 256
+                </span>
               </span>
             </div>
             <textarea
@@ -198,4 +228,3 @@ AboutMe.propTypes = {
   uploadPhoto: PT.func.isRequired,
   deletePhoto: PT.func.isRequired,
 };
-

@@ -1,12 +1,10 @@
 /**
  * Email Preferences component.
  */
-/* global document */
-import _ from 'lodash';
+import { map, debounce } from 'lodash';
 import React from 'react';
 import PT from 'prop-types';
 
-import LoadingIndicator from 'components/LoadingIndicator';
 import ToggleableItem from 'components/Settings/ToggleableItem';
 
 import './styles.scss';
@@ -42,13 +40,11 @@ const newsletters = [
     name: 'TCO Newsletter',
     desc: 'Our annual online and onsite tournament to celebrate and reward the community',
   },
-  /*
   {
     id: 'TOPCODER_NL_PREDIX',
     name: 'Predix Community Newsletter',
     desc: 'Design and development on GE’s platform for the Industrial Internet of Things',
   },
-  */
   {
     id: 'TOPCODER_NL_IBM_COGNITIVE',
     name: 'Cognitive Community Newsletter',
@@ -56,71 +52,86 @@ const newsletters = [
   },
 ];
 
+const SAVE_DELAY = 1000;
+
 export default class EmailPreferences extends React.Component {
+  saveEmailPreferences = debounce(() => {
+    const {
+      profile,
+      saveEmailPreferences,
+      tokenV3,
+    } = this.props;
+    const { emailPreferences } = this.state;
+
+    saveEmailPreferences(
+      profile,
+      tokenV3,
+      emailPreferences,
+    );
+  }, SAVE_DELAY);
+
   constructor(props) {
     super(props);
+    this.state = {
+      emailPreferences: {},
+      populated: null,
+    };
     this.onChange = this.onChange.bind(this);
+    this.populate = this.populate.bind(this);
   }
 
-  onChange() {
-    const switches = document.querySelectorAll('input[name="eprf-onoffswitch"]');
-    const newPreferences = {};
-    _.forEach(switches, (sw) => {
-      if (sw.checked) {
-        newPreferences[sw.value] = true;
-      } else {
-        newPreferences[sw.value] = false;
-      }
-    });
-    // adding a default `false` value for the Predix newsetter for now
-    // as per http://apps.topcoder.com/forums/?module=Thread&threadID=920048&start=0
-    newPreferences.TOPCODER_NL_PREDIX = false;
+  componentDidMount() {
+    const { profileState: { emailPreferences } } = this.props;
+    if (emailPreferences) this.populate(emailPreferences);
+  }
 
-    this.props.saveEmailPreferences(
-      this.props.profile,
-      this.props.tokenV3,
-      newPreferences,
-    );
+  componentWillReceiveProps(nextProps) {
+    const { profileState: { emailPreferences } } = nextProps;
+    if (emailPreferences) this.populate(emailPreferences);
+  }
+
+  onChange(id, checked) {
+    const { emailPreferences } = this.state;
+    emailPreferences[id] = checked;
+    this.setState({
+      emailPreferences,
+    }, () => this.saveEmailPreferences());
+  }
+
+  populate(data) {
+    const { populated } = this.state;
+    if (populated) return;
+    this.setState({
+      emailPreferences: { ...data },
+      populated: true,
+    });
   }
 
   render() {
-    const {
-      profileState,
-    } = this.props;
-
-    const showLoading = !profileState.emailPreferences;
-    const userEmailPrefs = profileState.emailPreferences || {};
-
-    const renderItems = () => (
-      <div styleName="preferences-container">
-        {
-          _.map(newsletters, (newsletter) => {
-            const checked = userEmailPrefs[newsletter.id];
-            return (
-              <ToggleableItem
-                key={newsletter.id}
-                id={newsletter.id}
-                value={newsletter.id}
-                checked={checked}
-                primaryText={newsletter.name}
-                secondaryText={newsletter.desc}
-                onToggle={this.onChange}
-              />
-            );
-          })
-        }
-      </div>
-    );
-
+    const { emailPreferences } = this.state;
     return (
       <div styleName="EmailPreferences">
-        <h1 styleName="title">Email Preferences</h1>
-        {
-          showLoading && <LoadingIndicator />
-        }
-        {
-          !showLoading && renderItems()
-        }
+        <h1 styleName="title">
+Email Preferences
+        </h1>
+        <div styleName="preferences-container">
+          {
+            map(newsletters, (newsletter) => {
+              const checked = emailPreferences[newsletter.id] || false;
+              return (
+                <ToggleableItem
+                  key={newsletter.id}
+                  id={newsletter.id}
+                  value={newsletter.id}
+                  checked={checked}
+                  primaryText={newsletter.name}
+                  secondaryText={newsletter.desc}
+                  onToggle={e => this.onChange(newsletter.id, e.target.checked)}
+                />
+              );
+            })
+          }
+        </div>
       </div>
     );
   }

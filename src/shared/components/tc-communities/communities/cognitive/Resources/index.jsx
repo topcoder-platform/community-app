@@ -90,7 +90,8 @@ export default function Resources({
                 ) helps you continuously develop
                 and deliver solutions. You can put data to work&nbsp;— protect
                 it, move it, integrate it, and unlock intelligence from it.
-                &zwnj;{
+                &zwnj;
+                {
                   <a
                     href="https://www.ibm.com/cloud/lite-account"
                     target="_blank"
@@ -105,7 +106,8 @@ export default function Resources({
                 Signing up for an IBM Cloud trial account is an important
                 step because in order to participate in cognitive challenges on
                 Topcoder, you’ll need to deploy your code to IBM Cloud.
-                &zwnj;{
+                &zwnj;
+                {
                   <a
                     href="https://console.bluemix.net/registration/?cm_sp=dw-cognitive-_-TPC2017-_-community"
                     target="_blank"
@@ -123,7 +125,8 @@ export default function Resources({
               toggle={show => toggleFaqItem('howDoIGetIbmCloudAccount', show)}
             >
               It’s easy!
-              &zwnj;{
+              &zwnj;
+              {
                 <a
                   href="https://console.bluemix.net/registration/?cm_sp=dw-cognitive-_-TPC2017-_-community"
                   target="_blank"
@@ -132,7 +135,9 @@ export default function Resources({
                 >
                   Click here
                 </a>
-              } to get an IBM Cloud account.
+              }
+              {' '}
+to get an IBM Cloud account.
             </FaqItem>
             <FaqItem
               open={shownFaqItems.prerequisites}
@@ -159,7 +164,9 @@ export default function Resources({
               question="What are the official rules for the Topcoder Open 2018 (TCO18) trip competition?"
               toggle={show => toggleFaqItem('tco18Rules', show)}
             >
-              <h3>Cognitive Points</h3>
+              <h3>
+Cognitive Points
+              </h3>
               <p>
                 Every educational Cognitive challenge gives you an opportunity
                 to earn Cognitive Points. Note that you can only earn Cognitive
@@ -179,16 +186,23 @@ export default function Resources({
                 total on the leaderboard:
               </p>
               <p>
-                1st place: 500pts<br />
-                2nd place: 350pts<br />
-                3rd place+: 100pts<br />
+                1st place: 500pts
+                <br />
+                2nd place: 350pts
+                <br />
+                3rd place+: 100pts
+                <br />
               </p>
               <p>
                 For challenges tagged with “IBM Cognitive” or “IBM Watson” that
                 are First 2 Finish challenges:
               </p>
-              <p>Winner: 250pts</p>
-              <h3>Cognitive Leaderboard and Prize Schedule</h3>
+              <p>
+Winner: 250pts
+              </p>
+              <h3>
+Cognitive Leaderboard and Prize Schedule
+              </h3>
               <p>
                 All Cognitive Points earned between January 2018 and August 31,
                 2018 are eligible for the TCO18 trip. All challenges that start
@@ -199,7 +213,9 @@ export default function Resources({
                 Points earned between September 2018 and August 31, 2019 are
                 eligible for the TCO19 trip prize.
               </p>
-              <h3>TCO Trip Prizes</h3>
+              <h3>
+TCO Trip Prizes
+              </h3>
               <p>
                 The Topcoder Cognitive Community member with the most
                 leaderboard points (on the “All” Leaderboard) at the conclusion
@@ -216,7 +232,9 @@ export default function Resources({
                 through other Topcoder competitions, the Cognitive TCO trip
                 prize will be offered to the next highest point scorer in line.
               </p>
-              <h3>Tiebreaker</h3>
+              <h3>
+Tiebreaker
+              </h3>
               <p>
                 If there is a tie for first place, all tied members will
                 compete in a final challenge. This challenge will be
@@ -244,7 +262,8 @@ export default function Resources({
                   <PrimaryButton
                     theme={{ button: style.joinButton }}
                     to={`${baseUrl}/challenges`}
-                  >View Challenges
+                  >
+View Challenges
                   </PrimaryButton>
                 </div>
               ) : (
@@ -273,7 +292,9 @@ export default function Resources({
         </div>
       </div>
       <div styleName="style.moreQContainer">
-        <h1 styleName="style.moreQTitle">Still Have Questions or Need Help?</h1>
+        <h1 styleName="style.moreQTitle">
+Still Have Questions or Need Help?
+        </h1>
         <div styleName="style.moreQContent">
           <div styleName="style.moreQCard style.moreQCard1">
             <LaptopSvg height="100" />
@@ -281,7 +302,8 @@ export default function Resources({
               openNewTab
               theme={{ button: style.moreQCardButton }}
               to="https://help.topcoder.com/hc/en-us/articles/219069687-Contact-Support"
-            >Contact Us
+            >
+Contact Us
             </Button>
           </div>
           <div styleName="style.moreQCard style.moreQCard2">
@@ -290,7 +312,8 @@ export default function Resources({
               openNewTab
               theme={{ button: style.moreQCardButton }}
               to="https://apps.topcoder.com/forums/?module=ThreadList&forumID=609116"
-            >Cognitive Forum
+            >
+Cognitive Forum
             </Button>
           </div>
           <div styleName="style.moreQCard style.moreQCard3">
@@ -299,7 +322,8 @@ export default function Resources({
               openNewTab
               theme={{ button: style.moreQCardButton }}
               to="https://www.ibm.com/developerworks/"
-            >developerWorks&reg;
+            >
+developerWorks&reg;
             </Button>
           </div>
         </div>

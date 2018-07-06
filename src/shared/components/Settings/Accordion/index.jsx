@@ -36,8 +36,13 @@ export default class Accordion extends React.Component {
    * Sync the state of the Accordion with the state of the Sidebar
    */
   componentWillReceiveProps(nextProps) {
-    if (this.state.hasToggled && this.state.currentItem !== nextProps.currentSidebarTab) {
-      this.setState({ currentItem: nextProps.currentSidebarTab });
+    const {
+      hasToggled,
+      currentItem,
+    } = this.state;
+    const { currentSidebarTab } = nextProps;
+    if (hasToggled && currentItem !== currentSidebarTab) {
+      this.setState({ currentItem: currentSidebarTab });
     }
   }
 
@@ -45,22 +50,25 @@ export default class Accordion extends React.Component {
    * Returns whether a tab is opened or closed.
    */
   isOpened(tab) {
-    return this.state.currentItem === tab;
+    const { currentItem } = this.state;
+    return currentItem === tab;
   }
 
   toggleItem(tab) {
+    const { hasToggled, currentItem } = this.state;
+    const { toggleSidebarTab } = this.props;
     // update hasToggled so the Accordion can be sync with the Sidebar
-    if (!this.state.hasToggled) {
+    if (!hasToggled) {
       this.setState({ hasToggled: true });
     }
 
-    if (this.state.currentItem === tab) {
+    if (currentItem === tab) {
       // closing the current tab
       this.setState({ currentItem: undefined });
     } else {
       // opening a new tab, both on the Accordion and the Sidebar
       this.setState({ currentItem: tab });
-      this.props.toggleSidebarTab(tab);
+      toggleSidebarTab(tab);
     }
   }
 
@@ -98,7 +106,9 @@ export default class Accordion extends React.Component {
                 <span styleName="icon-container">
                   {renderSvgIcon(icons[name])}
                 </span>
-                <p styleName="name">{name}</p>
+                <p styleName="name">
+                  {name}
+                </p>
                 <span styleName="arrow-container">
                   <ArrowDown width="15px" height="15px" transform={`${this.isOpened(name) ? 'rotate(180)' : ''}`} />
                 </span>

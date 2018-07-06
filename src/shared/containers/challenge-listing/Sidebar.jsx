@@ -38,23 +38,34 @@ function checkFilterErrors(savedFilters, communityFilters) {
 
 export class SidebarContainer extends React.Component {
   componentDidMount() {
-    const token = this.props.tokenV2;
-    if (token) this.props.getSavedFilters(token);
+    const { tokenV2, getSavedFilters } = this.props;
+    const token = tokenV2;
+    if (token) getSavedFilters(token);
   }
 
   render() {
     const {
+      communityFilters,
+      deleteSavedFilter,
       extraBucket,
+      savedFilters: origSavedFilters,
+      selectCommunity,
+      selectSavedFilter,
+      selectedCommunityId,
+      setFilter,
+      setSearchText,
+      tokenV2,
+      updateAllSavedFilters,
+      updateSavedFilter,
+      user,
     } = this.props;
 
-    const buckets = getBuckets(this.props.user && this.props.user.handle);
+    const buckets = getBuckets(user && user.handle);
 
     if (extraBucket) {
       buckets[extraBucket.name] = extraBucket;
     }
 
-    const { tokenV2 } = this.props;
-    const { communityFilters } = this.props;
     const updatedCommunityFilters = [
       {
         communityId: '',
@@ -64,11 +75,12 @@ export class SidebarContainer extends React.Component {
       ...communityFilters,
     ];
 
-    let communityFilter = updatedCommunityFilters.find(item =>
-      item.communityId === this.props.selectedCommunityId);
+    let communityFilter = updatedCommunityFilters.find(
+      item => item.communityId === selectedCommunityId,
+    );
     if (communityFilter) communityFilter = communityFilter.challengeFilter;
 
-    const savedFilters = checkFilterErrors(this.props.savedFilters, updatedCommunityFilters);
+    const savedFilters = checkFilterErrors(origSavedFilters, updatedCommunityFilters);
 
     return (
       <Sidebar
@@ -77,22 +89,20 @@ export class SidebarContainer extends React.Component {
         extraBucket={extraBucket}
         savedFilters={savedFilters}
         communityFilter={communityFilter}
-        deleteSavedFilter={id => this.props.deleteSavedFilter(id, tokenV2)}
+        deleteSavedFilter={id => deleteSavedFilter(id, tokenV2)}
         selectSavedFilter={(index) => {
-          const { filter } = this.props.savedFilters[index];
-          this.props.selectSavedFilter(index);
-          this.props.setFilter(_.omit(filter, 'communityId'));
-          this.props.setSearchText(filter.text || '');
-          this.props.selectCommunity(filter.communityId || '');
+          const { filter } = origSavedFilters[index];
+          selectSavedFilter(index);
+          setFilter(_.omit(filter, 'communityId'));
+          setSearchText(filter.text || '');
+          selectCommunity(filter.communityId || '');
         }}
-        updateAllSavedFilters={() =>
-          this.props.updateAllSavedFilters(
-            this.props.savedFilters,
-            this.props.tokenV2,
-          )
+        updateAllSavedFilters={() => updateAllSavedFilters(
+          origSavedFilters,
+          tokenV2,
+        )
         }
-        updateSavedFilter={filter =>
-          this.props.updateSavedFilter(filter, this.props.tokenV2)}
+        updateSavedFilter={filter => updateSavedFilter(filter, tokenV2)}
       />
     );
   }

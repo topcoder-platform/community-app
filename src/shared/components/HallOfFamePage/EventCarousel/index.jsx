@@ -3,6 +3,7 @@
  * through and select one.  Mobile mode renders a scrollable div with all events.
  */
 import _ from 'lodash';
+import ContentfulLoader from 'containers/ContentfulLoader';
 import React from 'react';
 import PT from 'prop-types';
 
@@ -17,10 +18,9 @@ class EventCarousel extends React.Component {
 
     // Ensure that a range is selected such that the initial selected event is shown on the carousel
     // and that there are always at least maxAtOnce items shown.
-    const eventIndex =
-      _.findIndex(this.props.events.list, event => event.versionId === this.props.eventId);
-    const firstIndex = (this.props.events.list.length - eventIndex) < props.maxAtOnce ?
-      this.props.events.list.length - props.maxAtOnce : eventIndex;
+    const eventIndex = _.findIndex(props.events.list, event => event.versionId === props.eventId);
+    const firstIndex = (props.events.list.length - eventIndex) < props.maxAtOnce
+      ? props.events.list.length - props.maxAtOnce : eventIndex;
 
     this.state = {
       firstIndex,
@@ -28,17 +28,25 @@ class EventCarousel extends React.Component {
   }
 
   componentDidMount() {
+    const {
+      eventId,
+      events,
+    } = this.props;
     // This will scroll the event list to the active event when in mobile.
     // Does nothing in desktop mode.
-    const eventIndex =
-      _.findIndex(this.props.events.list, event => event.versionId === this.props.eventId);
+    const eventIndex = _.findIndex(events.list, event => event.versionId === eventId);
     this.node.scrollLeft = (88 * (eventIndex - 1)) + 20;
   }
 
   render() {
-    const { eventId, maxAtOnce, onSelectEvent } = this.props;
+    const {
+      eventId,
+      eventType,
+      events,
+      maxAtOnce,
+      onSelectEvent,
+    } = this.props;
     const { firstIndex } = this.state;
-
     return (
       <div styleName="container" ref={(node) => { this.node = node; }}>
         <div styleName="arrow-wrapper">
@@ -48,13 +56,15 @@ class EventCarousel extends React.Component {
             role="button"
             styleName={`arrow ${firstIndex > 0 ? 'active' : ''}`}
             tabIndex={0}
-          ><ArrowPrev />
+          >
+            <ArrowPrev />
           </a>
         </div>
         {
-          _.map(this.props.events.list, (event, index) => {
-            const { promo, versionId } = event;
+          _.map(events.list, (event, index) => {
+            const { fields, versionId } = event;
             const hidden = index < firstIndex || index >= firstIndex + maxAtOnce;
+            const logoId = fields.promo.fields.logo.sys.id;
             // We need to render 'hidden' events to the dom in desktop mode
             // because they all need to be rendered in mobile mode
             // for the scrollable div. If we don't, there will be a
@@ -62,16 +72,34 @@ class EventCarousel extends React.Component {
             // cause issues.
             return (
               <a
-                onClick={() => onSelectEvent(this.props.eventType, versionId)}
-                onKeyPress={() => onSelectEvent(this.props.eventType, versionId)}
-                key={versionId}
+                onClick={() => onSelectEvent(eventType, fields.versionId)}
+                onKeyPress={() => onSelectEvent(eventType, versionId)}
+                key={fields.versionId}
                 role="link"
-                styleName={`logo ${versionId === eventId ? 'active' : ''} ${hidden ? 'hidden' : ''}`}
+                styleName={`logo ${fields.versionId === eventId ? 'active' : ''} ${hidden ? 'hidden' : ''}`}
                 tabIndex={0}
               >
-                <img
-                  src={promo.logo.file.url}
-                  alt={`Logo for TCO${versionId}`}
+                {
+                  /*
+                    TODO: This is sub-optimal to use separate ContentfulLoader
+                    for each logo. Entire list of logos should be figured out
+                    higher in the components tree and loaded with a single
+                    ContentfulLoader. However, the way code is structured now
+                    makes such update difficult, thus just a hot fix for now.
+                  */
+                }
+                <ContentfulLoader
+                  assetIds={logoId}
+                  render={(data) => {
+                    const logo = data.assets.items[logoId];
+                    const { url } = logo.fields.file;
+                    return (
+                      <img
+                        src={url}
+                        alt={`Logo for TCO${fields.versionId}`}
+                      />
+                    );
+                  }}
                 />
               </a>
             );
@@ -82,9 +110,10 @@ class EventCarousel extends React.Component {
             onClick={() => this.setState({ firstIndex: firstIndex + 1 })}
             onKeyPress={() => this.setState({ firstIndex: firstIndex + 1 })}
             role="button"
-            styleName={`arrow ${firstIndex < this.props.events.list.length - maxAtOnce ? 'active' : ''}`}
+            styleName={`arrow ${firstIndex < events.list.length - maxAtOnce ? 'active' : ''}`}
             tabIndex={0}
-          ><ArrowNext />
+          >
+            <ArrowNext />
           </a>
         </div>
       </div>

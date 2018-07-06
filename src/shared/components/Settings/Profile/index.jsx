@@ -15,13 +15,18 @@ import Skill from 'assets/images/profile/sideicons/skill.svg';
 import Hobby from 'assets/images/profile/sideicons/hobby.svg';
 import Community from 'assets/images/profile/sideicons/community.svg';
 import BasicInfo from './BasicInfo';
+import ComingSoon from '../ComingSoon';
 
 import './styles.scss';
 
 export default function Profile(props) {
-  const tabs = props.settingsUI.TABS.PROFILE;
+  const {
+    settingsUI: { currentProfileTab, TABS },
+    toggleProfileSideTab,
+  } = props;
+  const tabs = TABS.PROFILE;
   const names = Object.keys(tabs).map(key => tabs[key]);
-  const currentTab = props.settingsUI.currentProfileTab;
+  const currentTab = currentProfileTab;
 
   const icons = {
     'basic info': <Info />,
@@ -39,7 +44,7 @@ export default function Profile(props) {
       case 'basic info':
         return <BasicInfo {...props} />;
       default:
-        return null;
+        return <ComingSoon />;
     }
   };
 
@@ -51,7 +56,7 @@ export default function Profile(props) {
           names={names}
           currentSidebarTab={currentTab}
           renderTabContent={renderTabContent}
-          toggleSidebarTab={props.toggleProfileSideTab}
+          toggleSidebarTab={toggleProfileSideTab}
         />
       </div>
       <div styleName="col-bar">
@@ -59,7 +64,7 @@ export default function Profile(props) {
           icons={icons}
           names={names}
           currentTab={currentTab}
-          toggle={props.toggleProfileSideTab}
+          toggle={toggleProfileSideTab}
         />
       </div>
       <div styleName="col-content">

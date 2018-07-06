@@ -55,8 +55,12 @@ class NewsletterSignup extends React.Component {
         style={{ backgroundImage: `url(${imageSrc})` }}
       >
         <div className={theme.content}>
-          <h2 className={theme.title}>{title}</h2>
-          <p className={theme.text}>{text}</p>
+          <h2 className={theme.title}>
+            {title}
+          </h2>
+          <p className={theme.text}>
+            {text}
+          </p>
           <div className={theme.form}>
             <input
               className={theme.formEmail}
@@ -71,7 +75,8 @@ class NewsletterSignup extends React.Component {
               onClick={() => this.subscribe()}
               size="md"
               theme={{ button: theme.formButton }}
-            >{buttonText}
+            >
+              {buttonText}
             </PrimaryButton>
           </div>
         </div>

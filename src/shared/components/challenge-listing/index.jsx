@@ -27,20 +27,27 @@ const CHALLENGE_PLACEHOLDER_COUNT = 8;
 export default function ChallengeListing(props) {
   const {
     activeBucket,
+    auth,
+    challenges: propChallenges,
+    communityFilter,
+    communityName,
     defaultCommunityId,
     extraBucket,
+    filterState,
     hideSrm,
+    hideTcLinksInFooter,
     keepPastPlaceholders,
+    loadingChallenges,
     preListingMsg,
   } = props;
 
   let { challenges } = props;
 
-  if (props.communityFilter) {
+  if (communityFilter) {
     challenges = challenges.filter(Filter.getFilterFunction(props.communityFilter));
   }
 
-  challenges = challenges.filter(Filter.getFilterFunction(props.filterState));
+  challenges = challenges.filter(Filter.getFilterFunction(filterState));
 
   const expanded = false;
 
@@ -59,12 +66,11 @@ export default function ChallengeListing(props) {
   let suppressPlaceholders = false;
   if (config.CHALLENGE_LISTING_AUTO_REFRESH) {
     const outage = moment().diff(props.lastUpdateOfActiveChallenges);
-    suppressPlaceholders =
-      outage < 1.5 * 1000 * config.CHALLENGE_LISTING_AUTO_REFRESH;
+    suppressPlaceholders = outage < 1.5 * 1000 * config.CHALLENGE_LISTING_AUTO_REFRESH;
   }
 
   let challengeCardContainer;
-  if (!expanded && props.loadingChallenges && !suppressPlaceholders
+  if (!expanded && loadingChallenges && !suppressPlaceholders
     && !isReviewOpportunitiesBucket(activeBucket)) { // Skip, Review Opps are not auto-refreshed
     const challengeCards = _.range(CHALLENGE_PLACEHOLDER_COUNT)
       .map(key => <ChallengeCardPlaceholder id={key} key={key} />);
@@ -112,13 +118,13 @@ export default function ChallengeListing(props) {
   return (
     <div styleName="ChallengeFiltersExample" id="challengeFilterContainer">
       <ChallengeFilters
-        challenges={props.challenges}
-        communityName={props.communityName}
+        challenges={propChallenges}
+        communityName={communityName}
         defaultCommunityId={defaultCommunityId}
         hideSrm={hideSrm}
         setCardType={_.noop/* cardType => this.setCardType(cardType) */}
         isCardTypeSet="Challenges"
-        isAuth={Boolean(props.auth.user)}
+        isAuth={Boolean(auth.user)}
       />
       <div styleName={`tc-content-wrapper ${/* this.state.currentCardType === 'SRMs' ? '' : */'hidden'}`}>
         <div styleName="sidebar-container-mobile">
@@ -132,12 +138,16 @@ export default function ChallengeListing(props) {
           </div>
           {/* upcoming SRMs */}
           <div>
-            <div styleName="title">Upcoming SRMs</div>
+            <div styleName="title">
+Upcoming SRMs
+            </div>
             { /* UpcomingSrm */ }
           </div>
           {/* past SRMs */}
           <div>
-            <div styleName="title">Past SRMs</div>
+            <div styleName="title">
+Past SRMs
+            </div>
             <SRMCard category="past" />
           </div>
         </div>
@@ -160,7 +170,7 @@ export default function ChallengeListing(props) {
           <Sticky top={20} bottomBoundary="#challengeFilterContainer">
             <Sidebar
               extraBucket={extraBucket}
-              hideTcLinksInFooter={props.hideTcLinksInFooter}
+              hideTcLinksInFooter={hideTcLinksInFooter}
             />
           </Sticky>
         </div>

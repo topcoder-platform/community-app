@@ -12,6 +12,7 @@ exports[`Snapshot match 1`] = `
     transitionIn="fadeIn"
     transitionOut="fadeOut"
   />
+  <res />
 </div>
 `;
 
@@ -27,5 +28,6 @@ exports[`Snapshot match 2`] = `
     transitionIn="fadeIn"
     transitionOut="fadeOut"
   />
+  <res />
 </div>
 `;

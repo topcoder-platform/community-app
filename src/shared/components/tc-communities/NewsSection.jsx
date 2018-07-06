@@ -4,8 +4,11 @@ import Slider from 'react-slick';
 import ArticleCard from './ArticleCard';
 import Section from './Section';
 
-export default function NewsSection(props) {
-  if (!props.news || !props.news.length) return null;
+export default function NewsSection({
+  news,
+  theme,
+}) {
+  if (!news || !news.length) return null;
 
   const settings = {
     dots: true,
@@ -15,8 +18,8 @@ export default function NewsSection(props) {
     arrows: false,
     slidesToShow: 3,
     slidesToScroll: 1,
-    className: props.theme.carouselContainer,
-    dotsClass: props.theme.carouselDot,
+    className: theme.carouselContainer,
+    dotsClass: theme.carouselDot,
     responsive: [
       {
         breakpoint: 1024,
@@ -34,15 +37,15 @@ export default function NewsSection(props) {
 
   return (
     <Section
-      theme={props.theme.section}
+      theme={theme.section}
       title="Latest News"
     >
       <Slider {...settings}>
         {
-          props.news.slice(0, 3).map((item, i) => (
-            <div data-index={i} key={item.title} className={props.theme.carouselParent}>
+          news.slice(0, 3).map((item, i) => (
+            <div data-index={i} key={item.title} className={theme.carouselParent}>
               <ArticleCard
-                theme={props.theme.card}
+                theme={theme.card}
                 imageSrc={`/community-app-assets/themes/common/NewsSection/news-0${1 + i}.jpg`}
                 link={{
                   title: 'Read More',

@@ -13,18 +13,26 @@ const Track = ({
   count, data, track, theme,
 }) => (data ? (
   <div className={theme.container}>
-    <div className={theme.track}>{track}</div>
+    <div className={theme.track}>
+      {track}
+    </div>
     <div className={theme.winner}>
-      <img src={data.champion.image.file.url} alt="Winner Portrait" />
-      <div>{data.champion.handle}</div>
-      <div className={theme.label}>Champion</div>
+      <img src={data.fields.champion.fields.image.fields.file.url} alt="Winner Portrait" />
+      <div>
+        {data.fields.champion.fields.handle}
+      </div>
+      <div className={theme.label}>
+Champion
+      </div>
     </div>
     {
-      data.members.map(member => (
-        <div key={member.handle} className={theme.finalist}>{member.handle}</div>
+      data.fields.members.map(member => (
+        <div key={member.fields.handle} className={theme.finalist}>
+          {member.fields.handle}
+        </div>
       ))
     }
-    { _.range(data.members.length, count).map(i => <div className={theme.empty} key={i} />) }
+    { _.range(data.fields.members.length, count).map(i => <div className={theme.empty} key={i} />) }
   </div>
 ) : false);
 

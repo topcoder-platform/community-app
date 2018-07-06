@@ -59,46 +59,49 @@ export default function Listing({
     return (
       /* Review Opportunities use a different Bucket, Card and data source than normal challenges
        * and are only shown when explicitly chosen from the sidebar */
-      isReviewOpportunitiesBucket(bucket) ?
-        <ReviewOpportunityBucket
-          bucket={buckets[bucket]}
-          challengesUrl={challengesUrl}
-          expandedTags={expandedTags}
-          expandTag={expandTag}
-          filterState={filterState}
-          keepPlaceholders={keepPlaceholders}
-          loading={loadingReviewOpportunities}
-          loadMore={loadMoreReviewOpportunities}
-          opportunities={reviewOpportunities}
-          setFilterState={setFilterState}
-          setSort={sort => setSort(bucket, sort)}
-          sort={sorts[bucket]}
-        />
-        :
-        <Bucket
-          bucket={buckets[bucket]}
-          bucketId={bucket}
-          challenges={challenges}
-          challengesUrl={challengesUrl}
-          communityName={communityName}
-          expand={() => selectBucket(bucket)}
-          expanded={expanded}
-          expandedTags={expandedTags}
-          expandTag={expandTag}
-          filterState={filterState}
-          keepPlaceholders={keepPlaceholders}
-          loading={loading}
-          loadMore={loadMore}
-          newChallengeDetails={newChallengeDetails}
-          openChallengesInNewTabs={openChallengesInNewTabs}
-          prizeMode={prizeMode}
-          selectChallengeDetailsTab={selectChallengeDetailsTab}
-          selectedCommunityId={selectedCommunityId}
-          setFilterState={setFilterState}
-          setSort={sort => setSort(bucket, sort)}
-          sort={sorts[bucket]}
-          userHandle={_.get(auth, 'user.handle')}
-        />
+      isReviewOpportunitiesBucket(bucket)
+        ? (
+          <ReviewOpportunityBucket
+            bucket={buckets[bucket]}
+            challengesUrl={challengesUrl}
+            expandedTags={expandedTags}
+            expandTag={expandTag}
+            filterState={filterState}
+            keepPlaceholders={keepPlaceholders}
+            loading={loadingReviewOpportunities}
+            loadMore={loadMoreReviewOpportunities}
+            opportunities={reviewOpportunities}
+            setFilterState={setFilterState}
+            setSort={sort => setSort(bucket, sort)}
+            sort={sorts[bucket]}
+          />
+        )
+        : (
+          <Bucket
+            bucket={buckets[bucket]}
+            bucketId={bucket}
+            challenges={challenges}
+            challengesUrl={challengesUrl}
+            communityName={communityName}
+            expand={() => selectBucket(bucket)}
+            expanded={expanded}
+            expandedTags={expandedTags}
+            expandTag={expandTag}
+            filterState={filterState}
+            keepPlaceholders={keepPlaceholders}
+            loading={loading}
+            loadMore={loadMore}
+            newChallengeDetails={newChallengeDetails}
+            openChallengesInNewTabs={openChallengesInNewTabs}
+            prizeMode={prizeMode}
+            selectChallengeDetailsTab={selectChallengeDetailsTab}
+            selectedCommunityId={selectedCommunityId}
+            setFilterState={setFilterState}
+            setSort={sort => setSort(bucket, sort)}
+            sort={sorts[bucket]}
+            userHandle={_.get(auth, 'user.handle')}
+          />
+        )
     );
   };
 

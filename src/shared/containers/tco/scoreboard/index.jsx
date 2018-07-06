@@ -40,14 +40,16 @@ class ScoreboardPageContainer extends React.Component {
       <div styleName="outer-container">
         <div styleName="challenge-detail-container">
           {
-            !isEmpty &&
+            !isEmpty
+            && (
             <ScoreboardChallengeHeader
               challenge={scoreboard.details}
             />
+            )
           }
           {
-            !isEmpty && scoreboard.details.submissions &&
-            <ScoreboardTable challenge={scoreboard.details} />
+            !isEmpty && scoreboard.details.submissions
+            && <ScoreboardTable challenge={scoreboard.details} />
           }
         </div>
       </div>
@@ -69,10 +71,12 @@ ScoreboardPageContainer.propTypes = {
   loadScoreboard: PT.func,
 };
 
-const mapStateToProps = (state, props) => ({
-  scoreboard: state.scoreboard,
-  challengeId: Number(props.match.params.challengeId),
-});
+function mapStateToProps(state, props) {
+  return {
+    scoreboard: state.scoreboard,
+    challengeId: Number(props.match.params.challengeId),
+  };
+}
 
 const mapDispatchToProps = (dispatch) => {
   const a = actions.scoreboard;

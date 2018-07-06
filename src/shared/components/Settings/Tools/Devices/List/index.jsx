@@ -18,10 +18,12 @@ export default function DeviceList(props) {
       <ul>
         {
           deviceList.items.map((device, index) => (
-            device ?
-              <li key={`${device.deviceType}${index + 1}`}>
-                <Item device={device} index={index} onDeleteItem={onDeleteItem} />
-              </li> : undefined
+            device
+              ? (
+                <li key={`${device.deviceType}${index + 1}`}>
+                  <Item device={device} index={index} onDeleteItem={onDeleteItem} />
+                </li>
+              ) : undefined
           ))
         }
       </ul>

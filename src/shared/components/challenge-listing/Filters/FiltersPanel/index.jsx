@@ -61,13 +61,18 @@ export default function FiltersPanel({
   let className = 'FiltersPanel';
   if (hidden) className += ' hidden';
 
-  const isVisitorRegisteredToCommunity = (visitorGroupIds, communityGroupIds) =>
-    Boolean(_.intersection(visitorGroupIds, communityGroupIds).length);
+  const isVisitorRegisteredToCommunity = (visitorGroupIds, communityGroupIds) => Boolean(
+    _.intersection(visitorGroupIds, communityGroupIds).length,
+  );
 
   const getLabel = (community) => {
     const { communityName } = community;
     if (!isAuth) {
-      return <div>{communityName}</div>;
+      return (
+        <div>
+          {communityName}
+        </div>
+      );
     }
 
     const visitorGroupIds = auth.profile ? auth.profile.groups.map(g => g.id) : [];
@@ -77,10 +82,20 @@ export default function FiltersPanel({
     );
 
     const registrationStatus = visitorRegisteredToCommunity
-      ? <div>Registered</div>
+      ? (
+        <div>
+Registered
+        </div>
+      )
       : (
         <div>
-          You are <span styleName="bold uppercase">not</span> registered.
+          You are
+          {' '}
+          <span styleName="bold uppercase">
+not
+          </span>
+          {' '}
+registered.
           <Link
             onMouseDown={(e) => {
               const url = community.mainSubdomain ? (
@@ -106,7 +121,9 @@ export default function FiltersPanel({
       <div styleName="community-select-item">
         <div>
           <div styleName="community-name">
-            <div>{communityName}</div>
+            <div>
+              {communityName}
+            </div>
             {visitorRegisteredToCommunity && (
               <div styleName="checkmark-icon-container">
                 <CheckmarkIcon color="#fff" />
@@ -119,7 +136,9 @@ export default function FiltersPanel({
               : registrationStatus}
           </div>
         </div>
-        <div>{challengesInCommunity}</div>
+        <div>
+          {challengesInCommunity}
+        </div>
       </div>
     );
 
@@ -132,12 +151,26 @@ export default function FiltersPanel({
         <Tooltip
           position="bottom"
           trigger={['hover']}
-          content={
+          content={(
             <div style={{ padding: '15px', fontSize: '13px', borderRadius: '5px' }}>
-              <p>You are { !visitorRegisteredToCommunity && <span styleName="bold">NOT</span>} registered for this sub community.</p>
-              <p>There are {challengesInCommunity} challenges in this sub community</p>
+              <p>
+You are
+                { !visitorRegisteredToCommunity && (
+                <span styleName="bold">
+NOT
+                </span>
+                )}
+                {' '}
+registered for this sub community.
+              </p>
+              <p>
+There are
+                {challengesInCommunity}
+                {' '}
+challenges in this sub community
+              </p>
             </div>
-          }
+)}
         >
           {selectItem}
         </Tooltip>
@@ -162,7 +195,9 @@ export default function FiltersPanel({
   return (
     <div styleName={className}>
       <div styleName="header">
-        <span styleName="title">Filters</span>
+        <span styleName="title">
+Filters
+        </span>
         <span
           styleName="close-icon"
           onClick={() => onClose()}
@@ -174,7 +209,9 @@ export default function FiltersPanel({
       <div styleName="filters inGroup">
         <div styleName="filter-row">
           <div styleName="filter keywords">
-            <label htmlFor="keyword-select" styleName="left-label">Keywords</label>
+            <label htmlFor="keyword-select" styleName="left-label">
+Keywords
+            </label>
             <Select
               id="keyword-select"
               multi
@@ -188,7 +225,9 @@ export default function FiltersPanel({
             />
           </div>
           <div styleName="filter community">
-            <label htmlFor="community-select">Sub community</label>
+            <label htmlFor="community-select">
+Sub community
+            </label>
             <Select
               autoBlur
               clearable={false}
@@ -197,13 +236,19 @@ export default function FiltersPanel({
               options={communityOps}
               simpleValue
               value={selectedCommunityId}
-              valueRenderer={option => <span styleName="active-community">{option.name}</span>}
+              valueRenderer={option => (
+                <span styleName="active-community">
+                  {option.name}
+                </span>
+              )}
             />
           </div>
         </div>
         <div styleName="filter-row">
           <div styleName="filter track">
-            <label htmlFor="track-select" styleName="left-label">Subtrack</label>
+            <label htmlFor="track-select" styleName="left-label">
+Subtrack
+            </label>
             <Select
               id="track-select"
               multi
@@ -219,28 +264,34 @@ export default function FiltersPanel({
             />
           </div>
           {/* Only shown when the Review Opportunity bucket is selected */}
-          { isReviewOpportunitiesBucket ?
-            <div styleName="filter review-type">
-              <label htmlFor="review-type-select">Review Type</label>
-              <Select
-                autoBlur
-                clearable={false}
-                id="review-type-select"
-                onChange={value =>
-                  setFilterState(Filter.setReviewOpportunityType(filterState, value))
-                }
-                options={[
-                  { label: 'All', value: 0 }, // 0 value deactivates above filter
-                  ...Object.entries(REVIEW_OPPORTUNITY_TYPES)
-                    .map(([value, label]) => ({ value, label })),
-                ]}
-                simpleValue
-                value={filterState.reviewOpportunityType || 0} // Default: All
-              />
-            </div> : null
+          { isReviewOpportunitiesBucket
+            ? (
+              <div styleName="filter review-type">
+                <label htmlFor="review-type-select">
+Review Type
+                </label>
+                <Select
+                  autoBlur
+                  clearable={false}
+                  id="review-type-select"
+                  onChange={
+                    value => setFilterState(Filter.setReviewOpportunityType(filterState, value))
+                  }
+                  options={[
+                    { label: 'All', value: 0 }, // 0 value deactivates above filter
+                    ...Object.entries(REVIEW_OPPORTUNITY_TYPES)
+                      .map(([value, label]) => ({ value, label })),
+                  ]}
+                  simpleValue
+                  value={filterState.reviewOpportunityType || 0}
+                />
+              </div>
+            ) : null
           }
           <div styleName="filter dates hidetwomonthdatepicker">
-            <label htmlFor="date-range-picker-one-month">Date range</label>
+            <label htmlFor="date-range-picker-one-month">
+Date range
+            </label>
             <DateRangePicker
               numberOfMonths={1}
               endDate={filterState.endDate && moment(filterState.endDate)}
@@ -258,7 +309,9 @@ export default function FiltersPanel({
             />
           </div>
           <div styleName="filter dates hideonemonthdatepicker">
-            <label htmlFor="date-range-picker-two-months">Date range</label>
+            <label htmlFor="date-range-picker-two-months">
+Date range
+            </label>
             <DateRangePicker
               numberOfMonths={2}
               endDate={filterState.endDate && moment(filterState.endDate)}
@@ -289,14 +342,16 @@ export default function FiltersPanel({
           size="sm"
           theme={{ button: style.button }}
           themePriority={PRIORITY.ADHOC_DEFAULT_CONTEXT}
-        >Clear filters
+        >
+Clear filters
         </Button>
         <PrimaryButton
           disabled={disableClearSaveFilterButtons || !isAuth}
           onClick={onSaveFilter}
           size="sm"
           theme={{ button: style.button }}
-        >Save filter
+        >
+Save filter
         </PrimaryButton>
       </div>
     </div>

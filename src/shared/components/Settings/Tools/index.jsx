@@ -5,35 +5,40 @@ import React from 'react';
 import PT from 'prop-types';
 import Accordion from 'components/Settings/Accordion';
 import SideBar from 'components/Settings/SideBar';
-import Devices from 'assets/images/tools/sideicons/devices.svg';
-import ServiceProviders from 'assets/images/tools/sideicons/serviceproviders.svg';
+import DevicesIcon from 'assets/images/tools/sideicons/devices.svg';
+import ServiceProvidersIcon from 'assets/images/tools/sideicons/serviceproviders.svg';
 import SoftwareIcon from 'assets/images/tools/sideicons/software.svg';
-import Subscriptions from 'assets/images/tools/sideicons/subscriptions.svg';
-import Device from './Devices';
-import Software from './Software';
+import SubscriptionsIcon from 'assets/images/tools/sideicons/subscriptions.svg';
+import Devices from 'components/Settings/Tools/Devices';
+import ComingSoon from 'components/Settings/ComingSoon';
+import Software from 'components/Settings/Tools/Software';
 
 import './styles.scss';
 
 export default function Tools(props) {
-  const tabs = props.settingsUI.TABS.TOOLS;
+  const {
+    settingsUI: { currentToolsTab, TABS },
+    toggleToolsSideTab,
+  } = props;
+  const tabs = TABS.TOOLS;
   const names = Object.keys(tabs).map(key => tabs[key]);
-  const currentTab = props.settingsUI.currentToolsTab;
+  const currentTab = currentToolsTab;
 
   const icons = {
-    devices: <Devices />,
-    'service providers': <ServiceProviders />,
+    devices: <DevicesIcon />,
+    'service providers': <ServiceProvidersIcon />,
     software: <SoftwareIcon />,
-    subscriptions: <Subscriptions />,
+    subscriptions: <SubscriptionsIcon />,
   };
 
   const renderTabContent = (tab) => {
     switch (tab) {
       case 'devices':
-        return <Device {...props} />;
+        return <Devices {...props} />;
       case 'software':
         return <Software {...props} />;
       default:
-        return null;
+        return <ComingSoon />;
     }
   };
 
@@ -45,7 +50,7 @@ export default function Tools(props) {
           names={names}
           currentSidebarTab={currentTab}
           renderTabContent={renderTabContent}
-          toggleSidebarTab={props.toggleToolsSideTab}
+          toggleSidebarTab={toggleToolsSideTab}
         />
       </div>
       <div styleName="col-bar">
@@ -53,7 +58,7 @@ export default function Tools(props) {
           icons={icons}
           names={names}
           currentTab={currentTab}
-          toggle={props.toggleToolsSideTab}
+          toggle={toggleToolsSideTab}
         />
       </div>
       <div styleName="col-content">

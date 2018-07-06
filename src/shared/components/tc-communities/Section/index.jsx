@@ -28,18 +28,32 @@ function Section(props) {
 
   return (
     <section className={theme.container}>
-      {anchor && <a name={anchor}>&nbsp;</a>}
-      {title &&
-        <h2 className={theme.title}>{title}</h2>
+      {anchor && (
+      <a name={anchor}>
+&nbsp;
+      </a>
+      )}
+      {title
+        && (
+        <h2 className={theme.title}>
+          {title}
+        </h2>
+        )
       }
-      {subTitle ? <h3 className={theme.subTitle}>{subTitle}</h3> : null}
+      {subTitle ? (
+        <h3 className={theme.subTitle}>
+          {subTitle}
+        </h3>
+      ) : null}
       <div className={theme.content}>
         {children}
       </div>
       {
         link && (
         <div className={theme.linkWrap}>
-          <Link className={theme.link} to={link.url}>{link.title}</Link>
+          <Link className={theme.link} to={link.url}>
+            {link.title}
+          </Link>
         </div>
         )
       }

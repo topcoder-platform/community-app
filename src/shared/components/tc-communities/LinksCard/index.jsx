@@ -14,7 +14,9 @@ function LinksCard(props) {
 
   return (
     <nav className={theme.container}>
-      <h3 className={theme.title}>{title}</h3>
+      <h3 className={theme.title}>
+        {title}
+      </h3>
       <ul className={theme.list}>
         {_.map(links, (link, index) => (
           <li className={theme.item} key={index}>
@@ -22,7 +24,8 @@ function LinksCard(props) {
               className={theme.link}
               openNewTab={link.openNewTab}
               to={link.url}
-            >{link.title}
+            >
+              {link.title}
             </Link>
           </li>
         ))}

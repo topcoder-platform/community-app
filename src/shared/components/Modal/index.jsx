@@ -45,11 +45,13 @@ class Modal extends React.Component {
           <div
             className={theme.container}
             onWheel={event => event.stopPropagation()}
-          >{children}
+          >
+            {children}
           </div>
           <button
             onClick={() => onCancel()}
             className={theme.overlay}
+            type="button"
           />
         </React.Fragment>
       ),

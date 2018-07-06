@@ -42,23 +42,35 @@ class Design extends React.Component {
   }
 
   componentWillUnmount() {
-    this.props.resetForm();
+    const { resetForm } = this.props;
+    resetForm();
   }
 
   reset() {
-    this.props.setAgreed(false);
-    this.props.updateNotesLength(0);
-    this.props.resetForm();
+    const {
+      resetForm,
+      setAgreed,
+      updateNotesLength,
+    } = this.props;
+    setAgreed(false);
+    updateNotesLength(0);
+    resetForm();
   }
 
   /* User has clicked to go retry the submission after an error */
   retry() {
-    this.props.submitForm(this.formData);
+    const {
+      submitForm,
+    } = this.props;
+    submitForm(this.formData);
   }
 
   /* User has clicked to go back to a new submission after a successful submit */
   back() {
-    this.props.resetForm();
+    const {
+      resetForm,
+    } = this.props;
+    resetForm();
   }
 
   /**
@@ -74,10 +86,15 @@ class Design extends React.Component {
       challengeId,
       stockArtRecords,
       customFontRecords,
+      previewFilestackData,
+      sourceFilestackData,
+      submissionFilestackData,
+      submitForm,
     } = this.props;
 
-    const fonts = customFontRecords.map(({ source, name, url }) =>
-      ({ source, name, sourceUrl: url }));
+    const fonts = customFontRecords.map(
+      ({ source, name, url }) => ({ source, name, sourceUrl: url }),
+    );
 
     const stockArts = stockArtRecords.map(x => ({
       sourceUrl: x.url,
@@ -85,9 +102,9 @@ class Design extends React.Component {
 
     const formData = new FormData(document.getElementById('submit-form'));
 
-    const sub = this.props.submissionFilestackData;
-    const source = this.props.sourceFilestackData;
-    const preview = this.props.previewFilestackData;
+    const sub = submissionFilestackData;
+    const source = sourceFilestackData;
+    const preview = previewFilestackData;
 
     const phases = {};
     currentPhases.forEach((p) => { phases[p.phaseType] = p; });
@@ -143,7 +160,7 @@ class Design extends React.Component {
       },
     };
 
-    this.props.submitForm(JSON.stringify(body));
+    submitForm(JSON.stringify(body));
   }
 
   render() {
@@ -199,7 +216,9 @@ class Design extends React.Component {
         >
           <div styleName="row">
             <div styleName="left">
-              <h4>FILES</h4>
+              <h4>
+FILES
+              </h4>
               <p>
                 Please follow the instructions on the Challenge Details page
                 regarding what your submission, source and preview files should
@@ -219,7 +238,8 @@ class Design extends React.Component {
                   href={config.URL.INFO.DESIGN_CHALLENGE_SUBMISSION}
                   target="_blank"
                   rel="noopener noreferrer"
-                >Learn more about formatting your submission file.
+                >
+Learn more about formatting your submission file.
                 </a>
               </p>
             </div>
@@ -283,8 +303,11 @@ class Design extends React.Component {
           </div>
           <div styleName="row">
             <div styleName="left">
-              <h4>NOTES</h4>
-              <p>Type a short note about your design here. Explain revisions or
+              <h4>
+NOTES
+              </h4>
+              <p>
+Type a short note about your design here. Explain revisions or
                 other design elements that may not be clear.
               </p>
             </div>
@@ -294,7 +317,10 @@ class Design extends React.Component {
                   COMMENTS
                 </span>
                 <span>
-                  { notesLength } / { MAX_NOTES_LENGTH }
+                  { notesLength }
+                  {' '}
+/
+                  { MAX_NOTES_LENGTH }
                 </span>
               </div>
               <textarea
@@ -322,14 +348,17 @@ class Design extends React.Component {
           <div styleName="row agree">
             <p>
               Submitting your files means you hereby agree to the
-              &zwnj;{
+              &zwnj;
+              {
                 <a
                   href={config.URL.INFO.TOPCODER_TERMS}
                   target="_blank"
                   rel="noopener noreferrer"
-                >Topcoder terms of use
+                >
+Topcoder terms of use
                 </a>
-              }&zwnj;
+              }
+&zwnj;
                 and to the extent your uploaded file wins a topcoder Competition,
               you hereby assign, grant and transfer and agree to assign, grant and
               transfer to topcoder all right and challengeName in and to the Winning Submission
@@ -342,37 +371,43 @@ class Design extends React.Component {
                 onChange={e => setAgreed(e.target.checked)}
               />
               <label htmlFor="agree">
-                <div styleName="tc-checkbox-label">I UNDERSTAND AND AGREE</div>
+                <div styleName="tc-checkbox-label">
+I UNDERSTAND AND AGREE
+                </div>
               </label>
             </div>
             <PrimaryButton
               disabled={
-                !agreed ||
-                !!fpPreview.error || !fpPreview.fileName ||
-                !!fpSource.error || !fpSource.fileName ||
-                !!fpSubmission.error || !fpSubmission.fileName ||
-                customFontRecords.some(x => !_.isEmpty(x.errors)) ||
-                stockArtRecords.some(x => !_.isEmpty(x.errors))
+                !agreed
+                || !!fpPreview.error || !fpPreview.fileName
+                || !!fpSource.error || !fpSource.fileName
+                || !!fpSubmission.error || !fpSubmission.fileName
+                || customFontRecords.some(x => !_.isEmpty(x.errors))
+                || stockArtRecords.some(x => !_.isEmpty(x.errors))
               }
-            >Submit
+              type="submit"
+            >
+              Submit
             </PrimaryButton>
           </div>
         </form>
       </div>
-    ) :
-      <Uploading
-        challengeId={challengeId}
-        challengeName={challengeName}
-        challengesUrl={challengesUrl}
-        isSubmitting={isSubmitting}
-        submitDone={submitDone}
-        reset={this.reset}
-        track={track}
-        error={errorMsg}
-        retry={this.retry}
-        back={this.back}
-        uploadProgress={uploadProgress}
-      />;
+    )
+      : (
+        <Uploading
+          challengeId={challengeId}
+          challengeName={challengeName}
+          challengesUrl={challengesUrl}
+          isSubmitting={isSubmitting}
+          submitDone={submitDone}
+          reset={this.reset}
+          track={track}
+          error={errorMsg}
+          retry={this.retry}
+          back={this.back}
+          uploadProgress={uploadProgress}
+        />
+      );
   }
 }
 

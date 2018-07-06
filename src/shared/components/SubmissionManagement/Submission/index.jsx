@@ -44,23 +44,31 @@ export default function Submission(props) {
           alt="preview"
           styleName={type === 'DESIGN' ? 'design-img' : 'dev-img'}
           src={
-            submissionObject.preview ||
-            `${config.URL.STUDIO}?module=DownloadSubmission&sbmid=${submissionObject.submissionId}&sbt=tiny&sfi=1`
+            submissionObject.preview
+            || `${config.URL.STUDIO}?module=DownloadSubmission&sbmid=${submissionObject.submissionId}&sbt=tiny&sfi=1`
           }
         />
       </td>
-      <td styleName="id-col">{submissionObject.submissionId}</td>
-      <td>{submissionObject.submissionType}</td>
-      <td styleName="date-col">{formatDate(submissionObject.submissionDate)}</td>
+      <td styleName="id-col">
+        {submissionObject.submissionId}
+      </td>
+      <td>
+        {submissionObject.submissionType}
+      </td>
+      <td styleName="date-col">
+        {formatDate(submissionObject.submissionDate)}
+      </td>
       {
         type === 'DESIGN' && (
           <td styleName="status-col">
-            {submissionObject.screening &&
+            {submissionObject.screening
+              && (
               <ScreeningStatus
                 screeningObject={submissionObject.screening}
                 onShowDetails={onShowDetails}
                 submissionId={submissionObject.submissionId}
-              />}
+              />
+              )}
           </td>
         )
       }
@@ -72,7 +80,8 @@ export default function Submission(props) {
                 ? `${config.URL.STUDIO}?module=DownloadSubmission&sbmid=${submissionObject.submissionId}&sbt=original`
                 : submissionObject.download
             }
-          ><DownloadIcon />
+          >
+            <DownloadIcon />
           </a>
           { /*
             TODO: At the moment we just fetch downloads from the legacy
@@ -84,18 +93,24 @@ export default function Submission(props) {
             onClick={() => onDownload(submissionObject.submissionId)}
           ><DownloadIcon /></button>
           */ }
-          {status !== 'COMPLETED' &&
+          {status !== 'COMPLETED'
+            && (
             <button
               styleName="delete-icon"
               onClick={() => onDelete(submissionObject.submissionId)}
               disabled={!allowDelete}
-            ><DeleteIcon />
+              type="button"
+            >
+              <DeleteIcon />
             </button>
+            )
           }
           <button
             styleName={`expand-icon ${(showScreeningDetails ? 'expanded' : '')}`}
             onClick={() => onShowDetails(submissionObject.submissionId)}
-          ><ExpandIcon />
+            type="button"
+          >
+            <ExpandIcon />
           </button>
         </div>
       </td>

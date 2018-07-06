@@ -61,99 +61,201 @@ export default function ExistingLink(props) {
   const logoClass = _.result(_.find(supportedAccounts, a => a.providerType === link.providerType), 'className') || 'fa-globe';
 
   return (
-    <div role="link" styleName={`external-link-tile ${pending ? 'external-link-tile--pending' : ''}`} onClick={e => openLink(e, link)} >
+    <div role="link" styleName={`external-link-tile ${pending ? 'external-link-tile--pending' : ''}`} onClick={e => openLink(e, link)}>
       <div styleName="top">
         <div styleName="ext-link-tile_edit-header">
           <div role="button" onClick={e => onConfirmDeleteLink(e, link)} styleName={`ext-link-tile_edit-header_delete ${link.deleting ? 'ext-link-tile_edit-header_delete--disabled' : ''}`} prevent-event-propagation="true" />
         </div>
-        <div styleName="logo"><i styleName={logoClass} className={`fa ${logoClass}`} /></div>
-        <h2>{link.providerType}</h2>
+        <div styleName="logo">
+          <i styleName={logoClass} className={`fa ${logoClass}`} />
+        </div>
+        <h2>
+          {link.providerType}
+        </h2>
       </div>
       <div styleName="bottom">
         {
-          link.deleting &&
-          (
+          link.deleting
+          && (
             <div styleName="section-loading" />
           )
         }
         {
-          !link.deleting && link.providerType === 'weblink' &&
-          (
+          !link.deleting && link.providerType === 'weblink'
+          && (
             <div>
-              <p data-ellipsis="" className={pending ? 'hidden' : ''} styleName="link-title">{link.title}</p>
-              <p className={!pending ? 'hidden' : ''} styleName="link-title">Loading data. This will take a few minutes.</p>
-              <a styleName="link-url" id="link-url" href={prependProtocol(link.URL)} target="_blank" rel="noopener noreferrer" prevent-event-propagation="true">{prependProtocol(link.URL)}</a>
+              <p data-ellipsis="" className={pending ? 'hidden' : ''} styleName="link-title">
+                {link.title}
+              </p>
+              <p className={!pending ? 'hidden' : ''} styleName="link-title">
+Loading data. This will take a few minutes.
+              </p>
+              <a styleName="link-url" id="link-url" href={prependProtocol(link.URL)} target="_blank" rel="noopener noreferrer" prevent-event-propagation="true">
+                {prependProtocol(link.URL)}
+              </a>
             </div>
           )
         }
         {
-          !link.deleting && link.providerType === 'linkedin' &&
-          (
+          !link.deleting && link.providerType === 'linkedin'
+          && (
             <div>
-              <div styleName="handle">{link.data.handle}</div>
-              <div styleName="title">{link.data.title}</div>
+              <div styleName="handle">
+                {link.data.handle}
+              </div>
+              <div styleName="title">
+                {link.data.title}
+              </div>
             </div>
           )
         }
         {
-          !link.deleting && link.providerType !== 'weblink' && link.providerType !== 'linkedin' &&
-          (
+          !link.deleting && link.providerType !== 'weblink' && link.providerType !== 'linkedin'
+          && (
             <div>
-              <div styleName="handle">{link.data.handle}</div>
+              <div styleName="handle">
+                {link.data.handle}
+              </div>
               <div styleName="pending" className={!pending ? 'hidden' : ''}>
-                <p>Loading data. This will take a few minutes.</p>
+                <p>
+Loading data. This will take a few minutes.
+                </p>
               </div>
               {
-                link.providerType === 'github' &&
-                (
+                link.providerType === 'github'
+                && (
                   <ul className={pending ? 'hidden' : ''}>
-                    <li><div styleName="value">{link.data.followers || 0}</div><div styleName="key">followers</div></li>
-                    <li><div styleName="value">{link.data.publicRepos || 0}</div><div styleName="key">repositories</div></li>
+                    <li>
+                      <div styleName="value">
+                        {link.data.followers || 0}
+                      </div>
+                      <div styleName="key">
+followers
+                      </div>
+                    </li>
+                    <li>
+                      <div styleName="value">
+                        {link.data.publicRepos || 0}
+                      </div>
+                      <div styleName="key">
+repositories
+                      </div>
+                    </li>
                   </ul>
                 )
               }
               {
-                link.providerType === 'stackoverflow' &&
-                (
+                link.providerType === 'stackoverflow'
+                && (
                   <ul className={pending ? 'hidden' : ''}>
-                    <li><div styleName="value">{link.data.reputation || 0}</div><div styleName="key">reputation</div></li>
-                    <li><div styleName="value">{link.data.answers || 0}</div><div styleName="key">answers</div></li>
+                    <li>
+                      <div styleName="value">
+                        {link.data.reputation || 0}
+                      </div>
+                      <div styleName="key">
+reputation
+                      </div>
+                    </li>
+                    <li>
+                      <div styleName="value">
+                        {link.data.answers || 0}
+                      </div>
+                      <div styleName="key">
+answers
+                      </div>
+                    </li>
                   </ul>
                 )
               }
               {
-                link.providerType === 'behance' &&
-                (
+                link.providerType === 'behance'
+                && (
                   <ul className={pending ? 'hidden' : ''}>
-                    <li><div styleName="value">{link.data.projectViews || 0}</div><div styleName="key">views</div></li>
-                    <li><div styleName="value">{link.data.projectAppreciations || 0}</div><div styleName="key">likes</div></li>
+                    <li>
+                      <div styleName="value">
+                        {link.data.projectViews || 0}
+                      </div>
+                      <div styleName="key">
+views
+                      </div>
+                    </li>
+                    <li>
+                      <div styleName="value">
+                        {link.data.projectAppreciations || 0}
+                      </div>
+                      <div styleName="key">
+likes
+                      </div>
+                    </li>
                   </ul>
                 )
               }
               {
-                link.providerType === 'dribbble' &&
-                (
+                link.providerType === 'dribbble'
+                && (
                   <ul className={pending ? 'hidden' : ''}>
-                    <li><div styleName="value">{link.data.followers || 0}</div><div styleName="key">followers</div></li>
-                    <li><div styleName="value">{link.data.likes || 0}</div><div styleName="key">likes</div></li>
+                    <li>
+                      <div styleName="value">
+                        {link.data.followers || 0}
+                      </div>
+                      <div styleName="key">
+followers
+                      </div>
+                    </li>
+                    <li>
+                      <div styleName="value">
+                        {link.data.likes || 0}
+                      </div>
+                      <div styleName="key">
+likes
+                      </div>
+                    </li>
                   </ul>
                 )
               }
               {
-                link.providerType === 'bitbucket' &&
-                (
+                link.providerType === 'bitbucket'
+                && (
                   <ul className={pending ? 'hidden' : ''}>
-                    <li><div styleName="value">{link.data.followers || 0}</div><div styleName="key">followers</div></li>
-                    <li><div styleName="value">{link.data.repos || 0}</div><div styleName="key">repositories</div></li>
+                    <li>
+                      <div styleName="value">
+                        {link.data.followers || 0}
+                      </div>
+                      <div styleName="key">
+followers
+                      </div>
+                    </li>
+                    <li>
+                      <div styleName="value">
+                        {link.data.repos || 0}
+                      </div>
+                      <div styleName="key">
+repositories
+                      </div>
+                    </li>
                   </ul>
                 )
               }
               {
-                link.providerType === 'twitter' &&
-                (
+                link.providerType === 'twitter'
+                && (
                   <ul className={pending ? 'hidden' : ''}>
-                    <li><div styleName="value">{link.data.noOfTweets || 0}</div><div styleName="key">tweets</div></li>
-                    <li><div styleName="value">TBD</div><div styleName="key">followers</div></li>
+                    <li>
+                      <div styleName="value">
+                        {link.data.noOfTweets || 0}
+                      </div>
+                      <div styleName="key">
+tweets
+                      </div>
+                    </li>
+                    <li>
+                      <div styleName="value">
+TBD
+                      </div>
+                      <div styleName="key">
+followers
+                      </div>
+                    </li>
                   </ul>
                 )
               }

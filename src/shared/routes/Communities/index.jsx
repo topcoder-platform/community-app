@@ -15,8 +15,7 @@ export default function ChunkLoader({
     <AppChunk
       key={member}
       chunkName="communities/chunk"
-      renderClientAsync={() =>
-        import(/* webpackChunkName: "communities/chunk" */ './Routes')
+      renderClientAsync={() => import(/* webpackChunkName: "communities/chunk" */ './Routes')
         .then(({ default: Routes }) => (
           <Routes
             base={base}

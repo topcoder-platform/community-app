@@ -29,32 +29,36 @@ export default function Home({
   toggleFaqItemInResourcesPage,
 }) {
   const now = moment();
-  const liveChallengeLinks =
-    challenges.filter(challenge =>
-      now.isAfter(challenge.registrationStartDate)).slice(0, 3).map(item => (
-        <Link
-          key={item.id}
-          styleName="card-link"
-          to={`${baseUrl}/challenges/${item.id}`}
-        >{item.name}
-        </Link>
-    ));
-  const upcomingChallengeLinks =
-    challenges.filter(challenge =>
-      now.isBefore(challenge.registrationStartDate)).slice(0, 3).map(item => (
-        <Link
-          key={item.id}
-          styleName="card-link"
-          to={`${baseUrl}/challenges/${item.id}`}
-        >{item.name}
-        </Link>
-    ));
+  const liveChallengeLinks = challenges.filter(
+    challenge => now.isAfter(challenge.registrationStartDate),
+  ).slice(0, 3).map(item => (
+    <Link
+      key={item.id}
+      styleName="card-link"
+      to={`${baseUrl}/challenges/${item.id}`}
+    >
+      {item.name}
+    </Link>
+  ));
+  const upcomingChallengeLinks = challenges.filter(
+    challenge => now.isBefore(challenge.registrationStartDate),
+  ).slice(0, 3).map(item => (
+    <Link
+      key={item.id}
+      styleName="card-link"
+      to={`${baseUrl}/challenges/${item.id}`}
+    >
+      {item.name}
+    </Link>
+  ));
   return (
     <main>
       <div styleName="head-banner">
         <div styleName="head-banner-overlay" />
         <div styleName="head-banner-text-content">
-          <h1 styleName="head-banner-title">Topcoder Cognitive Community</h1>
+          <h1 styleName="head-banner-title">
+Topcoder Cognitive Community
+          </h1>
           <p styleName="head-banner-text">
             Join the world’s premier cognitive community and get hands-on
             experience with today’s most cutting-edge technologies and business
@@ -83,7 +87,8 @@ export default function Home({
             challenges, access educational resources, and win money by solving
             real-life business problems for companies in need of cognitive
             expertise. Develop your skills and you may even win a trip to the
-            &zwnj;{
+            &zwnj;
+            {
               <a
                 href={config.URL.TCO}
                 rel="noopener noreferrer"
@@ -92,13 +97,15 @@ export default function Home({
               >
                 Topcoder Open
               </a>
-            },
+            }
+,
             our largest competitive programming and design
             competition of the year.
             <PrimaryButton
               theme={{ button: style['mission-details-button'] }}
               to={`${baseUrl}/get-started`}
-            >Get Started
+            >
+Get Started
             </PrimaryButton>
           </div>
         </div>
@@ -113,7 +120,9 @@ export default function Home({
               from voice controls and natural language parsing to bots.
               Developers with this skill set will be in high demand.”
             </p>
-            <p styleName="quote-author-name">Dave Messinger</p>
+            <p styleName="quote-author-name">
+Dave Messinger
+            </p>
             <p styleName="qoute-author-who">
               Topcoder VP of Product Architecture & Global Developer Community
               Director
@@ -137,7 +146,8 @@ export default function Home({
               </p>
               <p styleName="joining-is-simple-text">
                 Also, be sure to check out the cognitive computing zone on
-                &zwnj;{
+                &zwnj;
+                {
                   <a
                     href="https://www.ibm.com/developerworks/"
                     rel="noopener noreferrer"
@@ -146,16 +156,21 @@ export default function Home({
                   >
                     IBM developerWorks
                   </a>
-                }.
+                }
+.
                 There you’ll find how-to content and community
                 expertise to help you succeed with your own cognitive apps and
                 solutions, and get more information on machine learning and AI.
               </p>
             </div>
             <div styleName="joining-howto">
-              <h2 styleName="joining-h2">Get Started Today</h2>
+              <h2 styleName="joining-h2">
+Get Started Today
+              </h2>
               <div styleName="joining-point-container">
-                <div styleName="joining-point">1</div>
+                <div styleName="joining-point">
+1
+                </div>
                 <p styleName="joining-point-text">
                   {
                     member ? 'Join' : (
@@ -168,14 +183,19 @@ export default function Home({
                         }}
                       />
                     )
-                  } the Topcoder Cognitive Community
+                  }
+                  {' '}
+the Topcoder Cognitive Community
                 </p>
               </div>
               <div styleName="joining-point-container">
-                <div styleName="joining-point">2</div>
+                <div styleName="joining-point">
+2
+                </div>
                 <p styleName="joining-point-text">
                   Register for
-                  &zwnj;{
+                  &zwnj;
+                  {
                     <Link
                       styleName="link"
                       to={`${baseUrl}/challenges`}
@@ -186,10 +206,13 @@ export default function Home({
                 </p>
               </div>
               <div styleName="joining-point-container">
-                <div styleName="joining-point">3</div>
+                <div styleName="joining-point">
+3
+                </div>
                 <p styleName="joining-point-text">
                   Compete using
-                  &nbsp;{
+                  &nbsp;
+                  {
                     <Link
                       onClick={() => {
                         if (!allFaqItemsClosedInResourcesPage) {
@@ -214,12 +237,16 @@ export default function Home({
       </div>
       <div styleName="learn-container">
         <div styleName="learn-content">
-          <h1 styleName="learn-title">Learn and Compete</h1>
+          <h1 styleName="learn-title">
+Learn and Compete
+          </h1>
           <div styleName="style.cardsBlock">
             <div styleName="style.card style.card-01">
               <div styleName="style.cardImage" />
               <div styleName="style.cardContent">
-                <h1>Resources</h1>
+                <h1>
+Resources
+                </h1>
                 <Link
                   onClick={() => {
                     if (!allFaqItemsClosedInResourcesPage) {
@@ -232,47 +259,56 @@ export default function Home({
                   }}
                   styleName="card-link"
                   to={`${baseUrl}/resources`}
-                >What is IBM Cloud?
+                >
+What is IBM Cloud?
                 </Link>
                 <a
                   href="https://www.ibm.com/developerworks/"
                   rel="noopener noreferrer"
                   styleName="card-link"
                   target="_blank"
-                >Explore IBM developerWorks
+                >
+Explore IBM developerWorks
                 </a>
                 <a
                   href="https://developer.ibm.com/events/"
                   rel="noopener noreferrer"
                   styleName="card-link"
                   target="_blank"
-                >Take part in a developerWorks Event
+                >
+Take part in a developerWorks Event
                 </a>
                 <PrimaryButton
                   theme={{ button: style.readMoreButton }}
                   to={`${baseUrl}/resources`}
                   size="sm"
-                >View Resources
+                >
+View Resources
                 </PrimaryButton>
               </div>
             </div>
             <div styleName="style.card style.card-02">
               <div styleName="style.cardImage" />
               <div styleName="style.cardContent">
-                <h1>Live Challenges</h1>
+                <h1>
+Live Challenges
+                </h1>
                 {liveChallengeLinks}
                 <PrimaryButton
                   theme={{ button: style.readMoreButton }}
                   to={`${baseUrl}/challenges`}
                   size="sm"
-                >View All Challenges
+                >
+View All Challenges
                 </PrimaryButton>
               </div>
             </div>
             <div styleName="style.card style.card-03">
               <div styleName="style.cardImage" />
               <div styleName="style.cardContent">
-                <h1>Upcoming Challenges</h1>
+                <h1>
+Upcoming Challenges
+                </h1>
                 <p styleName="cardRegularText">
                   Get a sneak peak of upcoming challenges
                 </p>
@@ -281,7 +317,8 @@ export default function Home({
                   theme={{ button: style.readMoreButton }}
                   to={`${baseUrl}/challenges`}
                   size="sm"
-                >View All Challenges
+                >
+View All Challenges
                 </PrimaryButton>
               </div>
             </div>

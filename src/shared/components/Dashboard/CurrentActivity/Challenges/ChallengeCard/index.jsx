@@ -157,14 +157,16 @@ export default function ChallengeCard({
         <div styleName="header">
           <div styleName="tags">
             <EventTag
-              onClick={() =>
-                setImmediate(() =>
-                  setChallengeListingFilter({ subtracks: [subTrack] }))
+              onClick={
+                () => setImmediate(
+                  () => setChallengeListingFilter({ subtracks: [subTrack] }),
+                )
               }
               theme={{ button: style.tag }}
               to={`/challenges?filter[subtracks][0]=${
                 encodeURIComponent(subTrack)}`}
-            >{normalizeSubTrackTagForRendering(challenge.subTrack)}
+            >
+              {normalizeSubTrackTagForRendering(challenge.subTrack)}
             </EventTag>
             {
               isTco ? (
@@ -172,7 +174,8 @@ export default function ChallengeCard({
                   openNewTab
                   theme={{ button: style.tag }}
                   to="https://tco18.topcoder.com"
-                >TCO
+                >
+TCO
                 </EventTag>
               ) : null
             }
@@ -180,7 +183,8 @@ export default function ChallengeCard({
           <Link
             styleName="title"
             to={`/challenges/${challenge.id}`}
-          >{challenge.name}
+          >
+            {challenge.name}
           </Link>
         </div>
         <div styleName="challengeTabLinks">
@@ -200,11 +204,14 @@ export default function ChallengeCard({
             openNewTab
             styleName="forumLink"
             to={`${config.URL.FORUMS}${forumEndpoint}`}
-          >Forum
+          >
+Forum
           </Link>
         </div>
         <div styleName="statusPanel">
-          <h3 styleName={`statusMsg${msgStyleModifier}`}>{statusMsg}</h3>
+          <h3 styleName={`statusMsg${msgStyleModifier}`}>
+            {statusMsg}
+          </h3>
           <div styleName={`deadlineMsg${msgStyleModifier}`}>
             {deadlineMsg}
           </div>
@@ -215,7 +222,8 @@ export default function ChallengeCard({
                 size="sm"
                 theme={{ button: style.button }}
                 to={`${config.URL.BASE}/direct/contest/detail.action?projectId=${id}`}
-              >Direct
+              >
+Direct
               </Button>
             ) : null
           }
@@ -226,7 +234,8 @@ export default function ChallengeCard({
                 size="sm"
                 theme={{ button: style.button }}
                 to={`${config.URL.ONLINE_REVIEW}/review/actions/ViewProjectDetails?method=viewProjectDetails&pid=${id}`}
-              >Online Review
+              >
+Online Review
               </Button>
             ) : null
           }
@@ -236,7 +245,8 @@ export default function ChallengeCard({
                 size="sm"
                 theme={{ button: style.button }}
                 to={`/challenges/${id}/submit`}
-              >Submit
+              >
+Submit
               </Button>
             ) : null
           }
@@ -255,7 +265,9 @@ export default function ChallengeCard({
         </div>
       </div>
       <div>
-        <div styleName="roles">{roles.join(', ')}</div>
+        <div styleName="roles">
+          {roles.join(', ')}
+        </div>
       </div>
     </div>
   );

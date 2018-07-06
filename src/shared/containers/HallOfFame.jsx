@@ -13,54 +13,35 @@ import { withRouter } from 'react-router-dom';
 import HallOfFamePage from 'components/HallOfFamePage';
 import ContentfulLoader from './ContentfulLoader';
 
-
-/**
- * Return entries with link data
- * @param {Array} entries contains all events data
- * @param {Object} includes contains all link data (Asset and Entry)
- * @returns {Array}
- */
-function findIncludes(entries, includes) {
-  const list = [];
-  entries.forEach((item) => {
-    const entry = _.assign({}, item);
-    if (includes.Entry) {
-      const result = _.filter(includes.Entry, e => e.sys.id === item.sys.id);
-      if (result && result.length > 0) entry.fields = _.assign({}, result[0].fields);
-    }
-
-    if (includes.Asset) {
-      const result = _.filter(includes.Asset, asset => asset.sys.id === item.sys.id);
-      if (result && result.length > 0) entry.asset = _.assign({}, result[0].fields);
-    }
-    list.push(entry);
-  });
-  return list;
-}
-
 class HallOfFameContainer extends React.Component {
-  constructor(props) {
-    super(props);
-    // This may be rendered server-side, in which case the reducer will have
-    // set the eventId from the url
-    if (props.selectedEvent === '') {
-      if (props.match.params.eventId) {
-        props.setSelectedEvent(props.match.params.eventId);
-      }
-    }
-    if (props.match.params.type) {
-      props.setSelectedEventType(props.match.params.type);
-    }
-  }
-
   handleSelectEvent(eventType, eventId) {
-    this.props.history.push(`/hall-of-fame/${eventType}/${eventId}`);
-    this.props.setSelectedEvent(eventId);
-    this.props.setSelectedEventType(eventType);
+    const {
+      history,
+      setSelectedEvent,
+      setSelectedEventType,
+    } = this.props;
+    history.push(`/hall-of-fame/${eventType}/${eventId}`);
+    setSelectedEvent(eventId);
+    setSelectedEventType(eventType);
   }
 
   render() {
-    const { selectedEventType } = this.props;
+    const {
+      match,
+      selectedEvent,
+      selectedEventType,
+      setSelectedEvent,
+      setSelectedEventType,
+    } = this.props;
+    if (selectedEvent === '') {
+      if (match.params.eventId) {
+        setSelectedEvent(match.params.eventId);
+      }
+    }
+    if (selectedEventType) {
+      setSelectedEventType(match.params.type);
+    }
+
     return (
       <ContentfulLoader
         entryQueries={{
@@ -74,20 +55,27 @@ class HallOfFameContainer extends React.Component {
             if (!hallOfFame) return null;
             const result = data.entries.items[hallOfFame];
             hallOfFame = result.fields;
-            hallOfFame.versions = findIncludes(hallOfFame.versions, data.includes);
-            hallOfFame.includes = data.includes;
+            const verionsIds = _.map(hallOfFame.versions, item => (item.sys.id));
             return (
               <ContentfulLoader
+                entryIds={verionsIds}
                 preview={data.preview}
-                render={() => (
-                  <HallOfFamePage
-                    eventId={this.props.selectedEvent === '' ?
-                      hallOfFame.versions[0].fields.versionId : this.props.selectedEvent}
-                    onSelectEvent={(eventType, eventId) =>
-                      this.handleSelectEvent(eventType, eventId)}
-                    hallOfFame={hallOfFame}
-                  />
-                )}
+                render={(verionResult) => {
+                  for (let i = 0; i !== verionsIds.length; i += 1) {
+                    hallOfFame.versions[i].fields = verionResult
+                      .entries.items[verionsIds[i]].fields;
+                  }
+                  return (
+                    <HallOfFamePage
+                      eventId={selectedEvent === ''
+                        ? hallOfFame.versions[0].fields.versionId : selectedEvent}
+                      onSelectEvent={
+                        (eventType, eventId) => this.handleSelectEvent(eventType, eventId)
+                      }
+                      hallOfFame={hallOfFame}
+                    />
+                  );
+                }}
                 renderPlaceholder={LoadingIndicator}
               />
             );
@@ -125,10 +113,9 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  setSelectedEvent: eventId =>
-    dispatch(actions.page.hallOfFame.setSelectedEvent(eventId)),
-  setSelectedEventType: eventType =>
-    dispatch(actions.page.hallOfFame.setSelectedEventType(eventType)),
+  setSelectedEvent: eventId => dispatch(actions.page.hallOfFame.setSelectedEvent(eventId)),
+  setSelectedEventType:
+    eventType => dispatch(actions.page.hallOfFame.setSelectedEventType(eventType)),
 });
 
 const Container = connect(

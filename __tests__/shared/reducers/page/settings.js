@@ -209,4 +209,3 @@ describe('Factory with server side rendering', () => {
     deletingLinks: [],
   });
 });
-

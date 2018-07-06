@@ -6,8 +6,7 @@
  */
 import moment from 'moment';
 
-const groupAchievements =
-[
+const groupAchievements = [
   {
     id: 1,
     groupClass: 'Forum-Posts',
@@ -408,8 +407,7 @@ const groupAchievements =
   },
 ];
 
-const singleAchievements =
-[
+const singleAchievements = [
   {
     id: 121,
     name: 'Marathon Match Winner',

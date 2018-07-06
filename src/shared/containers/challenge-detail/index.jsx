@@ -169,29 +169,42 @@ class ChallengeDetailPageContainer extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
+    const {
+      challengeId,
+      reloadChallengeDetails,
+    } = this.props;
     const userId = _.get(this, 'props.auth.user.userId');
     const nextUserId = _.get(nextProps, 'auth.user.userId');
     if (userId !== nextUserId) {
       nextProps.getCommunitiesList(nextProps.auth);
-      this.props.reloadChallengeDetails(nextProps.auth, this.props.challengeId);
+      reloadChallengeDetails(nextProps.auth, challengeId);
     }
   }
 
   onToggleDeadlines(event) {
     event.preventDefault();
+    const { showDeadlineDetail } = this.state;
     this.setState({
-      showDeadlineDetail: !this.state.showDeadlineDetail,
+      showDeadlineDetail: !showDeadlineDetail,
     });
   }
 
   registerForChallenge() {
-    if (!this.props.auth.tokenV2) {
-      const utmSource = this.props.communityId || 'community-app-main';
+    const {
+      auth,
+      challengeId,
+      communityId,
+      openTermsModal,
+      registerForChallenge,
+      terms,
+    } = this.props;
+    if (!auth.tokenV2) {
+      const utmSource = communityId || 'community-app-main';
       window.location.href = `${config.URL.AUTH}/member?retUrl=${encodeURIComponent(window.location.href)}&utm_source=${utmSource}`;
-    } else if (_.every(this.props.terms, 'agreed')) {
-      this.props.registerForChallenge(this.props.auth, this.props.challengeId);
+    } else if (_.every(terms, 'agreed')) {
+      registerForChallenge(auth, challengeId);
     } else {
-      this.props.openTermsModal();
+      openTermsModal();
     }
   }
 
@@ -200,11 +213,34 @@ class ChallengeDetailPageContainer extends React.Component {
       auth,
       challenge,
       challengeId,
+      challengeSubtracksMap,
       challengesUrl,
+      checkpointResults,
+      checkpointResultsUi,
+      checkpoints,
+      communitiesList,
+      isLoadingChallenge,
+      isLoadingTerms,
+      onSelectorClicked,
+      registerForChallenge,
+      registering,
+      results,
       resultsLoadedForChallengeId,
       savingChallenge,
+      selectedTab,
+      setChallengeListingFilter,
+      setSpecsTabState,
+      specsTabState,
+      terms,
+      toggleCheckpointFeedback,
+      unregisterFromChallenge,
+      unregistering,
       updateChallenge,
     } = this.props;
+
+    const {
+      showDeadlineDetail,
+    } = this.state;
 
     /* Generation of data for SEO meta-tags. */
     let prizesStr;
@@ -222,18 +258,18 @@ class ChallengeDetailPageContainer extends React.Component {
     });
     description = description.replace(/\n/g, ' ');
 
-    const results = resultsLoadedForChallengeId === _.toString(challengeId)
-      ? this.props.results : null;
+    const results2 = resultsLoadedForChallengeId === _.toString(challengeId)
+      ? results : null;
 
-    const isEmpty = _.isEmpty(this.props.challenge);
+    const isEmpty = _.isEmpty(challenge);
 
     const hasRegistered = isRegistered(
-      this.props.challenge.userDetails,
-      this.props.challenge.registrants,
-      (this.props.auth.user || {}).handle,
+      challenge.userDetails,
+      challenge.registrants,
+      (auth.user || {}).handle,
     );
 
-    if (this.props.isLoadingChallenge || this.props.isLoadingTerms) {
+    if (isLoadingChallenge || isLoadingTerms) {
       return <LoadingPagePlaceholder />;
     }
 
@@ -245,11 +281,15 @@ class ChallengeDetailPageContainer extends React.Component {
         <div styleName="challenge-detail-container">
           { Boolean(isEmpty) && (
             <div styleName="page">
-              Challenge #{challengeId} does not exist!
+              Challenge #
+              {challengeId}
+              {' '}
+does not exist!
             </div>
           )}
           {
-            !isEmpty &&
+            !isEmpty
+            && (
             <MetaTags
               description={description.slice(0, 155)}
               image={getOgImage(challenge)}
@@ -258,80 +298,90 @@ class ChallengeDetailPageContainer extends React.Component {
               socialTitle={`${prizesStr}${title}`}
               title={title}
             />
+            )
           }
           {
-            !isEmpty &&
+            !isEmpty
+            && (
             <ChallengeHeader
               challenge={challenge}
-              challengeId={this.props.challengeId}
+              challengeId={challengeId}
               challengesUrl={challengesUrl}
               numWinners={winners.length}
-              showDeadlineDetail={this.state.showDeadlineDetail}
+              showDeadlineDetail={showDeadlineDetail}
               onToggleDeadlines={this.onToggleDeadlines}
-              onSelectorClicked={this.props.onSelectorClicked}
+              onSelectorClicked={onSelectorClicked}
               registerForChallenge={this.registerForChallenge}
-              registering={this.props.registering}
-              selectedView={this.props.selectedTab}
-              setChallengeListingFilter={this.props.setChallengeListingFilter}
-              unregisterFromChallenge={() =>
-                this.props.unregisterFromChallenge(this.props.auth, this.props.challengeId)
+              registering={registering}
+              selectedView={selectedTab}
+              setChallengeListingFilter={setChallengeListingFilter}
+              unregisterFromChallenge={() => unregisterFromChallenge(auth, challengeId)
               }
-              unregistering={this.props.unregistering}
-              checkpoints={this.props.checkpoints}
+              unregistering={unregistering}
+              checkpoints={checkpoints}
               hasRegistered={hasRegistered}
-              challengeSubtracksMap={this.props.challengeSubtracksMap}
+              challengeSubtracksMap={challengeSubtracksMap}
             />
+            )
           }
           {
-            !isEmpty && this.props.selectedTab === DETAIL_TABS.DETAILS &&
+            !isEmpty && selectedTab === DETAIL_TABS.DETAILS
+            && (
             <ChallengeDetailsView
-              challenge={this.props.challenge}
+              challenge={challenge}
               challengesUrl={challengesUrl}
-              communitiesList={this.props.communitiesList.data}
-              introduction={this.props.challenge.introduction}
-              detailedRequirements={this.props.challenge.detailedRequirements}
-              terms={this.props.terms}
+              communitiesList={communitiesList.data}
+              introduction={challenge.introduction}
+              detailedRequirements={challenge.detailedRequirements}
+              terms={terms}
               hasRegistered={hasRegistered}
               savingChallenge={savingChallenge}
-              setSpecsTabState={this.props.setSpecsTabState}
-              specsTabState={this.props.specsTabState}
+              setSpecsTabState={setSpecsTabState}
+              specsTabState={specsTabState}
               updateChallenge={x => updateChallenge(x, auth.tokenV3)}
             />
+            )
           }
           {
-            !isEmpty && this.props.selectedTab === DETAIL_TABS.REGISTRANTS &&
+            !isEmpty && selectedTab === DETAIL_TABS.REGISTRANTS
+            && (
             <Registrants
-              challenge={this.props.challenge}
+              challenge={challenge}
               checkpointResults={
                 _.merge(
-                  this.props.checkpointResults,
-                  this.props.checkpointResultsUi,
+                  checkpointResults,
+                  checkpointResultsUi,
                 )
               }
-              results={results}
+              results={results2}
             />
+            )
           }
           {
-            !isEmpty && this.props.selectedTab === DETAIL_TABS.CHECKPOINTS &&
+            !isEmpty && selectedTab === DETAIL_TABS.CHECKPOINTS
+            && (
             <ChallengeCheckpoints
-              checkpoints={this.props.checkpoints}
-              toggleCheckpointFeedback={this.props.toggleCheckpointFeedback}
+              checkpoints={checkpoints}
+              toggleCheckpointFeedback={toggleCheckpointFeedback}
             />
+            )
           }
           {
-            !isEmpty && this.props.selectedTab === DETAIL_TABS.SUBMISSIONS &&
-            <Submissions challenge={challenge} />
+            !isEmpty && selectedTab === DETAIL_TABS.SUBMISSIONS
+            && <Submissions challenge={challenge} />
           }
           {
-            !isEmpty && this.props.selectedTab === DETAIL_TABS.WINNERS &&
+            !isEmpty && selectedTab === DETAIL_TABS.WINNERS
+            && (
             <Winners
               winners={winners}
-              pointPrizes={this.props.challenge.pointPrizes}
-              prizes={this.props.challenge.prizes}
-              submissions={this.props.challenge.submissions}
-              viewable={this.props.challenge.submissionsViewable === 'true'}
-              isDesign={this.props.challenge.track.toLowerCase() === 'design'}
+              pointPrizes={challenge.pointPrizes}
+              prizes={challenge.prizes}
+              submissions={challenge.submissions}
+              viewable={challenge.submissionsViewable === 'true'}
+              isDesign={challenge.track.toLowerCase() === 'design'}
             />
+            )
           }
         </div>
         <Terms
@@ -339,7 +389,7 @@ class ChallengeDetailPageContainer extends React.Component {
           entity={{ type: 'challenge', id: challengeId.toString() }}
           description="You are seeing these Terms & Conditions because you have registered to a challenge and you have to respect the terms below in order to be able to submit."
           register={() => {
-            this.props.registerForChallenge(this.props.auth, this.props.challengeId);
+            registerForChallenge(auth, challengeId);
           }}
         />
       </div>
@@ -489,8 +539,7 @@ const mapDispatchToProps = (dispatch) => {
       dispatch(cl.setFilter(filter));
       dispatch(cls.selectBucket(BUCKETS.ALL));
     },
-    setSpecsTabState: state =>
-      dispatch(pageActions.page.challengeDetails.setSpecsTabState(state)),
+    setSpecsTabState: state => dispatch(pageActions.page.challengeDetails.setSpecsTabState(state)),
     unregisterFromChallenge: (auth, challengeId) => {
       const a = actions.challenge;
       dispatch(a.unregisterInit());

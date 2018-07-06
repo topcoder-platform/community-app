@@ -23,7 +23,9 @@ export default function Header(props) {
   return (
     <div styleName="Header">
       <div styleName="title">
-        <h1>Settings</h1>
+        <h1>
+Settings
+        </h1>
       </div>
       <nav styleName="tabs">
         <ul>

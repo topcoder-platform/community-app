@@ -175,6 +175,7 @@ exports[`renders a full Profile correctly 1`] = `
               theme={Object {}}
               themePriority="adhoc-context-default"
               to={null}
+              type="button"
             >
               VIEW ALL
             </ThemedButton>
@@ -693,6 +694,7 @@ exports[`renders an empty Profile correctly 1`] = `
             theme={Object {}}
             themePriority="adhoc-context-default"
             to="https://www.topcoder-dev.com/community/members"
+            type="button"
           >
             VIEW OTHER MEMBERS
           </ThemedButton>

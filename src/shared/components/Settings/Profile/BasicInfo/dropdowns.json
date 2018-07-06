@@ -11,12 +11,6 @@
       "name": "other"
     }
   ],
-  "ethnicBackground": [
-    {
-      "key": "ethnicBackground",
-      "name": "Caucasian"
-    }
-  ],
   "tshirtSize": [
     {
       "key": "tshirtSize",

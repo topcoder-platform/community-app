@@ -29,7 +29,7 @@ export default class Software extends React.Component {
     this.state = {
       formInvalid: false,
       errorMessage: '',
-      softwareTrait: this.loadSoftwareTrait(this.props.userTraits),
+      softwareTrait: this.loadSoftwareTrait(props.userTraits),
       newSoftware: {
         softwareType: '',
         name: '',
@@ -40,7 +40,6 @@ export default class Software extends React.Component {
   componentWillReceiveProps(nextProps) {
     const softwareTrait = this.loadSoftwareTrait(nextProps.userTraits);
     this.setState({
-      ...this.state,
       softwareTrait,
       formInvalid: false,
       errorMessage: '',
@@ -84,7 +83,8 @@ export default class Software extends React.Component {
    * @param indexNo the software index no
    */
   onDeleteSoftware(indexNo) {
-    const newSoftwareTrait = { ...this.state.softwareTrait };
+    const { softwareTrait } = this.state;
+    const newSoftwareTrait = { ...softwareTrait };
     newSoftwareTrait.traits.data.splice(indexNo, 1);
     this.setState({
       softwareTrait: newSoftwareTrait,
@@ -120,8 +120,9 @@ export default class Software extends React.Component {
       updateUserTrait,
       addUserTrait,
     } = this.props;
-    if (this.state.softwareTrait.traits && this.state.softwareTrait.traits.data.length > 0) {
-      const newSoftwareTrait = { ...this.state.softwareTrait };
+    const { softwareTrait } = this.state;
+    if (softwareTrait.traits && softwareTrait.traits.data.length > 0) {
+      const newSoftwareTrait = { ...softwareTrait };
       newSoftwareTrait.traits.data.push(newSoftware);
       this.setState({ softwareTrait: newSoftwareTrait });
       updateUserTrait(handle, 'software', newSoftwareTrait.traits.data, tokenV3);
@@ -146,7 +147,8 @@ export default class Software extends React.Component {
    * @param e event
    */
   onUpdateInput(e) {
-    const newSoftware = { ...this.state.newSoftware };
+    const { newSoftware: oldSoftware } = this.state;
+    const newSoftware = { ...oldSoftware };
     newSoftware[e.target.name] = e.target.value;
     this.setState({ newSoftware });
   }
@@ -157,7 +159,8 @@ export default class Software extends React.Component {
    */
   onUpdateSelect(option) {
     if (option) {
-      const newSoftware = { ...this.state.newSoftware };
+      const { newSoftware: oldSoftware } = this.state;
+      const newSoftware = { ...oldSoftware };
       newSoftware[option.key] = option.name;
       this.setState({ newSoftware });
     }
@@ -174,8 +177,9 @@ export default class Software extends React.Component {
   }
 
   render() {
-    const softwareItems = this.state.softwareTrait.traits ?
-      this.state.softwareTrait.traits.data.slice() : [];
+    const { softwareTrait } = this.state;
+    const softwareItems = softwareTrait.traits
+      ? softwareTrait.traits.data.slice() : [];
     const { newSoftware, formInvalid, errorMessage } = this.state;
 
     return (
@@ -183,15 +187,21 @@ export default class Software extends React.Component {
         <div styleName={`error-message ${formInvalid ? 'active' : ''}`}>
           { errorMessage }
         </div>
-        <h1>Software</h1>
+        <h1>
+Software
+        </h1>
         <div styleName="form-container">
           <form name="software-form" noValidate autoComplete="off">
             <div styleName="row">
-              <p>Add Software</p>
+              <p>
+Add Software
+              </p>
             </div>
             <div styleName="row">
               <div styleName="field col-1">
-                <label htmlFor="softwareType">Software Type</label>
+                <label htmlFor="softwareType">
+Software Type
+                </label>
                 <Select
                   name="softwareType"
                   options={dropdowns.type}
@@ -204,7 +214,9 @@ export default class Software extends React.Component {
                 />
               </div>
               <div styleName="field col-2">
-                <label htmlFor="name">Name</label>
+                <label htmlFor="name">
+Name
+                </label>
                 <input id="name" name="name" type="text" placeholder="Name" onChange={this.onUpdateInput} value={newSoftware.name} maxLength="64" required />
               </div>
             </div>

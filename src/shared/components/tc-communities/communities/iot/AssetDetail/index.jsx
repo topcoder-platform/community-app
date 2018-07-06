@@ -22,69 +22,108 @@ export default function AssetDetail({
   const assets = assetsData.filter(item => item.id === assetId);
   const asset = assets[0];
   return (
-    typeof asset === 'undefined' ?
-      <Error404 /> :
-      <main styleName="main">
-        <div styleName="assets-header">
-          <div styleName="folder" />
-          <h1>{ asset.title }</h1>
-        </div>
-        <article>
-          <div styleName="detail">
-            <h2>Asset Details
-            </h2>
-            <div dangerouslySetInnerHTML={{ __html: asset.abstract }} />
-            <p ><a href={asset.githubUrl} styleName="github">{ asset.githubUrl }</a></p>
-            <h2>Winner&#39;s Asset Details & Description</h2>
-            <div dangerouslySetInnerHTML={{ __html: asset.content }} />
+    typeof asset === 'undefined'
+      ? <Error404 />
+      : (
+        <main styleName="main">
+          <div styleName="assets-header">
+            <div styleName="folder" />
+            <h1>
+              { asset.title }
+            </h1>
           </div>
-          <aside>
-            <div styleName="author">
-              <div styleName="user-photo">
-                <img src={asset.author.avatarURL} alt="" />
-              </div>
-
-              <div styleName="info">
-                <h4 >Topcoder Winner</h4>
-
-                <a href={asset.author.profileURL} target="_blank" rel="noreferrer noopener">{ asset.author.name }</a>
-                <div >{ asset.author.country }</div>
-              </div>
+          <article>
+            <div styleName="detail">
+              <h2>
+Asset Details
+              </h2>
+              <div dangerouslySetInnerHTML={{ __html: asset.abstract }} />
+              <p>
+                <a href={asset.githubUrl} styleName="github">
+                  { asset.githubUrl }
+                </a>
+              </p>
+              <h2>
+Winner&#39;s Asset Details & Description
+              </h2>
+              <div dangerouslySetInnerHTML={{ __html: asset.content }} />
             </div>
-            <div styleName="technologies">
-              <h4>Technologies</h4>
-              {
+            <aside>
+              <div styleName="author">
+                <div styleName="user-photo">
+                  <img src={asset.author.avatarURL} alt="" />
+                </div>
+
+                <div styleName="info">
+                  <h4>
+Topcoder Winner
+                  </h4>
+
+                  <a href={asset.author.profileURL} target="_blank" rel="noreferrer noopener">
+                    { asset.author.name }
+                  </a>
+                  <div>
+                    { asset.author.country }
+                  </div>
+                </div>
+              </div>
+              <div styleName="technologies">
+                <h4>
+Technologies
+                </h4>
+                {
                 asset.technologies.map(t => (
-                     t.url ?
-                       <a href={t.url}>{ t.title }</a>
-                        : <span>{ t.title }</span>
-                   ))
+                  t.url
+                    ? (
+                      <a href={t.url}>
+                        { t.title }
+                      </a>
+                    )
+                    : (
+                      <span>
+                        { t.title }
+                      </span>
+                    )
+                ))
                }
-            </div>
-            <div styleName="platforms">
-              <h4>platforms</h4>
-              {
+              </div>
+              <div styleName="platforms">
+                <h4>
+platforms
+                </h4>
+                {
                 asset.platforms.map(p => (
-                     p.url ?
-                       <a href={p.url}>{ p.title }</a>
-                        : <span>{ p.title }</span>
-                   ))
+                  p.url
+                    ? (
+                      <a href={p.url}>
+                        { p.title }
+                      </a>
+                    )
+                    : (
+                      <span>
+                        { p.title }
+                      </span>
+                    )
+                ))
                }
-            </div>
-            <div styleName="buttonContainer">
-              <PrimaryButton to={asset.githubUrl} onClick={evt => evt.preventDefault()}>Download</PrimaryButton>
-            </div>
+              </div>
+              <div styleName="buttonContainer">
+                <PrimaryButton to={asset.githubUrl} onClick={evt => evt.preventDefault()}>
+Download
+                </PrimaryButton>
+              </div>
 
-            <ShareSocial />
+              <ShareSocial />
 
-          </aside>
+            </aside>
 
-        </article>
+          </article>
 
-        <JoinSection
-          baseUrl={baseUrl}
-        />
-      </main>
+          <JoinSection
+            baseUrl={baseUrl}
+          />
+        </main>
+      )
   );
 }
 

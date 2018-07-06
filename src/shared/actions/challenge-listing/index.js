@@ -55,8 +55,7 @@ function getAll(getter, page = 0, prev) {
 function getChallengeSubtracksDone() {
   return getService()
     .getChallengeSubtracks()
-    .then(res =>
-      res.sort((a, b) => a.name.localeCompare(b.name)));
+    .then(res => res.sort((a, b) => a.name.localeCompare(b.name)));
 }
 
 /**
@@ -66,9 +65,8 @@ function getChallengeSubtracksDone() {
 function getChallengeTagsDone() {
   return getService()
     .getChallengeTags()
-    .then(res =>
-      res.map(item => item.name)
-        .sort((a, b) => a.localeCompare(b)));
+    .then(res => res.map(item => item.name)
+      .sort((a, b) => a.localeCompare(b)));
 }
 
 /**
@@ -102,10 +100,8 @@ function getAllActiveChallengesDone(uuid, tokenV3) {
   let user;
   if (tokenV3) {
     user = decodeToken(tokenV3).handle;
-    calls.push(getAll(params =>
-      service.getUserChallenges(user, filter, params)));
-    calls.push(getAll(params =>
-      service.getUserMarathonMatches(user, filter, params)));
+    calls.push(getAll(params => service.getUserChallenges(user, filter, params)));
+    calls.push(getAll(params => service.getUserMarathonMatches(user, filter, params)));
   }
   return Promise.all(calls).then(([ch, mm, uch, umm]) => {
     const challenges = ch.concat(mm);
@@ -168,8 +164,13 @@ function getDraftChallengesDone(uuid, page, filter, tokenV3) {
       limit: PAGE_SIZE,
       offset: page * PAGE_SIZE,
     }),
-  ]).then(([{ challenges: chunkA }, { challenges: chunkB }]) =>
-    ({ uuid, challenges: chunkA.concat(chunkB) }));
+  ]).then(
+    ([{
+      challenges: chunkA,
+    }, {
+      challenges: chunkB,
+    }]) => ({ uuid, challenges: chunkA.concat(chunkB) }),
+  );
 }
 
 /**
@@ -209,8 +210,11 @@ function getPastChallengesDone(uuid, page, filter, tokenV3, frontFilter = {}) {
       limit: PAGE_SIZE,
       offset: page * PAGE_SIZE,
     }),
-  ]).then(([{ challenges: chunkA }, { challenges: chunkB }]) =>
-    ({ uuid, challenges: chunkA.concat(chunkB), frontFilter }));
+  ]).then(([{
+    challenges: chunkA,
+  }, {
+    challenges: chunkB,
+  }]) => ({ uuid, challenges: chunkA.concat(chunkB), frontFilter }));
 }
 
 /**

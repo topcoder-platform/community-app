@@ -48,19 +48,27 @@ const getTime = (date) => {
  *  progress bar, allowing to color the point at its start.
  * @param {String} props.width The width of the phase element in the UI.
  */
-function Phase(props) {
-  const { progress } = props;
+function Phase({
+  date,
+  isLoaded,
+  last,
+  phase,
+  progress,
+  started,
+}) {
   const limitProgress = parseFloat(_.replace(progress, '%', ''));
   const limitWidth = limitProgress <= 100 ? limitProgress : 100;
   return (
     <div styleName="phase">
-      <div>{props.phase}</div>
-      <div styleName={`bar ${props.last ? 'last' : ''} ${props.started ? 'started' : ''}`}>
+      <div>
+        {phase}
+      </div>
+      <div styleName={`bar ${last ? 'last' : ''} ${started ? 'started' : ''}`}>
         <div styleName="point" />
         <div styleName="inner-bar" style={{ width: `${limitWidth}%` }} />
       </div>
       <div styleName="date">
-        {props.isLoaded ? `${getDate(props.date)}, ${getTime(props.date)}` : <LoaderIcon type="small" />}
+        {isLoaded ? `${getDate(date)}, ${getTime(date)}` : <LoaderIcon type="small" />}
       </div>
     </div>
   );
@@ -84,7 +92,7 @@ Phase.propTypes = {
  */
 function Tip(props) {
   let steps = [];
-  const c = props.challenge;
+  const { challenge: c } = props;
   const { isLoaded } = props;
   if (!c || _.isEmpty(c)) return <div />;
   // TC API v2 does not provide detailed information on challenge phases,
@@ -198,9 +206,11 @@ class ProgressBarTooltip extends React.Component {
     };
     this.onTooltipHover = this.onTooltipHover.bind(this);
   }
+
   onTooltipHover() {
+    const { challenge } = this.props;
     const that = this;
-    const chClone = _.clone(this.props.challenge);
+    const chClone = _.clone(challenge);
     let details = {};
     const chId = `${chClone.id}`;
     details = chClone;
@@ -214,8 +224,11 @@ class ProgressBarTooltip extends React.Component {
       chDetails: details,
     });
   }
+
   render() {
-    const tip = <Tip challenge={this.state.chDetails} isLoaded />;
+    const { children } = this.props;
+    const { chDetails } = this.state;
+    const tip = <Tip challenge={chDetails} isLoaded />;
     return (
       <Tooltip
         className="progress-bar-tooltip"
@@ -226,7 +239,7 @@ class ProgressBarTooltip extends React.Component {
         onTooltipHover={this.onTooltipHover}
         placeArrow={placeArrow}
       >
-        {this.props.children}
+        {children}
       </Tooltip>
     );
   }

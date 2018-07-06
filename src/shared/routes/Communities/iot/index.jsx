@@ -12,8 +12,7 @@ export default function ChunkLoader({ base, meta }) {
   return (
     <AppChunk
       chunkName="iot-community/chunk"
-      renderClientAsync={() =>
-        import(/* webpackChunkName: "iot-community/chunk" */ './Routes')
+      renderClientAsync={() => import(/* webpackChunkName: "iot-community/chunk" */ './Routes')
         .then(({ default: Routes }) => (
           <Routes base={base} meta={meta} />
         ))

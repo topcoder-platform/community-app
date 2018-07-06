@@ -13,7 +13,11 @@ export default function SubMenu({
       </a>
     </li>
   ));
-  const title = hideTitle ? '' : <li styleName="title">{subMenu.title}</li>;
+  const title = hideTitle ? '' : (
+    <li styleName="title">
+      {subMenu.title}
+    </li>
+  );
   return (
     <ul styleName="sub-menu">
       {title}

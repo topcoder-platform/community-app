@@ -25,7 +25,7 @@ import IconMedal from '../../../../../../assets/images/tc-communities/medal.svg'
 
 import style from './style.scss';
 
-export default function Home(props) {
+export default function Home({ news }) {
   return (
     <main>
       <Banner
@@ -103,7 +103,7 @@ export default function Home(props) {
         />
       </Section>
 
-      <NewsSection news={props.news} />
+      <NewsSection news={news} />
 
       <NewsletterSignup
         title="Sign up for our newsletter"
@@ -122,4 +122,3 @@ Home.defaultProps = {
 Home.propTypes = {
   news: PT.arrayOf(PT.shape()),
 };
-

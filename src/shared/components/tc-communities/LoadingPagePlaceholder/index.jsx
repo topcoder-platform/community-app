@@ -8,5 +8,9 @@ import React from 'react';
 import './style.scss';
 
 export default function LoadingPagePlaceholder() {
-  return <div styleName="loading"><LoadingIndicator /></div>;
+  return (
+    <div styleName="loading">
+      <LoadingIndicator />
+    </div>
+  );
 }

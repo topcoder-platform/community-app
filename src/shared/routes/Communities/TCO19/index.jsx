@@ -12,8 +12,7 @@ export default function ChunkLoader({ base, meta }) {
   return (
     <AppChunk
       chunkName="tco19-community/chunk"
-      renderClientAsync={() =>
-        import(/* webpackChunkName: "tco19-community/chunk" */ './Routes')
+      renderClientAsync={() => import(/* webpackChunkName: "tco19-community/chunk" */ './Routes')
         .then(({ default: Routes }) => (
           <Routes base={base} meta={meta} />
         ))

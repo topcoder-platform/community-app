@@ -4,13 +4,17 @@ import './styles.scss';
 export default function FontsTest() {
   return (
     <div>
-      <h1>Fonts Test</h1>
+      <h1>
+Fonts Test
+      </h1>
       <p>
         This is a simple showcase of the fonts included into this repo,
         and a test of their proper packing into the bundle.
       </p>
       <div styleName="roboto-thin">
-        <h3>Roboto Thin</h3>
+        <h3>
+Roboto Thin
+        </h3>
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas
         semper consectetur dui, nec scelerisque lectus hendrerit a. Curabitur
         eget imperdiet orci. Sed non tincidunt turpis, laoreet fringilla nisl.
@@ -26,7 +30,9 @@ export default function FontsTest() {
         sollicitudin nec. Sed sed cursus metus.
       </div>
       <div styleName="roboto-thin-italic">
-        <h3>Roboto Thin Italic</h3>
+        <h3>
+Roboto Thin Italic
+        </h3>
         Praesent quam arcu, ultricies et dolor sed, interdum gravida nibh.
         Proin scelerisque porttitor nibh, nec finibus nibh interdum sit amet.
         Duis luctus sapien nec velit sollicitudin convallis. Ut eget neque vel
@@ -38,7 +44,9 @@ export default function FontsTest() {
         tristique hendrerit sapien.
       </div>
       <div styleName="roboto-light">
-        <h3>Roboto Light</h3>
+        <h3>
+Roboto Light
+        </h3>
         Sed nec dolor blandit, commodo arcu in, tincidunt nulla. In in odio id
         arcu luctus aliquet non in mi. Ut efficitur, lorem eget mollis tempus,
         ligula purus varius massa, a malesuada diam urna placerat leo. Sed quis
@@ -51,7 +59,9 @@ export default function FontsTest() {
         Nam nec elit vitae metus cursus eleifend semper aliquet diam.
       </div>
       <div styleName="roboto-light-italic">
-        <h3>Roboto Light Italic</h3>
+        <h3>
+Roboto Light Italic
+        </h3>
         Nulla suscipit dui et placerat vulputate. Nunc et tempus neque, eget
         elementum elit. Integer vitae dignissim tellus, et venenatis nulla.
         Vivamus non lacus et ipsum imperdiet interdum tempus ullamcorper leo.
@@ -65,7 +75,9 @@ export default function FontsTest() {
         euismod massa.
       </div>
       <div styleName="roboto-regular">
-        <h3>Roboto Regular</h3>
+        <h3>
+Roboto Regular
+        </h3>
         Morbi a urna maximus, imperdiet ante id, rutrum sem. Nunc fermentum
         ante sodales convallis placerat. Donec eleifend, metus eget congue
         semper, lorem nibh vehicula velit, eu sollicitudin mi orci eget purus.
@@ -76,7 +88,9 @@ export default function FontsTest() {
         eget fermentum nulla egestas quis.
       </div>
       <div styleName="roboto-regular-italic">
-        <h3>Roboto Regular Italic</h3>
+        <h3>
+Roboto Regular Italic
+        </h3>
         Nam vel ligula in ipsum condimentum sodales. Praesent id lorem tortor.
         In vel condimentum leo, nec rhoncus elit. Sed accumsan metus vitae diam
         ultricies, eu vestibulum metus pretium. Nullam congue, purus a tempor
@@ -86,7 +100,9 @@ export default function FontsTest() {
         Aliquam ornare velit at elementum euismod.
       </div>
       <div styleName="roboto-medium">
-        <h3>Roboto Medium</h3>
+        <h3>
+Roboto Medium
+        </h3>
         Ut laoreet rhoncus vulputate. Quisque elementum quam justo, ac eleifend
         mauris viverra eget. Nunc sit amet commodo est. Nullam scelerisque elit
         ac porttitor finibus. Sed laoreet urna non enim molestie, iaculis
@@ -98,7 +114,9 @@ export default function FontsTest() {
         sagittis finibus ac eget nisl. In eu dictum lectus, eu accumsan purus.
       </div>
       <div styleName="roboto-medium-italic">
-        <h3>Roboto Medium Italic</h3>
+        <h3>
+Roboto Medium Italic
+        </h3>
         Class aptent taciti sociosqu ad litora torquent per conubia nostra, per
         inceptos himenaeos. Vestibulum eget eros malesuada lacus porta
         scelerisque. Integer in dolor et metus dictum faucibus sit amet a
@@ -108,7 +126,9 @@ export default function FontsTest() {
         amet sem mattis, porttitor neque ut, molestie velit.
       </div>
       <div styleName="roboto-bold">
-        <h3>Roboto Bold</h3>
+        <h3>
+Roboto Bold
+        </h3>
         Nulla quis cursus orci. Mauris metus enim, volutpat id diam ac,
         fermentum dapibus augue. Donec mi elit, volutpat eget rutrum non,
         lobortis ac enim. In tempus iaculis turpis, vitae facilisis quam
@@ -118,7 +138,9 @@ export default function FontsTest() {
         velit interdum lacus, eu tincidunt eros lacus vitae libero.
       </div>
       <div styleName="roboto-bold-italic">
-        <h3>Roboto Bold Italic</h3>
+        <h3>
+Roboto Bold Italic
+        </h3>
         Donec luctus ligula id augue blandit porta. Orci varius natoque
         penatibus et magnis dis parturient montes, nascetur ridiculus mus. Cras
         sem eros, iaculis pulvinar gravida vitae, interdum eu lacus. Praesent
@@ -127,7 +149,9 @@ export default function FontsTest() {
         rhoncus.
       </div>
       <div styleName="roboto-black">
-        <h3>Roboto Black</h3>
+        <h3>
+Roboto Black
+        </h3>
         In varius nibh elit. Nam nec pretium erat. Duis euismod mi vel massa
         scelerisque, ut tincidunt urna viverra. Praesent vel libero eros. Etiam
         a accumsan nulla. Nulla consequat venenatis risus quis accumsan. Etiam
@@ -138,7 +162,9 @@ export default function FontsTest() {
         lobortis bibendum neque.
       </div>
       <div styleName="roboto-black-italic">
-        <h3>Roboto Black Italic</h3>
+        <h3>
+Roboto Black Italic
+        </h3>
         Proin felis velit, suscipit sit amet consequat id, consectetur et
         lectus. Donec porttitor sollicitudin lorem sed laoreet. Fusce rhoncus
         mi id nulla cursus mollis. Sed scelerisque et sem id eleifend. Maecenas

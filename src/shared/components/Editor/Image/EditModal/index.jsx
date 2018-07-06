@@ -29,11 +29,15 @@ export default class EditModal extends React.Component {
   }
 
   render() {
+    const {
+      onCancel,
+      onSave,
+    } = this.props;
     const st = this.state;
     return (
       <div styleName="container">
         <Modal
-          onCancel={() => this.props.onCancel()}
+          onCancel={() => onCancel()}
           theme={theme}
         >
           <div styleName="fields-container">
@@ -63,18 +67,22 @@ export default class EditModal extends React.Component {
           <div styleName="buttons-container">
             <Button
               onClick={() => this.setState({ previewURL: st.editURL })}
-            >Preview
+            >
+Preview
             </Button>
             <PrimaryButton
-              onClick={() => this.props.onSave(st.editURL, st.size)}
-            >Save
+              onClick={() => onSave(st.editURL, st.size)}
+            >
+Save
             </PrimaryButton>
           </div>
-          { st.previewURL ?
-            <div styleName="preview">
-              <hr />
-              <img src={st.previewURL} alt={st.description} height={`${st.size}%`} width={`${st.size}%`} />
-            </div> : null
+          { st.previewURL
+            ? (
+              <div styleName="preview">
+                <hr />
+                <img src={st.previewURL} alt={st.description} height={`${st.size}%`} width={`${st.size}%`} />
+              </div>
+            ) : null
           }
         </Modal>
       </div>

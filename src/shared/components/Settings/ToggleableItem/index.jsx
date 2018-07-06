@@ -10,24 +10,35 @@ import PT from 'prop-types';
 
 import './styles.scss';
 
-export default function ToggleableItem(props) {
+export default function ToggleableItem({
+  checked,
+  id,
+  onToggle,
+  primaryText,
+  secondaryText,
+  value,
+}) {
   return (
     <div styleName="ToggleableItem">
       <div styleName="body">
-        <p styleName="primary">{props.primaryText}</p>
-        <p styleName="secondary">{props.secondaryText}</p>
+        <p styleName="primary">
+          {primaryText}
+        </p>
+        <p styleName="secondary">
+          {secondaryText}
+        </p>
       </div>
       <div className="onoffswitch" styleName="onoffswitch-no-padding-right">
         <input
           type="checkbox"
           name="eprf-onoffswitch"
-          id={`pre-onoffswitch-${props.id}`}
-          value={props.value}
-          checked={props.checked}
-          onChange={props.onToggle}
+          id={`pre-onoffswitch-${id}`}
+          value={value}
+          checked={checked}
+          onChange={onToggle}
           className="onoffswitch-checkbox"
         />
-        <label htmlFor={`pre-onoffswitch-${props.id}`} className="onoffswitch-label">
+        <label htmlFor={`pre-onoffswitch-${id}`} className="onoffswitch-label">
           <span className="onoffswitch-inner" />
           <span className="onoffswitch-switch" />
         </label>

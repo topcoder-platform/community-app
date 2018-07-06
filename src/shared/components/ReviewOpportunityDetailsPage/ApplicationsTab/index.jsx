@@ -14,27 +14,43 @@ import './styles.scss';
  */
 const ApplicationsTab = ({ applications }) => (
   <div styleName="container">
-    <h3>Review Applications</h3>
+    <h3>
+Review Applications
+    </h3>
     <div styleName="head">
-      <div styleName="col-1">Handle</div>
-      <div styleName="col-2">Role</div>
-      <div styleName="col-3">Application Date</div>
+      <div styleName="col-1">
+Handle
+      </div>
+      <div styleName="col-2">
+Role
+      </div>
+      <div styleName="col-3">
+Application Date
+      </div>
     </div>
     <div styleName="body">
       {
         applications.filter(app => app.status !== 'Cancelled').map(app => (
           <div styleName="row" key={`${app.handle} ${app.role}`}>
             <div styleName="col-1">
-              <a href={`${config.URL.BASE}/members/${app.handle}`}>{app.handle}</a>
+              <a href={`${config.URL.BASE}/members/${app.handle}`}>
+                {app.handle}
+              </a>
             </div>
             <div styleName="col-2">
-              <div styleName="sm-only title">Role</div>
+              <div styleName="sm-only title">
+Role
+              </div>
               {app.role}
             </div>
             <div styleName="col-3">
-              <div styleName="sm-only title">Application Date</div>
+              <div styleName="sm-only title">
+Application Date
+              </div>
               <div>
-                <span>{moment(app.applicationDate).format('MMM DD  HH:mm z')}</span>
+                <span>
+                  {moment(app.applicationDate).format('MMM DD  HH:mm z')}
+                </span>
               </div>
             </div>
           </div>

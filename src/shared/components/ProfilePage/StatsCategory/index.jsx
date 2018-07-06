@@ -35,7 +35,7 @@ const isActiveSubtrack = (subtrack) => {
   }
   if (subtrack.rank && subtrack.rank.rating > 0) {
     return true;
-  } else if (_.isNumber(subtrack.submissions)) {
+  } if (_.isNumber(subtrack.submissions)) {
     return subtrack.submissions > 0;
   }
   return subtrack.submissions && subtrack.submissions.submissions > 0;
@@ -102,7 +102,11 @@ class StatsCategory extends React.Component {
                 {track.name === 'DATA_SCIENCE' && <DataScienceIcon />}
                 {track.name === 'DESIGN' && <DesignIcon />}
                 {track.name === 'DEVELOP' && <DevelopIcon />}
-                <span>{TRACK_NAMES[track.name]} {inModal ? '' : 'ACTIVITY'}</span>
+                <span>
+                  {TRACK_NAMES[track.name]}
+                  {' '}
+                  {inModal ? '' : 'ACTIVITY'}
+                </span>
               </div>
               {
                 track.subTracks.map((subtrack, index) => (
@@ -118,7 +122,8 @@ class StatsCategory extends React.Component {
                       {subtrack.name.replace('FIRST_2_FINISH', 'FIRST2FINISH').replace(/_/g, ' ')}
                     </div>
                     {
-                      subtrack.rank && !_.isNull(subtrack.rank.rating) &&
+                      subtrack.rank && !_.isNull(subtrack.rank.rating)
+                      && (
                       <div styleName="ranking">
                         <div
                           style={{ color: getRatingColor(subtrack.rank.rating) }}
@@ -126,23 +131,38 @@ class StatsCategory extends React.Component {
                         >
                           {subtrack.rank.rating}
                         </div>
-                        <div styleName="tag">Rating</div>
+                        <div styleName="tag">
+Rating
+                        </div>
                       </div>
+                      )
                     }
                     {
-                      (!subtrack.rank || _.isNull(subtrack.rank.rating)) &&
-                      !subtrack.fulfillment &&
+                      (!subtrack.rank || _.isNull(subtrack.rank.rating))
+                      && !subtrack.fulfillment
+                      && (
                       <div styleName="ranking">
-                        <div style={{ color: '#21b2f1' }} styleName="number">{subtrack.wins}</div>
-                        <div styleName="tag">Wins</div>
+                        <div style={{ color: '#21b2f1' }} styleName="number">
+                          {subtrack.wins}
+                        </div>
+                        <div styleName="tag">
+Wins
+                        </div>
                       </div>
+                      )
                     }
                     {
-                      subtrack.fulfillment &&
+                      subtrack.fulfillment
+                      && (
                       <div styleName="ranking">
-                        <div style={{ color: '#a3a3ae' }} styleName="number">{`${subtrack.fulfillment}%`}</div>
-                        <div styleName="tag">Fulfillment</div>
+                        <div style={{ color: '#a3a3ae' }} styleName="number">
+                          {`${subtrack.fulfillment}%`}
+                        </div>
+                        <div styleName="tag">
+Fulfillment
+                        </div>
                       </div>
+                      )
                     }
                     <ArrowNext styleName="arrow" />
                   </Link>

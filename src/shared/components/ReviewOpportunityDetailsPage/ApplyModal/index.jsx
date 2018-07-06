@@ -36,7 +36,9 @@ class ApplyModal extends React.Component {
 
     return (
       <Modal onCancel={onCancel} theme={theme}>
-        <h1>{hasApplied ? 'Manage Applications' : 'Apply Reviewer Positions'}</h1>
+        <h1>
+          {hasApplied ? 'Manage Applications' : 'Apply Reviewer Positions'}
+        </h1>
         <p>
           Select the review roles you would like to apply for and click the button.
           The system will assign members that best meet the review requirements for this contest.
@@ -44,9 +46,15 @@ class ApplyModal extends React.Component {
           applying for multiple roles increases your chances of being selected.
         </p>
         <div styleName="head">
-          <div styleName="col-1">Role</div>
-          <div styleName="col-2">Positions</div>
-          <div styleName="col-3">Payment</div>
+          <div styleName="col-1">
+Role
+          </div>
+          <div styleName="col-2">
+Positions
+          </div>
+          <div styleName="col-3">
+Payment
+          </div>
           <div styleName="col-4" />
         </div>
         <div styleName="body">
@@ -54,13 +62,17 @@ class ApplyModal extends React.Component {
             positions.map(position => (
               <div styleName="row" key={`${position.role}`}>
                 <div styleName="col-1">
-                  <span styleName="role">{position.role}</span>
+                  <span styleName="role">
+                    {position.role}
+                  </span>
                 </div>
                 <div styleName="col-2">
                   {position.openPositions}
                 </div>
                 <div styleName="col-3">
-                  ${position.payment}.00*
+                  $
+                  {position.payment}
+.00*
                 </div>
                 <div styleName="col-4">
                   <div styleName="tc-checkbox">
@@ -80,13 +92,18 @@ class ApplyModal extends React.Component {
             ))
           }
         </div>
-        <p>*Depends on the number of submissions, the actual payment may differ.</p>
+        <p>
+*Depends on the number of submissions, the actual payment may differ.
+        </p>
         <div styleName="buttons">
-          <Button onClick={onCancel}>Cancel</Button>
+          <Button onClick={onCancel}>
+Cancel
+          </Button>
           <PrimaryButton
             disabled={!hasChanged}
             onClick={onApply}
-          >{hasApplied ? 'Update' : 'Apply Now'}
+          >
+            {hasApplied ? 'Update' : 'Apply Now'}
           </PrimaryButton>
         </div>
       </Modal>

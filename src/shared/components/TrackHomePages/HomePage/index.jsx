@@ -3,13 +3,12 @@
  */
 /* eslint-disable react/no-danger */
 /* eslint-disable prefer-destructuring */
-import _ from 'lodash';
 import React from 'react';
 import PT from 'prop-types';
 import showdown from 'showdown';
+import ContentfulLoader from 'containers/ContentfulLoader';
 import { PrimaryButton } from 'topcoder-react-ui-kit';
 
-import { processLinkData } from 'utils/track-homepages';
 import Welcome from './Welcome';
 import TipsQuotes from './TipsQuotes';
 import Tutorials from './Tutorials';
@@ -20,14 +19,16 @@ import './styles.scss';
 
 const converter = new showdown.Converter();
 
-const HomePage = ({ homePage, auth }) => {
-  let result = null;
+const HomePageLoader = ({ homePage, auth }) => {
   let competitionTypes = {};
   let tcoLeaderboard = {};
   let tipsQuotes = {};
   let importantPolicies = {};
   let tutorials = {};
   const welcome = {};
+  const assetIds = [];
+  const entryIds = [];
+
 
   // Process Welcome
   welcome.track = homePage.track;
@@ -39,118 +40,124 @@ const HomePage = ({ homePage, auth }) => {
     text: homePage.primaryButtonText,
   };
   if (homePage.videoOrImage) {
-    const media = [];
-    const mediaFile = {};
-    media.push(homePage.videoOrImage);
-    _.set(mediaFile, 'Media', media);
-    result = processLinkData(mediaFile, homePage.includes);
-    if (result.Media.length > 0) {
-      welcome.media = result.Media[0];
-    }
+    assetIds.push(homePage.videoOrImage.sys.id);
   }
 
   // Process Competition Type
   if (homePage.competitionTypes) {
-    _.set(competitionTypes, 'CompetitionTypes', homePage.competitionTypes);
-    result = processLinkData(competitionTypes, homePage.includes);
-    if (result.CompetitionTypes) {
-      competitionTypes = _.assign({}, result.CompetitionTypes);
-    }
+    entryIds.push(homePage.competitionTypes.sys.id);
   }
 
   // Process TCO Leaderboard
   if (homePage.tcoLeaderboard) {
-    _.set(tcoLeaderboard, 'TCOLeaderboard', homePage.tcoLeaderboard);
-    result = processLinkData(tcoLeaderboard, homePage.includes);
-    if (result.TCOLeaderboard) {
-      tcoLeaderboard = _.assign({}, result.TCOLeaderboard);
-    }
+    entryIds.push(homePage.tcoLeaderboard.sys.id);
   }
 
   // Process Tips&Quotes
   if (homePage.tipsQuotes) {
-    _.set(tipsQuotes, 'TipsQuotes', homePage.tipsQuotes);
-    result = processLinkData(tipsQuotes, homePage.includes);
-    if (result.TipsQuotes) {
-      tipsQuotes = _.assign({}, result.TipsQuotes);
-    }
+    entryIds.push(homePage.tipsQuotes.sys.id);
   }
 
   // Process Important Policies
   if (homePage.importantPolicies) {
-    _.set(importantPolicies, 'ImportantPolicies', homePage.importantPolicies);
-    result = processLinkData(importantPolicies, homePage.includes);
-    if (result.ImportantPolicies) {
-      importantPolicies = _.assign({}, result.ImportantPolicies);
-    }
+    entryIds.push(homePage.importantPolicies.sys.id);
   }
 
   // Process Tutorials
   if (homePage.tutorials) {
-    _.set(tutorials, 'Tutorials', homePage.tutorials);
-    result = processLinkData(tutorials, homePage.includes);
-    if (result.Tutorials) {
-      tutorials = _.assign({}, result.Tutorials);
-    }
+    entryIds.push(homePage.tutorials.sys.id);
   }
 
-
   return (
-    <div styleName="outer-container">
-      <div styleName="page">
-        <div styleName="welcome">
-          <Welcome data={welcome} />
-        </div>
-        <div styleName="body">
-          <CompetitionLeaderboard
-            data={{ competitionTypes, tcoLeaderboard }}
-            track={homePage.track}
-          />
-        </div>
-        <div styleName="tips-quotes">
-          <h1>Tips & Quotes</h1>
-          <div
-            styleName="text"
-            dangerouslySetInnerHTML={
-              { __html: converter.makeHtml(tipsQuotes.description) }
-            }
-          />
-          <TipsQuotes data={tipsQuotes} />
-        </div>
-        <div styleName="important-policies">
-          <h1>Important Policies</h1>
-          <div
-            styleName="text"
-            dangerouslySetInnerHTML={
-              { __html: converter.makeHtml(importantPolicies.description) }
-            }
-          />
-          <ImportantPolicies data={importantPolicies} />
-          <div styleName="button-wrapper-learn-more"><PrimaryButton to={importantPolicies.learnMore} openNewTab>Learn More</PrimaryButton></div>
-        </div>
-        <div styleName={`tutorials ${auth.user ? 'last-section' : ''}`}>
-          <h1>Tutorials</h1>
-          <div
-            styleName="text"
-            dangerouslySetInnerHTML={
-              { __html: converter.makeHtml(tutorials.description) }
-            }
-          />
-          <Tutorials data={tutorials} />
-          <div styleName="button-wrapper-learn-more"><PrimaryButton to={tutorials.learnMore} openNewTab>Learn More</PrimaryButton></div>
-        </div>
-        <div styleName={`sign-up ${auth.user ? 'hidden' : ''}`}>
-          <p>Ready to Design? Click here to sign up with Topcoder!</p>
-          <div styleName="button-wrapper-view-all"><PrimaryButton to="/" >Sign Up Now</PrimaryButton></div>
-        </div>
-      </div>
-    </div>
+    <ContentfulLoader
+      assetIds={assetIds}
+      entryIds={entryIds}
+      render={(data) => {
+        welcome.media = data.assets.items[homePage.videoOrImage.sys.id].fields;
+        competitionTypes = data.entries.items[homePage.competitionTypes.sys.id].fields;
+        tcoLeaderboard = data.entries.items[homePage.tcoLeaderboard.sys.id].fields;
+        tipsQuotes = data.entries.items[homePage.tipsQuotes.sys.id].fields;
+        importantPolicies = data.entries.items[homePage.importantPolicies.sys.id].fields;
+        tutorials = data.entries.items[homePage.tutorials.sys.id].fields;
+        return (
+          <div styleName="outer-container">
+            <div styleName="page">
+              <div styleName="welcome">
+                <Welcome data={welcome} />
+              </div>
+              <div styleName="body">
+                <CompetitionLeaderboard
+                  data={{ competitionTypes, tcoLeaderboard }}
+                  track={homePage.track}
+                />
+              </div>
+              <div styleName="tips-quotes">
+                <h1>
+Tips & Quotes
+                </h1>
+                <div
+                  styleName="text"
+                  dangerouslySetInnerHTML={
+                    { __html: converter.makeHtml(tipsQuotes.description) }
+                  }
+                />
+                <TipsQuotes data={tipsQuotes} />
+              </div>
+              <div styleName="important-policies">
+                <h1>
+Important Policies
+                </h1>
+                <div
+                  styleName="text"
+                  dangerouslySetInnerHTML={
+                    { __html: converter.makeHtml(importantPolicies.description) }
+                  }
+                />
+                <ImportantPolicies data={importantPolicies} />
+                <div styleName="button-wrapper-learn-more">
+                  <PrimaryButton to={importantPolicies.learnMore} openNewTab>
+Learn More
+                  </PrimaryButton>
+                </div>
+              </div>
+              <div styleName={`tutorials ${auth.user ? 'last-section' : ''}`}>
+                <h1>
+Tutorials
+                </h1>
+                <div
+                  styleName="text"
+                  dangerouslySetInnerHTML={
+                    { __html: converter.makeHtml(tutorials.description) }
+                  }
+                />
+                <Tutorials data={tutorials} />
+                <div styleName="button-wrapper-learn-more">
+                  <PrimaryButton to={tutorials.learnMore} openNewTab>
+Learn More
+                  </PrimaryButton>
+                </div>
+              </div>
+              <div styleName={`sign-up ${auth.user ? 'hidden' : ''}`}>
+                <p>
+Ready to Design? Click here to sign up with Topcoder!
+                </p>
+                <div styleName="button-wrapper-view-all">
+                  <PrimaryButton to="/">
+Sign Up Now
+                  </PrimaryButton>
+                </div>
+              </div>
+            </div>
+          </div>
+        );
+      }}
+    />
   );
 };
 
-HomePage.propTypes = {
+HomePageLoader.propTypes = {
   homePage: PT.shape().isRequired,
   auth: PT.shape().isRequired,
 };
 
-export default HomePage;
+export default HomePageLoader;

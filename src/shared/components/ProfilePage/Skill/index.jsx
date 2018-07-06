@@ -23,7 +23,9 @@ const Skill = ({
     <div styleName="skill-icon">
       { assets && assets.keys().includes(`./id-${tagId}.svg`) ? <img src={assets(`./id-${tagId}.svg`)} alt="Skill Icon" /> : <FallbackIcon /> }
     </div>
-    <div styleName="name">{truncate(tagName, 20)}</div>
+    <div styleName="name">
+      {truncate(tagName, 20)}
+    </div>
   </div>
 );
 

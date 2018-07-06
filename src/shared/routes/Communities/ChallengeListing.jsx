@@ -22,8 +22,7 @@ export default function ChallengeListingRoute({
   return (
     <AppChunk
       chunkName="challenge-listing/chunk"
-      renderClientAsync={routeProps =>
-        import(/* webpackChunkName: "challenge-listing/chunk" */ 'containers/challenge-listing/Listing')
+      renderClientAsync={routeProps => import(/* webpackChunkName: "challenge-listing/chunk" */ 'containers/challenge-listing/Listing')
         .then(({ default: ChallengeListing }) => {
           let query = routeProps.location.search;
           query = query ? qs.parse(query.slice(1)) : {};

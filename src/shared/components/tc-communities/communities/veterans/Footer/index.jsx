@@ -4,10 +4,10 @@ import { themr } from 'react-css-super-themr';
 
 import defaultStyle from './style.scss';
 
-function Footer(props) {
+function Footer({ theme }) {
   return (
-    <footer className={props.theme.footer}>
-      <div className={props.theme.footerText}>
+    <footer className={theme.footer}>
+      <div className={theme.footerText}>
         &copy; Copyright Topcoder Ltd 2017
       </div>
     </footer>

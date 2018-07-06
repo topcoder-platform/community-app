@@ -34,10 +34,8 @@ class HomeContainer extends React.Component {
       showWhatIsTopcoderVideo,
     } = this.props;
 
-    const activeChallenges =
-      challenges.filter(x => x.status === 'ACTIVE')
-        .sort((a, b) =>
-          moment(b.registrationStartDate).diff(a.registrationStartDate));
+    const activeChallenges = challenges.filter(x => x.status === 'ACTIVE')
+      .sort((a, b) => moment(b.registrationStartDate).diff(a.registrationStartDate));
 
     return (
       <Home
@@ -95,8 +93,7 @@ function mapDispatchToActions(dispatch) {
       dispatch(cla.setFilter(filter));
       dispatch(clsa.selectBucket(BUCKETS.ALL));
     },
-    showWhatIsTopcoderVideo: show =>
-      dispatch(va.showWhatIsTopcoderVideo(show)),
+    showWhatIsTopcoderVideo: show => dispatch(va.showWhatIsTopcoderVideo(show)),
   };
 }
 

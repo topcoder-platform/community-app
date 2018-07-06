@@ -34,13 +34,14 @@ exports[`Snapshot match 1`] = `
       className="src-shared-components-tc-communities-communities-wipro-Learn-___style__message___WgkPL"
     >
       <p>
-        To access the TopGear 
+        To access the TopGear
         <span
           className="src-shared-components-tc-communities-communities-wipro-Learn-___style__highlighted___3U2lK"
         >
           Learning
         </span>
-         Platform, click on “
+         
+        Platform, click on “
         <strong>
           CONTINUE
         </strong>
@@ -63,6 +64,7 @@ exports[`Snapshot match 1`] = `
           size={null}
           themePriority="adhoc-context-default"
           to="https://topgear-app.wipro.com"
+          type="button"
         >
           Continue
         </ThemedButton>

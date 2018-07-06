@@ -15,8 +15,10 @@ function create(defaultState = {}) {
     [a.setRoles]: (state, { payload }) => ({ ...state, selectedRoles: payload }),
     [a.toggleApplyModal]: state => ({ ...state, applyModalOpened: !state.applyModalOpened }),
     [a.togglePhasesExpand]: state => ({ ...state, phasesExpanded: !state.phasesExpanded }),
-    [a.toggleRole]: (state, { payload }) =>
-      ({ ...state, selectedRoles: _.xor(state.selectedRoles, [payload]) }),
+    [a.toggleRole]: (state, { payload }) => ({
+      ...state,
+      selectedRoles: _.xor(state.selectedRoles, [payload]),
+    }),
   }, _.defaults(defaultState, {
     applyModalOpened: false,
     phasesExpanded: false,

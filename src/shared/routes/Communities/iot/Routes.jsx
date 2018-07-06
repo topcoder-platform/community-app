@@ -104,18 +104,22 @@ export default function IoT({ base, meta }) {
                 path={`${base}/about`}
               />
               <Route
-                component={() => (<Assets
-                  baseUrl={base}
-                />)}
+                component={() => (
+                  <Assets
+                    baseUrl={base}
+                  />
+                )}
                 exact
                 path={`${base}/assets`}
               />
               <Route
                 component={
-                  routeProps => (<AssetDetail
-                    baseUrl={base}
-                    {...routeProps}
-                  />)
+                  routeProps => (
+                    <AssetDetail
+                      baseUrl={base}
+                      {...routeProps}
+                    />
+                  )
                 }
                 exact
                 path={`${base}/assets/:assetId`}

@@ -48,7 +48,8 @@ class Accordion extends Component {
                 role="button"
                 styleName="title"
                 tabIndex={0}
-              >{child.props.title}
+              >
+                {child.props.title}
               </div>
             </li>
           ))}

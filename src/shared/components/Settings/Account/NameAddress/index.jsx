@@ -34,31 +34,40 @@ export default class NameAddress extends React.Component {
   }
 
   onUpdateName(e) {
-    const accountInfo = { ...this.state.accountInfo };
+    const { accountInfo: oldAccountInfo } = this.state;
+    const accountInfo = { ...oldAccountInfo };
     accountInfo[e.target.name] = e.target.value;
     this.setState({ accountInfo, nameChanged: true });
   }
 
   onUpdateAddress(e) {
-    const accountInfo = { ...this.state.accountInfo };
+    const { accountInfo: oldAccountInfo } = this.state;
+    const accountInfo = { ...oldAccountInfo };
     accountInfo.homeAddress = { ...accountInfo.homeAddress, [e.target.name]: e.target.value };
     this.setState({ accountInfo });
   }
 
   onUpdateCountry(country) {
     if (country && country.alpha3) {
-      const accountInfo = { ...this.state.accountInfo };
+      const { accountInfo: oldAccountInfo } = this.state;
+      const accountInfo = { ...oldAccountInfo };
       accountInfo.homeCountryCode = country.alpha3;
       this.setState({ accountInfo });
     }
   }
 
   onSaveAccount(e) {
+    const {
+      profile,
+      profileState,
+      tokenV3,
+      updateProfile,
+    } = this.props;
     e.preventDefault();
-    if (this.props.profileState.updatingProfile) {
+    if (profileState.updatingProfile) {
       return;
     }
-    const newProfile = _.clone(this.props.profile);
+    const newProfile = _.clone(profile);
     delete newProfile.groups;
 
     const { accountInfo } = this.state;
@@ -79,7 +88,7 @@ export default class NameAddress extends React.Component {
 
     _.merge(homeAddress, accountInfo.homeAddress);
 
-    this.props.updateProfile(newProfile, this.props.tokenV3);
+    updateProfile(newProfile, tokenV3);
   }
 
   toAccountInfo() {
@@ -116,11 +125,15 @@ export default class NameAddress extends React.Component {
 
   render() {
     const {
+      profileState,
+    } = this.props;
+    const {
       updatingProfile,
-    } = this.props.profileState;
+    } = profileState;
 
     const {
       accountInfo,
+      nameChanged,
     } = this.state;
 
     const userCountry = getCountryObjFromAlpha3(accountInfo.homeCountryCode);
@@ -130,44 +143,94 @@ export default class NameAddress extends React.Component {
         <form name="accountInfoForm" noValidate autoComplete="off">
           <div className="settings-section" styleName="name">
             <div className="section-info">
-              <h2> Name</h2>
-              <div className="description">Required for legal purposes; will be kept private and not shared with anyone.</div>
+              <h2>
+                {' '}
+Name
+              </h2>
+              <div className="description">
+Required for legal purposes; will be kept private and not shared with anyone.
+              </div>
             </div>
             <div className="section-fields" styleName="account-section-fields">
               <input autoComplete="false" name="hidden" type="text" className="hidden" />
-              <div className="form-label">First name <span styleName="no-text-transform">&nbsp;(Given name)</span><span className="mandatory">*mandatory</span></div>
-              <div className="form-field" styleName={`validation-bar ${this.state.nameChanged ? (accountInfo.firstName ? 'success-bar' : 'error-bar') : ''}`}>
+              <div className="form-label">
+First name
+                <span styleName="no-text-transform">
+&nbsp;(Given name)
+                </span>
+                <span className="mandatory">
+*mandatory
+                </span>
+              </div>
+              <div className="form-field" styleName={`validation-bar ${nameChanged ? (accountInfo.firstName ? 'success-bar' : 'error-bar') : ''}`}>
                 <input name="firstName" type="text" placeholder="First" onChange={this.onUpdateName} value={accountInfo.firstName} maxLength="64" required />
                 <div className={`form-input-error ${accountInfo.firstName ? 'hidden' : ''}`}>
-                  <p>This is a required field.</p>
+                  <p>
+This is a required field.
+                  </p>
                 </div>
               </div>
-              <div className="form-label">Last name<span styleName="no-text-transform">&nbsp;(Surname)</span><span className="mandatory">*mandatory</span></div>
-              <div className="form-field" styleName={`validation-bar ${this.state.nameChanged ? (accountInfo.lastName ? 'success-bar' : 'error-bar') : ''}`}>
+              <div className="form-label">
+Last name
+                <span styleName="no-text-transform">
+&nbsp;(Surname)
+                </span>
+                <span className="mandatory">
+*mandatory
+                </span>
+              </div>
+              <div className="form-field" styleName={`validation-bar ${nameChanged ? (accountInfo.lastName ? 'success-bar' : 'error-bar') : ''}`}>
                 <input name="lastName" type="text" placeholder="Last" onChange={this.onUpdateName} value={accountInfo.lastName} maxLength="64" required />
                 <div className={`form-input-error ${accountInfo.lastName ? 'hidden' : ''}`}>
-                  <p>This is a required field.</p>
+                  <p>
+This is a required field.
+                  </p>
                 </div>
               </div>
             </div>
           </div>
           <div className="settings-section" styleName="address">
             <div className="section-info">
-              <h2>Address</h2>
-              <div className="description">Required for payments and in case we need to mail you something. Will be kept private and not shared with anyone.</div>
+              <h2>
+Address
+              </h2>
+              <div className="description">
+                Required for payments and in case we need to mail you
+                something. Will be kept private and not shared with anyone.
+              </div>
             </div>
             <div className="section-fields" styleName="account-section-fields">
-              <div className="form-label" styleName="address">Address</div>
+              <div className="form-label" styleName="address">
+Address
+              </div>
               <input className="form-field" name="streetAddr1" type="text" placeholder="123 Topcoder Ave." value={accountInfo.homeAddress.streetAddr1} onChange={this.onUpdateAddress} />
-              <div className="form-label">Address 2<span styleName="no-text-transform">&nbsp;(apt., suite, etc.)</span></div>
+              <div className="form-label">
+Address 2
+                <span styleName="no-text-transform">
+&nbsp;(apt., suite, etc.)
+                </span>
+              </div>
               <input className="form-field" name="streetAddr2" type="text" placeholder="Suite 42" value={accountInfo.homeAddress.streetAddr2} onChange={this.onUpdateAddress} />
-              <div className="form-label">City</div>
+              <div className="form-label">
+City
+              </div>
               <input className="form-field" name="city" type="text" placeholder="Best City in the World" value={accountInfo.homeAddress.city} onChange={this.onUpdateAddress} />
-              <div className="form-label">State/Province</div>
+              <div className="form-label">
+State/Province
+              </div>
               <input className="form-field" name="stateCode" type="text" placeholder="California" value={accountInfo.homeAddress.stateCode} onChange={this.onUpdateAddress} />
-              <div className="form-label">Zip/Post Code</div>
+              <div className="form-label">
+Zip/Post Code
+              </div>
               <input className="form-field" name="zip" type="text" placeholder="Zip" value={accountInfo.homeAddress.zip} onChange={this.onUpdateAddress} />
-              <div className="form-label"><span>Country</span><span className="mandatory">*mandatory</span></div>
+              <div className="form-label">
+                <span>
+Country
+                </span>
+                <span className="mandatory">
+*mandatory
+                </span>
+              </div>
               <div className="form-field">
                 <Select
                   name="location"
@@ -210,4 +273,3 @@ NameAddress.propTypes = {
   profileState: PT.shape().isRequired,
   updateProfile: PT.func.isRequired,
 };
-

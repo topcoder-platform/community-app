@@ -54,10 +54,14 @@ class FilestackFilePicker extends React.Component {
       key,
       container,
     } = file;
+    const {
+      setFileName,
+      setFilestackData,
+    } = this.props;
 
-    this.props.setFileName(filename);
+    setFileName(filename);
 
-    this.props.setFilestackData({
+    setFilestackData({
       filename,
       mimetype,
       size,
@@ -100,29 +104,56 @@ class FilestackFilePicker extends React.Component {
     return (
       <div styleName="container">
         <div styleName="desc">
-          <p>{title}</p>
+          <p>
+            {title}
+          </p>
           {
-            mandatory && <p styleName="mandatory">*mandatory</p>
+            mandatory && (
+            <p styleName="mandatory">
+*mandatory
+            </p>
+            )
           }
         </div>
         <div
           styleName={`file-picker ${error ? 'error' : ''} ${dragged ? 'drag' : ''}`}
         >
           {
-            !fileName && <p>Drag and drop your {fileExtensions.join(' or ')} file here.</p>
+            !fileName && (
+            <p>
+Drag and drop your
+              {fileExtensions.join(' or ')}
+              {' '}
+file here.
+            </p>
+            )
           }
           {
-            !fileName && <span>or</span>
+            !fileName && (
+            <span>
+or
+            </span>
+            )
           }
           {
-            fileName && <p styleName="file-name">{fileName}</p>
+            fileName && (
+            <p styleName="file-name">
+              {fileName}
+            </p>
+            )
           }
           {
             _.isNumber(uploadProgress) && uploadProgress < 100 ? (
-              <p styleName="file-name">Uploading: {uploadProgress}%</p>
+              <p styleName="file-name">
+Uploading:
+                {uploadProgress}
+%
+              </p>
             ) : null
           }
-          <PrimaryButton onClick={this.onClickPick}>Pick a File</PrimaryButton>
+          <PrimaryButton onClick={this.onClickPick}>
+Pick a File
+          </PrimaryButton>
           <div
             onClick={() => this.filestack.pick({
               accept: fileExtensions,
@@ -198,8 +229,12 @@ class FilestackFilePicker extends React.Component {
           />
         </div>
         {
-          error &&
-          <div styleName="error-container">{error}</div>
+          error
+          && (
+          <div styleName="error-container">
+            {error}
+          </div>
+          )
         }
       </div>
     );

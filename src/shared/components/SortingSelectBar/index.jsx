@@ -9,7 +9,9 @@ export default function SortingSelectBar({
 }) {
   return (
     <div styleName="sortingBar">
-      <h1 styleName="title">{title}</h1>
+      <h1 styleName="title">
+        {title}
+      </h1>
       {
         options ? (
           <div styleName="view-options-toggle-container">
