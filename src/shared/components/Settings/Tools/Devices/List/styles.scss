@@ -5,6 +5,10 @@
 
   &.active {
     margin-top: 20px;
+
+    @include xs-to-sm {
+      margin-top: 0;
+    }
   }
 
   ul {

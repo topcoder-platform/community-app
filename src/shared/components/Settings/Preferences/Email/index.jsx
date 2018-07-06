@@ -1,7 +1,7 @@
 /**
  * Email Preferences component.
  */
-import { each, map, debounce } from 'lodash';
+import { map, debounce } from 'lodash';
 import React from 'react';
 import PT from 'prop-types';
 
@@ -74,6 +74,7 @@ export default class EmailPreferences extends React.Component {
     super(props);
     this.state = {
       emailPreferences: {},
+      populated: null,
     };
     this.onChange = this.onChange.bind(this);
     this.populate = this.populate.bind(this);
@@ -81,12 +82,12 @@ export default class EmailPreferences extends React.Component {
 
   componentDidMount() {
     const { profileState: { emailPreferences } } = this.props;
-    this.populate(emailPreferences);
+    if (emailPreferences) this.populate(emailPreferences);
   }
 
   componentWillReceiveProps(nextProps) {
     const { profileState: { emailPreferences } } = nextProps;
-    this.populate(emailPreferences);
+    if (emailPreferences) this.populate(emailPreferences);
   }
 
   onChange(id, checked) {
@@ -98,13 +99,11 @@ export default class EmailPreferences extends React.Component {
   }
 
   populate(data) {
-    const { emailPreferences } = this.state;
-    each(data, (val, key) => {
-      if (val && !emailPreferences[key]) {
-        this.setState({
-          emailPreferences: { ...data },
-        });
-      }
+    const { populated } = this.state;
+    if (populated) return;
+    this.setState({
+      emailPreferences: { ...data },
+      populated: true,
     });
   }
 

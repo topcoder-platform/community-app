@@ -1,40 +1,38 @@
 /**
  * Child component of Settings/Tools renders setting page for tools.
  */
-
 import React from 'react';
 import PT from 'prop-types';
-import { isomorphy } from 'topcoder-react-utils';
-import SideBar from '../SideBar';
-import Devices from './Devices';
-import ComingSoon from '../ComingSoon';
-import Software from './Software';
+import Accordion from 'components/Settings/Accordion';
+import SideBar from 'components/Settings/SideBar';
+import DevicesIcon from 'assets/images/tools/sideicons/devices.svg';
+import ServiceProvidersIcon from 'assets/images/tools/sideicons/serviceproviders.svg';
+import SoftwareIcon from 'assets/images/tools/sideicons/software.svg';
+import SubscriptionsIcon from 'assets/images/tools/sideicons/subscriptions.svg';
+import Devices from 'components/Settings/Tools/Devices';
+import ComingSoon from 'components/Settings/ComingSoon';
+import Software from 'components/Settings/Tools/Software';
 
 import './styles.scss';
 
 export default function Tools(props) {
   const {
-    settingsUI,
+    settingsUI: { currentToolsTab, TABS },
     toggleToolsSideTab,
   } = props;
-  const tabs = settingsUI.TABS.TOOLS;
+  const tabs = TABS.TOOLS;
   const names = Object.keys(tabs).map(key => tabs[key]);
-  const currentTab = settingsUI.currentToolsTab;
+  const currentTab = currentToolsTab;
 
-  let assets;
-  const sideIcons = {};
-  if (isomorphy.isClientSide()) {
-    assets = require.context('assets/images/tools/sideicons', false, /svg/);
+  const icons = {
+    devices: <DevicesIcon />,
+    'service providers': <ServiceProvidersIcon />,
+    software: <SoftwareIcon />,
+    subscriptions: <SubscriptionsIcon />,
+  };
 
-    if (assets) {
-      names.forEach((name) => {
-        sideIcons[name] = assets(`./${name}.svg`);
-      });
-    }
-  }
-
-  const renderView = () => {
-    switch (currentTab) {
+  const renderTabContent = (tab) => {
+    switch (tab) {
       case 'devices':
         return <Devices {...props} />;
       case 'software':
@@ -46,16 +44,25 @@ export default function Tools(props) {
 
   return (
     <div styleName="tools-container">
+      <div styleName="mobile-view">
+        <Accordion
+          icons={icons}
+          names={names}
+          currentSidebarTab={currentTab}
+          renderTabContent={renderTabContent}
+          toggleSidebarTab={toggleToolsSideTab}
+        />
+      </div>
       <div styleName="col-bar">
         <SideBar
-          icons={sideIcons}
+          icons={icons}
           names={names}
           currentTab={currentTab}
           toggle={toggleToolsSideTab}
         />
       </div>
       <div styleName="col-content">
-        {renderView()}
+        { renderTabContent(currentTab) }
       </div>
     </div>
   );

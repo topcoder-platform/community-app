@@ -2,12 +2,20 @@
 
 .container {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   width: 100%;
   flex-grow: 1;
   flex-wrap: wrap;
 
   @include xs-to-lg {
     justify-content: space-around;
+  }
+
+  &.centered {
+    justify-content: center;
+
+    > div {
+      margin: 20px;
+    }
   }
 }

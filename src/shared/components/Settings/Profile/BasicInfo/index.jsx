@@ -168,185 +168,190 @@ export default class BasicInfo extends React.Component {
 
   render() {
     const {
-      settingsUI,
-    } = this.props;
-    const tabs = settingsUI.TABS.PROFILE;
-    const currentTab = settingsUI.currentProfileTab;
-    const containerStyle = currentTab === tabs.BASIC ? '' : 'hide';
-
-    const {
       basicInfo,
       savingBasicInfo,
     } = this.state;
 
     return (
-      <div styleName={containerStyle}>
-        <div styleName="basic-info-container">
-          <div styleName="user-icon">
+      <div styleName="basic-info-container">
+        <div styleName="user-icon">
+          <ImageInput
+            {...this.props}
+          />
+        </div>
+        <div styleName="form-container">
+          <p styleName="handle">
+            { basicInfo.handle }
+          </p>
+          <div styleName="mb-user-card">
             <ImageInput
               {...this.props}
             />
           </div>
-          <div styleName="form-container">
-            <p styleName="handle">
-              { basicInfo.handle }
-            </p>
-            <form name="BasicInfoForm" noValidate autoComplete="off">
-              <div styleName="row">
-                <div styleName="field">
-                  <label htmlFor="firstName">
+          <form name="BasicInfoForm" noValidate autoComplete="off">
+            <div styleName="user-card">
+              <div styleName="img-container">
+                <ImageInput
+                  {...this.props}
+                />
+              </div>
+              <div styleName="main">
+                <p styleName="user-handle">
+                  { basicInfo.handle }
+                </p>
+                <div styleName="row">
+                  <div styleName="field">
+                    <label htmlFor="firstName">
 Firstname
-                  </label>
-                  <input id="firstName" name="firstName" type="text" placeholder="First Name" onChange={this.onUpdateInput} value={basicInfo.firstName} maxLength="64" required />
-                </div>
-                <div styleName="field">
-                  <label htmlFor="lastName">
+                    </label>
+                    <input id="firstName" name="firstName" type="text" placeholder="First Name" onChange={this.onUpdateInput} value={basicInfo.firstName} maxLength="64" required />
+                  </div>
+                  <div styleName="field">
+                    <label htmlFor="lastName">
 Lastname
-                  </label>
-                  <input id="lastName" name="lastName" type="text" placeholder="Last Name" onChange={this.onUpdateInput} value={basicInfo.lastName} maxLength="64" required />
+                    </label>
+                    <input id="lastName" name="lastName" type="text" placeholder="Last Name" onChange={this.onUpdateInput} value={basicInfo.lastName} maxLength="64" required />
+                  </div>
                 </div>
               </div>
-              <div styleName="row">
-                <div styleName="field">
-                  <label styleName="bio-label" htmlFor="shortBio">
-                    <span>
-Short Bio
-                    </span>
-                    {' '}
-                    <span>
-                      { basicInfo.shortBio.length }
-/240
-                    </span>
-                  </label>
-                  <textarea id="shortBio" styleName="bio-text" name="shortBio" placeholder="short Bio" onChange={this.onUpdateInput} value={basicInfo.shortBio} maxLength="240" cols="3" rows="10" required />
-                </div>
-              </div>
-              <div styleName="row">
-                <div styleName="field">
-                  <label htmlFor="birthDate">
-Birth Date
-                  </label>
-                  <input id="birthDate" styleName="date-input" name="birthDate" type="date" onChange={this.onUpdateInput} value={basicInfo.birthDate} required />
-                </div>
-
-                <div styleName="field">
-                  <label htmlFor="gender">
-Gender
-                  </label>
-                  <Select
-                    name="gender"
-                    options={dropdowns.gender}
-                    value={basicInfo.gender}
-                    onChange={this.onUpdateSelect}
-                    placeholder="Gender"
-                    labelKey="name"
-                    valueKey="name"
-                    clearable={false}
-                  />
-                </div>
-
-                <div styleName="field">
-                  <label htmlFor="tshirtSize">
-T-Shirt-Size
-                  </label>
-                  <Select
-                    name="tshirtSize"
-                    options={dropdowns.tshirtSize}
-                    value={basicInfo.tshirtSize}
-                    onChange={this.onUpdateSelect}
-                    placeholder="t-shirt Size"
-                    labelKey="name"
-                    valueKey="name"
-                    clearable={false}
-                  />
-                </div>
-              </div>
-
-              <div styleName="row">
-                <div styleName="field">
-                  <label htmlFor="address">
-Address
-                  </label>
-                  <input id="address" name="address" type="text" placeholder="Address" onChange={this.onUpdateInput} value={basicInfo.address} maxLength="64" required />
-                </div>
-              </div>
-              <div styleName="row">
-                <div styleName="field">
-                  <label htmlFor="country">
-Country
-                  </label>
-                  <Select
-                    name="country"
-                    options={countries}
-                    value={basicInfo.country}
-                    onChange={this.onUpdateCountry}
-                    placeholder="Country"
-                    matchPos="start"
-                    matchProp="name"
-                    labelKey="name"
-                    valueKey="name"
-                    clearable={false}
-                  />
-                </div>
-                <div styleName="field">
-                  <label htmlFor="state">
-State
-                  </label>
-                  <input id="state" name="state" type="text" placeholder="State" onChange={this.onUpdateInput} value={basicInfo.state} maxLength="64" required />
-                </div>
-              </div>
-
-              <div styleName="row">
-                <div styleName="field">
-                  <label htmlFor="city">
-City
-                  </label>
-                  <input id="city" name="city" type="text" placeholder="City" onChange={this.onUpdateInput} value={basicInfo.city} maxLength="64" required />
-                </div>
-                <div styleName="field">
-                  <label htmlFor="zipCode">
-ZIP Code
-                  </label>
-                  <input id="zipCode" name="zipCode" type="text" placeholder="ZIP Code" onChange={this.onUpdateInput} value={basicInfo.zipCode} maxLength="64" required />
-                </div>
-              </div>
-
-              <div styleName="row">
-                <div styleName="field">
-                  <label htmlFor="currentLocation">
-Current Location
-                  </label>
-                  <input id="currentLocation" name="currentLocation" type="text" placeholder="Current location" onChange={this.onUpdateInput} value={basicInfo.currentLocation} maxLength="64" required />
-                </div>
-              </div>
-              <div styleName="row">
-                <div styleName="field">
-                  <label htmlFor="primaryInterestInTopcoder">
-Primary Interest of Topcoder
-                  </label>
-                  <input id="primaryInterestInTopcoder" name="primaryInterestInTopcoder" type="text" placeholder="Primary interest in Topcoder" onChange={this.onUpdateInput} value={basicInfo.primaryInterestInTopcoder} maxLength="64" required />
-                </div>
-              </div>
-              <div styleName="required">
-All fields are mandatory.
-              </div>
-            </form>
-
-            <div className="save-section">
-              <PrimaryButton
-                onClick={this.onSaveBasicInfo}
-                disabled={this.shouldDisableSave() || savingBasicInfo}
-
-                theme={{ button: Styles['save-button'] }}
-              >
-                {
-                  'Save Changes'
-                }
-                {
-                  savingBasicInfo && '......'
-                }
-              </PrimaryButton>
             </div>
+            <div styleName="row">
+              <div styleName="field">
+                <label styleName="bio-label" htmlFor="shortBio">
+                  <span>
+Short Bio
+                  </span>
+                  <span>
+                    {basicInfo.shortBio.length}
+/240
+                  </span>
+                </label>
+                <textarea id="shortBio" styleName="bio-text" name="shortBio" placeholder="short Bio" onChange={this.onUpdateInput} value={basicInfo.shortBio} maxLength="240" cols="3" rows="10" required />
+              </div>
+            </div>
+            <div styleName="row">
+              <div styleName="field">
+                <label htmlFor="birthDate">
+Birth Date
+                </label>
+                <input id="birthDate" styleName="date-input" name="birthDate" type="date" onChange={this.onUpdateInput} value={basicInfo.birthDate} required />
+              </div>
+
+              <div styleName="field">
+                <label htmlFor="gender">
+Gender
+                </label>
+                <Select
+                  name="gender"
+                  options={dropdowns.gender}
+                  value={basicInfo.gender}
+                  onChange={this.onUpdateSelect}
+                  placeholder="Gender"
+                  labelKey="name"
+                  valueKey="name"
+                  clearable={false}
+                />
+              </div>
+
+              <div styleName="field">
+                <label htmlFor="tshirtSize">
+T-Shirt-Size
+                </label>
+                <Select
+                  name="tshirtSize"
+                  options={dropdowns.tshirtSize}
+                  value={basicInfo.tshirtSize}
+                  onChange={this.onUpdateSelect}
+                  placeholder="t-shirt Size"
+                  labelKey="name"
+                  valueKey="name"
+                  clearable={false}
+                />
+              </div>
+            </div>
+
+            <div styleName="row">
+              <div styleName="field">
+                <label htmlFor="address">
+Address
+                </label>
+                <input id="address" name="address" type="text" placeholder="address" onChange={this.onUpdateInput} value={basicInfo.address} maxLength="64" required />
+              </div>
+            </div>
+            <div styleName="row">
+              <div styleName="field">
+                <label htmlFor="country">
+Country
+                </label>
+                <Select
+                  name="country"
+                  options={countries}
+                  value={basicInfo.country}
+                  onChange={this.onUpdateCountry}
+                  placeholder="Country"
+                  matchPos="start"
+                  matchProp="name"
+                  labelKey="name"
+                  valueKey="name"
+                  clearable={false}
+                />
+              </div>
+              <div styleName="field">
+                <label htmlFor="state">
+State
+                </label>
+                <input id="state" name="state" type="text" placeholder="state" onChange={this.onUpdateInput} value={basicInfo.state} maxLength="64" required />
+              </div>
+            </div>
+
+            <div styleName="row">
+              <div styleName="field">
+                <label htmlFor="city">
+City
+                </label>
+                <input id="city" name="city" type="text" placeholder="city" onChange={this.onUpdateInput} value={basicInfo.city} maxLength="64" required />
+              </div>
+              <div styleName="field">
+                <label htmlFor="zipCode">
+ZIP Code
+                </label>
+                <input id="zipCode" name="zipCode" type="text" placeholder="zipCode" onChange={this.onUpdateInput} value={basicInfo.zipCode} maxLength="64" required />
+              </div>
+            </div>
+
+            <div styleName="row">
+              <div styleName="field">
+                <label htmlFor="currentLocation">
+Current Location
+                </label>
+                <input id="currentLocation" name="currentLocation" type="text" placeholder="current Location" onChange={this.onUpdateInput} value={basicInfo.currentLocation} maxLength="64" required />
+              </div>
+            </div>
+            <div styleName="row">
+              <div styleName="field">
+                <label htmlFor="primaryInterestInTopcoder">
+Primary Interest of Topcoder
+                </label>
+                <input id="primaryInterestInTopcoder" name="primaryInterestInTopcoder" type="text" placeholder="primary Interest In Topcoder" onChange={this.onUpdateInput} value={basicInfo.primaryInterestInTopcoder} maxLength="64" required />
+              </div>
+            </div>
+
+          </form>
+
+          <div className="save-section">
+            <PrimaryButton
+              onClick={this.onSaveBasicInfo}
+              disabled={this.shouldDisableSave() || savingBasicInfo}
+
+              theme={{ button: Styles['save-button'] }}
+            >
+              {
+                'Save Changes'
+              }
+              {
+                savingBasicInfo && '......'
+              }
+            </PrimaryButton>
           </div>
         </div>
       </div>
@@ -358,7 +363,6 @@ BasicInfo.propTypes = {
   tokenV3: PT.string.isRequired,
   handle: PT.string.isRequired,
   userTraits: PT.array.isRequired,
-  settingsUI: PT.shape().isRequired,
   addUserTrait: PT.func.isRequired,
   updateUserTrait: PT.func.isRequired,
   deleteUserTrait: PT.func.isRequired,
