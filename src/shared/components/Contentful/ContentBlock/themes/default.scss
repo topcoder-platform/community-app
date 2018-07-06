@@ -84,6 +84,14 @@
     max-width: 100%;
   }
 
+  code {
+    @include roboto-mono-regular;
+
+    color: rgb(120, 125, 129);
+    line-height: 1.5;
+    white-space: pre;
+  }
+
   sub,
   sup {
     font-size: 75%;

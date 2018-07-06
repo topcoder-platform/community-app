@@ -88,7 +88,11 @@ function renderToken(tokens, index) {
     case 'text':
       return token.content;
     default:
-      return React.createElement(token.tag, getProps(token, index));
+      return React.createElement(
+        token.tag,
+        getProps(token, index),
+        token.content || undefined,
+      );
   }
 }
 
