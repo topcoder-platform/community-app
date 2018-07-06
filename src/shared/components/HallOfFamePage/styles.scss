@@ -98,7 +98,7 @@
   border-radius: 3 * $corner-radius;
   display: flex;
   flex-wrap: wrap;
-  width: 1141px;
+  width: 100%;
 
   @include xs-to-lg {
     border: 0;
@@ -115,7 +115,7 @@
   display: flex;
   height: 85px;
   justify-content: space-around;
-  width: 1140px;
+  width: 100%;
 
   h4 {
     color: #fff;
@@ -175,12 +175,11 @@
   border-top-left-radius: 3 * $corner-radius;
   height: 375px;
   overflow: hidden;
-  width: 810px;
+  flex: 1;
 
   img {
     min-height: 375px;
-    min-width: 810px;
-    max-width: 810px;
+    width: 100%;
   }
 
   @include xs-to-lg {
