@@ -96,14 +96,10 @@ function getOgImage(challenge) {
   }
 }
 
-function isRegistered(registrants, handle) {
-  /*
-    TODO: This code is commented out because related API is broken now
-    and does not set / clear Submitter role properly.
+function isRegistered(details, registrants, handle) {
   if (details && details.roles && details.roles.includes('Submitter')) {
     return true;
   }
-  */
   if (_.find(registrants, r => r.handle === handle)) {
     return true;
   }
@@ -194,6 +190,8 @@ class ChallengeDetailPageContainer extends React.Component {
     this.state = {
       showDeadlineDetail: false,
     };
+
+    this.instanceId = shortId();
 
     this.onToggleDeadlines = this.onToggleDeadlines.bind(this);
     this.registerForChallenge = this.registerForChallenge.bind(this);
@@ -468,6 +466,7 @@ does not exist!
         <Terms
           defaultTitle="Challenge Prerequisites"
           entity={{ type: 'challenge', id: challengeId.toString() }}
+          instanceId={this.instanceId}
           description="You are seeing these Terms & Conditions because you have registered to a challenge and you have to respect the terms below in order to be able to submit."
           register={() => {
             registerForChallenge(auth, challengeId);

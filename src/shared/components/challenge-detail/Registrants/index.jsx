@@ -41,10 +41,11 @@ function getPlace(results, handle, places) {
 
 export default function Registrants({ challenge, checkpointResults, results }) {
   const {
-    checkpoints,
     prizes,
     registrants,
   } = challenge;
+
+  const checkpoints = challenge.checkpoints || [];
 
   const twoRounds = challenge.round1Introduction
     && challenge.round2Introduction;
@@ -154,7 +155,7 @@ Submitted Date
 
 Registrants.defaultProps = {
   results: [],
-  checkpointResults: [],
+  checkpointResults: {},
 };
 
 Registrants.propTypes = {
@@ -164,12 +165,12 @@ Registrants.propTypes = {
       phaseType: PT.string.isRequired,
       scheduledEndTime: PT.string,
     })).isRequired,
-    checkpoints: PT.arrayOf(PT.shape()).isRequired,
+    checkpoints: PT.arrayOf(PT.shape()),
     prizes: PT.arrayOf(PT.number).isRequired,
     registrants: PT.arrayOf(PT.shape()).isRequired,
     round1Introduction: PT.string,
     round2Introduction: PT.string,
   }).isRequired,
   results: PT.arrayOf(PT.shape()),
-  checkpointResults: PT.arrayOf(PT.shape()),
+  checkpointResults: PT.shape(),
 };

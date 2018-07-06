@@ -28,7 +28,7 @@ Timezone:
       />
       { deadlines.map((d, index) => (
         <Card
-          key={d.id}
+          key={d.phaseType}
           time={d.actualEndTime || d.scheduledEndTime}
           title={index === deadlines.length - 1 ? 'Winners' : d.phaseType}
         />

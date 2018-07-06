@@ -588,7 +588,7 @@ ChallengeDetailsView.propTypes = {
     codeRepo: PT.string,
     userDetails: PT.shape({
       roles: PT.arrayOf(PT.string).isRequired,
-    }).isRequired,
+    }),
   }),
   challengesUrl: PT.string.isRequired,
   communitiesList: PT.arrayOf(PT.shape({

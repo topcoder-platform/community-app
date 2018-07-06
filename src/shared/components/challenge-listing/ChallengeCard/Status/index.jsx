@@ -84,7 +84,7 @@ export default function ChallengeStatus(props) {
 
   const {
     challengesUrl,
-    mmRegLink,
+    newChallengeDetails,
     selectChallengeDetailsTab,
     userHandle,
   } = props;
@@ -137,10 +137,9 @@ export default function ChallengeStatus(props) {
           </UserAvatarTooltip>
         </div>);
     });
-
     let resultsLink = detailLink;
-    if (challenge.subTrack === 'MARATHON_MATCH') {
-      resultsLink = `${config.URL.COMMUNITY}/longcontest/?module=ViewStandings&rd=${_.get(challenge, 'roundId')}`;
+    if (challenge.challengeType === 'Marathon') {
+      resultsLink = `${config.URL.COMMUNITY}/longcontest/?module=ViewStandings&rd=${_.get(challenge, 'rounds[0].id')}`;
     }
 
     return leaderboard || (
@@ -172,7 +171,7 @@ Results
     }
     return (
       <a
-        href={challenge.subTrack === 'MARATHON_MATCH' ? mmRegLink : detailLink}
+        href={detailLink}
         onClick={() => false}
         styleName="register-button"
         target={openChallengesInNewTabs ? '_blank' : undefined}
@@ -201,6 +200,7 @@ to register
             <NumRegistrants
               challenge={challenge}
               challengesUrl={challengesUrl}
+              newChallengeDetails={newChallengeDetails}
               selectChallengeDetailsTab={selectChallengeDetailsTab}
             />
           </div>
@@ -208,6 +208,7 @@ to register
             <NumSubmissions
               challenge={challenge}
               challengesUrl={challengesUrl}
+              newChallengeDetails={newChallengeDetails}
               selectChallengeDetailsTab={selectChallengeDetailsTab}
             />
           </div>
@@ -267,6 +268,7 @@ to register
             <NumRegistrants
               challenge={challenge}
               challengesUrl={challengesUrl}
+              newChallengeDetails={newChallengeDetails}
               selectChallengeDetailsTab={selectChallengeDetailsTab}
             />
           </div>
@@ -274,6 +276,7 @@ to register
             <NumSubmissions
               challenge={challenge}
               challengesUrl={challengesUrl}
+              newChallengeDetails={newChallengeDetails}
               selectChallengeDetailsTab={selectChallengeDetailsTab}
             />
           </div>
@@ -322,7 +325,6 @@ to register
 ChallengeStatus.defaultProps = {
   challenge: {},
   detailLink: '',
-  mmRegLink: '',
   openChallengesInNewTabs: false,
   userHandle: '',
 };
@@ -331,7 +333,7 @@ ChallengeStatus.propTypes = {
   challenge: PT.shape(),
   challengesUrl: PT.string.isRequired,
   detailLink: PT.string,
-  mmRegLink: PT.string,
+  newChallengeDetails: PT.bool.isRequired,
   openChallengesInNewTabs: PT.bool,
   selectChallengeDetailsTab: PT.func.isRequired,
   userHandle: PT.string,
