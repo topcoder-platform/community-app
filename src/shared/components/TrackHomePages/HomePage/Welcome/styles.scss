@@ -21,7 +21,7 @@
 
   display: flex;
   flex-wrap: wrap;
-  width: 55%;
+  flex: 1;
   margin-right: 60px;
   text-align: left;
 
@@ -122,8 +122,13 @@
 }
 
 .right {
-  width: 480px;
-  height: 270px;
+  flex: 1;
+  overflow: hidden;
+
+  img {
+    width: 100%;
+    height: auto;
+  }
 
   @media screen and (max-width: $screen-sm) {
     display: none;
