@@ -51,7 +51,9 @@ export default function SideItem(props) {
         // (see `components/examples/SvgLoading` for an example)
         typeof icon === 'string' ? <img src={icon} alt="tab icon" /> : renderSvgIcon(icon)
       }
-      { name }
+      <span styleName="name">
+        { name }
+      </span>
     </a>
   );
 }

@@ -5,19 +5,118 @@ exports[`renders preferences setting page correctly 1`] = `
   className="src-shared-components-Settings-Preferences-___styles__preferences-container___m6Zzc"
 >
   <div
+    className="src-shared-components-Settings-Preferences-___styles__mobile-view___C-Nae"
+  >
+    <Accordion
+      currentSidebarTab="e-mail"
+      icons={
+        Object {
+          "e-mail": <EmailIcon
+            height="30"
+            viewBox="0 0 30 30"
+            width="30"
+            xmlns="http://www.w3.org/2000/svg"
+          />,
+          "forum": <Forum
+            height="30"
+            viewBox="0 0 30 30"
+            width="30"
+            xmlns="http://www.w3.org/2000/svg"
+          />,
+          "invitation letter": <Invletter
+            height="30"
+            viewBox="0 0 30 30"
+            width="30"
+            xmlns="http://www.w3.org/2000/svg"
+          />,
+          "payment": <Payment
+            height="30"
+            viewBox="0 0 30 30"
+            width="30"
+            xmlns="http://www.w3.org/2000/svg"
+          />,
+          "personalization": <PersonalizationIcon
+            height="30"
+            viewBox="0 0 30 30"
+            width="30"
+            xmlns="http://www.w3.org/2000/svg"
+          />,
+          "referrals": <Referral
+            height="30"
+            viewBox="0 0 30 30"
+            width="30"
+            xmlns="http://www.w3.org/2000/svg"
+          />,
+        }
+      }
+      names={
+        Array [
+          "e-mail",
+          "forum",
+          "payment",
+          "invitation letter",
+          "referrals",
+          "personalization",
+        ]
+      }
+      renderTabContent={[Function]}
+      toggleSidebarTab={[Function]}
+    />
+  </div>
+  <div
     className="src-shared-components-Settings-Preferences-___styles__col-bar___2Fr2T"
   >
     <SideBar
       currentTab="e-mail"
-      tabs={
+      icons={
         Object {
-          "EMAIL": "e-mail",
-          "FORUM": "forum",
-          "LETTER": "invitation letter",
-          "PAYMENT": "payment",
-          "PERSONALIZATION": "personalization",
-          "REFERRALS": "referrals",
+          "e-mail": <EmailIcon
+            height="30"
+            viewBox="0 0 30 30"
+            width="30"
+            xmlns="http://www.w3.org/2000/svg"
+          />,
+          "forum": <Forum
+            height="30"
+            viewBox="0 0 30 30"
+            width="30"
+            xmlns="http://www.w3.org/2000/svg"
+          />,
+          "invitation letter": <Invletter
+            height="30"
+            viewBox="0 0 30 30"
+            width="30"
+            xmlns="http://www.w3.org/2000/svg"
+          />,
+          "payment": <Payment
+            height="30"
+            viewBox="0 0 30 30"
+            width="30"
+            xmlns="http://www.w3.org/2000/svg"
+          />,
+          "personalization": <PersonalizationIcon
+            height="30"
+            viewBox="0 0 30 30"
+            width="30"
+            xmlns="http://www.w3.org/2000/svg"
+          />,
+          "referrals": <Referral
+            height="30"
+            viewBox="0 0 30 30"
+            width="30"
+            xmlns="http://www.w3.org/2000/svg"
+          />,
         }
+      }
+      names={
+        Array [
+          "e-mail",
+          "forum",
+          "payment",
+          "invitation letter",
+          "referrals",
+          "personalization",
+        ]
       }
       toggle={[Function]}
     />

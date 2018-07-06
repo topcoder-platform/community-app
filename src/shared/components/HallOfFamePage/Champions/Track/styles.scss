@@ -33,20 +33,20 @@
   }
 }
 
-.empty,
 .champion {
   border: solid 1px #fff;
   color: #262628;
-  display: block;
   height: 30px;
   font-size: 15px;
   text-align: left;
   line-height: 30px;
   width: 100%;
-}
-
-.champion {
   display: flex;
   justify-content: space-between;
   padding: 0 15px;
+}
+
+.filler {
+  flex: 1;
+  width: calc(100% - 2px);
 }

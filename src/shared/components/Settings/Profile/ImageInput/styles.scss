@@ -1,10 +1,33 @@
 @import "~styles/mixins";
 
 .image {
+  @include md-to-lg {
+    margin-right: 20px;
+  }
+
   .edit-image {
     display: flex;
     flex-direction: column;
     align-items: center;
+
+    @include xs-to-sm {
+      flex-direction: row;
+    }
+
+    p.handle {
+      display: none;
+
+      @include xs-to-sm {
+        @include roboto-regular;
+
+        display: block;
+        font-size: 24px;
+        font-weight: 400;
+        line-height: 35px;
+        color: $tc-black;
+        margin-bottom: 10px;
+      }
+    }
 
     .profile-circle {
       margin-top: 10px;
@@ -13,29 +36,23 @@
       width: 120px;
       height: 120px;
       padding: 2px;
-    }
 
-    .upload-image {
-      display: flex;
-      flex-direction: column;
-
-      p {
-        margin-top: 15px;
-        margin-bottom: 10px;
-      }
-
-      input {
-        padding: 0;
+      @include xs-to-sm {
+        width: 80px;
+        height: 80px;
+        margin-right: 10px;
+        margin-top: 0;
       }
     }
 
     .buttons {
       .file-upload {
+        @include roboto-medium;
+
         position: relative;
         overflow: hidden;
         width: 120px;
         text-transform: capitalize;
-        font-family: "Times New Roman", Georgia, Serif;
         font-weight: 500;
         font-size: 13px;
         min-height: 30px;
@@ -45,6 +62,10 @@
         border-radius: 6px;
         border: 1px solid #47474f;
         box-shadow: 0 2px 9px 0 rgba(38, 38, 40, 0.06);
+
+        @include xs-to-sm {
+          width: 95px;
+        }
       }
 
       .file-delete {

@@ -3,6 +3,7 @@
  * through and select one.  Mobile mode renders a scrollable div with all events.
  */
 import _ from 'lodash';
+import ContentfulLoader from 'containers/ContentfulLoader';
 import React from 'react';
 import PT from 'prop-types';
 
@@ -46,7 +47,6 @@ class EventCarousel extends React.Component {
       onSelectEvent,
     } = this.props;
     const { firstIndex } = this.state;
-
     return (
       <div styleName="container" ref={(node) => { this.node = node; }}>
         <div styleName="arrow-wrapper">
@@ -64,6 +64,7 @@ class EventCarousel extends React.Component {
           _.map(events.list, (event, index) => {
             const { fields, versionId } = event;
             const hidden = index < firstIndex || index >= firstIndex + maxAtOnce;
+            const logoId = fields.promo.fields.logo.sys.id;
             // We need to render 'hidden' events to the dom in desktop mode
             // because they all need to be rendered in mobile mode
             // for the scrollable div. If we don't, there will be a
@@ -78,9 +79,27 @@ class EventCarousel extends React.Component {
                 styleName={`logo ${fields.versionId === eventId ? 'active' : ''} ${hidden ? 'hidden' : ''}`}
                 tabIndex={0}
               >
-                <img
-                  src={_.get(fields.promo.fields.logo.fields, 'file.url')}
-                  alt={`Logo for TCO${fields.versionId}`}
+                {
+                  /*
+                    TODO: This is sub-optimal to use separate ContentfulLoader
+                    for each logo. Entire list of logos should be figured out
+                    higher in the components tree and loaded with a single
+                    ContentfulLoader. However, the way code is structured now
+                    makes such update difficult, thus just a hot fix for now.
+                  */
+                }
+                <ContentfulLoader
+                  assetIds={logoId}
+                  render={(data) => {
+                    const logo = data.assets.items[logoId];
+                    const { url } = logo.fields.file;
+                    return (
+                      <img
+                        src={url}
+                        alt={`Logo for TCO${fields.versionId}`}
+                      />
+                    );
+                  }}
                 />
               </a>
             );

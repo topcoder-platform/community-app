@@ -1,14 +1,13 @@
 /**
  * Role Component.  Renders the role and list of trip winner.
  */
-import _ from 'lodash';
 import React from 'react';
 import PT from 'prop-types';
 import { themr } from 'react-css-super-themr';
 
 import defaultStyles from './styles.scss';
 
-const Role = ({ count, data, theme }) => (
+const Role = ({ data, theme }) => (
   <div className={theme.container}>
     <div className={theme.role}>
       {data.track}
@@ -20,16 +19,13 @@ const Role = ({ count, data, theme }) => (
         </div>
       ))
     }
-    { _.range(data.members.length, count).map(i => <div className={theme.empty} key={i} />) }
+    <div className={theme.filler} />
   </div>
 );
 
-Role.defaultProps = {
-  count: 3,
-};
+Role.defaultProps = {};
 
 Role.propTypes = {
-  count: PT.number,
   data: PT.shape().isRequired,
   theme: PT.shape().isRequired,
 };

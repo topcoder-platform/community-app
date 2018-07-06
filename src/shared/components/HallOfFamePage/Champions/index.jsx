@@ -14,6 +14,7 @@ import developmentAndFirst2finishTheme from './developmentAndFirst2finish.scss';
 import uiDesignAndPrototypeTheme from './uiDesignAndPrototype.scss';
 import styles from './styles.scss';
 
+const CENTERED_CONTENT_MAX = 6;
 
 /**
  * Return theme by track name
@@ -40,7 +41,6 @@ const Champions = ({ data }) => {
   const championsData = data;
   const iconId = championsData.icon.sys.id;
   const listIds = _.map(championsData.list, item => (item.sys.id));
-  let maxChampions = 0;
   let memberIds = [];
   return (
     <ContentfulLoader
@@ -53,14 +53,14 @@ const Champions = ({ data }) => {
         }
         // process icon
         championsData.icon.fields = result.assets.items[iconId].fields;
-
-        const championIds = _.map(championsData.list, item => (_.get(item.fields.champion, 'sys.id')));
+        const championIds = [];
+        championsData.list.forEach((item) => {
+          const { champion } = item.fields;
+          if (champion) championIds.push(champion.sys.id);
+        });
         const members = _.map(championsData.list, item => (item.fields.members));
         for (let i = 0; i !== members.length; i += 1) {
           memberIds = memberIds.concat(_.map(members[i], item => (item.sys.id)));
-          if (maxChampions < members[i].length) {
-            maxChampions = members[i].length;
-          }
         }
         const entryIds = championIds.concat(memberIds);
         return (
@@ -80,12 +80,11 @@ const Champions = ({ data }) => {
                   .fields = memberResult.entries.items[championIds[i]].fields;
               }
               return (
-                <div className={styles.container}>
+                <div className={[styles.container, (data.list.length < CENTERED_CONTENT_MAX ? styles.centered : '')].join(' ')}>
                   {
                     data.list.map(list => (
                       <Track
                         key={list.fields.track}
-                        count={maxChampions}
                         data={getSingleTrackList(list.fields.track, data.list)}
                         theme={findTheme(list.fields.track)}
                         track={list.fields.track}

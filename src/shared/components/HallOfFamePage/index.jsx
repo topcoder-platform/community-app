@@ -85,8 +85,19 @@ const HallOfFamePage = ({ eventId, onSelectEvent, hallOfFame }) => {
         const linkIds = _.map(data.fields.promo.fields.links, item => (item.sys.id));
         const logoId = data.fields.promo.fields.logo.sys.id;
         const statisticsIds = _.map(data.fields.promo.fields.statistics, item => (item.sys.id));
-        const finalistIds = _.map(data.fields.leaderboards[0].fields.data, item => (item.sys.id));
-        const tripWinnerIds = _.map(data.fields.leaderboards[1].fields.data, item => (item.sys.id));
+
+        const { leaderboards } = data.fields;
+        const finalistsBoard = _.get(leaderboards, '[0].fields', {
+          data: [],
+          title: '',
+        });
+        const tripWinnersBoard = _.get(leaderboards, '[1].fields', {
+          data: [],
+          title: '',
+        });
+        const finalistIds = finalistsBoard.data.map(item => item.sys.id);
+        const tripWinnerIds = tripWinnersBoard.data.map(item => item.sys.id);
+
         entryIds = attributesIds.concat(linkIds, statisticsIds, finalistIds, tripWinnerIds);
         assetIds.push(bannerId);
         assetIds.push(logoId);
@@ -112,12 +123,12 @@ const HallOfFamePage = ({ eventId, onSelectEvent, hallOfFame }) => {
               }
               // final list
               for (let i = 0; i !== finalistIds.length; i += 1) {
-                data.fields.leaderboards[0].fields.data[i]
+                finalistsBoard.data[i]
                   .fields = currentEventResult.entries.items[finalistIds[i]].fields;
               }
               // trip winners
               for (let i = 0; i !== tripWinnerIds.length; i += 1) {
-                data.fields.leaderboards[1].fields.data[i]
+                tripWinnersBoard.data[i]
                   .fields = currentEventResult.entries.items[tripWinnerIds[i]].fields;
               }
               data.fields.promo.fields.bannerImage
@@ -183,9 +194,13 @@ const HallOfFamePage = ({ eventId, onSelectEvent, hallOfFame }) => {
                                       </PrimaryButton>
                                     </div>
                                     <div styleName="button-wrapper">
-                                      <Button styleName="browse-gallery" to={data.fields.promo.fields.links[1].fields.url} openNewTab>
-                                        {data.fields.promo.fields.links[1].fields.title}
-                                      </Button>
+                                      {
+                                        _.get(data.fields.promo, 'fields.links[1].fields.url') ? (
+                                          <Button styleName="browse-gallery" to={_.get(data.fields.promo, 'fields.links[1].fields.url')} openNewTab>
+                                            {_.get(data.fields.promo, 'fields.links[1].fields.title')}
+                                          </Button>
+                                        ) : null
+                                      }
                                     </div>
                                   </div>
 
@@ -215,23 +230,23 @@ const HallOfFamePage = ({ eventId, onSelectEvent, hallOfFame }) => {
                                   </div>
                                 </div>
                                 {
-                                  data.fields.leaderboards[0].fields.data.length > 0
+                                  finalistsBoard.data.length > 0
                                   && (
                                   <div styleName="finalists">
                                     <h2>
-                                      {data.fields.leaderboards[0].fields.title}
+                                      {finalistsBoard.title}
                                     </h2>
-                                    <Finalists data={data.fields.leaderboards[0].fields} />
+                                    <Finalists data={finalistsBoard} />
                                   </div>
                                   )
                                 }
                                 {
-                                  data.fields.leaderboards[1].fields.data.length > 0 && (
+                                  tripWinnersBoard.data.length > 0 && (
                                     <div styleName="trip-winners">
                                       <h3>
-                                        {data.fields.leaderboards[1].fields.title}
+                                        {tripWinnersBoard.title}
                                       </h3>
-                                      <TripWinners roles={data.fields.leaderboards[1].fields} />
+                                      <TripWinners roles={tripWinnersBoard} />
                                     </div>
                                   )
                                 }

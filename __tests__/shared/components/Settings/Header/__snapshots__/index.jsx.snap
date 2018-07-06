@@ -2,54 +2,64 @@
 
 exports[`renders setting page header correctly 1`] = `
 <div
-  className="src-shared-components-Settings-Header-___styles__page-state-header___186Yi"
+  className="src-shared-components-Settings-Header-___styles__Header___2G763"
 >
   <div
-    className="src-shared-components-Settings-Header-___styles__page-info___8tgl9"
+    className="src-shared-components-Settings-Header-___styles__title___2Pmjv"
   >
     <h1>
       Settings
     </h1>
   </div>
-  <div
-    className="src-shared-components-Settings-Header-___styles__menu-list___1PSWJ"
+  <nav
+    className="src-shared-components-Settings-Header-___styles__tabs___3eOxJ"
   >
-    <a
-      className="src-shared-components-Settings-Header-___styles__tab___2IDaU"
-      onClick={[Function]}
-      onKeyPress={[Function]}
-      role="link"
-      tabIndex={0}
-    >
-      Profile
-    </a>
-    <a
-      className="src-shared-components-Settings-Header-___styles__tab___2IDaU"
-      onClick={[Function]}
-      onKeyPress={[Function]}
-      role="link"
-      tabIndex={0}
-    >
-      Tools
-    </a>
-    <a
-      className="src-shared-components-Settings-Header-___styles__tab___2IDaU"
-      onClick={[Function]}
-      onKeyPress={[Function]}
-      role="link"
-      tabIndex={0}
-    >
-      Account
-    </a>
-    <a
-      className="src-shared-components-Settings-Header-___styles__tab___2IDaU"
-      onClick={[Function]}
-      onKeyPress={[Function]}
-      role="link"
-      tabIndex={0}
-    >
-      Preferences
-    </a>
-  </div>
+    <ul>
+      <li>
+        <a
+          className=""
+          onClick={[Function]}
+          onKeyPress={[Function]}
+          role="link"
+          tabIndex={0}
+        >
+          Profile
+        </a>
+      </li>
+      <li>
+        <a
+          className=""
+          onClick={[Function]}
+          onKeyPress={[Function]}
+          role="link"
+          tabIndex={0}
+        >
+          Tools
+        </a>
+      </li>
+      <li>
+        <a
+          className=""
+          onClick={[Function]}
+          onKeyPress={[Function]}
+          role="link"
+          tabIndex={0}
+        >
+          Account
+        </a>
+      </li>
+      <li>
+        <a
+          className=""
+          onClick={[Function]}
+          onKeyPress={[Function]}
+          role="link"
+          tabIndex={0}
+        >
+          Preferences
+        </a>
+      </li>
+    </ul>
+  </nav>
 </div>
 `;

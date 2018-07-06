@@ -58,7 +58,11 @@ class FunFacts extends React.Component {
             data.list[i].fields = result.entries.items[storyIds[i]].fields;
           }
           // process image
-          const imageIds = _.map(data.list, item => (item.fields.image.sys.id));
+          const imageIds = [];
+          data.list.forEach((item) => {
+            const id = _.get(item, 'fields.image.sys.id');
+            if (id) imageIds.push(id);
+          });
           return (
             <ContentfulLoader
               assetIds={imageIds}
@@ -82,7 +86,7 @@ class FunFacts extends React.Component {
                           key={fact.fields.text}
                           styleName={`fact ${index === activeMobileFact ? 'mobile-active' : ''}`}
                         >
-                          <img styleName="photo" src={fact.fields.image.fields.file.url} alt="Fun Fact" />
+                          <img styleName="photo" src={_.get(fact, 'fields.image.fields.file.url')} alt="Fun Fact" />
                           <div
                             styleName="text"
                             dangerouslySetInnerHTML={{
