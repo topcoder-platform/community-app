@@ -95,7 +95,7 @@ module.exports = {
     AUTH: 'http://accounts.topcoder-dev.com',
     BASE: 'https://www.topcoder-dev.com',
     BLOG: 'https://www.topcoder.com/blog',
-    BLOG_FEED: 'https://www.topcoder-dev.com/feed',
+    BLOG_FEED: 'https://www.topcoder.com/blog/feed/',
     COMMUNITY: 'https://community.topcoder-dev.com',
     FORUMS: 'https://apps.topcoder-dev.com/forums',
     HELP: 'https://help.topcoder-dev.com',
