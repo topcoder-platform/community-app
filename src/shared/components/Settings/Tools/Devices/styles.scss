@@ -1,14 +1,14 @@
 @import "~styles/mixins";
 
-.hide {
-  display: none;
-}
-
 .devices-container {
   display: flex;
   flex-direction: column;
   align-items: left;
   padding-bottom: 80px;
+
+  @include xs-to-sm {
+    padding-bottom: 0;
+  }
 
   h1 {
     @include roboto-regular;
@@ -18,6 +18,10 @@
     font-weight: 400;
     color: $tc-black;
     margin-bottom: 20px;
+
+    @include xs-to-sm {
+      display: none;
+    }
   }
 }
 
@@ -45,6 +49,11 @@
   padding: 20px;
   background-color: $tc-gray-neutral-light;
 
+  @include xs-to-sm {
+    border: 0;
+    border-radius: 0;
+  }
+
   p {
     @include roboto-regular;
 
@@ -52,6 +61,10 @@
     line-height: 30px;
     font-weight: 400;
     color: $tc-black;
+
+    @include xs-to-sm {
+      margin-bottom: 20px;
+    }
   }
 
   .row {
@@ -62,11 +75,21 @@
     align-items: center;
     width: 100%;
 
+    @include xs-to-sm {
+      display: block;
+      margin-bottom: 0;
+    }
+
     .field {
       display: flex;
       flex-direction: column;
       margin-right: 10px;
       align-content: space-between;
+
+      @include xs-to-sm {
+        display: block;
+        padding-bottom: 10px;
+      }
 
       label {
         @include roboto-medium;
@@ -79,15 +102,19 @@
       }
 
       &.col-1 {
-        width: 250px;
+        width: 35%;
+
+        @include xs-to-sm {
+          width: 100%;
+        }
       }
 
       &.col-2 {
-        width: 315px;
-      }
+        width: 50%;
 
-      &.col-3 {
-        width: 200px;
+        @include xs-to-sm {
+          width: 100%;
+        }
       }
     }
 
@@ -106,11 +133,19 @@
     color: $tc-black;
     border: 1px solid $tc-gray-20;
     border-radius: $corner-radius * 2 $corner-radius * 2 $corner-radius * 2 $corner-radius * 2;
+
+    @include xs-to-sm {
+      margin-top: 5px;
+    }
   }
 }
 
 .button-save {
   align-self: center;
+
+  @include xs-to-sm {
+    margin-top: 10px;
+  }
 
   button,
   a {
@@ -128,4 +163,24 @@
   .complete {
     color: $tc-white;
   }
+}
+
+/*
+ * React Select component styling
+ */
+.devices-container .form-container .row .field :global .Select,
+.devices-container .form-container .row .field :global .Select-value span,
+.devices-container .form-container .row .field :global .Select-menu-outer,
+.devices-container .form-container .row .field :global .Select-placeholder,
+.devices-container .form-container .row .field :global .Select-input input {
+  color: $tc-gray-80;
+  font-size: 15px;
+
+  @include xs-to-sm {
+    margin-top: 5px;
+  }
+}
+
+.devices-container .form-container .row .field :global .Select-placeholder {
+  color: $tc-gray-50;
 }

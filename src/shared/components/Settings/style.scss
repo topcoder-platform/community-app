@@ -6,14 +6,12 @@
   width: 100%;
   box-shadow: 0 1px 0 0 #f0f0f0;
 
-  @include xs-to-sm {
-    padding: 0;
+  @include md-to-lg {
+    padding: 30px;
   }
-}
 
-@media screen and (min-width: 768px) {
-  .container {
-    padding: 30px 10px;
+  @include xs-to-sm {
+    padding: 10px;
   }
 }
 
