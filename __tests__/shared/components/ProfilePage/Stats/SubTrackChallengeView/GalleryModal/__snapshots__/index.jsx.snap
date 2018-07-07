@@ -57,7 +57,9 @@ exports[`renders gallery modal 1`] = `
         className="src-shared-components-ProfilePage-Stats-SubTrackChallengeView-GalleryModal-___style__info___2BluA"
       >
         1
-         of 
+         
+        of
+         
         4
       </div>
       <div

@@ -43,19 +43,29 @@ class GalleryModal extends React.Component {
     return (
       <Modal onCancel={onCancel} theme={style}>
         <div styleName="lightbox-container">
-          {this.length > 1 &&
+          {this.length > 1
+            && (
             <div styleName="left-nav" onClick={this.onLeft} role="presentation">
               <Left />
             </div>
+            )
           }
           <div styleName="selector">
-            <div styleName="title">{challenge.name}</div>
+            <div styleName="title">
+              {challenge.name}
+            </div>
             <ReactImageFallback
               initialImage={NoImage}
               src={this.images[selected]}
               fallbackImage={NoImage}
             />
-            <div styleName="info">{selected + 1} of {this.length}</div>
+            <div styleName="info">
+              {selected + 1}
+              {' '}
+of
+              {' '}
+              {this.length}
+            </div>
             <div styleName="selections">
               {this.images.map((item, index) => {
                 const selectable = index === selected ? 'selection current' : 'selection';
@@ -72,10 +82,12 @@ class GalleryModal extends React.Component {
               })}
             </div>
           </div>
-          {this.length > 1 &&
+          {this.length > 1
+            && (
             <div styleName="right-nav" onClick={this.onRight} role="presentation">
               <Right />
             </div>
+            )
           }
         </div>
       </Modal>

@@ -19,7 +19,7 @@ const SRMTile = ({ challenge, userId }) => {
 
   return (
     <div key={`challenge-tile-${challenge.id}`} styleName="challenge tile srm-tile">
-      <div styleName="srm tile-view" >
+      <div styleName="srm tile-view">
         <div styleName="past-srm">
           <div styleName="challenge-track" />
           <header>
@@ -27,25 +27,46 @@ const SRMTile = ({ challenge, userId }) => {
               {challenge.name}
             </a>
             <div styleName="ended-on">
-              <span>{formatDate(codingEndAt, true, true)}</span>
+              <span>
+                {formatDate(codingEndAt, true, true)}
+              </span>
             </div>
           </header>
           <div styleName="member-stats">
             <p styleName="points">
-              <span>{finalPoints}</span>
-              <span>Points</span>
+              <span>
+                {finalPoints}
+              </span>
+              <span>
+Points
+              </span>
             </p>
             <div styleName="ranks">
               <a styleName="division" href={`${config.URL.COMMUNITY}/stat?c=round_stats&rd=${roundId}&dn=${division}`}>
-                <p>{divisionPlacement}</p>
-                <p styleName="last-child"><span>Division {division}</span></p>
+                <p>
+                  {divisionPlacement}
+                </p>
+                <p styleName="last-child">
+                  <span>
+Division
+                    {division}
+                  </span>
+                </p>
               </a>
               <a styleName="room" href={`${config.URL.COMMUNITY}/stat?c=coder_room_stats&cr=${userId}&rd=${roundId}`}>
-                <p>{roomPlacement}</p>
-                <p styleName="last-child"><span>Room</span></p>
+                <p>
+                  {roomPlacement}
+                </p>
+                <p styleName="last-child">
+                  <span>
+Room
+                  </span>
+                </p>
               </a>
             </div>
-            <p styleName="placement">Placement</p>
+            <p styleName="placement">
+Placement
+            </p>
           </div>
         </div>
       </div>

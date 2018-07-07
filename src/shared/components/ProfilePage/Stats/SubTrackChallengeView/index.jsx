@@ -33,15 +33,14 @@ const processPastChallenge = (challenge) => {
       cloned.highestPlacement = _.min(cloned.userDetails.winningPlacements, 'placed').placed;
     }
     // process placement for design challenges
-    if (cloned.track === 'DESIGN' &&
-        cloned.userDetails.submissions &&
-        cloned.userDetails.submissions.length > 0) {
+    if (cloned.track === 'DESIGN'
+        && cloned.userDetails.submissions
+        && cloned.userDetails.submissions.length > 0) {
       cloned.thumbnailId = cloned.userDetails.submissions[0].id;
     }
     // determines the user status for passing the review for one of the submissions
     if (cloned.userDetails.submissions && cloned.userDetails.submissions.length > 0) {
-      cloned.passedReview = cloned.userDetails.submissions.filter(submission =>
-        submission.type === 'Contest Submission'
+      cloned.passedReview = cloned.userDetails.submissions.filter(submission => submission.type === 'Contest Submission'
         && (submission.status === 'Active'
           || submission.status === 'Completed Without Win')).length > 0;
     }
@@ -82,24 +81,24 @@ const processPastChallenge = (challenge) => {
     }
 
     // adjust submissions
-    if (cloned.userDetails &&
-        cloned.userDetails.submissions &&
-        cloned.userDetails.submissions.length > 0) {
-      cloned.userDetails.submissions = cloned.userDetails.submissions.filter(submission =>
-        submission && submission.submissionImage);
+    if (cloned.userDetails
+        && cloned.userDetails.submissions
+        && cloned.userDetails.submissions.length > 0) {
+      cloned.userDetails.submissions = cloned.userDetails.submissions
+        .filter(submission => submission && submission.submissionImage);
       cloned.userDetails.submissions = _.sortBy(
         cloned.userDetails.submissions,
         submission => submission.placement,
       );
     }
 
-    if (!cloned.isPrivate &&
-        cloned.userDetails &&
-        cloned.userDetails.submissions &&
-        cloned.userDetails.submissions.length > 0) {
+    if (!cloned.isPrivate
+        && cloned.userDetails
+        && cloned.userDetails.submissions
+        && cloned.userDetails.submissions.length > 0) {
       // add attr imageURL
-      cloned.imageURL = cloned.userDetails.submissions[0].submissionImage &&
-                           cloned.userDetails.submissions[0].submissionImage.full;
+      cloned.imageURL = cloned.userDetails.submissions[0].submissionImage
+                        && cloned.userDetails.submissions[0].submissionImage.full;
       // add numImages
       cloned.numImages = cloned.userDetails.submissions.length;
     } else {
@@ -235,22 +234,24 @@ class SubTrackChallengeView extends React.Component {
       userId,
     } = this.props;
 
-    if (pageNum === 0 &&
-        (loadingSubTrackChallengesUUID || loadingSRMUUID || loadingMarathonUUID)) {
+    if (pageNum === 0
+        && (loadingSubTrackChallengesUUID || loadingSRMUUID || loadingMarathonUUID)) {
       return <LoadingIndicator />;
     }
 
     if (
-      ((track === 'DEVELOP' || track === 'DESIGN') && (!challenges || challenges.length === 0)) ||
-      ((track === 'DATA_SCIENCE' && subTrack === 'SRM') && (!userSrms || userSrms.length === 0)) ||
-      ((track === 'DATA_SCIENCE' && subTrack === 'MARATHON_MATCH') &&
-       (!userMarathons || userMarathons.length === 0))
+      ((track === 'DEVELOP' || track === 'DESIGN') && (!challenges || challenges.length === 0))
+      || ((track === 'DATA_SCIENCE' && subTrack === 'SRM') && (!userSrms || userSrms.length === 0))
+      || ((track === 'DATA_SCIENCE' && subTrack === 'MARATHON_MATCH')
+       && (!userMarathons || userMarathons.length === 0))
     ) {
       return (
         <div styleName={track}>
           <section>
             <div styleName="challenges">
-              <div styleName="no-challenges">Sorry, no successful challenges found.</div>
+              <div styleName="no-challenges">
+Sorry, no successful challenges found.
+              </div>
             </div>
           </section>
         </div>
@@ -262,13 +263,15 @@ class SubTrackChallengeView extends React.Component {
 
       return (
         <div>
-          {challengeIndexToPopModal != null &&
+          {challengeIndexToPopModal != null
+          && (
           <div>
             <GalleryModal
               onCancel={this.onCloseModal}
               challenge={challengeToRender[challengeIndexToPopModal]}
             />
           </div>
+          )
             }
           <InfiniteScroll
             initialLoad={false}
@@ -294,23 +297,22 @@ class SubTrackChallengeView extends React.Component {
           {loadingSubTrackChallengesUUID && <LoadingIndicator />}
         </div>
       );
-    } else if (track === 'DATA_SCIENCE' && subTrack === 'SRM') {
+    } if (track === 'DATA_SCIENCE' && subTrack === 'SRM') {
       userSrms.sort((a, b) => {
         const aHasFP = a.rounds[0];
         const bHasFP = b.rounds[0];
         if (
-          (a.rounds[0].userSRMDetails &&
-           a.rounds[0].userSRMDetails.finalPoints)
-            &&
-          (b.rounds[0].userSRMDetails &&
-           b.rounds[0].userSRMDetails.finalPoints)
+          (a.rounds[0].userSRMDetails
+           && a.rounds[0].userSRMDetails.finalPoints)
+            && (b.rounds[0].userSRMDetails
+           && b.rounds[0].userSRMDetails.finalPoints)
         ) {
           // sort descending
           return b.rounds[0].userSRMDetails.finalPoints - a.rounds[0].userSRMDetails.finalPoints;
-        } else if (bHasFP) {
+        } if (bHasFP) {
           // if b has FP, b should go first
           return 1;
-        } else if (aHasFP) {
+        } if (aHasFP) {
           return -1;
         }
         return 0;
@@ -328,8 +330,7 @@ class SubTrackChallengeView extends React.Component {
             <div styleName={track}>
               <section>
                 <div styleName="challenges">
-                  {userSrms.map(item =>
-                    <SRMTile key={`srm-${item.name}`} challenge={item} userId={userId} />)
+                  {userSrms.map(item => <SRMTile key={`srm-${item.name}`} challenge={item} userId={userId} />)
                   }
                 </div>
               </section>
@@ -338,7 +339,7 @@ class SubTrackChallengeView extends React.Component {
           {loadingSRMUUID && <LoadingIndicator />}
         </div>
       );
-    } else if (track === 'DATA_SCIENCE' && subTrack === 'MARATHON_MATCH') {
+    } if (track === 'DATA_SCIENCE' && subTrack === 'MARATHON_MATCH') {
       const marathonToRender = _.map(
         userMarathons,
         item => ({
@@ -359,8 +360,7 @@ class SubTrackChallengeView extends React.Component {
             <div styleName={track}>
               <section>
                 <div styleName="challenges">
-                  {marathonToRender.map(item =>
-                    <ChallengeTile key={`marathon-${item.name}`} challenge={item} />)
+                  {marathonToRender.map(item => <ChallengeTile key={`marathon-${item.name}`} challenge={item} />)
                   }
                 </div>
               </section>
@@ -381,25 +381,25 @@ const mapStateToProps = (state, ownProps) => ({
   track: ownProps.track,
   subTrack: ownProps.subTrack,
 
-  challenges: state.members[ownProps.handle] ?
-    state.members[ownProps.handle].subtrackChallenges : null,
-  challengesHasMore: state.members[ownProps.handle] ?
-    state.members[ownProps.handle].subtrackChallengesHasMore : null,
-  loadingSubTrackChallengesUUID: state.members[ownProps.handle] ?
-    state.members[ownProps.handle].loadingSubTrackChallengesUUID : null,
+  challenges: state.members[ownProps.handle]
+    ? state.members[ownProps.handle].subtrackChallenges : null,
+  challengesHasMore: state.members[ownProps.handle]
+    ? state.members[ownProps.handle].subtrackChallengesHasMore : null,
+  loadingSubTrackChallengesUUID: state.members[ownProps.handle]
+    ? state.members[ownProps.handle].loadingSubTrackChallengesUUID : null,
 
-  loadingSRMUUID: state.members[ownProps.handle] ?
-    state.members[ownProps.handle].loadingSRMUUID : null,
+  loadingSRMUUID: state.members[ownProps.handle]
+    ? state.members[ownProps.handle].loadingSRMUUID : null,
   userSrms: state.members[ownProps.handle] ? state.members[ownProps.handle].userSRMs : null,
-  userSrmHasMore: state.members[ownProps.handle] ?
-    state.members[ownProps.handle].userSRMHasMore : null,
+  userSrmHasMore: state.members[ownProps.handle]
+    ? state.members[ownProps.handle].userSRMHasMore : null,
 
-  loadingMarathonUUID: state.members[ownProps.handle] ?
-    state.members[ownProps.handle].loadingMarathonUUID : null,
-  userMarathons: state.members[ownProps.handle] ?
-    state.members[ownProps.handle].userMarathons : null,
-  userMarathonHasMore: state.members[ownProps.handle] ?
-    state.members[ownProps.handle].userMarathonHasMore : null,
+  loadingMarathonUUID: state.members[ownProps.handle]
+    ? state.members[ownProps.handle].loadingMarathonUUID : null,
+  userMarathons: state.members[ownProps.handle]
+    ? state.members[ownProps.handle].userMarathons : null,
+  userMarathonHasMore: state.members[ownProps.handle]
+    ? state.members[ownProps.handle].userMarathonHasMore : null,
 
   userId: ownProps.userId,
 });

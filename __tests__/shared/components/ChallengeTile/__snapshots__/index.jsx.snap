@@ -146,7 +146,8 @@ exports[`renders develop 1`] = `
                 <span>
                   st
                 </span>
-                 Place
+                 
+                Place
               </p>
               <div
                 className="src-shared-components-ChallengeTile-___style__challenge-score___2RKXS"

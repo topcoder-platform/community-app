@@ -217,13 +217,15 @@ Details
               )
             }
             {
-              (activeTab === 'challenges' || activeTab === 'Past srm') &&
+              (activeTab === 'challenges' || activeTab === 'Past srm')
+                && (
                 <SubTrackChallengeView
                   handle={handleParam}
                   track={track}
                   subTrack={subTrack}
                   userId={info.userId}
                 />
+                )
             }
           </div>
         </div>
