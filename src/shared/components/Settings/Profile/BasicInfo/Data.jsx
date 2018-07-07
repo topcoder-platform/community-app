@@ -12,6 +12,7 @@ import { getAllCountryObjects, getCountryObjFromAlpha3 } from 'utils/countries';
 import { getAllGenders} from 'utils/genders';
 import { getAllTShirtSizes} from 'utils/tShirtSizes';
 
+import { looseEqual } from 'utils/tc';
 import Select from 'components/Select';
 import DefaultPortrait from 'assets/images/ico-user-default.svg';
 
@@ -185,12 +186,19 @@ console.log("Entered basic info constructors")
       deletingPhoto,
       updatingProfile
     } = profileState;
-
+    const needSave= !looseEqual(this.props.firstName, this.props.basicInfo.traits.data[0].firstName)
+                  ||looseEqual(this.props.lastName, this.props.basicInfo.traits.data[0].lastName)
+                  ||looseEqual(this.props.bio, this.props.basicInfo.traits.data[0].shortBio)
+                  ||looseEqual(this.props.gender, this.props.basicInfo.traits.data[0].gender)
+                  ||looseEqual(this.props.ethnic, this.props.basicInfo.traits.data[0].ethnicBackground)
+                  ||looseEqual(this.props.countryCode, this.props.profile.competitionCountryCode)
+                  ||looseEqual(this.props.tSize, this.props.basicInfo.traits.data[0].tshirtSize)
+                  ||looseEqual(this.props.interest, this.props.basicInfo.traits.data[0].primaryInterestInTopcoder)
     const userCountry = getCountryObjFromAlpha3(countryCode);
-
+    console.log("needsave", needsave);
     return (
       <div>
-          <div styleName= "col-md-2 col-sm-2 col-xs-2 col-lg-2" style= {{padding: "0"}}>
+          <div style= {{padding: "0", width: "17.5%", marginRight: '5.4%', float: 'left'}}>
             <div styleName="image">
               <div styleName="edit-image">
                 {
@@ -203,18 +211,10 @@ console.log("Entered basic info constructors")
                 }
                 <div styleName="buttons">
                   <PrimaryButton onClick={this.onChangeImage} disabled={uploadingPhoto || deletingPhoto} theme={{ button: Styles['file-upload'] }}>
-                    {
-                      uploadingPhoto && <i className="fa fa-spinner fa-spin" />
-                    }
-                    {
-                      !uploadingPhoto && profile.photoURL && 'Change Image'
-                    }
-                    {
-                      !uploadingPhoto && !profile.photoURL && 'Browse...'
-                    }
+                    Browse...
                   </PrimaryButton>
                   <input type="file" name="image" onChange={this.onUploadPhoto} id="change-image-input" className="hidden" />
-                  {
+                  {/* {
                     profile.photoURL &&
                     <div>
                       <SecondaryButton
@@ -230,42 +230,24 @@ console.log("Entered basic info constructors")
                         }
                       </SecondaryButton>
                     </div>
-                  }
+                  } */}
                 </div>
               </div>
             </div>
           </div>
-          <div styleName= "col-md-10 col-sm-10 col-xs-10 col-lg-10">
-            <h2>{handle}</h2>
-            <br />
-            <div styleName= "col-md-6 col-sm-6 col-xs-6 col-lg-6" style= {{paddingLeft: "0"}}>
-              <p>Firstname</p>
+          <div style= {{width: "77.1%", float: "left", padding: "0"}}>
+            <p styleName= 'titleP'>{handle}</p>
+            <div styleName= "col-md-6 col-sm-6 col-xs-6 col-lg-6" style= {{paddingLeft: "0", paddingRight: "5px"}}>
+              <p styleName= "headingsP">Firstname</p>
               <input type= "text"  name="firstName" id="profile-firstName" 
-                    value={firstName} onChange= {this.onUpdateFirstName} style= {{width: "100%"}} />
+                    value={firstName} onChange= {this.onUpdateFirstName} style= {{height: "36px", marginBottom: "10px",  borderRadius: "4px", color: "#262628"}} />
             </div>
-            <div styleName= "col-md-6 col-sm-6 col-xs-6 col-lg-6">
-              <p>Lastname</p>
+            <div styleName= "col-md-6 col-sm-6 col-xs-6 col-lg-6" style= {{paddingLeft: "5px", paddingRight: "0"}}>
+              <p styleName= "headingsP">Lastname</p>
               <input type= "text" style= {{width: "100%"}} name="lastName" id="profile-lastName"
-                    value={lastName} onChange= {this.onUpdateLastName} />
+                    value={lastName} onChange= {this.onUpdateLastName} style= {{height: "36px", marginBottom: "10px", borderRadius: "4px", color: "#262628"}}/>
             </div>
-            {/* <div styleName="country">
-              <div className="form-label">Country to represent</div>
-              <Select
-                name="location"
-                options={countries}
-                value={userCountry}
-                onChange={this.onUpdateCountry}
-                placeholder="Country"
-                matchPos="start"
-                matchProp="name"
-                labelKey="name"
-                valueKey="name"
-                clearable={false}
-              />
-            </div> */}
-            <div styleName="bio">
-              <div className="form-label">Short Bio
-              </div>
+            <p styleName= "headingsP"><span>Short Bio</span></p>
               <textarea
                 name="bio"
                 id="profile-bio"
@@ -273,16 +255,16 @@ console.log("Entered basic info constructors")
                 maxLength="256"
                 className="topcoder-input"
                 onChange= {this.onUpdateBio}
+                styleName= "textAreaP"
                 placeholder="E.g., I'm a JS architect interested in creating new data interchange formats. I love sci-fi and riding my motorcycle."
               />
-            </div>
-            <div styleName= "col-md-3 col-sm-3 col-xs-3 col-lg-3" style= {{paddingLeft: "0"}}>
-              <p>Birth Date</p>
+            <div styleName= "col-md-3 col-sm-3 col-xs-3 col-lg-3" style= {{paddingLeft: "0", paddingRight: "5px"}}>
+              <p styleName= "headingsP">Birth Date</p>
               <input type= "date" style= {{width: "100%"}} name="birthDate" id="profile-birthDate" 
-                    value={birthDate} onChange= {this.onUpdateBirthDate} />
+                    value={birthDate} onChange= {this.onUpdateBirthDate} style= {{height: "36px", marginBottom: "10px", borderRadius: "4px", color: "#262628"}} />
             </div>
-            <div styleName= "col-md-3 col-sm-3 col-xs-3 col-lg-3">
-              <p>Gender</p>
+            <div styleName= "col-md-3 col-sm-3 col-xs-3 col-lg-3" style= {{paddingLeft: "0", paddingRight: "5px"}}>
+              <p styleName= "headingsP">Gender</p>
               <Select
                 name="gender"
                 options={genders}
@@ -294,16 +276,17 @@ console.log("Entered basic info constructors")
                 matchProp="name"
                 labelKey="name"
                 valueKey="name"
+                style= {{height: "36px", marginBottom: "10px",  borderRadius: "4px", color: "#262628"}}
                 clearable={false}
               />
             </div>
-            <div styleName= "col-md-4 col-sm-4 col-xs-4 col-lg-4">
-              <p>Ethnic</p>
+            <div styleName= "col-md-4 col-sm-4 col-xs-4 col-lg-4" style= {{paddingLeft: "0", paddingRight: "5px"}}>
+              <p styleName= "headingsP">Ethnic</p>
               <input type= "text" style= {{width: "100%"}} name="ethnic" id="profile-ethnic" 
-                    value={ethnic} onChange= {this.onUpdateEthnic} />
+                    value={ethnic} onChange= {this.onUpdateEthnic} style= {{height: "36px", marginBottom: "10px",  borderRadius: "4px", color: "#262628"}} />
             </div>
-            <div styleName= "col-md-2 col-sm-2 col-xs-2 col-lg-2">
-              <p>T-Shirt Size</p>
+            <div styleName= "col-md-2 col-sm-2 col-xs-2 col-lg-2" style= {{paddingLeft: "5px", paddingRight: "0"}}>
+              <p styleName= "headingsP">T-Shirt Size</p>
               <Select
                 name="tSize"
                 options={tShirtSizes}
@@ -312,58 +295,61 @@ console.log("Entered basic info constructors")
                 onChange={this.onUpdateTSize}
                 placeholder="T-Shirt Size"
                 matchPos="start"
+                style= {{height: "36px", marginBottom: "10px", borderRadius: "4px", color: "#262628"}}
                 matchProp="name"
                 labelKey="name"
                 valueKey="name"
                 clearable={false}
               />
             </div>
-            <p>Address</p>
-            <input type= "text" style= {{width: "100%"}} name="address" id="profile-address" 
-                    value={address} onChange= {this.onUpdateAddress} />
-            <div styleName= "col-md-6 col-sm-6 col-xs-6 col-lg-6" style= {{paddingLeft: "0"}} >
-              <p>Country</p>
-              <Select
-                name="location"
-                options={countries}
-                value={userCountry}
-                onChange={this.onUpdateCountry}
-                placeholder="Country"
-                matchPos="start"
-                matchProp="name"
-                labelKey="name"
-                valueKey="name"
-                clearable={false}
-              />
+            <p styleName= "headingsP">Address</p>
+              <input type= "text" style= {{height: "36px", marginBottom: "10px", borderRadius: "4px", color: "#262628"}} name="address" id="profile-address" 
+                      value={address} onChange= {this.onUpdateAddress} />
+              <div styleName= "col-md-6 col-sm-6 col-xs-6 col-lg-6" style= {{paddingLeft: "0", paddingRight: "5px"}} >
+                <p styleName= "headingsP">Country</p>
+                <Select
+                  name="location"
+                  style= {{height: "36px", borderRadius: "4px", marginBottom: "10px",  color: "#262628"}}
+                  options={countries}
+                  value={userCountry}
+                  onChange={this.onUpdateCountry}
+                  placeholder="Country"
+                  matchPos="start"
+                  matchProp="name"
+                  labelKey="name"
+                  valueKey="name"
+                  clearable={false}
+                />
+              </div>
+              <div styleName= "col-md-6 col-sm-6 col-xs-6 col-lg-6" style= {{paddingLeft: "5px", paddingRight: "0"}}>
+                <p styleName= "headingsP">State</p>
+                <input type= "text" name="state" id="profile-state" 
+                      value={state} onChange= {this.onUpdateState} style= {{height: "36px", marginBottom: "10px",  borderRadius: "4px", color: "#262628"}}/>
+              </div>
+            <div styleName= "col-md-6 col-sm-6 col-xs-6 col-lg-6" style= {{paddingLeft: "0", paddingRight: "5px"}}>
+              <p styleName= "headingsP">City</p>
+              <input type= "text" name="city" id="profile-city" 
+                    value={city} onChange= {this.onUpdateCity} style= {{height: "36px", margin: "0", borderRadius: "4px", color: "#262628"}} />
             </div>
-            <div styleName= "col-md-6 col-sm-6 col-xs-6 col-lg-6">
-              <p>State</p>
-              <input type= "text" style= {{width: "100%"}} name="state" id="profile-state" 
-                    value={state} onChange= {this.onUpdateState} />
+            <div styleName= "col-md-6 col-sm-6 col-xs-6 col-lg-6" style= {{paddingLeft: "5px", paddingRight: "0"}}>
+              <p styleName= "headingsP">ZIP Code</p>
+              <input type= "text" name="zip" id="profile-zip" 
+                    value={zip} onChange= {this.onUpdateZip} style= {{height: "36px", marginBottom: "10px",  borderRadius: "4px", color: "#262628"}} />
             </div>
-            <div styleName= "col-md-6 col-sm-6 col-xs-6 col-lg-6" style= {{paddingLeft: "0"}}>
-              <p>City</p>
-              <input type= "text" style= {{width: "100%"}} name="city" id="profile-city" 
-                    value={city} onChange= {this.onUpdateCity} />
-            </div>
-            <div styleName= "col-md-6 col-sm-6 col-xs-6 col-lg-6">
-              <p>ZIP Code</p>
-              <input type= "text" style= {{width: "100%"}} name="zip" id="profile-zip" 
-                    value={zip} onChange= {this.onUpdateZip}/>
-            </div>
-            <p>Current Location</p>
-            <input type= "text" style= {{width: "100%"}} name="current" id="profile-current" 
-                    value={current} onChange= {this.onUpdateCurrent}/>
-            <p>Primary Interest of Topcoder</p>
-            <input type= "text" style= {{width: "100%"}} name="interest" id="profile-interest" 
-                    value={interest} onChange= {this.onUpdateInterest} />
-            <div className="save-section">
+            <p styleName= "headingsP">Current Location</p>
+            <input type= "text" name="current" id="profile-current" 
+                    value={current} onChange= {this.onUpdateCurrent} style= {{height: "36px", marginBottom: "10px",  borderRadius: "4px", color: "#262628"}}/>
+            <p styleName= "headingsP">Primary Interest of Topcoder</p>
+            <input type= "text" name="interest" id="profile-interest" 
+                    value={interest} onChange= {this.onUpdateInterest} style= {{height: "36px", marginBottom: "10px",  borderRadius: "4px", color: "#262628"}} />
+            <div className="save-section" style= {{backgroundColor: "white", border: "none"}}>
             <PrimaryButton
+              disabled= {!needSave}
               onClick={this.onSaveProfileBasicInfo}
               theme={{ button: Styles['save-button'] }}
             >
               {
-                !updatingProfile && 'Save'
+                !updatingProfile && 'Save Changes'
               }
               {
                 updatingProfile && <i className="fa fa-spinner fa-spin" />

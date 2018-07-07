@@ -5,6 +5,10 @@ nav.settings-tab {
   flex-direction: row;
   justify-content: center;
   background-color: $tc-gray-neutral-light;
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 20px;
+  width: 662px;
 
   @media only screen and (min-width: 768px) {
     display: flex;
@@ -16,10 +20,10 @@ nav.settings-tab {
 
   li {
     display: inline-block;
-    margin-right: 25px;
+    margin-right: 100px;
 
     @media only screen and (min-width: 768px) {
-      margin-right: 35px;
+      width: 90px;
     }
 
     &:last-child {
@@ -50,8 +54,28 @@ nav.settings-tab {
   }
 
   .active-tab {
-    padding-bottom: 18px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    text-align: center;
+    margin: 0;
+    margin-right: 100px;
     border-bottom: 2px solid $tc-dark-blue-110;
     color: $tc-gray-90;
+  }
+  .inactive-tab {
+    padding-top: 15px;
+    padding-bottom: 15px;
+    text-align: center;
+    margin: 0;
+    margin-right: 100px;
+  }
+  .activeLink{
+    color: $tc-gray-90;
+    font-size: 15px;
+    font-weight: 550;
+  }
+  .inactiveLink{
+    font-size: 15px;
+    font-weight: 550;
   }
 }

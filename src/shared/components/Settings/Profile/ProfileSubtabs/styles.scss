@@ -1,17 +1,33 @@
 @import "~styles/mixins";
-
-.activeTab {
-    cursor: pointer;
-    background: #ededf2;
-    height: 30px;
-    font-family: Roboto;
-    font-weight: bold;
-    padding: 4px 10px 4px 2px;
+.navlist{
+    height: 45px;
+    margin-bottom: 20px;
 }
-.inactiveTab {
+a.tab img{
+    margin-right: 14px;
+    width: 34px;
+    max-height: 30px;
+}
+.activeTab {
+    background-color: #ededf2;
+    font-weight: 700;
+}
+.tab{
+    font-family: Roboto,Helvetica,Arial,sans-serif;
+    font-size: 15px;
+    line-height: 25px;
+    color: #262628;
+    text-transform: capitalize;
+    text-decoration: none;
     cursor: pointer;
-    background: white;
-    height: 30px;
-    font-family: Roboto;
-    padding: 4px 10px 4px 2px;
+    height: 100%;
+    padding-left: 21px;
+    display: flex;
+    align-items: center;
+    border-radius: 4px;
+}
+a.tab img{
+    margin-right: 14px;
+    width: 34px;
+    max-height: 30px;
 }

@@ -50,10 +50,10 @@ export default function Header(props) {
     props.history.push(`/settings/${tab}`);
   };
   return (
-    <div styleName="page-state-header">
+    <div styleName="page-state-header" style= {{padding: "38px 50px 28px 50px"}}>
       <header>
-        <div styleName="page-info">
-          <h1>Settings</h1>
+        <div styleName="page-info" style= {{marginLeft: "0"}}>
+          <h1 style= {{fontSize: "28px", fontWeight: "400", lineHeight: "1.25", color: "#262628"}}>Settings</h1>
         </div>
         <TabBar
           settingsTab= {settingsTab}

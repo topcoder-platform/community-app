@@ -42,11 +42,11 @@ export default class Profile extends React.Component {
 
 
     return (
-      <div styleName="edit-profile-container" style= {{padding: "0 50px 30px"}}>
-        <div className="settings-section">
+      <div styleName="edit-profile-container" style= {{padding: "60px 50px 55px"}}>
+        <div className="settings-section" style= {{margin: "0"}}>
           <form autoComplete="off" style= {{width: "100%"}}>
             <input autoComplete="false" name="hidden" type="text" className="hidden" />
-            <div styleName= "col-lg-3 col-sm-3 col-xs-3 col-md-3" style= {{padding: "0 10px"}}>
+            <div style= {{width: "23.49%", marginRight: "6.6%", float: "left"}}>
               <div>
                 <Navbar
                   subTab= {subTab}
@@ -54,7 +54,7 @@ export default class Profile extends React.Component {
                   />
               </div>
             </div>
-            <div styleName= "col-lg-9 col-sm-9 col-xs-9 col-md-9">
+            <div style= {{width: "69.9%", float: "left"}}>
               {
                 subTab === PROFILETABS.BASICINFO &&
                 <BasicInfo
