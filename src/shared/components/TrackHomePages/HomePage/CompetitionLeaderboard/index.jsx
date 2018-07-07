@@ -7,7 +7,7 @@ import PT from 'prop-types';
 import ContentfulLoader from 'containers/ContentfulLoader';
 
 import CompetitionTypes from './CompetitionTypes';
-import Leaderboard from './Leaderboard';
+// import Leaderboard from './Leaderboard';
 
 import './styles.scss';
 
@@ -34,9 +34,11 @@ const CompetitionLeaderboard = ({ data, track }) => {
             <div styleName="competition">
               <CompetitionTypes track={track} data={result.competitionTypes} />
             </div>
-            <div styleName="leaderboard">
-              <Leaderboard data={result.tcoLeaderboard} />
-            </div>
+            {/*
+              <div styleName="leaderboard">
+                <Leaderboard data={result.tcoLeaderboard} />
+              </div>
+            */}
           </div>
         );
       }}

@@ -55,6 +55,7 @@ const EXTRA_SCRIPTS = [
   <!-- End of topcoder Zendesk Widget script -->`,
 ];
 
+global.KEEP_BUILD_INFO = true;
 const MODE = process.env.BABEL_ENV;
 const webpackConfig = webpackConfigFactory(MODE);
 
@@ -185,7 +186,6 @@ async function onExpressJsSetup(server) {
   });
 }
 
-global.KEEP_BUILD_INFO = true;
 serverFactory(webpackConfig, {
   Application,
   beforeRender,
