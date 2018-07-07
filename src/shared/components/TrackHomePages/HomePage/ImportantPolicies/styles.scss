@@ -36,13 +36,8 @@
 }
 
 .icon {
-  height: 96px;
-  width: 96px;
-
-  @media screen and (max-width: $screen-sm) {
-    height: 72px;
-    width: 72px;
-  }
+  height: 45px;
+  width: 45px;
 }
 
 .text {
