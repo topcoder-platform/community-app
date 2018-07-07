@@ -55,9 +55,7 @@ const EXTRA_SCRIPTS = [
   <!-- End of topcoder Zendesk Widget script -->`,
 ];
 
-global.KEEP_BUILD_INFO = true;
 const MODE = process.env.BABEL_ENV;
-const webpackConfig = webpackConfigFactory(MODE);
 
 async function beforeRender(req, suggestedConfig) {
   const [
@@ -174,19 +172,10 @@ async function onExpressJsSetup(server) {
    * for static assets. */
   const url = path.resolve(__dirname, '../../build');
   server.use('/community-app-assets', express.static(url));
-
-  /* If a build asset has not been found till this point, we fallthrough
-   * a simple error response, around the standard ReactJS rendering. Otherwise,
-   * it is too easy to mess with the reponse status, which can cause caching
-   * problems in CDN during re-deployments of the app. */
-  server.use(webpackConfig.output.publicPath, (req, res, next) => {
-    const error = new Error('Not found');
-    error.status = 404;
-    next(error);
-  });
 }
 
-serverFactory(webpackConfig, {
+global.KEEP_BUILD_INFO = true;
+serverFactory(webpackConfigFactory(MODE), {
   Application,
   beforeRender,
   devMode: MODE === 'development',

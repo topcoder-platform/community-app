@@ -30,6 +30,16 @@ const url = path.resolve(__dirname, '../../../build');
 router.use('/public/static-assets', (req, res, next) => {
   res.set('Access-Control-Allow-Origin', '*');
   next();
-}, express.static(url));
+}, express.static(url),
+
+/* If requested asset has not been found by ExpressJS - bail out with 404 error,
+ * otherwise, at the moment, we cannot ensure proper 404 status inside ReactJS
+ * renderer (due to lack of support for server-side rendering of Contentful
+ * routes). */
+(req, res, next) => {
+  const error = new Error('Not found');
+  error.status = 404;
+  next(error);
+});
 
 export default router;
