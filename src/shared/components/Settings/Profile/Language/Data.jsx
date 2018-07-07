@@ -9,10 +9,10 @@ import PT from 'prop-types';
 import { PrimaryButton, SecondaryButton } from 'topcoder-react-ui-kit';
 
 import { getAllCountryObjects, getCountryObjFromAlpha3 } from 'utils/countries';
-
+import flag from "images/flag.jpg";
 import Select from 'components/Select';
 import DefaultPortrait from 'assets/images/ico-user-default.svg';
-import { getLanguageLevel} from 'utils/languageLevel';
+import { getLanguageLevel} from 'utils/languageLevel';                                                                                                                                                                                                                                                                                                                                                    
 import { getLanguages} from 'utils/languages';
 import Styles from './styles.scss';
 
@@ -63,15 +63,20 @@ export default class Data extends React.Component {
     return(
       this.props.languages.map((languageObj, key) => {
         return (
-        <div style= {{border:"1px solid #ededf2"}}>
-        <div styleName= "col-md-9 col-sm-9 col-xs-9 col-lg-9">
-          <h4>{languageObj.language}</h4>
-          <p>Spoken: {languageObj.spokenLevel} | Written: {languageObj.writtenLevel}</p>
+        <div style= {{border:"1px solid #ededf2", padding: "20px 20px", overflow: "hidden"}}>
+        <div style= {{width: "6.7%", padding: "0", float: "left"}}>
+        <img src= {{flag}} style= {{height: "45px", width: "45px"}}/>
         </div>
-        <div styleName= "col-md-3 col-sm-3 col-xs-3 col-lg-3">
-        <button style= {{padding: "5px", borderRadius: "4px"}} onClick= {(e) => (e.preventDefault(), this.onDeleteProfileLanguages(languageObj.language))}>
-                Delete
-              </button>
+        <div style= {{width: "79.83%", marginLeft: "2.4%", float: "left"}}>
+          <p style= {{fontFamily: "Roboto", marginBottom: "5px", fontSize: "16px", fontWeight: "550", lineHeight: "1.33", color: "#262628"}}>{languageObj.language}</p>
+
+          <p style= {{fontFamily: "Roboto", fontSize: "16px", color: "#888894", lineHeight: "1.33"}}>Spoken: <span style= {{textTransform: "uppercase"}}>{languageObj.spokenLevel}</span> | Written: <span style= {{textTransform: "uppercase"}}>{languageObj.writtenLevel}</span></p>
+        </div>
+        <div style= {{width: "8.367%", float: "left"}}>
+        <a style= {{padding: "5px", borderRadius: "4px"}} onClick= {(e) => (e.preventDefault(), this.onDeleteProfileLanguages(languageObj.language))}>
+                {/* <img src= "images/flag.jpg" style= {{height: "15px", width: "15px"}}/> */}
+                <p style= {{fontSize: "13px", color: "#888894", marginTop: "10px", fontFamily: "Roboto", textAlign: "center", lineHeight: "1.36"}}>Delete</p>
+              </a>
           </div>
         </div>
       )})
@@ -89,15 +94,13 @@ export default class Data extends React.Component {
     
 
     return (
-      <div>
-        <form autoComplete= "off">
-          <h2>Language</h2>
-          <br />
-          <div style= {{backgroundColor: "#fafafb", border:"1px solid #ededf2"}}>
-            <h3>Add Language</h3>
+      <div style= {{padding: "0", float: "left"}}>
+          <p styleName= 'titleP'>Language</p>
+          <div style= {{backgroundColor: "#fafafb", border:"1px solid #ededf2", padding: "20px"}}>
+            <p style= {{fontSize: "20px", color: "#262628", lineHeight: "1.5", marginBottom: "20px"}}>Add Language</p>
             <br />
-            <div styleName= "col-md-6 col-sm-6 col-xs-6 col-lg-6">
-              <p>Language</p>
+            <div styleName= "col-md-6 col-sm-6 col-xs-6 col-lg-6" style= {{paddingLeft: "0", paddingRight: "5px"}}>
+              <p styleName= "headingsP">Add Language</p>
               <Select
                 name="language"
                 options={allLanguages}
@@ -107,13 +110,14 @@ export default class Data extends React.Component {
                 placeholder="Language"
                 matchPos="start"
                 matchProp="name"
+                style= {{height: "36px", marginBottom: "10px", borderRadius: "4px", color: "#262628"}}
                 labelKey="name"
                 valueKey="name"
                 clearable={false}
               />
             </div>
-            <div styleName= "col-md-3 col-sm-3 col-xs-3 col-lg-3">
-              <p>Spoken Level</p>
+            <div styleName= "col-md-3 col-sm-3 col-xs-3 col-lg-3" style= {{paddingLeft: "5px", paddingRight: "5px"}}>
+              <p styleName= "headingsP">Spoken Level</p>
               <Select
                 name="spokenLevel"
                 options={languageLevels}
@@ -123,13 +127,14 @@ export default class Data extends React.Component {
                 placeholder="Spoken Level"
                 matchPos="start"
                 matchProp="name"
+                style= {{height: "36px", marginBottom: "10px", borderRadius: "4px", color: "#262628"}}
                 labelKey="name"
                 valueKey="name"
                 clearable={false}
               />
             </div>
-            <div styleName= "col-md-3 col-sm-3 col-xs-3 col-lg-3">
-              <p>Written Level</p>
+            <div styleName= "col-md-3 col-sm-3 col-xs-3 col-lg-3" style= {{paddingLeft: "5px", paddingRight: "0"}}>
+              <p styleName= "headingsP">Written Level</p>
               <Select
                 name="writtenLevel"
                 options={languageLevels}
@@ -140,17 +145,23 @@ export default class Data extends React.Component {
                 matchPos="start"
                 matchProp="name"
                 labelKey="name"
+                style= {{height: "36px", marginBottom: "10px", borderRadius: "4px", color: "#262628"}}
                 valueKey="name"
                 clearable={false}
               />
             </div>
-            <button style= {{padding: "5px", borderRadius: "4px"}} onClick={this.onSaveProfileLanguages}>
+            <div style={{textAlign: "center"}}>
+            <PrimaryButton
+              onClick={this.onSaveProfileLanguages}
+              theme={{ button: Styles['save-button'] }}
+            >
               Add Language
-            </button>
+            </PrimaryButton>
+            </div>
           </div>
-          <br />
+          <div style={{backgroundColor: "white", marginTop: "20px"}}> 
           {this.displayLang()}
-        </form>
+          </div>
       </div>
     );
   }

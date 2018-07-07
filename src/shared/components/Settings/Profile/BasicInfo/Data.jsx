@@ -195,7 +195,6 @@ console.log("Entered basic info constructors")
                   ||looseEqual(this.props.tSize, this.props.basicInfo.traits.data[0].tshirtSize)
                   ||looseEqual(this.props.interest, this.props.basicInfo.traits.data[0].primaryInterestInTopcoder)
     const userCountry = getCountryObjFromAlpha3(countryCode);
-    console.log("needsave", needsave);
     return (
       <div>
           <div style= {{padding: "0", width: "17.5%", marginRight: '5.4%', float: 'left'}}>
@@ -263,7 +262,7 @@ console.log("Entered basic info constructors")
               <input type= "date" style= {{width: "100%"}} name="birthDate" id="profile-birthDate" 
                     value={birthDate} onChange= {this.onUpdateBirthDate} style= {{height: "36px", marginBottom: "10px", borderRadius: "4px", color: "#262628"}} />
             </div>
-            <div styleName= "col-md-3 col-sm-3 col-xs-3 col-lg-3" style= {{paddingLeft: "0", paddingRight: "5px"}}>
+            <div styleName= "col-md-3 col-sm-3 col-xs-3 col-lg-3" style= {{paddingLeft: "5px", paddingRight: "5px"}}>
               <p styleName= "headingsP">Gender</p>
               <Select
                 name="gender"
@@ -280,7 +279,7 @@ console.log("Entered basic info constructors")
                 clearable={false}
               />
             </div>
-            <div styleName= "col-md-4 col-sm-4 col-xs-4 col-lg-4" style= {{paddingLeft: "0", paddingRight: "5px"}}>
+            <div styleName= "col-md-4 col-sm-4 col-xs-4 col-lg-4" style= {{paddingLeft: "5px", paddingRight: "5px"}}>
               <p styleName= "headingsP">Ethnic</p>
               <input type= "text" style= {{width: "100%"}} name="ethnic" id="profile-ethnic" 
                     value={ethnic} onChange= {this.onUpdateEthnic} style= {{height: "36px", marginBottom: "10px",  borderRadius: "4px", color: "#262628"}} />
@@ -342,18 +341,13 @@ console.log("Entered basic info constructors")
             <p styleName= "headingsP">Primary Interest of Topcoder</p>
             <input type= "text" name="interest" id="profile-interest" 
                     value={interest} onChange= {this.onUpdateInterest} style= {{height: "36px", marginBottom: "10px",  borderRadius: "4px", color: "#262628"}} />
-            <div className="save-section" style= {{backgroundColor: "white", border: "none"}}>
+            <div style= {{backgroundColor: "white", border: "none", textAlign: "center"}}>
             <PrimaryButton
               disabled= {!needSave}
               onClick={this.onSaveProfileBasicInfo}
               theme={{ button: Styles['save-button'] }}
             >
-              {
-                !updatingProfile && 'Save Changes'
-              }
-              {
-                updatingProfile && <i className="fa fa-spinner fa-spin" />
-              }
+              Save Changes
             </PrimaryButton>
           </div>
           </div>
