@@ -1,0 +1,126 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders gallery modal 1`] = `
+<ThemedModal
+  composeAdhocTheme="deeply"
+  composeContextTheme="softly"
+  mapThemrProps={[Function]}
+  onCancel={[Function]}
+  theme={
+    Object {
+      "container": "src-shared-components-ProfilePage-Stats-SubTrackChallengeView-GalleryModal-style___container___3OFfkK",
+      "current": "src-shared-components-ProfilePage-Stats-SubTrackChallengeView-GalleryModal-style___current___2bxW9R",
+      "head": "src-shared-components-ProfilePage-Stats-SubTrackChallengeView-GalleryModal-style___head___2wLdN1",
+      "info": "src-shared-components-ProfilePage-Stats-SubTrackChallengeView-GalleryModal-style___info___2BluAJ",
+      "left-nav": "src-shared-components-ProfilePage-Stats-SubTrackChallengeView-GalleryModal-style___left-nav___qE-xCs",
+      "lightbox-container": "src-shared-components-ProfilePage-Stats-SubTrackChallengeView-GalleryModal-style___lightbox-container___3WFI-N",
+      "ngdialog-close": "src-shared-components-ProfilePage-Stats-SubTrackChallengeView-GalleryModal-style___ngdialog-close___11Kc6b",
+      "ngdialog-content": "src-shared-components-ProfilePage-Stats-SubTrackChallengeView-GalleryModal-style___ngdialog-content___36net_",
+      "right-nav": "src-shared-components-ProfilePage-Stats-SubTrackChallengeView-GalleryModal-style___right-nav___2xIJlR",
+      "selection": "src-shared-components-ProfilePage-Stats-SubTrackChallengeView-GalleryModal-style___selection___1yBbBz",
+      "selections": "src-shared-components-ProfilePage-Stats-SubTrackChallengeView-GalleryModal-style___selections___LnliUu",
+      "selector": "src-shared-components-ProfilePage-Stats-SubTrackChallengeView-GalleryModal-style___selector___3sfDEq",
+      "title": "src-shared-components-ProfilePage-Stats-SubTrackChallengeView-GalleryModal-style___title___R9l11q",
+    }
+  }
+  themePriority="adhoc-context-default"
+>
+  <div
+    className="src-shared-components-ProfilePage-Stats-SubTrackChallengeView-GalleryModal-___style__lightbox-container___3WFI-"
+  >
+    <div
+      className="src-shared-components-ProfilePage-Stats-SubTrackChallengeView-GalleryModal-___style__left-nav___qE-xC"
+      onClick={[Function]}
+      role="presentation"
+    >
+      <Left
+        height="19"
+        viewBox="0 0 12 19"
+        width="12"
+        xmlns="http://www.w3.org/2000/svg"
+      />
+    </div>
+    <div
+      className="src-shared-components-ProfilePage-Stats-SubTrackChallengeView-GalleryModal-___style__selector___3sfDE"
+    >
+      <div
+        className="src-shared-components-ProfilePage-Stats-SubTrackChallengeView-GalleryModal-___style__title___R9l11"
+      >
+        2016 Topcoder Open Logo Design Challenge
+      </div>
+      <ReactImageFallback
+        fallbackImage="/community-app-assets/images/07cdea9452b25fd9369a01c7e16a7e63.png"
+        initialImage="/community-app-assets/images/07cdea9452b25fd9369a01c7e16a7e63.png"
+        src="//studio.topcoder.com/studio.jpg?module=DownloadSubmission&sbmid=211812&sbt=full"
+      />
+      <div
+        className="src-shared-components-ProfilePage-Stats-SubTrackChallengeView-GalleryModal-___style__info___2BluA"
+      >
+        1
+         of 
+        4
+      </div>
+      <div
+        className="src-shared-components-ProfilePage-Stats-SubTrackChallengeView-GalleryModal-___style__selections___LnliU"
+      >
+        <span
+          onClick={[Function]}
+          role="presentation"
+        >
+          <ReactImageFallback
+            className="src-shared-components-ProfilePage-Stats-SubTrackChallengeView-GalleryModal-___style__selection___1yBbB src-shared-components-ProfilePage-Stats-SubTrackChallengeView-GalleryModal-___style__current___2bxW9"
+            fallbackImage="/community-app-assets/images/07cdea9452b25fd9369a01c7e16a7e63.png"
+            initialImage="/community-app-assets/images/07cdea9452b25fd9369a01c7e16a7e63.png"
+            src="//studio.topcoder.com/studio.jpg?module=DownloadSubmission&sbmid=211812&sbt=full"
+          />
+        </span>
+        <span
+          onClick={[Function]}
+          role="presentation"
+        >
+          <ReactImageFallback
+            className="src-shared-components-ProfilePage-Stats-SubTrackChallengeView-GalleryModal-___style__selection___1yBbB"
+            fallbackImage="/community-app-assets/images/07cdea9452b25fd9369a01c7e16a7e63.png"
+            initialImage="/community-app-assets/images/07cdea9452b25fd9369a01c7e16a7e63.png"
+            src="//studio.topcoder.com/studio.jpg?module=DownloadSubmission&sbmid=211424&sbt=full"
+          />
+        </span>
+        <span
+          onClick={[Function]}
+          role="presentation"
+        >
+          <ReactImageFallback
+            className="src-shared-components-ProfilePage-Stats-SubTrackChallengeView-GalleryModal-___style__selection___1yBbB"
+            fallbackImage="/community-app-assets/images/07cdea9452b25fd9369a01c7e16a7e63.png"
+            initialImage="/community-app-assets/images/07cdea9452b25fd9369a01c7e16a7e63.png"
+            src="//studio.topcoder.com/studio.jpg?module=DownloadSubmission&sbmid=211425&sbt=full"
+          />
+        </span>
+        <span
+          onClick={[Function]}
+          role="presentation"
+        >
+          <ReactImageFallback
+            className="src-shared-components-ProfilePage-Stats-SubTrackChallengeView-GalleryModal-___style__selection___1yBbB"
+            fallbackImage="/community-app-assets/images/07cdea9452b25fd9369a01c7e16a7e63.png"
+            initialImage="/community-app-assets/images/07cdea9452b25fd9369a01c7e16a7e63.png"
+            src="//studio.topcoder.com/studio.jpg?module=DownloadSubmission&sbmid=211429&sbt=full"
+          />
+        </span>
+      </div>
+    </div>
+    <div
+      className="src-shared-components-ProfilePage-Stats-SubTrackChallengeView-GalleryModal-___style__right-nav___2xIJl"
+      onClick={[Function]}
+      role="presentation"
+    >
+      <Right
+        height="19"
+        viewBox="0 0 12 19"
+        width="12"
+        xmlns="http://www.w3.org/2000/svg"
+      />
+    </div>
+  </div>
+</ThemedModal>
+`;

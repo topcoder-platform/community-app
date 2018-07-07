@@ -1,0 +1,87 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders srm 1`] = `
+<div
+  className="src-shared-components-SRMTile-___style__challenge___1MN7r src-shared-components-SRMTile-___style__tile___Nm7ku src-shared-components-SRMTile-___style__srm-tile___2-6Ny"
+>
+  <div
+    className="src-shared-components-SRMTile-___style__srm___3gRE6 src-shared-components-SRMTile-___style__tile-view___u-LA_"
+  >
+    <div
+      className="src-shared-components-SRMTile-___style__past-srm___32HMz"
+    >
+      <div
+        className="src-shared-components-SRMTile-___style__challenge-track___1UZig"
+      />
+      <header>
+        <a
+          href="https://community.topcoder-dev.com/stat?c=round_overview&rd=16856"
+        >
+          Single Round Match 705 Sponsored by Blizzard
+        </a>
+        <div
+          className="src-shared-components-SRMTile-___style__ended-on___ECbA6"
+        >
+          <span>
+            Jan 12, 2017
+          </span>
+        </div>
+      </header>
+      <div
+        className="src-shared-components-SRMTile-___style__member-stats___3Td16"
+      >
+        <p
+          className="src-shared-components-SRMTile-___style__points___2HLab"
+        >
+          <span>
+            1581.1
+          </span>
+          <span>
+            Points
+          </span>
+        </p>
+        <div
+          className="src-shared-components-SRMTile-___style__ranks___3gQeR"
+        >
+          <a
+            className="src-shared-components-SRMTile-___style__division___3ztiS"
+            href="https://community.topcoder-dev.com/stat?c=round_stats&rd=16856&dn=1"
+          >
+            <p>
+              1
+            </p>
+            <p
+              className="src-shared-components-SRMTile-___style__last-child___1ACLW"
+            >
+              <span>
+                Division 
+                1
+              </span>
+            </p>
+          </a>
+          <a
+            className="src-shared-components-SRMTile-___style__room___33Kt7"
+            href="https://community.topcoder-dev.com/stat?c=coder_room_stats&cr=1234567&rd=16856"
+          >
+            <p>
+              1
+            </p>
+            <p
+              className="src-shared-components-SRMTile-___style__last-child___1ACLW"
+            >
+              <span>
+                Room
+              </span>
+            </p>
+          </a>
+        </div>
+        <p
+          className="src-shared-components-SRMTile-___style__placement___277eW"
+        >
+          Placement
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+`;
