@@ -159,9 +159,15 @@
 
 .video-mobile {
   display: none;
+  padding: 20px;
 
   @media screen and (max-width: $screen-sm) {
     display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  img {
     width: 100%;
     height: auto;
   }
