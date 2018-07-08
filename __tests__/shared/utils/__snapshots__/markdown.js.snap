@@ -2191,3 +2191,50 @@ func main() {
   </p>,
 ]
 `;
+
+exports[`Test of code blocks 1`] = `
+Array [
+  <h1>
+    Code blocks test
+  </h1>,
+  <h3>
+    Markdown fence (\`\`\`) codeblock
+  </h3>,
+  <code>
+    for (let i = 0; i &lt; 10; i += 1) {
+
+  for (let j = 0; j &lt; 10; j += 1) {
+
+    for (let k = 0; k &lt; 10; k += 1) {
+      console.log('Yo!');
+    }
+  }
+}
+
+  </code>,
+  <h3>
+    Html code block
+  </h3>,
+  <p>
+    <code>
+      <br />
+      for (let i = 0; i &lt; 10; i += 1) {
+    </code>
+  </p>,
+  <p>
+    for (let j = 0; j &lt; 10; j += 1) {
+  </p>,
+  <code>
+    for (let k = 0; k &lt; 10; k += 1) {
+  console.log('Yo!');
+}
+
+  </code>,
+  <p>
+    }
+    <br />
+    }
+    <br />
+  </p>,
+]
+`;
