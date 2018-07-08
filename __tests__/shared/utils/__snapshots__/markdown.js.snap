@@ -160,6 +160,302 @@ Array [
 ]
 `;
 
+exports[`Generic HTML markup inside Markdown code 1`] = `
+Array [
+  <h1>
+    This is test of generic HTML markup inside Markdown code
+  </h1>,
+  <p>
+    <h1>
+      Heading One
+    </h1>
+    <br />
+    <p>
+      <br />
+      This is a paragraph of text that should be long enough to wrap. If not, we can repeat it over and over again until it does wrap. This is a paragraph of text that should be long enough to wrap. If not, we can repeat it over and over again until it does wrap. This is a paragraph of text that should be long enough to wrap.
+      <br />
+    </p>
+    <br />
+    <h2>
+      Heading Two
+    </h2>
+    <br />
+    <p>
+      <br />
+      This is a paragraph of text that should be long enough to wrap. If not, we can repeat it over and over again until it does wrap. This is a paragraph of text that should be long enough to wrap. If not, we can repeat it over and over again until it does wrap. This is a paragraph of text that should be long enough to wrap.
+      <br />
+    </p>
+    <br />
+    <h3>
+      Heading Three
+    </h3>
+    <br />
+    <p>
+      <br />
+      This is a paragraph of text that should be long enough to wrap. If not, we can repeat it over and over again until it does wrap. This is a paragraph of text that should be long enough to wrap. If not, we can repeat it over and over again until it does wrap. This is a paragraph of text that should be long enough to wrap.
+      <br />
+    </p>
+    <br />
+    <h4>
+      Heading Four
+    </h4>
+    <br />
+    <p>
+      <br />
+      This is a paragraph of text that should be long enough to wrap. If not, we can repeat it over and over again until it does wrap. This is a paragraph of text that should be long enough to wrap. If not, we can repeat it over and over again until it does wrap. This is a paragraph of text that should be long enough to wrap.
+      <br />
+    </p>
+    <br />
+    <h5>
+      Heading Five
+    </h5>
+    <br />
+    <p>
+      <br />
+      This is a paragraph of text that should be long enough to wrap. If not, we can repeat it over and over again until it does wrap. This is a paragraph of text that should be long enough to wrap. If not, we can repeat it over and over again until it does wrap. This is a paragraph of text that should be long enough to wrap.
+      <br />
+    </p>
+    <br />
+    <h6>
+      Heading Six
+    </h6>
+    <br />
+    <p>
+      <br />
+      This is a paragraph of text that should be long enough to wrap. If not, we can repeat it over and over again until it does wrap. This is a paragraph of text that should be long enough to wrap. If not, we can repeat it over and over again until it does wrap. This is a paragraph of text that should be long enough to wrap.
+      <br />
+    </p>
+    <br />
+    <hr />
+    <br />
+    <p>
+      <br />
+      <em>
+        This is italic text, made with em.
+      </em>
+       
+      <i>
+        This is italic text as well, made with i.
+      </i>
+      <br />
+    </p>
+    <br />
+    <p>
+      <br />
+      <strong>
+        This is bold text, made with strong.
+      </strong>
+       
+      <b>
+        This is bold text as well, made with b.
+      </b>
+      <br />
+    </p>
+    <br />
+    <p>
+      <br />
+      <u>
+        This is underlined text, made with u.
+      </u>
+       
+      <ins>
+        This is inserted text, made with ins.
+      </ins>
+      <br />
+    </p>
+    <br />
+    <p>
+      <br />
+      <strike>
+        This is deleted (strikethrough) text, made with strike.
+      </strike>
+       
+      <s>
+        This is also strikethrough text, but made with s.
+      </s>
+       
+      <del>
+        This is deleted text, made with del.
+      </del>
+      <br />
+    </p>
+    <br />
+    <p>
+      <br />
+      <code>
+        This is computer code, made with code.
+      </code>
+       
+      <tt>
+        This is teletype text, made with tt.
+      </tt>
+      <br />
+    </p>
+    <br />
+    <p>
+      <br />
+      <kbd>
+        This is text the user is supposed to enter in, or keyboard, made with kbd.
+      </kbd>
+       
+      <var>
+        This is a variable, made with var.
+      </var>
+       
+      <samp>
+        This is sample program output, made with samp.
+      </samp>
+      <br />
+    </p>
+    <br />
+    <p>
+      <br />
+      <small>
+        This is small text, made with small.
+      </small>
+       
+      <big>
+        This is big text, made with big.
+      </big>
+      <br />
+    </p>
+    <br />
+    <p>
+      <br />
+      <cite>
+        This is a citation, made with cite.
+      </cite>
+       This is a 
+      <q>
+        short quotation
+      </q>
+       in the middle of a sentence, made with q.
+      <br />
+    </p>
+    <br />
+    <p>
+      <br />
+      This sentence ends with a 
+      <sup>
+        superscript
+      </sup>
+      . This sentence ends with a 
+      <sub>
+        subscript
+      </sub>
+      .
+      <br />
+    </p>
+    <br />
+    <p>
+      <br />
+      This is an abbreviation, made with abbr: 
+      <abbr>
+        WWW
+      </abbr>
+      . This is an acronym, made with acronym: 
+      <acronym>
+        NATO
+      </acronym>
+      . This is a term that needs a definition, made with dfn: 
+      <dfn>
+        Yog-Sothoth
+      </dfn>
+      .
+      <br />
+    </p>
+    <br />
+    <p>
+      <br />
+      This is an unordered list:
+      <br />
+    </p>
+    <br />
+    <ul>
+      <br />
+      <li>
+        Koyaanisqatsi
+      </li>
+      <br />
+      <li>
+        Powaqqatsi
+      </li>
+      <br />
+      <li>
+        Naqoyqatsi
+      </li>
+      <br />
+    </ul>
+    <br />
+    <p>
+      <br />
+      This is an ordered list:
+      <br />
+    </p>
+    <br />
+    <ol>
+      <br />
+      <li>
+        Larry
+      </li>
+      <br />
+      <li>
+        Moe
+      </li>
+      <br />
+      <li>
+        Curly
+      </li>
+      <br />
+    </ol>
+    <br />
+    <p>
+      <br />
+      This is a definition list:
+      <br />
+    </p>
+    <br />
+    <dl>
+      <br />
+      <dt>
+        Defintion Term
+      </dt>
+      <br />
+      <dd>
+        Definition data defining the previous term
+      </dd>
+      <br />
+      <dt>
+        Another Definition Term
+      </dt>
+      <br />
+      <dd>
+        Definition data defining the previous term
+      </dd>
+      <br />
+    </dl>
+    <br />
+    <p>
+      <br />
+      This is an address with breaks:
+      <br />
+    </p>
+    <br />
+    <address>
+      <br />
+      John Q. Public
+      <br />
+      <br />
+      123 Main Street
+      <br />
+      <br />
+      Anywhere, ST 12345
+      <br />
+    </address>
+  </p>,
+]
+`;
+
 exports[`Generic Markdown Test #1 1`] = `
 Array [
   <h1>

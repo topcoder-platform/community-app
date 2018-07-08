@@ -18,3 +18,10 @@ test('Custom Inline Elements (via simplified JSX)', () => {
   const doc = fs.readFileSync(url).toString();
   expect(render(doc)).toMatchSnapshot();
 });
+
+test('Generic HTML markup inside Markdown code', () => {
+  const url = `${__dirname}/__mocks__/markdown-test-04.md`;
+  const doc = fs.readFileSync(url).toString();
+  expect(render(doc)).toMatchSnapshot();
+});
+
