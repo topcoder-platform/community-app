@@ -25,6 +25,11 @@ module.exports = {
     PUBLIC: 'https://d1aahxkjiobka8.cloudfront.net',
   },
 
+  /* Time in MS to wait before refreshing challenge details after register
+   * and unregister.  Used to allow API sufficent time to update.
+   */
+  CHALLENGE_DETAILS_REFRESH_DELAY: 3000,
+
   COOKIES: {
     /* Expiration time [days] for browser cookies set by the App. */
     MAXAGE: 7,
