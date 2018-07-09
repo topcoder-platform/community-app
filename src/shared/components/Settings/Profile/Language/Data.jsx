@@ -110,7 +110,7 @@ export default class Data extends React.Component {
                 placeholder="Language"
                 matchPos="start"
                 matchProp="name"
-                style= {{height: "36px", marginBottom: "10px", borderRadius: "4px", color: "#262628"}}
+                style= {{height: "36px", marginBottom: "20px", borderRadius: "4px", color: "#262628"}}
                 labelKey="name"
                 valueKey="name"
                 clearable={false}
@@ -127,7 +127,7 @@ export default class Data extends React.Component {
                 placeholder="Spoken Level"
                 matchPos="start"
                 matchProp="name"
-                style= {{height: "36px", marginBottom: "10px", borderRadius: "4px", color: "#262628"}}
+                style= {{height: "36px", marginBottom: "20px", borderRadius: "4px", color: "#262628"}}
                 labelKey="name"
                 valueKey="name"
                 clearable={false}
@@ -145,7 +145,7 @@ export default class Data extends React.Component {
                 matchPos="start"
                 matchProp="name"
                 labelKey="name"
-                style= {{height: "36px", marginBottom: "10px", borderRadius: "4px", color: "#262628"}}
+                style= {{height: "36px", marginBottom: "20px", borderRadius: "4px", color: "#262628"}}
                 valueKey="name"
                 clearable={false}
               />

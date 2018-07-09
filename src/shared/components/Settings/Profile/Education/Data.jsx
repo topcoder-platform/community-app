@@ -131,7 +131,7 @@ export default class Data extends React.Component {
                 placeholder="Education Type"
                 matchPos="start"
                 matchProp="name"
-                style= {{height: "36px", marginBottom: "10px", borderRadius: "4px", color: "#262628"}}
+                style= {{height: "36px", marginBottom: "20px", borderRadius: "4px", color: "#262628"}}
                 labelKey="name"
                 valueKey="name"
                 clearable={false}
@@ -140,22 +140,22 @@ export default class Data extends React.Component {
             <div styleName= "col-md-6 col-sm-6 col-xs-6 col-lg-6" style= {{paddingLeft: "5px", paddingRight: "5px"}}>
               <p styleName= "headingsP">Name</p>
               <input type= "text"  name="name" id="profile-name" 
-                    value={name} style= {{height: "36px", marginBottom: "10px", borderRadius: "4px", color: "#262628"}}
+                    value={name} style= {{height: "36px", marginBottom: "20px", borderRadius: "4px", color: "#262628"}}
                      onChange= {this.onUpdateName} />
             </div>
             <div styleName= "col-md-3 col-sm-3 col-xs-3 col-lg-3" style= {{paddingLeft: "5px", paddingRight: "0"}}>
               <p styleName= "headingsP">Major</p>
-              <input type= "text"  name="major" id="profile-major" style= {{height: "36px", marginBottom: "10px", borderRadius: "4px", color: "#262628"}}
+              <input type= "text"  name="major" id="profile-major" style= {{height: "36px", marginBottom: "20px", borderRadius: "4px", color: "#262628"}}
                     value={major} onChange= {this.onUpdateMajor} />
             </div>
             <div styleName= "col-md-3 col-sm-3 col-xs-3 col-lg-3" style= {{paddingLeft: "0", paddingRight: "5px"}}>
               <p styleName= "headingsP">From</p>
-              <input type= "date"  style= {{height: "36px", marginBottom: "10px", borderRadius: "4px", color: "#262628"}} name="startDate" id="profile-startDate" 
+              <input type= "date"  style= {{height: "36px", marginBottom: "20px", borderRadius: "4px", color: "#262628"}} name="startDate" id="profile-startDate" 
                     value={startDate} onChange= {this.onUpdateStartDate} />
             </div>
             <div styleName= "col-md-3 col-sm-3 col-xs-3 col-lg-3" style= {{paddingLeft: "5px", paddingRight: "5px"}}>
               <p styleName= "headingsP">To</p>
-              <input type= "date"  style= {{height: "36px", marginBottom: "10px", borderRadius: "4px", color: "#262628"}}  name="endDate" id="profile-endDate" 
+              <input type= "date"  style= {{height: "36px", marginBottom: "20px", borderRadius: "4px", color: "#262628"}}  name="endDate" id="profile-endDate" 
                     value={endDate} onChange= {this.onUpdateEndDate} />
             </div>
             <div styleName= "col-md-4 col-sm-4 col-xs-4 col-lg-4" style= {{paddingLeft: "5px", paddingRight: "0"}}>
@@ -163,7 +163,7 @@ export default class Data extends React.Component {
                     checked= {this.state.isGraduatedBool} onChange= {this.onUpdateGraduated} />
               Graduated
             </div>
-            <div styleName= "col-md-2 col-sm-2 col-xs-2 col-lg-2" style= {{height: "70px"}}>
+            <div styleName= "col-md-2 col-sm-2 col-xs-2 col-lg-2" style= {{height: "80px"}}>
             </div>
             <div style={{textAlign: "center", width: "100%"}}>
             <PrimaryButton

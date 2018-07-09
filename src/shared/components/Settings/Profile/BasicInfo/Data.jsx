@@ -239,12 +239,12 @@ console.log("Entered basic info constructors")
             <div styleName= "col-md-6 col-sm-6 col-xs-6 col-lg-6" style= {{paddingLeft: "0", paddingRight: "5px"}}>
               <p styleName= "headingsP">Firstname</p>
               <input type= "text"  name="firstName" id="profile-firstName" 
-                    value={firstName} onChange= {this.onUpdateFirstName} style= {{height: "36px", marginBottom: "10px",  borderRadius: "4px", color: "#262628"}} />
+                    value={firstName} onChange= {this.onUpdateFirstName} style= {{height: "36px", marginBottom: "20px",  borderRadius: "4px", color: "#262628"}} />
             </div>
             <div styleName= "col-md-6 col-sm-6 col-xs-6 col-lg-6" style= {{paddingLeft: "5px", paddingRight: "0"}}>
               <p styleName= "headingsP">Lastname</p>
               <input type= "text" style= {{width: "100%"}} name="lastName" id="profile-lastName"
-                    value={lastName} onChange= {this.onUpdateLastName} style= {{height: "36px", marginBottom: "10px", borderRadius: "4px", color: "#262628"}}/>
+                    value={lastName} onChange= {this.onUpdateLastName} style= {{height: "36px", marginBottom: "20px", borderRadius: "4px", color: "#262628"}}/>
             </div>
             <p styleName= "headingsP"><span>Short Bio</span></p>
               <textarea
@@ -255,12 +255,13 @@ console.log("Entered basic info constructors")
                 className="topcoder-input"
                 onChange= {this.onUpdateBio}
                 styleName= "textAreaP"
+                style= {{marginBottom: "20px"}}
                 placeholder="E.g., I'm a JS architect interested in creating new data interchange formats. I love sci-fi and riding my motorcycle."
               />
             <div styleName= "col-md-3 col-sm-3 col-xs-3 col-lg-3" style= {{paddingLeft: "0", paddingRight: "5px"}}>
               <p styleName= "headingsP">Birth Date</p>
               <input type= "date" style= {{width: "100%"}} name="birthDate" id="profile-birthDate" 
-                    value={birthDate} onChange= {this.onUpdateBirthDate} style= {{height: "36px", marginBottom: "10px", borderRadius: "4px", color: "#262628"}} />
+                    value={birthDate} onChange= {this.onUpdateBirthDate} style= {{height: "36px", marginBottom: "20px", borderRadius: "4px", color: "#262628"}} />
             </div>
             <div styleName= "col-md-3 col-sm-3 col-xs-3 col-lg-3" style= {{paddingLeft: "5px", paddingRight: "5px"}}>
               <p styleName= "headingsP">Gender</p>
@@ -275,14 +276,14 @@ console.log("Entered basic info constructors")
                 matchProp="name"
                 labelKey="name"
                 valueKey="name"
-                style= {{height: "36px", marginBottom: "10px",  borderRadius: "4px", color: "#262628"}}
+                style= {{height: "36px", marginBottom: "20px",  borderRadius: "4px", color: "#262628"}}
                 clearable={false}
               />
             </div>
             <div styleName= "col-md-4 col-sm-4 col-xs-4 col-lg-4" style= {{paddingLeft: "5px", paddingRight: "5px"}}>
               <p styleName= "headingsP">Ethnic</p>
               <input type= "text" style= {{width: "100%"}} name="ethnic" id="profile-ethnic" 
-                    value={ethnic} onChange= {this.onUpdateEthnic} style= {{height: "36px", marginBottom: "10px",  borderRadius: "4px", color: "#262628"}} />
+                    value={ethnic} onChange= {this.onUpdateEthnic} style= {{height: "36px", marginBottom: "20px",  borderRadius: "4px", color: "#262628"}} />
             </div>
             <div styleName= "col-md-2 col-sm-2 col-xs-2 col-lg-2" style= {{paddingLeft: "5px", paddingRight: "0"}}>
               <p styleName= "headingsP">T-Shirt Size</p>
@@ -294,7 +295,7 @@ console.log("Entered basic info constructors")
                 onChange={this.onUpdateTSize}
                 placeholder="T-Shirt Size"
                 matchPos="start"
-                style= {{height: "36px", marginBottom: "10px", borderRadius: "4px", color: "#262628"}}
+                style= {{height: "36px", marginBottom: "20px", borderRadius: "4px", color: "#262628"}}
                 matchProp="name"
                 labelKey="name"
                 valueKey="name"
@@ -302,13 +303,13 @@ console.log("Entered basic info constructors")
               />
             </div>
             <p styleName= "headingsP">Address</p>
-              <input type= "text" style= {{height: "36px", marginBottom: "10px", borderRadius: "4px", color: "#262628"}} name="address" id="profile-address" 
+              <input type= "text" style= {{height: "36px", marginBottom: "20px", borderRadius: "4px", color: "#262628"}} name="address" id="profile-address" 
                       value={address} onChange= {this.onUpdateAddress} />
               <div styleName= "col-md-6 col-sm-6 col-xs-6 col-lg-6" style= {{paddingLeft: "0", paddingRight: "5px"}} >
                 <p styleName= "headingsP">Country</p>
                 <Select
                   name="location"
-                  style= {{height: "36px", borderRadius: "4px", marginBottom: "10px",  color: "#262628"}}
+                  style= {{height: "36px", borderRadius: "4px", marginBottom: "20px",  color: "#262628"}}
                   options={countries}
                   value={userCountry}
                   onChange={this.onUpdateCountry}
@@ -323,24 +324,24 @@ console.log("Entered basic info constructors")
               <div styleName= "col-md-6 col-sm-6 col-xs-6 col-lg-6" style= {{paddingLeft: "5px", paddingRight: "0"}}>
                 <p styleName= "headingsP">State</p>
                 <input type= "text" name="state" id="profile-state" 
-                      value={state} onChange= {this.onUpdateState} style= {{height: "36px", marginBottom: "10px",  borderRadius: "4px", color: "#262628"}}/>
+                      value={state} onChange= {this.onUpdateState} style= {{height: "36px", marginBottom: "20px",  borderRadius: "4px", color: "#262628"}}/>
               </div>
             <div styleName= "col-md-6 col-sm-6 col-xs-6 col-lg-6" style= {{paddingLeft: "0", paddingRight: "5px"}}>
               <p styleName= "headingsP">City</p>
               <input type= "text" name="city" id="profile-city" 
-                    value={city} onChange= {this.onUpdateCity} style= {{height: "36px", margin: "0", borderRadius: "4px", color: "#262628"}} />
+                    value={city} onChange= {this.onUpdateCity} style= {{height: "36px", marginBottom: "20px", borderRadius: "4px", color: "#262628"}} />
             </div>
             <div styleName= "col-md-6 col-sm-6 col-xs-6 col-lg-6" style= {{paddingLeft: "5px", paddingRight: "0"}}>
               <p styleName= "headingsP">ZIP Code</p>
               <input type= "text" name="zip" id="profile-zip" 
-                    value={zip} onChange= {this.onUpdateZip} style= {{height: "36px", marginBottom: "10px",  borderRadius: "4px", color: "#262628"}} />
+                    value={zip} onChange= {this.onUpdateZip} style= {{height: "36px", marginBottom: "20px",  borderRadius: "4px", color: "#262628"}} />
             </div>
             <p styleName= "headingsP">Current Location</p>
             <input type= "text" name="current" id="profile-current" 
-                    value={current} onChange= {this.onUpdateCurrent} style= {{height: "36px", marginBottom: "10px",  borderRadius: "4px", color: "#262628"}}/>
+                    value={current} onChange= {this.onUpdateCurrent} style= {{height: "36px", marginBottom: "20px",  borderRadius: "4px", color: "#262628"}}/>
             <p styleName= "headingsP">Primary Interest of Topcoder</p>
             <input type= "text" name="interest" id="profile-interest" 
-                    value={interest} onChange= {this.onUpdateInterest} style= {{height: "36px", marginBottom: "10px",  borderRadius: "4px", color: "#262628"}} />
+                    value={interest} onChange= {this.onUpdateInterest} style= {{height: "36px", marginBottom: "20px",  borderRadius: "4px", color: "#262628"}} />
             <div style= {{backgroundColor: "white", border: "none", textAlign: "center"}}>
             <PrimaryButton
               disabled= {!needSave}

@@ -1,74 +1,74 @@
 /**
- * Child component of Settings/Profile/AboutMe renders "About Me" section of profile setting page.
+ * Child component of Settings/Profile renders setting page for profile.
  */
-/* global document */
 import _ from 'lodash';
 import React from 'react';
 import PT from 'prop-types';
 
-import { PrimaryButton, SecondaryButton } from 'topcoder-react-ui-kit';
+import { PrimaryButton } from 'topcoder-react-ui-kit';
 
-import { getAllCountryObjects, getCountryObjFromAlpha3 } from 'utils/countries';
+import { looseEqual } from 'utils/tc';
 
-import Select from 'components/Select';
-import DefaultPortrait from 'assets/images/ico-user-default.svg';
+import Data from './Data';
 
 import Styles from './styles.scss';
 
-const countries = getAllCountryObjects();
-
 export default class Software extends React.Component {
-  
-  render() {
-    
+    constructor(props) {
+        super(props);
+        console.log("Software props", props)
+        this.state = {
+          softwares:props.software.traits.data,
+          softwareType:'',
+          name: ''
+        }
+        this.onUpdateSoftwareType= this.onUpdateSoftwareType.bind(this);
+        this.onUpdateName= this.onUpdateName.bind(this);
+        this.onUpdateSoftware= this.onUpdateSoftware.bind(this);
+        this.onSaveToolsSoftware= this.onSaveToolsSoftware.bind(this);
+        this.onDeleteToolsSoftware= this.onDeleteToolsSoftware.bind(this)
+      }
+      onUpdateSoftwareType(softwareType) {
+        this.setState({ softwareType });
+      }
+      onUpdateName(name) {
+        this.setState({ name });
+      }
+      onUpdateSoftware(softwareobj) {
+        const softwareObjects= this.state.softwares;
+        console.log("Software objects", softwareObjects)
+        softwareObjects.push(softwareobj);
+        this.setState({software:softwareObjects});
+      }
+      onSaveToolsSoftware(e) {
+        e.preventDefault();
+        const newSoftware= _.clone(this.props.software);
+        newSoftware.traits.data= this.state.softwares;
+        console.log("New Softwares", newSoftware)
+        this.props.updateSoftware(newSoftware, this.props.handle);
+      }
+      onDeleteToolsSoftware(softwareobj){
+        _.remove(this.state.softwares, software => software.name===softwareobj);
+        this.setState({softwares: this.state.softwares});
+        const newSoftware= _.clone(this.props.software);
+        newSoftware.traits.data= this.state.softwares;
+        this.props.updateSoftware(newSoftware, this.props.handle);
+      }
+      render() {
+          return (
+              <Data 
+                softwares= {this.state.softwares}
+                softwareType= {this.state.softwareType}
+                name= {this.state.name}
+                onUpdateSoftwareType= {this.onUpdateSoftwareType}
+                onUpdateName= {this.onUpdateName}
+                onUpdateSoftware= {this.onUpdateSoftware}
+                onSaveToolsSoftware= {this.onSaveToolsSoftware}
+                onDeleteToolsSoftware= {this.onDeleteToolsSoftware}
+              {...this.props}
+              />
+          );
 
-    return (
-      <div>
-        <form autoComplete= "off">
-          <h2>Software</h2>
-          <br />
-          <div style= {{backgroundColor: "#fafafb", border:"1px solid #ededf2"}}>
-            <h3>Add Software</h3>
-            <br />
-            <div styleName= "col-md-6 col-sm-6 col-xs-6 col-lg-6">
-              <p>Software Type</p>
-              <input type= "text" style= {{width: "100%"}} />
-            </div>
-            <div styleName= "col-md-6 col-sm-6 col-xs-6 col-lg-6">
-              <p>Name</p>
-              <input type= "text" style= {{width: "100%"}} />
-            </div>
-            <button style= {{padding: "5px", borderRadius: "4px"}}>
-              Add Software
-            </button>
-          </div>
-          <br />
-          <div style= {{border:"1px solid #ededf2"}}>
-            <h4>Google Chrome</h4>
-            <p>Browser</p>
-          </div>
-          <div style= {{border:"1px solid #ededf2"}}>
-            <h4>Avast Security</h4>
-            <p>AntiVirus</p>
-          </div>
-          <div style= {{border:"1px solid #ededf2"}}>
-            <h4>Spybot Home</h4>
-            <p>AntiVirus</p>
-          </div>
-          <div style= {{border:"1px solid #ededf2"}}>
-            <h4>OpenBSD</h4>
-            <p>Firewall</p>
-          </div>
-        </form>
-      </div>
-    );
-  }
+      }
+
 }
-
-Software.defaultProps = {
- 
-};
-
-Software.propTypes = {
- };
-

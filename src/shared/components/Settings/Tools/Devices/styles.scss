@@ -17,6 +17,22 @@
   }
 }
 
+.titleP{
+  font-family: Sofia Pro,Arial,Helvetica,sans-serif;
+  font-weight: 500;
+  font-size: 28px;
+  line-height: 1.25;
+  color: #262628;
+  margin-bottom: 20px;
+}
+.headingsP{
+  font-family: Roboto,Helvetica,Arial,sans-serif;
+  font-size: 12px;
+  line-height: 15px;
+  font-weight: 550;
+  color: #47474f;
+  margin-bottom: 5px;
+}
 .image {
   .edit-image {
     flex-direction: row;

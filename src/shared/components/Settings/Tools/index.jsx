@@ -14,14 +14,14 @@ import Software from './Software';
 import ServiceProviders from './ServiceProviders';
 import Subscriptions from './Subscriptions';
 
-import ToolsSubtabs from './ToolsSubtabs';
+import Navbar from './Navbar';
 import Styles from './styles.scss';
 
 import { TOOLSTABS } from 'actions/page/toolsSettings';
 export default class Tools extends React.Component {
   constructor(props) {
     super(props);
-
+    console.log("Tools props", props);
     this.state = {
     };
   }
@@ -31,46 +31,42 @@ export default class Tools extends React.Component {
     const {
       subTab
     } = this.props;
-    console.log("Tools props", this.props);
-    const selectTab = (tab) => {
-      console.log("Tools tab", tab);
-      var sTab= 'tools';
-      const tab1= sTab+"/"+tab;
-      this.props.selectTab(tab1);
-      this.props.history.push(`/settings/tools/${tab}`);
-    };
     return (
-      <div styleName="edit-profile-container" style= {{padding: "0 50px 30px"}}>
-        <div className="settings-section">
+      <div styleName="edit-profile-container" style= {{padding: "60px 50px 55px"}}>
+        <div className="settings-section" style= {{margin: "0"}}>
           <form autoComplete="off" style= {{width: "100%"}}>
             <input autoComplete="false" name="hidden" type="text" className="hidden" />
-            <div styleName= "col-lg-3 col-sm-3 col-xs-3 col-md-3" style= {{padding: "0 10px"}}>
+            <div style= {{width: "23.49%", marginRight: "6.6%", float: "left"}}>
               <div>
-                <ToolsSubtabs
+              <Navbar
                   subTab= {subTab}
-                  selectTab= {selectTab}
+                  {...this.props}
                   />
               </div>
             </div>
-            <div styleName= "col-lg-9 col-sm-9 col-xs-9 col-md-9">
+            <div style= {{width: "69.9%", float: "left"}}>
               {
                 subTab === TOOLSTABS.DEVICES &&
                 <Devices
+                {...this.props}
                 />
               }
               {
                 subTab === TOOLSTABS.SOFTWARE &&
                 <Software
+                {...this.props}
                 />
               }
               {
                 subTab === TOOLSTABS.SERVICEPROVIDERS &&
                 <ServiceProviders
+                {...this.props}
                 />
               }
               {
                 subTab === TOOLSTABS.SUBSCRIPTIONS &&
                 <Subscriptions
+                {...this.props}
                 />
               }
               {/* <Tracks

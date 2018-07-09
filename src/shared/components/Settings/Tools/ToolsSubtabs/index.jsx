@@ -6,7 +6,6 @@ import PT from 'prop-types';
 
 import { TOOLSTABS } from 'actions/page/toolsSettings';
 import './styles.scss';
-
 export default function ToolsSubtabs(props) {
   const {
     subTab,
@@ -24,10 +23,10 @@ export default function ToolsSubtabs(props) {
   return (
     <nav>
       <ul>
-        <li styleName={subTab === TOOLSTABS.DEVICES ? 'activeTab' : 'inactiveTab'}><a role="link" tabIndex={0} onKeyPress={e => clickTab(e, TOOLSTABS.DEVICES)} onClick={e => clickTab(e, TOOLSTABS.DEVICES)} >Devices</a></li>
-        <li styleName={subTab === TOOLSTABS.SOFTWARE ? 'activeTab' : 'inactiveTab'}><a role="link" tabIndex={0} onKeyPress={e => clickTab(e, TOOLSTABS.SOFTWARE)} onClick={e => clickTab(e, TOOLSTABS.SOFTWARE)}>Software</a></li>
-        <li styleName={subTab === TOOLSTABS.SERVICEPROVIDERS ? 'activeTab' : 'inactiveTab'}><a role="link" tabIndex={0} onKeyPress={e => clickTab(e, TOOLSTABS.SERVICEPROVIDERS)} onClick={e => clickTab(e, TOOLSTABS.SERVICEPROVIDERS)}>Service Providers</a></li>  
-        <li styleName={subTab === TOOLSTABS.SUBSCRIPTIONS ? 'activeTab' : 'inactiveTab'}><a role="link" tabIndex={0} onKeyPress={e => clickTab(e, TOOLSTABS.SUBSCRIPTIONS)} onClick={e => clickTab(e, TOOLSTABS.SUBSCRIPTIONS)}>Subscriptions</a></li>
+        <li styleName= 'navlist'><a role="link" tabIndex={0} onKeyPress={e => clickTab(e, TOOLSTABS.DEVICES)} onClick={e => clickTab(e, TOOLSTABS.DEVICES)} styleName={subTab === TOOLSTABS.DEVICES ? 'tab activeTab': 'tab'} ><img src= 'https://d1aahxkjiobka8.cloudfront.net/static-assets/images/ee40363770ff83ee54b11af13ec17ded.png' />Devices</a></li>
+        <li styleName= 'navlist'><a role="link" tabIndex={0} onKeyPress={e => clickTab(e, TOOLSTABS.SOFTWARE)} onClick={e => clickTab(e, TOOLSTABS.SOFTWARE)} styleName={subTab === TOOLSTABS.SOFTWARE ? 'tab activeTab': 'tab'}><img src= 'https://d1aahxkjiobka8.cloudfront.net/static-assets/images/ee40363770ff83ee54b11af13ec17ded.png' />Software</a></li>
+        <li styleName= 'navlist'><a role="link" tabIndex={0} onKeyPress={e => clickTab(e, TOOLSTABS.SERVICEPROVIDERS)} onClick={e => clickTab(e, TOOLSTABS.SERVICEPROVIDERS)} styleName={subTab === TOOLSTABS.SERVICEPROVIDERS ? 'tab activeTab': 'tab'}><img src= 'https://d1aahxkjiobka8.cloudfront.net/static-assets/images/ee40363770ff83ee54b11af13ec17ded.png' />Service Providers</a></li>  
+        <li styleName= 'navlist'><a role="link" tabIndex={0} onKeyPress={e => clickTab(e, TOOLSTABS.SUBSCRIPTIONS)} onClick={e => clickTab(e, TOOLSTABS.SUBSCRIPTIONS)} styleName={subTab === TOOLSTABS.SUBSCRIPTIONS ? 'tab activeTab': 'tab'}><img src= 'https://d1aahxkjiobka8.cloudfront.net/static-assets/images/ee40363770ff83ee54b11af13ec17ded.png' />Subscriptions</a></li>
       </ul>
     </nav>
   );

@@ -81,6 +81,12 @@ class SettingsContainer extends React.Component {
         case 'education': {
           return props.education
         }
+        case 'devices': {
+          return props.devices
+        }
+        case 'software': {
+          return props.software
+        }
       }                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 
     }
     console.log("Sending props", this.props);
@@ -120,7 +126,9 @@ SettingsContainer.defaultProps = {
   profile: null,
   basicInfo: null,
   language: null,
-  education: null
+  education: null,
+  devices: null,
+  software: null
 };
 
 SettingsContainer.propTypes = {
@@ -136,6 +144,8 @@ SettingsContainer.propTypes = {
   updateBasicInfo: PT.func.isRequired,
   updateLanguage: PT.func.isRequired,
   updateEducation: PT.func.isRequired,
+  updateDevices: PT.func.isRequired,
+  updateSoftware: PT.func.isRequired,
   addSkill: PT.func.isRequired,
   hideSkill: PT.func.isRequired,
   addWebLink: PT.func.isRequired,
@@ -170,6 +180,8 @@ function mapStateToProps(state) {
     profile: state.auth.profile,
     basicInfo: state.basicInfo.basicInfo,
     language: state.language.language,
+    devices: state.devices.devices,
+    software: state.software.software,
     education: state.education.education,
     lookupData: state.lookup,
     profileState: state.profile,
@@ -183,9 +195,8 @@ function mapDispatchToProps(dispatch) {
   const basicInfoActions= actions.basicInfo;
   const languageActions= actions.language;
   const educationActions= actions.education;
-  // console.log("actions", actions);
-  // console.log("profileActions", profileActions);
-  // console.log("basicInfoActions", basicInfoActions);
+  const devicesActions= actions.devices;
+  const softwareActions= actions.software;
   
   const loadHeaderData = ({ handle, tokenV3 }) => {
     console.log("Entered load header data");
@@ -248,6 +259,16 @@ function mapDispatchToProps(dispatch) {
       dispatch(educationActions.getEducationInit());
       dispatch(educationActions.getEducationDone(handle, tokenV3));
     }
+    else if(subTab===TOOLSTABS.DEVICES){
+      console.log("Entered devices subtab");
+      dispatch(devicesActions.getDevicesInit());
+      dispatch(devicesActions.getDevicesDone(handle, tokenV3));
+    }
+    else if(subTab===TOOLSTABS.SOFTWARE){
+      console.log("Entered software subtab");
+      dispatch(softwareActions.getSoftwareInit());
+      dispatch(softwareActions.getSoftwareDone(handle, tokenV3));
+    }
     console.log("Exiting the loadTabData");
   };
 
@@ -287,6 +308,16 @@ function mapDispatchToProps(dispatch) {
       dispatch(languageActions.updateLanguageInit());
       // console.log("Updated basic info/ settings container: ", basicInfo);
       dispatch(languageActions.updateLanguageDone(language, handle));
+    },
+    updateDevices: (device, handle) => {
+      dispatch(devicesActions.updateDevicesInit());
+      // console.log("Updated basic info/ settings container: ", basicInfo);
+      dispatch(devicesActions.updateDevicesDone(device, handle));
+    },
+    updateSoftware: (software, handle) => {
+      dispatch(softwareActions.updateSoftwareInit());
+      // console.log("Updated basic info/ settings container: ", basicInfo);
+      dispatch(softwareActions.updateSoftwareDone(software, handle));
     },
     updateEducation: (education, handle) => {
       dispatch(educationActions.updateEducationInit());
