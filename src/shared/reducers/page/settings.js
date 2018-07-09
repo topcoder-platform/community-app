@@ -15,6 +15,12 @@ function toastrSuccess(title, message) {
   });
 }
 
+function toastrFailed(title, message) {
+  setImmediate(() => {
+    toastr.error(title, message);
+  });
+}
+
 function mergeSkills(state, { type, payload, error }) {
   if (error) {
     return state;
@@ -78,6 +84,7 @@ function mergeSkills(state, { type, payload, error }) {
 
 function onAddWebLinkDone(state, { error }) {
   if (error) {
+    toastrFailed('Whoops! ', 'Your web link is already added to your account.');
     return state;
   }
   toastrSuccess('Success!', 'Your link has been added. Data from your link will be visible on your profile shortly.');
@@ -111,9 +118,12 @@ function onDeleteWebLinkDone(state, { payload, error }) {
 }
 
 function onLinkExternalAccountDone(state, { payload, error }) {
-  if (!error) {
-    toastrSuccess('Success! ', `Your ${payload.data.providerType} account has been linked. Data from your linked account will be visible on your profile shortly.`);
+  if (error) {
+    toastrFailed('Whoops! ', 'Sorry, we are unable to add your account right now. Please try again later. If the problem persists, please contact ');
+    return state;
   }
+
+  toastrSuccess('Success! ', `Your ${payload.data.providerType} account has been linked. Data from your linked account will be visible on your profile shortly.`);
   return state;
 }
 
@@ -232,7 +242,7 @@ export function factory(req) {
   // Check to see if a specific tab is provided as a param
   if (req && req.url) {
     const { pathname } = require('url').parse(`${config.URL.APP}${req.url}`); /* eslint-disable-line global-require */
-    const match = pathname.match(/^\/settings\/(profile|account|email|preferences)(\/)?$/);
+    const match = pathname.match(/^\/settings\/(profile|tools|account|preferences)(\/)?$/);
     if (match && match[1]) {
       return Promise.resolve(create({
         settingsTab: match[1],

@@ -148,9 +148,11 @@ function mapDispatchToProps(dispatch) {
 
     if (settingsTab === TABS.PROFILE) {
       dispatch(profileActions.getSkillsInit());
+      dispatch(profileActions.getCredentialInit());
       dispatch(profileActions.getLinkedAccountsInit());
       dispatch(profileActions.getExternalAccountsInit());
       dispatch(profileActions.getExternalLinksInit());
+      dispatch(profileActions.getCredentialDone(profile, tokenV3));
       dispatch(profileActions.getLinkedAccountsDone(profile, tokenV3));
       dispatch(profileActions.getExternalAccountsDone(handle));
       dispatch(profileActions.getExternalLinksDone(handle));
@@ -160,6 +162,12 @@ function mapDispatchToProps(dispatch) {
       dispatch(profileActions.getEmailPreferencesDone(profile, tokenV3));
     } else if (settingsTab === TABS.ACCOUNT) {
       dispatch(profileActions.getCredentialInit());
+      dispatch(profileActions.getLinkedAccountsInit());
+      dispatch(profileActions.getExternalAccountsInit());
+      dispatch(profileActions.getExternalLinksInit());
+      dispatch(profileActions.getLinkedAccountsDone(profile, tokenV3));
+      dispatch(profileActions.getExternalAccountsDone(handle));
+      dispatch(profileActions.getExternalLinksDone(handle));
       dispatch(profileActions.getCredentialDone(profile, tokenV3));
     }
   };
@@ -218,6 +226,9 @@ function mapDispatchToProps(dispatch) {
     },
     toggleToolsSideTab: (tab) => {
       dispatch(actions.ui.settings.tools.toggleTab(tab));
+    },
+    toggleAccountSideTab: (tab) => {
+      dispatch(actions.ui.settings.account.toggleTab(tab));
     },
     loadAllUserTraits: (handle, tokenV3) => {
       dispatch(actions.settings.getAllUserTraits(handle, tokenV3));
