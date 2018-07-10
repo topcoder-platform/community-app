@@ -9,7 +9,7 @@ import { Route, Switch } from 'react-router-dom';
 import Footer from 'components/TopcoderFooter';
 import Header from 'containers/TopcoderHeader';
 import HomePage from 'containers/TrackHomePages/HomePage';
-import HowToCompletePage from 'containers/TrackHomePages/HowToCompletePage';
+import HowToCompetePage from 'containers/TrackHomePages/HowToCompetePage';
 import Error404 from 'components/Error404';
 
 import './styles.scss';
@@ -19,7 +19,7 @@ export default function Router({ base }) {
     <div styleName="container">
       <Header />
       <Switch>
-        <Route component={HowToCompletePage} exact path={`${base}/:track/how-to-complete`} />
+        <Route component={HowToCompetePage} exact path={`${base}/:track/how-to-compete`} />
         <Route component={HomePage} exact path={`${base}/:track`} />
         <Error404 />
       </Switch>

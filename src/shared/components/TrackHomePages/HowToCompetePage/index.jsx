@@ -1,5 +1,5 @@
 /**
- * HowToComplete Component
+ * HowToCompete Component
  */
 /* eslint-disable prefer-destructuring */
 import _ from 'lodash';
@@ -13,8 +13,8 @@ import StepByStep from './StepByStep';
 
 import './styles.scss';
 
-const HowToCompletePage = ({ howToComplete }) => {
-  const data = howToComplete;
+const HowToCompetePage = ({ howToCompete }) => {
+  const data = howToCompete;
   let faq = {};
   let howToExtras = {};
   const header = {};
@@ -26,27 +26,27 @@ const HowToCompletePage = ({ howToComplete }) => {
   let extrasIds = [];
   let faqIds = [];
   // Process Header
-  header.title = howToComplete.introTitle;
-  header.text = howToComplete.introText;
-  if (howToComplete.timeTable) {
-    timeTableIds = _.map(howToComplete.timeTable, item => (item.sys.id));
+  header.title = howToCompete.introTitle;
+  header.text = howToCompete.introText;
+  if (howToCompete.timeTable) {
+    timeTableIds = _.map(howToCompete.timeTable, item => (item.sys.id));
   }
-  if (howToComplete.videoOrImage) {
-    assetIds.push(howToComplete.videoOrImage.sys.id);
+  if (howToCompete.videoOrImage) {
+    assetIds.push(howToCompete.videoOrImage.sys.id);
   }
 
   // Process StepByStep
-  if (howToComplete.stepByStep) {
-    stepIds = _.map(howToComplete.stepByStep, item => (item.sys.id));
+  if (howToCompete.stepByStep) {
+    stepIds = _.map(howToCompete.stepByStep, item => (item.sys.id));
   }
 
   // Process How To Extras
-  if (howToComplete.howToExtras) {
-    extrasIds = _.map(howToComplete.howToExtras, item => (item.sys.id));
+  if (howToCompete.howToExtras) {
+    extrasIds = _.map(howToCompete.howToExtras, item => (item.sys.id));
   }
   // Process FAQ
-  if (howToComplete.faq) {
-    faqIds = _.map(howToComplete.faq, item => (item.sys.id));
+  if (howToCompete.faq) {
+    faqIds = _.map(howToCompete.faq, item => (item.sys.id));
   }
 
   entryIds = timeTableIds.concat(stepIds, extrasIds, faqIds);
@@ -115,8 +115,8 @@ Here’s a few answers to our most common questions
   );
 };
 
-HowToCompletePage.propTypes = {
-  howToComplete: PT.shape().isRequired,
+HowToCompetePage.propTypes = {
+  howToCompete: PT.shape().isRequired,
 };
 
-export default HowToCompletePage;
+export default HowToCompetePage;

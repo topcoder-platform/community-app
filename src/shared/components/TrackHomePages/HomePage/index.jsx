@@ -139,7 +139,7 @@ Learn More
               </div>
               <div styleName={`sign-up ${auth.user ? 'hidden' : ''}`}>
                 <p>
-Ready to Design? Click here to sign up with Topcoder!
+Ready to Compete? Click here to sign up with Topcoder!
                 </p>
                 <div styleName="button-wrapper-view-all">
                   <PrimaryButton to="/">

@@ -1,17 +1,17 @@
 /**
- * Container for HowToCompletePage Component.
- * Connects redux state for How to Complete Page of Track.
+ * Container for HowToCompetePage Component.
+ * Connects redux state for How to Compete Page of Track.
  */
 
 import React from 'react';
 import PT from 'prop-types';
 import { withRouter } from 'react-router-dom';
-import HowToCompletePage from 'components/TrackHomePages/HowToCompletePage';
+import HowToCompetePage from 'components/TrackHomePages/HowToCompetePage';
 import LoadingIndicator from 'components/LoadingIndicator';
 import Error404 from 'components/Error404';
 import ContentfulLoader from '../ContentfulLoader';
 
-const HowToCompletePageContainer = ({ match }) => (
+const HowToCompetePageContainer = ({ match }) => (
   <ContentfulLoader
     entryQueries={{
       content_type: 'trackHowToCompete',
@@ -20,17 +20,17 @@ const HowToCompletePageContainer = ({ match }) => (
     }}
     render={(data) => {
       if (data.entries.matches[0].total > 0) {
-        let howToComplete = data.entries.matches[0].items[0];
-        if (!howToComplete) return null;
-        const result = data.entries.items[howToComplete];
-        howToComplete = result.fields;
-        howToComplete.includes = data.includes;
+        let howToCompete = data.entries.matches[0].items[0];
+        if (!howToCompete) return null;
+        const result = data.entries.items[howToCompete];
+        howToCompete = result.fields;
+        howToCompete.includes = data.includes;
         return (
           <ContentfulLoader
             preview={data.preview}
             render={() => (
-              <HowToCompletePage
-                howToComplete={howToComplete}
+              <HowToCompetePage
+                howToCompete={howToCompete}
               />
             )}
             renderPlaceholder={LoadingIndicator}
@@ -43,7 +43,7 @@ const HowToCompletePageContainer = ({ match }) => (
   />
 );
 
-HowToCompletePageContainer.propTypes = {
+HowToCompetePageContainer.propTypes = {
   match: PT.shape({
     params: PT.shape({
       track: PT.string,
@@ -51,4 +51,4 @@ HowToCompletePageContainer.propTypes = {
   }).isRequired,
 };
 
-export default withRouter(HowToCompletePageContainer);
+export default withRouter(HowToCompetePageContainer);
