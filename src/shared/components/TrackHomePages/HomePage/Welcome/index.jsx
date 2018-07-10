@@ -29,11 +29,13 @@ const Welcome = ({ data }) => (
           {data.primaryButton.text}
         </Button>
       </div>
-      <div styleName="button-complete">
-        <PrimaryButton styleName="complete" to={`${data.track}/how-to-complete`}>
-How To Compete
-        </PrimaryButton>
-      </div>
+      {/*
+        <div styleName="button-complete">
+          <PrimaryButton styleName="complete" to={`${data.track}/how-to-complete`}>
+  How To Compete
+          </PrimaryButton>
+        </div>
+      */}
       <div
         styleName="text"
         dangerouslySetInnerHTML={
