@@ -35,9 +35,11 @@ class SubmissionsPageContainer extends React.Component {
       tokenV3,
       submit,
       challengeId,
+      subTrack,
       track,
     } = this.props;
-    submit(tokenV3, tokenV2, challengeId, body, track);
+
+    submit(tokenV3, tokenV2, challengeId, body, subTrack === 'MARATHON_MATCH' ? 'DEVELOP' : track);
   }
 
   render() {
@@ -89,6 +91,7 @@ SubmissionsPageContainer.propTypes = {
   submit: PT.func.isRequired,
   challengeId: PT.number.isRequired,
   track: PT.string.isRequired,
+  subTrack: PT.string.isRequired,
   status: PT.string.isRequired,
   errorMsg: PT.string.isRequired,
   isSubmitting: PT.bool.isRequired,
@@ -144,6 +147,7 @@ const mapStateToProps = (state, ownProps) => {
     tokenV2: state.auth.tokenV2,
     tokenV3: state.auth.tokenV3,
     track: state.challenge.details.track,
+    subTrack: state.challenge.details.subTrack,
     status: state.challenge.details.status,
     isSubmitting: submission.isSubmitting,
     submitDone: submission.submitDone,

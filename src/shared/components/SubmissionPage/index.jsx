@@ -22,6 +22,7 @@ function SubmissionsPage(props) {
     challengeName,
     challengesUrl,
     status,
+    subTrack,
     track,
   } = props;
   return (
@@ -33,7 +34,7 @@ function SubmissionsPage(props) {
           title={challengeName}
         />
         {
-          track === 'DEVELOP'
+          (track === 'DEVELOP' || subTrack === 'MARATHON_MATCH')
           && status === 'ACTIVE'
           && <Develop {...props} />
         }
@@ -65,6 +66,7 @@ SubmissionsPage.propTypes = {
   challengeId: PT.number.isRequired,
   challengeName: PT.string.isRequired,
   track: PT.string.isRequired,
+  subTrack: PT.string.isRequired,
   status: PT.string.isRequired,
   submitForm: PT.func.isRequired,
   resetForm: PT.func.isRequired,
