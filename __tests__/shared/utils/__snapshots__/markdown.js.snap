@@ -1,0 +1,2240 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Custom Inline Elements (via simplified JSX) 1`] = `
+Array [
+  <h1>
+    Markdown Test #03
+  </h1>,
+  <p>
+    This test covers custom inline elements:
+  </p>,
+  <ul>
+    <li>
+      <p>
+        
+        <strong>
+          Button
+        </strong>
+         
+        <ThemedButton
+          active={false}
+          composeAdhocTheme="deeply"
+          composeContextTheme="softly"
+          disabled={false}
+          enforceA={false}
+          mapThemrProps={[Function]}
+          onClick={null}
+          onMouseDown={null}
+          openNewTab={false}
+          replace={false}
+          size={null}
+          themePriority="adhoc-context-default"
+          to="/url"
+          type="submit"
+        >
+          Text
+        </ThemedButton>
+      </p>
+    </li>
+    <li>
+      <p>
+        
+        <strong>
+          PrimaryButton
+        </strong>
+         
+        <ThemedButton
+          active={false}
+          composeAdhocTheme="deeply"
+          composeContextTheme="softly"
+          disabled={false}
+          enforceA={false}
+          mapThemrProps={[Function]}
+          onClick={null}
+          onMouseDown={null}
+          openNewTab={false}
+          replace={false}
+          size={null}
+          themePriority="adhoc-context-default"
+          to="test/url"
+          type="button"
+        >
+          Label
+        </ThemedButton>
+      </p>
+    </li>
+    <li>
+      <p>
+        
+        <strong>
+          SecondaryButton
+        </strong>
+         
+        <ThemedButton
+          active={false}
+          composeAdhocTheme="deeply"
+          composeContextTheme="softly"
+          disabled={false}
+          enforceA={false}
+          mapThemrProps={[Function]}
+          onClick={null}
+          onMouseDown={null}
+          openNewTab={false}
+          replace={false}
+          size={null}
+          themePriority="adhoc-context-default"
+          to="secondary/url"
+          type="button"
+        >
+          Label
+        </ThemedButton>
+      </p>
+    </li>
+    <li>
+      <p>
+        
+        <strong>
+          Link
+        </strong>
+        : &lt;Link to="somewhere&gt;Link text
+      </p>
+    </li>
+    <li>
+      <p>
+        
+        <strong>
+          JoinCommunity
+        </strong>
+        : 
+        <Connect(JoinCommunityContainer)
+          label="Join Now"
+        />
+      </p>
+    </li>
+  </ul>,
+  <p>
+    Nested buttons:
+    <br />
+    <ThemedButton
+      active={false}
+      composeAdhocTheme="deeply"
+      composeContextTheme="softly"
+      disabled={false}
+      enforceA={false}
+      mapThemrProps={[Function]}
+      onClick={null}
+      onMouseDown={null}
+      openNewTab={false}
+      replace={false}
+      size={null}
+      themePriority="adhoc-context-default"
+      to="outer/url"
+      type="button"
+    >
+      <br />
+      <ThemedButton
+        active={false}
+        composeAdhocTheme="deeply"
+        composeContextTheme="softly"
+        disabled={false}
+        enforceA={false}
+        mapThemrProps={[Function]}
+        onClick={null}
+        onMouseDown={null}
+        openNewTab={false}
+        replace={false}
+        size={null}
+        themePriority="adhoc-context-default"
+        to="inner/url"
+        type="button"
+      >
+        <br />
+        Inner label
+        <br />
+      </ThemedButton>
+      <br />
+      Outer label
+      <br />
+    </ThemedButton>
+  </p>,
+]
+`;
+
+exports[`Generic HTML markup inside Markdown code 1`] = `
+Array [
+  <h1>
+    This is test of generic HTML markup inside Markdown code
+  </h1>,
+  <p>
+    <h1>
+      Heading One
+    </h1>
+    <br />
+    <p>
+      <br />
+      This is a paragraph of text that should be long enough to wrap. If not, we can repeat it over and over again until it does wrap. This is a paragraph of text that should be long enough to wrap. If not, we can repeat it over and over again until it does wrap. This is a paragraph of text that should be long enough to wrap.
+      <br />
+    </p>
+    <br />
+    <h2>
+      Heading Two
+    </h2>
+    <br />
+    <p>
+      <br />
+      This is a paragraph of text that should be long enough to wrap. If not, we can repeat it over and over again until it does wrap. This is a paragraph of text that should be long enough to wrap. If not, we can repeat it over and over again until it does wrap. This is a paragraph of text that should be long enough to wrap.
+      <br />
+    </p>
+    <br />
+    <h3>
+      Heading Three
+    </h3>
+    <br />
+    <p>
+      <br />
+      This is a paragraph of text that should be long enough to wrap. If not, we can repeat it over and over again until it does wrap. This is a paragraph of text that should be long enough to wrap. If not, we can repeat it over and over again until it does wrap. This is a paragraph of text that should be long enough to wrap.
+      <br />
+    </p>
+    <br />
+    <h4>
+      Heading Four
+    </h4>
+    <br />
+    <p>
+      <br />
+      This is a paragraph of text that should be long enough to wrap. If not, we can repeat it over and over again until it does wrap. This is a paragraph of text that should be long enough to wrap. If not, we can repeat it over and over again until it does wrap. This is a paragraph of text that should be long enough to wrap.
+      <br />
+    </p>
+    <br />
+    <h5>
+      Heading Five
+    </h5>
+    <br />
+    <p>
+      <br />
+      This is a paragraph of text that should be long enough to wrap. If not, we can repeat it over and over again until it does wrap. This is a paragraph of text that should be long enough to wrap. If not, we can repeat it over and over again until it does wrap. This is a paragraph of text that should be long enough to wrap.
+      <br />
+    </p>
+    <br />
+    <h6>
+      Heading Six
+    </h6>
+    <br />
+    <p>
+      <br />
+      This is a paragraph of text that should be long enough to wrap. If not, we can repeat it over and over again until it does wrap. This is a paragraph of text that should be long enough to wrap. If not, we can repeat it over and over again until it does wrap. This is a paragraph of text that should be long enough to wrap.
+      <br />
+    </p>
+    <br />
+    <hr />
+    <br />
+    <p>
+      <br />
+      <em>
+        This is italic text, made with em.
+      </em>
+       
+      <i>
+        This is italic text as well, made with i.
+      </i>
+      <br />
+    </p>
+    <br />
+    <p>
+      <br />
+      <strong>
+        This is bold text, made with strong.
+      </strong>
+       
+      <b>
+        This is bold text as well, made with b.
+      </b>
+      <br />
+    </p>
+    <br />
+    <p>
+      <br />
+      <u>
+        This is underlined text, made with u.
+      </u>
+       
+      <ins>
+        This is inserted text, made with ins.
+      </ins>
+      <br />
+    </p>
+    <br />
+    <p>
+      <br />
+      <strike>
+        This is deleted (strikethrough) text, made with strike.
+      </strike>
+       
+      <s>
+        This is also strikethrough text, but made with s.
+      </s>
+       
+      <del>
+        This is deleted text, made with del.
+      </del>
+      <br />
+    </p>
+    <br />
+    <p>
+      <br />
+      <code>
+        This is computer code, made with code.
+      </code>
+       
+      <tt>
+        This is teletype text, made with tt.
+      </tt>
+      <br />
+    </p>
+    <br />
+    <p>
+      <br />
+      <kbd>
+        This is text the user is supposed to enter in, or keyboard, made with kbd.
+      </kbd>
+       
+      <var>
+        This is a variable, made with var.
+      </var>
+       
+      <samp>
+        This is sample program output, made with samp.
+      </samp>
+      <br />
+    </p>
+    <br />
+    <p>
+      <br />
+      <small>
+        This is small text, made with small.
+      </small>
+       
+      <big>
+        This is big text, made with big.
+      </big>
+      <br />
+    </p>
+    <br />
+    <p>
+      <br />
+      <cite>
+        This is a citation, made with cite.
+      </cite>
+       This is a 
+      <q>
+        short quotation
+      </q>
+       in the middle of a sentence, made with q.
+      <br />
+    </p>
+    <br />
+    <p>
+      <br />
+      This sentence ends with a 
+      <sup>
+        superscript
+      </sup>
+      . This sentence ends with a 
+      <sub>
+        subscript
+      </sub>
+      .
+      <br />
+    </p>
+    <br />
+    <p>
+      <br />
+      This is an abbreviation, made with abbr: 
+      <abbr>
+        WWW
+      </abbr>
+      . This is an acronym, made with acronym: 
+      <acronym>
+        NATO
+      </acronym>
+      . This is a term that needs a definition, made with dfn: 
+      <dfn>
+        Yog-Sothoth
+      </dfn>
+      .
+      <br />
+    </p>
+    <br />
+    <p>
+      <br />
+      This is an unordered list:
+      <br />
+    </p>
+    <br />
+    <ul>
+      <br />
+      <li>
+        Koyaanisqatsi
+      </li>
+      <br />
+      <li>
+        Powaqqatsi
+      </li>
+      <br />
+      <li>
+        Naqoyqatsi
+      </li>
+      <br />
+    </ul>
+    <br />
+    <p>
+      <br />
+      This is an ordered list:
+      <br />
+    </p>
+    <br />
+    <ol>
+      <br />
+      <li>
+        Larry
+      </li>
+      <br />
+      <li>
+        Moe
+      </li>
+      <br />
+      <li>
+        Curly
+      </li>
+      <br />
+    </ol>
+    <br />
+    <p>
+      <br />
+      This is a definition list:
+      <br />
+    </p>
+    <br />
+    <dl>
+      <br />
+      <dt>
+        Defintion Term
+      </dt>
+      <br />
+      <dd>
+        Definition data defining the previous term
+      </dd>
+      <br />
+      <dt>
+        Another Definition Term
+      </dt>
+      <br />
+      <dd>
+        Definition data defining the previous term
+      </dd>
+      <br />
+    </dl>
+    <br />
+    <p>
+      <br />
+      This is an address with breaks:
+      <br />
+    </p>
+    <br />
+    <address>
+      <br />
+      John Q. Public
+      <br />
+      <br />
+      123 Main Street
+      <br />
+      <br />
+      Anywhere, ST 12345
+      <br />
+    </address>
+  </p>,
+]
+`;
+
+exports[`Generic Markdown Test #1 1`] = `
+Array [
+  <h1>
+    Markdown: Syntax
+  </h1>,
+  <ul>
+    <li>
+      <p>
+        <a
+          href="#overview"
+        >
+          Overview
+        </a>
+      </p>
+      <ul>
+        <li>
+          <p>
+            <a
+              href="#philosophy"
+            >
+              Philosophy
+            </a>
+          </p>
+        </li>
+        <li>
+          <p>
+            <a
+              href="#html"
+            >
+              Inline HTML
+            </a>
+          </p>
+        </li>
+        <li>
+          <p>
+            <a
+              href="#autoescape"
+            >
+              Automatic Escaping for Special Characters
+            </a>
+          </p>
+        </li>
+      </ul>
+    </li>
+    <li>
+      <p>
+        <a
+          href="#block"
+        >
+          Block Elements
+        </a>
+      </p>
+      <ul>
+        <li>
+          <p>
+            <a
+              href="#p"
+            >
+              Paragraphs and Line Breaks
+            </a>
+          </p>
+        </li>
+        <li>
+          <p>
+            <a
+              href="#header"
+            >
+              Headers
+            </a>
+          </p>
+        </li>
+        <li>
+          <p>
+            <a
+              href="#blockquote"
+            >
+              Blockquotes
+            </a>
+          </p>
+        </li>
+        <li>
+          <p>
+            <a
+              href="#list"
+            >
+              Lists
+            </a>
+          </p>
+        </li>
+        <li>
+          <p>
+            <a
+              href="#precode"
+            >
+              Code Blocks
+            </a>
+          </p>
+        </li>
+        <li>
+          <p>
+            <a
+              href="#hr"
+            >
+              Horizontal Rules
+            </a>
+          </p>
+        </li>
+      </ul>
+    </li>
+    <li>
+      <p>
+        <a
+          href="#span"
+        >
+          Span Elements
+        </a>
+      </p>
+      <ul>
+        <li>
+          <p>
+            <a
+              href="#link"
+            >
+              Links
+            </a>
+          </p>
+        </li>
+        <li>
+          <p>
+            <a
+              href="#em"
+            >
+              Emphasis
+            </a>
+          </p>
+        </li>
+        <li>
+          <p>
+            <a
+              href="#code"
+            >
+              Code
+            </a>
+          </p>
+        </li>
+        <li>
+          <p>
+            <a
+              href="#img"
+            >
+              Images
+            </a>
+          </p>
+        </li>
+      </ul>
+    </li>
+    <li>
+      <p>
+        <a
+          href="#misc"
+        >
+          Miscellaneous
+        </a>
+      </p>
+      <ul>
+        <li>
+          <p>
+            <a
+              href="#backslash"
+            >
+              Backslash Escapes
+            </a>
+          </p>
+        </li>
+        <li>
+          <p>
+            <a
+              href="#autolink"
+            >
+              Automatic Links
+            </a>
+          </p>
+        </li>
+      </ul>
+    </li>
+  </ul>,
+  <p>
+    
+    <strong>
+      Note:
+    </strong>
+     This document is itself written using Markdown; you
+    <br />
+    can 
+    <a
+      href="/projects/markdown/syntax.text"
+    >
+      see the source for it by adding '.text' to the URL
+    </a>
+    .
+  </p>,
+  <hr />,
+  <h2>
+    Overview
+  </h2>,
+  <h3>
+    Philosophy
+  </h3>,
+  <p>
+    Markdown is intended to be as easy-to-read and easy-to-write as is feasible.
+  </p>,
+  <p>
+    Readability, however, is emphasized above all else. A Markdown-formatted
+    <br />
+    document should be publishable as-is, as plain text, without looking
+    <br />
+    like it's been marked up with tags or formatting instructions. While
+    <br />
+    Markdown's syntax has been influenced by several existing text-to-HTML
+    <br />
+    filters -- including 
+    <a
+      href="http://docutils.sourceforge.net/mirror/setext.html"
+    >
+      Setext
+    </a>
+    , 
+    <a
+      href="http://www.aaronsw.com/2002/atx/"
+    >
+      atx
+    </a>
+    , 
+    <a
+      href="http://textism.com/tools/textile/"
+    >
+      Textile
+    </a>
+    , 
+    <a
+      href="http://docutils.sourceforge.net/rst.html"
+    >
+      reStructuredText
+    </a>
+    ,
+    <br />
+    <a
+      href="http://www.triptico.com/software/grutatxt.html"
+    >
+      Grutatext
+    </a>
+    , and 
+    <a
+      href="http://ettext.taint.org/doc/"
+    >
+      EtText
+    </a>
+     -- the single biggest source of
+    <br />
+    inspiration for Markdown's syntax is the format of plain text email.
+  </p>,
+  <h2>
+    Block Elements
+  </h2>,
+  <h3>
+    Paragraphs and Line Breaks
+  </h3>,
+  <p>
+    A paragraph is simply one or more consecutive lines of text, separated
+    <br />
+    by one or more blank lines. (A blank line is any line that looks like a
+    <br />
+    blank line -- a line containing nothing but spaces or tabs is considered
+    <br />
+    blank.) Normal paragraphs should not be indented with spaces or tabs.
+  </p>,
+  <p>
+    The implication of the "one or more consecutive lines of text" rule is
+    <br />
+    that Markdown supports "hard-wrapped" text paragraphs. This differs
+    <br />
+    significantly from most other text-to-HTML formatters (including Movable
+    <br />
+    Type's "Convert Line Breaks" option) which translate every line break
+    <br />
+    character in a paragraph into a 
+    <code>
+      &lt;br /&gt;
+    </code>
+     tag.
+  </p>,
+  <p>
+    When you 
+    <em>
+      do
+    </em>
+     want to insert a 
+    <code>
+      &lt;br /&gt;
+    </code>
+     break tag using Markdown, you
+    <br />
+    end a line with two or more spaces, then type return.
+  </p>,
+  <h3>
+    Headers
+  </h3>,
+  <p>
+    Markdown supports two styles of headers, [Setext] [1] and [atx] [2].
+  </p>,
+  <p>
+    Optionally, you may "close" atx-style headers. This is purely
+    <br />
+    cosmetic -- you can use this if you think it looks better. The
+    <br />
+    closing hashes don't even need to match the number of hashes
+    <br />
+    used to open the header. (The number of opening hashes
+    <br />
+    determines the header level.)
+  </p>,
+  <h3>
+    Blockquotes
+  </h3>,
+  <p>
+    Markdown uses email-style 
+    <code>
+      &gt;
+    </code>
+     characters for blockquoting. If you're
+    <br />
+    familiar with quoting passages of text in an email message, then you
+    <br />
+    know how to create a blockquote in Markdown. It looks best if you hard
+    <br />
+    wrap the text and put a 
+    <code>
+      &gt;
+    </code>
+     before every line:
+  </p>,
+  <blockquote>
+    <p>
+      This is a blockquote with two paragraphs. Lorem ipsum dolor sit amet,
+      <br />
+      consectetuer adipiscing elit. Aliquam hendrerit mi posuere lectus.
+      <br />
+      Vestibulum enim wisi, viverra nec, fringilla in, laoreet vitae, risus.
+    </p>
+    <p>
+      Donec sit amet nisl. Aliquam semper ipsum sit amet velit. Suspendisse
+      <br />
+      id sem consectetuer libero luctus adipiscing.
+    </p>
+  </blockquote>,
+  <p>
+    Markdown allows you to be lazy and only put the 
+    <code>
+      &gt;
+    </code>
+     before the first
+    <br />
+    line of a hard-wrapped paragraph:
+  </p>,
+  <blockquote>
+    <p>
+      This is a blockquote with two paragraphs. Lorem ipsum dolor sit amet,
+      <br />
+      consectetuer adipiscing elit. Aliquam hendrerit mi posuere lectus.
+      <br />
+      Vestibulum enim wisi, viverra nec, fringilla in, laoreet vitae, risus.
+    </p>
+  </blockquote>,
+  <blockquote>
+    <p>
+      Donec sit amet nisl. Aliquam semper ipsum sit amet velit. Suspendisse
+      <br />
+      id sem consectetuer libero luctus adipiscing.
+    </p>
+  </blockquote>,
+  <p>
+    Blockquotes can be nested (i.e. a blockquote-in-a-blockquote) by
+    <br />
+    adding additional levels of 
+    <code>
+      &gt;
+    </code>
+    :
+  </p>,
+  <blockquote>
+    <p>
+      This is the first level of quoting.
+    </p>
+    <blockquote>
+      <p>
+        This is nested blockquote.
+      </p>
+    </blockquote>
+    <p>
+      Back to the first level.
+    </p>
+  </blockquote>,
+  <p>
+    Blockquotes can contain other Markdown elements, including headers, lists,
+    <br />
+    and code blocks:
+  </p>,
+  <blockquote>
+    <h2>
+      This is a header.
+    </h2>
+    <ol>
+      <li>
+        <p>
+          This is the first list item.
+        </p>
+      </li>
+      <li>
+        <p>
+          This is the second list item.
+        </p>
+      </li>
+    </ol>
+    <p>
+      Here's some example code:
+    </p>
+    <code>
+      return shell_exec("echo $input | $markdown_script");
+
+    </code>
+  </blockquote>,
+  <p>
+    Any decent text editor should make email-style quoting easy. For
+    <br />
+    example, with BBEdit, you can make a selection and choose Increase
+    <br />
+    Quote Level from the Text menu.
+  </p>,
+  <h3>
+    Lists
+  </h3>,
+  <p>
+    Markdown supports ordered (numbered) and unordered (bulleted) lists.
+  </p>,
+  <p>
+    Unordered lists use asterisks, pluses, and hyphens -- interchangably
+    <br />
+    -- as list markers:
+  </p>,
+  <ul>
+    <li>
+      <p>
+        Red
+      </p>
+    </li>
+    <li>
+      <p>
+        Green
+      </p>
+    </li>
+    <li>
+      <p>
+        Blue
+      </p>
+    </li>
+  </ul>,
+  <p>
+    is equivalent to:
+  </p>,
+  <ul>
+    <li>
+      <p>
+        Red
+      </p>
+    </li>
+    <li>
+      <p>
+        Green
+      </p>
+    </li>
+    <li>
+      <p>
+        Blue
+      </p>
+    </li>
+  </ul>,
+  <p>
+    and:
+  </p>,
+  <ul>
+    <li>
+      <p>
+        Red
+      </p>
+    </li>
+    <li>
+      <p>
+        Green
+      </p>
+    </li>
+    <li>
+      <p>
+        Blue
+      </p>
+    </li>
+  </ul>,
+  <p>
+    Ordered lists use numbers followed by periods:
+  </p>,
+  <ol>
+    <li>
+      <p>
+        Bird
+      </p>
+    </li>
+    <li>
+      <p>
+        McHale
+      </p>
+    </li>
+    <li>
+      <p>
+        Parish
+      </p>
+    </li>
+  </ol>,
+  <p>
+    It's important to note that the actual numbers you use to mark the
+    <br />
+    list have no effect on the HTML output Markdown produces. The HTML
+    <br />
+    Markdown produces from the above list is:
+  </p>,
+  <p>
+    If you instead wrote the list in Markdown like this:
+  </p>,
+  <ol>
+    <li>
+      <p>
+        Bird
+      </p>
+    </li>
+    <li>
+      <p>
+        McHale
+      </p>
+    </li>
+    <li>
+      <p>
+        Parish
+      </p>
+    </li>
+  </ol>,
+  <p>
+    or even:
+  </p>,
+  <ol
+    start={3}
+  >
+    <li>
+      <p>
+        Bird
+      </p>
+    </li>
+    <li>
+      <p>
+        McHale
+      </p>
+    </li>
+    <li>
+      <p>
+        Parish
+      </p>
+    </li>
+  </ol>,
+  <p>
+    you'd get the exact same HTML output. The point is, if you want to,
+    <br />
+    you can use ordinal numbers in your ordered Markdown lists, so that
+    <br />
+    the numbers in your source match the numbers in your published HTML.
+    <br />
+    But if you want to be lazy, you don't have to.
+  </p>,
+  <p>
+    To make lists look nice, you can wrap items with hanging indents:
+  </p>,
+  <ul>
+    <li>
+      <p>
+        Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
+        <br />
+        Aliquam hendrerit mi posuere lectus. Vestibulum enim wisi,
+        <br />
+        viverra nec, fringilla in, laoreet vitae, risus.
+      </p>
+    </li>
+    <li>
+      <p>
+        Donec sit amet nisl. Aliquam semper ipsum sit amet velit.
+        <br />
+        Suspendisse id sem consectetuer libero luctus adipiscing.
+      </p>
+    </li>
+  </ul>,
+  <p>
+    But if you want to be lazy, you don't have to:
+  </p>,
+  <ul>
+    <li>
+      <p>
+        Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
+        <br />
+        Aliquam hendrerit mi posuere lectus. Vestibulum enim wisi,
+        <br />
+        viverra nec, fringilla in, laoreet vitae, risus.
+      </p>
+    </li>
+    <li>
+      <p>
+        Donec sit amet nisl. Aliquam semper ipsum sit amet velit.
+        <br />
+        Suspendisse id sem consectetuer libero luctus adipiscing.
+      </p>
+    </li>
+  </ul>,
+  <p>
+    List items may consist of multiple paragraphs. Each subsequent
+    <br />
+    paragraph in a list item must be indented by either 4 spaces
+    <br />
+    or one tab:
+  </p>,
+  <ol>
+    <li>
+      <p>
+        This is a list item with two paragraphs. Lorem ipsum dolor
+        <br />
+        sit amet, consectetuer adipiscing elit. Aliquam hendrerit
+        <br />
+        mi posuere lectus.
+      </p>
+      <p>
+        Vestibulum enim wisi, viverra nec, fringilla in, laoreet
+        <br />
+        vitae, risus. Donec sit amet nisl. Aliquam semper ipsum
+        <br />
+        sit amet velit.
+      </p>
+    </li>
+    <li>
+      <p>
+        Suspendisse id sem consectetuer libero luctus adipiscing.
+      </p>
+    </li>
+  </ol>,
+  <p>
+    It looks nice if you indent every line of the subsequent
+    <br />
+    paragraphs, but here again, Markdown will allow you to be
+    <br />
+    lazy:
+  </p>,
+  <ul>
+    <li>
+      <p>
+        This is a list item with two paragraphs.
+      </p>
+      <p>
+        This is the second paragraph in the list item. You're
+        <br />
+        only required to indent the first line. Lorem ipsum dolor
+        <br />
+        sit amet, consectetuer adipiscing elit.
+      </p>
+    </li>
+    <li>
+      <p>
+        Another item in the same list.
+      </p>
+    </li>
+  </ul>,
+  <p>
+    To put a blockquote within a list item, the blockquote's 
+    <code>
+      &gt;
+    </code>
+    <br />
+    delimiters need to be indented:
+  </p>,
+  <ul>
+    <li>
+      <p>
+        A list item with a blockquote:
+      </p>
+      <blockquote>
+        <p>
+          This is a blockquote
+          <br />
+          inside a list item.
+        </p>
+      </blockquote>
+    </li>
+  </ul>,
+  <p>
+    To put a code block within a list item, the code block needs
+    <br />
+    to be indented 
+    <em>
+      twice
+    </em>
+     -- 8 spaces or two tabs:
+  </p>,
+  <ul>
+    <li>
+      <p>
+        A list item with a code block:
+      </p>
+      <code>
+        &lt;code goes here&gt;
+
+      </code>
+    </li>
+  </ul>,
+  <h3>
+    Code Blocks
+  </h3>,
+  <p>
+    Pre-formatted code blocks are used for writing about programming or
+    <br />
+    markup source code. Rather than forming normal paragraphs, the lines
+    <br />
+    of a code block are interpreted literally. Markdown wraps a code block
+    <br />
+    in both 
+    <code>
+      &lt;pre&gt;
+    </code>
+     and 
+    <code>
+      &lt;code&gt;
+    </code>
+     tags.
+  </p>,
+  <p>
+    To produce a code block in Markdown, simply indent every line of the
+    <br />
+    block by at least 4 spaces or 1 tab.
+  </p>,
+  <p>
+    This is a normal paragraph:
+  </p>,
+  <code>
+    This is a code block.
+
+  </code>,
+  <p>
+    Here is an example of AppleScript:
+  </p>,
+  <code>
+    tell application "Foo"
+    beep
+end tell
+
+  </code>,
+  <p>
+    A code block continues until it reaches a line that is not indented
+    <br />
+    (or the end of the article).
+  </p>,
+  <p>
+    Within a code block, ampersands (
+    <code>
+      &
+    </code>
+    ) and angle brackets (
+    <code>
+      &lt;
+    </code>
+     and 
+    <code>
+      &gt;
+    </code>
+    )
+    <br />
+    are automatically converted into HTML entities. This makes it very
+    <br />
+    easy to include example HTML source code using Markdown -- just paste
+    <br />
+    it and indent it, and Markdown will handle the hassle of encoding the
+    <br />
+    ampersands and angle brackets. For example, this:
+  </p>,
+  <code>
+    &lt;div class="footer"&gt;
+    &copy; 2004 Foo Corporation
+&lt;/div&gt;
+
+  </code>,
+  <p>
+    Regular Markdown syntax is not processed within code blocks. E.g.,
+    <br />
+    asterisks are just literal asterisks within a code block. This means
+    <br />
+    it's also easy to use Markdown to write about Markdown's own syntax.
+  </p>,
+  <code>
+    tell application "Foo"
+    beep
+end tell
+
+  </code>,
+  <h2>
+    Span Elements
+  </h2>,
+  <h3>
+    Links
+  </h3>,
+  <p>
+    Markdown supports two style of links: 
+    <em>
+      inline
+    </em>
+     and 
+    <em>
+      reference
+    </em>
+    .
+  </p>,
+  <p>
+    In both styles, the link text is delimited by [square brackets].
+  </p>,
+  <p>
+    To create an inline link, use a set of regular parentheses immediately
+    <br />
+    after the link text's closing square bracket. Inside the parentheses,
+    <br />
+    put the URL where you want the link to point, along with an 
+    <em>
+      optional
+    </em>
+    <br />
+    title for the link, surrounded in quotes. For example:
+  </p>,
+  <p>
+    This is 
+    <a
+      href="http://example.com/"
+    >
+      an example
+    </a>
+     inline link.
+  </p>,
+  <p>
+    <a
+      href="http://example.net/"
+    >
+      This link
+    </a>
+     has no title attribute.
+  </p>,
+  <h3>
+    Emphasis
+  </h3>,
+  <p>
+    Markdown treats asterisks (
+    <code>
+      *
+    </code>
+    ) and underscores (
+    <code>
+      _
+    </code>
+    ) as indicators of
+    <br />
+    emphasis. Text wrapped with one 
+    <code>
+      *
+    </code>
+     or 
+    <code>
+      _
+    </code>
+     will be wrapped with an
+    <br />
+    HTML 
+    <code>
+      &lt;em&gt;
+    </code>
+     tag; double 
+    <code>
+      *
+    </code>
+    's or 
+    <code>
+      _
+    </code>
+    's will be wrapped with an HTML
+    <br />
+    <code>
+      &lt;strong&gt;
+    </code>
+     tag. E.g., this input:
+  </p>,
+  <p>
+    <em>
+      single asterisks
+    </em>
+  </p>,
+  <p>
+    <em>
+      single underscores
+    </em>
+  </p>,
+  <p>
+    
+    <strong>
+      double asterisks
+    </strong>
+    
+  </p>,
+  <p>
+    
+    <strong>
+      double underscores
+    </strong>
+    
+  </p>,
+  <h3>
+    Code
+  </h3>,
+  <p>
+    To indicate a span of code, wrap it with backtick quotes (
+    <code>
+      \`
+    </code>
+    ).
+    <br />
+    Unlike a pre-formatted code block, a code span indicates code within a
+    <br />
+    normal paragraph. For example:
+  </p>,
+  <p>
+    Use the 
+    <code>
+      printf()
+    </code>
+     function.
+  </p>,
+]
+`;
+
+exports[`Generic Markdown Test #2 1`] = `
+Array [
+  <h1>
+    <a
+      name="top"
+    />
+    Markdown Test Page
+  </h1>,
+  <ul>
+    <li>
+      <p>
+        <a
+          href="#Headings"
+        >
+          Headings
+        </a>
+      </p>
+    </li>
+    <li>
+      <p>
+        <a
+          href="#Paragraphs"
+        >
+          Paragraphs
+        </a>
+      </p>
+    </li>
+    <li>
+      <p>
+        <a
+          href="#Blockquotes"
+        >
+          Blockquotes
+        </a>
+      </p>
+    </li>
+    <li>
+      <p>
+        <a
+          href="#Lists"
+        >
+          Lists
+        </a>
+      </p>
+    </li>
+    <li>
+      <p>
+        <a
+          href="#Horizontal"
+        >
+          Horizontal rule
+        </a>
+      </p>
+    </li>
+    <li>
+      <p>
+        <a
+          href="#Table"
+        >
+          Table
+        </a>
+      </p>
+    </li>
+    <li>
+      <p>
+        <a
+          href="#Code"
+        >
+          Code
+        </a>
+      </p>
+    </li>
+    <li>
+      <p>
+        <a
+          href="#Inline"
+        >
+          Inline elements
+        </a>
+      </p>
+    </li>
+  </ul>,
+  <hr />,
+  <h1>
+    <a
+      name="Headings"
+    />
+    Headings
+  </h1>,
+  <h1>
+    Heading one
+  </h1>,
+  <p>
+    Sint sit cillum pariatur eiusmod nulla pariatur ipsum. Sit laborum anim qui mollit tempor pariatur nisi minim dolor. Aliquip et adipisicing sit sit fugiat commodo id sunt. Nostrud enim ad commodo incididunt cupidatat in ullamco ullamco Lorem cupidatat velit enim et Lorem. Ut laborum cillum laboris fugiat culpa sint irure do reprehenderit culpa occaecat. Exercitation esse mollit tempor magna aliqua in occaecat aliquip veniam reprehenderit nisi dolor in laboris dolore velit.
+  </p>,
+  <h2>
+    Heading two
+  </h2>,
+  <p>
+    Aute officia nulla deserunt do deserunt cillum velit magna. Officia veniam culpa anim minim dolore labore pariatur voluptate id ad est duis quis velit dolor pariatur enim. Incididunt enim excepteur do veniam consequat culpa do voluptate dolor fugiat ad adipisicing sit. Labore officia est adipisicing dolore proident eiusmod exercitation deserunt ullamco anim do occaecat velit. Elit dolor consectetur proident sunt aliquip est do tempor quis aliqua culpa aute. Duis in tempor exercitation pariatur et adipisicing mollit irure tempor ut enim esse commodo laboris proident. Do excepteur laborum anim esse aliquip eu sit id Lorem incididunt elit irure ea nulla dolor et. Nulla amet fugiat qui minim deserunt enim eu cupidatat aute officia do velit ea reprehenderit.
+  </p>,
+  <h3>
+    Heading three
+  </h3>,
+  <p>
+    Voluptate cupidatat cillum elit quis ipsum eu voluptate fugiat consectetur enim. Quis ut voluptate culpa ex anim aute consectetur dolore proident voluptate exercitation eiusmod. Esse in do anim magna minim culpa sint. Adipisicing ipsum consectetur proident ullamco magna sit amet aliqua aute fugiat laborum exercitation duis et.
+  </p>,
+  <h4>
+    Heading four
+  </h4>,
+  <p>
+    Commodo fugiat aliqua minim quis pariatur mollit id tempor. Non occaecat minim esse enim aliqua adipisicing nostrud duis consequat eu adipisicing qui. Minim aliquip sit excepteur ipsum consequat laborum pariatur excepteur. Veniam fugiat et amet ad elit anim laborum duis mollit occaecat et et ipsum et reprehenderit. Occaecat aliquip dolore adipisicing sint labore occaecat officia fugiat. Quis adipisicing exercitation exercitation eu amet est laboris sunt nostrud ipsum reprehenderit ullamco. Enim sint ut consectetur id anim aute voluptate exercitation mollit dolore magna magna est Lorem. Ut adipisicing adipisicing aliqua ullamco voluptate labore nisi tempor esse magna incididunt.
+  </p>,
+  <h5>
+    Heading five
+  </h5>,
+  <p>
+    Veniam enim esse amet veniam deserunt laboris amet enim consequat. Minim nostrud deserunt cillum consectetur commodo eu enim nostrud ullamco occaecat excepteur. Aliquip et ut est commodo enim dolor amet sint excepteur. Amet ad laboris laborum deserunt sint sunt aliqua commodo ex duis deserunt enim est ex labore ut. Duis incididunt velit adipisicing non incididunt adipisicing adipisicing. Ad irure duis nisi tempor eu dolor fugiat magna et consequat tempor eu ex dolore. Mollit esse nisi qui culpa ut nisi ex proident culpa cupidatat cillum culpa occaecat anim. Ut officia sit ea nisi ea excepteur nostrud ipsum et nulla.
+  </p>,
+  <h6>
+    Heading six
+  </h6>,
+  <p>
+    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+  </p>,
+  <p>
+    <a
+      href="#top"
+    >
+      [Top]
+    </a>
+  </p>,
+  <h1>
+    <a
+      name="Paragraphs"
+    />
+    Paragraphs
+  </h1>,
+  <p>
+    Incididunt ex adipisicing ea ullamco consectetur in voluptate proident fugiat tempor deserunt reprehenderit ullamco id dolore laborum. Do laboris laboris minim incididunt qui consectetur exercitation adipisicing dolore et magna consequat magna anim sunt. Officia fugiat Lorem sunt pariatur incididunt Lorem reprehenderit proident irure. Dolore ipsum aliqua mollit ad officia fugiat sit eu aliquip cupidatat ipsum duis laborum laborum fugiat esse. Voluptate anim ex dolore deserunt ea ex eiusmod irure. Occaecat excepteur aliqua exercitation aliquip dolor esse eu eu.
+  </p>,
+  <p>
+    Officia dolore laborum aute incididunt commodo nisi velit est est elit et dolore elit exercitation. Enim aliquip magna id ipsum aliquip consectetur ad nulla quis. Incididunt pariatur dolor consectetur cillum enim velit cupidatat laborum quis ex.
+  </p>,
+  <p>
+    Officia irure in non voluptate adipisicing sit amet tempor duis dolore deserunt enim ut. Reprehenderit incididunt in ad anim et deserunt deserunt Lorem laborum quis. Enim aute anim labore proident laboris voluptate elit excepteur in. Ex labore nulla velit officia ullamco Lorem Lorem id do. Dolore ullamco ipsum magna dolor pariatur voluptate ipsum id occaecat ipsum. Dolore tempor quis duis commodo quis quis enim.
+  </p>,
+  <p>
+    <a
+      href="#top"
+    >
+      [Top]
+    </a>
+  </p>,
+  <h1>
+    <a
+      name="Blockquotes"
+    />
+    Blockquotes
+  </h1>,
+  <p>
+    Ad nisi laborum aute cupidatat magna deserunt eu id laboris id. Aliquip nulla cupidatat sint ex Lorem mollit laborum dolor amet est ut esse aute. Nostrud ex consequat id incididunt proident ipsum minim duis aliqua ut ex et ad quis. Laborum sint esse cillum anim nulla cillum consectetur aliqua sit. Nisi excepteur cillum labore amet excepteur commodo enim occaecat consequat ipsum proident exercitation duis id in.
+  </p>,
+  <blockquote>
+    <p>
+      Ipsum et cupidatat mollit exercitation enim duis sunt irure aliqua reprehenderit mollit. Pariatur Lorem pariatur laboris do culpa do elit irure. Eiusmod amet nulla voluptate velit culpa et aliqua ad reprehenderit sit ut.
+    </p>
+  </blockquote>,
+  <p>
+    Labore ea magna Lorem consequat aliquip consectetur cillum duis dolore. Et veniam dolor qui incididunt minim amet laboris sit. Dolore ad esse commodo et dolore amet est velit ut nisi ea. Excepteur ea nulla commodo dolore anim dolore adipisicing eiusmod labore id enim esse quis mollit deserunt est. Minim ea culpa voluptate nostrud commodo proident in duis aliquip minim.
+  </p>,
+  <blockquote>
+    <p>
+      Qui est sit et reprehenderit aute est esse enim aliqua id aliquip ea anim. Pariatur sint reprehenderit mollit velit voluptate enim consectetur sint enim. Quis exercitation proident elit non id qui culpa dolore esse aliquip consequat.
+    </p>
+  </blockquote>,
+  <p>
+    Ipsum excepteur cupidatat sunt minim ad eiusmod tempor sit.
+  </p>,
+  <blockquote>
+    <p>
+      Deserunt excepteur adipisicing culpa pariatur cillum laboris ullamco nisi fugiat cillum officia. In cupidatat nulla aliquip tempor ad Lorem Lorem quis voluptate officia consectetur pariatur ex in est duis. Mollit id esse est elit exercitation voluptate nostrud nisi laborum magna dolore dolore tempor in est consectetur.
+    </p>
+  </blockquote>,
+  <p>
+    Adipisicing voluptate ipsum culpa voluptate id aute laboris labore esse fugiat veniam ullamco occaecat do ut. Tempor et esse reprehenderit veniam proident ipsum irure sit ullamco et labore ea excepteur nulla labore ut. Ex aute minim quis tempor in eu id id irure ea nostrud dolor esse.
+  </p>,
+  <p>
+    <a
+      href="#top"
+    >
+      [Top]
+    </a>
+  </p>,
+  <h1>
+    <a
+      name="Lists"
+    />
+    Lists
+  </h1>,
+  <h3>
+    Ordered List
+  </h3>,
+  <ol>
+    <li>
+      <p>
+        Longan
+      </p>
+    </li>
+    <li>
+      <p>
+        Lychee
+      </p>
+    </li>
+    <li>
+      <p>
+        Excepteur ad cupidatat do elit laborum amet cillum reprehenderit consequat quis.
+        <br />
+        Deserunt officia esse aliquip consectetur duis ut labore laborum commodo aliquip aliquip velit pariatur dolore.
+      </p>
+    </li>
+    <li>
+      <p>
+        Marionberry
+      </p>
+    </li>
+    <li>
+      <p>
+        Melon
+      </p>
+      <ul>
+        <li>
+          <p>
+            Cantaloupe
+          </p>
+        </li>
+        <li>
+          <p>
+            Honeydew
+          </p>
+        </li>
+        <li>
+          <p>
+            Watermelon
+          </p>
+        </li>
+      </ul>
+    </li>
+    <li>
+      <p>
+        Miracle fruit
+      </p>
+    </li>
+    <li>
+      <p>
+        Mulberry
+      </p>
+    </li>
+  </ol>,
+  <h3>
+    Unordered List
+  </h3>,
+  <ul>
+    <li>
+      <p>
+        Olive
+      </p>
+    </li>
+    <li>
+      <p>
+        Orange
+      </p>
+      <ul>
+        <li>
+          <p>
+            Blood orange
+          </p>
+        </li>
+        <li>
+          <p>
+            Clementine
+          </p>
+        </li>
+      </ul>
+    </li>
+    <li>
+      <p>
+        Papaya
+      </p>
+    </li>
+    <li>
+      <p>
+        Ut aute ipsum occaecat nisi culpa Lorem id occaecat cupidatat id id magna laboris ad duis. Fugiat cillum dolore veniam nostrud proident sint consectetur eiusmod irure adipisicing.
+      </p>
+    </li>
+    <li>
+      <p>
+        Passionfruit
+      </p>
+    </li>
+  </ul>,
+  <p>
+    <a
+      href="#top"
+    >
+      [Top]
+    </a>
+  </p>,
+  <h1>
+    <a
+      name="Horizontal"
+    />
+    Horizontal rule
+  </h1>,
+  <p>
+    In dolore velit aliquip labore mollit minim tempor veniam eu veniam ad in sint aliquip mollit mollit. Ex occaecat non deserunt elit laborum sunt tempor sint consequat culpa culpa qui sit. Irure ad commodo eu voluptate mollit cillum cupidatat veniam proident amet minim reprehenderit.
+  </p>,
+  <hr />,
+  <p>
+    In laboris eiusmod reprehenderit aliquip sit proident occaecat. Non sit labore anim elit veniam Lorem minim commodo eiusmod irure do minim nisi. Dolor amet cillum excepteur consequat sint non sint.
+  </p>,
+  <p>
+    <a
+      href="#top"
+    >
+      [Top]
+    </a>
+  </p>,
+  <h1>
+    <a
+      name="Table"
+    />
+    Table
+  </h1>,
+  <p>
+    Duis sunt ut pariatur reprehenderit mollit mollit magna dolore in pariatur nulla commodo sit dolor ad fugiat. Laboris amet ea occaecat duis eu enim exercitation deserunt ea laborum occaecat reprehenderit. Et incididunt dolor commodo consequat mollit nisi proident non pariatur in et incididunt id. Eu ut et Lorem ea ex magna minim ipsum ipsum do.
+  </p>,
+  <table>
+    <thead>
+      <tr>
+        <th
+          style={
+            Object {
+              "textAlign": "left",
+            }
+          }
+        >
+          Table Heading 1
+        </th>
+        <th
+          style={
+            Object {
+              "textAlign": "left",
+            }
+          }
+        >
+          Table Heading 2
+        </th>
+        <th
+          style={
+            Object {
+              "textAlign": "center",
+            }
+          }
+        >
+          Center align
+        </th>
+        <th
+          style={
+            Object {
+              "textAlign": "right",
+            }
+          }
+        >
+          Right align
+        </th>
+        <th
+          style={
+            Object {
+              "textAlign": "left",
+            }
+          }
+        >
+          Table Heading 5
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td
+          style={
+            Object {
+              "textAlign": "left",
+            }
+          }
+        >
+          Item 1
+        </td>
+        <td
+          style={
+            Object {
+              "textAlign": "left",
+            }
+          }
+        >
+          Item 2
+        </td>
+        <td
+          style={
+            Object {
+              "textAlign": "center",
+            }
+          }
+        >
+          Item 3
+        </td>
+        <td
+          style={
+            Object {
+              "textAlign": "right",
+            }
+          }
+        >
+          Item 4
+        </td>
+        <td
+          style={
+            Object {
+              "textAlign": "left",
+            }
+          }
+        >
+          Item 5
+        </td>
+      </tr>
+      <tr>
+        <td
+          style={
+            Object {
+              "textAlign": "left",
+            }
+          }
+        >
+          Item 1
+        </td>
+        <td
+          style={
+            Object {
+              "textAlign": "left",
+            }
+          }
+        >
+          Item 2
+        </td>
+        <td
+          style={
+            Object {
+              "textAlign": "center",
+            }
+          }
+        >
+          Item 3
+        </td>
+        <td
+          style={
+            Object {
+              "textAlign": "right",
+            }
+          }
+        >
+          Item 4
+        </td>
+        <td
+          style={
+            Object {
+              "textAlign": "left",
+            }
+          }
+        >
+          Item 5
+        </td>
+      </tr>
+      <tr>
+        <td
+          style={
+            Object {
+              "textAlign": "left",
+            }
+          }
+        >
+          Item 1
+        </td>
+        <td
+          style={
+            Object {
+              "textAlign": "left",
+            }
+          }
+        >
+          Item 2
+        </td>
+        <td
+          style={
+            Object {
+              "textAlign": "center",
+            }
+          }
+        >
+          Item 3
+        </td>
+        <td
+          style={
+            Object {
+              "textAlign": "right",
+            }
+          }
+        >
+          Item 4
+        </td>
+        <td
+          style={
+            Object {
+              "textAlign": "left",
+            }
+          }
+        >
+          Item 5
+        </td>
+      </tr>
+      <tr>
+        <td
+          style={
+            Object {
+              "textAlign": "left",
+            }
+          }
+        >
+          Item 1
+        </td>
+        <td
+          style={
+            Object {
+              "textAlign": "left",
+            }
+          }
+        >
+          Item 2
+        </td>
+        <td
+          style={
+            Object {
+              "textAlign": "center",
+            }
+          }
+        >
+          Item 3
+        </td>
+        <td
+          style={
+            Object {
+              "textAlign": "right",
+            }
+          }
+        >
+          Item 4
+        </td>
+        <td
+          style={
+            Object {
+              "textAlign": "left",
+            }
+          }
+        >
+          Item 5
+        </td>
+      </tr>
+      <tr>
+        <td
+          style={
+            Object {
+              "textAlign": "left",
+            }
+          }
+        >
+          Item 1
+        </td>
+        <td
+          style={
+            Object {
+              "textAlign": "left",
+            }
+          }
+        >
+          Item 2
+        </td>
+        <td
+          style={
+            Object {
+              "textAlign": "center",
+            }
+          }
+        >
+          Item 3
+        </td>
+        <td
+          style={
+            Object {
+              "textAlign": "right",
+            }
+          }
+        >
+          Item 4
+        </td>
+        <td
+          style={
+            Object {
+              "textAlign": "left",
+            }
+          }
+        >
+          Item 5
+        </td>
+      </tr>
+    </tbody>
+  </table>,
+  <p>
+    Minim id consequat adipisicing cupidatat laborum culpa veniam non consectetur et duis pariatur reprehenderit eu ex consectetur. Sunt nisi qui eiusmod ut cillum laborum Lorem officia aliquip laboris ullamco nostrud laboris non irure laboris. Cillum dolore labore Lorem deserunt mollit voluptate esse incididunt ex dolor.
+  </p>,
+  <p>
+    <a
+      href="#top"
+    >
+      [Top]
+    </a>
+  </p>,
+  <h1>
+    <a
+      name="Code"
+    />
+    Code
+  </h1>,
+  <h2>
+    Inline code
+  </h2>,
+  <p>
+    Ad amet irure est magna id mollit Lorem in do duis enim. Excepteur velit nisi magna ea pariatur pariatur ullamco fugiat deserunt sint non sint. Duis duis est 
+    <code>
+      code in text
+    </code>
+     velit velit aute culpa ex quis pariatur pariatur laborum aute pariatur duis tempor sunt ad. Irure magna voluptate dolore consectetur consectetur irure esse. Anim magna 
+    <code>
+      &lt;strong&gt;in culpa qui officia&lt;/strong&gt;
+    </code>
+     dolor eiusmod esse amet aute cupidatat aliqua do id voluptate cupidatat reprehenderit amet labore deserunt.
+  </p>,
+  <h2>
+    Highlighted
+  </h2>,
+  <p>
+    Et fugiat ad nisi amet magna labore do cillum fugiat occaecat cillum Lorem proident. In sint dolor ullamco ad do adipisicing amet id excepteur Lorem aliquip sit irure veniam laborum duis cillum. Aliqua occaecat minim cillum deserunt magna sunt laboris do do irure ea nostrud consequat ut voluptate ex.
+  </p>,
+  <code>
+    package main
+
+import (
+    "fmt"
+    "net/http"
+)
+
+func handler(w http.ResponseWriter, r *http.Request) {
+    fmt.Fprintf(w, "Hi there, I love %s!", r.URL.Path[1:])
+}
+
+func main() {
+    http.HandleFunc("/", handler)
+    http.ListenAndServe(":8080", nil)
+}
+
+  </code>,
+  <p>
+    Ex amet id ex aliquip id do laborum excepteur exercitation elit sint commodo occaecat nostrud est. Nostrud pariatur esse veniam laborum non sint magna sit laboris minim in id. Aliqua pariatur pariatur excepteur adipisicing irure culpa consequat commodo et ex id ad.
+  </p>,
+  <p>
+    <a
+      href="#top"
+    >
+      [Top]
+    </a>
+  </p>,
+  <h1>
+    <a
+      name="Inline"
+    />
+    Inline elements
+  </h1>,
+  <p>
+    Sint ea anim ipsum ad commodo cupidatat do 
+    <strong>
+      exercitation
+    </strong>
+     incididunt et minim ad labore sunt. Minim deserunt labore laboris velit nulla incididunt ipsum nulla. Ullamco ad laborum ea qui et anim in laboris exercitation tempor sit officia laborum reprehenderit culpa velit quis. 
+    <strong>
+      Consequat commodo
+    </strong>
+     reprehenderit duis 
+    <a
+      href="#!"
+    >
+      irure
+    </a>
+     esse esse exercitation minim enim Lorem dolore duis irure. Nisi Lorem reprehenderit ea amet excepteur dolor excepteur magna labore proident voluptate ipsum. Reprehenderit ex esse deserunt aliqua ea officia mollit Lorem nulla magna enim. Et ad ipsum labore enim ipsum 
+    <strong>
+      cupidatat consequat
+    </strong>
+    . Commodo non ea cupidatat magna deserunt dolore ipsum velit nulla elit veniam nulla eiusmod proident officia.
+  </p>,
+  <p>
+    <img
+      alt="Super wide"
+      src="http://placekitten.com/1280/800"
+    />
+  </p>,
+  <p>
+    <em>
+      Proident sit veniam in est proident officia adipisicing
+    </em>
+     ea tempor cillum non cillum velit deserunt. Voluptate laborum incididunt sit consectetur Lorem irure incididunt voluptate nostrud. Commodo ut eiusmod tempor cupidatat esse enim minim ex anim consequat. Mollit sint culpa qui laboris quis consectetur ad sint esse. Amet anim anim minim ullamco et duis non irure. Sit tempor adipisicing ea laboris 
+    <code>
+      culpa ex duis sint
+    </code>
+     anim aute reprehenderit id eu ea. Aute 
+    <a
+      href="#!"
+    >
+      excepteur proident
+    </a>
+     Lorem minim adipisicing nostrud mollit ad ut voluptate do nulla esse occaecat aliqua sint anim.
+  </p>,
+  <p>
+    <img
+      alt="Not so big"
+      src="http://placekitten.com/480/400"
+    />
+  </p>,
+  <p>
+    Incididunt in culpa cupidatat mollit cillum qui proident sit. In cillum aliquip incididunt voluptate magna amet cupidatat cillum pariatur sint aliqua est 
+    <em>
+      enim 
+      <strong>
+        anim
+      </strong>
+       voluptate
+    </em>
+    . Magna aliquip proident incididunt id duis pariatur eiusmod incididunt commodo culpa dolore sit. Culpa do nostrud elit ad exercitation anim pariatur non minim nisi 
+    <strong>
+      adipisicing sunt 
+      <em>
+        officia
+      </em>
+    </strong>
+    . Do deserunt magna mollit Lorem commodo ipsum do cupidatat mollit enim ut elit veniam ea voluptate.
+  </p>,
+  <p>
+    <a
+      href="http://www.youtube.com/watch?v=qEuD6v1Y9fg"
+    >
+      <img
+        alt="Box"
+        src="http://img.youtube.com/vi/qEuD6v1Y9fg/0.jpg"
+      />
+    </a>
+  </p>,
+  <p>
+    Reprehenderit non eu quis in ad elit esse qui aute id 
+    <a
+      href="#!"
+    >
+      incididunt
+    </a>
+     dolore cillum. Esse laboris consequat dolor anim exercitation tempor aliqua deserunt velit magna laboris. Culpa culpa minim duis amet mollit do quis amet commodo nulla irure.
+  </p>,
+]
+`;
+
+exports[`Test of code blocks 1`] = `
+Array [
+  <h1>
+    Code blocks test
+  </h1>,
+  <h3>
+    Markdown fence (\`\`\`) codeblock
+  </h3>,
+  <code>
+    for (let i = 0; i &lt; 10; i += 1) {
+
+  for (let j = 0; j &lt; 10; j += 1) {
+
+    for (let k = 0; k &lt; 10; k += 1) {
+      console.log('Yo!');
+    }
+  }
+}
+
+  </code>,
+  <h3>
+    Html code block
+  </h3>,
+  <p>
+    <code>
+      <br />
+      for (let i = 0; i &lt; 10; i += 1) {
+    </code>
+  </p>,
+  <p>
+    for (let j = 0; j &lt; 10; j += 1) {
+  </p>,
+  <code>
+    for (let k = 0; k &lt; 10; k += 1) {
+  console.log('Yo!');
+}
+
+  </code>,
+  <p>
+    }
+    <br />
+    }
+    <br />
+  </p>,
+]
+`;

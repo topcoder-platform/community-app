@@ -2,12 +2,17 @@
  * Routing of Mobile Community.
  */
 
+import ChallengeDetails from 'routes/ChallengeDetails';
 import ChallengeListing from 'routes/Communities/ChallengeListing';
 import ContentfulRoute from 'components/Contentful/Route';
 import Footer from 'components/tc-communities/Footer2';
 import Header from 'containers/tc-communities/Header';
 import PT from 'prop-types';
 import React from 'react';
+import Submission from 'routes/Submission';
+import SubmissionManagement from 'routes/SubmissionManagement';
+import TermsDetail from 'routes/TermsDetail';
+
 import { Route, Switch } from 'react-router-dom';
 import { ThemeProvider } from 'react-css-super-themr';
 import { config, MetaTags } from 'topcoder-react-utils';
@@ -52,6 +57,36 @@ export default function Mobile({ base, meta }) {
                 )}
                 exact
                 path={`${base}/challenges`}
+              />
+              <Route
+                component={routeProps => ChallengeDetails({
+                  ...routeProps,
+                  challengesUrl: `${base}/challenges`,
+                  communityId: meta.communityId,
+                })}
+                exact
+                path={`${base}/challenges/:challengeId(\\d{8})`}
+              />
+              <Route
+                component={routeProps => Submission({
+                  ...routeProps,
+                  challengesUrl: `${base}/challenges`,
+                })}
+                exact
+                path={`${base}/challenges/:challengeId(\\d{8})/submit`}
+              />
+              <Route
+                component={routeProps => SubmissionManagement({
+                  ...routeProps,
+                  challengesUrl: `${base}/challenges`,
+                })}
+                exact
+                path={`${base}/challenges/:challengeId(\\d{8})/my-submissions`}
+              />
+              <Route
+                component={TermsDetail}
+                exact
+                path={`${base}/challenges/terms/detail/:termId`}
               />
               <ContentfulRoute
                 baseUrl={base}
