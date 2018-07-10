@@ -5,7 +5,6 @@
   justify-content: space-around;
   flex-direction: row;
   width: 100%;
-  align-items: center;
   max-width: 980px;
   margin-bottom: 60px;
 
@@ -36,8 +35,13 @@
 }
 
 .icon {
-  height: 45px;
-  width: 45px;
+  height: 96px;
+  width: 96px;
+
+  @media screen and (max-width: $screen-md) {
+    height: 72px;
+    width: 72px;
+  }
 }
 
 .text {

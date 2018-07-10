@@ -152,7 +152,7 @@ Tutorials
 Ready to Compete? Click here to sign up with Topcoder!
                 </p>
                 <div styleName="button-wrapper-view-all">
-                  <PrimaryButton to="/">
+                  <PrimaryButton to="/register">
 Sign Up Now
                   </PrimaryButton>
                 </div>
