@@ -1417,7 +1417,6 @@
           "name": "Learn More",
           "type": "Symbol",
           "localized": false,
-          "required": true,
           "validations": [
             {
               "regexp": {
@@ -2010,7 +2009,6 @@
           "name": "Learn More",
           "type": "Symbol",
           "localized": false,
-          "required": true,
           "validations": [
             {
               "regexp": {
