@@ -1546,7 +1546,6 @@
           "name": "Time Table",
           "type": "Array",
           "localized": false,
-          "required": true,
           "validations": [
           ],
           "disabled": false,
