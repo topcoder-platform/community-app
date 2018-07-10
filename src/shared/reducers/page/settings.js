@@ -15,11 +15,6 @@ function toastrSuccess(title, message) {
   });
 }
 
-function toastrFailed(title, message) {
-  setImmediate(() => {
-    toastr.error(title, message);
-  });
-}
 
 function mergeSkills(state, { type, payload, error }) {
   if (error) {
@@ -84,7 +79,6 @@ function mergeSkills(state, { type, payload, error }) {
 
 function onAddWebLinkDone(state, { error }) {
   if (error) {
-    toastrFailed('Whoops! ', 'Your web link is already added to your account.');
     return state;
   }
   toastrSuccess('Success!', 'Your link has been added. Data from your link will be visible on your profile shortly.');
@@ -119,7 +113,6 @@ function onDeleteWebLinkDone(state, { payload, error }) {
 
 function onLinkExternalAccountDone(state, { payload, error }) {
   if (error) {
-    toastrFailed('Whoops! ', 'Sorry, we are unable to add your account right now. Please try again later. If the problem persists, please contact ');
     return state;
   }
 
