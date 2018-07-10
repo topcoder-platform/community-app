@@ -22,20 +22,25 @@ const Header = ({ data }) => (
           { __html: converter.makeHtml(data.text) }
         }
       />
-      <div styleName="time-table">
-        {
-          data.table.map(item => (
-            <div styleName="time-item" key={item.fields.time}>
-              <span styleName="time">
-                {item.fields.time}
-              </span>
-              {' '}
--
-              {item.fields.description}
-            </div>
-          ))
-        }
-      </div>
+      {
+        data.table
+        && (
+          <div styleName="time-table">
+            {
+              data.table.map(item => (
+                <div styleName="time-item" key={item.fields.time}>
+                  <span styleName="time">
+                    {item.fields.time}
+                  </span>
+                  {' '}
+    -
+                  {item.fields.description}
+                </div>
+              ))
+            }
+          </div>
+        )
+      }
     </div>
     <div styleName="right">
       {
@@ -57,20 +62,25 @@ const Header = ({ data }) => (
         { __html: converter.makeHtml(data.text) }
       }
     />
-    <div styleName="time-table-mobile">
-      {
-        data.table.map(item => (
-          <div styleName="time-item" key={item.fields.time}>
-            <span styleName="time">
-              {item.fields.time}
-            </span>
-            {' '}
--
-            {item.fields.description}
-          </div>
-        ))
-      }
-    </div>
+    {
+      data.table
+      && (
+        <div styleName="time-table-mobile">
+          {
+            data.table.map(item => (
+              <div styleName="time-item" key={item.fields.time}>
+                <span styleName="time">
+                  {item.fields.time}
+                </span>
+                {' '}
+    -
+                {item.fields.description}
+              </div>
+            ))
+          }
+        </div>
+      )
+    }
   </div>
 );
 
