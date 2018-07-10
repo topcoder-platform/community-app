@@ -97,8 +97,7 @@ class SubmissionManagementPageContainer extends React.Component {
           {isLoadingChallenge && <LoadingIndicator />}
           {/* TODO: The modal should be split out as a separate component.
             * Not critical though, so keeping it here for the moment. */}
-          {showModal
-          && (
+          {showModal && (
           <Modal
             onCancel={deleting ? _.noop : onCancelSubmissionDelete}
           >

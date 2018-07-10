@@ -1,11 +1,10 @@
 import fs from 'fs';
 import render from 'utils/markdown';
-import { Stringify } from 'postcss';
 
 /**
  * Performs snapshot test of markdown rendering, using the specified file as
  * the test markup.
- * @param {Stringify} filename
+ * @param {String} filename
  */
 function check(filename) {
   const url = `${__dirname}/__mocks__/${filename}`;

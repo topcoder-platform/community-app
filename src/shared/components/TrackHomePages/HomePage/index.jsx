@@ -114,11 +114,16 @@ Important Policies
                   }
                 />
                 <ImportantPolicies data={importantPolicies} />
-                <div styleName="button-wrapper-learn-more">
-                  <PrimaryButton to={importantPolicies.learnMore} openNewTab>
-Learn More
-                  </PrimaryButton>
-                </div>
+                {
+                  importantPolicies.learnMore
+                  && (
+                    <div styleName="button-wrapper-learn-more">
+                      <PrimaryButton to={importantPolicies.learnMore} openNewTab>
+  Learn More
+                      </PrimaryButton>
+                    </div>
+                  )
+                }
               </div>
               <div styleName={`tutorials ${auth.user ? 'last-section' : ''}`}>
                 <h1>
@@ -131,15 +136,20 @@ Tutorials
                   }
                 />
                 <Tutorials data={tutorials} />
-                <div styleName="button-wrapper-learn-more">
-                  <PrimaryButton to={tutorials.learnMore} openNewTab>
-Learn More
-                  </PrimaryButton>
-                </div>
+                {
+                  tutorials.learnMore
+                  && (
+                    <div styleName="button-wrapper-learn-more">
+                      <PrimaryButton to={tutorials.learnMore} openNewTab>
+  Learn More
+                      </PrimaryButton>
+                    </div>
+                  )
+                }
               </div>
               <div styleName={`sign-up ${auth.user ? 'hidden' : ''}`}>
                 <p>
-Ready to Design? Click here to sign up with Topcoder!
+Ready to Compete? Click here to sign up with Topcoder!
                 </p>
                 <div styleName="button-wrapper-view-all">
                   <PrimaryButton to="/">
