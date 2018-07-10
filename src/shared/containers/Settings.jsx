@@ -14,6 +14,7 @@ import dashActions from 'actions/page/dashboard';
 import settingsActions, { TABS } from 'actions/page/settings';
 import { PROFILETABS } from 'actions/page/profileSettings';
 import { TOOLSTABS } from 'actions/page/toolsSettings';
+import { ACCOUNTTABS } from 'actions/page/accountSettings';
 import { PREFERENCESTABS } from 'actions/page/preferencesSettings';
 import Error404 from 'components/Error404';
 import LoadingIndicator from 'components/LoadingIndicator';
@@ -68,7 +69,8 @@ class SettingsContainer extends React.Component {
       authenticating,
       loadingError,
       profile,
-      subTab
+      subTab,
+      settingsTab
     } = this.props;
     function loadingSubTab(subTab, props){
       switch(subTab){
@@ -87,6 +89,9 @@ class SettingsContainer extends React.Component {
         case 'software': {
           return props.software
         }
+        case 'myaccount': {
+          return props.myaccount
+        }
       }                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 
     }
     console.log("Sending props", this.props);
@@ -96,7 +101,7 @@ class SettingsContainer extends React.Component {
 var loaded= null;
     // Only load the page when authenticated and profile is loaded
 
-    var loaded = !authenticating && profile && (loadingSubTab(subTab, this.props));
+    var loaded = !authenticating && profile && ((loadingSubTab(subTab, this.props))||(settingsTab==='account'));
 
     return loaded ?
       <Settings
@@ -113,6 +118,9 @@ function defaultSubtab(mainTab){
     case 'tools':{
       return TOOLSTABS.DEVICES;
     }
+    case 'account': {
+      return ACCOUNTTABS.MYACCOUNT;
+    }
     case 'preferences':{
       return PREFERENCESTABS.EMAIL;
     }
@@ -128,7 +136,8 @@ SettingsContainer.defaultProps = {
   language: null,
   education: null,
   devices: null,
-  software: null
+  software: null,
+  myaccount: null
 };
 
 SettingsContainer.propTypes = {
@@ -160,7 +169,7 @@ SettingsContainer.propTypes = {
   handle: PT.string,
   tokenV3: PT.string,
   profile: PT.shape(),
-  basiInfo: PT.shape(),
+  basicInfo: PT.shape(),
   profileState: PT.shape().isRequired,
   settingsPageState: PT.shape().isRequired,
   lookupData: PT.shape().isRequired,
@@ -265,6 +274,11 @@ function mapDispatchToProps(dispatch) {
       dispatch(devicesActions.getDevicesDone(handle, tokenV3));
     }
     else if(subTab===TOOLSTABS.SOFTWARE){
+      console.log("Entered software subtab");
+      dispatch(softwareActions.getSoftwareInit());
+      dispatch(softwareActions.getSoftwareDone(handle, tokenV3));
+    }
+    else if(subTab===ACCOUNTTABS.MYACCOUNT){
       console.log("Entered software subtab");
       dispatch(softwareActions.getSoftwareInit());
       dispatch(softwareActions.getSoftwareDone(handle, tokenV3));

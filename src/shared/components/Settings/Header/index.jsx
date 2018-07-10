@@ -33,6 +33,10 @@ export default function Header(props) {
         sTab= 'devices';
         break;
       }
+      case 'account': {
+        sTab= 'myaccount';
+        break;
+      }
       case 'preferences':{
         sTab= 'email';
         break;

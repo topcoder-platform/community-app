@@ -10,6 +10,7 @@ import pageActions, { TABS } from 'actions/page/settings';
 import  { PROFILETABS } from 'actions/page/profileSettings';
 import  { TOOLSTABS } from 'actions/page/toolsSettings';
 import  { PREFERENCESTABS } from 'actions/page/preferencesSettings';
+import  { ACCOUNTTABS } from 'actions/page/accountSettings';
 import { actions } from 'topcoder-react-lib';
 
 function toastrSuccess(title, message) {
@@ -231,6 +232,9 @@ function getSubTab(mainTab){
     case 'preferences':{
       return PREFERENCESTABS.EMAIL;
     }
+    case 'account': {
+      return ACCOUNTTABS.MYACCOUNT;
+    }
   }
 }
 /**
@@ -245,7 +249,7 @@ export function factory(req) {
   if (req && req.url) {
     var h= 0;
     const { pathname } = require('url').parse(`${config.URL.APP}${req.url}`); /* eslint-disable-line global-require */
-    var match= pathname.match(/^\/settings\/(profile|tools|account|preferences)(\/)(basicinfo|language|education|work|organization|skill|hobby|community|devices|software|serviceproviders|subscriptions)?$/);
+    var match= pathname.match(/^\/settings\/(profile|tools|account|preferences)(\/)(basicinfo|language|education|work|organization|skill|hobby|community|devices|software|serviceproviders|subscriptions|myaccount|linkedaccount)?$/);
     if(!match){
       var match = pathname.match(/^\/settings\/(profile|tools|account|preferences)(\/)?$/);
       var h=1;

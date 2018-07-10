@@ -9,6 +9,7 @@ import PT from 'prop-types';
 import { PrimaryButton, SecondaryButton } from 'topcoder-react-ui-kit';
 
 import { getEducationTypes } from 'utils/educationTypes';
+import EducationList from '../../../../../assets/images/educationlist.svg';
 
 import Select from 'components/Select';
 import DefaultPortrait from 'assets/images/ico-user-default.svg';
@@ -88,7 +89,7 @@ export default class Data extends React.Component {
         return (
           <div style= {{border:"1px solid #ededf2", padding: "20px 20px", overflow: "hidden"}}>
           <div style= {{width: "6.7%", padding: "0", float: "left"}}>
-          <img src= "#" style= {{height: "45px", width: "45px"}}/>
+          <EducationList />
           </div>
           <div style= {{width: "79.83%", marginLeft: "2.4%", float: "left"}}>
             <p style= {{fontFamily: "Roboto", marginBottom: "5px", fontSize: "16px", fontWeight: "550", lineHeight: "1.33", color: "#262628"}}>{educationObj.schoolCollegeName}</p>
@@ -97,8 +98,8 @@ export default class Data extends React.Component {
           </div>
           <div style= {{width: "8.367%", float: "left"}}>
           <a style= {{padding: "5px", borderRadius: "4px"}} onClick= {(e) => (e.preventDefault(), this.onDeleteProfileEducation(educationObj.schoolCollegeName))}>
-                  {/* <img src= "images/flag.jpg" style= {{height: "15px", width: "15px"}}/> */}
-                  <p style= {{fontSize: "13px", color: "#888894", marginTop: "10px", fontFamily: "Roboto", textAlign: "center", lineHeight: "1.36"}}>Delete</p>
+                  
+                  <p style= {{fontSize: "16px", marginTop: "10px", cursor: "pointer", fontFamily: "Roboto", textAlign: "center", lineHeight: "1.36", fontWeight: "550"}}>Delete</p>
                 </a>
             </div>
           </div>
