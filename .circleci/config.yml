@@ -74,6 +74,45 @@ jobs:
       - deploy:
           command: ./deploy.sh TEST $CIRCLE_SHA1
 
+  # Build & Deploy against testing backend
+  "build-prod-beta":
+    docker:
+      - image: docker:17.11.0-ce-git
+    steps:
+      # Initialization.
+      - checkout
+      - setup_remote_docker
+      - run:
+          name: Installation of build dependencies.
+          command: apk add --no-cache bash
+
+      # Restoration of node_modules from cache.
+      - restore_cache:
+          key: docker-node-modules-v3-{{ checksum "package-lock.json" }}
+
+      # Build of Docker image.
+      - run:
+          name: Build of Docker image
+          command: ./build.sh production_beta
+
+      # Caching node modules.
+      - save_cache:
+          key: docker-node-modules-v3-{{ checksum "package-lock.json" }}
+          paths:
+            - node_modules
+
+      # Deployment.
+      - run:
+          name: Installing AWS client
+          command: |
+            apk add --no-cache jq py-pip sudo
+            sudo pip install awscli --upgrade
+
+      - deploy:
+          command: ./deploy.sh PRODBETA $CIRCLE_SHA1
+
+  # Build & Deploy against production backend
+
   # Build & Deploy against production backend
   "build-prod":
     docker:
