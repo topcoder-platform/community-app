@@ -4,9 +4,9 @@
 
 // import PT from 'prop-types';
 import React from 'react';
-// import { Button } from 'topcoder-react-ui-kit';
+import { Button } from 'topcoder-react-ui-kit';
 
-import './style.scss';
+import style from './style.scss';
 
 export default function MonthOfLoveBanner() {
   return (
@@ -23,22 +23,16 @@ export default function MonthOfLoveBanner() {
           sentiment analysis on review comments by customers, and correlate
           these comments to the quantitative review score for a given seller.
         </p>
-        <p styleName="text bold">
-          Starts on July 9, 2018
-        </p>
+        <Button
+          openNewTab
+          theme={{
+            button: style.button,
+          }}
+          to="https://community.topcoder.com/tc?module=MatchDetails&rd=17202"
+        >
+          Compete Now
+        </Button>
       </div>
-      {
-      /*
-      <Button
-        theme={{
-          button: style.button,
-        }}
-        to={to}
-      >
-View Challenges
-      </Button>
-      */
-      }
     </div>
   );
 }
