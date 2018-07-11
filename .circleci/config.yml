@@ -112,8 +112,6 @@ jobs:
           command: ./deploy.sh PRODBETA $CIRCLE_SHA1
 
   # Build & Deploy against production backend
-
-  # Build & Deploy against production backend
   "build-prod":
     docker:
       - image: docker:17.06.1-ce-git
