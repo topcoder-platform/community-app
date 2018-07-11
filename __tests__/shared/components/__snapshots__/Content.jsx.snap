@@ -313,7 +313,7 @@ exports[`Matches shallow shapshot 1`] = `
     <li>
       <Link
         replace={false}
-        to="/track/design"
+        to="/community/design"
       >
         Track Home Page - Design
       </Link>
