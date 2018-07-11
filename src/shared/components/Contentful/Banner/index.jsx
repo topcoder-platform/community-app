@@ -15,6 +15,9 @@ const THEMES = {
   'Default Sub-Community': require('./themes/default_sub-community.scss'),
   'Simple Title above Background':
     require('./themes/simple_title_above_background.scss'),
+  TCO19: require('./themes/tco19.scss'),
+  'TCO19-left': require('./themes/tco19-left.scss'),
+  'TCO19-right': require('./themes/tco19-right.scss'),
 };
 /* eslint-enable global-require */
 
