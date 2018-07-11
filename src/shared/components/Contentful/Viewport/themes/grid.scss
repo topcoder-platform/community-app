@@ -5,18 +5,20 @@
   margin: 1em auto;
   padding: 0 1em;
   overflow: auto;
+
   @include xl {
     max-width: $screen-lg;
   }
-  @include xs-to-sm  {
+
+  @include xs-to-sm {
     display: flex;
     flex-wrap: wrap;
   }
 
-
   > div {
     margin: 0;
-    @include xs-to-sm  {
+
+    @include xs-to-sm {
       margin-bottom: 7px;
     }
   }

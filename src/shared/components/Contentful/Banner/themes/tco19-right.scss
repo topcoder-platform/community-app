@@ -5,9 +5,11 @@
   @include md {
     margin-left: ($screen-sm - $contentWrapperPadding * 2) / 2;
   }
+
   @include md-to-lg {
     margin-left: ($screen-md - $contentWrapperPadding * 2) / 2;
   }
+
   @include xl {
     margin-left: ($screen-lg - $contentWrapperPadding * 2) / 2;
   }
