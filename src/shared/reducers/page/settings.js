@@ -15,6 +15,7 @@ function toastrSuccess(title, message) {
   });
 }
 
+
 function mergeSkills(state, { type, payload, error }) {
   if (error) {
     return state;
@@ -111,9 +112,11 @@ function onDeleteWebLinkDone(state, { payload, error }) {
 }
 
 function onLinkExternalAccountDone(state, { payload, error }) {
-  if (!error) {
-    toastrSuccess('Success! ', `Your ${payload.data.providerType} account has been linked. Data from your linked account will be visible on your profile shortly.`);
+  if (error) {
+    return state;
   }
+
+  toastrSuccess('Success! ', `Your ${payload.data.providerType} account has been linked. Data from your linked account will be visible on your profile shortly.`);
   return state;
 }
 
@@ -232,7 +235,7 @@ export function factory(req) {
   // Check to see if a specific tab is provided as a param
   if (req && req.url) {
     const { pathname } = require('url').parse(`${config.URL.APP}${req.url}`); /* eslint-disable-line global-require */
-    const match = pathname.match(/^\/settings\/(profile|account|email|preferences)(\/)?$/);
+    const match = pathname.match(/^\/settings\/(profile|tools|account|preferences)(\/)?$/);
     if (match && match[1]) {
       return Promise.resolve(create({
         settingsTab: match[1],

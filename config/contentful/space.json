@@ -1417,7 +1417,6 @@
           "name": "Learn More",
           "type": "Symbol",
           "localized": false,
-          "required": true,
           "validations": [
             {
               "regexp": {
@@ -1546,7 +1545,6 @@
           "name": "Time Table",
           "type": "Array",
           "localized": false,
-          "required": true,
           "validations": [
           ],
           "disabled": false,
@@ -2011,7 +2009,6 @@
           "name": "Learn More",
           "type": "Symbol",
           "localized": false,
-          "required": true,
           "validations": [
             {
               "regexp": {

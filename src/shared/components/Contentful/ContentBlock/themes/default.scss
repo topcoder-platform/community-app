@@ -32,10 +32,6 @@
 
   a { color: $tc-dark-blue; }
 
-  p a {
-    text-decoration: underline;
-  }
-
   a:active,
   a:focus,
   a:visited,
@@ -59,8 +55,8 @@
 
   p {
     color: rgb(120, 125, 129);
-    font: 15px/22px "Open Sans", sans-serif;
-    padding: 5px 0;
+    font: 20px/1.5 "Open Sans", sans-serif;
+    padding: 10px 0;
   }
 
   td,
