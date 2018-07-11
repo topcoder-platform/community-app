@@ -13,8 +13,8 @@ ACCOUNT_ID=$(eval "echo \$${ENV}_AWS_ACCOUNT_ID")
 AWS_ECS_SERVICE=$(eval "echo \$${ENV}_AWS_ECS_SERVICE")
 AWS_REPOSITORY=$(eval "echo \$${ENV}_AWS_REPOSITORY")
 AWS_ECS_TASK_FAMILY=$(eval "echo \$${ENV}_AWS_ECS_TASK_FAMILY")
-echo $AWS_ECS_SERVICE 
-configure_aws_cli() {  
+echo $AWS_ECS_SERVICE
+configure_aws_cli() {
 	AWS_ACCESS_KEY_ID=$(eval "echo \$${ENV}_AWS_ACCESS_KEY_ID")
 	AWS_SECRET_ACCESS_KEY=$(eval "echo \$${ENV}_AWS_SECRET_ACCESS_KEY")
 	aws --version
@@ -24,6 +24,16 @@ configure_aws_cli() {
 	aws configure set default.output json
   echo "Configured AWS CLI."
 }
+
+echo 1 $PROD_AWS_REGION
+echo 2 $PROD_AWS_ECS_CLUSTER
+echo 3 $PROD_AWS_ECS_SERVICE
+echo 4 $PROD_FILESTACK_API_KEY
+echo 5 $PROD_FILESTACK_SUBMISSION_CONTAINER
+echo 6 $PROD_SEGMENT_IO_API_KEY
+echo 7 $PROD_SERVER_API_KEY
+echo 8 $PROD_CDN_URL
+echo 9 $PROD_AUTH0_CLIENT_ID
 
 deploy_cluster() {
     make_task_def
@@ -68,7 +78,7 @@ make_task_def(){
 		}
 	}
 	]'
-	
+
 	if [ "$ENV" = "PROD" ]; then
 			NODE_CONFIG_ENV=production
 	elif [ "$ENV" = "DEV" ]; then
