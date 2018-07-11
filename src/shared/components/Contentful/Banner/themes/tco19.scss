@@ -1,0 +1,68 @@
+/* TCO19 banner styling. */
+
+@import "~styles/mixins";
+$contentWrapperPadding: 60px;
+
+.container {
+  background-position: 50% 50%;
+  background-size: cover;
+  overflow: hidden;
+  height: auto;
+  display: flex;
+  justify-content: center;
+  .contentWrapper {
+    background: none;
+    opacity: 1;
+    position: static;
+    transform: none;
+    box-sizing: content-box;
+    padding: $contentWrapperPadding;
+    @include xs {
+      padding: 15px;
+    }
+    width: $screen-lg;
+    .content {
+      @include roboto-regular;
+      color: white;
+      h1, h2, h3 {
+        font-weight: 300;
+        margin: 30px 0;
+      }
+      h1 {
+        font-size: 48px;
+      }
+      h2 {
+        font-size: 36px;
+      }
+      h3 {
+        font-size: 24px;
+      }
+      p {
+        font-size: 14px;
+        margin-bottom: 1em;
+        line-height: 25px;
+      }
+      ul {
+        list-style: disc;
+        margin-bottom: 1em;
+        li {
+          p {
+            font-size: 16px;
+            line-height: 27px;
+          }
+        }
+      }
+      input {
+        width: auto;
+        margin-right: 5px;
+      }
+      small {
+        font-size: 13px;
+        font-weight: 300;
+      }
+      button {
+        margin-left: 0;
+      }
+    }
+  }
+}

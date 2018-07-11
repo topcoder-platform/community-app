@@ -10,10 +10,12 @@ import ContentBlock from './ContentBlock';
 
 import veteranTheme from './themes/default_veteran.scss';
 import rowItemTheme from './themes/row_item.scss';
+import cardTheme from './themes/card.scss';
 
 const THEMES = {
   Veteran: veteranTheme,
   'Row Item': rowItemTheme,
+  Card: cardTheme,
 };
 
 /* Loads content block background asset. */

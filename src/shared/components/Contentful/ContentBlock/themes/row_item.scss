@@ -2,6 +2,9 @@
   flex-direction: column;
   padding: 0;
 
+  h2 {
+    white-space: nowrap;
+  }
   h3 {
     text-align: center;
   }
@@ -22,6 +25,10 @@
 
   &:nth-child(even) .contentWrapper {
     flex-direction: column;
+  }
+
+  button {
+    margin-left: 0;
   }
 }
 
