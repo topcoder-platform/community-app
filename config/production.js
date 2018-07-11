@@ -2,6 +2,7 @@ module.exports = {
   API: {
     V2: 'https://api.topcoder.com/v2',
     V3: 'https://api.topcoder.com/v3',
+    V4: 'https://api.topcoder.com/v4',
   },
   AUTH0: {
     DOMAIN: 'topcoder.auth0.com',
