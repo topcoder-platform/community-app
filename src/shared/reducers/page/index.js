@@ -18,6 +18,7 @@ import challengeDetails, { factory as challengeDetailsFactory }
 
 import communities from './communities';
 import dashboard from './dashboard';
+import ui, { factory as uiFactory } from './ui';
 import settings, { factory as settingsFactory } from './settings';
 
 
@@ -35,6 +36,7 @@ export function factory(req) {
     submission: submissionFactory(req),
     hallOfFame: hallOfFameFactory(req),
     settings: settingsFactory(req),
+    ui: uiFactory(req),
   }).then(reducers => combineReducers({
     ...reducers,
     communities,
@@ -52,5 +54,6 @@ export default combineReducers({
   hallOfFame,
   reviewOpportunityDetails,
   submission,
+  ui,
   submissionManagement,
 });

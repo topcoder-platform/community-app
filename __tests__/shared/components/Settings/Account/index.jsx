@@ -8,6 +8,15 @@ import profileState from '../__mocks__/profile-state.json';
 
 const rnd = new Renderer();
 
+const settingsUI = {
+  TABS: {
+    ACCOUNT: {
+      MYACCOUNT: 'my account',
+      LINKEDACCOUNT: 'linked account',
+    },
+  },
+};
+
 it('renders account setting page correctly', () => {
   rnd.render((<Account
     tokenV3=""
@@ -17,6 +26,7 @@ it('renders account setting page correctly', () => {
     updatePassword={() => {}}
     clearIncorrectPassword={() => {}}
     updateProfile={() => {}}
+    settingsUI={settingsUI}
   />));
   expect(rnd.getRenderOutput()).toMatchSnapshot();
 });
