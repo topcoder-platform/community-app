@@ -34,6 +34,7 @@ echo 6 $PROD_SEGMENT_IO_API_KEY
 echo 7 $PROD_SERVER_API_KEY
 echo 8 $PROD_CDN_URL
 echo 9 $PROD_AUTH0_CLIENT_ID
+echo 10 $PROD_AWS_ACCOUNT_ID
 
 deploy_cluster() {
     make_task_def
