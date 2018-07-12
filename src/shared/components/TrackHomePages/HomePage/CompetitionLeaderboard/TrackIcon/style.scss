@@ -31,8 +31,11 @@
       background: $tc-green-30;
     }
 
-    &.data_science,
-    &.data {
+    &.data-science {
+      background: $tc-orange-30;
+    }
+
+    &.competitive-programming {
       background: $tc-orange-30;
     }
 
@@ -46,9 +49,12 @@
         background: $tc-green;
       }
 
-      &.data_science,
-      &.data {
+      &.data-science {
         background: $tc-orange;
+      }
+
+      &.competitive-programming {
+        background: $tc-orange-30;
       }
     }
   }
@@ -75,8 +81,11 @@
       background: $tc-green;
     }
 
-    &.data_science,
-    &.data {
+    &.data-science {
+      background: $tc-orange;
+    }
+
+    &.competitive-programming {
       background: $tc-orange;
     }
 
@@ -90,8 +99,11 @@
         background: $tc-green;
       }
 
-      &.data_science,
-      &.data {
+      &.data-science {
+        background: $tc-orange;
+      }
+
+      &.competitive-programming {
         background: $tc-orange;
       }
     }
@@ -118,8 +130,11 @@
       background: $tc-green;
     }
 
-    &.data_science,
-    &.data {
+    &.data-science {
+      background: $tc-orange;
+    }
+
+    &.competitive-programming {
       background: $tc-orange;
     }
 
