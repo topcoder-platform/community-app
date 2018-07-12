@@ -1493,11 +1493,11 @@
             {
               "in": [
                 "design",
-                "data_science",
+                "data-science",
                 "development",
                 "competitive_programming"
               ],
-              "message": "Select on of: design, development, data_science"
+              "message": "Select on of: design, development, data-science"
             }
           ],
           "disabled": false,
@@ -2348,10 +2348,10 @@
               "in": [
                 "design",
                 "development",
-                "data_science",
+                "data-science",
                 "competitive_programming"
               ],
-              "message": "Select one of: design, development, data_science"
+              "message": "Select one of: design, development, data-science"
             }
           ],
           "disabled": false,

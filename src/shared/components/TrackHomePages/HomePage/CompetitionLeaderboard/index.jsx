@@ -28,7 +28,9 @@ const CompetitionLeaderboard = ({ data, track }) => {
         );
         const stages = _.filter(items.entries.items, item => leaderboardIds.includes(item.sys.id));
         result.competitionTypes.tracks = tracks;
-        result.tcoLeaderboard.stages = stages;
+        if (data.tcoLeaderboard) {
+          result.tcoLeaderboard.stages = stages;
+        }
         return (
           <div styleName="container">
             <div styleName="competition">
