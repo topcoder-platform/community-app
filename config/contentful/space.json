@@ -2457,7 +2457,7 @@
           "name": "TCO Leaderboard",
           "type": "Link",
           "localized": false,
-          "required": true,
+          "required": false,
           "validations": [
             {
               "linkContentType": [

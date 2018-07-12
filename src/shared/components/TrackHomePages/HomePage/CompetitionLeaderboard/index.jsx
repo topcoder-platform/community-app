@@ -15,8 +15,8 @@ const CompetitionLeaderboard = ({ data, track }) => {
   const result = data;
   const competitionTypesIds = _.map(data.competitionTypes.tracks, item => (item.sys.id
   ));
-  const leaderboardIds = _.map(data.tcoLeaderboard.stages, item => (item.sys.id
-  ));
+  const leaderboardIds = data.tcoLeaderboard
+    ? _.map(data.tcoLeaderboard.stages, item => (item.sys.id)) : [];
   const entryIds = competitionTypesIds.concat(leaderboardIds);
   return (
     <ContentfulLoader

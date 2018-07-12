@@ -75,7 +75,8 @@ const HomePageLoader = ({ homePage, auth }) => {
       render={(data) => {
         welcome.media = data.assets.items[homePage.videoOrImage.sys.id].fields;
         competitionTypes = data.entries.items[homePage.competitionTypes.sys.id].fields;
-        tcoLeaderboard = data.entries.items[homePage.tcoLeaderboard.sys.id].fields;
+        tcoLeaderboard = homePage.tcoLeaderboard
+          ? data.entries.items[homePage.tcoLeaderboard.sys.id].fields : null;
         tipsQuotes = data.entries.items[homePage.tipsQuotes.sys.id].fields;
         importantPolicies = data.entries.items[homePage.importantPolicies.sys.id].fields;
         tutorials = data.entries.items[homePage.tutorials.sys.id].fields;
