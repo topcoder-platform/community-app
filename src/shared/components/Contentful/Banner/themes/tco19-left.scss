@@ -1,0 +1,16 @@
+@import "~styles/mixins";
+@import "./tco19.scss";
+
+.container .contentWrapper .content {
+  @include md {
+    margin-right: ($screen-sm - $contentWrapperPadding * 2) / 2;
+  }
+
+  @include md-to-lg {
+    margin-right: ($screen-md - $contentWrapperPadding * 2) / 2;
+  }
+
+  @include xl {
+    margin-right: ($screen-lg - $contentWrapperPadding * 2) / 2;
+  }
+}

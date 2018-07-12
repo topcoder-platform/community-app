@@ -289,8 +289,8 @@ Settings Profile Page
           </Link>
         </li>
         <li>
-          <Link to="/track/design">
-Track Home Page - Design
+          <Link to="/community/development">
+            Track Home Page - Development
           </Link>
         </li>
       </ul>

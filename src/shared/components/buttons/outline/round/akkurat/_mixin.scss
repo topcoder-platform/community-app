@@ -28,8 +28,10 @@
 
   /* .link and .regular classes are applied only to active button-like links,
   * and real buttons (rendered as <button> elements). */
-  .link,
+  a.link,
   .regular {
+    color: $color;
+
     &:focus {
       box-shadow: 0 0 2px 2px $shade-2;
       outline: none;

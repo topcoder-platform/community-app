@@ -38,6 +38,7 @@ export default function CS({ base, meta }) {
                 component={() => ChallengeListing({
                   challengesUrl: `${base}/challenges`,
                   ChallengeListingBanner,
+                  listingOnly: true,
                   meta,
                   newChallengeDetails: true,
                 })}

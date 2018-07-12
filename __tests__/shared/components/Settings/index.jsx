@@ -5,30 +5,30 @@ import Settings from 'components/Settings';
 
 import userProfile from './__mocks__/user-profile.json';
 import profileState from './__mocks__/profile-state.json';
+import propsMatch from './__mocks__/props-match.json';
 
 const rnd = new Renderer();
 
 it('renders profile setting page correctly', () => {
-  // FIXME: Fix the tests for the settings page
-  expect(true).toBeTruthy();
-  // rnd.render((<Settings
-  //   handle=""
-  //   tokenV3=""
-  //   settingsTab="profile"
-  //   history={{}}
-  //   selectTab={() => {}}
-  //   showXlBadge={() => {}}
-  //   profile={userProfile}
-  //   profileState={profileState}
-  //   settingsPageState={{}}
-  //   lookupData={{}}
-  //   updateProfile={() => {}}
-  //   uploadPhoto={() => {}}
-  //   deletePhoto={() => {}}
-  //   addSkill={() => {}}
-  //   hideSkill={() => {}}
-  // />));
-  // expect(rnd.getRenderOutput()).toMatchSnapshot();
+  rnd.render((<Settings
+    handle=""
+    tokenV3=""
+    settingsTab="profile"
+    history={{}}
+    selectTab={() => {}}
+    showXlBadge={() => {}}
+    profile={userProfile}
+    profileState={profileState}
+    settingsPageState={{}}
+    lookupData={{}}
+    updateProfile={() => {}}
+    uploadPhoto={() => {}}
+    deletePhoto={() => {}}
+    addSkill={() => {}}
+    hideSkill={() => {}}
+    match={propsMatch}
+  />));
+  expect(rnd.getRenderOutput()).toMatchSnapshot();
 });
 
 it('renders account setting page correctly', () => {
@@ -45,22 +45,23 @@ it('renders account setting page correctly', () => {
     updatePassword={() => {}}
     clearIncorrectPassword={() => {}}
     updateProfile={() => {}}
+    match={propsMatch}
   />));
   expect(rnd.getRenderOutput()).toMatchSnapshot();
 });
 
-it('renders email setting page correctly', () => {
+it('renders tools setting page correctly', () => {
   rnd.render((<Settings
     handle=""
     tokenV3=""
-    settingsTab="email"
+    settingsTab="tools"
     history={{}}
     selectTab={() => {}}
     showXlBadge={() => {}}
     profile={userProfile}
     profileState={profileState}
     settingsPageState={{}}
-    saveEmailPreferences={() => {}}
+    match={propsMatch}
   />));
   expect(rnd.getRenderOutput()).toMatchSnapshot();
 });
@@ -76,6 +77,7 @@ it('renders preferences setting page correctly', () => {
     profile={userProfile}
     profileState={profileState}
     settingsPageState={{}}
+    match={propsMatch}
   />));
   expect(rnd.getRenderOutput()).toMatchSnapshot();
 });

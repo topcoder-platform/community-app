@@ -152,7 +152,7 @@ export default class Terms extends React.Component {
     };
 
     return (
-      <div styleName="container" key={(selectedTerm || {}).termsOfUseId}>
+      <div key={(selectedTerm || {}).termsOfUseId}>
         <Modal
           onCancel={onCancel}
           theme={{ container: style['modal-container'] }}
@@ -302,13 +302,13 @@ export default class Terms extends React.Component {
                                   }}
                                   theme={style}
                                 >
-I Agree
+                                  I Agree
                                 </PrimaryButton>
                                 <Button
                                   onClick={onCancel}
                                   theme={style}
                                 >
-I Disagree
+                                  I Disagree
                                 </Button>
                               </div>
                             )

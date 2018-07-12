@@ -675,7 +675,9 @@
                 "Default Sub-Community",
                 "Simple Title above Background",
                 "TopGear",
-                "TCO19"
+                "TCO19",
+                "TCO19-left",
+                "TCO19-right"
               ],
               "message": "Wrong banner style provided."
             }
@@ -1285,7 +1287,8 @@
               "in": [
                 "Default",
                 "Veteran",
-                "Row Item"
+                "Row Item",
+                "Card"
               ],
               "message": "Unknown theme"
             }
@@ -1417,7 +1420,6 @@
           "name": "Learn More",
           "type": "Symbol",
           "localized": false,
-          "required": true,
           "validations": [
             {
               "regexp": {
@@ -1546,7 +1548,6 @@
           "name": "Time Table",
           "type": "Array",
           "localized": false,
-          "required": true,
           "validations": [
           ],
           "disabled": false,
@@ -2011,7 +2012,6 @@
           "name": "Learn More",
           "type": "Symbol",
           "localized": false,
-          "required": true,
           "validations": [
             {
               "regexp": {

@@ -10,13 +10,10 @@
   }
 }
 
-.container {
+.modal-container {
   @include roboto-regular;
 
   color: $tc-black;
-}
-
-.modal-container {
   display: flex;
   flex-direction: column;
   height: 95vh;

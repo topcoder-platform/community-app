@@ -27,8 +27,9 @@ class CompetitionTypes extends React.Component {
     };
   }
 
-  toggleActive(index) {
+  changeCarouselItem = (index) => {
     const { data } = this.state;
+    if (index < 0 || index === data.length) return;
     this.setState({
       activeIndex: index,
       challengeURL: data[index].fields.viewChallengesLink,
@@ -43,9 +44,11 @@ class CompetitionTypes extends React.Component {
 
     const types = _.assign({}, data.tracks);
     const {
-      activeIndex: currentIndex,
+      activeIndex,
       challengeURL,
     } = this.state;
+
+    const currentIndex = parseInt(activeIndex, 10);
 
     return (
       <div styleName="container">
@@ -66,7 +69,7 @@ Competition Types
                   track={track}
                   abbreviation={type.fields.abbreviation}
                   isBigIcon={false}
-                  onClick={() => this.toggleActive(index)}
+                  onClick={() => this.changeCarouselItem(index)}
                   isActive={index === currentIndex.toString()}
                 />
               </a>
@@ -74,17 +77,15 @@ Competition Types
           }
         </div>
         <div styleName="carousel">
-          <div styleName="arrow-wrapper">
-            <a
-              onClick={() => this.setState({ activeIndex: currentIndex - 1 })}
-              onKeyPress={() => this.setState({ activeIndex: currentIndex - 1 })}
-              role="button"
-              styleName={`arrow ${currentIndex > 0 ? 'active' : ''}`}
-              tabIndex={0}
-            >
-              <ArrowPrev />
-            </a>
-          </div>
+          <a
+            onClick={() => this.changeCarouselItem(currentIndex - 1)}
+            onKeyPress={() => this.changeCarouselItem(currentIndex - 1)}
+            role="button"
+            styleName={`arrow ${currentIndex > 0 ? 'active' : ''}`}
+            tabIndex={0}
+          >
+            <ArrowPrev />
+          </a>
           <div styleName="track-infos">
             {
               _.map(types, (type, index) => (
@@ -123,17 +124,15 @@ Competition Types
               ))
             }
           </div>
-          <div styleName="arrow-wrapper">
-            <a
-              onClick={() => this.setState({ activeIndex: currentIndex + 1 })}
-              onKeyPress={() => this.setState({ activeIndex: currentIndex + 1 })}
-              role="button"
-              styleName={`arrow ${currentIndex < data.tracks.length - 1 ? 'active' : ''}`}
-              tabIndex={0}
-            >
-              <ArrowNext />
-            </a>
-          </div>
+          <a
+            onClick={() => this.changeCarouselItem(currentIndex + 1)}
+            onKeyPress={() => this.changeCarouselItem(currentIndex + 1)}
+            role="button"
+            styleName={`arrow ${currentIndex < data.tracks.length - 1 ? 'active' : ''}`}
+            tabIndex={0}
+          >
+            <ArrowNext />
+          </a>
         </div>
         <div styleName="button-wrapper">
           <PrimaryButton to={challengeURL} openNewTab>
