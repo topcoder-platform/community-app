@@ -105,7 +105,9 @@ Tips & Quotes
               </div>
               <div styleName="important-policies">
                 <h1>
-Important Policies
+                  {
+                    importantPolicies.sectionTitle || 'Important Policies'
+                  }
                 </h1>
                 <div
                   styleName="text"
