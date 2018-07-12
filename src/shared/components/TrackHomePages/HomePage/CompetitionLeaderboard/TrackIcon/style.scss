@@ -35,6 +35,10 @@
       background: $tc-orange-30;
     }
 
+    &.competitive-programming {
+      background: $tc-orange-30;
+    }
+
     &:hover {
       &.design,
       &.generic {
@@ -47,6 +51,10 @@
 
       &.data-science {
         background: $tc-orange;
+      }
+
+      &.competitive-programming {
+        background: $tc-orange-30;
       }
     }
   }
@@ -77,6 +85,10 @@
       background: $tc-orange;
     }
 
+    &.competitive-programming {
+      background: $tc-orange;
+    }
+
     &:hover {
       &.design,
       &.generic {
@@ -88,6 +100,10 @@
       }
 
       &.data-science {
+        background: $tc-orange;
+      }
+
+      &.competitive-programming {
         background: $tc-orange;
       }
     }
@@ -115,6 +131,10 @@
     }
 
     &.data-science {
+      background: $tc-orange;
+    }
+
+    &.competitive-programming {
       background: $tc-orange;
     }
 
