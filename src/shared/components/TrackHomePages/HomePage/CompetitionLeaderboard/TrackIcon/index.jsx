@@ -14,7 +14,6 @@ export default function TrackIcon({
   isActive,
   onClick,
 }) {
-  console.log(track);
   return (
     <div
       styleName="trackIcon"
