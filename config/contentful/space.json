@@ -1495,9 +1495,9 @@
                 "design",
                 "data-science",
                 "development",
-                "competitive_programming"
+                "competitive-programming"
               ],
-              "message": "Select on of: design, development, data-science"
+              "message": "Select on of: design, development, data-science, competitive-programming"
             }
           ],
           "disabled": false,
@@ -2349,9 +2349,9 @@
                 "design",
                 "development",
                 "data-science",
-                "competitive_programming"
+                "competitive-programming"
               ],
-              "message": "Select one of: design, development, data-science"
+              "message": "Select one of: design, development, data-science, competitive-programming"
             }
           ],
           "disabled": false,
