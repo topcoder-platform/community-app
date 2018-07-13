@@ -21,6 +21,9 @@ export const PRIZE_MODE = {
   MONEY_USD: 'money-usd',
 };
 
+const ID_LENGTH = 6;
+const MM_BASE_URL = `${config.URL.COMMUNITY}/tc?module=MatchDetails&rd=`;
+
 // Get the End date of a challenge
 const getEndDate = (c) => {
   let phases = c.allPhases;
@@ -57,17 +60,13 @@ function ChallengeCard({
   challenge.prize = challenge.prizes || [];
 
   const {
-    isLegacy,
-    roundId,
+    id,
     subTrack,
   } = challenge;
 
-  const legacyChallengeDetailsLink = `${config.URL.COMMUNITY}/tc?module=MatchDetails&rd=${roundId}`;
-  const mmRegLink = `${config.URL.COMMUNITY}/tc?module=ViewReg&rd=${roundId}`;
+  const isLegacyMM = challenge.subTrack === 'MARATHON_MATCH' && _.toString(id).length < ID_LENGTH;
 
-  const challengeDetailLink = subTrack === 'MARATHON_MATCH'
-    && isLegacy ? legacyChallengeDetailsLink
-    : `${challengesUrl}/${challenge.id}`;
+  const challengeDetailLink = isLegacyMM ? `${MM_BASE_URL}${id}` : `${challengesUrl}/${id}`;
 
   const registrationPhase = challenge.allPhases.filter(phase => phase.phaseType === 'Registration')[0];
   const isRegistrationOpen = registrationPhase ? registrationPhase.phaseStatus === 'Open' : false;
@@ -181,8 +180,8 @@ function ChallengeCard({
         <ChallengeStatus
           challenge={challenge}
           challengesUrl={challengesUrl}
-          detailLink={subTrack === 'MARATHON_MATCH' ? legacyChallengeDetailsLink : challengeDetailLink}
-          mmRegLink={mmRegLink}
+          detailLink={challengeDetailLink}
+          isLegacyMM={isLegacyMM}
           newChallengeDetails={newChallengeDetails}
           openChallengesInNewTabs={openChallengesInNewTabs}
           sampleWinnerProfile={sampleWinnerProfile}
