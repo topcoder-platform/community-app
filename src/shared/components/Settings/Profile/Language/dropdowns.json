@@ -1,0 +1,38 @@
+{
+  "spokenLevel": [
+    {
+      "key": "spokenLevel",
+      "name": "Basic"
+    },
+    {
+      "key": "spokenLevel",
+      "name": "Intermediate"
+    },
+    {
+      "key": "spokenLevel",
+      "name": "Advanced"
+    },
+    {
+      "key": "spokenLevel",
+      "name": "Native"
+    }
+  ],
+  "writtenLevel": [
+    {
+      "key": "writtenLevel",
+      "name": "Basic"
+    },
+    {
+      "key": "writtenLevel",
+      "name": "Intermediate"
+    },
+    {
+      "key": "writtenLevel",
+      "name": "Advanced"
+    },
+    {
+      "key": "writtenLevel",
+      "name": "Native"
+    }
+  ]
+}
