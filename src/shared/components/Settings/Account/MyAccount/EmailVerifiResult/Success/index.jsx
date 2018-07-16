@@ -3,6 +3,7 @@
 */
 
 import React from 'react';
+import PT from 'prop-types';
 import { isomorphy } from 'topcoder-react-utils';
 import { PrimaryButton } from 'topcoder-react-ui-kit';
 import { services } from 'topcoder-react-lib';
@@ -23,19 +24,12 @@ class Success extends React.Component {
   }
 
   componentDidMount() {
-    const {
-      handle,
-      token,
-      newEmail,
-      oldEmail,
-      jwtToken,
-    } = this.props.match.params;
-
-    setTimeout(() => getApiV3(jwtToken)
-      .post(`/members/${handle}/verify?newEmail=${newEmail}&oldEmail=${oldEmail}&token=${token}`)
+    const { match } = this.props;
+    setTimeout(() => getApiV3(match.params.jwtToken)
+      .post(`/members/${match.params.handle}/verify?newEmail=${match.params.newEmail}&oldEmail=${match.params.oldEmail}&token=${match.params.token}`)
       .then(res => res.json())
       .then(res => this.setState({ statusCode: res.result.status, isLoading: false }))
-      .catch(err => this.setState({ statusCode: 400, isLoading: false })), 2000);
+      .catch(() => this.setState({ statusCode: 400, isLoading: false })), 2000);
   }
 
   render() {
@@ -77,5 +71,17 @@ class Success extends React.Component {
     return (<Failed />);
   }
 }
+
+Success.propTypes = {
+  match: PT.shape({
+    params: PT.shape({
+      handle: PT.string.isRequired,
+      token: PT.string.isRequired,
+      newEmail: PT.string.isRequired,
+      oldEmail: PT.string.isRequired,
+      jwtToken: PT.string.isRequired,
+    }),
+  }).isRequired,
+};
 
 export default Success;
