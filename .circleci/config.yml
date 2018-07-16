@@ -179,10 +179,10 @@ workflows:
             branches:
               only: "mm-feature-experiment"
       # This is beta env for production soft releases
-      #- "build-prod-beta":
-          #filters:
-            #branches:
-              #only: "mm-feature-experiment"
+      - "build-prod-beta":
+          filters:
+            branches:
+              only: "mm-feature-experiment"
       # Production builds are exectuted only on tagged commits to the
       # master branch.
       - "build-prod":
