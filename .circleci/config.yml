@@ -174,10 +174,10 @@ workflows:
             branches:
               only: new-develop
       # Development builds are executed on "develop" branch only.
-      #- "build-test":
-          #filters:
-            #branches:
-              #only: "mm-feature-experiment"
+      - "build-test":
+          filters:
+            branches:
+              only: "mm-feature-experiment"
       - "build-prod-beta":
           filters:
             branches:
