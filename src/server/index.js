@@ -128,11 +128,18 @@ async function onExpressJsSetup(server) {
 
   /* Proxy endpoint for GET requests (to fetch data from resources prohibiting
    * cross-origin requests). */
-  server.use('/community-app-assets/api/proxy-get', checkAuthorizationHeader, (req, res) => {
-    fetch(req.query.url)
-      .then(x => x.text())
-      .then(x => res.send(x));
-  });
+  server.use(
+    '/community-app-assets/api/proxy-get',
+    checkAuthorizationHeader, async (req, res, next) => {
+      try {
+        let data = await fetch(req.query.url);
+        data = await data.text();
+        res.send(data);
+      } catch (err) {
+        next(err);
+      }
+    },
+  );
 
   /* Proxy endpoint for POST requests (to fetch data from resources prohibiting
    * cross-origin requests). */
