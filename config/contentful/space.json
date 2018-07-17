@@ -675,7 +675,9 @@
                 "Default Sub-Community",
                 "Simple Title above Background",
                 "TopGear",
-                "TCO19"
+                "TCO19",
+                "TCO19-left",
+                "TCO19-right"
               ],
               "message": "Wrong banner style provided."
             }
@@ -1285,7 +1287,8 @@
               "in": [
                 "Default",
                 "Veteran",
-                "Row Item"
+                "Row Item",
+                "Card"
               ],
               "message": "Unknown theme"
             }
@@ -1490,11 +1493,11 @@
             {
               "in": [
                 "design",
-                "data_science",
+                "data-science",
                 "development",
-                "competitive_programming"
+                "competitive-programming"
               ],
-              "message": "Select on of: design, development, data_science"
+              "message": "Select on of: design, development, data-science, competitive-programming"
             }
           ],
           "disabled": false,
@@ -1972,6 +1975,16 @@
       "description": "Track Homepage Important Policies",
       "fields": [
         {
+          "id": "sectionTitle",
+          "name": "Section Title",
+          "type": "Symbol",
+          "localized": false,
+          "required": false,
+          "validations": [],
+          "disabled": false,
+          "omitted": false
+        },
+        {
           "id": "description",
           "name": "Description",
           "type": "Text",
@@ -2335,10 +2348,10 @@
               "in": [
                 "design",
                 "development",
-                "data_science",
-                "competitive_programming"
+                "data-science",
+                "competitive-programming"
               ],
-              "message": "Select one of: design, development, data_science"
+              "message": "Select one of: design, development, data-science, competitive-programming"
             }
           ],
           "disabled": false,
@@ -2444,7 +2457,7 @@
           "name": "TCO Leaderboard",
           "type": "Link",
           "localized": false,
-          "required": true,
+          "required": false,
           "validations": [
             {
               "linkContentType": [

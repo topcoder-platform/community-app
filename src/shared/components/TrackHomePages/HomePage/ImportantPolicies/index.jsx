@@ -32,10 +32,12 @@ const ImportantPolicies = ({ data }) => {
                   {
                     datas.policies.map(policy => (
                       <div key={policy.fields.title} styleName="policy">
-                        <img styleName="icon" src={policy.fields.icon.fields.file.url} alt="Policy" />
-                        <div styleName="title">
+                        <a href={policy.fields.linkUrl} styleName="icon">
+                          <img styleName="icon" src={policy.fields.icon.fields.file.url} alt="Policy" />
+                        </a>
+                        <a href={policy.fields.linkUrl} styleName="title">
                           {policy.fields.title}
-                        </div>
+                        </a>
                         <div styleName="text">
                           {policy.fields.shortDescription}
                         </div>

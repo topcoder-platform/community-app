@@ -16,6 +16,7 @@ import HistoryGraph from './HistoryGraph';
 import styles from './styles.scss';
 import StatsModal from './StatsModal';
 import SRMStats from './SRMStats';
+import SubTrackChallengeView from './SubTrackChallengeView';
 
 
 class ProfileStats extends React.Component {
@@ -215,11 +216,17 @@ Details
               </div>
               )
             }
-            {activeTab === 'challenges' && (
-            <div>
-Not Implemented
-            </div>
-            )}
+            {
+              (activeTab === 'challenges' || activeTab === 'Past srm')
+                && (
+                <SubTrackChallengeView
+                  handle={handleParam}
+                  track={track}
+                  subTrack={subTrack}
+                  userId={info.userId}
+                />
+                )
+            }
           </div>
         </div>
         {showModal && <StatsModal stats={stats} info={info} onClose={this.toggleModal} />}

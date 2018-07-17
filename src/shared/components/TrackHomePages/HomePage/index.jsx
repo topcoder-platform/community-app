@@ -75,7 +75,8 @@ const HomePageLoader = ({ homePage, auth }) => {
       render={(data) => {
         welcome.media = data.assets.items[homePage.videoOrImage.sys.id].fields;
         competitionTypes = data.entries.items[homePage.competitionTypes.sys.id].fields;
-        tcoLeaderboard = data.entries.items[homePage.tcoLeaderboard.sys.id].fields;
+        tcoLeaderboard = homePage.tcoLeaderboard
+          ? data.entries.items[homePage.tcoLeaderboard.sys.id].fields : null;
         tipsQuotes = data.entries.items[homePage.tipsQuotes.sys.id].fields;
         importantPolicies = data.entries.items[homePage.importantPolicies.sys.id].fields;
         tutorials = data.entries.items[homePage.tutorials.sys.id].fields;
@@ -105,7 +106,9 @@ Tips & Quotes
               </div>
               <div styleName="important-policies">
                 <h1>
-Important Policies
+                  {
+                    importantPolicies.sectionTitle || 'Important Policies'
+                  }
                 </h1>
                 <div
                   styleName="text"
@@ -152,7 +155,7 @@ Tutorials
 Ready to Compete? Click here to sign up with Topcoder!
                 </p>
                 <div styleName="button-wrapper-view-all">
-                  <PrimaryButton to="/">
+                  <PrimaryButton to="/register">
 Sign Up Now
                   </PrimaryButton>
                 </div>
