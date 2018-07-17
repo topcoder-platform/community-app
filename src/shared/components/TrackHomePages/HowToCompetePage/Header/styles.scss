@@ -10,8 +10,9 @@
   @include tc-body-md;
 
   h1 {
-    @include roboto-light;
     color: $tc-white;
+
+    @include roboto-light;
   }
 
   @media screen and (max-width: $screen-sm) {
