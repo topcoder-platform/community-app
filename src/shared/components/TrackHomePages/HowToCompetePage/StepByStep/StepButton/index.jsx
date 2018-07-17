@@ -14,7 +14,9 @@ const StepButton = ({ menu, active, onClick }) => (
     href={`#${menu.title}`}
     onClick={onClick}
   >
-    <img src={menu.icon.fields.file.url} styleName="icon" alt={menu.title} />
+    <div styleName="icon-wrapper">
+      <img src={menu.icon.fields.file.url} styleName="icon" alt={menu.title} />
+    </div>
     <div styleName="menu-title">
       { menu.title}
     </div>
