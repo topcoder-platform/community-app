@@ -1,0 +1,12 @@
+{
+  "type": [
+    {
+      "key": "type",
+      "name": "Secondary School"
+    },
+    {
+      "key": "type",
+      "name": "University"
+    }
+  ]
+}
