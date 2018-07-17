@@ -5,11 +5,13 @@
   justify-content: space-between;
   flex-direction: row;
   width: 100%;
+  color: $tc-white;
 
   @include tc-body-md;
 
   h1 {
     @include roboto-light;
+    color: $tc-white;
   }
 
   @media screen and (max-width: $screen-sm) {
@@ -23,6 +25,15 @@
       margin: 40px 43px;
     }
   }
+
+  a,
+  a:visited {
+    color: $tc-dark-blue-110;
+
+    &:hover {
+      background: transparent;
+    }
+  }
 }
 
 .left {
@@ -31,6 +42,7 @@
 
   p {
     margin: 20px 0;
+    color: $tc-white;
   }
 
   @media screen and (max-width: $screen-sm) {
@@ -54,6 +66,7 @@
 }
 
 .time-table {
+  color: $tc-white;
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
@@ -86,7 +99,7 @@
 
 .right {
   width: 480px;
-  height: 270px;
+  height: auto;
 
   img {
     width: 100%;
