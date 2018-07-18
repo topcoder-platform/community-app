@@ -222,6 +222,10 @@ export default function ChallengeHeader(props) {
       break;
   }
 
+  // Legacy MMs have a roundId field, but new MMs do not.
+  // This is used to disable registration/submission for legacy MMs.
+  const isLegacyMM = subTrack === 'MARATHON_MATCH' && Boolean(challenge.roundId);
+
   return (
     <div styleName="challenge-outer-container">
       <div styleName="important-detail">
@@ -298,7 +302,7 @@ POINTS:
               {hasRegistered ? (
                 <DangerButton
                   disabled={unregistering || registrationEnded
-                  || hasSubmissions}
+                  || hasSubmissions || isLegacyMM}
                   forceA
                   onClick={unregisterFromChallenge}
                   theme={{ button: style.challengeAction }}
@@ -307,7 +311,7 @@ Unregister
                 </DangerButton>
               ) : (
                 <PrimaryButton
-                  disabled={registering || registrationEnded}
+                  disabled={registering || registrationEnded || isLegacyMM}
                   forceA
                   onClick={registerForChallenge}
                   theme={{ button: style.challengeAction }}
@@ -316,7 +320,7 @@ Register
                 </PrimaryButton>
               )}
               <PrimaryButton
-                disabled={!hasRegistered || unregistering || submissionEnded}
+                disabled={!hasRegistered || unregistering || submissionEnded || isLegacyMM}
                 theme={{ button: style.challengeAction }}
                 to={`${challengesUrl}/${challengeId}/submit`}
               >

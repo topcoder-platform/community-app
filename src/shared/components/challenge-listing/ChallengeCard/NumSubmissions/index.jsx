@@ -15,14 +15,11 @@ import SubmissionsIcon from '../../Icons/SubmissionsIcon';
 
 import './style.scss';
 
-const MM_BASE_URL = `${config.URL.COMMUNITY}/longcontest/?module=ViewStandings&rd=`;
-
 export default function NumSubmissions({
   challenge: {
     id, numSubmissions, status, track,
   },
   challengesUrl,
-  isLegacyMM,
   newChallengeDetails,
   selectChallengeDetailsTab,
 }) {
@@ -34,8 +31,7 @@ export default function NumSubmissions({
   }
   const query = numSubmissions && status === 'COMPLETED'
     ? `?tab=${DETAIL_TABS.SUBMISSIONS}` : '';
-  let link = isLegacyMM
-    ? `${MM_BASE_URL}${id}` : `${challengesUrl}/${id}${query}`;
+  let link = `${challengesUrl}/${id}${query}`;
   if (!newChallengeDetails && track !== 'DATA_SCIENCE') {
     link = `${config.URL.BASE}/challenge-details/${id}/?type=develop#viewRegistrant`;
   }
@@ -74,7 +70,6 @@ NumSubmissions.propTypes = {
     track: PT.string.isRequired,
   }).isRequired,
   challengesUrl: PT.string.isRequired,
-  isLegacyMM: PT.bool.isRequired,
   newChallengeDetails: PT.bool.isRequired,
   selectChallengeDetailsTab: PT.func.isRequired,
 };

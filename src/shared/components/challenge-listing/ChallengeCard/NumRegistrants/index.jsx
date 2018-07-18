@@ -15,14 +15,11 @@ import RegistrantsIcon from '../../Icons/RegistrantsIcon';
 
 import './style.scss';
 
-const MM_BASE_URL = `${config.URL.COMMUNITY}/longcontest/?module=ViewRegistrants&rd=`;
-
 export default function NumRegistrants({
   challenge: {
     id, numRegistrants, track,
   },
   challengesUrl,
-  isLegacyMM,
   newChallengeDetails,
   selectChallengeDetailsTab,
 }) {
@@ -33,8 +30,7 @@ export default function NumRegistrants({
     default: tip = `${numRegistrants} total registrants`;
   }
   const query = numRegistrants ? `?tab=${DETAIL_TABS.REGISTRANTS}` : '';
-  let link = isLegacyMM
-    ? `${MM_BASE_URL}${id}` : `${challengesUrl}/${id}${query}`;
+  let link = `${challengesUrl}/${id}${query}`;
   if (!newChallengeDetails && track !== 'DATA_SCIENCE') {
     link = `${config.URL.BASE}/challenge-details/${id}/?type=develop#viewRegistrant`;
   }
@@ -73,7 +69,6 @@ NumRegistrants.propTypes = {
     track: PT.string.isRequired,
   }).isRequired,
   challengesUrl: PT.string.isRequired,
-  isLegacyMM: PT.bool.isRequired,
   newChallengeDetails: PT.bool.isRequired,
   selectChallengeDetailsTab: PT.func.isRequired,
 };

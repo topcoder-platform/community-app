@@ -84,7 +84,6 @@ export default function ChallengeStatus(props) {
 
   const {
     challengesUrl,
-    isLegacyMM,
     newChallengeDetails,
     selectChallengeDetailsTab,
     userHandle,
@@ -98,12 +97,14 @@ export default function ChallengeStatus(props) {
       openChallengesInNewTabs,
     } = props;
 
-    let winners = challenge.winners && challenge.winners.filter(winner => winner.type === 'final')
-      .map(winner => ({
+    let winners = _.map(
+      challenge.winners,
+      winner => ({
         handle: winner.handle,
         position: winner.placement,
         photoURL: winner.photoURL,
-      }));
+      }),
+    );
 
     if (winners && winners.length > MAX_VISIBLE_WINNERS) {
       const lastItem = {
@@ -197,7 +198,6 @@ to register
             <NumRegistrants
               challenge={challenge}
               challengesUrl={challengesUrl}
-              isLegacyMM={isLegacyMM}
               newChallengeDetails={newChallengeDetails}
               selectChallengeDetailsTab={selectChallengeDetailsTab}
             />
@@ -206,7 +206,6 @@ to register
             <NumSubmissions
               challenge={challenge}
               challengesUrl={challengesUrl}
-              isLegacyMM={isLegacyMM}
               newChallengeDetails={newChallengeDetails}
               selectChallengeDetailsTab={selectChallengeDetailsTab}
             />
@@ -267,7 +266,6 @@ to register
             <NumRegistrants
               challenge={challenge}
               challengesUrl={challengesUrl}
-              isLegacyMM={isLegacyMM}
               newChallengeDetails={newChallengeDetails}
               selectChallengeDetailsTab={selectChallengeDetailsTab}
             />
@@ -276,7 +274,6 @@ to register
             <NumSubmissions
               challenge={challenge}
               challengesUrl={challengesUrl}
-              isLegacyMM={isLegacyMM}
               newChallengeDetails={newChallengeDetails}
               selectChallengeDetailsTab={selectChallengeDetailsTab}
             />
@@ -326,7 +323,6 @@ to register
 ChallengeStatus.defaultProps = {
   challenge: {},
   detailLink: '',
-  isLegacyMM: false,
   openChallengesInNewTabs: false,
   userHandle: '',
 };
@@ -335,7 +331,6 @@ ChallengeStatus.propTypes = {
   challenge: PT.shape(),
   challengesUrl: PT.string.isRequired,
   detailLink: PT.string,
-  isLegacyMM: PT.bool,
   newChallengeDetails: PT.bool.isRequired,
   openChallengesInNewTabs: PT.bool,
   selectChallengeDetailsTab: PT.func.isRequired,

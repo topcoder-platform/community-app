@@ -5,7 +5,7 @@ import PT from 'prop-types';
 import TrackIcon from 'components/TrackIcon';
 import { TABS as DETAIL_TABS } from 'actions/page/challenge-details';
 import { convertNow as convertMoney } from 'services/money';
-import { config, Link } from 'topcoder-react-utils';
+import { Link } from 'topcoder-react-utils';
 
 import Tags from '../Tags';
 
@@ -20,9 +20,6 @@ export const PRIZE_MODE = {
   MONEY_INR: 'money-inr',
   MONEY_USD: 'money-usd',
 };
-
-const ID_LENGTH = 6;
-const MM_BASE_URL = `${config.URL.COMMUNITY}/tc?module=MatchDetails&rd=`;
 
 // Get the End date of a challenge
 const getEndDate = (c) => {
@@ -64,9 +61,7 @@ function ChallengeCard({
     subTrack,
   } = challenge;
 
-  const isLegacyMM = challenge.subTrack === 'MARATHON_MATCH' && _.toString(id).length < ID_LENGTH;
-
-  const challengeDetailLink = isLegacyMM ? `${MM_BASE_URL}${id}` : `${challengesUrl}/${id}`;
+  const challengeDetailLink = `${challengesUrl}/${id}`;
 
   const registrationPhase = challenge.allPhases.filter(phase => phase.phaseType === 'Registration')[0];
   const isRegistrationOpen = registrationPhase ? registrationPhase.phaseStatus === 'Open' : false;
@@ -181,7 +176,6 @@ function ChallengeCard({
           challenge={challenge}
           challengesUrl={challengesUrl}
           detailLink={challengeDetailLink}
-          isLegacyMM={isLegacyMM}
           newChallengeDetails={newChallengeDetails}
           openChallengesInNewTabs={openChallengesInNewTabs}
           sampleWinnerProfile={sampleWinnerProfile}
