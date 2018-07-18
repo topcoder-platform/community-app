@@ -3,7 +3,7 @@
 .menu-item {
   display: flex;
   flex-direction: row;
-  justify-content: left;
+  justify-content: flex-start;
   align-items: center;
   height: 45px;
   margin-bottom: 20px;
@@ -20,11 +20,21 @@ a:active {
   background-color: $tc-gray-10;
 }
 
-.icon {
-  margin: 0 20px;
+.icon-wrapper {
+  display: flex;
+  min-width: 24px;
   width: 24px;
   height: 24px;
-  object-fit: contain;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  margin: 0 20px;
+
+  .icon {
+    display: block;
+    width: 60px;
+    height: 60px;
+  }
 }
 
 .menu-title {
