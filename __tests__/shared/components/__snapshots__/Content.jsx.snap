@@ -326,7 +326,7 @@ exports[`Matches shallow shapshot 1`] = `
     <li>
       <Link
         replace={false}
-        to="/hall-of-fame/tco"
+        to="/community/hall-of-fame/tco"
       >
         TCO Hall of Fame
       </Link>

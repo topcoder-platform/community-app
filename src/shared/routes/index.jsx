@@ -83,6 +83,7 @@ function Routes({ communityId }) {
         />
         <Route
           component={() => <TrackHomePages base="/community" />}
+          exact
           path="/community/(competitive-programming|data-science|design|development)"
         />
         <Topcoder />

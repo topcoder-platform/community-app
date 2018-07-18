@@ -14,19 +14,6 @@
     padding: 0;
   }
 
-  .mobile-view {
-    display: none;
-
-    @include md-to-lg {
-      display: none;
-    }
-
-    @include xs-to-sm {
-      display: block;
-      width: 100%;
-    }
-  }
-
   .col-bar {
     width: 319px;
     padding-right: 70px;

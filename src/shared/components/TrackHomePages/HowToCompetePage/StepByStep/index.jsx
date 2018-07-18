@@ -63,15 +63,13 @@ class StepByStep extends React.Component {
               </div>
               <div styleName="steps">
                 {
-                  steps.map((menu, index) => (
+                  steps.map(menu => (
                     <div styleName="step" key={menu.fields.title} id={menu.fields.title}>
                       <div styleName="big-icon">
                         <img src={menu.fields.icon.fields.file.url} alt={menu.fields.title} />
                       </div>
                       <div styleName="content">
                         <div styleName="title">
-                          {index + 1}
-.
                           { menu.fields.title}
                         </div>
                         <div
