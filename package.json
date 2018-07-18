@@ -97,7 +97,7 @@
     "tc-accounts": "git+https://github.com/appirio-tech/accounts-app.git#dev",
     "topcoder-react-lib": "^0.4.3",
     "topcoder-react-ui-kit": "^0.5.1",
-    "topcoder-react-utils": "^0.7.1",
+    "topcoder-react-utils": "^0.7.2",
     "turndown": "^4.0.2",
     "url-parse": "^1.4.1",
     "uuid": "^3.3.2",
