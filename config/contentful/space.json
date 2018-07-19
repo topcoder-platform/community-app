@@ -4393,7 +4393,7 @@
         "id": "blogPost",
         "type": "ContentType",
         "createdAt": "2018-07-17T06:08:17.578Z",
-        "updatedAt": "2018-07-18T13:05:45.665Z",
+        "updatedAt": "2018-07-19T07:10:24.674Z",
         "environment": {
           "sys": {
             "id": "master",
@@ -4415,8 +4415,8 @@
             "id": "0TpNH8XniBpD1bwXTXbgc9"
           }
         },
-        "publishedCounter": 3,
-        "version": 6,
+        "publishedCounter": 6,
+        "version": 12,
         "publishedBy": {
           "sys": {
             "type": "Link",
@@ -4424,9 +4424,9 @@
             "id": "0TpNH8XniBpD1bwXTXbgc9"
           }
         },
-        "publishedVersion": 5,
+        "publishedVersion": 11,
         "firstPublishedAt": "2018-07-17T06:08:17.964Z",
-        "publishedAt": "2018-07-18T13:05:45.665Z"
+        "publishedAt": "2018-07-19T07:10:24.674Z"
       },
       "displayField": "title",
       "name": "Blog Post",
@@ -4499,6 +4499,45 @@
           "omitted": false
         },
         {
+          "id": "author",
+          "name": "Author",
+          "type": "Link",
+          "localized": false,
+          "required": true,
+          "validations": [
+            {
+              "linkContentType": [
+                "person"
+              ]
+            }
+          ],
+          "disabled": false,
+          "omitted": false,
+          "linkType": "Entry"
+        },
+        {
+          "id": "blog",
+          "name": "Blog",
+          "type": "Array",
+          "localized": false,
+          "required": true,
+          "validations": [
+          ],
+          "disabled": false,
+          "omitted": false,
+          "items": {
+            "type": "Symbol",
+            "validations": [
+              {
+                "in": [
+                  "TCO Blog",
+                  "Community Blog"
+                ]
+              }
+            ]
+          }
+        },
+        {
           "id": "tags",
           "name": "Tags",
           "type": "Array",
@@ -4513,6 +4552,22 @@
             "validations": [
             ]
           }
+        },
+        {
+          "id": "theme",
+          "name": "Theme",
+          "type": "Symbol",
+          "localized": false,
+          "required": true,
+          "validations": [
+            {
+              "in": [
+                "Default"
+              ]
+            }
+          ],
+          "disabled": false,
+          "omitted": false
         },
         {
           "id": "relatedPosts",
@@ -4537,21 +4592,37 @@
           }
         },
         {
-          "id": "author",
-          "name": "Author",
-          "type": "Link",
+          "id": "extraStylesForContainer",
+          "name": "Extra styles for container",
+          "type": "Object",
           "localized": false,
-          "required": true,
+          "required": false,
           "validations": [
-            {
-              "linkContentType": [
-                "person"
-              ]
-            }
           ],
           "disabled": false,
-          "omitted": false,
-          "linkType": "Entry"
+          "omitted": false
+        },
+        {
+          "id": "extraStylesForContentWrapper",
+          "name": "Extra styles for content wrapper",
+          "type": "Object",
+          "localized": false,
+          "required": false,
+          "validations": [
+          ],
+          "disabled": false,
+          "omitted": false
+        },
+        {
+          "id": "extraStylesForContent",
+          "name": "Extra styles for content",
+          "type": "Object",
+          "localized": false,
+          "required": false,
+          "validations": [
+          ],
+          "disabled": false,
+          "omitted": false
         }
       ]
     },
@@ -7570,7 +7641,7 @@
             "linkType": "Space"
           }
         },
-        "version": 6,
+        "version": 12,
         "createdAt": "2018-07-17T06:08:18.067Z",
         "createdBy": {
           "sys": {
@@ -7579,7 +7650,7 @@
             "linkType": "User"
           }
         },
-        "updatedAt": "2018-07-18T13:05:46.185Z",
+        "updatedAt": "2018-07-19T07:10:26.150Z",
         "updatedBy": {
           "sys": {
             "id": "0TpNH8XniBpD1bwXTXbgc9",
@@ -7624,8 +7695,23 @@
           "widgetId": "markdown"
         },
         {
+          "fieldId": "author",
+          "widgetId": "entryLinkEditor"
+        },
+        {
+          "fieldId": "blog",
+          "settings": {
+            "helpText": "Select on which blogs the post will appear"
+          },
+          "widgetId": "tagEditor"
+        },
+        {
           "fieldId": "tags",
           "widgetId": "listInput"
+        },
+        {
+          "fieldId": "theme",
+          "widgetId": "dropdown"
         },
         {
           "fieldId": "relatedPosts",
@@ -7635,8 +7721,16 @@
           "widgetId": "entryLinksEditor"
         },
         {
-          "fieldId": "author",
-          "widgetId": "entryLinkEditor"
+          "fieldId": "extraStylesForContainer",
+          "widgetId": "objectEditor"
+        },
+        {
+          "fieldId": "extraStylesForContentWrapper",
+          "widgetId": "objectEditor"
+        },
+        {
+          "fieldId": "extraStylesForContent",
+          "widgetId": "objectEditor"
         }
       ]
     },
