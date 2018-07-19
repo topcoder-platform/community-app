@@ -1,6 +1,6 @@
 import fs from 'fs';
 import render from 'utils/markdown';
-import { Stringify } from 'postcss';
+// import { Stringify } from 'postcss';
 
 /**
  * Performs snapshot test of markdown rendering, using the specified file as
