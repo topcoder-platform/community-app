@@ -313,9 +313,9 @@ exports[`Matches shallow shapshot 1`] = `
     <li>
       <Link
         replace={false}
-        to="/track/design"
+        to="/community/development"
       >
-        Track Home Page - Design
+        Track Home Page - Development
       </Link>
     </li>
   </ul>
@@ -326,7 +326,7 @@ exports[`Matches shallow shapshot 1`] = `
     <li>
       <Link
         replace={false}
-        to="/hall-of-fame/tco"
+        to="/community/hall-of-fame/tco"
       >
         TCO Hall of Fame
       </Link>

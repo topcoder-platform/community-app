@@ -26,41 +26,43 @@ $sm-space-40: $base-unit * 8;
 
   background: #fff;
   margin: auto;
+}
 
-  .modal-content {
-    text-align: center;
+.modal-content {
+  @include roboto-regular;
 
-    .are-you-sure {
-      font-weight: 400;
-      font-size: 15px;
-      color: $tc-gray-80;
-      line-height: $sm-space-25;
-      margin-bottom: $sm-space-10;
-      padding: 0 $sm-space-15;
+  text-align: center;
 
-      .id {
-        color: #000;
-        font-weight: 500;
-      }
+  .are-you-sure {
+    font-weight: 400;
+    font-size: 15px;
+    color: $tc-gray-80;
+    line-height: $sm-space-25;
+    margin-bottom: $sm-space-10;
+    padding: 0 $sm-space-15;
+
+    .id {
+      color: #000;
+      font-weight: 500;
+    }
+  }
+
+  .remove-warn {
+    font-weight: 400;
+    font-size: 13px;
+    color: $tc-gray-60;
+    line-height: $sm-space-25;
+    padding: 0 $sm-space-15;
+    margin-bottom: $sm-space-40;
+  }
+
+  .action-btns {
+    button {
+      margin: 0 5px;
     }
 
-    .remove-warn {
-      font-weight: 400;
-      font-size: 13px;
-      color: $tc-gray-60;
-      line-height: $sm-space-25;
-      padding: 0 $sm-space-15;
-      margin-bottom: $sm-space-40;
-    }
-
-    .action-btns {
-      button {
-        margin: 0 5px;
-      }
-
-      &:global.hidden {
-        display: none;
-      }
+    &:global.hidden {
+      display: none;
     }
   }
 }

@@ -289,8 +289,8 @@ Settings Profile Page
           </Link>
         </li>
         <li>
-          <Link to="/track/design">
-Track Home Page - Design
+          <Link to="/community/development">
+            Track Home Page - Development
           </Link>
         </li>
       </ul>
@@ -300,9 +300,7 @@ TCO Assets
       </h3>
       <ul>
         <li>
-          <Link to="/hall-of-fame/tco">
-TCO Hall of Fame
-          </Link>
+          <Link to="/community/hall-of-fame/tco">TCO Hall of Fame</Link>
         </li>
         <li>
           TCO Scoreboard demo is mounted on

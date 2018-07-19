@@ -11,6 +11,7 @@ import { goToLogin } from 'utils/tc';
 
 import { actions } from 'topcoder-react-lib';
 import settingsActions, { TABS } from 'actions/page/settings';
+import settingsUIActions from 'actions/page/ui';
 
 import Error404 from 'components/Error404';
 import LoadingIndicator from 'components/LoadingIndicator';
@@ -129,7 +130,7 @@ function mapStateToProps(state) {
     profileState: state.profile,
     activeChallengesCount: _.get(state.challenge, 'activeChallengesCount'),
     loadingError: state.profile.loadingError,
-    settingsUI: state.ui.settings,
+    settingsUI: state.page.ui.settings,
     settings: state.settings,
     userTraits: state.settings.userTraits,
   };
@@ -148,9 +149,11 @@ function mapDispatchToProps(dispatch) {
 
     if (settingsTab === TABS.PROFILE) {
       dispatch(profileActions.getSkillsInit());
+      dispatch(profileActions.getCredentialInit());
       dispatch(profileActions.getLinkedAccountsInit());
       dispatch(profileActions.getExternalAccountsInit());
       dispatch(profileActions.getExternalLinksInit());
+      dispatch(profileActions.getCredentialDone(profile, tokenV3));
       dispatch(profileActions.getLinkedAccountsDone(profile, tokenV3));
       dispatch(profileActions.getExternalAccountsDone(handle));
       dispatch(profileActions.getExternalLinksDone(handle));
@@ -160,6 +163,12 @@ function mapDispatchToProps(dispatch) {
       dispatch(profileActions.getEmailPreferencesDone(profile, tokenV3));
     } else if (settingsTab === TABS.ACCOUNT) {
       dispatch(profileActions.getCredentialInit());
+      dispatch(profileActions.getLinkedAccountsInit());
+      dispatch(profileActions.getExternalAccountsInit());
+      dispatch(profileActions.getExternalLinksInit());
+      dispatch(profileActions.getLinkedAccountsDone(profile, tokenV3));
+      dispatch(profileActions.getExternalAccountsDone(handle));
+      dispatch(profileActions.getExternalLinksDone(handle));
       dispatch(profileActions.getCredentialDone(profile, tokenV3));
     }
   };
@@ -214,10 +223,13 @@ function mapDispatchToProps(dispatch) {
       dispatch(profileActions.updatePasswordDone(profile, tokenV3, newPassword, oldPassword));
     },
     toggleProfileSideTab: (tab) => {
-      dispatch(actions.ui.settings.profile.toggleTab(tab));
+      dispatch(settingsUIActions.ui.settings.profile.toggleTab(tab));
     },
     toggleToolsSideTab: (tab) => {
-      dispatch(actions.ui.settings.tools.toggleTab(tab));
+      dispatch(settingsUIActions.ui.settings.tools.toggleTab(tab));
+    },
+    toggleAccountSideTab: (tab) => {
+      dispatch(settingsUIActions.ui.settings.account.toggleTab(tab));
     },
     loadAllUserTraits: (handle, tokenV3) => {
       dispatch(actions.settings.getAllUserTraits(handle, tokenV3));

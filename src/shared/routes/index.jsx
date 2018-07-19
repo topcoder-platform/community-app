@@ -81,6 +81,11 @@ function Routes({ communityId }) {
           component={() => <TrackHomePages base="/track" />}
           path="/track"
         />
+        <Route
+          component={() => <TrackHomePages base="/community" />}
+          exact
+          path="/community/(competitive-programming|data-science|design|development)"
+        />
         <Topcoder />
       </Switch>
     </div>

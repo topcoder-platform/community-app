@@ -1,0 +1,44 @@
+@import "../../../Themes/mixins";
+
+.menu-item {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  height: 45px;
+  margin-bottom: 20px;
+  border-radius: 4px;
+  text-decoration: none;
+
+  &.active {
+    background-color: $tc-gray-10;
+  }
+}
+
+a:hover,
+a:active {
+  background-color: $tc-gray-10;
+}
+
+.icon-wrapper {
+  display: flex;
+  min-width: 24px;
+  width: 24px;
+  height: 24px;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  margin: 0 20px;
+
+  .icon {
+    display: block;
+    width: 60px;
+    height: 60px;
+  }
+}
+
+.menu-title {
+  @include tc-body-md;
+
+  color: $tc-gray-80;
+}

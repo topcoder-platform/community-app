@@ -1,0 +1,18 @@
+@import "~styles/mixins";
+
+.container {
+  .contentWrapper {
+    background: #fff;
+    border-radius: 7px;
+    box-shadow: 0 6px 20px 0 rgba(101, 101, 112, 0.2);
+    border-top: 9px solid $tc-dark-blue;
+
+    .content {
+      @include roboto-regular;
+
+      button {
+        margin-left: 0;
+      }
+    }
+  }
+}
