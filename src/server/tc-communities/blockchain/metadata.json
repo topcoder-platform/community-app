@@ -26,7 +26,7 @@
     "title": "Challenges",
     "url": "/challenges"
   }],
-  "leaderboardApiUrl": "https://api.topcoder.com/v4/looks/458/run/json/",
+  "leaderboardApiUrl": "https://api.topcoder.com/v4/looks/1037/run/json",
   "newsFeed": "http://www.topcoder.com/feed",
   "subdomains": ["blockchain"],
   "description": "Learn about and build the next great decentralized application (DApp) on the Ethereum platform.",

@@ -300,9 +300,7 @@ TCO Assets
       </h3>
       <ul>
         <li>
-          <Link to="/hall-of-fame/tco">
-TCO Hall of Fame
-          </Link>
+          <Link to="/community/hall-of-fame/tco">TCO Hall of Fame</Link>
         </li>
         <li>
           TCO Scoreboard demo is mounted on
