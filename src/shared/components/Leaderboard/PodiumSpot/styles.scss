@@ -6,6 +6,7 @@ $podium-border-color: #ededf2;
   border-radius: 6px;
   padding: 20px 0;
   box-shadow: 1px 1px 6px 2px #f1f1f1;
+  min-width: 320px;
 
   .leaderboard-avatar {
     display: inline-block;

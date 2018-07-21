@@ -14,6 +14,7 @@ import { errors } from 'topcoder-react-lib';
 import LoadingIndicator from 'components/LoadingIndicator';
 import PT from 'prop-types';
 import React from 'react';
+import { AppChunk } from 'topcoder-react-utils';
 
 import Viewport from './Viewport';
 
@@ -86,6 +87,10 @@ function ViewportContentLoader(props) {
                 return (
                   <ViewportLoader id={id} key={id} preview={preview} />
                 );
+              } if (data.entries.items[id].sys.contentType.sys.id === 'appComponent') {
+                return (
+                  <AppComponentLoader id={id} key={id} preview={preview} />
+                );
               }
               fireErrorMessage('Unsupported content type from contentful', '');
               return null;
@@ -97,6 +102,60 @@ function ViewportContentLoader(props) {
     />
   );
 }
+
+function AppComponentLoader(props) {
+  const {
+    id,
+    preview,
+  } = props;
+
+  const queries = [];
+
+  if (id) {
+    queries.push({ 'sys.id': id, content_type: 'appComponent' });
+  }
+
+  return (
+    <ContentfulLoader
+      entryQueries={queries}
+      preview={preview}
+      render={data => _.map(data.entries.items, (appComponent) => {
+        if (appComponent.fields.type === 'TCO-Leaderboard') {
+          return (
+            <AppChunk
+              chunkName="leaderboard/chunk"
+              renderClientAsync={() => import(/* webpackChunkName: "leaderboard/chunk" */ 'containers/tco/Leaderboard')
+                .then(({ default: Leaderboard }) => (
+                  <Leaderboard
+                    apiUrl={appComponent.fields.props.leaderboardApiUrl}
+                    title={appComponent.fields.props.title}
+                    podiumSpots={appComponent.fields.props.podiumSpots}
+                    key={appComponent.sys.id}
+                  />
+                ))
+              }
+              renderPlaceholder={() => <LoadingIndicator />}
+              key={appComponent.sys.id}
+            />
+          );
+        }
+        fireErrorMessage('Unsupported app component type from contentful', '');
+        return null;
+      })}
+      renderPlaceholder={LoadingIndicator}
+    />
+  );
+}
+
+AppComponentLoader.defaultProps = {
+  id: null,
+  preview: false,
+};
+
+AppComponentLoader.propTypes = {
+  id: PT.string,
+  preview: PT.bool,
+};
 
 ViewportContentLoader.defaultProps = {
   extraStylesForContainer: null,
