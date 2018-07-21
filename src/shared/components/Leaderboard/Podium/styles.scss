@@ -4,7 +4,7 @@
   @include roboto-regular;
 
   line-height: 1.42;
-  margin: 20px -15px;
+  margin: 20px auto 40px auto;
   text-align: center;
 
   &::before,
@@ -19,7 +19,11 @@
 }
 
 .Podium .podium-column {
-  width: 33.33333%;
-  float: left;
+  width: 32%;
+  display: inline-block;
   padding: 0 15px;
+
+  @include xs-to-sm {
+    width: 100%;
+  }
 }
