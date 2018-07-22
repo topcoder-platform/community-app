@@ -29,6 +29,7 @@ import styles from './styles.scss'; // eslint-disable-line
 export default function LeaderboardTable(props) {
   const {
     competitors,
+    isCopilot,
   } = props;
   const renderTableRows = comps => (
     comps.map((competitor) => {
@@ -58,7 +59,11 @@ export default function LeaderboardTable(props) {
               <span>{competitor.challengecount} challenges</span>
             </div>
           </td>
-          <td styleName="styles.col-fulfillment">{competitor.fulfillment ? competitor.fulfillment : ''}</td>
+          {
+            isCopilot ? (
+              <td styleName="styles.col-fulfillment">{competitor.fulfillment}</td>
+            ) : null
+          }
           <td styleName="styles.col-challenges">{competitor.challengecount}</td>
           <td styleName="styles.col-points">{competitor.points}</td>
         </tr>
@@ -72,7 +77,11 @@ export default function LeaderboardTable(props) {
         <tr>
           <th styleName="styles.col-rank">Rank</th>
           <th styleName="styles.col-handle" colSpan="2">Handle</th>
-          <th styleName="styles.col-fulfillment">Fulfillment</th>
+          {
+            isCopilot ? (
+              <th styleName="styles.col-fulfillment">Fulfillment</th>
+            ) : null
+          }
           <th styleName="styles.col-challenges"># of Challenges</th>
           <th styleName="styles.col-points">Points</th>
         </tr>
@@ -90,8 +99,14 @@ const CompetitorShape = PT.shape({
   handle: PT.string.isRequired,
   challengecount: PT.number.isRequired,
   points: PT.number.isRequired,
+  fulfillment: PT.number,
 });
 
 LeaderboardTable.propTypes = {
   competitors: PT.arrayOf(CompetitorShape).isRequired,
+  isCopilot: PT.bool,
+};
+
+LeaderboardTable.defaultProps = {
+  isCopilot: false,
 };

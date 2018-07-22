@@ -6,7 +6,7 @@
 
   @include md {
     margin: 30px auto;
-    width: 750px;
+    width: $screen-md;
   }
 
   @include lg {
@@ -16,7 +16,7 @@
 
   @include xl {
     margin: 40px auto;
-    width: 900px;
+    max-width: $screen-lg;
   }
 }
 

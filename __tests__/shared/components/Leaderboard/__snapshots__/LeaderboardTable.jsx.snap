@@ -18,11 +18,6 @@ exports[`Matches shallow shapshot 1`] = `
         Handle
       </th>
       <th
-        className="src-shared-components-Leaderboard-LeaderboardTable-___styles__col-fulfillment___1UHpq"
-      >
-        Fulfillment
-      </th>
-      <th
         className="src-shared-components-Leaderboard-LeaderboardTable-___styles__col-challenges___29htm"
       >
         # of Challenges
@@ -79,9 +74,56 @@ exports[`Matches shallow shapshot 1`] = `
         </div>
       </td>
       <td
-        className="src-shared-components-Leaderboard-LeaderboardTable-___styles__col-fulfillment___1UHpq"
+        className="src-shared-components-Leaderboard-LeaderboardTable-___styles__col-challenges___29htm"
+      />
+      <td
+        className="src-shared-components-Leaderboard-LeaderboardTable-___styles__col-points___10Lis"
       >
-        
+        0
+      </td>
+    </tr>
+    <tr>
+      <td
+        className="src-shared-components-Leaderboard-LeaderboardTable-___styles__col-rank___2K_CR"
+      >
+        1
+      </td>
+      <td
+        className="src-shared-components-Leaderboard-LeaderboardTable-___styles__col-avatar___1xu8j"
+      >
+        <span
+          className="src-shared-components-Leaderboard-LeaderboardTable-___styles__leaderboard-avatar___3Ly7x"
+        >
+          <ThemedAvatar
+            composeAdhocTheme="deeply"
+            composeContextTheme="softly"
+            mapThemrProps={[Function]}
+            theme={
+              Object {
+                "avatar": "src-shared-components-Leaderboard-avatarStyles___default___1bHTzy",
+              }
+            }
+            themePriority="adhoc-context-default"
+          />
+        </span>
+      </td>
+      <td
+        className="src-shared-components-Leaderboard-LeaderboardTable-___styles__col-handle___3Sr8G"
+      >
+        <a
+          href="https://www.topcoder-dev.com/members/undefined/"
+        />
+        <div
+          className="src-shared-components-Leaderboard-LeaderboardTable-___styles__winnings-info___1Fiyn"
+        >
+          <span>
+            0
+             points
+          </span>
+          <span>
+             challenges
+          </span>
+        </div>
       </td>
       <td
         className="src-shared-components-Leaderboard-LeaderboardTable-___styles__col-challenges___29htm"
@@ -136,11 +178,6 @@ exports[`Matches shallow shapshot 1`] = `
         </div>
       </td>
       <td
-        className="src-shared-components-Leaderboard-LeaderboardTable-___styles__col-fulfillment___1UHpq"
-      >
-        
-      </td>
-      <td
         className="src-shared-components-Leaderboard-LeaderboardTable-___styles__col-challenges___29htm"
       />
       <td
@@ -191,68 +228,6 @@ exports[`Matches shallow shapshot 1`] = `
              challenges
           </span>
         </div>
-      </td>
-      <td
-        className="src-shared-components-Leaderboard-LeaderboardTable-___styles__col-fulfillment___1UHpq"
-      >
-        
-      </td>
-      <td
-        className="src-shared-components-Leaderboard-LeaderboardTable-___styles__col-challenges___29htm"
-      />
-      <td
-        className="src-shared-components-Leaderboard-LeaderboardTable-___styles__col-points___10Lis"
-      >
-        0
-      </td>
-    </tr>
-    <tr>
-      <td
-        className="src-shared-components-Leaderboard-LeaderboardTable-___styles__col-rank___2K_CR"
-      >
-        1
-      </td>
-      <td
-        className="src-shared-components-Leaderboard-LeaderboardTable-___styles__col-avatar___1xu8j"
-      >
-        <span
-          className="src-shared-components-Leaderboard-LeaderboardTable-___styles__leaderboard-avatar___3Ly7x"
-        >
-          <ThemedAvatar
-            composeAdhocTheme="deeply"
-            composeContextTheme="softly"
-            mapThemrProps={[Function]}
-            theme={
-              Object {
-                "avatar": "src-shared-components-Leaderboard-avatarStyles___default___1bHTzy",
-              }
-            }
-            themePriority="adhoc-context-default"
-          />
-        </span>
-      </td>
-      <td
-        className="src-shared-components-Leaderboard-LeaderboardTable-___styles__col-handle___3Sr8G"
-      >
-        <a
-          href="https://www.topcoder-dev.com/members/undefined/"
-        />
-        <div
-          className="src-shared-components-Leaderboard-LeaderboardTable-___styles__winnings-info___1Fiyn"
-        >
-          <span>
-            0
-             points
-          </span>
-          <span>
-             challenges
-          </span>
-        </div>
-      </td>
-      <td
-        className="src-shared-components-Leaderboard-LeaderboardTable-___styles__col-fulfillment___1UHpq"
-      >
-        
       </td>
       <td
         className="src-shared-components-Leaderboard-LeaderboardTable-___styles__col-challenges___29htm"

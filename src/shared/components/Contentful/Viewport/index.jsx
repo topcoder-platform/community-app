@@ -130,6 +130,7 @@ function AppComponentLoader(props) {
                     apiUrl={appComponent.fields.props.leaderboardApiUrl}
                     title={appComponent.fields.props.title}
                     podiumSpots={appComponent.fields.props.podiumSpots}
+                    isCopilot={appComponent.fields.props.isCopilot}
                     key={appComponent.sys.id}
                   />
                 ))

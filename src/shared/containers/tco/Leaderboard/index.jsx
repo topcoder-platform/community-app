@@ -29,14 +29,16 @@ class LeaderboardPageContainer extends React.Component {
   }
 
   render() {
-    const { leaderboardData, title, podiumSpots } = this.props;
+    const {
+      leaderboardData, title, podiumSpots, isCopilot,
+    } = this.props;
     const ld = leaderboardData || [];
     return (
       <div>
         <div styleName="Leaderboard">
           <h2 styleName="section-title">{title}</h2>
           <Podium competitors={ld.slice(0, podiumSpots)} />
-          <LeaderboardTable competitors={ld.slice(podiumSpots)} />
+          <LeaderboardTable competitors={ld.slice(podiumSpots)} isCopilot={isCopilot} />
         </div>
       </div>
     );
@@ -51,6 +53,7 @@ LeaderboardPageContainer.defaultProps = {
   auth: null,
   title: 'Leaderboard',
   podiumSpots: 3,
+  isCopilot: false,
 };
 
 LeaderboardPageContainer.propTypes = {
@@ -62,6 +65,7 @@ LeaderboardPageContainer.propTypes = {
   auth: PT.shape(),
   title: PT.string,
   podiumSpots: PT.number,
+  isCopilot: PT.bool,
 };
 
 const mapStateToProps = state => ({
