@@ -1,0 +1,88 @@
+@import "~styles/mixins";
+
+$text-color-gray: #37373b;
+$container-background-yello: #fce217;
+
+.container {
+  @include roboto-regular;
+
+  display: -webkit-flex; /* Safari */
+  display: flex;
+  -webkit-flex-direction: row; /* Safari */
+  flex-direction: row;
+  -webkit-justify-content: center; /* Safari */
+  justify-content: center;
+  padding: 40px;
+  background: $container-background-yello;
+
+  @media only screen and (max-width: 767px) {
+    -webkit-flex-direction: column; /* Safari */
+    flex-direction: column;
+  }
+
+  .title {
+    color: $text-color-gray;
+    font-size: 28px;
+    font-weight: 400;
+    line-height: 34px;
+    text-align: center;
+    margin-top: auto;
+    margin-bottom: auto;
+
+    &.colon {
+      margin-right: 30px;
+    }
+
+    @media only screen and (max-width: 767px) {
+      @include roboto-light;
+
+      margin-bottom: 20px;
+
+      &.colon {
+        display: none;
+      }
+    }
+  }
+
+  .time-container {
+    display: -webkit-flex; /* Safari */
+    display: flex;
+    -webkit-flex-direction: row; /* Safari */
+    flex-direction: row;
+    -webkit-justify-content: center; /* Safari */
+    justify-content: center;
+  }
+
+  .time-value {
+    @include roboto-bold;
+
+    color: $text-color-gray;
+    font-size: 42px;
+    font-weight: 700;
+    line-height: 50px;
+    text-align: center;
+  }
+
+  .time-label {
+    color: $text-color-gray;
+    font-size: 20px;
+    font-weight: 400;
+    line-height: 30px;
+    text-align: center;
+    margin-top: 10px;
+    width: 100px;
+
+    @media only screen and (max-width: 767px) {
+      @include roboto-light;
+
+      width: auto;
+      margin-left: 10px;
+      margin-right: 10px;
+      font-size: 18px;
+    }
+  }
+
+  .time-second {
+    display: block;
+  }
+}

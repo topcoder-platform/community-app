@@ -15,6 +15,7 @@ import LoadingIndicator from 'components/LoadingIndicator';
 import PT from 'prop-types';
 import React from 'react';
 import { AppChunk } from 'topcoder-react-utils';
+import Countdown from 'components/Contentful/Countdown';
 
 import Viewport from './Viewport';
 
@@ -90,6 +91,10 @@ function ViewportContentLoader(props) {
               } if (data.entries.items[id].sys.contentType.sys.id === 'appComponent') {
                 return (
                   <AppComponentLoader id={id} key={id} preview={preview} />
+                );
+              } if (data.entries.items[id].sys.contentType.sys.id === 'countdown') {
+                return (
+                  <Countdown id={id} key={id} preview={preview} />
                 );
               }
               fireErrorMessage('Unsupported content type from contentful', '');
