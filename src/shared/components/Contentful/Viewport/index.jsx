@@ -6,6 +6,7 @@ import _ from 'lodash';
 import Accordion from 'components/Contentful/Accordion';
 import Banner from 'components/Contentful/Banner';
 import ContentBlock from 'components/Contentful/ContentBlock';
+import BlogPost from 'components/Contentful/BlogPost';
 import ContentfulLoader from 'containers/ContentfulLoader';
 import { fixStyle } from 'utils/contentful';
 import Quote from 'components/Contentful/Quote';
@@ -75,6 +76,10 @@ function ViewportContentLoader(props) {
               } if (data.entries.items[id].sys.contentType.sys.id === 'contentBlock') {
                 return (
                   <ContentBlock id={id} key={id} preview={preview} />
+                );
+              } if (data.entries.items[id].sys.contentType.sys.id === 'blogPost') {
+                return (
+                  <BlogPost id={id} key={id} preview={preview} />
                 );
               } if (data.entries.items[id].sys.contentType.sys.id === 'quote') {
                 return (
