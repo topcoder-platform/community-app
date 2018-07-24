@@ -483,6 +483,9 @@ Misc Examples
       </h3>
       <ul>
         <li>
+          <Link to="/examples/countdown">Countdown</Link>
+        </li>
+        <li>
           <Link
             to="/examples/announcement/5yaVZtOH9CYoQ0QYQk0uoY"
           >
