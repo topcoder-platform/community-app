@@ -191,27 +191,31 @@ Toggle navigation
             )}
           </div>
         </div>
-        <div
-          className={isMobileOpen ? theme.menuWrapOpen : theme.menuWrap}
-        >
-          <ul className={theme.menu}>
-            {_.map(menuItems, item => (
-              <li
-                className={theme.menuItem}
-                key={item.url}
-              >
-                <NavLink
-                  activeClassName={theme.menuLinkActive}
-                  className={theme.menuLink}
-                  openNewTab={item.openNewTab}
-                  isActive={() => `/${currentPage}` === item.url}
-                  to={item.url.startsWith('http') ? item.url : `${baseUrl}${item.url}`}
-                >
-                  {item.title}
-                </NavLink>
-              </li>
-            ))}
-          </ul>
+        <div className={isMobileOpen ? theme.menuWrapOpen : theme.menuWrap}>
+          {
+            menuItems[0].navigationMenu ? (
+              null
+            ) : (
+              <ul className={theme.menu}>
+                {_.map(menuItems, item => (
+                  <li
+                    className={theme.menuItem}
+                    key={item.url}
+                  >
+                    <NavLink
+                      activeClassName={theme.menuLinkActive}
+                      className={theme.menuLink}
+                      openNewTab={item.openNewTab}
+                      isActive={() => `/${currentPage}` === item.url}
+                      to={item.url.startsWith('http') ? item.url : `${baseUrl}${item.url}`}
+                    >
+                      {item.title}
+                    </NavLink>
+                  </li>
+                ))}
+              </ul>
+            )
+          }
         </div>
         <div className={theme.userWrap}>
           {loginState}
@@ -253,6 +257,7 @@ Header.defaultProps = {
   hideSearch: false,
   chevronOverAvatar: false,
   profile: null,
+  isMobileOpen: false,
 };
 
 Header.propTypes = {
@@ -262,11 +267,12 @@ Header.propTypes = {
   communityId: PT.string.isRequired,
   communitySelector: PT.arrayOf(PT.shape()).isRequired,
   groupIds: PT.arrayOf(PT.string),
-  isMobileOpen: PT.bool.isRequired,
+  isMobileOpen: PT.bool,
 
   menuItems: PT.arrayOf(PT.shape({
-    title: PT.string.isRequired,
-    url: PT.string.isRequired,
+    title: PT.string,
+    url: PT.string,
+    navigationMenu: PT.string,
   })),
   logos: PT.arrayOf(PT.oneOfType([
     PT.string,
