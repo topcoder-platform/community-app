@@ -5,7 +5,7 @@ import _ from 'lodash';
 import ContentfulLoader from 'containers/ContentfulLoader';
 import LoadingIndicator from 'components/LoadingIndicator';
 import MarkdownRenderer from 'components/MarkdownRenderer';
-import Viewport from 'components/Contentful/Viewport';
+import { AppComponentSwitch } from 'components/Contentful/AppComponent';
 import PT from 'prop-types';
 import React, { Component } from 'react';
 import {
@@ -60,7 +60,22 @@ export default class TabsItemsLoader extends Component {
                   key={tabItem.sys.id}
                   selectedClassName={theme.selectedTabPanel}
                 >
-                  <Viewport id={tabItem.fields.panel.sys.id} />
+                  {
+                    _.map(tabItem.fields.panel, panelItemLink => (
+                      <ContentfulLoader
+                        entryIds={panelItemLink.sys.id}
+                        preview={preview}
+                        render={(panelItem) => {
+                          const { id } = panelItemLink.sys;
+                          if (panelItem.entries.items[id].sys.contentType.sys.id === 'appComponent') {
+                            return AppComponentSwitch(panelItem.entries.items[id]);
+                          }
+                          return null;
+                        }}
+                        key={tabItem.sys.id}
+                      />
+                    ))
+                  }
                 </TabPanel>
               ))
             }

@@ -4760,7 +4760,7 @@
         "id": "navigationMenu",
         "type": "ContentType",
         "createdAt": "2018-07-18T14:18:24.541Z",
-        "updatedAt": "2018-07-18T14:54:07.244Z",
+        "updatedAt": "2018-07-24T07:53:43.804Z",
         "environment": {
           "sys": {
             "id": "master",
@@ -4782,8 +4782,8 @@
             "id": "0TpNH8XniBpD1bwXTXbgc9"
           }
         },
-        "publishedCounter": 4,
-        "version": 8,
+        "publishedCounter": 5,
+        "version": 10,
         "publishedBy": {
           "sys": {
             "type": "Link",
@@ -4791,9 +4791,9 @@
             "id": "0TpNH8XniBpD1bwXTXbgc9"
           }
         },
-        "publishedVersion": 7,
+        "publishedVersion": 9,
         "firstPublishedAt": "2018-07-18T14:18:25.117Z",
-        "publishedAt": "2018-07-18T14:54:07.244Z"
+        "publishedAt": "2018-07-24T07:53:43.804Z"
       },
       "displayField": "name",
       "name": "Navigation Menu",
@@ -4874,7 +4874,7 @@
         "id": "navigationMenuItem",
         "type": "ContentType",
         "createdAt": "2018-07-18T14:31:27.431Z",
-        "updatedAt": "2018-07-18T15:04:36.565Z",
+        "updatedAt": "2018-07-24T08:26:46.256Z",
         "environment": {
           "sys": {
             "id": "master",
@@ -4896,8 +4896,8 @@
             "id": "0TpNH8XniBpD1bwXTXbgc9"
           }
         },
-        "publishedCounter": 6,
-        "version": 12,
+        "publishedCounter": 8,
+        "version": 16,
         "publishedBy": {
           "sys": {
             "type": "Link",
@@ -4905,9 +4905,9 @@
             "id": "0TpNH8XniBpD1bwXTXbgc9"
           }
         },
-        "publishedVersion": 11,
+        "publishedVersion": 15,
         "firstPublishedAt": "2018-07-18T14:31:27.813Z",
-        "publishedAt": "2018-07-18T15:04:36.565Z"
+        "publishedAt": "2018-07-24T08:26:46.256Z"
       },
       "displayField": "name",
       "name": "Navigation Menu Item",
@@ -4944,7 +4944,7 @@
           "validations": [
             {
               "regexp": {
-                "pattern": "^(ftp|http|https):\\/\\/(\\w+:{0,1}\\w*@)?(\\S+)(:[0-9]+)?(\\/|\\/([\\w#!:.?+=&%@!\\-\\/]))?$"
+                "pattern": "(\\w+:{0,1}\\w*@)?(\\S+)(:[0-9]+)?(\\/|\\/([\\w#!:.?+=&%@!\\-\\/]))?$"
               }
             }
           ],
@@ -5180,6 +5180,205 @@
           ],
           "disabled": false,
           "omitted": false
+        }
+      ]
+    },
+    {
+      "sys": {
+        "space": {
+          "sys": {
+            "type": "Link",
+            "linkType": "Space",
+            "id": "b5f1djy59z3a"
+          }
+        },
+        "id": "tabs",
+        "type": "ContentType",
+        "createdAt": "2018-07-25T11:32:08.806Z",
+        "updatedAt": "2018-07-25T15:51:05.119Z",
+        "environment": {
+          "sys": {
+            "id": "master",
+            "type": "Link",
+            "linkType": "Environment"
+          }
+        },
+        "createdBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "0TpNH8XniBpD1bwXTXbgc9"
+          }
+        },
+        "updatedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "0TpNH8XniBpD1bwXTXbgc9"
+          }
+        },
+        "publishedCounter": 4,
+        "version": 8,
+        "publishedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "0TpNH8XniBpD1bwXTXbgc9"
+          }
+        },
+        "publishedVersion": 7,
+        "firstPublishedAt": "2018-07-25T11:32:09.272Z",
+        "publishedAt": "2018-07-25T15:51:05.119Z"
+      },
+      "displayField": "name",
+      "name": "Tabs",
+      "description": "Generic tabs component",
+      "fields": [
+        {
+          "id": "name",
+          "name": "Name",
+          "type": "Symbol",
+          "localized": false,
+          "required": true,
+          "validations": [
+          ],
+          "disabled": false,
+          "omitted": false
+        },
+        {
+          "id": "tabsList",
+          "name": "TabsList",
+          "type": "Array",
+          "localized": false,
+          "required": true,
+          "validations": [
+          ],
+          "disabled": false,
+          "omitted": false,
+          "items": {
+            "type": "Link",
+            "validations": [
+              {
+                "linkContentType": [
+                  "tabsItem"
+                ]
+              }
+            ],
+            "linkType": "Entry"
+          }
+        },
+        {
+          "id": "selected",
+          "name": "Selected",
+          "type": "Integer",
+          "localized": false,
+          "required": false,
+          "validations": [
+            {
+              "range": {
+                "min": 0
+              }
+            }
+          ],
+          "disabled": false,
+          "omitted": false
+        }
+      ]
+    },
+    {
+      "sys": {
+        "space": {
+          "sys": {
+            "type": "Link",
+            "linkType": "Space",
+            "id": "b5f1djy59z3a"
+          }
+        },
+        "id": "tabsItem",
+        "type": "ContentType",
+        "createdAt": "2018-07-25T11:40:02.668Z",
+        "updatedAt": "2018-07-25T20:27:59.635Z",
+        "environment": {
+          "sys": {
+            "id": "master",
+            "type": "Link",
+            "linkType": "Environment"
+          }
+        },
+        "createdBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "0TpNH8XniBpD1bwXTXbgc9"
+          }
+        },
+        "updatedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "0TpNH8XniBpD1bwXTXbgc9"
+          }
+        },
+        "publishedCounter": 7,
+        "version": 14,
+        "publishedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "0TpNH8XniBpD1bwXTXbgc9"
+          }
+        },
+        "publishedVersion": 13,
+        "firstPublishedAt": "2018-07-25T11:40:03.141Z",
+        "publishedAt": "2018-07-25T20:27:59.635Z"
+      },
+      "displayField": "name",
+      "name": "Tabs Item",
+      "description": "Item in tabs model",
+      "fields": [
+        {
+          "id": "name",
+          "name": "Name",
+          "type": "Symbol",
+          "localized": false,
+          "required": true,
+          "validations": [
+          ],
+          "disabled": false,
+          "omitted": false
+        },
+        {
+          "id": "tab",
+          "name": "Tab",
+          "type": "Text",
+          "localized": false,
+          "required": true,
+          "validations": [
+          ],
+          "disabled": false,
+          "omitted": false
+        },
+        {
+          "id": "panel",
+          "name": "Panel",
+          "type": "Array",
+          "localized": false,
+          "required": true,
+          "validations": [
+          ],
+          "disabled": false,
+          "omitted": false,
+          "items": {
+            "type": "Link",
+            "validations": [
+              {
+                "linkContentType": [
+                  "appComponent"
+                ]
+              }
+            ],
+            "linkType": "Entry"
+          }
         }
       ]
     }
@@ -7984,7 +8183,7 @@
             "linkType": "Space"
           }
         },
-        "version": 8,
+        "version": 10,
         "createdAt": "2018-07-18T14:18:25.278Z",
         "createdBy": {
           "sys": {
@@ -7993,7 +8192,7 @@
             "linkType": "User"
           }
         },
-        "updatedAt": "2018-07-18T14:54:07.931Z",
+        "updatedAt": "2018-07-24T07:53:44.538Z",
         "updatedBy": {
           "sys": {
             "id": "0TpNH8XniBpD1bwXTXbgc9",
@@ -8027,7 +8226,7 @@
         },
         {
           "fieldId": "theme",
-          "widgetId": "singleLine"
+          "widgetId": "dropdown"
         },
         {
           "fieldId": "items",
@@ -8049,7 +8248,7 @@
             "linkType": "Space"
           }
         },
-        "version": 12,
+        "version": 16,
         "createdAt": "2018-07-18T14:31:28.050Z",
         "createdBy": {
           "sys": {
@@ -8058,7 +8257,7 @@
             "linkType": "User"
           }
         },
-        "updatedAt": "2018-07-18T15:04:37.379Z",
+        "updatedAt": "2018-07-24T08:26:46.839Z",
         "updatedBy": {
           "sys": {
             "id": "0TpNH8XniBpD1bwXTXbgc9",
@@ -8110,7 +8309,7 @@
         },
         {
           "fieldId": "target",
-          "widgetId": "singleLine"
+          "widgetId": "dropdown"
         }
       ]
     },
@@ -8231,6 +8430,131 @@
             "format": "timeZ"
           },
           "widgetId": "datePicker"
+        }
+      ]
+    },
+    {
+      "sys": {
+        "id": "default",
+        "type": "EditorInterface",
+        "space": {
+          "sys": {
+            "id": "b5f1djy59z3a",
+            "type": "Link",
+            "linkType": "Space"
+          }
+        },
+        "version": 8,
+        "createdAt": "2018-07-25T11:32:09.396Z",
+        "createdBy": {
+          "sys": {
+            "id": "0TpNH8XniBpD1bwXTXbgc9",
+            "type": "Link",
+            "linkType": "User"
+          }
+        },
+        "updatedAt": "2018-07-25T15:51:05.890Z",
+        "updatedBy": {
+          "sys": {
+            "id": "0TpNH8XniBpD1bwXTXbgc9",
+            "type": "Link",
+            "linkType": "User"
+          }
+        },
+        "contentType": {
+          "sys": {
+            "id": "tabs",
+            "type": "Link",
+            "linkType": "ContentType"
+          }
+        },
+        "environment": {
+          "sys": {
+            "id": "master",
+            "type": "Link",
+            "linkType": "Environment"
+          }
+        }
+      },
+      "controls": [
+        {
+          "fieldId": "name",
+          "widgetId": "singleLine"
+        },
+        {
+          "fieldId": "tabsList",
+          "settings": {
+            "bulkEditing": false
+          },
+          "widgetId": "entryLinksEditor"
+        },
+        {
+          "fieldId": "selected",
+          "settings": {
+            "helpText": "Defaults to 0"
+          },
+          "widgetId": "numberEditor"
+        }
+      ]
+    },
+    {
+      "sys": {
+        "id": "default",
+        "type": "EditorInterface",
+        "space": {
+          "sys": {
+            "id": "b5f1djy59z3a",
+            "type": "Link",
+            "linkType": "Space"
+          }
+        },
+        "version": 14,
+        "createdAt": "2018-07-25T11:40:03.377Z",
+        "createdBy": {
+          "sys": {
+            "id": "0TpNH8XniBpD1bwXTXbgc9",
+            "type": "Link",
+            "linkType": "User"
+          }
+        },
+        "updatedAt": "2018-07-25T20:28:00.446Z",
+        "updatedBy": {
+          "sys": {
+            "id": "0TpNH8XniBpD1bwXTXbgc9",
+            "type": "Link",
+            "linkType": "User"
+          }
+        },
+        "contentType": {
+          "sys": {
+            "id": "tabsItem",
+            "type": "Link",
+            "linkType": "ContentType"
+          }
+        },
+        "environment": {
+          "sys": {
+            "id": "master",
+            "type": "Link",
+            "linkType": "Environment"
+          }
+        }
+      },
+      "controls": [
+        {
+          "fieldId": "name",
+          "widgetId": "singleLine"
+        },
+        {
+          "fieldId": "tab",
+          "widgetId": "markdown"
+        },
+        {
+          "fieldId": "panel",
+          "settings": {
+            "bulkEditing": false
+          },
+          "widgetId": "entryLinksEditor"
         }
       ]
     }

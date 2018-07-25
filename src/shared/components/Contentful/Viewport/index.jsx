@@ -15,9 +15,9 @@ import { errors } from 'topcoder-react-lib';
 import LoadingIndicator from 'components/LoadingIndicator';
 import PT from 'prop-types';
 import React from 'react';
-import Leaderboard from 'containers/tco/Leaderboard';
 import Countdown from 'components/Contentful/Countdown';
 import Tabs from 'components/Contentful/Tabs';
+import AppComponentLoader from 'components/Contentful/AppComponent';
 
 import Viewport from './Viewport';
 
@@ -117,52 +117,6 @@ function ViewportContentLoader(props) {
     />
   );
 }
-
-function AppComponentLoader(props) {
-  const {
-    id,
-    preview,
-  } = props;
-
-  const queries = [];
-
-  if (id) {
-    queries.push({ 'sys.id': id, content_type: 'appComponent' });
-  }
-
-  return (
-    <ContentfulLoader
-      entryQueries={queries}
-      preview={preview}
-      render={data => _.map(data.entries.items, (appComponent) => {
-        if (appComponent.fields.type === 'TCO-Leaderboard') {
-          return (
-            <Leaderboard
-              apiUrl={appComponent.fields.props.leaderboardApiUrl}
-              title={appComponent.fields.props.title}
-              podiumSpots={appComponent.fields.props.podiumSpots}
-              isCopilot={appComponent.fields.props.isCopilot}
-              key={appComponent.sys.id}
-            />
-          );
-        }
-        fireErrorMessage('Unsupported app component type from contentful', '');
-        return null;
-      })}
-      renderPlaceholder={LoadingIndicator}
-    />
-  );
-}
-
-AppComponentLoader.defaultProps = {
-  id: null,
-  preview: false,
-};
-
-AppComponentLoader.propTypes = {
-  id: PT.string,
-  preview: PT.bool,
-};
 
 ViewportContentLoader.defaultProps = {
   extraStylesForContainer: null,
