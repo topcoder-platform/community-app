@@ -15,7 +15,7 @@ import { errors } from 'topcoder-react-lib';
 import LoadingIndicator from 'components/LoadingIndicator';
 import PT from 'prop-types';
 import React from 'react';
-import { AppChunk } from 'topcoder-react-utils';
+import Leaderboard from 'containers/tco/Leaderboard';
 import Countdown from 'components/Contentful/Countdown';
 
 import Viewport from './Viewport';
@@ -132,20 +132,11 @@ function AppComponentLoader(props) {
       render={data => _.map(data.entries.items, (appComponent) => {
         if (appComponent.fields.type === 'TCO-Leaderboard') {
           return (
-            <AppChunk
-              chunkName="leaderboard/chunk"
-              renderClientAsync={() => import(/* webpackChunkName: "leaderboard/chunk" */ 'containers/tco/Leaderboard')
-                .then(({ default: Leaderboard }) => (
-                  <Leaderboard
-                    apiUrl={appComponent.fields.props.leaderboardApiUrl}
-                    title={appComponent.fields.props.title}
-                    podiumSpots={appComponent.fields.props.podiumSpots}
-                    isCopilot={appComponent.fields.props.isCopilot}
-                    key={appComponent.sys.id}
-                  />
-                ))
-              }
-              renderPlaceholder={() => <LoadingIndicator />}
+            <Leaderboard
+              apiUrl={appComponent.fields.props.leaderboardApiUrl}
+              title={appComponent.fields.props.title}
+              podiumSpots={appComponent.fields.props.podiumSpots}
+              isCopilot={appComponent.fields.props.isCopilot}
               key={appComponent.sys.id}
             />
           );
