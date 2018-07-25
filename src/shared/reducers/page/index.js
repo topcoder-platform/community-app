@@ -21,8 +21,6 @@ import dashboard from './dashboard';
 import ui, { factory as uiFactory } from './ui';
 import settings, { factory as settingsFactory } from './settings';
 
-
-import hallOfFame, { factory as hallOfFameFactory } from './hallOfFame';
 import reviewOpportunityDetails from './review-opportunity-details';
 
 /**
@@ -34,7 +32,6 @@ export function factory(req) {
   return redux.resolveReducers({
     challengeDetails: challengeDetailsFactory(req),
     submission: submissionFactory(req),
-    hallOfFame: hallOfFameFactory(req),
     settings: settingsFactory(req),
     ui: uiFactory(req),
   }).then(reducers => combineReducers({
@@ -51,7 +48,6 @@ export default combineReducers({
   communities,
   dashboard,
   settings,
-  hallOfFame,
   reviewOpportunityDetails,
   submission,
   ui,
