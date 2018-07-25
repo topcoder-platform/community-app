@@ -8,6 +8,7 @@ import React from 'react';
 import Accordion from 'components/Contentful/Accordion';
 import Banner from 'components/Contentful/Banner';
 import ContentBlock from 'components/Contentful/ContentBlock';
+import BlogPost from 'components/Contentful/BlogPost';
 import ContentfulRoute from 'components/Contentful/Route';
 import Quote from 'components/Contentful/Quote';
 import Video from 'components/Contentful/Video';
@@ -30,6 +31,10 @@ export default function Contentful({ match }) {
       <Route
         path={`${base}/contentblock/:id`}
         component={p => <ContentBlock id={p.match.params.id} preview />}
+      />
+      <Route
+        path={`${base}/blogpost/:id`}
+        component={p => <BlogPost id={p.match.params.id} preview />}
       />
       <Route
         path={`${base}/quote/:id`}

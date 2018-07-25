@@ -10,10 +10,14 @@ import PT from 'prop-types';
 import React from 'react';
 import shortId from 'shortid';
 import qs from 'qs';
+import SSR from 'utils/SSR';
 import { connect } from 'react-redux';
 
 const DEFAULT_MAXAGE = 5 * 60 * 1000;
 const DEFAULT_REFRESH_MAXAGE = 1 * 60 * 1000;
+
+/* Timeout for server-side rendering routine [ms]. */
+const SSR_TIMEOUT = 3000; /* 3 seconds */
 
 /**
  * Returns an array of all `a` elements not present in `b`.
@@ -142,10 +146,12 @@ class ContentfulLoader extends React.Component {
       refreshMaxage,
     } = this.props;
     const timeLimit = Date.now() - refreshMaxage;
-    this.loadContentOnMount(assetIds, 'assets', timeLimit);
-    this.loadContentOnMount(entryIds, 'entries', timeLimit);
-    this.loadQueriesOnMount(assetQueries, 'assets', timeLimit);
-    this.loadQueriesOnMount(entryQueries, 'entries', timeLimit);
+    const a = this.loadContentOnMount(assetIds, 'assets', timeLimit);
+    const b = this.loadContentOnMount(entryIds, 'entries', timeLimit);
+    const c = this.loadQueriesOnMount(assetQueries, 'assets', timeLimit);
+    const d = this.loadQueriesOnMount(entryQueries, 'entries', timeLimit);
+    return Promise.all([...a, ...b, ...c, ...d])
+      .then(() => new Promise(resolve => setTimeout(() => resolve(), 100)));
   }
 
   componentDidUpdate(prev) {
@@ -204,12 +210,14 @@ class ContentfulLoader extends React.Component {
    */
   loadContent(ids, target, timeLimit) {
     const { getContent, preview, [target]: { items } } = this.props;
+    const p = [];
     ids.forEach((id) => {
       const slot = items[id];
       if (!slot || (!slot.loadingOperationId && slot.timestamp < timeLimit)) {
-        getContent(id, target, preview);
+        p.push(getContent(id, target, preview));
       }
     });
+    return p;
   }
 
   /**
@@ -219,30 +227,32 @@ class ContentfulLoader extends React.Component {
    * @param {Number} timeLimit
    */
   loadContentOnMount(contentIds, target, timeLimit) {
-    if (!contentIds) return;
+    if (!contentIds) return [];
     const ids = toArray(contentIds);
     const { bookContent, preview } = this.props;
     bookContent(ids, target, preview);
-    this.loadContent(ids, target, timeLimit);
+    return this.loadContent(ids, target, timeLimit);
   }
 
   loadQueries(ids, contentQueries, target, timeLimit) {
     const { queryContent, preview, [target]: { queries } } = this.props;
+    const p = [];
     ids.forEach((id, index) => {
       const slot = queries[id];
       if (!slot || (!slot.loadingOperationId && slot.timestamp < timeLimit)) {
-        queryContent(id, contentQueries[index], target, preview);
+        p.push(queryContent(id, contentQueries[index], target, preview));
       }
     });
+    return p;
   }
 
   loadQueriesOnMount(contentQueries, target, timeLimit) {
-    if (!contentQueries) return;
+    if (!contentQueries) return [];
     const queries = toArray(contentQueries);
     const ids = queries.map(q => queryToMd5(q));
     const { bookQuery, preview } = this.props;
     ids.forEach(id => bookQuery(id, target, preview));
-    this.loadQueries(ids, queries, target, timeLimit);
+    return this.loadQueries(ids, queries, target, timeLimit);
   }
 
   updateContent(ids, prevIds, target, timeLimit, prev) {
@@ -391,15 +401,57 @@ function mapDispatchToProps(dispatch) {
     getContent: (contentId, target, preview) => {
       const uuid = shortId();
       dispatch(a.getContentInit(uuid, contentId, target, preview));
-      dispatch(a.getContentDone(uuid, contentId, target, preview));
+      const action = a.getContentDone(uuid, contentId, target, preview);
+      dispatch(action);
+      return action.payload;
     },
     queryContent: (queryId, query, target, preview) => {
       const uuid = shortId();
       const q = _.isObject(query) ? query : null;
       dispatch(a.queryContentInit(uuid, queryId, target, preview));
-      dispatch(a.queryContentDone(uuid, queryId, target, q, preview));
+      const action = a.queryContentDone(uuid, queryId, target, q, preview);
+      dispatch(action);
+      return action.payload;
     },
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(ContentfulLoader);
+const ConnectedContentfulLoader = connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(ContentfulLoader);
+
+function checkStore(store, props) {
+  const p = {
+    ...mapStateToProps(store.getState(), props),
+    ...props,
+  };
+  return Boolean(findRequestedData(p));
+}
+
+async function updateStore(store, props) {
+  const p = {
+    ...mapStateToProps(store.getState(), props),
+    ...mapDispatchToProps(action => store.dispatch(action)),
+    ...props,
+  };
+  const Loader = new ContentfulLoader(p);
+  await Loader.componentDidMount();
+  if (!checkStore(store, props)) {
+    await new Promise((resolve) => {
+      let id = setTimeout(() => {
+        id = null;
+        resolve();
+      }, SSR_TIMEOUT);
+      store.subscribe(() => {
+        if (!id) return;
+        if (checkStore(store, props)) {
+          clearTimeout(id);
+          resolve();
+        }
+      });
+    });
+  }
+}
+
+export default SSR(checkStore, updateStore)(ConnectedContentfulLoader);

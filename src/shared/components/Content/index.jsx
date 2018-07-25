@@ -429,6 +429,13 @@ ContentBlock
           </Link>
         </li>
         <li>
+          <Link to="/examples/contentful/blogpost/1tKTZsVzk40kSYgG0imCKS">
+            <code>
+BlogPost
+            </code>
+          </Link>
+        </li>
+        <li>
           <Link to="/examples/contentful/quote/3o7LgdSIsougYimQ2GyUw4">
             <code>
 Quote
@@ -482,6 +489,9 @@ Sandbox
 Misc Examples
       </h3>
       <ul>
+        <li>
+          <Link to="/examples/countdown">Countdown</Link>
+        </li>
         <li>
           <Link
             to="/examples/announcement/5yaVZtOH9CYoQ0QYQk0uoY"

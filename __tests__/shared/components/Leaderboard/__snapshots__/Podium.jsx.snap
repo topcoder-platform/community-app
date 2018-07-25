@@ -50,6 +50,21 @@ exports[`Matches shallow shapshot 1`] = `
         }
       />
     </div>
+    <div
+      className="src-shared-components-Leaderboard-Podium-___styles__podium-column___rPHl-"
+    >
+      <PodiumSpot
+        competitor={
+          Object {
+            "challenge_stats.count": 99999,
+            "challenge_stats.winner_handle": "overachieving.mofo",
+            "photourl": "some.fake.string",
+            "points": 9999999999,
+            "rank": 1,
+          }
+        }
+      />
+    </div>
   </div>
 </div>
 `;

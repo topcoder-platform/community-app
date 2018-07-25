@@ -16,7 +16,7 @@ export default function Router({ base }) {
   return (
     <Switch>
       <Route component={Settings} exact path={`${base}/:settingsTab(profile|tools|account|preferences)`} />
-      <Route component={Success} exact path={`${base}/account/email-verification/success`} />
+      <Route render={props => <Success {...props} />} path={`${base}/account/email-verification/success/:handle/:token/:newEmail/:oldEmail/:jwtToken`} />
       <Route component={Failed} exact path={`${base}/account/email-verification/failure`} />
       <Route component={Expired} exact path={`${base}/account/email-verification/expired`} />
       <Error404 />

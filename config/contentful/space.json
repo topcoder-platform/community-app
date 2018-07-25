@@ -4393,7 +4393,7 @@
         "id": "blogPost",
         "type": "ContentType",
         "createdAt": "2018-07-17T06:08:17.578Z",
-        "updatedAt": "2018-07-19T07:10:24.674Z",
+        "updatedAt": "2018-07-23T07:59:05.450Z",
         "environment": {
           "sys": {
             "id": "master",
@@ -4415,8 +4415,8 @@
             "id": "0TpNH8XniBpD1bwXTXbgc9"
           }
         },
-        "publishedCounter": 6,
-        "version": 12,
+        "publishedCounter": 8,
+        "version": 16,
         "publishedBy": {
           "sys": {
             "type": "Link",
@@ -4424,9 +4424,9 @@
             "id": "0TpNH8XniBpD1bwXTXbgc9"
           }
         },
-        "publishedVersion": 11,
+        "publishedVersion": 15,
         "firstPublishedAt": "2018-07-17T06:08:17.964Z",
-        "publishedAt": "2018-07-19T07:10:24.674Z"
+        "publishedAt": "2018-07-23T07:59:05.450Z"
       },
       "displayField": "title",
       "name": "Blog Post",
@@ -5000,6 +5000,183 @@
                 "_top"
               ]
             }
+          ],
+          "disabled": false,
+          "omitted": false
+        }
+      ]
+    },
+    {
+      "sys": {
+        "space": {
+          "sys": {
+            "type": "Link",
+            "linkType": "Space",
+            "id": "b5f1djy59z3a"
+          }
+        },
+        "id": "appComponent",
+        "type": "ContentType",
+        "createdAt": "2018-07-21T15:06:32.979Z",
+        "updatedAt": "2018-07-21T15:06:33.396Z",
+        "environment": {
+          "sys": {
+            "id": "master",
+            "type": "Link",
+            "linkType": "Environment"
+          }
+        },
+        "createdBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "0TpNH8XniBpD1bwXTXbgc9"
+          }
+        },
+        "updatedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "0TpNH8XniBpD1bwXTXbgc9"
+          }
+        },
+        "publishedCounter": 1,
+        "version": 2,
+        "publishedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "0TpNH8XniBpD1bwXTXbgc9"
+          }
+        },
+        "publishedVersion": 1,
+        "firstPublishedAt": "2018-07-21T15:06:33.395Z",
+        "publishedAt": "2018-07-21T15:06:33.396Z"
+      },
+      "displayField": "name",
+      "name": "App Component",
+      "description": "Model to embed app functionality inside viewports",
+      "fields": [
+        {
+          "id": "name",
+          "name": "Name",
+          "type": "Symbol",
+          "localized": false,
+          "required": true,
+          "validations": [
+          ],
+          "disabled": false,
+          "omitted": false
+        },
+        {
+          "id": "type",
+          "name": "Type",
+          "type": "Symbol",
+          "localized": false,
+          "required": true,
+          "validations": [
+            {
+              "in": [
+                "TCO-Leaderboard"
+              ]
+            }
+          ],
+          "disabled": false,
+          "omitted": false
+        },
+        {
+          "id": "props",
+          "name": "Props",
+          "type": "Object",
+          "localized": false,
+          "required": false,
+          "validations": [
+          ],
+          "disabled": false,
+          "omitted": false
+        }
+      ]
+    },
+    {
+      "sys": {
+        "space": {
+          "sys": {
+            "type": "Link",
+            "linkType": "Space",
+            "id": "b5f1djy59z3a"
+          }
+        },
+        "id": "countdown",
+        "type": "ContentType",
+        "createdAt": "2018-07-23T05:02:35.824Z",
+        "updatedAt": "2018-07-23T05:38:17.233Z",
+        "environment": {
+          "sys": {
+            "id": "master",
+            "type": "Link",
+            "linkType": "Environment"
+          }
+        },
+        "createdBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "0TpNH8XniBpD1bwXTXbgc9"
+          }
+        },
+        "updatedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "0TpNH8XniBpD1bwXTXbgc9"
+          }
+        },
+        "publishedCounter": 4,
+        "version": 8,
+        "publishedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "0TpNH8XniBpD1bwXTXbgc9"
+          }
+        },
+        "publishedVersion": 7,
+        "firstPublishedAt": "2018-07-23T05:02:36.274Z",
+        "publishedAt": "2018-07-23T05:38:17.233Z"
+      },
+      "displayField": "name",
+      "name": "Countdown",
+      "description": "Generic Countdown model",
+      "fields": [
+        {
+          "id": "name",
+          "name": "Name",
+          "type": "Symbol",
+          "localized": false,
+          "required": true,
+          "validations": [
+          ],
+          "disabled": false,
+          "omitted": false
+        },
+        {
+          "id": "title",
+          "name": "Title",
+          "type": "Symbol",
+          "localized": false,
+          "required": false,
+          "validations": [
+          ],
+          "disabled": false,
+          "omitted": false
+        },
+        {
+          "id": "endDate",
+          "name": "End Date",
+          "type": "Date",
+          "localized": false,
+          "required": true,
+          "validations": [
           ],
           "disabled": false,
           "omitted": false
@@ -7641,7 +7818,7 @@
             "linkType": "Space"
           }
         },
-        "version": 12,
+        "version": 16,
         "createdAt": "2018-07-17T06:08:18.067Z",
         "createdBy": {
           "sys": {
@@ -7650,7 +7827,7 @@
             "linkType": "User"
           }
         },
-        "updatedAt": "2018-07-19T07:10:26.150Z",
+        "updatedAt": "2018-07-23T07:59:06.167Z",
         "updatedBy": {
           "sys": {
             "id": "0TpNH8XniBpD1bwXTXbgc9",
@@ -7703,11 +7880,11 @@
           "settings": {
             "helpText": "Select on which blogs the post will appear"
           },
-          "widgetId": "tagEditor"
+          "widgetId": "checkbox"
         },
         {
           "fieldId": "tags",
-          "widgetId": "listInput"
+          "widgetId": "tagEditor"
         },
         {
           "fieldId": "theme",
@@ -7934,6 +8111,126 @@
         {
           "fieldId": "target",
           "widgetId": "singleLine"
+        }
+      ]
+    },
+    {
+      "sys": {
+        "id": "default",
+        "type": "EditorInterface",
+        "space": {
+          "sys": {
+            "id": "b5f1djy59z3a",
+            "type": "Link",
+            "linkType": "Space"
+          }
+        },
+        "version": 2,
+        "createdAt": "2018-07-21T15:06:33.584Z",
+        "createdBy": {
+          "sys": {
+            "id": "0TpNH8XniBpD1bwXTXbgc9",
+            "type": "Link",
+            "linkType": "User"
+          }
+        },
+        "updatedAt": "2018-07-21T15:06:34.279Z",
+        "updatedBy": {
+          "sys": {
+            "id": "0TpNH8XniBpD1bwXTXbgc9",
+            "type": "Link",
+            "linkType": "User"
+          }
+        },
+        "contentType": {
+          "sys": {
+            "id": "appComponent",
+            "type": "Link",
+            "linkType": "ContentType"
+          }
+        },
+        "environment": {
+          "sys": {
+            "id": "master",
+            "type": "Link",
+            "linkType": "Environment"
+          }
+        }
+      },
+      "controls": [
+        {
+          "fieldId": "name",
+          "widgetId": "singleLine"
+        },
+        {
+          "fieldId": "type",
+          "widgetId": "dropdown"
+        },
+        {
+          "fieldId": "props",
+          "widgetId": "objectEditor"
+        }
+      ]
+    },
+    {
+      "sys": {
+        "id": "default",
+        "type": "EditorInterface",
+        "space": {
+          "sys": {
+            "id": "b5f1djy59z3a",
+            "type": "Link",
+            "linkType": "Space"
+          }
+        },
+        "version": 8,
+        "createdAt": "2018-07-23T05:02:36.490Z",
+        "createdBy": {
+          "sys": {
+            "id": "0TpNH8XniBpD1bwXTXbgc9",
+            "type": "Link",
+            "linkType": "User"
+          }
+        },
+        "updatedAt": "2018-07-23T05:38:17.950Z",
+        "updatedBy": {
+          "sys": {
+            "id": "0TpNH8XniBpD1bwXTXbgc9",
+            "type": "Link",
+            "linkType": "User"
+          }
+        },
+        "contentType": {
+          "sys": {
+            "id": "countdown",
+            "type": "Link",
+            "linkType": "ContentType"
+          }
+        },
+        "environment": {
+          "sys": {
+            "id": "master",
+            "type": "Link",
+            "linkType": "Environment"
+          }
+        }
+      },
+      "controls": [
+        {
+          "fieldId": "name",
+          "widgetId": "singleLine"
+        },
+        {
+          "fieldId": "title",
+          "widgetId": "singleLine"
+        },
+        {
+          "fieldId": "endDate",
+          "settings": {
+            "ampm": "24",
+            "format": "timeZ"
+          },
+          "widgetId": "datePicker"
         }
       ]
     }

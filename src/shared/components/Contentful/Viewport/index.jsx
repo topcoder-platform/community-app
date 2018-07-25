@@ -6,6 +6,7 @@ import _ from 'lodash';
 import Accordion from 'components/Contentful/Accordion';
 import Banner from 'components/Contentful/Banner';
 import ContentBlock from 'components/Contentful/ContentBlock';
+import BlogPost from 'components/Contentful/BlogPost';
 import ContentfulLoader from 'containers/ContentfulLoader';
 import { fixStyle } from 'utils/contentful';
 import Quote from 'components/Contentful/Quote';
@@ -14,6 +15,8 @@ import { errors } from 'topcoder-react-lib';
 import LoadingIndicator from 'components/LoadingIndicator';
 import PT from 'prop-types';
 import React from 'react';
+import { AppChunk } from 'topcoder-react-utils';
+import Countdown from 'components/Contentful/Countdown';
 
 import Viewport from './Viewport';
 
@@ -74,6 +77,10 @@ function ViewportContentLoader(props) {
                 return (
                   <ContentBlock id={id} key={id} preview={preview} />
                 );
+              } if (data.entries.items[id].sys.contentType.sys.id === 'blogPost') {
+                return (
+                  <BlogPost id={id} key={id} preview={preview} />
+                );
               } if (data.entries.items[id].sys.contentType.sys.id === 'quote') {
                 return (
                   <Quote id={id} key={id} preview={preview} />
@@ -86,6 +93,14 @@ function ViewportContentLoader(props) {
                 return (
                   <ViewportLoader id={id} key={id} preview={preview} />
                 );
+              } if (data.entries.items[id].sys.contentType.sys.id === 'appComponent') {
+                return (
+                  <AppComponentLoader id={id} key={id} preview={preview} />
+                );
+              } if (data.entries.items[id].sys.contentType.sys.id === 'countdown') {
+                return (
+                  <Countdown id={id} key={id} preview={preview} />
+                );
               }
               fireErrorMessage('Unsupported content type from contentful', '');
               return null;
@@ -97,6 +112,61 @@ function ViewportContentLoader(props) {
     />
   );
 }
+
+function AppComponentLoader(props) {
+  const {
+    id,
+    preview,
+  } = props;
+
+  const queries = [];
+
+  if (id) {
+    queries.push({ 'sys.id': id, content_type: 'appComponent' });
+  }
+
+  return (
+    <ContentfulLoader
+      entryQueries={queries}
+      preview={preview}
+      render={data => _.map(data.entries.items, (appComponent) => {
+        if (appComponent.fields.type === 'TCO-Leaderboard') {
+          return (
+            <AppChunk
+              chunkName="leaderboard/chunk"
+              renderClientAsync={() => import(/* webpackChunkName: "leaderboard/chunk" */ 'containers/tco/Leaderboard')
+                .then(({ default: Leaderboard }) => (
+                  <Leaderboard
+                    apiUrl={appComponent.fields.props.leaderboardApiUrl}
+                    title={appComponent.fields.props.title}
+                    podiumSpots={appComponent.fields.props.podiumSpots}
+                    isCopilot={appComponent.fields.props.isCopilot}
+                    key={appComponent.sys.id}
+                  />
+                ))
+              }
+              renderPlaceholder={() => <LoadingIndicator />}
+              key={appComponent.sys.id}
+            />
+          );
+        }
+        fireErrorMessage('Unsupported app component type from contentful', '');
+        return null;
+      })}
+      renderPlaceholder={LoadingIndicator}
+    />
+  );
+}
+
+AppComponentLoader.defaultProps = {
+  id: null,
+  preview: false,
+};
+
+AppComponentLoader.propTypes = {
+  id: PT.string,
+  preview: PT.bool,
+};
 
 ViewportContentLoader.defaultProps = {
   extraStylesForContainer: null,

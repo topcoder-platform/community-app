@@ -10,6 +10,8 @@ import path from 'path';
 import qs from 'qs';
 import serializeJs from 'serialize-javascript';
 
+import { DoSSR } from 'utils/SSR';
+
 import { factory as reducerFactory } from 'reducers';
 import { redux, server as serverFactory } from 'topcoder-react-utils';
 import { getRates as getExchangeRates } from 'services/money';
@@ -68,6 +70,8 @@ async function beforeRender(req, suggestedConfig) {
     }),
     getExchangeRates(),
   ]);
+
+  await DoSSR(req, store, Application);
 
   return {
     configToInject: { ...suggestedConfig, EXCHANGE_RATES: rates },
