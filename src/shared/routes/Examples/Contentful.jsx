@@ -13,6 +13,7 @@ import ContentfulRoute from 'components/Contentful/Route';
 import Quote from 'components/Contentful/Quote';
 import Video from 'components/Contentful/Video';
 import Viewport from 'components/Contentful/Viewport';
+import Tabs from 'components/Contentful/Tabs';
 
 import { Route, Switch } from 'react-router-dom';
 
@@ -51,6 +52,10 @@ export default function Contentful({ match }) {
       <Route
         path={`${base}/viewport/:id`}
         component={p => <Viewport id={p.match.params.id} preview />}
+      />
+      <Route
+        path={`${base}/tabs/:id`}
+        component={p => <Tabs id={p.match.params.id} preview />}
       />
     </Switch>
   );

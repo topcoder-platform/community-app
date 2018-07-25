@@ -82,6 +82,7 @@
     "react-slick": "^0.15.4",
     "react-stickynode": "^1.4.1",
     "react-svg": "^4.1.1",
+    "react-tabs": "^2.2.2",
     "react-waypoint": "^7.1.0",
     "redux": "^3.7.2",
     "redux-actions": "^2.4.0",
