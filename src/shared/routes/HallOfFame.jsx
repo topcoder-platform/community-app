@@ -11,14 +11,14 @@ export default function HallOfFameRouter(props) {
   return (
     <AppChunk
       chunkName="hall-of-fame/chunk"
-      renderClientAsync={() => import(/* webpackChunkName: "hall-of-fame/chunk" */ 'containers/HallOfFame')
+      renderClientAsync={() => import(/* webpackChunkName: "hall-of-fame/chunk" */ 'components/HallOfFamePage')
         .then(({ default: HallOfFameContainer }) => (
           <HallOfFameContainer {...props} />
         ))
       }
       renderPlaceholder={() => <LoadingPagePlaceholder />}
       renderServer={() => {
-        const p = webpack.resolveWeak('containers/HallOfFame');
+        const p = webpack.resolveWeak('components/HallOfFamePage');
         const HallOfFameContainer = webpack.requireWeak(path.resolve(__dirname, p));
         return <HallOfFameContainer {...props} />;
       }}

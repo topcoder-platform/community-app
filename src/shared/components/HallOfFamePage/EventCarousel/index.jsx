@@ -6,6 +6,7 @@ import _ from 'lodash';
 import ContentfulLoader from 'containers/ContentfulLoader';
 import React from 'react';
 import PT from 'prop-types';
+import { Link } from 'topcoder-react-utils';
 
 import ArrowNext from 'assets/images/arrow-next.svg';
 import ArrowPrev from 'assets/images/arrow-prev.svg';
@@ -44,7 +45,6 @@ class EventCarousel extends React.Component {
       eventType,
       events,
       maxAtOnce,
-      onSelectEvent,
     } = this.props;
     const { firstIndex } = this.state;
     return (
@@ -62,7 +62,7 @@ class EventCarousel extends React.Component {
         </div>
         {
           _.map(events.list, (event, index) => {
-            const { fields, versionId } = event;
+            const { fields } = event;
             const hidden = index < firstIndex || index >= firstIndex + maxAtOnce;
             const logoId = fields.promo.fields.logo.sys.id;
             // We need to render 'hidden' events to the dom in desktop mode
@@ -71,13 +71,10 @@ class EventCarousel extends React.Component {
             // mismatch with the server-side rendered dom that will
             // cause issues.
             return (
-              <a
-                onClick={() => onSelectEvent(eventType, fields.versionId)}
-                onKeyPress={() => onSelectEvent(eventType, versionId)}
+              <Link
+                to={`/community/hall-of-fame/${eventType}/${fields.versionId}`}
                 key={fields.versionId}
-                role="link"
                 styleName={`logo ${fields.versionId === eventId ? 'active' : ''} ${hidden ? 'hidden' : ''}`}
-                tabIndex={0}
               >
                 {
                   /*
@@ -101,7 +98,7 @@ class EventCarousel extends React.Component {
                     );
                   }}
                 />
-              </a>
+              </Link>
             );
           })
         }
@@ -123,13 +120,11 @@ class EventCarousel extends React.Component {
 
 EventCarousel.defaultProps = {
   maxAtOnce: 6,
-  onSelectEvent: _.noop,
 };
 
 EventCarousel.propTypes = {
   eventId: PT.string.isRequired,
   maxAtOnce: PT.number,
-  onSelectEvent: PT.func,
   events: PT.shape().isRequired,
   eventType: PT.string.isRequired,
 };

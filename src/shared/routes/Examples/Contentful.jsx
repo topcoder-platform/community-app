@@ -8,10 +8,12 @@ import React from 'react';
 import Accordion from 'components/Contentful/Accordion';
 import Banner from 'components/Contentful/Banner';
 import ContentBlock from 'components/Contentful/ContentBlock';
+import BlogPost from 'components/Contentful/BlogPost';
 import ContentfulRoute from 'components/Contentful/Route';
 import Quote from 'components/Contentful/Quote';
 import Video from 'components/Contentful/Video';
 import Viewport from 'components/Contentful/Viewport';
+import Tabs from 'components/Contentful/Tabs';
 
 import { Route, Switch } from 'react-router-dom';
 
@@ -32,6 +34,10 @@ export default function Contentful({ match }) {
         component={p => <ContentBlock id={p.match.params.id} preview />}
       />
       <Route
+        path={`${base}/blogpost/:id`}
+        component={p => <BlogPost id={p.match.params.id} preview />}
+      />
+      <Route
         path={`${base}/quote/:id`}
         component={p => <Quote id={p.match.params.id} preview />}
       />
@@ -46,6 +52,10 @@ export default function Contentful({ match }) {
       <Route
         path={`${base}/viewport/:id`}
         component={p => <Viewport id={p.match.params.id} preview />}
+      />
+      <Route
+        path={`${base}/tabs/:id`}
+        component={p => <Tabs id={p.match.params.id} preview />}
       />
     </Switch>
   );

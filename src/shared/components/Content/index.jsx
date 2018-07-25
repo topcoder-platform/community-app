@@ -429,6 +429,13 @@ ContentBlock
           </Link>
         </li>
         <li>
+          <Link to="/examples/contentful/blogpost/1tKTZsVzk40kSYgG0imCKS">
+            <code>
+BlogPost
+            </code>
+          </Link>
+        </li>
+        <li>
           <Link to="/examples/contentful/quote/3o7LgdSIsougYimQ2GyUw4">
             <code>
 Quote
