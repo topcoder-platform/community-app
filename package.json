@@ -61,6 +61,7 @@
     "morgan": "^1.9.0",
     "node-forge": "^0.7.5",
     "nuka-carousel": "^3.0.1",
+    "postcss": "^6.0.23",
     "prop-types": "^15.6.2",
     "qs": "^6.5.2",
     "raf": "^3.4.0",

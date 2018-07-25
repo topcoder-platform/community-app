@@ -1,0 +1,12 @@
+{
+    "serviceProviderType": [
+        {
+            "key": "serviceProviderType",
+            "name": "Internet Service Provider"
+        },
+        {
+            "key": "serviceProviderType",
+            "name": "Mobile Carrier"
+        }
+    ]
+}
