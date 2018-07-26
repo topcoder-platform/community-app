@@ -39,17 +39,25 @@ export default function Podium(props) {
       );
     }
 
+    let podiumSpots = comps.map(comp => (
+      <div key={comp.rank} styleName="podium-column">
+        <PodiumSpot competitor={comp} />
+      </div>
+    ));
+
+    if (comps.length === 3) {
+      podiumSpots = [
+        ...podiumSpots.slice(0, 0),
+        podiumSpots[1],
+        ...podiumSpots.slice(1, 1),
+        podiumSpots[0],
+        ...podiumSpots.slice(2),
+      ];
+    }
+
     return (
       <div>
-        <div styleName="podium-column">
-          <PodiumSpot competitor={comps[1]} />
-        </div>
-        <div styleName="podium-column">
-          <PodiumSpot competitor={comps[0]} />
-        </div>
-        <div styleName="podium-column">
-          <PodiumSpot competitor={comps[2]} />
-        </div>
+        {podiumSpots}
       </div>
     );
   };

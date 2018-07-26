@@ -1,0 +1,20 @@
+@import "~styles/mixins";
+
+.imageWrapper {
+  margin-right: 1.5em;
+
+  img {
+    border-radius: 6px;
+    max-width: 350px;
+  }
+}
+
+.contentWrapper {
+  display: flex;
+}
+
+.content {
+  h1 {
+    margin: 0 0 10px 0;
+  }
+}

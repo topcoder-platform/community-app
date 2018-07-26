@@ -86,6 +86,7 @@ export default class MyAccount extends React.Component {
 
   onSendVerificationEmail() {
     const newState = { ...this.state };
+    const { updateProfile, profile, tokenV3 } = this.props;
 
     const email = /^([0-9A-Za-z\-_\.]+)@([0-9a-z]+\.[a-z]{2,3}(\.[a-z]{2})?)$/g;
 
@@ -99,6 +100,11 @@ export default class MyAccount extends React.Component {
       newState.inputNewEmailVisible = false;
       newState.currentEmail = newState.newEmail;
     }
+
+
+    profile.email = newState.newEmail;
+    delete profile.groups;
+    updateProfile(profile, tokenV3);
 
     this.setState(newState);
   }
@@ -344,6 +350,7 @@ export default class MyAccount extends React.Component {
                 <div styleName={`button-verification-again ${btnVerifiAgainlVisible ? 'active' : 'hide'}`}>
                   <PrimaryButton
                     styleName="white-label"
+                    onClick={this.onSendVerificationEmail}
                   >
                     Send Verification Email Again
                   </PrimaryButton>
@@ -444,5 +451,6 @@ MyAccount.propTypes = {
   profileState: PT.shape().isRequired,
   settingsPageState: PT.shape().isRequired,
   updatePassword: PT.func.isRequired,
+  updateProfile: PT.func.isRequired,
   clearIncorrectPassword: PT.func.isRequired,
 };

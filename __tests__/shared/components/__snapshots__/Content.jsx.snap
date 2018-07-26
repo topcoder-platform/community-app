@@ -506,6 +506,16 @@ exports[`Matches shallow shapshot 1`] = `
     <li>
       <Link
         replace={false}
+        to="/examples/contentful/blogpost/1tKTZsVzk40kSYgG0imCKS"
+      >
+        <code>
+          BlogPost
+        </code>
+      </Link>
+    </li>
+    <li>
+      <Link
+        replace={false}
         to="/examples/contentful/quote/3o7LgdSIsougYimQ2GyUw4"
       >
         <code>
@@ -572,6 +582,14 @@ exports[`Matches shallow shapshot 1`] = `
     Misc Examples
   </h3>
   <ul>
+    <li>
+      <Link
+        replace={false}
+        to="/examples/countdown"
+      >
+        Countdown
+      </Link>
+    </li>
     <li>
       <Link
         replace={false}

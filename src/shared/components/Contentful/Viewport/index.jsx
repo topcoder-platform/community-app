@@ -6,6 +6,7 @@ import _ from 'lodash';
 import Accordion from 'components/Contentful/Accordion';
 import Banner from 'components/Contentful/Banner';
 import ContentBlock from 'components/Contentful/ContentBlock';
+import BlogPost from 'components/Contentful/BlogPost';
 import ContentfulLoader from 'containers/ContentfulLoader';
 import { fixStyle } from 'utils/contentful';
 import Quote from 'components/Contentful/Quote';
@@ -14,6 +15,9 @@ import { errors } from 'topcoder-react-lib';
 import LoadingIndicator from 'components/LoadingIndicator';
 import PT from 'prop-types';
 import React from 'react';
+import Countdown from 'components/Contentful/Countdown';
+import Tabs from 'components/Contentful/Tabs';
+import AppComponentLoader from 'components/Contentful/AppComponent';
 
 import Viewport from './Viewport';
 
@@ -74,6 +78,10 @@ function ViewportContentLoader(props) {
                 return (
                   <ContentBlock id={id} key={id} preview={preview} />
                 );
+              } if (data.entries.items[id].sys.contentType.sys.id === 'blogPost') {
+                return (
+                  <BlogPost id={id} key={id} preview={preview} />
+                );
               } if (data.entries.items[id].sys.contentType.sys.id === 'quote') {
                 return (
                   <Quote id={id} key={id} preview={preview} />
@@ -85,6 +93,18 @@ function ViewportContentLoader(props) {
               } if (data.entries.items[id].sys.contentType.sys.id === 'viewport') {
                 return (
                   <ViewportLoader id={id} key={id} preview={preview} />
+                );
+              } if (data.entries.items[id].sys.contentType.sys.id === 'appComponent') {
+                return (
+                  <AppComponentLoader id={id} key={id} preview={preview} />
+                );
+              } if (data.entries.items[id].sys.contentType.sys.id === 'countdown') {
+                return (
+                  <Countdown id={id} key={id} preview={preview} />
+                );
+              } if (data.entries.items[id].sys.contentType.sys.id === 'tabs') {
+                return (
+                  <Tabs id={id} key={id} preview={preview} />
                 );
               }
               fireErrorMessage('Unsupported content type from contentful', '');
