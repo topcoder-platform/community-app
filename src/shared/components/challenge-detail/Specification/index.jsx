@@ -47,7 +47,6 @@ export default function ChallengeDetailsView(props) {
     documents,
     technologies,
     fileTypes,
-    numberOfCheckpointsPrizes,
     round1Introduction,
     round2Introduction,
     allowStockArt,
@@ -149,7 +148,7 @@ Don&apos;t press it!
                       && (
                       <article>
                         <h2 styleName="h2">
-Challenge Overview
+                          Challenge Overview
                         </h2>
                         {
                           editMode ? (
@@ -178,7 +177,7 @@ Challenge Overview
                       && (
                       <article>
                         <h2 styleName="h2">
-Final Submission Guidelines
+                          Final Submission Guidelines
                         </h2>
                         {
                           editMode ? (
@@ -211,7 +210,7 @@ Final Submission Guidelines
                       && (
                       <article>
                         <h2 styleName="h2">
-Challenge Summary
+                          Challenge Summary
                         </h2>
                         {
                           editMode ? (
@@ -245,113 +244,110 @@ Challenge Summary
                       )
                     }
                     {
-                      numberOfCheckpointsPrizes > 0
-                      && (
-                      <article>
-                        <h2 styleName="h2">
-Challenge Format
-                        </h2>
-                        <p styleName="p">
-This competition will be run as a two-round challenge.
-                        </p>
-                        {
-                          round1Introduction
-                          && (
-                          <div>
-                            <h3 styleName="h3">
-Round 1
-                            </h3>
-                            {
-                              editMode ? (
-                                <Editor
-                                  connector={toolbarConnector}
-                                  id="round1Introduction"
-                                  initialMode={EDITOR_MODES.WYSIWYG}
-                                  ref={n => n.setHtml(round1Introduction)}
-                                />
-                              ) : (
-                                <div
-                                  /* eslint-disable react/no-danger */
-                                  dangerouslySetInnerHTML={{
-                                    __html: round1Introduction,
-                                  }}
-                                  /* eslint-enable react/no-danger */
-                                  styleName="rawHtml"
-                                />
-                              )
-                            }
-                          </div>
-                          )
-                        }
-                        {
-                          round2Introduction
-                          && (
-                          <div>
-                            <h3 styleName="h3">
-Round 2
-                            </h3>
-                            {
-                              editMode ? (
-                                <Editor
-                                  connector={toolbarConnector}
-                                  id="round2Introduction"
-                                  initialMode={EDITOR_MODES.WYSIWYG}
-                                  ref={n => n.setHtml(round2Introduction)}
-                                />
-                              ) : (
-                                <div
-                                  /* eslint-disable react/no-danger */
-                                  dangerouslySetInnerHTML={{
-                                    __html: round2Introduction,
-                                  }}
-                                  /* eslint-enable react/no-danger */
-                                  styleName="rawHtml"
-                                />
-                              )
-                            }
-                          </div>
-                          )
-                        }
-                        <div styleName="note">
+                      round1Introduction || round2Introduction ? (
+                        <article>
+                          <h2 styleName="h2">
+                            Challenge Format
+                          </h2>
                           <p styleName="p">
-Regarding the Rounds:
+                            This competition will be run as a two-round challenge.
                           </p>
-                          <ul styleName="ul">
-                            <li>
-To be eligible for Round 1 prizes and design feedback,
-                              you must submit before the Checkpoint deadline.
-                            </li>
-                            <li>
-                              A day or two after the Checkpoint deadline, the challenge holder
-                              will announce Round 1 winners and provide design feedback to those
-                              winners in the &ldquo;Checkpoints&rdquo; tab above.
-                            </li>
-                            <li>
-                              You must submit to Round 1 to be eligible to compete in Round 2.
-                              If your submission fails screening for a small mistake in Round 1,
-                              you may still be eligible to submit to Round 2.
-                            </li>
-                            <li>
-                              Every competitor with a passing Round 1 submission can submit to
-                              Round 2, even if they didn&apos;t win a Checkpoint prize.
-                            </li>
-                            <li>
-                              <a href={config.URL.INFO.DESIGN_CHALLENGE_CHECKPOINTS}>
-                                Learn more here
-                              </a>
-.
-                            </li>
-                          </ul>
-                        </div>
-                      </article>
-                      )
+                          {
+                            round1Introduction ? (
+                              <div>
+                                <h3 styleName="h3">
+                                  Round 1
+                                </h3>
+                                {
+                                  editMode ? (
+                                    <Editor
+                                      connector={toolbarConnector}
+                                      id="round1Introduction"
+                                      initialMode={EDITOR_MODES.WYSIWYG}
+                                      ref={n => n.setHtml(round1Introduction)}
+                                    />
+                                  ) : (
+                                    <div
+                                      /* eslint-disable react/no-danger */
+                                      dangerouslySetInnerHTML={{
+                                        __html: round1Introduction,
+                                      }}
+                                      /* eslint-enable react/no-danger */
+                                      styleName="rawHtml"
+                                    />
+                                  )
+                                }
+                              </div>
+                            ) : null
+                          }
+                          {
+                            round2Introduction ? (
+                              <div>
+                                <h3 styleName="h3">
+                                  Round 2
+                                </h3>
+                                {
+                                  editMode ? (
+                                    <Editor
+                                      connector={toolbarConnector}
+                                      id="round2Introduction"
+                                      initialMode={EDITOR_MODES.WYSIWYG}
+                                      ref={n => n.setHtml(round2Introduction)}
+                                    />
+                                  ) : (
+                                    <div
+                                      /* eslint-disable react/no-danger */
+                                      dangerouslySetInnerHTML={{
+                                        __html: round2Introduction,
+                                      }}
+                                      /* eslint-enable react/no-danger */
+                                      styleName="rawHtml"
+                                    />
+                                  )
+                                }
+                              </div>
+                            ) : null
+                          }
+                          <div styleName="note">
+                            <p styleName="p">
+                              Regarding the Rounds:
+                            </p>
+                            <ul styleName="ul">
+                              <li>
+                                To be eligible for Round 1 prizes and design feedback,
+                                you must submit before the Checkpoint deadline.
+                              </li>
+                              <li>
+                                A day or two after the Checkpoint deadline, the challenge holder
+                                will announce Round 1 winners and provide design feedback to those
+                                winners in the &ldquo;Checkpoints&rdquo; tab above.
+                              </li>
+                              <li>
+                                You must submit to Round 1 to be eligible to compete in Round 2.
+                                If your submission fails screening for a small mistake in Round 1,
+                                you may still be eligible to submit to Round 2.
+                              </li>
+                              <li>
+                                Every competitor with a passing Round 1 submission can submit to
+                                Round 2, even if they didn&apos;t win a Checkpoint prize.
+                              </li>
+                              <li>
+                                <a href={config.URL.INFO.DESIGN_CHALLENGE_CHECKPOINTS}>
+                                  Learn more here
+                                </a>
+                                .
+                              </li>
+                            </ul>
+                          </div>
+                        </article>
+                      ) : null
                     }
                     {
                       detailedRequirements
                       && (
                       <article>
                         <h2 styleName="h2">
-Full Description & Project Guide
+                          Full Description & Project Guide
                         </h2>
                         {
                           editMode ? (
