@@ -6,6 +6,7 @@ import PT from 'prop-types';
 import React from 'react';
 
 import Accordion from 'components/Contentful/Accordion';
+import Menu from 'components/Contentful/Menu';
 import Banner from 'components/Contentful/Banner';
 import ContentBlock from 'components/Contentful/ContentBlock';
 import BlogPost from 'components/Contentful/BlogPost';
@@ -24,6 +25,10 @@ export default function Contentful({ match }) {
       <Route
         path={`${base}/accordion/:id`}
         component={p => <Accordion id={p.match.params.id} preview />}
+      />
+      <Route
+        path={`${base}/menu/:id`}
+        component={p => <Menu id={p.match.params.id} preview />}
       />
       <Route
         path={`${base}/banner/:id`}

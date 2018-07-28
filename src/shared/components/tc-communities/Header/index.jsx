@@ -16,6 +16,7 @@ import { config, Link, NavLink } from 'topcoder-react-utils';
 import { getRatingColor } from 'utils/tc';
 import Dropdown from 'components/tc-communities/Dropdown';
 import { themr } from 'react-css-super-themr';
+import Menu from 'components/Contentful/Menu';
 
 import IconSearch from '../../../../assets/images/tc-communities/search.svg';
 import IconNavExit from '../../../../assets/images/nav/exit.svg';
@@ -193,8 +194,8 @@ Toggle navigation
         </div>
         <div className={isMobileOpen ? theme.menuWrapOpen : theme.menuWrap}>
           {
-            menuItems[0].navigationMenu ? (
-              null
+            menuItems[0] && menuItems[0].navigationMenu ? (
+              <Menu id={menuItems[0].navigationMenu} baseUrl={baseUrl} />
             ) : (
               <ul className={theme.menu}>
                 {_.map(menuItems, item => (

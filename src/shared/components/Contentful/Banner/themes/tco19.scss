@@ -17,7 +17,7 @@ $contentWrapperPadding: 60px;
     position: static;
     transform: none;
     box-sizing: content-box;
-    padding: $contentWrapperPadding;
+    padding: 120px $contentWrapperPadding;
 
     @include xs {
       padding: 15px;

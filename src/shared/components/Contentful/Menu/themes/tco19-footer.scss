@@ -1,0 +1,57 @@
+@import '~styles/mixins';
+
+.outerContainer {
+  .title {
+    color: #37373b;
+    font-size: 15px;
+    font-weight: 700;
+    line-height: 25px;
+    text-align: left;
+    text-transform: uppercase;
+    margin-bottom: 5px;
+  }
+
+  .menuContainer {
+    display: flex;
+    align-items: left;
+
+    .container {
+      display: flex;
+      flex-direction: column;
+      list-style-type: none;
+      text-align: left;
+      padding: 0;
+    }
+  }
+
+  a.menuItemLink {
+    text-decoration: none;
+    padding: 0;
+
+    @include tc-heading-sm;
+    @include roboto-regular;
+  }
+
+  a {
+    color: $tc-black;
+
+    &:hover {
+      color: $tc-gray-60;
+    }
+  }
+}
+
+.submenu {
+  .outerContainer {
+    margin-left: 1em;
+  }
+
+  .menuContainer {
+    display: flex;
+    align-items: left;
+
+    .container {
+      flex-direction: column !important;
+    }
+  }
+}
