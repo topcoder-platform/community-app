@@ -19,7 +19,10 @@ class EventCarousel extends React.Component {
 
     // Ensure that a range is selected such that the initial selected event is shown on the carousel
     // and that there are always at least maxAtOnce items shown.
-    const eventIndex = _.findIndex(props.events.list, event => event.versionId === props.eventId);
+    const eventIndex = _.findIndex(
+      props.events.list,
+      event => event.fields.versionId === props.eventId,
+    );
     const firstIndex = (props.events.list.length - eventIndex) < props.maxAtOnce
       ? props.events.list.length - props.maxAtOnce : eventIndex;
 
