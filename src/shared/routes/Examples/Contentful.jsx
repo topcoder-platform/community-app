@@ -15,6 +15,7 @@ import Quote from 'components/Contentful/Quote';
 import Video from 'components/Contentful/Video';
 import Viewport from 'components/Contentful/Viewport';
 import Tabs from 'components/Contentful/Tabs';
+import Blog from 'components/Contentful/Blog';
 
 import { Route, Switch } from 'react-router-dom';
 
@@ -41,6 +42,19 @@ export default function Contentful({ match }) {
       <Route
         path={`${base}/blogpost/:id`}
         component={p => <BlogPost id={p.match.params.id} preview />}
+      />
+      <Route
+        path={`${base}/blog/:id/:page`}
+        component={p => (
+          <Blog
+            baseUrl={base}
+            id={p.match.params.id}
+            page={parseInt(p.match.params.page, 10)}
+            limit={3}
+            preview
+            history={p.history}
+          />
+        )}
       />
       <Route
         path={`${base}/quote/:id`}

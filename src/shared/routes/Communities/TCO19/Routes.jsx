@@ -11,6 +11,9 @@ import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import Viewport from 'components/Contentful/Viewport';
 import ContentfulLoader from 'containers/ContentfulLoader';
+import Blog from 'components/Contentful/Blog';
+import { HeroImageLoader } from 'components/Contentful/BlogPost';
+
 
 import headerTheme from 'components/tc-communities/communities/tco19/themes/header.scss';
 
@@ -35,6 +38,45 @@ export default function TCO19({ base }) {
               component={() => <Home baseUrl={base} />}
               exact
               path={`${base}/home`}
+            />
+            <Route
+              path={`${base}/blog/:page?`}
+              component={(p) => {
+                const { page } = p.match.params;
+                if (!page || parseInt(page, 10)) {
+                  return (
+                    <Blog
+                      baseUrl={`${base}/blog`}
+                      id="TCO Blog"
+                      page={p.match.params.page ? parseInt(p.match.params.page, 10) : 1}
+                      history={p.history}
+                    />
+                  );
+                }
+                const query = {
+                  content_type: 'blogPost',
+                  'fields.slug': page,
+                };
+                return (
+                  <ContentfulLoader
+                    entryQueries={query}
+                    render={(data) => {
+                      const blogPost = _.values(data.entries.items)[0];
+                      if (!blogPost) return Error404();
+
+                      return (
+                        <HeroImageLoader
+                          blogPost={blogPost.fields}
+                          id={blogPost.sys.id}
+                          sys={blogPost.sys}
+                          blogUrl={`${base}/blog`}
+                          preview={false}
+                        />
+                      );
+                    }}
+                  />
+                );
+              }}
             />
             <Route
               component={(p) => {

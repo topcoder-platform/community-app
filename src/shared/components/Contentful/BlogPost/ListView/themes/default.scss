@@ -5,16 +5,30 @@
 
   img {
     border-radius: 6px;
-    max-width: 350px;
+    max-width: 250px;
   }
 }
 
 .contentWrapper {
   display: flex;
+
+  @include xs-to-sm {
+    flex-direction: column;
+  }
 }
 
 .content {
+  color: $tc-black;
+  line-height: 1.5;
+
+  @include roboto-regular;
+
   h1 {
     margin: 0 0 10px 0;
+    font-weight: 400;
+  }
+
+  p {
+    margin-bottom: 0.5em;
   }
 }

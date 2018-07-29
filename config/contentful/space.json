@@ -4393,7 +4393,7 @@
         "id": "blogPost",
         "type": "ContentType",
         "createdAt": "2018-07-17T06:08:17.578Z",
-        "updatedAt": "2018-07-23T07:59:05.450Z",
+        "updatedAt": "2018-07-29T09:53:49.213Z",
         "environment": {
           "sys": {
             "id": "master",
@@ -4415,8 +4415,8 @@
             "id": "0TpNH8XniBpD1bwXTXbgc9"
           }
         },
-        "publishedCounter": 8,
-        "version": 16,
+        "publishedCounter": 10,
+        "version": 20,
         "publishedBy": {
           "sys": {
             "type": "Link",
@@ -4424,9 +4424,9 @@
             "id": "0TpNH8XniBpD1bwXTXbgc9"
           }
         },
-        "publishedVersion": 15,
+        "publishedVersion": 19,
         "firstPublishedAt": "2018-07-17T06:08:17.964Z",
-        "publishedAt": "2018-07-23T07:59:05.450Z"
+        "publishedAt": "2018-07-29T09:53:49.213Z"
       },
       "displayField": "title",
       "name": "Blog Post",
@@ -4448,8 +4448,11 @@
           "name": "Slug",
           "type": "Symbol",
           "localized": false,
-          "required": false,
+          "required": true,
           "validations": [
+            {
+              "unique": true
+            }
           ],
           "disabled": false,
           "omitted": false
@@ -4760,7 +4763,7 @@
         "id": "navigationMenu",
         "type": "ContentType",
         "createdAt": "2018-07-18T14:18:24.541Z",
-        "updatedAt": "2018-07-24T07:53:43.804Z",
+        "updatedAt": "2018-07-27T09:33:49.492Z",
         "environment": {
           "sys": {
             "id": "master",
@@ -4782,8 +4785,8 @@
             "id": "0TpNH8XniBpD1bwXTXbgc9"
           }
         },
-        "publishedCounter": 5,
-        "version": 10,
+        "publishedCounter": 11,
+        "version": 22,
         "publishedBy": {
           "sys": {
             "type": "Link",
@@ -4791,9 +4794,9 @@
             "id": "0TpNH8XniBpD1bwXTXbgc9"
           }
         },
-        "publishedVersion": 9,
+        "publishedVersion": 21,
         "firstPublishedAt": "2018-07-18T14:18:25.117Z",
-        "publishedAt": "2018-07-24T07:53:43.804Z"
+        "publishedAt": "2018-07-27T09:33:49.492Z"
       },
       "displayField": "name",
       "name": "Navigation Menu",
@@ -4859,6 +4862,22 @@
             ],
             "linkType": "Entry"
           }
+        },
+        {
+          "id": "baseUrl",
+          "name": "Base URL",
+          "type": "Symbol",
+          "localized": false,
+          "required": false,
+          "validations": [
+            {
+              "regexp": {
+                "pattern": "(\\w+:{0,1}\\w*@)?(\\S+)(:[0-9]+)?(\\/|\\/([\\w#!:.?+=&%@!\\-\\/]))?$"
+              }
+            }
+          ],
+          "disabled": false,
+          "omitted": false
         }
       ]
     },
@@ -4874,7 +4893,7 @@
         "id": "navigationMenuItem",
         "type": "ContentType",
         "createdAt": "2018-07-18T14:31:27.431Z",
-        "updatedAt": "2018-07-24T08:26:46.256Z",
+        "updatedAt": "2018-07-27T06:30:14.855Z",
         "environment": {
           "sys": {
             "id": "master",
@@ -4896,8 +4915,8 @@
             "id": "0TpNH8XniBpD1bwXTXbgc9"
           }
         },
-        "publishedCounter": 8,
-        "version": 16,
+        "publishedCounter": 27,
+        "version": 54,
         "publishedBy": {
           "sys": {
             "type": "Link",
@@ -4905,9 +4924,9 @@
             "id": "0TpNH8XniBpD1bwXTXbgc9"
           }
         },
-        "publishedVersion": 15,
+        "publishedVersion": 53,
         "firstPublishedAt": "2018-07-18T14:31:27.813Z",
-        "publishedAt": "2018-07-24T08:26:46.256Z"
+        "publishedAt": "2018-07-27T06:30:14.855Z"
       },
       "displayField": "name",
       "name": "Navigation Menu Item",
@@ -4931,6 +4950,25 @@
           "localized": false,
           "required": false,
           "validations": [
+          ],
+          "disabled": false,
+          "omitted": false
+        },
+        {
+          "id": "slug",
+          "name": "Slug",
+          "type": "Symbol",
+          "localized": false,
+          "required": true,
+          "validations": [
+            {
+              "unique": true
+            },
+            {
+              "regexp": {
+                "pattern": "^[a-zA-Z0-9\\-_]"
+              }
+            }
           ],
           "disabled": false,
           "omitted": false
@@ -4969,15 +5007,15 @@
           "linkType": "Entry"
         },
         {
-          "id": "parentMenuItem",
-          "name": "Parent Menu Item",
+          "id": "submenu",
+          "name": "Submenu",
           "type": "Link",
           "localized": false,
           "required": false,
           "validations": [
             {
               "linkContentType": [
-                "navigationMenuItem"
+                "navigationMenu"
               ]
             }
           ],
@@ -4986,20 +5024,12 @@
           "linkType": "Entry"
         },
         {
-          "id": "target",
-          "name": "Target",
-          "type": "Symbol",
+          "id": "inNewTab",
+          "name": "In New Tab",
+          "type": "Boolean",
           "localized": false,
           "required": false,
           "validations": [
-            {
-              "in": [
-                "_blank",
-                "_self",
-                "_parent",
-                "_top"
-              ]
-            }
           ],
           "disabled": false,
           "omitted": false
@@ -8017,7 +8047,7 @@
             "linkType": "Space"
           }
         },
-        "version": 16,
+        "version": 20,
         "createdAt": "2018-07-17T06:08:18.067Z",
         "createdBy": {
           "sys": {
@@ -8026,7 +8056,7 @@
             "linkType": "User"
           }
         },
-        "updatedAt": "2018-07-23T07:59:06.167Z",
+        "updatedAt": "2018-07-29T09:53:50.109Z",
         "updatedBy": {
           "sys": {
             "id": "0TpNH8XniBpD1bwXTXbgc9",
@@ -8056,7 +8086,7 @@
         },
         {
           "fieldId": "slug",
-          "widgetId": "singleLine"
+          "widgetId": "slugEditor"
         },
         {
           "fieldId": "heroImage",
@@ -8183,7 +8213,7 @@
             "linkType": "Space"
           }
         },
-        "version": 10,
+        "version": 22,
         "createdAt": "2018-07-18T14:18:25.278Z",
         "createdBy": {
           "sys": {
@@ -8192,7 +8222,7 @@
             "linkType": "User"
           }
         },
-        "updatedAt": "2018-07-24T07:53:44.538Z",
+        "updatedAt": "2018-07-27T09:33:50.412Z",
         "updatedBy": {
           "sys": {
             "id": "0TpNH8XniBpD1bwXTXbgc9",
@@ -8234,6 +8264,10 @@
             "bulkEditing": false
           },
           "widgetId": "entryLinksEditor"
+        },
+        {
+          "fieldId": "baseUrl",
+          "widgetId": "singleLine"
         }
       ]
     },
@@ -8248,7 +8282,7 @@
             "linkType": "Space"
           }
         },
-        "version": 16,
+        "version": 54,
         "createdAt": "2018-07-18T14:31:28.050Z",
         "createdBy": {
           "sys": {
@@ -8257,7 +8291,7 @@
             "linkType": "User"
           }
         },
-        "updatedAt": "2018-07-24T08:26:46.839Z",
+        "updatedAt": "2018-07-27T06:30:15.485Z",
         "updatedBy": {
           "sys": {
             "id": "0TpNH8XniBpD1bwXTXbgc9",
@@ -8290,6 +8324,10 @@
           "widgetId": "singleLine"
         },
         {
+          "fieldId": "slug",
+          "widgetId": "slugEditor"
+        },
+        {
           "fieldId": "url",
           "widgetId": "singleLine"
         },
@@ -8301,15 +8339,16 @@
           "widgetId": "entryLinkEditor"
         },
         {
-          "fieldId": "parentMenuItem",
-          "settings": {
-            "helpText": "Pick parent menu item to make this one sub menu item"
-          },
+          "fieldId": "submenu",
           "widgetId": "entryLinkEditor"
         },
         {
-          "fieldId": "target",
-          "widgetId": "dropdown"
+          "fieldId": "inNewTab",
+          "settings": {
+            "trueLabel": "Yes",
+            "falseLabel": "No"
+          },
+          "widgetId": "boolean"
         }
       ]
     },
