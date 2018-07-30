@@ -17,7 +17,7 @@ $contentWrapperPadding: 60px;
     position: static;
     transform: none;
     box-sizing: content-box;
-    padding: $contentWrapperPadding;
+    padding: 120px $contentWrapperPadding;
 
     @include xs {
       padding: 15px;
@@ -39,6 +39,7 @@ $contentWrapperPadding: 60px;
 
       h1 {
         font-size: 48px;
+        font-weight: 700;
       }
 
       h2 {

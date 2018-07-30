@@ -1,0 +1,34 @@
+/*
+  Theme for Header component used in TCO19 site
+*/
+@import '~styles/mixins';
+@import './mixins';
+
+.container {
+  background-color: $header-color;
+  box-shadow: none;
+  min-height: 60px;
+}
+
+.challengeDropdown {
+  color: #fff;
+
+  @include lg-to-xl {
+    border-left: none;
+    padding-left: 90px;
+  }
+}
+
+.menuWrap {
+  @include lg-to-xl {
+    max-width: $screen-lg;
+  }
+}
+
+.userWrap {
+  .additionalLogos {
+    @include xs-to-sm {
+      margin: 0;
+    }
+  }
+}

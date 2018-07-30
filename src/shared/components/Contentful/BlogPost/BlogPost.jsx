@@ -9,8 +9,9 @@ import ContentfulLoader from 'containers/ContentfulLoader';
 import LoadingIndicator from 'components/LoadingIndicator';
 import MarkdownRenderer from 'components/MarkdownRenderer';
 import { fixStyle } from 'utils/contentful';
-
 import { themr } from 'react-css-super-themr';
+import { Link } from 'topcoder-react-utils';
+import LeftArrow from 'assets/images/arrow-prev.svg';
 import BlogListView from './ListView';
 import defaultTheme from './themes/default.scss';
 
@@ -20,6 +21,7 @@ function BlogPost({
   theme,
   sys,
   preview,
+  blogUrl,
 }) {
   return (
     <div
@@ -30,38 +32,45 @@ function BlogPost({
         className={theme.contentWrapper}
         style={fixStyle(blogPost.extraStylesForContentWrapper)}
       >
-        <h1 className={theme.title}>
-          {blogPost.title}
-        </h1>
-        {/* Post Meta */}
-        <div className={theme.postMeta}>
-          <AuthorLoader
-            id={blogPost.author.sys.id}
-            theme={theme}
-            preview={preview}
-          />
-          <div className={theme.postUpdatedAt}>
-            <i className="fa fa-globe" aria-hidden="true" />
-            {new Intl.DateTimeFormat('en-US', {
-              year: 'numeric',
-              month: 'long',
-              day: '2-digit',
-              weekday: 'long',
-            }).format(new Date(sys.updatedAt))}
+        <div className={theme.header}>
+          <Link to={blogUrl}>
+            <LeftArrow className={theme.leftArrow} />
+          </Link>
+          <div>
+            <h1 className={theme.title}>
+              {blogPost.title}
+            </h1>
+            {/* Post Meta */}
+            <div className={theme.postMeta}>
+              <AuthorLoader
+                id={blogPost.author.sys.id}
+                theme={theme}
+                preview={preview}
+              />
+              <div className={theme.postUpdatedAt}>
+                <i className="fa fa-globe" aria-hidden="true" />
+                {new Intl.DateTimeFormat('en-US', {
+                  year: 'numeric',
+                  month: 'long',
+                  day: '2-digit',
+                  weekday: 'long',
+                }).format(new Date(sys.updatedAt))}
+              </div>
+            </div>
+            {/* Tags */}
+            {
+              blogPost.tags ? (
+                <div className={theme.postTags}>
+                  {
+                    blogPost.tags.map(tag => (
+                      <Tag key={tag}>{tag}</Tag>
+                    ))
+                  }
+                </div>
+              ) : null
+            }
           </div>
         </div>
-        {/* Tags */}
-        {
-          blogPost.tags ? (
-            <div className={theme.postTags}>
-              {
-                blogPost.tags.map(tag => (
-                  <Tag key={tag}>{tag}</Tag>
-                ))
-              }
-            </div>
-          ) : null
-        }
         {/* Hero Image */}
         {
           heroImage ? (
@@ -86,6 +95,7 @@ function BlogPost({
               <div className={theme.relatedPosts}>
                 <RelatedPostsLoader
                   blogPost={blogPost}
+                  blogUrl={blogUrl}
                   preview={preview}
                 />
               </div>
@@ -101,6 +111,7 @@ function BlogPost({
 function RelatedPostsLoader({
   blogPost,
   preview,
+  blogUrl,
 }) {
   return blogPost.relatedPosts.map(rp => (
     <ContentfulLoader
@@ -117,6 +128,7 @@ function RelatedPostsLoader({
                 <BlogListView
                   heroImage={imageData.assets.items[assetId].fields}
                   blogPost={data.entries.items[rp.sys.id].fields}
+                  readMoreLink={`${blogUrl}/${data.entries.items[rp.sys.id].fields.slug}`}
                 />
               )}
               renderPlaceholder={LoadingIndicator}
@@ -126,6 +138,7 @@ function RelatedPostsLoader({
         return (
           <BlogListView
             blogPost={data.entries.items[rp.sys.id].fields}
+            readMoreLink={`${blogUrl}/${data.entries.items[rp.sys.id].fields.slug}`}
           />
         );
       }}
@@ -160,6 +173,7 @@ AuthorLoader.propTypes = {
 
 BlogPost.defaultProps = {
   heroImage: null,
+  blogUrl: '#',
 };
 
 BlogPost.propTypes = {
@@ -175,6 +189,7 @@ BlogPost.propTypes = {
   }).isRequired,
   sys: PT.shape().isRequired,
   preview: PT.bool.isRequired,
+  blogUrl: PT.string,
 };
 
 export default themr('ContentBlock', defaultTheme)(BlogPost);

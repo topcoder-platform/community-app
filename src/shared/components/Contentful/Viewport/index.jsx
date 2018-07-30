@@ -11,6 +11,7 @@ import ContentfulLoader from 'containers/ContentfulLoader';
 import { fixStyle } from 'utils/contentful';
 import Quote from 'components/Contentful/Quote';
 import Video from 'components/Contentful/Video';
+import Menu from 'components/Contentful/Menu';
 import { errors } from 'topcoder-react-lib';
 import LoadingIndicator from 'components/LoadingIndicator';
 import PT from 'prop-types';
@@ -40,6 +41,7 @@ function ViewportContentLoader(props) {
     preview,
     themeName,
     grid,
+    baseUrl,
   } = props;
   let {
     extraStylesForContainer,
@@ -63,12 +65,19 @@ function ViewportContentLoader(props) {
       entryIds={contentIds}
       preview={preview}
       render={data => (
-        <Viewport extraStylesForContainer={fixStyle(extraStylesForContainer)} theme={theme}>
+        <Viewport
+          extraStylesForContainer={fixStyle(extraStylesForContainer)}
+          theme={theme}
+        >
           {
             contentIds.map((id) => {
               if (data.entries.items[id].sys.contentType.sys.id === 'accordion') {
                 return (
                   <Accordion id={id} key={id} preview={preview} />
+                );
+              } if (data.entries.items[id].sys.contentType.sys.id === 'navigationMenu') {
+                return (
+                  <Menu id={id} key={id} preview={preview} baseUrl={baseUrl} />
                 );
               } if (data.entries.items[id].sys.contentType.sys.id === 'banner') {
                 return (
@@ -92,7 +101,7 @@ function ViewportContentLoader(props) {
                 );
               } if (data.entries.items[id].sys.contentType.sys.id === 'viewport') {
                 return (
-                  <ViewportLoader id={id} key={id} preview={preview} />
+                  <ViewportLoader id={id} key={id} preview={preview} baseUrl={baseUrl} />
                 );
               } if (data.entries.items[id].sys.contentType.sys.id === 'appComponent') {
                 return (
@@ -133,6 +142,7 @@ ViewportContentLoader.propTypes = {
   preview: PT.bool.isRequired,
   themeName: PT.string,
   grid: PT.shape(),
+  baseUrl: PT.string.isRequired,
 };
 
 /* Loads the main viewport entry. */
@@ -141,6 +151,7 @@ function ViewportLoader(props) {
     id,
     preview,
     query,
+    baseUrl,
   } = props;
 
   const queries = [];
@@ -169,6 +180,7 @@ function ViewportLoader(props) {
             columns: viewport.fields.gridColumns,
             gap: viewport.fields.gridGap,
           }}
+          baseUrl={baseUrl}
         />
       ))}
       renderPlaceholder={LoadingIndicator}
@@ -180,12 +192,14 @@ ViewportLoader.defaultProps = {
   id: null,
   preview: false,
   query: null,
+  baseUrl: '',
 };
 
 ViewportLoader.propTypes = {
   id: PT.string,
   preview: PT.bool,
   query: PT.shape(),
+  baseUrl: PT.string,
 };
 
 export default ViewportLoader;

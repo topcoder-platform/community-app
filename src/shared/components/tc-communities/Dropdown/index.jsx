@@ -41,7 +41,7 @@ const optionType = PT.shape({
 
 Dropdown.propTypes = {
   options: PT.arrayOf(optionType).isRequired,
-  value: optionType.isRequired,
+  value: PT.string.isRequired,
 };
 
 export default Dropdown;
