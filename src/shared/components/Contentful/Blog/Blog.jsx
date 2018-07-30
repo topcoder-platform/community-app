@@ -137,7 +137,16 @@ class Blog extends Component {
               onChange={this.updateInput}
               readOnly={totalPage === 1}
             />
-            <PrimaryButton type="submit" theme={{ button: theme.button }} disabled={totalPage === 1}>Go</PrimaryButton>
+            <PrimaryButton
+              type="submit"
+              theme={{ button: theme.button }}
+              disabled={
+                totalPage === 1
+                || !inputPageNo
+                || !parseInt(inputPageNo, 10)
+                || (inputPageNo > totalPage || inputPageNo < 1)}
+            >Go
+            </PrimaryButton>
           </form>
         </div>
       </div>
