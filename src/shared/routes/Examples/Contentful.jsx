@@ -5,11 +5,14 @@
 import PT from 'prop-types';
 import React from 'react';
 
+import _ from 'lodash';
+import Error404 from 'components/Error404';
+import ContentfulLoader from 'containers/ContentfulLoader';
 import Accordion from 'components/Contentful/Accordion';
 import Menu from 'components/Contentful/Menu';
 import Banner from 'components/Contentful/Banner';
 import ContentBlock from 'components/Contentful/ContentBlock';
-import BlogPost from 'components/Contentful/BlogPost';
+import { BlogPostLoader as BlogPost, HeroImageLoader } from 'components/Contentful/BlogPost'; // eslint-disable-line
 import ContentfulRoute from 'components/Contentful/Route';
 import Quote from 'components/Contentful/Quote';
 import Video from 'components/Contentful/Video';
@@ -44,17 +47,45 @@ export default function Contentful({ match }) {
         component={p => <BlogPost id={p.match.params.id} preview />}
       />
       <Route
-        path={`${base}/blog/:id/:page`}
-        component={p => (
-          <Blog
-            baseUrl={base}
-            id={p.match.params.id}
-            page={parseInt(p.match.params.page, 10)}
-            limit={3}
-            preview
-            history={p.history}
-          />
-        )}
+        path={`${base}/blog/:id/:page?`}
+        component={(p) => {
+          const { page } = p.match.params;
+          if (!page || parseInt(page, 10)) {
+            return (
+              <Blog
+                baseUrl={`${base}/blog/${p.match.params.id}`}
+                id={p.match.params.id}
+                page={p.match.params.page ? parseInt(p.match.params.page, 10) : 1}
+                limit={3}
+                preview
+                history={p.history}
+              />
+            );
+          }
+          const query = {
+            content_type: 'blogPost',
+            'fields.slug': page,
+          };
+          return (
+            <ContentfulLoader
+              entryQueries={query}
+              render={(data) => {
+                const blogPost = _.values(data.entries.items)[0];
+                if (!blogPost) return Error404();
+
+                return (
+                  <HeroImageLoader
+                    blogPost={blogPost.fields}
+                    id={blogPost.sys.id}
+                    sys={blogPost.sys}
+                    blogUrl={`${base}/blog/${p.match.params.id}`}
+                    preview={false}
+                  />
+                );
+              }}
+            />
+          );
+        }}
       />
       <Route
         path={`${base}/quote/:id`}
