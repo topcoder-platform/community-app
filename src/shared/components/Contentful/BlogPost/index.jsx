@@ -12,7 +12,7 @@ const THEMES = {
 };
 
 /* Loads blog post hero image asset. */
-function HeroImageLoader(props) {
+export function HeroImageLoader(props) {
   const { blogPost, preview } = props;
   const { heroImage } = blogPost;
   if (heroImage) {
@@ -35,11 +35,16 @@ function HeroImageLoader(props) {
   return <BlogPost {...props} theme={THEMES[blogPost.theme]} />;
 }
 
+HeroImageLoader.defaultProps = {
+  blogUrl: '#',
+};
+
 HeroImageLoader.propTypes = {
   blogPost: PT.shape().isRequired,
   id: PT.string.isRequired,
   preview: PT.bool.isRequired,
   sys: PT.shape().isRequired,
+  blogUrl: PT.string,
 };
 
 /* Loads the main blog post entry. */

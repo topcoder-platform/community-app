@@ -1,0 +1,129 @@
+@import '~styles/mixins';
+
+.outerContainer {
+  width: 100%;
+  background-color: $tc-black;
+
+  .menuContainer {
+    display: flex;
+    width: 100%;
+    align-items: center;
+    height: 60px;
+
+    @include xs-to-sm {
+      height: auto;
+    }
+
+    .container {
+      display: flex;
+      list-style-type: none;
+      margin: 0 auto;
+
+      @include xs-to-sm {
+        flex-direction: column;
+        margin: 0;
+        margin-left: 1em;
+      }
+    }
+  }
+
+  .menuItemLink {
+    text-transform: uppercase;
+    text-decoration: none;
+  }
+
+  .menuItemLinkActive {
+    position: relative;
+  }
+
+  .menuItemLevel {
+    padding: 15px 20px 15px 0;
+
+    @include xs-to-sm {
+      padding: 0;
+    }
+
+    @include tc-heading-xs;
+
+    line-height: 30px;
+
+    a {
+      color: #888894;
+
+      &:hover {
+        color: #ededf2;
+      }
+    }
+
+    .menuItemLinkActive {
+      color: #ededf2;
+    }
+
+    .menuItemLinkActive::after {
+      position: absolute;
+      bottom: -5px;
+      left: calc(50% - 13px);
+
+      @include xs-to-sm {
+        left: 0;
+      }
+
+      content: '';
+      width: 28px;
+      height: 2px;
+      background-color: #55a5ff;
+    }
+  }
+}
+
+.submenu {
+  .outerContainer {
+    background-color: transparentize(#37373c, 0.15);
+
+    .menuContainer {
+      @include lg-to-xl {
+        max-width: $screen-lg;
+        margin: auto;
+        padding-left: 280px;
+        padding-right: 130px;
+      }
+    }
+
+    // Level 3
+    .submenu {
+      .outerContainer {
+        background-color: transparentize(#37373c, 0.35);
+      }
+    }
+
+    @include xs-to-sm {
+      padding: 0.5em 0 1em 1em;
+      margin-top: 0.5em;
+    }
+
+    @include lg-to-xl {
+      position: absolute;
+      left: 0;
+      top: 60px;
+      z-index: 999;
+    }
+
+    .menuItemLevel {
+      a {
+        color: #a3a3ad;
+
+        &:hover {
+          color: $tc-white;
+        }
+      }
+
+      .menuItemLinkActive {
+        color: $tc-white;
+      }
+
+      .menuItemLinkActive::after {
+        background-color: $tc-white;
+      }
+    }
+  }
+}

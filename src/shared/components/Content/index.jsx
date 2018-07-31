@@ -436,6 +436,13 @@ BlogPost
           </Link>
         </li>
         <li>
+          <Link to="/examples/contentful/blog/TCO Blog/1">
+            <code>
+Blog
+            </code>
+          </Link>
+        </li>
+        <li>
           <Link to="/examples/contentful/quote/3o7LgdSIsougYimQ2GyUw4">
             <code>
 Quote
