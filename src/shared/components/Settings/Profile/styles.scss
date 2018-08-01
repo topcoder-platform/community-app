@@ -3,7 +3,7 @@
 .profile-container {
   display: flex;
   flex-direction: row;
-  padding: 60px 50px 55px;
+  padding: 60px 40px 55px 50px;
   box-shadow: 0 2px 9px 0 rgba(38, 38, 40, 0.06);
 
   @include md-to-lg {
@@ -15,12 +15,13 @@
   }
 
   .col-bar {
-    width: 319px;
-    padding-right: 70px;
+    width: 250px;
+    margin-right: 70px;
 
     @include md-to-lg {
       width: 90px;
       padding-right: 30px;
+      margin-right: 0;
     }
 
     @include xs-to-sm {

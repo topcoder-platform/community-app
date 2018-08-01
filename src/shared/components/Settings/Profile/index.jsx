@@ -19,6 +19,8 @@ import BasicInfo from './BasicInfo';
 import Language from './Language';
 import Education from './Education';
 import Work from './Work';
+import Skills from './Skills';
+import Community from './Community';
 import ComingSoon from '../ComingSoon';
 
 import './styles.scss';
@@ -83,6 +85,10 @@ class Profile extends React.Component {
           return <Education {...this.props} />;
         case 'work':
           return <Work {...this.props} />;
+        case 'skill':
+          return <Skills {...this.props} />;
+        case 'community':
+          return <Community {...this.props} />;
         default:
           return <ComingSoon />;
       }

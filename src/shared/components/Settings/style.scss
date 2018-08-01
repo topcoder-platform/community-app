@@ -173,8 +173,8 @@
   }
 
   // Switch location
-  $switch-width: 44px;
-  $switch-height: 24px;
+  $switch-width: 34px;
+  $switch-height: 20px;
   $switch-handle-offset: 3px;
   $switch-handle-size: $switch-height - (2 * $switch-handle-offset);
   $switch-active-color: $tc-dark-blue-110;
@@ -189,7 +189,7 @@
 
     align-self: center;
     margin-right: 10px;
-    margin-left: 30px;
+    margin-left: 22px;
     background-color: $switch-inactive-color;
     border-radius: $switch-height;
     box-sizing: border-box;
@@ -199,6 +199,32 @@
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
+
+    @include xs-to-sm {
+      display: none;
+    }
+  }
+
+  .onoffswitch-mobile {
+    display: none;
+
+    @include xs-to-sm {
+      @include switch-transition;
+
+      display: block;
+      align-self: center;
+      margin-right: 10px;
+      margin-left: 15px;
+      background-color: $switch-inactive-color;
+      border-radius: $switch-height;
+      box-sizing: border-box;
+      height: $switch-height;
+      width: $switch-width;
+      position: relative;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+    }
   }
 
   .onoffswitch-checkbox {
@@ -251,7 +277,6 @@
     width: $switch-handle-size;
     margin: $switch-handle-offset;
     position: absolute;
-    right: $switch-handle-offset + $switch-handle-size -1;
     top: 0;
   }
 

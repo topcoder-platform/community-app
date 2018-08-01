@@ -1,0 +1,40 @@
+@import "~styles/mixins";
+
+.community-container {
+  h1 {
+    margin-bottom: 20px;
+
+    @include xs-to-sm {
+      line-height: 70px;
+      margin-bottom: 0;
+      font-size: 20px;
+      padding: 0 20px;
+    }
+  }
+
+  margin-bottom: 40px;
+
+  @include md-to-lg {
+    margin-bottom: 0;
+  }
+
+  @include xs-to-sm {
+    margin-bottom: 0;
+  }
+
+  .title {
+    @include tc-heading-lg;
+
+    margin-bottom: 25px;
+
+    @include xs-to-sm {
+      font-size: 20px;
+      line-height: 30px;
+      margin: 20px;
+    }
+  }
+
+  .list {
+    border-top: 1px solid $tc-gray-neutral-dark;
+  }
+}
