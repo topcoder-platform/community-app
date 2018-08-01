@@ -38,19 +38,6 @@
 
   @include roboto-regular;
 
-  a {
-    color: $tc-dark-blue;
-
-    @include roboto-regular;
-  }
-
-  a:active,
-  a:focus,
-  a:visited,
-  a:hover {
-    color: #bdddff;
-  }
-
   h1,
   h2,
   h3,
@@ -73,9 +60,7 @@
   }
 
   p {
-    padding: 10px 0;
-
-    @include roboto-regular;
+    @include tc-body-md;
 
     color: $tc-black;
     font-size: 15px;
@@ -110,6 +95,8 @@
 
   ul,
   ol {
+    @include tc-body-md;
+
     padding-left: 20px;
 
     @include roboto-regular;
