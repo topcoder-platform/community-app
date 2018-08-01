@@ -30,16 +30,6 @@ export default function TCO19({ base }) {
           />
           <Switch>
             <Route
-              component={() => <Home baseUrl={base} />}
-              exact
-              path={`${base}`}
-            />
-            <Route
-              component={() => <Home baseUrl={base} />}
-              exact
-              path={`${base}/home`}
-            />
-            <Route
               path={`${base}/blog/:page?`}
               component={(p) => {
                 const { page } = p.match.params;
@@ -100,6 +90,16 @@ export default function TCO19({ base }) {
                 );
               }}
               path={`${base}/:menuItems+`}
+            />
+            <Route
+              component={() => <Home baseUrl={base} />}
+              exact
+              path={`${base}`}
+            />
+            <Route
+              component={() => <Home baseUrl={base} />}
+              exact
+              path={`${base}/home`}
             />
           </Switch>
           <Viewport
