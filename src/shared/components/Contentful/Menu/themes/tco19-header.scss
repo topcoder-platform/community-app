@@ -93,6 +93,12 @@
     .submenu {
       .outerContainer {
         background-color: transparentize(#37373c, 0.35);
+
+        .menuItemLevel {
+          a {
+            font-weight: 300;
+          }
+        }
       }
     }
 
@@ -111,6 +117,7 @@
     .menuItemLevel {
       a {
         color: #a3a3ad;
+        font-weight: 400;
 
         &:hover {
           color: $tc-white;
