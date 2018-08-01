@@ -89,6 +89,10 @@
     line-height: 70px;
     padding: 0 10px;
     text-align: left;
+
+    @include md-to-xl {
+      white-space: nowrap;
+    }
   }
 
   td {
