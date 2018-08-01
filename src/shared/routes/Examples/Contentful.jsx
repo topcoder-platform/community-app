@@ -12,7 +12,7 @@ import Accordion from 'components/Contentful/Accordion';
 import Menu from 'components/Contentful/Menu';
 import Banner from 'components/Contentful/Banner';
 import ContentBlock from 'components/Contentful/ContentBlock';
-import { BlogPostLoader as BlogPost, HeroImageLoader } from 'components/Contentful/BlogPost'; // eslint-disable-line
+import BlogPostLoader, { HeroImageLoader } from 'components/Contentful/BlogPost';
 import ContentfulRoute from 'components/Contentful/Route';
 import Quote from 'components/Contentful/Quote';
 import Video from 'components/Contentful/Video';
@@ -44,7 +44,7 @@ export default function Contentful({ match }) {
       />
       <Route
         path={`${base}/blogpost/:id`}
-        component={p => <BlogPost id={p.match.params.id} preview />}
+        component={p => <BlogPostLoader id={p.match.params.id} preview />}
       />
       <Route
         path={`${base}/blog/:id/:page?`}
