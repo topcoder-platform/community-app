@@ -192,4 +192,4 @@ BlogPost.propTypes = {
   blogUrl: PT.string,
 };
 
-export default themr('ContentBlock', defaultTheme)(BlogPost);
+export default themr('BlogPost', defaultTheme)(BlogPost);
