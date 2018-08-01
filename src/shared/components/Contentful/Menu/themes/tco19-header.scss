@@ -89,6 +89,25 @@
       }
     }
 
+    .menuItemLevel {
+      a {
+        color: #a3a3ad;
+        font-weight: 400;
+
+        &:hover {
+          color: $tc-white;
+        }
+      }
+
+      .menuItemLinkActive {
+        color: $tc-white;
+      }
+
+      .menuItemLinkActive::after {
+        background-color: $tc-white;
+      }
+    }
+
     // Level 3
     .submenu {
       .outerContainer {
@@ -112,25 +131,6 @@
       left: 0;
       top: 60px;
       z-index: 999;
-    }
-
-    .menuItemLevel {
-      a {
-        color: #a3a3ad;
-        font-weight: 400;
-
-        &:hover {
-          color: $tc-white;
-        }
-      }
-
-      .menuItemLinkActive {
-        color: $tc-white;
-      }
-
-      .menuItemLinkActive::after {
-        background-color: $tc-white;
-      }
     }
   }
 }
