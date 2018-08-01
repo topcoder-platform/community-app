@@ -38,12 +38,12 @@ $contentWrapperPadding: 60px;
       }
 
       h1 {
-        font-size: 48px;
-        font-weight: 700;
+        font-size: 42px;
+        font-weight: 300;
       }
 
       h2 {
-        font-size: 36px;
+        font-size: 20px;
       }
 
       h3 {
@@ -51,7 +51,7 @@ $contentWrapperPadding: 60px;
       }
 
       p {
-        font-size: 14px;
+        font-size: 15px;
         margin-bottom: 1em;
         line-height: 25px;
       }
@@ -69,13 +69,8 @@ $contentWrapperPadding: 60px;
       }
 
       input {
-        width: auto;
+        max-width: 350px;
         margin-right: 5px;
-      }
-
-      small {
-        font-size: 13px;
-        font-weight: 300;
       }
 
       button {

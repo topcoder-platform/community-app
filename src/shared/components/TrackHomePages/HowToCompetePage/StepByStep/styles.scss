@@ -55,6 +55,8 @@
 }
 
 .step {
+  @include inline-styles;
+
   display: flex;
   position: relative;
   flex-direction: row;

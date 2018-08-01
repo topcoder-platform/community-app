@@ -48,7 +48,7 @@
   a:focus,
   a:visited,
   a:hover {
-    color: $tc-dark-blue;
+    color: #bdddff;
   }
 
   h1,
@@ -62,12 +62,23 @@
     @include roboto-regular;
   }
 
+  h1 {
+    font-size: 36px;
+    font-weight: 300;
+    margin-top: 1em;
+  }
+
+  h2 {
+    font-size: 20px;
+  }
+
   p {
     padding: 10px 0;
 
     @include roboto-regular;
 
     color: $tc-black;
+    font-size: 15px;
   }
 
   th {
@@ -77,6 +88,12 @@
     color: #888894;
     font-size: 20px;
     line-height: 70px;
+    padding: 0 10px;
+    text-align: left;
+
+    @include md-to-xl {
+      white-space: nowrap;
+    }
   }
 
   td {
@@ -84,11 +101,11 @@
 
     font-size: 20px;
     line-height: 70px;
-    text-align: center;
+    text-align: left;
     color: $tc-gray-80;
     border-top: 1px solid #ededf2;
     border-bottom: 1px solid #ededf2;
-    padding: 0 25px;
+    padding: 0 10px;
   }
 
   ul,

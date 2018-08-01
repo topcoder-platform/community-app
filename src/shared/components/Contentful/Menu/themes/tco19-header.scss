@@ -89,28 +89,10 @@
       }
     }
 
-    // Level 3
-    .submenu {
-      .outerContainer {
-        background-color: transparentize(#37373c, 0.35);
-      }
-    }
-
-    @include xs-to-sm {
-      padding: 0.5em 0 1em 1em;
-      margin-top: 0.5em;
-    }
-
-    @include lg-to-xl {
-      position: absolute;
-      left: 0;
-      top: 60px;
-      z-index: 999;
-    }
-
     .menuItemLevel {
       a {
         color: #a3a3ad;
+        font-weight: 400;
 
         &:hover {
           color: $tc-white;
@@ -124,6 +106,31 @@
       .menuItemLinkActive::after {
         background-color: $tc-white;
       }
+    }
+
+    // Level 3
+    .submenu {
+      .outerContainer {
+        background-color: transparentize(#37373c, 0.35);
+
+        .menuItemLevel {
+          a {
+            font-weight: 300;
+          }
+        }
+      }
+    }
+
+    @include xs-to-sm {
+      padding: 0.5em 0 1em 1em;
+      margin-top: 0.5em;
+    }
+
+    @include lg-to-xl {
+      position: absolute;
+      left: 0;
+      top: 60px;
+      z-index: 999;
     }
   }
 }
