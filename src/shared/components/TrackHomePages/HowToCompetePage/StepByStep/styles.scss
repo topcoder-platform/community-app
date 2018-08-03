@@ -55,7 +55,7 @@
 }
 
 .step {
-  @include inline-styles;
+  @include tc-typography;
 
   display: flex;
   position: relative;
