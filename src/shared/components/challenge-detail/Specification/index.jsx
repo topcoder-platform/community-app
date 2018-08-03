@@ -65,7 +65,7 @@ export default function ChallengeDetailsView(props) {
 
   let isWipro = false;
   const wiproCommunity = communitiesList.find(x => x.communityId === 'wipro');
-  if (wiproCommunity) {
+  if (wiproCommunity && groups) {
     isWipro = wiproCommunity.groupIds.some(id => groups[id]);
   }
 

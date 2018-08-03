@@ -27,7 +27,7 @@
 }
 
 .content {
-  @include inline-styles;
+  @include tc-typography;
 
   flex: 1;
   padding: 15px;
