@@ -7,12 +7,13 @@ import React from 'react';
 import PT from 'prop-types';
 import { isomorphy } from 'topcoder-react-utils';
 import { removeTrailingSlash } from 'utils/url';
+import Dropdown from 'components/tc-communities/Dropdown';
 
 import MenuItem from './MenuItem';
 
 export default function Menu(props) {
   const {
-    menuItems, theme, baseUrl,
+    menuItems, theme, baseUrl, parentItems, activeParentItem,
   } = props;
   let pathname = '';
   if (isomorphy.isClientSide()) {
@@ -21,6 +22,21 @@ export default function Menu(props) {
 
   return (
     <nav className={theme.menuContainer}>
+      {
+        parentItems.length ? (
+          <div className={theme.menuSwitchContainer}>
+            <Dropdown
+              options={parentItems.map(pI => ({
+                label: pI.fields.linkText,
+                value: pI.fields.slug,
+                url: `${baseUrl}/../${pI.fields.slug}`,
+              }))}
+              value={activeParentItem.fields.slug}
+              onChange={(option) => { window.location.href = option.url; }}
+            />
+          </div>
+        ) : null
+      }
       <ul className={theme.container}>
         {
           menuItems.map(item => (
@@ -56,4 +72,6 @@ Menu.propTypes = {
   }),
   menuItems: PT.arrayOf(PT.shape()),
   baseUrl: PT.string.isRequired,
+  parentItems: PT.arrayOf(PT.shape()).isRequired,
+  activeParentItem: PT.shape().isRequired,
 };

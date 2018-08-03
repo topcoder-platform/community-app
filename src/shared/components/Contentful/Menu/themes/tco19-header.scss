@@ -80,6 +80,18 @@
   .outerContainer {
     background-color: transparentize(#37373c, 0.15);
 
+    @include xs-to-sm {
+      padding: 0.5em;
+      margin: 0;
+    }
+
+    @include lg-to-xl {
+      position: absolute;
+      left: 0;
+      top: 60px;
+      z-index: 999;
+    }
+
     .menuContainer {
       @include lg-to-xl {
         max-width: $screen-lg;
@@ -111,26 +123,80 @@
     // Level 3
     .submenu {
       .outerContainer {
-        background-color: transparentize(#37373c, 0.35);
+        background-color: transparentize(#37373c, 0.15);
 
-        .menuItemLevel {
-          a {
-            font-weight: 300;
+        @include xs-to-sm {
+          padding: 0;
+          margin: 0;
+        }
+
+        @include lg-to-xl {
+          top: 0;
+          z-index: 999;
+        }
+
+        .menuContainer {
+          @include xs-to-sm {
+            padding-left: 1em;
+          }
+
+          @include lg-to-xl {
+            padding-left: 0;
+            padding-right: 0;
+          }
+
+          @include md {
+            padding-left: 80px;
+            padding-right: 60px;
+          }
+
+          .container {
+            @include xs-to-sm {
+              margin-left: 2em;
+            }
+          }
+
+          .menuSwitchContainer {
+            @include roboto-regular;
+
+            font-size: 13px;
+            font-weight: 700;
+            line-height: 25px;
+            color: $tc-white;
+            text-transform: uppercase;
+
+            :global {
+              .Select-menu-outer {
+                padding-left: 0;
+                padding-right: 0;
+                border-radius: 0 0 6px 6px;
+                box-shadow: 0 2px 9px 0 rgba(38, 38, 40, 0.15);
+
+                @include md-to-xl {
+                  min-width: 180px;
+                }
+
+                .Select-option {
+                  @include roboto-regular;
+
+                  font-size: 13px;
+                  font-weight: 400;
+                  line-height: 30px;
+                  text-transform: uppercase;
+                  color: #47474f;
+                  padding-left: 10px;
+                  padding-right: 20px;
+
+                  &.is-selected,
+                  &:hover {
+                    background-color: #dcdce0;
+                  }
+                }
+              }
+            }
           }
         }
       }
-    }
-
-    @include xs-to-sm {
-      padding: 0.5em 0 1em 1em;
-      margin-top: 0.5em;
-    }
-
-    @include lg-to-xl {
-      position: absolute;
-      left: 0;
-      top: 60px;
-      z-index: 999;
     }
   }
 }

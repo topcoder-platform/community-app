@@ -13,6 +13,7 @@
   @include xs-to-sm {
     display: flex;
     flex-wrap: wrap;
+    justify-content: space-around;
   }
 
   > div {

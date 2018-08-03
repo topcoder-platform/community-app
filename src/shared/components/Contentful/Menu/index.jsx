@@ -26,6 +26,9 @@ function MenuItemsLoader(props) {
     title,
     themeName,
     theme,
+    parentItems,
+    activeParentItem,
+    level,
   } = props;
   const themeToUse = theme || THEMES[themeName];
   let { baseUrl } = props;
@@ -36,40 +39,64 @@ function MenuItemsLoader(props) {
   if (isomorphy.isClientSide()) {
     pathname = removeTrailingSlash(window.location.pathname);
   }
-
   return (
     <ContentfulLoader
       entryIds={ids}
       preview={preview}
-      render={data => (
-        <div className={themeToUse.outerContainer}>
-          {!!title && (<h1 className={themeToUse.title}>{title}</h1>)}
-          <NavMenu
-            menuItems={_.values(data.entries.items)}
-            key={menuId}
-            theme={themeToUse}
-            baseUrl={baseUrl}
-          />
-          {
-            _.values(data.entries.items).map((menuItem) => {
-              if (menuItem.fields.submenu
-                && (pathname.indexOf(menuItem.fields.slug) !== -1 || (pathname === baseUrl && menuItem.fields.url === '/'))) {
-                return (
-                  <div className={themeToUse.submenu} key={menuItem.fields.submenu.sys.id}>
-                    <ContentfulMenu
-                      id={menuItem.fields.submenu.sys.id}
-                      baseUrl={`${baseUrl}/${menuItem.fields.slug}`}
-                      theme={themeToUse}
-                      key={menuItem.fields.submenu.sys.id}
-                    />
-                  </div>
-                );
-              }
-              return null;
-            })
+      render={(data) => {
+        const submenu = _.compact(_.values(data.entries.items).map((menuItem) => {
+          if (menuItem.fields.submenu
+            && (pathname.indexOf(menuItem.fields.slug) !== -1 || (pathname === baseUrl && menuItem.fields.url === '/'))) {
+            return (
+              <div className={themeToUse.submenu} key={menuItem.fields.submenu.sys.id}>
+                <ContentfulMenu
+                  id={menuItem.fields.submenu.sys.id}
+                  baseUrl={`${baseUrl}/${menuItem.fields.slug}`}
+                  theme={themeToUse}
+                  key={menuItem.fields.submenu.sys.id}
+                  parentItems={_.values(data.entries.items)}
+                  activeParentItem={menuItem}
+                  level={level + 1}
+                />
+              </div>
+            );
           }
-        </div>
-      )}
+          return null;
+        }));
+
+        return (
+          <div className={themeToUse.outerContainer}>
+            {!!title && (<h1 className={themeToUse.title}>{title}</h1>)}
+            {
+              level === 0 || (level === 1 && !submenu.length) ? (
+                <NavMenu
+                  menuItems={_.values(data.entries.items)}
+                  key={menuId}
+                  theme={themeToUse}
+                  baseUrl={baseUrl}
+                  parentItems={[]}
+                  activeParentItem={activeParentItem}
+                />
+              ) : null
+            }
+            {
+              level === 2 ? (
+                <NavMenu
+                  menuItems={_.values(data.entries.items)}
+                  key={menuId}
+                  theme={themeToUse}
+                  baseUrl={baseUrl}
+                  parentItems={parentItems}
+                  activeParentItem={activeParentItem}
+                />
+              ) : (
+                null
+              )
+            }
+            { submenu }
+          </div>
+        );
+      }}
     />
   );
 }
@@ -87,6 +114,9 @@ MenuItemsLoader.propTypes = {
   themeName: PT.string.isRequired,
   baseUrl: PT.string.isRequired,
   theme: PT.shape(),
+  parentItems: PT.arrayOf(PT.shape()).isRequired,
+  activeParentItem: PT.shape().isRequired,
+  level: PT.number.isRequired,
 };
 
 export default function ContentfulMenu(props) {
@@ -95,6 +125,9 @@ export default function ContentfulMenu(props) {
     preview,
     baseUrl,
     theme,
+    parentItems,
+    activeParentItem,
+    level,
   } = props;
 
   return (
@@ -113,6 +146,9 @@ export default function ContentfulMenu(props) {
             theme={theme}
             title={fields.title}
             baseUrl={fields.baseUrl || baseUrl}
+            parentItems={parentItems}
+            activeParentItem={activeParentItem}
+            level={level}
           />
         );
       }}
@@ -124,6 +160,9 @@ ContentfulMenu.defaultProps = {
   preview: false,
   baseUrl: '',
   theme: null,
+  parentItems: [],
+  activeParentItem: {},
+  level: 0,
 };
 
 ContentfulMenu.propTypes = {
@@ -131,4 +170,7 @@ ContentfulMenu.propTypes = {
   preview: PT.bool,
   baseUrl: PT.string,
   theme: PT.shape(),
+  parentItems: PT.arrayOf(PT.shape()),
+  activeParentItem: PT.shape(),
+  level: PT.number,
 };

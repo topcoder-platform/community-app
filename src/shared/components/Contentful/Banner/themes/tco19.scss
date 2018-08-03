@@ -16,7 +16,6 @@ $contentWrapperPadding: 60px;
     opacity: 1;
     position: static;
     transform: none;
-    box-sizing: content-box;
     padding: 120px $contentWrapperPadding;
 
     @include xs {
