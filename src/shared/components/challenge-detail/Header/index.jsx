@@ -72,9 +72,11 @@ export default function ChallengeHeader(props) {
   } = challenge;
 
   const phases = {};
-  allPhases.forEach((phase) => {
-    phases[_.camelCase(phase.phaseType)] = phase;
-  });
+  if (allPhases) {
+    allPhases.forEach((phase) => {
+      phases[_.camelCase(phase.phaseType)] = phase;
+    });
+  }
 
   let registrationEnded = true;
   const regPhase = phases.registration;

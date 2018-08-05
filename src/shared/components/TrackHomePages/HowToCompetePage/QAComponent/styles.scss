@@ -39,21 +39,7 @@
   text-align: left;
   background-color: #fff;
 
-  @include roboto-regular;
-
-  font-size: 15px;
-  line-height: 25px;
-  color: $tc-black;
-
-  p {
-    margin: 0;
-
-    img {
-      width: 100%;
-      height: auto;
-      object-fit: cover;
-    }
-  }
+  @include tc-typography;
 
   &.active {
     display: block;
