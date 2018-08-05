@@ -55,9 +55,6 @@ exports[`Matches shallow shapshot 1`] = `
         points
       </span>
     </div>
-    <div
-      className="src-shared-components-Leaderboard-PodiumSpot-___styles__clear___9LQOg"
-    />
   </div>
 </div>
 `;
@@ -117,9 +114,6 @@ exports[`Matches shallow shapshot 2`] = `
         points
       </span>
     </div>
-    <div
-      className="src-shared-components-Leaderboard-PodiumSpot-___styles__clear___9LQOg"
-    />
   </div>
 </div>
 `;

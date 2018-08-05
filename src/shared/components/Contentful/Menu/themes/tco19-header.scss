@@ -23,6 +23,7 @@
         flex-direction: column;
         margin: 0;
         margin-left: 1em;
+        margin-bottom: 1em;
       }
     }
   }
@@ -153,6 +154,7 @@
           .container {
             @include xs-to-sm {
               margin-left: 2em;
+              margin-bottom: 0;
             }
           }
 

@@ -56,7 +56,7 @@ export default function Podium(props) {
     }
 
     return (
-      <div>
+      <div styleName="PodiumWrap">
         {podiumSpots}
       </div>
     );

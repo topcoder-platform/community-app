@@ -18,12 +18,17 @@
   }
 }
 
-.Podium .podium-column {
-  width: 32%;
-  display: inline-block;
-  padding: 0 15px;
+.PodiumWrap {
+  display: flex;
+  justify-content: center;
 
   @include xs-to-sm {
-    width: 100%;
+    flex-direction: column;
+    align-items: center;
   }
+}
+
+.Podium .podium-column {
+  display: inline-block;
+  padding: 0 15px;
 }

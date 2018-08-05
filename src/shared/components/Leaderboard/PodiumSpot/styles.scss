@@ -6,7 +6,7 @@ $podium-border-color: #ededf2;
   border-radius: 6px;
   padding: 20px 0;
   box-shadow: 1px 1px 6px 2px #f1f1f1;
-  min-width: 320px;
+  min-width: 300px;
 
   .leaderboard-avatar {
     display: inline-block;
@@ -36,16 +36,17 @@ $podium-border-color: #ededf2;
     justify-content: space-around;
 
     .stats {
-      float: left;
-      width: 33%;
+      color: #747480;
+      font-size: 20px;
+      font-weight: 400;
+      line-height: 25px;
 
       .value {
-        @include roboto-bold;
+        color: #47474f;
+        font-size: 20px;
+        font-weight: 500;
+        line-height: 25px;
       }
-    }
-
-    .clear {
-      clear: both;
     }
 
     @include xs-to-sm {
@@ -68,10 +69,10 @@ $podium-border-color: #ededf2;
     overflow: hidden;
     font-size: 20px;
     text-overflow: ellipsis;
-    color: $tc-light-blue;
+    color: #006dea;
 
     &:hover {
-      color: $tc-dark-blue;
+      color: #006dea;
     }
   }
 }
