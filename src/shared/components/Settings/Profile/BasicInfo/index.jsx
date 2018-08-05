@@ -189,13 +189,88 @@ export default class BasicInfo extends React.Component {
     const { newBasicInfo } = this.state;
     const { handle, profile } = this.props;
     if (_.has(value, 'handle')) {
-      const basicInfo = _.extend({},
-        {
-          ...value,
-          birthDate: moment(value.birthDate).format('YYYY-MM-DD'),
-          tracks: value.tracks ? value.tracks : [],
-        });
-      this.setState({ newBasicInfo: basicInfo });
+      newBasicInfo.handle = value.handle;
+      if (_.has(value, 'addresses') && value.addresses.length > 0) {
+        newBasicInfo.addresses[0].city = value.addresses[0].city ? value.addresses[0].city : '';
+        newBasicInfo.addresses[0].stateCode = value.addresses[0].stateCode ? value.addresses[0].stateCode : '';
+        newBasicInfo.addresses[0].streetAddr1 = value.addresses[0].streetAddr1 ? value.addresses[0].streetAddr1 : '';
+        newBasicInfo.addresses[0].zip = value.addresses[0].zip ? value.addresses[0].zip : '';
+        if (newBasicInfo.addresses[0].streetAddr1 === '' && _.has(value, 'address')) {
+          newBasicInfo.addresses[0].streetAddr1 = value.address;
+        }
+      } else {
+        newBasicInfo.addresses[0].city = _.has(value, 'city') ? value.city : '';
+        newBasicInfo.addresses[0].stateCode = _.has(value, 'state') ? value.state : '';
+        newBasicInfo.addresses[0].streetAddr1 = _.has(value, 'address') ? value.address : '';
+        newBasicInfo.addresses[0].zip = _.has(value, 'zipCode') ? value.zipCode : '';
+      }
+      if (_.has(value, 'birthDate')) {
+        newBasicInfo.birthDate = moment(value.birthDate).format('YYYY-MM-DD');
+      }
+      if (_.has(value, 'competitionCountryCode')) {
+        newBasicInfo.competitionCountryCode = value.competitionCountryCode;
+      } else {
+        newBasicInfo.competitionCountryCode = profile.competitionCountryCode;
+      }
+      if (_.has(value, 'country')) {
+        newBasicInfo.country = value.country;
+      }
+      if (_.has(value, 'currentLocation')) {
+        newBasicInfo.currentLocation = value.currentLocation;
+      }
+      if (_.has(value, 'description')) {
+        newBasicInfo.description = value.description;
+      } else {
+        newBasicInfo.description = profile.description ? profile.description : '';
+      }
+      if (_.has(value, 'email')) {
+        newBasicInfo.email = value.email;
+      } else {
+        newBasicInfo.email = profile.email;
+      }
+      if (_.has(value, 'firstName')) {
+        newBasicInfo.firstName = value.firstName;
+      }
+      if (_.has(value, 'gender')) {
+        newBasicInfo.gender = value.gender;
+      } else {
+        newBasicInfo.gender = profile.gender;
+      }
+      if (_.has(value, 'homeCountryCode')) {
+        newBasicInfo.homeCountryCode = value.homeCountryCode;
+      } else {
+        newBasicInfo.homeCountryCode = profile.homeCountryCode;
+      }
+      if (_.has(value, 'lastName')) {
+        newBasicInfo.lastName = value.lastName;
+      }
+      if (_.has(value, 'photoURL')) {
+        newBasicInfo.photoURL = value.photoURL;
+      } else {
+        newBasicInfo.photoURL = profile.photoURL;
+      }
+      if (_.has(value, 'primaryInterestInTopcoder')) {
+        newBasicInfo.primaryInterestInTopcoder = value.primaryInterestInTopcoder;
+      }
+      if (_.has(value, 'status')) {
+        newBasicInfo.status = value.status;
+      } else {
+        newBasicInfo.status = profile.status;
+      }
+      if (_.has(value, 'tracks')) {
+        newBasicInfo.tracks = value.tracks ? value.tracks : [];
+      } else {
+        newBasicInfo.tracks = profile.tracks ? profile.tracks : [];
+      }
+      if (_.has(value, 'tshirtSize')) {
+        newBasicInfo.tshirtSize = value.tshirtSize;
+      }
+      if (_.has(value, 'userId')) {
+        newBasicInfo.userId = value.userId;
+      } else {
+        newBasicInfo.userId = profile.userId;
+      }
+      this.setState({ newBasicInfo });
     } else {
       newBasicInfo.handle = handle;
       newBasicInfo.gender = 'male';
@@ -207,6 +282,7 @@ export default class BasicInfo extends React.Component {
       newBasicInfo.competitionCountryCode = profile.competitionCountryCode;
       newBasicInfo.photoURL = profile.photoURL;
       newBasicInfo.tracks = profile.tracks ? profile.tracks : [];
+      newBasicInfo.description = profile.description ? profile.description : '';
       this.setState({ newBasicInfo });
     }
   }
