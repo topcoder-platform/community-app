@@ -2,6 +2,16 @@
 
 .basic-info-container {
   display: flex;
+  flex-direction: column;
+
+  @include xs-to-sm {
+    padding: 20px;
+    border-bottom: 1px solid $tc-gray-10;
+  }
+}
+
+.about-me-container {
+  display: flex;
   align-items: flex-start;
 
   @include sofia-pro-light;
@@ -22,11 +32,6 @@
     flex: 1;
     display: flex;
     flex-direction: column;
-
-    @include xs-to-sm {
-      padding: 20px;
-      border-bottom: 1px solid $tc-gray-10;
-    }
 
     .handle {
       @include sofia-pro-medium;
@@ -103,6 +108,10 @@
       @include xs-to-sm {
         margin-top: 5px;
       }
+    }
+
+    .second-addr {
+      margin-top: 10px;
     }
 
     .mb-user-card {
@@ -182,13 +191,64 @@
   }
 }
 
-.save-button {
+.tracks-container {
+  display: flex;
+  flex-direction: column;
   margin-top: 20px;
-  height: 40px;
-  width: 190px;
-  font-size: 15px;
 
-  @include xs-to-sm {
-    margin-top: 10px;
+  .title-info {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px;
+
+    .title {
+      @include sofia-pro-medium;
+
+      font-size: 16px;
+      font-weight: 500;
+      color: $tc-black;
+      text-transform: uppercase;
+      margin-bottom: 5px;
+    }
+
+    .description {
+      @include merriweather-sans-regular;
+
+      font-size: 13px;
+      font-weight: 400;
+      line-height: 20px;
+      color: $tc-gray-40;
+      font-style: italic;
+    }
+  }
+
+  .track-list {
+    border-top: 1px solid $tc-gray-neutral-dark;
+  }
+}
+
+.button-save {
+  align-self: center;
+  margin-top: 20px;
+
+  div:first-child {
+    margin: 0;
+  }
+
+  button,
+  a {
+    @include roboto-medium;
+
+    height: 40px;
+    font-size: 15px;
+    font-weight: 500;
+    margin: 0;
+    padding: 0;
+    width: 155px;
+  }
+
+  .white-label {
+    color: $tc-white;
+    margin: 0;
   }
 }

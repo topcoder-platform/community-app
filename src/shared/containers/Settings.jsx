@@ -99,8 +99,6 @@ SettingsContainer.propTypes = {
   uploadPhoto: PT.func.isRequired,
   deletePhoto: PT.func.isRequired,
   updateProfile: PT.func.isRequired,
-  addSkill: PT.func.isRequired,
-  hideSkill: PT.func.isRequired,
   addWebLink: PT.func.isRequired,
   deleteWebLink: PT.func.isRequired,
   linkExternalAccount: PT.func.isRequired,
@@ -153,6 +151,8 @@ function mapDispatchToProps(dispatch) {
       dispatch(profileActions.getLinkedAccountsInit());
       dispatch(profileActions.getExternalAccountsInit());
       dispatch(profileActions.getExternalLinksInit());
+      dispatch(actions.lookup.getSkillTagsInit());
+      dispatch(actions.lookup.getSkillTagsDone());
       dispatch(profileActions.getCredentialDone(profile, tokenV3));
       dispatch(profileActions.getLinkedAccountsDone(profile, tokenV3));
       dispatch(profileActions.getExternalAccountsDone(handle));
@@ -196,14 +196,6 @@ function mapDispatchToProps(dispatch) {
     updateProfile: (profile, tokenV3) => {
       dispatch(profileActions.updateProfileInit());
       dispatch(profileActions.updateProfileDone(profile, tokenV3));
-    },
-    addSkill: (handle, tokenV3, skill) => {
-      dispatch(profileActions.addSkillInit());
-      dispatch(profileActions.addSkillDone(handle, tokenV3, skill));
-    },
-    hideSkill: (handle, tokenV3, skill) => {
-      dispatch(profileActions.hideSkillInit());
-      dispatch(profileActions.hideSkillDone(handle, tokenV3, skill));
     },
     linkExternalAccount: (profile, tokenV3, providerType, callbackUrl) => {
       dispatch(profileActions.linkExternalAccountInit());
