@@ -194,6 +194,7 @@ export default class BasicInfo extends React.Component {
         newBasicInfo.addresses[0].city = value.addresses[0].city ? value.addresses[0].city : '';
         newBasicInfo.addresses[0].stateCode = value.addresses[0].stateCode ? value.addresses[0].stateCode : '';
         newBasicInfo.addresses[0].streetAddr1 = value.addresses[0].streetAddr1 ? value.addresses[0].streetAddr1 : '';
+        newBasicInfo.addresses[0].streetAddr2 = value.addresses[0].streetAddr2 ? value.addresses[0].streetAddr2 : '';
         newBasicInfo.addresses[0].zip = value.addresses[0].zip ? value.addresses[0].zip : '';
         if (newBasicInfo.addresses[0].streetAddr1 === '' && _.has(value, 'address')) {
           newBasicInfo.addresses[0].streetAddr1 = value.address;
