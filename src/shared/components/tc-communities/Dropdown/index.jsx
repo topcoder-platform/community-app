@@ -12,7 +12,7 @@ import Select from 'react-select';
 import './style.scss';
 
 function Dropdown(props) {
-  const { options, value } = props;
+  const { options, value, onChange } = props;
 
   return (
     <div styleName="container">
@@ -22,6 +22,10 @@ function Dropdown(props) {
         onChange={(option) => {
           if (value === option.value) return;
           const op = options.find(item => item.value === option.value) || {};
+          if (onChange) {
+            onChange(op);
+            return;
+          }
           if (op.redirect) window.location = op.redirect;
         }}
         options={options}
@@ -32,6 +36,7 @@ function Dropdown(props) {
 }
 
 Dropdown.defaultProps = {
+  onChange: null,
 };
 
 const optionType = PT.shape({
@@ -42,6 +47,7 @@ const optionType = PT.shape({
 Dropdown.propTypes = {
   options: PT.arrayOf(optionType).isRequired,
   value: PT.string.isRequired,
+  onChange: PT.func,
 };
 
 export default Dropdown;

@@ -1,7 +1,7 @@
 /* TCO19 banner styling. */
 
 @import "~styles/mixins";
-$contentWrapperPadding: 60px;
+$contentWrapperPadding: 0;
 
 .container {
   background-position: 50% 50%;
@@ -16,11 +16,10 @@ $contentWrapperPadding: 60px;
     opacity: 1;
     position: static;
     transform: none;
-    box-sizing: content-box;
     padding: 120px $contentWrapperPadding;
 
-    @include xs {
-      padding: 15px;
+    @include xs-to-md {
+      padding: 60px 15px;
     }
 
     width: $screen-lg;
