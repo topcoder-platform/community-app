@@ -24,7 +24,6 @@ export default function TCO19({ base }) {
         <div>
           <Header
             baseUrl={base}
-            hideJoinNow
             pageId={match.params.pageId || 'home'}
             theme={headerTheme}
           />

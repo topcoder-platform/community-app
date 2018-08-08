@@ -11,7 +11,7 @@ import _ from 'lodash';
 import DesktopSubMenu from 'components/TopcoderHeader/desktop/SubMenu';
 import React from 'react';
 import PT from 'prop-types';
-import { Avatar, PrimaryButton } from 'topcoder-react-ui-kit';
+import { Avatar, PrimaryButton, Button } from 'topcoder-react-ui-kit';
 import { config, Link, NavLink } from 'topcoder-react-utils';
 import { getRatingColor } from 'utils/tc';
 import Dropdown from 'components/tc-communities/Dropdown';
@@ -126,29 +126,28 @@ function Header(props) {
     </div>
   ) : (
     <div className={theme.authorize}>
+      <Button
+        onClick={() => {
+          const url = encodeURIComponent(`${window.location.href}?join=${groupIds[0]}`);
+          window.location = `${config.URL.AUTH}/member?retUrl=${url}&utm_source=${communityId}`;
+        }}
+        size="sm"
+      >
+Log In
+      </Button>
       { hideJoinNow ? null : (
-        <button
+        <PrimaryButton
           onClick={() => {
             let url = encodeURIComponent(`${window.location.href}?join=${groupIds[0]}`);
             url = encodeURIComponent(`${config.URL.AUTH}/member?retUrl=${url}&utm_source=${communityId}`);
             url = encodeURIComponent(url);
             window.location = `${config.URL.AUTH}/member/registration?retUrl=${url}&utm_source=${communityId}`;
           }}
-          className={theme.btnRegister}
-          type="button"
+          size="sm"
         >
-Join Now
-        </button>
+Join Topcoder
+        </PrimaryButton>
       )}
-      <PrimaryButton
-        onClick={() => {
-          const url = encodeURIComponent(`${window.location.href}?join=${groupIds[0]}`);
-          window.location = `${config.URL.AUTH}/member?retUrl=${url}&utm_source=${communityId}`;
-        }}
-        className={theme.btnLogin}
-      >
-Login
-      </PrimaryButton>
     </div>
   );
 
