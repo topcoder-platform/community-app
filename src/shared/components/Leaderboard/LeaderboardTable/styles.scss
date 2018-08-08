@@ -93,6 +93,10 @@ $table-bg-hover: #f5f5f5;
   .col-avatar {
     text-align: center;
     width: 44px;
+
+    @include md-to-xl {
+      line-height: 0;
+    }
   }
 
   .col-avatar .leaderboard-avatar {
@@ -133,11 +137,11 @@ $table-bg-hover: #f5f5f5;
   }
 
   .col-fulfillment {
-    text-align: left;
+    text-align: center;
   }
 
   .col-points {
-    text-align: right;
+    text-align: center;
   }
 
   /* Table responsiveness */

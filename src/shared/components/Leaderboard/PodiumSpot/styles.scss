@@ -23,7 +23,7 @@ $podium-border-color: #ededf2;
     display: inline-block;
     position: absolute;
     right: 0;
-    bottom: 0;
+    bottom: 10px;
   }
 
   .winnings-info {
@@ -37,7 +37,7 @@ $podium-border-color: #ededf2;
 
     .stats {
       color: #747480;
-      font-size: 20px;
+      font-size: 15px;
       font-weight: 400;
       line-height: 25px;
 
@@ -78,15 +78,18 @@ $podium-border-color: #ededf2;
 }
 
 .PodiumSpot--first .ranking {
-  background-color: #fce217;
+  background-color: #ffd84d;
+  color: #865e07;
 }
 
 .PodiumSpot--second .ranking {
-  background-color: #a9bcd4;
+  background-color: #d1d0cf;
+  color: #554e48;
 }
 
 .PodiumSpot--third .ranking {
-  background-color: #bd731e;
+  background-color: #d98f64;
+  color: #744117;
 }
 
 .PodiumSpot--first,
