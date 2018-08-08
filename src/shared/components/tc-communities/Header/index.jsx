@@ -11,7 +11,7 @@ import _ from 'lodash';
 import DesktopSubMenu from 'components/TopcoderHeader/desktop/SubMenu';
 import React from 'react';
 import PT from 'prop-types';
-import { Avatar } from 'topcoder-react-ui-kit';
+import { Avatar, PrimaryButton } from 'topcoder-react-ui-kit';
 import { config, Link, NavLink } from 'topcoder-react-utils';
 import { getRatingColor } from 'utils/tc';
 import Dropdown from 'components/tc-communities/Dropdown';
@@ -140,16 +140,15 @@ function Header(props) {
 Join Now
         </button>
       )}
-      <button
+      <PrimaryButton
         onClick={() => {
           const url = encodeURIComponent(`${window.location.href}?join=${groupIds[0]}`);
           window.location = `${config.URL.AUTH}/member?retUrl=${url}&utm_source=${communityId}`;
         }}
         className={theme.btnLogin}
-        type="button"
       >
 Login
-      </button>
+      </PrimaryButton>
     </div>
   );
 
