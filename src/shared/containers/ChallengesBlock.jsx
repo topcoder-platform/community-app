@@ -42,11 +42,11 @@ class ChallengesBlockContiner extends React.Component {
     const activeChallenges = challenges.filter(x => x.status === 'ACTIVE')
       .sort((a, b) => moment(b.registrationStartDate).diff(a.registrationStartDate));
 
-    if (loadingActiveChallenges && !activeChallenges) {
+    if (loadingActiveChallenges && (
+      !activeChallenges || !activeChallenges.length
+    )) {
       return <LoadingIndicator />;
     }
-
-    console.log(activeChallenges);
 
     return (
       <ChallengesBlock

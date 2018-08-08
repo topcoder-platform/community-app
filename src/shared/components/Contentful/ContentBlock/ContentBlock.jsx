@@ -6,10 +6,12 @@ import PT from 'prop-types';
 import React from 'react';
 
 import MarkdownRenderer from 'components/MarkdownRenderer';
+import { themr } from 'react-css-super-themr';
 import { fixStyle } from 'utils/contentful';
 
+import defaultTheme from './themes/default.scss';
 
-export default function ContentBlock({
+function ContentBlock({
   background,
   contentBlock,
   theme,
@@ -57,3 +59,5 @@ ContentBlock.propTypes = {
     image: PT.string,
   }).isRequired,
 };
+
+export default themr('ContentBlock', defaultTheme)(ContentBlock);
