@@ -83,9 +83,9 @@ function mapStateToProps(state, ownProps) {
   else canJoin = JOIN_COMMUNITY.HIDDEN;
 
   return {
-    communityName: state.tcCommunities.meta.data.communityName,
-    communityId: state.tcCommunities.meta.data.communityId,
-    groupIds: state.tcCommunities.meta.data.groupIds,
+    communityName: _.get(state, 'tcCommunities.meta.data.communityName'),
+    communityId: _.get(state, 'tcCommunities.meta.data.communityId'),
+    groupIds: _.get(state, 'tcCommunities.meta.data.groupIds'),
     label: ownProps.label,
     theme: ownProps.theme,
     token: state.auth.tokenV3,

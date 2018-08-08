@@ -1,0 +1,21 @@
+@import "~styles/mixins";
+
+.contentWrapper {
+  background: none;
+  opacity: 1;
+}
+
+.content {
+  text-align: center;
+
+  h1 {
+    text-transform: uppercase;
+  }
+
+  p {
+    @include tc-body-lg;
+
+    color: $tc-white;
+    margin: 25px 0;
+  }
+}
