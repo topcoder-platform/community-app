@@ -1,0 +1,81 @@
+@import "~styles/mixins";
+
+.container {
+  .row {
+    font-size: 13px;
+    color: $tc-gray-70;
+    display: flex;
+    border-bottom: 1px solid $tc-gray-10;
+
+    &.no-border {
+      border: none;
+    }
+  }
+
+  .col {
+    text-align: center;
+
+    &.child {
+      height: 40px;
+    }
+
+    &.col-1 {
+      width: 20%;
+      display: flex;
+
+      .col {
+        flex: 1;
+      }
+
+      .col-left {
+        color: black;
+      }
+    }
+
+    &.col-2 {
+      width: 15%;
+      text-align: left;
+      margin-left: 10px;
+      color: $tc-gray-50;
+
+      a {
+        color: black;
+      }
+    }
+
+    &.col-3 {
+      width: 30%;
+      display: flex;
+      color: $tc-gray-50;
+
+      .col {
+        flex: 1;
+      }
+
+      .col-left {
+        color: black;
+      }
+    }
+
+    &.col-4 {
+      width: 35%;
+      color: $tc-gray-50;
+
+      &.history-time {
+        display: flex;
+        padding-left: 20px;
+        padding-right: 20px;
+
+        @include xs-to-sm {
+          flex-direction: column;
+          padding-left: 0;
+          padding-right: 0;
+        }
+
+        .col {
+          flex: 1;
+        }
+      }
+    }
+  }
+}

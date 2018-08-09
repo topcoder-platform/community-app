@@ -6,8 +6,11 @@
 import React from 'react';
 import PT from 'prop-types';
 import moment from 'moment';
+import { connect } from 'react-redux';
 import { config } from 'topcoder-react-utils';
+import challengeDetailsActions from 'actions/page/challenge-details';
 import Lock from '../icons/lock.svg';
+import SubmissionRow from './SubmissionRow';
 
 import './style.scss';
 
@@ -34,10 +37,12 @@ function renderSubmission(s) {
   );
 }
 
-export default function Submissions(props) {
-  const {
-    challenge,
-  } = props;
+// The SubmissionRow component
+function SubmissionsComponent({
+  challenge,
+  toggleSubmissionHistory,
+  submissionHistoryOpen,
+}) {
   const { checkpoints, submissions } = challenge;
   if (challenge.track.toLowerCase() === 'design') {
     return challenge.submissionViewable === 'true' ? (
@@ -87,50 +92,83 @@ There are many reason why the submissions may not be viewable, such
       );
   }
   /* TODO: Ohh... why the actual <table> was not used here?
-   * Should be re-factored to use <table> later. */
+  * Should be re-factored to use <table> later. */
   return (
     <div styleName="container dev">
       <div styleName="head">
-        <div styleName="col-1">
-Username
+        <div styleName="col-1 col">
+Rank
         </div>
-        <div styleName="col-2">
-Submission Date
+        <div styleName="col-2 col">
+Handle
         </div>
-        <div styleName="col-3">
-Initial / Final Score
+        <div styleName="col-3 col">
+Score
         </div>
+        <div styleName="col-4 col" />
+      </div>
+      <div styleName="sub-head">
+        <div styleName="col-1 col">
+          <div styleName="col">
+            Final
+          </div>
+          <div styleName="col">
+            Interim
+          </div>
+        </div>
+        <div styleName="col-2 col" />
+        <div styleName="col-3 col">
+          <div styleName="col">
+            Final
+          </div>
+          <div styleName="col">
+            Provisional
+          </div>
+        </div>
+        <div styleName="col-4 col" />
       </div>
       {
-        submissions.map(s => (
-          <div key={s.handle + s.submissionDate} styleName="row">
-            <div styleName="col-1">
-              <a href={`${config.URL.BASE}/member-profile/${s.handle}/develop`} target="_blank" rel="noopener noreferrer" styleName="handle">
-                {s.handle}
-              </a>
-            </div>
-            <div styleName="col-2">
-              {moment(s.submissionDate).format('MMM DD, YYYY HH:mm')}
-            </div>
-            <div styleName="col-3">
-              {s.initialScore ? s.initialScore.toFixed(2) : 'N/A'}
-&zwnj;
-              &zwnj;/
-              &zwnj;
-              {s.finalScore ? s.finalScore.toFixed(2) : 'N/A'}
-            </div>
-          </div>
+        submissions.map((submission, index) => (
+          <SubmissionRow
+            key={submission.submitterId + submission.submitter}
+            {...submission}
+            toggleHistory={() => { toggleSubmissionHistory(index); }}
+            openHistory={(submissionHistoryOpen[index.toString()] || false)}
+          />
         ))
       }
     </div>
   );
 }
 
-Submissions.propTypes = {
+SubmissionsComponent.propTypes = {
   challenge: PT.shape({
     checkpoints: PT.arrayOf(PT.object),
     submissions: PT.arrayOf(PT.object),
     submissionViewable: PT.string,
     track: PT.string.isRequired,
   }).isRequired,
+  toggleSubmissionHistory: PT.func.isRequired,
+  submissionHistoryOpen: PT.shape({}).isRequired,
 };
+
+function mapDispatchToProps(dispatch) {
+  return {
+    toggleSubmissionHistory: index => dispatch(
+      challengeDetailsActions.page.challengeDetails.submissions.toggleSubmissionHistory(index),
+    ),
+  };
+}
+
+function mapStateToProps(state) {
+  return {
+    submissionHistoryOpen: state.page.challengeDetails.submissionHistoryOpen,
+  };
+}
+
+const Submissions = connect(
+  mapStateToProps,
+  mapDispatchToProps,
+)(SubmissionsComponent);
+
+export default Submissions;
