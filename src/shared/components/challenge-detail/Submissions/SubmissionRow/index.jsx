@@ -44,7 +44,10 @@ export default function SubmissionRow({
           </div>
         </div>
         <div styleName="col-4 col">
-          <a onClick={toggleHistory} onKeyPress={() => {}}>
+          <a
+            onClick={toggleHistory}
+            onKeyPress={toggleHistory}
+          >
             <span>
               History
               { openHistory ? (<ArrowNext styleName="icon down" />) : (<ArrowNext styleName="icon" />)}
