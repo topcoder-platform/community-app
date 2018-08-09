@@ -1,0 +1,102 @@
+@import "~styles/mixins";
+
+.container {
+  .row {
+    font-size: 13px;
+    color: $tc-gray-70;
+    display: flex;
+    border-bottom: 1px solid $tc-gray-10;
+
+    &.no-border {
+      border: none;
+    }
+  }
+
+  .history {
+    color: $tc-gray-70;
+    background: #faf9fa;
+    padding-bottom: 10px;
+
+    .history-head {
+      font-weight: 500;
+      font-size: 13px;
+      color: $tc-gray-50;
+      width: 100%;
+      display: flex;
+
+      .col-2 {
+        color: black;
+      }
+    }
+  }
+
+  .col {
+    text-align: center;
+
+    &.col-1 {
+      width: 20%;
+      display: flex;
+
+      .col {
+        flex: 1;
+      }
+
+      .col-left {
+        color: black;
+      }
+    }
+
+    &.col-2 {
+      width: 15%;
+      text-align: left;
+      margin-left: 10px;
+      color: $tc-gray-50;
+
+      a {
+        color: black;
+      }
+    }
+
+    &.col-3 {
+      width: 30%;
+      display: flex;
+      color: $tc-gray-50;
+
+      .col {
+        flex: 1;
+      }
+
+      .col-left {
+        color: black;
+      }
+    }
+
+    &.col-4 {
+      width: 35%;
+      color: $tc-gray-50;
+
+      a span {
+        display: flex;
+        align-items: center;
+        height: 100%;
+        float: right;
+
+        .icon {
+          width: 15px;
+          height: 15px;
+          margin: 0 15px 0 10px;
+
+          &.down {
+            transform: rotate(90deg);
+            -moz-transform: rotate(90deg);
+            -webkit-transform: rotate(90deg);
+          }
+        }
+      }
+    }
+  }
+
+  .handle {
+    color: $tc-dark-blue;
+  }
+}
