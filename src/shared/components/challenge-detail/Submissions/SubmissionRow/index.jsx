@@ -49,7 +49,9 @@ export default function SubmissionRow({
             onKeyPress={toggleHistory}
           >
             <span>
-              History
+              History (
+              {submissions.length}
+              )
               { openHistory ? (<ArrowNext styleName="icon down" />) : (<ArrowNext styleName="icon" />)}
             </span>
           </a>
