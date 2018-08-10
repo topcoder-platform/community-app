@@ -128,6 +128,14 @@ Score
         <div styleName="col-4 col" />
       </div>
       {
+        /*
+          Display submissions as per Rank:final or Rank:interim
+        */
+        submissions.sort(function(a,b){
+          let val1 = a.rank ? (a.rank.final ? a.rank.final : (a.rank.interim ? a.rank.interim : 0) ) : 0;
+          let val2 = b.rank ? (b.rank.final ? b.rank.final : (b.rank.interim ? b.rank.interim : 0) ) : 0;
+          return (val1 - val2)
+        })
         submissions.map((submission, index) => (
           <SubmissionRow
             key={submission.submitterId + submission.submitter}
