@@ -24,7 +24,7 @@ export default function SubmissionRow({
       <div styleName="row">
         <div styleName="col-1 col">
           <div styleName="col col-left">
-            -
+            { (rank || {}).final ? rank.final : '-' }
           </div>
           <div styleName="col">
             { (rank || {}).interim ? rank.interim : '-' }
