@@ -44,6 +44,24 @@ function SubmissionsComponent({
   submissionHistoryOpen,
 }) {
   const { checkpoints, submissions } = challenge;
+
+  submissions.sort((a, b) => {
+    let val1 = 0;
+    let val2 = 0;
+    if (a.rank && b.rank) {
+      if (a.rank.final && b.rank.final) {
+        val1 = a.rank.final;
+        val2 = b.rank.final;
+      } else if (a.rank.interim) {
+        if (a.rank.interim && b.rank.interim) {
+          val1 = a.rank.interim;
+          val2 = b.rank.interim;
+        }
+      }
+    }
+    return (val1 - val2);
+  });
+
   if (challenge.track.toLowerCase() === 'design') {
     return challenge.submissionViewable === 'true' ? (
       <div styleName="container view">
@@ -128,14 +146,6 @@ Score
         <div styleName="col-4 col" />
       </div>
       {
-        /*
-          Display submissions as per Rank:final or Rank:interim
-        */
-        submissions.sort(function(a,b){
-          let val1 = a.rank ? (a.rank.final ? a.rank.final : (a.rank.interim ? a.rank.interim : 0) ) : 0;
-          let val2 = b.rank ? (b.rank.final ? b.rank.final : (b.rank.interim ? b.rank.interim : 0) ) : 0;
-          return (val1 - val2)
-        })
         submissions.map((submission, index) => (
           <SubmissionRow
             key={submission.submitterId + submission.submitter}
