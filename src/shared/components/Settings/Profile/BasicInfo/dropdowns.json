@@ -2,13 +2,13 @@
   "gender": [
     {
       "key": "gender",
-      "name": "male"
+      "name": "Male"
     },{
       "key": "gender",
-      "name": "female"
+      "name": "Female"
     },{
       "key": "gender",
-      "name": "prefer not to answer"
+      "name": "Prefer not to answer"
     }
   ],
   "tshirtSize": [
