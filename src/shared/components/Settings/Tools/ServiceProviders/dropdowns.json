@@ -7,6 +7,14 @@
         {
             "key": "serviceProviderType",
             "name": "Mobile Carrier"
+        },
+        {
+            "key": "serviceProviderType",
+            "name": "Television"
+        },
+        {
+            "key": "serviceProviderType",
+            "name": "Other"
         }
     ]
 }
