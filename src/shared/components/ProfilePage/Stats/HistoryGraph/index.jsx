@@ -40,6 +40,8 @@ export default class HistoryGraph extends React.Component {
   }
 
   componentWillUnmount() {
+    // hide popup chart tooltip when go to another page
+    this.setState({ show: false, href: '' });
     window.removeEventListener('resize', this.resizeHandle);
     document.body.removeEventListener('click', this.bodyClickHandle);
   }
@@ -207,7 +209,7 @@ export default class HistoryGraph extends React.Component {
           challengeData: moment(d.ratingDate).format('MMM DD, YYYY'),
           rating: d.newRating,
           ratingColor: getRatingColor(d.newRating),
-          href: `/challenges/${d.challengeId}`,
+          challengeId: d.challengeId,
         });
       });
   }
