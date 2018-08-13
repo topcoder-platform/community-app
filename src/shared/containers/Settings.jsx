@@ -131,6 +131,7 @@ function mapStateToProps(state) {
     settingsUI: state.page.ui.settings,
     settings: state.settings,
     userTraits: state.settings.userTraits,
+    skills: state.profile.skills,
   };
 }
 
@@ -144,7 +145,6 @@ function mapDispatchToProps(dispatch) {
     settingsTab,
   }) => {
     dispatch(profileActions.loadProfile(handle));
-
     if (settingsTab === TABS.PROFILE) {
       dispatch(profileActions.getSkillsInit());
       dispatch(profileActions.getCredentialInit());
@@ -229,11 +229,21 @@ function mapDispatchToProps(dispatch) {
     addUserTrait: (handle, traitId, data, tokenV3) => {
       dispatch(actions.settings.addUserTrait(handle, traitId, data, tokenV3));
     },
+    addUserSkill: (handle, skill, tokenV3) => {
+      dispatch(actions.profile.addSkillInit());
+      dispatch(actions.profile.addSkillDone(handle, tokenV3, _.assign(skill, { tagId: skill.id })));
+    },
     updateUserTrait: (handle, traitId, data, tokenV3) => {
       dispatch(actions.settings.updateUserTrait(handle, traitId, data, tokenV3));
     },
     deleteUserTrait: (handle, traitId, tokenV3) => {
       dispatch(actions.settings.deleteUserTrait(handle, traitId, tokenV3));
+    },
+    deleteUserSkill: (handle, skill, tokenV3) => {
+      dispatch(actions.profile.hideSkillInit());
+      dispatch(
+        actions.profile.hideSkillDone(handle, tokenV3, _.assign(skill, { tagId: skill.id })),
+      );
     },
   };
 }
