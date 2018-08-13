@@ -40,6 +40,8 @@ export default class HistoryGraph extends React.Component {
   }
 
   componentWillUnmount() {
+    // hide popup chart tooltip when go to another page
+    this.setState({ show: false, href: '' });
     window.removeEventListener('resize', this.resizeHandle);
     document.body.removeEventListener('click', this.bodyClickHandle);
   }
