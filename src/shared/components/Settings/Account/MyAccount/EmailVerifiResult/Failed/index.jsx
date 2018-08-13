@@ -6,16 +6,16 @@ import { PrimaryButton } from 'topcoder-react-ui-kit';
  */
 import './styles.scss';
 
-let assets;
+let failureAsset;
 if (isomorphy.isClientSide()) {
-  assets = require.context('assets/images/account/email', false, /svg/);
+  failureAsset = require.context('assets/images/account/email', false, /svg/)('./failed.svg');
 }
 
 const Failed = () => (
   <div styleName="outer-container">
     <div styleName="page">
       <div styleName="container">
-        <img src={assets('./failed.svg')} alt="failed-icon" />
+        <img src={failureAsset} alt="failed-icon" />
         <h1>
           Email Verification Failed
         </h1>
