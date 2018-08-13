@@ -207,7 +207,7 @@ export default class HistoryGraph extends React.Component {
           challengeData: moment(d.ratingDate).format('MMM DD, YYYY'),
           rating: d.newRating,
           ratingColor: getRatingColor(d.newRating),
-          href: `/challenges/${d.challengeId}`,
+          challengeId: d.challengeId,
         });
       });
   }
