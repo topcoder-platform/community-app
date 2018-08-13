@@ -8,6 +8,7 @@ import React from 'react';
 import _ from 'lodash';
 import Error404 from 'components/Error404';
 import ContentfulLoader from 'containers/ContentfulLoader';
+import ContentSlider from 'components/Contentful/ContentSlider';
 import Accordion from 'components/Contentful/Accordion';
 import Menu from 'components/Contentful/Menu';
 import Banner from 'components/Contentful/Banner';
@@ -26,6 +27,10 @@ export default function Contentful({ match }) {
   const base = match.url;
   return (
     <Switch>
+      <Route
+        path={`${base}/slider/:id`}
+        component={p => <ContentSlider id={p.match.params.id} preview />}
+      />
       <Route
         path={`${base}/accordion/:id`}
         component={p => <Accordion id={p.match.params.id} preview />}

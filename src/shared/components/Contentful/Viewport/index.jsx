@@ -20,6 +20,7 @@ import React from 'react';
 import Countdown from 'components/Contentful/Countdown';
 import Tabs from 'components/Contentful/Tabs';
 import AppComponentLoader from 'components/Contentful/AppComponent';
+import ContentSlider from 'components/Contentful/ContentSlider';
 
 import Viewport from './Viewport';
 
@@ -42,6 +43,7 @@ const COMPONENTS = {
   tabs: Tabs,
   video: Video,
   viewport: null, /* Assigned to ViewportLoader below. */
+  contentSlider: ContentSlider,
 };
 
 const THEMES = {
