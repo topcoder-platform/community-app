@@ -70,7 +70,6 @@ export default class Skills extends React.Component {
     this.state = {
       formInvalid: false,
       errorMessage: '',
-      skillTrait: this.loadSkillTrait(props.userTraits),
       userSkills: [],
       selectedSkill: {},
       newSkill: {
@@ -97,9 +96,7 @@ export default class Skills extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const skillTrait = this.loadSkillTrait(nextProps.userTraits);
     this.setState({
-      skillTrait,
       formInvalid: false,
       errorMessage: '',
       userSkills: [],
@@ -142,8 +139,7 @@ export default class Skills extends React.Component {
     const {
       handle,
       tokenV3,
-      updateUserTrait,
-      addUserTrait,
+      addUserSkill,
     } = this.props;
 
     if (!selectedSkill.name) {
@@ -159,7 +155,6 @@ export default class Skills extends React.Component {
       formInvalid: false,
     });
 
-    const { skillTrait } = this.state;
     let category = '';
     switch (selectedSkill.categories[0]) {
       case 'develop':
@@ -183,21 +178,7 @@ export default class Skills extends React.Component {
     }
 
     newSkill[category].push(selectedSkill.name);
-    if (skillTrait.traits && skillTrait.traits.data.length > 0) {
-      const newSkillTrait = { ...skillTrait };
-      newSkillTrait.traits.data = [];
-      newSkillTrait.traits.data.push(newSkill);
-      this.setState({ skillTrait: newSkillTrait });
-      updateUserTrait(handle, 'skill', newSkillTrait.traits.data, tokenV3);
-    } else {
-      const newSkills = [];
-      newSkills.push(newSkill);
-      const traits = {
-        data: newSkills,
-      };
-      this.setState({ skillTrait: { traits } });
-      addUserTrait(handle, 'skill', newSkills, tokenV3);
-    }
+    addUserSkill(handle, selectedSkill, tokenV3);
   }
 
   /**
@@ -212,57 +193,38 @@ export default class Skills extends React.Component {
   }
 
   /**
-   * Get skill trait
-   * @param userTraits the all user traits
-   */
-  loadSkillTrait = (userTraits) => {
-    const trait = userTraits.filter(t => t.traitId === 'skill');
-    const skills = trait.length === 0 ? {} : trait[0];
-    return _.assign({}, skills);
-  }
-
-  /**
    * Process user skills
    */
   processUserSkills = (props) => {
-    const { lookupData, userTraits } = props;
+    const { lookupData, skills } = props;
     const { pageSize, currentIndex } = this.state;
-    const skillTrait = this.loadSkillTrait(userTraits);
+
     // All lookup skills
     const lookupSkills = lookupData.skillTags || [];
 
     // Construct user skills
-    const userSkills = [];
+    const filterUserSkills = [];
+
+    const arraySkill = _.map(skills, (skill, tagId) => ({ tagId: Number(tagId), ...skill }));
     const design = [];
     const development = [];
     const dataScience = [];
-    const skills = skillTrait.traits ? skillTrait.traits.data.slice() : [];
-    if (skills.length > 0) {
-      for (let i = 0; i < skills[0].design.length; i += 1) {
+    if (arraySkill.length > 0) {
+      for (let i = 0; i < arraySkill.length; i += 1) {
         const result = _.filter(lookupSkills, skill => (
-          skill.name.toLowerCase() === skills[0].design[i].toLowerCase()
+          skill.id === arraySkill[i].tagId
         ));
         if (result && result.length > 0) {
-          userSkills.push(result[0]);
-          design.push(result[0].name);
-        }
-      }
-      for (let i = 0; i < skills[0].development.length; i += 1) {
-        const result = _.filter(lookupSkills, skill => (
-          skill.name.toLowerCase() === skills[0].development[i].toLowerCase()
-        ));
-        if (result && result.length > 0) {
-          userSkills.push(result[0]);
-          development.push(result[0].name);
-        }
-      }
-      for (let i = 0; i < skills[0].dataScience.length; i += 1) {
-        const result = _.filter(lookupSkills, skill => (
-          skill.name.toLowerCase() === skills[0].dataScience[i].toLowerCase()
-        ));
-        if (result && result.length > 0) {
-          userSkills.push(result[0]);
-          dataScience.push(result[0].name);
+          filterUserSkills.push(result[0]);
+          if (_.some(result[0].categories, category => category.toLowerCase() === 'design')) {
+            design.push(result[0].name);
+          }
+          if (_.some(result[0].categories, category => category.toLowerCase() === 'develop')) {
+            development.push(result[0].name);
+          }
+          if (_.some(result[0].categories, category => category.toLowerCase() === 'data_science')) {
+            dataScience.push(result[0].name);
+          }
         }
       }
 
@@ -270,15 +232,16 @@ export default class Skills extends React.Component {
       newSkill.design = design.length > 0 ? design.slice() : [];
       newSkill.development = development.length > 0 ? development.slice() : [];
       newSkill.dataScience = dataScience.length > 0 ? dataScience.slice() : [];
-      const totalPage = Math.ceil(userSkills.length / pageSize);
-      this.setState({ newSkill, userSkills, totalPage });
+      const totalPage = Math.ceil(filterUserSkills.length / pageSize);
+      this.setState({ newSkill, userSkills: filterUserSkills, totalPage });
       if (currentIndex < totalPage) {
         this.setState({
-          indexList: userSkills.slice(currentIndex * pageSize, currentIndex * pageSize + pageSize),
+          indexList:
+          filterUserSkills.slice(currentIndex * pageSize, currentIndex * pageSize + pageSize),
         });
       } else {
         this.setState({
-          indexList: userSkills.slice(0, pageSize),
+          indexList: filterUserSkills.slice(0, pageSize),
           currentIndex: 0,
         });
       }
@@ -290,12 +253,11 @@ export default class Skills extends React.Component {
    */
   toggleSkill = (e, skill) => {
     e.preventDefault();
-    const { newSkill, skillTrait } = this.state;
+    const { newSkill } = this.state;
     const {
       handle,
       tokenV3,
-      updateUserTrait,
-      deleteUserTrait,
+      deleteUserSkill,
     } = this.props;
     let category = '';
     switch (skill.categories[0]) {
@@ -313,15 +275,7 @@ export default class Skills extends React.Component {
       item.toLowerCase() !== skill.name.toLowerCase()
     ));
     newSkill[category] = result.length > 0 ? result.slice() : [];
-    if (newSkill.design.length === 0
-      && newSkill.development.length === 0
-      && newSkill.dataScience.length === 0) {
-      deleteUserTrait(handle, 'skill', tokenV3);
-    } else {
-      skillTrait.traits.data = [];
-      skillTrait.traits.data.push(newSkill);
-      updateUserTrait(handle, 'skill', skillTrait.traits.data, tokenV3);
-    }
+    deleteUserSkill(handle, skill, tokenV3);
   };
 
   updatePredicate() {
@@ -469,13 +423,18 @@ export default class Skills extends React.Component {
   }
 }
 
+Skills.defaultProps = {
+  skills: {},
+};
+
 Skills.propTypes = {
   handle: PT.string.isRequired,
   tokenV3: PT.string.isRequired,
   lookupData: PT.shape().isRequired,
-  addUserTrait: PT.func.isRequired,
-  updateUserTrait: PT.func.isRequired,
-  deleteUserTrait: PT.func.isRequired,
-  userTraits: PT.array.isRequired,
+  addUserSkill: PT.func.isRequired,
+  deleteUserSkill: PT.func.isRequired,
+  /* eslint-disable react/no-unused-prop-types */
+  skills: PT.shape(),
+  /* eslint-disable react/no-unused-prop-types */
   settingsUI: PT.shape().isRequired,
 };
