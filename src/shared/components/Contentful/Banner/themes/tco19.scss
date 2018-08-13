@@ -17,6 +17,10 @@ $contentWrapperPadding: 0;
     position: static;
     transform: none;
     padding: 120px $contentWrapperPadding;
+    min-height: 600px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
     @include xs-to-md {
       padding: 60px 15px;
