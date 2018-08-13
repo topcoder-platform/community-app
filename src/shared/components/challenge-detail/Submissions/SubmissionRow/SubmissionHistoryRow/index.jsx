@@ -10,6 +10,7 @@ import moment from 'moment';
 import './style.scss';
 
 export default function SubmissionHistoryRow({
+  isMM,
   submission,
   finalScore,
   initialScore,
@@ -18,7 +19,7 @@ export default function SubmissionHistoryRow({
   return (
     <div styleName="container">
       <div styleName="row no-border">
-        <div styleName="col-1 col child" />
+        { isMM ? <div styleName="col-1 col child" /> : null }
         <div styleName="col-2 col child">
           {submission}
         </div>
@@ -49,6 +50,7 @@ SubmissionHistoryRow.defaultProps = {
 };
 
 SubmissionHistoryRow.propTypes = {
+  isMM: PT.bool.isRequired,
   submission: PT.number.isRequired,
   finalScore: PT.number,
   initialScore: PT.number,

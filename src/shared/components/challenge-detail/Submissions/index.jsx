@@ -62,11 +62,13 @@ function SubmissionsComponent({
     return (val1 - val2);
   });
 
+  const isMM = challenge.subTrack === 'MARATHON_MATCH';
+
   if (challenge.track.toLowerCase() === 'design') {
     return challenge.submissionViewable === 'true' ? (
       <div styleName="container view">
         <div styleName="title">
-ROUND 2 (FINAL) SUBMISSIONS
+          ROUND 2 (FINAL) SUBMISSIONS
         </div>
         <div styleName="content">
           {
@@ -77,7 +79,7 @@ ROUND 2 (FINAL) SUBMISSIONS
           checkpoints.length > 0
             && (
             <div styleName="title">
-ROUND 1 (CHECKPOINT) SUBMISSIONS
+              ROUND 1 (CHECKPOINT) SUBMISSIONS
             </div>
             )
         }
@@ -114,26 +116,34 @@ There are many reason why the submissions may not be viewable, such
   return (
     <div styleName="container dev">
       <div styleName="head">
-        <div styleName="col-1 col">
-Rank
-        </div>
+        {
+          isMM ? (
+            <div styleName="col-1 col">
+              Rank
+            </div>
+          ) : null
+        }
         <div styleName="col-2 col">
-Handle
+          Handle
         </div>
         <div styleName="col-3 col">
-Score
+          Score
         </div>
         <div styleName="col-4 col" />
       </div>
       <div styleName="sub-head">
-        <div styleName="col-1 col">
-          <div styleName="col">
-            Final
-          </div>
-          <div styleName="col">
-            Interim
-          </div>
-        </div>
+        {
+          isMM ? (
+            <div styleName="col-1 col">
+              <div styleName="col">
+                Final
+              </div>
+              <div styleName="col">
+                Interim
+              </div>
+            </div>
+          ) : null
+        }
         <div styleName="col-2 col" />
         <div styleName="col-3 col">
           <div styleName="col">
@@ -148,6 +158,7 @@ Score
       {
         submissions.map((submission, index) => (
           <SubmissionRow
+            isMM={isMM}
             key={submission.submitterId + submission.submitter}
             {...submission}
             toggleHistory={() => { toggleSubmissionHistory(index); }}

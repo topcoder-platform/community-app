@@ -12,6 +12,7 @@ import SubmissionHistoryRow from './SubmissionHistoryRow';
 import './style.scss';
 
 export default function SubmissionRow({
+  isMM,
   openHistory,
   submitter,
   rank,
@@ -22,14 +23,18 @@ export default function SubmissionRow({
   return (
     <div styleName="container">
       <div styleName="row">
-        <div styleName="col-1 col">
-          <div styleName="col col-left">
-            { (rank || {}).final ? rank.final : '-' }
-          </div>
-          <div styleName="col">
-            { (rank || {}).interim ? rank.interim : '-' }
-          </div>
-        </div>
+        {
+          isMM ? (
+            <div styleName="col-1 col">
+              <div styleName="col col-left">
+                { (rank || {}).final ? rank.final : '-' }
+              </div>
+              <div styleName="col">
+                { (rank || {}).interim ? rank.interim : '-' }
+              </div>
+            </div>
+          ) : null
+        }
         <div styleName="col-2 col">
           <a href={`${config.URL.BASE}/member-profile/${submitter}/develop`} target="_blank" rel="noopener noreferrer" styleName="handle">
             {submitter}
@@ -61,7 +66,7 @@ export default function SubmissionRow({
         <div styleName="history">
           <div>
             <div styleName="row no-border history-head">
-              <div styleName="col-1 col" />
+              { isMM ? <div styleName="col-1 col" /> : null }
               <div styleName="col-2 col">
                 Submission
               </div>
@@ -81,6 +86,7 @@ export default function SubmissionRow({
           {
             submissions.map((submissionHistory, index) => (
               <SubmissionHistoryRow
+                isMM={isMM}
                 submission={submissions.length - index}
                 {...submissionHistory}
                 key={submissionHistory.submissionId}
@@ -98,6 +104,7 @@ SubmissionRow.defaultProps = {
 };
 
 SubmissionRow.propTypes = {
+  isMM: PT.bool.isRequired,
   openHistory: PT.bool.isRequired,
   submitter: PT.string.isRequired,
   rank: PT.shape({

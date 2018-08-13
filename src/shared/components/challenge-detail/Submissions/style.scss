@@ -177,7 +177,7 @@
     text-align: center;
 
     &.col-1 {
-      width: 20%;
+      flex: 20;
       display: flex;
 
       .col {
@@ -186,7 +186,7 @@
     }
 
     &.col-2 {
-      width: 15%;
+      flex: 15;
       text-align: left;
       margin-left: 10px;
       color: $tc-gray-50;
@@ -197,7 +197,7 @@
     }
 
     &.col-3 {
-      width: 30%;
+      flex: 30;
       display: flex;
       color: $tc-gray-50;
 
@@ -207,7 +207,7 @@
     }
 
     &.col-4 {
-      width: 35%;
+      flex: 35;
       color: $tc-gray-50;
     }
   }
