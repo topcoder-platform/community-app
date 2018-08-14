@@ -48,10 +48,10 @@ class Profile extends React.Component {
   }
 
   updatePredicate() {
-    const { screenSM } = this.state;
-    const isMobileView = window.innerWidth <= screenSM;
-    if(isMobileView !== this.state.isMobileView) {
-      this.setState({isMobileView: window.innerWidth <= screenSM});
+    const { screenSM, isMobileView } = this.state;
+    const newIsMobileView = window.innerWidth <= screenSM;
+    if (newIsMobileView !== isMobileView) {
+      this.setState({ isMobileView: newIsMobileView });
     }
   }
   /* end */
