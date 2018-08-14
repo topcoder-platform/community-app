@@ -8,7 +8,7 @@
 import React from 'react';
 import PT from 'prop-types';
 import _ from 'lodash';
-
+import UserConsentModal from 'components/Settings/UserConsentModal';
 import { PrimaryButton } from 'topcoder-react-ui-kit';
 import SubscriptionList from './List';
 
@@ -23,11 +23,14 @@ export default class Subscription extends React.Component {
     this.loadSubscriptionTrait = this.loadSubscriptionTrait.bind(this);
     this.onUpdateInput = this.onUpdateInput.bind(this);
     this.onAddSubscription = this.onAddSubscription.bind(this);
-
+    this.loadPersonalizationTrait = this.loadPersonalizationTrait.bind(this);
+    this.onShowUserConsent = this.onShowUserConsent.bind(this);
     this.state = {
       formInvalid: false,
+      showUserConsent: false,
       errorMessage: '',
       subscriptionTrait: this.loadSubscriptionTrait(props.userTraits),
+      personalizationTrait: this.loadPersonalizationTrait(props.userTraits),
       newSubscription: {
         name: '',
       },
@@ -35,9 +38,11 @@ export default class Subscription extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
+    const personalizationTrait = this.loadPersonalizationTrait(nextProps.userTraits);
     const subscriptionTrait = this.loadSubscriptionTrait(nextProps.userTraits);
     this.setState({
       subscriptionTrait,
+      personalizationTrait,
       formInvalid: false,
       errorMessage: '',
       newSubscription: {
@@ -46,6 +51,18 @@ export default class Subscription extends React.Component {
     });
   }
 
+  /**
+   * Show User Consent Modal
+   * @param e event
+   */
+  onShowUserConsent(e) {
+    e.preventDefault();
+    const { newSubscription } = this.state;
+    if (this.onCheckFormValue(newSubscription)) {
+      return;
+    }
+    this.setState({ showUserConsent: true });
+  }
 
   /**
    * Check form fields value,
@@ -99,13 +116,13 @@ export default class Subscription extends React.Component {
   /**
    * Add new subscription
    * @param e form submit event
+   * @param answer user consent answer value
    */
-  onAddSubscription(e) {
+  onAddSubscription(e, answer) {
     e.preventDefault();
-    const { newSubscription } = this.state;
-    if (this.onCheckFormValue(newSubscription)) {
-      return;
-    }
+    this.setState({ showUserConsent: false });
+    const { newSubscription, personalizationTrait } = this.state;
+
     const {
       handle,
       tokenV3,
@@ -131,6 +148,17 @@ export default class Subscription extends React.Component {
       name: '',
     };
     this.setState({ newSubscription: empty });
+    // save personalization
+    if (_.isEmpty(personalizationTrait)) {
+      const personalizationData = { userConsent: answer };
+      addUserTrait(handle, 'personalization', [personalizationData], tokenV3);
+    } else {
+      const trait = personalizationTrait.traits.data[0];
+      if (trait.userConsent !== answer) {
+        const personalizationData = { userConsent: answer };
+        updateUserTrait(handle, 'personalization', [personalizationData], tokenV3);
+      }
+    }
   }
 
   /**
@@ -167,14 +195,27 @@ export default class Subscription extends React.Component {
     return _.assign({}, subscriptions);
   }
 
+  /**
+   * Get personalization trait
+   * @param userTraits the all user traits
+   */
+  loadPersonalizationTrait = (userTraits) => {
+    const trait = userTraits.filter(t => t.traitId === 'personalization');
+    const personalization = trait.length === 0 ? {} : trait[0];
+    return _.assign({}, personalization);
+  }
+
   render() {
-    const { subscriptionTrait } = this.state;
+    const { subscriptionTrait, showUserConsent } = this.state;
     const subscriptionItems = subscriptionTrait.traits
       ? subscriptionTrait.traits.data.slice() : [];
     const { newSubscription, formInvalid, errorMessage } = this.state;
 
     return (
       <div styleName="subscription-container">
+        {
+          showUserConsent && (<UserConsentModal onSaveTrait={this.onAddSubscription} />)
+        }
         <div styleName={`error-message ${formInvalid ? 'active' : ''}`}>
           { errorMessage }
         </div>
@@ -200,7 +241,7 @@ Name
           <div styleName="button-save">
             <PrimaryButton
               styleName="complete"
-              onClick={this.onAddSubscription}
+              onClick={this.onShowUserConsent}
             >
               Add Subscription
             </PrimaryButton>

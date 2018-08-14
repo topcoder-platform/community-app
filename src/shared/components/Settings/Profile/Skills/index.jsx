@@ -16,7 +16,7 @@ import requireContext from 'require-context';
 
 import Select from 'components/Select';
 import { PrimaryButton } from 'topcoder-react-ui-kit';
-
+import UserConsentModal from 'components/Settings/UserConsentModal';
 import DevFallbackIcon from 'assets/images/profile/skills/id-develop.svg';
 import DesignFallbackIcon from 'assets/images/profile/skills/id-design.svg';
 import DataFallbackIcon from 'assets/images/profile/skills/id-data.svg';
@@ -66,9 +66,13 @@ export default class Skills extends React.Component {
     this.toggleSkill = this.toggleSkill.bind(this);
     this.setPage = this.setPage.bind(this);
     this.updatePredicate = this.updatePredicate.bind(this);
+    this.onShowUserConsent = this.onShowUserConsent.bind(this);
+    this.loadPersonalizationTrait = this.loadPersonalizationTrait.bind(this);
 
     this.state = {
       formInvalid: false,
+      showUserConsent: false,
+      personalizationTrait: this.loadPersonalizationTrait(props.userTraits),
       errorMessage: '',
       userSkills: [],
       selectedSkill: {},
@@ -96,7 +100,9 @@ export default class Skills extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
+    const personalizationTrait = this.loadPersonalizationTrait(nextProps.userTraits);
     this.setState({
+      personalizationTrait,
       formInvalid: false,
       errorMessage: '',
       userSkills: [],
@@ -118,6 +124,28 @@ export default class Skills extends React.Component {
   }
 
   /**
+   * Show User Consent Modal
+   * @param e event
+   */
+  onShowUserConsent(e) {
+    e.preventDefault();
+    const { selectedSkill } = this.state;
+    if (!selectedSkill.name) {
+      this.setState({
+        errorMessage: 'Skill can not be empty',
+        formInvalid: true,
+      });
+      return;
+    }
+
+    this.setState({
+      errorMessage: '',
+      formInvalid: false,
+      showUserConsent: true,
+    });
+  }
+
+  /**
    * Update select value
    * @param option selected value
    */
@@ -132,10 +160,12 @@ export default class Skills extends React.Component {
   /**
    * Add new skill
    * @param e form submit event
+   * @param answer user consent answer value
    */
-  onAddSkill(e) {
+  onAddSkill(e, answer) {
     e.preventDefault();
-    const { newSkill, selectedSkill } = this.state;
+    this.setState({ showUserConsent: false });
+    const { newSkill, selectedSkill, personalizationTrait } = this.state;
     const {
       handle,
       tokenV3,
@@ -179,6 +209,17 @@ export default class Skills extends React.Component {
 
     newSkill[category].push(selectedSkill.name);
     addUserSkill(handle, selectedSkill, tokenV3);
+    // save personalization
+    if (_.isEmpty(personalizationTrait)) {
+      const personalizationData = { userConsent: answer };
+      addUserTrait(handle, 'personalization', [personalizationData], tokenV3);
+    } else {
+      const trait = personalizationTrait.traits.data[0];
+      if (trait.userConsent !== answer) {
+        const personalizationData = { userConsent: answer };
+        updateUserTrait(handle, 'personalization', [personalizationData], tokenV3);
+      }
+    }
   }
 
   /**
@@ -190,6 +231,16 @@ export default class Skills extends React.Component {
       indexList: userSkills.slice(index * pageSize, index * pageSize + pageSize),
       currentIndex: index,
     });
+  }
+
+  /**
+   * Get personalization trait
+   * @param userTraits the all user traits
+   */
+  loadPersonalizationTrait = (userTraits) => {
+    const trait = userTraits.filter(t => t.traitId === 'personalization');
+    const personalization = trait.length === 0 ? {} : trait[0];
+    return _.assign({}, personalization);
   }
 
   /**
@@ -290,6 +341,7 @@ export default class Skills extends React.Component {
     } = this.props;
 
     const {
+      showUserConsent,
       userSkills,
       formInvalid,
       errorMessage,
@@ -310,6 +362,9 @@ export default class Skills extends React.Component {
 
     return (
       <div styleName={containerStyle}>
+        {
+          showUserConsent && (<UserConsentModal onSaveTrait={this.onAddSkill} />)
+        }
         <div styleName={`skill-container ${list.length > 0 ? '' : 'no-skills'}`}>
           <div styleName={`error-message ${formInvalid ? 'active' : ''}`}>
             { errorMessage }
@@ -347,7 +402,7 @@ export default class Skills extends React.Component {
             <div styleName="button-save">
               <PrimaryButton
                 styleName="complete"
-                onClick={this.onAddSkill}
+                onClick={this.onShowUserConsent}
               >
                 Add Skill
               </PrimaryButton>
@@ -437,4 +492,5 @@ Skills.propTypes = {
   skills: PT.shape(),
   /* eslint-disable react/no-unused-prop-types */
   settingsUI: PT.shape().isRequired,
+  userTraits: PT.array.isRequired,
 };
