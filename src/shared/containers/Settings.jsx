@@ -17,7 +17,7 @@ import Error404 from 'components/Error404';
 import LoadingIndicator from 'components/LoadingIndicator';
 import Settings from 'components/Settings';
 
-class SettingsContainer extends React.PureComponent {
+class SettingsContainer extends React.Component {
   componentDidMount() {
     this.loadPageData(this.props);
   }

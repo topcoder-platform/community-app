@@ -24,7 +24,7 @@ import './styles.scss';
 
 const countries = getAllCountryObjects();
 
-export default class BasicInfo extends React.PureComponent {
+export default class BasicInfo extends React.Component {
   constructor(props) {
     super(props);
 

@@ -25,7 +25,7 @@ import ComingSoon from '../ComingSoon';
 
 import './styles.scss';
 
-class Profile extends React.PureComponent {
+class Profile extends React.Component {
   constructor(props) {
     super(props);
 
