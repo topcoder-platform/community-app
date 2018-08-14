@@ -22,10 +22,6 @@ class SettingsContainer extends React.Component {
     this.loadPageData(this.props);
   }
 
-  componentWillReceiveProps(nextProps) {
-    this.loadPageData(nextProps);
-  }
-
   loadPageData(props) {
     const {
       handle,

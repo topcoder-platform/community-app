@@ -17,9 +17,7 @@ import Preferences from './Preferences';
 
 export default function Settings(props) {
   const newProps = { ...props };
-  if (newProps.settingsTab === newProps.match.params.settingsTab) {
-    newProps.settingsTab = newProps.settingsTab;
-  } else {
+  if (newProps.settingsTab !== newProps.match.params.settingsTab) {
     newProps.settingsTab = newProps.match.params.settingsTab;
   }
 
