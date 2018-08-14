@@ -1,7 +1,9 @@
-@import "~styles/mixins";
+@import "../../../style";
 
 .container {
   width: 100%;
+  background-color: $tc-white;
+  padding: 0;
 
   &.active {
     margin-top: 20px;

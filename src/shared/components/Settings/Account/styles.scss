@@ -1,4 +1,4 @@
-@import "~styles/mixins";
+@import "../style";
 
 .account-container {
   display: flex;
@@ -8,11 +8,26 @@
   box-shadow: 0 2px 9px 0 rgba(38, 38, 40, 0.06);
 
   .col-bar {
-    width: 23%;
+    width: 250px;
     margin-right: 70px;
+
+    @include screen1025-to-screen1280 {
+      width: 200px;
+      margin-right: 10px;
+    }
+
+    @include md-to-lg {
+      width: 90px;
+      padding-right: 30px;
+      margin-right: 0;
+    }
+
+    @include xs-to-sm {
+      display: none;
+    }
   }
 
   .col-content {
-    width: 77%;
+    flex: 1;
   }
 }

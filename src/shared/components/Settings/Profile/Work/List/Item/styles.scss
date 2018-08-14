@@ -1,4 +1,4 @@
-@import "~styles/mixins";
+@import "../../../../style";
 
 .container {
   display: flex;
@@ -10,6 +10,7 @@
   padding: 20px;
   border: 1px solid $tc-gray-10;
   border-bottom: none;
+  background-color: $tc-white;
 }
 
 .work-info {
