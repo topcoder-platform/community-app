@@ -17,7 +17,7 @@ import Error404 from 'components/Error404';
 import LoadingIndicator from 'components/LoadingIndicator';
 import Settings from 'components/Settings';
 
-class SettingsContainer extends React.Component {
+class SettingsContainer extends React.PureComponent {
   componentDidMount() {
     this.loadPageData(this.props);
   }
@@ -146,28 +146,11 @@ function mapDispatchToProps(dispatch) {
   }) => {
     dispatch(profileActions.loadProfile(handle));
     if (settingsTab === TABS.PROFILE) {
-      dispatch(profileActions.getSkillsInit());
-      dispatch(profileActions.getCredentialInit());
-      dispatch(profileActions.getLinkedAccountsInit());
-      dispatch(profileActions.getExternalAccountsInit());
-      dispatch(profileActions.getExternalLinksInit());
-      dispatch(actions.lookup.getSkillTagsInit());
-      dispatch(actions.lookup.getSkillTagsDone());
-      dispatch(profileActions.getCredentialDone(profile, tokenV3));
-      dispatch(profileActions.getLinkedAccountsDone(profile, tokenV3));
-      dispatch(profileActions.getExternalAccountsDone(handle));
-      dispatch(profileActions.getExternalLinksDone(handle));
       dispatch(profileActions.getSkillsDone(handle));
     } else if (settingsTab === TABS.PREFERENCES) {
-      dispatch(profileActions.getEmailPreferencesInit());
       dispatch(profileActions.getEmailPreferencesDone(profile, tokenV3));
     } else if (settingsTab === TABS.ACCOUNT) {
-      dispatch(profileActions.getCredentialInit());
-      dispatch(profileActions.getLinkedAccountsInit());
-      dispatch(profileActions.getExternalAccountsInit());
-      dispatch(profileActions.getExternalLinksInit());
       dispatch(profileActions.getLinkedAccountsDone(profile, tokenV3));
-      dispatch(profileActions.getExternalAccountsDone(handle));
       dispatch(profileActions.getExternalLinksDone(handle));
       dispatch(profileActions.getCredentialDone(profile, tokenV3));
     }
