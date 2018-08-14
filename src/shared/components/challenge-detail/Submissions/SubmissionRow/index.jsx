@@ -45,7 +45,9 @@ export default function SubmissionRow({
             {(!finalScore && finalScore !== 0) ? '-' : finalScore.toFixed(2)}
           </div>
           <div styleName="col">
-            {(!initialScore && finalScore !== 0) ? '-' : finalScore.toFixed(2)}
+            {
+              (!initialScore && initialScore !== 0) ? '-' : initialScore.toFixed(2)
+            }
           </div>
         </div>
         <div styleName="col-4 col">
