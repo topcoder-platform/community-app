@@ -187,9 +187,6 @@ BEEP. BEEP. HELLO!
                   <p>
 Seems like this member doesn’t have much information to share yet.
                   </p>
-                  <PrimaryButton theme={style} to={`${config.URL.BASE}/community/members`}>
-VIEW OTHER MEMBERS
-                  </PrimaryButton>
                 </div>
                 )
               }
