@@ -26,7 +26,6 @@ const TRACK_LABELS = {
 };
 
 class ProfileHeader extends React.Component {
-
   constructor(props) {
     super(props);
     const {
