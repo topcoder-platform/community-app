@@ -11,6 +11,7 @@ export default class HistoryGraph extends React.Component {
   constructor(props) {
     super(props);
     this.state = {};
+    this.mobileWidth = 0;
     this.graphRef = React.createRef();
   }
 
@@ -19,7 +20,9 @@ export default class HistoryGraph extends React.Component {
     $scope.desktop = window.innerWidth >= 900;
     this.draw();
     this.resizeHandle = () => {
-      if (window.innerWidth < 900 && $scope.desktop) {
+      if (window.innerWidth < 900
+        && ($scope.desktop
+        || (this.mobileWidth !== HistoryGraph.getMobileWidthGrapthMeasurements()))) {
         $scope.desktop = false;
         this.draw();
       } else if (window.innerWidth >= 900 && !$scope.desktop) {
@@ -44,6 +47,13 @@ export default class HistoryGraph extends React.Component {
     this.setState({ show: false, href: '' });
     window.removeEventListener('resize', this.resizeHandle);
     document.body.removeEventListener('click', this.bodyClickHandle);
+  }
+
+  static getMobileWidthGrapthMeasurements() {
+    if (window.innerWidth < 400) {
+      return 200;
+    }
+    return 300;
   }
 
   draw() {
@@ -80,7 +90,7 @@ export default class HistoryGraph extends React.Component {
     };
 
     const mobileMeasurements = {
-      w: 300,
+      w: 0,
       h: 200,
       padding: {
         top: 10,
@@ -91,7 +101,12 @@ export default class HistoryGraph extends React.Component {
     };
 
     d3.select($scope.graphRef.current).select('svg').remove();
-    const { w, h, padding } = $scope.desktop ? desktopMeasurements : mobileMeasurements;
+    let { w } = $scope.desktop ? desktopMeasurements : mobileMeasurements;
+    const { h, padding } = $scope.desktop ? desktopMeasurements : mobileMeasurements;
+    if (!$scope.desktop) {
+      w = HistoryGraph.getMobileWidthGrapthMeasurements();
+      this.mobileWidth = w;
+    }
     const totalH = h + padding.top + padding.bottom;
 
     const x = d3.time.scale()
