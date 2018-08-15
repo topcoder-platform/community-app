@@ -28,6 +28,22 @@
     }
   }
 
+  .error-message {
+    display: none;
+  
+    &.active {
+      @include roboto-medium;
+  
+      display: block;
+      border-radius: 5px;
+      background-color: $tc-red-10;
+      color: $tc-red-110;
+      font-size: 15px;
+      padding: 15px;
+      margin-bottom: 15px;
+    }
+  }
+
   .form-container {
     flex: 1;
     display: flex;
@@ -82,6 +98,11 @@
           font-weight: 500;
           color: $tc-gray-80;
           margin-bottom: 5px;
+          .text-required {  
+            font-size: 10px;
+            color: $tc-red-110;
+            margin-left: 5px;
+          }
         }
       }
     }
