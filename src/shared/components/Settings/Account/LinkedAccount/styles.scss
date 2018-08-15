@@ -12,6 +12,7 @@
     form {
       display: flex;
       flex-direction: column;
+      min-height: 60px;
 
       label {
         @include roboto-medium;
