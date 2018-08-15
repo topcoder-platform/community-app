@@ -116,6 +116,7 @@ function mapDispatchToProps(dispatch) {
   const a = actions.profile;
   return {
     loadProfile: (handle) => {
+      dispatch(a.clearProfile());
       dispatch(a.loadProfile(handle));
       dispatch(a.getAchievementsInit());
       dispatch(a.getExternalAccountsInit());
