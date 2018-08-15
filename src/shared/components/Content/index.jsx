@@ -250,10 +250,14 @@ Member Programs Page
           </code>
           {' '}
 endpoint.
-          Valid link on dev
-          {' '}
+          Valid links on dev:
+          <br />
           <Link to="/members/TonyJ">
-here.
+Profile 1.
+          </Link>
+          <br />
+          <Link to="/members/mess">
+Profile 2.
           </Link>
         </li>
         <li>
