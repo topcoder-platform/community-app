@@ -263,13 +263,20 @@ exports[`Matches shallow shapshot 1`] = `
         /members/:handle
       </code>
        
-      endpoint. Valid link on dev
-       
+      endpoint. Valid links on dev:
+      <br />
       <Link
         replace={false}
         to="/members/TonyJ"
       >
-        here.
+        Profile 1.
+      </Link>
+      <br />
+      <Link
+        replace={false}
+        to="/members/mess"
+      >
+        Profile 2.
       </Link>
     </li>
     <li>
