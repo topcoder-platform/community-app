@@ -148,6 +148,11 @@
     margin-top: 6px;
   }
 
+  textarea {
+    resize: vertical;
+    max-width: 100%;
+  }
+
   @include xs-to-sm {
     border: 0;
     border-radius: 0;
