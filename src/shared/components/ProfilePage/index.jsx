@@ -9,7 +9,6 @@ import PT from 'prop-types';
 import { PrimaryButton } from 'topcoder-react-ui-kit';
 import Sticky from 'react-stickynode';
 
-import { config } from 'topcoder-react-utils';
 import Robot from 'assets/images/robot-happy.svg';
 
 import BadgesModal from './BadgesModal';
