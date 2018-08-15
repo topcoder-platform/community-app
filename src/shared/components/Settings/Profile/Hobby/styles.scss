@@ -1,14 +1,13 @@
 @import "../../style";
 
-.devices-container {
+.hide {
+  display: none;
+}
+
+.hobby-container {
   display: flex;
   flex-direction: column;
   align-items: left;
-  padding-bottom: 80px;
-
-  @include xs-to-sm {
-    padding-bottom: 0;
-  }
 
   h1 {
     @include roboto-regular;
@@ -46,13 +45,8 @@
   flex-direction: column;
   border-radius: 6px;
   border: 1px solid $tc-gray-10;
-  padding: 20px;
+  padding: 20px 20px 20px 20px;
   background-color: $tc-gray-neutral-light;
-
-  @include xs-to-sm {
-    border: 0;
-    border-radius: 0;
-  }
 
   p {
     @include roboto-regular;
@@ -61,6 +55,7 @@
     line-height: 30px;
     font-weight: 400;
     color: $tc-black;
+    margin-bottom: 10px;
 
     @include xs-to-sm {
       margin-bottom: 20px;
@@ -70,12 +65,11 @@
   .row {
     display: flex;
     flex-direction: row;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
     align-content: space-between;
-    align-items: center;
-    width: 100%;
 
     @include xs-to-sm {
+      width: 100%;
       display: block;
       margin-bottom: 0;
     }
@@ -84,7 +78,6 @@
       display: flex;
       flex-direction: column;
       margin-right: 10px;
-      align-content: space-between;
 
       @include xs-to-sm {
         display: block;
@@ -98,23 +91,41 @@
         line-height: 15px;
         font-weight: 500;
         color: $tc-gray-80;
-        margin-bottom: 5px;
       }
 
-      &.col-1 {
-        width: 35%;
+      &.row-1 {
+        width: 280px;
+
+        @include md-to-lg {
+          width: 383px;
+        }
 
         @include xs-to-sm {
           width: 100%;
         }
       }
 
-      &.col-2 {
-        width: 50%;
+      &.row-2 {
+        width: 100%;
+      }
 
-        @include xs-to-sm {
-          width: 100%;
-        }
+      .description-label {
+        display: flex;
+        justify-content: space-between;
+      }
+
+      .description-text {
+        height: 70px;
+        border-radius: 4px;
+        margin-top: 6px;
+        margin-bottom: 10px;
+      }
+
+      .description-counts {
+        @include roboto-medium;
+
+        font-size: 11px;
+        color: $tc-dark-blue-110;
       }
     }
 
@@ -126,6 +137,7 @@
   input {
     @include roboto-regular;
 
+    height: 36px;
     margin: 0;
     font-size: 15px;
     line-height: 20px;
@@ -133,19 +145,17 @@
     color: $tc-black;
     border: 1px solid $tc-gray-20;
     border-radius: $corner-radius * 2 $corner-radius * 2 $corner-radius * 2 $corner-radius * 2;
+    margin-top: 6px;
+  }
 
-    @include xs-to-sm {
-      margin-top: 5px;
-    }
+  @include xs-to-sm {
+    border: 0;
+    border-radius: 0;
   }
 }
 
 .button-save {
   align-self: center;
-
-  @include xs-to-sm {
-    margin-top: 10px;
-  }
 
   button,
   a {
@@ -154,7 +164,6 @@
     height: 40px;
     font-size: 15px;
     font-weight: 500;
-    line-height: 40px;
     margin: 0;
     padding: 0;
     width: 156px;
@@ -163,45 +172,4 @@
   .complete {
     color: $tc-white;
   }
-}
-
-/*
- * React Select component styling
- */
-.devices-container .form-container .row .field :global .Select,
-.devices-container .form-container .row .field :global .Select-value span,
-.devices-container .form-container .row .field :global .Select-menu-outer,
-.devices-container .form-container .row .field :global .Select-placeholder,
-.devices-container .form-container .row .field :global .Select-input input {
-  color: $tc-gray-80;
-  font-size: 15px;
-
-  @include xs-to-sm {
-    margin-top: 5px;
-  }
-}
-
-.devices-container div[class="Select-control"] {
-  height: 40px;
-
-  div[class="Select-input"] {
-    height: 38px;
-  }
-
-  div[class="Select-placeholder"] {
-    height: 38px;
-    line-height: 40px !important;
-
-    @include xs-to-sm {
-      line-height: 27px !important;
-    }
-  }
-
-  div[class="Select-value"] {
-    line-height: 40px !important;
-  }
-}
-
-.devices-container .form-container .row .field :global .Select-placeholder {
-  color: $tc-gray-50;
 }

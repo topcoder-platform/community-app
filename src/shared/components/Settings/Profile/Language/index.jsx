@@ -8,7 +8,7 @@
 import React from 'react';
 import PT from 'prop-types';
 import _ from 'lodash';
-
+import UserConsentModal from 'components/Settings/UserConsentModal';
 import Select from 'components/Select';
 import { PrimaryButton } from 'topcoder-react-ui-kit';
 import dropdowns from './dropdowns.json';
@@ -25,11 +25,15 @@ export default class Language extends React.Component {
     this.loadLanguageTrait = this.loadLanguageTrait.bind(this);
     this.onAddLanguage = this.onAddLanguage.bind(this);
     this.onUpdateInput = this.onUpdateInput.bind(this);
+    this.onShowUserConsent = this.onShowUserConsent.bind(this);
+    this.loadPersonalizationTrait = this.loadPersonalizationTrait.bind(this);
 
     this.state = {
       formInvalid: false,
+      showUserConsent: false,
       errorMessage: '',
       languageTrait: this.loadLanguageTrait(props.userTraits),
+      personalizationTrait: this.loadPersonalizationTrait(props.userTraits),
       newLanguage: {
         language: '',
         spokenLevel: '',
@@ -40,8 +44,10 @@ export default class Language extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     const languageTrait = this.loadLanguageTrait(nextProps.userTraits);
+    const personalizationTrait = this.loadPersonalizationTrait(nextProps.userTraits);
     this.setState({
       languageTrait,
+      personalizationTrait,
       formInvalid: false,
       errorMessage: '',
       newLanguage: {
@@ -50,6 +56,19 @@ export default class Language extends React.Component {
         writtenLevel: '',
       },
     });
+  }
+
+  /**
+   * Show User Consent Modal
+   * @param e event
+   */
+  onShowUserConsent(e) {
+    e.preventDefault();
+    const { newLanguage } = this.state;
+    if (this.onCheckFormValue(newLanguage)) {
+      return;
+    }
+    this.setState({ showUserConsent: true });
   }
 
   /**
@@ -93,12 +112,14 @@ export default class Language extends React.Component {
     }
 
     const { languageTrait } = this.state;
-    const result = _.filter(languageTrait.traits.data, item => (
-      item.language.toLowerCase() === newLanguage.language.toLowerCase()
-    ));
-    if (result && result.length > 0) {
-      invalid = true;
-      errorMessage += errorMessage.length > 0 ? `. Language ${newLanguage.language} has been already added.` : `Language ${newLanguage.language} has been already added.`;
+    if (!_.isEmpty(languageTrait)) {
+      const result = _.filter(languageTrait.traits.data, item => (
+        item.language.toLowerCase() === newLanguage.language.toLowerCase()
+      ));
+      if (result && result.length > 0) {
+        invalid = true;
+        errorMessage += errorMessage.length > 0 ? `. Language ${newLanguage.language} has been already added.` : `Language ${newLanguage.language} has been already added.`;
+      }
     }
 
     this.setState({ errorMessage, formInvalid: invalid });
@@ -134,13 +155,13 @@ export default class Language extends React.Component {
   /**
    * Add new language
    * @param e form submit event
+   * @param answer user consent answer value
    */
-  onAddLanguage(e) {
+  onAddLanguage(e, answer) {
     e.preventDefault();
-    const { newLanguage } = this.state;
-    if (this.onCheckFormValue(newLanguage)) {
-      return;
-    }
+    this.setState({ showUserConsent: false });
+    const { newLanguage, personalizationTrait } = this.state;
+
     const {
       handle,
       tokenV3,
@@ -168,6 +189,17 @@ export default class Language extends React.Component {
       writtenLevel: '',
     };
     this.setState({ newLanguage: empty });
+    // save personalization
+    if (_.isEmpty(personalizationTrait)) {
+      const personalizationData = { userConsent: answer };
+      addUserTrait(handle, 'personalization', [personalizationData], tokenV3);
+    } else {
+      const trait = personalizationTrait.traits.data[0];
+      if (trait.userConsent !== answer) {
+        const personalizationData = { userConsent: answer };
+        updateUserTrait(handle, 'personalization', [personalizationData], tokenV3);
+      }
+    }
   }
 
   /**
@@ -193,12 +225,23 @@ export default class Language extends React.Component {
     return _.assign({}, languages);
   }
 
+  /**
+   * Get personalization trait
+   * @param userTraits the all user traits
+   */
+  loadPersonalizationTrait = (userTraits) => {
+    const trait = userTraits.filter(t => t.traitId === 'personalization');
+    const personalization = trait.length === 0 ? {} : trait[0];
+    return _.assign({}, personalization);
+  };
+
   render() {
     const {
       settingsUI,
     } = this.props;
     const {
       languageTrait,
+      showUserConsent,
     } = this.state;
     const tabs = settingsUI.TABS.PROFILE;
     const currentTab = settingsUI.currentProfileTab;
@@ -209,6 +252,9 @@ export default class Language extends React.Component {
 
     return (
       <div styleName={containerStyle}>
+        {
+          showUserConsent && (<UserConsentModal onSaveTrait={this.onAddLanguage} />)
+        }
         <div styleName="language-container">
           <div styleName={`error-message ${formInvalid ? 'active' : ''}`}>
             { errorMessage }
@@ -265,7 +311,7 @@ export default class Language extends React.Component {
             <div styleName="button-save">
               <PrimaryButton
                 styleName="complete"
-                onClick={this.onAddLanguage}
+                onClick={this.onShowUserConsent}
               >
                 Add Language
               </PrimaryButton>

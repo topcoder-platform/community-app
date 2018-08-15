@@ -8,7 +8,7 @@
 import React from 'react';
 import PT from 'prop-types';
 import _ from 'lodash';
-
+import UserConsentModal from 'components/Settings/UserConsentModal';
 import { PrimaryButton } from 'topcoder-react-ui-kit';
 import WorkList from './List';
 
@@ -22,11 +22,14 @@ export default class Work extends React.Component {
     this.loadWorkTrait = this.loadWorkTrait.bind(this);
     this.onUpdateInput = this.onUpdateInput.bind(this);
     this.onAddWork = this.onAddWork.bind(this);
-
+    this.onShowUserConsent = this.onShowUserConsent.bind(this);
+    this.loadPersonalizationTrait = this.loadPersonalizationTrait.bind(this);
     this.state = {
       formInvalid: false,
+      showUserConsent: false,
       errorMessage: '',
       workTrait: this.loadWorkTrait(props.userTraits),
+      personalizationTrait: this.loadPersonalizationTrait(props.userTraits),
       newWork: {
         company: '',
         position: '',
@@ -40,8 +43,10 @@ export default class Work extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     const workTrait = this.loadWorkTrait(nextProps.userTraits);
+    const personalizationTrait = this.loadPersonalizationTrait(nextProps.userTraits);
     this.setState({
       workTrait,
+      personalizationTrait,
       formInvalid: false,
       errorMessage: '',
       newWork: {
@@ -55,6 +60,18 @@ export default class Work extends React.Component {
     });
   }
 
+  /**
+   * Show User Consent Modal
+   * @param e event
+   */
+  onShowUserConsent(e) {
+    e.preventDefault();
+    const { newWork } = this.state;
+    if (this.onCheckFormValue(newWork)) {
+      return;
+    }
+    this.setState({ showUserConsent: true });
+  }
 
   /**
    * Check form fields value,
@@ -161,15 +178,12 @@ export default class Work extends React.Component {
   /**
    * Add new work
    * @param e form submit event
+   * @param answer user consent answer value
    */
-  onAddWork(e) {
+  onAddWork(e, answer) {
     e.preventDefault();
-
-    const { newWork } = this.state;
-
-    if (this.onCheckFormValue(newWork)) {
-      return;
-    }
+    this.setState({ showUserConsent: false });
+    const { newWork, personalizationTrait } = this.state;
 
     const {
       handle,
@@ -197,6 +211,17 @@ export default class Work extends React.Component {
       this.setState({ workTrait: { traits } });
       addUserTrait(handle, 'work', newWorks, tokenV3);
     }
+    // save personalization
+    if (_.isEmpty(personalizationTrait)) {
+      const personalizationData = { userConsent: answer };
+      addUserTrait(handle, 'personalization', [personalizationData], tokenV3);
+    } else {
+      const trait = personalizationTrait.traits.data[0];
+      if (trait.userConsent !== answer) {
+        const personalizationData = { userConsent: answer };
+        updateUserTrait(handle, 'personalization', [personalizationData], tokenV3);
+      }
+    }
   }
 
   /**
@@ -220,12 +245,23 @@ export default class Work extends React.Component {
     return _.assign({}, works);
   }
 
+  /**
+   * Get personalization trait
+   * @param userTraits the all user traits
+   */
+  loadPersonalizationTrait = (userTraits) => {
+    const trait = userTraits.filter(t => t.traitId === 'personalization');
+    const personalization = trait.length === 0 ? {} : trait[0];
+    return _.assign({}, personalization);
+  }
+
   render() {
     const {
       settingsUI,
     } = this.props;
     const {
       workTrait,
+      showUserConsent,
     } = this.state;
     const tabs = settingsUI.TABS.PROFILE;
     const currentTab = settingsUI.currentProfileTab;
@@ -236,6 +272,9 @@ export default class Work extends React.Component {
 
     return (
       <div styleName={containerStyle}>
+        {
+          showUserConsent && (<UserConsentModal onSaveTrait={this.onAddWork} />)
+        }
         <div styleName="work-container">
           <div styleName={`error-message ${formInvalid ? 'active' : ''}`}>
             { errorMessage }
@@ -294,7 +333,7 @@ export default class Work extends React.Component {
             <div styleName="button-save">
               <PrimaryButton
                 styleName="complete"
-                onClick={this.onAddWork}
+                onClick={this.onShowUserConsent}
               >
                 Add Workplace
               </PrimaryButton>

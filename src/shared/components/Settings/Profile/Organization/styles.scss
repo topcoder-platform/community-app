@@ -1,14 +1,13 @@
 @import "../../style";
 
-.devices-container {
+.hide {
+  display: none;
+}
+
+.organization-container {
   display: flex;
   flex-direction: column;
   align-items: left;
-  padding-bottom: 80px;
-
-  @include xs-to-sm {
-    padding-bottom: 0;
-  }
 
   h1 {
     @include roboto-regular;
@@ -46,7 +45,7 @@
   flex-direction: column;
   border-radius: 6px;
   border: 1px solid $tc-gray-10;
-  padding: 20px;
+  padding: 20px 20px 20px 20px;
   background-color: $tc-gray-neutral-light;
 
   @include xs-to-sm {
@@ -72,19 +71,21 @@
     flex-direction: row;
     margin-bottom: 20px;
     align-content: space-between;
-    align-items: center;
-    width: 100%;
 
     @include xs-to-sm {
+      width: 100%;
       display: block;
       margin-bottom: 0;
+    }
+
+    div:last-child {
+      margin-right: 0;
     }
 
     .field {
       display: flex;
       flex-direction: column;
       margin-right: 10px;
-      align-content: space-between;
 
       @include xs-to-sm {
         display: block;
@@ -101,8 +102,17 @@
         margin-bottom: 5px;
       }
 
+      .date-input {
+        display: flex;
+        align-items: center;
+      }
+
       &.col-1 {
-        width: 35%;
+        width: 60%;
+
+        @include xs-to-lg {
+          width: 73%;
+        }
 
         @include xs-to-sm {
           width: 100%;
@@ -110,22 +120,47 @@
       }
 
       &.col-2 {
-        width: 50%;
+        width: 40%;
+
+        @include xs-to-lg {
+          width: 27%;
+        }
+
+        @include xs-to-sm {
+          width: 100%;
+        }
+      }
+
+      &.city {
+        width: 131px;
+
+        @include xs-to-lg {
+          width: 44%;
+        }
+
+        @include xs-to-sm {
+          width: 100%;
+        }
+      }
+
+      &.date {
+        width: 160px;
+
+        @include xs-to-lg {
+          width: 27%;
+        }
 
         @include xs-to-sm {
           width: 100%;
         }
       }
     }
-
-    div.field:last-child {
-      margin-right: 0;
-    }
   }
 
   input {
     @include roboto-regular;
 
+    height: 36px;
     margin: 0;
     font-size: 15px;
     line-height: 20px;
@@ -138,6 +173,10 @@
       margin-top: 5px;
     }
   }
+
+  div.field:last-child {
+    margin-right: 0;
+  }
 }
 
 .button-save {
@@ -147,32 +186,30 @@
     margin-top: 10px;
   }
 
-  button,
-  a {
-    @include roboto-medium;
-
-    height: 40px;
-    font-size: 15px;
-    font-weight: 500;
-    line-height: 40px;
-    margin: 0;
-    padding: 0;
-    width: 156px;
-  }
-
   .complete {
     color: $tc-white;
+
+    button {
+      @include roboto-medium;
+
+      height: 40px;
+      font-size: 15px;
+      font-weight: 500;
+      margin: 0;
+      padding: 0 0;
+      width: 156px;
+    }
   }
 }
 
 /*
  * React Select component styling
  */
-.devices-container .form-container .row .field :global .Select,
-.devices-container .form-container .row .field :global .Select-value span,
-.devices-container .form-container .row .field :global .Select-menu-outer,
-.devices-container .form-container .row .field :global .Select-placeholder,
-.devices-container .form-container .row .field :global .Select-input input {
+.organization-container .form-container .row .field :global .Select,
+.organization-container .form-container .row .field :global .Select-value span,
+.organization-container .form-container .row .field :global .Select-menu-outer,
+.organization-container .form-container .row .field :global .Select-placeholder,
+.organization-container .form-container .row .field :global .Select-input input {
   color: $tc-gray-80;
   font-size: 15px;
 
@@ -181,27 +218,6 @@
   }
 }
 
-.devices-container div[class="Select-control"] {
-  height: 40px;
-
-  div[class="Select-input"] {
-    height: 38px;
-  }
-
-  div[class="Select-placeholder"] {
-    height: 38px;
-    line-height: 40px !important;
-
-    @include xs-to-sm {
-      line-height: 27px !important;
-    }
-  }
-
-  div[class="Select-value"] {
-    line-height: 40px !important;
-  }
-}
-
-.devices-container .form-container .row .field :global .Select-placeholder {
+.organization-container .form-container .row .field :global .Select-placeholder {
   color: $tc-gray-50;
 }

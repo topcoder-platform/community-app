@@ -8,7 +8,7 @@
 import _ from 'lodash';
 import React from 'react';
 import PT from 'prop-types';
-
+import UserConsentModal from 'components/Settings/UserConsentModal';
 import Select from 'components/Select';
 import { PrimaryButton } from 'topcoder-react-ui-kit';
 import dropdowns from './dropdowns.json';
@@ -24,10 +24,14 @@ export default class Devices extends React.Component {
     this.loadDeviceTrait = this.loadDeviceTrait.bind(this);
     this.onUpdateInput = this.onUpdateInput.bind(this);
     this.onAddDevice = this.onAddDevice.bind(this);
+    this.loadPersonalizationTrait = this.loadPersonalizationTrait.bind(this);
+    this.onShowUserConsent = this.onShowUserConsent.bind(this);
 
     this.state = {
       formInvalid: false,
+      showUserConsent: false,
       deviceTrait: this.loadDeviceTrait(props.userTraits),
+      personalizationTrait: this.loadPersonalizationTrait(props.userTraits),
       newDevice: {
         deviceType: '',
         manufacturer: '',
@@ -42,8 +46,10 @@ export default class Devices extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     const deviceTrait = this.loadDeviceTrait(nextProps.userTraits);
+    const personalizationTrait = this.loadPersonalizationTrait(nextProps.userTraits);
     this.setState({
       deviceTrait,
+      personalizationTrait,
       formInvalid: false,
       errorMessage: '',
       newDevice: {
@@ -55,6 +61,19 @@ export default class Devices extends React.Component {
         osLanguage: '',
       },
     });
+  }
+
+  /**
+   * Show User Consent Modal
+   * @param e event
+   */
+  onShowUserConsent(e) {
+    e.preventDefault();
+    const { newDevice } = this.state;
+    if (this.onCheckFormValue(newDevice)) {
+      return;
+    }
+    this.setState({ showUserConsent: true });
   }
 
   /**
@@ -86,13 +105,12 @@ export default class Devices extends React.Component {
   /**
    * Add new device
    * @param e form submit event
+   * @param answer user consent answer value
    */
-  onAddDevice(e) {
+  onAddDevice(e, answer) {
     e.preventDefault();
-    const { newDevice } = this.state;
-    if (this.onCheckFormValue(newDevice)) {
-      return;
-    }
+    this.setState({ showUserConsent: false });
+    const { newDevice, personalizationTrait } = this.state;
 
     const {
       handle,
@@ -126,6 +144,17 @@ export default class Devices extends React.Component {
       osLanguage: '',
     };
     this.setState({ newDevice: empty });
+    // save personalization
+    if (_.isEmpty(personalizationTrait)) {
+      const personalizationData = { userConsent: answer };
+      addUserTrait(handle, 'personalization', [personalizationData], tokenV3);
+    } else {
+      const trait = personalizationTrait.traits.data[0];
+      if (trait.userConsent !== answer) {
+        const personalizationData = { userConsent: answer };
+        updateUserTrait(handle, 'personalization', [personalizationData], tokenV3);
+      }
+    }
   }
 
   /**
@@ -209,14 +238,27 @@ export default class Devices extends React.Component {
     return _.assign({}, devices);
   }
 
+  /**
+   * Get personalization trait
+   * @param userTraits the all user traits
+   */
+  loadPersonalizationTrait = (userTraits) => {
+    const trait = userTraits.filter(t => t.traitId === 'personalization');
+    const personalization = trait.length === 0 ? {} : trait[0];
+    return _.assign({}, personalization);
+  }
+
   render() {
-    const { deviceTrait } = this.state;
+    const { deviceTrait, showUserConsent } = this.state;
     const deviceItems = deviceTrait.traits
       ? deviceTrait.traits.data.slice() : [];
     const { newDevice, formInvalid, errorMessage } = this.state;
 
     return (
       <div styleName="devices-container">
+        {
+          showUserConsent && (<UserConsentModal onSaveTrait={this.onAddDevice} />)
+        }
         <div styleName={`error-message ${formInvalid ? 'active' : ''}`}>
           {errorMessage}
         </div>
@@ -285,7 +327,7 @@ OS Language
           <div styleName="button-save">
             <PrimaryButton
               styleName="complete"
-              onClick={this.onAddDevice}
+              onClick={this.onShowUserConsent}
             >
               Add Device
             </PrimaryButton>

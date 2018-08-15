@@ -1,5 +1,14 @@
 @import "~styles/mixins";
 
+@mixin switch-transition {
+  transition: all 0.15s ease-in-out;
+}
+
+$switch-active-color: $tc-dark-blue-110;
+$switch-inactive-color: $tc-gray-20;
+$switch-width: 34px;
+$switch-height: 20px;
+
 .track-container {
   display: flex;
   flex-direction: row;
@@ -57,4 +66,17 @@
 .onoffswitch-no-padding-right {
   margin-right: 10px;
   margin-left: 30px;
+
+  @include switch-transition;
+
+  align-self: center;
+  background-color: $switch-inactive-color;
+  border-radius: $switch-height;
+  box-sizing: border-box;
+  height: $switch-height;
+  width: $switch-width;
+  position: relative;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
 }

@@ -8,7 +8,7 @@
 import React from 'react';
 import PT from 'prop-types';
 import _ from 'lodash';
-
+import UserConsentModal from 'components/Settings/UserConsentModal';
 import Select from 'components/Select';
 import { PrimaryButton } from 'topcoder-react-ui-kit';
 import dropdowns from './dropdowns.json';
@@ -25,11 +25,15 @@ export default class Education extends React.Component {
     this.loadEducationTrait = this.loadEducationTrait.bind(this);
     this.onUpdateInput = this.onUpdateInput.bind(this);
     this.onAddEducation = this.onAddEducation.bind(this);
+    this.onShowUserConsent = this.onShowUserConsent.bind(this);
+    this.loadPersonalizationTrait = this.loadPersonalizationTrait.bind(this);
 
     this.state = {
       formInvalid: false,
+      showUserConsent: false,
       errorMessage: '',
       educationTrait: this.loadEducationTrait(props.userTraits),
+      personalizationTrait: this.loadPersonalizationTrait(props.userTraits),
       newEducation: {
         type: '',
         schoolCollegeName: '',
@@ -43,8 +47,10 @@ export default class Education extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     const educationTrait = this.loadEducationTrait(nextProps.userTraits);
+    const personalizationTrait = this.loadPersonalizationTrait(nextProps.userTraits);
     this.setState({
       educationTrait,
+      personalizationTrait,
       formInvalid: false,
       errorMessage: '',
       newEducation: {
@@ -157,11 +163,12 @@ export default class Education extends React.Component {
   /**
    * Add new education
    * @param e form submit event
+   * @param answer user consent answer value
    */
-  onAddEducation(e) {
+  onAddEducation(e, answer) {
     e.preventDefault();
-
-    const { newEducation } = this.state;
+    this.setState({ showUserConsent: false });
+    const { newEducation, personalizationTrait } = this.state;
 
     if (this.onCheckFormValue(newEducation)) {
       return;
@@ -202,6 +209,17 @@ export default class Education extends React.Component {
       graduated: false,
     };
     this.setState({ newEducation: empty });
+    // save personalization
+    if (_.isEmpty(personalizationTrait)) {
+      const personalizationData = { userConsent: answer };
+      addUserTrait(handle, 'personalization', [personalizationData], tokenV3);
+    } else {
+      const trait = personalizationTrait.traits.data[0];
+      if (trait.userConsent !== answer) {
+        const personalizationData = { userConsent: answer };
+        updateUserTrait(handle, 'personalization', [personalizationData], tokenV3);
+      }
+    }
   }
 
   /**
@@ -229,6 +247,19 @@ export default class Education extends React.Component {
   }
 
   /**
+   * Show User Consent Modal
+   * @param e event
+   */
+  onShowUserConsent(e) {
+    e.preventDefault();
+    const { newEducation } = this.state;
+    if (this.onCheckFormValue(newEducation)) {
+      return;
+    }
+    this.setState({ showUserConsent: true });
+  }
+
+  /**
    * Get education trait
    * @param userTraits the all user traits
    */
@@ -238,12 +269,23 @@ export default class Education extends React.Component {
     return _.assign({}, educations);
   }
 
+  /**
+   * Get personalization trait
+   * @param userTraits the all user traits
+   */
+  loadPersonalizationTrait = (userTraits) => {
+    const trait = userTraits.filter(t => t.traitId === 'personalization');
+    const personalization = trait.length === 0 ? {} : trait[0];
+    return _.assign({}, personalization);
+  }
+
   render() {
     const {
       settingsUI,
     } = this.props;
     const {
       educationTrait,
+      showUserConsent,
     } = this.state;
     const tabs = settingsUI.TABS.PROFILE;
     const currentTab = settingsUI.currentProfileTab;
@@ -255,6 +297,9 @@ export default class Education extends React.Component {
 
     return (
       <div styleName={containerStyle}>
+        {
+          showUserConsent && (<UserConsentModal onSaveTrait={this.onAddEducation} />)
+        }
         <div styleName="education-container">
           <div styleName={`error-message ${formInvalid ? 'active' : ''}`}>
             { errorMessage }
@@ -332,7 +377,7 @@ export default class Education extends React.Component {
             <div styleName="button-save">
               <PrimaryButton
                 styleName="complete"
-                onClick={this.onAddEducation}
+                onClick={this.onShowUserConsent}
               >
                 Add Education
               </PrimaryButton>

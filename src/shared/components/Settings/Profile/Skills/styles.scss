@@ -342,3 +342,49 @@
     background-color: #0681ff;
   }
 }
+
+/*
+ * React Select component styling
+ */
+.skill-container .form-container .row .field :global .Select,
+.skill-container .form-container .row .field :global .Select-value span,
+.skill-container.form-container .row .field :global .Select-menu-outer,
+.skill-container.form-container .row .field :global .Select-placeholder,
+.skill-container .form-container .row .field :global .Select-input input {
+  color: $tc-gray-80;
+  font-size: 15px;
+
+  @include xs-to-sm {
+    margin-top: 5px;
+  }
+}
+
+.skill-container div[class="Select-control"] {
+  height: 40px;
+
+  div[class="Select-input"] {
+    height: 38px;
+  }
+
+  div[class="Select-placeholder"] {
+    height: 38px;
+    line-height: 40px !important;
+
+    @include xs-to-sm {
+      line-height: 27px !important;
+    }
+  }
+
+  div[class="Select-value"] {
+    line-height: 40px !important;
+  }
+}
+
+.skill-container .form-container .row .field :global .Select-placeholder {
+  color: $tc-gray-50;
+
+  @include xs-to-sm {
+    margin-top: 5px;
+  }
+}
+
