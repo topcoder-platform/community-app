@@ -96,10 +96,9 @@ class ProfileStats extends React.Component {
                   </div>
                 </div>
                 <div styleName="badgeItem">
-                    <div styleName="dashboardBadge">
-                    </div>
+                  <div styleName="dashboardBadge" />
                 </div>
-                </div>
+              </div>
             </header>
           </div>
           <div>
