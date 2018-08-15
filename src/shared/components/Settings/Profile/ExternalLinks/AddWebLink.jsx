@@ -18,7 +18,7 @@ export default class AddWebLink extends React.Component {
     this.onUpdateWebLink = this.onUpdateWebLink.bind(this);
     this.onAddWebLink = this.onAddWebLink.bind(this);
     this.isWebLinkValid = this.isWebLinkValid.bind(this);
-    this.isWebLinkExist = this.isWebLinkExist.bind(this);
+    this.webLinkExists = this.webLinkExists.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -43,7 +43,7 @@ export default class AddWebLink extends React.Component {
       tokenV3,
     } = this.props;
     const { webLink } = this.state;
-    if (webLink && this.isWebLinkValid() && !this.isWebLinkExist()) {
+    if (webLink && this.isWebLinkValid() && !this.webLinkExists()) {
       addWebLink(handle, tokenV3, webLink);
     }
   }
@@ -53,7 +53,7 @@ export default class AddWebLink extends React.Component {
     return !webLink || /^(http(s?):\/\/)?(www\.)?[a-zA-Z0-9\.\-\_]+(\.[a-zA-Z]{2,15})+(\/[a-zA-Z0-9\_\-\s\.\/\?\%\#\&\=]*)?$/.test(webLink); /* eslint-disable-line no-useless-escape */
   }
 
-  isWebLinkExist() {
+  webLinkExists() {
     const { webLink } = this.state;
     const {
       allLinks,
@@ -70,7 +70,7 @@ export default class AddWebLink extends React.Component {
     const { webLink } = this.state;
 
     const webLinkValid = this.isWebLinkValid();
-    const isWebLinkExist = this.isWebLinkExist();
+    const webLinkExists = this.webLinkExists();
     return (
       <div styleName="external-web-link">
         <div styleName="web-link">
@@ -78,7 +78,7 @@ export default class AddWebLink extends React.Component {
             <div styleName={webLinkValid ? 'validation-bar url' : 'validation-bar url error-bar'}>
               <input id="web-link-input" name="url" type="text" styleName="url" value={webLink} onChange={this.onUpdateWebLink} placeholder="http://www.yourlink.com" required />
               {
-                !webLinkValid && !isWebLinkExist
+                !webLinkValid && !webLinkExists
                 && (
                   <div styleName="form-input-error">
                     <p>
@@ -88,11 +88,11 @@ Please enter a valid URL
                 )
               }
               {
-                isWebLinkExist
+                webLinkExists
                 && (
                   <div styleName="form-input-error">
                     <p>
-                      {`You've already added link ${webLink}`}
+                      {`The URL ${webLink} already exists`}
                     </p>
                   </div>
                 )

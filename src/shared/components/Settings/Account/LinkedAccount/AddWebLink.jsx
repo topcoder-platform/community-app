@@ -108,7 +108,7 @@ Please enter a valid URL
                 && (
                   <div styleName="form-input-error">
                     <p>
-                      {`You've already added link ${webLink}`}
+                      {`The URL ${webLink} already exists`}
                     </p>
                   </div>
                 )
