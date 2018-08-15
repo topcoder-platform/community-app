@@ -106,7 +106,7 @@
       }
 
       &.row-2 {
-        width: 100%;
+        min-width: 100%;
       }
 
       .description-label {
@@ -150,7 +150,7 @@
 
   textarea {
     resize: vertical;
-    max-width: 100%;
+    min-width: 100%;
   }
 
   @include xs-to-sm {
