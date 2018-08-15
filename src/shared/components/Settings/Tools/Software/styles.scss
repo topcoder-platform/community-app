@@ -183,6 +183,27 @@
   }
 }
 
+.software-container div[class="Select-control"] {
+  height: 40px;
+
+  div[class="Select-input"] {
+    height: 38px;
+  }
+
+  div[class="Select-placeholder"] {
+    height: 38px;
+    line-height: 40px !important;
+
+    @include xs-to-sm {
+      line-height: 27px !important;
+    }
+  }
+
+  div[class="Select-value"] {
+    line-height: 40px !important;
+  }
+}
+
 .software-container .form-container .row .field :global .Select-placeholder {
   color: $tc-gray-50;
 }

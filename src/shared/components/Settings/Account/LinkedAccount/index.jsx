@@ -154,6 +154,7 @@ export default function LinkedAccount(props) {
         </h1>
         <AddWebLink
           {...props}
+          allLinks={allLinks}
         />
         <LinkAccounts
           {...props}

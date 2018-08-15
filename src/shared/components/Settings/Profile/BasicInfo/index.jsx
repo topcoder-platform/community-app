@@ -12,7 +12,7 @@ import moment from 'moment';
 
 import { PrimaryButton } from 'topcoder-react-ui-kit';
 import { getAllCountryObjects } from 'utils/countries';
-
+import UserConsentModal from 'components/Settings/UserConsentModal';
 import Select from 'components/Select';
 import ImageInput from '../ImageInput';
 import Track from './Track';
@@ -35,13 +35,16 @@ export default class BasicInfo extends React.Component {
     this.onSaveBasicInfo = this.onSaveBasicInfo.bind(this);
     this.onChange = this.onChange.bind(this);
     this.onCheckFormValue = this.onCheckFormValue.bind(this);
+    this.onShowUserConsent = this.onShowUserConsent.bind(this);
 
     this.state = {
+      showUserConsent: false,
       savingBasicInfo: false,
       inputChanged: false,
       formInvalid: false,
       errorMessage: '',
       basicInfoTrait: this.loadBasicInfoTraits(props.userTraits),
+      personalizationTrait: this.loadPersonalizationTrait(props.userTraits),
       newBasicInfo: {
         handle: '',
         firstName: '',
@@ -84,9 +87,11 @@ export default class BasicInfo extends React.Component {
   componentWillReceiveProps(nextProps) {
     const basicInfoTrait = this.loadBasicInfoTraits(nextProps.userTraits);
     const basicInfo = basicInfoTrait.traits ? basicInfoTrait.traits.data[0] : {};
+    const personalizationTrait = this.loadPersonalizationTrait(nextProps.userTraits);
     this.processBasicInfo(basicInfo);
     this.setState({
       basicInfoTrait,
+      personalizationTrait,
       savingBasicInfo: false,
       inputChanged: false,
     });
@@ -152,16 +157,29 @@ export default class BasicInfo extends React.Component {
   }
 
   /**
-   * Save Basic Info
+   * Show User Consent Modal
+   * @param {*} e event
    */
-  onSaveBasicInfo(e) {
+  onShowUserConsent(e) {
     e.preventDefault();
-    const { newBasicInfo, basicInfoTrait } = this.state;
+    const { newBasicInfo} = this.state;
     if (this.onCheckFormValue(newBasicInfo)) {
       return;
     }
+    this.setState({ showUserConsent: true });
+  }
+
+  /**
+   * Save Basic Info
+   * @param e form submit event
+   * @param answer user consent answer value
+   */
+  onSaveBasicInfo(e, answer) {
+    e.preventDefault();
+    const { newBasicInfo, basicInfoTrait, personalizationTrait } = this.state;
     this.setState({
       savingBasicInfo: true,
+      showUserConsent: false,
     });
 
     const {
@@ -181,6 +199,18 @@ export default class BasicInfo extends React.Component {
       const data = [];
       data.push(newBasicInfo);
       addUserTrait(handle, 'basic_info', data, tokenV3);
+    }
+
+    // save personalization
+    if (_.isEmpty(personalizationTrait)) {
+      const personalizationData = { userConsent: answer };
+      addUserTrait(handle, 'personalization', [personalizationData], tokenV3);
+    } else {
+      const trait = personalizationTrait.traits.data[0];
+      if (trait.userConsent !== answer) {
+        const personalizationData = { userConsent: answer };
+        updateUserTrait(handle, 'personalization', [personalizationData], tokenV3);
+      }
     }
   }
 
@@ -245,6 +275,16 @@ export default class BasicInfo extends React.Component {
     const trait = userTraits.filter(t => t.traitId === 'basic_info');
     const basicInfo = trait.length === 0 ? {} : trait[0];
     return _.assign({}, basicInfo);
+  }
+
+  /**
+   * Get personalization trait
+   * @param userTraits the all user traits
+   */
+  loadPersonalizationTrait = (userTraits) => {
+    const trait = userTraits.filter(t => t.traitId === 'personalization');
+    const personalization = trait.length === 0 ? {} : trait[0];
+    return _.assign({}, personalization);
   }
 
   /**
@@ -388,11 +428,15 @@ export default class BasicInfo extends React.Component {
       savingBasicInfo,
       newBasicInfo,
       formInvalid,
-      errorMessage
+      errorMessage,
+      showUserConsent,
     } = this.state;
 
     return (
       <div styleName="basic-info-container">
+        {
+          showUserConsent && (<UserConsentModal onSaveTrait={this.onSaveBasicInfo} />)
+        }
         <div styleName="about-me-container">
           <div styleName="user-icon">
             <ImageInput
@@ -600,8 +644,8 @@ export default class BasicInfo extends React.Component {
         <div styleName="button-save">
           <PrimaryButton
             styleName="white-label"
-            onClick={this.onSaveBasicInfo}
             disabled={false}
+            onClick={this.onShowUserConsent}
           >
             {
               'Save Changes'

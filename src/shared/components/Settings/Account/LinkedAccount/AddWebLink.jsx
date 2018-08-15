@@ -3,6 +3,7 @@
  */
 /* eslint-disable jsx-a11y/label-has-for */
 import React from 'react';
+import _ from 'lodash';
 import PT from 'prop-types';
 
 import './styles.scss';
@@ -17,6 +18,7 @@ export default class AddWebLink extends React.Component {
     this.onUpdateWebLink = this.onUpdateWebLink.bind(this);
     this.onAddWebLink = this.onAddWebLink.bind(this);
     this.isWebLinkValid = this.isWebLinkValid.bind(this);
+    this.isWebLinkExist = this.isWebLinkExist.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -43,7 +45,7 @@ export default class AddWebLink extends React.Component {
         tokenV3,
       } = this.props;
       const { webLink } = this.state;
-      if (webLink && this.isWebLinkValid()) {
+      if (webLink && this.isWebLinkValid() && !this.isWebLinkExist()) {
         addWebLink(handle, tokenV3, webLink);
       }
     }
@@ -54,10 +56,19 @@ export default class AddWebLink extends React.Component {
     return !webLink || /^(http(s?):\/\/)?(www\.)?[a-zA-Z0-9\.\-\_]+(\.[a-zA-Z]{2,15})+(\/[a-zA-Z0-9\_\-\s\.\/\?\%\#\&\=]*)?$/.test(webLink); /* eslint-disable-line no-useless-escape */
   }
 
+  isWebLinkExist() {
+    const { webLink } = this.state;
+    const {
+      allLinks,
+    } = this.props;
+    return _.some(allLinks, link => link.URL.toLowerCase() === webLink.toLowerCase());
+  }
+
   render() {
     const { webLink } = this.state;
 
     const webLinkValid = this.isWebLinkValid();
+    const isWebLinkExist = this.isWebLinkExist();
 
     return (
       <div styleName="external-web-link">
@@ -83,11 +94,21 @@ export default class AddWebLink extends React.Component {
                 required
               />
               {
-                !webLinkValid
+                !webLinkValid && !isWebLinkExist
                 && (
                   <div styleName="form-input-error">
                     <p>
 Please enter a valid URL
+                    </p>
+                  </div>
+                )
+              }
+              {
+                isWebLinkExist
+                && (
+                  <div styleName="form-input-error">
+                    <p>
+                      {`The URL ${webLink} already exists`}
                     </p>
                   </div>
                 )
@@ -100,9 +121,14 @@ Please enter a valid URL
   }
 }
 
+AddWebLink.defaultProps = {
+  allLinks: [],
+};
+
 AddWebLink.propTypes = {
   handle: PT.string.isRequired,
   tokenV3: PT.string.isRequired,
   profileState: PT.shape().isRequired,
   addWebLink: PT.func.isRequired,
+  allLinks: PT.arrayOf(PT.shape),
 };

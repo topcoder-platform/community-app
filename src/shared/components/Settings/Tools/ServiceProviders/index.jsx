@@ -8,7 +8,7 @@
 import React from 'react';
 import PT from 'prop-types';
 import _ from 'lodash';
-
+import UserConsentModal from 'components/Settings/UserConsentModal';
 import Select from 'components/Select';
 import { PrimaryButton } from 'topcoder-react-ui-kit';
 import dropdowns from './dropdowns.json';
@@ -25,11 +25,15 @@ export default class ServiceProviders extends React.Component {
     this.loadServiceProviderTrait = this.loadServiceProviderTrait.bind(this);
     this.onUpdateInput = this.onUpdateInput.bind(this);
     this.onAddServiceProvider = this.onAddServiceProvider.bind(this);
+    this.loadPersonalizationTrait = this.loadPersonalizationTrait.bind(this);
+    this.onShowUserConsent = this.onShowUserConsent.bind(this);
 
     this.state = {
       formInvalid: false,
+      showUserConsent: false,
       errorMessage: '',
       serviceProviderTrait: this.loadServiceProviderTrait(props.userTraits),
+      personalizationTrait: this.loadPersonalizationTrait(props.userTraits),
       newServiceProvider: {
         serviceProviderType: '',
         name: '',
@@ -39,8 +43,10 @@ export default class ServiceProviders extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     const serviceProviderTrait = this.loadServiceProviderTrait(nextProps.userTraits);
+    const personalizationTrait = this.loadPersonalizationTrait(nextProps.userTraits);
     this.setState({
       serviceProviderTrait,
+      personalizationTrait,
       formInvalid: false,
       errorMessage: '',
       newServiceProvider: {
@@ -50,6 +56,18 @@ export default class ServiceProviders extends React.Component {
     });
   }
 
+  /**
+   * Show User Consent Modal
+   * @param e event
+   */
+  onShowUserConsent(e) {
+    e.preventDefault();
+    const { newServiceProvider } = this.state;
+    if (this.onCheckFormValue(newServiceProvider)) {
+      return;
+    }
+    this.setState({ showUserConsent: true });
+  }
 
   /**
    * Check form fields value,
@@ -107,13 +125,13 @@ export default class ServiceProviders extends React.Component {
   /**
    * Add new serviceProvider
    * @param e form submit event
+   * @param answer user consent answer value
    */
-  onAddServiceProvider(e) {
+  onAddServiceProvider(e, answer) {
     e.preventDefault();
-    const { newServiceProvider } = this.state;
-    if (this.onCheckFormValue(newServiceProvider)) {
-      return;
-    }
+    this.setState({ showUserConsent: false });
+    const { newServiceProvider, personalizationTrait } = this.state;
+
     const {
       handle,
       tokenV3,
@@ -140,7 +158,19 @@ export default class ServiceProviders extends React.Component {
       name: '',
     };
     this.setState({ newServiceProvider: empty });
+    // save personalization
+    if (_.isEmpty(personalizationTrait)) {
+      const personalizationData = { userConsent: answer };
+      addUserTrait(handle, 'personalization', [personalizationData], tokenV3);
+    } else {
+      const trait = personalizationTrait.traits.data[0];
+      if (trait.userConsent !== answer) {
+        const personalizationData = { userConsent: answer };
+        updateUserTrait(handle, 'personalization', [personalizationData], tokenV3);
+      }
+    }
   }
+
 
   /**
    * Update input value
@@ -176,14 +206,27 @@ export default class ServiceProviders extends React.Component {
     return _.assign({}, serviceProviders);
   }
 
+  /**
+   * Get personalization trait
+   * @param userTraits the all user traits
+   */
+  loadPersonalizationTrait = (userTraits) => {
+    const trait = userTraits.filter(t => t.traitId === 'personalization');
+    const personalization = trait.length === 0 ? {} : trait[0];
+    return _.assign({}, personalization);
+  }
+
   render() {
-    const { serviceProviderTrait } = this.state;
+    const { serviceProviderTrait, showUserConsent } = this.state;
     const serviceProviderItems = serviceProviderTrait.traits
       ? serviceProviderTrait.traits.data.slice() : [];
     const { newServiceProvider, formInvalid, errorMessage } = this.state;
 
     return (
       <div styleName="service-provider-container">
+        {
+          showUserConsent && (<UserConsentModal onSaveTrait={this.onAddServiceProvider} />)
+        }
         <div styleName={`error-message ${formInvalid ? 'active' : ''}`}>
           { errorMessage }
         </div>
@@ -224,7 +267,7 @@ Provider Name
           <div styleName="button-save">
             <PrimaryButton
               styleName="complete"
-              onClick={this.onAddServiceProvider}
+              onClick={this.onShowUserConsent}
             >
               Add Provider
             </PrimaryButton>
