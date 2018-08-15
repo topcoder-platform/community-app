@@ -3,12 +3,14 @@
 .container {
   align-content: center;
   background: white;
+  margin: auto;
+  max-width: $screen-md;
   padding: 10px 0;
 }
 
 .contentWrapper {
   display: flex;
-  margin: 200px auto;
+  margin: 100px auto;
   max-width: $screen-lg;
   padding: 0 40px;
 

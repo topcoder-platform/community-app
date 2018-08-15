@@ -17,19 +17,21 @@
 }
 
 .content {
+  @include tc-typography;
+
   flex: 1;
   padding: 30px;
 
-  h1 {
-    color: $tc-white;
-    font: 600 36px "Open Sans", sans-serif;
-    margin-bottom: 12px;
+  a {
+    text-decoration: underline;
   }
 
+  a,
+  a:hover,
+  a:visited,
+  h1,
   p {
-    color: $tc-white;
-    font: 15px/22px "Open Sans", sans-serif;
-    padding: 6px 0;
+    color: white;
   }
 }
 

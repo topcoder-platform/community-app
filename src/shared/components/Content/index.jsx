@@ -408,6 +408,13 @@ Previews of Contentful Components
       </h3>
       <ul>
         <li>
+          <Link to="/examples/contentful/slider/6VvsA1RgkwaEamS66wiEMy">
+            <code>
+ContentSlider
+            </code>
+          </Link>
+        </li>
+        <li>
           <Link to="/examples/contentful/accordion/2aRYmMs4rmwEIISCag8MOm">
             <code>
 Accordion

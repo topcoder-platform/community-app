@@ -476,6 +476,16 @@ exports[`Matches shallow shapshot 1`] = `
     <li>
       <Link
         replace={false}
+        to="/examples/contentful/slider/6VvsA1RgkwaEamS66wiEMy"
+      >
+        <code>
+          ContentSlider
+        </code>
+      </Link>
+    </li>
+    <li>
+      <Link
+        replace={false}
         to="/examples/contentful/accordion/2aRYmMs4rmwEIISCag8MOm"
       >
         <code>

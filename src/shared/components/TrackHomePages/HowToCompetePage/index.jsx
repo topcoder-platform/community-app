@@ -103,7 +103,7 @@ Step by Step
 FAQ
                 </h1>
                 <div styleName="text">
-Here’s a few answers to our most common questions
+Here are a few answers to our most common questions
                 </div>
                 <FAQ data={faq} />
               </div>

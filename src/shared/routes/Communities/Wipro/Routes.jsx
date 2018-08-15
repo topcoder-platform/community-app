@@ -102,7 +102,7 @@ export default function Wipro({ base, meta }) {
               <Route
                 component={Home}
                 exact
-                path={`${base}`}
+                path={`${base || '/'}`}
               />
               <ContentfulRoute
                 baseUrl={base}

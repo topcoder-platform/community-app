@@ -18,6 +18,7 @@ const THEMES = {
   TCO19: require('./themes/tco19.scss'),
   'TCO19-left': require('./themes/tco19-left.scss'),
   'TCO19-right': require('./themes/tco19-right.scss'),
+  Veterans: require('./themes/veterans.scss'),
 };
 /* eslint-enable global-require */
 

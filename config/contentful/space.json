@@ -375,7 +375,7 @@
         "id": "banner",
         "type": "ContentType",
         "createdAt": "2018-05-13T20:19:15.459Z",
-        "updatedAt": "2018-07-12T06:43:10.686Z",
+        "updatedAt": "2018-08-08T12:29:26.231Z",
         "environment": {
           "sys": {
             "id": "master",
@@ -394,21 +394,21 @@
           "sys": {
             "type": "Link",
             "linkType": "User",
-            "id": "0TpNH8XniBpD1bwXTXbgc9"
+            "id": "5eyjAZAPH48cRQzQMTCIxG"
           }
         },
-        "publishedCounter": 15,
-        "version": 30,
+        "publishedCounter": 16,
+        "version": 32,
         "publishedBy": {
           "sys": {
             "type": "Link",
             "linkType": "User",
-            "id": "0TpNH8XniBpD1bwXTXbgc9"
+            "id": "5eyjAZAPH48cRQzQMTCIxG"
           }
         },
-        "publishedVersion": 29,
+        "publishedVersion": 31,
         "firstPublishedAt": "2018-05-13T20:19:15.804Z",
-        "publishedAt": "2018-07-12T06:43:10.686Z"
+        "publishedAt": "2018-08-08T12:29:26.231Z"
       },
       "displayField": "name",
       "name": "Banner",
@@ -490,7 +490,8 @@
                 "TopGear",
                 "TCO19",
                 "TCO19-left",
-                "TCO19-right"
+                "TCO19-right",
+                "Veterans"
               ],
               "message": "Wrong banner style provided."
             }
@@ -5325,7 +5326,7 @@
         "id": "tabsItem",
         "type": "ContentType",
         "createdAt": "2018-07-25T11:40:02.668Z",
-        "updatedAt": "2018-07-25T20:27:59.635Z",
+        "updatedAt": "2018-08-07T07:12:38.222Z",
         "environment": {
           "sys": {
             "id": "master",
@@ -5347,8 +5348,8 @@
             "id": "0TpNH8XniBpD1bwXTXbgc9"
           }
         },
-        "publishedCounter": 7,
-        "version": 14,
+        "publishedCounter": 8,
+        "version": 16,
         "publishedBy": {
           "sys": {
             "type": "Link",
@@ -5356,9 +5357,9 @@
             "id": "0TpNH8XniBpD1bwXTXbgc9"
           }
         },
-        "publishedVersion": 13,
+        "publishedVersion": 15,
         "firstPublishedAt": "2018-07-25T11:40:03.141Z",
-        "publishedAt": "2018-07-25T20:27:59.635Z"
+        "publishedAt": "2018-08-07T07:12:38.222Z"
       },
       "displayField": "name",
       "name": "Tabs Item",
@@ -5391,7 +5392,7 @@
           "name": "Panel",
           "type": "Array",
           "localized": false,
-          "required": true,
+          "required": false,
           "validations": [
           ],
           "disabled": false,
@@ -5407,6 +5408,199 @@
             ],
             "linkType": "Entry"
           }
+        }
+      ]
+    },
+    {
+      "sys": {
+        "space": {
+          "sys": {
+            "type": "Link",
+            "linkType": "Space",
+            "id": "b5f1djy59z3a"
+          }
+        },
+        "id": "contentSlider",
+        "type": "ContentType",
+        "createdAt": "2018-08-06T07:26:55.622Z",
+        "updatedAt": "2018-08-06T07:33:18.262Z",
+        "environment": {
+          "sys": {
+            "id": "master",
+            "type": "Link",
+            "linkType": "Environment"
+          }
+        },
+        "createdBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "0TpNH8XniBpD1bwXTXbgc9"
+          }
+        },
+        "updatedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "0TpNH8XniBpD1bwXTXbgc9"
+          }
+        },
+        "publishedCounter": 2,
+        "version": 4,
+        "publishedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "0TpNH8XniBpD1bwXTXbgc9"
+          }
+        },
+        "publishedVersion": 3,
+        "firstPublishedAt": "2018-08-06T07:26:56.458Z",
+        "publishedAt": "2018-08-06T07:33:18.262Z"
+      },
+      "displayField": "name",
+      "name": "Content Slider",
+      "description": "Slide/cycle content",
+      "fields": [
+        {
+          "id": "name",
+          "name": "Name",
+          "type": "Symbol",
+          "localized": false,
+          "required": true,
+          "validations": [
+          ],
+          "disabled": false,
+          "omitted": false
+        },
+        {
+          "id": "items",
+          "name": "Items",
+          "type": "Array",
+          "localized": false,
+          "required": true,
+          "validations": [
+          ],
+          "disabled": false,
+          "omitted": false,
+          "items": {
+            "type": "Link",
+            "validations": [
+              {
+                "linkContentType": [
+                  "banner"
+                ]
+              }
+            ],
+            "linkType": "Entry"
+          }
+        },
+        {
+          "id": "theme",
+          "name": "Theme",
+          "type": "Symbol",
+          "localized": false,
+          "required": true,
+          "validations": [
+            {
+              "in": [
+                "Default"
+              ]
+            }
+          ],
+          "disabled": false,
+          "omitted": false
+        },
+        {
+          "id": "autoStart",
+          "name": "Auto Start",
+          "type": "Boolean",
+          "localized": false,
+          "required": false,
+          "validations": [
+          ],
+          "disabled": false,
+          "omitted": false
+        },
+        {
+          "id": "duration",
+          "name": "Duration",
+          "type": "Integer",
+          "localized": false,
+          "required": false,
+          "validations": [
+            {
+              "range": {
+                "min": 1
+              }
+            }
+          ],
+          "disabled": false,
+          "omitted": false
+        }
+      ]
+    },
+    {
+      "sys": {
+        "space": {
+          "sys": {
+            "type": "Link",
+            "linkType": "Space",
+            "id": "b5f1djy59z3a"
+          }
+        },
+        "id": "challengesBlock",
+        "type": "ContentType",
+        "createdAt": "2018-08-08T14:03:49.293Z",
+        "updatedAt": "2018-08-08T14:03:50.106Z",
+        "environment": {
+          "sys": {
+            "id": "master",
+            "type": "Link",
+            "linkType": "Environment"
+          }
+        },
+        "createdBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "5eyjAZAPH48cRQzQMTCIxG"
+          }
+        },
+        "updatedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "5eyjAZAPH48cRQzQMTCIxG"
+          }
+        },
+        "publishedCounter": 1,
+        "version": 2,
+        "publishedBy": {
+          "sys": {
+            "type": "Link",
+            "linkType": "User",
+            "id": "5eyjAZAPH48cRQzQMTCIxG"
+          }
+        },
+        "publishedVersion": 1,
+        "firstPublishedAt": "2018-08-08T14:03:50.106Z",
+        "publishedAt": "2018-08-08T14:03:50.106Z"
+      },
+      "displayField": "name",
+      "name": "ChallengesBlock",
+      "description": "",
+      "fields": [
+        {
+          "id": "name",
+          "name": "Name",
+          "type": "Symbol",
+          "localized": false,
+          "required": false,
+          "validations": [
+          ],
+          "disabled": false,
+          "omitted": false
         }
       ]
     }
@@ -5647,7 +5841,7 @@
             "linkType": "Space"
           }
         },
-        "version": 29,
+        "version": 31,
         "createdAt": "2018-05-13T20:19:16.031Z",
         "createdBy": {
           "sys": {
@@ -5656,10 +5850,10 @@
             "linkType": "User"
           }
         },
-        "updatedAt": "2018-07-12T06:43:11.405Z",
+        "updatedAt": "2018-08-08T12:29:27.081Z",
         "updatedBy": {
           "sys": {
-            "id": "0TpNH8XniBpD1bwXTXbgc9",
+            "id": "5eyjAZAPH48cRQzQMTCIxG",
             "type": "Link",
             "linkType": "User"
           }
@@ -8545,7 +8739,7 @@
             "linkType": "Space"
           }
         },
-        "version": 14,
+        "version": 16,
         "createdAt": "2018-07-25T11:40:03.377Z",
         "createdBy": {
           "sys": {
@@ -8554,7 +8748,7 @@
             "linkType": "User"
           }
         },
-        "updatedAt": "2018-07-25T20:28:00.446Z",
+        "updatedAt": "2018-08-07T07:12:38.843Z",
         "updatedBy": {
           "sys": {
             "id": "0TpNH8XniBpD1bwXTXbgc9",
@@ -8592,6 +8786,132 @@
             "bulkEditing": false
           },
           "widgetId": "entryLinksEditor"
+        }
+      ]
+    },
+    {
+      "sys": {
+        "id": "default",
+        "type": "EditorInterface",
+        "space": {
+          "sys": {
+            "id": "b5f1djy59z3a",
+            "type": "Link",
+            "linkType": "Space"
+          }
+        },
+        "version": 4,
+        "createdAt": "2018-08-06T07:26:56.660Z",
+        "createdBy": {
+          "sys": {
+            "id": "0TpNH8XniBpD1bwXTXbgc9",
+            "type": "Link",
+            "linkType": "User"
+          }
+        },
+        "updatedAt": "2018-08-06T07:33:18.988Z",
+        "updatedBy": {
+          "sys": {
+            "id": "0TpNH8XniBpD1bwXTXbgc9",
+            "type": "Link",
+            "linkType": "User"
+          }
+        },
+        "contentType": {
+          "sys": {
+            "id": "contentSlider",
+            "type": "Link",
+            "linkType": "ContentType"
+          }
+        },
+        "environment": {
+          "sys": {
+            "id": "master",
+            "type": "Link",
+            "linkType": "Environment"
+          }
+        }
+      },
+      "controls": [
+        {
+          "fieldId": "name",
+          "widgetId": "singleLine"
+        },
+        {
+          "fieldId": "items",
+          "settings": {
+            "bulkEditing": false
+          },
+          "widgetId": "entryLinksEditor"
+        },
+        {
+          "fieldId": "theme",
+          "widgetId": "singleLine"
+        },
+        {
+          "fieldId": "autoStart",
+          "settings": {
+            "trueLabel": "Yes",
+            "falseLabel": "No"
+          },
+          "widgetId": "boolean"
+        },
+        {
+          "fieldId": "duration",
+          "settings": {
+            "helpText": "Slide duration in seconds"
+          },
+          "widgetId": "numberEditor"
+        }
+      ]
+    },
+    {
+      "sys": {
+        "id": "default",
+        "type": "EditorInterface",
+        "space": {
+          "sys": {
+            "id": "b5f1djy59z3a",
+            "type": "Link",
+            "linkType": "Space"
+          }
+        },
+        "version": 2,
+        "createdAt": "2018-08-08T14:03:50.464Z",
+        "createdBy": {
+          "sys": {
+            "id": "5eyjAZAPH48cRQzQMTCIxG",
+            "type": "Link",
+            "linkType": "User"
+          }
+        },
+        "updatedAt": "2018-08-08T14:03:51.259Z",
+        "updatedBy": {
+          "sys": {
+            "id": "5eyjAZAPH48cRQzQMTCIxG",
+            "type": "Link",
+            "linkType": "User"
+          }
+        },
+        "contentType": {
+          "sys": {
+            "id": "challengesBlock",
+            "type": "Link",
+            "linkType": "ContentType"
+          }
+        },
+        "environment": {
+          "sys": {
+            "id": "master",
+            "type": "Link",
+            "linkType": "Environment"
+          }
+        }
+      },
+      "controls": [
+        {
+          "fieldId": "name",
+          "widgetId": "singleLine"
         }
       ]
     }
