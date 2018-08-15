@@ -50,7 +50,9 @@ export default class AddWebLink extends React.Component {
 
   isWebLinkValid() {
     const { webLink } = this.state;
-    return !webLink || ((webLink.split('.').length > 2) && /^(http(s?):\/\/)?(www\.)?[a-zA-Z0-9\.\-\_]+(\.[a-zA-Z]{2,15})+(\/[a-zA-Z0-9\_\-\s\.\/\?\%\#\&\=]*)?$/.test(webLink)); /* eslint-disable-line no-useless-escape */
+    return !webLink
+    || (webLink.includes('www') && /^(http(s?):\/\/)?(www\.)[a-zA-Z0-9\.\-\_]+(\.[a-zA-Z]{2,15})+$/.test(webLink)) /* eslint-disable-line no-useless-escape */
+    || (!webLink.includes('www') && /^(http(s?):\/\/)?[a-zA-Z0-9\.\-\_]+(\.[a-zA-Z]{2,15})+$/.test(webLink)); /* eslint-disable-line no-useless-escape */
   }
 
   webLinkExists() {

@@ -18,7 +18,7 @@ export default class AddWebLink extends React.Component {
     this.onUpdateWebLink = this.onUpdateWebLink.bind(this);
     this.onAddWebLink = this.onAddWebLink.bind(this);
     this.isWebLinkValid = this.isWebLinkValid.bind(this);
-    this.isWebLinkExist = this.isWebLinkExist.bind(this);
+    this.webLinkExist = this.webLinkExist.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -45,7 +45,7 @@ export default class AddWebLink extends React.Component {
         tokenV3,
       } = this.props;
       const { webLink } = this.state;
-      if (webLink && this.isWebLinkValid() && !this.isWebLinkExist()) {
+      if (webLink && this.isWebLinkValid() && !this.webLinkExist()) {
         addWebLink(handle, tokenV3, webLink);
       }
     }
@@ -53,10 +53,12 @@ export default class AddWebLink extends React.Component {
 
   isWebLinkValid() {
     const { webLink } = this.state;
-    return !webLink || ((webLink.split('.').length > 2) && /^(http(s?):\/\/)?(www\.)?[a-zA-Z0-9\.\-\_]+(\.[a-zA-Z]{2,15})+(\/[a-zA-Z0-9\_\-\s\.\/\?\%\#\&\=]*)?$/.test(webLink)); /* eslint-disable-line no-useless-escape */
+    return !webLink
+    || (webLink.includes('www') && /^(http(s?):\/\/)?(www\.)[a-zA-Z0-9\.\-\_]+(\.[a-zA-Z]{2,15})+$/.test(webLink)) /* eslint-disable-line no-useless-escape */
+    || (!webLink.includes('www') && /^(http(s?):\/\/)?[a-zA-Z0-9\.\-\_]+(\.[a-zA-Z]{2,15})+$/.test(webLink)); /* eslint-disable-line no-useless-escape */
   }
 
-  isWebLinkExist() {
+  webLinkExist() {
     const { webLink } = this.state;
     const {
       allLinks,
@@ -68,7 +70,7 @@ export default class AddWebLink extends React.Component {
     const { webLink } = this.state;
 
     const webLinkValid = this.isWebLinkValid();
-    const isWebLinkExist = this.isWebLinkExist();
+    const webLinkExist = this.webLinkExist();
 
     return (
       <div styleName="external-web-link">
@@ -94,7 +96,7 @@ export default class AddWebLink extends React.Component {
                 required
               />
               {
-                !webLinkValid && !isWebLinkExist
+                !webLinkValid && !webLinkExist
                 && (
                   <div styleName="form-input-error">
                     <p>
@@ -104,7 +106,7 @@ Please enter a valid URL
                 )
               }
               {
-                isWebLinkExist
+                webLinkExist
                 && (
                   <div styleName="form-input-error">
                     <p>
