@@ -679,25 +679,6 @@ exports[`renders an empty Profile correctly 1`] = `
           <p>
             Seems like this member doesn’t have much information to share yet.
           </p>
-          <ThemedButton
-            active={false}
-            composeAdhocTheme="deeply"
-            composeContextTheme="softly"
-            disabled={false}
-            enforceA={false}
-            mapThemrProps={[Function]}
-            onClick={null}
-            onMouseDown={null}
-            openNewTab={false}
-            replace={false}
-            size={null}
-            theme={Object {}}
-            themePriority="adhoc-context-default"
-            to="https://www.topcoder-dev.com/community/members"
-            type="button"
-          >
-            VIEW OTHER MEMBERS
-          </ThemedButton>
         </div>
         <div
           id="profile-activity"

@@ -9,7 +9,6 @@ import PT from 'prop-types';
 import { PrimaryButton } from 'topcoder-react-ui-kit';
 import Sticky from 'react-stickynode';
 
-import { config } from 'topcoder-react-utils';
 import Robot from 'assets/images/robot-happy.svg';
 
 import BadgesModal from './BadgesModal';
@@ -187,9 +186,6 @@ BEEP. BEEP. HELLO!
                   <p>
 Seems like this member doesn’t have much information to share yet.
                   </p>
-                  <PrimaryButton theme={style} to={`${config.URL.BASE}/community/members`}>
-VIEW OTHER MEMBERS
-                  </PrimaryButton>
                 </div>
                 )
               }
