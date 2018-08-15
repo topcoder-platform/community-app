@@ -95,7 +95,8 @@ export function getHistory(stats, track, subTrack) {
 }
 
 
-const percentageFunc = n => `${(n * 100).toFixed(2)}%`;
+const percentageFunc = n => `${(n * 100).toFixed(0)}%`;
+const percentageFunc2 = n => `${n.toFixed(2)}%`; // fixed #1011
 const percentileFunc = n => (n === 0 ? '0' : `${n.toFixed(0)}%`);
 const ratingFunc = n => n.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 const defaultRenderFunc = n => n.toFixed(0);
@@ -132,7 +133,7 @@ const interestingData = {
     { key: 'activeProjects', label: 'active projects', postFunc: null },
     { key: 'contests', label: 'total challenges', postFunc: null },
     { key: 'projects', label: 'total projects', postFunc: null },
-    { key: 'fulfillment', label: 'fulfillment', postFunc: percentileFunc },
+    { key: 'fulfillment', label: 'fulfillment', postFunc: percentageFunc2 },
   ],
 };
 
