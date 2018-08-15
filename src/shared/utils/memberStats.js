@@ -95,7 +95,7 @@ export function getHistory(stats, track, subTrack) {
 }
 
 
-const percentageFunc = n => `${(n * 100).toFixed(0)}%`;
+const percentageFunc = n => `${(n * 100).toFixed(2)}%`;
 const percentileFunc = n => (n === 0 ? '0' : `${n.toFixed(0)}%`);
 const ratingFunc = n => n.toFixed(0).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
 const defaultRenderFunc = n => n.toFixed(0);
