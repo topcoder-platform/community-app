@@ -103,41 +103,41 @@ export default class BasicInfo extends React.Component {
     let errorMessage = '';
     let dateError = '';
 
-    if(!_.trim(newBasicInfo.firstName).length) {
+    if (!_.trim(newBasicInfo.firstName).length) {
       errorMessage += 'FirstName, ';
       invalid = true;
     }
 
-    if(!_.trim(newBasicInfo.lastName).length) {
+    if (!_.trim(newBasicInfo.lastName).length) {
       errorMessage += 'LastName, ';
       invalid = true;
     }
 
-    if(!_.trim(newBasicInfo.gender).length) {
+    if (!_.trim(newBasicInfo.gender).length) {
       errorMessage += 'Gender, ';
       invalid = true;
     }
 
-    if(!_.trim(newBasicInfo.tshirtSize).length) {
+    if (!_.trim(newBasicInfo.tshirtSize).length) {
       errorMessage += 'T shirt size, ';
       invalid = true;
     }
 
-    if(!_.trim(newBasicInfo.addresses[0].streetAddr1).length ||
-        !_.trim(newBasicInfo.addresses[0].city).length ||
-        !_.trim(newBasicInfo.addresses[0].stateCode).length ||
-        !_.trim(newBasicInfo.addresses[0].zip).length) {
+    if (!_.trim(newBasicInfo.addresses[0].streetAddr1).length
+        || !_.trim(newBasicInfo.addresses[0].city).length
+        || !_.trim(newBasicInfo.addresses[0].stateCode).length
+        || !_.trim(newBasicInfo.addresses[0].zip).length) {
       errorMessage += 'Address Information, ';
       invalid = true;
     }
 
-    if(!_.trim(newBasicInfo.currentLocation).length) {
+    if (!_.trim(newBasicInfo.currentLocation).length) {
       errorMessage += 'Current Location, ';
       invalid = true;
     }
 
-    if(errorMessage.length > 0) {
-      errorMessage += 'cannot be empty'
+    if (errorMessage.length > 0) {
+      errorMessage += 'cannot be empty';
     }
 
     if (!_.trim(newBasicInfo.birthDate).length) {
@@ -145,11 +145,11 @@ export default class BasicInfo extends React.Component {
       birthDateInvalid = true;
     }
 
-    if(errorMessage.length > 0){
-        errorMessage = `${errorMessage}.${dateError}`;
-    } else if(dateError.length > 0) {
-        errorMessage = dateError;
-        invalid = birthDateInvalid;
+    if (errorMessage.length > 0) {
+      errorMessage = `${errorMessage}.${dateError}`;
+    } else if (dateError.length > 0) {
+      errorMessage = dateError;
+      invalid = birthDateInvalid;
     }
 
     this.setState({ errorMessage, formInvalid: invalid });
@@ -162,7 +162,7 @@ export default class BasicInfo extends React.Component {
    */
   onShowUserConsent(e) {
     e.preventDefault();
-    const { newBasicInfo} = this.state;
+    const { newBasicInfo } = this.state;
     if (this.onCheckFormValue(newBasicInfo)) {
       return;
     }
