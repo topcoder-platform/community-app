@@ -106,7 +106,7 @@
       }
 
       &.row-2 {
-        width: 100%;
+        min-width: 100%;
       }
 
       .description-label {
@@ -146,6 +146,11 @@
     border: 1px solid $tc-gray-20;
     border-radius: $corner-radius * 2 $corner-radius * 2 $corner-radius * 2 $corner-radius * 2;
     margin-top: 6px;
+  }
+
+  textarea {
+    resize: vertical;
+    min-width: 100%;
   }
 
   @include xs-to-sm {
