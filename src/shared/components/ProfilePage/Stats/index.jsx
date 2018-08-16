@@ -53,7 +53,6 @@ class ProfileStats extends React.Component {
       handleParam,
       activeChallengesCount,
     } = this.props;
-    console.log(this.props);
     const { activeGraph, showModal } = this.state;
 
     const tabs = ['statistics'];
