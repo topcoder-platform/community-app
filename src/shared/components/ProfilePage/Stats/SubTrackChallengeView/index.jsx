@@ -301,7 +301,6 @@ Sorry, no successful challenges found.
       userSrms.sort((a, b) => {
         const aDate = a.startDate;
         const bDate = b.startDate;
-        console.log(a.startDate);
         if (aDate > bDate) {
           return -1;
         } if (aDate < bDate) {
