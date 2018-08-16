@@ -20,6 +20,7 @@ export default class Hobby extends React.Component {
   constructor(props) {
     super(props);
     this.onDeleteHobby = this.onDeleteHobby.bind(this);
+    this.onHandleDeleteHobby = this.onHandleDeleteHobby.bind(this);
     this.loadHobbyTrait = this.loadHobbyTrait.bind(this);
     this.loadPersonalizationTrait = this.loadPersonalizationTrait.bind(this);
     this.onUpdateInput = this.onUpdateInput.bind(this);
@@ -27,7 +28,8 @@ export default class Hobby extends React.Component {
     this.onShowUserConsent = this.onShowUserConsent.bind(this);
 
     this.state = {
-      showUserConsent: false,
+      showUserConsentAddHobby: false,
+      showUserConsentDeleteHobby: false,
       formInvalid: false,
       errorMessage: '',
       hobbyTrait: this.loadHobbyTrait(props.userTraits),
@@ -64,7 +66,7 @@ export default class Hobby extends React.Component {
     if (this.onCheckFormValue(newHobby)) {
       return;
     }
-    this.setState({ showUserConsent: true });
+    this.setState({ showUserConsentAddHobby: true });
   }
 
   /**
@@ -94,14 +96,22 @@ export default class Hobby extends React.Component {
     return invalid;
   }
 
+  onHandleDeleteHobby(indexNo) {
+    this.setState({showUserConsentDeleteHobby: true, deleteHobbyIndex: indexNo});
+  }
+
   /**
    * Delete hobby by index
    * @param indexNo the hobby index no
    */
-  onDeleteHobby(indexNo) {
-    const { hobbyTrait } = this.state;
+  onDeleteHobby() {
+    const { hobbyTrait, deleteHobbyIndex } = this.state;
+    if (deleteHobbyIndex === -1) {
+      this.setState({showUserConsentDeleteHobby: false});
+      return;
+    }
     const newHobbyTrait = { ...hobbyTrait };
-    newHobbyTrait.traits.data.splice(indexNo, 1);
+    newHobbyTrait.traits.data.splice(deleteHobbyIndex, 1);
     this.setState({
       hobbyTrait: newHobbyTrait,
     });
@@ -113,6 +123,7 @@ export default class Hobby extends React.Component {
       deleteUserTrait,
     } = this.props;
 
+    this.setState({showUserConsentDeleteHobby: false, deleteHobbyIndex: -1});
     if (newHobbyTrait.traits.data.length > 0) {
       updateUserTrait(handle, 'hobby', newHobbyTrait.traits.data, tokenV3);
     } else {
@@ -127,7 +138,7 @@ export default class Hobby extends React.Component {
    */
   onAddHobby(e, answer) {
     e.preventDefault();
-    this.setState({ showUserConsent: false });
+    this.setState({ showUserConsentAddHobby: false });
     const { newHobby, personalizationTrait, hobbyTrait } = this.state;
 
     const {
@@ -208,7 +219,8 @@ export default class Hobby extends React.Component {
     } = this.props;
     const {
       hobbyTrait,
-      showUserConsent,
+      showUserConsentAddHobby,
+      showUserConsentDeleteHobby,
     } = this.state;
     const tabs = settingsUI.TABS.PROFILE;
     const currentTab = settingsUI.currentProfileTab;
@@ -220,7 +232,10 @@ export default class Hobby extends React.Component {
     return (
       <div styleName={containerStyle}>
         {
-            showUserConsent && (<UserConsentModal onSaveTrait={this.onAddHobby} />)
+          (showUserConsentAddHobby) && (<UserConsentModal onSaveTrait={this.onAddHobby} />)
+        }
+        {
+          (showUserConsentDeleteHobby) && (<UserConsentModal onSaveTrait={this.onDeleteHobby} />)
         }
         <div styleName="hobby-container">
           <div styleName={`error-message ${formInvalid ? 'active' : ''}`}>
@@ -271,7 +286,7 @@ Description
           </div>
           <HobbyList
             hobbyList={{ items: hobbyItems }}
-            onDeleteItem={this.onDeleteHobby}
+            onDeleteItem={this.onHandleDeleteHobby}
           />
         </div>
       </div>
