@@ -97,7 +97,7 @@ export default class Hobby extends React.Component {
   }
 
   onHandleDeleteHobby(indexNo) {
-    this.setState({showUserConsentDeleteHobby: true, deleteHobbyIndex: indexNo});
+    this.setState({ showUserConsentDeleteHobby: true, deleteHobbyIndex: indexNo });
   }
 
   /**
@@ -107,7 +107,7 @@ export default class Hobby extends React.Component {
   onDeleteHobby() {
     const { hobbyTrait, deleteHobbyIndex } = this.state;
     if (deleteHobbyIndex === -1) {
-      this.setState({showUserConsentDeleteHobby: false});
+      this.setState({ showUserConsentDeleteHobby: false });
       return;
     }
     const newHobbyTrait = { ...hobbyTrait };
@@ -123,7 +123,7 @@ export default class Hobby extends React.Component {
       deleteUserTrait,
     } = this.props;
 
-    this.setState({showUserConsentDeleteHobby: false, deleteHobbyIndex: -1});
+    this.setState({ showUserConsentDeleteHobby: false, deleteHobbyIndex: -1 });
     if (newHobbyTrait.traits.data.length > 0) {
       updateUserTrait(handle, 'hobby', newHobbyTrait.traits.data, tokenV3);
     } else {
