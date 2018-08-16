@@ -4,6 +4,7 @@
 
 import express from 'express';
 import path from 'path';
+import config from 'config';
 
 import avatarRoutes from './avatar';
 import contentfulRoutes from './contentful';
@@ -29,6 +30,16 @@ const url = path.resolve(__dirname, '../../../build');
  * TODO: Replace the wildcard value by an appropriate origin filtering. */
 router.use('/public/static-assets', (req, res, next) => {
   res.set('Access-Control-Allow-Origin', '*');
+  if (req.url.indexOf('/sw.js') > -1) {
+    // Serve sw.js
+    res.set('Service-Worker-Allowed', '/');
+    if (`${config.DISABLE_SERVICE_WORKER}`.toLowerCase() === 'true') {
+      res.sendFile(`${url}/noopsw.js`);
+    } else {
+      res.sendFile(`${url}/sw.js`);
+    }
+    return;
+  }
   next();
 }, express.static(url),
 
