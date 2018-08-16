@@ -24,6 +24,7 @@ import SvgLoading from 'components/examples/SvgLoading';
 import Tags from 'components/examples/Tags';
 import Themr from 'components/examples/Themr';
 import Typography from 'components/examples/Typography';
+import CountdownExample from 'components/examples/CountdownExample';
 
 import {
   Switch,
@@ -44,6 +45,7 @@ export default function Examples({
       <Route path={`${base}/announcement/:id`} component={Announcement} />
       <Route path={`${base}/buttons`} component={Buttons} />
       <Route path={`${base}/carousel`} component={Carousel} />
+      <Route path={`${base}/countdown`} component={CountdownExample} />
       <AppChunk
         chunkName="code-splitting/chunk"
         path={`${base}/code-splitting`}

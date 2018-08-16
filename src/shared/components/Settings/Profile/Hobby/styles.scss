@@ -1,0 +1,180 @@
+@import "../../style";
+
+.hide {
+  display: none;
+}
+
+.hobby-container {
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+
+  h1 {
+    @include roboto-regular;
+
+    font-size: 28px;
+    line-height: 35px;
+    font-weight: 400;
+    color: $tc-black;
+    margin-bottom: 20px;
+
+    @include xs-to-sm {
+      display: none;
+    }
+  }
+}
+
+.error-message {
+  display: none;
+
+  &.active {
+    @include roboto-medium;
+
+    display: block;
+    border-radius: 5px;
+    background-color: $tc-red-10;
+    color: $tc-red-110;
+    font-size: 15px;
+    padding: 15px;
+    margin-bottom: 15px;
+  }
+}
+
+.form-container {
+  display: flex;
+  flex-direction: column;
+  border-radius: 6px;
+  border: 1px solid $tc-gray-10;
+  padding: 20px 20px 20px 20px;
+  background-color: $tc-gray-neutral-light;
+
+  p {
+    @include roboto-regular;
+
+    font-size: 20px;
+    line-height: 30px;
+    font-weight: 400;
+    color: $tc-black;
+    margin-bottom: 10px;
+
+    @include xs-to-sm {
+      margin-bottom: 20px;
+    }
+  }
+
+  .row {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 10px;
+    align-content: space-between;
+
+    @include xs-to-sm {
+      width: 100%;
+      display: block;
+      margin-bottom: 0;
+    }
+
+    .field {
+      display: flex;
+      flex-direction: column;
+      margin-right: 10px;
+
+      @include xs-to-sm {
+        display: block;
+        padding-bottom: 10px;
+      }
+
+      label {
+        @include roboto-medium;
+
+        font-size: 12px;
+        line-height: 15px;
+        font-weight: 500;
+        color: $tc-gray-80;
+      }
+
+      &.row-1 {
+        width: 280px;
+
+        @include md-to-lg {
+          width: 383px;
+        }
+
+        @include xs-to-sm {
+          width: 100%;
+        }
+      }
+
+      &.row-2 {
+        min-width: 100%;
+      }
+
+      .description-label {
+        display: flex;
+        justify-content: space-between;
+      }
+
+      .description-text {
+        height: 70px;
+        border-radius: 4px;
+        margin-top: 6px;
+        margin-bottom: 10px;
+      }
+
+      .description-counts {
+        @include roboto-medium;
+
+        font-size: 11px;
+        color: $tc-dark-blue-110;
+      }
+    }
+
+    div.field:last-child {
+      margin-right: 0;
+    }
+  }
+
+  input {
+    @include roboto-regular;
+
+    height: 36px;
+    margin: 0;
+    font-size: 15px;
+    line-height: 20px;
+    font-weight: 400;
+    color: $tc-black;
+    border: 1px solid $tc-gray-20;
+    border-radius: $corner-radius * 2 $corner-radius * 2 $corner-radius * 2 $corner-radius * 2;
+    margin-top: 6px;
+  }
+
+  textarea {
+    resize: vertical;
+    min-width: 100%;
+  }
+
+  @include xs-to-sm {
+    border: 0;
+    border-radius: 0;
+  }
+}
+
+.button-save {
+  align-self: center;
+
+  button,
+  a {
+    @include roboto-medium;
+
+    height: 40px;
+    font-size: 15px;
+    font-weight: 500;
+    margin: 0;
+    padding: 0;
+    width: 156px;
+  }
+
+  .complete {
+    color: $tc-white;
+  }
+}

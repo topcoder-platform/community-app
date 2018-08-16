@@ -8,4 +8,8 @@
   max-width: $screen-md;
   padding: 15px;
   width: 100%;
+
+  @include xs-to-sm {
+    flex-direction: column;
+  }
 }

@@ -1,15 +1,17 @@
-@import "~styles/mixins";
+@import "../../../../style";
 
 .container {
   display: flex;
   flex-direction: row;
   justify-items: center;
+  align-items: center;
   justify-content: space-between;
   height: 100%;
   width: 100%;
   padding: 20px;
   border: 1px solid $tc-gray-10;
   border-bottom: none;
+  background-color: $tc-white;
 }
 
 .device-info {
@@ -34,6 +36,7 @@
   font-size: 15px;
   line-height: 20px;
   text-transform: capitalize;
+  padding-right: 20px;
 }
 
 .parameter-first-line {
@@ -58,6 +61,10 @@
 
   img {
     margin-bottom: 10px;
+
+    @include xs-to-sm {
+      margin-bottom: 0;
+    }
   }
 
   p {
@@ -67,5 +74,9 @@
     line-height: 15px;
     font-weight: 400;
     color: $tc-gray-50;
+
+    @include xs-to-sm {
+      display: none;
+    }
   }
 }

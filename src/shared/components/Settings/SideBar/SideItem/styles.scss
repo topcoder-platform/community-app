@@ -1,10 +1,10 @@
-@import "~styles/mixins";
+@import "../../style";
 
 a.SideItem {
   @include tc-body-md;
 
   line-height: 25px;
-  color: #262628;
+  color: $tc-black;
   text-transform: capitalize;
   text-decoration: none;
   cursor: pointer;
@@ -14,10 +14,20 @@ a.SideItem {
   align-items: center;
   border-radius: 4px;
 
+  @include md-to-lg {
+    width: 60px;
+    justify-content: center;
+    padding: 0;
+  }
+
   img {
     margin-right: 14px;
     width: 34px;
     max-height: 30px;
+
+    @include md-to-lg {
+      margin-right: 0;
+    }
   }
 
   &:focus {
@@ -33,15 +43,15 @@ a.SideItem {
     display: flex;
     justify-content: center;
     margin-right: 12px;
+
+    @include md-to-lg {
+      margin-right: 0;
+    }
   }
-}
 
-.tab {
-  .menu-item {
-    @include roboto-regular;
-
-    font-size: 15px;
-    font-weight: 400;
-    line-height: 25px;
+  span.name {
+    @include md-to-lg {
+      display: none;
+    }
   }
 }

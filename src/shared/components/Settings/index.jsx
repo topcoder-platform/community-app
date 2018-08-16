@@ -16,17 +16,20 @@ import Account from './Account';
 import Preferences from './Preferences';
 
 export default function Settings(props) {
-  const {
-    settingsTab,
-  } = props;
+  const newProps = { ...props };
+  if (newProps.settingsTab === newProps.match.params.settingsTab) {
+    newProps.settingsTab = newProps.settingsTab;
+  } else {
+    newProps.settingsTab = newProps.match.params.settingsTab;
+  }
 
   const selectTab = (tab) => {
-    props.selectTab(tab);
-    props.history.push(`/settings/${tab}`);
+    newProps.selectTab(tab);
+    newProps.history.push(`/settings/${tab}`);
   };
 
   let title;
-  switch (settingsTab) {
+  switch (newProps.settingsTab) {
     case TABS.TOOLS:
       title = 'Tools';
       break;
@@ -49,39 +52,39 @@ export default function Settings(props) {
       />
       <div styleName="page">
         <Header
-          settingsTab={settingsTab}
+          settingsTab={newProps.settingsTab}
           selectTab={selectTab}
         />
         {
-          settingsTab === TABS.PROFILE
+          newProps.settingsTab === TABS.PROFILE
           && (
-          <Profile
-            {...props}
-          />
+            <Profile
+              {...newProps}
+            />
           )
         }
         {
-          settingsTab === TABS.TOOLS
+          newProps.settingsTab === TABS.TOOLS
           && (
-          <Tools
-            {...props}
-          />
+            <Tools
+              {...newProps}
+            />
           )
         }
         {
-          settingsTab === TABS.ACCOUNT
+          newProps.settingsTab === TABS.ACCOUNT
           && (
-          <Account
-            {...props}
-          />
+            <Account
+              {...newProps}
+            />
           )
         }
         {
-          settingsTab === TABS.PREFERENCES
+          newProps.settingsTab === TABS.PREFERENCES
           && (
-          <Preferences
-            {...props}
-          />
+            <Preferences
+              {...newProps}
+            />
           )
         }
       </div>

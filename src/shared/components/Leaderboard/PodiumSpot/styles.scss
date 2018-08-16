@@ -1,20 +1,61 @@
 @import '~styles/mixins';
+$podium-border-color: #ededf2;
 
 .PodiumSpot {
+  border: 1px solid $podium-border-color;
+  border-radius: 6px;
+  padding: 20px 0;
+  box-shadow: 1px 1px 6px 2px #f1f1f1;
+  min-width: 300px;
+
   .leaderboard-avatar {
     display: inline-block;
     overflow: hidden;
+    position: relative;
+    margin-bottom: 12px;
   }
 
   .ranking {
     @include roboto-bold;
+
+    border-radius: 20px;
+    padding: 2px 10px;
+    display: inline-block;
+    position: absolute;
+    right: 0;
+    bottom: 10px;
   }
 
   .winnings-info {
-    @include roboto-light;
+    margin-top: 16px;
+    border-top: 1px solid $podium-border-color;
+    padding-top: 16px;
+    color: #56565d;
+    font-size: 18px;
+    display: flex;
+    justify-content: space-around;
 
-    color: #999;
-    font-size: 13px;
+    .stats {
+      color: #747480;
+      font-size: 15px;
+      font-weight: 400;
+      line-height: 25px;
+
+      .value {
+        color: #47474f;
+        font-size: 20px;
+        font-weight: 500;
+        line-height: 25px;
+      }
+    }
+
+    @include xs-to-sm {
+      font-size: 12px;
+    }
+
+    @include md-to-lg {
+      font-size: 14px;
+    }
   }
 
   .winnings-info span {
@@ -22,25 +63,39 @@
   }
 
   a.profile-link {
+    @include roboto-bold;
+
     display: block;
     overflow: hidden;
+    font-size: 20px;
     text-overflow: ellipsis;
-    color: $tc-light-blue;
+    color: #006dea;
 
     &:hover {
-      color: $tc-dark-blue;
+      color: #006dea;
     }
   }
 }
 
-.PodiumSpot--first .leaderboard-avatar {
-  height: 96px;
-  width: 96px;
+.PodiumSpot--first .ranking {
+  background-color: #ffd84d;
+  color: #865e07;
 }
 
+.PodiumSpot--second .ranking {
+  background-color: #d1d0cf;
+  color: #554e48;
+}
+
+.PodiumSpot--third .ranking {
+  background-color: #d98f64;
+  color: #744117;
+}
+
+.PodiumSpot--first,
 .PodiumSpot--second,
 .PodiumSpot--third {
-  margin-top: 32px;
+  margin-top: 0;
 
   .leaderboard-avatar {
     height: 64px;
@@ -49,11 +104,7 @@
 }
 
 @include md-to-lg {
-  .PodiumSpot--first .leaderboard-avatar {
-    height: 128px;
-    width: 128px;
-  }
-
+  .PodiumSpot--first .leaderboard-avatar,
   .PodiumSpot--second .leaderboard-avatar,
   .PodiumSpot--third .leaderboard-avatar {
     height: 96px;
@@ -62,11 +113,7 @@
 }
 
 @include xl {
-  .PodiumSpot--first .leaderboard-avatar {
-    height: 160px;
-    width: 160px;
-  }
-
+  .PodiumSpot--first .leaderboard-avatar,
   .PodiumSpot--second .leaderboard-avatar,
   .PodiumSpot--third .leaderboard-avatar {
     height: 128px;

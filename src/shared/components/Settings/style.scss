@@ -1,19 +1,39 @@
 @import "~styles/mixins";
 
+$screen-sm: 768px !default;
+$screen-md: 1024px !default;
+$screen-lg: 1280px !default;
+
+@mixin md-to-lg {
+  @media (min-width: #{$screen-sm + 1px}) and (max-width: #{$screen-md}) {
+    @content;
+  }
+}
+
+@mixin xs-to-sm {
+  @media (max-width: #{$screen-sm}) {
+    @content;
+  }
+}
+
+@mixin screen1025-to-screen1280 {
+  @media (min-width: #{$screen-md + 1px}) and (max-width: #{$screen-lg}) {
+    @content;
+  }
+}
+
 .container {
   background: $tc-gray-neutral-dark;
   padding: 30px 60px;
   width: 100%;
   box-shadow: 0 1px 0 0 #f0f0f0;
 
-  @include xs-to-sm {
-    padding: 0;
+  @include md-to-lg {
+    padding: 30px;
   }
-}
 
-@media screen and (min-width: 768px) {
-  .container {
-    padding: 30px 10px;
+  @include xs-to-sm {
+    padding: 10px;
   }
 }
 
@@ -175,8 +195,8 @@
   }
 
   // Switch location
-  $switch-width: 44px;
-  $switch-height: 24px;
+  $switch-width: 34px;
+  $switch-height: 20px;
   $switch-handle-offset: 3px;
   $switch-handle-size: $switch-height - (2 * $switch-handle-offset);
   $switch-active-color: $tc-dark-blue-110;
@@ -191,7 +211,7 @@
 
     align-self: center;
     margin-right: 10px;
-    margin-left: 30px;
+    margin-left: 22px;
     background-color: $switch-inactive-color;
     border-radius: $switch-height;
     box-sizing: border-box;
@@ -201,6 +221,32 @@
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
+
+    @include xs-to-sm {
+      display: none;
+    }
+  }
+
+  .onoffswitch-mobile {
+    display: none;
+
+    @include xs-to-sm {
+      @include switch-transition;
+
+      display: block;
+      align-self: center;
+      margin-right: 10px;
+      margin-left: 15px;
+      background-color: $switch-inactive-color;
+      border-radius: $switch-height;
+      box-sizing: border-box;
+      height: $switch-height;
+      width: $switch-width;
+      position: relative;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+    }
   }
 
   .onoffswitch-checkbox {
@@ -253,7 +299,6 @@
     width: $switch-handle-size;
     margin: $switch-handle-offset;
     position: absolute;
-    right: $switch-handle-offset + $switch-handle-size -1;
     top: 0;
   }
 

@@ -8,12 +8,18 @@ import PT from 'prop-types';
 import React from 'react';
 import ContentBlock from './ContentBlock';
 
+import defaultTheme from './themes/default.scss';
 import veteranTheme from './themes/default_veteran.scss';
 import rowItemTheme from './themes/row_item.scss';
+import cardTheme from './themes/card.scss';
+import TCO19Theme from './themes/TCO19.scss';
 
 const THEMES = {
+  Default: defaultTheme,
   Veteran: veteranTheme,
   'Row Item': rowItemTheme,
+  Card: cardTheme,
+  TCO19: TCO19Theme,
 };
 
 /* Loads content block background asset. */

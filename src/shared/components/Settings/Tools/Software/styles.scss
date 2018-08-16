@@ -1,8 +1,4 @@
-@import "~styles/mixins";
-
-.hide {
-  display: none;
-}
+@import "../../style";
 
 .software-container {
   display: flex;
@@ -17,6 +13,10 @@
     font-weight: 400;
     color: $tc-black;
     margin-bottom: 20px;
+
+    @include xs-to-sm {
+      display: none;
+    }
   }
 }
 
@@ -41,8 +41,13 @@
   flex-direction: column;
   border-radius: 6px;
   border: 1px solid $tc-gray-10;
-  padding: 20px 20px 20px 20px;
+  padding: 20px;
   background-color: $tc-gray-neutral-light;
+
+  @include xs-to-sm {
+    border: 0;
+    border-radius: 0;
+  }
 
   p {
     @include roboto-regular;
@@ -51,6 +56,10 @@
     line-height: 30px;
     font-weight: 400;
     color: $tc-black;
+
+    @include xs-to-sm {
+      margin-bottom: 20px;
+    }
   }
 
   .row {
@@ -59,10 +68,21 @@
     margin-bottom: 20px;
     align-content: space-between;
 
+    @include xs-to-sm {
+      width: 100%;
+      display: block;
+      margin-bottom: 0;
+    }
+
     .field {
       display: flex;
       flex-direction: column;
       margin-right: 10px;
+
+      @include xs-to-sm {
+        display: block;
+        padding-bottom: 10px;
+      }
 
       label {
         @include roboto-medium;
@@ -75,12 +95,32 @@
       }
 
       &.col-1 {
-        width: 341px;
+        width: 45%;
+
+        @include md-to-lg {
+          width: 42%;
+        }
+
+        @include xs-to-sm {
+          width: 100%;
+        }
       }
 
       &.col-2 {
-        width: 431px;
+        width: 55%;
+
+        @include md-to-lg {
+          width: 58%;
+        }
+
+        @include xs-to-sm {
+          width: 100%;
+        }
       }
+    }
+
+    div.field:last-child {
+      margin-right: 0;
     }
   }
 
@@ -95,11 +135,19 @@
     color: $tc-black;
     border: 1px solid $tc-gray-20;
     border-radius: $corner-radius * 2 $corner-radius * 2 $corner-radius * 2 $corner-radius * 2;
+
+    @include xs-to-sm {
+      margin-top: 5px;
+    }
   }
 }
 
 .button-save {
   align-self: center;
+
+  @include xs-to-sm {
+    margin-top: 10px;
+  }
 
   button,
   a {
@@ -117,4 +165,45 @@
   .complete {
     color: $tc-white;
   }
+}
+
+/*
+ * React Select component styling
+ */
+.software-container .form-container .row .field :global .Select,
+.software-container .form-container .row .field :global .Select-value span,
+.software-container .form-container .row .field :global .Select-menu-outer,
+.software-container .form-container .row .field :global .Select-placeholder,
+.software-container .form-container .row .field :global .Select-input input {
+  color: $tc-gray-80;
+  font-size: 15px;
+
+  @include xs-to-sm {
+    margin-top: 5px;
+  }
+}
+
+.software-container div[class="Select-control"] {
+  height: 40px;
+
+  div[class="Select-input"] {
+    height: 38px;
+  }
+
+  div[class="Select-placeholder"] {
+    height: 38px;
+    line-height: 40px !important;
+
+    @include xs-to-sm {
+      line-height: 27px !important;
+    }
+  }
+
+  div[class="Select-value"] {
+    line-height: 40px !important;
+  }
+}
+
+.software-container .form-container .row .field :global .Select-placeholder {
+  color: $tc-gray-50;
 }

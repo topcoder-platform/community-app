@@ -38,6 +38,8 @@ const TC_CDN_URL = `${config.CDN.PUBLIC}/contentful`;
 export const ASSETS_DOMAIN = 'assets.ctfassets.net';
 export const IMAGES_DOMAIN = 'images.ctfassets.net';
 
+const MAX_FETCH_RETRIES = 5;
+
 /* GENERAL-PURPOSE CONTETNFUL API SERVICE. */
 
 /**
@@ -64,6 +66,14 @@ function mapAssetFileUrlToCdn(asset) {
 }
 
 /**
+ * Creates a promise that resolves one second after its creation.
+ * @return {Promise}
+ */
+function oneSecondDelay() {
+  return new Promise(resolve => setTimeout(resolve, 1000));
+}
+
+/**
  * Auxiliary class that handles communication with Contentful CDN and preview
  * APIs in the same uniform manner.
  */
@@ -86,9 +96,21 @@ class ApiService {
   async fetch(endpoint, query) {
     let url = `${this.private.baseUrl}${endpoint}`;
     if (query) url += `?${qs.stringify(query)}`;
-    const res = await fetch(url, {
-      headers: { Authorization: `Bearer ${this.private.key}` },
-    });
+    let res;
+    for (let i = 0; i < MAX_FETCH_RETRIES; i += 1) {
+      /* The loop is here to retry async operation multiple times in case of
+       * failures due to violation of Contentful API rate limits, which are
+       * 78 requests within 1 second. Thus, it is a valid use of await inside
+       * loop. */
+      /* eslint-disable no-await-in-loop */
+      res = await fetch(url, {
+        headers: { Authorization: `Bearer ${this.private.key}` },
+      });
+      /* 429 = "Too Many Requests" */
+      if (res.status !== 429) break;
+      await oneSecondDelay();
+      /* eslint-enable no-await-in-loop */
+    }
     if (!res.ok) throw new Error(res.statusText);
     return res.json();
   }

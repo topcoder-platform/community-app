@@ -15,15 +15,10 @@ function toastrSuccess(title, message) {
   });
 }
 
+
 function mergeSkills(state, { type, payload, error }) {
   if (error) {
     return state;
-  }
-
-  if (type === 'PROFILE/ADD_SKILL_DONE') {
-    toastrSuccess('Success! ', `Skill "${payload.skill.tagName}" was added.`);
-  } else if (type === 'PROFILE/HIDE_SKILL_DONE') {
-    toastrSuccess('Success! ', `Skill "${payload.skill.tagName}" was removed.`);
   }
 
   const firstTime = state.skills === undefined;
@@ -35,6 +30,9 @@ function mergeSkills(state, { type, payload, error }) {
 
   let maxIsNew = 0;
 
+  let addedSkillName = '';
+  let removedSkillName = '';
+
   _.forEach(oldSkills, (oldSkill, tagId) => {
     const newSkill = newSkills[tagId];
     if (!newSkill) {
@@ -43,12 +41,16 @@ function mergeSkills(state, { type, payload, error }) {
         ...oldSkill,
         hidden: true,
       };
+      removedSkillName = oldSkill.tagName;
     } else {
       // Copy the new skill except 'isNew' field
       mergedSkills[tagId] = {
         ...newSkill,
         isNew: oldSkill.isNew,
       };
+      if (newSkill.hidden && !oldSkill.hidden) {
+        removedSkillName = oldSkill.tagName;
+      }
     }
 
     if (oldSkill.isNew && oldSkill.isNew > maxIsNew) {
@@ -67,8 +69,17 @@ function mergeSkills(state, { type, payload, error }) {
         ...newSkill,
         isNew: firstTime ? 0 : maxIsNew,
       };
+      addedSkillName = newSkill.tagName;
+    } else if (!newSkill.hidden && oldSkill.hidden) {
+      addedSkillName = newSkill.tagName;
     }
   });
+
+  if (type === 'PROFILE/ADD_SKILL_DONE') {
+    toastrSuccess('Success! ', `Skill "${addedSkillName}" was added.`);
+  } else if (type === 'PROFILE/HIDE_SKILL_DONE') {
+    toastrSuccess('Success! ', `Skill "${removedSkillName}" was removed.`);
+  }
 
   return {
     ...state,
@@ -111,9 +122,11 @@ function onDeleteWebLinkDone(state, { payload, error }) {
 }
 
 function onLinkExternalAccountDone(state, { payload, error }) {
-  if (!error) {
-    toastrSuccess('Success! ', `Your ${payload.data.providerType} account has been linked. Data from your linked account will be visible on your profile shortly.`);
+  if (error) {
+    return state;
   }
+
+  toastrSuccess('Success! ', `Your ${payload.data.providerType} account has been linked. Data from your linked account will be visible on your profile shortly.`);
   return state;
 }
 
@@ -232,7 +245,7 @@ export function factory(req) {
   // Check to see if a specific tab is provided as a param
   if (req && req.url) {
     const { pathname } = require('url').parse(`${config.URL.APP}${req.url}`); /* eslint-disable-line global-require */
-    const match = pathname.match(/^\/settings\/(profile|account|email|preferences)(\/)?$/);
+    const match = pathname.match(/^\/settings\/(profile|tools|account|preferences)(\/)?$/);
     if (match && match[1]) {
       return Promise.resolve(create({
         settingsTab: match[1],

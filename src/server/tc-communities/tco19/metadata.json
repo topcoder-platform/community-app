@@ -1,5 +1,4 @@
 {
-  "authorizedGroupIds": ["20000078"],
   "challengeFilter": {
     "groupIds": ["20000078"],
     "or": [{
@@ -11,12 +10,11 @@
   "groupIds": ["20000078"],
   "hideSearch": true,
   "logos": [{
-    "img": "/community-app-assets/themes/tco19/logo_topcoder_with_name.svg",
-    "url": "https://www.topcoder.com"
+    "img": "/community-app-assets/themes/tco19/TCO19-white.svg",
+    "url": "https://tco19.topcoder.com"
   }],
   "menuItems": [{
-    "title": "Home",
-    "url": "/"
+    "navigationMenu": "2Q7PFVzaoEGK0SciSceoew"
   }],
   "newsFeed": "http://www.topcoder.com/feed",
   "subdomains": ["tco19"],

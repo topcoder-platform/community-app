@@ -19,6 +19,14 @@
         {
             "key": "deviceType",
             "name": "Console"
+        },
+        {
+            "key": "deviceType",
+            "name": "Wearable"
+        },
+        {
+            "key": "deviceType",
+            "name": "Other"
         }
     ]
 }

@@ -1,0 +1,86 @@
+@import "../../../../style";
+
+.container {
+  display: flex;
+  flex-direction: row;
+  justify-items: center;
+  justify-content: space-between;
+  height: 100%;
+  width: 100%;
+  padding: 20px;
+  border: 1px solid $tc-gray-10;
+  border-bottom: none;
+  background-color: $tc-white;
+}
+
+.hobby-info {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.hobby-icon {
+  height: 49px;
+  width: 49px;
+  margin-right: 18px;
+}
+
+.hobby-parameters {
+  @include roboto-medium;
+
+  display: flex;
+  flex-direction: column;
+  justify-items: center;
+  justify-content: center;
+  font-size: 15px;
+  line-height: 20px;
+  text-transform: capitalize;
+  word-break: break-word;
+  margin-right: 20px;
+}
+
+.parameter-first-line {
+  font-weight: 500;
+  color: $tc-black;
+  margin-bottom: 10px;
+
+  @include xs-to-sm {
+    margin-bottom: 0;
+  }
+}
+
+.parameter-second-line {
+  color: $tc-gray-50;
+  font-weight: 400;
+}
+
+.delete {
+  display: flex;
+  flex-direction: column;
+  justify-items: center;
+  justify-content: center;
+  cursor: pointer;
+  outline-style: none;
+  margin-left: 10px;
+
+  img {
+    margin-bottom: 10px;
+
+    @include xs-to-sm {
+      margin-bottom: 0;
+    }
+  }
+
+  p {
+    @include roboto-regular;
+
+    font-size: 11px;
+    line-height: 15px;
+    font-weight: 400;
+    color: $tc-gray-50;
+
+    @include xs-to-sm {
+      display: none;
+    }
+  }
+}

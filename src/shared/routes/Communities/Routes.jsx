@@ -19,6 +19,7 @@ import Cognitive from './Cognitive';
 import IoT from './iot';
 import TCO19 from './TCO19';
 import Mobile from './Mobile';
+import Zurich from './Zurich';
 
 export default function Communities({
   base, communityId, member, meta,
@@ -28,6 +29,7 @@ export default function Communities({
       return <Blockchain base={base} member={member} meta={meta} />;
     case 'community-2': return <Community2 base={base} meta={meta} />;
     case 'cs': return <CS base={base} meta={meta} />;
+    case 'zurich': return <Zurich base={base} meta={meta} />;
     case 'demo-expert': return <DemoExpert base={base} meta={meta} />;
     case 'qa': return <QA base={base} member={member} meta={meta} />;
     case 'srmx': return <SRMx base={base} meta={meta} />;

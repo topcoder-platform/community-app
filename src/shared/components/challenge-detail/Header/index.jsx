@@ -11,6 +11,9 @@ import 'moment-duration-format';
 import PT from 'prop-types';
 import React from 'react';
 import { DangerButton, PrimaryButton } from 'topcoder-react-ui-kit';
+import { Link } from 'topcoder-react-utils';
+
+import LeftArrow from 'assets/images/arrow-prev.svg';
 
 import ArrowUp from '../../../../assets/images/icon-arrow-up.svg';
 import ArrowDown from '../../../../assets/images/icon-arrow-down.svg';
@@ -69,9 +72,11 @@ export default function ChallengeHeader(props) {
   } = challenge;
 
   const phases = {};
-  allPhases.forEach((phase) => {
-    phases[_.camelCase(phase.phaseType)] = phase;
-  });
+  if (allPhases) {
+    allPhases.forEach((phase) => {
+      phases[_.camelCase(phase.phaseType)] = phase;
+    });
+  }
 
   let registrationEnded = true;
   const regPhase = phases.registration;
@@ -229,18 +234,25 @@ export default function ChallengeHeader(props) {
   return (
     <div styleName="challenge-outer-container">
       <div styleName="important-detail">
-        <h1 styleName="challenge-header">
-          {name}
-        </h1>
-        <ChallengeTags
-          subTrack={subTrack}
-          track={trackLower}
-          challengesUrl={challengesUrl}
-          challengeSubtracksMap={challengeSubtracksMap}
-          events={eventNames}
-          technPlatforms={miscTags}
-          setChallengeListingFilter={setChallengeListingFilter}
-        />
+        <div styleName="title-wrapper">
+          <Link to={challengesUrl}>
+            <LeftArrow styleName="left-arrow" />
+          </Link>
+          <div>
+            <h1 styleName="challenge-header">
+              {name}
+            </h1>
+            <ChallengeTags
+              subTrack={subTrack}
+              track={trackLower}
+              challengesUrl={challengesUrl}
+              challengeSubtracksMap={challengeSubtracksMap}
+              events={eventNames}
+              technPlatforms={miscTags}
+              setChallengeListingFilter={setChallengeListingFilter}
+            />
+          </div>
+        </div>
         <div styleName="prizes-ops-container">
           <div styleName="prizes-outer-container">
             <h3 styleName="prizes-title">

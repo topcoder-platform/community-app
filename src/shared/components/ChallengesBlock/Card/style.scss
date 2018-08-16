@@ -1,0 +1,34 @@
+@import "~styles/mixins";
+
+.container {
+  align-items: flex-start;
+  border: 1px solid $tc-gray-neutral-dark;
+  border-radius: 4px;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: space-between;
+  margin: 10px;
+  padding: 30px;
+  text-align: left;
+}
+
+.prizes {
+  @include tc-label-xl;
+
+  margin: 10px 0;
+}
+
+.text {
+  @include tc-body-md;
+}
+
+.title {
+  @include tc-heading-md;
+
+  margin: 10px 0;
+
+  a {
+    color: $tc-dark-blue;
+  }
+}

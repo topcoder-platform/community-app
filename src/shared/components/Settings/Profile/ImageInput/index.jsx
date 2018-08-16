@@ -2,7 +2,7 @@
  * render a user icom input component.
  */
 /* global document */
-import _ from 'lodash';
+/* eslint-disable react/forbid-prop-types */
 import React from 'react';
 import PT from 'prop-types';
 
@@ -20,10 +20,19 @@ export default class ImageInput extends React.Component {
 
     this.onChangeImage = this.onChangeImage.bind(this);
     this.onUploadPhoto = this.onUploadPhoto.bind(this);
-    this.onDeletePhoto = this.onDeletePhoto.bind(this);
+
+    this.state = {
+      newBasicInfo: {},
+    };
+  }
+
+  componentDidMount() {
+    const { userTraits } = this.props;
+    this.loadBasicInfoTraits(userTraits);
   }
 
   componentWillReceiveProps(nextProps) {
+    this.loadBasicInfoTraits(nextProps.userTraits);
     const {
       profileState,
     } = this.props;
@@ -60,27 +69,20 @@ export default class ImageInput extends React.Component {
     uploadPhoto(handle, tokenV3, file);
   }
 
-  onDeletePhoto(e) {
-    const {
-      deletePhoto,
-      profile,
-      profileState,
-      tokenV3,
-    } = this.props;
-    e.preventDefault();
-    if (profileState.deletingPhoto) {
-      return;
-    }
-    const newProfile = _.clone(profile);
-    delete newProfile.photoURL;
-    delete newProfile.groups;
-    newProfile.tracks = newProfile.tracks || [];
-    deletePhoto(newProfile, tokenV3);
+  /**
+   * Get basic info trait
+   * @param userTraits the all user traits
+   */
+  loadBasicInfoTraits = (userTraits) => {
+    const trait = userTraits.filter(t => t.traitId === 'basic_info');
+    const basicInfoTrait = trait.length === 0 ? {} : trait[0];
+    const basicInfo = basicInfoTrait.traits ? basicInfoTrait.traits.data[0] : {};
+    this.setState({ newBasicInfo: basicInfo });
   }
 
   render() {
     const {
-      profile,
+      handle,
       profileState,
     } = this.props;
 
@@ -89,49 +91,54 @@ export default class ImageInput extends React.Component {
       deletingPhoto,
     } = profileState;
 
+    const { newBasicInfo } = this.state;
+
     return (
       <div styleName="image">
         <div styleName="edit-image">
           {
-                profile.photoURL
-                && <img alt="User" src={profile.photoURL} styleName="profile-circle" />
-              }
+            newBasicInfo.photoURL
+            && <img alt="User" src={newBasicInfo.photoURL} styleName="profile-circle" />
+          }
           {
-                !profile.photoURL
-                && <DefaultPortrait styleName="profile-circle" />
-              }
+            !newBasicInfo.photoURL
+            && <DefaultPortrait styleName="profile-circle" />
+          }
           <div styleName="buttons">
+            <p styleName="handle">
+              {handle}
+            </p>
             <PrimaryButton onClick={this.onChangeImage} disabled={uploadingPhoto || deletingPhoto} theme={{ button: Styles['file-upload'] }}>
               {
-                    uploadingPhoto && <i className="fa fa-spinner fa-spin" />
-                  }
+                uploadingPhoto && <i className="fa fa-spinner fa-spin" />
+              }
               {
-                    !uploadingPhoto && profile.photoURL && 'Browse...'
-                  }
+                !uploadingPhoto && newBasicInfo.photoURL && 'Browse...'
+              }
               {
-                    !uploadingPhoto && !profile.photoURL && 'Browse...'
-                  }
+                !uploadingPhoto && !newBasicInfo.photoURL && 'Browse...'
+              }
             </PrimaryButton>
             <input type="file" name="image" onChange={this.onUploadPhoto} id="change-image-input" className="hidden" />
             {
-                  profile.photoURL
-                  && (
-                  <div>
-                    <SecondaryButton
-                      onClick={this.onDeletePhoto}
-                      disabled={uploadingPhoto || deletingPhoto}
-                      theme={{ button: Styles['file-delete'] }}
-                    >
-                      {
-                        deletingPhoto && <i className="fa fa-spinner fa-spin" />
-                      }
-                      {
-                        !deletingPhoto && 'Delete'
-                      }
-                    </SecondaryButton>
-                  </div>
-                  )
-                }
+              newBasicInfo.photoURL
+              && (
+                <div>
+                  <SecondaryButton
+                    onClick={this.onDeletePhoto}
+                    disabled={uploadingPhoto || deletingPhoto}
+                    theme={{ button: Styles['file-delete'] }}
+                  >
+                    {
+                      deletingPhoto && <i className="fa fa-spinner fa-spin" />
+                    }
+                    {
+                      !deletingPhoto && 'Delete'
+                    }
+                  </SecondaryButton>
+                </div>
+              )
+            }
           </div>
         </div>
       </div>
@@ -142,8 +149,7 @@ export default class ImageInput extends React.Component {
 ImageInput.propTypes = {
   handle: PT.string.isRequired,
   tokenV3: PT.string.isRequired,
-  profile: PT.shape().isRequired,
+  userTraits: PT.array.isRequired,
   profileState: PT.shape().isRequired,
   uploadPhoto: PT.func.isRequired,
-  deletePhoto: PT.func.isRequired,
 };

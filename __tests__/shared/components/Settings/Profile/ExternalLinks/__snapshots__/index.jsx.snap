@@ -26,6 +26,39 @@ exports[`renders external links section of profile setting page correctly 1`] = 
     </div>
     <AddWebLink
       addWebLink={[Function]}
+      allLinks={
+        Array [
+          Object {
+            "data": Object {
+              "handle": "tcscoder",
+            },
+            "providerType": "github",
+            "status": "pending",
+          },
+          Object {
+            "data": Object {
+              "handle": "1233342",
+            },
+            "providerType": "stackoverflow",
+            "status": "pending",
+          },
+          Object {
+            "URL": "https://www.google.com",
+            "description": "Search the world's information, including webpages, images, videos and more. Google has many special features to help you find exactly what you're looking for.",
+            "entities": null,
+            "handle": "tcscoder",
+            "images": "https://www.google.com/images/branding/googlelogo/1x/googlelogo_white_background_color_272x92dp.png",
+            "key": "4c7136cdbbf227274e49c475e7541abf",
+            "keywords": null,
+            "providerType": "weblink",
+            "source": "embed.ly",
+            "status": "linked",
+            "synchronizedAt": 1525560141959,
+            "title": "Google",
+            "userId": 22655076,
+          },
+        ]
+      }
       deleteWebLink={[Function]}
       handle=""
       linkExternalAccount={[Function]}

@@ -2,6 +2,7 @@
  * Routes for demo API of tc-communities
  */
 
+import _ from 'lodash';
 import CommunitiesService from 'server/services/communities';
 import express from 'express';
 
@@ -15,7 +16,9 @@ const router = express.Router();
  */
 router.get('/', (req, res) => {
   const tokenV3 = req.headers.authorization;
-  new CommunitiesService(tokenV3).getList(req.query.groups || [])
+  let { groups } = req.query;
+  if (_.isObject(groups)) groups = Object.values(groups);
+  new CommunitiesService(tokenV3).getList(groups || [])
     .catch(err => res.status(500).send(err))
     .then(list => res.json(list));
 });

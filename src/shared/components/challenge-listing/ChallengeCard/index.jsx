@@ -123,6 +123,7 @@ function ChallengeCard({
 
         <div styleName={isRegistrationOpen ? 'challenge-details with-register-button' : 'challenge-details'}>
           <Link
+            enforceA={isMM}
             onClick={() => selectChallengeDetailsTab(DETAIL_TABS.DETAILS)}
             to={challengeDetailLink}
             styleName="challenge-title"

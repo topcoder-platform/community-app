@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="15px" height="13px" viewBox="0 0 15 13" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
+    <!-- Generator: Sketch 3.3.3 (12081) - http://www.bohemiancoding.com/sketch -->
+    <title>checkmark</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Dashboard-Web" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
+        <g id="Dashboard-Cards" sketch:type="MSArtboardGroup" transform="translate(-2383.000000, -407.000000)" fill="#3D3D3D">
+            <path d="M2386.84803,408.54609 L2383.55391,408.54609 L2383.55391,415.54609 L2397.55391,415.54609 L2397.55391,412.434979 L2386.84803,412.434979 L2386.84803,408.54609 Z" id="checkmark" sketch:type="MSShapeGroup" transform="translate(2390.353910, 412.146090) rotate(-45.000000) translate(-2390.353910, -412.146090) "></path>
+        </g>
+    </g>
+</svg>

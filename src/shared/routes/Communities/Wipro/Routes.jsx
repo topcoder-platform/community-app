@@ -5,7 +5,7 @@
 import ChallengeDetails from 'routes/ChallengeDetails';
 import ChallengeListing from 'routes/Communities/ChallengeListing';
 import ChallengeListingBanner from 'components/tc-communities/communities/wipro/ChallengeListingBanner';
-import Error404 from 'components/Error404';
+import ContentfulRoute from 'components/Contentful/Route';
 import FAQ from 'components/tc-communities/communities/wipro/FAQ';
 import Footer from 'components/tc-communities/communities/wipro/Footer';
 import Header from 'containers/tc-communities/Header';
@@ -100,13 +100,13 @@ export default function Wipro({ base, meta }) {
                 path={`${base}/home`}
               />
               <Route
-                component={Error404}
-                path={`${base}/:any`}
-              />
-              <Route
                 component={Home}
                 exact
-                path={`${base}`}
+                path={`${base || '/'}`}
+              />
+              <ContentfulRoute
+                baseUrl={base}
+                id="1VXRAIxJdi6eCeeyKCmicK"
               />
             </Switch>
             <Footer />

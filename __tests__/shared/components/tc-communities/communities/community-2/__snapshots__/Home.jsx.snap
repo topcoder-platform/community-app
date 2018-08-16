@@ -2,6 +2,7 @@
 
 exports[`Match shadow snapshot 1`] = `
 <ViewportLoader
+  baseUrl=""
   id={null}
   preview={false}
   query={

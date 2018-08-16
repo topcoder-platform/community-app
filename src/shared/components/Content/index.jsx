@@ -250,10 +250,14 @@ Member Programs Page
           </code>
           {' '}
 endpoint.
-          Valid link on dev
-          {' '}
+          Valid links on dev:
+          <br />
           <Link to="/members/TonyJ">
-here.
+Profile 1.
+          </Link>
+          <br />
+          <Link to="/members/mess">
+Profile 2.
           </Link>
         </li>
         <li>
@@ -303,8 +307,8 @@ Settings Profile Page
           </Link>
         </li>
         <li>
-          <Link to="/track/design">
-Track Home Page - Design
+          <Link to="/community/development">
+            Track Home Page - Development
           </Link>
         </li>
       </ul>
@@ -314,9 +318,7 @@ TCO Assets
       </h3>
       <ul>
         <li>
-          <Link to="/hall-of-fame/tco">
-TCO Hall of Fame
-          </Link>
+          <Link to="/community/hall-of-fame/tco">TCO Hall of Fame</Link>
         </li>
         <li>
           TCO Scoreboard demo is mounted on
@@ -424,6 +426,13 @@ Previews of Contentful Components
       </h3>
       <ul>
         <li>
+          <Link to="/examples/contentful/slider/6VvsA1RgkwaEamS66wiEMy">
+            <code>
+ContentSlider
+            </code>
+          </Link>
+        </li>
+        <li>
           <Link to="/examples/contentful/accordion/2aRYmMs4rmwEIISCag8MOm">
             <code>
 Accordion
@@ -441,6 +450,20 @@ Banner
           <Link to="/examples/contentful/contentblock/6CVFvEiZFKYQMwW82aYCWS">
             <code>
 ContentBlock
+            </code>
+          </Link>
+        </li>
+        <li>
+          <Link to="/examples/contentful/blogpost/1tKTZsVzk40kSYgG0imCKS">
+            <code>
+BlogPost
+            </code>
+          </Link>
+        </li>
+        <li>
+          <Link to="/examples/contentful/blog/TCO Blog/1">
+            <code>
+Blog
             </code>
           </Link>
         </li>
@@ -498,6 +521,9 @@ Sandbox
 Misc Examples
       </h3>
       <ul>
+        <li>
+          <Link to="/examples/countdown">Countdown</Link>
+        </li>
         <li>
           <Link
             to="/examples/announcement/5yaVZtOH9CYoQ0QYQk0uoY"

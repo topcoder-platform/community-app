@@ -8,7 +8,7 @@
 import React from 'react';
 import PT from 'prop-types';
 import _ from 'lodash';
-
+import UserConsentModal from 'components/Settings/UserConsentModal';
 import Select from 'components/Select';
 import { PrimaryButton } from 'topcoder-react-ui-kit';
 import dropdowns from './dropdowns.json';
@@ -25,11 +25,15 @@ export default class Software extends React.Component {
     this.loadSoftwareTrait = this.loadSoftwareTrait.bind(this);
     this.onUpdateInput = this.onUpdateInput.bind(this);
     this.onAddSoftware = this.onAddSoftware.bind(this);
+    this.loadPersonalizationTrait = this.loadPersonalizationTrait.bind(this);
+    this.onShowUserConsent = this.onShowUserConsent.bind(this);
 
     this.state = {
       formInvalid: false,
+      showUserConsent: false,
       errorMessage: '',
       softwareTrait: this.loadSoftwareTrait(props.userTraits),
+      personalizationTrait: this.loadPersonalizationTrait(props.userTraits),
       newSoftware: {
         softwareType: '',
         name: '',
@@ -39,8 +43,10 @@ export default class Software extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     const softwareTrait = this.loadSoftwareTrait(nextProps.userTraits);
+    const personalizationTrait = this.loadPersonalizationTrait(nextProps.userTraits);
     this.setState({
       softwareTrait,
+      personalizationTrait,
       formInvalid: false,
       errorMessage: '',
       newSoftware: {
@@ -50,6 +56,18 @@ export default class Software extends React.Component {
     });
   }
 
+  /**
+   * Show User Consent Modal
+   * @param e event
+   */
+  onShowUserConsent(e) {
+    e.preventDefault();
+    const { newSoftware } = this.state;
+    if (this.onCheckFormValue(newSoftware)) {
+      return;
+    }
+    this.setState({ showUserConsent: true });
+  }
 
   /**
    * Check form fields value,
@@ -107,13 +125,13 @@ export default class Software extends React.Component {
   /**
    * Add new software
    * @param e form submit event
+   * @param answer user consent answer value
    */
-  onAddSoftware(e) {
+  onAddSoftware(e, answer) {
     e.preventDefault();
-    const { newSoftware } = this.state;
-    if (this.onCheckFormValue(newSoftware)) {
-      return;
-    }
+    this.setState({ showUserConsent: false });
+    const { newSoftware, personalizationTrait } = this.state;
+
     const {
       handle,
       tokenV3,
@@ -140,6 +158,17 @@ export default class Software extends React.Component {
       name: '',
     };
     this.setState({ newSoftware: empty });
+    // save personalization
+    if (_.isEmpty(personalizationTrait)) {
+      const personalizationData = { userConsent: answer };
+      addUserTrait(handle, 'personalization', [personalizationData], tokenV3);
+    } else {
+      const trait = personalizationTrait.traits.data[0];
+      if (trait.userConsent !== answer) {
+        const personalizationData = { userConsent: answer };
+        updateUserTrait(handle, 'personalization', [personalizationData], tokenV3);
+      }
+    }
   }
 
   /**
@@ -176,74 +205,77 @@ export default class Software extends React.Component {
     return _.assign({}, softwares);
   }
 
+  /**
+   * Get personalization trait
+   * @param userTraits the all user traits
+   */
+  loadPersonalizationTrait = (userTraits) => {
+    const trait = userTraits.filter(t => t.traitId === 'personalization');
+    const personalization = trait.length === 0 ? {} : trait[0];
+    return _.assign({}, personalization);
+  }
+
   render() {
-    const {
-      settingsUI,
-    } = this.props;
-    const {
-      softwareTrait,
-    } = this.state;
-    const tabs = settingsUI.TABS.TOOLS;
-    const currentTab = settingsUI.currentToolsTab;
-    const containerStyle = currentTab === tabs.SOFTWARE ? '' : 'hide';
+    const { softwareTrait, showUserConsent } = this.state;
     const softwareItems = softwareTrait.traits
       ? softwareTrait.traits.data.slice() : [];
     const { newSoftware, formInvalid, errorMessage } = this.state;
 
     return (
-      <div styleName={containerStyle}>
-        <div styleName="software-container">
-          <div styleName={`error-message ${formInvalid ? 'active' : ''}`}>
-            { errorMessage }
-          </div>
-          <h1>
-            Software
-          </h1>
-          <div styleName="form-container">
-            <form name="software-form" noValidate autoComplete="off">
-              <div styleName="row">
-                <p>
-                  Add Software
-                </p>
-              </div>
-              <div styleName="row">
-                <div styleName="field col-1">
-                  <label htmlFor="softwareType">
-                    Software Type
-                  </label>
-                  <Select
-                    name="softwareType"
-                    options={dropdowns.type}
-                    onChange={this.onUpdateSelect}
-                    value={newSoftware.softwareType}
-                    placeholder="Software Type"
-                    labelKey="name"
-                    valueKey="name"
-                    clearable={false}
-                  />
-                </div>
-                <div styleName="field col-2">
-                  <label htmlFor="name">
-                    Name
-                  </label>
-                  <input id="name" name="name" type="text" placeholder="Name" onChange={this.onUpdateInput} value={newSoftware.name} maxLength="64" required />
-                </div>
-              </div>
-            </form>
-            <div styleName="button-save">
-              <PrimaryButton
-                styleName="complete"
-                onClick={this.onAddSoftware}
-              >
-                Add Software
-              </PrimaryButton>
-            </div>
-          </div>
-          <SoftwareList
-            softwareList={{ items: softwareItems }}
-            onDeleteItem={this.onDeleteSoftware}
-          />
+      <div styleName="software-container">
+        {
+          showUserConsent && (<UserConsentModal onSaveTrait={this.onAddSoftware} />)
+        }
+        <div styleName={`error-message ${formInvalid ? 'active' : ''}`}>
+          { errorMessage }
         </div>
+        <h1>
+Software
+        </h1>
+        <div styleName="form-container">
+          <form name="software-form" noValidate autoComplete="off">
+            <div styleName="row">
+              <p>
+Add Software
+              </p>
+            </div>
+            <div styleName="row">
+              <div styleName="field col-1">
+                <label htmlFor="softwareType">
+Software Type
+                </label>
+                <Select
+                  name="softwareType"
+                  options={dropdowns.type}
+                  onChange={this.onUpdateSelect}
+                  value={newSoftware.softwareType}
+                  placeholder="Software Type"
+                  labelKey="name"
+                  valueKey="name"
+                  clearable={false}
+                />
+              </div>
+              <div styleName="field col-2">
+                <label htmlFor="name">
+Name
+                </label>
+                <input id="name" name="name" type="text" placeholder="Name" onChange={this.onUpdateInput} value={newSoftware.name} maxLength="64" required />
+              </div>
+            </div>
+          </form>
+          <div styleName="button-save">
+            <PrimaryButton
+              styleName="complete"
+              onClick={this.onShowUserConsent}
+            >
+              Add Software
+            </PrimaryButton>
+          </div>
+        </div>
+        <SoftwareList
+          softwareList={{ items: softwareItems }}
+          onDeleteItem={this.onDeleteSoftware}
+        />
       </div>
     );
   }
@@ -256,5 +288,4 @@ Software.propTypes = {
   addUserTrait: PT.func.isRequired,
   updateUserTrait: PT.func.isRequired,
   deleteUserTrait: PT.func.isRequired,
-  settingsUI: PT.shape().isRequired,
 };

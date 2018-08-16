@@ -1,15 +1,33 @@
-@import "~styles/mixins";
+@import "../style";
 
-:global {
-  .account-info-container {
-    padding: 0 60px 30px;
+.account-container {
+  display: flex;
+  flex-direction: row;
+  align-content: space-between;
+  padding: 60px 50px 55px 50px;
+  box-shadow: 0 2px 9px 0 rgba(38, 38, 40, 0.06);
 
-    .section-fields {
-      margin-top: 20px;
+  .col-bar {
+    width: 250px;
+    margin-right: 70px;
 
-      .form-label {
-        max-width: 360px !important;
-      }
+    @include screen1025-to-screen1280 {
+      width: 200px;
+      margin-right: 10px;
     }
+
+    @include md-to-lg {
+      width: 90px;
+      padding-right: 30px;
+      margin-right: 0;
+    }
+
+    @include xs-to-sm {
+      display: none;
+    }
+  }
+
+  .col-content {
+    flex: 1;
   }
 }

@@ -1,10 +1,16 @@
-@import "~styles/mixins";
-
-.hide {
-  display: none;
-}
+@import "../../style";
 
 .basic-info-container {
+  display: flex;
+  flex-direction: column;
+
+  @include xs-to-sm {
+    padding: 20px;
+    border-bottom: 1px solid $tc-gray-10;
+  }
+}
+
+.about-me-container {
   display: flex;
   align-items: flex-start;
 
@@ -12,6 +18,30 @@
 
   .user-icon {
     margin-right: 40px;
+
+    @include md-to-lg {
+      display: none;
+    }
+
+    @include xs-to-sm {
+      display: none;
+    }
+  }
+
+  .error-message {
+    display: none;
+
+    &.active {
+      @include roboto-medium;
+
+      display: block;
+      border-radius: 5px;
+      background-color: $tc-red-10;
+      color: $tc-red-110;
+      font-size: 15px;
+      padding: 15px;
+      margin-bottom: 15px;
+    }
   }
 
   .form-container {
@@ -26,13 +56,27 @@
       height: 35px;
       font-size: 28px;
       line-height: 1.25;
-      color: #262628;
+      color: $tc-black;
       margin-bottom: 20px;
+
+      @include md-to-lg {
+        display: none;
+      }
+
+      @include xs-to-sm {
+        display: none;
+      }
     }
 
     .row {
       display: flex;
       margin-bottom: 10px;
+
+      @include xs-to-sm {
+        width: 100%;
+        display: block;
+        margin-bottom: 0;
+      }
 
       .field {
         flex: 1;
@@ -40,17 +84,112 @@
         flex-direction: column;
         margin-right: 10px;
 
+        @include xs-to-sm {
+          display: block;
+          margin-right: 0;
+          padding-bottom: 10px;
+        }
+
         label {
-          @include sofia-pro-medium;
+          @include roboto-medium;
 
           font-size: 12px;
+          line-height: 15px;
+          font-weight: 500;
+          color: $tc-gray-80;
           margin-bottom: 5px;
+
+          .text-required {
+            font-size: 10px;
+            color: $tc-red-110;
+            margin-left: 5px;
+          }
         }
       }
     }
 
+    div.field:last-child {
+      margin-right: 0;
+    }
+
     div.row:last-child {
       margin-bottom: 0;
+    }
+
+    input {
+      @include roboto-regular;
+
+      height: 36px;
+      margin: 0;
+      font-size: 15px;
+      line-height: 20px;
+      font-weight: 400;
+      color: $tc-black;
+      border-radius: $corner-radius * 2 $corner-radius * 2 $corner-radius * 2 $corner-radius * 2;
+
+      @include xs-to-sm {
+        margin-top: 5px;
+      }
+    }
+
+    .second-addr {
+      margin-top: 10px;
+    }
+
+    .mb-user-card {
+      display: none;
+
+      @include xs-to-sm {
+        display: block;
+        margin-bottom: 15px;
+      }
+    }
+
+    .user-card {
+      display: flex;
+      flex-direction: row;
+      margin-bottom: 10px;
+
+      @include md-to-lg {
+        margin-bottom: 15px;
+      }
+
+      @include xs-to-sm {
+        margin-bottom: 0;
+      }
+
+      .img-container {
+        display: none;
+
+        @include md-to-lg {
+          display: block;
+        }
+      }
+
+      .main {
+        display: block;
+        width: 100%;
+
+        @include md-to-lg {
+          display: flex;
+          flex-direction: column;
+        }
+      }
+
+      p.user-handle {
+        display: none;
+
+        @include md-to-lg {
+          @include roboto-regular;
+
+          display: block;
+          font-size: 28px;
+          font-weight: 400;
+          line-height: 35px;
+          color: $tc-black;
+          margin-bottom: 20px;
+        }
+      }
     }
 
     .bio-label {
@@ -74,9 +213,105 @@
   }
 }
 
-.save-button {
+.tracks-container {
+  display: flex;
+  flex-direction: column;
   margin-top: 20px;
-  height: 40px;
-  width: 190px;
+
+  .title-info {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px;
+
+    .title {
+      @include sofia-pro-medium;
+
+      font-size: 16px;
+      font-weight: 500;
+      color: $tc-black;
+      text-transform: uppercase;
+      margin-bottom: 5px;
+    }
+
+    .description {
+      @include merriweather-sans-regular;
+
+      font-size: 13px;
+      font-weight: 400;
+      line-height: 20px;
+      color: $tc-gray-40;
+      font-style: italic;
+    }
+  }
+
+  .track-list {
+    border-top: 1px solid $tc-gray-neutral-dark;
+  }
+}
+
+.button-save {
+  align-self: center;
+  margin-top: 20px;
+
+  div:first-child {
+    margin: 0;
+  }
+
+  button,
+  a {
+    @include roboto-medium;
+
+    height: 40px;
+    font-size: 15px;
+    font-weight: 500;
+    margin: 0;
+    padding: 0;
+    width: 155px;
+  }
+
+  .white-label {
+    color: $tc-white;
+    margin: 0;
+  }
+}
+
+/*
+ * React Select component styling
+ */
+.basic-info-container .form-container .row .field :global .Select,
+.basic-info-container .form-container .row .field :global .Select-value span,
+.basic-info-container .form-container .row .field :global .Select-menu-outer,
+.basic-info-container.form-container .row .field :global .Select-placeholder,
+.basic-info-container .form-container .row .field :global .Select-input input {
+  color: $tc-gray-80;
   font-size: 15px;
+
+  @include xs-to-sm {
+    margin-top: 5px;
+  }
+}
+
+.basic-info-container div[class="Select-control"] {
+  height: 40px;
+
+  div[class="Select-input"] {
+    height: 38px;
+  }
+
+  div[class="Select-placeholder"] {
+    height: 38px;
+    line-height: 40px !important;
+
+    @include xs-to-sm {
+      line-height: 27px !important;
+    }
+  }
+
+  div[class="Select-value"] {
+    line-height: 40px !important;
+  }
+}
+
+.basic-info-container .form-container .row .field :global .Select-placeholder {
+  color: $tc-gray-50;
 }

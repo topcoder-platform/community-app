@@ -1,18 +1,43 @@
-@import "~styles/mixins";
+@import "../style";
 
 .profile-container {
   display: flex;
   flex-direction: row;
-  align-content: space-between;
-  padding: 60px 50px 55px 50px;
+  padding: 60px 40px 55px 50px;
   box-shadow: 0 2px 9px 0 rgba(38, 38, 40, 0.06);
+
+  @include md-to-lg {
+    padding: 30px;
+  }
+
+  @include xs-to-sm {
+    padding: 0;
+  }
 
   .col-bar {
     width: 250px;
     margin-right: 70px;
+
+    @include screen1025-to-screen1280 {
+      width: 200px;
+    }
+
+    @include md-to-lg {
+      width: 90px;
+      padding-right: 30px;
+      margin-right: 0;
+    }
+
+    @include xs-to-sm {
+      display: none;
+    }
   }
 
   .col-content {
-    width: 876px;
+    flex: 1;
+
+    @include xs-to-sm {
+      display: none;
+    }
   }
 }

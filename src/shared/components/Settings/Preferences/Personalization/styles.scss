@@ -1,16 +1,34 @@
-@import "~styles/mixins";
+@import "../../style";
 
 .Personalization {
   margin-bottom: 60px;
+
+  @include md-to-lg {
+    margin-bottom: 0;
+  }
+
+  @include xs-to-sm {
+    margin-bottom: 0;
+  }
 
   .title {
     @include tc-heading-lg;
 
     margin-bottom: 25px;
+
+    @include xs-to-sm {
+      font-size: 20px;
+      line-height: 30px;
+      margin: 20px;
+    }
   }
 
   .user-consent-container {
     border-top: 1px solid $tc-gray-neutral-dark;
-    min-height: 430px;
+    min-height: 474px;
+
+    @include xs-to-sm {
+      min-height: 1px;
+    }
   }
 }

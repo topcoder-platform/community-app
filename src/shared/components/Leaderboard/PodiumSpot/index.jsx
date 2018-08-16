@@ -52,9 +52,9 @@ const CUSTOM_STYLES = {
  * Object used to get the proper string to display based on user ranking.
  */
 const DISPLAY_RANKING = {
-  1: '1st',
-  2: '2nd',
-  3: '3rd',
+  1: '1',
+  2: '2',
+  3: '3',
 };
 
 export default function PodiumSpot(props) {
@@ -62,7 +62,7 @@ export default function PodiumSpot(props) {
     competitor,
   } = props;
 
-  let photoUrl = competitor['challenge_stats.photo_url'];
+  let photoUrl = competitor.avatar;
   if (photoUrl) {
     photoUrl = `${config.CDN.PUBLIC}/avatar/${
       encodeURIComponent(photoUrl)}?size=160`;
@@ -77,26 +77,30 @@ export default function PodiumSpot(props) {
           }}
           url={photoUrl}
         />
+        <div styleName="styles.ranking">{DISPLAY_RANKING[competitor.rank]}</div>
       </span>
-      <div styleName="styles.ranking">
-        {DISPLAY_RANKING[competitor.rank]}
-      </div>
       <div>
-        <a styleName="styles.profile-link" href={`${config.URL.BASE}/members/${competitor['challenge_stats.winner_handle']}/`}>
-          {competitor['challenge_stats.winner_handle']}
+        <a styleName="styles.profile-link" href={`${config.URL.BASE}/members/${competitor.handle}/`}>
+          {competitor.handle}
         </a>
       </div>
       <div styleName="styles.winnings-info">
-        <span>
-          {competitor.points}
-          {' '}
-points
-        </span>
-        <span>
-          {competitor['challenge_stats.count']}
-          {' '}
-challenges
-        </span>
+        {
+          competitor.fulfillment ? (
+            <div styleName="styles.stats">
+              <span styleName="styles.value">{competitor.fulfillment}</span>
+              <span>fulfillment</span>
+            </div>
+          ) : null
+        }
+        <div styleName="styles.stats">
+          <span styleName="styles.value">{competitor.challengecount}</span>
+          <span>challenges</span>
+        </div>
+        <div styleName="styles.stats">
+          <span styleName="styles.value">{competitor.points}</span>
+          <span>points</span>
+        </div>
       </div>
     </div>
   );
@@ -104,9 +108,9 @@ challenges
 
 const CompetitorShape = PT.shape({
   rank: PT.number.isRequired,
-  'challenge_stats.photo_url': PT.string,
-  'challenge_stats.winner_handle': PT.string.isRequired,
-  'challenge_stats.count': PT.number.isRequired,
+  avatar: PT.string,
+  handle: PT.string.isRequired,
+  challengecount: PT.number.isRequired,
   points: PT.number.isRequired,
 });
 

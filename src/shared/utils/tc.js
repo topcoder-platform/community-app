@@ -260,4 +260,31 @@ export function looseEqual(str1, str2) {
   return (!str1 && !str2) || str1 === str2;
 }
 
+/**
+ * Format a UTC date string to a more readable date string
+ * @param {String} date string
+ * @param {Boolean} whether to abbreviate month string
+ * @param {Boolean} whether to showDay
+ * @returns {String} formatted date string
+ */
+export function formatDate(date, abbreviate, showDay) {
+  const monthNames = [
+    'January', 'February', 'March',
+    'April', 'May', 'June', 'July',
+    'August', 'September', 'October',
+    'November', 'December',
+  ];
+  const [y, m, d] = date.split('T')[0].split('-');
+  let month = `${monthNames[m - 1]}`;
+  if (abbreviate) {
+    month = month.substr(0, 3);
+  }
+
+  if (showDay) {
+    return `${month} ${d}, ${y}`;
+  }
+
+  return `${month} ${y}`;
+}
+
 export default undefined;

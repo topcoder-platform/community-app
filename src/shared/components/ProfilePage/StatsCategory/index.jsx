@@ -143,7 +143,7 @@ Rating
                       && (
                       <div styleName="ranking">
                         <div style={{ color: '#21b2f1' }} styleName="number">
-                          {subtrack.wins}
+                          {subtrack.wins ? subtrack.wins : 0}
                         </div>
                         <div styleName="tag">
 Wins
