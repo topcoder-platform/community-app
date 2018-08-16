@@ -92,8 +92,11 @@ class ProfileStats extends React.Component {
                     {activeChallengesCount}
                   </div>
                   <div styleName="title">
-Active Challenges
+ Active Challenges
                   </div>
+                </div>
+                <div styleName="badgeItem">
+                  <div styleName="dashboardBadge" />
                 </div>
               </div>
             </header>
