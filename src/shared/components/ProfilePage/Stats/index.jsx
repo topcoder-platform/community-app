@@ -38,7 +38,7 @@ class ProfileStats extends React.Component {
 
   checkSRMHonor() {
     const { achievements } = this.props;
-    return achievements && achievements.filter((achievement) => achievement.description === 'SRM Engagement Honor').length > 0;
+    return achievements && achievements.filter(achievement => achievement.description === 'SRM Engagement Honor').length > 0;
   }
 
   render() {
@@ -266,7 +266,7 @@ ProfileStats.propTypes = {
   statsDistribution: PT.shape(),
   statsHistory: PT.shape(),
   activeChallengesCount: PT.number,
-  achievements: PT.shape().isRequired
+  achievements: PT.shape().isRequired,
 };
 
 export default ProfileStats;
