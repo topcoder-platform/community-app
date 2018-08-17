@@ -9,27 +9,25 @@ import React from 'react';
 import PT from 'prop-types';
 import _ from 'lodash';
 
+import ConsentComponent from 'components/Settings/ConsentComponent';
 import { PrimaryButton } from 'topcoder-react-ui-kit';
-import UserConsentModal from 'components/Settings/UserConsentModal';
 import HobbyList from './List';
 
 import './styles.scss';
 
 
-export default class Hobby extends React.Component {
+export default class Hobby extends ConsentComponent {
   constructor(props) {
     super(props);
-    this.onDeleteHobby = this.onDeleteHobby.bind(this);
     this.onHandleDeleteHobby = this.onHandleDeleteHobby.bind(this);
+    this.onDeleteHobby = this.onDeleteHobby.bind(this);
     this.loadHobbyTrait = this.loadHobbyTrait.bind(this);
     this.loadPersonalizationTrait = this.loadPersonalizationTrait.bind(this);
     this.onUpdateInput = this.onUpdateInput.bind(this);
+    this.onHandleAddHobby = this.onHandleAddHobby.bind(this);
     this.onAddHobby = this.onAddHobby.bind(this);
-    this.onShowUserConsent = this.onShowUserConsent.bind(this);
 
     this.state = {
-      showUserConsentAddHobby: false,
-      showUserConsentDeleteHobby: false,
       formInvalid: false,
       errorMessage: '',
       hobbyTrait: this.loadHobbyTrait(props.userTraits),
@@ -60,13 +58,13 @@ export default class Hobby extends React.Component {
    * Show User Consent Modal
    * @param e event
    */
-  onShowUserConsent(e) {
+  onHandleAddHobby(e) {
     e.preventDefault();
     const { newHobby } = this.state;
     if (this.onCheckFormValue(newHobby)) {
       return;
     }
-    this.setState({ showUserConsentAddHobby: true });
+    this.showConsent(this.onAddHobby.bind(this))
   }
 
   /**
@@ -97,21 +95,17 @@ export default class Hobby extends React.Component {
   }
 
   onHandleDeleteHobby(indexNo) {
-    this.setState({ showUserConsentDeleteHobby: true, deleteHobbyIndex: indexNo });
+    this.showConsent(this.onDeleteHobby.bind(this, indexNo));
   }
 
   /**
    * Delete hobby by index
    * @param indexNo the hobby index no
    */
-  onDeleteHobby() {
-    const { hobbyTrait, deleteHobbyIndex } = this.state;
-    if (deleteHobbyIndex === -1) {
-      this.setState({ showUserConsentDeleteHobby: false });
-      return;
-    }
+  onDeleteHobby(indexNo) {
+    const { hobbyTrait } = this.state;
     const newHobbyTrait = { ...hobbyTrait };
-    newHobbyTrait.traits.data.splice(deleteHobbyIndex, 1);
+    newHobbyTrait.traits.data.splice(indexNo, 1);
     this.setState({
       hobbyTrait: newHobbyTrait,
     });
@@ -123,7 +117,6 @@ export default class Hobby extends React.Component {
       deleteUserTrait,
     } = this.props;
 
-    this.setState({ showUserConsentDeleteHobby: false, deleteHobbyIndex: -1 });
     if (newHobbyTrait.traits.data.length > 0) {
       updateUserTrait(handle, 'hobby', newHobbyTrait.traits.data, tokenV3);
     } else {
@@ -133,12 +126,9 @@ export default class Hobby extends React.Component {
 
   /**
    * Add new hobby
-   * @param e form submit event
    * @param answer user consent answer value
    */
-  onAddHobby(e, answer) {
-    e.preventDefault();
-    this.setState({ showUserConsentAddHobby: false });
+  onAddHobby(answer) {
     const { newHobby, personalizationTrait, hobbyTrait } = this.state;
 
     const {
@@ -232,10 +222,7 @@ export default class Hobby extends React.Component {
     return (
       <div styleName={containerStyle}>
         {
-          (showUserConsentAddHobby) && (<UserConsentModal onSaveTrait={this.onAddHobby} />)
-        }
-        {
-          (showUserConsentDeleteHobby) && (<UserConsentModal onSaveTrait={this.onDeleteHobby} />)
+          this.shouldRenderConsent() && this.renderConsent()
         }
         <div styleName="hobby-container">
           <div styleName={`error-message ${formInvalid ? 'active' : ''}`}>
@@ -278,7 +265,7 @@ Description
             <div styleName="button-save">
               <PrimaryButton
                 styleName="complete"
-                onClick={this.onShowUserConsent}
+                onClick={this.onHandleAddHobby}
               >
                 Add Hobby
               </PrimaryButton>
