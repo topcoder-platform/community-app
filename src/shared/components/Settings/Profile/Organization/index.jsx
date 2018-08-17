@@ -10,24 +10,24 @@ import PT from 'prop-types';
 import _ from 'lodash';
 import moment from 'moment';
 
+import ConsentComponent from 'components/Settings/ConsentComponent';
 import { PrimaryButton } from 'topcoder-react-ui-kit';
-import UserConsentModal from 'components/Settings/UserConsentModal';
 import OrganizationList from './List';
 
 import './styles.scss';
 
-export default class Organization extends React.Component {
+export default class Organization extends ConsentComponent {
   constructor(props) {
     super(props);
+    this.onHandleDeleteOrganization = this.onHandleDeleteOrganization.bind(this);
     this.onDeleteOrganization = this.onDeleteOrganization.bind(this);
     this.loadOrganizationTrait = this.loadOrganizationTrait.bind(this);
     this.loadPersonalizationTrait = this.loadPersonalizationTrait.bind(this);
     this.onUpdateInput = this.onUpdateInput.bind(this);
+    this.onHandleAddOrganization = this.onHandleAddOrganization.bind(this);
     this.onAddOrganization = this.onAddOrganization.bind(this);
-    this.onShowUserConsent = this.onShowUserConsent.bind(this);
 
     this.state = {
-      showUserConsent: false,
       formInvalid: false,
       errorMessage: '',
       organizationTrait: this.loadOrganizationTrait(props.userTraits),
@@ -64,13 +64,13 @@ export default class Organization extends React.Component {
    * Show User Consent Modal
    * @param e event
    */
-  onShowUserConsent(e) {
+  onHandleAddOrganization(e) {
     e.preventDefault();
     const { newOrganization } = this.state;
     if (this.onCheckFormValue(newOrganization)) {
       return;
     }
-    this.setState({ showUserConsent: true });
+    this.showConsent(this.onAddOrganization.bind(this));
   }
 
   /**
@@ -156,6 +156,10 @@ export default class Organization extends React.Component {
     return invalid;
   }
 
+  onHandleDeleteOrganization(indexNo) {
+    this.showConsent(this.onDeleteOrganization.bind(this, indexNo))
+  }
+
   /**
    * Delete organization by index
    * @param indexNo the organization index no
@@ -187,9 +191,7 @@ export default class Organization extends React.Component {
    * @param e from submit event
    * @param answer user consent answer value
    */
-  onAddOrganization(e, answer) {
-    e.preventDefault();
-    this.setState({ showUserConsent: false });
+  onAddOrganization(answer) {
     const { newOrganization, organizationTrait, personalizationTrait } = this.state;
 
     const {
@@ -276,7 +278,6 @@ export default class Organization extends React.Component {
     } = this.props;
     const {
       organizationTrait,
-      showUserConsent,
     } = this.state;
     const tabs = settingsUI.TABS.PROFILE;
     const currentTab = settingsUI.currentProfileTab;
@@ -288,7 +289,7 @@ export default class Organization extends React.Component {
     return (
       <div styleName={containerStyle}>
         {
-          showUserConsent && (<UserConsentModal onSaveTrait={this.onAddOrganization} />)
+          this.shouldRenderConsent() && this.renderConsent()
         }
         <div styleName="organization-container">
           <div styleName={`error-message ${formInvalid ? 'active' : ''}`}>
@@ -342,7 +343,7 @@ export default class Organization extends React.Component {
             <div styleName="button-save">
               <PrimaryButton
                 styleName="complete"
-                onClick={this.onShowUserConsent}
+                onClick={this.onHandleAddOrganization}
               >
                 Add Organization
               </PrimaryButton>
@@ -350,7 +351,7 @@ export default class Organization extends React.Component {
           </div>
           <OrganizationList
             organizationList={{ items: organizationItems }}
-            onDeleteItem={this.onDeleteOrganization}
+            onDeleteItem={this.onHandleDeleteOrganization}
           />
         </div>
       </div>
