@@ -263,7 +263,7 @@ export default class TopcoderHeader extends React.Component {
         }, {
           enforceA: true,
           icon: <IconNavProfile />,
-          link: `/members/${normalizedProfile.handle}`,
+          link: `${BASE_URL}/members/${normalizedProfile.handle}`,
           title: 'My Profile',
         }, {
           icon: <IconNavWallet />,
@@ -272,7 +272,7 @@ export default class TopcoderHeader extends React.Component {
         }, {
           enforceA: true,
           icon: <IconNavSettings />,
-          link: '/settings/profile',
+          link: `${BASE_URL}/settings/profile`,
           title: 'Settings',
         }, {
           enforceA: true,
