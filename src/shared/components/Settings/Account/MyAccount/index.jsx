@@ -7,6 +7,7 @@
 import React from 'react';
 import PT from 'prop-types';
 import { PrimaryButton } from 'topcoder-react-ui-kit';
+import { omit } from 'lodash';
 
 import './styles.scss';
 
@@ -20,7 +21,6 @@ export default class MyAccount extends React.Component {
       inputNewEmailVisible: false,
       btnChangeEmailVisible: true,
       btnVerifiEmailVisible: false,
-      btnVerifiAgainlVisible: false,
       hasLength: false,
       hasLetter: false,
       hasSymbolNumber: false,
@@ -95,16 +95,13 @@ export default class MyAccount extends React.Component {
       newState.showEmailTips = true;
     } else {
       newState.btnChangeEmailVisible = false;
-      newState.btnVerifiAgainlVisible = true;
       newState.btnVerifiEmailVisible = false;
       newState.inputNewEmailVisible = false;
-      newState.currentEmail = newState.newEmail;
+
+      // send request to update profile with new email
+      profile.email = newState.newEmail;
+      updateProfile(omit(profile, ['groups']), tokenV3);
     }
-
-
-    profile.email = newState.newEmail;
-    delete profile.groups;
-    updateProfile(profile, tokenV3);
 
     this.setState(newState);
   }
@@ -276,7 +273,6 @@ export default class MyAccount extends React.Component {
       currentEmail,
       btnChangeEmailVisible,
       btnVerifiEmailVisible,
-      btnVerifiAgainlVisible,
       inputNewEmailVisible,
       focus,
       hasLength,
@@ -345,14 +341,6 @@ export default class MyAccount extends React.Component {
                     onClick={this.onSendVerificationEmail}
                   >
                     Send Verification Email
-                  </PrimaryButton>
-                </div>
-                <div styleName={`button-verification-again ${btnVerifiAgainlVisible ? 'active' : 'hide'}`}>
-                  <PrimaryButton
-                    styleName="white-label"
-                    onClick={this.onSendVerificationEmail}
-                  >
-                    Send Verification Email Again
                   </PrimaryButton>
                 </div>
               </div>
