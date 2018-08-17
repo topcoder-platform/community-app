@@ -84,7 +84,7 @@ export default class MyAccount extends React.Component {
     const newEmail = e.target.value;
     this.setState({
       newEmail,
-      showEmailTips: false
+      showEmailTips: false,
     });
   }
 
