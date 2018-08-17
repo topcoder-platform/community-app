@@ -38,7 +38,7 @@ const swScope = '/challenges'; // we are currently only interested in improving 
 
 const EXTRA_SCRIPTS = [
   `<script type="application/javascript">
-  if('serviceWorker' in navigator){navigator.serviceWorker.register('${process.env.CDN_URL || '/api/cdn/public'}/static-assets/${sw}', {scope: '${swScope}'}).then((res)=>{console.log('SW registered: ',res)}).catch((err)=>{console.log('SW registration failed: ',err)})}
+  if('serviceWorker' in navigator){navigator.serviceWorker.register('${config.SERVICE_WORKER_PATH}${sw}', {scope: '${swScope}'}).then((res)=>{console.log('SW registered: ',res)}).catch((err)=>{console.log('SW registration failed: ',err)})}
   </script>`,
   `<script
       src="${process.env.CDN_URL || '/api/cdn/public'}/static-assets/loading-indicator-animation-${ts}.js"
