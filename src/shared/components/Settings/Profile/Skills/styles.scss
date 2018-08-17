@@ -150,53 +150,35 @@
     flex-wrap: wrap;
     justify-content: flex-start;
     list-style: none;
-    margin: 0;
     overflow: hidden;
     padding-left: 0;
+    margin: 0 -10px;
+
+    @include xs-to-lg {
+      margin: 0 -15px;
+    }
 
     @include xs-to-sm {
       width: 300px;
       padding: 0 22px;
+      margin: 0 -8px;
     }
   }
 
   li {
-    margin-right: 20px;
+    margin: 0 10px 75px;
     border-radius: 6px;
-    margin-bottom: 75px;
 
     @include xs-to-lg {
-      margin-right: 30px;
+      margin: 0 15px 75px;
     }
 
     @include xs-to-sm {
-      margin-right: 15px;
-    }
-  }
-
-  li:nth-child(9n + 9) {
-    margin-right: 0;
-  }
-
-  @include xs-to-lg {
-    li:nth-child(8n + 8) {
-      margin-right: 0;
-    }
-
-    li:nth-child(9n + 9) {
-      margin-right: 30px;
+      margin: 0 8px 75px;
     }
   }
 
   @include xs-to-sm {
-    li:nth-child(3n + 3) {
-      margin-right: 0;
-    }
-
-    margin-top: 0;
-    margin-left: auto;
-    margin-right: auto;
-
     &.hide {
       display: none;
     }
@@ -387,4 +369,3 @@
     margin-top: 5px;
   }
 }
-
