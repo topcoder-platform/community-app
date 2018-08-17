@@ -16,7 +16,7 @@ import requireContext from 'require-context';
 
 import Select from 'components/Select';
 import { PrimaryButton } from 'topcoder-react-ui-kit';
-import UserConsentModal from 'components/Settings/UserConsentModal';
+import ConsentComponent from 'components/Settings/ConsentComponent';
 import DevFallbackIcon from 'assets/images/profile/skills/id-develop.svg';
 import DesignFallbackIcon from 'assets/images/profile/skills/id-design.svg';
 import DataFallbackIcon from 'assets/images/profile/skills/id-data.svg';
@@ -58,20 +58,19 @@ function imageExist(imageFile) {
   return (isomorphy.isClientSide() && assets.keys().includes(`./${imageFile}`)) || assets.keys().includes(imageFile);
 }
 
-export default class Skills extends React.Component {
+export default class Skills extends ConsentComponent {
   constructor(props) {
     super(props);
+    this.onHandleAddSkill = this.onHandleAddSkill.bind(this);
     this.onAddSkill = this.onAddSkill.bind(this);
     this.onUpdateSelect = this.onUpdateSelect.bind(this);
     this.toggleSkill = this.toggleSkill.bind(this);
     this.setPage = this.setPage.bind(this);
     this.updatePredicate = this.updatePredicate.bind(this);
-    this.onShowUserConsent = this.onShowUserConsent.bind(this);
     this.loadPersonalizationTrait = this.loadPersonalizationTrait.bind(this);
 
     this.state = {
       formInvalid: false,
-      showUserConsent: false,
       personalizationTrait: this.loadPersonalizationTrait(props.userTraits),
       errorMessage: '',
       userSkills: [],
@@ -127,7 +126,7 @@ export default class Skills extends React.Component {
    * Show User Consent Modal
    * @param e event
    */
-  onShowUserConsent(e) {
+  onHandleAddSkill(e) {
     e.preventDefault();
     const { selectedSkill } = this.state;
     if (!selectedSkill.name) {
@@ -140,9 +139,9 @@ export default class Skills extends React.Component {
 
     this.setState({
       errorMessage: '',
-      formInvalid: false,
-      showUserConsent: true,
+      formInvalid: false
     });
+    this.showConsent(this.onAddSkill.bind(this));
   }
 
   /**
@@ -159,12 +158,9 @@ export default class Skills extends React.Component {
 
   /**
    * Add new skill
-   * @param e form submit event
    * @param answer user consent answer value
    */
-  onAddSkill(e, answer) {
-    e.preventDefault();
-    this.setState({ showUserConsent: false });
+  onAddSkill(answer) {
     const { newSkill, selectedSkill, personalizationTrait } = this.state;
     const {
       handle,
@@ -341,7 +337,6 @@ export default class Skills extends React.Component {
     } = this.props;
 
     const {
-      showUserConsent,
       userSkills,
       formInvalid,
       errorMessage,
@@ -363,7 +358,7 @@ export default class Skills extends React.Component {
     return (
       <div styleName={containerStyle}>
         {
-          showUserConsent && (<UserConsentModal onSaveTrait={this.onAddSkill} />)
+          this.shouldRenderConsent() && this.renderConsent()
         }
         <div styleName={`skill-container ${list.length > 0 ? '' : 'no-skills'}`}>
           <div styleName={`error-message ${formInvalid ? 'active' : ''}`}>
@@ -402,7 +397,7 @@ export default class Skills extends React.Component {
             <div styleName="button-save">
               <PrimaryButton
                 styleName="complete"
-                onClick={this.onShowUserConsent}
+                onClick={this.onHandleAddSkill}
               >
                 Add Skill
               </PrimaryButton>
