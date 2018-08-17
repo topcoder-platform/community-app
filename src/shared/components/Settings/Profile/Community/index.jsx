@@ -7,7 +7,7 @@
 import _ from 'lodash';
 import React from 'react';
 import PT from 'prop-types';
-import UserConsentModal from 'components/Settings/UserConsentModal';
+import ConsentComponent from 'components/Settings/ConsentComponent';
 import Item from './Item';
 import data from './data';
 
@@ -15,13 +15,11 @@ import './styles.scss';
 
 const SAVE_DELAY = 1000;
 
-class Community extends React.Component {
+class Community extends ConsentComponent {
   constructor(props) {
     super(props);
-    this.onShowUserConsent = this.onShowUserConsent.bind(this);
     this.state = {
       communityTrait: this.loadCommunityTrait(props.userTraits),
-      showUserConsent: false,
       personalizationTrait: this.loadPersonalizationTrait(props.userTraits),
       newCommunity: null,
       communityChecked: false,
@@ -30,7 +28,8 @@ class Community extends React.Component {
 
     this.loadCommunityTrait = this.loadCommunityTrait.bind(this);
     this.loadPersonalizationTrait = this.loadPersonalizationTrait.bind(this);
-    this.onChange = this.onChange.bind(this);
+    this.onHandleUpdateCommunity = this.onHandleUpdateCommunity.bind(this);
+    this.onUpdateCommunity = this.onUpdateCommunity.bind(this);
   }
 
   componentDidMount() {
@@ -60,13 +59,13 @@ class Community extends React.Component {
    * @param item the community object
    * @param checked the check value
    */
-  onShowUserConsent(e, item, checked) {
+  onHandleUpdateCommunity(e, item, checked) {
     e.preventDefault();
     this.setState({
-      showUserConsent: true,
       newCommunity: item,
       communityChecked: checked,
     });
+    this.showConsent(this.onUpdateCommunity.bind(this))
   }
 
   /**
@@ -105,11 +104,9 @@ class Community extends React.Component {
 
   /**
    * Change toggle button check value
-   * @param e form submit event
    * @param answer user consent answer value
    */
-  onChange(e, answer) {
-    this.setState({ showUserConsent: false });
+  onUpdateCommunity(answer) {
     const { communityTrait, newCommunity, communityChecked } = this.state;
     communityTrait[newCommunity.id] = communityChecked;
     this.setState({
@@ -144,7 +141,7 @@ class Community extends React.Component {
 
   render() {
     const { settingsUI } = this.props;
-    const { communityTrait, showUserConsent } = this.state;
+    const { communityTrait } = this.state;
     const tabs = settingsUI.TABS.PROFILE;
     const currentTab = settingsUI.currentProfileTab;
     const containerStyle = currentTab === tabs.COMMUNITY ? '' : 'hide';
@@ -153,9 +150,7 @@ class Community extends React.Component {
     return (
       <div styleName={containerStyle}>
         {
-          showUserConsent && (
-            <UserConsentModal onSaveTrait={this.onChange} />
-          )
+          this.shouldRenderConsent() && this.renderConsent()
         }
         <div styleName="community-container">
           <h1>
@@ -175,7 +170,7 @@ class Community extends React.Component {
                     title={item.name}
                     programID={item.programID}
                     description={item.description}
-                    onToggle={event => this.onShowUserConsent(event, item, event.target.checked)}
+                    onToggle={event => this.onHandleUpdateCommunity(event, item, event.target.checked)}
                   />
                 );
               })

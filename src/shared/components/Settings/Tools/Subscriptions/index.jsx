@@ -8,26 +8,26 @@
 import React from 'react';
 import PT from 'prop-types';
 import _ from 'lodash';
-import UserConsentModal from 'components/Settings/UserConsentModal';
+import ConsentComponent from 'components/Settings/ConsentComponent';
 import { PrimaryButton } from 'topcoder-react-ui-kit';
 import SubscriptionList from './List';
 
 import './styles.scss';
 
 
-export default class Subscription extends React.Component {
+export default class Subscription extends ConsentComponent {
   constructor(props) {
     super(props);
+    this.onHandleDeleteSubscription = this.onHandleDeleteSubscription.bind(this);
     this.onDeleteSubscription = this.onDeleteSubscription.bind(this);
     this.onUpdateSelect = this.onUpdateSelect.bind(this);
     this.loadSubscriptionTrait = this.loadSubscriptionTrait.bind(this);
     this.onUpdateInput = this.onUpdateInput.bind(this);
+    this.onHandleAddSubscription = this.onHandleAddSubscription.bind(this);
     this.onAddSubscription = this.onAddSubscription.bind(this);
     this.loadPersonalizationTrait = this.loadPersonalizationTrait.bind(this);
-    this.onShowUserConsent = this.onShowUserConsent.bind(this);
     this.state = {
       formInvalid: false,
-      showUserConsent: false,
       errorMessage: '',
       subscriptionTrait: this.loadSubscriptionTrait(props.userTraits),
       personalizationTrait: this.loadPersonalizationTrait(props.userTraits),
@@ -55,13 +55,13 @@ export default class Subscription extends React.Component {
    * Show User Consent Modal
    * @param e event
    */
-  onShowUserConsent(e) {
+  onHandleAddSubscription(e) {
     e.preventDefault();
     const { newSubscription } = this.state;
     if (this.onCheckFormValue(newSubscription)) {
       return;
     }
-    this.setState({ showUserConsent: true });
+    this.showConsent(this.onAddSubscription.bind(this));
   }
 
   /**
@@ -85,6 +85,10 @@ export default class Subscription extends React.Component {
 
     this.setState({ errorMessage, formInvalid: invalid });
     return invalid;
+  }
+
+  onHandleDeleteSubscription(indexNo) {
+    this.showConsent(this.onDeleteSubscription.bind(indexNo));
   }
 
   /**
@@ -115,12 +119,9 @@ export default class Subscription extends React.Component {
 
   /**
    * Add new subscription
-   * @param e form submit event
    * @param answer user consent answer value
    */
-  onAddSubscription(e, answer) {
-    e.preventDefault();
-    this.setState({ showUserConsent: false });
+  onAddSubscription(answer) {
     const { newSubscription, personalizationTrait } = this.state;
 
     const {
@@ -206,7 +207,7 @@ export default class Subscription extends React.Component {
   }
 
   render() {
-    const { subscriptionTrait, showUserConsent } = this.state;
+    const { subscriptionTrait } = this.state;
     const subscriptionItems = subscriptionTrait.traits
       ? subscriptionTrait.traits.data.slice() : [];
     const { newSubscription, formInvalid, errorMessage } = this.state;
@@ -214,7 +215,7 @@ export default class Subscription extends React.Component {
     return (
       <div styleName="subscription-container">
         {
-          showUserConsent && (<UserConsentModal onSaveTrait={this.onAddSubscription} />)
+          this.shouldRenderConsent() && this.renderConsent()
         }
         <div styleName={`error-message ${formInvalid ? 'active' : ''}`}>
           { errorMessage }
@@ -241,7 +242,7 @@ Name
           <div styleName="button-save">
             <PrimaryButton
               styleName="complete"
-              onClick={this.onShowUserConsent}
+              onClick={this.onHandleAddSubscription}
             >
               Add Subscription
             </PrimaryButton>
@@ -249,7 +250,7 @@ Name
         </div>
         <SubscriptionList
           subscriptionList={{ items: subscriptionItems }}
-          onDeleteItem={this.onDeleteSubscription}
+          onDeleteItem={this.onHandleDeleteSubscription}
         />
       </div>
     );

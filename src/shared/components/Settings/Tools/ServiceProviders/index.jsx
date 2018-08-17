@@ -8,7 +8,7 @@
 import React from 'react';
 import PT from 'prop-types';
 import _ from 'lodash';
-import UserConsentModal from 'components/Settings/UserConsentModal';
+import ConsentComponent from 'components/Settings/ConsentComponent';
 import Select from 'components/Select';
 import { PrimaryButton } from 'topcoder-react-ui-kit';
 import dropdowns from './dropdowns.json';
@@ -17,20 +17,20 @@ import ServiceProviderList from './List';
 import './styles.scss';
 
 
-export default class ServiceProviders extends React.Component {
+export default class ServiceProviders extends ConsentComponent {
   constructor(props) {
     super(props);
+    this.onHandleDeleteServiceProvider = this.onHandleDeleteServiceProvider.bind(this);
     this.onDeleteServiceProvider = this.onDeleteServiceProvider.bind(this);
     this.onUpdateSelect = this.onUpdateSelect.bind(this);
     this.loadServiceProviderTrait = this.loadServiceProviderTrait.bind(this);
     this.onUpdateInput = this.onUpdateInput.bind(this);
+    this.onHandleAddServiceProvider = this.onHandleAddServiceProvider.bind(this);
     this.onAddServiceProvider = this.onAddServiceProvider.bind(this);
     this.loadPersonalizationTrait = this.loadPersonalizationTrait.bind(this);
-    this.onShowUserConsent = this.onShowUserConsent.bind(this);
 
     this.state = {
       formInvalid: false,
-      showUserConsent: false,
       errorMessage: '',
       serviceProviderTrait: this.loadServiceProviderTrait(props.userTraits),
       personalizationTrait: this.loadPersonalizationTrait(props.userTraits),
@@ -60,13 +60,13 @@ export default class ServiceProviders extends React.Component {
    * Show User Consent Modal
    * @param e event
    */
-  onShowUserConsent(e) {
+  onHandleAddServiceProvider(e) {
     e.preventDefault();
     const { newServiceProvider } = this.state;
     if (this.onCheckFormValue(newServiceProvider)) {
       return;
     }
-    this.setState({ showUserConsent: true });
+    this.showConsent(this.onAddServiceProvider.bind(this));
   }
 
   /**
@@ -94,6 +94,10 @@ export default class ServiceProviders extends React.Component {
 
     this.setState({ errorMessage, formInvalid: invalid });
     return invalid;
+  }
+
+  onHandleDeleteServiceProvider(indexNo) {
+    this.showConsent(this.onDeleteServiceProvider.bind(indexNo));
   }
 
   /**
@@ -124,12 +128,9 @@ export default class ServiceProviders extends React.Component {
 
   /**
    * Add new serviceProvider
-   * @param e form submit event
    * @param answer user consent answer value
    */
-  onAddServiceProvider(e, answer) {
-    e.preventDefault();
-    this.setState({ showUserConsent: false });
+  onAddServiceProvider(answer) {
     const { newServiceProvider, personalizationTrait } = this.state;
 
     const {
@@ -217,7 +218,7 @@ export default class ServiceProviders extends React.Component {
   }
 
   render() {
-    const { serviceProviderTrait, showUserConsent } = this.state;
+    const { serviceProviderTrait } = this.state;
     const serviceProviderItems = serviceProviderTrait.traits
       ? serviceProviderTrait.traits.data.slice() : [];
     const { newServiceProvider, formInvalid, errorMessage } = this.state;
@@ -225,7 +226,7 @@ export default class ServiceProviders extends React.Component {
     return (
       <div styleName="service-provider-container">
         {
-          showUserConsent && (<UserConsentModal onSaveTrait={this.onAddServiceProvider} />)
+          this.shouldRenderConsent() && this.renderConsent()
         }
         <div styleName={`error-message ${formInvalid ? 'active' : ''}`}>
           { errorMessage }
@@ -267,7 +268,7 @@ Provider Name
           <div styleName="button-save">
             <PrimaryButton
               styleName="complete"
-              onClick={this.onShowUserConsent}
+              onClick={this.onHandleAddServiceProvider}
             >
               Add Provider
             </PrimaryButton>
@@ -275,7 +276,7 @@ Provider Name
         </div>
         <ServiceProviderList
           serviceProviderList={{ items: serviceProviderItems }}
-          onDeleteItem={this.onDeleteServiceProvider}
+          onDeleteItem={this.onHandleDeleteServiceProvider}
         />
       </div>
     );

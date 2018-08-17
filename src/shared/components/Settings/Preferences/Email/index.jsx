@@ -5,6 +5,7 @@ import { map, debounce } from 'lodash';
 import React from 'react';
 import PT from 'prop-types';
 
+import ConsentComponent from 'components/Settings/ConsentComponent';
 import ToggleableItem from 'components/Settings/ToggleableItem';
 
 import './styles.scss';
@@ -54,7 +55,7 @@ const newsletters = [
 
 const SAVE_DELAY = 1000;
 
-export default class EmailPreferences extends React.Component {
+export default class EmailPreferences extends ConsentComponent {
   saveEmailPreferences = debounce(() => {
     const {
       profile,
@@ -76,6 +77,7 @@ export default class EmailPreferences extends React.Component {
       emailPreferences: {},
       populated: null,
     };
+    this.onHandleChange = this.onHandleChange.bind(this);
     this.onChange = this.onChange.bind(this);
     this.populate = this.populate.bind(this);
   }
@@ -88,6 +90,10 @@ export default class EmailPreferences extends React.Component {
   componentWillReceiveProps(nextProps) {
     const { profileState: { emailPreferences } } = nextProps;
     if (emailPreferences) this.populate(emailPreferences);
+  }
+
+  onHandleChange(id, checked) {
+    this.showConsent(this.onChange.bind(this, id, checked));
   }
 
   onChange(id, checked) {
@@ -116,6 +122,9 @@ Email Preferences
         </h1>
         <div styleName="preferences-container">
           {
+            this.shouldRenderConsent() && this.renderConsent()
+          }
+          {
             map(newsletters, (newsletter) => {
               const checked = emailPreferences[newsletter.id] || false;
               return (
@@ -126,7 +135,7 @@ Email Preferences
                   checked={checked}
                   primaryText={newsletter.name}
                   secondaryText={newsletter.desc}
-                  onToggle={e => this.onChange(newsletter.id, e.target.checked)}
+                  onToggle={e => this.onHandleChange(newsletter.id, e.target.checked)}
                 />
               );
             })
