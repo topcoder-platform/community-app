@@ -137,6 +137,7 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
   const profileActions = actions.profile;
+  const lookupActions = actions.lookup;
 
   const loadTabData = ({
     handle,
@@ -147,6 +148,8 @@ function mapDispatchToProps(dispatch) {
     dispatch(profileActions.loadProfile(handle));
     if (settingsTab === TABS.PROFILE) {
       dispatch(profileActions.getSkillsDone(handle));
+      dispatch(lookupActions.getSkillTagsInit());
+      dispatch(lookupActions.getSkillTagsDone());
     } else if (settingsTab === TABS.PREFERENCES) {
       dispatch(profileActions.getEmailPreferencesDone(profile, tokenV3));
     } else if (settingsTab === TABS.ACCOUNT) {
