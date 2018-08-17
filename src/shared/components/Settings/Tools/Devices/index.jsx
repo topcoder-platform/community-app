@@ -8,7 +8,7 @@
 import _ from 'lodash';
 import React from 'react';
 import PT from 'prop-types';
-import UserConsentModal from 'components/Settings/UserConsentModal';
+import ConsentComponent from 'components/Settings/ConsentComponent';
 import Select from 'components/Select';
 import { PrimaryButton } from 'topcoder-react-ui-kit';
 import dropdowns from './dropdowns.json';
@@ -16,20 +16,20 @@ import DeviceList from './List';
 
 import './styles.scss';
 
-export default class Devices extends React.Component {
+export default class Devices extends ConsentComponent {
   constructor(props) {
     super(props);
+    this.onHandleDeleteDevice = this.onHandleDeleteDevice.bind(this);
     this.onDeleteDevice = this.onDeleteDevice.bind(this);
     this.onUpdateSelect = this.onUpdateSelect.bind(this);
     this.loadDeviceTrait = this.loadDeviceTrait.bind(this);
     this.onUpdateInput = this.onUpdateInput.bind(this);
+    this.onHandleAddDevice = this.onHandleAddDevice.bind(this);
     this.onAddDevice = this.onAddDevice.bind(this);
     this.loadPersonalizationTrait = this.loadPersonalizationTrait.bind(this);
-    this.onShowUserConsent = this.onShowUserConsent.bind(this);
 
     this.state = {
       formInvalid: false,
-      showUserConsent: false,
       deviceTrait: this.loadDeviceTrait(props.userTraits),
       personalizationTrait: this.loadPersonalizationTrait(props.userTraits),
       newDevice: {
@@ -67,13 +67,16 @@ export default class Devices extends React.Component {
    * Show User Consent Modal
    * @param e event
    */
-  onShowUserConsent(e) {
-    e.preventDefault();
+  onHandleAddDevice(e) {
     const { newDevice } = this.state;
     if (this.onCheckFormValue(newDevice)) {
       return;
     }
-    this.setState({ showUserConsent: true });
+    this.showConsent(this.onAddDevice.bind(this));
+  }
+
+  onHandleDeleteDevice(indexNo) {
+    this.showConsent(this.onDeleteDevice.bind(this, indexNo))
   }
 
   /**
@@ -104,12 +107,9 @@ export default class Devices extends React.Component {
 
   /**
    * Add new device
-   * @param e form submit event
    * @param answer user consent answer value
    */
-  onAddDevice(e, answer) {
-    e.preventDefault();
-    this.setState({ showUserConsent: false });
+  onAddDevice(answer) {
     const { newDevice, personalizationTrait } = this.state;
 
     const {
@@ -249,7 +249,7 @@ export default class Devices extends React.Component {
   }
 
   render() {
-    const { deviceTrait, showUserConsent } = this.state;
+    const { deviceTrait } = this.state;
     const deviceItems = deviceTrait.traits
       ? deviceTrait.traits.data.slice() : [];
     const { newDevice, formInvalid, errorMessage } = this.state;
@@ -257,7 +257,7 @@ export default class Devices extends React.Component {
     return (
       <div styleName="devices-container">
         {
-          showUserConsent && (<UserConsentModal onSaveTrait={this.onAddDevice} />)
+          this.shouldRenderConsent() && this.renderConsent()
         }
         <div styleName={`error-message ${formInvalid ? 'active' : ''}`}>
           {errorMessage}
@@ -327,13 +327,13 @@ OS Language
           <div styleName="button-save">
             <PrimaryButton
               styleName="complete"
-              onClick={this.onShowUserConsent}
+              onClick={this.onHandleAddDevice}
             >
               Add Device
             </PrimaryButton>
           </div>
         </div>
-        <DeviceList deviceList={{ items: deviceItems }} onDeleteItem={this.onDeleteDevice} />
+        <DeviceList deviceList={{ items: deviceItems }} onDeleteItem={this.onHandleDeleteDevice} />
       </div>
     );
   }
