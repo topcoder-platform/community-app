@@ -8,29 +8,29 @@
 import React from 'react';
 import PT from 'prop-types';
 import _ from 'lodash';
-import UserConsentModal from 'components/Settings/UserConsentModal';
 import Select from 'components/Select';
 import { PrimaryButton } from 'topcoder-react-ui-kit';
+import ConsentComponent from 'components/Settings/ConsentComponent';
 import dropdowns from './dropdowns.json';
 import LanguageList from './List';
 
 import './styles.scss';
 
 
-export default class Language extends React.Component {
+export default class Language extends ConsentComponent {
   constructor(props) {
     super(props);
+    this.onHandleDeleteLanguage = this.onHandleDeleteLanguage.bind(this);
     this.onDeleteLanguage = this.onDeleteLanguage.bind(this);
     this.onUpdateSelect = this.onUpdateSelect.bind(this);
     this.loadLanguageTrait = this.loadLanguageTrait.bind(this);
+    this.onHandleAddLanguage = this.onHandleAddLanguage.bind(this);
     this.onAddLanguage = this.onAddLanguage.bind(this);
     this.onUpdateInput = this.onUpdateInput.bind(this);
-    this.onShowUserConsent = this.onShowUserConsent.bind(this);
     this.loadPersonalizationTrait = this.loadPersonalizationTrait.bind(this);
 
     this.state = {
       formInvalid: false,
-      showUserConsent: false,
       errorMessage: '',
       languageTrait: this.loadLanguageTrait(props.userTraits),
       personalizationTrait: this.loadPersonalizationTrait(props.userTraits),
@@ -59,19 +59,6 @@ export default class Language extends React.Component {
   }
 
   /**
-   * Show User Consent Modal
-   * @param e event
-   */
-  onShowUserConsent(e) {
-    e.preventDefault();
-    const { newLanguage } = this.state;
-    if (this.onCheckFormValue(newLanguage)) {
-      return;
-    }
-    this.setState({ showUserConsent: true });
-  }
-
-  /**
    * Update input value
    * @param e event
    */
@@ -82,6 +69,35 @@ export default class Language extends React.Component {
     this.setState({ newLanguage });
   }
 
+  onHandleDeleteLanguage(indexNo) {
+    this.showConsent(this.onDeleteLanguage.bind(this, indexNo));
+  }
+
+  /**
+   * Delete language by index
+   * @param indexNo the language index no
+   */
+  onDeleteLanguage(indexNo) {
+    const { languageTrait } = this.state;
+    const newLanguageTrait = { ...languageTrait };
+    newLanguageTrait.traits.data.splice(indexNo, 1);
+    this.setState({
+      languageTrait: newLanguageTrait,
+    });
+
+    const {
+      handle,
+      tokenV3,
+      updateUserTrait,
+      deleteUserTrait,
+    } = this.props;
+
+    if (newLanguageTrait.traits.data.length > 0) {
+      updateUserTrait(handle, 'languages', newLanguageTrait.traits.data, tokenV3);
+    } else {
+      deleteUserTrait(handle, 'languages', tokenV3);
+    }
+  }
 
   /**
    * Check form fields value,
@@ -126,30 +142,13 @@ export default class Language extends React.Component {
     return invalid;
   }
 
-  /**
-   * Delete language by index
-   * @param indexNo the language index no
-   */
-  onDeleteLanguage(indexNo) {
-    const { languageTrait } = this.state;
-    const newLanguageTrait = { ...languageTrait };
-    newLanguageTrait.traits.data.splice(indexNo, 1);
-    this.setState({
-      languageTrait: newLanguageTrait,
-    });
-
-    const {
-      handle,
-      tokenV3,
-      updateUserTrait,
-      deleteUserTrait,
-    } = this.props;
-
-    if (newLanguageTrait.traits.data.length > 0) {
-      updateUserTrait(handle, 'languages', newLanguageTrait.traits.data, tokenV3);
-    } else {
-      deleteUserTrait(handle, 'languages', tokenV3);
+  onHandleAddLanguage(e) {
+    e.preventDefault();
+    const { newLanguage } = this.state;
+    if (this.onCheckFormValue(newLanguage)) {
+      return;
     }
+    this.showConsent(this.onAddLanguage.bind(this));
   }
 
   /**
@@ -157,9 +156,7 @@ export default class Language extends React.Component {
    * @param e form submit event
    * @param answer user consent answer value
    */
-  onAddLanguage(e, answer) {
-    e.preventDefault();
-    this.setState({ showUserConsent: false });
+  onAddLanguage(answer) {
     const { newLanguage, personalizationTrait } = this.state;
 
     const {
@@ -241,7 +238,6 @@ export default class Language extends React.Component {
     } = this.props;
     const {
       languageTrait,
-      showUserConsent,
     } = this.state;
     const tabs = settingsUI.TABS.PROFILE;
     const currentTab = settingsUI.currentProfileTab;
@@ -253,7 +249,7 @@ export default class Language extends React.Component {
     return (
       <div styleName={containerStyle}>
         {
-          showUserConsent && (<UserConsentModal onSaveTrait={this.onAddLanguage} />)
+          this.shouldRenderConsent() && this.renderConsent()
         }
         <div styleName="language-container">
           <div styleName={`error-message ${formInvalid ? 'active' : ''}`}>
@@ -311,7 +307,7 @@ export default class Language extends React.Component {
             <div styleName="button-save">
               <PrimaryButton
                 styleName="complete"
-                onClick={this.onShowUserConsent}
+                onClick={this.onHandleAddLanguage}
               >
                 Add Language
               </PrimaryButton>
@@ -319,7 +315,7 @@ export default class Language extends React.Component {
           </div>
           <LanguageList
             languageList={{ items: languageItems }}
-            onDeleteItem={this.onDeleteLanguage}
+            onDeleteItem={this.onHandleDeleteLanguage}
           />
         </div>
       </div>
