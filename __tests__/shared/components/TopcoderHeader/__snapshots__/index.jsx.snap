@@ -794,7 +794,7 @@ exports[`Render with specified profile 1`] = `
               width="32"
               xmlns="http://www.w3.org/2000/svg"
             />,
-            "link": "https://www.topcoder-dev.com/members/undefined",
+            "link": "/members/undefined",
             "title": "My Profile",
           },
           Object {
@@ -815,7 +815,7 @@ exports[`Render with specified profile 1`] = `
               width="32"
               xmlns="http://www.w3.org/2000/svg"
             />,
-            "link": "https://www.topcoder-dev.com/settings/profile",
+            "link": "/settings/profile",
             "title": "Settings",
           },
           Object {
