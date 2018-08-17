@@ -7,6 +7,7 @@
 import React from 'react';
 import PT from 'prop-types';
 import { PrimaryButton } from 'topcoder-react-ui-kit';
+import { omit } from 'lodash';
 
 import './styles.scss';
 
@@ -81,7 +82,10 @@ export default class MyAccount extends React.Component {
 
   onUpdateNewEmailInput(e) {
     const newEmail = e.target.value;
-    this.setState({ newEmail });
+    this.setState({
+      newEmail,
+      showEmailTips: false,
+    });
   }
 
   onSendVerificationEmail() {
@@ -99,12 +103,10 @@ export default class MyAccount extends React.Component {
       newState.btnVerifiEmailVisible = false;
       newState.inputNewEmailVisible = false;
       newState.currentEmail = newState.newEmail;
+
+      profile.email = newState.newEmail;
+      updateProfile(omit(profile, ['groups']), tokenV3);
     }
-
-
-    profile.email = newState.newEmail;
-    delete profile.groups;
-    updateProfile(profile, tokenV3);
 
     this.setState(newState);
   }
