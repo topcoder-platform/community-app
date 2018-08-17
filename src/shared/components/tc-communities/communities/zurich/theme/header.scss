@@ -1,0 +1,111 @@
+@import "../../../Header/style.scss";
+@import "mixins.scss";
+
+.logo {
+  &:first-child > img {
+    max-height: 70px;
+  }
+
+  &:nth-child(2) {
+    margin-left: 30px;
+  }
+}
+
+.header {
+  height: 110px;
+}
+
+.userMenu {
+  height: auto;
+  padding: 26px 0;
+  margin: 0 30px;
+
+  & > div {
+    font-family: 'Akkurat bold', sans-serif;
+    text-transform: none;
+    text-decoration: underline;
+    font-size: 16px;
+    color: $blue-bright;
+  }
+
+  @include xs-to-lg {
+    display: none;
+  }
+}
+
+.authorize {
+  & > div {
+    font-family: 'Akkurat bold', sans-serif;
+    text-transform: none;
+    text-decoration: underline;
+    font-size: 16px;
+    color: $blue-bright;
+  }
+}
+
+.additionalLogos {
+  @include xs-to-lg {
+    display: none;
+  }
+}
+
+.menuWrap {
+  flex-grow: 0;
+}
+
+.challengeDropdown {
+  border-left: none;
+  font-family: 'Akkurat regular', sans-serif;
+  text-transform: none;
+  font-size: 16px;
+  color: $blue-bright;
+}
+
+.menu {
+  padding: 30px 0;
+}
+
+.menuItem {
+  margin: 0 20px;
+}
+
+.menuLink {
+  font-family: 'Akkurat bold', sans-serif;
+  text-transform: none;
+  font-size: 18px;
+
+  &,
+  &:active,
+  &:focus,
+  &:hover,
+  &:visited {
+    color: $blue-bright;
+  }
+}
+
+.menuLinkActive {
+  font-family: 'Akkurat bold', sans-serif;
+  text-transform: none;
+  font-size: 18px;
+
+  &,
+  &:active,
+  &:focus,
+  &:hover,
+  &:visited {
+    color: $blue-dark;
+  }
+
+  &::after {
+    background: $blue-dark !important;
+    height: 8px;
+    width: 8px;
+    left: 50%;
+    transform: translate(-50%, 0);
+    border-radius: 100%;
+  }
+}
+
+.userWrapMobile {
+  opacity: 0; /* This hack hides the user avatar without braking the layout */
+}

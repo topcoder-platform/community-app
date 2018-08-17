@@ -1,4 +1,4 @@
-@import "~styles/mixins";
+@import "../style";
 
 .profile-container {
   display: flex;
@@ -17,6 +17,10 @@
   .col-bar {
     width: 250px;
     margin-right: 70px;
+
+    @include screen1025-to-screen1280 {
+      width: 200px;
+    }
 
     @include md-to-lg {
       width: 90px;

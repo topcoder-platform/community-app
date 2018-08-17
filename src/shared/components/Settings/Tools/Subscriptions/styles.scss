@@ -1,4 +1,4 @@
-@import "~styles/mixins";
+@import "../../style";
 
 .subscription-container {
   display: flex;
@@ -129,22 +129,20 @@
     margin-top: 10px;
   }
 
-  button,
-  a {
-    @include roboto-medium;
-
-    height: 40px;
-    font-size: 15px;
-    font-weight: 500;
-    line-height: 40px;
-    margin: 0;
-    padding: 0;
-    width: 156px;
-    white-space: nowrap;
-  }
-
   .complete {
     color: $tc-white;
+
+    button {
+      height: 40px;
+      font-size: 15px;
+      font-weight: 500;
+      line-height: 40px;
+      margin: 0;
+      padding: 0 0;
+      width: 156px;
+
+      @include roboto-medium;
+    }
   }
 }
 

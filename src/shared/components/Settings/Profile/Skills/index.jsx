@@ -16,7 +16,7 @@ import requireContext from 'require-context';
 
 import Select from 'components/Select';
 import { PrimaryButton } from 'topcoder-react-ui-kit';
-
+import UserConsentModal from 'components/Settings/UserConsentModal';
 import DevFallbackIcon from 'assets/images/profile/skills/id-develop.svg';
 import DesignFallbackIcon from 'assets/images/profile/skills/id-design.svg';
 import DataFallbackIcon from 'assets/images/profile/skills/id-data.svg';
@@ -66,11 +66,14 @@ export default class Skills extends React.Component {
     this.toggleSkill = this.toggleSkill.bind(this);
     this.setPage = this.setPage.bind(this);
     this.updatePredicate = this.updatePredicate.bind(this);
+    this.onShowUserConsent = this.onShowUserConsent.bind(this);
+    this.loadPersonalizationTrait = this.loadPersonalizationTrait.bind(this);
 
     this.state = {
       formInvalid: false,
+      showUserConsent: false,
+      personalizationTrait: this.loadPersonalizationTrait(props.userTraits),
       errorMessage: '',
-      skillTrait: this.loadSkillTrait(props.userTraits),
       userSkills: [],
       selectedSkill: {},
       newSkill: {
@@ -97,9 +100,9 @@ export default class Skills extends React.Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    const skillTrait = this.loadSkillTrait(nextProps.userTraits);
+    const personalizationTrait = this.loadPersonalizationTrait(nextProps.userTraits);
     this.setState({
-      skillTrait,
+      personalizationTrait,
       formInvalid: false,
       errorMessage: '',
       userSkills: [],
@@ -121,6 +124,28 @@ export default class Skills extends React.Component {
   }
 
   /**
+   * Show User Consent Modal
+   * @param e event
+   */
+  onShowUserConsent(e) {
+    e.preventDefault();
+    const { selectedSkill } = this.state;
+    if (!selectedSkill.name) {
+      this.setState({
+        errorMessage: 'Skill can not be empty',
+        formInvalid: true,
+      });
+      return;
+    }
+
+    this.setState({
+      errorMessage: '',
+      formInvalid: false,
+      showUserConsent: true,
+    });
+  }
+
+  /**
    * Update select value
    * @param option selected value
    */
@@ -135,15 +160,16 @@ export default class Skills extends React.Component {
   /**
    * Add new skill
    * @param e form submit event
+   * @param answer user consent answer value
    */
-  onAddSkill(e) {
+  onAddSkill(e, answer) {
     e.preventDefault();
-    const { newSkill, selectedSkill } = this.state;
+    this.setState({ showUserConsent: false });
+    const { newSkill, selectedSkill, personalizationTrait } = this.state;
     const {
       handle,
       tokenV3,
-      updateUserTrait,
-      addUserTrait,
+      addUserSkill,
     } = this.props;
 
     if (!selectedSkill.name) {
@@ -159,7 +185,6 @@ export default class Skills extends React.Component {
       formInvalid: false,
     });
 
-    const { skillTrait } = this.state;
     let category = '';
     switch (selectedSkill.categories[0]) {
       case 'develop':
@@ -183,20 +208,17 @@ export default class Skills extends React.Component {
     }
 
     newSkill[category].push(selectedSkill.name);
-    if (skillTrait.traits && skillTrait.traits.data.length > 0) {
-      const newSkillTrait = { ...skillTrait };
-      newSkillTrait.traits.data = [];
-      newSkillTrait.traits.data.push(newSkill);
-      this.setState({ skillTrait: newSkillTrait });
-      updateUserTrait(handle, 'skill', newSkillTrait.traits.data, tokenV3);
+    addUserSkill(handle, selectedSkill, tokenV3);
+    // save personalization
+    if (_.isEmpty(personalizationTrait)) {
+      const personalizationData = { userConsent: answer };
+      addUserTrait(handle, 'personalization', [personalizationData], tokenV3);
     } else {
-      const newSkills = [];
-      newSkills.push(newSkill);
-      const traits = {
-        data: newSkills,
-      };
-      this.setState({ skillTrait: { traits } });
-      addUserTrait(handle, 'skill', newSkills, tokenV3);
+      const trait = personalizationTrait.traits.data[0];
+      if (trait.userConsent !== answer) {
+        const personalizationData = { userConsent: answer };
+        updateUserTrait(handle, 'personalization', [personalizationData], tokenV3);
+      }
     }
   }
 
@@ -212,57 +234,48 @@ export default class Skills extends React.Component {
   }
 
   /**
-   * Get skill trait
+   * Get personalization trait
    * @param userTraits the all user traits
    */
-  loadSkillTrait = (userTraits) => {
-    const trait = userTraits.filter(t => t.traitId === 'skill');
-    const skills = trait.length === 0 ? {} : trait[0];
-    return _.assign({}, skills);
+  loadPersonalizationTrait = (userTraits) => {
+    const trait = userTraits.filter(t => t.traitId === 'personalization');
+    const personalization = trait.length === 0 ? {} : trait[0];
+    return _.assign({}, personalization);
   }
 
   /**
    * Process user skills
    */
   processUserSkills = (props) => {
-    const { lookupData, userTraits } = props;
+    const { lookupData, skills } = props;
     const { pageSize, currentIndex } = this.state;
-    const skillTrait = this.loadSkillTrait(userTraits);
+
     // All lookup skills
     const lookupSkills = lookupData.skillTags || [];
 
     // Construct user skills
-    const userSkills = [];
+    const filterUserSkills = [];
+
+    const arraySkill = _.map(skills, (skill, tagId) => ({ tagId: Number(tagId), ...skill }));
     const design = [];
     const development = [];
     const dataScience = [];
-    const skills = skillTrait.traits ? skillTrait.traits.data.slice() : [];
-    if (skills.length > 0) {
-      for (let i = 0; i < skills[0].design.length; i += 1) {
+    if (arraySkill.length > 0) {
+      for (let i = 0; i < arraySkill.length; i += 1) {
         const result = _.filter(lookupSkills, skill => (
-          skill.name.toLowerCase() === skills[0].design[i].toLowerCase()
+          skill.id === arraySkill[i].tagId
         ));
         if (result && result.length > 0) {
-          userSkills.push(result[0]);
-          design.push(result[0].name);
-        }
-      }
-      for (let i = 0; i < skills[0].development.length; i += 1) {
-        const result = _.filter(lookupSkills, skill => (
-          skill.name.toLowerCase() === skills[0].development[i].toLowerCase()
-        ));
-        if (result && result.length > 0) {
-          userSkills.push(result[0]);
-          development.push(result[0].name);
-        }
-      }
-      for (let i = 0; i < skills[0].dataScience.length; i += 1) {
-        const result = _.filter(lookupSkills, skill => (
-          skill.name.toLowerCase() === skills[0].dataScience[i].toLowerCase()
-        ));
-        if (result && result.length > 0) {
-          userSkills.push(result[0]);
-          dataScience.push(result[0].name);
+          filterUserSkills.push(result[0]);
+          if (_.some(result[0].categories, category => category.toLowerCase() === 'design')) {
+            design.push(result[0].name);
+          }
+          if (_.some(result[0].categories, category => category.toLowerCase() === 'develop')) {
+            development.push(result[0].name);
+          }
+          if (_.some(result[0].categories, category => category.toLowerCase() === 'data_science')) {
+            dataScience.push(result[0].name);
+          }
         }
       }
 
@@ -270,15 +283,16 @@ export default class Skills extends React.Component {
       newSkill.design = design.length > 0 ? design.slice() : [];
       newSkill.development = development.length > 0 ? development.slice() : [];
       newSkill.dataScience = dataScience.length > 0 ? dataScience.slice() : [];
-      const totalPage = Math.ceil(userSkills.length / pageSize);
-      this.setState({ newSkill, userSkills, totalPage });
+      const totalPage = Math.ceil(filterUserSkills.length / pageSize);
+      this.setState({ newSkill, userSkills: filterUserSkills, totalPage });
       if (currentIndex < totalPage) {
         this.setState({
-          indexList: userSkills.slice(currentIndex * pageSize, currentIndex * pageSize + pageSize),
+          indexList:
+          filterUserSkills.slice(currentIndex * pageSize, currentIndex * pageSize + pageSize),
         });
       } else {
         this.setState({
-          indexList: userSkills.slice(0, pageSize),
+          indexList: filterUserSkills.slice(0, pageSize),
           currentIndex: 0,
         });
       }
@@ -290,12 +304,11 @@ export default class Skills extends React.Component {
    */
   toggleSkill = (e, skill) => {
     e.preventDefault();
-    const { newSkill, skillTrait } = this.state;
+    const { newSkill } = this.state;
     const {
       handle,
       tokenV3,
-      updateUserTrait,
-      deleteUserTrait,
+      deleteUserSkill,
     } = this.props;
     let category = '';
     switch (skill.categories[0]) {
@@ -313,15 +326,7 @@ export default class Skills extends React.Component {
       item.toLowerCase() !== skill.name.toLowerCase()
     ));
     newSkill[category] = result.length > 0 ? result.slice() : [];
-    if (newSkill.design.length === 0
-      && newSkill.development.length === 0
-      && newSkill.dataScience.length === 0) {
-      deleteUserTrait(handle, 'skill', tokenV3);
-    } else {
-      skillTrait.traits.data = [];
-      skillTrait.traits.data.push(newSkill);
-      updateUserTrait(handle, 'skill', skillTrait.traits.data, tokenV3);
-    }
+    deleteUserSkill(handle, skill, tokenV3);
   };
 
   updatePredicate() {
@@ -336,6 +341,7 @@ export default class Skills extends React.Component {
     } = this.props;
 
     const {
+      showUserConsent,
       userSkills,
       formInvalid,
       errorMessage,
@@ -356,6 +362,9 @@ export default class Skills extends React.Component {
 
     return (
       <div styleName={containerStyle}>
+        {
+          showUserConsent && (<UserConsentModal onSaveTrait={this.onAddSkill} />)
+        }
         <div styleName={`skill-container ${list.length > 0 ? '' : 'no-skills'}`}>
           <div styleName={`error-message ${formInvalid ? 'active' : ''}`}>
             { errorMessage }
@@ -393,7 +402,7 @@ export default class Skills extends React.Component {
             <div styleName="button-save">
               <PrimaryButton
                 styleName="complete"
-                onClick={this.onAddSkill}
+                onClick={this.onShowUserConsent}
               >
                 Add Skill
               </PrimaryButton>
@@ -469,13 +478,19 @@ export default class Skills extends React.Component {
   }
 }
 
+Skills.defaultProps = {
+  skills: {},
+};
+
 Skills.propTypes = {
   handle: PT.string.isRequired,
   tokenV3: PT.string.isRequired,
   lookupData: PT.shape().isRequired,
-  addUserTrait: PT.func.isRequired,
-  updateUserTrait: PT.func.isRequired,
-  deleteUserTrait: PT.func.isRequired,
-  userTraits: PT.array.isRequired,
+  addUserSkill: PT.func.isRequired,
+  deleteUserSkill: PT.func.isRequired,
+  /* eslint-disable react/no-unused-prop-types */
+  skills: PT.shape(),
+  /* eslint-disable react/no-unused-prop-types */
   settingsUI: PT.shape().isRequired,
+  userTraits: PT.array.isRequired,
 };

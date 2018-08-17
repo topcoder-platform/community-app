@@ -37,7 +37,7 @@ export default function Track({
           </div>
         </div>
       </div>
-      <div className="onoffswitch" styleName="onoffswitch-no-padding-right">
+      <div styleName="onoffswitch-no-padding-right">
         <input
           type="checkbox"
           name="eprf-onoffswitch"

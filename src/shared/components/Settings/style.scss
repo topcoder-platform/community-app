@@ -1,5 +1,27 @@
 @import "~styles/mixins";
 
+$screen-sm: 768px !default;
+$screen-md: 1024px !default;
+$screen-lg: 1280px !default;
+
+@mixin md-to-lg {
+  @media (min-width: #{$screen-sm + 1px}) and (max-width: #{$screen-md}) {
+    @content;
+  }
+}
+
+@mixin xs-to-sm {
+  @media (max-width: #{$screen-sm}) {
+    @content;
+  }
+}
+
+@mixin screen1025-to-screen1280 {
+  @media (min-width: #{$screen-md + 1px}) and (max-width: #{$screen-lg}) {
+    @content;
+  }
+}
+
 .container {
   background: $tc-gray-neutral-dark;
   padding: 30px 60px;

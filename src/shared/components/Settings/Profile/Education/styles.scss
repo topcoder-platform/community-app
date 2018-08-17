@@ -1,4 +1,4 @@
-@import "~styles/mixins";
+@import "../../style";
 
 $checkbox-size: $base-unit * 4;
 $checkbox-bg-empty: $tc-gray-neutral-light;
@@ -281,6 +281,27 @@ $checkbox-bg-selected: $tc-dark-blue;
 
   @include xs-to-sm {
     margin-top: 5px;
+  }
+}
+
+.education-container div[class="Select-control"] {
+  height: 40px;
+
+  div[class="Select-input"] {
+    height: 38px;
+  }
+
+  div[class="Select-placeholder"] {
+    height: 38px;
+    line-height: 40px !important;
+
+    @include xs-to-sm {
+      line-height: 27px !important;
+    }
+  }
+
+  div[class="Select-value"] {
+    line-height: 40px !important;
   }
 }
 

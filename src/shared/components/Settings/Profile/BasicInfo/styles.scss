@@ -1,4 +1,4 @@
-@import "~styles/mixins";
+@import "../../style";
 
 .basic-info-container {
   display: flex;
@@ -25,6 +25,22 @@
 
     @include xs-to-sm {
       display: none;
+    }
+  }
+
+  .error-message {
+    display: none;
+
+    &.active {
+      @include roboto-medium;
+
+      display: block;
+      border-radius: 5px;
+      background-color: $tc-red-10;
+      color: $tc-red-110;
+      font-size: 15px;
+      padding: 15px;
+      margin-bottom: 15px;
     }
   }
 
@@ -82,6 +98,12 @@
           font-weight: 500;
           color: $tc-gray-80;
           margin-bottom: 5px;
+
+          .text-required {
+            font-size: 10px;
+            color: $tc-red-110;
+            margin-left: 5px;
+          }
         }
       }
     }
@@ -251,4 +273,45 @@
     color: $tc-white;
     margin: 0;
   }
+}
+
+/*
+ * React Select component styling
+ */
+.basic-info-container .form-container .row .field :global .Select,
+.basic-info-container .form-container .row .field :global .Select-value span,
+.basic-info-container .form-container .row .field :global .Select-menu-outer,
+.basic-info-container.form-container .row .field :global .Select-placeholder,
+.basic-info-container .form-container .row .field :global .Select-input input {
+  color: $tc-gray-80;
+  font-size: 15px;
+
+  @include xs-to-sm {
+    margin-top: 5px;
+  }
+}
+
+.basic-info-container div[class="Select-control"] {
+  height: 40px;
+
+  div[class="Select-input"] {
+    height: 38px;
+  }
+
+  div[class="Select-placeholder"] {
+    height: 38px;
+    line-height: 40px !important;
+
+    @include xs-to-sm {
+      line-height: 27px !important;
+    }
+  }
+
+  div[class="Select-value"] {
+    line-height: 40px !important;
+  }
+}
+
+.basic-info-container .form-container .row .field :global .Select-placeholder {
+  color: $tc-gray-50;
 }

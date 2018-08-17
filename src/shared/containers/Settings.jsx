@@ -131,6 +131,7 @@ function mapStateToProps(state) {
     settingsUI: state.page.ui.settings,
     settings: state.settings,
     userTraits: state.settings.userTraits,
+    skills: state.profile.skills,
   };
 }
 
@@ -144,30 +145,12 @@ function mapDispatchToProps(dispatch) {
     settingsTab,
   }) => {
     dispatch(profileActions.loadProfile(handle));
-
     if (settingsTab === TABS.PROFILE) {
-      dispatch(profileActions.getSkillsInit());
-      dispatch(profileActions.getCredentialInit());
-      dispatch(profileActions.getLinkedAccountsInit());
-      dispatch(profileActions.getExternalAccountsInit());
-      dispatch(profileActions.getExternalLinksInit());
-      dispatch(actions.lookup.getSkillTagsInit());
-      dispatch(actions.lookup.getSkillTagsDone());
-      dispatch(profileActions.getCredentialDone(profile, tokenV3));
-      dispatch(profileActions.getLinkedAccountsDone(profile, tokenV3));
-      dispatch(profileActions.getExternalAccountsDone(handle));
-      dispatch(profileActions.getExternalLinksDone(handle));
       dispatch(profileActions.getSkillsDone(handle));
     } else if (settingsTab === TABS.PREFERENCES) {
-      dispatch(profileActions.getEmailPreferencesInit());
       dispatch(profileActions.getEmailPreferencesDone(profile, tokenV3));
     } else if (settingsTab === TABS.ACCOUNT) {
-      dispatch(profileActions.getCredentialInit());
-      dispatch(profileActions.getLinkedAccountsInit());
-      dispatch(profileActions.getExternalAccountsInit());
-      dispatch(profileActions.getExternalLinksInit());
       dispatch(profileActions.getLinkedAccountsDone(profile, tokenV3));
-      dispatch(profileActions.getExternalAccountsDone(handle));
       dispatch(profileActions.getExternalLinksDone(handle));
       dispatch(profileActions.getCredentialDone(profile, tokenV3));
     }
@@ -229,11 +212,21 @@ function mapDispatchToProps(dispatch) {
     addUserTrait: (handle, traitId, data, tokenV3) => {
       dispatch(actions.settings.addUserTrait(handle, traitId, data, tokenV3));
     },
+    addUserSkill: (handle, skill, tokenV3) => {
+      dispatch(actions.profile.addSkillInit());
+      dispatch(actions.profile.addSkillDone(handle, tokenV3, _.assign(skill, { tagId: skill.id })));
+    },
     updateUserTrait: (handle, traitId, data, tokenV3) => {
       dispatch(actions.settings.updateUserTrait(handle, traitId, data, tokenV3));
     },
     deleteUserTrait: (handle, traitId, tokenV3) => {
       dispatch(actions.settings.deleteUserTrait(handle, traitId, tokenV3));
+    },
+    deleteUserSkill: (handle, skill, tokenV3) => {
+      dispatch(actions.profile.hideSkillInit());
+      dispatch(
+        actions.profile.hideSkillDone(handle, tokenV3, _.assign(skill, { tagId: skill.id })),
+      );
     },
   };
 }

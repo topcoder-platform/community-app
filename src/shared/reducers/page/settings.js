@@ -21,12 +21,6 @@ function mergeSkills(state, { type, payload, error }) {
     return state;
   }
 
-  if (type === 'PROFILE/ADD_SKILL_DONE') {
-    toastrSuccess('Success! ', `Skill "${payload.skill.tagName}" was added.`);
-  } else if (type === 'PROFILE/HIDE_SKILL_DONE') {
-    toastrSuccess('Success! ', `Skill "${payload.skill.tagName}" was removed.`);
-  }
-
   const firstTime = state.skills === undefined;
 
   const oldSkills = state.skills || {};
@@ -36,6 +30,9 @@ function mergeSkills(state, { type, payload, error }) {
 
   let maxIsNew = 0;
 
+  let addedSkillName = '';
+  let removedSkillName = '';
+
   _.forEach(oldSkills, (oldSkill, tagId) => {
     const newSkill = newSkills[tagId];
     if (!newSkill) {
@@ -44,12 +41,16 @@ function mergeSkills(state, { type, payload, error }) {
         ...oldSkill,
         hidden: true,
       };
+      removedSkillName = oldSkill.tagName;
     } else {
       // Copy the new skill except 'isNew' field
       mergedSkills[tagId] = {
         ...newSkill,
         isNew: oldSkill.isNew,
       };
+      if (newSkill.hidden && !oldSkill.hidden) {
+        removedSkillName = oldSkill.tagName;
+      }
     }
 
     if (oldSkill.isNew && oldSkill.isNew > maxIsNew) {
@@ -68,8 +69,17 @@ function mergeSkills(state, { type, payload, error }) {
         ...newSkill,
         isNew: firstTime ? 0 : maxIsNew,
       };
+      addedSkillName = newSkill.tagName;
+    } else if (!newSkill.hidden && oldSkill.hidden) {
+      addedSkillName = newSkill.tagName;
     }
   });
+
+  if (type === 'PROFILE/ADD_SKILL_DONE') {
+    toastrSuccess('Success! ', `Skill "${addedSkillName}" was added.`);
+  } else if (type === 'PROFILE/HIDE_SKILL_DONE') {
+    toastrSuccess('Success! ', `Skill "${removedSkillName}" was removed.`);
+  }
 
   return {
     ...state,

@@ -23,7 +23,7 @@
 
   margin-left: auto;
   margin-right: auto;
-  padding-top: 15px;
+  padding: 15px 15px 0 15px;
   align-self: center;
   background: $tc-white;
   display: flex;
@@ -31,7 +31,12 @@
   justify-content: space-between;
   align-items: center;
 
+  @media (min-width: 768px) {
+    padding: 15px 30px 0 30px;
+  }
+
   .track {
+    width: 100%;
     margin-top: 22.4px;
     display: flex;
     flex-direction: column;
@@ -65,7 +70,7 @@
       flex-direction: row;
       justify-content: space-between;
       align-items: center;
-      width: 300px;
+      width: 100%;
       height: 52px;
       border-bottom: 1px solid $tc-gray-neutral-dark;
 
