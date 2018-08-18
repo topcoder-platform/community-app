@@ -53,9 +53,6 @@ export default function Personalization({
 
   return (
     <div styleName="Personalization">
-      <h1 styleName="title">
-Personalization
-      </h1>
       <div styleName="user-consent-container">
         <ToggleableItem
           id="user-consent"

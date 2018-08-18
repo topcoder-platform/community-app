@@ -5,6 +5,7 @@
 /* eslint-disable react/forbid-prop-types */
 /* eslint-disable no-nested-ternary */
 /* eslint-disable jsx-a11y/label-has-for */
+/* eslint-disable no-undef */
 import React from 'react';
 import PT from 'prop-types';
 import _ from 'lodash';
@@ -27,6 +28,7 @@ export default class Language extends React.Component {
     this.onUpdateInput = this.onUpdateInput.bind(this);
     this.onShowUserConsent = this.onShowUserConsent.bind(this);
     this.loadPersonalizationTrait = this.loadPersonalizationTrait.bind(this);
+    this.updatePredicate = this.updatePredicate.bind(this);
 
     this.state = {
       formInvalid: false,
@@ -39,7 +41,14 @@ export default class Language extends React.Component {
         spokenLevel: '',
         writtenLevel: '',
       },
+      isMobileView: false,
+      screenSM: 768,
     };
+  }
+
+  componentDidMount() {
+    this.updatePredicate();
+    window.addEventListener('resize', this.updatePredicate);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -56,6 +65,10 @@ export default class Language extends React.Component {
         writtenLevel: '',
       },
     });
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.updatePredicate);
   }
 
   /**
@@ -235,6 +248,11 @@ export default class Language extends React.Component {
     return _.assign({}, personalization);
   };
 
+  updatePredicate() {
+    const { screenSM } = this.state;
+    this.setState({ isMobileView: window.innerWidth <= screenSM });
+  }
+
   render() {
     const {
       settingsUI,
@@ -242,6 +260,7 @@ export default class Language extends React.Component {
     const {
       languageTrait,
       showUserConsent,
+      isMobileView,
     } = this.state;
     const tabs = settingsUI.TABS.PROFILE;
     const currentTab = settingsUI.currentProfileTab;
@@ -262,7 +281,85 @@ export default class Language extends React.Component {
           <h1>
             Language
           </h1>
-          <div styleName="form-container">
+          <div styleName={`sub-title ${languageItems.length > 0 ? '' : 'hidden'}`}>
+            Your language
+          </div>
+          {
+            !isMobileView && languageItems.length > 0
+            && (
+              <LanguageList
+                languageList={{ items: languageItems }}
+                onDeleteItem={this.onDeleteLanguage}
+              />
+            )
+          }
+          <div styleName={`sub-title ${languageItems.length > 0 ? 'second' : 'first'}`}>
+            Add a new language
+          </div>
+          <div styleName="form-container-default">
+            <form name="device-form" noValidate autoComplete="off">
+              <div styleName="row">
+                <div styleName="field col-1">
+                  <label htmlFor="language">
+                    Language
+                  </label>
+                </div>
+                <div styleName="field col-2">
+                  <span styleName="text-required">* Required</span>
+                  <input id="language" name="language" type="text" placeholder="Language" onChange={this.onUpdateInput} value={newLanguage.language} maxLength="300" required />
+                </div>
+              </div>
+              <div styleName="row">
+                <div styleName="field col-1">
+                  <label htmlFor="spokenLevel">
+                    Spoken Level
+                  </label>
+                </div>
+                <div styleName="field col-2">
+                  <span styleName="text-required">* Required</span>
+                  <Select
+                    name="spokenLevel"
+                    options={dropdowns.spokenLevel}
+                    onChange={this.onUpdateSelect}
+                    value={newLanguage.spokenLevel}
+                    placeholder="Spoken level"
+                    labelKey="name"
+                    valueKey="name"
+                    clearable={false}
+                  />
+                </div>
+              </div>
+              <div styleName="row">
+                <div styleName="field col-1">
+                  <label htmlFor="writtenLevel">
+                    Written Level
+                  </label>
+                </div>
+                <div styleName="field col-2">
+                  <span styleName="text-required">* Required</span>
+                  <Select
+                    name="writtenLevel"
+                    options={dropdowns.writtenLevel}
+                    onChange={this.onUpdateSelect}
+                    value={newLanguage.writtenLevel}
+                    placeholder="Written level"
+                    labelKey="name"
+                    valueKey="name"
+                    clearable={false}
+                  />
+                </div>
+              </div>
+            </form>
+            <div styleName="button-save">
+              <PrimaryButton
+                styleName="complete"
+                onClick={this.onShowUserConsent}
+              >
+                Add language to your list
+              </PrimaryButton>
+            </div>
+          </div>
+          <div styleName="form-container-mobile">
             <form name="language-form" noValidate autoComplete="off">
               <div styleName="row">
                 <p>
@@ -317,10 +414,15 @@ export default class Language extends React.Component {
               </PrimaryButton>
             </div>
           </div>
-          <LanguageList
-            languageList={{ items: languageItems }}
-            onDeleteItem={this.onDeleteLanguage}
-          />
+          {
+            isMobileView && languageItems.length > 0
+            && (
+              <LanguageList
+                languageList={{ items: languageItems }}
+                onDeleteItem={this.onDeleteLanguage}
+              />
+            )
+          }
         </div>
       </div>
     );

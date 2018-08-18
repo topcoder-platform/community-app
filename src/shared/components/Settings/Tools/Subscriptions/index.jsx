@@ -5,6 +5,7 @@
 /* eslint-disable react/forbid-prop-types */
 /* eslint-disable no-nested-ternary */
 /* eslint-disable jsx-a11y/label-has-for */
+/* eslint-disable no-undef */
 import React from 'react';
 import PT from 'prop-types';
 import _ from 'lodash';
@@ -25,6 +26,8 @@ export default class Subscription extends React.Component {
     this.onAddSubscription = this.onAddSubscription.bind(this);
     this.loadPersonalizationTrait = this.loadPersonalizationTrait.bind(this);
     this.onShowUserConsent = this.onShowUserConsent.bind(this);
+    this.updatePredicate = this.updatePredicate.bind(this);
+
     this.state = {
       formInvalid: false,
       showUserConsent: false,
@@ -34,7 +37,14 @@ export default class Subscription extends React.Component {
       newSubscription: {
         name: '',
       },
+      isMobileView: false,
+      screenSM: 768,
     };
+  }
+
+  componentDidMount() {
+    this.updatePredicate();
+    window.addEventListener('resize', this.updatePredicate);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -49,6 +59,10 @@ export default class Subscription extends React.Component {
         name: '',
       },
     });
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.updatePredicate);
   }
 
   /**
@@ -75,7 +89,7 @@ export default class Subscription extends React.Component {
     let errorMessage = '';
 
     if (!_.trim(newSubscription.name).length) {
-      errorMessage += 'Name, ';
+      errorMessage += 'Name';
       invalid = true;
     }
 
@@ -205,8 +219,13 @@ export default class Subscription extends React.Component {
     return _.assign({}, personalization);
   }
 
+  updatePredicate() {
+    const { screenSM } = this.state;
+    this.setState({ isMobileView: window.innerWidth <= screenSM });
+  }
+
   render() {
-    const { subscriptionTrait, showUserConsent } = this.state;
+    const { subscriptionTrait, showUserConsent, isMobileView } = this.state;
     const subscriptionItems = subscriptionTrait.traits
       ? subscriptionTrait.traits.data.slice() : [];
     const { newSubscription, formInvalid, errorMessage } = this.state;
@@ -220,19 +239,57 @@ export default class Subscription extends React.Component {
           { errorMessage }
         </div>
         <h1>
-Subscriptions
+          Subscriptions
         </h1>
-        <div styleName="form-container">
+        <div styleName={`sub-title ${subscriptionItems.length > 0 ? '' : 'hidden'}`}>
+          Your subscriptions
+        </div>
+        {
+          !isMobileView
+          && (
+            <SubscriptionList
+              subscriptionList={{ items: subscriptionItems }}
+              onDeleteItem={this.onDeleteSubscription}
+            />
+          )
+        }
+        <div styleName={`sub-title ${subscriptionItems.length > 0 ? 'second' : 'first'}`}>
+          Add a new subscription
+        </div>
+        <div styleName="form-container-default">
+          <form name="device-form" noValidate autoComplete="off">
+            <div styleName="row">
+              <div styleName="field col-1">
+                <label htmlFor="name">
+                  Name
+                </label>
+              </div>
+              <div styleName="field col-2">
+                <span styleName="text-required">* Required</span>
+                <input id="name" name="name" type="text" placeholder="Name" onChange={this.onUpdateInput} value={newSubscription.name} maxLength="128" required />
+              </div>
+            </div>
+          </form>
+          <div styleName="button-save">
+            <PrimaryButton
+              styleName="complete"
+              onClick={this.onShowUserConsent}
+            >
+              Add subscription to your list
+            </PrimaryButton>
+          </div>
+        </div>
+        <div styleName="form-container-mobile">
           <form name="subscription-form" noValidate autoComplete="off">
             <div styleName="row">
               <p>
-Add Subscription
+                Add Subscription
               </p>
             </div>
             <div styleName="row">
               <div styleName="field col-1">
                 <label htmlFor="name">
-Name
+                  Name
                 </label>
                 <input id="name" name="name" type="text" placeholder="Name" onChange={this.onUpdateInput} value={newSubscription.name} maxLength="128" required />
               </div>
@@ -247,10 +304,15 @@ Name
             </PrimaryButton>
           </div>
         </div>
-        <SubscriptionList
-          subscriptionList={{ items: subscriptionItems }}
-          onDeleteItem={this.onDeleteSubscription}
-        />
+        {
+          isMobileView
+          && (
+            <SubscriptionList
+              subscriptionList={{ items: subscriptionItems }}
+              onDeleteItem={this.onDeleteSubscription}
+            />
+          )
+        }
       </div>
     );
   }
