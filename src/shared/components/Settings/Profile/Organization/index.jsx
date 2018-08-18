@@ -5,6 +5,7 @@
 /* eslint-disable react/forbid-prop-types */
 /* eslint-disable no-nested-ternary */
 /* eslint-disable jsx-a11y/label-has-for */
+/* eslint-disable no-undef */
 import React from 'react';
 import PT from 'prop-types';
 import _ from 'lodash';
@@ -25,6 +26,7 @@ export default class Organization extends React.Component {
     this.onUpdateInput = this.onUpdateInput.bind(this);
     this.onAddOrganization = this.onAddOrganization.bind(this);
     this.onShowUserConsent = this.onShowUserConsent.bind(this);
+    this.updatePredicate = this.updatePredicate.bind(this);
 
     this.state = {
       showUserConsent: false,
@@ -39,7 +41,14 @@ export default class Organization extends React.Component {
         timePeriodFrom: '',
         timePeriodTo: '',
       },
+      isMobileView: false,
+      screenSM: 768,
     };
+  }
+
+  componentDidMount() {
+    this.updatePredicate();
+    window.addEventListener('resize', this.updatePredicate);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -58,6 +67,10 @@ export default class Organization extends React.Component {
         timePeriodTo: '',
       },
     });
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.updatePredicate);
   }
 
   /**
@@ -270,6 +283,11 @@ export default class Organization extends React.Component {
     return _.assign({}, personalization);
   }
 
+  updatePredicate() {
+    const { screenSM } = this.state;
+    this.setState({ isMobileView: window.innerWidth <= screenSM });
+  }
+
   render() {
     const {
       settingsUI,
@@ -277,6 +295,7 @@ export default class Organization extends React.Component {
     const {
       organizationTrait,
       showUserConsent,
+      isMobileView,
     } = this.state;
     const tabs = settingsUI.TABS.PROFILE;
     const currentTab = settingsUI.currentProfileTab;
@@ -297,7 +316,89 @@ export default class Organization extends React.Component {
           <h1>
             Organization
           </h1>
-          <div styleName="form-container">
+          <div styleName={`sub-title ${organizationItems.length > 0 ? '' : 'hidden'}`}>
+            Your organizations
+          </div>
+          {
+            !isMobileView && organizationItems.length > 0
+            && (
+              <OrganizationList
+                organizationList={{ items: organizationItems }}
+                onDeleteItem={this.onDeleteOrganization}
+              />
+            )
+          }
+          <div styleName={`sub-title ${organizationItems.length > 0 ? 'second' : 'first'}`}>
+            Add a new organization
+          </div>
+          <div styleName="form-container-default">
+            <form name="device-form" noValidate autoComplete="off">
+              <div styleName="row">
+                <div styleName="field col-1">
+                  <label htmlFor="name">
+                    Organization Name
+                  </label>
+                </div>
+                <div styleName="field col-2">
+                  <span styleName="text-required">* Required</span>
+                  <input id="name" name="name" type="text" placeholder="Organization" onChange={this.onUpdateInput} value={newOrganization.name} maxLength="128" required />
+                </div>
+              </div>
+              <div styleName="row">
+                <div styleName="field col-1">
+                  <label htmlFor="sector">
+                    Sector
+                  </label>
+                </div>
+                <div styleName="field col-2">
+                  <span styleName="text-required">* Required</span>
+                  <input id="sector" name="sector" type="text" placeholder="Sector" onChange={this.onUpdateInput} value={newOrganization.sector} maxLength="128" required />
+                </div>
+              </div>
+              <div styleName="row">
+                <div styleName="field col-1">
+                  <label htmlFor="city">
+                    City
+                  </label>
+                </div>
+                <div styleName="field col-2">
+                  <span styleName="text-required">* Required</span>
+                  <input id="city" name="city" type="text" placeholder="City" onChange={this.onUpdateInput} value={newOrganization.city} maxLength="64" required />
+                </div>
+              </div>
+              <div styleName="row">
+                <div styleName="field col-1">
+                  <label htmlFor="timePeriodFrom">
+                    From
+                  </label>
+                </div>
+                <div styleName="field col-2">
+                  <span styleName="text-required">* Required</span>
+                  <input id="timePeriodFrom" styleName="date-input" name="timePeriodFrom" type="date" onChange={this.onUpdateInput} value={newOrganization.timePeriodFrom} required />
+                </div>
+              </div>
+              <div styleName="row">
+                <div styleName="field col-1">
+                  <label htmlFor="timePeriodTo">
+                    To
+                  </label>
+                </div>
+                <div styleName="field col-2">
+                  <span styleName="text-required">* Required</span>
+                  <input id="timePeriodTo" styleName="date-input" name="timePeriodTo" type="date" onChange={this.onUpdateInput} value={newOrganization.timePeriodTo} required />
+                </div>
+              </div>
+            </form>
+            <div styleName="button-save">
+              <PrimaryButton
+                styleName="complete"
+                onClick={this.onShowUserConsent}
+              >
+                Add organizations to your list
+              </PrimaryButton>
+            </div>
+          </div>
+          <div styleName="form-container-mobile">
             <form name="organization-form" noValidate autoComplete="off">
               <div styleName="row">
                 <p>
@@ -348,10 +449,15 @@ export default class Organization extends React.Component {
               </PrimaryButton>
             </div>
           </div>
-          <OrganizationList
-            organizationList={{ items: organizationItems }}
-            onDeleteItem={this.onDeleteOrganization}
-          />
+          {
+            isMobileView && organizationItems.length > 0
+            && (
+              <OrganizationList
+                organizationList={{ items: organizationItems }}
+                onDeleteItem={this.onDeleteOrganization}
+              />
+            )
+          }
         </div>
       </div>
     );

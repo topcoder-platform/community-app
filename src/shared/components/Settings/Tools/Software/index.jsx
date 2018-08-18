@@ -5,6 +5,7 @@
 /* eslint-disable react/forbid-prop-types */
 /* eslint-disable no-nested-ternary */
 /* eslint-disable jsx-a11y/label-has-for */
+/* eslint-disable no-undef */
 import React from 'react';
 import PT from 'prop-types';
 import _ from 'lodash';
@@ -27,6 +28,7 @@ export default class Software extends React.Component {
     this.onAddSoftware = this.onAddSoftware.bind(this);
     this.loadPersonalizationTrait = this.loadPersonalizationTrait.bind(this);
     this.onShowUserConsent = this.onShowUserConsent.bind(this);
+    this.updatePredicate = this.updatePredicate.bind(this);
 
     this.state = {
       formInvalid: false,
@@ -38,7 +40,14 @@ export default class Software extends React.Component {
         softwareType: '',
         name: '',
       },
+      isMobileView: false,
+      screenSM: 768,
     };
+  }
+
+  componentDidMount() {
+    this.updatePredicate();
+    window.addEventListener('resize', this.updatePredicate);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -54,6 +63,10 @@ export default class Software extends React.Component {
         name: '',
       },
     });
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.updatePredicate);
   }
 
   /**
@@ -79,7 +92,7 @@ export default class Software extends React.Component {
 
     let errorMessage = '';
     if (!_.trim(newSoftware.softwareType).length) {
-      errorMessage += 'Software type, ';
+      errorMessage += 'Type, ';
       invalid = true;
     }
 
@@ -215,8 +228,13 @@ export default class Software extends React.Component {
     return _.assign({}, personalization);
   }
 
+  updatePredicate() {
+    const { screenSM } = this.state;
+    this.setState({ isMobileView: window.innerWidth <= screenSM });
+  }
+
   render() {
-    const { softwareTrait, showUserConsent } = this.state;
+    const { softwareTrait, showUserConsent, isMobileView } = this.state;
     const softwareItems = softwareTrait.traits
       ? softwareTrait.traits.data.slice() : [];
     const { newSoftware, formInvalid, errorMessage } = this.state;
@@ -230,19 +248,77 @@ export default class Software extends React.Component {
           { errorMessage }
         </div>
         <h1>
-Software
+          Software
         </h1>
-        <div styleName="form-container">
+        <div styleName={`sub-title ${softwareItems.length > 0 ? '' : 'hidden'}`}>
+          Your software
+        </div>
+        {
+          !isMobileView
+          && (
+            <SoftwareList
+              softwareList={{ items: softwareItems }}
+              onDeleteItem={this.onDeleteSoftware}
+            />
+          )
+        }
+        <div styleName={`sub-title ${softwareItems.length > 0 ? 'second' : 'first'}`}>
+          Add a new software
+        </div>
+        <div styleName="form-container-default">
+          <form name="device-form" noValidate autoComplete="off">
+            <div styleName="row">
+              <div styleName="field col-1">
+                <label htmlFor="softwareType">
+                  Type
+                </label>
+              </div>
+              <div styleName="field col-2">
+                <span styleName="text-required">* Required</span>
+                <Select
+                  name="softwareType"
+                  options={dropdowns.type}
+                  onChange={this.onUpdateSelect}
+                  value={newSoftware.softwareType}
+                  placeholder="Software Type"
+                  labelKey="name"
+                  valueKey="name"
+                  clearable={false}
+                />
+              </div>
+            </div>
+            <div styleName="row">
+              <div styleName="field col-1">
+                <label htmlFor="name">
+                  Name
+                </label>
+              </div>
+              <div styleName="field col-2">
+                <span styleName="text-required">* Required</span>
+                <input id="name" name="name" type="text" placeholder="Name" onChange={this.onUpdateInput} value={newSoftware.name} maxLength="64" required />
+              </div>
+            </div>
+          </form>
+          <div styleName="button-save">
+            <PrimaryButton
+              styleName="complete"
+              onClick={this.onShowUserConsent}
+            >
+              Add software to your list
+            </PrimaryButton>
+          </div>
+        </div>
+        <div styleName="form-container-mobile">
           <form name="software-form" noValidate autoComplete="off">
             <div styleName="row">
               <p>
-Add Software
+                Add Software
               </p>
             </div>
             <div styleName="row">
               <div styleName="field col-1">
                 <label htmlFor="softwareType">
-Software Type
+                  Software Type
                 </label>
                 <Select
                   name="softwareType"
@@ -257,7 +333,7 @@ Software Type
               </div>
               <div styleName="field col-2">
                 <label htmlFor="name">
-Name
+                  Name
                 </label>
                 <input id="name" name="name" type="text" placeholder="Name" onChange={this.onUpdateInput} value={newSoftware.name} maxLength="64" required />
               </div>
@@ -272,10 +348,15 @@ Name
             </PrimaryButton>
           </div>
         </div>
-        <SoftwareList
-          softwareList={{ items: softwareItems }}
-          onDeleteItem={this.onDeleteSoftware}
-        />
+        {
+          isMobileView
+          && (
+            <SoftwareList
+              softwareList={{ items: softwareItems }}
+              onDeleteItem={this.onDeleteSoftware}
+            />
+          )
+        }
       </div>
     );
   }

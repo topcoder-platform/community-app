@@ -13,11 +13,9 @@ import EmailIcon from 'assets/images/preferences/email.svg';
 import Forum from 'assets/images/preferences/forum.svg';
 import Invletter from 'assets/images/preferences/invletter.svg';
 import Payment from 'assets/images/preferences/payment.svg';
-import PersonalizationIcon from 'assets/images/preferences/personalization.svg';
 import Referral from 'assets/images/preferences/referral.svg';
 import SideBar from 'components/Settings/SideBar';
 import Email from './Email';
-import Personalization from './Personalization';
 
 import './styles.scss';
 
@@ -27,7 +25,6 @@ const tabs = {
   PAYMENT: 'payment',
   LETTER: 'invitation letter',
   REFERRALS: 'referrals',
-  PERSONALIZATION: 'personalization',
 };
 
 const icons = {
@@ -36,7 +33,6 @@ const icons = {
   payment: <Payment />,
   'invitation letter': <Invletter />,
   referrals: <Referral />,
-  personalization: <PersonalizationIcon />,
 };
 
 export default class Preferences extends React.Component {
@@ -67,8 +63,6 @@ export default class Preferences extends React.Component {
         return (window.location.href = `${config.URL.COMMUNITY}/tc?module=VisaSelection`) && <LoadingIndicator />;
       case 'referrals':
         return (window.location.href = `${config.URL.COMMUNITY}/tc?module=ViewReferrals`) && <LoadingIndicator />;
-      case 'personalization':
-        return <Personalization {...this.props} />;
       default:
         return null;
     }

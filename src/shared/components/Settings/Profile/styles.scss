@@ -3,12 +3,7 @@
 .profile-container {
   display: flex;
   flex-direction: row;
-  padding: 60px 40px 55px 50px;
   box-shadow: 0 2px 9px 0 rgba(38, 38, 40, 0.06);
-
-  @include md-to-lg {
-    padding: 30px;
-  }
 
   @include xs-to-sm {
     padding: 0;
@@ -16,11 +11,9 @@
 
   .col-bar {
     width: 250px;
-    margin-right: 70px;
-
-    @include screen1025-to-screen1280 {
-      width: 200px;
-    }
+    background-color: #fafafb;
+    padding: 30px;
+    border-bottom-left-radius: 6px;
 
     @include md-to-lg {
       width: 90px;
@@ -35,6 +28,7 @@
 
   .col-content {
     flex: 1;
+    padding: 30px 80px;
 
     @include xs-to-sm {
       display: none;

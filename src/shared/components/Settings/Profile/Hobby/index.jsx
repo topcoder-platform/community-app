@@ -5,6 +5,7 @@
 /* eslint-disable react/forbid-prop-types */
 /* eslint-disable no-nested-ternary */
 /* eslint-disable jsx-a11y/label-has-for */
+/* eslint-disable no-undef */
 import React from 'react';
 import PT from 'prop-types';
 import _ from 'lodash';
@@ -25,7 +26,7 @@ export default class Hobby extends React.Component {
     this.onUpdateInput = this.onUpdateInput.bind(this);
     this.onAddHobby = this.onAddHobby.bind(this);
     this.onShowUserConsent = this.onShowUserConsent.bind(this);
-
+    this.updatePredicate = this.updatePredicate.bind(this);
     this.state = {
       showUserConsent: false,
       formInvalid: false,
@@ -36,7 +37,14 @@ export default class Hobby extends React.Component {
         hobby: '',
         description: '',
       },
+      isMobileView: false,
+      screenSM: 768,
     };
+  }
+
+  componentDidMount() {
+    this.updatePredicate();
+    window.addEventListener('resize', this.updatePredicate);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -52,6 +60,10 @@ export default class Hobby extends React.Component {
         description: '',
       },
     });
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.updatePredicate);
   }
 
   /**
@@ -193,13 +205,18 @@ export default class Hobby extends React.Component {
   }
 
   /**
-     * Get personalization trait
-     * @param userTraits the all user traits
-     */
+   * Get personalization trait
+   * @param userTraits the all user traits
+   */
   loadPersonalizationTrait = (userTraits) => {
     const trait = userTraits.filter(t => t.traitId === 'personalization');
     const personalization = trait.length === 0 ? {} : trait[0];
     return _.assign({}, personalization);
+  }
+
+  updatePredicate() {
+    const { screenSM } = this.state;
+    this.setState({ isMobileView: window.innerWidth <= screenSM });
   }
 
   render() {
@@ -209,6 +226,7 @@ export default class Hobby extends React.Component {
     const {
       hobbyTrait,
       showUserConsent,
+      isMobileView,
     } = this.state;
     const tabs = settingsUI.TABS.PROFILE;
     const currentTab = settingsUI.currentProfileTab;
@@ -220,7 +238,7 @@ export default class Hobby extends React.Component {
     return (
       <div styleName={containerStyle}>
         {
-            showUserConsent && (<UserConsentModal onSaveTrait={this.onAddHobby} />)
+          showUserConsent && (<UserConsentModal onSaveTrait={this.onAddHobby} />)
         }
         <div styleName="hobby-container">
           <div styleName={`error-message ${formInvalid ? 'active' : ''}`}>
@@ -229,7 +247,64 @@ export default class Hobby extends React.Component {
           <h1>
             Hobby
           </h1>
-          <div styleName="form-container">
+          <div styleName={`sub-title ${hobbyItems.length > 0 ? '' : 'hidden'}`}>
+            Your hobbies
+          </div>
+          {
+            !isMobileView && hobbyItems.length > 0
+            && (
+              <HobbyList
+                hobbyList={{ items: hobbyItems }}
+                onDeleteItem={this.onDeleteHobby}
+              />
+            )
+          }
+          <div styleName={`sub-title ${hobbyItems.length > 0 ? 'second' : 'first'}`}>
+            Add a new hobby
+          </div>
+          <div styleName="form-container-default">
+            <form name="device-form" noValidate autoComplete="off">
+              <div styleName="row">
+                <div styleName="field col-1">
+                  <label htmlFor="hobby">
+                    Hobby
+                  </label>
+                </div>
+                <div styleName="field col-2">
+                  <span styleName="text-required">* Required</span>
+                  <input id="hobby" name="hobby" type="text" placeholder="Hobby" onChange={this.onUpdateInput} value={newHobby.hobby} maxLength="128" required />
+                </div>
+              </div>
+              <div styleName="row">
+                <div styleName="field col-1">
+                  <label styleName="description-label" htmlFor="description">
+                    Description
+                  </label>
+                </div>
+                <div styleName="field col-2">
+                  <div styleName="description">
+                    <div styleName="first-line">
+                      <span styleName="description-counts">
+                        { newHobby.description.length }
+                        /160
+                      </span>
+                      <span styleName="text-required">* Required</span>
+                    </div>
+                    <textarea id="description" styleName="description-text" name="description" placeholder="Description" onChange={this.onUpdateInput} value={newHobby.description} maxLength="160" cols="3" rows="10" required />
+                  </div>
+                </div>
+              </div>
+            </form>
+            <div styleName="button-save">
+              <PrimaryButton
+                styleName="complete"
+                onClick={this.onShowUserConsent}
+              >
+                Add hobby to your list
+              </PrimaryButton>
+            </div>
+          </div>
+          <div styleName="form-container-mobile">
             <form name="hobby-form" noValidate autoComplete="off">
               <div styleName="row">
                 <p>
@@ -269,10 +344,15 @@ Description
               </PrimaryButton>
             </div>
           </div>
-          <HobbyList
-            hobbyList={{ items: hobbyItems }}
-            onDeleteItem={this.onDeleteHobby}
-          />
+          {
+            isMobileView && hobbyItems.length > 0
+            && (
+              <HobbyList
+                hobbyList={{ items: hobbyItems }}
+                onDeleteItem={this.onDeleteHobby}
+              />
+            )
+          }
         </div>
       </div>
     );
