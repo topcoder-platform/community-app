@@ -28,10 +28,11 @@ export default class Devices extends ConsentComponent {
     this.onAddDevice = this.onAddDevice.bind(this);
     this.loadPersonalizationTrait = this.loadPersonalizationTrait.bind(this);
 
+    const { userTraits } = props;
     this.state = {
       formInvalid: false,
-      deviceTrait: this.loadDeviceTrait(props.userTraits),
-      personalizationTrait: this.loadPersonalizationTrait(props.userTraits),
+      deviceTrait: this.loadDeviceTrait(userTraits),
+      personalizationTrait: this.loadPersonalizationTrait(userTraits),
       newDevice: {
         deviceType: '',
         manufacturer: '',
@@ -68,6 +69,7 @@ export default class Devices extends ConsentComponent {
    * @param e event
    */
   onHandleAddDevice(e) {
+    e.preventDefault();
     const { newDevice } = this.state;
     if (this.onCheckFormValue(newDevice)) {
       return;
@@ -76,7 +78,7 @@ export default class Devices extends ConsentComponent {
   }
 
   onHandleDeleteDevice(indexNo) {
-    this.showConsent(this.onDeleteDevice.bind(this, indexNo))
+    this.showConsent(this.onDeleteDevice.bind(this, indexNo));
   }
 
   /**

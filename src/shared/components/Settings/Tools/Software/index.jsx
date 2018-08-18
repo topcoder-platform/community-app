@@ -29,11 +29,12 @@ export default class Software extends ConsentComponent {
     this.onAddSoftware = this.onAddSoftware.bind(this);
     this.loadPersonalizationTrait = this.loadPersonalizationTrait.bind(this);
 
+    const { userTraits } = props;
     this.state = {
       formInvalid: false,
       errorMessage: '',
-      softwareTrait: this.loadSoftwareTrait(props.userTraits),
-      personalizationTrait: this.loadPersonalizationTrait(props.userTraits),
+      softwareTrait: this.loadSoftwareTrait(userTraits),
+      personalizationTrait: this.loadPersonalizationTrait(userTraits),
       newSoftware: {
         softwareType: '',
         name: '',

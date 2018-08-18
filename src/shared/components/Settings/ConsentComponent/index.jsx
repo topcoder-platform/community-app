@@ -16,8 +16,8 @@ export default class ConsentComponent extends React.Component {
     this.showConsent = this.showConsent.bind(this);
 
     this.state = {
-      onConsent: undefined
-    }
+      onConsent: undefined,
+    };
   }
 
   onHandleConsent(e, answer) {
@@ -36,11 +36,8 @@ export default class ConsentComponent extends React.Component {
    * @return {boolean}
    */
   shouldRenderConsent() {
-    return this.state.onConsent !== undefined;
-  }
-
-  renderConsent() {
-    return (<UserConsentModal onSaveTrait={this.onHandleConsent} />)
+    const { onConsent } = this.state;
+    return onConsent;
   }
 
   /**
@@ -51,4 +48,7 @@ export default class ConsentComponent extends React.Component {
     this.setState({ onConsent });
   }
 
+  renderConsent() {
+    return (<UserConsentModal onSaveTrait={this.onHandleConsent} />);
+  }
 }

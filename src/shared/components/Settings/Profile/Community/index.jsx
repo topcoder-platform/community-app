@@ -18,15 +18,16 @@ const SAVE_DELAY = 1000;
 class Community extends ConsentComponent {
   constructor(props) {
     super(props);
+    const { userTraits } = props;
     this.state = {
-      communityTrait: this.loadCommunityTrait(props.userTraits),
-      personalizationTrait: this.loadPersonalizationTrait(props.userTraits),
+      communityTrait: this.loadCommunityTrait(userTraits),
+      personalizationTrait: this.loadPersonalizationTrait(userTraits),
       isAdd: false,
     };
 
     this.loadCommunityTrait = this.loadCommunityTrait.bind(this);
     this.loadPersonalizationTrait = this.loadPersonalizationTrait.bind(this);
-    this.onHandleUpdateCommunity = this.onHandleUpdateCommunity.bind(this);
+    this.onChange = this.onChange.bind(this);
   }
 
   componentDidMount() {
@@ -54,7 +55,7 @@ class Community extends ConsentComponent {
    * @param item the community object
    * @param checked the check value
    */
-  onHandleUpdateCommunity(e, item, checked) {
+  onChange(e, item, checked) {
     e.preventDefault();
     this.showConsent(this.onUpdateCommunity.bind(this, item, checked));
   }
@@ -161,7 +162,7 @@ class Community extends ConsentComponent {
                     title={item.name}
                     programID={item.programID}
                     description={item.description}
-                    onToggle={event => this.onHandleUpdateCommunity(event, item, event.target.checked)}
+                    onToggle={event => this.onChange(event, item, event.target.checked)}
                   />
                 );
               })

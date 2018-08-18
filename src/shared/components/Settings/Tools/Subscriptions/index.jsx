@@ -26,11 +26,12 @@ export default class Subscription extends ConsentComponent {
     this.onHandleAddSubscription = this.onHandleAddSubscription.bind(this);
     this.onAddSubscription = this.onAddSubscription.bind(this);
     this.loadPersonalizationTrait = this.loadPersonalizationTrait.bind(this);
+    const { userTraits } = props;
     this.state = {
       formInvalid: false,
       errorMessage: '',
-      subscriptionTrait: this.loadSubscriptionTrait(props.userTraits),
-      personalizationTrait: this.loadPersonalizationTrait(props.userTraits),
+      subscriptionTrait: this.loadSubscriptionTrait(userTraits),
+      personalizationTrait: this.loadPersonalizationTrait(userTraits),
       newSubscription: {
         name: '',
       },

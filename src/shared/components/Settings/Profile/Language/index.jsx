@@ -29,11 +29,12 @@ export default class Language extends ConsentComponent {
     this.onUpdateInput = this.onUpdateInput.bind(this);
     this.loadPersonalizationTrait = this.loadPersonalizationTrait.bind(this);
 
+    const { userTraits } = props;
     this.state = {
       formInvalid: false,
       errorMessage: '',
-      languageTrait: this.loadLanguageTrait(props.userTraits),
-      personalizationTrait: this.loadPersonalizationTrait(props.userTraits),
+      languageTrait: this.loadLanguageTrait(userTraits),
+      personalizationTrait: this.loadPersonalizationTrait(userTraits),
       newLanguage: {
         language: '',
         spokenLevel: '',

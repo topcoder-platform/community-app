@@ -37,13 +37,14 @@ export default class BasicInfo extends ConsentComponent {
     this.onChange = this.onChange.bind(this);
     this.onCheckFormValue = this.onCheckFormValue.bind(this);
 
+    const { userTraits } = props;
     this.state = {
       savingBasicInfo: false,
       inputChanged: false,
       formInvalid: false,
       errorMessage: '',
-      basicInfoTrait: this.loadBasicInfoTraits(props.userTraits),
-      personalizationTrait: this.loadPersonalizationTrait(props.userTraits),
+      basicInfoTrait: this.loadBasicInfoTraits(userTraits),
+      personalizationTrait: this.loadPersonalizationTrait(userTraits),
       newBasicInfo: {
         handle: '',
         firstName: '',
@@ -175,7 +176,7 @@ export default class BasicInfo extends ConsentComponent {
   onSaveBasicInfo(answer) {
     const { newBasicInfo, basicInfoTrait, personalizationTrait } = this.state;
     this.setState({
-      savingBasicInfo: true
+      savingBasicInfo: true,
     });
 
     const {

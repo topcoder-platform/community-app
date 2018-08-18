@@ -29,11 +29,12 @@ export default class ServiceProviders extends ConsentComponent {
     this.onAddServiceProvider = this.onAddServiceProvider.bind(this);
     this.loadPersonalizationTrait = this.loadPersonalizationTrait.bind(this);
 
+    const { userTraits } = props;
     this.state = {
       formInvalid: false,
       errorMessage: '',
-      serviceProviderTrait: this.loadServiceProviderTrait(props.userTraits),
-      personalizationTrait: this.loadPersonalizationTrait(props.userTraits),
+      serviceProviderTrait: this.loadServiceProviderTrait(userTraits),
+      personalizationTrait: this.loadPersonalizationTrait(userTraits),
       newServiceProvider: {
         serviceProviderType: '',
         name: '',

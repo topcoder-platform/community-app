@@ -29,11 +29,12 @@ export default class Education extends ConsentComponent {
     this.onAddEducation = this.onAddEducation.bind(this);
     this.loadPersonalizationTrait = this.loadPersonalizationTrait.bind(this);
 
+    const { userTraits } = props;
     this.state = {
       formInvalid: false,
       errorMessage: '',
-      educationTrait: this.loadEducationTrait(props.userTraits),
-      personalizationTrait: this.loadPersonalizationTrait(props.userTraits),
+      educationTrait: this.loadEducationTrait(userTraits),
+      personalizationTrait: this.loadPersonalizationTrait(userTraits),
       newEducation: {
         type: '',
         schoolCollegeName: '',
@@ -135,7 +136,7 @@ export default class Education extends ConsentComponent {
   }
 
   onHandleDeleteEducation(indexNo) {
-    this.showConsent(this.onDeleteEducation.bind(this, indexNo))
+    this.showConsent(this.onDeleteEducation.bind(this, indexNo));
   }
 
   /**
@@ -257,7 +258,7 @@ export default class Education extends ConsentComponent {
     if (this.onCheckFormValue(newEducation)) {
       return;
     }
-    this.showConsent(this.onAddEducation.bind(this))
+    this.showConsent(this.onAddEducation.bind(this));
   }
 
   /**

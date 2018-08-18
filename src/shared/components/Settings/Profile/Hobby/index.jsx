@@ -27,11 +27,12 @@ export default class Hobby extends ConsentComponent {
     this.onHandleAddHobby = this.onHandleAddHobby.bind(this);
     this.onAddHobby = this.onAddHobby.bind(this);
 
+    const { userTraits } = props;
     this.state = {
       formInvalid: false,
       errorMessage: '',
-      hobbyTrait: this.loadHobbyTrait(props.userTraits),
-      personalizationTrait: this.loadPersonalizationTrait(props.userTraits),
+      hobbyTrait: this.loadHobbyTrait(userTraits),
+      personalizationTrait: this.loadPersonalizationTrait(userTraits),
       newHobby: {
         hobby: '',
         description: '',
@@ -64,7 +65,7 @@ export default class Hobby extends ConsentComponent {
     if (this.onCheckFormValue(newHobby)) {
       return;
     }
-    this.showConsent(this.onAddHobby.bind(this))
+    this.showConsent(this.onAddHobby.bind(this));
   }
 
   /**
@@ -209,8 +210,6 @@ export default class Hobby extends ConsentComponent {
     } = this.props;
     const {
       hobbyTrait,
-      showUserConsentAddHobby,
-      showUserConsentDeleteHobby,
     } = this.state;
     const tabs = settingsUI.TABS.PROFILE;
     const currentTab = settingsUI.currentProfileTab;

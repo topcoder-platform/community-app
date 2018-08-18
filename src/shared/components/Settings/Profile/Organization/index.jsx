@@ -27,11 +27,12 @@ export default class Organization extends ConsentComponent {
     this.onHandleAddOrganization = this.onHandleAddOrganization.bind(this);
     this.onAddOrganization = this.onAddOrganization.bind(this);
 
+    const { userTraits } = props;
     this.state = {
       formInvalid: false,
       errorMessage: '',
-      organizationTrait: this.loadOrganizationTrait(props.userTraits),
-      personalizationTrait: this.loadPersonalizationTrait(props.userTraits),
+      organizationTrait: this.loadOrganizationTrait(userTraits),
+      personalizationTrait: this.loadPersonalizationTrait(userTraits),
       newOrganization: {
         name: '',
         sector: '',
@@ -157,7 +158,7 @@ export default class Organization extends ConsentComponent {
   }
 
   onHandleDeleteOrganization(indexNo) {
-    this.showConsent(this.onDeleteOrganization.bind(this, indexNo))
+    this.showConsent(this.onDeleteOrganization.bind(this, indexNo));
   }
 
   /**

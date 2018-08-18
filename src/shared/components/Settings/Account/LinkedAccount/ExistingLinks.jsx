@@ -29,7 +29,7 @@ export default class ExistingLinks extends ConsentComponent {
   onHandleConfirmDeleteLink(e, link) {
     e.preventDefault();
     e.stopPropagation();
-    this.showConsent(this.onConfirmDeleteLink.bind(this, link))
+    this.showConsent(this.onConfirmDeleteLink.bind(this, link));
   }
 
   // Confirm delete link function

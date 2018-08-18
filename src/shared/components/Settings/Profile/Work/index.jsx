@@ -25,11 +25,12 @@ export default class Work extends ConsentComponent {
     this.onHandleAddWork = this.onHandleAddWork.bind(this);
     this.onAddWork = this.onAddWork.bind(this);
     this.loadPersonalizationTrait = this.loadPersonalizationTrait.bind(this);
+    const { userTraits } = props;
     this.state = {
       formInvalid: false,
       errorMessage: '',
-      workTrait: this.loadWorkTrait(props.userTraits),
-      personalizationTrait: this.loadPersonalizationTrait(props.userTraits),
+      workTrait: this.loadWorkTrait(userTraits),
+      personalizationTrait: this.loadPersonalizationTrait(userTraits),
       newWork: {
         company: '',
         position: '',
@@ -70,7 +71,7 @@ export default class Work extends ConsentComponent {
     if (this.onCheckFormValue(newWork)) {
       return;
     }
-    this.showConsent(this.onAddWork.bind(this))
+    this.showConsent(this.onAddWork.bind(this));
   }
 
   /**
@@ -150,7 +151,7 @@ export default class Work extends ConsentComponent {
   }
 
   onHandleDeleteWork(indexNo) {
-    this.showConsent(this.onDeleteWork.bind(this, indexNo))
+    this.showConsent(this.onDeleteWork.bind(this, indexNo));
   }
 
   /**

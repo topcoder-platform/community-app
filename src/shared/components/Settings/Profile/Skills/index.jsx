@@ -69,9 +69,10 @@ export default class Skills extends ConsentComponent {
     this.updatePredicate = this.updatePredicate.bind(this);
     this.loadPersonalizationTrait = this.loadPersonalizationTrait.bind(this);
 
+    const { userTraits } = props;
     this.state = {
       formInvalid: false,
-      personalizationTrait: this.loadPersonalizationTrait(props.userTraits),
+      personalizationTrait: this.loadPersonalizationTrait(userTraits),
       errorMessage: '',
       userSkills: [],
       selectedSkill: {},
@@ -139,7 +140,7 @@ export default class Skills extends ConsentComponent {
 
     this.setState({
       errorMessage: '',
-      formInvalid: false
+      formInvalid: false,
     });
     this.showConsent(this.onAddSkill.bind(this));
   }
