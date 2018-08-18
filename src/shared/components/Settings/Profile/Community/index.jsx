@@ -21,15 +21,12 @@ class Community extends ConsentComponent {
     this.state = {
       communityTrait: this.loadCommunityTrait(props.userTraits),
       personalizationTrait: this.loadPersonalizationTrait(props.userTraits),
-      newCommunity: null,
-      communityChecked: false,
       isAdd: false,
     };
 
     this.loadCommunityTrait = this.loadCommunityTrait.bind(this);
     this.loadPersonalizationTrait = this.loadPersonalizationTrait.bind(this);
     this.onHandleUpdateCommunity = this.onHandleUpdateCommunity.bind(this);
-    this.onUpdateCommunity = this.onUpdateCommunity.bind(this);
   }
 
   componentDidMount() {
@@ -45,8 +42,6 @@ class Community extends ConsentComponent {
     const trait = userTraits.filter(t => t.traitId === 'communities');
     this.setState({
       isAdd: trait.length === 0 ? true : false,
-      newCommunity: null,
-      communityChecked: false,
     });
     const communityTrait = this.loadCommunityTrait(nextProps.userTraits);
     const personalizationTrait = this.loadPersonalizationTrait(nextProps.userTraits);
@@ -61,11 +56,7 @@ class Community extends ConsentComponent {
    */
   onHandleUpdateCommunity(e, item, checked) {
     e.preventDefault();
-    this.setState({
-      newCommunity: item,
-      communityChecked: checked,
-    });
-    this.showConsent(this.onUpdateCommunity.bind(this))
+    this.showConsent(this.onUpdateCommunity.bind(this, item, checked));
   }
 
   /**
@@ -106,8 +97,8 @@ class Community extends ConsentComponent {
    * Change toggle button check value
    * @param answer user consent answer value
    */
-  onUpdateCommunity(answer) {
-    const { communityTrait, newCommunity, communityChecked } = this.state;
+  onUpdateCommunity(newCommunity, communityChecked, answer) {
+    const { communityTrait } = this.state;
     communityTrait[newCommunity.id] = communityChecked;
     this.setState({
       communityTrait,
