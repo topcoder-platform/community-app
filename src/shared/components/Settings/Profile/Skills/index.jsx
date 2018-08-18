@@ -494,52 +494,6 @@ export default class Skills extends React.Component {
               </PrimaryButton>
             </div>
           </div>
-          <div styleName={`skill-list ${list.length > 0 ? '' : 'hide'}`}>
-            <ul>
-              {
-                _.map(list, (skill) => {
-                  let linkStyle = '';
-                  if (skill.hidden) {
-                    linkStyle = 'skill-hidden';
-                  }
-                  if (skill.isNew) {
-                    linkStyle += ' new';
-                  }
-
-                  let FallbackIcon;
-                  const category = skill.categories.length > 0 ? skill.categories[0].toUpperCase() : '';
-                  switch (category) {
-                    case 'DATA_SCIENCE':
-                      FallbackIcon = DataFallbackIcon;
-                      break;
-                    case 'DESIGN':
-                      FallbackIcon = DesignFallbackIcon;
-                      break;
-                    default:
-                      FallbackIcon = DevFallbackIcon;
-                      break;
-                  }
-
-                  return (
-                    <li key={skill.id}>
-                      <div styleName="skill-tile">
-                        <a role="link" onClick={e => this.toggleSkill(e, skill)} styleName={linkStyle}>
-                          <div styleName="skill-icon">
-                            <div styleName="remove-indicator" />
-                            <div styleName="hidden-indicator" />
-                            { imageExist(`id-${skill.id}.svg`) ? getImage(`id-${skill.id}.svg`) : <FallbackIcon /> }
-                          </div>
-                          <div styleName="name">
-                            {_.truncate(skill.name, { length: 18, separator: ' ' })}
-                          </div>
-                        </a>
-                      </div>
-                    </li>
-                  );
-                })
-              }
-            </ul>
-          </div>
           {
             isMobileView && (
               <div styleName={`mobile-buttons ${list.length > 0 ? '' : 'hide'}`}>
